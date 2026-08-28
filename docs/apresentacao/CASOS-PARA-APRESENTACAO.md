@@ -763,40 +763,63 @@ Os produtos ADAMA, por mercado:
 | — | **SORATEL 018175** | **31/03/2027** |
 | — | KOJAMI 019095 | 31/05/2027 |
 
-**INTERPRETATION — o que nós derivamos**
+**INTERPRETATION — o que nós derivamos, depois do red team**
 
 1. **A molécula atravessa os mercados, e o portfólio também.** AVASTEL e MAXENTIS estão
    autorizados nos dois países. A Itália tem três produtos que a França não tem — incluindo
    **SORATEL**, o quinto dos cinco lançamentos europeus, e **KOJAMI**, que o material de
    imprensa não citava e só aparece no registro.
-2. **A data se repete.** A aprovação europeia do protioconazol expira em **31/03/2027**
-   (CELEX 32025R0787, linha 168). A autorização italiana do **SORATEL vence exatamente em
-   31/03/2027**. O vencimento nacional está **ancorado** na aprovação europeia da substância
-   — é o acoplamento que a *lane* "Regulation & Portfolio" do deck promete, visível num
-   número.
+
+2. **As datas coincidem — e a coincidência é sistemática.** A aprovação europeia do
+   protioconazol expira em **31/03/2027** (CELEX 32025R0787, linha 168). No registro
+   italiano, **60 dos 85 produtos em vigor com protioconazol (71%) vencem exatamente em
+   31/03/2027** — não é um produto isolado.
+
 3. **A assimetria entre registros é ela própria informação.** A França publica cultura × alvo
    e não publica vencimento; a Itália publica vencimento e não publica cultura × alvo.
-   Uma visão EAME honesta mostra as duas metades, não uma média.
+
+**O RED TEAM QUE FIZEMOS CONTRA NÓS MESMOS**
+
+A leitura tentadora seria *"o vencimento italiano deriva da data europeia"*. Testamos três vezes:
+
+| teste | resultado |
+|---|---|
+| Outros produtos com protioconazol têm a mesma data? | **SIM — 60 de 85 (71%)**. Reforça o padrão |
+| 31/03/2027 é exclusiva do protioconazol? | **NÃO.** 199 produtos em vigor vencem nesse dia, incluindo **nicosulfuron (58)**, dicamba (27), tetraconazol (27) |
+| Essas outras substâncias têm ato europeu recente com essa data? | **NÃO.** Consulta ao CELLAR: **zero** atos de 2025–2026 citando nicosulfuron |
+
+**Conclusão do red team:** 31/03/2027 é também uma **data administrativa compartilhada** no
+registro italiano, aplicada a substâncias que **não** têm ato europeu correspondente.
+
+**Portanto o que se pode afirmar é:** *as datas coincidem, de forma sistemática.*
+**O que NÃO se pode afirmar:** *que a data italiana é juridicamente derivada da europeia.*
+A fonte italiana **não explica o motivo**, e o contraexemplo do nicosulfuron impede a
+inferência. `DERIVAÇÃO LEGAL = NÃO SEI`.
+
+**WHY INTERESTING**
+Porque a coincidência sistemática (71%) é um bom **ponto de partida de investigação** — e
+porque este case mostra o sistema **encontrando um padrão e recusando-se a explicá-lo** sem
+prova. É a mesma disciplina do CASE-008, aplicada a um número que seria fácil de vender.
+
+**WHAT ADAMA COULD INVESTIGATE**
+Se o vencimento nacional acompanha a renovação europeia na prática, e se a exposição
+italiana (5 produtos, dois vencendo em 2027) está no mesmo plano regulatório que a francesa.
 
 **UNKNOWN — o que não sabemos**
 A **Espanha**: sem dump aberto do registro de produtos, não sabemos quantos produtos com
 protioconazol existem lá nem quais são da ADAMA — embora o Avastel tenha sido anunciado
 publicamente no mercado espanhol. Também não sabemos vendas, prioridade comercial, nem quem
-**fabrica** a substância (o registro traz titular, não fabricante).
+**fabrica** a substância. E não sabemos a relação jurídica entre as datas.
 
-**ACTION — o que a ADAMA poderia decidir**
-Tratar a renovação europeia do protioconazol como evento de portfólio, não como assunto
-regulatório isolado, e verificar se a exposição italiana (5 produtos, dois vencendo em 2027)
-está no mesmo plano que a francesa.
-
-**RAW_EVIDENCE**   `data/samples/CROSS-MARKET-prothioconazole-cereal.json`
+**RAW_EVIDENCE**   `data/samples/CROSS-MARKET-prothioconazole-cereal.json` · `data/samples/REDTEAM-CASE-014-datas.json`
 **STATUS**             **REAL** (contagens, AMMs, nºs de registro e datas) + **DERIVED** (a leitura de acoplamento)
 **TIER**               **A · HERO CASE — o melhor caso cross-market disponível**
 
-> **RED TEAM.** *"A ADAMA perde SORATEL em março de 2027."* **Falso.** A coincidência de
-> datas mostra **ancoragem administrativa**, não desfecho: se a renovação europeia avançar, a
-> data nacional acompanha. E *"a Bayer está mais exposta"* também não se sustenta — ela tem
-> mais **registros**, o que não é mais **exposição comercial**.
+> **RED TEAM.** *"A ADAMA perde SORATEL em março de 2027."* **Falso** — vencimento abre
+> renovação. *"O vencimento italiano vem da regra europeia."* **Não afirmável** — ver o teste
+> acima; o nicosulfuron tem a mesma data italiana e nenhum ato europeu recente.
+> *"A Bayer está mais exposta."* **Não afirmável** — ela tem mais **registros**, o que não é
+> mais **exposição comercial**.
 
 ---
 
