@@ -35,8 +35,14 @@ errada.**
 **O que foi corrigido:** nada no histórico — a mensagem de um commit publicado não se
 reescreve. O erro fica registrado aqui, e a causa foi eliminada: **o total declarado passou
 a ser derivado da suíte**. `tests/test_canonico.py::test_o_total_de_testes_declarado_vem_da_suite`
-conta a suíte com `unittest.defaultTestLoader.discover` e exige que `TESTES_REAIS` neste
-documento seja esse número. Um número escrito à mão volta a divergir; um número derivado não.
+conta a suíte com `unittest.defaultTestLoader.discover` e exige que o **documento de
+operação** declare esse número. Um número escrito à mão volta a divergir; um número
+derivado não.
+
+> **Correção de rota na MISSÃO 08.** No congelamento este teste apontava para *este*
+> documento. Isso estava errado por um motivo que a própria missão transformou em lei:
+> o número da v1 é **histórico** e não pode mudar quando a suíte cresce. O corrente mora
+> em `../operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md`; o 43 acima fica onde está.
 
 ---
 
