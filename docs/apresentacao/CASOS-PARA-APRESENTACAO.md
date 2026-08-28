@@ -6,7 +6,7 @@ para a ADAMA.
 Meta: **5 a 10 casos extremamente claros**.
 **Não fabricar casos para preencher quota.** 3 casos irrefutáveis valem mais que 10 mornos.
 
-**Estado:** MISSÃO 02 em curso — **12 casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
+**Estado:** MISSÃO 02 em curso — **13 casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
 **Última atualização:** 2026-08-28
 
 ---
@@ -650,6 +650,84 @@ baseada em sintoma visível chegaria tarde; baseada em incubado, chegaria na hor
 
 ---
 
+### CASE-013 · O sinal que sobe há quatro safras — e sobrevive ao controle de coorte
+
+```
+CASE_ID:                CASE-013
+TITLE:                  Repilo em alta em Cádiz e Huelva, plano em Jaén — 11 safras medidas
+COUNTRY:                SPAIN (Andalucía)
+REGION:                 Cádiz · Huelva · Jaén (controle)
+CROP:                   Olivar (OLVEU)
+PROBLEM:                Repilo (Venturia oleaginea)
+DATE / PERIOD:          safras 2016–2026 · 44.584 leituras
+SOURCES:                ES-T3-001 (RAIF Andalucía), CC BY 4.0
+CROSSINGS:              província × safra × parcela × doença
+ADAMA_ALIGNMENT:        **HIGH** — Neptune (fungicida ADAMA para repilo) e Plan STAR Olivar
+PRESENTATION_VALUE:     **ALTA** — é o único caso que fecha o fluxo do SLIDE 8 do deck
+```
+
+**FACT — o que a fonte diz**
+Percentual médio de folhas com repilo visível, por safra:
+
+| safra | Cádiz | Huelva | Jaén |
+|---|---|---|---|
+| 2022 | 2,83 | 1,45 | 1,04 |
+| 2023 | 4,64 | 1,19 | 0,73 |
+| 2024 | 3,89 | 3,26 | 0,82 |
+| 2025 | 5,60 | 6,45 | 0,91 |
+| **2026** | **8,01** | **8,83** | **0,77** |
+
+**Cádiz e Huelva estão no maior valor de onze safras.** Jaén, a maior província olivareira
+da Espanha, está plana há uma década.
+
+**INTERPRETATION — o que nós derivamos, e o controle que fizemos**
+A média pode subir só porque as parcelas mudaram. Testamos: comparamos a média de **todas**
+as parcelas com a média **apenas das parcelas que também são amostradas em 2026**.
+
+| | 2023 | 2024 | 2025 | 2026 |
+|---|---|---|---|---|
+| Huelva — mesma coorte | 1,17 | 3,00 | 6,26 | **8,83** |
+| Cádiz — mesma coorte | 5,01 | 3,97 | 6,23 | **8,01** |
+| **Jaén — mesma coorte (controle)** | 0,56 | 0,73 | 0,90 | **0,77** |
+
+**A alta persiste nas mesmas parcelas, e o controle fica plano.** Não é troca de amostra.
+
+**UNKNOWN — o que não sabemos**
+Por que sobe. Não medimos variedade, manejo, idade do olival nem — o mais importante — o
+**programa de fungicida aplicado**, que a RAIF registra e nós não cruzamos. E Huelva tem
+**7 parcelas** em 2026: a tendência é consistente, a base é pequena.
+
+**ACTION — o que a ADAMA poderia decidir**
+Priorizar Cádiz e Huelva na comunicação técnica e no posicionamento de Neptune para a
+próxima safra, e validar em campo se a alta corresponde a pressão real ou a mudança de
+manejo. **O SINTONIA não decide: ele diz onde olhar** — que é exatamente o que o SLIDE 8
+do deck promete.
+
+**O FLUXO DO SLIDE 8, EXECUTADO**
+
+| pergunta do deck | resposta |
+|---|---|
+| **Signal appears** | ✅ repilo visível em alta em duas províncias |
+| **Is it real?** | ✅ **sim** — 11 safras, 44.584 leituras, sobrevive ao controle de coorte |
+| **Where else?** | ✅ **Cádiz e Huelva sim; Jaén, Sevilla, Córdoba, Granada e Málaga não** |
+| **What supports it?** | ⚠️ **parcial** — a própria fonte publica "condições favoráveis"; clima não foi testado para este caso |
+| **Does ADAMA have a response?** | ✅ **sim** — Neptune, com sinal público em olivar na Espanha |
+| **What should we validate?** | ✅ programa de fungicida nas parcelas, e a base pequena de Huelva |
+
+**Cinco das seis perguntas do fluxo têm resposta.** A sexta é justamente a pergunta que o
+deck diz que o sistema deve devolver.
+
+**RAW_EVIDENCE**   `data/samples/ES-T3-001-repilo-serie-historica.json`
+**STATUS**             **REAL** (as medições) + **DERIVED** (médias e controle de coorte)
+**TIER**               **A · HERO CASE**
+
+> **RED TEAM.** *"O repilo está explodindo na Andaluzia."* **Falso.** Está subindo em duas
+> das sete províncias e **plano ou em queda nas outras cinco**. A média andaluza continua
+> não descrevendo ninguém. E *"subiu 7× desde 2023"* em Huelva é verdade sobre **7 parcelas**
+> — o n precisa aparecer ao lado do número, sempre.
+
+---
+
 | CASE_ID | País | Cultura | Status | Tela |
 |---|---|---|---|---|
 | CASE-001 | EU → FR | Vigne | REAL | ainda não |
@@ -664,3 +742,4 @@ baseada em sintoma visível chegaria tarde; baseada em incubado, chegaria na hor
 | CASE-010 | IT | Vid | REAL + DERIVED | ainda não |
 | CASE-011 | EU → FR/ES/IT | Cereais | REAL + DERIVED | protótipo V2 |
 | CASE-012 | ES | Olivar | REAL + DERIVED | protótipo V2 |
+| CASE-013 | ES | Olivar | REAL + DERIVED | — (missão só texto) |

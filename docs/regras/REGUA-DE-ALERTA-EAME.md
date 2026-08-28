@@ -101,3 +101,31 @@ Toda saída separa três coisas que nunca se misturam:
 | **ACTION** | o que a pessoa da ADAMA pode decidir | *"Antecipar o plano regulatório e observar a renovação."* |
 
 E o comportamento obrigatório permanece: **"Not enough evidence? We don't know yet."**
+
+---
+
+## 5 · CORREÇÃO DA MISSÃO 03 — o baseline nem sempre depende do tempo
+
+A MISSÃO 03 afirmou, de forma **universal**, que *"linha de base histórica não se resolve
+pesquisando melhor; só o tempo"*. A MISSÃO 04 reabriu a afirmação fonte a fonte, como
+mandava o briefing, e **ela estava errada para a fonte de campo mais forte que temos**.
+
+| Fonte | Conteúdo histórico? | Data? | Coletável? | Comparável no tempo? | Resultado |
+|---|---|---|---|---|---|
+| **ES-T3-001 RAIF** | **SIM — 11 safras** | SIM | SIM | **SIM, e por parcela** | **RETROSPECTIVE BASELINE POSSIBLE** |
+| IT-T3-001 bollettini ER | parcial — 2025 e 2026 no ar; 2024 devolveu 404 | SIM | PDF | limitado | **RETROSPECTIVE PARCIAL** (≈2 safras) |
+| FR-T3-002 corpus BSV | **SIM — 40.899 documentos** | SIM | download cortou | provável | **NÃO SEI** — a fonte existe, o acesso falhou |
+| EU-T5-001 OpenAlex | SIM — décadas | SIM | SIM | SIM | **RETROSPECTIVE BASELINE POSSIBLE** |
+| EU-T4-001 CELLAR | SIM — acervo CELEX | SIM | SIM | SIM | **RETROSPECTIVE BASELINE POSSIBLE** |
+| FR-T4-001 E-Phy | **NÃO** — é retrato do estado atual | versão datada | SIM | **não** | **FORWARD-ONLY** |
+| IT-T4-001 registro | parcial — traz datas de registro e revogação | SIM | SIM | parcial | **RETROSPECTIVE PARCIAL** |
+| Comunicação de concorrente | não avaliado — sites bloqueados | — | **NÃO** | — | **NÃO SEI** |
+| Vozes do campo (T8) | — | — | **NÃO** | — | **FORWARD-ONLY**, e nem isso sem chave |
+
+**A afirmação correta é esta:** o baseline é **forward-only** para o registro francês e para
+qualquer camada de conversa pública; é **retrospectivo e já disponível** para o RAIF, o
+OpenAlex e o CELLAR. **Onde o SINTONIA mais precisa de baseline — pressão de doença — ele
+já tem onze safras.**
+
+A recomendação de começar a arquivar continua valendo, mas por outro motivo: o E-Phy é
+`FORWARD-ONLY` e é ele que perde história a cada semana, não o campo.

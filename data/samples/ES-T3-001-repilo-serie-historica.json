@@ -1,0 +1,184 @@
+{
+  "SOURCE_ID": "ES-T3-001",
+  "source": "RAIF Andalucía — série histórica de repilo no olivar",
+  "captured_at": "2026-08-28",
+  "license": "CC BY 4.0",
+  "SOURCE_LOCATION": "ANDALUCIA (ES)",
+  "FACT_LOCATION": "províncias da Andaluzia",
+  "ORIGINAL_LANGUAGE": "ES",
+  "metric": "1702 Repilo: % Hojas con Repilo Visible — média das leituras por safra e província",
+  "baseline_type": "RETROSPECTIVE BASELINE POSSIBLE",
+  "seasons": 11,
+  "readings": 44584,
+  "series": {
+    "2016": {
+      "Jaén": null,
+      "Sevilla": null,
+      "Córdoba": 2.0,
+      "Granada": null,
+      "Málaga": null,
+      "Cádiz": null,
+      "Huelva": null
+    },
+    "2017": {
+      "Jaén": 1.18,
+      "Sevilla": 1.86,
+      "Córdoba": 2.21,
+      "Granada": 0.86,
+      "Málaga": 1.2,
+      "Cádiz": 5.08,
+      "Huelva": 4.2
+    },
+    "2018": {
+      "Jaén": 0.8,
+      "Sevilla": 1.16,
+      "Córdoba": 1.64,
+      "Granada": 1.04,
+      "Málaga": 1.37,
+      "Cádiz": 4.85,
+      "Huelva": 5.36
+    },
+    "2019": {
+      "Jaén": 0.76,
+      "Sevilla": 1.73,
+      "Córdoba": 1.42,
+      "Granada": 0.83,
+      "Málaga": 1.04,
+      "Cádiz": 3.31,
+      "Huelva": 3.68
+    },
+    "2020": {
+      "Jaén": 0.76,
+      "Sevilla": 2.06,
+      "Córdoba": 2.25,
+      "Granada": 1.02,
+      "Málaga": 1.08,
+      "Cádiz": 2.08,
+      "Huelva": 3.73
+    },
+    "2021": {
+      "Jaén": 1.18,
+      "Sevilla": 3.18,
+      "Córdoba": 2.11,
+      "Granada": 0.89,
+      "Málaga": 1.39,
+      "Cádiz": 3.86,
+      "Huelva": 3.05
+    },
+    "2022": {
+      "Jaén": 1.04,
+      "Sevilla": 1.8,
+      "Córdoba": 1.96,
+      "Granada": 0.71,
+      "Málaga": 1.32,
+      "Cádiz": 2.83,
+      "Huelva": 1.45
+    },
+    "2023": {
+      "Jaén": 0.73,
+      "Sevilla": 1.01,
+      "Córdoba": 1.5,
+      "Granada": 0.8,
+      "Málaga": 0.97,
+      "Cádiz": 4.64,
+      "Huelva": 1.19
+    },
+    "2024": {
+      "Jaén": 0.82,
+      "Sevilla": 1.04,
+      "Córdoba": 1.68,
+      "Granada": 1.68,
+      "Málaga": 1.42,
+      "Cádiz": 3.89,
+      "Huelva": 3.26
+    },
+    "2025": {
+      "Jaén": 0.91,
+      "Sevilla": 1.49,
+      "Córdoba": 1.97,
+      "Granada": 0.84,
+      "Málaga": 1.4,
+      "Cádiz": 5.6,
+      "Huelva": 6.45
+    },
+    "2026": {
+      "Jaén": 0.77,
+      "Sevilla": 2.74,
+      "Córdoba": 2.37,
+      "Granada": 0.61,
+      "Málaga": 1.08,
+      "Cádiz": 8.01,
+      "Huelva": 8.83
+    }
+  },
+  "cohort_control": {
+    "method": "comparar a média de todas as parcelas com a média apenas das parcelas que também são amostradas em 2026 — isola alta real de troca de amostra",
+    "Cadiz": {
+      "2021": {
+        "all": 3.86,
+        "cohort2026": 5.3,
+        "parcels": 55,
+        "in_cohort": 20
+      },
+      "2023": {
+        "all": 4.64,
+        "cohort2026": 5.01,
+        "parcels": 47,
+        "in_cohort": 23
+      },
+      "2025": {
+        "all": 5.6,
+        "cohort2026": 6.23,
+        "parcels": 38,
+        "in_cohort": 28
+      },
+      "2026": {
+        "all": 8.01,
+        "cohort2026": 8.01,
+        "parcels": 36,
+        "in_cohort": 36
+      }
+    },
+    "Huelva": {
+      "2023": {
+        "all": 1.19,
+        "cohort2026": 1.17,
+        "parcels": 11,
+        "in_cohort": 6
+      },
+      "2024": {
+        "all": 3.26,
+        "cohort2026": 3.0,
+        "parcels": 11,
+        "in_cohort": 6
+      },
+      "2025": {
+        "all": 6.45,
+        "cohort2026": 6.26,
+        "parcels": 10,
+        "in_cohort": 7
+      },
+      "2026": {
+        "all": 8.83,
+        "cohort2026": 8.83,
+        "parcels": 7,
+        "in_cohort": 7
+      }
+    },
+    "Jaen_control": {
+      "2021": {
+        "cohort2026": 0.69
+      },
+      "2023": {
+        "cohort2026": 0.56
+      },
+      "2025": {
+        "cohort2026": 0.9
+      },
+      "2026": {
+        "cohort2026": 0.77
+      }
+    },
+    "conclusion": "a alta em Cadiz e Huelva persiste nas MESMAS parcelas; Jaen fica plano na mesma coorte. Nao e artefato de amostragem."
+  }
+}
