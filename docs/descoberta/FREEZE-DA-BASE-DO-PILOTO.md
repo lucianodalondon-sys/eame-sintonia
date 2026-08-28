@@ -52,7 +52,7 @@ documento seja esse número. Um número escrito à mão volta a divergir; um nú
 | cross-market reproduzido | ✅ FR · ES · IT, os três **primários**, com a rota de cada um declarada | `CROSS-MARKET-prothioconazole-cereal.json` |
 | Ask Sintonia sem resposta errada | ✅ 35 perguntas · 20 respondidas · 14 recusadas · 1 parcial · **0 erradas** | `../piloto/ASK-SINTONIA-BENCHMARK.md` |
 | safe claims fechadas | ✅ 14, com auditoria de 7 palavras sob controle | `../piloto/O-QUE-PODEMOS-DIZER.md` |
-| forbidden claims fechadas | ✅ 19, incluindo as 2 retiradas nesta missão | idem |
+| forbidden claims fechadas | ✅ 20, incluindo as 2 retiradas nesta missão | idem |
 | data clock ativo | ✅ 7 arquivos vigiados + a régua de change event | `../regras/REGUA-DE-CHANGE-EVENT-EAME.md` |
 
 **Todas as dez fecham.** `PILOT_INFORMATION_BASE = FROZEN`.
