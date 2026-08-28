@@ -6,7 +6,7 @@ Fonte não é capacidade. Este atlas converte descoberta em **o que conseguimos 
 > "Detectar alertas fitossanitários regionais em trigo na França" é uma capacidade.
 > A segunda só entra aqui quando a primeira está provada com exemplo real.
 
-**Estado:** MISSÃO 02 em curso — **20 capacidades COMPROVADAS**.
+**Estado:** MISSÃO 02 em curso — **21 capacidades COMPROVADAS**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -578,11 +578,43 @@ USERS:               EAME · COUNTRY · REG · MD
 conector de T4. É o melhor retorno por esforço encontrado na missão.
 
 
+### CAP-021 · Distinguir infecção latente de sintoma visível (olivar × repilo)
+
+```
+CAPABILITY:          Acompanhar o repilo do olivar em três estados separados — visível,
+                     incubado (latente) e condições favoráveis — por província e por semana.
+SOURCE:              ES-T3-001 (RAIF Andalucía, olivar)
+COUNTRY:             SPAIN (Andalucía, 7 províncias)
+CROP:                Olivar (OLVEU)
+GEOGRAPHY:           parcela, agregável a município e província
+TIME:                2006–2026; safra 2026 verificada até 19/08/2026
+UPDATE_FREQUENCY:    semanal
+CAN_AUTOMATE:        SIM
+CAN_HISTORY:         SIM — 20 anos no mesmo pacote
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      TECHNICAL / COMMERCIAL: momento de aplicação. É a diferença entre
+                     recomendar preventivo e recomendar tarde demais.
+ADAMA_ALIGNMENT:     **HIGH** — Neptune (fungicida ADAMA para repilo) e Plan STAR Olivar
+REAL_EXAMPLE:        Safra 2026, 20.970 amostragens. Málaga: 1,08% de folhas com sintoma
+                     **visível** contra **3,54% de repilo incubado**. Córdoba: 2,37% × 3,55%.
+                     Cádiz 8,01% e Huelva 8,83% de visível, contra 0,77% em Jaén.
+USERS:               TEC (primário) · COM · MKT · MD
+```
+
+**Por que esta capacidade é diferente das outras:** ela não descreve o passado nem mede
+exposição. Ela informa **uma decisão de calendário** que o produtor toma naquela semana.
+É a capacidade mais próxima da operação encontrada na missão inteira.
+
+> **RED TEAM.** As parcelas do RAIF são de acompanhamento técnico, **não** amostra aleatória
+> da província. Média alta sobre 18 leituras (Huelva) não é comparável a média baixa sobre
+> 1.047 (Jaén). O n **precisa** viajar junto com a média.
+
+
 ### Placar
 
 | CONFIDENCE | Quantidade |
 |---|---|
-| COMPROVADO | 20 |
+| COMPROVADO | 21 |
 | INFERÊNCIA | 0 |
 | HIPÓTESE | 0 |
 | NÃO SEI | 0 |
@@ -593,7 +625,7 @@ conector de T4. É o melhor retorno por esforço encontrado na missão.
 |---|---|---|---|---|
 | EUROPE | 11 | 0 | 0 | 0 |
 | FRANCE | 3 | 0 | 0 | 0 |
-| SPAIN | 5 | 0 | 0 | 0 |
+| SPAIN | 6 | 0 | 0 | 0 |
 | ITALY | 1 | 0 | 0 | 0 |
 
 ---

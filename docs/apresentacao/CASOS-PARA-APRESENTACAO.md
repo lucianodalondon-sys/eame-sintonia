@@ -6,7 +6,7 @@ para a ADAMA.
 Meta: **5 a 10 casos extremamente claros**.
 **Não fabricar casos para preencher quota.** 3 casos irrefutáveis valem mais que 10 mornos.
 
-**Estado:** MISSÃO 02 em curso — **11 casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
+**Estado:** MISSÃO 02 em curso — **12 casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
 **Última atualização:** 2026-08-28
 
 ---
@@ -585,6 +585,71 @@ O que não existe hoje é alguém as vendo juntas, na mesma semana, automaticame
 
 ---
 
+### CASE-012 · O repilo que ninguém vê ainda — olivar andaluz, 2026
+
+```
+CASE_ID:                CASE-012
+COUNTRY:                SPAIN (Andalucía)
+CROP:                   Olivar (Olea europaea — OLVEU)
+REGION:                 Jaén · Sevilla · Granada · Córdoba · Málaga · Cádiz · Huelva
+PROBLEM:                Repilo (Venturia oleaginea / Spilocaea oleagina)
+TIME:                   safra 2026, amostragem semanal de janeiro a 19/08/2026
+SOURCES:                ES-T3-001 (RAIF Andalucía) — 20.970 amostragens de olivar em 2026
+CROSSING:               província × data × cultura × doença × estado da infecção
+```
+
+**ADAMA_ALIGNMENT: HIGH** · **TIER: A · HERO CASE**
+> **Neptune** é o fungicida da ADAMA para repilo na Espanha, e a empresa participa da
+> jornada **Plan STAR Olivar**. Cultura certa, país certo, problema certo — ver
+> `docs/adama/RADAR-ADAMA-EAME.md` §2.
+
+**WHAT_HAPPENED**
+A rede andaluza mede o repilo em três estados distintos, e a diferença entre eles é a
+decisão de campo:
+
+| Província | % folhas com repilo **visível** | % repilo **incubado** | condições favoráveis (0–3) | leituras |
+|---|---|---|---|---|
+| **Huelva** | **8,83%** | 3,00% | — | 18 |
+| **Cádiz** | **8,01%** | 1,00% | — | 141 |
+| Sevilla | 2,74% (máx **73%**) | 3,14% | 2,40 | 674 |
+| Córdoba | 2,37% | **3,55%** | 1,67 | 466 |
+| **Málaga** | 1,08% | **3,54%** | **2,50** | 166 |
+| Jaén | 0,77% (máx 21%) | 2,53% | 2,34 | 1.047 |
+| Granada | 0,61% | 0,21% | — | 477 |
+
+**WHAT_SINTONIA_CONNECTS**
+Duas leituras que só existem porque a fonte separa visível de incubado:
+
+1. **A doença é provincial, não regional — de novo.** Cádiz e Huelva têm cerca de **dez
+   vezes** mais repilo visível que Jaén, a maior província olivareira da Espanha. O mesmo
+   padrão encontrado na videira (CASE-007) reaparece em outra cultura, com outra doença,
+   por medição independente.
+2. **Em Málaga e Córdoba há mais repilo incubado do que visível** — 3,54% contra 1,08% em
+   Málaga, 3,55% contra 2,37% em Córdoba. *Incubado* é a infecção já instalada e ainda sem
+   sintoma. É precisamente a informação que decide se o tratamento é preventivo ou tardio, e
+   é invisível para quem só olha a folha.
+
+**WHY_ADAMA_SHOULD_CARE**
+Neptune é vendido pela **janela de aplicação ampliada**. A janela útil é definida por
+condições favoráveis e por infecção latente — as duas coisas que esta fonte publica,
+semanalmente, por província, de graça. Uma recomendação técnica ou uma campanha em Málaga
+baseada em sintoma visível chegaria tarde; baseada em incubado, chegaria na hora.
+
+**RAW_EVIDENCE**   `data/samples/ES-T3-001-raif-olivar-repilo-2026.json`
+**SCREEN_AVAILABLE**   sim — protótipo V2
+**STATUS**             **REAL** (medições da rede oficial) + **DERIVED** (médias por província)
+
+> **RED TEAM — o que esta tela poderia fazer alguém acreditar e os dados não provam.**
+> *"Cádiz e Huelva são os focos do repilo na Andaluzia."* **Cuidado:** Huelva tem **18
+> leituras** e Cádiz **141**, contra 1.047 em Jaén. Uma média alta sobre poucas parcelas não
+> é a mesma coisa que uma média baixa sobre muitas — e as parcelas do RAIF são de
+> acompanhamento técnico, não uma amostra aleatória da província. O número de leituras
+> **precisa** aparecer ao lado da média em qualquer tela.
+> E *"há mais doença do que parece"* não vale como generalização: incubado maior que visível
+> foi observado em Málaga e Córdoba, **não** nas sete províncias.
+
+---
+
 | CASE_ID | País | Cultura | Status | Tela |
 |---|---|---|---|---|
 | CASE-001 | EU → FR | Vigne | REAL | ainda não |
@@ -598,3 +663,4 @@ O que não existe hoje é alguém as vendo juntas, na mesma semana, automaticame
 | CASE-009 | ES | Trigo | REAL | ainda não |
 | CASE-010 | IT | Vid | REAL + DERIVED | ainda não |
 | CASE-011 | EU → FR/ES/IT | Cereais | REAL + DERIVED | protótipo V2 |
+| CASE-012 | ES | Olivar | REAL + DERIVED | protótipo V2 |
