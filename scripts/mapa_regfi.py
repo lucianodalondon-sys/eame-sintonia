@@ -90,6 +90,64 @@ def export(**filters):
     return json.loads(outer['Contenido']), outer.get('Fecha')
 
 
+# ---------------------------------------------------------------------------
+# A REGRA DO FILTRO `IdEstado` — descoberta e verificada na MISSÃO 08
+#
+# A grade e o export discordavam: 1.998/1.086 contra 1.993/1.091, com o mesmo total
+# de 3.084. A MISSÃO 07 registrou isso como divergência não resolvida. Ela tem regra:
+#
+#     IdEstado=1 ("VIGENTE")  seleciona  Estado == 'Vigente'
+#                             OU        (Estado == 'Cancelado' E fechaLimiteVenta >= hoje)
+#
+# Ou seja: o FILTRO responde "ainda pode ser vendido?" e o CAMPO `Estado` responde
+# "a autorização está em vigor?". São perguntas diferentes, e a diferença são os
+# produtos cancelados dentro do prazo legal de escoamento.
+#
+# Verificado por igualdade de conjunto, não por contagem: os 5 registros que o
+# export idEstado=1 devolve com Estado='Cancelado' são EXATAMENTE os 5 cancelados
+# com fechaLimiteVenta futura. Nem um a mais, nem um a menos.
+#
+# Consequência operacional: 1.998 é um número com data de validade. Quando o prazo
+# de escoamento do último desses produtos vencer, ele cai sozinho.
+# ---------------------------------------------------------------------------
+
+def selling_off(rows, today):
+    """Registros que o filtro VIGENTE inclui e o campo Estado chama de Cancelado."""
+    import datetime
+    out = []
+    for r in rows:
+        if r.get('Estado') != 'Cancelado':
+            continue
+        raw = r.get('StrFechaLimiteVenta') or ''
+        try:
+            lim = datetime.datetime.strptime(raw, '%d-%m-%Y').date()
+        except ValueError:
+            continue
+        if lim >= today:
+            out.append(r)
+    return out
+
+
+def explain_divergence(rows, today):
+    """Devolve a conta fechada dos dois recortes, para que nenhum seja publicado sozinho."""
+    vig = [r for r in rows if r.get('Estado') == 'Vigente']
+    canc = [r for r in rows if r.get('Estado') == 'Cancelado']
+    esc = selling_off(rows, today)
+    return {
+        'TOTAL': len(rows),
+        'BY_FIELD_Estado': {'Vigente': len(vig), 'Cancelado': len(canc)},
+        'BY_FILTER_IdEstado': {'1_VIGENTE': len(vig) + len(esc),
+                               '2_CANCELADO': len(canc) - len(esc)},
+        'SELLING_OFF_PERIOD': sorted(r['NumRegistro'] for r in esc),
+        'RULE': "IdEstado=1 == Estado=='Vigente' OR (Estado=='Cancelado' AND "
+                "fechaLimiteVenta >= hoje)",
+        'MEANING': {'FILTER_ANSWERS': 'ainda pode ser vendido?',
+                    'FIELD_ANSWERS': 'a autorizacao esta em vigor?'},
+        'WARNING': 'os dois numeros sao corretos e respondem a perguntas diferentes. '
+                   'Publicar um deles sem dizer qual pergunta ele responde e erro.',
+    }
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'producto'
     if cmd == 'producto':
@@ -99,3 +157,8 @@ if __name__ == '__main__':
         print(json.dumps({'Fecha': when, 'n': len(rows), 'rows': rows}, ensure_ascii=False))
     elif cmd == 'total':
         print(grid(**dict(a.split('=', 1) for a in sys.argv[2:]))[0])
+    elif cmd == 'divergencia':
+        import datetime
+        rows, when = export()
+        print(json.dumps(explain_divergence(rows, datetime.date.today()),
+                         ensure_ascii=False, indent=1))

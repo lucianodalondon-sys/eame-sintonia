@@ -1,0 +1,100 @@
+{
+ "SOURCE_ID": "ES-T4-005",
+ "what_it_is": "resolucao da divergencia registrada na MISSAO 07 entre a grade e o export do ROPF",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "ES",
+ "layer": "NATIONAL PRODUCT AUTHORIZATION",
+ "captured_at": "2026-08-29",
+ "OBSERVED": {
+  "grid": {
+   "IdEstado=1": 1998,
+   "IdEstado=2": 1086,
+   "TOTAL": 3084,
+   "request": "GET Productos/ProductosGrid?IdEstado=<n>"
+  },
+  "export_unfiltered": {
+   "Estado=Vigente": 1993,
+   "Estado=Cancelado": 1091,
+   "TOTAL": 3084
+  },
+  "export_idEstado_1": {
+   "n": 1998,
+   "Estado=Vigente": 1993,
+   "Estado=Cancelado": 5,
+   "request": "POST Exportaciones/ExportJsonProductos dataDto[idEstado]=1"
+  },
+  "export_idEstado_2": {
+   "n": 1086,
+   "Estado=Cancelado": 1086
+  }
+ },
+ "HOW_IT_WAS_FOUND": "pedindo ao EXPORT o mesmo filtro da grade. O export honra IdEstado e devolve tambem o campo Estado de cada linha: 1.998 linhas das quais 5 dizem Cancelado. Os cinco ficaram identificados sem paginar 400 telas.",
+ "RULE_FOUND": "IdEstado=1 (VIGENTE) == Estado=='Vigente' OR (Estado=='Cancelado' AND fechaLimiteVenta >= hoje)",
+ "VERIFICATION": "igualdade de CONJUNTO, nao de contagem: os 5 registros com Estado=Cancelado dentro do filtro VIGENTE sao exatamente os 5 cancelados com fechaLimiteVenta futura em todo o registro. Nem um a mais, nem um a menos.",
+ "THE_FIVE": [
+  {
+   "REGISTRATION_ID": "16192",
+   "GRID_CLASSIFICATION": "VIGENTE (IdEstado=1)",
+   "EXPORT_CLASSIFICATION": "Cancelado (campo Estado)",
+   "REFERENCE_PRODUCT": "OVIPRON",
+   "HOLDER": "FORMULADORES AGROQUIMICOS EXTREMEÑOS, S.L. ",
+   "COMPOSITION": "ACEITE DE PARAFINA (CAS [64742-46-7]) 79% [EC] P/V",
+   "FECHA_CADUCIDAD": "31-03-2027",
+   "FECHA_LIMITE_VENTA": "03-09-2026",
+   "FECHA_MODIFICACION": "03-07-2026"
+  },
+  {
+   "REGISTRATION_ID": "25454",
+   "GRID_CLASSIFICATION": "VIGENTE (IdEstado=1)",
+   "EXPORT_CLASSIFICATION": "Cancelado (campo Estado)",
+   "REFERENCE_PRODUCT": "AMPLIGO",
+   "HOLDER": "SYNGENTA ESPAÑA, S.A.",
+   "COMPOSITION": "LAMBDA CIHALOTRIN 5%  + CLORANTRANILIPROL 10%  [ZC] P/V",
+   "FECHA_CADUCIDAD": "30-06-2026",
+   "FECHA_LIMITE_VENTA": "30-09-2026",
+   "FECHA_MODIFICACION": "01-04-2026"
+  },
+  {
+   "REGISTRATION_ID": "ES-00195",
+   "GRID_CLASSIFICATION": "VIGENTE (IdEstado=1)",
+   "EXPORT_CLASSIFICATION": "Cancelado (campo Estado)",
+   "REFERENCE_PRODUCT": "ERADICOAT",
+   "HOLDER": "CERTIS BELCHIM B.V.",
+   "COMPOSITION": "MALTODEXTRIN 59,8% [SL] P/V",
+   "FECHA_CADUCIDAD": "28-08-2027",
+   "FECHA_LIMITE_VENTA": "03-09-2026",
+   "FECHA_MODIFICACION": "03-07-2026"
+  },
+  {
+   "REGISTRATION_ID": "ES-01106",
+   "GRID_CLASSIFICATION": "VIGENTE (IdEstado=1)",
+   "EXPORT_CLASSIFICATION": "Cancelado (campo Estado)",
+   "REFERENCE_PRODUCT": "INTREPID",
+   "HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+   "COMPOSITION": "METOXIFENOCIDA 24% [SC] P/V",
+   "FECHA_CADUCIDAD": "18-04-2026",
+   "FECHA_LIMITE_VENTA": "30-09-2026",
+   "FECHA_MODIFICACION": "17-04-2026"
+  },
+  {
+   "REGISTRATION_ID": "ES-01107",
+   "GRID_CLASSIFICATION": "VIGENTE (IdEstado=1)",
+   "EXPORT_CLASSIFICATION": "Cancelado (campo Estado)",
+   "REFERENCE_PRODUCT": "RUNNER",
+   "HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+   "COMPOSITION": "METOXIFENOCIDA 24% [SC] P/V",
+   "FECHA_CADUCIDAD": "18-04-2026",
+   "FECHA_LIMITE_VENTA": "30-09-2026",
+   "FECHA_MODIFICACION": "17-04-2026"
+  }
+ ],
+ "WHAT_EACH_NUMBER_ANSWERS": {
+  "1998": "quantos produtos ainda podem ser legalmente comercializados hoje",
+  "1993": "quantas autorizacoes estao em vigor hoje"
+ },
+ "WHY_IT_MATTERS": "nao e detalhe tecnico. Um radar que publicasse 1.998 como 'autorizacoes em vigor' contaria 5 autorizacoes CANCELADAS. E 1.998 tem data de validade: cai sozinho quando o ultimo prazo de escoamento vencer (03/09/2026 e 30/09/2026).",
+ "SAME_TOTAL_IS_NOT_SAME_STATE": "as duas leituras concordam em 3.084 e discordam na classificacao de 5. Total igual nunca prova estado igual - e por isso que a comparacao tem de ser de CONTEUDO por identidade, nao de contagem.",
+ "TIME_DEPENDENT": true,
+ "AS_OF": "2026-08-29"
+}
