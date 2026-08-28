@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** Fase 0 — estrutura pronta, **0 fontes registradas**.
+**Estado:** MISSÃO 02 em curso — **2 fontes registradas** (1 GREEN, 1 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -149,23 +149,105 @@ Investigar normalização por **NUTS** quando útil.
 
 ## REGISTRO DE FONTES
 
-*(vazio — nenhuma fonte investigada ainda; a investigação dos territórios T1–T12 é o próximo passo)*
+### T4 · REGULATORY — EUROPE
+
+#### EU-T4-001 · EU Publications Office / CELLAR — Jornal Oficial da UE
+
+```
+SOURCE_ID:                    EU-T4-001
+SOURCE_NAME:                  CELLAR / EU Publications Office (Official Journal of the EU)
+SOURCE_OWNER:                 Publications Office of the European Union
+COUNTRY:                      EUROPE
+REGION:                       EU-27 (ato de alcance da União)
+LANGUAGE:                     24 línguas oficiais (EN, FR, ES, IT verificadas)
+TERRITORY:                    T4 (também serve T12)
+SOURCE_TYPE:                  Registro legal oficial primário
+URL:                          https://publications.europa.eu/webapi/rdf/sparql
+                              https://publications.europa.eu/resource/celex/<CELEX>
+ACCESS_METHOD:                API — SPARQL (JSON) + content negotiation HTTP
+                              (Accept: application/xhtml+xml; Accept-Language: eng|fra|spa|ita)
+CROPS:                        transversal — o ato define substância, não cultura
+TOPICS:                       aprovação, renovação, alteração e retirada de substância ativa
+                              (Reg. (CE) 1107/2009 e Reg. Exec. (UE) 540/2011)
+GEOGRAPHIC_GRANULARITY:       UNIÃO EUROPEIA. Sem granularidade nacional/regional — e isso é
+                              característica do fato, não limitação da fonte.
+UPDATE_FREQUENCY:             contínua (cada edição do Jornal Oficial)
+HISTORICAL_DEPTH:             todo o acervo CELEX
+SOURCE_IDENTITY_PRESERVABLE:  SIM — CELEX + ELI + URI CELLAR
+DOCUMENT_ID_AVAILABLE:        SIM — CELEX (ex.: 32026R1696), ELI, cellar UUID
+PUBLICATION_DATE_AVAILABLE:   SIM — data do documento e data de publicação no JO
+RAW_EVIDENCE_PRESERVABLE:     SIM — XHTML integral do ato, por língua
+AUTOMATION_FEASIBILITY:       ALTA — endpoint público, sem chave, sem scraping de HTML
+COLLECTION_FEASIBILITY:       ALTA — `scripts/cellar.sh` reproduz a coleta
+LEGAL_OR_ACCESS_RISK:         BAIXO — legislação pública oficial; sem dado pessoal
+REAL_EXAMPLE:                 CELEX 32026R1696 — Reg. Exec. (UE) 2026/1696, de 14/07/2026,
+                              renova a aprovação da substância ativa ácido pelargônico
+                              (CAS 112-05-0, CIPAC 888), pureza >= 889 g/kg,
+                              aprovação 2026-10-01, expiração 2041-09-30.
+                              Texto integral obtido em EN, FR, ES e IT.
+ADAMA_USE_CASE:               REGULATORY e PORTFOLIO — saber, na data, que substância entra,
+                              é renovada (e até quando) ou sai do mercado europeu.
+EVIDENCE:                     data/samples/EU-T4-001/
+                              (sparql-active-substance-2026.json, CELEX-32026R1696-eng.xhtml,
+                               evidence-32026R1696.json com os 4 idiomas)
+VERDICT:                      GREEN
+```
+
+**Nota de camada:** esta fonte é **EU ACTIVE SUBSTANCE**. Não diz nada sobre qual produto
+está autorizado em França, Espanha ou Itália, nem em que cultura ou alvo. Confundir as duas
+camadas seria o erro mais grave possível em T4.
+
+#### EU-T4-002 · EU Pesticides Database (DG SANTE)
+
+```
+SOURCE_ID:                    EU-T4-002
+SOURCE_NAME:                  EU Pesticides Database
+SOURCE_OWNER:                 Comissão Europeia — DG SANTE
+COUNTRY:                      EUROPE
+LANGUAGE:                     EN (+ outras)
+TERRITORY:                    T4
+SOURCE_TYPE:                  Base de dados oficial consolidada (substâncias ativas, MRLs)
+URL:                          https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/
+ACCESS_METHOD:                aplicação Angular (SPA) + API JSON interna
+                              (/api/subst/getSubstances) — observado, não obtido
+GEOGRAPHIC_GRANULARITY:       NÃO SEI (não verificado)
+RAW_EVIDENCE_PRESERVABLE:     NÃO SEI
+AUTOMATION_FEASIBILITY:       NÃO SEI
+COLLECTION_FEASIBILITY:       BLOQUEADO NESTE AMBIENTE
+LEGAL_OR_ACCESS_RISK:         NÃO SEI / REQUER REVISÃO (termos de uso da API interna)
+REAL_EXAMPLE:                 nenhum capturado
+ADAMA_USE_CASE:               seria a visão consolidada de substância ativa + MRL
+EVIDENCE:                     nenhuma — ver motivo abaixo
+VERDICT:                      NÃO SEI
+```
+
+**Por que NÃO SEI e não RED:** todo acesso a `ec.europa.eu` a partir deste ambiente é
+redirecionado para `sorry.ec.europa.eu` ("Server temporarily unavailable"), com e sem
+User-Agent de navegador. O conteúdo também é renderizado por JavaScript, de modo que o
+HTML servido não contém dados. **A fonte não foi avaliada — apenas não foi alcançada.**
+Não é uma fonte ruim; é uma porta fechada *neste ambiente*.
+
+**O que falta para resolver:** acesso de rede a `ec.europa.eu` ou execução com navegador
+headless. **Não bloqueia T4**: EU-T4-001 cobre a camada de ato regulatório da UE com
+qualidade superior (documento primário, identificável e datado, em vez de tabela derivada).
+
+---
 
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
-| EUROPE | 0 | 0 | 0 | 0 | 0 |
+| EUROPE | 1 | 0 | 0 | 1 | 2 |
 | FRANCE | 0 | 0 | 0 | 0 | 0 |
 | SPAIN | 0 | 0 | 0 | 0 | 0 |
 | ITALY | 0 | 0 | 0 | 0 | 0 |
-| **Total** | **0** | **0** | **0** | **0** | **0** |
+| **Total** | **1** | **0** | **0** | **1** | **2** |
 
 ### Cobertura por território
 
 | | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| EUROPE | – | – | – | – | – | – | – | – | – | – | – | – |
+| EUROPE | – | – | – | 1G/1? | – | – | – | – | – | – | – | – |
 | FRANCE | – | – | – | – | – | – | – | – | – | – | – | – |
 | SPAIN | – | – | – | – | – | – | – | – | – | – | – | – |
 | ITALY | – | – | – | – | – | – | – | – | – | – | – | – |
