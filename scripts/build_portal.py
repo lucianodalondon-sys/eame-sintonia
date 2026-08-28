@@ -32,6 +32,7 @@ adama_fr  = load('FR-T4-001', 'FR-T4-001-adama-crop-target.json')
 adama_it  = load('IT-T4-001', 'IT-T4-001-adama-expiries.json')
 excep     = load('ES-T4-001', 'ES-T4-002-autorizaciones-excepcionales.json')
 eppo      = load('ES-T4-001', 'eppo-dictionary.json')
+slice_    = load('SLICE-PLASVI-vertical.json')
 
 E = html.escape
 
@@ -137,6 +138,20 @@ ex_rows = []
 if excep:
     for r in excep['rows'][:12]:
         ex_rows.append([E(r['cultivo'][:40]), E(r['plaga_funcion'][:74]), E(r['sustancia_activa'][:38])])
+
+# ---------------------------------------------------------------- SLICE PLASVI
+slice_rows, slice_subs = [], []
+if slice_:
+    fv = slice_['france_vigne_mildiou']
+    comp = fv['by_company']
+    vmax = max(v for k, v in comp.items() if k != 'OUTROS') or 1
+    for k, v in sorted(comp.items(), key=lambda x: -x[1]):
+        if k == 'OUTROS':
+            continue
+        lbl = f'<strong>{E(k)}</strong>' if k == 'ADAMA' else E(k)
+        slice_rows.append([lbl, bar(v, vmax, str(v))])
+    for k, v in list(fv['top_actives'].items())[:6]:
+        slice_subs.append([E(k), str(v)])
 
 # ---------------------------------------------------------------- HOME
 now_items = []
@@ -266,6 +281,16 @@ HTML = f"""<!doctype html>
   'Províncias diferentes são amostradas em dias diferentes, então a média diária reflete '
   '<em>qual província foi visitada</em>. Desagregada por província (bloco acima), o zigue-zague '
   'desaparece. Mantida aqui porque foi o erro que quase cometemos — ver CAP-015.')}
+
+{block('Míldio da videira na França — quem tem direito de uso nesse combate', 'REAL',
+  'ANSES E-Phy (FR-T4-001) — campo público "titulaire"', 'registro de 25/08/2026',
+  'data/samples/SLICE-PLASVI-vertical.json',
+  table(['empresa', 'usos autorizados em Vigne × Mildiou(s)'], slice_rows)
+  + '<div class="meta" style="margin:12px 0 4px">substâncias mais registradas nesse combate</div>'
+  + table(['substância ativa', 'usos'], slice_subs),
+  'ler contagem de registros como posição de mercado. E note o próprio dado: o registro grafa '
+  'a mesma substância como <strong>folpet (33)</strong> e <strong>folpel (14)</strong>. '
+  'Quem contar sem normalizar subestima a molécula em 30% — erro silencioso que uma tela esconde.')}
 
 <h2 id="climate">Crops &amp; Climate</h2>
 {block('Exposição climática na janela de enchimento de grão — trigo comum', 'DERIVED',
