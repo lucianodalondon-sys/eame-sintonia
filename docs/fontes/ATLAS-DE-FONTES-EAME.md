@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **21 fontes registradas** (11 GREEN, 2 YELLOW, 8 NÃO SEI).
+**Estado:** MISSÃO 02 em curso — **28 fontes registradas** (12 GREEN, 2 YELLOW, 14 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -842,23 +842,139 @@ PERSON → ORGANIZATION → TOPIC → DOCUMENT do people graph.
 
 ---
 
+### T10 · MARKET / TRADE — EUROPE
+
+#### EU-T10-001 · Agri-food Data Portal — preços semanais de cereais por mercado
+
+```
+SOURCE_ID:                    EU-T10-001
+SOURCE_NAME:                  European Commission — Agri-food Data Portal (cereal prices)
+SOURCE_OWNER:                 Comissão Europeia — DG AGRI
+COUNTRY:                      EUROPE (com detalhe FR, ES, IT)
+LANGUAGE:                     EN
+TERRITORY:                    T10
+SOURCE_TYPE:                  série oficial de preços de mercado
+URL:                          https://www.ec.europa.eu/agrifood/api/cereal/prices
+ACCESS_METHOD:                REST JSON, **sem chave**
+                              (parâmetros: memberStateCodes, years, beginDate)
+CROPS:                        trigo panificável, trigo duro, cevada forrageira,
+                              milho forrageiro, entre outros
+TOPICS:                       preço, unidade, semana, mercado, estágio comercial
+GEOGRAPHIC_GRANULARITY:       **MERCADO NOMEADO** dentro do país — mais fino que país.
+                              ES 17 mercados (Albacete, Burgos, Ciudad Real, Huesca…),
+                              IT 16 (Alessandria, Bologna, Foggia, Grosseto…),
+                              FR 6 (Bordeaux, La Pallice, Rhin, Port-La-Nouvelle…)
+UPDATE_FREQUENCY:             **semanal** — verificado com dado da semana de 17–23/08/2026
+HISTORICAL_DEPTH:             consultável por ano
+SOURCE_IDENTITY_PRESERVABLE:  SIM — estado, mercado, produto e semana
+PUBLICATION_DATE_AVAILABLE:   SIM — beginDate, endDate, referencePeriod
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       ALTA
+COLLECTION_FEASIBILITY:       ALTA — 2.562 registros numa chamada
+LEGAL_OR_ACCESS_RISK:         BAIXO
+REAL_EXAMPLE:                 Milho forrageiro em Mantova (IT), semana de 17–23/08/2026:
+                              **€243,50/t**, saída de fazenda.
+                              Trigo panificável, média nacional: FR €234,30/t (30/07/2026)
+                              e IT €219,31/t (06/08/2026). Trigo duro: FR €267,50 ×
+                              IT €271,83.
+ADAMA_USE_CASE:               COMMERCIAL / EAME / MD: capacidade de pagamento do produtor e
+                              atratividade relativa da cultura, por país e por praça.
+EVIDENCE:                     data/samples/EU-T10-001-cereal-prices.json
+VERDICT:                      GREEN
+```
+
+#### Outras fontes de T10 testadas
+
+| ID | Fonte | Situação | Motivo medido |
+|---|---|---|---|
+| EU-T10-002 | FAOSTAT (API) | **NÃO SEI** | devolveu `401 — Missing Authorization Header`. Passou a exigir credencial. |
+| EU-T10-003 | Eurostat `ext_lt_maineu` (comércio) | **NÃO SEI** | a API responde 200, mas a consulta feita voltou com `value` vazio. Faltou acertar as dimensões — **não foi avaliada**, foi mal consultada. |
+
+---
+
+### T9 · COMPETITORS — camada de comunicação
+
+#### FR/ES/IT-T9-001 · Sites e canais de comunicação dos concorrentes
+
+```
+SOURCE_ID:                    FR-T9-001 / ES-T9-001 / IT-T9-001 (mesma natureza)
+SOURCE_NAME:                  páginas de atualidades de BASF, Bayer, Syngenta, Corteva…
+COUNTRY:                      FRANCE · SPAIN · ITALY
+TERRITORY:                    T9
+ACCESS_METHOD:                site institucional
+COLLECTION_FEASIBILITY:       **BLOQUEADA NESTA RODADA**
+REAL_EXAMPLE:                 nenhum
+VERDICT:                      NÃO SEI
+```
+
+**Motivo medido:** `syngenta.fr/actualites` → **403** (proteção anti-robô);
+`agriculture.basf.fr` → **502 no CONNECT** (não alcançado deste ambiente);
+`corteva.it/notizie.html` → **404** (caminho inválido). Nenhum dos três foi lido.
+
+**Consequência para o cruzamento X-003** (COMPETITOR + PRODUCT + CROP + COMMUNICATION):
+a perna COMMUNICATION **não existe hoje**. E vencer esse bloqueio exigiria varredura de
+sites com proteção anti-robô, que a §16 desta missão proíbe.
+
+**O que isto significa — e é uma conclusão de valor, não uma falha:** a inteligência
+competitiva defensável sobre os concorrentes na EAME hoje vem do **registro oficial**
+(X-005, COMPROVADO: quem tem direito de uso em cada cultura × alvo, com que molécula),
+e **não** de clipping de comunicação. O caminho difícil é justamente o que a missão
+mandava não fazer; o caminho fácil já está provado.
+
+---
+
+### T8 · FARMERS & INFLUENCERS
+
+```
+SOURCE_ID:                    EU-T8-001 (avaliação de rota de acesso, não de fonte única)
+TERRITORY:                    T8
+VERDICT:                      NÃO SEI · parcialmente NÃO TESTÁVEL AINDA
+```
+
+**Rotas testadas e resultado medido:**
+
+| Rota | Resultado | Leitura |
+|---|---|---|
+| YouTube Data API v3 | **403** sem chave | exige chave de API |
+| **YouTube RSS por `channel_id`** | **200**, 15 entradas, com `published` e estatísticas de visualização | **funciona sem chave** |
+| YouTube RSS por `user=` | 404 | rota antiga, desativada |
+| Instagram / Meta Graph API | 400 sem token | exige token e App Review |
+| TikTok Research API | 404 sem token | exige credencial de pesquisa aprovada |
+
+**A descoberta precisa:** o gargalo de T8 **não é a coleta, é a descoberta**. Com o
+`channel_id` em mãos, o RSS público do YouTube entrega títulos, datas e estatísticas sem
+chave nenhuma. O que não existe é uma forma legítima de **descobrir quais canais importam**
+sem a API de busca (que exige chave) ou sem varredura da plataforma (proibida pela §16).
+
+**Consequência para a separação exigida pela missão** (REACH · FIELD AUTHORITY ·
+TECHNICAL AUTHORITY · COMMERCIAL INFLUENCE): apenas **REACH** seria mensurável por esta rota,
+e ainda assim só depois de alguém decidir a lista de canais. **FIELD AUTHORITY**,
+**TECHNICAL AUTHORITY** e **COMMERCIAL INFLUENCE** não têm, hoje, nenhuma fonte de dado
+identificada nesta missão. Registrado como lacuna real, não como capacidade futura.
+
+**Decisão necessária (P-009):** obter chave da YouTube Data API e definir se a ADAMA quer
+perfilar pessoas em redes sociais — o que traz questão de GDPR distinta da de T5, porque
+aqui há criadores individuais e não apenas autoria científica.
+
+---
+
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
-| EUROPE | 6 | 0 | 0 | 3 | 9 |
-| FRANCE | 1 | 1 | 0 | 2 | 4 |
-| SPAIN | 3 | 0 | 0 | 2 | 5 |
-| ITALY | 1 | 1 | 0 | 1 | 3 |
-| **Total** | **11** | **2** | **0** | **8** | **21** |
+| EUROPE | 7 | 0 | 0 | 6 | 13 |
+| FRANCE | 1 | 1 | 0 | 3 | 5 |
+| SPAIN | 3 | 0 | 0 | 3 | 6 |
+| ITALY | 1 | 1 | 0 | 2 | 4 |
+| **Total** | **12** | **2** | **0** | **14** | **28** |
 
 ### Cobertura por território
 
 | | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | – | – | – | – | – |
-| FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | – | – | – | – |
-| SPAIN | 1? | – | **1G** | 2G/1? | – | – | – | – | – | – | – | – |
-| ITALY | 1? | – | 1Y | 1G | – | – | – | – | – | – | – | – |
+| EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | – |
+| FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | – | – |
+| SPAIN | 1? | – | **1G** | 2G/1? | – | – | – | – | 1? | – | – | – |
+| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | – | – | – |
 
 *(– = não investigado)*

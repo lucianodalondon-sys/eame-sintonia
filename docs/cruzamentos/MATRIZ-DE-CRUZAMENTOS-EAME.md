@@ -6,7 +6,7 @@ juntas** revelam e nenhuma delas revela sozinha.
 > **Não afirmar cruzamento apenas porque semanticamente parece interessante.**
 > Clima + doença "parece" cruzar. A pergunta real é: **qual chave os une?**
 
-**Estado:** MISSÃO 02 em curso — **3 COMPROVADOS, 4 PARCIAIS, 2 NÃO COMPÕEM**.
+**Estado:** MISSÃO 02 em curso — **3 COMPROVADOS, 4 PARCIAIS, 3 NÃO COMPÕEM**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -64,7 +64,7 @@ Listados como **candidatos a testar**, não como afirmações. Todos partem em `
 |---|---|---|
 | X-001 | CLIMATE + REGION + CROP + DISEASE ALERT | **PARCIAL** (falta DISEASE ALERT) |
 | X-002 | RESEARCHER + PAPER + CROP + PROBLEM | **COMPROVADO** |
-| X-003 | COMPETITOR + PRODUCT + CROP + COMMUNICATION | NÃO SEI (camada COMMUNICATION não investigada) |
+| X-003 | COMPETITOR + PRODUCT + CROP + COMMUNICATION | **NÃO COMPÕE** (camada COMMUNICATION inacessível) |
 | X-004 | REGULATORY + ADAMA PORTFOLIO + CROP + PEST | **COMPROVADO (FR)** |
 
 > X-004 **foi resolvido para a França** sem dado interno: o registro oficial francês nomeia
@@ -407,6 +407,30 @@ A RAIF já traz o científico junto (`"Mildiu... Plasmopara viticola"`), mas o E
 **Cadeia que ainda não fecha:** a mesma partindo da França.
 
 
+### X-003 · COMPETITOR + PRODUCT + CROP + COMMUNICATION — **NÃO COMPÕE (hoje)**
+
+```
+CROSSING_ID:        X-003
+COMPONENTS:         concorrente + produto + cultura + **comunicação**
+SOURCES:            FR-T4-001 (as três primeiras pernas, provadas em X-005)
+                    + camada de comunicação: **inexistente**
+CLASS:              NÃO COMPÕE
+```
+
+**Motivo medido:** a perna COMMUNICATION não foi obtida. `syngenta.fr` devolveu **403**,
+`agriculture.basf.fr` **502**, `corteva.it` **404**. Vencer essa barreira exigiria varredura
+de sites com proteção anti-robô — proibida pela §16 desta missão.
+
+**Mas o cruzamento tem um substituto provado.** As três outras pernas — concorrente, produto
+e cultura × alvo — compõem perfeitamente pelo **registro oficial** (X-005, COMPROVADO).
+A pergunta *"em que problemas agronômicos o concorrente está presente?"* já tem resposta
+defensável. A que continua sem resposta é *"sobre o que ele está falando"*.
+
+**Leitura estratégica:** presença regulatória é **fato administrativo**, verificável e
+datado. Comunicação é **intenção**, e mesmo obtida seria matéria mais frágil. A missão
+pediu para não fazer clipping genérico; o dado disponível empurra exatamente para lá.
+
+
 ### Placar
 
 | Classe | Quantidade |
@@ -414,5 +438,5 @@ A RAIF já traz o científico junto (`"Mildiu... Plasmopara viticola"`), mas o E
 | COMPROVADO | 3 |
 | PARCIAL | 4 |
 | POSSÍVEL MAS NÃO TESTADO | 0 |
-| NÃO COMPÕE | 2 |
+| NÃO COMPÕE | 3 |
 | NÃO SEI | 0 |

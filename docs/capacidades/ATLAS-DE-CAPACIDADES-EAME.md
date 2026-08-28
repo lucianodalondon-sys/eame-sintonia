@@ -6,7 +6,7 @@ Fonte não é capacidade. Este atlas converte descoberta em **o que conseguimos 
 > "Detectar alertas fitossanitários regionais em trigo na França" é uma capacidade.
 > A segunda só entra aqui quando a primeira está provada com exemplo real.
 
-**Estado:** MISSÃO 02 em curso — **18 capacidades COMPROVADAS**.
+**Estado:** MISSÃO 02 em curso — **19 capacidades COMPROVADAS**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -532,11 +532,34 @@ USERS:               RND · TEC (capacidade de método)
 > patógeno, código EPPO), a rede de especialistas não é defensável.
 
 
+### CAP-019 · Ler o preço semanal do cereal por praça, nos três países
+
+```
+CAPABILITY:          Acompanhar o preço semanal de trigo panificável, trigo duro, cevada e
+                     milho por mercado nomeado na França, Espanha e Itália.
+SOURCE:              EU-T10-001
+COUNTRY:             FRANCE · SPAIN · ITALY
+GEOGRAPHY:           **mercado nomeado** (39 praças nos três países) — mais fino que país
+TIME:                semanal; verificado até a semana de 17–23/08/2026
+CAN_AUTOMATE:        SIM — REST sem chave
+CAN_HISTORY:         SIM — consultável por ano
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      COMMERCIAL / EAME: capacidade de pagamento do produtor e atratividade
+                     relativa da cultura, por praça e por semana.
+REAL_EXAMPLE:        Milho forrageiro, Mantova (IT), semana 17–23/08/2026: €243,50/t.
+                     Trigo duro, média nacional: FR €267,50/t × IT €271,83/t.
+USERS:               COM · EAME · MD · COUNTRY
+```
+
+**Limite:** é preço de mercado do **grão**, não de insumo. Não diz nada sobre preço de
+defensivo, margem do produtor ou custo de produção.
+
+
 ### Placar
 
 | CONFIDENCE | Quantidade |
 |---|---|
-| COMPROVADO | 18 |
+| COMPROVADO | 19 |
 | INFERÊNCIA | 0 |
 | HIPÓTESE | 0 |
 | NÃO SEI | 0 |
@@ -545,7 +568,7 @@ USERS:               RND · TEC (capacidade de método)
 
 | | COMPROVADO | INFERÊNCIA | HIPÓTESE | NÃO SEI |
 |---|---|---|---|---|
-| EUROPE | 9 | 0 | 0 | 0 |
+| EUROPE | 10 | 0 | 0 | 0 |
 | FRANCE | 3 | 0 | 0 | 0 |
 | SPAIN | 5 | 0 | 0 | 0 |
 | ITALY | 1 | 0 | 0 | 0 |

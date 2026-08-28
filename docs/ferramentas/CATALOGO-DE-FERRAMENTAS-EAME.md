@@ -3,7 +3,7 @@
 Ferramenta nasce de cruzamento provado, não de ideia bonita.
 Ordem: `SOURCE → EVIDENCE → DATA → CROSSING → CAPABILITY → TOOL → PORTAL`.
 
-**Estado:** MISSÃO 02 em curso — **10 ferramentas qualificadas**.
+**Estado:** MISSÃO 02 em curso — **11 ferramentas qualificadas** (+ 2 explicitamente CONCEPT).
 **Última atualização:** 2026-08-28
 
 ---
@@ -46,7 +46,7 @@ Nenhuma está aprovada. **A descoberta decide** — só sobe quem tiver dado que
 | CLIMATE IMPACT | **QUALIFICADA — CROSSING PROVED** (renomear: mede exposição) |
 | SCIENCE RADAR | **QUALIFICADA — CROSSING PROVED** (junto com EXPERT NETWORK) |
 | EXPERT NETWORK | **QUALIFICADA — CROSSING PROVED** |
-| FIELD VOICES | NÃO QUALIFICADA |
+| FIELD VOICES | **CONCEPT** — sem fonte de dado |
 | COMPETITIVE RADAR | **QUALIFICADA — CROSSING PROVED** (camada regulatória) |
 | REGULATORY WATCH | **QUALIFICADA — CROSSING PROVED** |
 | PORTFOLIO OPPORTUNITY | **QUALIFICADA — DATA EXISTS** |
@@ -55,7 +55,7 @@ Nenhuma está aprovada. **A descoberta decide** — só sobe quem tiver dado que
 Ferramentas descobertas na varredura e que **não** estavam na lista do briefing:
 REGISTRATION EXPIRY RADAR · UNMET NEED RADAR · EPPO NORMALIZER.
 | EVENT RADAR | NÃO QUALIFICADA |
-| COUNTRY PULSE | NÃO QUALIFICADA |
+| COUNTRY PULSE | **QUALIFICADA — DATA EXISTS** |
 
 Uma candidata só vira ferramenta do catálogo com ficha completa e ao menos um
 `CROSSING` COMPROVADO por trás.
@@ -303,5 +303,42 @@ LIMIT:                **Recorrência não é autoridade.** Afiliação não é l
                       experimento. E sem vocabulário controlado a lista muda por completo.
                       Não construir ranking universal — a missão proíbe, e com razão:
                       a lista só faz sentido colada a um problema e a um país.
+```
+
+### COUNTRY PULSE — `DATA EXISTS`
+
+```
+TOOL_NAME:            COUNTRY PULSE
+QUESTION:             "Como está o ano agrícola neste país — área, rendimento, preço,
+                       clima e pressão de doença?"
+USER:                 COUNTRY MANAGEMENT · EAME MANAGEMENT · COMMERCIAL
+SOURCES:              EU-T1-001, EU-T1-002, EU-T2-001, EU-T10-001 (+ ES-T3-001 na Espanha)
+CROSSING:             país × ano; X-001 na camada regional
+REAL_EXAMPLE:         França 2024 (CASE-005) e Espanha 2023 (CASE-006)
+FACT:                 área por região, rendimento por país, preço por praça, clima por ponto
+DERIVED_ANALYSIS:     a leitura conjunta de "ano bom / ano ruim"
+UNKNOWN:              pressão de doença fora da Andaluzia; rendimento por região
+ADAMA_VALUE:          uma leitura de país que hoje é montada à mão, se é montada
+TECHNICAL_DIFFICULTY: BAIXA — todas as fontes já provadas e sem chave
+DATA_RISK:            BAIXO
+PRIORITY:             ALTA
+STATUS:               DATA EXISTS
+LIMIT:                As camadas têm granularidades diferentes (região, país, praça, ponto).
+                      Empilhá-las numa tela sem dizer isso cria falsa comparabilidade.
+```
+
+### FIELD VOICES / COMPETITIVE RADAR (camada de comunicação) — `CONCEPT`
+
+```
+TOOL_NAME:            FIELD VOICES · COMPETITIVE RADAR (comunicação)
+QUESTION:             "O que produtores, criadores e concorrentes estão dizendo?"
+SOURCES:              nenhuma obtida
+STATUS:               **CONCEPT**
+LIMIT:                Sem dado. YouTube Data API, Meta Graph e TikTok Research exigem
+                      credenciais que não temos; sites de concorrentes devolveram 403/502/404.
+                      O RSS público do YouTube funciona **se** o `channel_id` for conhecido —
+                      ou seja, o gargalo é a **descoberta**, não a coleta.
+                      REACH seria mensurável; FIELD, TECHNICAL e COMMERCIAL AUTHORITY
+                      não têm fonte identificada. Ver P-009.
 ```
 
