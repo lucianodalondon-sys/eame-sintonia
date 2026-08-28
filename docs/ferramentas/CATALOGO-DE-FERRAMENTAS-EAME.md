@@ -3,7 +3,7 @@
 Ferramenta nasce de cruzamento provado, não de ideia bonita.
 Ordem: `SOURCE → EVIDENCE → DATA → CROSSING → CAPABILITY → TOOL → PORTAL`.
 
-**Estado:** MISSÃO 02 em curso — **8 ferramentas qualificadas**.
+**Estado:** MISSÃO 02 em curso — **9 ferramentas qualificadas**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -42,7 +42,7 @@ Nenhuma está aprovada. **A descoberta decide** — só sobe quem tiver dado que
 | Candidata | Estado |
 |---|---|
 | CROP PULSE | **QUALIFICADA — CROSSING PROVED** |
-| PEST & DISEASE RADAR | NÃO QUALIFICADA |
+| PEST & DISEASE RADAR | **QUALIFICADA — CROSSING PROVED (só Andaluzia)** |
 | CLIMATE IMPACT | **QUALIFICADA — CROSSING PROVED** (renomear: mede exposição) |
 | SCIENCE RADAR | NÃO QUALIFICADA |
 | EXPERT NETWORK | NÃO QUALIFICADA |
@@ -245,5 +245,34 @@ LIMIT:                **O nome da ferramenta é o seu maior risco.** Ela mede EX
                       não IMPACTO. Enquanto não houver dado de safra regional e de doença,
                       chamar isto de "impacto" é afirmar o que os dados não provam.
                       Considerar renomear para CLIMATE EXPOSURE.
+```
+
+### PEST & DISEASE RADAR — `CROSSING PROVED` (Andaluzia) / `CONCEPT` (FR e IT)
+
+```
+TOOL_NAME:            PEST & DISEASE RADAR
+QUESTION:             "Onde a pressão de qual praga ou doença está subindo, agora,
+                       em que cultura e em que província?"
+USER:                 TECHNICAL · COMMERCIAL · MARKET DEVELOPMENT · MARKETING
+DATA_REQUIRED:        medição de incidência por local e data
+SOURCES:              ES-T3-001 (Andaluzia, numérico) · FR-T3-001 (França, texto em PDF)
+                      · IT-T3-001 (Emilia-Romagna, texto em PDF)
+CROSSING:             província × data × cultura × doença
+REAL_EXAMPLE:         CASE-007 — míldio na vid 2026: Huelva 26,4%, Córdoba 6,4%, Cádiz ≈0%
+FACT:                 percentual de cepas/folhas/cachos afetados; capturas em armadilha;
+                      sinalizador oficial de condições favoráveis
+DERIVED_ANALYSIS:     agregação por província e por semana
+UNKNOWN:              **a causa.** Ver X-009 e CASE-008. E a cobertura fora da Andaluzia.
+ADAMA_VALUE:          a informação técnica mais acionável encontrada na missão:
+                      pressão real, por província, semanal, gratuita
+TECHNICAL_DIFFICULTY: BAIXA na Andaluzia (XML aberto);
+                      **ALTA na França e na Itália** (PDF descentralizado, sem API)
+DATA_RISK:            MÉDIO — depende de uma única região de um único país;
+                      coordenadas de parcela pedem revisão jurídica (P-007)
+PRIORITY:             ALTA
+STATUS:               CROSSING PROVED para Andaluzia · CONCEPT para França e Itália
+LIMIT:                **Não explica a causa e não prevê surto.** Agregar províncias produz
+                      um número que não descreve nenhuma delas (CAP-015). Fora da
+                      Andaluzia, a ferramenta ainda não tem dado numérico — só texto.
 ```
 

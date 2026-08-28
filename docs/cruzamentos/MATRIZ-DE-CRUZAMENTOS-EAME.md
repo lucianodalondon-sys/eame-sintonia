@@ -6,7 +6,7 @@ juntas** revelam e nenhuma delas revela sozinha.
 > **Não afirmar cruzamento apenas porque semanticamente parece interessante.**
 > Clima + doença "parece" cruzar. A pergunta real é: **qual chave os une?**
 
-**Estado:** MISSÃO 02 em curso — **2 COMPROVADOS, 3 PARCIAIS, 1 NÃO COMPÕE**.
+**Estado:** MISSÃO 02 em curso — **2 COMPROVADOS, 3 PARCIAIS, 2 NÃO COMPÕEM**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -303,6 +303,62 @@ fevereiro–abril e o rendimento nacional foi o pior da série.
 Os três componentes existentes compõem de fato, com chave real e sem inferência.
 
 
+### X-009 · CLIMATE → DISEASE (o clima explica onde a doença apareceu?) — **NÃO COMPÕE**
+
+```
+CROSSING_ID:        X-009
+COMPONENTS:         CLIMATE (EU-T2-001) → DISEASE INCIDENCE (ES-T3-001)
+SOURCES:            NASA POWER (ponto por província) + RAIF Andalucía (parcela)
+KEY:                província + safra 2026
+CLASS:              **NÃO COMPÕE** — para a pergunta causal. Ver abaixo.
+```
+
+**O teste.** Míldio da videira (PLASVI) na Andaluzia, safra 2026. Clima acumulado na janela
+15/03–31/05, medido no ponto representativo de cada província:
+
+| Província | chuva | dias com ≥1 mm | UR média | **míldio (pico medido)** |
+|---|---|---|---|---|
+| **Huelva** | 55,4 mm | 12 | 66,6% | **26,4%** |
+| **Córdoba** | 65,1 mm | 12 | 66,1% | **6,4%** |
+| **Cádiz** | 48,9 mm | 8 | **74,2%** | **≈0%** |
+
+**O resultado derruba a intuição.** Córdoba teve **mais chuva** que Huelva e **quatro vezes
+menos** doença. Cádiz teve a **maior umidade média das três** e praticamente **nenhuma**
+doença. A ordenação climática **não reproduz** a ordenação epidemiológica em nenhuma das
+três variáveis testadas.
+
+**Por que isto é NÃO COMPÕE e não "resultado ruim":** o cruzamento **une** tecnicamente —
+a chave província + safra funciona, os dois lados existem e são datados. O que **não se
+sustenta** é a **inferência** que todo mundo quer fazer em cima dele. Registrado como
+NÃO COMPÕE **para a pergunta causal**; a mesma composição continua válida para
+**descrever exposição e incidência lado a lado**, desde que a tela não sugira causa.
+
+**O que poderia explicar a diferença — e que nós não medimos:**
+variedade e sensibilidade do material; manejo de canópia; **programa de fungicida aplicado**
+(a RAIF registra tratamentos, e nós não os cruzamos); microclima real da parcela contra o
+ponto único da província; irrigação; histórico de inóculo. Nenhuma dessas hipóteses foi
+testada. Listá-las é obrigação; escolher uma sem dado seria fabricar inteligência.
+
+**As oito perguntas (§7):**
+F · **não afirma fato nem correlação útil.** Com três províncias, não há sequer amostra para
+falar em correlação.
+H · **erro fácil — e é o erro mais provável de toda a missão:** montar a tela "chuva ×
+doença" e deixar o observador concluir que a chuva causou o surto. A §8 da missão proíbe
+exatamente isso, e agora temos o dado que mostra por quê.
+
+### X-001 · atualização — o quarto componente entrou
+
+O componente **DISEASE ALERT**, que faltava em X-001, existe e foi obtido (ES-T3-001).
+A composição `CLIMATE + REGION + CROP + DISEASE` agora é **executável** para a Andaluzia:
+os quatro lados são reais, datados e ligáveis por província e safra.
+
+X-001 permanece **PARCIAL**, por três motivos medidos e não estimados:
+1. o quarto componente só existe para **uma região de um país** (Andaluzia), não para FR/IT;
+2. o clima continua sendo **um ponto**, não média regional;
+3. e, principalmente, **X-009**: os quatro lados compõem, mas a leitura causal que
+   justificaria a ferramenta **não se sustenta nos dados**.
+
+
 ### Placar
 
 | Classe | Quantidade |
@@ -310,5 +366,5 @@ Os três componentes existentes compõem de fato, com chave real e sem inferênc
 | COMPROVADO | 2 |
 | PARCIAL | 3 |
 | POSSÍVEL MAS NÃO TESTADO | 0 |
-| NÃO COMPÕE | 1 |
+| NÃO COMPÕE | 2 |
 | NÃO SEI | 1 |

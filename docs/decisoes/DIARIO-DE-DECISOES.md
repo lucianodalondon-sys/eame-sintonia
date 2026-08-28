@@ -60,7 +60,7 @@ Regras do diário:
   junto com a evidência.
 - **Consequência:** Evidência preservável de uma fonte deve ir para `data/samples/`, não
   para `data/raw/`. Se alguma fonte exigir versionar bruto, revogar esta entrada.
-- **Quem decidiu:** Assumido na ausência de instrução — **confirmar**.
+- **Quem decidiu:** Assumido na ausência de instrução — **confirmado** pela MISSÃO 02 §0 (P-001 encerrada).
 
 ### D-005 — Estrutura de `docs/` realinhada ao briefing da MISSÃO EAME 01
 - **Data:** 2026-08-28
@@ -107,8 +107,10 @@ Regras do diário:
 
 | # | Pergunta | Bloqueia | Aberta em |
 |---|---|---|---|
-| P-001 | Confirmar D-003 (versionar ou não `data/raw`). | Política de evidência | 2026-08-28 |
+| P-001 | ~~Confirmar D-003~~ — **resolvida** pela MISSÃO 02 §0: não versionar dumps grandes, amostras em `data/samples`, bruto temporário em `data/raw` local. | — | resolvida 2026-08-28 |
 | P-002 | Quem é a audiência da apresentação e qual a data-alvo? | `07-apresentacao` | 2026-08-28 |
 | P-003 | Que dados internos da ADAMA EAME estarão disponíveis? | `02-fontes` | 2026-08-28 |
 | P-004 | Idioma exigido nos entregáveis finais? | Todos os docs | 2026-08-28 |
-| P-005 | Restrições jurídicas / GDPR / licença aplicáveis ao uso pretendido? | `02-fontes`, `03-capacidades` | 2026-08-28 |
+| P-005 | Restrições jurídicas / GDPR / licença aplicáveis ao uso pretendido? | `fontes`, `capacidades` | 2026-08-28 |
+| P-006 | Criar conta institucional EPPO para obter token da API (EU-T3-001)? É gratuita, mas fica em nome de alguém. | EU-T3-001 | 2026-08-28 |
+| P-007 | Uso e difusão de coordenadas de parcela do RAIF (ES-T3-001): revisão jurídica antes de expor em tela externa. | ES-T3-001, protótipo | 2026-08-28 |

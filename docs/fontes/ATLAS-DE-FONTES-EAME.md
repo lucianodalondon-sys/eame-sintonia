@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **15 fontes registradas** (9 GREEN, 6 NÃO SEI).
+**Estado:** MISSÃO 02 em curso — **20 fontes registradas** (10 GREEN, 2 YELLOW, 8 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -600,23 +600,205 @@ mesma necessidade sem cota observada, então isto **não bloqueia T2**.
 
 ---
 
+### T3 · PEST / DISEASE / WEEDS — SPAIN
+
+#### ES-T3-001 · RAIF — Red de Alerta e Información Fitosanitaria de Andalucía
+
+```
+SOURCE_ID:                    ES-T3-001
+SOURCE_NAME:                  Datos de seguimiento de plagas y enfermedades en las
+                              estaciones de control biológico [2006–2026]
+SOURCE_OWNER:                 Junta de Andalucía — Consejería de Agricultura, Pesca,
+                              Agua y Desarrollo Rural
+COUNTRY:                      SPAIN (Andalucía)
+REGION:                       províncias e municípios andaluzes
+LANGUAGE:                     ES
+TERRITORY:                    T3 (com leitura para T1 e T2)
+SOURCE_TYPE:                  rede oficial de monitoramento em campo, dados abertos
+URL:                          https://www.juntadeandalucia.es/datosabiertos/portal/dataset/raif
+ACCESS_METHOD:                CKAN API + ZIP com XML. **Atenção:** a URL de download que a
+                              API devolve aponta para `gdc-pdpopendata-ckan.paas.junta-
+                              andalucia.es`, host que este ambiente não alcança (502 no
+                              CONNECT). Trocando o host por `www.juntadeandalucia.es`,
+                              o mesmo caminho baixa normalmente. Registrado porque é a
+                              diferença entre a fonte "não funcionar" e funcionar.
+CROPS:                        10 culturas — olivar, cítricos, vid, fresa, arroz, algodón,
+                              almendro, cereales de invierno, hortícolas, remolacha
+TOPICS:                       parcelas (com coordenadas), amostragens por data, fenologia,
+                              incidência de pragas e doenças **em percentual medido**,
+                              armadilhas de feromônio, tratamentos fitossanitários
+GEOGRAPHIC_GRANULARITY:       **PARCELA** — código de parcela, município, comarca,
+                              zona homogênea, coordenadas UTM e altitude.
+                              É a granularidade mais fina encontrada em toda a missão.
+UPDATE_FREQUENCY:             semanal (visor); dataset atualizado em 2026-08-26
+HISTORICAL_DEPTH:             2006–2026 conforme a cultura (vid desde 2017)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — CODPARCELA + FECHA
+DOCUMENT_ID_AVAILABLE:        SIM
+PUBLICATION_DATE_AVAILABLE:   SIM — data de cada amostragem
+RAW_EVIDENCE_PRESERVABLE:     SIM — XML original
+AUTOMATION_FEASIBILITY:       ALTA (XML com nomes de campo codificados em `_x0020_`)
+COLLECTION_FEASIBILITY:       ALTA — vid 3,9 MB; olivar 57 MB
+LEGAL_OR_ACCESS_RISK:         BAIXO — CC BY 4.0. **Atenção GDPR:** há coordenadas de
+                              parcela. São parcelas de monitoramento de agrupamentos
+                              técnicos, não cadastro de produtor identificado — mas o
+                              uso de coordenadas precisa de revisão antes de publicação.
+                              `NÃO SEI / REQUER REVISÃO` para difusão externa.
+REAL_EXAMPLE:                 Vid 2026: 639 amostragens em Cádiz, Córdoba e Huelva.
+                              Campos medidos incluem "1601 Mildiu: % cepas afectadas",
+                              "1701 Oidio: % cepas afectadas", "0401 Lobesia: nº adultos/
+                              trampa feromona y día" e "1604 Mildiu: condiciones
+                              favorables (0=No; 1=Si)".
+ADAMA_USE_CASE:               TECHNICAL / MD / COMMERCIAL: pressão real de doença por
+                              cultura, por província e por semana — não opinião de campo.
+EVIDENCE:                     data/samples/ES-T3-001-raif-vid-mildiu-2026.json
+                              data/samples/X-001-completo-mildiu-vs-clima.json
+VERDICT:                      GREEN
+```
+
+**Esta é a fonte mais rica encontrada na missão inteira.** Ela mede o que as outras apenas
+regulam ou contextualizam: a doença, no campo, em percentual, por parcela e por semana.
+
+---
+
+### T3 · PEST / DISEASE / WEEDS — FRANCE
+
+#### FR-T3-001 · Bulletins de Santé du Végétal (BSV) — sistema vivo
+
+```
+SOURCE_ID:                    FR-T3-001
+SOURCE_NAME:                  Bulletins de Santé du Végétal
+SOURCE_OWNER:                 rede de epidemiovigilância — DRAAF, Chambres d'agriculture,
+                              institutos técnicos (ARVALIS, ITB…), dados no Vigicultures®
+COUNTRY:                      FRANCE
+REGION:                       por região administrativa
+LANGUAGE:                     FR
+TERRITORY:                    T3
+SOURCE_TYPE:                  boletim oficial de vigilância fitossanitária
+ACCESS_METHOD:                **PDF por região e por setor**, publicado em sites de DRAAF,
+                              câmaras de agricultura, institutos e na base documental do
+                              Ecophytopic. Não foi encontrada API nem dump aberto.
+GEOGRAPHIC_GRANULARITY:       região (por vezes com detalhe sub-regional no texto)
+UPDATE_FREQUENCY:             semanal na safra
+HISTORICAL_DEPTH:             anos, dispersos por site
+RAW_EVIDENCE_PRESERVABLE:     SIM (o PDF)
+AUTOMATION_FEASIBILITY:       **BAIXA** — descentralizada, sem formato comum, conteúdo em
+                              texto corrido dentro de PDF. Coletar exigiria varredura de
+                              dezenas de sites, o que esta missão **proíbe** (§16, sem
+                              scraping agressivo).
+LEGAL_OR_ACCESS_RISK:         publicação pública e gratuita; `NÃO SEI / REQUER REVISÃO`
+                              quanto a reuso sistemático.
+REAL_EXAMPLE:                 Hauts-de-France — BSV Grandes Cultures n°32 de 25/08/2026 e
+                              BSV Pommes de Terre n°27 de 27/08/2026 (publicação ARVALIS
+                              para a rede regional). Verificado em 28/08/2026: um dia de
+                              defasagem.
+ADAMA_USE_CASE:               TECHNICAL: leitura semanal de pressão por região e cultura.
+                              Alto valor de conteúdo, alto custo de coleta.
+VERDICT:                      YELLOW
+```
+
+**Assimetria estrutural França × Espanha em T3:** a França publica **texto interpretado por
+especialista, semanal e regional**. A Andaluzia publica **medida numérica por parcela**. As
+duas são de altíssima qualidade e **não são comparáveis**: uma dá julgamento, a outra dá
+número. Qualquer tela que as coloque lado a lado precisa dizer isso.
+
+#### FR-T3-002 · Corpus histórico de BSV (arquivo em agroecologia)
+
+```
+SOURCE_ID:                    FR-T3-002
+SOURCE_NAME:                  Archive en agro-écologie de BSV
+SOURCE_OWNER:                 publicado em data.gouv.fr (licença CC-BY), origem pestobserver.eu
+COUNTRY:                      FRANCE
+TERRITORY:                    T3
+ACCESS_METHOD:                ZIP (OCR, 173 MB) e RAR de amostra (14,9 MB)
+HISTORICAL_DEPTH:             **40.899 documentos**, com parte de 1960 a 2000
+                              (OCR declarado de qualidade média nesse período)
+COLLECTION_FEASIBILITY:       **NÃO CONSEGUIDA NESTA RODADA** — o download em
+                              `static.data.gouv.fr` foi cortado (`Connection reset by peer`;
+                              o proxy registrou `ws_closed_mid_exchange` após 7 s), tanto no
+                              pacote OCR quanto na amostra. O mesmo host serviu o E-Phy
+                              (3,9 MB) sem problema, então o corte parece ligado ao volume
+                              ou ao recurso, não ao domínio.
+REAL_EXAMPLE:                 nenhum capturado
+LEGAL_OR_ACCESS_RISK:         BAIXO (CC-BY)
+VERDICT:                      NÃO SEI
+```
+
+**O que falta:** uma rota de download que suporte o volume. **Não bloqueia T3** — a fonte é
+histórica (última atualização em 2023) e o valor operacional está em FR-T3-001, que é vivo.
+
+---
+
+### T3 · PEST / DISEASE / WEEDS — ITALY e EUROPE
+
+#### IT-T3-001 · Bollettini di produzione integrata (Emilia-Romagna e consórcios provinciais)
+
+```
+SOURCE_ID:                    IT-T3-001
+SOURCE_OWNER:                 Regione Emilia-Romagna — Servizio fitosanitario;
+                              Consorzi Fitosanitari Provinciali (Reggio Emilia, Modena…)
+COUNTRY:                      ITALY
+REGION:                       província
+LANGUAGE:                     IT
+TERRITORY:                    T3
+ACCESS_METHOD:                PDF semanal por província, em caminho previsível
+GEOGRAPHIC_GRANULARITY:       província
+UPDATE_FREQUENCY:             semanal na safra
+REAL_EXAMPLE:                 "Bollettino 15 del 21 maggio 2026 — Reggio Emilia",
+                              publicado no portal da Regione Emilia-Romagna
+                              (bollettini interprovinciali di produzione integrata e
+                              biologica 2026).
+AUTOMATION_FEASIBILITY:       MÉDIA — PDF, mas com nomenclatura e caminho regulares
+LEGAL_OR_ACCESS_RISK:         `NÃO SEI / REQUER REVISÃO` para reuso sistemático
+ADAMA_USE_CASE:               TECHNICAL: recomendação oficial de defesa por província
+VERDICT:                      YELLOW
+```
+
+**Cobertura parcial declarada:** foi verificada **uma** região italiana (Emilia-Romagna).
+A Itália tem 20 regiões, cada uma com seu próprio serviço fitossanitário. O que se sabe é
+que **existe** sistema regional publicado; **não se sabe** a cobertura nacional. Tratar
+Emilia-Romagna como "a Itália" seria erro grosseiro.
+
+#### EU-T3-001 · EPPO Global Database
+
+```
+SOURCE_ID:                    EU-T3-001
+SOURCE_NAME:                  EPPO Global Database
+SOURCE_OWNER:                 European and Mediterranean Plant Protection Organization
+COUNTRY:                      EUROPE
+TERRITORY:                    T3 (e vocabulário para todos)
+URL:                          https://gd.eppo.int  ·  API: https://data.eppo.int/api/rest/1.0/
+ACCESS_METHOD:                site HTML acessível (HTTP 200). **API REST devolveu
+                              `403 — "You do not have sufficent rights"`**: exige token
+                              de conta EPPO, que não temos.
+REAL_EXAMPLE:                 nenhum capturado pela API
+LEGAL_OR_ACCESS_RISK:         requer cadastro; termos não avaliados
+VERDICT:                      NÃO SEI
+```
+
+**O que falta:** uma conta EPPO e seu token. **Decisão necessária** — é um cadastro
+institucional gratuito, mas é uma conta em nome de alguém. Registrado em PERGUNTAS
+PENDENTES como P-006. **Não bloqueia:** o vocabulário EPPO de que precisamos já veio,
+por outro caminho, em ES-T4-001.
+
+---
+
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
-| EUROPE | 5 | 0 | 0 | 2 | 7 |
-| FRANCE | 1 | 0 | 0 | 1 | 2 |
-| SPAIN | 2 | 0 | 0 | 2 | 4 |
-| ITALY | 1 | 0 | 0 | 1 | 2 |
-| **Total** | **9** | **0** | **0** | **6** | **15** |
+| EUROPE | 5 | 0 | 0 | 3 | 8 |
+| FRANCE | 1 | 1 | 0 | 2 | 4 |
+| SPAIN | 3 | 0 | 0 | 2 | 5 |
+| ITALY | 1 | 1 | 0 | 1 | 3 |
+| **Total** | **10** | **2** | **0** | **8** | **20** |
 
 ### Cobertura por território
 
 | | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| EUROPE | 2G | 3G/1? | – | 1G/1? | – | – | – | – | – | – | – | – |
-| FRANCE | 1? | – | – | 1G | – | – | – | – | – | – | – | – |
-| SPAIN | 1? | – | – | 2G/1? | – | – | – | – | – | – | – | – |
-| ITALY | 1? | – | – | 1G | – | – | – | – | – | – | – | – |
+| EUROPE | 2G | 3G/1? | 1? | 1G/1? | – | – | – | – | – | – | – | – |
+| FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | – | – | – | – |
+| SPAIN | 1? | – | **1G** | 2G/1? | – | – | – | – | – | – | – | – |
+| ITALY | 1? | – | 1Y | 1G | – | – | – | – | – | – | – | – |
 
 *(– = não investigado)*

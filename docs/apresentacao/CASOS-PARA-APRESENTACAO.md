@@ -6,7 +6,7 @@ para a ADAMA.
 Meta: **5 a 10 casos extremamente claros**.
 **Não fabricar casos para preencher quota.** 3 casos irrefutáveis valem mais que 10 mornos.
 
-**Estado:** MISSÃO 02 em curso — **6 casos registrados** (meta 5–10 — atingida a faixa mínima) (meta 5–10).
+**Estado:** MISSÃO 02 em curso — **8 casos registrados** (meta 5–10 — dentro da faixa) (meta 5–10).
 **Última atualização:** 2026-08-28
 
 ---
@@ -317,6 +317,96 @@ declarado em qualquer tela climática.
 
 ---
 
+### CASE-007 · Três províncias, uma cultura, uma safra, três epidemias diferentes
+
+```
+CASE_ID:                CASE-007
+COUNTRY:                SPAIN (Andalucía)
+CROP:                   Vid (Vitis vinifera — VITVI)
+REGION:                 Huelva · Córdoba · Cádiz
+PROBLEM:                Míldio da videira (Plasmopara viticola — PLASVI)
+TIME:                   safra 2026, amostragem semanal de março a julho
+SOURCES:                ES-T3-001 (RAIF Andalucía)
+CROSSING:               província × data × cultura × doença
+```
+
+**WHAT_HAPPENED**
+A rede oficial andaluza mediu, parcela a parcela e semana a semana, o percentual de cepas
+afetadas por míldio. Em 2026:
+
+| | março | abril | maio | junho |
+|---|---|---|---|---|
+| **Huelva** | 0% | 4–9% | 13–17% | **24–26%** |
+| **Córdoba** | 0% | 0% | 5–6% (a partir de 20/05) | 6% → 0% |
+| **Cádiz** | 0% | 0% | 0% | 0% (duas leituras isoladas de 4%) |
+
+**WHAT_SINTONIA_CONNECTS**
+Uma epidemia real e crescente em Huelva, um episódio curto e contido em Córdoba, e
+praticamente nada em Cádiz — tudo na mesma comunidade autônoma, na mesma cultura, no mesmo
+ano, medido pela mesma rede com o mesmo protocolo.
+
+**WHY_ADAMA_SHOULD_CARE**
+Tratar "Andaluzia" como um território técnico único é errar por um fator de 26. A média
+regional (~7%) **não descreve nenhuma das três províncias**. Posicionamento técnico,
+recomendação e campanha precisam ser provinciais — e agora existe o dado que sustenta isso,
+semanalmente, de graça.
+
+**RAW_EVIDENCE**   `data/samples/ES-T3-001-raif-vid-mildiu-2026.json`
+**SCREEN_AVAILABLE**   ainda não
+**STATUS**             **REAL** (percentuais medidos em campo pela rede oficial)
+
+**O que este caso NÃO diz:** por que a diferença existe. Ver CASE-008.
+
+---
+
+### CASE-008 · O gráfico que quase fizemos — e que teria mentido
+
+```
+CASE_ID:                CASE-008
+COUNTRY:                SPAIN (Andalucía)
+CROP:                   Vid
+PROBLEM:                a tentação de explicar a doença pelo clima
+TIME:                   safra 2026
+SOURCES:                ES-T3-001 + EU-T2-001
+CROSSING:               X-009
+```
+
+**WHAT_HAPPENED**
+Com CASE-007 na mão, a pergunta seguinte é automática: *"foi o clima?"*. Medimos chuva,
+dias de chuva e umidade relativa na janela 15/03–31/05 para as três províncias.
+
+| Província | chuva | dias ≥1 mm | UR média | míldio |
+|---|---|---|---|---|
+| Huelva | 55,4 mm | 12 | 66,6% | **26,4%** |
+| Córdoba | **65,1 mm** | 12 | 66,1% | 6,4% |
+| Cádiz | 48,9 mm | 8 | **74,2%** | **≈0%** |
+
+**WHAT_SINTONIA_CONNECTS**
+Nada — e essa é a descoberta. **Córdoba choveu mais que Huelva e teve quatro vezes menos
+doença. Cádiz teve a maior umidade das três e praticamente nenhuma doença.** A ordem
+climática não reproduz a ordem epidemiológica.
+
+**WHY_ADAMA_SHOULD_CARE**
+Este é o caso que prova que o SINTONIA é um instrumento sério e não um gerador de painéis.
+Um dashboard com as duas curvas lado a lado — clima e doença, ambos dados reais, ambos de
+fontes oficiais — teria induzido a conclusão "a chuva trouxe o míldio", e teria orientado
+recomendação técnica e campanha na direção errada, em duas das três províncias.
+
+O SINTONIA **detectou** a armadilha porque tinha o dado dos dois lados e a disciplina de
+testar antes de afirmar. É o oposto do que a §8 da missão proíbe.
+
+**RAW_EVIDENCE**   `data/samples/X-001-completo-mildiu-vs-clima.json`
+**SCREEN_AVAILABLE**   ainda não — e, se existir, precisa de aviso explícito no bloco
+**STATUS**             **REAL** (as duas medições) + **DERIVED** (as janelas e agregações)
+
+**O que este caso NÃO diz:** que o clima é irrelevante para o míldio — seria a mentira
+oposta, e igualmente indefensável. A epidemiologia do míldio depende de clima; o que estes
+dados mostram é que **três pontos de província numa safra não bastam** para explicar a
+diferença observada, e que variedade, manejo e, sobretudo, o **programa de fungicida
+aplicado** — que a RAIF registra e nós ainda não cruzamos — ficaram de fora.
+
+---
+
 | CASE_ID | País | Cultura | Status | Tela |
 |---|---|---|---|---|
 | CASE-001 | EU → FR | Vigne | REAL | ainda não |
@@ -325,3 +415,5 @@ declarado em qualquer tela climática.
 | CASE-004 | ES | 45 combinações | REAL | ainda não |
 | CASE-005 | FR | Trigo comum | REAL + DERIVED | ainda não |
 | CASE-006 | ES | Trigo comum | REAL + DERIVED | ainda não |
+| CASE-007 | ES | Vid | REAL | ainda não |
+| CASE-008 | ES | Vid | REAL + DERIVED | ainda não |

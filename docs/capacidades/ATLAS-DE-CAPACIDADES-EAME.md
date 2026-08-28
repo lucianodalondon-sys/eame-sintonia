@@ -6,7 +6,7 @@ Fonte não é capacidade. Este atlas converte descoberta em **o que conseguimos 
 > "Detectar alertas fitossanitários regionais em trigo na França" é uma capacidade.
 > A segunda só entra aqui quando a primeira está provada com exemplo real.
 
-**Estado:** MISSÃO 02 em curso — **13 capacidades COMPROVADAS**.
+**Estado:** MISSÃO 02 em curso — **16 capacidades COMPROVADAS**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -408,11 +408,79 @@ USERS:               TEC · RND (é capacidade de método, não tela de negócio
 > da missão proíbe. O que está provado é a **capacidade de medir**, não a explicação.
 
 
+### CAP-014 · Medir pressão de doença por província e por semana, em número
+
+```
+CAPABILITY:          Acompanhar a incidência medida de uma doença numa cultura, por
+                     província e por data de amostragem, ao longo da safra.
+SOURCE:              ES-T3-001 (RAIF Andalucía)
+COUNTRY:             SPAIN (Andalucía)
+CROP:                vid, olivar, cítricos, fresa, arroz, algodón, almendro,
+                     cereales de invierno, hortícolas, remolacha
+GEOGRAPHY:           **parcela** (com coordenadas), agregável a município, comarca,
+                     zona homogênea e província
+TIME:                2006–2026 conforme a cultura; vid desde 2017
+UPDATE_FREQUENCY:    semanal
+CAN_AUTOMATE:        SIM
+CAN_HISTORY:         SIM — a série histórica já vem no pacote
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      TECHNICAL / COMMERCIAL / MD: onde a pressão está subindo, agora,
+                     e com que intensidade — para posicionamento técnico e de campanha.
+REAL_EXAMPLE:        Míldio da videira (PLASVI), safra 2026, % de cepas afetadas:
+                     **Huelva** 0% (mar) → 4–9% (abr) → 13–17% (mai) → **26,4% (16/06)**
+                     **Córdoba** 0% até 20/05 → patamar de ~6% (20/05–10/06) → 0%
+                     **Cádiz** 0% praticamente a safra inteira (duas leituras de 4%)
+USERS:               TEC (primário) · COM · MD · MKT
+```
+
+### CAP-015 · Detectar que a doença é regional, não nacional
+
+```
+CAPABILITY:          Mostrar, dentro de uma mesma região administrativa e uma mesma safra,
+                     que a pressão de doença difere radicalmente entre províncias.
+SOURCE:              ES-T3-001
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      COMMERCIAL / MKT: não tratar "Andaluzia" como um mercado técnico único.
+REAL_EXAMPLE:        Na mesma safra, mesma cultura, mesma doença: 26,4% em Huelva,
+                     6,4% em Córdoba, 0% em Cádiz.
+USERS:               COM · MKT · TEC · COUNTRY
+```
+
+> **RED TEAM — e este erro nós quase cometemos.** A primeira leitura agregou as três
+> províncias numa única "curva da Andaluzia". Ela subia e descia em zigue-zague e parecia um
+> ciclo epidêmico. **Era artefato de amostragem:** províncias diferentes são visitadas em
+> dias diferentes, então a média diária refletia *qual província foi amostrada naquele dia*,
+> não a evolução da doença. Desagregando por província, o zigue-zague desaparece e surgem
+> três histórias limpas e distintas. **A média andaluza (~7%) não descreve nenhuma das três.**
+> Registrado porque é exatamente o tipo de gráfico bonito e falso que a missão proíbe.
+
+### CAP-016 · Saber quando a fonte declara condições favoráveis à doença
+
+```
+CAPABILITY:          Ler o sinalizador oficial de "condições favoráveis" que a própria rede
+                     de monitoramento publica, com data.
+SOURCE:              ES-T3-001, campo "1604 Mildiu: condiciones favorables (0=No; 1=Si)"
+CONFIDENCE:          COMPROVADO (o campo existe e está datado)
+ADAMA_DECISION:      TECHNICAL: alinhar recomendação e comunicação à janela em que a
+                     autoridade regional já declarou risco.
+REAL_EXAMPLE:        Safra 2026: sinalizador ligado de **13/04 a 27/05** (11 de 11
+                     observações em cada data), desligado antes e a partir de 03/06.
+                     O pico medido de míldio em Huelva veio em **02–16/06** — depois da
+                     janela sinalizada.
+USERS:               TEC · MD
+```
+
+> **RED TEAM.** O sinalizador é **modelo da RAIF**, não medição nossa e não verdade
+> universal. A sequência "janela favorável em abril–maio, pico em junho" é **compatível**
+> com epidemiologia conhecida, mas foi observada em **uma safra, uma cultura, uma região**.
+> Não é validação do modelo, e muito menos autorização para prever surto.
+
+
 ### Placar
 
 | CONFIDENCE | Quantidade |
 |---|---|
-| COMPROVADO | 13 |
+| COMPROVADO | 16 |
 | INFERÊNCIA | 0 |
 | HIPÓTESE | 0 |
 | NÃO SEI | 0 |
@@ -423,7 +491,7 @@ USERS:               TEC · RND (é capacidade de método, não tela de negócio
 |---|---|---|---|---|
 | EUROPE | 7 | 0 | 0 | 0 |
 | FRANCE | 3 | 0 | 0 | 0 |
-| SPAIN | 2 | 0 | 0 | 0 |
+| SPAIN | 5 | 0 | 0 | 0 |
 | ITALY | 1 | 0 | 0 | 0 |
 
 ---
@@ -435,4 +503,7 @@ a história para o relatório ficar mais bonito.
 
 | ID | Capacidade que se supôs | Por que caiu | Data |
 |---|---|---|---|
-| *(nenhuma ainda)* | | | |
+| H-001 | "Eurostat dá produtividade agrícola por região NUTS 2" — o dataset se chama *by NUTS 2 region*. | **Caiu.** Testado em 2021–2024: o rendimento tem **zero** valores em NUTS 2 para qualquer país. Só **área** desce a NUTS 2. Ver EU-T1-001. | 2026-08-28 |
+| H-002 | "`ec.europa.eu` está inacessível a partir deste ambiente." | **Caiu.** Eurostat responde normalmente no mesmo domínio, e a página da base de pesticidas devolve 200. O que falha é o **caminho da API interna** de pesticidas. Ver EU-T4-002. | 2026-08-28 |
+| H-003 | "A curva de míldio da Andaluzia mostra o ciclo epidêmico da região." | **Caiu.** Era artefato de amostragem: províncias distintas amostradas em dias distintos. Desagregado, viram três curvas independentes. Ver CAP-015. | 2026-08-28 |
+| H-004 | "Chuva e umidade explicam onde o míldio apareceu na Andaluzia em 2026." | **Caiu, com dado.** Cádiz teve a **maior** umidade média (74,2%) e praticamente **zero** doença; Córdoba teve **mais** chuva que Huelva (65,1 × 55,4 mm) e **4× menos** doença. Ver X-009. | 2026-08-28 |
