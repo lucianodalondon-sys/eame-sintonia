@@ -101,6 +101,22 @@ Regras do diário:
 - **Consequência:** Os atlas mostram zero registros. Isso é o estado correto da Fase 0.
 - **Quem decidiu:** Enunciado da tarefa (princípio e regra).
 
+### D-007 — Claude descobre o produto; Claude Design desenha o produto
+- **Data:** 2026-08-28
+- **Estado:** DECIDIDO
+- **Contexto:** o protótipo da MISSÃO 02 provou que os dados sustentam blocos reais, mas
+  continuar a desenvolvê-lo misturaria descoberta com design.
+- **Decisão:** `prototype/portal` fica **congelado como artefato histórico** — não é
+  desenvolvido, não é atualizado e **não é base de decisão**. A MISSÃO 03 passa a ser
+  100% texto, dados, evidência e arquitetura conceitual de informação. Todo o trabalho
+  visual vai para missão separada, com Claude Design.
+- **Motivo:** o Design não deve precisar descobrir o produto; deve transformar uma
+  arquitetura de informação já fechada em experiência visual.
+- **Consequência:** o fluxo desta missão termina em INFORMATION REQUIREMENTS e **não**
+  continua para UI, componente, página ou portal. O estado `PROTOTYPE` deixa de ser usado
+  em ficha de ferramenta.
+- **Quem decidiu:** cliente, redirecionamento de 2026-08-28.
+
 ---
 
 ## PERGUNTAS PENDENTES

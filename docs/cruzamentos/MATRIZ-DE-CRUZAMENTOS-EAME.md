@@ -131,7 +131,7 @@ CLASS:              COMPROVADO (para "usos autorizados"; NÃO para participaçã
 market share, faturamento ou adoção — essas variáveis não estão na fonte. Ver §8 da missão:
 correlação não vira causalidade, e presença regulatória não vira liderança.
 
-### X-006 · EU ACTIVE SUBSTANCE + NATIONAL PRODUCT AUTHORIZATION — **PARCIAL (testado, com limite medido)**
+### X-006 · EU ACTIVE SUBSTANCE + NATIONAL PRODUCT AUTHORIZATION — **COMPROVADO com cobertura medida (segunda chave fechada na MISSÃO 03)**
 
 ```
 CROSSING_ID:        X-006
@@ -168,10 +168,62 @@ ato da UE (CELEX) → CAS → substância no E-Phy → produtos franceses → ti
 | Casamento CAS → E-Phy, quando havia CAS | **3 de 4** | O CAS que falhou (67701-09-1) é de uma fração de ácidos graxos, não da substância principal do ato. |
 | Substâncias do E-Phy que trazem nº CAS | **621 de 1.338** | Menos da metade. Para o resto, o casamento teria de ser por nome — e nome varia entre línguas e grafias. |
 
-**Conclusão honesta:** a chave CAS é **real e funciona**, mas cobre apenas parte do universo.
-Um cruzamento de produção precisaria de uma segunda chave (nome normalizado da substância)
-e de medição da taxa de acerto dessa segunda chave. Enquanto isso não for feito, qualquer
-número derivado deste cruzamento é **incompleto por construção** e assim deve aparecer.
+**Conclusão da MISSÃO 02:** a chave CAS é real e funciona, mas cobre parte do universo.
+Faltava a segunda chave — nome normalizado da substância — **e a medição dela**.
+
+---
+
+### A SEGUNDA CHAVE — construída e medida na MISSÃO 03 (FASE 2)
+
+O problema foi medido antes de qualquer código, e é maior do que parecia:
+
+| Fato medido | Número |
+|---|---|
+| Grafias distintas de substância nos produtos franceses | **1.225** |
+| Dessas, as que **não batem** com a própria tabela oficial francesa | **736 (60%)** |
+| Substâncias da tabela francesa que trazem número CAS | 624 de 1.338 (**46,6%**) |
+| Grafias distintas no registro italiano (em inglês maiúsculo) | 829 |
+
+A França escreve em francês (`mancozèbe`, `zinèbe`, `carbendazime`, `folpel`), a Itália em
+inglês (`MANCOZEB`, `COPPER OXYCHLORIDE`), e 560 usos franceses citam
+`glyphosate sel d'isopropylamine` — um **sal**, não a molécula-mãe.
+
+**Método** (`scripts/normalize_substance.py`), em ordem de confiança declarada:
+
+| Método | O que faz | Confiança |
+|---|---|---|
+| `CAS` | número CAS idêntico | ALTA |
+| `EXACT_NAME` | nome normalizado idêntico | ALTA |
+| `MORPHOLOGY` | regra de sufixo FR↔ISO (`mancozèbe`→`mancozeb`, `folpel`→`folpet`) | MÉDIA |
+| `SALT_STRIPPED` | sal ou éster removido (`2,4-D ester amylique`→`2,4-D`) | **BAIXA** |
+| `FUZZY` | similaridade ≥0,92 **com guarda química** | **BAIXA** |
+| `REJECTED_FUZZY` | recusado pela guarda | — |
+
+**Resultado medido, com amostra cega de 30% (semente fixa 20260828):**
+
+| Conjunto | grafias | resolvidas | **por uso** |
+|---|---|---|---|
+| **França — corpus completo** | 1.225 | 63,3% | **82,1%** |
+| **França — AMOSTRA CEGA** | 368 | **62,5%** | **77,4%** |
+| **Itália contra a tabela francesa** | 829 | 72,4% | ~75,8% |
+
+**O cego bate com o completo.** É isso que autoriza dizer que o normalizador **generaliza**
+em vez de ter decorado o corpus. **A cobertura defensável é ~63% das grafias e ~82% do uso
+real — não 100%, e o número é esse.**
+
+**Falsos positivos — a guarda que precisou existir.** A similaridade textual pura casou
+**"Methanol" → "Ethanol"** e **"ALACLOR" → "Alachlor"**. A primeira é um erro químico grave:
+são moléculas diferentes. Foi acrescentada uma guarda (diferença de comprimento ≤2 e mesma
+inicial) que **recusa** esses casos — `REJECTED_FUZZY`. Recusar é resultado correto.
+
+**O que sobra sem resolver (448 grafias, 17,9% do uso):** dominado por **formas de cobre e
+enxofre** — `cuivre de l'oxychlorure de cuivre` (255 produtos), `sulfate de cuivre` (242),
+`soufre micronisé` (216), `soufre triture ventile` (117) — que a tabela francesa não lista
+como entrada própria; mais 58 micro-organismos, 33 extratos e óleos vegetais e 3 feromônios.
+**Não foram forçados a casar.** Cobre e enxofre em formas diferentes **não são a mesma
+entrada de registro**, e transformá-los em uma só seria fabricar dado.
+
+**CLASS: COMPROVADO**, com a cobertura declarada acima em toda saída derivada deste cruzamento.
 
 **As oito perguntas (§7):**
 A · sujeito de A: a **substância ativa**, no nível da União.
