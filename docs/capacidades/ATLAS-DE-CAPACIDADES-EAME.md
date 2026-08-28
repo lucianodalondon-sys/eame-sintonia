@@ -6,7 +6,7 @@ Fonte não é capacidade. Este atlas converte descoberta em **o que conseguimos 
 > "Detectar alertas fitossanitários regionais em trigo na França" é uma capacidade.
 > A segunda só entra aqui quando a primeira está provada com exemplo real.
 
-**Estado:** MISSÃO 02 em curso — **19 capacidades COMPROVADAS**.
+**Estado:** MISSÃO 02 em curso — **20 capacidades COMPROVADAS**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -555,11 +555,34 @@ USERS:               COM · EAME · MD · COUNTRY
 defensivo, margem do produtor ou custo de produção.
 
 
+### CAP-020 · Vigiar mudanças da política agrícola comum, com identificador e data
+
+```
+CAPABILITY:          Detectar todo ato da UE que altere a política agrícola comum,
+                     com CELEX, data e texto integral nas quatro línguas.
+SOURCE:              EU-T12-001 (mesma infraestrutura de EU-T4-001)
+COUNTRY:             EUROPE
+GEOGRAPHY:           UE
+UPDATE_FREQUENCY:    contínua
+CAN_AUTOMATE:        SIM — nenhuma engenharia nova: muda o filtro, não o conector
+CAN_HISTORY:         SIM
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      EAME / COUNTRY: antecipar mudança de regra que muda o comportamento
+                     do produtor antes de mudar o mercado.
+REAL_EXAMPLE:        CELEX 32026R0148 e 32026R0149, ambos de 21/01/2026, alterando
+                     regulamentos da política agrícola comum.
+USERS:               EAME · COUNTRY · REG · MD
+```
+
+**Observação de arquitetura:** esta capacidade **custa quase zero** porque reaproveita o
+conector de T4. É o melhor retorno por esforço encontrado na missão.
+
+
 ### Placar
 
 | CONFIDENCE | Quantidade |
 |---|---|
-| COMPROVADO | 19 |
+| COMPROVADO | 20 |
 | INFERÊNCIA | 0 |
 | HIPÓTESE | 0 |
 | NÃO SEI | 0 |
@@ -568,7 +591,7 @@ defensivo, margem do produtor ou custo de produção.
 
 | | COMPROVADO | INFERÊNCIA | HIPÓTESE | NÃO SEI |
 |---|---|---|---|---|
-| EUROPE | 10 | 0 | 0 | 0 |
+| EUROPE | 11 | 0 | 0 | 0 |
 | FRANCE | 3 | 0 | 0 | 0 |
 | SPAIN | 5 | 0 | 0 | 0 |
 | ITALY | 1 | 0 | 0 | 0 |

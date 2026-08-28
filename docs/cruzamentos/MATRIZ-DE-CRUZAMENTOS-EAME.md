@@ -6,7 +6,7 @@ juntas** revelam e nenhuma delas revela sozinha.
 > **Não afirmar cruzamento apenas porque semanticamente parece interessante.**
 > Clima + doença "parece" cruzar. A pergunta real é: **qual chave os une?**
 
-**Estado:** MISSÃO 02 em curso — **3 COMPROVADOS, 4 PARCIAIS, 3 NÃO COMPÕEM**.
+**Estado:** MISSÃO 02 em curso — **3 COMPROVADOS, 4 PARCIAIS, 3 NÃO COMPÕEM, 1 POSSÍVEL NÃO TESTADO**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -431,12 +431,35 @@ datado. Comunicação é **intenção**, e mesmo obtida seria matéria mais frá
 pediu para não fazer clipping genérico; o dado disponível empurra exatamente para lá.
 
 
+### X-011 · EVENT + COMPETITOR + RESEARCHER — **POSSÍVEL NÃO TESTADO**
+
+```
+CROSSING_ID:        X-011
+COMPONENTS:         evento (catálogo de expositores e programa) + concorrente + pesquisador
+SOURCES:            IT-T11-001 (EIMA) + FR-T4-001/IT-T4-001 (titulares) + EU-T5-001 (autores)
+KEY CANDIDATA:      nome da empresa (expositor × titular de registro) e
+                    nome da pessoa (palestrante × autor)
+CLASS:              POSSÍVEL NÃO TESTADO
+```
+
+**Por que é plausível:** a EIMA 2026 (10–14/11/2026, Bologna) publica catálogo de expositores;
+o registro italiano publica os titulares de autorização; o OpenAlex publica os autores. Os três
+usam nomes próprios como chave.
+
+**Por que não foi testado:** casar **nome de empresa** entre um catálogo de feira e um registro
+oficial é notoriamente sujo — "ADAMA ITALIA S.R.L." no registro pode ser "Adama" no catálogo.
+A taxa de acerto teria de ser medida antes de qualquer afirmação, e o catálogo não foi baixado.
+
+**Prioridade:** baixa. T11 é a família mais pobre em formato e a de menor valor relativo
+entre as investigadas.
+
+
 ### Placar
 
 | Classe | Quantidade |
 |---|---|
 | COMPROVADO | 3 |
 | PARCIAL | 4 |
-| POSSÍVEL MAS NÃO TESTADO | 0 |
+| POSSÍVEL MAS NÃO TESTADO | 1 |
 | NÃO COMPÕE | 3 |
 | NÃO SEI | 0 |

@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **28 fontes registradas** (12 GREEN, 2 YELLOW, 14 NÃO SEI).
+**Estado:** MISSÃO 02 em curso — **31 fontes registradas** (13 GREEN, 4 YELLOW, 14 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -958,23 +958,86 @@ aqui há criadores individuais e não apenas autoria científica.
 
 ---
 
+### T12 · POLICY / AGRICULTURAL ENVIRONMENT — EUROPE
+
+#### EU-T12-001 · CELLAR / Jornal Oficial — atos de política agrícola (mesma fonte de EU-T4-001)
+
+```
+SOURCE_ID:                    EU-T12-001
+SOURCE_NAME:                  CELLAR / EU Publications Office — camada de política agrícola
+SOURCE_OWNER:                 Publications Office of the European Union
+COUNTRY:                      EUROPE
+TERRITORY:                    T12
+ACCESS_METHOD:                **a mesma infraestrutura já provada em EU-T4-001** —
+                              SPARQL + content negotiation. Muda apenas a consulta.
+                              `./scripts/cellar.sh sparql "<consulta>"`
+TOPICS:                       PAC, condicionalidade, ecoesquemas, restrições, sustentabilidade
+GEOGRAPHIC_GRANULARITY:       UNIÃO EUROPEIA
+UPDATE_FREQUENCY:             contínua
+HISTORICAL_DEPTH:             todo o acervo CELEX
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       ALTA
+LEGAL_OR_ACCESS_RISK:         BAIXO
+REAL_EXAMPLE:                 CELEX 32026R0148 e 32026R0149, ambos de 21/01/2026, alterando
+                              regulamentos de execução e delegado da **política agrícola
+                              comum**.
+ADAMA_USE_CASE:               EAME / COUNTRY / REGULATORY: mudanças de política que afetam
+                              o produtor antes de afetarem o mercado.
+EVIDENCE:                     mesma cadeia de EU-T4-001; consulta registrada em scripts/cellar.sh
+VERDICT:                      GREEN
+```
+
+**Descoberta de eficiência:** T12 **não precisou de fonte nova**. A mesma infraestrutura de
+T4 responde à política agrícola — muda o filtro do título, não o acesso. Isto reduz o custo
+de duas famílias a um único conector.
+
+---
+
+### T11 · EVENTS
+
+```
+SOURCE_ID:                    IT-T11-001 (EIMA) · FR-T11-001 (Vinitech-SIFEL)
+TERRITORY:                    T11
+ACCESS_METHOD:                site institucional do evento (HTML)
+VERDICT:                      YELLOW
+```
+
+**Alcance medido:** `eima.it` **200** · `vinitech-sifel.com` **200** ·
+`fimazaragoza.com` **502 no CONNECT** · `fruitattraction.com` **502**. Dois dos quatro
+grandes eventos testados são alcançáveis deste ambiente; dois não.
+
+**REAL_EXAMPLE:** **EIMA International**, 47ª edição, **10–14 de novembro de 2026**, Bologna
+(IT), com catálogo de expositores publicado on-line e planta do salão disponível.
+
+**Por que YELLOW e não GREEN:** existe informação real, datada e verificável — data, edição,
+local e lista de expositores. Mas **não há formato estruturado**: nem API, nem calendário
+padronizado, nem catálogo em dado aberto. Montar um EVENT RADAR exigiria tratar cada evento
+como um caso, com o site de cada um mudando a cada edição. É viável e de baixo risco
+jurídico, mas de manutenção alta e de valor menor que T3, T4 e T5.
+
+**O que T11 poderia entregar e ainda não foi testado:** o catálogo de expositores da EIMA
+cruzaria com T9 (quais concorrentes estão presentes, com que estande) e com T6 (que
+pesquisadores participam do programa científico). É um cruzamento **plausível e não testado**.
+
+---
+
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
-| EUROPE | 7 | 0 | 0 | 6 | 13 |
-| FRANCE | 1 | 1 | 0 | 3 | 5 |
+| EUROPE | 8 | 0 | 0 | 6 | 14 |
+| FRANCE | 1 | 2 | 0 | 3 | 6 |
 | SPAIN | 3 | 0 | 0 | 3 | 6 |
-| ITALY | 1 | 1 | 0 | 2 | 4 |
-| **Total** | **12** | **2** | **0** | **14** | **28** |
+| ITALY | 1 | 2 | 0 | 2 | 5 |
+| **Total** | **13** | **4** | **0** | **14** | **31** |
 
 ### Cobertura por território
 
 | | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | – |
-| FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | – | – |
+| EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
+| FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
 | SPAIN | 1? | – | **1G** | 2G/1? | – | – | – | – | 1? | – | – | – |
-| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | – | – | – |
+| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | – | 1Y | – |
 
 *(– = não investigado)*
