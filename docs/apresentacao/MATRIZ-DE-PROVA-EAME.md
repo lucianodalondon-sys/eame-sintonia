@@ -41,7 +41,7 @@ histórica e falta coleta de conversa pública**.
 | **010** | "regulatory status changes" | **PROVED** | ✅ | ⚠️ | ✅ | ✅ | REGULATION | X-006 ✅ | X-006 | **CASE-011** | HIGH | — | — |
 | **011** | "competitor **increases**" | **UNPROVED** | ❌ | ❌ | ❌ | — | COMPETITOR | — | X-003 ❌ | — | HIGH | coleta + base | régua temporal |
 | **012** | new registration/manuf./origin | **PARTIAL** | ⚠️ | ❌ | ⚠️ | — | MOLECULE | X-006 ✅ | — | — | HIGH | versionamento semanal | arquivar versões |
-| **013** | SAME ISSUE | **PARTIAL** | ⚠️ | ✅ | ❌ | — | FIELD | **X-007 ⚠️** | X-007 | CASE-007 | HIGH | FR→EPPO | fechar X-007 |
+| **013** | SAME ISSUE | **PARTIAL** | ⚠️ 23,5% | ✅ | ❌ | — | FIELD | **X-007 medido: 23,5% do uso** | X-007 | CASE-007 | HIGH | 76,5% do uso francês | resolver cultura-grupo |
 | **014** | SAME MOLECULE | **PROVED** | ✅ | ✅ | ✅ | ✅ | MOLECULE | **X-006 ✅ 82% uso** | X-006 | **CASE-011** | HIGH | cobre e enxofre | — |
 | **015** | SAME COMPETITOR | **PARTIAL** | ✅ | ❌ | ✅ | — | COMPETITOR | **falta** | X-005 | CASE-011 | HIGH | normalizar titular→grupo | normalizador de entidade |
 | **016** | SIMILAR MOVEMENT | **NOT TESTABLE** | ❌ | ⚠️ | ❌ | — | FIELD | — | — | — | HIGH | série em ≥2 países | — |
@@ -100,7 +100,7 @@ Legenda: ✅ provado · ⚠️ parcial · ❌ ausente · — não se aplica
 |---|---|---|---|---|
 | **G1** | **Linha de base histórica** de qualquer camada de conversa | DECK-009, 011, 016, 022, 028 | alto — exige começar a arquivar **hoje** | **máxima** |
 | **G2** | **Manufacturer / origem autorizada** | DECK-006, 012, 029 | desconhecido — nunca investigado | alta |
-| **G3** | **Normalização FR→EPPO** (X-007) | DECK-013, 019, 020 | médio — metade já feita | alta |
+| **G3** | **Normalização FR→EPPO** (X-007) | DECK-013, 019, 020 | **medido: resolve 23,5% do uso; 46% do vocabulário francês é grupo por construção e não tem espécie** | alta |
 | **G4** | **Normalização de titular → grupo** | DECK-015 | baixo | média |
 
 > **G1 tem uma propriedade que os outros não têm: ele não se resolve pesquisando melhor.**

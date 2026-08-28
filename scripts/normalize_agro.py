@@ -23,6 +23,7 @@ confirmação vem de outra, e o que não confirma **não entra**.
 """
 import csv, json, os, re, sys, unicodedata, random
 from difflib import SequenceMatcher
+from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from eppo_gd import names as eppo_names
 
@@ -74,8 +75,43 @@ def es_dict():
         return json.load(f)
 
 
+PEST_INDEX = os.path.join(ROOT, 'data', 'raw', 'EPPO-CACHE', 'pest_fr_index.json')
+_pidx = None
+
+
+def pest_index():
+    """Índice nome-francês → código EPPO de praga, construído da EPPO GD.
+
+    Substitui a geração de candidatos via dicionário espanhol, que falhava em
+    pares como `rouille`↔`roya`: a proximidade lexical entre francês e espanhol
+    não é confiável, e medimos isso (`Blé × Rouille(s)` ficava UNRESOLVED).
+    Agora o candidato vem do **nome francês da própria autoridade EPPO**.
+    """
+    global _pidx
+    if _pidx is None:
+        _pidx = {}
+        if os.path.exists(PEST_INDEX):
+            with open(PEST_INDEX, encoding='utf-8') as f:
+                _pidx = json.load(f)
+    return _pidx
+
+
+def pest_candidates(fr_target):
+    """Códigos cujo nome francês compartilha o termo do alvo francês."""
+    ft = toks(fr_target)
+    if not ft:
+        return []
+    out = []
+    for code, e in pest_index().items():
+        for name in e.get('fr', []):
+            if ft & toks(name):
+                out.append(code)
+                break
+    return out
+
+
 def candidates(fr_term, es_entries, k=4):
-    """Códigos EPPO candidatos, propostos pelo dicionário espanhol."""
+    """(legado) Códigos EPPO candidatos propostos pelo dicionário espanhol."""
     scored = []
     ft = toks(fr_term)
     for code, e in es_entries.items():
@@ -95,7 +131,9 @@ def candidates(fr_term, es_entries, k=4):
 
 def verify(code, fr_term, fr_crop_names):
     """Confirma o candidato contra a EPPO GD. Devolve (match_type, prova)."""
-    n = eppo_names(code)
+    n = pest_index().get(code) or eppo_names(code)
+    if 'fr' in n:
+        n = {'ok': True, 'French': n['fr'], 'preferred': n.get('preferred')}
     if not n.get('ok'):
         return None, None
     fr = [x for x in n.get('French', [])]
@@ -177,7 +215,7 @@ def build(pairs, esd, limit):
             out.append(rec)
             continue
         hits = []
-        for code in candidates(target, esd['pests']):
+        for code in pest_candidates(target):
             mt, proof = verify(code, target, cnametoks)
             if mt:
                 hits.append((mt, code, proof))
@@ -185,17 +223,32 @@ def build(pairs, esd, limit):
         # verificados, vence aquele cujo nome francês da EPPO cita a cultura francesa
         # do próprio par. "mildiou de la vigne" resolve Vigne × Mildiou(s);
         # o mesmo alvo em Tomate resolve para outro código, e é assim que deve ser.
-        ctx = [h for h in hits if h[0] == 'CONTEXTUAL']
-        exact = ctx or hits
+        # Desempate por contexto de cultura. Quando SOBRA MAIS DE UM candidato e todos
+        # citam a cultura do par, a resposta certa NÃO é "ambíguo": é **grupo**.
+        # O registro francês escreve `Rouille(s)`, `Septoriose(s)`, `Oïdium(s)` no plural
+        # exatamente porque o termo cobre várias espécies na mesma cultura. Forçar uma
+        # espécie única aí seria inventar precisão que a fonte não tem.
+        ctx = sorted({h[1] for h in hits if h[0] == 'CONTEXTUAL'})
         if not hits:
             rec['MATCH_TYPE'] = 'UNRESOLVED'
-            rec['EVIDENCE'] = 'nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD'
-        elif len({h[1] for h in exact}) > 1:
+            rec['EVIDENCE'] = 'nenhum candidato foi confirmado pela EPPO GD'
+        elif len(ctx) > 1:
+            names = {c: (pest_index().get(c) or {}).get('preferred') for c in ctx}
+            rec['MATCH_TYPE'] = 'GROUP_SCOPED'
+            rec['EPPO_TARGET'] = ctx
+            rec['CANONICAL_TARGET'] = [names[c] for c in ctx]
+            rec['SCIENTIFIC_NAME'] = [names[c] for c in ctx]
+            rec['EVIDENCE'] = ('grupo delimitado pela cultura — EPPO GD confirma para '
+                               + rec['ORIGINAL_CROP'] + ': '
+                               + ', '.join(f'{c} ({names[c]})' for c in ctx))
+        elif not ctx:
             rec['MATCH_TYPE'] = 'AMBIGUOUS'
-            rec['EVIDENCE'] = 'candidatos verificados sem desempate: ' + ', '.join(sorted({h[1] for h in exact}))
+            rec['EVIDENCE'] = ('candidatos verificados mas nenhum citando a cultura: '
+                               + ', '.join(sorted({h[1] for h in hits})))
         else:
+            exact = [h for h in hits if h[1] == ctx[0]]
             mt, code, proof = exact[0]
-            n = eppo_names(code)
+            n = pest_index().get(code) or eppo_names(code)
             rec.update({'MATCH_TYPE': mt, 'EPPO_TARGET': code,
                         'SCIENTIFIC_NAME': n.get('preferred'),
                         'CANONICAL_TARGET': n.get('preferred'),
@@ -209,9 +262,9 @@ def summarise(recs, titulo):
     c = Counter(r['MATCH_TYPE'] for r in recs)
     n = len(recs)
     print(f'\n=== {titulo} ({n} pares)')
-    for k in ('EXACT', 'CONTEXTUAL', 'GROUP', 'AMBIGUOUS', 'UNRESOLVED'):
+    for k in ('EXACT', 'CONTEXTUAL', 'GROUP_SCOPED', 'GROUP', 'AMBIGUOUS', 'UNRESOLVED'):
         print(f'   {k:11s} {c[k]:4d}  {100*c[k]/n:5.1f}%')
-    resolved = c['EXACT'] + c['CONTEXTUAL']
+    resolved = c['EXACT'] + c['CONTEXTUAL'] + c['GROUP_SCOPED']
     nongroup = n - c['GROUP']
     print(f'   resolvidos: {resolved}/{n} = {100*resolved/n:.1f}% do total; '
           f'{100*resolved/nongroup:.1f}% dos que não são grupo')
@@ -220,10 +273,37 @@ def summarise(recs, titulo):
     return c
 
 
+def evaluate(pairs, esd):
+    """Amostra cega: pares que NÃO estão entre os 40 de construção.
+
+    As regras (contexto de cultura, plural = grupo, recusa de grupo francês) foram
+    desenhadas olhando os 40 pares de maior valor. A amostra cega mede se elas
+    valem fora deles.
+    """
+    top = [k for k, _ in pairs.most_common(40)]
+    resto = [k for k in pairs if k not in set(top)]
+    rng = random.Random(20260828)
+    rng.shuffle(resto)
+    blind = resto[:60]
+    sub = Counter({k: pairs[k] for k in blind})
+    recs = build(sub, esd, len(blind))
+    c = summarise(recs, 'AMOSTRA CEGA (60 pares fora da construção)')
+    with open(OUT, encoding='utf-8') as f:
+        prev = json.load(f)
+    prev['blind'] = {'pairs': len(recs), 'by_match_type': dict(c),
+                     'resolved': c['EXACT'] + c['CONTEXTUAL'] + c['GROUP_SCOPED'],
+                     'records': recs}
+    with open(OUT, 'w', encoding='utf-8') as f:
+        json.dump(prev, f, ensure_ascii=False, indent=2)
+    return recs
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'build'
     pairs, esd = load_pairs(), es_dict()
-    if cmd == 'build':
+    if cmd == 'evaluate':
+        evaluate(pairs, esd)
+    elif cmd == 'build':
         recs = build(pairs, esd, 40)
         c = summarise(recs, 'CONSTRUÇÃO (40 pares de maior valor)')
         with open(OUT, 'w', encoding='utf-8') as f:

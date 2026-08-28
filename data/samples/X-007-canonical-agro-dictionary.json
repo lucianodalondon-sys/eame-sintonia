@@ -18,24 +18,11 @@
       "USES": 168,
       "EPPO_CROP": "VITVI",
       "CANONICAL_CROP": "Vitis vinifera",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: PLASVI, PSPECU, PSPEHU, PSPESR",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Traitements généraux",
-      "ORIGINAL_TARGET": "Limaces et escargots",
-      "USES": 165,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
-      "MATCH_TYPE": "GROUP"
+      "EPPO_TARGET": "PLASVI",
+      "CANONICAL_TARGET": "Plasmopara viticola",
+      "SCIENTIFIC_NAME": "Plasmopara viticola",
+      "EVIDENCE": "EPPO GD PLASVI: nome francês \"mildiou de la vigne\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -44,24 +31,20 @@
       "USES": 154,
       "EPPO_CROP": "TRZAX",
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Crucifères oléagineuses",
-      "ORIGINAL_TARGET": "Sclérotiniose",
-      "USES": 142,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SCLEMI, SCLETR",
-      "MATCH_TYPE": "AMBIGUOUS"
+      "EPPO_TARGET": [
+        "PUCCRT",
+        "PUCCST"
+      ],
+      "CANONICAL_TARGET": [
+        "Puccinia triticina",
+        "Puccinia striiformis"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Puccinia triticina",
+        "Puccinia striiformis"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Blé: PUCCRT (Puccinia triticina), PUCCST (Puccinia striiformis)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -70,11 +53,20 @@
       "USES": 135,
       "EPPO_CROP": "TRZAX",
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": "SEPTTR",
-      "CANONICAL_TARGET": "Zymoseptoria tritici",
-      "SCIENTIFIC_NAME": "Zymoseptoria tritici",
-      "EVIDENCE": "EPPO GD SEPTTR: nome francês \"septoriose du blé\"",
-      "MATCH_TYPE": "CONTEXTUAL"
+      "EPPO_TARGET": [
+        "LEPTNO",
+        "SEPTTR"
+      ],
+      "CANONICAL_TARGET": [
+        "Parastagonospora nodorum",
+        "Zymoseptoria tritici"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Parastagonospora nodorum",
+        "Zymoseptoria tritici"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Blé: LEPTNO (Parastagonospora nodorum), SEPTTR (Zymoseptoria tritici)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -83,11 +75,20 @@
       "USES": 130,
       "EPPO_CROP": "HORVX",
       "CANONICAL_CROP": "Hordeum vulgare",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
+      "EPPO_TARGET": [
+        "PUCCHD",
+        "PUCCST"
+      ],
+      "CANONICAL_TARGET": [
+        "Puccinia hordei",
+        "Puccinia striiformis"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Puccinia hordei",
+        "Puccinia striiformis"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Orge: PUCCHD (Puccinia hordei), PUCCST (Puccinia striiformis)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -96,11 +97,20 @@
       "USES": 128,
       "EPPO_CROP": "HORVX",
       "CANONICAL_CROP": "Hordeum vulgare",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: RHYNGR, RHYNSE",
-      "MATCH_TYPE": "AMBIGUOUS"
+      "EPPO_TARGET": [
+        "RHYNGR",
+        "RHYNSE"
+      ],
+      "CANONICAL_TARGET": [
+        "Rhynchosporium graminicola",
+        "Rhynchosporium secalis"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Rhynchosporium graminicola",
+        "Rhynchosporium secalis"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Orge: RHYNGR (Rhynchosporium graminicola), RHYNSE (Rhynchosporium secalis)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -109,11 +119,11 @@
       "USES": 123,
       "EPPO_CROP": "SECCE",
       "CANONICAL_CROP": "Secale cereale",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
+      "EPPO_TARGET": "PUCCST",
+      "CANONICAL_TARGET": "Puccinia striiformis",
+      "SCIENTIFIC_NAME": "Puccinia striiformis",
+      "EVIDENCE": "EPPO GD PUCCST: nome francês \"rouille jaune du seigle\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -122,11 +132,23 @@
       "USES": 122,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: PLASVI, PSPECU, PSPEHU, PSPESR",
-      "MATCH_TYPE": "AMBIGUOUS"
+      "EPPO_TARGET": [
+        "PHYTCC",
+        "PHYTIN",
+        "PHYTNP"
+      ],
+      "CANONICAL_TARGET": [
+        "Phytophthora cactorum",
+        "Phytophthora infestans",
+        "Phytophthora nicotianae"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Phytophthora cactorum",
+        "Phytophthora infestans",
+        "Phytophthora nicotianae"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Tomate - Aubergine: PHYTCC (Phytophthora cactorum), PHYTIN (Phytophthora infestans), PHYTNP (Phytophthora nicotianae)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -135,37 +157,20 @@
       "USES": 122,
       "EPPO_CROP": "HORVX",
       "CANONICAL_CROP": "Hordeum vulgare",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Blé",
-      "ORIGINAL_TARGET": "Oïdium(s)",
-      "USES": 115,
-      "EPPO_CROP": "TRZAX",
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Fruits à pépins",
-      "ORIGINAL_TARGET": "Tavelure(s)",
-      "USES": 114,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
+      "EPPO_TARGET": [
+        "PYRNGR",
+        "PYRNTE"
+      ],
+      "CANONICAL_TARGET": [
+        "Pyrenophora graminea",
+        "Pyrenophora teres"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Pyrenophora graminea",
+        "Pyrenophora teres"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Orge: PYRNGR (Pyrenophora graminea), PYRNTE (Pyrenophora teres)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -182,68 +187,16 @@
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Crucifères oléagineuses",
-      "ORIGINAL_TARGET": "Maladies fongiques des siliques",
-      "USES": 110,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
-      "MATCH_TYPE": "GROUP"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
       "ORIGINAL_CROP": "Seigle",
       "ORIGINAL_TARGET": "Rhynchosporiose",
       "USES": 109,
       "EPPO_CROP": "SECCE",
       "CANONICAL_CROP": "Secale cereale",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: RHYNGR, RHYNSE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Orge",
-      "ORIGINAL_TARGET": "Oïdium(s)",
-      "USES": 100,
-      "EPPO_CROP": "HORVX",
-      "CANONICAL_CROP": "Hordeum vulgare",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Blé",
-      "ORIGINAL_TARGET": "Fusarioses",
-      "USES": 96,
-      "EPPO_CROP": "TRZAX",
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Crucifères oléagineuses",
-      "ORIGINAL_TARGET": "Cylindrosporiose",
-      "USES": 92,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
+      "EPPO_TARGET": "RHYNSE",
+      "CANONICAL_TARGET": "Rhynchosporium secalis",
+      "SCIENTIFIC_NAME": "Rhynchosporium secalis",
+      "EVIDENCE": "EPPO GD RHYNSE: nome francês \"rhynchosporiose du seigle\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -252,11 +205,11 @@
       "USES": 87,
       "EPPO_CROP": "AVESA",
       "CANONICAL_CROP": "Avena sativa",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
+      "EPPO_TARGET": "PUCCCO",
+      "CANONICAL_TARGET": "Puccinia coronata",
+      "SCIENTIFIC_NAME": "Puccinia coronata",
+      "EVIDENCE": "EPPO GD PUCCCO: nome francês \"rouille couronnee de l'avoine\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -265,24 +218,11 @@
       "USES": 75,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Fruits à pépins",
-      "ORIGINAL_TARGET": "Chenilles foreuses des fruits",
-      "USES": 72,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
-      "MATCH_TYPE": "GROUP"
+      "EPPO_TARGET": "SPHRPA",
+      "CANONICAL_TARGET": "Podosphaera pannosa",
+      "SCIENTIFIC_NAME": "Podosphaera pannosa",
+      "EVIDENCE": "EPPO GD SPHRPA: nome francês \"oïdium du rosier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -291,24 +231,20 @@
       "USES": 71,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "PPAMC",
-      "ORIGINAL_TARGET": "Maladies fongiques",
-      "USES": 70,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
-      "MATCH_TYPE": "GROUP"
+      "EPPO_TARGET": [
+        "LEVETA",
+        "OIDINL"
+      ],
+      "CANONICAL_TARGET": [
+        "Leveillula taurica",
+        "Oidium neolycopersici"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Leveillula taurica",
+        "Oidium neolycopersici"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Tomate - Aubergine: LEVETA (Leveillula taurica), OIDINL (Oidium neolycopersici)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -317,37 +253,20 @@
       "USES": 68,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Vigne",
-      "ORIGINAL_TARGET": "Tordeuses de la grappe",
-      "USES": 68,
-      "EPPO_CROP": "VITVI",
-      "CANONICAL_CROP": "Vitis vinifera",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Porte graine",
-      "ORIGINAL_TARGET": "Maladies diverses",
-      "USES": 68,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
-      "MATCH_TYPE": "GROUP"
+      "EPPO_TARGET": [
+        "ERYSCI",
+        "PODOXA"
+      ],
+      "CANONICAL_TARGET": [
+        "Golovinomyces cichoracearum",
+        "Podosphaera xanthii"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Golovinomyces cichoracearum",
+        "Podosphaera xanthii"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Cucurbitacées à peau non comestible: ERYSCI (Golovinomyces cichoracearum), PODOXA (Podosphaera xanthii)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -356,24 +275,11 @@
       "USES": 65,
       "EPPO_CROP": "LACSA",
       "CANONICAL_CROP": "Lactuca sativa",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: PLASVI, PSPECU, PSPEHU, PSPESR",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Pêcher - Abricotier",
-      "ORIGINAL_TARGET": "Moniliose(s)",
-      "USES": 65,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
+      "EPPO_TARGET": "BREMLA",
+      "CANONICAL_TARGET": "Bremia lactucae",
+      "SCIENTIFIC_NAME": "Bremia lactucae",
+      "EVIDENCE": "EPPO GD BREMLA: nome francês \"mildiou de la laitue\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -382,63 +288,20 @@
       "USES": 64,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Tomate - Aubergine",
-      "ORIGINAL_TARGET": "Bactériose(s)",
-      "USES": 62,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": "XANTPR",
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "EPPO GD XANTPR: nome francês \"bactériose des arbres fruitiers à noyau\"",
-      "MATCH_TYPE": "EXACT"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Crucifères oléagineuses",
-      "ORIGINAL_TARGET": "Oïdium(s)",
-      "USES": 60,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Avoine",
-      "ORIGINAL_TARGET": "Oïdium(s)",
-      "USES": 58,
-      "EPPO_CROP": "AVESA",
-      "CANONICAL_CROP": "Avena sativa",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Arbres et arbustes",
-      "ORIGINAL_TARGET": "Oïdium(s)",
-      "USES": 57,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
+      "EPPO_TARGET": [
+        "ERYSCI",
+        "PODOXA"
+      ],
+      "CANONICAL_TARGET": [
+        "Golovinomyces cichoracearum",
+        "Podosphaera xanthii"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Golovinomyces cichoracearum",
+        "Podosphaera xanthii"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Cucurbitacées à peau comestible: ERYSCI (Golovinomyces cichoracearum), PODOXA (Podosphaera xanthii)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -447,11 +310,11 @@
       "USES": 57,
       "EPPO_CROP": "SOLTU",
       "CANONICAL_CROP": "Solanum tuberosum",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: PLASVI, PSPECU, PSPEHU, PSPESR",
-      "MATCH_TYPE": "AMBIGUOUS"
+      "EPPO_TARGET": "PHYTIN",
+      "CANONICAL_TARGET": "Phytophthora infestans",
+      "SCIENTIFIC_NAME": "Phytophthora infestans",
+      "EVIDENCE": "EPPO GD PHYTIN: nome francês \"mildiou de la pomme de terre\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -460,24 +323,20 @@
       "USES": 56,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": "SPHRPA",
-      "CANONICAL_TARGET": "Podosphaera pannosa",
-      "SCIENTIFIC_NAME": "Podosphaera pannosa",
-      "EVIDENCE": "EPPO GD SPHRPA: nome francês \"oïdium du pêcher\"",
-      "MATCH_TYPE": "CONTEXTUAL"
-    },
-    {
-      "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Tomate - Aubergine",
-      "ORIGINAL_TARGET": "Maladies des taches brunes",
-      "USES": 55,
-      "EPPO_CROP": null,
-      "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
-      "MATCH_TYPE": "GROUP"
+      "EPPO_TARGET": [
+        "PODOTR",
+        "SPHRPA"
+      ],
+      "CANONICAL_TARGET": [
+        "Podosphaera tridactyla",
+        "Podosphaera pannosa"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Podosphaera tridactyla",
+        "Podosphaera pannosa"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Pêcher - Abricotier: PODOTR (Podosphaera tridactyla), SPHRPA (Podosphaera pannosa)",
+      "MATCH_TYPE": "GROUP_SCOPED"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
@@ -486,50 +345,2218 @@
       "USES": 55,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "candidatos verificados sem desempate: SPHRPA, UNCICL, UNCINE",
-      "MATCH_TYPE": "AMBIGUOUS"
+      "EPPO_TARGET": "PODOTR",
+      "CANONICAL_TARGET": "Podosphaera tridactyla",
+      "SCIENTIFIC_NAME": "Podosphaera tridactyla",
+      "EVIDENCE": "EPPO GD PODOTR: nome francês \"oïdium des fruits à noyau\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Crucifères oléagineuses",
+      "ORIGINAL_TARGET": "Phoma",
+      "USES": 53,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "LEPTMA",
+      "CANONICAL_TARGET": "Plenodomus lingam",
+      "SCIENTIFIC_NAME": "Plenodomus lingam",
+      "EVIDENCE": "EPPO GD LEPTMA: nome francês \"phoma des crucifères\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Cucurbitacées à peau comestible",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 51,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PSPECU",
+      "CANONICAL_TARGET": "Pseudoperonospora cubensis",
+      "SCIENTIFIC_NAME": "Pseudoperonospora cubensis",
+      "EVIDENCE": "EPPO GD PSPECU: nome francês \"mildiou des cucurbitacées\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Vigne",
+      "ORIGINAL_TARGET": "Black rot",
+      "USES": 51,
+      "EPPO_CROP": "VITVI",
+      "CANONICAL_CROP": "Vitis vinifera",
+      "EPPO_TARGET": [
+        "GUIGBI",
+        "PHOPVI",
+        "PLASVI"
+      ],
+      "CANONICAL_TARGET": [
+        "Phyllosticta ampelicida",
+        "Diaporthe neoviticola",
+        "Plasmopara viticola"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Phyllosticta ampelicida",
+        "Diaporthe neoviticola",
+        "Plasmopara viticola"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Vigne: GUIGBI (Phyllosticta ampelicida), PHOPVI (Diaporthe neoviticola), PLASVI (Plasmopara viticola)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Vigne",
+      "ORIGINAL_TARGET": "Pourriture grise",
+      "USES": 51,
+      "EPPO_CROP": "VITVI",
+      "CANONICAL_CROP": "Vitis vinifera",
+      "EPPO_TARGET": [
+        "GLOMCI",
+        "GUIGBI"
+      ],
+      "CANONICAL_TARGET": [
+        "Glomerella cingulata",
+        "Phyllosticta ampelicida"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Glomerella cingulata",
+        "Phyllosticta ampelicida"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Vigne: GLOMCI (Glomerella cingulata), GUIGBI (Phyllosticta ampelicida)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Cerisier",
+      "ORIGINAL_TARGET": "Moniliose(s) et pourriture grise",
+      "USES": 47,
+      "EPPO_CROP": "PRNAV",
+      "CANONICAL_CROP": "Prunus avium",
+      "EPPO_TARGET": [
+        "GLOMCI",
+        "PHYTCC"
+      ],
+      "CANONICAL_TARGET": [
+        "Glomerella cingulata",
+        "Phytophthora cactorum"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Glomerella cingulata",
+        "Phytophthora cactorum"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Cerisier: GLOMCI (Glomerella cingulata), PHYTCC (Phytophthora cactorum)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Blé",
+      "ORIGINAL_TARGET": "Piétin verse",
+      "USES": 47,
+      "EPPO_CROP": "TRZAX",
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PYTHGR",
+      "CANONICAL_TARGET": "Pythium graminicola",
+      "SCIENTIFIC_NAME": "Pythium graminicola",
+      "EVIDENCE": "EPPO GD PYTHGR: nome francês \"piétin brun du blé\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Poivron",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 46,
+      "EPPO_CROP": "CPSAN",
+      "CANONICAL_CROP": "Capsicum annuum",
+      "EPPO_TARGET": "LEVETA",
+      "CANONICAL_TARGET": "Leveillula taurica",
+      "SCIENTIFIC_NAME": "Leveillula taurica",
+      "EVIDENCE": "EPPO GD LEVETA: nome francês \"oïdium du poivron\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Tomate - Aubergine",
+      "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses",
+      "USES": 44,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "STEMSO",
+      "CANONICAL_TARGET": "Stemphylium solani",
+      "SCIENTIFIC_NAME": "Stemphylium solani",
+      "EVIDENCE": "EPPO GD STEMSO: nome francês \"tache grise de la tomate\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Fraisier",
+      "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses",
+      "USES": 41,
+      "EPPO_CROP": "FRAAN",
+      "CANONICAL_CROP": "Fragaria x ananassa",
+      "EPPO_TARGET": [
+        "CERAPA",
+        "LEPTCO",
+        "PHYTCN"
+      ],
+      "CANONICAL_TARGET": [
+        "Thielaviopsis paradoxa",
+        "Paraconiothyrium fuckelii",
+        "Phytophthora cinnamomi"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Thielaviopsis paradoxa",
+        "Paraconiothyrium fuckelii",
+        "Phytophthora cinnamomi"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Fraisier: CERAPA (Thielaviopsis paradoxa), LEPTCO (Paraconiothyrium fuckelii), PHYTCN (Phytophthora cinnamomi)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Blé",
+      "ORIGINAL_TARGET": "Helminthosporiose",
+      "USES": 39,
+      "EPPO_CROP": "TRZAX",
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PYRNTR",
+      "CANONICAL_TARGET": "Pyrenophora tritici-repentis",
+      "SCIENTIFIC_NAME": "Pyrenophora tritici-repentis",
+      "EVIDENCE": "EPPO GD PYRNTR: nome francês \"helminthosporiose du blé\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Fraisier",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 37,
+      "EPPO_CROP": "FRAAN",
+      "CANONICAL_CROP": "Fragaria x ananassa",
+      "EPPO_TARGET": "PODOAP",
+      "CANONICAL_TARGET": "Podosphaera aphanis",
+      "SCIENTIFIC_NAME": "Podosphaera aphanis",
+      "EVIDENCE": "EPPO GD PODOAP: nome francês \"oïdium du fraisier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Pêcher - Abricotier",
+      "ORIGINAL_TARGET": "Cloque(s)",
+      "USES": 36,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "TAPHDE",
+      "CANONICAL_TARGET": "Taphrina deformans",
+      "SCIENTIFIC_NAME": "Taphrina deformans",
+      "EVIDENCE": "EPPO GD TAPHDE: nome francês \"cloque du pêcher\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Agrumes",
+      "ORIGINAL_TARGET": "Chancre du collet",
+      "USES": 35,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PHYORH",
+      "CANONICAL_TARGET": "Lasiodiplodia theobromae",
+      "SCIENTIFIC_NAME": "Lasiodiplodia theobromae",
+      "EVIDENCE": "EPPO GD PHYORH: nome francês \"chancre des branches des agrumes\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Laitue",
+      "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses",
+      "USES": 35,
+      "EPPO_CROP": "LACSA",
+      "CANONICAL_CROP": "Lactuca sativa",
+      "EPPO_TARGET": "PSDMCI",
+      "CANONICAL_TARGET": "Pseudomonas cichorii",
+      "SCIENTIFIC_NAME": "Pseudomonas cichorii",
+      "EVIDENCE": "EPPO GD PSDMCI: nome francês \"pourriture bactérienne de la laitue\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Fruits à pépins",
+      "ORIGINAL_TARGET": "Act. Qual. Fruits",
+      "USES": 34,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "CERTCA",
+        "CUCLA",
+        "DACUDO",
+        "FRANOC",
+        "GUIGCI",
+        "PLODIN",
+        "PODOTR",
+        "XANST"
+      ],
+      "CANONICAL_TARGET": [
+        "Ceratitis capitata",
+        "Caucalis platycarpos",
+        "Bactrocera dorsalis",
+        "Frankliniella occidentalis",
+        "Phyllosticta citricarpa",
+        null,
+        "Podosphaera tridactyla",
+        "Xanthium strumarium"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Ceratitis capitata",
+        "Caucalis platycarpos",
+        "Bactrocera dorsalis",
+        "Frankliniella occidentalis",
+        "Phyllosticta citricarpa",
+        null,
+        "Podosphaera tridactyla",
+        "Xanthium strumarium"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Fruits à pépins: CERTCA (Ceratitis capitata), CUCLA (Caucalis platycarpos), DACUDO (Bactrocera dorsalis), FRANOC (Frankliniella occidentalis), GUIGCI (Phyllosticta citricarpa), PLODIN (None), PODOTR (Podosphaera tridactyla), XANST (Xanthium strumarium)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Vigne",
+      "ORIGINAL_TARGET": "Rougeot parasitaire",
+      "USES": 34,
+      "EPPO_CROP": "VITVI",
+      "CANONICAL_CROP": "Vitis vinifera",
+      "EPPO_TARGET": "PSPZTR",
+      "CANONICAL_TARGET": "Pseudopeziza tracheiphila",
+      "SCIENTIFIC_NAME": "Pseudopeziza tracheiphila",
+      "EVIDENCE": "EPPO GD PSPZTR: nome francês \"rougeot parasitaire de la vigne\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Framboisier",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 32,
+      "EPPO_CROP": "RUBID",
+      "CANONICAL_CROP": "Rubus idaeus",
+      "EPPO_TARGET": "PODOAP",
+      "CANONICAL_TARGET": "Podosphaera aphanis",
+      "SCIENTIFIC_NAME": "Podosphaera aphanis",
+      "EVIDENCE": "EPPO GD PODOAP: nome francês \"oïdium du framboisier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Carotte",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 31,
+      "EPPO_CROP": "DAUCS",
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "ERYSHE",
+        "LEVETA"
+      ],
+      "CANONICAL_TARGET": [
+        "Erysiphe heraclei",
+        "Leveillula taurica"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Erysiphe heraclei",
+        "Leveillula taurica"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Carotte: ERYSHE (Erysiphe heraclei), LEVETA (Leveillula taurica)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Oignon",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 30,
+      "EPPO_CROP": "ALLCE",
+      "CANONICAL_CROP": "Allium cepa",
+      "EPPO_TARGET": "PERODE",
+      "CANONICAL_TARGET": "Peronospora destructor",
+      "SCIENTIFIC_NAME": "Peronospora destructor",
+      "EVIDENCE": "EPPO GD PERODE: nome francês \"mildiou de l'oignon\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
       "ORIGINAL_CROP": "Haricots et Pois écossés frais",
-      "ORIGINAL_TARGET": "Maladies des taches brunes",
-      "USES": 54,
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 30,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
+      "EPPO_TARGET": "ERYSPI",
+      "CANONICAL_TARGET": "Erysiphe pisi",
+      "SCIENTIFIC_NAME": "Erysiphe pisi",
+      "EVIDENCE": "EPPO GD ERYSPI: nome francês \"oïdium du pois\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Cucurbitacées à peau non comestible",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 29,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PSPECU",
+      "CANONICAL_TARGET": "Pseudoperonospora cubensis",
+      "SCIENTIFIC_NAME": "Pseudoperonospora cubensis",
+      "EVIDENCE": "EPPO GD PSPECU: nome francês \"mildiou des cucurbitacées\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Artichaut",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 27,
+      "EPPO_CROP": "CYUSC",
+      "CANONICAL_CROP": "Cynara scolymus",
+      "EPPO_TARGET": "LEVETA",
+      "CANONICAL_TARGET": "Leveillula taurica",
+      "SCIENTIFIC_NAME": "Leveillula taurica",
+      "EVIDENCE": "EPPO GD LEVETA: nome francês \"oïdium de l'artichaut\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Légumineuses potagères (sèches)",
+      "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses",
+      "USES": 26,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "HLCBBR",
+      "CANONICAL_TARGET": "Helicobasidium brebissonii",
+      "SCIENTIFIC_NAME": "Helicobasidium brebissonii",
+      "EVIDENCE": "EPPO GD HLCBBR: nome francês \"pourriture violette des légumineuses fourragères\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Haricots et Pois écossés frais",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 25,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "UROMCA",
+        "UROMPS",
+        "UROMVF"
+      ],
+      "CANONICAL_TARGET": [
+        "Uromyces ciceris-arietini",
+        "Uromyces pisi",
+        "Uromyces viciae-fabae"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Uromyces ciceris-arietini",
+        "Uromyces pisi",
+        "Uromyces viciae-fabae"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Haricots et Pois écossés frais: UROMCA (Uromyces ciceris-arietini), UROMPS (Uromyces pisi), UROMVF (Uromyces viciae-fabae)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Fruits à pépins",
+      "ORIGINAL_TARGET": "Chancre européen",
+      "USES": 24,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "NECTGA",
+      "CANONICAL_TARGET": "Neonectria ditissima",
+      "SCIENTIFIC_NAME": "Neonectria ditissima",
+      "EVIDENCE": "EPPO GD NECTGA: nome francês \"chancre des arbres fruitiers à pépins\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Vigne",
+      "ORIGINAL_TARGET": "Excoriose",
+      "USES": 24,
+      "EPPO_CROP": "VITVI",
+      "CANONICAL_CROP": "Vitis vinifera",
+      "EPPO_TARGET": "PHOPVI",
+      "CANONICAL_TARGET": "Diaporthe neoviticola",
+      "SCIENTIFIC_NAME": "Diaporthe neoviticola",
+      "EVIDENCE": "EPPO GD PHOPVI: nome francês \"excoriose de la vigne\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Porte graine - Graminées fourragères et à gazons",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 24,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "PUCCCO",
+        "PUCCGR",
+        "PUCCST"
+      ],
+      "CANONICAL_TARGET": [
+        "Puccinia coronata",
+        "Puccinia graminis",
+        "Puccinia striiformis"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Puccinia coronata",
+        "Puccinia graminis",
+        "Puccinia striiformis"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Porte graine - Graminées fourragères et à gazons: PUCCCO (Puccinia coronata), PUCCGR (Puccinia graminis), PUCCST (Puccinia striiformis)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Asperge",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 23,
+      "EPPO_CROP": "ASPOF",
+      "CANONICAL_CROP": "Asparagus officinalis",
+      "EPPO_TARGET": "PUCCAS",
+      "CANONICAL_TARGET": "Puccinia asparagi",
+      "SCIENTIFIC_NAME": "Puccinia asparagi",
+      "EVIDENCE": "EPPO GD PUCCAS: nome francês \"rouille de l'asperge\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Rosier",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 21,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PSPESR",
+      "CANONICAL_TARGET": "Peronospora sparsa",
+      "SCIENTIFIC_NAME": "Peronospora sparsa",
+      "EVIDENCE": "EPPO GD PSPESR: nome francês \"mildiou du rosier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Oignon",
+      "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses",
+      "USES": 21,
+      "EPPO_CROP": "ALLCE",
+      "CANONICAL_CROP": "Allium cepa",
+      "EPPO_TARGET": [
+        "SCLESQ",
+        "SCLOCE"
+      ],
+      "CANONICAL_TARGET": [
+        "Botryotinia squamosa",
+        "Stromatinia cepivora"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Botryotinia squamosa",
+        "Stromatinia cepivora"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Oignon: SCLESQ (Botryotinia squamosa), SCLOCE (Stromatinia cepivora)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Olivier",
+      "ORIGINAL_TARGET": "Bactériose(s)",
+      "USES": 20,
+      "EPPO_CROP": "OLVEU",
+      "CANONICAL_CROP": "Olea europaea",
+      "EPPO_TARGET": "PSDMSA",
       "CANONICAL_TARGET": null,
       "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
-      "MATCH_TYPE": "GROUP"
+      "EVIDENCE": "EPPO GD PSDMSA: nome francês \"bactériose de l'olivier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Manguier",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 19,
+      "EPPO_CROP": "MNGIN",
+      "CANONICAL_CROP": "Mangifera indica",
+      "EPPO_TARGET": "OIDIMA",
+      "CANONICAL_TARGET": "Oidium mangiferae",
+      "SCIENTIFIC_NAME": "Oidium mangiferae",
+      "EVIDENCE": "EPPO GD OIDIMA: nome francês \"oïdium du manguier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Vigne",
+      "ORIGINAL_TARGET": "Erinose",
+      "USES": 19,
+      "EPPO_CROP": "VITVI",
+      "CANONICAL_CROP": "Vitis vinifera",
+      "EPPO_TARGET": "ERPHVI",
+      "CANONICAL_TARGET": "Colomerus vitis",
+      "SCIENTIFIC_NAME": "Colomerus vitis",
+      "EVIDENCE": "EPPO GD ERPHVI: nome francês \"érinose de la vigne\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Rosier",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 19,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PHRAMU",
+      "CANONICAL_TARGET": "Phragmidium mucronatum",
+      "SCIENTIFIC_NAME": "Phragmidium mucronatum",
+      "EVIDENCE": "EPPO GD PHRAMU: nome francês \"rouille du rosier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Betterave potagère",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 18,
+      "EPPO_CROP": "BEAVD",
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "ERYSBE",
+      "CANONICAL_TARGET": "Erysiphe betae",
+      "SCIENTIFIC_NAME": "Erysiphe betae",
+      "EVIDENCE": "EPPO GD ERYSBE: nome francês \"oïdium de la betterave\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Légumineuses potagères (sèches)",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 18,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "ERYSPI",
+      "CANONICAL_TARGET": "Erysiphe pisi",
+      "SCIENTIFIC_NAME": "Erysiphe pisi",
+      "EVIDENCE": "EPPO GD ERYSPI: nome francês \"oïdium des légumineuses\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Avoine",
+      "ORIGINAL_TARGET": "Septoriose(s) et helminthosporiose",
+      "USES": 18,
+      "EPPO_CROP": "AVESA",
+      "CANONICAL_CROP": "Avena sativa",
+      "EPPO_TARGET": "PYRNAV",
+      "CANONICAL_TARGET": "Pyrenophora avenae",
+      "SCIENTIFIC_NAME": "Pyrenophora avenae",
+      "EVIDENCE": "EPPO GD PYRNAV: nome francês \"helminthosporiose de l'avoine\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
       "ORIGINAL_CROP": "Prunier",
-      "ORIGINAL_TARGET": "Moniliose(s)",
-      "USES": 54,
+      "ORIGINAL_TARGET": "Tavelure(s)",
+      "USES": 17,
       "EPPO_CROP": "PRNDO",
       "CANONICAL_CROP": "Prunus domestica",
-      "EPPO_TARGET": null,
-      "CANONICAL_TARGET": null,
-      "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "nenhum candidato do dicionário espanhol foi confirmado pela EPPO GD",
-      "MATCH_TYPE": "UNRESOLVED"
+      "EPPO_TARGET": "VENTCA",
+      "CANONICAL_TARGET": "Venturia carpophila",
+      "SCIENTIFIC_NAME": "Venturia carpophila",
+      "EVIDENCE": "EPPO GD VENTCA: nome francês \"tavelure du prunier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     },
     {
       "ORIGINAL_COUNTRY": "FRANCE",
-      "ORIGINAL_CROP": "Porte graine",
-      "ORIGINAL_TARGET": "Ravageurs divers",
-      "USES": 53,
+      "ORIGINAL_CROP": "Houblon",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 17,
+      "EPPO_CROP": "HUMLU",
+      "CANONICAL_CROP": "Humulus lupulus",
+      "EPPO_TARGET": "SPHRMA",
+      "CANONICAL_TARGET": "Podosphaera macularis",
+      "SCIENTIFIC_NAME": "Podosphaera macularis",
+      "EVIDENCE": "EPPO GD SPHRMA: nome francês \"oïdium du houblon\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Artichaut",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 16,
+      "EPPO_CROP": "CYUSC",
+      "CANONICAL_CROP": "Cynara scolymus",
+      "EPPO_TARGET": "BREMLA",
+      "CANONICAL_TARGET": "Bremia lactucae",
+      "SCIENTIFIC_NAME": "Bremia lactucae",
+      "EVIDENCE": "EPPO GD BREMLA: nome francês \"mildiou de l'artichaut\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Poireau",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 16,
+      "EPPO_CROP": "ALLPO",
+      "CANONICAL_CROP": "Allium porrum",
+      "EPPO_TARGET": "PHYTPO",
+      "CANONICAL_TARGET": "Phytophthora porri",
+      "SCIENTIFIC_NAME": "Phytophthora porri",
+      "EVIDENCE": "EPPO GD PHYTPO: nome francês \"mildiou du poireau\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Laitue",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 16,
+      "EPPO_CROP": "LACSA",
+      "CANONICAL_CROP": "Lactuca sativa",
+      "EPPO_TARGET": "ERYSCI",
+      "CANONICAL_TARGET": "Golovinomyces cichoracearum",
+      "SCIENTIFIC_NAME": "Golovinomyces cichoracearum",
+      "EVIDENCE": "EPPO GD ERYSCI: nome francês \"oïdium de la laitue\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Papayer",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 16,
+      "EPPO_CROP": "CIAPA",
+      "CANONICAL_CROP": "Carica papaya",
+      "EPPO_TARGET": "OIDICP",
+      "CANONICAL_TARGET": "Oidium caricae-papayae",
+      "SCIENTIFIC_NAME": "Oidium caricae-papayae",
+      "EVIDENCE": "EPPO GD OIDICP: nome francês \"oïdium du papayer\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Amandier",
+      "ORIGINAL_TARGET": "Cloque(s)",
+      "USES": 15,
+      "EPPO_CROP": "PRNDU",
+      "CANONICAL_CROP": "Prunus dulcis",
+      "EPPO_TARGET": "TAPHDE",
+      "CANONICAL_TARGET": "Taphrina deformans",
+      "SCIENTIFIC_NAME": "Taphrina deformans",
+      "EVIDENCE": "EPPO GD TAPHDE: nome francês \"cloque de l'amandier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Cerisier",
+      "ORIGINAL_TARGET": "Anthracnose(s)",
+      "USES": 15,
+      "EPPO_CROP": "PRNAV",
+      "CANONICAL_CROP": "Prunus avium",
+      "EPPO_TARGET": "BLUMJA",
+      "CANONICAL_TARGET": "Blumeriella jaapii",
+      "SCIENTIFIC_NAME": "Blumeriella jaapii",
+      "EVIDENCE": "EPPO GD BLUMJA: nome francês \"anthracnose du cerisier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Haricots et pois non écossés frais",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 15,
       "EPPO_CROP": null,
       "CANONICAL_CROP": null,
-      "EPPO_TARGET": null,
+      "EPPO_TARGET": "PEROVI",
+      "CANONICAL_TARGET": "Peronospora viciae",
+      "SCIENTIFIC_NAME": "Peronospora viciae",
+      "EVIDENCE": "EPPO GD PEROVI: nome francês \"mildiou du pois\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Fraisier",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 15,
+      "EPPO_CROP": "FRAAN",
+      "CANONICAL_CROP": "Fragaria x ananassa",
+      "EPPO_TARGET": "PHYTCC",
+      "CANONICAL_TARGET": "Phytophthora cactorum",
+      "SCIENTIFIC_NAME": "Phytophthora cactorum",
+      "EVIDENCE": "EPPO GD PHYTCC: nome francês \"mildiou du fraisier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Maïs",
+      "ORIGINAL_TARGET": "Pyrale(s) (1)",
+      "USES": 15,
+      "EPPO_CROP": "ZEAMX",
+      "CANONICAL_CROP": "Zea mays",
+      "EPPO_TARGET": "PYRUNU",
+      "CANONICAL_TARGET": "Ostrinia nubilalis",
+      "SCIENTIFIC_NAME": "Ostrinia nubilalis",
+      "EVIDENCE": "EPPO GD PYRUNU: nome francês \"pyrale du maïs\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Poivron",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 15,
+      "EPPO_CROP": "CPSAN",
+      "CANONICAL_CROP": "Capsicum annuum",
+      "EPPO_TARGET": "PHYTCP",
+      "CANONICAL_TARGET": "Phytophthora capsici",
+      "SCIENTIFIC_NAME": "Phytophthora capsici",
+      "EVIDENCE": "EPPO GD PHYTCP: nome francês \"mildiou du poivron\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Amandier",
+      "ORIGINAL_TARGET": "Tavelure(s) et polystigma",
+      "USES": 14,
+      "EPPO_CROP": "PRNDU",
+      "CANONICAL_CROP": "Prunus dulcis",
+      "EPPO_TARGET": "VENTCA",
+      "CANONICAL_TARGET": "Venturia carpophila",
+      "SCIENTIFIC_NAME": "Venturia carpophila",
+      "EVIDENCE": "EPPO GD VENTCA: nome francês \"tavelure de l'amandier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Haricots et pois non écossés frais",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 13,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "UROMCA",
+        "UROMPS",
+        "UROMVF"
+      ],
+      "CANONICAL_TARGET": [
+        "Uromyces ciceris-arietini",
+        "Uromyces pisi",
+        "Uromyces viciae-fabae"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Uromyces ciceris-arietini",
+        "Uromyces pisi",
+        "Uromyces viciae-fabae"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Haricots et pois non écossés frais: UROMCA (Uromyces ciceris-arietini), UROMPS (Uromyces pisi), UROMVF (Uromyces viciae-fabae)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Noyer",
+      "ORIGINAL_TARGET": "Anthracnose(s)",
+      "USES": 13,
+      "EPPO_CROP": "IUGRE",
+      "CANONICAL_CROP": "Juglans regia",
+      "EPPO_TARGET": "GNOMLE",
+      "CANONICAL_TARGET": "Ophiognomonia leptostyla",
+      "SCIENTIFIC_NAME": "Ophiognomonia leptostyla",
+      "EVIDENCE": "EPPO GD GNOMLE: nome francês \"anthracnose du noyer\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Prunier",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 13,
+      "EPPO_CROP": "PRNDO",
+      "CANONICAL_CROP": "Prunus domestica",
+      "EPPO_TARGET": "TRANPS",
+      "CANONICAL_TARGET": "Tranzschelia pruni-spinosae",
+      "SCIENTIFIC_NAME": "Tranzschelia pruni-spinosae",
+      "EVIDENCE": "EPPO GD TRANPS: nome francês \"rouille du prunier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Porte graine - Betterave industrielle et fourragère",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 12,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PEROFA",
+      "CANONICAL_TARGET": "Peronospora farinosa",
+      "SCIENTIFIC_NAME": "Peronospora farinosa",
+      "EVIDENCE": "EPPO GD PEROFA: nome francês \"mildiou de la betterave\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Noisetier",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 12,
+      "EPPO_CROP": "CYLAV",
+      "CANONICAL_CROP": "Corylus avellana",
+      "EPPO_TARGET": "PHYLGU",
+      "CANONICAL_TARGET": "Phyllactinia guttata",
+      "SCIENTIFIC_NAME": "Phyllactinia guttata",
+      "EVIDENCE": "EPPO GD PHYLGU: nome francês \"oïdium du noisetier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Gazons de graminées",
+      "ORIGINAL_TARGET": "Dollar spot",
+      "USES": 11,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "SCLEHO",
+      "CANONICAL_TARGET": "Clarireedia homoeocarpa",
+      "SCIENTIFIC_NAME": "Clarireedia homoeocarpa",
+      "EVIDENCE": "EPPO GD SCLEHO: nome francês \"dollar spot des graminées\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Vigne",
+      "ORIGINAL_TARGET": "Esca et black dead arm",
+      "USES": 10,
+      "EPPO_CROP": "VITVI",
+      "CANONICAL_CROP": "Vitis vinifera",
+      "EPPO_TARGET": [
+        "BOTSST",
+        "FOMPME",
+        "GUIGBI",
+        "PHMOCH",
+        "PHOPVI",
+        "STERHI",
+        "TOGNMI"
+      ],
+      "CANONICAL_TARGET": [
+        "Diplodia mutila",
+        "Fomitiporia mediterranea",
+        "Phyllosticta ampelicida",
+        "Phaeomoniella chlamydospora",
+        "Diaporthe neoviticola",
+        "Stereum hirsutum",
+        "Phaeoacremonium minimum"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Diplodia mutila",
+        "Fomitiporia mediterranea",
+        "Phyllosticta ampelicida",
+        "Phaeomoniella chlamydospora",
+        "Diaporthe neoviticola",
+        "Stereum hirsutum",
+        "Phaeoacremonium minimum"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Vigne: BOTSST (Diplodia mutila), FOMPME (Fomitiporia mediterranea), GUIGBI (Phyllosticta ampelicida), PHMOCH (Phaeomoniella chlamydospora), PHOPVI (Diaporthe neoviticola), STERHI (Stereum hirsutum), TOGNMI (Phaeoacremonium minimum)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Arbres et arbustes",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 10,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "TRANPS",
+      "CANONICAL_TARGET": "Tranzschelia pruni-spinosae",
+      "SCIENTIFIC_NAME": "Tranzschelia pruni-spinosae",
+      "EVIDENCE": "EPPO GD TRANPS: nome francês \"rouille des arbres fruitiers à noyau\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Pêcher - Abricotier",
+      "ORIGINAL_TARGET": "Tavelure(s)",
+      "USES": 9,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "VENTCA",
+      "CANONICAL_TARGET": "Venturia carpophila",
+      "SCIENTIFIC_NAME": "Venturia carpophila",
+      "EVIDENCE": "EPPO GD VENTCA: nome francês \"tavelure de l'abricotier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Poireau",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 9,
+      "EPPO_CROP": "ALLPO",
+      "CANONICAL_CROP": "Allium porrum",
+      "EPPO_TARGET": "PUCCPO",
+      "CANONICAL_TARGET": "Puccinia porri",
+      "SCIENTIFIC_NAME": "Puccinia porri",
+      "EVIDENCE": "EPPO GD PUCCPO: nome francês \"rouille du poireau\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Haricots et Pois écossés frais",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 9,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "PEROVI",
+      "CANONICAL_TARGET": "Peronospora viciae",
+      "SCIENTIFIC_NAME": "Peronospora viciae",
+      "EVIDENCE": "EPPO GD PEROVI: nome francês \"mildiou du pois\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Tabac",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 8,
+      "EPPO_CROP": "NIOTA",
+      "CANONICAL_CROP": "Nicotiana tabacum",
+      "EPPO_TARGET": "ERYSCI",
+      "CANONICAL_TARGET": "Golovinomyces cichoracearum",
+      "SCIENTIFIC_NAME": "Golovinomyces cichoracearum",
+      "EVIDENCE": "EPPO GD ERYSCI: nome francês \"oïdium du tabac\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Haricots et pois non écossés frais",
+      "ORIGINAL_TARGET": "Oïdium(s)",
+      "USES": 8,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "ERYSPI",
+      "CANONICAL_TARGET": "Erysiphe pisi",
+      "SCIENTIFIC_NAME": "Erysiphe pisi",
+      "EVIDENCE": "EPPO GD ERYSPI: nome francês \"oïdium du pois\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Fraisier",
+      "ORIGINAL_TARGET": "Bactériose(s)",
+      "USES": 7,
+      "EPPO_CROP": "FRAAN",
+      "CANONICAL_CROP": "Fragaria x ananassa",
+      "EPPO_TARGET": "XANTFR",
+      "CANONICAL_TARGET": "Xanthomonas fragariae",
+      "SCIENTIFIC_NAME": "Xanthomonas fragariae",
+      "EVIDENCE": "EPPO GD XANTFR: nome francês \"bactériose du fraisier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Maïs",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 7,
+      "EPPO_CROP": "ZEAMX",
+      "CANONICAL_CROP": "Zea mays",
+      "EPPO_TARGET": [
+        "PUCCPY",
+        "PUCCSO"
+      ],
+      "CANONICAL_TARGET": [
+        "Puccinia polysora",
+        "Puccinia sorghi"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Puccinia polysora",
+        "Puccinia sorghi"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Maïs: PUCCPY (Puccinia polysora), PUCCSO (Puccinia sorghi)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Houblon",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 7,
+      "EPPO_CROP": "HUMLU",
+      "CANONICAL_CROP": "Humulus lupulus",
+      "EPPO_TARGET": "PSPEHU",
+      "CANONICAL_TARGET": "Pseudoperonospora humuli",
+      "SCIENTIFIC_NAME": "Pseudoperonospora humuli",
+      "EVIDENCE": "EPPO GD PSPEHU: nome francês \"mildiou du houblon\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Fruits à pépins",
+      "ORIGINAL_TARGET": "Act. Chute Fruits",
+      "USES": 6,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "CERTCA",
+        "CUCLA",
+        "DACUDO",
+        "FRANOC",
+        "GUIGCI",
+        "PLODIN",
+        "PODOTR",
+        "XANST"
+      ],
+      "CANONICAL_TARGET": [
+        "Ceratitis capitata",
+        "Caucalis platycarpos",
+        "Bactrocera dorsalis",
+        "Frankliniella occidentalis",
+        "Phyllosticta citricarpa",
+        null,
+        "Podosphaera tridactyla",
+        "Xanthium strumarium"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Ceratitis capitata",
+        "Caucalis platycarpos",
+        "Bactrocera dorsalis",
+        "Frankliniella occidentalis",
+        "Phyllosticta citricarpa",
+        null,
+        "Podosphaera tridactyla",
+        "Xanthium strumarium"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Fruits à pépins: CERTCA (Ceratitis capitata), CUCLA (Caucalis platycarpos), DACUDO (Bactrocera dorsalis), FRANOC (Frankliniella occidentalis), GUIGCI (Phyllosticta citricarpa), PLODIN (None), PODOTR (Podosphaera tridactyla), XANST (Xanthium strumarium)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Tabac",
+      "ORIGINAL_TARGET": "Mildiou(s)",
+      "USES": 6,
+      "EPPO_CROP": "NIOTA",
+      "CANONICAL_CROP": "Nicotiana tabacum",
+      "EPPO_TARGET": "PEROTA",
+      "CANONICAL_TARGET": "Peronospora hyoscyami",
+      "SCIENTIFIC_NAME": "Peronospora hyoscyami",
+      "EVIDENCE": "EPPO GD PEROTA: nome francês \"mildiou du tabac\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Légumineuses fourragères",
+      "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses",
+      "USES": 6,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "HLCBBR",
+      "CANONICAL_TARGET": "Helicobasidium brebissonii",
+      "SCIENTIFIC_NAME": "Helicobasidium brebissonii",
+      "EVIDENCE": "EPPO GD HLCBBR: nome francês \"pourriture violette des légumineuses fourragères\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Agrumes",
+      "ORIGINAL_TARGET": "Act. Qual. Fruits",
+      "USES": 5,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "GUIGCI",
+      "CANONICAL_TARGET": "Phyllosticta citricarpa",
+      "SCIENTIFIC_NAME": "Phyllosticta citricarpa",
+      "EVIDENCE": "EPPO GD GUIGCI: nome francês \"taches noires des fruits des agrumes\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Céréales à paille",
+      "ORIGINAL_TARGET": "Zabre",
+      "USES": 5,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "ZABUTE",
+      "CANONICAL_TARGET": "Zabrus tenebrioides",
+      "SCIENTIFIC_NAME": "Zabrus tenebrioides",
+      "EVIDENCE": "EPPO GD ZABUTE: nome francês \"zabre des céréales\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Tabac",
+      "ORIGINAL_TARGET": "Pourriture grise",
+      "USES": 5,
+      "EPPO_CROP": "NIOTA",
+      "CANONICAL_CROP": "Nicotiana tabacum",
+      "EPPO_TARGET": [
+        "ERWIZE",
+        "THIEBA"
+      ],
+      "CANONICAL_TARGET": [
+        "Dickeya zeae",
+        "Berkeleyomyces basicola"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Dickeya zeae",
+        "Berkeleyomyces basicola"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Tabac: ERWIZE (Dickeya zeae), THIEBA (Berkeleyomyces basicola)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Pêcher - Abricotier",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 5,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "PUCCCE",
+        "TRANDI",
+        "TRANPS"
+      ],
+      "CANONICAL_TARGET": [
+        "Leucotelium cerasi",
+        "Tranzschelia discolor",
+        "Tranzschelia pruni-spinosae"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Leucotelium cerasi",
+        "Tranzschelia discolor",
+        "Tranzschelia pruni-spinosae"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Pêcher - Abricotier: PUCCCE (Leucotelium cerasi), TRANDI (Tranzschelia discolor), TRANPS (Tranzschelia pruni-spinosae)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Salsifis",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 5,
+      "EPPO_CROP": "TROPS",
+      "CANONICAL_CROP": "Tragopogon porrifolius",
+      "EPPO_TARGET": "ALBUTR",
+      "CANONICAL_TARGET": "Pustula tragopogonis",
+      "SCIENTIFIC_NAME": "Pustula tragopogonis",
+      "EVIDENCE": "EPPO GD ALBUTR: nome francês \"rouille blanche du salsifis\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Pêcher - Abricotier",
+      "ORIGINAL_TARGET": "Fusicoccum (1)",
+      "USES": 5,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "FUSCAM",
+      "CANONICAL_TARGET": "Diaporthe amygdali",
+      "SCIENTIFIC_NAME": "Diaporthe amygdali",
+      "EVIDENCE": "EPPO GD FUSCAM: nome francês \"chancre à fusicoccum du pêcher\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Maïs doux",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 3,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "PUCCPY",
+        "PUCCSO"
+      ],
+      "CANONICAL_TARGET": [
+        "Puccinia polysora",
+        "Puccinia sorghi"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Puccinia polysora",
+        "Puccinia sorghi"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Maïs doux: PUCCPY (Puccinia polysora), PUCCSO (Puccinia sorghi)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Maïs",
+      "ORIGINAL_TARGET": "Charbon des inflorescences",
+      "USES": 3,
+      "EPPO_CROP": "ZEAMX",
+      "CANONICAL_CROP": "Zea mays",
+      "EPPO_TARGET": [
+        "DIABVI",
+        "DIPDMA",
+        "SPHTRE",
+        "USTIMA"
+      ],
+      "CANONICAL_TARGET": [
+        "Diabrotica virgifera virgifera",
+        "Stenocarpella maydis",
+        "Sporisorium reilianum",
+        "Ustilago maydis"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Diabrotica virgifera virgifera",
+        "Stenocarpella maydis",
+        "Sporisorium reilianum",
+        "Ustilago maydis"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Maïs: DIABVI (Diabrotica virgifera virgifera), DIPDMA (Stenocarpella maydis), SPHTRE (Sporisorium reilianum), USTIMA (Ustilago maydis)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Gazons de graminées",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 3,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": [
+        "PUCCCO",
+        "PUCCGR",
+        "PUCCST"
+      ],
+      "CANONICAL_TARGET": [
+        "Puccinia coronata",
+        "Puccinia graminis",
+        "Puccinia striiformis"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Puccinia coronata",
+        "Puccinia graminis",
+        "Puccinia striiformis"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Gazons de graminées: PUCCCO (Puccinia coronata), PUCCGR (Puccinia graminis), PUCCST (Puccinia striiformis)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Agrumes",
+      "ORIGINAL_TARGET": "Psylle(s) (1)",
+      "USES": 2,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "TRIZER",
+      "CANONICAL_TARGET": "Trioza erytreae",
+      "SCIENTIFIC_NAME": "Trioza erytreae",
+      "EVIDENCE": "EPPO GD TRIZER: nome francês \"psylle des agrumes\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Prunier",
+      "ORIGINAL_TARGET": "Charançons du feuillage et des fruits",
+      "USES": 2,
+      "EPPO_CROP": "PRNDO",
+      "CANONICAL_CROP": "Prunus domestica",
+      "EPPO_TARGET": "ERPHPH",
+      "CANONICAL_TARGET": "Acalitus phloeocoptes",
+      "SCIENTIFIC_NAME": "Acalitus phloeocoptes",
+      "EVIDENCE": "EPPO GD ERPHPH: nome francês \"acarien des bourgeons du prunier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Amandier",
+      "ORIGINAL_TARGET": "Rouille(s)",
+      "USES": 2,
+      "EPPO_CROP": "PRNDU",
+      "CANONICAL_CROP": "Prunus dulcis",
+      "EPPO_TARGET": "TRANPS",
+      "CANONICAL_TARGET": "Tranzschelia pruni-spinosae",
+      "SCIENTIFIC_NAME": "Tranzschelia pruni-spinosae",
+      "EVIDENCE": "EPPO GD TRANPS: nome francês \"rouille de l'amandier\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Cerisier",
+      "ORIGINAL_TARGET": "Pourriture grise (1)",
+      "USES": 1,
+      "EPPO_CROP": "PRNAV",
+      "CANONICAL_CROP": "Prunus avium",
+      "EPPO_TARGET": [
+        "GLOMCI",
+        "PHYTCC"
+      ],
+      "CANONICAL_TARGET": [
+        "Glomerella cingulata",
+        "Phytophthora cactorum"
+      ],
+      "SCIENTIFIC_NAME": [
+        "Glomerella cingulata",
+        "Phytophthora cactorum"
+      ],
+      "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Cerisier: GLOMCI (Glomerella cingulata), PHYTCC (Phytophthora cactorum)",
+      "MATCH_TYPE": "GROUP_SCOPED"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Riz",
+      "ORIGINAL_TARGET": "Charançon aquatique",
+      "USES": 1,
+      "EPPO_CROP": "ORYSA",
+      "CANONICAL_CROP": "Oryza sativa",
+      "EPPO_TARGET": "LISSOR",
+      "CANONICAL_TARGET": "Lissorhoptrus oryzophilus",
+      "SCIENTIFIC_NAME": "Lissorhoptrus oryzophilus",
+      "EVIDENCE": "EPPO GD LISSOR: nome francês \"charançon aquatique du riz\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Pois",
+      "ORIGINAL_TARGET": "Oïdium(s) (1)",
+      "USES": 1,
+      "EPPO_CROP": "CIEAR",
+      "CANONICAL_CROP": "Cicer arietinum",
+      "EPPO_TARGET": "ERYSPI",
+      "CANONICAL_TARGET": "Erysiphe pisi",
+      "SCIENTIFIC_NAME": "Erysiphe pisi",
+      "EVIDENCE": "EPPO GD ERYSPI: nome francês \"oïdium du pois\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Arbres et arbustes",
+      "ORIGINAL_TARGET": "Bactériose(s)",
+      "USES": 1,
+      "EPPO_CROP": null,
+      "CANONICAL_CROP": null,
+      "EPPO_TARGET": "XANTPR",
       "CANONICAL_TARGET": null,
       "SCIENTIFIC_NAME": null,
-      "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
-      "MATCH_TYPE": "GROUP"
+      "EVIDENCE": "EPPO GD XANTPR: nome francês \"bactériose des arbres fruitiers à noyau\"",
+      "MATCH_TYPE": "CONTEXTUAL"
+    },
+    {
+      "ORIGINAL_COUNTRY": "FRANCE",
+      "ORIGINAL_CROP": "Soja",
+      "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses",
+      "USES": 1,
+      "EPPO_CROP": "GLXMA",
+      "CANONICAL_CROP": "Glycine max",
+      "EPPO_TARGET": "MCPHPH",
+      "CANONICAL_TARGET": "Macrophomina phaseolina",
+      "SCIENTIFIC_NAME": "Macrophomina phaseolina",
+      "EVIDENCE": "EPPO GD MCPHPH: nome francês \"pourriture charbonneuse du soja\"",
+      "MATCH_TYPE": "CONTEXTUAL"
     }
-  ]
+  ],
+  "blind": {
+    "pairs": 60,
+    "by_match_type": {
+      "GROUP_SCOPED": 2,
+      "CONTEXTUAL": 3,
+      "AMBIGUOUS": 4,
+      "GROUP": 37,
+      "UNRESOLVED": 14
+    },
+    "resolved": 5,
+    "records": [
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cerisier",
+        "ORIGINAL_TARGET": "Moniliose(s) et pourriture grise",
+        "USES": 47,
+        "EPPO_CROP": "PRNAV",
+        "CANONICAL_CROP": "Prunus avium",
+        "EPPO_TARGET": [
+          "GLOMCI",
+          "PHYTCC"
+        ],
+        "CANONICAL_TARGET": [
+          "Glomerella cingulata",
+          "Phytophthora cactorum"
+        ],
+        "SCIENTIFIC_NAME": [
+          "Glomerella cingulata",
+          "Phytophthora cactorum"
+        ],
+        "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Cerisier: GLOMCI (Glomerella cingulata), PHYTCC (Phytophthora cactorum)",
+        "MATCH_TYPE": "GROUP_SCOPED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Fraisier",
+        "ORIGINAL_TARGET": "Oïdium(s)",
+        "USES": 37,
+        "EPPO_CROP": "FRAAN",
+        "CANONICAL_CROP": "Fragaria x ananassa",
+        "EPPO_TARGET": "PODOAP",
+        "CANONICAL_TARGET": "Podosphaera aphanis",
+        "SCIENTIFIC_NAME": "Podosphaera aphanis",
+        "EVIDENCE": "EPPO GD PODOAP: nome francês \"oïdium du fraisier\"",
+        "MATCH_TYPE": "CONTEXTUAL"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Chicorées - Production de racines",
+        "ORIGINAL_TARGET": "Oïdium(s)",
+        "USES": 34,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "candidatos verificados mas nenhum citando a cultura: DACYDE, ERYSBE, ERYSCI, ERYSGR, ERYSHE, ERYSPI, ERYSPT, LEVETA, MCRSAL, MCRSDI, MCRSGR, MCRSPE, OIDICP, OIDIMA, OIDINL, PHYLGU, PODOAP, PODOLE, PODOTR, PODOXA, SPHRMA, SPHRMU, SPHRPA, UNCICL, UNCINE",
+        "MATCH_TYPE": "AMBIGUOUS"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cucurbitacées à peau comestible",
+        "ORIGINAL_TARGET": "Pucerons",
+        "USES": 22,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Carotte",
+        "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses",
+        "USES": 22,
+        "EPPO_CROP": "DAUCS",
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Traitements généraux",
+        "ORIGINAL_TARGET": "Avt Mise Cult. (1)",
+        "USES": 21,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Avoine",
+        "ORIGINAL_TARGET": "Champignons (autres que pythiacées)",
+        "USES": 20,
+        "EPPO_CROP": "AVESA",
+        "CANONICAL_CROP": "Avena sativa",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Seigle",
+        "ORIGINAL_TARGET": "Champignons (autres que pythiacées)",
+        "USES": 20,
+        "EPPO_CROP": "SECCE",
+        "CANONICAL_CROP": "Secale cereale",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cultures ornementales",
+        "ORIGINAL_TARGET": "Champignons (autres que pythiacées)",
+        "USES": 19,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Rosier",
+        "ORIGINAL_TARGET": "Cochenilles",
+        "USES": 19,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Fraisier",
+        "ORIGINAL_TARGET": "Pucerons",
+        "USES": 18,
+        "EPPO_CROP": "FRAAN",
+        "CANONICAL_CROP": "Fragaria x ananassa",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cucurbitacées à peau non comestible",
+        "ORIGINAL_TARGET": "Champignons (autres que pythiacées)",
+        "USES": 18,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cerisier",
+        "ORIGINAL_TARGET": "Chenilles phytophages",
+        "USES": 17,
+        "EPPO_CROP": "PRNAV",
+        "CANONICAL_CROP": "Prunus avium",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Maïs",
+        "ORIGINAL_TARGET": "Pyrale(s) (1)",
+        "USES": 15,
+        "EPPO_CROP": "ZEAMX",
+        "CANONICAL_CROP": "Zea mays",
+        "EPPO_TARGET": "PYRUNU",
+        "CANONICAL_TARGET": "Ostrinia nubilalis",
+        "SCIENTIFIC_NAME": "Ostrinia nubilalis",
+        "EVIDENCE": "EPPO GD PYRUNU: nome francês \"pyrale du maïs\"",
+        "MATCH_TYPE": "CONTEXTUAL"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Poivron",
+        "ORIGINAL_TARGET": "Champignons (autres que pythiacées)",
+        "USES": 15,
+        "EPPO_CROP": "CPSAN",
+        "CANONICAL_CROP": "Capsicum annuum",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Choux",
+        "ORIGINAL_TARGET": "Champignons (autres que pythiacées)",
+        "USES": 14,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Fruits à pépins",
+        "ORIGINAL_TARGET": "Insectes xylophages",
+        "USES": 14,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Framboisier",
+        "ORIGINAL_TARGET": "Pucerons",
+        "USES": 13,
+        "EPPO_CROP": "RUBID",
+        "CANONICAL_CROP": "Rubus idaeus",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Haricots et pois non écossés frais",
+        "ORIGINAL_TARGET": "Rouille(s)",
+        "USES": 13,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": [
+          "UROMCA",
+          "UROMPS",
+          "UROMVF"
+        ],
+        "CANONICAL_TARGET": [
+          "Uromyces ciceris-arietini",
+          "Uromyces pisi",
+          "Uromyces viciae-fabae"
+        ],
+        "SCIENTIFIC_NAME": [
+          "Uromyces ciceris-arietini",
+          "Uromyces pisi",
+          "Uromyces viciae-fabae"
+        ],
+        "EVIDENCE": "grupo delimitado pela cultura — EPPO GD confirma para Haricots et pois non écossés frais: UROMCA (Uromyces ciceris-arietini), UROMPS (Uromyces pisi), UROMVF (Uromyces viciae-fabae)",
+        "MATCH_TYPE": "GROUP_SCOPED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Carotte",
+        "ORIGINAL_TARGET": "Ravageurs du sol",
+        "USES": 11,
+        "EPPO_CROP": "DAUCS",
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Arbres et arbustes",
+        "ORIGINAL_TARGET": "Anthracnose(s)",
+        "USES": 8,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "candidatos verificados mas nenhum citando a cultura: APIGVE, ASCOFA, ASCOPI, BLUMJA, COLLAC, COLLCC, COLLCI, COLLGR, COLLLA, COLLLD, COLLMU, DREPSA, ELSIAM, GLOMCI, GNOMLE, MARSPA, MYCOPI, MYCORA, MYCOZM, PEZIAL, SPHAPE, SPHARO",
+        "MATCH_TYPE": "AMBIGUOUS"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Maïs",
+        "ORIGINAL_TARGET": "Cicadelles",
+        "USES": 8,
+        "EPPO_CROP": "ZEAMX",
+        "CANONICAL_CROP": "Zea mays",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Traitements généraux",
+        "ORIGINAL_TARGET": "Zones agricoles non cult.",
+        "USES": 8,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Sorgho",
+        "ORIGINAL_TARGET": "Ravageurs du sol (1)",
+        "USES": 8,
+        "EPPO_CROP": "SORVU",
+        "CANONICAL_CROP": "Sorghum bicolor",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Figuier",
+        "ORIGINAL_TARGET": "Mouches des fruits",
+        "USES": 8,
+        "EPPO_CROP": "FIUCA",
+        "CANONICAL_CROP": "Ficus carica",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Agrumes",
+        "ORIGINAL_TARGET": "Aleurodes",
+        "USES": 7,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Houblon",
+        "ORIGINAL_TARGET": "Mildiou(s)",
+        "USES": 7,
+        "EPPO_CROP": "HUMLU",
+        "CANONICAL_CROP": "Humulus lupulus",
+        "EPPO_TARGET": "PSPEHU",
+        "CANONICAL_TARGET": "Pseudoperonospora humuli",
+        "SCIENTIFIC_NAME": "Pseudoperonospora humuli",
+        "EVIDENCE": "EPPO GD PSPEHU: nome francês \"mildiou du houblon\"",
+        "MATCH_TYPE": "CONTEXTUAL"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Betterave industrielle et fourragère",
+        "ORIGINAL_TARGET": "Pucerons",
+        "USES": 7,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Porte graine - PPAMC, Florales et Potagères",
+        "ORIGINAL_TARGET": "Mouches",
+        "USES": 6,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cultures florales et plantes vertes",
+        "ORIGINAL_TARGET": "Ravageurs divers (1)",
+        "USES": 6,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Pois",
+        "ORIGINAL_TARGET": "Ravageurs divers (1)",
+        "USES": 6,
+        "EPPO_CROP": "CIEAR",
+        "CANONICAL_CROP": "Cicer arietinum",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Fruits à noyau",
+        "ORIGINAL_TARGET": "Chancres à champignons",
+        "USES": 6,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Pêcher - Abricotier",
+        "ORIGINAL_TARGET": "Forficules",
+        "USES": 6,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Fruits à noyau",
+        "ORIGINAL_TARGET": "Pépi. Jeunes plantat.",
+        "USES": 6,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Palmiers alimentaires",
+        "ORIGINAL_TARGET": "Aleurodes",
+        "USES": 5,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "PPAMC",
+        "ORIGINAL_TARGET": "Champignons (pythiacées)",
+        "USES": 5,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Epinard",
+        "ORIGINAL_TARGET": "Champignons (autres que pythiacées)",
+        "USES": 5,
+        "EPPO_CROP": "SPQOL",
+        "CANONICAL_CROP": "Spinacia oleracea",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cultures florales et plantes vertes",
+        "ORIGINAL_TARGET": "Bactériose(s)",
+        "USES": 5,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "candidatos verificados mas nenhum citando a cultura: CORBFL, CORBSE, PSDMSA, PSDMSX, RALSSO, XANTCY, XANTFR, XANTJU, XANTPH, XANTPR",
+        "MATCH_TYPE": "AMBIGUOUS"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Fraisier",
+        "ORIGINAL_TARGET": "Ravageurs du sol",
+        "USES": 4,
+        "EPPO_CROP": "FRAAN",
+        "CANONICAL_CROP": "Fragaria x ananassa",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cassissier",
+        "ORIGINAL_TARGET": "Insectes xylophages",
+        "USES": 3,
+        "EPPO_CROP": "RIBNI",
+        "CANONICAL_CROP": "Ribes nigrum",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Forêt",
+        "ORIGINAL_TARGET": "Chenilles phytophages",
+        "USES": 3,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Oignon",
+        "ORIGINAL_TARGET": "Limit. Destruct. Germes",
+        "USES": 3,
+        "EPPO_CROP": "ALLCE",
+        "CANONICAL_CROP": "Allium cepa",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Pois",
+        "ORIGINAL_TARGET": "Chenilles phytophages (1)",
+        "USES": 3,
+        "EPPO_CROP": "CIEAR",
+        "CANONICAL_CROP": "Cicer arietinum",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Pêcher - Abricotier",
+        "ORIGINAL_TARGET": "Punaises",
+        "USES": 2,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Chataignier",
+        "ORIGINAL_TARGET": "Pourriture des fruits",
+        "USES": 2,
+        "EPPO_CROP": "CSNSA",
+        "CANONICAL_CROP": "Castanea sativa",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Soja",
+        "ORIGINAL_TARGET": "Pucerons (1)",
+        "USES": 2,
+        "EPPO_CROP": "GLXMA",
+        "CANONICAL_CROP": "Glycine max",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Litchi",
+        "ORIGINAL_TARGET": "Chenilles phytophages",
+        "USES": 2,
+        "EPPO_CROP": "LIHCH",
+        "CANONICAL_CROP": "Litchi chinensis",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Choux-raves",
+        "ORIGINAL_TARGET": "Maladies des taches brunes",
+        "USES": 2,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Légumes racines et tubercules tropicaux",
+        "ORIGINAL_TARGET": "Champignons (autres que pythiacées)",
+        "USES": 2,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "PPAMC",
+        "ORIGINAL_TARGET": "Nématodes",
+        "USES": 2,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cultures ornementales",
+        "ORIGINAL_TARGET": "Act. Floraison",
+        "USES": 1,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Légumes racines et tubercules tropicaux",
+        "ORIGINAL_TARGET": "Anthracnose(s)",
+        "USES": 1,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "candidatos verificados mas nenhum citando a cultura: APIGVE, ASCOFA, ASCOPI, BLUMJA, COLLAC, COLLCC, COLLCI, COLLGR, COLLLA, COLLLD, COLLMU, DREPSA, ELSIAM, GLOMCI, GNOMLE, MARSPA, MYCOPI, MYCORA, MYCOZM, PEZIAL, SPHAPE, SPHARO",
+        "MATCH_TYPE": "AMBIGUOUS"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Kiwaï",
+        "ORIGINAL_TARGET": "Thrips",
+        "USES": 1,
+        "EPPO_CROP": "ATIAR",
+        "CANONICAL_CROP": "Actinidia arguta",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Pois",
+        "ORIGINAL_TARGET": "Pourriture grise et sclérotinioses (1)",
+        "USES": 1,
+        "EPPO_CROP": "CIEAR",
+        "CANONICAL_CROP": "Cicer arietinum",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Fruits à coque",
+        "ORIGINAL_TARGET": "Stimul. Déf. Plantes - Maladies",
+        "USES": 1,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Cotonnier",
+        "ORIGINAL_TARGET": "Chenilles phytophages",
+        "USES": 1,
+        "EPPO_CROP": null,
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Vigne",
+        "ORIGINAL_TARGET": "Act. Qual. Fruits",
+        "USES": 1,
+        "EPPO_CROP": "VITVI",
+        "CANONICAL_CROP": "Vitis vinifera",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Amandier",
+        "ORIGINAL_TARGET": "Aleurodes",
+        "USES": 1,
+        "EPPO_CROP": "PRNDU",
+        "CANONICAL_CROP": "Prunus dulcis",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "nenhum candidato foi confirmado pela EPPO GD",
+        "MATCH_TYPE": "UNRESOLVED"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Carotte",
+        "ORIGINAL_TARGET": "Acariens",
+        "USES": 1,
+        "EPPO_CROP": "DAUCS",
+        "CANONICAL_CROP": null,
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      },
+      {
+        "ORIGINAL_COUNTRY": "FRANCE",
+        "ORIGINAL_CROP": "Pois",
+        "ORIGINAL_TARGET": "Pucerons (1)",
+        "USES": 1,
+        "EPPO_CROP": "CIEAR",
+        "CANONICAL_CROP": "Cicer arietinum",
+        "EPPO_TARGET": null,
+        "CANONICAL_TARGET": null,
+        "SCIENTIFIC_NAME": null,
+        "EVIDENCE": "termo francês designa grupo, não espécie — recusado por desenho",
+        "MATCH_TYPE": "GROUP"
+      }
+    ]
+  },
+  "full_corpus": {
+    "pairs": 1181,
+    "uses": 14931,
+    "by_match_type": {
+      "CONTEXTUAL": 76,
+      "GROUP": 683,
+      "GROUP_SCOPED": 29,
+      "AMBIGUOUS": 131,
+      "UNRESOLVED": 262
+    },
+    "uses_by_match_type": {
+      "CONTEXTUAL": 2078,
+      "GROUP": 6927,
+      "GROUP_SCOPED": 1431,
+      "AMBIGUOUS": 2111,
+      "UNRESOLVED": 2384
+    },
+    "resolved_pairs": 105,
+    "resolved_uses": 3509,
+    "resolved_pct_pairs": 8.9,
+    "resolved_pct_uses": 23.5,
+    "excluding_french_group_terms": {
+      "pct_pairs": 21.1,
+      "pct_uses": 43.8
+    }
+  }
 }

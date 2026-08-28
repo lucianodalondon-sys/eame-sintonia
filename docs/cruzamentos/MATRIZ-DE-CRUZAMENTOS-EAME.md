@@ -242,7 +242,7 @@ Confundir as duas produziria um alarme falso com data errada.
 
 
 
-### X-007 · FRANCE cultura × alvo + SPAIN vocabulário EPPO — **PARCIAL**
+### X-007 · FRANCE cultura × alvo → EPPO — **PARCIAL, com cobertura medida (MISSÃO 03)**
 
 ```
 CROSSING_ID:        X-007
@@ -274,9 +274,66 @@ francês** — e boa parte deles é **grupo, não espécie**: `Mildiou(s)`, `Oï
 Logo o mapeamento **não é 1:1**, é **muitos-para-muitos e dependente da cultura**. Ele só se
 resolve com a dupla (cultura, alvo), nunca com o alvo sozinho.
 
-**O que falta:** construir e **medir** um dicionário FR(cultura,alvo) → EPPO. Só depois de
-medida a taxa de acerto este cruzamento pode subir para COMPROVADO. Enquanto isso, qualquer
-comparação França × Espanha × Itália por praga é **incompleta por construção**.
+---
+
+### O normalizador foi construído e medido na MISSÃO 03 (FASE 1)
+
+**Desenho, e por que é defensável:** o dicionário espanhol **propõe** e a **EPPO Global
+Database verifica**. A verificação vem de outra fonte que a proposta — é isso que quebra a
+circularidade. Depois de medir, a proposta via espanhol foi **substituída**: a proximidade
+lexical FR↔ES falha (`rouille` ↔ `roya` não casa), então o candidato passou a vir do
+**nome francês da própria EPPO**, indexado uma vez (`data/raw/EPPO-CACHE/`, 291 culturas e
+**671 pragas** com nome francês).
+
+**A descoberta que mudou o modelo:** o registro francês escreve `Rouille(s)`,
+`Septoriose(s)`, `Oïdium(s)`, `Mildiou(s)` **no plural porque o termo é um grupo**. Forçar
+uma espécie única ali seria inventar precisão que a fonte não tem. O normalizador passou a
+devolver, quando cabe, um **conjunto de códigos delimitado pela cultura**:
+
+| par francês | resultado | e está correto |
+|---|---|---|
+| Vigne × Mildiou(s) | `PLASVI` | *Plasmopara viticola* |
+| Vigne × Oïdium(s) | `UNCINE` | *Erysiphe necator* |
+| Blé × Rouille(s) | `{PUCCRT, PUCCST}` | ferrugem parda e ferrugem amarela do trigo |
+| Blé × Septoriose(s) | `{LEPTNO, SEPTTR}` | *Parastagonospora nodorum* e *Zymoseptoria tritici* |
+| Orge × Rhynchosporiose | `{RHYNGR, RHYNSE}` | as duas espécies |
+| Seigle × Rouille(s) | `PUCCST` | ferrugem amarela do centeio |
+
+**Medição sobre o corpus inteiro — 1.181 pares, 14.931 usos autorizados:**
+
+| resultado | pares | % pares | usos | **% dos usos** |
+|---|---|---|---|---|
+| CONTEXTUAL (espécie única) | 76 | 6,4% | 2.078 | 13,9% |
+| GROUP_SCOPED (conjunto por cultura) | 29 | 2,5% | 1.431 | 9,6% |
+| **RESOLVIDO** | **105** | **8,9%** | **3.509** | **23,5%** |
+| GROUP (termo francês é grupo — **recusa correta**) | 683 | 57,8% | 6.927 | 46,4% |
+| AMBIGUOUS | 131 | 11,1% | 2.111 | 14,1% |
+| UNRESOLVED | 262 | 22,2% | 2.384 | 16,0% |
+
+**Excluindo os termos que são grupo por construção: 21,1% dos pares e 43,8% dos usos.**
+
+**Amostra cega (60 pares fora dos 40 de construção, semente 20260828):** 8,3% do total,
+**21,7% dos que não são grupo** — e **61,7% da amostra caiu em GROUP**, ou seja, foi
+**corretamente recusada**. A cauda do vocabulário francês é dominada por termos genéricos
+(`Champignons (pythiacées)`, `Chenilles phytophages`, `Traitements généraux`).
+
+**CLASS: PARCIAL — e não sobe para COMPROVADO.** A missão foi explícita: *"se a taxa não
+sustentar produção, não promover X-007"*. **23,5% do uso não sustenta produção.**
+
+**O contraste que decide o produto:**
+
+| normalização | cobertura do uso real |
+|---|---|
+| **substância ativa** (X-006) | **82,1%** |
+| **cultura × alvo agronômico** (X-007) | **23,5%** |
+
+O SINTONIA sabe falar de **molécula** entre países. Ainda **não** sabe falar de **problema
+agronômico** entre países com a mesma confiança. Isso não é opinião: é a diferença entre
+82% e 23,5%, medida no mesmo corpus.
+
+**O gargalo, medido:** a cultura francesa resolve em 45–50% dos casos, e sem cultura o
+desempate por contexto não dispara. Os maiores buracos são culturas que também são grupo em
+francês — `Crucifères oléagineuses`, `Fruits à pépins`, `Tomate - Aubergine`.
 
 **As oito perguntas (§7) — os pontos que decidem:**
 D · granularidade: **incompatível** (grupo francês × espécie espanhola).
