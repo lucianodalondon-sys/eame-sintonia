@@ -144,3 +144,116 @@ class TestCruzamentos(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
+
+
+PILOTO = os.path.join(D, 'piloto')
+
+
+def piloto(*p):
+    with open(os.path.join(PILOTO, *p), encoding='utf-8') as f:
+        return f.read()
+
+
+class TestNumerosEntreDocumentos(unittest.TestCase):
+    """Um case não pode dizer 8 produtos e outro documento dizer 7.
+
+    Estes testes procuram o MESMO número em documentos diferentes. Se um for
+    corrigido e o outro não, o teste reprova — que é exatamente o objetivo.
+    """
+
+    DOCS = {}
+
+    @classmethod
+    def setUpClass(cls):
+        cls.DOCS = {
+            'casos': CASOS,
+            'pacote': piloto('PACOTE-DE-MATERIA-PRIMA-EAME.md'),
+            'design': piloto('ENTRADA-PARA-CLAUDE-DESIGN.md'),
+            'benchmark': piloto('ASK-SINTONIA-BENCHMARK.md'),
+            'source_pack': piloto('SOURCE-PACK-PILOTO.md'),
+            'claims': piloto('O-QUE-PODEMOS-DIZER.md'),
+        }
+
+    def _todos_dizem(self, docs, padrao, rotulo):
+        for nome in docs:
+            with self.subTest(documento=nome, valor=rotulo):
+                self.assertRegex(self.DOCS[nome], padrao,
+                                 f'{nome} não confirma "{rotulo}"')
+
+    def test_produtos_prothioconazol_franca(self):
+        self._todos_dizem(['pacote', 'design'], r'\b77\b', '77 produtos FR')
+
+    def test_produtos_prothioconazol_italia(self):
+        self._todos_dizem(['pacote', 'design'], r'\b85\b', '85 produtos IT')
+
+    def test_adama_tres_na_franca_cinco_na_italia(self):
+        for nome in ('pacote', 'design'):
+            with self.subTest(documento=nome):
+                self.assertRegex(self.DOCS[nome], r'ADAMA[^\n]{0,12}3\b|3 produtos|`ADAMA 3`',
+                                 'não confirma 3 produtos ADAMA na França')
+                self.assertRegex(self.DOCS[nome], r'ADAMA[^\n]{0,12}5\b|5 produtos|`ADAMA 5`',
+                                 'não confirma 5 produtos ADAMA na Itália')
+
+    def test_os_cinco_produtos_italianos_sao_nomeados_igual(self):
+        nomes = ('MAGANIC', 'MAXENTIS', 'AVASTEL', 'SORATEL', 'KOJAMI')
+        for doc in ('pacote', 'benchmark'):
+            for n in nomes:
+                with self.subTest(documento=doc, produto=n):
+                    self.assertIn(n, self.DOCS[doc], f'{doc} não cita {n}')
+
+    def test_benchmark_placar_identico_em_todo_lugar(self):
+        for nome in ('pacote', 'design', 'benchmark', 'claims'):
+            with self.subTest(documento=nome):
+                self.assertRegex(self.DOCS[nome], r'\b12\b', 'placar: 12 respondidas')
+                self.assertRegex(self.DOCS[nome], r'\b8\b', 'placar: 8 recusadas')
+                self.assertRegex(self.DOCS[nome], r'\b0\b', 'placar: 0 erradas')
+
+    def test_cobertura_das_normalizacoes(self):
+        for nome in ('pacote', 'design'):
+            with self.subTest(documento=nome):
+                self.assertIn('82,1', self.DOCS[nome], 'cobertura de substância (82,1%)')
+                self.assertIn('23,5', self.DOCS[nome], 'cobertura agronômica (23,5%)')
+
+    def test_total_de_source_ids_coerente_com_o_atlas(self):
+        n = len(source_ids())
+        for nome in ('design',):
+            with self.subTest(documento=nome):
+                self.assertRegex(self.DOCS[nome], rf'`?{n}`? SOURCE_IDs',
+                                 f'o pacote de design não diz {n} SOURCE_IDs')
+
+    def test_a_cronologia_competitiva_foi_mesmo_retirada(self):
+        """Se a leitura caiu no red team, não pode sobreviver como AFIRMAÇÃO.
+
+        O registro histórico da retirada (uma citação do que se escreveu antes) é
+        obrigatório e não pode ser confundido com a afirmação: por isso o teste olha
+        os TÍTULOS e as linhas de tabela, onde uma frase vale como declaração, e não
+        a prosa, onde ela pode estar sendo citada para ser desmentida.
+        """
+        alvo = re.compile(r'(?i)(18 meses|registrou primeiro)')
+        for nome, txt in self.DOCS.items():
+            titulos = re.findall(r'^#{1,4} .*$', txt, re.M)
+            linhas = re.findall(r'^\|.*$', txt, re.M)
+            for linha in titulos + linhas:
+                with self.subTest(documento=nome, linha=linha[:60]):
+                    self.assertNotRegex(linha, alvo,
+                                        'a cronologia competitiva reapareceu como afirmação')
+
+    def test_a_retirada_continua_registrada(self):
+        """A queda tem de ficar preservada — não se reescreve a história."""
+        self.assertRegex(self.DOCS['casos'], r'(?i)RETIRADA',
+                         'o registro da leitura retirada desapareceu do documento')
+
+    def test_nenhum_documento_afirma_derivacao_legal_das_datas(self):
+        """A frase pode existir DENTRO da negação — o que não pode é ser afirmada.
+
+        Mesma lógica do teste anterior: títulos e linhas de tabela declaram; a prosa
+        pode citar para desmentir. E exigimos que a negação continue presente.
+        """
+        proibido = re.compile(r'(?i)data italiana (é|e) (juridicamente )?derivada')
+        for nome, txt in self.DOCS.items():
+            for linha in re.findall(r'^#{1,4} .*$', txt, re.M) + re.findall(r'^\|.*$', txt, re.M):
+                with self.subTest(documento=nome, linha=linha[:60]):
+                    self.assertNotRegex(linha, proibido,
+                                        'afirma derivação legal entre as datas')
+        self.assertRegex(self.DOCS['casos'], r'(?i)DERIVAÇÃO LEGAL = NÃO SEI',
+                         'a recusa explícita da derivação legal desapareceu')

@@ -823,7 +823,7 @@ publicamente no mercado espanhol. Também não sabemos vendas, prioridade comerc
 
 ---
 
-### CASE-015 · O concorrente chegou 18 meses depois — e com outro nome no registro
+### CASE-015 · Identidade de marca não é identidade de registro (IT e ES)
 
 ```
 CASE_ID:                CASE-015
@@ -924,4 +924,4 @@ se SORATEL MAX é produto seu — informação que ela tem e nós não.
 | CASE-012 | ES | Olivar | REAL + DERIVED | protótipo V2 |
 | CASE-013 | ES | Olivar | REAL + DERIVED | — (missão só texto) |
 | CASE-014 | EU → FR/IT | Cereais | REAL + DERIVED | — (missão só texto) |
-| CASE-015 | IT | Cereais | REAL + DERIVED | — (missão só texto) |
+| CASE-015 | IT + ES | Cereais | REAL + DERIVED | — (missão só texto) |
