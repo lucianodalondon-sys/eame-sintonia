@@ -19,12 +19,13 @@ conversations."* (DECK-017). Este documento mede o que existe, por camada e por 
 | **MARKET** | USABLE | USABLE | USABLE | USABLE |
 | **FIELD / TECHNICAL** | WEAK | **STRONG** | WEAK | EMPTY |
 | **COMPETITOR** | USABLE (só registro) | WEAK | USABLE (só registro) | EMPTY |
-| **DISTRIBUTION** | **EMPTY** | **EMPTY** | **EMPTY** | **EMPTY** |
+| **DISTRIBUTION** | **USABLE** | EMPTY | EMPTY | EMPTY |
 | **ADAMA CONTEXT** | USABLE | USABLE | USABLE | USABLE |
 
-**Três packs em EMPTY ou WEAK em todos os mercados: FIELD (fora da Andaluzia),
-COMPETITOR (comunicação) e DISTRIBUTION.** São exatamente os que sustentam os claims
-não provados do deck.
+**Dois packs continuam vazios ou fracos em todos os mercados: FIELD (fora da Andaluzia) e
+COMPETITOR (comunicação).** São exatamente os que sustentam os claims não provados do deck.
+**DISTRIBUTION saiu de EMPTY** na MISSÃO 03: a França tem fonte aberta e boa; Espanha e
+Itália continuam sem investigação.
 
 ---
 
@@ -101,8 +102,16 @@ EU-T2-003 Open-Meteo ficou `BLOCKED` neste ambiente (cota por IP).
 | anúncios, campanhas, claims | **EMPTY — não investigado** | — |
 | atenção do campo | **EMPTY** | dimensão distinta de comunicação da empresa |
 
-## PACK · DISTRIBUTION — `EMPTY`
-Nenhuma fonte investigada. Claim independente (DECK-008, DECK-021).
+## PACK · DISTRIBUTION — `USABLE` na França, `EMPTY` na Espanha e na Itália
+
+| País | Fonte | Estado | O que entrega |
+|---|---|---|---|
+| FR | FR-T13-001 base SIRENE aberta | **USABLE** | **4.646** empresas em atacado de grãos e **4.251** em atacado de produtos químicos, com comuna, faixa de efetivo e SIREN. As grandes cooperativas aparecem nominalmente: OCEALIA, SOUFFLET, VIVESCIA, AXEREAL, NATUP, ARTERRIS, OXYANE, CAVAC |
+| ES | — | **EMPTY** | não investigado |
+| IT | — | **EMPTY** | não investigado |
+
+> Dá **a rede**, não o **fluxo**. Volume, catálogo, mudanças de catálogo e acordos
+> continuam sem fonte. Afirmar volume a partir daqui seria inventar.
 
 ## PACK · ADAMA CONTEXT — `USABLE`
 Registro oficial (presença registrada, os três países) + imprensa agrícola 2025–2026

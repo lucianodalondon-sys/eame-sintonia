@@ -57,6 +57,23 @@ class TestContagens(unittest.TestCase):
         self.assertEqual(int(topo.group(4)), ns, 'cabeçalho e placar discordam em NÃO SEI')
         self.assertEqual(g + y + r + ns, t, 'as parcelas do placar não somam o total')
 
+    def test_linhas_por_pais_somam_o_total(self):
+        """Um total certo com linhas erradas continua sendo um documento errado."""
+        linhas = re.findall(r'^\| (EUROPE|FRANCE|SPAIN|ITALY) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \| (\d+) \|$',
+                            FONTES, re.M)
+        self.assertEqual(4, len(linhas), 'placar sem as quatro linhas de recorte')
+        tot = re.search(r'\| \*\*Total\*\* \| \*\*(\d+)\*\* \| \*\*(\d+)\*\* \| \*\*(\d+)\*\* \| \*\*(\d+)\*\* \| \*\*(\d+)\*\* \|', FONTES)
+        alvo = [int(x) for x in tot.groups()]
+        for col in range(5):
+            soma = sum(int(l[col + 1]) for l in linhas)
+            with self.subTest(coluna=('GREEN', 'YELLOW', 'RED', 'NÃO SEI', 'Total')[col]):
+                self.assertEqual(alvo[col], soma,
+                                 'as linhas por país não somam a linha de Total')
+        for l in linhas:
+            with self.subTest(pais=l[0]):
+                self.assertEqual(int(l[5]), sum(int(x) for x in l[1:5]),
+                                 f'a linha de {l[0]} não soma o próprio total')
+
     def test_total_de_fontes_bate_com_os_source_ids_reais(self):
         self.assertEqual(len(source_ids()),
                          int(re.search(r'\| \*\*Total\*\* \| .*?\| \*\*(\d+)\*\* \|$', FONTES, re.M).group(1)),

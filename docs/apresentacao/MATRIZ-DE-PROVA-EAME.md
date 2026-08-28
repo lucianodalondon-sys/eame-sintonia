@@ -13,8 +13,8 @@ Fontes em `../fontes/ATLAS-DE-FONTES-EAME.md`
 | Estado | Claims | Quais |
 |---|---|---|
 | **PROVED** | **8** | DECK-001, 002, 003, 010, 014, 017*, 024, 025, 030 |
-| **PARTIAL** | **11** | DECK-004, 005, 006, 007, 012, 013, 015, 018, 019, 020, 023, 028 |
-| **UNPROVED** | **8** | DECK-008, 009, 011, 021, 022, 026, 027, 029 |
+| **PARTIAL** | **13** | DECK-004, 005, 006, 007, 008, 012, 013, 015, 018, 019, 020, 021, 023, 028 |
+| **UNPROVED** | **6** | DECK-009, 011, 022, 026, 027, 029 |
 | **NOT TESTABLE YET** | **1** | DECK-016 |
 
 \* DECK-017 é PROVED como princípio e PARTIAL como cobertura.
@@ -36,7 +36,7 @@ histórica e falta coleta de conversa pública**.
 | **005** | COMPETITOR | **PARTIAL** | ✅ reg. | ❌ | ✅ reg. | — | COMPETITOR | DECK-015 ❌ | X-005 ✅ / X-003 ❌ | CASE-011 | HIGH | comunicação | packs de comunicação |
 | **006** | MOLECULE | **PARTIAL** | ✅ | ⚠️ | ✅ | ✅ | MOLECULE | X-006 ✅ | X-006 | CASE-011 | HIGH | **manufacturer, origem** | fontes de origem autorizada |
 | **007** | FIELD | **PARTIAL** | ⚠️ PDF | ✅ RAIF | ⚠️ PDF | — | FIELD | X-007 ⚠️ | — | CASE-007, 012 | HIGH | FR/IT processável | — |
-| **008** | DISTRIBUTION | **UNPROVED** | ❌ | ❌ | ❌ | ❌ | DISTRIBUTION | — | — | — | NÃO SEI | tudo | investigação dedicada |
+| **008** | DISTRIBUTION | **PARTIAL** | ✅ rede | ❌ | ❌ | ❌ | DISTRIBUTION | — | — | FR-T13-001 | NÃO SEI | ES, IT, e o fluxo | registro de empresas ES/IT |
 | **009** | "discussion **rises**" | **UNPROVED** | ❌ | ❌ | ❌ | — | FIELD | — | — | — | HIGH | **linha de base** | régua temporal |
 | **010** | "regulatory status changes" | **PROVED** | ✅ | ⚠️ | ✅ | ✅ | REGULATION | X-006 ✅ | X-006 | **CASE-011** | HIGH | — | — |
 | **011** | "competitor **increases**" | **UNPROVED** | ❌ | ❌ | ❌ | — | COMPETITOR | — | X-003 ❌ | — | HIGH | coleta + base | régua temporal |
@@ -49,7 +49,7 @@ histórica e falta coleta de conversa pública**.
 | **018** | WHO/WHAT/WHERE/WHEN | **PARTIAL** | ⚠️ | ✅ | ⚠️ | ✅ | — | — | — | — | — | WHO em clima; WHERE em ciência | — |
 | **019** | idioma local normalizado | **PARTIAL** | ⚠️ | ✅ | ⚠️ | ✅ | — | X-006 ✅ X-007 ⚠️ | — | CAP-002 | — | X-007 | fechar X-007 |
 | **020** | CROP×ISSUE×SCIENCE×MOLECULE×COMPETITOR×PORTFOLIO | **PARTIAL — 5/6** | ✅ | ⚠️ | ⚠️ | ✅ | — | X-006 ✅ | X-006 + X-002 | **CASE-011** | HIGH | elo ISSUE automático | fechar X-007 |
-| **021** | DISTRIBUTION (camada) | **UNPROVED** | ❌ | ❌ | ❌ | ❌ | DISTRIBUTION | — | — | — | NÃO SEI | tudo | investigação dedicada |
+| **021** | DISTRIBUTION (camada) | **PARTIAL** | ✅ rede | ❌ | ❌ | ❌ | DISTRIBUTION | — | — | FR-T13-001 | NÃO SEI | volume, catálogo, acordos | fontes de catálogo |
 | **022** | régua de "increasing" | **UNPROVED** | ❌ | ❌ | ❌ | ❌ | — | — | — | — | HIGH | a régua | `REGUA-DE-ALERTA-EAME.md` |
 | **023** | DELIVER (6 saídas) | **PARTIAL** | — | — | — | — | — | — | — | — | — | ALERT sem régua | contratos textuais |
 | **024** | toda resposta leva à evidência | **PROVED** | ✅ | ✅ | ✅ | ✅ | — | — | — | 14 amostras | — | campo FACT/INTERP/ACTION | aplicar a partir do CASE-013 |
@@ -85,7 +85,10 @@ Legenda: ✅ provado · ⚠️ parcial · ❌ ausente · — não se aplica
    testados; superar exigiria varredura que a própria disciplina do projeto proíbe.
 8. **Manufacturer e origem autorizada** (DECK-006, 012, 029) — **nunca investigado**, e o
    registro nacional **não** contém: `titulaire` é titular de AMM, não fabricante.
-9. **Distribuição** (DECK-008, 021) — nunca investigado.
+9. **Distribuição** (DECK-008, 021) — **saiu de zero na MISSÃO 03**: a França tem 4.646
+   atacadistas de grãos e 4.251 de produtos químicos em fonte aberta, com as grandes
+   cooperativas nominalmente. Mas é **a rede, não o fluxo** — volume, catálogo e acordos
+   continuam sem fonte, e Espanha e Itália não foram investigadas.
 10. **Réguas de alerta, confiança e independência** (DECK-026, 027) — escritas nesta missão,
     ainda **não aplicadas** a um caso.
 

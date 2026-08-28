@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **31 fontes registradas** (13 GREEN, 4 YELLOW, 14 NÃO SEI).
+**Estado:** MISSÃO 02 em curso — **34 fontes registradas** (14 GREEN, 4 YELLOW, 16 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -1021,24 +1021,75 @@ pesquisadores participam do programa científico). É um cruzamento **plausível
 
 ---
 
+### T13 · DISTRIBUTION — FRANCE
+
+*(território novo, aberto na MISSÃO 03 porque a apresentação promete DISTRIBUTION como
+camada de inteligência — DECK-008 e DECK-021 — e T1–T12 não a cobriam)*
+
+#### FR-T13-001 · Annuaire des Entreprises — base SIRENE aberta
+
+```
+SOURCE_ID:                    FR-T13-001
+SOURCE_NAME:                  recherche-entreprises.api.gouv.fr (base SIRENE)
+SOURCE_OWNER:                 DINUM / INSEE (França)
+COUNTRY:                      FRANCE
+LANGUAGE:                     FR
+TERRITORY:                    T13
+SOURCE_TYPE:                  registro oficial de empresas, dados abertos
+URL:                          https://recherche-entreprises.api.gouv.fr/search
+ACCESS_METHOD:                REST JSON, **sem chave**, filtrável por código NAF
+TOPICS:                       razão social, SIREN, departamento, comuna, faixa de efetivo,
+                              data de criação, atividade principal
+GEOGRAPHIC_GRANULARITY:       **comuna** — a mais fina de qualquer fonte da missão para
+                              entidades. É a sede da empresa, não a área que ela atende.
+UPDATE_FREQUENCY:             contínua (base SIRENE)
+HISTORICAL_DEPTH:             data de criação por empresa
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       ALTA (observado corte de conexão em rajada; exige recuo)
+LEGAL_OR_ACCESS_RISK:         BAIXO — Licence Ouverte. Pessoas jurídicas.
+REAL_EXAMPLE:                 NAF **46.21Z** (atacado de grãos, sementes e alimentos para
+                              animais): **4.646 empresas**. Entre as maiores da amostra:
+                              OCEALIA, SOUFFLET AGRICULTURE, VIVESCIA, AXEREAL, NATUP,
+                              ARTERRIS, OXYANE, CAVAC — as grandes cooperativas francesas.
+                              NAF **46.75Z** (atacado de produtos químicos): **4.251
+                              empresas**, com BRENNTAG, BASF FRANCE e GIVAUDAN na amostra.
+ADAMA_USE_CASE:               COMMERCIAL / MD: mapa de quem distribui e onde — a rede que
+                              está entre a ADAMA e o produtor.
+EVIDENCE:                     data/samples/FR-T13-001-distribution.json
+VERDICT:                      GREEN
+```
+
+**O que esta fonte NÃO dá — e o deck promete:** volume distribuído, catálogo de produtos,
+mudanças de catálogo, acordos comerciais e culturas atendidas. Ela dá **a rede**, não o
+**fluxo**. Afirmar volume a partir daqui seria inventar (DECK-021, failure mode).
+
+**Espanha e Itália — registrados como não alcançados:**
+
+| ID | Fonte pretendida | Situação | Motivo |
+|---|---|---|---|
+| ES-T13-001 | registro mercantil / cooperativas agroalimentares espanholas | **NÃO SEI** | equivalente aberto não investigado nesta rodada |
+| IT-T13-001 | Registro Imprese / cooperative italiane | **NÃO SEI** | idem; não há API aberta comparável conhecida |
+
+---
+
 ### Regra de contagem (declarada para evitar leitura ambígua)
 
 O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOURCE_ID
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na FASE 0 da MISSÃO 03: **23 fichas · 31 SOURCE_IDs · 13 GREEN · 4 YELLOW ·
-0 RED · 14 NÃO SEI**. Os números batem. `tests/test_canonico.py` passou a verificar isso.
+Verificado na MISSÃO 03: **24 fichas · 34 SOURCE_IDs · 14 GREEN · 4 YELLOW ·
+0 RED · 16 NÃO SEI**. Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
 | EUROPE | 8 | 0 | 0 | 6 | 14 |
-| FRANCE | 1 | 2 | 0 | 3 | 6 |
-| SPAIN | 3 | 0 | 0 | 3 | 6 |
-| ITALY | 1 | 2 | 0 | 2 | 5 |
-| **Total** | **13** | **4** | **0** | **14** | **31** |
+| FRANCE | 2 | 2 | 0 | 3 | 7 |
+| SPAIN | 3 | 0 | 0 | 4 | 7 |
+| ITALY | 1 | 2 | 0 | 3 | 6 |
+| **Total** | **14** | **4** | **0** | **16** | **34** |
 
 ### Cobertura por território
 
