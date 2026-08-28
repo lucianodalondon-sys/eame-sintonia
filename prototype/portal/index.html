@@ -39,6 +39,11 @@ border-radius:4px}
 .flag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px}
 .flag.on{background:#3d2b12;color:#e8b339}.flag.off{background:#1b2126;color:var(--dim)}
 .low{color:#ff7b72}
+.n{color:var(--dim);font-size:11px}
+.k,.na,.nn,.nc{font-size:10px;font-weight:700;letter-spacing:.4px;padding:2px 6px;border-radius:4px;
+display:inline-block;margin-right:5px}
+.k{background:#12301c;color:#5ed67f}.na{background:#301616;color:#ff8c84}
+.nn{background:#30280f;color:#e8b339}.nc{background:#1b2126;color:var(--dim)}
 .warn{margin-top:12px;background:var(--warn);border-left:3px solid var(--demo);
 padding:9px 12px;border-radius:0 6px 6px 0;font-size:12.5px;color:#e8d5b5}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px}
@@ -60,8 +65,9 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--ln);color:var
 </header>
 
 <nav>
-  <a href="#home">Home</a><a href="#pest">Pest &amp; Disease</a><a href="#climate">Crops &amp; Climate</a>
-  <a href="#reg">Regulatory</a><a href="#opp">Opportunities</a><a href="#src">Evidence</a>
+  <a href="#home">Home</a><a href="#adama">ADAMA radar</a><a href="#pest">Pest &amp; Disease</a>
+  <a href="#climate">Crops &amp; Climate</a><a href="#reg">Regulatory</a>
+  <a href="#pulse">Country pulse</a><a href="#opp">Opportunities</a><a href="#src">Evidence</a>
 </nav>
 
 <div class="legend">
@@ -82,7 +88,21 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--ln);color:var
   <div class="ch"><span class="badge b-real">REAL</span><span class="cw">França · Eurostat</span></div>
   <h4>Rendimento francês de trigo caiu a 6,02 t/ha em 2024 e voltou a 7,34 em 2025</h4><p>Nas regiões grandes, 2024 teve zero dias ≥30 °C e cerca do dobro de chuva na janela sensível. Coincidência medida, não causa provada.</p></article></div>
 
+<h2 id="adama">ADAMA radar</h2>
+<section class="block">
+  <header><h3>A plataforma europeia de cereal da ADAMA e a molécula em que ela se apoia</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>ANSES E-Phy (registro) + CELLAR/Jornal Oficial da UE (atos)</strong> · dado de registro de 25/08/2026 · ato da UE de 24/04/2025
+    · evidência: <code>data/samples/RADAR-ADAMA-prothioconazole.json</code></div>
+  <p style="margin:0 0 10px">Os cinco fungicidas de cereal que a ADAMA lançou na Europa — Avastel, Forapro, Maxentis, Maganic e Soratel — são <strong>todos</strong> formulações de <strong>protioconazol</strong>. No registro francês, a ADAMA tem exatamente três produtos autorizados com a molécula, e são os três da nova plataforma:</p><div class="tw"><table class=""><thead><tr><th>nº AMM</th><th>produto</th><th>substâncias ativas</th></tr></thead><tbody><tr><td>2240236</td><td><strong>AVASTEL</strong></td><td>prothioconazole (Prothioconazole) 150.0 g/L | fluxapyrox</td></tr><tr><td>2240001</td><td><strong>FORAPRO</strong></td><td>prothioconazole (Prothioconazole) 175.0 g/L | fenpropidi</td></tr><tr><td>2230815</td><td><strong>MAXENTIS</strong></td><td>prothioconazole (Prothioconazole) 150.0 g/L | azoxystrob</td></tr></tbody></table></div><div class="meta" style="margin:14px 0 4px">O horizonte europeu da molécula — expiração da aprovação: <strong class="low">2027-03-31</strong> (CELEX 32025R0787 de 24/04/2025, linha 168 do Reg. 540/2011)</div><p style="margin:6px 0 0;color:var(--dim);font-size:12.5px">Prorrogada <strong>6 vezes</strong> em seis anos (32019R0707, 32020R0869, 32021R0745, 32022R0708, 32023R0918, 32025R0787), com <strong>3 resoluções de objeção do Parlamento Europeu</strong>. Na França, 77 produtos autorizados contêm a molécula — 32 deles da Bayer, originadora.</p><div class="warn"><strong>Não conclua:</strong> que a ADAMA vá perder a plataforma em março de 2027. <strong>Expiração não é retirada:</strong> o protioconazol está em processo de renovação, e as prorrogações sucessivas existem porque a avaliação não terminou. O que o padrão mostra é incerteza regulatória prolongada e contestada — não perda iminente. E mais registros da Bayer não significa Bayer mais exposta comercialmente.</div>
+</section>
+
 <h2 id="pest">Pest &amp; Disease</h2>
+<section class="block">
+  <header><h3>Repilo no olivar andaluz — o que se vê e o que ainda não se vê</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>RAIF Andalucía (ES-T3-001), CC BY 4.0</strong> · dado de safra 2026, dados até 19/08/2026
+    · evidência: <code>data/samples/ES-T3-001-raif-olivar-repilo-2026.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>Província</th><th>% folhas com sintoma visível</th><th>% repilo incubado</th><th>condições favoráveis (0–3)</th><th>nº de leituras</th></tr></thead><tbody><tr><td><strong>Huelva</strong></td><td><div class="bar"><i style="width:100.0%"></i><b>8.83%</b></div></td><td>3.00%</td><td>—</td><td><span class='n'>18</span></td></tr><tr><td><strong>Cádiz</strong></td><td><div class="bar"><i style="width:90.7%"></i><b>8.01%</b></div></td><td>1.00%</td><td>—</td><td><span class='n'>141</span></td></tr><tr><td><strong>Sevilla</strong></td><td><div class="bar"><i style="width:31.0%"></i><b>2.74%</b></div></td><td>3.14% <b class="low">▲</b></td><td>2.4</td><td><span class='n'>674</span></td></tr><tr><td><strong>Córdoba</strong></td><td><div class="bar"><i style="width:26.8%"></i><b>2.37%</b></div></td><td>3.55% <b class="low">▲</b></td><td>1.67</td><td><span class='n'>466</span></td></tr><tr><td><strong>Málaga</strong></td><td><div class="bar"><i style="width:12.2%"></i><b>1.08%</b></div></td><td>3.54% <b class="low">▲</b></td><td>2.5</td><td><span class='n'>166</span></td></tr><tr><td><strong>Jaén</strong></td><td><div class="bar"><i style="width:8.7%"></i><b>0.77%</b></div></td><td>2.53% <b class="low">▲</b></td><td>2.34</td><td><span class='n'>1047</span></td></tr><tr><td><strong>Granada</strong></td><td><div class="bar"><i style="width:6.9%"></i><b>0.61%</b></div></td><td>0.21%</td><td>—</td><td><span class='n'>477</span></td></tr></tbody></table></div><p style="margin:10px 0 0;color:var(--dim);font-size:12.5px"><b class="low">▲</b> marca as províncias onde há <strong>mais repilo incubado do que visível</strong> — infecção instalada e ainda sem sintoma. É o que separa um tratamento preventivo de um tratamento tardio.</p><div class="warn"><strong>Não conclua:</strong> ler as médias sem o número de leituras. Huelva tem <strong>18</strong> leituras e Jaén <strong>1.047</strong>: uma média alta sobre poucas parcelas não é comparável a uma média baixa sobre muitas. E as parcelas do RAIF são de acompanhamento técnico, <strong>não</strong> amostra aleatória da província.</div>
+</section>
 <section class="block">
   <header><h3>Míldio da videira por província — Andaluzia, safra 2026</h3><span class="badge b-real">REAL</span></header>
   <div class="meta">fonte: <strong>RAIF Andalucía (ES-T3-001), CC BY 4.0</strong> · dado de amostragem semanal, mar–jul 2026
@@ -153,6 +173,16 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--ln);color:var
   <div class="meta">fonte: <strong>Ministero della Salute — banca dati fitosanitari (IT-T4-001), CC BY 4.0</strong> · dado de registro de 24/08/2026
     · evidência: <code>data/samples/IT-T4-001/IT-T4-001-adama-expiries.json</code></div>
   <div class="tw"><table class=""><thead><tr><th>vencimento</th><th>nº registro</th><th>produto</th><th>substâncias ativas</th></tr></thead><tbody><tr><td>2026-08-31</td><td>008259</td><td>LAMDEX EXTRA</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>013402</td><td>LUMA-KL</td><td>METALDEHYDE</td></tr><tr><td>2026-08-31</td><td>013560</td><td>FORZA</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>013590</td><td>NINJA</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>015275</td><td>DURAVIS</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>017687</td><td>ELTIRA</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>018111</td><td>ARRODIM</td><td>CLETHODIM</td></tr><tr><td>2026-09-30</td><td>009790</td><td>CONTATTO 320</td><td>PHENMEDIPHAM</td></tr><tr><td>2026-09-30</td><td>011734</td><td>CONTATTO DOUBLE SC</td><td>PHENMEDIPHAM</td></tr><tr><td>2026-09-30</td><td>016152</td><td>SEEDRON</td><td>FLUDIOXONIL|TEBUCONAZOLE</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> ler vencimento como perda. Vencimento abre <strong>renovação</strong>. As datas são agrupadas em fins de mês por seguirem o calendário europeu das substâncias ativas.</div>
+</section>
+
+<h2 id="pulse">Country pulse</h2>
+<p style="color:var(--dim);font-size:13px;margin:0 0 14px">Os três países <strong>não têm os
+mesmos campos</strong>, e a tela mostra isso em vez de esconder. Ausência aparece como ausência.</p>
+<section class="block">
+  <header><h3>O que sabemos por país — e o que não sabemos</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>consolidação das fontes GREEN registradas no atlas</strong> · dado de agosto de 2026
+    · evidência: <code>docs/fontes/ATLAS-DE-FONTES-EAME.md</code></div>
+  <div class="tw"><table class=""><thead><tr><th>Camada</th><th>França</th><th>Espanha</th><th>Itália</th></tr></thead><tbody><tr><td><strong>Registro de produtos</strong></td><td><span class="k">KNOWN</span> 15.140 produtos, cultura × alvo</td><td><span class="na">NOT COLLECTED</span> só consulta web</td><td><span class="k">KNOWN</span> 17.695 produtos, com vencimento</td></tr><tr><td><strong>Vencimento da autorização</strong></td><td><span class="na">NOT AVAILABLE</span> campo inexistente</td><td><span class="na">NOT AVAILABLE</span></td><td><span class="k">KNOWN</span> 3.466 com data futura</td></tr><tr><td><strong>Cultura × alvo no registro</strong></td><td><span class="k">KNOWN</span> 18.558 usos</td><td><span class="na">NOT AVAILABLE</span></td><td><span class="na">NOT AVAILABLE</span> está no rótulo</td></tr><tr><td><strong>Medição de doença em campo</strong></td><td><span class="nn">NOT NORMALIZED</span> BSV em PDF regional</td><td><span class="k">KNOWN</span> RAIF, por parcela, semanal</td><td><span class="nn">NOT NORMALIZED</span> boletins provinciais em PDF</td></tr><tr><td><strong>Área de cultura por região</strong></td><td><span class="k">KNOWN</span> NUTS 2, 25 anos</td><td><span class="k">KNOWN</span> NUTS 2, 25 anos</td><td><span class="k">KNOWN</span> NUTS 2, 25 anos</td></tr><tr><td><strong>Rendimento por região</strong></td><td><span class="na">NOT AVAILABLE</span> só nacional</td><td><span class="na">NOT AVAILABLE</span> só nacional</td><td><span class="na">NOT AVAILABLE</span> só nacional</td></tr><tr><td><strong>Preço de cereal por praça</strong></td><td><span class="k">KNOWN</span> 6 praças</td><td><span class="k">KNOWN</span> 17 praças</td><td><span class="k">KNOWN</span> 16 praças</td></tr><tr><td><strong>Vocabulário EPPO oficial</strong></td><td><span class="na">NOT AVAILABLE</span> só nomes comuns</td><td><span class="k">KNOWN</span> 492 culturas, 1.381 pragas</td><td><span class="na">NOT AVAILABLE</span></td></tr><tr><td><strong>Vozes do campo</strong></td><td><span class="nc">NOT COLLECTED YET</span></td><td><span class="nc">NOT COLLECTED YET</span></td><td><span class="nc">NOT COLLECTED YET</span></td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> ler uma linha cheia de KNOWN como paridade entre países. As granularidades diferem: o registro francês é nacional por uso, a medição espanhola é por parcela, o preço é por praça. A comparação legítima entre os três hoje é <strong>área de cultura</strong> e <strong>preço de cereal</strong> — o resto é assimétrico por construção (ver X-008).</div>
 </section>
 
 <h2 id="opp">Opportunities</h2>

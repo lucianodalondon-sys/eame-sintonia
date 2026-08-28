@@ -33,6 +33,8 @@ adama_it  = load('IT-T4-001', 'IT-T4-001-adama-expiries.json')
 excep     = load('ES-T4-001', 'ES-T4-002-autorizaciones-excepcionales.json')
 eppo      = load('ES-T4-001', 'eppo-dictionary.json')
 slice_    = load('SLICE-PLASVI-vertical.json')
+proth     = load('RADAR-ADAMA-prothioconazole.json')
+olivar    = load('ES-T3-001-raif-olivar-repilo-2026.json')
 
 E = html.escape
 
@@ -139,6 +141,30 @@ if excep:
     for r in excep['rows'][:12]:
         ex_rows.append([E(r['cultivo'][:40]), E(r['plaga_funcion'][:74]), E(r['sustancia_activa'][:38])])
 
+# ---------------------------------------------------------------- RADAR ADAMA
+proth_rows, proth_acts = [], []
+if proth:
+    pr = proth['prothioconazole']
+    for x in pr['adama_france_products']:
+        proth_rows.append([E(x['amm']), f"<strong>{E(x['name'])}</strong>", E(x['actives'][:56])])
+    proth_acts = [[E(c)] for c in pr['eu_extension_acts']]
+
+# ---------------------------------------------------------------- OLIVAR / REPILO
+oliv_rows = []
+if olivar:
+    pv = olivar['provinces']
+    vmax = max(p['mean_pct_leaves_visible'] for p in pv.values()) or 1
+    for name, d in sorted(pv.items(), key=lambda x: -x[1]['mean_pct_leaves_visible']):
+        inc = d['mean_pct_incubated']
+        flag = ' <b class="low">▲</b>' if inc and inc > d['mean_pct_leaves_visible'] else ''
+        oliv_rows.append([
+            f'<strong>{E(name)}</strong>',
+            bar(d['mean_pct_leaves_visible'], vmax, f"{d['mean_pct_leaves_visible']:.2f}%"),
+            (f"{inc:.2f}%" if inc is not None else '—') + flag,
+            (f"{d['favourable_mean_0_3']}" if d['favourable_mean_0_3'] is not None else '—'),
+            f"<span class=\'n\'>{d['readings_visible']}</span>",
+        ])
+
 # ---------------------------------------------------------------- SLICE PLASVI
 slice_rows, slice_subs = [], []
 if slice_:
@@ -216,6 +242,11 @@ border-radius:4px}
 .flag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px}
 .flag.on{background:#3d2b12;color:#e8b339}.flag.off{background:#1b2126;color:var(--dim)}
 .low{color:#ff7b72}
+.n{color:var(--dim);font-size:11px}
+.k,.na,.nn,.nc{font-size:10px;font-weight:700;letter-spacing:.4px;padding:2px 6px;border-radius:4px;
+display:inline-block;margin-right:5px}
+.k{background:#12301c;color:#5ed67f}.na{background:#301616;color:#ff8c84}
+.nn{background:#30280f;color:#e8b339}.nc{background:#1b2126;color:var(--dim)}
 .warn{margin-top:12px;background:var(--warn);border-left:3px solid var(--demo);
 padding:9px 12px;border-radius:0 6px 6px 0;font-size:12.5px;color:#e8d5b5}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px}
@@ -242,8 +273,9 @@ HTML = f"""<!doctype html>
 </header>
 
 <nav>
-  <a href="#home">Home</a><a href="#pest">Pest &amp; Disease</a><a href="#climate">Crops &amp; Climate</a>
-  <a href="#reg">Regulatory</a><a href="#opp">Opportunities</a><a href="#src">Evidence</a>
+  <a href="#home">Home</a><a href="#adama">ADAMA radar</a><a href="#pest">Pest &amp; Disease</a>
+  <a href="#climate">Crops &amp; Climate</a><a href="#reg">Regulatory</a>
+  <a href="#pulse">Country pulse</a><a href="#opp">Opportunities</a><a href="#src">Evidence</a>
 </nav>
 
 <div class="legend">
@@ -256,7 +288,46 @@ HTML = f"""<!doctype html>
 <h2 id="home">What matters now</h2>
 <div class="cards">{home}</div>
 
+<h2 id="adama">ADAMA radar</h2>
+{block('A plataforma europeia de cereal da ADAMA e a molécula em que ela se apoia', 'REAL',
+  'ANSES E-Phy (registro) + CELLAR/Jornal Oficial da UE (atos)',
+  'registro de 25/08/2026 · ato da UE de 24/04/2025',
+  'data/samples/RADAR-ADAMA-prothioconazole.json',
+  '<p style="margin:0 0 10px">Os cinco fungicidas de cereal que a ADAMA lançou na Europa — '
+  'Avastel, Forapro, Maxentis, Maganic e Soratel — são <strong>todos</strong> formulações de '
+  '<strong>protioconazol</strong>. No registro francês, a ADAMA tem exatamente três produtos '
+  'autorizados com a molécula, e são os três da nova plataforma:</p>'
+  + table(['nº AMM', 'produto', 'substâncias ativas'], proth_rows)
+  + f'<div class="meta" style="margin:14px 0 4px">O horizonte europeu da molécula — '
+    f'expiração da aprovação: <strong class="low">'
+    f'{E(proth["prothioconazole"]["eu_expiry"]) if proth else "—"}</strong> '
+    f'({E(proth["prothioconazole"]["eu_act"]) if proth else ""})</div>'
+  + f'<p style="margin:6px 0 0;color:var(--dim);font-size:12.5px">Prorrogada '
+    f'<strong>{len(proth["prothioconazole"]["eu_extension_acts"]) if proth else 0} vezes</strong> '
+    f'em seis anos ({", ".join(proth["prothioconazole"]["eu_extension_acts"]) if proth else ""}), '
+    f'com <strong>{len(proth["prothioconazole"]["ep_objection_resolutions"]) if proth else 0} '
+    f'resoluções de objeção do Parlamento Europeu</strong>. Na França, '
+    f'{proth["prothioconazole"]["france_authorised_products_total"] if proth else 0} produtos '
+    f'autorizados contêm a molécula — 32 deles da Bayer, originadora.</p>',
+  'que a ADAMA vá perder a plataforma em março de 2027. <strong>Expiração não é retirada:</strong> '
+  'o protioconazol está em processo de renovação, e as prorrogações sucessivas existem porque a '
+  'avaliação não terminou. O que o padrão mostra é incerteza regulatória prolongada e contestada — '
+  'não perda iminente. E mais registros da Bayer não significa Bayer mais exposta comercialmente.')}
+
 <h2 id="pest">Pest &amp; Disease</h2>
+{block('Repilo no olivar andaluz — o que se vê e o que ainda não se vê', 'REAL',
+  'RAIF Andalucía (ES-T3-001), CC BY 4.0', 'safra 2026, dados até 19/08/2026',
+  'data/samples/ES-T3-001-raif-olivar-repilo-2026.json',
+  table(['Província', '% folhas com sintoma visível', '% repilo incubado',
+         'condições favoráveis (0–3)', 'nº de leituras'], oliv_rows)
+  + '<p style="margin:10px 0 0;color:var(--dim);font-size:12.5px">'
+    '<b class="low">▲</b> marca as províncias onde há <strong>mais repilo incubado do que '
+    'visível</strong> — infecção instalada e ainda sem sintoma. É o que separa um tratamento '
+    'preventivo de um tratamento tardio.</p>',
+  'ler as médias sem o número de leituras. Huelva tem <strong>18</strong> leituras e Jaén '
+  '<strong>1.047</strong>: uma média alta sobre poucas parcelas não é comparável a uma média '
+  'baixa sobre muitas. E as parcelas do RAIF são de acompanhamento técnico, '
+  '<strong>não</strong> amostra aleatória da província.')}
 {block('Míldio da videira por província — Andaluzia, safra 2026', 'REAL',
   'RAIF Andalucía (ES-T3-001), CC BY 4.0', 'amostragem semanal, mar–jul 2026',
   'data/samples/ES-T3-001-raif-vid-mildiu-2026.json',
@@ -342,6 +413,55 @@ HTML = f"""<!doctype html>
   table(['vencimento', 'nº registro', 'produto', 'substâncias ativas'], it_rows),
   'ler vencimento como perda. Vencimento abre <strong>renovação</strong>. '
   'As datas são agrupadas em fins de mês por seguirem o calendário europeu das substâncias ativas.')}
+
+<h2 id="pulse">Country pulse</h2>
+<p style="color:var(--dim);font-size:13px;margin:0 0 14px">Os três países <strong>não têm os
+mesmos campos</strong>, e a tela mostra isso em vez de esconder. Ausência aparece como ausência.</p>
+{block('O que sabemos por país — e o que não sabemos', 'REAL',
+  'consolidação das fontes GREEN registradas no atlas', 'agosto de 2026',
+  'docs/fontes/ATLAS-DE-FONTES-EAME.md',
+  table(['Camada', 'França', 'Espanha', 'Itália'], [
+    ['<strong>Registro de produtos</strong>',
+     '<span class="k">KNOWN</span> 15.140 produtos, cultura × alvo',
+     '<span class="na">NOT COLLECTED</span> só consulta web',
+     '<span class="k">KNOWN</span> 17.695 produtos, com vencimento'],
+    ['<strong>Vencimento da autorização</strong>',
+     '<span class="na">NOT AVAILABLE</span> campo inexistente',
+     '<span class="na">NOT AVAILABLE</span>',
+     '<span class="k">KNOWN</span> 3.466 com data futura'],
+    ['<strong>Cultura × alvo no registro</strong>',
+     '<span class="k">KNOWN</span> 18.558 usos',
+     '<span class="na">NOT AVAILABLE</span>',
+     '<span class="na">NOT AVAILABLE</span> está no rótulo'],
+    ['<strong>Medição de doença em campo</strong>',
+     '<span class="nn">NOT NORMALIZED</span> BSV em PDF regional',
+     '<span class="k">KNOWN</span> RAIF, por parcela, semanal',
+     '<span class="nn">NOT NORMALIZED</span> boletins provinciais em PDF'],
+    ['<strong>Área de cultura por região</strong>',
+     '<span class="k">KNOWN</span> NUTS 2, 25 anos',
+     '<span class="k">KNOWN</span> NUTS 2, 25 anos',
+     '<span class="k">KNOWN</span> NUTS 2, 25 anos'],
+    ['<strong>Rendimento por região</strong>',
+     '<span class="na">NOT AVAILABLE</span> só nacional',
+     '<span class="na">NOT AVAILABLE</span> só nacional',
+     '<span class="na">NOT AVAILABLE</span> só nacional'],
+    ['<strong>Preço de cereal por praça</strong>',
+     '<span class="k">KNOWN</span> 6 praças',
+     '<span class="k">KNOWN</span> 17 praças',
+     '<span class="k">KNOWN</span> 16 praças'],
+    ['<strong>Vocabulário EPPO oficial</strong>',
+     '<span class="na">NOT AVAILABLE</span> só nomes comuns',
+     '<span class="k">KNOWN</span> 492 culturas, 1.381 pragas',
+     '<span class="na">NOT AVAILABLE</span>'],
+    ['<strong>Vozes do campo</strong>',
+     '<span class="nc">NOT COLLECTED YET</span>',
+     '<span class="nc">NOT COLLECTED YET</span>',
+     '<span class="nc">NOT COLLECTED YET</span>'],
+  ]),
+  'ler uma linha cheia de KNOWN como paridade entre países. As granularidades diferem: '
+  'o registro francês é nacional por uso, a medição espanhola é por parcela, o preço é por praça. '
+  'A comparação legítima entre os três hoje é <strong>área de cultura</strong> e '
+  '<strong>preço de cereal</strong> — o resto é assimétrico por construção (ver X-008).')}
 
 <h2 id="opp">Opportunities</h2>
 {block('Necessidades sem solução autorizada — Espanha (art. 53)', 'REAL',
