@@ -145,5 +145,46 @@ diferença entre duas versões de um documento regulatório.
 
 ---
 
+## 6 · RÉGUA OPERACIONAL — como cada evento é emitido (MISSÃO 08)
+
+A §2 diz **quais** eventos existem. Esta diz **como** cada um é decidido, e é a parte que
+impede o radar de inventar mudança.
+
+**Antes de qualquer tipo, o portão de versão.** `scripts/source_health.py::version_state`
+devolve cinco estados e **só um autoriza emitir evento**:
+
+| estado | pode emitir? |
+|---|---|
+| `NEW_VERSION_CHANGED` | **sim** |
+| `BASELINE_ESTABLISHED` | não — **`NOT ENOUGH VERSIONS`**. Sem duas versões não existe *ausência* de mudança, existe ausência de comparação |
+| `NO_NEW_VERSION` | não |
+| `NEW_VERSION_IDENTICAL` | não |
+| `SOURCE_FAILED` | não — e **jamais** apresentar como "nada mudou" |
+
+| CHANGE_TYPE | IDENTITY_KEY | OLD → NEW | EVENT_CONDITION | RISCO DE FALSO POSITIVO | CONFIRMAÇÃO EXIGIDA | evidência |
+|---|---|---|---|---|---|---|
+| `REFERENCE_NAME_CHANGE` | `REGISTRATION_ID` | nome do produto de referência | nomes normalizados diferem | **ALTO** — o nome vem colado no PDF; sobra de prefixo simula mudança | `AFTER` == nome atual no ROPF (fonte independente) **E** `BEFORE` não é `AFTER` com sobra | 5 CONFIRMED · 2 refutados · 3 sem veredito |
+| `NEW_COMMON_DENOMINATION` | `REGISTRATION_ID` + `CONCESSIONAIRE` + marca | ∅ → par | par presente em B e ausente em A | **MÉDIO** — 31% das linhas ficam `UNRESOLVED` na separação; uma linha que passa a resolver parece nova | comparar só entre registros com ≥2 linhas nas **duas** versões, e só linhas resolvidas | 156 eventos, **não verificados um a um** |
+| `REMOVED_COMMON_DENOMINATION` | idem | par → ∅ | par em A e ausente em B | **MÉDIO** | idem | 30 eventos, idem |
+| `NEW_REGISTRATION` | `REGISTRATION_ID` | ∅ → id | id em B e ausente em A | **BAIXO** — id é chave estável | nenhuma além da existência | 83 |
+| `REGISTRATION_LEFT_THE_LIST` | `REGISTRATION_ID` | id → ∅ | id em A e ausente em B | **MÉDIO** — sair da *lista de denominações* ≠ sair do registro | cruzar com o ROPF antes de dizer "saiu do registro" | 38 |
+| `STATUS_CHANGE` | `REGISTRATION_ID` | `Estado` | valor difere | **ALTO** — o filtro `IdEstado` e o campo `Estado` discordam em 5 registros; ler o campo errado inventa 5 eventos por versão | ler sempre o **campo** `Estado`, nunca o filtro; e declarar qual pergunta se está respondendo | `NOT ENOUGH VERSIONS` |
+| `HOLDER_CHANGE` | `REGISTRATION_ID` | `Titular` | razão social difere | **MÉDIO** — variação de grafia (`KENOGARD, S.A.` × `KENOGARD S.A.U.`) simula mudança | comparar razão social normalizada **e** exigir que a diferença não seja só pontuação | `NOT ENOUGH VERSIONS` |
+| `COMPOSITION_CHANGE` | `REGISTRATION_ID` | `Formulado` | string difere | **MÉDIO** — espaço duplo e ordem dos componentes | normalizar espaços e ordenar componentes antes de comparar | `NOT ENOUGH VERSIONS` |
+| `DATE_CHANGE` | `REGISTRATION_ID` + qual data | seis pares de data | valor difere | **BAIXO** | nenhuma além do parse de data | `NOT ENOUGH VERSIONS` |
+| `MANUFACTURER_CHANGE` | `REGISTRATION_ID` | `fabricante` / `fabrica` | valor difere | **ALTO** — `fabricante` é rótulo interno abreviado (`ADAMA Agri Sol`) e `fabrica` é razão social. Comparar campos trocados inventa mudança | comparar **o mesmo campo** entre versões, e publicar a razão social, não o rótulo | `NOT ENOUGH VERSIONS`, e exige um pedido por registro |
+| `UNKNOWN_CHANGE` | — | — | diferença que nenhum tipo acima explica | — | **nunca alerta**; vai para revisão | — |
+
+### O que ainda não temos
+
+Cinco tipos estão em `NOT ENOUGH VERSIONS` por um motivo só: existe **uma** versão
+arquivada do export do ROPF (`ropf_20260829.json.gz`). Não é limitação de método — é
+tempo. A segunda versão os destrava sem uma linha de código nova.
+
+**E o inverso é proibido:** enquanto houver uma versão, a resposta a *"mudou o titular?"*
+é **`NOT ENOUGH VERSIONS`**, nunca `NO_CHANGE`.
+
+---
+
 **EVIDÊNCIA:** `data/samples/CHANGE-EVENTS-es-2025-2026.json`
 (SHA-256 das duas versões, os 10 candidatos, os vereditos e a regra de verificação)

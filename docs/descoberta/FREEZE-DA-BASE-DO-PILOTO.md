@@ -6,7 +6,7 @@ Estado da matéria-prima que vai para o Claude Design.
 PILOT_INFORMATION_BASE = FROZEN
 VERSION                = 2026-08-29 / v1
 HEAD                   = 1e3f5bb (congelamento) → esta linha é atualizada pelo commit seguinte
-TESTES_REAIS           = 43
+TESTES_REAIS (v1, histórico) = 43   ← o que a v1 tinha; o número corrente vive em docs/operacao/
 PROTOTYPE_FROZEN       = SIM
 ```
 
@@ -88,7 +88,13 @@ documento seja esse número. Um número escrito à mão volta a divergir; um nú
 
 ---
 
-## 4 · DIVERGÊNCIA REGISTRADA E NÃO RESOLVIDA
+## 4 · DIVERGÊNCIA REGISTRADA E NÃO RESOLVIDA *(no momento do congelamento)*
+
+> **Resolvida na MISSÃO 08.** O texto abaixo fica como estava — é o registro do que a v1
+> sabia. A regra encontrada está em `../operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md` §3:
+> o filtro `IdEstado=1` inclui os cancelados dentro do prazo legal de escoamento, e os
+> cinco registros estão identificados. **O freeze não foi alterado:** nenhum número
+> publicado na v1 dependia da divisão exata.
 
 Duas leituras primárias do mesmo registro espanhol, com minutos de diferença no mesmo dia:
 

@@ -175,6 +175,7 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
             'identidade': rd('regras', 'MODELO-DE-IDENTIDADE-EAME.md'),
             'change': rd('regras', 'REGUA-DE-CHANGE-EVENT-EAME.md'),
             'freeze': rd('descoberta', 'FREEZE-DA-BASE-DO-PILOTO.md'),
+            'operacao': rd('operacao', 'PROVA-DE-RECORRENCIA-MISSAO-08.md'),
         }
 
     def _todos_dizem(self, docs, padrao, rotulo):
@@ -311,8 +312,19 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
         """
         suite = unittest.defaultTestLoader.discover(os.path.dirname(os.path.abspath(__file__)))
         n = suite.countTestCases()
-        self.assertRegex(self.DOCS['freeze'], rf'TESTES_REAIS\s*=\s*{n}\b',
-                         f'o documento de congelamento não declara TESTES_REAIS = {n}')
+        self.assertRegex(self.DOCS['operacao'], rf'TESTES_REAIS\s*=\s*{n}\b',
+                         f'o documento de operação não declara TESTES_REAIS = {n}')
+
+    def test_o_numero_congelado_na_v1_e_historico_e_nao_muda(self):
+        """CURRENT ≠ HISTORICAL, aplicado ao próprio repositório.
+
+        A v1 foi congelada com 43 provas. Acrescentar provas depois **não** reescreve
+        o que a v1 era — reescrever seria exatamente o erro que a régua de change event
+        proíbe. Por isso o número corrente mora no documento de operação e o número da
+        v1 fica onde está, rotulado como histórico.
+        """
+        self.assertRegex(self.DOCS['freeze'], r'TESTES_REAIS \(v1, histórico\)\s*=\s*43\b',
+                         'o número da v1 saiu do documento de congelamento')
 
     def test_cobertura_das_normalizacoes(self):
         for nome in ('pacote', 'design'):

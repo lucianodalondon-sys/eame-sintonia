@@ -504,11 +504,21 @@ A assimetria que resta **não é de conteúdo, é de rota**: só a França publi
 garantia de estabilidade. Espanha e Itália dependem de rotas que podem mudar. **Isso muda o
 risco, não a qualidade do fato.**
 
-**Divergência registrada e não resolvida:** duas leituras primárias do mesmo registro, com
-minutos de diferença no mesmo dia, discordam na divisão vigente/cancelado — a grade deu
-`1.998/1.086`, o export deu `1.993/1.091`. O **total bate** (3.084). Não sabemos qual dos
-dois campos a grade usa. Enquanto não soubermos, **nenhum número desta fonte é publicado
-com precisão maior do que a divergência**.
+**Divergência resolvida na MISSÃO 08.** A grade dava `1.998/1.086` e o export `1.993/1.091`,
+com o mesmo total de 3.084. A regra:
+
+```
+IdEstado=1 ("VIGENTE") == Estado == 'Vigente'
+                          OR (Estado == 'Cancelado' AND fechaLimiteVenta >= hoje)
+```
+
+Os cinco da diferença — `16192`, `25454`, `ES-00195`, `ES-01106`, `ES-01107` — são
+**cancelados dentro do prazo legal de escoamento**. O **filtro** responde *"ainda pode ser
+vendido?"*; o **campo** responde *"a autorização está em vigor?"*. Os dois números estão
+certos e respondem perguntas diferentes; publicar um sem dizer qual é o erro. E `1.998`
+**tem data de validade**: cai sozinho em 03 e 30/09/2026.
+
+Contrato operacional completo desta fonte: `../operacao/CONTRATOS-DAS-FONTES-EAME.md`.
 
 ---
 

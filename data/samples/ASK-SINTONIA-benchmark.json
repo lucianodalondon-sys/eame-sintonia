@@ -25,245 +25,315 @@
       "layer": "REGULATION",
       "question": "Que atos da UE de 2026 tratam de substância ativa?",
       "verdict": "ANSWERABLE",
-      "basis": "EU-T4-001: SPARQL devolve CELEX, data e título"
+      "basis": "EU-T4-001: SPARQL devolve CELEX, data e título",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B02",
       "layer": "REGULATION",
       "question": "Quando expira a aprovação europeia do protioconazol?",
       "verdict": "ANSWERABLE",
-      "basis": "CELEX 32025R0787, linha 168: 31/03/2027"
+      "basis": "CELEX 32025R0787, linha 168: 31/03/2027",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B03",
       "layer": "REGULATION",
       "question": "Quantos produtos estão autorizados na Espanha com protioconazol?",
       "verdict": "ANSWERABLE",
-      "basis": "ES-T4-005: 30 em vigor — Bayer 8, ADAMA 3, Syngenta 3, Sharda 3. Era CORRECT REFUSAL até a MISSÃO 06; a recusa estava certa para o que sabíamos e errada sobre a fonte"
+      "basis": "ES-T4-005: 30 em vigor — Bayer 8, ADAMA 3, Syngenta 3, Sharda 3. Era CORRECT REFUSAL até a MISSÃO 06; a recusa estava certa para o que sabíamos e errada sobre a fonte",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B04",
       "layer": "REGULATION",
       "question": "Que autorizações ADAMA vencem na Itália nos próximos 6 meses?",
       "verdict": "ANSWERABLE",
-      "basis": "IT-T4-001 traz data_scadenza: 58 de 155"
+      "basis": "IT-T4-001 traz data_scadenza: 58 de 155",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B05",
       "layer": "MOLECULE",
       "question": "Que produtos franceses contêm metalaxil-M e de quem são?",
       "verdict": "ANSWERABLE",
-      "basis": "FR-T4-001: 9 autorizados, 7 Syngenta, 1 Ascenza, 1 ADAMA"
+      "basis": "FR-T4-001: 9 autorizados, 7 Syngenta, 1 Ascenza, 1 ADAMA",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B06",
       "layer": "MOLECULE",
       "question": "Quem fabrica a substância ativa de um produto ADAMA?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "o registro traz titular, não fabricante — G2"
+      "basis": "o registro traz titular, não fabricante — G2",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B07",
       "layer": "MOLECULE",
       "question": "\"Folpel\" e \"folpet\" são a mesma substância?",
       "verdict": "ANSWERABLE",
-      "basis": "X-006 MORPHOLOGY: sim, mesma entrada, grafias diferentes no mesmo registro"
+      "basis": "X-006 MORPHOLOGY: sim, mesma entrada, grafias diferentes no mesmo registro",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B08",
       "layer": "MOLECULE",
       "question": "Qual a origem autorizada de uma formulação vendida na Itália?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "nenhuma fonte de authorized origin investigada"
+      "basis": "nenhuma fonte de authorized origin investigada",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "DEPENDE"
     },
     {
       "id": "B09",
       "layer": "PORTFOLIO",
       "question": "Em que pares cultura × alvo a ADAMA tem uso autorizado na França?",
       "verdict": "ANSWERABLE",
-      "basis": "FR-T4-001: 504 usos, top Vigne×Mildiou 17"
+      "basis": "FR-T4-001: 504 usos, top Vigne×Mildiou 17",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B10",
       "layer": "PORTFOLIO",
       "question": "A ADAMA é líder de mercado em míldio da videira na França?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "registro não é mercado — só sabemos usos autorizados"
+      "basis": "registro não é mercado — só sabemos usos autorizados",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B11",
       "layer": "PORTFOLIO",
       "question": "Que produtos ADAMA existem em cereal na Itália com protioconazol?",
       "verdict": "ANSWERABLE",
-      "basis": "IT-T4-001: MAGANIC, MAXENTIS, AVASTEL, SORATEL, KOJAMI"
+      "basis": "IT-T4-001: MAGANIC, MAXENTIS, AVASTEL, SORATEL, KOJAMI",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B12",
       "layer": "SCIENCE",
       "question": "Quem publica repetidamente sobre resistência a herbicidas na França?",
       "verdict": "ANSWERABLE",
-      "basis": "EU-T5-001: Délye 9 trabalhos, INRAE Agroécologie"
+      "basis": "EU-T5-001: Délye 9 trabalhos, INRAE Agroécologie",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "DEPENDE"
     },
     {
       "id": "B13",
       "layer": "SCIENCE",
       "question": "Quem é a maior autoridade em septoriose na Espanha?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "recorrência não é autoridade — não há régua"
+      "basis": "recorrência não é autoridade — não há régua",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B14",
       "layer": "CROP",
       "question": "Qual região tem mais área de trigo comum em FR, ES e IT?",
       "verdict": "ANSWERABLE",
-      "basis": "EU-T1-001: ES41 Castilla y León, 771,8 mil ha"
+      "basis": "EU-T1-001: ES41 Castilla y León, 771,8 mil ha",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "DEPENDE"
     },
     {
       "id": "B15",
       "layer": "CROP",
       "question": "Qual o rendimento de trigo em Castilla y León em 2024?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "Eurostat não publica rendimento em NUTS 2 — medido, H-001"
+      "basis": "Eurostat não publica rendimento em NUTS 2 — medido, H-001",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B16",
       "layer": "FIELD",
       "question": "A pressão de repilo subiu em Huelva nas últimas safras?",
       "verdict": "ANSWERABLE",
-      "basis": "ES-T3-001: 11 safras; 1,19% (2023) → 8,83% (2026), com controle de coorte"
+      "basis": "ES-T3-001: 11 safras; 1,19% (2023) → 8,83% (2026), com controle de coorte",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B17",
       "layer": "FIELD",
       "question": "A pressão de míldio subiu na França nesta safra?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "FR-T3-001 é PDF regional sem série processável"
+      "basis": "FR-T3-001 é PDF regional sem série processável",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "DEPENDE"
     },
     {
       "id": "B18",
       "layer": "COMPETITOR",
       "question": "Que empresas têm registro contra septoriose do trigo na França?",
       "verdict": "ANSWERABLE",
-      "basis": "FR-T4-001: BASF 22, Bayer 20, Syngenta 8, ADAMA 6"
+      "basis": "FR-T4-001: BASF 22, Bayer 20, Syngenta 8, ADAMA 6",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B19",
       "layer": "COMPETITOR",
       "question": "A Syngenta aumentou a comunicação sobre septoriose?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "sem coleta e sem linha de base — DECK-011"
+      "basis": "sem coleta e sem linha de base — DECK-011",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "DEPENDE"
     },
     {
       "id": "B20",
       "layer": "MARKET",
       "question": "Qual o preço do trigo duro na França e na Itália na última semana?",
       "verdict": "ANSWERABLE",
-      "basis": "EU-T10-001: FR €267,50/t e IT €271,83/t"
+      "basis": "EU-T10-001: FR €267,50/t e IT €271,83/t",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B21",
       "layer": "IDENTITY",
       "question": "Qual é o produto de referência do registro ES-01717?",
       "verdict": "ANSWERABLE",
-      "basis": "MAPA: SORATEL MAX na versão de 26/08/2026; era MAXENTIS na de 28/05/2025"
+      "basis": "MAPA: SORATEL MAX na versão de 26/08/2026; era MAXENTIS na de 28/05/2025",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B22",
       "layer": "IDENTITY",
       "question": "Que denominações comuns estão ligadas ao ES-01717?",
       "verdict": "ANSWERABLE",
-      "basis": "MAPA: AMISTAR ERA 350 SC (Syngenta España) e CUMILZAN (Comercial Química Massó)"
+      "basis": "MAPA: AMISTAR ERA 350 SC (Syngenta España) e CUMILZAN (Comercial Química Massó)",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B23",
       "layer": "IDENTITY",
       "question": "A Syngenta é titular do registro ES-01717?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "NÃO — é empresa CONCESSIONÁRIA de denominação comum. O documento não traz o titular"
+      "basis": "NÃO — é empresa CONCESSIONÁRIA de denominação comum. O documento não traz o titular",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B24",
       "layer": "IDENTITY",
       "question": "Quem detém o registro ES-01717?",
       "verdict": "ANSWERABLE",
-      "basis": "ADAMA Agriculture España S.A. — ficha oficial do ROPF, PRIMÁRIA. Era PARTIAL na MISSÃO 06, quando só tínhamos agregador comercial"
+      "basis": "ADAMA Agriculture España S.A. — ficha oficial do ROPF, PRIMÁRIA. Era PARTIAL na MISSÃO 06, quando só tínhamos agregador comercial",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B25",
       "layer": "IDENTITY",
       "question": "AMISTAR ERA 350 SC tem registro independente do MAXENTIS?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "não — na Espanha é denominação comum do MESMO ES-01717. Mas o AMISTAR ERA 240 EC italiano é outro registro, sob CAC Chemical: não confundir os dois"
+      "basis": "não — na Espanha é denominação comum do MESMO ES-01717. Mas o AMISTAR ERA 240 EC italiano é outro registro, sob CAC Chemical: não confundir os dois",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B26",
       "layer": "IDENTITY",
       "question": "Quem fabrica o produto do registro ES-01717 e onde?",
       "verdict": "ANSWERABLE",
-      "basis": "ADAMA Agricultural Solutions Ltd., planta (Neot Hovav) — ficha oficial do ROPF"
+      "basis": "ADAMA Agricultural Solutions Ltd., planta (Neot Hovav) — ficha oficial do ROPF",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B27",
       "layer": "IDENTITY",
       "question": "A ADAMA depende de Israel para fornecer na Espanha?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "a ficha nomeia UM fabricante e UMA planta para UM registro. Não é cadeia de suprimento"
+      "basis": "a ficha nomeia UM fabricante e UMA planta para UM registro. Não é cadeia de suprimento",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B28",
       "layer": "IDENTITY",
       "question": "A ADAMA é a maior empresa do mercado fitossanitário espanhol?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "é a titular com MAIS REGISTROS (188 de 3.084). Contagem de registros não é venda, volume nem participação"
+      "basis": "é a titular com MAIS REGISTROS (188 de 3.084). Contagem de registros não é venda, volume nem participação",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B29",
       "layer": "IDENTITY",
       "question": "Quantos registros espanhóis têm mais de uma denominação comum?",
       "verdict": "ANSWERABLE",
-      "basis": "363 em vigor, 18,2% dos 1.993 em vigor. O denominador vai junto ou a resposta engana"
+      "basis": "363 em vigor, 18,2% dos 1.993 em vigor. O denominador vai junto ou a resposta engana",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     },
     {
       "id": "B30",
       "layer": "IDENTITY",
       "question": "Contar por marca infla o mercado espanhol em quanto?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "a pergunta não é respondível como está: MERCADO não é medível nesta fonte. O que se mede é excesso de contagem de AUTORIZAÇÕES — 1,52x sobre o registro em vigor"
+      "basis": "a pergunta não é respondível como está: MERCADO não é medível nesta fonte. O que se mede é excesso de contagem de AUTORIZAÇÕES — 1,52x sobre o registro em vigor",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B31",
       "layer": "CHANGE",
       "question": "Algum registro espanhol mudou de nome entre 2025 e 2026?",
       "verdict": "ANSWERABLE",
-      "basis": "5 renomeações confirmadas em 311 registros comparáveis, incluindo ES-01717"
+      "basis": "5 renomeações confirmadas em 311 registros comparáveis, incluindo ES-01717",
+      "FACT_KIND": "HISTORICAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B32",
       "layer": "CHANGE",
       "question": "A renomeação do ES-01717 indica um relançamento comercial?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "prova apenas OFFICIAL RECORD NAME CHANGED. Nem canal, nem preço, nem venda"
+      "basis": "prova apenas OFFICIAL RECORD NAME CHANGED. Nem canal, nem preço, nem venda",
+      "FACT_KIND": "STRUCTURAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B33",
       "layer": "CHANGE",
       "question": "Algum registro espanhol mudou de titular no último ano?",
       "verdict": "CORRECT REFUSAL",
-      "basis": "o campo existe e é comparável, mas só temos UMA versão arquivada do export do ROPF. Detectável a partir da segunda"
+      "basis": "o campo existe e é comparável, mas só temos UMA versão arquivada do export do ROPF. Detectável a partir da segunda",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "DEPENDE"
     },
     {
       "id": "B34",
       "layer": "CHANGE",
       "question": "Quando o nome do ES-01717 mudou?",
       "verdict": "PARTIAL",
-      "basis": "sabemos o intervalo (entre 28/05/2025 e 26/08/2026) e o trâmite datado em 28/07/2026; a data em que o mercado passou a ver o nome novo não está na fonte"
+      "basis": "sabemos o intervalo (entre 28/05/2025 e 26/08/2026) e o trâmite datado em 28/07/2026; a data em que o mercado passou a ver o nome novo não está na fonte",
+      "FACT_KIND": "HISTORICAL",
+      "FRESHNESS_REQUIRED": "NAO"
     },
     {
       "id": "B35",
       "layer": "FIELD",
       "question": "Que culturas o ES-01717 pode tratar?",
       "verdict": "ANSWERABLE",
-      "basis": "cebada, centeno, trigo e triticale — ficha oficial em PDF do ROPF"
+      "basis": "cebada, centeno, trigo e triticale — ficha oficial em PDF do ROPF",
+      "FACT_KIND": "CURRENT",
+      "FRESHNESS_REQUIRED": "SIM"
     }
   ]
 }

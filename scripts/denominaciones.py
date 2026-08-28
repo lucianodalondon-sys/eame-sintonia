@@ -44,7 +44,19 @@ REGID = re.compile(r'^(ES-\d{4,5}|\d{4,6})')
 
 def read(path):
     """Devolve (data_da_versão, linhas). Cada linha: dict com registro e resto bruto."""
-    raw = ''.join(''.join(p) for p in text(path))
+    return parse_text(''.join(''.join(p) for p in text(path)))
+
+
+def parse_text(raw, strip_notes=True):
+    """
+    O corte, isolado do PDF — para que a regra possa ser testada com texto sintético.
+
+    `strip_notes=False` reproduz DE PROPÓSITO a classe de erro do leitor da MISSÃO 06:
+    sem remover a coluna Notas, a data da nota vira fim de linha e o pedaço seguinte
+    não começa em número de registro, então a linha é DESCARTADA em silêncio. Foi assim
+    que 1.786 linhas viraram 1.737. O teste de regressão usa esta porta para provar que
+    o comportamento não voltou.
+    """
     raw = re.sub(r'[\x00-\x1f]', '', raw)
 
     version = None
@@ -52,7 +64,8 @@ def read(path):
     if m:
         version = m.group(1)
     raw = HEADER.sub('\n', raw)
-    raw = NOTE.sub(' ', raw)
+    if strip_notes:
+        raw = NOTE.sub(' ', raw)
 
     rows, unparsed, pos = [], [], 0
     for d in DATE.finditer(raw):

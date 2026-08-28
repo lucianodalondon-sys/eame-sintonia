@@ -63,10 +63,31 @@ def grupo(nome):
     return 'OUTROS'
 
 
+# `www.dati.salute.gov.it` recusa o handshake do contexto TLS padrão do Python
+# (SSLV3_ALERT_HANDSHAKE_FAILURE) e aceita com nível de segurança 1 — parâmetros
+# criptográficos mais fracos do que o padrão atual. curl, que tem outro padrão, sempre
+# funcionou; foi por isso que a diferença só apareceu quando a coleta virou código.
+#
+# O que se faz: tenta o padrão; só depois de falhar, tenta de novo com SECLEVEL=1 e
+# REGISTRA que rebaixou. O que NÃO se faz, nunca: desligar a verificação do certificado.
+# A cadeia continua verificando a cadeia de confiança — só aceita chave/cifra mais antiga.
+TLS_DOWNGRADES = []
+
+
 def _get(url, timeout=180):
     req = urllib.request.Request(url, headers={'User-Agent': UA})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read(), r.headers.get('Content-Type', '')
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return r.read(), r.headers.get('Content-Type', '')
+    except urllib.error.URLError as e:
+        import ssl
+        if not isinstance(getattr(e, 'reason', None), ssl.SSLError):
+            raise
+        ctx = ssl.create_default_context()
+        ctx.set_ciphers('DEFAULT@SECLEVEL=1')          # verificação continua ligada
+        with urllib.request.urlopen(req, timeout=timeout, context=ctx) as r:
+            TLS_DOWNGRADES.append(url)
+            return r.read(), r.headers.get('Content-Type', '')
 
 
 def _rows_csv(path, delimiter=';'):
@@ -87,10 +108,17 @@ def fr_prothioconazole(raw=None, molecule='prothioconazole'):
     rows = _rows_csv(prod)
     steps.append(('AUTOMATIC', f'ler produits_utf8.csv ({len(rows)} linhas)'))
 
-    state, notes = sh.check(
-        rows, required_fields=['numero AMM', 'nom produit', 'titulaire',
-                               'Substances actives', 'Etat d’autorisation'],
-        identity_key='numero AMM', expect_rows=15140, tolerance=0.20)
+    # Contrato COMPLETO das 18 colunas: assim um campo novo é notícia, não ruído.
+    EPHY_COLS = ['type produit', 'numero AMM', 'nom produit', 'seconds noms commerciaux',
+                 'titulaire', 'type commercial', 'gamme usage', 'mentions autorisees',
+                 'restrictions usage', 'restrictions usage libelle', 'Substances actives',
+                 'fonctions', 'formulations', 'Etat d’autorisation',
+                 'Date de retrait du produit', 'Date de première autorisation',
+                 'Numéro AMM du produit de référence', 'Nom du produit de référence',
+                 '']   # coluna vazia final: o CSV termina em ';'. Artefato conhecido,
+                       # declarado para que um campo REALMENTE novo apareça como novidade
+    state, notes = sh.check(rows, required_fields=EPHY_COLS,
+                            identity_key='numero AMM', expect_rows=15140, tolerance=0.20)
     if state == sh.FAILED:
         raise ChainFailure(f'FR: fonte FAILED — {notes}')
     steps.append(('AUTOMATIC', f'checar contrato da fonte → {state}'))
@@ -282,14 +310,27 @@ def it_prothioconazole(raw=None, molecule='PROTHIOCONAZOLE'):
         steps.append(('AUTOMATIC', f'baixar {len(body):,} bytes'))
 
     rows = _rows_csv(path)
-    state, notes = sh.check(
-        rows, required_fields=['num_registrazione', 'denominazione_prodotto',
-                               'ragione_sociale', 'sostanze_attive',
-                               'stato_amministrativo', 'data_scadenza_autorizzazione'],
-        identity_key='num_registrazione', expect_rows=17000, tolerance=0.25)
+    IT_COLS = ['num_registrazione', 'denominazione_prodotto', 'ragione_sociale',
+               'indirizzo_sede_legale', 'cap_sede_legale', 'comune_sede_legale',
+               'provincia_sede_legale', 'indirizzo_sede_amministrativa',
+               'cap_sede_amministrativa', 'comune_sede_amministrativa',
+               'provincia_sede_amministrativa', 'data_registrazione',
+               'data_scadenza_autorizzazione', 'indicazioni_di_pericolo', 'attivita',
+               'codice_formulazione', 'descrizione_formulazione', 'sostanze_attive',
+               'contenuto_per_100g_di_prodotto', 'importazione_parallela', 'PFnPO',
+               'PFnPE', 'stato_amministrativo', 'motivo_della revoca',
+               'data_decreto_revoca', 'data_decorrenza_revoca']
+    state, notes = sh.check(rows, required_fields=IT_COLS,
+                            identity_key='num_registrazione',
+                            expect_rows=17000, tolerance=0.25)
     if state == sh.FAILED:
         raise ChainFailure(f'IT: fonte FAILED — {notes}')
     steps.append(('AUTOMATIC', f'checar contrato da fonte → {state} ({len(rows)} linhas)'))
+    if TLS_DOWNGRADES:
+        steps.append(('HUMAN_JUDGMENT', 'o host italiano recusou o TLS padrão do Python; '
+                                        'a coleta foi refeita com SECLEVEL=1 — cifra mais '
+                                        'antiga, verificação de certificado MANTIDA. '
+                                        'Rebaixamento registrado, nunca silencioso'))
 
     cov = Coverage('IT · produto → molécula')
     hits = []
@@ -303,9 +344,18 @@ def it_prothioconazole(raw=None, molecule='PROTHIOCONAZOLE'):
             hits.append(r)
     cov.require(0.90)
 
-    def vigente(r):
+    # CRITÉRIO DECLARADO — a MISSÃO 02 publicou "85 em vigor" sem dizer quais estados
+    # administrativos contam, e a conta só fecha somando `Ri-registrato`. Os oito estados
+    # observados nesta molécula: Autorizzato (5 variantes), Ri-registrato, Revocato,
+    # Scaduto. "Ri-registrato" é ambíguo — a autorização foi substituída por outra — e por
+    # isso os dois números saem, cada um com o seu critério. Nenhum é publicado sozinho.
+    def autorizado(r):
         return 'AUTORIZZATO' in (r.get('stato_amministrativo') or '').upper()
-    ativos = [h for h in hits if vigente(h)]
+
+    def rerregistrado(r):
+        return 'RI-REGISTRATO' in (r.get('stato_amministrativo') or '').upper()
+    ativos = [h for h in hits if autorizado(h)]
+    ampliado = [h for h in hits if autorizado(h) or rerregistrado(h)]
     por_entidade = {}
     for h in ativos:
         por_entidade[h['ragione_sociale']] = por_entidade.get(h['ragione_sociale'], 0) + 1
@@ -329,7 +379,16 @@ def it_prothioconazole(raw=None, molecule='PROTHIOCONAZOLE'):
         'STEPS': steps, 'SNAPSHOT': os.path.basename(path),
         'HERO_FACT': {
             'records_with_molecule': len(hits),
-            'in_force': len(ativos),
+            'in_force_STRICT_Autorizzato': len(ativos),
+            'in_force_INCLUDING_Ri_registrato': len(ampliado),
+            'administrative_states': dict(sorted(
+                ((h.get('stato_amministrativo') or '?') for h in hits) and
+                {k: sum(1 for h in hits if (h.get('stato_amministrativo') or '?') == k)
+                 for k in {(h.get('stato_amministrativo') or '?') for h in hits}}.items(),
+                key=lambda kv: -kv[1])),
+            'CRITERION': 'in_force_STRICT conta apenas estados que contêm "Autorizzato". '
+                         'O numero publicado na MISSAO 02 (85) inclui "Ri-registrato". '
+                         'Os dois sao defensaveis; publicar sem o criterio nao e.',
             'distinct_legal_entities': len(por_entidade),
             'by_group_HUMAN_JUDGMENT': dict(sorted(por_grupo.items(),
                                                    key=lambda kv: -kv[1])),
@@ -372,11 +431,58 @@ def _raif_year(path, campo=REPILO):
     return out
 
 
-def raif_repilo(raw=None, provincias=('Huelva', 'Jaén')):
+RAIF_CKAN = ('https://www.juntadeandalucia.es/datosabiertos/portal/api/3/action/'
+             'package_show?id=raif')
+# O CKAN devolve URLs no host `gdc-pdpopendata-ckan.paas.junta-andalucia.es`, que não
+# resolve daqui. O mesmo CAMINHO responde em `www.juntadeandalucia.es`. Até a MISSÃO 08
+# isso era uma frase no atlas — conhecimento humano que ninguém novo teria. Agora é regra.
+RAIF_HOST_SWAP = ('gdc-pdpopendata-ckan.paas.junta-andalucia.es', 'www.juntadeandalucia.es')
+
+
+def raif_download(cultura='Olivar', dest=None, only=None):
+    """
+    Resolve o recurso pelo CKAN, troca o host, baixa e extrai. Devolve (destino, versão).
+
+    O ZIP do RAIF usa **Deflate64** (`compress_type=9`), que o `zipfile` da biblioteca
+    padrão não descomprime — levanta `NotImplementedError`. Por isso a extração usa o
+    binário `unzip`, que o repositório já exigia em `scripts/ephy.sh`. Descoberto ao
+    automatizar a cadeia: enquanto o download era manual, ninguém tropeçava nisto.
+    """
+    import subprocess
+    body, _ = _get(RAIF_CKAN, timeout=120)
+    cat = json.loads(body.decode('utf-8'))
+    alvo = [r for r in cat['result']['resources'] if cultura.lower() in r['name'].lower()]
+    if not alvo:
+        raise ChainFailure(f'RAIF: nenhum recurso para {cultura!r} no CKAN. Falha fechada.')
+    rec = alvo[0]
+    url = rec['url'].replace(*RAIF_HOST_SWAP)
+    dest = dest or os.path.join(ROOT, 'data', 'raw', 'ES-T3-001', f'raif_{cultura.lower()}')
+    os.makedirs(dest, exist_ok=True)
+    zpath = os.path.join(dest, os.path.basename(url))
+    blob, ctype = _get(url, timeout=900)
+    if not blob.startswith(b'PK'):
+        raise ChainFailure(f'RAIF: {url} não devolveu ZIP (content-type {ctype!r}). '
+                           'Falha fechada — 200 com corpo errado não vira dado.')
+    with open(zpath, 'wb') as f:
+        f.write(blob)
+    cmd = ['unzip', '-o', '-q', zpath] + ([only] if only else []) + ['-d', dest]
+    r = subprocess.run(cmd, capture_output=True)
+    if r.returncode not in (0, 1):        # 1 = avisos do Info-ZIP, não é falha
+        raise ChainFailure(f'RAIF: unzip falhou ({r.returncode}): '
+                           f'{r.stderr.decode()[:200]}')
+    return dest, rec['name']
+
+
+def raif_repilo(raw=None, provincias=('Huelva', 'Jaén'), download=False):
     raw = raw or os.path.join(ROOT, 'data', 'raw', 'ES-T3-001', 'raif_1')
-    steps = [('MANUAL', 'baixar o ZIP do RAIF: a URL que o CKAN devolve aponta para um '
-                        'host inalcançável; trocar por www.juntadeandalucia.es. '
-                        'Conhecimento humano ainda NÃO automatizado nesta cadeia')]
+    steps = []
+    if download:
+        raw, versao = raif_download()
+        steps.append(('AUTOMATIC', f'CKAN → troca de host → ZIP → extrair ({versao})'))
+    else:
+        steps.append(('AUTOMATIC', 'usar o snapshot já extraído. `--download` refaz a '
+                                   'coleta do zero: CKAN → troca de host → Deflate64 '
+                                   'por `unzip`. Era MANUAL até a MISSÃO 08'))
     if not os.path.isdir(raw):
         raise ChainFailure(f'RAIF: {raw} ausente. Falha fechada.')
     arquivos = [os.path.join(raw, f) for f in sorted(os.listdir(raw))
@@ -442,6 +548,8 @@ def main():
     ap.add_argument('cmd', choices=['list', 'run'])
     ap.add_argument('chain', nargs='?', default='all')
     ap.add_argument('--raw', default=None)
+    ap.add_argument('--download', action='store_true',
+                    help='refaz a coleta da fonte em vez de usar o snapshot (RAIF)')
     ap.add_argument('--json', default=None)
     a = ap.parse_args()
     if a.cmd == 'list':
@@ -453,6 +561,8 @@ def main():
     for nome in alvo:
         try:
             kw = {'raw': a.raw} if a.raw and nome != 'es-identidade' else {}
+            if a.download and nome == 'raif-repilo':
+                kw['download'] = True
             r = CHAINS[nome](**kw)
             r['RESULT'] = 'OK'
         except ChainFailure as e:

@@ -235,6 +235,78 @@ BENCH = [
 ]
 
 
+# --------------------------------------------------------------- FRESHNESS (M08)
+# O benchmark media VERDADE e RECUSA. Faltava a terceira dimensao: uma resposta certa
+# hoje pode estar velha amanha - e uma resposta sobre a versao arquivada NAO envelhece,
+# porque é outra pergunta.
+#
+#   FACT_KIND   CURRENT     depende da versao de hoje da fonte
+#               HISTORICAL  aponta para uma versao arquivada; nao envelhece
+#               STRUCTURAL  é sobre a regra/o regime, nao sobre um valor
+#   FRESHNESS   SIM / NAO / DEPENDE
+#
+# A recusa tambem envelhece: uma CORRECT REFUSAL por falta de fonte deixa de ser correta
+# quando a fonte abre. Aconteceu com B03 e B24 na MISSAO 07.
+FRESHNESS = {
+    'B01': ('CURRENT', 'SIM', 'EU-T4-001 · consulta ao vivo'),
+    'B02': ('CURRENT', 'SIM', 'CELEX 32025R0787 · ato pode ser prorrogado'),
+    'B03': ('CURRENT', 'SIM', 'ES-T4-005 · export do dia'),
+    'B04': ('CURRENT', 'SIM', 'IT-T4-001 · arquivo datado'),
+    'B05': ('CURRENT', 'SIM', 'FR-T4-001 · dump semanal'),
+    'B06': ('STRUCTURAL', 'NAO', 'o registro FR/IT nao traz fabricante — é do esquema'),
+    'B07': ('STRUCTURAL', 'NAO', 'grafia de substancia é regra de normalizacao'),
+    'B08': ('STRUCTURAL', 'DEPENDE', 'ausencia de fonte pode deixar de ser verdade'),
+    'B09': ('CURRENT', 'SIM', 'FR-T4-001'),
+    'B10': ('STRUCTURAL', 'NAO', 'registro nunca é mercado — nao depende de versao'),
+    'B11': ('CURRENT', 'SIM', 'IT-T4-001'),
+    'B12': ('CURRENT', 'DEPENDE', 'OpenAlex acumula; a resposta cresce, nao inverte'),
+    'B13': ('STRUCTURAL', 'NAO', 'falta regua de autoridade — é de metodo'),
+    'B14': ('CURRENT', 'DEPENDE', 'Eurostat publica com anos de atraso'),
+    'B15': ('STRUCTURAL', 'NAO', 'Eurostat nao tem rendimento em NUTS2 — H-001'),
+    'B16': ('CURRENT', 'SIM', 'ES-T3-001 · safra em curso'),
+    'B17': ('STRUCTURAL', 'DEPENDE', 'FR-T3-001 pode passar a publicar serie'),
+    'B18': ('CURRENT', 'SIM', 'FR-T4-001'),
+    'B19': ('STRUCTURAL', 'DEPENDE', 'sem linha de base; coleta futura muda isto'),
+    'B20': ('CURRENT', 'SIM', 'EU-T10-001 · preco semanal'),
+    'B21': ('CURRENT', 'SIM', 'ES-T4-004 · o nome MUDOU uma vez; é o caso-tipo'),
+    'B22': ('CURRENT', 'SIM', 'ES-T4-004 · denominacoes entram e saem'),
+    'B23': ('STRUCTURAL', 'NAO', 'concessionaria nunca é titular — é do modelo'),
+    'B24': ('CURRENT', 'SIM', 'ES-T4-005 · titular pode mudar'),
+    'B25': ('STRUCTURAL', 'NAO', 'regime de denominacion comun'),
+    'B26': ('CURRENT', 'SIM', 'ES-T4-005 · fabricante pode mudar'),
+    'B27': ('STRUCTURAL', 'NAO', 'um fabricante por registro nunca é cadeia'),
+    'B28': ('STRUCTURAL', 'NAO', 'contagem de registro nunca é venda'),
+    'B29': ('CURRENT', 'SIM', 'ES-T4-004 + ES-T4-005 · 363/1.993 muda a cada versao'),
+    'B30': ('STRUCTURAL', 'NAO', 'MERCADO nao é medivel nesta fonte'),
+    'B31': ('HISTORICAL', 'NAO', 'compara 28/05/2025 com 26/08/2026 — versoes fixas'),
+    'B32': ('STRUCTURAL', 'NAO', 'o que a renomeacao prova é regra, nao valor'),
+    'B33': ('CURRENT', 'DEPENDE', 'vira ANSWERABLE quando existir a 2a versao do export'),
+    'B34': ('HISTORICAL', 'NAO', 'o intervalo é o que as versoes arquivadas permitem'),
+    'B35': ('CURRENT', 'SIM', 'ES-T4-005 · usos autorizados mudam'),
+}
+
+
+def freshness_report():
+    from collections import Counter
+    linhas = []
+    for bid, layer, q, verdict, why in BENCH:
+        kind, fresh, dep = FRESHNESS.get(bid, ('UNKNOWN', 'DEPENDE', '—'))
+        linhas.append({'id': bid, 'layer': layer, 'verdict': verdict,
+                       'FACT_KIND': kind, 'FRESHNESS_REQUIRED': fresh,
+                       'SOURCE_VERSION_DEPENDENCE': dep})
+    faltando = [b[0] for b in BENCH if b[0] not in FRESHNESS]
+    return {'questions': linhas,
+            'BY_FACT_KIND': dict(Counter(l['FACT_KIND'] for l in linhas)),
+            'BY_FRESHNESS': dict(Counter(l['FRESHNESS_REQUIRED'] for l in linhas)),
+            'STALE_RISK': [l['id'] for l in linhas
+                           if l['FACT_KIND'] == 'CURRENT' and l['FRESHNESS_REQUIRED'] == 'SIM'],
+            'REFUSALS_THAT_CAN_EXPIRE': [l['id'] for l in linhas
+                                         if l['verdict'] == 'CORRECT REFUSAL'
+                                         and l['FRESHNESS_REQUIRED'] == 'DEPENDE'],
+            'WITHOUT_FRESHNESS_LABEL': faltando}
+
+
+
 def benchmark():
     from collections import Counter
     print('\n\n' + '=' * 70)
@@ -262,7 +334,10 @@ def benchmark():
                'FACT_LOCATION': 'EU/FR/ES/IT', 'ORIGINAL_LANGUAGE': 'FR/ES/IT/EN',
                'totals': dict(c), 'wrong_answers': c['WRONG ANSWER'],
                'questions': [{'id': b[0], 'layer': b[1], 'question': b[2],
-                              'verdict': b[3], 'basis': b[4]} for b in BENCH]},
+                              'verdict': b[3], 'basis': b[4],
+                              'FACT_KIND': FRESHNESS.get(b[0], ('UNKNOWN',))[0],
+                              'FRESHNESS_REQUIRED': FRESHNESS.get(b[0], ('', 'DEPENDE'))[1]}
+                             for b in BENCH]},
               open(out, 'w'), ensure_ascii=False, indent=2)
     print(f'\n  gravado: {out}')
 

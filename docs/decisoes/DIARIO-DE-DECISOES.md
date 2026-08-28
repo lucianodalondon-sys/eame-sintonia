@@ -175,6 +175,44 @@ Regras do diário:
 
 ---
 
+### D-011 — Toda cadeia declara os seus passos por natureza
+
+- **Data:** 2026-08-29
+- **Estado:** DECIDIDO
+- **Contexto:** até a MISSÃO 07 a coleta estava em script e a **análise** estava na cabeça
+  de quem a fez. Um engenheiro novo conseguia baixar o E-Phy e não conseguia chegar a
+  "77 produtos, ADAMA 3". O RAIF era pior: a troca de host que faz o download funcionar
+  estava em prosa no atlas.
+- **Decisão:** toda cadeia que produz um fato do piloto vive em `scripts/chain.py` e
+  declara cada passo como `AUTOMATIC`, `MANUAL` ou `HUMAN_JUDGMENT`.
+- **Motivo:** o objetivo não é zerar julgamento humano — é saber **onde ele está**.
+  Um dicionário de grupo empresarial não é dado; é decisão nossa, e move números.
+- **Consequência:** as quatro cadeias somam 17 passos automáticos, **0 manuais** e 5 de
+  julgamento. Toda contagem por grupo sai acompanhada da contagem por **entidade legal**,
+  que não depende de dicionário nenhum.
+- **Quem decidiu:** decisão técnica da MISSÃO 08.
+
+---
+
+### D-012 — Falhar fechado, sempre; e rebaixamento nunca é silencioso
+
+- **Data:** 2026-08-29
+- **Estado:** DECIDIDO
+- **Contexto:** um pipeline que degrada tem duas saídas possíveis: parar, ou entregar um
+  número menor com a mesma cara de sempre. A segunda é a que destrói confiança.
+- **Decisão:** `HTTP 200` não basta para `HEALTHY` — exige schema completo, identidade
+  única e conteúdo. Lista vazia é `FAILED`, nunca "zero resultados". Cobertura abaixo do
+  piso **levanta**. E quando algo é rebaixado para funcionar — como aceitar `SECLEVEL=1`
+  no TLS do host italiano — o rebaixamento é **registrado como passo da cadeia**.
+- **Motivo:** "não consegui ver" e "não há nada" produzem o mesmo número e significam o
+  oposto.
+- **Consequência:** 11 formas de degradação testadas; nenhuma produz número errado.
+  Verificação de certificado **nunca** é desligada — há teste que proíbe `CERT_NONE` e
+  `check_hostname = False` no código das cadeias.
+- **Quem decidiu:** decisão técnica da MISSÃO 08.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

@@ -1,41 +1,46 @@
 {
-  "crossing": "X-001 completo",
-  "captured_at": "2026-08-28",
-  "sources": [
-    "ES-T3-001 RAIF Andalucia (doenca, parcela)",
-    "EU-T2-001 NASA POWER (clima, ponto)"
-  ],
-  "crop": "Vid VITVI",
-  "disease": "Mildiu PLASVI",
-  "season": 2026,
-  "warning": "clima medido em UM PONTO por provincia; doenca medida em parcelas RAIF daquela provincia. Aproximacao declarada.",
-  "provinces": {
-    "Huelva": {
-      "lat": 37.26,
-      "lon": -6.95,
-      "window": "15/03-31/05",
-      "precip_mm": 55.4,
-      "wet_days_ge1mm": 12,
-      "mean_RH2M_pct": 66.6,
-      "mildiu_peak": "26,4% (16/06)"
-    },
-    "Cordoba": {
-      "lat": 37.88,
-      "lon": -4.78,
-      "window": "15/03-31/05",
-      "precip_mm": 65.1,
-      "wet_days_ge1mm": 12,
-      "mean_RH2M_pct": 66.1,
-      "mildiu_peak": "6,4% (plateau 20/05-10/06)"
-    },
-    "Cadiz (Jerez)": {
-      "lat": 36.69,
-      "lon": -6.14,
-      "window": "15/03-31/05",
-      "precip_mm": 48.9,
-      "wet_days_ge1mm": 8,
-      "mean_RH2M_pct": 74.2,
-      "mildiu_peak": "0% (duas leituras isoladas de 4%)"
-    }
+ "crossing": "X-001 completo",
+ "SOURCE_LOCATION": "SPAIN (RAIF) / EUROPE (NASA POWER)",
+ "FACT_LOCATION": "SPAIN — provincias da Andaluzia",
+ "ORIGINAL_LANGUAGE": "ES / EN",
+ "envelope_note": "envelope de proveniencia acrescentado na MISSAO 08: o teste de operacao passou a exigi-lo de TODA amostra publicada, e estas cinco vinham das MISSOES 02-03, antes da regra. O conteudo medido nao foi tocado.",
+ "captured_at": "2026-08-28",
+ "sources": [
+  "ES-T3-001 RAIF Andalucia (doenca, parcela)",
+  "EU-T2-001 NASA POWER (clima, ponto)"
+ ],
+ "crop": "Vid VITVI",
+ "disease": "Mildiu PLASVI",
+ "season": 2026,
+ "warning": "clima medido em UM PONTO por provincia; doenca medida em parcelas RAIF daquela provincia. Aproximacao declarada.",
+ "provinces": {
+  "Huelva": {
+   "lat": 37.26,
+   "lon": -6.95,
+   "window": "15/03-31/05",
+   "precip_mm": 55.4,
+   "wet_days_ge1mm": 12,
+   "mean_RH2M_pct": 66.6,
+   "mildiu_peak": "26,4% (16/06)"
+  },
+  "Cordoba": {
+   "lat": 37.88,
+   "lon": -4.78,
+   "window": "15/03-31/05",
+   "precip_mm": 65.1,
+   "wet_days_ge1mm": 12,
+   "mean_RH2M_pct": 66.1,
+   "mildiu_peak": "6,4% (plateau 20/05-10/06)"
+  },
+  "Cadiz (Jerez)": {
+   "lat": 36.69,
+   "lon": -6.14,
+   "window": "15/03-31/05",
+   "precip_mm": 48.9,
+   "wet_days_ge1mm": 8,
+   "mean_RH2M_pct": 74.2,
+   "mildiu_peak": "0% (duas leituras isoladas de 4%)"
   }
+ },
+ "not_a_regulatory_layer": "PEST PRESSURE x CLIMATE"
 }
