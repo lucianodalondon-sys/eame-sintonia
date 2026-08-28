@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SINTONIA EAME — protótipo vivo</title><style>
+:root{--bg:#0f1214;--pn:#161b1f;--ln:#232b31;--tx:#e6edf3;--dim:#8b98a5;--ac:#4ea3ff;
+--real:#2ea043;--der:#c9a227;--demo:#d1712a;--con:#8b5cf6;--warn:#3a2a1a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);
+font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 80px}
+header.top{border-bottom:1px solid var(--ln);padding:26px 0 18px;margin-bottom:8px}
+header.top h1{margin:0 0 4px;font-size:22px;letter-spacing:.3px}
+header.top p{margin:0;color:var(--dim);font-size:13px}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 26px;position:sticky;top:0;
+background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--ln)}
+nav a{color:var(--dim);text-decoration:none;font-size:13px;padding:5px 11px;border-radius:6px;
+border:1px solid transparent}
+nav a:hover{color:var(--tx);border-color:var(--ln);background:var(--pn)}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:1.4px;color:var(--dim);
+margin:44px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--ln)}
+.block{background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:16px 18px;margin:14px 0}
+.block header{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:6px}
+.block h3{margin:0;font-size:16px;font-weight:600}
+.meta{color:var(--dim);font-size:12px;margin-bottom:12px}
+.meta code{background:#0b0e10;padding:1px 5px;border-radius:4px;font-size:11px}
+.badge{font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:20px;
+white-space:nowrap;color:#08120b}
+.b-real{background:var(--real)}.b-derived{background:var(--der)}
+.b-demo{background:var(--demo);color:#fff}.b-concept{background:var(--con);color:#fff}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:460px}
+th{text-align:left;color:var(--dim);font-weight:600;font-size:11px;text-transform:uppercase;
+letter-spacing:.6px;padding:7px 10px;border-bottom:1px solid var(--ln)}
+td{padding:7px 10px;border-bottom:1px solid #1b2126;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.bar{position:relative;background:#0b0e10;border-radius:4px;height:20px;min-width:130px}
+.bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#2d6ea8,#4ea3ff);
+border-radius:4px}
+.bar b{position:relative;font-size:11px;padding-left:7px;line-height:20px;font-weight:600}
+.flag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px}
+.flag.on{background:#3d2b12;color:#e8b339}.flag.off{background:#1b2126;color:var(--dim)}
+.low{color:#ff7b72}
+.warn{margin-top:12px;background:var(--warn);border-left:3px solid var(--demo);
+padding:9px 12px;border-radius:0 6px 6px 0;font-size:12.5px;color:#e8d5b5}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:14px}
+.ch{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.cw{color:var(--dim);font-size:11px}
+.card h4{margin:0 0 6px;font-size:14px;line-height:1.4}
+.card p{margin:0;color:var(--dim);font-size:12.5px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--dim);
+background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:12px 16px;margin:14px 0}
+.legend div{display:flex;align-items:center;gap:7px}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--ln);color:var(--dim);font-size:12px}
+</style></head><body>
+<div class="wrap">
+<header class="top">
+  <h1>SINTONIA EAME · protótipo vivo</h1>
+  <p>Laboratório das descobertas da MISSÃO EAME 01/02. Não é produto, não é design final.
+     Gerado em 2026-08-28 a partir de <code>data/samples/</code> por <code>scripts/build_portal.py</code>.</p>
+</header>
+
+<nav>
+  <a href="#home">Home</a><a href="#pest">Pest &amp; Disease</a><a href="#climate">Crops &amp; Climate</a>
+  <a href="#reg">Regulatory</a><a href="#opp">Opportunities</a><a href="#src">Evidence</a>
+</nav>
+
+<div class="legend">
+  <div><span class="badge b-real">REAL</span> sustentado diretamente por fonte</div>
+  <div><span class="badge b-derived">DERIVED</span> calculado sobre informação real</div>
+  <div><span class="badge b-demo">DEMO</span> dado real, ainda não automatizado</div>
+  <div><span class="badge b-concept">CONCEPT</span> capacidade ainda não comprovada</div>
+</div>
+
+<h2 id="home">What matters now</h2>
+<div class="cards"><article class="card">
+  <div class="ch"><span class="badge b-real">REAL</span><span class="cw">Andaluzia (ES) · Vid · safra 2026</span></div>
+  <h4>Míldio da videira em Huelva chegou a 26,4% das cepas</h4><p>Córdoba ficou em 6,4% e Cádiz em ~0% na mesma safra. A média regional não descreve nenhuma delas.</p></article><article class="card">
+  <div class="ch"><span class="badge b-real">REAL</span><span class="cw">Itália · registro de 24/08/2026</span></div>
+  <h4>155 autorizações ADAMA na Itália têm vencimento futuro</h4><p>58 delas vencem em até 6 meses (37,4%), contra 20,9% do mercado. Vencimento abre renovação — não é perda.</p></article><article class="card">
+  <div class="ch"><span class="badge b-real">REAL</span><span class="cw">Espanha · situação de 24/08/2026</span></div>
+  <h4>45 autorizações excepcionais vigentes na Espanha</h4><p>Cada uma é o Estado declarando que não há solução autorizada normal para aquele problema.</p></article><article class="card">
+  <div class="ch"><span class="badge b-real">REAL</span><span class="cw">França · Eurostat</span></div>
+  <h4>Rendimento francês de trigo caiu a 6,02 t/ha em 2024 e voltou a 7,34 em 2025</h4><p>Nas regiões grandes, 2024 teve zero dias ≥30 °C e cerca do dobro de chuva na janela sensível. Coincidência medida, não causa provada.</p></article></div>
+
+<h2 id="pest">Pest &amp; Disease</h2>
+<section class="block">
+  <header><h3>Míldio da videira por província — Andaluzia, safra 2026</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>RAIF Andalucía (ES-T3-001), CC BY 4.0</strong> · dado de amostragem semanal, mar–jul 2026
+    · evidência: <code>data/samples/ES-T3-001-raif-vid-mildiu-2026.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>Província</th><th>pico medido (% cepas afetadas)</th><th>chuva 15/03–31/05</th><th>dias ≥1 mm</th><th>UR média</th></tr></thead><tbody><tr><td><strong>Huelva</strong></td><td><div class="bar"><i style="width:100.0%"></i><b>26.4%</b></div></td><td>55.4 mm</td><td>12</td><td>66.6%</td></tr><tr><td><strong>Cordoba</strong></td><td><div class="bar"><i style="width:24.2%"></i><b>6.4%</b></div></td><td>65.1 mm</td><td>12</td><td>66.1%</td></tr><tr><td><strong>Cadiz (Jerez)</strong></td><td><div class="bar"><i style="width:0.0%"></i><b>0.0%</b></div></td><td>48.9 mm</td><td>8</td><td>74.2%</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> que o clima explique a diferença. Córdoba choveu <strong>mais</strong> que Huelva e teve 4× menos doença; Cádiz teve a <strong>maior</strong> umidade e praticamente nenhuma. Ver X-009 e CASE-008. Variedade, manejo e o programa de fungicida aplicado não foram cruzados.</div>
+</section>
+
+<section class="block">
+  <header><h3>Sinalizador oficial de condições favoráveis ao míldio</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>RAIF Andalucía — campo &quot;1604 Mildiu: condiciones favorables&quot;</strong> · dado de safra 2026
+    · evidência: <code>data/samples/ES-T3-001-raif-vid-mildiu-2026.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>data</th><th>favorável?</th><th>observações</th></tr></thead><tbody><tr><td>2026-03-30</td><td><span class="flag off">não</span></td><td>0/1</td></tr><tr><td>2026-04-06</td><td><span class="flag off">não</span></td><td>0/11</td></tr><tr><td>2026-04-13</td><td><span class="flag on">SIM</span></td><td>11/11</td></tr><tr><td>2026-04-22</td><td><span class="flag on">SIM</span></td><td>11/11</td></tr><tr><td>2026-04-29</td><td><span class="flag on">SIM</span></td><td>11/11</td></tr><tr><td>2026-05-06</td><td><span class="flag on">SIM</span></td><td>11/11</td></tr><tr><td>2026-05-13</td><td><span class="flag on">SIM</span></td><td>11/11</td></tr><tr><td>2026-05-20</td><td><span class="flag on">SIM</span></td><td>11/11</td></tr><tr><td>2026-05-27</td><td><span class="flag on">SIM</span></td><td>11/11</td></tr><tr><td>2026-06-03</td><td><span class="flag off">não</span></td><td>0/11</td></tr><tr><td>2026-06-10</td><td><span class="flag off">não</span></td><td>0/11</td></tr><tr><td>2026-06-17</td><td><span class="flag off">não</span></td><td>0/11</td></tr><tr><td>2026-06-23</td><td><span class="flag off">não</span></td><td>0/11</td></tr><tr><td>2026-07-01</td><td><span class="flag off">não</span></td><td>0/11</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> que isto seja previsão. O sinalizador é <strong>modelo da própria RAIF</strong>, não medição nossa. A janela ligada (13/04–27/05) precede o pico medido em Huelva (02–16/06), o que é compatível com a epidemiologia conhecida — mas foi observado em uma safra, uma cultura, uma região.</div>
+</section>
+
+<section class="block">
+  <header><h3>Série bruta de amostragem — Andaluzia agregada</h3><span class="badge b-derived">DERIVED</span></header>
+  <div class="meta">fonte: <strong>RAIF Andalucía</strong> · dado de safra 2026
+    · evidência: <code>data/samples/ES-T3-001-raif-vid-mildiu-2026.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>data</th><th>parcelas</th><th>média</th><th>máx</th></tr></thead><tbody><tr><td>2026-03-24</td><td>9</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-03-29</td><td>2</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-03-30</td><td>11</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-03-31</td><td>6</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-04-05</td><td>2</td><td>2.0%</td><td>4.0%</td></tr><tr><td>2026-04-06</td><td>11</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-04-07</td><td>7</td><td>3.43%</td><td>12.0%</td></tr><tr><td>2026-04-08</td><td>9</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-04-13</td><td>13</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-04-14</td><td>5</td><td>1.6%</td><td>4.0%</td></tr><tr><td>2026-04-15</td><td>12</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-04-19</td><td>1</td><td>4.0%</td><td>4.0%</td></tr><tr><td>2026-04-21</td><td>7</td><td>5.14%</td><td>12.0%</td></tr><tr><td>2026-04-22</td><td>22</td><td>0.36%</td><td>8.0%</td></tr><tr><td>2026-04-26</td><td>1</td><td>8.0%</td><td>8.0%</td></tr><tr><td>2026-04-27</td><td>2</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-04-28</td><td>5</td><td>9.6%</td><td>12.0%</td></tr><tr><td>2026-04-29</td><td>22</td><td>0.55%</td><td>12.0%</td></tr><tr><td>2026-05-05</td><td>6</td><td>13.33%</td><td>16.0%</td></tr><tr><td>2026-05-06</td><td>14</td><td>0.86%</td><td>12.0%</td></tr><tr><td>2026-05-11</td><td>2</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-05-12</td><td>7</td><td>14.14%</td><td>16.0%</td></tr><tr><td>2026-05-13</td><td>21</td><td>0.0%</td><td>0.0%</td></tr><tr><td>2026-05-19</td><td>7</td><td>17.71%</td><td>20.0%</td></tr><tr><td>2026-05-20</td><td>21</td><td>2.86%</td><td>10.0%</td></tr><tr><td>2026-05-24</td><td>1</td><td>16.0%</td><td>16.0%</td></tr><tr><td>2026-05-26</td><td>7</td><td>17.29%</td><td>24.0%</td></tr><tr><td>2026-05-27</td><td>23</td><td>3.04%</td><td>10.0%</td></tr><tr><td>2026-06-02</td><td>8</td><td>21.5%</td><td>28.0%</td></tr><tr><td>2026-06-03</td><td>21</td><td>3.33%</td><td>10.0%</td></tr><tr><td>2026-06-07</td><td>2</td><td>16.0%</td><td>16.0%</td></tr><tr><td>2026-06-08</td><td>2</td><td>2.0%</td><td>4.0%</td></tr><tr><td>2026-06-09</td><td>17</td><td>9.65%</td><td>28.0%</td></tr><tr><td>2026-06-10</td><td>11</td><td>6.36%</td><td>10.0%</td></tr><tr><td>2026-06-16</td><td>15</td><td>8.8%</td><td>28.0%</td></tr><tr><td>2026-06-17</td><td>13</td><td>2.15%</td><td>16.0%</td></tr><tr><td>2026-06-22</td><td>2</td><td>4.0%</td><td>4.0%</td></tr><tr><td>2026-06-23</td><td>28</td><td>5.71%</td><td>28.0%</td></tr><tr><td>2026-06-28</td><td>2</td><td>14.0%</td><td>16.0%</td></tr><tr><td>2026-06-30</td><td>15</td><td>6.93%</td><td>28.0%</td></tr><tr><td>2026-07-01</td><td>13</td><td>1.08%</td><td>8.0%</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> ler esta tabela como a curva epidêmica da Andaluzia. <strong>Ela não é.</strong> Províncias diferentes são amostradas em dias diferentes, então a média diária reflete <em>qual província foi visitada</em>. Desagregada por província (bloco acima), o zigue-zague desaparece. Mantida aqui porque foi o erro que quase cometemos — ver CAP-015.</div>
+</section>
+
+<h2 id="climate">Crops &amp; Climate</h2>
+<section class="block">
+  <header><h3>Exposição climática na janela de enchimento de grão — trigo comum</h3><span class="badge b-derived">DERIVED</span></header>
+  <div class="meta">fonte: <strong>Eurostat apro_cpshr (área) + NASA POWER (clima) + GISCO (ponto NUTS 2)</strong> · dado de janela 01/05–30/06, safras 2022–2024
+    · evidência: <code>data/samples/X-001-nuts2-heat-vs-wheat.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>Região NUTS 2</th><th>trigo 2024 (mil ha)</th><th>dias com Tmáx ≥30 °C</th><th>chuva na janela (mm)</th></tr></thead><tbody><tr><td><strong>ES41</strong> Castilla y León</td><td>771.8</td><td>2022: <b>11</b> · 2023: <b>6</b> · 2024: <b>4</b></td><td>2022: <b>31</b> · 2023: <b>84</b> · 2024: <b>109</b></td></tr><tr><td><strong>FRB0</strong> Centre — Val de Loire</td><td>544.6</td><td>2022: <b>5</b> · 2023: <b>3</b> · 2024: <b>0</b></td><td>2022: <b>118</b> · 2023: <b>103</b> · 2024: <b>231</b></td></tr><tr><td><strong>FRE2</strong> Picardie</td><td>472.0</td><td>2022: <b>1</b> · 2023: <b>1</b> · 2024: <b>0</b></td><td>2022: <b>101</b> · 2023: <b>95</b> · 2024: <b>175</b></td></tr><tr><td><strong>FRF2</strong> Champagne-Ardenne</td><td>398.7</td><td>2022: <b>5</b> · 2023: <b>1</b> · 2024: <b>0</b></td><td>2022: <b>137</b> · 2023: <b>85</b> · 2024: <b>231</b></td></tr><tr><td><strong>FRG0</strong> Pays de la Loire</td><td>295.4</td><td>2022: <b>5</b> · 2023: <b>5</b> · 2024: <b>1</b></td><td>2022: <b>74</b> · 2023: <b>90</b> · 2024: <b>167</b></td></tr><tr><td><strong>FRI3</strong> Poitou-Charentes</td><td>283.7</td><td>2022: <b>13</b> · 2023: <b>3</b> · 2024: <b>0</b></td><td>2022: <b>106</b> · 2023: <b>137</b> · 2024: <b>198</b></td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> que isto seja impacto. Mede <strong>exposição</strong>. O clima vem de <strong>um ponto</strong> (o ponto-rótulo NUTS 2), não de uma média regional — Castilla y León tem 94 mil km².</div>
+</section>
+
+<section class="block">
+  <header><h3>Rendimento de trigo comum por país (t/ha)</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>Eurostat apro_cpsh1</strong> · dado de série 2019–2025
+    · evidência: <code>data/samples/EU-T1-002-wheat-yield-country.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>País</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr></thead><tbody><tr><td><strong>França</strong></td><td>7.83</td><td>6.76</td><td>7.02</td><td>7.09</td><td>7.28</td><td><b class="low">6.02</b></td><td>7.34</td></tr><tr><td><strong>Espanha</strong></td><td>3.21</td><td>4.4</td><td>4.15</td><td>3.07</td><td><b class="low">2.14</b></td><td>3.74</td><td>4.51</td></tr><tr><td><strong>Itália</strong></td><td>5.25</td><td>5.44</td><td>6.26</td><td>5.23</td><td>5.19</td><td>5.03</td><td><b class="low">5.02</b></td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> combinar este rendimento <strong>nacional</strong> com a área <strong>regional</strong> para estimar produção por região. O Eurostat não publica rendimento em NUTS 2 — testado em 2021, 2022, 2023 e 2024, resultado zero regiões.</div>
+</section>
+
+<section class="block">
+  <header><h3>A janela decide o sinal — Castilla y León × rendimento espanhol</h3><span class="badge b-derived">DERIVED</span></header>
+  <div class="meta">fonte: <strong>NASA POWER (ponto ES41) + Eurostat (rendimento nacional ES)</strong> · dado de 2020–2024
+    · evidência: <code>data/samples/CASE-006-es41-rain-window-vs-yield.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>ano</th><th>chuva fev–abr</th><th>chuva mai–jun</th><th>rendimento ES (t/ha)</th></tr></thead><tbody><tr><td>2020</td><td>170.9 mm</td><td>79.8 mm</td><td>4.4</td></tr><tr><td>2021</td><td>142.3 mm</td><td>83.3 mm</td><td>4.15</td></tr><tr><td>2022</td><td>120.5 mm</td><td>31.1 mm</td><td>3.07</td></tr><tr><td>2023</td><td>34.9 mm</td><td>84.0 mm</td><td>2.14</td></tr><tr><td>2024</td><td>142.2 mm</td><td>109.0 mm</td><td>3.74</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> que a chuva explique o rendimento. São cinco pontos, clima de <strong>um ponto</strong> contra rendimento <strong>nacional</strong>, sem controle de outras variáveis. O que este bloco prova é que a <strong>escolha da janela inverte a leitura</strong>: por fev–abr a ordem acompanha o rendimento; por mai–jun ela aponta ao contrário.</div>
+</section>
+
+<h2 id="reg">Regulatory</h2>
+<section class="block">
+  <header><h3>Da decisão da UE ao produto autorizado na França</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>CELLAR / Jornal Oficial da UE (EU-T4-001) + ANSES E-Phy (FR-T4-001)</strong> · dado de atos de 2026 · registro francês de 25/08/2026
+    · evidência: <code>data/samples/X-006-eu-cas-to-ephy.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>CELEX</th><th>data do ato</th><th>CAS</th><th>substância no E-Phy</th><th>produtos FR autorizados</th><th>dos quais ADAMA</th></tr></thead><tbody><tr><td>32026R1696</td><td>2026-07-14</td><td>112-05-0</td><td>Pelargonic Acid</td><td>0</td><td>0</td></tr><tr><td>32026R1353</td><td>2026-06-15</td><td>70630-17-0</td><td>Metalaxyl-M</td><td>9</td><td><b>1</b></td></tr><tr><td>32026R0870</td><td>2026-04-21</td><td>8042-47-5</td><td>Huile de paraffine (CAS n° 8042-47-5)</td><td>1</td><td>0</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> que a data europeia seja a data de retirada do produto francês. A expiração da aprovação da <strong>substância na UE</strong> abre processo de renovação; a retirada <strong>nacional do produto</strong> tem prazo próprio. E a cobertura é parcial: o CAS foi extraível em 3 de 6 atos testados, e só 621 das 1.338 substâncias do E-Phy trazem CAS.</div>
+</section>
+
+<section class="block">
+  <header><h3>Portfólio ADAMA registrado na França, por cultura × alvo</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>ANSES E-Phy — campo público &quot;titulaire&quot;</strong> · dado de registro de 25/08/2026
+    · evidência: <code>data/samples/FR-T4-001/FR-T4-001-adama-crop-target.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>cultura</th><th>alvo</th><th>usos autorizados</th></tr></thead><tbody><tr><td>Traitements généraux</td><td>Limaces et escargots</td><td>18</td></tr><tr><td>Vigne</td><td>Mildiou(s)</td><td>17</td></tr><tr><td>Vigne</td><td>Black rot</td><td>13</td></tr><tr><td>Vigne</td><td>Rougeot parasitaire</td><td>9</td></tr><tr><td>Blé</td><td>Régul. Croiss. Org. Aériens</td><td>9</td></tr><tr><td>Orge</td><td>Helminthosporiose et ramulariose</td><td>6</td></tr><tr><td>Blé</td><td>Septoriose(s)</td><td>6</td></tr><tr><td>Orge</td><td>Rhynchosporiose</td><td>6</td></tr><tr><td>Orge</td><td>Régul. Croiss. Org. Aériens</td><td>6</td></tr><tr><td>Céréales à paille</td><td>Pucerons</td><td>5</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> ler contagem de usos autorizados como posição de mercado. Mede <strong>direito de uso registrado</strong> — não vendas, não área tratada, não participação, não eficácia.</div>
+</section>
+
+<section class="block">
+  <header><h3>Próximos vencimentos de autorização ADAMA na Itália</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>Ministero della Salute — banca dati fitosanitari (IT-T4-001), CC BY 4.0</strong> · dado de registro de 24/08/2026
+    · evidência: <code>data/samples/IT-T4-001/IT-T4-001-adama-expiries.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>vencimento</th><th>nº registro</th><th>produto</th><th>substâncias ativas</th></tr></thead><tbody><tr><td>2026-08-31</td><td>008259</td><td>LAMDEX EXTRA</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>013402</td><td>LUMA-KL</td><td>METALDEHYDE</td></tr><tr><td>2026-08-31</td><td>013560</td><td>FORZA</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>013590</td><td>NINJA</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>015275</td><td>DURAVIS</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>017687</td><td>ELTIRA</td><td>LAMBDA-CYHALOTHRIN</td></tr><tr><td>2026-08-31</td><td>018111</td><td>ARRODIM</td><td>CLETHODIM</td></tr><tr><td>2026-09-30</td><td>009790</td><td>CONTATTO 320</td><td>PHENMEDIPHAM</td></tr><tr><td>2026-09-30</td><td>011734</td><td>CONTATTO DOUBLE SC</td><td>PHENMEDIPHAM</td></tr><tr><td>2026-09-30</td><td>016152</td><td>SEEDRON</td><td>FLUDIOXONIL|TEBUCONAZOLE</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> ler vencimento como perda. Vencimento abre <strong>renovação</strong>. As datas são agrupadas em fins de mês por seguirem o calendário europeu das substâncias ativas.</div>
+</section>
+
+<h2 id="opp">Opportunities</h2>
+<section class="block">
+  <header><h3>Necessidades sem solução autorizada — Espanha (art. 53)</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>MAPA — Autorizaciones excepcionales vigentes (ES-T4-002)</strong> · dado de situação de 24/08/2026
+    · evidência: <code>data/samples/ES-T4-001/ES-T4-002-autorizaciones-excepcionales.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th>cultivo</th><th>plaga / função</th><th>substância ativa</th></tr></thead><tbody><tr><td>Cítricos</td><td>Tratamiento insecticida contra Delottococcus aberiae, Planococcus citri (M</td><td>Piretrinas 5% y 7% [RB] P/P+FEROMONAS </td></tr><tr><td>Olivo</td><td>Tratamiento insecticida  para el control del algodoncillo (Euphyllura oliv</td><td>Piretrinas 4,65% (como extracto de pel</td></tr><tr><td>Alcachofa</td><td>Tratamiento insecticida contra lepidópteros (Gortyna xanthenes) en las Com</td><td>Clorantraniliprol 35% [WG] P/P</td></tr><tr><td>Extremadura: Tomate, pimiento y tabaco, </td><td>Tratamiento de desinfección del suelo en las Comunidades Autónomas de Extr</td><td>Metam Sodio 51% [SL] P/V</td></tr><tr><td>Manzano y peral</td><td>Tratamiento bactericida contra fuego bacteriano (Erwinia amylovora) en las</td><td>Erwinia amylovora (BAEA)&gt; 5,0x10^12 PF</td></tr><tr><td>Apio, lechuga y similares, espinaca, ace</td><td>Tratamiento insecticida para el control de pulgón en las Comunidades Autón</td><td>Sulfoxaflor 12% [SC] P/V</td></tr><tr><td>Fresal, frambueso y zarzamora en macrotu</td><td>Tratamiento insecticida  para el control de araña roja en la provincia de </td><td>Abamectina 1,8 % [EW] P/V</td></tr><tr><td>Brócoli, repollo, coliflor, coles chinas</td><td>Tratamiento insecticida para el control de pulgón (Brevicoryne brassicae y</td><td>Sulfoxaflor 12% [SC] P/V</td></tr><tr><td>Champiñón</td><td>Tratamiento fungicida contra telaraña  (Dactylium dendroides) y mole seca </td><td>Fluxapyroxad 30% [SC] P/V</td></tr><tr><td>Fresal (aire libre)</td><td>Tratamiento de desinfección del suelo en  las Comunidades Autónomas de And</td><td>Metam Sodio 51% [SL] P/V</td></tr><tr><td>Granado, caqui y cítricos</td><td>Tratamiento insecticida contra Scirtothrips spp. en granado y caqui y cont</td><td>Spinosad 48% [SC] P/V</td></tr><tr><td>Remolacha azucarera</td><td>Tratamiento insecticida para el control de Aphis fabae y Myzus persica en </td><td>Flonicamida 50% [WG] P/P</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> ler lacuna reconhecida como oportunidade dimensionada. Pode ser pequena, sazonal ou já em vias de solução por outra empresa. E a lista traz apenas as <strong>vigentes</strong> — um problema resolvido no ano passado saiu dela sem deixar rastro.</div>
+</section>
+
+<section class="block">
+  <header><h3>Visão EAME unificada de registro (FR + ES + IT)</h3><span class="badge b-concept">CONCEPT</span></header>
+  <div class="meta">fonte: <strong>—</strong> · dado de —
+    · evidência: <code>—</code></div>
+  <p style="color:var(--dim);margin:0">Ainda não existe. As três fontes nacionais não cobrem os mesmos campos: a França publica cultura × alvo mas não vencimento; a Itália publica vencimento mas não cultura × alvo; a Espanha não publica o registro de produtos em formato aberto. Uma pergunta como <em>“em que países a ADAMA tem registro contra míldio da videira?”</em> <strong>não pode ser respondida hoje</strong>. Ver X-008.</p><div class="warn"><strong>Não conclua:</strong> apresentar este bloco como capacidade. Ele está aqui para marcar o que <strong>falta</strong>.</div>
+</section>
+
+<h2 id="src">Evidence</h2>
+<section class="block">
+  <header><h3>Vocabulário EPPO — a chave de normalização entre os três países</h3><span class="badge b-real">REAL</span></header>
+  <div class="meta">fonte: <strong>MAPA — jerarquía de especies vegetales e clasificación de plagas (ES-T4-001)</strong> · dado de tabelas oficiais do registro espanhol
+    · evidência: <code>data/samples/ES-T4-001/eppo-dictionary.json</code></div>
+  <div class="tw"><table class=""><thead><tr><th></th><th>entradas indexadas por código EPPO</th></tr></thead><tbody><tr><td>culturas</td><td>492</td></tr><tr><td>pragas, doenças e daninhas</td><td>1381</td></tr></tbody></table></div><div class="warn"><strong>Não conclua:</strong> supor que isso já normaliza os três países. O E-Phy francês <strong>não tem</strong> código EPPO nem nome científico — só 231 nomes comuns em francês, muitos deles grupo e não espécie (“Mildiou(s)” é <em>Plasmopara viticola</em> na videira e <em>Phytophthora infestans</em> na batata). O mapeamento francês ainda precisa ser construído e medido. Ver X-007.</div>
+</section>
+
+<footer>
+  <p><strong>Estado do protótipo.</strong> Todo bloco acima carrega seu estado, sua fonte, sua data
+  e o caminho da evidência. Nenhum número foi digitado à mão: <code>scripts/build_portal.py</code>
+  lê os arquivos de <code>data/samples/</code>. Se a amostra desaparecer, o bloco desaparece.</p>
+  <p>Seções ainda inexistentes por falta de dado: <em>Science &amp; People</em>, <em>Competitors</em>
+  (além da camada regulatória), <em>Events</em>. Elas não foram criadas vazias de propósito —
+  uma seção só nasce quando existe conteúdo real que a justifique.</p>
+</footer>
+</div></body></html>
