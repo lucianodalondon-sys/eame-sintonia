@@ -3,7 +3,7 @@
 Ferramenta nasce de cruzamento provado, não de ideia bonita.
 Ordem: `SOURCE → EVIDENCE → DATA → CROSSING → CAPABILITY → TOOL → PORTAL`.
 
-**Estado:** MISSÃO 02 em curso — **6 ferramentas qualificadas**.
+**Estado:** MISSÃO 02 em curso — **8 ferramentas qualificadas**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -41,9 +41,9 @@ Nenhuma está aprovada. **A descoberta decide** — só sobe quem tiver dado que
 
 | Candidata | Estado |
 |---|---|
-| CROP PULSE | NÃO QUALIFICADA |
+| CROP PULSE | **QUALIFICADA — CROSSING PROVED** |
 | PEST & DISEASE RADAR | NÃO QUALIFICADA |
-| CLIMATE IMPACT | NÃO QUALIFICADA |
+| CLIMATE IMPACT | **QUALIFICADA — CROSSING PROVED** (renomear: mede exposição) |
 | SCIENCE RADAR | NÃO QUALIFICADA |
 | EXPERT NETWORK | NÃO QUALIFICADA |
 | FIELD VOICES | NÃO QUALIFICADA |
@@ -198,5 +198,52 @@ DATA_RISK:            BAIXO
 PRIORITY:             ALTA (é pré-requisito de qualquer comparação entre países)
 STATUS:               DATA EXISTS
 LIMIT:                Não resolve sozinho: o lado francês é grupo, não espécie.
+```
+
+### CROP PULSE — `CROSSING PROVED`
+
+```
+TOOL_NAME:            CROP PULSE
+QUESTION:             "Onde está cada cultura, com que peso por região, e como isso mudou
+                       nos últimos 25 anos?"
+USER:                 MARKET DEVELOPMENT · COMMERCIAL · COUNTRY · EAME
+SOURCES:              EU-T1-001, EU-T1-002
+CROSSING:             região NUTS 2 × cultura × ano (nativo na fonte)
+REAL_EXAMPLE:         5.685 valores NUTS2 FR/ES/IT, 2000–2024. ES41 771,8 mil ha de trigo.
+FACT:                 área por região e ano; rendimento por país e ano
+DERIVED_ANALYSIS:     rankings, variações, tendências
+UNKNOWN:              rendimento por região — **não existe na fonte**
+ADAMA_VALUE:          mapa real de onde está o negócio, com 25 anos de contexto
+TECHNICAL_DIFFICULTY: BAIXA
+DATA_RISK:            BAIXO
+PRIORITY:             ALTA
+STATUS:               CROSSING PROVED
+LIMIT:                Não dá produtividade regional. Misturar área regional com rendimento
+                      nacional para "estimar produção regional" seria inventar dado.
+```
+
+### CLIMATE IMPACT — `CROSSING PROVED` (com nome perigoso)
+
+```
+TOOL_NAME:            CLIMATE IMPACT
+QUESTION:             "Que exposição climática teve cada região na janela sensível da
+                       cultura, neste ano e nos anteriores?"
+USER:                 TECHNICAL · MARKET DEVELOPMENT · COUNTRY · R&D
+SOURCES:              EU-T2-001, EU-T2-002, EU-T1-001
+CROSSING:             X-001
+REAL_EXAMPLE:         CASE-005 (França 2024) e CASE-006 (Espanha 2023)
+FACT:                 séries diárias de temperatura e precipitação; área por região
+DERIVED_ANALYSIS:     contagem de dias de estresse, somas por janela, comparação entre anos
+UNKNOWN:              o efeito sobre a safra; a média regional real (usamos um ponto)
+ADAMA_VALUE:          sinal antecipado e regional de ano atípico
+TECHNICAL_DIFFICULTY: BAIXA no dado; **MÉDIA na agronomia** — a janela precisa ser correta
+                      por cultura e por país
+DATA_RISK:            BAIXO no acesso; **ALTO na interpretação**
+PRIORITY:             ALTA
+STATUS:               CROSSING PROVED (para exposição)
+LIMIT:                **O nome da ferramenta é o seu maior risco.** Ela mede EXPOSIÇÃO,
+                      não IMPACTO. Enquanto não houver dado de safra regional e de doença,
+                      chamar isto de "impacto" é afirmar o que os dados não provam.
+                      Considerar renomear para CLIMATE EXPOSURE.
 ```
 

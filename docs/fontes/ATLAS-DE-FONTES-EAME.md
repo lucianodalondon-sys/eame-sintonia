@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **7 fontes registradas** (5 GREEN, 2 NÃO SEI).
+**Estado:** MISSÃO 02 em curso — **15 fontes registradas** (9 GREEN, 6 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -221,11 +221,18 @@ EVIDENCE:                     nenhuma — ver motivo abaixo
 VERDICT:                      NÃO SEI
 ```
 
-**Por que NÃO SEI e não RED:** todo acesso a `ec.europa.eu` a partir deste ambiente é
-redirecionado para `sorry.ec.europa.eu` ("Server temporarily unavailable"), com e sem
-User-Agent de navegador. O conteúdo também é renderizado por JavaScript, de modo que o
-HTML servido não contém dados. **A fonte não foi avaliada — apenas não foi alcançada.**
-Não é uma fonte ruim; é uma porta fechada *neste ambiente*.
+**Por que NÃO SEI e não RED:** a chamada à API interna
+(`/api/subst/getSubstances`) é redirecionada para `sorry.ec.europa.eu`
+("Server temporarily unavailable"), com e sem User-Agent de navegador, em duas tentativas
+separadas com intervalo. O conteúdo também é renderizado por JavaScript, de modo que o HTML
+servido não contém dados. **A fonte não foi avaliada — apenas não foi alcançada.**
+
+**Correção registrada (não apagada):** a primeira leitura desta investigação foi
+*"todo `ec.europa.eu` está inacessível deste ambiente"*. **Isso estava errado.** Verificou-se
+depois que `ec.europa.eu/eurostat/...` responde normalmente (ver EU-T1-001 e EU-T1-002) e que
+a própria página da aplicação de pesticidas devolve HTTP 200. O que falha é **o caminho da
+API interna**, não o domínio. A hipótese ampla caiu; a conclusão sobre esta fonte
+permanece NÃO SEI.
 
 **O que falta para resolver:** acesso de rede a `ec.europa.eu` ou execução com navegador
 headless. **Não bloqueia T4**: EU-T4-001 cobre a camada de ato regulatório da UE com
@@ -438,23 +445,178 @@ diferentes, com pontos fortes diferentes.
 
 ---
 
+### T1 · CROP & PRODUCTION — EUROPE
+
+#### EU-T1-001 · Eurostat `apro_cpshr` — produção vegetal por região NUTS 2
+
+```
+SOURCE_ID:                    EU-T1-001
+SOURCE_NAME:                  Crop production in EU standard humidity by NUTS 2 region
+SOURCE_OWNER:                 Eurostat
+COUNTRY:                      EUROPE (cobre FR, ES, IT e demais)
+LANGUAGE:                     EN (+ DE, FR)
+TERRITORY:                    T1
+SOURCE_TYPE:                  Estatística oficial europeia
+URL:                          https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpshr
+ACCESS_METHOD:                API REST, JSON-stat 2.0, sem chave
+CROPS:                        79 rubricas (trigo comum, cevada, milho grão, beterraba…)
+TOPICS:                       área, área principal, produção colhida, rendimento, umidade
+GEOGRAPHIC_GRANULARITY:       **NUTS 2 para ÁREA. Apenas PAÍS para RENDIMENTO.** Medido:
+                              ver a limitação abaixo — é a descoberta mais importante aqui.
+UPDATE_FREQUENCY:             anual (fonte declarou atualização em 2026-05-28)
+HISTORICAL_DEPTH:             **2000–2024, 25 anos** verificados para FR/ES/IT
+SOURCE_IDENTITY_PRESERVABLE:  SIM
+DOCUMENT_ID_AVAILABLE:        SIM — código do dataset + dimensões
+PUBLICATION_DATE_AVAILABLE:   SIM — campo `updated`
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       ALTA
+COLLECTION_FEASIBILITY:       ALTA
+LEGAL_OR_ACCESS_RISK:         BAIXO — política de reutilização do Eurostat, sem dado pessoal
+REAL_EXAMPLE:                 5.685 valores NUTS2 para FR/ES/IT, 2000–2024.
+                              Trigo comum 2024: ES41 Castilla y León 771,8 mil ha;
+                              FRB0 Centre–Val de Loire 544,6; FRE2 Picardie 472,0.
+                              Cevada 2024: ES42 Castilla-La Mancha 702,7 mil ha.
+ADAMA_USE_CASE:               MD / COMMERCIAL / EAME: onde estão de fato as culturas,
+                              em que região, com que peso e com que evolução em 25 anos.
+EVIDENCE:                     data/samples/EU-T1-001-nuts2-crop-area.json
+VERDICT:                      GREEN
+```
+
+**Limitação medida — e ela derruba uma suposição óbvia:** o dataset se chama *"by NUTS 2
+region"*, mas **o rendimento (YLD) não existe em NUTS 2 para nenhum país** — testado em 2021,
+2022, 2023 e 2024, resultado zero regiões. Só **área** desce a NUTS 2 (253 regiões na UE, 67
+em FR/ES/IT). Quem assumir "Eurostat dá produtividade regional" está errado.
+
+#### EU-T1-002 · Eurostat `apro_cpsh1` — produção vegetal por país
+
+```
+SOURCE_ID:                    EU-T1-002
+SOURCE_NAME:                  Crop production in EU standard humidity
+SOURCE_OWNER:                 Eurostat
+COUNTRY:                      EUROPE
+TERRITORY:                    T1
+ACCESS_METHOD:                API REST JSON-stat, sem chave
+GEOGRAPHIC_GRANULARITY:       PAÍS
+UPDATE_FREQUENCY:             fonte declarou atualização em 2026-08-17
+HISTORICAL_DEPTH:             2010–2026 (ES já com 2026; FR e IT até 2025)
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       ALTA
+LEGAL_OR_ACCESS_RISK:         BAIXO
+REAL_EXAMPLE:                 rendimento de trigo comum (t/ha):
+                              FR 2023 7,28 → **2024 6,02** → 2025 7,34
+                              ES 2022 3,07 → **2023 2,14** → 2024 3,74 → 2025 4,51
+                              IT 2021 6,26 → 2024 5,03 → 2025 5,02
+ADAMA_USE_CASE:               leitura de ano bom e ano ruim por país, série longa
+EVIDENCE:                     data/samples/EU-T1-002-wheat-yield-country.json
+VERDICT:                      GREEN
+```
+
+#### Fontes nacionais de T1 — não alcançadas nesta rodada
+
+| ID | Fonte | Situação | Motivo medido |
+|---|---|---|---|
+| FR-T1-001 | Agreste — Statistique agricole annuelle (SAA) | **NÃO SEI** | `agreste.agriculture.gouv.fr` falhou por TLS via curl e devolveu **HTTP 503** por outra rota de saída. Indisponibilidade do próprio site, não decisão sobre a fonte. |
+| IT-T1-001 | ISTAT — coltivazioni (SDMX) | **NÃO SEI** | `esploradati.istat.it` não respondeu no tempo limite; `sdmx.istat.it` devolveu 302 sem conteúdo. |
+| ES-T1-001 | MAPA — Estadística Anual de Superficies y Producciones | **NÃO SEI** | localizados apenas os *esquemas de conceitos* no datos.gob.es, não a série. |
+
+Nenhuma delas é RED: **não foram avaliadas, foram apenas não alcançadas**. Não bloqueiam T1,
+porque EU-T1-001 já entrega área por NUTS 2 com 25 anos para os três países.
+
+---
+
+### T2 · CLIMATE / WATER / SOIL — EUROPE
+
+#### EU-T2-001 · NASA POWER — série climática diária por ponto
+
+```
+SOURCE_ID:                    EU-T2-001
+SOURCE_NAME:                  NASA POWER — Daily Point (community AG)
+SOURCE_OWNER:                 NASA Langley Research Center
+COUNTRY:                      global (aplicado a EUROPE, FRANCE, SPAIN, ITALY)
+LANGUAGE:                     EN
+TERRITORY:                    T2
+SOURCE_TYPE:                  reanálise climática servida por API
+URL:                          https://power.larc.nasa.gov/api/temporal/daily/point
+ACCESS_METHOD:                API REST JSON, **sem chave, sem cadastro**
+TOPICS:                       T2M_MAX, T2M_MIN, PRECTOTCORR (precipitação corrigida),
+                              RH2M e demais parâmetros agroclimáticos
+GEOGRAPHIC_GRANULARITY:       **PONTO (lat/lon)** — resolução nativa da reanálise.
+                              **Não é média regional.** Ver a ressalva abaixo.
+UPDATE_FREQUENCY:             diária, com defasagem de poucos dias
+HISTORICAL_DEPTH:             décadas (verificado 2020–2024 sem falha)
+RAW_EVIDENCE_PRESERVABLE:     SIM — JSON por ponto e período
+AUTOMATION_FEASIBILITY:       ALTA
+COLLECTION_FEASIBILITY:       ALTA — uma chamada cobre anos inteiros
+LEGAL_OR_ACCESS_RISK:         BAIXO — dado público da NASA. Sem dado pessoal.
+REAL_EXAMPLE:                 ES41 Castilla y León (ponto-rótulo NUTS2): chuva de
+                              fevereiro a abril — 2020: 170,9 mm · 2021: 142,3 ·
+                              2022: 120,5 · **2023: 34,9** · 2024: 142,2 mm.
+ADAMA_USE_CASE:               TECHNICAL / MD: exposição climática por região e por janela
+                              fenológica, com série histórica, em qualquer ponto dos 3 países.
+EVIDENCE:                     data/samples/X-001-nuts2-heat-vs-wheat.json
+                              data/samples/CASE-006-es41-rain-window-vs-yield.json
+VERDICT:                      GREEN
+```
+
+**Ressalva de geografia — obrigatória em qualquer tela:** o valor é de **um ponto**, não da
+região. Nós usamos o *ponto-rótulo* NUTS 2 do GISCO (EU-T2-002) como representante da região.
+Castilla y León tem 94 mil km²; um ponto não a representa inteira. Isto é uma **aproximação
+declarada**, não uma média regional — e precisa aparecer assim no protótipo.
+
+#### EU-T2-002 · GISCO — pontos-rótulo das regiões NUTS 2
+
+```
+SOURCE_ID:                    EU-T2-002
+SOURCE_NAME:                  NUTS_LB_2024_4326_LEVL_2 (label points)
+SOURCE_OWNER:                 Eurostat / GISCO
+COUNTRY:                      EUROPE
+TERRITORY:                    T2 (infraestrutura geográfica para T1, T2 e T3)
+ACCESS_METHOD:                GeoJSON direto, sem chave
+GEOGRAPHIC_GRANULARITY:       NUTS 2 — 299 pontos
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       ALTA
+LEGAL_OR_ACCESS_RISK:         BAIXO
+REAL_EXAMPLE:                 ES41 (−4,788 / 41,751) · FRB0 (1,684 / 47,485) ·
+                              FRE2 (2,808 / 49,642) · ITC1 (7,923 / 45,060)
+ADAMA_USE_CASE:               é o que liga estatística agrícola e clima na mesma geografia
+VERDICT:                      GREEN
+```
+
+#### EU-T2-003 · Open-Meteo (arquivo ERA5)
+
+```
+SOURCE_ID:                    EU-T2-003
+SOURCE_NAME:                  Open-Meteo Historical Weather API (ERA5)
+ACCESS_METHOD:                API REST, sem chave, com **cota diária por IP**
+COLLECTION_FEASIBILITY:       **NÃO TESTÁVEL HOJE NESTE AMBIENTE**
+REAL_EXAMPLE:                 nenhum
+VERDICT:                      NÃO SEI
+```
+
+**Motivo:** a API respondeu `429 — "Daily API request limit exceeded"` já na primeira
+chamada, porque a cota é por IP e este ambiente sai por IP compartilhado. A fonte é real,
+gratuita e provavelmente muito boa; **não foi avaliada**. EU-T2-001 (NASA POWER) cobre a
+mesma necessidade sem cota observada, então isto **não bloqueia T2**.
+
+---
+
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
-| EUROPE | 1 | 0 | 0 | 1 | 2 |
-| FRANCE | 1 | 0 | 0 | 0 | 1 |
-| SPAIN | 2 | 0 | 0 | 1 | 3 |
-| ITALY | 1 | 0 | 0 | 0 | 1 |
-| **Total** | **5** | **0** | **0** | **2** | **7** |
+| EUROPE | 5 | 0 | 0 | 2 | 7 |
+| FRANCE | 1 | 0 | 0 | 1 | 2 |
+| SPAIN | 2 | 0 | 0 | 2 | 4 |
+| ITALY | 1 | 0 | 0 | 1 | 2 |
+| **Total** | **9** | **0** | **0** | **6** | **15** |
 
 ### Cobertura por território
 
 | | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| EUROPE | – | – | – | 1G/1? | – | – | – | – | – | – | – | – |
-| FRANCE | – | – | – | 1G | – | – | – | – | – | – | – | – |
-| SPAIN | – | – | – | 2G/1? | – | – | – | – | – | – | – | – |
-| ITALY | – | – | – | 1G | – | – | – | – | – | – | – | – |
+| EUROPE | 2G | 3G/1? | – | 1G/1? | – | – | – | – | – | – | – | – |
+| FRANCE | 1? | – | – | 1G | – | – | – | – | – | – | – | – |
+| SPAIN | 1? | – | – | 2G/1? | – | – | – | – | – | – | – | – |
+| ITALY | 1? | – | – | 1G | – | – | – | – | – | – | – | – |
 
 *(– = não investigado)*

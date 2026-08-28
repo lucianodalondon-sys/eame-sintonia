@@ -6,7 +6,7 @@ juntas** revelam e nenhuma delas revela sozinha.
 > **Não afirmar cruzamento apenas porque semanticamente parece interessante.**
 > Clima + doença "parece" cruzar. A pergunta real é: **qual chave os une?**
 
-**Estado:** MISSÃO 02 em curso — **2 COMPROVADOS, 2 PARCIAIS, 1 NÃO COMPÕE**.
+**Estado:** MISSÃO 02 em curso — **2 COMPROVADOS, 3 PARCIAIS, 1 NÃO COMPÕE**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -62,7 +62,7 @@ Listados como **candidatos a testar**, não como afirmações. Todos partem em `
 
 | ID | Cruzamento | Classe |
 |---|---|---|
-| X-001 | CLIMATE + REGION + CROP + DISEASE ALERT | NÃO SEI |
+| X-001 | CLIMATE + REGION + CROP + DISEASE ALERT | **PARCIAL** (falta DISEASE ALERT) |
 | X-002 | RESEARCHER + PAPER + CROP + PROBLEM | NÃO SEI |
 | X-003 | COMPETITOR + PRODUCT + CROP + COMMUNICATION | NÃO SEI (camada COMMUNICATION não investigada) |
 | X-004 | REGULATORY + ADAMA PORTFOLIO + CROP + PEST | **COMPROVADO (FR)** |
@@ -259,12 +259,56 @@ registro espanhol, ou autorização de uso da consulta do MAPA (ES-T4-003, hoje 
 REQUER REVISÃO`); (c) o dicionário FR→EPPO de X-007.
 
 
+### X-001 · CLIMATE + REGION + CROP (+ DISEASE ALERT) — **PARCIAL**
+
+```
+CROSSING_ID:        X-001
+COMPONENTS:         CLIMATE (EU-T2-001) + REGION (EU-T2-002 / NUTS2) + CROP (EU-T1-001)
+                    + DISEASE ALERT (**ausente — T3 ainda não investigado**)
+SOURCES:            EU-T1-001, EU-T1-002, EU-T2-001, EU-T2-002
+KEY:                **código NUTS 2** — presente nativamente no Eurostat e no GISCO;
+                    o clima é anexado à região pelo ponto-rótulo GISCO daquele NUTS 2.
+                    Segunda chave: **ano**, comum às duas fontes.
+GRANULARITY_MATCH:  PARCIAL. Área e região casam em NUTS 2. O clima é de **um ponto**
+                    dentro da região, não uma média regional. O rendimento não existe
+                    em NUTS 2 — só por país.
+WHAT_IT_REVEALS:    quanta área de uma cultura está numa região e que exposição climática
+                    essa região teve na janela sensível daquela cultura, ano a ano.
+REAL_EXAMPLE:       Trigo comum, janela 01/05–30/06, dias com Tmáx ≥ 30 °C:
+                    ES41 (771,8 mil ha) — 11 (2022) → 6 (2023) → 4 (2024)
+                    FRB0 (544,6 mil ha) — 5 → 3 → 0, com chuva 118 → 103 → **231 mm**
+                    FRI3 (283,7 mil ha) — 13 → 3 → 0
+                    Evidência: data/samples/X-001-nuts2-heat-vs-wheat.json
+CAPABILITY:         CAP-010, CAP-012, CAP-013
+CLASS:              PARCIAL
+```
+
+**As oito perguntas (§7):**
+A · sujeito de A: a **região NUTS 2 num ano**, com sua área de cultura.
+B · sujeito de B: a **série climática diária** de um ponto dessa região.
+C · chave: **código NUTS 2 + ano**. Real, nativa nas duas fontes, sem heurística.
+D · granularidade: **parcialmente compatível** — a região é a mesma, mas o clima é pontual
+e o rendimento é nacional. Este é o ponto fraco do cruzamento, e é estrutural.
+E · período: compatível — ambos anuais, 2000–2024 do lado da área.
+F · **afirma exposição, não impacto.** O cruzamento diz *"esta região, que tem tanta área de
+trigo, teve tantos dias de calor na janela de enchimento"*. Não diz o que isso causou.
+G · pergunta respondida: *"onde está a cultura e a que clima ela esteve exposta, por ano?"*
+H · **erro fácil de cometer:** ler a coincidência como causa — e, pior, escolher a janela
+que confirma a narrativa. Ver CAP-013: em Castilla y León, a janela de enchimento de grão
+sugere que 2023 foi **menos** seco que 2022, quando a seca real de 2023 estava em
+fevereiro–abril e o rendimento nacional foi o pior da série.
+
+**Por que PARCIAL e não COMPROVADO:** falta o quarto componente do cruzamento original —
+**DISEASE ALERT** — porque T3 ainda não foi investigado. E o clima é aproximação por ponto.
+Os três componentes existentes compõem de fato, com chave real e sem inferência.
+
+
 ### Placar
 
 | Classe | Quantidade |
 |---|---|
 | COMPROVADO | 2 |
-| PARCIAL | 2 |
+| PARCIAL | 3 |
 | POSSÍVEL MAS NÃO TESTADO | 0 |
 | NÃO COMPÕE | 1 |
-| NÃO SEI | 2 |
+| NÃO SEI | 1 |
