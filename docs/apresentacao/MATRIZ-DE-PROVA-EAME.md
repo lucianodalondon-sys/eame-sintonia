@@ -42,7 +42,7 @@ histórica e falta coleta de conversa pública**.
 | **011** | "competitor **increases**" | **UNPROVED** | ❌ | ❌ | ❌ | — | COMPETITOR | — | X-003 ❌ | — | HIGH | coleta + base | régua temporal |
 | **012** | new registration/manuf./origin | **PARTIAL** | ⚠️ | ❌ | ⚠️ | — | MOLECULE | X-006 ✅ | — | — | HIGH | versionamento semanal | arquivar versões |
 | **013** | SAME ISSUE | **PARTIAL** | ⚠️ 23,5% | ✅ | ❌ | — | FIELD | **X-007 medido: 23,5% do uso** | X-007 | CASE-007 | HIGH | 76,5% do uso francês | resolver cultura-grupo |
-| **014** | SAME MOLECULE | **PROVED** | ✅ | ✅ | ✅ | ✅ | MOLECULE | **X-006 ✅ 82% uso** | X-006 | **CASE-011** | HIGH | cobre e enxofre | — |
+| **014** | SAME MOLECULE | **PROVED** | ✅ 3 prod. | ⚠️ sem registro | ✅ 5 prod. | ✅ | MOLECULE | **X-006 ✅ 82% uso** | X-006 | **CASE-011, CASE-014** | HIGH | Espanha | acesso ao registro ES |
 | **015** | SAME COMPETITOR | **PARTIAL** | ✅ | ❌ | ✅ | — | COMPETITOR | **falta** | X-005 | CASE-011 | HIGH | normalizar titular→grupo | normalizador de entidade |
 | **016** | SIMILAR MOVEMENT | **NOT TESTABLE** | ❌ | ⚠️ | ❌ | — | FIELD | — | — | — | HIGH | série em ≥2 países | — |
 | **017** | fontes públicas configuradas | **PROVED**\* | ✅ | ✅ | ✅ | ✅ | todos | — | — | 31 SOURCE_IDs | — | 4 packs vazios | — |

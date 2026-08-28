@@ -1,0 +1,163 @@
+{
+  "source": "benchmark da camada de evidência — 20 perguntas",
+  "sources": [
+    "EU-T4-001",
+    "FR-T4-001",
+    "IT-T4-001",
+    "ES-T3-001",
+    "EU-T5-001",
+    "EU-T1-001",
+    "EU-T10-001"
+  ],
+  "captured_at": "2026-08-28",
+  "SOURCE_LOCATION": "EU/FR/ES/IT",
+  "FACT_LOCATION": "EU/FR/ES/IT",
+  "ORIGINAL_LANGUAGE": "FR/ES/IT/EN",
+  "totals": {
+    "ANSWERABLE": 12,
+    "CORRECT REFUSAL": 8
+  },
+  "wrong_answers": 0,
+  "questions": [
+    {
+      "id": "B01",
+      "layer": "REGULATION",
+      "question": "Que atos da UE de 2026 tratam de substância ativa?",
+      "verdict": "ANSWERABLE",
+      "basis": "EU-T4-001: SPARQL devolve CELEX, data e título"
+    },
+    {
+      "id": "B02",
+      "layer": "REGULATION",
+      "question": "Quando expira a aprovação europeia do protioconazol?",
+      "verdict": "ANSWERABLE",
+      "basis": "CELEX 32025R0787, linha 168: 31/03/2027"
+    },
+    {
+      "id": "B03",
+      "layer": "REGULATION",
+      "question": "Quantos produtos estão autorizados na Espanha com protioconazol?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "ES-T4-003: não há dump aberto do registro espanhol"
+    },
+    {
+      "id": "B04",
+      "layer": "REGULATION",
+      "question": "Que autorizações ADAMA vencem na Itália nos próximos 6 meses?",
+      "verdict": "ANSWERABLE",
+      "basis": "IT-T4-001 traz data_scadenza: 58 de 155"
+    },
+    {
+      "id": "B05",
+      "layer": "MOLECULE",
+      "question": "Que produtos franceses contêm metalaxil-M e de quem são?",
+      "verdict": "ANSWERABLE",
+      "basis": "FR-T4-001: 9 autorizados, 7 Syngenta, 1 Ascenza, 1 ADAMA"
+    },
+    {
+      "id": "B06",
+      "layer": "MOLECULE",
+      "question": "Quem fabrica a substância ativa de um produto ADAMA?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "o registro traz titular, não fabricante — G2"
+    },
+    {
+      "id": "B07",
+      "layer": "MOLECULE",
+      "question": "\"Folpel\" e \"folpet\" são a mesma substância?",
+      "verdict": "ANSWERABLE",
+      "basis": "X-006 MORPHOLOGY: sim, mesma entrada, grafias diferentes no mesmo registro"
+    },
+    {
+      "id": "B08",
+      "layer": "MOLECULE",
+      "question": "Qual a origem autorizada de uma formulação vendida na Itália?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "nenhuma fonte de authorized origin investigada"
+    },
+    {
+      "id": "B09",
+      "layer": "PORTFOLIO",
+      "question": "Em que pares cultura × alvo a ADAMA tem uso autorizado na França?",
+      "verdict": "ANSWERABLE",
+      "basis": "FR-T4-001: 504 usos, top Vigne×Mildiou 17"
+    },
+    {
+      "id": "B10",
+      "layer": "PORTFOLIO",
+      "question": "A ADAMA é líder de mercado em míldio da videira na França?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "registro não é mercado — só sabemos usos autorizados"
+    },
+    {
+      "id": "B11",
+      "layer": "PORTFOLIO",
+      "question": "Que produtos ADAMA existem em cereal na Itália com protioconazol?",
+      "verdict": "ANSWERABLE",
+      "basis": "IT-T4-001: MAGANIC, MAXENTIS, AVASTEL, SORATEL, KOJAMI"
+    },
+    {
+      "id": "B12",
+      "layer": "SCIENCE",
+      "question": "Quem publica repetidamente sobre resistência a herbicidas na França?",
+      "verdict": "ANSWERABLE",
+      "basis": "EU-T5-001: Délye 9 trabalhos, INRAE Agroécologie"
+    },
+    {
+      "id": "B13",
+      "layer": "SCIENCE",
+      "question": "Quem é a maior autoridade em septoriose na Espanha?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "recorrência não é autoridade — não há régua"
+    },
+    {
+      "id": "B14",
+      "layer": "CROP",
+      "question": "Qual região tem mais área de trigo comum em FR, ES e IT?",
+      "verdict": "ANSWERABLE",
+      "basis": "EU-T1-001: ES41 Castilla y León, 771,8 mil ha"
+    },
+    {
+      "id": "B15",
+      "layer": "CROP",
+      "question": "Qual o rendimento de trigo em Castilla y León em 2024?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "Eurostat não publica rendimento em NUTS 2 — medido, H-001"
+    },
+    {
+      "id": "B16",
+      "layer": "FIELD",
+      "question": "A pressão de repilo subiu em Huelva nas últimas safras?",
+      "verdict": "ANSWERABLE",
+      "basis": "ES-T3-001: 11 safras; 1,19% (2023) → 8,83% (2026), com controle de coorte"
+    },
+    {
+      "id": "B17",
+      "layer": "FIELD",
+      "question": "A pressão de míldio subiu na França nesta safra?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "FR-T3-001 é PDF regional sem série processável"
+    },
+    {
+      "id": "B18",
+      "layer": "COMPETITOR",
+      "question": "Que empresas têm registro contra septoriose do trigo na França?",
+      "verdict": "ANSWERABLE",
+      "basis": "FR-T4-001: BASF 22, Bayer 20, Syngenta 8, ADAMA 6"
+    },
+    {
+      "id": "B19",
+      "layer": "COMPETITOR",
+      "question": "A Syngenta aumentou a comunicação sobre septoriose?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "sem coleta e sem linha de base — DECK-011"
+    },
+    {
+      "id": "B20",
+      "layer": "MARKET",
+      "question": "Qual o preço do trigo duro na França e na Itália na última semana?",
+      "verdict": "ANSWERABLE",
+      "basis": "EU-T10-001: FR €267,50/t e IT €271,83/t"
+    }
+  ]
+}

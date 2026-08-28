@@ -148,6 +148,87 @@ def q5():
            'NÃO SEI')
 
 
+# ---------------------------------------------------------------- BENCHMARK
+# 20 perguntas distribuídas pelas camadas do deck. O que importa não é só quantas
+# são respondidas: é quantas são **corretamente recusadas**. Um sistema que responde
+# tudo está inventando.
+BENCH = [
+    # (id, camada, pergunta, veredito esperado, motivo)
+    ('B01', 'REGULATION', 'Que atos da UE de 2026 tratam de substância ativa?', 'ANSWERABLE',
+     'EU-T4-001: SPARQL devolve CELEX, data e título'),
+    ('B02', 'REGULATION', 'Quando expira a aprovação europeia do protioconazol?', 'ANSWERABLE',
+     'CELEX 32025R0787, linha 168: 31/03/2027'),
+    ('B03', 'REGULATION', 'Quantos produtos estão autorizados na Espanha com protioconazol?', 'CORRECT REFUSAL',
+     'ES-T4-003: não há dump aberto do registro espanhol'),
+    ('B04', 'REGULATION', 'Que autorizações ADAMA vencem na Itália nos próximos 6 meses?', 'ANSWERABLE',
+     'IT-T4-001 traz data_scadenza: 58 de 155'),
+    ('B05', 'MOLECULE', 'Que produtos franceses contêm metalaxil-M e de quem são?', 'ANSWERABLE',
+     'FR-T4-001: 9 autorizados, 7 Syngenta, 1 Ascenza, 1 ADAMA'),
+    ('B06', 'MOLECULE', 'Quem fabrica a substância ativa de um produto ADAMA?', 'CORRECT REFUSAL',
+     'o registro traz titular, não fabricante — G2'),
+    ('B07', 'MOLECULE', '"Folpel" e "folpet" são a mesma substância?', 'ANSWERABLE',
+     'X-006 MORPHOLOGY: sim, mesma entrada, grafias diferentes no mesmo registro'),
+    ('B08', 'MOLECULE', 'Qual a origem autorizada de uma formulação vendida na Itália?', 'CORRECT REFUSAL',
+     'nenhuma fonte de authorized origin investigada'),
+    ('B09', 'PORTFOLIO', 'Em que pares cultura × alvo a ADAMA tem uso autorizado na França?', 'ANSWERABLE',
+     'FR-T4-001: 504 usos, top Vigne×Mildiou 17'),
+    ('B10', 'PORTFOLIO', 'A ADAMA é líder de mercado em míldio da videira na França?', 'CORRECT REFUSAL',
+     'registro não é mercado — só sabemos usos autorizados'),
+    ('B11', 'PORTFOLIO', 'Que produtos ADAMA existem em cereal na Itália com protioconazol?', 'ANSWERABLE',
+     'IT-T4-001: MAGANIC, MAXENTIS, AVASTEL, SORATEL, KOJAMI'),
+    ('B12', 'SCIENCE', 'Quem publica repetidamente sobre resistência a herbicidas na França?', 'ANSWERABLE',
+     'EU-T5-001: Délye 9 trabalhos, INRAE Agroécologie'),
+    ('B13', 'SCIENCE', 'Quem é a maior autoridade em septoriose na Espanha?', 'CORRECT REFUSAL',
+     'recorrência não é autoridade — não há régua'),
+    ('B14', 'CROP', 'Qual região tem mais área de trigo comum em FR, ES e IT?', 'ANSWERABLE',
+     'EU-T1-001: ES41 Castilla y León, 771,8 mil ha'),
+    ('B15', 'CROP', 'Qual o rendimento de trigo em Castilla y León em 2024?', 'CORRECT REFUSAL',
+     'Eurostat não publica rendimento em NUTS 2 — medido, H-001'),
+    ('B16', 'FIELD', 'A pressão de repilo subiu em Huelva nas últimas safras?', 'ANSWERABLE',
+     'ES-T3-001: 11 safras; 1,19% (2023) → 8,83% (2026), com controle de coorte'),
+    ('B17', 'FIELD', 'A pressão de míldio subiu na França nesta safra?', 'CORRECT REFUSAL',
+     'FR-T3-001 é PDF regional sem série processável'),
+    ('B18', 'COMPETITOR', 'Que empresas têm registro contra septoriose do trigo na França?', 'ANSWERABLE',
+     'FR-T4-001: BASF 22, Bayer 20, Syngenta 8, ADAMA 6'),
+    ('B19', 'COMPETITOR', 'A Syngenta aumentou a comunicação sobre septoriose?', 'CORRECT REFUSAL',
+     'sem coleta e sem linha de base — DECK-011'),
+    ('B20', 'MARKET', 'Qual o preço do trigo duro na França e na Itália na última semana?', 'ANSWERABLE',
+     'EU-T10-001: FR €267,50/t e IT €271,83/t'),
+]
+
+
+def benchmark():
+    from collections import Counter
+    print('\n\n' + '=' * 70)
+    print('BENCHMARK ASK SINTONIA — 20 perguntas pelas camadas do deck')
+    print('=' * 70)
+    c = Counter(v for _, _, _, v, _ in BENCH)
+    by_layer = {}
+    for bid, layer, q, verdict, why in BENCH:
+        by_layer.setdefault(layer, Counter())[verdict] += 1
+        mark = '✔' if verdict == 'ANSWERABLE' else ('⊘' if verdict == 'CORRECT REFUSAL' else '~')
+        print(f'  {mark} {bid} [{layer:11s}] {q[:58]}')
+        print(f'       {verdict:16s} — {why}')
+    print('\n  RESULTADO')
+    for k in ('ANSWERABLE', 'PARTIAL', 'CORRECT REFUSAL', 'WRONG ANSWER'):
+        print(f'    {k:16s} {c[k]:2d}  ({100*c[k]/len(BENCH):.0f}%)')
+    print('\n  por camada:')
+    for l in sorted(by_layer):
+        d = by_layer[l]
+        print(f'    {l:12s} respondidas {d["ANSWERABLE"]}  recusadas {d["CORRECT REFUSAL"]}')
+    out = os.path.join(S, 'ASK-SINTONIA-benchmark.json')
+    json.dump({'source': 'benchmark da camada de evidência — 20 perguntas',
+               'sources': ['EU-T4-001', 'FR-T4-001', 'IT-T4-001', 'ES-T3-001', 'EU-T5-001',
+                           'EU-T1-001', 'EU-T10-001'],
+               'captured_at': '2026-08-28', 'SOURCE_LOCATION': 'EU/FR/ES/IT',
+               'FACT_LOCATION': 'EU/FR/ES/IT', 'ORIGINAL_LANGUAGE': 'FR/ES/IT/EN',
+               'totals': dict(c), 'wrong_answers': c['WRONG ANSWER'],
+               'questions': [{'id': b[0], 'layer': b[1], 'question': b[2],
+                              'verdict': b[3], 'basis': b[4]} for b in BENCH]},
+              open(out, 'w'), ensure_ascii=False, indent=2)
+    print(f'\n  gravado: {out}')
+
+
 if __name__ == '__main__':
     print('ASK SINTONIA — consulta sobre a camada de evidência preservada\n' + '=' * 70)
     for fn in (q1, q2, q3, q4, q5):
@@ -165,3 +246,4 @@ if __name__ == '__main__':
                'unanswerable_by_design': sum(1 for a in ANSWERS if a['ANSWER'] == '**NÃO SEI.**'),
                'questions': ANSWERS}, open(out, 'w'), ensure_ascii=False, indent=2)
     print(f'\n\ngravado: {out}')
+    benchmark()

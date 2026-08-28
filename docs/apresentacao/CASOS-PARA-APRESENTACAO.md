@@ -6,7 +6,7 @@ para a ADAMA.
 Meta: **5 a 10 casos extremamente claros**.
 **Não fabricar casos para preencher quota.** 3 casos irrefutáveis valem mais que 10 mornos.
 
-**Estado:** MISSÃO 02 em curso — **13 casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
+**Estado:** MISSÃO 02 em curso — **15 casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
 **Última atualização:** 2026-08-28
 
 ---
@@ -728,6 +728,141 @@ deck diz que o sistema deve devolver.
 
 ---
 
+### CASE-014 · A mesma molécula em dois mercados — e a data que se repete
+
+```
+CASE_ID:                CASE-014
+TITLE:                  Protioconazol: 8 produtos ADAMA em FR e IT, uma data europeia
+COUNTRY:                EUROPEAN UNION → FRANCE · ITALY  (SPAIN: NÃO SEI)
+CROP:                   Trigo, cevada, triticale, centeio
+PROBLEM:                exposição de plataforma a uma única substância
+DATE / PERIOD:          registro FR 25/08/2026 · registro IT 24/08/2026 · ato UE 24/04/2025
+SOURCES:                EU-T4-001 · FR-T4-001 · IT-T4-001 · radar público ADAMA
+CROSSINGS:              X-006 (substância normalizada, 82,1% do uso)
+ADAMA_ALIGNMENT:        **HIGH** — cereal é CORE PUBLIC SIGNAL nos três países
+PRESENTATION_VALUE:     **ALTA** — é a prova literal de "make relevant signals travel"
+```
+
+**FACT — o que as fontes dizem**
+
+| | França | Itália |
+|---|---|---|
+| produtos autorizados com protioconazol | **77** | **85** |
+| Bayer (originadora) | **32** | **18** |
+| **ADAMA** | **3** | **5** |
+| datas de vencimento publicadas | ❌ o registro francês não tem o campo | ✅ |
+
+Os produtos ADAMA, por mercado:
+
+| França (AMM) | Itália (nº reg.) | vencimento IT |
+|---|---|---|
+| AVASTEL 2240236 | AVASTEL 018089 | 31/03/2028 |
+| FORAPRO 2240001 | — | — |
+| MAXENTIS 2230815 | MAXENTIS 018067 | 31/05/2027 |
+| — | MAGANIC 017955 | 31/01/2028 |
+| — | **SORATEL 018175** | **31/03/2027** |
+| — | KOJAMI 019095 | 31/05/2027 |
+
+**INTERPRETATION — o que nós derivamos**
+
+1. **A molécula atravessa os mercados, e o portfólio também.** AVASTEL e MAXENTIS estão
+   autorizados nos dois países. A Itália tem três produtos que a França não tem — incluindo
+   **SORATEL**, o quinto dos cinco lançamentos europeus, e **KOJAMI**, que o material de
+   imprensa não citava e só aparece no registro.
+2. **A data se repete.** A aprovação europeia do protioconazol expira em **31/03/2027**
+   (CELEX 32025R0787, linha 168). A autorização italiana do **SORATEL vence exatamente em
+   31/03/2027**. O vencimento nacional está **ancorado** na aprovação europeia da substância
+   — é o acoplamento que a *lane* "Regulation & Portfolio" do deck promete, visível num
+   número.
+3. **A assimetria entre registros é ela própria informação.** A França publica cultura × alvo
+   e não publica vencimento; a Itália publica vencimento e não publica cultura × alvo.
+   Uma visão EAME honesta mostra as duas metades, não uma média.
+
+**UNKNOWN — o que não sabemos**
+A **Espanha**: sem dump aberto do registro de produtos, não sabemos quantos produtos com
+protioconazol existem lá nem quais são da ADAMA — embora o Avastel tenha sido anunciado
+publicamente no mercado espanhol. Também não sabemos vendas, prioridade comercial, nem quem
+**fabrica** a substância (o registro traz titular, não fabricante).
+
+**ACTION — o que a ADAMA poderia decidir**
+Tratar a renovação europeia do protioconazol como evento de portfólio, não como assunto
+regulatório isolado, e verificar se a exposição italiana (5 produtos, dois vencendo em 2027)
+está no mesmo plano que a francesa.
+
+**RAW_EVIDENCE**   `data/samples/CROSS-MARKET-prothioconazole-cereal.json`
+**STATUS**             **REAL** (contagens, AMMs, nºs de registro e datas) + **DERIVED** (a leitura de acoplamento)
+**TIER**               **A · HERO CASE — o melhor caso cross-market disponível**
+
+> **RED TEAM.** *"A ADAMA perde SORATEL em março de 2027."* **Falso.** A coincidência de
+> datas mostra **ancoragem administrativa**, não desfecho: se a renovação europeia avançar, a
+> data nacional acompanha. E *"a Bayer está mais exposta"* também não se sustenta — ela tem
+> mais **registros**, o que não é mais **exposição comercial**.
+
+---
+
+### CASE-015 · O concorrente chegou 18 meses depois — e com outro nome no registro
+
+```
+CASE_ID:                CASE-015
+TITLE:                  Azoxistrobina + protioconazol na Itália: cronologia e identidade
+COUNTRY:                ITALY
+CROP:                   Trigo tenro e duro, cevada, triticale, centeio
+PROBLEM:                septoriose, ferrugens, oídio, fusariose da espiga
+DATE / PERIOD:          registros de 06/2024 a 12/2025 · registro consultado em 24/08/2026
+SOURCES:                IT-T4-001 (Ministero della Salute) + comunicação técnica pública
+CROSSINGS:              X-005 (concorrente × combate) + X-006 (substância normalizada)
+ADAMA_ALIGNMENT:        **HIGH** — cereal é CORE PUBLIC SIGNAL nos três países
+PRESENTATION_VALUE:     **ALTA** — prova a *lane* Competitor do deck com fato administrativo
+```
+
+**FACT — o que o registro italiano diz**
+Produtos em vigor na Itália com a dupla **azoxistrobina + protioconazol**:
+
+| nº reg. | produto | titular do registro | registrado em | vence em |
+|---|---|---|---|---|
+| 018067 | **MAXENTIS** | ADAMA ITALIA S.R.L. | **14/06/2024** | 31/05/2027 |
+| 019095 | **KOJAMI** | ADAMA ITALIA S.R.L. | 29/09/2025 | 31/05/2027 |
+| 019093 | PROMINO XTRA | **CAC CHEMICAL GMBH** | 03/10/2025 | 31/03/2028 |
+| 019194 | **AMISTAR ERA 240 EC** | **CAC CHEMICAL GMBH** | **29/12/2025** | 31/03/2028 |
+
+E a comunicação técnica pública italiana apresenta **AMISTAR® ERA 240 EC como a novidade
+Syngenta para cereais em 2026**, com azoxistrobina e protioconazol, autorizada em trigo
+tenro e duro, centeio, cevada e triticale.
+
+**INTERPRETATION — duas leituras, ambas verificáveis**
+
+1. **Cronologia competitiva.** Na mesma combinação de substâncias, a ADAMA registrou primeiro
+   — **MAXENTIS em junho de 2024**, contra **AMISTAR ERA em dezembro de 2025**. Dezoito meses
+   de diferença, legíveis no ato administrativo, não em opinião de mercado.
+
+2. **O titular do registro não é a marca.** O AMISTAR é marca Syngenta na comunicação, mas o
+   **titular do registro italiano é CAC CHEMICAL GMBH**. Este é o problema do DECK-015
+   (*same competitor*) num caso concreto: contar "Syngenta" pelo campo `ragione_sociale`
+   **teria perdido este produto**.
+
+**UNKNOWN**
+Se CAC Chemical atua como titular por conta da Syngenta, por acordo, ou de forma
+independente — o registro **não diz**, e nós **não inferimos**. Também não sabemos vendas,
+preço, nem qual dos produtos tem distribuição efetiva.
+
+**ACTION**
+Para MARKET DEVELOPMENT: a vantagem temporal da ADAMA nessa combinação é verificável e tem
+prazo — os dois produtos ADAMA vencem em **31/05/2027**, antes dos dois concorrentes
+(31/03/2028). Para COMPETITIVE: a normalização de titular → grupo (**G4**) deixa de ser
+detalhe técnico e vira **pré-requisito**, com evidência.
+
+**RAW_EVIDENCE**   `data/samples/COMPETITOR-azoxy-prothio-italy.json`
+**STATUS**             **REAL** (registros e datas) + **DERIVED** (a leitura de cronologia)
+**TIER**               **A · HERO CASE**
+
+> **RED TEAM.** *"A Syngenta copiou a ADAMA."* **Não afirmável** — combinações de
+> substâncias não são exclusivas e a ordem de registro não estabelece originalidade.
+> *"CAC Chemical é a Syngenta."* **Não afirmável** — a relação societária não está no
+> registro. O que é afirmável: **as datas de registro e a identidade do titular**, e que
+> quem contar concorrente por razão social **erra este caso**.
+
+---
+
 | CASE_ID | País | Cultura | Status | Tela |
 |---|---|---|---|---|
 | CASE-001 | EU → FR | Vigne | REAL | ainda não |
@@ -743,3 +878,5 @@ deck diz que o sistema deve devolver.
 | CASE-011 | EU → FR/ES/IT | Cereais | REAL + DERIVED | protótipo V2 |
 | CASE-012 | ES | Olivar | REAL + DERIVED | protótipo V2 |
 | CASE-013 | ES | Olivar | REAL + DERIVED | — (missão só texto) |
+| CASE-014 | EU → FR/IT | Cereais | REAL + DERIVED | — (missão só texto) |
+| CASE-015 | IT | Cereais | REAL + DERIVED | — (missão só texto) |
