@@ -827,7 +827,7 @@ publicamente no mercado espanhol. Também não sabemos vendas, prioridade comerc
 
 ```
 CASE_ID:                CASE-015
-TITLE:                  Azoxistrobina + protioconazol na Itália: cronologia e identidade
+TITLE:                  Identidade de marca × identidade de registro (IT e ES)
 COUNTRY:                ITALY
 CROP:                   Trigo tenro e duro, cevada, triticale, centeio
 PROBLEM:                septoriose, ferrugens, oídio, fusariose da espiga
@@ -852,37 +852,59 @@ E a comunicação técnica pública italiana apresenta **AMISTAR® ERA 240 EC co
 Syngenta para cereais em 2026**, com azoxistrobina e protioconazol, autorizada em trigo
 tenro e duro, centeio, cevada e triticale.
 
-**INTERPRETATION — duas leituras, ambas verificáveis**
+**INTERPRETATION — uma leitura sobreviveu ao red team, a outra caiu**
 
-1. **Cronologia competitiva.** Na mesma combinação de substâncias, a ADAMA registrou primeiro
-   — **MAXENTIS em junho de 2024**, contra **AMISTAR ERA em dezembro de 2025**. Dezoito meses
-   de diferença, legíveis no ato administrativo, não em opinião de mercado.
+**1 · O titular do registro não é a marca. CONFIRMADO, e agora em dois países.**
+Na Itália, o AMISTAR ERA 240 EC está registrado sob **CAC CHEMICAL GMBH**, não Syngenta.
+Na Espanha, a lista oficial de *denominaciones comunes* do MAPA (versão de **26/08/2026**)
+traz, literalmente:
 
-2. **O titular do registro não é a marca.** O AMISTAR é marca Syngenta na comunicação, mas o
-   **titular do registro italiano é CAC CHEMICAL GMBH**. Este é o problema do DECK-015
-   (*same competitor*) num caso concreto: contar "Syngenta" pelo campo `ragione_sociale`
-   **teria perdido este produto**.
+> `ES-01717 · SORATEL MAX · SYNGENTA ESPAÑA S.A. · AMISTAR ERA 350 SC · 10/08/2026`
+> `ES-01717 · SORATEL MAX · COMERCIAL QUÍMICA MASSÓ S.A. · CUMILZAN · 10/08/2026`
+
+Ou seja: na Espanha, **AMISTAR ERA 350 SC é uma denominação comum do produto de referência
+SORATEL MAX** (registro ES-01717) — e a Massó vende o mesmo registro como CUMILZAN.
+Um registro, três marcas, três empresas.
+
+**Contar concorrente por razão social erra. Contar por marca erra também.**
+
+**2 · A cronologia competitiva. RETIRADA.**
+Eu havia escrito que *"a ADAMA registrou primeiro e o concorrente chegou 18 meses depois"*.
+**Não sustento mais essa leitura.** O dado espanhol mostra que a mesma dupla de marcas
+(SORATEL / AMISTAR ERA) pode estar numa relação de **denominação comum** — o mesmo produto
+registrado, vendido sob nomes diferentes — e não numa disputa entre produtos rivais.
+
+Não posso transportar o achado espanhol para a Itália: são formulações diferentes
+(**350 SC** na Espanha, **240 EC** na Itália) e mecanismos administrativos diferentes.
+Mas **também não posso excluir** que a relação italiana seja da mesma natureza. Enquanto
+não souber quem é o titular de ES-01717 e qual a relação entre CAC Chemical, Syngenta e
+ADAMA, a leitura competitiva **não é afirmável**.
+
+`RELAÇÃO COMERCIAL ENTRE AS MARCAS = NÃO SEI.`
 
 **UNKNOWN**
-Se CAC Chemical atua como titular por conta da Syngenta, por acordo, ou de forma
-independente — o registro **não diz**, e nós **não inferimos**. Também não sabemos vendas,
-preço, nem qual dos produtos tem distribuição efetiva.
+Quem é o titular do registro **ES-01717**: o PDF espanhol lista *empresas concessionárias*,
+não o titular do produto de referência. Se CAC Chemical atua por conta da Syngenta, por
+acordo, ou de forma independente — o registro italiano **não diz**. E não sabemos vendas,
+preço nem distribuição efetiva.
 
 **ACTION**
-Para MARKET DEVELOPMENT: a vantagem temporal da ADAMA nessa combinação é verificável e tem
-prazo — os dois produtos ADAMA vencem em **31/05/2027**, antes dos dois concorrentes
-(31/03/2028). Para COMPETITIVE: a normalização de titular → grupo (**G4**) deixa de ser
-detalhe técnico e vira **pré-requisito**, com evidência.
+Para COMPETITIVE: a normalização de identidade (**G4**) deixa de ser detalhe técnico e vira
+**pré-requisito**, e agora sabe-se que ela precisa de **três** eixos, não um:
+marca · empresa concessionária · titular do registro de referência.
+Antes de qualquer leitura competitiva sobre esta dupla, a ADAMA precisa saber internamente
+se SORATEL MAX é produto seu — informação que ela tem e nós não.
 
 **RAW_EVIDENCE**   `data/samples/COMPETITOR-azoxy-prothio-italy.json`
 **STATUS**             **REAL** (registros e datas) + **DERIVED** (a leitura de cronologia)
-**TIER**               **A · HERO CASE**
+**TIER**               **C · TECHNICAL PROOF** — rebaixado de HERO nesta missão
 
-> **RED TEAM.** *"A Syngenta copiou a ADAMA."* **Não afirmável** — combinações de
-> substâncias não são exclusivas e a ordem de registro não estabelece originalidade.
-> *"CAC Chemical é a Syngenta."* **Não afirmável** — a relação societária não está no
-> registro. O que é afirmável: **as datas de registro e a identidade do titular**, e que
-> quem contar concorrente por razão social **erra este caso**.
+> **RED TEAM — e este case perdeu metade de si mesmo no processo.** A leitura de
+> *cronologia competitiva* foi **retirada** depois que o dado espanhol mostrou uma relação
+> de denominação comum entre as mesmas marcas. *"A Syngenta copiou a ADAMA"*, *"CAC Chemical
+> é a Syngenta"* e *"a ADAMA chegou 18 meses antes"*: **nenhuma é afirmável**.
+> O que sobrevive, e sobrevive mais forte: **identidade de marca ≠ identidade de registro**,
+> demonstrado em dois países e por dois mecanismos diferentes.
 
 ---
 
