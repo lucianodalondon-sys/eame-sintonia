@@ -5,7 +5,7 @@ Estado da matéria-prima que vai para o Claude Design.
 ```
 PILOT_INFORMATION_BASE = FROZEN
 VERSION                = 2026-08-29 / v1
-HEAD                   = registrado no commit de congelamento
+HEAD                   = 1e3f5bb (congelamento) → esta linha é atualizada pelo commit seguinte
 TESTES_REAIS           = 43
 PROTOTYPE_FROZEN       = SIM
 ```
@@ -122,4 +122,4 @@ Uma descoberta nova **não** edita a v1. Ela abre a v2:
 
 | VERSION | DATE | HEAD | o que mudou |
 |---|---|---|---|
-| **v1** | 2026-08-29 | *commit de congelamento* | primeira base congelada |
+| **v1** | 2026-08-29 | `1e3f5bb` | primeira base congelada |
