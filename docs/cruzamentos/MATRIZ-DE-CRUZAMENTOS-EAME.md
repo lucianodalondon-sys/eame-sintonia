@@ -6,7 +6,7 @@ juntas** revelam e nenhuma delas revela sozinha.
 > **Não afirmar cruzamento apenas porque semanticamente parece interessante.**
 > Clima + doença "parece" cruzar. A pergunta real é: **qual chave os une?**
 
-**Estado:** MISSÃO 02 em curso — **2 COMPROVADOS, 1 PARCIAL**.
+**Estado:** MISSÃO 02 em curso — **2 COMPROVADOS, 2 PARCIAIS, 1 NÃO COMPÕE**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -190,12 +190,81 @@ Confundir as duas produziria um alarme falso com data errada.
 
 
 
+### X-007 · FRANCE cultura × alvo + SPAIN vocabulário EPPO — **PARCIAL**
+
+```
+CROSSING_ID:        X-007
+COMPONENTS:         FR-T4-001 (uso autorizado: cultura × alvo em francês)
+                    + ES-T4-001 (EPPO + nome científico)
+KEY CANDIDATA:      código EPPO / nome científico
+GRANULARITY_MATCH:  **NÃO, no vocabulário.** Ver abaixo.
+CLASS:              PARCIAL
+```
+
+**O que foi verificado.** O lado espanhol está pronto: 492 culturas e 1.381 pragas com
+código EPPO e nome científico. Os alvos que a França mais registra têm correspondência
+exata no lado espanhol:
+
+| França (nome comum) | EPPO | Espanha / nome científico |
+|---|---|---|
+| Vigne × Mildiou(s) | VITVI × PLASVI | Mildiu de la vid — *Plasmopara viticola* |
+| Blé × Septoriose(s) | TRZAX × SEPTTR | Septoriosis del trigo — *Zymoseptoria tritici* |
+| Vigne × Black rot | VITVI × GUIGBI | Black rot — *Phyllosticta ampelicida* |
+| Vigne × Oïdium | VITVI × UNCINE | Oídio de la vid — *Erysiphe necator* |
+
+**Por que PARCIAL e não COMPROVADO — o obstáculo é real e foi medido.**
+O E-Phy francês **não tem código EPPO nem nome científico**: verificado, nenhum dos 10
+arquivos do pacote traz esses campos. O lado francês só oferece **231 nomes comuns em
+francês** — e boa parte deles é **grupo, não espécie**: `Mildiou(s)`, `Oïdium(s)`,
+`Rouille(s)`, `Champignons (pythiacées)`, `Chenilles phytophages`. `Mildiou(s)` em videira é
+*Plasmopara viticola*, mas `Mildiou(s)` em batata é *Phytophthora infestans*.
+
+Logo o mapeamento **não é 1:1**, é **muitos-para-muitos e dependente da cultura**. Ele só se
+resolve com a dupla (cultura, alvo), nunca com o alvo sozinho.
+
+**O que falta:** construir e **medir** um dicionário FR(cultura,alvo) → EPPO. Só depois de
+medida a taxa de acerto este cruzamento pode subir para COMPROVADO. Enquanto isso, qualquer
+comparação França × Espanha × Itália por praga é **incompleta por construção**.
+
+**As oito perguntas (§7) — os pontos que decidem:**
+D · granularidade: **incompatível** (grupo francês × espécie espanhola).
+F · afirma **fato** de vocabulário, não correlação.
+H · erro fácil: somar "usos contra míldio" da França com "autorizações contra *Plasmopara
+viticola*" da Espanha como se fossem a mesma contagem. **Não são.**
+
+### X-008 · Comparação T4 entre FRANCE, SPAIN e ITALY — **NÃO COMPÕE (hoje)**
+
+```
+CROSSING_ID:        X-008
+COMPONENTS:         FR-T4-001 + IT-T4-001 + ES-T4-003
+KEY:                não existe chave comum utilizável hoje
+CLASS:              NÃO COMPÕE
+```
+
+**Motivo, medido e não estimado:** as três fontes nacionais **não cobrem os mesmos campos**.
+
+| | produto | titular | cultura × alvo | vencimento | EPPO |
+|---|---|---|---|---|---|
+| FRANCE | ✅ | ✅ | ✅ | ❌ | ❌ |
+| ITALY | ✅ | ✅ | ❌ | ✅ | ❌ |
+| SPAIN | ❌ | — | ❌ | ❌ | ✅ (só vocabulário) |
+
+Uma pergunta como *"em que países a ADAMA tem registro contra míldio da videira?"* **não pode
+ser respondida hoje**: a Itália não publica cultura × alvo e a Espanha não publica o registro
+de produtos em formato aberto. Qualquer tela que insinue uma comparação dos três países em
+T4 estaria mostrando uma equivalência que não existe.
+
+**O que destravaria:** (a) a etichetta italiana em formato processável; (b) um dump aberto do
+registro espanhol, ou autorização de uso da consulta do MAPA (ES-T4-003, hoje `NÃO SEI /
+REQUER REVISÃO`); (c) o dicionário FR→EPPO de X-007.
+
+
 ### Placar
 
 | Classe | Quantidade |
 |---|---|
 | COMPROVADO | 2 |
-| PARCIAL | 1 |
+| PARCIAL | 2 |
 | POSSÍVEL MAS NÃO TESTADO | 0 |
-| NÃO COMPÕE | 0 |
+| NÃO COMPÕE | 1 |
 | NÃO SEI | 2 |

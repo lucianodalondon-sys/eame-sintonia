@@ -3,7 +3,7 @@
 Ferramenta nasce de cruzamento provado, não de ideia bonita.
 Ordem: `SOURCE → EVIDENCE → DATA → CROSSING → CAPABILITY → TOOL → PORTAL`.
 
-**Estado:** MISSÃO 02 em curso — **3 ferramentas qualificadas**.
+**Estado:** MISSÃO 02 em curso — **6 ferramentas qualificadas**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -51,6 +51,9 @@ Nenhuma está aprovada. **A descoberta decide** — só sobe quem tiver dado que
 | REGULATORY WATCH | **QUALIFICADA — CROSSING PROVED** |
 | PORTFOLIO OPPORTUNITY | **QUALIFICADA — DATA EXISTS** |
 | EMERGING ISSUES | NÃO QUALIFICADA |
+
+Ferramentas descobertas na varredura e que **não** estavam na lista do briefing:
+REGISTRATION EXPIRY RADAR · UNMET NEED RADAR · EPPO NORMALIZER.
 | EVENT RADAR | NÃO QUALIFICADA |
 | COUNTRY PULSE | NÃO QUALIFICADA |
 
@@ -131,5 +134,69 @@ PRIORITY:             MÉDIA-ALTA
 STATUS:               CROSSING PROVED
 LIMIT:                **Contagem de usos autorizados não é participação de mercado.**
                       Ver RED TEAM em CAP-005.
+```
+
+### REGISTRATION EXPIRY RADAR (Itália) — `CROSSING PROVED`
+
+```
+TOOL_NAME:            REGISTRATION EXPIRY RADAR
+QUESTION:             "Que autorizações vencem nos próximos meses, nossas e dos concorrentes,
+                       e quem está mais exposto?"
+USER:                 REGULATORY · PORTFOLIO · MARKET DEVELOPMENT · EAME
+SOURCES:              IT-T4-001
+CROSSING:             titular × data de vencimento (interno à fonte)
+REAL_EXAMPLE:         CASE-003 — ADAMA 58/155 (37,4%) em ≤6 meses × mercado 20,9%
+FACT:                 nº de registro, produto, titular, substância, data de vencimento
+DERIVED_ANALYSIS:     o percentual comparativo entre empresas
+UNKNOWN:              se a autorização será renovada; o valor comercial de cada uma
+ADAMA_VALUE:          planejamento regulatório e leitura de exposição do concorrente
+TECHNICAL_DIFFICULTY: BAIXA
+DATA_RISK:            BAIXO no acesso; MÉDIO na interpretação (vencimento ≠ perda)
+PRIORITY:             ALTA
+STATUS:               CROSSING PROVED
+LIMIT:                Vencimento não é perda. Só existe para a Itália — França e Espanha
+                      não publicam este campo.
+```
+
+### UNMET NEED RADAR (Espanha) — `DATA EXISTS`
+
+```
+TOOL_NAME:            UNMET NEED RADAR
+QUESTION:             "Para que problemas agronômicos o Estado reconheceu que não há
+                       solução autorizada?"
+USER:                 MARKET DEVELOPMENT · R&D · PORTFOLIO
+SOURCES:              ES-T4-002
+CROSSING:             —
+REAL_EXAMPLE:         CASE-004 — 45 autorizações excepcionais vigentes em 24/08/2026
+FACT:                 cultura, problema, substância, produto, início e fim
+DERIVED_ANALYSIS:     nenhuma ainda
+UNKNOWN:              tamanho do mercado; se outra empresa já está resolvendo; histórico
+ADAMA_VALUE:          lista oficial e curta de dores reais, por cultura
+TECHNICAL_DIFFICULTY: BAIXA
+DATA_RISK:            BAIXO
+PRIORITY:             ALTA
+STATUS:               DATA EXISTS
+LIMIT:                Lacuna reconhecida não é oportunidade dimensionada. Só há a
+                      fotografia das vigentes — sem série histórica.
+```
+
+### EPPO NORMALIZER — `DATA EXISTS` (infraestrutura, não tela)
+
+```
+TOOL_NAME:            EPPO NORMALIZER
+QUESTION:             "Isto que a França chama de X e a Espanha chama de Y é a mesma coisa?"
+USER:                 nenhum diretamente — é infraestrutura de todas as outras ferramentas
+SOURCES:              ES-T4-001
+CROSSING:             X-007
+REAL_EXAMPLE:         492 culturas e 1.381 pragas com código EPPO e nome científico
+FACT:                 o dicionário oficial espanhol
+DERIVED_ANALYSIS:     o mapeamento FR → EPPO, que ainda **não existe**
+UNKNOWN:              a taxa de acerto do lado francês (nomes comuns, muitos em grupo)
+ADAMA_VALUE:          sem isto não existe visão EAME — existem três visões nacionais soltas
+TECHNICAL_DIFFICULTY: MÉDIA — o difícil não é o dicionário, é o mapeamento francês
+DATA_RISK:            BAIXO
+PRIORITY:             ALTA (é pré-requisito de qualquer comparação entre países)
+STATUS:               DATA EXISTS
+LIMIT:                Não resolve sozinho: o lado francês é grupo, não espécie.
 ```
 

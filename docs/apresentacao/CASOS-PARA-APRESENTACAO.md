@@ -6,7 +6,7 @@ para a ADAMA.
 Meta: **5 a 10 casos extremamente claros**.
 **Não fabricar casos para preencher quota.** 3 casos irrefutáveis valem mais que 10 mornos.
 
-**Estado:** MISSÃO 02 em curso — **2 casos REAL registrados** (meta 5–10).
+**Estado:** MISSÃO 02 em curso — **4 casos registrados** (meta 5–10).
 **Última atualização:** 2026-08-28
 
 ---
@@ -142,7 +142,91 @@ grafia alternativa no registro francês — o E-Phy tem entradas do tipo `AUTRE_
 
 ---
 
+### CASE-003 · O calendário de renovações que ninguém tem numa planilha só (Itália)
+
+```
+CASE_ID:                CASE-003
+COUNTRY:                ITALY
+CROP:                   —
+PROBLEM:                carga de renovação regulatória concentrada no curto prazo
+TIME:                   situação do registro em 24/08/2026
+SOURCES:                IT-T4-001
+CROSSING:               —  (leitura direta da fonte, sem composição)
+```
+
+**WHAT_HAPPENED**
+O registro italiano publica a data de vencimento de cada autorização. Em 24/08/2026 havia
+**3.466 autorizações em vigor com vencimento futuro**.
+
+**WHAT_SINTONIA_CONNECTS**
+Cruzando vencimento com titular:
+
+| | vencem em ≤6 meses | total com vencimento futuro | % |
+|---|---|---|---|
+| **ADAMA ITALIA** | **58** | 155 | **37,4%** |
+| mercado italiano | 724 | 3.466 | 20,9% |
+
+Seis autorizações ADAMA venceram em **31/08/2026** — cinco delas de **lambda-cialotrina**
+(LAMDEX EXTRA, FORZA, NINJA, DURAVIS, ELTIRA) e uma de metaldeído (LUMA-KL).
+
+**WHY_ADAMA_SHOULD_CARE**
+A concentração é conhecível com antecedência e por empresa. Serve para dimensionar equipe
+regulatória, para antecipar risco de descontinuidade comercial e — o mais interessante —
+para ver **a exposição do concorrente**, que é pública do mesmo jeito.
+
+**RAW_EVIDENCE**   `data/samples/IT-T4-001/IT-T4-001-adama-expiries.json`
+**SCREEN_AVAILABLE**   ainda não
+**STATUS**             **REAL** (contagens) + **DERIVED** (o percentual comparativo)
+
+**O que este caso NÃO diz:** que esses produtos serão perdidos. Vencimento abre renovação.
+E as datas são agrupadas por calendário europeu — a comparação 37,4% × 20,9% vale porque foi
+feita **dentro do mesmo agrupamento**, não apesar dele.
+
+---
+
+### CASE-004 · A Espanha dizendo, oficialmente, onde não há solução
+
+```
+CASE_ID:                CASE-004
+COUNTRY:                SPAIN
+CROP:                   45 combinações cultura × problema
+REGION:                 nacional, com exceções regionais declaradas
+PROBLEM:                necessidades agronômicas sem produto autorizado
+TIME:                   situação em 24/08/2026
+SOURCES:                ES-T4-002
+```
+
+**WHAT_HAPPENED**
+O MAPA mantém e publica a lista de **autorizações excepcionais vigentes** (art. 53 do
+Reg. 1107/2009). São 45 hoje. Uma autorização excepcional existe quando **não há solução
+autorizada normal** para um perigo fitossanitário.
+
+**WHAT_SINTONIA_CONNECTS**
+A lista é, na prática, o Estado espanhol publicando uma lista de necessidades não atendidas,
+com cultura, problema, substância usada em caráter de exceção e prazo:
+
+- **Manzano y peral × fuego bacteriano** (*Erwinia amylovora*)
+- **Champiñón × telaraña** — fluxapyroxad 30% SC
+- **Remolacha azucarera × pulgón** — flonicamida 50% WG
+- **Cebolla y ajo × *Delia antiqua*** — ciantraniliprol 10% OD
+- **Fresal × desinfección del suelo** — metam sodio 51% SL
+
+**WHY_ADAMA_SHOULD_CARE**
+Para MARKET DEVELOPMENT e R&D, é uma lista curta, oficial, datada e específica de dores reais
+— o oposto de intuição de mercado. E é comparável ano a ano, se arquivada.
+
+**RAW_EVIDENCE**   `data/samples/ES-T4-001/ES-T4-002-autorizaciones-excepcionales.json`
+**SCREEN_AVAILABLE**   ainda não
+**STATUS**             **REAL**
+
+**O que este caso NÃO diz:** que há mercado ali. Lacuna reconhecida não é oportunidade
+dimensionada — pode ser pequena, sazonal ou já em vias de solução por outra empresa.
+
+---
+
 | CASE_ID | País | Cultura | Status | Tela |
 |---|---|---|---|---|
 | CASE-001 | EU → FR | Vigne | REAL | ainda não |
 | CASE-002 | EU → FR | — | REAL | ainda não |
+| CASE-003 | IT | — | REAL + DERIVED | ainda não |
+| CASE-004 | ES | 45 combinações | REAL | ainda não |

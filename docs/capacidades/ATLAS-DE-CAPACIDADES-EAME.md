@@ -6,7 +6,7 @@ Fonte não é capacidade. Este atlas converte descoberta em **o que conseguimos 
 > "Detectar alertas fitossanitários regionais em trigo na França" é uma capacidade.
 > A segunda só entra aqui quando a primeira está provada com exemplo real.
 
-**Estado:** MISSÃO 02 em curso — **6 capacidades COMPROVADAS**.
+**Estado:** MISSÃO 02 em curso — **9 capacidades COMPROVADAS**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -232,11 +232,97 @@ USERS:               REG (primário) · PORT · MD · TEC · EAME
 > da substância na UE*, não *fim do produto na França*.
 
 
+### CAP-007 · Calendário de vencimento de autorizações na Itália, por empresa
+
+```
+CAPABILITY:          Listar, para qualquer empresa, quais autorizações italianas vencem em
+                     que data — e comparar a exposição de curto prazo entre empresas.
+SOURCE:              IT-T4-001
+COUNTRY:             ITALY
+GEOGRAPHY:           país
+TIME:                registros desde 1970; vencimentos até 2041 no arquivo atual
+UPDATE_FREQUENCY:    arquivo datado (versão 2026-08-24)
+CAN_AUTOMATE:        SIM (o nome do arquivo muda por versão e precisa ser descoberto)
+CAN_HISTORY:         SIM — o arquivo carrega estado, motivo e datas de revogação
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      REGULATORY: o que precisa de renovação e quando.
+                     PORTFOLIO / MD: onde um concorrente tem exposição maior.
+REAL_EXAMPLE:        3.712 autorizações em vigor; 3.466 com vencimento futuro.
+                     ADAMA ITALIA: 155 com vencimento futuro, das quais **58 em até
+                     6 meses (37,4%)** — contra **20,9% do mercado** no mesmo prazo.
+                     Seis produtos ADAMA venceram em 31/08/2026 (LAMDEX EXTRA, FORZA,
+                     NINJA, DURAVIS, ELTIRA — lambda-cialotrina — e LUMA-KL, metaldeído).
+USERS:               REG (primário) · PORT · MD · EAME
+```
+
+> **RED TEAM — duas conclusões perigosas.**
+> 1. *"A ADAMA vai perder 58 produtos na Itália em 6 meses."* **Falso.** Vencimento de
+>    autorização abre processo de renovação; a maior parte é renovada. O dado mede
+>    **carga de renovação**, não perda.
+> 2. *"A ADAMA está mais exposta que os concorrentes."* **Cuidado.** As datas são
+>    fortemente agrupadas em fins de mês (344 produtos vencem em 30/06/2029; 123 em
+>    31/08/2026), porque seguem o calendário europeu das substâncias ativas. Ainda assim,
+>    a diferença 37,4% × 20,9% foi medida sobre o mesmo agrupamento e **é real** — ela
+>    reflete quais substâncias compõem o portfólio italiano da ADAMA, não um viés do cálculo.
+
+### CAP-008 · Falar de cultura e de praga nos três países com o mesmo código (EPPO)
+
+```
+CAPABILITY:          Traduzir cultura e alvo entre França, Espanha e Itália usando código
+                     EPPO e nome científico como chave, em vez de nome comum.
+SOURCE:              ES-T4-001 (tabelas oficiais do MAPA)
+COUNTRY:             SPAIN (vocabulário) → aplicável a EUROPE, FRANCE, ITALY
+GEOGRAPHY:           não aplicável (é vocabulário)
+CAN_AUTOMATE:        SIM para o lado espanhol
+CAN_HISTORY:         não aplicável
+CONFIDENCE:          COMPROVADO para o dicionário; **PARCIAL** para o uso entre países
+ADAMA_DECISION:      infraestrutura de toda comparação EAME: sem isto, "míldio" na França,
+                     "mildiu" na Espanha e "peronospora" na Itália são três coisas soltas.
+REAL_EXAMPLE:        492 culturas e 1.381 pragas indexadas por EPPO.
+                     VITVI=Vitis vinifera · PLASVI=Plasmopara viticola ·
+                     SEPTTR=Zymoseptoria tritici · GUIGBI=Phyllosticta ampelicida ·
+                     UNCINE=Erysiphe necator · TRZAX=Triticum aestivum/durum
+USERS:               TEC · RND · MD · PORT (infraestrutura, não tela)
+```
+
+### CAP-009 · Ler as necessidades agronômicas não atendidas na Espanha, declaradas pelo Estado
+
+```
+CAPABILITY:          Identificar, por cultura e por praga, os problemas para os quais a
+                     Espanha reconheceu oficialmente não haver solução autorizada normal —
+                     via autorizações excepcionais do art. 53.
+SOURCE:              ES-T4-002
+COUNTRY:             SPAIN
+CROP:                45 combinações vigentes (cítricos, olivo, alcachofa, fresal, champiñón,
+                     manzano y peral, remolacha azucarera, cebolla y ajo, lechuga…)
+GEOGRAPHY:           nacional, com exceções regionais explícitas quando a fonte as declara
+TIME:                situação declarada em 24/08/2026, com início e fim por autorização
+UPDATE_FREQUENCY:    NÃO SEI — o arquivo declara a data da situação, não a periodicidade
+CAN_AUTOMATE:        SIM (formato .xls legado exige tratamento)
+CAN_HISTORY:         NÃO — o arquivo traz apenas as **vigentes**. Série histórica exigiria
+                     arquivar as versões a partir de agora.
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      MARKET DEVELOPMENT / R&D / PORTFOLIO: lista curta e oficial de dores
+                     agronômicas sem solução registrada — o oposto de achismo de mercado.
+REAL_EXAMPLE:        Manzano y peral × fuego bacteriano (Erwinia amylovora);
+                     Champiñón × telaraña (fluxapyroxad 30% SC);
+                     Remolacha azucarera × pulgón (flonicamida 50% WG);
+                     Cebolla y ajo × Delia antiqua (ciantraniliprol 10% OD).
+USERS:               MD (primário) · RND · PORT · TEC
+```
+
+> **RED TEAM.** Uma autorização excepcional **não** significa mercado disponível. Significa
+> lacuna reconhecida — que pode ser pequena, sazonal, regional, ou já estar sendo resolvida
+> por outra empresa. E a lista traz o que está **vigente**: um problema resolvido no ano
+> passado saiu da lista sem deixar rastro. Ler isto como "oportunidade de mercado" sem mais
+> nada seria fabricar inteligência.
+
+
 ### Placar
 
 | CONFIDENCE | Quantidade |
 |---|---|
-| COMPROVADO | 6 |
+| COMPROVADO | 9 |
 | INFERÊNCIA | 0 |
 | HIPÓTESE | 0 |
 | NÃO SEI | 0 |
@@ -247,8 +333,8 @@ USERS:               REG (primário) · PORT · MD · TEC · EAME
 |---|---|---|---|---|
 | EUROPE | 3 | 0 | 0 | 0 |
 | FRANCE | 3 | 0 | 0 | 0 |
-| SPAIN | 0 | 0 | 0 | 0 |
-| ITALY | 0 | 0 | 0 | 0 |
+| SPAIN | 2 | 0 | 0 | 0 |
+| ITALY | 1 | 0 | 0 | 0 |
 
 ---
 

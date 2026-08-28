@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **3 fontes registradas** (2 GREEN, 1 NÃO SEI).
+**Estado:** MISSÃO 02 em curso — **7 fontes registradas** (5 GREEN, 2 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -283,15 +283,170 @@ parcialmente a pendência P-003 com informação pública inequívoca, sem inven
 
 ---
 
+### T4 · REGULATORY — ITALY
+
+#### IT-T4-001 · Ministero della Salute — Banca dati dei prodotti fitosanitari
+
+```
+SOURCE_ID:                    IT-T4-001
+SOURCE_NAME:                  Fitosanitari — elenco dei prodotti fitosanitari autorizzati
+SOURCE_OWNER:                 Ministero della Salute (Italia)
+COUNTRY:                      ITALY
+LANGUAGE:                     IT
+TERRITORY:                    T4 (alimenta T9)
+SOURCE_TYPE:                  Registro oficial de autorizações, dados abertos
+URL:                          https://www.dati.salute.gov.it/it/dataset/fitosanitari/
+                              arquivo: /sites/default/files/opendata/PROD_FTS_6_<AAAAMMDD>.csv
+ACCESS_METHOD:                CSV direto (4,6 MB), sem chave
+CROPS:                        NÃO PRESENTE neste arquivo — ver limitação abaixo
+TOPICS:                       nº de registro, produto, empresa titular e sede, data de
+                              registro, **data de vencimento da autorização**, indicações de
+                              perigo, formulação, substâncias ativas, teor, importação
+                              paralela, estado administrativo, **motivo e datas da revogação**
+GEOGRAPHIC_GRANULARITY:       PAÍS (a sede da empresa traz província, mas é local da
+                              EMPRESA — SOURCE_LOCATION —, nunca local do fato agronômico)
+UPDATE_FREQUENCY:             o nome do arquivo é datado; versão obtida de 2026-08-24
+HISTORICAL_DEPTH:             registros desde 1970 (o mais antigo observado: ENOVIT, 1970),
+                              com estado atual, motivo e data de revogação
+SOURCE_IDENTITY_PRESERVABLE:  SIM — num_registrazione
+DOCUMENT_ID_AVAILABLE:        SIM
+PUBLICATION_DATE_AVAILABLE:   SIM — data_registrazione, data_scadenza_autorizzazione,
+                              data_decreto_revoca, data_decorrenza_revoca
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — o nome do arquivo muda a cada versão e precisa
+                              ser descoberto na página do dataset
+COLLECTION_FEASIBILITY:       ALTA
+LEGAL_OR_ACCESS_RISK:         BAIXO — CC BY 4.0. Endereços são de pessoa jurídica.
+REAL_EXAMPLE:                 17.695 produtos; 3.712 em vigor. ADAMA ITALIA S.R.L. com
+                              155 autorizações de vencimento futuro — 58 nos próximos
+                              6 meses. Reg. 008929 TOPIK 240 EC (clodinafop +
+                              cloquintocet mexyl), vencimento 31/07/2027.
+ADAMA_USE_CASE:               REGULATORY / PORTFOLIO: calendário de vencimentos do próprio
+                              portfólio italiano e do de cada concorrente.
+EVIDENCE:                     data/samples/IT-T4-001/
+VERDICT:                      GREEN
+```
+
+**Limitação importante:** este arquivo **não traz cultura nem alvo**. Cultura e alvo estão no
+rótulo (etichetta) de cada produto, que não faz parte deste dataset. Portanto a Itália
+**não** sustenta hoje o mesmo cruzamento cultura × alvo que a França sustenta. O que a Itália
+dá, e a França não dá, é a **data de vencimento por autorização**.
+
+---
+
+### T4 · REGULATORY — SPAIN
+
+#### ES-T4-001 · MAPA — vocabulário oficial (jerarquía de cultivos e clasificación de plagas)
+
+```
+SOURCE_ID:                    ES-T4-001
+SOURCE_NAME:                  Jerarquía de especies vegetales · Clasificación de plagas
+SOURCE_OWNER:                 MAPA — Ministerio de Agricultura, Pesca y Alimentación
+COUNTRY:                      SPAIN
+LANGUAGE:                     ES + nome científico latino
+TERRITORY:                    T4 (é infraestrutura para T1, T3 e para toda normalização)
+SOURCE_TYPE:                  Tabelas de referência do Registro de Productos Fitosanitarios
+URL:                          https://www.mapa.gob.es/dam/mapa/contenido/agricultura/temas/
+                              sanidad-vegetal/medios-de-defensa-fitosanitaria/
+                              registro-productos-fitosanitarios/{jerarquia,plagas}.xlsx
+ACCESS_METHOD:                XLSX direto
+TOPICS:                       hierarquia de espécies vegetais e classificação de pragas,
+                              doenças, ervas daninhas e reguladores — **com código EPPO**
+GEOGRAPHIC_GRANULARITY:       não aplicável (é vocabulário, não fato geográfico)
+UPDATE_FREQUENCY:             NÃO SEI — o arquivo não declara periodicidade
+SOURCE_IDENTITY_PRESERVABLE:  SIM
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       ALTA
+COLLECTION_FEASIBILITY:       ALTA (74 KB + 119 KB)
+LEGAL_OR_ACCESS_RISK:         BAIXO — publicação oficial. Sem dado pessoal.
+REAL_EXAMPLE:                 813 espécies vegetais (710 com EPPO) e 1.395 linhas de pragas.
+                              VITVI = Vitis vinifera; TRZAX = Triticum aestivum/durum;
+                              PLASVI = "Mildiu de la vid, Plasmopara viticola";
+                              SEPTTR = "Septoriosis del trigo, Zymoseptoria tritici";
+                              GUIGBI = "Black rot… Phyllosticta ampelicida".
+ADAMA_USE_CASE:               infraestrutura: é o que permite falar de "míldio da videira"
+                              nos três países como sendo a mesma coisa.
+EVIDENCE:                     data/samples/ES-T4-001/ (inclui eppo-dictionary.json derivado:
+                              492 culturas e 1.381 pragas indexadas por código EPPO)
+VERDICT:                      GREEN
+```
+
+#### ES-T4-002 · MAPA — Autorizaciones excepcionales (art. 53 Reg. 1107/2009)
+
+```
+SOURCE_ID:                    ES-T4-002
+SOURCE_NAME:                  Autorizaciones excepcionales vigentes
+SOURCE_OWNER:                 MAPA
+COUNTRY:                      SPAIN
+LANGUAGE:                     ES
+TERRITORY:                    T4 (com leitura direta para T3 e para oportunidade de portfólio)
+SOURCE_TYPE:                  Lista oficial de autorizações de emergência
+URL:                          .../registro-productos-fitosanitarios/autorizaciones_excepcionales.xls
+ACCESS_METHOD:                XLS (formato OLE2 legado, 32 MB; requer xlrd)
+TOPICS:                       CULTIVO × PLAGA/FUNCIÓN × SUSTANCIA ACTIVA × PRODUCTO
+                              COMERCIAL × data de início × data de fim
+GEOGRAPHIC_GRANULARITY:       nacional, com exceções regionais explícitas quando existem
+                              (ex.: "Extremadura: Tomate…")
+UPDATE_FREQUENCY:             o próprio arquivo declara a data de situação (24/08/2026)
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       MÉDIA — .xls legado, cabeçalho em linha variável
+COLLECTION_FEASIBILITY:       ALTA
+LEGAL_OR_ACCESS_RISK:         BAIXO
+REAL_EXAMPLE:                 45 autorizações excepcionais vigentes em 24/08/2026. Ex.:
+                              Manzano y peral × fuego bacteriano (Erwinia amylovora);
+                              Champiñón × telaraña (fluxapyroxad 30% SC);
+                              Remolacha azucarera × pulgón (flonicamida 50% WG);
+                              Fresal × desinfección del suelo (metam sodio 51% SL).
+ADAMA_USE_CASE:               MARKET DEVELOPMENT / PORTFOLIO / R&D: uma autorização
+                              excepcional é o Estado espanhol **declarando oficialmente que
+                              não existe solução normal** para aquele problema naquela
+                              cultura. É necessidade não atendida, documentada e datada.
+EVIDENCE:                     data/samples/ES-T4-001/ES-T4-002-autorizaciones-excepcionales.json
+VERDICT:                      GREEN
+```
+
+#### ES-T4-003 · MAPA — Registro de Productos Fitosanitarios (consulta)
+
+```
+SOURCE_ID:                    ES-T4-003
+SOURCE_NAME:                  Registro de Productos Fitosanitarios — aplicação de consulta
+SOURCE_OWNER:                 MAPA
+COUNTRY:                      SPAIN
+TERRITORY:                    T4
+URL:                          https://www.mapa.gob.es/es/agricultura/temas/sanidad-vegetal/
+                              productos-fitosanitarios/registro-productos
+ACCESS_METHOD:                aplicação web de consulta. **Não foi encontrado** dump aberto
+                              equivalente ao E-Phy francês ou ao CSV italiano.
+COLLECTION_FEASIBILITY:       NÃO SEI — exigiria consulta form-a-form
+LEGAL_OR_ACCESS_RISK:         NÃO SEI / REQUER REVISÃO — automatizar a consulta pode
+                              conflitar com os termos de uso. Não foi tentado.
+REAL_EXAMPLE:                 nenhum
+VERDICT:                      NÃO SEI
+```
+
+**Consequência prática e assimetria a registrar:** os três países **não são simétricos** em T4.
+
+| | produto | titular | cultura × alvo | data de vencimento | vocabulário EPPO |
+|---|---|---|---|---|---|
+| FRANCE (E-Phy) | ✅ | ✅ | ✅ | ❌ | ❌ (nomes comuns FR) |
+| ITALY (Min. Salute) | ✅ | ✅ | ❌ | ✅ | ❌ |
+| SPAIN (MAPA) | ❌ (só consulta) | — | ❌ | ❌ | ✅ |
+
+Nenhuma comparação direta entre os três países é possível hoje sem declarar esta assimetria.
+**Não** existe, até aqui, uma "visão EAME unificada de registro". Existem três visões
+diferentes, com pontos fortes diferentes.
+
+---
+
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
 | EUROPE | 1 | 0 | 0 | 1 | 2 |
 | FRANCE | 1 | 0 | 0 | 0 | 1 |
-| SPAIN | 0 | 0 | 0 | 0 | 0 |
-| ITALY | 0 | 0 | 0 | 0 | 0 |
-| **Total** | **2** | **0** | **0** | **1** | **3** |
+| SPAIN | 2 | 0 | 0 | 1 | 3 |
+| ITALY | 1 | 0 | 0 | 0 | 1 |
+| **Total** | **5** | **0** | **0** | **2** | **7** |
 
 ### Cobertura por território
 
@@ -299,7 +454,7 @@ parcialmente a pendência P-003 com informação pública inequívoca, sem inven
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | EUROPE | – | – | – | 1G/1? | – | – | – | – | – | – | – | – |
 | FRANCE | – | – | – | 1G | – | – | – | – | – | – | – | – |
-| SPAIN | – | – | – | – | – | – | – | – | – | – | – | – |
-| ITALY | – | – | – | – | – | – | – | – | – | – | – | – |
+| SPAIN | – | – | – | 2G/1? | – | – | – | – | – | – | – | – |
+| ITALY | – | – | – | 1G | – | – | – | – | – | – | – | – |
 
 *(– = não investigado)*
