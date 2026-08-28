@@ -1021,6 +1021,15 @@ pesquisadores participam do programa científico). É um cruzamento **plausível
 
 ---
 
+### Regra de contagem (declarada para evitar leitura ambígua)
+
+O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOURCE_ID
+(ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
+tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
+
+Verificado na FASE 0 da MISSÃO 03: **23 fichas · 31 SOURCE_IDs · 13 GREEN · 4 YELLOW ·
+0 RED · 14 NÃO SEI**. Os números batem. `tests/test_canonico.py` passou a verificar isso.
+
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |

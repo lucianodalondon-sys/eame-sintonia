@@ -3,7 +3,7 @@
 Ferramenta nasce de cruzamento provado, não de ideia bonita.
 Ordem: `SOURCE → EVIDENCE → DATA → CROSSING → CAPABILITY → TOOL → PORTAL`.
 
-**Estado:** MISSÃO 02 em curso — **11 ferramentas qualificadas** (+ 2 explicitamente CONCEPT).
+**Estado:** MISSÃO 02 em curso — **12 fichas** — 11 qualificadas (CROSSING PROVED ou DATA EXISTS) e 1 ficha CONCEPT, que cobre duas ferramentas sem dado.
 **Última atualização:** 2026-08-28
 
 ---

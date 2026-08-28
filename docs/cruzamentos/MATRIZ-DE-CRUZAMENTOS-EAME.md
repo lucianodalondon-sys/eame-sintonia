@@ -62,7 +62,7 @@ Listados como **candidatos a testar**, não como afirmações. Todos partem em `
 
 | ID | Cruzamento | Classe |
 |---|---|---|
-| X-001 | CLIMATE + REGION + CROP + DISEASE ALERT | **PARCIAL** (falta DISEASE ALERT) |
+| X-001 | CLIMATE + REGION + CROP + DISEASE ALERT | **PARCIAL** (os quatro existem, mas nunca cruzaram no mesmo objeto — ver X-001 abaixo) |
 | X-002 | RESEARCHER + PAPER + CROP + PROBLEM | **COMPROVADO** |
 | X-003 | COMPETITOR + PRODUCT + CROP + COMMUNICATION | **NÃO COMPÕE** (camada COMMUNICATION inacessível) |
 | X-004 | REGULATORY + ADAMA PORTFOLIO + CROP + PEST | **COMPROVADO (FR)** |
@@ -346,17 +346,32 @@ H · **erro fácil — e é o erro mais provável de toda a missão:** montar a 
 doença" e deixar o observador concluir que a chuva causou o surto. A §8 da missão proíbe
 exatamente isso, e agora temos o dado que mostra por quê.
 
-### X-001 · atualização — o quarto componente entrou
+### X-001 · reauditado na MISSÃO 03 — os quatro componentes nunca cruzaram no mesmo objeto
 
-O componente **DISEASE ALERT**, que faltava em X-001, existe e foi obtido (ES-T3-001).
-A composição `CLIMATE + REGION + CROP + DISEASE` agora é **executável** para a Andaluzia:
-os quatro lados são reais, datados e ligáveis por província e safra.
+**A leitura anterior estava incompleta.** Dizia-se que faltava DISEASE ALERT, e depois que
+"o quarto componente entrou". Remedido na FASE 0 da MISSÃO 03, o estado real é mais preciso
+e mais desconfortável: **existem duas instâncias de X-001, e nenhuma tem os quatro lados.**
 
-X-001 permanece **PARCIAL**, por três motivos medidos e não estimados:
-1. o quarto componente só existe para **uma região de um país** (Andaluzia), não para FR/IT;
-2. o clima continua sendo **um ponto**, não média regional;
-3. e, principalmente, **X-009**: os quatro lados compõem, mas a leitura causal que
-   justificaria a ferramenta **não se sustenta nos dados**.
+| instância | CLIMATE | REGION | CROP (área) | DISEASE |
+|---|---|---|---|---|
+| **trigo** (CASE-005) | ✅ ponto | ✅ **NUTS 2** | ✅ EU-T1-001 | ❌ inexistente para FR/ES/IT |
+| **videira** (CASE-007/008) | ✅ ponto | ✅ **NUTS 3** (província) | ❌ **não existe** | ✅ ES-T3-001 |
+
+**Duas descobertas da reauditoria, ambas medidas:**
+
+1. **A videira não tem área no Eurostat.** `apro_cpshr` com `crops=W1000` devolve **zero**
+   valores NUTS 2 para FR, ES e IT; `vit_bs1` devolveu zero linhas. A camada CROP do lado da
+   videira **não existe na fonte que usamos** — não é que não tenhamos buscado.
+2. **Os dois lados vivem em níveis geográficos diferentes.** A área de cultura é **NUTS 2**;
+   a medição de doença da RAIF é por **província espanhola, que é NUTS 3**. Andaluzia inteira
+   é ES61 (NUTS 2). Somar ou sobrepor os dois sem reconciliar o nível seria erro de geografia.
+
+**CLASS: PARCIAL** — mantido, mas **pelo motivo correto**. Não falta o componente DISEASE:
+falta **um objeto em que os quatro coexistam**, e falta reconciliar NUTS 2 com NUTS 3.
+
+**O que destravaria:** área de vinha por região (fonte nacional, não Eurostat), ou medição de
+doença em cereal (que a RAIF tem — `cereales de invierno` — e não foi baixada). A segunda é
+mais barata e está ao alcance: seria o caminho para fechar X-001 numa instância só.
 
 
 ### X-002 · RESEARCHER + PAPER + CROP + PROBLEM — **COMPROVADO (com vocabulário controlado)**
