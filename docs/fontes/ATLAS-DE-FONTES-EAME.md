@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **2 fontes registradas** (1 GREEN, 1 NÃO SEI).
+**Estado:** MISSÃO 02 em curso — **3 fontes registradas** (2 GREEN, 1 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -231,6 +231,56 @@ Não é uma fonte ruim; é uma porta fechada *neste ambiente*.
 headless. **Não bloqueia T4**: EU-T4-001 cobre a camada de ato regulatório da UE com
 qualidade superior (documento primário, identificável e datado, em vez de tabela derivada).
 
+### T4 · REGULATORY — FRANCE
+
+#### FR-T4-001 · ANSES E-Phy — catálogo francês de produtos fitofarmacêuticos
+
+```
+SOURCE_ID:                    FR-T4-001
+SOURCE_NAME:                  Données ouvertes du catalogue E-Phy
+SOURCE_OWNER:                 ANSES (Agence nationale de sécurité sanitaire) via data.gouv.fr
+COUNTRY:                      FRANCE
+REGION:                       nacional (a autorização é nacional; há ZNT e condições de emprego)
+LANGUAGE:                     FR
+TERRITORY:                    T4 (alimenta também T1, T3 e T9)
+SOURCE_TYPE:                  Registro oficial de autorizações (AMM), dados abertos
+URL:                          https://www.data.gouv.fr/datasets/donnees-ouvertes-du-catalogue-e-phy-des-produits-phytopharmaceutiques-matieres-fertilisantes-et-supports-de-culture-adjuvants-produits-mixtes-et-melanges
+ACCESS_METHOD:                CSV e XML em ZIP, resolvidos pela API do data.gouv.fr.
+                              Sem chave, sem scraping. `scripts/ephy.sh download`.
+CROPS:                        todas as culturas do catálogo francês (Blé, Vigne, Orge, Maïs…)
+TOPICS:                       produto, nº AMM, titular, substâncias ativas, função,
+                              formulação, estado de autorização, data de retirada,
+                              uso autorizado por cultura × alvo, dose, BBCH, DAR,
+                              nº máx. de aplicações, ZNT (aquática, artrópodes, plantas)
+GEOGRAPHIC_GRANULARITY:       PAÍS. Não há granularidade regional — a AMM é nacional.
+UPDATE_FREQUENCY:             semanal (declarada e confirmada: versão de 2026-08-25)
+HISTORICAL_DEPTH:             estado atual + datas de 1ª autorização e de retirada;
+                              série histórica exige arquivar as versões semanais
+SOURCE_IDENTITY_PRESERVABLE:  SIM — nº AMM é identificador oficial estável
+DOCUMENT_ID_AVAILABLE:        SIM — numero AMM
+PUBLICATION_DATE_AVAILABLE:   SIM — data da decisão por uso; versão datada do dataset
+RAW_EVIDENCE_PRESERVABLE:     SIM — CSVs oficiais
+AUTOMATION_FEASIBILITY:       ALTA
+COLLECTION_FEASIBILITY:       ALTA — 3,9 MB comprimidos, ~41 MB abertos, 10 tabelas
+LEGAL_OR_ACCESS_RISK:         BAIXO — Licence Ouverte (fr-lo). Sem dado pessoal:
+                              o titular é pessoa jurídica.
+REAL_EXAMPLE:                 15.140 produtos; 18.558 usos autorizados.
+                              AMM 2080088 "NEMO" (ADAMA FRANCE SAS), nicosulfuron 40 g/L,
+                              herbicida, uso Maïs*Désherbage, dose 1,5 L/ha,
+                              ZNT aquática 20 m, decisão de 08/07/2014.
+ADAMA_USE_CASE:               REGULATORY, PORTFOLIO, MARKET DEVELOPMENT, COMMERCIAL:
+                              o que a ADAMA pode legalmente vender na França, em que
+                              cultura, contra que alvo — e o mesmo para cada concorrente.
+EVIDENCE:                     data/samples/FR-T4-001/
+VERDICT:                      GREEN
+```
+
+**Descoberta lateral relevante:** o campo `titulaire` é público e nomeia as empresas.
+**ADAMA FRANCE SAS** consta com **267 produtos** e **504 usos autorizados**. BAYER SAS (859),
+BASF FRANCE SAS (420), SYNGENTA FRANCE SAS (349), DOW AGROSCIENCES (267), NUFARM (240).
+Isso dá a T9 · COMPETITORS uma base **factual e oficial**, e não clipping — e resolve
+parcialmente a pendência P-003 com informação pública inequívoca, sem inventar portfólio.
+
 ---
 
 ### Placar
@@ -238,17 +288,17 @@ qualidade superior (documento primário, identificável e datado, em vez de tabe
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
 | EUROPE | 1 | 0 | 0 | 1 | 2 |
-| FRANCE | 0 | 0 | 0 | 0 | 0 |
+| FRANCE | 1 | 0 | 0 | 0 | 1 |
 | SPAIN | 0 | 0 | 0 | 0 | 0 |
 | ITALY | 0 | 0 | 0 | 0 | 0 |
-| **Total** | **1** | **0** | **0** | **1** | **2** |
+| **Total** | **2** | **0** | **0** | **1** | **3** |
 
 ### Cobertura por território
 
 | | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | EUROPE | – | – | – | 1G/1? | – | – | – | – | – | – | – | – |
-| FRANCE | – | – | – | – | – | – | – | – | – | – | – | – |
+| FRANCE | – | – | – | 1G | – | – | – | – | – | – | – | – |
 | SPAIN | – | – | – | – | – | – | – | – | – | – | – | – |
 | ITALY | – | – | – | – | – | – | – | – | – | – | – | – |
 
