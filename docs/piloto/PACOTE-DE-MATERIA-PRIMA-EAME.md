@@ -1,0 +1,135 @@
+# PACOTE DE MATÉRIA-PRIMA — PILOTO SINTONIA EAME
+
+Porta de entrada do futuro Claude Design. **Descreve conteúdo, não interface.**
+`PROTOTYPE_FROZEN = SIM`.
+
+**Data:** 2026-08-29 · Deck em `../apresentacao/deck/` · Todos os números têm arquivo de
+evidência em `../../data/samples/`
+
+---
+
+# PILOT SCOPE
+**Mercados:** França · Espanha · Itália (+ camada UE).
+**Culturas:** cereais (trigo, cevada, triticale, centeio) · olivar · videira.
+**Não entram:** Polônia e Romênia — o próprio deck as mostra como fluxo ilustrativo (SLIDE 4).
+
+---
+
+# BUSINESS QUESTION 1 · REGULATORY & PORTFOLIO
+> *"What changed, what does it touch, and where?"*
+
+**Status: PILOT READY.** Único eixo provado ponta a ponta.
+
+**Cadeia comprovada:** ato da UE (CELEX + data + texto em 4 línguas) → substância normalizada
+(**82,1%** do uso) → registro nacional → titular → produtos ADAMA → concorrentes.
+
+**Números disponíveis (FR, registro de 25/08/2026):**
+- **77** produtos autorizados com protioconazol · **Bayer 32** · **ADAMA 3**
+- ADAMA: AVASTEL (AMM 2240236) · FORAPRO (2240001) · MAXENTIS (2230815)
+
+**Números disponíveis (IT, registro de 24/08/2026):**
+- **85** autorizações em vigor com protioconazol · **Bayer 18** · **ADAMA 5**
+- ADAMA: MAGANIC (017955) · MAXENTIS (018067) · AVASTEL (018089) · SORATEL (018175) · KOJAMI (019095)
+- **60 das 85 (71%)** vencem em **31/03/2027**
+
+**Fato regulatório europeu:** CELEX **32025R0787** (24/04/2025) fixa a expiração da aprovação
+do protioconazol em **31/03/2027**; a molécula foi prorrogada **6 vezes em 6 anos** e o
+Parlamento Europeu objetou **3 vezes**.
+
+**Espanha:** `NÃO SEI` para o registro de produtos — motivo exato em SOURCE PACK.
+
+# BUSINESS QUESTION 2 · MARKET DEVELOPMENT / FIELD SIGNAL
+> *"Is this signal real, where is it happening, what supports it, and does ADAMA have a response?"*
+
+**Status: PILOT READY, escopo declarado — Espanha / olivar / repilo.**
+
+**O fluxo do SLIDE 8, executado — e o que NÃO fecha:**
+
+| # | pergunta | resultado |
+|---|---|---|
+| 1 | Signal appears | ✅ repilo em alta em duas províncias |
+| 2 | **Is it real?** | ✅ 11 safras (2016–2026), 44.584 leituras, **sobrevive ao controle de coorte** |
+| 3 | **Where else?** | ✅ sobe em Cádiz e Huelva; **não** sobe em Jaén, Sevilla, Córdoba, Granada e Málaga |
+| 4 | **What supports it?** | ❓ **NÃO FECHA.** A fonte publica "condiciones favorables", mas **não há leitura desse campo em Cádiz nem em Huelva** — exatamente as duas províncias em alta. E X-009 proíbe a explicação climática fácil |
+| 5 | Does ADAMA have a response? | ⚠️ **parcial** — Neptune existe publicamente (oxicloreto de cobre 36% + tebuconazol 3,6%), para repilo **e** tuberculose do olivar. **O número de registro espanhol não é verificável** em fonte aberta |
+| 6 | What should we validate? | ✅ programa de fungicida nas parcelas; a base pequena de Huelva (7 parcelas) |
+
+**É 4 ✅ · 1 ⚠️ · 1 ❓ — não "5/6".** A que não fecha é a **nº 4**.
+
+**Enriquecimento encontrado nesta missão:** o Neptune ataca repilo **e** tuberculose, e a
+RAIF mede as duas (`1702 Repilo…` e `2005 Tuberculosis: Síntomas (0-3)`). O alinhamento
+produto↔fonte é maior do que se supunha.
+
+# BUSINESS QUESTION 3 · CROSS-MARKET
+> *"Does the same molecule appear elsewhere?"*
+
+**Status: PILOT READY — por MOLÉCULA, não por ISSUE.** Medido: X-006 cobre **82,1%** do uso;
+X-007 cobre **23,5%**. A primeira demonstração cross-market **deve** usar molécula.
+
+---
+
+# HERO CASE 1 · CASE-014 — protioconazol em dois mercados
+8 produtos ADAMA (3 FR + 5 IT), a expiração europeia de 31/03/2027, e **60 de 85** produtos
+italianos com a mesma data. **Red team aplicado:** a derivação legal entre a data italiana e
+a europeia **não é afirmável** — 199 produtos italianos vencem em 31/03/2027, incluindo
+nicosulfuron (58), que **não tem ato europeu recente**. Diz-se *"as datas coincidem,
+sistematicamente"*, nunca *"A causa B"*.
+
+# HERO CASE 2 · CASE-013 — repilo, 11 safras e controle de coorte
+Huelva **1,17% (2023) → 8,83% (2026)** nas **mesmas parcelas**; Jaén, na mesma coorte, fica
+entre 0,56% e 0,90%. Jaén é **comparação observacional**, não controle experimental.
+
+# HERO CASE 3 · CASE-008 — o clima não explica a doença
+Córdoba choveu mais que Huelva e teve 4× menos míldio; Cádiz teve a maior umidade e
+praticamente nenhum. **Prova que o sistema recusa a explicação óbvia** quando os dados não
+a sustentam. É o case de TRUST.
+
+**Rebaixados nesta missão:** CASE-015 (HERO → TECHNICAL PROOF, ver abaixo) ·
+CASE-011 (absorvido pelo 014) · CASE-003, CASE-012 (SUPPORT).
+
+---
+
+# SOURCE PACKS
+Ver `SOURCE-PACK-PILOTO.md` — **12 fontes**, não 34.
+
+# ADAMA CONTEXT
+**CEREAL — o denominador comum público nos três países.**
+FR: Forapro, Maxentis, Avastel (registrados) + Go Céréales + Maïstria (2027) · €135 M em 2025.
+ES: Avastel + Timeline Trio + evento ADAMAexperience (Guadalajara, 150+ participantes).
+IT: Avastel, Maxentis, Maganic, Soratel, Kojami (registrados).
+Tecnologias de formulação citadas: **Asorbital** (ES, IT) e **Isondalis** (FR).
+**OLIVE — só Espanha.** Neptune (repilo e tuberculose) + participação no Plan STAR Olivar.
+**VINE — Espanha tem campanha** (Vinergy, OPAR, KONA, ORISOS); **França tem registro forte
+sem campanha 2025–2026** (17 usos em Vigne×Mildiou, a empresa nomeada com mais usos).
+`INTERNAL PRIORITY = NÃO SEI` — exige dado interno.
+
+# CROSS-MARKET MATERIAL
+| | França | Espanha | Itália |
+|---|---|---|---|
+| fato regulatório da UE aplicável | ✅ | ✅ | ✅ |
+| sinal público ADAMA em cereal | ✅ | ✅ | ✅ |
+| **registro nacional verificável** | ✅ 3 produtos | ❌ **NÃO SEI** | ✅ 5 produtos |
+| datas de vencimento | ❌ campo inexistente | ❌ | ✅ |
+| cultura × alvo no registro | ✅ | ❌ | ❌ |
+
+**A cadeia fecha em FR e IT. Na Espanha fecha 2 de 3 pernas.** Motivo exato: o registro
+espanhol de produtos não tem dump aberto — a aplicação `servicio.mapa.gob.es/regfiweb`
+responde 200 mas a grade é renderizada por JavaScript. **Não é falta de busca; é falta de via.**
+
+# ASK SINTONIA MATERIAL
+20 perguntas · **12 respondidas · 8 recusadas corretamente · 0 erradas**.
+Contrato e detalhe em `ASK-SINTONIA-BENCHMARK.md`.
+
+# TRUST / EVIDENCE
+Toda amostra declara origem, data de captura, idioma original, SOURCE_LOCATION e
+FACT_LOCATION. **25 provas automatizadas** reprovam amostra sem proveniência — e já
+reprovaram três vezes nesta linha de missões, incluindo contagens que eu havia declarado
+errado. Regra: `FACT` / `INTERPRETATION` / `ACTION` nunca no mesmo campo.
+
+# PILOT READY · COMING SOON · EXPLORATION
+Ver `../apresentacao/PILOTO-CLASSIFICACAO.md`, atualizado por esta missão:
+**Competitor communication permanece COMING SOON** (rota provada) ·
+**Manufacturer/origem permanece EXPLORATION** · **Distribution: COMING SOON (rede, não fluxo)**.
+
+# WHAT WE MUST NOT CLAIM
+Ver `O-QUE-PODEMOS-DIZER.md`.
