@@ -14,8 +14,8 @@
   "FACT_LOCATION": "EU/FR/ES/IT",
   "ORIGINAL_LANGUAGE": "FR/ES/IT/EN",
   "totals": {
-    "ANSWERABLE": 14,
-    "CORRECT REFUSAL": 10,
+    "ANSWERABLE": 20,
+    "CORRECT REFUSAL": 14,
     "PARTIAL": 1
   },
   "wrong_answers": 0,
@@ -38,8 +38,8 @@
       "id": "B03",
       "layer": "REGULATION",
       "question": "Quantos produtos estão autorizados na Espanha com protioconazol?",
-      "verdict": "CORRECT REFUSAL",
-      "basis": "ES-T4-003: não há dump aberto do registro espanhol"
+      "verdict": "ANSWERABLE",
+      "basis": "ES-T4-005: 30 em vigor — Bayer 8, ADAMA 3, Syngenta 3, Sharda 3. Era CORRECT REFUSAL até a MISSÃO 06; a recusa estava certa para o que sabíamos e errada sobre a fonte"
     },
     {
       "id": "B04",
@@ -185,8 +185,8 @@
       "id": "B24",
       "layer": "IDENTITY",
       "question": "Quem detém o registro ES-01717?",
-      "verdict": "PARTIAL",
-      "basis": "ADAMA Agriculture España S.A. por fonte SECUNDÁRIA; não lido em primária do MAPA"
+      "verdict": "ANSWERABLE",
+      "basis": "ADAMA Agriculture España S.A. — ficha oficial do ROPF, PRIMÁRIA. Era PARTIAL na MISSÃO 06, quando só tínhamos agregador comercial"
     },
     {
       "id": "B25",
@@ -194,6 +194,76 @@
       "question": "AMISTAR ERA 350 SC tem registro independente do MAXENTIS?",
       "verdict": "CORRECT REFUSAL",
       "basis": "não — na Espanha é denominação comum do MESMO ES-01717. Mas o AMISTAR ERA 240 EC italiano é outro registro, sob CAC Chemical: não confundir os dois"
+    },
+    {
+      "id": "B26",
+      "layer": "IDENTITY",
+      "question": "Quem fabrica o produto do registro ES-01717 e onde?",
+      "verdict": "ANSWERABLE",
+      "basis": "ADAMA Agricultural Solutions Ltd., planta (Neot Hovav) — ficha oficial do ROPF"
+    },
+    {
+      "id": "B27",
+      "layer": "IDENTITY",
+      "question": "A ADAMA depende de Israel para fornecer na Espanha?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "a ficha nomeia UM fabricante e UMA planta para UM registro. Não é cadeia de suprimento"
+    },
+    {
+      "id": "B28",
+      "layer": "IDENTITY",
+      "question": "A ADAMA é a maior empresa do mercado fitossanitário espanhol?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "é a titular com MAIS REGISTROS (188 de 3.084). Contagem de registros não é venda, volume nem participação"
+    },
+    {
+      "id": "B29",
+      "layer": "IDENTITY",
+      "question": "Quantos registros espanhóis têm mais de uma denominação comum?",
+      "verdict": "ANSWERABLE",
+      "basis": "363 em vigor, 18,2% dos 1.993 em vigor. O denominador vai junto ou a resposta engana"
+    },
+    {
+      "id": "B30",
+      "layer": "IDENTITY",
+      "question": "Contar por marca infla o mercado espanhol em quanto?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "a pergunta não é respondível como está: MERCADO não é medível nesta fonte. O que se mede é excesso de contagem de AUTORIZAÇÕES — 1,52x sobre o registro em vigor"
+    },
+    {
+      "id": "B31",
+      "layer": "CHANGE",
+      "question": "Algum registro espanhol mudou de nome entre 2025 e 2026?",
+      "verdict": "ANSWERABLE",
+      "basis": "5 renomeações confirmadas em 311 registros comparáveis, incluindo ES-01717"
+    },
+    {
+      "id": "B32",
+      "layer": "CHANGE",
+      "question": "A renomeação do ES-01717 indica um relançamento comercial?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "prova apenas OFFICIAL RECORD NAME CHANGED. Nem canal, nem preço, nem venda"
+    },
+    {
+      "id": "B33",
+      "layer": "CHANGE",
+      "question": "Algum registro espanhol mudou de titular no último ano?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "o campo existe e é comparável, mas só temos UMA versão arquivada do export do ROPF. Detectável a partir da segunda"
+    },
+    {
+      "id": "B34",
+      "layer": "CHANGE",
+      "question": "Quando o nome do ES-01717 mudou?",
+      "verdict": "PARTIAL",
+      "basis": "sabemos o intervalo (entre 28/05/2025 e 26/08/2026) e o trâmite datado em 28/07/2026; a data em que o mercado passou a ver o nome novo não está na fonte"
+    },
+    {
+      "id": "B35",
+      "layer": "FIELD",
+      "question": "Que culturas o ES-01717 pode tratar?",
+      "verdict": "ANSWERABLE",
+      "basis": "cebada, centeno, trigo e triticale — ficha oficial em PDF do ROPF"
     }
   ]
 }

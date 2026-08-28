@@ -1,105 +1,187 @@
 {
-  "chain": "CEREAL → prothioconazole → ADAMA → regulatory → competitors",
-  "captured_at": "2026-08-28",
-  "sources": [
-    "FR-T4-001",
-    "IT-T4-001",
-    "EU-T4-001",
-    "radar público ADAMA"
+ "chain": "CEREAL → prothioconazole → ADAMA → regulatory → competitors",
+ "captured_at": "2026-08-29",
+ "sources": [
+  "FR-T4-001",
+  "IT-T4-001",
+  "ES-T4-005",
+  "EU-T4-001",
+  "radar público ADAMA"
+ ],
+ "SOURCE_LOCATION": "FRANCE / SPAIN / ITALY",
+ "FACT_LOCATION": "FRANCE / SPAIN / ITALY",
+ "ORIGINAL_LANGUAGE": "FR/ES/IT",
+ "layer": "NATIONAL PRODUCT AUTHORIZATION",
+ "molecule": "prothioconazole (CAS 178928-70-6)",
+ "eu_expiry": "2027-03-31",
+ "eu_act": "CELEX 32025R0787",
+ "france": {
+  "authorised_products": 77,
+  "by_company": {
+   "BAYER": 32,
+   "OUTROS": 15,
+   "LIFE SCIENTIFIC": 6,
+   "GLOBACHEM": 6,
+   "SHARDA": 4,
+   "SYNGENTA": 3,
+   "ADAMA": 3,
+   "NUFARM": 2,
+   "BASF": 2,
+   "SIPCAM": 1,
+   "CORTEVA/DOW": 1,
+   "UPL": 1,
+   "ALBAUGH": 1
+  },
+  "adama": [
+   {
+    "amm": "2240236",
+    "product": "AVASTEL",
+    "actives": "prothioconazole (Prothioconazole) 150.0 g/L | "
+   },
+   {
+    "amm": "2240001",
+    "product": "FORAPRO",
+    "actives": "prothioconazole (Prothioconazole) 175.0 g/L | "
+   },
+   {
+    "amm": "2230815",
+    "product": "MAXENTIS",
+    "actives": "prothioconazole (Prothioconazole) 150.0 g/L | "
+   }
+  ]
+ },
+ "italy": {
+  "in_force": 85,
+  "records_total": 89,
+  "by_company": {
+   "BAYER": 18,
+   "OUTROS": 16,
+   "SHARDA": 11,
+   "LIFE SCIENTIFIC": 10,
+   "ADAMA": 5,
+   "GLOBACHEM": 5,
+   "ASCENZA": 5,
+   "UPL": 3,
+   "SIPCAM": 3,
+   "CORTEVA/DOW": 3,
+   "ALBAUGH": 2,
+   "NUFARM": 2,
+   "SYNGENTA": 1,
+   "BASF": 1
+  },
+  "adama": [
+   {
+    "reg": "017955",
+    "product": "MAGANIC",
+    "actives": "DIFENOCONAZOLE|PROTHIOCONAZOLE",
+    "expiry": "31/01/2028"
+   },
+   {
+    "reg": "018067",
+    "product": "MAXENTIS",
+    "actives": "AZOXYSTROBIN|PROTHIOCONAZOLE",
+    "expiry": "31/05/2027"
+   },
+   {
+    "reg": "018089",
+    "product": "AVASTEL",
+    "actives": "PROTHIOCONAZOLE|FLUXAPYROXAD",
+    "expiry": "31/03/2028"
+   },
+   {
+    "reg": "018175",
+    "product": "SORATEL",
+    "actives": "PROTHIOCONAZOLE",
+    "expiry": "31/03/2027"
+   },
+   {
+    "reg": "019095",
+    "product": "KOJAMI",
+    "actives": "AZOXYSTROBIN|PROTHIOCONAZOLE",
+    "expiry": "31/05/2027"
+   }
+  ]
+ },
+ "spain": {
+  "in_force_with_prothioconazole": 30,
+  "by_company": {
+   "BAYER": 8,
+   "OUTROS": 5,
+   "ADAMA": 3,
+   "SYNGENTA": 3,
+   "SHARDA": 3,
+   "ASCENZA": 2,
+   "BARCLAY": 1,
+   "SIPCAM": 1,
+   "ALBAUGH": 1,
+   "NUFARM": 1,
+   "GLOBACHEM": 1,
+   "CORTEVA": 1
+  },
+  "adama": [
+   {
+    "reg": "ES-01818",
+    "product": "AVASTEL",
+    "actives": "FLUXAPYROXAD 7,5%  + PROTIOCONAZOL 15% [EC] P/V",
+    "expiry": "31-10-2027"
+   },
+   {
+    "reg": "ES-01665",
+    "product": "SORATEL",
+    "actives": "PROTIOCONAZOL 25% [EC] P/V",
+    "expiry": "31-03-2027"
+   },
+   {
+    "reg": "ES-01717",
+    "product": "SORATEL MAX",
+    "actives": "AZOXISTROBIN 20%  + PROTIOCONAZOL 15% [SC] P/V",
+    "expiry": "31-05-2027"
+   }
   ],
-  "SOURCE_LOCATION": "FRANCE / ITALY",
-  "FACT_LOCATION": "FRANCE / ITALY",
-  "ORIGINAL_LANGUAGE": "FR/IT",
-  "layer": "NATIONAL PRODUCT AUTHORIZATION",
-  "molecule": "prothioconazole (CAS 178928-70-6)",
-  "eu_expiry": "2027-03-31",
-  "eu_act": "CELEX 32025R0787",
-  "france": {
-    "authorised_products": 77,
-    "by_company": {
-      "BAYER": 32,
-      "OUTROS": 15,
-      "LIFE SCIENTIFIC": 6,
-      "GLOBACHEM": 6,
-      "SHARDA": 4,
-      "SYNGENTA": 3,
-      "ADAMA": 3,
-      "NUFARM": 2,
-      "BASF": 2,
-      "SIPCAM": 1,
-      "CORTEVA/DOW": 1,
-      "UPL": 1,
-      "ALBAUGH": 1
-    },
-    "adama": [
-      {
-        "amm": "2240236",
-        "product": "AVASTEL",
-        "actives": "prothioconazole (Prothioconazole) 150.0 g/L | "
-      },
-      {
-        "amm": "2240001",
-        "product": "FORAPRO",
-        "actives": "prothioconazole (Prothioconazole) 175.0 g/L | "
-      },
-      {
-        "amm": "2230815",
-        "product": "MAXENTIS",
-        "actives": "prothioconazole (Prothioconazole) 150.0 g/L | "
-      }
-    ]
+  "only_other_azoxystrobin_prothioconazole_in_force": {
+   "reg": "ES-01770",
+   "product": "PROMINO XTRA",
+   "holder": "CAC Chemical GmbH"
+  }
+ },
+ "EVIDENCE_QUALITY_BY_LEG": {
+  "FRANCE": {
+   "route": "E-Phy — dump aberto oficial, versionado semanalmente (data.gouv)",
+   "fields": "produto, AMM, titular, substância, uso, cultura",
+   "quality": "PRIMARY · OPEN DATA",
+   "stability": "ALTA — dataset publicado"
   },
-  "italy": {
-    "in_force": 85,
-    "records_total": 89,
-    "by_company": {
-      "BAYER": 18,
-      "OUTROS": 16,
-      "SHARDA": 11,
-      "LIFE SCIENTIFIC": 10,
-      "ADAMA": 5,
-      "GLOBACHEM": 5,
-      "ASCENZA": 5,
-      "UPL": 3,
-      "SIPCAM": 3,
-      "CORTEVA/DOW": 3,
-      "ALBAUGH": 2,
-      "NUFARM": 2,
-      "SYNGENTA": 1,
-      "BASF": 1
-    },
-    "adama": [
-      {
-        "reg": "017955",
-        "product": "MAGANIC",
-        "actives": "DIFENOCONAZOLE|PROTHIOCONAZOLE",
-        "expiry": "31/01/2028"
-      },
-      {
-        "reg": "018067",
-        "product": "MAXENTIS",
-        "actives": "AZOXYSTROBIN|PROTHIOCONAZOLE",
-        "expiry": "31/05/2027"
-      },
-      {
-        "reg": "018089",
-        "product": "AVASTEL",
-        "actives": "PROTHIOCONAZOLE|FLUXAPYROXAD",
-        "expiry": "31/03/2028"
-      },
-      {
-        "reg": "018175",
-        "product": "SORATEL",
-        "actives": "PROTHIOCONAZOLE",
-        "expiry": "31/03/2027"
-      },
-      {
-        "reg": "019095",
-        "product": "KOJAMI",
-        "actives": "AZOXYSTROBIN|PROTHIOCONAZOLE",
-        "expiry": "31/05/2027"
-      }
-    ]
+  "SPAIN": {
+   "route": "ROPF — rotas públicas da própria aplicação oficial (grade, ficha JSON, ficha PDF, export)",
+   "fields": "produto, registro, titular, fabricante, planta, formulado, estado, datas, usos",
+   "quality": "PRIMARY · APP ROUTE",
+   "stability": "MÉDIA — não é dataset publicado; a rota pode mudar sem aviso"
   },
-  "spain": "NÃO SEI — sem dump aberto do registro de produtos (ES-T4-003)"
+  "ITALY": {
+   "route": "Banca dati fitosanitari — consulta web oficial",
+   "fields": "produto, registro, titular, substância, vencimento",
+   "quality": "PRIMARY · WEB",
+   "stability": "MÉDIA"
+  },
+  "NOTE": "as três pernas são PRIMÁRIAS. A assimetria não está na qualidade do fato e sim na ROTA: só a França publica dump aberto. Não apresentar como três marcas iguais."
+ },
+ "ADAMA_NAMING_ACROSS_THE_THREE": {
+  "AVASTEL": {
+   "FR": "AMM 2240236 (protioconazol 150 g/L)",
+   "IT": "018089 (protioconazol + fluxapiroxade)",
+   "ES": "ES-01818 (fluxapiroxade 7,5% + protioconazol 15%)"
+  },
+  "SORATEL": {
+   "IT": "018175 (protioconazol isolado)",
+   "ES": "ES-01665 (protioconazol 25%)",
+   "FR": "não encontrado"
+  },
+  "MAXENTIS/SORATEL MAX": {
+   "FR": "AMM 2230815 MAXENTIS (protioconazol 150 g/L)",
+   "IT": "018067 MAXENTIS (azoxistrobina + protioconazol)",
+   "ES": "ES-01717, renomeado MAXENTIS → SORATEL MAX"
+  },
+  "CAUTION": "mesmo nome comercial NÃO implica mesma composição: AVASTEL é protioconazol isolado na França e mistura na Espanha e na Itália. A chave é o registro, não o nome."
+ },
+ "spain_old_value": "NÃO SEI — sem dump aberto do registro de produtos (ES-T4-003). RESOLVIDO na MISSÃO 07 pela rota ES-T4-005."
 }

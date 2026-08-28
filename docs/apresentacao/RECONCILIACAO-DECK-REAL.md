@@ -125,7 +125,7 @@ TEXTO_REAL:    "Important market signals often stay local."
 TIPO:          BUSINESS OUTCOME
 ```
 A tese não é *"descobrimos informação que ninguém tem"* — é *"a informação existe e está
-separada"*. **Isto é exatamente o que a MISSÃO 02 e 03 provaram**: todas as 14 fontes GREEN
+separada"*. **Isto é exatamente o que a MISSÃO 02 e 03 provaram**: todas as 15 fontes GREEN
 são públicas e gratuitas. A tese do deck é a mais defensável possível, e nós temos a prova.
 
 ## 5 · O QUE A RECONSTRUÇÃO ACERTOU

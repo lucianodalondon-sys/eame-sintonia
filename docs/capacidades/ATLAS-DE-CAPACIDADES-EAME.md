@@ -6,7 +6,7 @@ Fonte não é capacidade. Este atlas converte descoberta em **o que conseguimos 
 > "Detectar alertas fitossanitários regionais em trigo na França" é uma capacidade.
 > A segunda só entra aqui quando a primeira está provada com exemplo real.
 
-**Estado:** MISSÃO 02 em curso — **21 capacidades COMPROVADAS**.
+**Estado:** MISSÃO 07 — **22 capacidades COMPROVADAS**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -610,11 +610,41 @@ exposição. Ela informa **uma decisão de calendário** que o produtor toma naq
 > 1.047 (Jaén). O n **precisa** viajar junto com a média.
 
 
+### CAP-022 · Detectar mudança comparando duas versões arquivadas do mesmo documento
+
+```
+CAPABILITY:          Comparar duas versões do MESMO documento público e emitir um evento
+                     por campo que difere, com veredito CONFIRMED / REFUTED / UNRESOLVED.
+SOURCE:              ES-T4-004 (duas versões arquivadas) + ES-T4-005 (verificação independente)
+COUNTRY:             SPAIN
+CROP:                todas — é capacidade de registro, não de cultura
+GEOGRAPHY:           nacional
+TIME:                28/05/2025 → 26/08/2026 (uma comparação, 15 meses)
+UPDATE_FREQUENCY:    a da fonte (semanal), a partir do momento em que o arquivamento liga
+CAN_AUTOMATE:        SIM — scripts/denominaciones.py + scripts/mapa_regfi.py
+CAN_HISTORY:         NÃO — só existe história a partir das versões que guardamos. O registro
+                     publica apenas o ÚLTIMO trâmite, sem histórico.
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      TECHNICAL: indexar por REGISTRATION_ID, tratar nome como atributo
+                     versionado. Um radar por marca emitiria evento falso na renomeação.
+ADAMA_ALIGNMENT:     **HIGH** — ES-01717 é um registro ADAMA em cereal
+REAL_EXAMPLE:        10 candidatos a renomeação; 5 CONFIRMED (incl. ES-01717 MAXENTIS →
+                     SORATEL MAX), 2 reprovados como artefato do leitor, 3 sem veredito.
+                     Das 5 confirmadas, 4 já não aparecem no registro de hoje — o campo de
+                     trâmite foi sobrescrito. Sem o arquivo, seriam invisíveis.
+USERS:               REG (primário) · MKT · COM
+```
+
+> **O que esta capacidade NÃO é:** previsão. O DATA CLOCK não previu a renomeação — ele
+> permitiu **ver retrospectivamente** que ela ocorreu, porque as duas pontas estavam
+> guardadas. Ver `../regras/REGUA-DE-CHANGE-EVENT-EAME.md`.
+
+
 ### Placar
 
 | CONFIDENCE | Quantidade |
 |---|---|
-| COMPROVADO | 21 |
+| COMPROVADO | 22 |
 | INFERÊNCIA | 0 |
 | HIPÓTESE | 0 |
 | NÃO SEI | 0 |
@@ -625,7 +655,7 @@ exposição. Ela informa **uma decisão de calendário** que o produtor toma naq
 |---|---|---|---|---|
 | EUROPE | 11 | 0 | 0 | 0 |
 | FRANCE | 3 | 0 | 0 | 0 |
-| SPAIN | 6 | 0 | 0 | 0 |
+| SPAIN | 7 | 0 | 0 | 0 |
 | ITALY | 1 | 0 | 0 | 0 |
 
 ---
@@ -642,3 +672,5 @@ a história para o relatório ficar mais bonito.
 | H-003 | "A curva de míldio da Andaluzia mostra o ciclo epidêmico da região." | **Caiu.** Era artefato de amostragem: províncias distintas amostradas em dias distintos. Desagregado, viram três curvas independentes. Ver CAP-015. | 2026-08-28 |
 | H-005 | "Basta buscar o tema por palavra-chave para descobrir os especialistas de um país." | **Caiu, com número.** `wheat septoria OR Zymoseptoria` na Espanha devolve 2.627 trabalhos e uma lista de fisiologistas de cultura; `"Zymoseptoria tritici"` devolve 27 e o especialista real. Ver CAP-018. | 2026-08-28 |
 | H-004 | "Chuva e umidade explicam onde o míldio apareceu na Andaluzia em 2026." | **Caiu, com dado.** Cádiz teve a **maior** umidade média (74,2%) e praticamente **zero** doença; Córdoba teve **mais** chuva que Huelva (65,1 × 55,4 mm) e **4× menos** doença. Ver X-009. | 2026-08-28 |
+| H-006 | "O registro espanhol de produtos só tem consulta manual; não há rota de máquina." — registrado em `ES-T4-003` e repetido em três missões. | **Caiu, e o erro foi de leitura, não da fonte.** A própria página declara as rotas em `<input type="hidden">` e o `site.min.js` declara os nomes de parâmetro. `GetProductoById`, a ficha em PDF e o export completo estavam públicos o tempo todo. Ver ES-T4-005. | 2026-08-29 |
+

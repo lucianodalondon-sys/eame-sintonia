@@ -823,24 +823,72 @@ publicamente no mercado espanhol. Também não sabemos vendas, prioridade comerc
 
 ---
 
-### CASE-015 · Uma autorização, três identidades comerciais — e o registro que mudou de nome
+### CASE-015 · Uma autorização, várias identidades comerciais — e o registro que mudou de nome
 
 ```
 CASE_ID:                CASE-015
 TITLE:                  ES-01717 — identidade de registro × identidade de marca
 COUNTRY:                SPAIN (com contraste em ITALY e FRANCE)
-CROP:                   Cereais
+CROP:                   Cereais (cebada, centeno, trigo, triticale — fonte primária)
 PROBLEM:                como contar o ecossistema competitivo sem errar a entidade
-DATE / PERIOD:          MAPA 28/05/2025 e 26/08/2026 · registro IT 24/08/2026 · FR 25/08/2026
-SOURCES:                ES-T4-004 (MAPA, duas versões) · IT-T4-001 · FR-T4-001 · agregador do registro ES
+DATE / PERIOD:          MAPA 28/05/2025 e 26/08/2026 · ficha oficial 28/08/2026
+                        registro IT 24/08/2026 · FR 25/08/2026
+SOURCES:                ES-T4-004 (duas versões) · ES-T4-005 (ROPF, rotas oficiais)
+                        IT-T4-001 · FR-T4-001
 ADAMA_ALIGNMENT:        **HIGH** — cereal é CORE PUBLIC SIGNAL nos três países
 PRESENTATION_VALUE:     **ALTA**
-TIER:                   **A · HERO CASE** — promovido nesta missão
+TIER:                   **A · HERO CASE** — e o núcleo NÃO depende da ADAMA
 ```
 
-**FACT — o que as fontes primárias dizem**
+## O caso tem duas afirmações. Elas se sustentam separadamente.
 
-Lista oficial de *denominaciones comunes* do MAPA, duas versões do mesmo documento:
+### CORE CLAIM — estrutural, não depende de nenhuma empresa
+
+> **Uma autorização de referência pode ser vendida sob várias marcas, por várias empresas,
+> e pode mudar de nome sem mudar de registro. Quem conta por marca conta errado.**
+
+Tudo o que sustenta esta frase é primário e nenhuma parte dela menciona a ADAMA:
+
+| medida | valor | fonte |
+|---|---|---|
+| linhas de denominação comum na lista oficial | **1.786** | MAPA `dc_web.pdf`, versão 26/08/2026 |
+| registros de referência que aparecem na lista | **720** | idem |
+| desses, **em vigor** no ROPF | **706** | export do ROPF, 29/08/2026 |
+| registros **em vigor** no ROPF (todo o registro) | **1.993** | idem |
+| em vigor com **mais de uma** denominação | **363 · 18,2% do registro em vigor** | cruzamento das duas |
+| máximo num único registro | **25** (ES-00750) | MAPA |
+| renomeações de produto de referência confirmadas em 15 meses | **5** em 311 registros comparáveis | duas versões arquivadas |
+| registros em que o **titular também é concessionário de si mesmo** | **165** | MAPA + ROPF |
+
+**Se cada denominação comum fosse contada como uma autorização independente**, o registro
+espanhol em vigor seria contado como **3.039** em vez de **1.993** — **1,52×**. Dentro do
+subconjunto que tem denominação, o excesso é **2,48×**.
+
+### ADAMA-SPECIFIC CLAIM — verdadeira, e secundária ao núcleo
+
+> **O ES-01717 é da ADAMA, chama-se SORATEL MAX desde 2026, chamava-se MAXENTIS, e é
+> vendido também como AMISTAR ERA 350 SC (Syngenta) e CUMILZAN (Massó).**
+
+```
+REGISTRATION_ID    ES-01717                        REFERENCE_HOLDER  ADAMA Agriculture España S.A.
+REFERENCE_PRODUCT  SORATEL MAX (antes MAXENTIS)    MANUFACTURER      ADAMA Agricultural Solutions Ltd.
+COMPOSITION        azoxistrobina 20% + protioconazol 15% [SC] P/V    STATUS  Vigente
+COMMON_DENOMINATIONS   SYNGENTA ESPAÑA S.A. → AMISTAR ERA 350 SC
+                       COMERCIAL QUÍMICA MASSÓ S.A. → CUMILZAN
+```
+
+**Todos os campos são primários** (ficha oficial do ROPF em duas rotas independentes). Isto
+mudou na MISSÃO 07: a MISSÃO 06 tinha titular e fabricante em fonte **secundária**, e a
+fonte secundária **errou o fabricante** — dizia `ADAMA MAKHTESHIM LTD.`, o registro diz
+`ADAMA Agricultural Solutions Ltd.`
+
+**Por que a separação importa:** se amanhã o campo `titular` ficasse indisponível, o CORE
+CLAIM continuaria de pé com as mesmas 1.786 linhas. O caso **não foi construído em cima do
+campo mais frágil** — e hoje nem há campo frágil.
+
+---
+
+**A RENOMEAÇÃO — o que ela prova e o que não prova**
 
 | versão do documento | registro | produto de referência | concessionária | denominação | aceite |
 |---|---|---|---|---|---|
@@ -849,54 +897,43 @@ Lista oficial de *denominaciones comunes* do MAPA, duas versões do mesmo docume
 | **26/08/2026** | ES-01717 | **SORATEL MAX** | SYNGENTA ESPAÑA S.A. | AMISTAR ERA 350 SC | 10/08/2026 |
 | **26/08/2026** | ES-01717 | **SORATEL MAX** | COMERCIAL QUÍMICA MASSÓ S.A. | CUMILZAN | 10/08/2026 |
 
-**ESTRUTURA REGULATÓRIA**
-O regime espanhol de *denominación común* permite que **uma mesma autorização de referência**
-seja comercializada por outras empresas sob **nomes próprios**. Não é licenciamento de
-produto nem revenda: é uma concessão de nome sobre o **mesmo registro**.
+Um radar que acompanhasse **marca** teria emitido dois eventos falsos — *"MAXENTIS saiu da
+Espanha"* e *"SORATEL MAX entrou"*. **Nenhum dos dois aconteceu.** Só o número de registro
+sobrevive à renomeação. O registro oficial corrobora com um campo independente:
+`trâmite = MODIFICACION NOMBRE, Terminada, 28/07/2026`.
 
-**Titular e fabricante** (fonte **secundária**, agregador do registro espanhol; não lidos por
-nós em primária): `ADAMA Agriculture España S.A.` e `ADAMA MAKHTESHIM LTD.`, composição
-`AZOXISTROBIN 20% + PROTIOCONAZOL 15% [SC] P/V`, status `Vigente`. Corroborado por
-MAXENTIS ser marca ADAMA em vários mercados e pelo registro italiano (ADAMA ITALIA,
-reg. 018067, azoxistrobina + protioconazol).
+**Prova, e só isto:** o nome oficial mudou. **Não prova** relançamento, estratégia de marca,
+reposicionamento nem mudança de vendas — ver `../regras/REGUA-DE-CHANGE-EVENT-EAME.md` §4.
 
-**DUAS DESCOBERTAS**
+**Por que só vimos porque arquivamos:** o registro publica apenas o **último** trâmite. Das
+cinco renomeações confirmadas no período, **quatro já não aparecem** — o campo foi
+sobrescrito. O arquivo não é redundância: em 4 de 5 casos é a única rota.
 
-**1 · O produto de referência mudou de nome, e o registro não.**
-`MAXENTIS` → `SORATEL MAX`, com o **mesmo ES-01717**. Um radar que acompanhasse **marca**
-teria registrado dois eventos falsos: *"MAXENTIS saiu da Espanha"* e *"SORATEL MAX entrou"*.
-Nenhum dos dois aconteceu. **Só o número de registro sobrevive à renomeação.**
-
-> Nós só enxergamos isso porque tínhamos **duas versões arquivadas** do mesmo documento.
-> É a justificativa do DATA CLOCK, provada na prática e não em argumento.
-
-**2 · Isto não é exceção. É metade do mercado espanhol.**
-Na lista completa: **1.737 denominações comuns** sobre **708 registros de referência**;
-**359 (50,7%)** têm mais de uma marca; média **2,45**; máximo **24**.
-
-**O QUE ISTO SIGNIFICA PARA INTELIGÊNCIA COMPETITIVA**
-Contar o mercado espanhol **por marca** infla a contagem em ~**2,45×**. Contar **por
-concessionária** atribui a autorização à empresa errada. Só a contagem **por registro de
-referência** descreve autorizações reais. `COMPETITOR_IDENTITY` precisa de quatro eixos:
-**titular · concessionária · marca · fabricante** (`../regras/MODELO-DE-IDENTIDADE-EAME.md`).
+---
 
 **O QUE ISTO NÃO SIGNIFICA**
 Não significa que *"a Syngenta vende produto da ADAMA"*, nem que *"a ADAMA fabrica o AMISTAR
 ERA"*, nem que *"a Syngenta é titular do ES-01717"* — **este último erro foi observado ao
-vivo** nesta missão, num resumo automático de busca que chamou a concessionária de titular.
-E `SORATEL MAX` (ES, azoxistrobina + protioconazol) **não é** o `SORATEL` italiano
-(reg. 018175, protioconazol isolado).
+vivo** na MISSÃO 06, num resumo automático de busca que chamou a concessionária de titular.
+E `SORATEL MAX` (ES-01717, azoxistrobina + protioconazol) **não é** o `SORATEL` italiano
+(018175, protioconazol isolado) **nem** o `SORATEL` espanhol (ES-01665, protioconazol 25%).
 
-**RAW_EVIDENCE**   `data/samples/ES-T4-004-denominaciones-comunes.json` ·
-`data/samples/ES-T4-004-denominaciones-padrao.json`
-**STATUS**             **REAL** (primária para nome, denominações, empresas e datas) ·
-**REPORTED** (secundária para titular, fabricante e composição)
+**RAW_EVIDENCE**   `data/samples/ES-T4-005-ficha-primaria-es01717.json` ·
+`data/samples/ES-T4-004-denominaciones-medida.json` ·
+`data/samples/ES-T4-005-denominadores-ropf.json` ·
+`data/samples/CHANGE-EVENTS-es-2025-2026.json`
+**STATUS**             **REAL** — primária em todos os campos publicados
 
 > **RED TEAM.** *"A ADAMA já vende na Espanha através da Syngenta."* **Não afirmável** — a
 > denominação comum é ato administrativo, não acordo comercial revelado.
 > *"MAXENTIS foi descontinuado na Espanha."* **Falso** — foi renomeado; o registro é o mesmo.
-> *"Metade do mercado espanhol é da ADAMA."* **Falso** — 50,7% é a fração de **registros com
-> mais de uma marca**, de qualquer titular.
+> *"Metade do mercado espanhol tem várias marcas por autorização."* **Retirado nesta missão.**
+> A medida real é **18,2% do registro em vigor** (363 de 1.993). Os 50,7% da MISSÃO 06 eram
+> a fração **dentro da lista de quem já tem denominação** — um denominador que não é o
+> registro, e que nunca foi "o mercado".
+> *"O mercado espanhol infla 2,45×."* **Retirado nesta missão.** A palavra `mercado` não é
+> medível aqui: o documento não tem volume, preço nem venda. A frase medida é sobre
+> **contagem de autorizações**, e o fator sobre o registro inteiro é **1,52×**.
 
 ---
 

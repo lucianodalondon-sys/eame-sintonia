@@ -119,6 +119,62 @@ Regras do diário:
 
 ---
 
+### D-008 — A versão de que um change event depende é evidência, não dado bruto
+
+- **Data:** 2026-08-29
+- **Estado:** DECIDIDO (estende D-003, não o revoga)
+- **Contexto:** D-003 mantém `data/raw` fora do versionamento. Mas a detecção de mudança
+  só existe porque **duas versões do mesmo documento** estavam guardadas — e o contêiner
+  onde elas estavam é efêmero. Se a versão de 28/05/2025 se perder, o evento
+  `MAXENTIS → SORATEL MAX` deixa de ser verificável por qualquer pessoa, inclusive por nós.
+- **Decisão:** dado bruto continua fora do versionamento, **exceto** a versão específica de
+  que um `CHANGE EVENT` publicado depende. Essa versão vai para `data/samples/`, com o nome
+  carregando a data da versão e um `LEIA-ME.md` declarando SHA-256 e como reproduzir.
+- **Motivo:** evidência que não sobrevive ao contêiner não é evidência.
+- **Consequência:** `data/samples/ES-T4-004-versoes/` (2 PDFs, 581 KB) e
+  `data/samples/ES-T4-005/ropf_20260829.json.gz` (projeção, 147 KB) passam a ser
+  versionados. A projeção guarda só os campos que entram em change event — não o export
+  inteiro de 14 MB.
+- **Quem decidiu:** decisão técnica da MISSÃO 07, registrada para revisão.
+
+---
+
+### D-009 — Número declarado tem de ser número derivado
+
+- **Data:** 2026-08-29
+- **Estado:** DECIDIDO
+- **Contexto:** o fim da MISSÃO 06 deixou `37/37` num relatório e `38/38` na mensagem do
+  commit `e37911a`. A suíte tinha 37. Nenhum dos dois números era derivado da suíte — os
+  dois eram digitados.
+- **Decisão:** todo total publicado num documento canônico tem de ter uma prova que o
+  derive da coisa contada. Vale para: total de testes, placar do benchmark, contagens de
+  fontes, números de denominações.
+- **Motivo:** um número digitado diverge em silêncio; um número derivado quebra o teste.
+- **Consequência:** `tests/test_canonico.py` ganhou
+  `test_o_total_de_testes_declarado_vem_da_suite` (conta a suíte com
+  `unittest.defaultTestLoader.discover`), o placar do benchmark passou a ser lido do JSON,
+  e as contagens de denominação passaram a ser comparadas com o arquivo de medida.
+- **Quem decidiu:** decisão técnica da MISSÃO 07.
+
+---
+
+### D-010 — Cobertura menor e declarada vence cobertura maior e silenciosa
+
+- **Data:** 2026-08-29
+- **Estado:** DECIDIDO
+- **Contexto:** para separar as colunas coladas da lista de *denominaciones comunes* foram
+  testadas duas regras. A heurística "cortar na primeira forma jurídica" resolveu **96,9%**
+  das linhas — e produziu `INDUSTRIAS A` + `FRASA, S.A.` e `ECOLOGIA Y PROTECCION AG` +
+  `RICOLA`. A regra ancorada em fontes externas (nome oficial do produto e vocabulário de
+  titulares, ambos do export do ROPF) resolve **68,8%** e erra zero nas linhas que resolve.
+- **Decisão:** fica a regra de 68,8%. O restante fica `UNRESOLVED`, com o motivo por linha.
+- **Motivo:** erro silencioso é pior do que lacuna declarada. Uma tabela plausível e falsa
+  passa pela revisão; uma lacuna não passa.
+- **Consequência:** a cobertura é publicada junto com o número, sempre.
+- **Quem decidiu:** decisão técnica da MISSÃO 07.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |

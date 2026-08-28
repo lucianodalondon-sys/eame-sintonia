@@ -1,6 +1,6 @@
-# SOURCE PACK DO PILOTO — 12 fontes, não 34
+# SOURCE PACK DO PILOTO — 13 fontes, não 35
 
-O atlas tem **34 SOURCE_IDs**. O piloto não precisa deles. Estas são as fontes que
+O atlas tem **35 SOURCE_IDs**. O piloto não precisa deles. Estas são as fontes que
 realmente alimentam as três business questions e os três hero cases.
 
 **Dependência:** `CRITICAL` (sem ela o piloto não existe) · `USEFUL` · `OPTIONAL`.
@@ -51,11 +51,19 @@ por `www.juntadeandalucia.es` o mesmo caminho baixa.
 45 necessidades sem solução autorizada, com cultura, praga, substância e prazo.
 **Só as vigentes** — sem histórico.
 
-### ES-T4-004 · Denominaciones comunes (MAPA) — `USEFUL` *(novo nesta missão)*
+### ES-T4-005 · ROPF — rotas públicas da aplicação oficial — `CRITICAL` *(novo na MISSÃO 07)*
+O registro espanhol inteiro: **3.084 registros** (1.993 em vigor), com **titular,
+fabricante, planta, formulado, estado, datas** e, na ficha em PDF, **cultura × alvo**.
+Um POST devolve o conjunto filtrado inteiro. → **BQ1 · BQ3 · CASE-015.**
+**Limite duro:** **não é dataset publicado.** É a rota da própria aplicação — primária e
+completa, mas pode mudar sem aviso. **Arquivar cada versão.**
+
+### ES-T4-004 · Denominaciones comunes (MAPA) — `USEFUL`
 Ponte entre **registro de referência** e as **marcas comerciais** que o vendem.
-Versão de 26/08/2026, 90 páginas. → **CASE-015.**
-**Limite duro:** não traz cultura, alvo, substância nem o **titular** do produto de
-referência. E a extração em massa do PDF é **NÃO CONFIÁVEL** — só leitura literal.
+Versão de 26/08/2026, 90 páginas, **1.786 linhas**. → **CASE-015.**
+**Limite duro:** não traz cultura, alvo nem substância; o **titular** vem do `ES-T4-005`.
+A separação de colunas resolve **68,8%** das linhas com regra ancorada em fonte externa;
+o resto fica `UNRESOLVED`. A heurística de forma jurídica foi testada e **descartada**.
 
 ### ES-T4-001 · Vocabulário EPPO do MAPA — `USEFUL`
 492 culturas e 1.381 pragas com código EPPO e nome científico. Infraestrutura de normalização.

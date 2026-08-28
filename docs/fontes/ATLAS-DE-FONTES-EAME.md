@@ -6,8 +6,8 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **34 fontes registradas** (14 GREEN, 4 YELLOW, 16 NÃO SEI).
-**Última atualização:** 2026-08-28
+**Estado:** MISSÃO 07 — **35 fontes registradas** (15 GREEN, 4 YELLOW, 16 NÃO SEI).
+**Última atualização:** 2026-08-29
 
 ---
 
@@ -429,6 +429,9 @@ LEGAL_OR_ACCESS_RISK:         NÃO SEI / REQUER REVISÃO — automatizar a consu
                               conflitar com os termos de uso. Não foi tentado.
 REAL_EXAMPLE:                 nenhum
 VERDICT:                      NÃO SEI
+SUPERSEDED_BY:                ES-T4-005 (MISSÃO 07). O veredito acima fica registrado como
+                              estava: era o que sabíamos, e estava errado por falta de
+                              leitura, não por a fonte ser fechada.
 ```
 
 **Consequência prática e assimetria a registrar:** os três países **não são simétricos** em T4.
@@ -442,6 +445,70 @@ VERDICT:                      NÃO SEI
 Nenhuma comparação direta entre os três países é possível hoje sem declarar esta assimetria.
 **Não** existe, até aqui, uma "visão EAME unificada de registro". Existem três visões
 diferentes, com pontos fortes diferentes.
+
+> **A tabela acima foi corrigida na MISSÃO 07.** A linha SPAIN estava errada: o registro
+> espanhol entrega produto, titular, **fabricante**, planta, formulado, estado, datas e
+> cultura × alvo. A linha corrigida está na ficha `ES-T4-005`, abaixo.
+
+---
+
+#### ES-T4-005 · MAPA — ROPF, rotas públicas da aplicação oficial
+
+```
+SOURCE_ID:                    ES-T4-005
+SOURCE_NAME:                  Registro Oficial de Productos Fitosanitarios — rotas públicas
+SOURCE_OWNER:                 MAPA — D.G. de Sanidad de la Producción Agroalimentaria
+COUNTRY:                      SPAIN
+TERRITORY:                    T4
+URL:                          https://servicio.mapa.gob.es/regfiweb/
+ACCESS_METHOD:                as rotas que o próprio frontend chama, declaradas em texto
+                              aberto na página (<input type="hidden">) e em
+                              /regfiweb/js/site.min.js:
+                                GET  Productos/ProductosGrid?NumRegistro=&Titular=&IdEstado=
+                                GET  Productos/GetProductoById?idProducto=N
+                                GET  Productos/ExportFichaProductoPdfGet?idProducto=N
+                                POST Exportaciones/ExportJsonProductos  (dataDto[...])
+                              Cliente: scripts/mapa_regfi.py
+UPDATE_FREQUENCY:             semanal — a página declara a data da última atualização da
+                              base ("viernes, 28 de agosto de 2026 14:00")
+FORMAT:                       HTML (grade) · JSON (ficha e export) · PDF (ficha oficial)
+FIELDS:                       numRegistro · nombre · titular · fabricante · fabrica ·
+                              formulado · estado · tramite · estadoTramite · fechas
+                              (inscripción, caducidad, renovación, modificación, límite de
+                              venta) · observaciones · usos e cultivos (na ficha PDF)
+COVERAGE:                     3.084 registros (1.993 vigentes · 1.091 cancelados)
+COLLECTION_FEASIBILITY:       ALTA e EDUCADA — o export devolve o conjunto filtrado inteiro
+                              numa requisição; não é preciso paginar a grade
+LEGAL_OR_ACCESS_RISK:         BAIXO — nenhuma autenticação contornada, nenhuma
+                              vulnerabilidade usada, nenhuma carga: um POST substitui
+                              centenas de páginas. RISCO REAL: não é dataset publicado,
+                              logo a rota pode mudar sem aviso. Arquivar cada versão.
+REAL_EXAMPLE:                 ES-01717 · SORATEL MAX · titular ADAMA Agriculture España S.A.
+                              · fabricante ADAMA Agricultural Solutions Ltd. · planta
+                              (Neot Hovav) · azoxistrobina 20% + protioconazol 15% ·
+                              Vigente · cebada, centeno, trigo, triticale
+EVIDENCE:                     data/samples/ES-T4-005-ficha-primaria-es01717.json
+                              data/samples/ES-T4-005-denominadores-ropf.json
+VERDICT:                      GREEN
+```
+
+**Assimetria T4, corrigida:**
+
+| | produto | titular | fabricante | cultura × alvo | vencimento | rota |
+|---|---|---|---|---|---|---|
+| FRANCE (E-Phy) | ✅ | ✅ | ❌ | ✅ | ❌ | **dump aberto** |
+| SPAIN (ROPF) | ✅ | ✅ | ✅ | ✅ (ficha PDF) | ✅ | rota da aplicação |
+| ITALY (Min. Salute) | ✅ | ✅ | ❌ | ❌ | ✅ | consulta web |
+
+A assimetria que resta **não é de conteúdo, é de rota**: só a França publica um dump com
+garantia de estabilidade. Espanha e Itália dependem de rotas que podem mudar. **Isso muda o
+risco, não a qualidade do fato.**
+
+**Divergência registrada e não resolvida:** duas leituras primárias do mesmo registro, com
+minutos de diferença no mesmo dia, discordam na divisão vigente/cancelado — a grade deu
+`1.998/1.086`, o export deu `1.993/1.091`. O **total bate** (3.084). Não sabemos qual dos
+dois campos a grade usa. Enquanto não soubermos, **nenhum número desta fonte é publicado
+com precisão maior do que a divergência**.
 
 ---
 
@@ -1078,7 +1145,7 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 03: **24 fichas · 34 SOURCE_IDs · 14 GREEN · 4 YELLOW ·
+Verificado na MISSÃO 07: **25 fichas · 35 SOURCE_IDs · 15 GREEN · 4 YELLOW ·
 0 RED · 16 NÃO SEI**. Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 ### Placar
@@ -1087,9 +1154,9 @@ Verificado na MISSÃO 03: **24 fichas · 34 SOURCE_IDs · 14 GREEN · 4 YELLOW �
 |---|---|---|---|---|---|
 | EUROPE | 8 | 0 | 0 | 6 | 14 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
-| SPAIN | 3 | 0 | 0 | 4 | 7 |
+| SPAIN | 4 | 0 | 0 | 4 | 8 |
 | ITALY | 1 | 2 | 0 | 3 | 6 |
-| **Total** | **14** | **4** | **0** | **16** | **34** |
+| **Total** | **15** | **4** | **0** | **16** | **35** |
 
 ### Cobertura por território
 
@@ -1097,7 +1164,7 @@ Verificado na MISSÃO 03: **24 fichas · 34 SOURCE_IDs · 14 GREEN · 4 YELLOW �
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
 | FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
-| SPAIN | 1? | – | **1G** | 2G/1? | – | – | – | – | 1? | – | – | – |
+| SPAIN | 1? | – | **1G** | 3G/1? | – | – | – | – | 1? | – | – | – |
 | ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | – | 1Y | – |
 
 *(– = não investigado)*

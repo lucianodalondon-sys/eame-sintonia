@@ -7,7 +7,7 @@ O design decide isso; este documento garante que ele **não precise descobrir o 
 
 # PRODUCT PROMISE
 *"Important market signals often stay local. The information exists. The value is lost when
-the signals stay separate."* (SLIDE 2) — e nós **provamos a tese**: as 14 fontes GREEN são
+the signals stay separate."* (SLIDE 2) — e nós **provamos a tese**: as 15 fontes GREEN são
 todas públicas e gratuitas. O problema nunca foi acesso; foi separação.
 
 # PILOT BUSINESS QUESTIONS
@@ -22,7 +22,7 @@ todas públicas e gratuitas. O problema nunca foi acesso; foi separação.
 3. **O clima não explica** — a explicação óbvia refutada com dado.
 
 # EXACT NUMBERS AVAILABLE
-`34` SOURCE_IDs (`14 GREEN`) · `12` fontes no pacote do piloto (`5 CRITICAL`)
+`35` SOURCE_IDs (`15 GREEN`) · `13` fontes no pacote do piloto (`6 CRITICAL`)
 `77` produtos FR com protioconazol (`ADAMA 3`, `Bayer 32`) · `85` IT (`ADAMA 5`, `Bayer 18`)
 `60/85 = 71%` dos IT vencem em `31/03/2027` · `199` produtos IT vencem nessa data ao todo
 `6` prorrogações europeias · `3` objeções do Parlamento Europeu
@@ -31,8 +31,11 @@ todas públicas e gratuitas. O problema nunca foi acesso; foi separação.
 `135` usos em Blé×Septoriose (`BASF 22`, `Bayer 20`, `ADAMA 6`)
 `45` autorizações excepcionais vigentes na Espanha
 Normalização: substância `82,1%` do uso · agronômica `23,5%` do uso
-Ask Sintonia: `14` respondidas · `10` recusadas · `1` parcial · `0` erradas
-Espanha: `1.737` denominações comuns sobre `708` registros · `359 (50,7%)` com mais de uma marca · média `2,45`
+Ask Sintonia: `35` perguntas — `20` respondidas · `14` recusadas · `1` parcial · `0` erradas
+Espanha: `3.084` registros no ROPF (`1.993` em vigor) · `1.786` denominações comuns sobre
+`720` registros · `363` em vigor com mais de uma denominação (`18,2%` do registro em vigor)
+ADAMA: `188` registros como titular (`96` em vigor) · `30` autorizações em vigor com protioconazol na ES (`ADAMA 3`)
+Change events 28/05/2025 → 26/08/2026: `5` renomeações confirmadas · `156` novas denominações · `30` removidas
 
 # COUNTRIES
 França · Espanha · Itália · camada UE. **Não** Polônia nem Romênia.
@@ -76,13 +79,18 @@ Regulatory review · Molecule watch (eixo substância) · Pest pressure ES · Sc
 Climate **context** · Ask Sintonia · Cross-market por molécula · Preço e área.
 
 # COMING SOON
-Normalização de identidade (marca/concessionária/titular) · comunicação de concorrente ·
-registro espanhol · detecção de "novo registro" via versionamento · baseline de campo FR/IT ·
+Comunicação de concorrente · baseline de campo FR/IT · mudanças de status, titular,
+composição e data por versionamento (o campo existe e é comparável; falta a segunda versão
+arquivada do export) ·
 réguas de confiança e independência aplicadas.
 
 # IDENTITY RULE (obrigatória)
-`COMPETITOR_IDENTITY` tem **quatro eixos**: titular · concessionária · marca · fabricante.
-Contar o mercado espanhol por marca infla ~**2,45×**. A pergunta decide qual eixo importa.
+`COMPETITOR_IDENTITY` tem **sete entidades**: registro · produto de referência · titular ·
+fabricante · planta · denominação comum · concessionária. `BRAND` é papel, não campo.
+Contar cada denominação como uma autorização faria o registro espanhol em vigor ser contado
+como **3.039** em vez de **1.993** — **1,52×**. A pergunta decide qual eixo importa.
+Em **165** registros o titular também é concessionário de si mesmo: `ROLE_A ≠ ROLE_B` mesmo
+com `VALUE_A == VALUE_B`.
 
 # CONTENT THAT MUST NEVER BE IMPLIED
 Previsão de surto · participação de mercado · dependência de fornecimento · influência de

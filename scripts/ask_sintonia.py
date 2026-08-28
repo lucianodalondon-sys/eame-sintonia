@@ -158,8 +158,9 @@ BENCH = [
      'EU-T4-001: SPARQL devolve CELEX, data e título'),
     ('B02', 'REGULATION', 'Quando expira a aprovação europeia do protioconazol?', 'ANSWERABLE',
      'CELEX 32025R0787, linha 168: 31/03/2027'),
-    ('B03', 'REGULATION', 'Quantos produtos estão autorizados na Espanha com protioconazol?', 'CORRECT REFUSAL',
-     'ES-T4-003: não há dump aberto do registro espanhol'),
+    ('B03', 'REGULATION', 'Quantos produtos estão autorizados na Espanha com protioconazol?', 'ANSWERABLE',
+     'ES-T4-005: 30 em vigor — Bayer 8, ADAMA 3, Syngenta 3, Sharda 3. Era CORRECT REFUSAL '
+     'até a MISSÃO 06; a recusa estava certa para o que sabíamos e errada sobre a fonte'),
     ('B04', 'REGULATION', 'Que autorizações ADAMA vencem na Itália nos próximos 6 meses?', 'ANSWERABLE',
      'IT-T4-001 traz data_scadenza: 58 de 155'),
     ('B05', 'MOLECULE', 'Que produtos franceses contêm metalaxil-M e de quem são?', 'ANSWERABLE',
@@ -201,18 +202,43 @@ BENCH = [
      'MAPA: AMISTAR ERA 350 SC (Syngenta España) e CUMILZAN (Comercial Química Massó)'),
     ('B23', 'IDENTITY', 'A Syngenta é titular do registro ES-01717?', 'CORRECT REFUSAL',
      'NÃO — é empresa CONCESSIONÁRIA de denominação comum. O documento não traz o titular'),
-    ('B24', 'IDENTITY', 'Quem detém o registro ES-01717?', 'PARTIAL',
-     'ADAMA Agriculture España S.A. por fonte SECUNDÁRIA; não lido em primária do MAPA'),
+    ('B24', 'IDENTITY', 'Quem detém o registro ES-01717?', 'ANSWERABLE',
+     'ADAMA Agriculture España S.A. — ficha oficial do ROPF, PRIMÁRIA. Era PARTIAL na '
+     'MISSÃO 06, quando só tínhamos agregador comercial'),
     ('B25', 'IDENTITY', 'AMISTAR ERA 350 SC tem registro independente do MAXENTIS?', 'CORRECT REFUSAL',
      'não — na Espanha é denominação comum do MESMO ES-01717. Mas o AMISTAR ERA 240 EC '
      'italiano é outro registro, sob CAC Chemical: não confundir os dois'),
+    ('B26', 'IDENTITY', 'Quem fabrica o produto do registro ES-01717 e onde?', 'ANSWERABLE',
+     'ADAMA Agricultural Solutions Ltd., planta (Neot Hovav) — ficha oficial do ROPF'),
+    ('B27', 'IDENTITY', 'A ADAMA depende de Israel para fornecer na Espanha?', 'CORRECT REFUSAL',
+     'a ficha nomeia UM fabricante e UMA planta para UM registro. Não é cadeia de suprimento'),
+    ('B28', 'IDENTITY', 'A ADAMA é a maior empresa do mercado fitossanitário espanhol?', 'CORRECT REFUSAL',
+     'é a titular com MAIS REGISTROS (188 de 3.084). Contagem de registros não é venda, '
+     'volume nem participação'),
+    ('B29', 'IDENTITY', 'Quantos registros espanhóis têm mais de uma denominação comum?', 'ANSWERABLE',
+     '363 em vigor, 18,2% dos 1.993 em vigor. O denominador vai junto ou a resposta engana'),
+    ('B30', 'IDENTITY', 'Contar por marca infla o mercado espanhol em quanto?', 'CORRECT REFUSAL',
+     'a pergunta não é respondível como está: MERCADO não é medível nesta fonte. O que se '
+     'mede é excesso de contagem de AUTORIZAÇÕES — 1,52x sobre o registro em vigor'),
+    ('B31', 'CHANGE', 'Algum registro espanhol mudou de nome entre 2025 e 2026?', 'ANSWERABLE',
+     '5 renomeações confirmadas em 311 registros comparáveis, incluindo ES-01717'),
+    ('B32', 'CHANGE', 'A renomeação do ES-01717 indica um relançamento comercial?', 'CORRECT REFUSAL',
+     'prova apenas OFFICIAL RECORD NAME CHANGED. Nem canal, nem preço, nem venda'),
+    ('B33', 'CHANGE', 'Algum registro espanhol mudou de titular no último ano?', 'CORRECT REFUSAL',
+     'o campo existe e é comparável, mas só temos UMA versão arquivada do export do ROPF. '
+     'Detectável a partir da segunda'),
+    ('B34', 'CHANGE', 'Quando o nome do ES-01717 mudou?', 'PARTIAL',
+     'sabemos o intervalo (entre 28/05/2025 e 26/08/2026) e o trâmite datado em 28/07/2026; '
+     'a data em que o mercado passou a ver o nome novo não está na fonte'),
+    ('B35', 'FIELD', 'Que culturas o ES-01717 pode tratar?', 'ANSWERABLE',
+     'cebada, centeno, trigo e triticale — ficha oficial em PDF do ROPF'),
 ]
 
 
 def benchmark():
     from collections import Counter
     print('\n\n' + '=' * 70)
-    print('BENCHMARK ASK SINTONIA — 20 perguntas pelas camadas do deck')
+    print('BENCHMARK ASK SINTONIA — perguntas pelas camadas do deck')
     print('=' * 70)
     c = Counter(v for _, _, _, v, _ in BENCH)
     by_layer = {}

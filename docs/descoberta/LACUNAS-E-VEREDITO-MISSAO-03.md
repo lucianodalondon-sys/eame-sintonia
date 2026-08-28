@@ -14,7 +14,7 @@
 ### Tipo 2 · Falta pesquisa dirigida
 | # | Lacuna | Bloqueia | Estado |
 |---|---|---|---|
-| **G2** | **manufacturer · fonte autorizada · país de origem** | DECK-006, 012, 029 | **nunca investigado**. Confirmado que o registro nacional **não** contém: `titulaire` e `ragione_sociale` são titular de registro. |
+| **G2** | **manufacturer · fonte autorizada · país de origem** | DECK-006, 012, 029 | **PARCIALMENTE FECHADA na MISSÃO 07.** Era "confirmado que o registro nacional não contém" — e estava errado para a **Espanha**: o ROPF traz `fabricante`, `fabrica` (a planta) e `codInternoFabricante` por registro. Continua ausente em **FR** (`titulaire`) e **IT** (`ragione_sociale`), que são titular. `authorized source` e `país de origem` como **cadeia** continuam ausentes nos três: um fabricante por registro não é dependência de fornecimento. |
 | **G5** | comunicação de concorrente (anúncios, campanhas, claims) | DECK-005, 011, 028 | 403/502/404 nos três sites testados |
 | **G6** | patente e marca | DECK-015 (contexto) | EUIPO API 401 · EPO OPS 403 · Espacenet 403 · PatentsView bloqueado |
 | **G7** | distribuição na Espanha e na Itália | DECK-008, 021 | França resolvida (4.646 empresas); ES e IT não investigadas |

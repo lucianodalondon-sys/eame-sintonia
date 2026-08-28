@@ -36,12 +36,28 @@ evidência em `../../data/samples/`
 do protioconazol em **31/03/2027**; a molécula foi prorrogada **6 vezes em 6 anos** e o
 Parlamento Europeu objetou **3 vezes**.
 
-**Espanha — a perna fechou na MISSÃO 06:** registro **ES-01717**, produto de referência
-**SORATEL MAX** (antes **MAXENTIS**), composição **azoxistrobina 20% + protioconazol 15%**,
-titular **ADAMA Agriculture España S.A.** e fabricante **ADAMA MAKHTESHIM LTD.**
-Nome, denominações, empresas e datas vêm de **fonte primária** (MAPA, duas versões);
-titular, fabricante e composição vêm de **fonte secundária** — declarado assim.
-O **dump geral** do registro espanhol continua indisponível.
+**Espanha — a perna fechou em fonte PRIMÁRIA na MISSÃO 07.** Lendo o registro oficial pelas
+rotas públicas da própria aplicação (`ES-T4-005`):
+
+- **30** autorizações em vigor com protioconazol na Espanha · **Bayer 8** · **ADAMA 3**
+- ADAMA: **AVASTEL** (ES-01818, fluxapiroxade + protioconazol, cad. 31/10/2027) ·
+  **SORATEL** (ES-01665, protioconazol 25%, cad. 31/03/2027) ·
+  **SORATEL MAX** (ES-01717, azoxistrobina 20% + protioconazol 15%, cad. 31/05/2027)
+- **ES-01717 completo e primário:** produto de referência **SORATEL MAX** (antes
+  **MAXENTIS**), titular **ADAMA Agriculture España S.A.**, fabricante **ADAMA
+  Agricultural Solutions Ltd.**, planta **(Neot Hovav)**, status **Vigente**, usos
+  **cebada · centeno · trigo · triticale**, denominações **AMISTAR ERA 350 SC** (Syngenta)
+  e **CUMILZAN** (Massó)
+- o **único** outro registro espanhol vigente com azoxistrobina + protioconazol é
+  **ES-01770 · PROMINO XTRA**, titular **CAC Chemical GmbH**
+
+A MISSÃO 06 tinha titular e fabricante em **fonte secundária**, e a fonte secundária
+**errou o fabricante** (dizia `ADAMA MAKHTESHIM LTD.`). Nenhum campo do ES-01717 depende
+mais de fonte secundária.
+
+**O que continua não sendo verdade:** o registro espanhol **não** é publicado como open
+data. O que existe é a rota de exportação da própria aplicação oficial — primária e
+completa (3.084 registros), mas sem garantia de estabilidade.
 
 # BUSINESS QUESTION 2 · MARKET DEVELOPMENT / FIELD SIGNAL
 > *"Is this signal real, where is it happening, what supports it, and does ADAMA have a response?"*
@@ -124,7 +140,7 @@ mesmo produto. Na Espanha, titular e fabricante vêm de fonte **secundária**; o
 registro espanhol continua indisponível (grade em JavaScript).
 
 # ASK SINTONIA MATERIAL
-25 perguntas · **14 respondidas · 10 recusadas corretamente · 1 parcial · 0 erradas**.
+35 perguntas · **20 respondidas · 14 recusadas corretamente · 1 parcial · 0 erradas**.
 Contrato e detalhe em `ASK-SINTONIA-BENCHMARK.md`.
 
 # TRUST / EVIDENCE

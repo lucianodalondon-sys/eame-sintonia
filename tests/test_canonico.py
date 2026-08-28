@@ -5,7 +5,7 @@ Provas de consistência dos documentos canônicos.
 Um estado antigo não pode sobreviver num documento canônico e contradizer o estado
 final. Estes testes comparam o que os documentos DECLARAM com o que eles CONTÊM.
 """
-import os, re, unittest
+import json, os, re, unittest
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -172,6 +172,9 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
             'benchmark': piloto('ASK-SINTONIA-BENCHMARK.md'),
             'source_pack': piloto('SOURCE-PACK-PILOTO.md'),
             'claims': piloto('O-QUE-PODEMOS-DIZER.md'),
+            'identidade': rd('regras', 'MODELO-DE-IDENTIDADE-EAME.md'),
+            'change': rd('regras', 'REGUA-DE-CHANGE-EVENT-EAME.md'),
+            'freeze': rd('descoberta', 'FREEZE-DA-BASE-DO-PILOTO.md'),
         }
 
     def _todos_dizem(self, docs, padrao, rotulo):
@@ -202,10 +205,16 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
                     self.assertIn(n, self.DOCS[doc], f'{doc} não cita {n}')
 
     def test_benchmark_placar_identico_em_todo_lugar(self):
+        """O placar declarado vem do JSON, não de um número escrito à mão."""
+        with open(os.path.join(ROOT, 'data', 'samples',
+                               'ASK-SINTONIA-benchmark.json'), encoding='utf-8') as f:
+            tot = json.load(f)['totals']
+        ans, ref = tot['ANSWERABLE'], tot['CORRECT REFUSAL']
+        self.assertEqual(tot.get('WRONG ANSWER', 0), 0, 'o benchmark tem resposta errada')
         for nome in ('pacote', 'design', 'benchmark'):
             with self.subTest(documento=nome):
-                self.assertRegex(self.DOCS[nome], r'\b14\b', 'placar: 14 respondidas')
-                self.assertRegex(self.DOCS[nome], r'\b10\b', 'placar: 10 recusadas')
+                self.assertRegex(self.DOCS[nome], rf'\b{ans}\b', f'placar: {ans} respondidas')
+                self.assertRegex(self.DOCS[nome], rf'\b{ref}\b', f'placar: {ref} recusadas')
                 self.assertRegex(self.DOCS[nome], r'\b0\b', 'placar: 0 erradas')
 
     def test_es01717_tratado_com_as_entidades_certas(self):
@@ -219,12 +228,91 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
                 self.assertNotRegex(linha, r'(?i)Syngenta.{0,24}titular',
                                     'declara a Syngenta como titular do registro')
 
-    def test_titular_espanhol_marcado_como_fonte_secundaria(self):
-        """Não lemos a ficha do MAPA — o documento tem de dizer isso."""
-        for nome in ('casos', 'pacote'):
+    def test_titular_e_fabricante_espanhois_estao_em_fonte_primaria(self):
+        """MISSÃO 07: a ficha oficial foi lida. O que era ressalva virou fato.
+
+        O teste anterior exigia a palavra "secundária" nestes documentos. Ele foi
+        substituído, não apagado: a ressalva tinha de cair quando a fonte abrisse, e o
+        que passa a ser obrigatório é o oposto — que a atribuição esteja marcada como
+        PRIMÁRIA e que o erro da fonte secundária continue registrado.
+        """
+        for nome in ('casos', 'pacote', 'identidade'):
             with self.subTest(documento=nome):
-                self.assertRegex(self.DOCS[nome], r'(?i)secund[áa]ria',
-                                 'a atribuição de titular não está marcada como secundária')
+                self.assertRegex(self.DOCS[nome], r'(?i)prim[áa]ria',
+                                 'a atribuição de titular não está marcada como primária')
+        self.assertIn('ADAMA Agricultural Solutions Ltd.', self.DOCS['identidade'],
+                      'o fabricante primário não está na ficha de identidade')
+        self.assertIn('MAKHTESHIM', self.DOCS['identidade'],
+                      'o erro da fonte secundária foi apagado em vez de registrado')
+
+    def test_o_modelo_de_identidade_mantem_papeis_distintos(self):
+        """ROLE_A != ROLE_B mesmo quando VALUE_A == VALUE_B — e isso é medido."""
+        ident = self.DOCS['identidade']
+        for entidade in ('REGISTRATION_ID', 'REFERENCE_PRODUCT', 'REFERENCE_HOLDER',
+                         'MANUFACTURER', 'COMMON_DENOMINATION', 'CONCESSIONAIRE'):
+            with self.subTest(entidade=entidade):
+                self.assertIn(entidade, ident, f'a entidade {entidade} sumiu do modelo')
+        self.assertRegex(ident, r'ROLE_A\s*≠\s*ROLE_B',
+                         'a regra de papéis distintos não está escrita')
+        self.assertIn('165', ident, 'a medida da coincidência de papel não está declarada')
+
+    def test_as_frases_retiradas_na_missao_07_nao_reaparecem(self):
+        """2,45x e "metade do mercado" caíram. Títulos e tabelas não podem afirmá-las.
+
+        Uma linha que **declara a retirada** é registro, não afirmação — e o registro é
+        obrigatório (ver o teste seguinte). Por isso a linha que contém "retirad..." é
+        pulada: ela existe justamente para dizer que a frase não vale mais.
+        """
+        alvo = re.compile(r'(?i)(2,45\s*[x×]|metade do mercado|50,7\s*%)')
+        registro = re.compile(r'(?i)retirad[ao]')
+        for nome, txt in self.DOCS.items():
+            for linha in (re.findall(r'^#{1,4} .*$', txt, re.M)
+                          + re.findall(r'^\|.*$', txt, re.M)):
+                if registro.search(linha):
+                    continue
+                with self.subTest(documento=nome, linha=linha[:60]):
+                    self.assertNotRegex(linha, alvo, 'uma frase retirada voltou como afirmação')
+
+    def test_a_retirada_da_frase_do_mercado_continua_registrada(self):
+        self.assertRegex(self.DOCS['claims'], r'(?i)retirado na MISS[ÃA]O 07',
+                         'a retirada de "2,45x o mercado" sumiu do registro')
+
+    def test_denominacoes_batem_com_a_amostra_medida(self):
+        """Os números publicados vêm do arquivo de medida, não da memória."""
+        with open(os.path.join(ROOT, 'data', 'samples',
+                               'ES-T4-004-denominaciones-medida.json'), encoding='utf-8') as f:
+            m = json.load(f)
+        pares = [(m['DENOMINATION_ROWS'], '1.786'),
+                 (m['DISTINCT_REGISTRATIONS_LISTED'], '720'),
+                 (m['IN_FORCE_WITH_MORE_THAN_ONE'], '363')]
+        for valor, escrito in pares:
+            with self.subTest(valor=valor):
+                self.assertEqual(f'{valor:,}'.replace(',', '.'), escrito,
+                                 'a amostra mudou e o documento não')
+                self.assertIn(escrito, self.DOCS['casos'],
+                              f'CASE-015 não publica {escrito}')
+
+    def test_a_regua_de_change_event_separa_provado_de_possivel(self):
+        regua = self.DOCS['change']
+        self.assertRegex(regua, r'(?i)POSS[ÍI]VEL, n[ãa]o provado',
+                         'a régua não separa o que é detectável hoje do que só é possível')
+        self.assertRegex(regua, r'(?i)OFFICIAL RECORD NAME CHANGED',
+                         'a régua não diz o que a renomeação prova')
+        for proibido in ('relançamento comercial', 'estratégia de marca'):
+            with self.subTest(leitura=proibido):
+                self.assertIn(proibido, regua, f'a régua não proíbe "{proibido}"')
+
+    def test_o_total_de_testes_declarado_vem_da_suite(self):
+        """O número de provas não pode ser escrito à mão.
+
+        A MISSÃO 06 declarou 38/38 num commit e 37/37 num relatório, e a suíte tinha 37.
+        Nenhum dos dois números era derivado. Este teste conta a suíte de verdade e
+        exige que o documento de congelamento diga esse número.
+        """
+        suite = unittest.defaultTestLoader.discover(os.path.dirname(os.path.abspath(__file__)))
+        n = suite.countTestCases()
+        self.assertRegex(self.DOCS['freeze'], rf'TESTES_REAIS\s*=\s*{n}\b',
+                         f'o documento de congelamento não declara TESTES_REAIS = {n}')
 
     def test_cobertura_das_normalizacoes(self):
         for nome in ('pacote', 'design'):

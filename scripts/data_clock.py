@@ -26,6 +26,15 @@ WATCH = [
     ('ES-T4-001', 'data/samples/ES-T4-001/ES-T4-002-autorizaciones-excepcionales.json', '2026-08-24', 'ALTA — só as vigentes, sem histórico'),
     ('ES-T3-001', 'data/raw/ES-T3-001/raif_2/2026_RAIF_Vid_Muestreos.xml', '2026-07-06', 'BAIXA — a fonte já publica 11 safras'),
     ('ES-T3-001', 'data/raw/ES-T3-001/raif_1/2026_RAIF_Olivar_Muestreos.xml', '2026-08-19', 'BAIXA — idem'),
+    # As duas linhas abaixo são a exceção declarada a D-003: a versão de que um CHANGE
+    # EVENT depende deixa de ser dado bruto e passa a ser a prova do evento. Por isso
+    # estão em data/samples/, que é versionado.
+    ('ES-T4-004', 'data/samples/ES-T4-004-versoes/dc_web_20250528.pdf', '2025-05-28',
+     'ARQUIVADA — versão A dos change events'),
+    ('ES-T4-004', 'data/samples/ES-T4-004-versoes/dc_web_20260826.pdf', '2026-08-26',
+     'ARQUIVADA — versão B dos change events'),
+    ('ES-T4-005', 'data/samples/ES-T4-005/ropf_20260829.json.gz', '2026-08-29',
+     'ALTA — versão A do registro. STATUS/HOLDER/COMPOSITION/DATE change só existem a partir da B'),
 ]
 
 
