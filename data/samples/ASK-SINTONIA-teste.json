@@ -1,0 +1,66 @@
+{
+  "source": "teste da camada de evidência — consulta determinística sobre os dados já preservados no repositório",
+  "sources": [
+    "FR-T4-001",
+    "ES-T3-001",
+    "EU-T5-001"
+  ],
+  "captured_at": "2026-08-28",
+  "SOURCE_LOCATION": "FRANCE / SPAIN",
+  "FACT_LOCATION": "FRANCE / SPAIN",
+  "ORIGINAL_LANGUAGE": "FR/ES",
+  "answered": 4,
+  "unanswerable_by_design": 1,
+  "questions": [
+    {
+      "QUESTION": "Which ADAMA cereal products in France depend on prothioconazole?",
+      "ANSWER": "3: AVASTEL (AMM 2240236) · FORAPRO (AMM 2240001) · MAXENTIS (AMM 2230815)",
+      "EVIDENCE": "data/raw/FR-T4-001/produits_utf8.csv (versão 2026-08-25)",
+      "SOURCE": "FR-T4-001 — ANSES E-Phy, Licence Ouverte",
+      "WHAT_IS_FACT": "os três produtos constam como AUTORISE com prothioconazole na composição; 77 produtos autorizados na França contêm a molécula",
+      "WHAT_IS_DERIVED": "a classificação \"de cereal\" vem do sinal público de lançamento, não do campo de cultura do registro — o E-Phy não classifica produto por cultura, só uso",
+      "WHAT_IS_UNKNOWN": "volume vendido, importância comercial relativa e plano interno da ADAMA",
+      "CONFIDENCE": "HIGH para os fatos"
+    },
+    {
+      "QUESTION": "Where has olive leaf spot (repilo) been observed recently in Spain?",
+      "ANSWER": "Nas 7 províncias andaluzas monitoradas. Maiores médias: Huelva 8.83% (n=18, até 2026-06-14) · Cádiz 8.01% (n=141, até 2026-05-27) · Sevilla 2.74% (n=674, até 2026-08-17) · Córdoba 2.37% (n=466, até 2026-08-18)",
+      "EVIDENCE": "data/samples/ES-T3-001-raif-olivar-repilo-2026.json",
+      "SOURCE": "ES-T3-001 — RAIF Andalucía, CC BY 4.0",
+      "WHAT_IS_FACT": "percentual de folhas com sintoma visível medido em campo, por província, safra 2026, última leitura em 2026-08-19",
+      "WHAT_IS_DERIVED": "a média por província é agregação nossa das leituras de parcela; a marcação de infecção latente acima da visível (Jaén, Sevilla, Córdoba, Málaga) também é derivada",
+      "WHAT_IS_UNKNOWN": "a Espanha fora da Andaluzia — nenhuma outra comunidade autônoma foi coletada; e as parcelas do RAIF não são amostra aleatória da província",
+      "CONFIDENCE": "HIGH para a Andaluzia · NÃO SEI para o resto da Espanha"
+    },
+    {
+      "QUESTION": "Which researchers repeatedly publish about septoria in cereals?",
+      "ANSWER": "Espanha, consulta estrita \"Zymoseptoria tritici\" (2018–2026): Andrea Sánchez‐Vallet (11) · Lukas Meile (5) · Víctor González-Menéndez (5)",
+      "EVIDENCE": "data/samples/EU-T5-001-openalex-people.json",
+      "SOURCE": "EU-T5-001 — OpenAlex",
+      "WHAT_IS_FACT": "27 trabalhos com autor de afiliação espanhola; a contagem de trabalhos por autor é campo da fonte",
+      "WHAT_IS_DERIVED": "a leitura de \"repetidamente\" é nossa: contagem de trabalhos na janela",
+      "WHAT_IS_UNKNOWN": "se essas pessoas são as autoridades do tema — recorrência não é autoridade. E a consulta larga devolveria 2627 trabalhos e uma lista diferente (97.3× maior): a consulta é o experimento",
+      "CONFIDENCE": "MEDIUM — depende de vocabulário controlado"
+    },
+    {
+      "QUESTION": "Which competitor has registered products against the same issue (wheat × septoria, France)?",
+      "ANSWER": "135 usos autorizados. Por empresa nomeada: BASF 22 · BAYER 20 · SYNGENTA 8 · NUFARM 6 · ADAMA 6 · SIPCAM 4 · UPL 3 · CORTEVA/DOW 2 · DE SANGOSSE 2 · FMC 1 · GOWAN 1 · ASCENZA 1",
+      "EVIDENCE": "data/raw/FR-T4-001/usages_des_produits_autorises_utf8.csv (2026-08-25)",
+      "SOURCE": "FR-T4-001 — ANSES E-Phy",
+      "WHAT_IS_FACT": "cada uso autorizado é um ato administrativo com nº AMM, cultura, alvo e titular",
+      "WHAT_IS_DERIVED": "o agrupamento de razões sociais em grupo empresarial é nosso e **ainda não foi medido** — ver DECK-015; e a contagem é de usos, não de produtos",
+      "WHAT_IS_UNKNOWN": "participação de mercado, vendas, eficácia e preço. Contagem de registro não é posição de mercado",
+      "CONFIDENCE": "HIGH para a contagem · LOW para qualquer leitura de mercado"
+    },
+    {
+      "QUESTION": "Is competitor communication about wheat septoria increasing in France?",
+      "ANSWER": "**NÃO SEI.**",
+      "EVIDENCE": "nenhuma — não existe coleta de comunicação de concorrente",
+      "SOURCE": "tentativas registradas: syngenta.fr 403 · agriculture.basf.fr 502 · corteva.it 404",
+      "WHAT_IS_FACT": "nenhum fato disponível",
+      "WHAT_IS_DERIVED": "nenhuma derivação possível",
+      "WHAT_IS_UNKNOWN": "tudo: o item de comunicação, a data, a linha de base histórica e a regra de medição. Sem linha de base não se pode dizer \"increasing\" — ver DECK-011 e G1",
+      "CONFIDENCE": "NÃO SEI"
+    }
+  ]
+}
