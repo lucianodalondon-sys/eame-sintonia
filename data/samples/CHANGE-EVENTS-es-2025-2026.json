@@ -1,0 +1,255 @@
+{
+ "what_it_is": "eventos de mudanca detectados comparando DUAS versoes arquivadas do MESMO documento publico",
+ "SOURCE_ID": "ES-T4-004",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "ES",
+ "layer": "NATIONAL PRODUCT AUTHORIZATION",
+ "captured_at": "2026-08-29",
+ "SOURCE_VERSION_A": {
+  "file": "dc_web_28052025.pdf",
+  "version_date": "28/05/2025",
+  "sha256": "ad48dc534da2be506b89adde7e2b2dd6f3b69df2511e20c99acdeebe8cf567f2"
+ },
+ "SOURCE_VERSION_B": {
+  "file": "dc_web.pdf",
+  "version_date": "26/08/2026",
+  "sha256": "cdc389d3ebb3b3b8effdf7397a57aa56805cd8ad8c10037576c83e349eb3e7f7"
+ },
+ "COMPARABLE_REGISTRATIONS": 311,
+ "comparable_rule": "so registros com >=2 denominacoes NAS DUAS versoes: com uma linha so, o prefixo comum nao isola o produto de referencia",
+ "EVENT_COUNTS": {
+  "NEW_COMMON_DENOMINATION": 156,
+  "REMOVED_COMMON_DENOMINATION": 30,
+  "REFERENCE_NAME_CHANGE": 10
+ },
+ "NAME_CHANGE_VERDICTS": {
+  "CONFIRMED": 5,
+  "REFUTED_PARSER_OVERCAPTURE": 2,
+  "UNRESOLVED": 3
+ },
+ "CONFIRMED_NAME_CHANGES": [
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "21506",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "CODIMUR",
+   "AFTER": "CODIMUR-F",
+   "CURRENT_NAME_IN_REGISTER": "CODIMUR-F",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "NOTIFICACION DE UN CAMBIO NO SIGNIFICATIVO",
+    "Terminada",
+    "23-06-2026"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "24998",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "FENOVA S",
+   "AFTER": "FENOVA SUPER",
+   "CURRENT_NAME_IN_REGISTER": "FENOVA SUPER",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "PRÓRROGA DE AUTORIZACIÓN",
+    "Terminada",
+    "20-08-2025"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "25498",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "LBG",
+   "AFTER": "LBG-01F34",
+   "CURRENT_NAME_IN_REGISTER": "LBG-01F34",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "NOTA SIMPLE PREPARADO",
+    "Terminada",
+    "10-04-2026"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "ES-00792",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "ATILA",
+   "AFTER": "TANKE 360",
+   "CURRENT_NAME_IN_REGISTER": "TANKE 360",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "PERIODO DE GRACIA POR ETIQUETA ANTIGUA",
+    "Terminada",
+    "19-11-2025"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "ES-01717",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "MAXENTIS",
+   "AFTER": "SORATEL MAX",
+   "CURRENT_NAME_IN_REGISTER": "SORATEL MAX",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "MODIFICACION NOMBRE",
+    "Terminada",
+    "28-07-2026"
+   ]
+  }
+ ],
+ "verification_rule": "AFTER tem de ser igual ao nome atual no ROPF (fonte independente do PDF) E BEFORE nao pode ser apenas AFTER com sobra de prefixo",
+ "WHY_THE_ARCHIVE_IS_THE_ONLY_ROUTE": "o registro publica apenas o ULTIMO tramite de cada produto, nao o historico. Hoje so ES-01717 ainda mostra 'MODIFICACION NOMBRE'; nos outros quatro o campo ja foi sobrescrito por um tramite posterior. Sem as duas versoes arquivadas essas mudancas seriam invisiveis.",
+ "WHAT_A_NAME_CHANGE_DOES_NOT_PROVE": [
+  "relancamento comercial",
+  "estrategia de marca",
+  "reposicionamento de mercado",
+  "mudanca de vendas",
+  "mudanca de titular",
+  "mudanca de composicao"
+ ],
+ "all_name_change_candidates": [
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "21506",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "CODIMUR",
+   "AFTER": "CODIMUR-F",
+   "CURRENT_NAME_IN_REGISTER": "CODIMUR-F",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "NOTIFICACION DE UN CAMBIO NO SIGNIFICATIVO",
+    "Terminada",
+    "23-06-2026"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "23738",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "DIPEL® DFNU",
+   "AFTER": "DIPEL® DF",
+   "CURRENT_NAME_IN_REGISTER": "DIPEL DF",
+   "VERDICT": "REFUTED_PARSER_OVERCAPTURE",
+   "LAST_TRAMITE_TODAY": [
+    "PRÓRROGA DE AUTORIZACIÓN",
+    "Terminada",
+    "23-02-2026"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "24416",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "AZUPEC MICRO WG",
+   "AFTER": "AZUPEC MICRO WGTRADE CORPORATION INTERNATIONAL S.A.U",
+   "CURRENT_NAME_IN_REGISTER": "AZUPEC MICRO WG",
+   "VERDICT": "UNRESOLVED",
+   "LAST_TRAMITE_TODAY": [
+    "PRÓRROGA DE AUTORIZACIÓN",
+    "Terminada",
+    "30-07-2026"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "24998",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "FENOVA S",
+   "AFTER": "FENOVA SUPER",
+   "CURRENT_NAME_IN_REGISTER": "FENOVA SUPER",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "PRÓRROGA DE AUTORIZACIÓN",
+    "Terminada",
+    "20-08-2025"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "25498",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "LBG",
+   "AFTER": "LBG-01F34",
+   "CURRENT_NAME_IN_REGISTER": "LBG-01F34",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "NOTA SIMPLE PREPARADO",
+    "Terminada",
+    "10-04-2026"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "ES-00201",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "BUGUIS",
+   "AFTER": "BUGUISQEMETICA Agricultural Solutions Spain S.L.U",
+   "CURRENT_NAME_IN_REGISTER": "BUGUIS",
+   "VERDICT": "UNRESOLVED",
+   "LAST_TRAMITE_TODAY": [
+    "PRÓRROGA DE AUTORIZACIÓN",
+    "Terminada",
+    "05-12-2025"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "ES-00304",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "FOSIKA",
+   "AFTER": "FOSIKAS",
+   "CURRENT_NAME_IN_REGISTER": "FOSIKA",
+   "VERDICT": "UNRESOLVED",
+   "LAST_TRAMITE_TODAY": [
+    "PERIODO DE GRACIA POR ETIQUETA ANTIGUA",
+    "Terminada",
+    "12-05-2026"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "ES-00760",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "GOLBEX WGEXCLUSIVAS SARABIA, S.A",
+   "AFTER": "GOLBEX WG",
+   "CURRENT_NAME_IN_REGISTER": "GOLBEX WG",
+   "VERDICT": "REFUTED_PARSER_OVERCAPTURE",
+   "LAST_TRAMITE_TODAY": [
+    "NOTA SIMPLE PREPARADO",
+    "Terminada",
+    "07-11-2025"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "ES-00792",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "ATILA",
+   "AFTER": "TANKE 360",
+   "CURRENT_NAME_IN_REGISTER": "TANKE 360",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "PERIODO DE GRACIA POR ETIQUETA ANTIGUA",
+    "Terminada",
+    "19-11-2025"
+   ]
+  },
+  {
+   "ENTITY": "REFERENCE_PRODUCT",
+   "REGISTRATION_ID": "ES-01717",
+   "CHANGE_TYPE": "REFERENCE_NAME_CHANGE",
+   "BEFORE": "MAXENTIS",
+   "AFTER": "SORATEL MAX",
+   "CURRENT_NAME_IN_REGISTER": "SORATEL MAX",
+   "VERDICT": "CONFIRMED",
+   "LAST_TRAMITE_TODAY": [
+    "MODIFICACION NOMBRE",
+    "Terminada",
+    "28-07-2026"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,76 @@
+{
+ "SOURCE_ID": "ES-T4-005",
+ "source": "MAPA — Registro Oficial de Productos Fitosanitarios (regfiweb), rotas públicas usadas pelo próprio frontend",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "ES",
+ "layer": "NATIONAL PRODUCT AUTHORIZATION",
+ "captured_at": "2026-08-29",
+ "access_note": "rotas declaradas nos <input type=hidden> da própria página e em /regfiweb/js/site.min.js. Nenhum bypass de autenticacao, nenhuma exploracao de vulnerabilidade: sao as rotas que o navegador de qualquer visitante chama.",
+ "what_it_is": "denominadores do ROPF, para que nenhuma razao seja publicada sem denominador declarado",
+ "REQUEST": "POST /regfiweb/Exportaciones/ExportJsonProductos  (dataDto[numRegistro]=)",
+ "export_server_timestamp": "2026-08-29T00:21:08+02:00",
+ "REGISTRATIONS_IN_REGISTER": 3084,
+ "BY_STATE": {
+  "Vigente": 1993,
+  "Cancelado": 1091
+ },
+ "UNIQUE_REGISTRATION_IDS": 3084,
+ "DISTINCT_HOLDERS": 262,
+ "TOP_HOLDERS_BY_REGISTRATION_COUNT": [
+  [
+   "ADAMA Agriculture España S.A.",
+   188
+  ],
+  [
+   "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   179
+  ],
+  [
+   "SYNGENTA ESPAÑA, S.A.",
+   170
+  ],
+  [
+   "NUFARM ESPAÑA S.A.",
+   147
+  ],
+  [
+   "FMC Agricultural Solutions S.A.U.",
+   143
+  ],
+  [
+   "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+   121
+  ],
+  [
+   "BASF Agricultural Solutions Spain S.L.U.",
+   119
+  ],
+  [
+   "SHARDA CROPCHEM ESPAÑA S.L.",
+   97
+  ],
+  [
+   "ASCENZA PRODUCTOS PARA AGRICULTURA S.A.U.",
+   97
+  ],
+  [
+   "TRADE CORPORATION INTERNATIONAL, S.A.U.",
+   80
+  ]
+ ],
+ "GRID_CROSSCHECK": {
+  "note": "a mesma pergunta feita pela grade minutos antes deu 1998 vigentes / 1086 cancelados; o export deu 1993 / 1091. O TOTAL bate (3084) e a divisao nao. Registrado como divergencia entre duas leituras primarias no mesmo dia, nao resolvida.",
+  "grid": {
+   "VIGENTE": 1998,
+   "CANCELADO": 1086,
+   "TOTAL": 3084
+  },
+  "export": {
+   "Vigente": 1993,
+   "Cancelado": 1091,
+   "TOTAL": 3084
+  }
+ },
+ "WHAT_THIS_IS_NOT": "nao e mercado, nao e volume, nao e venda, nao e participacao. E contagem de registros."
+}

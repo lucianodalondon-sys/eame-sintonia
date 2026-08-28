@@ -1,0 +1,84 @@
+{
+ "SOURCE_ID": "ES-T4-004 (medida) + ES-T4-005 (denominador)",
+ "source": "MAPA — Registro Oficial de Productos Fitosanitarios (regfiweb), rotas públicas usadas pelo próprio frontend",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "ES",
+ "layer": "NATIONAL PRODUCT AUTHORIZATION",
+ "captured_at": "2026-08-29",
+ "access_note": "rotas declaradas nos <input type=hidden> da própria página e em /regfiweb/js/site.min.js. Nenhum bypass de autenticacao, nenhuma exploracao de vulnerabilidade: sao as rotas que o navegador de qualquer visitante chama.",
+ "what_it_is": "recontagem da lista de denominaciones comunes com contrato de coluna declarado",
+ "parser": "scripts/denominaciones.py (regra de corte declarada no proprio arquivo)",
+ "document_version_date": "26/08/2026",
+ "DENOMINATION_ROWS": 1786,
+ "DENOMINATION_ROWS_definition": "uma linha = uma denominacion comun concedida a uma empresa concessionaria sobre um registro de referencia",
+ "DISTINCT_REGISTRATIONS_LISTED": 720,
+ "DISTINCT_REGISTRATIONS_LISTED_definition": "registros que aparecem NESTE documento, isto e, que tem pelo menos uma denominacion comun. NAO e o registro inteiro.",
+ "LISTED_FOUND_IN_REGISTER": 711,
+ "LISTED_NOT_FOUND_IN_REGISTER": 9,
+ "LISTED_AND_IN_FORCE": 706,
+ "SHARE_OF_IN_FORCE_REGISTER_WITH_AT_LEAST_ONE": 0.3542,
+ "IN_FORCE_WITH_MORE_THAN_ONE": 363,
+ "SHARE_OF_IN_FORCE_REGISTER_WITH_MORE_THAN_ONE": 0.1821,
+ "MEAN_ROWS_PER_LISTED_IN_FORCE_REGISTRATION": 2.4816,
+ "MAX_ROWS_ON_ONE_REGISTRATION": 25,
+ "REGISTRATION_WITH_MAX": "ES-00750",
+ "OVERCOUNT_IF_EACH_DENOMINATION_WERE_AN_AUTHORISATION": {
+  "within_the_listed_subset": 2.4816,
+  "over_the_whole_in_force_register": 1.5248,
+  "in_force_authorisations": 1993,
+  "would_be_counted_as": 3039
+ },
+ "SUPERSEDES": {
+  "mission": "MISSAO 06",
+  "old_numbers": {
+   "records": 1737,
+   "distinct_reference_registrations": 708,
+   "multi": 359,
+   "mean": 2.45,
+   "max": 24
+  },
+  "why": "o parser da MISSAO 06 nao foi preservado como codigo e nao removia a coluna Notas (P V/D:, P U/A/E:) antes do corte, perdendo as linhas seguintes a cada nota. O parser atual declara a regra, deixa 0 pedacos nao interpretados e sua distribuicao soma exatamente o total."
+ },
+ "COLUMN_SPLIT": {
+  "rule": "ancorada em duas fontes externas ao PDF: o nome oficial do produto (export do ROPF) e o vocabulario de titulares do ROPF. Nada e adivinhado.",
+  "RESOLVED_ROWS": 1228,
+  "COVERAGE": 0.6876,
+  "UNRESOLVED_ROWS": 558,
+  "UNRESOLVED_REASONS": {
+   "CONCESSIONAIRE_NOT_IN_REGISTER_VOCABULARY": 519,
+   "REFERENCE_PRODUCT_NOT_MATCHED": 39
+  },
+  "REJECTED_RULE": "cortar na primeira forma juridica (S.A./S.L./AG) — produziu 'INDUSTRIAS A'+'FRASA, S.A.' e 'ECOLOGIA Y PROTECCION AG'+'RICOLA'. 96,9% de cobertura aparente com erro silencioso. Descartada."
+ },
+ "ROLE_COINCIDENCE": {
+  "question": "o titular do registro tambem aparece como concessionaria do proprio registro?",
+  "REGISTRATIONS": 165,
+  "ROWS": 263,
+  "measured_on": "linhas resolvidas",
+  "meaning": "VALUE_A == VALUE_B com ROLE_A != ROLE_B. Um campo unico COMPANY perderia isto em 165 registros."
+ },
+ "ES_01717": [
+  {
+   "REGISTRATION_ID": "ES-01717",
+   "REFERENCE_PRODUCT": "SORATEL MAX",
+   "CONCESSIONAIRE": "SYNGENTA ESPAÑA S.A",
+   "COMMON_DENOMINATION": "AMISTAR ERA 350 SC",
+   "ACCEPTED": "10/08/2026"
+  },
+  {
+   "REGISTRATION_ID": "ES-01717",
+   "REFERENCE_PRODUCT": "SORATEL MAX",
+   "CONCESSIONAIRE": "COMERCIAL QUÍMICA MASSÓ S.A",
+   "COMMON_DENOMINATION": "CUMILZAN",
+   "ACCEPTED": "10/08/2026"
+  }
+ ],
+ "WHAT_THIS_DOES_NOT_MEASURE": [
+  "mercado",
+  "volume",
+  "venda",
+  "participacao",
+  "dependencia"
+ ]
+}
