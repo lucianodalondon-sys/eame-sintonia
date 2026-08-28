@@ -18,7 +18,10 @@ LANGS = ('French', 'Spanish', 'Italian', 'English', 'German', 'Portuguese', 'Dut
 
 def _fetch(code):
     os.makedirs(CACHE, exist_ok=True)
-    p = os.path.join(CACHE, f'{code}.html')
+    # alguns códigos do dicionário espanhol vêm com barra ("ANTNO/MATCH"); o nome de
+    # arquivo precisa ser saneado ou a escrita do cache estoura
+    safe = re.sub(r'[^A-Za-z0-9_-]', '_', code)
+    p = os.path.join(CACHE, f'{safe}.html')
     if os.path.exists(p):
         with open(p, encoding='utf-8', errors='replace') as f:
             return f.read()

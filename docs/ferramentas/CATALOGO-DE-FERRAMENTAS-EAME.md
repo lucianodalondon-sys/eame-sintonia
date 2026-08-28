@@ -27,7 +27,30 @@ DATA_RISK:            # licença, GDPR, dependência de fonte única, fragilidad
 PRIORITY:
 STATUS:               # CONCEPT | DATA EXISTS | CROSSING PROVED | DEMO POSSIBLE | PROTOTYPE
 LIMIT:                # o que ela NAO permite concluir (obrigatorio)
+TECHNICAL_FEASIBILITY:# ALTA | MÉDIA | BAIXA — custo real de construir e manter
+ADAMA_ALIGNMENT:      # HIGH | MEDIUM | LOW | UNKNOWN, contra docs/adama/RADAR-ADAMA-EAME.md
 ```
+
+Os dois últimos eixos são independentes: uma ferramenta pode ser fácil e irrelevante, ou
+difícil e decisiva. Cruzá-los é o que define a ordem de construção.
+
+## OS DOIS EIXOS — leitura conjunta
+
+| Ferramenta | TECHNICAL_FEASIBILITY | ADAMA_ALIGNMENT | Leitura |
+|---|---|---|---|
+| **REGULATORY WATCH** | ALTA | **HIGH** | fácil e decisiva — toca a plataforma de cereal (CASE-011). **Construir primeiro.** |
+| **REGISTRATION EXPIRY RADAR** | ALTA | **HIGH** | 58 autorizações ADAMA vencendo em ≤6 meses na Itália, país CORE em cereal. |
+| **PEST & DISEASE RADAR** | ALTA na Andaluzia, BAIXA em FR/IT | **HIGH** | alinhada em olivar e vinha na Espanha; o dado numérico só existe lá. |
+| **COMPETITIVE RADAR** (regulatório) | ALTA | **HIGH** | mostra quem mais depende do protioconazol — Bayer com 32 produtos na França. |
+| **UNMET NEED RADAR** | BAIXA | **MEDIUM** | Espanha alinhada (olivar, vinha), mas a lista é pequena e sem histórico. |
+| **CROP PULSE** | BAIXA | **MEDIUM** | cereal é CORE, mas área e rendimento não decidem campanha sozinhos. |
+| **EXPERT NETWORK / SCIENCE RADAR** | MÉDIA (vocabulário) | **HIGH** | septoriose do trigo é alvo declarado do Forapro (CASE-009). |
+| **CLIMATE EXPOSURE** | ALTA | **MEDIUM** | útil como contexto; X-009 proíbe a leitura causal. |
+| **COUNTRY PULSE** | MÉDIA | **HIGH** | é a tela que a country management abriria. |
+| **PORTFOLIO OPPORTUNITY** | MÉDIA | **HIGH** | precisa da escada de estágios (FASE 9) para ser defensável. |
+| **EPPO NORMALIZER** | MÉDIA | infraestrutura | não é tela; habilita as outras. |
+| **FIELD VOICES** | **BAIXA — sem fonte** | UNKNOWN | continua CONCEPT. |
+
 
 `FACT`, `DERIVED_ANALYSIS` e `UNKNOWN` são campos separados **por obrigação**: é a
 diferença entre mostrar um dado e mostrar uma conclusão nossa vestida de dado.

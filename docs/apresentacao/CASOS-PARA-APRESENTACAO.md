@@ -6,7 +6,7 @@ para a ADAMA.
 Meta: **5 a 10 casos extremamente claros**.
 **Não fabricar casos para preencher quota.** 3 casos irrefutáveis valem mais que 10 mornos.
 
-**Estado:** MISSÃO 02 em curso — **10 casos registrados** (meta 5–10 — atingida) (meta 5–10).
+**Estado:** MISSÃO 02 em curso — **11 casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
 **Última atualização:** 2026-08-28
 
 ---
@@ -25,7 +25,12 @@ WHAT_SINTONIA_CONNECTS:   # o que o SINTONIA junta que ninguém junta hoje
 WHY_ADAMA_SHOULD_CARE:    # a decisão que muda
 SCREEN_AVAILABLE:         # existe tela no protótipo? qual?
 STATUS:                   # REAL | DERIVED | DEMO | CONCEPT
+ADAMA_ALIGNMENT:          # HIGH | MEDIUM | LOW | UNKNOWN — com evidência do radar público
+TIER:                     # A HERO CASE | B STRONG SUPPORT | C TECHNICAL PROOF | D NÃO USAR
 ```
+
+**ADAMA_ALIGNMENT** é medido contra `docs/adama/RADAR-ADAMA-EAME.md`, nunca por intuição.
+`HIGH` exige sinal público da ADAMA na mesma cultura **e** no mesmo problema.
 
 ---
 
@@ -59,6 +64,9 @@ TIME:                   ato de 15/06/2026; registro francês na versão de 25/08
 SOURCES:                EU-T4-001 (CELLAR/Jornal Oficial) + FR-T4-001 (ANSES E-Phy)
 CROSSING:               X-006 (chave: nº CAS)
 ```
+
+**ADAMA_ALIGNMENT: MEDIUM** · **TIER: B · STRONG SUPPORT**
+> vinha × míldio: na França a ADAMA lidera o registro (17 usos) mas **não** há campanha 2025–2026; na Espanha há (Vinergy). O mecanismo do caso — ato da UE → produto — é HIGH; a cultura escolhida é MEDIUM.
 
 **WHAT_HAPPENED**
 Em 15 de junho de 2026, a UE publicou o Regulamento de Execução (UE) 2026/1353
@@ -117,6 +125,9 @@ SOURCES:                EU-T4-001 + FR-T4-001
 CROSSING:               X-006
 ```
 
+**ADAMA_ALIGNMENT: LOW** · **TIER: C · TECHNICAL PROOF**
+> ácido pelargônico não aparece em nenhum sinal público da ADAMA nos três países. O caso vale como **prova de método** (camada UE ≠ camada nacional), não como tema.
+
 **WHAT_HAPPENED**
 O Regulamento de Execução (UE) 2026/1696, de 14/07/2026, **renovou** a aprovação europeia do
 **ácido pelargônico** (CAS 112-05-0, CIPAC 888) — de 01/10/2026 até **30/09/2041**, quinze anos.
@@ -153,6 +164,9 @@ TIME:                   situação do registro em 24/08/2026
 SOURCES:                IT-T4-001
 CROSSING:               —  (leitura direta da fonte, sem composição)
 ```
+
+**ADAMA_ALIGNMENT: HIGH** · **TIER: A · HERO CASE**
+> 58 das 155 autorizações ADAMA na Itália vencem em ≤6 meses, e a Itália é CORE PUBLIC SIGNAL em cereal. Toca diretamente o portfólio ativo da empresa.
 
 **WHAT_HAPPENED**
 O registro italiano publica a data de vencimento de cada autorização. Em 24/08/2026 havia
@@ -196,6 +210,9 @@ TIME:                   situação em 24/08/2026
 SOURCES:                ES-T4-002
 ```
 
+**ADAMA_ALIGNMENT: HIGH** · **TIER: B · STRONG SUPPORT**
+> a lista espanhola de autorizações excepcionais inclui culturas de alto valor, e a Espanha é onde a ADAMA tem sinal público em olivar (Neptune) e vinha (Vinergy).
+
 **WHAT_HAPPENED**
 O MAPA mantém e publica a lista de **autorizações excepcionais vigentes** (art. 53 do
 Reg. 1107/2009). São 45 hoje. Uma autorização excepcional existe quando **não há solução
@@ -236,6 +253,9 @@ TIME:                   janela 01/05–30/06, anos 2022–2024
 SOURCES:                EU-T1-001 · EU-T1-002 · EU-T2-001 · EU-T2-002
 CROSSING:               X-001
 ```
+
+**ADAMA_ALIGNMENT: HIGH** · **TIER: B · STRONG SUPPORT**
+> trigo na França: cereal é CORE PUBLIC SIGNAL nos três países e a ADAMA lançou Forapro e Maxentis exatamente para doença de trigo.
 
 **WHAT_HAPPENED**
 O rendimento nacional francês de trigo comum caiu de **7,28 t/ha em 2023 para 6,02 t/ha em
@@ -280,6 +300,9 @@ TIME:                   2020–2024
 SOURCES:                EU-T2-001 · EU-T1-002
 CROSSING:               X-001 / CAP-013
 ```
+
+**ADAMA_ALIGNMENT: MEDIUM** · **TIER: C · TECHNICAL PROOF**
+> trigo espanhol: cultura alinhada (Avastel), mas o caso é sobre método de janela climática, não sobre um problema que a ADAMA comunique.
 
 **WHAT_HAPPENED**
 O rendimento espanhol de trigo comum foi **2,14 t/ha em 2023** — o mais baixo do período
@@ -330,6 +353,9 @@ SOURCES:                ES-T3-001 (RAIF Andalucía)
 CROSSING:               província × data × cultura × doença
 ```
 
+**ADAMA_ALIGNMENT: MEDIUM** · **TIER: A · HERO CASE**
+> vinha × míldio na Andaluzia: a ADAMA tem sinal público em vinha na Espanha (Vinergy, proteção declarada contra mildiu). Alinhado no país certo, na cultura certa, no problema certo — mas vinha caiu para segunda vertical.
+
 **WHAT_HAPPENED**
 A rede oficial andaluza mediu, parcela a parcela e semana a semana, o percentual de cepas
 afetadas por míldio. Em 2026:
@@ -370,6 +396,9 @@ TIME:                   safra 2026
 SOURCES:                ES-T3-001 + EU-T2-001
 CROSSING:               X-009
 ```
+
+**ADAMA_ALIGNMENT: HIGH** · **TIER: A · HERO CASE**
+> não pela cultura, mas pelo que demonstra: que o SINTONIA recusa a correlação fácil. É o caso que sustenta a **confiabilidade** de tudo o mais que for apresentado.
 
 **WHAT_HAPPENED**
 Com CASE-007 na mão, a pergunta seguinte é automática: *"foi o clima?"*. Medimos chuva,
@@ -419,6 +448,9 @@ SOURCES:                EU-T5-001 (OpenAlex) · vocabulário de ES-T4-001
 CROSSING:               X-002 / X-010
 ```
 
+**ADAMA_ALIGNMENT: HIGH** · **TIER: B · STRONG SUPPORT**
+> septoriose do trigo é exatamente o alvo declarado de Forapro (T1: Septoria, Rust, Powdery Mildew). O caso mostra como achar os especialistas certos do problema que a ADAMA está comunicando agora.
+
 **WHAT_HAPPENED**
 A pergunta era: *"quem estuda a septoriose do trigo na Espanha?"*. Duas consultas, a mesma
 base, a mesma janela de anos, o mesmo país:
@@ -460,6 +492,9 @@ PROBLEM:                míldio da videira
 SOURCES:                EU-T5-001 (OpenAlex) + IT-T3-001 (boletins regionais)
 ```
 
+**ADAMA_ALIGNMENT: MEDIUM** · **TIER: C · TECHNICAL PROOF**
+> ponte ciência↔rede técnica na Itália, em vinha. Mecanismo forte, cultura de segunda prioridade.
+
 **WHAT_HAPPENED**
 Buscando quem publica sobre míldio da videira na Itália, o segundo nome mais recorrente é
 **Michele Perazzolli (12 trabalhos, 2018–2026)**, da **Fondazione Edmund Mach**.
@@ -487,6 +522,69 @@ decisão de compra. Isso não foi medido e não está nestes dados.
 
 ---
 
+### CASE-011 · Toda a nova plataforma europeia de cereal da ADAMA depende de uma molécula com data
+
+```
+CASE_ID:                CASE-011
+COUNTRY:                EUROPEAN UNION → FRANCE · SPAIN · ITALY
+CROP:                   Trigo, cevada, triticale, centeio
+PROBLEM:                exposição concentrada numa única substância ativa
+TIME:                   atos da UE de 2019 a 2025; registro francês de 25/08/2026
+SOURCES:                EU-T4-001 (CELLAR) · FR-T4-001 (E-Phy) · radar público ADAMA
+CROSSING:               X-006 (UE → nacional) + radar público
+```
+
+**ADAMA_ALIGNMENT: HIGH** · **TIER: A · HERO CASE**
+> Cereal é **CORE PUBLIC SIGNAL nos três países** e a plataforma em questão é a que a
+> própria ADAMA está lançando agora.
+
+**WHAT_HAPPENED**
+A ADAMA lançou na Europa cinco novos fungicidas de cereal — **Avastel, Forapro, Maxentis,
+Maganic e Soratel**. Os cinco são formulações de **protioconazol**.
+
+Na França, o registro oficial mostra a ADAMA com **exatamente três** produtos autorizados
+contendo protioconazol, e são os três da nova plataforma:
+
+| AMM | produto | composição |
+|---|---|---|
+| 2240236 | **AVASTEL** | protioconazol 150 g/L + fluxapiroxade |
+| 2240001 | **FORAPRO** | protioconazol 175 g/L + fenpropidina |
+| 2230815 | **MAXENTIS** | protioconazol 150 g/L + azoxistrobina |
+
+**WHAT_SINTONIA_CONNECTS**
+Do outro lado, o Jornal Oficial da UE:
+
+- **CELEX 32025R0787** (24/04/2025): *"row 168, Prothioconazole, the date is replaced by
+  **'31 March 2027'**"*.
+- A aprovação foi **prorrogada seis vezes em seis anos**: 32019R0707 · 32020R0869 ·
+  32021R0745 · 32022R0708 · 32023R0918 · 32025R0787.
+- O **Parlamento Europeu objetou três vezes** a essas prorrogações: 52019IP0026 ·
+  52020IP0197 · 52021IP0285.
+
+E o contexto competitivo, do mesmo registro: dos **77 produtos autorizados com protioconazol
+na França, 32 são da Bayer** — originadora da molécula.
+
+**WHY_ADAMA_SHOULD_CARE**
+Uma pessoa da ADAMA que abrisse esta tela veria, num lugar só, algo que hoje vive em três
+departamentos diferentes: **o lançamento comercial**, **o horizonte regulatório da molécula
+que o sustenta** e **quem mais depende dela**. Nenhuma dessas três informações é secreta.
+O que não existe hoje é alguém as vendo juntas, na mesma semana, automaticamente.
+
+**RAW_EVIDENCE**   `data/samples/RADAR-ADAMA-prothioconazole.json` · `docs/adama/RADAR-ADAMA-EAME.md`
+**SCREEN_AVAILABLE**   sim — protótipo V2
+**STATUS**             **REAL** (atos, AMMs e composições) + **DERIVED** (a ligação entre plataforma e horizonte)
+
+> **RED TEAM — a mentira que esta tela poderia contar.**
+> *"A ADAMA vai perder sua plataforma de cereal em março de 2027."* **Falso.**
+> Expiração de aprovação **não é retirada**: o protioconazol está em processo de renovação, e
+> as prorrogações sucessivas existem exatamente porque a avaliação não terminou. O que o
+> padrão mostra é **incerteza regulatória prolongada e politicamente contestada** — não
+> perda iminente. A tela precisa dizer "expiração da aprovação da substância na UE", nunca
+> "fim do produto". E a exposição da Bayer ser maior em número de registros **não** significa
+> que a Bayer esteja mais exposta comercialmente.
+
+---
+
 | CASE_ID | País | Cultura | Status | Tela |
 |---|---|---|---|---|
 | CASE-001 | EU → FR | Vigne | REAL | ainda não |
@@ -499,3 +597,4 @@ decisão de compra. Isso não foi medido e não está nestes dados.
 | CASE-008 | ES | Vid | REAL + DERIVED | ainda não |
 | CASE-009 | ES | Trigo | REAL | ainda não |
 | CASE-010 | IT | Vid | REAL + DERIVED | ainda não |
+| CASE-011 | EU → FR/ES/IT | Cereais | REAL + DERIVED | protótipo V2 |

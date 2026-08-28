@@ -102,16 +102,20 @@ def verify(code, fr_term, fr_crop_names):
     if not fr:
         return None, None
     ft = toks(fr_term)
+    fallback = None
     for name in fr:
         nt = toks(name)
         if not (ft & nt):
             continue
-        # o nome francês da EPPO cita a cultura? então o par (cultura,alvo) resolve
+        # O nome francês da EPPO cita a cultura? Então o par (cultura,alvo) resolve.
+        # É preciso varrer TODOS os nomes antes de decidir: "mildiou de la grappe"
+        # casa por termo, mas é "mildiou de la vigne" que casa por contexto — devolver
+        # o primeiro que casa faria o desempate se perder.
         if fr_crop_names and (nt & fr_crop_names):
             return 'CONTEXTUAL', name
-        if norm(fr_term) == norm(name) or ft <= nt:
-            return 'EXACT', name
-    return None, None
+        if fallback is None and (norm(fr_term) == norm(name) or ft <= nt):
+            fallback = name
+    return ('EXACT', fallback) if fallback else (None, None)
 
 
 CROP_INDEX = os.path.join(ROOT, 'data', 'raw', 'EPPO-CACHE', 'crop_fr_index.json')
