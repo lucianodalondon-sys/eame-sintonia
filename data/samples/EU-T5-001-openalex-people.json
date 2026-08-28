@@ -1,0 +1,136 @@
+{
+  "SOURCE_ID": "EU-T5-001",
+  "source": "OpenAlex API (api.openalex.org)",
+  "captured_at": "2026-08-28",
+  "SOURCE_LOCATION": "global (agregador bibliográfico)",
+  "FACT_LOCATION": "país da afiliação do autor",
+  "ORIGINAL_LANGUAGE": "EN",
+  "access": "REST público, sem chave, polite pool via mailto",
+  "method": "filter=title_and_abstract.search:<consulta>,authorships.countries:<país>,publication_year:2018-2026,type:article; agregação por autor com afiliação NAQUELE país",
+  "france_herbicide_resistance": {
+    "query": "herbicide resistance",
+    "country": "FR",
+    "works": 71,
+    "distinct_authors": 235,
+    "authors_with_3plus": 4,
+    "top": [
+      {
+        "author": "Christophe Délye",
+        "works": 9,
+        "institution": "Agroécologie (INRAE Dijon)",
+        "years": [
+          2019,
+          2023
+        ]
+      },
+      {
+        "author": "Valérie Le Corre",
+        "works": 6,
+        "institution": "Agroécologie",
+        "years": [
+          2019,
+          2023
+        ]
+      },
+      {
+        "author": "Séverine Michel",
+        "works": 5,
+        "institution": "Agroécologie",
+        "years": [
+          2019,
+          2023
+        ]
+      },
+      {
+        "author": "Fanny Pernin",
+        "works": 4,
+        "institution": "Agroécologie",
+        "years": [
+          2019,
+          2023
+        ]
+      }
+    ]
+  },
+  "italy_grapevine_mildew": {
+    "query": "grapevine downy mildew OR Plasmopara viticola",
+    "country": "IT",
+    "works_total": 82,
+    "distinct_authors": 251,
+    "authors_with_3plus": 38,
+    "top": [
+      {
+        "author": "Silvia Laura Toffolatti",
+        "works": 17,
+        "main_institution": "University of Milan",
+        "years": [
+          2018,
+          2025
+        ]
+      },
+      {
+        "author": "Michele Perazzolli",
+        "works": 12,
+        "main_institution": "Fondazione Edmund Mach",
+        "years": [
+          2018,
+          2026
+        ]
+      },
+      {
+        "author": "Giuliana Maddalena",
+        "works": 11,
+        "main_institution": "University of Milan",
+        "years": [
+          2018,
+          2025
+        ]
+      },
+      {
+        "author": "Vittorio Rossi",
+        "works": 10,
+        "main_institution": "Università Cattolica del Sacro Cuore",
+        "years": [
+          2019,
+          2026
+        ]
+      },
+      {
+        "author": "P.A. Bianco",
+        "works": 9,
+        "main_institution": "University of Milan",
+        "years": [
+          2018,
+          2023
+        ]
+      },
+      {
+        "author": "Gabriella De Lorenzis",
+        "works": 8,
+        "main_institution": "University of Milan",
+        "years": [
+          2018,
+          2024
+        ]
+      }
+    ]
+  },
+  "spain_query_drift": {
+    "loose_query": "wheat septoria OR Zymoseptoria",
+    "loose_works": 2627,
+    "loose_top_authors": [
+      "Gustavo A. Slafer (30)",
+      "J. L. Araus (24)",
+      "Shawn C. Kefauver (15)"
+    ],
+    "loose_note": "fisiologia de cultura e sensoriamento remoto — NAO especialistas em septoriose",
+    "strict_query": "\"Zymoseptoria tritici\"",
+    "strict_works": 27,
+    "strict_top_authors": [
+      "Andrea Sánchez‐Vallet (11)",
+      "Lukas Meile (5)",
+      "Víctor González-Menéndez (5)"
+    ],
+    "ratio": 97.3
+  }
+}

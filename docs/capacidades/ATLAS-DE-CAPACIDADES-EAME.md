@@ -6,7 +6,7 @@ Fonte não é capacidade. Este atlas converte descoberta em **o que conseguimos 
 > "Detectar alertas fitossanitários regionais em trigo na França" é uma capacidade.
 > A segunda só entra aqui quando a primeira está provada com exemplo real.
 
-**Estado:** MISSÃO 02 em curso — **16 capacidades COMPROVADAS**.
+**Estado:** MISSÃO 02 em curso — **18 capacidades COMPROVADAS**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -476,11 +476,67 @@ USERS:               TEC · MD
 > Não é validação do modelo, e muito menos autorização para prever surto.
 
 
+### CAP-017 · Responder quem trabalha repetidamente com um problema, num país
+
+```
+CAPABILITY:          Identificar, para um problema agronômico e um país, os pesquisadores
+                     que aparecem **repetidamente** na literatura — com instituição e
+                     período de atividade.
+SOURCE:              EU-T5-001 (OpenAlex)
+COUNTRY:             FRANCE · SPAIN · ITALY (por afiliação do autor)
+GEOGRAPHY:           país da **afiliação**, não do experimento
+TIME:                verificado em 2018–2026
+UPDATE_FREQUENCY:    contínua
+CAN_AUTOMATE:        SIM, com recuo entre chamadas (429 observado)
+CAN_HISTORY:         SIM
+CONFIDENCE:          COMPROVADO
+ADAMA_DECISION:      R&D / TECHNICAL: com quem falar sobre um problema específico,
+                     em que instituição, e há quanto tempo essa pessoa trabalha nisso.
+REAL_EXAMPLE:        França, resistência a herbicidas: **Christophe Délye — 9 trabalhos**,
+                     laboratório Agroécologie (INRAE Dijon), 2019–2023; e mais três autores
+                     do mesmo laboratório (Le Corre 6, Michel 5, Pernin 4).
+                     Itália, míldio da videira: **Silvia Laura Toffolatti — 17 trabalhos**,
+                     Università di Milano; Michele Perazzolli — 12, Fondazione Edmund Mach.
+USERS:               RND · TEC · MD
+```
+
+**Não é ranking universal** — e a missão proíbe que seja. É a resposta a **uma pergunta
+específica**: *este problema, neste país, nesta janela de anos*. Trocar o problema muda a
+lista inteira. É exatamente o que se quer.
+
+### CAP-018 · Detectar quando a própria consulta está mentindo (topic drift)
+
+```
+CAPABILITY:          Medir se uma busca por palavra-chave está respondendo à pergunta feita
+                     ou a outra pergunta parecida — comparando consulta larga e estrita.
+SOURCE:              EU-T5-001
+CONFIDENCE:          COMPROVADO (medido, não estimado)
+ADAMA_DECISION:      RND / TECHNICAL: não montar rede de especialistas sobre busca solta.
+REAL_EXAMPLE:        Espanha, septoriose do trigo:
+                     consulta larga `wheat septoria OR Zymoseptoria` → **2.627 trabalhos**,
+                     e os autores mais recorrentes são de **fisiologia de cultura e
+                     sensoriamento remoto** (Slafer 30, Araus 24, Kefauver 15) —
+                     não especialistas em septoriose;
+                     consulta estrita `"Zymoseptoria tritici"` → **27 trabalhos**, e o autor
+                     mais recorrente é **Andrea Sánchez-Vallet (11), INIA/CBGP** —
+                     especialista real no patógeno.
+                     Diferença de **97×** no conjunto, e listas completamente distintas.
+USERS:               RND · TEC (capacidade de método)
+```
+
+> **RED TEAM.** A lista larga não estava "errada por pouco": ela respondia a *"quem publica
+> sobre trigo na Espanha"*, quando a pergunta era *"quem estuda a septoriose do trigo na
+> Espanha"*. Entregar a primeira como resposta da segunda produziria uma rede de contatos
+> tecnicamente irrelevante para o problema — com nomes reais, instituições reais e números
+> reais. **A consulta é o experimento.** Sem vocabulário controlado (nome científico do
+> patógeno, código EPPO), a rede de especialistas não é defensável.
+
+
 ### Placar
 
 | CONFIDENCE | Quantidade |
 |---|---|
-| COMPROVADO | 16 |
+| COMPROVADO | 18 |
 | INFERÊNCIA | 0 |
 | HIPÓTESE | 0 |
 | NÃO SEI | 0 |
@@ -489,7 +545,7 @@ USERS:               TEC · MD
 
 | | COMPROVADO | INFERÊNCIA | HIPÓTESE | NÃO SEI |
 |---|---|---|---|---|
-| EUROPE | 7 | 0 | 0 | 0 |
+| EUROPE | 9 | 0 | 0 | 0 |
 | FRANCE | 3 | 0 | 0 | 0 |
 | SPAIN | 5 | 0 | 0 | 0 |
 | ITALY | 1 | 0 | 0 | 0 |
@@ -506,4 +562,5 @@ a história para o relatório ficar mais bonito.
 | H-001 | "Eurostat dá produtividade agrícola por região NUTS 2" — o dataset se chama *by NUTS 2 region*. | **Caiu.** Testado em 2021–2024: o rendimento tem **zero** valores em NUTS 2 para qualquer país. Só **área** desce a NUTS 2. Ver EU-T1-001. | 2026-08-28 |
 | H-002 | "`ec.europa.eu` está inacessível a partir deste ambiente." | **Caiu.** Eurostat responde normalmente no mesmo domínio, e a página da base de pesticidas devolve 200. O que falha é o **caminho da API interna** de pesticidas. Ver EU-T4-002. | 2026-08-28 |
 | H-003 | "A curva de míldio da Andaluzia mostra o ciclo epidêmico da região." | **Caiu.** Era artefato de amostragem: províncias distintas amostradas em dias distintos. Desagregado, viram três curvas independentes. Ver CAP-015. | 2026-08-28 |
+| H-005 | "Basta buscar o tema por palavra-chave para descobrir os especialistas de um país." | **Caiu, com número.** `wheat septoria OR Zymoseptoria` na Espanha devolve 2.627 trabalhos e uma lista de fisiologistas de cultura; `"Zymoseptoria tritici"` devolve 27 e o especialista real. Ver CAP-018. | 2026-08-28 |
 | H-004 | "Chuva e umidade explicam onde o míldio apareceu na Andaluzia em 2026." | **Caiu, com dado.** Cádiz teve a **maior** umidade média (74,2%) e praticamente **zero** doença; Córdoba teve **mais** chuva que Huelva (65,1 × 55,4 mm) e **4× menos** doença. Ver X-009. | 2026-08-28 |

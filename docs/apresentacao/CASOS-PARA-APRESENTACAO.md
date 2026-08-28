@@ -6,7 +6,7 @@ para a ADAMA.
 Meta: **5 a 10 casos extremamente claros**.
 **Não fabricar casos para preencher quota.** 3 casos irrefutáveis valem mais que 10 mornos.
 
-**Estado:** MISSÃO 02 em curso — **8 casos registrados** (meta 5–10 — dentro da faixa) (meta 5–10).
+**Estado:** MISSÃO 02 em curso — **10 casos registrados** (meta 5–10 — atingida) (meta 5–10).
 **Última atualização:** 2026-08-28
 
 ---
@@ -407,6 +407,86 @@ aplicado** — que a RAIF registra e nós ainda não cruzamos — ficaram de for
 
 ---
 
+### CASE-009 · A busca larga que entregaria a rede de especialistas errada
+
+```
+CASE_ID:                CASE-009
+COUNTRY:                SPAIN (comparado a FRANCE e ITALY)
+CROP:                   Trigo
+PROBLEM:                septoriose (Zymoseptoria tritici)
+TIME:                   trabalhos de 2018 a 2026
+SOURCES:                EU-T5-001 (OpenAlex) · vocabulário de ES-T4-001
+CROSSING:               X-002 / X-010
+```
+
+**WHAT_HAPPENED**
+A pergunta era: *"quem estuda a septoriose do trigo na Espanha?"*. Duas consultas, a mesma
+base, a mesma janela de anos, o mesmo país:
+
+| consulta | trabalhos | autores mais recorrentes | quem são |
+|---|---|---|---|
+| `wheat septoria OR Zymoseptoria` | **2.627** | Slafer (30), Araus (24), Kefauver (15) | fisiologia de cultura e sensoriamento remoto |
+| `"Zymoseptoria tritici"` | **27** | **Sánchez-Vallet (11)**, Meile (5), González-Menéndez (5) | patologia do próprio patógeno |
+
+**97 vezes mais resultados, e uma lista de pessoas completamente diferente.**
+
+**WHY_ADAMA_SHOULD_CARE**
+A primeira lista não é falsa: são pesquisadores reais, espanhóis, de trigo, com números
+reais. Ela apenas responde a **outra pergunta** — *"quem publica sobre trigo na Espanha"*.
+Entregue como "os especialistas em septoriose", ela levaria a equipe técnica a procurar
+parceria, ensaio ou consultoria com quem não trabalha no problema.
+
+O SINTONIA só evita isso porque tem o **vocabulário controlado** (nome científico e código
+EPPO, vindos do registro espanhol) para fazer a pergunta certa.
+
+**RAW_EVIDENCE**   `data/samples/EU-T5-001-openalex-people.json`
+**SCREEN_AVAILABLE**   ainda não
+**STATUS**             **REAL** (as duas contagens e as duas listas)
+
+**O que este caso NÃO diz:** que Sánchez-Vallet é "a autoridade em septoriose na Espanha".
+Diz que é quem mais **publica sobre o patógeno**, com afiliação espanhola, nesta janela.
+Publicar muito não é ser autoridade — a §8 da missão proíbe essa conversão.
+
+---
+
+### CASE-010 · Um mesmo nome em duas camadas: ciência e rede técnica
+
+```
+CASE_ID:                CASE-010
+COUNTRY:                ITALY
+CROP:                   Vid
+REGION:                 Trentino
+PROBLEM:                míldio da videira
+SOURCES:                EU-T5-001 (OpenAlex) + IT-T3-001 (boletins regionais)
+```
+
+**WHAT_HAPPENED**
+Buscando quem publica sobre míldio da videira na Itália, o segundo nome mais recorrente é
+**Michele Perazzolli (12 trabalhos, 2018–2026)**, da **Fondazione Edmund Mach**.
+
+**WHAT_SINTONIA_CONNECTS**
+A Fondazione Edmund Mach é, independentemente, a instituição que publica os *Bollettini
+Difesa integrata di base* do Trentino — encontrada na investigação de T3, por outro caminho
+e sem relação com a busca científica.
+
+**Ciência (T5) e rede técnica de campo (T7) se encontram na mesma organização.** É o primeiro
+elo real do people graph medido nesta missão:
+`PERSON → ORGANIZATION → COUNTRY → REGION → CROP → TOPIC → PAPER → DOCUMENT`.
+
+**WHY_ADAMA_SHOULD_CARE**
+Uma instituição que ao mesmo tempo publica ciência sobre o patógeno e emite a recomendação
+técnica que chega ao produtor é um nó de influência real — não por número de seguidores,
+mas por posição na cadeia entre conhecimento e campo.
+
+**RAW_EVIDENCE**   `data/samples/EU-T5-001-openalex-people.json` · ficha IT-T3-001 no atlas de fontes
+**SCREEN_AVAILABLE**   ainda não
+**STATUS**             **REAL** (as duas ocorrências) + **DERIVED** (a ligação entre elas)
+
+**O que este caso NÃO diz:** que a pessoa ou a instituição tenha influência comercial sobre
+decisão de compra. Isso não foi medido e não está nestes dados.
+
+---
+
 | CASE_ID | País | Cultura | Status | Tela |
 |---|---|---|---|---|
 | CASE-001 | EU → FR | Vigne | REAL | ainda não |
@@ -417,3 +497,5 @@ aplicado** — que a RAIF registra e nós ainda não cruzamos — ficaram de for
 | CASE-006 | ES | Trigo comum | REAL + DERIVED | ainda não |
 | CASE-007 | ES | Vid | REAL | ainda não |
 | CASE-008 | ES | Vid | REAL + DERIVED | ainda não |
+| CASE-009 | ES | Trigo | REAL | ainda não |
+| CASE-010 | IT | Vid | REAL + DERIVED | ainda não |

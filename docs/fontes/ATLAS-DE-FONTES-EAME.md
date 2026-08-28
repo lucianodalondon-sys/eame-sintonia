@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 02 em curso — **20 fontes registradas** (10 GREEN, 2 YELLOW, 8 NÃO SEI).
+**Estado:** MISSÃO 02 em curso — **21 fontes registradas** (11 GREEN, 2 YELLOW, 8 NÃO SEI).
 **Última atualização:** 2026-08-28
 
 ---
@@ -782,21 +782,81 @@ por outro caminho, em ES-T4-001.
 
 ---
 
+### T5 · SCIENCE e T6 · RESEARCHERS — EUROPE
+
+#### EU-T5-001 · OpenAlex — grafo bibliográfico aberto
+
+```
+SOURCE_ID:                    EU-T5-001
+SOURCE_NAME:                  OpenAlex
+SOURCE_OWNER:                 OurResearch (organização sem fins lucrativos)
+COUNTRY:                      global — filtrável por país de afiliação
+LANGUAGE:                     EN (metadados)
+TERRITORY:                    T5 e T6 (e parcialmente T7, pela instituição)
+SOURCE_TYPE:                  agregador bibliográfico aberto
+URL:                          https://api.openalex.org/works
+ACCESS_METHOD:                REST JSON, **sem chave**; *polite pool* via `mailto`
+TOPICS:                       trabalho, ano, DOI, autores, afiliações, instituições,
+                              país da afiliação, tópicos
+GEOGRAPHIC_GRANULARITY:       **país da afiliação do autor** — não é o país do experimento.
+                              Ver a ressalva de geografia abaixo.
+UPDATE_FREQUENCY:             contínua
+HISTORICAL_DEPTH:             décadas
+SOURCE_IDENTITY_PRESERVABLE:  SIM — DOI e ID OpenAlex por trabalho e por autor
+DOCUMENT_ID_AVAILABLE:        SIM (DOI)
+PUBLICATION_DATE_AVAILABLE:   SIM (ano)
+RAW_EVIDENCE_PRESERVABLE:     SIM
+AUTOMATION_FEASIBILITY:       ALTA — **com limite de taxa**: `429 Too Many Requests`
+                              observado em rajada. Exige recuo entre chamadas.
+COLLECTION_FEASIBILITY:       ALTA
+LEGAL_OR_ACCESS_RISK:         BAIXO na licença. **GDPR: são pessoas identificadas.**
+                              Nome, instituição e produção são públicos e profissionais,
+                              mas qualquer perfilamento de pessoa exige revisão —
+                              `NÃO SEI / REQUER REVISÃO` (P-008).
+REAL_EXAMPLE:                 "Quem trabalha repetidamente com resistência a herbicidas na
+                              França?" → **Christophe Délye (9 trabalhos, Agroécologie/INRAE
+                              Dijon, 2019–2023)**, Valérie Le Corre (6), Séverine Michel (5),
+                              Fanny Pernin (4) — os quatro no mesmo laboratório.
+                              "Que pesquisadores aparecem ligados a doenças da videira na
+                              Itália?" → **Silvia Laura Toffolatti (17, Università di Milano)**,
+                              Michele Perazzolli (12, Fondazione Edmund Mach),
+                              Giuliana Maddalena (11, Milano), Vittorio Rossi
+                              (10, Università Cattolica del Sacro Cuore).
+ADAMA_USE_CASE:               R&D / TECHNICAL / MD: quem realmente produz conhecimento sobre
+                              um problema agronômico específico, em que instituição e desde
+                              quando — para parceria, ensaio, consulta técnica e antena.
+EVIDENCE:                     data/samples/EU-T5-001-openalex-people.json
+VERDICT:                      GREEN
+```
+
+**Ressalva de geografia (obrigatória):** `authorships.countries:FR` significa **afiliação
+francesa**, não pesquisa feita na França. Um trabalho sobre trigo australiano assinado por um
+coautor de Montpellier entra no filtro. `SOURCE_LOCATION` e `FACT_LOCATION` **não coincidem**
+nesta fonte, e essa é a sua limitação estrutural.
+
+**Ponte descoberta entre territórios:** a **Fondazione Edmund Mach**, que aparece em T5 como
+instituição do segundo pesquisador italiano mais recorrente em míldio da videira, é a mesma
+instituição que publica os *Bollettini Difesa integrata* do Trentino, registrada em T3.
+Ciência e rede técnica se encontram na mesma organização — é o primeiro elo real de
+PERSON → ORGANIZATION → TOPIC → DOCUMENT do people graph.
+
+---
+
 ### Placar
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
-| EUROPE | 5 | 0 | 0 | 3 | 8 |
+| EUROPE | 6 | 0 | 0 | 3 | 9 |
 | FRANCE | 1 | 1 | 0 | 2 | 4 |
 | SPAIN | 3 | 0 | 0 | 2 | 5 |
 | ITALY | 1 | 1 | 0 | 1 | 3 |
-| **Total** | **10** | **2** | **0** | **8** | **20** |
+| **Total** | **11** | **2** | **0** | **8** | **21** |
 
 ### Cobertura por território
 
 | | T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9 | T10 | T11 | T12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| EUROPE | 2G | 3G/1? | 1? | 1G/1? | – | – | – | – | – | – | – | – |
+| EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | – | – | – | – | – |
 | FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | – | – | – | – |
 | SPAIN | 1? | – | **1G** | 2G/1? | – | – | – | – | – | – | – | – |
 | ITALY | 1? | – | 1Y | 1G | – | – | – | – | – | – | – | – |

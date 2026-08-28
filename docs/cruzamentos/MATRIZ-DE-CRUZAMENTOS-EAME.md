@@ -6,7 +6,7 @@ juntas** revelam e nenhuma delas revela sozinha.
 > **Não afirmar cruzamento apenas porque semanticamente parece interessante.**
 > Clima + doença "parece" cruzar. A pergunta real é: **qual chave os une?**
 
-**Estado:** MISSÃO 02 em curso — **2 COMPROVADOS, 3 PARCIAIS, 2 NÃO COMPÕEM**.
+**Estado:** MISSÃO 02 em curso — **3 COMPROVADOS, 4 PARCIAIS, 2 NÃO COMPÕEM**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -63,7 +63,7 @@ Listados como **candidatos a testar**, não como afirmações. Todos partem em `
 | ID | Cruzamento | Classe |
 |---|---|---|
 | X-001 | CLIMATE + REGION + CROP + DISEASE ALERT | **PARCIAL** (falta DISEASE ALERT) |
-| X-002 | RESEARCHER + PAPER + CROP + PROBLEM | NÃO SEI |
+| X-002 | RESEARCHER + PAPER + CROP + PROBLEM | **COMPROVADO** |
 | X-003 | COMPETITOR + PRODUCT + CROP + COMMUNICATION | NÃO SEI (camada COMMUNICATION não investigada) |
 | X-004 | REGULATORY + ADAMA PORTFOLIO + CROP + PEST | **COMPROVADO (FR)** |
 
@@ -359,12 +359,60 @@ X-001 permanece **PARCIAL**, por três motivos medidos e não estimados:
    justificaria a ferramenta **não se sustenta nos dados**.
 
 
+### X-002 · RESEARCHER + PAPER + CROP + PROBLEM — **COMPROVADO (com vocabulário controlado)**
+
+```
+CROSSING_ID:        X-002
+COMPONENTS:         pesquisador + trabalho + cultura + problema (+ instituição, + país)
+SOURCES:            EU-T5-001 (OpenAlex)
+KEY:                identificador de autor do OpenAlex, ligando trabalhos ao mesmo nome;
+                    o problema entra pela consulta; o país pela afiliação.
+GRANULARITY_MATCH:  SIM dentro da fonte — autor, trabalho, instituição e ano são nativos.
+WHAT_IT_REVEALS:    quem sustenta um tema ao longo do tempo, e em que instituição —
+                    em vez de quem publicou uma vez.
+REAL_EXAMPLE:       Itália × videira × míldio: Toffolatti (17, Milano),
+                    Perazzolli (12, Edmund Mach), Maddalena (11), Rossi (10, Cattolica).
+                    França × resistência a herbicidas: Délye (9) e mais três do mesmo
+                    laboratório INRAE Agroécologie.
+CAPABILITY:         CAP-017, CAP-018
+CLASS:              **COMPROVADO** — condicionado a vocabulário controlado (ver X-010)
+```
+
+**As oito perguntas — os pontos que decidem:**
+D · granularidade compatível; tudo vive na mesma fonte.
+F · **afirma fato** (autoria e afiliação), **não** autoridade. Publicar muito não é ser a
+autoridade principal — a §8 da missão proíbe essa conversão, e ela não foi feita.
+H · erro fácil: usar consulta larga e obter a rede errada. Medido em CAP-018.
+
+### X-010 · Vocabulário controlado como pré-requisito do people graph — **PARCIAL**
+
+```
+CROSSING_ID:        X-010
+COMPONENTS:         EPPO/nome científico (ES-T4-001) + consulta científica (EU-T5-001)
+KEY:                nome científico do patógeno ou da cultura
+CLASS:              PARCIAL
+```
+
+**O que funciona:** o dicionário EPPO da Espanha entrega o nome científico exato
+(PLASVI = *Plasmopara viticola*, SEPTTR = *Zymoseptoria tritici*), e usar esse nome como
+consulta no OpenAlex produz a rede de especialistas correta — comprovado em CAP-018.
+
+**O que falta:** o elo entre o nome comum usado nas fontes de campo e o nome científico.
+A RAIF já traz o científico junto (`"Mildiu... Plasmopara viticola"`), mas o E-Phy francês
+**não** (X-007). Enquanto isso, um alerta de campo francês não se conecta automaticamente
+à literatura sobre o mesmo patógeno.
+
+**Cadeia que já fecha hoje, ponta a ponta, com vocabulário:**
+`praga na Andaluzia (RAIF) → nome científico → EPPO → literatura e pesquisadores (OpenAlex)`.
+**Cadeia que ainda não fecha:** a mesma partindo da França.
+
+
 ### Placar
 
 | Classe | Quantidade |
 |---|---|
-| COMPROVADO | 2 |
-| PARCIAL | 3 |
+| COMPROVADO | 3 |
+| PARCIAL | 4 |
 | POSSÍVEL MAS NÃO TESTADO | 0 |
 | NÃO COMPÕE | 2 |
-| NÃO SEI | 1 |
+| NÃO SEI | 0 |

@@ -3,7 +3,7 @@
 Ferramenta nasce de cruzamento provado, não de ideia bonita.
 Ordem: `SOURCE → EVIDENCE → DATA → CROSSING → CAPABILITY → TOOL → PORTAL`.
 
-**Estado:** MISSÃO 02 em curso — **9 ferramentas qualificadas**.
+**Estado:** MISSÃO 02 em curso — **10 ferramentas qualificadas**.
 **Última atualização:** 2026-08-28
 
 ---
@@ -44,8 +44,8 @@ Nenhuma está aprovada. **A descoberta decide** — só sobe quem tiver dado que
 | CROP PULSE | **QUALIFICADA — CROSSING PROVED** |
 | PEST & DISEASE RADAR | **QUALIFICADA — CROSSING PROVED (só Andaluzia)** |
 | CLIMATE IMPACT | **QUALIFICADA — CROSSING PROVED** (renomear: mede exposição) |
-| SCIENCE RADAR | NÃO QUALIFICADA |
-| EXPERT NETWORK | NÃO QUALIFICADA |
+| SCIENCE RADAR | **QUALIFICADA — CROSSING PROVED** (junto com EXPERT NETWORK) |
+| EXPERT NETWORK | **QUALIFICADA — CROSSING PROVED** |
 | FIELD VOICES | NÃO QUALIFICADA |
 | COMPETITIVE RADAR | **QUALIFICADA — CROSSING PROVED** (camada regulatória) |
 | REGULATORY WATCH | **QUALIFICADA — CROSSING PROVED** |
@@ -274,5 +274,34 @@ STATUS:               CROSSING PROVED para Andaluzia · CONCEPT para França e I
 LIMIT:                **Não explica a causa e não prevê surto.** Agregar províncias produz
                       um número que não descreve nenhuma delas (CAP-015). Fora da
                       Andaluzia, a ferramenta ainda não tem dado numérico — só texto.
+```
+
+### EXPERT NETWORK / SCIENCE RADAR — `CROSSING PROVED`
+
+```
+TOOL_NAME:            EXPERT NETWORK (com SCIENCE RADAR como a mesma base)
+QUESTION:             "Quem trabalha repetidamente com este problema, neste país,
+                       em que instituição e desde quando?"
+USER:                 R&D · TECHNICAL · MARKET DEVELOPMENT
+DATA_REQUIRED:        literatura com autoria, afiliação e país; vocabulário controlado
+SOURCES:              EU-T5-001 (OpenAlex) + ES-T4-001 (EPPO / nome científico)
+CROSSING:             X-002, X-010
+REAL_EXAMPLE:         França × resistência a herbicidas → Christophe Délye (9), INRAE
+                      Agroécologie. Itália × míldio da videira → Silvia Laura Toffolatti
+                      (17), Università di Milano.
+FACT:                 autoria, afiliação, ano, DOI
+DERIVED_ANALYSIS:     a contagem de recorrência e o agrupamento por instituição
+UNKNOWN:              autoridade real, influência sobre o campo, disponibilidade para
+                      parceria, e se o trabalho foi feito naquele país
+ADAMA_VALUE:          antena científica dirigida a um problema, e não clipping de papers
+TECHNICAL_DIFFICULTY: BAIXA no acesso; **MÉDIA no vocabulário** — sem nome científico a
+                      ferramenta responde à pergunta errada (CASE-009)
+DATA_RISK:            **ALTO em GDPR** — são pessoas identificadas (P-008)
+PRIORITY:             MÉDIA-ALTA
+STATUS:               CROSSING PROVED
+LIMIT:                **Recorrência não é autoridade.** Afiliação não é local do
+                      experimento. E sem vocabulário controlado a lista muda por completo.
+                      Não construir ranking universal — a missão proíbe, e com razão:
+                      a lista só faz sentido colada a um problema e a um país.
 ```
 
