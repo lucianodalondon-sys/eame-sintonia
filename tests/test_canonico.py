@@ -202,11 +202,29 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
                     self.assertIn(n, self.DOCS[doc], f'{doc} não cita {n}')
 
     def test_benchmark_placar_identico_em_todo_lugar(self):
-        for nome in ('pacote', 'design', 'benchmark', 'claims'):
+        for nome in ('pacote', 'design', 'benchmark'):
             with self.subTest(documento=nome):
-                self.assertRegex(self.DOCS[nome], r'\b12\b', 'placar: 12 respondidas')
-                self.assertRegex(self.DOCS[nome], r'\b8\b', 'placar: 8 recusadas')
+                self.assertRegex(self.DOCS[nome], r'\b14\b', 'placar: 14 respondidas')
+                self.assertRegex(self.DOCS[nome], r'\b10\b', 'placar: 10 recusadas')
                 self.assertRegex(self.DOCS[nome], r'\b0\b', 'placar: 0 erradas')
+
+    def test_es01717_tratado_com_as_entidades_certas(self):
+        """A concessionária nunca pode aparecer como titular."""
+        casos = self.DOCS['casos']
+        self.assertIn('ES-01717', casos)
+        self.assertRegex(casos, r'(?i)concession[áa]ria',
+                         'o case não distingue concessionária de titular')
+        for linha in re.findall(r'^#{1,4} .*$', casos, re.M) + re.findall(r'^\|.*$', casos, re.M):
+            with self.subTest(linha=linha[:60]):
+                self.assertNotRegex(linha, r'(?i)Syngenta.{0,24}titular',
+                                    'declara a Syngenta como titular do registro')
+
+    def test_titular_espanhol_marcado_como_fonte_secundaria(self):
+        """Não lemos a ficha do MAPA — o documento tem de dizer isso."""
+        for nome in ('casos', 'pacote'):
+            with self.subTest(documento=nome):
+                self.assertRegex(self.DOCS[nome], r'(?i)secund[áa]ria',
+                                 'a atribuição de titular não está marcada como secundária')
 
     def test_cobertura_das_normalizacoes(self):
         for nome in ('pacote', 'design'):

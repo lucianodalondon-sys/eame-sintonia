@@ -36,7 +36,12 @@ evidência em `../../data/samples/`
 do protioconazol em **31/03/2027**; a molécula foi prorrogada **6 vezes em 6 anos** e o
 Parlamento Europeu objetou **3 vezes**.
 
-**Espanha:** `NÃO SEI` para o registro de produtos — motivo exato em SOURCE PACK.
+**Espanha — a perna fechou na MISSÃO 06:** registro **ES-01717**, produto de referência
+**SORATEL MAX** (antes **MAXENTIS**), composição **azoxistrobina 20% + protioconazol 15%**,
+titular **ADAMA Agriculture España S.A.** e fabricante **ADAMA MAKHTESHIM LTD.**
+Nome, denominações, empresas e datas vêm de **fonte primária** (MAPA, duas versões);
+titular, fabricante e composição vêm de **fonte secundária** — declarado assim.
+O **dump geral** do registro espanhol continua indisponível.
 
 # BUSINESS QUESTION 2 · MARKET DEVELOPMENT / FIELD SIGNAL
 > *"Is this signal real, where is it happening, what supports it, and does ADAMA have a response?"*
@@ -108,16 +113,18 @@ sem campanha 2025–2026** (17 usos em Vigne×Mildiou, a empresa nomeada com mai
 |---|---|---|---|
 | fato regulatório da UE aplicável | ✅ | ✅ | ✅ |
 | sinal público ADAMA em cereal | ✅ | ✅ | ✅ |
-| **registro nacional verificável** | ✅ 3 produtos | ❌ **NÃO SEI** | ✅ 5 produtos |
+| **registro nacional verificável** | ✅ 3 produtos | ✅ ES-01717 (titular por fonte secundária) | ✅ 5 produtos |
 | datas de vencimento | ❌ campo inexistente | ❌ | ✅ |
 | cultura × alvo no registro | ✅ | ❌ | ❌ |
 
-**A cadeia fecha em FR e IT. Na Espanha fecha 2 de 3 pernas.** Motivo exato: o registro
-espanhol de produtos não tem dump aberto — a aplicação `servicio.mapa.gob.es/regfiweb`
-responde 200 mas a grade é renderizada por JavaScript. **Não é falta de busca; é falta de via.**
+**A cadeia fecha nos três mercados — 3/3, com uma ressalva de qualidade de fonte.**
+FR: MAXENTIS AMM 2230815 · ES: MAXENTIS/SORATEL MAX ES-01717 · IT: MAXENTIS reg. 018067.
+**São três autorizações nacionais distintas, não um produto único** — mesma molécula não é
+mesmo produto. Na Espanha, titular e fabricante vêm de fonte **secundária**; o dump geral do
+registro espanhol continua indisponível (grade em JavaScript).
 
 # ASK SINTONIA MATERIAL
-20 perguntas · **12 respondidas · 8 recusadas corretamente · 0 erradas**.
+25 perguntas · **14 respondidas · 10 recusadas corretamente · 1 parcial · 0 erradas**.
 Contrato e detalhe em `ASK-SINTONIA-BENCHMARK.md`.
 
 # TRUST / EVIDENCE

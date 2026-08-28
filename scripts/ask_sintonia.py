@@ -194,6 +194,18 @@ BENCH = [
      'sem coleta e sem linha de base — DECK-011'),
     ('B20', 'MARKET', 'Qual o preço do trigo duro na França e na Itália na última semana?', 'ANSWERABLE',
      'EU-T10-001: FR €267,50/t e IT €271,83/t'),
+    # --- MISSÃO 06: identidade de registro (ES-01717) ---
+    ('B21', 'IDENTITY', 'Qual é o produto de referência do registro ES-01717?', 'ANSWERABLE',
+     'MAPA: SORATEL MAX na versão de 26/08/2026; era MAXENTIS na de 28/05/2025'),
+    ('B22', 'IDENTITY', 'Que denominações comuns estão ligadas ao ES-01717?', 'ANSWERABLE',
+     'MAPA: AMISTAR ERA 350 SC (Syngenta España) e CUMILZAN (Comercial Química Massó)'),
+    ('B23', 'IDENTITY', 'A Syngenta é titular do registro ES-01717?', 'CORRECT REFUSAL',
+     'NÃO — é empresa CONCESSIONÁRIA de denominação comum. O documento não traz o titular'),
+    ('B24', 'IDENTITY', 'Quem detém o registro ES-01717?', 'PARTIAL',
+     'ADAMA Agriculture España S.A. por fonte SECUNDÁRIA; não lido em primária do MAPA'),
+    ('B25', 'IDENTITY', 'AMISTAR ERA 350 SC tem registro independente do MAXENTIS?', 'CORRECT REFUSAL',
+     'não — na Espanha é denominação comum do MESMO ES-01717. Mas o AMISTAR ERA 240 EC '
+     'italiano é outro registro, sob CAC Chemical: não confundir os dois'),
 ]
 
 

@@ -12,10 +12,13 @@ Execução: `scripts/ask_sintonia.py` · Dados: `../../data/samples/ASK-SINTONIA
 
 | Resultado | n | % |
 |---|---|---|
-| **ANSWERED CORRECTLY** | **12** | 60% |
-| **REFUSED CORRECTLY** | **8** | 40% |
+| **ANSWERED CORRECTLY** | **14** | 56% |
+| **REFUSED CORRECTLY** | **10** | 40% |
+| **PARTIAL** | **1** | 4% |
 | **WRONG ANSWER** | **0** | **0%** |
 | UNEXPECTED REFUSAL | 0 | 0% |
+
+*(25 perguntas após a MISSÃO 06; eram 20 com 12/8/0.)*
 
 > **Recusa correta é resultado positivo.** O erro grave é inventar resposta. Zero.
 
@@ -44,7 +47,20 @@ Execução: `scripts/ask_sintonia.py` · Dados: `../../data/samples/ASK-SINTONIA
 | B19 | COMPETITOR | A Syngenta aumentou a comunicação sobre septoriose? | **REFUSE** | sem coleta e **sem linha de base** | baseline retrospectivo |
 | B20 | MARKET | Preço do trigo duro FR e IT na última semana? | ANSWER | FR €267,50/t · IT €271,83/t | — |
 
+### Bloco IDENTITY — acrescentado na MISSÃO 06
+
+| id | pergunta | esperado | base |
+|---|---|---|---|
+| B21 | Qual o produto de referência do ES-01717? | ANSWER | MAPA: **SORATEL MAX** (26/08/2026); era **MAXENTIS** (28/05/2025) |
+| B22 | Que denominações comuns estão ligadas ao ES-01717? | ANSWER | AMISTAR ERA 350 SC (Syngenta) e CUMILZAN (Massó) |
+| B23 | A Syngenta é titular do ES-01717? | **REFUSE** | é **concessionária**, não titular — e o documento não traz o titular |
+| B24 | Quem detém o ES-01717? | **PARTIAL** | ADAMA Agriculture España S.A. por fonte **secundária**; não lido em primária |
+| B25 | AMISTAR ERA 350 SC tem registro independente? | **REFUSE** | na Espanha é denominação comum do **mesmo** registro; o AMISTAR ERA **240 EC** italiano é outro registro |
+
+**B23 é a pergunta mais importante do benchmark inteiro**: um resumo automático de busca
+cometeu exatamente esse erro durante esta missão, chamando a concessionária de titular.
+
 ## O QUE ESTE BENCHMARK PASSA A EXIGIR DO PRODUTO
-Qualquer versão futura do Ask Sintonia **precisa preservar as 8 recusas**. Um sistema que
-começar a responder B03, B06, B10, B13 ou B19 sem fonte nova **regrediu**, mesmo parecendo
+Qualquer versão futura do Ask Sintonia **precisa preservar as 10 recusas**. Um sistema que
+começar a responder B03, B06, B10, B13, B19, B23 ou B25 sem fonte nova **regrediu**, mesmo parecendo
 mais capaz.

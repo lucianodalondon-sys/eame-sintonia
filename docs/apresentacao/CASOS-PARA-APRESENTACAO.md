@@ -823,88 +823,80 @@ publicamente no mercado espanhol. Também não sabemos vendas, prioridade comerc
 
 ---
 
-### CASE-015 · Identidade de marca não é identidade de registro (IT e ES)
+### CASE-015 · Uma autorização, três identidades comerciais — e o registro que mudou de nome
 
 ```
 CASE_ID:                CASE-015
-TITLE:                  Identidade de marca × identidade de registro (IT e ES)
-COUNTRY:                ITALY
-CROP:                   Trigo tenro e duro, cevada, triticale, centeio
-PROBLEM:                septoriose, ferrugens, oídio, fusariose da espiga
-DATE / PERIOD:          registros de 06/2024 a 12/2025 · registro consultado em 24/08/2026
-SOURCES:                IT-T4-001 (Ministero della Salute) + comunicação técnica pública
-CROSSINGS:              X-005 (concorrente × combate) + X-006 (substância normalizada)
+TITLE:                  ES-01717 — identidade de registro × identidade de marca
+COUNTRY:                SPAIN (com contraste em ITALY e FRANCE)
+CROP:                   Cereais
+PROBLEM:                como contar o ecossistema competitivo sem errar a entidade
+DATE / PERIOD:          MAPA 28/05/2025 e 26/08/2026 · registro IT 24/08/2026 · FR 25/08/2026
+SOURCES:                ES-T4-004 (MAPA, duas versões) · IT-T4-001 · FR-T4-001 · agregador do registro ES
 ADAMA_ALIGNMENT:        **HIGH** — cereal é CORE PUBLIC SIGNAL nos três países
-PRESENTATION_VALUE:     **ALTA** — prova a *lane* Competitor do deck com fato administrativo
+PRESENTATION_VALUE:     **ALTA**
+TIER:                   **A · HERO CASE** — promovido nesta missão
 ```
 
-**FACT — o que o registro italiano diz**
-Produtos em vigor na Itália com a dupla **azoxistrobina + protioconazol**:
+**FACT — o que as fontes primárias dizem**
 
-| nº reg. | produto | titular do registro | registrado em | vence em |
-|---|---|---|---|---|
-| 018067 | **MAXENTIS** | ADAMA ITALIA S.R.L. | **14/06/2024** | 31/05/2027 |
-| 019095 | **KOJAMI** | ADAMA ITALIA S.R.L. | 29/09/2025 | 31/05/2027 |
-| 019093 | PROMINO XTRA | **CAC CHEMICAL GMBH** | 03/10/2025 | 31/03/2028 |
-| 019194 | **AMISTAR ERA 240 EC** | **CAC CHEMICAL GMBH** | **29/12/2025** | 31/03/2028 |
+Lista oficial de *denominaciones comunes* do MAPA, duas versões do mesmo documento:
 
-E a comunicação técnica pública italiana apresenta **AMISTAR® ERA 240 EC como a novidade
-Syngenta para cereais em 2026**, com azoxistrobina e protioconazol, autorizada em trigo
-tenro e duro, centeio, cevada e triticale.
+| versão do documento | registro | produto de referência | concessionária | denominação | aceite |
+|---|---|---|---|---|---|
+| **28/05/2025** | ES-01717 | **MAXENTIS** | SYNGENTA ESPAÑA S.A. | AMISTAR ERA 350 SC | 11/09/2024 |
+| **28/05/2025** | ES-01717 | **MAXENTIS** | COMERCIAL QUÍMICA MASSÓ S.A. | CUMILZAN | 18/09/2024 |
+| **26/08/2026** | ES-01717 | **SORATEL MAX** | SYNGENTA ESPAÑA S.A. | AMISTAR ERA 350 SC | 10/08/2026 |
+| **26/08/2026** | ES-01717 | **SORATEL MAX** | COMERCIAL QUÍMICA MASSÓ S.A. | CUMILZAN | 10/08/2026 |
 
-**INTERPRETATION — uma leitura sobreviveu ao red team, a outra caiu**
+**ESTRUTURA REGULATÓRIA**
+O regime espanhol de *denominación común* permite que **uma mesma autorização de referência**
+seja comercializada por outras empresas sob **nomes próprios**. Não é licenciamento de
+produto nem revenda: é uma concessão de nome sobre o **mesmo registro**.
 
-**1 · O titular do registro não é a marca. CONFIRMADO, e agora em dois países.**
-Na Itália, o AMISTAR ERA 240 EC está registrado sob **CAC CHEMICAL GMBH**, não Syngenta.
-Na Espanha, a lista oficial de *denominaciones comunes* do MAPA (versão de **26/08/2026**)
-traz, literalmente:
+**Titular e fabricante** (fonte **secundária**, agregador do registro espanhol; não lidos por
+nós em primária): `ADAMA Agriculture España S.A.` e `ADAMA MAKHTESHIM LTD.`, composição
+`AZOXISTROBIN 20% + PROTIOCONAZOL 15% [SC] P/V`, status `Vigente`. Corroborado por
+MAXENTIS ser marca ADAMA em vários mercados e pelo registro italiano (ADAMA ITALIA,
+reg. 018067, azoxistrobina + protioconazol).
 
-> `ES-01717 · SORATEL MAX · SYNGENTA ESPAÑA S.A. · AMISTAR ERA 350 SC · 10/08/2026`
-> `ES-01717 · SORATEL MAX · COMERCIAL QUÍMICA MASSÓ S.A. · CUMILZAN · 10/08/2026`
+**DUAS DESCOBERTAS**
 
-Ou seja: na Espanha, **AMISTAR ERA 350 SC é uma denominação comum do produto de referência
-SORATEL MAX** (registro ES-01717) — e a Massó vende o mesmo registro como CUMILZAN.
-Um registro, três marcas, três empresas.
+**1 · O produto de referência mudou de nome, e o registro não.**
+`MAXENTIS` → `SORATEL MAX`, com o **mesmo ES-01717**. Um radar que acompanhasse **marca**
+teria registrado dois eventos falsos: *"MAXENTIS saiu da Espanha"* e *"SORATEL MAX entrou"*.
+Nenhum dos dois aconteceu. **Só o número de registro sobrevive à renomeação.**
 
-**Contar concorrente por razão social erra. Contar por marca erra também.**
+> Nós só enxergamos isso porque tínhamos **duas versões arquivadas** do mesmo documento.
+> É a justificativa do DATA CLOCK, provada na prática e não em argumento.
 
-**2 · A cronologia competitiva. RETIRADA.**
-Eu havia escrito que *"a ADAMA registrou primeiro e o concorrente chegou 18 meses depois"*.
-**Não sustento mais essa leitura.** O dado espanhol mostra que a mesma dupla de marcas
-(SORATEL / AMISTAR ERA) pode estar numa relação de **denominação comum** — o mesmo produto
-registrado, vendido sob nomes diferentes — e não numa disputa entre produtos rivais.
+**2 · Isto não é exceção. É metade do mercado espanhol.**
+Na lista completa: **1.737 denominações comuns** sobre **708 registros de referência**;
+**359 (50,7%)** têm mais de uma marca; média **2,45**; máximo **24**.
 
-Não posso transportar o achado espanhol para a Itália: são formulações diferentes
-(**350 SC** na Espanha, **240 EC** na Itália) e mecanismos administrativos diferentes.
-Mas **também não posso excluir** que a relação italiana seja da mesma natureza. Enquanto
-não souber quem é o titular de ES-01717 e qual a relação entre CAC Chemical, Syngenta e
-ADAMA, a leitura competitiva **não é afirmável**.
+**O QUE ISTO SIGNIFICA PARA INTELIGÊNCIA COMPETITIVA**
+Contar o mercado espanhol **por marca** infla a contagem em ~**2,45×**. Contar **por
+concessionária** atribui a autorização à empresa errada. Só a contagem **por registro de
+referência** descreve autorizações reais. `COMPETITOR_IDENTITY` precisa de quatro eixos:
+**titular · concessionária · marca · fabricante** (`../regras/MODELO-DE-IDENTIDADE-EAME.md`).
 
-`RELAÇÃO COMERCIAL ENTRE AS MARCAS = NÃO SEI.`
+**O QUE ISTO NÃO SIGNIFICA**
+Não significa que *"a Syngenta vende produto da ADAMA"*, nem que *"a ADAMA fabrica o AMISTAR
+ERA"*, nem que *"a Syngenta é titular do ES-01717"* — **este último erro foi observado ao
+vivo** nesta missão, num resumo automático de busca que chamou a concessionária de titular.
+E `SORATEL MAX` (ES, azoxistrobina + protioconazol) **não é** o `SORATEL` italiano
+(reg. 018175, protioconazol isolado).
 
-**UNKNOWN**
-Quem é o titular do registro **ES-01717**: o PDF espanhol lista *empresas concessionárias*,
-não o titular do produto de referência. Se CAC Chemical atua por conta da Syngenta, por
-acordo, ou de forma independente — o registro italiano **não diz**. E não sabemos vendas,
-preço nem distribuição efetiva.
+**RAW_EVIDENCE**   `data/samples/ES-T4-004-denominaciones-comunes.json` ·
+`data/samples/ES-T4-004-denominaciones-padrao.json`
+**STATUS**             **REAL** (primária para nome, denominações, empresas e datas) ·
+**REPORTED** (secundária para titular, fabricante e composição)
 
-**ACTION**
-Para COMPETITIVE: a normalização de identidade (**G4**) deixa de ser detalhe técnico e vira
-**pré-requisito**, e agora sabe-se que ela precisa de **três** eixos, não um:
-marca · empresa concessionária · titular do registro de referência.
-Antes de qualquer leitura competitiva sobre esta dupla, a ADAMA precisa saber internamente
-se SORATEL MAX é produto seu — informação que ela tem e nós não.
-
-**RAW_EVIDENCE**   `data/samples/COMPETITOR-azoxy-prothio-italy.json`
-**STATUS**             **REAL** (registros e datas) + **DERIVED** (a leitura de cronologia)
-**TIER**               **C · TECHNICAL PROOF** — rebaixado de HERO nesta missão
-
-> **RED TEAM — e este case perdeu metade de si mesmo no processo.** A leitura de
-> *cronologia competitiva* foi **retirada** depois que o dado espanhol mostrou uma relação
-> de denominação comum entre as mesmas marcas. *"A Syngenta copiou a ADAMA"*, *"CAC Chemical
-> é a Syngenta"* e *"a ADAMA chegou 18 meses antes"*: **nenhuma é afirmável**.
-> O que sobrevive, e sobrevive mais forte: **identidade de marca ≠ identidade de registro**,
-> demonstrado em dois países e por dois mecanismos diferentes.
+> **RED TEAM.** *"A ADAMA já vende na Espanha através da Syngenta."* **Não afirmável** — a
+> denominação comum é ato administrativo, não acordo comercial revelado.
+> *"MAXENTIS foi descontinuado na Espanha."* **Falso** — foi renomeado; o registro é o mesmo.
+> *"Metade do mercado espanhol é da ADAMA."* **Falso** — 50,7% é a fração de **registros com
+> mais de uma marca**, de qualquer titular.
 
 ---
 
@@ -924,4 +916,4 @@ se SORATEL MAX é produto seu — informação que ela tem e nós não.
 | CASE-012 | ES | Olivar | REAL + DERIVED | protótipo V2 |
 | CASE-013 | ES | Olivar | REAL + DERIVED | — (missão só texto) |
 | CASE-014 | EU → FR/IT | Cereais | REAL + DERIVED | — (missão só texto) |
-| CASE-015 | IT + ES | Cereais | REAL + DERIVED | — (missão só texto) |
+| CASE-015 | ES (+ IT, FR) | Cereais | REAL + REPORTED | — (missão só texto) |

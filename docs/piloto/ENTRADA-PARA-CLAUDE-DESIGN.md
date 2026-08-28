@@ -31,7 +31,8 @@ todas públicas e gratuitas. O problema nunca foi acesso; foi separação.
 `135` usos em Blé×Septoriose (`BASF 22`, `Bayer 20`, `ADAMA 6`)
 `45` autorizações excepcionais vigentes na Espanha
 Normalização: substância `82,1%` do uso · agronômica `23,5%` do uso
-Ask Sintonia: `12` respondidas · `8` recusadas · `0` erradas
+Ask Sintonia: `14` respondidas · `10` recusadas · `1` parcial · `0` erradas
+Espanha: `1.737` denominações comuns sobre `708` registros · `359 (50,7%)` com mais de uma marca · média `2,45`
 
 # COUNTRIES
 França · Espanha · Itália · camada UE. **Não** Polônia nem Romênia.
@@ -50,7 +51,8 @@ Septoriose · ferrugens · oídio · fusariose da espiga · míldio da videira (
 # COMPANIES
 ADAMA (FRANCE SAS · ITALIA S.R.L. · ESPAÑA S.A.) · Bayer · BASF · Syngenta · Corteva ·
 UPL · Nufarm · Ascenza · Sharda · Life Scientific · Globachem · CAC Chemical GmbH ·
-Comercial Química Massó. **Atenção: razão social ≠ grupo ≠ marca.**
+Comercial Química Massó. **Atenção: razão social ≠ grupo ≠ marca ≠ titular ≠ concessionária ≠ fabricante.**
+Ver `../regras/MODELO-DE-IDENTIDADE-EAME.md` — obrigatório antes de qualquer contagem competitiva.
 
 # PEOPLE
 Christophe Délye (INRAE Agroécologie) · Silvia Laura Toffolatti (Milano) ·
@@ -78,7 +80,11 @@ Normalização de identidade (marca/concessionária/titular) · comunicação de
 registro espanhol · detecção de "novo registro" via versionamento · baseline de campo FR/IT ·
 réguas de confiança e independência aplicadas.
 
+# IDENTITY RULE (obrigatória)
+`COMPETITOR_IDENTITY` tem **quatro eixos**: titular · concessionária · marca · fabricante.
+Contar o mercado espanhol por marca infla ~**2,45×**. A pergunta decide qual eixo importa.
+
 # CONTENT THAT MUST NEVER BE IMPLIED
 Previsão de surto · participação de mercado · dependência de fornecimento · influência de
-campo · causalidade clima→doença · derivação legal entre datas UE e nacionais · retirada de
+campo · causalidade clima→doença · derivação legal entre datas UE e nacionais · concessionária apresentada como titular · marca apresentada como registro · retirada de
 substância a partir de uma expiração · comparabilidade EAME fora de área de cultura e preço.

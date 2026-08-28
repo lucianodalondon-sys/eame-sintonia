@@ -14,8 +14,9 @@
   "FACT_LOCATION": "EU/FR/ES/IT",
   "ORIGINAL_LANGUAGE": "FR/ES/IT/EN",
   "totals": {
-    "ANSWERABLE": 12,
-    "CORRECT REFUSAL": 8
+    "ANSWERABLE": 14,
+    "CORRECT REFUSAL": 10,
+    "PARTIAL": 1
   },
   "wrong_answers": 0,
   "questions": [
@@ -158,6 +159,41 @@
       "question": "Qual o preço do trigo duro na França e na Itália na última semana?",
       "verdict": "ANSWERABLE",
       "basis": "EU-T10-001: FR €267,50/t e IT €271,83/t"
+    },
+    {
+      "id": "B21",
+      "layer": "IDENTITY",
+      "question": "Qual é o produto de referência do registro ES-01717?",
+      "verdict": "ANSWERABLE",
+      "basis": "MAPA: SORATEL MAX na versão de 26/08/2026; era MAXENTIS na de 28/05/2025"
+    },
+    {
+      "id": "B22",
+      "layer": "IDENTITY",
+      "question": "Que denominações comuns estão ligadas ao ES-01717?",
+      "verdict": "ANSWERABLE",
+      "basis": "MAPA: AMISTAR ERA 350 SC (Syngenta España) e CUMILZAN (Comercial Química Massó)"
+    },
+    {
+      "id": "B23",
+      "layer": "IDENTITY",
+      "question": "A Syngenta é titular do registro ES-01717?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "NÃO — é empresa CONCESSIONÁRIA de denominação comum. O documento não traz o titular"
+    },
+    {
+      "id": "B24",
+      "layer": "IDENTITY",
+      "question": "Quem detém o registro ES-01717?",
+      "verdict": "PARTIAL",
+      "basis": "ADAMA Agriculture España S.A. por fonte SECUNDÁRIA; não lido em primária do MAPA"
+    },
+    {
+      "id": "B25",
+      "layer": "IDENTITY",
+      "question": "AMISTAR ERA 350 SC tem registro independente do MAXENTIS?",
+      "verdict": "CORRECT REFUSAL",
+      "basis": "não — na Espanha é denominação comum do MESMO ES-01717. Mas o AMISTAR ERA 240 EC italiano é outro registro, sob CAC Chemical: não confundir os dois"
     }
   ]
 }

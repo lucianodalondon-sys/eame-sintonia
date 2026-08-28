@@ -39,10 +39,15 @@ Cada frase segura aponta para o arquivo que a prova.
    system refuses to answer when it cannot."** → 25 provas automatizadas; 12/20 respondidas,
    **8 recusadas, 0 erradas**.
 
-10. **"We can show that brand identity is not registration identity — in two countries and by
-    two different mechanisms."** → CASE-015.
+10. **"We can show that brand identity is not registration identity — and that in Spain one
+    reference registration carries 2.45 commercial names on average, half of them more than
+    one."** → 1.737 denominações sobre 708 registros. CASE-015.
 
-11. **"We can show when the obvious explanation is wrong."** → CASE-008: Córdoba choveu mais
+11. **"We can detect that a registered product was renamed without the registration
+    changing — an event a brand-based radar would read as one product leaving and another
+    arriving."** → ES-01717: MAXENTIS (MAPA 28/05/2025) → SORATEL MAX (MAPA 26/08/2026).
+
+12. **"We can show when the obvious explanation is wrong."** → CASE-008: Córdoba choveu mais
     que Huelva e teve 4× menos doença.
 
 ## FORBIDDEN / PREMATURE CLAIMS — o piloto não pode sugerir
@@ -59,5 +64,8 @@ Cada frase segura aponta para o arquivo que a prova.
 | *"ADAMA registered 18 months before the competitor."* | **retirado nesta missão** — na Espanha as marcas estão em relação de denominação comum |
 | *"This substance will be withdrawn."* | expiração abre renovação; o protioconazol já foi prorrogado 6 vezes |
 | *"Andalusia has rising repilo."* | sobe em **2 de 7** províncias; a média regional não descreve nenhuma |
-| *"We cover Spain's product registry."* | não cobrimos — a via não existe em formato aberto |
+| *"We cover Spain's product registry."* | cobrimos **uma lista** (denominaciones comunes) e um registro específico; o **dump geral** continua indisponível |
+| *"Syngenta is the holder of ES-01717."* | é **concessionária de denominação comum**. Erro observado ao vivo num resumo automático |
+| *"ADAMA sells through Syngenta in Spain."* | denominação comum é ato administrativo, não acordo comercial revelado |
+| *"MAXENTIS was discontinued in Spain."* | foi **renomeado**; o registro é o mesmo |
 | *"We have EAME-wide comparability."* | só **área de cultura** e **preço de cereal** são comparáveis nos três países |
