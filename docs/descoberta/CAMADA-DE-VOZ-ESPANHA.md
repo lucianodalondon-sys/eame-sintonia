@@ -311,6 +311,51 @@ Tamanho de mercado · demanda · intenção de compra · antecipação · *share
 
 ---
 
+## Z. O QUE A REGRA DE COLETA EXTERNA MUDOU AQUI — 2026-08-29
+
+A [`REGRA-DE-COLETA-EXTERNA-EAME.md`](../regras/REGRA-DE-COLETA-EXTERNA-EAME.md) foi aplicada
+a esta camada logo depois de escrita. **Ela pegou dois erros nossos e abriu duas perguntas que
+antes não tinham dado.**
+
+### O que ela corrigiu
+
+| | antes | agora | causa |
+|---|---|---|---|
+| corpus de posts | 472 | **372** | 100 eram o mesmo `POST_ID` de consultas diferentes |
+| origens de indústria | 14 | **11** | três *funcionários* contados como canal da empresa |
+| posts de indústria | 54 | **26** | as duas causas acima somadas |
+
+### O que ela preservou — e quase se perdeu
+
+O bruto desta camada veio de **rota paga com chave descartável**. A decisão D-003 mantém
+`data/raw/` fora do git porque o bruto é cache reproduzível — mas **esta rota não se replica**:
+a chave morre. As 705.149 caracteres de transcrição e os 252 registros por vídeo estavam
+apenas no scratchpad efêmero. Agora estão em `data/samples/`, versionados.
+
+### O que ela tornou possível perguntar
+
+Antes a camada só tinha agregados. Com `PUBLICATION_DATE` em 252 de 252 registros, duas
+perguntas ganharam dado — **e as duas respostas foram negativas**:
+
+| cruzamento | estado | por quê |
+|---|---|---|
+| **VIDEO × FIELD** | `NO_RELIABLE_SIGNAL` | o ρ mais alto (0,442, voz antecipando uma safra) **não passa** do crítico de 0,648 a n=10, e os sinais se invertem entre defasagens |
+| **VIDEO × SCIENCE** | `NOT_REACHED` | 1 candidato por nome, nenhum confirmado; por instituição o método estrito dá zero e o frouxo produz falso positivo demonstrável |
+
+**Nenhuma das duas refuta a camada.** A concordância geográfica (§J) continua de pé. O que
+elas dizem é que a voz **não antecipa no tempo** e que o elo com a ciência **não se constrói
+com nome** — precisa de identificador declarado (ORCID, ROR), que as plataformas não publicam.
+
+### O que ela acrescentou
+
+- **346 comentários** dos 48 vídeos on-topic — e a medida de que **148 são pergunta contra 22
+  de observação de campo**. A camada mede **demanda por informação técnica**, não estado do
+  campo. Usá-la como sensor de campo seria ler a pergunta como se fosse resposta.
+- **Baseline por canal** para os 157, em `BASELINE_ESTABLISHED` — porque um baseline agregado
+  não detecta `NEW_VIDEO` de um canal específico.
+
+---
+
 ## Y. FRANÇA E ITÁLIA
 
 **Não foram abertas.** Nenhuma consulta, nenhuma coleta, nenhuma conclusão cross-market.
