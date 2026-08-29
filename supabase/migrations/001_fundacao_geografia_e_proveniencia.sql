@@ -58,6 +58,18 @@ create table public.collection_run (
   item_count_raw         integer,
   item_count_normalized  integer,
   cost_usd               numeric(12,6),
+  -- COMO o custo foi obtido faz parte do custo. No Brasil TRES metodos diferentes
+  -- escreviam na mesma coluna `custo_usd` sem registrar qual — e o proprio leitor do
+  -- acervo chamou isso de "o defeito de schema mais importante" da proveniencia.
+  -- Custo lido da plataforma e custo estimado por diferenca de saldo nao sao o mesmo
+  -- numero, e somar os dois produz um total que nao existe.
+  cost_method            text check (cost_method in
+                         ('PLATAFORMA_USAGE_TOTAL',   -- usageTotalUsd da propria execucao
+                          'DIFERENCA_DE_SALDO',       -- saldo antes menos saldo depois
+                          'TABELA_DE_PRECO',          -- eventos x preco publicado
+                          'NAO_SEI')),
+  CONSTRAINT custo_declarado_diz_como_foi_medido
+    CHECK (cost_usd IS NULL OR cost_method IS NOT NULL),
   source_version         text,
   status                 run_status not null default 'rodando',
   error                  text,
@@ -69,6 +81,16 @@ create index run_status_idx  on public.collection_run (status, started_at desc);
 create index run_actor_idx   on public.collection_run (actor, started_at desc);
 comment on column public.collection_run.item_count_normalized is
   'NULL = ainda não normalizado. 0 = normalizou e deu zero. Não são a mesma coisa.';
+comment on column public.collection_run.cost_usd is
+  'NULL != 0. NULL é "não medido"; 0 é "medido e deu zero". O Brasil enforça essa '
+  'distinção em código; aqui ela é o par (cost_usd, cost_method).';
+comment on table public.collection_run is
+  'UMA linha = UMA execução de ator. Nunca duas semânticas na mesma tabela: no Brasil '
+  '`coletas` mistura RODADA (fonte_id nulo) com VISITA A UMA FONTE (fonte_id preenchido), '
+  'e os dois denominadores nunca podem ser somados. '
+  'PROVENIÊNCIA É PROSPECTIVA: não se preenche elo de execução passada. Inventar o elo '
+  'depois seria fabricar proveniência. '
+  'PRECEDÊNCIA DE STATUS: falhou > vazia > parcial > concluida — regra, não estilo.';
 
 -- ─────────────────────────────────────────────────────────────────────
 -- EVIDÊNCIA BRUTA — o que o Brasil não teve e pagou caro: JSONs de 6,6 MB

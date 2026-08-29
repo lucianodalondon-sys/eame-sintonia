@@ -208,3 +208,29 @@ class TestLicoesDoBrasilNoSchema(unittest.TestCase):
         self.assertIn('pg_constraint', s)
         self.assertIn('rowsecurity', s)
         self.assertIn('raise exception', s)
+
+    def test_custo_declara_como_foi_medido(self):
+        """Tres metodos de custo escrevendo na mesma coluna, sem dizer qual.
+
+        O leitor do acervo brasileiro chamou isso de "o defeito de schema mais
+        importante" da proveniencia: custo lido da plataforma e custo estimado por
+        diferenca de saldo nao sao o mesmo numero, e somar os dois produz um total
+        que nao existe.
+        """
+        self.assertIn('cost_method', self.todo)
+        self.assertRegex(self.todo, r'CHECK \(cost_usd IS NULL OR cost_method IS NOT NULL\)')
+
+    def test_todo_conteudo_aponta_para_a_execucao_que_o_produziu(self):
+        """No Brasil `documentos.coleta_id` e FK desde o inicio, mas o preenchimento
+        e PARCIAL e nao uniforme por porta — zero em varias celulas. O custo medido:
+        o freio de fonte-seca da fila enxerga so um quarto do acervo.
+
+        Uma FK nulavel nao garante o elo. Aqui run_id e NOT NULL nas tres tabelas de
+        conteudo, entao a linha nao existe sem a execucao que a produziu.
+        """
+        for tabela in ('conteudo', 'transcricao', 'comentario'):
+            i = self.todo.find('create table public.%s ' % tabela)
+            bloco = self.todo[i:self.todo.find(');', i)]
+            with self.subTest(tabela=tabela):
+                self.assertRegex(bloco, r'run_id\s+text\s+not null',
+                                 f'{tabela}.run_id precisa ser NOT NULL')

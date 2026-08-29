@@ -162,3 +162,43 @@ RECOMMENDED_EAME_MODEL = C — Postgres + Storage, com Git mantendo
 A escolha não é "banco é melhor que Git". É que as três casas respondem perguntas
 diferentes, e hoje o Git está respondendo as três — o que ainda dá certo só porque a coleta
 não recomeçou.
+
+---
+
+## 7 · O que a leitura da proveniência brasileira corrigiu aqui
+
+Quatro achados, lidos do repositório Brasil. **A refutação ainda não rodou sobre eles.**
+
+**O custo não diz como foi medido.** No Brasil, três métodos diferentes — `usageTotalUsd`
+da plataforma, diferença de saldo, e tabela de preço — escrevem na **mesma coluna
+`custo_usd`**, e a coluna não registra qual produziu o número. O leitor do acervo chamou
+isso de *"o defeito de schema mais importante desta dimensão"*. Somar os três produz um
+total que não existe. Corrigido: `collection_run.cost_method` com CHECK que exige o método
+sempre que houver custo. E `NULL ≠ 0` — nulo é "não medido", zero é "medido e deu zero".
+
+**Uma FK nulável não garante o elo.** `documentos.coleta_id` existe como FK desde o início,
+mas o preenchimento é **parcial e não uniforme por porta — zero em várias células**. O custo
+operacional foi medido: o freio de fonte-seca da fila lê `coletas` e por isso **enxerga só
+um quarto do acervo**. Elo faltando vira decisão errada, não só lacuna de metadado. Aqui
+`run_id` é `NOT NULL` em `conteudo`, `transcricao` e `comentario`: a linha não existe sem a
+execução que a produziu.
+
+**Uma tabela, duas semânticas.** `coletas` mistura RODADA (`fonte_id` nulo) com VISITA A UMA
+FONTE (`fonte_id` preenchido). Os dois denominadores nunca podem ser somados, e a casa teve
+de descobrir isso depois. `collection_run` é uma linha por execução de ator, e só.
+
+**Proveniência é prospectiva.** A proibição de backfill está escrita como princípio no
+Brasil: *"inventar o elo depois seria fabricar proveniência"*. Adotada como comentário de
+tabela, não como intenção.
+
+### E uma correção à recomendação da seção 6
+
+Eu apresentei a opção C (Postgres + Storage) como se fosse herança do Brasil. **Não é.**
+A varredura mediu, por grep sobre todo o repositório, que **não existe object storage em
+lugar nenhum** do Sintonia Brasil — nem S3, nem bucket, nem Supabase Storage. A decisão
+brasileira está no `.gitignore`: o repositório guarda o **contrato**, o banco guarda o
+**veredito com o número**, e o **texto bruto fica em disco local não versionado**.
+
+Isso significa que o bruto pesado brasileiro **não é durável** — ele vive na máquina de quem
+rodou. A opção C não copia o Brasil: ela resolve algo que o Brasil não resolveu. Continua
+sendo a recomendação, mas agora pelo motivo certo, e sem precedente para se apoiar.
