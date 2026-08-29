@@ -224,3 +224,66 @@ class TestChaveNuncaNoRepositorio(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestMissao11Derivacoes(unittest.TestCase):
+    """MISSAO 11 — o que foi possivel derivar sem rede, e o que ficou honestamente por fazer."""
+
+    @classmethod
+    def setUpClass(cls):
+        with open(os.path.join(SAMPLES, 'ES-M11-DERIVACOES.json'), encoding='utf-8') as f:
+            cls.d = json.load(f)
+
+    def test_declara_que_nao_houve_coleta_e_por_que(self):
+        b = self.d['PORQUE_NAO_HOUVE_COLETA']
+        self.assertEqual('NETWORK_POLICY_BLOCKED', b['ESTADO'])
+        self.assertIn('403', b['MEDIDO'])
+        self.assertIn('SOURCE FAILURE != ZERO', b['LEI'])
+        self.assertIsNone(self.d['RUN_ID'], 'sem coleta nao pode haver RUN_ID')
+
+    def test_as_filas_continuam_not_tested(self):
+        f = self.d['FASE_1_FILAS']
+        self.assertEqual(20, f['RESEARCHER_PUBLIC_VOICE_QUEUE_ES']['QUEUE_SIZE'])
+        self.assertEqual(139, f['RESEARCHER_PUBLIC_VOICE_QUEUE_ES']['ELIGIBLE_UNIVERSE'])
+        self.assertEqual(20, f['PUBLIC_TECHNICAL_VOICE_QUEUE_ES']['QUEUE_SIZE'])
+        self.assertEqual(67, f['PUBLIC_TECHNICAL_VOICE_QUEUE_ES']['ELIGIBLE_UNIVERSE'])
+        for arq in ('RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json',
+                    'PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json'):
+            with open(os.path.join(SAMPLES, arq), encoding='utf-8') as fh:
+                fila = json.load(fh)['QUEUE']
+            for e in fila:
+                for c in e:
+                    if c.endswith('_STATUS'):
+                        self.assertEqual('NOT_TESTED', e[c],
+                                         'status mudou sem coleta ter acontecido')
+
+    def test_o_digito_verificador_do_orcid_foi_conferido(self):
+        """ISO 7064 MOD 11-2 — validacao nova, offline, dos 20 da fila."""
+        o = self.d['FASE_2_IDENTIDADE_OFFLINE']['ORCID_CHECKSUM']
+        self.assertEqual(20, o['VALIDOS'])
+        self.assertEqual(0, o['INVALIDOS'])
+
+    def test_a_fragmentacao_e_o_espelho_da_conflacao(self):
+        """UM ID != UMA PESSOA, nas duas direcoes."""
+        f = self.d['ACHADO_NOVO_FRAGMENTACAO_DE_IDENTIDADE']
+        self.assertEqual(3, f['TAMANHO_MEDIDO']['DESTES_NO_QUADRO_DOS_152'])
+        self.assertEqual(5, f['TAMANHO_MEDIDO']['TRABALHOS_DO_QUADRO_INVISIVEIS'])
+        self.assertIn('NAS DUAS DIRECOES', f['LEI_NOVA'])
+        self.assertIn('LIMITE SUPERIOR', f['TAMANHO_MEDIDO']['HONESTIDADE'],
+                      'o numero maior tem de vir com a ressalva de ruido')
+
+    def test_o_confundidor_de_cordoba_foi_estreitado_e_nao_fechado(self):
+        c = self.d['FASE_17_CONFUNDIDOR_DE_CORDOBA']
+        self.assertEqual('CONFOUNDER_NARROWED', c['ESTADO'])
+        r = c['CORRELACOES_n6']
+        self.assertGreater(r['rho_voz_x_EXPOSICAO'], r['CRITICO_5PCT_n6'],
+                           'a exposicao deixou de passar do critico')
+        self.assertLess(r['rho_voz_x_PRODUCAO_CIENTIFICA'], r['CRITICO_5PCT_n6'],
+                        'a explicacao rival passou a ser significativa — reabrir o confundidor')
+        self.assertLess(c['MAPEAMENTO']['COBERTURA_PCT'], 10.0)
+        self.assertIn('IAS-CSIC', c['PORQUE_NAO_FECHADO'])
+
+    def test_o_empate_exige_rank_medio(self):
+        """Cordoba e Sevilla empatam em 12: sem rank medio o coeficiente sai errado."""
+        self.assertIn('RANK MEDIO',
+                      self.d['FASE_17_CONFUNDIDOR_DE_CORDOBA']['CORRELACOES_n6']['NOTA_METODOLOGICA'])

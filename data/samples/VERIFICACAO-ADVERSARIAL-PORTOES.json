@@ -5,7 +5,7 @@
  "FACT_LOCATION": "n/a — descreve o repositorio",
  "ORIGINAL_LANGUAGE": "pt",
  "captured_at": "2026-08-29",
- "AUDIT_TARGET_SHA": "15f6736cb0f34b4bcbc8c741596fd5647f8c9ea5",
+ "AUDIT_TARGET_SHA": "7781714d5c47a434b41b39b0883faa4e5b111ee1",
  "SNAPSHOT": "git worktree --detach; validado por scripts/auditoria.py 1.1.0 (VALID=True)",
  "METODO": "para cada portao: qual e a menor situacao em que ele diria PROVED com a propriedade real quebrada? O contraexemplo foi CONSTRUIDO e RODADO, nao imaginado.",
  "PORQUE_ESTE_ARQUIVO_EXISTE": "a MISSAO 10C produziu o veredito e o deixou so no relatorio. Veredito que vive fora do Git nao existe para a proxima conta — e este repositorio ja tem lei para isso: achado novo vai para o documento canonico e para o commit. Agora o portao DERIVA o estado deste arquivo em vez de alguem digitar a palavra.",
@@ -57,5 +57,24 @@
  },
  "ATAQUES_TOTAIS": 18,
  "ATAQUES_BLOQUEADOS_NA_REVERIFICACAO": 18,
- "LICAO": "cinco dos seis portoes verificavam FORMA e eram lidos como se verificassem VERDADE. Contagem que fecha, campo preenchido, valor dentro do contrato e string presente sao todos satisfeitos por dado falso."
+ "LICAO": "cinco dos seis portoes verificavam FORMA e eram lidos como se verificassem VERDADE. Contagem que fecha, campo preenchido, valor dentro do contrato e string presente sao todos satisfeitos por dado falso.",
+ "HISTORICO_DE_ALVOS": [
+  {
+   "SHA": "0eb9b74195f43439cd8686ede18da5ea35f1b8dd",
+   "RESULTADO": "6 de 7 REFUTADOS"
+  },
+  {
+   "SHA": "10ddd90d977690886daeff34d543892df1638e67",
+   "RESULTADO": "todos os ataques bloqueados"
+  },
+  {
+   "SHA": "15f6736cb0f34b4bcbc8c741596fd5647f8c9ea5",
+   "RESULTADO": "bateria completa reexecutada"
+  },
+  {
+   "SHA": "7781714d5c47a434b41b39b0883faa4e5b111ee1",
+   "RESULTADO": "reverificado apos o portao passar a derivar o proprio estado"
+  }
+ ],
+ "REVERIFICADO_EM": "2026-08-29"
 }

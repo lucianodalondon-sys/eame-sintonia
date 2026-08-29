@@ -34,7 +34,21 @@ class TestPortao(unittest.TestCase):
             self.assertTrue(d['MEDIDA'], f'{k} sem medida — estado afirmado, não derivado')
 
     def test_o_veredito_e_derivado_dos_portoes(self):
-        esperado = 'YES' if all(d['PROVED'] for d in self.v['PORTOES'].values()) else 'NO'
+        """Tres estados, nao dois.
+
+        `NO`  = algum portao barrou.
+        `YES` = os seis passam por AUTO-AVALIACAO — o portao dizendo que ele mesmo passa.
+        `ADVERSARIALLY_VERIFIED` = alem disso, alguem tentou REFUTAR cada portao e falhou,
+        e a implementacao nao mudou desde entao.
+        """
+        todos = all(d['PROVED'] for d in self.v['PORTOES'].values())
+        adv = self.v['VERIFICACAO_ADVERSARIAL']['ESTADO']
+        if not todos:
+            esperado = 'NO'
+        elif adv == 'ADVERSARIALLY_VERIFIED':
+            esperado = 'ADVERSARIALLY_VERIFIED'
+        else:
+            esperado = 'YES'
         self.assertEqual(esperado, self.v['READY_FOR_NEXT_ES_COLLECTION'])
         self.assertEqual(sorted(k for k, d in self.v['PORTOES'].items() if not d['PROVED']),
                          sorted(self.v['BLOQUEADO_POR']))
