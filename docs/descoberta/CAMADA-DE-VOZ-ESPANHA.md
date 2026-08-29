@@ -40,9 +40,9 @@ Ela foi seguida. Duas consequências que só aparecem porque a ordem foi respeit
 |---|---:|---|---|
 | **Ciência** (OpenAlex) | 380 instituições · **153 pesquisadores** ES | 1.771 trabalhos 2019-2026 | PROVED |
 | **Vídeo** (YouTube) | **<!--M:VOICE_ES_YOUTUBE_ORIGINS-->157<!--/M--> canais** | 252 vídeos · 15 transcrições · 705.149 caracteres | PROVED |
-| **LinkedIn** | **<!--M:VOICE_ES_LINKEDIN_ORIGINS-->202<!--/M--> perfis enriquecidos** · 179 declaram ES | 472 posts | PROVED (identidade) / PARTIAL (conteúdo) |
+| **LinkedIn** | **<!--M:VOICE_ES_LINKEDIN_ORIGINS-->202<!--/M--> perfis enriquecidos** · 179 declaram ES | 372 posts únicos (de 472 brutos) | PROVED (identidade) / PARTIAL (conteúdo) |
 | **Mídia técnica + associações** | 18 rotas testadas · **<!--M:VOICE_ES_MEDIA_ROUTES_PROVED-->8<!--/M--> provadas** | 155 itens datados | PARTIAL |
-| **Concorrentes** | 14 origens de indústria | 54 posts | PARTIAL |
+| **Concorrentes** | 11 origens de indústria | 26 posts | PARTIAL |
 | **Instagram** | 32 contas agronômicas | 60 itens | **FAILED_WITH_REASON** |
 
 ---
@@ -201,13 +201,29 @@ Instagram vira conteúdo sobre identidade conhecida, não descoberta.
 
 ## I. CONCORRENTES — uma observação, com o denominador à vista
 
-14 origens de indústria de proteção de cultivos, 54 posts.
+11 origens de indústria de proteção de cultivos, 26 posts.
+
+> **Correção de 2026-08-29.** Este documento publicou antes **14 origens e 54 posts**. Os dois
+> números estavam inflados, por duas causas distintas que vale separar:
+>
+> 1. **Sem dedupe estrutural: 54 → 29.** Dos 472 posts do corpus, **100 eram o mesmo
+>    `POST_ID`** devolvido por consultas diferentes. Quase metade dos posts de indústria era
+>    duplicata contada como evidência independente.
+> 2. **Funcionário não é canal: 29 → 26 posts, 14 → 11 origens.** A regra antiga casava a
+>    marca também no *headline do autor*, então três pessoas entravam como se fossem o canal
+>    da empresa — um Business Development da FMC, um Regional Sales Manager da UPL e uma
+>    Technical Account Manager da BASF. O headline de um funcionário nomeia o empregador; isso
+>    não transforma o post em comunicação da empresa.
+>    **NAME ≠ PROFILE ≠ PERSON ≠ ORGANIZATION.**
+>
+> A observação qualitativa não mudou de sinal. A base sim: 26 posts sustentam menos do que
+> 54 pareciam sustentar.
 
 **O denominador não é "tudo que estas empresas publicam".** É "posts que casaram com as
 nossas 18 consultas técnicas". **Nenhuma afirmação de *share of voice* pode sair daqui.**
 
-Dentro desse recorte: ADAMA España aparece com 5 posts, todos marcados `AGRONOMIA` e
-**nenhum** marcado `SUSTENTABILIDADE`; ASCENZA marca sustentabilidade em 7 de 7 e UPL em 5 de 5.
+Dentro desse recorte: ADAMA España aparece com 4 posts, todos marcados `AGRONOMIA` e
+**nenhum** marcado `SUSTENTABILIDADE`; ASCENZA marca sustentabilidade em 6 de 6 e UPL em 3 de 3.
 
 É uma diferença de **vocabulário observada num recorte por termo**. Não é medida de
 estratégia, de investimento nem de resultado.
