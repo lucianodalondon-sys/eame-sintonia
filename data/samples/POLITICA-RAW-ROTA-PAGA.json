@@ -1,0 +1,73 @@
+{
+ "SOURCE_ID": "POLITICA-RAW-ROTA-PAGA",
+ "source": "política de armazenamento do bruto de rota paga",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a — descreve o repositório",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "A_REGRA": "RAW -> NORMALIZED -> ANALYTICAL. O RAW nunca é substituído pelo normalizado.",
+ "PORQUE_ROTA_PAGA_E_DIFERENTE": "a decisão D-003 mantém data/raw/ fora do git porque o bruto é cache reproduzível: perdeu-se, roda-se a cadeia de novo. Para rota paga com chave descartável a premissa é falsa — a chave morre e a rota não se replica. Ou a evidência é versionada, ou ela se perde.",
+ "ONDE": "data/samples/raw-paid/, versionado, com SHA-256 no DATA-CLOCK-manifest.json",
+ "FORMATO": "gzip nível 9 do corpo da resposta, sem alteração de conteúdo",
+ "QUANDO_GRAVAR": "antes da normalização, sempre — scripts/coletor.py grava o RAW e só depois devolve os itens para quem chamou",
+ "DATASET_VAZIO": "um array vazio É evidência de que a rota devolveu nada, e vai para PRESERVED. Marcá-lo NOT_PRESERVED confundiria \"a rota não devolveu\" com \"perdemos o bruto\".",
+ "QUANDO_NAO_GRAVAR": {
+  "ROTA_GRATUITA_E_REPLICAVEL": "RAW_EVIDENCE_STATE = NOT_APPLICABLE — o bruto continua em data/raw/ como cache. Fingir que foi versionado seria falso.",
+  "EXECUCAO_FALHADA": "não há corpo a preservar; o manifesto guarda o ERROR."
+ },
+ "EXECUCAO_PASSADA_SEM_BRUTO": "RAW_EVIDENCE_STATE = NOT_PRESERVED, e nada é reconstruído para parecer original. Nesta rodada todas as sete rotas pagas tinham o bruto vivo no scratchpad efêmero e foram preservadas a tempo — o que não estava garantido.",
+ "TETO_E_O_QUE_ACONTECE_AO_ESTOURAR": "sem teto fixo enquanto o total couber em dezenas de MB. Ao passar disso, a política é preservar o corpo bruto do RECORTE ANALISADO e registrar no manifesto o DATASET_ID, que permite recuperar o resto enquanto a plataforma o mantiver. O que NUNCA é aceitável é descartar o bruto silenciosamente: o estado tem de mudar para NOT_PRESERVED e aparecer.",
+ "TAMANHO_ATUAL_BYTES": 2121837,
+ "ARQUIVOS": [
+  {
+   "FILE": "data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz",
+   "GZ_BYTES": 39103,
+   "ITEMS": 346
+  },
+  {
+   "FILE": "data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz",
+   "GZ_BYTES": 123306,
+   "ITEMS": 252
+  },
+  {
+   "FILE": "data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz",
+   "GZ_BYTES": 228283,
+   "ITEMS": 20
+  },
+  {
+   "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz",
+   "GZ_BYTES": 84466,
+   "ITEMS": 84
+  },
+  {
+   "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz",
+   "GZ_BYTES": 389678,
+   "ITEMS": 388
+  },
+  {
+   "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+   "GZ_BYTES": 1179655,
+   "ITEMS": 202
+  },
+  {
+   "FILE": "data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz",
+   "GZ_BYTES": 61286,
+   "ITEMS": 60
+  },
+  {
+   "FILE": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-b.raw.json.gz",
+   "GZ_BYTES": 72,
+   "ITEMS": 0
+  },
+  {
+   "FILE": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-c.raw.json.gz",
+   "GZ_BYTES": 72,
+   "ITEMS": 0
+  },
+  {
+   "FILE": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz",
+   "GZ_BYTES": 15916,
+   "ITEMS": 5
+  }
+ ]
+}

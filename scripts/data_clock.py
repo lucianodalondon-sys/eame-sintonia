@@ -54,6 +54,24 @@ WATCH = [
      'ALTA — a ficha de identidade das origens; sem ela o conteudo fica sem papel e sem pais'),
     ('ES-T5-002', 'data/samples/ES-T5-002-corpus-documentos.json', '2026-08-29',
      'BAIXA — rota gratuita e replicavel; entra pelo versionamento do NORMALIZED_RECORD'),
+    # BRUTO das rotas pagas. Urgencia CRITICA: nao e cache, e a unica copia. A chave que
+    # produziu estes arquivos e descartavel e a rota nao se replica quando ela morre.
+    ('ES-T8-001', 'data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz', '2026-08-29',
+     'CRITICA — bruto de rota nao replicavel'),
+    ('ES-T8-001', 'data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz', '2026-08-29',
+     'CRITICA — bruto de rota nao replicavel'),
+    ('ES-T8-001', 'data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz', '2026-08-29',
+     'CRITICA — bruto de rota nao replicavel'),
+    ('ES-T8-002', 'data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz', '2026-08-29',
+     'CRITICA — bruto de rota nao replicavel'),
+    ('ES-T8-002', 'data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz', '2026-08-29',
+     'CRITICA — bruto de rota nao replicavel'),
+    ('ES-T8-002', 'data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz', '2026-08-29',
+     'CRITICA — bruto de rota nao replicavel'),
+    ('ES-T8-003', 'data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz', '2026-08-29',
+     'CRITICA — bruto de rota nao replicavel'),
+    ('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',
+     'ALTA — e o indice que faz o RUN_ID resolver; sem ele o bruto vira arquivo orfao'),
 ]
 
 

@@ -8,8 +8,10 @@
     "ES-T5-002",
     "ES-T8-001",
     "ES-T8-002",
+    "ES-T8-003",
     "FR-T4-001",
-    "IT-T4-001"
+    "IT-T4-001",
+    "RUN-MANIFEST"
   ],
   "captured_at": "2026-08-29",
   "SOURCE_LOCATION": "FRANCE / SPAIN / ITALY",
@@ -112,8 +114,8 @@
       "FILE": "data/samples/ES-T8-001-videos.json",
       "VERSION_DATE": "2026-08-29",
       "COLLECTION_DATE": "2026-08-29",
-      "SIZE_BYTES": 441784,
-      "SHA256": "d69ac165344128415c3b7a2bec9cb84e9a93fb78d25e5271c3f48b35b43e3dd9",
+      "SIZE_BYTES": 520472,
+      "SHA256": "8c19dff8eb41aa91c932799ec3f4128026c7dd7297419fefa68beae4d17ce67f",
       "ARCHIVING_URGENCY": "ALTA — rota paga nao replicavel; baseline por canal depende deste arquivo"
     },
     {
@@ -169,6 +171,78 @@
       "SIZE_BYTES": 4696453,
       "SHA256": "c03f7408d720e80d9354dc476a92454ac12c903b86812fda7d5b6b31a601118c",
       "ARCHIVING_URGENCY": "BAIXA — rota gratuita e replicavel; entra pelo versionamento do NORMALIZED_RECORD"
+    },
+    {
+      "SOURCE_ID": "ES-T8-001",
+      "FILE": "data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz",
+      "VERSION_DATE": "2026-08-29",
+      "COLLECTION_DATE": "2026-08-29",
+      "SIZE_BYTES": 123306,
+      "SHA256": "e54afe84922da00797a60feba7916593479d6dc08a557f30e85503c3e1f490b2",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
+      "SOURCE_ID": "ES-T8-001",
+      "FILE": "data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz",
+      "VERSION_DATE": "2026-08-29",
+      "COLLECTION_DATE": "2026-08-29",
+      "SIZE_BYTES": 228283,
+      "SHA256": "858fb594756b07c7c7acaae7d3a24afc3d485d7399c46f7070ac33059744031c",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
+      "SOURCE_ID": "ES-T8-001",
+      "FILE": "data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz",
+      "VERSION_DATE": "2026-08-29",
+      "COLLECTION_DATE": "2026-08-29",
+      "SIZE_BYTES": 39103,
+      "SHA256": "ecc8db033776ed1f6a239d98e542ac2af91af8ec67606d225957bc01545888c2",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
+      "SOURCE_ID": "ES-T8-002",
+      "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz",
+      "VERSION_DATE": "2026-08-29",
+      "COLLECTION_DATE": "2026-08-29",
+      "SIZE_BYTES": 84466,
+      "SHA256": "f830032a50c24347cf319ea9f857d334430e4d9bd85bc611461c8743fb4400aa",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
+      "SOURCE_ID": "ES-T8-002",
+      "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz",
+      "VERSION_DATE": "2026-08-29",
+      "COLLECTION_DATE": "2026-08-29",
+      "SIZE_BYTES": 389678,
+      "SHA256": "b4249e7e89a8726fdf048c07e950c811d53e05df1e1d84b7d3858f77133a0dc5",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
+      "SOURCE_ID": "ES-T8-002",
+      "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+      "VERSION_DATE": "2026-08-29",
+      "COLLECTION_DATE": "2026-08-29",
+      "SIZE_BYTES": 1179655,
+      "SHA256": "2e9ea16e9db72357f3c580bf14aaa6dbb699ecc039b7749d445118cfbeb41462",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
+      "SOURCE_ID": "ES-T8-003",
+      "FILE": "data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz",
+      "VERSION_DATE": "2026-08-29",
+      "COLLECTION_DATE": "2026-08-29",
+      "SIZE_BYTES": 61286,
+      "SHA256": "a8584f319f82346c93ad8e9eb0c73b86ac576de578e6f741d8d2880e5b1e1e05",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
+      "SOURCE_ID": "RUN-MANIFEST",
+      "FILE": "data/samples/RUN-MANIFEST.json",
+      "VERSION_DATE": "2026-08-29",
+      "COLLECTION_DATE": "2026-08-29",
+      "SIZE_BYTES": 14611,
+      "SHA256": "31da3df529064800a5432096d4a5b2fb4466f2503d9286a5d082ede63b6d4f7f",
+      "ARCHIVING_URGENCY": "ALTA — e o indice que faz o RUN_ID resolver; sem ele o bruto vira arquivo orfao"
     }
   ]
 }
