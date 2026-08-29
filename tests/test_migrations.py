@@ -234,3 +234,47 @@ class TestLicoesDoBrasilNoSchema(unittest.TestCase):
             with self.subTest(tabela=tabela):
                 self.assertRegex(bloco, r'run_id\s+text\s+not null',
                                  f'{tabela}.run_id precisa ser NOT NULL')
+
+
+class TestRawPesadoNaoVoltaParaOGit(unittest.TestCase):
+    """O gz nao deltifica: cada versao entra no pack pelo tamanho integral, para sempre.
+
+    Medido em 2026-08-29 sobre este repositorio: os 12 blobs .gz tem ratio 1,00 e ZERO
+    delta base, contra 0,16 dos .json. Um deles sozinho e 17% do pack. O backfill do
+    universo espanhol expandido somaria 4,5 MB permanentes e irrecuperaveis sem reescrever
+    historico.
+
+    Os 12 ja versionados ficam: apagar blob antigo nao encolhe o pack de quem ja clonou, e
+    reescrever historico custa mais do que resolve. Esta trava so impede o CRESCIMENTO.
+    """
+
+    CONGELADO = os.path.join(os.path.dirname(MIG), '..', 'data', 'samples',
+                             'RAW-PESADO-CONGELADO.txt')
+
+    def _rastreados(self):
+        import subprocess
+        r = subprocess.run(['git', 'ls-files', 'data/samples/**/*.gz'],
+                           cwd=ROOT, capture_output=True, text=True)
+        return sorted(x for x in r.stdout.split('\n') if x.strip())
+
+    def test_nenhum_gz_novo_entrou(self):
+        caminho = os.path.join(ROOT, 'data', 'samples', 'RAW-PESADO-CONGELADO.txt')
+        with open(caminho, encoding='utf-8') as f:
+            congelado = sorted(x for x in f.read().split('\n') if x.strip())
+        atual = self._rastreados()
+        novos = sorted(set(atual) - set(congelado))
+        self.assertEqual([], novos,
+                         'RAW pesado novo entrou no Git: %s — deve ir para Storage, '
+                         'e o Git guarda so o hash no manifesto' % novos)
+
+    def test_o_gitignore_barra_a_reincidencia(self):
+        with open(os.path.join(ROOT, '.gitignore'), encoding='utf-8') as f:
+            g = f.read()
+        self.assertIn('data/samples/**/*.gz', g)
+
+    def test_a_lista_congelada_nao_esta_vazia(self):
+        """Lista vazia passaria o teste sempre — e seria uma trava que nao trava."""
+        caminho = os.path.join(ROOT, 'data', 'samples', 'RAW-PESADO-CONGELADO.txt')
+        with open(caminho, encoding='utf-8') as f:
+            n = len([x for x in f.read().split('\n') if x.strip()])
+        self.assertGreaterEqual(n, 11, 'a lista congelada perdeu entradas')

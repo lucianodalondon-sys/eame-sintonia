@@ -16,3 +16,12 @@ __pycache__/
 venv/
 node_modules/
 .ipynb_checkpoints/
+
+# ── RAW pesado de rota paga NÃO entra mais no Git ────────────────────────────
+# Medido em 2026-08-29: gzip tem ratio 1,00 no pack e ZERO delta base. Cada versão
+# nova entra pelo tamanho integral, PARA SEMPRE. Um dos 12 blobs .gz existentes é
+# 17% do pack inteiro. Backfill do universo expandido = +4,5 MB permanentes.
+# Os 12 já versionados FICAM — reescrever histórico custa mais do que resolve.
+# Daqui para frente o bruto pesado vai para Storage; o Git guarda hash e manifesto.
+data/samples/**/*.gz
+data/samples/**/*.raw.json
