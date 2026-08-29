@@ -326,3 +326,47 @@ class TestVideoXScience(unittest.TestCase):
     def test_o_que_falta_e_identificador_e_nao_algoritmo(self):
         self.assertIn('ORCID', self.x['O_QUE_FALTA_E_CONCRETO'])
         self.assertIn('nao de um algoritmo de similaridade', self.x['O_QUE_FALTA_E_CONCRETO'])
+
+
+class TestComentarios(unittest.TestCase):
+    """Comentario e util, mas generico nao vira inteligencia e autor nao vira identidade."""
+
+    def setUp(self):
+        self.c = amostra('ES-T8-001-comentarios.json')
+
+    def test_os_campos_da_regra_estao_todos(self):
+        exigidos = {'COMMENT_ID', 'VIDEO_ID', 'AUTHOR_REFERENCE', 'DATE', 'TEXT',
+                    'LIKE_COUNT', 'PARENT_COMMENT_ID', 'SOURCE_ID', 'RUN_ID'}
+        for r in self.c['COMMENTS'][:40]:
+            self.assertEqual(set(), exigidos - set(r))
+
+    def test_dedupe_por_comment_id_e_nao_por_texto(self):
+        d = self.c['DEDUPE']
+        self.assertEqual('COMMENT_ID', d['KEY'])
+        ids = [r['COMMENT_ID'] for r in self.c['COMMENTS']]
+        self.assertEqual(len(ids), len(set(ids)))
+        textos = [r['TEXT'] for r in self.c['COMMENTS']]
+        self.assertGreater(len(textos), len(set(textos)),
+                           'se nenhum texto se repete, a garantia de nao colapsar por texto '
+                           'nunca foi exercida neste corpus')
+
+    def test_todo_autor_entra_unverified(self):
+        for r in self.c['COMMENTS']:
+            self.assertEqual('UNVERIFIED', r['ORIGIN_STATUS'])
+
+    def test_data_relativa_nao_virou_data(self):
+        for r in self.c['COMMENTS'][:40]:
+            self.assertTrue(r['DATE'].startswith('NÃO SEI'),
+                            'tempo relativo nunca pode ser convertido em data')
+
+    def test_generico_nao_conta_como_sinal(self):
+        self.assertEqual(self.c['TOTAL'], len(self.c['COMMENTS']))
+        real = sum(1 for r in self.c['COMMENTS'] if r['CLASS'] != 'NOT_CLASSIFIED')
+        self.assertEqual(self.c['COM_CONTEUDO_CLASSIFICAVEL'], real)
+        self.assertLess(real, self.c['TOTAL'],
+                        'se tudo foi classificado, a classe NOT_CLASSIFIED virou decorativa')
+
+    def test_a_camada_declara_o_que_nao_e(self):
+        d = self.c['O_QUE_ESTA_CAMADA_E']
+        self.assertGreater(d['PERGUNTAS'], d['OBSERVACOES_E_RELATOS'])
+        self.assertIn('sensor de campo', d['O_QUE_ELA_NAO_E'])

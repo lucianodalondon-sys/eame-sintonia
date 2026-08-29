@@ -169,6 +169,25 @@ Classificar só quando há conteúdo real: `FIELD_OBSERVATION` · `TECHNICAL_QUE
 
 **Comentário genérico não vira inteligência.**
 
+**Medido na Espanha:** 346 comentários dos 48 vídeos on-topic. **45% carregam conteúdo
+classificável; 55% são "Gran video", agradecimento e emoji.** Contam no corpus e **não**
+contam como sinal.
+
+**E a camada não é o que parecia ser.** Dos comentários com conteúdo, **148 são perguntas** e
+apenas **22 são observação de campo ou relato de problema**. O comentário de YouTube no olivar
+espanhol mede **demanda por informação técnica** — que dúvida o produtor tem, sobre que
+problema, sobre que produto — e **não o estado do campo**. Usá-lo como sensor de campo seria
+ler a pergunta como se fosse resposta.
+
+`AUTHOR_REFERENCE` é o *handle* público de quem comentou. Não é nome, não é pessoa, não é
+organização: todo comentário entra com **`ORIGIN_STATUS = UNVERIFIED`**.
+
+E a rota devolve **tempo relativo** ("hace 2 años"), não data. `DATE` fica `NÃO SEI` e
+`DATE_RELATIVE` preserva o que a fonte disse — converter um no outro inventaria precisão que a
+fonte não deu.
+
+Evidência: `../../data/samples/ES-T8-001-comentarios.json`
+
 ## 13 · SEM FICHA DE ORIGEM, NÃO PROMOVE
 
 Antes de subir para a camada analítica, a origem precisa de evidência suficiente de
