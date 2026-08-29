@@ -442,3 +442,57 @@ class TestAfirmacaoDeOrdemExigeCarimbo(unittest.TestCase):
         self.assertNotIn('antes\n   de qualquer gasto em LinkedIn', t)
         self.assertIn('não é auditável', t)
         self.assertIn('carimbo por camada', t)
+
+
+CAMPOS_DOC_DA_REGRA = ['DOCUMENT_ID','TITLE','AUTHORS','YEAR','DATE','DOI','INSTITUTION',
+                       'CROP','ISSUE','MOLECULE','COUNTRY','REGION_OF_STUDY','DOCUMENT_TYPE',
+                       'SOURCE_ID','URL','EVIDENCE_PATH']
+
+
+class TestCorpusPorDocumento(unittest.TestCase):
+    """A secao 7 pede campos POR DOCUMENTO. Antes so existia o agregado."""
+
+    def setUp(self):
+        self.c = amostra('ES-T5-002-corpus-documentos.json')
+
+    def test_todo_documento_tem_todos_os_campos_da_regra(self):
+        for d in self.c['DOCUMENTS'][:200]:
+            self.assertEqual(set(), set(CAMPOS_DOC_DA_REGRA) - set(d))
+
+    def test_document_id_e_unico_e_nunca_ausente(self):
+        ids = [d['DOCUMENT_ID'] for d in self.c['DOCUMENTS']]
+        self.assertNotIn('NÃO SEI', ids)
+        self.assertEqual(len(ids), len(set(ids)))
+
+    def test_crop_e_issue_sao_declarados_pela_consulta(self):
+        # sao os temas da busca que trouxe o documento, nao leitura livre do titulo
+        for d in self.c['DOCUMENTS'][:200]:
+            self.assertIsInstance(d['CROP'], list)
+            self.assertIsInstance(d['ISSUE'], list)
+            self.assertTrue(d['CROP'] and d['ISSUE'])
+
+    def test_campo_incompleto_tem_motivo_escrito(self):
+        for campo, pct in self.c['FIELD_COVERAGE'].items():
+            if pct < 50:
+                self.assertIn(campo, self.c['CAMPOS_INCOMPLETOS_COM_MOTIVO'],
+                              f'{campo} com {pct}% e sem motivo declarado')
+
+    def test_afiliacao_nunca_virou_regiao_de_estudo(self):
+        for d in self.c['DOCUMENTS'][:300]:
+            self.assertEqual('NÃO SEI', d['REGION_OF_STUDY'])
+
+    def test_os_tipos_nao_cobertos_seguem_declarados(self):
+        t = self.c['TIPOS_QUE_A_REGRA_PEDE_E_NAO_EXISTEM_AQUI']
+        for tipo in ('technical reports', 'research projects', 'institutional publications',
+                     'extension material'):
+            self.assertIn(tipo, t)
+        self.assertIn('NOT_REACHED', t)
+
+    def test_a_contagem_bate(self):
+        self.assertEqual(self.c['COUNT'], len(self.c['DOCUMENTS']))
+
+    def test_o_documento_leva_de_volta_as_pessoas(self):
+        # a lacuna que este arquivo fecha: do papel para os autores
+        com_autor = [d for d in self.c['DOCUMENTS'] if d['AUTHORS'] != 'NÃO SEI']
+        self.assertEqual(len(self.c['DOCUMENTS']), len(com_autor))
+        self.assertGreater(self.c['AUTHORS_DISTINCT'], 1000)

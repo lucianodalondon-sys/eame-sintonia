@@ -1,0 +1,2192 @@
+{
+ "SOURCE_ID": "AUDITORIA-REGRA-COLETA-EXTERNA",
+ "source": "auditoria adversarial do proprio repositorio contra as 23 secoes da regra",
+ "SOURCE_LOCATION": "interno — nenhuma coleta externa",
+ "FACT_LOCATION": "repositorio eame-sintonia",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "METODO": {
+  "FASE_1": "9 agentes, um por grupo de secoes, lendo os arquivos reais",
+  "FASE_2": "um agente por achado, encarregado de REFUTAR o status alegado",
+  "REGRA_DADA_AOS_AUDITORES": "a direcao perigosa do erro e alegar ATENDIDO para o que nao esta; na duvida, PARCIAL ou NAO_ATENDIDO. Conformidade nunca se infere de intencao declarada em documento: so conta o que existe no dado, no script ou no teste.",
+  "AGENTES": 215,
+  "TOOL_CALLS": 4765
+ },
+ "LIMITE_DO_METODO": "a auditoria correu contra um repositorio EM MOVIMENTO: oito commits entraram enquanto ela lia. Isso produziu falso negativo demonstravel — um auditor afirmou que a regra nao existia em docs/regras/ e listou 4 arquivos onde havia 5, porque leu antes do commit ead8225. A fase de verificacao pegou esse caso, mas o desenho estava errado: auditar alvo movel e defeito meu, nao dos agentes. Da proxima vez, congelar o commit e auditar o congelado.",
+ "RESULTADO": {
+  "TOTAL": 206,
+  "STATUS_CORRIGIDO_NA_VERIFICACAO": 91,
+  "POR_STATUS": {
+   "ATENDIDO": 68,
+   "PARCIAL": 91,
+   "NAO_ATENDIDO": 47
+  },
+  "POR_SECAO": {
+   "1": {
+    "ATENDIDO": 4,
+    "PARCIAL": 3,
+    "NAO_ATENDIDO": 4
+   },
+   "2": {
+    "ATENDIDO": 3,
+    "NAO_ATENDIDO": 2
+   },
+   "3": {
+    "ATENDIDO": 18,
+    "PARCIAL": 4
+   },
+   "4": {
+    "ATENDIDO": 4,
+    "PARCIAL": 3,
+    "NAO_ATENDIDO": 2
+   },
+   "5": {
+    "ATENDIDO": 2,
+    "NAO_ATENDIDO": 1,
+    "PARCIAL": 2
+   },
+   "6": {
+    "ATENDIDO": 4,
+    "PARCIAL": 7,
+    "NAO_ATENDIDO": 9
+   },
+   "7": {
+    "NAO_ATENDIDO": 9,
+    "PARCIAL": 6
+   },
+   "8": {
+    "PARCIAL": 2,
+    "ATENDIDO": 1
+   },
+   "9": {
+    "NAO_ATENDIDO": 3,
+    "ATENDIDO": 3,
+    "PARCIAL": 4
+   },
+   "10": {
+    "ATENDIDO": 1,
+    "PARCIAL": 3,
+    "NAO_ATENDIDO": 4
+   },
+   "11": {
+    "ATENDIDO": 3,
+    "PARCIAL": 4,
+    "NAO_ATENDIDO": 1
+   },
+   "12": {
+    "ATENDIDO": 3,
+    "PARCIAL": 1
+   },
+   "13": {
+    "PARCIAL": 6,
+    "ATENDIDO": 1
+   },
+   "14": {
+    "PARCIAL": 9,
+    "NAO_ATENDIDO": 5,
+    "ATENDIDO": 3
+   },
+   "15": {
+    "ATENDIDO": 4,
+    "PARCIAL": 7
+   },
+   "17": {
+    "ATENDIDO": 2,
+    "NAO_ATENDIDO": 3
+   },
+   "18": {
+    "ATENDIDO": 4,
+    "PARCIAL": 3
+   },
+   "19": {
+    "PARCIAL": 2,
+    "ATENDIDO": 1,
+    "NAO_ATENDIDO": 1
+   },
+   "20": {
+    "PARCIAL": 6,
+    "ATENDIDO": 1,
+    "NAO_ATENDIDO": 1
+   },
+   "21": {
+    "ATENDIDO": 4,
+    "PARCIAL": 10
+   },
+   "22": {
+    "PARCIAL": 8,
+    "NAO_ATENDIDO": 2,
+    "ATENDIDO": 2
+   },
+   "17/18/20": {
+    "PARCIAL": 1
+   }
+  }
+ },
+ "CORRIGIDO_IMEDIATAMENTE": [
+  "id de autor conflacionado dentro do quadro de pesquisadores (153 -> 152)",
+  "denominador publicado diferente do usado na correlacao (7 provincias na tabela, n=6)",
+  "afirmacao de ordem de coleta sem carimbo que a sustente"
+ ],
+ "ACHADOS": [
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "Existir no repositorio uma ordem de coleta / prioridade de camadas documentada",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A ordem existe apenas como frase narrativa dentro de um relatorio de missao, nao como regra permanente em docs/regras/. Nenhum script a codifica e nenhum dos testes de tests/test_voz.py a verifica.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "A ordem documentada deve reproduzir os 8 niveis da regra (1 VIDEO, 2 RESEARCHERS, 3 LINKEDIN, 4 INSTITUTIONS, 5 COOPERATIVES, 6 COMPETITOR, 7 TECHNICAL MEDIA, 8 INSTAGRAM)",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Nivel 4 fora de posicao (10o em vez de 4o) e nenhum mapeamento declarado entre os 8 niveis da regra e os 11 passos escritos no documento.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "A rodada espanhola coletou VIDEO (nivel 1) antes de RESEARCHERS/SCIENCE (nivel 2), com evidencia",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nenhum artefato registra hora/sequencia de coleta por camada. O unico ordenamento verificavel que o repositorio possui (git) coloca a camada de pesquisadores 22 minutos ANTES da camada de video, contradizendo a afirmacao \"o video primeiro\" de §B.1.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "A afirmacao §B.1 — YouTube entregou 705 mil caracteres antes de qualquer gasto em LinkedIn — deve ser sustentada por dado",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "O proprio artefato de video ja depende de resultados agregados da rota paga de LinkedIn, o que desmente \"antes de qualquer gasto em LinkedIn\". A frase e intencao declarada, nao medida.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "A ordem entre LINKEDIN (3), COOPERATIVES (5), COMPETITOR (6), TECHNICAL MEDIA (7) e INSTAGRAM (8) deve ser verificavel na rodada espanhola",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Cinco camadas caem num unico commit, sem nenhum carimbo que as separe. A ordem entre os niveis 3 e 8 nao e auditavel a partir de nada que exista no repositorio.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "INSTAGRAM deve ser o ultimo (nivel 8), depois do LINKEDIN (nivel 3)",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Pelo proprio relatorio de rotas, o teste de Instagram PRECEDEU a parte da coleta de LinkedIn que trouxe a maioria das vozes tecnicas — o inverso da ordem documentada em §B e da prioridade da regra. §B.2 (\"o Instagram por ultimo\") nao se sustenta para essa metade da coleta.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "A camada INSTITUTIONS (nivel 4) deve ter sido coletada como camada propria na rodada espanhola",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "O nivel 4 nunca foi aberto como camada: houve uma unica rota institucional tentada (CITOLIVA) e ela falhou. O resto e subproduto de rotulagem de papel dentro de LinkedIn e YouTube.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "A camada COOPERATIVES / TECHNICAL VOICES (nivel 5) deve ter sido coletada",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "A rota central de cooperativas nao foi alcancada e 'cooperativas' nunca virou camada propria — sobrou como rotulo de papel (2 origens no LinkedIn, 5 canais COOPERATIVE_OR_ASSOCIATION no YouTube).",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "VIDEO nao pode ser esquecido nem tratado como acessorio",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "LINKEDIN nao pode ser esquecido nem tratado como acessorio",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "1",
+   "grupo": "prioridade",
+   "requisito": "PESQUISADORES/SCIENCE (nivel 2) nao pode ser esquecido nem tratado como acessorio",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "A camada de prioridade nº 2 e a unica sem ficha no Atlas de Fontes, sem metrica canonica derivada e sem nenhum teste que a guarde — na pratica ela esta acessoria, mesmo declarada PROVED.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "2",
+   "grupo": "prioridade",
+   "requisito": "Video deve priorizar YOUTUBE primeiro",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "2",
+   "grupo": "prioridade",
+   "requisito": "O nivel 1 e VIDEO/TRANSCRIPT: deve existir transcricao preservada, nao so metadado de video",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "2",
+   "grupo": "prioridade",
+   "requisito": "Deve haver coleta de LINKEDIN VIDEO especificamente (segunda prioridade de video)",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nao ha coleta de video de LinkedIn e nem sequer existe campo que registre se um post coletado e video. A ausencia tambem nao esta declarada como lacuna aberta.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "2",
+   "grupo": "prioridade",
+   "requisito": "Deve haver coleta de INSTAGRAM REELS/VIDEO especificamente (terceira prioridade de video)",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nenhum reel ou video de Instagram foi coletado, e o formato nao e sequer registrado como tipo. A camada esta FAILED_WITH_REASON por identidade, com REVISIT_CONDITION declarada, mas a reprovacao foi medida sobre POSTS de hashtag, nunca sobre reels.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "2",
+   "grupo": "prioridade",
+   "requisito": "A sub-ordem do video (YOUTUBE -> LINKEDIN VIDEO -> INSTAGRAM REELS) deve estar documentada",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A sub-ordem exigida pela secao 2 nao existe escrita em documento, script ou teste — nem como regra, nem como registro do que foi feito.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "A amostra ES-VOICE-YOUTUBE.json deve preservar UM REGISTRO POR VIDEO, com os campos obrigatorios em cada linha",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Os 252 videos existem apenas como o numero 252. Nenhum video individual e identificavel, verificavel ou recuperavel a partir do repositorio. Este e o achado central: a Secao 3 nao e cumprida em nenhum grau para o corpus de video, porque nao ha o objeto (a linha por video) sobre o qual os 28+ campos poderiam existir. Todos os achados abaixo sao consequencia deste.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Presenca literal dos 32 nomes de campo listados na regra, dentro da amostra",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "29 dos 32 campos nao existem sequer como nome no arquivo. Taxa de presenca literal: 3/32 (9%), e nenhuma delas por video.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco IDENTIDADE — SOURCE_ID por video",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco IDENTIDADE — ORIGIN_ID e CHANNEL_ID por video (o canal que publicou)",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Os 157 canais sao um numero, nao uma lista. Impossivel reabrir o corpus, deduplicar contra uma coleta futura, ou provar que a mesma origem foi recapturada. A alegacao documental de 'ORIGIN_ID estavel' nao tem lastro no dado.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco IDENTIDADE — CONTENT_ID e EXTERNAL_ID (videoId do YouTube) por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Nenhum dos 252 videos tem identificador. O videoId de 11 caracteres, que e a chave natural e gratuita do YouTube, nao foi preservado em lugar nenhum — nem na amostra, nem em data/raw.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco IDENTIDADE — URL por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Nao ha um unico link verificavel para nenhum dos 252 videos. Um terceiro (ou o proprio time, em outra data) nao consegue abrir uma so peca do corpus que sustenta os numeros de issues, molecules e mencoes por provincia.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco IDENTIDADE — PLATFORM por video",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A plataforma e inequivoca para todo o corpus, mas nao esta em campo estruturado e nao esta por registro. Classifico PARCIAL e nao ATENDIDO porque a Secao 3 pede o campo preservado, nao deduzido de texto livre.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco IDENTIDADE — TITLE e DESCRIPTION por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Titulo e descricao sao os campos que o proprio youtube-scraper devolve de graca e que sustentariam auditoria de relevancia (o video capturado e mesmo sobre olivar?). Nada disso foi preservado. A pertinencia do corpus e indemonstravel.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco TEMPO — PUBLICATION_DATE por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Nao se sabe a data de nenhum dos 252 videos. Com isso, o corpus nao pode ser recortado por janela, nao pode alimentar DATA_CLOCK por conteudo, e a contagem de issues/molecules mistura 2010 com 2026 sem possibilidade de separar. Um DATE_RANGE de 16 anos e o oposto de datar o dado.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco TEMPO — CAPTURE_DATE por video",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A data de captura existe e e usada, mas com outro nome e apenas para o lote inteiro. Como a coleta foi um evento unico, o valor cobre de fato os 252 videos — por isso PARCIAL e nao NAO_ATENDIDO. Numa recaptura incremental, porem, nao havera como distinguir o que foi capturado quando.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco AUTORIA — CHANNEL_NAME, DECLARED_AUTHOR e ORGANIZATION por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "156 dos 157 nomes de canal nao estao gravados. Nao ha nenhum autor declarado e nenhuma organizacao em campo. O ROLE_COVERAGE_WARNING (\"134 de 157 canais (85%) ficam NOT_DECLARED\") descreve honestamente uma lacuna que nem sequer pode ser reauditada, porque os 157 nomes nao existem no repositorio.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco AUTORIA — DECLARED_ROLE por video",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "O papel foi resolvido por origem em algum ponto do pipeline (o histograma soma 157), mas so a contagem sobreviveu. Nao se sabe QUAL canal recebeu QUAL papel, nem qual evidencia sustentou cada atribuicao. Os 23 canais com papel declarado — a parte utilizavel do corpus — sao anonimos e nao auditaveis. Nenhum teste do repositorio protege esse campo no YouTube.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco AUTORIA — COUNTRY e LANGUAGE por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Nenhum dos 252 videos tem pais. O ORIGINAL_LANGUAGE unico de corpus (\"ES\") e exatamente a inferencia que a propria camada proibe: ES-VOICE-INSTAGRAM.json fixa a lei \"ORIGINAL_LANGUAGE nunca decide FACT_LOCATION\", e o SOURCE_LOCATION do proprio arquivo e \"YouTube (global)\". Sem COUNTRY por registro, nao ha como saber quantos dos 252 videos sao de fato espanhois e nao latino-americanos em espanhol — o que atinge diretamente o achado VOICE_x_MT2.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco METRICA — DURATION por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A duracao foi usada como criterio de selecao (>=15 min) mas descartada como dado. So sobrou o corte binario 67/252. Nao ha como reproduzir ou contestar a selecao dos 20 alvos.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco METRICA — VIEWS, LIKES e COMMENTS_COUNT por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Nenhuma metrica de engajamento foi preservada para nenhum video. Atencao a direcao do erro: a regra REACH_IS_NOT_AUTHORITY proibe usar alcance como autoridade — ela NAO dispensa preservar o campo. A Secao 3 pede o campo preservado; a decisao de nao o usar para papel e outra coisa. Aqui a regra editorial acabou funcionando como justificativa para nao guardar o dado.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco TRANSCRICAO — TRANSCRIPT (o texto) por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Os 705.149 caracteres de fala tecnica — apresentados no documento como 'o video primeiro pagou' (CAMADA-DE-VOZ-ESPANHA.md:26) — nao existem no repositorio. Nem o texto, nem um caminho para ele, nem as 15 transcricoes separadas. A afirmacao 'transcricao recuperavel' e intencao declarada em documento, sem lastro em dado: nao ha ID de video nem URL com que recuperar.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco TRANSCRICAO — TRANSCRIPT_LANGUAGE e CAPTION_SOURCE por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Nao se sabe, para nenhuma das 15 transcricoes, se o texto veio de legenda humana ou de ASR automatico — distincao que muda o peso probatorio de qualquer contagem lexical feita sobre ele. As contagens de issues (mosca_del_olivo 58, repilo 32) e molecules (cobre 141) saem desse texto de qualidade nao declarada.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco ASSUNTO AGRONOMICO — CROP e PRODUCT por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O padrao de CROP/ISSUE declarado na consulta ja existe no projeto e nao foi aplicado ao corpus de video. PRODUCT esta totalmente ausente, o que impede qualquer leitura comercial da voz.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco ASSUNTO AGRONOMICO — ISSUE e MOLECULE por video",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Ha sinal agronomico, e por isso PARCIAL e nao NAO_ATENDIDO — mas ele nao esta ligado a nenhum video. Nao se sabe qual video fala de mosca, e as 141 mencoes de 'cobre' nao podem ser rastreadas ate a peca nem reconciliadas com a tabela canonica de substancias. A leitura publicada (\"a conversa tecnica publica espanhola sobre olivar e dominada por COBRE\") repousa sobre contagens irrastreaveis e nao normalizadas.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco PROVENIENCIA — FACT_LOCATION e SOURCE_LOCATION por video",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "SOURCE_LOCATION esta correto e util no nivel do corpus; FACT_LOCATION nao esta resolvido para nenhum registro — e um criterio, nao um valor. Consequencia direta: o confundidor de Cordoba, honestamente declarado, e INSOLUVEL com os dados guardados, porque nao ha por-video onde separar a localizacao da fonte da localizacao do fato. Nenhum teste de /home/user/eame-sintonia/tests/test_voz.py toca ES-VOICE-YOUTUBE.json — o unico consumidor da amostra e scripts/metricas_canonicas.py:304-307, que le apenas UNIQUE_ORIGINS e captured_at.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "Bloco PROVENIENCIA — RUN_ID e EVIDENCE_PATH por video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Estes dois campos nao existem como conceito implementado em nenhum ponto do projeto — nao e uma lacuna do YouTube, e uma lacuna estrutural. Sem RUN_ID nao ha como reabrir a execucao da Apify que produziu os 252 videos; sem EVIDENCE_PATH nao ha para onde apontar, porque o bruto nao foi versionado. A cadeia de proveniencia do corpus de video esta rompida na origem.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "3",
+   "grupo": "campos_video",
+   "requisito": "A propria regra da Secao 3 (a lista canonica dos 28 campos) deve existir de forma versionada e auditavel no repositorio",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A regra dos 28 campos nao esta escrita em nenhum arquivo do projeto, e o titulo (28) diverge da enumeracao (32). Consequencia pratica: nao ha texto normativo versionado contra o qual um coletor ou um teste possa ser escrito, e nenhum dos 132 testes pode falhar por violacao da Secao 3. Registro como NAO_ATENDIDO e nao NAO_APLICAVEL porque a ausencia da regra e justamente o que permitiu a amostra ser publicada como PROVED sem nenhum campo por video.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "A transcricao original precisa ser preservada como texto, nao apenas contada.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "As transcricoes preservadas precisam estar em arquivo VERSIONADO do repositorio.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Falta 'git add' + commit dos dois arquivos. Enquanto isso a resposta a pergunta da auditoria e: o texto sobreviveu em disco, mas em termos de repositorio versionado so o numero de caracteres sobreviveu.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "Havendo traducao, ORIGINAL e TRANSLATION precisam ser campos separados na evidencia.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "A separacao ORIGINAL/TRANSLATION precisa existir no contrato de campos do pipeline, nao so num arquivo de evidencia feito a mao.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O 'proximo pais' que rodar voz.py vai gerar registros com TRANSCRIPT unico e perder a separacao em silencio — exatamente o encolhimento que o docstring diz querer impedir. Falta desdobrar TRANSCRIPT em TRANSCRIPT_ORIGINAL/TRANSLATION em CAMPOS_VIDEO.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "Traducao nunca pode substituir a evidencia original.",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A conformidade atual e circunstancial (ninguem traduziu), nao garantida. Falta campo proprio para traducao no contrato e um teste que falhe se TRANSCRIPT_ORIGINAL for sobrescrito por conteudo traduzido.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "Registrar COMO a transcricao foi obtida (CAPTION_SOURCE) para cada transcricao.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "CAPTION_SOURCE precisa sobreviver no registro normalizado por video, que e o artefato que o pipeline produz.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Quem ler so o registro normalizado (o artefato canonico, apontado por EVIDENCE_PATH='data/samples/ES-T8-001-videos.json' nos 252) nao consegue dizer como a transcricao foi obtida. Falta propagar CAPTION_SOURCE do arquivo de transcricoes para os 15 videos correspondentes.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "Registrar a natureza da legenda (gerada automaticamente por ASR vs. enviada por humano) e o idioma da transcricao.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A lacuna esta honestamente declarada como NAO SEI, o que e correto e nao e invencao de conformidade — mas continua sendo lacuna aberta: a Secao 4 pede registrar COMO a transcricao foi obtida, e 'legenda de plataforma de origem e idioma desconhecidos' e um registro incompleto. Fechar exige uma segunda chamada de enriquecimento que devolva trackKind/language.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "5",
+   "grupo": "transcricao",
+   "requisito": "A taxonomia de tipo de video (13 rotulos) precisa existir em algum lugar do repositorio.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "5",
+   "grupo": "transcricao",
+   "requisito": "A taxonomia precisa ser efetivamente aplicada: cada video classificado num dos 13 tipos.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Falta o campo no contrato, a funcao de classificacao e a passagem pelos 252 videos. A taxonomia existe como intencao declarada em codigo e nao como dado.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "5",
+   "grupo": "transcricao",
+   "requisito": "Um video so vira sinal depois de classificacao defensavel.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O sinal foi publicado e marcado PROVED antes do passo que a Secao 5 torna pre-requisito. Fechar exige classificar os 252 e reavaliar se os achados de VOICE_x_MT2 sobrevivem ao recorte por tipo.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "5",
+   "grupo": "transcricao",
+   "requisito": "Nao inferir papel so pelo conteudo; o papel da origem precisa ser verificavel.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Ressalva menor, nao invalidante: esses dois testes leem ES-VOICE-LINKEDIN.json; nenhum teste exercita a atribuicao de papel do corpus YouTube (ES-T8-001).",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "5",
+   "grupo": "transcricao",
+   "requisito": "A taxonomia de tipo de video precisa ter um documento de regra normativo que a sustente.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A taxonomia e as regras de transcricao vivem so como codigo morto e comentario. Falta o documento em docs/regras/ que as torne regra permanente e auditavel independentemente de voz.py.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "4",
+   "grupo": "transcricao",
+   "requisito": "A suite de testes deve impedir regressao nas garantias das Secoes 4 e 5.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Faltam provas que exijam: existencia e rastreamento dos arquivos de evidencia, presenca das chaves TRANSCRIPT_ORIGINAL/TRANSLATION/CAPTION_SOURCE, soma de caracteres batendo com o declarado, e tipo de video pertencente a TIPOS_VIDEO. Uma prova que apenas abrisse ES-T8-001-transcricoes.json teria detectado a falta de versionamento.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Nao limitar pesquisadores a uma lista de nomes: o universo de pessoas tem de vir de uma busca declarada e auditavel",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "O corpus de origem das pessoas deve cobrir o universo buscado, nao um recorte de relevancia nao justificado",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "O corpus e a fatia dos 200 primeiros por relevancia do OpenAlex em 7 dos 12 temas. O recorte esta declarado (bom), mas nao ha nenhuma nota dizendo que a amostra de PESSOAS herda o vies de ordenacao do buscador, nem paginacao implementada para fechar o universo.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Meta Espanha: 20+ pesquisadores verificaveis",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Buscar ORCID para cada pesquisador",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "O ORCID deve ser resolvido contra a base ORCID, nao apenas copiado do agregador",
+   "status_alegado": "PARCIAL",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": true,
+   "lacuna": "O ORCID e reproduzido do registro OpenAlex sem nenhuma chamada a orcid.org. A ancora existe mas nunca foi testada: se o OpenAlex tiver ORCID errado ou conflacionado, nada no repositorio detecta.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Cadeia PERSON -> INSTITUTION com instituicao identificavel",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "A instituicao e apenas nome de exibicao. Nao ha ROR, nem id OpenAlex de instituicao, nem URL, embora o registro bruto do OpenAlex traga esses campos (data/raw/ES-T5-002/openalex_works.json tem 'institutions' e 'institutions_distinct_count' por trabalho). Dois nomes de exibicao diferentes para a mesma entidade nao sao reconciliaveis hoje.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Cadeia INSTITUTION -> SCIENCE -> CROP -> ISSUE por pessoa, sem inferir tema do texto",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Cadeia ... -> PUBLIC VOICE -> LINKEDIN: ligar o mesmo pesquisador ao perfil publico de LinkedIn",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Zero ligacoes pessoa-cientista <-> perfil LinkedIn. O material para pelo menos duas ja existe versionado e nao foi juntado: 'Jose Alfonso Gomez Guzman' e 'Diego Olmo Garcia' aparecem em ES-RESEARCHERS-OLIVE.json e tambem em ES-VOICE-LINKEDIN.json (ORIGINS[11] com DECLARED_ROLE 'RESEARCHER' e ORIGINS[71] com DECLARED_ROLE 'AMBIGUOUS'). Esse cruzamento foi feito por mim na auditoria, nao pelo repositorio: nao ha campo, script nem teste que o realize.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Cadeia ... -> PUBLIC VOICE -> VIDEO/YouTube: ligar o mesmo pesquisador a canal ou video",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nenhum pesquisador do quadro cientifico esta ligado a nenhum video ou canal. A camada de video sequer expoe identidade de pessoa que permita a juncao.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Cadeia ... -> EVENTS: aparicoes em conferencia por pesquisador",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nenhum campo de aparicao em congresso, jornada tecnica ou palestra. Existe materia-prima parcial nao aproveitada: o corpus bruto tem 17 'conference-paper' e 5 'conference-abstract', mas isso e publicacao, nao aparicao.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Perfil institucional (pagina do pesquisador na instituicao) por pesquisador",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nenhuma rota institucional foi tentada. Nao ha campo, nem estado 'NAO TESTADO' declarado como existe para LinkedIn/YouTube — aqui a lacuna e silenciosa.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Papers por pesquisador",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "So 3 trabalhos por pessoa ficam no arquivo versionado; 1.414 menos 459 = 955 vinculos pessoa-trabalho existem apenas na contagem agregada. Quem abrir o arquivo ve o numero, nao consegue reconstruir a lista.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Projects (projetos de pesquisa) por pesquisador",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nenhum projeto por pessoa. O registro bruto do OpenAlex ja traz 'funders' e 'awards' (verificado nas chaves de data/raw/ES-T5-002/openalex_works.json), e esses campos sao descartados.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Webinars e interviews por pesquisador",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nao existe nenhum registro de aparicao falada (webinar/entrevista) atribuida a pesquisador. As 15 transcricoes existentes sao por canal, com ROLE_COVERAGE_WARNING declarando 85% de canais NOT_DECLARED.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "NAO criar authority score",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "A ordenacao do quadro de pesquisadores nao pode funcionar como score de autoridade disfarcado",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "Registro conhecidamente conflacionado nao pode entrar no quadro canonico de pesquisadores",
+   "status_alegado": "PARCIAL",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": true,
+   "lacuna": "O texto do arquivo contradiz o dado do arquivo: o registro esta dentro da lista, em primeiro lugar, e conta nos 153. O apagamento de PERSON_ID/OPENALEX marca a duvida mas nao esta explicado em nenhum campo, e nenhum consumidor tem como saber que aquele null significa 'identidade nao confiavel'.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "O quadro de pesquisadores deve ser reproduzivel a partir de script versionado",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "O arquivo de evidencia versionado nao e gerado por nenhum codigo versionado. Nao ha caminho para reproduzi-lo, nem para atualiza-lo quando o corpus mudar; e um artefato orfao.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "A fonte da camada de pesquisadores (ES-T5-002) deve ter ficha no Atlas, contrato de fonte e registro de versao",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A camada de pesquisadores nao tem ficha de fonte, nao tem contrato de campos obrigatorios e nao tem SHA256/data no relogio de dados. O arquivo bruto de 57 MB nao esta nem versionado nem ancorado por hash.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "6",
+   "grupo": "pesquisadores",
+   "requisito": "A camada de pesquisadores deve ter cobertura de teste na suite",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Nenhuma das 132 provas toca a camada de pesquisadores. Nada garante que ORCID continue obrigatorio, que COUNTRY continue ES, que REGION continue 'NAO SEI' ou que a contagem nao caia.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Manter o corpus de 1.771 trabalhos em arquivo versionado",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "So o agregado esta preservado. O corpus por documento nao esta versionado, nao esta em data/samples/, nao tem hash no DATA-CLOCK-manifest.json e desaparece se o container/maquina for recriado. A afirmacao 'PROVED' na tabela nao e verificavel por ninguem que clone o repositorio.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo DOCUMENT_ID por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nao ha campo DOCUMENT_ID em lugar nenhum do corpus cientifico. O proxy (id OpenAlex) cobre 282 de 1.771 trabalhos, ou seja 16%, e nao usa o nome canonico exigido.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campos TITLE, YEAR e DOI por documento",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Tres dos dezesseis campos existem, e so para 282 de 1.771 trabalhos (16%). Os demais 1.489 trabalhos nao tem titulo, ano nem DOI em nenhum arquivo versionado.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo AUTHORS por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nenhum documento do corpus traz seus autores. Nao da para ir do papel para as pessoas, so das pessoas para 3 papeis cada.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo DATE (data de publicacao, nao so ano) por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "A data completa esta disponivel na fonte e e descartada na derivacao. Nada versionado tem DATE por documento.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo INSTITUTION por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nao ha vinculo documento->instituicao em arquivo versionado. Para o registro problematico isso e visivel: 'Nikolaos Papadopoulos' agrega 58 organizacoes sem que se possa saber qual veio de qual trabalho.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campos CROP e ISSUE por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A associacao documento -> CROP/ISSUE, que e justamente a parte auditavel do desenho (declarada na consulta, nao inferida), so existe no arquivo nao versionado. No versionado ela ja chega colapsada por pessoa.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo MOLECULE por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nenhum documento tem molecula. Como o corpus foi buscado por patogeno e nao por substancia, o campo nao e derivavel sem passar texto por normalizacao — trabalho que nao existe.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo COUNTRY por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Nenhum documento carrega COUNTRY, e a pergunta relevante (o pais e do autor ou do experimento?) fica sem campo. O proprio arquivo distingue SOURCE_LOCATION 'EUROPE (OpenAlex)' de FACT_LOCATION 'SPAIN (afiliacao institucional declarada)' — mas so no cabecalho, uma vez, nao por linha.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo REGION_OF_STUDY por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "O campo nao existe por documento. A recusa de inferir esta correta e bem documentada, mas o requisito pede REGION_OF_STUDY (regiao do estudo, extraivel de titulo/resumo/metodos), que e coisa diferente da sede da instituicao e nunca foi tentada.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo DOCUMENT_TYPE por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "O tipo esta a um campo de distancia e nao foi preservado. Sem ele nao da para separar paper revisado de preprint, editorial ou erratum — 130 dos 1.771 registros (7,3%) nao sao artigo de pesquisa.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo SOURCE_ID por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O documento nao carrega a fonte de onde veio. Se essas linhas forem misturadas com outra origem bibliografica, a procedencia se perde.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo URL por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Nenhum documento tem URL. Existe o DOI como proxy resolvivel em 457 das 459 entradas preservadas, mas o campo exigido nao existe e nada aponta para a versao acessivel do texto.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "Campo EVIDENCE_PATH por documento",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Nao ha caminho de evidencia por documento, e nao poderia haver util: o unico arquivo de evidencia possivel (data/raw/ES-T5-002/openalex_works.json) esta fora do git por .gitignore:3, entao um EVIDENCE_PATH apontaria para algo que nao existe no clone.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "7",
+   "grupo": "pesquisadores",
+   "requisito": "O corpus deve incluir technical reports, conference proceedings, research projects, institutional publications e extension material — nao so papers",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Cinco dos seis tipos de documento exigidos nao tem fonte. O corpus e um recorte de literatura indexada; relatorio tecnico, projeto, publicacao institucional e material de extensao — que sao justamente os documentos que a assistencia tecnica espanhola le — ficaram de fora sem que nenhum documento registre a decisao.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "8",
+   "grupo": "linkedin_identidade",
+   "requisito": "Identidade e conteudo do LinkedIn sao capturados e armazenados como camadas separadas (PERSON/ORG num arquivo, POST noutro).",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "8",
+   "grupo": "linkedin_identidade",
+   "requisito": "Nenhum atributo de identidade (papel, pais, lugar) pode ser derivado do texto do post.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "8",
+   "grupo": "linkedin_identidade",
+   "requisito": "A ordem PERSON/ORG primeiro, POST depois precisa ser verificavel no dado, nao so afirmada.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Nao existe carimbo de captura por origem, entao a ordem 'identidade antes do post' e uma afirmacao de processo que o dado versionado nao pode confirmar nem desmentir. Falta CAPTURE_DATE/RUN_ID por origem.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "NAME != PERSON != ORGANIZATION: o empregador citado no headline de uma pessoa nao pode virar o papel da pessoa.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A correcao FUNCIONARIO_NAO_E_CANAL foi aplicada so ao recorte de concorrentes; a ficha de identidade continua colapsando pessoa em orgao. Falta separar DECLARED_ROLE (papel da PESSOA, ex. PUBLIC_SECTOR_TECHNICIAN) de EMPLOYER_DECLARED (a organizacao citada), e recontar os 67 PUBLIC_TECHNICAL_VOICE sem esses 6.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "Existe ORIGIN_ID estavel e nativo da plataforma na camada de video.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "Existe ORIGIN_ID estavel e nativo da plataforma na ficha de identidade do LinkedIn.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "O ORIGIN_ID precisa ser a MESMA chave em identidade e em conteudo, senao CONTENT nao se liga a ORIGIN.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Nenhum post pode ser atribuido a uma identidade verificada pela chave publicada; o slug de URL vaidosa ainda e mutavel pelo dono do perfil, entao nem serve como chave estavel entre capturas. Falta reescrever ORIGIN_ID do conteudo como URN (PERSON) / id numerico (PAGE) e publicar a taxa de juncao.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "A mesma organizacao em varios canais da mesma plataforma tem de ser UMA origem (ou, no minimo, ter o vinculo declarado).",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nao existe ORGANIZATION_ID nem campo SAME_AS/PARENT_ORIGIN em nenhum dos arquivos; showcase e perfil pessoal da mesma empresa contam como origens independentes, inflando INDUSTRY_ORIGINS e as contagens de origem.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "Mesma pessoa em varias plataformas = UMA ORIGEM: precisa existir reconciliacao (ou pelo menos um estado declarado de nao-reconciliacao) entre YouTube, LinkedIn e o corpus cientifico.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Falta a entidade de origem acima da plataforma (ORIGIN canonico com CHANNEL/PROFILE como filhos) e um estado explicito por par candidato (RECONCILED / NOT_RECONCILED / UNKNOWN). O 'NÃO TESTADO' dos pesquisadores e honesto, mas cobre so a camada cientifica e nao ha equivalente para os 157 canais x 202 perfis.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "ORIGIN_ID, CHANNEL_ID e CONTENT_ID sao entidades distintas.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Sem entidade de origem acima do canal/perfil, a regra 'mesma pessoa em varias plataformas = UMA ORIGEM' e estruturalmente impossivel de cumprir — e esta e a causa raiz do achado de reconciliacao acima.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "Nenhum script inventa handle, transforma nome em endereco ou infere URL.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "Identidade nao pode ser inferida por similaridade textual.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Ainda assim, a identidade da CONCESSIONARIA e resolvida a partir de uma string sem nenhum ID de empresa, pela regra do prefixo mais longo — uma razao social que seja prefixo de outra liga a entidade errada, e esse risco residual nao esta medido nem declarado (ao contrario das 519 + 39 linhas UNRESOLVED, que estao).",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "9",
+   "grupo": "linkedin_identidade",
+   "requisito": "A ficha de identidade precisa declarar a regra e a estabilidade do seu ORIGIN_ID (como a camada de video declara).",
+   "status_alegado": "PARCIAL",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": true,
+   "lacuna": "Falta declarar, no arquivo de identidade do LinkedIn, qual e a chave, que ela e nativa da plataforma e o que acontece quando o perfil troca de URL vaidosa — sobretudo porque o arquivo de conteudo usa justamente a URL vaidosa como chave.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "10",
+   "grupo": "linkedin_identidade",
+   "requisito": "1 pessoa/canal com N conteudos = 1 ORIGIN e N CONTENTS; as duas contagens nunca se somam nem se trocam.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "10",
+   "grupo": "linkedin_identidade",
+   "requisito": "O vocabulario ORIGINAL / RESHARE / SYNDICATED / UNKNOWN precisa existir no codigo e ser aplicavel.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Vocabulario declarado sem campo e sem funcao que o aplique — a lista existe como texto, nao como comportamento.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "10",
+   "grupo": "linkedin_identidade",
+   "requisito": "Todo conteudo de video precisa carregar o estado de originalidade.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A camada de maior peso da regra (252 videos, 705 mil caracteres) nao distingue original de republicacao em nenhum grau, nem como UNKNOWN. Falta acrescentar o campo a CAMPOS_VIDEO, a CAMPOS_DA_REGRA em tests/test_coleta_externa.py:29-36 e a lista de 32 campos da secao 3 da regra.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "10",
+   "grupo": "linkedin_identidade",
+   "requisito": "O que nao pode ser provado fica UNKNOWN, nunca ORIGINAL por omissao.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "10",
+   "grupo": "linkedin_identidade",
+   "requisito": "Separar de fato ORIGINAL de RESHARE e de SYNDICATED (a metade da regra que discrimina, nao so a que se abstem).",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Esses 10 posts contam hoje como 10 conteudos independentes no corpus de 372. Nao se trata de colapsar por texto (a secao 11 proibe isso, e com razao), e sim de marcar RESHARE/SYNDICATED quando texto identico + mesma data + origens distintas e observavel. O sinal existe no dado versionado e nao foi usado.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "10",
+   "grupo": "linkedin_identidade",
+   "requisito": "A camada de midia tecnica — onde a release republicada de fato circula — tem de registrar origem e originalidade por item.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "E precisamente a camada onde 'uma release republicada em quatro lugares' se materializa (feeds de revista tecnica e de associacoes) e a unica sem entidade de conteudo. Falta um registro por item com CONTENT_ID, ORIGIN_ID e ORIGINALITY antes que esses 155 itens sejam usados como evidencia.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "10",
+   "grupo": "linkedin_identidade",
+   "requisito": "Uma contagem publicada tem de declarar se conta ORIGENS ou CONTEUDOS — as duas nunca se trocam.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O numero que sustenta rho=0,943 na secao J de CAMADA-DE-VOZ-ESPANHA.md nao declara sua unidade e nao e reproduzivel a partir das amostras versionadas. Falta declarar a derivacao (o que exatamente e uma 'mencao') e reconciliar n_provincias com a tabela.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "10",
+   "grupo": "linkedin_identidade",
+   "requisito": "O mesmo, na camada de video: a contagem por provincia que sustenta o achado principal precisa declarar se conta ORIGENS ou CONTEUDOS.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A unidade nao esta declarada (video? canal? ocorrencia? transcricao?) e o numero nao e reproduzivel a partir do que esta versionado — exatamente a distincao ORIGEM x CONTEUDO que a secao 10 existe para proteger, no numero mais citado da camada de voz.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "11",
+   "grupo": "dedupe_comments",
+   "requisito": "A chave de dedupe estrutural PLATFORM + EXTERNAL_ID existe em código, não só em prosa.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "11",
+   "grupo": "dedupe_comments",
+   "requisito": "Texto semelhante nunca colapsa registro — e isso é provado por teste, não afirmado.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "11",
+   "grupo": "dedupe_comments",
+   "requisito": "O corpus real de vídeo está deduplicado por identidade estrutural (VIDEO_ID), com o colapso declarado.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "11",
+   "grupo": "dedupe_comments",
+   "requisito": "O corpus de posts está deduplicado por POST_ID, e a dedupe é verificada contra os registros.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Falta o equivalente de `test_videos_sem_duplicata_continuam_sem_duplicata` para posts: hoje uma nova rodada poderia reintroduzir POST_ID duplicado e o bloco DEDUPE continuaria aritmeticamente consistente, sem nenhum teste reprovando. Falta também amarrar o nome da chave declarada ao campo que existe no registro.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "11",
+   "grupo": "dedupe_comments",
+   "requisito": "Dedupe por COMMENT_ID.",
+   "status_alegado": "NAO_APLICAVEL",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Não é violação hoje porque a camada de comentários não existe (ver achados da seção 12). Passa a ser requisito ativo no instante em que o primeiro comentário for coletado, e não há hoje nenhuma função de dedupe parametrizada por chave que já sirva para COMMENT_ID (`voz.chave_de_dedupe` é fixa em PLATFORM+EXTERNAL_ID).",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "11",
+   "grupo": "dedupe_comments",
+   "requisito": "A dedupe estrutural é aplicada pelo pipeline de coleta, não só disponível como função.",
+   "status_alegado": "PARCIAL",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": true,
+   "lacuna": "A função de dedupe existe e é testada, mas nenhum caminho de coleta reprodutível a invoca. O próximo país recebe a biblioteca, não o pipeline: quem coletar terá de lembrar de chamar `voz.dedupe`, e nada no repositório reprova se ele esquecer.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "11",
+   "grupo": "dedupe_comments",
+   "requisito": "A camada científica também deduplica por identificador estrutural, não por texto.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "11",
+   "grupo": "dedupe_comments",
+   "requisito": "Todo registro de pessoa carrega uma chave estrutural não nula, para que a dedupe por identidade seja possível.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Um registro de pessoa sem chave estrutural não pode ser deduplicado nem cruzado; se uma segunda rodada trouxer a mesma pessoa, nada colapsa e nada acusa. E a camada de pessoas inteira está fora da suíte de testes — nenhum teste garante PERSON_ID presente e único, como o teste de vídeo garante para EXTERNAL_ID.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "12",
+   "grupo": "dedupe_comments",
+   "requisito": "Existe coleta de comentários em algum lugar do repositório.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "A camada não existe: nem rota testada, nem amostra, nem normalizador, nem teste. Os 1.152 comentários já contados nos 252 vídeos são o universo conhecido e intocado. A ficha do contrato de campos da seção 12 nunca foi exercida uma vez sequer.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "12",
+   "grupo": "dedupe_comments",
+   "requisito": "Os nove campos a preservar por comentário (COMMENT_ID, VIDEO_ID, AUTHOR_REFERENCE, DATE, TEXT, LIKE_COUNT, PARENT_COMMENT_ID, SOURCE_ID, RUN_ID) vivem em código, como a lista de vídeo.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "A seção 3 põe a lista de vídeo em código exatamente com o argumento de que 'o próximo país não a redigite e não a encolha em silêncio', e tests/test_coleta_externa.py:29-43 transcreve a lista de propósito para reprovar se os dois lados divergirem. A lista de comentário não tem nenhuma dessas duas defesas.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "12",
+   "grupo": "dedupe_comments",
+   "requisito": "As cinco classes de comentário (FIELD_OBSERVATION, TECHNICAL_QUESTION, PRODUCT_QUESTION, PROBLEM_REPORT, TECHNICAL_DISCUSSION) estão declaradas em código ou dado.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Falta a lista fechada em código e a regra que só permite classificar quando há conteúdo real. Sem isso, o dia em que a coleta começar a classificação nasce sem vocabulário declarado e o 'comentário genérico não vira inteligência' não tem onde ser verificado.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "12",
+   "grupo": "dedupe_comments",
+   "requisito": "Não coletar comentários volume por volume.",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Nada no código ou nos testes impediria uma coleta em volume amanhã. A defesa equivalente já existe para transcrição (data/samples/ES-T8-001-videos.json TRANSCRIPT_STATE declara REQUESTED 20 / RETURNED 15 / REQUESTED_EMPTY 5, e a seleção declarada é 'só vídeos >=15 min de canais com PAPEL DECLARADO'); para comentário não existe regra de seleção análoga.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "13",
+   "grupo": "dedupe_comments",
+   "requisito": "Existe ORIGIN_STATUS (ou valor equivalente NÃO SEI / UNVERIFIED) nos registros de origem das amostras de voz.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Falta o campo e falta o vocabulário. Hoje 'papel não declarado' e 'identidade não verificada' são a mesma coisa no dado, e não são a mesma coisa: uma origem pode ter papel declarado e mesmo assim não ter ficha suficiente, e vice-versa.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "13",
+   "grupo": "dedupe_comments",
+   "requisito": "Há um portão que impede a origem sem ficha de subir para a camada analítica.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "O portão é de PAPEL e TÓPICO, não de suficiência de ficha de identidade, e existe só para a camada LinkedIn. Não há campo que registre a decisão por origem ('esta origem não sobe porque a ficha não fecha'), então o motivo de exclusão de 135 das 202 origens não é auditável registro a registro — só pelo booleano derivado.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "13",
+   "grupo": "dedupe_comments",
+   "requisito": "Origens de vídeo sem evidência suficiente de identidade não sobem para a camada analítica.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O aviso está no documento, mas nada no dado ou no código separa o que a ficha sustenta do que não sustenta. Falta ORIGIN_STATUS por canal e falta a versão do número calculada só sobre origens com ficha — hoje 157 origens e rho 0,96 são publicados como se as 157 fossem equivalentes.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "13",
+   "grupo": "dedupe_comments",
+   "requisito": "O número publicado pela camada analítica de voz é reproduzível a partir da evidência versionada da origem.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Falta a derivação declarada e um teste que recompute esses agregados a partir de ES-T8-001-videos.json, como já existe para FIELD_COVERAGE (tests/test_coleta_externa.py:63-69) e para o DEDUPE de posts. Enquanto isso, um número da camada analítica está publicado sem laço com a evidência que o deveria sustentar.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "13",
+   "grupo": "dedupe_comments",
+   "requisito": "Origem sem identidade declarada não é promovida — caso medido.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "13",
+   "grupo": "dedupe_comments",
+   "requisito": "Não inventar pessoa nem organização para completar a tabela.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "13",
+   "grupo": "dedupe_comments",
+   "requisito": "Origem cuja identidade a própria ficha põe em dúvida fica marcada como não verificada.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "É exatamente o caso que a seção 13 descreve: evidência de identidade insuficiente, e mesmo assim o registro entra na tabela com papel afirmado e sem estado. Falta ORIGIN_STATUS = NÃO SEI / UNVERIFIED nesse registro (e a regra que impede um registro sem chave estrutural de receber DECLARED_ROLE afirmativo).",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "Toda coleta relevante mantém RUN_ID.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "As 202 origens de identidade em ES-VOICE-LINKEDIN.json vieram da rota PAGA harvestapi/linkedin-profile-search e nenhuma delas carrega RUN_ID (o registro tem ORIGIN_ID, SOURCE_ID, DISCOVERY_ROUTE e nada de execução). O guarda em tests/test_coleta_externa.py:176-179 só exige RUN_ID em 3 arquivos, e as classes de teste após a linha 236 (onde está o unittest.main() fora de lugar) só rodam via discovery, nunca ao executar o arquivo direto.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "O RUN_ID tem de permitir voltar à execução de coleta que o gerou.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "O RUN_ID agrupa registros entre si, mas não resolve para nada fora do repositório. Não existe manifesto de run com actor+versão+input+dataset_id, então não é possível verificar se o corpus publicado é o que aquela execução devolveu — exatamente o caso em que a §14 diz que a rota é paga e não replicável.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "Toda coleta relevante mantém SOURCE_ID.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "Toda coleta relevante mantém CAPTURE_DATE.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Os 346 registros de ES-T8-001-comentarios.json não têm CAPTURE_DATE (só DATE, DATE_RELATIVE e RUN_ID) e as 202 origens de ES-VOICE-LINKEDIN.json também não. Nas duas, a data de captura só existe no cabeçalho do arquivo: se uma linha for movida ou recomposta, ela perde a data.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "Toda coleta relevante mantém EXTERNAL_ID (chave estável do item na plataforma).",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "RAW_EVIDENCE é preservado ao lado do registro normalizado, na camada de voz.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Para as três rotas pagas de voz (YouTube, transcrição, LinkedIn) existe só o NORMALIZED_RECORD. A chave descartável morre e a rota não se replica, então o bruto não é recuperável nem pelo cache — é a exata situação que a própria §14 descreve como \"ou a evidência é versionada, ou ela se perde\".",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "RAW nunca é substituído pelo normalizado.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O descarte é irreversível e o EVIDENCE_PATH é autorreferente, então não existe elo do registro normalizado para uma evidência distinta dele. Nenhum teste checa que EVIDENCE_PATH aponte para um arquivo diferente do que contém o registro (grep de EVIDENCE_PATH em tests/ só encontra a lista de campos em test_coleta_externa.py:35).",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "Existe NORMALIZED_RECORD com contrato de campos estável.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "Existe pelo menos uma cadeia RAW → NORMALIZED auditável no repositório, servindo de padrão.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "O padrão existe apenas na camada regulatória (ES-T4-005). Nenhum arquivo da camada de voz o segue.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "De uma conclusão publicada (rho 0,96 em ES-VOICE-x-REGUA.json) é possível voltar até a evidência bruta dentro do repositório.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Nenhum passo é código. metricas_canonicas.py:327 apenas COPIA rec[camada]['rho_vs_exposure_index'] do JSON; nenhum script calcula Spearman (grep de 'spearman'/'rho' em scripts/ só acha a string de derivação). E o elo do LinkedIn NÃO reproduz: com os mesmos dados obtenho 0.926 (postos médios) ou 0.943 (postos ordinais) contra 0,943 publicado, e para incidência/área obtenho 0.247/0.741 ou 0.314/0.657 contra os 0,543/0,543 publicados — que não consegui reproduzir com nenhuma coluna da régua nem com nenhum tratamento de empate. O único teste sobre isso (tests/test_voz.py, test_as_duas_camadas_concordam_com_exposicao_e_nao_com_incidencia) só compara se um rho é maior que o outro, nunca recalcula.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "O denominador publicado tem de ser o denominador efetivamente usado no cálculo.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A província que sobra (Almería, com 8 menções em ES-VOICE-YOUTUBE.json) foi silenciosamente descartada e o n publicado ficou uma unidade acima do n calculado. O mesmo descarte acontece na camada LinkedIn (7 chaves em mentions_by_province, n_provincias 6) e em nenhum dos dois lugares o descarte está declarado. Nenhum teste compara n_provincias com o tamanho de mentions_by_province nem com by_province da régua.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "A contagem que sustenta a conclusão (mentions_by_province) tem de ser reconstruível a partir da evidência preservada.",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "O achado publicado (\"Córdoba lidera a voz\") repousa em contagem de ocorrências dentro de 15 transcrições, enquanto o campo FACT_LOCATION do MESMO corpus versionado, produzido por scripts/voz.py:208-225 com regra NOMEADO_NO_TEXTO, ordena Jaén à frente de Córdoba. Os dois números convivem no repositório sem que nada declare qual é o denominador da conclusão, e o script que gerou mentions_by_province não existe.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "As contagens temáticas publicadas (WHAT_THE_VOICE_TALKS_ABOUT) têm de ser reconstruíveis com escopo declarado.",
+   "status_alegado": "PARCIAL",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": true,
+   "lacuna": "Cada número publicado bate com um escopo de texto e um radical DIFERENTE, e nenhum deles está declarado. A leitura publicada (\"a conversa é dominada por COBRE\") não é auditável porque não existe o vocabulário nem o script que produziu a contagem — VOCAB_MOLECULE em scripts/voz.py:180-193 existe, mas alimenta o campo MOLECULE dos registros (12 de 252 declarados), não este bloco.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "Coleta por rota não replicável entra em data/samples, que é versionado.",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "git status mostra `?? data/samples/ES-T8-001-comentarios.json` — 253 KB, 346 comentários da MESMA rota paga, com RUN_ID próprio (ES-T8-001-COMMENTS-2026-08-29-a), ainda não versionado. Enquanto estiver untracked, é exatamente a evidência que a regra diz que se perde. Nenhum teste verifica que as amostras de rota paga estão rastreadas pelo git.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "A coleta é auditável: existe o código que produziu a evidência.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Os 4 arquivos ES-T8 foram produzidos por um processo ad hoc não versionado. O input real do Actor (termos, paginação, janela, limites) existe só como prosa em ES-VOICE-YOUTUBE.json SEARCH_TERMS e no relatório de rotas. Sem o coletor, nem a coleta nem a normalização podem ser reexecutadas ou conferidas.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "As rotas de mídia técnica (T7) preservam a evidência que sustenta o número publicado.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "O número publicado (29 títulos on-topic de 50) não pode ser verificado: 47 dos 50 itens não existem mais em lugar nenhum do repositório, e o critério de 'on-topic' também não está em código. Nada permite voltar da conclusão à evidência.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "14",
+   "grupo": "proveniencia",
+   "requisito": "A evidência versionada tem identidade verificável no tempo (hash/versão), para que a conclusão continue amarrada ao mesmo arquivo.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Nenhum arquivo da camada de voz está na WATCH: não há SHA-256 de ES-T8-001-videos.json, -transcricoes.json, -baseline-canais.json, -comentarios.json nem de ES-T8-002-posts.json. Justamente a evidência que a §14 declara não replicável é a que não tem identidade registrada — se ela mudar, nada acusa.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "Falha de leitura ≠ zero.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "Falha de scraping ≠ ausência de conteúdo; HTTP 200 ≠ fonte viva.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "403 ≠ empresa silenciosa.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "Nenhum resultado de Actor ≠ nenhum resultado na plataforma.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Não existe mecanismo: scripts/source_health.py não é importado por nada da camada de voz (os únicos importadores são scripts/chain.py:41-42 e tests/test_operacao.py), nenhum registro de rota paga carrega campo de estado por consulta, e nenhuma consulta que devolveu zero está registrada com o input que a produziu. A disciplina está no texto de uma amostra, não num caminho de código que a imponha na próxima coleta.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "Transcript indisponível ≠ vídeo sem conteúdo técnico.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "Os seis estados explícitos (PROVED, PARTIAL, NOT_REACHED, NOT_TESTED, FAILED_WITH_REASON, NÃO SEI) existem e são usados.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "NOT_TESTED tem ZERO ocorrências em todo data/samples — o estado que distingue 'não olhei' de 'olhei e falhou' nunca foi exercido. E ESTADOS_DE_FONTE não valida nada: grep mostra que a lista só é lida em scripts/voz.py:244, dentro do print do __main__; nenhuma função confere um STATE contra ela. A lista ainda grafa 'NAO_SEI' enquanto a constante voz.NAO_SEI é 'NÃO SEI' e as amostras usam 'NÃO SEI', então uma validação escrita hoje contra essa lista reprovaria os dados corretos.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "Toda conclusão publicada declara um dos estados explícitos.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "A conclusão de maior circulação da camada de voz (a concordância geográfica) chega ao documento sem estado declarado. As ressalvas estão em prosa livre, então nenhum consumidor programático — incluindo scripts/metricas_canonicas.py:324-332, que copia o rho para o ledger — pode saber que grau de prova ele está propagando.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "FAILED e NOT_TESTED têm de ser estados distintos no código de saúde de fonte.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O módulo que deveria ser a máquina de estados de falha da §15 modela 3 estados úteis dos 6 e funde 'falhou' com 'não foi tentada'. Nenhum teste em tests/test_operacao.py cita UNKNOWN. A disciplina de 403/404/TLS que existe em ES-VOICE-MEDIA-ROUTES.json foi feita fora deste módulo e não pode ser reusada por ele.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "Falha de leitura de VERSÃO não pode virar 'nada mudou' (estados de versão).",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "Cobertura degradada faz o pipeline parar (fail closed), em vez de entregar número parcial com a mesma cara.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "15",
+   "grupo": "proveniencia",
+   "requisito": "A máquina de cobertura e de saúde de fonte é aplicada à camada de voz, não só às cadeias regulatórias.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Na camada de voz nenhum piso de cobertura está declarado e nada pode falhar fechado: ROLE_COVERAGE 0,67 e FIELD_COVERAGE com ORGANIZATION/COUNTRY/LANGUAGE em 0% são publicados sem qualquer barreira. tests/test_voz.py:73-76 só exige que a cobertura seja menor que 100%, o que é o oposto de um piso.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "17",
+   "grupo": "cruzamentos",
+   "requisito": "Existir um artefato de cruzamento VIDEO x SCIENCE que declare um estado explicito em vez de silenciar o resultado negativo.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "17",
+   "grupo": "cruzamentos",
+   "requisito": "Existir reconciliacao de origem entre CIENCIA e VIDEO — o pesquisador de paper/congresso/webinar tratado como uma origem com varias evidencias.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "Nao existe nenhum elo ciencia<->video. O unico candidato do repositorio e ciencia<->LinkedIn e nem esse esta confirmado (MATCH_STATE CANDIDATE_NAME_ONLY). A secao chama-se VIDEO x SCIENCE, mas contra os 157 canais YouTube o resultado e zero candidatos, nao um — a redacao da regra (\"153 pesquisadores x 202 origens LinkedIn x 157 canais YouTube produziram 1 candidato\") deixa parecer que o candidato veio da mistura das duas plataformas.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "17",
+   "grupo": "cruzamentos",
+   "requisito": "A rota por pesquisador (ORCID/OpenAlex -> perfil institucional -> YouTube/webinar/LinkedIn) ser efetivamente percorrida por pessoa, e nao substituida por casamento agregado de listas.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A rota SCIENCE -> RESEARCHER -> PUBLIC EXPLANATION nunca foi executada no nivel da pessoa: nenhuma das 153 fichas teve a busca publica tentada. O que foi feito foi um casamento de nomes entre listas agregadas. O rotulo \"NÃO TESTADO\" e honesto (nao e null nem false), mas o requisito da secao 17 continua sem qualquer tentativa por pessoa.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "17",
+   "grupo": "cruzamentos",
+   "requisito": "Poder distinguir as tres evidencias que a regra cita — paper, congresso e webinar — para que elas possam ser somadas sob uma origem.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "TIPOS_VIDEO existe em codigo mas nao e aplicado a nenhum video coletado. Sem CONFERENCE/TECHNICAL_WEBINAR gravado por registro, 'congresso' e 'webinar' nao sao dimensoes existentes no dado, e a soma de tres evidencias sob uma origem nao teria como ser contada mesmo que o elo de identidade existisse.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "17",
+   "grupo": "cruzamentos",
+   "requisito": "Nao inferir identidade por similaridade textual — e, se um metodo frouxo for testado, medir e descartar em vez de publicar.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "18",
+   "grupo": "cruzamentos",
+   "requisito": "O cruzamento video x campo existir e declarar um dos quatro estados LEADS / COINCIDES / LAGS / NO_RELIABLE_SIGNAL.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "18",
+   "grupo": "cruzamentos",
+   "requisito": "Nao fabricar antecipacao: o coeficiente mais alto nao pode ser promovido a LEADS sem passar o valor critico.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "18",
+   "grupo": "cruzamentos",
+   "requisito": "Corrigir o artefato de rota: o denominador da serie tem de ser os videos daquele ano (share do tema), nao a contagem bruta.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "18",
+   "grupo": "cruzamentos",
+   "requisito": "Os coeficientes publicados no cruzamento temporal serem reproduziveis a partir da propria serie do arquivo.",
+   "status_alegado": "PARCIAL",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Os cinco coeficientes nao reproduzem exatamente e um deles troca de sinal. A conclusao NO_RELIABLE_SIGNAL continua valendo (o maior |rho| recalculado, 0,638, ainda fica abaixo de 0,648), mas a margem real e bem mais estreita do que a publicada — 0,638 contra 0,648 e nao 0,600 contra 0,648. Sem script commitado, ninguem consegue re-derivar os numeros nem saber qual convencao de empate foi usada.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "18",
+   "grupo": "cruzamentos",
+   "requisito": "O n usado em cada coeficiente ser declarado de forma consistente com o valor critico aplicado.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Um unico valor critico (0,648, correspondente a n=10) e aplicado a coeficientes calculados sobre n=11, n=10 e n=9, cujos criticos corretos sao aproximadamente 0,618, 0,648 e 0,683. O arquivo nao declara o n de cada coeficiente. Nenhum dos coeficientes cruza o limiar em nenhuma das convencoes, entao o veredito nao muda, mas o teste tests/test_coleta_externa.py::test_o_rho_mais_alto_nao_virou_lead usa 0.648 como constante unica para todos.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "18",
+   "grupo": "cruzamentos",
+   "requisito": "A reconciliacao geografica voz x regua (ES-VOICE-x-REGUA.json) ter coeficientes reproduziveis a partir da regua de campo do proprio repositorio.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Os tres coeficientes da rota LinkedIn nao sao reproduziveis a partir da regua do repositorio. Alem disso rho_vs_incidence_only e rho_vs_area_only sao publicados identicos (0,543 == 0,543), o que exigiria que incidencia e area tivessem a mesma ordem de postos nessas provincias — a regua mostra ordens diferentes (0,247 contra 0,741). Isso alimenta a afirmacao da secao 18 da regra de que a voz concorda no espaco com rho 0,96 e 0,94; a metade YouTube (0,96) esta verificada, a metade LinkedIn (0,94) nao.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "18",
+   "grupo": "cruzamentos",
+   "requisito": "Declarar corretamente quantas provincias entraram em cada correlacao, e registrar as que foram descartadas.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Almería aparece nas mencoes das duas rotas mas nao existe na regua de campo, e foi silenciosamente descartada da correlacao sem que o arquivo diga isso. O n declarado do YouTube (8) nao e o n efetivamente usado (7) — o que muda o valor critico de Spearman aplicavel (aproximadamente 0,738 para n=8 contra 0,786 para n=7).",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "19",
+   "grupo": "cruzamentos",
+   "requisito": "O denominador aparecer explicitamente, de modo que nenhuma leitura de share of voice possa sair da amostra.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "19",
+   "grupo": "cruzamentos",
+   "requisito": "Manter communication != sales, != market share, != demand na leitura publicada.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "19",
+   "grupo": "cruzamentos",
+   "requisito": "Cobrir as sete dimensoes que a secao 19 diz que o video de concorrente revela: topicos ativados, culturas enfatizadas, produtos apresentados, claims tecnicos, eventos, timing e geografia.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Tres das sete dimensoes estao ausentes (culturas enfatizadas, timing, geografia) e uma esta so em contagem (produtos apresentados, sem nome de produto). Timing e a mais barata de fechar: PUBLICATION_DATE ja existe nos 372 posts e nenhuma quebra temporal foi publicada.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "19",
+   "grupo": "cruzamentos",
+   "requisito": "A secao chama-se VIDEO x COMPETITOR — o video de concorrente ser efetivamente analisado.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "O cruzamento da secao 19 existe so na camada LinkedIn. A metade de video — que e o nome da secao e a camada de prioridade 1 da secao 1 — nao foi feita, apesar de os 14 videos de concorrente ja estarem coletados e transcriveis. Tambem nao ha estado declarado (LEADS/PARTIAL/NOT_REACHED) para a ausencia do lado video.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "20",
+   "grupo": "cruzamentos",
+   "requisito": "Todo canal que sobreviver ao discovery receber baseline por canal, com contagens que fecham.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "20",
+   "grupo": "cruzamentos",
+   "requisito": "A primeira observacao ser BASELINE_ESTABLISHED e nunca NO_CHANGE.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "20",
+   "grupo": "cruzamentos",
+   "requisito": "Baseline por canal, nao so por camada — valendo para todas as camadas que sobreviveram ao discovery, nao apenas YouTube.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "As 202 origens LinkedIn sobreviveram ao discovery (o arquivo declara STATE 'PROVED para IDENTITY') e recebem exatamente o baseline agregado de camada que a secao 20 declara insuficiente. O mesmo argumento do PORQUE_POR_CANAL do arquivo de YouTube se aplica: 202 continua 202 se uma origem publicar e outra sumir.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "20",
+   "grupo": "cruzamentos",
+   "requisito": "Os sete tipos de evento (NEW_VIDEO, NEW_TOPIC, NEW_RESEARCHER_ACTIVITY, NEW_COMPETITOR_CLAIM, NEW_TECHNICAL_DISCUSSION, NEW_PRODUCT_MENTION, NEW_REGION_MENTION) existirem como eventos detectaveis.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Os sete existem como lista declarada, nao como eventos. Nenhum tem IDENTITY_KEY, EVENT_CONDITION, risco de falso positivo nem confirmacao exigida — que e exatamente o que docs/regras/REGUA-DE-CHANGE-EVENT-EAME.md secao 6 fornece, linha a linha, para cada um dos seus 11 tipos regulatorios. O teste que os 'prova' verifica que uma lista de strings contem strings.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "20",
+   "grupo": "cruzamentos",
+   "requisito": "Cada um dos sete eventos ter, no baseline por canal, um campo contra o qual a proxima execucao possa ser diffada.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Quatro dos sete eventos sao indetectaveis em principio a partir deste baseline, e nao por falta de uma segunda execucao. NEW_PRODUCT_MENTION nao pode apoiar-se em MOLECULES_SEEN: o proprio contrato CAMPOS_VIDEO separa PRODUCT de MOLECULE, e PRODUCT vale 'NÃO SEI' nos 252 videos de ES-T8-001-videos.json. NEW_RESEARCHER_ACTIVITY nao tem campo de pessoa por canal (e ligaria na rota da secao 17, que esta NOT_REACHED). NEW_COMPETITOR_CLAIM nao tem campo de claim. NEW_TECHNICAL_DISCUSSION nao tem campo de comentario ou discussao por canal.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "20",
+   "grupo": "cruzamentos",
+   "requisito": "Declarar a cobertura dos campos do baseline, para nao dar como detectavel um evento que so poderia disparar numa minoria de canais.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Mesmo os tres eventos com lastro so poderiam disparar numa minoria dos canais, e o arquivo nao avisa. O repositorio faz esse aviso em outro lugar — data/samples/ES-VOICE-YOUTUBE.json traz ROLE_COVERAGE_WARNING: \"134 de 157 canais (85%) ficam NOT_DECLARED\" — entao a omissao aqui e inconsistente com a pratica da propria camada.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "20",
+   "grupo": "cruzamentos",
+   "requisito": "A camada de voz entrar no DATA CLOCK, isto e, ser vigiada por scripts/data_clock.py com identidade e SHA-256 registrados no manifesto.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A secao 20 chama-se DATA CLOCK POR CANAL, mas a camada de voz esta fora do DATA CLOCK. O baseline por canal nao tem SHA-256, nao esta no manifesto, e rodar python3 scripts/data_clock.py nunca vai captura-lo. O relogio que a secao 20 invoca e um artefato JSON isolado, nao o mecanismo de versionamento que o repositorio ja tem funcionando para as fontes regulatorias.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "20",
+   "grupo": "cruzamentos",
+   "requisito": "O baseline por canal ser reproduzivel por codigo commitado, para que a segunda execucao — a que emitiria os eventos — possa existir.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "O baseline por canal e um artefato produzido fora da cadeia reproduzivel. Sem gerador commitado nao ha como produzir a segunda observacao, e sem segunda observacao nenhum dos sete eventos pode sair de BASELINE_ESTABLISHED — a limitacao deixa de ser 'so falta o tempo passar' (como a REGUA-DE-CHANGE-EVENT secao 6 diz corretamente dos cinco tipos regulatorios em NOT ENOUGH VERSIONS) e passa a ser falta de codigo.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "17/18/20",
+   "grupo": "cruzamentos",
+   "requisito": "Os testes que guardam estas secoes serem efetivamente executados.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Toda a cobertura de teste das secoes 17, 18 e 20 — inclusive test_o_rho_mais_alto_nao_virou_lead, test_primeira_observacao_nunca_e_no_change, test_os_sete_eventos_da_regra_estao_declarados e test_nome_igual_nao_confirma_identidade — e silenciosamente ignorada sempre que o arquivo e executado diretamente, e o unittest.main() chama sys.exit(), de modo que nada abaixo dele e sequer definido. So a descoberta ('python3 -m unittest discover -s tests', 174 testes) as coleta. Um regressor nessas tres secoes passaria despercebido no caminho de execucao mais obvio, e a falha e silenciosa: o run direto reporta OK.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "Existir uma tabela que compare os Actors nas cinco dimensoes nomeadas pela regra (custo, qualidade, identidade, transcript, atualizacao).",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "A dimensao CUSTO tem de ser medida por Actor (a coluna se chama \"custo medido\").",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Falta o custo real por Actor em 4 de 6 linhas, e nao existe nenhum registro versionado de custo por rota — a politica em /home/user/eame-sintonia/docs/regras/POLITICA-DE-CHAVES-DESCARTAVEIS.md exige TOTAL_REAL_COST e BEST_COST_QUALITY no relatorio de fim de chave.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "A dimensao QUALIDADE tem de estar medida, com numero, para cada Actor comparado.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "A dimensao IDENTIDADE — a que a regra manda decidir — tem de estar medida para cada Actor.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "A dimensao TRANSCRIPT tem de ser medida para os Actors em que faz sentido.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "O 'n/a' do Instagram na coluna transcript nao esta apoiado em nenhuma medicao versionada; e cobertura de transcript dentro do proprio YouTube nao entra na comparacao (15 transcricoes para 67 videos >=15 min, recontados em ES-T8-001-videos.json).",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "A dimensao ATUALIZACAO tem de ser medida para cada Actor.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Falta medida de atualizacao (ou o estado NAO MEDIDO) para os 2 Actors de perfil e para o Actor de Instagram.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "Comparar VIDEO ACTORS antes de escalar — a regra diz explicitamente \"Video entra na comparacao\".",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Nao existe comparacao ENTRE Actors de video (candidatos alternativos medidos lado a lado), e o Actor de transcricao nunca foi avaliado nas cinco dimensoes. Video e a unica plataforma cujos Actors nao sao sequer nomeados na tabela.",
+   "custo_de_fechar": "ALTO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "Comparar INSTAGRAM ACTORS antes de escalar.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": true,
+   "lacuna": "Nenhum Actor alternativo de Instagram (por conta, por perfil, por reel) foi medido; a reprovacao da plataforma foi decidida sobre uma unica rota, a de hashtag, que e justamente a de pior identidade por construcao.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "Comparar LINKEDIN ACTORS antes de escalar.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "VIDEO SCRAPING entra nas rotas — nao gastar tudo em LinkedIn/Instagram e esquecer o video.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "O passo DISCOVERY do fluxo obrigatorio (DISCOVERY -> TESTE PEQUENO -> MEDICAO -> ESCOLHA -> ESCALA) tem de estar evidenciado.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Falta o registro do universo de Actors considerados por plataforma (quantos vistos, quais descartados e por que) — sem ele o passo DISCOVERY e afirmacao, nao evidencia.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "Com chave descartavel, usar todo o credito quando ele servir a missao.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "46% do credito ficou sem uso enquanto o proprio documento lista lacunas que a rota paga fecharia; a politica permite gastar sem pedir nova autorizacao, e essa permissao nao foi exercida ate o fim.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "Os numeros de teste e escala do relatorio tem de reconciliar com o dado versionado.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Tres pares de numeros do relatorio (69/87, 120/202, 18/17) e o denominador das buscas de cargo (11 / 6 / 7 reais) nao fecham com as amostras versionadas.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "21",
+   "grupo": "apify_espanha",
+   "requisito": "Os numeros da comparacao de Actors tem de ser verificaveis por script ou teste, e nao so por prosa em markdown.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "Todos os numeros da comparacao das cinco dimensoes vivem apenas na tabela markdown, sem amostra versionada, sem metrica canonica e sem teste — nada impede que divirjam do dado (como ja divergem, ver achado anterior).",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 1 — 20+ pesquisadores verificaveis por pais.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 1 (verificabilidade) — o quadro de pesquisadores nao pode conter o caso de conflacao de homonimo que o proprio arquivo diz ter excluido.",
+   "status_alegado": "PARCIAL",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": true,
+   "lacuna": "O unico caso de identidade suspeita que o arquivo declara ter excluido esta dentro da lista, na primeira posicao. Nenhum teste em /home/user/eame-sintonia/tests cobre ES-RESEARCHERS-OLIVE.json.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 2 — 20+ vozes tecnicas publicas / agronomos por pais.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "PARCIAL",
+   "refutado": true,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 3 — corpus cientifico relevante, com numero verificavel no repositorio.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "O numero publicado (1.771) nao e reproduzivel a partir do repositorio versionado; quem clonar nao consegue recontar. Falta uma amostra versionada com a contagem de trabalhos, ou uma metrica canonica derivada de arquivo versionado.",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 4 — instituicoes do ecossistema de pesquisa e extensao, com numero verificavel.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "O numero publicado (380) diverge do que o repositorio sustenta (99) e vem de arquivo gitignorado; nao existe camada de instituicao com identidade propria (nem ROR, nem pais declarado, nem papel pesquisa vs extensao), e /home/user/eame-sintonia/data/samples/ES-X-VOICE-SCIENCE.json registra casamento estrito de instituicao entre camadas = 0 e metodo frouxo METODO_REJEITADO.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 5 — YouTube tecnico em profundidade.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 6 — LinkedIn publico, com identidade e conteudo utilizaveis juntos.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "Nenhum dos 372 posts pode ser ligado estruturalmente a uma ficha de identidade. O teste test_identidade_e_conteudo_moram_em_arquivos_diferentes (/home/user/eame-sintonia/tests/test_coleta_externa.py linha 129) so verifica que o ponteiro textual existe, nunca que a chave junta.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 7 — cooperativas e associacoes.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "A federacao que representa as cooperativas espanholas nao foi alcancada, so 2 de 6 rotas de associacao respondem, e a camada nunca e reportada com numero proprio — nao ha como dizer se 11 origens sao muito ou pouco contra o universo.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 8 — comunicacao de concorrente.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "A base e de 26 posts sobre 11 origens, sem censo por empresa e sem rota por origem; a maior empresa do recorte tem 6 posts e a ADAMA 4 — pequeno demais para ordenar empresas, como o proprio arquivo diz. E o denominador declarado (18 consultas) nao bate com as 17 DISCOVERY_QUERY distintas de ES-T8-002-posts.json.",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 9 — midia tecnica.",
+   "status_alegado": "PARCIAL",
+   "status_final": "PARCIAL",
+   "refutado": false,
+   "lacuna": "8 de 18 rotas provadas, e mesmo entre as provadas metade nao devolve nada sobre o tema-ancora: o relogio de publicacao real repousa sobre uma unica fonte (Oleo Revista). As 10 rotas nao provadas seguem abertas (item 4 da secao X do doc de camada).",
+   "custo_de_fechar": "MEDIO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "Meta 10 — Instagram so se agregar sinal.",
+   "status_alegado": "ATENDIDO",
+   "status_final": "ATENDIDO",
+   "refutado": false,
+   "lacuna": "",
+   "custo_de_fechar": "BAIXO"
+  },
+  {
+   "secao": "22",
+   "grupo": "apify_espanha",
+   "requisito": "A fonte que sustenta as metas 1, 3 e 4 (ciencia, pesquisadores, instituicoes) tem de ter ficha no Atlas de Fontes.",
+   "status_alegado": "NAO_ATENDIDO",
+   "status_final": "NAO_ATENDIDO",
+   "refutado": false,
+   "lacuna": "A camada de ciencia e pesquisadores da Espanha — a que entrega 153 pesquisadores, o corpus e as instituicoes — nao tem ficha de fonte, entao nao tem ACCESS_METHOD, COLLECTION_FEASIBILITY nem VERDICT registrados no Atlas.",
+   "custo_de_fechar": "BAIXO"
+  }
+ ]
+}
