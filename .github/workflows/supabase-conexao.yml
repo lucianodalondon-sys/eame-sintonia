@@ -65,12 +65,37 @@ jobs:
           else
             echo "SUPABASE_DB_CONNECTION=FAIL"
             # sanitiza: a mensagem do libpq pode ecoar host/usuario da URL
-            sed -E 's#postgres(ql)?://[^ ]*#<URL_OMITIDA>#g; s#(host|user)=[^ ]*#\1=<OMITIDO>#g' /tmp/pg.err | head -3
+            # O libpq escreve: connection to server at "HOST" (IP), port N failed: ...
+            # A versao anterior deste sed nao pegava esse formato e o host vazou no log da
+            # execucao 1. Agora o host, o IP e qualquer URL saem antes de imprimir.
+            sed -E 's#postgres(ql)?://[^ ]*#<URL_OMITIDA>#g;
+                     s#at "[^"]*"#at "<HOST_OMITIDO>"#g;
+                     s#\(([0-9a-fA-F:.]+)\)#(<IP_OMITIDO>)#g;
+                     s#(host|user|password)=[^ ]*#\1=<OMITIDO>#g' /tmp/pg.err | head -3
+            # Diagnostico sem expor: a conexao direta db.<ref>.supabase.co e IPv6-only, e o
+            # runner do GitHub Actions e IPv4-only. Se for esse o caso, a saida abaixo diz
+            # qual familia de endereco existe, sem imprimir endereco nenhum.
+            python3 - <<'PY'
+          import os, socket, urllib.parse as U
+          h = U.urlparse(os.environ['SUPABASE_DB_URL']).hostname or ''
+          fams = set()
+          try:
+              for r in socket.getaddrinfo(h, None):
+                  fams.add('IPv6' if r[0] == socket.AF_INET6 else 'IPv4')
+          except Exception as e:
+              print('DNS=falhou (%s)' % type(e).__name__)
+          print('FAMILIAS_DE_ENDERECO_DO_HOST_DB=' + (','.join(sorted(fams)) or 'nenhuma'))
+          print('RUNNER_TEM_IPv6=' + ('SIM' if socket.has_ipv6 else 'NAO'))
+          PY
           fi
 
       - name: 4 · Storage (listar buckets, sem criar)
         run: |
+          # A chave nova (sb_secret_...) NAO e um JWT. Mandar so `Authorization: Bearer`
+          # faz o Storage tentar decodificar como JWS e devolver 400 Invalid Compact JWS.
+          # O par apikey + Authorization e o mesmo que o REST aceitou com 200.
           code=$(curl -sS -o /tmp/st.out -w '%{http_code}' -m 40 \
+                 -H "apikey: $SUPABASE_SECRET_KEY" \
                  -H "Authorization: Bearer $SUPABASE_SECRET_KEY" \
                  "$SUPABASE_URL/storage/v1/bucket" || echo 000)
           echo "HTTP_STATUS=$code"
