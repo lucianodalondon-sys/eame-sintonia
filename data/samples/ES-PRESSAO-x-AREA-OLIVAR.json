@@ -1,0 +1,124 @@
+{
+ "what_it_is": "pressao de repilo cruzada com area de olivar por provincia — proxy de TAMANHO, nunca de demanda",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN (Andalucía, nível província)",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-29",
+ "sources": {
+  "pressao": "ES-T3-001 RAIF Andalucía — coorte de repilo visível, campo 1702",
+  "area": "MAPA — Superficies y producciones anuales de cultivos, Anuario 2024 (dados 2023 e 2024), planilha re1_olivar_formato_tabla_global.xlsx, aba BD_HORTALIZAS-NO, indicador SRTT (superfície total)",
+  "area_url": "https://www.mapa.gob.es/dam/mapa/contenido/estadisticas/temas/estadisticas-agrarias/2.agricultura/3.-superficies-y-producciones-anuales/reglamento-n--543-2009/re1_olivar_formato_tabla_global.xlsx"
+ },
+ "ANDALUSIAN_OLIVE_HA_TOTAL": 1665100,
+ "by_province": [
+  {
+   "PROVINCE": "Jaén",
+   "OLIVE_HA_TOTAL": 589047,
+   "OLIVE_HA_ALMAZARA": 588890,
+   "OLIVE_HA_MESA": 157,
+   "INCIDENCE_2026_COHORT": 0.77,
+   "INCIDENCE_2023_COHORT": 0.56,
+   "CHANGE_x": 1.4,
+   "PARCELS_2026": 211,
+   "READINGS_2026": 1047,
+   "HA_x_INCIDENCE": 4536,
+   "SHARE_OF_ANDALUSIAN_OLIVE_AREA_pct": 35.4
+  },
+  {
+   "PROVINCE": "Córdoba",
+   "OLIVE_HA_TOTAL": 376967,
+   "OLIVE_HA_ALMAZARA": 265181,
+   "OLIVE_HA_MESA": 2686,
+   "INCIDENCE_2026_COHORT": 2.37,
+   "INCIDENCE_2023_COHORT": 1.68,
+   "CHANGE_x": 1.4,
+   "PARCELS_2026": 121,
+   "READINGS_2026": 466,
+   "HA_x_INCIDENCE": 8934,
+   "SHARE_OF_ANDALUSIAN_OLIVE_AREA_pct": 22.6
+  },
+  {
+   "PROVINCE": "Sevilla",
+   "OLIVE_HA_TOTAL": 253293,
+   "OLIVE_HA_ALMAZARA": 114917,
+   "OLIVE_HA_MESA": 55242,
+   "INCIDENCE_2026_COHORT": 2.74,
+   "INCIDENCE_2023_COHORT": 1.1,
+   "CHANGE_x": 2.5,
+   "PARCELS_2026": 301,
+   "READINGS_2026": 674,
+   "HA_x_INCIDENCE": 6940,
+   "SHARE_OF_ANDALUSIAN_OLIVE_AREA_pct": 15.2
+  },
+  {
+   "PROVINCE": "Granada",
+   "OLIVE_HA_TOTAL": 209978,
+   "OLIVE_HA_ALMAZARA": 209893,
+   "OLIVE_HA_MESA": 34,
+   "INCIDENCE_2026_COHORT": 0.61,
+   "INCIDENCE_2023_COHORT": 0.82,
+   "CHANGE_x": 0.7,
+   "PARCELS_2026": 156,
+   "READINGS_2026": 477,
+   "HA_x_INCIDENCE": 1281,
+   "SHARE_OF_ANDALUSIAN_OLIVE_AREA_pct": 12.6
+  },
+  {
+   "PROVINCE": "Málaga",
+   "OLIVE_HA_TOTAL": 141156,
+   "OLIVE_HA_ALMAZARA": 19497,
+   "OLIVE_HA_MESA": 7597,
+   "INCIDENCE_2026_COHORT": 1.08,
+   "INCIDENCE_2023_COHORT": 0.97,
+   "CHANGE_x": 1.1,
+   "PARCELS_2026": 89,
+   "READINGS_2026": 166,
+   "HA_x_INCIDENCE": 1524,
+   "SHARE_OF_ANDALUSIAN_OLIVE_AREA_pct": 8.5
+  },
+  {
+   "PROVINCE": "Cádiz",
+   "OLIVE_HA_TOTAL": 37206,
+   "OLIVE_HA_ALMAZARA": 37167,
+   "OLIVE_HA_MESA": 39,
+   "INCIDENCE_2026_COHORT": 8.01,
+   "INCIDENCE_2023_COHORT": 5.01,
+   "CHANGE_x": 1.6,
+   "PARCELS_2026": 36,
+   "READINGS_2026": 141,
+   "HA_x_INCIDENCE": 2980,
+   "SHARE_OF_ANDALUSIAN_OLIVE_AREA_pct": 2.2
+  },
+  {
+   "PROVINCE": "Huelva",
+   "OLIVE_HA_TOTAL": 35214,
+   "OLIVE_HA_ALMAZARA": 20921,
+   "OLIVE_HA_MESA": 468,
+   "INCIDENCE_2026_COHORT": 8.83,
+   "INCIDENCE_2023_COHORT": 1.17,
+   "CHANGE_x": 7.5,
+   "PARCELS_2026": 7,
+   "READINGS_2026": 18,
+   "HA_x_INCIDENCE": 3109,
+   "SHARE_OF_ANDALUSIAN_OLIVE_AREA_pct": 2.1
+  }
+ ],
+ "ranked_by_exposure_proxy": [
+  "Córdoba",
+  "Sevilla",
+  "Jaén",
+  "Huelva",
+  "Cádiz",
+  "Málaga",
+  "Granada"
+ ],
+ "WHAT_HA_x_INCIDENCE_IS": "hectares × incidência média da coorte. É uma ESCALA relativa de exposição observada, não hectares doentes, não área tratada e não demanda. Serve para ordenar províncias, não para dimensionar mercado.",
+ "WHAT_IT_IS_NOT": [
+  "demanda",
+  "área tratada",
+  "venda",
+  "oportunidade em euros",
+  "participação de mercado"
+ ],
+ "FINDING": "as duas províncias em alta são as DUAS MENORES em área de olivar da Andaluzia. Cádiz (37.206 ha) e Huelva (35.214 ha) somam 4,3% da área andaluza. Jaén, plana em 0,77%, tem 589.047 ha — 16 vezes Cádiz. Pressão alta sobre área pequena e pressão baixa sobre área enorme são problemas comerciais diferentes."
+}
