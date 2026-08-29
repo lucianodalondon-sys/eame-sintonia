@@ -11,9 +11,17 @@ from collections import Counter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = os.path.join(ROOT, 'docs')
 
+MARCADOR = re.compile(r'<!--/?M:?[A-Z0-9_]*-->')
+
+
 def rd(*p):
+    """Lê um documento canônico, removendo os marcadores de sincronização.
+
+    `<!--M:NOME-->98<!--/M-->` é andaime de `scripts/metricas_canonicas.py --sync`.
+    Para quem lê o documento — e para estes testes — o que existe ali é o número.
+    """
     with open(os.path.join(D, *p), encoding='utf-8') as f:
-        return f.read()
+        return MARCADOR.sub('', f.read())
 
 FONTES = rd('fontes', 'ATLAS-DE-FONTES-EAME.md')
 CAPS = rd('capacidades', 'ATLAS-DE-CAPACIDADES-EAME.md')
