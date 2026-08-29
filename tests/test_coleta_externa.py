@@ -235,3 +235,38 @@ class TestARegraCitaOQueJaExiste(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestBaselinePorCanal(unittest.TestCase):
+    """A regra manda dar baseline por CANAL, nao por camada."""
+
+    def setUp(self):
+        self.b = amostra('ES-T8-001-baseline-canais.json')
+
+    def test_todo_canal_tem_baseline(self):
+        vids = amostra('ES-T8-001-videos.json')['VIDEOS']
+        canais_no_video = {v['CHANNEL_ID'] for v in vids}
+        canais_no_baseline = {c['CHANNEL_ID'] for c in self.b['BASELINE']}
+        self.assertEqual(canais_no_video, canais_no_baseline,
+                         'todo canal que sobreviveu ao discovery precisa de baseline')
+
+    def test_primeira_observacao_nunca_e_no_change(self):
+        for c in self.b['BASELINE']:
+            self.assertEqual('BASELINE_ESTABLISHED', c['VERSION_STATE'])
+            self.assertNotEqual('NO_CHANGE', c['VERSION_STATE'])
+
+    def test_os_sete_eventos_da_regra_estao_declarados(self):
+        for e in ('NEW_VIDEO', 'NEW_TOPIC', 'NEW_RESEARCHER_ACTIVITY', 'NEW_COMPETITOR_CLAIM',
+                  'NEW_TECHNICAL_DISCUSSION', 'NEW_PRODUCT_MENTION', 'NEW_REGION_MENTION'):
+            self.assertIn(e, self.b['EVENTOS_A_DETECTAR'])
+
+    def test_as_contagens_batem(self):
+        self.assertEqual(self.b['CHANNELS'], len(self.b['BASELINE']))
+        self.assertEqual(self.b['CONTENTS'], sum(c['CONTENT_COUNT'] for c in self.b['BASELINE']))
+        self.assertEqual(self.b['CONTENTS'], len(amostra('ES-T8-001-videos.json')['VIDEOS']))
+
+    def test_content_ids_do_canal_sao_os_videos_dele(self):
+        vids = amostra('ES-T8-001-videos.json')['VIDEOS']
+        for c in self.b['BASELINE'][:20]:
+            esperado = sorted(v['EXTERNAL_ID'] for v in vids if v['CHANNEL_ID'] == c['CHANNEL_ID'])
+            self.assertEqual(esperado, sorted(c['CONTENT_IDS']))
