@@ -1,0 +1,93 @@
+{
+ "SOURCE_ID": "ES-T8-001",
+ "source": "YouTube — corpus espanhol de video tecnico, coletado via Apify (streamers/youtube-scraper) e transcritos via pintostudio/youtube-transcript-scraper",
+ "SOURCE_LOCATION": "YouTube (global)",
+ "FACT_LOCATION": "SPAIN — quando a provincia e citada no proprio conteudo; ver CONFOUND",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-29",
+ "SEARCH_TERMS": [
+  "repilo del olivo tratamiento",
+  "Venturia oleaginea olivo",
+  "sanidad vegetal olivar",
+  "jornada tecnica olivar",
+  "webinar olivar fitosanitario",
+  "tuberculosis del olivo",
+  "verticilosis olivar"
+ ],
+ "CONTENT_COUNT": 252,
+ "UNIQUE_ORIGINS": 157,
+ "ORIGIN_RULE": "CHANNEL_ID = ORIGIN_ID. 100 videos de um canal continuam UMA origem.",
+ "DATE_RANGE": [
+  "2010",
+  "2026"
+ ],
+ "LONG_VIDEOS_15MIN": 67,
+ "ROLE_BY_ORIGIN": {
+  "NOT_DECLARED": 134,
+  "TECHNICAL_MEDIA": 5,
+  "RESEARCH_INSTITUTION": 4,
+  "COOPERATIVE_OR_ASSOCIATION": 5,
+  "PUBLIC_AUTHORITY": 3,
+  "COMPANY": 6
+ },
+ "ROLE_RULE": "papel atribuido SO quando o NOME DO CANAL declara instituicao, empresa, cooperativa, autoridade ou veiculo. Nunca por estilo, tema ou numero de inscritos.",
+ "ROLE_COVERAGE_WARNING": "134 de 157 canais (85%) ficam NOT_DECLARED. A maior parte do corpus de video NAO tem papel verificavel.",
+ "REACH_IS_NOT_AUTHORITY": {
+  "exemplo": "o canal com mais videos no corpus tem 48.200 inscritos e papel NOT_DECLARED; o \"Servicio de Diagnostico Fitopatologico\" tem 72 inscritos e e um servico de diagnostico fitopatologico.",
+  "regra": "inscritos e visualizacoes sao ALCANCE. Nunca autoridade, nunca importancia agronomica."
+ },
+ "TRANSCRIPTS": {
+  "videos": 15,
+  "characters": 705149,
+  "selection_rule": "so videos >=15 min de canais com PAPEL DECLARADO — 20 alvos, 15 com transcricao util"
+ },
+ "WHAT_THE_VOICE_TALKS_ABOUT": {
+  "issues": {
+   "mosca_del_olivo": 58,
+   "repilo": 32,
+   "tuberculosis": 28,
+   "resistencia": 25,
+   "verticilosis": 7,
+   "antracnosis": 6
+  },
+  "molecules": {
+   "cobre": 141,
+   "oxicloruro": 7,
+   "mancozeb": 2,
+   "tebuconazol": 0,
+   "azoxistrobina": 0
+  },
+  "timing": {
+   "otono": 39,
+   "primavera": 32,
+   "floracion": 9,
+   "preventivo": 8
+  },
+  "leitura": "a conversa tecnica publica espanhola sobre olivar e dominada por COBRE e fala MAIS de mosca do olivo do que de repilo."
+ },
+ "VOICE_x_MT2": {
+  "mentions_by_province": {
+   "Córdoba": 58,
+   "Jaén": 32,
+   "Sevilla": 19,
+   "Granada": 2,
+   "Málaga": 3,
+   "Huelva": 7,
+   "Cádiz": 4,
+   "Almería": 8
+  },
+  "rho_vs_incidence_only": 0.214,
+  "rho_vs_area_only": 0.607,
+  "rho_vs_exposure_index": 0.964,
+  "FINDING": "a ordem das provincias na voz publica acompanha o INDICE DE EXPOSICAO (rho 0,96) e NAO a incidencia sozinha (rho 0,21). Huelva e Cadiz, que lideram em incidencia, sao as menos mencionadas.",
+  "CONFOUND_DECLARADO": "Cordoba concentra a Universidad de Cordoba e o IAS-CSIC — a maior densidade de pesquisa agricola da Espanha. As mencoes podem refletir ONDE ESTAO AS INSTITUICOES (SOURCE_LOCATION) e nao onde esta o problema (FACT_LOCATION). rho=0,96 sobre n=8 NAO descarta essa explicacao.",
+  "STATUS": "CORROBORACAO INDEPENDENTE COM CONFUNDIDOR ABERTO — nao e prova"
+ },
+ "LINKEDIN": {
+  "unique_origins_with_ES_lexical_signal": 177,
+  "IDENTITY_LIMIT": "o ator de busca de posts NAO devolve pais nem cargo do autor. COUNTRY e ROLE ficam NAO SEI sem uma segunda chamada de enriquecimento.",
+  "STATE": "PARTIAL"
+ },
+ "STATE": "PROVED — rota repetivel, datavel, com ORIGIN_ID estavel e transcricao recuperavel",
+ "DATA_CLOCK": "BASELINE_ESTABLISHED — primeira captura. Nunca NO_CHANGE."
+}
