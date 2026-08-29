@@ -5,7 +5,7 @@
  "FACT_LOCATION": "n/a — descreve o repositorio",
  "ORIGINAL_LANGUAGE": "pt",
  "captured_at": "2026-08-29",
- "AUDIT_TARGET_SHA": "7781714d5c47a434b41b39b0883faa4e5b111ee1",
+ "AUDIT_TARGET_SHA": "a33cb7ab8e8faf0cefa4796c1c41de7e83a05ca4",
  "SNAPSHOT": "git worktree --detach; validado por scripts/auditoria.py 1.1.0 (VALID=True)",
  "METODO": "para cada portao: qual e a menor situacao em que ele diria PROVED com a propriedade real quebrada? O contraexemplo foi CONSTRUIDO e RODADO, nao imaginado.",
  "PORQUE_ESTE_ARQUIVO_EXISTE": "a MISSAO 10C produziu o veredito e o deixou so no relatorio. Veredito que vive fora do Git nao existe para a proxima conta — e este repositorio ja tem lei para isso: achado novo vai para o documento canonico e para o commit. Agora o portao DERIVA o estado deste arquivo em vez de alguem digitar a palavra.",
@@ -74,7 +74,28 @@
   {
    "SHA": "7781714d5c47a434b41b39b0883faa4e5b111ee1",
    "RESULTADO": "reverificado apos o portao passar a derivar o proprio estado"
+  },
+  {
+   "SHA": "7781714d5c47a434b41b39b0883faa4e5b111ee1",
+   "ATE": "2026-08-29",
+   "PORQUE_SAIU": "scripts/voz.py mudou: marcar_assunto elegia CROP por ordem de insercao do dicionario. A verificacao carimbada neste SHA deixou de valer."
   }
  ],
- "REVERIFICADO_EM": "2026-08-29"
+ "REVERIFICADO_EM": "2026-08-29",
+ "REVERIFICACAO_DELTA": {
+  "ESCOPO": "apenas o que mudou desde 7781714d5c47 entre os arquivos que implementam os portoes: scripts/voz.py. portao.py, proveniencia.py e auditoria.py nao mudaram, e a verificacao anterior deles continua valendo — por isso delta, nao auditoria nova.",
+  "O_QUE_MUDOU": "marcar_assunto passou a tratar CROP como ISSUE ja tratava: junta todos os casados e marca AMBIGUOUS quando ha mais de um, em vez de eleger o primeiro por ordem de insercao. Medido em sombra sobre os 252 videos antes da troca: OLD != PROPOSED em 0.",
+  "ATAQUES": {
+   "A1_inverter_a_ordem_do_vocabulario_muda_a_cultura": "BLOQUEADO",
+   "A2_segunda_cultura_revive_o_first_match": "BLOQUEADO",
+   "A3_a_correcao_quebrou_o_caso_de_uma_cultura_so": "BLOQUEADO",
+   "A4_percentual_publicado_sem_denominador": "BLOQUEADO",
+   "A5_NOT_PRESERVED_sem_dizer_o_que_faltou": "BLOQUEADO",
+   "A6_algum_dos_seis_portoes_deixou_de_ser_PROVED": "BLOQUEADO",
+   "A7_regressao_na_suite": "BLOQUEADO"
+  },
+  "ATAQUES_TOTAIS": 7,
+  "ATAQUES_BLOQUEADOS": 7,
+  "LIMITE": "os ataques cobrem o DELTA. Nao repetem a auditoria dos seis portoes, que continua valendo pelo SHA anterior — e por isso o HISTORICO_DE_ALVOS existe."
+ }
 }
