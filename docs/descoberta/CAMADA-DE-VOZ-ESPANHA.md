@@ -21,14 +21,24 @@ A resposta curta está no fim, em §V. Antes dela, o que foi medido.
 A missão fixou a ordem: **portão → censo → vídeo → pesquisadores → LinkedIn → cooperativas →
 concorrentes → mídia técnica → Instagram → autoridades → reconciliação.**
 
-Ela foi seguida. Duas consequências que só aparecem porque a ordem foi respeitada:
+Ela foi seguida no desenho. **Duas correções de 2026-08-29, vindas da auditoria adversarial:**
 
-1. **O vídeo primeiro pagou.** O YouTube entregou 705 mil caracteres de fala técnica antes
-   de qualquer gasto em LinkedIn. Se o LinkedIn viesse primeiro, o orçamento teria sido
-   consumido na camada com pior relação identidade/custo.
-2. **O Instagram por último salvou dinheiro.** Ele foi testado com 60 itens e reprovado por
-   medida (§H). Se tivesse vindo cedo, teria consumido crédito antes de o critério de
-   reprovação existir.
+1. **O vídeo pagou — mas "antes de qualquer gasto em LinkedIn" era afirmação sem lastro.**
+   O YouTube entregou 705.149 caracteres de fala técnica, e isso continua sendo o melhor
+   retorno por unidade de custo da rodada. O que **não** se sustenta é a ordem: a busca de
+   posts do LinkedIn e a coleta de vídeo saíram do **mesmo orçamento**, sem carimbo que as
+   separe, e o registro git coloca a **camada científica antes do vídeo** (`3f65e00` corpus
+   científico precede `3d963cd` YouTube). **Nada no repositório registra hora ou sequência de
+   coleta por camada**, então a ordem de execução não é auditável — só a de desenho.
+2. **O Instagram por último salvou dinheiro — e essa continua verificável.** Ele foi testado
+   com 60 itens e reprovado por medida (§H), e o crédito que sobrou financiou a busca por
+   cargo. A ordem aqui é auditável porque o teste do Instagram e a decisão de não escalar
+   estão ambos registrados com o gasto medido.
+
+> **Lição que virou requisito:** afirmar ordem de coleta exige **carimbo por camada**.
+> `RUN_ID` agrupa registros entre si mas não os situa no tempo. Enquanto não houver manifesto
+> de execução com data por camada, nenhuma afirmação de "X veio antes de Y" deve ser
+> publicada.
 
 **Apify não é uma camada de fonte. É uma ROTA DE COLETA** sobre camadas que existem sem ela.
 
@@ -38,7 +48,7 @@ Ela foi seguida. Duas consequências que só aparecem porque a ordem foi respeit
 
 | camada | origens únicas | conteúdo | estado |
 |---|---:|---|---|
-| **Ciência** (OpenAlex) | 380 instituições · **153 pesquisadores** ES | 1.771 trabalhos 2019-2026 | PROVED |
+| **Ciência** (OpenAlex) | 380 instituições · **152 pesquisadores** ES | 1.771 trabalhos 2019-2026 | PROVED |
 | **Vídeo** (YouTube) | **<!--M:VOICE_ES_YOUTUBE_ORIGINS-->157<!--/M--> canais** | 252 vídeos · 15 transcrições · 705.149 caracteres | PROVED |
 | **LinkedIn** | **<!--M:VOICE_ES_LINKEDIN_ORIGINS-->202<!--/M--> perfis enriquecidos** · 179 declaram ES | 372 posts únicos (de 472 brutos) | PROVED (identidade) / PARTIAL (conteúdo) |
 | **Mídia técnica + associações** | 18 rotas testadas · **<!--M:VOICE_ES_MEDIA_ROUTES_PROVED-->8<!--/M--> provadas** | 155 itens datados | PARTIAL |
@@ -260,7 +270,7 @@ Duas camadas coletadas por rotas diferentes, com origens diferentes, concordam c
 
 | veredito | estado | razão |
 |---|---|---|
-| `RESEARCHERS_ES` | **PROVED** | 153 pesquisadores com afiliação ES declarada, rota reprodutível |
+| `RESEARCHERS_ES` | **PROVED** | 152 pesquisadores com afiliação ES declarada. Eram 153: um registro com 58 organizações declaradas contra mediana 2 era um id de autor conflacionado e saiu |
 | `YOUTUBE_ES` | **PROVED** | 157 origens, transcrição recuperável, ORIGIN_ID estável |
 | `LINKEDIN_ES` | **PROVED** (identidade) · **PARTIAL** (conteúdo) | país e papel saem de campos declarados, com cobertura medida; o corpus de posts é busca por termo, não censo |
 | `MEDIA_ES` | **PARTIAL** | 8 de 18 rotas provadas |

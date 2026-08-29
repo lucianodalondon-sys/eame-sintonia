@@ -321,6 +321,22 @@ def build():
           derivation='contas cujo texto declara Espanha. Idioma espanhol NÃO conta como país.',
           reference_date=ig['captured_at'])
 
+    pes = _sample('ES-RESEARCHERS-OLIVE.json')
+    L.add('VOICE_ES_RESEARCHERS', len(pes['RESEARCHERS']), unit='count',
+          source='data/samples/ES-RESEARCHERS-OLIVE.json',
+          derivation='len(RESEARCHERS) apos EXCLUSOES_APLICADAS — o quadro publicado e o '
+                     'quadro depois das exclusoes, nunca antes',
+          reference_date=pes['captured_at'])
+    import statistics as _st
+    _orgs = [len(x.get('ALL_ORGANIZATIONS') or []) for x in pes['RESEARCHERS']]
+    L.add('VOICE_ES_RESEARCHER_MAX_ORGS', max(_orgs), unit='count',
+          denominator='mediana %g' % _st.median(_orgs),
+          source='data/samples/ES-RESEARCHERS-OLIVE.json',
+          derivation='maior numero de organizacoes declaradas por um unico registro. '
+                     'Muito acima da mediana e sintoma de id de autor conflacionado — '
+                     'foi assim que a conflacao de 58 organizacoes apareceu',
+          reference_date=pes['captured_at'])
+
     vid = _sample('ES-T8-001-videos.json')
     L.add('VOICE_ES_VIDEO_CONTENTS', vid['ORIGIN_NAO_E_CONTENT']['CONTENTS'], unit='count',
           source='data/samples/ES-T8-001-videos.json',

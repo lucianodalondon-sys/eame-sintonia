@@ -23,7 +23,20 @@
   "rho_vs_area_only": 0.543,
   "rho_vs_exposure_index": 0.943,
   "ORIGINS_COUNTED": 38,
-  "AVISO": "amostra pequena. 38 origens sobre 6 provincias."
+  "AVISO": "amostra pequena. 38 origens sobre 6 provincias.",
+  "PROVINCIAS_NA_CORRELACAO": [
+   "Córdoba",
+   "Granada",
+   "Huelva",
+   "Jaén",
+   "Málaga",
+   "Sevilla"
+  ],
+  "PROVINCIAS_EXCLUIDAS": {
+   "Almería": "aparece na voz (2 origens) e NAO existe na regua de exposicao — a regua cobre as 7 provincias com olivar medido pelo RAIF, e Almeria nao esta entre elas",
+   "Cádiz": "existe na regua e NAO aparece na voz desta rota — zero origens declaradas"
+  },
+  "PORQUE_O_N_E_MENOR_QUE_A_TABELA": "a tabela mentions_by_province mostra 7 provincias, e a correlacao usa 6. A diferenca nao e arredondamento: a correlacao so pode usar a INTERSECCAO entre as provincias que a voz declara e as que a regua mede. Almeria sai por um lado, Cadiz pelo outro. Publicar a tabela de 7 ao lado de n=6 sem dizer isto e publicar um denominador que nao foi o usado."
  },
  "YOUTUBE": {
   "n_provincias": 8,
@@ -32,5 +45,6 @@
   "rho_vs_exposure_index": 0.964
  },
  "CONFOUNDER_ABERTO": "Cordoba concentra IAS-CSIC, Universidade de Cordoba e ETSIAM. Densidade institucional e uma explicacao rival para Cordoba liderar a voz, e ela NAO foi separada da exposicao agronomica. O confundidor segue aberto.",
- "O_QUE_ISSO_NAO_PROVA": "nenhuma das duas correlacoes mostra que a voz ANTECIPA o campo. Sao medidas do mesmo periodo. Concordancia de ordem nao e antecedencia."
+ "O_QUE_ISSO_NAO_PROVA": "nenhuma das duas correlacoes mostra que a voz ANTECIPA o campo. Sao medidas do mesmo periodo. Concordancia de ordem nao e antecedencia.",
+ "ACHADO_DA_AUDITORIA_2026-08-29": "a auditoria adversarial apontou que o denominador publicado nao era o denominador usado. Estava certo. O n=6 sempre foi o correto para a correlacao; o que faltava era declarar quais 6, e por que Almeria e Cadiz ficam de fora por motivos opostos."
 }

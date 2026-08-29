@@ -254,7 +254,7 @@ origem com três evidências**.
 Rota forte em tese: `SCIENCE → RESEARCHER → PUBLIC EXPLANATION`.
 
 **Medido na Espanha, e o resultado é negativo: `NOT_REACHED`.**
-153 pesquisadores × 202 origens LinkedIn × 157 canais YouTube produziram **1 candidato por
+152 pesquisadores × 202 origens LinkedIn × 157 canais YouTube produziram **1 candidato por
 nome e nenhum confirmado**. Por instituição, o casamento estrito deu **zero**, e o frouxo
 produziu falso positivo demonstrável — "Instituto de Agricultura Sostenible" casou com UPL e
 BURGOS SALAVERRY; "Universitat de Barcelona" casou com uma unidade de pesquisa em
@@ -262,7 +262,7 @@ tuberculose. **O método frouxo violava esta própria regra: identidade por simi
 textual.** Foi medido e descartado, não publicado.
 
 **A rota não está refutada — ela não se constrói com nome.** O que falta é concreto: um
-**identificador declarado que atravesse as camadas**. A ciência já tem (153/153 com ORCID,
+**identificador declarado que atravesse as camadas**. A ciência já tem (152/152 com ORCID,
 instituições com ROR no OpenAlex); as plataformas públicas não publicam nenhum dos dois.
 O elo exige um **crosswalk de identificadores declarados, versionado e construído uma vez por
 país** — nunca um algoritmo de similaridade.

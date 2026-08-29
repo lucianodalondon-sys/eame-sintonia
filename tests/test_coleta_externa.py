@@ -370,3 +370,75 @@ class TestComentarios(unittest.TestCase):
         d = self.c['O_QUE_ESTA_CAMADA_E']
         self.assertGreater(d['PERGUNTAS'], d['OBSERVACOES_E_RELATOS'])
         self.assertIn('sensor de campo', d['O_QUE_ELA_NAO_E'])
+
+
+class TestIntegridadeDoIdentificador(unittest.TestCase):
+    """A auditoria adversarial de 2026-08-29 achou um id de autor conflacionado dentro do
+    quadro publicado, e o proprio arquivo dizia que ele estava fora. Estes testes existem
+    para que texto e dado nao voltem a divergir."""
+
+    def setUp(self):
+        self.r = amostra('ES-RESEARCHERS-OLIVE.json')
+
+    def test_o_excluido_nao_esta_no_quadro(self):
+        nomes = {x['NAME'] for x in self.r['RESEARCHERS']}
+        for e in self.r['EXCLUSOES_APLICADAS']:
+            self.assertNotIn(e['NAME'], nomes,
+                             f"{e['NAME']} esta declarado como excluido E esta na lista")
+
+    def test_o_texto_de_cautela_bate_com_o_dado(self):
+        c = self.r['IDENTITY_CAUTION']
+        for e in self.r['EXCLUSOES_APLICADAS']:
+            self.assertIn(e['NAME'], c,
+                          'a cautela precisa nomear quem foi excluido, senao volta a mentir')
+        self.assertIn('EXCLUIDO', c)
+
+    def test_nenhum_registro_restante_tem_sinal_de_conflacao(self):
+        import statistics
+        orgs = [len(x.get('ALL_ORGANIZATIONS') or []) for x in self.r['RESEARCHERS']]
+        mediana = statistics.median(orgs)
+        # o caso medido tinha 58 contra mediana 2. Um teto de 10x a mediana e folgado
+        # e ainda assim teria pego aquele registro.
+        self.assertLessEqual(max(orgs), max(10, mediana * 10),
+                             'registro com organizacoes demais: verificar conflacao de homonimo')
+
+    def test_todo_pesquisador_tem_ancora_de_identidade(self):
+        for x in self.r['RESEARCHERS']:
+            self.assertTrue(x.get('ORCID'), f"{x['NAME']} sem ORCID")
+
+    def test_a_contagem_publicada_e_depois_das_exclusoes(self):
+        self.assertEqual(self.r['COUNT'], len(self.r['RESEARCHERS']))
+
+
+class TestDenominadorPublicado(unittest.TestCase):
+    """O denominador publicado tem de ser o denominador usado no calculo."""
+
+    def test_o_n_da_correlacao_e_a_interseccao_declarada(self):
+        x = amostra('ES-VOICE-x-REGUA.json')['LINKEDIN_POST_ROUTE']
+        self.assertEqual(x['n_provincias'], len(x['PROVINCIAS_NA_CORRELACAO']))
+        self.assertLess(x['n_provincias'], len(x['mentions_by_province']),
+                        'se a tabela e a correlacao tem o mesmo n, a ressalva ficou obsoleta')
+
+    def test_toda_provincia_fora_da_correlacao_tem_motivo(self):
+        x = amostra('ES-VOICE-x-REGUA.json')['LINKEDIN_POST_ROUTE']
+        fora = set(x['mentions_by_province']) - set(x['PROVINCIAS_NA_CORRELACAO'])
+        for p in fora:
+            self.assertIn(p, x['PROVINCIAS_EXCLUIDAS'],
+                          f'{p} saiu da correlacao sem motivo declarado')
+
+    def test_as_origens_contadas_batem_com_a_tabela(self):
+        x = amostra('ES-VOICE-x-REGUA.json')['LINKEDIN_POST_ROUTE']
+        self.assertEqual(x['ORIGINS_COUNTED'], sum(x['mentions_by_province'].values()))
+
+
+class TestAfirmacaoDeOrdemExigeCarimbo(unittest.TestCase):
+    """Nada no repositorio registra hora de coleta por camada. Enquanto for assim,
+    nenhuma afirmacao de 'X veio antes de Y' pode ser publicada."""
+
+    def test_a_afirmacao_sem_lastro_foi_retirada(self):
+        with open(os.path.join(ROOT, 'docs', 'descoberta', 'CAMADA-DE-VOZ-ESPANHA.md'),
+                  encoding='utf-8') as f:
+            t = f.read()
+        self.assertNotIn('antes\n   de qualquer gasto em LinkedIn', t)
+        self.assertIn('não é auditável', t)
+        self.assertIn('carimbo por camada', t)

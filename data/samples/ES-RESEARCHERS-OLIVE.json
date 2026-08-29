@@ -107,128 +107,9 @@
  "INCLUSION_RULE": ">=5 trabalhos no corpus, ORCID presente, e pelo menos um tema de cultura OLIVE",
  "EXCLUSION_NOTE": "autores sem ORCID ficam fora do quadro canonico e continuam no corpus; ORCID e a ancora que permite verificar a pessoa fora do OpenAlex",
  "ROLE_RULE": "papel NUNCA inferido. RESEARCHER porque a base declara afiliacao institucional, nao porque escreve sobre agricultura",
- "IDENTITY_CAUTION": "ids de autor do OpenAlex podem CONFLACIONAR homonimos. Ex.: \"Nikolaos Papadopoulos\" aparece com 72 trabalhos e afiliacao UPV — nao foi incluido no quadro por estar fora do escopo, mas serve de aviso: contagem alta nao valida identidade.",
+ "IDENTITY_CAUTION": "ids de autor do OpenAlex podem CONFLACIONAR homonimos. O caso medido: \"Nikolaos Papadopoulos\", 72 trabalhos, 58 organizacoes declaradas contra mediana 2 do quadro. Foi EXCLUIDO — ver EXCLUSOES_APLICADAS. Contagem alta nunca valida identidade; aqui ela foi o sintoma.",
  "REGION_RULE": "REGION = NAO SEI. O registro do trabalho traz instituicao, nao provincia. Inferir provincia pela sede da instituicao seria SOURCE_LOCATION virando FACT_LOCATION.",
  "RESEARCHERS": [
-  {
-   "PERSON_ID": null,
-   "NAME": "Nikolaos Papadopoulos",
-   "ORCID": "https://orcid.org/0000-0002-4344-8644",
-   "DECLARED_ROLE": "RESEARCHER — afiliação institucional declarada no registro do trabalho",
-   "ORGANIZATION": "Universitat Politècnica de València",
-   "ALL_ORGANIZATIONS": [
-    "Universitat Politècnica de València",
-    "University of Córdoba",
-    "Instituto Valenciano de Investigaciones Agrarias",
-    "Universitat de Miguel Hernández d'Elx",
-    "University of Alicante",
-    "Fundación para el Fomento de la Investigación Sanitaria y Biomédica de la Comunitat Valenciana",
-    "Gobierno de La Rioja",
-    "Instituto Nacional de Investigación y Tecnología Agraria y Alimentaria",
-    "Servicio Regional de Investigación y Desarrollo Agroalimentario",
-    "Centre for Genomic Regulation",
-    "Universidad Politécnica de Madrid",
-    "Misión Biológica de Galicia",
-    "Consejo Superior de Investigaciones Científicas",
-    "Universidad de Zaragoza",
-    "Centro de Investigación y Tecnología Agroalimentaria de Aragón",
-    "Universidad de Cantabria",
-    "Instituto de Biomedicina y Biotecnología de Cantabria",
-    "Instituto de Física de Cantabria",
-    "Universidad de La Laguna",
-    "Government of Spain",
-    "Universidad Fernando Pessoa Canarias",
-    "Hospital Universitario de Gran Canaria Doctor Negrín",
-    "Centro de Edafología y Biología Aplicada del Segura",
-    "Universidad de Valladolid",
-    "Universitat Autònoma de Barcelona",
-    "Instituto de Ciencia y Tecnología de Alimentos y Nutrición",
-    "Spanish National Centre for Cardiovascular Research",
-    "Centro de Investigación en Red en Enfermedades Cardiovasculares",
-    "Hospital Universitario 12 De Octubre",
-    "Universidad de Málaga",
-    "Euskadiko Parke Teknologikoa",
-    "Universitat de les Illes Balears",
-    "Govern de les Illes Balears",
-    "Universidad de Jaén",
-    "Institute for Cross-Disciplinary Physics and Complex Systems",
-    "Atos (Spain)",
-    "Instituto de Investigación de Enfermedades Raras",
-    "Universitat Pompeu Fabra",
-    "Centre for Plant Biotechnology and Genomics",
-    "Universidad de León",
-    "University of Castilla-La Mancha",
-    "Universidad de Extremadura",
-    "Universidad Internacional De La Rioja",
-    "Real Jardín Botánico",
-    "Instituto de Tecnologías Físicas y de la Información “Leonardo Torres Quevedo”",
-    "Universidade de Vigo",
-    "Centro de Investigaciones Biológicas Margarita Salas",
-    "Centre for Automation and Robotics",
-    "Universidad Pablo de Olavide",
-    "Universidad de Granada",
-    "Andalusian Institute of Agricultural and Fisheries Research and Training",
-    "Universidad de Murcia",
-    "Universitat de Lleida",
-    "Hospital San Pedro",
-    "Center for Biomedical Research of La Rioja",
-    "Universitat de València",
-    "Biomar Microbial Technologies (Spain)",
-    "Parque Tecnológico de la Salud"
-   ],
-   "COUNTRY": "ES",
-   "REGION": "NÃO SEI — a afiliação não declara região no registro",
-   "CROPS": [
-    "OLIVE",
-    "MULTI",
-    "VINE",
-    "CEREAL"
-   ],
-   "ISSUES": [
-    "PLANT_HEALTH",
-    "DOWNY_MILDEW",
-    "OLIVE_DISEASE",
-    "OLIVE_PESTS",
-    "WEEDS",
-    "SEPTORIA",
-    "RESISTANCE",
-    "XYLELLA",
-    "VERTICILLIUM",
-    "OLIVE_KNOT",
-    "REPILO",
-    "CEREAL_DISEASE"
-   ],
-   "PUBLICATION_COUNT_IN_SCOPE": 72,
-   "YEARS": [
-    2019,
-    2026
-   ],
-   "LAST_KNOWN_ACTIVITY": 2026,
-   "RECENT_PUBLICATIONS": [
-    {
-     "id": "https://openalex.org/W7171975705",
-     "title": "Correction to: Climate‐driven insect pest outbreaks and food security risks: a review of adaptive strategies for resilient agriculture",
-     "year": 2026,
-     "doi": "https://doi.org/10.1007/s10340-026-02069-3"
-    },
-    {
-     "id": "https://openalex.org/W4414712569",
-     "title": "The Non‐Pathogenic Strain Fusarium oxysporum FO12 Mitigates Simultaneous Verticillium dahliae and Iron Deficiency Stresses in Arabidopsis thaliana",
-     "year": 2025,
-     "doi": "https://doi.org/10.1111/ppl.70550"
-    },
-    {
-     "id": "https://openalex.org/W4417456778",
-     "title": "Severity assessment of isolates of defoliating and nondefoliating Verticillium dahliae pathotypes on woody and herbaceous hosts",
-     "year": 2025,
-     "doi": "https://doi.org/10.1007/s42161-025-02092-w"
-    }
-   ],
-   "OPENALEX": null,
-   "SOURCE_ID": "ES-T5-002",
-   "PUBLIC_LINKEDIN": "NÃO TESTADO",
-   "PUBLIC_YOUTUBE": "NÃO TESTADO"
-  },
   {
    "PERSON_ID": "https://openalex.org/A5046191184",
    "NAME": "Blanca B. Landa",
@@ -8301,5 +8182,32 @@
    "PUBLIC_LINKEDIN": "NÃO TESTADO",
    "PUBLIC_YOUTUBE": "NÃO TESTADO"
   }
- ]
+ ],
+ "COUNT": 152,
+ "EXCLUSOES_APLICADAS": [
+  {
+   "NAME": "Nikolaos Papadopoulos",
+   "ORCID": "https://orcid.org/0000-0002-4344-8644",
+   "MOTIVO": "IDENTIDADE_CONFLACIONADA",
+   "EVIDENCIA": {
+    "ORGANIZACOES_DECLARADAS": 58,
+    "MEDIANA_DO_QUADRO": 2,
+    "SEGUNDO_MAIOR": 7,
+    "TRABALHOS": 72,
+    "CULTURAS": [
+     "OLIVE",
+     "MULTI",
+     "VINE",
+     "CEREAL"
+    ],
+    "TEMAS": 12,
+    "PERSON_ID": null,
+    "OPENALEX": null
+   },
+   "LEITURA": "58 organizacoes contra mediana 2 e segundo maior 7; 72 trabalhos cobrindo TODAS as culturas e quase todos os temas do corpus; e os dois identificadores (PERSON_ID e OPENALEX) nulos. Nao e um pesquisador prolifico: e um id de autor do OpenAlex que juntou homonimos.",
+   "O_ERRO_QUE_ISSO_CORRIGE": "o campo IDENTITY_CAUTION deste mesmo arquivo ja declarava que este registro NAO havia sido incluido \"por estar fora do escopo\". Ele estava incluido, em primeira posicao, contando nos 153. O texto contradizia o dado. Agora os dois dizem a mesma coisa: 152.",
+   "ENCONTRADO_POR": "auditoria adversarial da REGRA DE COLETA EXTERNA, 2026-08-29"
+  }
+ ],
+ "REGRA_DE_EXCLUSAO": "numero de organizacoes declaradas muito acima da mediana do quadro e sinal de conflacao e exige verificacao antes de o registro entrar. Nao e criterio de qualidade do pesquisador: e criterio de INTEGRIDADE DO IDENTIFICADOR."
 }
