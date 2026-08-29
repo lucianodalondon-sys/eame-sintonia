@@ -85,6 +85,16 @@ comment on constraint origem_e_pessoa_ou_organizacao on public.origem is
   'Uma origem é pessoa OU organização, nunca as duas nem nenhuma. '
   'Foi a mistura das duas que fez cooperativa virar voz técnica.';
 
+-- ⚠️ CHAVE NATURAL DA ORIGEM — o defeito-raiz do Brasil, corrigido antes de nascer.
+-- Lá, `fontes` tem só `id bigserial primary key`: nenhuma chave natural. Resultado
+-- medido: 102 nomes repetidos em 212 fontes. E como o dedupe de `documentos` é
+-- unique(fonte_id, hash_conteudo), uma fonte cadastrada DUAS VEZES faz o mesmo
+-- conteúdo entrar duas vezes — e para o índice isso é legítimo.
+-- Aqui a origem é única por pessoa e por organização, em índice parcial porque
+-- exatamente um dos dois é nulo em cada linha.
+create unique index origem_por_pessoa_idx      on public.origem (pessoa_id)      where pessoa_id      is not null;
+create unique index origem_por_organizacao_idx on public.origem (organizacao_id) where organizacao_id is not null;
+
 create table public.canal (
   id            bigserial primary key,
   origem_id     bigint not null references public.origem(id) on delete cascade,

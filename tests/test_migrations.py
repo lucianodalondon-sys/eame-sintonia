@@ -133,3 +133,78 @@ class TestMigrationsCoerentes(unittest.TestCase):
         for proibido in ('SUPABASE_URL', 'SUPABASE_KEY', 'postgresql://', 'psycopg'):
             self.assertNotIn(proibido, self.todo,
                              f'credencial ou conexao ({proibido}) dentro de migration')
+
+
+class TestLicoesDoBrasilNoSchema(unittest.TestCase):
+    """Defeitos que o Sintonia Brasil pagou para descobrir, travados aqui.
+
+    Cada teste abaixo existe porque o Brasil mediu o custo do defeito. Não são
+    preferências de estilo: são contraexemplos com número.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.todo = texto_de_todas()
+
+    def test_origem_tem_chave_natural(self):
+        """No Brasil, `fontes` só tem `id bigserial` — nenhuma chave natural.
+
+        Custo medido: 102 nomes repetidos em 212 fontes. E como o dedupe de
+        `documentos` é unique(fonte_id, hash_conteudo), uma fonte cadastrada duas
+        vezes faz o MESMO conteúdo entrar duas vezes — e para o índice isso é
+        legítimo. O dedupe do conteúdo não é melhor que a identidade da origem.
+        """
+        self.assertIn('create unique index origem_por_pessoa_idx', self.todo)
+        self.assertIn('create unique index origem_por_organizacao_idx', self.todo)
+
+    def test_unique_com_coluna_nulavel_usa_nulls_not_distinct(self):
+        """No Postgres dois NULL são DIFERENTES: a trava destranca sozinha
+        exatamente para as linhas que deixaram o campo em branco.
+
+        Varre cada UNIQUE de tabela e exige NULLS NOT DISTINCT quando alguma
+        coluna da chave é nulável. É a checagem que eu mesmo falhei na primeira
+        escrita destas migrations, em quatro chaves.
+        """
+        padrao = r'create table public\.(\w+)\s*\((.*?)\n\);'
+        for bloco in re.findall(padrao, self.todo, re.S):
+            tabela, corpo = bloco
+            nulaveis = set()
+            for linha in corpo.splitlines():
+                m = re.match(r'\s*(\w+)\s+[\w()\[\], ]+', linha)
+                if m and 'not null' not in linha.lower() and \
+                   not linha.strip().lower().startswith(('unique', 'constraint',
+                                                         'primary key', 'check', '--')):
+                    nulaveis.add(m.group(1))
+            for u in re.findall(r'UNIQUE(?: NULLS NOT DISTINCT)? \(([^)]+)\)', corpo):
+                cols = {c.strip() for c in u.split(',')}
+                if cols & nulaveis:
+                    trecho = [l for l in corpo.splitlines() if u in l][0]
+                    with self.subTest(tabela=tabela, chave=u):
+                        self.assertIn('NULLS NOT DISTINCT', trecho,
+                                      f'{tabela}: chave ({u}) tem coluna nulável '
+                                      f'{cols & nulaveis} e destranca com NULL')
+
+    def test_duplicata_se_marca_e_nao_se_apaga(self):
+        """A lei "um vídeo, uma transcrição" foi RECUSADA pelo banco no Brasil:
+        o acervo já a violava, e o índice único não pôde ser criado.
+
+        O conserto não foi apagar — foi `duplicata_de`, apontando para a cópia
+        que fica. Uma lei nova não pode destruir o que veio antes dela.
+        """
+        self.assertIn('duplicata_de      bigint references public.conteudo(id)', self.todo)
+
+    def test_existe_verificacao_pos_aplicacao(self):
+        """Migração versionada prova que alguém ESCREVEU a tranca, não que ela
+        FOI APLICADA.
+
+        No Brasil quatro colunas de `fontes` usadas por 6 coletores foram criadas
+        à mão no painel e nunca entraram em .sql; a `fontes` real tem 63 colunas
+        contra 14 declaradas. Este arquivo é o que confere o outro lado.
+        """
+        f = [a for a in arquivos() if a.startswith('008')]
+        self.assertTrue(f, 'falta a migration de verificação pós-aplicação')
+        s = open(os.path.join(MIG, f[0]), encoding='utf-8').read()
+        self.assertIn('information_schema.tables', s)
+        self.assertIn('pg_constraint', s)
+        self.assertIn('rowsecurity', s)
+        self.assertIn('raise exception', s)

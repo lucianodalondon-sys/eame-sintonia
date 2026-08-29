@@ -44,7 +44,8 @@ create table public.registro_uso (
   crop_id        bigint references public.crop(id)  on delete restrict,
   issue_id       bigint references public.issue(id) on delete restrict,
   substancia     text,
-  UNIQUE (registro_id, crop_id, issue_id, substancia)
+  -- nulls not distinct: crop_id, issue_id e substancia são nuláveis.
+  UNIQUE NULLS NOT DISTINCT (registro_id, crop_id, issue_id, substancia)
 );
 
 -- ══════════════════════════════════════════════════════════════════════

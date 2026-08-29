@@ -48,6 +48,12 @@ create table public.conteudo (
 
   coletado_em       timestamptz not null default now(),
   rule_version      text not null,
+
+  -- MARCAR, NUNCA APAGAR. No Brasil a lei "um vídeo, uma transcrição" foi RECUSADA pelo
+  -- banco: o acervo já a violava, e o índice único não pôde ser criado. O conserto foi
+  -- uma coluna `duplicata_de` — a cópia mais completa fica, a outra aponta para ela, e
+  -- a lei passa a valer daqui para frente sem destruir o que veio antes.
+  duplicata_de      bigint references public.conteudo(id),
   UNIQUE (canal_id, content_id)
 );
 create index conteudo_hash_idx    on public.conteudo (hash_conteudo);
@@ -75,7 +81,10 @@ create table public.transcricao (
   hash_texto     char(64) not null,
   rule_version   text not null,
   criado_em      timestamptz not null default now(),
-  UNIQUE (conteudo_id, idioma, caption_source)
+  -- NULLS NOT DISTINCT é obrigatório aqui: `idioma` e `caption_source` são nuláveis, e
+  -- no Postgres dois nulos são DIFERENTES. Sem isto a trava destranca sozinha justamente
+  -- para as linhas que deixaram o campo em branco — que são as piores de duplicar.
+  UNIQUE NULLS NOT DISTINCT (conteudo_id, idioma, caption_source)
 );
 comment on column public.transcricao.caption_source is
   'Legenda automática e legenda humana não têm o mesmo valor probatório. '

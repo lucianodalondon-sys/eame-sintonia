@@ -26,7 +26,9 @@ create table public.geografia (
   regiao       text,                      -- Andalucía, Occitanie...
   provincia    text,                      -- Córdoba, Jaén...
   codigo_nuts  text,                      -- ES61, ES613... quando existir
-  UNIQUE (pais, regiao, provincia)
+  -- nulls not distinct: regiao e provincia são nuláveis, e uma linha de país
+  -- inteiro (ambas NULL) entraria N vezes sem que a trava reclamasse.
+  UNIQUE NULLS NOT DISTINCT (pais, regiao, provincia)
 );
 comment on table public.geografia is
   'Lugar declarado. NUNCA inferido: geografia ausente fica NULL, jamais chutada.';

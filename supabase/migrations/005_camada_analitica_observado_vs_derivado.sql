@@ -34,7 +34,8 @@ create table public.observacao (
   run_id           text references public.collection_run(run_id) on delete set null,
   rule_version     text not null,
   medido_em        timestamptz not null default now(),
-  UNIQUE (crop_issue_id, geografia_id, camada, periodo_inicio, periodo_fim, unidade)
+  -- nulls not distinct: crop_issue_id, geografia_id e unidade são nuláveis.
+  UNIQUE NULLS NOT DISTINCT (crop_issue_id, geografia_id, camada, periodo_inicio, periodo_fim, unidade)
 );
 comment on column public.observacao.base_denominador is
   'Obrigatório. O Brasil já travava isso em termos_medicoes.base_comentarios/base_pessoas.';
