@@ -865,6 +865,23 @@ NEXT_MISSION = VERIFICACAO-ADVERSARIAL-DOS-SEIS-PORTOES-CONTRA-SHA-CONGELADO
 
 ---
 
+## AE · SOBRE A TAG DE HANDOFF — não existe, e por quê
+
+Tentei criar e enviar a tag anotada `handoff-claude-account-2026-08-29`.
+**O proxy git deste ambiente recusa push de tag: `RPC failed; HTTP 403`.**
+`git ls-remote --tags origin` não devolve tag nenhuma — o remoto não tem nenhuma.
+
+Não forcei, e apaguei a tag local para não deixar um marcador que morreria com o
+contêiner e daria falsa impressão de existir.
+
+**O marcador do handoff é o commit**, encontrável por:
+
+```bash
+git log --oneline --grep='^handoff: transferencia completa'
+```
+
+---
+
 ## NOTA FINAL DE HONESTIDADE
 
 O que esta conta **não** conseguiu terminar:

@@ -25,9 +25,13 @@ git rev-parse HEAD
 git rev-parse origin/claude/sintonia-eame-repo-setup-xccfob
 git status --short
 git log -3 --oneline
-git tag -l 'handoff-*'
-
 Confirme e reporte: BRANCH · LOCAL_HEAD · REMOTE_HEAD · WORKING_TREE_CLEAN.
+
+NÃO procure tag de handoff: o proxy git deste ambiente RECUSA push de tag (HTTP 403)
+e o remoto não tem tag nenhuma. O marcador do handoff é o COMMIT cuja mensagem começa
+com "handoff: transferencia completa para nova conta Claude" — ache com:
+
+  git log --oneline --grep='^handoff: transferencia completa'
 Se LOCAL_HEAD != REMOTE_HEAD, PARE e reporte antes de qualquer coisa.
 
 ==================================================
@@ -109,7 +113,7 @@ Responda com exatamente estas onze seções, cada uma com evidência medida
 (caminho de arquivo, número, saída de comando). Sem adjetivo, sem resumo vago.
 
 A. HEAD ENTENDIDO
-   branch, local, remoto, árvore limpa, tag de handoff se existir.
+   branch, local, remoto, árvore limpa, e o SHA do commit de handoff.
 
 B. ARQUITETURA ENTENDIDA
    quais são as três ferramentas, qual documento manda, e por que MT3
