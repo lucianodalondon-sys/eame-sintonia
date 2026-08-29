@@ -72,10 +72,25 @@ completa (3.084 registros), mas sem garantia de estabilidade.
 | 2 | **Is it real?** | ✅ 11 safras (2016–2026), 44.584 leituras, **sobrevive ao controle de coorte** |
 | 3 | **Where else?** | ✅ sobe em Cádiz e Huelva; **não** sobe em Jaén, Sevilla, Córdoba, Granada e Málaga |
 | 4 | **What supports it?** | ❓ **NÃO FECHA.** A fonte publica "condiciones favorables", mas **não há leitura desse campo em Cádiz nem em Huelva** — exatamente as duas províncias em alta. E X-009 proíbe a explicação climática fácil |
-| 5 | Does ADAMA have a response? | ⚠️ **parcial** — Neptune existe publicamente (oxicloreto de cobre 36% + tebuconazol 3,6%), para repilo **e** tuberculose do olivar. **O número de registro espanhol não é verificável** em fonte aberta |
+| 5 | Does ADAMA have a response? | ✅ **REGISTERED RESPONSE EXISTS** — **ES-00211 · NEPTUNE**, titular ADAMA Agriculture España S.A., tebuconazol 3,6% + oxicloruro de cobre 36% [SC], uso **Olivo × Repilo del olivo (*Venturia oleaginea*)**, ficha oficial do ROPF. **Com qualificador:** status `Vigente` e caducidade **15/08/2026** — duas semanas antes da captura. Último trâmite: `PRÓRROGA DE AUTORIZACIÓN`, Terminada, 30/08/2023. Fábrica **Humanes (Espanha)** |
 | 6 | What should we validate? | ✅ programa de fungicida nas parcelas; a base pequena de Huelva (7 parcelas) |
 
-**É 4 ✅ · 1 ⚠️ · 1 ❓ — não "5/6".** A que não fecha é a **nº 4**.
+**É 5 ✅ · 1 ❓ — e a que não fecha continua sendo a nº 4.** A nº 5 fechou na MISSÃO 09,
+quando o NEPTUNE apareceu no export primário que já estava no repositório e não havia sido
+usado. **Mas "fechou" aqui tem três camadas que não podem virar um ✅ só:**
+
+| camada | estado |
+|---|---|
+| `REGISTERED RESPONSE EXISTS` | **SIM, primário** — ES-00211, uso exatamente para repilo em olivo |
+| `CURRENT COMMERCIAL AVAILABILITY` | **NÃO SEI** — o registro não diz o que está no canal |
+| `REGULATORY STATUS INTERPRETATION` | **INVESTIGATE** — `Vigente` com caducidade vencida há duas semanas |
+
+**E o vencido não é caso isolado:** **34** registros espanhóis estão `Vigente` com
+caducidade passada, e **31 deles compartilham a mesma data, 15/08/2026**, com titulares
+diferentes. Dentro da mesma substância a maioria dos produtos já carrega data de 2028 e
+estes ficaram em 2026. Parece lote administrativo pendente — e fica em `INVESTIGATE`,
+porque afirmar derivação de data europeia é exatamente o que o CASE-014 proíbe.
+**`EXPIRED` nunca é lido como `WITHDRAWN`.**
 
 **Enriquecimento encontrado nesta missão:** o Neptune ataca repilo **e** tuberculose, e a
 RAIF mede as duas (`1702 Repilo…` e `2005 Tuberculosis: Síntomas (0-3)`). O alinhamento
@@ -145,7 +160,7 @@ Contrato e detalhe em `ASK-SINTONIA-BENCHMARK.md`.
 
 # TRUST / EVIDENCE
 Toda amostra declara origem, data de captura, idioma original, SOURCE_LOCATION e
-FACT_LOCATION. **<!--M:TEST_COUNT_CURRENT-->98<!--/M--> provas automatizadas** reprovam amostra sem proveniência — e já
+FACT_LOCATION. **<!--M:TEST_COUNT_CURRENT-->101<!--/M--> provas automatizadas** reprovam amostra sem proveniência — e já
 reprovaram três vezes nesta linha de missões, incluindo contagens que eu havia declarado
 errado. Regra: `FACT` / `INTERPRETATION` / `ACTION` nunca no mesmo campo.
 

@@ -155,3 +155,30 @@ class TestDocumentoBateComODono(unittest.TestCase):
         freeze = self.doc('descoberta/FREEZE-DA-BASE-DO-PILOTO.md')
         self.assertIn('43', freeze, 'o total de provas da v1 sumiu do congelamento')
         self.assertIn('37/37', freeze, 'a reconciliação 37 vs 38 sumiu')
+
+
+class TestAskSintoniaNaoSeVendeComoMedicao(unittest.TestCase):
+    """§22 — 5 perguntas executam; 35 são contrato escrito à mão. Não confundir."""
+
+    def test_o_documento_declara_a_diferenca(self):
+        with open(os.path.join(DOCS, 'piloto', 'ASK-SINTONIA-BENCHMARK.md'),
+                  encoding='utf-8') as f:
+            doc = f.read()
+        self.assertIn('LABELLED ACCEPTANCE CONTRACT', doc,
+                      'o documento não declara que o veredito é escrito à mão')
+        self.assertIn('EXECUTED ANSWER', doc)
+        self.assertRegex(doc, r'(?i)o placar diz o que o sistema TEM DE fazer')
+
+    def test_o_script_avisa_antes_de_imprimir_o_placar(self):
+        with open(os.path.join(ROOT, 'scripts', 'ask_sintonia.py'), encoding='utf-8') as f:
+            src = f.read()
+        self.assertIn('CONTRATO DE ACEITAÇÃO', src)
+        self.assertIn('veredito ESCRITO À MÃO', src)
+
+    def test_as_perguntas_executadas_sao_cinco(self):
+        with open(os.path.join(ROOT, 'scripts', 'ask_sintonia.py'), encoding='utf-8') as f:
+            src = f.read()
+        executadas = re.findall(r'^def (q\d+)\(\):', src, re.M)
+        self.assertEqual(len(executadas), 5,
+                         'mudou o número de perguntas realmente executadas — '
+                         'o documento tem de mudar junto')

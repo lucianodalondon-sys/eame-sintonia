@@ -8,6 +8,29 @@ Execução: `scripts/ask_sintonia.py` · Dados: `../../data/samples/ASK-SINTONIA
 
 ---
 
+## RECLASSIFICAÇÃO HONESTA — MISSÃO 09
+
+Este documento vinha se apresentando como *benchmark de respostas*. **Não é.** Auditado:
+
+| o que é | quantas | o que significa |
+|---|---|---|
+| **EXECUTED ANSWER** | **5** (`q1`–`q5`) | o código lê os arquivos reais e produz resposta com evidência, fato, derivação e o que não sabe |
+| **LABELLED ACCEPTANCE CONTRACT** | **35** | o veredito é **escrito à mão**. Nenhuma implementação rodou estas perguntas |
+
+> **O placar diz o que o sistema TEM DE fazer, não o que ele fez.** Dizer *"35 perguntas
+> respondidas pelo sistema"* seria falso.
+
+**E isso não desvaloriza o artefato — reposiciona-o.** O maior valor destas 35 nunca foi o
+"respondidas": é a lista das **14 que o sistema tem de RECUSAR** enquanto não houver fonte
+nova, e das **4 recusas que expiram** quando a fonte abrir. É uma especificação de
+comportamento, e é assim que ela passa ao Design.
+
+**CONTRATO FUTURO, obrigatório:** qualquer implementação real do Ask Sintonia terá de
+**executar** as 35 e **gerar** este placar automaticamente. Enquanto o placar for digitado,
+ele é contrato — nunca medição.
+
+---
+
 ## PLACAR
 
 | Resultado | n | % |

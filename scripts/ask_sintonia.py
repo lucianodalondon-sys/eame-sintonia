@@ -313,7 +313,14 @@ def freshness_report():
 def benchmark():
     from collections import Counter
     print('\n\n' + '=' * 70)
-    print('BENCHMARK ASK SINTONIA — perguntas pelas camadas do deck')
+    print('CONTRATO DE ACEITAÇÃO ASK SINTONIA — o que o sistema TEM DE responder e recusar')
+    print('=' * 70)
+    print('ATENÇÃO — o que este placar é e o que ele NÃO é:')
+    print('  · as 5 perguntas q1–q5 acima são EXECUTADAS contra os arquivos reais;')
+    print('  · as 35 abaixo são um CONTRATO DE ACEITAÇÃO com veredito ESCRITO À MÃO.')
+    print('  Nenhuma implementação rodou estas 35. O placar diz o que o sistema DEVE')
+    print('  fazer, não o que ele fez. Chamar isto de "35 perguntas respondidas pelo')
+    print('  sistema" seria falso — e o maior valor aqui está justamente nas recusas.')
     print('=' * 70)
     c = Counter(v for _, _, _, v, _ in BENCH)
     by_layer = {}
