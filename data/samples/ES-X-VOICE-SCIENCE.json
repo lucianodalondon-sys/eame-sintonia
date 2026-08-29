@@ -1,0 +1,66 @@
+{
+ "SOURCE_ID": "ES-X-VOICE-SCIENCE",
+ "source": "cruzamento entre ES-RESEARCHERS-OLIVE, ES-VOICE-LINKEDIN e ES-T8-001-baseline-canais",
+ "SOURCE_LOCATION": "derivado — nenhuma coleta nova",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "es",
+ "captured_at": "2026-08-29",
+ "A_PERGUNTA": "a regra diz que um pesquisador em paper + congresso + webinar e UMA ORIGEM, nunca tres pessoas, e aponta a rota SCIENCE -> RESEARCHER -> PUBLIC EXPLANATION. Esta amostra testa se essa rota pode ser construida a partir do que ja temos.",
+ "UNIVERSO": {
+  "PESQUISADORES": 153,
+  "ORIGENS_LINKEDIN": 202,
+  "CANAIS_YOUTUBE": 157,
+  "INSTITUICOES_NA_CIENCIA": 99
+ },
+ "RESULTADO_POR_PESSOA": {
+  "CANDIDATOS_POR_NOME": 1,
+  "CONFIRMADOS_POR_SEGUNDO_CAMPO": 0,
+  "O_UNICO_CANDIDATO": {
+   "NAME": "José Alfonso Gómez-Guzmán (OpenAlex) / José Alfonso Gómez Guzmán (LinkedIn)",
+   "ORCID_CIENCIA": "https://orcid.org/0000-0001-6921-2085",
+   "ORCID_NA_PLATAFORMA": "ausente — nenhuma plataforma publica declara ORCID",
+   "DIMENSOES_QUE_CONCORDAM": {
+    "LOCAL": "Universidad de Jaén (ciência) x Jaén, Andalusia (LinkedIn)",
+    "TEMA": "OLIVE_PESTS / OLIVE_KNOT / PLANT_HEALTH x entomología aplicada e control biológico de plagas"
+   },
+   "DIMENSAO_QUE_DIVERGE": {
+    "ORGANIZACAO": "Universidad de Jaén (ciência) x CITOLIVA (LinkedIn)"
+   },
+   "MATCH_STATE": "CANDIDATE_NAME_ONLY",
+   "PORQUE_NAO_CONFIRMADO": "local e tema concordam, mas a organizacao declarada diverge e nao ha identificador comum. Uma pessoa pode ter mudado da universidade para o centro tecnologico, e podem ser duas pessoas. Sem ORCID dos dois lados nao se decide, e similaridade de nome nao decide identidade."
+  },
+  "LINKS": [
+   {
+    "PERSON_ID": "https://openalex.org/A5059657539",
+    "NAME": "José Alfonso Gómez-Guzmán",
+    "ORCID": "https://orcid.org/0000-0001-6921-2085",
+    "PLATFORM": "LINKEDIN",
+    "ORIGIN_ID": "ACoAAD3c1jMBokGAxtazECADLR5PihAAkWZ6Vtw",
+    "URL": "https://www.linkedin.com/in/josé-alfonso-gómez-guzmán",
+    "MATCH_STATE": "CANDIDATE_NAME_ONLY",
+    "SECOND_FIELD": null,
+    "DECLARED_ROLE_PLATFORM": "RESEARCHER"
+   }
+  ]
+ },
+ "RESULTADO_POR_INSTITUICAO": {
+  "CASAMENTO_FROUXO_POR_TOKEN": {
+   "RESULTADO_APARENTE": "18 das 99 instituicoes com origem publica correspondente",
+   "VEREDITO": "METODO_REJEITADO",
+   "FALSOS_POSITIVOS_MEDIDOS": [
+    "\"Instituto de Agricultura Sostenible\" casou com UPL Corp Iberia, BURGOS SALAVERRY, Productos AJF e ZERYA — depois de remover palavras comuns sobraram \"agricultura\" e \"sostenible\", que aparecem no texto de meia industria",
+    "\"Universitat de Barcelona\" casou com \"Unitat d'Investigació en Tuberculosi de Barcelona\" — uma unidade de pesquisa em tuberculose, sem relacao com olivar",
+    "\"Centro Tecnológico del Mar\" casou com AIMPLAS (plasticos) e CITOLIVA"
+   ],
+   "LICAO": "o metodo violou a propria regra que esta amostra testa: identidade por similaridade textual. Foi medido e descartado, nao publicado."
+  },
+  "CASAMENTO_ESTRITO_POR_NOME_DECLARADO": {
+   "REGRA": "o nome declarado da origem precisa CONTER o nome da instituicao inteiro",
+   "RESULTADO": 0,
+   "PORQUE": "o OpenAlex nomeia por extenso (\"Instituto de Investigación y Formación Agraria y Pesquera\") e a plataforma nomeia por sigla (\"IFAPA TV\", \"IAS-CSIC\"). Os dois lados falam da mesma instituicao com strings que nunca se contem."
+  }
+ },
+ "VEREDITO": "VIDEO_x_SCIENCE = NOT_REACHED por casamento de nome. Nos dois niveis: 1 candidato nao confirmado por pessoa, e zero por instituicao no metodo estrito — enquanto o metodo frouxo produz falso positivo demonstravel. A rota SCIENCE -> RESEARCHER -> PUBLIC EXPLANATION nao esta refutada; ela apenas nao se constroi com nome.",
+ "O_QUE_FALTA_E_CONCRETO": "um identificador declarado que atravesse as camadas. A ciencia ja tem: 153 de 153 pesquisadores com ORCID e as instituicoes com ROR no OpenAlex. As plataformas publicas nao publicam nenhum dos dois. O elo precisa de um crosswalk de identificadores declarados, construido uma vez por pais e versionado — nao de um algoritmo de similaridade.",
+ "STATE": "NOT_REACHED"
+}
