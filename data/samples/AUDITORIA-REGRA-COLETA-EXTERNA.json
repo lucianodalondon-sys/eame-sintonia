@@ -2188,5 +2188,32 @@
    "lacuna": "A camada de ciencia e pesquisadores da Espanha — a que entrega 153 pesquisadores, o corpus e as instituicoes — nao tem ficha de fonte, entao nao tem ACCESS_METHOD, COLLECTION_FEASIBILITY nem VERDICT registrados no Atlas.",
    "custo_de_fechar": "BAIXO"
   }
- ]
+ ],
+ "BACKLOG_ABERTO": {
+  "TOTAL_NAO_ATENDIDO": 47,
+  "POR_CUSTO": {
+   "MEDIO": 23,
+   "BAIXO": 15,
+   "ALTO": 9
+  },
+  "FECHADOS_NESTA_SESSAO": [
+   "§6/§22 id de autor conflacionado dentro do quadro (153 -> 152)",
+   "§14 denominador publicado diferente do usado (7 provincias na tabela, n=6)",
+   "§1 afirmacao de ordem de coleta sem carimbo",
+   "§7 corpus por documento com os 16 campos (era so agregado)",
+   "§6/§22 ficha de fonte ES-T5-002 no Atlas",
+   "§20 camada de voz dentro do DATA CLOCK com SHA-256"
+  ],
+  "MAIORES_ABERTOS": [
+   "§5 taxonomia de 13 tipos de video existe em codigo e NAO foi aplicada a nenhum dos 252",
+   "§10 os 252 videos nao carregam ORIGINALITY, nem como UNKNOWN",
+   "§14 RAW_EVIDENCE das rotas pagas: existe o NORMALIZED_RECORD, nao a resposta crua",
+   "§14 RUN_ID agrupa registros mas nao resolve para manifesto de execucao (actor, versao, input, dataset)",
+   "§6 nenhuma das 152 fichas teve busca publica tentada (PUBLIC_LINKEDIN/PUBLIC_YOUTUBE = NAO TESTADO)",
+   "§11 a dedupe existe como funcao testada; nenhum pipeline reprodutivel a invoca",
+   "§2 nao ha coleta de LinkedIn Video nem de Instagram Reels, e a ausencia nao esta declarada",
+   "§19 o cruzamento com concorrente so existe na camada LinkedIn; a metade de VIDEO nao foi feita"
+  ],
+  "NOTA": "este backlog e o produto principal da auditoria. Ele NAO deve ser lido como lista de tarefas obrigatorias: varios itens sao decisao de escopo, e alguns custam mais do que valem. O que ele garante e que nenhum deles seja esquecido por acidente nem dado como coberto sem estar."
+ }
 }

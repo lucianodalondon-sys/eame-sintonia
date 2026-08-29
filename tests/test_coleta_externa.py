@@ -496,3 +496,42 @@ class TestCorpusPorDocumento(unittest.TestCase):
         com_autor = [d for d in self.c['DOCUMENTS'] if d['AUTHORS'] != 'NÃO SEI']
         self.assertEqual(len(self.c['DOCUMENTS']), len(com_autor))
         self.assertGreater(self.c['AUTHORS_DISTINCT'], 1000)
+
+
+class TestAuditoriaPreservada(unittest.TestCase):
+    """A auditoria e evidencia como qualquer outra: fica versionada, com o seu proprio
+    limite de metodo declarado, e o backlog nao se perde."""
+
+    def setUp(self):
+        self.a = amostra('AUDITORIA-REGRA-COLETA-EXTERNA.json')
+
+    def test_o_limite_do_metodo_esta_declarado(self):
+        l = self.a['LIMITE_DO_METODO']
+        self.assertIn('EM MOVIMENTO', l)
+        self.assertIn('defeito meu', l,
+                      'auditar alvo movel foi erro de desenho e precisa continuar assumido')
+
+    def test_a_contagem_bate_com_os_achados(self):
+        r = self.a['RESULTADO']
+        self.assertEqual(r['TOTAL'], len(self.a['ACHADOS']))
+        soma = sum(r['POR_STATUS'].values())
+        self.assertEqual(r['TOTAL'], soma)
+
+    def test_o_backlog_bate_com_os_nao_atendidos(self):
+        na = [f for f in self.a['ACHADOS'] if f['status_final'] == 'NAO_ATENDIDO']
+        self.assertEqual(self.a['BACKLOG_ABERTO']['TOTAL_NAO_ATENDIDO'], len(na))
+        self.assertEqual(self.a['RESULTADO']['POR_STATUS']['NAO_ATENDIDO'], len(na))
+
+    def test_a_verificacao_corrigiu_nos_dois_sentidos(self):
+        r = self.a['RESULTADO']
+        self.assertGreater(r['STATUS_CORRIGIDO_NA_VERIFICACAO'], 0,
+                           'se a verificacao nunca corrige nada, ela e decorativa')
+        # houve refutacao tanto de ATENDIDO falso quanto de lacuna inventada
+        refutados = [f for f in self.a['ACHADOS'] if f['refutado']]
+        alegados = {f['status_alegado'] for f in refutados}
+        self.assertGreater(len(alegados), 1,
+                           'a verificacao precisa ter corrigido em mais de uma direcao')
+
+    def test_o_que_foi_fechado_esta_nomeado(self):
+        f = self.a['BACKLOG_ABERTO']['FECHADOS_NESTA_SESSAO']
+        self.assertGreaterEqual(len(f), 5)
