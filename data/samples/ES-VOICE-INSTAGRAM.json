@@ -1,0 +1,57 @@
+{
+ "SOURCE_ID": "ES-T8-003",
+ "source": "Instagram publico, via Apify (apify/instagram-hashtag-scraper)",
+ "SOURCE_LOCATION": "plataforma global",
+ "FACT_LOCATION": "nao determinavel pela plataforma",
+ "captured_at": "2026-08-29",
+ "HASHTAGS": [
+  "olivar",
+  "repilo",
+  "sanidadvegetal"
+ ],
+ "PER_HASHTAG": {
+  "repilo": {
+   "ITEMS": 20,
+   "AGRO_ITEMS": 0,
+   "UNIQUE_ACCOUNTS": 1
+  },
+  "sanidadvegetal": {
+   "ITEMS": 20,
+   "AGRO_ITEMS": 19,
+   "UNIQUE_ACCOUNTS": 15
+  },
+  "olivar": {
+   "ITEMS": 20,
+   "AGRO_ITEMS": 20,
+   "UNIQUE_ACCOUNTS": 18
+  }
+ },
+ "HOMONYM_CAPTURE": {
+  "hashtag": "repilo",
+  "agro_items": 0,
+  "items": 20,
+  "unique_accounts": 1,
+  "account": "repilouk",
+  "o_que_e": "empresa britanica de gestao de avaliacoes online, sem relacao com fitopatologia",
+  "licao": "o nome da doenca e tambem uma marca. Casar termo NAO e casar assunto, e muito menos identidade."
+ },
+ "LANGUAGE_IS_NOT_COUNTRY": {
+  "observado": "em #sanidadvegetal as contas mais frequentes declaram Mexico (cesavegro), Argentina (argenpapa) e LatAm (agrolatam). Todas escrevem em espanhol.",
+  "lei": "ORIGINAL_LANGUAGE nunca decide FACT_LOCATION."
+ },
+ "IDENTITY_MEASURE": {
+  "AGRO_ACCOUNTS": 32,
+  "DECLARE_ES": 5,
+  "DECLARE_NON_ES": 3,
+  "DECLARE_NOTHING": 24,
+  "ES_ACCOUNTS": [
+   "agrosojo",
+   "almazaradeantano",
+   "donporque_com",
+   "ecomercioagrario",
+   "osateasesora"
+  ]
+ },
+ "VERDICT": "INSTAGRAM_ES = FAILED_WITH_REASON para inteligencia acionavel. Nao por falta de volume: 39 de 60 itens sao agronomicos. Falha na IDENTIDADE, que e o primeiro requisito. 24 das 32 contas agronomicas nao declaram pais nenhum, 3 declaram fora da Espanha e apenas 5 declaram Espanha. E a hashtag da doenca-alvo esta 100% capturada por um homonimo comercial britanico. Custo de manter a rota > valor, enquanto a identidade nao vier de outro lugar.",
+ "REVISIT_CONDITION": "reabrir se e quando existir uma lista de contas ES ja identificadas por outra camada - ai o Instagram vira CONTENT sobre identidade conhecida, nao descoberta."
+}

@@ -276,6 +276,60 @@ def build():
         L.add(mid, n, unit='count', source='docs/apresentacao/MATRIZ-DE-PROVA-EAME.md',
               derivation=f'DECK-ids DISTINTOS listados na linha {estado} do placar — '
                          f'a contagem passa a ser a lista, não um número digitado ao lado')
+
+    # ------------------------------------------------------------ camada de voz ES
+    li = _sample('ES-VOICE-LINKEDIN.json')
+    es = [o for o in li['ORIGINS'] if o['COUNTRY'] == 'ES']
+    L.add('VOICE_ES_LINKEDIN_ORIGINS', len(li['ORIGINS']), unit='count',
+          source='data/samples/ES-VOICE-LINKEDIN.json',
+          derivation='len(ORIGINS) — perfis enriquecidos, antes de qualquer filtro',
+          reference_date=li['captured_at'])
+    L.add('VOICE_ES_LINKEDIN_ROLE_COVERAGE', pct(li['ROLE_COVERAGE']['RESOLVED'], len(es)),
+          unit='pct', denominator='origens com COUNTRY=ES declarado',
+          source='data/samples/ES-VOICE-LINKEDIN.json',
+          derivation='RESOLVED / TOTAL — AMBIGUOUS e NOT_DECLARED ficam FORA do numerador',
+          reference_date=li['captured_at'])
+    L.add('VOICE_ES_PUBLIC_TECHNICAL_VOICES', li['PUBLIC_TECHNICAL_VOICE']['TOTAL'], unit='count',
+          source='data/samples/ES-VOICE-LINKEDIN.json',
+          derivation='origens com COUNTRY=ES + papel técnico/institucional + tópico agrícola, '
+                     'todos DECLARADOS. Alcance não entra.',
+          reference_date=li['captured_at'])
+    L.add('VOICE_ES_OLIVE_TECHNICAL_VOICES', li['PUBLIC_TECHNICAL_VOICE']['BY_TOPIC'].get('OLIVE', 0),
+          unit='count', denominator='PUBLIC_TECHNICAL_VOICE',
+          source='data/samples/ES-VOICE-LINKEDIN.json',
+          derivation='subconjunto com tópico OLIVE declarado — é este o número acionável '
+                     'para o Lab A, não o total',
+          reference_date=li['captured_at'])
+
+    yt = _sample('ES-VOICE-YOUTUBE.json')
+    L.add('VOICE_ES_YOUTUBE_ORIGINS', yt['UNIQUE_ORIGINS'], unit='count',
+          source='data/samples/ES-VOICE-YOUTUBE.json',
+          derivation='canais distintos — UNIQUE_ORIGINS nunca é CONTENT_COUNT',
+          reference_date=yt['captured_at'])
+
+    rot = _sample('ES-VOICE-MEDIA-ROUTES.json')
+    L.add('VOICE_ES_MEDIA_ROUTES_PROVED', rot['STATE_COUNTS'].get('PROVED', 0), unit='count',
+          denominator=str(len(rot['ROUTES'])) + ' rotas testadas',
+          source='data/samples/ES-VOICE-MEDIA-ROUTES.json',
+          derivation='rotas com itens E data. HTTP 200 sem <item> conta como FAILED_WITH_REASON',
+          reference_date=rot['captured_at'])
+
+    ig = _sample('ES-VOICE-INSTAGRAM.json')
+    L.add('VOICE_ES_INSTAGRAM_ACCOUNTS_DECLARING_ES', ig['IDENTITY_MEASURE']['DECLARE_ES'],
+          unit='count', denominator=str(ig['IDENTITY_MEASURE']['AGRO_ACCOUNTS']) + ' contas agronômicas',
+          source='data/samples/ES-VOICE-INSTAGRAM.json',
+          derivation='contas cujo texto declara Espanha. Idioma espanhol NÃO conta como país.',
+          reference_date=ig['captured_at'])
+
+    rec = _sample('ES-VOICE-x-REGUA.json')
+    for camada, mid in (('YOUTUBE', 'VOICE_ES_RHO_YOUTUBE_EXPOSURE'),
+                        ('LINKEDIN_POST_ROUTE', 'VOICE_ES_RHO_LINKEDIN_EXPOSURE')):
+        L.add(mid, rec[camada]['rho_vs_exposure_index'], unit='text',
+              denominator='n=%s províncias' % rec[camada]['n_provincias'],
+              source='data/samples/ES-VOICE-x-REGUA.json',
+              derivation='Spearman entre a ordem das províncias na voz e o índice de exposição '
+                         '(ha × incidência). Concordância de ordem NÃO é antecipação.',
+              reference_date=rec['captured_at'])
     return L
 
 

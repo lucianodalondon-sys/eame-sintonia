@@ -1,0 +1,36 @@
+{
+ "SOURCE_ID": "ES-RECONCILIACAO-VOZ",
+ "source": "cruzamento de ES-VOICE-YOUTUBE e ES-VOICE-LINKEDIN contra ES-PRESSAO-x-AREA-OLIVAR",
+ "SOURCE_LOCATION": "derivado — nenhuma coleta nova",
+ "FACT_LOCATION": "SPAIN (Andalucía, nível província)",
+ "ORIGINAL_LANGUAGE": "es",
+ "captured_at": "2026-08-29",
+ "what_it_is": "reconciliacao entre a geografia da voz publica e a regua de campo, por camada",
+ "REGUA": "ES-PRESSAO-x-AREA-OLIVAR — indice de exposicao = ha de olivar x incidencia de repilo",
+ "PORQUE_SO_A_ROTA_POST": "a rota TITLE_SEARCH pediu \"Andalusia, Spain\" em 3 das 6 consultas. Correlacionar a geografia dela com a regua seria circular: mediria o desenho da consulta. So a rota POST_SEARCH nasceu sem filtro de local.",
+ "LINKEDIN_POST_ROUTE": {
+  "n_provincias": 6,
+  "mentions_by_province": {
+   "Jaén": 6,
+   "Sevilla": 12,
+   "Córdoba": 12,
+   "Almería": 2,
+   "Granada": 2,
+   "Huelva": 2,
+   "Málaga": 2
+  },
+  "rho_vs_incidence_only": 0.543,
+  "rho_vs_area_only": 0.543,
+  "rho_vs_exposure_index": 0.943,
+  "ORIGINS_COUNTED": 38,
+  "AVISO": "amostra pequena. 38 origens sobre 6 provincias."
+ },
+ "YOUTUBE": {
+  "n_provincias": 8,
+  "rho_vs_incidence_only": 0.214,
+  "rho_vs_area_only": 0.607,
+  "rho_vs_exposure_index": 0.964
+ },
+ "CONFOUNDER_ABERTO": "Cordoba concentra IAS-CSIC, Universidade de Cordoba e ETSIAM. Densidade institucional e uma explicacao rival para Cordoba liderar a voz, e ela NAO foi separada da exposicao agronomica. O confundidor segue aberto.",
+ "O_QUE_ISSO_NAO_PROVA": "nenhuma das duas correlacoes mostra que a voz ANTECIPA o campo. Sao medidas do mesmo periodo. Concordancia de ordem nao e antecedencia."
+}

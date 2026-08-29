@@ -155,3 +155,76 @@ Nada nesta ficha precisa ser perguntado: titular, fabricante, planta, composiç�
 datas, usos e denominações estão todos em fonte pública primária. **O que continua sendo
 pergunta para a ADAMA é o que fonte pública não contém** — volume, preço, canal, margem,
 prioridade interna e a relação comercial (se houver) com as concessionárias.
+
+---
+
+# ORIGENS DE VOZ PÚBLICA — extensão do modelo (2026-08-29)
+
+O modelo de identidade acima vale para produtos registrados. As origens de voz pública
+(pessoas, páginas, canais) exigem os mesmos princípios com campos diferentes.
+
+## OS TERMOS
+
+**`PUBLIC_TECHNICAL_VOICE`** — origem com país declarado, papel declarado técnico ou
+institucional, e tópico declarado dentro do domínio.
+
+**`INFLUENCER = AUTHORITY` não existe no modelo canônico.** Alcance não entra em nenhuma
+definição de papel. Seguidores são um número descritivo da origem, nunca um critério.
+
+Internamente, durante a descoberta, é aceitável falar de "influenciador técnico" para
+localizar gente. **No dado publicado, o termo é `PUBLIC_TECHNICAL_VOICE`.**
+
+## DE ONDE VEM O PAPEL
+
+| tipo de origem | campos que decidem |
+|---|---|
+| PÁGINA | `companyType` · `pageType` · `industries` — campos estruturados declarados |
+| PESSOA | `headline` · cargo atual declarado |
+| CANAL | descrição declarada pelo próprio canal |
+
+**Nunca decidem papel:** nome da conta · foto · estilo do texto · idioma · prosa livre
+(`about`, `description`) · o assunto de um post.
+
+### Por que a prosa livre está proibida
+
+Medido em 40 perfis espanhóis, um classificador que lia a prosa produziu:
+
+- `Oleo Revista` → `RESEARCHER`, porque "investigador" aparecia numa notícia citada
+- `ASCENZA España` → `RESEARCH_INSTITUTION`, porque `imida` casou **dentro de "ftalimida"**
+- `IAS-CSIC` → `PUBLIC_AUTHORITY`, porque "Consejería" aparecia como terceiro citado
+- pessoas → `COMPANY`, por trabalharem numa `S.L.`
+
+Ele reportava **100% de cobertura**. A cobertura era falsa. Substituído pelos campos
+estruturados, o número verdadeiro apareceu: **67%**.
+
+**Cobertura que sobe porque o classificador ficou permissivo não é cobertura.**
+
+## AMBIGUOUS É UM ESTADO, NÃO UM EMPATE A DESFAZER
+
+*"Gerente de Olipe | OLIVARERA LOS PEDROCHES SCA"* declara `COMPANY_EXECUTIVE` **e**
+`COOPERATIVE`. Não se escolhe por ordem de regex. Declara-se `AMBIGUOUS`.
+
+## O CUSTO DA REGRA É PARTE DA REGRA
+
+`Grupo de Aerobiología. Universidad de Córdoba` publicou o post mais relevante do corpus
+espanhol — detecção de esporos de *Venturia oleaginea* — e tem `headline` vazio.
+
+Ele sai como `NOT_DECLARED`. O nome da conta diz "Universidad de Córdoba" e **o nome não
+decide papel**.
+
+**Identidade que falta se resolve cruzando camadas** — esta origem tem afiliação declarada no
+corpus OpenAlex — **nunca lendo o post com mais boa vontade.**
+
+## IDIOMA NÃO É PAÍS
+
+`SOURCE_LOCATION` ≠ `FACT_LOCATION` ≠ `ORIGINAL_LANGUAGE`.
+
+Medido no Instagram: em `#sanidadvegetal`, as contas mais frequentes declaram México,
+Argentina e LatAm. Todas escrevem em espanhol.
+
+## CASAR TERMO NÃO É CASAR ASSUNTO
+
+`#repilo` no Instagram: 20 itens, **zero** agronômicos, uma única conta — `repilouk`, empresa
+britânica de gestão de avaliações online.
+
+**O nome de uma doença também pode ser uma marca.**

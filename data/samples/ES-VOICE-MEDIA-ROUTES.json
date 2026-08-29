@@ -1,0 +1,303 @@
+{
+ "SOURCE_ID": "ES-T7/T9",
+ "source": "rotas publicas RSS/Atom de midia tecnica e associacoes espanholas",
+ "ROUTE_TYPE": "PUBLIC APPLICATION ROUTE (feed) - nenhuma delas e documentada como API publica",
+ "captured_at": "2026-08-29",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "es",
+ "HTTP_200_NAO_BASTA": "seis rotas devolveram HTTP 200 e zero <item>. Sao paginas HTML, nao feeds. Contar 200 como sucesso teria inventado seis fontes vivas.",
+ "TLS_NAO_FOI_DESLIGADO": "tres origens (CITOLIVA, COAG, eComercio Agrario) tem certificado que nao valida na cadeia publica. Isso e um ESTADO REGISTRADO da fonte. A verificacao nao foi desligada para contorna-lo.",
+ "STATE_COUNTS": {
+  "PROVED": 8,
+  "FAILED_WITH_REASON": 6,
+  "NOT_REACHED": 4
+ },
+ "ROUTES": [
+  {
+   "SOURCE_ID": "ES-T7-001",
+   "NAME": "Oleo Revista",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.oleorevista.com/?feed=rss2",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "STATE": "PROVED",
+   "ITEMS": 50,
+   "TITLES_SAMPLE": [
+    "La innovación en sanidad vegetal: el reto pendiente del olivar",
+    "La DOP Sierra de Cazorla estima una cosecha superior a 250 millones de kilos de aceituna",
+    "OliveA denuncia que las importaciones de aceite de Túnez presionan a la baja los precios e"
+   ],
+   "LAST_DATE": "2026-08-28T23:53:25+02:00",
+   "ON_TOPIC_TITLES": 29
+  },
+  {
+   "SOURCE_ID": "ES-T7-002",
+   "NAME": "Olimerca",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.olimerca.com/rss",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 0,
+   "TITLES_SAMPLE": [],
+   "LAST_DATE": null,
+   "ON_TOPIC_TITLES": 0,
+   "STATE": "FAILED_WITH_REASON",
+   "REASON": "HTTP 200 mas nenhum <item>/<entry> - a rota nao e um feed"
+  },
+  {
+   "SOURCE_ID": "ES-T7-003",
+   "NAME": "Mercacei",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.mercacei.com/rss",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 0,
+   "TITLES_SAMPLE": [],
+   "LAST_DATE": null,
+   "ON_TOPIC_TITLES": 0,
+   "STATE": "FAILED_WITH_REASON",
+   "REASON": "HTTP 200 mas nenhum <item>/<entry> - a rota nao e um feed"
+  },
+  {
+   "SOURCE_ID": "ES-T7-004",
+   "NAME": "Agrodiario",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.agrodiario.com/rss",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 20,
+   "TITLES_SAMPLE": [
+    "Agrodiario :: Últimas noticias",
+    "Castilla-La Mancha alega rechazando la anulación de concesiones vitales para el sector agr",
+    "Los criadores de toro de lidia viven su momento de \"mayor bonanza\" por el auge de festejos"
+   ],
+   "LAST_DATE": "Mon, 29 Jun 2026 06:53:30 +0200",
+   "ON_TOPIC_TITLES": 0,
+   "STATE": "PROVED"
+  },
+  {
+   "SOURCE_ID": "ES-T7-005",
+   "NAME": "Phytoma Espana",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.phytoma.com/feed",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 10,
+   "TITLES_SAMPLE": [
+    "Phytoma",
+    "El Grupo Sumitomo Chemical adquiere la filial de COPYR dedicada al negocio de protección d",
+    "Havva y Sigal, dos nuevas variedades de mandarino, confirman en ensayos independientes su "
+   ],
+   "LAST_DATE": "Fri, 07 Aug 2026 07:09:01 +0000",
+   "ON_TOPIC_TITLES": 2,
+   "STATE": "PROVED"
+  },
+  {
+   "SOURCE_ID": "ES-T7-006",
+   "NAME": "Agropopular",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.agropopular.com/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 20,
+   "TITLES_SAMPLE": [
+    "agropopular.com",
+    "En agosto ‘viajamos’ por los pueblos de España (III)",
+    "Juan Ramón Amores recorre los pueblos de Albacete tras las fiestas de La Roda"
+   ],
+   "LAST_DATE": "Fri, 28 Aug 2026 15:10:34 +0000",
+   "ON_TOPIC_TITLES": 1,
+   "STATE": "PROVED"
+  },
+  {
+   "SOURCE_ID": "ES-T7-007",
+   "NAME": "eComercio Agrario",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.ecomercioagrario.com/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": null,
+   "STATE": "FAILED_WITH_REASON",
+   "REASON": "certificado da origem nao valida na cadeia publica - verificacao NAO foi desligada"
+  },
+  {
+   "SOURCE_ID": "ES-T7-008",
+   "NAME": "Agronegocios",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.agronegocios.es/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 403,
+   "STATE": "NOT_REACHED",
+   "REASON": "HTTPError 403"
+  },
+  {
+   "SOURCE_ID": "ES-T7-009",
+   "NAME": "Interempresas Agricola",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.interempresas.net/Agricola/rss/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "STATE": "PROVED",
+   "ITEMS": 25,
+   "TITLES_SAMPLE": [
+    "Interempresas - Agricultura - Noticias y artículos",
+    "Arion 5 CMatic, el nuevo tractor CLAAS de 4 cilindros y hasta 180 CV",
+    "Bobcat e ITT Dynamics han participado en la 70ª edición de Firagost"
+   ],
+   "LAST_DATE": "28 Aug 2026 00:00:00 +0200",
+   "ON_TOPIC_TITLES": 0
+  },
+  {
+   "SOURCE_ID": "ES-T7-010",
+   "NAME": "Agroinformacion",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://agroinformacion.com/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 10,
+   "TITLES_SAMPLE": [
+    "Agroinformacion",
+    "El granizo convierte este mes en el «agosto de más siniestralidad de la historia del segur",
+    "Ritchie Bros. se prepara para el mes de subastas &#8216;Super Septiembre&#8217;, impulsado"
+   ],
+   "LAST_DATE": "Fri, 28 Aug 2026 10:30:16 +0000",
+   "ON_TOPIC_TITLES": 0,
+   "STATE": "PROVED"
+  },
+  {
+   "SOURCE_ID": "ES-T7-011",
+   "NAME": "Revista Almazaras",
+   "LAYER": "TECHNICAL_MEDIA",
+   "DECLARED_ROLE": "TECHNICAL_MEDIA",
+   "ROUTE": "https://www.revistaalmazaras.com/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": null,
+   "STATE": "NOT_REACHED",
+   "REASON": "URLError: <urlopen error Tunnel connection failed: 502 Bad Gateway>"
+  },
+  {
+   "SOURCE_ID": "ES-T9-001",
+   "NAME": "Interprofesional del Aceite de Oliva Espanol",
+   "LAYER": "ASSOCIATION",
+   "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
+   "ROUTE": "https://www.aceitesdeolivadeespana.com/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 0,
+   "TITLES_SAMPLE": [],
+   "LAST_DATE": null,
+   "ON_TOPIC_TITLES": 0,
+   "STATE": "FAILED_WITH_REASON",
+   "REASON": "HTTP 200 mas nenhum <item>/<entry> - a rota nao e um feed"
+  },
+  {
+   "SOURCE_ID": "ES-T9-002",
+   "NAME": "Cooperativas Agro-alimentarias de Espana",
+   "LAYER": "ASSOCIATION",
+   "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
+   "ROUTE": "https://www.agro-alimentarias.coop/feed",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 404,
+   "STATE": "NOT_REACHED",
+   "REASON": "HTTPError 404"
+  },
+  {
+   "SOURCE_ID": "ES-T9-003",
+   "NAME": "CITOLIVA",
+   "LAYER": "RESEARCH_CENTER",
+   "DECLARED_ROLE": "RESEARCH_INSTITUTION",
+   "ROUTE": "https://www.citoliva.es/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": null,
+   "STATE": "FAILED_WITH_REASON",
+   "REASON": "certificado da origem nao valida na cadeia publica - verificacao NAO foi desligada"
+  },
+  {
+   "SOURCE_ID": "ES-T9-004",
+   "NAME": "Asociacion Espanola de Municipios del Olivo (AEMO)",
+   "LAYER": "ASSOCIATION",
+   "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
+   "ROUTE": "https://www.aemo.es/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 404,
+   "STATE": "NOT_REACHED",
+   "REASON": "HTTPError 404"
+  },
+  {
+   "SOURCE_ID": "ES-T9-005",
+   "NAME": "ASAJA",
+   "LAYER": "ASSOCIATION",
+   "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
+   "ROUTE": "https://www.asaja.com/feed",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 10,
+   "TITLES_SAMPLE": [
+    "Asaja",
+    "Programa CULTIVA. Agricultura tradicional adaptada al territorio: un modelo eficiente en C",
+    "Observatorio de precios. ASAJA"
+   ],
+   "LAST_DATE": "Fri, 28 Aug 2026 10:22:15 +0000",
+   "ON_TOPIC_TITLES": 0,
+   "STATE": "PROVED"
+  },
+  {
+   "SOURCE_ID": "ES-T9-006",
+   "NAME": "COAG",
+   "LAYER": "ASSOCIATION",
+   "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
+   "ROUTE": "https://www.coag.org/feed",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": null,
+   "STATE": "FAILED_WITH_REASON",
+   "REASON": "certificado da origem nao valida na cadeia publica - verificacao NAO foi desligada"
+  },
+  {
+   "SOURCE_ID": "ES-T9-007",
+   "NAME": "UPA",
+   "LAYER": "ASSOCIATION",
+   "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
+   "ROUTE": "https://www.upa.es/feed/",
+   "ROUTE_TYPE": "RSS/ATOM",
+   "COUNTRY": "ES",
+   "HTTP": 200,
+   "ITEMS": 10,
+   "TITLES_SAMPLE": [
+    "UPA",
+    "Tierra-Techo-Transición. Una visión para el futuro de la agricultura familiar",
+    "El proyecto SmartOlivar impulsará el uso de la IA al servicio de un olivar más rentable, s"
+   ],
+   "LAST_DATE": "Tue, 25 Aug 2026 10:24:39 +0000",
+   "ON_TOPIC_TITLES": 1,
+   "STATE": "PROVED"
+  }
+ ],
+ "VERDICT": "MEDIA_ES = PARTIAL. 8 de 18 rotas provadas. A melhor delas (Oleo Revista) devolve 50 itens datados com 29 titulos on-topic. Suficiente para um relogio de publicacao, insuficiente para censo do setor.",
+ "SOURCE_LOCATION": "ES — sitios espanhois"
+}
