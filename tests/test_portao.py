@@ -311,5 +311,50 @@ class TestRefutacaoAdversarial10C(unittest.TestCase):
         self.assertFalse(ok, 'branch vivo aceito como alvo congelado')
 
 
+
+class TestVerificacaoAdversarialRegistrada(unittest.TestCase):
+    """MISSAO 11 — o veredito da 10C existia so no relatorio.
+
+    Veredito que vive fora do Git nao existe para a proxima conta. E `YES` nao e a mesma
+    coisa que `ADVERSARIALLY_VERIFIED`: o primeiro e o portao dizendo que ele mesmo passa.
+    """
+
+    def setUp(self):
+        self.v = portao.verificacao_adversarial()
+
+    def test_a_verificacao_esta_registrada_no_repositorio(self):
+        caminho = os.path.join(SAMPLES, 'VERIFICACAO-ADVERSARIAL-PORTOES.json')
+        self.assertTrue(os.path.exists(caminho), 'o veredito nao foi externalizado')
+
+    def test_os_sete_portoes_tem_resultado_declarado(self):
+        d = amostra('VERIFICACAO-ADVERSARIAL-PORTOES.json')
+        r = d['RESULTADO_POR_PORTAO']
+        self.assertEqual(7, len(r), 'faltou portao no registro da verificacao')
+        for k, x in r.items():
+            with self.subTest(portao=k):
+                self.assertIn(x['RESULT'],
+                              ('SURVIVED_ADVERSARIAL_CHECK', 'REFUTED', 'NOT_TESTABLE'))
+
+    def test_o_limite_aberto_do_p3_nao_pode_ser_apagado(self):
+        d = amostra('VERIFICACAO-ADVERSARIAL-PORTOES.json')
+        limite = d['RESULTADO_POR_PORTAO']['P3_VIDEO_TAXONOMY']['LIMITE_DECLARADO_E_ABERTO']
+        self.assertIn('NOT_TESTABLE', limite)
+        self.assertIn('lexical', limite)
+
+    def test_o_estado_e_derivado_e_detecta_obsolescencia(self):
+        """Um portao reverificado e depois reescrito nao esta mais verificado."""
+        self.assertIn(self.v['ESTADO'],
+                      ('ADVERSARIALLY_VERIFIED', 'VERIFICATION_STALE',
+                       'REFUTED', 'NOT_VERIFIED', 'UNKNOWN'))
+        self.assertIn('AUDIT_TARGET_SHA', self.v)
+
+    def test_yes_nao_e_adversarially_verified(self):
+        """O veredito so sobe quando a verificacao registrada estiver valida."""
+        v = portao.veredito()
+        if v['VERIFICACAO_ADVERSARIAL']['ESTADO'] != 'ADVERSARIALLY_VERIFIED':
+            self.assertNotEqual('ADVERSARIALLY_VERIFIED',
+                                v['READY_FOR_NEXT_ES_COLLECTION'],
+                                'o portao subiu o veredito sem verificacao valida')
+
 if __name__ == '__main__':
     unittest.main()

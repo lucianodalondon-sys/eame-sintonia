@@ -284,12 +284,64 @@ def avaliar():
     return p
 
 
+
+def verificacao_adversarial():
+    """O estado da verificacao adversarial, DERIVADO — nunca digitado.
+
+    A MISSAO 10C refutou seis dos sete portoes, corrigiu e reverificou. O veredito ficou
+    so no relatorio, e veredito fora do Git nao existe para a proxima conta.
+
+    A verificacao vale para o SHA em que rodou. Se qualquer arquivo que IMPLEMENTA os
+    portoes mudou depois dele, o estado cai para VERIFICATION_STALE: um portao reverificado
+    e depois reescrito nao esta mais verificado. Nao ha estado "com ressalva".
+    """
+    import subprocess
+    caminho = os.path.join(SAMPLES, 'VERIFICACAO-ADVERSARIAL-PORTOES.json')
+    if not os.path.exists(caminho):
+        return {'ESTADO': 'NOT_VERIFIED',
+                'MOTIVO': 'nenhuma verificacao adversarial registrada'}
+    with open(caminho, encoding='utf-8') as f:
+        v = json.load(f)
+    sha = v.get('AUDIT_TARGET_SHA')
+    arquivos = v.get('ARQUIVOS_QUE_IMPLEMENTAM_OS_PORTOES', [])
+    refutados = [k for k, x in v.get('RESULTADO_POR_PORTAO', {}).items()
+                 if x.get('RESULT') != 'SURVIVED_ADVERSARIAL_CHECK']
+    if refutados:
+        return {'ESTADO': 'REFUTED', 'AUDIT_TARGET_SHA': sha,
+                'MOTIVO': 'portoes refutados: %s' % refutados}
+    r = subprocess.run(['git', 'diff', '--name-only', sha, '--'] + arquivos,
+                       cwd=ROOT, capture_output=True, text=True)
+    if r.returncode != 0:
+        return {'ESTADO': 'UNKNOWN', 'AUDIT_TARGET_SHA': sha,
+                'MOTIVO': 'nao foi possivel comparar com o SHA verificado: %s'
+                          % r.stderr.strip()[:120]}
+    mudaram = [x for x in r.stdout.split('\n') if x.strip()]
+    if mudaram:
+        return {'ESTADO': 'VERIFICATION_STALE', 'AUDIT_TARGET_SHA': sha,
+                'MOTIVO': 'implementacao dos portoes mudou desde a verificacao: %s' % mudaram}
+    return {'ESTADO': 'ADVERSARIALLY_VERIFIED', 'AUDIT_TARGET_SHA': sha,
+            'ATAQUES': v.get('ATAQUES_TOTAIS'),
+            'LIMITE_ABERTO': (v.get('RESULTADO_POR_PORTAO', {})
+                              .get('P3_VIDEO_TAXONOMY', {})
+                              .get('LIMITE_DECLARADO_E_ABERTO'))}
+
 def veredito():
     p = avaliar()
     tudo = all(v['PROVED'] for v in p.values())
     bloqueios = [k for k, v in p.items() if not v['PROVED']]
+    adv = verificacao_adversarial()
+    # `YES` e auto-avaliacao: o portao dizendo que ele mesmo passa. `ADVERSARIALLY_VERIFIED`
+    # exige, ALEM disso, que alguem tenha tentado REFUTAR cada portao e falhado — e que a
+    # implementacao nao tenha mudado desde entao.
+    if not tudo:
+        estado = 'NO'
+    elif adv['ESTADO'] == 'ADVERSARIALLY_VERIFIED':
+        estado = 'ADVERSARIALLY_VERIFIED'
+    else:
+        estado = 'YES'
     return {'PORTOES': p,
-            'READY_FOR_NEXT_ES_COLLECTION': 'YES' if tudo else 'NO',
+            'READY_FOR_NEXT_ES_COLLECTION': estado,
+            'VERIFICACAO_ADVERSARIAL': adv,
             'BLOQUEADO_POR': bloqueios}
 
 
@@ -302,6 +354,12 @@ if __name__ == '__main__':
             print('%-26s %-6s %s' % (k, 'PROVED' if d['PROVED'] else 'BLOCKED', d['MEDIDA']))
             if d['BLOQUEIO']:
                 print('%-26s        -> %s' % ('', d['BLOQUEIO']))
+        print()
+        a = v['VERIFICACAO_ADVERSARIAL']
+        print('VERIFICACAO_ADVERSARIAL      %s  (%s)' % (
+            a['ESTADO'], a.get('AUDIT_TARGET_SHA', '—')[:12] or '—'))
+        if a.get('MOTIVO'):
+            print('                             -> %s' % a['MOTIVO'])
         print()
         print('READY_FOR_NEXT_ES_COLLECTION =', v['READY_FOR_NEXT_ES_COLLECTION'])
         if v['BLOQUEADO_POR']:

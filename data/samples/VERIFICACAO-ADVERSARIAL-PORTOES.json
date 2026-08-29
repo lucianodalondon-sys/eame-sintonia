@@ -1,0 +1,61 @@
+{
+ "SOURCE_ID": "VERIFICACAO-ADVERSARIAL-PORTOES",
+ "source": "MISSAO 10C — tentativa explicita de REFUTAR cada portao contra SHA congelado",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a — descreve o repositorio",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "AUDIT_TARGET_SHA": "15f6736cb0f34b4bcbc8c741596fd5647f8c9ea5",
+ "SNAPSHOT": "git worktree --detach; validado por scripts/auditoria.py 1.1.0 (VALID=True)",
+ "METODO": "para cada portao: qual e a menor situacao em que ele diria PROVED com a propriedade real quebrada? O contraexemplo foi CONSTRUIDO e RODADO, nao imaginado.",
+ "PORQUE_ESTE_ARQUIVO_EXISTE": "a MISSAO 10C produziu o veredito e o deixou so no relatorio. Veredito que vive fora do Git nao existe para a proxima conta — e este repositorio ja tem lei para isso: achado novo vai para o documento canonico e para o commit. Agora o portao DERIVA o estado deste arquivo em vez de alguem digitar a palavra.",
+ "ARQUIVOS_QUE_IMPLEMENTAM_OS_PORTOES": [
+  "scripts/portao.py",
+  "scripts/proveniencia.py",
+  "scripts/voz.py",
+  "scripts/auditoria.py"
+ ],
+ "REGRA_DE_VALIDADE": "a verificacao vale para o SHA em que rodou. Se qualquer arquivo que implementa os portoes mudar depois dele, o estado cai para VERIFICATION_STALE e a verificacao precisa ser refeita. Nao ha estado \"com ressalva\".",
+ "RESULTADO_POR_PORTAO": {
+  "P0_AUDIT_TARGET_SHA": {
+   "RESULT": "SURVIVED_ADVERSARIAL_CHECK",
+   "ATAQUES": 7,
+   "CONTRAEXEMPLO": null,
+   "LIMITE_FECHADO": "aceitava o branch vivo como snapshot; passa a exigir worktree destacado"
+  },
+  "P1_RUN_MANIFEST": {
+   "RESULT": "SURVIVED_ADVERSARIAL_CHECK",
+   "ERA": "REFUTED",
+   "CONTRAEXEMPLO": "RUN_ID repetido: carregar() indexa por id e o segundo sobrescrevia o primeiro — 11 execucoes na lista, 10 carregadas. E o portao lia 3 artefatos escolhidos a dedo onde 6 publicam RUN_ID."
+  },
+  "P2_PIPELINE_DEDUPE": {
+   "RESULT": "SURVIVED_ADVERSARIAL_CHECK",
+   "ERA": "REFUTED",
+   "CONTRAEXEMPLO": "EXTERNAL_ID = NAO SEI era usado como identidade: 3 videos distintos sem id viravam 1, RAW 3 = UNICOS 1 + DUPLICATAS 2, a aritmetica fechava e o portao dizia PROVED com dois videos reais perdidos."
+  },
+  "P3_VIDEO_TAXONOMY": {
+   "RESULT": "SURVIVED_ADVERSARIAL_CHECK",
+   "ERA": "REFUTED",
+   "CONTRAEXEMPLO": "relabel em massa passava; e polissemia classifica falso: \"curso natural del agua\" -> TECHNICAL_WEBINAR, \"clausura del riego\" -> CONFERENCE, \"en accion\" -> PRODUCT_DEMO.",
+   "LIMITE_DECLARADO_E_ABERTO": "CORRECAO SEMANTICA DA CLASSIFICACAO = NOT_TESTABLE por qualquer portao. O classificador e lexical. Apertar os padroes foi MEDIDO e RECUSADO: os 6 videos reais com \"curso\" sao cursos de verdade. Por isso todo registro carrega CONTENT_TYPE_EVIDENCE e a checagem de verdade e humana. E a deteccao de relabel depende de CONTENT_TYPE_ALL nao vazio: uma falsificacao CONSISTENTE ainda passaria."
+  },
+  "P4_VIDEO_ORIGINALITY": {
+   "RESULT": "SURVIVED_ADVERSARIAL_CHECK",
+   "ERA": "REFUTED",
+   "CONTRAEXEMPLO": "aceitava ORIGINAL escrito a mao com evidencia \"esta no canal da propria empresa\"; aceitava \"NAO SEI\" como evidencia; e imprimia a distribuicao DECLARADA no arquivo, nao a derivada dos registros."
+  },
+  "P5_PAID_RAW_POLICY": {
+   "RESULT": "SURVIVED_ADVERSARIAL_CHECK",
+   "ERA": "REFUTED",
+   "CONTRAEXEMPLO": "o bruto foi TROCADO e nada pegou: o portao conferia existencia, nunca integridade, embora o SHA-256 estivesse no relogio de dados. E \"o pipeline le o bruto\" era a substring \"raw-paid\" em ENTRADA."
+  },
+  "P6_COLLECTION_TIMESTAMPS": {
+   "RESULT": "SURVIVED_ADVERSARIAL_CHECK",
+   "ERA": "REFUTED",
+   "CONTRAEXEMPLO": "ordem por comparacao de STRING: 09:00+02:00 (07:00 UTC) contra 08:00Z devolvia AFTER onde a verdade e BEFORE. O repositorio ja mistura os dois formatos. E a guarda era lista de 4 valores proibidos: STARTED_AT=\"desconhecido\" sustentava um BEFORE."
+  }
+ },
+ "ATAQUES_TOTAIS": 18,
+ "ATAQUES_BLOQUEADOS_NA_REVERIFICACAO": 18,
+ "LICAO": "cinco dos seis portoes verificavam FORMA e eram lidos como se verificassem VERDADE. Contagem que fecha, campo preenchido, valor dentro do contrato e string presente sao todos satisfeitos por dado falso."
+}
