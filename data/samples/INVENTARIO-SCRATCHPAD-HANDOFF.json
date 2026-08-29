@@ -1,0 +1,96 @@
+{
+ "SOURCE_ID": "INVENTARIO-SCRATCHPAD-HANDOFF",
+ "source": "decisao explicita PRESERVE/DISCARD do dado que so existia no scratchpad efemero",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "PORQUE_ESTE_ARQUIVO_EXISTE": "o scratchpad e efemero e morre com o contêiner. Sem este inventario, a proxima conta nao saberia se algo importante se perdeu na troca — e nao teria como distinguir \"foi descartado por analise\" de \"sumiu sem ninguem notar\".",
+ "REGRA": "nada importante pode desaparecer em silencio. Cada item e PRESERVE ou DISCARD_WITH_REASON.",
+ "PRESERVED": [
+  {
+   "SCRATCH": "yt_items.json",
+   "AGORA_EM": "data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz"
+  },
+  {
+   "SCRATCH": "yt_transcripts.json",
+   "AGORA_EM": "data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz"
+  },
+  {
+   "SCRATCH": "cm_all.json",
+   "AGORA_EM": "data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz"
+  },
+  {
+   "SCRATCH": "li_items.json",
+   "AGORA_EM": "data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz"
+  },
+  {
+   "SCRATCH": "li_items2.json",
+   "AGORA_EM": "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz"
+  },
+  {
+   "SCRATCH": "li_perfis_all.json",
+   "AGORA_EM": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz"
+  },
+  {
+   "SCRATCH": "ps_test.json",
+   "AGORA_EM": "data/samples/raw-paid/ES-T8-002-titlesearch-test.raw.json.gz"
+  },
+  {
+   "SCRATCH": "ig_test.json",
+   "AGORA_EM": "data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz"
+  },
+  {
+   "SCRATCH": "li_urls.json + li_urls2.json",
+   "AGORA_EM": "data/samples/ES-T8-002-entradas-enriquecimento.json"
+  },
+  {
+   "SCRATCH": "yt_canais.json",
+   "AGORA_EM": "data/samples/ES-T8-001-baseline-canais.json (papel por CHANNEL_ID, equivalencia verificada: 157/157, 0 divergencias)"
+  }
+ ],
+ "DISCARDED_WITH_REASON": [
+  {
+   "SCRATCH": "li_perfis.json, li_perfis2/3/4.json",
+   "MOTIVO": "componentes do merge ja preservado em ES-T8-002-linkedin-profiles.raw.json.gz; a rota de origem de cada perfil sobrevive no campo DISCOVERY_ROUTE de ES-VOICE-LINKEDIN.json"
+  },
+  {
+   "SCRATCH": "in_yt.json, in_li.json, in_li2.json, in_tr.json, in_cm.json, in_ig.json, in_ps.json, in_enr.json",
+   "MOTIVO": "entradas de coleta — preservadas VERBATIM no campo INPUT de cada execucao em RUN-MANIFEST.json"
+  },
+  {
+   "SCRATCH": "videos_norm.json, pipe.json",
+   "MOTIVO": "saidas intermediarias do pipeline — REGENERAVEIS por voz.pipeline_video() a partir do bruto preservado"
+  },
+  {
+   "SCRATCH": "li_origens_es.json, li_origens_final.json, li_origens_tab.json",
+   "MOTIVO": "versoes intermediarias da tabela de identidade; a final esta em ES-VOICE-LINKEDIN.json. As intermediarias contem a classificacao ERRADA que foi descartada (papel derivado de prosa livre) e nao devem ser reusadas"
+  },
+  {
+   "SCRATCH": "rotas_es.json",
+   "MOTIVO": "identico ao conteudo de ES-VOICE-MEDIA-ROUTES.json"
+  },
+  {
+   "SCRATCH": "corpus_doc.json",
+   "MOTIVO": "saida intermediaria — regeneravel de data/raw/ES-T5-002/openalex_works.json"
+  },
+  {
+   "SCRATCH": "oa.json, links.json, inst_link.json, voice_x_mt2.json",
+   "MOTIVO": "derivacoes intermediarias, todas regeneraveis; os resultados finais estao em ES-X-VOICE-SCIENCE.json e ES-VOICE-x-REGUA.json"
+  },
+  {
+   "SCRATCH": "raw_idx.json, yt_alvos_transcript.json, li_urls*.json (copia)",
+   "MOTIVO": "indices meus de trabalho, sem valor de evidencia"
+  },
+  {
+   "SCRATCH": "*.py do scratchpad (enr.py, enr2.py, ps.py, ps2.py, cm.py, tr.py, li_tab.py, rotas.py)",
+   "MOTIVO": "scripts descartaveis de coleta. A logica que sobreviveu virou scripts/coletor.py, scripts/voz.py e scripts/filas.py, versionados e testados. Os originais chamavam a API sem capturar metadados de execucao — sao justamente o que a missao 10B substituiu"
+  },
+  {
+   "SCRATCH": "arquivos HTML e PDF de missoes 01-09 no scratchpad pai",
+   "MOTIVO": "fontes GRATUITAS e replicaveis (EPPO, MAPA, regfiweb, CELEX). A cadeia refaz — ver scripts/chain.py"
+  }
+ ],
+ "TOKENS": "nenhum token foi versionado. As chaves viveram apenas em arquivo fora do repositorio, lido em tempo de execucao. Ha teste que varre o repositorio atras de padrao de token.",
+ "ALERTA_PARA_A_PROXIMA_CONTA": "os arquivos li_origens_*.json descartados contem a classificacao de papel derivada de PROSA LIVRE, que foi medida como errada (Oleo Revista virou RESEARCHER, ASCENZA virou RESEARCH_INSTITUTION por causa de \"ftalimida\"). Se alguma copia deles reaparecer, NAO reuse."
+}

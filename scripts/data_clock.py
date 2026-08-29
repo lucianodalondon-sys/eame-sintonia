@@ -70,6 +70,8 @@ WATCH = [
      'CRITICA — bruto de rota nao replicavel'),
     ('ES-T8-003', 'data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz', '2026-08-29',
      'CRITICA — bruto de rota nao replicavel'),
+    ('ES-T8-002', 'data/samples/raw-paid/ES-T8-002-titlesearch-test.raw.json.gz', '2026-08-29',
+     'CRITICA — 5 dos 10 perfis desta execucao nao existem em nenhum outro bruto preservado'),
     ('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',
      'ALTA — e o indice que faz o RUN_ID resolver; sem ele o bruto vira arquivo orfao'),
 ]

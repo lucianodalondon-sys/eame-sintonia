@@ -267,7 +267,8 @@
    "FINISHED_AT": "NOT_PRESERVED",
    "INPUT": {
     "profileScraperMode": "Profile details no email ($4 per 1k)",
-    "queries": "120 URLs de perfil, em 12 lotes de 10 (limite do plano)"
+    "queries": "120 URLs de perfil em 12 lotes de 10 (limite do plano gratuito)",
+    "LISTA_LITERAL": "data/samples/ES-T8-002-entradas-enriquecimento.json"
    },
    "COUNTRY": "ES",
    "MISSION": "10A-ES",
@@ -322,7 +323,10 @@
    "ERROR": "4 das 11 consultas devolveram 0 — sobre-restricao, falha fechada. O bruto desta execucao foi fundido com o do enriquecimento antes de ser preservado: os dois compartilham o mesmo arquivo e NAO sao separaveis a posteriori.",
    "CAPTURE_METHOD": "run-sync-get-dataset-items",
    "EVIDENCE_PATH": "data/samples/ES-VOICE-LINKEDIN.json",
-   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+   "RAW_EVIDENCE_PATH": [
+    "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+    "data/samples/raw-paid/ES-T8-002-titlesearch-test.raw.json.gz"
+   ],
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-29T04:00:17Z"
   },
