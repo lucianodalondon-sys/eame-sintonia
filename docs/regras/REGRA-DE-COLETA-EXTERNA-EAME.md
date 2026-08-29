@@ -68,6 +68,11 @@ chaves existam sempre.
 **Cobertura por campo é obrigatória.** `voz.cobertura()` conta quantos registros declaram cada
 um. É isso que impede a lista de encolher sem ninguém notar.
 
+**Aplicado aos 252 vídeos espanhóis: <!--M:VOICE_ES_VIDEO_FIELDS_DECLARED-->27<!--/M--> dos 32
+campos têm ao menos um registro declarado.** Os outros cinco — `ORGANIZATION`, `COUNTRY`,
+`LANGUAGE`, `TRANSCRIPT_LANGUAGE`, `PRODUCT` — ficam em `NÃO SEI` **com o motivo escrito campo
+a campo**, nunca ausentes.
+
 ## 4 · TRANSCRIÇÃO É MATÉRIA-PRIMA
 
 `TRANSCRIPT_ORIGINAL` e `TRANSLATION` são **campos separados**. Tradução nunca substitui
@@ -139,7 +144,9 @@ NAME ≠ HANDLE ≠ PROFILE ≠ PERSON ≠ ORGANIZATION
 ## 10 · ORIGEM ≠ CONTEÚDO
 
 Uma pessoa com 50 vídeos é **1 ORIGIN e 50 CONTENTS**.
-**Medido:** 157 canais publicaram 252 vídeos. As duas contagens nunca se somam nem se trocam.
+**Medido:** <!--M:VOICE_ES_VIDEO_ORIGINS-->157<!--/M--> canais publicaram
+<!--M:VOICE_ES_VIDEO_CONTENTS-->252<!--/M--> vídeos. As duas contagens nunca se somam nem se
+trocam.
 
 Uma release republicada em site + LinkedIn + YouTube + Instagram **não vira quatro evidências
 independentes**. Separar `ORIGINAL` · `RESHARE` · `SYNDICATED` · `UNKNOWN`.
@@ -169,8 +176,9 @@ Classificar só quando há conteúdo real: `FIELD_OBSERVATION` · `TECHNICAL_QUE
 
 **Comentário genérico não vira inteligência.**
 
-**Medido na Espanha:** 346 comentários dos 48 vídeos on-topic. **45% carregam conteúdo
-classificável; 55% são "Gran video", agradecimento e emoji.** Contam no corpus e **não**
+**Medido na Espanha:** <!--M:VOICE_ES_COMMENTS-->346<!--/M--> comentários dos 48 vídeos
+on-topic. **<!--M:VOICE_ES_COMMENTS_WITH_CONTENT-->44,5<!--/M-->% carregam conteúdo
+classificável; o resto é "Gran video", agradecimento e emoji.** Contam no corpus e **não**
 contam como sinal.
 
 **E a camada não é o que parecia ser.** Dos comentários com conteúdo, **148 são perguntas** e

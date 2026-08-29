@@ -321,6 +321,37 @@ def build():
           derivation='contas cujo texto declara Espanha. Idioma espanhol NÃO conta como país.',
           reference_date=ig['captured_at'])
 
+    vid = _sample('ES-T8-001-videos.json')
+    L.add('VOICE_ES_VIDEO_CONTENTS', vid['ORIGIN_NAO_E_CONTENT']['CONTENTS'], unit='count',
+          source='data/samples/ES-T8-001-videos.json',
+          derivation='len(VIDEOS) — CONTEÚDOS, jamais confundir com ORIGENS',
+          reference_date=vid['captured_at'])
+    L.add('VOICE_ES_VIDEO_ORIGINS', vid['ORIGIN_NAO_E_CONTENT']['ORIGINS'], unit='count',
+          denominator='%d conteúdos' % vid['ORIGIN_NAO_E_CONTENT']['CONTENTS'],
+          source='data/samples/ES-T8-001-videos.json',
+          derivation='canais distintos — 157 origens publicaram 252 conteúdos',
+          reference_date=vid['captured_at'])
+    campos = len(vid['FIELD_COVERAGE'])
+    vazios = len(vid['CAMPOS_EM_NAO_SEI_INTEGRAL'])
+    L.add('VOICE_ES_VIDEO_FIELDS_DECLARED', campos - vazios, unit='count',
+          denominator='%d campos do contrato' % campos,
+          source='data/samples/ES-T8-001-videos.json',
+          derivation='campos com pelo menos um registro declarado; o resto fica NÃO SEI '
+                     'com motivo escrito, nunca ausente',
+          reference_date=vid['captured_at'])
+
+    cm = _sample('ES-T8-001-comentarios.json')
+    L.add('VOICE_ES_COMMENTS', cm['TOTAL'], unit='count',
+          source='data/samples/ES-T8-001-comentarios.json',
+          derivation='comentários únicos por COMMENT_ID nos 48 vídeos on-topic',
+          reference_date=cm['captured_at'])
+    L.add('VOICE_ES_COMMENTS_WITH_CONTENT', pct(cm['COM_CONTEUDO_CLASSIFICAVEL'], cm['TOTAL']),
+          unit='pct', denominator='%d comentários' % cm['TOTAL'],
+          source='data/samples/ES-T8-001-comentarios.json',
+          derivation='classe != NOT_CLASSIFIED. O resto é "Gran video" e conta no corpus, '
+                     'não no sinal',
+          reference_date=cm['captured_at'])
+
     rec = _sample('ES-VOICE-x-REGUA.json')
     for camada, mid in (('YOUTUBE', 'VOICE_ES_RHO_YOUTUBE_EXPOSURE'),
                         ('LINKEDIN_POST_ROUTE', 'VOICE_ES_RHO_LINKEDIN_EXPOSURE')):
