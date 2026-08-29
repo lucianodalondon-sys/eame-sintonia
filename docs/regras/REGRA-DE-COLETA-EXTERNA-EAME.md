@@ -219,6 +219,25 @@ acaba, e a rota **não pode ser replicada**. Ou a evidência é versionada, ou e
 **Regra:** coleta por rota não replicável entra em `data/samples/`, que é versionado — registro
 normalizado **e** transcrição. `data/raw/` continua sendo cache para o que a cadeia refaz.
 
+## 14-B · O PORTÃO ANTES DE COLETAR (2026-08-29)
+
+Antes de escalar coleta, seis coisas precisam estar provadas — derivadas por
+`scripts/portao.py`, nunca digitadas:
+
+`RUN_MANIFEST` · `PIPELINE_DEDUPE` · `VIDEO_TAXONOMY_APPLIED` · `VIDEO_ORIGINALITY` ·
+`PAID_RAW_POLICY` · `COLLECTION_TIMESTAMPS`
+
+Qualquer um aberto = **não coletar**, e o motivo é o portão que barrou.
+
+**Toda rota paga passa por `scripts/coletor.py`**, que grava o RAW antes de normalizar e
+captura da plataforma `ACTOR_VERSION`, `STARTED_AT`, `FINISHED_AT`, `DATASET_ID` e
+`COST_USD`. O `RUN_ID` passa a **resolver**: `CONTENT → RUN_MANIFEST → INPUT / ACTOR /
+DATASET / RAW`.
+
+**Auditoria só contra alvo congelado.** `AUDIT_TARGET_SHA` é definido antes; o auditor lê um
+worktree `--detach`. Se o SHA auditado mudar, a auditoria é **inválida** — não "com
+ressalva".
+
 ## 15 · FAIL CLOSED
 
 | não é | |
@@ -229,6 +248,8 @@ normalizado **e** transcrição. `data/raw/` continua sendo cache para o que a c
 | nenhum resultado de Actor | ≠ nenhum resultado na plataforma |
 | transcript indisponível | ≠ vídeo sem conteúdo técnico |
 | **HTTP 200** | ≠ fonte viva — medido: 6 rotas devolveram 200 com zero `<item>` |
+| **`SUCCEEDED` da plataforma** | ≠ execução bem-sucedida — medido: ator devolveu `SUCCEEDED`, `exitCode` limpo e **zero itens**, com `statusMessage: "free user run limit reached"`. Cota esgotada que se apresenta como sucesso |
+| **dataset vazio** | ≠ bruto perdido — um array vazio **é** a evidência de que a rota não devolveu nada, e vai para `PRESERVED` |
 | certificado que não valida | ≠ motivo para desligar verificação — é **estado da fonte** |
 
 Estados: `PROVED` · `PARTIAL` · `NOT_REACHED` · `NOT_TESTED` · `FAILED_WITH_REASON` · `NÃO SEI`.

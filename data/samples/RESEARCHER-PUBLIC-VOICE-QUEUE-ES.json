@@ -1,0 +1,573 @@
+{
+ "SOURCE_ID": "RESEARCHER_PUBLIC_VOICE_QUEUE_ES",
+ "source": "derivado de ES-RESEARCHERS-OLIVE.json e ES-T5-002-corpus-documentos.json",
+ "SOURCE_LOCATION": "derivado — nenhuma coleta nova",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "O_QUE_ESTA_FILA_E": "a lista de quem entra na PRÓXIMA coleta de voz pública, não a coleta. A missão pediu fila justamente para não fazer 152 buscas às cegas: volume sem critério é o erro que este repositório já mediu duas vezes.",
+ "CRITERIOS": {
+  "RELEVANCE": "CROP contém OLIVE e ao menos um ISSUE da âncora ['OLIVE_DISEASE', 'OLIVE_KNOT', 'OLIVE_PESTS', 'REPILO', 'VERTICILLIUM', 'XYLELLA']",
+  "RECENCY": "atividade conhecida em 2023 ou depois",
+  "INSTITUTION": "instituição declarada no corpus, não NÃO SEI",
+  "IDENTITY": "ORCID presente",
+  "NOT_CONFLATED": "no máximo 20 organizações declaradas — teto derivado da mediana do quadro, não escolhido a dedo"
+ },
+ "GERADO_POR": "scripts/filas.py :: selecionar_pesquisadores()",
+ "ORDENACAO_DECLARADA": "mais temas da âncora, depois mais trabalhos no escopo, depois mais recente",
+ "UNIVERSO": 152,
+ "ELEGIVEIS": 139,
+ "NA_FILA": 20,
+ "QUAL_CRITERIO_REALMENTE_FILTRA": "apenas 13 dos 152 foram recusados, e os 13 pela mesma razão: sem trabalho desde 2021 ou 2022. Os outros critérios não peneiraram nada aqui — e isso é esperado, porque o corpus já nasceu de consultas de olivar. Eles são GUARDA, não peneira: o de conflação existe porque foi por ele que a auditoria achou o id do OpenAlex com 58 organizações.",
+ "MOTIVOS_DE_RECUSA": {
+  "sem trabalho desde 2021": 2,
+  "sem trabalho desde 2022": 11
+ },
+ "RECUSADOS": [
+  {
+   "NAME": "Mercedes Campos",
+   "MOTIVOS": [
+    "sem trabalho desde 2021"
+   ]
+  },
+  {
+   "NAME": "Daniele Cornara",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Miguel Ángel Martínez‐González",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Carmen Haro",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Enrique Monte",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Rosa Hermosa",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Neus Teixidó",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Miguel Montes-Borrego",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Elisa Garzo",
+   "MOTIVOS": [
+    "sem trabalho desde 2021"
+   ]
+  },
+  {
+   "NAME": "Martin Godefroid",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Rubén Blanco-Pérez",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Jorge Torres‐Sánchez",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  },
+  {
+   "NAME": "Francisca López Granados",
+   "MOTIVOS": [
+    "sem trabalho desde 2022"
+   ]
+  }
+ ],
+ "CANDIDATO_DE_CRUZAMENTO": "Carlos Agustí-Brisach está nesta fila (#14) E na camada LinkedIn como RESEARCHER declarado em Córdoba. É o candidato mais forte para o crosswalk ciência↔voz. Continua sendo CANDIDATO: o casamento é por nome, e nome não decide identidade (ES-X-VOICE-SCIENCE.json). Confirmar exige identificador declarado dos dois lados.",
+ "NAO_COLETADO_NESTA_MISSAO": "PUBLIC_LINKEDIN_STATUS e PUBLIC_YOUTUBE_STATUS entram como NOT_TESTED em todos os 20. A missão 10B-ES pediu a fila, não a coleta — e o portão de saída proíbe começar.",
+ "QUEUE": [
+  {
+   "PERSON_ID": "https://openalex.org/A5076239639",
+   "NAME": "Jesús Mercado‐Blanco",
+   "ORCID": "https://orcid.org/0000-0003-1895-5895",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "ALL_INSTITUTIONS_COUNT": 3,
+   "CROP": [
+    "OLIVE",
+    "MULTI"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 27,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "WHY_SELECTED": "27 trabalho(s) no escopo, atividade até 2026, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Instituto de Agricultura Sostenible), 3 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5054958811",
+   "NAME": "Angjelina Belaj",
+   "ORCID": "https://orcid.org/0000-0002-4526-0979",
+   "INSTITUTION": "Andalusian Institute of Agricultural and Fisheries Research and Training",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 17,
+   "LAST_KNOWN_ACTIVITY": 2024,
+   "WHY_SELECTED": "17 trabalho(s) no escopo, atividade até 2024, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Andalusian Institute of Agricultural and Fisheries Research and Training), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5009441623",
+   "NAME": "Antonio Valverde‐Corredor",
+   "ORCID": "https://orcid.org/0000-0001-5983-2045",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "ALL_INSTITUTIONS_COUNT": 2,
+   "CROP": [
+    "OLIVE",
+    "MULTI"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 15,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "WHY_SELECTED": "15 trabalho(s) no escopo, atividade até 2026, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Instituto de Agricultura Sostenible), 2 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5051828142",
+   "NAME": "Carmen Gómez‐Lama Cabanás",
+   "ORCID": "https://orcid.org/0000-0001-8312-9253",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "ALL_INSTITUTIONS_COUNT": 2,
+   "CROP": [
+    "OLIVE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 15,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "WHY_SELECTED": "15 trabalho(s) no escopo, atividade até 2025, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Instituto de Agricultura Sostenible), 2 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5016721006",
+   "NAME": "Manuel Fernández‐López",
+   "ORCID": "https://orcid.org/0000-0003-2366-6908",
+   "INSTITUTION": "Estación Experimental del Zaidín",
+   "ALL_INSTITUTIONS_COUNT": 2,
+   "CROP": [
+    "OLIVE",
+    "MULTI"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 13,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "WHY_SELECTED": "13 trabalho(s) no escopo, atividade até 2025, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Estación Experimental del Zaidín), 2 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5014353733",
+   "NAME": "Antonio J. Fernández‐González",
+   "ORCID": "https://orcid.org/0000-0002-8781-8133",
+   "INSTITUTION": "Estación Experimental del Zaidín",
+   "ALL_INSTITUTIONS_COUNT": 2,
+   "CROP": [
+    "OLIVE",
+    "MULTI"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 12,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "WHY_SELECTED": "12 trabalho(s) no escopo, atividade até 2025, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Estación Experimental del Zaidín), 2 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5074016226",
+   "NAME": "Jorge Poveda",
+   "ORCID": "https://orcid.org/0000-0002-1415-3580",
+   "INSTITUTION": "Universidad Pública de Navarra (UPNA)",
+   "ALL_INSTITUTIONS_COUNT": 5,
+   "CROP": [
+    "OLIVE",
+    "MULTI",
+    "CEREAL",
+    "VINE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 10,
+   "LAST_KNOWN_ACTIVITY": 2023,
+   "WHY_SELECTED": "10 trabalho(s) no escopo, atividade até 2023, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Universidad Pública de Navarra (UPNA)), 5 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5078119151",
+   "NAME": "Martina Cardoni",
+   "ORCID": "https://orcid.org/0000-0002-3466-1697",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "ALL_INSTITUTIONS_COUNT": 3,
+   "CROP": [
+    "OLIVE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 8,
+   "LAST_KNOWN_ACTIVITY": 2023,
+   "WHY_SELECTED": "8 trabalho(s) no escopo, atividade até 2023, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Instituto de Agricultura Sostenible), 3 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5057403201",
+   "NAME": "Pablo J. Villadas",
+   "ORCID": "https://orcid.org/0000-0001-8662-8883",
+   "INSTITUTION": "Consejo Superior de Investigaciones Científicas",
+   "ALL_INSTITUTIONS_COUNT": 2,
+   "CROP": [
+    "OLIVE",
+    "MULTI"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 6,
+   "LAST_KNOWN_ACTIVITY": 2024,
+   "WHY_SELECTED": "6 trabalho(s) no escopo, atividade até 2024, 6 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Consejo Superior de Investigaciones Científicas), 2 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "ORCID": "https://orcid.org/0000-0002-9511-3731",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "ALL_INSTITUTIONS_COUNT": 3,
+   "CROP": [
+    "OLIVE",
+    "MULTI"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 42,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "WHY_SELECTED": "42 trabalho(s) no escopo, atividade até 2026, 5 tema(s) da âncora (OLIVE_DISEASE+OLIVE_PESTS+REPILO+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Instituto de Agricultura Sostenible), 3 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5048261289",
+   "NAME": "Antonio Trapero Casas",
+   "ORCID": "https://orcid.org/0000-0003-3089-8301",
+   "INSTITUTION": "University of Córdoba",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE",
+    "MULTI",
+    "CEREAL",
+    "VINE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 21,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "WHY_SELECTED": "21 trabalho(s) no escopo, atividade até 2025, 5 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+REPILO+VERTICILLIUM), ORCID presente, instituição declarada (University of Córdoba), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5101778005",
+   "NAME": "Francisco Luque",
+   "ORCID": "https://orcid.org/0000-0003-1354-3533",
+   "INSTITUTION": "Universidad de Jaén",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 13,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "WHY_SELECTED": "13 trabalho(s) no escopo, atividade até 2025, 5 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Universidad de Jaén), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5082737009",
+   "NAME": "Jorge A. Ramírez‐Tejero",
+   "ORCID": "https://orcid.org/0000-0002-6551-1712",
+   "INSTITUTION": "Universidad de Jaén",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "OLIVE_PESTS",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 7,
+   "LAST_KNOWN_ACTIVITY": 2023,
+   "WHY_SELECTED": "7 trabalho(s) no escopo, atividade até 2023, 5 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+OLIVE_PESTS+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Universidad de Jaén), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5054929330",
+   "NAME": "Carlos Agustí‐Brisach",
+   "ORCID": "https://orcid.org/0000-0003-1709-1140",
+   "INSTITUTION": "University of Córdoba",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE",
+    "CEREAL",
+    "MULTI",
+    "VINE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "REPILO",
+    "VERTICILLIUM"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 19,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "WHY_SELECTED": "19 trabalho(s) no escopo, atividade até 2025, 4 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+REPILO+VERTICILLIUM), ORCID presente, instituição declarada (University of Córdoba), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5037674413",
+   "NAME": "Francisco Javier López‐Escudero",
+   "ORCID": "https://orcid.org/0000-0002-3085-0992",
+   "INSTITUTION": "University of Córdoba",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE",
+    "MULTI"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 15,
+   "LAST_KNOWN_ACTIVITY": 2024,
+   "WHY_SELECTED": "15 trabalho(s) no escopo, atividade até 2024, 4 tema(s) da âncora (OLIVE_DISEASE+OLIVE_PESTS+REPILO+VERTICILLIUM), ORCID presente, instituição declarada (University of Córdoba), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5060585084",
+   "NAME": "Raúl de la Rosa",
+   "ORCID": "https://orcid.org/0000-0002-0752-9607",
+   "INSTITUTION": "Andalusian Institute of Agricultural and Fisheries Research and Training",
+   "ALL_INSTITUTIONS_COUNT": 3,
+   "CROP": [
+    "OLIVE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_PESTS",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 15,
+   "LAST_KNOWN_ACTIVITY": 2024,
+   "WHY_SELECTED": "15 trabalho(s) no escopo, atividade até 2024, 4 tema(s) da âncora (OLIVE_DISEASE+OLIVE_PESTS+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Andalusian Institute of Agricultural and Fisheries Research and Training), 3 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5032245944",
+   "NAME": "Juan Moral",
+   "ORCID": "https://orcid.org/0000-0002-1153-2809",
+   "INSTITUTION": "University of Córdoba",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE",
+    "MULTI",
+    "CEREAL"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 14,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "WHY_SELECTED": "14 trabalho(s) no escopo, atividade até 2025, 4 tema(s) da âncora (OLIVE_DISEASE+OLIVE_PESTS+REPILO+VERTICILLIUM), ORCID presente, instituição declarada (University of Córdoba), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5008500325",
+   "NAME": "Lorenzo León",
+   "ORCID": "https://orcid.org/0000-0002-5664-3393",
+   "INSTITUTION": "Andalusian Institute of Agricultural and Fisheries Research and Training",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_PESTS",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 13,
+   "LAST_KNOWN_ACTIVITY": 2024,
+   "WHY_SELECTED": "13 trabalho(s) no escopo, atividade até 2024, 4 tema(s) da âncora (OLIVE_DISEASE+OLIVE_PESTS+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Andalusian Institute of Agricultural and Fisheries Research and Training), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5057772274",
+   "NAME": "Emilio Montesinos",
+   "ORCID": "https://orcid.org/0000-0003-4455-8332",
+   "INSTITUTION": "Universitat de Girona",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE",
+    "MULTI",
+    "VINE"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_KNOT",
+    "VERTICILLIUM",
+    "XYLELLA"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 11,
+   "LAST_KNOWN_ACTIVITY": 2024,
+   "WHY_SELECTED": "11 trabalho(s) no escopo, atividade até 2024, 4 tema(s) da âncora (OLIVE_DISEASE+OLIVE_KNOT+VERTICILLIUM+XYLELLA), ORCID presente, instituição declarada (Universitat de Girona), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5084951013",
+   "NAME": "Concepción M. Díez",
+   "ORCID": "https://orcid.org/0000-0002-1888-3628",
+   "INSTITUTION": "University of Córdoba",
+   "ALL_INSTITUTIONS_COUNT": 1,
+   "CROP": [
+    "OLIVE",
+    "MULTI"
+   ],
+   "ISSUE": [
+    "OLIVE_DISEASE",
+    "OLIVE_PESTS",
+    "REPILO",
+    "VERTICILLIUM"
+   ],
+   "PUBLICATION_COUNT_IN_SCOPE": 10,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "WHY_SELECTED": "10 trabalho(s) no escopo, atividade até 2026, 4 tema(s) da âncora (OLIVE_DISEASE+OLIVE_PESTS+REPILO+VERTICILLIUM), ORCID presente, instituição declarada (University of Córdoba), 1 organizações — dentro da faixa do quadro (teto 20)",
+   "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED",
+   "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED"
+  }
+ ]
+}

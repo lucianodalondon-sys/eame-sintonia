@@ -1,0 +1,44 @@
+{
+ "SOURCE_ID": "PORTAO-10B-ES",
+ "source": "scripts/portao.py — estado derivado dos artefatos, nunca digitado",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a — descreve o repositório",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "REGRA": "os seis portões precisam fechar antes de nova coleta profunda da Espanha. Qualquer um aberto = NO, e o motivo é o portão que barrou.",
+ "DERIVADO_E_NAO_DIGITADO": "python3 scripts/portao.py --json reproduz este arquivo",
+ "PORTOES": {
+  "RUN_MANIFEST": {
+   "PROVED": true,
+   "MEDIDA": "10 execuções no manifesto, 3 RUN_ID citados, 0 órfãos",
+   "BLOQUEIO": null
+  },
+  "PIPELINE_DEDUPE": {
+   "PROVED": true,
+   "MEDIDA": "RAW 252 = ÚNICOS 252 + DUPLICATAS 0; saída publicada com 252 registros; dedupe exercido: id igual colapsa, título igual não",
+   "BLOQUEIO": null
+  },
+  "VIDEO_TAXONOMY_APPLIED": {
+   "PROVED": true,
+   "MEDIDA": "252/252 classificados dentro do contrato de 13 tipos",
+   "BLOQUEIO": null
+  },
+  "VIDEO_ORIGINALITY": {
+   "PROVED": true,
+   "MEDIDA": "{'UNKNOWN': 241, 'SYNDICATED': 9, 'RESHARE': 2}",
+   "BLOQUEIO": null
+  },
+  "PAID_RAW_POLICY": {
+   "PROVED": true,
+   "MEDIDA": "9 rotas pagas; 0 com bruto declarado ausente; pipeline lê o bruto: True",
+   "BLOQUEIO": null
+  },
+  "COLLECTION_TIMESTAMPS": {
+   "PROVED": true,
+   "MEDIDA": "2 execuções pela porta nova, 0 sem hora medida; ordem entre elas é afirmável: True. As 8 antigas seguem sem hora e sem fingir que têm.",
+   "BLOQUEIO": null
+  }
+ },
+ "READY_FOR_NEXT_ES_COLLECTION": "YES",
+ "BLOQUEADO_POR": []
+}

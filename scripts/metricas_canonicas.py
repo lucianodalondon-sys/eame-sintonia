@@ -321,6 +321,38 @@ def build():
           derivation='contas cujo texto declara Espanha. Idioma espanhol NÃO conta como país.',
           reference_date=ig['captured_at'])
 
+    _vid = _sample('ES-T8-001-videos.json')
+    L.add('VIDEO_COUNT_CLASSIFIED', _vid['CONTENT_TYPE']['VIDEO_COUNT_CLASSIFIED'], unit='count',
+          denominator='%d videos' % _vid['CONTENT_TYPE']['VIDEO_COUNT_TOTAL'],
+          source='data/samples/ES-T8-001-videos.json',
+          derivation='CONTENT_TYPE != NÃO SEI, derivado dos registros pelo pipeline',
+          reference_date=_vid['captured_at'])
+    L.add('VIDEO_COUNT_TYPE_OTHER', _vid['CONTENT_TYPE']['DISTRIBUICAO'].get('OTHER', 0),
+          unit='count', denominator='%d videos' % _vid['CONTENT_TYPE']['VIDEO_COUNT_TOTAL'],
+          source='data/samples/ES-T8-001-videos.json',
+          derivation='ha texto e ele nao casa nenhum dos tipos nomeados — nao e falha de '
+                     'esforco, e ausencia de destino na taxonomia',
+          reference_date=_vid['captured_at'])
+    L.add('VIDEO_ORIGINALITY_UNKNOWN', _vid['ORIGINALITY']['DISTRIBUICAO'].get('UNKNOWN', 0),
+          unit='count', denominator='%d videos' % _vid['CONTENT_TYPE']['VIDEO_COUNT_TOTAL'],
+          source='data/samples/ES-T8-001-videos.json',
+          derivation='a rota nao da prova de autoria; ausencia de prova de republicacao '
+                     'nao vira ORIGINAL',
+          reference_date=_vid['captured_at'])
+
+    _q1 = _sample('RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json')
+    L.add('QUEUE_RESEARCHERS_ES', len(_q1['QUEUE']), unit='count',
+          denominator='%d elegiveis de %d no quadro' % (_q1['ELEGIVEIS'], _q1['UNIVERSO']),
+          source='data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json',
+          derivation='scripts/filas.py :: selecionar_pesquisadores() — recorte por prioridade',
+          reference_date=_q1['captured_at'])
+    _q2 = _sample('PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json')
+    L.add('QUEUE_TECHNICAL_VOICES_ES', len(_q2['QUEUE']), unit='count',
+          denominator='%d elegiveis' % _q2['ELEGIVEIS'],
+          source='data/samples/PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json',
+          derivation='scripts/filas.py :: selecionar_vozes_tecnicas() — alcance nao entra',
+          reference_date=_q2['captured_at'])
+
     pes = _sample('ES-RESEARCHERS-OLIVE.json')
     L.add('VOICE_ES_RESEARCHERS', len(pes['RESEARCHERS']), unit='count',
           source='data/samples/ES-RESEARCHERS-OLIVE.json',
