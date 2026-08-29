@@ -20,8 +20,8 @@ Nenhum Actor foi escalado antes de um teste pequeno medido.
 | | chave 1 | chave 2 |
 |---|---|---|
 | orçamento | US$ 5,00 | US$ 5,00 |
-| consumido | **US$ 1,897** | **US$ 2,680** |
-| restante | US$ 3,10 | US$ 2,32 |
+| consumido | **US$ 2,738** | **US$ 2,680** |
+| restante | US$ 2,26 | US$ 2,32 |
 | estado | **ATIVA** | **ATIVA** |
 
 Orçamentos independentes. Saldo de uma nunca presumido para a outra.
@@ -48,6 +48,29 @@ identidade forte — e desta vez isso foi **medido**, não presumido.
 
 O crédito que sobrou de não escalar o Instagram financiou a rota de **busca por cargo**, que
 era a que faltava para a identidade do LinkedIn.
+
+---
+
+## A COMPARAÇÃO NAS CINCO DIMENSÕES QUE A REGRA EXIGE
+
+`custo × qualidade × identidade × transcript × atualização`
+
+| Actor | custo medido | qualidade | **identidade** | transcript | atualização |
+|---|---|---|---|---|---|
+| `harvestapi/linkedin-profile-search` | US$ 0,004/perfil | 10/10 do teste com cargo técnico declarado | **FORTE** — cargo e local vêm de campo declarado | n/a | contínua, sem data de captura da plataforma |
+| `harvestapi/linkedin-profile-scraper` | US$ 0,004/perfil | 202 perfis, 179 com país declarado | **FORTE** — é o que resolve país e papel | n/a | idem |
+| `harvestapi/linkedin-post-search` | por evento | 472 brutos → **372 únicos** | **FRACA** — o post não declara autor com papel; 46% das origens são páginas de empresa | n/a | `postedAt` absoluto ✅ |
+| YouTube (busca) | por evento | 252 vídeos, 27 de 32 campos do contrato | **MÉDIA** — canal declarado, país não | ✅ legendas quando existem | `date` absoluto ✅ |
+| `streamers/youtube-comments-scraper` | por evento | 346 comentários, **44,5% com conteúdo** | **AUSENTE** — só *handle*; todo autor entra `UNVERIFIED` | n/a | ❌ só tempo relativo ("hace 2 años") |
+| `apify/instagram-hashtag-scraper` | por evento | 39 de 60 itens agronômicos | **AUSENTE** — 24 de 32 contas sem país | n/a | `timestamp` absoluto ✅ |
+
+**A dimensão que decidiu foi identidade, nas duas direções.**
+O Instagram foi reprovado apesar de 65% de itens agronômicos. E a busca por cargo foi escalada
+apesar de não trazer conteúdo nenhum — porque entrega exatamente o que faltava.
+
+**A dimensão que quase passou despercebida foi atualização.** O Actor de comentários devolve
+**tempo relativo**, não data. Isso não impede a coleta, mas impede qualquer uso temporal dos
+comentários — e só apareceu porque a comparação obriga a olhar as cinco.
 
 ---
 
