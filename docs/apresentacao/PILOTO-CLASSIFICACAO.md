@@ -18,14 +18,14 @@ técnico identificado **e** nenhum bloqueio conhecido. O incerto vai para `EXPLO
 | **Mesma molécula atravessando mercados** (X-006, 82,1% do uso) | CASE-014 | FR · IT |
 | **Calendário de vencimento por empresa** | CASE-003 | IT |
 | **Cronologia competitiva por registro** | CASE-015 | IT · FR |
-| **Pressão de doença medida, com série de 11 safras e controle de coorte** | CASE-013 | ES (Andaluzia) |
+| **Pressão de doença medida, com série de 23 safras e controle de coorte** | CASE-013 | ES (Andaluzia) |
 | **Infecção latente × sintoma visível** | CASE-012 | ES (Andaluzia) |
 | **Necessidades sem solução autorizada** (art. 53) | CASE-004 | ES |
 | **Rede de especialistas por problema e país** | CASE-009, CASE-010 | FR · ES · IT |
 | **Contexto climático por região e janela** — e a recusa da causalidade | CASE-005, CASE-006, CASE-008 | FR · ES · IT |
 | **Área de cultura por NUTS 2, 25 anos** · **preço de cereal por praça** | CAP-010, CAP-019 | FR · ES · IT |
 | **Ask Sintonia** — consulta à camada de evidência | benchmark 35 perguntas: 20 respondidas, 14 recusadas, 1 parcial, **0 erradas** | todos |
-| **Toda resposta leva à evidência** + *"we don't know yet"* | **<!--M:TEST_COUNT_CURRENT-->101<!--/M--> provas automatizadas**; 16 fontes em NÃO SEI com motivo | todos |
+| **Toda resposta leva à evidência** + *"we don't know yet"* | **<!--M:TEST_COUNT_CURRENT-->105<!--/M--> provas automatizadas**; 16 fontes em NÃO SEI com motivo | todos |
 | **Rede de distribuição** (distribuidores e cooperativas) | FR-T13-001, 4.646 empresas | FR |
 
 ## 2 · COMING SOON — caminho técnico identificado, sem bloqueio conhecido
@@ -67,7 +67,7 @@ mas mostrá-los como capacidade viva seria vender o que não temos.
 | **REGULATION** | ato, substância, produto, titular, cultura×alvo, vencimento | STRONG | USABLE | STRONG | STRONG | CELEX completo | contínua/semanal | X-006 82% | **PILOT READY** |
 | **MOLECULE** | substância, CAS, titular, horizonte | STRONG | WEAK | STRONG | STRONG | acervo | contínua | X-006 82% | **PILOT READY** (origem: EXPLORATION) |
 | **SCIENCE** | autoria, afiliação, país, DOI, ano | STRONG | STRONG | STRONG | STRONG | décadas | contínua | vocabulário científico | **PILOT READY** |
-| **FIELD** | incidência medida %, parcela, semana | WEAK | **STRONG** | WEAK | EMPTY | **11 safras (ES)** | semanal | X-007 23,5% | **PILOT READY só ES** |
+| **FIELD** | incidência medida %, parcela, semana | WEAK | **STRONG** | WEAK | EMPTY | **23 safras (ES)** | semanal | X-007 23,5% | **PILOT READY só ES** |
 | **COMPETITOR** | titular × cultura × alvo × molécula; datas de registro | USABLE | WEAK | USABLE | EMPTY | datas de registro | semanal | **falta G4** | **PILOT READY no registro** · COMING SOON na comunicação |
 | **MARKET** | área NUTS 2, rendimento nacional, preço por praça | USABLE | USABLE | USABLE | USABLE | 25 anos | anual/semanal | — | **PILOT READY** (parcial) |
 | **DISTRIBUTION** | empresas, comuna, porte | USABLE | EMPTY | EMPTY | EMPTY | data de criação | contínua | — | COMING SOON |
@@ -89,7 +89,7 @@ Mercados: EU → FR → IT. Espanha entra como `NÃO SEI` declarado.
 
 | candidato | signal | is it real? | where else? | what supports? | ADAMA response? | validate? | fecha |
 |---|---|---|---|---|---|---|---|
-| **ES · olivar · repilo** | ✅ | ✅ 11 safras + coorte | ✅ 2 de 7 províncias | ⚠️ | ✅ Neptune | ✅ | **5/6** |
+| **ES · olivar · repilo** | ✅ | ✅ 23 safras + coorte | ✅ 2 de 7 províncias | ⚠️ | ✅ Neptune | ✅ | **5/6** |
 | ES · vinha · míldio | ✅ | ⚠️ 1 safra analisada | ✅ | ❌ X-009 refuta | ✅ Vinergy | ✅ | 4/6 |
 | Cereais · septoriose | ⚠️ sem sinal de campo | ❌ | ❌ | ✅ | ✅ | ✅ | 3/6 |
 
@@ -105,7 +105,7 @@ Hero: CASE-014.
 | # | Caso | Prova qual parte do motor | Por que entra |
 |---|---|---|---|
 | **1** | **CASE-014** protioconazol FR+IT | **Connect** + **Local to shared** | a única prova literal de *"make relevant signals travel"*: mesma molécula, dois mercados, 8 produtos, e a data europeia reaparecendo no vencimento italiano |
-| **2** | **CASE-013** repilo em 11 safras | **Market Development** (SLIDE 8) | único caso que responde 5 das 6 perguntas do fluxo, com controle de coorte contra artefato de amostragem |
+| **2** | **CASE-013** repilo em 23 safras | **Market Development** (SLIDE 8) | único caso que responde 5 das 6 perguntas do fluxo, com controle de coorte contra artefato de amostragem |
 | **3** | **CASE-008** o clima não explica a doença | **Trust** (SLIDE 12) | prova que o sistema **recusa** a correlação fácil. Sustenta a credibilidade dos outros dois |
 
 **Rebaixados a SUPPORT:** CASE-011 (absorvido pelo CASE-014), CASE-003, CASE-012, CASE-015 —

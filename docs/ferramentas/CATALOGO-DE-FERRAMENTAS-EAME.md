@@ -1,5 +1,10 @@
 # CATÁLOGO DE FERRAMENTAS — SINTONIA EAME
 
+> **PORTA ÚNICA DE ARQUITETURA DE PRODUTO:** `docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md`.
+>
+> Este catálogo continua válido como **registro do que foi investigado** e como fonte das capacidades que hoje formam o motor. **Para desenho de produto ele está OBSOLETO:** o SINTONIA deixou de ser um menu de ferramentas na MISSÃO 09.
+
+
 Ferramenta nasce de cruzamento provado, não de ideia bonita.
 Ordem: `SOURCE → EVIDENCE → DATA → CROSSING → CAPABILITY → TOOL → PORTAL`.
 

@@ -69,7 +69,7 @@ completa (3.084 registros), mas sem garantia de estabilidade.
 | # | pergunta | resultado |
 |---|---|---|
 | 1 | Signal appears | ✅ repilo em alta em duas províncias |
-| 2 | **Is it real?** | ✅ 11 safras (2016–2026), 44.584 leituras, **sobrevive ao controle de coorte** |
+| 2 | **Is it real?** | ✅ **23 safras (2003–2026), 148.964 leituras**, sobrevive ao controle de coorte |
 | 3 | **Where else?** | ✅ sobe em Cádiz e Huelva; **não** sobe em Jaén, Sevilla, Córdoba, Granada e Málaga |
 | 4 | **What supports it?** | ❓ **NÃO FECHA.** A fonte publica "condiciones favorables", mas **não há leitura desse campo em Cádiz nem em Huelva** — exatamente as duas províncias em alta. E X-009 proíbe a explicação climática fácil |
 | 5 | Does ADAMA have a response? | ✅ **REGISTERED RESPONSE EXISTS** — **ES-00211 · NEPTUNE**, titular ADAMA Agriculture España S.A., tebuconazol 3,6% + oxicloruro de cobre 36% [SC], uso **Olivo × Repilo del olivo (*Venturia oleaginea*)**, ficha oficial do ROPF. **Com qualificador:** status `Vigente` e caducidade **15/08/2026** — duas semanas antes da captura. Último trâmite: `PRÓRROGA DE AUTORIZACIÓN`, Terminada, 30/08/2023. Fábrica **Humanes (Espanha)** |
@@ -111,9 +111,15 @@ a europeia **não é afirmável** — 199 produtos italianos vencem em 31/03/202
 nicosulfuron (58), que **não tem ato europeu recente**. Diz-se *"as datas coincidem,
 sistematicamente"*, nunca *"A causa B"*.
 
-# HERO CASE 2 · CASE-013 — repilo, 11 safras e controle de coorte
-Huelva **1,17% (2023) → 8,83% (2026)** nas **mesmas parcelas**; Jaén, na mesma coorte, fica
-entre 0,56% e 0,90%. Jaén é **comparação observacional**, não controle experimental.
+# HERO CASE 2 · CASE-013 — repilo, 23 safras e controle de coorte
+Huelva **1,17% (2023) → 8,83% (2026)** nas **mesmas parcelas** — e 8,83 é o **máximo das 23
+safras**. Jaén, na mesma coorte, fica entre 0,56% e 0,90%; é **comparação observacional**,
+não controle experimental.
+
+**Ressalva obrigatória (MISSÃO 09/10):** **Cádiz 2026 = 8,01 NÃO é máximo histórico** —
+foi 9,71 em 2013. E ao entrar a **área de olivar**, a prioridade comercial muda: Huelva e
+Cádiz são as **duas menores** províncias de olivar da Andaluzia (4,3% da área somadas), e a
+única província no top-3 das duas réguas é **Sevilla**. Ver `CASE-016`.
 
 # HERO CASE 3 · CASE-008 — o clima não explica a doença
 Córdoba choveu mais que Huelva e teve 4× menos míldio; Cádiz teve a maior umidade e
@@ -160,7 +166,7 @@ Contrato e detalhe em `ASK-SINTONIA-BENCHMARK.md`.
 
 # TRUST / EVIDENCE
 Toda amostra declara origem, data de captura, idioma original, SOURCE_LOCATION e
-FACT_LOCATION. **<!--M:TEST_COUNT_CURRENT-->101<!--/M--> provas automatizadas** reprovam amostra sem proveniência — e já
+FACT_LOCATION. **<!--M:TEST_COUNT_CURRENT-->105<!--/M--> provas automatizadas** reprovam amostra sem proveniência — e já
 reprovaram três vezes nesta linha de missões, incluindo contagens que eu havia declarado
 errado. Regra: `FACT` / `INTERPRETATION` / `ACTION` nunca no mesmo campo.
 

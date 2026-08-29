@@ -182,3 +182,63 @@ class TestAskSintoniaNaoSeVendeComoMedicao(unittest.TestCase):
         self.assertEqual(len(executadas), 5,
                          'mudou o número de perguntas realmente executadas — '
                          'o documento tem de mudar junto')
+
+
+class TestV2Reconciliada(unittest.TestCase):
+    """§1 — nenhum documento CORRENTE pode contradizer a V2. O histórico fica.
+
+    Documentos históricos preservam o que se sabia; se um deles disser "11 safras",
+    isso é registro. O que não pode é um documento corrente afirmar o número velho.
+    """
+
+    HISTORICOS = ('FREEZE-DA-BASE', 'DIARIO-DE-DECISOES', 'MISSAO-EAME-01',
+                  'SEGUNDA-PASSAGEM', 'LACUNAS-E-VEREDITO',
+                  'PROVA-DE-RECORRENCIA-MISSAO-08', 'PROTOCOLO-BENCHMARK')
+
+    def correntes(self):
+        for dp, _, fs in os.walk(DOCS):
+            for f in fs:
+                if f.endswith('.md') and not any(h in f for h in self.HISTORICOS):
+                    p = os.path.join(dp, f)
+                    with open(p, encoding='utf-8') as fh:
+                        yield os.path.relpath(p, DOCS), fh.read()
+
+    def test_nenhum_documento_corrente_afirma_11_safras(self):
+        alvo = re.compile(r'(?i)\b11 safras\b')
+        for rel, txt in self.correntes():
+            for linha in (re.findall(r'^#{1,6} .*$', txt, re.M)
+                          + re.findall(r'^\|.*$', txt, re.M)):
+                if re.search(r'(?i)(era|antes|corrigid|MISSÃO 0[2-9]|retirad|histórico)', linha):
+                    continue          # linha que registra a correção, não a afirma
+                with self.subTest(documento=rel, linha=linha[:60]):
+                    self.assertNotRegex(linha, alvo,
+                                        'documento corrente ainda afirma 11 safras')
+
+    def test_o_numero_de_safras_vem_do_dono(self):
+        L = build()
+        self.assertEqual(L['RAIF_SEASONS_AVAILABLE']['VALUE'], 23)
+        with open(os.path.join(DOCS, 'apresentacao', 'CASOS-PARA-APRESENTACAO.md'),
+                  encoding='utf-8') as f:
+            casos = f.read()
+        self.assertIn('23 safras', casos)
+        self.assertIn('148.964', casos)
+
+    def test_a_porta_unica_de_arquitetura_existe_e_e_apontada(self):
+        porta = os.path.join(DOCS, 'piloto', 'ARQUITETURA-DE-PRODUTO-ATUAL.md')
+        self.assertTrue(os.path.exists(porta))
+        for rel in ('ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md',
+                    'ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md',
+                    'piloto/ENTRADA-PARA-CLAUDE-DESIGN.md'):
+            with self.subTest(documento=rel):
+                with open(os.path.join(DOCS, rel), encoding='utf-8') as f:
+                    self.assertIn('ARQUITETURA-DE-PRODUTO-ATUAL', f.read(),
+                                  'documento antigo não aponta para a porta única')
+
+    def test_o_design_nao_pode_prometer_previsao(self):
+        with open(os.path.join(DOCS, 'piloto', 'ARQUITETURA-DE-PRODUTO-ATUAL.md'),
+                  encoding='utf-8') as f:
+            arq = f.read()
+        self.assertRegex(arq, r'(?i)predictive early warning',
+                         'a proibição de vender previsão sumiu do handoff')
+        self.assertRegex(arq, r'(?i)RELATIVE EXPOSURE INDEX|índice de exposição relativa')
+        self.assertIn('ACTIVATION QUESTION', arq)

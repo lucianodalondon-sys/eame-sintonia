@@ -1,5 +1,10 @@
 # ENTRADA PARA O CLAUDE DESIGN
 
+> **PORTA ÚNICA DE ARQUITETURA DE PRODUTO:** `docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md`.
+>
+> Este pacote continua sendo a lista de **fatos e números** que o Design recebe. **A arquitetura de produto que ele deve desenhar não está mais aqui.**
+
+
 Pacote factual. **Nenhuma instrução de layout, componente, cor ou tela.**
 O design decide isso; este documento garante que ele **não precise descobrir o produto**.
 

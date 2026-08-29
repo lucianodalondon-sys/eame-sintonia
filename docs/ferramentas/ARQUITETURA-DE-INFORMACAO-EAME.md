@@ -1,5 +1,10 @@
 # ARQUITETURA DE INFORMAÇÃO — SINTONIA EAME
 
+> **PORTA ÚNICA DE ARQUITETURA DE PRODUTO:** `docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md`.
+>
+> As nove áreas abaixo descrevem a **informação disponível**, e nisso continuam corretas. **Para desenho de produto elas NÃO são nove telas nem nove módulos.**
+
+
 Este documento existe para que a missão de design **não precise descobrir o produto**.
 Ele diz o que existe, o que pode ser afirmado, com que dado, para quem e com que limite.
 
@@ -169,7 +174,7 @@ STATUS:               **CONCEPT** — sem fonte. YouTube Data API 403, Meta Grap
 ```
 PURPOSE:              toda resposta leva de volta à evidência (DECK-024)
 STATUS:               **PROVED** — 35 SOURCE_IDs fichados, 16 amostras com proveniência
-                      obrigatória testada, <!--M:TEST_COUNT_CURRENT-->101<!--/M--> provas automatizadas
+                      obrigatória testada, <!--M:TEST_COUNT_CURRENT-->105<!--/M--> provas automatizadas
 ```
 
 ## ÁREAS AVALIADAS E **NÃO** RECOMENDADAS AGORA

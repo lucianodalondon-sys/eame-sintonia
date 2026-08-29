@@ -740,7 +740,7 @@ do deck promete.
 | pergunta do deck | resposta |
 |---|---|
 | **Signal appears** | ✅ repilo visível em alta em duas províncias |
-| **Is it real?** | ✅ **sim** — 11 safras, 44.584 leituras, sobrevive ao controle de coorte |
+| **Is it real?** | ✅ **sim** — 23 safras (2003–2026), 148.964 leituras, sobrevive ao controle de coorte |
 | **Where else?** | ✅ **Cádiz e Huelva sim; Jaén, Sevilla, Córdoba, Granada e Málaga não** |
 | **What supports it?** | ⚠️ **parcial** — a própria fonte publica "condições favoráveis"; clima não foi testado para este caso |
 | **Does ADAMA have a response?** | ✅ **sim** — Neptune, com sinal público em olivar na Espanha |

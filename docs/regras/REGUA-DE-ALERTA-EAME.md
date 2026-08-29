@@ -112,7 +112,7 @@ mandava o briefing, e **ela estava errada para a fonte de campo mais forte que t
 
 | Fonte | Conteúdo histórico? | Data? | Coletável? | Comparável no tempo? | Resultado |
 |---|---|---|---|---|---|
-| **ES-T3-001 RAIF** | **SIM — 11 safras** | SIM | SIM | **SIM, e por parcela** | **RETROSPECTIVE BASELINE POSSIBLE** |
+| **ES-T3-001 RAIF** | **SIM — 23 safras** | SIM | SIM | **SIM, e por parcela** | **RETROSPECTIVE BASELINE POSSIBLE** |
 | IT-T3-001 bollettini ER | parcial — 2025 e 2026 no ar; 2024 devolveu 404 | SIM | PDF | limitado | **RETROSPECTIVE PARCIAL** (≈2 safras) |
 | FR-T3-002 corpus BSV | **SIM — 40.899 documentos** | SIM | download cortou | provável | **NÃO SEI** — a fonte existe, o acesso falhou |
 | EU-T5-001 OpenAlex | SIM — décadas | SIM | SIM | SIM | **RETROSPECTIVE BASELINE POSSIBLE** |
