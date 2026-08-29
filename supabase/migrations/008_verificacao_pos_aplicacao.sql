@@ -23,7 +23,7 @@
 -- O teste em tests/test_migrations.py cobre o outro lado — que os arquivos são
 -- coerentes entre si. Os dois juntos fecham a pergunta; nenhum sozinho fecha.
 --
--- RODAR DEPOIS de aplicar 001–007. NÃO EXECUTADA ainda.
+-- RODAR DEPOIS de aplicar 001–009. NÃO EXECUTADA ainda.
 -- ═══════════════════════════════════════════════════════════════════════
 
 do $$
@@ -35,37 +35,70 @@ declare
     'pessoa_identificador','afiliacao','origem','canal','conteudo',
     'transcricao','comentario','crop','issue','crop_issue',
     'conteudo_crop_issue','observacao','derivacao','derivacao_observacao',
-    'resposta_registrada','lacuna_candidata','registro_regulatorio','registro_uso'];
+    'resposta_registrada','lacuna_candidata','registro_regulatorio','registro_uso',
+    -- 009
+    'disponibilidade_comercial','crop_local','issue_local'];
 begin
   -- 1 · as tabelas existem?
   foreach t in array esperadas loop
     if not exists (select 1 from information_schema.tables
                     where table_schema='public' and table_name=t) then
-      faltando := faltando || ('tabela ' || t);
+      faltando := faltando || ('tabela ' || t)::text;
     end if;
   end loop;
 
   -- 2 · as travas que carregam LEI existem? (não basta a tabela existir)
   if not exists (select 1 from pg_constraint
                   where conname='bruto_ausente_precisa_de_motivo') then
-    faltando := faltando || 'CHECK bruto_ausente_precisa_de_motivo';
+    faltando := faltando || 'CHECK bruto_ausente_precisa_de_motivo'::text;
   end if;
   if not exists (select 1 from pg_constraint
                   where conname='origem_e_pessoa_ou_organizacao') then
-    faltando := faltando || 'CHECK origem_e_pessoa_ou_organizacao';
+    faltando := faltando || 'CHECK origem_e_pessoa_ou_organizacao'::text;
   end if;
   if not exists (select 1 from pg_constraint
                   where conname='zero_precisa_de_diagnostico_antes_de_virar_lacuna') then
-    faltando := faltando || 'CHECK zero_precisa_de_diagnostico_antes_de_virar_lacuna';
+    faltando := faltando || 'CHECK zero_precisa_de_diagnostico_antes_de_virar_lacuna'::text;
   end if;
 
-  -- 3 · a chave natural da origem — o defeito-raiz do Brasil
+  -- 3 · SEMANTICA DE PAIS (009). Cada uma destas responde "esta afirmacao
+  --     sabe de que pais ela fala?". Sem elas, ES/FR/IT se misturam calados.
+  if not exists (select 1 from pg_constraint where conname='resposta_registrada_por_pais') then
+    faltando := faltando || 'UNIQUE resposta_registrada_por_pais'::text;
+  end if;
+  if not exists (select 1 from pg_constraint where conname='lacuna_por_pais') then
+    faltando := faltando || 'UNIQUE lacuna_por_pais'::text;
+  end if;
+  if not exists (select 1 from pg_constraint where conname='derivacao_declara_de_onde_fala') then
+    faltando := faltando || 'CHECK derivacao_declara_de_onde_fala'::text;
+  end if;
+  if not exists (select 1 from pg_constraint where conname='afirmacao_comercial_exige_fonte') then
+    faltando := faltando || 'CHECK afirmacao_comercial_exige_fonte'::text;
+  end if;
+  -- crop e issue precisam estar LIMPAS de vocabulario espanhol
+  if exists (select 1 from information_schema.columns
+              where table_schema='public' and table_name in ('crop','issue')
+                and column_name in ('nome_es','mapa_id_cultivo','mapa_id_plaga')) then
+    faltando := faltando || 'crop/issue ainda carregam vocabulario espanhol (009 nao aplicada)'::text;
+  end if;
+  -- as views nacionais precisam agrupar por pais do FATO
+  if not exists (select 1 from information_schema.columns
+                  where table_schema='public' and table_name='v_independencia_por_par'
+                    and column_name='fact_country') then
+    faltando := faltando || 'v_independencia_por_par sem fact_country'::text;
+  end if;
+  if not exists (select 1 from information_schema.views
+                  where table_schema='public' and table_name='v_cross_market_por_par') then
+    faltando := faltando || 'view v_cross_market_por_par'::text;
+  end if;
+
+  -- 4 · a chave natural da origem — o defeito-raiz do Brasil
   if not exists (select 1 from pg_indexes
                   where schemaname='public' and indexname='origem_por_pessoa_idx') then
-    faltando := faltando || 'indice origem_por_pessoa_idx';
+    faltando := faltando || 'indice origem_por_pessoa_idx'::text;
   end if;
 
-  -- 4 · RLS ligada em todas. `rowsecurity=true` e "existe política" são
+  -- 5 · RLS ligada em todas. `rowsecurity=true` e "existe política" são
   --     perguntas DIFERENTES: tabela trancada com zero políticas está SOLDADA,
   --     e isso não é segurança, é indisponibilidade. O Brasil separa as duas
   --     em conferir-trancas.sql; aqui só a primeira cabe, a segunda depende
@@ -73,7 +106,7 @@ begin
   foreach t in array esperadas loop
     if exists (select 1 from pg_tables
                 where schemaname='public' and tablename=t and not rowsecurity) then
-      faltando := faltando || ('RLS desligada em ' || t);
+      faltando := faltando || ('RLS desligada em ' || t)::text;
     end if;
   end loop;
 
@@ -82,6 +115,6 @@ begin
       array_to_string(faltando, E'\n  ');
   end if;
 
-  raise notice 'migrations 001-007 conferidas: % tabelas, travas e RLS no lugar',
+  raise notice 'migrations 001-009 conferidas: % tabelas, travas e RLS no lugar',
     array_length(esperadas,1);
 end $$;

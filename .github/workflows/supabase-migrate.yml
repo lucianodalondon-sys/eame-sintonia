@@ -48,15 +48,22 @@ jobs:
           raise SystemExit(0 if (ra and rd and ra == rd) else 1)
           PY
           # Banco que ja tem tabela em public NAO e o estado que autorizei a escrever.
-          [ "$n" = "0" ] || { echo "PARADO: public nao esta vazio (=$n). Nao presumo que e a mesma situacao."; exit 1; }
+          # 0 = banco virgem (001-009). 23 = 001-007 ja aplicadas, faltando a 009.
+          # Qualquer outro numero e um estado que eu nao autorizei a escrever.
+          case "$n" in 0|23) echo "ESTADO_ACEITO=$n" ;;
+            *) echo "PARADO: public com $n tabelas — estado nao previsto."; exit 1 ;; esac
 
       - name: 2 · aplicar 001–007, parando no primeiro erro
         run: |
           falhou=0
-          for f in supabase/migrations/00[1-7]_*.sql; do
+          for f in supabase/migrations/00[1-79]_*.sql; do
             num=$(basename "$f" | cut -c1-3)
+            # Ja aplicada (001-007) sai como SKIP, nao como falha: o erro de objeto
+            # existente e resposta, nao defeito. Qualquer outro erro para tudo.
             if psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -q -f "$f" >/tmp/o 2>/tmp/e; then
               echo "MIGRATION_$num=PASS"
+            elif grep -qiE "already exists|ja existe" /tmp/e; then
+              echo "MIGRATION_$num=SKIP (objetos ja existem)"
             else
               echo "MIGRATION_$num=FAIL"
               echo "--- causa (sanitizada) ---"
