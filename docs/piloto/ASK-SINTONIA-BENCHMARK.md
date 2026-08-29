@@ -52,7 +52,7 @@ Execução: `scripts/ask_sintonia.py` · Dados: `../../data/samples/ASK-SINTONIA
 | B13 | SCIENCE | Quem é a maior autoridade em septoriose na ES? | **REFUSE** | recorrência **não é** autoridade | régua de autoridade |
 | B14 | CROP | Região com mais área de trigo em FR/ES/IT? | ANSWER | ES41 Castilla y León, 771,8 mil ha | — |
 | B15 | CROP | Rendimento de trigo em Castilla y León em 2024? | **REFUSE** | Eurostat não publica rendimento em NUTS 2 (H-001) | fonte nacional |
-| B16 | FIELD | O repilo subiu em Huelva nas últimas safras? | ANSWER | 11 safras + controle de coorte | — |
+| B16 | FIELD | O repilo subiu em Huelva nas últimas safras? | ANSWER | coorte **1,17 → 8,83**, mesmas parcelas · base **7 parcelas** | — *(corrigido na M09: antes comparava 1,19 geral com 8,83 de coorte)* |
 | B17 | FIELD | O míldio subiu na França nesta safra? | **REFUSE** | BSV é PDF regional sem série processável | processar o corpus BSV |
 | B18 | COMPETITOR | Empresas com registro contra septoriose FR? | ANSWER | BASF 22, Bayer 20, Syngenta 8, ADAMA 6 | — |
 | B19 | COMPETITOR | A Syngenta aumentou a comunicação sobre septoriose? | **REFUSE** | sem coleta e **sem linha de base** | baseline retrospectivo |

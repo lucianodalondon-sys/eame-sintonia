@@ -90,6 +90,11 @@ revogação. CSV datado, CC BY 4.0.
 | FAOSTAT | passou a exigir credencial (401) |
 
 ## RESUMO DE DEPENDÊNCIA
-**5 CRITICAL:** EU-T4-001 · FR-T4-001 · IT-T4-001 · ES-T3-001 · (+ EU-T2-001 para o CASE-008)
+**5 CRITICAL:** `EU-T4-001` · `FR-T4-001` · `ES-T3-001` · `ES-T4-005` · `IT-T4-001`
+
+> Corrigido na MISSÃO 09. O resumo anterior listava quatro delas, acrescentava a
+> `EU-T2-001` — que é `USEFUL` na própria ficha — e **omitia a `ES-T4-005`**, que é a
+> fonte crítica sem fallback equivalente. A lista agora é derivada das fichas por
+> `scripts/metricas_canonicas.py` e há prova que reprova a divergência.
 **Se qualquer uma das quatro primeiras cair, o piloto perde uma business question inteira.**
 Todas são públicas, gratuitas e de licença aberta. **Nenhuma exige contrato.**

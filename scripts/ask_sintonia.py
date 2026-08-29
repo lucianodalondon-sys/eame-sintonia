@@ -186,7 +186,10 @@ BENCH = [
     ('B15', 'CROP', 'Qual o rendimento de trigo em Castilla y León em 2024?', 'CORRECT REFUSAL',
      'Eurostat não publica rendimento em NUTS 2 — medido, H-001'),
     ('B16', 'FIELD', 'A pressão de repilo subiu em Huelva nas últimas safras?', 'ANSWERABLE',
-     'ES-T3-001: 11 safras; 1,19% (2023) → 8,83% (2026), com controle de coorte'),
+     'ES-T3-001: coorte de Huelva 1,17% (2023) → 8,83% (2026), mesmas parcelas. '
+     'Corrigido na MISSAO 09: a resposta antiga misturava 1,19% (media GERAL de 2023, '
+     '11 parcelas) com 8,83% (coorte). Comparar media geral com coorte anula o proprio '
+     'controle. Base fina: 7 parcelas em 2026'),
     ('B17', 'FIELD', 'A pressão de míldio subiu na França nesta safra?', 'CORRECT REFUSAL',
      'FR-T3-001 é PDF regional sem série processável'),
     ('B18', 'COMPETITOR', 'Que empresas têm registro contra septoriose do trigo na França?', 'ANSWERABLE',

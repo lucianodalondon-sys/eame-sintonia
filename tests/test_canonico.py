@@ -176,6 +176,7 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
             'change': rd('regras', 'REGUA-DE-CHANGE-EVENT-EAME.md'),
             'freeze': rd('descoberta', 'FREEZE-DA-BASE-DO-PILOTO.md'),
             'operacao': rd('operacao', 'PROVA-DE-RECORRENCIA-MISSAO-08.md'),
+            'corrente': rd('piloto', 'EXTERNAL-ONLY-BUSINESS-CASE.md'),
         }
 
     def _todos_dizem(self, docs, padrao, rotulo):
@@ -312,8 +313,14 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
         """
         suite = unittest.defaultTestLoader.discover(os.path.dirname(os.path.abspath(__file__)))
         n = suite.countTestCases()
-        self.assertRegex(self.DOCS['operacao'], rf'TESTES_REAIS\s*=\s*{n}\b',
-                         f'o documento de operação não declara TESTES_REAIS = {n}')
+        self.assertRegex(self.DOCS['corrente'], rf'TESTES_REAIS\s*=\s*{n}\b',
+                         f'o documento CORRENTE não declara TESTES_REAIS = {n}')
+
+    def test_o_numero_da_missao_08_e_historico(self):
+        """91 é o que a MISSÃO 08 mediu. Reescrever seria apagar o registro."""
+        self.assertRegex(self.DOCS['operacao'],
+                         r'TESTES_REAIS \(MISSÃO 08, histórico\)\s*=\s*91\b',
+                         'o número da MISSÃO 08 saiu do seu próprio documento')
 
     def test_o_numero_congelado_na_v1_e_historico_e_nao_muda(self):
         """CURRENT ≠ HISTORICAL, aplicado ao próprio repositório.

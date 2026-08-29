@@ -3,7 +3,7 @@
 ```
 PILOT_INFORMATION_BASE = FROZEN (v1, 1e3f5bb) — não reavaliado nesta missão
 PILOT_UPDATEABILITY    = PROVED, com uma dependência declarada
-TESTES_REAIS           = 91
+TESTES_REAIS (MISSÃO 08, histórico) = 91   ← o que esta missão mediu
 PROTOTYPE_FROZEN       = SIM
 ```
 

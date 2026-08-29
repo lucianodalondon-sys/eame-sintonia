@@ -239,7 +239,7 @@ WHAT_IS_MISSING:       fechar X-007
 CLAIM_TYPE:            A
 CURRENT_STATUS:        **PROVED com cobertura medida**
 CURRENT_EVIDENCE:      X-006 fechado: normalização de substância resolve 63,3% das grafias
-                       francesas e **82,1% do uso**; amostra cega 62,5% / 77,4%.
+                       francesas e **82,1% do uso**; amostra cega **62,2%** das grafias e **77,8%** do uso.
                        Caso real multipaís: **protioconazol** ligando ato da UE a produtos
                        ADAMA na França e a lançamentos na Espanha e na Itália (CASE-011).
 WHAT_IS_MISSING:       cobre e enxofre (formas não normalizadas)
@@ -276,7 +276,7 @@ FAILURE_MODE:          declarar "movimento similar" comparando um país com sér
 ```
 CLAIM_TYPE:            D · PRINCÍPIO METODOLÓGICO
 CURRENT_STATUS:        **PROVED como princípio; PARTIAL como cobertura**
-CURRENT_EVIDENCE:      31 SOURCE_IDs registrados, todos públicos; nenhuma conversa privada
+CURRENT_EVIDENCE:      35 SOURCE_IDs registrados, todos públicos; nenhuma conversa privada
                        foi coletada; licenças registradas por fonte. Ver SOURCE-PACKS-EAME.md
 WHAT_IS_MISSING:       packs de FIELD, COMPETITOR, MOLECULE e DISTRIBUTION
 ```
@@ -362,7 +362,7 @@ WHAT_IS_MISSING:       a separação FACT/INTERPRETATION/ACTION está implícita
 ```
 CLAIM_TYPE:            D
 CURRENT_STATUS:        **PROVED**
-CURRENT_EVIDENCE:      14 dos 31 SOURCE_IDs estão em NÃO SEI com motivo medido; nenhuma
+CURRENT_EVIDENCE:      16 dos 35 SOURCE_IDs estão em NÃO SEI com motivo medido; nenhuma
                        fonte foi reprovada sem avaliação; cinco hipóteses caíram e ficaram
                        registradas, duas delas nossas.
 ```

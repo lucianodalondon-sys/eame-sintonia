@@ -677,8 +677,25 @@ Percentual médio de folhas com repilo visível, por safra:
 | 2025 | 5,60 | 6,45 | 0,91 |
 | **2026** | **8,01** | **8,83** | **0,77** |
 
-**Cádiz e Huelva estão no maior valor de onze safras.** Jaén, a maior província olivareira
-da Espanha, está plana há uma década.
+**Corrigido na MISSÃO 09 — leia o escopo antes do número.** A tabela acima cobre **11
+safras (2016–2026, 44.584 leituras)**, que é o que os três arquivos modernos do pacote
+trazem. O mesmo pacote traz **oito arquivos por província com 2003–2016**, que não haviam
+sido lidos. Lendo todos: **23 safras, 148.964 leituras**.
+
+Sobre a série inteira:
+
+| província | 2026 | máximo da série | ano do máximo | 2026 é máximo? |
+|---|---|---|---|---|
+| **Huelva** | **8,83** | **8,83** | **2026** | **SIM — máximo de 23 safras** |
+| Cádiz | 8,01 | **9,71** | 2013 | **não** — 2013, 2010 (8,40) e 2009 (7,95) foram maiores |
+| Jaén | 0,77 | 1,92 | 2013 | não |
+| Sevilla | 2,74 | 7,07 | 2009 | não |
+
+**A frase que caiu:** *"Cádiz e Huelva estão no maior valor de onze safras"* — verdadeira
+dentro da janela lida, **falsa** como leitura histórica para Cádiz. Cádiz 2026 está alto,
+e **dentro** da faixa que a província já viveu. Huelva é o único máximo histórico.
+
+Jaén, a maior província olivareira da Espanha, está plana há duas décadas.
 
 **INTERPRETATION — o que nós derivamos, e o controle que fizemos**
 A média pode subir só porque as parcelas mudaram. Testamos: comparamos a média de **todas**
@@ -691,6 +708,21 @@ as parcelas com a média **apenas das parcelas que também são amostradas em 20
 | **Jaén — mesma coorte (controle)** | 0,56 | 0,73 | 0,90 | **0,77** |
 
 **A alta persiste nas mesmas parcelas, e o controle fica plano.** Não é troca de amostra.
+
+**HIGHEST SIGNAL ≠ MOST ROBUST SIGNAL** — e nesta província os dois se separam:
+
+| | Huelva | Cádiz |
+|---|---|---|
+| coorte 2023 → 2026 | **1,17 → 8,83** (×7,5) | 5,01 → 8,01 (×1,6) |
+| parcelas na coorte de 2026 | **7** | **36** |
+| leituras em 2026 | 18 | 141 |
+| 2026 é máximo histórico? | **sim, de 23 safras** | não (9,71 em 2013) |
+| leitura | **HIGHEST SIGNAL** — salto maior e inédito, base fina | **MOST ROBUST SIGNAL** — cinco vezes mais parcelas, nível alto mas já visto antes |
+
+**As duas são casos diferentes e servem a decisões diferentes.** Huelva pede
+**verificação em campo** — o sinal é forte e a base é pequena demais para decidir sozinha.
+Cádiz suporta **priorização**, porque a base aguenta. Escolher pela manchete mais
+impressionante seria escolher Huelva; escolher pela evidência mais firme é Cádiz.
 
 **UNKNOWN — o que não sabemos**
 Por que sobe. Não medimos variedade, manejo, idade do olival nem — o mais importante — o

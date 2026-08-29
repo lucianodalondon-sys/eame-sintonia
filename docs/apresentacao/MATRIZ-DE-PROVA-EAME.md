@@ -12,8 +12,8 @@ Fontes em `../fontes/ATLAS-DE-FONTES-EAME.md`
 
 | Estado | Claims | Quais |
 |---|---|---|
-| **PROVED** | **8** | DECK-001, 002, 003, 010, 014, 017*, 024, 025, 030 |
-| **PARTIAL** | **13** | DECK-004, 005, 006, 007, 008, 012, 013, 015, 018, 019, 020, 021, 023, 028 |
+| **PROVED** | **9** | DECK-001, 002, 003, 010, 014, 017*, 024, 025, 030 |
+| **PARTIAL** | **14** | DECK-004, 005, 006, 007, 008, 012, 013, 015, 018, 019, 020, 021, 023, 028 |
 | **UNPROVED** | **6** | DECK-009, 011, 022, 026, 027, 029 |
 | **NOT TESTABLE YET** | **1** | DECK-016 |
 
@@ -45,7 +45,7 @@ histórica e falta coleta de conversa pública**.
 | **014** | SAME MOLECULE | **PROVED** | ✅ 3 prod. | ⚠️ sem registro | ✅ 5 prod. | ✅ | MOLECULE | **X-006 ✅ 82% uso** | X-006 | **CASE-011, CASE-014** | HIGH | Espanha | acesso ao registro ES |
 | **015** | SAME COMPETITOR | **PARTIAL** | ✅ | ❌ | ✅ | — | COMPETITOR | **falta** | X-005 | CASE-011 | HIGH | normalizar titular→grupo | normalizador de entidade |
 | **016** | SIMILAR MOVEMENT | **NOT TESTABLE** | ❌ | ⚠️ | ❌ | — | FIELD | — | — | — | HIGH | série em ≥2 países | — |
-| **017** | fontes públicas configuradas | **PROVED**\* | ✅ | ✅ | ✅ | ✅ | todos | — | — | 31 SOURCE_IDs | — | 4 packs vazios | — |
+| **017** | fontes públicas configuradas | **PROVED**\* | ✅ | ✅ | ✅ | ✅ | todos | — | — | 35 SOURCE_IDs | — | 4 packs vazios | — |
 | **018** | WHO/WHAT/WHERE/WHEN | **PARTIAL** | ⚠️ | ✅ | ⚠️ | ✅ | — | — | — | — | — | WHO em clima; WHERE em ciência | — |
 | **019** | idioma local normalizado | **PARTIAL** | ⚠️ | ✅ | ⚠️ | ✅ | — | X-006 ✅ X-007 ⚠️ | — | CAP-002 | — | X-007 | fechar X-007 |
 | **020** | CROP×ISSUE×SCIENCE×MOLECULE×COMPETITOR×PORTFOLIO | **PARTIAL — 5/6** | ✅ | ⚠️ | ⚠️ | ✅ | — | X-006 ✅ | X-006 + X-002 | **CASE-011** | HIGH | elo ISSUE automático | fechar X-007 |
