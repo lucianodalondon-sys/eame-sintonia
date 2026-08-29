@@ -1035,6 +1035,69 @@ aqui há criadores individuais e não apenas autoria científica.
 
 ---
 
+#### ATUALIZAÇÃO 2026-08-29 — o gargalo da descoberta foi resolvido para a Espanha
+
+O diagnóstico acima continua correto sobre as rotas **gratuitas**. Ele foi superado por
+**rotas de coleta pagas**, com o custo medido e declarado em
+`../operacao/RELATORIO-DE-ROTAS-APIFY-ES.md`.
+
+| SOURCE_ID | camada | origens | estado |
+|---|---|---:|---|
+| `ES-T8-001` | YouTube | 157 canais · 252 vídeos · 15 transcrições | **PROVED** |
+| `ES-T8-002` | LinkedIn | 202 perfis · 179 declaram ES | **PROVED** (identidade) · PARCIAL (conteúdo) |
+| `ES-T8-003` | Instagram | 32 contas agronômicas | **FAILED_WITH_REASON** |
+
+**A separação que a missão original exigia agora existe** — e não da forma prevista:
+
+- **REACH** é mensurável, e **foi deliberadamente excluído** de toda definição de papel.
+  O termo canônico é `PUBLIC_TECHNICAL_VOICE`. **`INFLUENCER = AUTHORITY` não existe no
+  modelo.**
+- **TECHNICAL AUTHORITY** passou a ter fonte: papel declarado em campos estruturados
+  (`companyType`, `pageType`, `industries`, `headline`, cargo atual). Cobertura medida:
+  **67%**, com `AMBIGUOUS` e `NOT_DECLARED` visíveis.
+- **FIELD AUTHORITY** continua **sem fonte**. Nada aqui mede o que uma voz sabe do campo.
+- **COMMERCIAL INFLUENCE** continua **sem fonte**.
+
+**O que o Instagram ensinou, e vale para qualquer plataforma futura:** 39 de 60 itens eram
+agronômicos e mesmo assim a rota foi reprovada, porque **24 de 32 contas não declaram país
+nenhum** e a hashtag `#repilo` está inteiramente ocupada por um homônimo comercial
+britânico. **Volume não compensa identidade ausente.**
+
+**A questão de GDPR de P-009 permanece aberta e agora é concreta:** existem pessoas físicas
+identificadas na base. Só entraram campos que a própria pessoa publicou como identidade
+profissional, e nenhum dado de contato foi coletado — o modo de scraping sem e-mail foi o
+escolhido em todas as execuções.
+
+---
+
+### T7 · TECHNICAL NETWORK — SPAIN
+
+#### ES-T7-001..027 · Mídia técnica, associações e rede de assessores
+
+```
+SOURCE_ID:                    ES-T7-001..027
+SOURCE_NAME:                  feeds de imprensa técnica espanhola, associações agrárias,
+                              e origens de assessoria técnica identificadas no LinkedIn
+COUNTRY:                      SPAIN
+TERRITORY:                    T7
+ACCESS_METHOD:                PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma
+COLLECTION_FEASIBILITY:       PARCIAL — 8 de 18 rotas de feed provadas
+REAL_EXAMPLE:                 Oleo Revista, 50 itens datados, 29 on-topic
+VERDICT:                      PARCIAL
+```
+
+**Nenhuma destas rotas é documentada como API pública.** São **PUBLIC APPLICATION ROUTE**.
+
+**HTTP 200 não bastou:** seis rotas devolveram **200 com zero `<item>`** — são páginas HTML.
+Registradas como `FAILED_WITH_REASON`, não como fontes vivas.
+
+**Três certificados não validam** (CITOLIVA, COAG, eComercio Agrario). Registrado como
+**estado da fonte**. A verificação de certificado **não** foi desligada.
+
+Evidência: `../../data/samples/ES-VOICE-MEDIA-ROUTES.json`
+
+---
+
 ### T12 · POLICY / AGRICULTURAL ENVIRONMENT — EUROPE
 
 #### EU-T12-001 · CELLAR / Jornal Oficial — atos de política agrícola (mesma fonte de EU-T4-001)

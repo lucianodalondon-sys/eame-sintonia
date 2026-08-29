@@ -1,5 +1,5 @@
 {
- "SOURCE_ID": "ES-T7/T9",
+ "SOURCE_ID": "ES-T7-001..027",
  "source": "rotas publicas RSS/Atom de midia tecnica e associacoes espanholas",
  "ROUTE_TYPE": "PUBLIC APPLICATION ROUTE (feed) - nenhuma delas e documentada como API publica",
  "captured_at": "2026-08-29",
@@ -196,7 +196,7 @@
    "REASON": "URLError: <urlopen error Tunnel connection failed: 502 Bad Gateway>"
   },
   {
-   "SOURCE_ID": "ES-T9-001",
+   "SOURCE_ID": "ES-T7-021",
    "NAME": "Interprofesional del Aceite de Oliva Espanol",
    "LAYER": "ASSOCIATION",
    "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
@@ -212,7 +212,7 @@
    "REASON": "HTTP 200 mas nenhum <item>/<entry> - a rota nao e um feed"
   },
   {
-   "SOURCE_ID": "ES-T9-002",
+   "SOURCE_ID": "ES-T7-022",
    "NAME": "Cooperativas Agro-alimentarias de Espana",
    "LAYER": "ASSOCIATION",
    "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
@@ -224,7 +224,7 @@
    "REASON": "HTTPError 404"
   },
   {
-   "SOURCE_ID": "ES-T9-003",
+   "SOURCE_ID": "ES-T7-023",
    "NAME": "CITOLIVA",
    "LAYER": "RESEARCH_CENTER",
    "DECLARED_ROLE": "RESEARCH_INSTITUTION",
@@ -236,7 +236,7 @@
    "REASON": "certificado da origem nao valida na cadeia publica - verificacao NAO foi desligada"
   },
   {
-   "SOURCE_ID": "ES-T9-004",
+   "SOURCE_ID": "ES-T7-024",
    "NAME": "Asociacion Espanola de Municipios del Olivo (AEMO)",
    "LAYER": "ASSOCIATION",
    "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
@@ -248,7 +248,7 @@
    "REASON": "HTTPError 404"
   },
   {
-   "SOURCE_ID": "ES-T9-005",
+   "SOURCE_ID": "ES-T7-025",
    "NAME": "ASAJA",
    "LAYER": "ASSOCIATION",
    "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
@@ -267,7 +267,7 @@
    "STATE": "PROVED"
   },
   {
-   "SOURCE_ID": "ES-T9-006",
+   "SOURCE_ID": "ES-T7-026",
    "NAME": "COAG",
    "LAYER": "ASSOCIATION",
    "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
@@ -279,7 +279,7 @@
    "REASON": "certificado da origem nao valida na cadeia publica - verificacao NAO foi desligada"
   },
   {
-   "SOURCE_ID": "ES-T9-007",
+   "SOURCE_ID": "ES-T7-027",
    "NAME": "UPA",
    "LAYER": "ASSOCIATION",
    "DECLARED_ROLE": "INDUSTRY_ASSOCIATION",
@@ -299,5 +299,6 @@
   }
  ],
  "VERDICT": "MEDIA_ES = PARTIAL. 8 de 18 rotas provadas. A melhor delas (Oleo Revista) devolve 50 itens datados com 29 titulos on-topic. Suficiente para um relogio de publicacao, insuficiente para censo do setor.",
- "SOURCE_LOCATION": "ES — sitios espanhois"
+ "SOURCE_LOCATION": "ES — sitios espanhois",
+ "ID_NOTE": "as associacoes sairam de ES-T9-00x: esse bloco ja pertence a \"comunicacao de concorrente\" no atlas, e estava BLOQUEADO. T7 (TECHNICAL NETWORK) e o territorio correto e estava vazio."
 }
