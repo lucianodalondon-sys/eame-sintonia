@@ -203,10 +203,20 @@ def marcar_assunto(reg):
     permitido; deduzir QUEM fala a partir do mesmo texto não é.
     """
     campo = ' '.join(str(reg.get(k) or '') for k in ('TITLE', 'DESCRIPTION'))
-    for nome, rx in VOCAB_CROP.items():
-        if re.search(rx, campo, re.I):
-            reg['CROP'] = nome
-            break
+    # CROP segue a MESMA regra de ISSUE, e por um motivo medido: o `for ... break` que
+    # estava aqui elegia a primeira cultura casada por ORDEM DE INSERÇÃO DO DICIONÁRIO —
+    # desempate silencioso, sem critério declarado e sem teste. Com VOCAB_CROP tendo uma
+    # única chave o defeito era invisível: empate é impossível com um item. Ele nasceria
+    # vivo na segunda cultura, que é exatamente o que o mapa nacional espanhol vai
+    # acrescentar. Medido em sombra sobre os 252 vídeos: OLD != PROPOSED em 0 registros.
+    #
+    # E é a mesma lei que o Sintonia Brasil pagou para aprender: um texto pode falar de N
+    # culturas, e colapsar em `cult_top` perde a informação sem avisar ninguém.
+    achados_crop = [n for n, rx in VOCAB_CROP.items() if re.search(rx, campo, re.I)]
+    if len(achados_crop) == 1:
+        reg['CROP'] = achados_crop[0]
+    elif len(achados_crop) > 1:
+        reg['CROP'] = 'AMBIGUOUS:' + '+'.join(sorted(achados_crop))
     achados = [n for n, rx in VOCAB_ISSUE.items() if re.search(rx, campo, re.I)]
     if len(achados) == 1:
         reg['ISSUE'] = achados[0]

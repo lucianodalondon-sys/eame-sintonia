@@ -74,6 +74,13 @@ def pct(part, whole):
 
 
 class Ledger(dict):
+    # Denominador que a FONTE nao guarda e um estado declarado, nunca um None calado.
+    # Medido em 2026-08-29: das 63 metricas, 26 saiam com DENOMINATOR=None, e DUAS delas
+    # eram PERCENTUAIS publicados — X006_USE_COVERAGE e X006_BLIND_USE. Publicar 82,1%
+    # sem dizer "de quantos" e exatamente o defeito que o resto deste arquivo existe para
+    # impedir. O contrato geral tambem nao olhava o campo.
+    DENOMINADOR_NAO_PRESERVADO = 'NOT_PRESERVED'
+
     def add(self, metric_id, value, *, unit, source, derivation,
             denominator=None, source_version=None, reference_date=None,
             status='DERIVED'):
@@ -146,15 +153,22 @@ def build():
     L.add('X006_SPELLING_COVERAGE', pct(ff['resolved'], ff['spellings']), unit='pct',
           denominator=ff['spellings'], source='data/samples/X-006-substance-normalisation.json',
           source_version=x6['captured_at'], derivation='resolved / spellings, corpus completo FR')
+    # O artefato guarda a DISTRIBUICAO percentual ponderada por uso, nao o total de usos.
+    # O denominador nao esta perdido por descuido: ele nunca foi gravado. Declarar isso e
+    # diferente de deixar None — e o leitor sabe que o 82,1 nao tem "de quantos" ao lado.
     L.add('X006_USE_COVERAGE', round(100.0 - ff['weighted_by_use_pct']['NONE'], 1), unit='pct',
+          denominator=Ledger.DENOMINADOR_NAO_PRESERVADO,
           source='data/samples/X-006-substance-normalisation.json', source_version=x6['captured_at'],
-          derivation='100 − peso do balde NONE ponderado por uso, corpus completo FR')
+          derivation='100 − peso do balde NONE ponderado por uso, corpus completo FR; '
+                     'o total de usos nao foi preservado em X-006')
     L.add('X006_BLIND_SPELLING', pct(fb['resolved'], fb['spellings']), unit='pct',
           denominator=fb['spellings'], source='data/samples/X-006-substance-normalisation.json',
           source_version=x6['captured_at'], derivation='resolved / spellings na amostra cega (30%, semente 20260828)')
     L.add('X006_BLIND_USE', round(100.0 - fb['weighted_by_use_pct']['NONE'], 1), unit='pct',
+          denominator=Ledger.DENOMINADOR_NAO_PRESERVADO,
           source='data/samples/X-006-substance-normalisation.json', source_version=x6['captured_at'],
-          derivation='100 − peso do balde NONE na amostra cega')
+          derivation='100 − peso do balde NONE na amostra cega; '
+                     'o total de usos nao foi preservado em X-006')
 
     x7 = _sample('X-007-canonical-agro-dictionary.json')['full_corpus']
     L.add('X007_USE_COVERAGE', x7['resolved_pct_uses'], unit='pct',

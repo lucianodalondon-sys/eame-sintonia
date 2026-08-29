@@ -21,7 +21,7 @@ import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-from metricas_canonicas import build                            # noqa: E402
+from metricas_canonicas import build, Ledger                    # noqa: E402
 
 DOCS = os.path.join(ROOT, 'docs')
 
@@ -300,3 +300,44 @@ class TestV2Reconciliada(unittest.TestCase):
                          'a proibição de vender previsão sumiu do handoff')
         self.assertRegex(arq, r'(?i)RELATIVE EXPOSURE INDEX|índice de exposição relativa')
         self.assertIn('ACTIVATION QUESTION', arq)
+
+
+class TestPercentualNaoSaiSemDenominador(unittest.TestCase):
+    """Percentual publicado sem dizer "de quantos" e o defeito que este arquivo existe
+    para impedir — e ele estava passando.
+
+    Medido em 2026-08-29: das 63 metricas do ledger, 26 saiam com DENOMINATOR=None, e
+    DUAS eram percentuais publicados (X006_USE_COVERAGE = 82,1 e X006_BLIND_USE = 77,8).
+    O contrato geral nao pegava porque `test_o_ledger_declara_dono_e_derivacao_para_toda_metrica`
+    percorre so ('VALUE','UNIT','SOURCE','DERIVATION') — DENOMINATOR estava de fora.
+
+    NOT_PRESERVED e resposta valida: o total de usos nunca foi gravado em X-006. O que
+    nao e valido e o None calado, porque ele nao distingue "nao guardamos" de
+    "esquecemos de declarar".
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.L = build()
+
+    def test_toda_metrica_percentual_declara_denominador(self):
+        for mid, m in self.L.items():
+            if m.get('UNIT') != 'pct':
+                continue
+            with self.subTest(metrica=mid):
+                d = m.get('DENOMINATOR')
+                self.assertIsNotNone(d, f'{mid} publica {m["VALUE"]}% sem denominador')
+                self.assertNotEqual('', d, f'{mid} com denominador vazio')
+
+    def test_denominador_ausente_diz_por_que_na_derivacao(self):
+        """NOT_PRESERVED sem explicacao e so um None com nome melhor."""
+        for mid, m in self.L.items():
+            if m.get('DENOMINATOR') != Ledger.DENOMINADOR_NAO_PRESERVADO:
+                continue
+            with self.subTest(metrica=mid):
+                self.assertIn('nao foi preservado', m.get('DERIVATION', ''),
+                              f'{mid} declara NOT_PRESERVED sem dizer o que faltou')
+
+    def test_o_marcador_existe_e_e_unico(self):
+        self.assertEqual('NOT_PRESERVED',
+                         Ledger.DENOMINADOR_NAO_PRESERVADO)

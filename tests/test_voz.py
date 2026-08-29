@@ -295,3 +295,54 @@ class TestMissao11Derivacoes(unittest.TestCase):
         """Cordoba e Sevilla empatam em 12: sem rank medio o coeficiente sai errado."""
         self.assertIn('RANK MEDIO',
                       self.d['FASE_17_CONFUNDIDOR_DE_CORDOBA']['CORRELACOES_n6']['NOTA_METODOLOGICA'])
+
+
+class TestCropNaoDesempataEmSilencio(unittest.TestCase):
+    """A cultura nao pode ser eleita por ordem de insercao de dicionario.
+
+    Ate 2026-08-29 `marcar_assunto` fazia `for nome, rx in VOCAB_CROP.items(): break` —
+    a primeira que casasse vencia, sem criterio declarado. O defeito era INVISIVEL porque
+    VOCAB_CROP tinha uma chave so, e empate e impossivel com um item. Ele nasceria vivo
+    na segunda cultura — e o mapa nacional espanhol existe justamente para acrescentar
+    culturas.
+
+    O teste nao depende do tamanho do vocabulario atual: ele injeta um segundo padrao.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import sys
+        sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+        import voz as _voz
+        cls.voz = _voz
+
+    def test_duas_culturas_no_mesmo_texto_viram_AMBIGUOUS(self):
+        original = dict(self.voz.VOCAB_CROP)
+        try:
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update({'OLIVE': r'\bolivar\b', 'CEREAL': r'\btrigo\b'})
+            r = self.voz.marcar_assunto({'TITLE': 'ensayo en olivar y trigo', 'DESCRIPTION': ''})
+            self.assertEqual('AMBIGUOUS:CEREAL+OLIVE', r['CROP'])
+        finally:
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update(original)
+
+    def test_a_ordem_do_vocabulario_nao_muda_o_resultado(self):
+        """Se inverter a ordem do dicionario mudar a saida, o desempate voltou."""
+        original = dict(self.voz.VOCAB_CROP)
+        try:
+            texto = {'TITLE': 'ensayo en olivar y trigo', 'DESCRIPTION': ''}
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update({'OLIVE': r'\bolivar\b', 'CEREAL': r'\btrigo\b'})
+            a = self.voz.marcar_assunto(dict(texto))['CROP']
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update({'CEREAL': r'\btrigo\b', 'OLIVE': r'\bolivar\b'})
+            b = self.voz.marcar_assunto(dict(texto))['CROP']
+            self.assertEqual(a, b, 'a ordem do vocabulario ainda decide a cultura')
+        finally:
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update(original)
+
+    def test_uma_cultura_so_continua_sendo_o_nome_simples(self):
+        r = self.voz.marcar_assunto({'TITLE': 'poda del olivar en Jaen', 'DESCRIPTION': ''})
+        self.assertEqual('OLIVE', r['CROP'])
