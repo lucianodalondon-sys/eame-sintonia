@@ -59,7 +59,7 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 280 testes, OK, 0 falhas, 0 erros.
+Esperado: 295 testes, OK, 0 falhas, 0 erros.
 Se divergir, reporte o número real e o teste que falhou. NÃO conserte ainda.
 
 Nota: pytest NÃO está instalado. Use unittest. Só biblioteca padrão do Python 3.11.
@@ -74,7 +74,7 @@ python3 scripts/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
-  TEST_COUNT_CURRENT              = 280
+  TEST_COUNT_CURRENT              = 295
   SOURCE_ID_COUNT                 = 36
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964
@@ -185,4 +185,7 @@ Não comece trabalho nenhum antes de entregar o acceptance report.
 - Se o `HEAD` tiver avançado depois do handoff, o **passo 1 detecta** e manda parar.
 - As sentinelas do passo 4 são deliberadamente **verificáveis em um comando**. Se o ledger
   divergir do handoff, o ledger vence e a divergência é o primeiro achado da nova conta.
+- Este arquivo é **copiado e colado**, por isso não leva marcador `<!--M:-->` dentro do
+  bloco. O dono dos seus números é `tests/test_handoff.py`, que os compara com
+  `scripts/metricas_canonicas.py` e **reprova** quando a suíte cresce e o número aqui não.
 - O relatório de aceite é o **filtro de qualidade**: se ele vier vago, a nova conta não leu.

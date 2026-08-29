@@ -157,6 +157,64 @@ class TestDocumentoBateComODono(unittest.TestCase):
         self.assertIn('37/37', freeze, 'a reconciliação 37 vs 38 sumiu')
 
 
+
+class TestNumeroCorrenteTemDono(unittest.TestCase):
+    """MISSAO 10C — o numero publicado num documento CORRENTE nao pode ficar sem dono.
+
+    Dois defeitos medidos, a mesma classe:
+      · o handoff publicava "26 fichas" e o dono derivava 25. Passou porque `--sync` so
+        andava por `docs/` e o handoff mora na RAIZ;
+      · a porta canonica (`ARQUITETURA-DE-PRODUTO-ATUAL.md`) — o documento que vence
+        qualquer conflito — carregava 486, 1.004, 36, 61 e 34 sem marcador nenhum.
+        Estavam certos naquele dia; nada os impediria de envelhecer em silencio.
+    """
+
+    def test_nenhum_marcador_esta_desatualizado(self):
+        """O teste reprova, o `--sync` conserta. Sem isto o marcador e decorativo."""
+        from metricas_canonicas import sync
+        fora = sync(check_only=True)
+        self.assertEqual([], fora,
+                         'documento publica valor diferente do dono: %s — '
+                         'rode python3 scripts/metricas_canonicas.py --sync' % fora)
+
+    def test_o_sync_alcanca_os_documentos_da_raiz(self):
+        """O handoff mora na raiz. Enquanto o sync so via docs/, ele nao tinha dono."""
+        from metricas_canonicas import documentos_com_numero
+        alcancados = {os.path.basename(d) for d in documentos_com_numero()}
+        self.assertIn('HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md', alcancados)
+
+    def test_a_porta_canonica_amarra_seus_numeros_ao_dono(self):
+        with open(os.path.join(DOCS, 'piloto', 'ARQUITETURA-DE-PRODUTO-ATUAL.md'),
+                  encoding='utf-8') as f:
+            porta = f.read()
+        for mid in ('ES_EXPIRING_6M', 'ES_EXPIRING_12M', 'ES_ADAMA_EXPIRING_6M',
+                    'ES_ADAMA_EXPIRING_12M', 'ES_ACTIVE_WITH_PAST_EXPIRY',
+                    'X006_USE_COVERAGE', 'X007_USE_COVERAGE'):
+            with self.subTest(metrica=mid):
+                self.assertIn('<!--M:%s-->' % mid, porta,
+                              'a porta que vence conflitos publica %s sem dono' % mid)
+
+    def test_o_handoff_amarra_a_contagem_de_fontes_ao_dono(self):
+        with open(os.path.join(ROOT, 'HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md'),
+                  encoding='utf-8') as f:
+            h = f.read()
+        for mid in ('SOURCE_ID_COUNT', 'SOURCE_FICHA_COUNT', 'TEST_COUNT_CURRENT'):
+            with self.subTest(metrica=mid):
+                self.assertIn('<!--M:%s-->' % mid, h)
+
+    def test_o_rotulo_do_benchmark_declara_o_tamanho_real(self):
+        """Publicava "20 perguntas" com 35 no arquivo."""
+        import json
+        with open(os.path.join(ROOT, 'data', 'samples', 'ASK-SINTONIA-benchmark.json'),
+                  encoding='utf-8') as f:
+            b = json.load(f)
+        rotulo = re.search(r'(\d+) perguntas', b['source'])
+        self.assertIsNotNone(rotulo, 'o rotulo do benchmark nao declara tamanho')
+        self.assertEqual(len(b['questions']), int(rotulo.group(1)),
+                         'o rotulo do benchmark nao bate com o numero de perguntas')
+        self.assertEqual(len(b['questions']), sum(b['totals'].values()) + b['wrong_answers'])
+
+
 class TestAskSintoniaNaoSeVendeComoMedicao(unittest.TestCase):
     """§22 — 5 perguntas executam; 35 são contrato escrito à mão. Não confundir."""
 

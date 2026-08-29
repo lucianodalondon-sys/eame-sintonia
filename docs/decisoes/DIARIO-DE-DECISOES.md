@@ -213,13 +213,65 @@ Regras do diário:
 
 ---
 
+### D-013 — Inventário de população que muda é derivado, e número corrente tem dono
+
+- **Data:** 2026-08-29
+- **Estado:** DECIDIDO
+- **Contexto:** a MISSÃO 10C encontrou a mesma classe de defeito em quatro lugares.
+  `POLITICA-RAW-ROTA-PAGA.json` era uma **lista digitada** do diretório `raw-paid/`: um
+  bruto novo entrou no commit de handoff, o DATA CLOCK (derivado) o pegou, a política
+  (digitada) não, e ficou publicando 10 arquivos e 2.121.837 bytes onde havia 11 e
+  2.182.917 — internamente consistente e falsa. **Nenhum teste lia a política.** No mesmo
+  movimento: o handoff publicava `26 fichas` com o dono derivando 25, porque `--sync` só
+  andava por `docs/` e o handoff mora na **raiz**; a porta canônica, que vence qualquer
+  conflito, carregava 486/1.004/36/61/34 **sem marcador**; e o rótulo do benchmark do Ask
+  dizia "20 perguntas" com 35 no arquivo.
+- **Decisão:** (a) inventário de população que muda é **derivado da população real**, nunca
+  digitado — `scripts/proveniencia.py` passa a ser o dono do diretório `raw-paid/`;
+  (b) quando duas coisas inventariam a mesma população, cada uma **declara seu escopo** e
+  existe **reconciliação executável** entre elas e o disco; (c) todo número **corrente**
+  publicado em `.md` tem marcador ligado ao ledger — e o `--sync` passa a alcançar a raiz;
+  (d) documento feito para ser **copiado e colado** não leva marcador: o dono dele é o teste.
+- **Motivo:** um inventário digitado de uma população que muda envelhece em silêncio, e
+  soma consistente consigo mesma dá aparência de correção. `COBERTURA ALTA ≠ COBERTURA
+  CORRETA` vale também para inventário: **lista coerente ≠ lista completa**.
+- **Consequência:** `POLITICA-RAW-ROTA-PAGA.json` publica `ARQUIVOS`, `TAMANHO_ATUAL_BYTES`,
+  `TOTAL_POR_CLASSE` e `BRUTOS_ORFAOS` derivados; a suíte foi de 280 para 295 provas — e a
+  primeira coisa que as novas provas pegaram foi a própria deriva que elas introduziram.
+- **Quem decidiu:** decisão técnica da MISSÃO 10C.
+
+---
+
+### D-014 — A cadeia de proveniência vale nas duas direções
+
+- **Data:** 2026-08-29
+- **Estado:** DECIDIDO
+- **Contexto:** `CONTENT → RUN_ID → MANIFEST` estava provada. A direção inversa,
+  `ARQUIVO BRUTO → EXECUÇÃO`, não: `GATE-TEST-RUNMANIFEST-2026-08-29-b.raw.json.gz`
+  existia em disco, aparecia na política e **não tinha execução nenhuma no manifesto**.
+  Era artefato de teste — mas nada no repositório dizia isso, e um bruto **operacional**
+  órfão teria passado igual.
+- **Decisão:** o bruto de rota paga carrega **classe declarada**: `PRODUCTION_RAW` ou
+  `GATE_TEST_RAW`. Todo `PRODUCTION_RAW` **tem de** ser reivindicado por uma execução do
+  manifesto — `BRUTOS_ORFAOS` é sempre vazio. `GATE_TEST_RAW` pode não ter execução, mas
+  **nunca em silêncio**: carrega `EXCLUDED_WITH_REASON`.
+- **Motivo:** sem classe, "artefato de teste corretamente sem run" e "evidência sem
+  procedência" são o mesmo arquivo aos olhos do portão. `NÃO COLETADO ≠ NÃO EXISTE`
+  precisa do seu par: **`SEM EXECUÇÃO ≠ SEM EXPLICAÇÃO`**.
+- **Consequência:** `pv.brutos_orfaos()`, `pv.runs_por_bruto()` e a reconciliação da
+  política; e um teste que **exerce a falha** num diretório temporário, porque uma
+  reconciliação que nunca reprova prova tão pouco quanto um `DUPLICATE_COUNT = 0`.
+- **Quem decidiu:** decisão técnica da MISSÃO 10C.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
 |---|---|---|---|
 | P-001 | ~~Confirmar D-003~~ — **resolvida** pela MISSÃO 02 §0: não versionar dumps grandes, amostras em `data/samples`, bruto temporário em `data/raw` local. | — | resolvida 2026-08-28 |
 | P-002 | Quem é a audiência da apresentação e qual a data-alvo? | `07-apresentacao` | 2026-08-28 |
-| P-003 | Que dados internos da ADAMA EAME estarão disponíveis? | `02-fontes` | 2026-08-28 |
+| P-003 | ~~Que dados internos da ADAMA EAME estarão disponíveis?~~ — **resolvida: NENHUM.** O produto é EXTERNAL-ONLY por decisão do cliente, e nenhuma saída pode afirmar REVENUE, MARGIN, SALES ou ROI REALIZED. O portfólio **registrado** ficou resolvido por fonte pública (ROPF/E-Phy — ver CAP-003/CAP-004); o portfólio **comercial** (vendas, foco, pipeline) não é público e continua `NÃO SEI` — por premissa, não por falta de esforço. | — | resolvida 2026-08-29 |
 | P-004 | Idioma exigido nos entregáveis finais? | Todos os docs | 2026-08-28 |
 | P-005 | Restrições jurídicas / GDPR / licença aplicáveis ao uso pretendido? | `fontes`, `capacidades` | 2026-08-28 |
 | P-006 | Criar conta institucional EPPO para obter token da API (EU-T3-001)? É gratuita, mas fica em nome de alguém. | EU-T3-001 | 2026-08-28 |

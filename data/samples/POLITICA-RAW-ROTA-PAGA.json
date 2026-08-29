@@ -15,59 +15,126 @@
   "ROTA_GRATUITA_E_REPLICAVEL": "RAW_EVIDENCE_STATE = NOT_APPLICABLE — o bruto continua em data/raw/ como cache. Fingir que foi versionado seria falso.",
   "EXECUCAO_FALHADA": "não há corpo a preservar; o manifesto guarda o ERROR."
  },
- "EXECUCAO_PASSADA_SEM_BRUTO": "RAW_EVIDENCE_STATE = NOT_PRESERVED, e nada é reconstruído para parecer original. Nesta rodada todas as sete rotas pagas tinham o bruto vivo no scratchpad efêmero e foram preservadas a tempo — o que não estava garantido.",
+ "EXECUCAO_PASSADA_SEM_BRUTO": "RAW_EVIDENCE_STATE = NOT_PRESERVED, e nada é reconstruído para parecer original. Nesta rodada todas as rotas pagas de produção tinham o bruto vivo no scratchpad efêmero e foram preservadas a tempo — o que não estava garantido. A contagem por classe é DERIVADA em TOTAL_POR_CLASSE; nenhum número desta prosa é digitado.",
  "TETO_E_O_QUE_ACONTECE_AO_ESTOURAR": "sem teto fixo enquanto o total couber em dezenas de MB. Ao passar disso, a política é preservar o corpo bruto do RECORTE ANALISADO e registrar no manifesto o DATASET_ID, que permite recuperar o resto enquanto a plataforma o mantiver. O que NUNCA é aceitável é descartar o bruto silenciosamente: o estado tem de mudar para NOT_PRESERVED e aparecer.",
- "TAMANHO_ATUAL_BYTES": 2121837,
+ "TAMANHO_ATUAL_BYTES": 2182917,
  "ARQUIVOS": [
   {
    "FILE": "data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz",
+   "CLASS": "PRODUCTION_RAW",
    "GZ_BYTES": 39103,
-   "ITEMS": 346
+   "ITEMS": 346,
+   "RUNS": [
+    "ES-T8-001-COMMENTS-2026-08-29-a"
+   ]
   },
   {
    "FILE": "data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz",
+   "CLASS": "PRODUCTION_RAW",
    "GZ_BYTES": 123306,
-   "ITEMS": 252
+   "ITEMS": 252,
+   "RUNS": [
+    "ES-T8-001-2026-08-29-a"
+   ]
   },
   {
    "FILE": "data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz",
+   "CLASS": "PRODUCTION_RAW",
    "GZ_BYTES": 228283,
-   "ITEMS": 20
+   "ITEMS": 20,
+   "RUNS": [
+    "ES-T8-001-TRANSCRIPT-2026-08-29-a"
+   ]
   },
   {
    "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz",
+   "CLASS": "PRODUCTION_RAW",
    "GZ_BYTES": 84466,
-   "ITEMS": 84
+   "ITEMS": 84,
+   "RUNS": [
+    "ES-T8-002-2026-08-29-a"
+   ]
   },
   {
    "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz",
+   "CLASS": "PRODUCTION_RAW",
    "GZ_BYTES": 389678,
-   "ITEMS": 388
+   "ITEMS": 388,
+   "RUNS": [
+    "ES-T8-002-2026-08-29-a"
+   ]
   },
   {
    "FILE": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+   "CLASS": "PRODUCTION_RAW",
    "GZ_BYTES": 1179655,
-   "ITEMS": 202
+   "ITEMS": 202,
+   "RUNS": [
+    "ES-T8-002-PROFILES-2026-08-29-a",
+    "ES-T8-002-TITLESEARCH-2026-08-29-a"
+   ]
+  },
+  {
+   "FILE": "data/samples/raw-paid/ES-T8-002-titlesearch-test.raw.json.gz",
+   "CLASS": "PRODUCTION_RAW",
+   "GZ_BYTES": 61080,
+   "ITEMS": 10,
+   "RUNS": [
+    "ES-T8-002-TITLESEARCH-2026-08-29-a"
+   ]
   },
   {
    "FILE": "data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz",
+   "CLASS": "PRODUCTION_RAW",
    "GZ_BYTES": 61286,
-   "ITEMS": 60
+   "ITEMS": 60,
+   "RUNS": [
+    "ES-T8-003-2026-08-29-a"
+   ]
   },
   {
    "FILE": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-b.raw.json.gz",
+   "CLASS": "GATE_TEST_RAW",
    "GZ_BYTES": 72,
-   "ITEMS": 0
+   "ITEMS": 0,
+   "RUNS": [],
+   "EXCLUDED_WITH_REASON": "artefato de verificação do portão do coletor, não coleta. Não produz registro analítico publicado, por isso não há execução de produção que o cite. EXCLUDED_WITH_REASON — nunca ausência silenciosa."
   },
   {
    "FILE": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-c.raw.json.gz",
+   "CLASS": "GATE_TEST_RAW",
    "GZ_BYTES": 72,
-   "ITEMS": 0
+   "ITEMS": 0,
+   "RUNS": [
+    "GATE-TEST-RUNMANIFEST-2026-08-29-c"
+   ]
   },
   {
    "FILE": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz",
+   "CLASS": "GATE_TEST_RAW",
    "GZ_BYTES": 15916,
-   "ITEMS": 5
+   "ITEMS": 5,
+   "RUNS": [
+    "GATE-TEST-RUNMANIFEST-2026-08-29-d"
+   ]
   }
- ]
+ ],
+ "TOTAL_POR_CLASSE": {
+  "PRODUCTION_RAW": {
+   "ARQUIVOS": 8,
+   "GZ_BYTES": 2166857
+  },
+  "GATE_TEST_RAW": {
+   "ARQUIVOS": 3,
+   "GZ_BYTES": 16060
+  }
+ },
+ "BRUTOS_ORFAOS": [],
+ "DERIVADO_POR": "scripts/proveniencia.py --sync-politica. O inventário e os tamanhos são DERIVADOS do diretório real; nenhum é digitado. Há teste que reprova se a política divergir do disco.",
+ "CLASSES_DE_BRUTO": {
+  "PRODUCTION_RAW": "bruto de coleta que sustenta registro analítico publicado. OBRIGAÇÃO: toda execução que o produziu está no RUN-MANIFEST e o arquivo é citado por ela. Um PRODUCTION_RAW sem execução é evidência sem procedência — BRUTOS_ORFAOS tem de ser sempre vazio, e há teste que reprova se não for.",
+  "GATE_TEST_RAW": "artefato de verificação do portão do coletor, prefixo GATE-TEST-. Não é coleta e não produz registro analítico. PODE não ter execução que o cite, mas nunca em silêncio: quando não tem, carrega EXCLUDED_WITH_REASON.",
+  "PORQUE_A_DISTINCAO_EXISTE": "a cadeia CONTENT -> RUN_ID -> MANIFEST estava provada só numa direção. Na direção inversa, ARQUIVO BRUTO -> EXECUÇÃO, um arquivo sem run passava despercebido: foi o caso de GATE-TEST-RUNMANIFEST-2026-08-29-b. Sem classe declarada não há como distinguir \"artefato de teste, corretamente sem run\" de \"bruto operacional órfão\"."
+ },
+ "DOIS_INVENTARIOS_DA_MESMA_POPULACAO": "este arquivo e o DATA-CLOCK-manifest.json inventariam o mesmo diretório com escopos DIFERENTES e declarados: a política cobre o diretório INTEIRO (as duas classes); o relógio de dados vigia apenas PRODUCTION_RAW, porque é o que precisa de SHA-256 e de urgência CRITICA. Os dois são derivados e há teste reconciliando cada um com o disco. Foi a divergência silenciosa entre eles — bruto novo entrou, o relógio pegou, a política não — que motivou esta seção."
 }

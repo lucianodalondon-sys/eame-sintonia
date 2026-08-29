@@ -109,9 +109,10 @@ def build():
     L.add('SOURCE_ID_COUNT', len(ids), unit='count',
           source='docs/fontes/ATLAS-DE-FONTES-EAME.md',
           derivation='SOURCE_IDs distintos nas fichas + tabelas de fontes não alcançadas')
-    # "ficha" = cabeçalho de nível 4 que abre um bloco SOURCE_ID. Duas seções de nível 4
-    # são tabelas de fontes testadas e não alcançadas, não fichas — e uma ficha
-    # (FR/ES/IT-T9-001) cobre três SOURCE_IDs. Por isso ficha ≠ SOURCE_ID.
+    # "ficha" = cabeçalho de nível 4 que abre um bloco SOURCE_ID. TRÊS seções de nível 4
+    # não são fichas — duas tabelas de fontes testadas e não alcançadas, e uma nota de
+    # ATUALIZAÇÃO — e uma ficha (FR/ES/IT-T9-001) cobre três SOURCE_IDs.
+    # Por isso ficha ≠ SOURCE_ID, e por isso o total é 25 e não 28.
     fichas_atlas = [h for h in re.findall(r'^#### (.+)$', atlas, re.M)
                     if re.match(r'(EU|FR|ES|IT)[-/]', h)]
     L.add('SOURCE_FICHA_COUNT', len(fichas_atlas), unit='count',
@@ -418,35 +419,47 @@ def build():
 MARK = re.compile(r'<!--M:([A-Z0-9_]+)-->(.*?)<!--/M-->', re.S)
 
 
+def documentos_com_numero():
+    """Todo .md que pode publicar número corrente.
+
+    Inclui os `.md` da RAIZ. O handoff mora lá, e até 2026-08-29 o `--sync` só andava por
+    `docs/` — por isso o handoff publicava "26 fichas" enquanto o dono derivava 25, sem
+    nada reprovar. Número corrente sem dono é o defeito; a raiz estava fora do alcance.
+    """
+    for dirpath, _, files in os.walk(DOCS):
+        for f in sorted(files):
+            if f.endswith('.md'):
+                yield os.path.join(dirpath, f)
+    for f in sorted(os.listdir(ROOT)):
+        if f.endswith('.md'):
+            yield os.path.join(ROOT, f)
+
+
 def sync(check_only=False):
     L = build()
     mudou = []
-    for dirpath, _, files in os.walk(DOCS):
-        for f in files:
-            if not f.endswith('.md'):
-                continue
-            path = os.path.join(dirpath, f)
-            with open(path, encoding='utf-8') as fh:
-                txt = fh.read()
-            if '<!--M:' not in txt:
-                continue
+    for path in documentos_com_numero():
+        with open(path, encoding='utf-8') as fh:
+            txt = fh.read()
+        if '<!--M:' not in txt:
+            continue
 
-            def repl(m):
-                mid, atual = m.group(1), m.group(2)
-                v = L[mid]['VALUE'] if mid in L else atual
-                if isinstance(v, float):
-                    novo = ('%g' % v).replace('.', ',')
-                elif isinstance(v, list):
-                    novo = ' · '.join(f'`{x}`' for x in v)
-                else:
-                    novo = f'{v:,}'.replace(',', '.')
-                if novo != atual:
-                    mudou.append((os.path.relpath(path, ROOT), mid, atual, novo))
-                return f'<!--M:{mid}-->{novo}<!--/M-->'
-            novo_txt = MARK.sub(repl, txt)
-            if novo_txt != txt and not check_only:
-                with open(path, 'w', encoding='utf-8') as fh:
-                    fh.write(novo_txt)
+        def repl(m, _path=path):
+            mid, atual = m.group(1), m.group(2)
+            v = L[mid]['VALUE'] if mid in L else atual
+            if isinstance(v, float):
+                novo = ('%g' % v).replace('.', ',')
+            elif isinstance(v, list):
+                novo = ' · '.join(f'`{x}`' for x in v)
+            else:
+                novo = f'{v:,}'.replace(',', '.')
+            if novo != atual:
+                mudou.append((os.path.relpath(_path, ROOT), mid, atual, novo))
+            return f'<!--M:{mid}-->{novo}<!--/M-->'
+        novo_txt = MARK.sub(repl, txt)
+        if novo_txt != txt and not check_only:
+            with open(path, 'w', encoding='utf-8') as fh:
+                fh.write(novo_txt)
     return mudou
 
 
