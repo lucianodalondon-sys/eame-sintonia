@@ -1,0 +1,81 @@
+{
+ "source": "rotas publicas testadas diretamente na MISSAO 09; cada rota traz URL, amostra e veredito",
+ "what_it_is": "teste de rotas EXTERNAS novas — o que da para coletar de forma publica, repetivel e datavel",
+ "SOURCE_LOCATION": "SPAIN / EU",
+ "FACT_LOCATION": "SPAIN (Andalucía) / EU",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-29",
+ "method": "uma pergunta por rota, uma amostra por rota, sem crawl. Nenhuma credencial paga disponivel nesta sessao.",
+ "routes": [
+  {
+   "QUESTION": "qual e o tamanho economico da provincia onde a pressao sobe?",
+   "PLATFORM": "MAPA — Superficies y producciones anuales de cultivos (Anuario 2024)",
+   "URL": "https://www.mapa.gob.es/dam/mapa/contenido/estadisticas/temas/estadisticas-agrarias/2.agricultura/3.-superficies-y-producciones-anuales/reglamento-n--543-2009/re1_olivar_formato_tabla_global.xlsx",
+   "SAMPLE": "aba BD_HORTALIZAS-NO, 862.550 linhas: provincia x cultura x indicador x valor",
+   "QUALITY": "PRIMARIA, oficial, granularidade de PROVINCIA — a que faltava",
+   "REPEATABLE": true,
+   "DATABLE": true,
+   "COST": 0,
+   "VERDICT": "PROVED — entrou como fonte de tamanho"
+  },
+  {
+   "QUESTION": "da para acompanhar a comunicacao publica de concorrente de forma repetivel?",
+   "PLATFORM": "sitemaps corporativos",
+   "SAMPLE": "Bayer ES: 265 URLs, TODAS com <lastmod>; 5 paginas de olivo, incluindo 'estrategias-bayer-olivar' e a noticia do I Foro Iberico del Olivar",
+   "URL": "https://www.cropscience.bayer.es/sitemap.xml",
+   "OTHERS_TESTED": {
+    "syngenta.es": "403",
+    "adama.com/spain": "403",
+    "agriculture.basf.com": "404",
+    "corteva.es": "301"
+   },
+   "QUALITY": "publica, datavel, estruturada",
+   "REPEATABLE": true,
+   "DATABLE": true,
+   "COST": 0,
+   "CAVEAT": "lastmod e quando a PAGINA mudou, nao quando a campanha rodou. E 1 de 5 majors respondeu: ausencia nas fontes pesquisadas NAO e silencio do concorrente.",
+   "VERDICT": "PARTIAL — rota provada para um concorrente, bloqueada para tres"
+  },
+  {
+   "QUESTION": "existe imprensa tecnica setorial coletavel e datavel?",
+   "PLATFORM": "imprensa oleicola espanhola",
+   "SAMPLE": "mercacei.com sitemap_news.xml com <news:publication_date> por artigo; olimerca.com com busca e secao Agronomia. infoagro responde 200.",
+   "QUALITY": "publica e datada",
+   "REPEATABLE": true,
+   "DATABLE": true,
+   "COST": 0,
+   "CAVEAT": "o sitemap de noticias e uma JANELA MOVEL (21 URLs). Historico nao vem por essa rota — a linha de base tem de comecar agora.",
+   "VERDICT": "PARTIAL — serve para baseline prospectivo, nao para retrospectiva"
+  },
+  {
+   "QUESTION": "existe voz publica de produtor/tecnico coletavel?",
+   "PLATFORM": "Reddit · YouTube · foruns agricolas",
+   "SAMPLE": "reddit.com/search.json 403 (duas rotas) · youtube feeds/videos.xml?search_query 400 (rota descontinuada) · agroterra.com 403 · agronegocios.es 403",
+   "QUALITY": "—",
+   "REPEATABLE": false,
+   "DATABLE": null,
+   "COST": 0,
+   "VERDICT": "NAO SEI — nenhuma rota publica sem credencial funcionou daqui. Nao e prova de que a voz nao existe; e prova de que NAO A ALCANCAMOS por rota gratuita."
+  },
+  {
+   "QUESTION": "existe historico de autorizacoes excepcionais (art. 53) para medir recorrencia?",
+   "PLATFORM": "MAPA autorizaciones_excepcionales.xls · EU Pesticides Database",
+   "SAMPLE": "MAPA: aba unica 'EXCEPCIONALES VIGENTES', 48 linhas, 'Situacion a 24 de agosto' — SO AS VIGENTES. EU DB: a tela responde 200 mas o bundle Angular redireciona para sorry.ec.europa.eu",
+   "QUALITY": "snapshot",
+   "REPEATABLE": true,
+   "DATABLE": true,
+   "COST": 0,
+   "VERDICT": "BASELINE ONLY — recorrencia exige arquivar o arquivo a cada publicacao. Nao existe historico publicado ao qual tenhamos acesso."
+  },
+  {
+   "QUESTION": "Apify traria vantagem?",
+   "PLATFORM": "Apify",
+   "SAMPLE": "nao testado",
+   "QUALITY": null,
+   "REPEATABLE": null,
+   "COST": null,
+   "VERDICT": "NAO TESTADO — nenhuma credencial Apify disponivel nesta sessao. Nao afirmar custo, cobertura nem taxa de sucesso sem ter rodado."
+  }
+ ],
+ "RULE_APPLIED": "ausencia nas fontes pesquisadas = NO PUBLIC ACTIVITY FOUND IN SEARCHED SOURCES. Nunca 'o concorrente esta silencioso'."
+}

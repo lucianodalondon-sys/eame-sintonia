@@ -1,0 +1,76 @@
+{
+ "what_it_is": "backtest: se o SINTONIA existisse antes, teria sinalizado a alta de repilo com antecedencia?",
+ "SOURCE_LOCATION": "SPAIN (Andalucía)",
+ "FACT_LOCATION": "SPAIN (Andalucía)",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-29",
+ "source": "ES-T3-001 — serie completa de 23 safras (2003-2026), campo 1702 repilo visivel",
+ "RULE_DECLARED_BEFORE_LOOKING": "dispara na safra Y se media(Y) > media(Y-1) > media(Y-2) E media(Y) >= 1,5 x a media das tres safras anteriores. Regra simples e escrita ANTES de rodar, para nao ser calibrada no proprio resultado.",
+ "universe": "7 provincias x 23 safras",
+ "fires_by_province": {
+  "Cádiz": {
+   "fires": [
+    2009,
+    2013,
+    2026
+   ],
+   "peak_year": 2013,
+   "peak": 9.71
+  },
+  "Huelva": {
+   "fires": [
+    2012,
+    2013,
+    2018,
+    2025,
+    2026
+   ],
+   "peak_year": 2026,
+   "peak": 8.83
+  },
+  "Jaén": {
+   "fires": [],
+   "peak_year": 2013,
+   "peak": 1.92
+  },
+  "Sevilla": {
+   "fires": [
+    2009,
+    2021,
+    2026
+   ],
+   "peak_year": 2009,
+   "peak": 7.07
+  },
+  "Córdoba": {
+   "fires": [
+    2012
+   ],
+   "peak_year": 2012,
+   "peak": 2.83
+  },
+  "Granada": {
+   "fires": [
+    2024
+   ],
+   "peak_year": 2024,
+   "peak": 1.68
+  },
+  "Málaga": {
+   "fires": [
+    2010
+   ],
+   "peak_year": 2010,
+   "peak": 2.3
+  }
+ },
+ "TOTAL_FIRES": 14,
+ "LEAD_TIME": {
+  "Huelva": "pico historico em 2026; a regra disparou em 2025 E 2026 -> 1 safra de antecedencia",
+  "Cádiz": "alta em 2026; a regra disparou SO em 2026 -> zero antecedencia",
+  "Sevilla": "alta em 2026; a regra disparou SO em 2026 -> zero antecedencia"
+ },
+ "FALSE_POSITIVE_LOAD": "11 dos 14 disparos nao precedem nenhum evento de escala 2026: Huelva 2012/2013/2018, Cadiz 2009/2013, Sevilla 2009/2021, Cordoba 2012, Granada 2024, Malaga 2010. Um radar com esta regra pediria atencao muitas vezes sem que algo grande viesse depois.",
+ "HONEST_CONCLUSION": "a pressao de campo medida NAO e um motor de aviso de 6 a 12 meses. Ela entrega, no melhor caso observado, UMA SAFRA de antecedencia, e em dois dos tres casos de 2026 entregou ZERO. Uma safra ainda e util para planejamento de campanha - mas nao e 'sabemos antes'.",
+ "WHAT_WOULD_IMPROVE_IT": "leitura INTRA-safra (a fonte publica semanalmente; aqui so foi usada a media anual) e o campo 1703 de repilo INCUBADO, que por definicao antecede o sintoma visivel. Nenhum dos dois foi testado nesta missao."
+}
