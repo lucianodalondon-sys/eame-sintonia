@@ -126,6 +126,7 @@ def snapshot(captura):
         'SOURCE_LOCATION': 'interno',
         'FACT_LOCATION': 'n/a — descreve o ambiente de execucao',
         'ORIGINAL_LANGUAGE': 'pt',
+        'captured_at': captura,
         'ESTADO_DO_REGISTRO': 'CURRENT',
         'AMBIENTE': 'CURRENT_COLLECTION_ENVIRONMENT',
         'CAPTURE_DATE': captura,
