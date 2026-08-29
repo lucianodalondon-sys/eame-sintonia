@@ -270,3 +270,59 @@ class TestBaselinePorCanal(unittest.TestCase):
         for c in self.b['BASELINE'][:20]:
             esperado = sorted(v['EXTERNAL_ID'] for v in vids if v['CHANNEL_ID'] == c['CHANNEL_ID'])
             self.assertEqual(esperado, sorted(c['CONTENT_IDS']))
+
+
+class TestVideoXField(unittest.TestCase):
+    """A regra manda declarar um dos quatro estados e nao fabricar antecipacao."""
+
+    def setUp(self):
+        self.x = amostra('ES-X-VOICE-FIELD.json')
+
+    def test_declara_um_dos_quatro_estados(self):
+        self.assertIn(self.x['VIDEO_x_FIELD_STATE'],
+                      ('LEADS', 'COINCIDES', 'LAGS', 'NO_RELIABLE_SIGNAL'))
+
+    def test_o_rho_mais_alto_nao_virou_lead(self):
+        r = self.x['RESULTADO']
+        maior = max(abs(v) for k, v in r.items() if k.startswith('rho'))
+        self.assertLess(maior, 0.648,
+                        'algum coeficiente passou do valor critico: o estado precisa ser reavaliado')
+        self.assertEqual('NO_RELIABLE_SIGNAL', self.x['VIDEO_x_FIELD_STATE'])
+        self.assertIn('0,648', self.x['PORQUE_NAO_E_LEAD'])
+
+    def test_o_denominador_corrige_o_artefato_de_rota(self):
+        a = self.x['ARTEFATO_DE_ROTA_ENCONTRADO']
+        self.assertIn('NAO mede atencao', a['leitura'])
+        for linha in self.x['SERIE']:
+            self.assertGreaterEqual(linha['VIDEOS_NO_ANO'], 8,
+                                    'ano com denominador pequeno demais entrou na serie')
+            self.assertAlmostEqual(linha['SHARE'],
+                                   linha['VIDEOS_DE_REPILO'] / linha['VIDEOS_NO_ANO'], places=3)
+
+    def test_o_achado_geografico_nao_foi_apagado(self):
+        self.assertIn('ES-VOICE-x-REGUA', self.x['O_QUE_ISSO_NAO_SIGNIFICA'])
+
+
+class TestVideoXScience(unittest.TestCase):
+
+    def setUp(self):
+        self.x = amostra('ES-X-VOICE-SCIENCE.json')
+
+    def test_nome_igual_nao_confirma_identidade(self):
+        self.assertEqual(0, self.x['RESULTADO_POR_PESSOA']['CONFIRMADOS_POR_SEGUNDO_CAMPO'])
+        for l in self.x['RESULTADO_POR_PESSOA']['LINKS']:
+            if l['MATCH_STATE'] == 'CANDIDATE_NAME_ONLY':
+                self.assertIsNone(l['SECOND_FIELD'])
+
+    def test_o_metodo_frouxo_foi_rejeitado_e_nao_publicado(self):
+        m = self.x['RESULTADO_POR_INSTITUICAO']['CASAMENTO_FROUXO_POR_TOKEN']
+        self.assertEqual('METODO_REJEITADO', m['VEREDITO'])
+        self.assertGreaterEqual(len(m['FALSOS_POSITIVOS_MEDIDOS']), 3)
+
+    def test_o_estado_e_not_reached_e_nao_refutado(self):
+        self.assertEqual('NOT_REACHED', self.x['STATE'])
+        self.assertIn('nao esta refutada', self.x['VEREDITO'])
+
+    def test_o_que_falta_e_identificador_e_nao_algoritmo(self):
+        self.assertIn('ORCID', self.x['O_QUE_FALTA_E_CONCRETO'])
+        self.assertIn('nao de um algoritmo de similaridade', self.x['O_QUE_FALTA_E_CONCRETO'])

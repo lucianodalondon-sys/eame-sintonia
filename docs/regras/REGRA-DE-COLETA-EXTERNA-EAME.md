@@ -247,9 +247,26 @@ Evidência: `../../data/samples/ES-X-VOICE-SCIENCE.json`
 Perguntar sempre, com um dos quatro estados: **`LEADS` · `COINCIDES` · `LAGS` ·
 `NO_RELIABLE_SIGNAL`.**
 
-**Não fabricar antecipação.** Na Espanha, duas camadas concordaram com o índice de exposição
-(ρ 0,96 e 0,94) e mesmo assim o estado correto é **`COINCIDES`**: as medidas são do mesmo
-período. **Concordância de ordem não é antecedência.**
+**Não fabricar antecipação.**
+
+**Medido na Espanha: `NO_RELIABLE_SIGNAL`.** Duas armadilhas apareceram, e as duas valem para
+qualquer país:
+
+1. **A contagem bruta de vídeos por ano não mede atenção — mede o que a rota alcança.**
+   26 vídeos até 2015 contra 226 de 2016 em diante. Correlacionar isso com o campo mediria o
+   crescimento do YouTube. O denominador correto é *os vídeos daquele ano*, e a série vira
+   **share do tema**.
+2. **O coeficiente mais alto era publicável e estava errado.** Com a série corrigida, a voz
+   antecipando o campo em uma safra dá **ρ 0,442** — bonito de escrever. Mas com **n=10** o
+   valor crítico de Spearman a 5% é ≈ **0,648**, nenhum dos cinco coeficientes chega lá, e os
+   sinais se invertem entre defasagens (+0,442 e −0,600). Isso é estimativa instável, não
+   relação.
+
+**A concordância geográfica continua valendo** (ρ 0,96 e 0,94 contra o índice de exposição):
+a voz concorda no **espaço**. O que este teste diz é que ela **não antecipa no tempo**, com
+esta série e este n. **Concordância de ordem não é antecedência.**
+
+Evidência: `../../data/samples/ES-X-VOICE-FIELD.json`
 
 ## 19 · VIDEO × COMPETITOR
 

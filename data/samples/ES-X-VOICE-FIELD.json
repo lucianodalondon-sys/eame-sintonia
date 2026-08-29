@@ -1,0 +1,107 @@
+{
+ "SOURCE_ID": "ES-X-VOICE-FIELD",
+ "source": "cruzamento temporal entre ES-T8-001-videos e RAIF-COORTE-REPILO (ES-T3-001)",
+ "SOURCE_LOCATION": "derivado — nenhuma coleta nova",
+ "FACT_LOCATION": "SPAIN (Andalucía)",
+ "ORIGINAL_LANGUAGE": "es",
+ "captured_at": "2026-08-29",
+ "A_PERGUNTA": "a discussao em video LEADS, COINCIDES, LAGS ou NO_RELIABLE_SIGNAL em relacao ao campo?",
+ "O_QUE_TORNOU_O_TESTE_POSSIVEL": "ate agora a camada de voz so tinha agregados. A normalizacao por video (scripts/voz.py) preservou PUBLICATION_DATE em 252 de 252 registros, e e isso que permite perguntar sobre TEMPO. Antes, a pergunta nao tinha dado.",
+ "ARTEFATO_DE_ROTA_ENCONTRADO": {
+  "observado": "26 videos ate 2015 contra 226 de 2016 em diante",
+  "leitura": "a contagem bruta de videos por ano NAO mede atencao ao tema: mede o que a rota alcanca. A plataforma cresceu e a busca favorece conteudo recente. Correlacionar contagem bruta com campo mediria o crescimento do YouTube.",
+  "correcao": "o denominador passa a ser os videos DAQUELE ano, e a serie vira SHARE do tema. So entram anos com pelo menos 8 videos, senao a fracao e ruido."
+ },
+ "SERIE": [
+  {
+   "ANO": 2016,
+   "VIDEOS_NO_ANO": 8,
+   "VIDEOS_DE_REPILO": 0,
+   "SHARE": 0.0,
+   "CAMPO_MEDIA_PONDERADA": 1.45
+  },
+  {
+   "ANO": 2017,
+   "VIDEOS_NO_ANO": 10,
+   "VIDEOS_DE_REPILO": 2,
+   "SHARE": 0.2,
+   "CAMPO_MEDIA_PONDERADA": 1.56
+  },
+  {
+   "ANO": 2018,
+   "VIDEOS_NO_ANO": 17,
+   "VIDEOS_DE_REPILO": 2,
+   "SHARE": 0.118,
+   "CAMPO_MEDIA_PONDERADA": 1.27
+  },
+  {
+   "ANO": 2019,
+   "VIDEOS_NO_ANO": 11,
+   "VIDEOS_DE_REPILO": 3,
+   "SHARE": 0.273,
+   "CAMPO_MEDIA_PONDERADA": 1.23
+  },
+  {
+   "ANO": 2020,
+   "VIDEOS_NO_ANO": 30,
+   "VIDEOS_DE_REPILO": 8,
+   "SHARE": 0.267,
+   "CAMPO_MEDIA_PONDERADA": 1.55
+  },
+  {
+   "ANO": 2021,
+   "VIDEOS_NO_ANO": 40,
+   "VIDEOS_DE_REPILO": 5,
+   "SHARE": 0.125,
+   "CAMPO_MEDIA_PONDERADA": 1.89
+  },
+  {
+   "ANO": 2022,
+   "VIDEOS_NO_ANO": 41,
+   "VIDEOS_DE_REPILO": 3,
+   "SHARE": 0.073,
+   "CAMPO_MEDIA_PONDERADA": 1.39
+  },
+  {
+   "ANO": 2023,
+   "VIDEOS_NO_ANO": 31,
+   "VIDEOS_DE_REPILO": 4,
+   "SHARE": 0.129,
+   "CAMPO_MEDIA_PONDERADA": 1.15
+  },
+  {
+   "ANO": 2024,
+   "VIDEOS_NO_ANO": 14,
+   "VIDEOS_DE_REPILO": 2,
+   "SHARE": 0.143,
+   "CAMPO_MEDIA_PONDERADA": 1.54
+  },
+  {
+   "ANO": 2025,
+   "VIDEOS_NO_ANO": 14,
+   "VIDEOS_DE_REPILO": 2,
+   "SHARE": 0.143,
+   "CAMPO_MEDIA_PONDERADA": 1.46
+  },
+  {
+   "ANO": 2026,
+   "VIDEOS_NO_ANO": 10,
+   "VIDEOS_DE_REPILO": 3,
+   "SHARE": 0.3,
+   "CAMPO_MEDIA_PONDERADA": 1.85
+  }
+ ],
+ "RESULTADO": {
+  "n_anos": 11,
+  "rho_share_t_x_campo_t": 0.3,
+  "rho_share_t_x_campo_t_mais_1": 0.442,
+  "rho_share_t_mais_1_x_campo_t": -0.6,
+  "rho_share_t_x_campo_t_mais_2": 0.25,
+  "rho_share_t_mais_2_x_campo_t": -0.017
+ },
+ "PORQUE_NAO_E_LEAD": "o valor de 0,442 para a voz antecipando o campo em uma safra e o mais alto da tabela e seria facil publicar como \"a voz antecipa o campo em uma safra\". Nao e. Com n=10, o valor critico de Spearman a 5% e aproximadamente 0,648, e nenhum dos cinco coeficientes chega la. Alem disso os sinais se invertem entre defasagens (+0,442 e -0,600), que e o padrao de estimativa instavel, nao de relacao.",
+ "VIDEO_x_FIELD_STATE": "NO_RELIABLE_SIGNAL",
+ "O_QUE_ISSO_NAO_SIGNIFICA": "nao significa que a voz e irrelevante. A reconciliacao geografica (ES-VOICE-x-REGUA.json) continua valendo: a voz concorda com o indice de exposicao no ESPACO. Este teste diz que ela nao antecipa no TEMPO, com esta serie e este n.",
+ "O_QUE_FALTARIA": "serie de voz com profundidade historica real, que a rota de busca nao entrega, e granularidade menor que o ano — o repilo tem ciclo dentro da safra e o teste anual apaga isso.",
+ "STATE": "PARTIAL"
+}
