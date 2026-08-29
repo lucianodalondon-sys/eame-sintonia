@@ -59,7 +59,7 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 324 testes, OK, 0 falhas, 0 erros.
+Esperado: 325 testes, OK, 0 falhas, 0 erros.
 Se divergir, reporte o número real e o teste que falhou. NÃO conserte ainda.
 
 Nota: pytest NÃO está instalado. Use unittest. Só biblioteca padrão do Python 3.11.
@@ -74,7 +74,7 @@ python3 scripts/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
-  TEST_COUNT_CURRENT              = 324
+  TEST_COUNT_CURRENT              = 325
   SOURCE_ID_COUNT                 = 36
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964
@@ -88,7 +88,11 @@ Confira estas sentinelas contra o que o handoff afirma:
   QUEUE_RESEARCHERS_ES            = 20
   ASK_WRONG                       = 0
 
-E o portão deve imprimir READY_FOR_NEXT_ES_COLLECTION = YES com os seis PROVED.
+E o portão deve imprimir READY_FOR_NEXT_ES_COLLECTION = ADVERSARIALLY_VERIFIED
+com os seis PROVED. YES e ADVERSARIALLY_VERIFIED são estados DIFERENTES: o primeiro
+é o portão dizendo que ele mesmo passa; o segundo exige que alguém tenha tentado
+REFUTAR cada portão e falhado, e que a implementação não tenha mudado desde então.
+Se aparecer VERIFICATION_STALE, a verificação precisa ser refeita.
 
 Qualquer divergência é ACHADO, não erro seu. Registre.
 

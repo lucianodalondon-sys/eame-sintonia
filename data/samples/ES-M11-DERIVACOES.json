@@ -371,8 +371,60 @@
    "NOTA_METODOLOGICA": "Cordoba e Sevilla EMPATAM em 12 mencoes. Empate exige RANK MEDIO; sem isso o coeficiente sai 0,886 em vez de 0,926."
   },
   "LEITURA": "a exposicao agronomica e a UNICA das quatro que passa do critico. A explicacao rival (producao cientifica) fica em 0,679 e NAO passa. Isso ENFRAQUECE o confundidor.",
-  "ESTADO": "CONFOUNDER_NARROWED",
+  "ESTADO": "CONFOUNDER_OPEN",
   "PORQUE_NAO_FECHADO": "a variavel rival esta mal medida: so 17 de 380 instituicoes (4,5%) declaram provincia no nome, e as NAO mapeadas incluem IAS-CSIC e IFAPA — exatamente as instituicoes de Cordoba que o confundidor nomeia. Medir densidade institucional de verdade exige a localizacao declarada pelo ROR, que este ambiente bloqueia.",
-  "COMO_FECHAR": "ROR: cada instituicao tem pais/cidade declarados. Rota gratuita, bloqueada por rede."
+  "COMO_FECHAR": "duas coisas, nenhuma disponivel nesta sessao: (1) ROR para medir densidade institucional de verdade, em vez de 4,5% de cobertura por nome; (2) mais provincias ou granularidade menor que provincia, porque n=6 com um empate nao sustenta separacao de explicacoes rivais.",
+  "ESTADO_ANTERIOR_NESTA_MISSAO": "CONFOUNDER_NARROWED — REBAIXADO por auto-refutacao na FASE 26",
+  "REFUTACAO_DA_PROPRIA_CONCLUSAO": {
+   "O_QUE_EU_IA_PUBLICAR": "\"a exposicao agronomica passa do critico (0,926) e a explicacao rival nao (0,679), logo o confundidor esta enfraquecido\". O numero e bonito e a significancia e real com n=6.",
+   "O_ATAQUE": "sensibilidade leave-one-out: tirar UMA provincia e refazer, com critico de n=5 (0,900).",
+   "RESULTADO": {
+    "n6_completo": {
+     "exposicao": 0.926,
+     "ciencia": 0.679,
+     "critico": 0.829,
+     "exposicao_passa": true
+    },
+    "sem_Cordoba": {
+     "exposicao": 0.894,
+     "ciencia": 0.447,
+     "critico": 0.9,
+     "exposicao_passa": false
+    },
+    "sem_Jaen": {
+     "exposicao": 0.866,
+     "ciencia": 0.866,
+     "critico": 0.9,
+     "exposicao_passa": false
+    },
+    "sem_Sevilla": {
+     "exposicao": 0.894,
+     "ciencia": 0.447,
+     "critico": 0.9,
+     "exposicao_passa": false
+    },
+    "sem_Granada": {
+     "exposicao": 0.949,
+     "ciencia": 0.791,
+     "critico": 0.9,
+     "exposicao_passa": true
+    },
+    "sem_Huelva": {
+     "exposicao": 0.949,
+     "ciencia": 0.632,
+     "critico": 0.9,
+     "exposicao_passa": true
+    },
+    "sem_Malaga": {
+     "exposicao": 0.949,
+     "ciencia": 0.791,
+     "critico": 0.9,
+     "exposicao_passa": true
+    }
+   },
+   "LEITURA": "a significancia CAI em 3 das 6 remocoes. O resultado depende de Cordoba, Jaen ou Sevilla individualmente — nao e propriedade da serie, e propriedade de tres pontos. E ao remover Jaen as duas explicacoes EMPATAM exatamente em 0,866: nesse recorte a agronomia e a densidade institucional sao indistinguiveis.",
+   "VEREDITO": "CONFOUNDER_OPEN. A medicao foi feita pela primeira vez e vale como metodo; o RESULTADO nao e robusto o suficiente para separar as duas explicacoes.",
+   "A_MESMA_ARMADILHA_DE_ANTES": "e a classe de erro que esta casa ja matou uma vez: o rho 0,442 de \"a voz antecipa o campo\" tambem era o coeficiente mais alto da tabela e tambem era publicavel. Coeficiente bonito que nao sobrevive ao proprio teste de robustez nao e achado — e ruido com casas decimais."
+  }
  }
 }

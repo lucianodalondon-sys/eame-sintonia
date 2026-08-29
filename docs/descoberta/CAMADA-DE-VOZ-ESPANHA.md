@@ -409,8 +409,32 @@ só declarada. Agora a variável rival existe.
 | produção científica por província | **+0,679** | **não** |
 | incidência isolada | +0,247 | não |
 
-**A explicação rival não passa do crítico; a agronômica passa.** Isso **enfraquece** o
-confundidor — não o fecha.
+**A explicação rival não passa do crítico; a agronômica passa.** Parecia enfraquecer o
+confundidor. **Não sobreviveu ao próprio teste de robustez.**
+
+### A auto-refutação — e ela derruba a conclusão, não o método
+
+Sensibilidade *leave-one-out*, tirando uma província e refazendo (crítico de n=5: 0,900):
+
+| removida | ρ exposição | passa? | ρ ciência |
+|---|---:|---|---:|
+| — | 0,926 | **SIM** | 0,679 |
+| **Córdoba** | 0,894 | **NÃO** | 0,447 |
+| **Jaén** | 0,866 | **NÃO** | **0,866** |
+| **Sevilla** | 0,894 | **NÃO** | 0,447 |
+| Granada · Huelva · Málaga | 0,949 | SIM | 0,632–0,791 |
+
+**A significância cai em 3 das 6 remoções.** O resultado não é propriedade da série — é
+propriedade de **três pontos**. E ao remover Jaén as duas explicações **empatam exatamente
+em 0,866**: naquele recorte, agronomia e densidade institucional são indistinguíveis.
+
+> **`CONFOUNDER_OPEN.`** A medição foi feita pela primeira vez e o **método** fica. O
+> **resultado** não separa as explicações.
+>
+> É a mesma armadilha que esta casa já matou uma vez: o ρ 0,442 de *"a voz antecipa o
+> campo"* também era o coeficiente mais alto da tabela e também era publicável.
+> **Coeficiente bonito que não sobrevive ao próprio teste de robustez não é achado — é
+> ruído com casas decimais.**
 
 **Por que não fecha, e isto é o essencial:** a variável rival está **mal medida**. Só
 **17 de 380** instituições espanholas (**4,5 %**) declaram província no próprio nome, e as

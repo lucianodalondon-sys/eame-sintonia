@@ -272,16 +272,24 @@ class TestMissao11Derivacoes(unittest.TestCase):
         self.assertIn('LIMITE SUPERIOR', f['TAMANHO_MEDIDO']['HONESTIDADE'],
                       'o numero maior tem de vir com a ressalva de ruido')
 
-    def test_o_confundidor_de_cordoba_foi_estreitado_e_nao_fechado(self):
+    def test_o_confundidor_de_cordoba_continua_aberto(self):
+        """A conclusao bonita foi REBAIXADA pela propria refutacao."""
         c = self.d['FASE_17_CONFUNDIDOR_DE_CORDOBA']
-        self.assertEqual('CONFOUNDER_NARROWED', c['ESTADO'])
-        r = c['CORRELACOES_n6']
-        self.assertGreater(r['rho_voz_x_EXPOSICAO'], r['CRITICO_5PCT_n6'],
-                           'a exposicao deixou de passar do critico')
-        self.assertLess(r['rho_voz_x_PRODUCAO_CIENTIFICA'], r['CRITICO_5PCT_n6'],
-                        'a explicacao rival passou a ser significativa — reabrir o confundidor')
+        self.assertEqual('CONFOUNDER_OPEN', c['ESTADO'],
+                         'o confundidor nao pode ser dado por fechado nem por enfraquecido')
         self.assertLess(c['MAPEAMENTO']['COBERTURA_PCT'], 10.0)
         self.assertIn('IAS-CSIC', c['PORQUE_NAO_FECHADO'])
+
+    def test_a_conclusao_nao_sobrevive_ao_leave_one_out(self):
+        """3 das 6 remocoes derrubam a significancia — o resultado e de tres pontos."""
+        r = self.d['FASE_17_CONFUNDIDOR_DE_CORDOBA']['REFUTACAO_DA_PROPRIA_CONCLUSAO']
+        quedas = [k for k, v in r['RESULTADO'].items()
+                  if k != 'n6_completo' and not v['exposicao_passa']]
+        self.assertEqual(3, len(quedas), 'a fragilidade medida mudou de tamanho')
+        self.assertEqual(r['RESULTADO']['sem_Jaen']['exposicao'],
+                         r['RESULTADO']['sem_Jaen']['ciencia'],
+                         'sem Jaen as duas explicacoes empatam — e isso e o achado')
+        self.assertIn('ruido com casas decimais', r['A_MESMA_ARMADILHA_DE_ANTES'])
 
     def test_o_empate_exige_rank_medio(self):
         """Cordoba e Sevilla empatam em 12: sem rank medio o coeficiente sai errado."""
