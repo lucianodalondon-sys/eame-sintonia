@@ -1,0 +1,435 @@
+{
+ "SOURCE_ID": "RUN-MANIFEST",
+ "source": "manifesto de execuções de coleta do SINTONIA EAME",
+ "SOURCE_LOCATION": "interno — metadado de coleta",
+ "FACT_LOCATION": "n/a — descreve execução, não fato do mundo",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "PARA_QUE_SERVE": "dado um registro qualquer, o RUN_ID leva a esta tabela e a tabela diz que ator rodou, com que entrada, quando, quanto custou e onde está a evidência bruta. Sem isto o RUN_ID só agrupa registros entre si.",
+ "CAMPO_DESCONHECIDO": "NOT_PRESERVED significa que o campo existiu na execução e não foi capturado. É confissão, não ausência de dado — e é diferente de NÃO SEI, que é a fonte não informar.",
+ "NUNCA_GRAVAR_TOKEN": "INPUT guarda consulta e parâmetros. Credencial, jamais.",
+ "RUNS": [
+  {
+   "RUN_ID": "ES-T5-002-2026-08-29-a",
+   "PLATFORM": "OPENALEX",
+   "ACTOR": "scripts/corpus_es.py (coletor próprio, rota gratuita)",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
+   "INPUT": {
+    "filtro": "institutions.country_code:es, publication_year:2019-2026",
+    "temas": "12, cada um com CROP e ISSUE declarados"
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10A-ES",
+   "QUERY": "12 temas declarados",
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 1771,
+   "ITEM_COUNT_NORMALIZED": 1771,
+   "COST_USD": 0.0,
+   "SOURCE_VERSION": "OpenAlex, snapshot contínuo",
+   "STATUS": "SUCCESS",
+   "ERROR": "rota GRATUITA e replicável: o bruto é cache (D-003), a cadeia o refaz",
+   "CAPTURE_METHOD": "REST JSON sem chave",
+   "EVIDENCE_PATH": "data/samples/ES-T5-002-corpus-documentos.json",
+   "RAW_EVIDENCE_PATH": "data/raw/ES-T5-002/openalex_works.json",
+   "RAW_EVIDENCE_STATE": "NOT_APPLICABLE",
+   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED"
+  },
+  {
+   "RUN_ID": "ES-T8-001-2026-08-29-a",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "apify/streamers~youtube-scraper (busca por termo)",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
+   "INPUT": {
+    "searchQueries": [
+     "repilo del olivo tratamiento",
+     "Venturia oleaginea olivo",
+     "sanidad vegetal olivar",
+     "jornada tecnica olivar",
+     "webinar olivar fitosanitario",
+     "tuberculosis del olivo",
+     "verticilosis olivar"
+    ],
+    "maxResults": 40,
+    "maxResultsShorts": 0,
+    "maxResultStreams": 0,
+    "sortVideosBy": "POPULAR",
+    "videoType": "video"
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10A-ES",
+   "QUERY": [
+    "repilo del olivo tratamiento",
+    "Venturia oleaginea olivo",
+    "sanidad vegetal olivar",
+    "jornada tecnica olivar",
+    "webinar olivar fitosanitario",
+    "tuberculosis del olivo",
+    "verticilosis olivar"
+   ],
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 252,
+   "ITEM_COUNT_NORMALIZED": 252,
+   "COST_USD": "NOT_PRESERVED",
+   "SOURCE_VERSION": "YouTube público, sem versão declarada pela fonte",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "run-sync-get-dataset-items",
+   "EVIDENCE_PATH": "data/samples/ES-T8-001-videos.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:30:45Z"
+  },
+  {
+   "RUN_ID": "ES-T8-001-COMMENTS-2026-08-29-a",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "apify/streamers~youtube-comments-scraper",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
+   "INPUT": {
+    "startUrls": "48 vídeos on-topic (ISSUE declarado) com >=1 comentário",
+    "maxComments": 40,
+    "sortCommentsBy": "TOP_COMMENTS"
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10A-ES",
+   "QUERY": "comentários dos 48 vídeos on-topic",
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 346,
+   "ITEM_COUNT_NORMALIZED": 346,
+   "COST_USD": "NOT_PRESERVED",
+   "SOURCE_VERSION": "comentários públicos; a rota devolve tempo relativo, não data",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "run-sync-get-dataset-items",
+   "EVIDENCE_PATH": "data/samples/ES-T8-001-comentarios.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T04:42:28Z"
+  },
+  {
+   "RUN_ID": "ES-T8-001-TRANSCRIPT-2026-08-29-a",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "apify/pintostudio~youtube-transcript-scraper",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
+   "INPUT": {
+    "videoUrls": [
+     {
+      "url": "https://www.youtube.com/watch?v=AuoBaMztBfw"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=OPUd0BMUbcA"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=lXaN7gZcTgo"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=uYJ7f5fmwVE"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=suRYs1KqeRc"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=VwKIZpNz2MQ"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=TQH1rUR8ZQ4"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=aQdBb9JhjoQ"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=pDOLXMhjHPU"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=nyIrd9Ihl_c"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=jimPyc7kHSw"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=mko8wSJpiSg"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=HdI2-O6pM0E"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=3lv1lvtmgEQ"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=dgG6DbcRQP0"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=nDgtDHSqPLg"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=SFOH1MGAozE"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=lkBi7PUYFI0"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=fgbbzC-IOj0"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=475MH04j8t0"
+     }
+    ]
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10A-ES",
+   "QUERY": "20 vídeos >=15 min de canais com papel declarado",
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 20,
+   "ITEM_COUNT_NORMALIZED": 15,
+   "COST_USD": "NOT_PRESERVED",
+   "SOURCE_VERSION": "legendas públicas do YouTube",
+   "STATUS": "PARTIAL",
+   "ERROR": "5 vídeos sem legenda pública — REQUESTED_EMPTY, não ausência",
+   "CAPTURE_METHOD": "run-sync-get-dataset-items",
+   "EVIDENCE_PATH": "data/samples/ES-T8-001-transcricoes.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:37:37Z"
+  },
+  {
+   "RUN_ID": "ES-T8-002-2026-08-29-a",
+   "PLATFORM": "LINKEDIN",
+   "ACTOR": "apify/harvestapi~linkedin-post-search",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
+   "INPUT": {
+    "lote_a": {
+     "searchQueries": [
+      "repilo olivo",
+      "Venturia oleaginea",
+      "olivar fungicida",
+      "sanidad vegetal olivar"
+     ],
+     "maxPosts": 25,
+     "postedLimit": "any",
+     "sortBy": "date"
+    },
+    "lote_b": {
+     "searchQueries": [
+      "repilo del olivo",
+      "Venturia oleaginea olivar",
+      "tuberculosis del olivo",
+      "Verticillium olivar",
+      "sanidad vegetal olivar España",
+      "fungicida olivar",
+      "olivar Andalucía plaga",
+      "asesoramiento fitosanitario olivar",
+      "tratamiento olivar cobre",
+      "Xylella olivar España",
+      "mosca del olivo Bactrocera",
+      "agronomo olivar",
+      "cooperativa olivar tratamiento",
+      "RAIF Andalucía"
+     ],
+     "maxPosts": 40,
+     "postedLimit": "any",
+     "sortBy": "date"
+    }
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10A-ES",
+   "QUERY": "18 termos técnicos sobre olivar e sanidade vegetal",
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 472,
+   "ITEM_COUNT_NORMALIZED": 372,
+   "COST_USD": "NOT_PRESERVED",
+   "SOURCE_VERSION": "LinkedIn público",
+   "STATUS": "SUCCESS",
+   "ERROR": "100 duplicatas por POST_ID entre consultas — ver DEDUPE",
+   "CAPTURE_METHOD": "run-sync-get-dataset-items",
+   "EVIDENCE_PATH": "data/samples/ES-T8-002-posts.json",
+   "RAW_EVIDENCE_PATH": [
+    "data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz",
+    "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz"
+   ],
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:21:49Z"
+  },
+  {
+   "RUN_ID": "ES-T8-002-PROFILES-2026-08-29-a",
+   "PLATFORM": "LINKEDIN",
+   "ACTOR": "apify/harvestapi~linkedin-profile-scraper",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
+   "INPUT": {
+    "profileScraperMode": "Profile details no email ($4 per 1k)",
+    "queries": "120 URLs de perfil, em 12 lotes de 10 (limite do plano)"
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10A-ES",
+   "QUERY": "enriquecimento de identidade das origens vindas da busca de posts",
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 120,
+   "ITEM_COUNT_NORMALIZED": 115,
+   "COST_USD": 0.484,
+   "SOURCE_VERSION": "LinkedIn público",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "run-sync-get-dataset-items",
+   "EVIDENCE_PATH": "data/samples/ES-VOICE-LINKEDIN.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:54:31Z"
+  },
+  {
+   "RUN_ID": "ES-T8-002-TITLESEARCH-2026-08-29-a",
+   "PLATFORM": "LINKEDIN",
+   "ACTOR": "apify/harvestapi~linkedin-profile-search",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
+   "INPUT": {
+    "rodada_1": {
+     "profileScraperMode": "Full",
+     "searchQuery": "olivar",
+     "currentJobTitles": [
+      "asesor agrícola",
+      "técnico agrícola",
+      "ingeniero agrónomo"
+     ],
+     "locations": [
+      "Spain"
+     ],
+     "maxItems": 10,
+     "takePages": 1
+    },
+    "rodada_2": "6 conjuntos cargo x região",
+    "rodada_3": "5 buscas só por cargo"
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10A-ES",
+   "QUERY": "descoberta por CARGO DECLARADO, não por post",
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 101,
+   "ITEM_COUNT_NORMALIZED": 87,
+   "COST_USD": "NOT_PRESERVED",
+   "SOURCE_VERSION": "LinkedIn público",
+   "STATUS": "PARTIAL",
+   "ERROR": "4 das 11 consultas devolveram 0 — sobre-restricao, falha fechada. O bruto desta execucao foi fundido com o do enriquecimento antes de ser preservado: os dois compartilham o mesmo arquivo e NAO sao separaveis a posteriori.",
+   "CAPTURE_METHOD": "run-sync-get-dataset-items",
+   "EVIDENCE_PATH": "data/samples/ES-VOICE-LINKEDIN.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T04:00:17Z"
+  },
+  {
+   "RUN_ID": "ES-T8-003-2026-08-29-a",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify/instagram-hashtag-scraper",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
+   "INPUT": {
+    "hashtags": [
+     "repilo",
+     "olivar",
+     "sanidadvegetal"
+    ],
+    "resultsLimit": 20
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10A-ES",
+   "QUERY": [
+    "repilo",
+    "olivar",
+    "sanidadvegetal"
+   ],
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 60,
+   "ITEM_COUNT_NORMALIZED": 0,
+   "COST_USD": "NOT_PRESERVED",
+   "SOURCE_VERSION": "Instagram público",
+   "STATUS": "SUCCESS",
+   "ERROR": "rota REPROVADA na medição: 24 de 32 contas sem país declarado. Não escalada.",
+   "CAPTURE_METHOD": "run-sync-get-dataset-items",
+   "EVIDENCE_PATH": "data/samples/ES-VOICE-INSTAGRAM.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:57:18Z"
+  },
+  {
+   "RUN_ID": "GATE-TEST-RUNMANIFEST-2026-08-29-c",
+   "PLATFORM": "LINKEDIN",
+   "ACTOR": "harvestapi~linkedin-profile-search",
+   "ACTOR_VERSION": "0.0.265",
+   "STARTED_AT": "2026-08-29T12:34:56.146Z",
+   "FINISHED_AT": "2026-08-29T12:35:01.794Z",
+   "INPUT": {
+    "profileScraperMode": "Full",
+    "searchQuery": "olivar",
+    "currentJobTitles": [
+     "asesor agrícola"
+    ],
+    "locations": [
+     "Spain"
+    ],
+    "maxItems": 5,
+    "takePages": 1
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10B-ES",
+   "QUERY": "teste de portao do coletor — nao e coleta",
+   "DATASET_ID": "q7CzW9bd6PN3wTpGM",
+   "ITEM_COUNT_RAW": 0,
+   "ITEM_COUNT_NORMALIZED": 0,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "LinkedIn publico",
+   "STATUS": "PARTIAL",
+   "ERROR": "SUCCEEDED com ZERO itens — degradacao que se apresenta como sucesso. statusMessage da plataforma: \"free user run limit reached\" (o ator limita contas gratuitas a 10 execucoes). Registro corrigido depois que o coletor passou a detectar este caso.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "n/a — execucao de verificacao do portao",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-c.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T12:35:02Z"
+  },
+  {
+   "RUN_ID": "GATE-TEST-RUNMANIFEST-2026-08-29-d",
+   "PLATFORM": "LINKEDIN",
+   "ACTOR": "harvestapi~linkedin-profile-search",
+   "ACTOR_VERSION": "0.0.265",
+   "STARTED_AT": "2026-08-29T12:35:55.037Z",
+   "FINISHED_AT": "2026-08-29T12:36:07.437Z",
+   "INPUT": {
+    "profileScraperMode": "Full",
+    "searchQuery": "olivar",
+    "currentJobTitles": [
+     "asesor agrícola"
+    ],
+    "locations": [
+     "Spain"
+    ],
+    "maxItems": 5,
+    "takePages": 1
+   },
+   "COUNTRY": "ES",
+   "MISSION": "10B-ES",
+   "QUERY": "teste de portao do coletor — nao e coleta",
+   "DATASET_ID": "MbEX1fDkX0ahwQ6TO",
+   "ITEM_COUNT_RAW": 5,
+   "ITEM_COUNT_NORMALIZED": 5,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "LinkedIn publico",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "n/a — execucao de verificacao do portao",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-29T12:36:07Z"
+  }
+ ]
+}

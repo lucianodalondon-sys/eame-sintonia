@@ -225,6 +225,168 @@ def marcar_molecula_e_lugar(reg):
     return reg
 
 
+# ---------------------------------------------------------------- tipo de conteúdo
+# A classificação lê o TEXTO do vídeo, e isso é legítimo: dizer o que a peça É não é o
+# mesmo que dizer QUEM fala. O papel da origem continua vindo do canal, nunca daqui.
+#
+# `NÃO SEI` e `OTHER` são estados diferentes e a diferença importa:
+#   NÃO SEI = não há texto suficiente para classificar
+#   OTHER   = há texto, e ele não corresponde a nenhum dos 12 tipos nomeados
+VOCAB_TIPO = [
+    ('FIELD_DAY',           r'd[ií]a de campo|jornada de campo|demostraci[oó]n en campo|visita t[eé]cnica a|ensayo de campo'),
+    ('CONFERENCE',          r'\bcongreso\b|\bsimposi\w*|\bsymposium\b|\bjornada t[eé]cnica|\bjornadas t[eé]cnicas|\bponencia\b|mesa redonda|\bclausura\b|\binauguraci[oó]n\b.{0,30}(congreso|simposi|symposium|jornada)'),
+    ('TECHNICAL_WEBINAR',   r'\bwebinar\b|\bseminario\b|\bmasterclass\b|\bcurso\b|\bformaci[oó]n\b.{0,20}(t[eé]cnica|online)|\bcharla t[eé]cnica'),
+    ('RESEARCH_TALK',       r'\binvestigador[ao]?\b|grupo de investigaci|\bsecuencian\b|\bestudio cient[ií]fico|resultados? del ensayo|\btesis\b|proyecto de investigaci'),
+    ('PRODUCT_DEMO',        r'demostraci[oó]n de (la |el )?(m[aá]quina|equipo|producto)|\ben acci[oó]n\b|prueba de (m[aá]quina|equipo)|\bunboxing\b'),
+    ('COOPERATIVE_CONTENT', r'\bcooperativa\b|\bs\.?\s?coop\b|\balmazara\b|denominaci[oó]n de origen'),
+    ('FIELD_OBSERVATION',   r'\ben mi (finca|olivar|parcela)\b|\bos ense[ñn]o\b|estado del (olivar|cultivo)|\bvisita(mos)? la parcela|\d+[ºª] visita'),
+    ('PRODUCER_VOICE',      r'\bagricultor\b|\bolivarero\b|mi experiencia|llevo \d+ a[ñn]os'),
+    ('MEDIA',               r'\bnoticias?\b|\binformativo\b|\breportaje\b|\bentrevista\b|\btelediario\b|\bcanal sur\b|gabinete de comunicaci'),
+    ('PROMOTIONAL',         r'\bpublicidad\b|\banuncio\b|\bspot\b|\boferta\b|\bs[ií]guenos\b|\bsuscr[ií]bete\b|\bpromoci[oó]n\b'),
+]
+
+# PRECEDÊNCIA DECLARADA, do mais específico para o mais genérico.
+# Um vídeo pode ser legitimamente duas coisas — a apresentação de um investigador DENTRO
+# de um congresso é as duas. Empate não vira `OTHER` nem se resolve por ordem acidental de
+# regex: o primário sai desta lista publicada e os demais ficam visíveis em
+# `CONTENT_TYPE_ALL`, para que a escolha seja auditável.
+PRECEDENCIA_TIPO = [
+    'FIELD_DAY', 'CONFERENCE', 'TECHNICAL_WEBINAR', 'RESEARCH_TALK', 'PRODUCT_DEMO',
+    'COOPERATIVE_CONTENT', 'FIELD_OBSERVATION', 'PRODUCER_VOICE', 'COMPETITOR_TECHNICAL',
+    'TECHNICAL_ADVISER', 'MEDIA', 'PROMOTIONAL',
+]
+
+# Papel do canal que tipifica a peça quando o texto não decide. Isto NÃO é inferir papel a
+# partir do conteúdo: é o contrário — usar o papel JÁ DECLARADO pelo canal.
+TIPO_POR_PAPEL = {
+    'TECHNICAL_MEDIA': 'MEDIA',
+    'COOPERATIVE_OR_ASSOCIATION': 'COOPERATIVE_CONTENT',
+}
+
+
+def classificar_tipo(reg):
+    """Devolve (CONTENT_TYPE, todos_os_tipos, evidência).
+
+    `NÃO SEI` e `OTHER` continuam sendo coisas diferentes:
+      NÃO SEI = não há texto declarado suficiente para classificar
+      OTHER   = há texto, e ele não corresponde a nenhum dos tipos nomeados
+    """
+    campo = ' '.join(str(reg.get(k) or '') for k in ('TITLE', 'DESCRIPTION'))
+    campo = campo.replace(NAO_SEI, ' ').strip()
+    # Menos de tres palavras nao estabelece TIPO. "Verticillium" e um topico, nao um tipo
+    # de peca — e contar caracteres seria numero magico onde o criterio real e outro.
+    palavras = [w for w in re.split(r'\W+', campo) if len(w) > 1]
+    if len(palavras) < 3:
+        return NAO_SEI, [], 'texto declarado com %d palavra(s) — insuficiente para tipificar' % len(palavras)
+    achados = {}
+    for n, rx in VOCAB_TIPO:
+        m = re.search(rx, campo, re.I)
+        if m:
+            achados[n] = m.group(0)
+    if achados:
+        primario = next(t for t in PRECEDENCIA_TIPO if t in achados)
+        ev = 'texto: "%s"' % achados[primario]
+        if len(achados) > 1:
+            ev += ' — também casou %s; primário por precedência declarada' % (
+                '+'.join(sorted(set(achados) - {primario})))
+        return primario, sorted(achados), ev
+    papel = reg.get('DECLARED_ROLE')
+    if papel in TIPO_POR_PAPEL:
+        return TIPO_POR_PAPEL[papel], [TIPO_POR_PAPEL[papel]], 'papel declarado do canal: %s' % papel
+    return 'OTHER', [], 'texto presente e nenhum dos tipos nomeados casou'
+
+
+# ---------------------------------------------------------------- originalidade
+# O YouTube não declara republicação como a plataforma do LinkedIn declara repost. Então:
+#   · `RESHARE`    exige marca textual de republicação;
+#   · `SYNDICATED` exige o mesmo título em canais DIFERENTES — a mesma peça distribuída;
+#   · `ORIGINAL`   exigiria prova de autoria que a rota não dá.
+# Estar no canal da própria empresa NÃO prova originalidade. O resto é `UNKNOWN`.
+MARCA_RESHARE = re.compile(
+    r'\bv[ií]a\b|\bfuente:|\bcr[eé]ditos?:|reproducci[oó]n de|\brepost\b|'
+    r'publicado originalmente|extra[ií]do de|con permiso de', re.I)
+
+
+def marcar_originalidade(registros):
+    """Marca ORIGINALITY em todos, e devolve a contagem por estado.
+
+    Ausência de evidência de republicação **não** é evidência de originalidade.
+    """
+    por_titulo = {}
+    for r in registros:
+        t = (r.get('TITLE') or '').strip().lower()
+        if t and t != NAO_SEI.lower():
+            por_titulo.setdefault(t, set()).add(r.get('CHANNEL_ID'))
+    contagem = {}
+    for r in registros:
+        campo = ' '.join(str(r.get(k) or '') for k in ('TITLE', 'DESCRIPTION'))
+        t = (r.get('TITLE') or '').strip().lower()
+        if MARCA_RESHARE.search(campo):
+            estado, ev = 'RESHARE', 'marca textual de republicação'
+        elif t and len(por_titulo.get(t, ())) > 1:
+            estado, ev = 'SYNDICATED', 'mesmo título em %d canais distintos' % len(por_titulo[t])
+        else:
+            estado, ev = 'UNKNOWN', ('a rota não declara autoria nem republicação; '
+                                     'estar no canal não prova originalidade')
+        r['ORIGINALITY'] = estado
+        r['ORIGINALITY_EVIDENCE'] = ev
+        contagem[estado] = contagem.get(estado, 0) + 1
+    return contagem
+
+
+# ---------------------------------------------------------------- pipeline
+def pipeline_video(brutos, *, source_id, run_id, capture_date, papel_por_canal=None,
+                   transcricoes=None, evidence_path=None):
+    """RAW -> normaliza -> classifica -> originalidade -> DEDUPE -> saída.
+
+    É este caminho, e não a função solta, que a coleta precisa chamar. A auditoria de
+    2026-08-29 apontou que o dedupe existia como função testada e nenhum pipeline o
+    invocava; a partir daqui, invocar o pipeline é a única forma de produzir registro.
+
+    Devolve (registros_únicos, relatório) com RAW_COUNT / DUPLICATE_COUNT /
+    UNIQUE_CONTENT_COUNT sempre explícitos.
+    """
+    normalizados = []
+    for b in brutos:
+        r = normalizar_video(b, source_id=source_id, run_id=run_id,
+                             capture_date=capture_date, papel_por_canal=papel_por_canal,
+                             transcricoes=transcricoes, evidence_path=evidence_path)
+        r = marcar_molecula_e_lugar(marcar_assunto(r))
+        r['CONTENT_TYPE'], r['CONTENT_TYPE_ALL'], r['CONTENT_TYPE_EVIDENCE'] = classificar_tipo(r)
+        normalizados.append(r)
+
+    unicos, colapsados = dedupe(normalizados)
+    # quem colapsou, e contra qual registro canônico
+    canonico, duplicatas = {}, []
+    for r in normalizados:
+        k = chave_de_dedupe(r)
+        if k in canonico:
+            duplicatas.append({'DUPLICATE_OF': canonico[k], 'PLATFORM': k[0], 'EXTERNAL_ID': k[1]})
+        else:
+            canonico[k] = r.get('CONTENT_ID')
+
+    originalidade = marcar_originalidade(unicos)
+    tipos = {}
+    for r in unicos:
+        tipos[r['CONTENT_TYPE']] = tipos.get(r['CONTENT_TYPE'], 0) + 1
+
+    relatorio = {
+        'RUN_ID': run_id,
+        'RAW_COUNT': len(brutos),
+        'DUPLICATE_COUNT': colapsados,
+        'UNIQUE_CONTENT_COUNT': len(unicos),
+        'UNIQUE_ORIGIN_COUNT': len({r['ORIGIN_ID'] for r in unicos}),
+        'DEDUPE_KEY': 'PLATFORM + EXTERNAL_ID',
+        'DUPLICATES': duplicatas,
+        'CONTENT_TYPE_COUNTS': tipos,
+        'CLASSIFIED_COUNT': sum(n for t, n in tipos.items() if t != NAO_SEI),
+        'UNKNOWN_TYPE_COUNT': tipos.get(NAO_SEI, 0),
+        'ORIGINALITY_COUNTS': originalidade,
+        'FIELD_COVERAGE': cobertura(unicos),
+    }
+    return unicos, relatorio
+
+
 def cobertura(registros):
     """Quantos registros declaram cada campo. É isto que impede a lista de encolher."""
     total = len(registros)
