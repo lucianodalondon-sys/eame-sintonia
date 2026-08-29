@@ -1,0 +1,62 @@
+{
+ "source": "derivado de ES-T3-001 (RAIF) e MAPA Anuario 2024, ambos ja arquivados",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN (Andalucía)",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-29",
+ "QUESTION": "onde a ADAMA deveria investigar prioridade de doenca do olivar na Andaluzia, so com evidencia externa",
+ "DESIGN": "nao se simula analista. Mede-se o que CADA conjunto de evidencia produz como ordenacao. E mecanico e reproduzivel: a pergunta nao e o que uma pessoa pensaria, e o que os dados ordenam.",
+ "orderings": {
+  "RAIF_only_level": [
+   "Huelva",
+   "Cádiz",
+   "Sevilla",
+   "Córdoba",
+   "Málaga",
+   "Jaén",
+   "Granada"
+  ],
+  "RAIF_only_change": [
+   "Huelva",
+   "Sevilla",
+   "Cádiz",
+   "Jaén",
+   "Córdoba",
+   "Málaga",
+   "Granada"
+  ],
+  "area_only": [
+   "Jaén",
+   "Córdoba",
+   "Sevilla",
+   "Granada",
+   "Málaga",
+   "Cádiz",
+   "Huelva"
+  ],
+  "RAIF_plus_area_exposure": [
+   "Córdoba",
+   "Sevilla",
+   "Jaén",
+   "Huelva",
+   "Cádiz",
+   "Málaga",
+   "Granada"
+  ]
+ },
+ "FIRST_PRIORITY_BEFORE_AREA": "Huelva",
+ "FIRST_PRIORITY_AFTER_AREA": "Córdoba",
+ "DID_THE_ORDER_CHANGE": true,
+ "TOP3_OVERLAP": [
+  "Sevilla"
+ ],
+ "LIMITATIONS_STATED": [
+  "ha x incidencia e INDICE DE EXPOSICAO RELATIVA. Nao e hectare afetado, nao e hectare tratado, nao e demanda, nao e venda.",
+  "a incidencia vem de parcelas de acompanhamento tecnico do RAIF, nao de amostra aleatoria da provincia.",
+  "Huelva tem 7 parcelas na coorte de 2026 — a media viaja com o n.",
+  "a area e do Anuario 2024 (dados 2023 e 2024) e a incidencia e da safra 2026: os anos nao coincidem."
+ ],
+ "FINDING": "a 1a e a 2a colocadas mudam por completo: Huelva -> Cordoba e Cadiz -> Sevilla. Do top-3 sobrevive UMA provincia, Sevilla — e essa sobrevivencia e o achado mais util, nao a troca. SEVILLA e a unica que aparece no top-3 das DUAS reguas: sobe (coorte 1,10 -> 2,74, x2,5, na maior base da regiao com 301 parcelas) E tem escala (253.293 ha, 15,2% da area andaluza). E a candidata robusta a escolha da regua, que e a propriedade que se quer numa prioridade comercial.",
+ "ROBUST_TO_RULER": "Sevilla",
+ "WHY_IT_MATTERS": "o valor demonstrado nao e \"achamos um sinal\". E que juntar duas fontes MUDA QUAL SINAL MERECE ATENCAO — e revela a unica opcao que nao depende de qual regua se escolheu. Nenhuma das duas fontes sozinha dizia isso."
+}

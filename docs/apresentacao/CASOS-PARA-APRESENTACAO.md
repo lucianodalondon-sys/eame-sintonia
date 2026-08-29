@@ -6,7 +6,7 @@ para a ADAMA.
 Meta: **5 a 10 casos extremamente claros**.
 **Não fabricar casos para preencher quota.** 3 casos irrefutáveis valem mais que 10 mornos.
 
-**Estado:** MISSÃO 02 em curso — **15 casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
+**Estado:** MISSÃO 10 — **<!--M:CASE_COUNT-->16<!--/M--> casos registrados**, classificados por TIER e por ADAMA_ALIGNMENT (meta 5–10).
 **Última atualização:** 2026-08-28
 
 ---
@@ -967,6 +967,78 @@ E `SORATEL MAX` (ES-01717, azoxistrobina + protioconazol) **não é** o `SORATEL
 > medível aqui: o documento não tem volume, preço nem venda. A frase medida é sobre
 > **contagem de autorizações**, e o fator sobre o registro inteiro é **1,52×**.
 
+### CASE-016 · O denominador mudou a decisão
+
+```
+CASE_ID:                CASE-016
+TITLE:                  duas fontes públicas, uma pergunta de negócio diferente
+COUNTRY:                SPAIN (Andalucía)
+CROP:                   Olivar
+PROBLEM:                qual província merece atenção comercial
+DATE / PERIOD:          RAIF safras 2003–2026 · MAPA Anuario 2024
+SOURCES:                ES-T3-001 (RAIF) · MAPA — Superficies y producciones anuales
+ADAMA_ALIGNMENT:        **HIGH** — NEPTUNE (ES-00211) é resposta registrada para repilo em olivo
+PRESENTATION_VALUE:     **ALTA** — é o caso que explica o produto, não só um resultado
+TIER:                   **A · HERO CASE**
+```
+
+**A TESE**
+
+> O SINTONIA não apenas encontra sinais. **Ele muda qual sinal merece atenção.**
+
+**ANTES — uma fonte só (RAIF), ordenando por incidência**
+
+| # | província | incidência 2026 |
+|---|---|---|
+| 1 | **Huelva** | 8,83 |
+| 2 | **Cádiz** | 8,01 |
+| 3 | Sevilla | 2,74 |
+
+Foi essa a leitura que o CASE-013 publicou por três missões.
+
+**DEPOIS — duas fontes, ordenando por exposição relativa**
+
+| # | província | ha olivar | incidência | `ha × incidência` |
+|---|---|---|---|---|
+| 1 | **Córdoba** | 376.967 | 2,37 | **8.934** |
+| 2 | **Sevilla** | 253.293 | 2,74 | **6.940** |
+| 3 | Jaén | 589.047 | 0,77 | 4.536 |
+| 4 | Huelva | 35.214 | 8,83 | 3.109 |
+| 5 | Cádiz | 37.206 | 8,01 | 2.980 |
+
+**A 1ª e a 2ª colocadas trocaram por completo.** Huelva e Cádiz — que lideravam — são as
+**duas menores províncias de olivar da Andaluzia**, 4,3% da área somadas.
+
+**E o achado mais útil não é a troca — é quem sobrevive.**
+
+> **SEVILLA é a única província no top-3 das duas réguas.** Sobe (coorte 1,10 → 2,74, ×2,5,
+> na maior base da região com **301 parcelas**) **e** tem escala (253.293 ha, 15,2% da área
+> andaluza, e **55.242 ha de aceituna de mesa**, a maior do país). É a candidata **robusta à
+> escolha da régua** — e nenhuma das duas fontes, sozinha, dizia isso.
+
+**O QUE `ha × incidência` É**
+
+`RELATIVE EXPOSURE INDEX` — uma escala para **ordenar** províncias.
+
+**O QUE NÃO É:** hectares afetados · hectares tratados · demanda · venda · oportunidade em
+euros. Multiplicar área por incidência não produz área doente: a incidência do RAIF vem de
+parcelas de **acompanhamento técnico**, não de amostra aleatória da província.
+
+**LIMITAÇÕES DECLARADAS**
+Área do Anuario 2024 (dados 2023 e 2024) contra incidência da safra 2026 — **os anos não
+coincidem**. Huelva tem **7 parcelas** na coorte de 2026. E o índice ordena; não dimensiona.
+
+**RAW_EVIDENCE** `data/samples/ES-PRESSAO-x-AREA-OLIVAR.json` ·
+`data/samples/BENCHMARK-ORDENACAO-B2.json` · `data/samples/RAIF-COORTE-REPILO.json`
+**STATUS** **REAL** — as duas fontes são primárias e oficiais
+
+> **RED TEAM.** *"Então Huelva não importa."* **Falso** — Huelva tem o maior valor de 23
+> safras e pede **verificação de campo**; o que ela não suporta é priorização comercial
+> sobre 35 mil hectares com 7 parcelas. *"O índice prova onde vender."* **Falso** — ele
+> ordena onde investigar. *"Área é o denominador certo."* **Não afirmável** — é *um*
+> denominador externo disponível; área tratada seria melhor e não é pública.
+
+---
 ---
 
 | CASE_ID | País | Cultura | Status | Tela |
@@ -986,3 +1058,4 @@ E `SORATEL MAX` (ES-01717, azoxistrobina + protioconazol) **não é** o `SORATEL
 | CASE-013 | ES | Olivar | REAL + DERIVED | — (missão só texto) |
 | CASE-014 | EU → FR/IT | Cereais | REAL + DERIVED | — (missão só texto) |
 | CASE-015 | ES (+ IT, FR) | Cereais | REAL + REPORTED | — (missão só texto) |
+| CASE-016 | ES | Olivar | REAL | ainda não |

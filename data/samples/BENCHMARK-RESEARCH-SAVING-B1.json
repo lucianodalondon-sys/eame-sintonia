@@ -1,0 +1,63 @@
+{
+ "source": "benchmark controlado executado na MISSAO 10, protocolo pre-registrado em docs/piloto/PROTOCOLO-BENCHMARK-RESEARCH-SAVING.md",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-29",
+ "QUESTION": "quais autorizacoes espanholas entram na janela de 6 meses a partir de 29/08/2026, agrupadas por titular, substancia e cultura quando disponivel",
+ "REFERENCE_DATE": "2026-08-29",
+ "ROUTE_A_MANUAL": {
+  "start_from": "snapshot bruto ropf_20260829.json.gz, sem nenhum script canonico",
+  "SOURCE_TOUCHES": 7,
+  "FILES_OPENED": 2,
+  "MANUAL_TRANSFORMATIONS": 5,
+  "JUDGMENT_STEPS": 3,
+  "judgments": [
+   "1 · '6 meses' = mes calendario (28/02/2027) e nao 182 dias. Muda a contagem em 23 registros.",
+   "2 · como cortar o campo Formulado em substancias: split por '+', remover [forma] e percentual.",
+   "3 · cultura por AMOSTRA de 20 em vez de censo, porque o censo custa 972 requisicoes."
+  ],
+  "HTTP_REQUESTS": 42,
+  "ERROR_OPPORTUNITIES": 3,
+  "errors_found": "20 rotulos de substancia sairam sujos do corte manual (ex.: 'LAMBDA CIHALOTRIN (0,0075 G DE S.A./TRAMPA) P/P'). Encontrados por checagem de sanidade que o proprio analista teve de lembrar de fazer.",
+  "COVERAGE": "7/8 campos. CROP_COVERAGE entregue como amostra (20/20 legiveis, 100%), nao como censo.",
+  "CENSUS_COST_MEASURED": "1,8 s e 2 requisicoes por registro -> 486 registros = ~15 min e 972 requisicoes"
+ },
+ "ROUTE_B_SINTONIA": {
+  "command": "python3 scripts/metricas_canonicas.py --json",
+  "SOURCE_TOUCHES": 1,
+  "FILES_OPENED": 1,
+  "MANUAL_TRANSFORMATIONS": 0,
+  "JUDGMENT_STEPS": 0,
+  "HTTP_REQUESTS": 0,
+  "ERROR_OPPORTUNITIES": 0,
+  "COVERAGE": "4/8 campos",
+  "fields_delivered": [
+   "TOTAL_IN_WINDOW=486",
+   "ADAMA_IN_WINDOW=36",
+   "DENOMINATOR=1993",
+   "REFERENCE_DATE=2026-08-29"
+  ],
+  "fields_missing": [
+   "BY_HOLDER",
+   "TOP_HOLDERS",
+   "BY_SUBSTANCE",
+   "CROP_COVERAGE"
+  ]
+ },
+ "TIME_MEASUREMENT": {
+  "VERDICT": "INVALID",
+  "why": "o analista da rota A fui eu, e eu escrevo o filtro certo na primeira tentativa. O relogio marcou 2,5 minutos, o que NAO representa um analista humano. Estimar quanto um humano levaria seria inventar numero, que e exatamente o que este repositorio proibe. Portanto o relogio e descartado como medida.",
+  "what_remains_valid": "a contagem de PASSOS. Ela e estrutural: quantos toques na fonte, quantos julgamentos e quantas transformacoes uma solucao correta EXIGE nao depende de quem executa."
+ },
+ "RESULT": {
+  "SOURCE_TOUCHES": "7 -> 1",
+  "JUDGMENT_STEPS": "3 -> 0",
+  "MANUAL_TRANSFORMATIONS": "5 -> 0",
+  "ERROR_OPPORTUNITIES": "3 -> 0",
+  "COVERAGE": "7/8 -> 4/8"
+ },
+ "HONEST_CONCLUSION": "o SINTONIA nao respondeu a pergunta inteira. Ele entregou 4 dos 8 campos com zero julgamento e zero oportunidade de erro; os outros 4 custam na rota canonica o mesmo que custam na rota manual, porque nao existem nela. O ganho e REAL e PARCIAL.",
+ "WHAT_THIS_BENCHMARK_ACTUALLY_BOUGHT": "a lista exata do que falta construir: BY_HOLDER, TOP_HOLDERS, BY_SUBSTANCE e CROP_COVERAGE. Nenhuma delas e pesquisa nova - as tres primeiras saem do mesmo snapshot e a quarta tem rota medida (972 requisicoes).",
+ "NOT_A_CLAIM": "isto NAO e 'a ADAMA economiza X horas'. E 'neste teste controlado, reconstruir a mesma pergunta exigiu 7 toques e 3 julgamentos contra 1 e 0'."
+}
