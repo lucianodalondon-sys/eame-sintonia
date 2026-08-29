@@ -535,3 +535,57 @@ class TestAuditoriaPreservada(unittest.TestCase):
     def test_o_que_foi_fechado_esta_nomeado(self):
         f = self.a['BACKLOG_ABERTO']['FECHADOS_NESTA_SESSAO']
         self.assertGreaterEqual(len(f), 5)
+
+
+class TestPortaoDeRede(unittest.TestCase):
+    """MISSAO 11R — recusa de gateway nao pode virar ausencia de fonte.
+
+    Duas missoes seguidas foram bloqueadas por politica de egresso. O risco nao e o
+    bloqueio: e a proxima conta ler "000" e concluir que a fonte morreu, ou que a rota
+    precisa ser trocada, ou que falta chave.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import rede
+        cls.rede = rede
+        with open(os.path.join(SAMPLES, 'PORTAO-DE-REDE-ES.json'), encoding='utf-8') as f:
+            cls.d = json.load(f)
+
+    def test_o_portao_declara_para_que_serve_cada_host(self):
+        """Host recusado sem dizer o que se perde e so um erro; com isso e uma decisao."""
+        for host, url, para_que in self.rede.HOSTS:
+            with self.subTest(host=host):
+                self.assertTrue(para_que.strip(), f'{host} sem PARA_QUE_SERVE')
+
+    def test_os_essenciais_estao_declarados(self):
+        for h in ('api.openalex.org', 'pub.orcid.org', 'www.youtube.com', 'api.apify.com'):
+            self.assertIn(h, self.rede.ESSENCIAIS)
+
+    def test_o_veredito_e_derivado_dos_essenciais(self):
+        """NAO se o essencial cai; nunca digitado."""
+        v = {'ESSENCIAIS_RECUSADOS': []}
+        self.assertEqual('YES', 'NO' if v['ESSENCIAIS_RECUSADOS'] else 'YES')
+        self.assertEqual('NO' if self.d['ESSENCIAIS_RECUSADOS'] else 'YES',
+                         self.d['NETWORK_COLLECTION_READY'])
+
+    def test_o_registro_separa_ambiente_de_fonte(self):
+        self.assertIn('SOURCE FAILURE != ZERO', self.d['O_QUE_ISTO_NAO_SIGNIFICA'])
+        self.assertIn('AMBIENTE', self.d['O_QUE_ISTO_NAO_SIGNIFICA'])
+
+    def test_a_chave_apify_nao_foi_gasta_nem_versionada(self):
+        c = self.d['CHAVE_APIFY']
+        self.assertFalse(c['USADA'])
+        self.assertFalse(c['TOKEN_VERSIONADO'])
+        self.assertTrue(c['NAO_E_PROBLEMA_DE_CHAVE'])
+        self.assertIn('CONNECT', c['PORQUE_NAO_FOI_USADA'])
+
+    def test_as_filas_continuam_intocadas(self):
+        self.assertIn('NOT_TESTED', self.d['ESTADO_DAS_FILAS'])
+        for arq in ('RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json',
+                    'PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json'):
+            with open(os.path.join(SAMPLES, arq), encoding='utf-8') as f:
+                for e in json.load(f)['QUEUE']:
+                    for c in e:
+                        if c.endswith('_STATUS'):
+                            self.assertEqual('NOT_TESTED', e[c])
