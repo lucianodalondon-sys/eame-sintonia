@@ -1,0 +1,93 @@
+# ═══════════════════════════════════════════════════════════════════════
+# APLICA 001–007 no Supabase EAME e roda a 008 contra o banco REAL.
+#
+# Para no primeiro erro, em dois pontos:
+#   · antes de escrever, se o `public` nao estiver vazio;
+#   · em qualquer migration que falhe — sem improvisar conserto no banco.
+#
+# Nao cria bucket, nao carrega dado, nao usa Apify.
+# ═══════════════════════════════════════════════════════════════════════
+name: supabase-migrate
+
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/supabase-migrate.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  migrar:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL:        ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+      SUPABASE_DB_URL:     ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · pre-voo — nao escrever em banco que nao esta como esperado
+        run: |
+          set -e
+          psql "$SUPABASE_DB_URL" -tAc "select 1" >/dev/null 2>/tmp/e \
+            || { echo "DB_CONNECTION=FAIL"; sed -E 's#at "[^"]*"#at "<OMITIDO>"#g' /tmp/e|head -2; exit 1; }
+          echo "DB_CONNECTION=PASS"
+          n=$(psql "$SUPABASE_DB_URL" -tAc \
+              "select count(*) from information_schema.tables where table_schema='public'")
+          echo "TABLES_IN_PUBLIC=$n"
+          python3 - <<'PY'
+          import os, re, urllib.parse as U
+          a = U.urlparse(os.environ['SUPABASE_URL']).hostname or ''
+          ra = a.split('.')[0] if a.endswith('supabase.co') else ''
+          d = U.urlparse(os.environ['SUPABASE_DB_URL'])
+          h, u = (d.hostname or ''), (d.username or '')
+          m = re.match(r'db\.([a-z0-9]+)\.supabase\.', h)
+          rd = m.group(1) if m else (u.split('.', 1)[1] if '.' in u else '')
+          print('SAME_PROJECT_CONFIRMED=' + ('YES' if ra and rd and ra == rd else 'NO'))
+          raise SystemExit(0 if (ra and rd and ra == rd) else 1)
+          PY
+          # Banco que ja tem tabela em public NAO e o estado que autorizei a escrever.
+          [ "$n" = "0" ] || { echo "PARADO: public nao esta vazio (=$n). Nao presumo que e a mesma situacao."; exit 1; }
+
+      - name: 2 · aplicar 001–007, parando no primeiro erro
+        run: |
+          falhou=0
+          for f in supabase/migrations/00[1-7]_*.sql; do
+            num=$(basename "$f" | cut -c1-3)
+            if psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -q -f "$f" >/tmp/o 2>/tmp/e; then
+              echo "MIGRATION_$num=PASS"
+            else
+              echo "MIGRATION_$num=FAIL"
+              echo "--- causa (sanitizada) ---"
+              sed -E 's#postgres(ql)?://[^ ]*#<URL_OMITIDA>#g; s#at "[^"]*"#at "<HOST_OMITIDO>"#g' /tmp/e | head -8
+              falhou=1; break
+            fi
+          done
+          exit $falhou
+
+      - name: 3 · 008 — o banco REAL tem as travas que o Git diz ter?
+        run: |
+          if psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 \
+               -f supabase/migrations/008_verificacao_pos_aplicacao.sql >/tmp/o 2>&1; then
+            echo "POST_APPLY_VERIFICATION=PASS"; grep -i notice /tmp/o | head -3
+          else
+            echo "POST_APPLY_VERIFICATION=FAIL"; grep -iE "faltando|erro|error" /tmp/o | head -12
+            exit 1
+          fi
+
+      - name: 4 · inventario real, medido do banco
+        if: always()
+        run: |
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'PUBLIC_TABLE_COUNT='||count(*) from pg_tables where schemaname='public'"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'RLS_ENABLED_TABLE_COUNT='||count(*) from pg_tables where schemaname='public' and rowsecurity"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'PUBLIC_VIEW_COUNT='||count(*) from pg_views where schemaname='public'"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CHECK_CONSTRAINTS='||count(*) from pg_constraint c join pg_namespace n on n.oid=c.connamespace where n.nspname='public' and c.contype='c'"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'UNIQUE_INDEXES='||count(*) from pg_indexes i join pg_class c on c.relname=i.indexname where i.schemaname='public' and c.relkind='i' and exists (select 1 from pg_index x where x.indexrelid=c.oid and x.indisunique)"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'ROWS_TOTAL='||coalesce(sum(n_live_tup),0) from pg_stat_user_tables where schemaname='public'"
