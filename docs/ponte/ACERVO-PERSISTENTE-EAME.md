@@ -202,3 +202,75 @@ brasileira está no `.gitignore`: o repositório guarda o **contrato**, o banco 
 Isso significa que o bruto pesado brasileiro **não é durável** — ele vive na máquina de quem
 rodou. A opção C não copia o Brasil: ela resolve algo que o Brasil não resolveu. Continua
 sendo a recomendação, mas agora pelo motivo certo, e sem precedente para se apoiar.
+
+---
+
+## 8 · A medição derrubou a minha justificativa (a conclusão sobreviveu)
+
+A refutação fechou: **15 agentes, 0 erros; 13 de 225 afirmações refutadas**, quase todas
+correções numéricas com a tese intacta. Mas a medição do EAME derrubou uma hipótese minha
+inteira, e é a que eu tinha usado para justificar a recomendação.
+
+### O que eu disse, e o que a medição mostrou
+
+Eu escrevi que "JSON grande reescrito inteiro estoura o histórico". **Medido: falso.**
+Git deltifica JSON *pretty-printed* muito bem. As duas versões de `ES-T8-001-videos.json`:
+
+```
+ead8225  431,4 KB bruto -> 91,6 KB no pack   (sem delta base)
+1e17f19  508,3 KB bruto ->  6,4 KB no pack   (delta contra a anterior)
+```
+
+Ratio agregado em `data/samples/`: **`.json` 9,87 MB → 1,60 MB no pack (0,16)**. Reescrever
+o corpus de 4,5 MB é barato. **O corpus científico não é o problema de armazenamento.**
+
+### O que é o problema
+
+**Os gzip.** 12 blobs `.gz`, **ratio 1,00, zero com delta base**. Gzip é entropia máxima:
+git não comprime nem deltifica. Cada versão nova de um `.gz` entra no pack pelo tamanho
+integral, **para sempre**. `linkedin-profiles.raw.json.gz` sozinho é 1,15 MB — **17% do
+pack inteiro**.
+
+> Regra derivada da medição: **cada rodada de coleta paga soma ~2,1 MB permanentes ao pack**,
+> independentemente de quanto do conteúdo se repita da rodada anterior.
+
+**E um arquivo já quebrou o critério da §2.** `ES-T8-001-transcricoes.json`: 710 KB em
+**239 linhas** — uma transcrição inteira por linha, p95 de 22.780 caracteres, máximo de
+90.760. Corrigir um caractere produz um diff de 90 mil caracteres numa linha só. O critério
+que escrevi — *"cabe num diff que uma pessoa lê?"* — **já está violado por este arquivo**.
+Os outros ainda passam.
+
+### Cadência projetada, com as premissas declaradas
+
+Taxa derivada dos 252 vídeos (2010–2026, 157 canais): **1,25 vídeo novo/mês** no universo
+atual. Assumindo expansão 3× (olivar + cereal + vinha):
+
+| | registros | normalizado | bruto gz |
+|---|---|---|---|
+| **backfill** do universo expandido | 3.302 | **11,0 MB** | **4,5 MB** |
+| **rodada mensal** | ~10 + LinkedIn | 0,2–0,8 MB | 0,09–0,41 MB |
+
+O backfill sozinho — **15,5 MB numa rodada** — é mais que os 12 MB que `data/samples/`
+acumulou em 64 commits. Transcrições são **62% do payload normalizado a partir de 4,5% dos
+registros**: uma transcrição custa 25× um vídeo.
+
+Cadência **mensal**: +3 MB/ano de gz. Sobrevivível.
+Cadência **semanal** (o que o contrato de atualização pede para regulatório): **+13 MB/ano
+só de gz**, e `data/samples/` cruza o teto de "dezenas de MB" escrito em
+`POLITICA-RAW-ROTA-PAGA.json` **dentro do primeiro ano**.
+
+### Conclusão corrigida
+
+`RECOMMENDED_EAME_MODEL = C` **continua de pé — pelo motivo trocado.**
+
+O que empurra para Storage não é o corpus, nem o volume total, nem o diff dos JSON. É que
+**o `.gz` não deltifica**, e cada rodada paga é um depósito permanente e irrecuperável no
+pack. Postgres resolve a consulta; **Storage resolve o que estava me preocupando pela razão
+errada.**
+
+Ordem prática que a medição sugere, e que inverte a minha:
+1. **Storage primeiro** — tirar `raw-paid/` do Git antes do backfill, não depois.
+2. **Postgres em seguida** — a consulta dói (30 `json.load` em 21 scripts; cruzar três
+   arquivos é carregar 780 KB e fazer join em Python sem constraint), mas dói *devagar*.
+3. **Git fica** com o que já resolve bem: manifestos, contratos, snapshots pequenos — onde
+   o diff **é** o produto.
