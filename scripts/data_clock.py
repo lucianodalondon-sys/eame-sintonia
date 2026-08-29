@@ -35,6 +35,25 @@ WATCH = [
      'ARQUIVADA — versão B dos change events'),
     ('ES-T4-005', 'data/samples/ES-T4-005/ropf_20260829.json.gz', '2026-08-29',
      'ALTA — versão A do registro. STATUS/HOLDER/COMPOSITION/DATE change só existem a partir da B'),
+    # CAMADA DE VOZ. A secao 20 da REGRA DE COLETA EXTERNA chama-se DATA CLOCK POR CANAL, e
+    # ate 2026-08-29 a camada de voz estava fora deste manifesto — a auditoria adversarial
+    # apontou. Urgencia ALTA por um motivo diferente das outras: a rota e PAGA, com chave
+    # descartavel. Quando a chave morre a coleta nao se repete, entao a versao de hoje e a
+    # unica que havera.
+    ('ES-T8-001', 'data/samples/ES-T8-001-videos.json', '2026-08-29',
+     'ALTA — rota paga nao replicavel; baseline por canal depende deste arquivo'),
+    ('ES-T8-001', 'data/samples/ES-T8-001-transcricoes.json', '2026-08-29',
+     'ALTA — 705.149 caracteres de fala tecnica que nenhuma rota gratuita recupera'),
+    ('ES-T8-001', 'data/samples/ES-T8-001-baseline-canais.json', '2026-08-29',
+     'ALTA — e contra ESTE arquivo que NEW_VIDEO sera medido na proxima passagem'),
+    ('ES-T8-001', 'data/samples/ES-T8-001-comentarios.json', '2026-08-29',
+     'MEDIA — comentarios sem data absoluta; o relogio aqui e o da coleta, nao o da fonte'),
+    ('ES-T8-002', 'data/samples/ES-T8-002-posts.json', '2026-08-29',
+     'ALTA — rota paga nao replicavel'),
+    ('ES-T8-002', 'data/samples/ES-VOICE-LINKEDIN.json', '2026-08-29',
+     'ALTA — a ficha de identidade das origens; sem ela o conteudo fica sem papel e sem pais'),
+    ('ES-T5-002', 'data/samples/ES-T5-002-corpus-documentos.json', '2026-08-29',
+     'BAIXA — rota gratuita e replicavel; entra pelo versionamento do NORMALIZED_RECORD'),
 ]
 
 

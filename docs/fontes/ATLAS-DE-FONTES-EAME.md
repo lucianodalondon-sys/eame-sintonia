@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** MISSÃO 07 — **35 fontes registradas** (15 GREEN, 4 YELLOW, 16 NÃO SEI).
+**Estado:** atualizado em 2026-08-29 — **<!--M:SOURCE_ID_COUNT-->36<!--/M--> fontes registradas** (16 GREEN, 4 YELLOW, 16 NÃO SEI).
 **Última atualização:** 2026-08-29
 
 ---
@@ -906,6 +906,49 @@ EVIDENCE:                     data/samples/EU-T5-001-openalex-people.json
 VERDICT:                      GREEN
 ```
 
+#### ES-T5-002 · OpenAlex — corpus científico espanhol de olivar e sanidade vegetal
+
+```
+SOURCE_ID:                    ES-T5-002
+SOURCE_NAME:                  OpenAlex, recorte espanhol declarado
+DERIVA_DE:                    EU-T5-001 (mesma fonte, mesma rota, recorte próprio)
+COUNTRY:                      SPAIN — filtro institutions.country_code:es
+TERRITORY:                    T5 e T6
+ACCESS_METHOD:                REST JSON, sem chave — **rota gratuita e REPLICÁVEL**
+SEARCH_UNIVERSE:              12 temas declarados, cada um com CROP e ISSUE explícitos
+YEARS:                        2019–2026
+COLLECTION_FEASIBILITY:       ALTA
+DOCUMENT_ID_AVAILABLE:        SIM — id OpenAlex em 1.771 de 1.771; DOI em 99,5%
+RAW_EVIDENCE_PRESERVABLE:     SIM — data/raw/ES-T5-002/openalex_works.json (não versionado,
+                              D-003: a rota é gratuita, a cadeia refaz o bruto)
+CONTRATO_DE_CAMPOS:           os 16 campos da §7 da REGRA DE COLETA EXTERNA.
+                              14 acima de 99%. Dois incompletos **com motivo escrito**:
+                              MOLECULE 0,6% (o corpus foi buscado por patógeno, não por
+                              substância) e REGION_OF_STUDY 0% (não existe campo; a
+                              afiliação NÃO é o local do experimento).
+TIPOS_COBERTOS:               article 1.598 · preprint 109 · conference-paper 17 ·
+                              book-chapter 15 · review 10 · editorial 8 · dataset 3
+TIPOS_NÃO_COBERTOS:           technical report · research project · institutional
+                              publication · extension material — **NOT_REACHED declarado**,
+                              não dados por cobertos
+DERIVADOS:                    152 pesquisadores (era 153: um id de autor conflacionado,
+                              com 58 organizações contra mediana 2, foi excluído) ·
+                              380 instituições · 9.958 autores distintos
+LEGAL_OR_ACCESS_RISK:         **GDPR: pessoas identificadas.** Entram apenas campos que a
+                              própria pessoa publicou como identidade acadêmica.
+EVIDENCE:                     data/samples/ES-T5-002-corpus-documentos.json
+                              data/samples/ES-RESEARCHERS-OLIVE.json
+DATA_CLOCK:                   SIM — no manifesto desde 2026-08-29
+VERDICT:                      GREEN
+```
+
+**Por que esta ficha existe:** a auditoria adversarial de 2026-08-29 apontou que a camada que
+entrega 152 pesquisadores, o corpus e as instituições **não tinha ficha de fonte** — logo não
+tinha contrato de campos, não tinha registro de versão e não tinha `ACCESS_METHOD` auditável.
+A camada existia; a ficha, não.
+
+---
+
 **Ressalva de geografia (obrigatória):** `authorships.countries:FR` significa **afiliação
 francesa**, não pesquisa feita na França. Um trabalho sobre trigo australiano assinado por um
 coautor de Montpellier entra no filtro. `SOURCE_LOCATION` e `FACT_LOCATION` **não coincidem**
@@ -1218,8 +1261,13 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07: **25 fichas · 35 SOURCE_IDs · 15 GREEN · 4 YELLOW ·
-0 RED · 16 NÃO SEI**. Os números batem. `tests/test_canonico.py` passou a verificar isso.
+Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->36<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Os números batem. `tests/test_canonico.py` passou a verificar isso.
+
+**A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
+pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversarial de
+2026-08-29 apontou: sem ficha não havia contrato de campos, registro de versão nem
+`ACCESS_METHOD` auditável.
 
 ### Placar
 
@@ -1227,9 +1275,9 @@ Verificado na MISSÃO 07: **25 fichas · 35 SOURCE_IDs · 15 GREEN · 4 YELLOW �
 |---|---|---|---|---|---|
 | EUROPE | 8 | 0 | 0 | 6 | 14 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
-| SPAIN | 4 | 0 | 0 | 4 | 8 |
+| SPAIN | 5 | 0 | 0 | 4 | 9 |
 | ITALY | 1 | 2 | 0 | 3 | 6 |
-| **Total** | **15** | **4** | **0** | **16** | **35** |
+| **Total** | **16** | **4** | **0** | **16** | **36** |
 
 ### Cobertura por território
 

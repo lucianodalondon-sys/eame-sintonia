@@ -276,7 +276,7 @@ FAILURE_MODE:          declarar "movimento similar" comparando um país com sér
 ```
 CLAIM_TYPE:            D · PRINCÍPIO METODOLÓGICO
 CURRENT_STATUS:        **PROVED como princípio; PARTIAL como cobertura**
-CURRENT_EVIDENCE:      35 SOURCE_IDs registrados, todos públicos; nenhuma conversa privada
+CURRENT_EVIDENCE:      <!--M:SOURCE_ID_COUNT-->36<!--/M--> SOURCE_IDs registrados, todos públicos; nenhuma conversa privada
                        foi coletada; licenças registradas por fonte. Ver SOURCE-PACKS-EAME.md
 WHAT_IS_MISSING:       packs de FIELD, COMPETITOR, MOLECULE e DISTRIBUTION
 ```
@@ -362,7 +362,7 @@ WHAT_IS_MISSING:       a separação FACT/INTERPRETATION/ACTION está implícita
 ```
 CLAIM_TYPE:            D
 CURRENT_STATUS:        **PROVED**
-CURRENT_EVIDENCE:      16 dos 35 SOURCE_IDs estão em NÃO SEI com motivo medido; nenhuma
+CURRENT_EVIDENCE:      16 dos <!--M:SOURCE_ID_COUNT-->36<!--/M--> SOURCE_IDs estão em NÃO SEI com motivo medido; nenhuma
                        fonte foi reprovada sem avaliação; cinco hipóteses caíram e ficaram
                        registradas, duas delas nossas.
 ```

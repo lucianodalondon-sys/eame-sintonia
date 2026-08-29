@@ -158,8 +158,11 @@ PILOTO = os.path.join(D, 'piloto')
 
 
 def piloto(*p):
+    # marcadores de sincronizacao do ledger sao invisiveis para asercao de conteudo,
+    # igual em rd(). Sem isto, um numero que ganha dono no ledger quebra o teste que
+    # verifica o proprio numero.
     with open(os.path.join(PILOTO, *p), encoding='utf-8') as f:
-        return f.read()
+        return MARCADOR.sub('', f.read())
 
 
 class TestNumerosEntreDocumentos(unittest.TestCase):
