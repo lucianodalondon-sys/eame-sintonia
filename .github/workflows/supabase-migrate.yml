@@ -33,8 +33,12 @@ jobs:
           psql "$SUPABASE_DB_URL" -tAc "select 1" >/dev/null 2>/tmp/e \
             || { echo "DB_CONNECTION=FAIL"; sed -E 's#at "[^"]*"#at "<OMITIDO>"#g' /tmp/e|head -2; exit 1; }
           echo "DB_CONNECTION=PASS"
+          # information_schema.tables conta VIEWS junto. Na execucao 1 isso passou batido
+          # porque o banco estava vazio (0 = 0); na 2 o mesmo contador leu 23 tabelas + 5
+          # views = 28 e o portao barrou um estado que era, na verdade, o esperado.
+          # pg_tables e o mesmo dono que o inventario final ja usava.
           n=$(psql "$SUPABASE_DB_URL" -tAc \
-              "select count(*) from information_schema.tables where table_schema='public'")
+              "select count(*) from pg_tables where schemaname='public'")
           echo "TABLES_IN_PUBLIC=$n"
           python3 - <<'PY'
           import os, re, urllib.parse as U
