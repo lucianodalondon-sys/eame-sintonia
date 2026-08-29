@@ -232,6 +232,60 @@ Seguem abertos, com estado explícito:
 | §17 crosswalk ciência↔voz | exige identificador declarado, não algoritmo de similaridade |
 | §9 `ORGANIZATION_ID` / `SAME_AS` entre origens | showcase e perfil da mesma empresa contam como origens independentes |
 
+---
+
+## M · VERIFICAÇÃO ADVERSARIAL — MISSÃO 10C
+
+Os seis portões estavam `PROVED` **por auto-avaliação**. A verificação de terceiro lançada
+pela conta anterior contra `a79f434` nunca retornou. A MISSÃO 10C a refez, com uma regra:
+**não perguntar se o portão passa — tentar provar que ele NÃO funciona.**
+
+> Para cada portão: **qual é a menor situação em que ele diria `PROVED` com a propriedade
+> real quebrada?**
+
+**Alvo congelado:** `0eb9b74195f43439cd8686ede18da5ea35f1b8dd`, worktree `--detach`.
+
+### Resultado da primeira passagem: SEIS DOS SETE FORAM REFUTADOS
+
+| portão | contraexemplo construído e rodado |
+|---|---|
+| **P1** | `RUN_ID` repetido no manifesto: `carregar()` indexa por id e o segundo **sobrescrevia** o primeiro. 11 execuções na lista, 10 carregadas, **uma execução inteira sumindo em silêncio**. E o portão lia **3** artefatos escolhidos a dedo quando **6** publicam `RUN_ID` |
+| **P2** | três vídeos **distintos** sem `id` viravam **um**. `EXTERNAL_ID = NÃO SEI` era usado como identidade, todos colapsavam na mesma chave, `RAW 3 = ÚNICOS 1 + DUPLICATAS 2` **fechava a aritmética** e o portão dizia `PROVED` enquanto dois vídeos reais eram contados como duplicata de um registro sem identidade |
+| **P3** | classificação silenciosa falsa continua possível: *"El repilo del olivo **en acción**"* → `PRODUCT_DEMO`; *"**Curso** natural del agua"* → `TECHNICAL_WEBINAR`; *"La **clausura** del riego"* → `CONFERENCE`. E os 252 marcados **todos** como `CONFERENCE` passavam |
+| **P4** | `ORIGINAL` escrito à mão com evidência *"está no canal da própria empresa"* — a inferência que a lei **proíbe** — era aceito. `ORIGINALITY_EVIDENCE = "NÃO SEI"` contava **como evidência**. E a `MEDIDA` vinha do bloco **declarado** no arquivo: os 252 viravam `ORIGINAL` e o portão seguia imprimindo `{UNKNOWN: 241}` |
+| **P5** | o bruto foi **trocado** por outro conteúdo e nada pegou: o portão conferia **existência**, nunca **integridade**, embora o SHA-256 estivesse no relógio de dados. E *"o pipeline lê o bruto"* era `'raw-paid' in ENTRADA` — bastava a **string**, o arquivo podia não existir |
+| **P6** | comparação de **string** decidia ordem temporal. `09:00+02:00` (07:00 UTC) contra `08:00Z`: a verdade é `BEFORE`, o sistema respondia **`AFTER`**. O repositório **já mistura os dois formatos**. E a guarda era uma lista de 4 valores proibidos: `STARTED_AT = "desconhecido"` sustentava um `BEFORE` |
+| **P0** | sobreviveu aos quatro modos de invalidação. **Limite encontrado:** `validar()` aceitava o **branch vivo** como snapshot — SHA certo e limpo *no momento da checagem*, que só ocorre no fim |
+
+### O que foi corrigido, e o que continua declarado como limite
+
+Cada contraexemplo virou **teste de regressão** em `tests/test_portao.py`.
+
+- **P1** — `pv.runs_duplicados()` denuncia id repetido; o portão **varre** todos os artefatos.
+- **P2** — `NÃO SEI` deixa de ser identidade. Sem `EXTERNAL_ID` o registro **nunca colapsa**,
+  e `WITHOUT_STRUCTURAL_ID_COUNT` é publicado. **Ausência de identidade não é identidade
+  compartilhada.**
+- **P3** — distribuição **derivada** dos registros, coerência `CONTENT_TYPE` ⊂
+  `CONTENT_TYPE_ALL`, e evidência obrigatória. **LIMITE DECLARADO E NÃO FECHADO:** o
+  classificador é lexical; polissemia produz falso positivo e **nenhum portão detecta isso**.
+  Por isso todo registro carrega `CONTENT_TYPE_EVIDENCE` — a verificação de verdade é humana.
+  Apertar os padrões foi **medido e recusado**: os seis vídeos reais com "curso" são cursos
+  de verdade, e a correção quebraria classificação certa para consertar caso sintético.
+- **P4** — `ORIGINAL` é **barrado** no artefato publicado; `NÃO SEI` não é evidência;
+  distribuição declarada tem de bater com a derivada.
+- **P5** — SHA-256 de todo `PRODUCTION_RAW` conferido contra o relógio; `PIPELINE.ENTRADA`
+  tem de ser arquivo **existente** dentro de `raw-paid/`.
+- **P6** — ordem por **instante com fuso**, nunca string. O que não converte em instante
+  falha fechado. Execução legada continua `NAO_DIZIVEL`.
+- **P0** — `validar()` exige worktree **destacado**. `auditoria.py/1.1.0`.
+
+> **A lição que atravessa os seis:** cinco dos seis portões verificavam **FORMA** e eram lidos
+> como se verificassem **VERDADE**. Contagem que fecha, campo preenchido, valor dentro do
+> contrato e string presente são todos satisfeitos por dado falso. Um portão só vale pela
+> propriedade que ele **exerce** — e o único que já exercia (o dedupe, que colapsa um caso
+> conhecido em vez de confiar num zero) foi também o único cujo defeito estava fora dele,
+> na função que ele chamava.
+
 ## L · O QUE FOI DELIBERADAMENTE NÃO FEITO
 
 - **Não ataquei os 47.** A missão pediu só o que corrompe ou torna irreprodutível a próxima

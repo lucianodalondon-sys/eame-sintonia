@@ -22,6 +22,7 @@ Três decisões carregadas aqui:
 3. **TEMPO É MEDIDO, NÃO INFERIDO.** `STARTED_AT`/`FINISHED_AT` vêm da execução. Sem eles,
    nenhuma afirmação de ordem entre camadas é permitida — ver `pode_afirmar_ordem()`.
 """
+import datetime
 import json
 import os
 import re
@@ -80,6 +81,27 @@ def checar_token(run):
     return True
 
 
+def runs_duplicados(manifesto=None):
+    """RUN_IDs repetidos no manifesto.
+
+    `carregar()` indexa por RUN_ID. Com um id repetido, o segundo registro SOBRESCREVIA o
+    primeiro e uma execução inteira desaparecia sem nada reprovar — medido na MISSÃO 10C:
+    11 execuções na lista, 10 carregadas. Perda silenciosa de proveniência.
+    """
+    caminho = manifesto or MANIFESTO
+    if not os.path.exists(caminho):
+        return []
+    with open(caminho, encoding='utf-8') as f:
+        d = json.load(f)
+    vistos, dup = set(), []
+    for r in d.get('RUNS', []):
+        rid = r.get('RUN_ID')
+        if rid in vistos:
+            dup.append(rid)
+        vistos.add(rid)
+    return sorted(set(dup))
+
+
 def carregar():
     if not os.path.exists(MANIFESTO):
         return {}
@@ -128,30 +150,64 @@ def gravar(runs, *, captured_at):
 
 
 # ---------------------------------------------------------------- ordem entre camadas
-def pode_afirmar_ordem(run_a, run_b):
-    """`X BEFORE Y` só é dizível quando as duas execuções têm hora medida.
+def instante(v):
+    """Converte um carimbo em datetime COM FUSO, ou devolve None.
 
-    A auditoria de 2026-08-29 derrubou a afirmação "o YouTube veio antes do LinkedIn":
-    as duas rotas saíram do mesmo orçamento sem carimbo que as separasse, e o horário de
-    commit do git NÃO mede hora de coleta — mede hora de escrita.
+    Por que existe: até a MISSÃO 10C a ordem era decidida comparando STRINGS. Isso produz
+    resposta CONFIANTE e ERRADA em dois casos reais e reproduzíveis:
+
+      · fuso — `2026-08-29T09:00:00+02:00` (07:00 UTC) contra `2026-08-29T08:00:00Z`
+        (08:00 UTC). A verdade é BEFORE; a comparação lexicográfica devolvia AFTER.
+        O repositório JÁ mistura os dois formatos: o export do ROPF traz `+02:00` e as
+        execuções do coletor trazem `Z`.
+      · zero à esquerda — `2026-8-29` ordena depois de `2026-08-29` como texto.
+
+    E a guarda antiga era uma lista de quatro valores proibidos, não uma validação: um
+    `STARTED_AT` com o texto `desconhecido` passava e sustentava um BEFORE.
+    Agora só sustenta ordem o que se converte em instante. Falha fechada.
     """
+    if not isinstance(v, str):
+        return None
+    v = v.strip()
+    if not v or v in (NOT_PRESERVED, NAO_SEI):
+        return None
+    try:
+        d = datetime.datetime.fromisoformat(v.replace('Z', '+00:00'))
+    except ValueError:
+        return None
+    # Data sem hora não mede execução: '2026-08-29' viraria meia-noite inventada.
+    if len(v) <= 10:
+        return None
+    if d.tzinfo is None:
+        return None          # sem fuso não é instante, é hora local de lugar nenhum
+    return d
+
+
+def pode_afirmar_ordem(run_a, run_b):
+    """`X BEFORE Y` só é dizível quando as duas execuções têm hora MEDIDA e comparável."""
     for r in (run_a, run_b):
         if not r:
             return False, 'execução sem manifesto'
         for c in ('STARTED_AT', 'FINISHED_AT'):
-            if r.get(c) in (NOT_PRESERVED, NAO_SEI, None, ''):
-                return False, '%s sem %s medido' % (r.get('RUN_ID'), c)
+            if instante(r.get(c)) is None:
+                return False, '%s sem %s medido em instante comparável (valor: %r)' % (
+                    r.get('RUN_ID'), c, r.get(c))
     return True, ''
 
 
 def ordem(run_a, run_b):
-    """Devolve BEFORE / AFTER / OVERLAPS, ou NAO_DIZIVEL com o motivo."""
+    """Devolve BEFORE / AFTER / OVERLAPS, ou NAO_DIZIVEL com o motivo.
+
+    Compara INSTANTES, nunca strings.
+    """
     ok, motivo = pode_afirmar_ordem(run_a, run_b)
     if not ok:
         return 'NAO_DIZIVEL', motivo
-    if run_a['FINISHED_AT'] <= run_b['STARTED_AT']:
+    a_ini, a_fim = instante(run_a['STARTED_AT']), instante(run_a['FINISHED_AT'])
+    b_ini, b_fim = instante(run_b['STARTED_AT']), instante(run_b['FINISHED_AT'])
+    if a_fim <= b_ini:
         return 'BEFORE', ''
-    if run_b['FINISHED_AT'] <= run_a['STARTED_AT']:
+    if b_fim <= a_ini:
         return 'AFTER', ''
     return 'OVERLAPS', ''
 

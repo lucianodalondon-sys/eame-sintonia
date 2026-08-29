@@ -30,7 +30,8 @@ CAMPOS_AUDITORIA = [
 
 # Versão do próprio auditor. Muda quando o método muda, para que duas auditorias com
 # resultados diferentes possam ser comparadas sabendo se o método era o mesmo.
-SCRIPT_VERSION = 'auditoria.py/1.0.0'
+# 1.1.0 — passa a exigir worktree DESTACADO (MISSÃO 10C).
+SCRIPT_VERSION = 'auditoria.py/1.1.0'
 
 
 def agora():
@@ -71,12 +72,25 @@ def descongelar(destino):
         pass
 
 
+def _e_detached(caminho):
+    """A árvore está em HEAD destacado, ou é um branch que pode receber commit?"""
+    r = subprocess.run(['git', 'symbolic-ref', '-q', 'HEAD'],
+                       cwd=caminho, capture_output=True, text=True)
+    return r.returncode != 0        # sem symbolic-ref = detached
+
+
 def validar(registro, snapshot=None):
     """A auditoria só vale se o alvo não se mexeu.
 
-    Duas checagens independentes:
+    Três checagens independentes:
       1. o snapshot está exatamente no SHA declarado;
-      2. o snapshot não tem alteração não commitada.
+      2. o snapshot não tem alteração não commitada;
+      3. o snapshot é um worktree DESTACADO, e não um branch vivo.
+
+    A terceira nasceu da MISSÃO 10C. `validar()` aceitava o repositório de trabalho como
+    se fosse snapshot, desde que estivesse no SHA certo e limpo NO MOMENTO DA CHECAGEM —
+    e a checagem só acontece no fim. Um branch vivo pode receber commit DURANTE a leitura;
+    exigir HEAD destacado remove a janela em vez de torcer para ela não abrir.
     """
     sha = registro.get('AUDIT_TARGET_SHA')
     if not sha:
@@ -89,6 +103,9 @@ def validar(registro, snapshot=None):
         return False, 'o SHA auditado mudou: declarado %s, encontrado %s' % (sha[:12], real[:12])
     if _git('status', '--porcelain', cwd=caminho) != '':
         return False, 'a árvore auditada tem alteração não commitada — o alvo não estava congelado'
+    if not _e_detached(caminho):
+        return False, ('a árvore auditada é um branch vivo, não um snapshot destacado: '
+                       'ela pode receber commit durante a leitura')
     return True, ''
 
 
