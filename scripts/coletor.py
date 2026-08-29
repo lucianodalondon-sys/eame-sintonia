@@ -26,6 +26,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -40,15 +41,32 @@ def agora():
     return datetime.datetime.utcnow().replace(microsecond=0).isoformat() + 'Z'
 
 
-def _curl(url, *, token, metodo='GET', corpo=None, timeout=300):
+def _curl(url, *, token, metodo='GET', corpo=None, timeout=300, tentativas=4):
+    """Chama a API e devolve o JSON. Reexecuta quando o TUNEL cai, nunca quando a API recusa.
+
+    Medido em 2026-08-29 neste ambiente: o proxy derruba conexoes no meio da troca
+    (`ws_closed_mid_exchange`) e o curl volta 35/52/56 com stdout vazio. Sem retentativa,
+    um POST perdido assim vira `status: None` no manifesto — indistinguivel de um ator que
+    respondeu errado. A retentativa existe para que falha de TRANSPORTE nao seja lida como
+    falha de ROTA. Um 4xx da propria Apify NAO e retentado: aquilo e resposta, nao queda.
+    """
     cmd = ['curl', '-sS', '-X', metodo, '-H', 'Authorization: Bearer %s' % token]
     if corpo is not None:
         cmd += ['-H', 'Content-Type: application/json', '-d', json.dumps(corpo)]
     cmd.append(url)
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
-    if r.returncode != 0:
-        raise RuntimeError('curl falhou: %s' % r.stderr[:200])
-    return json.loads(r.stdout)
+    ultimo = ''
+    for n in range(tentativas):
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        if r.returncode == 0 and (r.stdout or '').strip():
+            try:
+                return json.loads(r.stdout)
+            except ValueError:
+                ultimo = 'resposta nao-JSON: %s' % (r.stdout or '')[:160]
+        else:
+            ultimo = 'curl rc=%s %s' % (r.returncode, (r.stderr or '')[:160])
+        if n < tentativas - 1:
+            time.sleep(2 ** n)                    # 1s, 2s, 4s
+    raise RuntimeError('curl falhou apos %d tentativas: %s' % (tentativas, ultimo))
 
 
 def executar(actor, entrada, *, token, run_id, platform, country, mission, query,
@@ -61,6 +79,13 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     try:
         run = _curl('%s/acts/%s/runs?waitForFinish=%d' % (API, actor, wait),
                     token=token, metodo='POST', corpo=entrada, timeout=wait + 40)
+        # A API recusa entrada invalida com {"error": {...}} e SEM `data`. Sem este ramo o
+        # manifesto registrava `status: None` — que se le como ator mudo, quando na verdade
+        # a plataforma respondeu e disse exatamente o que estava errado. Recusa da API e
+        # RESPOSTA, e precisa aparecer como tal.
+        if run.get('error'):
+            e = run['error']
+            raise RuntimeError('API recusou: %s — %s' % (e.get('type'), str(e.get('message'))[:300]))
         d = run.get('data') or {}
         dataset = d.get('defaultDatasetId')
         itens = []
