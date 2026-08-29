@@ -38,6 +38,18 @@ jobs:
           vig=[r for r in rows if 'ADAMA' in (r.get('Titular') or '').upper() and r['Estado']=='Vigente']
           print('ALVO=%d fichas vigentes | SOURCE_VERSION=%s'%(len(vig),ts))
 
+          # O run ABRE aqui, com started_at real e status 'rodando'. raw_asset tem FK para
+          # collection_run: inserir o run so no fim era impossivel, e a FK barrou — o schema
+          # agiu certo. Abrir antes tambem e mais honesto: a execucao COMECOU antes de existir
+          # asset, e 'rodando' -> 'concluida' e exatamente para isso que o enum existe.
+          psql("""insert into collection_run(run_id,platform,actor,actor_version,input,query,mission,
+                  source_country,started_at,item_count_raw,status,capture_method,source_version,rule_version)
+                  values ('%s','MAPA_ROPF','scripts/mapa_regfi.ficha_pdf','regfiweb',
+                  '{"filtro":"Titular ADAMA, Estado Vigente"}'::jsonb,'fichas oficiais ADAMA vigentes',
+                  '11C-ES','ES','%s',0,'rodando',
+                  'GET /Productos/ExportFichaProductoPdfGet por idProducto','%s','M11C-2026-08-29')
+                  on conflict (run_id) do nothing"""%(RUN,started,ts))
+
           up=ptr=0; falhas=[]; assets=[]
           for k,r in enumerate(vig,1):
               reg=r['NumRegistro'].replace('/','_')
@@ -59,16 +71,10 @@ jobs:
               assets.append((path,sha,len(b)))
               if k%16==0: print('  %d/%d'%(k,len(vig)),flush=True)
 
-          # o run so existe DEPOIS de medido: started/finished sao reais, nao inventados
-          psql("""insert into collection_run(run_id,platform,actor,actor_version,input,query,mission,
-                  source_country,started_at,finished_at,item_count_raw,status,capture_method,
-                  source_version,rule_version) values
-                  ('%s','MAPA_ROPF','scripts/mapa_regfi.ficha_pdf','regfiweb',
-                  '{"filtro":"Titular ADAMA, Estado Vigente"}'::jsonb,'fichas oficiais ADAMA vigentes',
-                  '11C-ES','ES','%s','%s',%d,'%s',
-                  'GET /Productos/ExportFichaProductoPdfGet por idProducto','%s','M11C-2026-08-29')
-                  on conflict (run_id) do nothing"""%(RUN,started,agora(),len(assets),
-                  'concluida' if assets and not falhas else ('parcial' if assets else 'vazia'),ts))
+          # fecha o run com a hora medida e o desfecho real
+          psql("""update collection_run set finished_at='%s', item_count_raw=%d, status='%s'
+                  where run_id='%s'"""%(agora(),len(assets),
+                  'concluida' if assets and not falhas else ('parcial' if assets else 'vazia'),RUN))
 
           # verificacao: baixa TODOS de volta e recompara
           ver=0
