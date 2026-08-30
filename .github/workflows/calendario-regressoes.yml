@@ -179,6 +179,40 @@ jobs:
           grep -q "REGRESSOES_CATALOGO_ES=PASS" /tmp/ct2
           echo "FRESH_DB_FULL_CHAIN=GREEN"
 
+      - name: 4i · REPLAY — a cadeia aplicada duas vezes, e sobre estado parcial
+        run: |
+          set -e
+          # Esta prova FALTAVA, e a producao foi quem cobrou. O fresh-db verde
+          # nao diz nada sobre um banco que JA tem parte da cadeia — e a
+          # producao tinha 001-009. Reaplicar dali quebrava na 007, e pior: a
+          # 015 teria RESSUSCITADO colunas que a 018 aposentou.
+          #
+          # Dois cenarios, os dois obrigatorios:
+          #   A · estado parcial (001-009), como a producao estava
+          #   B · cadeia completa reaplicada, que e o dia seguinte
+          for cen in parcial completo; do
+            psql "$PGURL" -c "drop database if exists r_$cen" -c "create database r_$cen" \
+              2>/dev/null || true
+            R="${PGURL%/*}/r_$cen"
+            if [ "$cen" = parcial ]; then
+              for f in 001 002 003 004 005 006 007 009; do
+                psql "$R" -v ON_ERROR_STOP=1 -q -f $(ls supabase/migrations/${f}_*.sql)
+              done
+            fi
+            bash scripts/cadeia_canonica.sh migrations "$R" >/tmp/r1
+            grep -q FAIL /tmp/r1 && { echo "PARADO: cadeia falhou no cenario $cen"; cat /tmp/r1; exit 1; } || true
+            # E de novo: a segunda passada nao pode aplicar nada.
+            bash scripts/cadeia_canonica.sh migrations "$R" >/tmp/r2
+            grep -q "=PASS" /tmp/r2 && { echo "PARADO: replay REAPLICOU migration em $cen"; cat /tmp/r2; exit 1; } || true
+            psql "$R" -v ON_ERROR_STOP=1 -f supabase/migrations/008_verificacao_pos_aplicacao.sql \
+              2>&1 | grep -q conferidas
+            # A aposentadoria da 018 tem de sobreviver ao replay.
+            n=$(psql "$R" -tAc "select count(*) from information_schema.columns
+                 where table_name='conteudo' and column_name like 'fact_geografia%'")
+            [ "$n" = 0 ] || { echo "PARADO: replay ressuscitou fact_geografia_* em $cen"; exit 1; }
+            echo "REPLAY_${cen}=GREEN"
+          done
+
       - name: 4g · o catalogo ADAMA Espanha — import, idempotencia e red team
         run: |
           set -e

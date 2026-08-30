@@ -36,14 +36,58 @@ sanitiza() {
 
 case "$ETAPA" in
   migrations)
+    # ── O LIVRO-RAZÃO ─────────────────────────────────────────────────
+    # A produção parou aqui, e o diagnóstico foi mais fundo do que a
+    # primeira causa. A cadeia reaplicava TODAS as migrations desde a 001 a
+    # cada execução, e isso não é seguro neste repositório:
+    #
+    #   · a 007 cria views que a 009 e a 018 redefinem com outra forma —
+    #     `create or replace view` recusa, e foi o que a produção viu;
+    #   · pior, a 015 tem `add column if not exists fact_geografia_origem`,
+    #     e a 018 APOSENTA essa coluna. Reaplicar a 015 a RESSUSCITARIA.
+    #
+    # Consertar cada caso seria remendo, e o segundo caso mostra o perigo:
+    # um replay pode desfazer uma aposentadoria. A solução é a padrão, e é
+    # a que todo migrador sério usa — não reaplicar o que já foi aplicado.
+    #
+    # O livro-razão é infraestrutura do aplicador, não schema de domínio:
+    # por isso ele nasce aqui e não numa migration, e por isso o inventário
+    # do pré-voo o conhece pelo nome.
+    #
+    # Bootstrap: num banco que já tem migrations aplicadas e nenhum
+    # registro, a primeira execução aplica o que falta e ANOTA o que já
+    # existia — a anotação vem da resposta do banco ("already exists"), não
+    # de suposição sobre até onde alguém foi.
+    psql "$URL" -v ON_ERROR_STOP=1 -q -c "
+      create table if not exists public.schema_migracao (
+        versao      text primary key,
+        aplicada_em timestamptz not null default now(),
+        resultado   text not null check (resultado in ('APLICADA','JA_EXISTIA')),
+        sha256      text not null);
+      comment on table public.schema_migracao is
+        'Infraestrutura do aplicador de migrations, não schema de domínio. '
+        'Existe para que a cadeia NÃO reaplique o que já foi aplicado — '
+        'reaplicar pode ressuscitar coluna que uma migration posterior '
+        'aposentou, e foi por isso que ele nasceu.';" >/dev/null
+
     for f in $(ls "$RAIZ"/supabase/migrations/*.sql | grep -v '/008_' | sort); do
       num=$(basename "$f" | cut -c1-3)
+      sha=$(sha256sum "$f" | cut -d' ' -f1)
+      ja=$(psql "$URL" -tAc "select 1 from public.schema_migracao where versao='$num'")
+      if [ -n "$ja" ]; then
+        echo "MIGRATION_$num=SKIP (ja no livro-razao)"
+        continue
+      fi
       if psql "$URL" -v ON_ERROR_STOP=1 -q -f "$f" >/tmp/cc.out 2>/tmp/cc.err; then
+        psql "$URL" -q -c "insert into public.schema_migracao (versao, resultado, sha256)
+          values ('$num','APLICADA','$sha') on conflict (versao) do nothing" >/dev/null
         echo "MIGRATION_$num=PASS"
       elif grep -qiE "already exists|ja existe|já existe" /tmp/cc.err; then
-        # Reaplicar uma migration já aplicada sai como SKIP: objeto que já
-        # existe é RESPOSTA, não defeito. Qualquer outro erro para tudo.
-        echo "MIGRATION_$num=SKIP (objetos ja existem)"
+        # O banco respondeu que os objetos já estão lá. Isso é RESPOSTA, e
+        # é ela que entra no livro — não uma suposição sobre o histórico.
+        psql "$URL" -q -c "insert into public.schema_migracao (versao, resultado, sha256)
+          values ('$num','JA_EXISTIA','$sha') on conflict (versao) do nothing" >/dev/null
+        echo "MIGRATION_$num=SKIP (objetos ja existem; anotado no livro-razao)"
       else
         echo "MIGRATION_$num=FAIL"; sanitiza < /tmp/cc.err | head -8; exit 1
       fi

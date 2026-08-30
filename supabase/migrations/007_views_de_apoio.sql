@@ -19,7 +19,26 @@ select
 
 -- INDEPENDÊNCIA: quantas evidências REALMENTE independentes existem por par.
 -- Conta obra distinta, não linha de conteúdo.
-create or replace view public.v_independencia_por_par with (security_invoker = on) as
+-- ⚠️ REPLAY-SAFE, desde a integração de 2026-08-30.
+--
+-- Estas duas views são REDEFINIDAS depois: a 009 acrescenta fact_country na
+-- frente, e a 018 as refaz sobre conteudo_lugar. `create or replace view`
+-- não consegue reescrever uma view cujas colunas mudaram — ele recusa com
+-- "cannot drop columns from view".
+--
+-- Isso não é teórico: a produção parou aqui. O caminho de produção reaplica
+-- a cadeia inteira desde a 001, e num banco que já tinha a 009 aplicada a
+-- 007 batia na forma NOVA e falhava. O laço tratava "already exists" como
+-- SKIP, e este erro não é esse — então a cadeia parava na sétima migration,
+-- antes de qualquer coisa nova ser aplicada.
+--
+-- O `drop` explícito faz cada migration ser dona INTEIRA do objeto no ponto
+-- dela da cadeia: a 007 repõe a forma da 007, a 009 repõe a da 009, a 018
+-- repõe a da 018, e o estado final é o da última. Sem ele, uma migration
+-- antiga só é aplicável uma vez na vida.
+
+drop view if exists public.v_independencia_por_par;
+create view public.v_independencia_por_par with (security_invoker = on) as
 select ci.id as crop_issue_id, c.codigo as crop, i.codigo as issue,
        count(*)                                   as conteudos,
        count(distinct coalesce(ct.obra_id, ct.id)) as obras_independentes,
@@ -39,7 +58,8 @@ comment on view public.v_independencia_por_par is
 -- A MESMA PERGUNTA POR PORTA. É o seletor-por-porta do Brasil virando view:
 -- se a distribuição muda conforme o tipo de conteúdo, a cultura não pode
 -- ser eleita por uma porta só.
-create or replace view public.v_par_por_porta with (security_invoker = on) as
+drop view if exists public.v_par_por_porta;
+create view public.v_par_por_porta with (security_invoker = on) as
 select c.codigo as crop, i.codigo as issue, ct.tipo as porta,
        count(distinct coalesce(ct.obra_id, ct.id)) as obras
 from public.conteudo_crop_issue cci

@@ -189,7 +189,11 @@ left join public.geografia gf on gf.id = ct.fact_geografia_id
 group by 1, c.codigo, i.codigo, ct.tipo;
 
 -- A comparação entre mercados existe, mas tem NOME. Ninguém cai nela sem pedir.
-create or replace view public.v_cross_market_por_par with (security_invoker = on) as
+-- REPLAY-SAFE: esta view é redefinida por uma migration posterior, e
+-- `create or replace` recusa reescrever view cuja forma mudou. O drop
+-- faz cada migration ser dona inteira do objeto no ponto dela da cadeia.
+drop view if exists public.v_cross_market_por_par;
+create view public.v_cross_market_por_par with (security_invoker = on) as
 select c.codigo as crop, i.codigo as issue,
        coalesce(gf.pais, 'NAO_SEI'::pais) as fact_country,
        count(distinct coalesce(ct.obra_id, ct.id)) as obras,

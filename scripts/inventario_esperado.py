@@ -27,8 +27,16 @@ import sys
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+# O livro-razão do aplicador não é schema de domínio e não nasce de uma
+# migration: ele nasce em scripts/cadeia_canonica.sh, porque é ele que
+# precisa existir ANTES da primeira migration para saber o que não aplicar.
+# Fica declarado aqui pelo nome, para que o pré-voo não o trate como objeto
+# criado à mão no painel — que é exatamente o que ele existe para detectar.
+INFRAESTRUTURA_DO_APLICADOR = ('schema_migracao',)
+
+
 def tabelas_declaradas():
-    achadas = set()
+    achadas = set(INFRAESTRUTURA_DO_APLICADOR)
     for f in sorted(glob.glob(os.path.join(RAIZ, 'supabase', 'migrations', '*.sql'))):
         with open(f, encoding='utf-8') as h:
             texto = h.read()

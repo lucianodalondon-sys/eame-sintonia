@@ -89,7 +89,11 @@ comment on function public.precisao_da_geografia is
 
 
 -- ── A VISTA QUE O RESTO DO SISTEMA DEVE LER ───────────────────────────
-create or replace view public.v_conteudo_localizacao with (security_invoker = on) as
+-- REPLAY-SAFE: esta view é redefinida por uma migration posterior, e
+-- `create or replace` recusa reescrever view cuja forma mudou. O drop
+-- faz cada migration ser dona inteira do objeto no ponto dela da cadeia.
+drop view if exists public.v_conteudo_localizacao;
+create view public.v_conteudo_localizacao with (security_invoker = on) as
 select c.id as conteudo_id,
        gs.pais as source_country,
        coalesce(gs.provincia, gs.regiao, 'PAÍS') as source_place,

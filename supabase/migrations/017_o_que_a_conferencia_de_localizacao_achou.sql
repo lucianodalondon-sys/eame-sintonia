@@ -101,7 +101,11 @@ comment on function public.f_relevancia_ao_caso is
 -- porque proibi-lo apagaria a distinção entre "mencionado" e "não medido" —
 -- e as duas são respostas diferentes. O que muda é que a menção deixa de
 -- passar despercebida: ela vira coluna, à vista, e quem consome decide.
-create or replace view public.v_conteudo_localizacao with (security_invoker = on) as
+-- REPLAY-SAFE: esta view é redefinida por uma migration posterior, e
+-- `create or replace` recusa reescrever view cuja forma mudou. O drop
+-- faz cada migration ser dona inteira do objeto no ponto dela da cadeia.
+drop view if exists public.v_conteudo_localizacao;
+create view public.v_conteudo_localizacao with (security_invoker = on) as
 select c.id as conteudo_id,
        gs.pais as source_country,
        coalesce(gs.provincia, gs.regiao, 'PAÍS') as source_place,
