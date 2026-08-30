@@ -9,7 +9,9 @@ disco.
 
     python3 scripts/storage_preservar.py --plano            # offline, sempre roda
     python3 scripts/storage_preservar.py --provar-destino   # so leitura, nao envia
+    python3 scripts/storage_preservar.py --diagnosticar     # inventario + UMA tentativa
     python3 scripts/storage_preservar.py --enviar           # exige autenticação
+    python3 scripts/storage_preservar.py --enviar --so-falhos  # so o que falhou antes
     python3 scripts/storage_preservar.py --enviar --sem-verificar-hash
 
 CONVENÇÃO — reusada, não inventada
@@ -47,6 +49,7 @@ bytes certos chegaram.
 import hashlib
 import json
 import os
+import re
 import sys
 import urllib.error
 import urllib.parse
@@ -196,14 +199,10 @@ def plano():
     }
 
 
-_RX_MEDIA = None
+_RX_MEDIA = re.compile(r'/media/(\d+)/download', re.I)
 
 
 def _media_id(url):
-    global _RX_MEDIA
-    if _RX_MEDIA is None:
-        import re
-        _RX_MEDIA = re.compile(r'/media/(\d+)/download', re.I)
     m = _RX_MEDIA.search(url or '')
     return m.group(1) if m else None
 
@@ -227,18 +226,65 @@ def autenticacao():
     return (not falta), falta, url, key
 
 
-def _http(url, key, metodo, caminho, dados=None, ctype=None, timeout=300):
+def _http(url, key, metodo, caminho, dados=None, ctype=None, timeout=300, detalhe=None):
+    """Se `detalhe` for um dict, recebe status, content-type e CORPO SANITIZADO.
+
+    Guardar só "HTTP 400" foi insuficiente: 400 pode ser chave inválida, caminho
+    inválido, tamanho, mime, ou objeto já existente, e cada um pede uma correção
+    diferente. Adivinhar pelo número é o mesmo erro de tratar falha como ausência.
+    """
     cab = {'apikey': key, 'Authorization': 'Bearer ' + key}
     if ctype:
         cab['Content-Type'] = ctype
     req = urllib.request.Request(url + caminho, data=dados, method=metodo, headers=cab)
+
+    def _registrar(status, corpo, headers=None):
+        if detalhe is None:
+            return
+        detalhe.update({
+            'HTTP_STATUS': status,
+            'RESPONSE_CONTENT_TYPE': (headers or {}).get('Content-Type', 'NÃO SEI'),
+            'RESPONSE_BODY_SANITIZED': _sanitizar(corpo, key),
+            # O caminho vai SEM host: o host nao e segredo, mas tambem nao acrescenta
+            # nada ao diagnostico, e caminho curto e mais facil de comparar.
+            'REQUEST_OBJECT_PATH': caminho,
+        })
+
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status, r.read()
+            corpo = r.read()
+            _registrar(r.status, corpo, dict(r.headers))
+            return r.status, corpo
     except urllib.error.HTTPError as e:
-        return e.code, e.read()
+        corpo = e.read()
+        _registrar(e.code, corpo, dict(e.headers or {}))
+        return e.code, corpo
     except Exception as e:                                        # noqa: BLE001
-        return 0, ('%s: %s' % (type(e).__name__, e)).encode()
+        corpo = ('%s: %s' % (type(e).__name__, e)).encode()
+        _registrar(0, corpo)
+        return 0, corpo
+
+
+_RX_JWT = re.compile(r'eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}')
+
+
+def _sanitizar(corpo, key):
+    """Corpo da resposta legível, sem chave dentro.
+
+    O Supabase não costuma devolver a credencial, mas "não costuma" não é garantia, e
+    este texto vai para um artefato versionado. Três redações: a chave em uso, qualquer
+    coisa com forma de JWT, e os cabeçalhos de autenticação por nome.
+    """
+    try:
+        txt = corpo.decode('utf-8', 'replace')
+    except Exception:                                             # noqa: BLE001
+        return '<%d bytes nao textuais>' % len(corpo or b'')
+    if key:
+        txt = txt.replace(key, '<CHAVE_OMITIDA>')
+    txt = _RX_JWT.sub('<JWT_OMITIDO>', txt)
+    for nome in ('apikey', 'Authorization', 'service_role', 'SUPABASE_SECRET_KEY'):
+        txt = re.sub(r'(?i)(%s)\s*[:=]\s*\S+' % re.escape(nome), r'\1=<OMITIDO>', txt)
+    return txt[:1200]
 
 
 def bucket_esta_certo(url, key):
@@ -287,6 +333,72 @@ def bucket_esta_certo(url, key):
                                           'allowed_mime_types': raw.get('allowed_mime_types')}}
 
 
+def inventario_remoto(url, key, prefixo='ES/adama-website'):
+    """Lista TUDO que já está no bucket sob o prefixo. Só leitura, paginada.
+
+    Serve a duas perguntas que o relatório de envio não responde: quantos objetos
+    realmente existem lá (independente do que o relatório diz que aconteceu), e se
+    alguma tentativa antiga deixou objeto órfão. A API lista uma pasta por vez, então
+    desce recursivamente — objeto sem barra é arquivo, com barra é pasta.
+    """
+    encontrados, pilha, erros = {}, [prefixo], []
+    while pilha:
+        pasta = pilha.pop()
+        desloc = 0
+        while True:
+            corpo = json.dumps({'prefix': pasta, 'limit': 1000, 'offset': desloc}).encode()
+            st, body = _http(url, key, 'POST', '/storage/v1/object/list/' + BUCKET,
+                             corpo, 'application/json')
+            if st != 200:
+                erros.append({'PASTA': pasta, 'HTTP': st,
+                              'CORPO': _sanitizar(body, key)[:200]})
+                break
+            try:
+                itens = json.loads(body)
+            except ValueError:
+                erros.append({'PASTA': pasta, 'HTTP': st, 'CORPO': 'resposta nao-JSON'})
+                break
+            if not itens:
+                break
+            for it in itens:
+                nome = it.get('name')
+                if not nome:
+                    continue
+                caminho = (pasta + '/' + nome) if pasta else nome
+                # `id` nulo é como a API marca PASTA; arquivo real traz metadata.
+                if it.get('id') is None and not (it.get('metadata') or {}).get('size'):
+                    pilha.append(caminho)
+                else:
+                    encontrados[caminho] = (it.get('metadata') or {}).get('size')
+            if len(itens) < 1000:
+                break
+            desloc += len(itens)
+    return encontrados, erros
+
+
+def diagnosticar_um(item, url, key):
+    """UMA tentativa, com o corpo real capturado. Não altera nada além desse objeto."""
+    caminho_local = os.path.join(ROOT, item['ARQUIVO_LOCAL'].replace('/', os.sep))
+    sha, n = _sha_e_bytes(caminho_local)
+    prova_local = {
+        'ARQUIVO_LOCAL': item['ARQUIVO_LOCAL'],
+        'EXISTE_NO_DISCO': True,
+        'BYTES_MEDIDOS': n, 'BYTES_ESPERADOS': item['BYTES'],
+        'SHA256_MEDIDO': sha, 'SHA256_ESPERADO': item['SHA256'],
+        'SHA_CONFERE': sha == item['SHA256'] and n == item['BYTES'],
+    }
+    with open(caminho_local, 'rb') as f:
+        corpo = f.read()
+    alvo = '/storage/v1/object/%s/%s' % (BUCKET, urllib.parse.quote(item['OBJETO']))
+    detalhe = {}
+    _http(url, key, 'POST', alvo, corpo, item['MEDIA_TYPE'], detalhe=detalhe)
+    return {'PROVA_LOCAL': prova_local,
+            'OBJETO': item['OBJETO'],
+            'OBJETO_URL_ENCODED': urllib.parse.quote(item['OBJETO']),
+            'CARACTERES_NAO_ASCII': sorted({c for c in item['OBJETO'] if ord(c) > 127}),
+            'RESPOSTA': detalhe}
+
+
 def preservar(itens, url, key, verificar_hash=True):
     """Sobe e CONFERE. Devolve os itens com ESTADO final e o motivo quando falha."""
     for it in itens:
@@ -307,7 +419,8 @@ def preservar(itens, url, key, verificar_hash=True):
             continue
 
         alvo = '/storage/v1/object/%s/%s' % (BUCKET, urllib.parse.quote(it['OBJETO']))
-        st, body = _http(url, key, 'POST', alvo, corpo, it['MEDIA_TYPE'])
+        detalhe = {}
+        st, body = _http(url, key, 'POST', alvo, corpo, it['MEDIA_TYPE'], detalhe=detalhe)
         ja_existia = st == 409 or b'already exists' in body or b'Duplicate' in body
         if st in (200, 201):
             it['ESTADO'] = 'UPLOADED'
@@ -315,7 +428,10 @@ def preservar(itens, url, key, verificar_hash=True):
             it['ESTADO'] = 'ALREADY_PRESENT'
         else:
             it['ESTADO'] = 'FAILED_WITH_REASON'
+            # O motivo carrega o CORPO, não só o número. "HTTP 400" sozinho não diz se a
+            # correção é no nome do objeto, no tamanho, no mime ou em outro lugar.
             it['MOTIVO'] = 'upload devolveu HTTP %s' % st
+            it['DIAGNOSTICO'] = detalhe
             continue
 
         if not verificar_hash:
@@ -340,11 +456,20 @@ def preservar(itens, url, key, verificar_hash=True):
     return itens
 
 
-def resumo(itens):
+def resumo(itens, capturado_em=None):
     est = _contar(itens, 'ESTADO')
     preservados = [i for i in itens
                    if i['ESTADO'] in ('VERIFIED', 'ALREADY_PRESENT_VERIFIED')]
+    capturas = sorted({i['CAPTURADO_EM'] for i in itens if i.get('CAPTURADO_EM')})
     return {
+        # O relatório é amostra publicada e precisa do envelope, como qualquer outra.
+        # Nasceu sem, e três guardas de proveniência do repo pegaram — com razão.
+        'SOURCE_ID': 'ADAMA-ES-PRESERVACAO-RELATORIO',
+        'source': 'envio dos bytes capturados para o Supabase Storage, bucket raw',
+        'SOURCE_LOCATION': 'SPAIN', 'FACT_LOCATION': 'SPAIN', 'ORIGINAL_LANGUAGE': 'ES',
+        'COUNTRY': 'ES',
+        'captured_at': capturado_em or (capturas[0] if capturas else 'NOT_COLLECTED'),
+        'CAPTURE_DATE': capturado_em or (capturas[0] if capturas else 'NOT_COLLECTED'),
         'ASSETS_ESPERADOS': len(itens),
         'POR_ESTADO': est,
         'PRESERVADOS_E_VERIFICADOS': len(preservados),
@@ -367,6 +492,60 @@ if __name__ == '__main__':
         print('PLANO %s' % os.path.relpath(PLANO, ROOT))
         print('  ITENS=%d BYTES=%d POR_CLASSE=%s' % (p['ITENS'], p['BYTES'], p['POR_CLASSE']))
         print('  PROBLEMAS=%d' % len(p['PROBLEMAS_ANTES_DE_ENVIAR']))
+        sys.exit(0)
+
+    if '--diagnosticar' in sys.argv:
+        # Inventário remoto (só leitura) + UMA tentativa isolada, com o corpo capturado.
+        # Não reenvia os já preservados e não mexe em mais nada.
+        ok, falta, url, key = autenticacao()
+        if not ok:
+            print('STORAGE_AUTH_MISSING')
+            print('FALTA=' + ','.join(falta))
+            sys.exit(2)
+
+        remoto, erros = inventario_remoto(url, key)
+        por_objeto = {a['OBJETO']: a for a in p['ASSETS']}
+        presentes = [o for o in por_objeto if o in remoto]
+        ausentes = [o for o in por_objeto if o not in remoto]
+        orfaos = [o for o in remoto if o not in por_objeto]
+        print('INVENTARIO_REMOTO_OBJETOS=%d' % len(remoto))
+        print('DO_PLANO_PRESENTES=%d' % len(presentes))
+        print('DO_PLANO_AUSENTES=%d' % len(ausentes))
+        print('ORFAOS_NO_BUCKET=%d' % len(orfaos))
+        if erros:
+            print('ERROS_DE_LISTAGEM=%s' % erros[:3])
+        for o in orfaos[:10]:
+            print('  ORFAO: %s' % o)
+
+        # Qual asset diagnosticar: o pedido, ou o MENOR ausente — menor é mais barato e
+        # o tamanho não muda a natureza de um erro de nome.
+        pedido = None
+        i = sys.argv.index('--diagnosticar')
+        if len(sys.argv) > i + 1 and not sys.argv[i + 1].startswith('-'):
+            pedido = sys.argv[i + 1]
+        alvos = [por_objeto[o] for o in ausentes]
+        if pedido:
+            alvos = [a for a in alvos if str(a.get('MEDIA_ID')) == pedido] or alvos
+        if not alvos:
+            print('NADA_A_DIAGNOSTICAR — todo objeto do plano ja esta no bucket')
+            sys.exit(0)
+        alvo = min(alvos, key=lambda a: a['BYTES'])
+        print('\nDIAGNOSTICO_DE=%s (%s, %d bytes)'
+              % (alvo.get('MEDIA_ID'), alvo['CLASSE'], alvo['BYTES']))
+        d = diagnosticar_um(alvo, url, key)
+        print(json.dumps(d, ensure_ascii=False, indent=1))
+        caminho = os.path.join(SAMPLES, 'ADAMA-ES-PRESERVACAO-DIAGNOSTICO.json')
+        with open(caminho, 'w', encoding='utf-8') as f:
+            json.dump({'SOURCE_ID': 'ADAMA-ES-PRESERVACAO-DIAGNOSTICO',
+                       'SOURCE_LOCATION': 'SPAIN', 'FACT_LOCATION': 'SPAIN',
+                       'captured_at': p.get('captured_at'),
+                       'INVENTARIO_REMOTO_OBJETOS': len(remoto),
+                       'DO_PLANO_PRESENTES': len(presentes),
+                       'DO_PLANO_AUSENTES': sorted(ausentes),
+                       'ORFAOS_NO_BUCKET': sorted(orfaos),
+                       'ERROS_DE_LISTAGEM': erros,
+                       'TENTATIVA': d}, f, ensure_ascii=False, indent=1)
+        print('\nescrito em %s' % os.path.relpath(caminho, ROOT))
         sys.exit(0)
 
     if '--provar-destino' in sys.argv:
@@ -421,9 +600,55 @@ if __name__ == '__main__':
         if b['PRIVADO'] is False:
             print('bucket `raw` esta PUBLICO — recuso enviar evidencia para bucket publico')
             sys.exit(4)
-        itens = preservar(p['ASSETS'], url, key,
+        # --so-falhos trabalha SOMENTE sobre o que falhou na rodada anterior. Os já
+        # verificados não são reenviados: não há segundo upload, não há segundo objeto.
+        alvos = p['ASSETS']
+        anterior = None
+        if os.path.exists(RELATORIO):
+            with open(RELATORIO, encoding='utf-8') as f:
+                anterior = json.load(f)
+        if '--so-falhos' in sys.argv:
+            if not anterior:
+                print('sem relatorio anterior — nao sei quais foram os falhos')
+                sys.exit(6)
+            falhos = {a['OBJETO'] for a in anterior['ASSETS']
+                      if a['ESTADO'] == 'FAILED_WITH_REASON'}
+            alvos = [a for a in p['ASSETS'] if a['OBJETO'] in falhos]
+            print('MODO=SO_FALHOS  alvos=%d  intocados=%d'
+                  % (len(alvos), len(p['ASSETS']) - len(alvos)))
+
+        itens = preservar(alvos, url, key,
                           verificar_hash='--sem-verificar-hash' not in sys.argv)
-        r = dict(resumo(itens), BUCKET=BUCKET, ASSETS=itens)
+
+        # Quem não foi alvo mantém o estado que JÁ tinha, medido antes. Não se inventa
+        # estado para item que esta execução não tocou.
+        if len(alvos) != len(p['ASSETS']):
+            por_objeto = {a['OBJETO']: a for a in itens}
+            for a in anterior['ASSETS']:
+                if a['OBJETO'] not in por_objeto:
+                    por_objeto[a['OBJETO']] = dict(a, TOCADO_NESTA_EXECUCAO=False)
+            itens = [por_objeto[a['OBJETO']] for a in p['ASSETS']
+                     if a['OBJETO'] in por_objeto]
+
+        r = dict(resumo(itens, p.get('captured_at')), BUCKET=BUCKET, ASSETS=itens)
+
+        # O relatório anterior NÃO é sobrescrito em silêncio. A segunda execução apagou a
+        # primeira, e com ela a resposta de "qual asset mudou de estado entre as duas" —
+        # a pergunta ficou sem dado, não sem importância. Agora fica a comparação.
+        if anterior:
+            antes = {a['OBJETO']: a['ESTADO'] for a in anterior['ASSETS']}
+            mudou = [{'OBJETO': a['OBJETO'], 'DE': antes.get(a['OBJETO'], 'AUSENTE'),
+                      'PARA': a['ESTADO'], 'MOTIVO': a.get('MOTIVO')}
+                     for a in itens if antes.get(a['OBJETO']) != a['ESTADO']]
+            r['MUDANCA_DESDE_A_EXECUCAO_ANTERIOR'] = mudou
+            r['RESUMO_ANTERIOR'] = {k: anterior.get(k) for k in
+                                    ('PRESERVADOS_E_VERIFICADOS', 'FALHOS', 'POR_ESTADO')}
+            with open(RELATORIO.replace('.json', '-ANTERIOR.json'), 'w',
+                      encoding='utf-8') as f:
+                json.dump(anterior, f, ensure_ascii=False, indent=1)
+            for m in mudou:
+                print('MUDOU %s: %s -> %s' % (m['OBJETO'].split('/')[-1], m['DE'], m['PARA']))
+
         with open(RELATORIO, 'w', encoding='utf-8') as f:
             json.dump(r, f, ensure_ascii=False, indent=1)
         for k in ('ASSETS_ESPERADOS', 'PRESERVADOS_E_VERIFICADOS', 'FALHOS',
