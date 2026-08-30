@@ -12,6 +12,7 @@ import italia_rotulo_parse as rp   # noqa: E402
 import italia_colture as ic        # noqa: E402
 import italia_istat as ii2         # noqa: E402
 import italia_cobertura_campo      # noqa: E402,F401
+import italia_vies_de_painel       # noqa: E402,F401
 import italia_tabela_dose as td    # noqa: E402
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
@@ -370,6 +371,93 @@ class TestCoberturaDeCampo(unittest.TestCase):
              'ROUTE_TRIED': 'r'}]
         self.assertFalse(self.cc.inversao(fake, 'X')['INVERTED'])
 
+
+
+PAINEL = os.path.join(ROOT, 'data', 'samples', 'IT-FONTES', 'ITALY-PANEL-BIAS.json')
+
+
+class TestViesDePainel(unittest.TestCase):
+    """Um numero de cobertura nao significa nada sem saber de quantas regioes ele vem.
+
+    Nasceu de uma linha minha que estava certa em aritmetica e errada em sentido:
+    "trigo duro - 0,0% de cobertura". O trigo duro e a maior cultura da Italia, e
+    76,8% da area que entrou como MEDIDA era uma regiao so, a Puglia, justamente a
+    que parou de redigir fitopatologia em 2018.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import italia_vies_de_painel as vp
+        cls.vp = vp
+        a = vp.areas()
+        med, painel = vp.medidas_por_cultura()
+        cls.linhas = {c: vp.avaliar(c, a[c][0], a[c][1], med[c], painel)
+                      for c in med if c in a}
+
+    def test_dependencia_de_uma_regiao_derruba_o_veredito(self):
+        """Cobertura apoiada numa regiao so e amostra de tamanho um, nao cobertura."""
+        for crop in ('DURUM_WHEAT', 'OLIVE'):
+            v = self.linhas[crop]
+            with self.subTest(crop=crop):
+                self.assertGreaterEqual(v['SINGLE_REGION_DEPENDENCE_PCT'],
+                                        self.vp.LIMIAR_DEPENDENCIA_PCT)
+                self.assertEqual('UNMEASURED_NOT_ZERO', v['VERDICT'],
+                                 'dependencia alta tem de derrubar o veredito mesmo '
+                                 'com painel aparentemente grande')
+
+    def test_nunca_perguntada_nao_se_confunde_com_rota_falhada(self):
+        """NOT_ASKED != NOT_FOUND. Colapsar os dois e o erro que este arquivo denuncia.
+
+        A Sicilia tem FIELD_STATE = NOT_MEASURED: nunca foi interrogada para trigo duro.
+        O Piemonte tem NOT_OBTAINED: foi interrogado e a bacheca em JavaScript nao
+        respondeu. Sao trabalhos diferentes e nao podem cair no mesmo balde.
+        """
+        d = self.linhas['DURUM_WHEAT']
+        self.assertIn('Sicilia', [x['REGION'] for x in d['LARGEST_REGIONS_NEVER_ASKED']])
+        self.assertNotIn('Sicilia',
+                         [x['REGION'] for x in d['REGIONS_ASKED_ROUTE_DID_NOT_ANSWER']])
+        m = self.linhas['MAIZE']
+        self.assertIn('Piemonte',
+                      [x['REGION'] for x in m['REGIONS_ASKED_ROUTE_DID_NOT_ANSWER']])
+        self.assertNotIn('Piemonte',
+                         [x['REGION'] for x in m['LARGEST_REGIONS_NEVER_ASKED']])
+
+    def test_estar_no_painel_nao_e_ter_sido_perguntado(self):
+        """A Sicilia e linha da matriz e mesmo assim conta como nunca perguntada."""
+        _, painel = self.vp.medidas_por_cultura()
+        self.assertIn('Sicilia', painel, 'a Sicilia e linha da matriz')
+        self.assertEqual('NOT_MEASURED', painel['Sicilia'])
+
+    def test_regiao_que_nao_planta_a_cultura_nao_testemunha(self):
+        """O FVG entrou como 'medido sem sinal' para trigo duro com 0,0 mil ha.
+
+        Nao distorce a aritmetica (area zero soma zero dos dois lados), mas aparece
+        como se tivesse sido interrogado e tivesse respondido 'nao'. E erro de
+        categoria, e tem de ficar nomeado como peso morto.
+        """
+        d = self.linhas['DURUM_WHEAT']
+        mortas = [x['REGION'] for x in d['DEAD_WEIGHT_IN_PANEL']]
+        self.assertIn('Friuli-Venezia Giulia', mortas)
+        self.assertLess(d['PCT_NATIONAL_EFFECTIVELY_INTERROGATED'],
+                        d['PCT_NATIONAL_COUNTED_AS_MEASURED'],
+                        'a area efetivamente interrogada tem de ser menor que a contada')
+
+    def test_o_tipo_de_lacuna_separa_engenharia_de_painel(self):
+        """Dizer QUE trabalho fecha a lacuna, nao so que ela existe.
+
+        No milho as regioes certas ja foram interrogadas e a rota e que falha: e
+        engenharia de coleta. No trigo duro nenhuma engenharia resolve, porque as
+        regioes grandes nunca foram perguntadas.
+        """
+        self.assertEqual('ROUTE_ENGINEERING', self.linhas['MAIZE']['GAP_TYPE'])
+        self.assertEqual('PANEL_EXPANSION', self.linhas['DURUM_WHEAT']['GAP_TYPE'])
+
+    def test_o_zero_do_trigo_duro_nunca_e_publicado_como_ausencia(self):
+        """A linha que originou o arquivo nao pode voltar a ser lida como ausencia."""
+        d = self.linhas['DURUM_WHEAT']
+        self.assertEqual('UNMEASURED_NOT_ZERO', d['VERDICT'])
+        self.assertGreater(d['PCT_NATIONAL_NEVER_ASKED'], 50.0,
+                           'mais de metade do trigo duro italiano nunca foi perguntado')
 
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 

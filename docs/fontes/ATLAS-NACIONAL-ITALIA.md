@@ -163,6 +163,48 @@ Artefato: `data/samples/IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json`
 > sinal de campo nas regiões medidas.** É a maior lacuna do país, e ela não aparece em
 > nenhum caso porque nenhum caso foi construído sobre ela.
 
+### ⚠ Correção de método — a tabela acima mede o painel, não o país
+
+A coluna *"sinal cobre"* estava certa em aritmética e **errada em sentido**, e o trigo duro
+é o caso extremo. Das cinco regiões que entraram como **medidas** para trigo duro,
+**76,8 % da área é uma região só — a Puglia** —, justamente aquela cujo notiziario
+**deixou de redigir a seção de fitopatologia em 11/04/2018**, por transferência de
+competência à ARIF. Não é silêncio agronômico: é um ato administrativo de oito anos atrás.
+E o **Friuli-Venezia Giulia entrou no painel com 0,0 mil ha de trigo duro** — uma região que
+não planta a cultura aparece como se tivesse sido interrogada e tivesse respondido "não".
+
+**A Sicília — 277,5 mil ha, 23,6 %, a segunda maior região de trigo duro do país — nunca foi
+perguntada.** Nem a Basilicata (9,8 %), nem as Marche (6,2 %). Ao todo, **57,9 % do trigo
+duro italiano nunca entrou em nenhuma sonda.**
+
+| Cultura | medido | dependência de 1 região | veredito | o que fecha a lacuna |
+|---|---:|---:|---|---|
+| Oliveira | 32,4 % | **96,5 %** (Puglia) | `UNMEASURED_NOT_ZERO` | `PANEL_EXPANSION` — Calábria 16,6 %, Sicília 14,5 % nunca perguntadas |
+| Trigo duro | 37,4 % | **76,8 %** (Puglia) | `UNMEASURED_NOT_ZERO` | `PANEL_EXPANSION` — Sicília 23,6 %, Basilicata 9,8 % |
+| Milho | 40,6 % | 57,6 % (Lombardia) | `PARTIALLY_MEASURED` | `ROUTE_ENGINEERING` — 48,2 % foi perguntado e a rota não respondeu |
+| Videira | 44,4 % | 38,6 % (Vêneto) | `PARTIALLY_MEASURED` | `PANEL_EXPANSION` — Sicília 20,4 %, Toscana 9,3 % |
+
+**A lei que entra:** `PAINEL MEDIDO ≠ PAÍS MEDIDO`, com o corolário
+`NOT_ASKED ≠ NOT_FOUND ≠ DOES NOT EXIST` — **três** estados, não um. Publicar "0,0 % de
+cobertura" para uma cultura que só foi perguntada a uma região colapsa os três.
+Quando a dependência de uma região passa de 60 %, o veredito vira `UNMEASURED_NOT_ZERO`
+por mais que o painel pareça grande: **uma amostra de tamanho um não é cobertura nacional.**
+
+**O que a coluna `o que fecha a lacuna` compra.** Ela separa dois orçamentos que estavam
+sendo tratados como um. O milho **não** precisa de região nova — as regiões certas já foram
+interrogadas e o que falha é a rota (JavaScript no Piemonte, índice ausente na AVISP do
+Vêneto): é engenharia de coleta. O trigo duro e a oliveira **não** se resolvem com nenhuma
+engenharia, porque as regiões grandes nunca foram perguntadas. Sem essa separação, o esforço
+vai para a cultura errada.
+
+**O que isto não diz.** Não diz que exista boletim de trigo duro na Sicília — **não perguntei**.
+A inversão olivícola continua de pé como comparação entre **duas regiões medidas** (o Vêneto
+publica 28 boletins de olivo com 0,5 % da área; a Puglia, com 31,2 %, não publica): essa
+afirmação sobrevive. O que **não** sobrevive é ler "0,5 %" como a cobertura olivícola **do
+país**, quando 63,9 % da oliveira italiana nunca foi interrogada.
+
+Medido em `data/samples/IT-FONTES/ITALY-PANEL-BIAS.json` · `scripts/italia_vies_de_painel.py`
+
 ---
 
 ## 5 · A ROTA DE CREATORS QUE FALHOU, E A QUE FUNCIONOU
