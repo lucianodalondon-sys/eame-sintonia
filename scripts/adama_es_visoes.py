@@ -121,6 +121,8 @@ def visao_familia(art, nome, cfg):
 
     return {
         'SOURCE_ID': 'ADAMA-ES-%s-PUBLIC-PORTFOLIO-MAP' % nome,
+        'source': 'catalogo publico ADAMA Espana',
+        'SOURCE_LOCATION': 'SPAIN', 'FACT_LOCATION': 'SPAIN',
         'DERIVADO_DE': 'data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json',
         'captured_at': art.get('captured_at'), 'CAPTURE_DATE': art.get('captured_at'),
         'COUNTRY': 'ES', 'ORIGINAL_LANGUAGE': 'ES',
@@ -178,6 +180,8 @@ def visao_por_cultivo(art):
         })
     return {
         'SOURCE_ID': 'ADAMA-ES-PORTFOLIO-POR-CULTIVO',
+        'source': 'catalogo publico ADAMA Espana',
+        'SOURCE_LOCATION': 'SPAIN', 'FACT_LOCATION': 'SPAIN', 'ORIGINAL_LANGUAGE': 'ES',
         'DERIVADO_DE': 'data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json',
         'captured_at': art.get('captured_at'),
         'CAPTURE_DATE': art.get('captured_at'), 'COUNTRY': 'ES',
@@ -224,6 +228,8 @@ def visao_por_issue(art):
         })
     return {
         'SOURCE_ID': 'ADAMA-ES-PORTFOLIO-POR-ISSUE',
+        'source': 'catalogo publico ADAMA Espana',
+        'SOURCE_LOCATION': 'SPAIN', 'FACT_LOCATION': 'SPAIN', 'ORIGINAL_LANGUAGE': 'ES',
         'DERIVADO_DE': 'data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json',
         'captured_at': art.get('captured_at'),
         'CAPTURE_DATE': art.get('captured_at'), 'COUNTRY': 'ES',

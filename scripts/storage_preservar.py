@@ -177,6 +177,8 @@ def plano():
 
     return {
         'SOURCE_ID': 'ADAMA-ES-PRESERVACAO-PLANO',
+        'source': 'bytes capturados do site publico da ADAMA Espana, no disco local',
+        'SOURCE_LOCATION': 'SPAIN', 'FACT_LOCATION': 'SPAIN', 'ORIGINAL_LANGUAGE': 'ES',
         'captured_at': (capturas[0] if capturas else 'NOT_COLLECTED'),
         'CAPTURE_DATE': (capturas[0] if capturas else 'NOT_COLLECTED'),
         'CAPTURA_MAIS_RECENTE': (capturas[-1] if capturas else 'NOT_COLLECTED'),

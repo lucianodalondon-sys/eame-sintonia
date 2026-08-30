@@ -392,10 +392,6 @@ class TestCurrentVersusHistorical(unittest.TestCase):
         self.assertNotEqual(reg['ES-01717']['Nombre'], 'MAXENTIS')
 
 
-if __name__ == '__main__':
-    unittest.main()
-
-
 class TestCadeiasDeclaram(unittest.TestCase):
     """§6 e §19 — nenhuma cadeia entrega número sem dizer como chegou nele."""
 
@@ -508,3 +504,12 @@ class TestAchadosSobreOFreeze(unittest.TestCase):
         self.assertIn('Ri-registrato', doc)
         self.assertRegex(doc, r'\b83\b')
         self.assertRegex(doc, r'\b85\b')
+
+
+# O `unittest.main()` estava na linha 395, com o arquivo seguindo ate a 495. Como ele
+# executa no momento do import, TUDO definido depois dele nunca rodava ao chamar este
+# arquivo direto — 10 testes, entre eles o que exige envelope de proveniencia em toda
+# amostra. Passava standalone e falhava sob descoberta, que e a pior combinacao: o
+# jeito rapido de rodar era o jeito que nao testava.
+if __name__ == '__main__':
+    unittest.main()
