@@ -389,6 +389,59 @@ Regras do diário:
 
 ---
 
+### D-022 — Hub bom é o que revela gente, não o que tem prestígio
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** 43 hubs registrados, 34 intocados, e nenhum critério para escolher por
+  onde começar além da asserção do dono.
+- **Decisão:** `HUB_YIELD` mede pessoas úteis reveladas: `PEOPLE_DISCOVERED` →
+  `IDENTITIES_PROVED` → `CROP_FIT_PROVED` → `ACTIVATION_READY`, e daí
+  `VALID_CREATORS_PER_HUB`.
+- **Motivo:** medido nesta rodada — **12 publicações da conta de um prêmio renderam 23
+  pessoas, 17 válidas e 4 prontas; uma lista externa de 25 handles rendeu 0 válidas.**
+  Nenhuma medida de tamanho, prestígio ou número de páginas teria previsto isso.
+- **Consequência:** `INVALID` passa a significar *fora do recorte* (outro país, pecuária,
+  patrocinador) — nunca "pessoa ruim"; todos seguem registrados.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 3.
+
+---
+
+### D-023 — Menção em hub não dá país, nem papel, nem cultura
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a extração por menções é barata e generosa demais: a conta de um prêmio
+  menciona nomeados, patrocinadores, o local e a própria organizadora.
+- **Decisão:** menção é **rota de descoberta**. País, papel e cultura continuam saindo de
+  evidência própria — de preferência da bio pública da pessoa, com
+  `DECLARATION_TYPE = SELF_DECLARED_PUBLIC_PROFILE`.
+- **Motivo:** medido — `@la_huerta_malagon` escreve *"Guanajuato"* (México) e
+  `@ironfarmer_rc` escreve *"ÉVORA/PORTUGAL"*; o prêmio espanhol criou categoria LATAM.
+  Herdar o país do hub teria posto **dois estrangeiros no mapa espanhol**. E
+  `@santander_es` — um banco — apareceu como se fosse creator.
+- **Consequência:** `NAO_E_CREATOR` é lista curta e explícita do que já foi conferido, não
+  um filtro esperto.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 3.
+
+---
+
+### D-024 — Pecuária sai do mapa vegetal sem sair da base
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a **grande vencedora** do AgroInfluye 2026 — `@luciiaacasal`, que levou
+  Maquineros e Melhor Creator Agro — declara *"Ganaderia Casal Vazquez SC"*.
+- **Decisão:** `LIVESTOCK_CREATOR = YES` retira do mapa de proteção de cultivo **vegetal**
+  e entra em `LIVESTOCK_SEPARATE_MAP`. Não é descarte.
+- **Motivo:** a melhor creator do prêmio não serve a uma ativação de fungicida de videira,
+  e mantê-la no mesmo mapa faria o topo da lista responder à pergunta errada. Mas
+  descartá-la perderia três creators fortes para o dia em que houver mapa de pecuária.
+- **Consequência:** 3 creators listados à parte, prontos para esse mapa.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 3.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
