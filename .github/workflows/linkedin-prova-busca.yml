@@ -1,0 +1,92 @@
+# PROVA PEQUENA da rota de busca de perfil por NOME — e, antes dela, a leitura
+# gratuita do contrato de entrada dos Actors.
+#
+# Existe por causa dos 8 runs perdidos: o Actor anterior recebeu um campo que
+# não lê, ignorou-o em silêncio e devolveu o mesmo perfil oito vezes.
+# WRONG_INPUT_CONTRACT ≠ WRONG_PLATFORM.
+#
+# `so_contrato: true` é o padrão de propósito: o primeiro disparo NÃO gasta
+# nada — só lê o `inputSchema` publicado de cada Actor, que é GET gratuito.
+# Só depois de ver os campos reais é que se autoriza a prova de dois nomes.
+#
+# workflow_dispatch apenas. Sem cron. Coleta paga nunca acontece por relógio.
+name: linkedin-prova-busca
+
+on:
+  workflow_dispatch:
+    inputs:
+      so_contrato:
+        description: 'so ler o contrato dos Actors (gratuito, nao gasta nada)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  provar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Mascara cada chave INDIVIDUALMENTE. Sem isto o Actions só mascara o
+      # valor inteiro da secret, e uma chave sozinha num traceback sairia em claro.
+      - name: mascarar cada chave do pool
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: |
+          python3 - <<'PY' > /tmp/mask.txt
+          import os, re
+          v = os.environ.get('APIFY_TOKEN_POOL', '')
+          for k in re.split(r'[,;\s]+', v):
+              if k.strip():
+                  print(k.strip())
+          PY
+          while IFS= read -r k; do
+            [ -n "$k" ] && echo "::add-mask::$k"
+          done < /tmp/mask.txt
+          rm -f /tmp/mask.txt
+          echo "mascaramento aplicado"
+
+      - name: provas locais (nenhuma toca a rede)
+        run: |
+          python3 -m unittest tests.test_apify_contrato tests.test_linkedin_prova_busca -v 2>&1 | tail -30
+
+      - name: contrato de entrada dos Actors (GET gratuito, zero run)
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/apify_contrato.py
+
+      - name: prova de dois nomes
+        if: ${{ inputs.so_contrato == false }}
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/linkedin_prova_busca.py
+
+      - name: nenhum token nos artefatos
+        if: ${{ always() }}
+        run: |
+          for f in data/samples/IT-CASOS/IT-APIFY-CONTRATO.json \
+                   data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json; do
+            [ -f "$f" ] || continue
+            if grep -qE 'apify_api_[A-Za-z0-9]{10,}' "$f"; then
+              echo "ABORTADO: token no artefato $f"; exit 1
+            fi
+          done
+          echo "sem token nos artefatos"
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: linkedin-prova-busca
+          path: |
+            data/samples/IT-CASOS/IT-APIFY-CONTRATO.json
+            data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json
+            data/samples/raw-paid/
+          if-no-files-found: ignore
