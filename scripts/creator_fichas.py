@@ -56,9 +56,16 @@ def montar():
     # Universo: identidades resolvidas + a base de candidatos aberta.
     universo = list(cr.carregar('PRIMARY-IDENTITY-RESOLVED.json'))
     ids = {r['CREATOR_ID'] for r in universo}
-    for r in cr.carregar('CREATORS-ES-IT-FR.json'):
-        if r['CREATOR_ID'] not in ids:
-            universo.append(r)
+    for fonte in ('HUB-DISCOVERED-CLASSIFIED.json', 'CREATORS-ES-IT-FR.json'):
+        for r in cr.carregar(fonte):
+            if r['CREATOR_ID'] not in ids:
+                universo.append(r); ids.add(r['CREATOR_ID'])
+
+    # §9 — pecuária não contamina o mapa vegetal, e menção de hub não dá país.
+    # Os dois grupos NÃO são descartados: saem para listas próprias, porque um
+    # creator de pecuária é excelente no mapa que ainda não existe.
+    pecuaria = [r for r in universo if r.get('LIVESTOCK_CREATOR') == 'YES']
+    universo = [r for r in universo if r.get('LIVESTOCK_CREATOR') != 'YES']
 
     fichas = []
     for r in universo:
@@ -138,6 +145,13 @@ def montar():
                 saida[pais][regiao][cultura] = lista
 
     prontos = [f for f in fichas if f['ACTIVATION_STATE'] == 'ACTIVATION_READY']
+    pendentes = Counter()
+    for f in fichas:
+        if f['ACTIVATION_STATE'] == 'PROMISING':
+            for p in f['WHY_RELEVANT']:
+                if str(p).startswith('PENDENTE:'):
+                    for c in str(p).split(':', 1)[1].split(','):
+                        pendentes[c.strip()] += 1
     corpo = {
         'SOURCE_ID': MISSION, 'CAPTURED_AT': CAPTURA,
         'QUESTION': 'Se o Marketing quiser agir para esta cultura neste país/região, '
@@ -151,7 +165,16 @@ def montar():
         'ACTIVATION_READY': [{'COUNTRY': f['COUNTRY'], 'REGION': f['REGION'],
                               'CROPS': f['CROPS'], 'CREATOR': f['CREATOR'],
                               'HANDLE': f['HANDLE']} for f in prontos],
+        # Lista plana além do mapa aninhado: o mapa serve à leitura humana, a
+        # lista serve a quem consome o artefato em código. Sem ela, `carregar()`
+        # não alcança nenhum registro deste arquivo.
+        'FICHAS': fichas,
         'MAP': saida,
+        'PROMISING_PENDING_REASONS': dict(pendentes),
+        'LIVESTOCK_SEPARATE_MAP': [{'CREATOR': r.get('NAME'), 'HANDLE': r.get('ORIGIN_ID'),
+                                    'COUNTRY': r.get('COUNTRY')} for r in pecuaria],
+        'LIVESTOCK_NOTE': 'creators de pecuária saem do mapa de proteção de cultivo '
+                          'VEGETAL e ficam listados aqui — não são descartados.',
     }
     with open(os.path.join(cr.BASE, 'WHO-COULD-MARKETING-CALL.json'), 'w',
               encoding='utf-8') as f:
