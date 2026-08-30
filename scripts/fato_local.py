@@ -79,13 +79,23 @@ DIAGNOSTIC_SAMPLE = 'DIAGNOSTIC_SAMPLE'
 OFFICIAL_OCCURRENCE = 'OFFICIAL_OCCURRENCE'
 CONFIRMED_FOCUS = 'CONFIRMED_FOCUS'
 REGIONAL_STATEMENT = 'REGIONAL_STATEMENT'
+# Saída de modelo previsional. Um mapa de risco não é um sintoma visto: é uma
+# previsão sobre onde ele PODE estar. Num boletim real, "Rischio attacchi
+# septoriosi in Friuli Venezia Giulia" estava sendo classificado como observação
+# de campo — e o mesmo boletim, na frase seguinte, distingue as duas coisas:
+# "dai rilievi in campo è emerso che ... si osservano dei sintomi evidenti".
+#
+#     SINTOMA OBSERVADO ≠ RISCO MODELADO
+MODELLED_RISK = 'MODELLED_RISK'
 OTHER_EVIDENCE = 'OTHER'
 TIPOS_DE_EVIDENCIA = (FIELD_OBSERVATION, DIAGNOSTIC_SAMPLE, OFFICIAL_OCCURRENCE,
-                      CONFIRMED_FOCUS, REGIONAL_STATEMENT, OTHER_EVIDENCE)
+                      CONFIRMED_FOCUS, REGIONAL_STATEMENT, MODELLED_RISK,
+                      OTHER_EVIDENCE)
 
 # Estados de recusa. Recusar é um resultado, e o motivo é parte dele.
 PLACE_MENTION_ONLY = 'PLACE_MENTION_NOT_FACT'
 TERRITORIAL_LIST = 'TERRITORIAL_LIST_NOT_FACT'
+NEGATED_OBSERVATION = 'NEGATED_OBSERVATION_NOT_FACT'
 
 # --------------------------------------------------------------- gazetteer
 # Cobertura declarada, não presumida: as 20 regiões e as províncias que o caso e
@@ -130,6 +140,11 @@ GAZETTEER = tuple([(n, REGION) for n in REGIOES] +
 # Linguagem que liga ACONTECIMENTO a LUGAR. Cada uma diz também QUE espécie de
 # evidência é — porque "constatata" e "campioni ricevuti" não medem a mesma coisa.
 ANCORAS_POSITIVAS = (
+    # O risco modelado vem PRIMEIRO: se "attacchi" fosse visto antes de "rischio
+    # attacchi", um mapa de previsão viraria sintoma visto.
+    (r'rischio\s+(?:di\s+)?\w+', MODELLED_RISK),
+    (r'modello\s+prevision', MODELLED_RISK),
+    (r'previsione\s+di\s+rischio', MODELLED_RISK),
     (r'constatat[oaie]', CONFIRMED_FOCUS),
     (r'accertat[oaie]', CONFIRMED_FOCUS),
     (r'confermat[oaie]', CONFIRMED_FOCUS),
@@ -138,7 +153,10 @@ ANCORAS_POSITIVAS = (
     (r'rilevat[oaie]', FIELD_OBSERVATION),
     (r'riscontrat[oaie]', FIELD_OBSERVATION),
     (r'sintomi\b', FIELD_OBSERVATION),
-    (r'attacch[io]\b', FIELD_OBSERVATION),
+    # `attacch[io]` não pegava "attacco". Num boletim real, "lieve attacco di
+    # Septoriosi nei Comuni di Branca di Gubbio" ficava sem âncora nenhuma.
+    (r'attacc(?:o|hi)\b', FIELD_OBSERVATION),
+    (r'presenz[ae]\s+(?:medi[ao]|alt[ao]|diffus[ao]|di)\b', FIELD_OBSERVATION),
     (r'infezion[ei]\b', FIELD_OBSERVATION),
     (r'monitoraggio\s+(?:in|nel|nella|a|ad)\b', FIELD_OBSERVATION),
     (r'campion[ei]\s+positiv[ei]', DIAGNOSTIC_SAMPLE),
@@ -180,6 +198,37 @@ ANCORAS_NEGATIVAS = (
     (r'\bpresso\b', 'afiliação institucional'),
     (r'laurea\s+(?:a|presso)', 'formação'),
 )
+
+# O texto às vezes DECLARA o nível administrativo do lugar: "nel Comune di
+# Parrano", "nei Comuni di Branca di Gubbio". Isso vale mais que o gazetteer —
+# é a própria fonte dizendo o que aquele nome é. Sem isto, o boletim
+# fitossanitário mais rico que encontrei devolvia ZERO localizações, porque
+# comune não é província e o gazetteer só tem províncias.
+#
+#     DECLARED_ADMIN_MARKER > GAZETTEER
+#
+# O marcador dá o NÍVEL, não a permissão: o lugar continua precisando de âncora
+# de acontecimento para virar FACT.
+MARCADORES_ADMIN = (
+    (r'comun[ei]\s+di\s+', MUNICIPALITY),
+    (r'localit[àa]\s+(?:di\s+)?', LOCALITY),
+    (r'frazione\s+di\s+', LOCALITY),
+    (r'provincia\s+di\s+', PROVINCE),
+    (r'areal[ei]\s+(?:di\s+)?', OTHER_PRECISION),
+)
+_NOME = r"([A-Z][\wÀ-ÿ'’-]+(?:\s+(?:di|del|della|dei|delle|d'|in)\s+[A-Z][\wÀ-ÿ'’-]+|\s+[A-Z][\wÀ-ÿ'’-]+)*)"
+
+# Uma observação NEGADA não é uma observação. "Non riscontrata presenza di
+# avversità" seguido de um topônimo produziria, sem isto, uma afirmação de que a
+# doença ESTÁ ali — dizendo o oposto exato do que o boletim diz.
+#
+#     NEGATED_OBSERVATION ≠ OBSERVATION
+NEGACOES = (r'\bnon\s+(?:si\s+)?(?:è\s+|sono\s+)?\w*at[oaie]\b', r'\bnon\s+\w+ono\b',
+            r'\bassenti\b', r'\bassente\b', r'\bnessun[ao]?\b', r'\bnulla\b')
+# A negação PARA aqui: "Fitopatie assenti ad eccezione di presenza media di
+# Septoriosi nel Comune di Parrano" volta a ser uma observação positiva.
+FIM_DA_NEGACAO = (r'ad\s+eccezione', r'\beccetto\b', r'\btranne\b', r'\bsalvo\b',
+                  r'\bfatta\s+eccezione\b')
 
 CONTENT_GEO_EVIDENCE = 'CONTENT_GEO_EVIDENCE'
 
@@ -226,9 +275,23 @@ def mencoes(frase):
     low = _baixo(frase)
     fora = []
     for nome, precisao in GAZETTEER:
-        alvo = _baixo(nome)
-        for m in re.finditer(r'(?<![0-9a-z])%s(?![0-9a-z])' % re.escape(alvo), low):
+        # "Friuli-Venezia Giulia" e "Friuli Venezia Giulia" são o mesmo lugar, e o
+        # italiano escreve das duas formas. Exigir o hífen fez a região inteira
+        # não casar num boletim real — e sobrou só "Venezia", que é uma província
+        # a 100 km dali. A substring voltou pela porta da grafia.
+        alvo = re.escape(_baixo(nome)).replace(r'\-', '[- ]').replace(r'\ ', '[- ]')
+        for m in re.finditer(r'(?<![0-9a-z])%s(?![0-9a-z])' % alvo, low):
             fora.append({'PLACE': nome, 'PRECISION': precisao, 'POS': m.start()})
+    # Lugares que o PRÓPRIO TEXTO declara, com o nível que ele declara. Entram
+    # mesmo sem estar no gazetteer — é a fonte nomeando a unidade, não eu.
+    for padrao, precisao in MARCADORES_ADMIN:
+        # O marcador é indiferente à caixa ("Comune"/"comune"); o NOME não é —
+        # ele precisa vir capitalizado, senão "comune di produzione" viraria
+        # lugar. Por isso a flag é escopada só no marcador.
+        for m in re.finditer('(?i:%s)%s' % (padrao, _NOME), frase):
+            fora.append({'PLACE': m.group(1).strip(), 'PRECISION': precisao,
+                         'POS': m.start(1), 'DECLARED_BY_TEXT': True})
+
     # Topônimo mais longo vence no mesmo ponto: "Emilia-Romagna" antes de "Romagna".
     fora.sort(key=lambda x: (x['POS'], -len(x['PLACE'])))
     limpo, ocupado = [], []
@@ -246,8 +309,24 @@ def _ancoras(frase, padroes):
     fora = []
     for padrao, rotulo in padroes:
         for m in re.finditer(padrao, low):
-            fora.append({'POS': m.start(), 'LABEL': rotulo, 'TEXT': m.group(0)})
+            fora.append({'POS': m.start(), 'END': m.end(), 'LABEL': rotulo,
+                         'TEXT': m.group(0)})
     return fora
+
+
+def _negada(frase, pos_ancora):
+    """A âncora positiva mais próxima está sob negação?
+
+    Olha para trás a partir da âncora. Se houver uma negação antes dela E nenhum
+    "ad eccezione di" entre as duas, a observação está negada e o lugar não é
+    fato. Com a exceção pelo meio, a negação já terminou.
+    """
+    low = _baixo(frase)[:pos_ancora]
+    neg = max((m.end() for p in NEGACOES for m in re.finditer(p, low)), default=None)
+    if neg is None:
+        return False
+    fim = max((m.end() for p in FIM_DA_NEGACAO for m in re.finditer(p, low)), default=None)
+    return fim is None or fim < neg
 
 
 def _governa(pos_lugar, positivas, negativas):
@@ -257,8 +336,17 @@ def _governa(pos_lugar, positivas, negativas):
     fusariosi constatata a Grosseto" tem as duas, e cada lugar é governado pela
     sua. Pegar "existe positiva na frase" promoveria Bologna a foco de doença.
     """
-    pos = max((a for a in positivas if a['POS'] < pos_lugar),
-              key=lambda a: a['POS'], default=None)
+    candidatas = [a for a in positivas if a['POS'] < pos_lugar]
+    pos = max(candidatas, key=lambda a: a['POS'], default=None)
+    # Quando uma âncora está DENTRO de outra, quem governa é a de fora.
+    # "Rischio attacchi septoriosi" contém "attacchi": pela proximidade venceria
+    # "attacchi" — e um mapa de previsão viraria sintoma visto. A âncora que
+    # qualifica é a que começa antes e engloba a outra.
+    if pos is not None:
+        externa = [a for a in candidatas
+                   if a['POS'] <= pos['POS'] and a['END'] > pos['POS'] and a is not pos]
+        if externa:
+            pos = min(externa, key=lambda a: a['POS'])
     neg = max((a for a in negativas if a['POS'] < pos_lugar),
               key=lambda a: a['POS'], default=None)
     if pos and neg:
@@ -287,6 +375,13 @@ def localizacoes_do_fato(texto, *, origem='POST_TEXT'):
         lista = len(sem_ancora) >= 3 and len(sem_ancora) == len(ms)
         for m in ms:
             pos, neg = _governa(m['POS'], positivas, negativas)
+            if pos is not None and _negada(frase, pos['POS']):
+                recusadas.append({
+                    'PLACE': m['PLACE'], 'PRECISION': m['PRECISION'],
+                    'STATE': NEGATED_OBSERVATION,
+                    'WHY': 'a observação que ancorava este lugar está negada',
+                    'EVIDENCE': frase[:300], 'ORIGIN': origem})
+                continue
             chave = (m['PLACE'], m['PRECISION'])
             if pos is None:
                 recusadas.append({
@@ -303,6 +398,8 @@ def localizacoes_do_fato(texto, *, origem='POST_TEXT'):
             aceitas.append({
                 'FACT_LOCATION': m['PLACE'],
                 'FACT_LOCATION_PRECISION': m['PRECISION'],
+                'PRECISION_SOURCE': ('DECLARED_BY_TEXT' if m.get('DECLARED_BY_TEXT')
+                                     else 'GAZETTEER'),
                 'FACT_LOCATION_EVIDENCE': frase[:300],
                 'FACT_LOCATION_ANCHOR': pos['TEXT'],
                 'FACT_LOCATION_ORIGIN': origem,
@@ -364,10 +461,22 @@ TEMPO = (
 # perto, uma data solta no texto pode ser qualquer data — a da publicação, a de
 # um congresso, a de um regulamento.
 ANCORAS_DE_TEMPO_DO_FATO = (
-    r'monitoraggio', r'campion[ei]', r'stagione', r'annata', r'campagna',
-    r'raccolt[oa]', r'osservat[oaie]', r'rilevat[oaie]', r'constatat[oaie]',
-    r'riscontrat[oaie]', r'colpit[oaie]', r'contaminaz', r'superament',
-    r'infezion', r'attacch[io]', r'sintomi', r'annata', r'coltura',
+    r'monitoraggio', r'campion[ei]', r'raccolt[oa]', r'osservat[oaie]',
+    r'rilevat[oaie]', r'constatat[oaie]', r'riscontrat[oaie]', r'colpit[oaie]',
+    r'contaminaz', r'superament', r'infezion', r'attacc(?:o|hi)', r'sintomi',
+    r'presenz[ae]', r'fioritura', r'spigatura', r'fase\s+fenologica',
+)
+# `stagione`, `annata` e `campagna` saíram da lista de âncoras de propósito: elas
+# aparecem DENTRO da própria expressão temporal ("annata 2021-2022"), então
+# usá-las como âncora fazia toda expressão de safra se autoqualificar. Num
+# boletim real isso devolveu `FACT_TIME = annata 2021` a partir da frase
+# "disciplinare valido per l'annata 2021-2022" — a validade de uma norma
+# entrando no campo da data do acontecimento.
+#
+#     REGULATORY_VALIDITY ≠ FACT_TIME
+CONTEXTO_ADMINISTRATIVO = (
+    r'valid[oa]\s+per', r'disciplinare', r'regolament', r'normativ',
+    r'autorizzaz', r'delibera', r'decreto', r'in\s+vigore',
 )
 
 
@@ -416,6 +525,13 @@ def tempo_do_fato(texto, published_at=None):
     candidatos, descartados = [], []
     for frase in _frases(texto):
         low = _baixo(frase)
+        if any(re.search(a, low) for a in CONTEXTO_ADMINISTRATIVO):
+            # A oração fala da validade de uma norma, não de um acontecimento.
+            for padrao, _ in TEMPO:
+                for m in re.finditer(padrao, low):
+                    descartados.append({'VALUE': m.group(1),
+                                        'WHY': 'REGULATORY_VALIDITY_NOT_FACT_TIME'})
+            continue
         ancorada = any(re.search(a, low) for a in ANCORAS_DE_TEMPO_DO_FATO)
         for padrao, precisao in TEMPO:
             for m in re.finditer(padrao, low):
@@ -467,9 +583,12 @@ def ocorrencia_nao_e_incidencia(tipos):
         por_tipo[t if t in por_tipo else OTHER_EVIDENCE] += 1
     return {
         'BY_TYPE_OF_EVIDENCE': {k: v for k, v in por_tipo.items() if v},
+        # Risco modelado e comunicado regional ficam FORA da contagem de
+        # ocorrências observadas. Somá-los faria uma previsão virar um caso.
         'OBSERVED_OCCURRENCES': sum(por_tipo[t] for t in
                                     (FIELD_OBSERVATION, DIAGNOSTIC_SAMPLE,
                                      OFFICIAL_OCCURRENCE, CONFIRMED_FOCUS)),
+        'MODELLED_RISK_STATEMENTS': por_tipo[MODELLED_RISK],
         'INCIDENCE': 'NOT_KNOWN',
         'PREVALENCE': 'NOT_KNOWN',
         'REGIONAL_PRESSURE': 'NOT_KNOWN',

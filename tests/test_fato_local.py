@@ -393,3 +393,171 @@ class OGazetteerDizOQueNaoCobre(unittest.TestCase):
         self.assertEqual(c['MUNICIPALITIES'], 0)
         self.assertIn('NOT_IN_GAZETTEER', c['LIMIT'])
         self.assertIn('Ovest', c['ALSO_NOT_COVERED'])
+
+
+class OBoletimFitossanitarioRealAchouTresFuros(unittest.TestCase):
+    """Um boletim de serviço fitossanitário regional — o conteúdo de campo mais
+    rico que esta missão encontrou — devolvia ZERO localizações. Três defeitos,
+    todos só visíveis contra texto real."""
+
+    BOLETIM = ('In base ai dati pervenuti dalla rete di monitoraggio regionale sugli '
+               'areali CONCA TERNANA, LAGO TRASIMENO, si rappresenta la seguente '
+               'situazione: FRUMENTO Non riscontrata presenza di avversità ad '
+               'eccezione di lieve attacco di Septoriosi nei Comuni di Branca di '
+               'Gubbio. ORZO Fitopatie assenti ad eccezione di presenza media di '
+               'Septoriosi nel Comune di Parrano (TR). Le s.a. utilizzabili sono '
+               "riportate nel relativo disciplinare valido per l'annata 2021-2022.")
+
+    def _fatos(self):
+        ok, _ = fl.localizacoes_do_fato(self.BOLETIM)
+        return {a['FACT_LOCATION']: a for a in ok}
+
+    def test_1_a_ancora_do_ataque_no_singular_existe(self):
+        """`attacch[io]` não pegava "attacco". A frase ficava sem âncora nenhuma."""
+        self.assertIn('Branca di Gubbio', self._fatos())
+        self.assertEqual(self._fatos()['Branca di Gubbio']['FACT_LOCATION_ANCHOR'],
+                         'attacco')
+
+    def test_2_o_comune_declarado_pelo_texto_vale_sem_gazetteer(self):
+        """Comune não é província e o gazetteer só tem províncias. Mas o texto
+        DIZ "nel Comune di Parrano" — é a fonte nomeando a unidade, não eu."""
+        nomes = {n for n, _ in fl.GAZETTEER}
+        self.assertNotIn('Parrano', nomes)
+        f = self._fatos()['Parrano']
+        self.assertEqual(f['FACT_LOCATION_PRECISION'], fl.MUNICIPALITY)
+        self.assertEqual(f['PRECISION_SOURCE'], 'DECLARED_BY_TEXT')
+
+    def test_o_marcador_da_o_nivel_e_nao_a_permissao(self):
+        """"nel Comune di X" sozinho não é fato: continua precisando de âncora."""
+        ok, nao = fl.localizacoes_do_fato('La sede è nel Comune di Parrano.')
+        self.assertEqual(ok, [])
+        self.assertIn('Parrano', {r['PLACE'] for r in nao})
+
+    def test_o_marcador_nao_transforma_palavra_comum_em_lugar(self):
+        ok, nao = fl.localizacoes_do_fato('Rilevato nel comune di produzione.')
+        self.assertEqual([a['FACT_LOCATION'] for a in ok], [])
+
+    def test_3_observacao_negada_nao_e_observacao(self):
+        """"Non riscontrata presenza di avversità" com um lugar depois produziria
+        a afirmação OPOSTA à do boletim."""
+        ok, nao = fl.localizacoes_do_fato(
+            'Non riscontrata presenza di avversità nei Comuni di Gubbio.')
+        self.assertEqual(ok, [])
+        estados = {r['PLACE']: r['STATE'] for r in nao}
+        self.assertEqual(estados['Gubbio'], fl.NEGATED_OBSERVATION)
+
+    def test_a_negacao_termina_em_ad_eccezione_di(self):
+        """"Fitopatie assenti AD ECCEZIONE DI presenza media a X" volta a ser
+        observação positiva — e o boletim real depende disso."""
+        self.assertIn('Parrano', self._fatos())
+        self.assertEqual(self._fatos()['Parrano']['TYPE_OF_EVIDENCE'],
+                         fl.FIELD_OBSERVATION)
+
+    def test_a_zona_da_rede_de_monitoramento_nao_vira_fato(self):
+        """"areali CONCA TERNANA" é geografia da FONTE, não unidade administrativa."""
+        _, nao = fl.localizacoes_do_fato(self.BOLETIM)
+        self.assertIn('CONCA TERNANA', {r['PLACE'] for r in nao})
+        self.assertNotIn('CONCA TERNANA', self._fatos())
+
+    def test_a_validade_de_uma_norma_nao_e_a_data_do_acontecimento(self):
+        """"disciplinare valido per l'annata 2021-2022" devolvia FACT_TIME=annata 2021."""
+        r = fl.tempo_do_fato(self.BOLETIM)
+        self.assertEqual(r['FACT_TIME'], 'NOT_KNOWN')
+        motivos = {d['WHY'] for d in r['TIME_CANDIDATES_DISCARDED']}
+        self.assertIn('REGULATORY_VALIDITY_NOT_FACT_TIME', motivos)
+
+    def test_safra_deixou_de_ser_ancora_de_si_mesma(self):
+        """`annata`/`stagione` estavam nos DOIS lados: na expressão e na âncora,
+        então toda expressão de safra se autoqualificava."""
+        self.assertNotIn(r'annata', fl.ANCORAS_DE_TEMPO_DO_FATO)
+        self.assertNotIn(r'stagione', fl.ANCORAS_DE_TEMPO_DO_FATO)
+
+    # As duas proteções se sobrepõem de propósito, então uma mutação precisa de
+    # uma frase onde SÓ a proteção mutada esteja em jogo. Uma frase que ambas
+    # cobrem faria a mutação "passar" e a prova mentiria por excesso de defesa.
+    FRASE_NORMA = ("Sintomi rilevati secondo il disciplinare valido per "
+                   "l'annata 2021-2022.")
+
+    def test_com_as_duas_leis_de_pe_a_norma_nao_data_o_fato(self):
+        self.assertEqual(fl.tempo_do_fato(self.FRASE_NORMA)['FACT_TIME'], 'NOT_KNOWN')
+
+    def test_mutacao_sem_contexto_administrativo_a_validade_da_norma_vira_fato(self):
+        """A frase tem âncora de verdade ("rilevati"): só o contexto
+        administrativo a separa de uma data de acontecimento."""
+        salvo = fl.CONTEXTO_ADMINISTRATIVO
+        try:
+            fl.CONTEXTO_ADMINISTRATIVO = ()
+            r = fl.tempo_do_fato(self.FRASE_NORMA)
+            self.assertEqual(r['FACT_TIME'], "annata 2021-2022",
+                             'a mutação não mudou nada — a prova não mordia')
+        finally:
+            fl.CONTEXTO_ADMINISTRATIVO = salvo
+
+    def test_mutacao_se_safra_voltar_a_ser_ancora_ela_se_autoqualifica(self):
+        """Sem contexto administrativo E com `annata` de volta nas âncoras, uma
+        expressão de safra passa a se ancorar em si mesma."""
+        salvo_c, salvo_a = fl.CONTEXTO_ADMINISTRATIVO, fl.ANCORAS_DE_TEMPO_DO_FATO
+        try:
+            fl.CONTEXTO_ADMINISTRATIVO = ()
+            fl.ANCORAS_DE_TEMPO_DO_FATO = salvo_a + (r'annata',)
+            r = fl.tempo_do_fato("Il disciplinare vale per l'annata 2021-2022.")
+            self.assertNotEqual(r['FACT_TIME'], 'NOT_KNOWN',
+                                'a mutação não mudou nada — a prova não mordia')
+        finally:
+            fl.CONTEXTO_ADMINISTRATIVO, fl.ANCORAS_DE_TEMPO_DO_FATO = salvo_c, salvo_a
+
+
+class OBoletimEmJanelaAchouMaisDoisFuros(unittest.TestCase):
+    """Boletim ERSA FVG frumento-orzo n.7 de 20/04/2026 — três dias antes da data
+    do caso. O conteúdo em janela mais próximo que esta missão encontrou, e ele
+    devolveu uma província a 100 km de distância como local de um fato."""
+
+    RISCO = 'Rischio attacchi septoriosi in Friuli Venezia Giulia (10 marker).'
+    CAMPO = ('Dai rilievi in campo è emerso che si osservano sintomi evidenti '
+             'della patologia in Friuli Venezia Giulia.')
+
+    def test_a_regiao_sem_hifen_nao_vira_a_provincia_de_dentro(self):
+        """"Friuli Venezia Giulia" sem hífen não casava com a região do
+        gazetteer, e sobrava "Venezia" — província a 100 km dali. A substring
+        acidental voltou pela porta da grafia."""
+        lugares = [m['PLACE'] for m in fl.mencoes(self.RISCO)]
+        self.assertEqual(lugares, ['Friuli-Venezia Giulia'])
+        self.assertNotIn('Venezia', lugares)
+
+    def test_o_mesmo_vale_para_as_outras_regioes_compostas(self):
+        for escrito, esperado in (('Emilia Romagna', 'Emilia-Romagna'),
+                                  ('Emilia-Romagna', 'Emilia-Romagna'),
+                                  ('Trentino Alto Adige', 'Trentino-Alto Adige')):
+            self.assertEqual([m['PLACE'] for m in fl.mencoes('Rilevato in ' + escrito)],
+                             [esperado], escrito)
+
+    def test_risco_modelado_nao_e_sintoma_observado(self):
+        """O próprio boletim distingue as duas coisas em frases seguidas."""
+        ok, _ = fl.localizacoes_do_fato(self.RISCO)
+        self.assertEqual(ok[0]['TYPE_OF_EVIDENCE'], fl.MODELLED_RISK)
+        ok2, _ = fl.localizacoes_do_fato(self.CAMPO)
+        self.assertEqual(ok2[0]['TYPE_OF_EVIDENCE'], fl.FIELD_OBSERVATION)
+
+    def test_a_ancora_de_fora_governa_a_de_dentro(self):
+        """"Rischio attacchi" CONTÉM "attacchi". Pela proximidade venceria a de
+        dentro, e o mapa de previsão viraria sintoma visto."""
+        ok, _ = fl.localizacoes_do_fato(self.RISCO)
+        self.assertEqual(ok[0]['FACT_LOCATION_ANCHOR'], 'rischio attacchi')
+
+    def test_risco_modelado_fica_fora_da_contagem_de_ocorrencias(self):
+        r = fl.ocorrencia_nao_e_incidencia([fl.MODELLED_RISK, fl.MODELLED_RISK,
+                                            fl.FIELD_OBSERVATION])
+        self.assertEqual(r['OBSERVED_OCCURRENCES'], 1)
+        self.assertEqual(r['MODELLED_RISK_STATEMENTS'], 2)
+        self.assertEqual(r['INCIDENCE'], 'NOT_KNOWN')
+
+    def test_mutacao_sem_a_ancora_externa_o_risco_vira_observacao(self):
+        salvo = fl.ANCORAS_POSITIVAS
+        try:
+            fl.ANCORAS_POSITIVAS = tuple((p, r) for p, r in salvo
+                                         if r != fl.MODELLED_RISK)
+            ok, _ = fl.localizacoes_do_fato(self.RISCO)
+            self.assertEqual(ok[0]['TYPE_OF_EVIDENCE'], fl.FIELD_OBSERVATION,
+                             'a mutação não mudou nada — a prova não mordia')
+        finally:
+            fl.ANCORAS_POSITIVAS = salvo
