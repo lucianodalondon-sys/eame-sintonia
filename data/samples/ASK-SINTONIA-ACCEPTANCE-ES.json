@@ -1,0 +1,108 @@
+{
+ "SOURCE_ID": "ASK-SINTONIA-ACCEPTANCE-ES",
+ "captured_at": "2026-08-30",
+ "O_QUE_ISTO_E": "conjunto de aceitacao. Perguntas que um executivo ADAMA faria, respondidas SO com o que os tres CASE CARD sustentam. Nao e chatbot, nao e UI: e teste da inteligencia.",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "QUESTIONS_TESTED": 12,
+ "ANSWERABLE": 7,
+ "PARTIAL": 3,
+ "REFUSED": 2,
+ "FALSE_CONFIDENCE_ERRORS": {
+  "ENCONTRADOS_NESTA_RODADA": 3,
+  "LISTA": [
+   "\"sinal de 6 dias\" no olivo — era a data de geracao do arquivo, nao da observacao. Corrigido para 77 e 95 dias.",
+   "\"1 registro em toda a Espanha\" para Amaranthus x milho — era o mesmo registro contado em duas variantes de cultura, e a variante generica MAIZ tem zero.",
+   "\"23 safras\" na serie de repilo — a minha reproducao ve 21 campanhas com leitura, e o dataset oficial comeca em 2006. Nao reconciliado; declarado."
+  ],
+  "COMO_APARECERAM": "todos os tres so apareceram porque a pergunta foi reformulada como medicao. Nenhum apareceu por releitura do texto."
+ },
+ "DUAS_HIPOTESES_MINHAS_REFUTADAS_PELA_MINHA_PROPRIA_MEDICAO": [
+  "olivo: \"15-08-2026 e vencimento de substancia (tebuconazol)\". Sao 16 tebuconazois no par e 13 vao ate 2028. Refutada.",
+  "cereal: \"a ADAMA depende de um unico modo de acao para gramineas\". Sao 10 registros por cultura com pelo menos 4 quimicas. Refutada."
+ ],
+ "QUESTIONS": [
+  {
+   "Q": "Tem alguma coisa acontecendo agora em olivo que exija atencao?",
+   "STATUS": "ANSWERABLE",
+   "A": "Sim, no oeste da Andaluzia. Cadiz fechou a campanha 2026 com 8,01% de folhas com repilo visivel, o segundo maior valor de 21 campanhas, sobre 141 leituras em 39 parcelas. Huelva marcou 8,83%, o maior da serie, mas sobre 18 leituras em 7 parcelas. Jaen, Granada e Malaga seguem abaixo de 1,1%.",
+   "RESSALVA_QUE_A_RESPOSTA_DEVE_CARREGAR": "as leituras de repilo dessas duas provincias vao ate 14/06 e 27/05. Nao ha leitura de agosto ali. \"Agora\" e a janela de outono, nao a observacao.",
+   "EVIDENCE": "ES-CASE-001; RAIF olivar 2006-2026, campo 1702"
+  },
+  {
+   "Q": "Temos alguma resposta registrada para isso?",
+   "STATUS": "ANSWERABLE",
+   "A": "Duas, de 180 registros vigentes para olivo x repilo: CUPROXI FLO (ES-00979, oxicloruro de cobre, caducidad 2029) e NEPTUNE (ES-00211, tebuconazol + cobre, caducidad 15-08-2026).",
+   "EVIDENCE": "MAPA ROPF, par 1972 x 6200, consultado em 30/08/2026 05:01"
+  },
+  {
+   "Q": "Ainda da tempo de agir no olivo?",
+   "STATUS": "ANSWERABLE",
+   "A": "Para o CUPROXI FLO, sim: a etiqueta autoriza BBCH 10-85 com prazo de seguranca de 7 dias, e a fenologia observada em agosto/2026 esta em BBCH ~75-81. Para o NEPTUNE, nao: a etiqueta manda dar a primeira aplicacao antes da floracao e tem prazo de seguranca de 120 dias.",
+   "EVIDENCE": "fichas ES-00979 e ES-00211; 1.726 registros de fenologia em agosto/2026 no RAIF"
+  },
+  {
+   "Q": "O NEPTUNE ainda pode ser vendido?",
+   "STATUS": "REFUSE / NOT_KNOWN",
+   "A": "Nao sei, e nao vou deduzir. O registro consta Vigente com caducidad 15-08-2026, ja vencida, e sem fecha limite de venta declarada. Isso e uma contradicao na propria fonte. EXPIRY nao e WITHDRAWAL e registro nao e venda.",
+   "POR_QUE_RECUSAR_E_A_RESPOSTA_CERTA": "as tres respostas faceis - \"pode\", \"nao pode\", \"e erro do MAPA\" - sao todas afirmacoes sem prova. A resposta util e a assimetria medida: 13 dos 16 tebuconazois do mesmo par vao ate 2028 e so dois pararam nesta data.",
+   "EVIDENCE": "ES-CASE-001.REGULATORY_STATUS_CONFLICT"
+  },
+  {
+   "Q": "O que devemos preparar para milho no proximo ciclo?",
+   "STATUS": "ANSWERABLE",
+   "A": "Amaranthus palmeri em Huesca e Lleida. Tres avisos oficiais de Aragon em 14 meses, o ultimo em 15/07/2026. A janela de 2026 esta fechada - todas as etiquetas de folha larga da ADAMA em milho terminam em BBCH 19 ou antes - e a proxima e a sementeira de abril/2027. Ha 7 meses.",
+   "EVIDENCE": "ES-CASE-002"
+  },
+  {
+   "Q": "Nossa resposta em milho cobre o Amaranthus?",
+   "STATUS": "ANSWERABLE",
+   "A": "Nao como alvo declarado. Nenhuma das 96 fichas ADAMA preservadas cita Amaranthus, bledo ou palmeri. Os 7 produtos de folha larga em milho estao registrados contra categorias genericas. Um unico produto no pais declara o alvo: EMIR, da Corteva.",
+   "RESSALVA": "isso NAO diz que os produtos nao funcionam. Ausencia de claim nao e ausencia de eficacia, e nenhuma das duas foi medida aqui.",
+   "EVIDENCE": "ES-CASE-002.O_TESTE_DECISIVO"
+  },
+  {
+   "Q": "Existe algo que parece oportunidade mas nossa resposta publica nao cobre?",
+   "STATUS": "ANSWERABLE",
+   "A": "Duas, com o mesmo formato. Em milho, Amaranthus: um concorrente declara a especie e a ADAMA nao. Em cebada, vallico e avenas locas: 3 e 10 registros no pais, zero da ADAMA, sobre a maior cultura do pais em area - enquanto a ADAMA tem 10 registros genericos de monocotiledoneas na mesma cultura.",
+   "RESSALVA": "\"oportunidade\" aqui e lacuna de alvo declarado. Nao qualifica mercado, demanda nem retorno.",
+   "EVIDENCE": "ES-CASE-002; ES-CASE-003.A_LACUNA_MEDIDA"
+  },
+  {
+   "Q": "Em que regioes eu deveria avisar os RTVs?",
+   "STATUS": "PARTIAL",
+   "A": "Para olivo, Cadiz antes de Huelva - Cadiz sustenta o mesmo nivel com 141 leituras contra 18. Para milho, poucos municipios de Huesca: 10 concentram 47,7% da area e 20 concentram 68,4%.",
+   "POR_QUE_PARCIAL": "os NOMES dos municipios de Huesca nao foram resolvidos. O dado traz codigo catastral e a tabela oficial de nomes so sai por exportacao que exige sessao. Nao mapeado por aproximacao.",
+   "EVIDENCE": "ES-CASE-001; ES-T2-002-pac-maiz-aragon"
+  },
+  {
+   "Q": "Que pesquisadores estao estudando esse problema?",
+   "STATUS": "PARTIAL",
+   "A": "Para milho x Amaranthus, tres identidades confirmadas por ORCID com vinculo espanhol: Mercedes Royuela e Mikel Vicente Eceiza (Univ. Publica de Navarra) e Joel Torra (Universitat de Lleida, dentro do territorio do caso). Para olivo x repilo, Juan Moral, Antonio Trapero e Concepcion Munoz Diez, com vinculo aberto na Universidad de Cordoba e nomeados na pagina publica do grupo UCOLIVO.",
+   "POR_QUE_PARCIAL": "nenhuma identidade do par do azeite fechou em num-found=1 na busca ORCID; a ancora deles e o ORCID declarado no OpenAlex. E nao sabemos se as obras de Joel Torra tratam de palmeri espanhol - afiliacao nao e local do estudo.",
+   "EVIDENCE": "ES-CIENCIA-PARES-AUTORES; ES-CIENCIA-PARA-VOZ; uco.es/ucolivo"
+  },
+  {
+   "Q": "Esses pesquisadores tem canal publico para falar com o mercado?",
+   "STATUS": "PARTIAL",
+   "A": "Nenhum dos 11 testados declara canal em rede social no ORCID. O que existe e institucional: a pagina do grupo UCOLIVO, que nomeia os tres do olivo, e um mestrado em olivicultura. Isso e rede tecnica publica, nao voz de conteudo.",
+   "RESSALVA": "ausencia de canal no ORCID nao prova ausencia de canal no mundo. Prova que a pessoa nao declarou um ali.",
+   "EVIDENCE": "ES-CIENCIA-PARA-VOZ.ACHADO_1 e ACHADO_4"
+  },
+  {
+   "Q": "Quanto vale essa oportunidade em euros?",
+   "STATUS": "REFUSE / NOT_KNOWN",
+   "A": "Nao sei. Nao ha dado de venda, preco, canal ou participacao neste repositorio, e area registrada nao vira receita sem eles.",
+   "POR_QUE_RECUSAR": "seria o erro mais facil de cometer e o mais caro: transformar hectare em euro com um preco inventado no meio.",
+   "EVIDENCE": "COMMERCIAL_CLOCK = NAO SEI nos tres casos"
+  },
+  {
+   "Q": "A septoriose foi um problema neste ano na Espanha?",
+   "STATUS": "ANSWERABLE",
+   "A": "Na Andaluzia, nao: 2,68% de superficie com sintomas em 2026, o segundo ano mais fraco de 15 campanhas com leitura. Fora da Andaluzia nao sei - nao encontrei fonte de aviso de cereal para Castilla y Leon, que e onde esta a area.",
+   "POR_QUE_ESTA_PERGUNTA_ESTA_AQUI": "e a pergunta que teria produzido um falso alarme. O indicador de colmos com sintoma marcou 51,57% em 2026, e esse campo so tem tres campanhas de uso real - 2026 fica entre 2024 e 2025.",
+   "EVIDENCE": "ES-T3-002-raif-cereales-invierno"
+  }
+ ]
+}

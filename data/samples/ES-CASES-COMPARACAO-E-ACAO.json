@@ -1,0 +1,219 @@
+{
+ "SOURCE_ID": "ES-CASES-COMPARACAO-E-MAPA-DE-ACAO",
+ "captured_at": "2026-08-30",
+ "source": "derivado dos tres CASE CARD — ES-CASE-001, 002, 003",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "REGRA": "nem todo departamento precisa agir. Onde nao ha acao defensavel, esta escrito NAO AGIR e por que. Nenhum ROI foi inventado.",
+ "CLASSIFICACAO": {
+  "BEST_AGIR_AGORA": "ES-CASE-001 · OLIVO x REPILO x Andalucia occidental",
+  "POR_QUE": "e o unico com janela de produto ABERTA hoje, verificada contra fenologia OBSERVADA em agosto (BBCH ~75-81) e contra a etiqueta do CUPROXI FLO (BBCH 10-85, PS 7 dias). E o unico onde \"agora\" e uma afirmacao sobre a etiqueta e nao sobre a urgencia.",
+  "BEST_PREPARAR": "ES-CASE-003 · CEREAL DE INVERNO x GRAMINEAS",
+  "POR_QUE_PREPARAR": "sementeira a 6-10 semanas, aplicacao pos-emergencia a 2-5 meses, portfolio registrado e amplo, e uma lacuna de alvo por especie que da para decidir antes da safra.",
+  "BEST_PLANEJAR_PROXIMO_CICLO": "ES-CASE-002 · MILHO x AMARANTHUS PALMERI x Aragon/Lleida",
+  "POR_QUE_PLANEJAR": "a janela fechou e isso esta provado na etiqueta (todas terminam em BBCH 19). Proxima sementeira em abril/2027. Ha 7 meses para fechar a lacuna de claim.",
+  "BEST_DEMO_CASE": "ES-CASE-001 · OLIVO",
+  "POR_QUE_DEMO": "e o unico que exercita a cadeia inteira num so caso: serie de 21 campanhas, contraprova de cobertura que quase o derrubou, fenologia observada, janela lida na etiqueta, duas respostas ADAMA nomeadas, um conflito regulatorio aberto e uma hipotese minha refutada pela minha propria medicao. Demonstra o metodo, nao so o resultado.",
+  "NAO_FORCADO": "a distribuicao saiu da evidencia. O olivo poderia ter caido na contraprova de cobertura e nao caiu; o cereal poderia ter sido septoriose e a serie disse que nao; o milho poderia ter sido apresentado como urgencia e a etiqueta disse que nao."
+ },
+ "COMPARACAO": {
+  "ES-CASE-001-OLIVO": {
+   "TIPO": "AGIR AGORA",
+   "SINAL": "alta simultanea em Huelva (maior da serie, n=18) e Cadiz (2a maior, n=141)",
+   "FRESCOR_DA_OBSERVACAO": "77 e 95 dias",
+   "JANELA": "ABERTA (CUPROXI FLO)",
+   "RESPOSTA_ADAMA": "2 de 180",
+   "CONFLITO": "sim, no NEPTUNE",
+   "CAPACIDADE_DEMONSTRADA": "A CONVERGENCE + B REGULATORY RISK"
+  },
+  "ES-CASE-003-CEREAL": {
+   "TIPO": "PREPARAR",
+   "SINAL": "nenhum reivindicado",
+   "FRESCOR_DA_OBSERVACAO": "n/a",
+   "JANELA": "UPCOMING, 2-5 meses",
+   "RESPOSTA_ADAMA": "10 genericos por cultura + 1 formulado com especie",
+   "CONFLITO": "nao",
+   "CAPACIDADE_DEMONSTRADA": "D PRE-SEASON ANTICIPATION"
+  },
+  "ES-CASE-002-MILHO": {
+   "TIPO": "PLANEJAR",
+   "SINAL": "3 avisos oficiais em 14 meses, ultimo ha 46 dias",
+   "FRESCOR_DA_OBSERVACAO": "46 dias",
+   "JANELA": "FECHADA ate abril/2027",
+   "RESPOSTA_ADAMA": "generica, sem especie; concorrente tem especie",
+   "CONFLITO": "nao",
+   "CAPACIDADE_DEMONSTRADA": "C EXTERNAL OPPORTUNITY + E GEOGRAPHIC PRIORITIZATION"
+  }
+ },
+ "ACTION_MAP": {
+  "ES-CASE-001-OLIVO": {
+   "REGULATORY": {
+    "ACTION": "investigar por que NEPTUNE ES-00211 e STARPRO 250 EW pararam em 15-08-2026 enquanto 13 dos 16 tebuconazois do mesmo par vao ate 31-07-2028",
+    "WHY": "e um registro proprio, vigente com caducidad vencida ha 15 dias, sem fecha limite de venta declarada. A assimetria e medida e nao tem explicacao no registro.",
+    "WHEN": "esta semana",
+    "UNTIL_WHEN": "antes que o mercado pergunte",
+    "EVIDENCE": "ES-CASE-001.REGULATORY_STATUS_CONFLICT; 16 tebuconazois contados no par",
+    "MISSING": "o motivo. Nada no ROPF explica. So o dossie interno ou a autoridade respondem.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "MARKET_DEVELOPMENT": {
+    "ACTION": "ensaio/demonstracao em Cadiz nesta janela de outono, nao em Huelva",
+    "WHY": "Cadiz sustenta 8,01% com 141 leituras em 39 parcelas e rede estavel; Huelva sustenta 8,83% com 18 leituras em 7 parcelas",
+    "WHEN": "agora — a fenologia observada esta em BBCH 75-81 e o CUPROXI FLO vai ate 85",
+    "UNTIL_WHEN": "fim da janela BBCH 85",
+    "EVIDENCE": "serie RAIF 2006-2026 por provincia; etiqueta ES-00979",
+    "MISSING": "leitura de repilo em Huelva/Cadiz posterior a junho. Nao existe na fonte.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "SCIENCE": {
+    "ACTION": "perguntar ao grupo UCOLIVO da Universidad de Cordoba o que explica a alta do oeste em 2026",
+    "WHY": "Juan Moral, Antonio Trapero e Concepcion Munoz Diez tem vinculo aberto na UCO e aparecem no par OLIVE x REPILO; a pagina do grupo os nomeia publicamente",
+    "WHEN": "nas proximas semanas",
+    "UNTIL_WHEN": "antes de virar material tecnico",
+    "EVIDENCE": "ES-CIENCIA-PARES-AUTORES; uco.es/ucolivo HTTP 200 nomeando os tres",
+    "MISSING": "nenhuma identidade do par do azeite ficou CONFIRMADA por busca ORCID; a ancora e o ORCID declarado no OpenAlex",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "MARKETING": {
+    "ACTION": "conteudo tecnico sobre repilo de outono no oeste andaluz, com o dado provincial",
+    "WHY": "e o unico territorio com voz publica medida no acervo, e a voz atual fala mais de mosca do olivo (58) do que de repilo (32)",
+    "WHEN": "agora, junto com a janela",
+    "UNTIL_WHEN": "fim do outono",
+    "EVIDENCE": "ES-VOICE-YOUTUBE; ES-VOZ-x-MATRIZ-DE-PRIORIDADE",
+    "MISSING": "85% dos canais de video nao tem papel verificavel; a voz medida e de Cordoba e Jaen, nao de Huelva e Cadiz",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "COMMERCIAL": {
+    "ACTION": "NAO AGIR com base neste repositorio",
+    "WHY": "COMMERCIAL_CLOCK = NAO SEI. Registro nao e venda, e nada aqui informa disponibilidade, preco ou canal.",
+    "WHEN": "-",
+    "UNTIL_WHEN": "-",
+    "EVIDENCE": "-",
+    "MISSING": "dado interno ADAMA",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "SUPPLY": {
+    "ACTION": "NAO AGIR",
+    "WHY": "depende de decisao de portfolio que ainda nao existe e de dado interno ausente",
+    "WHEN": "-",
+    "UNTIL_WHEN": "-",
+    "EVIDENCE": "-",
+    "MISSING": "dado interno ADAMA",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   }
+  },
+  "ES-CASE-003-CEREAL": {
+   "REGULATORY": {
+    "ACTION": "avaliar extensao de alvo por ESPECIE nos dez registros genericos de monocotiledoneas, e avaliar a cebada",
+    "WHY": "a cebada e a maior cultura da Espanha em area e a ADAMA tem 10 registros genericos ali e ZERO com especie nomeada; a etiqueta do clodinafop exclui a cebada explicitamente",
+    "WHEN": "agora — decisao de dossie leva meses",
+    "UNTIL_WHEN": "antes da safra 2027/28",
+    "EVIDENCE": "ES-CASE-003.A_LACUNA_MEDIDA; pares cebada x vallico (3/0) e cebada x avenas locas (10/0)",
+    "MISSING": "se ha caminho regulatorio de extensao e a que custo. Pergunta interna.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "MARKET_DEVELOPMENT": {
+    "ACTION": "preparar material de gramineas para a janela pos-emergencia, com dose por especie",
+    "WHY": "a etiqueta do clodinafop ja traz dose graduada por especie (Avena 170-200, Alopecurus 200-250, Phalaris e Lolium 225-300 cc/ha) — e material tecnico que ja existe no registro",
+    "WHEN": "nas proximas 6 semanas",
+    "UNTIL_WHEN": "antes da sementeira de outubro/novembro",
+    "EVIDENCE": "fichas 19549 e 19548, secao Usos y Dosis",
+    "MISSING": "distribuicao regional do vallico. Nenhuma fonte de campo consultada mede daninha.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "SCIENCE": {
+    "ACTION": "responder se ha resistencia a ACCase em Lolium rigidum espanhol, e onde",
+    "WHY": "a etiqueta nao traz nenhum texto de manejo de resistencia, e a resposta muda a conversa tecnica inteira",
+    "WHEN": "nas proximas semanas",
+    "UNTIL_WHEN": "antes do material tecnico sair",
+    "EVIDENCE": "ES-CASE-003.UNKNOWNS",
+    "MISSING": "a medicao. NAO afirmada aqui por falta de fonte, e o orcamento do OpenAlex esta zerado.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "MARKETING": {
+    "ACTION": "NAO AGIR ainda",
+    "WHY": "nao ha voz publica medida em Castilla y Leon: o acervo tem 2 origens de \"Leon\" em 179",
+    "WHEN": "-",
+    "UNTIL_WHEN": "-",
+    "EVIDENCE": "ES-VOZ-x-MATRIZ-DE-PRIORIDADE",
+    "MISSING": "coleta de voz desenhada por cultura e regiao",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "COMMERCIAL": {
+    "ACTION": "NAO AGIR",
+    "WHY": "COMMERCIAL_CLOCK = NAO SEI",
+    "WHEN": "-",
+    "UNTIL_WHEN": "-",
+    "EVIDENCE": "-",
+    "MISSING": "dado interno ADAMA",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "SUPPLY": {
+    "ACTION": "MONITORAR",
+    "WHY": "se houver decisao de reforcar gramineas em cereal, a janela de sementeira e outubro/novembro e a producao antecede",
+    "WHEN": "-",
+    "UNTIL_WHEN": "sementeira 2026/27",
+    "EVIDENCE": "janela lida na etiqueta",
+    "MISSING": "decisao de portfolio",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   }
+  },
+  "ES-CASE-002-MILHO": {
+   "REGULATORY": {
+    "ACTION": "avaliar extensao de alvo para AMARANTHUS SPP. nos herbicidas de folha larga ja registrados em milho",
+    "WHY": "um unico produto no pais declara o alvo — EMIR, da Corteva — e ele e florasulam + mesotriona, enquanto a ADAMA ja tem mesotriona registrada em milho. A diferenca visivel esta no claim.",
+    "WHEN": "agora — ha 7 meses ate a proxima janela",
+    "UNTIL_WHEN": "antes de abril/2027",
+    "EVIDENCE": "ES-CASE-002.O_TESTE_DECISIVO e REGULATORY_RESPONSE",
+    "MISSING": "se ha caminho de extensao, e se ha dado de eficacia contra palmeri resistente. Nenhum dos dois esta neste repositorio.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "SCIENCE": {
+    "ACTION": "ler as obras de Joel Torra no par antes de qualquer contato",
+    "WHY": "ele e professor na Universitat de Lleida, dentro do territorio do caso, com 10 obras no par e identidade CONFIRMADA por ORCID",
+    "WHEN": "quando o orcamento do OpenAlex resetar",
+    "UNTIL_WHEN": "antes de abril/2027",
+    "EVIDENCE": "ES-CIENCIA-PARES-AUTORES; ORCID 0000-0002-8666-6780",
+    "MISSING": "se as obras tratam de palmeri espanhol ou Amaranthus em geral. Afiliacao nao e local do estudo.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "MARKET_DEVELOPMENT": {
+    "ACTION": "planejar ensaio de campo para a sementeira de abril/2027 em poucos municipios",
+    "WHY": "10 municipios concentram 47,7% do milho de Huesca e 20 concentram 68,4%. A acao cabe em dezenas de municipios, nao na provincia.",
+    "WHEN": "planejamento agora, execucao em abril/2027",
+    "UNTIL_WHEN": "sementeira 2027",
+    "EVIDENCE": "ES-T2-002-pac-maiz-aragon",
+    "MISSING": "os NOMES dos municipios. Codigo catastral nao foi mapeado por aproximacao, de proposito.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "MARKETING": {
+    "ACTION": "PREPARAR MATERIAL, nao publicar campanha",
+    "WHY": "a janela fechou. Publicar urgencia agora seria fabricar urgencia. E ha 50 ADV registradas na planicie de Lleida como interlocutor organizado.",
+    "WHEN": "preparacao agora",
+    "UNTIL_WHEN": "abril/2027",
+    "EVIDENCE": "ES-T6-001-adv-catalunya",
+    "MISSING": "nenhuma ADV declara cultura, e falta o equivalente aragones — o portal de Aragon nao tem registro de ATRIA",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "COMMERCIAL": {
+    "ACTION": "NAO AGIR",
+    "WHY": "COMMERCIAL_CLOCK = NAO SEI e a janela esta fechada",
+    "WHEN": "-",
+    "UNTIL_WHEN": "-",
+    "EVIDENCE": "-",
+    "MISSING": "dado interno ADAMA",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   },
+   "SUPPLY": {
+    "ACTION": "NAO AGIR",
+    "WHY": "nao ha decisao de portfolio a suprir",
+    "WHEN": "-",
+    "UNTIL_WHEN": "-",
+    "EVIDENCE": "-",
+    "MISSING": "decisao de portfolio",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+   }
+  }
+ }
+}
