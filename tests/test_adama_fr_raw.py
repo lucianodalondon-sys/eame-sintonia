@@ -11,7 +11,9 @@ conteúdo de outro passam TODOS por essa contagem.
     HTTP_5XX     ≠ OBJECT_NOT_PRESERVED
 """
 import os
+import shutil
 import sys
+import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -81,6 +83,163 @@ class RespostaAmbigua(unittest.TestCase):
     def test_4xx_e_falha_mesmo(self):
         r = raw.apos_resposta_ambigua(400)
         self.assertEqual(r['STATE'], raw.FAILED)
+
+
+class Transporte(unittest.TestCase):
+    """A queda do run 33333878608, virada teste.
+
+    Um `TimeoutError` subiu de dentro de `_http` e derrubou o lote inteiro de
+    234 objetos. Pior do que a queda: o processo morreu sem escrever relatorio,
+    entao parte tinha subido, parte nao, e ninguem sabia qual era qual.
+    """
+
+    def test_falha_de_transporte_nao_levanta_e_vira_status_ambiguo(self):
+        def sempre_estoura(*a, **k):
+            raise TimeoutError('The read operation timed out')
+        original, raw.urllib.request.urlopen = raw.urllib.request.urlopen, sempre_estoura
+        try:
+            st, body = raw._http('POST', 'https://x/y', 'k', b'z',
+                                 tentativas=2, dormir=lambda s: None)
+        finally:
+            raw.urllib.request.urlopen = original
+        self.assertEqual(st, raw.TRANSPORTE_AMBIGUO)
+        self.assertIn(b'timed out', body)
+
+    def test_transporte_tenta_de_novo_antes_de_desistir(self):
+        tentativas = []
+
+        def estoura(*a, **k):
+            tentativas.append(1)
+            raise OSError('conexao caiu')
+        original, raw.urllib.request.urlopen = raw.urllib.request.urlopen, estoura
+        try:
+            raw._http('GET', 'https://x/y', 'k', tentativas=3, dormir=lambda s: None)
+        finally:
+            raw.urllib.request.urlopen = original
+        self.assertEqual(len(tentativas), 3)
+
+    def test_resposta_do_servidor_nao_e_repetida_as_cegas(self):
+        """403 é resposta, não falha de transporte. Repetir não muda a resposta."""
+        chamadas = []
+
+        def http_erro(*a, **k):
+            chamadas.append(1)
+            raise raw.urllib.error.HTTPError('u', 403, 'no', {}, None)
+        original, raw.urllib.request.urlopen = raw.urllib.request.urlopen, http_erro
+        try:
+            st, _ = raw._http('GET', 'https://x/y', 'k', tentativas=3,
+                              dormir=lambda s: None)
+        finally:
+            raw.urllib.request.urlopen = original
+        self.assertEqual(st, 403)
+        self.assertEqual(len(chamadas), 1)
+
+    def test_timeout_nao_e_objeto_ausente(self):
+        r = raw.apos_resposta_ambigua(raw.TRANSPORTE_AMBIGUO)
+        self.assertEqual(r['STATE'], raw.UNKNOWN_MUST_VERIFY)
+        self.assertNotEqual(r['STATE'], raw.FAILED)
+        self.assertIn('cegas', r['DO_NOT'])
+
+
+class EnvioRepetivel(unittest.TestCase):
+    """Reexecutar depois de uma queda não pode custar o lote inteiro de novo."""
+
+    def setUp(self):
+        os.environ['SUPABASE_URL'] = 'https://exemplo.invalid'
+        os.environ['SUPABASE_SECRET_KEY'] = 'x'
+        self.addCleanup(os.environ.pop, 'SUPABASE_URL', None)
+        self.addCleanup(os.environ.pop, 'SUPABASE_SECRET_KEY', None)
+        self.tmp = tempfile.mkdtemp(prefix='sintonia-envio-')
+        self.addCleanup(shutil.rmtree, self.tmp, ignore_errors=True)
+
+    def item(self, chave, corpo=b'abc'):
+        """Um item com arquivo DE VERDADE em disco.
+
+        A primeira versão deste teste apontava para um caminho inventado, e o
+        envio saía FAILED por não conseguir ler o arquivo — provando outra coisa
+        que não a que o teste dizia provar.
+        """
+        import hashlib
+        caminho = os.path.join(self.tmp, chave.replace('/', '_'))
+        with open(caminho, 'wb') as fh:
+            fh.write(corpo)
+        return {'LOCAL_PATH': os.path.relpath(caminho, ROOT),
+                'STORAGE_KEY': chave, 'BYTES': len(corpo),
+                'SHA256_LOCAL': hashlib.sha256(corpo).hexdigest(),
+                'STATE': raw.LOCAL_ONLY, 'CONTENT_TYPE': 'application/pdf'}
+
+    def _com_http(self, resposta):
+        original = raw._http
+        raw._http = resposta
+        self.addCleanup(lambda: setattr(raw, '_http', original))
+
+    def test_objeto_ja_conferido_nao_e_reenviado(self):
+        """A chave é endereçada por conteúdo: se está lá e bate, É o objeto certo."""
+        item = self.item('FR/a/b.pdf', b'abc')
+        metodos = []
+
+        def http(metodo, url, key, dados=None, ctype=None, **k):
+            metodos.append(metodo)
+            if url.endswith('/bucket/raw'):
+                return 200, b'{"name":"raw","file_size_limit":209715200}'
+            return 200, b'abc'
+
+        self._com_http(http)
+        r = raw.enviar(p={'ITEMS': [item], 'RAW_EXPECTED': 1,
+                          'EXCEEDS_BUCKET_LIMIT': False, 'KEY_COLLISIONS': []})
+        self.assertEqual(r['SHA_VERIFIED'], 1)
+        self.assertNotIn('POST', metodos)
+
+    def test_um_objeto_com_problema_nao_derruba_os_outros(self):
+        bom = self.item('FR/a/bom.pdf', b'ok')
+        ruim = self.item('FR/a/ruim.pdf', b'zz')
+
+        def http(metodo, url, key, dados=None, ctype=None, **k):
+            if url.endswith('/bucket/raw'):
+                return 200, b'{"name":"raw"}'
+            if 'ruim' in url:
+                return raw.TRANSPORTE_AMBIGUO, b'timeout'
+            return 200, b'ok'
+
+        self._com_http(http)
+        r = raw.enviar(p={'ITEMS': [bom, ruim], 'RAW_EXPECTED': 2,
+                          'EXCEEDS_BUCKET_LIMIT': False, 'KEY_COLLISIONS': []})
+        self.assertEqual(r['SHA_VERIFIED'], 1)
+        self.assertEqual(r['UNKNOWN_MUST_VERIFY'], 1)
+        self.assertEqual(r['FAILED'], 0)
+        self.assertEqual(r['GATE']['RAW_PRESERVATION_GATE_FR'], 'OPEN')
+
+    def test_o_relatorio_sai_mesmo_quando_ha_problema(self):
+        """O pior do run que caiu não foi cair: foi cair sem relatório."""
+        def http(metodo, url, key, dados=None, ctype=None, **k):
+            if url.endswith('/bucket/raw'):
+                return 200, b'{"name":"raw"}'
+            return raw.TRANSPORTE_AMBIGUO, b'timeout'
+
+        self._com_http(http)
+        r = raw.enviar(p={'ITEMS': [self.item('FR/a/x.pdf')], 'RAW_EXPECTED': 1,
+                          'EXCEEDS_BUCKET_LIMIT': False, 'KEY_COLLISIONS': []})
+        self.assertIn('GATE', r)
+        self.assertIn('BYTES_VERIFIED_REMOTELY', r)
+        self.assertEqual(r['BYTES_VERIFIED_REMOTELY'], 0)
+
+    def test_arquivo_local_ilegivel_vira_FAILED_e_nao_derruba_o_lote(self):
+        """Ler o disco também pode falhar, e isso é FAILED — não ambíguo."""
+        bom = self.item('FR/a/bom.pdf', b'ok')
+        sumido = dict(self.item('FR/a/sumido.pdf'), LOCAL_PATH='nao/existe.pdf')
+
+        def http(metodo, url, key, dados=None, ctype=None, **k):
+            if url.endswith('/bucket/raw'):
+                return 200, b'{"name":"raw"}'
+            if 'sumido' in url:
+                return 404, b''
+            return 200, b'ok'
+
+        self._com_http(http)
+        r = raw.enviar(p={'ITEMS': [bom, sumido], 'RAW_EXPECTED': 2,
+                          'EXCEEDS_BUCKET_LIMIT': False, 'KEY_COLLISIONS': []})
+        self.assertEqual(r['SHA_VERIFIED'], 1)
+        self.assertEqual(r['FAILED'], 1)
 
 
 class Credencial(unittest.TestCase):

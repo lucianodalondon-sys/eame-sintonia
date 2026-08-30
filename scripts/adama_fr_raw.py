@@ -86,8 +86,15 @@ def sha256_arquivo(caminho, bloco=1 << 20):
 
 
 def apos_resposta_ambigua(http_status):
-    """O que fazer depois de um 5xx. Nunca reenviar às cegas."""
-    if 500 <= int(http_status) < 600:
+    """O que fazer depois de um 5xx ou de um timeout. Nunca reenviar às cegas."""
+    st = int(http_status)
+    if st == TRANSPORTE_AMBIGUO:
+        return {'STATE': UNKNOWN_MUST_VERIFY,
+                'NEXT': 'inventário remoto, depois download de volta e hash',
+                'DO_NOT': 'reenviar às cegas',
+                'WHY': ('TIMEOUT ≠ OBJECT_NOT_PRESERVED — o pedido saiu e a '
+                        'resposta não chegou')}
+    if 500 <= st < 600:
         return {'STATE': UNKNOWN_MUST_VERIFY,
                 'NEXT': 'inventário remoto, depois download de volta e hash',
                 'DO_NOT': 'reenviar às cegas',
@@ -229,16 +236,51 @@ def credencial():
     return url, key, faltam
 
 
-def _http(metodo, url, key, dados=None, ctype=None):
+# Status inventado para "o pedido saiu e a resposta não chegou". Não é 0 porque
+# 0 é um HTTP válido em lugar nenhum — é justamente por isso que ele serve: nunca
+# vai ser confundido com resposta do servidor.
+TRANSPORTE_AMBIGUO = 0
+
+
+def _http(metodo, url, key, dados=None, ctype=None, tentativas=3, dormir=None):
+    """→ (status, corpo). NUNCA levanta por falha de transporte.
+
+    A primeira versão deixava `TimeoutError` subir. Num lote de 234 objetos isso
+    significa que UM soquete lento derruba a execução inteira — e ela morre sem
+    escrever relatório, deixando o estado ambíguo: parte subiu, parte não, e
+    ninguém sabe qual é qual. Foi o que aconteceu no run 33333878608, no objeto
+    de número desconhecido, porque nem progresso era impresso.
+
+    Um timeout NÃO diz que o objeto não foi gravado. Diz que a resposta não
+    chegou. É a mesma lei do 5xx, um andar abaixo:
+
+        HTTP_5XX  ≠ OBJECT_NOT_PRESERVED
+        TIMEOUT   ≠ OBJECT_NOT_PRESERVED
+
+    Por isso o retorno é `TRANSPORTE_AMBIGUO`, e quem chama trata como
+    UNKNOWN_MUST_VERIFY — resolvido depois pelo download de volta, que é a única
+    coisa que responde de verdade.
+    """
+    import time
+    dormir = time.sleep if dormir is None else dormir
     cab = {'apikey': key, 'Authorization': 'Bearer ' + key}
     if ctype:
         cab['Content-Type'] = ctype
-    rq = urllib.request.Request(url, data=dados, method=metodo, headers=cab)
-    try:
-        with urllib.request.urlopen(rq, timeout=300) as r:
-            return r.status, r.read()
-    except urllib.error.HTTPError as e:
-        return e.code, e.read()
+    ultimo = None
+    for n in range(tentativas):
+        rq = urllib.request.Request(url, data=dados, method=metodo, headers=cab)
+        try:
+            with urllib.request.urlopen(rq, timeout=300) as r:
+                return r.status, r.read()
+        except urllib.error.HTTPError as e:
+            # Resposta do servidor: isso não se repete às cegas. 5xx é decidido
+            # por quem chama, com inventário — não com mais uma tentativa.
+            return e.code, e.read()
+        except Exception as e:                                    # noqa: BLE001
+            ultimo = e
+            if n < tentativas - 1:
+                dormir(2 ** n)
+    return TRANSPORTE_AMBIGUO, str(ultimo).encode('utf-8', 'replace')[:200]
 
 
 def canario():
@@ -312,28 +354,61 @@ def enviar(p=None, verificar=True):
     if c['SUPABASE_AUTH_CANARY'] != 'PASS':
         return dict(c, STATE='AUTH_CANARY_FAILED')
 
+    # INVENTÁRIO PRIMEIRO, e é isso que torna a execução repetível.
+    #
+    # A chave é endereçada por conteúdo: se o objeto já está lá com o mesmo sha,
+    # ele É o objeto certo, e reenviar 310 MB não prova nada que o hash já não
+    # tenha provado. Numa reexecução depois de queda, isto transforma o lote
+    # inteiro em conferência barata em vez de upload repetido.
+    #
+    #     JÁ ESTÁ LÁ E BATE  ->  não precisa subir
+    #     NÃO ESTÁ LÁ        ->  sobe, e confere depois
+    #     RESPOSTA AMBÍGUA   ->  confere; nunca reenvia às cegas
     resultado = []
-    for it in p['ITEMS']:
-        caminho = os.path.join(ROOT, it['LOCAL_PATH'])
+    subidos = pulados = 0
+    for n, it in enumerate(p['ITEMS'], 1):
+        estado = _verificar_um(url, key, it)
+        if estado['STATE'] == CONTENT_HASH_VERIFIED:
+            pulados += 1
+            resultado.append(estado)
+        else:
+            estado = _subir_um(url, key, it)
+            subidos += 1
+            if verificar and estado['STATE'] != FAILED:
+                estado = _verificar_um(url, key, estado)
+            resultado.append(estado)
+        if n % 20 == 0 or n == len(p['ITEMS']):
+            conferidos = sum(1 for x in resultado
+                             if x['STATE'] == CONTENT_HASH_VERIFIED)
+            print('  %3d/%d  enviados %3d  ja estavam %3d  conferidos %3d'
+                  % (n, len(p['ITEMS']), subidos, pulados, conferidos))
+            sys.stdout.flush()
+    return _relatorio(p, resultado)
+
+
+def _subir_um(url, key, it):
+    """Envia UM objeto. Uma falha aqui não derruba o lote — vira estado."""
+    estado = dict(it)
+    caminho = os.path.join(ROOT, it['LOCAL_PATH'])
+    try:
         with open(caminho, 'rb') as fh:
             corpo = fh.read()
-        destino = '%s/storage/v1/object/%s/%s' % (
-            url, BUCKET, urllib.parse.quote(it['STORAGE_KEY']))
-        st, body = _http('POST', destino, key, corpo,
-                         it.get('CONTENT_TYPE') or 'application/octet-stream')
-        estado = dict(it)
-        if st in (200, 201) or b'already exists' in body or b'Duplicate' in body:
-            estado['STATE'] = UPLOADED_UNVERIFIED
-        elif 500 <= st < 600:
-            estado.update(apos_resposta_ambigua(st))
-        else:
-            estado['STATE'] = FAILED
-            estado['WHY'] = 'upload devolveu %d: %s' % (st, body[:120])
-        resultado.append(estado)
-
-    if verificar:
-        resultado = [_verificar_um(url, key, x) for x in resultado]
-    return _relatorio(p, resultado)
+    except OSError as e:
+        estado['STATE'] = FAILED
+        estado['WHY'] = 'não consegui ler o arquivo local: %s' % str(e)[:120]
+        return estado
+    destino = '%s/storage/v1/object/%s/%s' % (
+        url, BUCKET, urllib.parse.quote(it['STORAGE_KEY']))
+    st, body = _http('POST', destino, key, corpo,
+                     it.get('CONTENT_TYPE') or 'application/octet-stream')
+    if st in (200, 201) or b'already exists' in body or b'Duplicate' in body:
+        estado['STATE'] = UPLOADED_UNVERIFIED
+    elif st == TRANSPORTE_AMBIGUO or 500 <= st < 600:
+        estado.update(apos_resposta_ambigua(st))
+    else:
+        estado['STATE'] = FAILED
+        estado['WHY'] = 'upload devolveu %d: %s' % (st, body[:120])
+    return estado
 
 
 def _verificar_um(url, key, it):
@@ -344,6 +419,9 @@ def _verificar_um(url, key, it):
     it = dict(it)
     if st == 404:
         it['STATE'] = REMOTE_ABSENT
+        return it
+    if st == TRANSPORTE_AMBIGUO:
+        it.update(apos_resposta_ambigua(st))
         return it
     if st != 200:
         it['STATE'] = UNKNOWN_MUST_VERIFY if 500 <= st < 600 else FAILED
