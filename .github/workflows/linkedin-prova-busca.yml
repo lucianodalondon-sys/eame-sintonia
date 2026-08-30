@@ -19,6 +19,10 @@ on:
         description: 'so ler o contrato dos Actors (gratuito, nao gasta nada)'
         type: boolean
         default: true
+      todos_os_oito:
+        description: 'medir os 8 alvos da missao em vez dos 2 da prova'
+        type: boolean
+        default: false
       reler_raw_do_run:
         description: 'id do run cujo RAW deve ser relido (gratuito, zero execucao)'
         type: string
@@ -86,11 +90,13 @@ jobs:
         if: ${{ inputs.reler_raw_do_run != '' }}
         run: python3 scripts/linkedin_prova_busca.py --reler-raw
 
-      - name: prova de dois nomes
+      - name: busca por nome
         if: ${{ inputs.so_contrato == false && inputs.reler_raw_do_run == '' }}
         env:
           APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
-        run: python3 scripts/linkedin_prova_busca.py
+        run: |
+          python3 scripts/linkedin_prova_busca.py \
+            ${{ inputs.todos_os_oito && '--todos' || '' }}
 
       - name: nenhum token nos artefatos
         if: ${{ always() }}

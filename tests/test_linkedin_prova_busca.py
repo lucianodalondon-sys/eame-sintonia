@@ -66,7 +66,7 @@ class OPortaoDoContratoNaoEDecorativo(unittest.TestCase):
         """
         with open(pb.__file__, encoding='utf-8') as fh:
             fonte = fh.read()
-        self.assertIn('entrada_modelo = entrada_de(NOMES[0])', fonte)   # conferida
+        self.assertIn('entrada_modelo = entrada_de(lista[0])', fonte)   # conferida
         self.assertIn('entrada = entrada_de(alvo)', fonte)              # executada
         self.assertEqual(pb.entrada_de(pb.NOMES[0]), pb.entrada_de(pb.NOMES[0]))
 
@@ -374,3 +374,37 @@ class OTituloDecideEONomeNao(unittest.TestCase):
         self.assertEqual(
             pb.resolver_alvo([pb.IDENTITY_PLAUSIBLE, pb.IDENTITY_PLAUSIBLE]),
             pb.IDENTITY_PLAUSIBLE)
+
+
+class OTetoDaMissaoNaoSobe(unittest.TestCase):
+    """`--todos` mede mais dos MESMOS oito. Não descobre nome novo."""
+
+    def test_a_prova_continua_sendo_de_dois(self):
+        self.assertEqual(len(pb.alvos()), 2)
+
+    def test_a_missao_inteira_sao_os_oito_ja_identificados(self):
+        import linkedin_sensores as sn
+        todos = pb.alvos(todos=True)
+        self.assertEqual(len(todos), 8)
+        self.assertLessEqual(len(todos), pb.TETO_ALVOS_MISSAO)
+        oito = {a['NAME'] for a in sn.ALVOS}
+        for a in todos:
+            self.assertIn(a['NAME'], oito, 'nome novo entrou por esta porta')
+
+    def test_nenhum_alvo_aparece_duas_vezes(self):
+        nomes = [a['NAME'] for a in pb.alvos(todos=True)]
+        self.assertEqual(len(nomes), len(set(nomes)))
+
+    def test_todo_alvo_tem_entrada_valida_contra_o_contrato_real(self):
+        props, req = ac.campos_do_schema(SCHEMA_BUSCA)
+        for a in pb.alvos(todos=True):
+            r = ac.conferir(props, req, pb.entrada_de(a))
+            self.assertEqual(r['STATE'], ac.CONTRACT_MATCH, a['NAME'])
+
+    def test_todo_alvo_carrega_instituicao_para_o_portao_de_identidade(self):
+        """Sem instituição no alvo, CONFIRMED seria inalcançável e todo mundo
+        cairia em PLAUSIBLE — o portão viraria enfeite."""
+        for a in pb.alvos(todos=True):
+            self.assertTrue(a.get('INSTITUTION'), a['NAME'])
+            tokens = [w for w in a['INSTITUTION'].lower().split() if len(w) > 3]
+            self.assertTrue(tokens, a['NAME'])

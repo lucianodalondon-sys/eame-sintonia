@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
-PROVA PEQUENA — dois nomes, contrato conferido antes, RAW lido depois.
-
-Não é a coleta. É a prova de que a coleta pode começar.
+PROVA PEQUENA e, depois dela, os oito — contrato conferido antes, RAW lido depois.
 
 A missão manda: antes de ampliar, 1–2 provas pequenas, olhar o RAW, confirmar o
-schema. Este arquivo faz exatamente isso e nada além — dois nomes é o teto, e
-está no código, não na intenção.
+schema. Sem `--todos`, este arquivo faz exatamente isso: DOIS nomes, teto no
+código. Com `--todos`, mede os oito — que já estavam identificados antes de
+qualquer chave existir. Nome novo não entra por aqui em nenhum dos dois modos.
 
 TRÊS PORTÕES, NESTA ORDEM
 --------------------------
@@ -16,6 +15,10 @@ TRÊS PORTÕES, NESTA ORDEM
 2. **RAW** — o bruto é gravado por `coletor.executar` antes de qualquer leitura.
 3. **SCHEMA** — a forma do que voltou é descrita campo a campo, e comparada com o
    que `linkedin_schema` já conhece. Forma nova é `UNKNOWN_SCHEMA`, nunca "vazio".
+4. **IDENTIDADE** — nome igual não é pessoa. Medido: a busca por "Pasquale De
+   Vita" devolveu o presidente da Unione Petrolifera, um vendedor de esquadrias e
+   um diretor de TI, todos de nome idêntico. O título declarado decide, e só até
+   onde ele vai — `CONFIRMED` exige que o título NOMEIE a instituição do alvo.
 
 O QUE ESTE ARQUIVO SE RECUSA A CONCLUIR
 ----------------------------------------
@@ -43,7 +46,8 @@ import linkedin_schema as ls     # noqa: E402
 DEST = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'IT-LINKEDIN-PROVA-BUSCA.json')
 
 ACTOR = 'harvestapi~linkedin-profile-search-by-name'
-TETO_NOMES = 2                # teto da PROVA. Ampliar exige outra missão.
+TETO_NOMES = 2                # teto da PROVA. `--todos` sobe para o teto da missão.
+TETO_ALVOS_MISSAO = 8         # teto da MISSÃO. Nenhuma bandeira sobe daqui.
 TETO_ITENS = 5
 
 # Dois dos oito. Escolhidos por serem os de instituição mais verificável: se o
@@ -295,7 +299,7 @@ def ler_itens(itens, out):
                                'TRUNCATED_BY_PLATFORM' if nome_truncado(ident['NAME'])
                                else 'DIFFERENT_NAME')
         por_nome.setdefault(it.get('_ALVO'), []).append(ident)
-    por_alvo = {a['NAME']: a for a in NOMES}
+    por_alvo = {a['NAME']: a for a in alvos(todos=True)}
     for pedido, candidatos in por_nome.items():
         alvo = por_alvo.get(pedido) or {'NAME': pedido, 'INSTITUTION': ''}
         for c in candidatos:
@@ -338,7 +342,7 @@ def ler_itens(itens, out):
         out['STATE'] = 'PROVED_ON_%d_NAMES' % len(com_match)
         out['VERDICT'] = 'ROUTE_PROVED'
     out['VERDICT_MUST_CARRY'] = {
-        'SCOPE': '%d nome(s) de 8 — prova de rota' % len(por_nome),
+        'SCOPE': '%d nome(s) de %d da missao' % (len(por_nome), TETO_ALVOS_MISSAO),
         'IDENTITY': '%d CONFIRMED, %d PLAUSIBLE de %d alvos' % (
             out['IDENTITY_CONFIRMED_COUNT'], out['IDENTITY_PLAUSIBLE_COUNT'],
             len(por_nome)),
@@ -350,7 +354,31 @@ def ler_itens(itens, out):
     return out
 
 
-def executar():
+def alvos(todos=False):
+    """Os dois da prova, ou os oito da missão. Nunca um nome novo.
+
+    `--todos` NÃO é uma ampliação de escopo: os oito já estavam identificados
+    antes de qualquer chave existir. O que muda é só quantos deles são medidos.
+    Nome novo entraria por outra porta, com outra missão.
+    """
+    if not todos:
+        return NOMES[:TETO_NOMES]
+    import linkedin_sensores as sn
+    fora, vistos = [], {a['NAME'] for a in NOMES}
+    for a in NOMES[:TETO_NOMES]:
+        fora.append(a)
+    for a in sn.ALVOS:
+        if a['NAME'] in vistos:
+            continue
+        pedacos = a['NAME'].split()
+        fora.append({'NAME': a['NAME'], 'FIRST': pedacos[0],
+                     'LAST': ' '.join(pedacos[1:]),
+                     'INSTITUTION': a['INSTITUTION'],
+                     'VOICE_CLASS': a['VOICE_CLASS']})
+    return fora[:TETO_ALVOS_MISSAO]
+
+
+def executar(todos=False):
     out = {'CASE_ID': 'IT-CASE-DURUM-FUSARIUM-001',
            'SOURCE_ID': 'DERIVED/IT-LINKEDIN-PROVA-BUSCA',
            'source': 'Apify %s — prova pequena de rota' % ACTOR,
@@ -372,7 +400,9 @@ def executar():
         return out
 
     # ------------------------------------------------- portão 1 · contrato
-    entrada_modelo = entrada_de(NOMES[0])
+    lista = alvos(todos)
+    out['TARGETS_ASKED'] = [a['NAME'] for a in lista]
+    entrada_modelo = entrada_de(lista[0])
     try:
         meta, schema = ac.contrato(ACTOR, ks[0])
         props, req = ac.campos_do_schema(schema)
@@ -416,7 +446,7 @@ def executar():
         return ([dict(i, _ALVO=alvo['NAME']) for i in (itens or []) if isinstance(i, dict)],
                 est)
 
-    r = ap.executar_com_pool(NOMES[:TETO_NOMES], trabalho,
+    r = ap.executar_com_pool(lista, trabalho,
                              identidade=lambda i: (i.get('_ALVO'), json.dumps(
                                  identidade(i), sort_keys=True, ensure_ascii=False)))
     out['NEW_ACTOR_RUNS'] = len(r['UNITS_DONE'])
@@ -455,7 +485,7 @@ def main():
         else:
             ler_itens(itens, out)
     else:
-        out = executar()
+        out = executar('--todos' in sys.argv)
     os.makedirs(os.path.dirname(DEST), exist_ok=True)
     with open(DEST, 'w', encoding='utf-8') as fh:
         fh.write(ap.redigir(json.dumps(out, ensure_ascii=False, indent=2)))
