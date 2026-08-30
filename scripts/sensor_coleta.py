@@ -179,13 +179,20 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
             except Exception:                                 # noqa: BLE001
                 pass
             if 400 <= e.code < 500:
-                # Recusa da API é RESPOSTA. Devolve o JSON dela para o coletor ler o
-                # motivo, em vez de repetir a mesma pergunta e receber o mesmo não.
+                # Recusa da API é RESPOSTA, e não se repete. Mas ela precisa CHEGAR ao
+                # manifesto: a versão de `executar` da branch default não inspeciona
+                # `run['error']`, então devolver o JSON de erro fazia `data` vir vazio e o
+                # manifesto registrar apenas `status da plataforma: None` — que se lê como
+                # "o ator ficou mudo" quando a plataforma disse exatamente o que estava
+                # errado. Levantar é o que faz a mensagem real entrar no campo ERROR.
+                detalhe = ''
                 try:
-                    return json.loads(corpo_erro)
+                    e_json = (json.loads(corpo_erro) or {}).get('error') or {}
+                    detalhe = '%s — %s' % (e_json.get('type'), e_json.get('message'))
                 except ValueError:
-                    return {'error': {'type': 'http-%d' % e.code,
-                                      'message': ap.redigir(corpo_erro)[:300]}}
+                    detalhe = corpo_erro[:200]
+                raise RuntimeError('API recusou HTTP %d: %s'
+                                   % (e.code, ap.redigir(detalhe)[:300]))
             ultimo = 'HTTP %d' % e.code
         except Exception as e:                                # noqa: BLE001
             ultimo = ap.redigir('%s: %s' % (type(e).__name__, e))[:160]
