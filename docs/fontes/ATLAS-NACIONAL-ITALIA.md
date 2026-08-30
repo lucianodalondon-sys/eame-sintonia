@@ -250,33 +250,54 @@ risco** e **janela**:
 valendo: não se conta "N boletins em 2026". É a mesma lei do Vêneto por motivo oposto — lá
 faltava o **conteúdo**, aqui falta o **índice**.
 
-### O desencontro que isso revela — e a pergunta que decide tudo
+### ⚠ CORREÇÃO — não havia desencontro. A lacuna era do meu extrator.
 
-| camada | o que ela diz |
-|---|---|
-| **Campo** (Toscana) | fusariose **de espiga, na floração, sob chuva** — problema foliar, de janela |
-| **Portfólio que nomeia grano duro** | **13 herbicidas** + **1 tratamento de semente** (SEEDRON) · **zero fungicidas foliares** |
+Esta seção publicava, algumas horas antes, que o portfólio nomeado para trigo duro era só
+de plantas daninhas e de semente, com **zero fungicidas foliares**. **Estava errado.**
 
-As duas camadas existem, são boas, e **não se cruzam na mesma célula** `CULTURA × PROBLEMA ×
-MOMENTO`. O único produto fungicida que nomeia grano duro é um **tratamento de semente**,
-cuja fusariose é a **transmitida pela semente** — não a da espiga —, e ele **vence em 31
-dias** (30/09/2026). *`EXPIRY ≠ WITHDRAWAL`: isto é fato do registro, não afirmação de
-retirada nem de indisponibilidade comercial.*
+A tabela de usos autorizados escreve a coluna `Coltura` como um cabeçalho para **duas**
+culturas de uma vez — *"Frumento tenero e duro (invernale e primaverile)"* — e o padrão
+`frumento\s+duro` não casa nisso: o substantivo não encosta no adjetivo. **11 dos 25
+rótulos que autorizam trigo duro estavam sendo perdidos por um espaço em branco — 79 % de
+subcontagem — e entre os perdidos estavam todos os fungicidas foliares de cereal.** A maior
+cultura da Itália parecia descoberta por causa de uma conjunção.
 
-**Mas eu não afirmo lacuna.** Cinco foliares atendem **exatamente** o conjunto de doenças do
-boletim — **MAXENTIS** e **KOJAMI** (azoxystrobin+prothioconazole, FRAC 11+3, com *Fusarium*
-spp., *Zymoseptoria tritici*, *Puccinia* spp., *Blumeria graminis*), CUSTODIA ULTRA, BLAISE
-ULTRA, MIRADOR TURBO — e nomeiam **`COMMON_WHEAT` / `WHEAT_GENERIC`**, não `DURUM_WHEAT`.
+Corrigido (`CROP_TERMS`, forma coordenada; guardado por `TestFormaCoordenadaDaCultura`),
+os 14 viram **25**: **19 herbicidas · 5 fungicidas foliares · 1 tratamento de semente.**
 
-> **`CROP_TERM ≠ AUTHORIZED_CROP`** — irmã de `REGISTRATION ≠ COMMERCIAL AVAILABILITY`.
-> **Se "frumento" no rótulo italiano cobre juridicamente o grano duro, não há lacuna
-> nenhuma: é artefato de redação de rótulo. Se não cobre, a lacuna é real e é sobre a maior
-> cultura do país.** Eu **NÃO SEI** qual das duas, e não é extraível do texto do rótulo —
-> exige leitura jurídica do decreto de autorização. Enquanto não for resolvido, este é um
-> **desencontro observado com uma pergunta aberta**, não uma lacuna afirmada.
+### A convergência real, nos três eixos
 
-**A Toscana não é o país:** 43,7 mil ha, **3,7 %** do trigo duro italiano. Puglia, Sicília e
-Basilicata — **62,1 % da cultura** — continuam sem sonda de campo.
+| eixo | rótulo oficial (MAXENTIS / KOJAMI) | boletim de campo (LaMMA Grosseto) |
+|---|---|---|
+| **Cultura** | *"Frumento tenero e duro (invernale e primaverile)"* — coluna `Coltura` | grano duro, nomeado à parte do tenero |
+| **Problema** | *"Fusarium (Fusarium spp., Microdochium spp.)"*, Septoria, Oidio, Ruggini | Septoria · Ruggini · Oidio · **Fusariosi** |
+| **Momento** | *"Intervenire tra gli stadi di primo nodo visibile (inizio levata) e **fine fioritura** per il controllo delle fusariosi del frumento"* | *"Dove la fase fenologica sta entrando in **fioritura** … alto rischio fusariosi … è opportuno effettuare un trattamento"* |
+
+Mesma cultura, mesmo patógeno, mesma janela — e a janela sai do **rótulo oficial** de um
+lado e do **boletim regional** do outro, **sem ninguém inferir nada**. `EVIDENCE_CLASS =
+CROP_IN_AUTHORIZED_USE_TABLE`: o termo não está em prosa solta, está na coluna `Coltura` da
+seção `DOSI ED EPOCHE DI IMPIEGO`, que é a evidência mais forte que um rótulo oferece.
+
+### A lição, que vale mais que o achado
+
+De manhã o padrão era convincente — 13 herbicidas, 1 tratamento de semente, **zero**
+foliares — e era tentador publicar *"a ADAMA tem uma lacuna na maior cultura da Itália"*.
+**Não publiquei: declarei `NÃO SEI`.** A resposta veio **ao contrário** do que o padrão
+sugeria. Resolver a dúvida por plausibilidade teria publicado uma acusação falsa sobre o
+portfólio — e ela **teria passado**, porque era coerente com tudo que estava medido.
+
+> **`UM PADRÃO FORTE NOS DADOS NÃO É PERMISSÃO PARA FECHAR UMA PERGUNTA ABERTA.`**
+
+`CROP_TERM ≠ AUTHORIZED_CROP` **continua valendo** — presença de termo em prosa não é
+autorização. O que estava errado não era a lei; era a minha aplicação dela, e a leitura do
+termo. As duas viraram regressão (10 no total).
+
+### O que NÃO muda
+
+A crítica de painel continua de pé: **57,9 % do trigo duro italiano segue sem sonda de
+campo**, e a Toscana são **3,7 %** da área. **A camada de campo é que é rasa — a de
+portfólio não era.** E `REGISTRATION ≠ COMMERCIAL AVAILABILITY`: o rótulo prova
+autorização, não venda, disponibilidade em ponto de venda ou prioridade interna.
 
 Medido em `data/samples/IT-T3-LOTTA/IT-trigo-duro-sinal-x-portfolio.json` ·
 `scripts/italia_trigo_duro.py`

@@ -223,21 +223,24 @@ def perguntas():
       'quantas edições a Toscana publica por ano — a página é rolante, sem arquivo; '
       'e o que Puglia, Sicília e Basilicata publicam, que é 62,1% da cultura')
 
-    r('A ADAMA tem resposta para a fusariose de espiga em trigo duro na Itália?', REFUSE,
-      'NÃO SEI, e a pergunta que decide isso é jurídica, não de dados. Fato: dos 14 '
-      'produtos cujo rótulo nomeia grano duro, 13 são herbicidas e 1 é tratamento de '
-      'semente (SEEDRON, cuja fusariose é a transmitida pela semente, não a da espiga) — '
-      'zero fungicidas foliares. Fato: cinco foliares atendem exatamente o conjunto de '
-      'doenças do boletim de campo (MAXENTIS e KOJAMI, azoxystrobin+prothioconazole, '
-      'FRAC 11+3) e nomeiam frumento/COMMON_WHEAT, não DURUM_WHEAT. '
-      'Se "frumento" no rótulo italiano cobre juridicamente o grano duro, NÃO HÁ LACUNA '
-      'NENHUMA e o desencontro é artefato de redação. Se não cobre, a lacuna é real e é '
-      'sobre a maior cultura do país. Responder qualquer das duas seria inventar.',
-      'IT-trigo-duro-sinal-x-portfolio.json',
-      'a classe e os alvos declarados de cada um dos 163 rótulos',
-      'o desencontro observado entre a camada de campo e a de portfólio',
-      'se "frumento" cobre grano duro — exige leitura do decreto de autorização, '
-      'não é extraível do texto do rótulo. CROP_TERM ≠ AUTHORIZED_CROP')
+    r('A ADAMA tem resposta para a fusariose de espiga em trigo duro na Itália?',
+      ANSWERABLE,
+      'Sim, e a convergência fecha nos três eixos. CULTURA: a coluna Coltura da tabela '
+      'de usos autorizados do MAXENTIS e do KOJAMI diz "Frumento tenero e duro '
+      '(invernale e primaverile)". PROBLEMA: a mesma linha lista Fusarium (Fusarium '
+      'spp., Microdochium spp.), Septoria, Oidio e Ruggini — o conjunto do boletim de '
+      'campo, item por item. MOMENTO: o rótulo declara "Intervenire tra gli stadi di '
+      'primo nodo visibile (inizio levata) e FINE FIORITURA per il controllo delle '
+      'fusariosi del frumento", e o boletim de Grosseto pede tratamento justamente '
+      '"dove la fase fenologica sta entrando in fioritura". São 25 produtos que nomeiam '
+      'grano duro: 19 herbicidas, 5 fungicidas foliares, 1 tratamento de semente.',
+      'IT-trigo-duro-sinal-x-portfolio.json × IT-T3-LAMMA',
+      'a coluna Coltura e a janela de aplicação, ambas no texto do rótulo oficial; '
+      'e a janela do boletim regional',
+      'que as duas janelas são a mesma — comparação entre dois textos primários',
+      'nada sobre venda, disponibilidade em ponto de venda ou prioridade interna: '
+      'REGISTRATION ≠ COMMERCIAL AVAILABILITY. E o sinal de campo continua raso — '
+      'a Toscana é 3,7% da área e 57,9% da cultura nunca foi sondada')
 
     r('Não há sinal de campo de olivo na Puglia?', ANSWERABLE,
       'Há — eu é que estava medindo a instituição errada. O serviço regional não '
@@ -294,9 +297,19 @@ def regressoes():
                 .get('PCT_NATIONAL_NEVER_ASKED', 0) > 50.0,
                 'mais de metade do trigo duro nunca foi perguntado, e isso nao e zero'))
 
+    # A LEI CONTINUA VERDADEIRA; a minha APLICACAO dela e que estava errada. Presenca de
+    # termo em prosa solta segue nao sendo autorizacao — o contrato do portfolio diz isso.
+    # O que mudou e que no MAXENTIS/KOJAMI o termo aparece DENTRO da coluna Coltura da
+    # tabela de usos autorizados, que e classe de evidencia mais forte. Apagar a lei
+    # porque um caso a superou seria a forma errada de fazer a suite passar.
     out.append(('CROP_TERM != AUTHORIZED_CROP',
-                duro.get('THE_OPEN_QUESTION', {}).get('STATE') == 'NÃO SEI',
-                'nomear frumento nao decide se cobre grano duro; afirmar lacuna seria inventar'))
+                'NÃO É AUTHORIZED_ON_CROP' in str(port.get('CROP_TERM_CONTRACT', '')),
+                'presenca de termo em prosa nao e autorizacao; a tabela de usos, sim'))
+
+    out.append(('STRONG_PATTERN != PERMISSION_TO_CLOSE',
+                'CONTRÁRIO' in str(duro.get('THE_QUESTION_THAT_WAS_OPEN', {})
+                                   .get('WHAT_THIS_TEACHES', '')),
+                'o padrao de manha dizia lacuna; o NAO SEI segurou e a resposta veio ao contrario'))
 
     out.append(('SOURCE_LAYER != SIGNAL_ABSENCE',
                 'não foi lido' in str(op.get('CORRECTION_TO_MY_OWN_FINDING', {})

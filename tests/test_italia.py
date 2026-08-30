@@ -496,19 +496,41 @@ class TestTrigoDuro(unittest.TestCase):
         p = {'ACTIVE_SUBSTANCE': 'AZOXYSTROBIN|PROTHIOCONAZOLE', 'ISSUES_FROM_SOURCE': []}
         self.assertEqual('FUNGICIDA_FOLIAR', self.tdu.classificar(p))
 
-    def test_a_pergunta_aberta_continua_aberta(self):
-        """O artefato NAO pode afirmar lacuna: depende de "frumento" cobrir grano duro.
+    def test_a_pergunta_foi_resolvida_ao_contrario_do_padrao(self):
+        """O NAO SEI da manha estava certo, e a resposta veio invertida.
 
-        Se cobre, nao ha lacuna nenhuma e o desencontro e artefato de redacao de rotulo.
-        Nao e extraivel do texto do rotulo, entao o estado tem de continuar NAO SEI.
-        CROP_TERM != AUTHORIZED_CROP.
+        De manha o padrao era convincente: 13 herbicidas, 1 tratamento de semente,
+        ZERO foliares. Publicar "a ADAMA tem lacuna na maior cultura da Italia" teria
+        sido coerente com tudo que estava medido — e falso. O rotulo diz, na tabela de
+        usos autorizados, "Frumento tenero e duro". Este teste guarda a licao, nao so
+        o numero: um padrao forte nos dados nao autoriza fechar pergunta aberta.
         """
         d = json.load(open(DURO, encoding='utf-8'))
-        self.assertEqual('NÃO SEI', d['THE_OPEN_QUESTION']['STATE'])
-        self.assertEqual('CROP_TERM ≠ AUTHORIZED_CROP', d['THE_OPEN_QUESTION']['LAW'])
+        q = d['THE_QUESTION_THAT_WAS_OPEN']
+        self.assertIn('RESOLVIDA', q['STATE'])
+        self.assertIn('PADRÃO FORTE', q['LAW'])
+        self.assertIn('CONTRÁRIO', q['WHAT_THIS_TEACHES'])
         texto = json.dumps(d, ensure_ascii=False).lower()
         for proibido in ('market share', 'quota di mercato', 'revenue', 'roi realized'):
             self.assertNotIn(proibido, texto)
+
+    def test_a_convergencia_fecha_nos_tres_eixos(self):
+        """CULTURA x PROBLEMA x MOMENTO, com a janela vindo dos DOIS lados."""
+        d = json.load(open(DURO, encoding='utf-8'))
+        c = d['THE_CONVERGENCE']
+        self.assertEqual(['CROP', 'ISSUE', 'TIMING'], c['AXES_THAT_MATCH'])
+        self.assertEqual('CROP_IN_AUTHORIZED_USE_TABLE', c['EVIDENCE_CLASS'])
+        self.assertIn('fine fioritura', c['TIMING_FROM_LABEL_IT'])
+        self.assertIn('fioritura', c['TIMING_FROM_FIELD_IT'])
+        self.assertIn('Frumento tenero e duro', c['CROP'])
+
+    def test_o_defeito_do_extrator_fica_registrado_com_o_impacto(self):
+        """Corrigir sem registrar o tamanho do erro apaga a licao."""
+        d = json.load(open(DURO, encoding='utf-8'))
+        m = d['MY_OWN_DEFECT_THAT_THIS_CORRECTS']
+        self.assertIn('11 dos 25', m['MEASURED_IMPACT'])
+        self.assertIn('79%', m['MEASURED_IMPACT'])
+        self.assertTrue(m['GUARDED_BY'])
 
     def test_a_pagina_rolante_nao_vira_serie_contada(self):
         """Mesma lei do Veneto, por motivo diferente: la faltava conteudo, aqui indice."""
@@ -636,6 +658,42 @@ class TestColetorFalhaSuave(unittest.TestCase):
                            'a coleta tem de continuar depois do recorte que falhou')
 
 
+
+class TestFormaCoordenadaDaCultura(unittest.TestCase):
+    """O espaco em branco que fez a maior cultura da Italia parecer descoberta.
+
+    A tabela de usos autorizados escreve a coluna Coltura como um cabecalho para DUAS
+    culturas: "Frumento tenero e duro (invernale e primaverile)". O padrao
+    `frumento\\s+duro` nao casa nisso — o substantivo nao encosta no adjetivo —, entao
+    o rotulo entrava como se fosse so de trigo mole.
+
+    Medido em 30/08/2026: 11 dos 25 rotulos que autorizam trigo duro estavam sendo
+    perdidos assim (79% de subcontagem), e entre os perdidos estavam TODOS os
+    fungicidas foliares de cereal — inclusive MAXENTIS e KOJAMI, que autorizam
+    explicitamente frumento duro contra Fusarium.
+    """
+
+    def test_forma_coordenada_registra_as_duas_culturas(self):
+        for t in ('Coltura Frumento tenero e duro (invernale e primaverile)',
+                  'Grano tenero e duro', 'FRUMENTO TENERO e DURO',
+                  'frumento duro e tenero'):
+            c = rp.culturas(t)
+            with self.subTest(texto=t):
+                self.assertEqual('CROP_TERM_PRESENT',
+                                 c.get('DURUM_WHEAT', {}).get('STATE'),
+                                 'a forma coordenada tem de registrar trigo duro')
+                self.assertEqual('CROP_TERM_PRESENT',
+                                 c.get('COMMON_WHEAT', {}).get('STATE'),
+                                 'e trigo mole junto — o cabecalho vale para os dois')
+
+    def test_forma_simples_nao_contamina_a_outra_cultura(self):
+        """Consertar a coordenada nao pode passar a inventar a cultura ausente."""
+        so_tenero = rp.culturas('impiego solo su frumento tenero')
+        self.assertIsNone(so_tenero.get('DURUM_WHEAT', {}).get('STATE'))
+        so_duro = rp.culturas('impiego su frumento duro')
+        self.assertIsNone(so_duro.get('COMMON_WHEAT', {}).get('STATE'))
+
+
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 
 
@@ -656,7 +714,7 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
         falhas = [n for n, (ok, _) in self.regs.items() if not ok]
         self.assertEqual([], falhas, 'regressoes de confianca falsa quebradas: %s' % falhas)
 
-    def test_as_nove_estao_presentes(self):
+    def test_as_dez_estao_presentes(self):
         """Apagar uma regressao nao pode ser a forma de fazer a suite passar.
 
         As quatro ultimas nasceram em 30/08/2026, quando eu corrigi tres achados meus
@@ -673,7 +731,8 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
                      'PANEL_MEASURED != COUNTRY_MEASURED',
                      'NOT_ASKED != NOT_FOUND != DOES_NOT_EXIST',
                      'CROP_TERM != AUTHORIZED_CROP',
-                     'SOURCE_LAYER != SIGNAL_ABSENCE'):
+                     'SOURCE_LAYER != SIGNAL_ABSENCE',
+                     'STRONG_PATTERN != PERMISSION_TO_CLOSE'):
             self.assertIn(nome, self.regs)
 
     def test_ask_declara_estado_em_toda_pergunta(self):

@@ -71,8 +71,19 @@ NAO_ALVO = re.compile(
 # Termo fora daqui é NOT_SEARCHED, e NOT_SEARCHED nunca é ABSENT.
 CROP_TERMS = {
     'MAIZE': [r'\bmais\b', r'\bgranoturco\b'],
-    'DURUM_WHEAT': [r'grano\s+duro', r'frumento\s+duro'],
-    'COMMON_WHEAT': [r'grano\s+tenero', r'frumento\s+tenero'],
+    # A FORMA COORDENADA. A tabela de usos autorizados escreve a coluna Coltura como
+    # "Frumento tenero e duro (invernale e primaverile)" — um cabeçalho para as DUAS
+    # culturas. Sem o terceiro padrão, `frumento\s+duro` não casa (o substantivo não
+    # encosta no adjetivo) e o rótulo entra como se fosse só de trigo mole. Medido em
+    # 2026-08-30: 11 dos 25 rótulos que autorizam trigo duro estavam sendo perdidos
+    # assim — 79% de subcontagem —, e entre os perdidos estavam TODOS os fungicidas
+    # foliares de cereal. A cultura mais plantada da Itália parecia descoberta por um
+    # espaço em branco.
+    'DURUM_WHEAT': [r'grano\s+duro', r'frumento\s+duro',
+                    r'(?:grano|frumento)\s+tenero\s+e\s+duro',
+                    r'(?:grano|frumento)\s+duro\s+e\s+tenero'],
+    'COMMON_WHEAT': [r'grano\s+tenero', r'frumento\s+tenero',
+                     r'(?:grano|frumento)\s+duro\s+e\s+tenero'],
     'WHEAT_GENERIC': [r'\bfrumento\b', r'\bgrano\b'],
     'BARLEY': [r'\borzo\b'],
     'RICE': [r'\briso\b'],

@@ -1,63 +1,73 @@
 #!/usr/bin/env python3
 """
-ITÁLIA — o trigo duro existe, o sinal existe, e eles não se encontram.
+ITÁLIA — o trigo duro está coberto, e quem tinha a lacuna era o meu extrator.
 
-Três medições que estavam separadas e que, juntas, mudam o que se pode dizer sobre a
-maior cultura da Itália (1.177,4 mil ha, mais que milho e videira somados).
+Este arquivo mudou de conclusão no mesmo dia em que nasceu. A versão da manhã dizia:
 
-1 · O SINAL DE CAMPO DE TRIGO DURO EXISTE — eu não tinha perguntado
---------------------------------------------------------------------
-Eu publiquei `TRIGO DURO · sinal cobre 0,0 %`. Não era ausência de sinal: era ausência
-de pergunta (ver `italia_vies_de_painel.py`). Perguntando, ele aparece na primeira
-região aberta: o **Consorzio LaMMA / Regione Toscana** publica boletim fitossanitário
-**por província**, e o de Grosseto e o de Pisa trazem **frumento com grano duro
-separado do grano tenero**, com doença nomeada, fase fenológica, nível de risco e
-janela de tratamento.
+    "O sinal público é foliar e de espiga, na floração. O portfólio nomeado para trigo
+     duro é de plantas daninhas e de semente. As duas camadas não se cruzam."
 
-O boletim de Grosseto lido em 2026-04-23 diz, sobre o grano duro:
+**Isso estava errado, e o erro era meu.**
 
-    "Dove la fase fenologica sta entrando in fioritura, considerate le piogge e le
-     previsioni di piogge per i prossimi giorni, che comportano quindi un alto rischio
-     fusariosi, se non già protette con un trattamento specifico, è opportuno
-     effettuare un trattamento fitosanitario"
+O QUE ACONTECEU
+---------------
+A tabela de usos autorizados escreve a coluna `Coltura` como um cabeçalho para DUAS
+culturas de uma vez:
 
-Isto é sinal de campo de primeira qualidade: **doença × fase × risco × janela**.
+    DOSI ED EPOCHE DI IMPIEGO
+    Coltura: **Frumento tenero e duro (invernale e primaverile)**
 
-2 · O QUE A ADAMA TEM COM O NOME "GRANO DURO" NO RÓTULO
---------------------------------------------------------
-Catorze produtos. **Treze são herbicidas** (dez de clodinafop, um de
-chlorotoluron+diflufenican, dois de mesosulfuron+pinoxaden) e **um é tratamento de
-semente** (SEEDRON, fludioxonil+tebuconazole, contra cárie, carvão e fusariose
-*transmitida pela semente*).
+O padrão `frumento\\s+duro` não casa nisso — o substantivo não encosta no adjetivo. Onze
+dos vinte e cinco rótulos que autorizam trigo duro estavam sendo perdidos por um espaço
+em branco: **79 % de subcontagem**. E entre os perdidos estavam **todos os fungicidas
+foliares de cereal**. A cultura mais plantada da Itália parecia descoberta por causa de
+uma conjunção.
 
-**Nenhum fungicida foliar nomeia grano duro.**
+A CONVERGÊNCIA REAL, NOS TRÊS EIXOS
+------------------------------------
+Corrigido o extrator, o cruzamento fecha exatamente:
 
-3 · O DESENCONTRO
-------------------
-O sinal público de trigo duro é **foliar e de espiga, na floração, sob chuva**. O
-portfólio nomeado para trigo duro é **de plantas daninhas e de semente**. As duas
-camadas existem, são boas, e **não se cruzam na mesma célula** CULTURA × PROBLEMA ×
-MOMENTO.
+    CULTURA   o rótulo do MAXENTIS/KOJAMI diz, na própria tabela de usos autorizados,
+              "Frumento tenero e duro (invernale e primaverile)"
 
-O QUE EU **NÃO** SEI, E É A PERGUNTA QUE DECIDE TUDO
------------------------------------------------------
-Os fungicidas foliares que atendem exatamente o conjunto de doenças do boletim —
-MAXENTIS e KOJAMI (azoxystrobin+prothioconazole, FRAC 11+3, com *Fusarium* spp.,
-*Zymoseptoria tritici*, *Puccinia* spp., *Blumeria graminis*) — nomeiam
-`COMMON_WHEAT` e `WHEAT_GENERIC`, não `DURUM_WHEAT`.
+    PROBLEMA  a mesma linha lista "Fusarium (Fusarium spp., Microdochium spp.)",
+              "Septoria (Zymoseptoria tritici, Septoria nodorum)", "Oidio
+              (Blumeria graminis)" e "Ruggini (Puccinia striiformis, P. recondita)" —
+              o conjunto que o boletim de campo da Toscana nomeia, item por item
 
-**Se "frumento" no rótulo italiano cobre juridicamente o grano duro, não há lacuna
-nenhuma: é artefato de redação de rótulo.** Se não cobre, a lacuna é real e é grande.
+    MOMENTO   o rótulo declara a janela: "Intervenire tra gli stadi di primo nodo
+              visibile (inizio levata) e **fine fioritura** per il controllo delle
+              fusariosi del frumento"
+              e o boletim de Grosseto diz: "Dove la fase fenologica sta entrando in
+              **fioritura** ... alto rischio fusariosi ... è opportuno effettuare un
+              trattamento fitosanitario"
 
-Eu **não sei** qual das duas. Não é extraível do texto do rótulo, que é tudo o que
-tenho. Resolver isso exige a leitura jurídica do decreto de autorização, não mais
-extração. Enquanto não for resolvido, este arquivo **não afirma lacuna** — afirma um
-desencontro observado e uma pergunta aberta, e a pergunta vale mais que um palpite.
+Mesma cultura, mesmo patógeno, mesma janela — e a janela sai do **rótulo oficial** de um
+lado e do **boletim regional** do outro, sem ninguém precisar inferir nada.
 
-    CROP_TERM ≠ AUTHORIZED_CROP
+A LIÇÃO, QUE VALE MAIS QUE O ACHADO
+------------------------------------
+De manhã o padrão dos dados era convincente: 13 herbicidas, 1 tratamento de semente,
+**zero** fungicidas foliares. Era tentador publicar "a ADAMA tem uma lacuna na maior
+cultura da Itália". Eu não publiquei — declarei `NÃO SEI`, porque cinco foliares casavam
+com o conjunto de doenças e a pergunta de cobertura jurídica estava em aberto.
 
-é a lei local, irmã de `REGISTRATION ≠ COMMERCIAL AVAILABILITY`. O contrato de
-`IT-T4-001-portfolio-rotulo.json` já dizia isso; aqui ele passa a ter consequência.
+**A resposta veio ao contrário do que o padrão sugeria.** Se eu tivesse resolvido a
+dúvida por plausibilidade, teria publicado uma acusação falsa sobre o portfólio, e ela
+teria passado — era coerente com tudo que estava medido.
+
+    UM PADRÃO FORTE NOS DADOS NÃO É PERMISSÃO PARA FECHAR UMA PERGUNTA ABERTA.
+
+E a lei local se inverte junto. Não era `CROP_TERM ≠ AUTHORIZED_CROP` no sentido em que
+eu usei: aqui o termo aparece **dentro da coluna `Coltura` da tabela de usos
+autorizados**, que é a evidência mais forte que um rótulo oferece. O que faltava não era
+autoridade jurídica sobre o termo — era **ler o termo direito**.
+
+O QUE CONTINUA VERDADE
+-----------------------
+A crítica de painel (`italia_vies_de_painel.py`) não muda: 57,9 % do trigo duro italiano
+segue sem sonda de campo, e a Toscana são 3,7 % da área. **A camada de campo continua
+rasa; a camada de portfólio é que não estava.**
 """
 import datetime
 import json
@@ -194,9 +204,10 @@ def main():
         'CROP_RANK_IN_ITALY': 1,
         'QUESTION': ('existe sinal público de campo para o trigo duro italiano, e o '
                      'portfólio da ADAMA nomeado para a cultura responde a ele?'),
-        'ANSWER': ('sim, existe — eu não tinha perguntado. E não, o que nomeia grano duro '
-                   'não responde a ele: são 13 herbicidas e 1 tratamento de semente, '
-                   'nenhum fungicida foliar.'),
+        'ANSWER': ('sim para as duas. O sinal existe (LaMMA/Toscana) e o portfólio '
+                   'responde: 5 fungicidas foliares autorizados em "Frumento tenero e '
+                   'duro" contra Fusarium, com a janela declarada no próprio rótulo — '
+                   'inizio levata a FINE FIORITURA —, que é a mesma janela do boletim.'),
         'FIELD_SIGNAL': boletim_toscana(),
         'PORTFOLIO_NAMING_DURUM': {
             'TOTAL': len(duros),
@@ -204,22 +215,68 @@ def main():
             'FOLIAR_FUNGICIDES_NAMING_DURUM': len(por_classe.get('FUNGICIDA_FOLIAR', [])),
             'PRODUCTS': por_classe,
         },
-        'FOLIAR_MATCHING_THE_BULLETIN_BUT_NOT_NAMING_DURUM': foliares,
-        'THE_MISMATCH': (
-            'o sinal público é foliar e de espiga, na floração, sob chuva. O portfólio '
-            'nomeado para a cultura é de plantas daninhas e de semente. As duas camadas '
-            'existem e não se cruzam na mesma célula CULTURA × PROBLEMA × MOMENTO.'),
-        'THE_OPEN_QUESTION': {
-            'STATE': 'NÃO SEI',
+        'FOLIAR_MATCHING_THE_BULLETIN': foliares,
+        'FOLIAR_MATCHING_AND_NAMING_DURUM': [f['PRODUCT'] for f in foliares
+                                             if f['NAMES_DURUM']],
+        'NOTE_ON_THIS_FIELD': (
+            'na versão da manhã este campo se chamava '
+            'FOLIAR_MATCHING_THE_BULLETIN_BUT_NOT_NAMING_DURUM e a lista era a mesma. '
+            'Não mudou o conjunto de produtos: mudou o que eu conseguia ler no rótulo '
+            'deles. Os cinco sempre nomearam grano duro, na forma coordenada.'),
+        'THE_CONVERGENCE': {
+            'CROP': ('a coluna Coltura da tabela de usos autorizados do MAXENTIS/KOJAMI '
+                     'diz "Frumento tenero e duro (invernale e primaverile)"'),
+            'ISSUE': ('a mesma linha lista Fusarium (Fusarium spp., Microdochium spp.), '
+                      'Septoria (Zymoseptoria tritici, Septoria nodorum), Oidio '
+                      '(Blumeria graminis) e Ruggini (Puccinia striiformis, '
+                      'P. recondita) — o conjunto do boletim, item por item'),
+            'TIMING_FROM_LABEL_IT': ('Intervenire tra gli stadi di primo nodo visibile '
+                                     '(inizio levata) e fine fioritura per il controllo '
+                                     'delle fusariosi del frumento'),
+            'TIMING_FROM_FIELD_IT': ('Dove la fase fenologica sta entrando in fioritura, '
+                                     'considerate le piogge e le previsioni di piogge '
+                                     'per i prossimi giorni, che comportano quindi un '
+                                     'alto rischio fusariosi ... è opportuno effettuare '
+                                     'un trattamento fitosanitario'),
+            'AXES_THAT_MATCH': ['CROP', 'ISSUE', 'TIMING'],
+            'EVIDENCE_CLASS': 'CROP_IN_AUTHORIZED_USE_TABLE',
+            'WHY_THAT_CLASS_IS_STRONGER': (
+                'o termo não aparece em prosa solta: aparece na coluna Coltura da seção '
+                'DOSI ED EPOCHE DI IMPIEGO, que é a tabela de usos autorizados. É a '
+                'evidência mais forte que um rótulo oferece sobre cultura.'),
+        },
+        'MY_OWN_DEFECT_THAT_THIS_CORRECTS': {
+            'WHAT_I_PUBLISHED_THIS_MORNING': (
+                'que o portfólio nomeado para trigo duro era só de plantas daninhas e '
+                'de semente, com ZERO fungicidas foliares'),
+            'WHY_IT_WAS_WRONG': (
+                'o padrão `frumento\\s+duro` não casa em "Frumento tenero e duro" — o '
+                'substantivo não encosta no adjetivo. A forma coordenada é como a tabela '
+                'de usos autorizados escreve um cabeçalho para duas culturas.'),
+            'MEASURED_IMPACT': ('11 dos 25 rótulos que autorizam trigo duro estavam sendo '
+                                'perdidos: 79% de subcontagem, e entre os perdidos '
+                                'estavam TODOS os fungicidas foliares de cereal'),
+            'FIXED_IN': 'scripts/italia_rotulo_parse.py — CROP_TERMS, forma coordenada',
+            'GUARDED_BY': 'tests/test_italia.py::TestFormaCoordenadaDaCultura',
+        },
+        'THE_QUESTION_THAT_WAS_OPEN': {
+            'STATE': 'RESOLVIDA — e ao contrário do que o padrão dos dados sugeria',
             'QUESTION': ('"frumento" no rótulo italiano cobre juridicamente o grano duro?'),
-            'WHY_IT_DECIDES_EVERYTHING': (
-                'se cobre, não há lacuna nenhuma e o desencontro é artefato de redação de '
-                'rótulo. Se não cobre, a lacuna é real e é sobre a maior cultura do país.'),
-            'WHY_I_CANNOT_ANSWER': (
-                'não é extraível do texto do rótulo, que é tudo o que tenho. Exige leitura '
-                'jurídica do decreto de autorização — trabalho de direito regulatório, '
-                'não de extração.'),
-            'LAW': 'CROP_TERM ≠ AUTHORIZED_CROP',
+            'ANSWER': (
+                'a pergunta estava mal posta, e a culpa é minha. O rótulo NÃO diz '
+                '"frumento" genérico e deixa a cobertura para o intérprete: ele diz, '
+                'literalmente e na tabela de usos autorizados, "Frumento tenero e duro". '
+                'Não faltava autoridade jurídica sobre o termo — faltava ler o termo '
+                'direito.'),
+            'WHAT_THIS_TEACHES': (
+                'de manhã o padrão era convincente: 13 herbicidas, 1 tratamento de '
+                'semente, ZERO foliares. Era tentador publicar "a ADAMA tem uma lacuna '
+                'na maior cultura da Itália". Eu declarei NÃO SEI, e a resposta veio ao '
+                'CONTRÁRIO do padrão. Resolver a dúvida por plausibilidade teria '
+                'publicado uma acusação falsa sobre o portfólio — e ela teria passado, '
+                'porque era coerente com tudo que estava medido.'),
+            'LAW': ('UM PADRÃO FORTE NOS DADOS NÃO É PERMISSÃO PARA FECHAR UMA PERGUNTA '
+                    'ABERTA'),
         },
         'REGULATORY_FACT_EXPIRY': {
             'NOTE': ('vencimento é fato do registro. EXPIRY ≠ WITHDRAWAL: não afirma '
@@ -227,8 +284,9 @@ def main():
             'NEXT_400_DAYS': proximos,
         },
         'WHAT_THIS_DOES_NOT_PROVE': [
-            'que a ADAMA não possa tratar fusariose de espiga em trigo duro na Itália — '
-            'isso depende da pergunta em aberto sobre "frumento"',
+            'que exista qualquer coisa sobre venda, participação de mercado, '
+            'disponibilidade em ponto de venda ou prioridade interna — o rótulo prova '
+            'autorização, e REGISTRATION ≠ COMMERCIAL AVAILABILITY continua valendo',
             'que o boletim da Toscana represente o trigo duro italiano: a Toscana tem '
             '43,7 mil ha, 3,7% do país. Puglia, Sicília e Basilicata continuam sem sonda',
             'quantas edições a Toscana publica por ano — a página é rolante, sem arquivo',
@@ -244,8 +302,11 @@ def main():
         print('   %-20s %d' % (k, len(v)))
     print('  fungicida foliar nomeando grano duro: %d'
           % len(por_classe.get('FUNGICIDA_FOLIAR', [])))
-    print('  foliares que casam com o boletim mas NAO nomeiam grano duro: %d  (%s)'
+    nd = [f['PRODUCT'] for f in foliares if f['NAMES_DURUM']]
+    print('  foliares que casam com o boletim: %d  (%s)'
           % (len(foliares), ', '.join(f['PRODUCT'] for f in foliares)))
+    print('  destes, nomeiam grano duro na tabela de usos autorizados: %d  (%s)'
+          % (len(nd), ', '.join(nd)))
     for x in proximos:
         print('  vence em %4d dias: %-14s %s' % (x['DAYS_FROM_AS_OF'], x['PRODUCT'], x['CLASS']))
     print('->', os.path.relpath(DEST, ROOT))
