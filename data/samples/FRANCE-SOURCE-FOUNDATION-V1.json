@@ -1,0 +1,184 @@
+{
+ "SOURCE_ID": "FRANCE-SOURCE-FOUNDATION-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "source": "inventario de fontes francesas — parte reaproveitada do acervo (E-Phy, Eurostat, SIRENE) e parte testada nesta rodada (BSV, ADAMA France, data.gouv.fr)",
+ "SOURCE_LOCATION": "FRANCE / EU",
+ "FACT_LOCATION": "FRANCE",
+ "ORIGINAL_LANGUAGE": "fr",
+ "COUNTRY": "FR",
+ "BRANCH": "claude/sintonia-france-foundation-n8k2p1",
+ "REGRA_DE_ABERTURA": "antes de cada etapa, a pergunta foi \"isso ja foi resolvido em ES ou IT?\". Quatro das onze camadas ja estavam resolvidas no acervo e nao foram refeitas.",
+ "A_REGULATORY_SOURCE": {
+  "ESTADO": "GREEN — JA NO ACERVO, nao refeito",
+  "FONTE": "ANSES E-Phy, open data via data.gouv.fr, dataset decisionamm-intrant versao 2026-08-25",
+  "LICENCA": "Licence Ouverte (fr-lo)",
+  "MEDIDO": {
+   "PRODUTOS_NO_REGISTRO": 15140,
+   "PRODUTOS_ADAMA_FRANCE_SAS": 267
+  },
+  "COMPARACAO_COM_OS_OUTROS_DOIS": "Franca 15.140 produtos no registro e 267 da ADAMA; Italia 17.695 registros e 163 vigentes do grupo; Espanha 1.993 vigentes e 96 da ADAMA. As unidades NAO sao as mesmas — a Franca conta produto, a Italia conta registro, a Espanha conta registro vigente. Nao somar nem ordenar sem normalizar."
+ },
+ "B_LABEL_ROUTE": {
+  "ESTADO": "GREEN — JA NO ACERVO",
+  "O_QUE_ENTREGA": "usos autorizados com cultura x alvo, direto do open data. Nao precisa parsear PDF.",
+  "MEDIDO": {
+   "USOS_AUTORIZADOS_TOTAIS": 18558,
+   "USOS_ADAMA": 504
+  },
+  "POR_QUE_ISSO_E_MELHOR_QUE_ES_E_IT": "na Espanha o par vem de consulta ao servidor e a dose sai de PDF; na Italia vem de 163 PDFs parseados. Na Franca cultura x alvo ja vem tabelado no open data. E a rota mais barata dos tres paises.",
+  "TOP_ADAMA_CROP_TARGET": [
+   {
+    "crop": "Traitements généraux",
+    "target": "Limaces et escargots",
+    "uses": 18
+   },
+   {
+    "crop": "Vigne",
+    "target": "Mildiou(s)",
+    "uses": 17
+   },
+   {
+    "crop": "Vigne",
+    "target": "Black rot",
+    "uses": 13
+   },
+   {
+    "crop": "Vigne",
+    "target": "Rougeot parasitaire",
+    "uses": 9
+   },
+   {
+    "crop": "Blé",
+    "target": "Régul. Croiss. Org. Aériens",
+    "uses": 9
+   },
+   {
+    "crop": "Orge",
+    "target": "Helminthosporiose et ramulariose",
+    "uses": 6
+   },
+   {
+    "crop": "Blé",
+    "target": "Septoriose(s)",
+    "uses": 6
+   },
+   {
+    "crop": "Orge",
+    "target": "Rhynchosporiose",
+    "uses": 6
+   }
+  ]
+ },
+ "C_AGRICULTURE_SOURCE": {
+  "ESTADO": "GREEN — JA NO ACERVO (Eurostat NUTS2, EU-T1-001)",
+  "RESSALVA_DE_VINTAGE": "os rotulos de regiao sao das NUTS ANTIGAS — Champagne-Ardenne, Picardie, Poitou-Charentes, Aquitaine. As regioes administrativas francesas foram fundidas em 2016. A Italia ja mediu que NUTS 2006 != NUTS 2021 faz o vale do Po sumir. Aqui o efeito e o inverso: as regioes de 2024 aparecem com nome de antes de 2016.",
+  "O_QUE_FALTA": "Agreste, a estatistica agricola nacional francesa, nao foi aberta. Daria a serie nativa e a regiao atual."
+ },
+ "D_TOP_CROPS_2024_mil_ha": {
+  "Common wheat and spelt": 4214.6,
+  "Barley": 1808.5,
+  "Grain maize and corn-cob-mix": 1593.9,
+  "Sugar beet (excluding seed)": 411.7
+ },
+ "E_TOP_REGIONS_MILHO_GRAO_2024_mil_ha": [
+  {
+   "REGIAO_NUTS_ANTIGA": "Aquitaine",
+   "AREA_KHA": 276.4
+  },
+  {
+   "REGIAO_NUTS_ANTIGA": "Bretagne",
+   "AREA_KHA": 160.1
+  },
+  {
+   "REGIAO_NUTS_ANTIGA": "Pays de la Loire",
+   "AREA_KHA": 150.2
+  },
+  {
+   "REGIAO_NUTS_ANTIGA": "Poitou-Charentes",
+   "AREA_KHA": 149.1
+  },
+  {
+   "REGIAO_NUTS_ANTIGA": "Midi-Pyrénées",
+   "AREA_KHA": 146.9
+  },
+  {
+   "REGIAO_NUTS_ANTIGA": "Centre — Val de Loire",
+   "AREA_KHA": 124.8
+  },
+  {
+   "REGIAO_NUTS_ANTIGA": "Alsace",
+   "AREA_KHA": 109.1
+  },
+  {
+   "REGIAO_NUTS_ANTIGA": "Rhône-Alpes",
+   "AREA_KHA": 87.9
+  }
+ ],
+ "F_FIELD_SOURCES": {
+  "ESTADO": "BLOQUEADA NESTA SESSAO, com indice oficial preservado",
+  "O_QUE_E": "Bulletins de Sante du Vegetal (BSV) — o equivalente funcional do RAIF espanhol e dos bollettini italianos. Publicados por REGIAO, pelas DRAAF.",
+  "INDICE_OFICIAL": "agriculture.gouv.fr/bulletins-de-sante-du-vegetal responde HTTP 200 e lista 17 rotas regionais (Grand-Est, Nouvelle-Aquitaine, Auvergne-Rhone-Alpes, Bourgogne-Franche-Comte, Bretagne, Centre Val-de-Loire, Corse, Ile-de-France, Occitanie, Hauts-de-France, Normandie, Pays de la Loire, PACA, mais 4 ultramarinas).",
+  "BLOCKED": "todos os subdominios draaf.*.agriculture.gouv.fr dao timeout. Medido: draaf.nouvelle-aquitaine, draaf.bretagne e draaf.centre-val-de-loire ficam 50 s sem resposta apos o CONNECT ser aceito; o dominio-mae agriculture.gouv.fr responde em 0,97 s.",
+  "WHY": "nao e politica de egresso — o tunel CONNECT e estabelecido com 200. E o servidor de destino que nao completa. Nao e rota inexistente: o indice oficial as publica.",
+  "WHAT_WOULD_UNBLOCK": "outro IP de saida (um runner do GitHub Actions, como a branch ADAMA ja tentou para o site da ADAMA), ou uma rota alternativa de agregacao. Nao testei web.archive.org: ja esta barrado no rele desta sessao.",
+  "ESTADO_HONESTO": "READ_FAILURE, nao ZERO. Nao afirmo que a Franca nao publica boletim: o indice do proprio ministerio prova que publica.",
+  "ARMADILHA_QUE_A_ITALIA_JA_PAGOU": "NOT_FOUND != DOES NOT EXIST. O milho italiano TINHA boletim e a pagina lida era a errada. Aqui o indice esta lido e as folhas e que nao abrem."
+ },
+ "G_SCIENCE_ROUTES": {
+  "ESTADO": "REUTILIZAVEL SEM MUDANCA",
+  "ROTAS": [
+   "OpenAlex agregado por group_by (orcamento diario, hoje zerado)",
+   "ORCID Public API para identidade — gratuita, sem orcamento",
+   "Crossref para geografia de amostragem — gratuita, e foi ela que resolveu o Lolium espanhol",
+   "DIGITAL.CSIC e repositorios institucionais no modo full para resumos ausentes"
+  ],
+  "NAO_EXECUTADO": "nenhuma consulta cientifica francesa foi feita nesta rodada. A rota e a mesma e nao precisa ser reprovada."
+ },
+ "H_ADAMA_PUBLIC_SOURCE": {
+  "ESTADO": "BLOQUEADA — TERCEIRO PAIS COM A MESMA BORDA",
+  "MEDIDO": "https://www.adama.com/france/fr/ devolve HTTP 403 com corpo \"Access Denied\" e \"Reference #0.ab2b3417...\". Mesmo padrao de Akamai que a Espanha (5 rotas 403, inclusive /robots.txt) e a Italia (403 de WAF).",
+  "LEITURA": "a negacao e do CLIENTE, nao do pais. Tres paises, tres subsites, um mesmo bloqueio de borda para este bloco de IP de datacenter.",
+  "CONSEQUENCIA": "ADAMA_PUBLIC_RESPONSE = NOT_COLLECTED tambem na Franca. Nunca 0."
+ },
+ "I_MAIZE": {
+  "AREA_2024_KHA": 1593.9,
+  "POSICAO": "a Franca tem 1.593,9 mil ha de milho grao contra 239,1 mil ha da Espanha — 6,7 vezes. Se MAIZE e prioridade EAME declarada, a Franca e o mercado material dos tres paises.",
+  "CONCENTRACAO": "Aquitaine 276,4 · Bretagne 160,1 · Pays de la Loire 150,2 · Poitou-Charentes 149,1 · Midi-Pyrenees 146,9 (rotulos NUTS antigos).",
+  "O_QUE_FALTA": "sinal de campo (BSV bloqueado) e a lista de alvos ADAMA em milho, que sai do E-Phy e nao foi extraida."
+ },
+ "J_WINTER_CEREALS": {
+  "TRIGO_2024_KHA": 4214.6,
+  "CEVADA_2024_KHA": 1808.5,
+  "POSICAO": "trigo 4.214,6 mil ha contra 1.809,6 da Espanha; cevada 1.808,5 contra 2.089,6. A Franca lidera em trigo e a Espanha em cevada."
+ },
+ "K_OUTRAS_CULTURAS": {
+  "MEDIDO_NO_ACERVO": "beterraba sacarina 411,7 mil ha em 2024. Videira nao esta no recorte do EU-T1-001, e o top de usos ADAMA na Franca traz \"Vigne / Mildiou\" em segundo lugar — sinal de que a videira e material e nao esta medida em area.",
+  "DISTRIBUICAO": "FR-T13-001 ja mapeou distribuidores por codigo NAF via base SIRENE aberta. E uma camada que ES e IT nao tem."
+ },
+ "INITIAL_BLOCKERS": [
+  {
+   "BLOCKER": "BSV regionais (draaf.*)",
+   "WHY": "timeout de 50 s apos CONNECT aceito, em tres regioes testadas",
+   "WHAT_WOULD_UNBLOCK": "outro IP de saida ou rota agregadora"
+  },
+  {
+   "BLOCKER": "catalogo publico ADAMA France",
+   "WHY": "403 de borda Akamai, igual a ES e IT",
+   "WHAT_WOULD_UNBLOCK": "a mesma coisa que destravaria os outros dois — rede residencial ou runner atendido"
+  },
+  {
+   "BLOCKER": "Agreste (estatistica nacional)",
+   "WHY": "nao aberta nesta rodada, por ordem de prioridade",
+   "WHAT_WOULD_UNBLOCK": "uma consulta; nao ha indicio de bloqueio"
+  }
+ ],
+ "FOUNDATION_READY": "PARTIAL — regulatorio, rotulo, escala, distribuicao e ciencia prontos ou reutilizaveis; CAMPO bloqueado e catalogo do fabricante bloqueado.",
+ "O_QUE_NAO_FOI_FEITO_DE_PROPOSITO": [
+  "nenhum portal",
+  "nenhuma coleta social",
+  "nenhum creator",
+  "nenhum censo de pesquisadores",
+  "nenhum hero case — fundacao nao e caso"
+ ]
+}
