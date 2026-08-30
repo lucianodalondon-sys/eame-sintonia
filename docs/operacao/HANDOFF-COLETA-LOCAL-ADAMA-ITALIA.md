@@ -1,0 +1,130 @@
+# HANDOFF — COLETA DO SITE COMERCIAL DA ADAMA ITÁLIA NUMA MÁQUINA RESIDENCIAL
+
+`COUNTRY = IT` · `SOURCE_ID = IT-T9-001` · **2026-08-30**
+
+---
+
+## 1 · POR QUE ESTE HANDOFF EXISTE
+
+`adama.com` responde **HTTP 403 (Access Denied, WAF de origem)** a este ambiente. Medido
+três vezes, em rodadas diferentes, por duas rotas de saída distintas, **inclusive em
+`/robots.txt`** — o que significa que o bloqueio precede qualquer negociação de permissão.
+
+**E o bloqueio não é da ADAMA.** Na sondagem de fontes desta rodada:
+
+| Site | HTTP |
+|---|---|
+| `adama.com/italia/it` | **403** |
+| `syngenta.it` | **403** |
+| `cropscience.bayer.it` | **403** |
+| `omnitrattore.it` | **403** |
+| `agro.basf.it` | 200 |
+| `corteva.it` | 200 |
+
+É a **classe** de sites do setor que recusa IP de datacenter. Isso reclassifica a lacuna:
+não é "a ADAMA nos bloqueia", é "a camada de afirmação do fabricante, no agronegócio, é
+majoritariamente inacessível de datacenter". Vale para a Espanha e para a França também,
+e a sessão principal deveria assumir isso como característica do território.
+
+---
+
+## 2 · O QUE ESTE HANDOFF **NÃO** AUTORIZA
+
+A porta residencial é uma **rota legítima de acesso**, não uma técnica de evasão. O script
+não faz, e não deve ser alterado para fazer:
+
+- exportar, copiar ou reutilizar cookies de sessão de qualquer pessoa;
+- falsificar credencial, token ou cabeçalho de autenticação;
+- rotacionar IP, usar proxy residencial pago ou qualquer evasão de WAF;
+- ignorar `robots.txt` — o script **lê e obedece**, e **para** se houver `Disallow`.
+
+> Se o site bloquear também de casa, a resposta correta é
+> `ADAMA_COMMERCIAL_SITE = BLOCKED` — não uma técnica mais agressiva. Um dado que só se
+> obtém contornando proteção não entra neste repositório.
+
+---
+
+## 3 · COMO RODAR
+
+Numa máquina residencial, com Python 3.11+ (só biblioteca padrão):
+
+```bash
+python3 scripts/handoff-local/coletar_adama_italia.py --saida ./adama-it-raw
+```
+
+O script:
+
+1. lê `/robots.txt` **primeiro** e para se ele proibir;
+2. percorre `/italia/it`, `/italia/it/prodotti`, `/italia/it/colture` e os links internos;
+3. grava o **RAW** (HTML e PDF como saíram) em `adama-it-raw/raw/`;
+4. escreve `MANIFEST.json` com URL, HTTP, content-type, bytes, **SHA-256** e hora por arquivo;
+5. pausa **2,5 s** entre requisições — não reduzir.
+
+Traga de volta **apenas a pasta gerada**. Ela já é auto-descritiva.
+
+---
+
+## 4 · O QUE FAZER COM O RETORNO
+
+O bruto entra no repositório e a normalização acontece aqui, nunca na máquina de fora —
+`RAW → NORMALIZED → ANALYTICAL`, com o bruto escrito primeiro.
+
+Alvo da extração, por produto comercial:
+
+```
+PRODUCT_ID · COMMERCIAL_NAME · CATEGORY · PAGE_URL · REGISTRATION_ID
+ACTIVE_INGREDIENT · FORMULATION · CROPS · ISSUES · DOSE · BBCH
+APPLICATION_COUNT · APPLICATION_WINDOW · MODE_OF_ACTION · TECHNOLOGY
+POSITIONING · TECHNICAL_CLAIMS · COMMERCIAL_CLAIMS
+RELATED_PRODUCTS · RELATED_CONTENT
+LABEL · SDS · TECHNICAL_SHEET · BROCHURES · VIDEOS
+```
+
+**Separar sempre, e não fundir:**
+
+| Classe | O que é |
+|---|---|
+| `REGULATORY_FACT` | o que a etichetta do Ministero autoriza — **já temos, 163/163** |
+| `MANUFACTURER_TECHNICAL_CLAIM` | o que a ADAMA afirma tecnicamente |
+| `MANUFACTURER_COMMERCIAL_CLAIM` | o que a ADAMA comunica comercialmente |
+| `DERIVED_INTERPRETATION` | o que nós derivamos |
+
+---
+
+## 5 · O CROSSWALK, QUANDO O CATÁLOGO CHEGAR
+
+```
+ADAMA COMMERCIAL PRODUCT  ↔  MINISTERO REGISTRATION  ↔  OFFICIAL LABEL
+```
+
+Preferência de chave, nesta ordem: **`REGISTRATION_ID` exato** → titular + composição →
+nome comercial como apoio. **Nunca fuzzy-match silencioso.**
+
+Estados: `MATCHED_EXACT` · `MATCHED_WITH_EVIDENCE` · `AMBIGUOUS` · `COMMERCIAL_ONLY` ·
+`REGULATORY_ONLY`.
+
+> **A subtração está proibida.** `163 − 52` **não** é "111 produtos não comercializados".
+> As unidades são diferentes: uma autorização não é um produto de catálogo, e um produto
+> de catálogo pode ter várias autorizações. Quem fizer essa conta está comparando coisas
+> que não se comparam.
+
+E os ~52 produtos citados no enunciado da missão permanecem **`UNVERIFIED_INPUT`** até
+serem reproduzidos na fonte. Não entram como fato em artefato nenhum.
+
+---
+
+## 6 · O QUE JÁ TEMOS SEM O SITE
+
+A camada **regulatória** está completa e é mais forte para a pergunta do piloto:
+
+- **163/163 rótulos oficiais** (100 %), com SHA-256, 33,8 MB preservados;
+- **49 linhas de uso autorizado** ligando cultura ↔ alvo ↔ dose;
+- **90 pares cultura × alvo** distintos;
+- modo de ação declarado em **70** produtos;
+- calendário de vencimento completo.
+
+O que falta é exclusivamente a **camada de afirmação do fabricante** — posicionamento,
+claims, pack sizes, catálogo, materiais. Nada disso é `REGULATORY_FACT`, e nada disso
+muda nenhum dos três hero cases.
+
+`LOCAL_BROWSER_HANDOFF_STATUS = READY_TO_RUN`
