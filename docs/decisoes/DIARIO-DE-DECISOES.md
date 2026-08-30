@@ -311,6 +311,84 @@ Regras do diário:
 
 ---
 
+### D-018 — Ausência observada num corpus não é ausência no mercado
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO — **corrige uma afirmação publicada pela própria missão**
+- **Contexto:** a rodada 1 publicou que a faixa de ativação de produto fitossanitário
+  estaria livre nos três países, e a chamou de espaço livre. O que havia sido medido era
+  outra coisa: nenhuma evidência **dentro de um corpus pequeno e enviesado** — pesquisa
+  aberta por buscador mais **uma** rota de Instagram.
+- **Decisão:** o estado passa a se chamar `NOT_OBSERVED_IN_MEASURED_CORPUS`, e o veredito
+  viaja com dois campos obrigatórios: `ESTE_ESTADO_NAO_SIGNIFICA` e `CORPUS_MEDIDO`.
+- **Motivo:** `NOT_PROVED` é curto, e **por ser curto foi lido como "não existe"**. O nome
+  novo não cabe numa manchete — que é exatamente o ponto: obriga quem o cita a carregar o
+  escopo junto. A ressalva vive **dentro do JSON** para não se perder entre o dado e o
+  slide.
+- **Consequência:** teste proíbe **afirmar** a frase extrapolada em documento — por linha,
+  aceitando-a quando aparece sendo negada, para que a própria correção possa ser escrita.
+- **Quem decidiu:** correção pedida pelo dono da missão, aplicada na MISSÃO 14 rodada 2.
+
+---
+
+### D-019 — Tipo de relação com marca não é escada
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** patrocinar a categoria de um prêmio, colaborar num evento, colaborar com a
+  pessoa, pagá-la e ativar um produto com ela são cinco fatos distintos. Modelá-los como
+  degraus de uma mesma régua era conveniente e falso.
+- **Decisão:** `TIPOS_DE_RELACAO` é um `frozenset` — **sem índice**. A FORÇA da evidência
+  (`BRAND_RELATIONSHIP_STATE`) e o TIPO da relação (`BRAND_RELATION_TYPE`) passam a ser
+  dimensões separadas.
+- **Motivo:** num contínuo, *"a Syngenta patrocinou uma categoria do AgroInfluye"* vira,
+  três leituras depois, *"a Syngenta ativa produto com creators"*. O `frozenset` torna a
+  comparação de ordem impossível, e um teste guarda a propriedade.
+- **Consequência:** os 4 casos de crop protection ficam legíveis pelo que são: 2
+  patrocínios de ecossistema, 1 colaboração e 1 parceria paga — **nenhuma ativação de
+  produto**.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 2.
+
+---
+
+### D-020 — Namespace, não lock, para missões concorrentes
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** EARLY SIGNAL e CREATOR MAP rodaram ao mesmo tempo escrevendo no mesmo
+  `RUN-MANIFEST.json`.
+- **Decisão:** cada missão tem manifesto próprio. `pv.MANIFESTO` é redirecionado pelo
+  módulo da missão; o `coletor` continua sendo a porta única. O workflow declara
+  `concurrency` por missão e faz `git add` de **caminhos nomeados**, nunca `-A`.
+- **Motivo:** não era corrida improvável — era **corrida garantida**: `pv.gravar()` lê
+  tudo, junta e reescreve o arquivo inteiro, então quem terminasse por último apagaria o
+  outro. Lock resolveria a escrita e não resolveria o commit; namespace remove o ponto de
+  disputa inteiro. E `git add -A` num runner podia levar, num commit desta missão, um
+  arquivo que a outra estava gravando.
+- **Consequência:** paralelismo entre missões continua permitido, que era o objetivo.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 2.
+
+---
+
+### D-021 — Identidade primária antes de conteúdo, sempre
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** `ACTIVATION_READY = 0` tinha causa única e nomeada: identidade não
+  resolvida em fonte primária. A tentação era coletar mais conteúdo.
+- **Decisão:** resolver identidade dos candidatos de maior valor **antes** de coletar mais
+  um único post.
+- **Motivo:** os quatro prioritários falharam de **quatro maneiras diferentes** — handle
+  errado, nome errado, pessoa≠persona e pessoa≠empresa. Coletar conteúdo antes teria
+  produzido um dossiê inteiro sobre a pessoa errada, com precisão e tudo. O caso decisivo:
+  `@evolovers`, o handle da seed, está parado desde **2012**; a comunidade real nasceu em
+  2020.
+- **Consequência:** `ACTIVATION_READY` foi de 0 para 2, e os dois só existem porque o
+  handle foi corrigido antes de medir. Custo total da rodada Apify: **≈ US$ 0,13**.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 2.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
