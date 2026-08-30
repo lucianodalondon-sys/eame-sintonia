@@ -289,14 +289,88 @@ class AReleituraDoRawJaPago(unittest.TestCase):
         self.assertEqual(estados['Pasquale De Vita']['NAME_STATE'], 'NAME_MATCHES')
         self.assertEqual(estados['Pasquale D.']['NAME_STATE'], 'TRUNCATED_BY_PLATFORM')
 
-    def test_dois_retornos_que_batem_no_nome_nao_fecham_identidade(self):
-        """Homonimo e o proximo portao, nao um detalhe: nome igual != mesma pessoa."""
+    def test_dois_retornos_que_batem_no_nome_e_so_um_e_a_pessoa(self):
+        """Nome igual nao resolve; a instituicao no titulo resolve."""
         self._grava('IT-LI-PROVA-Nicola-Pecchioni.raw.json.gz',
                     [{'name': 'Nicola Pecchioni', 'linkedinUrl': 'https://x/4',
-                      'position': 'CREA'},
+                      'position': 'Ricercatore CREA'},
                      {'name': 'Gian Nicola Pecchioni', 'linkedinUrl': 'https://x/5',
-                      'position': 'outra coisa'}])
+                      'position': 'Commerciante presso Bagni Aurelia'}])
         out = {}
         pb.ler_itens(pb.reler_raw(), out)
         self.assertEqual(out['NAMES_WITH_MORE_THAN_ONE_MATCH'], ['Nicola Pecchioni'])
-        self.assertIn('NOT_RESOLVED', out['VERDICT_MUST_CARRY']['IDENTITY'])
+        alvo = out['IDENTITY_BY_TARGET']['Nicola Pecchioni']
+        self.assertEqual(alvo['STATE'], pb.IDENTITY_CONFIRMED)
+        estados = {c['NAME']: c['IDENTITY_STATE'] for c in alvo['BY_CANDIDATE']}
+        self.assertEqual(estados['Nicola Pecchioni'], pb.IDENTITY_CONFIRMED)
+        self.assertEqual(estados['Gian Nicola Pecchioni'], pb.IDENTITY_MISMATCH)
+
+
+class OTituloDecideEONomeNao(unittest.TestCase):
+    """O achado que justifica este portao existir, preso como prova.
+
+    Medido em 2026-08-30 sobre o RAW ja pago: a busca por "Pasquale De Vita"
+    devolveu tres pessoas de nome igual — presidente da Unione Petrolifera,
+    vendedor de esquadrias, diretor de TI. Nenhuma e o pesquisador do CREA.
+    Um portao que parasse no nome teria promovido o presidente da associacao do
+    petroleo a pesquisador de trigo duro.
+    """
+
+    ALVO = {'NAME': 'Pasquale De Vita',
+            'INSTITUTION': 'CREA Cerealicoltura e Colture Industriali'}
+
+    def _estado(self, nome, titulo):
+        return pb.conferir_identidade(self.ALVO, {'NAME': nome, 'HEADLINE': titulo})[0]
+
+    def test_o_presidente_da_uniao_do_petroleo_nao_vira_pesquisador(self):
+        self.assertEqual(
+            self._estado('Pasquale De Vita', 'presidente presso Unione Petrolifera'),
+            pb.IDENTITY_MISMATCH)
+
+    def test_o_vendedor_de_esquadrias_tampouco(self):
+        self.assertEqual(
+            self._estado('Pasquale De vita', 'Mi chiamano il "Boss degli Infissi"'),
+            pb.IDENTITY_MISMATCH)
+
+    def test_o_diretor_de_ti_tampouco(self):
+        self.assertEqual(
+            self._estado('Pasquale De Vita', 'IT Director at Asl Avellino'),
+            pb.IDENTITY_MISMATCH)
+
+    def test_o_titulo_que_nomeia_a_instituicao_confirma(self):
+        self.assertEqual(
+            self._estado('Pasquale De Vita', 'Ricercatore presso CREA — Cerealicoltura'),
+            pb.IDENTITY_CONFIRMED)
+
+    def test_o_titulo_no_dominio_sem_instituicao_e_apenas_plausivel(self):
+        """"Crop Genomics" e do ramo certo — e ainda assim nao prova quem e."""
+        self.assertEqual(self._estado('Pasquale De Vita', 'Crop Genomics'),
+                         pb.IDENTITY_PLAUSIBLE)
+
+    def test_titulo_ausente_e_ignorancia_e_nao_divergencia(self):
+        self.assertEqual(self._estado('Pasquale De Vita', ''), pb.IDENTITY_NOT_ENOUGH)
+        self.assertEqual(self._estado('Pasquale De Vita', 'NÃO SEI'),
+                         pb.IDENTITY_NOT_ENOUGH)
+
+    def test_nome_truncado_e_ignorancia_e_nao_divergencia(self):
+        self.assertEqual(self._estado('Pasquale D.', 'IT Director at Asl Avellino'),
+                         pb.IDENTITY_NOT_ENOUGH)
+
+    def test_todos_MISMATCH_nao_significa_que_a_pessoa_nao_exista(self):
+        """Pedi cinco, vieram tres. O que nao veio nao foi negado."""
+        self.assertEqual(pb.resolver_alvo([pb.IDENTITY_MISMATCH] * 3),
+                         'NOT_FOUND_IN_RESULTS')
+        self.assertEqual(pb.resolver_alvo([]), 'NOT_FOUND_IN_RESULTS')
+        with open(pb.__file__, encoding='utf-8') as fh:
+            self.assertIn('NOT_FOUND_IN_RESULTS ≠ NOT_ON_PLATFORM ≠ DOES_NOT_EXIST',
+                          fh.read())
+
+    def test_um_candidato_confirmado_vence_os_mismatches(self):
+        self.assertEqual(
+            pb.resolver_alvo([pb.IDENTITY_MISMATCH, pb.IDENTITY_CONFIRMED]),
+            pb.IDENTITY_CONFIRMED)
+
+    def test_plausivel_nunca_e_promovido_a_confirmado(self):
+        self.assertEqual(
+            pb.resolver_alvo([pb.IDENTITY_PLAUSIBLE, pb.IDENTITY_PLAUSIBLE]),
+            pb.IDENTITY_PLAUSIBLE)

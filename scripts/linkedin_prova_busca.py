@@ -126,6 +126,83 @@ def identidade(item):
     }
 
 
+# Vocabulário do DOMÍNIO do caso. Não é lista de palavras-chave para pontuar: é o
+# mínimo para separar "trabalha com planta/agronomia/pesquisa" de "não trabalha".
+DOMINIO = ('crop', 'agron', 'agricol', 'agrar', 'cerealic', 'genom', 'genetic',
+           'fitopatolog', 'ricercat', 'research', 'sement', 'grano', 'frumento',
+           'colture', 'vegetal', 'plant', 'breeding', 'miglioramento genetico')
+
+# Sinais de que a pessoa está em OUTRO ramo. Existem para que "não achei o domínio"
+# não seja confundido com "achei outro domínio": a primeira é ignorância sobre um
+# título curto; a segunda é evidência de que é outra pessoa.
+FORA_DO_DOMINIO = ('petrolifer', 'infiss', 'bagni', 'it director', 'cloud',
+                   'commerciante', 'assicuraz', 'immobili', 'ristorant')
+
+IDENTITY_CONFIRMED = 'IDENTITY_CONFIRMED'
+IDENTITY_PLAUSIBLE = 'IDENTITY_PLAUSIBLE_NOT_PROVED'
+IDENTITY_MISMATCH = 'IDENTITY_MISMATCH'
+IDENTITY_NOT_ENOUGH = 'IDENTITY_NOT_ENOUGH_EVIDENCE'
+
+
+def conferir_identidade(alvo, ident):
+    """Nome igual não é pessoa. O título declarado decide, e só até onde ele vai.
+
+    Medido em 2026-08-30 sobre o RAW já pago: a busca por "Pasquale De Vita"
+    devolveu TRÊS pessoas cujo nome bate — o presidente da Unione Petrolifera, um
+    vendedor de esquadrias e um diretor de TI. Nenhuma delas é o pesquisador do
+    CREA. Um portão que parasse no nome teria promovido o presidente da associação
+    do petróleo a pesquisador de trigo duro, e o relatório teria dito isso com toda
+    a confiança do mundo.
+
+        NAME_MATCH ≠ PERSON
+
+    Os quatro estados são deliberadamente assimétricos:
+      · CONFIRMED  — o título NOMEIA a instituição do alvo. É a única prova.
+      · PLAUSIBLE  — o título está no domínio do caso, mas não nomeia a instituição.
+                     É candidato, não é resposta.
+      · MISMATCH   — o título nomeia outro ramo. Evidência de que é outra pessoa.
+      · NOT_ENOUGH — nome truncado pela plataforma, ou título ausente ou curto
+                     demais. Ignorância, e ignorância não é divergência.
+    """
+    nome, titulo = ident.get('NAME') or '', ident.get('HEADLINE') or ''
+    if not bate_o_nome(alvo['NAME'], nome):
+        if nome_truncado(nome):
+            return IDENTITY_NOT_ENOUGH, 'sobrenome abreviado pela plataforma'
+        return IDENTITY_MISMATCH, 'o nome devolvido não é o nome pedido'
+    t = _norm(titulo)
+    if not t or t == 'nao sei':
+        return IDENTITY_NOT_ENOUGH, 'nome bate, mas não há título declarado'
+    # A instituição casa por QUALQUER token longo dela: "CREA Cerealicoltura e
+    # Colture Industriali" no perfil raramente vem por extenso.
+    tokens = [w for w in _norm(alvo.get('INSTITUTION', '')).split() if len(w) > 3]
+    if any(w in t for w in tokens):
+        return IDENTITY_CONFIRMED, 'o título nomeia a instituição do alvo'
+    if any(w in t for w in FORA_DO_DOMINIO):
+        return IDENTITY_MISMATCH, 'o título nomeia outro ramo de atividade'
+    if any(w in t for w in DOMINIO):
+        return IDENTITY_PLAUSIBLE, 'o título está no domínio, mas não nomeia a instituição'
+    return IDENTITY_NOT_ENOUGH, 'o título não diz nem a favor nem contra'
+
+
+def resolver_alvo(estados):
+    """O estado do ALVO a partir dos estados dos seus candidatos.
+
+    Se nenhum candidato serve, o alvo é `NOT_FOUND_IN_RESULTS` — e isso NÃO é
+    "não está no LinkedIn". Pedi cinco resultados; a plataforma devolveu três.
+    O que não veio nos três não foi negado: não foi perguntado até o fim.
+
+        NOT_FOUND_IN_RESULTS ≠ NOT_ON_PLATFORM ≠ DOES_NOT_EXIST
+    """
+    if not estados:
+        return 'NOT_FOUND_IN_RESULTS'
+    for forte in (IDENTITY_CONFIRMED, IDENTITY_PLAUSIBLE):
+        if forte in estados:
+            return forte
+    if all(e == IDENTITY_MISMATCH for e in estados):
+        return 'NOT_FOUND_IN_RESULTS'
+    return IDENTITY_NOT_ENOUGH
+
+
 def nome_truncado(nome):
     """LinkedIn abrevia o sobrenome de quem está fora da rede: "Pasquale D.".
 
@@ -218,7 +295,26 @@ def ler_itens(itens, out):
                                'TRUNCATED_BY_PLATFORM' if nome_truncado(ident['NAME'])
                                else 'DIFFERENT_NAME')
         por_nome.setdefault(it.get('_ALVO'), []).append(ident)
+    por_alvo = {a['NAME']: a for a in NOMES}
+    for pedido, candidatos in por_nome.items():
+        alvo = por_alvo.get(pedido) or {'NAME': pedido, 'INSTITUTION': ''}
+        for c in candidatos:
+            c['IDENTITY_STATE'], c['IDENTITY_WHY'] = conferir_identidade(alvo, c)
     out['RETURNED_BY_NAME'] = por_nome
+    out['IDENTITY_BY_TARGET'] = {
+        pedido: {
+            'INSTITUTION_ASKED': (por_alvo.get(pedido) or {}).get('INSTITUTION', 'NÃO SEI'),
+            'CANDIDATES': len(cands),
+            'STATE': resolver_alvo([c['IDENTITY_STATE'] for c in cands]),
+            'BY_CANDIDATE': [{'NAME': c['NAME'], 'HEADLINE': c['HEADLINE'],
+                              'IDENTITY_STATE': c['IDENTITY_STATE'],
+                              'WHY': c['IDENTITY_WHY'],
+                              'PROFILE_URL': c['PROFILE_URL']} for c in cands],
+        } for pedido, cands in por_nome.items()}
+    out['IDENTITY_CONFIRMED_COUNT'] = sum(
+        1 for v in out['IDENTITY_BY_TARGET'].values() if v['STATE'] == IDENTITY_CONFIRMED)
+    out['IDENTITY_PLAUSIBLE_COUNT'] = sum(
+        1 for v in out['IDENTITY_BY_TARGET'].values() if v['STATE'] == IDENTITY_PLAUSIBLE)
 
     distintos = {(x['NAME'], x['PROFILE_URL']) for v in por_nome.values() for x in v}
     out['DISTINCT_PEOPLE_RETURNED'] = len(distintos)
@@ -243,10 +339,13 @@ def ler_itens(itens, out):
         out['VERDICT'] = 'ROUTE_PROVED'
     out['VERDICT_MUST_CARRY'] = {
         'SCOPE': '%d nome(s) de 8 — prova de rota' % len(por_nome),
-        'IDENTITY': ('NOT_RESOLVED — nome que bate não prova pessoa; homônimos '
-                     'voltaram para os dois nomes'),
+        'IDENTITY': '%d CONFIRMED, %d PLAUSIBLE de %d alvos' % (
+            out['IDENTITY_CONFIRMED_COUNT'], out['IDENTITY_PLAUSIBLE_COUNT'],
+            len(por_nome)),
+        'WHY_NAME_IS_NOT_ENOUGH': ('a busca por Pasquale De Vita devolveu tres '
+                                   'pessoas de nome igual e nenhuma do CREA'),
         'HUMAN_SENSOR_LAYER': 'NOT_MEASURED — nenhum post foi lido nesta prova',
-        'NEXT_GATE': 'resolver homonímia por instituição antes de ampliar para os 8',
+        'NEXT_GATE': 'so alvo CONFIRMED ou PLAUSIBLE pode ir para a coleta de posts',
     }
     return out
 
@@ -371,9 +470,12 @@ def main():
         print('   %-46s %s' % (campo[:46], tipo))
     for nome, v in (out.get('RETURNED_BY_NAME') or {}).items():
         for x in v:
-            print('   pedido=%-18s voltou=%-24s %-22s %s' % (
-                nome[:18], x['NAME'][:24], x['NAME_STATE'], (x['HEADLINE'] or '')[:60]))
-    print('homonimia por resolver:', out.get('NAMES_WITH_MORE_THAN_ONE_MATCH'))
+            print('   pedido=%-18s voltou=%-22s %-30s %s' % (
+                nome[:18], x['NAME'][:22], x.get('IDENTITY_STATE', ''),
+                (x['HEADLINE'] or '')[:56]))
+    for alvo, v in (out.get('IDENTITY_BY_TARGET') or {}).items():
+        print('   ALVO %-20s %-30s candidatos=%d' % (alvo[:20], v['STATE'],
+                                                     v['CANDIDATES']))
     print('->', os.path.relpath(DEST, ROOT))
 
 
