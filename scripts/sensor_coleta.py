@@ -738,9 +738,15 @@ def comentarios(lote='A'):
     por_url = {v['SOURCE_URL']: v for v in alvos}
     for i in range(0, len(alvos), 20):
         pedaco = [v['SOURCE_URL'] for v in alvos[i:i + 20]]
+        # `startUrls` é lista de OBJETOS, no formato RequestList da Apify — não lista de
+        # texto. A recusa foi explícita: "Items in input.startUrls at positions
+        # [0..19] do not contain valid URLs". O RUN-MANIFEST espanhol guardava a entrada
+        # como a FRASE "48 vídeos on-topic", não a estrutura, então a forma real nunca
+        # esteve preservada. Entrada descrita em prosa não é entrada reproduzível.
         itens, man, pos = _rodar(
             ATORES['YOUTUBE_COMMENTS'],
-            {'startUrls': pedaco, 'maxComments': 50, 'sortCommentsBy': 'TOP_COMMENTS'},
+            {'startUrls': [{'url': u} for u in pedaco],
+             'maxComments': 50, 'sortCommentsBy': 'TOP_COMMENTS'},
             run_id='SENSOR-CM-%s-%d' % (lote, i // 20), platform='YOUTUBE',
             country='MULTI', query='%d videos' % len(pedaco),
             evidence_path='data/samples/SENSOR-PILOT/COMENTARIOS-%s.json' % lote,
