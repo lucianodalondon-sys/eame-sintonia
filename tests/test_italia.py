@@ -19,6 +19,7 @@ import italia_trigo_duro           # noqa: E402,F401
 import italia_camada_op            # noqa: E402,F401
 import italia_antecipacao          # noqa: E402,F401
 import italia_voz_humana           # noqa: E402,F401
+import italia_voz_humana_portas    # noqa: E402,F401
 import italia_tabela_dose as td    # noqa: E402
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
@@ -1170,6 +1171,145 @@ class TestCamadaDeSensoresHumanos(unittest.TestCase):
         self.assertLessEqual(c['YOUTUBE_ITEMS_SCREENED'], c['LIMIT_CONTENTS'])
         self.assertIn('não fechar pergunta', c['STOPPED_EARLY_BECAUSE'])
 
+
+PORTAS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS',
+                      'IT-HUMAN-SENSOR-OPEN-DOORS.json')
+
+
+@unittest.skipUnless(os.path.exists(PORTAS), 'rodada 2 ainda nao gerada')
+class TestSensorHumanoPortas(unittest.TestCase):
+    """Quatro quase-acertos, quatro leis. O util foi ELES FALHAREM POR MOTIVOS DIFERENTES.
+
+    Um filtro por palavra-chave aprovaria pelo menos um deles (Fezan 400 acerta cultura,
+    problema e janela e nao e sensor nenhum). Estas leis existem para que isso nao passe.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import italia_voz_humana_portas as vp
+        cls.vp = vp
+        cls.d = json.load(open(PORTAS, encoding='utf-8'))
+        cls.por_id = {c['ID']: c for c in cls.d['THE_FOUR_NEAR_MISSES']}
+
+    # ------------------------------------------------------------- leis obrigatorias
+    def test_right_class_wrong_crop(self):
+        """Locatelli: pesquisadora, datada, antes do caso — e de MILHO."""
+        c = self.por_id['LOCATELLI-2026-02-13']
+        self.assertEqual('RESEARCHER', c['VOICE_CLASS'])
+        self.assertEqual('BEFORE_CASE', c['RELATIVE_TO_CASE'])
+        self.assertEqual('mais', c['CROP'])
+        self.assertFalse(c['CLOSES_THE_CASE'])
+        self.assertEqual('RIGHT_CLASS + WRONG_CROP ≠ CASE_SIGNAL', c['LAW'])
+
+    def test_right_time_wrong_issue(self):
+        """Corteva: observacao de campo real, 25 dias antes — e de SEPTORIA."""
+        c = self.por_id['CORTEVA-2026-03-29']
+        self.assertEqual('BEFORE_CASE', c['RELATIVE_TO_CASE'])
+        self.assertEqual('Septoria', c['ISSUE'])
+        self.assertFalse(c['CLOSES_THE_CASE'])
+        self.assertEqual('RIGHT_TIME + WRONG_ISSUE ≠ CASE_SIGNAL', c['LAW'])
+
+    def test_right_class_wrong_year(self):
+        """Biagetti: agronomo nomeado, fusariose, 20/04 — de 2024."""
+        c = self.por_id['BIAGETTI-2024-04-20']
+        self.assertEqual('TECHNICAL_FIELD_VOICE', c['VOICE_CLASS'])
+        self.assertTrue(c['PUBLISHED_AT'].startswith('2024'))
+        self.assertEqual('OUT_OF_WINDOW', c['RELATIVE_TO_CASE'])
+        self.assertEqual('RIGHT_CLASS + WRONG_YEAR ≠ CASE_SIGNAL', c['LAW'])
+
+    def test_manufacturer_content_nao_e_sensor_humano(self):
+        """Fezan 400 acerta os TRES eixos e continua nao sendo sensor.
+
+        E o caso mais perigoso do conjunto: cultura certa, problema certo, janela certa.
+        Se esta lei cair, anuncio de produto vira sinal de campo.
+        """
+        c = self.por_id['FEZAN400-2026-02-13']
+        self.assertEqual('BEFORE_CASE', c['RELATIVE_TO_CASE'])
+        self.assertIn('duro', c['CROP'])
+        self.assertIn('fusariosi', c['ISSUE'])
+        self.assertFalse(c['CLOSES_THE_CASE'],
+                         'acertar os tres eixos nao basta: anuncio nao e observacao')
+        self.assertEqual('MANUFACTURER_CONTENT ≠ HUMAN_SENSOR', c['LAW'])
+        self.assertIn('NO_ADDED_VALUE', c['ADDED_VALUE'])
+
+    def test_login_wall_nao_e_ausencia_de_sinal(self):
+        d = self.d['DOORS_STATE']
+        self.assertIn('STILL_CLOSED', d['LINKEDIN'])
+        self.assertIn('STILL_CLOSED', d['INSTAGRAM'])
+        self.assertIn('LOGIN_WALL ≠ NO_SIGNAL', self.d['LAWS_ADDED'])
+
+    def test_person_nao_e_institution(self):
+        """A pesquisadora e a instituicao dela sao registros distintos."""
+        c = self.por_id['LOCATELLI-2026-02-13']
+        self.assertEqual('Sabrina Locatelli', c['PERSON_OR_ORGANIZATION'])
+        self.assertIn('CREA', c['INSTITUTION'])
+        self.assertNotEqual(c['PERSON_OR_ORGANIZATION'], c['INSTITUTION'])
+        self.assertIn('Righini', c['REPORTED_BY'],
+                      'o veiculo tambem e distinto de quem falou')
+
+    def test_retrospectivo_nao_e_aviso_antecipado(self):
+        """A relacao da Locatelli e sobre 2025, apresentada em 2026."""
+        c = self.por_id['LOCATELLI-2026-02-13']
+        self.assertIn('RESEARCH_FINDING', c['SIGNAL_TYPE'])
+        self.assertIn('RETROSPECTIVE_FINDING ≠ EARLY_WARNING', c['ALSO'])
+        self.assertIn('RETROSPECTIVE_FINDING ≠ EARLY_WARNING', self.d['LAWS_ADDED'])
+
+    def test_o_verdito_nao_diz_portas_abertas(self):
+        """As portas NAO foram abertas — o verdito nao pode alegar que foram."""
+        self.assertEqual('HUMAN_SENSOR_LAYER_PROMISING_BUT_NOT_PROVED', self.d['VERDICT'])
+        self.assertIn('as portas NÃO foram abertas', self.d['VERDICT_WHY'])
+        self.assertEqual('ENV_VARS_NOT_SET', self.d['APIFY']['BLOCKER'])
+        self.assertFalse(self.d['APIFY']['TOKEN_1_USED'])
+        self.assertEqual(0, self.d['APIFY']['ACTOR_RUNS'])
+
+    def test_pesquisador_deixou_de_ser_nao_observado(self):
+        """A mudanca real da rodada, e ela e separada por cultura."""
+        r = self.d['CLOCK']['FIRST_RESEARCHER_SIGNAL']
+        self.assertEqual('RESEARCHER_SIGNAL_NOT_OBSERVED_IN_THIS_CASE',
+                         r['FOR_THE_CASE']['STATE'])
+        self.assertEqual('BEFORE_CASE', r['FOR_MAIZE_CONTROL']['STATE'])
+        self.assertEqual(69, r['FOR_MAIZE_CONTROL']['DAYS_BEFORE'])
+
+    def test_nenhum_token_no_artefato_nem_no_script(self):
+        import re as _re
+        pad = _re.compile(r'apify_api_[A-Za-z0-9]{10,}')
+        for nome, txt in (('artefato', json.dumps(self.d, ensure_ascii=False)),
+                          ('script', open(os.path.join(ROOT, 'scripts',
+                                                       'italia_voz_humana_portas.py'),
+                                          encoding='utf-8').read())):
+            with self.subTest(onde=nome):
+                self.assertIsNone(pad.search(txt))
+
+    # ------------------------------------------------------------------- MUTACOES
+    def test_mutacao_aceitar_cultura_errada_fecharia_o_caso_errado(self):
+        """Se RIGHT_CLASS+WRONG_CROP cair, o milho fecha o caso do trigo."""
+        def fecha(c, ignora_cultura=False):
+            return (c['RELATIVE_TO_CASE'] == 'BEFORE_CASE'
+                    and (ignora_cultura or 'duro' in c['CROP']))
+        c = self.por_id['LOCATELLI-2026-02-13']
+        self.assertFalse(fecha(c), 'com a lei, o sinal de milho nao fecha')
+        self.assertTrue(fecha(c, ignora_cultura=True),
+                        'sem a lei, fecharia — e por isso a lei existe')
+
+    def test_mutacao_filtro_por_palavra_chave_aprovaria_o_anuncio(self):
+        """Prova que MANUFACTURER_CONTENT != HUMAN_SENSOR mede alguma coisa.
+
+        Um filtro ingenuo (cultura + issue + janela) aprova o Fezan 400. So a classe de
+        voz e a ausencia de observacao o reprovam.
+        """
+        c = self.por_id['FEZAN400-2026-02-13']
+        filtro_ingenuo = ('duro' in c['CROP'] and 'fusariosi' in c['ISSUE']
+                          and c['RELATIVE_TO_CASE'] == 'BEFORE_CASE')
+        self.assertTrue(filtro_ingenuo, 'o filtro ingenuo APROVA — esse e o perigo')
+        self.assertFalse(c['CLOSES_THE_CASE'], 'e a lei reprova')
+
+    def test_mutacao_ignorar_o_ano_ressuscitaria_o_artigo_de_2024(self):
+        c = self.por_id['BIAGETTI-2024-04-20']
+        so_dia_e_mes = c['PUBLISHED_AT'][5:]
+        self.assertEqual('04-20', so_dia_e_mes)
+        self.assertNotEqual('2026', c['PUBLISHED_AT'][:4],
+                            'dia e mes quase batem com o caso; o ANO e que reprova')
+
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 
 
@@ -1190,7 +1330,7 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
         falhas = [n for n, (ok, _) in self.regs.items() if not ok]
         self.assertEqual([], falhas, 'regressoes de confianca falsa quebradas: %s' % falhas)
 
-    def test_as_dezoito_estao_presentes(self):
+    def test_as_vinte_e_uma_estao_presentes(self):
         """Apagar uma regressao nao pode ser a forma de fazer a suite passar.
 
         As quatro ultimas nasceram em 30/08/2026, quando eu corrigi tres achados meus
@@ -1216,7 +1356,10 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
                      'FUTURE_EVIDENCE_CANNOT_CLOSE_PAST_CASE',
                      'OBSERVED_SYMPTOM != MODELLED_RISK',
                      'ACCESS_FAILURE != NO_SIGNAL',
-                     'APPROXIMATE_DATE != DATED_EVIDENCE'):
+                     'APPROXIMATE_DATE != DATED_EVIDENCE',
+                     'RIGHT_CLASS + WRONG_CROP != CASE_SIGNAL',
+                     'MANUFACTURER_CONTENT != HUMAN_SENSOR',
+                     'RETROSPECTIVE_FINDING != EARLY_WARNING'):
             self.assertIn(nome, self.regs)
 
     def test_ask_declara_estado_em_toda_pergunta(self):

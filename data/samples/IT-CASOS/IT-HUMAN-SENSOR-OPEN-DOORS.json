@@ -1,0 +1,222 @@
+{
+  "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+  "ROUND": 2,
+  "PREVIOUS_ROUND": "IT-HUMAN-SENSOR-PILOT.json",
+  "SOURCE_ID": "DERIVED/IT-HUMAN-SENSOR-OPEN-DOORS",
+  "source": "rotas públicas dirigidas aos nomes já identificados na rodada 1",
+  "SOURCE_LOCATION": "Itália",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_PROBE",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "CASE_DATE": "2026-04-23",
+  "DOORS_STATE": {
+    "LINKEDIN": "STILL_CLOSED — login wall; Apify não disponível",
+    "INSTAGRAM": "STILL_CLOSED — login wall; Apify não disponível",
+    "YOUTUBE": "SEARCH_OK / WATCH_PAGES_THROTTLED (429 em duas tentativas)",
+    "AGRONOTIZIE": "ABERTA nesta rodada — 403 na primeira tentativa, 200 na segunda com outro cliente. Bloqueio intermitente confirmado."
+  },
+  "APIFY": {
+    "TOKEN_1_USED": false,
+    "TOKEN_2_USED": false,
+    "ACTOR_RUNS": 0,
+    "ITEMS": 0,
+    "COST": 0,
+    "WHY_NOT_USED": "as variáveis APIFY_TOKEN_1 e APIFY_TOKEN_2 NÃO EXISTEM neste ambiente — verificado, junto com _3, _4, APIFY_TOKEN e APIFY_API_TOKEN: nenhuma presente, zero variáveis com \"apify\". A regra é usá-las só a partir do ambiente, então não havia porta a abrir.",
+    "BLOCKER": "ENV_VARS_NOT_SET"
+  },
+  "WHAT_CHANGED_FROM_ROUND_1": "a classe RESEARCHER deixou de ser NOT_OBSERVED. Sabrina Locatelli (CREA Bergamo) tem sinal público datado de 13/02/2026, 69 dias antes do caso, com 190 amostras, 29 centros e 5 macroáreas. Pesquisador FUNCIONA como sensor público e datável na Itália — só que sobre milho, não sobre grano duro.",
+  "THE_FOUR_NEAR_MISSES": [
+    {
+      "ID": "LOCATELLI-2026-02-13",
+      "PLATFORM": "WEB (AgroNotizie)",
+      "VOICE_CLASS": "RESEARCHER",
+      "PERSON_OR_ORGANIZATION": "Sabrina Locatelli",
+      "ROLE": "ricercatrice, cura il monitoraggio micotossine",
+      "INSTITUTION": "CREA Cerealicoltura e Colture Industriali, sede di Bergamo",
+      "REPORTED_BY": "Barbara Righini (AgroNotizie) — mídia técnica como veículo",
+      "CONTENT_URL": "https://agronotizie.imagelinenetwork.com/difesa-e-diserbo/2026/02/13/mais-e-micotossine-un-2025-da-dimenticare/88873",
+      "PUBLISHED_AT": "2026-02-13",
+      "EVENT_DATE": "2026-01-30",
+      "EVENT": "Giornata del Mais 2026, CREA Bergamo",
+      "CAPTURED_AT": "2026-08-30",
+      "COUNTRY": "IT",
+      "REGION": "macroáreas Ovest, Centro, Est, Adriatica, Sud Po",
+      "CROP": "mais",
+      "ISSUE": "micotossine (F. verticillioides, F. graminearum, A. flavus)",
+      "SIGNAL_TYPE": [
+        "RESEARCH_FINDING"
+      ],
+      "QUOTE_IT": "Guardando ai dati storici notiamo che le fumonisine sono ormai un rischio cronico e strutturale per il mais italiano. Sono sempre presenti e non abbiamo ancora trovato una soluzione.",
+      "QUANTIFIED": "190 amostras, 29 centros de estocagem, 5 macroáreas; fumonisinas >4 mg/kg em 72% e >10 mg/kg em 44%; aflatossina B1 não conforme em 15% (23% Centro, 24% Adriatica)",
+      "RELATIVE_TO_CASE": "BEFORE_CASE",
+      "DAYS_BEFORE_CASE": 69,
+      "CLOSES_THE_CASE": false,
+      "WHY_NOT": "a cultura é MILHO, não grano duro",
+      "LAW": "RIGHT_CLASS + WRONG_CROP ≠ CASE_SIGNAL",
+      "ADDED_VALUE": [
+        "REGIONAL_DETAIL",
+        "TECHNICAL_INTERPRETATION"
+      ],
+      "ALSO": "é retrospectivo — relata a safra 2025. RETROSPECTIVE_FINDING ≠ EARLY_WARNING",
+      "COUNTS_AS_CONTROL_FOR": "MAIZE × MICOTOSSINE",
+      "SOURCE_STATE": "READ_IN_FULL"
+    },
+    {
+      "ID": "CORTEVA-2026-03-29",
+      "PLATFORM": "WEB",
+      "VOICE_CLASS": "INSTITUTIONAL_VOICE",
+      "PERSON_OR_ORGANIZATION": "Corteva Agriscience",
+      "ROLE": "empresa falando como entidade",
+      "INSTITUTION": "Corteva",
+      "CONTENT_URL": "https://www.corteva.com/it/Agronomia/agronomia0059.html",
+      "PUBLISHED_AT": "2026-03-29",
+      "CAPTURED_AT": "2026-08-30",
+      "COUNTRY": "IT",
+      "REGION": "NÃO NOMEADA",
+      "CROP": "cereali, frumento duro citado",
+      "ISSUE": "Septoria",
+      "SIGNAL_TYPE": [
+        "FIELD_OBSERVATION",
+        "MANAGEMENT_RECOMMENDATION"
+      ],
+      "QUOTE_IT": "In diversi areali, la presenza della malattia sulle foglie basali è già stata rilevata in campo",
+      "RELATIVE_TO_CASE": "BEFORE_CASE",
+      "DAYS_BEFORE_CASE": 25,
+      "CLOSES_THE_CASE": false,
+      "WHY_NOT": "o problema é SEPTORIA, não fusariose",
+      "LAW": "RIGHT_TIME + WRONG_ISSUE ≠ CASE_SIGNAL",
+      "ADDED_VALUE": [
+        "EARLIER_THAN_OFFICIAL",
+        "SYMPTOM_OBSERVATION"
+      ],
+      "COMPETITOR_CONTEXT_ONLY": true,
+      "SOURCE_STATE": "READ_IN_FULL"
+    },
+    {
+      "ID": "BIAGETTI-2024-04-20",
+      "PLATFORM": "WEB",
+      "VOICE_CLASS": "TECHNICAL_FIELD_VOICE",
+      "PERSON_OR_ORGANIZATION": "Stefano Biagetti",
+      "ROLE": "agronomo e tecnico",
+      "INSTITUTION": "Consorzio Agrario di Ancona",
+      "CONTENT_URL": "https://www.marcheagricole.it/grano-spigatura-in-anticipo-tra-pioggia-e-trattamenti-in-corso/",
+      "PUBLISHED_AT": "2024-04-20",
+      "CAPTURED_AT": "2026-08-30",
+      "COUNTRY": "IT",
+      "REGION": "Marche",
+      "CROP": "grano",
+      "ISSUE": "fusariosi, septoria, oidio",
+      "SIGNAL_TYPE": [
+        "FIELD_OBSERVATION",
+        "PHENOLOGY_OBSERVATION"
+      ],
+      "RELATIVE_TO_CASE": "OUT_OF_WINDOW",
+      "CLOSES_THE_CASE": false,
+      "WHY_NOT": "é de 2024 — dois anos antes, quase no mesmo dia do calendário",
+      "LAW": "RIGHT_CLASS + WRONG_YEAR ≠ CASE_SIGNAL",
+      "ADDED_VALUE": [
+        "NO_ADDED_VALUE"
+      ],
+      "SOURCE_STATE": "READ_IN_FULL"
+    },
+    {
+      "ID": "FEZAN400-2026-02-13",
+      "PLATFORM": "WEB (AgroNotizie)",
+      "VOICE_CLASS": "INSTITUTIONAL_VOICE",
+      "PERSON_OR_ORGANIZATION": "Sipcam Italia (via mídia técnica)",
+      "ROLE": "fabricante anunciando produto",
+      "INSTITUTION": "Sipcam Italia",
+      "CONTENT_URL": "https://agronotizie.imagelinenetwork.com/difesa-e-diserbo/2026/02/13/fezan-400-una-forza-contro-ruggini-septoria-e-fusariosi-dei-cereali/88840",
+      "PUBLISHED_AT": "2026-02-13",
+      "CAPTURED_AT": "2026-08-30",
+      "COUNTRY": "IT",
+      "REGION": "NÃO NOMEADA",
+      "CROP": "frumento duro e tenero",
+      "ISSUE": "fusariosi (entre outras)",
+      "SIGNAL_TYPE": [
+        "GENERAL_EDUCATION"
+      ],
+      "RELATIVE_TO_CASE": "BEFORE_CASE",
+      "DAYS_BEFORE_CASE": 69,
+      "CLOSES_THE_CASE": false,
+      "WHY_NOT": "acerta CULTURA, PROBLEMA e JANELA — os três eixos do caso — e mesmo assim não é sensor: é anúncio de registro de produto, sem nenhuma observação de campo. Um filtro por palavra-chave o teria aprovado.",
+      "LAW": "MANUFACTURER_CONTENT ≠ HUMAN_SENSOR",
+      "ADDED_VALUE": [
+        "NO_ADDED_VALUE"
+      ],
+      "COMPETITOR_CONTEXT_ONLY": true,
+      "SOURCE_STATE": "READ_VIA_INDEX"
+    }
+  ],
+  "WHY_THIS_IS_THE_USEFUL_FINDING": "os quatro candidatos falharam por motivos DIFERENTES, e cada motivo virou lei. O mais instrutivo é o Fezan 400: acerta cultura, problema e janela — os três eixos — e não é sensor nenhum. Um filtro por palavra-chave o aprovaria.",
+  "CLOCK": {
+    "OFFICIAL_FIELD_SIGNAL": "2026-04-23",
+    "FIRST_RESEARCHER_SIGNAL": {
+      "FOR_THE_CASE": {
+        "DATE": null,
+        "STATE": "RESEARCHER_SIGNAL_NOT_OBSERVED_IN_THIS_CASE",
+        "NOTE": "nenhum pesquisador com conteúdo datado sobre grano duro × fusariose na janela"
+      },
+      "FOR_MAIZE_CONTROL": {
+        "DATE": "2026-02-13",
+        "EVENT_DATE": "2026-01-30",
+        "STATE": "BEFORE_CASE",
+        "DAYS_BEFORE": 69,
+        "WHO": "Sabrina Locatelli, CREA Bergamo",
+        "NOTE": "sinal de pesquisador REAL, datado, quantificado e com recorte geográfico — mas de milho, e retrospectivo"
+      }
+    },
+    "FIRST_TECHNICAL_SIGNAL": {
+      "DATE": null,
+      "STATE": "NOT_OBSERVED_IN_MEASURED_SAMPLE"
+    },
+    "FIRST_PRODUCER_SIGNAL": {
+      "DATE": "2026-07-03",
+      "STATE": "AFTER_CASE",
+      "NOTE": "econômico, não agronômico"
+    },
+    "FIRST_CREATOR_SIGNAL": {
+      "DATE": null,
+      "STATE": "NOT_OBSERVED_IN_MEASURED_SAMPLE"
+    },
+    "FIRST_INSTITUTIONAL_SIGNAL": {
+      "DATE": "2026-02-13",
+      "STATE": "BEFORE_CASE",
+      "WHO": "Sipcam via AgroNotizie (Fezan 400)",
+      "NOTE": "acerta os três eixos e não é sensor; a observação de campo institucional mais próxima é a Corteva, 29/03"
+    }
+  },
+  "LAWS_ADDED": [
+    "RIGHT_CLASS + WRONG_CROP ≠ CASE_SIGNAL",
+    "RIGHT_TIME + WRONG_ISSUE ≠ CASE_SIGNAL",
+    "RIGHT_CLASS + WRONG_YEAR ≠ CASE_SIGNAL",
+    "MANUFACTURER_CONTENT ≠ HUMAN_SENSOR",
+    "RETROSPECTIVE_FINDING ≠ EARLY_WARNING",
+    "LOGIN_WALL ≠ NO_SIGNAL",
+    "PROFILE ≠ CONTENT",
+    "APPROXIMATE_DATE ≠ BEFORE_CASE"
+  ],
+  "CONTROLS": {
+    "MAIZE_MICOTOSSINE": {
+      "STATE": "RESEARCHER_SIGNAL_OBSERVED_BEFORE_CASE_DATE",
+      "EVIDENCE": "LOCATELLI-2026-02-13",
+      "NOTE": "o controle de milho fechou POSITIVO para a classe pesquisador: há sinal público, datado, quantificado e regionalizado"
+    },
+    "OLIVE_BACTROCERA": {
+      "STATE": "NOT_RUN",
+      "WHY": "sem custo marginal disponível nesta rodada"
+    }
+  },
+  "VERDICT": "HUMAN_SENSOR_LAYER_PROMISING_BUT_NOT_PROVED",
+  "VERDICT_WHY": "promissor porque a classe pesquisador PROVOU ser um sensor público, datável e quantificado — no controle de milho, 69 dias antes do caso, com recorte geográfico que o boletim regional não dá. Não provado porque para o caso medido (grano duro × fusariose) nenhuma voz humana produziu sinal na janela, e porque as duas portas sociais continuam fechadas. Não é NOT_PROVED_WITH_OPEN_DOORS: as portas NÃO foram abertas.",
+  "RECOMMENDATION": "MANTER_PEQUENO",
+  "RECOMMENDATION_WHY": "a evidência de que pesquisador funciona como sensor mudou de \"não observado\" para \"observado e bom\" em uma única rodada de rota pública dirigida por NOME. Isso é barato e rende. O que continua sem medição é a camada social, e ela não se resolve com mais esforço — se resolve com credencial no ambiente. Escalar antes disso seria escalar a parte que já funciona e continuar cego na que nunca abriu.",
+  "NEXT_SMALLEST_STEP": "exportar APIFY_TOKEN_1 no ambiente e repetir ESTE recorte — os mesmos oito nomes, a mesma janela — no LinkedIn. É a única porta que separa PROMISING de uma resposta definitiva.",
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "que não haja voz humana sobre grano duro × fusariose: LinkedIn e Instagram nunca foram lidos",
+    "que a Locatelli não tenha falado de trigo — só que o conteúdo dela que achei na janela é de milho",
+    "nada sobre venda, concorrência ou prioridade interna; Corteva e Sipcam aparecem como CONTEXTO incidental"
+  ]
+}

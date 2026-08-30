@@ -319,6 +319,21 @@ def perguntas():
       'o que LinkedIn e Instagram teriam mostrado — ACCESS_FAILURE ≠ NO_SIGNAL')
 
 
+    portas = _ler('IT-CASOS/IT-HUMAN-SENSOR-OPEN-DOORS.json') or {}
+    r('Pesquisadores funcionam como sensores públicos na Itália?', ANSWERABLE,
+      'Sim, e isto mudou de uma rodada para a outra. Sabrina Locatelli, ricercatrice do '
+      'CREA de Bérgamo, tem sinal público DATADO de 13/02/2026 — 69 dias antes do caso —, '
+      'com 190 amostras, 29 centros de estocagem e 5 macroáreas, e com interpretação '
+      'estrutural ("le fumonisine sono ormai un rischio cronico e strutturale"). É '
+      'exatamente o recorte geográfico que o boletim regional não dá. DUAS ressalvas que '
+      'não podem cair: é MILHO, não grano duro, então não fecha o caso; e é '
+      'RETROSPECTIVO (relata 2025), então é contexto estrutural, não aviso antecipado.',
+      'IT-HUMAN-SENSOR-OPEN-DOORS.json',
+      'a data da publicação, a do evento, e os números que ela apresentou',
+      'que a classe pesquisador deixou de ser NOT_OBSERVED',
+      'se ela ou outro pesquisador falou de grano duro × fusariose na janela')
+
+
 def regressoes():
     """Cada uma reprova uma confiança falsa que já apareceu nesta branch."""
     casos = _ler('IT-CASOS/ITALY-HERO-CASES-V1.json') or {}
@@ -395,6 +410,21 @@ def regressoes():
                 pnl.get('COVERAGE_MOVED') is False
                 and pnl.get('PCT_NATIONAL_NOW_COVERED') == 3.7,
                 'sondar 37,9% da cultura sem ler boletim nao move cobertura nenhuma'))
+
+    portas = _ler('IT-CASOS/IT-HUMAN-SENSOR-OPEN-DOORS.json') or {}
+    _nm = {c['ID']: c for c in portas.get('THE_FOUR_NEAR_MISSES', [])}
+
+    out.append(('RIGHT_CLASS + WRONG_CROP != CASE_SIGNAL',
+                _nm.get('LOCATELLI-2026-02-13', {}).get('CLOSES_THE_CASE') is False,
+                'pesquisadora datada 69 dias antes do caso — e de milho, nao de trigo duro'))
+
+    out.append(('MANUFACTURER_CONTENT != HUMAN_SENSOR',
+                _nm.get('FEZAN400-2026-02-13', {}).get('CLOSES_THE_CASE') is False,
+                'o Fezan 400 acerta cultura, issue e janela e continua sendo anuncio'))
+
+    out.append(('RETROSPECTIVE_FINDING != EARLY_WARNING',
+                'RETROSPECTIVE_FINDING' in str(_nm.get('LOCATELLI-2026-02-13', {}).get('ALSO', '')),
+                'a relacao e sobre a safra 2025; diz o que houve, nao o que vem'))
 
     voz = _ler('IT-CASOS/IT-HUMAN-SENSOR-PILOT.json') or {}
     out.append(('ACCESS_FAILURE != NO_SIGNAL',
