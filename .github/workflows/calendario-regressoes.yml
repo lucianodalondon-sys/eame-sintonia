@@ -1,0 +1,93 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CALENDARIO AGRONOMICO — as regressoes rodam contra um Postgres DE VERDADE.
+#
+# Por que nao basta ler o .sql: um schema pode estar sintaticamente perfeito
+# e ainda assim responder CLOSED para uma janela que so e desconhecida. As
+# 45 afirmacoes deste job sao sobre SIGNIFICADO, e significado so se mede
+# executando.
+#
+# Banco descartavel do proprio runner. Sem secret, sem tocar no Supabase de
+# producao, sem dado de cliente. Roda em todo push que mexe no schema.
+# ═══════════════════════════════════════════════════════════════════════
+name: calendario-regressoes
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'supabase/migrations/**'
+      - 'supabase/fixtures/**'
+      - 'supabase/tests/**'
+      - '.github/workflows/calendario-regressoes.yml'
+  pull_request:
+    paths:
+      - 'supabase/migrations/**'
+      - 'supabase/fixtures/**'
+      - 'supabase/tests/**'
+
+permissions:
+  contents: read
+
+jobs:
+  regressoes:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: eame_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 20
+    env:
+      PGURL: postgresql://postgres:postgres@localhost:5432/eame_ci
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · aplicar 001–007 e 009–012 num banco vazio
+        run: |
+          set -e
+          for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
+            num=$(basename "$f" | cut -c1-3)
+            psql "$PGURL" -v ON_ERROR_STOP=1 -q -f "$f" \
+              && echo "MIGRATION_$num=PASS" \
+              || { echo "MIGRATION_$num=FAIL"; exit 1; }
+          done
+
+      - name: 2 · 008 — o banco montado do zero tem as travas do Git?
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -f supabase/migrations/008_verificacao_pos_aplicacao.sql 2>&1 \
+            | tee /tmp/o
+          grep -q "conferidas" /tmp/o && echo "POST_APPLY_VERIFICATION=PASS"
+
+      - name: 3 · fixture ES — dado real, e so o que tem fonte
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/fixtures/es_calendario_mvp.sql
+          echo "FIXTURE_ES=PASS"
+
+      - name: 4 · regressoes de significado — 45 afirmacoes
+        run: |
+          set -e
+          psql "$PGURL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tee /tmp/r
+          grep -q "REGRESSOES_CALENDARIO=PASS" /tmp/r
+
+      - name: 5 · o payload do caso, impresso no log para leitura humana
+        if: always()
+        run: |
+          psql "$PGURL" -tAc \
+            "select jsonb_pretty(public.f_case_temporal_context('ES','OLIVE','REPILO',null,date '2026-08-30'))"
+          psql "$PGURL" -tAc \
+            "select jsonb_pretty(public.f_case_temporal_context('ES','MAIZE','AMARANTHUS_PALMERI',null,date '2026-08-30'))"
+
+      - name: 6 · isolamento de pais, medido e nao afirmado
+        if: always()
+        run: |
+          psql "$PGURL" -tAc \
+            "select origem||'='||coalesce(array_to_string(paises,','),'VAZIO')
+               from public.f_paises_no_resultado_do_calendario('ES')"
+          psql "$PGURL" -tAc \
+            "select 'FR_ROWS_NUM_ACERVO_SO_ES='||count(*) from public.f_crop_calendar('FR')"

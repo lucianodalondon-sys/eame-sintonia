@@ -1,5 +1,6 @@
 # ═══════════════════════════════════════════════════════════════════════
-# APLICA 001–007 no Supabase EAME e roda a 008 contra o banco REAL.
+# APLICA 001–007 e 009–012 no Supabase EAME e roda a 008 contra o banco REAL.
+# A 008 e a ULTIMA, nao a oitava: ela confere o que as outras escreveram.
 #
 # Para no primeiro erro, em dois pontos:
 #   · antes de escrever, se o `public` nao estiver vazio;
@@ -52,15 +53,20 @@ jobs:
           raise SystemExit(0 if (ra and rd and ra == rd) else 1)
           PY
           # Banco que ja tem tabela em public NAO e o estado que autorizei a escrever.
-          # 0 = banco virgem (001-009). 23 = 001-007 ja aplicadas, faltando a 009.
+          #  0 = banco virgem
+          # 23 = 001-007 aplicadas, faltando 009
+          # 26 = 001-009 aplicadas, faltando os quatro relogios do calendario
+          # 30 = 001-012 ja aplicadas (reaplicar e idempotente e sai como SKIP)
           # Qualquer outro numero e um estado que eu nao autorizei a escrever.
-          case "$n" in 0|23) echo "ESTADO_ACEITO=$n" ;;
+          case "$n" in 0|23|26|30) echo "ESTADO_ACEITO=$n" ;;
             *) echo "PARADO: public com $n tabelas — estado nao previsto."; exit 1 ;; esac
 
-      - name: 2 · aplicar 001–007, parando no primeiro erro
+      - name: 2 · aplicar 001–007 e 009–012, parando no primeiro erro
         run: |
           falhou=0
-          for f in supabase/migrations/00[1-79]_*.sql; do
+          # A 008 fica de fora deste laco de proposito: ela confere, nao cria,
+          # e so faz sentido depois que todas as outras passaram.
+          for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
             num=$(basename "$f" | cut -c1-3)
             # Ja aplicada (001-007) sai como SKIP, nao como falha: o erro de objeto
             # existente e resposta, nao defeito. Qualquer outro erro para tudo.
@@ -78,6 +84,9 @@ jobs:
           exit $falhou
 
       - name: 3 · 008 — o banco REAL tem as travas que o Git diz ter?
+        # Inclui os quatro relogios: sem esta conferencia, um banco sem
+        # crop_calendar passaria calado e o portal responderia NO_DATA para
+        # tudo, como se fosse ausencia de fato e nao ausencia de schema.
         run: |
           if psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 \
                -f supabase/migrations/008_verificacao_pos_aplicacao.sql >/tmp/o 2>&1; then
@@ -102,3 +111,13 @@ jobs:
             "select 'UNIQUE_INDEXES='||count(*) from pg_indexes i join pg_class c on c.relname=i.indexname where i.schemaname='public' and c.relkind='i' and exists (select 1 from pg_index x where x.indexrelid=c.oid and x.indisunique)"
           psql "$SUPABASE_DB_URL" -tAc \
             "select 'ROWS_TOTAL='||coalesce(sum(n_live_tup),0) from pg_stat_user_tables where schemaname='public'"
+          # Os quatro relogios, contados um a um. Zero linha e resposta valida
+          # aqui — este workflow aplica schema e nao carrega dado nenhum.
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CLOCK_A_CROP_CALENDAR_ROWS='||count(*) from public.crop_calendar"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CLOCK_B_ISSUE_WINDOW_ROWS='||count(*) from public.issue_window"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CLOCK_C_PRODUCT_WINDOW_ROWS='||count(*) from public.registro_uso_janela"
+          psql "$SUPABASE_DB_URL" -tAc \
+            "select 'CLOCK_D_FRESHNESS_RULES='||count(*) from public.freshness_regra"

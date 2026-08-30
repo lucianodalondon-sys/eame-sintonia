@@ -23,7 +23,12 @@
 -- O teste em tests/test_migrations.py cobre o outro lado — que os arquivos são
 -- coerentes entre si. Os dois juntos fecham a pergunta; nenhum sozinho fecha.
 --
--- RODAR DEPOIS de aplicar 001–009. NÃO EXECUTADA ainda.
+-- RODAR DEPOIS de aplicar 001–007 e 009–012. Ela é a última, não a oitava.
+--
+-- NÃO EXECUTADA em Supabase. Executada e conferida num PostgreSQL 16
+-- local e descartável: 001–012 montadas do zero, fixture ES carregada e
+-- supabase/tests/regressoes_calendario.sql verde (45/45). Aplicar em
+-- produção continua sendo trabalho do workflow supabase-migrate.
 -- ═══════════════════════════════════════════════════════════════════════
 
 do $$
@@ -37,7 +42,9 @@ declare
     'conteudo_crop_issue','observacao','derivacao','derivacao_observacao',
     'resposta_registrada','lacuna_candidata','registro_regulatorio','registro_uso',
     -- 009
-    'disponibilidade_comercial','crop_local','issue_local'];
+    'disponibilidade_comercial','crop_local','issue_local',
+    -- 010 — os quatro relogios
+    'crop_calendar','issue_window','registro_uso_janela','freshness_regra'];
 begin
   -- 1 · as tabelas existem?
   foreach t in array esperadas loop
@@ -110,11 +117,71 @@ begin
     end if;
   end loop;
 
+  -- 6 · CALENDARIO AGRONOMICO (010-012). Sem estas travas o portal pode
+  --     responder uma data que ninguem mediu, ou fechar uma janela que so
+  --     e desconhecida. Tabela existir nao basta: a lei mora na constraint.
+  foreach t in array array[
+      'calendario_resolucao_bate_com_o_preenchido',
+      'campanha_observada_nao_recorre',
+      'campanha_observada_declara_o_ano',
+      'calendario_geografia_e_do_pais',
+      'janela_issue_resolucao_bate_com_o_preenchido',
+      'atividade_observada_nao_recorre',
+      'janela_issue_geografia_e_do_pais',
+      'janela_produto_resolucao_bate_com_o_preenchido'] loop
+    if not exists (select 1 from pg_constraint where conname=t) then
+      faltando := faltando || ('CHECK ' || t)::text;
+    end if;
+  end loop;
+
+  -- ISSUE_WINDOW != FIELD_PRESSURE. Uma coluna de magnitude aqui seria a
+  -- pressao do campo morando na janela do issue, e as duas nao sao a mesma.
+  if exists (select 1 from information_schema.columns
+              where table_schema='public' and table_name='issue_window'
+                and column_name ~ '(pressao|incidencia|severidade|intensidade|valor)') then
+    faltando := faltando || 'issue_window ganhou coluna de pressao (relogio B contaminado)'::text;
+  end if;
+
+  -- AS_OF_DATE nunca vira coluna. Estado corrente e derivado na pergunta.
+  if exists (select 1 from information_schema.columns
+              where table_schema='public'
+                and table_name in ('crop_calendar','issue_window','registro_uso_janela')
+                and column_name ~ '^(hoje|today|as_of|estado_atual|status_atual)$') then
+    faltando := faltando || 'alguma tabela do calendario guarda "hoje" como coluna'::text;
+  end if;
+
+  -- as funcoes que o portal chama existem, e todas exigem pais
+  foreach t in array array['estado_janela_por_data','estado_janela_por_bbch','estado_frescor',
+                           'f_bbch_observado','f_crop_calendar','f_next_relevant_window',
+                           'f_latest_observations','f_case_temporal_context',
+                           'f_paises_no_resultado_do_calendario','geografia_do_pais'] loop
+    if not exists (select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+                    where n.nspname='public' and p.proname=t) then
+      faltando := faltando || ('funcao ' || t)::text;
+    end if;
+  end loop;
+  foreach t in array array['f_crop_calendar','f_next_relevant_window','f_latest_observations',
+                           'f_bbch_observado','f_case_temporal_context'] loop
+    if not exists (select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+                    where n.nspname='public' and p.proname=t
+                      and 'p_pais' = any(p.proargnames)) then
+      faltando := faltando || (t || ' pode ser chamada sem pais')::text;
+    end if;
+  end loop;
+
+  foreach t in array array['v_crop_calendar','v_crop_calendar_por_regiao','v_issue_windows',
+                           'v_product_registered_windows','v_product_line_semantics'] loop
+    if not exists (select 1 from information_schema.views
+                    where table_schema='public' and table_name=t) then
+      faltando := faltando || ('view ' || t)::text;
+    end if;
+  end loop;
+
   if array_length(faltando,1) is not null then
     raise exception E'O BANCO NAO BATE COM AS MIGRATIONS.\nFaltando:\n  %',
       array_to_string(faltando, E'\n  ');
   end if;
 
-  raise notice 'migrations 001-009 conferidas: % tabelas, travas e RLS no lugar',
+  raise notice 'migrations 001-012 conferidas: % tabelas, travas, funcoes e RLS no lugar',
     array_length(esperadas,1);
 end $$;
