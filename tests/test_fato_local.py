@@ -561,3 +561,84 @@ class OBoletimEmJanelaAchouMaisDoisFuros(unittest.TestCase):
                              'a mutação não mudou nada — a prova não mordia')
         finally:
             fl.ANCORAS_POSITIVAS = salvo
+
+
+class OBoletimDeConsorzioAchouMaisTres(unittest.TestCase):
+    """Bollettino do Consorzio Collio n.06 de 15/05/2026, assinado por um
+    agrônomo nomeado. O documento mais LOCAL que esta missão leu — vinte
+    localidades com chuva em mm — e o que menos localização produzia."""
+
+    SENTINELA_POSITIVA = 'Nel testimone non trattato di Plessiva si segnalano infezioni.'
+    SENTINELA_NEGATIVA = ('Al momento nel testimone non trattato di Plessiva non si '
+                          'segnalano infezioni.')
+
+    def test_1_a_parcela_sentinela_declara_o_lugar(self):
+        """"testimone non trattato di Plessiva" — o agrônomo está dizendo que
+        Plessiva é um lugar com parcela de monitoramento. Sem o marcador, o nome
+        ficava invisível: nem aceito nem recusado."""
+        ok, _ = fl.localizacoes_do_fato(self.SENTINELA_POSITIVA)
+        self.assertEqual([a['FACT_LOCATION'] for a in ok], ['Plessiva'])
+        self.assertEqual(ok[0]['PRECISION_SOURCE'], 'DECLARED_BY_TEXT')
+        self.assertEqual(ok[0]['FACT_LOCATION_PRECISION'], fl.LOCALITY)
+
+    def test_2_a_ancora_pode_vir_DEPOIS_do_lugar(self):
+        """O italiano põe o verbo depois do lugar o tempo todo. Olhar só para
+        trás recusava a frase por "falta de relação semântica" — pelo motivo
+        errado."""
+        ok, _ = fl.localizacoes_do_fato('A Grosseto si segnalano infezioni.')
+        self.assertEqual([a['FACT_LOCATION'] for a in ok], ['Grosseto'])
+
+    def test_olhar_para_os_dois_lados_nao_reabre_o_falso_positivo(self):
+        """A âncora negativa concorre pela mesma distância."""
+        ok, nao = fl.localizacoes_do_fato(
+            'Convegno a Bologna e fusariosi constatata a Grosseto.')
+        self.assertEqual([a['FACT_LOCATION'] for a in ok], ['Grosseto'])
+        self.assertIn('Bologna', {r['PLACE'] for r in nao})
+
+    def test_3_negacao_estrutural_nao_e_negacao_de_observacao(self):
+        """"testimone NON TRATTATO" descreve a parcela — que é justamente onde a
+        doença aparece primeiro. Tratar esse "non" como negação do achado
+        descartaria a evidência mais precoce que existe."""
+        ok, _ = fl.localizacoes_do_fato(self.SENTINELA_POSITIVA)
+        self.assertTrue(ok)
+
+    def test_mas_a_negacao_de_observacao_continua_valendo(self):
+        ok, nao = fl.localizacoes_do_fato(self.SENTINELA_NEGATIVA)
+        self.assertEqual(ok, [])
+        self.assertEqual({r['STATE'] for r in nao}, {fl.NEGATED_OBSERVATION})
+
+    def test_a_negacao_e_proximidade_e_nao_morfologia(self):
+        """Enumerar formas verbais negadas do italiano foi um erro: "non si
+        segnalano" não caía em nenhum dos padrões da primeira versão."""
+        self.assertLessEqual(fl.JANELA_NEGACAO, 60)
+        distante = ('Non abbiamo ancora un quadro completo della situazione '
+                    'regionale in questa fase della stagione, ma a Grosseto si '
+                    'segnalano infezioni.')
+        ok, _ = fl.localizacoes_do_fato(distante)
+        self.assertEqual([a['FACT_LOCATION'] for a in ok], ['Grosseto'],
+                         'um "non" distante não pode alcançar a observação')
+
+    def test_mutacao_sem_a_negacao_estrutural_a_sentinela_se_perde(self):
+        salvo = fl.NEGACAO_ESTRUTURAL
+        try:
+            fl.NEGACAO_ESTRUTURAL = ()
+            ok, _ = fl.localizacoes_do_fato(self.SENTINELA_POSITIVA)
+            self.assertEqual(ok, [], 'a mutação não mudou nada — a prova não mordia')
+        finally:
+            fl.NEGACAO_ESTRUTURAL = salvo
+
+    def test_todos_os_casos_anteriores_continuam_valendo(self):
+        """As correções deste boletim não podem desfazer as dos anteriores."""
+        casos = {
+            'Non riscontrata presenza di avversità nei Comuni di Gubbio.': [],
+            ('Fitopatie assenti ad eccezione di presenza media di Septoriosi '
+             'nel Comune di Parrano.'): ['Parrano'],
+            'Campioni positivi provenienti da Grosseto, Siena e Arezzo.':
+                ['Grosseto', 'Siena', 'Arezzo'],
+            'Operiamo in Toscana con i nostri tecnici.': [],
+            'Rischio attacchi septoriosi in Friuli Venezia Giulia.':
+                ['Friuli-Venezia Giulia'],
+        }
+        for frase, esperado in casos.items():
+            ok, _ = fl.localizacoes_do_fato(frase)
+            self.assertEqual([a['FACT_LOCATION'] for a in ok], esperado, frase[:50])

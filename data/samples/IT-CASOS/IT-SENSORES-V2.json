@@ -35,6 +35,7 @@
     {
       "NAME": "ERSA FVG — Servizio fitosanitario e chimico",
       "CLASS": "INSTITUTIONAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "serviço fitossanitário regional",
       "ORGANIZATION": "ERSA Friuli-Venezia Giulia",
       "SOURCE_LOCATION": "Friuli-Venezia Giulia",
@@ -70,6 +71,7 @@
     {
       "NAME": "Regione Veneto — Servizio fitosanitario",
       "CLASS": "INSTITUTIONAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "serviço fitossanitário regional",
       "ORGANIZATION": "Regione del Veneto",
       "SOURCE_LOCATION": "Veneto",
@@ -99,6 +101,7 @@
     {
       "NAME": "Servizio Fitosanitario Regionale Umbria",
       "CLASS": "INSTITUTIONAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "serviço fitossanitário regional",
       "ORGANIZATION": "Regione Umbria",
       "SOURCE_LOCATION": "Umbria",
@@ -127,6 +130,7 @@
     {
       "NAME": "Regione Campania — bollettini fitosanitari",
       "CLASS": "INSTITUTIONAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "serviço fitossanitário regional",
       "ORGANIZATION": "Regione Campania",
       "SOURCE_LOCATION": "Campania",
@@ -151,6 +155,7 @@
     {
       "NAME": "LaMMA / Regione Toscana — Bollettino Frumento",
       "CLASS": "INSTITUTIONAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "consórcio agrometeorológico regional",
       "ORGANIZATION": "Consorzio LaMMA",
       "SOURCE_LOCATION": "Toscana",
@@ -177,6 +182,7 @@
     {
       "NAME": "ARSIA Toscana — agroambiente.info",
       "CLASS": "INSTITUTIONAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "ex-agência regional",
       "ORGANIZATION": "Regione Toscana (ARSIA, extinta)",
       "SOURCE_LOCATION": "Toscana",
@@ -202,6 +208,7 @@
     {
       "NAME": "Horta srl — grano.net / orzo.net",
       "CLASS": "TECHNICAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "provedor de modelo previsional",
       "ORGANIZATION": "Horta srl (spin-off Università Cattolica)",
       "SOURCE_LOCATION": "Piacenza",
@@ -232,6 +239,7 @@
     {
       "NAME": "Servizio fitosanitario ERSA — sezione cerealicoltura",
       "CLASS": "TECHNICAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "técnicos de campo do serviço regional",
       "ORGANIZATION": "ERSA FVG",
       "SOURCE_LOCATION": "Friuli-Venezia Giulia",
@@ -259,6 +267,7 @@
     {
       "NAME": "Centro di Saggio — Consorzio Agrario dell'Emilia",
       "CLASS": "TECHNICAL_FIELD_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "centro de ensaios / bollettino tecnico",
       "ORGANIZATION": "Consorzio Agrario dell'Emilia",
       "SOURCE_LOCATION": "Bologna / Modena / Reggio Emilia",
@@ -288,6 +297,7 @@
     {
       "NAME": "Federico Cavina",
       "CLASS": "TECHNICAL_FIELD_VOICE",
+      "ENTITY_KIND": "PERSON",
       "ROLE": "Coordinatore Centro di Saggio",
       "ORGANIZATION": "Terremerse soc. coop.",
       "SOURCE_LOCATION": "Emilia-Romagna",
@@ -312,6 +322,7 @@
     {
       "NAME": "Consorzi Agrari d'Italia (CAI)",
       "CLASS": "PRODUCER_COOP_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "rede nacional de consórcios agrários",
       "ORGANIZATION": "CAI",
       "SOURCE_LOCATION": "Itália",
@@ -343,6 +354,7 @@
     {
       "NAME": "COPROB",
       "CLASS": "PRODUCER_COOP_VOICE",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "cooperativa açucareira",
       "ORGANIZATION": "COPROB",
       "SOURCE_LOCATION": "Emilia-Romagna",
@@ -367,6 +379,7 @@
     {
       "NAME": "AgroNotizie (Image Line)",
       "CLASS": "CREATOR_INFLUENCER",
+      "ENTITY_KIND": "ORGANIZATION",
       "ROLE": "imprensa técnica com presença social",
       "ORGANIZATION": "Image Line",
       "SOURCE_LOCATION": "Faenza (Ravenna)",
@@ -399,6 +412,7 @@
     {
       "NAME": "Tommaso Rossi Razzini (\"The Roman Farmer\")",
       "CLASS": "CREATOR_INFLUENCER",
+      "ENTITY_KIND": "PERSON",
       "ROLE": "agro-creator",
       "ORGANIZATION": "independente",
       "SOURCE_LOCATION": "Lazio",
@@ -427,6 +441,7 @@
     {
       "NAME": "Canais \"agro-influencer\" italianos em geral",
       "CLASS": "CREATOR_INFLUENCER",
+      "ENTITY_KIND": "AGGREGATE_CLASS",
       "ROLE": "classe agregada, não voz individual",
       "ORGANIZATION": "vários",
       "SOURCE_LOCATION": "Itália",
@@ -803,8 +818,19 @@
     "ROUTE_UNAVAILABLE ≠ NO_SIGNAL"
   ],
   "ITALY_HUMAN_SENSOR_ECOSYSTEM": "PARTIALLY_MAPPED",
+  "ENTITY_KIND_OF_PROSPECTIVE_VOICES": {
+    "PERSON": 0,
+    "ORGANIZATION": 5,
+    "AGGREGATE_CLASS": 0
+  },
+  "PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR": "PROVED",
+  "PROSPECTIVE_TECHNICAL_PERSON_SENSOR": "NOT_PROVED",
+  "PROSPECTIVE_PRODUCER_SENSOR": "NOT_PROVED",
+  "PROSPECTIVE_CREATOR_SENSOR": "NOT_PROVED",
+  "PROSPECTIVE_RESEARCHER_SENSOR": "NOT_PROVED",
   "RESEARCHER_SENSOR": "CONTEXT_AND_RETROSPECTIVE_PROVED",
-  "PROSPECTIVE_HUMAN_SENSOR": "PROVED",
+  "PROSPECTIVE_HUMAN_PERSON_SENSOR": "NOT_PROVED",
+  "CORRECTION_OF_PREVIOUS_ROUND": "a rodada anterior publicou PROSPECTIVE_HUMAN_SENSOR = PROVED. A evidência de antecipação vinha de CINCO vozes das quais CINCO eram organizações. Instituição não é pessoa, e faltava o campo que as separa. INSTITUTIONAL_SIGNAL ≠ HUMAN_PERSON_SIGNAL",
   "HIGH_VALUE_SENSOR_TARGETS": [
     {
       "TARGET": "ERSA FVG — bollettini colture erbacee",

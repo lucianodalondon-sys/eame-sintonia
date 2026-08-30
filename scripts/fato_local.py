@@ -162,7 +162,10 @@ ANCORAS_POSITIVAS = (
     (r'campion[ei]\s+positiv[ei]', DIAGNOSTIC_SAMPLE),
     (r'campion[ei]\s+provenient[ei]', DIAGNOSTIC_SAMPLE),
     (r'analisi\s+positiv[ei]', DIAGNOSTIC_SAMPLE),
-    (r'segnalat[oaie]', OFFICIAL_OCCURRENCE),
+    # "si segnalano" é presente: `segnalat[oaie]` só pegava o particípio, e a
+    # frase "non si segnalano infezioni" ficava sem âncora — logo, sem negação a
+    # reconhecer. Recusada pelo motivo errado.
+    (r'segnal(?:at[oaie]|ano|a|iamo)', OFFICIAL_OCCURRENCE),
     (r'bollettino\b', OFFICIAL_OCCURRENCE),
     (r'registrat[oaie]', OFFICIAL_OCCURRENCE),
     (r'diffusion[ei]\s+(?:in|nel|nella)\b', REGIONAL_STATEMENT),
@@ -215,6 +218,12 @@ MARCADORES_ADMIN = (
     (r'frazione\s+di\s+', LOCALITY),
     (r'provincia\s+di\s+', PROVINCE),
     (r'areal[ei]\s+(?:di\s+)?', OTHER_PRECISION),
+    # "testimone non trattato di Plessiva" — a parcela-sentinela. O agrônomo
+    # declara ali que Plessiva é um lugar com uma parcela de monitoramento. Sem
+    # este marcador, o nome ficava INVISÍVEL; com ele, passa a ser julgado — e
+    # naquela frase é corretamente recusado, porque a observação está negada.
+    (r'testimone(?:\s+non)?(?:\s+trattato)?\s+di\s+', LOCALITY),
+    (r'(?:vigneto|campo|appezzamento|parcella)\s+di\s+', LOCALITY),
 )
 _NOME = r"([A-Z][\wÀ-ÿ'’-]+(?:\s+(?:di|del|della|dei|delle|d'|in)\s+[A-Z][\wÀ-ÿ'’-]+|\s+[A-Z][\wÀ-ÿ'’-]+)*)"
 
@@ -223,12 +232,27 @@ _NOME = r"([A-Z][\wÀ-ÿ'’-]+(?:\s+(?:di|del|della|dei|delle|d'|in)\s+[A-Z][\w
 # doença ESTÁ ali — dizendo o oposto exato do que o boletim diz.
 #
 #     NEGATED_OBSERVATION ≠ OBSERVATION
-NEGACOES = (r'\bnon\s+(?:si\s+)?(?:è\s+|sono\s+)?\w*at[oaie]\b', r'\bnon\s+\w+ono\b',
-            r'\bassenti\b', r'\bassente\b', r'\bnessun[ao]?\b', r'\bnulla\b')
+# Tentar enumerar as formas verbais negadas do italiano foi um erro: a primeira
+# versão listava particípios e terceira pessoa do plural, e "non si segnalano"
+# não caía em nenhuma das duas. A negação é uma questão de PROXIMIDADE, não de
+# morfologia — um "non" a poucas palavras da âncora nega o que ela afirma.
+NEGACOES = (r'\bnon\b', r'\bassenti\b', r'\bassente\b', r'\bnessun[ao]?\b',
+            r'\bnulla\b', r'\bné\b')
+JANELA_NEGACAO = 40
 # A negação PARA aqui: "Fitopatie assenti ad eccezione di presenza media di
 # Septoriosi nel Comune di Parrano" volta a ser uma observação positiva.
 FIM_DA_NEGACAO = (r'ad\s+eccezione', r'\beccetto\b', r'\btranne\b', r'\bsalvo\b',
                   r'\bfatta\s+eccezione\b')
+
+# "testimone NON TRATTATO" não nega achado nenhum: descreve a parcela-sentinela,
+# que é justamente onde a doença aparece primeiro. Tratar esse "non" como negação
+# da observação faria o sistema descartar a evidência mais precoce que existe.
+#
+#     STRUCTURAL_NEGATION ≠ OBSERVATIONAL_NEGATION
+NEGACAO_ESTRUTURAL = (
+    r'(?:testimone|vigneto|campo|appezzamento|parcella|tesi)\s+non\s+trattat[oaie]',
+    r'non\s+trattat[oaie]\b',
+)
 
 CONTENT_GEO_EVIDENCE = 'CONTENT_GEO_EVIDENCE'
 
@@ -322,35 +346,58 @@ def _negada(frase, pos_ancora):
     fato. Com a exceção pelo meio, a negação já terminou.
     """
     low = _baixo(frase)[:pos_ancora]
+    # Negações estruturais saem antes de qualquer conta: elas descrevem a parcela.
+    for p in NEGACAO_ESTRUTURAL:
+        low = re.sub(p, 'parcella_sentinella', low)
     neg = max((m.end() for p in NEGACOES for m in re.finditer(p, low)), default=None)
-    if neg is None:
+    # Só nega o que está perto: um "non" no começo do parágrafo não alcança uma
+    # observação trinta palavras adiante.
+    if neg is None or pos_ancora - neg > JANELA_NEGACAO:
         return False
     fim = max((m.end() for p in FIM_DA_NEGACAO for m in re.finditer(p, low)), default=None)
     return fim is None or fim < neg
 
 
+def _mais_perto(ancoras, pos_lugar):
+    """A âncora mais próxima do lugar, ANTES ou DEPOIS dele.
+
+    A primeira versão só olhava para trás, e o italiano põe o verbo depois do
+    lugar o tempo todo: "nel testimone di Plessiva si segnalano infezioni". A
+    âncora existia, vinha três palavras adiante, e o lugar era recusado por
+    "falta de relação semântica" — recusado pelo motivo errado.
+
+    Olhar para os dois lados NÃO afrouxa a regra, porque a âncora negativa
+    concorre pela mesma distância: em "convegno a Bologna ... fusariosi
+    constatata", "convegno" continua mais perto de Bologna que "constatata".
+    """
+    if not ancoras:
+        return None
+    return min(ancoras, key=lambda a: min(abs(a['POS'] - pos_lugar),
+                                          abs(a['END'] - pos_lugar)))
+
+
 def _governa(pos_lugar, positivas, negativas):
-    """Qual âncora governa este lugar: a MAIS PRÓXIMA antes dele.
+    """Qual âncora governa este lugar: a MAIS PRÓXIMA dele, dos dois lados.
 
     Não basta existir uma âncora positiva na oração. "Convegno a Bologna e
     fusariosi constatata a Grosseto" tem as duas, e cada lugar é governado pela
     sua. Pegar "existe positiva na frase" promoveria Bologna a foco de doença.
     """
-    candidatas = [a for a in positivas if a['POS'] < pos_lugar]
-    pos = max(candidatas, key=lambda a: a['POS'], default=None)
+    pos = _mais_perto(positivas, pos_lugar)
     # Quando uma âncora está DENTRO de outra, quem governa é a de fora.
     # "Rischio attacchi septoriosi" contém "attacchi": pela proximidade venceria
     # "attacchi" — e um mapa de previsão viraria sintoma visto. A âncora que
     # qualifica é a que começa antes e engloba a outra.
     if pos is not None:
-        externa = [a for a in candidatas
+        externa = [a for a in positivas
                    if a['POS'] <= pos['POS'] and a['END'] > pos['POS'] and a is not pos]
         if externa:
             pos = min(externa, key=lambda a: a['POS'])
-    neg = max((a for a in negativas if a['POS'] < pos_lugar),
-              key=lambda a: a['POS'], default=None)
+    neg = _mais_perto(negativas, pos_lugar)
     if pos and neg:
-        return (pos, None) if pos['POS'] > neg['POS'] else (None, neg)
+        def d(a):
+            return min(abs(a['POS'] - pos_lugar), abs(a['END'] - pos_lugar))
+        return (pos, None) if d(pos) < d(neg) else (None, neg)
     return (pos, neg)
 
 

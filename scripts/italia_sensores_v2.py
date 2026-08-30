@@ -66,6 +66,16 @@ FIELD_SEASONAL, RECURRENT, EVENT_DRIVEN = 'FIELD_SEASONAL', 'RECURRENT', 'EVENT_
 OCCASIONAL, EVERGREEN_ONLY, CADENCE_NOT_KNOWN = ('OCCASIONAL', 'EVERGREEN_ONLY',
                                                  'NOT_KNOWN')
 
+# A distinção que faltava, e cuja ausência produziu um veredito errado na rodada
+# anterior: uma VOZ pode ser uma pessoa, uma organização, ou uma classe agregada.
+# `PROSPECTIVE_HUMAN_SENSOR = PROVED` foi calculado sobre cinco vozes das quais
+# CINCO eram organizações. Promovi instituição a pessoa por não ter o campo que
+# as separa.
+#
+#     INSTITUTIONAL_SIGNAL ≠ HUMAN_PERSON_SIGNAL
+PERSON, ORGANIZATION, AGGREGATE_CLASS = 'PERSON', 'ORGANIZATION', 'AGGREGATE_CLASS'
+ENTITY_KINDS = (PERSON, ORGANIZATION, AGGREGATE_CLASS)
+
 PROSPECTIVE_SENSOR = 'PROSPECTIVE_SENSOR'
 CONTEXT_SENSOR = 'CONTEXT_SENSOR'
 RETROSPECTIVE_SENSOR = 'RETROSPECTIVE_SENSOR'
@@ -75,7 +85,8 @@ POTENTIAL_NOT_KNOWN = 'NOT_KNOWN'
 
 def voz(**kw):
     """Uma voz. Campos ausentes viram NÃO SEI — nunca somem."""
-    base = {'NAME': None, 'CLASS': None, 'ROLE': None, 'ORGANIZATION': None,
+    base = {'NAME': None, 'CLASS': None, 'ENTITY_KIND': None, 'ROLE': None,
+            'ORGANIZATION': None,
             'SOURCE_LOCATION': 'NÃO SEI', 'OPERATING_GEOGRAPHY': 'NÃO SEI',
             'MAIN_CROPS': [], 'MAIN_TOPICS': [], 'PUBLIC_CHANNELS': [],
             'PRIMARY_PUBLIC_CHANNEL': None, 'ACTIVE_2026': 'NOT_KNOWN',
@@ -91,7 +102,7 @@ def voz(**kw):
 VOZES = [
     # ---------------------------------------------- INSTITUTIONAL_FIELD_VOICE
     voz(NAME='ERSA FVG — Servizio fitosanitario e chimico',
-        CLASS=INSTITUTIONAL_FIELD_VOICE, ROLE='serviço fitossanitário regional',
+        CLASS=INSTITUTIONAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='serviço fitossanitário regional',
         ORGANIZATION='ERSA Friuli-Venezia Giulia',
         SOURCE_LOCATION='Friuli-Venezia Giulia',
         OPERATING_GEOGRAPHY='Friuli-Venezia Giulia',
@@ -108,7 +119,7 @@ VOZES = [
              'fase fenológica BBCH, sintoma observado em campo e risco modelado '
              'declarados separadamente pelo próprio boletim')),
     voz(NAME='Regione Veneto — Servizio fitosanitario',
-        CLASS=INSTITUTIONAL_FIELD_VOICE, ROLE='serviço fitossanitário regional',
+        CLASS=INSTITUTIONAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='serviço fitossanitário regional',
         ORGANIZATION='Regione del Veneto', SOURCE_LOCATION='Veneto',
         OPERATING_GEOGRAPHY='Veneto',
         MAIN_CROPS=['cereali', 'mais', 'vite', 'frutticole'],
@@ -119,7 +130,7 @@ VOZES = [
         CADENCE=FIELD_SEASONAL, SENSOR_POTENTIAL=PROSPECTIVE_SENSOR,
         WHY='53 datas distintas em 2026, de 04/03 a 05/08 — a maior cadência medida'),
     voz(NAME='Servizio Fitosanitario Regionale Umbria',
-        CLASS=INSTITUTIONAL_FIELD_VOICE, ROLE='serviço fitossanitário regional',
+        CLASS=INSTITUTIONAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='serviço fitossanitário regional',
         ORGANIZATION='Regione Umbria', SOURCE_LOCATION='Umbria',
         OPERATING_GEOGRAPHY='Umbria — areali Conca Ternana, Eugubino Gualdese, '
                             'Lago Trasimeno, Media Valle del Tevere, Orvietano, '
@@ -136,7 +147,7 @@ VOZES = [
              'fusariose em pré-floração. A página lista até 2024: ACTIVE_2026 é '
              'NÃO SEI, não NÃO')),
     voz(NAME='Regione Campania — bollettini fitosanitari',
-        CLASS=INSTITUTIONAL_FIELD_VOICE, ROLE='serviço fitossanitário regional',
+        CLASS=INSTITUTIONAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='serviço fitossanitário regional',
         ORGANIZATION='Regione Campania', SOURCE_LOCATION='Campania',
         OPERATING_GEOGRAPHY='Campania', MAIN_CROPS=['olivo'],
         MAIN_TOPICS=['difesa integrata'],
@@ -146,7 +157,7 @@ VOZES = [
         CADENCE=OCCASIONAL, SENSOR_POTENTIAL=CONTEXT_SENSOR,
         WHY='só duas datas visíveis na página, ambas de agosto — porta aberta, volume baixo'),
     voz(NAME='LaMMA / Regione Toscana — Bollettino Frumento',
-        CLASS=INSTITUTIONAL_FIELD_VOICE, ROLE='consórcio agrometeorológico regional',
+        CLASS=INSTITUTIONAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='consórcio agrometeorológico regional',
         ORGANIZATION='Consorzio LaMMA', SOURCE_LOCATION='Toscana',
         OPERATING_GEOGRAPHY='Toscana', MAIN_CROPS=['frumento'],
         MAIN_TOPICS=['fenologia', 'rischio fusariosi', 'meteo'],
@@ -157,7 +168,7 @@ VOZES = [
         WHY=('já preservado em missão anterior como a perna de campo do caso — é a '
              'única voz medida que cobre a região E a data do caso')),
     voz(NAME='ARSIA Toscana — agroambiente.info',
-        CLASS=INSTITUTIONAL_FIELD_VOICE, ROLE='ex-agência regional',
+        CLASS=INSTITUTIONAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='ex-agência regional',
         ORGANIZATION='Regione Toscana (ARSIA, extinta)', SOURCE_LOCATION='Toscana',
         OPERATING_GEOGRAPHY='Toscana', MAIN_CROPS=['frumento duro', 'frumento tenero'],
         MAIN_TOPICS=['monitoraggio settimanale'],
@@ -171,7 +182,7 @@ VOZES = [
 
     # ------------------------------------------------- TECHNICAL_FIELD_VOICE
     voz(NAME='Horta srl — grano.net / orzo.net',
-        CLASS=TECHNICAL_FIELD_VOICE, ROLE='provedor de modelo previsional',
+        CLASS=TECHNICAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='provedor de modelo previsional',
         ORGANIZATION='Horta srl (spin-off Università Cattolica)',
         SOURCE_LOCATION='Piacenza', OPERATING_GEOGRAPHY='Itália, via serviços regionais',
         MAIN_CROPS=['frumento', 'orzo'],
@@ -184,7 +195,7 @@ VOZES = [
              'monitoramento. Mas é RISCO MODELADO, não sintoma visto — e o próprio '
              'boletim separa as duas coisas na frase seguinte')),
     voz(NAME='Servizio fitosanitario ERSA — sezione cerealicoltura',
-        CLASS=TECHNICAL_FIELD_VOICE, ROLE='técnicos de campo do serviço regional',
+        CLASS=TECHNICAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='técnicos de campo do serviço regional',
         ORGANIZATION='ERSA FVG', SOURCE_LOCATION='Friuli-Venezia Giulia',
         OPERATING_GEOGRAPHY='média e alta planície do FVG',
         MAIN_CROPS=['frumento', 'orzo'],
@@ -198,7 +209,7 @@ VOZES = [
              'osservano dei sintomi evidenti della patologia". Observação própria, '
              'em janela, com fenologia — e sem unidade administrativa')),
     voz(NAME='Centro di Saggio — Consorzio Agrario dell\'Emilia',
-        CLASS=TECHNICAL_FIELD_VOICE, ROLE='centro de ensaios / bollettino tecnico',
+        CLASS=TECHNICAL_FIELD_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='centro de ensaios / bollettino tecnico',
         ORGANIZATION='Consorzio Agrario dell\'Emilia',
         SOURCE_LOCATION='Bologna / Modena / Reggio Emilia',
         OPERATING_GEOGRAPHY='Emilia-Romagna',
@@ -212,7 +223,7 @@ VOZES = [
              'de acesso não é ausência de sinal. É o candidato mais promissor da '
              'classe cooperativa e ficou por medir')),
     voz(NAME='Federico Cavina',
-        CLASS=TECHNICAL_FIELD_VOICE, ROLE='Coordinatore Centro di Saggio',
+        CLASS=TECHNICAL_FIELD_VOICE, ENTITY_KIND=PERSON, ROLE='Coordinatore Centro di Saggio',
         ORGANIZATION='Terremerse soc. coop.', SOURCE_LOCATION='Emilia-Romagna',
         OPERATING_GEOGRAPHY='Emilia-Romagna', MAIN_CROPS=['cereali'],
         MAIN_TOPICS=['prove di campo'],
@@ -226,7 +237,7 @@ VOZES = [
 
     # -------------------------------------------------- PRODUCER_COOP_VOICE
     voz(NAME='Consorzi Agrari d\'Italia (CAI)',
-        CLASS=PRODUCER_COOP_VOICE, ROLE='rede nacional de consórcios agrários',
+        CLASS=PRODUCER_COOP_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='rede nacional de consórcios agrários',
         ORGANIZATION='CAI', SOURCE_LOCATION='Itália', OPERATING_GEOGRAPHY='Itália',
         MAIN_CROPS=['frumento', 'orzo', 'mais'],
         MAIN_TOPICS=['giornate in campo', 'rese', 'qualità', 'prezzi'],
@@ -238,7 +249,7 @@ VOZES = [
              'publicado é de variedades, rendimento e mercado — e chega depois do '
              'evento. ORGANIZATION_COMMUNICATION, não PRODUCER_FIELD_SIGNAL')),
     voz(NAME='COPROB',
-        CLASS=PRODUCER_COOP_VOICE, ROLE='cooperativa açucareira',
+        CLASS=PRODUCER_COOP_VOICE, ENTITY_KIND=ORGANIZATION, ROLE='cooperativa açucareira',
         ORGANIZATION='COPROB', SOURCE_LOCATION='Emilia-Romagna',
         OPERATING_GEOGRAPHY='Emilia-Romagna, Veneto', MAIN_CROPS=['barbabietola'],
         MAIN_TOPICS=['bollettini ai soci'],
@@ -250,7 +261,7 @@ VOZES = [
 
     # --------------------------------------------------- CREATOR_INFLUENCER
     voz(NAME='AgroNotizie (Image Line)',
-        CLASS=CREATOR_INFLUENCER, ROLE='imprensa técnica com presença social',
+        CLASS=CREATOR_INFLUENCER, ENTITY_KIND=ORGANIZATION, ROLE='imprensa técnica com presença social',
         ORGANIZATION='Image Line', SOURCE_LOCATION='Faenza (Ravenna)',
         OPERATING_GEOGRAPHY='Itália',
         MAIN_CROPS=['mais', 'frumento', 'vite', 'olivo'],
@@ -263,7 +274,7 @@ VOZES = [
              'Locatelli é dele. Mas o que ele relata é evento, e o evento é '
              'retrospectivo')),
     voz(NAME='Tommaso Rossi Razzini ("The Roman Farmer")',
-        CLASS=CREATOR_INFLUENCER, ROLE='agro-creator', ORGANIZATION='independente',
+        CLASS=CREATOR_INFLUENCER, ENTITY_KIND=PERSON, ROLE='agro-creator', ORGANIZATION='independente',
         SOURCE_LOCATION='Lazio', OPERATING_GEOGRAPHY='Lazio',
         MAIN_CROPS=['NÃO SEI'], MAIN_TOPICS=['macchine agricole', 'innovazione'],
         PUBLIC_CHANNELS=['Instagram', 'TikTok', 'YouTube', 'Facebook'],
@@ -273,7 +284,7 @@ VOZES = [
         WHY=('conteúdo de máquinas e divulgação. CREATOR ≠ SENSOR: nada indica '
              'observação de sintoma, fenologia ou diagnóstico')),
     voz(NAME='Canais "agro-influencer" italianos em geral',
-        CLASS=CREATOR_INFLUENCER, ROLE='classe agregada, não voz individual',
+        CLASS=CREATOR_INFLUENCER, ENTITY_KIND=AGGREGATE_CLASS, ROLE='classe agregada, não voz individual',
         ORGANIZATION='vários', SOURCE_LOCATION='Itália',
         OPERATING_GEOGRAPHY='Itália', MAIN_CROPS=['vários'],
         MAIN_TOPICS=['trattori', 'mietitrebbie', 'vita in azienda', 'passione'],
@@ -364,8 +375,27 @@ def medir():
     prospectivos = por_potencial[PROSPECTIVE_SENSOR]
     ecossistema = ('MAPPED' if len(VOZES) >= TETO else
                    'PARTIALLY_MAPPED' if prospectivos else 'NOT_PROVED')
-    prospectivo = ('PROVED' if (prospectivos and campo and fatos) else
-                   'PROMISING' if prospectivos else 'NOT_PROVED')
+
+    # CORREÇÃO da rodada anterior. O veredito sobre PESSOAS passa a ser calculado
+    # só sobre vozes que SÃO pessoas. Antes, `PROSPECTIVE_HUMAN_SENSOR = PROVED`
+    # saía de cinco vozes das quais cinco eram organizações.
+    def prospectivas(classe=None, kind=None):
+        return [v for v in VOZES
+                if v['SENSOR_POTENTIAL'] == PROSPECTIVE_SENSOR
+                and (classe is None or v['CLASS'] == classe)
+                and (kind is None or v['ENTITY_KIND'] == kind)]
+
+    def estado(vozes, com_evidencia):
+        if vozes and com_evidencia:
+            return 'PROVED'
+        return 'PROMISING' if vozes else 'NOT_PROVED'
+
+    inst = prospectivas(INSTITUTIONAL_FIELD_VOICE)
+    tecn_pessoa = prospectivas(TECHNICAL_FIELD_VOICE, PERSON)
+    prod_pessoa = prospectivas(PRODUCER_COOP_VOICE, PERSON)
+    crea_pessoa = prospectivas(CREATOR_INFLUENCER, PERSON)
+    pessoas = [v for v in VOZES if v['ENTITY_KIND'] == PERSON
+               and v['SENSOR_POTENTIAL'] == PROSPECTIVE_SENSOR]
 
     return {
         'MAP_ID': 'ITALY_HUMAN_SENSOR_MAP_V2',
@@ -418,8 +448,25 @@ def medir():
             'ROUTE_UNAVAILABLE ≠ NO_SIGNAL',
         ],
         'ITALY_HUMAN_SENSOR_ECOSYSTEM': ecossistema,
+        'ENTITY_KIND_OF_PROSPECTIVE_VOICES': {
+            k: len([v for v in VOZES if v['SENSOR_POTENTIAL'] == PROSPECTIVE_SENSOR
+                    and v['ENTITY_KIND'] == k]) for k in ENTITY_KINDS},
+
+        # Os cinco estados, calculados separadamente e nunca fundidos.
+        'PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR': estado(inst, campo and fatos),
+        'PROSPECTIVE_TECHNICAL_PERSON_SENSOR': estado(tecn_pessoa, False),
+        'PROSPECTIVE_PRODUCER_SENSOR': estado(prod_pessoa, False),
+        'PROSPECTIVE_CREATOR_SENSOR': estado(crea_pessoa, False),
+        'PROSPECTIVE_RESEARCHER_SENSOR': 'NOT_PROVED',
         'RESEARCHER_SENSOR': 'CONTEXT_AND_RETROSPECTIVE_PROVED',
-        'PROSPECTIVE_HUMAN_SENSOR': prospectivo,
+
+        # E só então o veredito sobre pessoas.
+        'PROSPECTIVE_HUMAN_PERSON_SENSOR': estado(pessoas, False),
+        'CORRECTION_OF_PREVIOUS_ROUND': (
+            'a rodada anterior publicou PROSPECTIVE_HUMAN_SENSOR = PROVED. A '
+            'evidência de antecipação vinha de CINCO vozes das quais CINCO eram '
+            'organizações. Instituição não é pessoa, e faltava o campo que as '
+            'separa. INSTITUTIONAL_SIGNAL ≠ HUMAN_PERSON_SIGNAL'),
         'HIGH_VALUE_SENSOR_TARGETS': [
             {'TARGET': 'ERSA FVG — bollettini colture erbacee',
              'WHY': 'série numerada, semanal, em janela, com BBCH e sintoma',
@@ -476,9 +523,14 @@ def main():
             a['FACT_LOCATION'], a['FACT_LOCATION_PRECISION'],
             a['PRECISION_SOURCE'], a['TYPE_OF_EVIDENCE']))
     print()
+    print('vozes prospectivas por tipo de entidade:',
+          out['ENTITY_KIND_OF_PROSPECTIVE_VOICES'])
+    for k in ('PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR',
+              'PROSPECTIVE_TECHNICAL_PERSON_SENSOR',
+              'PROSPECTIVE_PRODUCER_SENSOR', 'PROSPECTIVE_CREATOR_SENSOR',
+              'PROSPECTIVE_RESEARCHER_SENSOR', 'PROSPECTIVE_HUMAN_PERSON_SENSOR'):
+        print('   %-42s %s' % (k, out[k]))
     print('ITALY_HUMAN_SENSOR_ECOSYSTEM =', out['ITALY_HUMAN_SENSOR_ECOSYSTEM'])
-    print('RESEARCHER_SENSOR            =', out['RESEARCHER_SENSOR'])
-    print('PROSPECTIVE_HUMAN_SENSOR     =', out['PROSPECTIVE_HUMAN_SENSOR'])
     print('->', os.path.relpath(DEST, ROOT))
 
 

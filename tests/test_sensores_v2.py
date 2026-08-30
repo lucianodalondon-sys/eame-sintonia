@@ -136,12 +136,13 @@ class OsVereditosContinuamSeparados(unittest.TestCase):
     def setUpClass(cls):
         cls.M = sv.medir()
 
-    def test_o_pesquisador_e_o_prospectivo_sao_vereditos_diferentes(self):
+    def test_o_pesquisador_e_o_institucional_sao_vereditos_diferentes(self):
+        """O pesquisador provou contexto; a instituição provou antecipação.
+        São capacidades distintas, e nenhuma das duas é sobre pessoa em campo."""
         self.assertEqual(self.M['RESEARCHER_SENSOR'],
                          'CONTEXT_AND_RETROSPECTIVE_PROVED')
-        self.assertEqual(self.M['PROSPECTIVE_HUMAN_SENSOR'], 'PROVED')
-        self.assertNotEqual(self.M['RESEARCHER_SENSOR'],
-                            self.M['PROSPECTIVE_HUMAN_SENSOR'])
+        self.assertEqual(self.M['PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR'], 'PROVED')
+        self.assertEqual(self.M['PROSPECTIVE_RESEARCHER_SENSOR'], 'NOT_PROVED')
 
     def test_o_ecossistema_nao_se_declara_MAPPED_com_15_vozes(self):
         self.assertEqual(self.M['ITALY_HUMAN_SENSOR_ECOSYSTEM'], 'PARTIALLY_MAPPED')
@@ -175,3 +176,64 @@ class OsVereditosContinuamSeparados(unittest.TestCase):
     def test_nenhuma_execucao_paga(self):
         self.assertEqual(self.M['APIFY_RUNS'], 0)
         self.assertEqual(self.M['APIFY_COST_USD'], 0)
+
+
+class InstituicaoNaoEPessoa(unittest.TestCase):
+    """A prova que faltava na rodada anterior.
+
+    `PROSPECTIVE_HUMAN_SENSOR = PROVED` foi publicado a partir de cinco vozes
+    prospectivas das quais CINCO eram organizações. Nenhuma pessoa produziu sinal
+    prospectivo medido, e mesmo assim o veredito falava de sensor humano.
+
+        INSTITUTIONAL_SIGNAL ≠ HUMAN_PERSON_SIGNAL
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.M = sv.medir()
+
+    def test_toda_voz_declara_se_e_pessoa_ou_organizacao(self):
+        """Era o campo ausente que permitiu a confusão."""
+        for v in sv.VOZES:
+            self.assertIn(v['ENTITY_KIND'], sv.ENTITY_KINDS, v['NAME'])
+
+    def test_nenhuma_voz_prospectiva_medida_e_uma_pessoa(self):
+        por_tipo = self.M['ENTITY_KIND_OF_PROSPECTIVE_VOICES']
+        self.assertEqual(por_tipo[sv.PERSON], 0)
+        self.assertGreater(por_tipo[sv.ORGANIZATION], 0)
+
+    def test_o_veredito_sobre_pessoas_nao_herda_o_das_instituicoes(self):
+        self.assertEqual(self.M['PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR'], 'PROVED')
+        self.assertEqual(self.M['PROSPECTIVE_HUMAN_PERSON_SENSOR'], 'NOT_PROVED')
+        self.assertNotEqual(self.M['PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR'],
+                            self.M['PROSPECTIVE_HUMAN_PERSON_SENSOR'])
+
+    def test_os_cinco_estados_existem_separados_antes_do_sexto(self):
+        for k in ('PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR',
+                  'PROSPECTIVE_TECHNICAL_PERSON_SENSOR',
+                  'PROSPECTIVE_PRODUCER_SENSOR', 'PROSPECTIVE_CREATOR_SENSOR',
+                  'PROSPECTIVE_RESEARCHER_SENSOR'):
+            self.assertIn(self.M[k], ('PROVED', 'PROMISING', 'NOT_PROVED'), k)
+
+    def test_o_veredito_antigo_nao_existe_mais_com_o_nome_ambiguo(self):
+        """"HUMAN_SENSOR" sem dizer pessoa ou instituição foi o que confundiu."""
+        self.assertNotIn('PROSPECTIVE_HUMAN_SENSOR', self.M)
+
+    def test_a_correcao_esta_registrada_e_nao_apagada(self):
+        c = self.M['CORRECTION_OF_PREVIOUS_ROUND']
+        self.assertIn('PROVED', c)
+        self.assertIn('organizações', c)
+
+    def test_mutacao_se_o_tipo_de_entidade_for_ignorado_o_erro_volta(self):
+        """A prova de que é ENTITY_KIND que segura a distinção."""
+        salvo = [v['ENTITY_KIND'] for v in sv.VOZES]
+        try:
+            for v in sv.VOZES:
+                v['ENTITY_KIND'] = sv.PERSON
+            m = sv.medir()
+            self.assertEqual(m['PROSPECTIVE_HUMAN_PERSON_SENSOR'], 'PROMISING',
+                             'a mutação não mudou nada — a prova não mordia')
+        finally:
+            for v, k in zip(sv.VOZES, salvo):
+                v['ENTITY_KIND'] = k
+        self.assertEqual(sv.medir()['PROSPECTIVE_HUMAN_PERSON_SENSOR'], 'NOT_PROVED')
