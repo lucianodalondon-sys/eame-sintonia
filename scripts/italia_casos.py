@@ -1,27 +1,30 @@
 #!/usr/bin/env python3
 """
-ITÁLIA — os casos candidatos, com as pernas separadas e mensuráveis.
+ITÁLIA — ITALY-HERO-CASES-V1: três casos, com cada perna medida por conta própria.
 
-Um "hero case" só é caso quando cada perna existe por conta própria e é citável. Aqui a
-estrutura força isso: nenhuma perna herda força da outra, e a perna que falta aparece
-como falta — não some.
+Um caso só é caso quando cada perna existe sozinha e é citável. A estrutura força isso:
+nenhuma perna herda força da outra, e a perna que falta aparece como falta.
 
-    SCALE          quanto e onde (área medida)
-    FIELD          o campo está dizendo algo AGORA?
-    WINDOW         a janela está aberta, e a janela DE QUÊ?
-    SCIENCE        a ciência olha para isto?
-    ADAMA          existe resposta REGISTRADA, com alvo declarado no rótulo?
+AS TRÊS DISTINÇÕES QUE ESTE ARQUIVO PROTEGE, e cada uma custou uma medição:
 
-`CONVERGENCE` conta quantas pernas têm evidência. É deliberadamente uma CONTAGEM e não um
-escore ponderado: peso seria opinião disfarçada de número.
+1. `MONITORING_WINDOW ≠ APPLICATION_WINDOW`
+   O boletim da videira dá a janela de RECONHECIMENTO DE SINTOMA (ago–set). O produto
+   age no VETOR, e essa janela fechou em junho. Chamar a primeira de janela de aplicação
+   seria fabricar urgência.
 
-A distinção que este arquivo protege — e que trocou o caso vencedor desta rodada:
+2. `SIGNAL QUALITY ≠ REGIONAL WEIGHT`
+   O melhor sinal de campo do país — oliveira × *Bactrocera*, 11 sub-áreas, 26/08 — está
+   no Vêneto, que tem **0,5%** da oliveira italiana. Sinal ótimo, região marginal. As duas
+   coisas são verdadeiras ao mesmo tempo e as duas entram.
 
-    WINDOW_FOR_SYMPTOM_RECOGNITION  ≠  WINDOW_FOR_VECTOR_CONTROL
+3. `NOT_FOUND ≠ DOES NOT EXIST`
+   "Milho não tem sinal de campo" era verdade sobre as regiões que eu tinha medido, e
+   falso sobre a Itália: o FVG publica série própria de boletim do MILHO, com 10 números
+   em 2026. Eu tinha lido a página-mãe e não a subpágina. O achado negativo estava certo
+   no escopo e errado no rótulo.
 
-O boletim da Lombardia dá a primeira; o produto da ADAMA age na segunda. São o mesmo caso
-e não são a mesma janela, e tratá-las como uma só seria vender uma decisão que não foi
-medida.
+`CONVERGENCE` é CONTAGEM de pernas com evidência, nunca escore ponderado: peso seria
+opinião disfarçada de número.
 """
 import datetime
 import json
@@ -29,170 +32,328 @@ import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-DEST = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'IT-hero-case-candidates.json')
+DEST = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 
-PERNAS = ('SCALE', 'FIELD', 'WINDOW', 'SCIENCE', 'ADAMA_REGISTERED_RESPONSE')
+HOJE = '2026-08-30'
+PERNAS = ('SCALE', 'REGIONAL_SCALE', 'SIGNAL', 'SCIENCE', 'ADAMA_REGISTERED_RESPONSE')
 
-
-def convergencia(caso):
-    """Quantas pernas têm evidência. NÃO SEI e NOT_FOUND não contam — é o ponto."""
-    n = 0
-    for p in PERNAS:
-        est = (caso.get(p) or {}).get('STATE', '')
-        if est and not est.startswith(('NÃO SEI', 'NOT_FOUND', 'NOT_DERIVED', 'UNKNOWN')):
-            n += 1
-    return n
+NAO_SEI = 'NÃO SEI'
+SEM_DADO_INTERNO = ('NÃO SEI — exige dado interno da ADAMA, que este projeto não terá. '
+                    'Nenhuma ação proposta depende disto.')
 
 
 def casos():
     return [
+        # ------------------------------------------------------------------ 001
         {
             'CASE_ID': 'IT-HERO-001', 'COUNTRY': 'IT',
-            'CROP': 'Videira (Vitis vinifera)', 'CROP_CODE': 'W1000',
-            'ISSUE': 'Flavescência dourada (fitoplasma) via vetor Scaphoideus titanus',
-            'REGION': 'Lombardia (sinal); Vêneto NÃO VERIFICADO',
-            'SCALE': {'STATE': 'MEASURED', 'AREA_THS_HA': 715.8, 'RANK_COMMODITY': 3,
-                      'REGIONAL_BREAKDOWN': 'NÃO SEI — apro_cpshr não publica W1000 em NUTS 2',
-                      'SOURCE': 'EU-T1-001'},
-            'FIELD': {'STATE': 'CURRENT_SIGNAL',
-                      'DOCUMENT': 'Bollettino Regionale LA VITE n.6 — 31/07/2026',
-                      'SOURCE': 'IT-T3-003 (Regione Lombardia, Servizio Fitosanitario)',
-                      'INSTITUTIONAL_LAYER': 'remete ao Documento tecnico ufficiale n. 29 '
-                                             'dei Servizi Fitosanitari Nazionali'},
-            'WINDOW': {
-                'STATE': 'SPLIT — as duas janelas foram medidas e NÃO coincidem',
-                'AS_OF': '2026-08-30',
-                'WINDOW_FOR_SYMPTOM_RECOGNITION': {
-                    'STATE': 'OPEN',
-                    'DECLARED': 'início-meados de agosto a fim de setembro',
-                    'WHAT_IT_ENABLES': 'monitoramento e reconhecimento de sintoma foliar. '
-                                       'NÃO é janela de aplicação.'},
-                'WINDOW_FOR_VECTOR_CONTROL': {
-                    'STATE': 'CLOSED_FOR_2026',
-                    'EVIDENCE': ('o boletim de 31/07/2026 diz "Dando per effettuati gli '
-                                 'obbligatori trattamenti insetticidi per il controllo del '
-                                 'vettore della malattia" — ou seja, DÁ POR FEITOS os '
-                                 'tratamentos ao vetor nesta data'),
-                    'REGULATORY_NATURE': ('os tratamentos ao vetor são OBBLIGATORI na '
-                                          'Lombardia (DGR 29/12/2021 n. XI-5836) — obrigação '
-                                          'regulatória anual, não recomendação'),
-                    'CONSEQUENCE': ('é ONDE o produto da ADAMA age, e está FECHADA em 2026. '
-                                    'A decisão comercial correspondente é do PRÓXIMO CICLO. '
-                                    'Declarar a janela de sintoma como se fosse janela de '
-                                    'aplicação seria fabricar urgência.')}},
-            'SCIENCE': {'STATE': 'MEASURED', 'GRAPEVINE_PHYTOPLASMA_WORKS': 135,
-                        'SCAPHOIDEUS_TITANUS_WORKS': 66, 'SOURCE': 'IT-T5-001'},
+            'CROP': 'Videira', 'ISSUE': 'Flavescência dourada, via o vetor Scaphoideus titanus',
+            'REGION': 'Veneto (principal) + Lombardia',
+            'SIGNAL': {
+                'STATE': 'CURRENT_SIGNAL',
+                'DOCUMENT': 'Bollettino vite Veneto n. 19',
+                'OBSERVATION_DATE': '2026-08-13', 'PUBLICATION_DATE': '2026-08-13',
+                'FRESHNESS_DAYS': 17,
+                'CONTENT': ('adulto da cicalina presente; viti com sintomas de Giallumi '
+                            'devem ser capitozzate ou estirpate; trocar armadilhas '
+                            'cromotrópicas a cada duas semanas'),
+                'SOURCE_ID': 'IT-T3-002'},
+            'SCALE': {'STATE': 'MEASURED', 'NATIONAL_THS_HA': 588.8,
+                      'SOURCE_ID': 'IT-T1-001 (ISTAT, uva DOP+IGP+mesa)',
+                      'NOTE': ('Eurostat W1000 dá 715,8 — definição diferente. Não trocar '
+                               'um número pelo outro.')},
+            'REGIONAL_SCALE': {
+                'STATE': 'MEASURED',
+                'VENETO_THS_HA': 101.0, 'VENETO_RANK': 2, 'VENETO_PCT_NATIONAL': 17.2,
+                'LOMBARDIA_THS_HA': 18.2, 'LOMBARDIA_RANK': 7, 'LOMBARDIA_PCT_NATIONAL': 3.1,
+                'WHY_IT_MATTERS': ('a rodada anterior chamou o caso de "Lombardia" porque de '
+                                   'lá veio o decreto mais claro. A área diz outra coisa: o '
+                                   'Vêneto tem 5,5× mais videira e a MESMA obrigação.'),
+                'SOURCE_ID': 'IT-T1-001'},
+            'AGRONOMIC_CLOCK': 'adultos do vetor presentes; sintomas foliares expressos ago–set',
+            'OBSERVATION_CLOCK': 'boletim semanal; último legível 13/08/2026',
+            'COMMERCIAL_CLOCK': SEM_DADO_INTERNO,
+            'REGULATORY_RESPONSE': {
+                'MANDATORY': True,
+                'LOMBARDIA': ('Comunicato Giunta 25/05/2026 n. 39 — 2 tratamentos '
+                              '(2–14/06 e 17–29/06) ou 3 em biológico'),
+                'VENETO': ('DDR n. 13645 de 14/05/2026 — 2 tratamentos com ativos de '
+                           'síntese (1ª janela 8–19/06, 2ª a 10–15 dias) ou 3'),
+                'BASIS': 'Reg. (UE) 2022/1630 art. 4; organismo de quarentena',
+                'SOURCE_ID': 'IT-T3-LOTTA-OBBLIGATORIA'},
             'ADAMA_REGISTERED_RESPONSE': {
-                'STATE': 'FOUND_WITH_DECLARED_TARGET', 'PRODUCTS': 6,
-                'ACTIVE_SUBSTANCE': 'TAU-FLUVALINATE',
+                'STATE': 'FOUND_WITH_DECLARED_TARGET',
+                'PRODUCTS_NAMING_VECTOR': 6, 'ACTIVE_SUBSTANCE': 'TAU-FLUVALINATE',
                 'PRODUCT_NAMES': ['KLARTAN 20 EW', 'KLARTAN SMART', 'TAU AL 240 EW',
                                   'MAVRIK EW', 'MAVRIK SMART', 'EVURE PRO'],
                 'LABEL_QUOTE': ('Vite (da vino e da tavola) Contro cicaline (Empoasca vitis, '
-                                'Scaphoideus titanus) e tripidi ... impiegare a 30-300 ml/hl '
-                                'senza superare 0,3 l/ha'),
-                'EVIDENCE_CLASS': 'REGULATORY_FACT', 'SOURCE': 'IT-T4-001-ETICHETTA'},
-            'WHAT_IS_UNKNOWN': [
-                'datas exatas dos tratamentos obrigatórios ao vetor em 2026',
-                'se a obrigação vale igual no Vêneto', 'área de videira por região',
-                'se o mesmo sinal vale no Vêneto', 'disponibilidade comercial',
-                'pressão real de campo em 30/08', 'prioridade interna da ADAMA Italia'],
+                                'Scaphoideus titanus) ... 30-300 ml/hl senza superare 0,3 l/ha'),
+                'ELIGIBILITY_UNDER_DECREE': (
+                    'a Lombardia admite EXCLUSIVAMENTE produtos cujo rótulo traga como alvo '
+                    '«cicaline della vite» ou «Scaphoideus titanus»: os seis atendem aos '
+                    'DOIS critérios. O Vêneto lista Tau-fluvalinate entre os ativos de '
+                    'síntese admitidos, para 1º E 2º tratamento.'),
+                'ALSO_ELIGIBLE_GENERIC': {
+                    'PRODUCTS': ['DURAVIS', 'ELTIRA', 'FORZA', 'NINJA'],
+                    'ACTIVE_SUBSTANCE': 'LAMBDA-CYHALOTHRIN',
+                    'BASIS': 'rótulo traz «cicaline»; Lambda-cialotrina está na lista do Vêneto',
+                    'EXPIRY': '2026-08-31'},
+                'EXPIRY_EXPOSURE': {
+                    'TAU_FLUVALINATE_6_PRODUCTS': '2027-01-31',
+                    'LAMBDA_CYHALOTHRIN_4_PRODUCTS': '2026-08-31',
+                    'READING': ('todo o portfólio elegível vence antes da janela obrigatória '
+                                'de 2027, que historicamente cai em junho e cujo ato sai em '
+                                'maio. EXPIRY ≠ WITHDRAWAL: re-registro é rotina e '
+                                'RENEWAL_STATUS = NÃO SEI.')},
+                'EVIDENCE_CLASS': 'REGULATORY_FACT', 'SOURCE_ID': 'IT-T4-001-ETICHETTA'},
+            'ADAMA_PUBLIC_COMMERCIAL_RESPONSE': 'NOT_COLLECTED — adama.com 403 (WAF de origem)',
+            'APPLICATION_WINDOW': {'STATE': 'CLOSED_FOR_2026',
+                                   'EVIDENCE': 'todas as janelas obrigatórias terminam em junho/2026'},
+            'MONITORING_WINDOW': {'STATE': 'OPEN',
+                                  'PERIOD': 'início-meados de agosto a fim de setembro',
+                                  'PURPOSE': 'reconhecimento de sintoma foliar e captura de adultos'},
+            'NEXT_CYCLE_WINDOW': {'STATE': 'TO_BE_CONFIRMED',
+                                  'PREPARE_BY': '2027-05-31',
+                                  'BASIS': ('a obrigação recorre por norma europeia; as DATAS '
+                                            'são fixadas a cada ano pelo monitoramento, e o '
+                                            'ato lombardo de 2026 registra que a estação '
+                                            'antecipou o ciclo — 2026 não é régua')},
+            'SCIENCE': {'STATE': 'MEASURED', 'GRAPEVINE_PHYTOPLASMA_WORKS': 135,
+                        'SCAPHOIDEUS_TITANUS_WORKS': 66, 'SOURCE_ID': 'IT-T5-001'},
+            'TECHNICAL_EXPLANATION': {
+                'PUBLIC_EXPLANATION': ('Guida divulgativa "I Giallumi della vite in Veneto", '
+                                       'publicada pela U.O. Fitosanitario'),
+                'PUBLIC_TECHNICAL_NETWORK': ('as janelas do Vêneto são definidas com os '
+                                             'Referenti scientifici: Dafnae-UniPD, DB-UniVR, '
+                                             'CREA-VE'),
+                'NATIONAL_LAYER': ('Documento tecnico ufficiale del Servizio Fitosanitario '
+                                   'Nazionale n. 29 de 23/12/2022'),
+                'SOCIAL_VOICE': 'NOT_COLLECTED'},
+            'FACTS': [
+                'a obrigação de tratar o vetor é norma, não recomendação',
+                'as duas regiões admitem Tau-fluvalinate',
+                'seis produtos ADAMA nomeiam Scaphoideus titanus no rótulo, com dose',
+                'a janela de aplicação de 2026 fechou em junho'],
+            'INTERPRETATIONS': [
+                'a região do caso é o Vêneto, não a Lombardia — decidido pela área medida',
+                'a obrigatoriedade cria um evento anual recorrente, o que é estrutura e '
+                'não demanda'],
+            'UNKNOWNS': ['datas de 2027', 'estado de renovação das autorizações',
+                         'pressão real do vetor em 2026', 'disponibilidade comercial',
+                         'participação de mercado'],
+            'ACTION_HORIZON': 'MONITORAR AGORA + PLANEJAR PRÓXIMO CICLO',
+            'EVIDENCE_PATHS': [
+                'data/samples/IT-T3-LOTTA/IT-lotta-obbligatoria-flavescenza-2026.json',
+                'data/samples/IT-T1/IT-T1-001-istat-area-regional.json',
+                'data/samples/IT-T4-001/IT-T4-001-portfolio-rotulo.json',
+                'data/samples/IT-T5-001/IT-T5-001-ciencia-milho.json'],
         },
+        # ------------------------------------------------------------------ 002
         {
             'CASE_ID': 'IT-HERO-002', 'COUNTRY': 'IT',
-            'CROP': 'Oliveira', 'CROP_CODE': 'O1000',
-            'ISSUE': 'Mosca-da-azeitona (Bactrocera oleae)', 'REGION': 'Vêneto',
-            'SCALE': {'STATE': 'MEASURED', 'AREA_THS_HA': 1083.0, 'RANK_COMMODITY': 2,
-                      'REGIONAL_BREAKDOWN': 'NÃO SEI — sem NUTS 2 nesta fonte',
-                      'SOURCE': 'EU-T1-001'},
-            'FIELD': {'STATE': 'CURRENT_SIGNAL',
-                      'DOCUMENT': 'Bollettino Olivo n.28 — 26/08/2026',
-                      'OBSERVED_STAGE': 'ingrossamento/inolizione',
-                      'SUB_REGIONAL_PRESSURE': '11 áreas nomeadas, 3–4% (Litorale veneziano 4–6%)',
-                      'SOURCE': 'IT-T3-002 (Regione Veneto)'},
-            'WINDOW': {'STATE': 'OPEN',
-                       'DECLARED': 'queda térmica e aumento de umidade abrindo janela favorável '
-                                   'à retomada da ovideposição', 'AS_OF': '2026-08-30'},
-            'SCIENCE': {'STATE': 'MEASURED', 'BACTROCERA_WORKS': 70,
-                        'NOTE': 'Xylella domina a ciência italiana da oliveira com 296',
-                        'SOURCE': 'IT-T5-001'},
+            'CROP': 'Milho grão',
+            'ISSUE': 'Piralide (Ostrinia nubilalis) e Diabrotica virgifera virgifera',
+            'REGION': 'Friuli-Venezia Giulia (sinal) · vale do Pó (escala)',
+            'SIGNAL': {
+                'STATE': 'CURRENT_SIGNAL',
+                'DOCUMENT': 'ERSA FVG — Bollettino difesa integrata colture erbacee n. 15 MAIS',
+                'OBSERVATION_DATE': '2026-08-12', 'PUBLICATION_DATE': '2026-08-12',
+                'FRESHNESS_DAYS': 18,
+                'OBSERVED_STAGE': 'maturazione lattea a fisiologica — BBCH 65-75',
+                'CONTENT': ('iniciado o voo de adultos de 3ª geração de piralide; pico de '
+                            'ovideposição previsto para os próximos dias em toda a região'),
+                'SERIES': '10 boletins de MILHO em 2026 (n. 01 a 15, alternando culturas)',
+                'FRAMEWORK': 'difesa integrata obbligatoria, art. 19 D.lgs. 150/2012',
+                'SOURCE_ID': 'IT-T3-006 (ERSA FVG)'},
+            'SCALE': {'STATE': 'MEASURED', 'NATIONAL_THS_HA': 495.4,
+                      'RANK_COMMODITY': 5, 'RANK_ANNUAL': 3,
+                      'CROSS_SOURCE': 'ISTAT 495,4 = Eurostat 495,4 (idêntico)',
+                      'SOURCE_ID': 'IT-T1-001 + EU-T1-001'},
+            'REGIONAL_SCALE': {
+                'STATE': 'MEASURED',
+                'TOP_REGIONS': {'Veneto': 122.9, 'Lombardia': 115.8, 'Piemonte': 115.7,
+                                'Emilia-Romagna': 51.4, 'Friuli-Venezia Giulia': 33.1},
+                'TOP3_CONCENTRATION_PCT': 71.6,
+                'SIGNAL_REGION_PCT_NATIONAL': 6.7,
+                'GAP': ('o sinal vem do FVG, 5ª região (6,7%). As três primeiras — 71,6% da '
+                        'área — NÃO têm boletim de milho medido.'),
+                'SOURCE_ID': 'IT-T1-001'},
+            'AGRONOMIC_CLOCK': 'BBCH 65-75; colheita já iniciada em áreas não irrigadas',
+            'OBSERVATION_CLOCK': 'boletim regional; último 12/08/2026',
+            'COMMERCIAL_CLOCK': SEM_DADO_INTERNO,
+            'REGULATORY_RESPONSE': {
+                'MANDATORY': False,
+                'NOTE': ('a lotta obbligatoria contra Diabrotica foi REVOGADA pelo D.M. '
+                         '13/06/2014 — o inseto não é mais organismo de quarentena. O que '
+                         'existe é difesa integrata obbligatoria (art. 19 D.lgs. 150/2012), '
+                         'que obriga o MÉTODO, não um tratamento com data.')},
             'ADAMA_REGISTERED_RESPONSE': {
-                'STATE': 'NOT_FOUND',
-                'MEANING': 'Nenhum rótulo analisado declara Bactrocera oleae como alvo. '
-                           'A presença da ADAMA em oliveira é herbicida de solo (glifosato, '
-                           'fluroxipir) e óleo de parafina. NOT_FOUND é sobre os rótulos '
-                           'analisados, não sobre o portfólio mundial.'},
-            'WHAT_IS_UNKNOWN': ['área de oliveira por região', 'peso do Vêneto na oliveira italiana'],
+                'STATE': 'FOUND_WITH_DECLARED_TARGET',
+                'PRODUCTS_NAMING_TARGET': 6,
+                'FOLIAR_ADULT': {'PRODUCTS': ['FORZA', 'NINJA', 'DURAVIS', 'ELTIRA'],
+                                 'ACTIVE_SUBSTANCE': 'LAMBDA-CYHALOTHRIN',
+                                 'LABEL_QUOTE': ('Mais ... Piralide, Diabrotica virgifera '
+                                                 'virgifera 560-1000'),
+                                 'EXPIRY': '2026-08-31'},
+                'SOIL_LARVAL': {'PRODUCTS': ['LEBRON 0.5 G', 'SCHERMO 0.5 G'],
+                                'ACTIVE_SUBSTANCE': 'TEFLUTHRIN', 'MODE_OF_ACTION': 'IRAC 3A',
+                                'LABEL_QUOTE': ('Mais, Mais Dolce, Sorgo — Agriotes sp., '
+                                                'Agrotis sp., Diabrotica sp., Hylemya sp., '
+                                                'Scutigerella immaculata, Tipula sp.'),
+                                'EXPIRY': '2027-05-31'},
+                'ALSO': {'PRODUCT': 'COSAYR 200 SC', 'ACTIVE_SUBSTANCE': 'CHLORANTRANILIPROLE',
+                         'MODE_OF_ACTION': 'IRAC 28', 'REGISTRATION': '18561, de 04/02/2026',
+                         'LABEL_QUOTE': ('Mais e Mais Dolce: 100-150 mL/ha per il controllo '
+                                         'di O. nubilalis ... Intervenire in fase di '
+                                         'ovideposizione'),
+                         'STATE': 'NEW_REGULATORY_RESPONSE / RECENT_REGISTRATION',
+                         'NOT_CLAIMED': ['lançamento comercial', 'estoque',
+                                         'relação com o lançamento de milho EAME']},
+                'TOTAL_MAIZE_PRODUCTS': 36, 'HERBICIDES': 24, 'FUNGICIDES': 0,
+                'EVIDENCE_CLASS': 'REGULATORY_FACT', 'SOURCE_ID': 'IT-T4-001-ETICHETTA'},
+            'ADAMA_PUBLIC_COMMERCIAL_RESPONSE': 'NOT_COLLECTED — adama.com 403',
+            'APPLICATION_WINDOW': {
+                'STATE': 'OPEN_BUT_NARROW',
+                'EVIDENCE': ('o boletim diz que as populações de 3ª geração, embora maiores, '
+                             'NÃO conseguem danificar a cultura porque as espigas estão em '
+                             'maturação avançada — EXCETO em semeaduras tardias (junho) e '
+                             'milho de segundo raccolto'),
+                'THRESHOLDS_FROM_SOURCE': ('>3 ovaturas por 100 plantas e/ou larvas em '
+                                           '30-40% de 50-100 espigas observadas'),
+                'CONSTRAINT': 'não tratar em floração'},
+            'MONITORING_WINDOW': {'STATE': 'OPEN', 'METHOD': 'armadilhas + contagem de ovaturas'},
+            'NEXT_CYCLE_WINDOW': {
+                'STATE': 'ANCHORED_BY_SOURCE',
+                'MECHANISM': ('o boletim declara que o tratamento do ano corrente age sobre a '
+                              'diabrotica do ANO SEGUINTE, e que só faz sentido onde se vai '
+                              'semear milho de novo — a decisão de 2027 se toma em 2026'),
+                'SOIL_PRODUCT_EXPIRY': '2027-05-31',
+                'READING': ('os dois granulados de solo, que são a resposta larval, vencem '
+                            'em 31/05/2027 — depois da semeadura de 2027 mas dentro do ciclo')},
+            'SCIENCE': {'STATE': 'MEASURED', 'OSTRINIA_WORKS': 30, 'DIABROTICA_WORKS': 11,
+                        'MAIZE_MYCOTOXIN_WORKS': 208,
+                        'BRIDGE_TESTED': ('milho × Ostrinia × micotoxina = 5 trabalhos. '
+                                          'THIN_EVIDENCE / NOT_ENOUGH_FOR_CASE_BRIDGE — a '
+                                          'ligação é plausível e NÃO foi provada aqui'),
+                        'SOURCE_ID': 'IT-T5-001'},
+            'TECHNICAL_EXPLANATION': {
+                'PUBLIC_EXPLANATION': ('o próprio boletim ERSA explica sintoma ("collo d\'oca"), '
+                                       'método de monitoramento e limiar de intervenção'),
+                'SOCIAL_VOICE': 'NOT_COLLECTED'},
+            'FACTS': [
+                'existe série regional de boletim de MILHO no FVG, com 10 números em 2026',
+                'seis produtos ADAMA nomeiam Piralide e/ou Diabrotica no rótulo do milho',
+                'quatro deles vencem em 31/08/2026',
+                'a lotta obbligatoria contra Diabrotica foi revogada em 2014'],
+            'INTERPRETATIONS': [
+                'este é o melhor caso de milho da Itália, e não é o de daninhas nem o de '
+                'micotoxina: é o único com alvo declarado, limiar publicado e sinal corrente',
+                'a prioridade estratégica EAME para milho não é contrariada pela medição'],
+            'UNKNOWNS': ['pressão nas três maiores regiões de milho', 'janela de 2027',
+                         'renovação das autorizações que vencem em 31/08/2026'],
+            'ACTION_HORIZON': 'MONITORAR AGORA + PREPARAR',
+            'EVIDENCE_PATHS': [
+                'data/samples/IT-T4-001/IT-T4-001-portfolio-rotulo.json',
+                'data/samples/IT-T1/IT-T1-001-istat-area-regional.json',
+                'data/samples/IT-T4-001/IT-T4-001-vencimentos-caso.json'],
         },
+        # ------------------------------------------------------------------ 003
         {
             'CASE_ID': 'IT-HERO-003', 'COUNTRY': 'IT',
-            'CROP': 'Milho grão', 'CROP_CODE': 'C1500',
-            'ISSUE': 'DOIS candidatos medidos — ver ISSUE_CANDIDATES',
-            'ISSUE_CANDIDATES': {
-                'WEEDS': {
-                    'ADAMA_PRODUCTS': 24, 'SCIENCE_WORKS': 79,
-                    'MODE_OF_ACTION_GROUPS': ['HRAC 2 (B)', 'HRAC 3 (K1)', 'HRAC 4 (O)',
-                                              'HRAC 5 (C1)', 'HRAC 27 (F2)', 'HRAC G'],
-                    'STRENGTH': 'profundidade de portfólio e diversidade de modo de ação',
-                    'WEAKNESS': 'nenhum alvo com época de aplicação declarada extraída'},
-                'LEPIDOPTERA_OSTRINIA': {
-                    'ADAMA_PRODUCTS': 1, 'PRODUCT': 'COSAYR 200 SC',
-                    'REGISTRATION': '18561, de 04/02/2026',
-                    'ACTIVE_SUBSTANCE': 'CHLORANTRANILIPROLE', 'MODE_OF_ACTION': 'IRAC 28',
-                    'LABEL_QUOTE': ('Mais e Mais Dolce: utilizzare 100-150 mL/ha per il '
-                                    'controllo di O. nubilalis e lepidotteri nottuidi quali '
-                                    'H. armigera, S. exigua, S. littoralis, Sesamia spp. '
-                                    'Intervenire in fase di ovideposizione'),
-                    'SCIENCE_WORKS': 30,
-                    'STRENGTH': ('registro NOVO (fev/2026), alvo declarado, dose E ÉPOCA '
-                                 'de aplicação no rótulo — o único caso de milho com época'),
-                    'WEAKNESS': 'um produto só; ciência modesta (30)'},
-            },
-            'MYCOTOXIN_BRIDGE_TESTED': {
-                'HYPOTHESIS': ('o dano da broca é porta de entrada de Fusarium, o que ligaria '
-                               'o produto novo ao cluster científico dominante (208 trabalhos)'),
-                'MEASURED': 'milho × Ostrinia × micotoxina = 5 trabalhos italianos',
-                'VERDICT': 'NÃO SUSTENTADO como convergência medida — 5 é pouco demais. '
-                           'A ligação é agronomicamente plausível e NÃO foi provada aqui. '
-                           'Fica como hipótese, com o teste que a mediria já escrito.'},
-            'REGION': 'Planície do Pó — Vêneto, Lombardia, Piemonte',
-            'SCALE': {'STATE': 'MEASURED', 'AREA_THS_HA': 495.4, 'RANK_COMMODITY': 5,
-                      'RANK_ANNUAL': 3, 'TOP3_CONCENTRATION_PCT': 71.6,
-                      'TOP_REGIONS': {'Veneto': 122.9, 'Lombardia': 115.8, 'Piemonte': 115.8},
-                      'SOURCE': 'EU-T1-001'},
-            'FIELD': {'STATE': 'NOT_FOUND',
-                      'MEASURED': 'Vêneto 2026: ~90 boletins de permanentes/hortícolas contra 2 '
-                                  'de herbáceas (o único aberto trata de beterraba/Cercospora). '
-                                  'Lombardia: 0 de herbáceas. Fontes responderam HTTP 200: é '
-                                  'ausência medida de COBERTURA, não falha de leitura.'},
-            'WINDOW': {'STATE': 'PARTIAL',
-                       'DECLARED_ON_LABEL': ('COSAYR 200 SC declara a época: "intervenire in '
-                                             'fase di ovideposizione" — é época FENOLÓGICA DA '
-                                             'PRAGA, não data de calendário'),
-                       'WHY_NOT_A_DATE': ('sem calendário agronômico regional nem monitoramento '
-                                          'de voo, "ovideposição" não vira data. BBCH aparece em '
-                                          '2 de ~160 rótulos — não é rota na Itália')},
-            'SCIENCE': {'STATE': 'MEASURED', 'MAIZE_WEED_WORKS': 79, 'MAIZE_BORER_WORKS': 30,
-                        'HERBICIDE_RESISTANCE_IT_WORKS': 103, 'MAIZE_HERB_RESISTANCE_WORKS': 5,
-                        'CONTRAST': 'milho × micotoxina/Fusarium = 208, 2,6× as daninhas',
-                        'SOURCE': 'IT-T5-001'},
+            'CROP': 'Portfólio ADAMA Itália (transversal, não é uma cultura)',
+            'ISSUE': 'Calendário de vencimento das autorizações',
+            'REGION': 'Itália (nacional)',
+            'SIGNAL': {
+                'STATE': 'CURRENT_SIGNAL',
+                'DOCUMENT': 'Ministero della Salute — PROD_FTS_6_20260824',
+                'OBSERVATION_DATE': '2026-08-24', 'PUBLICATION_DATE': '2026-08-24',
+                'FRESHNESS_DAYS': 6,
+                'CONTENT': ('7 autorizações do grupo vencem em 31/08/2026; 71 em 6 meses de '
+                            'calendário, das quais 13 na mesma data (2027-02-28)'),
+                'SOURCE_ID': 'IT-T4-001'},
+            'SCALE': {'STATE': 'MEASURED', 'ADAMA_ACTIVE': 163,
+                      'ITALY_ACTIVE_TOTAL': 3712, 'ITALY_REGISTRATIONS_TOTAL': 17695,
+                      'SOURCE_ID': 'IT-T4-001'},
+            'REGIONAL_SCALE': {'STATE': 'NOT_APPLICABLE',
+                               'WHY': 'autorização é nacional; não tem geografia agronômica'},
+            'AGRONOMIC_CLOCK': 'NOT_APPLICABLE',
+            'OBSERVATION_CLOCK': 'versão do open data; a próxima publicação é o que resolve',
+            'COMMERCIAL_CLOCK': SEM_DADO_INTERNO,
+            'REGULATORY_RESPONSE': {'MANDATORY': False,
+                                    'NOTE': 'a ação aqui é de revisão de portfólio'},
             'ADAMA_REGISTERED_RESPONSE': {
-                'STATE': 'FOUND', 'HERBICIDES_CITING_MAIZE': 24, 'FUNGICIDES_CITING_MAIZE': 0,
-                'INSECTICIDES_CITING_MAIZE': 9,
-                'MODE_OF_ACTION_GROUPS_DECLARED': ['HRAC 2 (B)', 'HRAC 3 (K1)', 'HRAC 4 (O)',
-                                                   'HRAC 5 (C1)', 'HRAC 27 (F2)', 'HRAC G'],
-                'SOURCE': 'IT-T4-001-ETICHETTA'},
-            'STRATEGIC_INPUT': {
-                'STATEMENT': 'STRATEGIC_ADAMA_EAME_PRIORITY(MAIZE) = HIGH',
-                'ORIGIN': 'fornecido pelo enunciado da missão — entrada, não medição',
-                'WHAT_MEASUREMENT_SAYS': 'não contradiz: o milho italiano é grande e concentrado. '
-                                         'Mas é, dos três casos, o de MENOR evidência demonstrável '
-                                         'hoje — sem sinal de campo, sem janela derivável, e com a '
-                                         'resposta registrada apontando para problema diferente do '
-                                         'que a ciência mais estuda.'},
-            'WHAT_IS_UNKNOWN': ['pressão real de daninhas', 'janela de aplicação',
-                                'resistência observada em campo na Itália', 'venda', 'market share'],
+                'STATE': 'IS_THE_SUBJECT',
+                'EXPIRING_180_DAYS': 58, 'EXPIRING_CALENDAR_6M': 71, 'EXPIRING_12M': 104,
+                'CONVENTION_MATTERS': ('a diferença entre 58 e 71 não é arredondamento: são '
+                                       '13 autorizações que vencem todas em 2027-02-28, data '
+                                       'que 180 dias exclui e 6 meses de calendário inclui'),
+                'IMMINENT_7_DAYS': 7,
+                'CROPS_MOST_AFFECTED_6M': {'APPLE': 36, 'SUGARBEET': 35, 'GRAPEVINE': 34,
+                                           'TOMATO': 31, 'POTATO': 31},
+                'INTERSECTION_WITH_CASE_001': ('34 das 71 carregam VIDEIRA no rótulo, e as 4 '
+                                               'de lambda-cialotrina elegíveis para a lotta '
+                                               'obbligatoria vencem em 31/08/2026'),
+                'STATUS_LAG': {'COUNT': 8, 'ALL_EXPIRED_ON': '2026-08-15',
+                               'DATASET_DATED': '2026-08-24', 'MIN_LAG_DAYS': 9,
+                               'CLASSIFICATION': 'REGULATORY_STATUS_LAG / INVESTIGATE',
+                               'NOT_CALLED': 'DATABASE_ERROR — não há fonte que sustente'},
+                'SOURCE_ID': 'IT-T4-001'},
+            'ADAMA_PUBLIC_COMMERCIAL_RESPONSE': 'NOT_COLLECTED — adama.com 403',
+            'APPLICATION_WINDOW': {'STATE': 'NOT_APPLICABLE'},
+            'MONITORING_WINDOW': {'STATE': 'OPEN',
+                                  'WHAT': 'a próxima versão do open data resolve os vencimentos de 31/08'},
+            'NEXT_CYCLE_WINDOW': {'STATE': 'NOT_APPLICABLE'},
+            'SCIENCE': {'STATE': 'NOT_APPLICABLE'},
+            'TECHNICAL_EXPLANATION': {'SOCIAL_VOICE': 'NOT_COLLECTED'},
+            'FACTS': ['71 autorizações vencem em 6 meses de calendário',
+                      '13 vencem todas em 2027-02-28',
+                      '8 constam ativas com vencimento já passado'],
+            'INTERPRETATIONS': [
+                'é a única capacidade cuja ação é externa, defensável e imediata',
+                'a convenção de janela precisa ser declarada junto com o número'],
+            'UNKNOWNS': ['renovação de cada autorização', 'impacto comercial',
+                         'motivo do atraso de estado'],
+            'ACTION_HORIZON': 'AGIR AGORA',
+            'EVIDENCE_PATHS': ['data/samples/IT-T4-001/IT-T4-001-vencimentos-caso.json',
+                               'data/samples/IT-T4-001/IT-T4-001-adama-inventario.json'],
         },
     ]
+
+
+def convergencia(c):
+    n = 0
+    for p in PERNAS:
+        est = (c.get(p) or {}).get('STATE', '')
+        if est and not est.startswith(('NÃO SEI', 'NOT_FOUND', 'NOT_DERIVED', 'UNKNOWN',
+                                       'NOT_APPLICABLE')):
+            n += 1
+    return n
+
+
+def demonstracao_de_capacidade():
+    """Não é hero case, e o motivo está escrito. Fica registrado porque prova o que a
+    camada de campo italiana consegue — e porque a ADAMA não tem resposta a ele."""
+    return {
+        'CASE_ID': 'IT-DEMO-001', 'CROP': 'Oliveira',
+        'ISSUE': 'Mosca-da-azeitona (Bactrocera oleae)', 'REGION': 'Veneto',
+        'WHY_NOT_A_HERO_CASE': [
+            ('REGIONAL_SCALE: o Vêneto tem 5,3 mil ha de oliveira = 0,5% do país. '
+             'A oliveira italiana está em Puglia (347,8), Calabria (184,7) e Sicilia (161,7), '
+             'e o serviço fitossanitário dessas três NÃO foi medido.'),
+            ('ADAMA_REGISTERED_RESPONSE = NO_REGISTERED_RESPONSE: nenhum dos 163 rótulos '
+             'nomeia Bactrocera oleae ou "mosca dell\'olivo". Os dois inseticidas que citam '
+             'olivo declaram, EM OLIVO, "Cocciniglie e Tignole".')],
+        'WHY_IT_IS_KEPT': ('é o sinal de campo mais fino que a Itália produziu: fenologia '
+                           'observada, pressão percentual em 11 sub-áreas nomeadas (3–6%) e '
+                           'janela declarada, tudo datado de 26/08/2026 e oficial'),
+        'SIGNAL_DATE': '2026-08-26', 'SOURCE_ID': 'IT-T3-002',
+        'APPLICATION_WINDOW': {
+            'STATE': 'NOT_KNOWN',
+            'WHY': ('o boletim descreve condições favoráveis à RETOMADA DA OVIDEPOSIÇÃO. '
+                    'Isso é condição do inseto, não janela de aplicação de produto, e sem '
+                    'resposta registrada da ADAMA a pergunta nem chega a se colocar.')},
+        'ACTION_HORIZON': 'MONITORAR AGORA (capacidade), sem ação de produto',
+    }
 
 
 def main():
@@ -200,31 +361,38 @@ def main():
     for c in cs:
         c['CONVERGENCE_LEGS_WITH_EVIDENCE'] = convergencia(c)
         c['CONVERGENCE_OF'] = len(PERNAS)
-    cs.sort(key=lambda c: -c['CONVERGENCE_LEGS_WITH_EVIDENCE'])
     out = {
-        'COUNTRY': 'IT', 'AS_OF': '2026-08-30',
-        # Proveniência do próprio artefato: ele é DERIVADO, e tem de dizer de que
-        # fontes deriva. Há teste que reprova amostra sem origem e sem data.
+        'PACK': 'ITALY-HERO-CASES-V1', 'COUNTRY': 'IT', 'AS_OF': HOJE,
         'SOURCE_ID': 'DERIVED/IT-HERO-CASES',
-        'SOURCE': ('derivado de EU-T1-001 (escala), IT-T3-002 e IT-T3-003 (campo), '
-                   'IT-T5-001 (ciência) e IT-T4-001-ETICHETTA (resposta registrada)'),
+        'SOURCE': ('derivado de IT-T4-001 e IT-T4-001-ETICHETTA (regulatório e rótulo), '
+                   'IT-T1-001 (ISTAT), EU-T1-001 (Eurostat), IT-T3-002/003/006 (campo), '
+                   'IT-T3-LOTTA-OBBLIGATORIA (decretos) e IT-T5-001 (ciência)'),
         'CAPTURED_AT': datetime.date.today().isoformat(),
         'EVIDENCE_CLASS': 'DERIVED_INTERPRETATION',
-        'METHOD': ('Cada perna é medida por conta própria e citada com fonte. CONVERGENCE é '
-                   'CONTAGEM de pernas com evidência, nunca escore ponderado — peso seria '
-                   'opinião disfarçada de número.'),
+        'METHOD': ('cada perna é medida por conta própria e citada com fonte. CONVERGENCE é '
+                   'CONTAGEM de pernas com evidência, nunca escore ponderado.'),
         'LEGS': list(PERNAS),
-        'BEST_CURRENT_CASE': cs[0]['CASE_ID'],
-        'BEST_MAIZE_CASE': 'IT-HERO-003',
+        'CAPABILITIES': {
+            'BEST_AGIR_AGORA': 'IT-HERO-003 (vencimentos) — única ação externa e imediata',
+            'BEST_MONITORAR_AGORA': 'IT-HERO-002 (milho × piralide) — janela aberta e estreita',
+            'BEST_PREPARAR': 'IT-HERO-002 — o próprio boletim ancora a decisão de 2027 em 2026',
+            'BEST_PLANEJAR_NEXT_CYCLE': 'IT-HERO-001 (videira) — obrigação anual, janela 2027 a confirmar',
+            'BEST_DEMO_CASE': ('IT-HERO-001 — é o que mais mostra convergência: obrigação '
+                               'legal + sinal corrente + ciência + resposta registrada '
+                               'elegível pelo próprio critério do decreto'),
+        },
+        'CASES': sorted(cs, key=lambda c: -c['CONVERGENCE_LEGS_WITH_EVIDENCE']),
+        'CAPABILITY_DEMONSTRATION_NOT_A_CASE': demonstracao_de_capacidade(),
         'CROSS_MARKET_RELATION': 'NOT_TESTED',
-        'CASES': cs,
     }
     os.makedirs(os.path.dirname(DEST), exist_ok=True)
     with open(DEST, 'w', encoding='utf-8') as fh:
         json.dump(out, fh, ensure_ascii=False, indent=2)
-    for c in cs:
-        print('%-12s %d/%d pernas  %s × %s' % (c['CASE_ID'], c['CONVERGENCE_LEGS_WITH_EVIDENCE'],
-                                               len(PERNAS), c['CROP'], c['ISSUE'][:44]))
+    for c in out['CASES']:
+        print('%-12s %d/%d  %-14s %s' % (c['CASE_ID'], c['CONVERGENCE_LEGS_WITH_EVIDENCE'],
+                                         len(PERNAS), c['ACTION_HORIZON'][:14], c['ISSUE'][:52]))
+    print('\n', out['CAPABILITY_DEMONSTRATION_NOT_A_CASE']['CASE_ID'],
+          '— demonstração de capacidade, não é caso')
     print('->', os.path.relpath(DEST, ROOT))
 
 

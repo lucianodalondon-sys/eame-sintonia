@@ -250,5 +250,54 @@ class TestContraFonteReal(unittest.TestCase):
         self.assertEqual(inv['ADAMA_IT_ADJACENT']['ACTIVE'], 0)
 
 
+CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
+
+
+@unittest.skipUnless(os.path.exists(CASOS), 'pacote de casos ainda nao gerado')
+class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
+    """As cinco confusoes que ja custaram medicao nesta branch.
+
+    Uma regressao que so vive num script nao protege nada: quem editar um artefato
+    nao roda o script. Aqui elas passam a reprovar a suite.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import ask_sintonia_italia as ask
+        cls.regs = {n: (ok, w) for n, ok, w in ask.regressoes()}
+
+    def test_todas_as_regressoes_passam(self):
+        falhas = [n for n, (ok, _) in self.regs.items() if not ok]
+        self.assertEqual([], falhas, 'regressoes de confianca falsa quebradas: %s' % falhas)
+
+    def test_as_cinco_estao_presentes(self):
+        """Apagar uma regressao nao pode ser a forma de fazer a suite passar."""
+        for nome in ('SYMPTOM_WINDOW != APPLICATION_WINDOW',
+                     'READ_FAILURE != NO_LABEL',
+                     'AFFILIATION != STUDY_GEOGRAPHY',
+                     'REGISTRATION != COMMERCIAL_CATALOG',
+                     'GENERIC_TARGET != SPECIFIC_TARGET'):
+            self.assertIn(nome, self.regs)
+
+    def test_ask_declara_estado_em_toda_pergunta(self):
+        import ask_sintonia_italia as ask
+        ask.RESPOSTAS.clear()
+        ask.perguntas()
+        self.assertGreaterEqual(len(ask.RESPOSTAS), 10)
+        validos = {ask.ANSWERABLE, ask.PARTIAL, ask.REFUSE}
+        for a in ask.RESPOSTAS:
+            self.assertIn(a['STATE'], validos, a['QUESTION'])
+            for campo in ('SOURCE', 'WHAT_IS_FACT', 'WHAT_IS_UNKNOWN'):
+                self.assertTrue(a[campo], '%s sem %s' % (a['QUESTION'], campo))
+
+    def test_o_ask_recusa_de_verdade(self):
+        """Um Ask que responde tudo nao esta medindo nada: a recusa e o ativo."""
+        import ask_sintonia_italia as ask
+        ask.RESPOSTAS.clear()
+        ask.perguntas()
+        recusas = [a for a in ask.RESPOSTAS if a['STATE'] == ask.REFUSE]
+        self.assertGreaterEqual(len(recusas), 3)
+
+
 if __name__ == '__main__':
     unittest.main()

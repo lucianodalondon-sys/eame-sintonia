@@ -109,9 +109,19 @@ Foram medidas as fontes fitossanitárias das **três primeiras regiões de milho
 > herbáceas do Veneto que foi aberto trata de **beterraba açucareira / *Cercospora
 > beticola***, não de milho.
 
-As três fontes responderam `HTTP 200` e foram lidas. Isto **não** é falha de leitura: é
-**ausência medida de cobertura**. O sistema italiano de boletins de campo é construído
-para permanentes e hortícolas.
+> **CORREÇÃO DA SEGUNDA RODADA — `NOT_FOUND ≠ DOES NOT EXIST`.** A frase acima continua
+> verdadeira sobre Vêneto, Lombardia e Piemonte. A conclusão que eu tirei dela — "o milho
+> italiano não tem sinal de campo" — estava errada. O **Friuli-Venezia Giulia** publica
+> série própria de boletim do MILHO: **10 números em 2026**, o último de **12/08/2026**,
+> sob difesa integrata obbligatoria (art. 19 D.lgs. 150/2012). Eu tinha lido a página-mãe
+> das *colture erbacee* e não a subpágina `bollettini-2026`. O achado negativo estava
+> certo no escopo e **errado no rótulo**, e a diferença entre as duas coisas é o tamanho
+> de um clique.
+
+As fontes das três primeiras regiões responderam `HTTP 200` e foram lidas: para elas, a
+ausência de boletim de milho é medida. O que mudou é que ela **não vale para a Itália** —
+vale para as regiões medidas. E o desalinhamento que sobra é outro, e é real: o sinal
+existe na **5ª** região de milho (6,7 % da área), não nas três primeiras (71,6 %).
 
 **Distinção que essa camada torna concreta:** `ISSUE_KNOWN` (o *disciplinare* do Piemonte
 diz quais problemas o milho tem) **≠** `CURRENT_SIGNAL` (o *bollettino* diz o que está
@@ -249,260 +259,267 @@ a razão fica como **ilustração da lei, não como métrica publicável**.
 
 ---
 
-## 7 · HERO CASES
+## 7 · HERO CASES — `ITALY-HERO-CASES-V1`
 
-Três candidatos. Nenhum é escolhido por preferência: cada um é forte numa perna e fraco
-noutra, e as pernas estão medidas.
+Três casos. Nenhum escolhido por preferência: cada perna é medida por conta própria, e a
+perna que falta aparece como falta. `CONVERGENCE` é **contagem** de pernas com evidência,
+nunca escore ponderado — peso seria opinião disfarçada de número.
 
-### `IT-HERO-001` · VIDEIRA × FLAVESCÊNCIA DOURADA (*Scaphoideus titanus*) × LOMBARDIA
-**As quatro pernas, e a janela está ABERTA hoje.**
+### `IT-HERO-001` · VIDEIRA × FLAVESCÊNCIA DOURADA (*Scaphoideus titanus*) × **VÊNETO** + LOMBARDIA
+**5/5 pernas.** O caso mais completo da Itália.
 
-| Perna | Estado | Evidência |
-|---|---|---|
-| ESCALA | 715,8 mil ha — 3ª cultura do país · **região: `NÃO SEI`** | `EU-T1-001` |
-| CAMPO | **`CURRENT_SIGNAL`** — Bollettino Regionale LA VITE n.6, **31/07/2026** | `IT-T3-003` |
-| JANELA (sintoma) | **`OPEN`** — *"inizio-metà agosto alla fine settembre"*; hoje é **30/08** | idem |
-| JANELA (vetor) | **`CLOSED_FOR_2026`** — e é nela que o produto da ADAMA age | idem |
-| CIÊNCIA | fitoplasma da videira **135** · *Scaphoideus titanus* **66** | `IT-T5-001` |
-| **ADAMA** | **6 produtos vigentes com *Scaphoideus titanus* como ALVO DECLARADO no rótulo** | `IT-T4-001-ETICHETTA` |
-
-A resposta registrada não é inferida — está escrita na etichetta oficial, com dose:
-
-> *"Vite (da vino e da tavola) — Contro cicaline (Empoasca vitis, **Scaphoideus titanus**)
-> e tripidi (…) impiegare a 30-300 ml/hl senza superare 0,3 l/ha in 100-1000 litri di
-> acqua/ha."*
-
-`KLARTAN 20 EW` · `KLARTAN SMART` · `TAU AL 240 EW` · `MAVRIK EW` · `MAVRIK SMART` ·
-`EVURE PRO` — todos **TAU-FLUVALINATE**.
-
-**Por que este é o caso:** é o único em que **escala, sinal de campo corrente, janela
-agronômica aberta, ciência e resposta registrada da ADAMA** apontam para o mesmo
-`CROP × ISSUE × REGION` **ao mesmo tempo**. O boletim oficial ainda remete ao
-*Documento tecnico ufficiale n. 29 dei Servizi Fitosanitari Nazionali*, o que dá ao caso
-uma camada institucional nacional além da regional.
-
-### As duas janelas foram medidas, e não coincidem
-
-Esta era a ressalva do caso, e ela foi resolvida — com um resultado que **corrige a própria
-recomendação anterior deste documento**. O boletim diz, textualmente:
-
-> *"**Dando per effettuati gli obbligatori trattamenti insetticidi per il controllo del
-> vettore della malattia**, il periodo tra inizio-metà di agosto alla fine settembre è
-> quello in cui risultano maggiormente riconoscibili gli eventuali sintomi fogliari."*
-
-Duas coisas saem daí, e as duas importam:
-
-1. **Os tratamentos ao vetor são `OBBLIGATORI`** na Lombardia (DGR 29/12/2021 n. XI-5836).
-   É **obrigação regulatória anual**, não recomendação técnica.
-2. **Em 31/07 o boletim já os DÁ POR FEITOS.** Portanto
-   `WINDOW_FOR_VECTOR_CONTROL = CLOSED_FOR_2026`.
-
-A janela aberta hoje é de **reconhecimento de sintoma** — monitoramento, não aplicação. E é
-justamente na janela **fechada** que o `tau-fluvalinate` da ADAMA age.
-
-> **Correção da recomendação.** Uma versão anterior desta análise classificou o caso como
-> **AGIR AGORA** para MARKET DEVELOPMENT. Está errado, e a correção é a medição acima: a
-> decisão comercial deste caso é do **próximo ciclo**. Tratar a janela de sintoma como se
-> fosse janela de aplicação seria exatamente **fabricar urgência**, que é o que a missão
-> proíbe. O caso continua sendo o mais forte da Itália — o que muda é o relógio.
-
-**O que a obrigatoriedade acrescenta:** existe um **evento anual garantido por norma** em
-que o problema tem de ser tratado. Isso é estrutura, não demanda —
-`FIELD PRESSURE ≠ DEMAND` continua valendo, e sem dado interno
-`COMMERCIAL_CLOCK = NÃO SEI`.
-
-**O que falta:** regionalizar a área de videira (exige ISTAT); as datas exatas dos
-tratamentos obrigatórios em 2026; confirmar se a obrigação vale igual no Vêneto.
-
-> **Nota de método.** Este caso quase não apareceu. Ele só surgiu porque o
-> `NEXT_SMALLEST_STEP` — *"abrir o boletim de videira da safra corrente"* — foi executado
-> em vez de deixado como recomendação. A leitura anterior supunha míldio/oídio, que é o
-> que a ciência mais estuda em videira; o campo, em 31/07, falava de **flavescência**,
-> porque a estação do míldio já tinha fechado. **A ciência dizia uma coisa e o calendário
-> dizia outra, e quem manda na janela é o calendário.**
-
-### `IT-HERO-002` · OLIVEIRA × *Bactrocera oleae* × VÊNETO
-**O sinal de campo mais fino do país — e sem resposta ADAMA.**
-
-| Perna | Estado |
+| Perna | Medida |
 |---|---|
-| ESCALA | 1.083,0 mil ha, 2ª cultura · **região: `NÃO SEI`** |
-| CAMPO | **`CURRENT_SIGNAL` de 26/08/2026** — 11 sub-áreas nomeadas, 3–6 %, janela declarada |
-| JANELA | **`OPEN`** — queda térmica + umidade abrindo retomada da ovideposição |
-| CIÊNCIA | *Bactrocera* 70 · (Xylella domina a oliveira italiana com **296**) |
-| **ADAMA** | **resposta ao alvo NÃO ENCONTRADA** — presença em oliveira é herbicida de solo + óleo de parafina |
+| ESCALA | 588,8 mil ha nacional (ISTAT) |
+| ESCALA REGIONAL | **Vêneto 101,0 (17,2 %, 2º)** · Lombardia 18,2 (3,1 %, 7º) |
+| SINAL | Bollettino vite Vêneto **n. 19 de 13/08/2026** |
+| CIÊNCIA | fitoplasma da videira 135 · *Scaphoideus titanus* 66 |
+| ADAMA | **6 produtos nomeiam o vetor no rótulo**, com dose |
 
-**Por que importa mesmo assim:** é a melhor demonstração do que a camada de campo italiana
-consegue entregar — fenologia observada, pressão percentual por sub-área e janela, tudo
-datado e oficial. **O que falta:** a ADAMA não tem, nos rótulos analisados, produto com
-*Bactrocera oleae* como alvo declarado.
+> **A região do caso mudou, e quem decidiu foi a área.** A rodada anterior chamou o caso
+> de "Lombardia" porque de lá veio o decreto mais claro. O Vêneto tem **5,5×** mais
+> videira e a **mesma** obrigação legal. Documento achado primeiro não é critério.
 
-### `IT-HERO-003` · MILHO × PLANÍCIE DO PÓ — **dois problemas candidatos, medidos**
+**A obrigação é norma, e agora tem data.** Executar o `NEXT_SMALLEST_STEP` entregou os dois
+atos:
 
-| Perna | Estado |
-|---|---|
-| ESCALA | 495,4 mil ha · 3ª anual · **71,6 % em Veneto + Lombardia + Piemonte** |
-| CAMPO | **ausência medida** — nenhum boletim de milho nas três regiões |
-| **ADAMA** | 24 herbicidas · 9 inseticidas · **0 fungicidas** |
-
-O milho tem **dois** problemas candidatos, e eles ganham em pernas diferentes. Escolher um
-sem dizer isso seria esconder a medição:
-
-| | DANINHAS | ***Ostrinia nubilalis* / lepidópteros** |
+| | LOMBARDIA | VÊNETO |
 |---|---|---|
-| Produtos ADAMA | **24** | 1 (`COSAYR 200 SC`) |
-| Modo de ação | **≥6 grupos HRAC** | IRAC 28 (diamida) |
-| Ciência italiana | 79 | 30 |
-| Registro | portfólio maduro | **18561, de 04/02/2026 — novo** |
-| Época no rótulo | não extraída | **sim: *"intervenire in fase di ovideposizione"*** |
+| Ato | Comunicato Giunta 25/05/2026 n. 39 (BURL 28/05) | DDR n. 13645 de 14/05/2026 |
+| Datas | **no próprio ato** | **não** — delega ao boletim semanal |
+| 2 tratamentos | 1º 2–14/06 · 2º 17–29/06 | 1ª janela 8–19/06 · 2ª a 10–15 dias |
+| 3 tratamentos | 1º 2–14/06, seguintes a 10–14 dias | 1–11/06, seguintes a 7–12 dias |
 
-O rótulo do produto novo é explícito, e é `REGULATORY_FACT`:
+**Não existe "o calendário italiano".** Existe um por região, com mecanismos de publicação
+diferentes: a Lombardia resolve num documento, o Vêneto exige dois — e o segundo muda toda
+semana.
 
-> *"Mais e Mais Dolce: utilizzare 100-150 mL/ha per il controllo di **O. nubilalis** e
-> lepidotteri nottuidi quali H. armigera, S. exigua, S. littoralis, **Sesamia spp.**
-> Intervenire in fase di ovideposizione."*
+**A regra de elegibilidade liga a norma ao portfólio.** A Lombardia admite
+**exclusivamente** produtos cujo rótulo traga como alvo `«cicaline della vite»` ou
+`«Scaphoideus titanus»`; o Vêneto lista `Tau-fluvalinate` e `Lambda-cialotrina` entre os
+ativos de síntese admitidos, para 1º **e** 2º tratamento. Medido contra os 163 rótulos:
 
-**Uma ponte tentadora foi testada e NÃO passou.** O dano da broca é, agronomicamente, porta
-de entrada de *Fusarium* — o que ligaria o produto novo ao cluster científico dominante do
-milho italiano (208 trabalhos em micotoxina). Se a ponte existisse, este seria o melhor caso
-da Itália. Foi medida: **milho × *Ostrinia* × micotoxina = 5 trabalhos italianos.** Cinco é
-pouco demais. A ligação é plausível e **não está provada aqui** — fica como hipótese, com o
-teste que a mediria já escrito.
+- **6 tau-fluvalinate** — nomeiam a espécie **e** o genérico. Vencem **31/01/2027**.
+- **4 lambda-cialotrina** — trazem `«cicaline»`. Vencem **31/08/2026**.
+- 2 óleo de parafina — fora da lista de sintéticos do Vêneto.
 
-**A tensão do milho, dita sem suavizar:** a ciência italiana do milho olha para
-**micotoxina** (208, 2,6× as daninhas). A ADAMA tem **zero fungicidas** citando milho. As
-duas coisas são fatos medidos; a distância entre elas **não** é prova de lacuna comercial
-nem de erro de portfólio — daninhas é mercado legítimo e grande, e manejo de micotoxina em
-milho é largamente agronômico.
+> **O achado que não estava previsto.** O portfólio elegível para uma obrigação legal
+> **anual** vence inteiro em cinco meses, e 4 dos 10 sintéticos vencem **amanhã**. Os
+> outros 6 vencem ~4 meses **antes** de a janela de 2027 abrir, e antes do mês em que as
+> duas regiões publicam o ato. `EXPIRY ≠ WITHDRAWAL` continua valendo inteira — re-registro
+> é rotina e `RENEWAL_STATUS = NÃO SEI` —, mas a data pede revisão.
 
-**Sobre a prioridade estratégica declarada.** `STRATEGIC_ADAMA_EAME_PRIORITY(MAIZE) = HIGH`
-veio do enunciado e é respeitada como entrada. A medição **não a contradiz**: o milho
-italiano é grande, concentrado, e o portfólio recebeu registro novo em 2026. O que a
-medição mostra é que o milho é, dos três candidatos, **o de menor evidência demonstrável
-hoje** — sem sinal de campo e sem janela que vire data. Isso é informação para a decisão,
-não argumento contra ela.
+**As duas janelas, medidas, não coincidem:**
+`APPLICATION_WINDOW = CLOSED_FOR_2026` · `MONITORING_WINDOW = OPEN` (sintoma, ago–set) ·
+`NEXT_CYCLE = TO_BE_CONFIRMED`, `PREPARE_BY 2027-05-31`.
+
+A obrigação recorre por norma europeia; as **datas** são fixadas a cada ano pelo
+monitoramento, e o ato lombardo de 2026 registra que a estação **antecipou** o ciclo do
+escafoide. Projetar 2026 sobre 2027 seria ignorar o aviso da própria fonte.
+
+### `IT-HERO-002` · MILHO × PIRALIDE + *DIABROTICA* × **FVG** (sinal) e VALE DO PÓ (escala)
+**5/5 pernas.** O melhor caso de milho — e não é o de daninhas nem o de micotoxina.
+
+| Perna | Medida |
+|---|---|
+| ESCALA | 495,4 mil ha · 5º commodity, **3º entre as anuais** · ISTAT = Eurostat, idêntico |
+| ESCALA REGIONAL | Vêneto 122,9 · Lombardia 115,8 · Piemonte 115,7 (**71,6 %**) · **FVG 33,1 (6,7 %)** |
+| SINAL | ERSA FVG **n. 15 MAIS de 12/08/2026**, série de 10 números em 2026 |
+| CIÊNCIA | *Ostrinia* 30 · *Diabrotica* 11 · (micotoxina domina com 208) |
+| ADAMA | **6 produtos nomeiam piralide e/ou *Diabrotica*** no rótulo do milho |
+
+O boletim traz fenologia observada (**BBCH 65-75**), o voo de 3ª geração iniciado, o pico
+de ovideposição previsto — e o **limiar publicado**: tratar se houver `>3 ovaturas por 100
+plantas` e/ou larvas em `30–40 % de 50–100 espigas`.
+
+**A janela está aberta e é estreita, e a fonte diz por quê:** as populações de 3ª geração,
+embora maiores, **não** causam dano porque as espigas estão em maturação avançada —
+**exceto** em semeadura tardia (junho) e milho de segundo raccolto.
+
+A resposta registrada tem duas camadas:
+- **adulto** — `FORZA` · `NINJA` · `DURAVIS` · `ELTIRA` (lambda-cialotrina), rótulo:
+  *"Mais … **Piralide, Diabrotica virgifera virgifera** 560-1000"*. Vencem **31/08/2026**.
+- **larva/solo** — `LEBRON 0.5 G` · `SCHERMO 0.5 G` (tefluthrin, IRAC 3A), rótulo:
+  *"Mais, Mais Dolce, Sorgo — Agriotes sp., Agrotis sp., **Diabrotica sp.** …"*.
+  Vencem **31/05/2027**.
+- e `COSAYR 200 SC` (clorantraniliprole, IRAC 28, registro **18561 de 04/02/2026**):
+  *"Mais e Mais Dolce: 100-150 mL/ha per il controllo di **O. nubilalis** … Intervenire in
+  fase di ovideposizione"*. `NEW_REGULATORY_RESPONSE / RECENT_REGISTRATION` — e nada além
+  disso: lançamento comercial, estoque e relação com o lançamento de milho EAME **não são
+  afirmados**.
+
+**A âncora de 2027 vem da própria fonte**, não de dedução nossa: *"il trattamento
+effettuato nell'anno in corso avrà effetto sulla diabrotica presente in campo nell'anno
+successivo; se non si prevede di coltivare mais l'anno prossimo, il trattamento non è
+necessario"*. A decisão de 2027 se toma em 2026.
+
+**A ponte tentadora continua reprovada.** Broca → *Fusarium* → micotoxina ligaria este caso
+ao cluster de 208 trabalhos. Medida: **5 trabalhos**. `THIN_EVIDENCE`. Não foi publicada.
+
+**Não há lotta obbligatoria para milho:** a de *Diabrotica* foi **revogada** pelo D.M.
+13/06/2014. O que existe é difesa integrata obbligatoria, que obriga o **método**, não um
+tratamento com data.
+
+### `IT-HERO-003` · PORTFÓLIO × CALENDÁRIO DE VENCIMENTOS × NACIONAL
+**3/5 pernas — e a única ação externa, defensável e imediata.**
+
+```
+ADAMA vigentes                    163
+vencendo em 180 dias               58
+vencendo em 6 meses de calendário  71      ← 13 de diferença, todas em 2027-02-28
+vencendo em 12 meses              104
+vencendo em 31/08/2026              7
+vigentes com vencimento passado     8      REGULATORY_STATUS_LAG / INVESTIGATE
+```
+
+Culturas mais atingidas na janela de 6 meses: **maçã 36 · beterraba 35 · videira 34 ·
+tomate 31 · batata 31**. As 34 de videira encostam direto no `IT-HERO-001`.
+
+O atraso de estado **não** é chamado de erro do Ministero: não há fonte que sustente a
+acusação. Pode ser fluxo administrativo, prorrogação não publicada ou defasagem do extrato
+aberto. `INVESTIGATE`, não `DATABASE_ERROR`.
+
+### `IT-DEMO-001` · OLIVEIRA × *Bactrocera oleae* × VÊNETO — **não é caso**
+
+Fica registrado porque prova o que a camada de campo italiana consegue: fenologia
+observada, pressão percentual em **11 sub-áreas nomeadas** (3–6 %) e janela declarada, tudo
+oficial e datado de **26/08/2026**. Duas coisas o desqualificam como caso:
+
+1. **`SIGNAL QUALITY ≠ REGIONAL WEIGHT`** — o Vêneto tem **5,3 mil ha** de oliveira,
+   **0,5 %** do país. A oliveira italiana está em Puglia (347,8), Calabria (184,7) e
+   Sicilia (161,7), e o serviço fitossanitário dessas três **não foi medido**.
+2. **`NO_REGISTERED_RESPONSE`** — nenhum dos 163 rótulos nomeia *Bactrocera oleae*. Os dois
+   inseticidas que citam olivo declaram, **em olivo**, `"Cocciniglie e Tignole"`. Não é
+   ambíguo: é decisivo.
+
+`APPLICATION_WINDOW = NOT_KNOWN` — "condições favoráveis à retomada da ovideposição" é
+condição do inseto, não janela de aplicação.
 
 ---
 
-## 8 · MAPA DE AÇÃO — quem poderia agir
+## 8 · AS TRÊS CAPACIDADES, FECHADAS
 
-Sem dado interno da ADAMA, `COMMERCIAL_CLOCK = NÃO SEI` em todas as linhas.
+| | Caso | Por quê |
+|---|---|---|
+| **AGIR AGORA** | `IT-HERO-003` | revisar vencimento é ação externa, defensável e com data própria |
+| **MONITORAR AGORA** | `IT-HERO-002` | janela aberta e estreita, com limiar publicado |
+| **PREPARAR** | `IT-HERO-002` | a fonte ancora a decisão de 2027 no tratamento de 2026 |
+| **PLANEJAR PRÓXIMO CICLO** | `IT-HERO-001` | obrigação anual; janela 2027 a confirmar, `PREPARE_BY` 31/05 |
+| **MELHOR DEMONSTRAÇÃO** | `IT-HERO-001` | obrigação legal + sinal corrente + ciência + resposta registrada elegível pelo critério do próprio decreto |
 
-| Área | Ação | Por quê agora | Evidência | Horizonte |
-|---|---|---|---|---|
-| REGULATORY / PORTFOLIO | Revisar as **71** autorizações do grupo que vencem em 6 meses de calendário | 13 delas vencem **na mesma data**, 2027-02-28 | `IT-T4-001` | **AGIR AGORA** |
-| REGULATORY | Conferir as **8** autorizações vigentes com vencimento já passado | o campo de estado atrasa ≥ 9 dias | `IT-T4-001` | **AGIR AGORA** |
-| MARKET DEVELOPMENT | Caso videira × flavescência na Lombardia | janela do **vetor fechada em 2026**; obrigação é anual e volta | `IT-HERO-001` | **PRÓXIMO CICLO** |
-| SCIENCE / MD | Monitorar sintoma de flavescência ago–set | janela de **reconhecimento** aberta agora | `IT-HERO-001` | **AGIR AGORA** |
-| SCIENCE | Abrir contato com o cluster de micotoxina em milho | 208 trabalhos, autores com ORCID e atividade em 2026 | `IT-T5-001` | PREPARAR |
-| MARKETING | Manejo de resistência em daninhas de milho, com os MoA do próprio rótulo | ≥6 grupos declarados no portfólio | `IT-HERO-003` | PLANEJAR |
-| COMMERCIAL | — | **nada a propor**: sem dado de venda, qualquer ação seria fabricada | — | — |
+### Mapa de ação
 
-Não se fabrica urgência: as duas linhas de `AGIR AGORA` são as únicas com data própria.
+| Área | Ação | Horizonte |
+|---|---|---|
+| REGULATORY / PORTFOLIO | revisar as 71 que vencem em 6 meses; 7 vencem em 31/08 | **AGIR AGORA** |
+| REGULATORY / PORTFOLIO | investigar as 8 com vencimento passado e estado ativo | **AGIR AGORA** |
+| MARKET DEVELOPMENT | monitorar sintoma de flavescência no Vêneto | MONITORAR AGORA |
+| MARKET DEVELOPMENT | acompanhar ovideposição de piralide no FVG com o limiar publicado | MONITORAR AGORA |
+| SCIENCE | abrir contato com o cluster de micotoxina em milho | PREPARAR |
+| MARKETING | material de manejo de resistência com os grupos do próprio rótulo | PREPARAR |
+| MARKET DEVELOPMENT | preparar o ciclo 2027 da flavescência antes de 31/05 | PLANEJAR |
+| COMMERCIAL | **nada a propor** — sem dado interno seria fabricação | — |
 
----
-
-## 9 · CROSS-MARKET — apenas indicado
-
-`CROSS_MARKET_RELATION = NOT_TESTED`
-
-Candidatos anotados para quando houver evidência comparável dos dois países: **milho**;
-**cereais de inverno**; **videira × míldio** (Espanha tem `ES-T3-001`, Itália tem a
-camada regional mais rica); e por **molécula** — folpet, tebuconazol, azoxistrobina,
-glifosato, nicosulfurom aparecem nos dois registros. Nada foi cruzado.
+`COMMERCIAL_CLOCK = NÃO SEI` em todas as linhas, e **nenhuma ação proposta depende dele**.
 
 ---
 
-## 10 · ENTREGA
+## 9 · ASK SINTONIA ITALIA
 
-### A · GIT
-`BRANCH` = `claude/sintonia-italy-pilot-b1l401` · `TESTS` = **307, 0 falhas** · `PUSHED` = SIM
+`scripts/ask_sintonia_italia.py` — **14 perguntas · 6 ANSWERABLE · 3 PARTIAL · 5 REFUSE.**
 
-### B · SOURCES
-`OFFICIAL_SOURCES` = 9 · `STRUCTURED` = 3 (CSV/JSON/XML, API JSON-stat, API REST) ·
-`APIS` = 2 · `REGIONAL_FIELD_SOURCES` = 5 regiões
+Um Ask que responde tudo não está medindo nada: **a recusa é o ativo**. As cinco regressões
+vigiam as confusões que já custaram medição nesta branch, e passaram a **reprovar a suíte**
+— porque regressão que só vive num script não protege quem edita um artefato sem rodá-lo.
 
-### C · REGULATORY
-`ITALY_TOTAL_REGISTRATIONS` = **17.695** · `CURRENT_AUTHORIZED` = **3.712** ·
-`DISTINCT_HOLDERS` = **576**
-`ADAMA_IT_REGISTRATIONS` = **602** (grupo) / **240** (entidade italiana)
-`ADAMA_IT_ACTIVE` = **163** / **85** · `ADAMA_IT_REVOKED` = **425** · `EXPIRED` = **14**
-`ADAMA_IT_ACTIVE_SUBSTANCES` = **53** (grupo) / **36** (entidade)
-`EXPIRING_6M` = **71** (calendário) · **58** (180 dias) — *a convenção muda a resposta*
-`EXPIRING_12M` = **104**
-`ACTIVE_WITH_PAST_EXPIRY` = **8** (anomalia)
+```
+SYMPTOM WINDOW ≠ APPLICATION WINDOW      READ FAILURE   ≠ NO LABEL
+AFFILIATION    ≠ STUDY GEOGRAPHY         REGISTRATION   ≠ COMMERCIAL CATALOG
+GENERIC TARGET ≠ SPECIFIC TARGET
+```
 
-### D · ADAMA PUBLIC PORTFOLIO
-`CURRENT_CATALOG_TOTAL` = **NÃO OBTIDO** (403 de origem) ·
-`CATALOG_52_CLAIM` = `UNVERIFIED_INPUT`
-`OFFICIAL_LABELS_AVAILABLE` = 163 alvos · `OFFICIAL_LABELS_PRESERVED` = **161 (98,8 %)**
-— 33,8 MB, com SHA-256 por arquivo, **não versionados**
-`LABEL_DATE` obtida em **159** rótulos, de 2016-12-19 a 2026-07-29
-`PRODUCT_PAGES_PARSED` = **162** · `CROP_TERM_RELATIONS` e `ISSUE_RELATIONS` extraídos do
-rótulo · `TECHNOLOGIES` = grupos HRAC/FRAC/IRAC declarados (36 % dos rótulos declaram)
-`TECHNICAL_CLAIMS` / `COMMERCIAL_CLAIMS` = **NOT_COLLECTED** (fonte bloqueada)
+---
 
-Os **2** rótulos não obtidos (`FOLPAN ENERGY`, `AGHARTA`) são `NÃO OBTIDO`, **não**
-`não existe`: na primeira passada faltavam **14**, e **12 foram recuperados só por
-esperar mais**. `READ FAILURE ≠ ZERO`, demonstrado com número.
+## 10 · CROSS-MARKET — apenas indicado
 
-### E · AGRICULTURE
-`TOP_CROPS` = trigo duro · oliveira · videira · trigo mole · **milho**
-`MAIZE_POSITION` = **5º commodity, 3º anual** · `MAIZE_TOP_REGIONS` = Veneto ·
-Lombardia · Piemonte (**71,6 %**)
+`CROSS_MARKET_RELATION = NOT_TESTED` · `CROSS_MARKET_READY = NO`
 
-### F · ISSUES / TIME
-`CURRENT_FIELD_SIGNALS` = **2** — oliveira × *Bactrocera* × Vêneto (26/08/2026) e
-videira × flavescência × Lombardia (31/07/2026)
-`CURRENT_AGRONOMIC_WINDOWS` = **2 abertas** — mas em `IT-HERO-001` a janela aberta é de
-**monitoramento**, não de aplicação: a de aplicação ao vetor está `CLOSED_FOR_2026`
-`MAIZE_FIELD_SIGNAL` = **NOT_FOUND (medido)**
+Dimensões comparáveis declaradas em `docs/piloto/HANDOFF-ITALIA-PARA-EAME.md`, seção H.
+Nada foi cruzado.
 
-### G · SCIENCE
-`SCIENCE_DISCOVERY_READY` = **SIM** · `RELEVANT_PAPERS` = 208 no recorte profundo ·
-`RESEARCHERS_FOUND` = **452** · `IDENTITY_CONFIRMED` = via ORCID ·
-`RESEARCHERS_WITH_PUBLIC_CHANNELS` = **0 — NOT_COLLECTED**
+---
 
-### H · VOICE
-Tudo **NOT_STARTED**. A missão manda vir depois dos pares; os pares ficaram prontos agora.
-Pista real registrada: **Co.Pro.B.**, cooperativa que opera um DSS de *Cercospora* citado
-pelo boletim oficial do Vêneto — cooperativa que **produz** sinal de campo.
+## 11 · ENTREGA
 
-### I · PILOT
-`HERO_CASE_CANDIDATES` = **3** · `BEST_CURRENT_CASE` = **`IT-HERO-001`** — videira ×
-flavescência dourada × Lombardia, **único com as quatro pernas e janela aberta** ·
-`BEST_MAIZE_CASE` = `IT-HERO-003` (daninhas) · `OPEN_DECISION_WINDOW_CANDIDATES` = **2**
+### A · REPO
+`BRANCH` = `claude/sintonia-italy-pilot-b1l401` · `TESTS` = **319, 0 falhas** · `PUSHED` = SIM
 
-### J · CROSS-MARKET
-`CROSS_MARKET_RELATION` = **NOT_TESTED**
+### B · REGULATORY
+`ADAMA_GROUP_ACTIVE` = **163** · `LABELS_OBTAINED` = **163/163 (100 %)** ·
+`LABELS_UNRESOLVED` = **0**
+`EXPIRING_CALENDAR_6M` = **71** · `EXPIRING_180D` = **58** ·
+`EXPIRED_BUT_ACTIVE_STATUS` = **8** · `STATUS_LAG_CASE` = `REGULATORY_STATUS_LAG / INVESTIGATE`
 
-### K · COST
-`APIFY_USED` = **NÃO** · `APIFY_COST` = **US$ 0,00** · `OTHER_PAID_COST` = **US$ 0,00**
+### C · VINE
+`REGION` = **Vêneto** (101,0 mil ha, 17,2 %) + Lombardia (18,2) ·
+`CURRENT_SIGNAL` = bollettino n. 19, 13/08/2026 · `VECTOR` = *Scaphoideus titanus*
+`ADAMA_EXPLICIT_RESPONSES` = **6** (+4 genéricos elegíveis) ·
+`VECTOR_CONTROL_WINDOW_2026` = **CLOSED** (junho) · `SYMPTOM_WINDOW` = **OPEN** (ago–set)
+`NEXT_CYCLE_DATES` = **TO_BE_CONFIRMED**, `PREPARE_BY` 2027-05-31 ·
+`REGIONAL_VINE_AREA` = **OBTIDA** · `CASE_STATUS` = **5/5** ·
+`ACTION_HORIZON` = MONITORAR AGORA + PRÓXIMO CICLO
 
-### L · STATE
-`ITALY_FOUNDATION_READY` = **SIM** · `ITALY_PRIORITY_MATRIX` = **SIM** ·
-`ITALY_PERSON_DISCOVERY_READY` = **SIM** · `ITALY_PILOT_INTELLIGENCE_READY` = **PARCIAL**
-`READY_TO_DESIGN_ITALY_PORTAL` = **NÃO — e parar aqui é a instrução**
+### D · OLIVE
+`REGION` = Vêneto · `SIGNAL_DATE` = 26/08/2026 · `BACTROCERA_PRESSURE` = 3–6 % em 11 sub-áreas
+`ADAMA_RESPONSE` = **NO_REGISTERED_RESPONSE** · `APPLICATION_WINDOW` = **NOT_KNOWN** ·
+`MONITORING_WINDOW` = OPEN
+`CASE_STATUS` = **demonstração de capacidade, não é caso** (Vêneto = 0,5 % da oliveira) ·
+`ACTION_HORIZON` = sem ação de produto
 
-`SUPABASE_PERSISTENCE` = **NÃO FEITO** — não há credencial neste ambiente. Declarar é
-obrigatório; fingir persistência não é opção. Convenção `IT/<source>/<run>/<asset>` já
-gravada em cada registro de rótulo, pronta para quando houver credencial.
+### E · MAIZE
+`AREA` = 495,4 mil ha · `TOP_REGIONS` = Vêneto · Lombardia · Piemonte (71,6 %)
+`CURRENT_FIELD_SIGNAL` = **SIM — ERSA FVG n.15, 12/08/2026** (correção da rodada anterior)
+`SCIENCE_MAIN_CLUSTER` = micotoxina/Fusarium (208) ·
+`SELECTED_ISSUE` = **piralide + *Diabrotica*** — o único com alvo declarado, limiar publicado e sinal corrente
+`COSAYR_OSTRINIA_RESPONSE` = confirmado, registro 18561 de 04/02/2026, IRAC 28
+`APPLICATION_WINDOW` = **OPEN_BUT_NARROW** · `CASE_STATUS` = **5/5** ·
+`ACTION_HORIZON` = MONITORAR AGORA + PREPARAR
 
-### BLOCKERS
-1. `adama.com` bloqueado por WAF de origem → camada de afirmação do fabricante inacessível.
-2. ISTAT não alcançado → oliveira e videira sem regionalização.
-3. Sem credencial Supabase → persistência não executada.
-4. Calendário agronômico regional não coletado → janela do milho `NOT_DERIVED`.
+### F · CASE PACK
+`BEST_AGIR_AGORA` = `IT-HERO-003` · `BEST_PREPARAR` = `IT-HERO-002` ·
+`BEST_PLANEJAR_NEXT_CYCLE` = `IT-HERO-001` · `BEST_DEMO_CASE` = `IT-HERO-001` ·
+`ITALY_HERO_CASES_READY` = **SIM**
+
+### G · ASK SINTONIA
+`QUESTIONS` = 14 · `ANSWERABLE` = 6 · `PARTIAL` = 3 · `REFUSED` = 5 ·
+`FALSE_CONFIDENCE_REGRESSIONS` = **5, todas na suíte**
+
+### H · EAME HANDOFF
+`COMPARABLE_DIMENSIONS` = 7 declaradas · `CROSS_MARKET_CANDIDATES` = milho · cereais ·
+videira × doença · molécula · `CROSS_MARKET_READY` = **NO**
+
+### I · READINESS
+`ITALY_PRIORITY_MATRIX` = SIM · `ITALY_PILOT_INTELLIGENCE_READY` = **SIM** ·
+`ITALY_DEMO_CONTENT_READY` = **SIM** · `READY_TO_DESIGN_ITALY_PORTAL` = **NÃO — e parar aqui
+é a instrução**
+
+### J · BLOCKERS
+1. `adama.com` bloqueado por WAF → camada de afirmação do fabricante inacessível.
+2. Sem credencial Supabase → `SUPABASE_PERSISTENCE = PENDING`.
+3. Campo não medido nas 3 maiores regiões de milho (71,6 %) e de oliveira (62,3 %).
+4. ~30 % dos boletins da vite do Vêneto são digitalizados sem camada de texto.
+
+`USER_DECISIONS_REQUIRED` = **nenhuma** para continuar; a única que mudaria o escopo é se
+o portal deve ser desenhado — e a instrução atual é parar antes dele.
 
 ### NEXT_SMALLEST_STEP
-**Obter o calendário dos tratamentos obrigatórios ao vetor da flavescência na Lombardia
-e no Vêneto** — o *disciplinare* regional ou o Documento tecnico ufficiale n. 29. São uma
-ou duas páginas, e entregam a única coisa que falta ao caso mais forte da Itália: **as
-datas** em que a obrigação anual acontece. Com elas, `IT-HERO-001` passa a ter janela
-datada para o próximo ciclo em vez de "próximo ciclo" genérico.
+**Medir a camada de campo de Puglia, Calabria e Sicilia para oliveira, e de Vêneto,
+Lombardia e Piemonte para milho.** São seis páginas de serviço fitossanitário. Hoje os dois
+melhores sinais do país estão em regiões que **não** são onde a cultura vive — e essa é a
+única lacuna que, se fechada, muda a força de dois casos ao mesmo tempo.
 
-> **Por que confiar neste tipo de passo.** Esta rodada teve dois `NEXT_SMALLEST_STEP`, e
-> os dois foram **executados em vez de recomendados**. O primeiro trocou o caso vencedor
-> de míldio para flavescência. O segundo mostrou que a janela que eu tinha chamado de
-> aberta é de monitoramento, e derrubou um **AGIR AGORA** que eu mesmo tinha escrito.
-> **Nenhuma coleta grande desta rodada mudou tanto quanto esses dois downloads.**
+> Os três `NEXT_SMALLEST_STEP` desta branch foram **executados, não recomendados**. O
+> primeiro trocou o caso vencedor de míldio para flavescência; o segundo derrubou um
+> *AGIR AGORA* que eu mesmo tinha escrito; o terceiro entregou as datas da obrigação e,
+> de quebra, o achado de vencimento. **Nenhuma coleta grande desta branch mudou tanto
+> quanto esses três downloads.**
