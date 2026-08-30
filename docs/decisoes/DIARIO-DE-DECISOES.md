@@ -500,6 +500,44 @@ Regras do diário:
 
 ---
 
+### D-028 — O nome da métrica é parte do contrato
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO — **corrige uma publicação da própria missão**
+- **Contexto:** a rodada 4 publicou `ACTIVATION_READY = 9`. Os nove não eram equivalentes:
+  sete pessoas e duas contas de empresa.
+- **Decisão:** três métricas nomeadas — `PERSON_CREATOR_ACTIVATION_READY`,
+  `FARM_BUSINESS_PARTNER_READY` e, só quando houver razão, a soma
+  `MARKETING_CONTACTABLE_ENTITIES_READY`. **`CREATORS_READY` é métrica proibida.**
+- **Motivo:** o dado já estava correto; foi o **nome** que fez o trabalho que o dado
+  recusava fazer. Um rótulo agregador desfaz, numa linha de slide, uma distinção que custou
+  uma rodada inteira a estabelecer.
+- **Consequência:** a separação viaja no JSON, nas fichas, no artefato de capacidade e em
+  quatro testes — um deles varre os documentos à procura do nome proibido.
+- **Quem decidiu:** correção pedida pelo dono, aplicada na MISSÃO 14 rodada 5.
+
+---
+
+### D-029 — Um "não" medido é entrega, não fracasso
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** `IT × VITE` continuou sem shortlist, e a porta natural (Enovitis in Campo)
+  teve a conta oficial **provada** e rendeu **zero pessoas**.
+- **Decisão:** entregar `ITALY_VITE_CREATOR_CAPABILITY = NOT_READY` com a causa exata, e
+  **não** preencher a tela com creator de vinho consumer-facing.
+- **Motivo:** o padrão está medido e é estrutural — **prémios mencionam pessoas, feiras
+  mencionam empresas**. Abrir mais feiras não resolveria; falta uma porta italiana de
+  pessoas em viticultura. Substituir por mídia de vinho entregaria ao Marketing uma
+  audiência de consumidor no lugar de produtor de uva, que é exatamente o erro que esta
+  missão existe para impedir.
+- **Consequência:** um hub tecnicamente excelente foi `DEMOTED` como fonte de creators sem
+  perder o valor técnico. E `NOT_READY` passou a exigir causa com mais de 40 caracteres, por
+  teste.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 5.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
