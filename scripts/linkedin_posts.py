@@ -212,7 +212,7 @@ def autores_elegiveis(identidades):
     return fora[:TETO_AUTORES]
 
 
-def medir(posts, autores, identidades):
+def medir(posts, autores, identidades, nao_perguntados=()):
     """A resposta à pergunta da missão, com o que ela NÃO responde ao lado."""
     janela = [p for p in posts if p['IN_CASE_WINDOW']]
     exatos = [p for p in janela if p['CASE_RELEVANCE'] == 'EXACT_CASE_SIGNAL']
@@ -226,6 +226,11 @@ def medir(posts, autores, identidades):
         veredito = 'HUMAN_SENSOR_ADDS_CONTEXT_NOT_ANTICIPATION'
     elif vizinhos or campo:
         veredito = 'HUMAN_SENSOR_ADJACENT_ONLY'
+    elif nao_perguntados:
+        # Silêncio de quem NÃO foi perguntado não é silêncio dele: é meu.
+        # Dizer "não acrescenta nada" com autores por perguntar seria assinar
+        # um resultado que a coleta não produziu.
+        veredito = 'PANEL_INCOMPLETE_CANNOT_CONCLUDE'
     else:
         veredito = 'HUMAN_SENSOR_ADDS_NOTHING_IN_THIS_PANEL'
     # As localizações do fato, agregadas SEM somar espécies diferentes.
@@ -250,6 +255,7 @@ def medir(posts, autores, identidades):
             e: sum(1 for a in autores if a['IDENTITY_STATE'] == e) for e in ELEGIVEIS},
         'AUTHORS_NOT_COLLECTED': sorted(
             n for n, v in (identidades or {}).items() if v.get('STATE') not in ELEGIVEIS),
+        'AUTHORS_NOT_ASKED': sorted(nao_perguntados),
         'POSTS_READ': len(posts),
         'POSTS_IN_CASE_WINDOW': len(janela),
         'POSTS_NOT_DATED': sum(1 for p in posts
@@ -266,6 +272,8 @@ def medir(posts, autores, identidades):
                              'resolvida; qualquer voz fora dos 8 nomes'),
             'ZERO_IS_NOT_ABSENCE': ('zero sinal neste painel não é "as vozes humanas '
                                     'não servem" — é este painel, pequeno, medido'),
+            'AUTHORS_NOT_ASKED': ('autor por perguntar não é autor sem sinal; o '
+                                  'silêncio dele é meu, não dele'),
             'ANTICIPATION_RULE': 'achado depois do caso é contexto, nunca antecedência',
             'LOCATION_RULE': ('FACT_LOCATION só existe com trecho que ligue o '
                               'acontecimento ao lugar; BASE, OPERATING, INFLUENCE '
@@ -365,8 +373,10 @@ def executar():
             query=ap.redigir(json.dumps(entrada, ensure_ascii=False)),
             source_version=hoje,
             evidence_path='data/samples/IT-CASOS/IT-LINKEDIN-POSTS.json')
-        est = ap.classificar(status=None if man['STATUS'] == 'SUCCESS' else 'FAILED',
-                             status_message=str(man.get('ERROR') or ''), itens=itens)
+        # A traducao do manifesto para estado vive em UM lugar. Repeti-la aqui foi
+        # o que mandou 'FAILED' para todo manifesto que nao fosse SUCCESS — e
+        # 'PARTIAL por zero itens' virava falha do ator, parando a fila inteira.
+        est = ap.estado_da_execucao(man, itens)
         coletor.registrar(man, item_count_normalized=len(itens or []))
         return ([dict(i, _AUTOR=autor['NAME']) for i in (itens or [])
                  if isinstance(i, dict)], est)
@@ -376,12 +386,12 @@ def executar():
         identidade=lambda i: (i.get('_AUTOR'),
                               i.get('linkedinUrl') or i.get('url')
                               or str(i.get('content'))[:120]))
-    out['NEW_ACTOR_RUNS'] = len(r['UNITS_DONE'])
+    out['AUTHORS_ASKED'] = [u['NAME'] for u in r['UNITS_DONE']]
+    out['AUTHORS_EMPTY'] = [u['NAME'] for u in r.get('UNITS_EMPTY', [])]
+    out['AUTHORS_NOT_ASKED'] = [u['NAME'] for u in r['UNITS_PENDING']]
     out['POOL'] = {'TOKENS_AVAILABLE': r['TOKENS_AVAILABLE'],
                    'TOKENS_USED': r['TOKENS_USED'], 'STATE': r['STATE'],
-                   'BY_POSITION': r['BY_POSITION'],
-                   'UNITS_DONE': [u['NAME'] for u in r['UNITS_DONE']],
-                   'UNITS_PENDING': [u['NAME'] for u in r['UNITS_PENDING']]}
+                   'BY_POSITION': r['BY_POSITION']}
 
     por_nome = {a['NAME']: a for a in autores}
     posts = [ler_post({k: v for k, v in p.items() if k != '_AUTOR'},
@@ -392,7 +402,8 @@ def executar():
             pb.esqueleto({k: v for k, v in p.items() if k != '_AUTOR'}))
     out['POSTS'] = posts
     out['STATE'] = 'MEASURED'
-    out.update(medir(posts, autores, identidades))
+    out.update(medir(posts, autores, identidades,
+                     nao_perguntados=out.get('AUTHORS_NOT_ASKED', [])))
     return out
 
 
@@ -402,10 +413,14 @@ def main():
     with open(DEST, 'w', encoding='utf-8') as fh:
         fh.write(ap.redigir(json.dumps(out, ensure_ascii=False, indent=2)))
     print('STATE   =', out.get('STATE'))
-    print('autores =', out.get('AUTHORS_COLLECTED', 0),
-          '| runs =', out.get('NEW_ACTOR_RUNS', 0),
-          '| posts =', out.get('POSTS_READ', 0),
+    print('autores elegiveis =', out.get('AUTHORS_COLLECTED', 0),
+          '| perguntados =', len(out.get('AUTHORS_ASKED') or []),
+          '| vazios =', len(out.get('AUTHORS_EMPTY') or []),
+          '| POR PERGUNTAR =', len(out.get('AUTHORS_NOT_ASKED') or []))
+    print('posts =', out.get('POSTS_READ', 0),
           '| na janela =', out.get('POSTS_IN_CASE_WINDOW', 0))
+    if out.get('AUTHORS_NOT_ASKED'):
+        print('   por perguntar:', ', '.join(out['AUTHORS_NOT_ASKED']))
     for a in out.get('AUTHORS', []):
         print('   %-20s %-30s %s' % (a['NAME'][:20], a['IDENTITY_STATE'],
                                      (a['HEADLINE'] or '')[:50]))

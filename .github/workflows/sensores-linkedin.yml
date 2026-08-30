@@ -58,11 +58,16 @@ jobs:
       - name: provas do pool com chave falsa
         run: python3 -m unittest tests.test_apify_pool -v 2>&1 | tail -20
 
-      - name: coleta LinkedIn
+      # A coleta saiu deste workflow. Ela pedia searchQuery a um ator que nao le
+      # esse campo, e custou 8 execucoes devolvendo sempre a mesma pessoa.
+      # A coleta correta, com portao de contrato e de identidade, vive em
+      # linkedin-prova-busca.yml.
+      - name: onde a coleta vive agora
         if: ${{ inputs.censo_apenas == false }}
-        env:
-          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
-        run: python3 scripts/linkedin_sensores.py
+        run: |
+          python3 scripts/linkedin_sensores.py
+          echo "::notice::a coleta paga vive em linkedin-prova-busca.yml"
+          echo "este workflow so faz o censo do pool e as provas locais"
 
       - name: resultado sem segredo
         if: ${{ always() && inputs.censo_apenas == false }}

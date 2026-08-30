@@ -440,8 +440,10 @@ def executar(todos=False):
             query=ap.redigir(json.dumps(entrada, ensure_ascii=False)),
             source_version=datetime.date.today().isoformat(),
             evidence_path='data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json')
-        est = ap.classificar(status=None if man['STATUS'] == 'SUCCESS' else 'FAILED',
-                             status_message=str(man.get('ERROR') or ''), itens=itens)
+        # A traducao do manifesto para estado vive em UM lugar. Repeti-la aqui foi
+        # o que mandou 'FAILED' para todo manifesto que nao fosse SUCCESS — e
+        # 'PARTIAL por zero itens' virava falha do ator, parando a fila inteira.
+        est = ap.estado_da_execucao(man, itens)
         coletor.registrar(man, item_count_normalized=len(itens or []))
         return ([dict(i, _ALVO=alvo['NAME']) for i in (itens or []) if isinstance(i, dict)],
                 est)

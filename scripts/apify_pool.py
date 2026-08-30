@@ -39,6 +39,11 @@ de estados** que decide QUANDO trocar de chave — e, principalmente, quando
     NÃO ROTACIONA      PLATFORM_FAILURE · ACTOR_FAILURE · QUERY_FAILURE
                        PARSER_FAILURE · UNKNOWN_FAILURE
 
+    NEM UMA COISA      UNIT_EMPTY — a rota respondeu, e a resposta foi "nada".
+    NEM OUTRA          Não troca chave e não para a fila: passa para a próxima
+                       unidade. Sem este estado, um perfil sem publicações no
+                       período cala todos os perfis depois dele.
+
 `UNKNOWN_FAILURE` não rotaciona **de propósito**. Um bug meu que lance exceção
 genérica queimaria o pool inteiro em segundos, e o relatório diria "todas as
 chaves falharam" quando nenhuma chave foi tocada. Chave gasta à toa não volta.
@@ -90,6 +95,16 @@ ROTACIONAM = (TOKEN_EXHAUSTED, TOKEN_INVALID, TOKEN_RATE_LIMITED_ACCOUNT,
               TOKEN_OTHER_AUTH_FAILURE)
 NAO_ROTACIONAM = (PLATFORM_FAILURE, ACTOR_FAILURE, QUERY_FAILURE,
                   PARSER_FAILURE, UNKNOWN_FAILURE)
+
+# Uma unidade que devolveu ZERO itens sem nenhuma mensagem de cota. Medido em
+# 2026-08-30: um autor sem posts na janela derrubou a coleta dos outros TRES,
+# porque zero item estava sendo traduzido como falha do ator. Um perfil que nao
+# publicou e uma RESPOSTA — e a resposta de uma unidade nao pode encerrar a
+# pergunta das outras.
+#
+#     UNIT_EMPTY != ROUTE_FAILURE
+#     NOT_ASKED != NOT_FOUND != DOES_NOT_EXIST
+UNIT_EMPTY = 'UNIT_EMPTY_BUT_ROUTE_OK'
 
 POOL_EMPTY = 'POOL_EMPTY'
 
@@ -207,11 +222,30 @@ def classificar(*, http=None, status=None, status_message=None, itens=None,
 
     if status in ('FAILED', 'ABORTED', 'TIMED-OUT'):
         return ACTOR_FAILURE
+    # Sucesso com zero itens e SEM mensagem de cota (a cota ja foi tratada acima):
+    # a rota respondeu, e a resposta foi "nada". Nao e falha, e nao para a fila.
+    if status in ('SUCCEEDED', None) and itens is not None and len(itens) == 0:
+        return UNIT_EMPTY
     if status == 'SUCCEEDED':
         return TOKEN_OK
     if status is None and itens is not None:
         return TOKEN_OK
     return UNKNOWN_FAILURE
+
+
+def estado_da_execucao(manifesto, itens):
+    """O estado de UMA execução, a partir do que `coletor` registrou.
+
+    Existe para que cada chamador não repita a tradução — e foi repetindo-a
+    errado que a coleta de posts parou na primeira unidade vazia: o chamador
+    mandava `status='FAILED'` para todo manifesto que não fosse `SUCCESS`, e
+    `PARTIAL por zero itens` virava falha do ator.
+    """
+    erro = str((manifesto or {}).get('ERROR') or '')
+    bruto = (manifesto or {}).get('STATUS')
+    if bruto == 'SUCCESS' or (bruto == 'PARTIAL' and 'ZERO itens' in erro):
+        return classificar(status='SUCCEEDED', status_message=erro, itens=itens)
+    return classificar(status='FAILED', status_message=erro, itens=itens)
 
 
 def executar_com_pool(unidades, trabalho, *, identidade, env=None, teto_itens=None):
@@ -227,11 +261,12 @@ def executar_com_pool(unidades, trabalho, *, identidade, env=None, teto_itens=No
     if not ks:
         return {'STATE': POOL_EMPTY, 'TOKENS_AVAILABLE': 0, 'TOKENS_USED': 0,
                 'ITEMS': [], 'DUPLICATES_REMOVED': 0, 'BY_POSITION': [],
-                'UNITS_DONE': [], 'UNITS_PENDING': list(unidades)}
+                'UNITS_DONE': [], 'UNITS_EMPTY': [],
+                'UNITS_PENDING': list(unidades)}
 
     pos = 0
     itens, vistos, dups = [], set(), 0
-    feitas, pendentes = [], list(unidades)
+    feitas, pendentes, vazias = [], list(unidades), []
     porpos = {}
 
     while pendentes and pos < len(ks):
@@ -253,6 +288,14 @@ def executar_com_pool(unidades, trabalho, *, identidade, env=None, teto_itens=No
             continue
         if estado in NAO_ROTACIONAM:
             break                                     # não é a chave: parar, não gastar
+        if estado == UNIT_EMPTY:
+            # A rota respondeu "nada" para ESTA unidade. Segue para a próxima —
+            # confundir isto com falha faria um perfil sem posts calar os outros.
+            porpos[p].setdefault('UNITS_EMPTY', 0)
+            porpos[p]['UNITS_EMPTY'] += 1
+            vazias.append(pendentes[0])
+            feitas.append(pendentes.pop(0))
+            continue
 
         for it in (novos or []):
             k = identidade(it)
@@ -277,6 +320,7 @@ def executar_com_pool(unidades, trabalho, *, identidade, env=None, teto_itens=No
         'DUPLICATES_REMOVED': dups,
         'BY_POSITION': [porpos[k] for k in sorted(porpos)],
         'UNITS_DONE': feitas,
+        'UNITS_EMPTY': vazias,
         'UNITS_PENDING': pendentes,
     }
 

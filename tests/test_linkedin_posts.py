@@ -142,8 +142,25 @@ class AJanelaEDoCasoENaoDaFonte(unittest.TestCase):
 
 class OVereditoNaoUltrapassaOMedido(unittest.TestCase):
 
-    def _medir(self, posts):
-        return lp.medir(posts, [AUTOR], {'Pasquale De Vita': {'STATE': 'X'}})
+    def _medir(self, posts, nao_perguntados=()):
+        return lp.medir(posts, [AUTOR], {'Pasquale De Vita': {'STATE': 'X'}},
+                        nao_perguntados=nao_perguntados)
+
+    def test_com_autor_por_perguntar_o_painel_nao_conclui(self):
+        """O silencio de quem nao foi perguntado e meu, nao dele.
+
+        Foi exatamente isto que aconteceu na primeira coleta: um autor sem posts
+        parou a fila, tres nunca foram perguntados, e o veredito saiu dizendo
+        que as vozes humanas nao acrescentam nada.
+        """
+        r = self._medir([], nao_perguntados=['B', 'C', 'D'])
+        self.assertEqual(r['HUMAN_SENSOR_VERDICT'], 'PANEL_INCOMPLETE_CANNOT_CONCLUDE')
+        self.assertEqual(r['AUTHORS_NOT_ASKED'], ['B', 'C', 'D'])
+
+    def test_sem_ninguem_por_perguntar_o_zero_pode_ser_afirmado(self):
+        r = self._medir([], nao_perguntados=[])
+        self.assertEqual(r['HUMAN_SENSOR_VERDICT'],
+                         'HUMAN_SENSOR_ADDS_NOTHING_IN_THIS_PANEL')
 
     def test_zero_sinal_nao_vira_as_vozes_nao_servem(self):
         r = self._medir([])
