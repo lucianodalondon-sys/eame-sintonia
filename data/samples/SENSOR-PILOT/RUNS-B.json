@@ -4,7 +4,7 @@
  "SOURCE_LOCATION": "interno — metadado de coleta",
  "FACT_LOCATION": "n/a — descreve execução, não fato do mundo",
  "ORIGINAL_LANGUAGE": "pt",
- "CAPTURED_AT": "2026-08-30T21:50:13Z",
+ "CAPTURED_AT": "2026-08-30T21:53:15Z",
  "PARA_QUE_SERVE": "fragmento por lote, para dois runners não disputarem o RUN-MANIFEST canônico. A consolidação é um passo serializado.",
  "NUNCA_GRAVAR_TOKEN": "INPUT guarda consulta e parâmetros. Credencial, jamais.",
  "RUNS": [
@@ -221,6 +221,53 @@
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-LI-B-Thierry-C--Marcel-p3.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:40:22Z",
+   "TOKEN_POSITION_USED": 3,
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+  },
+  {
+   "RUN_ID": "SENSOR-TR-B-0-p3",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "pintostudio~youtube-transcript-scraper",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "2026-08-30T21:53:13Z",
+   "FINISHED_AT": "2026-08-30T21:53:14Z",
+   "INPUT": {
+    "videoUrls": [
+     {
+      "url": "https://www.youtube.com/watch?v=bOk7RFqE848"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=rqII-vRZZTY"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=VZGepvBdkoI"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=EAkcA_2FDN8"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=QXwvQiufKxg"
+     },
+     {
+      "url": "https://www.youtube.com/watch?v=6raOHsoibjk"
+     }
+    ]
+   },
+   "COUNTRY": "MULTI",
+   "MISSION": "13-PILOTO-SENSORES-TECNICOS",
+   "QUERY": "6 urls",
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 0,
+   "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
+   "COST_USD": "NOT_PRESERVED",
+   "SOURCE_VERSION": "captura de 2026-08-30",
+   "STATUS": "PARTIAL",
+   "ERROR": "status da plataforma: None. ",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-TR-B-0-p3.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T21:53:14Z",
    "TOKEN_POSITION_USED": 3,
    "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
   },
