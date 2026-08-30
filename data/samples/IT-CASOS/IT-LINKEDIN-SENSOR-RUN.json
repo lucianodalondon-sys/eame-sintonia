@@ -1,0 +1,84 @@
+{
+  "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+  "SOURCE_ID": "DERIVED/IT-LINKEDIN-SENSOR-RUN",
+  "source": "LinkedIn via Apify, pool APIFY_TOKEN_POOL, GitHub Actions run 33318238109",
+  "SOURCE_LOCATION": "LinkedIn",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_PROBE",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "CASE_DATE": "2026-04-23",
+  "WINDOW": [
+    "2026-01-01",
+    "2026-05-31"
+  ],
+  "RUN_URL": "https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/33318238109",
+  "POOL": {
+    "TOKEN_POOL_PRESENT": "YES",
+    "TOKEN_POOL_SIZE": 4,
+    "FORMAT_WARNINGS": []
+  },
+  "TOKEN_VALUE_LOGGED": "NO",
+  "TOKEN_VALUE_COMMITTED": "NO",
+  "BRAZIL_PATTERN_REUSED": "YES",
+  "BRAZIL_PATTERN_SOURCE": "portal-sintonia/credenciais.py — _separa, _descola, _sem_rotulo, formato_suspeito",
+  "PROFILE_STAGE": {
+    "TOKENS_AVAILABLE": 4,
+    "TOKENS_USED": 1,
+    "POOL_POSITION_USED": [
+      1
+    ],
+    "BY_POSITION": [
+      {
+        "POOL_POSITION": 1,
+        "RUNS": 8,
+        "ITEMS": 8,
+        "FINAL_STATE": "TOKEN_OK"
+      }
+    ],
+    "STATE": "DONE",
+    "UNITS_PENDING": [],
+    "DUPLICATES_REMOVED": 0
+  },
+  "PROFILES_RESOLVED": 0,
+  "POSTS_READ": 0,
+  "STATE": "NO_PROFILE_RESOLVED",
+  "WHY_THIS_IS_NOT_A_LINKEDIN_MEASUREMENT": "o ator EXISTIU, RODOU e DEVOLVEU: 8 execucoes, 8 itens, FINAL_STATE = TOKEN_OK, STATE = DONE. Nao houve ACTOR_FAILURE nem rotacao. O que falhou foi o MEU mapeamento de campos: procurei profileUrl / url / publicIdentifier e nenhum dos oito itens trouxe algum deles. Portanto \"8 perfis NOT_FOUND\" e resultado do meu parser, NAO resposta do LinkedIn. Chamar isso de ausencia de perfil seria repetir, com ferramenta paga, o erro que esta branch ja corrigiu quatro vezes.",
+  "MY_PRESERVATION_DEFECT": "o coletor.py gravou o RAW em data/samples/raw-paid/ dentro do runner, mas o workflow so subiu o JSON de resumo como artefato. O runner foi destruido. Entao gastei 8 execucoes e NAO POSSO INSPECIONAR o que voltou. E exatamente a licao do boletim do LaMMA — evidencia que sustenta um achado tem de ser preservada — agora repetida numa rota PAGA, que e pior, porque nao da para reler de graca.",
+  "FIX_APPLIED": "o workflow passa a subir data/samples/raw-paid/ junto do resumo",
+  "COST": {
+    "TOTAL_ACTOR_RUNS": 8,
+    "TOTAL_ITEMS": 8,
+    "TOTAL_COST": "NAO MEDIDO — usageTotalUsd nao veio no resumo",
+    "TOKENS_USED": 1,
+    "TOKENS_AVAILABLE": 4,
+    "DUPLICATES_REMOVED": 0,
+    "NOTE": "so a posicao 1 do pool foi tocada; nenhuma rotacao foi necessaria"
+  },
+  "CLOCK": {
+    "FIRST_RESEARCHER_LINKEDIN_SIGNAL": {
+      "STATE": "NOT_MEASURED"
+    },
+    "FIRST_TECHNICAL_LINKEDIN_SIGNAL": {
+      "STATE": "NOT_MEASURED"
+    },
+    "FIRST_EXACT_CASE_SIGNAL": {
+      "STATE": "NOT_MEASURED"
+    }
+  },
+  "COUNTS": {
+    "EXACT_CASE_SIGNAL": 0,
+    "NEIGHBOURING_SIGNAL": 0,
+    "RETROSPECTIVE": 0,
+    "NOTE": "zero porque nada foi lido, nao porque nada existe"
+  },
+  "VERDICT": "HUMAN_SENSOR_LAYER_PROMISING_BUT_NOT_PROVED",
+  "VERDICT_WHY": "o veredito NAO muda. A porta do LinkedIn foi tecnicamente aberta — o pool funcionou, a chave autenticou, o ator rodou — mas nenhum conteudo foi lido, entao nada foi medido. Nao e NOT_PROVED_WITH_LINKEDIN_OPEN: a porta abriu, a leitura e que nao aconteceu.",
+  "RECOMMENDATION": "MANTER_PEQUENO",
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "que os oito nao tenham perfil no LinkedIn",
+    "que nao tenham publicado na janela",
+    "qualquer coisa sobre a camada de sensores humanos"
+  ]
+}

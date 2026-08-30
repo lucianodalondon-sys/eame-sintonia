@@ -81,5 +81,7 @@ jobs:
         if: ${{ always() && inputs.censo_apenas == false }}
         with:
           name: linkedin-sensor-run
-          path: data/samples/IT-CASOS/IT-LINKEDIN-SENSOR-RUN.json
+          path: |
+            data/samples/IT-CASOS/IT-LINKEDIN-SENSOR-RUN.json
+            data/samples/raw-paid/
           if-no-files-found: ignore
