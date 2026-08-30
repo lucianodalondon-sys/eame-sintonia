@@ -15,8 +15,11 @@ O resultado inverte a intuição em duas culturas ao mesmo tempo:
                più redatta" — competência em transferência para a ARIF.
 
     MILHO      FVG tem 6,7% da área e publica 10 boletins de MAIS em 2026.
-               Vêneto tem 24,8% e publica ZERO — seus dois boletins de herbáceas
-               de 2026 são trigo (março) e beterraba (junho).
+               Vêneto tem 24,8% e o serviço fitossanitário publica ZERO — seus dois
+               boletins de herbáceas de 2026 são trigo (março) e beterraba (junho).
+               Mas a AVISP publica outra série, que trata de milho, e da qual duas
+               edições foram lidas. Sem índice enumerável, o Vêneto não entra nem
+               na cobertura nem no denominador: fica nomeado, fora dos dois.
 
 A LEI QUE ESTE ARQUIVO OBEDECE, e que já foi violada uma vez nesta branch:
 
@@ -81,19 +84,52 @@ def linhas():
          'ROUTE_TRIED': ('regione.veneto.it (serviço fitossanitário) E '
                          'venetoagricoltura.org (Avisp) — duas rotas, dois resultados'),
          'STATE': 'BULLETIN_EXISTS_ROUTE_NOT_READABLE',
-         'NOTE': ('CORREÇÃO. A rota do SERVIÇO FITOSSANITÁRIO publica 2 boletins de '
-                  'herbáceas em 2026 — frumento (n.01, 06/03) e beterraba (n.02, 05/06) —, '
-                  'nenhum de milho, contra 28 de olivo e 16 de vite. Mas existe uma '
-                  'SEGUNDA rota: a AVISP/Veneto Agricoltura publica o "Bollettino Colture '
-                  'Erbacee", numerado e semanal, com edições dedicadas à PIRALIDE DO MILHO '
-                  '(n.42 de 15/07/2022, n.40 de 19/07/2024, n.4 de 20/01/2025) e página de '
-                  'tópico atualizada em 20/05/2026. O site é um SPA Angular que não '
-                  'renderiza no servidor e o host de arquivo devolve 503, então o CONTEÚDO '
-                  'não foi lido deste ambiente. A EXISTÊNCIA está provada pelo índice de '
-                  'busca; o conteúdo, não. Isto é NOT_OBTAINED — e deixa de ser ausência.'),
+         'NOTE': ('CORREÇÃO EM DOIS TEMPOS. (1) A rota do SERVIÇO FITOSSANITÁRIO publica 2 '
+                  'boletins de herbáceas em 2026 — frumento (n.01, 06/03) e beterraba '
+                  '(n.02, 05/06) —, nenhum de milho, contra 28 de olivo e 16 de vite. '
+                  '(2) Existe uma SEGUNDA rota: a AVISP/Veneto Agricoltura publica o '
+                  '"Bollettino Colture Erbacee", numerado e semanal, com edições dedicadas '
+                  'à PIRALIDE DO MILHO (n.42 de 15/07/2022, n.40 de 19/07/2024, n.4 de '
+                  '20/01/2025) e página de tópico atualizada em 20/05/2026. O portal é um '
+                  'SPA Angular que não renderiza no servidor, mas o endpoint de download '
+                  'por ID (ver DOWNLOAD_ROUTE) devolve o PDF real, e DUAS edições foram '
+                  'lidas nesta branch. O que continua faltando NÃO é o conteúdo de uma '
+                  'edição — é o ÍNDICE: não há listagem enumerável, então o número de '
+                  'edições de milho de 2026 permanece não medido, e a linha fica fora da '
+                  'cobertura E fora do denominador. Ler duas edições não é medir uma série.'),
          'EXISTENCE_EVIDENCE': ('títulos e datas indexados de edições que tratam de '
-                                'piralide do mais'),
-         'CONTENT_STATE': 'NOT_READ_FROM_THIS_ENVIRONMENT'},
+                                'piralide do mais, MAIS o conteúdo integral de duas '
+                                'edições lidas por ID'),
+         'CONTENT_STATE': 'PARTIALLY_READ_TWO_EDITIONS_NO_ENUMERABLE_INDEX',
+         'DOWNLOAD_ROUTE': ('venetoagricoltura.org/myportal/AVPISP/api/content/download'
+                            '?id=<id> — devolve o PDF; o <id> só aparece em resultado de '
+                            'busca pública, não há endpoint de listagem alcançável'),
+         'EDITIONS_READ': [
+             {'TITLE': 'Bollettino n. 53 — MICOTOSSINE NEL MAIS',
+              'YEAR': 'NÃO SEI — o ano não foi registrado na leitura',
+              'CONTENT': ('risco sazonal de micotoxina calculado pelo DSS Mais.net da Horta '
+                          'sobre as estações das aziende da Veneto Agricoltura; risco de '
+                          'AFLATOSSINA declarado ALTO em todas as estações e de FUMONISINA '
+                          'de médio-alto a alto; projeto com o CREA-CI verificando o nível '
+                          'de infecção das sedas (stigmi)'),
+              'WHY_IT_MATTERS': ('é sinal de campo de MILHO no Vêneto, georreferenciado por '
+                                 'estação e ligado a um DSS nomeado — exatamente a classe '
+                                 'de sinal que eu havia declarado ausente na região')},
+             {'TITLE': 'Bollettino n. 18/2025 — NOTTUE',
+              'YEAR': '2025',
+              'CONTENT': ('primeira captura de Agrotis ipsilon em Cartura (PD) em '
+                          '03/03/2025; modelo de graus-dia (Tmax−Tmin)/2 − 10,4 °C'),
+              'WHY_IT_MATTERS': ('confirma série numerada, contínua e com limiar fenológico '
+                                 '— não é boletim ocasional')}],
+         'RAW_EVIDENCE_STATE': 'NOT_PRESERVED',
+         'RAW_EVIDENCE_CONFESSION': ('os dois PDFs foram lidos em sessão e NÃO foram '
+                                     'gravados em data/raw antes de a rota deixar de estar '
+                                     'disponível neste ambiente. Segundo o contrato de '
+                                     'scripts/proveniencia.py, NOT_PRESERVED é confissão: '
+                                     'o dado existiu e não foi guardado. O resumo acima é '
+                                     'testemunho de leitura, não evidência re-verificável, '
+                                     'e por isso NÃO sustenta nenhuma métrica. Re-obter e '
+                                     'preservar está no handoff de navegador local.')},
         {'CROP': 'Milho grão', 'REGION': 'Lombardia', 'NUTS2': 'ITC4',
          'AREA_THS_HA': 115.8, 'PCT_NATIONAL': 23.4, 'AREA_RANK': 2,
          'BULLETINS_2026_MEASURED': 0,
@@ -165,6 +201,13 @@ def main():
         'ANSWER': 'não, e a inversão é medida em duas culturas',
         'LAW_OBEYED': ('NOT_OBTAINED ≠ DOES NOT EXIST — cada linha declara a rota tentada. '
                        'Nada aqui é declarado inexistente.'),
+        'LAW_ADDED_2026_08_30': ('EDIÇÃO LIDA ≠ SÉRIE MEDIDA. Ter lido duas edições da série '
+                                 'da AVISP prova que a série existe e é sobre milho; não '
+                                 'diz quantas edições de 2026 existem. Sem índice '
+                                 'enumerável não há denominador, e sem denominador não há '
+                                 'cobertura. A tentação de promover o Vêneto a '
+                                 '"coberto" porque agora eu li algo é exatamente o erro '
+                                 'que COBERTURA ALTA ≠ COBERTURA CORRETA nomeia.'),
         'BY_CROP': {c: inversao(ls, c) for c in ('Oliveira', 'Milho grão')},
         'ROWS': ls,
         'CONSEQUENCE': ('um sistema que dependa só de boletim oficial enxerga bem a cultura '

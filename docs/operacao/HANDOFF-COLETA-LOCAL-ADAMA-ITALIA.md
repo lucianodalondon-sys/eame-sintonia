@@ -128,3 +128,53 @@ claims, pack sizes, catálogo, materiais. Nada disso é `REGULATORY_FACT`, e nad
 muda nenhum dos três hero cases.
 
 `LOCAL_BROWSER_HANDOFF_STATUS = READY_TO_RUN`
+
+---
+
+## 7 · SEGUNDO ALVO DO MESMO HANDOFF — O BOLETIM DE MILHO DO VÊNETO
+
+Isto não é ADAMA e não é WAF. É uma dívida de **preservação** que só uma máquina com
+navegador fecha, e ela vale mais do que parece: o Vêneto tem **24,8 % do milho italiano**
+e hoje está fora da cobertura *e* fora da ausência por falta de índice.
+
+**O que se sabe funcionar:**
+
+```
+https://www.venetoagricoltura.org/myportal/AVPISP/api/content/download?id=<id>
+```
+
+devolve o PDF real do *Bollettino Colture Erbacee* da AVISP. O portal é um SPA Angular
+que não renderiza no servidor; o `<id>` só apareceu em resultado de busca pública.
+
+**O que falta e por que:** não há endpoint de listagem alcançável deste ambiente. A
+procura por um foi **encerrada, não contornada** — sondar API não documentada de um
+portal público não está autorizado por este handoff nem por nenhum outro.
+
+**O que a máquina local deve fazer, e só isto:**
+
+1. Abrir o portal da AVISP **no navegador, como qualquer leitor**, e navegar até o índice
+   do *Bollettino Colture Erbacee* de **2026**.
+2. Anotar, para cada edição de 2026: **número · data · título · URL do PDF**.
+3. Baixar as edições cujo título trate de **milho / piralide / diabrotica / micotossine**,
+   com pausa de 2,5 s entre requisições e respeitando o `robots.txt`.
+4. Gravar em `data/raw/IT/avisp/` com **SHA-256, tamanho e data** no manifesto.
+
+**Duas edições a re-obter em primeiro lugar** — foram lidas nesta branch e **não foram
+preservadas** (`RAW_EVIDENCE_STATE = NOT_PRESERVED`, confissão, não ausência):
+
+| Edição | Conteúdo lido | Estado |
+|---|---|---|
+| **n. 53 — Micotossine nel mais** | risco sazonal pelo DSS **Mais.net** (Horta) sobre as estações das aziende da Veneto Agricoltura; **aflatossina ALTA** em todas as estações, fumonisina de média-alta a alta; verificação do nível de infecção das sedas com o **CREA-CI**. Ano **NÃO SEI** — não foi registrado na leitura. | `NOT_PRESERVED` |
+| **n. 18/2025 — Nottue** | primeira captura de *Agrotis ipsilon* em **Cartura (PD)**, 03/03/2025; modelo de graus-dia `(Tmax−Tmin)/2 − 10,4 °C`. | `NOT_PRESERVED` |
+
+**O que o retorno destrava, e o que não destrava.** Com o índice de 2026 em mãos, o
+Vêneto ganha denominador e a cobertura de campo do milho sobe de **17,1 %** para até
+**~42 %** — o que reforça `IT-HERO-002` de forma material.
+
+**Enquanto o índice não chegar, a linha do Vêneto não pode ser promovida.**
+`EDIÇÃO LIDA ≠ SÉRIE MEDIDA`. Ler duas edições prova que a série existe e trata de milho;
+não diz quantas edições de 2026 existem. Promover a região porque *finalmente li alguma
+coisa* é a forma local de `COBERTURA ALTA ≠ COBERTURA CORRETA`, e há teste que reprova
+essa promoção: `test_edicao_lida_nao_promove_a_regiao_a_coberta`.
+
+`AVISP_INDEX_HANDOFF_STATUS = READY_TO_RUN`

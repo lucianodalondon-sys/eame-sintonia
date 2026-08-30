@@ -138,6 +138,27 @@ Artefato: `data/samples/IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json`
 > está provada pelo índice, o **conteúdo** não foi lido. Fica `NOT_OBTAINED`, fora da
 > cobertura **e** fora da ausência.
 
+> **Segunda correção — o conteúdo é legível por ID, e mesmo assim o Vêneto não sobe.**
+> O endpoint `myportal/AVPISP/api/content/download?id=<id>` devolve o PDF real, e **duas
+> edições foram lidas**: *n. 53 — Micotossine nel mais* (risco sazonal pelo DSS **Mais.net**
+> da Horta sobre as estações das aziende da Veneto Agricoltura; **aflatossina ALTA** em
+> todas, fumonisina de média-alta a alta; verificação de infecção das sedas com o **CREA-CI**)
+> e *n. 18/2025 — Nottue* (primeira captura de *Agrotis ipsilon* em Cartura, PD, em
+> 03/03/2025; graus-dia `(Tmax−Tmin)/2 − 10,4 °C`). Isso prova que a série existe, é
+> numerada e trata de milho com estação nomeada e limiar.
+>
+> **Não prova quantas edições de 2026 existem.** O `<id>` só aparece em resultado de busca
+> pública; não há endpoint de listagem alcançável, e a tentativa de encontrá-lo foi
+> encerrada em vez de contornada. Sem índice não há denominador, e sem denominador não há
+> cobertura: o Vêneto continua fora dos dois lados. **`EDIÇÃO LIDA ≠ SÉRIE MEDIDA`** —
+> é a forma local de `COBERTURA ALTA ≠ COBERTURA CORRETA`, e o teste
+> `test_edicao_lida_nao_promove_a_regiao_a_coberta` impede a promoção silenciosa.
+>
+> **Os dois PDFs não foram preservados** em `data/raw` antes de a rota deixar de estar
+> disponível neste ambiente: `RAW_EVIDENCE_STATE = NOT_PRESERVED`. O resumo acima é
+> **testemunho de leitura, não evidência re-verificável**, e por isso não sustenta métrica
+> nenhuma. Re-obter e gravar está no handoff de navegador local.
+
 > **O trigo duro é a primeira cultura da Itália — 1.177,4 mil ha — e não tem nenhum
 > sinal de campo nas regiões medidas.** É a maior lacuna do país, e ela não aparece em
 > nenhum caso porque nenhum caso foi construído sobre ela.

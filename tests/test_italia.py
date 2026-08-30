@@ -327,6 +327,36 @@ class TestCoberturaDeCampo(unittest.TestCase):
         self.assertNotIn('Veneto', d['REGIONS_PUBLISHING'])
         self.assertGreater(d['PCT_NATIONAL_EXISTS_NOT_READ'], 0)
 
+    def test_edicao_lida_nao_promove_a_regiao_a_coberta(self):
+        """Ler edicoes da serie nao vira cobertura enquanto nao houver indice.
+
+        Duas edicoes da serie da AVISP foram lidas pelo endpoint de download por ID
+        (micotossine nel mais; nottue). Isso prova que a serie existe e trata de milho.
+        NAO diz quantas edicoes de 2026 existem. Sem denominador nao ha cobertura, e a
+        linha tem de continuar fora dos dois lados. Este teste existe porque a tentacao
+        de promover o Veneto justamente por eu ter finalmente lido algo e a forma local
+        de COBERTURA ALTA != COBERTURA CORRETA.
+        """
+        veneto = [l for l in self.linhas
+                  if l['REGION'] == 'Veneto' and l['CROP'] == 'Milho grão'][0]
+        self.assertTrue(veneto.get('EDITIONS_READ'), 'as edicoes lidas devem ficar no registro')
+        self.assertIsNone(veneto['BULLETINS_2026_MEASURED'],
+                          'edicao lida nao e serie medida: o denominador continua ausente')
+        d = self.cc.inversao(self.linhas, 'Milho grão')
+        self.assertNotIn('Veneto', d['REGIONS_PUBLISHING'])
+
+    def test_testemunho_de_leitura_confessa_que_o_bruto_nao_foi_preservado(self):
+        """Resumo de PDF lido em sessao nao e evidencia: tem de se declarar NOT_PRESERVED.
+
+        Os dois PDFs da AVISP foram lidos e nunca gravados em data/raw. Se a linha
+        carrega o conteudo sem confessar o estado do bruto, ela passa a parecer
+        evidencia re-verificavel — e nao e.
+        """
+        veneto = [l for l in self.linhas
+                  if l['REGION'] == 'Veneto' and l['CROP'] == 'Milho grão'][0]
+        self.assertEqual('NOT_PRESERVED', veneto.get('RAW_EVIDENCE_STATE'))
+        self.assertTrue(veneto.get('RAW_EVIDENCE_CONFESSION'))
+
     def test_a_inversao_e_detectada(self):
         for cultura in ('Oliveira', 'Milho gr\u00e3o'):
             self.assertTrue(self.cc.inversao(self.linhas, cultura)['INVERTED'], cultura)
