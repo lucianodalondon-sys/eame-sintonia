@@ -89,24 +89,75 @@ CROP_TERMS = {
     'ALFALFA': [r'\berba\s+medica\b'],
 }
 
+# CONTEXTO DE ROTAÇÃO — a armadilha que quase publicou 23 "produtos de milho" da ADAMA.
+# GOLTIX (METAMITRON) é herbicida de beterraba. `mais` aparece no rótulo dele porque a
+# etichetta declara o que se pode semear DEPOIS, em caso de falha da cultura:
+#   "In caso di fallimento della coltura: (...) patate e mais possono essere seminate
+#    in seguito ad aratura profonda."
+# Isso é RESTRIÇÃO DE SUCESSÃO, o oposto de autorização de uso. Contar essa menção como
+# presença na cultura inverteria o sentido do documento.
+CONTEXTO_ROTACAO = re.compile(
+    r'(fallimento della coltura|colture? (?:in )?success|avvertenze agronomiche|'
+    r'rotazion|semina(?:re|te|ti)? in seguito|intervallo .{0,30}semina|'
+    r'possono essere seminat|puo essere seminat|può essere seminat|'
+    r'colture da rinnovo|residui nel terreno)', re.I)
+
+JANELA_ROTACAO = 260
+
+# MODO DE AÇÃO — declarado pelo próprio rótulo (HRAC/FRAC/IRAC).
+#
+# A primeira versão deste extrator reportava 55% de cobertura e estava ERRADA. Ela
+# procurava o código DEPOIS do nome do esquema, e a construção italiana é a inversa:
+#
+#     "Meccanismo d\u2019azione gruppo B (HRAC)"                      <- código ANTES
+#     "Meccanismi d\u2019azione: gruppo 2 (B), gruppo 27 (F2), gruppo 4 (O) (HRAC)"
+#     "MECCANISMO D\u2019AZIONE (HRAC): GRUPPO 5 (C1) E GRUPPO 27 (F2)"  <- e DEPOIS
+#
+# Procurando à frente, o extrator capturava a primeira maiúscula que encontrasse —
+# que era a inicial do nome do produto. `TAIFUN MK CL` virou HRAC "T" e
+# `HERBITOTAL CL` virou HRAC "H"; ambos são glifosato, HRAC G, e o rótulo dizia G.
+# Cobertura de 55% com valor errado é pior que cobertura menor e certa:
+# `COBERTURA ALTA É SUSPEITA, NÃO CONQUISTA`.
+#
+# A versão atual ancora no token `gruppo/gruppi` — que é onde o código realmente vive —
+# e só atribui ao esquema cujo nome aparece na mesma vizinhança. Rótulo que não declara
+# devolve vazio, e vazio é `NÃO DECLARA`, nunca `não tem`.
+ESQUEMA = re.compile(r'\b(HRAC|FRAC|IRAC)\b', re.I)
+GRUPO = re.compile(r'\bgrupp[oi]\s*:?\s*([0-9]{1,2}[A-Z]?|[A-Z])\b(?:\s*\(([A-Z][0-9]?)\))?', re.I)
+JANELA_MOA = 200
+
 DESLOC = 29
 
 
 def _corrigir_deslocamento(t):
-    """Desfaz o mapa de fonte deslocado +29, e só quando a evidência o indica."""
-    isoladas = len(re.findall(r'(?:\b[A-Za-z]\s){4,}', t))
-    if isoladas < 3:
+    """Desfaz o mapa de fonte deslocado +29, e só quando a evidência o indica.
+
+    A primeira versão só reconhecia sequências de LETRAS separadas por espaço, e por
+    isso não via o caso mais comum: `0 ( & & $ 1 , 6 0 2` — que é `MECCANISMO` com o
+    mesmo deslocamento, escrito com dígitos e pontuação porque o subconjunto da fonte
+    remapeia todo o intervalo, não só as letras. O efeito prático era caro: o rótulo do
+    glifosato declara `gruppo G (HRAC)` dentro de um trecho assim, e saía como
+    `NÃO DECLARA`.
+
+    A decodificação só é ACEITA se o resultado virar texto latino plausível. Decodificar
+    e conferir é o que separa correção de chute — um deslocamento aplicado às cegas
+    estragaria todo o texto são do documento.
+    """
+    corridas = list(re.finditer(r'(?:[!-~¶]\s){3,}[!-~¶]', t))
+    if len(corridas) < 3:
         return t, False
 
     def rep(m):
         bruto = m.group(0)
-        letras = re.findall(r'[A-Za-z¶]', bruto)
-        dec = ''.join("'" if c == '¶' else chr(ord(c) + DESLOC) for c in letras)
-        # Só aceita se o resultado for minúsculas latinas — decodificação que produz
-        # lixo é decodificação errada, e nesse caso o bruto é preservado.
-        return dec if re.fullmatch(r"[a-z']{3,}", dec) else bruto
+        chars = [c for c in bruto if not c.isspace()]
+        dec = ''.join("'" if c == '¶' else chr(ord(c) + DESLOC) for c in chars)
+        # Aceita só se virar palavra latina: letras, apóstrofo, espaço.
+        if re.fullmatch(r"[A-Za-z'\u00c0-\u00ff ]{3,}", dec) and re.search(r'[aeiouAEIOU]', dec):
+            return dec
+        return bruto
 
-    return re.sub(r'(?:[A-Za-z¶]\s){2,}[A-Za-z¶]', rep, t), True
+    novo = re.sub(r'(?:[!-~¶]\s){3,}[!-~¶]', rep, t)
+    return novo, novo != t
 
 
 def texto(caminho):
@@ -141,24 +192,69 @@ def alvos(t):
 
 
 def culturas(t):
-    """Presença de termo de cultura, com trecho literal como evidência."""
+    """Presença de termo de cultura, separando USO de ROTAÇÃO.
+
+    Duas saídas possíveis, e a diferença é de sentido, não de grau:
+
+      `CROP_TERM_PRESENT`          o termo aparece fora de cláusula de sucessão
+      `ROTATION_CONTEXT_ONLY`      TODAS as menções estão em cláusula de sucessão —
+                                   o rótulo fala da cultura para RESTRINGIR o que se
+                                   semeia depois. Não é uso; é quase o contrário.
+
+    Nenhuma das duas é `AUTHORIZED_ON_CROP`. A autorização por cultura mora na coluna
+    da tabela de doses, que a extração de PDF não reconstrói.
+    """
     out = {}
     for nome, pats in CROP_TERMS.items():
-        achados = []
+        usos, rot = [], []
         for p in pats:
             for m in re.finditer(p, t, re.I):
-                ini = max(0, m.start() - 60)
-                achados.append({'MATCH': m.group(0),
-                                'CONTEXT': t[ini:m.end() + 60].strip()})
-                break
-        if achados:
-            out[nome] = {'STATE': 'CROP_TERM_PRESENT', 'EVIDENCE': achados[:2]}
+                ini = max(0, m.start() - JANELA_ROTACAO)
+                antes = t[ini:m.start()]
+                ev = {'MATCH': m.group(0),
+                      'CONTEXT': t[max(0, m.start() - 90):m.end() + 90].strip()}
+                (rot if CONTEXTO_ROTACAO.search(antes) else usos).append(ev)
+        if not usos and not rot:
+            continue
+        out[nome] = {
+            'STATE': 'CROP_TERM_PRESENT' if usos else 'ROTATION_CONTEXT_ONLY',
+            'MENTIONS_USE_CONTEXT': len(usos),
+            'MENTIONS_ROTATION_CONTEXT': len(rot),
+            'EVIDENCE': (usos or rot)[:2],
+        }
     return out
+
+
+def modo_de_acao(t):
+    """Grupos de modo de ação declarados PELO RÓTULO. Vazio é 'não declara', não 'não tem'."""
+    esquemas = [(m.start(), m.group(1).upper()) for m in ESQUEMA.finditer(t)]
+    if not esquemas:
+        return {}
+    out = {}
+    for g in GRUPO.finditer(t):
+        perto = [(abs(g.start() - pos), nome) for pos, nome in esquemas
+                 if abs(g.start() - pos) <= JANELA_MOA]
+        if not perto:
+            continue
+        nome = min(perto)[1]
+        codigo = g.group(1).upper()
+        if g.group(2):
+            codigo += ' (%s)' % g.group(2).upper()
+        out.setdefault(nome, set()).add(codigo)
+    return {k: sorted(v) for k, v in sorted(out.items())}
 
 
 def analisar(caminho):
     t, corrigido = texto(caminho)
+    mo = modo_de_acao(t)
     return {
+        'MODE_OF_ACTION_DECLARED': mo,
+        # Onde a fonte deslocada aparece, MoA pode estar SUB-reportado: o código às vezes
+        # fica colado num trecho que a decodificação não recupera com segurança. Recuperá-lo
+        # à força arriscaria fundir o código na palavra anterior (`gruppo G` -> `gruppod`),
+        # e um valor corrompido é pior que um vazio honesto. Fica declarado como limitação.
+        'MODE_OF_ACTION_EXTRACTION': ('LIMITED_BY_FONT_ENCODING' if (corrigido and not mo)
+                                      else ('DECLARED' if mo else 'NOT_DECLARED')),
         'TEXT_CHARS': len(t),
         'FONT_SHIFT_CORRECTION_APPLIED': corrigido,
         'ISSUES_FROM_SOURCE': alvos(t),

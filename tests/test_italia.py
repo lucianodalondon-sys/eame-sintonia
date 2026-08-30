@@ -94,6 +94,52 @@ class TestRotulo(unittest.TestCase):
         self.assertEqual(c['MAIZE']['STATE'], 'CROP_TERM_PRESENT')
 
 
+class TestContextoDeRotacao(unittest.TestCase):
+    """A armadilha que quase publicou 4 herbicidas de beterraba como produtos de milho."""
+
+    def test_clausula_de_sucessao_nao_e_uso(self):
+        t = ('AVVERTENZE AGRONOMICHE: In caso di fallimento della coltura: barbabietola '
+             'da zucchero puo essere seminata senza attesa; patate e mais possono essere '
+             'seminate in seguito ad aratura profonda.')
+        c = rp.culturas(t)
+        self.assertEqual(c['MAIZE']['STATE'], 'ROTATION_CONTEXT_ONLY')
+        self.assertEqual(c['MAIZE']['MENTIONS_USE_CONTEXT'], 0)
+
+    def test_uso_real_continua_sendo_uso(self):
+        t = 'Diserbo di post-emergenza del mais: dose 1,5 l/ha.'
+        self.assertEqual(rp.culturas(t)['MAIZE']['STATE'], 'CROP_TERM_PRESENT')
+
+    def test_uso_vence_rotacao_quando_ha_os_dois(self):
+        t = ('Erbicida per il mais. Dose 1 l/ha. In caso di fallimento della coltura '
+             'il mais puo essere seminato dopo 30 giorni.')
+        c = rp.culturas(t)
+        self.assertEqual(c['MAIZE']['STATE'], 'CROP_TERM_PRESENT')
+        self.assertGreaterEqual(c['MAIZE']['MENTIONS_ROTATION_CONTEXT'], 1)
+
+
+class TestModoDeAcao(unittest.TestCase):
+    """O extrator anterior reportava 55% e estava errado. Estes casos sao os reais."""
+
+    def test_codigo_antes_do_esquema(self):
+        self.assertEqual(rp.modo_de_acao("Meccanismo d'azione gruppo B (HRAC)"),
+                         {'HRAC': ['B']})
+
+    def test_varios_grupos_numa_so_declaracao(self):
+        t = "Meccanismi d'azione: gruppo 2 (B), gruppo 27 (F2), gruppo 4 (O) (HRAC)"
+        self.assertEqual(rp.modo_de_acao(t), {'HRAC': ['2 (B)', '27 (F2)', '4 (O)']})
+
+    def test_codigo_depois_do_esquema(self):
+        t = "MECCANISMO D'AZIONE (HRAC): GRUPPO 5 (C1) E GRUPPO 27 (F2)"
+        self.assertEqual(rp.modo_de_acao(t), {'HRAC': ['27 (F2)', '5 (C1)']})
+
+    def test_inicial_do_produto_nao_vira_grupo(self):
+        """`TAIFUN MK CL` virava HRAC 'T'. Sem token `gruppo`, nao ha grupo."""
+        self.assertEqual(rp.modo_de_acao('(HRAC) TAIFUN MK CL Registrazione n. 1'), {})
+
+    def test_sem_declaracao_devolve_vazio(self):
+        self.assertEqual(rp.modo_de_acao('Fungicida per cereali. Dose 1 l/ha.'), {})
+
+
 class TestColturaHierarquia(unittest.TestCase):
     def test_prova_detecta_nao_aditividade(self):
         """A prova tem de REPROVAR quando pai ≠ soma dos filhos."""
