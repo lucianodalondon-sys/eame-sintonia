@@ -546,6 +546,110 @@ def hubs():
         'HUBS': fora})
 
 
+# Contas que aparecem em legenda de hub e NÃO são pessoas do setor. Lista
+# explícita e curta: patrocinador financeiro, local do evento, organizadora. Não
+# é um filtro esperto — é um registro do que já foi visto e conferido.
+NAO_E_CREATOR = {'@santander_es', '@agroinfluye', '@agromillora'}
+
+
+def descobertos():
+    """Resolve os handles que a extração por hub revelou.
+
+    Cada um entra como CANDIDATO com rota de descoberta. Resolver identidade aqui
+    é o mesmo portão de sempre: o handle veio de uma legenda, não de uma ficha.
+    """
+    chaves = _pool()
+    achados, origem = [], {}
+    for h in cr.carregar('HUB-EXTRACTION.json'):
+        for m in h.get('MENTIONS') or []:
+            handle = m['HANDLE']
+            if handle.lower() in NAO_E_CREATOR:
+                continue
+            if handle.lower() in origem:
+                origem[handle.lower()]['HUBS'].append(h['HUB'])
+                continue
+            origem[handle.lower()] = {'HANDLE': handle, 'HUBS': [h['HUB']],
+                                      'COUNTRY': h.get('COUNTRY', cr.NAO_SEI),
+                                      'MENTIONS': m['MENTIONS'],
+                                      'EVIDENCE_POSTS': m.get('POSTS') or []}
+            achados.append(origem[handle.lower()])
+    if not achados:
+        print('NADA_A_RESOLVER=YES'); return
+    print('HANDLES_DESCOBERTOS=%d' % len(achados))
+
+    run_id = '%s-DESCOBERTOS' % MISSION
+    itens, man = coletor.executar(
+        ATORES['INSTAGRAM_PROFILE'],
+        {'usernames': [a['HANDLE'].lstrip('@') for a in achados]},
+        token=chaves[0], run_id=run_id, platform='INSTAGRAM', country='ES',
+        mission=MISSION, query='%d handles descobertos por hub' % len(achados),
+        source_version=cr.NAO_SEI,
+        evidence_path='data/samples/CREATOR-MAP-EAME/HUB-DISCOVERED-RESOLVED.json')
+    coletor.registrar(man, item_count_normalized=len(itens))
+    print('STATUS=%s ITENS=%d CUSTO=%s' % (man['STATUS'], len(itens), man['COST_USD']))
+
+    import datetime
+    hoje = datetime.datetime.utcnow()
+    porh = {(i.get('username') or '').lower(): i for i in itens}
+    fora = []
+    for a in achados:
+        it = porh.get(a['HANDLE'].lstrip('@').lower()) or {}
+        posts = it.get('latestPosts') or []
+        datas = []
+        for x in posts:
+            t = x.get('timestamp')
+            if t:
+                try:
+                    datas.append(datetime.datetime.strptime(t[:10], '%Y-%m-%d'))
+                except ValueError:
+                    pass
+        datas.sort(reverse=True)
+        foll = it.get('followersCount')
+        if foll is None and not posts:
+            estado_handle, estado_ativ, ultimo = 'HANDLE_UNRESOLVED', 'NOT_MEASURED', cr.NAO_SEI
+        else:
+            estado_handle = 'YES'
+            if datas:
+                dias = (hoje - datas[0]).days
+                estado_ativ = ('ACTIVE_RECENT' if dias <= 30 else
+                               'ACTIVE_STALE' if dias <= 180 else 'DORMANT')
+                ultimo = datas[0].strftime('%Y-%m-%d')
+            else:
+                estado_ativ, ultimo = 'NOT_MEASURED', cr.NAO_SEI
+        fora.append({
+            'HANDLE': a['HANDLE'], 'DISCOVERED_VIA': a['HUBS'],
+            'HUB_MENTIONS': a['MENTIONS'], 'EVIDENCE_POSTS': a['EVIDENCE_POSTS'],
+            'COUNTRY_OF_HUB': a['COUNTRY'],
+            'HANDLE_EXISTS': estado_handle,
+            'PROFILE_URL': it.get('url') or cr.NAO_SEI,
+            'FULL_NAME': it.get('fullName') or cr.NAO_SEI,
+            'BIOGRAPHY': it.get('biography') or cr.NAO_SEI,
+            'FOLLOWERS': foll if foll is not None else cr.NAO_SEI,
+            'POSTS_COUNT': it.get('postsCount', cr.NAO_SEI),
+            'BUSINESS_CATEGORY': it.get('businessCategoryName') or cr.NAO_SEI,
+            'EXTERNAL_URL': it.get('externalUrl') or cr.NAO_SEI,
+            'ACTIVITY_STATE': estado_ativ, 'LAST_ACTIVITY_DATE': ultimo,
+            'POSTS_LAST_30D': len([d for d in datas if (hoje - d).days <= 30]) if datas else cr.NAO_SEI,
+            'POSTS_LAST_90D': len([d for d in datas if (hoje - d).days <= 90]) if datas else cr.NAO_SEI,
+            'IDENTITY_STATE': 'NOT_PROVED',
+            'NOTE': 'descoberto por menção em legenda de hub. Menção != creator: '
+                    'CROP, ROLE e ACTUAL_FARMER seguem por provar.',
+            'AS_OF_DATE': coletor.agora()[:10],
+        })
+    resolvidos = [f for f in fora if f['HANDLE_EXISTS'] == 'YES']
+    _grava('HUB-DISCOVERED-RESOLVED.json', {
+        'SOURCE_ID': MISSION, 'CAPTURED_AT': coletor.agora(),
+        'RUN_ID': run_id, 'RUN_STATUS': man['STATUS'], 'COST_USD': man['COST_USD'],
+        'DISCOVERED': len(fora), 'RESOLVED': len(resolvidos),
+        'NOT_RESOLVED': len(fora) - len(resolvidos),
+        'EXCLUDED_NOT_CREATOR': sorted(NAO_E_CREATOR),
+        'LAW': 'menção em legenda de hub e ROTA DE DESCOBERTA, nunca prova de papel.',
+        'PROFILES': fora})
+    from collections import Counter
+    print('RESOLVIDOS=%d de %d' % (len(resolvidos), len(fora)))
+    print('ATIVIDADE:', dict(Counter(f['ACTIVITY_STATE'] for f in fora)))
+
+
 if __name__ == '__main__':
     # Aceita tanto `contratos` quanto `creators-contratos`: a ponte pelo
     # workflow de sensores entrega o nome prefixado.
@@ -556,7 +660,8 @@ if __name__ == '__main__':
     # "contratos" enquanto o pedido dizia "atividade". Falhar aqui é a diferença
     # entre um erro visível e um artefato que ninguém sabe de onde veio.
     FASES = {'contratos': contratos, 'resolver': resolver, 'seed': seed,
-             'diag': diag, 'atividade': atividade, 'hubs': hubs}
+             'diag': diag, 'atividade': atividade, 'hubs': hubs,
+             'descobertos': descobertos}
     if fase not in FASES:
         print('FASE_DESCONHECIDA=%r · fases validas: %s'
               % (fase, ', '.join(sorted(FASES))))

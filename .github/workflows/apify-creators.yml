@@ -41,6 +41,7 @@ on:
           - resolver       # resolve perfis com handle vindo de fonte
           - atividade      # mede atividade 30/90d dos perfis resolvidos
           - hubs           # extrai mencoes das contas de hub confirmadas
+          - descobertos    # resolve os handles que a extracao revelou
       runner:
         description: 'qual runner usar'
         required: true
