@@ -55,15 +55,64 @@ Um comentário diz o que alguém escreveu, não o que o banco tem.
 
 ---
 
-## 3 · Preservação — plano fechado, envio bloqueado
+## 3 · Preservação — **FECHADA em 2026-08-30**
 
 | | |
 |---|---|
 | `RAW_ASSETS_EXPECTED` | **196** (138 PDFs + 56 páginas + 2 pacotes de captura) |
-| `BYTES_LOCAIS` | 304.482.907 |
-| `PROBLEMAS_ANTES_DE_ENVIAR` | **0** — hash de cada arquivo recalculado, nada diverge |
-| `UPLOADED` / `VERIFIED` / `FAILED` | **0 / 0 / 0** — nada foi enviado |
-| `HASH_MISMATCH` / `ORPHANS` | 0 / 0 |
+| `REMOTE_PLAN_PRESENT` | **196 / 196** |
+| `REMOTE_PLAN_ABSENT` | **0** |
+| `ORPHANS` | **0** |
+| `FAILED` | **0** |
+| `HASH_MISMATCH` | **0** |
+| `SEM_ESTADO_CONHECIDO` | **0** |
+| `BYTES_LOCAIS` = `BYTES_VERIFICADOS` | **304.482.907** |
+
+Foram três execuções incrementais, e cada uma resolveu uma classe:
+
+| execução | modo | antes → depois | o que caiu |
+|---|---|---|---|
+| A | lote inteiro | — → 184 ok / 12 falhos | primeira passada |
+| B | `--so-ausentes` | 185 → 195 | as 10 chaves com caractere recusado |
+| C | `--so-ausentes` | 195 → **196** | AVASTEL, depois de o operador subir o limite global de arquivo de 50 MB para 200 MB |
+
+**O AVASTEL era a classe `LARGE_FILE`, e a hipótese estava certa** — mas quem a provou
+foi o limite sendo levantado, não o meu palpite. 158.083.718 bytes, `VERIFIED` com
+sha256 conferido depois de baixar de volta.
+
+> **`RAW_PRESERVATION_GATE = CLOSED`** para presença, órfãos e falhas — os três medidos
+> no inventário remoto da execução C.
+
+### ⚠️ Presença no inventário ≠ bytes conferidos
+
+Uma ressalva que este relatório não pode arredondar. As execuções incrementais carimbam
+`PRESENTE_NO_INVENTARIO_REMOTO` em quem não foi alvo: isso prova que o objeto **existe**,
+não que o **conteúdo** dele está certo.
+
+Do que os artefatos vivos sustentam hoje:
+
+| | |
+|---|---|
+| objetos com sha256 reconferido **e prova em artefato no disco** | **11** |
+| objetos com prova apenas de **presença** | **185** |
+| objetos que **nunca** tiveram o conteúdo conferido em execução nenhuma | **1** — media 2981, `TOPIC Folleto Diptico.pdf` |
+
+Os 184 da execução A **foram** conferidos por download + hash, mas aquele relatório foi
+sobrescrito antes de eu consertar o histórico. A prova existiu e se perdeu; contar com ela
+seria citar um documento que não existe mais.
+
+O media 2981 é o caso que mais importa: ele é o que recebeu **520**, e 520 é justamente
+quando gravação parcial é plausível. Objeto presente com bytes truncados passaria por
+preservado.
+
+**Uma execução só de leitura fecha isso**, sem reenviar nada:
+
+```bash
+py scripts/storage_preservar.py --diagnosticar --verificar-tudo
+```
+
+Ela baixa os 196 de volta, reconfere o sha256 de cada um e escreve
+`ADAMA-ES-PRESERVACAO-VERIFICACAO.json` — uma medição, não uma cadeia de três relatórios.
 
 Os 2 pacotes de captura entram porque sem eles o censo não se reproduz.
 
@@ -236,7 +285,7 @@ manifesto.
 
 **C · SUPABASE** — `AUTH_AVAILABLE = NO`. Tudo o mais: `NOT_MEASURED`.
 
-**D · STORAGE** — 196 esperados · 0 enviados · 0 verificados · 0 falhos · 0 órfãos.
+**D · STORAGE** — 196 esperados · **196 presentes no bucket** · 0 ausentes · 0 falhos · 0 órfãos · 0 hash mismatch · 304.482.907 bytes.
 
 **E · POSTGRES** — migration 010 escrita, 15 tabelas, não executada. 1.814 comandos
 gerados, não aplicados.
@@ -256,21 +305,17 @@ quê; entrega canônica corrigida; **0 número velho restante**.
 | | |
 |---|---|
 | `ADAMA_ES_PUBLIC_CATALOG_COMPLETE` | **YES** |
-| `ADAMA_ES_RAW_PRESERVED` | **NO** — bloqueado por credencial |
-| `ADAMA_ES_DOCUMENTS_PRESERVED` | **NO** — bloqueado por credencial |
+| `ADAMA_ES_RAW_PRESERVED` | **YES** — 196/196 no Storage, 0 órfão |
+| `ADAMA_ES_DOCUMENTS_PRESERVED` | **YES** — 138 PDFs, 296 MB |
 | `ADAMA_ES_POSTGRES_INTEGRATED` | **NO** — bloqueado por credencial |
 | `SAFE_FOR_MAIN_TO_MERGE` | **YES** — nada aplicado remotamente, tudo reversível |
 | `READY_TO_PARSE_55_LABELS` | **NO** — a missão manda fechar preservação antes |
 
-**BLOCKER — um só:** não há autenticação Supabase nesta máquina.
+**BLOCKER restante:** o import Postgres. A preservação está fechada; falta `SUPABASE_DB_URL` + `psql` para aplicar a migration e o SQL — e isso é a próxima missão, depois de reconciliar as branches.
 
-```bash
-export SUPABASE_URL=... SUPABASE_SECRET_KEY=... && python3 scripts/storage_preservar.py --enviar
-```
-
-**NEXT_SMALLEST_STEP:** esse comando. Ele sobe os 196 assets, baixa cada um de volta,
-reconfere o sha256 e escreve o relatório. Depois dele, o import tem `raw_asset` para
-apontar e os dois testes pendentes viram verdes.
+**NEXT_SMALLEST_STEP:** reconciliar `claude/adama-es-local-browser` com
+`claude/sintonia-eame-collection-es` — as duas criaram uma migration `010`, e a outra
+branch tem 010–012 dos quatro relógios. Nada de banco antes disso.
 
 ---
 
@@ -283,4 +328,4 @@ inflada, e a infraestrutura ao redor, que não existia.
 E continua valendo o que a coleta **não** prova: estoque · venda · distribuição · market
 share · receita · prioridade interna da ADAMA.
 
-⚠️ **Os 296 MB ainda existem numa máquina só.** Manifesto com sha256 não é backup.
+✅ **Os 296 MB deixaram de existir numa máquina só.** Os 196 objetos estão no Storage, presença medida no inventário remoto, 0 órfão. A conferência de CONTEÚDO dos 196 numa medição só ainda não foi feita — ver a ressalva na seção 3.

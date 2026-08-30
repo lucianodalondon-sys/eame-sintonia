@@ -413,20 +413,37 @@ class TestChaveDeStorage(unittest.TestCase):
             self.assertTrue(a.get('ORIGINAL_FILENAME'), a['OBJETO'])
             self.assertTrue(a.get('OBJETO_BRUTO'), a['OBJETO'])
 
-    def test_a_regra_nova_nao_move_objeto_ja_preservado(self):
-        """Se mexesse numa chave já no bucket, o reenvio criaria uma SEGUNDA cópia.
+    def test_nenhum_objeto_ja_no_bucket_mudaria_de_lugar(self):
+        """Mudar a chave de um objeto já preservado criaria uma SEGUNDA cópia — e um órfão.
 
-        O inventário remoto de 2026-08-30 provou 185 presentes. Nenhum deles pode mudar
-        de chave — e nenhum muda, porque quem já subiu já era do conjunto aceito.
+        A primeira versão deste teste comparava contra a lista de AUSENTES de um
+        diagnóstico específico, e apodreceu no dia em que o reparo rodou: com tudo
+        presente, ela passou a acusar as 10 chaves corrigidas. O invariante durável não
+        é "quem estava ausente", é este: TODA chave que existe no bucket tem de ser um
+        ponto fixo da regra. Se uma mudança futura na regra mover qualquer objeto já
+        preservado, isto reprova.
         """
         diag = _json(os.path.join(SAMPLES, 'ADAMA-ES-PRESERVACAO-DIAGNOSTICO.json'))
+        if not diag:
+            self.skipTest('sem inventário remoto medido nesta máquina')
+        presentes = [o for o in
+                     (set(_json(os.path.join(SAMPLES, 'ADAMA-ES-PRESERVACAO-PLANO.json'))
+                          and [a['OBJETO'] for a in _json(os.path.join(
+                              SAMPLES, 'ADAMA-ES-PRESERVACAO-PLANO.json'))['ASSETS']])
+                      - set(diag['DO_PLANO_AUSENTES']))]
+        self.assertTrue(presentes, 'nenhum objeto presente para conferir')
+        moveriam = [o for o in presentes if self.S.chave_de_storage(o) != o]
+        self.assertEqual([], moveriam,
+                         'a regra moveria objeto que JÁ está no bucket — criaria cópia')
+
+    def test_nenhum_objeto_do_plano_atual_mudaria_de_lugar(self):
+        """Depois do reparo, o plano inteiro tem de ser ponto fixo da regra."""
         p = self.S.plano()
-        if not diag or not p['ASSETS']:
-            self.skipTest('sem diagnóstico remoto ou sem RAW local')
-        ausentes = set(diag['DO_PLANO_AUSENTES'])
-        moveram = [a['OBJETO_BRUTO'] for a in p['ASSETS']
-                   if a['OBJETO'] != a['OBJETO_BRUTO'] and a['OBJETO_BRUTO'] not in ausentes]
-        self.assertEqual([], moveram, 'a regra mudaria a chave de um objeto JÁ preservado')
+        if not p['ASSETS']:
+            self.skipTest('sem RAW local nesta máquina')
+        moveriam = [a['OBJETO'] for a in p['ASSETS']
+                    if self.S.chave_de_storage(a['OBJETO']) != a['OBJETO']]
+        self.assertEqual([], moveriam)
 
 
 class TestRespostaAmbiguaNaoViraFalha(unittest.TestCase):

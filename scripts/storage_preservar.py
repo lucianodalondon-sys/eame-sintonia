@@ -10,6 +10,7 @@ disco.
     python3 scripts/storage_preservar.py --plano            # offline, sempre roda
     python3 scripts/storage_preservar.py --provar-destino   # so leitura, nao envia
     python3 scripts/storage_preservar.py --diagnosticar     # inventario + UMA tentativa
+    python3 scripts/storage_preservar.py --diagnosticar --verificar-tudo  # baixa e reconfere os 196
     python3 scripts/storage_preservar.py --enviar           # exige autenticação
     python3 scripts/storage_preservar.py --enviar --so-ausentes # so o que falta NO BUCKET
     python3 scripts/storage_preservar.py --enviar --so-falhos  # so o que falhou antes
@@ -601,6 +602,59 @@ if __name__ == '__main__':
             print('STORAGE_AUTH_MISSING')
             print('FALTA=' + ','.join(falta))
             sys.exit(2)
+
+        if '--verificar-tudo' in sys.argv:
+            # SÓ LEITURA, e é a prova que faltava.
+            #
+            # PRESENÇA NO INVENTÁRIO != BYTES CONFERIDOS. As execuções incrementais
+            # carimbam PRESENTE_NO_INVENTARIO_REMOTO em quem não foi alvo — isso diz que
+            # o objeto existe, não que o conteúdo dele está certo. O caso perigoso é
+            # exatamente o media 2981: recebeu 520 no upload, e 520 é a resposta que se
+            # perde no meio, que é quando gravação parcial é plausível. Objeto presente
+            # com bytes truncados passaria por preservado.
+            #
+            # Aqui se baixa TUDO de volta e se reconfere o sha256, numa medição só.
+            bons, ruins, ausentes_ = [], [], []
+            total = 0
+            for a in p['ASSETS']:
+                alvo = '/storage/v1/object/%s/%s' % (BUCKET,
+                                                     urllib.parse.quote(a['OBJETO']))
+                st, volta = _http(url, key, 'GET', alvo)
+                if st != 200:
+                    ausentes_.append({'OBJETO': a['OBJETO'], 'HTTP': st})
+                    continue
+                if (len(volta) == a['BYTES']
+                        and hashlib.sha256(volta).hexdigest() == a['SHA256']):
+                    bons.append(a['OBJETO'])
+                    total += len(volta)
+                else:
+                    ruins.append({'OBJETO': a['OBJETO'], 'BYTES_REMOTOS': len(volta),
+                                  'BYTES_LOCAIS': a['BYTES']})
+            print('SHA_VERIFIED=%d/%d' % (len(bons), len(p['ASSETS'])))
+            print('HASH_MISMATCH=%d' % len(ruins))
+            print('NAO_BAIXARAM=%d' % len(ausentes_))
+            print('BYTES_VERIFICADOS_REMOTAMENTE=%d' % total)
+            for x in (ruins + ausentes_)[:10]:
+                print('  PROBLEMA: %s' % x)
+            caminho = os.path.join(SAMPLES, 'ADAMA-ES-PRESERVACAO-VERIFICACAO.json')
+            with open(caminho, 'w', encoding='utf-8') as f:
+                json.dump({'SOURCE_ID': 'ADAMA-ES-PRESERVACAO-VERIFICACAO',
+                           'source': 'download de volta de cada objeto do bucket raw',
+                           'SOURCE_LOCATION': 'SPAIN', 'FACT_LOCATION': 'SPAIN',
+                           'ORIGINAL_LANGUAGE': 'ES', 'COUNTRY': 'ES',
+                           'captured_at': p.get('captured_at'),
+                           'CAPTURE_DATE': p.get('captured_at'),
+                           'METODO': ('baixou cada objeto e recalculou sha256 — nao e '
+                                      'presenca no inventario, e conteudo conferido'),
+                           'ASSETS_ESPERADOS': len(p['ASSETS']),
+                           'SHA_VERIFIED': len(bons),
+                           'HASH_MISMATCH': len(ruins),
+                           'NAO_BAIXARAM': ausentes_,
+                           'DIVERGENTES': ruins,
+                           'BYTES_VERIFICADOS_REMOTAMENTE': total},
+                          f, ensure_ascii=False, indent=1)
+            print('escrito em %s' % os.path.relpath(caminho, ROOT))
+            sys.exit(0 if (len(bons) == len(p['ASSETS'])) else 1)
 
         remoto, erros = inventario_remoto(url, key)
         por_objeto = {a['OBJETO']: a for a in p['ASSETS']}

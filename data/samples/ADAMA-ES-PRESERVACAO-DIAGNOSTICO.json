@@ -3,43 +3,31 @@
  "SOURCE_LOCATION": "SPAIN",
  "FACT_LOCATION": "SPAIN",
  "captured_at": "2026-08-30T03:19:24.988Z",
- "INVENTARIO_REMOTO_OBJETOS": 185,
- "DO_PLANO_PRESENTES": 185,
+ "INVENTARIO_REMOTO_OBJETOS": 195,
+ "DO_PLANO_PRESENTES": 195,
  "DO_PLANO_AUSENTES": [
-  "ES/adama-website/ADAMA-ES-078f1a03e255/24548ba79df629b1-COSAYR_SEPARATA_A4 (algodón).pdf",
-  "ES/adama-website/ADAMA-ES-1b7ee3705498/6f9001669815a9f3-UTF-8''NIMROD%20QUATTRO%20VI%C3%91A.PDF.pdf",
-  "ES/adama-website/ADAMA-ES-2ccd431ff4fc/4be6556fb0ce377b-Díptico SONAVIO AJO 3 BR.pdf",
-  "ES/adama-website/ADAMA-ES-2ccd431ff4fc/cfbf73b5a0ae3014-SONAVIO Folleto General Díptico_HR.pdf",
-  "ES/adama-website/ADAMA-ES-384378effb57/eb12e7792124c93b-Folleto KLARTAN EW Algodón.pdf",
-  "ES/adama-website/ADAMA-ES-3d7d78d03e08/0f9e2163ccf46b91-ANIBAL Tríptico NOV-25.pdf",
-  "ES/adama-website/ADAMA-ES-4832f198116a/0bc15677c0c541e6-Díptico Ordago_BAJA RESOLUCION_4 Ago.pdf",
-  "ES/adama-website/ADAMA-ES-703ae70310a8/863d7d7fefbe52f2-Díptico AGIL Olivar (11-24)2 BR.pdf",
-  "ES/adama-website/ADAMA-ES-7e08f308a5f7/3b1f8916aacf50ab-VINERGY Tríptico BR por páginas.pdf",
-  "ES/adama-website/ADAMA-ES-9fcc5560e57b/ec8ac4c2744b3214-Sunbright Tríptico.pdf",
   "ES/adama-website/ADAMA-ES-ba6e08cc853d/99e45d7ac0ec301e-Folleto AVASTEL fungicida para cereal.pdf"
  ],
  "ORFAOS_NO_BUCKET": [],
  "ERROS_DE_LISTAGEM": [],
  "TENTATIVA": {
   "PROVA_LOCAL": {
-   "ARQUIVO_LOCAL": "data/raw/ES/adama-website/documentos/3746__Di_ptico Ordago_BAJA RESOLUCION_4 Ago.pdf",
+   "ARQUIVO_LOCAL": "data/raw/ES/adama-website/documentos/4466__Folleto AVASTEL fungicida para cereal.pdf",
    "EXISTE_NO_DISCO": true,
-   "BYTES_MEDIDOS": 707250,
-   "BYTES_ESPERADOS": 707250,
-   "SHA256_MEDIDO": "0bc15677c0c541e6da212eae5f6d404797467bb61ac9881eb3d520690019b829",
-   "SHA256_ESPERADO": "0bc15677c0c541e6da212eae5f6d404797467bb61ac9881eb3d520690019b829",
+   "BYTES_MEDIDOS": 158083718,
+   "BYTES_ESPERADOS": 158083718,
+   "SHA256_MEDIDO": "99e45d7ac0ec301efdb1db47a0a9275583c94b083535f447e27cf83fd68abb86",
+   "SHA256_ESPERADO": "99e45d7ac0ec301efdb1db47a0a9275583c94b083535f447e27cf83fd68abb86",
    "SHA_CONFERE": true
   },
-  "OBJETO": "ES/adama-website/ADAMA-ES-4832f198116a/0bc15677c0c541e6-Díptico Ordago_BAJA RESOLUCION_4 Ago.pdf",
-  "OBJETO_URL_ENCODED": "ES/adama-website/ADAMA-ES-4832f198116a/0bc15677c0c541e6-Di%CC%81ptico%20Ordago_BAJA%20RESOLUCION_4%20Ago.pdf",
-  "CARACTERES_NAO_ASCII": [
-   "́"
-  ],
+  "OBJETO": "ES/adama-website/ADAMA-ES-ba6e08cc853d/99e45d7ac0ec301e-Folleto AVASTEL fungicida para cereal.pdf",
+  "OBJETO_URL_ENCODED": "ES/adama-website/ADAMA-ES-ba6e08cc853d/99e45d7ac0ec301e-Folleto%20AVASTEL%20fungicida%20para%20cereal.pdf",
+  "CARACTERES_NAO_ASCII": [],
   "RESPOSTA": {
    "HTTP_STATUS": 400,
    "RESPONSE_CONTENT_TYPE": "application/json; charset=utf-8",
-   "RESPONSE_BODY_SANITIZED": "{\"statusCode\":\"400\",\"error\":\"InvalidKey\",\"message\":\"Invalid key: ES/adama-website/ADAMA-ES-4832f198116a/0bc15677c0c541e6-Díptico Ordago_BAJA RESOLUCION_4 Ago.pdf\",\"code\":\"InvalidKey\"}",
-   "REQUEST_OBJECT_PATH": "/storage/v1/object/raw/ES/adama-website/ADAMA-ES-4832f198116a/0bc15677c0c541e6-Di%CC%81ptico%20Ordago_BAJA%20RESOLUCION_4%20Ago.pdf"
+   "RESPONSE_BODY_SANITIZED": "{\"statusCode\":\"413\",\"error\":\"Payload too large\",\"message\":\"The object exceeded the maximum allowed size\",\"code\":\"EntityTooLarge\"}",
+   "REQUEST_OBJECT_PATH": "/storage/v1/object/raw/ES/adama-website/ADAMA-ES-ba6e08cc853d/99e45d7ac0ec301e-Folleto%20AVASTEL%20fungicida%20para%20cereal.pdf"
   }
  }
 }
