@@ -1,0 +1,56 @@
+name: adama-it-raw-preserve
+
+# Fecha o RAW italiano: sobe os 195 objetos de data/raw/IT/adama-website/ para o
+# bucket, le o inventario, baixa cada um DE VOLTA e confere sha256 e bytes.
+#
+# NAO tem checkout, e isso e de proposito. Os RAW estao FORA do Git — data/raw e
+# ignorado por politica do repositorio — e existem so em C:\eame-sintonia-it,
+# nesta maquina. Um runner GitHub-hosted nao enxerga um byte deles. Por isso o
+# job exige a etiqueta do runner local dedicado, e prova onde esta antes de
+# escrever qualquer coisa.
+#
+#     PRESENCE_IN_BUCKET != CONTENT_VERIFIED
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preservar:
+    # As quatro etiquetas juntas: so o runner dedicado ao eame-sintonia atende.
+    runs-on: [self-hosted, Windows, X64, eame-sintonia-local]
+    timeout-minutes: 60
+    steps:
+      - name: provar a maquina, o worktree e a branch antes de tocar no Storage
+        shell: powershell
+        run: |
+          "RUNNER_NAME = $env:RUNNER_NAME"
+          $existe = Test-Path 'C:\eame-sintonia-it'
+          "WORKTREE_EXISTS = $existe"
+          if (-not $existe) { "PARADO: este runner nao enxerga o acervo italiano"; exit 1 }
+          Set-Location 'C:\eame-sintonia-it'
+          $branch = (git rev-parse --abbrev-ref HEAD | Out-String).Trim()
+          $head   = (git rev-parse --short HEAD | Out-String).Trim()
+          "BRANCH = $branch"
+          "HEAD = $head"
+          if ($branch -ne 'claude/adama-it-local-catalog') { "PARADO: branch errada"; exit 1 }
+          $n = (Get-ChildItem -Recurse -File 'data\raw\IT\adama-website').Count
+          "RAW_FILES_ON_DISK = $n"
+          if ($n -lt 190) { "PARADO: acervo incompleto no disco"; exit 1 }
+
+      - name: canario, upload, inventario, download de volta, sha256 e bytes
+        shell: powershell
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          # Sem isto o Python escreve em cp1252 no Windows e MORRE no primeiro
+          # acento que ele mesmo imprime — depois de ja ter subido arquivo, o que
+          # deixaria o estado ambiguo. Medido nesta maquina.
+          PYTHONIOENCODING: utf-8
+          PYTHONUTF8: '1'
+        run: |
+          Set-Location 'C:\eame-sintonia-it'
+          py scripts\adama_it_preservar.py --enviar
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
