@@ -15,6 +15,7 @@ import italia_istat as ii2         # noqa: E402
 import italia_cobertura_campo      # noqa: E402,F401
 import italia_vies_de_painel       # noqa: E402,F401
 import italia_trigo_duro           # noqa: E402,F401
+import italia_camada_op            # noqa: E402,F401
 import italia_tabela_dose as td    # noqa: E402
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
@@ -529,6 +530,69 @@ class TestTrigoDuro(unittest.TestCase):
         junto = ' '.join(d['WHAT_THIS_DOES_NOT_PROVE'])
         for r in ('Puglia', 'Sicília', 'Basilicata'):
             self.assertIn(r, junto)
+
+
+
+class TestCamadaOP(unittest.TestCase):
+    """SOURCE_LAYER != SIGNAL_ABSENCE — o erro de painel um nivel acima.
+
+    Medir a camada estatal e concluir "nao ha sinal" e o erro do trigo duro repetido
+    com outro eixo: la eu perguntei as regioes erradas, aqui a INSTITUICAO errada
+    dentro da regiao certa.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import italia_camada_op as op
+        cls.fs = {f['ORG']: f for f in op.fontes()}
+
+    def test_conteudo_nao_lido_nao_vira_cobertura(self):
+        """A APOL prova EXISTENCIA por indice de busca; o conteudo devolve 503."""
+        apol = self.fs['APOL']
+        self.assertEqual('EXISTS_ROUTE_NOT_READABLE', apol['STATE'])
+        self.assertTrue(apol['EXISTENCE_EVIDENCE'])
+        self.assertTrue(apol['ROUTE_FAILURE_IS_NOT_ABSENCE'])
+
+    def test_arquivo_legivel_e_medicao_mesmo_estando_velho(self):
+        """Assoproli Bari respondeu: 10/06/2024 e MEDIDO, nao e falha de rota."""
+        a = self.fs['Assoproli Bari']
+        self.assertEqual('ARCHIVE_READ_BUT_STALE', a['STATE'])
+        self.assertEqual('10/06/2024', a['MOST_RECENT'])
+
+    def test_a_correcao_da_puglia_nao_derruba_a_inversao(self):
+        """A inversao sobrevive como comparacao entre SERVICOS REGIONAIS.
+
+        O que morre e a leitura "na Puglia nao ha sinal de olivo". Se este teste
+        cair, alguem transformou a correcao em retratacao — e ela nao e.
+        """
+        import italia_camada_op as op
+        d = json.load(open(os.path.join(ROOT, 'data', 'samples', 'IT-FONTES',
+                                        'ITALY-OP-FIELD-LAYER.json'), encoding='utf-8'))
+        c = d['CORRECTION_TO_MY_OWN_FINDING']
+        self.assertIn('inversão', c['WHAT_SURVIVES'])
+        self.assertIn('não foi lido', c['WHAT_THIS_STILL_DOES_NOT_LICENSE'])
+        import italia_cobertura_campo as cc
+        inv = cc.inversao(cc.linhas(), 'Oliveira')
+        self.assertTrue(inv['INVERTED'], 'a inversao entre servicos regionais continua')
+        self.assertIn('Puglia', inv['REGIONS_NOT_PUBLISHING'])
+
+    def test_a_fonte_que_declara_o_proprio_limite_fica_marcada(self):
+        """O boletim da Assoprol diz que ainda NAO amostrou infestacao ativa.
+
+        Separar o que mediu do que ainda nao mediu e sinal de qualidade da fonte, e
+        perder essa marca faria a leitura parecer mais completa do que e.
+        """
+        a = self.fs['Assoprol Umbria']
+        self.assertEqual('CONTENT_READ', a['STATE'])
+        self.assertTrue(a['DECLARES_OWN_LIMIT'])
+        self.assertIn('non sono ancora stati effettuati', a['DECLARED_LIMIT_IT'])
+        self.assertEqual('71-75', a['BBCH'])
+
+    def test_a_ausencia_da_puglia_e_estabilizada_nao_transitoria(self):
+        """A ARIF e hoje a EDITORA e mesmo assim nao redige fitopatologia."""
+        arif = self.fs['ARIF Puglia']
+        self.assertEqual('PUBLISHES_BUT_NO_PHYTOPATHOLOGY', arif['STATE'])
+        self.assertIn('ausência estabilizada', arif['SHARPENED_2026_08_30'])
 
 
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')

@@ -83,7 +83,15 @@ Edmund Mach** + **CREA** (Giornata del Mais 2026, com gravação pública sobre 
 **Co.Pro.B.** opera um DSS de *Cercospora* **citado pelo boletim oficial do Vêneto** —
 cooperativa que **produz** sinal de campo, não só o consome.
 **Assoproli Bari** publica boletins de mosca-da-azeitona na Puglia — assumindo o sinal
-que a região deixou de publicar em 2018.
+que a região deixou de publicar em 2018. ⚠️ Esta classe cresceu muito depois desta
+sondagem: ver **§6 `IT-T3-OP`**, onde a camada de organizações de produtores passa a ser
+medida a sério (Assoprol Umbria **lida**, com edição de 2026; APOL de Lecce com série
+2026 **existente e não legível**; Assoproli Bari parada em 06/2024).
+
+> Os contadores do topo deste atlas (**20 fontes · 16 GREEN…**) pertencem a
+> `ITALY-SOURCE-PROBE.json` e **não** foram inflados com as fontes descobertas depois dele
+> (`IT-T3-LAMMA`, `IT-T3-OP`). Cada número continua respondendo ao seu dono; misturar
+> as duas sondagens daria um total maior e sem lastro.
 
 ### J · CREATORS — **REJECTED nesta configuração**
 Gate de amostra: **60 vídeos, 4 canais, 6,7 % de relevância** a `CROP × ISSUE`. São
@@ -292,3 +300,49 @@ ID). O gargalo é **discovery**, nunca a coleta.
 | Fontes de ciência | OpenAlex + CREA + CNR + FMach |
 | Rotas estruturadas | ISTAT SDMX · Eurostat · Ministero CSV/JSON/XML · 2 RSS · YouTube RSS |
 | Custo | **US$ 0,00** |
+
+---
+
+## 6 · `IT-T3-OP` — O SINAL DE OLIVO MUDOU DE DONO, E EU OLHAVA O DONO ANTIGO
+
+Segunda correção contra um achado meu, no mesmo dia e pelo mesmo tipo de erro.
+
+**O que eu publiquei:** *"Puglia tem 31,2 % da área de oliveira e publica ZERO boletins."*
+
+**O que é verdade, e é mais estreito:** o **serviço regional** da Puglia não publica
+fitopatologia desde 11/04/2018 — e agora medido com mais precisão: **a ARIF, a agência
+para a qual a competência foi transferida, HOJE É A EDITORA do notiziario** (semanal, às
+quartas) **e mesmo assim não restaurou a seção**. Não é uma transição em curso, como eu
+tinha anotado: é uma **ausência estabilizada** de oito anos.
+
+**Mas o sinal existe. Ele migrou para as organizações de produtores.**
+
+| Organização | Região | Estado | Evidência |
+|---|---|---|---|
+| **Assoprol Umbria** | Umbria | `CONTENT_READ` | *Bollettino Fitosanitario Olivo 2026 — Monitoraggio mosca delle olive n. 3*, **6–10/07/2026** |
+| **APOL** | Puglia (Lecce) | `EXISTS_ROUTE_NOT_READABLE` | série semanal numerada, **n.1 13–19/07/2026 · n.2 20–26/07/2026**; `apol.it` devolve 503 daqui |
+| **Assoproli Bari** | Puglia (Bari) | `ARCHIVE_READ_BUT_STALE` | rota legível, edição mais recente **10/06/2024** |
+| **ARIF Puglia** | Puglia | `PUBLISHES_BUT_NO_PHYTOPATHOLOGY` | *"la sezione dedicata alla Fitopatologia non viene più redatta"* (L.R. 33/2017) |
+
+O boletim da **Assoprol Umbria** foi lido e é de qualidade alta: capturas em armadilha
+(*"i primi voli degli adulti… catture limitate sull'intero territorio regionale"*), fase
+fenológica **BBCH 71-75** (*"drupe in accrescimento e indurimento del nocciolo non ancora
+completato"*), recomendação condicional (caolino no biológico; adulticida se as capturas
+subirem) — e, o que mais vale, **declara o próprio limite**: *"in questa fase non sono
+ancora stati effettuati i campionamenti per la verifica dell'infestazione attiva"*. Uma
+fonte que separa o que mediu do que ainda não mediu é fonte confiável.
+
+> **A lei que isto obriga a aplicar contra mim: `SOURCE_LAYER ≠ SIGNAL_ABSENCE`.**
+> Medir a camada estatal e concluir "não há sinal" é o erro de painel do trigo duro **um
+> nível acima**: lá eu tinha perguntado às **regiões** erradas; aqui perguntei à
+> **instituição** errada dentro da região certa.
+
+**O que sobrevive e o que não.** Continua verdade que o serviço regional do Vêneto publica
+28 boletins de olivo com **0,5 %** da área enquanto o da Puglia, com **31,2 %**, publica
+zero — a inversão é entre **serviços regionais** e está de pé (há teste que a mantém). O
+que **não** sobrevive é a leitura *"na Puglia não há sinal de olivo"*.
+
+**E o que isto ainda não autoriza:** dizer que a Puglia está bem coberta. **O conteúdo do
+APOL não foi lido.** `EXISTS_ROUTE_NOT_READABLE` não entra em cobertura — nem como zero.
+
+Medido em `data/samples/IT-FONTES/ITALY-OP-FIELD-LAYER.json` · `scripts/italia_camada_op.py`

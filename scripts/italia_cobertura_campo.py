@@ -12,7 +12,15 @@ O resultado inverte a intuição em duas culturas ao mesmo tempo:
     OLIVEIRA   Vêneto tem 0,5% da área e publica 28 boletins de olivo em 2026.
                Puglia tem 31,2% e o portal agrometeo regional declara, desde
                11/04/2018, que "la sezione dedicata alla Fitopatologia non viene
-               più redatta" — competência em transferência para a ARIF.
+               più redatta" — competência transferida à ARIF, que hoje É a editora
+               do notiziario e mesmo assim não restaurou a seção.
+
+               ATENÇÃO AO ALCANCE DESTA LINHA: ela mede a CAMADA REGIONAL. O sinal
+               de olivo da Puglia existe fora dela — a APOL, de Lecce, mantém série
+               semanal numerada com edições de 2026. `SOURCE_LAYER ≠ SIGNAL_ABSENCE`.
+               Ver `italia_camada_op.py`. A inversão contra o Vêneto sobrevive como
+               comparação entre SERVIÇOS REGIONAIS; a leitura "não há sinal de olivo
+               na Puglia", não.
 
     MILHO      FVG tem 6,7% da área e publica 10 boletins de MAIS em 2026.
                Vêneto tem 24,8% e o serviço fitossanitário publica ZERO — seus dois
@@ -57,11 +65,25 @@ def linhas():
                                   'trasferimento all\'Agenzia Regionale Attività Irrigue e '
                                   'Forestali (ARIF)" — Legge Regionale n. 33'),
          'STATE': 'NO_PHYTOPATHOLOGY_IN_REGIONAL_NEWSLETTER_SINCE_2018',
-         'ALTERNATIVE_ROUTE': ('organizações de produtores (Assoproli Bari, A.P.OL, Aproli) '
-                               'publicam boletins de mosca-da-azeitona; os expostos em HTML '
-                               'alcançável estão datados de 2024'),
-         'NOTE': ('a transferência de competência ainda é descrita como "in fase di" na '
-                  'página tal como obtida hoje, oito anos depois')},
+         'ALTERNATIVE_ROUTE': ('organizações de produtores. CORRIGIDO em 2026-08-30: eu '
+                               'tinha registrado que as edições em HTML alcançável '
+                               'paravam em 2024. Isso vale para a Assoproli Bari '
+                               '(mais recente 10/06/2024, rota legível), mas NÃO para a '
+                               'APOL de Lecce, que mantém série numerada semanal de '
+                               'mosca-da-azeitona com edições de 2026 (n.1 de 13–19/07, '
+                               'n.2 de 20–26/07). O conteúdo da APOL não foi lido — '
+                               'apol.it devolve 503 daqui —, então isto é '
+                               'EXISTS_ROUTE_NOT_READABLE e NÃO entra em cobertura. '
+                               'Ver IT-T3-OP em ITALY-OP-FIELD-LAYER.json.'),
+         'NOTE': ('CORREÇÃO. Eu tinha anotado a competência como "em fase de '
+                  'transferência". Medido em 2026-08-30: a ARIF É a editora do '
+                  'notiziario, publicado semanalmente às quartas. A transferência se '
+                  'completou E a seção de fitopatologia continua não redigida, oito anos '
+                  'depois — não é transição em curso, é ausência estabilizada. '
+                  'A linha continua com 0 boletins porque o que se mede aqui é a rota '
+                  'REGIONAL; o sinal existe fora dela, e SOURCE_LAYER ≠ SIGNAL_ABSENCE.'),
+         'STATE_LAYER': 'REGIONAL_SERVICE',
+         'SIGNAL_EXISTS_IN_ANOTHER_LAYER': True},
         {'CROP': 'Oliveira', 'REGION': 'Calabria', 'NUTS2': 'ITF6',
          'AREA_THS_HA': 184.7, 'PCT_NATIONAL': 16.6, 'AREA_RANK': 2,
          'BULLETINS_2026_MEASURED': None, 'ROUTE_TRIED': None,
