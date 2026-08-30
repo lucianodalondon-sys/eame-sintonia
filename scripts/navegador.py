@@ -48,11 +48,23 @@ SANDBOX
 ambiente impedir o Chrome de subir por causa de sandbox, o certo é dizer isso —
 não desligar a proteção e seguir.
 
-PERFIL
--------
-O perfil de coleta mora FORA do repositório, em `~/.sintonia-browser/chrome-profile`.
-Cookie, histórico, Local Storage e Login Data são dados de sessão: nunca entram em
-Git, nem em fixture, nem em relatório.
+PERFIL — E POR QUE ELE TEM PAÍS
+---------------------------------
+O perfil de coleta mora FORA do repositório, em
+`~/.sintonia-browser/<país>/chrome-profile`. Cookie, histórico, Local Storage e
+Login Data são dados de sessão: nunca entram em Git, nem em fixture, nem em
+relatório.
+
+O país no caminho não é organização: é isolamento. Um perfil só, compartilhado,
+faz duas coletas dividirem cookie, cache, consentimento e — pior — a MESMA porta
+de DevTools. Em 30/08 uma janela aberta para a França apareceu com uma aba
+italiana dentro, e não havia como saber de quem era o quê. Duas missões no mesmo
+navegador é o mesmo defeito que duas missões no mesmo checkout.
+
+    ONE ACTIVE MISSION = ONE WORKTREE = ONE BROWSER PROFILE = ONE PORT
+
+A porta é reservada por país e escrita aqui, para que reservar deixe de depender
+de alguém lembrar.
 """
 import os
 import platform
@@ -61,9 +73,34 @@ import shutil
 import subprocess
 import sys
 
-# Onde o perfil de coleta vive. Fora do repositório, sempre.
-PERFIL_COLETA = os.path.join(os.path.expanduser('~'), '.sintonia-browser',
-                             'chrome-profile')
+# A raiz dos perfis. Fora do repositório, sempre.
+BASE_PERFIS = os.path.join(os.path.expanduser('~'), '.sintonia-browser')
+
+# Porta de DevTools por país. Compartilhar porta é compartilhar processo: quem
+# se conectar na 9222 fala com o Chrome de quem chegou primeiro, e as abas de uma
+# missão aparecem na outra.
+PORTAS_POR_PAIS = {'FR': 9222, 'IT': 9223, 'ES': 9224}
+
+
+def perfil(pais):
+    """→ o perfil daquele país. Sem país não há perfil: falha fechado.
+
+    Aceitar um padrão silencioso aqui recriaria o perfil único que causou a
+    colisão — e ele voltaria com cara de conveniência.
+    """
+    p = str(pais or '').strip().upper()
+    if not p:
+        raise ValueError('perfil de coleta exige país; sem ele o perfil é compartilhado')
+    return os.path.join(BASE_PERFIS, p.lower(), 'chrome-profile')
+
+
+def porta(pais):
+    """→ a porta reservada daquele país, ou erro se ninguém a reservou."""
+    p = str(pais or '').strip().upper()
+    if p not in PORTAS_POR_PAIS:
+        raise ValueError('nenhuma porta de DevTools reservada para %r. '
+                         'Reservar em PORTAS_POR_PAIS antes de coletar' % pais)
+    return PORTAS_POR_PAIS[p]
 
 # Famílias. `CHROME` é preferido; `CHROMIUM` é aceito e sinalizado.
 CHROME = 'CHROME'
@@ -181,27 +218,30 @@ def versao(executavel, rodar=None):
             'WHY': 'o binário não devolveu versão e não há pasta de versão ao lado'}
 
 
-def argumentos(url, perfil=None, headless=False, porta_devtools=None):
+def argumentos(url, pais, headless=False, com_devtools=True):
     """A linha de comando da coleta. Sem `--no-sandbox`, e isso é uma decisão.
+
+    `pais` é obrigatório e vem antes de tudo: é ele que decide perfil e porta, e
+    é a única coisa que impede duas missões de dividirem o mesmo navegador.
 
     `headless=True` continua disponível porque serve para rota que não é
     bloqueada — mas quem chamar precisa saber que nesta máquina, contra a ADAMA,
     headless levou 403 e janela não.
     """
     args = [
-        '--user-data-dir=' + (perfil or PERFIL_COLETA),
+        '--user-data-dir=' + perfil(pais),
         '--no-first-run',
         '--no-default-browser-check',
     ]
     if headless:
         args += ['--headless=new', '--disable-gpu']
-    if porta_devtools:
-        args += ['--remote-debugging-port=%d' % int(porta_devtools)]
+    if com_devtools:
+        args += ['--remote-debugging-port=%d' % porta(pais)]
     args.append(url)
     return args
 
 
-def diagnostico():
+def diagnostico(pais='FR'):
     """O retrato desta máquina, para o relatório de entrega."""
     achado = descobrir()
     fora = {
@@ -212,8 +252,10 @@ def diagnostico():
         'CHROME_EXECUTABLE': achado.get('EXECUTABLE'),
         'CHROME_FAMILY': achado.get('FAMILY'),
         'HOW_FOUND': achado.get('HOW'),
-        'PROFILE_DIR': PERFIL_COLETA,
-        'PROFILE_EXISTS': os.path.isdir(PERFIL_COLETA),
+        'COUNTRY': pais,
+        'PROFILE_DIR': perfil(pais),
+        'PROFILE_EXISTS': os.path.isdir(perfil(pais)),
+        'DEVTOOLS_PORT': porta(pais),
         'SANDBOX': 'ON — `--no-sandbox` não é padrão',
     }
     if achado['FOUND']:
@@ -224,7 +266,8 @@ def diagnostico():
 
 
 def main():
-    d = diagnostico()
+    pais = (sys.argv[1] if len(sys.argv) > 1 else 'FR').upper()
+    d = diagnostico(pais)
     largura = max(len(k) for k in d)
     for k, v in d.items():
         print('%-*s : %s' % (largura, k, v))
@@ -233,7 +276,7 @@ def main():
     print()
     print('exemplo de chamada (janela, sem sandbox desligada):')
     print('  ', d['CHROME_EXECUTABLE'], ' '.join(
-        argumentos('https://exemplo.invalid', porta_devtools=9222)))
+        argumentos('https://exemplo.invalid', pais)))
     return 0
 
 

@@ -102,29 +102,73 @@ class Argumentos(unittest.TestCase):
 
     def test_no_sandbox_nunca_entra(self):
         """A regra 5 da missão, escrita como prova e não como intenção."""
-        for kwargs in ({}, {'headless': True}, {'porta_devtools': 9222},
-                       {'headless': True, 'porta_devtools': 9222}):
+        for kwargs in ({}, {'headless': True}, {'com_devtools': False},
+                       {'headless': True, 'com_devtools': True}):
             with self.subTest(**kwargs):
-                args = nav.argumentos('https://exemplo.invalid', **kwargs)
+                args = nav.argumentos('https://exemplo.invalid', 'FR', **kwargs)
                 self.assertNotIn('--no-sandbox', args)
                 self.assertFalse(any('sandbox' in a for a in args))
 
     def test_perfil_fica_fora_do_repositorio(self):
         """Cookie e sessão não podem estar num caminho que o Git alcance."""
-        args = nav.argumentos('https://exemplo.invalid')
+        args = nav.argumentos('https://exemplo.invalid', 'FR')
         perfil = [a for a in args if a.startswith('--user-data-dir=')][0]
         caminho = os.path.abspath(perfil.split('=', 1)[1])
         self.assertFalse(caminho.startswith(os.path.abspath(ROOT) + os.sep))
 
     def test_headless_e_opcional_e_nao_e_o_padrao(self):
         """Nesta máquina headless levou 403 na ADAMA e janela não. O padrão é janela."""
-        self.assertNotIn('--headless=new', nav.argumentos('https://exemplo.invalid'))
+        self.assertNotIn('--headless=new',
+                         nav.argumentos('https://exemplo.invalid', 'FR'))
         self.assertIn('--headless=new',
-                      nav.argumentos('https://exemplo.invalid', headless=True))
+                      nav.argumentos('https://exemplo.invalid', 'FR', headless=True))
 
     def test_a_url_vai_por_ultimo(self):
-        args = nav.argumentos('https://exemplo.invalid', porta_devtools=9222)
+        args = nav.argumentos('https://exemplo.invalid', 'FR')
         self.assertEqual(args[-1], 'https://exemplo.invalid')
+
+
+class IsolamentoPorPais(unittest.TestCase):
+    """A colisão de 30/08: uma aba italiana apareceu na janela da França.
+
+    Duas missões no mesmo navegador é o mesmo defeito que duas missões no mesmo
+    checkout — e nos dois casos ninguém consegue dizer de quem é o quê.
+    """
+
+    def test_franca_e_italia_nao_dividem_perfil(self):
+        self.assertNotEqual(nav.perfil('FR'), nav.perfil('IT'))
+
+    def test_franca_e_italia_nao_dividem_porta(self):
+        self.assertNotEqual(nav.porta('FR'), nav.porta('IT'))
+        self.assertEqual(nav.porta('FR'), 9222)
+        self.assertEqual(nav.porta('IT'), 9223)
+
+    def test_toda_porta_reservada_e_unica(self):
+        """Duas siglas na mesma porta seria a colisão escrita no próprio contrato."""
+        portas = list(nav.PORTAS_POR_PAIS.values())
+        self.assertEqual(len(portas), len(set(portas)))
+
+    def test_sem_pais_nao_ha_perfil(self):
+        """Um padrão silencioso aqui recria o perfil único que causou a colisão."""
+        for vazio in (None, '', '   '):
+            with self.subTest(pais=repr(vazio)):
+                with self.assertRaises(ValueError):
+                    nav.perfil(vazio)
+
+    def test_pais_sem_porta_reservada_falha_fechado(self):
+        """Melhor recusar do que escolher 9222 e conversar com o Chrome alheio."""
+        with self.assertRaises(ValueError):
+            nav.porta('DE')
+
+    def test_a_linha_de_comando_carrega_os_dois_isolamentos(self):
+        args = nav.argumentos('https://exemplo.invalid', 'FR')
+        self.assertIn('--user-data-dir=' + nav.perfil('FR'), args)
+        self.assertIn('--remote-debugging-port=9222', args)
+
+    def test_o_pais_e_case_insensitive_mas_o_caminho_nao_muda(self):
+        """`fr` e `FR` são a mesma missão; dois caminhos seriam dois perfis."""
+        self.assertEqual(nav.perfil('fr'), nav.perfil('FR'))
+        self.assertEqual(nav.porta('fr'), nav.porta('FR'))
 
 
 class Versao(unittest.TestCase):
