@@ -256,6 +256,50 @@ def perguntas():
       'o conteúdo dos boletins da APOL, e portanto a qualidade do sinal na Puglia')
 
 
+    # ------------------------------------------- rodada de 30/08: o caso e o painel
+    caso = _ler('IT-CASOS/IT-CASE-DURUM-FUSARIUM-001.json') or {}
+    pnl = _ler('IT-T3-LOTTA/IT-durum-field-panel.json') or {}
+
+    r('Existe uma convergência real entre sinal de campo e portfólio na Itália?',
+      PARTIAL,
+      'Sim, uma, e é REGIONAL: IT-CASE-DURUM-FUSARIUM-001, na Toscana. Grano duro × '
+      'fusariosi × fioritura, com os três eixos lidos de fonte primária e a coincidência '
+      'de janela sendo TEXTUAL, não inferida — os dois documentos usam a palavra '
+      '"fioritura". O veredito é CONVERGENCE_PARTIAL, não PROVED, por dois motivos '
+      'declarados: a perna de campo não foi PRESERVADA (a página do LaMMA é rolante e eu '
+      'não gravei a edição), e o escopo é 3,7% da cultura. A janela de 2026 já fechou.',
+      'IT-CASE-DURUM-FUSARIUM-001.json',
+      'o boletim datado e a tabela de usos autorizados do rótulo',
+      'que as duas janelas coincidem — comparação literal entre dois textos',
+      'se o tratamento foi feito, se houve venda, e se a convergência se repete nas '
+      'regiões que concentram a cultura')
+
+    r('Isso é uma oportunidade para a ADAMA na Itália?', REFUSE,
+      'Não posso dizer isso, e a pergunta embute dois saltos. PRIMEIRO salto: de '
+      'Toscana para Itália — a região é 3,7% da cultura e 57,9% do trigo duro nacional '
+      'nunca recebeu sonda de campo. SEGUNDO salto: de autorização para oportunidade — '
+      'o rótulo prova que o produto PODE ser usado, não que foi vendido, que há estoque, '
+      'que estava disponível no ponto de venda ou que alguém deveria comprá-lo. O rótulo '
+      'máximo que a evidência sustenta é REGIONAL CONVERGENCE WORTH INVESTIGATING.',
+      'IT-CASE-DURUM-FUSARIUM-001.json',
+      'a área regional (ISTAT) e o que o rótulo autoriza',
+      'nada — a recusa é o resultado',
+      'a janela comercial, que é NOT_KNOWN e depende de input da ADAMA')
+
+    r('Sondar Sicília e Basilicata aumentou a cobertura de campo do trigo duro?',
+      ANSWERABLE,
+      'Não. Sondei três regiões (Sicília 23,6%, Basilicata 9,8%, Campânia 4,5% — 37,9% '
+      'da cultura) e a cobertura medida continua em 3,7%, só a Toscana. Abrir a rota não '
+      'é ler o sinal: na Sicília não achei índice de boletim nas rotas medidas (e o SIAS '
+      'deu 503 em duas tentativas); na Basilicata o serviço foi retomado em janeiro de '
+      '2026 mas as edições estão atrás de cadastro gratuito, que eu não abri; na Campânia '
+      'há série provincial de 26/08/2026 cuja lista de culturas não é legível daqui.',
+      'IT-durum-field-panel.json',
+      'o órgão, a rota tentada e o HTTP de cada região',
+      'que nenhuma das três pode entrar como coberta',
+      'se qualquer uma delas publica boletim de cereal — nenhuma foi negada, só não lida')
+
+
 def regressoes():
     """Cada uma reprova uma confiança falsa que já apareceu nesta branch."""
     casos = _ler('IT-CASOS/ITALY-HERO-CASES-V1.json') or {}
@@ -315,6 +359,28 @@ def regressoes():
                 'não foi lido' in str(op.get('CORRECTION_TO_MY_OWN_FINDING', {})
                                       .get('WHAT_THIS_STILL_DOES_NOT_LICENSE', '')),
                 'a camada estatal calada nao prova ausencia de sinal na regiao'))
+
+    caso = _ler('IT-CASOS/IT-CASE-DURUM-FUSARIUM-001.json') or {}
+    pnl = _ler('IT-T3-LOTTA/IT-durum-field-panel.json') or {}
+
+    out.append(('AUTHORIZATION != OPPORTUNITY',
+                caso.get('CASE_LABEL') == 'REGIONAL CONVERGENCE WORTH INVESTIGATING',
+                'o rotulo prova que o produto PODE ser usado, nao que ha venda ou demanda'))
+
+    out.append(('ONE_REGION != COUNTRY',
+                caso.get('REGION_PCT_OF_NATIONAL_CROP', 100) < 5.0
+                and 'REGIONAL' in str(caso.get('VERDICT_DECOMPOSED', {}).get('SCOPE', '')),
+                'a Toscana e 3,7% do trigo duro; elevar o caso a Italia seria inventar'))
+
+    out.append(('ROUTE_OPENED != SIGNAL_READ',
+                pnl.get('COVERAGE_MOVED') is False
+                and pnl.get('PCT_NATIONAL_NOW_COVERED') == 3.7,
+                'sondar 37,9% da cultura sem ler boletim nao move cobertura nenhuma'))
+
+    out.append(('PAST_WINDOW != OPEN_WINDOW',
+                caso.get('CLOCKS', {}).get('B_AGRONOMIC_CLOCK', {})
+                .get('WINDOW_STATE_AT_AS_OF') == 'CLOSED_FOR_2026',
+                'a floracao de 2026 passou; o caso e para o ciclo seguinte'))
 
     demo = casos.get('CAPABILITY_DEMONSTRATION_NOT_A_CASE', {})
     out.append(('GENERIC_TARGET != SPECIFIC_TARGET',

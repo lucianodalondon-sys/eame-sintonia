@@ -210,4 +210,46 @@ pool*). O script já pagina devagar e **já falha suave**: um recorte estrangula
 **A regra que não pode ser relaxada no retorno:** `SOURCE FAILURE ≠ ZERO`. Recorte que a
 fonte recusou **não** é recorte sem pesquisadores, e não pode entrar no artefato com `0`.
 
-`OPENALEX_HANDOFF_STATUS = READY_TO_RUN`
+**Atualização 30/08 — não retentar nesta infraestrutura.** O 429 foi confirmado como
+bloqueio de IP com duração maior que a sessão, não limite de rajada. Esta missão **não**
+tentou de novo, por decisão explícita: gastar a rota aqui não muda o resultado e atrasa o
+resto. O recorte `DURUM_FUSARIUM` (78 obras) é o que mais interessa agora — seria a
+validação de eficácia que falta ao `IT-CASE-DURUM-FUSARIUM-001` —, e mesmo assim **não é
+condição para o caso existir**: pesquisador é evidência de apoio, não perna do caso.
+
+Ao rodar de fora, use o *polite pool*: `mailto=` com endereço real na query dá cota maior.
+
+`OPENALEX_HANDOFF_STATUS = READY_TO_RUN` · `DO_NOT_RETRY_IN_THIS_ENVIRONMENT = TRUE`
+
+---
+
+## 9 · QUARTO ALVO — AS TRÊS ROTAS DE CAMPO DO TRIGO DURO
+
+Saídas da expansão de painel de 30/08. Nenhuma é WAF; nenhuma exige lutar contra nada.
+
+**Basilicata — ALSIA.** O serviço de boletins **foi retomado em janeiro de 2026**
+(Metapontino, Val d'Agri prevista) e as edições ficam atrás de **cadastro gratuito**:
+*"Iscrivendosi ai Servizi di Consulenza on-line dell'Agenzia, è possibile accedere
+gratuitamente ai Bollettini"*. **Não me cadastrei**: abrir conta em serviço de terceiro é
+ação para fora, não sondagem de dado público. A página publica o responsável
+(Arturo Caponero, ALSIA). Pergunta a responder: **há boletim de cereais?** As páginas
+públicas nomeiam morango, videira, pêssego, cítricos e tomate — cereais não aparecem.
+
+**Campânia — Servizio Fitosanitario Regionale.** Série 2026 viva, **por província**
+(Avellino, Benevento, Caserta, Napoli, Salerno), edição de **26/08/2026**. É a melhor
+resolução geográfica achada fora da Toscana. Falta só abrir um dos cinco PDFs e ler a
+lista de culturas — o índice diz apenas *"le diverse colture"*, e o SIMFITO
+(`simfito.regione.campania.it/bollettini/`, seletor ano × área × cultura) não renderiza no
+servidor. **Um PDF de distância, não uma barreira.**
+
+**Sicília — SIAS.** `sias.regione.sicilia.it` devolveu **503 em duas tentativas**; parei
+ali. Reabrir de outra rede e procurar boletim agrometeo com seção de cultura. O Servizio
+Fitosanitario Regionale, esse, responde 200 e tem **ficha técnica de Frumento**
+(23/09/2024) e norme tecniche de 16/04/2026 — mas ficha não é boletim.
+
+**E o alvo que fecharia o caso:** gravar o boletim do **LaMMA/Grosseto** com hash. A
+página é rolante e a edição de 23/04/2026 que sustenta o `IT-CASE-DURUM-FUSARIUM-001`
+**não foi preservada**. É o único passo que separa o caso de
+`REAL_REGIONAL_CONVERGENCE_PROVED`.
+
+`DURUM_FIELD_HANDOFF_STATUS = READY_TO_RUN`

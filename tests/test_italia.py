@@ -792,6 +792,144 @@ class TestVarreduraDeCoordenacao(unittest.TestCase):
         self.assertIn('elisão de cabeça', h['MEASURED_AS'])
 
 
+
+CASO_DURO = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS',
+                         'IT-CASE-DURUM-FUSARIUM-001.json')
+PAINEL_DURO = os.path.join(ROOT, 'data', 'samples', 'IT-T3-LOTTA',
+                           'IT-durum-field-panel.json')
+
+
+@unittest.skipUnless(os.path.exists(CASO_DURO), 'caso ainda nao gerado')
+class TestCasoDurumFusarium(unittest.TestCase):
+    """O primeiro caso regional real — e os limites que nao podem ser afrouxados."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.c = json.load(open(CASO_DURO, encoding='utf-8'))
+
+    # Os campos que EXISTEM para nomear o que e proibido. Varrer o documento inteiro
+    # fazia o teste reprovar a propria declaracao da proibicao — o que e ruido, nao
+    # achado. O teste tem de pegar AFIRMACAO, nao o vocabulario da proibicao.
+    META = ('FORBIDDEN_LABEL',)
+
+    def _corpo_de_afirmacoes(self):
+        c = {k: v for k, v in self.c.items() if k not in self.META}
+        am = json.loads(json.dumps(c['ACTION_MAP'], ensure_ascii=False))
+        am['SUPPLY'].pop('WHY', None)      # cita a lista de termos banidos
+        c['ACTION_MAP'] = am
+        return json.dumps(c, ensure_ascii=False).lower()
+
+    def test_nunca_se_chama_oportunidade_nem_se_eleva_a_pais(self):
+        """O rotulo maximo e REGIONAL CONVERGENCE WORTH INVESTIGATING."""
+        self.assertIn('WORTH INVESTIGATING', self.c['CASE_LABEL'])
+        t = self._corpo_de_afirmacoes()
+        for proibido in ('opportunity', 'oportunidade'):
+            self.assertNotIn(proibido, t)
+        self.assertEqual('Toscana', self.c['REGION'])
+        self.assertLess(self.c['REGION_PCT_OF_NATIONAL_CROP'], 5.0)
+
+    def test_o_campo_meta_realmente_nomeia_a_proibicao(self):
+        """Se o campo sumir, a excecao acima deixa de ser justificada."""
+        self.assertIn('opportunity', self.c['FORBIDDEN_LABEL'].lower())
+        self.assertIn('Toscana', self.c['FORBIDDEN_LABEL'])
+
+    def test_a_janela_de_2026_esta_declarada_fechada(self):
+        """Janela passada nao e janela aberta — o erro da flavescencia nao volta."""
+        b = self.c['CLOCKS']['B_AGRONOMIC_CLOCK']
+        self.assertEqual('CLOSED_FOR_2026', b['WINDOW_STATE_AT_AS_OF'])
+        self.assertTrue(b['WINDOWS_COINCIDE'])
+
+    def test_o_relogio_comercial_e_not_known_e_a_inferencia_e_proibida(self):
+        d = self.c['CLOCKS']['D_COMMERCIAL_CLOCK']
+        self.assertEqual('NOT_KNOWN', d['STATE'])
+        self.assertIn('NÃO implica', d['FORBIDDEN_INFERENCE'])
+
+    def test_so_entram_produtos_com_durum_provado_no_rotulo(self):
+        """E o SEEDRON fica FORA: fusariose de semente nao e fusariose de espiga."""
+        nomes = [p['PRODUCT'] for p in self.c['ADAMA_REGULATORY_RESPONSE']]
+        self.assertNotIn('SEEDRON', nomes)
+        self.assertIn('MAXENTIS', nomes)
+        self.assertIn('KOJAMI', nomes)
+        for p in self.c['ADAMA_REGULATORY_RESPONSE']:
+            self.assertIn('AUTHORIZED_USE_TABLE', p['DURUM_EVIDENCE'])
+            self.assertTrue(p['IN_FORCE_AT_CASE_DATE'])
+
+    def test_vencimento_passado_nao_vira_retirada(self):
+        """CUSTODIA ULTRA e BLAISE ULTRA venceram 15 dias antes do AS_OF."""
+        c = self.c['CLOCKS']['C_REGULATORY_PRODUCT_WINDOW']
+        self.assertIn('CUSTODIA ULTRA', c['EXPIRY_DATE_PASSED_AT_AS_OF'])
+        self.assertIn('EXPIRY ≠ WITHDRAWAL', c['ANOMALY_NOTE'])
+
+    def test_o_defeito_de_preservacao_e_declarado_contra_o_proprio_caso(self):
+        """A perna de campo nao esta gravada, e e por isso que nao e PROVED."""
+        d = self.c['PRESERVATION_DEFECT']
+        self.assertEqual('FIELD', d['LEG'])
+        self.assertEqual('NOT_PRESERVED', d['STATE'])
+        self.assertEqual('CONVERGENCE_PARTIAL', self.c['VERDICT'])
+        self.assertIn('MISSING', self.c['VERDICT_DECOMPOSED']['PRESERVATION'])
+        self.assertIn('PROVED', self.c['VERDICT_DECOMPOSED']['SUBSTANCE'])
+
+    def test_preservar_nao_torna_o_caso_nacional(self):
+        """Os dois defeitos sao independentes, e confundi-los inflaria o escopo."""
+        self.assertIn('nenhuma quantidade de preservação',
+                      self.c['VERDICT_DECOMPOSED']['WHY_NOT_PROVED'])
+
+    def test_o_mapa_de_acoes_separa_olhar_de_agir(self):
+        m = self.c['ACTION_MAP']
+        self.assertIn('WHO CAN LOOK NOW ≠ WHO MUST ACT NOW', m['RULE'])
+        self.assertFalse(m['COMMERCIAL']['CAN_LOOK_NOW'])
+        self.assertEqual('NOT_KNOWN', m['MARKETING']['STATE'])
+        self.assertEqual('NO_STATEMENT_POSSIBLE', m['SUPPLY']['STATE'])
+        self.assertTrue(m['MARKET_DEVELOPMENT']['CAN_LOOK_NOW'])
+
+    def test_nenhuma_afirmacao_proibida_pela_premissa(self):
+        """Sem dado interno: nada de receita, margem, venda, estoque ou ROI."""
+        t = self._corpo_de_afirmacoes()
+        for proibido in ('revenue', 'margin', 'roi realized', 'market share',
+                         'quota di mercato', 'inventory'):
+            self.assertNotIn(proibido, t)
+
+    def test_a_proibicao_de_supply_continua_escrita_em_algum_lugar(self):
+        """A excecao do teste acima so vale enquanto a proibicao estiver declarada."""
+        why = self.c['ACTION_MAP']['SUPPLY']['WHY'].lower()
+        self.assertIn('dado interno', why)
+        self.assertIn('revenue', why)
+
+
+@unittest.skipUnless(os.path.exists(PAINEL_DURO), 'painel ainda nao gerado')
+class TestPainelDoTrigoDuro(unittest.TestCase):
+    """Abrir a rota nao e ler o sinal — tres regioes novas, cobertura inalterada."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.d = json.load(open(PAINEL_DURO, encoding='utf-8'))
+
+    def test_sondar_nao_move_cobertura_sem_ler_boletim(self):
+        self.assertFalse(self.d['COVERAGE_MOVED'])
+        self.assertEqual(3.7, self.d['PCT_NATIONAL_NOW_COVERED'])
+        self.assertGreater(self.d['PCT_NATIONAL_PROBED_THIS_ROUND'], 35.0)
+
+    def test_cada_regiao_declara_orgao_rota_e_estado(self):
+        for r in self.d['REGIONS']:
+            with self.subTest(regiao=r['REGION']):
+                self.assertTrue(r['BODY'])
+                self.assertTrue(r['ROUTES_TRIED'])
+                self.assertTrue(r['EVIDENCE_STATE'])
+                self.assertTrue(r['RAW_EVIDENCE_STATE'])
+
+    def test_falha_de_rota_nunca_e_ausencia_de_sinal(self):
+        sic = [r for r in self.d['REGIONS'] if r['REGION'] == 'Sicilia'][0]
+        self.assertEqual('BULLETIN_NOT_FOUND_ON_MEASURED_ROUTES', sic['FIELD_SIGNAL_STATE'])
+        self.assertIn('NORMA TÉCNICA ≠ SINAL DE CAMPO', sic['LAW'])
+        sias = [x for x in sic['ROUTES_TRIED'] if x['HTTP'] == 503][0]
+        self.assertEqual(2, sias['ATTEMPTS'], 'duas tentativas, e para')
+
+    def test_conteudo_atras_de_cadastro_nao_e_bloqueio_nem_ausencia(self):
+        bas = [r for r in self.d['REGIONS'] if r['REGION'] == 'Basilicata'][0]
+        self.assertEqual('GATED_BY_FREE_REGISTRATION', bas['EVIDENCE_STATE'])
+        self.assertIn('GATED ≠ BLOCKED ≠ ABSENT', bas['LAW'])
+        self.assertIn('ação para fora', bas['WHY_I_DID_NOT_OPEN_IT'])
+
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 
 
@@ -812,7 +950,7 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
         falhas = [n for n, (ok, _) in self.regs.items() if not ok]
         self.assertEqual([], falhas, 'regressoes de confianca falsa quebradas: %s' % falhas)
 
-    def test_as_dez_estao_presentes(self):
+    def test_as_catorze_estao_presentes(self):
         """Apagar uma regressao nao pode ser a forma de fazer a suite passar.
 
         As quatro ultimas nasceram em 30/08/2026, quando eu corrigi tres achados meus
@@ -830,7 +968,11 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
                      'NOT_ASKED != NOT_FOUND != DOES_NOT_EXIST',
                      'CROP_TERM != AUTHORIZED_CROP',
                      'SOURCE_LAYER != SIGNAL_ABSENCE',
-                     'STRONG_PATTERN != PERMISSION_TO_CLOSE'):
+                     'STRONG_PATTERN != PERMISSION_TO_CLOSE',
+                     'AUTHORIZATION != OPPORTUNITY',
+                     'ONE_REGION != COUNTRY',
+                     'ROUTE_OPENED != SIGNAL_READ',
+                     'PAST_WINDOW != OPEN_WINDOW'):
             self.assertIn(nome, self.regs)
 
     def test_ask_declara_estado_em_toda_pergunta(self):
