@@ -518,6 +518,54 @@ def test_confirmacao_do_mapa_nao_apaga_a_diferenca_entre_os_tres_estados():
     assert soma <= len(pares), 'as contagens de confirmacao passam do total de pares'
 
 
+def test_ingrediente_ativo_sai_da_composicao_e_nao_da_tabela_de_dose():
+    """Concentração é da fórmula. Número numa tabela de dose não é ingrediente ativo.
+
+    Defeito medido: varrendo a página inteira, o CUPROXI FLO saía com
+    "Ha Tuberculosis 0,15%" como ingrediente ativo — o 0,15% vinha de uma tabela de
+    dose contra repilo, e "Ha Tuberculosis" era o fim da célula anterior.
+    """
+    texto = ('Composición: Tau-fluvalinato 24% [EW] P/V . '
+             'Cultivo Dosis Repilo Olivo Ha Tuberculosis 0,15% ')
+    nomes = [x['NAME'] for x in A._ingredientes(texto)]
+    assert nomes == ['Tau-fluvalinato'], nomes
+
+
+def test_palavra_de_ligacao_nao_vira_substancia():
+    """"Contiene", "hasta el", "y el" e "Este producto contiene" não são substâncias."""
+    for frase in ('Composición: Contiene 240 g/l',
+                  'Composición: hasta el 20%',
+                  'Composición: y el 78%',
+                  'Composición: Este producto contiene 7,4%'):
+        assert A._ingredientes(frase) == [], frase
+
+
+def test_rotulo_colado_e_expresado_en_sao_notacao_e_nao_nome():
+    """Dois vícios de escrita da fonte, lidos como notação — não inventados.
+
+    SUNBRIGHT publica "ComposiciónAclonifen 300 g/l", sem espaço, no HTML de origem.
+    CUPROXI FLO publica "Oxicloruro de cobre, expresado en Cu, 52% p/v": o nome da
+    substância é o que vem antes da vírgula.
+    """
+    a = A._ingredientes('Composición: ComposiciónAclonifen 300 g/l + Imazamox 20 g/l')
+    assert [x['NAME'] for x in a] == ['Aclonifen', 'Imazamox'], a
+    b = A._ingredientes('Composición: Oxicloruro de cobre, expresado en Cu, 52% p/v')
+    assert [(x['NAME'], x['CONCENTRATION']) for x in b] == [('Oxicloruro de cobre', '52%')], b
+
+
+def test_codigo_de_modo_de_acao_nao_e_a_palavra_seguinte():
+    """HRAC/FRAC/IRAC é seguido de CÓDIGO, não da próxima palavra da frase.
+
+    Defeito medido: com a regex case-insensitive no código, 6 dos 22 modos de ação eram
+    "FRAC Grupo", "HRAC como", "HRAC herbic", "IRAC Grupo" — a frase, não o código.
+    """
+    html = ('<html><body><h1>X</h1><p>HRAC Grupo K1 y tambien HRAC como referencia. '
+            'FRAC 7 + FRAC M. IRAC 3A.</p></body></html>')
+    d = A.parsear_produto(html, 'https://www.adama.com/spain/es/nuestras-soluciones/a/x')
+    codigos = sorted({'%s %s' % (m['SCHEME'], m['CODE']) for m in d['MODES_OF_ACTION']})
+    assert codigos == ['FRAC 7', 'FRAC M', 'HRAC K1', 'IRAC 3A'], codigos
+
+
 if __name__ == '__main__':
     falhas = 0
     for nome, fn in sorted(globals().items()):

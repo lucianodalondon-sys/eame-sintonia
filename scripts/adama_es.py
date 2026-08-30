@@ -716,10 +716,19 @@ CLAIMS_REGULATORIOS = [
     r'autorizado\s+(?:en|para)', r'\bES-\d{5}\b', r'\b\d{5,6}/\d{2}\b',
 ]
 
+# O código é MAIÚSCULO e curto: número (1, 29), letra de grupo (M, A, K1, 4A), ou os dois
+# barrados (K1/3). Aceitar [A-Z0-9] com re.I fazia a palavra seguinte virar código:
+# "HRAC como", "FRAC Grupo", "IRAC Grupo", "HRAC herbic" saíam como modo de ação. Medido
+# em 2026-08-30: 6 dos 22 modos eram a frase, não o código.
+#
+# O rótulo "HRAC"/"FRAC"/"IRAC" continua case-insensitive porque a ADAMA escreve de vários
+# jeitos; o CÓDIGO é que não pode ser. E "Grupo" entre rótulo e código é notação da
+# própria ADAMA ("HRAC Grupo K1"), então é pulada em vez de virar código.
+_COD_MOA = r'(?:\d{1,2}[A-Z]?|[A-Z]\d{0,2})(?:\s*/\s*(?:\d{1,2}[A-Z]?|[A-Z]\d{0,2}))?'
 MODO_ACAO = [
-    ('HRAC', re.compile(r'\bHRAC\b[\s:]*([A-Z0-9/]{1,6})', re.I)),
-    ('FRAC', re.compile(r'\bFRAC\b[\s:]*([A-Z0-9/]{1,6})', re.I)),
-    ('IRAC', re.compile(r'\bIRAC\b[\s:]*([A-Z0-9/]{1,6})', re.I)),
+    (nome, re.compile(r'\b%s\b[\s:.-]*(?:[Gg]rupo\s+|[Gg]roup\s+)?(%s)\b'
+                      % (nome, _COD_MOA)))
+    for nome in ('HRAC', 'FRAC', 'IRAC')
 ]
 
 REGISTRO = re.compile(r'\b(?:ES-\d{5}|\d{5,6}\s*/\s*\d{2})\b')
@@ -1010,19 +1019,66 @@ def _composicao(t):
     return re.sub(r'\s+', ' ', m.group(1)).strip() if m else 'NÃO SEI'
 
 
-def _ingredientes(t, vocab=None):
-    """Substância + concentração. Um nome que contém cultivo ou agente não é substância.
+# Palavras de ligação que a frase de composição usa e que NÃO são nome de substância.
+# Sem elas, saíam como ingrediente ativo: "Contiene 240 g/l", "Este producto contiene
+# 7,4%", "hasta el 20%", "y el 78%", "equivalente a". Nenhuma é substância; todas são
+# a frase respirando antes do número.
+LIGACAO = {'de', 'del', 'en', 'a', 'al', 'el', 'la', 'los', 'las', 'un', 'una', 'y', 'o',
+           'con', 'por', 'que', 'hasta', 'contiene', 'contienen', 'este', 'esta',
+           'producto', 'expresado', 'expresada', 'equivalente', 'ligeramente',
+           'inferior', 'superior', 'composicion', 'aproximadamente', 'riqueza'}
 
-    Sem esse filtro a expressão pega o texto da célula anterior da tabela e emite
-    "preventivo OLIVO REPILO 0,05%" como ingrediente ativo. Concentração é da fórmula,
-    não da linha de uso.
+# "Oxicloruro de cobre, expresado en Cu, 52% p/v" — convenção de rótulo espanhol: o
+# nome da substância é o que vem ANTES da primeira vírgula, e "expresado en X" diz só
+# em que elemento a concentração está medida. Ler isso não é inferir: é a notação.
+EXPRESADO = re.compile(r'^([A-Za-zÁÉÍÓÚÑáéíóúñ][A-Za-zÁÉÍÓÚÑáéíóúñ\s-]{3,40}?)\s*,\s*'
+                       r'expresad[oa]\s+en\s+[^,]{1,20},\s*(\d+(?:[.,]\d+)?)\s*%', re.I)
+
+
+def _limpa_nome_substancia(nome):
+    """Tira ligação da frente e do fim, e o rótulo "Composición" colado (defeito da fonte).
+
+    A ficha do SUNBRIGHT publica "ComposiciónAclonifen 300 g/l" — sem espaço, no HTML de
+    origem. Descolar o rótulo é ler a fonte; inventar o nome seria outra coisa.
+    """
+    nome = re.sub(r'^composici[oó]n\s*:?\s*', '', (nome or '').strip(' .,-:'), flags=re.I)
+    palavras = [p for p in nome.split() if p]
+    while palavras and _chave(palavras[0]) in LIGACAO:
+        palavras.pop(0)
+    while palavras and _chave(palavras[-1]) in LIGACAO:
+        palavras.pop()
+    return ' '.join(palavras)
+
+
+def _ingredientes(t, vocab=None):
+    """Substância + concentração, lidas SÓ da frase de composição quando ela existe.
+
+    O erro que isto conserta era de ESCOPO: varrer a página inteira fazia a expressão
+    casar com qualquer "<palavras> <número>%" — e o CUPROXI FLO saía com
+    "Ha Tuberculosis 0,15%" como ingrediente ativo, vindo de uma tabela de dose contra
+    repilo. Concentração é da fórmula, não da linha de uso; então o texto lido é o da
+    composição. Só quando a ficha não publica composição é que se olha a página toda,
+    e aí os filtros de ligação e de vocabulário seguram o resto.
     """
     fora, vistos = [], set()
     proibidos = set()
     if vocab:
         proibidos = set(vocab['crops']) | set(vocab['pests'])
-    for m in CONCENTRACAO.finditer(t or ''):
-        nome = m.group(1).strip(' .,-')
+
+    composicao = _composicao(t)
+    alvo = composicao if composicao != 'NÃO SEI' else (t or '')
+
+    m = EXPRESADO.search(alvo)
+    if m:
+        fora.append({'NAME': _limpa_nome_substancia(m.group(1)),
+                     'CONCENTRATION': m.group(2) + '%', 'CONCENTRATION_UNIT': '%',
+                     'FORMULATION_CODE': 'NÃO SEI',
+                     'NOTA': 'rotulo escreve "expresado en" — a concentracao e do elemento',
+                     'EVIDENCE_LEVEL': 'OBSERVED_ON_MANUFACTURER_PAGE'})
+        vistos.add(_chave(fora[0]['NAME']))
+
+    for m in CONCENTRACAO.finditer(alvo):
+        nome = _limpa_nome_substancia(m.group(1))
         palavras = _chave(nome).split()
         if len(nome) < 4 or _chave(nome) in vistos:
             continue
