@@ -83,6 +83,26 @@ ATORES = {
 }
 
 
+def _curl_compat(url, *, token, timeout=60):
+    """`coletor._curl` com só os argumentos que ESTA cópia dele aceita.
+
+    POR QUE ISTO EXISTE — e custou uma execução para descobrir.
+    A primeira versão passava `tentativas=2`, que existe no `coletor.py` de uma linha de
+    história e NÃO existe no da branch default. Os sete atores voltaram
+    `INDISPONIVEL TypeError` e, por um instante, aquilo parecia a Apify recusando tudo.
+
+        FALHA DE ASSINATURA != FONTE INDISPONÍVEL.
+
+    O workflow roda o código da branch default, não o da minha árvore — e as duas
+    divergiram (`fa523a7` não é ancestral da default). Perguntar à assinatura em vez de
+    supor uma versão é o que impede o próximo campo novo de reproduzir o mesmo susto.
+    """
+    import inspect
+    aceita = inspect.signature(coletor._curl).parameters
+    extra = {'tentativas': 2} if 'tentativas' in aceita else {}
+    return coletor._curl(url, token=token, timeout=timeout, **extra)
+
+
 def _carregar_pessoas():
     with open(UNIVERSO, encoding='utf-8') as f:
         d = json.load(f)
