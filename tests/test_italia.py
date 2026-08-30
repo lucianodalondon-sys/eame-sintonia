@@ -3,6 +3,7 @@
 import datetime
 import json
 import os
+import re
 import sys
 import unittest
 
@@ -16,6 +17,7 @@ import italia_cobertura_campo      # noqa: E402,F401
 import italia_vies_de_painel       # noqa: E402,F401
 import italia_trigo_duro           # noqa: E402,F401
 import italia_camada_op            # noqa: E402,F401
+import italia_antecipacao          # noqa: E402,F401
 import italia_tabela_dose as td    # noqa: E402
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
@@ -810,7 +812,7 @@ class TestCasoDurumFusarium(unittest.TestCase):
     # Os campos que EXISTEM para nomear o que e proibido. Varrer o documento inteiro
     # fazia o teste reprovar a propria declaracao da proibicao — o que e ruido, nao
     # achado. O teste tem de pegar AFIRMACAO, nao o vocabulario da proibicao.
-    META = ('FORBIDDEN_LABEL',)
+    META = ('FORBIDDEN_LABEL', 'STILL_FORBIDDEN_TO_WRITE')
 
     def _corpo_de_afirmacoes(self):
         c = {k: v for k, v in self.c.items() if k not in self.META}
@@ -819,19 +821,43 @@ class TestCasoDurumFusarium(unittest.TestCase):
         c['ACTION_MAP'] = am
         return json.dumps(c, ensure_ascii=False).lower()
 
+    # Banir a PALAVRA e diferente de banir a AFIRMACAO. O caso precisa poder escrever
+    # "NAO que ainda exista oportunidade hoje" — que e justamente a frase que limita a
+    # promessa. Um teste por palavra-chave crua obrigaria a apagar essa frase, e o
+    # documento ficaria mais permissivo, nao menos. Entao o teste olha a POLARIDADE.
+    NEGACAO = re.compile(r'(?:n[ãa]o|nunca|jamais|proibid|forbidden|not)\b[^.;]{0,60}$')
+
     def test_nunca_se_chama_oportunidade_nem_se_eleva_a_pais(self):
         """O rotulo maximo e REGIONAL CONVERGENCE WORTH INVESTIGATING."""
         self.assertIn('WORTH INVESTIGATING', self.c['CASE_LABEL'])
         t = self._corpo_de_afirmacoes()
-        for proibido in ('opportunity', 'oportunidade'):
-            self.assertNotIn(proibido, t)
+        achados = 0
+        for m in re.finditer(r'opportunity|oportunidade', t):
+            achados += 1
+            antes = t[max(0, m.start() - 70):m.start()]
+            with self.subTest(trecho=t[max(0, m.start() - 70):m.end() + 20]):
+                self.assertRegex(antes, self.NEGACAO,
+                                 'a palavra so pode aparecer negada; aqui esta afirmada')
         self.assertEqual('Toscana', self.c['REGION'])
         self.assertLess(self.c['REGION_PCT_OF_NATIONAL_CROP'], 5.0)
 
-    def test_o_campo_meta_realmente_nomeia_a_proibicao(self):
-        """Se o campo sumir, a excecao acima deixa de ser justificada."""
+    def test_a_negacao_da_promessa_esta_de_fato_escrita(self):
+        """A excecao de polaridade so vale se a frase limitante existir mesmo."""
+        v = self.c['WHAT_THE_PROVED_VERDICT_MEANS']
+        self.assertIn('NÃO que ainda exista oportunidade hoje', v)
+        self.assertIn('TERIA', v, 'o verbo tem de estar no passado condicional')
+
+    def test_os_campos_meta_realmente_nomeiam_a_proibicao(self):
+        """Se os campos sumirem, a excecao acima deixa de ser justificada.
+
+        Excluir um campo da varredura so e honesto enquanto o campo existe PARA
+        nomear o que e proibido. Sem este teste, META viraria uma porta de fuga.
+        """
         self.assertIn('opportunity', self.c['FORBIDDEN_LABEL'].lower())
         self.assertIn('Toscana', self.c['FORBIDDEN_LABEL'])
+        proibidas = ' '.join(self.c['STILL_FORBIDDEN_TO_WRITE']).lower()
+        for f in ('italy opportunity', 'national convergence', 'market gap'):
+            self.assertIn(f, proibidas)
 
     def test_a_janela_de_2026_esta_declarada_fechada(self):
         """Janela passada nao e janela aberta — o erro da flavescencia nao volta."""
@@ -860,19 +886,60 @@ class TestCasoDurumFusarium(unittest.TestCase):
         self.assertIn('CUSTODIA ULTRA', c['EXPIRY_DATE_PASSED_AT_AS_OF'])
         self.assertIn('EXPIRY ≠ WITHDRAWAL', c['ANOMALY_NOTE'])
 
-    def test_o_defeito_de_preservacao_e_declarado_contra_o_proprio_caso(self):
-        """A perna de campo nao esta gravada, e e por isso que nao e PROVED."""
-        d = self.c['PRESERVATION_DEFECT']
-        self.assertEqual('FIELD', d['LEG'])
-        self.assertEqual('NOT_PRESERVED', d['STATE'])
-        self.assertEqual('CONVERGENCE_PARTIAL', self.c['VERDICT'])
-        self.assertIn('MISSING', self.c['VERDICT_DECOMPOSED']['PRESERVATION'])
-        self.assertIn('PROVED', self.c['VERDICT_DECOMPOSED']['SUBSTANCE'])
+    def test_as_duas_pernas_estao_preservadas_com_hash(self):
+        """PRESERVED so vale se o byte puder ser reconferido."""
+        p = self.c['PRESERVATION']
+        self.assertEqual('PRESERVED', p['FIELD_LEG'])
+        self.assertEqual('PRESERVED', p['PRODUCT_LEG'])
+        self.assertEqual(64, len(p['FIELD_SHA256']))
+        self.assertGreater(p['FIELD_BYTES'], 0)
+        self.assertTrue(p['FIELD_SOURCE_URL'].startswith('https://'))
+        self.assertEqual('2026-04-23', p['FIELD_SOURCE_DATE'])
+        caminho = os.path.join(ROOT, p['FIELD_ARTIFACT'])
+        self.assertTrue(os.path.exists(caminho), 'o artefato preservado tem de existir')
+        import hashlib
+        with open(caminho, 'rb') as fh:
+            self.assertEqual(p['FIELD_SHA256'], hashlib.sha256(fh.read()).hexdigest(),
+                             'o hash do disco tem de bater com o declarado')
 
-    def test_preservar_nao_torna_o_caso_nacional(self):
-        """Os dois defeitos sao independentes, e confundi-los inflaria o escopo."""
-        self.assertIn('nenhuma quantidade de preservação',
-                      self.c['VERDICT_DECOMPOSED']['WHY_NOT_PROVED'])
+    def test_o_verdito_subiu_e_carrega_os_tres_limites(self):
+        """PROVED nao pode viajar sozinho: escopo, janela e comercial vao junto."""
+        self.assertEqual('REAL_REGIONAL_CONVERGENCE_PROVED', self.c['VERDICT'])
+        v = self.c['VERDICT_MUST_CARRY']
+        self.assertEqual('NOT_KNOWN', v['COMMERCIAL_WINDOW'])
+        self.assertEqual('TOSCANA / GROSSETO', v['SCOPE'])
+        self.assertIn('CLOSED', v['AGRONOMIC_WINDOW_2026'])
+
+    def test_o_escopo_nunca_foi_o_motivo_do_partial(self):
+        """Preservar fechou a preservacao. NAO tornou o caso nacional."""
+        e = self.c['VERDICT_DECOMPOSED']['SCOPE']
+        self.assertIn('REGIONAL', e)
+        self.assertIn('57,9', e)
+        self.assertIn('NUNCA foi o motivo', e)
+
+    def test_as_frases_proibidas_continuam_proibidas_mesmo_com_proved(self):
+        proibidas = self.c['STILL_FORBIDDEN_TO_WRITE']
+        for f in ('ITALY OPPORTUNITY', 'NATIONAL CONVERGENCE', 'ADAMA SHOULD ACT',
+                  'MARKET GAP', 'SALES OPPORTUNITY'):
+            self.assertIn(f, proibidas)
+        t = self._corpo_de_afirmacoes()
+        for f in ('italy opportunity', 'national convergence', 'adama should act',
+                  'market gap'):
+            self.assertNotIn(f, t)
+
+    def test_a_preservacao_corrigiu_a_magnitude_do_risco(self):
+        """Ler o texto guardado derrubou uma generalizacao minha.
+
+        Eu escrevi "alto risco de fusariosi" para o grano duro. A fonte diz que o risco
+        modelado e elevado no TENERO no sul e "in alcune situazioni del duro". Em
+        compensacao ela traz SINTOMA OBSERVADO no duro, que e mais forte que modelo.
+        """
+        obs = ' '.join(o['WHAT'] for o in self.c['OBSERVED'])
+        self.assertIn('CORREÇÃO DO PRÓPRIO CASO', obs)
+        self.assertIn('IN ALCUNE SITUAZIONI DEL DURO', obs)
+        self.assertIn('SINTOMA DE FUSARIOSE OBSERVADO', obs)
+        leis = [o.get('LAW') for o in self.c['OBSERVED'] if o.get('LAW')]
+        self.assertIn('SINTOMA OBSERVADO ≠ RISCO MODELADO', leis)
 
     def test_o_mapa_de_acoes_separa_olhar_de_agir(self):
         m = self.c['ACTION_MAP']
@@ -930,6 +997,84 @@ class TestPainelDoTrigoDuro(unittest.TestCase):
         self.assertIn('GATED ≠ BLOCKED ≠ ABSENT', bas['LAW'])
         self.assertIn('ação para fora', bas['WHY_I_DID_NOT_OPEN_IT'])
 
+
+ANTEC = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS',
+                     'IT-CASE-DURUM-FUSARIUM-001-antecipacao.json')
+
+
+@unittest.skipUnless(os.path.exists(ANTEC), 'auditoria de antecipacao ainda nao gerada')
+class TestFutureEvidenceCannotClosePastCase(unittest.TestCase):
+    """FUTURE_EVIDENCE_CANNOT_CLOSE_PAST_CASE.
+
+    Um caso datado so prova ANTECIPACAO se fechar com o que existia no dia. Se qualquer
+    peca publicada depois for necessaria para justificar o alerta, o que se mostra e
+    retrospectiva bem escrita — outra coisa, e vale muito menos.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import italia_antecipacao as ant
+        cls.ant = ant
+        cls.d = json.load(open(ANTEC, encoding='utf-8'))
+
+    def test_nenhuma_evidencia_posterior_sustenta_o_alerta(self):
+        ok, viol = self.ant.auditar(self.ant.evidencias())
+        self.assertTrue(ok, 'evidencia posterior marcada como SUSTAINS_ALERT: %s' % viol)
+        self.assertTrue(self.d['AUDIT_PASSES'])
+        self.assertEqual([], self.d['VIOLATIONS'])
+
+    def test_toda_peca_do_alerta_tem_data_anterior_ou_igual(self):
+        import datetime
+        caso = datetime.date.fromisoformat(self.d['CASE_DATE'])
+        for e in self.d['AVAILABLE_BY_CASE_DATE']:
+            with self.subTest(item=e['ITEM']):
+                self.assertLessEqual(datetime.date.fromisoformat(e['SOURCE_DATE']), caso)
+
+    def test_as_pecas_posteriores_existem_e_sao_context_only(self):
+        """Se a lista de posteriores esvaziar, o teste deixa de medir alguma coisa."""
+        depois = self.d['AVAILABLE_ONLY_LATER']
+        self.assertGreaterEqual(len(depois), 3)
+        for e in depois:
+            with self.subTest(item=e['ITEM']):
+                self.assertEqual('CONTEXT_ONLY', e['ROLE'])
+
+    def test_a_data_usada_e_a_vigencia_do_documento_nao_a_do_download(self):
+        """Os PDFs sao de agosto; o rotulo italiano e modificavel sob art.7 DPR 55/2012.
+
+        Uma copia de agosto pode carregar modificacao de junho, entao a data que conta e
+        a vigencia declarada DENTRO do documento.
+        """
+        rot = [e for e in self.d['AVAILABLE_BY_CASE_DATE']
+               if e.get('IN_DOCUMENT_VALIDITY_IT')]
+        self.assertEqual(5, len(rot), 'os cinco rotulos declaram vigencia propria')
+        self.assertIn('art. 7', self.d['THE_SUBTLETY_THAT_ALMOST_SLIPPED'])
+
+    def test_limitacao_do_observador_nao_e_limitacao_da_evidencia(self):
+        """A correcao do extrator e de agosto, mas o rotulo ja dizia em marco."""
+        t = self.d['OBSERVER_LIMITATION_IS_NOT_EVIDENCE_LIMITATION']
+        self.assertIn('OBSERVADOR', t)
+        self.assertIn('saber ler', t)
+
+    # ------------------------------------------------------------------ MUTACAO
+    def test_mutacao_promover_uma_peca_posterior_reprova(self):
+        """Prova que a auditoria MEDE. Sem isto ela poderia passar por vacuidade."""
+        evs = [dict(e) for e in self.ant.evidencias()]
+        alvo = [e for e in evs if e['SOURCE_DATE'] == '2026-08-24'][0]
+        alvo['ROLE'] = self.ant.SUSTAINS
+        ok, viol = self.ant.auditar(evs)
+        self.assertFalse(ok, 'promover o instantaneo de agosto TEM de reprovar')
+        self.assertEqual(1, len(viol))
+        self.assertIn('2026-08-24', viol[0]['SOURCE_DATE'])
+
+    def test_mutacao_adiantar_a_data_do_caso_reprova(self):
+        """Se o caso fosse de marco, o proprio boletim de 23/04 seria evidencia futura."""
+        import datetime
+        ok, viol = self.ant.auditar(self.ant.evidencias(),
+                                    case_date=datetime.date(2026, 3, 1))
+        self.assertFalse(ok)
+        itens = [v['ITEM'] for v in viol]
+        self.assertIn('Bollettino LaMMA Grosseto — frumento', itens)
+
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 
 
@@ -950,7 +1095,7 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
         falhas = [n for n, (ok, _) in self.regs.items() if not ok]
         self.assertEqual([], falhas, 'regressoes de confianca falsa quebradas: %s' % falhas)
 
-    def test_as_catorze_estao_presentes(self):
+    def test_as_dezesseis_estao_presentes(self):
         """Apagar uma regressao nao pode ser a forma de fazer a suite passar.
 
         As quatro ultimas nasceram em 30/08/2026, quando eu corrigi tres achados meus
@@ -972,7 +1117,9 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
                      'AUTHORIZATION != OPPORTUNITY',
                      'ONE_REGION != COUNTRY',
                      'ROUTE_OPENED != SIGNAL_READ',
-                     'PAST_WINDOW != OPEN_WINDOW'):
+                     'PAST_WINDOW != OPEN_WINDOW',
+                     'FUTURE_EVIDENCE_CANNOT_CLOSE_PAST_CASE',
+                     'OBSERVED_SYMPTOM != MODELLED_RISK'):
             self.assertIn(nome, self.regs)
 
     def test_ask_declara_estado_em_toda_pergunta(self):

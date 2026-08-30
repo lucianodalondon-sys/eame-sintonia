@@ -55,6 +55,14 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 PORT = os.path.join(ROOT, 'data', 'samples', 'IT-T4-001', 'IT-T4-001-portfolio-rotulo.json')
+PRES = os.path.join(ROOT, 'data', 'samples', 'IT-T3-LAMMA',
+                    'IT-T3-LAMMA-grosseto-2026-04-23.json')
+ANTE = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS',
+                    'IT-CASE-DURUM-FUSARIUM-001-antecipacao.json')
+
+
+def _opt(p):
+    return json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {}
 DEST = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'IT-CASE-DURUM-FUSARIUM-001.json')
 
 AS_OF = datetime.date(2026, 8, 30)
@@ -222,6 +230,8 @@ def mapa_de_acoes():
 def main():
     prods = resposta_regulatoria()
     rel = relogios(prods)
+    pres = _opt(PRES)
+    ante = _opt(ANTE)
     caso = {
         'CASE_ID': 'IT-CASE-DURUM-FUSARIUM-001',
         'SOURCE_ID': 'DERIVED/IT-CASE-DURUM-FUSARIUM-001',
@@ -247,11 +257,24 @@ def main():
         'EVIDENCE_CLASS': 'PRIMARY_SOURCE_CONVERGENCE',
 
         'OBSERVED': [
-            {'WHAT': ('o boletim de Grosseto de 23/04/2026 reporta grano duro em '
-                      'spigatura/fioritura e risco de fusariose alto'),
+            {'WHAT': ('SINTOMA DE FUSARIOSE OBSERVADO no grano duro — não saída de '
+                      'modelo: "Si segnala la comparsa di sintomi lievi nel frumento '
+                      'duro in alcune situazioni, mentre il tenero resta esente"'),
              'SOURCE': 'Consorzio LaMMA — Regione Toscana / CNR',
-             'LOCATOR': 'lamma.toscana.it/previ/ita/agrometeo/html/Grosseto_ftsnt.html',
-             'DATE': '2026-04-23', 'READ_ON': '2026-08-30'},
+             'LOCATOR': 'seção "Bolletino Frumento del 2026-04-23" > subseção Fusariosi',
+             'DATE': '2026-04-23', 'PRESERVED': True},
+            {'WHAT': ('o duro está em floração no sul da província: "il duro si colloca '
+                      'tra piena fioritura e inizio fioritura"'),
+             'SOURCE': 'idem', 'LOCATOR': 'subseção Fenologia', 'DATE': '2026-04-23',
+             'PRESERVED': True},
+            {'WHAT': ('CORREÇÃO DO PRÓPRIO CASO. Eu havia escrito "alto risco de '
+                      'fusariosi" para o grano duro. O texto preservado diz: "Il rischio '
+                      'risulta elevato nelle classi precoci e medie del frumento TENERO '
+                      'nel sud e IN ALCUNE SITUAZIONI DEL DURO". Alto para o tenero; '
+                      'para o duro, em algumas situações. A generalização era minha.'),
+             'SOURCE': 'idem', 'LOCATOR': 'subseção Fusariosi, "Rischio fusariosi da modello"',
+             'DATE': '2026-04-23', 'PRESERVED': True,
+             'LAW': 'SINTOMA OBSERVADO ≠ RISCO MODELADO'},
             {'WHAT': ('a mesma série cobre Pisa com grano duro separado do tenero, e NÃO '
                       'cobre Siena, que só recebe boletim de vite — a cultura coberta '
                       'varia por província'),
@@ -302,33 +325,66 @@ def main():
                                      'semente, não a da espiga.'),
         'CLOCKS': rel,
         'ACTION_MAP': mapa_de_acoes(),
-        'PRESERVATION_DEFECT': {
-            'LEG': 'FIELD',
-            'STATE': 'NOT_PRESERVED',
-            'WHY': ('a página do LaMMA é rolante e eu li a edição de 23/04/2026 sem '
-                    'gravá-la. Pela regra que apliquei contra o boletim do Vêneto nesta '
-                    'mesma branch, testemunho de leitura não é evidência re-verificável.'),
-            'CONSEQUENCE': ('a perna de campo do caso não é auditável a partir do meu '
-                            'próprio acervo, e é por isso que o veredito não é PROVED'),
-            'FIX': 'gravar o PDF/HTML do boletim com hash — um passo',
+        'PRESERVATION': {
+            'FIELD_LEG': 'PRESERVED' if pres.get('PRESERVED') == 'YES' else 'NOT_PRESERVED',
+            'PRODUCT_LEG': 'PRESERVED',
+            'FIELD_ARTIFACT': pres.get('FILE_NAME'),
+            'FIELD_SHA256': pres.get('SHA256'),
+            'FIELD_BYTES': pres.get('BYTES'),
+            'FIELD_MIME': pres.get('MIME'),
+            'FIELD_SOURCE_URL': pres.get('SOURCE_URL'),
+            'FIELD_SOURCE_DATE': pres.get('SOURCE_DATE'),
+            'FIELD_CAPTURED_AT': pres.get('CAPTURED_AT'),
+            'RECHECK': ('hash reconferido a partir do DISCO e do REMOTO; duas coletas '
+                        'separadas devolveram o mesmo byte'),
+            'ROUTE_STATE': pres.get('ROUTE_STATE'),
+            'HISTORY': ('em 30/08 de manhã este campo era NOT_PRESERVED e foi declarado '
+                        'como defeito contra o próprio caso. A recuperação encontrou a '
+                        'edição ainda exposta — a série de frumento é sazonal e a última '
+                        'edição permanece —, então nada precisou ser reconstruído.'),
+        },
+        'ANTICIPATION_AUDIT': {
+            'LAW': 'FUTURE_EVIDENCE_CANNOT_CLOSE_PAST_CASE',
+            'PASSES': ante.get('AUDIT_PASSES'),
+            'ITEMS_AVAILABLE_BY_CASE_DATE': len(ante.get('AVAILABLE_BY_CASE_DATE', [])),
+            'ITEMS_AVAILABLE_ONLY_LATER': len(ante.get('AVAILABLE_ONLY_LATER', [])),
+            'ARTIFACT': 'IT-CASE-DURUM-FUSARIUM-001-antecipacao.json',
+            'MEANING': ('o alerta fecha com o boletim publicado NO dia e com rótulos de '
+                        'vigência anterior. Nenhuma peça posterior sustenta o alerta.'),
         },
         'LIMITATION': ('este caso não prova vendas, estoque, disponibilidade comercial, '
                        'recomendação comercial nem situação nacional. É uma convergência '
                        'REGIONAL, na Toscana, com a janela de 2026 já fechada.'),
-        'VERDICT': 'CONVERGENCE_PARTIAL',
+        'VERDICT': ('REAL_REGIONAL_CONVERGENCE_PROVED'
+                    if (pres.get('PRESERVED') == 'YES' and ante.get('AUDIT_PASSES'))
+                    else 'CONVERGENCE_PARTIAL'),
+        'VERDICT_MUST_CARRY': {
+            'COMMERCIAL_WINDOW': 'NOT_KNOWN',
+            'SCOPE': 'TOSCANA / GROSSETO',
+            'AGRONOMIC_WINDOW_2026': 'CLOSED at as_of 2026-08-30',
+        },
         'VERDICT_DECOMPOSED': {
             'SUBSTANCE': ('PROVED — os três eixos CULTURA × PROBLEMA × MOMENTO se '
                           'encontram, cada um lido de fonte primária, e a coincidência é '
-                          'textual e não inferida'),
-            'PRESERVATION': ('MISSING — a perna de campo não está gravada; a de rótulo '
-                             'está, com hash'),
+                          'textual e não inferida. A preservação AFINOU o eixo do '
+                          'problema: sintoma observado no duro é evidência mais forte que '
+                          'o risco modelado que eu tinha citado, e a magnitude do risco '
+                          'foi corrigida para baixo.'),
+            'PRESERVATION': ('DONE — perna de campo e perna de rótulo, ambas com hash '
+                             'reconferível'),
             'SCOPE': ('REGIONAL — Toscana, 3,7 % da cultura. NÃO é Itália, e 57,9 % do '
-                      'trigo duro nacional segue sem sonda'),
-            'WHY_NOT_PROVED': ('basta a preservação da perna de campo para elevar a '
-                               'REAL_REGIONAL_CONVERGENCE_PROVED. O que NÃO elevaria o '
-                               'caso a nacional é nenhuma quantidade de preservação: '
-                               'isso exige sonda nas regiões que concentram a cultura.'),
+                      'trigo duro nacional segue sem sonda. O escopo NUNCA foi o motivo '
+                      'do PARTIAL, e continua sendo o limite do caso.'),
+            'ANTICIPATION': 'PASSES — nenhuma evidência posterior sustenta o alerta',
         },
+        'WHAT_THE_PROVED_VERDICT_MEANS': (
+            'que o Sintonia TERIA enxergado uma convergência real enquanto ela existia, '
+            'com fonte pública disponível no dia. NÃO que ainda exista oportunidade hoje: '
+            'a janela agronômica de 2026 fechou, a janela comercial é NOT_KNOWN, e o '
+            'caso é de uma província.'),
+        'STILL_FORBIDDEN_TO_WRITE': ['ITALY OPPORTUNITY', 'SALES OPPORTUNITY',
+                                     'NATIONAL CONVERGENCE', 'ADAMA SHOULD ACT',
+                                     'MARKET GAP'],
     }
     os.makedirs(os.path.dirname(DEST), exist_ok=True)
     with open(DEST, 'w', encoding='utf-8') as fh:

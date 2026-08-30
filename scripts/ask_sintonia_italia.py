@@ -261,18 +261,21 @@ def perguntas():
     pnl = _ler('IT-T3-LOTTA/IT-durum-field-panel.json') or {}
 
     r('Existe uma convergência real entre sinal de campo e portfólio na Itália?',
-      PARTIAL,
-      'Sim, uma, e é REGIONAL: IT-CASE-DURUM-FUSARIUM-001, na Toscana. Grano duro × '
-      'fusariosi × fioritura, com os três eixos lidos de fonte primária e a coincidência '
-      'de janela sendo TEXTUAL, não inferida — os dois documentos usam a palavra '
-      '"fioritura". O veredito é CONVERGENCE_PARTIAL, não PROVED, por dois motivos '
-      'declarados: a perna de campo não foi PRESERVADA (a página do LaMMA é rolante e eu '
-      'não gravei a edição), e o escopo é 3,7% da cultura. A janela de 2026 já fechou.',
-      'IT-CASE-DURUM-FUSARIUM-001.json',
-      'o boletim datado e a tabela de usos autorizados do rótulo',
+      ANSWERABLE,
+      'Sim, uma, e é REGIONAL: IT-CASE-DURUM-FUSARIUM-001, na Toscana, província de '
+      'Grosseto. Grano duro × fusariosi × fioritura, com os três eixos lidos de fonte '
+      'primária e a coincidência de janela sendo TEXTUAL — os dois documentos escrevem '
+      '"fioritura". Veredito REAL_REGIONAL_CONVERGENCE_PROVED: as duas pernas estão '
+      'preservadas com hash reconferível, e a auditoria temporal passa (o alerta fecha '
+      'só com evidência de 23/04/2026 ou anterior). Isso prova que o Sintonia TERIA '
+      'enxergado a convergência enquanto ela existia — NÃO que ainda exista oportunidade '
+      'hoje: a janela agronômica de 2026 fechou, a comercial é NOT_KNOWN, e o caso é de '
+      'uma província com 3,7% da cultura.',
+      'IT-CASE-DURUM-FUSARIUM-001.json + manifesto IT-T3-LAMMA',
+      'o boletim datado e preservado (sha256) e a tabela de usos autorizados do rótulo',
       'que as duas janelas coincidem — comparação literal entre dois textos',
-      'se o tratamento foi feito, se houve venda, e se a convergência se repete nas '
-      'regiões que concentram a cultura')
+      'se o tratamento foi feito, se houve venda, a janela comercial, e se a '
+      'convergência se repete nas regiões que concentram a cultura')
 
     r('Isso é uma oportunidade para a ADAMA na Itália?', REFUSE,
       'Não posso dizer isso, e a pergunta embute dois saltos. PRIMEIRO salto: de '
@@ -376,6 +379,17 @@ def regressoes():
                 pnl.get('COVERAGE_MOVED') is False
                 and pnl.get('PCT_NATIONAL_NOW_COVERED') == 3.7,
                 'sondar 37,9% da cultura sem ler boletim nao move cobertura nenhuma'))
+
+    ant = _ler('IT-CASOS/IT-CASE-DURUM-FUSARIUM-001-antecipacao.json') or {}
+    out.append(('FUTURE_EVIDENCE_CANNOT_CLOSE_PAST_CASE',
+                ant.get('AUDIT_PASSES') is True and ant.get('VIOLATIONS') == [],
+                'o alerta de 23/04 fecha so com evidencia daquele dia ou anterior'))
+
+    out.append(('OBSERVED_SYMPTOM != MODELLED_RISK',
+                'SINTOMA OBSERVADO ≠ RISCO MODELADO' in json.dumps(
+                    _ler('IT-CASOS/IT-CASE-DURUM-FUSARIUM-001.json') or {},
+                    ensure_ascii=False),
+                'o boletim declara os dois separados, e generalizar o risco foi erro meu'))
 
     out.append(('PAST_WINDOW != OPEN_WINDOW',
                 caso.get('CLOCKS', {}).get('B_AGRONOMIC_CLOCK', {})
