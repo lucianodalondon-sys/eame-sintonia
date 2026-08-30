@@ -1,28 +1,25 @@
 {
   "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
-  "CAPTURED_AT": "2026-08-30T21:53:50Z",
+  "CAPTURED_AT": "2026-08-30T22:02:07Z",
   "METHOD": "GET /v2/acts/{actor} — leitura, zero run, zero custo",
   "ACTORS": [
     {
       "LABEL": "YOUTUBE_SEARCH",
       "ACTOR": "streamers~youtube-scraper",
-      "STATE": "AVAILABLE",
-      "TITLE": "YouTube Scraper",
-      "USERNAME": "streamers"
+      "STATE": "NOT_REACHED",
+      "ERROR": "TypeError: the JSON object must be str, bytes or bytearray, not NoneType"
     },
     {
       "LABEL": "INSTAGRAM_PROFILE",
       "ACTOR": "apify~instagram-profile-scraper",
-      "STATE": "AVAILABLE",
-      "TITLE": "Instagram Profile Scraper",
-      "USERNAME": "apify"
+      "STATE": "NOT_REACHED",
+      "ERROR": "TypeError: the JSON object must be str, bytes or bytearray, not NoneType"
     },
     {
       "LABEL": "TIKTOK",
       "ACTOR": "clockworks~tiktok-scraper",
-      "STATE": "AVAILABLE",
-      "TITLE": "TikTok Scraper",
-      "USERNAME": "clockworks"
+      "STATE": "NOT_REACHED",
+      "ERROR": "TypeError: the JSON object must be str, bytes or bytearray, not NoneType"
     }
   ]
 }
