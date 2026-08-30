@@ -422,10 +422,10 @@
  },
  "STATUS_REAVALIADO": {
   "ANTES": "AGIR AGORA",
-  "DEPOIS": "AGIR AGORA — mantido, e o motivo mudou",
-  "POR_QUE_SE_MANTEM": "o que sustenta \"agora\" nao e o frescor da leitura, e a janela: CUPROXI FLO autoriza BBCH 10-85 com prazo de 7 dias, e a fenologia OBSERVADA em agosto/2026 esta em BBCH 75-81. Isso e verificavel hoje, na etiqueta e no campo.",
-  "O_QUE_MUDOU_NA_REDACAO": "o caso deixa de ser \"ha um surto agora\" e passa a ser \"a campanha de primavera fechou alta no oeste e a janela de outono esta aberta\". A acao e a mesma; a afirmacao e menor e verdadeira.",
-  "SE_ALGUEM_DISCORDAR": "a leitura alternativa defensavel e PREPARAR/MONITORAR, porque o dado de campo do oeste tem 77-95 dias. Nao ha como decidir entre as duas com o dado publico atual, e a diferenca pratica e pequena: as duas mandam olhar o outono no oeste."
+  "DEPOIS": "VERIFY_FIELD_NOW",
+  "POR_QUE_MUDOU": "AGIR AGORA sem objeto direto e ambiguo, e a leitura mais provavel de quem le rapido e \"aplicar produto agora\". A evidencia sustenta verificar o campo, nao aplicar.",
+  "O_QUE_NAO_MUDOU": "a janela da etiqueta continua aberta e continua verificada contra fenologia observada. Se o campo confirmar pressao, a aplicacao e possivel — e esse condicional agora esta escrito.",
+  "ESTADO_CONDICIONAL": "APPLICATION_POSSIBLE_IF_FIELD_CONFIRMS"
  },
  "CLASSIFICACAO_DE_EVIDENCIA": {
   "REGULATORY_FACT": [
@@ -438,5 +438,25 @@
   "DERIVED_WINDOW": [
    "\"a janela do CUPROXI FLO esta aberta em 30/08/2026\" e DERIVADA: cruza o BBCH da etiqueta (fato regulatorio) com a fenologia observada no RAIF em agosto (fato de campo). Nenhuma das duas fontes afirma a janela; a juncao e minha."
   ]
+ },
+ "CORRECAO_SEMANTICA_CRITICA": {
+  "O_ERRO_QUE_ESTAVA_PRESTES_A_ACONTECER": "eu mantive AGIR AGORA porque a janela do CUPROXI FLO esta aberta. Janela aberta prova que o produto PODERIA ser usado neste estagio; nao prova que ha necessidade de aplicar. Transformar capacidade de agir em necessidade de agir e o erro mais caro que este caso podia cometer.",
+  "FIELD_SIGNAL_STATUS": "SEASON_2026_SPRING_READING — Huelva ate 14/06, Cadiz ate 27/05",
+  "APPLICATION_WINDOW_STATUS": "OPEN para CUPROXI FLO (BBCH 10-85 na etiqueta contra fenologia observada BBCH 75-81 em agosto). CLOSED para NEPTUNE.",
+  "MONITORING_NEED": "HIGH — a primavera fechou alta nas duas provincias do oeste, o outono e a janela do repilo, e nao ha leitura de campo la desde junho e maio.",
+  "PRODUCT_ACTION_NEED": "NOT_KNOWN. Nada na evidencia estabelece necessidade de aplicacao hoje no oeste.",
+  "BUSINESS_ACTION": "VERIFY_FIELD_NOW e PREPARE.",
+  "CASE_STATUS_CORRIGIDO": "VERIFY_FIELD_NOW",
+  "AGIR_AGORA_EM_QUE": "em VERIFICAR O ESTADO ATUAL DO CAMPO no oeste andaluz. Nao em aplicar CUPROXI FLO.",
+  "A_FRASE_QUE_O_CASO_AUTORIZA": "\"o historico da safra 2026 fechou forte no oeste, a janela regulatoria e agronomica ainda permite acao, MAS a ultima leitura do oeste tem 77 a 95 dias. Antes de recomendar ativacao, o campo precisa ser atualizado.\"",
+  "A_FRASE_QUE_O_CASO_NAO_AUTORIZA": "\"aplicar CUPROXI FLO agora no oeste andaluz.\"",
+  "POR_QUE_ISSO_MELHORA_O_CASO": "a demonstracao deixa de ser um alerta e passa a ser um raciocinio: evidencia, mais tempo, mais recusa de exagerar. Um alerta simplista qualquer sistema produz; a recusa e o que distingue."
+ },
+ "BUSCA_DIRIGIDA_POS_JUNHO": {
+  "O_QUE_FOI_TENTADO": "reconsulta ao package RAIF no CKAN da Junta de Andalucia em 30/08/2026.",
+  "RESULTADO": "o recurso \"Olivar Andalucia\" continua com last_modified 2026-08-26T09:13:40 e 57.117.103 bytes — identico ao que ja foi baixado e processado. Nao ha publicacao nova.",
+  "FIELD_CURRENTNESS_GAP": "CONFIRMED_ON_TESTED_SOURCE",
+  "O_QUE_TORNA_A_LACUNA_LEGIVEL": "o RAIF CONTINUOU amostrando repilo em agosto — Jaen 19/08 (n=137 no mes), Granada 19/08, Cordoba 18/08, Sevilla 17/08. A ausencia e de HUELVA e CADIZ especificamente, nao da campanha. Isso e ausencia de amostragem provincial na fonte, nao fonte parada.",
+  "NAO_FOI_FEITO": "nao busquei em rede social para preencher isso, e nao vou. Leitura de campo se substitui por leitura de campo."
  }
 }

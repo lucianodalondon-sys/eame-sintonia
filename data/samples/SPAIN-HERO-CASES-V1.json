@@ -9,7 +9,7 @@
  "ORIGINAL_LANGUAGE": "pt",
  "captured_at": "2026-08-30",
  "CONTRATO": "campos identicos nos tres. Onde um caso nao tem o campo, o valor e a razao — nunca 0, nunca vazio.",
- "BEST_AGIR_AGORA": "ES-CASE-001",
+ "BEST_AGIR_AGORA": "ES-CASE-001, e a acao e VERIFICAR O CAMPO — nao aplicar produto",
  "BEST_PREPARAR": "ES-CASE-003",
  "BEST_PLANEJAR": "ES-CASE-002",
  "BEST_DEMO_CASE": "ES-CASE-001",
@@ -32,7 +32,7 @@
    "ADAMA_REGULATORY_RESPONSE": "2 de 180 registros vigentes: CUPROXI FLO (ES-00979, caducidad 2029) e NEPTUNE (ES-00211, caducidad 15-08-2026, vencida e ainda Vigente)",
    "COMPETITOR_PUBLIC_RESPONSE": "NOT_COLLECTED — nenhum catalogo de concorrente foi lido. No registro, os maiores titulares do par sao IQV (25+15), Gowan (15) e Ascenza (11).",
    "APPLICATION_WINDOW": "CUPROXI FLO: BBCH 10-85, 1-4 aplicacoes, prazo de seguranca 7 dias. NEPTUNE: primeira aplicacao antes da floracion, prazo 120 dias.",
-   "WINDOW_STATUS": "ABERTA para CUPROXI FLO · FECHADA para NEPTUNE",
+   "WINDOW_STATUS": "ABERTA para CUPROXI FLO · FECHADA para NEPTUNE. ABERTA significa que a aplicacao E PERMITIDA neste estagio, NAO que ha necessidade de aplicar.",
    "TIME_TO_WINDOW": "janela ja aberta; fim quando a cultura passar de BBCH 85",
    "SCIENCE": "par OLIVE x REPILO: 10 papers, 49 autores distintos, 3 desde 2023",
    "RESEARCHERS": "Juan Moral, Antonio Trapero e Concepcion Munoz Diez, vinculo aberto na Universidad de Cordoba. Ancorados pelo ORCID declarado no OpenAlex, NAO por num-found=1.",
@@ -94,8 +94,8 @@
      "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
     }
    },
-   "ACTION_HORIZON": "outono 2026",
-   "CASE_TYPE": "AGIR AGORA",
+   "ACTION_HORIZON": "verificacao imediata; aplicacao possivel se o campo confirmar, enquanto a cultura estiver ate BBCH 85",
+   "CASE_TYPE": "VERIFY_FIELD_NOW",
    "POSSIBLE_ECONOMIC_CONSEQUENCE": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado.",
    "ADAMA_PUBLIC_RESPONSE": "NOT_COLLECTED — o catalogo publico da ADAMA esta negado na borda para este ambiente (host inteiro). Ver ES-REVIEW-HANDOFFS. NOT_COLLECTED, nunca 0.",
    "EVIDENCE_PATHS": [
@@ -124,7 +124,9 @@
     "repilo incubado (campo 1703), que por definicao antecede o sintoma visivel, tem n=5 em Huelva e n=1 em Cadiz em 2026. Medido e insuficiente; nao sustenta nada.",
     "por que Neptune e Starpro nao acompanharam a data dos outros 14 tebuconazois.",
     "COMMERCIAL_CLOCK = NAO SEI. Registro nao e venda."
-   ]
+   ],
+   "CURRENT_FIELD_NEED": "NOT_KNOWN — ultima leitura do oeste tem 77 a 95 dias",
+   "ACTION_NOW": "VERIFICAR O CAMPO no oeste andaluz. Nao aplicar produto."
   },
   {
    "CASE_ID": "ES-CASE-003",
@@ -141,12 +143,12 @@
    "AGRONOMIC_CLOCK": "sementeira outubro/novembro (TYPICAL); aplicacao pos-emergencia de 3 folhas do cultivo ao fim do afilhamento das daninhas (OBSERVED, na etiqueta)",
    "OBSERVATION_CLOCK": "n/a",
    "COMMERCIAL_CLOCK": "NAO SEI",
-   "ADAMA_REGULATORY_RESPONSE": "LOLIUM_EXPLICIT_RESPONSE = 1 formulado em duas etiquetas (ACCRESTO 19549 e TOPIK 24 EC 19548, clodinafop-propargil 24%, IdFormulado 3710), restrito a trigo e triticale. GENERIC_GRASS_RESPONSE = 10 registros em trigo e 10 em cebada, com pelo menos 4 quimicas. CEBADA x VALLICO: 3 no pais, 0 ADAMA.",
+   "ADAMA_REGULATORY_RESPONSE": "LOLIUM_EXPLICIT_RESPONSE = 1 formulado em duas etiquetas (ACCRESTO 19549 e TOPIK 24 EC 19548, clodinafop-propargil 24%, IdFormulado 3710), restrito a trigo e triticale. GENERIC_GRASS_RESPONSE = 10 registros em trigo e 10 em cebada, com pelo menos 4 quimicas. CEBADA x VALLICO: 3 no pais, 0 ADAMA. O artigo testou um produto de clortoluron da ADAMA (\"Clortolurex, Adama Agriculture\") contra estas populacoes: MR nas tres em doses reduzidas, mas ainda controlando duas das tres na dose de campo.",
    "COMPETITOR_PUBLIC_RESPONSE": "NOT_COLLECTED. No registro, o par trigo x vallico tem 9 registros no total.",
    "APPLICATION_WINDOW": "pos-emergencia, das 3 folhas do cultivo ao fim do afilhamento das daninhas",
    "WINDOW_STATUS": "UPCOMING",
    "TIME_TO_WINDOW": "sementeira a 6-10 semanas; aplicacao aproximadamente 2 a 5 meses. Intervalo, nao data.",
-   "SCIENCE": "resistencia a ALS e ACCase descrita como generalizada em cereal de inverno espanhol (Frontiers in Plant Science, 2021, resumo lido no Crossref). Monitoramento espanhol de 12 anos publicado em Crop Protection, 2017.",
+   "SCIENCE": "texto completo lido (Frontiers 2021). Tres populacoes multirresistentes de Calaf e Calonge de Segarra (provincia de BARCELONA), coletadas em 2014-2015; a populacao suscetivel e de Ballobar (Huesca). Resistencia a ALS e ACCase (R), e resistencia moderada a clortoluron (PSII, grupo 5) e prosulfocarb (grupo 15).",
    "RESEARCHERS": "Joel Torra (Universitat de Lleida, ORCID 0000-0002-8666-6780) — primeiro autor do artigo de 2021 e ja CONFIRMADO pela camada cientifica por outra rota.",
    "TECHNICAL_NETWORK": "NAO MAPEADO para Castilla y Leon.",
    "PUBLIC_CONTENT_VOICE": "nenhuma. O acervo tem 2 origens de \"Leon\" em 179.",
@@ -232,7 +234,9 @@
     "COMMERCIAL_CLOCK = NAO SEI",
     "a distribuicao REGIONAL da resistencia dentro da Espanha: o resumo diz \"widespread\" e nao diz onde. As tres populacoes do estudo de 2021 sao espanholas e a regiao nao foi lida.",
     "se os produtos de pre-emergencia da ADAMA controlam populacoes resistentes: nao medido, e o registro nao responde eficacia."
-   ]
+   ],
+   "CURRENT_FIELD_NEED": "n/a — este caso nao reivindica sinal de campo",
+   "ACTION_NOW": "antes da sementeira de outubro/novembro"
   },
   {
    "CASE_ID": "ES-CASE-002",
@@ -344,7 +348,9 @@
     "quanto palmeri ha em 2026 e onde: os avisos dizem que existe, nao dizem quanto nem em que parcela",
     "os nomes dos 10 municipios",
     "COMMERCIAL_CLOCK = NAO SEI"
-   ]
+   ],
+   "CURRENT_FIELD_NEED": "n/a — este caso nao reivindica sinal de campo",
+   "ACTION_NOW": "abril/2027"
   }
  ],
  "DESIGN_GATE": {
@@ -368,5 +374,6 @@
    "COMMERCIAL_CLOCK",
    "distribuicao regional da resistencia a ACCase"
   ]
- }
+ },
+ "LEI_DO_PACK": "janela aberta != necessidade de aplicar · sinal de safra != sinal de campo corrente · adjacencia geografica != cobertura de rede · resposta regulatoria != disponibilidade comercial"
 }

@@ -159,6 +159,69 @@ class TestRegressaoSiglaCurtaPrecisaDeLimiteDePalavra(unittest.TestCase):
         self.assertIsNotNone(rx.search('grupo HRAC 1'))
 
 
+class TestRegressaoJanelaAbertaNaoEhNecessidade(unittest.TestCase):
+    """Erro que quase aconteceu: manter AGIR AGORA no olivo porque a janela
+    de etiqueta esta aberta. Janela aberta prova PERMISSAO, nao NECESSIDADE.
+    """
+
+    def test_o_caso_do_olivo_separa_permissao_de_necessidade(self):
+        c = carrega('ES-CASE-001-OLIVO-REPILO.json')
+        k = c['CORRECAO_SEMANTICA_CRITICA']
+        for campo in ('FIELD_SIGNAL_STATUS', 'APPLICATION_WINDOW_STATUS',
+                      'MONITORING_NEED', 'PRODUCT_ACTION_NEED', 'BUSINESS_ACTION'):
+            self.assertIn(campo, k, f'{campo} nao declarado')
+        self.assertIn('NOT_KNOWN', k['PRODUCT_ACTION_NEED'])
+        self.assertIn('OPEN', k['APPLICATION_WINDOW_STATUS'])
+
+    def test_o_tipo_do_caso_nomeia_o_objeto_da_acao(self):
+        pack = carrega('SPAIN-HERO-CASES-V1.json')
+        olivo = [c for c in pack['CASES'] if c['CASE_ID'] == 'ES-CASE-001'][0]
+        self.assertEqual('VERIFY_FIELD_NOW', olivo['CASE_TYPE'])
+        self.assertIn('NOT_KNOWN', olivo['CURRENT_FIELD_NEED'])
+        # "aplicar" so pode aparecer negado ou condicionado
+        self.assertIn('Nao aplicar', olivo['ACTION_NOW'])
+
+    def test_nenhum_caso_usa_agir_agora_sem_objeto(self):
+        pack = carrega('SPAIN-HERO-CASES-V1.json')
+        for c in pack['CASES']:
+            t = c['CASE_TYPE'].upper()
+            if 'AGIR AGORA' in t:
+                self.fail(f"{c['CASE_ID']}: AGIR AGORA sem objeto direto")
+
+
+class TestRegressaoAdjacenciaNaoEhCobertura(unittest.TestCase):
+    """Quatro municipios aragoneses fazem fronteira com o Segria.
+    Isso e adjacencia geografica, nao cobertura de rede tecnica."""
+
+    def test_o_caso_do_milho_declara_o_nivel_da_medida(self):
+        c = carrega('ES-CASE-002-MAIZ-AMARANTHUS.json')
+        i = c['TECHNICAL_NETWORK']['INTERSECAO_GEOGRAFICA']
+        self.assertIn('NIVEL_DA_MEDIDA', i)
+        self.assertIn('COMARCA', i['NIVEL_DA_MEDIDA'])
+        self.assertIn('NAO e voz', i['CLASSIFICACAO'])
+
+
+class TestGeografiaDoEstudoNaoEhAfiliacao(unittest.TestCase):
+    """Afiliacao (Lleida) != local do experimento (Lleida) != origem das
+    populacoes (Barcelona e Huesca). As tres coincidiriam num resumo desatento."""
+
+    def test_o_caso_do_cereal_separa_as_tres(self):
+        c = carrega('ES-CASE-003-CEREAL-GRAMINEAS.json')
+        t = c['O_BLOQUEIO_MATERIAL_RESOLVIDO']['TEXTO_COMPLETO_LIDO']
+        for campo in ('SAMPLE_GEOGRAPHY_VERIFICADA_OFICIALMENTE',
+                      'STUDY_GEOGRAPHY', 'AUTHOR_AFFILIATION'):
+            self.assertIn(campo, t)
+        g = t['SAMPLE_GEOGRAPHY_VERIFICADA_OFICIALMENTE']
+        self.assertEqual(8, g['Calaf']['cprovi'])
+        self.assertEqual(8, g['Calonge de Segarra']['cprovi'])
+        self.assertEqual(22, g['Ballobar']['cprovi'])
+
+    def test_huesca_nao_vira_territorio_de_resistencia(self):
+        c = carrega('ES-CASE-003-CEREAL-GRAMINEAS.json')
+        v = c['CONVERGENCIA_REGIONAL']['VEREDITO']
+        self.assertIn('NAO ha convergencia de PROVINCIA', v)
+
+
 class TestMunicipioNuncaPorAproximacao(unittest.TestCase):
     """Codigo catastral difere do codigo INE em 335 dos 339 municipios de Aragon."""
 
