@@ -26,7 +26,7 @@
   {
    "Q": "Tem alguma coisa acontecendo agora em olivo que exija atencao?",
    "STATUS": "ANSWERABLE",
-   "A": "A campanha 2026 fechou alta no oeste. Cadiz 8,01% de folhas com repilo visivel, a 2a maior de 21 campanhas, sobre 141 leituras em 39 parcelas. Huelva 8,83%, a maior da serie, sobre 18 leituras em 7 parcelas. O leste segue baixo: Jaen 0,77%, Granada 0,61%.",
+   "A": "A campanha 2026 fechou alta no oeste. Cadiz 8,01% de folhas com repilo visivel, a 2a maior de 21 campanhas, sobre 141 leituras em 39 parcelas. Huelva 8,83%, a maior da serie, sobre 18 leituras em 7 parcelas. O leste segue baixo: Jaen 0,77%, Granada 0,61%. O que a evidencia autoriza hoje e VERIFICAR O CAMPO, nao aplicar produto: a janela do CUPROXI FLO esta aberta na etiqueta, e janela aberta e permissao, nao necessidade.",
    "RESSALVA_QUE_A_RESPOSTA_DEVE_CARREGAR": "a ultima leitura de repilo em Huelva e de 14/06 e em Cadiz de 27/05 — 77 e 95 dias. As provincias do leste TEM leitura de agosto, entao a ausencia no oeste e da fonte, nao da campanha. Classe do sinal: SEASON_2026_SPRING_READING, nao CURRENT_SIGNAL.",
    "EVIDENCE": "ES-CASE-001; RAIF olivar 2006-2026, campo 1702"
   },
@@ -39,7 +39,7 @@
   {
    "Q": "Ainda da tempo de agir no olivo?",
    "STATUS": "ANSWERABLE",
-   "A": "Para o CUPROXI FLO, sim: a etiqueta autoriza BBCH 10-85 com prazo de seguranca de 7 dias, e a fenologia observada em agosto/2026 esta em BBCH ~75-81. Para o NEPTUNE, nao: a etiqueta manda dar a primeira aplicacao antes da floracao e tem prazo de seguranca de 120 dias.",
+   "A": "Para o CUPROXI FLO a janela de etiqueta continua aberta — BBCH 10-85 contra fenologia observada BBCH 75-81, prazo de seguranca 7 dias. Para o NEPTUNE nao. Mas \"da tempo\" e diferente de \"e preciso\": com a ultima leitura do oeste tendo 77 e 95 dias, nao ha necessidade de campo estabelecida. A acao de hoje e verificar.",
    "EVIDENCE": "fichas ES-00979 e ES-00211; 1.726 registros de fenologia em agosto/2026 no RAIF"
   },
   {
@@ -107,9 +107,10 @@
   {
    "Q": "Nossa resposta em cereal esta exposta a resistencia?",
    "STATUS": "PARTIAL",
-   "A": "O unico produto da ADAMA que nomeia Lolium na etiqueta e o clodinafop-propargil, um inibidor de ACCase — e a literatura descreve resistencia a ACCase e ALS como generalizada em cereal de inverno espanhol. Os dez registros genericos estao em pendimetalina, clortoluron, metribuzina e diflufenican, que sao as quimicas de pre-emergencia para onde o mesmo artigo diz que o manejo migrou.",
+   "A": "Sim, e agora com tabela. O texto completo do artigo de 2021 mede tres populacoes multirresistentes de Calaf e Calonge de Segarra (provincia de Barcelona): R a ALS e a ACCase, MR a clortoluron (PSII, grupo 5) e MR/R a prosulfocarb (grupo 15). O unico produto ADAMA que nomeia Lolium e um ACCase; seis dos dez genericos sao clortoluron ou metribuzina. O artigo testou um clortoluron da ADAMA e deu MR — mas na DOSE DE CAMPO ainda controlou duas das tres populacoes.",
    "POR_QUE_PARCIAL": "eficacia nao foi medida em lugar nenhum, e o material publico nao permite afirmar estrategia anti-resistencia: 1 das 96 fichas ADAMA traz codigo de grupo HRAC/IRAC/FRAC. A diversidade quimica esta declarada; o modo de acao nao.",
-   "EVIDENCE": "ES-CASE-003.O_BLOQUEIO_MATERIAL_RESOLVIDO e ARQUITETURA_DE_MODO_DE_ACAO"
+   "EVIDENCE": "ES-CASE-003.O_BLOQUEIO_MATERIAL_RESOLVIDO e ARQUITETURA_DE_MODO_DE_ACAO",
+   "RESSALVA": "populacoes coletadas em 2014-2015. Nao ha medicao de resistencia em Huesca neste artigo: a unica populacao de Huesca e a suscetivel."
   }
  ],
  "RETESTE_CONTRA_V1": {
@@ -135,6 +136,24 @@
   },
   "FALSE_CONFIDENCE_REGRESSIONS": 0,
   "FALSE_CONFIDENCE_ERRORS_NOVOS_NESTA_RODADA": 1,
-  "LEITURA_HONESTA": "zero regressoes dos tres erros antigos. Mas apareceu um quarto, do mesmo tipo — contagem por padrao frouxo — e ele so apareceu porque eu conferi o resultado contra o caso concreto. Testes de regressao cobrem os erros que ja aconteceram; nao cobrem os que ainda nao."
- }
+  "LEITURA_HONESTA": "zero regressoes dos tres erros antigos. Mas apareceu um quarto, do mesmo tipo — contagem por padrao frouxo — e ele so apareceu porque eu conferi o resultado contra o caso concreto. Testes de regressao cobrem os erros que ja aconteceram; nao cobrem os que ainda nao.",
+  "ERRO_5_JANELA_VIRA_NECESSIDADE": {
+   "ESTADO": "ENCONTRADO NESTA RODADA E FECHADO POR TESTE",
+   "O_QUE": "manter AGIR AGORA no olivo porque a janela de etiqueta esta aberta.",
+   "POR_QUE_E_O_MAIS_PERIGOSO_DOS_CINCO": "os outros quatro sao erros de contagem ou de data, que um leitor atento pega. Este e um erro de SIGNIFICADO: cada numero continua certo e a conclusao fica errada.",
+   "FECHADO_POR": "tests/test_hero_cases_v1.py::TestRegressaoJanelaAbertaNaoEhNecessidade"
+  }
+ },
+ "REGRESSOES_QUE_ESTE_CONJUNTO_EXIGE": [
+  "FILE_DATE != FIELD_OBSERVATION_DATE — TestRegressaoFileDateNaoEhSignalDate",
+  "VARIANT_ROWS != UNIQUE_NATIONAL_REGISTRATION — TestRegressaoVarianteNaoEhContagemNacional",
+  "21 CAMPAIGNS != 23 — TestRegressaoSerieDeRepiloTem21Campanhas",
+  "SUBSTRING \"IRAC\" != IRAC DECLARATION — TestRegressaoSiglaCurtaPrecisaDeLimiteDePalavra",
+  "OPEN_APPLICATION_WINDOW != CURRENT_FIELD_NEED — TestRegressaoJanelaAbertaNaoEhNecessidade",
+  "GEOGRAPHIC_ADJACENCY != NETWORK_COVERAGE — TestRegressaoAdjacenciaNaoEhCobertura",
+  "AUTHOR_AFFILIATION != STUDY_GEOGRAPHY != SAMPLE_GEOGRAPHY — TestGeografiaDoEstudoNaoEhAfiliacao"
+ ],
+ "ASK_SINTONIA_ES_V1_FROZEN": true,
+ "FROZEN_AT": "2026-08-30",
+ "REGRA_DO_CONGELAMENTO": "o conjunto nao cresce por vaidade. Ele so muda se um CASE CARD mudar de status ou se uma resposta virar errada. Aumentar o numero de perguntas nao aumenta o rigor."
 }

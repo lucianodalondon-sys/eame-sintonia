@@ -1,0 +1,247 @@
+{
+ "SOURCE_ID": "ES-ACTION-MAP-V2",
+ "captured_at": "2026-08-30",
+ "source": "derivado dos tres CASE CARD apos a correcao semantica de janela x necessidade",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "POR_QUE_V2": "a V1 era binaria — AGIR ou NAO AGIR. Isso empurra tudo que nao e urgente para \"nao fazer nada\", e empurra tudo que e possivel para \"fazer agora\". Os seis tipos separam as duas pontas.",
+ "TIPOS": [
+  "ACT_NOW",
+  "VERIFY_NOW",
+  "PREPARE",
+  "PLAN",
+  "WAIT_FOR_INTERNAL_DATA",
+  "NO_ACTION"
+ ],
+ "LEI": "ACT_NOW exige que a acao seja executavel hoje E que a evidencia estabeleca necessidade hoje. Janela aberta sozinha nunca produz ACT_NOW.",
+ "ES-CASE-001-OLIVO": {
+  "CASE_TYPE": "VERIFY_FIELD_NOW",
+  "REGULATORY": {
+   "ACTION_TYPE": "ACT_NOW",
+   "ACTION": "investigar por que NEPTUNE ES-00211 e STARPRO 250 EW pararam em 15-08-2026 enquanto 13 dos 16 tebuconazois do mesmo par vao ate 31-07-2028",
+   "WHY": "e registro proprio, vigente com caducidad vencida ha 15 dias, sem fecha limite de venta. A assimetria e medida e nao tem explicacao no registro. Isso e executavel hoje e a necessidade e interna, nao depende do campo.",
+   "WHEN": "esta semana",
+   "UNTIL_WHEN": "antes que o mercado pergunte",
+   "EVIDENCE": "ES-CASE-001.REGULATORY_STATUS_CONFLICT",
+   "MISSING": "o motivo. A pergunta formal ao MAPA esta redigida e NAO enviada.",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "MARKET_DEVELOPMENT": {
+   "ACTION_TYPE": "VERIFY_NOW",
+   "ACTION": "ir ao campo em Cadiz, e so depois em Huelva",
+   "WHY": "a primavera fechou alta nas duas e nao ha leitura desde 27/05 e 14/06. Cadiz sustenta o nivel com 141 leituras em 39 parcelas; Huelva com 18 em 7.",
+   "WHEN": "agora",
+   "UNTIL_WHEN": "enquanto a cultura estiver ate BBCH 85",
+   "EVIDENCE": "serie RAIF 2006-2026; fenologia observada agosto/2026",
+   "MISSING": "o estado atual do campo. E exatamente isso que a acao produz.",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "SCIENCE": {
+   "ACTION_TYPE": "VERIFY_NOW",
+   "ACTION": "perguntar ao grupo UCOLIVO da Universidad de Cordoba o que explica a alta do oeste em 2026",
+   "WHY": "Moral, Trapero e Munoz Diez tem vinculo aberto na UCO, aparecem no par e sao nomeados na pagina publica do grupo",
+   "WHEN": "nas proximas semanas",
+   "UNTIL_WHEN": "antes de virar material tecnico",
+   "EVIDENCE": "ES-CIENCIA-PARES-AUTORES; uco.es/ucolivo HTTP 200",
+   "MISSING": "nenhuma identidade do par do azeite fechou em num-found=1",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "MARKETING": {
+   "ACTION_TYPE": "PREPARE",
+   "ACTION": "preparar conteudo tecnico de repilo de outono com o dado provincial, sem publicar alerta",
+   "WHY": "publicar alerta antes da verificacao de campo seria transformar janela aberta em necessidade. O material pode ficar pronto; a publicacao espera o campo.",
+   "WHEN": "agora",
+   "UNTIL_WHEN": "ate a verificacao de campo responder",
+   "EVIDENCE": "ES-VOICE-YOUTUBE; ES-VOZ-x-MATRIZ-DE-PRIORIDADE",
+   "MISSING": "a voz medida e de Cordoba e Jaen, nao de Huelva e Cadiz",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "COMMERCIAL": {
+   "ACTION_TYPE": "WAIT_FOR_INTERNAL_DATA",
+   "ACTION": "PREPARE BRIEF e VERIFY WITH BUSINESS. Nenhuma instrucao externa de venda.",
+   "WHY": "COMMERCIAL_CLOCK = NAO SEI. Falta de relogio impede ATIVAR, nao impede INFORMAR. Ha uma janela de etiqueta aberta e um registro proprio com caducidad vencida: as duas coisas afetam decisao comercial e nenhuma precisa de dado de venda para ser comunicada.",
+   "WHEN": "junto com a linha que dispara o caso",
+   "UNTIL_WHEN": "ate haver dado interno",
+   "EVIDENCE": "o proprio cartao do caso",
+   "MISSING": "disponibilidade em canal, preco e posicao — so o dado interno ADAMA responde",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "SUPPLY": {
+   "ACTION_TYPE": "NO_ACTION",
+   "ACTION": "nada a fazer",
+   "WHY": "nao ha decisao de portfolio a suprir e nao ha necessidade de campo estabelecida",
+   "WHEN": "-",
+   "UNTIL_WHEN": "-",
+   "EVIDENCE": "-",
+   "MISSING": "-",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  }
+ },
+ "ES-CASE-003-CEREAL": {
+  "CASE_TYPE": "PREPARAR",
+  "SCIENCE": {
+   "ACTION_TYPE": "VERIFY_NOW",
+   "ACTION": "confirmar se o quadro de 2014-2015 ainda vale, e onde",
+   "WHY": "as populacoes do artigo foram coletadas ha 11 e 12 anos, e as tres resistentes sao da provincia de Barcelona. A escala de cereal esta em Burgos, Valladolid, Huesca e Zaragoza. A pergunta que decide o caso e se o quadro se estendeu.",
+   "WHEN": "nas proximas semanas",
+   "UNTIL_WHEN": "antes do material tecnico sair",
+   "EVIDENCE": "ES-CASE-003.CONVERGENCIA_REGIONAL",
+   "MISSING": "medicao posterior a 2015 e fora de Barcelona",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "MARKET_DEVELOPMENT": {
+   "ACTION_TYPE": "PREPARE",
+   "ACTION": "preparar material de gramineas com dose por especie para a janela pos-emergencia",
+   "WHY": "a etiqueta do clodinafop ja traz dose graduada — Avena 170-200, Alopecurus 200-250, Phalaris e Lolium 225-300 cc/ha. E material tecnico que ja existe no registro.",
+   "WHEN": "nas proximas 6 semanas",
+   "UNTIL_WHEN": "antes da sementeira de outubro/novembro",
+   "EVIDENCE": "fichas 19549 e 19548",
+   "MISSING": "distribuicao regional do vallico; nenhuma fonte de campo consultada mede daninha",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "REGULATORY": {
+   "ACTION_TYPE": "PLAN",
+   "ACTION": "avaliar extensao de alvo por especie nos dez registros genericos, e avaliar a cebada",
+   "WHY": "a cebada e a maior cultura do pais em area, a ADAMA tem 10 registros genericos ali e ZERO com especie nomeada, e a etiqueta do clodinafop exclui a cebada explicitamente",
+   "WHEN": "decisao de dossie leva meses",
+   "UNTIL_WHEN": "antes da safra 2027/28",
+   "EVIDENCE": "cebada x vallico 3/0 e cebada x avenas locas 10/0",
+   "MISSING": "se ha caminho regulatorio e a que custo",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "MARKETING": {
+   "ACTION_TYPE": "NO_ACTION",
+   "ACTION": "nao agir ainda",
+   "WHY": "nao ha voz publica medida em Castilla y Leon: o acervo tem 2 origens de \"Leon\" em 179",
+   "WHEN": "-",
+   "UNTIL_WHEN": "-",
+   "EVIDENCE": "ES-VOZ-x-MATRIZ-DE-PRIORIDADE",
+   "MISSING": "coleta de voz desenhada por cultura e regiao",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "COMMERCIAL": {
+   "ACTION_TYPE": "WAIT_FOR_INTERNAL_DATA",
+   "ACTION": "PREPARE BRIEF e VERIFY WITH BUSINESS. Nenhuma instrucao externa de venda.",
+   "WHY": "COMMERCIAL_CLOCK = NAO SEI. Falta de relogio impede ATIVAR, nao impede INFORMAR. A decisao de alvo por especie em cebada tem prazo de dossie e a sementeira e em 6-10 semanas.",
+   "WHEN": "junto com a linha que dispara o caso",
+   "UNTIL_WHEN": "ate haver dado interno",
+   "EVIDENCE": "o proprio cartao do caso",
+   "MISSING": "disponibilidade em canal, preco e posicao — so o dado interno ADAMA responde",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "SUPPLY": {
+   "ACTION_TYPE": "PLAN",
+   "ACTION": "manter em vista",
+   "WHY": "se houver decisao de reforcar gramineas em cereal, a producao antecede a sementeira de outubro/novembro",
+   "WHEN": "-",
+   "UNTIL_WHEN": "sementeira 2026/27",
+   "EVIDENCE": "janela lida na etiqueta",
+   "MISSING": "decisao de portfolio",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  }
+ },
+ "ES-CASE-002-MILHO": {
+  "CASE_TYPE": "PLANEJAR PROXIMO CICLO",
+  "REGULATORY": {
+   "ACTION_TYPE": "PLAN",
+   "ACTION": "avaliar extensao de alvo para AMARANTHUS SPP. nos herbicidas de folha larga ja registrados em milho",
+   "WHY": "um unico produto no pais declara o alvo — EMIR, da Corteva — e ele e florasulam + mesotriona, enquanto a ADAMA ja tem mesotriona registrada em milho. A diferenca visivel esta no claim.",
+   "WHEN": "agora, com 7 meses de folga",
+   "UNTIL_WHEN": "antes de abril/2027",
+   "EVIDENCE": "ES-CASE-002.O_TESTE_DECISIVO",
+   "MISSING": "se ha caminho de extensao e dado de eficacia contra palmeri resistente",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "MARKET_DEVELOPMENT": {
+   "ACTION_TYPE": "PLAN",
+   "ACTION": "planejar ensaio para a sementeira de abril/2027 em poucos municipios",
+   "WHY": "10 municipios concentram 47,7% do milho de Huesca e 20 concentram 68,4%. Sariñena, Candasnos, Monzon, Tamarite de Litera, San Miguel del Cinca, Esplus, Peñalba, Sena, Grañen e Ilche.",
+   "WHEN": "planejamento agora",
+   "UNTIL_WHEN": "sementeira 2027",
+   "EVIDENCE": "ES-T2-003-crosswalk-municipio-aragon",
+   "MISSING": "presenca de palmeri por parcela em 2026",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "SCIENCE": {
+   "ACTION_TYPE": "PREPARE",
+   "ACTION": "ler as obras de Joel Torra no par antes de qualquer contato",
+   "WHY": "professor na Universitat de Lleida, 10 obras no par, identidade CONFIRMADA por ORCID — e ja e o primeiro autor do artigo que sustenta o caso do cereal",
+   "WHEN": "quando o orcamento do OpenAlex resetar",
+   "UNTIL_WHEN": "antes de abril/2027",
+   "EVIDENCE": "ES-CIENCIA-PARES-AUTORES",
+   "MISSING": "se as obras tratam de palmeri espanhol. Afiliacao nao e local do estudo.",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "MARKETING": {
+   "ACTION_TYPE": "PREPARE",
+   "ACTION": "preparar material, sem campanha",
+   "WHY": "a janela fechou. Publicar urgencia agora seria fabricar urgencia. Ha 50 ADV registradas na planicie de Lleida como interlocutor organizado — e isso e adjacencia a rede, nao cobertura dela.",
+   "WHEN": "preparacao agora",
+   "UNTIL_WHEN": "abril/2027",
+   "EVIDENCE": "ES-T6-001-adv-catalunya",
+   "MISSING": "nenhuma ADV declara cultura; falta o equivalente aragones",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "COMMERCIAL": {
+   "ACTION_TYPE": "WAIT_FOR_INTERNAL_DATA",
+   "ACTION": "PREPARE BRIEF e VERIFY WITH BUSINESS. Nenhuma instrucao externa de venda.",
+   "WHY": "COMMERCIAL_CLOCK = NAO SEI. Falta de relogio impede ATIVAR, nao impede INFORMAR. Ha lacuna de claim nomeavel com concorrente identificado no registro. E informacao de planejamento, nao de ativacao.",
+   "WHEN": "junto com a linha que dispara o caso",
+   "UNTIL_WHEN": "ate haver dado interno",
+   "EVIDENCE": "o proprio cartao do caso",
+   "MISSING": "disponibilidade em canal, preco e posicao — so o dado interno ADAMA responde",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  },
+  "SUPPLY": {
+   "ACTION_TYPE": "NO_ACTION",
+   "ACTION": "nada a fazer",
+   "WHY": "nao ha decisao de portfolio a suprir",
+   "WHEN": "-",
+   "UNTIL_WHEN": "-",
+   "EVIDENCE": "-",
+   "MISSING": "-",
+   "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
+  }
+ },
+ "CONTAGEM": {
+  "ACT_NOW": 1,
+  "NO_ACTION": 3,
+  "PLAN": 4,
+  "PREPARE": 4,
+  "VERIFY_NOW": 3,
+  "WAIT_FOR_INTERNAL_DATA": 3
+ },
+ "DETALHE_POR_TIPO": {
+  "ACT_NOW": [
+   "OLIVO/REGULATORY"
+  ],
+  "VERIFY_NOW": [
+   "OLIVO/MARKET_DEVELOPMENT",
+   "OLIVO/SCIENCE",
+   "CEREAL/SCIENCE"
+  ],
+  "PREPARE": [
+   "OLIVO/MARKETING",
+   "CEREAL/MARKET_DEVELOPMENT",
+   "MILHO/SCIENCE",
+   "MILHO/MARKETING"
+  ],
+  "WAIT_FOR_INTERNAL_DATA": [
+   "OLIVO/COMMERCIAL",
+   "CEREAL/COMMERCIAL",
+   "MILHO/COMMERCIAL"
+  ],
+  "NO_ACTION": [
+   "OLIVO/SUPPLY",
+   "CEREAL/MARKETING",
+   "MILHO/SUPPLY"
+  ],
+  "PLAN": [
+   "CEREAL/REGULATORY",
+   "CEREAL/SUPPLY",
+   "MILHO/REGULATORY",
+   "MILHO/MARKET_DEVELOPMENT"
+  ]
+ }
+}

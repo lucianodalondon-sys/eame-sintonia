@@ -1,0 +1,139 @@
+{
+ "SOURCE_ID": "SPAIN-DEMO-CONTENT-V1",
+ "VERSION": "V1",
+ "FROZEN_AT": "2026-08-30",
+ "source": "pacote canonico de entrada para o design. Agrega, sem recontar, SPAIN-HERO-CASES-V1, ES-ACTION-MAP-V2 e ASK-SINTONIA-ACCEPTANCE-ES.",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-30",
+ "O_QUE_ISTO_E": "conteudo. Nao ha interface aqui e nenhuma foi construida.",
+ "AS_QUATRO_LEIS_QUE_A_DEMO_PRECISA_MOSTRAR": [
+  "janela aberta != necessidade de aplicar",
+  "sinal de safra != sinal de campo corrente",
+  "adjacencia geografica != cobertura de rede",
+  "resposta regulatoria != disponibilidade comercial"
+ ],
+ "CASE_CARDS": {
+  "REF": "SPAIN-HERO-CASES-V1.json",
+  "N": 3,
+  "RESUMO": [
+   {
+    "CASE_ID": "ES-CASE-001",
+    "CROP": "OLIVO",
+    "ISSUE": "Repilo (Venturia oleaginea)",
+    "REGION": "Andalucia occidental — Cadiz (perna forte) e Huelva (perna fraca)",
+    "CASE_TYPE": "VERIFY_FIELD_NOW",
+    "WINDOW_STATUS": "ABERTA para CUPROXI FLO · FECHADA para NEPTUNE. ABERTA significa que a aplicacao E PERMITIDA neste estagio, NAO que ha necessidade de aplicar.",
+    "ACTION_NOW": "VERIFICAR O CAMPO no oeste andaluz. Nao aplicar produto."
+   },
+   {
+    "CASE_ID": "ES-CASE-003",
+    "CROP": "TRIGO e CEBADA",
+    "ISSUE": "gramineas de folha estreita, com Lolium rigidum (vallico) no topo da dose declarada",
+    "REGION": "nacional; Castilla y Leon concentra ~1,91 M ha",
+    "CASE_TYPE": "PREPARAR",
+    "WINDOW_STATUS": "UPCOMING",
+    "ACTION_NOW": "antes da sementeira de outubro/novembro"
+   },
+   {
+    "CASE_ID": "ES-CASE-002",
+    "CROP": "MAIZ",
+    "ISSUE": "Amaranthus palmeri",
+    "REGION": "Huesca (Aragon) e Lleida (Cataluna) — bloco continuo Monegros-Cinca-Litera-Segria",
+    "CASE_TYPE": "PLANEJAR PROXIMO CICLO",
+    "WINDOW_STATUS": "FECHADA para 2026",
+    "ACTION_NOW": "abril/2027"
+   }
+  ]
+ },
+ "ACTION_MAP": {
+  "REF": "ES-ACTION-MAP-V2.json",
+  "CONTAGEM_POR_TIPO": {
+   "ACT_NOW": 1,
+   "NO_ACTION": 3,
+   "PLAN": 4,
+   "PREPARE": 4,
+   "VERIFY_NOW": 3,
+   "WAIT_FOR_INTERNAL_DATA": 3
+  },
+  "O_QUE_A_CONTAGEM_DIZ": "ha exatamente UM ACT_NOW em dezoito linhas, e ele e regulatorio e interno — nao depende do campo nem do mercado. Um sistema que gritasse teria varios."
+ },
+ "ASK_ACCEPTANCE": {
+  "REF": "ASK-SINTONIA-ACCEPTANCE-ES.json",
+  "QUESTIONS": 13,
+  "ANSWERABLE": 8,
+  "PARTIAL": 3,
+  "REFUSED": 2,
+  "FROZEN": true
+ },
+ "EVIDENCE_MAP": {
+  "ES-CASE-001": [
+   "RAIF olivar, dataset CKAN da Junta de Andalucia, arquivos 2006_2016_*_Muestreos.xml, 2017_2024_*, 2025_*, 2026_* — campo \"1702 Repilo: % Hojas con Repilo Visible\".",
+   "MAPA ROPF Exportaciones/ExportJsonProductos com idCultivo=1972 e idPlaga=6200.",
+   "MAPA ROPF Productos/GetProductoById para ES-00211, ES-00979, 25139.",
+   "fichas PDF preservadas ES-00211 e ES-00979, secao Usos y Dosis.",
+   "data/samples/BACKTEST-REPILO-LEAD-TIME.json para o poder preditivo da serie."
+  ],
+  "ES-CASE-003": [
+   "MAPA ROPF pares: trigo/cebada x 2062, 2017, 2010, 2046, 2030",
+   "fichas 19549 e 19548 baixadas do MAPA e lidas na secao Usos y Dosis",
+   "data/samples/ES-CEREAIS-PARES-ROPF.json",
+   "data/samples/ES-T3-002-raif-cereales-invierno.json para o descarte da septoriose"
+  ],
+  "ES-CASE-002": [
+   "MAPA ROPF export idCultivo x idPlaga=2067 para as 4 variantes de milho",
+   "fichas PDF preservadas dos 7 produtos ADAMA, secao Usos y Dosis",
+   "varredura de especie nas 96 fichas ADAMA preservadas",
+   "opendata_sga_parcelas_her_2025.csv, Gobierno de Aragon",
+   "ES-CIENCIA-PARES-AUTORES.json e ES-CIENCIA-PARA-VOZ.json",
+   "ES-T6-001-adv-catalunya.json"
+  ]
+ },
+ "UNKNOWN_MAP": {
+  "ES-CASE-001": [
+   "nao ha leitura de repilo em Huelva/Cadiz depois de junho — nao sabemos o estado de agosto NESSAS provincias.",
+   "repilo incubado (campo 1703), que por definicao antecede o sintoma visivel, tem n=5 em Huelva e n=1 em Cadiz em 2026. Medido e insuficiente; nao sustenta nada.",
+   "por que Neptune e Starpro nao acompanharam a data dos outros 14 tebuconazois.",
+   "COMMERCIAL_CLOCK = NAO SEI. Registro nao e venda."
+  ],
+  "ES-CASE-003": [
+   "a distribuicao regional do vallico: nenhuma fonte de campo consultada tem o campo de daninha. O RAIF de cereais mede pragas e doencas, nao daninhas.",
+   "COMMERCIAL_CLOCK = NAO SEI",
+   "a distribuicao REGIONAL da resistencia dentro da Espanha: o resumo diz \"widespread\" e nao diz onde. As tres populacoes do estudo de 2021 sao espanholas e a regiao nao foi lida.",
+   "se os produtos de pre-emergencia da ADAMA controlam populacoes resistentes: nao medido, e o registro nao responde eficacia."
+  ],
+  "ES-CASE-002": [
+   "se os herbicidas ADAMA controlam palmeri resistente — o registro nao responde eficacia e nada aqui responde",
+   "quanto palmeri ha em 2026 e onde: os avisos dizem que existe, nao dizem quanto nem em que parcela",
+   "os nomes dos 10 municipios",
+   "COMMERCIAL_CLOCK = NAO SEI"
+  ]
+ },
+ "O_QUE_A_DEMO_NAO_PODE_AFIRMAR": [
+  "disponibilidade comercial de qualquer produto — COMMERCIAL_CLOCK e NAO SEI nos tres casos",
+  "eficacia de qualquer produto contra qualquer alvo — registro nao declara eficacia e nada aqui a mediu",
+  "que o NEPTUNE saiu do mercado — EXPIRY != WITHDRAWAL, e o conflito segue INVESTIGATE",
+  "que a ADAMA nao controla A. palmeri — a lacuna e de alvo declarado, nao de eficacia",
+  "que ha necessidade de aplicar no olivar hoje — a ultima leitura do oeste tem 77 a 95 dias",
+  "que ha resistencia medida em Huesca — a unica populacao de Huesca do artigo e a suscetivel",
+  "nenhum numero economico"
+ ],
+ "CATALOGO_PUBLICO_ADAMA": "NOT_COLLECTED nos tres casos — o host esta negado na borda para este ambiente. Nao e 0, nao e vazio: e recusa medida.",
+ "CONTENT_FREEZE_GATE": {
+  "AVALIADO_EM": "2026-08-30",
+  "SPAIN_CONTENT_FREEZE_READY": "YES",
+  "CRITERIOS": {
+   "CASE_CARDS_STABLE": "SIM — contrato identico, congelados, com teste que reprova campo vazio",
+   "TIMING_SEMANTIC_STABLE": "SIM — os cinco estados do olivo separados (FIELD_SIGNAL, APPLICATION_WINDOW, MONITORING_NEED, PRODUCT_ACTION_NEED, BUSINESS_ACTION), com teste",
+   "FIELD_FRESHNESS_EXPLICIT": "SIM — OBSERVED_AT por provincia, e FIELD_CURRENTNESS_GAP confirmado na fonte testada",
+   "ACTION_TYPE_EXPLICIT": "SIM — seis tipos na V2, com exatamente um ACT_NOW em dezoito linhas",
+   "NO_KNOWN_FALSE_CONFIDENCE_REGRESSION": "SIM — 7 regressoes escritas, 386 testes, 0 falhas",
+   "ASK_ACCEPTANCE_FROZEN": "SIM — 13 perguntas, congelado",
+   "EVIDENCE_PATHS_COMPLETE": "SIM — por caso, todas reproduziveis",
+   "UNKNOWNS_VISIBLE": "SIM — UNKNOWN_MAP por caso"
+  },
+  "NEXT_PHASE": "DESIGN / PORTAL PROTOTYPE",
+  "CONSTRUIDO_NESTA_RODADA": "NADA. Portal e UI seguem proibidos e nenhuma interface foi criada."
+ }
+}
