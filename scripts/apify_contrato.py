@@ -50,8 +50,10 @@ CONTRACT_NOT_READABLE = 'CONTRACT_NOT_READABLE'
 PLANO = [
     ('harvestapi~linkedin-profile-search-by-name',
      {'firstName': 'Pasquale', 'lastName': 'De Vita', 'maxItems': 5}),
-    ('harvestapi~linkedin-post-search',
-     {'searchQuery': 'grano duro fusariosi', 'maxItems': 5}),
+    # Intencao vazia de proposito: a rodada anterior provou que `searchQuery` e
+    # `maxItems` NAO existem neste ator. Sem entrada pretendida, o probe devolve o
+    # contrato inteiro — que e exatamente o que falta saber antes de escrever uma.
+    ('harvestapi~linkedin-post-search', {}),
 ]
 
 
@@ -72,6 +74,24 @@ def campos_do_schema(schema):
     req = schema.get('required')
     req = [r for r in req if isinstance(r, str)] if isinstance(req, list) else []
     return props, req
+
+
+def detalhe(prop):
+    """Tipo, valores permitidos e padrão de UM campo do contrato.
+
+    Saber que `profileScraperMode` é obrigatório não basta para preenchê-lo: é
+    preciso saber QUE valores ele aceita. O `enum` está publicado no mesmo schema
+    gratuito. Chutar o valor de um campo obrigatório é a mesma aposta que mandar
+    um campo inexistente — só que mais cara, porque o run abre.
+    """
+    if not isinstance(prop, dict):
+        return {'TYPE': 'NÃO SEI'}
+    d = {'TYPE': prop.get('type') or 'NÃO SEI'}
+    for chave, rotulo in (('enum', 'ENUM'), ('default', 'DEFAULT'),
+                          ('prefill', 'PREFILL'), ('editor', 'EDITOR')):
+        if prop.get(chave) is not None:
+            d[rotulo] = prop[chave]
+    return d
 
 
 def conferir(props, obrigatorios, entrada):
@@ -139,6 +159,12 @@ def main():
                 reg['TITLE'] = meta.get('title')
                 reg['CONTRACT_FIELDS'] = sorted(props)
                 reg['REQUIRED'] = sorted(req)
+                # Detalhe SO dos campos que importam para preencher a entrada: os
+                # obrigatorios e os que eu pretendo mandar. O contrato inteiro tem
+                # dezenas de campos e publicar todos aqui esconderia esses.
+                reg['FIELD_DETAIL'] = {k: detalhe(props[k])
+                                       for k in sorted(set(req) | set(entrada))
+                                       if k in props}
                 reg.update(conferir(props, req, entrada))
             except Exception as e:
                 reg['STATE'] = CONTRACT_NOT_READABLE
@@ -157,6 +183,8 @@ def main():
         print('     campos do contrato:', ', '.join(r.get('CONTRACT_FIELDS', []))[:220]
               or 'NÃO SEI')
         print('     obrigatorios      :', ', '.join(r.get('REQUIRED', [])) or 'nenhum')
+        for campo, d in sorted((r.get('FIELD_DETAIL') or {}).items()):
+            print('       %-22s %s' % (campo[:22], json.dumps(d, ensure_ascii=False)[:170]))
         if r.get('UNKNOWN_FIELDS'):
             print('     NAO EXISTEM       :', ', '.join(r['UNKNOWN_FIELDS']))
         if r.get('ERROR'):

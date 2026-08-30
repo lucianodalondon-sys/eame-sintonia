@@ -76,11 +76,35 @@ class ContratoConfere(unittest.TestCase):
         """
         self.assertIn('CONTRACT_MATCH ≠ USEFUL_DATA', ac.__doc__)
 
-    def test_a_intencao_declarada_no_plano_bate_com_o_proprio_conferidor(self):
-        """O PLANO nao pode conter entrada que o proprio arquivo saberia recusar."""
+    def test_a_intencao_declarada_no_plano_e_sempre_um_mapa_de_campos(self):
+        """Entrada vazia e legitima: significa 'ainda nao sei, me mostre o contrato'.
+
+        Nao e o mesmo que uma entrada errada. Um ator cujo contrato eu ja conheco
+        traz a entrada pretendida e e conferido contra ela; um cujo contrato eu
+        ainda nao li vem com {} e o probe devolve o contrato inteiro.
+        NOT_ASKED != WRONG_ASK.
+        """
         for actor, entrada in ac.PLANO:
-            self.assertTrue(entrada, actor)
+            self.assertIsInstance(entrada, dict, actor)
             self.assertTrue(all(isinstance(k, str) for k in entrada), actor)
+
+    def test_entrada_vazia_nao_e_promovida_a_contrato_satisfeito(self):
+        """Nao ter pedido nada satisfaz qualquer contrato sem obrigatorios.
+
+        Isso e verdade e inofensivo — desde que ninguem leia esse MATCH como
+        'pode gastar'. Quem gasta e a prova pequena, e ela declara a entrada.
+        """
+        props, req = ac.campos_do_schema(SCHEMA_BUSCA)
+        r = ac.conferir(props, req, {})
+        self.assertEqual(r['STATE'], ac.CONTRACT_REQUIRED_MISSING)
+        self.assertEqual(r['ACCEPTED_FIELDS'], [])
+
+    def test_o_detalhe_publica_os_valores_permitidos_de_campo_obrigatorio(self):
+        """Saber que um campo e obrigatorio nao basta: chutar o valor tambem custa."""
+        d = ac.detalhe({'type': 'string', 'enum': ['Short', 'Full'], 'default': 'Short'})
+        self.assertEqual(d['ENUM'], ['Short', 'Full'])
+        self.assertEqual(d['DEFAULT'], 'Short')
+        self.assertEqual(ac.detalhe(None), {'TYPE': 'NÃO SEI'})
 
 
 class NaoAbreExecucao(unittest.TestCase):
