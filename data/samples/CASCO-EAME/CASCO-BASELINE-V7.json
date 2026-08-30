@@ -1,0 +1,185 @@
+{
+  "SOURCE_ID": "CASCO-EAME-BASELINE-V7",
+  "source": "casco do SINTONIA EAME entregue pelo cliente em 2026-08-30, arquivo 'index (7).html' — pagina React empacotada (dc-runtime + React 18.3.1 UMD)",
+  "SOURCE_LOCATION": "entrega do cliente (C:/Users/London1/Downloads)",
+  "FACT_LOCATION": "n/a — descreve o produto, nao o mundo",
+  "ORIGINAL_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "PRESERVED_INPUT",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+
+  "O_QUE_ISTO_E": "o inventario do casco atual, extraido do proprio arquivo entregue — nao de documento que descreve o casco. Serve de BASELINE congelado para a rodada de inteligencia que antecede o red team externo.",
+  "O_QUE_ISTO_NAO_E": [
+    "nao e o casco: e a leitura dele",
+    "nao contem dado de negocio — o casco nao tem nenhum",
+    "nao substitui o arquivo original, que permanece fora do repositorio"
+  ],
+
+  "ORIGINAL": {
+    "FILENAME": "index (7).html",
+    "BYTES": 1397724,
+    "SHA256": "a31ea1848a99e48cbfcdd2574a284eaeba9017110fb6ea107c6e4f39d4187c6a",
+    "TITLE_TAG": "Bundled Page",
+    "RUNTIME": "dc-runtime (bundler proprio) + React 18.3.1 e ReactDOM 18.3.1 UMD, embutidos",
+    "ASSETS_EMBUTIDOS": 17,
+    "ASSETS_POR_TIPO": {
+      "font/otf": 8,
+      "font/ttf": 2,
+      "text/javascript": 3,
+      "application/javascript": 1,
+      "image/png": 2,
+      "image/svg+xml": 1
+    },
+    "APP_LOGIC_BYTES": 21592,
+    "MARKUP_BYTES": 257210,
+    "CSS_BLOCOS_BYTES": [5922, 4564, 2343, 1060, 16577, 715],
+    "NAO_VERSIONADO_PORQUE": "o binario de 1,4 MB vive na entrega do cliente; aqui ficam a logica, o texto de cada tela e o SHA que amarra os dois"
+  },
+
+  "NAVEGACAO": {
+    "TIPO": "rail lateral fixo, agrupado em tres blocos, mais barra superior",
+    "GRUPOS": [
+      { "GRUPO": "INTEL", "TELAS": ["home (Visao Geral)", "futuro (Radar do Futuro)", "casos (Radar / Casos)", "calendario (Janelas da Cultura)"] },
+      { "GRUPO": "EVIDENCIA", "TELAS": ["acervo (Acervo)", "fontes (Fontes)"] },
+      { "GRUPO": "LEITURA", "TELAS": ["analises (Analises)", "relatorios (Relatorios)"] },
+      { "GRUPO": "sem rotulo", "TELAS": ["lib (Sistema visual)", "config (Config.)"] }
+    ],
+    "TELA_DE_DETALHE": "caso — alcancada a partir de casos, nao aparece no rail",
+    "TELA_DE_CAMADA": "eame — alcancada pelo seletor de pais, nao aparece no rail",
+    "TOTAL_DE_TELAS": 12,
+    "BARRA_SUPERIOR": [
+      "marca Sintonia / EAME INTELLIGENCE",
+      "seletor de pais: COUNTRY PORTAL (es, it, fr) + CAMADA CROSS-MARKET (eame)",
+      "campo de pergunta: 'Perguntar ao Sintonia — temas, moleculas, fontes, casos'",
+      "seletor de idioma: pt, en, es, it, fr",
+      "Perfil"
+    ],
+    "LEI_ESCRITA_NA_PROPRIA_INTERFACE": "Dados de um pais nunca aparecem dentro de outro. Cruzamentos so na camada EAME, e apenas nas dimensoes declaradas comparaveis."
+  },
+
+  "ESTADO_INICIAL": { "screen": "home", "country": "es", "lang": "pt" },
+
+  "DICIONARIO_DE_ESTADOS_DO_CASCO": [
+    "PROVADO", "PARCIAL", "MEDIDO", "EM COLETA", "EM CONSTRUCAO",
+    "NAO CONECTADO", "NAO MEDIDO", "NAO INICIADA", "CONGELADO",
+    "NAO SEI", "NAO SE APLICA", "NAO DETERMINADO",
+    "AINDA NAO COMPARAVEL", "COMPARAVEL", "BLOQUEADO"
+  ],
+
+  "GRAMATICA_DO_PORTAL": [
+    "O que merece atencao",
+    "Ainda ha tempo para agir?",
+    "Por que esta no radar?",
+    "Quem deve olhar?",
+    "Qual evidencia sustenta?",
+    "O que ainda nao sabemos?"
+  ],
+
+  "GRAMATICA_DA_CAMADA_EAME": [
+    "Onde existe questao regional?",
+    "Onde os mercados divergem?",
+    "Qual a sequencia de janelas?",
+    "Onde o portfolio local difere?",
+    "O que investigar regionalmente?",
+    "Onde falta cobertura?"
+  ],
+
+  "CONTRATOS_DE_ENTRADA_DECLARADOS_PELO_CASCO": {
+    "RADAR_ITEM": ["country", "crop", "issue / theme", "region", "why_on_radar", "first_observed", "last_observed", "source_date", "current_evidence", "missing_evidence", "agronomic_window", "decision_window", "who_should_look", "next_checkpoint"],
+    "RADAR_ESTADOS": ["EARLY SIGNAL", "CONVERGENCE FORMING", "DECISION POTENTIALLY OPEN", "FUTURE PLANNING", "NAO SEI"],
+    "ACERVO_ITEM": ["country", "source", "source_type", "document_type", "product", "registration", "crop", "issue", "capture_date", "source_date", "raw_state", "sha_verified", "evidence_level"],
+    "FONTE": ["country", "entity_kind", "source_role", "access_state", "cadence", "geographic_scope", "crop_scope", "prospective / retrospective", "last_capture", "next_expected", "collection_state"],
+    "CALENDARIO_AGRONOMICO_RESUMIDO": ["crop", "issue", "phenology / BBCH", "application_window", "source", "precision", "state"],
+    "CALENDARIO_AGRONOMICO_COMPLETO": ["country", "crop", "region", "cycle_year", "phase_name", "phase_start / end", "time_resolution", "issue_id", "issue_window", "product_id", "label_window", "dose (quando houver)", "observation_date", "evidence_freshness", "adama_line", "source_id"],
+    "RESPOSTA_LOCAL_ADAMA": ["product", "registration_id", "country - crop - issue", "dose", "application_window", "regulatory_state", "document_evidence", "source_id"],
+    "EAME_RADAR_ITEM": ["countries", "common_evidence", "local_differences", "time_sequence", "what_is_not_comparable", "why_eame_should_look"],
+    "EAME_ACAO_REGIONAL": ["area", "countries_affected", "why_regional", "local_owner", "regional_owner", "timing", "evidence_required"]
+  },
+
+  "CAMADAS_DE_EVIDENCIA_DO_CASO": {
+    "LISTA": ["Campo", "Ciencia", "Clima", "Regulatorio", "Portfolio local ADAMA", "Competicao", "Tempo"],
+    "ESTADO_NO_CASCO": "NAO MEDIDO em seis; NAO CONECTADO em Tempo",
+    "REGRA_ESCRITA": "estado de evidencia — nao e score"
+  },
+
+  "CAMADAS_QUE_NAO_SE_FUNDEM": [
+    { "k": "Resposta local registrada", "v": "NAO PROVADO" },
+    { "k": "Janela agronomica", "v": "NAO CONECTADA" },
+    { "k": "Janela de decisao", "v": "NAO DETERMINADA" },
+    { "k": "Disponibilidade comercial", "v": "NAO SEI" },
+    { "k": "Prioridade interna", "v": "NAO SEI" }
+  ],
+
+  "CAMADA_DE_COMPETICAO_NO_CASO": [
+    "Resposta registrada do concorrente",
+    "Atividade paga em midia",
+    "Comunicacao publica",
+    "Atividade tecnica"
+  ],
+
+  "MAPA_DE_ACAO_PAIS": {
+    "AREA_CENTRAL": "Market Development — avalia e programa a investigacao",
+    "DEMAIS": [
+      "Regulatorio — verifica condicoes e rotulo",
+      "Portfolio — confirma resposta registrada",
+      "Tecnico / Agronomia — valida no campo",
+      "Marketing — prepara comunicacao",
+      "Comercial — prepara equipe e territorio",
+      "Ciencia & P&D — investiga a hipotese",
+      "Supply — planeja disponibilidade"
+    ],
+    "TOTAL": 8,
+    "ESTADO_DE_CADA_UMA_NO_CASCO": "NAO DETERMINADO"
+  },
+
+  "MAPA_DE_COORDENACAO_EAME": {
+    "AREA_CENTRAL": "Market Development regional — decide onde aprofundar, coordenar ou antecipar",
+    "DEMAIS": ["Regulatorio", "Portfolio", "Marketing", "Comercial", "Ciencia & P&D", "Supply"],
+    "TOTAL": 7,
+    "ESTADOS_DE_SAIDA": ["COORDENAR", "PREPARAR", "OBSERVAR", "SOMENTE LOCAL", "NAO SEI"]
+  },
+
+  "ESTADO_DA_FUNDACAO_DECLARADO_PELO_CASCO": {
+    "es": { "badge": "FUNDACAO COMPLETA", "Portfolio": "PROVADO", "Regulatorio": "PROVADO", "RAW": "PROVADO", "Campo": "PARCIAL", "Tempo": "NAO CONECTADO", "Decisao": "EM CONSTRUCAO" },
+    "it": { "badge": "EM COLETA", "Portfolio": "EM COLETA", "Regulatorio": "MEDIDO", "RAW": "EM COLETA", "Campo": "CONGELADO", "Tempo": "NAO CONECTADO", "Decisao": "NAO INICIADA" },
+    "fr": { "badge": "EM COLETA", "Portfolio": "EM COLETA", "Regulatorio": "EM COLETA", "RAW": "EM COLETA", "Campo": "NAO CONECTADO", "Tempo": "NAO CONECTADO", "Decisao": "NAO INICIADA" },
+    "eame": { "badge": "CAMADA CROSS-MARKET", "Area de cultura": "COMPARAVEL", "Preco de referencia": "COMPARAVEL", "Regulatorio": "PARCIAL", "Campo": "AINDA NAO COMPARAVEL", "Tempo": "AINDA NAO COMPARAVEL", "Decisao": "NAO INICIADA" },
+    "DIVERGENCIA_COM_O_REPOSITORIO": "o casco descreve IT e FR como EM COLETA. Em 2026-08-30 as branches claude/adama-it-local-catalog e claude/adama-fr-local-catalog publicam ITALY_LOCAL_FOUNDATION_CAPTURE = COMPLETE e FRANCE_LOCAL_FOUNDATION_CAPTURE = COMPLETE. O casco esta atrasado em relacao ao acervo, nao errado — foi desenhado antes."
+  },
+
+  "MATRIZ_DE_COMPARABILIDADE_DECLARADA_PELO_CASCO": [
+    { "d": "Area de cultura", "es": "COMPARAVEL", "it": "COMPARAVEL", "fr": "COMPARAVEL" },
+    { "d": "Preco de referencia", "es": "COMPARAVEL", "it": "COMPARAVEL", "fr": "COMPARAVEL" },
+    { "d": "Regulatorio", "es": "PARCIAL", "it": "PARCIAL", "fr": "PARCIAL" },
+    { "d": "Sinal de campo", "es": "PARCIAL", "it": "AINDA NAO COMPARAVEL", "fr": "AINDA NAO COMPARAVEL" },
+    { "d": "Clima", "es": "NAO MEDIDO", "it": "NAO MEDIDO", "fr": "NAO MEDIDO" },
+    { "d": "Portfolio local", "es": "AINDA NAO COMPARAVEL", "it": "AINDA NAO COMPARAVEL", "fr": "AINDA NAO COMPARAVEL" },
+    { "d": "Atividade de concorrencia", "es": "BLOQUEADO", "it": "BLOQUEADO", "fr": "BLOQUEADO" },
+    { "d": "Tempo / janela", "es": "NAO CONECTADO", "it": "NAO CONECTADO", "fr": "NAO CONECTADO" }
+  ],
+
+  "FILTROS_IMPLEMENTADOS_EM_RADAR_CASOS": {
+    "LINHA_ADAMA": ["Todas", "Disease Control", "Weed Control", "Pest Control", "Crop Enhancement"],
+    "ESTADO": ["Todos", "Em formacao", "Em observacao", "Caso confirmado", "Bloqueado"],
+    "JANELA": ["Todas", "Aberta", "Se encerrando", "Encerrada", "Proximo ciclo", "Nao conhecida"],
+    "OBSERVACAO": "os filtros funcionam de verdade — filtram 8 slots estruturais, nao dados"
+  },
+
+  "ABAS_DO_DETALHE_DE_CASO": ["sintese", "evidencias", "convergencia", "cruzamentos", "areas", "historico"],
+
+  "CASOS_NO_CASCO": {
+    "QUANTIDADE": 8,
+    "TIPO": "SLOT ESTRUTURAL",
+    "TODOS_DO_PAIS": "Espanha",
+    "CLASSES_USADAS": ["REGULATORY DEADLINE", "GEOGRAPHIC PRIORITY", "INVESTIGATE", "ACTIVATION QUESTION", "CHANGE DETECTED"],
+    "TEXTO_DA_PROPRIA_TELA": "Nenhum caso conectado nesta versao. Os cartoes abaixo sao slots estruturais — servem para validar filtros, estados e navegacao, nao para leitura de conteudo."
+  },
+
+  "MEDIDA_DE_PREENCHIMENTO": {
+    "TELAS_COM_ESTRUTURA": 12,
+    "TELAS_COM_DADO_REAL": 0,
+    "VALORES_DE_NEGOCIO_LIGADOS": 0,
+    "COMO_FOI_MEDIDO": "leitura da camada de dados do proprio casco (app-logic.jsx): todo valor numerico ou textual de negocio e literal de placeholder ('—', 'NAO MEDIDO', 'SLOT-0x') ou rotulo de estado",
+    "LEITURA": "o casco esta COMPLETO como contrato e VAZIO como produto. Isso e uma boa noticia para esta rodada: nao ha o que desfazer, ha o que ligar."
+  }
+}

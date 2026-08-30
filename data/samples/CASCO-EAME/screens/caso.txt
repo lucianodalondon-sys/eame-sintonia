@@ -1,0 +1,185 @@
+[SE at.caso]
+Radar / Casos
+DISEASE CONTROL
+ESPANHA
+CULTURA —
+ISSUE —
+CASO CONFIRMADO
+Caso de convergência — título do display layer
+Campo preparado para a síntese humana do caso: nome legível, acentuação correta e frase que não afirma além da evidência. O artefato técnico permanece por baixo, íntegro.
+RELEVÂNCIA
+critério a conectar
+JANELA DE AÇÃO
+—
+CAMADAS QUE CONVERGEM
+—
+ÚLTIMA ATUALIZAÇÃO
+—
+Síntese
+[SE tab.sintese]
+Camadas de evidência
+[SE tab.evidencias]
+Convergência
+[SE tab.convergencia]
+Cruzamentos
+[SE tab.cruzamentos]
+Áreas ADAMA
+[SE tab.areas]
+Histórico
+[SE tab.historico]
+[SE tab.sintese]
+Estado da evidência por camada
+estado de evidência — não é score
+[LISTA: evidenceLayers]
+{{ l.name }}
+{{ l.state }}
+Camadas que não se fundem
+Produto registrado não é ação comercial. Cada camada responde por si.
+[LISTA: decisionLayers]
+{{ d.k }}
+{{ d.v }}
+Resposta local ADAMA
+NÃO PROVADA
+Só entra com evidência local do próprio país. Produto global nunca vira resposta local.
+product
+registration_id
+country · crop · issue
+dose
+application_window
+regulatory_state
+document_evidence
+source_id
+FATO
+Medição direta, com fonte, data e n. Nunca no mesmo campo que interpretação.
+INTERPRETAÇÃO
+Leitura assinada, com limite declarado. Sem causalidade implícita.
+AÇÃO POSSÍVEL
+O que a ADAMA pode fazer — e o que só a ADAMA pode decidir.
+O que sabemos
+O que falta
+Pode agir agora?
+Bloco preparado para a resposta afirmativa — só aparece verde quando a evidência sustenta a ação, com a ação escrita em linguagem de decisão.
+Não é possível afirmar
+Bloco preparado para o limite: o que este caso não diz, escrito antes que alguém pergunte. Ausência de prova aparece aqui, não no rodapé.
+Janela agronômica — a cultura ainda permite ação?
+ESTRUTURA · NÃO CONECTADA
+abrir calendário completo
+Quatro relógios independentes — ciclo, issue, janela registrada e idade da evidência. Nenhum deles decide aplicação.
+MAR
+ABR
+MAI
+JUN
+JUL
+AGO
+SET
+Ciclo da cultura
+FASE — SLOT
+FASE — SLOT
+Janela do issue
+Janela registrada
+Evidência de campo
+data — · idade —
+Hoje
+30 AGO 2026
+PRÓXIMA JANELA RELEVANTE
+ainda não determinada
+RESOLUÇÃO
+A DEFINIR
+LEITURA
+não determinada — janela aberta nunca confirma necessidade
+[LISTA: agroContract]
+{{ c }}
+JANELA AGRONÔMICA
+A cultura, o problema ou o produto ainda permitem ação?
+NÃO CONECTADA
+JANELA DE DECISÃO
+Ainda existe tempo organizacional para agir?
+NÃO DETERMINADA
+[SE tab.evidencias]
+Camadas de evidência
+Registro oficial
+CONECTÁVEL
+Ciência
+CONECTÁVEL
+Pressão de campo
+PARCIAL
+Contexto climático
+CONTEXTO
+Comunicação pública
+BLOQUEADO
+Cada camada exibirá SOURCE_ID, licença, data da versão, data de captura e caminho do arquivo de evidência. Rota bloqueada é registrada como bloqueio, nunca como ausência do fenômeno.
+[SE tab.convergencia]
+Como as camadas convergem
+SINAL APARECE
+Fonte e data declaradas
+É REAL?
+Medição direta ou relato
+ONDE MAIS?
+Mesmo identificador em outro mercado
+O QUE SUSTENTA?
+Ciência, registro e clima — separados
+RESPOSTA ADAMA REGISTRADA
+Existe produto registrado para o par cultura × alvo?
+O QUE VALIDAR
+O que só campo ou dado interno resolvem
+Qualquer passo sem resposta permanece
+não sei
+— e isso é comportamento aceito do produto.
+Competição como camada
+Competição não é ferramenta separada — entra como camada de convergência deste caso.
+[LISTA: competitorLayers]
+{{ c.k }}
+{{ c.v }}
+[SE tab.cruzamentos]
+Cruzamentos disponíveis
+Cultura × alvo
+Slot preparado
+Substância × registro
+Slot preparado
+Região × área de cultura
+Slot preparado
+Multi-país
+Ainda não comparável neste eixo
+[SE tab.areas]
+Mapa de ação por área ADAMA
+Sintonia identifica onde olhar
+Market Development avalia e programa a investigação
+Demais áreas executam quando aplicável
+— a decisão continua com a ADAMA
+[LISTA: actionAreas]
+{{ a.name }}
+{{ a.badge }}
+{{ a.state }}
+por que esta área
+{{ a.role }}
+ação possível
+não determinada
+janela de ação
+não determinada
+evidência exigida
+não determinada
+[SE tab.historico]
+Histórico do caso
+Entrada no Radar do Futuro
+Data e ciclo — slot preparado
+Segunda camada de evidência
+Data e fonte — slot preparado
+Migração para caso de convergência
+Data e responsável — slot preparado
+Critérios de relevância
+Escala
+—
+Tendência
+—
+Qualidade da evidência
+—
+Resposta registrada
+—
+O índice ordena prioridade de investigação. Não é venda, demanda nem área tratada.
+Fontes deste caso
+ID —
+ID —
+ID —
+Adicionar ao dossiê
+Acompanhar caso
+Exportar snapshot

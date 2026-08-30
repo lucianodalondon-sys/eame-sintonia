@@ -1,0 +1,150 @@
+[SE at.eame]
+Camada EAME · cross-market intelligence
+Onde os mercados convergem, divergem e exigem atenção regional
+A EAME não é a soma dos países. É uma camada de
+comparação, convergência e coordenação
+— cada evidência permanece do país de origem, e a diferença entre mercados é a informação.
+[LISTA: eameGrammar]
+{{ g.n }}
+{{ g.t }}
+EAME overview — cobertura por mercado
+não é ranking de países · sem porcentagem
+[LISTA: eameLanes]
+{{ l.name }}
+{{ l.foundation }}
+atualidade do dado
+{{ l.freshness }}
+sinais ativos
+{{ l.signals }}
+janelas de decisão
+{{ l.windows }}
+lacuna principal: {{ l.gaps }}
+Abrir país
+Casos locais
+Convergências cross-market
+NENHUMA CONVERGÊNCIA CONECTADA
+Um mesmo tema observado em dois ou mais mercados. Termo igual não é problema igual, e problema igual não é decisão igual.
+[LISTA: convergenceSlots]
+{{ c.lineLabel }}
+{{ c.id }}
+CULTURA
+—
+ISSUE
+—
+PAÍSES
+{{ c.countries }}
+SEQUÊNCIA
+não conectada
+o que é comparável
+não medido
+o que muda por país
+não medido
+evidência local
+permanece no país
+Lei do casco:
+mesmo termo ≠ mesmo problema ≠ mesma decisão
+. Convergência só é publicada com evidência comparável declarada em cada país.
+Onde os mercados diferem
+A diferença é o produto desta camada. Nada aqui é média regional.
+[LISTA: divergenceTypes]
+{{ d.k }}
+{{ d.v }}
+Tempo entre mercados — sequência de janelas locais
+a EAME não tem janela agronômica única
+Uma linha por país. O que a camada mostra é a sequência de janelas locais — nunca uma janela regional média.
+MAR
+ABR
+MAI
+JUN
+JUL
+AGO
+SET
+[LISTA: timingLanes]
+{{ t.name }}
+{{ t.code }}
+{{ t.state }}
+JANELA DE PLANEJAMENTO REGIONAL
+Existe tempo para a organização regional preparar algo antes do próximo mercado entrar na janela?
+NÃO DETERMINADA
+ESTADOS PREVISTOS
+[LISTA: planningStates]
+{{ p }}
+SEQUÊNCIA OBSERVADA ≠ PROPAGAÇÃO
+IT
+FR
+ES
+Componente preparado para sequência observada. Ordem no tempo nunca é afirmação de propagação entre mercados.
+Diferenças de portfólio local
+Cada célula continua local. Produto registrado na Espanha nunca se torna resposta EAME.
+PROBLEMA
+ESPANHA
+ITÁLIA
+FRANÇA
+[LISTA: asymRows]
+{{ r.problem }}
+{{ r.es }}
+{{ r.it }}
+{{ r.fr }}
+Radar EAME — o que entra nesta camada
+não é a lista de casos dos países
+[LISTA: eameRadarTypes]
+{{ t.k }}
+{{ t.t }}
+CADA ITEM DECLARA
+[LISTA: eameRadarContract]
+{{ c }}
+Mapa de coordenação regional
+Aqui não se pede ação em um país — isso é do portal do país. Aqui ficam as perguntas de coordenação regional.
+[LISTA: regionalAreas]
+{{ a.name }}
+{{ a.badge }}
+{{ a.why }}
+{{ a.state }}
+CONTRATO DO ITEM
+[LISTA: regionalActionContract]
+{{ c }}
+COORDENAR
+PREPARAR
+OBSERVAR
+SOMENTE LOCAL
+NÃO SEI
+Matriz de comparabilidade
+peça central da camada · o estado é declarado, nunca inferido
+DIMENSÃO
+ESPANHA
+ITÁLIA
+FRANÇA
+[LISTA: comparability]
+{{ r.d }}
+{{ r.esL }}
+{{ r.itL }}
+{{ r.frL }}
+Leitura correta:
+três mercados observados, dois comparáveis, um não comparável
+— e não uma média regional. Números não se comparam só porque existem.
+Caso cross-market — estrutura do detalhe
+Nunca um veredito EAME único quando os países têm respostas diferentes.
+[LISTA: crossCaseParts]
+{{ p.n }}
+{{ p.t }}
+Cadeia de origem — sempre visível
+EAME
+país
+caso
+evidência
+fonte
+A agregação regional nunca esconde a origem: toda célula desce até o documento do país.
+Escopo EAME nas respostas
+países usados
+declarados por resposta
+países não medidos
+declarados por resposta
+estado de comparabilidade
+obrigatório
+O acervo em contexto EAME apenas filtra: um documento italiano continua italiano —
+source_country
+,
+fact_country
+e
+portfolio_country
+viajam com o registro.

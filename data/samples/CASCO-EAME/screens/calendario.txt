@@ -1,0 +1,120 @@
+[SE at.calendario]
+Country Portal · Espanha
+Janelas da Cultura
+ESTRUTURA · RELÓGIOS NÃO CONECTADOS
+Calendário agronômico por país, cultura e região. A ferramenta dá
+contexto temporal
+— quatro relógios que não se fundem — e nunca conclui aplicação por conta própria.
+HOJE
+30 ago 2026
+PAÍS
+{{ countryName }}
+CULTURA
+selecionar
+REGIÃO
+todas
+CICLO
+—
+Ano
+Trimestre
+Mês
+Quatro relógios
+Ciclo da cultura
+Janela do issue
+Janela registrada do produto
+Atualidade da evidência
+Hoje
+REGIÃO / RECORTE
+JAN
+FEV
+MAR
+ABR
+MAI
+JUN
+JUL
+AGO
+SET
+OUT
+NOV
+DEZ
+Região — slot 01
+PRECISÃO: MÊS
+FASE — SLOT
+FASE — SLOT
+Região — slot 02
+PRECISÃO: ESTAÇÃO
+SEM LIMITE EXATO — ESTAÇÃO
+Janela registrada não conhecida
+Sem observação de campo registrada
+Região — slot 03
+SEM DADO
+Sem calendário conectado para este recorte — o estado é
+não coletado
+, não ausência de ciclo.
+Região — slot 04
+PRÓXIMO CICLO
+PRÓXIMO CICLO
+Evidência mais recente: idade não determinada
+ATIVA
+A CAMINHO
+SE ENCERRANDO
+ENCERRADA
+PRÓXIMO CICLO
+NÃO CONHECIDA
+SEM DADO
+EVIDÊNCIA PARCIAL
+As barras acima são
+estrutura
+: nenhuma fase, mês ou janela foi preenchida com calendário real. Fases, limites e resolução chegam da camada de dados por país × cultura × região.
+Semântica de ação
+Janela aberta não significa necessidade de aplicação. O calendário entrega tempo; a decisão continua com a ADAMA.
+Janela registrada aberta
+Necessidade de campo não confirmada
+VERIFICAR AGORA
+Janela se encerrando
+Evidência sustentada
+AGIR AGORA
+Janela encerrada
+Próximo ciclo mapeado
+PREPARAR
+Janela não conhecida
+Sem calendário conectado
+NÃO SEI
+Resolução temporal declarada
+A interface nunca desenha precisão que o dado não tem. Se sabemos “primavera”, a barra é uma estação — não duas datas.
+DATA EXATA
+SEMANA
+MÊS
+FASE FENOLÓGICA
+ESTAÇÃO / APROXIMADO
+NÃO CONHECIDA
+sem barra
+O momento por área ADAMA
+Market Development
+— leitura do momento
+Marketing
+— leitura do momento
+Comercial
+— leitura do momento
+Ciência & P&D
+— leitura do momento
+Regulatório
+— leitura do momento
+Campos que a interface espera
+Contrato de entrada do calendário — nenhum valor preenchido aqui.
+country
+crop
+region
+cycle_year
+phase_name
+phase_start / end
+time_resolution
+issue_id
+issue_window
+product_id
+label_window
+dose (quando houver)
+observation_date
+evidence_freshness
+adama_line
+source_id
