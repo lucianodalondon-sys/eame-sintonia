@@ -8,6 +8,7 @@ tiverem sido BAIXADOS DE VOLTA e reconferidos, a coleta é reversível por um fo
 disco.
 
     python3 scripts/storage_preservar.py --plano            # offline, sempre roda
+    python3 scripts/storage_preservar.py --provar-destino   # so leitura, nao envia
     python3 scripts/storage_preservar.py --enviar           # exige autenticação
     python3 scripts/storage_preservar.py --enviar --sem-verificar-hash
 
@@ -241,15 +242,49 @@ def _http(url, key, metodo, caminho, dados=None, ctype=None, timeout=300):
 
 
 def bucket_esta_certo(url, key):
-    """O bucket `raw` existe e é PRIVADO? Público seria vazamento de evidência."""
-    st, body = _http(url, key, 'GET', '/storage/v1/bucket/' + BUCKET)
+    """O bucket `raw` existe e é PRIVADO? Público seria vazamento de evidência.
+
+    FALHA NÃO É AUSÊNCIA — e esta função já quebrou essa lei uma vez.
+
+    A versão anterior perguntava GET /storage/v1/bucket/raw e devolvia EXISTE=False para
+    QUALQUER coisa que não fosse 200. Em 2026-08-30 isso fez o uploader dizer "bucket
+    ausente — criar antes" sobre um bucket que existia desde 2026-08-29, criado e
+    verificado pelo próprio workflow canônico. Três causas diferentes saíam com a mesma
+    frase: bucket inexistente, chave sem permissão, e projeto errado.
+
+    Agora usa a MESMA leitura do workflow (lista de buckets) e devolve o estado medido:
+
+        EXISTE=True                     'raw' está na lista
+        EXISTE=False                    a lista veio e 'raw' NÃO está nela — ausência real
+        EXISTE='NAO_SEI' + NAO_AUTORIZADO   401/403: a chave não pode listar bucket.
+                                        Chave publishable/anon não lista; só a secret.
+        EXISTE='NAO_SEI' + HTTP <code>  qualquer outra resposta, com o código medido
+    """
+    st, body = _http(url, key, 'GET', '/storage/v1/bucket')
+    if st in (401, 403):
+        return {'EXISTE': 'NAO_SEI', 'PRIVADO': None, 'HTTP': st,
+                'PORQUE': ('a chave nao tem permissao para listar buckets. Uma chave '
+                           'publishable/anon nunca lista; o Storage exige a secret. '
+                           'Isto NAO diz que o bucket falta.')}
     if st != 200:
-        return {'EXISTE': False, 'PRIVADO': None, 'HTTP': st}
+        return {'EXISTE': 'NAO_SEI', 'PRIVADO': None, 'HTTP': st,
+                'PORQUE': ('a listagem de buckets devolveu HTTP %s. Sem lista nao da '
+                           'para afirmar presenca nem ausencia.' % st)}
     try:
-        d = json.loads(body)
-    except ValueError:
-        return {'EXISTE': True, 'PRIVADO': None, 'HTTP': st}
-    return {'EXISTE': True, 'PRIVADO': not d.get('public', False), 'HTTP': st}
+        buckets = json.loads(body)
+        nomes = [b.get('name') for b in buckets]
+    except (ValueError, AttributeError, TypeError):
+        return {'EXISTE': 'NAO_SEI', 'PRIVADO': None, 'HTTP': st,
+                'PORQUE': 'a resposta veio 200 mas nao e a lista de buckets esperada'}
+    raw = next((b for b in buckets if b.get('name') == BUCKET), None)
+    if raw is None:
+        return {'EXISTE': False, 'PRIVADO': None, 'HTTP': st, 'BUCKETS': nomes,
+                'PORQUE': ('a lista respondeu e nao tem `%s`. Se o workflow canonico ja '
+                           'criou, entao esta chave aponta para OUTRO projeto.' % BUCKET)}
+    return {'EXISTE': True, 'PRIVADO': not raw.get('public', False), 'HTTP': st,
+            'BUCKETS': nomes, 'DETALHE': {'id': raw.get('id'),
+                                          'file_size_limit': raw.get('file_size_limit'),
+                                          'allowed_mime_types': raw.get('allowed_mime_types')}}
 
 
 def preservar(itens, url, key, verificar_hash=True):
@@ -334,6 +369,29 @@ if __name__ == '__main__':
         print('  PROBLEMAS=%d' % len(p['PROBLEMAS_ANTES_DE_ENVIAR']))
         sys.exit(0)
 
+    if '--provar-destino' in sys.argv:
+        # SÓ LEITURA. Não envia, não cria bucket, não muda nada. Existe porque "o bucket
+        # existe?" é uma pergunta que merece resposta sozinha, antes de qualquer byte.
+        ok, falta, url, key = autenticacao()
+        if not ok:
+            print('STORAGE_AUTH_MISSING')
+            print('FALTA=' + ','.join(falta))
+            sys.exit(2)
+        st, _ = _http(url, key, 'GET', '/rest/v1/')
+        print('PROJECT_REACHABLE=%s (HTTP %s)' % ('YES' if st == 200 else 'NO', st))
+        b = bucket_esta_certo(url, key)
+        print('RAW_BUCKET_EXISTS=%s' % b['EXISTE'])
+        print('RAW_BUCKET_PRIVATE=%s' % b['PRIVADO'])
+        print('HTTP=%s' % b['HTTP'])
+        if b.get('BUCKETS') is not None:
+            print('BUCKETS_VISIVEIS=%s' % b['BUCKETS'])
+        if b.get('DETALHE'):
+            print('DETALHE=%s' % b['DETALHE'])
+        if b.get('PORQUE'):
+            print('PORQUE=%s' % b['PORQUE'])
+        print('NADA FOI ENVIADO — este modo so le.')
+        sys.exit(0 if b['EXISTE'] is True else 1)
+
     if '--enviar' in sys.argv:
         ok, falta, url, key = autenticacao()
         if not ok:
@@ -343,9 +401,22 @@ if __name__ == '__main__':
             print('bloqueio e a autenticacao. Exporte as duas variaveis e rode de novo.')
             sys.exit(2)
         b = bucket_esta_certo(url, key)
-        print('RAW_BUCKET_EXISTS=%s RAW_BUCKET_PRIVATE=%s' % (b['EXISTE'], b['PRIVADO']))
-        if not b['EXISTE']:
-            print('bucket `raw` ausente — criar antes (workflow supabase-storage.yml)')
+        print('RAW_BUCKET_EXISTS=%s RAW_BUCKET_PRIVATE=%s HTTP=%s'
+              % (b['EXISTE'], b['PRIVADO'], b['HTTP']))
+        if b.get('BUCKETS') is not None:
+            print('BUCKETS_VISIVEIS=%s' % b['BUCKETS'])
+        if b.get('PORQUE'):
+            print('PORQUE=%s' % b['PORQUE'])
+        # Os tres desfechos ruins são DIFERENTES e saem com codigos diferentes: o operador
+        # precisa saber se cria bucket, se troca a chave, ou se conferiu o projeto errado.
+        if b['EXISTE'] == 'NAO_SEI':
+            print('NAO_SEI se o bucket existe — nao afirmo ausencia sobre uma leitura que')
+            print('nao respondeu. Isto NAO e motivo para criar bucket.')
+            sys.exit(5)
+        if b['EXISTE'] is False:
+            print('bucket `raw` AUSENTE nesta chave — criar pelo workflow canonico')
+            print('(.github/workflows/supabase-storage.yml). Se ele ja rodou com sucesso,')
+            print('entao esta chave aponta para outro projeto: confira antes de criar.')
             sys.exit(3)
         if b['PRIVADO'] is False:
             print('bucket `raw` esta PUBLICO — recuso enviar evidencia para bucket publico')

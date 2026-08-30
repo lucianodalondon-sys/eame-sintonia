@@ -267,6 +267,67 @@ class TestSqlEhIdempotente(unittest.TestCase):
                               'o SQL versionado carrega algo que parece credencial')
 
 
+class TestLeituraDoBucketNaoConfundeFalhaComAusencia(unittest.TestCase):
+    """FALHA != AUSÊNCIA — e esta função já quebrou a lei em produção.
+
+    Em 2026-08-30 o uploader imprimiu "bucket `raw` ausente — criar antes" sobre um
+    bucket que existia desde a véspera, criado e verificado pelo workflow canônico. A
+    causa: qualquer HTTP diferente de 200 virava EXISTE=False. Três situações distintas
+    — bucket inexistente, chave sem permissão, projeto errado — saíam com a mesma frase,
+    e a instrução que ela dava (criar bucket) era errada em duas delas.
+    """
+
+    def setUp(self):
+        import storage_preservar as S
+        self.S = S
+        self.original = S._http
+
+    def tearDown(self):
+        self.S._http = self.original
+
+    def _responde(self, status, corpo=b''):
+        self.S._http = lambda url, key, m, p, d=None, c=None, timeout=300: (status, corpo)
+
+    def test_sem_permissao_nao_vira_ausencia(self):
+        for codigo in (401, 403):
+            with self.subTest(http=codigo):
+                self._responde(codigo, b'{"message":"invalid signature"}')
+                r = self.S.bucket_esta_certo('https://x', 'k')
+                self.assertEqual('NAO_SEI', r['EXISTE'],
+                                 'chave sem permissao virou "bucket nao existe"')
+                self.assertEqual(codigo, r['HTTP'])
+                self.assertIn('permissao', r['PORQUE'])
+
+    def test_erro_de_servidor_nao_vira_ausencia(self):
+        self._responde(500, b'boom')
+        r = self.S.bucket_esta_certo('https://x', 'k')
+        self.assertEqual('NAO_SEI', r['EXISTE'])
+        self.assertEqual(500, r['HTTP'])
+
+    def test_rede_caida_nao_vira_ausencia(self):
+        self._responde(0, b'URLError: nao resolveu')
+        self.assertEqual('NAO_SEI', self.S.bucket_esta_certo('https://x', 'k')['EXISTE'])
+
+    def test_lista_sem_raw_e_ausencia_de_verdade(self):
+        """Só isto é ausência: a lista respondeu, e `raw` não está nela."""
+        self._responde(200, b'[{"name":"outro","public":false}]')
+        r = self.S.bucket_esta_certo('https://x', 'k')
+        self.assertIs(False, r['EXISTE'])
+        self.assertEqual(['outro'], r['BUCKETS'])
+        self.assertIn('OUTRO projeto', r['PORQUE'],
+                      'ausência tem de lembrar a hipótese de projeto errado')
+
+    def test_bucket_privado_e_publico_sao_medidos(self):
+        self._responde(200, b'[{"name":"raw","public":false,"id":"raw"}]')
+        r = self.S.bucket_esta_certo('https://x', 'k')
+        self.assertIs(True, r['EXISTE'])
+        self.assertIs(True, r['PRIVADO'])
+
+        self._responde(200, b'[{"name":"raw","public":true,"id":"raw"}]')
+        self.assertIs(False, self.S.bucket_esta_certo('https://x', 'k')['PRIVADO'],
+                      'bucket publico tem de ser detectado — e o envio recusado')
+
+
 class TestElosQuePrecisamDeCredencial(unittest.TestCase):
     """Não passam por omissão: PULAM, e dizem exatamente o que falta."""
 
