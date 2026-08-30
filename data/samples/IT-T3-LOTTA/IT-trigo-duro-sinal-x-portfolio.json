@@ -1,0 +1,519 @@
+{
+  "COUNTRY": "IT",
+  "SOURCE_ID": "DERIVED/IT-DURUM-SIGNAL-x-PORTFOLIO",
+  "SOURCE": "IT-T3-LAMMA (campo, Toscana) × IT-T4-001 (rótulos oficiais)",
+  "CAPTURED_AT": "2026-08-30",
+  "AS_OF": "2026-08-30",
+  "SOURCE_LOCATION": "Toscana (campo) · Itália (rótulos)",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "DERIVED_INTERPRETATION",
+  "CROP": "Trigo duro",
+  "CROP_NATIONAL_THS_HA": 1177.4,
+  "CROP_RANK_IN_ITALY": 1,
+  "QUESTION": "existe sinal público de campo para o trigo duro italiano, e o portfólio da ADAMA nomeado para a cultura responde a ele?",
+  "ANSWER": "sim, existe — eu não tinha perguntado. E não, o que nomeia grano duro não responde a ele: são 13 herbicidas e 1 tratamento de semente, nenhum fungicida foliar.",
+  "FIELD_SIGNAL": {
+    "SOURCE_ID": "IT-T3-LAMMA",
+    "PUBLISHER": "Consorzio LaMMA — Regione Toscana / CNR",
+    "ROUTE": "lamma.toscana.it/previ/ita/agrometeo/html/<Provincia>_ftsnt.html",
+    "READ_ON": "2026-08-30",
+    "BULLETIN_DATE_SHOWN": "2026-04-23",
+    "PAGE_KIND": "ROLLING_CURRENT_ISSUE",
+    "PAGE_KIND_NOTE": "a página mostra a edição corrente e não expõe arquivo de edições passadas. Por isso NÃO se pode contar \"N boletins em 2026\" — a mesma limitação do Vêneto, por motivo diferente: lá faltava o conteúdo, aqui falta o índice. EDIÇÃO LIDA ≠ SÉRIE MEDIDA continua valendo.",
+    "PROVINCES_PROBED": [
+      {
+        "PROVINCE": "Grosseto",
+        "CROPS": [
+          "Frumento",
+          "Vite integrato",
+          "Vite biologico"
+        ],
+        "DURUM_NAMED_SEPARATELY": true
+      },
+      {
+        "PROVINCE": "Pisa",
+        "CROPS": [
+          "Frumento"
+        ],
+        "DURUM_NAMED_SEPARATELY": true
+      },
+      {
+        "PROVINCE": "Siena",
+        "CROPS": [
+          "Vite integrato",
+          "Vite biologico"
+        ],
+        "DURUM_NAMED_SEPARATELY": false,
+        "NOTE": "sem boletim de frumento — a cultura coberta varia por província"
+      }
+    ],
+    "DISEASES_NAMED": [
+      "Septoria",
+      "Ruggini",
+      "Oidio",
+      "Fusariosi"
+    ],
+    "SIGNAL_GRANULARITY": "doença × fase fenológica × nível de risco × janela",
+    "VERBATIM_IT": "Dove la fase fenologica sta entrando in fioritura, considerate le piogge e le previsioni di piogge per i prossimi giorni, che comportano quindi un alto rischio fusariosi, se non già protette con un trattamento specifico, è opportuno effettuare un trattamento fitosanitario",
+    "WHY_IT_MATTERS": "derruba a leitura de que a Itália não publica sinal de campo para a sua maior cultura. Publica, e com fase e janela. Eu é que não tinha perguntado."
+  },
+  "PORTFOLIO_NAMING_DURUM": {
+    "TOTAL": 14,
+    "BY_CLASS": {
+      "HERBICIDA": 13,
+      "TRATAMENTO_SEMENTE": 1
+    },
+    "FOLIAR_FUNGICIDES_NAMING_DURUM": 0,
+    "PRODUCTS": {
+      "HERBICIDA": [
+        {
+          "PRODUCT": "TOPIK 240 EC",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Autorizzato",
+          "TARGETS": [
+            "Avena spp.",
+            "Phalaris spp.",
+            "Lolium rigidum"
+          ]
+        },
+        {
+          "PRODUCT": "TOPIK 80 EC",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Ri-registrato",
+          "TARGETS": []
+        },
+        {
+          "PRODUCT": "VIP",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Ri-registrato",
+          "TARGETS": [
+            "Avena spp.",
+            "Phalaris spp.",
+            "Lolium rigidum"
+          ]
+        },
+        {
+          "PRODUCT": "TRACE",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Autorizzato",
+          "TARGETS": [
+            "Phalaris spp.",
+            "Avena spp.",
+            "Alopecurus myosuroides",
+            "Lolium rigidum"
+          ]
+        },
+        {
+          "PRODUCT": "RAVENAS",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Ri-registrato",
+          "TARGETS": [
+            "Avena spp.",
+            "Spettrrus myosuroides",
+            "Phalaris spp.",
+            "Lolium rigidum"
+          ]
+        },
+        {
+          "PRODUCT": "VIP 80 EC",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Ri-registrato",
+          "TARGETS": []
+        },
+        {
+          "PRODUCT": "CELIO 80 EC",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Ri-registrato",
+          "TARGETS": []
+        },
+        {
+          "PRODUCT": "CELIO",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Ri-registrato",
+          "TARGETS": [
+            "Avena spp.",
+            "Phalaris spp.",
+            "Lolium rigidum"
+          ]
+        },
+        {
+          "PRODUCT": "HAWK",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Ri-registrato",
+          "TARGETS": [
+            "Avena spp.",
+            "Phalaris spp.",
+            "Lolium rigidum"
+          ]
+        },
+        {
+          "PRODUCT": "MAKURI",
+          "ACTIVE_SUBSTANCE": "CLODINAFOP|CLOQUINTOCET MEXYL",
+          "EXPIRY": "31/07/2027",
+          "STATUS": "Autorizzato",
+          "TARGETS": [
+            "Phalaris spp.",
+            "Avena spp.",
+            "Alopecurus myosuroides",
+            "Lolium rigidum"
+          ]
+        },
+        {
+          "PRODUCT": "DICURAN PLUS",
+          "ACTIVE_SUBSTANCE": "CHLOROTOLURON|DIFLUFENICAN",
+          "EXPIRY": "31/08/2027",
+          "STATUS": "Autorizzato in regime di Riconoscimento Reciproco",
+          "TARGETS": [
+            "Galium spp.",
+            "Avena sterilis",
+            "Erodium spp.",
+            "Matricaria spp.",
+            "Carduus sp.",
+            "Stellaria media",
+            "Anagallis arvensis",
+            "Peverina dei",
+            "Saeppola canadese",
+            "Poligonum aviculare",
+            "Fumaria officinalis",
+            "Fumaria officinale",
+            "Falsa ortica",
+            "Fedia cornucopiae",
+            "Lolium spp.",
+            "Malva spp.",
+            "Papaver rhoeas",
+            "Cerastium glomeratum",
+            "Fienarola annuale",
+            "Diplotaxis spp.",
+            "Conyza canadensis",
+            "Sinapsis spp.",
+            "Centocchio comune",
+            "Veronica spp.",
+            "Silybum marianum",
+            "Calendula arvensis",
+            "Sonchus spp.",
+            "Lactuca serriola",
+            "Mercurialis annua"
+          ]
+        },
+        {
+          "PRODUCT": "EDAPTIS",
+          "ACTIVE_SUBSTANCE": "MEFENPYR DIETHYL|MESOSULFURON-METHYL|PINOXADEN",
+          "EXPIRY": "31/12/2029",
+          "STATUS": "Autorizzato con procedura zonale",
+          "TARGETS": [
+            "Ridolfia segetum",
+            "Avena spp.",
+            "Anagallis arvensis",
+            "Alopecurus myosuroides",
+            "Phalaris spp.",
+            "Lolium spp.",
+            "Milium vernale",
+            "Miglio annuale",
+            "Fienarola annuale",
+            "Fienarola comune",
+            "Ravanello selvatico",
+            "Raphanus raphanistrum",
+            "Aneto puzzolente",
+            "Diplotaxis virgata",
+            "Sinapis alba",
+            "Sinapis arvensis",
+            "Senape bianca",
+            "Senape selvatica"
+          ]
+        },
+        {
+          "PRODUCT": "MEZAYO",
+          "ACTIVE_SUBSTANCE": "MESOSULFURON-METHYL|PINOXADEN",
+          "EXPIRY": "31/12/2029",
+          "STATUS": "Autorizzato Art. 10 D.P.R. 290/2001",
+          "TARGETS": [
+            "Ridolfia segetum",
+            "Avena spp.",
+            "Anagallis arvensis",
+            "Alopecurus myosuroides",
+            "Phalaris spp.",
+            "Lolium spp.",
+            "Milium vernale",
+            "Miglio annuale",
+            "Fienarola annuale",
+            "Fienarola comune",
+            "Ravanello selvatico",
+            "Raphanus raphanistrum",
+            "Aneto puzzolente",
+            "Diplotaxis virgata",
+            "Sinapis alba",
+            "Sinapis arvensis",
+            "Senape bianca",
+            "Senape selvatica"
+          ]
+        }
+      ],
+      "TRATAMENTO_SEMENTE": [
+        {
+          "PRODUCT": "SEEDRON",
+          "ACTIVE_SUBSTANCE": "FLUDIOXONIL|TEBUCONAZOLE",
+          "EXPIRY": "30/09/2026",
+          "STATUS": "Autorizzato con procedura zonale",
+          "TARGETS": [
+            "Fusarium spp.",
+            "Ustilago nuda",
+            "Ustilago avenae",
+            "Urocystis occulta",
+            "Tilletia caries",
+            "Pyrenophora spp."
+          ]
+        }
+      ]
+    }
+  },
+  "FOLIAR_MATCHING_THE_BULLETIN_BUT_NOT_NAMING_DURUM": [
+    {
+      "PRODUCT": "CUSTODIA ULTRA",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|TEBUCONAZOLE",
+      "EXPIRY": "15/08/2026",
+      "MODE_OF_ACTION": {},
+      "CROP_TERMS_PRESENT": [
+        "BARLEY",
+        "COMMON_WHEAT",
+        "GRAPEVINE",
+        "TOMATO",
+        "TRITICALE",
+        "WHEAT_GENERIC"
+      ],
+      "NAMES_DURUM": false,
+      "TARGETS": [
+        "Puccinia spp.",
+        "Erysiphe spp.",
+        "Leveillula taurica",
+        "Pyrenophora spp.",
+        "Sphaerotheca spp.",
+        "Uncicola necator",
+        "Erysiphe spp.",
+        "Rhynchosporium spp.",
+        "Septoria spp.",
+        "Fusarium spp."
+      ]
+    },
+    {
+      "PRODUCT": "BLAISE ULTRA",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|TEBUCONAZOLE",
+      "EXPIRY": "15/08/2026",
+      "MODE_OF_ACTION": {},
+      "CROP_TERMS_PRESENT": [
+        "BARLEY",
+        "COMMON_WHEAT",
+        "GRAPEVINE",
+        "TOMATO",
+        "TRITICALE",
+        "WHEAT_GENERIC"
+      ],
+      "NAMES_DURUM": false,
+      "TARGETS": [
+        "Puccinia spp.",
+        "Erysiphe spp.",
+        "Leveillula taurica",
+        "Pyrenophora spp.",
+        "Sphaerotheca spp.",
+        "Uncicola necator",
+        "Erysiphe spp.",
+        "Rhynchosporium spp.",
+        "Septoria spp.",
+        "Fusarium spp."
+      ]
+    },
+    {
+      "PRODUCT": "MIRADOR TURBO",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|TEBUCONAZOLE",
+      "EXPIRY": "31/05/2027",
+      "MODE_OF_ACTION": {},
+      "CROP_TERMS_PRESENT": [
+        "BARLEY",
+        "COMMON_WHEAT",
+        "GRAPEVINE",
+        "TOMATO",
+        "TRITICALE",
+        "WHEAT_GENERIC"
+      ],
+      "NAMES_DURUM": false,
+      "TARGETS": [
+        "Puccinia spp.",
+        "Erysiphe spp.",
+        "Leveillula taurica",
+        "Pyrenophora spp.",
+        "Sphaerotheca spp.",
+        "Uncicola necator",
+        "Erysiphe spp.",
+        "Rhynchosporium spp.",
+        "Septoria spp.",
+        "Fusarium spp."
+      ]
+    },
+    {
+      "PRODUCT": "MAXENTIS",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|PROTHIOCONAZOLE",
+      "EXPIRY": "31/05/2027",
+      "MODE_OF_ACTION": {
+        "FRAC": [
+          "11",
+          "3"
+        ]
+      },
+      "CROP_TERMS_PRESENT": [
+        "BARLEY",
+        "COMMON_WHEAT",
+        "TRITICALE",
+        "WHEAT_GENERIC"
+      ],
+      "NAMES_DURUM": false,
+      "TARGETS": [
+        "Blumeria graminis",
+        "Helminthosporium gramineum",
+        "Fusarium spp.",
+        "Ruggine bruna",
+        "Ramularia collo",
+        "Rhyncosporium secalis",
+        "Puccinia recondita",
+        "Puccinia recondita",
+        "Puccinia striiformis",
+        "Puccinia sp.",
+        "Rhyncosporium secalis",
+        "Zymoseptoria tritici",
+        "Zymoseptoria tritici"
+      ]
+    },
+    {
+      "PRODUCT": "KOJAMI",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|PROTHIOCONAZOLE",
+      "EXPIRY": "31/05/2027",
+      "MODE_OF_ACTION": {
+        "FRAC": [
+          "11",
+          "3"
+        ]
+      },
+      "CROP_TERMS_PRESENT": [
+        "BARLEY",
+        "COMMON_WHEAT",
+        "TRITICALE",
+        "WHEAT_GENERIC"
+      ],
+      "NAMES_DURUM": false,
+      "TARGETS": [
+        "Blumeria graminis",
+        "Helminthosporium gramineum",
+        "Fusarium spp.",
+        "Ruggine bruna",
+        "Ramularia collo",
+        "Rhyncosporium secalis",
+        "Puccinia recondita",
+        "Puccinia recondita",
+        "Puccinia striiformis",
+        "Puccinia sp.",
+        "Rhyncosporium secalis",
+        "Zymoseptoria tritici",
+        "Zymoseptoria tritici"
+      ]
+    }
+  ],
+  "THE_MISMATCH": "o sinal público é foliar e de espiga, na floração, sob chuva. O portfólio nomeado para a cultura é de plantas daninhas e de semente. As duas camadas existem e não se cruzam na mesma célula CULTURA × PROBLEMA × MOMENTO.",
+  "THE_OPEN_QUESTION": {
+    "STATE": "NÃO SEI",
+    "QUESTION": "\"frumento\" no rótulo italiano cobre juridicamente o grano duro?",
+    "WHY_IT_DECIDES_EVERYTHING": "se cobre, não há lacuna nenhuma e o desencontro é artefato de redação de rótulo. Se não cobre, a lacuna é real e é sobre a maior cultura do país.",
+    "WHY_I_CANNOT_ANSWER": "não é extraível do texto do rótulo, que é tudo o que tenho. Exige leitura jurídica do decreto de autorização — trabalho de direito regulatório, não de extração.",
+    "LAW": "CROP_TERM ≠ AUTHORIZED_CROP"
+  },
+  "REGULATORY_FACT_EXPIRY": {
+    "NOTE": "vencimento é fato do registro. EXPIRY ≠ WITHDRAWAL: não afirma retirada, nem indisponibilidade comercial.",
+    "NEXT_400_DAYS": [
+      {
+        "PRODUCT": "SEEDRON",
+        "CLASS": "TRATAMENTO_SEMENTE",
+        "EXPIRY": "30/09/2026",
+        "DAYS_FROM_AS_OF": 31
+      },
+      {
+        "PRODUCT": "TOPIK 240 EC",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "TOPIK 80 EC",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "VIP",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "TRACE",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "RAVENAS",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "VIP 80 EC",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "CELIO 80 EC",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "CELIO",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "HAWK",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "MAKURI",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/07/2027",
+        "DAYS_FROM_AS_OF": 335
+      },
+      {
+        "PRODUCT": "DICURAN PLUS",
+        "CLASS": "HERBICIDA",
+        "EXPIRY": "31/08/2027",
+        "DAYS_FROM_AS_OF": 366
+      }
+    ]
+  },
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "que a ADAMA não possa tratar fusariose de espiga em trigo duro na Itália — isso depende da pergunta em aberto sobre \"frumento\"",
+    "que o boletim da Toscana represente o trigo duro italiano: a Toscana tem 43,7 mil ha, 3,7% do país. Puglia, Sicília e Basilicata continuam sem sonda",
+    "quantas edições a Toscana publica por ano — a página é rolante, sem arquivo",
+    "qualquer coisa sobre venda, participação de mercado ou prioridade interna"
+  ]
+}

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Testes da camada italiana. Codificam as LEIS, não só o comportamento."""
 import datetime
+import json
 import os
 import sys
 import unittest
@@ -13,6 +14,7 @@ import italia_colture as ic        # noqa: E402
 import italia_istat as ii2         # noqa: E402
 import italia_cobertura_campo      # noqa: E402,F401
 import italia_vies_de_painel       # noqa: E402,F401
+import italia_trigo_duro           # noqa: E402,F401
 import italia_tabela_dose as td    # noqa: E402
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
@@ -374,6 +376,8 @@ class TestCoberturaDeCampo(unittest.TestCase):
 
 
 PAINEL = os.path.join(ROOT, 'data', 'samples', 'IT-FONTES', 'ITALY-PANEL-BIAS.json')
+DURO = os.path.join(ROOT, 'data', 'samples', 'IT-T3-LOTTA',
+                    'IT-trigo-duro-sinal-x-portfolio.json')
 
 
 class TestViesDePainel(unittest.TestCase):
@@ -458,6 +462,74 @@ class TestViesDePainel(unittest.TestCase):
         self.assertEqual('UNMEASURED_NOT_ZERO', d['VERDICT'])
         self.assertGreater(d['PCT_NATIONAL_NEVER_ASKED'], 50.0,
                            'mais de metade do trigo duro italiano nunca foi perguntado')
+
+
+class TestTrigoDuro(unittest.TestCase):
+    """A maior cultura da Italia: o sinal existe, o portfolio nomeado nao responde a ele."""
+
+    @classmethod
+    def setUpClass(cls):
+        import italia_trigo_duro as tdu
+        cls.tdu = tdu
+
+    def test_substancia_decide_a_classe_antes_do_alvo_extraido(self):
+        """AUSENCIA DE EXTRACAO NAO E AUSENCIA DE CLASSE.
+
+        TOPIK 80 EC, VIP 80 EC e CELIO 80 EC sao clodinafop — herbicidas inequivocos —
+        e o parser nao tirou alvo daqueles PDFs. Classificar pelo genero botanico do
+        alvo os jogava em OUTRO, e 13 herbicidas viravam 10 mais 3 desconhecidos.
+        """
+        p = {'ACTIVE_SUBSTANCE': 'CLODINAFOP|CLOQUINTOCET MEXYL', 'ISSUES_FROM_SOURCE': []}
+        self.assertEqual('HERBICIDA', self.tdu.classificar(p))
+
+    def test_tratamento_de_semente_nao_e_fungicida_foliar(self):
+        """SEEDRON tem tebuconazole E fludioxonil. A fusariose dele e a da SEMENTE.
+
+        Deixa-lo cair em FUNGICIDA_FOLIAR faria parecer que existe resposta foliar de
+        espiga nomeada para grano duro. Nao existe.
+        """
+        p = {'ACTIVE_SUBSTANCE': 'FLUDIOXONIL|TEBUCONAZOLE', 'ISSUES_FROM_SOURCE': []}
+        self.assertEqual('TRATAMENTO_SEMENTE', self.tdu.classificar(p))
+
+    def test_foliar_de_cereal_e_reconhecido(self):
+        p = {'ACTIVE_SUBSTANCE': 'AZOXYSTROBIN|PROTHIOCONAZOLE', 'ISSUES_FROM_SOURCE': []}
+        self.assertEqual('FUNGICIDA_FOLIAR', self.tdu.classificar(p))
+
+    def test_a_pergunta_aberta_continua_aberta(self):
+        """O artefato NAO pode afirmar lacuna: depende de "frumento" cobrir grano duro.
+
+        Se cobre, nao ha lacuna nenhuma e o desencontro e artefato de redacao de rotulo.
+        Nao e extraivel do texto do rotulo, entao o estado tem de continuar NAO SEI.
+        CROP_TERM != AUTHORIZED_CROP.
+        """
+        d = json.load(open(DURO, encoding='utf-8'))
+        self.assertEqual('NÃO SEI', d['THE_OPEN_QUESTION']['STATE'])
+        self.assertEqual('CROP_TERM ≠ AUTHORIZED_CROP', d['THE_OPEN_QUESTION']['LAW'])
+        texto = json.dumps(d, ensure_ascii=False).lower()
+        for proibido in ('market share', 'quota di mercato', 'revenue', 'roi realized'):
+            self.assertNotIn(proibido, texto)
+
+    def test_a_pagina_rolante_nao_vira_serie_contada(self):
+        """Mesma lei do Veneto, por motivo diferente: la faltava conteudo, aqui indice."""
+        d = json.load(open(DURO, encoding='utf-8'))
+        self.assertEqual('ROLLING_CURRENT_ISSUE', d['FIELD_SIGNAL']['PAGE_KIND'])
+        self.assertNotIn('BULLETINS_2026_COUNT', d['FIELD_SIGNAL'])
+
+    def test_o_sinal_de_campo_de_trigo_duro_deixou_de_ser_zero(self):
+        """Duas provincias da Toscana nomeiam grano duro separado do tenero."""
+        d = json.load(open(DURO, encoding='utf-8'))
+        com = [x for x in d['FIELD_SIGNAL']['PROVINCES_PROBED']
+               if x['DURUM_NAMED_SEPARATELY']]
+        self.assertGreaterEqual(len(com), 2)
+        self.assertIn('Fusariosi', d['FIELD_SIGNAL']['DISEASES_NAMED'])
+
+    def test_a_toscana_nao_e_apresentada_como_o_pais(self):
+        """3,7% da area. Puglia, Sicilia e Basilicata continuam sem sonda."""
+        d = json.load(open(DURO, encoding='utf-8'))
+        junto = ' '.join(d['WHAT_THIS_DOES_NOT_PROVE'])
+        for r in ('Puglia', 'Sicília', 'Basilicata'):
+            self.assertIn(r, junto)
+
 
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 

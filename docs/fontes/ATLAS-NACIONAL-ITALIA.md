@@ -205,6 +205,65 @@ país**, quando 63,9 % da oliveira italiana nunca foi interrogada.
 
 Medido em `data/samples/IT-FONTES/ITALY-PANEL-BIAS.json` · `scripts/italia_vies_de_painel.py`
 
+### E perguntando à primeira região nova, o sinal apareceu — `IT-T3-LAMMA`
+
+Feita a crítica de painel, abri **uma** região que nunca tinha sido perguntada. O sinal de
+trigo duro **existe**, e apareceu de primeira.
+
+| | |
+|---|---|
+| **SOURCE_ID** | `IT-T3-LAMMA` |
+| **Publica** | Consorzio LaMMA — Regione Toscana / CNR |
+| **Rota** | `lamma.toscana.it/previ/ita/agrometeo/html/<Provincia>_ftsnt.html` |
+| **Forma** | boletim fitossanitário **por província**; a cultura coberta **varia por província** |
+| **Lido em** | 2026-08-30 · edição exibida **2026-04-23** |
+| **Tipo de página** | `ROLLING_CURRENT_ISSUE` — edição corrente, **sem arquivo** |
+
+Províncias sondadas: **Grosseto** (Frumento + Vite integrato + Vite biologico) · **Pisa**
+(Frumento) · **Siena** (só Vite). Grosseto e Pisa **separam grano duro de grano tenero**,
+nomeiam **Septoria · Ruggini · Oidio · Fusariosi**, dão **fase fenológica**, **nível de
+risco** e **janela**:
+
+> *"Dove la fase fenologica sta entrando in fioritura, considerate le piogge e le previsioni
+> di piogge per i prossimi giorni, che comportano quindi un alto rischio fusariosi, se non
+> già protette con un trattamento specifico, è opportuno effettuare un trattamento
+> fitosanitario"* — Grosseto, 23/04/2026
+
+**A página é rolante e não expõe arquivo**, então `EDIÇÃO LIDA ≠ SÉRIE MEDIDA` continua
+valendo: não se conta "N boletins em 2026". É a mesma lei do Vêneto por motivo oposto — lá
+faltava o **conteúdo**, aqui falta o **índice**.
+
+### O desencontro que isso revela — e a pergunta que decide tudo
+
+| camada | o que ela diz |
+|---|---|
+| **Campo** (Toscana) | fusariose **de espiga, na floração, sob chuva** — problema foliar, de janela |
+| **Portfólio que nomeia grano duro** | **13 herbicidas** + **1 tratamento de semente** (SEEDRON) · **zero fungicidas foliares** |
+
+As duas camadas existem, são boas, e **não se cruzam na mesma célula** `CULTURA × PROBLEMA ×
+MOMENTO`. O único produto fungicida que nomeia grano duro é um **tratamento de semente**,
+cuja fusariose é a **transmitida pela semente** — não a da espiga —, e ele **vence em 31
+dias** (30/09/2026). *`EXPIRY ≠ WITHDRAWAL`: isto é fato do registro, não afirmação de
+retirada nem de indisponibilidade comercial.*
+
+**Mas eu não afirmo lacuna.** Cinco foliares atendem **exatamente** o conjunto de doenças do
+boletim — **MAXENTIS** e **KOJAMI** (azoxystrobin+prothioconazole, FRAC 11+3, com *Fusarium*
+spp., *Zymoseptoria tritici*, *Puccinia* spp., *Blumeria graminis*), CUSTODIA ULTRA, BLAISE
+ULTRA, MIRADOR TURBO — e nomeiam **`COMMON_WHEAT` / `WHEAT_GENERIC`**, não `DURUM_WHEAT`.
+
+> **`CROP_TERM ≠ AUTHORIZED_CROP`** — irmã de `REGISTRATION ≠ COMMERCIAL AVAILABILITY`.
+> **Se "frumento" no rótulo italiano cobre juridicamente o grano duro, não há lacuna
+> nenhuma: é artefato de redação de rótulo. Se não cobre, a lacuna é real e é sobre a maior
+> cultura do país.** Eu **NÃO SEI** qual das duas, e não é extraível do texto do rótulo —
+> exige leitura jurídica do decreto de autorização. Enquanto não for resolvido, este é um
+> **desencontro observado com uma pergunta aberta**, não uma lacuna afirmada.
+
+**A Toscana não é o país:** 43,7 mil ha, **3,7 %** do trigo duro italiano. Puglia, Sicília e
+Basilicata — **62,1 % da cultura** — continuam sem sonda de campo.
+
+Medido em `data/samples/IT-T3-LOTTA/IT-trigo-duro-sinal-x-portfolio.json` ·
+`scripts/italia_trigo_duro.py`
+
 ---
 
 ## 5 · A ROTA DE CREATORS QUE FALHOU, E A QUE FUNCIONOU
