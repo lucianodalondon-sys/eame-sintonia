@@ -37,10 +37,21 @@ class TestMigrationsCoerentes(unittest.TestCase):
     def test_existe_pelo_menos_uma_migration(self):
         self.assertTrue(self.arqs, 'nenhuma migration em supabase/migrations/')
 
-    def test_os_numeros_sao_unicos_e_sem_buraco(self):
+    def test_os_numeros_sao_unicos_e_todo_buraco_e_declarado(self):
+        """Sequencia sem buraco, com UMA excecao: um numero RESERVADO.
+
+        O 014 e do catalogo publico da branch paralela e fica vago ate ele
+        entrar. Um buraco silencioso continua sendo defeito — o que muda e
+        que um buraco DECLARADO na propria migration seguinte nao e.
+        """
         nums = [int(f[:3]) for f in self.arqs]
         self.assertEqual(len(nums), len(set(nums)), f'numero repetido em {self.arqs}')
-        self.assertEqual(nums, list(range(1, len(nums) + 1)), f'sequencia com buraco: {nums}')
+        buracos = sorted(set(range(1, max(nums) + 1)) - set(nums))
+        for b in buracos:
+            with self.subTest(numero=b):
+                self.assertRegex(
+                    self.todo, rf'O N[UÚ]MERO {b:03d} EST[AÁ] RESERVADO',
+                    f'buraco {b:03d} na sequencia sem reserva declarada em migration nenhuma')
 
     def test_toda_tabela_referenciada_por_fk_e_criada(self):
         """Uma FK para tabela inexistente so falha no psql. Aqui falha antes."""

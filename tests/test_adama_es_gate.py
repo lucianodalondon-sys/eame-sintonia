@@ -315,14 +315,18 @@ class TestOEnsaioNaoEImportacao(unittest.TestCase):
         """Migration nova so entra com defeito MEDIDO. A 013 tem o dele."""
         mig = sorted(f for f in os.listdir(os.path.join(RAIZ, 'supabase', 'migrations'))
                      if f.endswith('.sql'))
-        self.assertEqual(13, len(mig), 'migrations: %s' % mig)
-        self.assertEqual('013_captura_nao_e_registro.sql', mig[-1])
-        with open(os.path.join(RAIZ, 'supabase', 'migrations', mig[-1]),
-                  encoding='utf-8') as f:
-            texto = f.read()
-        self.assertIn('CAPTURE != REGISTRATION', texto)
-        self.assertIn('3 vezes', texto, 'a migration precisa citar o defeito medido')
-        self.assertIn('NÃO EXECUTADA em Supabase', texto)
+        self.assertEqual(14, len(mig), 'migrations: %s' % mig)
+        self.assertIn('013_captura_nao_e_registro.sql', mig)
+        for nome, marca in (('013_captura_nao_e_registro.sql', 'CAPTURE != REGISTRATION'),
+                            ('015_cicatrizes_do_brasil.sql', 'praca')):
+            with open(os.path.join(RAIZ, 'supabase', 'migrations', nome),
+                      encoding='utf-8') as f:
+                texto = f.read()
+            self.assertIn(marca, texto, nome)
+            self.assertIn('NÃO EXECUTADA em Supabase', texto, nome)
+        with open(os.path.join(RAIZ, 'supabase', 'migrations',
+                               '013_captura_nao_e_registro.sql'), encoding='utf-8') as f:
+            self.assertIn('3 vezes', f.read(), 'a 013 cita o defeito medido')
 
     def test_o_catalogo_continua_fora_desta_branch(self):
         """Ler do ref para provar ordem nao e mesclar."""

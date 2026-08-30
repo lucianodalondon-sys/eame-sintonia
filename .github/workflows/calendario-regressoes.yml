@@ -87,6 +87,18 @@ jobs:
           psql "$PGURL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tee /tmp/r2
           grep -q "REGRESSOES_CALENDARIO=PASS" /tmp/r2
 
+      - name: 4c · as cicatrizes do Brasil — 25 afirmacoes
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql
+          psql "$PGURL" -f supabase/tests/regressoes_cicatrizes.sql 2>&1 | tee /tmp/ci
+          grep -q "REGRESSOES_CICATRIZES=PASS" /tmp/ci
+          # e as mutacoes: cada lei central tem de reprovar quando quebrada
+          psql "$PGURL" -At -f supabase/tests/mutacao_cicatrizes.sql 2>&1 | tee /tmp/mu
+          grep -q "NAO PEGOU" /tmp/mu \
+            && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
+            || echo "MUTACOES_CICATRIZES=TODAS_PEGARAM"
+
       - name: 5 · o payload do caso, impresso no log para leitura humana
         if: always()
         run: |

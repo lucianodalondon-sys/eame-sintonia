@@ -23,7 +23,7 @@
 -- O teste em tests/test_migrations.py cobre o outro lado — que os arquivos são
 -- coerentes entre si. Os dois juntos fecham a pergunta; nenhum sozinho fecha.
 --
--- RODAR DEPOIS de aplicar 001–007 e 009–013. Ela é a última, não a oitava.
+-- RODAR DEPOIS de aplicar 001–007 e 009–015. Ela é a última, não a oitava.
 --
 -- NÃO EXECUTADA em Supabase. Executada e conferida num PostgreSQL 16
 -- local e descartável: 001–012 montadas do zero, fixture ES carregada e
@@ -196,11 +196,43 @@ begin
     faltando := faltando || 'a chave de captura antiga ainda existe (013 nao aplicada)'::text;
   end if;
 
+  -- 8 · AS CICATRIZES DO BRASIL (015). A lição que governa esta seção é que
+  --     no Brasil a regra existia na PROSA e não no CAMPO — e foi o campo que
+  --     decidiu a saída publicada.
+  foreach t in array array['local_do_fato_diz_como_se_soube',
+                           'local_da_fonte_nao_sustenta_local_do_fato',
+                           'tentativa_sem_evidencia_nao_e_ausencia'] loop
+    if not exists (select 1 from pg_constraint where conname=t) then
+      faltando := faltando || ('CHECK ' || t)::text;
+    end if;
+  end loop;
+  foreach t in array array['precisao_da_geografia','f_relevancia_ao_caso',
+                           'f_runs_pagos_sem_bruto'] loop
+    if not exists (select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+                    where n.nspname='public' and p.proname=t) then
+      faltando := faltando || ('funcao ' || t)::text;
+    end if;
+  end loop;
+  if not exists (select 1 from information_schema.tables
+                  where table_schema='public' and table_name='tentativa_de_coleta') then
+    faltando := faltando || 'tabela tentativa_de_coleta'::text;
+  end if;
+  if not exists (select 1 from information_schema.views
+                  where table_schema='public' and table_name='v_conteudo_localizacao') then
+    faltando := faltando || 'view v_conteudo_localizacao'::text;
+  end if;
+  -- relevancia e estado com motivo, nunca numero
+  if exists (select 1 from information_schema.columns
+              where table_schema='public' and table_name='conteudo_crop_issue'
+                and column_name ~ '(score|peso|nota|rank|pontua)') then
+    faltando := faltando || 'conteudo_crop_issue ganhou coluna de score'::text;
+  end if;
+
   if array_length(faltando,1) is not null then
     raise exception E'O BANCO NAO BATE COM AS MIGRATIONS.\nFaltando:\n  %',
       array_to_string(faltando, E'\n  ');
   end if;
 
-  raise notice 'migrations 001-013 conferidas: % tabelas, travas, funcoes e RLS no lugar',
+  raise notice 'migrations 001-015 conferidas: % tabelas, travas, funcoes e RLS no lugar',
     array_length(esperadas,1);
 end $$;
