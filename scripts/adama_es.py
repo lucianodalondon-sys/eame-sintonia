@@ -501,10 +501,47 @@ def _qualidade_do_casamento(meta, indice):
     return {'MATCH_QUALITY': 'EXACT_OFFICIAL_LABEL'}
 
 
+def herdar_cabecalho(tabelas):
+    """A ADAMA parte UMA tabela lógica em vários <table>; só o primeiro leva o cabeçalho.
+
+    Medido em ORDAGO CAPS (2026-08-30): 5 tabelas na ficha, a tabela 1 declara
+    ['CULTIVO','DOSIS (L/Ha)'] e as tabelas 2, 3 e 4 vêm com CABECALHO vazio e as MESMAS
+    duas colunas, na MESMA seção. Sem herdar, 26 das 33 linhas de dose perdiam a unidade.
+
+    A herança só acontece com três condições juntas: cabeçalho vazio, mesma seção da
+    tabela anterior, e mesmo número de colunas. Fora disso, cabeçalho vazio continua
+    vazio — não se empresta cabeçalho entre tabelas que podem ser de assuntos diferentes.
+    """
+    ultimo = None
+    for t in tabelas:
+        cols = max((len(l['CELULAS']) for l in t['LINHAS']), default=0)
+        if t['CABECALHO']:
+            ultimo = {'CAB': t['CABECALHO'], 'SECAO': t['SECAO'], 'COLS': cols}
+            t['CABECALHO_HERDADO_DE'] = None
+            continue
+        if ultimo and ultimo['SECAO'] == t['SECAO'] and ultimo['COLS'] == cols and cols:
+            t['CABECALHO'] = list(ultimo['CAB'])
+            t['CABECALHO_HERDADO_DE'] = ultimo['SECAO']
+        else:
+            t['CABECALHO_HERDADO_DE'] = None
+    return tabelas
+
+
 def relacoes_da_tabela(tabela, vocab, product_id, url_pagina, indices=None):
-    """Relações nascidas de LINHA. Cada uma sabe tabela, linha e seção de onde veio."""
+    """Relações nascidas de LINHA. Cada uma sabe tabela, linha e seção de onde veio.
+
+    Devolve (pares, doses, ambiguidades). A tabela mais comum da ADAMA España é
+    CULTIVO × DOSIS — sem coluna de problema. Medido em 2026-08-30: das 14 fichas com
+    tabela, quase todas são desse formato, e por isso só 5 pares crop×issue nascem de
+    linha em 56 fichas. Antes, essas linhas eram DESCARTADAS e a dose se perdia junto.
+    Agora elas saem como CROP_DOSE, com PAIR_DERIVABLE=false e ISSUE='NÃO SEI' — o
+    registro honesto de "a ficha dá a dose para este cultivo e não diz contra o quê".
+    Isso NÃO é um par: nada aqui autoriza cruzar este cultivo com os agentes citados
+    em outro lugar da página.
+    """
     indices = indices or {}
-    fora, ambiguidades = [], []
+    fora, doses, ambiguidades = [], [], []
+    unidade_cab = _unidade_do_cabecalho(tabela['CABECALHO'])
     for linha in tabela['LINHAS']:
         texto_linha = ' | '.join(linha['CELULAS'])
         crops, amb_c = _tokens(texto_linha, vocab['crops'], indices.get('crops'))
@@ -517,6 +554,35 @@ def relacoes_da_tabela(tabela, vocab, product_id, url_pagina, indices=None):
         for a in amb_i:
             ambiguidades.append(dict(a, PRODUCT_ID=product_id, EIXO='ISSUE',
                                      SOURCE_URL=url_pagina, ANCHOR=ancora_linha))
+        if crops and not issues:
+            d, de_onde = _dose_da_linha(texto_linha, linha['CELULAS'], unidade_cab)
+            bf, bt = _bbch(texto_linha)
+            if d != 'NÃO SEI' or bf != 'NÃO SEI':
+                for c in crops:
+                    doses.append({
+                        'PRODUCT_ID': product_id,
+                        'CROP': c['ES'], 'CROP_EPPO': c['EPPO'],
+                        'CROP_MATCH_QUALITY': c.get('MATCH_QUALITY'),
+                        'ISSUE': 'NÃO SEI',
+                        'PAIR_DERIVABLE': False,
+                        'PORQUE_NAO_HA_PAR': ('a linha declara cultivo e dose e NAO nomeia '
+                                              'agente; cruzar com agente de outra linha '
+                                              'seria produto cartesiano'),
+                        'DOSE': d,
+                        'DOSE_UNIT_SOURCE': de_onde,
+                        'BBCH_FROM': bf, 'BBCH_TO': bt,
+                        'WATER_VOLUME': _um(VOL_AGUA, texto_linha),
+                        'APPLICATION_COUNT': _um(N_APLIC, texto_linha),
+                        'INTERVAL_DAYS': _um(INTERVALO, texto_linha),
+                        'PRE_HARVEST_INTERVAL_DAYS': _um(PLAZO, texto_linha),
+                        'TIMING_FLAGS': [n for n, rx in JANELA if rx.search(texto_linha)],
+                        'EVIDENCE_LEVEL': 'MANUFACTURER_TECHNICAL_CLAIM',
+                        'SOURCE_OWNER': 'ADAMA_PAGE',
+                        'SOURCE_URL': url_pagina,
+                        'ANCHOR': dict(ancora_linha, TABLE_HEADER=tabela['CABECALHO']),
+                        'MAPA_CONFIRMATION': 'ADAMA_ONLY_NOT_TESTED',
+                    })
+            continue
         if not crops or not issues:
             continue
         # Uma linha com 1 cultivo e 2 agentes é UMA linha declarando dois alvos naquele
@@ -551,7 +617,37 @@ def relacoes_da_tabela(tabela, vocab, product_id, url_pagina, indices=None):
                     'PAIR_ORIGIN': 'SAME_TABLE_ROW',
                     'MAPA_CONFIRMATION': 'ADAMA_ONLY_NOT_TESTED',
                 })
-    return fora, ambiguidades
+    return fora, doses, ambiguidades
+
+
+UNIDADE_DOSE = re.compile(r'\b(l\s*/\s*ha|kg\s*/\s*ha|ml\s*/\s*ha|g\s*/\s*ha|cc\s*/\s*ha|'
+                          r'l\s*/\s*hl|ml\s*/\s*hl|g\s*/\s*hl|kg\s*/\s*hl)\b', re.I)
+SO_NUMERO = re.compile(r'^\s*(\d+(?:[.,]\d+)?)\s*(?:[-–a]\s*(\d+(?:[.,]\d+)?))?\s*$')
+
+
+def _unidade_do_cabecalho(cabecalho):
+    """A ADAMA escreve "DOSIS (L/Ha)" no cabeçalho e só o número na célula.
+
+    Sem ler o cabeçalho, "2,5" não casa nenhuma regex de dose e a dose se perde. Ler o
+    cabeçalho não é inferir: a unidade está publicada, só que uma linha acima.
+    """
+    m = UNIDADE_DOSE.search(' | '.join(cabecalho or ''))
+    return re.sub(r'\s+', '', m.group(1)).lower() if m else ''
+
+
+def _dose_da_linha(texto_linha, celulas, unidade_cab):
+    """(dose, de_onde_veio_a_unidade). Célula com unidade vence; cabeçalho é o fallback."""
+    d = _dose(texto_linha)
+    if d != 'NÃO SEI':
+        return d, 'CELULA_DA_LINHA'
+    if not unidade_cab:
+        return 'NÃO SEI', ''
+    numeros = [c for c in (celulas or []) if SO_NUMERO.match(c or '')]
+    if len(numeros) != 1:
+        return 'NÃO SEI', ''    # duas colunas numéricas: qual é a dose não está resolvido
+    m = SO_NUMERO.match(numeros[0])
+    faixa = m.group(1) + ('-' + m.group(2) if m.group(2) else '')
+    return faixa + ' ' + unidade_cab, 'CABECALHO_DA_TABELA'
 
 
 def _dose(t):
@@ -681,9 +777,10 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
 
     indices = {'crops': _indice_de_cabeca(vocab['crops']),
                'pests': _indice_de_cabeca(vocab['pests'])}
-    crop_rel, issue_rel, par_rel, ambiguos = [], [], [], []
-    for tab in est['TABELAS']:
-        pares, amb = relacoes_da_tabela(tab, vocab, pid, url_pagina, indices)
+    crop_rel, issue_rel, par_rel, dose_rel, ambiguos = [], [], [], [], []
+    for tab in herdar_cabecalho(est['TABELAS']):
+        pares, doses_tab, amb = relacoes_da_tabela(tab, vocab, pid, url_pagina, indices)
+        dose_rel.extend(doses_tab)
         par_rel.extend(pares)
         ambiguos.extend(amb)
 
@@ -747,6 +844,7 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
         'CROP_RELATIONS': crop_rel,
         'ISSUE_RELATIONS': issue_rel,
         'CROP_ISSUE_RELATIONS': par_rel,
+        'CROP_DOSE_RELATIONS': dose_rel,
         'AMBIGUOUS_TERMS': ambiguos,
         'MODES_OF_ACTION': moa,
         'CLAIMS': claims_da_pagina(est, pid, url_pagina),
