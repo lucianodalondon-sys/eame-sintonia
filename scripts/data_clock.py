@@ -78,6 +78,8 @@ WATCH = [
     # a seed traz errados nao serao reencontrados por quem repetir a busca pela lista.
     ('CREATOR-MAP-IT', 'data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-SEED-IT-INSTAGRAM.raw.json.gz',
      '2026-08-30', 'CRITICA — bruto de rota nao replicavel; 25 perfis numa execucao'),
+    ('CREATOR-MAP-IT', 'data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-ATIVIDADE-IT.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel; atividade 30/90d dos perfis resolvidos'),
     ('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',
      'ALTA — e o indice que faz o RUN_ID resolver; sem ele o bruto vira arquivo orfao'),
 ]

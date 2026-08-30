@@ -148,6 +148,54 @@ RESOLUCOES = [
    urls=['https://www.instagram.com/biocampojoyma/',
          'https://fruittoday.com/bio-campojoyma-se-acerca-al-poniente-con-un-punto-de-recogida/',
          'https://agroautentico.com/2021/05/campojoyma-y-pimiento-bio/']),
+
+ # ───────────────────────────────────────────── FRANCA (§6): a lacuna de cultura
+ # A rodada anterior tinha 4 candidatos franceses e ZERO culturas provadas. Estes
+ # dois fecham o buraco com o recorte que mais interessa: grandes culturas.
+ dict(
+   creator_id='FR-CR-005', nome='David Forge', pais='FR',
+   handle_da_seed='David Forge', handle_real='David Forge (YouTube)',
+   classe_do_erro='SEM_ERRO_NA_SEED',
+   entidade='PERSON',
+   perfil='https://www.youtube.com/@DavidForge',
+   regiao='Indre-et-Loire, Touraine (Centre-Val de Loire)',
+   ocupacao='agricultor; retomou a exploracao familiar de 160 ha; youtuber desde 2015',
+   produtor='PROVED',
+   produtor_ev='retomou a exploracao familiar na Touraine; exploracao cerealifera de '
+               '160 hectares, declarada por reportagem de imprensa setorial',
+   crops=['CEREALS', 'WHEAT'], crop_state='PROVED',
+   crop_ev='exploracao CEREALIFERA de 160 ha; videos semanais sobre as suas parcelas '
+           'e o seu material',
+   seguidores={'YOUTUBE': 105000}, seguidores_nota='inscritos no YouTube',
+   audiencia='NOT_KNOWN', audiencia_ev='nao medida',
+   contato='presenca publica no stand #agridemain do Salon de l\'Agriculture',
+   contato_tipo='PUBLIC_EVENT_ROUTE',
+   tipo='FARMER_CREATOR',
+   urls=['https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing',
+         'https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/']),
+
+ dict(
+   creator_id='FR-CR-006', nome='Gilles Van Kempen', pais='FR',
+   handle_da_seed='Gilles Van Kempen', handle_real='Gilles vk agriculteur du Loiret',
+   classe_do_erro='SEM_ERRO_NA_SEED',
+   entidade='PERSON',
+   perfil='https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret',
+   regiao='Loiret (Centre-Val de Loire)',
+   ocupacao='agricultor no leste do Loiret; publica video agricola todo sabado',
+   produtor='PROVED',
+   produtor_ev='explora terra propria no leste do Loiret, com producao declarada de '
+               'trigo, colza, cevada, milho e sementes de cebola',
+   crops=['WHEAT', 'RAPESEED', 'BARLEY', 'MAIZE', 'ONION_SEED'], crop_state='PROVED',
+   crop_ev='producao declarada pela fonte: trigo, colza, cevada, milho e sementes de '
+           'cebola — GRANDES CULTURAS, o recorte mais proximo do portfolio de '
+           'protecao de cultivo',
+   seguidores={}, seguidores_nota='nao medido nesta rodada',
+   audiencia='NOT_KNOWN', audiencia_ev='nao medida',
+   contato='presenca publica no stand #agridemain do Salon de l\'Agriculture',
+   contato_tipo='PUBLIC_EVENT_ROUTE',
+   tipo='FARMER_CREATOR',
+   urls=['https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture',
+         'https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831']),
 ]
 
 
@@ -180,8 +228,9 @@ def montar():
             'CROP_PROVED_BY_CONTENT': r['crops'],
             'INSTAGRAM': r['handle_real'] if 'instagram' in r['perfil'] else cr.NAO_SEI,
             'X': r['handle_real'] if 'x.com' in r['perfil'] else cr.NAO_SEI,
-            'PLATFORMS': sorted(r['seguidores']),
-            'FOLLOWERS_BY_PLATFORM': r['seguidores'],
+            'PLATFORMS': sorted(r['seguidores']) if r['seguidores'] else cr.NAO_SEI,
+            'FOLLOWERS_BY_PLATFORM': r['seguidores'] or cr.NAO_SEI,
+            'YOUTUBE': r['handle_real'] if 'youtube' in r['perfil'] else cr.NAO_SEI,
             'AS_OF_DATE': CAPTURA,
             'ACTIVITY_STATE': 'NOT_MEASURED',
             'AUDIENCE_TYPE': r['audiencia'],
