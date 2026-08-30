@@ -78,17 +78,39 @@ def _grava(nome, corpo):
 
 
 def contratos():
-    """GRÁTIS. Só lê o ator. Zero run, zero item, zero custo."""
+    """GRÁTIS. Lê o ator E O SCHEMA DE ENTRADA. Zero run, zero item, zero custo.
+
+    A primeira versão desta fase lia só o ator e dizia AVAILABLE. Isso não é o
+    contrato: `AVAILABLE` prova que o ator existe, não que a entrada que vamos
+    mandar é a que ele aceita. A lição da casa é literal — o Actor descarta em
+    silêncio o campo que não reconhece — e ela mora no INPUT SCHEMA, que vive
+    no build, não no ator.
+    """
     token = _pool()[0]
     fora = []
     for rotulo, actor in ATORES.items():
         try:
             d = coletor._curl('%s/acts/%s' % (coletor.API, actor), token=token, timeout=60)
             data = (d or {}).get('data') or {}
+            campos, obrigatorios = cr.NAO_SEI, cr.NAO_SEI
+            bid = ((data.get('taggedBuilds') or {}).get('latest') or {}).get('buildId')
+            if bid:
+                b = coletor._curl('%s/actor-builds/%s' % (coletor.API, bid),
+                                  token=token, timeout=60)
+                bd = (b or {}).get('data') or {}
+                bruto = ((bd.get('inputSchema') if isinstance(bd.get('inputSchema'), dict)
+                          else json.loads(bd.get('inputSchema') or '{}')) or {})
+                props = bruto.get('properties') or {}
+                campos = sorted(props)
+                obrigatorios = bruto.get('required') or []
             fora.append({'LABEL': rotulo, 'ACTOR': actor, 'STATE': 'AVAILABLE',
                          'TITLE': data.get('title') or cr.NAO_SEI,
-                         'USERNAME': data.get('username') or cr.NAO_SEI})
+                         'USERNAME': data.get('username') or cr.NAO_SEI,
+                         'INPUT_FIELDS': campos, 'REQUIRED': obrigatorios})
             print('  %-18s AVAILABLE  %s' % (rotulo, data.get('title')))
+            print('      campos aceitos: %s' % (
+                ', '.join(campos) if isinstance(campos, list) else campos))
+            print('      obrigatorios  : %s' % obrigatorios)
         except Exception as e:                               # noqa: BLE001
             fora.append({'LABEL': rotulo, 'ACTOR': actor, 'STATE': 'NOT_REACHED',
                          'ERROR': ap.redigir('%s: %s' % (type(e).__name__, e))[:160]})
@@ -268,9 +290,42 @@ def seed():
     print('RESOLVIDOS=%d de %d' % (len(achados), len(handles)))
 
 
+def diag():
+    """Mede a resposta CRUA da plataforma para uma execução mínima.
+
+    Existe porque `TypeError: the JSON object must be ... not NoneType` no
+    manifesto significa que `curl` devolveu stdout vazio — e "curl não falou"
+    e "a plataforma recusou" produzem o mesmo FAILED com causas opostas.
+    """
+    import subprocess
+    token = _pool()[0]
+    actor = ATORES['INSTAGRAM_PROFILE']
+    url = '%s/acts/%s/runs?waitForFinish=60' % (coletor.API, actor)
+    corpo = {'usernames': ['davide_gomiero']}
+    cmd = ['curl', '-sS', '-w', '\nHTTP_CODE=%{http_code}', '-X', 'POST',
+           '-H', 'Authorization: Bearer %s' % token,
+           '-H', 'Content-Type: application/json',
+           '-d', json.dumps(corpo), url]
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+    saida = ap.redigir(r.stdout or '')
+    erro = ap.redigir(r.stderr or '')
+    print('RETURNCODE=%s' % r.returncode)
+    print('STDOUT_IS_NONE=%s  STDOUT_LEN=%s' % (r.stdout is None, len(r.stdout or '')))
+    print('STDERR=%s' % erro[:300])
+    print('STDOUT_HEAD=%s' % saida[:600])
+    _grava('APIFY-DIAG.json', {
+        'SOURCE_ID': MISSION, 'CAPTURED_AT': coletor.agora(),
+        'ACTOR': actor, 'INPUT': corpo,
+        'RETURNCODE': r.returncode,
+        'STDOUT_IS_NONE': r.stdout is None,
+        'STDOUT_LEN': len(r.stdout or ''),
+        'STDOUT_HEAD': saida[:2000], 'STDERR': erro[:600]})
+
+
 if __name__ == '__main__':
     # Aceita tanto `contratos` quanto `creators-contratos`: a ponte pelo
     # workflow de sensores entrega o nome prefixado.
     fase = (sys.argv[1] if len(sys.argv) > 1 else 'contratos')
     fase = fase[len('creators-'):] if fase.startswith('creators-') else fase
-    {'contratos': contratos, 'resolver': resolver, 'seed': seed}.get(fase, contratos)()
+    {'contratos': contratos, 'resolver': resolver, 'seed': seed,
+     'diag': diag}.get(fase, contratos)()
