@@ -156,5 +156,8 @@ def resolver():
 
 
 if __name__ == '__main__':
-    fase = sys.argv[1] if len(sys.argv) > 1 else 'contratos'
+    # Aceita tanto `contratos` quanto `creators-contratos`: a ponte pelo
+    # workflow de sensores entrega o nome prefixado.
+    fase = (sys.argv[1] if len(sys.argv) > 1 else 'contratos')
+    fase = fase[len('creators-'):] if fase.startswith('creators-') else fase
     {'contratos': contratos, 'resolver': resolver}.get(fase, contratos)()

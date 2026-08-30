@@ -40,6 +40,14 @@ on:
           - videos
           - transcricao
           - comentarios
+          # ── PONTE TEMPORÁRIA (missão 14 — mapa de creators) ──────────────
+          # `apify-creators.yml` existe neste branch, mas o GitHub só registra
+          # workflow_dispatch para arquivos presentes no branch PADRÃO. Enquanto
+          # ele não for promovido para lá, as fases de creators entram por aqui:
+          # o dispatch resolve o ID pelo branch padrão e EXECUTA o arquivo DESTE
+          # ref. Remover assim que apify-creators.yml chegar ao padrão.
+          - creators-contratos
+          - creators-resolver
       lote:
         description: 'A vai para o runner 1, B para o runner 2'
         required: true
@@ -86,14 +94,24 @@ jobs:
           RUNNER_NAME: ${{ runner.name }}
         run: |
           echo "FASE=${{ inputs.fase }} · LOTE=${{ inputs.lote }} · RUNNER=${{ runner.name }}"
-          PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py \
-            "${{ inputs.fase }}" "${{ inputs.lote }}"
+          case "${{ inputs.fase }}" in
+            creators-*)
+              # Missão 14 — pessoa como CANAL. Coletor próprio, base própria.
+              PYTHONIOENCODING=utf-8 $PY scripts/creator_coleta.py \
+                "${{ inputs.fase }}"
+              ;;
+            *)
+              PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py \
+                "${{ inputs.fase }}" "${{ inputs.lote }}"
+              ;;
+          esac
 
       - name: 3 · devolver o resultado ao repositório
         run: |
           git config user.name  "sintonia-eame-runner"
           git config user.email "runner@eame-sintonia.local"
-          git add -A data/samples/SENSOR-PILOT data/samples/raw-paid \
+          git add -A data/samples/SENSOR-PILOT data/samples/CREATOR-MAP-EAME \
+                     data/samples/raw-paid \
                      data/samples/RUN-MANIFEST.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"
