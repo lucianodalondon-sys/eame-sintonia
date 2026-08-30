@@ -650,6 +650,220 @@ def descobertos():
     print('ATIVIDADE:', dict(Counter(f['ACTIVITY_STATE'] for f in fora)))
 
 
+# ─────────────────────────────────────── §1-§2 · PROVA DE CULTURA POR CONTEÚDO
+# Termos por cultura, em ES/IT/FR/EN. Deliberadamente ESPECÍFICOS: a lição do
+# `speaker_universo` vale aqui igual — consulta frouxa não traz mais do mesmo,
+# traz OUTRA população. "verde" ou "campo" não entram; "olivar" e "vendimia" sim.
+TERMOS_DE_CULTURA = {
+    'OLIVE':        ['olivar', 'olivo', 'aceituna', 'almazara', 'oliveto', 'olivicoltura',
+                     'olivier', 'oliveraie', 'olive grove'],
+    'GRAPEVINE':    ['viñedo', 'viña', 'vendimia', 'viticultura', 'vigneto', 'vendemmia',
+                     'vigne', 'vignoble', 'vineyard'],
+    'CEREALS':      ['trigo', 'cebada', 'cereal', 'siega', 'cosechadora', 'grano duro',
+                     'frumento', 'orzo', 'blé', 'orge', 'moisson', 'wheat', 'barley'],
+    'MAIZE':        ['maíz', 'mais', 'maïs', 'maize', 'ensilado', 'insilato', 'ensilage'],
+    'RICE':         ['arroz', 'riso', 'risaia', 'riz', 'rice paddy'],
+    'PROTECTED_HORTICULTURE': ['invernadero', 'invernaderos', 'serra', 'serre',
+                               'greenhouse', 'hortícola', 'horticola'],
+    'TOMATO':       ['tomate', 'pomodoro', 'tomatoes'],
+    'PEPPER':       ['pimiento', 'peperone', 'poivron'],
+    'PISTACHIO':    ['pistacho', 'pistacchio', 'pistache'],
+    'ALMOND':       ['almendro', 'almendra', 'mandorlo', 'amandier'],
+    'CITRUS':       ['cítricos', 'citricos', 'naranjo', 'agrumi', 'agrumes'],
+    'POTATO':       ['patata', 'papa', 'pomme de terre'],
+    'SUNFLOWER':    ['girasol', 'girasole', 'tournesol'],
+}
+
+# Quantos conteúdos distintos mencionando a cultura fazem "recorrente" (classe C).
+# Escolhido ANTES de ver o resultado, e registrado aqui por isso.
+MINIMO_PARA_RECORRENTE = 2
+
+
+def _cultura_no_texto(texto):
+    """Devolve {cultura: [trechos]} para os termos ENCONTRADOS no texto."""
+    baixo = (texto or '').lower()
+    fora = {}
+    for cultura, termos in TERMOS_DE_CULTURA.items():
+        for t in termos:
+            if t in baixo:
+                i = baixo.find(t)
+                fora.setdefault(cultura, []).append(
+                    (texto[max(0, i - 60):i + 80] or '').replace('\n', ' ').strip())
+                break
+    return fora
+
+
+def conteudo():
+    """Testa CROP_PROOF por CONTEÚDO nos candidatos que travam por cultura.
+
+    A bio já foi lida numa rodada anterior; aqui o que decide é o que a pessoa
+    PUBLICA. Uma bio pode declarar a cultura e o conteúdo desmenti-la — e o
+    estado `CONTRADICTED` existe exatamente para esse caso.
+    """
+    chaves = _pool()
+    fichas = cr.carregar('WHO-COULD-MARKETING-CALL.json')
+    alvos = []
+    for f in fichas:
+        if f.get('ACTIVATION_STATE') != 'PROMISING':
+            continue
+        if not any('MISSING_CROP_PROOF' in str(p) for p in (f.get('WHY_RELEVANT') or [])):
+            continue
+        h = f.get('HANDLE')
+        if h and h != cr.NAO_SEI and h.startswith('@'):
+            alvos.append(f)
+    if not alvos:
+        print('NADA_A_TESTAR=YES'); return
+    print('CANDIDATOS_COM_MISSING_CROP_PROOF=%d' % len(alvos))
+
+    run_id = '%s-CROP-PROOF' % MISSION
+    itens, man = coletor.executar(
+        ATORES['INSTAGRAM_PROFILE'],
+        {'usernames': [a['HANDLE'].lstrip('@') for a in alvos]},
+        token=chaves[0], run_id=run_id, platform='INSTAGRAM', country='ES',
+        mission=MISSION, query='prova de cultura por conteudo, %d perfis' % len(alvos),
+        source_version=cr.NAO_SEI,
+        evidence_path='data/samples/CREATOR-MAP-EAME/CROP-PROOF.json')
+    coletor.registrar(man, item_count_normalized=len(itens))
+    print('STATUS=%s ITENS=%d CUSTO=%s' % (man['STATUS'], len(itens), man['COST_USD']))
+
+    porh = {(i.get('username') or '').lower(): i for i in itens}
+    fora = []
+    for a in alvos:
+        h = a['HANDLE'].lstrip('@').lower()
+        it = porh.get(h) or {}
+        posts = it.get('latestPosts') or []
+        achados, provas = {}, []
+        for post in posts:
+            legenda = post.get('caption') or ''
+            for cultura, trechos in _cultura_no_texto(legenda).items():
+                achados[cultura] = achados.get(cultura, 0) + 1
+                if len(provas) < 12:
+                    provas.append({'CROP': cultura,
+                                   'CROP_PROOF_URL': post.get('url') or cr.NAO_SEI,
+                                   'CROP_PROOF_DATE': (post.get('timestamp') or cr.NAO_SEI)[:10],
+                                   'CROP_PROOF_TEXT': trechos[0][:200]})
+        recorrentes = sorted([c for c, n in achados.items()
+                              if n >= MINIMO_PARA_RECORRENTE])
+        pontuais = sorted([c for c, n in achados.items()
+                           if n < MINIMO_PARA_RECORRENTE])
+
+        if not posts:
+            estado, tipo, forca = 'NOT_KNOWN', cr.NAO_SEI, cr.NAO_SEI
+            motivo = 'a rota nao devolveu conteudo — NAO e ausencia de cultura'
+        elif recorrentes:
+            estado = 'PROVED'
+            tipo, forca = 'C_RECURRING_FIELD_CONTENT', 'STRONG'
+            motivo = ('%d publicacoes distintas mencionam a cultura (minimo %d, '
+                      'definido antes da medicao)' % (max(achados.values()),
+                                                      MINIMO_PARA_RECORRENTE))
+        elif pontuais:
+            estado, tipo, forca = 'PARTIAL', 'C_RECURRING_FIELD_CONTENT', 'WEAK'
+            motivo = ('mencao unica — falar uma vez da cultura NAO prova cultura')
+        else:
+            estado, tipo, forca = 'NOT_PROVED', cr.NAO_SEI, cr.NAO_SEI
+            motivo = ('nenhuma das %d publicacoes lidas menciona cultura reconhecida'
+                      % len(posts))
+
+        fora.append({
+            'HANDLE': a['HANDLE'], 'CREATOR_ID': a.get('CREATOR_ID'),
+            'COUNTRY': a.get('COUNTRY'), 'CREATOR_TYPE': a.get('CREATOR_TYPE'),
+            'N_CONTENT_ITEMS_REVIEWED': len(posts),
+            'CONTENT_TYPES_OBSERVED': sorted({p.get('type') or 'UNKNOWN'
+                                              for p in posts}) or cr.NAO_SEI,
+            'CROPS_RECURRING': recorrentes,
+            'CROPS_MENTIONED_ONCE': pontuais,
+            'CROP_PROOF_RESULT': estado,
+            'CROP_PROOF_TYPE': tipo, 'CROP_PROOF_STRENGTH': forca,
+            'REASON': motivo,
+            'EVIDENCE': provas,
+            'AS_OF_DATE': coletor.agora()[:10],
+        })
+        print('  %-28s posts=%-3d %-11s %s' % (a['HANDLE'], len(posts), estado,
+                                               ','.join(recorrentes) or '-'))
+
+    from collections import Counter
+    _grava('CROP-PROOF.json', {
+        'SOURCE_ID': MISSION, 'CAPTURED_AT': coletor.agora(),
+        'RUN_ID': run_id, 'RUN_STATUS': man['STATUS'], 'COST_USD': man['COST_USD'],
+        'MINIMO_PARA_RECORRENTE': MINIMO_PARA_RECORRENTE,
+        'MINIMO_DEFINIDO': 'antes da medicao, e registrado no codigo',
+        'LAW': 'hashtag, evento, repost, mencao unica e categoria de premio NAO provam '
+               'cultura. So as quatro classes A-D promovem.',
+        'TESTED': len(fora),
+        'RESULT': dict(Counter(f['CROP_PROOF_RESULT'] for f in fora)),
+        'PROFILES': fora})
+    print('RESULTADO:', dict(Counter(f['CROP_PROOF_RESULT'] for f in fora)))
+
+
+# ─────────────────────────────────────── §5 · atividade dos canais franceses
+# URLs CONFIRMADAS por fonte. A primeira versao desta missao inferiu
+# "youtube.com/@DavidForge" a partir do nome — e a fonte mostrou que o canal
+# chama-se "La Chaine Agricole". Inferir endereco de canal e o mesmo erro que
+# inferir handle de pessoa.
+CANAIS_FR = [
+    dict(creator_id='FR-CR-006', nome='Gilles Van Kempen',
+         url='https://www.youtube.com/channel/UCo4pMCeqy3BIuVo82bJxWbg',
+         handle='@gillesvk',
+         fonte='canal oficial nomeado em resultado de busca'),
+]
+
+
+def franca():
+    """Mede atividade recente dos canais franceses de URL confirmada."""
+    chaves = _pool()
+    if not CANAIS_FR:
+        print('NENHUM_CANAL_CONFIRMADO=YES'); return
+    print('CANAIS_FR=%d' % len(CANAIS_FR))
+    fora = []
+    for i, c in enumerate(CANAIS_FR):
+        run_id = '%s-FR-%s' % (MISSION, c['creator_id'])
+        itens, man = coletor.executar(
+            ATORES['YOUTUBE_SEARCH'],
+            {'startUrls': [{'url': c['url']}], 'maxResults': 30,
+             'sortVideosBy': 'NEWEST'},
+            token=chaves[i % len(chaves)], run_id=run_id, platform='YOUTUBE',
+            country='FR', mission=MISSION, query=c['url'],
+            source_version=cr.NAO_SEI,
+            evidence_path='data/samples/CREATOR-MAP-EAME/FR-ACTIVITY.json')
+        coletor.registrar(man, item_count_normalized=len(itens))
+        import datetime
+        hoje = datetime.datetime.utcnow()
+        datas = []
+        for v in itens:
+            t = v.get('date') or v.get('publishedAt') or v.get('uploadDate') or ''
+            try:
+                datas.append(datetime.datetime.strptime(str(t)[:10], '%Y-%m-%d'))
+            except (ValueError, TypeError):
+                pass
+        datas.sort(reverse=True)
+        if datas:
+            dias = (hoje - datas[0]).days
+            estado = ('ACTIVE_RECENT' if dias <= 30 else
+                      'ACTIVE_STALE' if dias <= 180 else 'DORMANT')
+            ultimo = datas[0].strftime('%Y-%m-%d')
+        else:
+            estado, ultimo = 'NOT_MEASURED', cr.NAO_SEI
+        fora.append({
+            'CREATOR_ID': c['creator_id'], 'NAME': c['nome'],
+            'CHANNEL_URL': c['url'], 'HANDLE': c['handle'],
+            'URL_SOURCE': c['fonte'],
+            'RUN_STATUS': man['STATUS'], 'COST_USD': man['COST_USD'],
+            'VIDEOS_READ': len(itens),
+            'ACTIVITY_STATE': estado, 'LAST_ACTIVITY_DATE': ultimo,
+            'VIDEOS_LAST_30D': len([d for d in datas if (hoje - d).days <= 30]) if datas else cr.NAO_SEI,
+            'VIDEOS_LAST_90D': len([d for d in datas if (hoje - d).days <= 90]) if datas else cr.NAO_SEI,
+            'TITLES_SAMPLE': [v.get('title') for v in itens[:8]],
+            'AS_OF_DATE': coletor.agora()[:10],
+        })
+        print('  %-22s videos=%-3d %-13s last=%s' % (c['nome'], len(itens), estado, ultimo))
+    _grava('FR-ACTIVITY.json', {
+        'SOURCE_ID': MISSION, 'CAPTURED_AT': coletor.agora(),
+        'LAW': 'so canais de URL CONFIRMADA por fonte. Inferir endereco de canal e o '
+               'mesmo erro que inferir handle de pessoa — ja cometido e corrigido '
+               'nesta missao (o canal do David Forge chama-se "La Chaine Agricole").',
+        'CHANNELS': fora})
+
+
 if __name__ == '__main__':
     # Aceita tanto `contratos` quanto `creators-contratos`: a ponte pelo
     # workflow de sensores entrega o nome prefixado.
@@ -661,7 +875,7 @@ if __name__ == '__main__':
     # entre um erro visível e um artefato que ninguém sabe de onde veio.
     FASES = {'contratos': contratos, 'resolver': resolver, 'seed': seed,
              'diag': diag, 'atividade': atividade, 'hubs': hubs,
-             'descobertos': descobertos}
+             'descobertos': descobertos, 'conteudo': conteudo, 'franca': franca}
     if fase not in FASES:
         print('FASE_DESCONHECIDA=%r · fases validas: %s'
               % (fase, ', '.join(sorted(FASES))))

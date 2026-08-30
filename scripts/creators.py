@@ -92,6 +92,9 @@ CAMPOS_CREATOR = [
     'CROPS', 'CROP_STATE', 'CROP_EVIDENCE', 'REGIONS', 'TECHNICAL_TOPICS',
     # o que a SEED alegou vs o que o CONTEÚDO provou — nunca o mesmo campo
     'CROP_CLAIMED_BY_SEED', 'CROP_PROVED_BY_CONTENT', 'CROP_PROOF_URLS',
+    # §2 — a prova, com a sua natureza declarada
+    'CROP_PROOF_TYPE', 'CROP_PROOF_URL', 'CROP_PROOF_DATE', 'CROP_PROOF_TEXT',
+    'CROP_PROOF_STRENGTH', 'N_CONTENT_ITEMS_REVIEWED', 'CONTENT_TYPES_OBSERVED',
     # suspeita derivada do handle != medição. Nunca colapsar em CROP_STATE.
     'SUSPECTED_CHAIN_MISMATCH', 'SUSPECTED_CHAIN_MISMATCH_REASON',
     # a separação que impede sommelier de virar viticultor
@@ -238,7 +241,43 @@ PROVA = ('PROVED', 'NOT_PROVED', 'NOT_KNOWN')
 # designer catalogado em "fruticultura" só teria como sair da tabela virando
 # `NOT_PROVED` — que diria "não consegui provar", quando o que foi medido é
 # "provei que não é".
-CROP_ESTADOS = ('PROVED', 'PARTIAL', 'NOT_PROVED', 'WRONG_ASSIGNMENT', 'NOT_KNOWN')
+CROP_ESTADOS = ('PROVED', 'PARTIAL', 'NOT_PROVED', 'WRONG_ASSIGNMENT',
+                'CONTRADICTED', 'NOT_KNOWN')
+
+# ─────────────────────────────── §0 · QUE TIPO DE COISA ESTÁ POR TRÁS DA CONTA
+# `ENTITY_KIND` diz PERSON/ORGANIZATION. Isso não bastou: uma conta de EMPRESA
+# AGRÍCOLA e uma conta de MÍDIA são as duas `ORGANIZATION`, e a relação comercial
+# que cada uma permite é completamente diferente. Este campo diz com QUEM o
+# Marketing estaria falando.
+#
+# Nasceu de um erro meu: `@biocampojoyma` foi corretamente medido como conta de
+# empresa e mesmo assim apareceu numa frase minha como "três produtores reais".
+# A conta não estava errada no dado — estava errada na CONTAGEM.
+ENTIDADES_DE_ATIVACAO = (
+    'PERSON_CREATOR',          # uma pessoa, com rosto e voz próprios
+    'FARM_BUSINESS',           # a conta da exploração/empresa agrícola
+    'FARMER_FAMILY_ACCOUNT',   # conta de família/exploração sem um creator individual
+    'MEDIA_ACCOUNT',           # site, revista, canal de mídia
+    'ORGANIZATION',            # associação, instituto, evento
+    'OTHER', NAO_SEI,
+)
+
+# §2 · as QUATRO classes de prova de cultura. Nada fora destas quatro promove.
+CLASSES_DE_PROVA_DE_CULTURA = {
+    'A_OWN_CROP_DECLARED': 'cultivo próprio declarado pela pessoa',
+    'B_RECURRING_PROFESSIONAL_WORK': 'trabalho profissional recorrente naquela cultura',
+    'C_RECURRING_FIELD_CONTENT': 'conteúdo de campo recorrente e inequívoco na cultura',
+    'D_FARM_PRODUCTION_PROVED': 'exploração/empresa cuja produção da cultura é provada',
+}
+
+# O que explicitamente NÃO prova cultura. Lista fechada, porque cada uma delas já
+# pareceu prova para alguém.
+NAO_PROVA_CULTURA = (
+    'usar hashtag', 'aparecer em evento', 'repostar notícia',
+    'falar uma vez da cultura', 'estar numa categoria de prêmio',
+)
+
+FORCA_DA_PROVA = ('STRONG', 'MODERATE', 'WEAK', NAO_SEI)
 
 # Relevância de cadeia. A lei: falar de vinho != ser relevante para o produtor
 # de uva; falar de azeite != ser relevante para o olivicultor.
@@ -298,6 +337,13 @@ def checar(reg):
             faltas.append('CROP_PROVED_SEM_EVIDENCIA: "é agro" não prova cultura')
         if not reg.get('CROPS') or reg.get('CROPS') == NAO_SEI:
             faltas.append('CROP_PROVED_SEM_CULTURA: CROP_STATE=PROVED e CROPS vazio')
+    if reg.get('ACTIVATION_ENTITY_TYPE') not in ENTIDADES_DE_ATIVACAO:
+        faltas.append('ACTIVATION_ENTITY_TYPE_INVALIDO: %r'
+                      % reg.get('ACTIVATION_ENTITY_TYPE'))
+    if reg.get('CROP_PROOF_TYPE') not in (None, NAO_SEI) and \
+            reg.get('CROP_PROOF_TYPE') not in CLASSES_DE_PROVA_DE_CULTURA:
+        faltas.append('CROP_PROOF_TYPE_INVALIDO: %r — fora das quatro classes'
+                      % reg.get('CROP_PROOF_TYPE'))
     if reg.get('CROP_STATE') not in CROP_ESTADOS and reg.get('CROP_STATE') != NAO_SEI:
         faltas.append('CROP_STATE_INVALIDO: %r' % reg.get('CROP_STATE'))
 
@@ -498,6 +544,17 @@ def relevancia(reg, *, colaboracoes=()):
     if len(faltando) <= 2 and p['IDENTITY_PROVED']:
         return 'PROMISING', porques + ['PENDENTE: %s' % ', '.join(pend)]
     return 'RESEARCH_NEEDED', porques + ['PENDENTE: %s' % ', '.join(pend)]
+
+
+def e_pessoa_creator(reg):
+    """§0 — a conta é de uma PESSOA creator?
+
+    `ACCOUNT_OF_FARM_COMPANY != PERSON_CREATOR`. Uma exploração com canal forte
+    pode ser um parceiro comercial excelente — e essa é **outra** relação, com
+    outro contrato, outro interlocutor e outro preço. Contá-la como creator-pessoa
+    infla o número que o Marketing usa para planear elenco.
+    """
+    return reg.get('ACTIVATION_ENTITY_TYPE') == 'PERSON_CREATOR'
 
 
 def fit_para_adama(reg):

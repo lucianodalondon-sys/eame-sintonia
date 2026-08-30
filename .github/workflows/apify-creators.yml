@@ -42,6 +42,8 @@ on:
           - atividade      # mede atividade 30/90d dos perfis resolvidos
           - hubs           # extrai mencoes das contas de hub confirmadas
           - descobertos    # resolve os handles que a extracao revelou
+          - conteudo       # prova de cultura por CONTEUDO publicado
+          - franca         # atividade dos canais franceses confirmados
       runner:
         description: 'qual runner usar'
         required: true
