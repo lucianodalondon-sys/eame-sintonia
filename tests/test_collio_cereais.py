@@ -66,9 +66,19 @@ class OPositivoDaVinhaNaoEscorregaParaOsCereais(unittest.TestCase):
         self.assertEqual(collio['CROP'], 'vite')
         self.assertEqual(self.M['CEREAL_COLLIO_EQUIVALENT_FOUND'], 'PARTIAL')
 
-    def test_nao_existe_equivalente_para_grano_duro(self):
-        self.assertEqual(self.M['EXISTS_FOR_DURUM_FUSARIUM'], 'NO')
-        self.assertIn('institucional', self.M['EXISTS_FOR_DURUM_FUSARIUM_WHY'])
+    def test_o_estado_do_grano_duro_e_nacional_apenas_como_NAO_PROVADO(self):
+        """"não achei na rede que medi" e "não existe na Itália" são afirmações
+        de tamanhos diferentes. A segunda precisa das regiões do grano duro."""
+        self.assertEqual(self.M['EXISTS_FOR_DURUM_FUSARIUM'], 'NOT_PROVED_NATIONALLY')
+        self.assertIn('NO_IN_MEASURED_NETWORK ≠ NO_IN_ITALY', self.M['LAWS'])
+
+    def test_o_achado_medido_do_indice_do_ERSA_continua_de_pe(self):
+        """Corrigir a extrapolação não apaga o que foi medido."""
+        self.assertEqual(self.M['ERSA_CONSORTIUM_LAYER_FOR_FIELD_CROPS'],
+                         'ABSENT_IN_MEASURED_INDEX')
+        self.assertEqual(self.M['CEREAL_HUMAN_LAYER_IN_MEASURED_NETWORK'], 'NOT_PROVED')
+        self.assertIn('não diz nada sobre a Puglia',
+                      self.M['CORRECTION_OF_THE_NATIONAL_CLAIM'])
 
     def test_todo_veredito_carrega_cultura_e_geografia(self):
         for k, v in self.M.items():

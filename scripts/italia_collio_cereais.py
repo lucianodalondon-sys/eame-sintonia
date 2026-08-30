@@ -215,7 +215,14 @@ def medir():
     publicos = [p for p in PESSOAS_CEREAIS if p['STATE'] == TECHNICIAN_PUBLIC_SENSOR]
 
     achou = 'YES' if equivalentes else ('PARTIAL' if parciais else 'NO')
-    para_duro = 'NO' if not equivalentes else 'YES'
+    # CORREÇÃO. `EXISTS_FOR_DURUM_FUSARIUM = NO` era uma conclusão NACIONAL tirada
+    # de uma rede REGIONAL. As portas de maior peso para grano duro — Puglia,
+    # Basilicata, Sicilia — não tinham sido medidas, e o Consorzio Agrario
+    # dell'Emilia continuava inacessível. "Não achei na rede que medi" e "não
+    # existe na Itália" são afirmações de tamanhos diferentes.
+    #
+    #     NO_IN_MEASURED_NETWORK ≠ NO_IN_ITALY
+    para_duro = 'YES' if equivalentes else 'NOT_PROVED_NATIONALLY'
 
     return {
         'QUESTION_ID': 'CEREAL_COLLIO_EQUIVALENT',
@@ -305,14 +312,25 @@ def medir():
             'DOCUMENT_SCOPE ≠ IN_SENTENCE_ANCHOR',
             'AGRONOMIC_ZONE ≠ ADMIN_UNIT',
             'SAME_DATE ≠ ANTICIPATION',
+            'NO_IN_MEASURED_NETWORK ≠ NO_IN_ITALY',
         ],
 
         'CEREAL_COLLIO_EQUIVALENT_FOUND': achou,
         'EXISTS_FOR_DURUM_FUSARIUM': para_duro,
         'EXISTS_FOR_DURUM_FUSARIUM_WHY': (
-            'para grano duro × fusariosi o melhor sinal é o boletim do LaMMA, que é '
-            'institucional, não tem pessoa assinando e não tem camada local abaixo. '
-            'É PARTIAL_COLLIO_PATTERN, não equivalente'),
+            'na rede medida, o melhor sinal para grano duro × fusariosi é o boletim do '
+            'LaMMA — institucional, sem pessoa assinando e sem camada local abaixo. É '
+            'PARTIAL_COLLIO_PATTERN. Mas as regiões de maior peso do grano duro não '
+            'tinham sido medidas quando isto foi escrito'),
+        'CEREAL_HUMAN_LAYER_IN_MEASURED_NETWORK': 'NOT_PROVED',
+        'ERSA_CONSORTIUM_LAYER_FOR_FIELD_CROPS': 'ABSENT_IN_MEASURED_INDEX',
+        'CORRECTION_OF_THE_NATIONAL_CLAIM': (
+            'a rodada anterior publicou EXISTS_FOR_DURUM_FUSARIUM = NO. O que estava '
+            'medido sustentava NOT_PROVED_NATIONALLY: Toscana, Umbria, FVG e Veneto '
+            'são a rede que eu abri, e não são a Itália do grano duro. O achado do '
+            'índice do ERSA continua de pé porque foi medido — ele diz que ALI a '
+            'camada de consórcio não existe para culturas herbáceas, e não diz nada '
+            'sobre a Puglia'),
 
         'PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR': {
             'STATE': 'PROVED', 'CROP_SCOPE': 'frumento, orzo, mais',

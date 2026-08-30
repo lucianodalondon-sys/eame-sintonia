@@ -711,3 +711,51 @@ class OEscopoDoDocumentoEACaseFieldLeg(unittest.TestCase):
     def test_mutacao_sem_escopo_de_documento_o_caso_volta_a_zero(self):
         ok, _ = fl.localizacoes_do_fato(self.DOC, usar_escopo=False)
         self.assertEqual(ok, [], 'a mutação não mudou nada — a prova não mordia')
+
+
+class ODataDeAcaoNaoEDataDeFato(unittest.TestCase):
+    """Boletim provincial de Ancona n.615, publicado em 22/04/2026, dizia
+    "si consiglia di intervenire entro lunedì 27 aprile" — e o sistema datava um
+    fato observado numa data que ainda não tinha chegado."""
+
+    def test_data_de_acao_recomendada_nao_e_tempo_do_fato(self):
+        r = fl.tempo_do_fato('Si consiglia di intervenire entro lunedì 27 aprile.',
+                             '2026-04-22')
+        self.assertEqual(r['FACT_TIME'], 'NOT_KNOWN')
+        motivos = {d['WHY'] for d in r['TIME_CANDIDATES_DISCARDED']}
+        self.assertIn('PLANNED_ACTION_DATE_NOT_FACT_TIME', motivos)
+
+    def test_nenhum_fato_observado_acontece_depois_da_publicacao(self):
+        """A trava mais simples e a mais difícil de furar."""
+        r = fl.tempo_do_fato('Campioni raccolti il 30 aprile 2026.', '2026-04-22')
+        self.assertEqual(r['FACT_TIME'], 'NOT_KNOWN')
+        motivos = {d['WHY'] for d in r['TIME_CANDIDATES_DISCARDED']}
+        self.assertIn('FUTURE_DATE_NOT_FACT_TIME', motivos)
+
+    def test_data_passada_e_ancorada_continua_valendo(self):
+        r = fl.tempo_do_fato('Sintomi osservati il 20 aprile 2026.', '2026-04-22')
+        self.assertEqual(r['FACT_TIME'], '20 aprile 2026')
+
+    def test_sem_data_de_publicacao_a_trava_de_futuro_nao_inventa_recusa(self):
+        r = fl.tempo_do_fato('Sintomi osservati il 30 aprile 2026.')
+        self.assertEqual(r['FACT_TIME'], '30 aprile 2026')
+
+    # A âncora e o prazo têm de estar na MESMA oração, senão a mutação "passa"
+    # por outra proteção — a de que data solta não se ancora — e a prova mente
+    # por excesso de defesa.
+    FRASE_ACAO = ('Rilevato attacco, si consiglia di intervenire entro il '
+                  '10 aprile 2026.')
+
+    def test_com_a_lei_de_pe_o_prazo_nao_data_o_fato(self):
+        self.assertEqual(fl.tempo_do_fato(self.FRASE_ACAO, '2026-04-22')['FACT_TIME'],
+                         'NOT_KNOWN')
+
+    def test_mutacao_sem_contexto_de_acao_o_prazo_vira_data_do_fato(self):
+        salvo = fl.CONTEXTO_ACAO
+        try:
+            fl.CONTEXTO_ACAO = ()
+            r = fl.tempo_do_fato(self.FRASE_ACAO, '2026-04-22')
+            self.assertEqual(r['FACT_TIME'], '10 aprile 2026',
+                             'a mutação não mudou nada — a prova não mordia')
+        finally:
+            fl.CONTEXTO_ACAO = salvo

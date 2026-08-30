@@ -606,6 +606,17 @@ CONTEXTO_ADMINISTRATIVO = (
     r'autorizzaz', r'delibera', r'decreto', r'in\s+vigore',
 )
 
+# Data de AÇÃO RECOMENDADA, não de acontecimento. Num boletim provincial real,
+# "si consiglia di intervenire entro lunedì 27 aprile" — publicado no dia 22 —
+# devolvia FACT_TIME = 27 aprile. Isto é, o sistema datava um fato observado
+# numa data que ainda não tinha chegado.
+#
+#     PLANNED_ACTION_DATE ≠ FACT_TIME
+CONTEXTO_ACAO = (
+    r'si\s+consiglia', r'intervenire\s+entro', r'programmare', r'opportuno\s+intervenire',
+    r'effettuare\s+entro', r'trattamento\s+entro', r'da\s+eseguire',
+)
+
 
 def _e_campanha(valor):
     """"2025/26" e "2025-26" são safra. "2011-2025" é intervalo de série."""
@@ -652,12 +663,15 @@ def tempo_do_fato(texto, published_at=None):
     candidatos, descartados = [], []
     for frase in _frases(texto):
         low = _baixo(frase)
-        if any(re.search(a, low) for a in CONTEXTO_ADMINISTRATIVO):
+        if any(re.search(a, low) for a in CONTEXTO_ADMINISTRATIVO + CONTEXTO_ACAO):
             # A oração fala da validade de uma norma, não de um acontecimento.
             for padrao, _ in TEMPO:
                 for m in re.finditer(padrao, low):
-                    descartados.append({'VALUE': m.group(1),
-                                        'WHY': 'REGULATORY_VALIDITY_NOT_FACT_TIME'})
+                    descartados.append({
+                        'VALUE': m.group(1),
+                        'WHY': ('PLANNED_ACTION_DATE_NOT_FACT_TIME'
+                                if any(re.search(a, low) for a in CONTEXTO_ACAO)
+                                else 'REGULATORY_VALIDITY_NOT_FACT_TIME')})
             continue
         ancorada = any(re.search(a, low) for a in ANCORAS_DE_TEMPO_DO_FATO)
         for padrao, precisao in TEMPO:
@@ -666,6 +680,15 @@ def tempo_do_fato(texto, published_at=None):
                 if precisao == DAY and pub and _resolve_dia(valor, ano_pub) == pub:
                     descartados.append({'VALUE': valor, 'WHY': PUBLICATION_STAMP})
                     continue
+                # Um acontecimento observado não pode ter data POSTERIOR à
+                # publicação. É a trava mais simples e a mais difícil de furar:
+                # nenhum boletim relata o que ainda não aconteceu.
+                if precisao == DAY and pub:
+                    d = _resolve_dia(valor, ano_pub)
+                    if d and d > pub:
+                        descartados.append({'VALUE': valor,
+                                            'WHY': 'FUTURE_DATE_NOT_FACT_TIME'})
+                        continue
                 if precisao == SEASON and not _e_campanha(valor):
                     # Intervalo de série histórica: é o alcance da MEDIÇÃO, não a
                     # data do que foi medido. Fica registrado, não vira FACT_TIME.
