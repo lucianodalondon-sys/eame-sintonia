@@ -85,13 +85,13 @@
     "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
    },
    "COMMERCIAL": {
-    "ACTION": "NAO AGIR com base neste repositorio",
-    "WHY": "COMMERCIAL_CLOCK = NAO SEI. Registro nao e venda, e nada aqui informa disponibilidade, preco ou canal.",
-    "WHEN": "-",
-    "UNTIL_WHEN": "-",
-    "EVIDENCE": "-",
-    "MISSING": "dado interno ADAMA",
-    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+    "ACTION": "PREPARE BRIEF — receber a ficha do caso e verificar internamente, sem ativar campanha",
+    "WHY": "a falta de COMMERCIAL_CLOCK impede ATIVAR, nao impede INFORMAR. Ha uma janela de etiqueta aberta hoje e um registro proprio com caducidad vencida: as duas coisas afetam decisao comercial e nenhuma delas precisa de dado de venda para ser comunicada.",
+    "WHEN": "esta semana, junto com a linha de REGULATORY",
+    "UNTIL_WHEN": "enquanto a janela BBCH 10-85 estiver aberta",
+    "EVIDENCE": "ES-CASE-001 — janela do CUPROXI FLO e conflito do NEPTUNE",
+    "MISSING": "disponibilidade em canal, preco e posicao. VERIFY WITH BUSINESS: so o dado interno responde.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
    },
    "SUPPLY": {
     "ACTION": "NAO AGIR",
@@ -141,13 +141,13 @@
     "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
    },
    "COMMERCIAL": {
-    "ACTION": "NAO AGIR",
-    "WHY": "COMMERCIAL_CLOCK = NAO SEI",
-    "WHEN": "-",
-    "UNTIL_WHEN": "-",
-    "EVIDENCE": "-",
-    "MISSING": "dado interno ADAMA",
-    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+    "ACTION": "PREPARE BRIEF + WAIT FOR INTERNAL CLOCK",
+    "WHY": "a decisao de alvo por especie em cebada tem prazo de dossie, e a sementeira e em 6-10 semanas. Comercial precisa saber o que regulatory esta avaliando antes da safra, mesmo sem poder agir.",
+    "WHEN": "antes da sementeira",
+    "UNTIL_WHEN": "outubro/novembro",
+    "EVIDENCE": "ES-CASE-003 — cebada x vallico 3/0 e cebada x avenas locas 10/0",
+    "MISSING": "peso da cebada no negocio. VERIFY WITH BUSINESS.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
    },
    "SUPPLY": {
     "ACTION": "MONITORAR",
@@ -197,13 +197,13 @@
     "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
    },
    "COMMERCIAL": {
-    "ACTION": "NAO AGIR",
-    "WHY": "COMMERCIAL_CLOCK = NAO SEI e a janela esta fechada",
-    "WHEN": "-",
-    "UNTIL_WHEN": "-",
-    "EVIDENCE": "-",
-    "MISSING": "dado interno ADAMA",
-    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
+    "ACTION": "PREPARE BRIEF, sem urgencia",
+    "WHY": "ha 7 meses ate a janela e uma lacuna de claim nomeavel com um concorrente identificado no registro. E informacao de planejamento, nao de ativacao.",
+    "WHEN": "quando REGULATORY responder se ha caminho de extensao",
+    "UNTIL_WHEN": "abril/2027",
+    "EVIDENCE": "ES-CASE-002 — EMIR e o unico com o alvo declarado",
+    "MISSING": "tudo do lado comercial. VERIFY WITH BUSINESS.",
+    "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado."
    },
    "SUPPLY": {
     "ACTION": "NAO AGIR",
@@ -215,5 +215,6 @@
     "POSSIBLE_ECONOMIC_EFFECT": "NAO QUANTIFICADO. Nao ha dado de venda, preco nem participacao neste repositorio e nenhum numero economico foi inventado."
    }
   }
- }
+ },
+ "REGRA_DO_COMMERCIAL": "COMMERCIAL_CLOCK = NAO SEI continua nos tres, e continua impedindo ATIVAR. Nao impede INFORMAR. A linha comercial passa de \"NAO AGIR\" para PREPARE BRIEF / WAIT FOR INTERNAL CLOCK / VERIFY WITH BUSINESS — que sao acoes reais e nao supoem nenhum numero que nao temos."
 }
