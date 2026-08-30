@@ -1158,6 +1158,23 @@ def _chave_rota(u):
     return u or '/'
 
 
+_MS_NO_ERRO = re.compile(r'\bafter\s+\d+\s*ms\b', re.I)
+
+
+def _motivo_estavel(stderr, code):
+    """Motivo da falha SEM o relógio dentro.
+
+    O curl escreve "Failed to connect ... after 21057 ms". Esse número muda a cada
+    execução, e com ele o artefato inteiro deixa de ser byte-reproduzível — duas rodadas
+    da MESMA captura davam arquivos diferentes em duas células. O que a linha precisa
+    dizer é POR QUE falhou, não em quantos milissegundos. A duração não é evidência de
+    nada aqui: os dois domínios (mapama.gob.es, magrama.gob.es) simplesmente não
+    resolvem mais.
+    """
+    txt = _MS_NO_ERRO.sub('after timeout', (stderr or '').strip())
+    return txt[:200] or 'HTTP %s' % code
+
+
 def buscar(url, timeout=45, binario=False):
     """Devolve (estado, conteudo, http_status). Falha NUNCA vira conteúdo vazio."""
     if not binario:
@@ -1183,7 +1200,7 @@ def buscar(url, timeout=45, binario=False):
         if code.startswith('2'):
             return 'OK', {'PATH': caminho, 'MEDIA_TYPE': ctype}, code
         os.unlink(caminho)
-        return 'FAILED', {'REASON': (r.stderr or '').strip()[:200] or 'HTTP %s' % code}, code
+        return 'FAILED', {'REASON': _motivo_estavel(r.stderr, code)}, code
     r = subprocess.run(cmd, capture_output=True, text=True, errors='replace')
     saida = r.stdout or ''
     code = saida.rsplit('\n', 1)[-1].strip() or '000'
