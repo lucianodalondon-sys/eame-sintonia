@@ -10,7 +10,7 @@
  "STATUS_DO_CASO": "PORTFOLIO_FORTE_SEM_SINAL — o inverso exato do milho",
  "A_ASSIMETRIA": "o milho tem sinal de campo atual e lacuna de portfolio. O cereal de inverno tem o dobro do portfolio (36 pares ADAMA contra 16) sobre a maior area do pais (3,9 M ha) e nao tem sinal atual localizado. Sao dois problemas opostos e nao se resolvem com a mesma acao.",
  "ESCALA": "CEBADA 2.089.550 ha + TRIGO 1.809.563 ha — as duas maiores da Espanha",
- "SINAL": "NO_CURRENT_EVIDENCE_FOUND — o ITACyL tem secao propria de cereais de inverno com essas doencas, mas nenhum aviso de cereal na lista de 2026 (que traz frutais, batata, pimentao e vinha). O aviso de WDV localizado e de 30/04/2024.",
+ "SINAL": "CORRIGIDO — ver CORRECAO_2026_08_30. Ha medicao observada (RAIF Andalucia, 15 campanhas); o que falta e fonte para Castilla y Leon.",
  "O_QUE_SINAL_AUSENTE_SIGNIFICA": "NO_CURRENT_EVIDENCE_FOUND e estado declarado de busca, nao ausencia de doenca no campo. O ITACyL tem secao propria de cereais de inverno com essas doencas; a lista de avisos de 2026 que localizei traz frutais, batata, pimentao e vinha. Isso pode ser a fonte nao publicar, eu nao ter achado a fonte certa, ou a safra estar calma. Nao sei qual.",
  "PORTFOLIO": "36 pares com ADAMA vigente — o DOBRO do milho. Septoriose 4, rincosporiose 5, helmintosporiose 4, fusariose 4, dicotiledoneas 9.",
  "MAPA_DE_ACAO": {
@@ -41,5 +41,11 @@
    "POR_QUE": "NAO SEI."
   }
  },
- "A_PERGUNTA_QUE_FICA": "o portfolio mais forte da ADAMA na Espanha esta sobre a maior area do pais e e o territorio de que menos sabemos. Fechar isso e achar a fonte de aviso de cereal, nao coletar mais registro."
+ "A_PERGUNTA_QUE_FICA": "continua valendo, mas menor: falta a fonte de Castilla y Leon, nao a fonte de cereal. O portal que eu ja usava para o olivar tinha cereal o tempo todo, e mais 8 culturas.",
+ "CORRECAO_2026_08_30": {
+  "O_QUE_MUDOU": "este arquivo dizia SINAL = NO_CURRENT_EVIDENCE_FOUND. Errado como leitura do mundo: o RAIF Andalucia publica cereais de inverno desde 2012, com septoriose como campo medido. Ver ES-T3-002-raif-cereales-invierno.",
+  "O_QUE_A_MEDICAO_DIZ": "a septoriose de 2026 na Andaluzia foi FRACA: 2,68% de superficie com sintomas, o segundo menor da serie de 15 campanhas com n>=100.",
+  "O_QUE_NAO_MUDOU": "a Andaluzia nao e onde esta o cereal de inverno espanhol — Castilla y Leon concentra ~1,91 M ha e este dataset ve 50 parcelas em Cordoba, Sevilla e Jaen. E o arquivo de 2026 fecha em 26/05: e campanha encerrada, nao sinal vivo.",
+  "EFEITO_NO_MAPA_DE_ACAO": "MARKET_DEVELOPMENT continua podendo agir pela janela de sementeira. SCIENCE ganha um dado observado para conversar com pesquisador. Nenhuma funcao ganha urgencia: um ano fraco de septoriose nao e argumento de campanha, e dizer que e seria fabricar urgencia ao contrario."
+ }
 }
