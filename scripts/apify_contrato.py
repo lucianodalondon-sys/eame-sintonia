@@ -50,10 +50,12 @@ CONTRACT_NOT_READABLE = 'CONTRACT_NOT_READABLE'
 PLANO = [
     ('harvestapi~linkedin-profile-search-by-name',
      {'firstName': 'Pasquale', 'lastName': 'De Vita', 'maxItems': 5}),
-    # Intencao vazia de proposito: a rodada anterior provou que `searchQuery` e
-    # `maxItems` NAO existem neste ator. Sem entrada pretendida, o probe devolve o
-    # contrato inteiro — que e exatamente o que falta saber antes de escrever uma.
-    ('harvestapi~linkedin-post-search', {}),
+    # A leitura anterior mostrou que este ator nao le `searchQuery` nem `maxItems`,
+    # e que aceita `authorUrls` — dar-lhe a URL de um perfil ja CONFIRMADO e
+    # exatamente a pergunta certa: os posts DAQUELA pessoa, nao de um nome.
+    ('harvestapi~linkedin-post-search',
+     {'authorUrls': ['https://www.linkedin.com/in/exemplo'], 'maxPosts': 20,
+      'postedLimit': 'any'}),
 ]
 
 
