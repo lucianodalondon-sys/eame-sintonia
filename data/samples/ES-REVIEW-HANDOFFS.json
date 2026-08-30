@@ -1,0 +1,77 @@
+{
+ "SOURCE_ID": "ES-REVIEW-HANDOFFS",
+ "captured_at": "2026-08-30",
+ "source": "inspecao read-only das branches paralelas via git show/diff. NENHUM merge foi feito.",
+ "SOURCE_LOCATION": "repositorio lucianodalondon-sys/eame-sintonia",
+ "FACT_LOCATION": "n/a — revisao de trabalho interno",
+ "ORIGINAL_LANGUAGE": "pt",
+ "CORRECAO_DA_RODADA_ANTERIOR": "eu reportei que as branches paralelas \"nao existiam no remoto\". Existem — com sufixo. Eu procurei os nomes sem sufixo. As tres estao listadas abaixo com HEAD medido.",
+ "ADAMA_ES_DATACENTER": {
+  "BRANCH": "claude/adama-es-commercial-intelligence-rqgy44",
+  "HEAD": "8680c58",
+  "COMMITS_ALEM_DA_BASE": 4,
+  "O_ACHADO_CENTRAL": "ADAMA_ES_COLLECTION_READY = NO. O catalogo publico da ADAMA esta negado na BORDA para o host inteiro neste ambiente de datacenter. Nao e 404, nao e vazio: e recusa de cliente.",
+  "REVIEW": [
+   {
+    "ARTEFATO": "data/samples/ADAMA-ES-MAIZE-REGULATORY-MAP.json",
+    "VEREDITO": "USABLE",
+    "POR_QUE": "e leitura do ROPF, nao do site. 22 produtos ADAMA em milho, 20 relacoes cultura x alvo, cada par PERGUNTADO ao MAPA. Usei nesta rodada para achar os 7 produtos de folha larga que sustentam o teste decisivo do Caso 2.",
+    "COMO_FOI_USADO": "consulta dirigida via git show, sem merge. Os fatos foram reconfirmados por consulta propria ao ROPF em 30/08."
+   },
+   {
+    "ARTEFATO": "data/samples/ES-MAPA-VOCABULARIO-IDS.json",
+    "VEREDITO": "USABLE",
+    "POR_QUE": "448 cultivos e 708 plagas com id. Ja existia equivalente local (mapa_lookup.json); serve como redundancia versionada."
+   },
+   {
+    "ARTEFATO": "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+    "VEREDITO": "PARTIAL",
+    "POR_QUE": "PRODUCTS, DOCUMENTS, CLAIMS, MODES_OF_ACTION, APPLICATION_WINDOWS e TECHNOLOGIES estao todos vazios — e corretamente marcados NOT_COLLECTED com motivo, nunca 0. Vale como documentacao do bloqueio, nao como evidencia de produto.",
+    "O_QUE_ELE_PROVA": "que a ausencia de mapa publico da ADAMA e uma RECUSA MEDIDA e nao um buraco de esforco."
+   },
+   {
+    "ARTEFATO": "data/samples/PORTAO-ADAMA-ES.json e scripts/adama_es_portao.py",
+    "VEREDITO": "USABLE como portao",
+    "POR_QUE": "separa negacao de borda de ausencia de fonte. E a distincao que impede transformar bloqueio em zero."
+   }
+  ],
+  "O_QUE_ISSO_DECIDE_NOS_TRES_CASOS": "ADAMA_PUBLIC_RESPONSE = NOT_COLLECTED nos tres cartoes V1, com o motivo nomeado. COMPETITOR_PUBLIC_RESPONSE tambem: nenhum catalogo de concorrente foi lido, e o que sabemos de EMIR vem do registro, nao do site da Corteva.",
+  "MERGE": "NAO FEITO. A branch permanece separada."
+ },
+ "ADAMA_ES_LOCAL": {
+  "BRANCH": "claude/adama-es-local*",
+  "ESTADO": "LOCAL_HANDOFF = PENDING",
+  "MEDIDO": "nenhuma branch remota casa o prefixo. As remotas sao: claude/adama-es-commercial-intelligence-rqgy44 claude/sintonia-eame-collection-es claude/sintonia-eame-handoff-gd3g45 claude/sintonia-eame-repo-setup-xccfob claude/sintonia-italy-pilot-b1l401",
+  "CONSEQUENCIA": "o catalogo publico da ADAMA continua NOT_COLLECTED. Nao bloqueia nenhum dos tres casos, que se sustentam em registro oficial e campo."
+ },
+ "ITALIA": {
+  "BRANCH": "claude/sintonia-italy-pilot-b1l401",
+  "HEAD": "b8c0298",
+  "CHECKPOINT_MATERIAL": "SIM",
+  "ITALY_HANDOFF_READY": "PARTIAL",
+  "POR_QUE_PARTIAL": "ha regulatorio lido no rotulo (IT-T4-001, 161 de 163 rotulos), ciencia (IT-T5-001), mapa de fontes, tres hero cases candidatos e 307 testes. Falta o que a Espanha tambem nao tem: catalogo publico da ADAMA. E o proprio documento italiano corrigiu um AGIR AGORA que tinha declarado antes.",
+  "O_QUE_A_ITALIA_JA_TEM": {
+   "HERO_1": "videira x flavescencia dourada x Lombardia — 6 produtos ADAMA com Scaphoideus titanus como ALVO DECLARADO no rotulo, boletim regional de 31/07/2026, janela de sintoma aberta e janela do VETOR fechada para 2026",
+   "HERO_2": "oliveira x Bactrocera oleae x Veneto",
+   "HERO_3": "milho na planicie do Po — 24 herbicidas, 9 inseticidas, 0 fungicidas, e AUSENCIA MEDIDA de boletim de milho nas tres regioes"
+  },
+  "MERGE": "NAO FEITO."
+ },
+ "CROSS_MARKET_GATE": {
+  "EAME_CROSS_MARKET_READY": "NO",
+  "METODO": "testei o melhor candidato contra as sete pernas exigidas: mesma cultura, mesmo issue, regiao, timing, regulatorio, resposta ADAMA e sinal publico — nos DOIS paises.",
+  "CANDIDATO_TESTADO": "MILHO",
+  "PERNAS_QUE_PASSAM": [
+   "CULTURA: milho nos dois",
+   "REGIAO: planicie de rio irrigada nos dois — Ebro e Po",
+   "RESPOSTA ADAMA: portfolio de herbicida nos dois"
+  ],
+  "PERNAS_QUE_FALHAM": [
+   "ISSUE: Espanha tem Amaranthus palmeri; Italia tem daninhas genericas e Ostrinia nubilalis. Nao e o mesmo problema.",
+   "SINAL PUBLICO: a Italia tem AUSENCIA MEDIDA de boletim de milho nas tres regioes do Po. Nao ha o que comparar.",
+   "TIMING: janela fechada na Espanha ate abril/2027; na Italia o rotulo novo fala de oviposicao, que e outro relogio."
+  ],
+  "OUTROS_CANDIDATOS": "cereais de inverno — a Italia nao tem hero case de cereal. Videira x mildiu — a Espanha tem ES-T3-001 e nenhum caso trabalhado nesta rodada.",
+  "O_QUE_E_COMPARAVEL_E_NAO_E_UM_CASO": "os dois paises mediram, com instrumentos e registros diferentes, a mesma anomalia: autorizacoes VIGENTES com vencimento ja passado. Espanha: 2 de 180 no par olivo x repilo, e 34 no ROPF inteiro. Italia: 8 vigentes com vencimento passado. Isso e uma observacao sobre METODO e sobre como registros nacionais se comportam — NAO e um caso cross-market e nao deve ser vendido como um."
+ }
+}

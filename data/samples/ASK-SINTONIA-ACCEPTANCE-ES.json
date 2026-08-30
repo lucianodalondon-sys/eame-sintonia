@@ -5,8 +5,8 @@
  "SOURCE_LOCATION": "derivado",
  "FACT_LOCATION": "ES",
  "ORIGINAL_LANGUAGE": "pt",
- "QUESTIONS_TESTED": 12,
- "ANSWERABLE": 7,
+ "QUESTIONS_TESTED": 13,
+ "ANSWERABLE": 8,
  "PARTIAL": 3,
  "REFUSED": 2,
  "FALSE_CONFIDENCE_ERRORS": {
@@ -26,8 +26,8 @@
   {
    "Q": "Tem alguma coisa acontecendo agora em olivo que exija atencao?",
    "STATUS": "ANSWERABLE",
-   "A": "Sim, no oeste da Andaluzia. Cadiz fechou a campanha 2026 com 8,01% de folhas com repilo visivel, o segundo maior valor de 21 campanhas, sobre 141 leituras em 39 parcelas. Huelva marcou 8,83%, o maior da serie, mas sobre 18 leituras em 7 parcelas. Jaen, Granada e Malaga seguem abaixo de 1,1%.",
-   "RESSALVA_QUE_A_RESPOSTA_DEVE_CARREGAR": "as leituras de repilo dessas duas provincias vao ate 14/06 e 27/05. Nao ha leitura de agosto ali. \"Agora\" e a janela de outono, nao a observacao.",
+   "A": "A campanha 2026 fechou alta no oeste. Cadiz 8,01% de folhas com repilo visivel, a 2a maior de 21 campanhas, sobre 141 leituras em 39 parcelas. Huelva 8,83%, a maior da serie, sobre 18 leituras em 7 parcelas. O leste segue baixo: Jaen 0,77%, Granada 0,61%.",
+   "RESSALVA_QUE_A_RESPOSTA_DEVE_CARREGAR": "a ultima leitura de repilo em Huelva e de 14/06 e em Cadiz de 27/05 — 77 e 95 dias. As provincias do leste TEM leitura de agosto, entao a ausencia no oeste e da fonte, nao da campanha. Classe do sinal: SEASON_2026_SPRING_READING, nao CURRENT_SIGNAL.",
    "EVIDENCE": "ES-CASE-001; RAIF olivar 2006-2026, campo 1702"
   },
   {
@@ -71,15 +71,15 @@
   },
   {
    "Q": "Em que regioes eu deveria avisar os RTVs?",
-   "STATUS": "PARTIAL",
-   "A": "Para olivo, Cadiz antes de Huelva - Cadiz sustenta o mesmo nivel com 141 leituras contra 18. Para milho, poucos municipios de Huesca: 10 concentram 47,7% da area e 20 concentram 68,4%.",
-   "POR_QUE_PARCIAL": "os NOMES dos municipios de Huesca nao foram resolvidos. O dado traz codigo catastral e a tabela oficial de nomes so sai por exportacao que exige sessao. Nao mapeado por aproximacao.",
-   "EVIDENCE": "ES-CASE-001; ES-T2-002-pac-maiz-aragon"
+   "STATUS": "ANSWERABLE",
+   "A": "Para olivo, Cadiz antes de Huelva — Cadiz sustenta o mesmo nivel com 141 leituras contra 18. Para milho, dez municipios de Huesca que somam 47,7% da area: Sariñena, Candasnos, Monzon, Tamarite de Litera, San Miguel del Cinca, Esplus, Peñalba, Sena, Grañen e Ilche. Vinte fazem 68,4%.",
+   "EVIDENCE": "ES-T2-003-crosswalk-municipio-aragon; ES-CASE-001",
+   "RESSALVA": "os nomes vieram de juncao exata (cprovi, cmunca) contra a tabela oficial de Aragon, 81 de 81 casados. Em 335 dos 339 municipios o codigo catastral difere do INE, entao aproximacao teria errado quase sempre."
   },
   {
    "Q": "Que pesquisadores estao estudando esse problema?",
    "STATUS": "PARTIAL",
-   "A": "Para milho x Amaranthus, tres identidades confirmadas por ORCID com vinculo espanhol: Mercedes Royuela e Mikel Vicente Eceiza (Univ. Publica de Navarra) e Joel Torra (Universitat de Lleida, dentro do territorio do caso). Para olivo x repilo, Juan Moral, Antonio Trapero e Concepcion Munoz Diez, com vinculo aberto na Universidad de Cordoba e nomeados na pagina publica do grupo UCOLIVO.",
+   "A": "Para milho x Amaranthus, tres identidades confirmadas por ORCID com vinculo espanhol: Mercedes Royuela e Mikel Vicente Eceiza (Univ. Publica de Navarra) e Joel Torra (Universitat de Lleida, dentro do territorio do caso). Para olivo x repilo, Juan Moral, Antonio Trapero e Concepcion Munoz Diez, com vinculo aberto na Universidad de Cordoba e nomeados na pagina publica do grupo UCOLIVO. Para cereal, Joel Torra e primeiro autor do artigo de 2021 que descreve a resistencia a ALS e ACCase como generalizada em cereal de inverno espanhol — a mesma pessoa, achada por outra rota.",
    "POR_QUE_PARCIAL": "nenhuma identidade do par do azeite fechou em num-found=1 na busca ORCID; a ancora deles e o ORCID declarado no OpenAlex. E nao sabemos se as obras de Joel Torra tratam de palmeri espanhol - afiliacao nao e local do estudo.",
    "EVIDENCE": "ES-CIENCIA-PARES-AUTORES; ES-CIENCIA-PARA-VOZ; uco.es/ucolivo"
   },
@@ -103,6 +103,38 @@
    "A": "Na Andaluzia, nao: 2,68% de superficie com sintomas em 2026, o segundo ano mais fraco de 15 campanhas com leitura. Fora da Andaluzia nao sei - nao encontrei fonte de aviso de cereal para Castilla y Leon, que e onde esta a area.",
    "POR_QUE_ESTA_PERGUNTA_ESTA_AQUI": "e a pergunta que teria produzido um falso alarme. O indicador de colmos com sintoma marcou 51,57% em 2026, e esse campo so tem tres campanhas de uso real - 2026 fica entre 2024 e 2025.",
    "EVIDENCE": "ES-T3-002-raif-cereales-invierno"
+  },
+  {
+   "Q": "Nossa resposta em cereal esta exposta a resistencia?",
+   "STATUS": "PARTIAL",
+   "A": "O unico produto da ADAMA que nomeia Lolium na etiqueta e o clodinafop-propargil, um inibidor de ACCase — e a literatura descreve resistencia a ACCase e ALS como generalizada em cereal de inverno espanhol. Os dez registros genericos estao em pendimetalina, clortoluron, metribuzina e diflufenican, que sao as quimicas de pre-emergencia para onde o mesmo artigo diz que o manejo migrou.",
+   "POR_QUE_PARCIAL": "eficacia nao foi medida em lugar nenhum, e o material publico nao permite afirmar estrategia anti-resistencia: 1 das 96 fichas ADAMA traz codigo de grupo HRAC/IRAC/FRAC. A diversidade quimica esta declarada; o modo de acao nao.",
+   "EVIDENCE": "ES-CASE-003.O_BLOQUEIO_MATERIAL_RESOLVIDO e ARQUITETURA_DE_MODO_DE_ACAO"
   }
- ]
+ ],
+ "RETESTE_CONTRA_V1": {
+  "QUANDO": "2026-08-30, contra SPAIN-HERO-CASES-V1",
+  "PERGUNTA_DO_RETESTE": "depois das correcoes, os tres erros continuam possiveis?",
+  "ERRO_1_FILE_DATE_VIRA_SIGNAL_DATE": {
+   "ESTADO": "FECHADO POR TESTE",
+   "COMO": "o cartao do olivo agora carrega OBSERVED_AT por provincia, SAMPLE_PERIOD, FILE_DATE, PUBLICATION_DATE e CAPTURED_AT em campos distintos, e a classe de frescor nao pode SER CURRENT_SIGNAL. tests/test_hero_cases_v1.py::TestRegressaoFileDateNaoEhSignalDate reprova se qualquer um sumir."
+  },
+  "ERRO_2_VARIANTE_VIRA_CONTAGEM_NACIONAL": {
+   "ESTADO": "FECHADO POR TESTE",
+   "COMO": "o cartao do milho conta as quatro variantes separadamente e o teste exige que a soma das linhas (2) continue distinguida do produto unico (1)."
+  },
+  "ERRO_3_23_SAFRAS": {
+   "ESTADO": "FECHADO POR TESTE, com uma nuance",
+   "COMO": "o teste percorre o JSON campo a campo e so aceita \"23 safras\" dentro de campo cujo nome fala de discrepancia, correcao, erro ou contraprova. Um numero errado precisa poder ser citado para ser corrigido; o que nao pode e voltar a ser afirmado."
+  },
+  "ERRO_4_ENCONTRADO_NESTE_RETESTE": {
+   "ESTADO": "NOVO, corrigido antes de publicar",
+   "O_QUE": "\"34 de 96 fichas ADAMA com codigo HRAC/IRAC/FRAC\". O correto e 1 de 96.",
+   "CAUSA": "busca por substring, sem limite de palavra e sem caixa. \"respiracion\" (26 ocorrencias) e \"aspiracion\" (15) contem IRAC.",
+   "FECHADO_POR": "tests/test_hero_cases_v1.py::TestRegressaoSiglaCurtaPrecisaDeLimiteDePalavra"
+  },
+  "FALSE_CONFIDENCE_REGRESSIONS": 0,
+  "FALSE_CONFIDENCE_ERRORS_NOVOS_NESTA_RODADA": 1,
+  "LEITURA_HONESTA": "zero regressoes dos tres erros antigos. Mas apareceu um quarto, do mesmo tipo — contagem por padrao frouxo — e ele so apareceu porque eu conferi o resultado contra o caso concreto. Testes de regressao cobrem os erros que ja aconteceram; nao cobrem os que ainda nao."
+ }
 }
