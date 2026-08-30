@@ -3,8 +3,9 @@
 #
 # Por que nao basta ler o .sql: um schema pode estar sintaticamente perfeito
 # e ainda assim responder CLOSED para uma janela que so e desconhecida. As
-# 45 afirmacoes deste job sao sobre SIGNIFICADO, e significado so se mede
-# executando.
+# As 118 afirmacoes deste job sao sobre SIGNIFICADO, e significado so se
+# mede executando. As 12 mutacoes fecham o outro lado: uma suite verde em
+# cima de codigo quebrado nao prova nada.
 #
 # Banco descartavel do proprio runner. Sem secret, sem tocar no Supabase de
 # producao, sem dado de cliente. Roda em todo push que mexe no schema.
@@ -46,7 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 1 · aplicar 001–007 e 009–012 num banco vazio
+      - name: 1 · aplicar 001–007 e 009–017 num banco vazio
         run: |
           set -e
           for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
@@ -87,7 +88,7 @@ jobs:
           psql "$PGURL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tee /tmp/r2
           grep -q "REGRESSOES_CALENDARIO=PASS" /tmp/r2
 
-      - name: 4c · as cicatrizes do Brasil — 25 afirmacoes
+      - name: 4c · as cicatrizes do Brasil — 33 afirmacoes
         run: |
           set -e
           psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql
@@ -98,6 +99,26 @@ jobs:
           grep -q "NAO PEGOU" /tmp/mu \
             && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
             || echo "MUTACOES_CICATRIZES=TODAS_PEGARAM"
+
+      - name: 4d · o portao de entrada da coleta — 21 afirmacoes
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql
+          psql "$PGURL" -f supabase/tests/regressoes_coleta.sql 2>&1 | tee /tmp/co
+          grep -q "REGRESSOES_COLETA=PASS" /tmp/co
+          # AGGREGATOR != HUMAN_VOICE, SEM_CHECKPOINT_NAO_GASTEI e a identidade
+          # que nao carrega a rodada: cada uma tem de reprovar quando quebrada.
+          psql "$PGURL" -At -f supabase/tests/mutacao_coleta.sql 2>&1 | tee /tmp/mc
+          grep -q "NAO PEGOU" /tmp/mc \
+            && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
+            || echo "MUTACOES_COLETA=TODAS_PEGARAM"
+
+      - name: "4e · o ciclo inteiro — token acaba, processo morre, nada se perde"
+        run: |
+          set -e
+          # Zero custo real: o ator e uma funcao Python. O caminho ate o banco
+          # e o MESMO que a producao usa, e e por isso que a prova vale.
+          EAME_TEST_DSN="$PGURL" python3 -m unittest tests.test_coleta_resiliente -v
 
       - name: 5 · o payload do caso, impresso no log para leitura humana
         if: always()

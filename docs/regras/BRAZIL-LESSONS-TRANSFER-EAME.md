@@ -133,6 +133,12 @@ voltou + zero `raw_asset` = `PAGO_E_NAO_PRESERVADO`**. E uma rodada sem item sai
 | **BR-20** | os estados de rodada existem e a regra de não-repetir não está escrita no caminho produtivo | mesma guarda, mesmo lugar | coleta paga |
 | **BR-21** | não há pool de chaves nem retomada | salvar o bruto por lote e declarar o pool como dado antes de usá-lo | coleta paga |
 
+> **Os cinco foram fechados na rodada seguinte** (016 · 017 · `scripts/coleta_checkpoint.py`
+> · `supabase/tests/regressoes_coleta.sql` · `tests/test_coleta_resiliente.py`). A tabela
+> acima fica como estava porque é o registro do que se sabia então — ver
+> `docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md` para o estado corrente e para
+> as **seis lacunas novas** que a conferência de localização abriu.
+
 **Nenhum dos cinco bloqueia a importação do catálogo espanhol** — ela é SQL idempotente
 sobre chave natural, não gasta rota paga e não coleta rede social. Os cinco bloqueiam a
 **próxima coleta**, que é outra decisão.
@@ -144,20 +150,25 @@ coleta não estão provadas.
 
 | contrato | completo? |
 |---|---|
-| `LOCATION_CONTRACT_COMPLETE` | **YES** |
+| `LOCATION_CONTRACT_COMPLETE` | ~~**YES**~~ → **NO** — rebaixado pela conferência: BR-26 · BR-30 · BR-31 · BR-32 · BR-34 |
 | `RELEVANCE_CONTRACT_COMPLETE` | **YES** |
 | `TEMPORAL_CONTRACT_COMPLETE` | **YES** |
 | `PROVENANCE_CONTRACT_COMPLETE` | **YES** |
 | `IDENTITY_CONTRACT_COMPLETE` | **YES** |
 | `UNKNOWN_STATE_CONTRACT_COMPLETE` | **YES** |
 | `COUNTRY_ISOLATION_COMPLETE` | **YES** |
-| `ANALYTICAL_UNIT_CONTRACT_COMPLETE` | **NO** — BR-16 |
-| `RESILIENCE_CONTRACT_COMPLETE` | **NO** — BR-19 · BR-20 · BR-21 |
+| `ANALYTICAL_UNIT_CONTRACT_COMPLETE` | ~~**NO**~~ → **YES** — BR-16 fechado na 016 |
+| `RESILIENCE_CONTRACT_COMPLETE` | ~~**NO**~~ → **YES** — BR-19 · BR-20 · BR-21 fechados |
+
+O `LOCATION_CONTRACT_COMPLETE` saiu de **YES** e foi para **NO** na mesma rodada em que os
+outros dois saíram de NO para YES. Isso não é um retrocesso: é o resultado de passar dez
+cicatrizes brasileiras mais novas por cima de um contrato que já tinha sido dado por
+fechado, e descobrir que ele fechava seis das dez. Manter o YES teria sido mover a régua.
 
 ## Ordem canônica das migrations
 
 ```
-001–007 · 009 · 010–012 · 013 · 014 catálogo · 015 · 008 por último
+001–007 · 009 · 010–012 · 013 · 014 catálogo · 015 · 016 · 017 · 008 por último
 ```
 
 **O 014 fica vago de propósito.** É o `010_catalogo_publico_fabricante.sql` da branch

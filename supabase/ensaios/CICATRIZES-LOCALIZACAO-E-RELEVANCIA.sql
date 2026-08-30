@@ -116,6 +116,40 @@ select ct.id, ci.id, v.rel, v.ev, v.sinal, 'ensaio-v1'
   join public.crop_issue ci on ci.crop_id = c.id and ci.issue_id = i.id
 on conflict do nothing;
 
+-- ── O QUE A CONFERÊNCIA DE LOCALIZAÇÃO EXIGIU (017) ───────────────────
+-- ENSAIO-E existe para exercer PLACE_MENTION != FACT_LOCATION num caso que
+-- de outro modo seria sinal exato: cultura certa, problema certo, país
+-- certo, ocorrência declarada — e o lugar do fato sustentado só por MENÇÃO.
+insert into public.conteudo
+ (canal_id, run_id, tipo, content_id, titulo, publicado_em, hash_conteudo,
+  source_geografia_id, fact_geografia_id, fact_geografia_origem,
+  fact_geografia_evidencia, rule_version)
+select c.id, 'ENSAIO-RUN-CICATRIZ', 'artigo'::tipo_conteudo, 'ENSAIO-E',
+       'ocorrência declarada com o lugar apenas mencionado',
+       '2026-06-05T00:00:00Z'::timestamptz, repeat('e',64),
+       gs.id, gf.id, 'CITADO',
+       'o nome da Toscana aparece no texto; o texto não afirma que o fato foi ali',
+       'ensaio-v1'
+  from public.canal c
+  join public.geografia gs on gs.pais='IT' and gs.provincia='Foggia'
+  join public.geografia gf on gf.pais='IT' and gf.regiao='Toscana'
+                          and gf.provincia is null
+ where c.channel_id='ENSAIO-CANAL-01'
+on conflict do nothing;
+
+insert into public.conteudo_crop_issue
+ (conteudo_id, crop_issue_id, relacao, evidencia, sinal, rule_version)
+select ct.id, ci.id, 'OCORRENCIA_DECLARADA',
+       'ocorrência declarada; o lugar do fato veio de menção, não de afirmação',
+       'NAO_SEI', 'ensaio-v1'
+  from public.conteudo ct
+  join public.crop c on c.codigo='ENSAIO_CROP_A'
+  join public.issue i on i.codigo='ENSAIO_ISSUE_A'
+  join public.crop_issue ci on ci.crop_id=c.id and ci.issue_id=i.id
+ where ct.content_id='ENSAIO-E'
+on conflict do nothing;
+
+
 -- ── TENTATIVAS · o mundo, a instalação e nós ──────────────────────────
 insert into public.tentativa_de_coleta (run_id, alvo, estado, motivo, observado_em, rule_version) values
  ('ENSAIO-RUN-CICATRIZ','lugar declarado no perfil X','RESPONDEU_SEM_O_CAMPO',

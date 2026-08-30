@@ -215,6 +215,75 @@ select pg_temp.afirma('N3 · toda tentativa carrega o motivo',
   'FAILED_WITH_REASON, nunca FAILED');
 
 
+-- ═══ A CONFERÊNCIA DE LOCALIZAÇÃO (017) ══════════════════════════════
+-- A rodada anterior marcou o contrato de localização como completo. A
+-- conferência contra dez cicatrizes mais novas achou seis lacunas; duas
+-- produziam RESPOSTA ERRADA e foram consertadas. Estas são as testemunhas.
+
+create or replace function pg_temp.rel(cid text, ini date, fim date)
+returns text language sql stable as $f$
+  select r.relevancia
+    from public.conteudo_crop_issue cc
+    join public.conteudo ct on ct.id = cc.conteudo_id
+    join public.crop_issue ci on ci.id = cc.crop_issue_id
+    join public.crop  c on c.id = ci.crop_id  and c.codigo = 'ENSAIO_CROP_A'
+    join public.issue i on i.id = ci.issue_id and i.codigo = 'ENSAIO_ISSUE_A',
+    lateral public.f_relevancia_ao_caso(cc.id,'ENSAIO_CROP_A','ENSAIO_ISSUE_A','IT',
+                                        ini, fim) r
+   where ct.content_id = cid;
+$f$;
+
+-- I · PUBLISHED_AT != FACT_TIME
+select pg_temp.afirma('C1 · publicado DEPOIS da janela não vira UNRELATED',
+  pg_temp.rel('ENSAIO-A', date '2026-01-01', date '2026-03-01') = 'CONTEXT_ONLY',
+  'um documento de setembro pode relatar um fato de junho — a 015 devolvia UNRELATED');
+
+select pg_temp.afirma('C2 · publicado ANTES da janela continua RETROSPECTIVE',
+  pg_temp.rel('ENSAIO-A', date '2026-09-01', date '2026-12-01') = 'RETROSPECTIVE',
+  'a data de publicação decide numa direção só: documento não relata o futuro');
+
+select pg_temp.afirma('C3 · dentro da janela, o sinal exato continua exato',
+  pg_temp.rel('ENSAIO-A', date '2026-05-01', date '2026-07-01') = 'EXACT_SIGNAL',
+  'sem isto, P1 e P2 estariam verdes só porque a função parou de dizer sim');
+
+-- B · PLACE_MENTION != FACT_LOCATION
+select pg_temp.afirma('C4 · lugar do fato só MENCIONADO não é sinal exato',
+  pg_temp.rel('ENSAIO-E', date '2026-05-01', date '2026-07-01') = 'CONTEXT_ONLY',
+  'cultura, problema, país e janela conferem; o lugar veio de menção, e menção não afirma');
+
+select pg_temp.afirma('C5 · a menção aparece na visão, em vez de passar despercebida',
+  (select fact_sustentado_apenas_por_mencao from public.v_conteudo_localizacao l
+     join public.conteudo c on c.id = l.conteudo_id where c.content_id='ENSAIO-E')
+  and (select fact_forca_da_sustentacao from public.v_conteudo_localizacao l
+     join public.conteudo c on c.id = l.conteudo_id where c.content_id='ENSAIO-E')
+      = 'APENAS_MENCIONADO',
+  'mencionado e afirmado chegam ao consumidor com nomes diferentes');
+
+select pg_temp.afirma('C6 · afirmado no texto continua sendo afirmado',
+  (select fact_forca_da_sustentacao from public.v_conteudo_localizacao l
+     join public.conteudo c on c.id = l.conteudo_id where c.content_id='ENSAIO-A')
+   = 'AFIRMADO_NO_TEXTO'
+  and not (select fact_sustentado_apenas_por_mencao from public.v_conteudo_localizacao l
+     join public.conteudo c on c.id = l.conteudo_id where c.content_id='ENSAIO-A'),
+  'a coluna nova distingue os dois casos, e não marca tudo como menção');
+
+-- E as lacunas que NÃO foram consertadas ficam medidas, não esquecidas.
+select pg_temp.afirma('C7 · lacuna A continua aberta e DECLARADA',
+  (select count(*) from information_schema.columns
+    where table_schema='public' and table_name='conteudo'
+      and column_name in ('source_geografia_id','fact_geografia_id')) = 2
+  and not exists (select 1 from information_schema.columns
+                   where table_schema='public' and table_name='conteudo'
+                     and column_name like '%operating%'),
+  'BASE != OPERATING != INFLUENCE ainda colapsam na praça da fonte — está na matriz');
+
+select pg_temp.afirma('C8 · lacuna E continua aberta e DECLARADA',
+  (select data_type from information_schema.columns
+    where table_schema='public' and table_name='conteudo'
+      and column_name='fact_geografia_id') = 'bigint',
+  'um conteúdo tem 0..1 lugar de fato, e o mundo tem 0..N — está na matriz');
+
+
 -- ═══════════════════════════════════════════════════════════════════════
 \echo ''
 \echo '── AS CICATRIZES DO BRASIL NO EAME ───────────────────────────────'

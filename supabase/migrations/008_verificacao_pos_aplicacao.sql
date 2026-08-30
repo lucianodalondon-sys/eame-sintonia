@@ -23,7 +23,7 @@
 -- O teste em tests/test_migrations.py cobre o outro lado — que os arquivos são
 -- coerentes entre si. Os dois juntos fecham a pergunta; nenhum sozinho fecha.
 --
--- RODAR DEPOIS de aplicar 001–007 e 009–015. Ela é a última, não a oitava.
+-- RODAR DEPOIS de aplicar 001–007 e 009–017. Ela é a última, não a oitava.
 --
 -- NÃO EXECUTADA em Supabase. Executada e conferida num PostgreSQL 16
 -- local e descartável: 001–012 montadas do zero, fixture ES carregada e
@@ -228,11 +228,62 @@ begin
     faltando := faltando || 'conteudo_crop_issue ganhou coluna de score'::text;
   end if;
 
+  -- 9 · O PORTÃO DE ENTRADA DA COLETA (016). Sem estes objetos a guarda do
+  --     gasto não existe no banco, e SEM_CHECKPOINT_NAO_GASTEI vira prosa
+  --     outra vez — que é exatamente a forma como o Brasil perdeu a coleta.
+  if not exists (select 1 from information_schema.tables
+                  where table_schema='public' and table_name='checkpoint_coleta') then
+    faltando := faltando || 'tabela checkpoint_coleta (016)'::text;
+  end if;
+  if not exists (select 1 from information_schema.tables
+                  where table_schema='public' and table_name='conteudo_visto_em') then
+    faltando := faltando || 'tabela conteudo_visto_em (016)'::text;
+  end if;
+  foreach t in array array['collection_target','input_hash','actor','started_at',
+                           'estado','pool_position','run_id','dataset_id',
+                           'ultima_unidade','unidades_feitas','itens_persistidos'] loop
+    if not exists (select 1 from information_schema.columns
+                    where table_schema='public' and table_name='checkpoint_coleta'
+                      and column_name=t) then
+      faltando := faltando || ('checkpoint_coleta.' || t)::text;
+    end if;
+  end loop;
+  if not exists (select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+                  where n.nspname='public' and p.proname='pode_gastar') then
+    faltando := faltando || 'funcao pode_gastar (016)'::text;
+  end if;
+  -- A identidade do conteúdo NÃO pode carregar a rodada dentro dela: se
+  -- carregasse, retomar por outra chave duplicaria tudo.
+  if (select pg_get_constraintdef(oid) from pg_constraint
+       where conname='conteudo_canal_id_content_id_key')
+     is distinct from 'UNIQUE (canal_id, content_id)' then
+    faltando := faltando || 'a identidade natural de conteudo mudou de forma'::text;
+  end if;
+  if not exists (select 1 from pg_constraint
+                  where conname='tipo_de_perfil_declarado_exige_evidencia') then
+    faltando := faltando || 'CHECK tipo_de_perfil_declarado_exige_evidencia (016)'::text;
+  end if;
+  if not exists (select 1 from information_schema.views
+                  where table_schema='public' and table_name='v_human_sensor_admissivel') then
+    faltando := faltando || 'view v_human_sensor_admissivel (016)'::text;
+  end if;
+
+  -- 10 · O QUE A CONFERÊNCIA DE LOCALIZAÇÃO ACHOU (017). Duas colunas de
+  --      view, e é por elas que menção deixa de chegar como afirmação.
+  foreach t in array array['fact_sustentado_apenas_por_mencao',
+                           'fact_forca_da_sustentacao'] loop
+    if not exists (select 1 from information_schema.columns
+                    where table_schema='public' and table_name='v_conteudo_localizacao'
+                      and column_name=t) then
+      faltando := faltando || ('v_conteudo_localizacao.' || t || ' (017)')::text;
+    end if;
+  end loop;
+
   if array_length(faltando,1) is not null then
     raise exception E'O BANCO NAO BATE COM AS MIGRATIONS.\nFaltando:\n  %',
       array_to_string(faltando, E'\n  ');
   end if;
 
-  raise notice 'migrations 001-015 conferidas: % tabelas, travas, funcoes e RLS no lugar',
+  raise notice 'migrations 001-017 conferidas: % tabelas, travas, funcoes e RLS no lugar',
     array_length(esperadas,1);
 end $$;

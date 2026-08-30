@@ -210,14 +210,21 @@ CICATRIZES = [
                     'balde somava DOIS"',
   'WHY_IT_EXISTS': '"é a farmácia contar o estoque somando o que cada balconista diz ter '
                    'visto na prateleira"',
-  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
-  'OWNER': 'conteudo.obra_id e duplicata_de existem no schema (003)',
-  'EXECUTABLE_PROOF': ['obra_id', 'duplicata_de'],
-  'GAP': 'o schema sabe marcar duplicata e obra; nenhum caminho produtivo do EAME foi '
-         'medido contando obra_id distinto em vez de conteudo.id, porque ainda não há '
-         'coleta social em produção.',
-  'MINIMAL_ACTION': 'quando a primeira coleta social entrar, medir o mesmo número pelos '
-                    'dois caminhos e exigir que batam'},
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'conteudo_canal_id_content_id_key (003) — PLATFORM + EXTERNAL_ID via canal. '
+           'A 016 não criou trava nova: criou o caminho produtivo que passa por ela, '
+           'e conteudo_visto_em, onde a SEGUNDA vez que vimos o mesmo item é observação '
+           'e não conteúdo novo.',
+  'EXECUTABLE_PROOF': [
+      'test_G_zero_duplicata_viva_mesmo_com_item_repetido',
+      'test_bypassar_a_identidade_natural_reprova',
+      'D2 · rodada, token, dataset e captura ficam FORA da identidade',
+      'conteudo_visto_em'],
+  'GAP': 'a rodada anterior diagnosticou "falta a trava de identidade" e estava errada: '
+         'a trava existe desde a 003. O que faltava era o caminho produtivo provado '
+         'passando por ela — e a 016 chegou a criar um índice duplicado com as mesmas '
+         'colunas antes de o banco recusar a duplicata.',
+  'MINIMAL_ACTION': None},
 
  {'ID': 'BR-15', 'FAMILIA': 'IDENTIDADE',
   'BRAZIL_LESSON': 'REGISTRO != NOME; NOME REGULATÓRIO != PRODUTO COMERCIAL ATUAL',
@@ -233,16 +240,21 @@ CICATRIZES = [
                    'unidade analítica válida — 4.548 fichas, 4 provadas, 4.488 NÃO SEI',
   'ONDE_NO_BRASIL': 'CENSO-DA-IDENTIDADE-ANALITICA.md',
   'WHY_IT_EXISTS': 'um agregador contado como pessoa infla toda contagem de voz',
-  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
-  'OWNER': 'origem_e_pessoa_ou_organizacao (002) separa pessoa de organização; '
-           'conteudo.pessoa_declarada separa a voz do dono do canal',
-  'EXECUTABLE_PROOF': ['origem_e_pessoa_ou_organizacao', 'pessoa_declarada'],
-  'GAP': 'não existe um estado AGGREGATOR no EAME. Um canal institucional e uma pessoa '
-         'entram pelo mesmo caminho, e a distinção depende de a ficha de origem apontar '
-         'pessoa OU organização — o que é uma decisão de quem cadastra, não uma medição.',
-  'MINIMAL_ACTION': 'antes da HUMAN SENSOR LAYER coletar, medir quantas origens têm mais '
-                    'de um autor declarado sob a mesma ficha — o censo brasileiro fez '
-                    'isso contando autor_hash distintos, e a medida não é heurística'},
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'canal.tipo_de_perfil (016) com os cinco estados + evidência escrita '
+           'obrigatória, e v_human_sensor_admissivel, onde admissível exige as DUAS '
+           'condições: perfil lido como pessoa E ficha de origem apontando pessoa.',
+  'EXECUTABLE_PROOF': [
+      'S3 · agregador NÃO é sensor humano',
+      'S4 · resultado de busca NÃO é pessoa',
+      'S5 · desconhecido fica desconhecido',
+      'S6 · perfil de pessoa SEM ficha de pessoa não passa',
+      'tipo_de_perfil_declarado_exige_evidencia'],
+  'GAP': 'o tipo de perfil é LEITURA DECLARADA com evidência escrita, não medição '
+         'automática — e é assim de propósito: nenhuma classificação sai de volume, '
+         'contagem de seguidores ou heurística fraca. Sem evidência suficiente a linha '
+         'fica NOT_KNOWN, que é diferente de "não é pessoa".',
+  'MINIMAL_ACTION': None},
 
  {'ID': 'BR-17', 'FAMILIA': 'UNIDADE_ANALITICA',
   'BRAZIL_LESSON': 'um sinal que não pôde ser exercido é registrado como NÃO EXERCIDO, '
@@ -270,39 +282,52 @@ CICATRIZES = [
   'BRAZIL_LESSON': 'checkpoint durável ANTES do gasto — SEM_CHECKPOINT_NAO_GASTEI',
   'ONDE_NO_BRASIL': 'diario.abre/fecha → tabela coletas, e a guarda no CHAMADOR',
   'WHY_IT_EXISTS': 'sem checkpoint, um crash no meio faz pagar tudo de novo',
-  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
-  'OWNER': 'collection_run abre com status=rodando (001); o estado '
-           'SEM_CHECKPOINT_NAO_GASTEI existe em tentativa_de_coleta (015)',
-  'EXECUTABLE_PROOF': ['SEM_CHECKPOINT_NAO_GASTEI', 'collection_run'],
-  'GAP': 'o vocabulário existe e a GUARDA no chamador não. scripts/coletor.py chama o '
-         'ator sem exigir que a linha de collection_run já esteja aberta.',
-  'MINIMAL_ACTION': 'pôr a guarda em coletor.py antes da primeira coleta paga do EAME: '
-                    'sem linha aberta, não chama o ator'},
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'checkpoint_coleta (016) com os nove campos mínimos, e pode_gastar(), '
+           'chamada por scripts/coleta_checkpoint.py ANTES da primeira chamada paga. '
+           'A resposta padrão é NÃO, com motivo escrito.',
+  'EXECUTABLE_PROOF': [
+      'test_sem_checkpoint_nenhuma_chamada_paga_acontece',
+      'test_remover_a_guarda_deixa_a_chamada_paga_acontecer',
+      'K1 · sem linha aberta, pode_gastar diz não',
+      'JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES'],
+  'GAP': 'a guarda apareceu recusando TUDO na primeira execução, porque pode::text em '
+         'psql devolve "true"/"false" e o leitor esperava "t". Falhou fechada — a '
+         'direção certa — e ainda assim era defeito. Está corrigido e comentado.',
+  'MINIMAL_ACTION': None},
 
  {'ID': 'BR-20', 'FAMILIA': 'RESILIENCIA',
   'BRAZIL_LESSON': 'não pagar duas vezes — quem está concluída ou vazia não é perguntado '
                    'de novo',
   'ONDE_NO_BRASIL': 'CONCLUIDOS = ("concluida", "vazia")',
   'WHY_IT_EXISTS': 'refazer uma coleta já concluída é gasto puro',
-  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
-  'OWNER': 'run_status tem os estados; nenhum chamador do EAME os consulta antes de gastar',
-  'EXECUTABLE_PROOF': ['run_status'],
-  'GAP': 'os estados existem e a regra de não-repetir não está escrita em lugar nenhum '
-         'do caminho produtivo',
-  'MINIMAL_ACTION': 'mesma guarda do BR-19, no mesmo lugar'},
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'o progresso mora no BANCO — checkpoint_coleta.unidades_feitas / '
+           'itens_persistidos / ultima_unidade —, nunca na memória do processo. '
+           'PROCESS_CRASH != LOST_COLLECTION.',
+  'EXECUTABLE_PROOF': [
+      'test_A_a_H_o_ciclo_inteiro',
+      'K5 · o progresso persistido é campo de banco',
+      'PROCESS_CRASH'],
+  'GAP': None, 'MINIMAL_ACTION': None},
 
  {'ID': 'BR-21', 'FAMILIA': 'RESILIENCIA',
   'BRAZIL_LESSON': 'TOKEN_EXHAUSTED != COLLECTION_LOST — e o token nunca entra na identidade',
   'ONDE_NO_BRASIL': 'LEDGER-DAS-20-CHAVES.md',
   'WHY_IT_EXISTS': 'acabar a chave no meio não pode apagar o que já voltou',
-  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
-  'OWNER': 'coletor.py nunca grava o token no manifesto, e trata "free user run limit" '
-           'como PARTIAL em vez de SUCCESS',
-  'EXECUTABLE_PROOF': ['free user run limit'],
-  'GAP': 'não existe pool de chaves nem retomada: uma chave esgotada interrompe a rodada '
-         'e o que já voltou depende do raw ter sido salvo antes.',
-  'MINIMAL_ACTION': 'salvar o bruto por lote, não no fim; e declarar o pool de chaves '
-                    'como dado antes de usá-lo'},
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'scripts/apify_pool.py, PORTADO da Itália sem segunda implementação, sob '
+           'scripts/coleta_checkpoint.py. Token esgota -> parcial preservado -> '
+           'checkpoint -> próxima chave -> retomada. UNKNOWN_FAILURE não rotaciona, '
+           'para que uma falha não-identificada não queime o pool inteiro.',
+  'EXECUTABLE_PROOF': [
+      'test_token_esgotado_rotaciona_e_retoma_a_mesma_unidade',
+      'test_falha_desconhecida_nao_queima_o_pool',
+      'test_token_run_dataset_e_captura_sao_recusados',
+      'TOKEN_EXHAUSTED'],
+  'GAP': 'o pool é RESILIÊNCIA, não aumento de volume: o teto de itens continua sendo o '
+         'do alvo, e trocar de chave não amplia o que se coleta.',
+  'MINIMAL_ACTION': None},
 
  {'ID': 'BR-22', 'FAMILIA': 'TEMPO',
   'BRAZIL_LESSON': 'MEDIDO ONTEM != MEDIDO HOJE',
@@ -342,6 +367,159 @@ CICATRIZES = [
   'OWNER': 'LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED != NOT_REGISTERED, nos 12 produtos',
   'EXECUTABLE_PROOF': ['test_ausencia_no_registro_nunca_vira_nao_registrado',
                        'LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED'],
+  'GAP': None, 'MINIMAL_ACTION': None},
+
+ # ── A CONFERÊNCIA · dez cicatrizes de localização mais novas ─────────
+ # A rodada anterior marcou LOCATION_CONTRACT_COMPLETE = YES. Estas dez
+ # foram passadas por cima do contrato já fechado, uma a uma. Ele NÃO
+ # passou inteiro: quatro passaram, duas produziam resposta errada e foram
+ # consertadas na 017, e quatro são falta de modelagem e ficam ABERTAS.
+ # Marcar as quatro como PROVED aqui seria mover a régua para conseguir
+ # READY, que é exatamente o que a missão proíbe.
+
+ {'ID': 'BR-26', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'BASE != OPERATING != INFLUENCE != FACT — onde alguém está sediado, '
+                   'onde atua, até onde sua fala alcança e onde o fato aconteceu são '
+                   'quatro perguntas',
+  'ONDE_NO_BRASIL': 'a separação exigida entre a praça do autor e a praça do documento',
+  'WHY_IT_EXISTS': 'colapsar as quatro faz a sede do autor virar mapa de ocorrência',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
+  'OWNER': 'conteudo.source_geografia_id e conteudo.fact_geografia_id (003) separam '
+           'DUAS das quatro: a praça da fonte e a praça do fato.',
+  'EXECUTABLE_PROOF': ['C7 · lacuna A continua aberta e DECLARADA'],
+  'GAP': 'BASE, OPERATING e INFLUENCE colapsam todos em source_geografia_id. O EAME '
+         'sabe dizer "de onde veio o documento" e "onde foi o fato", e não sabe dizer '
+         'onde a pessoa atua nem até onde ela alcança.',
+  'MINIMAL_ACTION': 'quando a HUMAN SENSOR LAYER coletar, os três eixos precisam nascer '
+                    'como linhas de uma tabela pessoa_geografia com PAPEL declarado — '
+                    'nunca como colunas novas em conteudo'},
+
+ {'ID': 'BR-27', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'PLACE_MENTION != FACT_LOCATION — o nome do lugar aparecer no texto '
+                   'não é o texto afirmar que o fato foi ali',
+  'ONDE_NO_BRASIL': 'o balde `citado`, descrito como filtro de leitura e nunca fonte nova',
+  'WHY_IT_EXISTS': 'menção virando afirmação é como a praça errada entra sem ninguém mentir',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'v_conteudo_localizacao.fact_forca_da_sustentacao e '
+           'fact_sustentado_apenas_por_mencao (017); f_relevancia_ao_caso rebaixa '
+           'lugar CITADO a CONTEXT_ONLY.',
+  'EXECUTABLE_PROOF': ['C4 · lugar do fato só MENCIONADO não é sinal exato',
+                       'C5 · a menção aparece na visão, em vez de passar despercebida',
+                       'fact_sustentado_apenas_por_mencao'],
+  'GAP': 'a conferência achou o EAME se contradizendo: a 015 ESCREVIA que CITADO é o '
+         'balde mais fraco e a trava deixava CITADO sustentar o fato sozinho, sem que '
+         'nada a jusante soubesse. CITADO continua registrável — mencionado e '
+         'não-medido são respostas diferentes — e deixou de passar despercebido.',
+  'MINIMAL_ACTION': None},
+
+ {'ID': 'BR-28', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'o lugar do fato exige EVIDÊNCIA ESPECÍFICA, não um campo preenchido',
+  'ONDE_NO_BRASIL': 'documentos.local_do_fato_evidencia',
+  'WHY_IT_EXISTS': 'um lugar sem o trecho que o sustenta não é auditável depois',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'constraint local_do_fato_diz_como_se_soube (015): lugar do fato exige '
+           'origem E evidência escrita, as duas',
+  'EXECUTABLE_PROOF': ['local_do_fato_diz_como_se_soube',
+                       'E · todo lugar do fato carrega COMO se soube'],
+  'GAP': None, 'MINIMAL_ACTION': None},
+
+ {'ID': 'BR-29', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'a proveniência é do VALOR, não do registro — cada lugar carrega '
+                   'como AQUELE lugar se soube',
+  'ONDE_NO_BRASIL': 'local_do_fato_origem por documento, não por lote de importação',
+  'WHY_IT_EXISTS': 'proveniência de lote perde qual valor veio de onde',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'fact_geografia_origem e fact_geografia_evidencia são colunas do CONTEÚDO, '
+           'ao lado do valor que sustentam',
+  'EXECUTABLE_PROOF': ['fact_geografia_origem', 'fact_geografia_evidencia'],
+  'GAP': None, 'MINIMAL_ACTION': None},
+
+ {'ID': 'BR-30', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'um conteúdo tem 0..N lugares de fato, não 0..1',
+  'ONDE_NO_BRASIL': 'um documento que relata ocorrência em duas regiões ao mesmo tempo',
+  'WHY_IT_EXISTS': 'forçar um lugar só faz escolher um e apagar o resto, em silêncio',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'ABSENT',
+  'OWNER': None,
+  'EXECUTABLE_PROOF': ['C8 · lacuna E continua aberta e DECLARADA'],
+  'GAP': 'conteudo.fact_geografia_id é UMA coluna bigint. Um documento que relata '
+         'ocorrência na Toscana E na Puglia não é representável, e hoje isso não '
+         'aparece como perda: aparece como um lugar só.',
+  'MINIMAL_ACTION': 'conteudo_fact_geografia (conteudo_id, geografia_id, origem, '
+                    'evidencia) antes da primeira coleta que produza documentos '
+                    'multirregionais — não antes da importação do catálogo espanhol, '
+                    'que é registro e não ocorrência'},
+
+ {'ID': 'BR-31', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'GEO_PRECISION é dado: país, região, província, município, ponto',
+  'ONDE_NO_BRASIL': 'a escada de precisão declarada por registro',
+  'WHY_IT_EXISTS': 'somar precisões diferentes no mesmo mapa produz número que não existe',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
+  'OWNER': 'precisao_da_geografia() (015) devolve PAIS / REGIAO / PROVINCIA / NOT_KNOWN, '
+           'derivada da linha e nunca assumida',
+  'EXECUTABLE_PROOF': ['precisao_da_geografia', 'C · o fato nomeia a província'],
+  'GAP': 'a escada existe e PARA em PROVINCIA. Não há município, talhão nem coordenada, '
+         'e não há nível supranacional. Para o calendário agronômico ES/IT isso basta; '
+         'para ocorrência de campo não vai bastar.',
+  'MINIMAL_ACTION': 'estender geografia com municipio antes da primeira observação de '
+                    'campo — e nunca deixar precisão ser inferida do texto'},
+
+ {'ID': 'BR-32', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'TERRITORIAL_LIST != FACT_LIST — uma lista de territórios num rótulo '
+                   'não é uma lista de lugares onde o fato aconteceu',
+  'ONDE_NO_BRASIL': 'a lista de espectro do rótulo lida como ocorrência',
+  'WHY_IT_EXISTS': 'a lista do rótulo é a maior fábrica de falso positivo que o Brasil teve',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
+  'OWNER': 'conteudo_crop_issue.relacao = ESPECTRO_DE_PRODUTO (015) faz a guarda no eixo '
+           'do PRODUTO: lista de rótulo vira CONTEXT_ONLY, nunca ocorrência.',
+  'EXECUTABLE_PROOF': ['ESPECTRO_DE_PRODUTO',
+                       'lista de rótulo é espectro de produto, não ocorrência observada'],
+  'GAP': 'a guarda equivalente no eixo da GEOGRAFIA não existe. Uma lista de "regiões '
+         'onde X está registrado" não tem como se declarar lista territorial, e cada '
+         'região dela seria lida como lugar de fato como qualquer outra.',
+  'MINIMAL_ACTION': 'um estado LISTA_TERRITORIAL na origem do lugar do fato, na mesma '
+                    'coluna que já diz COMO se soube — não uma tabela nova'},
+
+ {'ID': 'BR-33', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'OCCURRENCE != INCIDENCE — houve não é quanto',
+  'ONDE_NO_BRASIL': 'a exigência de denominador em toda razão publicada',
+  'WHY_IT_EXISTS': 'uma ocorrência contada como incidência inventa magnitude',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'são DUAS tabelas: conteudo_crop_issue.relacao = OCORRENCIA_DECLARADA diz '
+           'que houve; observacao, com base_denominador NOT NULL, diz quanto.',
+  'EXECUTABLE_PROOF': ['OCORRENCIA_DECLARADA', 'base_denominador',
+                       'observacao guarda valor com denominador'],
+  'GAP': None, 'MINIMAL_ACTION': None},
+
+ {'ID': 'BR-34', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'PUBLISHED_AT != FACT_TIME — quando saiu não é quando aconteceu',
+  'ONDE_NO_BRASIL': 'a separação entre data da publicação e data do fato',
+  'WHY_IT_EXISTS': 'usar a data de publicação como data do fato descarta o retrospectivo '
+                   'e envelhece o recente',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PARTIAL',
+  'OWNER': 'f_relevancia_ao_caso (017): publicado ANTES da janela é RETROSPECTIVE, '
+           'porque documento não relata o futuro; publicado DEPOIS é CONTEXT_ONLY, '
+           'porque sem tempo do fato a publicação não desqualifica nada.',
+  'EXECUTABLE_PROOF': ['C1 · publicado DEPOIS da janela não vira UNRELATED',
+                       'C2 · publicado ANTES da janela continua RETROSPECTIVE',
+                       'C3 · dentro da janela, o sinal exato continua exato'],
+  'GAP': 'a 015 devolvia UNRELATED para quem publicou depois do fim da janela, tratando '
+         'publicação como fato. Era defeito meu, e está corrigido. O que continua '
+         'faltando é o TEMPO DO FATO como campo: o EAME não tem onde guardar "o fato '
+         'aconteceu em junho" separado de "o texto saiu em setembro", e por isso a '
+         'janela do caso ainda é decidida pela única data que existe.',
+  'MINIMAL_ACTION': 'fact_tempo + fact_tempo_resolucao em conteudo, reusando o '
+                    'vocabulário de resolução temporal que a 009 já tem — junto com a '
+                    'primeira coleta de ocorrência, não antes'},
+
+ {'ID': 'BR-35', 'FAMILIA': 'LOCALIZACAO_CONFERENCIA',
+  'BRAZIL_LESSON': 'a etiqueta de lugar da plataforma não é o lugar do fato',
+  'ONDE_NO_BRASIL': 'a praça cadastrada do canal carimbando o documento',
+  'WHY_IT_EXISTS': 'é a cicatriz de origem: metadado da plataforma virando medição de campo',
+  'EAME_APPLICABLE': 'YES', 'EAME_STATUS': 'PROVED',
+  'OWNER': 'constraint local_da_fonte_nao_sustenta_local_do_fato (015): DA_FONTE existe '
+           'no vocabulário para poder ser DITO e é recusado como sustentação.',
+  'EXECUTABLE_PROOF': ['local_da_fonte_nao_sustenta_local_do_fato',
+                       'E2 · o lugar da FONTE não sustenta o lugar do FATO'],
   'GAP': None, 'MINIMAL_ACTION': None},
 ]
 

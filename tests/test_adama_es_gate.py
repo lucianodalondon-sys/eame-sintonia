@@ -311,14 +311,29 @@ class TestOEnsaioNaoEImportacao(unittest.TestCase):
         self.assertFalse([f for f in mig if 'ADAMA' in f.upper() or 'ENSAIO' in f.upper()],
                          'ensaio virou migration — isso seria importacao')
 
+    # As migrations 001-012 sao a fundacao. Tudo depois delas entrou por causa de
+    # um defeito MEDIDO, e o defeito tem de estar escrito no proprio arquivo.
+    # A primeira versao deste teste exigia `len(mig) == 14`, o que obrigava a
+    # subir o numero a cada rodada — mover a regua em vez de exercer a lei. O
+    # que importa nao e QUANTAS migrations existem: e que nenhuma nova exista
+    # sem o defeito que a justifica.
+    FUNDACAO = 12
+    DEFEITO_MEDIDO = {
+        '013_captura_nao_e_registro.sql': 'CAPTURE != REGISTRATION',
+        '015_cicatrizes_do_brasil.sql': 'praca',
+        '016_checkpoint_e_unidade_analitica.sql': 'SEM_CHECKPOINT_NAO_GASTEI',
+        '017_o_que_a_conferencia_de_localizacao_achou.sql': 'PUBLISHED_AT != FACT_TIME',
+    }
+
     def test_a_unica_migration_nova_tem_incompatibilidade_provada(self):
-        """Migration nova so entra com defeito MEDIDO. A 013 tem o dele."""
+        """Migration nova so entra com defeito MEDIDO, escrito no arquivo."""
         mig = sorted(f for f in os.listdir(os.path.join(RAIZ, 'supabase', 'migrations'))
                      if f.endswith('.sql'))
-        self.assertEqual(14, len(mig), 'migrations: %s' % mig)
+        novas = [f for f in mig if int(f[:3]) > self.FUNDACAO]
+        self.assertEqual(sorted(self.DEFEITO_MEDIDO), novas,
+                         'migration nova sem defeito declarado neste teste: %s' % novas)
         self.assertIn('013_captura_nao_e_registro.sql', mig)
-        for nome, marca in (('013_captura_nao_e_registro.sql', 'CAPTURE != REGISTRATION'),
-                            ('015_cicatrizes_do_brasil.sql', 'praca')):
+        for nome, marca in self.DEFEITO_MEDIDO.items():
             with open(os.path.join(RAIZ, 'supabase', 'migrations', nome),
                       encoding='utf-8') as f:
                 texto = f.read()
