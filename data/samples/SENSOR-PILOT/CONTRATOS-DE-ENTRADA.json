@@ -12,44 +12,249 @@
   {
    "LABEL": "LINKEDIN_SEARCH_BY_NAME",
    "ACTOR": "harvestapi~linkedin-profile-search-by-name",
-   "STATE": "NOT_REACHED",
-   "REASON": "TypeError: _curl() got an unexpected keyword argument 'tentativas'"
+   "STATE": "AVAILABLE",
+   "OWNER": "harvestapi",
+   "NAME": "linkedin-profile-search-by-name",
+   "INPUT_FIELDS": [
+    "currentCompanies",
+    "currentJobTitles",
+    "firstName",
+    "industryIds",
+    "lastName",
+    "locations",
+    "maxItems",
+    "maxPages",
+    "pastCompanies",
+    "profileScraperMode",
+    "schools",
+    "strictSearch"
+   ],
+   "PREFILL": {
+    "currentCompanies": [
+     "https://www.linkedin.com/company/microsoft",
+     "https://www.linkedin.com/company/google"
+    ],
+    "currentJobTitles": null,
+    "firstName": "Satya",
+    "industryIds": null,
+    "lastName": "Nadella",
+    "locations": [
+     "Redmond Washington",
+     "California"
+    ],
+    "maxItems": null,
+    "maxPages": 1,
+    "pastCompanies": null,
+    "profileScraperMode": "Full",
+    "schools": null,
+    "strictSearch": true
+   }
   },
   {
    "LABEL": "LINKEDIN_PROFILE_SEARCH",
    "ACTOR": "harvestapi~linkedin-profile-search",
-   "STATE": "NOT_REACHED",
-   "REASON": "TypeError: _curl() got an unexpected keyword argument 'tentativas'"
+   "STATE": "AVAILABLE",
+   "OWNER": "harvestapi",
+   "NAME": "linkedin-profile-search",
+   "INPUT_FIELDS": [
+    "autoQuerySegmentation",
+    "autoQuerySegmentationLevels",
+    "autoQuerySegmentationTargetCountries",
+    "companyHeadcount",
+    "companyHeadquarterLocations",
+    "currentCompanies",
+    "currentJobTitles",
+    "excludeCompanyHeadquarterLocations",
+    "excludeCurrentCompanies",
+    "excludeCurrentJobTitles",
+    "excludeFunctionIds",
+    "excludeIndustryIds",
+    "excludeLocations",
+    "excludePastCompanies",
+    "excludePastJobTitles",
+    "excludeSchools",
+    "excludeSeniorityLevelIds",
+    "firstNames",
+    "functionIds",
+    "industryIds",
+    "lastNames",
+    "locations",
+    "maxItems",
+    "mongoDbConnectionString",
+    "mongoDbDatabaseName",
+    "pastCompanies",
+    "pastJobTitles",
+    "postFilteringMongoDbAggregation",
+    "postFilteringMongoDbQuery",
+    "profileDeduplicationMode",
+    "profileLanguages",
+    "profileScraperMode",
+    "recentlyChangedJobs",
+    "recentlyPostedOnLinkedIn",
+    "schools",
+    "searchQuery",
+    "seniorityLevelIds",
+    "startPage",
+    "takePages",
+    "yearsAtCurrentCompanyIds",
+    "yearsOfExperienceIds"
+   ],
+   "PREFILL": {
+    "autoQuerySegmentation": null,
+    "autoQuerySegmentationLevels": null,
+    "autoQuerySegmentationTargetCountries": null,
+    "companyHeadcount": null,
+    "companyHeadquarterLocations": null,
+    "currentCompanies": null,
+    "currentJobTitles": null,
+    "excludeCompanyHeadquarterLocations": null,
+    "excludeCurrentCompanies": null,
+    "excludeCurrentJobTitles": null,
+    "excludeFunctionIds": null,
+    "excludeIndustryIds": null,
+    "excludeLocations": null,
+    "excludePastCompanies": null,
+    "excludePastJobTitles": null,
+    "excludeSchools": null,
+    "excludeSeniorityLevelIds": null,
+    "firstNames": null,
+    "functionIds": null,
+    "industryIds": null,
+    "lastNames": null,
+    "locations": null,
+    "maxItems": 20,
+    "mongoDbConnectionString": null,
+    "mongoDbDatabaseName": null,
+    "pastCompanies": null,
+    "pastJobTitles": null,
+    "postFilteringMongoDbAggregation": null,
+    "postFilteringMongoDbQuery": null,
+    "profileDeduplicationMode": null,
+    "profileLanguages": null,
+    "profileScraperMode": "Full",
+    "recentlyChangedJobs": null,
+    "recentlyPostedOnLinkedIn": null,
+    "schools": null,
+    "searchQuery": null,
+    "seniorityLevelIds": null,
+    "startPage": 1,
+    "takePages": null,
+    "yearsAtCurrentCompanyIds": null,
+    "yearsOfExperienceIds": null
+   }
   },
   {
    "LABEL": "LINKEDIN_PROFILE",
    "ACTOR": "harvestapi~linkedin-profile-scraper",
-   "STATE": "NOT_REACHED",
-   "REASON": "TypeError: _curl() got an unexpected keyword argument 'tentativas'"
+   "STATE": "AVAILABLE",
+   "OWNER": "harvestapi",
+   "NAME": "linkedin-profile-scraper",
+   "INPUT_FIELDS": [
+    "profileIds",
+    "profileScraperMode",
+    "publicIdentifiers",
+    "queries",
+    "urls"
+   ],
+   "PREFILL": {
+    "profileIds": null,
+    "profileScraperMode": "Profile details no email ($4 per 1k)",
+    "publicIdentifiers": null,
+    "queries": [
+     "https://www.linkedin.com/in/williamhgates",
+     "https://www.linkedin.com/in/towhid-rahman"
+    ],
+    "urls": null
+   }
   },
   {
    "LABEL": "LINKEDIN_POSTS",
    "ACTOR": "harvestapi~linkedin-post-search",
-   "STATE": "NOT_REACHED",
-   "REASON": "TypeError: _curl() got an unexpected keyword argument 'tentativas'"
+   "STATE": "AVAILABLE",
+   "OWNER": "harvestapi",
+   "NAME": "linkedin-post-search",
+   "INPUT_FIELDS": [
+    "authorKeywords",
+    "authorUrls",
+    "authorsCompanies",
+    "authorsIndustryId",
+    "commentsPostedLimit",
+    "commentsProfileScraperMode",
+    "contentType",
+    "maxComments",
+    "maxPosts",
+    "maxReactions",
+    "mentioningCompany",
+    "mentioningMember",
+    "postNestedComments",
+    "postNestedReactions",
+    "postedLimit",
+    "postedLimitDate",
+    "profileScraperMode",
+    "reactionsProfileScraperMode",
+    "scrapeComments",
+    "scrapePages",
+    "scrapeReactions",
+    "searchQueries",
+    "sortBy",
+    "startPage"
+   ],
+   "PREFILL": {
+    "authorKeywords": null,
+    "authorUrls": null,
+    "authorsCompanies": null,
+    "authorsIndustryId": null,
+    "commentsPostedLimit": null,
+    "commentsProfileScraperMode": "short",
+    "contentType": null,
+    "maxComments": null,
+    "maxPosts": 20,
+    "maxReactions": null,
+    "mentioningCompany": null,
+    "mentioningMember": null,
+    "postNestedComments": false,
+    "postNestedReactions": false,
+    "postedLimit": null,
+    "postedLimitDate": null,
+    "profileScraperMode": "short",
+    "reactionsProfileScraperMode": "short",
+    "scrapeComments": false,
+    "scrapePages": null,
+    "scrapeReactions": false,
+    "searchQueries": [
+     "b2b sales"
+    ],
+    "sortBy": null,
+    "startPage": 1
+   }
   },
   {
    "LABEL": "YOUTUBE_SEARCH",
    "ACTOR": "streamers~youtube-scraper",
-   "STATE": "NOT_REACHED",
-   "REASON": "TypeError: _curl() got an unexpected keyword argument 'tentativas'"
+   "STATE": "AVAILABLE",
+   "OWNER": "streamers",
+   "NAME": "youtube-scraper",
+   "INPUT_FIELDS": [
+    "LEITURA_DO_SCHEMA_FALHOU: TypeError"
+   ],
+   "PREFILL": {}
   },
   {
    "LABEL": "YOUTUBE_TRANSCRIPT",
    "ACTOR": "pintostudio~youtube-transcript-scraper",
    "STATE": "NOT_REACHED",
-   "REASON": "TypeError: _curl() got an unexpected keyword argument 'tentativas'"
+   "REASON": "TypeError: the JSON object must be str, bytes or bytearray, not NoneType"
   },
   {
    "LABEL": "YOUTUBE_COMMENTS",
    "ACTOR": "streamers~youtube-comments-scraper",
-   "STATE": "NOT_REACHED",
-   "REASON": "TypeError: _curl() got an unexpected keyword argument 'tentativas'"
+   "STATE": "AVAILABLE",
+   "OWNER": "streamers",
+   "NAME": "youtube-comments-scraper",
+   "INPUT_FIELDS": [
+    "LEITURA_DO_SCHEMA_FALHOU: TypeError"
+   ],
+   "PREFILL": {}
   }
  ]
 }
