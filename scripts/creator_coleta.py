@@ -871,6 +871,14 @@ def conteudo():
 # chama-se "La Chaine Agricole". Inferir endereco de canal e o mesmo erro que
 # inferir handle de pessoa.
 CANAIS_FR = [
+    # §2 · RESOLVIDO POR FONTE, nao inferido. A primeira versao desta missao
+    # escreveu "youtube.com/@DavidForge" a partir do nome da pessoa; o canal
+    # chama-se "Chaine Agricole". NOME DA PESSOA != NOME DO CANAL.
+    dict(creator_id='FR-CR-005', nome='David Forge',
+         url='https://www.youtube.com/channel/UC3l2JpG0vN8xMkvvfCwavcQ',
+         handle='@chaineagricole',
+         fonte='canal oficial "Chaine Agricole" nomeado em resultado de busca, com '
+               'channel id; canal secundario "David Forge, les Bonus" tambem existe'),
     dict(creator_id='FR-CR-006', nome='Gilles Van Kempen',
          url='https://www.youtube.com/channel/UCo4pMCeqy3BIuVo82bJxWbg',
          handle='@gillesvk',
