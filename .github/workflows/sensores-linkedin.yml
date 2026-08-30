@@ -1,0 +1,85 @@
+# Coleta manual da camada de sensores humanos no LinkedIn.
+#
+# workflow_dispatch de proposito: NAO ha cron. Coleta paga so acontece quando
+# alguem decide que ha missao, nunca por relogio.
+#
+# A secret APIFY_TOKEN_POOL traz VARIAS chaves, uma por linha. O pool existe
+# para RESILIENCIA — sobreviver a uma chave que esgota no meio da coleta —,
+# nunca para volume: o teto continua 8 perfis / 80 posts com qualquer numero
+# de chaves.
+name: sensores-linkedin
+
+on:
+  workflow_dispatch:
+    inputs:
+      censo_apenas:
+        description: 'so contar as chaves, sem gastar nada'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Mascara cada chave INDIVIDUALMENTE antes de qualquer execucao. Sem isto
+      # o Actions so mascara o valor inteiro da secret, e uma chave sozinha
+      # aparecendo num traceback sairia em claro no log.
+      - name: mascarar cada chave do pool
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: |
+          python3 - <<'PY' > /tmp/mask.txt
+          import os, re
+          v = os.environ.get('APIFY_TOKEN_POOL', '')
+          ks = [k for k in re.split(r'[,;\s]+', v) if k.strip()]
+          for k in ks:
+              print(k)
+          PY
+          while IFS= read -r k; do
+            [ -n "$k" ] && echo "::add-mask::$k"
+          done < /tmp/mask.txt
+          rm -f /tmp/mask.txt
+          echo "mascaramento aplicado"
+
+      - name: censo do pool (nao gasta nada)
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/apify_pool.py
+
+      - name: provas do pool com chave falsa
+        run: python3 -m unittest tests.test_apify_pool -v 2>&1 | tail -20
+
+      - name: coleta LinkedIn
+        if: ${{ inputs.censo_apenas == false }}
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/linkedin_sensores.py
+
+      - name: resultado sem segredo
+        if: ${{ always() && inputs.censo_apenas == false }}
+        run: |
+          f=data/samples/IT-CASOS/IT-LINKEDIN-SENSOR-RUN.json
+          if [ -f "$f" ]; then
+            if grep -qE 'apify_api_[A-Za-z0-9]{10,}' "$f"; then
+              echo "ABORTADO: token no artefato"; exit 1
+            fi
+            cat "$f"
+          else
+            echo "sem artefato"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() && inputs.censo_apenas == false }}
+        with:
+          name: linkedin-sensor-run
+          path: data/samples/IT-CASOS/IT-LINKEDIN-SENSOR-RUN.json
+          if-no-files-found: ignore
