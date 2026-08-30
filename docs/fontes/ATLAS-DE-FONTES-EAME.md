@@ -334,10 +334,58 @@ EVIDENCE:                     data/samples/IT-T4-001/
 VERDICT:                      GREEN
 ```
 
-**Limitação importante:** este arquivo **não traz cultura nem alvo**. Cultura e alvo estão no
-rótulo (etichetta) de cada produto, que não faz parte deste dataset. Portanto a Itália
-**não** sustenta hoje o mesmo cruzamento cultura × alvo que a França sustenta. O que a Itália
-dá, e a França não dá, é a **data de vencimento por autorização**.
+**Limitação do ARQUIVO, e a conclusão que ela NÃO sustenta mais.** Este arquivo **não traz
+cultura nem alvo** — isso continua verdadeiro. A frase que vinha depois, porém, foi
+**derrubada por medição em 2026-08-30**: dizia-se que *"a Itália não sustenta hoje o mesmo
+cruzamento cultura × alvo que a França sustenta"*, e sustenta.
+
+O rótulo (etichetta) de cada produto **é publicado pelo mesmo Ministério** e traz
+`Coltura × Patogeno × Dose × Volumi × Intervallo × N° max applicazioni`, mais a data do
+rótulo. O dado existia; faltava a rota, e a rota está em `scripts/italia_etichette.py` —
+ficha `IT-T4-001-ETICHETTA` abaixo. **A limitação era do dataset, não do país.**
+
+O que a Itália dá e a França não dá continua valendo: a **data de vencimento por
+autorização**.
+
+#### IT-T4-001-ETICHETTA · Ministero della Salute — etichetta autorizzata
+
+```
+SOURCE_ID:                    IT-T4-001-ETICHETTA
+SOURCE_OWNER:                 Ministero della Salute (Italia)
+COUNTRY:                      ITALY
+TERRITORY:                    T4 (alimenta T3 e T9)
+ACCESS_METHOD:                POST FitosanitariServlet ACTION=cercaProdotti
+                              NUMERO_REGISTRAZIONE=<reg com zeros à esquerda>
+                              -> HTML traz EtichettaServlet?id=<ID_INTERNO>
+                              -> GET dessa URL devolve o PDF
+CROPS:                        SIM — é justamente o que o CSV não tem
+TOPICS:                       cultura, alvo com nome científico, dose, volume,
+                              intervalo entre tratamentos, nº máx. de aplicações,
+                              intervalo de segurança, grupo HRAC/FRAC/IRAC
+PUBLICATION_DATE_AVAILABLE:   SIM — a data vem no nome do arquivo servido
+                              (`15232_etichettaCLP_29042022.pdf`)
+AUTOMATION_FEASIBILITY:       MÉDIA — ver os três defeitos da fonte abaixo
+LEGAL_OR_ACCESS_RISK:         BAIXO — documento oficial público
+REAL_EXAMPLE:                 CUSTODIA ULTRA (reg. 015232), rótulo de 29/04/2022:
+                              tabela com grano tenero/duro, orzo, cetriolo, melone,
+                              pomodoro, vite e alvos (Fusarium, Erysiphe, Puccinia,
+                              Septoria, Uncinula) com dose e nº de aplicações.
+EVIDENCE:                     data/samples/IT-T4-001/IT-T4-001-etichette-manifest.json
+VERDICT:                      GREEN COM RESSALVAS OPERACIONAIS
+```
+
+**Três defeitos DA FONTE, medidos. São ficha de saúde, não motivo de abandono:**
+
+1. **Cadeia TLS incompleta** — o host envia só a folha, sem o intermediário
+   `TI Trust Technologies OV CA`. `curl` recusa, e recusa com razão. A correção **não** é
+   desligar verificação: é buscar o intermediário no campo AIA do próprio certificado.
+2. **Cabeçalho `Public-Key-Pins` malformado** (linha partida, sem `:`) — `curl` aborta com
+   *Header without colon*; o parser do Python tolera. A rota é Python por medição.
+3. **Uma busca por sessão** — reusar o `JSESSIONID` devolve **vazio**, não erro. Vazio de
+   estrangulamento é indistinguível de vazio de inexistência. Sessão nova por consulta,
+   com retentativa: `NO_LABEL_LINK` só se publica depois de esgotadas as tentativas, e
+   **nunca** significa "o rótulo não existe" — na primeira passada 14 registros ficaram
+   sem rótulo e a maioria foi recuperada **só por esperar mais**.
 
 ---
 

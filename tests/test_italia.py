@@ -86,6 +86,22 @@ class TestRotulo(unittest.TestCase):
         self.assertIn('Erysiphe spp.', got)
         self.assertIn('Septoria tritici', got)
 
+    def test_ordem_invertida_tambem_e_alvo(self):
+        """`Ostrinia nubilialis (piralide)` — a etichetta usa as DUAS ordens.
+
+        COSAYR 200 SC, o registro de milho mais novo do portfolio, lista os alvos
+        so nesta ordem. Com so a ordem vernaculo->binomio, aquele rotulo devolvia
+        ZERO alvos, e o vazio parecia ausencia quando era cegueira do parser.
+        """
+        got = {a['SCIENTIFIC_NAME']: a['ISSUE_VERNACULAR_IT']
+               for a in rp.alvos('Ostrinia nubilialis (piralide), Sesamia spp. (sesamia)')}
+        self.assertEqual(got.get('Ostrinia nubilialis'), 'piralide')
+        self.assertIn('Sesamia spp.', got)
+
+    def test_ordem_invertida_nao_inventa_alvo(self):
+        """Parenteses com texto qualquer nao vira alvo so por vir depois de duas palavras."""
+        self.assertEqual(rp.alvos('Distribuito da Syngenta Italia (Milano)'), [])
+
     def test_secao_nao_vira_alvo(self):
         self.assertEqual(rp.alvos('Composizione (Azoxystrobin puro)'), [])
 

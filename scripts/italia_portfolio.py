@@ -62,10 +62,54 @@ def analisar_todos():
             'EXPIRY': m.get('EXPIRY'), 'STATUS': m.get('STATUS'),
             'LABEL_DATE': m.get('LABEL_DATE'), 'LABEL_URL': m.get('LABEL_URL'),
             'EXTRACTION_STATE': r['EXTRACTION_STATE'],
-            'CROP_TERMS_PRESENT': sorted(r['CROP_TERMS_PRESENT']),
+            # Só entra como presença quem tem contexto de USO. Quem só aparece em
+            # cláusula de sucessão vai para outro campo e NUNCA se soma ao primeiro.
+            'CROP_TERMS_PRESENT': sorted(c for c, d in r['CROP_TERMS_PRESENT'].items()
+                                         if d['STATE'] == 'CROP_TERM_PRESENT'),
+            'CROP_TERMS_ROTATION_ONLY': sorted(c for c, d in r['CROP_TERMS_PRESENT'].items()
+                                               if d['STATE'] == 'ROTATION_CONTEXT_ONLY'),
+            'MODE_OF_ACTION_DECLARED': r['MODE_OF_ACTION_DECLARED'],
+            'MODE_OF_ACTION_EXTRACTION': r['MODE_OF_ACTION_EXTRACTION'],
+            'CATEGORY_REGULATORY': (m.get('CATEGORY') or ''),
             'ISSUES_FROM_SOURCE': r['ISSUES_FROM_SOURCE'],
         })
     return produtos, falhas
+
+
+def artefato():
+    """Escreve o gêmeo REGULATÓRIO do portfólio italiano. Não é o gêmeo do site."""
+    import datetime
+    produtos, falhas = analisar_todos()
+    pc = por_cultura(produtos)
+    moa = {}
+    for p in produtos:
+        for esq, gs in (p.get('MODE_OF_ACTION_DECLARED') or {}).items():
+            for g in gs:
+                moa['%s %s' % (esq, g)] = moa.get('%s %s' % (esq, g), 0) + 1
+    d = json.load(open(MANIFESTO, encoding='utf-8')) if os.path.exists(MANIFESTO) else {}
+    out = {
+        'COUNTRY': 'IT', 'SOURCE_ID': 'IT-T4-001-ETICHETTA',
+        'CAPTURED_AT': datetime.date.today().isoformat(),
+        'EVIDENCE_CLASS': 'REGULATORY_FACT',
+        'WHAT_THIS_IS': ('Gêmeo REGULATÓRIO do portfólio ADAMA italiano, lido no rótulo '
+                         'autorizado. NÃO é o gêmeo do site do fabricante: adama.com '
+                         'devolve 403 a este ambiente e a camada de afirmação comercial '
+                         'continua NOT_COLLECTED.'),
+        'LABEL_COVERAGE': {'TARGET': d.get('TARGET_TOTAL'), 'OBTAINED': d.get('LABELS_OBTAINED'),
+                           'PCT': d.get('COVERAGE_PCT'), 'STATE': d.get('STATE')},
+        'LABELS_PARSED': len(produtos), 'PARSE_FAILURES': len(falhas),
+        'CROP_TERM_CONTRACT': ('CROP_TERM_PRESENT = o termo aparece em contexto de uso. '
+                               'NÃO É AUTHORIZED_ON_CROP: a coluna cultura↔alvo da tabela '
+                               'de doses não foi reconstruída a partir do PDF.'),
+        'BY_CROP_TERM': pc,
+        'MODE_OF_ACTION_GROUPS_DECLARED': dict(sorted(moa.items(), key=lambda kv: -kv[1])),
+        'PRODUCTS': produtos,
+    }
+    dest = os.path.join(ROOT, 'data', 'samples', 'IT-T4-001',
+                        'IT-T4-001-portfolio-rotulo.json')
+    with open(dest, 'w', encoding='utf-8') as fh:
+        json.dump(out, fh, ensure_ascii=False, indent=2)
+    return dest, out
 
 
 def por_cultura(produtos):
@@ -93,6 +137,12 @@ def por_cultura(produtos):
 
 
 def main():
+    if '--artefato' in sys.argv:
+        dest, out = artefato()
+        print('escrito %s' % os.path.relpath(dest, ROOT))
+        print('rotulos %d | cobertura %s%%' % (out['LABELS_PARSED'],
+                                               out['LABEL_COVERAGE']['PCT']))
+        return
     produtos, falhas = analisar_todos()
     pc = por_cultura(produtos)
     print('ETICHETTAS ANALISADAS: %d (falhas %d)' % (len(produtos), len(falhas)))

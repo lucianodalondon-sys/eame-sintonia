@@ -126,6 +126,18 @@ ESQUEMA = re.compile(r'\b(HRAC|FRAC|IRAC)\b', re.I)
 GRUPO = re.compile(r'\bgrupp[oi]\s*:?\s*([0-9]{1,2}[A-Z]?|[A-Z])\b(?:\s*\(([A-Z][0-9]?)\))?', re.I)
 JANELA_MOA = 200
 
+# A ETICHETTA USA AS DUAS ORDENS, e assumir uma só custou uma classe inteira de alvos.
+#
+#   ordem A   `Fusariosi (Fusarium spp.)`          vernáculo → binômio
+#   ordem B   `Ostrinia nubilialis (piralide)`     binômio → vernáculo
+#
+# COSAYR 200 SC — registro de 04/02/2026, o produto de milho mais novo do portfólio —
+# lista os alvos INTEIROS na ordem B. Com só a ordem A, aquele rótulo devolvia ZERO
+# alvos: um vazio que parecia ausência e era cegueira do parser. O binômio continua
+# sendo a prova; o que muda é de que lado do parêntese ele está.
+ALVO_INV = re.compile(
+    r'\b([A-Z][a-z]{3,20}\s+(?:spp\.?|sp\.?|[a-z]{3,20}))\s*\(([A-Za-zà-ù\'\- ]{3,40})\)')
+
 DESLOC = 29
 
 
@@ -173,14 +185,18 @@ def texto(caminho):
 
 
 def alvos(t):
-    """Alvos nomeados cientificamente PELA FONTE."""
+    """Alvos nomeados cientificamente PELA FONTE, nas duas ordens que ela usa."""
     out = {}
-    for m in ALVO.finditer(t):
-        vern = re.sub(r'\s+', ' ', m.group(1)).strip(' ;,.-')
-        sci = re.sub(r'\s+', ' ', m.group(2)).strip()
+    pares = [(m.group(1), m.group(2)) for m in ALVO.finditer(t)]
+    pares += [(m.group(2), m.group(1)) for m in ALVO_INV.finditer(t)]
+    for vern_raw, sci_raw in pares:
+        vern = re.sub(r'\s+', ' ', vern_raw).strip(' ;,.-')
+        sci = re.sub(r'\s+', ' ', sci_raw).strip()
         vern = re.sub(r'^(?:e|ed|o|di|del|della|dei|delle|il|la|le|lo|i|gli|un|una|'
                       r'per|con|da|in|su|al|alla|contro|and)\s+', '', vern, flags=re.I)
         if len(vern) < 3 or NAO_ALVO.match(vern):
+            continue
+        if not re.match(r'[A-Z][a-z]{3,20}\s+(?:spp\.?|sp\.?|[a-z]{3,20})$', sci):
             continue
         if not re.search(r'[aeiouàèéìòù]', vern, re.I):
             continue
