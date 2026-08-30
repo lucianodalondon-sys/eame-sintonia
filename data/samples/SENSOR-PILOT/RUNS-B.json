@@ -4,7 +4,7 @@
  "SOURCE_LOCATION": "interno — metadado de coleta",
  "FACT_LOCATION": "n/a — descreve execução, não fato do mundo",
  "ORIGINAL_LANGUAGE": "pt",
- "CAPTURED_AT": "2026-08-30T21:53:15Z",
+ "CAPTURED_AT": "2026-08-30T22:00:11Z",
  "PARA_QUE_SERVE": "fragmento por lote, para dois runners não disputarem o RUN-MANIFEST canônico. A consolidação é um passo serializado.",
  "NUNCA_GRAVAR_TOKEN": "INPUT guarda consulta e parâmetros. Credencial, jamais.",
  "RUNS": [
@@ -228,46 +228,167 @@
    "RUN_ID": "SENSOR-TR-B-0-p3",
    "PLATFORM": "YOUTUBE",
    "ACTOR": "pintostudio~youtube-transcript-scraper",
-   "ACTOR_VERSION": "NOT_PRESERVED",
-   "STARTED_AT": "2026-08-30T21:53:13Z",
-   "FINISHED_AT": "2026-08-30T21:53:14Z",
+   "ACTOR_VERSION": "1.0.57",
+   "STARTED_AT": "2026-08-30T21:59:16.459Z",
+   "FINISHED_AT": "2026-08-30T21:59:23.086Z",
    "INPUT": {
-    "videoUrls": [
-     {
-      "url": "https://www.youtube.com/watch?v=bOk7RFqE848"
-     },
-     {
-      "url": "https://www.youtube.com/watch?v=rqII-vRZZTY"
-     },
-     {
-      "url": "https://www.youtube.com/watch?v=VZGepvBdkoI"
-     },
-     {
-      "url": "https://www.youtube.com/watch?v=EAkcA_2FDN8"
-     },
-     {
-      "url": "https://www.youtube.com/watch?v=QXwvQiufKxg"
-     },
-     {
-      "url": "https://www.youtube.com/watch?v=6raOHsoibjk"
-     }
-    ]
+    "videoUrl": "https://www.youtube.com/watch?v=bOk7RFqE848"
    },
    "COUNTRY": "MULTI",
    "MISSION": "13-PILOTO-SENSORES-TECNICOS",
-   "QUERY": "6 urls",
-   "DATASET_ID": "NOT_PRESERVED",
-   "ITEM_COUNT_RAW": 0,
+   "QUERY": "https://www.youtube.com/watch?v=bOk7RFqE848",
+   "DATASET_ID": "575AszDriYgyfifJ7",
+   "ITEM_COUNT_RAW": 1,
    "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
-   "COST_USD": "NOT_PRESERVED",
+   "COST_USD": 0,
    "SOURCE_VERSION": "captura de 2026-08-30",
-   "STATUS": "PARTIAL",
-   "ERROR": "status da plataforma: None. ",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
    "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
    "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-TR-B-0-p3.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-30T21:53:14Z",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T21:59:24Z",
+   "TOKEN_POSITION_USED": 3,
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+  },
+  {
+   "RUN_ID": "SENSOR-TR-B-1-p3",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "pintostudio~youtube-transcript-scraper",
+   "ACTOR_VERSION": "1.0.57",
+   "STARTED_AT": "2026-08-30T21:59:25.494Z",
+   "FINISHED_AT": "2026-08-30T21:59:28.433Z",
+   "INPUT": {
+    "videoUrl": "https://www.youtube.com/watch?v=rqII-vRZZTY"
+   },
+   "COUNTRY": "MULTI",
+   "MISSION": "13-PILOTO-SENSORES-TECNICOS",
+   "QUERY": "https://www.youtube.com/watch?v=rqII-vRZZTY",
+   "DATASET_ID": "teNKPO90zBvvnfh8j",
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
+   "COST_USD": 0,
+   "SOURCE_VERSION": "captura de 2026-08-30",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-TR-B-1-p3.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T21:59:29Z",
+   "TOKEN_POSITION_USED": 3,
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+  },
+  {
+   "RUN_ID": "SENSOR-TR-B-2-p3",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "pintostudio~youtube-transcript-scraper",
+   "ACTOR_VERSION": "1.0.57",
+   "STARTED_AT": "2026-08-30T21:59:30.496Z",
+   "FINISHED_AT": "2026-08-30T21:59:34.441Z",
+   "INPUT": {
+    "videoUrl": "https://www.youtube.com/watch?v=VZGepvBdkoI"
+   },
+   "COUNTRY": "MULTI",
+   "MISSION": "13-PILOTO-SENSORES-TECNICOS",
+   "QUERY": "https://www.youtube.com/watch?v=VZGepvBdkoI",
+   "DATASET_ID": "gxdJiLgIobGzJLgvj",
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
+   "COST_USD": 0,
+   "SOURCE_VERSION": "captura de 2026-08-30",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-TR-B-2-p3.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T21:59:35Z",
+   "TOKEN_POSITION_USED": 3,
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+  },
+  {
+   "RUN_ID": "SENSOR-TR-B-3-p3",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "pintostudio~youtube-transcript-scraper",
+   "ACTOR_VERSION": "1.0.57",
+   "STARTED_AT": "2026-08-30T21:59:36.699Z",
+   "FINISHED_AT": "2026-08-30T21:59:48.872Z",
+   "INPUT": {
+    "videoUrl": "https://www.youtube.com/watch?v=EAkcA_2FDN8"
+   },
+   "COUNTRY": "MULTI",
+   "MISSION": "13-PILOTO-SENSORES-TECNICOS",
+   "QUERY": "https://www.youtube.com/watch?v=EAkcA_2FDN8",
+   "DATASET_ID": "VzWkGGwHn68x5sxMZ",
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
+   "COST_USD": 0,
+   "SOURCE_VERSION": "captura de 2026-08-30",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-TR-B-3-p3.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T21:59:50Z",
+   "TOKEN_POSITION_USED": 3,
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+  },
+  {
+   "RUN_ID": "SENSOR-TR-B-4-p3",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "pintostudio~youtube-transcript-scraper",
+   "ACTOR_VERSION": "1.0.57",
+   "STARTED_AT": "2026-08-30T21:59:51.620Z",
+   "FINISHED_AT": "2026-08-30T21:59:57.377Z",
+   "INPUT": {
+    "videoUrl": "https://www.youtube.com/watch?v=QXwvQiufKxg"
+   },
+   "COUNTRY": "MULTI",
+   "MISSION": "13-PILOTO-SENSORES-TECNICOS",
+   "QUERY": "https://www.youtube.com/watch?v=QXwvQiufKxg",
+   "DATASET_ID": "ho7zZdetRCNlWKaOO",
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
+   "COST_USD": 0,
+   "SOURCE_VERSION": "captura de 2026-08-30",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-TR-B-4-p3.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T21:59:58Z",
+   "TOKEN_POSITION_USED": 3,
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+  },
+  {
+   "RUN_ID": "SENSOR-TR-B-5-p3",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "pintostudio~youtube-transcript-scraper",
+   "ACTOR_VERSION": "1.0.57",
+   "STARTED_AT": "2026-08-30T21:59:59.449Z",
+   "FINISHED_AT": "2026-08-30T22:00:09.341Z",
+   "INPUT": {
+    "videoUrl": "https://www.youtube.com/watch?v=6raOHsoibjk"
+   },
+   "COUNTRY": "MULTI",
+   "MISSION": "13-PILOTO-SENSORES-TECNICOS",
+   "QUERY": "https://www.youtube.com/watch?v=6raOHsoibjk",
+   "DATASET_ID": "2GVHLWL8YEukCqJjz",
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
+   "COST_USD": 0,
+   "SOURCE_VERSION": "captura de 2026-08-30",
+   "STATUS": "SUCCESS",
+   "ERROR": "NOT_PRESERVED",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-TR-B-5-p3.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T22:00:10Z",
    "TOKEN_POSITION_USED": 3,
    "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
   },
