@@ -480,6 +480,11 @@ HUBS_COM_CONTA_CONFIRMADA = {
     '@sivalangers': dict(hub='SIVAL (Angers)', pais='FR',
                          url='https://www.instagram.com/sivalangers/',
                          fonte='conta oficial nomeada em busca, 1.316 seguidores'),
+    # Resolvida SEM adivinhacao: a conta oficial da Fieragricola mencionou
+    # @enovitis_ nas proprias legendas. Uma porta abriu a outra.
+    '@enovitis_': dict(hub='Enovitis in Campo', pais='IT',
+                       url='https://www.instagram.com/enovitis_/',
+                       fonte='mencionada pela conta oficial @fieragricolavr'),
     '@eima_international': dict(hub='EIMA International', pais='IT',
                                 url='https://www.instagram.com/eima_international/',
                                 fonte='URL de publicacao da conta oficial em busca'),
