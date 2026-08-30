@@ -121,18 +121,15 @@ select ru.id,'NOT_KNOWN',3.0,'l/ha',
  from public.registro_uso ru
  join public.registro_regulatorio r on r.id=ru.registro_id and r.registration_id='ES-00499';
 
--- C · NEPTUNE — registro caducado em 2026-08-15 e nenhuma janela publicada.
---     A ausência de janela no site é AUSÊNCIA DE PUBLICAÇÃO. Não é janela
---     fechada, e não vira uma.
-insert into public.registro_uso_janela
- (registro_uso_id, resolucao, prazo_seguranca_dias,
-  timing_texto_original, nivel_evidencia, fonte, fonte_versao, capturado_em, rule_version)
-select ru.id,'NOT_KNOWN',null,
- 'a ficha pública do NEPTUNE não publica BBCH nem intervalo; o rótulo em PDF não foi lido',
- 'MANUFACTURER_STATEMENT','ADAMA España — ficha pública neptune',
- '2026-08-30T03:19:24Z','2026-08-30T00:00:00Z','ensaio-adama-es-v1'
- from public.registro_uso ru
- join public.registro_regulatorio r on r.id=ru.registro_id and r.registration_id='ES-00211';
+-- C · NEPTUNE — registro caducado em 2026-08-15.
+--     A ficha pública NÃO publica timing, NÃO publica dose, NÃO publica prazo.
+--     Por isso o importador NÃO cria linha de janela nenhuma: ausência de
+--     publicação não é janela, e uma linha vazia com resolucao NOT_KNOWN
+--     duplicaria a janela que a ficha oficial do MAPA já sustenta.
+--     A regra vale para todos: só nasce linha quando a fonte publica ao menos
+--     um de {timing, dose, BBCH, prazo de segurança, nº de aplicações}.
+--     O caso C continua sendo exercido — o registro caducado aparece pela
+--     janela que o MAPA sustenta, com EXPIRY_DATE_PASSED.
 
 -- D · TRINITY x cevada — o texto do rótulo oferece DUAS janelas alternativas
 --     e o handoff as achatou em BBCH 00-00, que não é o que a fonte diz.

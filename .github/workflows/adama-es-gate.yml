@@ -52,7 +52,7 @@ jobs:
             && { echo "PARADO: o handoff foi mesclado — esta rodada e de gate"; exit 1; } \
             || echo "MERGED_INTO_MAIN=NO"
 
-      - name: 2 · dois bancos descartaveis — o ensaio e a interferencia
+      - name: 2 · bancos descartaveis — o ensaio, a interferencia e a ordem
         run: |
           set -e
           montar () {
@@ -92,6 +92,22 @@ jobs:
             && echo "PORTAO_REPRODUZIVEL=PASS" \
             || { echo "PARADO: o artefato versionado nao bate com a medicao"; exit 1; }
 
+      - name: 4b · a ordem canonica das migrations, do zero, com o catalogo em 014
+        run: |
+          set -e
+          createdb -h localhost -U postgres eame_ordem
+          O=postgresql://postgres:postgres@localhost:5432/eame_ordem
+          # Lido do ref da branch paralela. Ler nao e mesclar: o arquivo nao
+          # entra nesta branch, so e aplicado num banco descartavel.
+          git show origin/claude/adama-es-local-browser:supabase/migrations/010_catalogo_publico_fabricante.sql \
+            > /tmp/014_catalogo_publico_fabricante.sql
+          for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
+            psql "$O" -v ON_ERROR_STOP=1 -q -f "$f"
+          done
+          psql "$O" -v ON_ERROR_STOP=1 -q -f /tmp/014_catalogo_publico_fabricante.sql
+          psql "$O" -v ON_ERROR_STOP=1 -f supabase/migrations/008_verificacao_pos_aplicacao.sql
+          echo "ORDEM_CANONICA=PASS  001-007, 009-013, catalogo em 014, 008 por ultimo"
+
       - name: 5 · as regressoes do portao, e as 45 do calendario no banco limpo
         run: |
           set -e
@@ -105,6 +121,8 @@ jobs:
           done
           psql "$CAL" -v ON_ERROR_STOP=1 -q -f supabase/fixtures/es_calendario_mvp.sql
           psql "$CAL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tail -3
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql
+          psql "$PGURL" -f supabase/tests/regressoes_captura.sql 2>&1 | tail -3
 
       - name: 6 · o veredito, impresso para leitura humana
         if: always()

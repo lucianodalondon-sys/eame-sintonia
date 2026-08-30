@@ -75,6 +75,18 @@ jobs:
           psql "$PGURL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tee /tmp/r
           grep -q "REGRESSOES_CALENDARIO=PASS" /tmp/r
 
+      - name: 4b · CAPTURE != REGISTRATION — 19 afirmacoes
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql
+          psql "$PGURL" -f supabase/tests/regressoes_captura.sql 2>&1 | tee /tmp/c
+          grep -q "REGRESSOES_CAPTURA=PASS" /tmp/c
+          # e as 45 continuam verdes COM as duas camadas juntas — foi exatamente
+          # isso que a rodada anterior nao conseguia.
+          psql "$PGURL" -f supabase/tests/regressoes_calendario.sql 2>&1 | tee /tmp/r2
+          grep -q "REGRESSOES_CALENDARIO=PASS" /tmp/r2
+
       - name: 5 · o payload do caso, impresso no log para leitura humana
         if: always()
         run: |

@@ -31,6 +31,10 @@ comment on view public.v_product_line_semantics is
 
 
 -- ── CONTEXTO TEMPORAL DO CASO — a carga compacta ──────────────────────
+-- ATENÇÃO: esta versão é SUBSTITUÍDA pela 013. Ela lê
+-- v_product_registered_windows, que é o LOG de capturas, e por isso devolve o
+-- mesmo produto uma vez por captura. A 013 repõe a função lendo o registro
+-- CORRENTE em as_of. Editar aqui não muda o banco depois da 013.
 create or replace function public.f_case_temporal_context(
   p_pais pais,
   p_crop text,

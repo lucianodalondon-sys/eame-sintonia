@@ -857,18 +857,23 @@
     "CROP": "OLIVE",
     "ISSUE": "REPILO",
     "PRODUTOS_NA_RESPOSTA": [
+     "CUPROXI FLO",
      "NEPTUNE"
     ],
     "ESTADO_DA_JANELA": [
+     "ACTIVE",
      "NOT_KNOWN"
     ],
     "RESOLUCAO": [
-     "NOT_KNOWN"
+     "PHENOLOGY_STAGE",
+     "APPROXIMATE"
     ],
     "ESCOPO": [
+     "ISSUE_LEVEL",
      "ISSUE_LEVEL"
     ],
     "CADUCIDADE": [
+     "WITHIN_EXPIRY_DATE",
      "EXPIRY_DATE_PASSED"
     ],
     "SOME_AO_PERGUNTAR_POR_ISSUE": false,
@@ -925,15 +930,18 @@
  "ENSAIO_DE_INTERFERENCIA": {
   "ESTADO": "EXECUTADO",
   "O_QUE_MEDE": "a camada ADAMA carregada POR CIMA do acervo ES que ja existe",
-  "REGISTROS_LINHAS": 8,
-  "REGISTROS_DISTINTOS_POR_PAIS_E_NUMERO": 7,
-  "DUPLICADOS": 1,
-  "JANELAS_DO_NEPTUNE_NA_VIEW": 3,
-  "CHAVE_NATURAL": "UNIQUE (pais, registration_id, fonte_versao)",
-  "DIAGNOSTICO": "registro_regulatorio e um LOG versionado por captura — a chave natural inclui fonte_versao. Duas capturas do MESMO registro em horas diferentes do mesmo dia viram duas linhas, e v_product_registered_windows le o log como se fosse estado corrente. Com uma captura so, o defeito era invisivel. O handoff da ADAMA e a segunda captura, e ele o revela.",
-  "O_QUE_O_PORTAL_VERIA": "o mesmo NEPTUNE 3 vezes no mesmo caso, com estados de janela diferentes e nenhuma indicacao de que sao a mesma autorizacao vista duas vezes",
-  "NAO_CONSERTADO_NESTA_RODADA": "esta e rodada de portao. O conserto e na camada de consulta, nao no dado: v_product_registered_windows precisa devolver a captura MAIS RECENTE por (pais, registration_id) e expor quantas capturas existem, em vez de devolver todas. Mudar a chave da tabela seria jogar fora o historico.",
-  "CAPTURE_NAO_E_REGISTRATION": "a lei nova que este ensaio nomeia: uma captura da ficha nao e uma autorizacao. Duas leituras do ROPF no mesmo dia sao um registro, nao dois."
+  "LOG_LINHAS": 10,
+  "REGISTROS_DISTINTOS": 8,
+  "CAPTURAS_A_MAIS_NO_LOG": 2,
+  "REGISTROS_CORRENTES": 8,
+  "DUPLICADOS_NO_ESTADO_CORRENTE": 0,
+  "JANELAS_NO_LOG": 10,
+  "JANELAS_CORRENTES": 9,
+  "JANELAS_DO_NEPTUNE_CORRENTES": 1,
+  "CHAVE_DE_CAPTURA": "UNIQUE NULLS NOT DISTINCT (pais, registration_id, fonte, fonte_versao)",
+  "ESTADO_DO_C7": "RESOLVIDO",
+  "AS_DUAS_COISAS_AO_MESMO_TEMPO": "HISTORY_ROWS > REGISTROS_DISTINTOS (o log continua inteiro) E DUPLICADOS_NO_ESTADO_CORRENTE = 0 (a resposta e uma so). Resolver a duplicacao apagando captura teria trocado um defeito por um pior.",
+  "CAPTURE_NAO_E_REGISTRATION": "uma captura da ficha nao e uma autorizacao. Duas leituras do ROPF no mesmo dia sao um registro, nao dois — e as duas continuam consultaveis."
  },
  "RED_TEAM": [
   {
@@ -1014,6 +1022,7 @@
    "DETALHE": "APHOX; AVASTEL; BANJO; BREVIS; COSAYR; CUPROXI FLO; FADEUS; FOLPAN 80WDG; FOLPAN GOLD; GARMIL; KENDO; KLARTAN EW; KONA; LAMDEX EXTRA; LEBRON; MAVITA 250 EC; MERPAN 80WG; METENAL; MIRADOR; NEPTUNE; NIMROD QUATTRO; ORISOS; SPYRALE; TRICUPROXI F; VINERGY"
   }
  ],
+ "O_QUE_O_RED_TEAM_MEDE": "o ARTEFATO CRU do handoff, como ele esta na branch paralela. RT-6, RT-10 e RT-11 continuam DEFEITO_CONFIRMADO la, e continuarao ate a origem ser corrigida. O que mudou nesta rodada esta em CORRECOES: a fronteira de importacao passa a tratar os tres, com prova executavel.",
  "ES_CASE_001": {
   "DIVERGENCIA": "humano CLOSED x motor NOT_KNOWN",
   "O_HANDOFF_TRAZ_JANELA_DO_NEPTUNE": 0,
@@ -1161,19 +1170,139 @@
   "DERRUBADAS": 8,
   "DEFEITOS_CONFIRMADOS": 3
  },
+ "CORRECOES": {
+  "C-7": {
+   "DEFEITO": "a segunda captura do mesmo registro duplicava o produto no caso",
+   "ONDE_FOI_RESOLVIDO": "supabase/migrations/013_captura_nao_e_registro.sql",
+   "COMO": "f_registro_corrente aplica a regra de seleção por as_of; o log continua inteiro em registro_regulatorio e v_product_registered_windows.",
+   "PROVA": "ensaio: HISTORY_ROWS=2 e CURRENT_STATE_ROWS=1 para ES-00211; o NEPTUNE sai de 3 ocorrências para 1 no mesmo caso.",
+   "CONTRATO": "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
+   "ESTADO": "RESOLVED"
+  },
+  "RT-6": {
+   "DEFEITO": "BBCH_TO = BBCH_FROM quando o texto não traz separador; a fonte diz \"desde BBCH 00 hasta BBCH 07\" e o artefato guarda 00-00",
+   "CAUSA_MEDIDA": "_bbch() usa BBCH.search() — a PRIMEIRA ocorrência — e faz `m.group(2) or m.group(1)`, derivando o fim do início",
+   "ONDE_FOI_RESOLVIDO": "scripts/adama_es_import_rules.py · normalizar_bbch",
+   "COMO": "a regra nunca deriva o fim a partir do início. Faixa fechada só com traço ou com linguagem que ligue duas menções; ponta aberta vira APPROXIMATE com o texto inteiro.",
+   "JANELAS": [
+    {
+     "CROP": "ARROZ",
+     "ISSUE": "Dicotiledóneas, malas hierbas de hoja ancha",
+     "RAW_TEXT": "Arroz | Dicotiledóneas, malas hierbas de hoja ancha | 0,5 | 1 | 100-400 | Aplicar únicamente en variedades Full Page. Pueden realizarse 2 aplicaciones a 0,4375 l/ha, espaciadas 20 días. Aplicar sin agua e inundar 3-4 días más tarde. Aplicar durante BBCH 12-29. | No procede",
+     "HANDOFF_START": "12",
+     "HANDOFF_END": "29",
+     "PARSED_START": 12,
+     "PARSED_END": 29,
+     "RESOLUCAO": "PHENOLOGY_STAGE",
+     "REGRA": "FAIXA_COM_TRACO",
+     "MUDOU": false
+    },
+    {
+     "CROP": "CEBADA",
+     "ISSUE": "MALAS HIERBAS",
+     "RAW_TEXT": "Cebada | Malas Hierbas | 2 l/ha | En cebada de invierno se podrá realizar una aplicación en post-emergencia temprada del cultivo, o bien, realizar dicha aplicación en pre-emergencia del cultivo, desde BBCH 00 (semilla seca) hasta BBCH 07 (coleòptilo, emergido de la semilla).",
+     "HANDOFF_START": "00",
+     "HANDOFF_END": "00",
+     "PARSED_START": 0,
+     "PARSED_END": 7,
+     "RESOLUCAO": "PHENOLOGY_STAGE",
+     "REGRA": "FAIXA_POR_LINGUAGEM:desde…hasta",
+     "MUDOU": true
+    },
+    {
+     "CROP": "TRIGO",
+     "ISSUE": "MALAS HIERBAS",
+     "RAW_TEXT": "Trigo | Malas Hierbas | 2 l/ha | En trigo de invierno se podrá realizar una aplicación en post-emergencia temprada del cultivo, o bien, realizar dicha aplicación en pre-emergencia del cultivo, desde BBCH 00 (semilla seca) hasta BBCH 07 (coleòptilo, emergido de la semilla).",
+     "HANDOFF_START": "00",
+     "HANDOFF_END": "00",
+     "PARSED_START": 0,
+     "PARSED_END": 7,
+     "RESOLUCAO": "PHENOLOGY_STAGE",
+     "REGRA": "FAIXA_POR_LINGUAGEM:desde…hasta",
+     "MUDOU": true
+    }
+   ],
+   "ESTADO": "RESOLVED"
+  },
+  "RT-11": {
+   "DEFEITO": "relação de alvo sem origem declarada; termo de erva daninha em produto que não é herbicida",
+   "CAUSA_MEDIDA": "ISSUE_RELATIONS nasce de varredura de texto sobre a página inteira (_tokens(texto_todo)). O coletor confere cultivo contra o bloco \"Cultivos\" declarado; para alvo não existe bloco equivalente na fonte, então nenhuma linha tem origem.",
+   "O_QUE_A_MEDICAO_MOSTROU": "a família de termos de erva daninha aparece em 56 de 56 produtos — TODOS. Um termo presente para todo produto não discrimina produto nenhum.",
+   "CORRECAO_DA_LEITURA_ANTERIOR": "a rodada passada disse \"assinatura de menu do site\" contando 25 produtos não-herbicida. O denominador estava errado: são 56 de 56. E o termo literal \"MALAS HIERBAS\" aparece em 46 — os outros 10 têm um termo mais específico que o absorve em _colapsar_sobrepostos. A conclusão fica mais forte, não mais fraca.",
+   "ONDE_FOI_RESOLVIDO": "scripts/adama_es_import_rules.py · classificar_origem_do_issue / pode_virar_alvo_autorizado",
+   "COMO": "classificação por ORIGEM, não por lista de palavras. Só PAIR_TABLE_ROW — linha de tabela ancorada que nomeia cultivo E agente — pode virar alvo autorizado. Varredura de texto fica registrada como PAGE_BODY_TEXT e nunca vira crop_issue.",
+   "POR_QUE_NAO_COPIEI_O_SCHEMA_DE_CULTIVO": "DECLARADO/CITADO existe para cultivo porque a página TEM um bloco \"Cultivos\". Para alvo esse bloco não existe na fonte. Copiar por simetria inventaria uma origem que o dado não tem.",
+   "ORIGENS_MEDIDAS": {
+    "PAGE_BODY_TEXT": 176,
+    "PAIR_TABLE_ROW": 5
+   },
+   "ESTADO": "RESOLVED"
+  },
+  "RT-10": {
+   "DEFEITO": "CUPROXI FLO tem 19232 em PRODUCTS e ES-00979 no crosswalk",
+   "A_INVESTIGACAO": [
+    {
+     "HIPOTESE": "A · são dois sistemas de identificador diferentes",
+     "VEREDITO": "PARCIAL",
+     "EVIDENCIA": "o próprio ROPF usa as duas formas: 62 registros numéricos e 34 no formato ES-nnnnn entre os 96 vigentes. Mas isso não explica este caso — 19232 não está em nenhuma das duas formas."
+    },
+    {
+     "HIPOTESE": "B · um deles é id interno, não número de registro",
+     "VEREDITO": "REFUTADA",
+     "EVIDENCIA": "a página publica literalmente \"Nº de registro: 19232\", e o mesmo campo casa com o ROPF vigente em 43 dos 56 produtos. O campo é número de registro em todo o catálogo."
+    },
+    {
+     "HIPOTESE": "C · erro de extração",
+     "VEREDITO": "REFUTADA",
+     "EVIDENCIA": "COMPOSITION_TEXT_PUBLICADO preserva o texto literal: \"Oxicloruro de cobre, expresado en Cu, 52% p/v (520g/l) Nº de registro: 19232\". O parser leu o que estava escrito."
+    },
+    {
+     "HIPOTESE": "D · entidades distintas com o mesmo nome comercial",
+     "VEREDITO": "NÃO REFUTADA",
+     "EVIDENCIA": "a composição bate exatamente com a do ES-00979 no ROPF (oxicloruro de cobre 52% expr. en Cu, SC), o que torna \"produtos diferentes\" improvável — mas improvável não é refutado."
+    },
+    {
+     "HIPOTESE": "E · NÃO SEI qual dos dois números o Estado reconhece hoje",
+     "VEREDITO": "ESTA É A RESPOSTA",
+     "EVIDENCIA": "19232 não está entre os 96 vigentes capturados. O ROPF declara 92 registros ADAMA CANCELADOS e a lista deles NÃO foi capturada. Sem ela, dizer que 19232 não existe seria AUSENTE_MEDIDO virando ausência."
+    }
+   ],
+   "COMO_FOI_MODELADO": "sem reconciliar. Dois identificadores TIPADOS, cada um com sua fonte:",
+   "IDENTIFICADORES": [
+    {
+     "TIPO": "REGISTRATION_ID_PUBLISHED_BY_MANUFACTURER",
+     "VALOR": "19232",
+     "FONTE": "página pública da ADAMA España",
+     "DATA": "2026-08-30T03:19:24Z",
+     "EVIDENCIA": "Nº de registro: 19232, no texto literal da ficha"
+    },
+    {
+     "TIPO": "REGISTRATION_ID_IN_OFFICIAL_REGISTER",
+     "VALOR": "ES-00979",
+     "FONTE": "MAPA ROPF, export de titular ADAMA",
+     "DATA": "2026-08-29",
+     "EVIDENCIA": "registro vigente com a mesma composição e o mesmo nome comercial"
+    }
+   ],
+   "LINK_BASIS": "NAME_AND_COMPOSITION",
+   "LINK_STATE": "PLAUSIBLE_NOT_PROVED",
+   "A_LEI": "NOME IGUAL != MESMO REGISTRO",
+   "REGRA_DE_IMPORTACAO": "o casamento canônico é SEMPRE pelo número do registro oficial. Quando os dois divergem, a linha carrega os dois campos tipados e o LINK_STATE. Nenhuma consulta usa nome comercial como chave.",
+   "O_QUE_FECHARIA": "consultar o ROPF por 19232 incluindo registros CANCELADOS — uma requisição, não executada nesta rodada.",
+   "ESTADO": "MODELADO_SEM_AMBIGUIDADE"
+  }
+ },
  "VEREDITO": {
-  "VEREDITO": "HANDOFF_PARTIAL",
-  "PORQUE": "a coleta e solida e a proveniencia e exemplar — 8 das 11 hipoteses do red team cairam. Mas 3 defeitos ficam no dado de origem e 3 conflitos bloqueiam estruturas especificas. O mais caro (C-7) nao e defeito do handoff: e do nosso proprio lado, e so apareceu porque o handoff e a segunda captura do mesmo registro.",
-  "DEFEITOS_ABERTOS": [
-   "RT-6",
-   "RT-10",
-   "RT-11"
-  ],
-  "CONFLITOS_QUE_BLOQUEIAM": [
-   "C-3",
-   "C-4",
-   "C-7"
-  ],
+  "VEREDITO": "HANDOFF_READY_TO_IMPORT",
+  "ESTADO_DOS_DEFEITOS": {
+   "C-7": "RESOLVED",
+   "RT-6": "RESOLVED",
+   "RT-11": "RESOLVED",
+   "RT-10": "MODELADO_SEM_AMBIGUIDADE"
+  },
+  "AINDA_ABERTOS": [],
+  "PORQUE": "C-7 resolvido na 013 com histórico intacto; RT-6 e RT-11 resolvidos na fronteira de importação, com a causa medida no coletor e mutação que reprova o parser antigo; RT-10 modelado como dois identificadores tipados, sem reconciliar por nome. ES-CASE-001 continua ABERTA, como tem de continuar.",
+  "O_QUE_ESTE_VEREDITO_NAO_AUTORIZA": "importar. READY significa que a integração futura não muda o significado — não que ela aconteceu. Nada foi importado nesta rodada.",
   "PODE_ENTRAR_AGORA": [
    {
     "ESTRUTURA": "PRODUCTS (56)",

@@ -183,7 +183,7 @@ class TestOEnsaioDosCincoCasos(unittest.TestCase):
 
 
 class TestInterferencia(unittest.TestCase):
-    """Carregar a ADAMA por cima do acervo que ja existe quebra alguma coisa?"""
+    """As duas camadas juntas: o log continua inteiro e a resposta e uma so."""
 
     def setUp(self):
         self.i = carrega()['ENSAIO_DE_INTERFERENCIA']
@@ -192,20 +192,78 @@ class TestInterferencia(unittest.TestCase):
         self.assertEqual('EXECUTADO', self.i['ESTADO'],
                          'NAO_EXECUTADO nao e PASSOU')
 
-    def test_a_duplicacao_de_registro_esta_nomeada(self):
-        self.assertGreater(self.i['DUPLICADOS'], 0,
-                           'se a duplicacao sumiu, C-7 foi consertado — '
-                           'atualize este teste de proposito')
-        self.assertGreater(self.i['JANELAS_DO_NEPTUNE_NA_VIEW'], 1)
-        self.assertIn('fonte_versao', self.i['CHAVE_NATURAL'])
+    def test_o_historico_continua_inteiro(self):
+        self.assertGreater(self.i['CAPTURAS_A_MAIS_NO_LOG'], 0,
+                           'sem captura repetida no log, o teste nao exerce nada')
+        self.assertGreater(self.i['LOG_LINHAS'], self.i['REGISTROS_DISTINTOS'])
+
+    def test_o_estado_corrente_nao_duplica(self):
+        self.assertEqual(0, self.i['DUPLICADOS_NO_ESTADO_CORRENTE'])
+        self.assertEqual(1, self.i['JANELAS_DO_NEPTUNE_CORRENTES'])
+        self.assertEqual('RESOLVIDO', self.i['ESTADO_DO_C7'])
+
+    def test_as_duas_coisas_valem_ao_mesmo_tempo(self):
+        self.assertGreater(self.i['JANELAS_NO_LOG'], self.i['JANELAS_CORRENTES'],
+                           'o log tem mais janelas que o corrente — e isso e o ponto')
+
+    def test_a_chave_de_captura_inclui_a_fonte(self):
+        self.assertIn('fonte, fonte_versao', self.i['CHAVE_DE_CAPTURA'])
 
     def test_capture_nao_e_registration(self):
         self.assertIn('CAPTURE_NAO_E_REGISTRATION', self.i)
-        self.assertIn('captura', self.i['CAPTURE_NAO_E_REGISTRATION'])
 
-    def test_o_conserto_nao_foi_feito_nesta_rodada(self):
-        self.assertIn('portao', self.i['NAO_CONSERTADO_NESTA_RODADA'])
-        self.assertIn('consulta', self.i['NAO_CONSERTADO_NESTA_RODADA'])
+
+class TestCorrecoes(unittest.TestCase):
+    """Cada defeito diz ONDE foi resolvido e com QUAL prova."""
+
+    def setUp(self):
+        self.c = carrega()['CORRECOES']
+
+    def test_os_quatro_defeitos_estao_tratados(self):
+        self.assertEqual({'C-7', 'RT-6', 'RT-11', 'RT-10'}, set(self.c))
+        for k, v in self.c.items():
+            self.assertIn(v['ESTADO'], ('RESOLVED', 'MODELADO_SEM_AMBIGUIDADE'), k)
+            self.assertTrue(v.get('ONDE_FOI_RESOLVIDO') or v.get('COMO_FOI_MODELADO'), k)
+
+    def test_c7_preserva_historico(self):
+        self.assertIn('log continua', self.c['C-7']['COMO'])
+        self.assertIn('HISTORY_ROWS=2', self.c['C-7']['PROVA'])
+
+    def test_rt6_nomeia_a_causa_no_coletor(self):
+        self.assertIn('search()', self.c['RT-6']['CAUSA_MEDIDA'])
+        for j in self.c['RT-6']['JANELAS']:
+            self.assertNotEqual(('00', '00'), (str(j['PARSED_START']), str(j['PARSED_END'])))
+            self.assertTrue(j['RAW_TEXT'] or j['RESOLUCAO'] == 'NOT_KNOWN')
+
+    def test_rt6_muda_exatamente_duas_janelas(self):
+        self.assertEqual(2, sum(1 for j in self.c['RT-6']['JANELAS'] if j['MUDOU']))
+
+    def test_rt11_nao_copiou_o_schema_por_simetria(self):
+        self.assertIn('bloco', self.c['RT-11']['POR_QUE_NAO_COPIEI_O_SCHEMA_DE_CULTIVO'])
+        self.assertIn('56', self.c['RT-11']['O_QUE_A_MEDICAO_MOSTROU'])
+
+    def test_rt11_corrige_a_leitura_anterior(self):
+        """A rodada passada disse 25 com o denominador errado. Sao 56."""
+        self.assertIn('denominador', self.c['RT-11']['CORRECAO_DA_LEITURA_ANTERIOR'])
+
+    def test_rt11_so_admite_linha_ancorada(self):
+        o = self.c['RT-11']['ORIGENS_MEDIDAS']
+        self.assertEqual(5, o['PAIR_TABLE_ROW'])
+        self.assertEqual(176, o['PAGE_BODY_TEXT'])
+
+    def test_rt10_nao_reconciliou_por_nome(self):
+        r = self.c['RT-10']
+        self.assertEqual('NOME IGUAL != MESMO REGISTRO', r['A_LEI'])
+        self.assertEqual('PLAUSIBLE_NOT_PROVED', r['LINK_STATE'])
+        self.assertEqual(2, len(r['IDENTIFICADORES']))
+        for i in r['IDENTIFICADORES']:
+            self.assertTrue(i['EVIDENCIA'], i['TIPO'])
+
+    def test_rt10_investigou_as_cinco_hipoteses(self):
+        v = {x['HIPOTESE'][0]: x['VEREDITO'] for x in self.c['RT-10']['A_INVESTIGACAO']}
+        self.assertEqual('REFUTADA', v['B'], 'id interno tinha de ser refutada com dado')
+        self.assertEqual('REFUTADA', v['C'], 'erro de extracao tinha de ser refutada')
+        self.assertIn('RESPOSTA', v['E'])
 
 
 class TestVeredito(unittest.TestCase):
@@ -253,11 +311,24 @@ class TestOEnsaioNaoEImportacao(unittest.TestCase):
         self.assertFalse([f for f in mig if 'ADAMA' in f.upper() or 'ENSAIO' in f.upper()],
                          'ensaio virou migration — isso seria importacao')
 
-    def test_nenhuma_migration_nova_foi_criada_nesta_rodada(self):
-        """A missao proibe migration nova sem incompatibilidade provada."""
+    def test_a_unica_migration_nova_tem_incompatibilidade_provada(self):
+        """Migration nova so entra com defeito MEDIDO. A 013 tem o dele."""
         mig = sorted(f for f in os.listdir(os.path.join(RAIZ, 'supabase', 'migrations'))
                      if f.endswith('.sql'))
-        self.assertEqual(12, len(mig), 'migrations: %s' % mig)
+        self.assertEqual(13, len(mig), 'migrations: %s' % mig)
+        self.assertEqual('013_captura_nao_e_registro.sql', mig[-1])
+        with open(os.path.join(RAIZ, 'supabase', 'migrations', mig[-1]),
+                  encoding='utf-8') as f:
+            texto = f.read()
+        self.assertIn('CAPTURE != REGISTRATION', texto)
+        self.assertIn('3 vezes', texto, 'a migration precisa citar o defeito medido')
+        self.assertIn('NÃO EXECUTADA em Supabase', texto)
+
+    def test_o_catalogo_continua_fora_desta_branch(self):
+        """Ler do ref para provar ordem nao e mesclar."""
+        mig = os.listdir(os.path.join(RAIZ, 'supabase', 'migrations'))
+        self.assertFalse([f for f in mig if 'catalogo' in f.lower()],
+                         'a migration do catalogo entrou na branch — isso seria merge')
 
 
 if __name__ == '__main__':

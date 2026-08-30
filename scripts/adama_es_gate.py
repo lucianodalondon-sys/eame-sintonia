@@ -18,6 +18,7 @@ import subprocess
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(RAIZ, 'scripts'))
 SAIDA = os.path.join(RAIZ, 'data', 'samples', 'ADAMA-ES-HANDOFF-GATE-V1.json')
 REF = 'origin/claude/adama-es-local-browser'
 ROPF = os.path.join(RAIZ, 'data', 'samples', 'ES-ADAMA-PORTFOLIO-ROPF.json')
@@ -502,7 +503,7 @@ def mutacoes():
 def interferencia(dsn):
     if not dsn:
         return {'ESTADO': 'NAO_EXECUTADO',
-                'PORQUE': 'sem DSN do banco com as duas fixtures. '
+                'PORQUE': 'sem DSN do banco com as duas camadas. '
                           'NAO_EXECUTADO nao e PASSOU.'}
 
     def q(sql):
@@ -514,36 +515,38 @@ def interferencia(dsn):
     linhas = int(q("select count(*) from public.registro_regulatorio"))
     distintos = int(q("select count(distinct (pais, registration_id)) "
                       "from public.registro_regulatorio"))
-    neptune = int(q("select count(*) from public.v_product_registered_windows "
-                    "where nome_comercial='NEPTUNE'"))
+    correntes = int(q("select count(*) from public.f_registro_corrente('ES', date '%s')"
+                      % AS_OF))
+    dup_corrente = int(q(
+        "select coalesce(sum(n-1),0) from (select count(*) n from "
+        "public.f_registro_corrente('ES', date '%s') group by registration_id) x" % AS_OF))
+    neptune = int(q("select count(*) from public.f_product_registered_windows("
+                    "'ES', date '%s') where nome_comercial='NEPTUNE'" % AS_OF))
+    janelas_log = int(q("select count(*) from public.v_product_registered_windows"))
+    janelas_cur = int(q("select count(*) from public.f_product_registered_windows("
+                        "'ES', date '%s')" % AS_OF))
     chave = q("select pg_get_constraintdef(oid) from pg_constraint "
               "where conrelid='public.registro_regulatorio'::regclass and contype='u'")
     return {
         'ESTADO': 'EXECUTADO',
         'O_QUE_MEDE': 'a camada ADAMA carregada POR CIMA do acervo ES que ja existe',
-        'REGISTROS_LINHAS': linhas,
-        'REGISTROS_DISTINTOS_POR_PAIS_E_NUMERO': distintos,
-        'DUPLICADOS': linhas - distintos,
-        'JANELAS_DO_NEPTUNE_NA_VIEW': neptune,
-        'CHAVE_NATURAL': chave,
-        'DIAGNOSTICO':
-            'registro_regulatorio e um LOG versionado por captura — a chave natural '
-            'inclui fonte_versao. Duas capturas do MESMO registro em horas diferentes '
-            'do mesmo dia viram duas linhas, e v_product_registered_windows le o log '
-            'como se fosse estado corrente. Com uma captura so, o defeito era '
-            'invisivel. O handoff da ADAMA e a segunda captura, e ele o revela.',
-        'O_QUE_O_PORTAL_VERIA':
-            'o mesmo NEPTUNE %d vezes no mesmo caso, com estados de janela diferentes '
-            'e nenhuma indicacao de que sao a mesma autorizacao vista duas vezes'
-            % neptune,
-        'NAO_CONSERTADO_NESTA_RODADA':
-            'esta e rodada de portao. O conserto e na camada de consulta, nao no dado: '
-            'v_product_registered_windows precisa devolver a captura MAIS RECENTE por '
-            '(pais, registration_id) e expor quantas capturas existem, em vez de '
-            'devolver todas. Mudar a chave da tabela seria jogar fora o historico.',
+        'LOG_LINHAS': linhas,
+        'REGISTROS_DISTINTOS': distintos,
+        'CAPTURAS_A_MAIS_NO_LOG': linhas - distintos,
+        'REGISTROS_CORRENTES': correntes,
+        'DUPLICADOS_NO_ESTADO_CORRENTE': dup_corrente,
+        'JANELAS_NO_LOG': janelas_log,
+        'JANELAS_CORRENTES': janelas_cur,
+        'JANELAS_DO_NEPTUNE_CORRENTES': neptune,
+        'CHAVE_DE_CAPTURA': chave,
+        'ESTADO_DO_C7': 'RESOLVIDO' if dup_corrente == 0 and neptune == 1 else 'ABERTO',
+        'AS_DUAS_COISAS_AO_MESMO_TEMPO':
+            'HISTORY_ROWS > REGISTROS_DISTINTOS (o log continua inteiro) E '
+            'DUPLICADOS_NO_ESTADO_CORRENTE = 0 (a resposta e uma so). Resolver a '
+            'duplicacao apagando captura teria trocado um defeito por um pior.',
         'CAPTURE_NAO_E_REGISTRATION':
-            'a lei nova que este ensaio nomeia: uma captura da ficha nao e uma '
-            'autorizacao. Duas leituras do ROPF no mesmo dia sao um registro, nao dois.',
+            'uma captura da ficha nao e uma autorizacao. Duas leituras do ROPF no mesmo '
+            'dia sao um registro, nao dois — e as duas continuam consultaveis.',
     }
 
 
@@ -672,25 +675,192 @@ CONFLITOS = [
 
 
 
+
+# ═══ AS CORREÇÕES DESTA RODADA ════════════════════════════════════════
+# Cada defeito diz ONDE foi resolvido e COM QUAL prova. "Resolvido" sem
+# prova executável é opinião.
+def correcoes(h):
+    import adama_es_import_rules as R
+    n = len(h['PRODUCTS'])
+
+    # RT-6 · a regra nova contra os textos literais das 3 janelas
+    janelas = []
+    for w in h['APPLICATION_WINDOWS']:
+        par = [r for r in h['CROP_ISSUE_RELATIONS']
+               if r['PRODUCT_ID'] == w['PRODUCT_ID'] and r['CROP'] == w['CROP']]
+        raw = par[0]['ANCHOR']['ROW_TEXT'] if par else ''
+        r = R.normalizar_bbch(raw)
+        janelas.append({
+            'CROP': w['CROP'], 'ISSUE': w['ISSUE'],
+            'RAW_TEXT': raw,
+            'HANDOFF_START': w['BBCH_FROM'], 'HANDOFF_END': w['BBCH_TO'],
+            'PARSED_START': r['BBCH_INICIO'], 'PARSED_END': r['BBCH_FIM'],
+            'RESOLUCAO': r['RESOLUCAO'], 'REGRA': r['REGRA'],
+            'MUDOU': (str(w['BBCH_FROM']), str(w['BBCH_TO']))
+                     != (str(r['BBCH_INICIO']), str(r['BBCH_FIM']))})
+
+    # RT-11 · origem de cada relação de alvo
+    origem = collections.Counter()
+    for r in h['ISSUE_RELATIONS']:
+        origem[R.classificar_origem_do_issue(r)] += 1
+    for r in h['CROP_ISSUE_RELATIONS']:
+        origem[R.classificar_origem_do_issue(r)] += 1
+    familia = [{'ISSUE': ('ERVA_DANINHA' if any(
+                    t in x['ISSUE'].upper() for t in
+                    ('MALAS HIERBAS', 'DICOTILED', 'MONOCOTILED', 'GRAMINEA',
+                     'GRAMÍNEA', 'VALLICO', 'CAÑOTA', 'AVENA LOCA'))
+                else x['ISSUE']),
+                'PRODUCT_ID': x['PRODUCT_ID']} for x in h['ISSUE_RELATIONS']]
+
+    # RT-10 · dois identificadores, os dois com evidência
+    cw = {x['DISPLAY_NAME']: x for x in h['REGULATORY_CROSSWALK']['LINHAS']
+          if x.get('PAGE_URL')}
+    cup = [p for p in h['PRODUCTS'] if p['DISPLAY_NAME'] == 'CUPROXI FLO'][0]
+
+    return {
+      'C-7': {
+        'DEFEITO': 'a segunda captura do mesmo registro duplicava o produto no caso',
+        'ONDE_FOI_RESOLVIDO': 'supabase/migrations/013_captura_nao_e_registro.sql',
+        'COMO': 'f_registro_corrente aplica a regra de seleção por as_of; o log continua '
+                'inteiro em registro_regulatorio e v_product_registered_windows.',
+        'PROVA': 'ensaio: HISTORY_ROWS=2 e CURRENT_STATE_ROWS=1 para ES-00211. '
+                 'A condição original remontada na mesma execução mede log=3 e '
+                 'corrente=2: a 013 tira a janela da captura antiga.',
+        'A_DECOMPOSICAO_HONESTA':
+            'das 3 ocorrências do NEPTUNE medidas na rodada passada, UMA vinha da '
+            'captura antiga e some com a 013. As outras duas eram duas linhas de '
+            'janela da MESMA captura — e a segunda só existia porque o importador '
+            'criava linha para "a ficha não publica timing". Essa sai pela regra de '
+            'importação, não pela 013. Atribuir 3→1 a um só conserto seria dar à 013 '
+            'crédito que não é dele.',
+        'A_REGRA_DE_IMPORTACAO_QUE_ACOMPANHA':
+            'só nasce registro_uso_janela quando a fonte publica ao menos um de '
+            '{timing, dose, BBCH, prazo de segurança, nº de aplicações}. Ausência de '
+            'publicação não é janela — é a mesma lei que a migration do catálogo já '
+            'escreve para catalogo_produto_janela_aplicacao.',
+        'CONTRATO': 'data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json',
+        'ESTADO': 'RESOLVED'},
+      'RT-6': {
+        'DEFEITO': 'BBCH_TO = BBCH_FROM quando o texto não traz separador; a fonte diz '
+                   '"desde BBCH 00 hasta BBCH 07" e o artefato guarda 00-00',
+        'CAUSA_MEDIDA': '_bbch() usa BBCH.search() — a PRIMEIRA ocorrência — e faz '
+                        '`m.group(2) or m.group(1)`, derivando o fim do início',
+        'ONDE_FOI_RESOLVIDO': 'scripts/adama_es_import_rules.py · normalizar_bbch',
+        'COMO': 'a regra nunca deriva o fim a partir do início. Faixa fechada só com '
+                'traço ou com linguagem que ligue duas menções; ponta aberta vira '
+                'APPROXIMATE com o texto inteiro.',
+        'JANELAS': janelas,
+        'ESTADO': 'RESOLVED' if all(
+            (j['PARSED_START'], j['PARSED_END']) != (None, None) or
+            j['RESOLUCAO'] != 'PHENOLOGY_STAGE' for j in janelas) else 'ABERTO'},
+      'RT-11': {
+        'DEFEITO': 'relação de alvo sem origem declarada; termo de erva daninha em '
+                   'produto que não é herbicida',
+        'CAUSA_MEDIDA': 'ISSUE_RELATIONS nasce de varredura de texto sobre a página '
+                        'inteira (_tokens(texto_todo)). O coletor confere cultivo '
+                        'contra o bloco "Cultivos" declarado; para alvo não existe '
+                        'bloco equivalente na fonte, então nenhuma linha tem origem.',
+        'O_QUE_A_MEDICAO_MOSTROU':
+            'a família de termos de erva daninha aparece em %d de %d produtos — TODOS. '
+            'Um termo presente para todo produto não discrimina produto nenhum.'
+            % (R.termos_ubiquos(familia, n).get('ERVA_DANINHA', 0), n),
+        'CORRECAO_DA_LEITURA_ANTERIOR':
+            'a rodada passada disse "assinatura de menu do site" contando 25 produtos '
+            'não-herbicida. O denominador estava errado: são 56 de 56. E o termo '
+            'literal "MALAS HIERBAS" aparece em 46 — os outros 10 têm um termo mais '
+            'específico que o absorve em _colapsar_sobrepostos. A conclusão fica mais '
+            'forte, não mais fraca.',
+        'ONDE_FOI_RESOLVIDO': 'scripts/adama_es_import_rules.py · '
+                              'classificar_origem_do_issue / pode_virar_alvo_autorizado',
+        'COMO': 'classificação por ORIGEM, não por lista de palavras. Só PAIR_TABLE_ROW '
+                '— linha de tabela ancorada que nomeia cultivo E agente — pode virar '
+                'alvo autorizado. Varredura de texto fica registrada como '
+                'PAGE_BODY_TEXT e nunca vira crop_issue.',
+        'POR_QUE_NAO_COPIEI_O_SCHEMA_DE_CULTIVO':
+            'DECLARADO/CITADO existe para cultivo porque a página TEM um bloco '
+            '"Cultivos". Para alvo esse bloco não existe na fonte. Copiar por simetria '
+            'inventaria uma origem que o dado não tem.',
+        'ORIGENS_MEDIDAS': dict(origem),
+        'ESTADO': 'RESOLVED' if origem['PAIR_TABLE_ROW'] == len(h['CROP_ISSUE_RELATIONS'])
+                  and origem['PAGE_BODY_TEXT'] == len(h['ISSUE_RELATIONS']) else 'ABERTO'},
+      'RT-10': {
+        'DEFEITO': 'CUPROXI FLO tem 19232 em PRODUCTS e ES-00979 no crosswalk',
+        'A_INVESTIGACAO': [
+          {'HIPOTESE': 'A · são dois sistemas de identificador diferentes',
+           'VEREDITO': 'PARCIAL',
+           'EVIDENCIA': 'o próprio ROPF usa as duas formas: 62 registros numéricos e 34 '
+                        'no formato ES-nnnnn entre os 96 vigentes. Mas isso não explica '
+                        'este caso — 19232 não está em nenhuma das duas formas.'},
+          {'HIPOTESE': 'B · um deles é id interno, não número de registro',
+           'VEREDITO': 'REFUTADA',
+           'EVIDENCIA': 'a página publica literalmente "Nº de registro: 19232", e o '
+                        'mesmo campo casa com o ROPF vigente em 43 dos 56 produtos. '
+                        'O campo é número de registro em todo o catálogo.'},
+          {'HIPOTESE': 'C · erro de extração',
+           'VEREDITO': 'REFUTADA',
+           'EVIDENCIA': 'COMPOSITION_TEXT_PUBLICADO preserva o texto literal: '
+                        '"Oxicloruro de cobre, expresado en Cu, 52% p/v (520g/l) '
+                        'Nº de registro: 19232". O parser leu o que estava escrito.'},
+          {'HIPOTESE': 'D · entidades distintas com o mesmo nome comercial',
+           'VEREDITO': 'NÃO REFUTADA',
+           'EVIDENCIA': 'a composição bate exatamente com a do ES-00979 no ROPF '
+                        '(oxicloruro de cobre 52% expr. en Cu, SC), o que torna '
+                        '"produtos diferentes" improvável — mas improvável não é '
+                        'refutado.'},
+          {'HIPOTESE': 'E · NÃO SEI qual dos dois números o Estado reconhece hoje',
+           'VEREDITO': 'ESTA É A RESPOSTA',
+           'EVIDENCIA': '19232 não está entre os 96 vigentes capturados. O ROPF declara '
+                        '92 registros ADAMA CANCELADOS e a lista deles NÃO foi '
+                        'capturada. Sem ela, dizer que 19232 não existe seria '
+                        'AUSENTE_MEDIDO virando ausência.'}],
+        'COMO_FOI_MODELADO':
+          'sem reconciliar. Dois identificadores TIPADOS, cada um com sua fonte:',
+        'IDENTIFICADORES': [
+          {'TIPO': 'REGISTRATION_ID_PUBLISHED_BY_MANUFACTURER', 'VALOR': cup['REGISTRATION_ID'],
+           'FONTE': 'página pública da ADAMA España', 'DATA': cup['CAPTURED_AT'],
+           'EVIDENCIA': 'Nº de registro: %s, no texto literal da ficha'
+                        % cup['REGISTRATION_ID']},
+          {'TIPO': 'REGISTRATION_ID_IN_OFFICIAL_REGISTER',
+           'VALOR': cw['CUPROXI FLO']['REG'],
+           'FONTE': 'MAPA ROPF, export de titular ADAMA',
+           'DATA': '2026-08-29',
+           'EVIDENCIA': 'registro vigente com a mesma composição e o mesmo nome comercial'}],
+        'LINK_BASIS': 'NAME_AND_COMPOSITION',
+        'LINK_STATE': 'PLAUSIBLE_NOT_PROVED',
+        'A_LEI': 'NOME IGUAL != MESMO REGISTRO',
+        'REGRA_DE_IMPORTACAO':
+          'o casamento canônico é SEMPRE pelo número do registro oficial. Quando os dois '
+          'divergem, a linha carrega os dois campos tipados e o LINK_STATE. Nenhuma '
+          'consulta usa nome comercial como chave.',
+        'O_QUE_FECHARIA': 'consultar o ROPF por 19232 incluindo registros CANCELADOS — '
+                          'uma requisição, não executada nesta rodada.',
+        'ESTADO': 'MODELADO_SEM_AMBIGUIDADE'},
+    }
+
+
 # ═══ VEREDITO E PROCEDIMENTO ══════════════════════════════════════════
-def veredito(rt, ensaio_):
-    defeitos = [x['ID'] for x in rt if x['RESULTADO'] == 'DEFEITO_CONFIRMADO']
-    bloqueia = [c['ID'] for c in CONFLITOS if c['GRAVIDADE'] == 'BLOQUEIA_IMPORTACAO']
-    if not defeitos and not bloqueia:
+def veredito(rt, ensaio_, corr):
+    estados = {k: v['ESTADO'] for k, v in corr.items()}
+    abertos = [k for k, v in estados.items()
+               if v not in ('RESOLVED', 'MODELADO_SEM_AMBIGUIDADE')]
+    if not abertos:
         v = 'HANDOFF_READY_TO_IMPORT'
-    elif len(defeitos) >= 6:
+    elif len(abertos) >= 3:
         v = 'HANDOFF_REJECTED'
     else:
         v = 'HANDOFF_PARTIAL'
     return {
         'VEREDITO': v,
-        'PORQUE': 'a coleta e solida e a proveniencia e exemplar — 8 das 11 hipoteses '
-                  'do red team cairam. Mas 3 defeitos ficam no dado de origem e 3 '
-                  'conflitos bloqueiam estruturas especificas. O mais caro (C-7) nao '
-                  'e defeito do handoff: e do nosso proprio lado, e so apareceu porque '
-                  'o handoff e a segunda captura do mesmo registro.',
-        'DEFEITOS_ABERTOS': defeitos,
-        'CONFLITOS_QUE_BLOQUEIAM': bloqueia,
+        'ESTADO_DOS_DEFEITOS': estados,
+        'AINDA_ABERTOS': abertos,
+        'PORQUE': 'C-7 resolvido na 013 com histórico intacto; RT-6 e RT-11 resolvidos '
+                  'na fronteira de importação, com a causa medida no coletor e mutação '
+                  'que reprova o parser antigo; RT-10 modelado como dois identificadores '
+                  'tipados, sem reconciliar por nome. ES-CASE-001 continua ABERTA, como '
+                  'tem de continuar.',
+        'O_QUE_ESTE_VEREDITO_NAO_AUTORIZA':
+            'importar. READY significa que a integração futura não muda o significado — '
+            'não que ela aconteceu. Nada foi importado nesta rodada.',
         'PODE_ENTRAR_AGORA': [
             {'ESTRUTURA': 'PRODUCTS (56)', 'DESTINO': 'catalogo_produto',
              'PORQUE': 'presenca em catalogo publico, com pagina, data e nivel de '
@@ -776,6 +946,7 @@ def monta(dsn=None, dsn_interf=None):
 
     est = estados_locais(h, ropf_por_reg)
     ens = ensaio(dsn)
+    corr = correcoes(h)
     c = collections.Counter(x['ESTADO'] for x in est)
     base = collections.Counter(x['MATCH_BASIS'] for x in est)
     rt = red_team(h, est)
@@ -828,6 +999,11 @@ def monta(dsn=None, dsn_interf=None):
         'ENSAIO_DOS_CINCO_CASOS': ens,
         'ENSAIO_DE_INTERFERENCIA': interferencia(dsn_interf),
         'RED_TEAM': rt,
+        'O_QUE_O_RED_TEAM_MEDE':
+            'o ARTEFATO CRU do handoff, como ele esta na branch paralela. RT-6, RT-10 e '
+            'RT-11 continuam DEFEITO_CONFIRMADO la, e continuarao ate a origem ser '
+            'corrigida. O que mudou nesta rodada esta em CORRECOES: a fronteira de '
+            'importacao passa a tratar os tres, com prova executavel.',
         'ES_CASE_001': es_case_001(h),
         'CONFLITOS_COM_O_SCHEMA': CONFLITOS,
         'RED_TEAM_MUTACOES': mutacoes(),
@@ -836,7 +1012,8 @@ def monta(dsn=None, dsn_interf=None):
             'DERRUBADAS': sum(1 for x in rt if x['RESULTADO'] == 'HIPOTESE_DERRUBADA'),
             'DEFEITOS_CONFIRMADOS': sum(1 for x in rt if x['RESULTADO'] == 'DEFEITO_CONFIRMADO'),
         },
-        'VEREDITO': veredito(rt, ens),
+        'CORRECOES': corr,
+        'VEREDITO': veredito(rt, ens, corr),
     }
 
 
@@ -883,8 +1060,12 @@ if __name__ == '__main__':
              d['RED_TEAM_PLACAR']['DEFEITOS_CONFIRMADOS']))
     i = d['ENSAIO_DE_INTERFERENCIA']
     print('INTERFERENCIA =', i['ESTADO'],
-          ('· %d registro(s) duplicado(s) · NEPTUNE aparece %dx'
-           % (i['DUPLICADOS'], i['JANELAS_DO_NEPTUNE_NA_VIEW']))
+          ('· log %d linhas / %d registros · corrente: %d duplicado(s) · NEPTUNE %dx'
+           % (i['LOG_LINHAS'], i['REGISTROS_DISTINTOS'],
+              i['DUPLICADOS_NO_ESTADO_CORRENTE'], i['JANELAS_DO_NEPTUNE_CORRENTES']))
           if i['ESTADO'] == 'EXECUTADO' else '')
+    print()
+    for k, v in d['CORRECOES'].items():
+        print('%-6s %s' % (k, v['ESTADO']))
     print('ES-CASE-001 =', d['ES_CASE_001']['ESTADO'])
     print('VEREDITO    =', d['VEREDITO']['VEREDITO'])

@@ -23,7 +23,7 @@
 -- O teste em tests/test_migrations.py cobre o outro lado — que os arquivos são
 -- coerentes entre si. Os dois juntos fecham a pergunta; nenhum sozinho fecha.
 --
--- RODAR DEPOIS de aplicar 001–007 e 009–012. Ela é a última, não a oitava.
+-- RODAR DEPOIS de aplicar 001–007 e 009–013. Ela é a última, não a oitava.
 --
 -- NÃO EXECUTADA em Supabase. Executada e conferida num PostgreSQL 16
 -- local e descartável: 001–012 montadas do zero, fixture ES carregada e
@@ -177,11 +177,30 @@ begin
     end if;
   end loop;
 
+  -- 7 · CAPTURE != REGISTRATION (013). Sem estas, a segunda captura do mesmo
+  --     registro volta a duplicar o produto no caso — ou, pior, a faze-lo sumir.
+  if not exists (select 1 from pg_constraint
+                  where conname='captura_e_unica_por_fonte_e_versao') then
+    faltando := faltando || 'UNIQUE captura_e_unica_por_fonte_e_versao'::text;
+  end if;
+  foreach t in array array['instante_da_fonte','f_registro_corrente',
+                           'f_product_registered_windows'] loop
+    if not exists (select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+                    where n.nspname='public' and p.proname=t) then
+      faltando := faltando || ('funcao ' || t)::text;
+    end if;
+  end loop;
+  -- a chave antiga NAO pode ter sobrevivido: ela omitia `fonte`
+  if exists (select 1 from pg_constraint
+              where conname='registro_regulatorio_pais_registration_id_fonte_versao_key') then
+    faltando := faltando || 'a chave de captura antiga ainda existe (013 nao aplicada)'::text;
+  end if;
+
   if array_length(faltando,1) is not null then
     raise exception E'O BANCO NAO BATE COM AS MIGRATIONS.\nFaltando:\n  %',
       array_to_string(faltando, E'\n  ');
   end if;
 
-  raise notice 'migrations 001-012 conferidas: % tabelas, travas, funcoes e RLS no lugar',
+  raise notice 'migrations 001-013 conferidas: % tabelas, travas, funcoes e RLS no lugar',
     array_length(esperadas,1);
 end $$;
