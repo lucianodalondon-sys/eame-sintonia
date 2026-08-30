@@ -47,6 +47,11 @@ jobs:
           APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
         run: python3 scripts/linkedin_validar.py
 
+      - name: catalogo de Actors do LinkedIn (gratuito, 0 runs)
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/apify_store_probe.py
+
       - name: conferir que nenhum token entrou no que sobe
         if: always()
         run: |
@@ -63,5 +68,6 @@ jobs:
           path: |
             data/samples/IT-CASOS/IT-LINKEDIN-RECOVERY.json
             data/samples/IT-CASOS/IT-LINKEDIN-IDENTITY.json
+            data/samples/IT-CASOS/IT-APIFY-STORE-PROBE.json
             data/samples/raw-paid/
           if-no-files-found: warn
