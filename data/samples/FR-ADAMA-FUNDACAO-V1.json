@@ -1,0 +1,246 @@
+{
+ "ARTEFATO": "FR-ADAMA-FUNDACAO-V1",
+ "COUNTRY": "FR",
+ "GERADO_EM": "2026-08-30T19:34:34+00:00",
+ "O_QUE_ESTE_ARQUIVO_E": "os numeros medidos da fundacao francesa. Os bytes ficam em data/raw (nao versionado); aqui ficam as contagens, os hashes e as ressalvas.",
+ "FONTES": {
+  "REGULATORIA": {
+   "SOURCE_ID": "FR-T4-001",
+   "NAME": "ANSES — catálogo E-Phy, dados abertos via data.gouv.fr",
+   "URL": "https://www.data.gouv.fr/fr/datasets/575e9fac88ee38072a640390/",
+   "ROLE": "REGULATORY_AUTHORITY",
+   "LICENSE": "Licence Ouverte (fr-lo)",
+   "WHAT_IT_PROVES": "AMM, titular, substâncias, formulação, função, estado, usos autorizados com cultura×alvo, dose, BBCH, DAR, ZNT",
+   "WHAT_IT_DOES_NOT_PROVE": [
+    "o que a ADAMA apresenta no catálogo comercial",
+    "disponibilidade comercial",
+    "preço",
+    "estoque"
+   ]
+  },
+  "CATALOGO": {
+   "SOURCE_ID": "FR-ADAMA-CATALOG",
+   "NAME": "ADAMA France — catálogo público",
+   "URL": "https://www.adama.com/france/fr",
+   "ROLE": "MANUFACTURER_CLAIM",
+   "WHAT_IT_PROVES": "o que a empresa APRESENTA localmente",
+   "WHAT_IT_DOES_NOT_PROVE": [
+    "registro",
+    "autorização",
+    "disponibilidade"
+   ],
+   "ROUTE": "HEADED_BROWSER_ONLY — curl e headless levam 403"
+  }
+ },
+ "EPHY": {
+  "DATASET_LAST_UPDATE": "2026-08-25T16:45:38.571000+00:00",
+  "ZIP_SHA256": "70d58dc26e0002283d6b141c41e250d0e0dce7748d2a49f4857d63fd73f822cb",
+  "ZIP_BYTES": 3968908,
+  "RECORD_COUNT": 177111,
+  "INTERPRETER": {
+   "EXECUTABLE": "C:\\actions-runner-2\\_work\\_tool\\Python\\3.12.10\\x64\\python.exe",
+   "VERSION": "3.12.10",
+   "PREFIX": "C:\\Users\\London1\\AppData\\Local\\Programs\\Python\\Python312",
+   "PREFIX_HONEST": true
+  },
+  "FILES": [
+   {
+    "FILE": "mfsc_et_mixte_composition_utf8.csv",
+    "ROWS": 1265,
+    "SHA256": "bcd5b2116b12b225cbac361bd58ada0c8f7024ee38583aa44ae159bbc64b65dd"
+   },
+   {
+    "FILE": "mfsc_et_mixte_usage_utf8.csv",
+    "ROWS": 5813,
+    "SHA256": "b1aec2006f41b650c669ee814361c0306529c319954529ec0fa6cf959b1c51d2"
+   },
+   {
+    "FILE": "permis_de_commerce_parallele_utf8.csv",
+    "ROWS": 2752,
+    "SHA256": "45939e4605ec08d5108d4c8620b67452f566c37017219953fbb0266c435174a7"
+   },
+   {
+    "FILE": "produits_classe_et_mention_danger_utf8.csv",
+    "ROWS": 10793,
+    "SHA256": "8ce70e6d21a0869dd8eb81b8c88dd815bc3cc7e2247707748a5585fc565bd183"
+   },
+   {
+    "FILE": "produits_condition_emploi_utf8.csv",
+    "ROWS": 29482,
+    "SHA256": "eb77d24b88bc807e22241f1b90da3a7267431f05b9bc3e9ddf4c78f4913c34d8"
+   },
+   {
+    "FILE": "produits_phrases_de_risque_utf8.csv",
+    "ROWS": 9363,
+    "SHA256": "321ba69181356373fd23f0f84545f724d96f601d9e141af2a5b43fb14a0e83e7"
+   },
+   {
+    "FILE": "produits_usages_utf8.csv",
+    "ROWS": 81556,
+    "SHA256": "ae9803582203268316beb76c57d390a4fa10dccdde1377282d7ab75af5aaed05"
+   },
+   {
+    "FILE": "produits_utf8.csv",
+    "ROWS": 15140,
+    "SHA256": "ca1fc94d79eab3efee9271eb12de3cf1ff2910a440e4a8e01ab9de7573f5f0fb"
+   },
+   {
+    "FILE": "substance_active_utf8.csv",
+    "ROWS": 1338,
+    "SHA256": "5dca7dabb485858e27a1e1e1a46740195c468c99d6c3869be0d8d48ca26f3206"
+   },
+   {
+    "FILE": "usages_des_produits_autorises_utf8.csv",
+    "ROWS": 19609,
+    "SHA256": "d4dfb5bfcfe21dca186906a43cc3b78a39bac0881753a578141643f7e525722f"
+   }
+  ]
+ },
+ "CENSO_REGULATORIO": {
+  "SOURCE": "FR-T4-001",
+  "COUNTRY": "FR",
+  "REGULATORY_PRODUCTS_EVER": 267,
+  "REGULATORY_PRODUCTS_AUTHORIZED": 72,
+  "REGULATORY_PRODUCTS_WITHDRAWN": 195,
+  "HOLDERS": [
+   "ADAMA Agriculture B.V.",
+   "ADAMA FRANCE SAS"
+  ],
+  "USE_ROWS": 582,
+  "AMMS_WITH_USE": 70,
+  "AMMS_AUTHORIZED_WITHOUT_USE": [
+   "1201086",
+   "1210675"
+  ],
+  "CROP_ISSUE_ANCHORED_ROWS": 367,
+  "CROP_ISSUE_ANCHORED_DISTINCT": 161,
+  "CROP_TREATMENT_NO_ISSUE_ROWS": 215,
+  "CROP_TREATMENT_NO_ISSUE_DISTINCT": 41,
+  "CROPS_DISTINCT": 70,
+  "ROWS_WITH_DOSE": 562,
+  "ROWS_WITH_BBCH_MIN": 376,
+  "ROWS_WITH_BBCH_MAX": 414,
+  "ROWS_WITH_PHI": 276,
+  "CATALOG_PRODUCTS": null,
+  "WHY_CATALOG_NULL": "o catálogo público é outra fonte e ainda não foi medido nesta rodada. CATALOG_PRESENCE ≠ REGISTRATION"
+ },
+ "CENSO_CATALOGO": {
+  "CATALOG_PRODUCTS": 111,
+  "PRODUCTS_CAPTURED": 111,
+  "PRODUCTS_WITH_AMM_CLAIM": 111,
+  "DOCUMENTS_FOUND": 153,
+  "DOCUMENTS_DOWNLOADED": 153,
+  "DOCUMENTS_FAILED": 0,
+  "RAW_EXPECTED": 264,
+  "RAW_BYTES": 338060464,
+  "LARGEST_ASSET_BYTES": 7443794,
+  "CROP_ISSUE_PAIRS_CREATED": 0,
+  "CARTESIAN_AVOIDED": 9868
+ },
+ "CROSSWALK": {
+  "CATALOG_ENTRIES": 111,
+  "CATALOG_ENTRIES_WITH_AMM_CLAIM": 111,
+  "DISTINCT_REGISTRATIONS_BEHIND_CATALOG": 62,
+  "CATALOG_ENTRIES_MINUS_REGISTRATIONS": 49,
+  "REGULATORY_AUTHORIZED": 72,
+  "STATES": {
+   "LOCAL_REGISTERED": 110,
+   "REGISTRATION_CONFLICT": 1
+  },
+  "REGISTERED_BUT_NOT_IN_PUBLIC_CATALOG": 15,
+  "REGISTERED_NOT_IN_CATALOG_AMMS": [
+   "1210675",
+   "2080088",
+   "2150845",
+   "2160064",
+   "2170358",
+   "2190945",
+   "2200028",
+   "2210113",
+   "2210940",
+   "2220639",
+   "2240011",
+   "7500569",
+   "8700118",
+   "9300396",
+   "9600273"
+  ],
+  "IN_CATALOG_BUT_REGISTRATION_WITHDRAWN": 5,
+  "CATALOG_SHOWING_WITHDRAWN": [
+   {
+    "PRODUCT": "Merpan SC",
+    "REGISTRATION_ID": "8800417",
+    "REGISTERED_NAME": "MERPAN SC",
+    "REGULATORY_STATE": "RETIRE",
+    "WITHDRAWN": "31/10/2025"
+   },
+   {
+    "PRODUCT": "Momentum F",
+    "REGISTRATION_ID": "2140065",
+    "REGISTERED_NAME": "MOMENTUM F",
+    "REGULATORY_STATE": "RETIRE",
+    "WITHDRAWN": "31/10/2025"
+   },
+   {
+    "PRODUCT": "Momentum Trio",
+    "REGISTRATION_ID": "2140050",
+    "REGISTERED_NAME": "MOMENTUM TRIO",
+    "REGULATORY_STATE": "RETIRE",
+    "WITHDRAWN": "31/10/2025"
+   },
+   {
+    "PRODUCT": "Elysium",
+    "REGISTRATION_ID": "2170691",
+    "REGISTERED_NAME": "TAVAS",
+    "REGULATORY_STATE": "RETIRE",
+    "WITHDRAWN": "24/05/2025"
+   },
+   {
+    "PRODUCT": "Sunset",
+    "REGISTRATION_ID": "2200620",
+    "REGISTERED_NAME": "SUNSET",
+    "REGULATORY_STATE": "RETIRE",
+    "WITHDRAWN": "31/01/2025"
+   }
+  ],
+  "REGISTRATION_CONFLICTS": [
+   {
+    "PRODUCT": "Milena",
+    "CLAIMED": "2250282",
+    "WHY": "o catálogo publica um AMM que não existe entre os registros ADAMA medidos na ANSES"
+   }
+  ],
+  "NOT_REGISTERED": 0,
+  "WHY_NOT_REGISTERED_ZERO": "NOT_REGISTERED exige a autoridade devolvendo ausência para aquele produto. Falta de casamento aqui vira LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED, nunca NOT_REGISTERED"
+ },
+ "RAW": {
+  "RAW_EXPECTED": 191,
+  "LOCAL_FILES": 265,
+  "DUPLICATE_REFERENCES": 74,
+  "DISTINCT_STORAGE_KEYS": 191,
+  "TOTAL_BYTES": 209211359,
+  "LARGEST_ASSET_BYTES": 7443794,
+  "BUCKET_LIMIT_BYTES": 209715200,
+  "EXCEEDS_BUCKET_LIMIT": false,
+  "KEY_COLLISIONS": 0,
+  "GATE": {
+   "RAW_PRESERVATION_GATE_FR": "OPEN",
+   "CONDITIONS": {
+    "EXPECTED_POSITIVE": true,
+    "REMOTE_PRESENT_EQ_EXPECTED": false,
+    "REMOTE_ABSENT_ZERO": true,
+    "ORPHANS_ZERO": true,
+    "FAILED_ZERO": true,
+    "CONTENT_HASH_CHECKED_EQ_EXPECTED": false,
+    "SHA_VERIFIED_EQ_EXPECTED": false,
+    "HASH_MISMATCH_ZERO": true
+   },
+   "MISSING": [
+    "CONTENT_HASH_CHECKED_EQ_EXPECTED",
+    "REMOTE_PRESENT_EQ_EXPECTED",
+    "SHA_VERIFIED_EQ_EXPECTED"
+   ],
+   "WHY": "faltam: CONTENT_HASH_CHECKED_EQ_EXPECTED, REMOTE_PRESENT_EQ_EXPECTED, SHA_VERIFIED_EQ_EXPECTED"
+  }
+ }
+}
