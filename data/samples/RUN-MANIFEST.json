@@ -10,6 +10,32 @@
  "NUNCA_GRAVAR_TOKEN": "INPUT guarda consulta e parâmetros. Credencial, jamais.",
  "RUNS": [
   {
+   "RUN_ID": "14-MAPA-DE-CREATORS-EAME-SEED-IT-INSTAGRAM",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-profile-scraper",
+   "ACTOR_VERSION": "NOT_PRESERVED",
+   "STARTED_AT": "2026-08-30T21:56:09Z",
+   "FINISHED_AT": "2026-08-30T21:56:10Z",
+   "INPUT": {
+    "usernames": []
+   },
+   "COUNTRY": "IT",
+   "MISSION": "14-MAPA-DE-CREATORS-EAME",
+   "QUERY": "seed italiana — 0 handles",
+   "DATASET_ID": "NOT_PRESERVED",
+   "ITEM_COUNT_RAW": 0,
+   "ITEM_COUNT_NORMALIZED": 0,
+   "COST_USD": "NOT_PRESERVED",
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "PARTIAL",
+   "ERROR": "status da plataforma: None. ",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-MAP-EAME/SEED-IT-RESOLVED.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-SEED-IT-INSTAGRAM.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T21:56:10Z"
+  },
+  {
    "RUN_ID": "ES-T5-002-2026-08-29-a",
    "PLATFORM": "OPENALEX",
    "ACTOR": "scripts/corpus_es.py (coletor próprio, rota gratuita)",
