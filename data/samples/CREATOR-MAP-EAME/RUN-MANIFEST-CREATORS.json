@@ -64,6 +64,34 @@
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-ATIVIDADE-IT.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T22:44:04Z"
+  },
+  {
+   "RUN_ID": "14-MAPA-DE-CREATORS-EAME-HUBS",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-profile-scraper",
+   "ACTOR_VERSION": "0.0.600",
+   "STARTED_AT": "2026-08-30T22:56:58.427Z",
+   "FINISHED_AT": "2026-08-30T22:57:12.077Z",
+   "INPUT": {
+    "usernames": [
+     "agroinfluye"
+    ]
+   },
+   "COUNTRY": "EU",
+   "MISSION": "14-MAPA-DE-CREATORS-EAME",
+   "QUERY": "hubs: @agroinfluye",
+   "DATASET_ID": "1w7kDBqTyRt8ldiaI",
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": 1,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-MAP-EAME/HUB-EXTRACTION.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-HUBS.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T22:57:14Z"
   }
  ]
 }
