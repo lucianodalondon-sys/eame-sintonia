@@ -637,6 +637,43 @@ class PlanoDePreservacao(unittest.TestCase):
             self.assertTrue(it['ARQUIVO_LOCAL'].startswith('data/raw/IT/'))
             self.assertTrue(it['OBJETO'].startswith('IT/'))
 
+    def test_hash_igual_nao_apaga_procedencia(self):
+        """Regressão: o rótulo do Highcard é linkado por DUAS páginas, e a
+        versão anterior guardava só a última — a página DONA do documento
+        sumia do manifesto.  MESMO CONTEÚDO ≠ MESMA PROCEDÊNCIA."""
+        multi = [i for i in self.p['ITENS'] if i['PROVENANCE_COUNT'] > 1]
+        self.assertTrue(multi, 'o caso Highcard/Max-Ace sumiu do plano')
+        for i in multi:
+            paginas = {o['PRODUCT_PAGE'] for o in i['PROVENANCE']}
+            self.assertGreater(len(paginas), 1)
+            for o in i['PROVENANCE']:
+                for campo in ('SOURCE_URL', 'ORIGINAL_FILENAME', 'PRODUCT_PAGE',
+                              'CONTENT_SHA256'):
+                    self.assertIn(campo, o)
+
+    def test_nenhum_link_de_documento_se_perde_entre_censo_e_plano(self):
+        with open(os.path.join(ACERVO, 'documentos-censo.json'), encoding='utf-8') as fh:
+            baixados = [d for d in json.load(fh)['DOCUMENTS']
+                        if d.get('STATE') == 'DOWNLOADED']
+        self.assertEqual(self.p['DOCUMENT_LINKS_TOTAL'], len(baixados))
+
+    def test_a_cadeia_141_139_138_fica_escrita_e_nao_vira_erro(self):
+        self.assertEqual(self.p['POR_ESPECIE']['DOCUMENT'], 139)
+        self.assertGreater(self.p['OBJETOS_COM_CONTEUDO_REPETIDO'], 0)
+        self.assertIn('hash igual não apaga origem',
+                      self.p['PORQUE_CONTEUDO_REPETIDO_NAO_E_ERRO'])
+
+    def test_o_plano_declara_qual_censo_esta_completo_e_qual_nao(self):
+        self.assertTrue(self.p['PRODUCT_CENSUS_COMPLETE'])
+        self.assertFalse(self.p['DOCUMENT_CENSUS_COMPLETE'])
+        self.assertEqual(self.p['DOCUMENT_CENSUS_INCOMPLETE_REASON'],
+                         'ROBOTS_DISALLOWS_AJAX_ROUTE')
+
+    def test_nenhum_item_do_plano_veio_de_rota_proibida(self):
+        for it in self.p['ITENS']:
+            for o in it['PROVENANCE']:
+                self.assertNotIn('/ajax/', o['SOURCE_URL'] or '')
+
 
 class PortaoRaw(unittest.TestCase):
     """RAW PRESENCE ≠ RAW CONTENT VERIFIED."""
@@ -676,6 +713,30 @@ class PortaoRaw(unittest.TestCase):
                         {'IT/x/0': 1, 'IT/x/1': 1, 'IT/intruso': 1})
         self.assertEqual(g['ORPHANS'], 1)
         self.assertEqual(g['STATE'], 'OPEN')
+
+    def test_byte_que_subiu_nao_conta_como_byte_preservado(self):
+        """A oitava condição é de bytes: um objeto truncado passa por presente e
+        por contado, e só não passa por aqui."""
+        itens = [{'OBJETO': 'IT/x/0', 'ESTADO': 'VERIFIED', 'BYTES': 100,
+                  'BYTES_DE_VOLTA': 100,
+                  'VERIFICACAO': 'SHA256_DEPOIS_DE_BAIXAR_DE_VOLTA'},
+                 {'OBJETO': 'IT/x/1', 'ESTADO': 'VERIFIED', 'BYTES': 100,
+                  'BYTES_DE_VOLTA': 40,
+                  'VERIFICACAO': 'SHA256_DEPOIS_DE_BAIXAR_DE_VOLTA'}]
+        g = pres.portao(itens, 2, {})
+        self.assertEqual(g['BYTES_EXPECTED'], 200)
+        self.assertEqual(g['BYTES_VERIFIED_REMOTELY'], 140)
+        self.assertEqual(g['STATE'], 'OPEN')
+        self.assertIn('BYTES_VERIFIED_EQ_EXPECTED', g['MISSING'])
+
+    def test_com_os_bytes_de_volta_completos_o_portao_fecha(self):
+        itens = [{'OBJETO': 'IT/x/%d' % i, 'ESTADO': 'VERIFIED', 'BYTES': 10,
+                  'BYTES_DE_VOLTA': 10,
+                  'VERIFICACAO': 'SHA256_DEPOIS_DE_BAIXAR_DE_VOLTA'}
+                 for i in range(3)]
+        g = pres.portao(itens, 3, {})
+        self.assertEqual(g['STATE'], 'CLOSED')
+        self.assertEqual(g['BYTES_VERIFIED_REMOTELY'], g['BYTES_EXPECTED'])
 
     def test_sem_credencial_o_envio_recusa_e_diz_o_que_falta(self):
         antes = {k: os.environ.pop(k, None)

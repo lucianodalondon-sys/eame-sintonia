@@ -139,8 +139,16 @@ def _mime(caminho, padrao=None):
                      padrao or 'application/octet-stream')
 
 
-def _nomes_originais():
-    """media_id → nome como o servidor entregou. Vai para o metadata, não para a chave."""
+def _proveniencia_por_arquivo():
+    """arquivo local → TODAS as origens que apontam para ele.
+
+    Um objeto pode ter mais de uma procedência, e guardar só a última apaga a
+    outra. Medido: o rótulo ministerial do Highcard é linkado por DUAS páginas —
+    a do próprio Highcard e a do sistema Max-Ace. A versão anterior deste código
+    gravava só a segunda, e a página DONA do documento sumia do manifesto.
+
+        MESMO CONTEÚDO ≠ MESMA PROCEDÊNCIA
+    """
     fora = {}
     for nome in ('documentos-censo.json', 'documentos-amostra.json'):
         caminho = os.path.join(ACERVO, nome)
@@ -148,11 +156,18 @@ def _nomes_originais():
             continue
         with open(caminho, encoding='utf-8') as fh:
             for d in json.load(fh).get('DOCUMENTS', []):
-                if d.get('STATE') == 'DOWNLOADED' and d.get('LOCAL_FILE'):
-                    fora[os.path.basename(d['LOCAL_FILE'])] = {
-                        'ORIGINAL_FILENAME': d.get('ORIGINAL_FILENAME'),
-                        'SOURCE_URL': d.get('SOURCE_URL'),
-                        'PRODUCT_URL': d.get('PRODUCT_URL')}
+                if d.get('STATE') != 'DOWNLOADED' or not d.get('LOCAL_FILE'):
+                    continue
+                chave = os.path.basename(d['LOCAL_FILE'])
+                linha = {'SOURCE_URL': d.get('SOURCE_URL'),
+                         'ORIGINAL_FILENAME': d.get('ORIGINAL_FILENAME'),
+                         'PRODUCT_PAGE': d.get('PRODUCT_URL'),
+                         'PRODUCT_NAME': d.get('PRODUCT_NAME'),
+                         'LABEL_ON_PAGE': d.get('LABEL_ON_PAGE'),
+                         'CONTENT_SHA256': d.get('SHA256')}
+                lista = fora.setdefault(chave, [])
+                if linha not in lista:
+                    lista.append(linha)
     return fora
 
 
@@ -162,7 +177,7 @@ def plano():
     Não confia no manifesto: o manifesto diz o que foi baixado, o disco diz o que
     existe. Divergência entre os dois é achado, não detalhe.
     """
-    meta_docs = _nomes_originais()
+    proc = _proveniencia_por_arquivo()
     itens = []
     for pasta, especie, mime_padrao in ESPECIES:
         base = os.path.join(ACERVO, pasta)
@@ -173,16 +188,19 @@ def plano():
             if not os.path.isfile(caminho):
                 continue
             sha, n = _sha_e_bytes(caminho)
-            extra = meta_docs.get(nome, {})
+            origens = proc.get(nome, [])
             itens.append({
                 'ESPECIE': especie,
                 'ARQUIVO_LOCAL': os.path.relpath(caminho, RAIZ).replace('\\', '/'),
                 'OBJETO': chave_de_storage(especie, sha, nome),
                 'SHA256': sha, 'BYTES': n,
                 'MEDIA_TYPE': _mime(caminho, mime_padrao),
-                'ORIGINAL_FILENAME': extra.get('ORIGINAL_FILENAME') or nome,
-                'SOURCE_URL': extra.get('SOURCE_URL'),
-                'PRODUCT_URL': extra.get('PRODUCT_URL'),
+                'ORIGINAL_FILENAME': (origens[0]['ORIGINAL_FILENAME']
+                                      if origens else nome),
+                'SOURCE_URL': origens[0]['SOURCE_URL'] if origens else None,
+                'PRODUCT_URL': origens[0]['PRODUCT_PAGE'] if origens else None,
+                'PROVENANCE': origens,
+                'PROVENANCE_COUNT': len(origens),
                 'COUNTRY': 'IT', 'ESTADO': 'PENDING'})
     for nome in MANIFESTOS:
         caminho = os.path.join(ACERVO, nome)
@@ -195,6 +213,7 @@ def plano():
             'OBJETO': chave_de_storage('MANIFEST', sha, nome),
             'SHA256': sha, 'BYTES': n, 'MEDIA_TYPE': 'application/json',
             'ORIGINAL_FILENAME': nome, 'SOURCE_URL': None, 'PRODUCT_URL': None,
+            'PROVENANCE': [], 'PROVENANCE_COUNT': 0,
             'COUNTRY': 'IT', 'ESTADO': 'PENDING'})
 
     chaves = {}
@@ -218,8 +237,30 @@ def plano():
         'OBJETOS_DISTINTOS': len(chaves),
         'COLISOES_DE_CHAVE': colisoes,
         'POR_ESPECIE': _contar(itens, 'ESPECIE'),
+        'BYTES_EXPECTED': sum(i['BYTES'] for i in itens),
         'BYTES_TOTAIS': sum(i['BYTES'] for i in itens),
         'LARGEST_ASSET_BYTES': maior,
+
+        # 141 links → 139 arquivos → 138 conteúdos. Nenhum dos três é erro, e a
+        # relação entre eles fica escrita para ninguém confundir depois.
+        'DOCUMENT_LINKS_TOTAL': sum(i['PROVENANCE_COUNT'] for i in itens),
+        'OBJETOS_COM_MAIS_DE_UMA_ORIGEM': sum(1 for i in itens
+                                              if i['PROVENANCE_COUNT'] > 1),
+        'CONTEUDOS_DISTINTOS': len({i['SHA256'] for i in itens}),
+        'OBJETOS_COM_CONTEUDO_REPETIDO': len(itens) - len({i['SHA256'] for i in itens}),
+        'PORQUE_CONTEUDO_REPETIDO_NAO_E_ERRO': (
+            'duas URLs podem servir os mesmos bytes, e duas páginas podem linkar o '
+            'mesmo documento. A chave é endereçada por conteúdo, mas a PROCEDÊNCIA '
+            'de cada link fica inteira em PROVENANCE — hash igual não apaga origem'),
+
+        # §2 — a lista completa de documentos de cada produto está atrás de uma
+        # rota que o robots.txt da própria ADAMA proíbe. Não foi aberta.
+        'PRODUCT_CENSUS_COMPLETE': True,
+        'DOCUMENT_CENSUS_COMPLETE': False,
+        'DOCUMENT_CENSUS_INCOMPLETE_REASON': 'ROBOTS_DISALLOWS_AJAX_ROUTE',
+        'DOCUMENT_CENSUS_NOTE': ('os documentos preservados são os que a página de '
+                                 'produto mostra. O link "Tutti i documenti" leva a '
+                                 '*/ajax/, proibido pelo robots.txt, e não foi aberto'),
         'LIMITE_BYTES': LIMITE_BYTES,
         'MAIOR_CABE_NO_LIMITE': maior < LIMITE_BYTES,
         'O_QUE_NAO_ENTRA': ['cache do navegador', 'CSS', 'fontes', 'cookies',
@@ -361,12 +402,27 @@ def portao(itens, esperado, remoto=None):
     falhos = sum(1 for i in itens if i['ESTADO'] == 'FAILED_WITH_REASON') - divergentes
     esperadas = {i['OBJETO'] for i in itens}
     orfaos = len([k for k in (remoto or {}) if k not in esperadas])
-    return dict(rw.gate(esperado=esperado, remoto_presente=presentes,
-                        remoto_ausente=esperado - presentes, orfaos=orfaos,
-                        falhos=max(falhos, 0), hash_conferido=conferidos,
-                        hash_divergente=divergentes),
-                SHA_VERIFIED=verificados,
-                REMOTE_INVENTORY_READ=remoto is not None)
+    bytes_esperados = sum(i.get('BYTES', 0) for i in itens)
+    # Só conta byte que VOLTOU e bateu. Byte que subiu não é byte preservado.
+    bytes_verificados = sum(i.get('BYTES_DE_VOLTA', 0) for i in itens
+                            if i['ESTADO'] in VERIFICADOS)
+    g = dict(rw.gate(esperado=esperado, remoto_presente=presentes,
+                     remoto_ausente=esperado - presentes, orfaos=orfaos,
+                     falhos=max(falhos, 0), hash_conferido=conferidos,
+                     hash_divergente=divergentes),
+             SHA_VERIFIED=verificados,
+             BYTES_EXPECTED=bytes_esperados,
+             BYTES_VERIFIED_REMOTELY=bytes_verificados,
+             REMOTE_INVENTORY_READ=remoto is not None)
+    # A oitava condição, e ela é de bytes: um objeto truncado passa por
+    # "presente" e por "contado", e só não passa por aqui.
+    g['CONDITIONS']['BYTES_VERIFIED_EQ_EXPECTED'] = (
+        bytes_verificados == bytes_esperados)
+    if not g['CONDITIONS']['BYTES_VERIFIED_EQ_EXPECTED']:
+        g['MISSING'] = sorted(set(g['MISSING']) | {'BYTES_VERIFIED_EQ_EXPECTED'})
+        g['STATE'] = 'OPEN'
+        g['WHY'] = 'faltam: ' + ', '.join(g['MISSING'])
+    return g
 
 
 sys.path.insert(0, AQUI)
@@ -418,22 +474,43 @@ def main():
         remoto, _ = inventario_remoto(url, key)
 
     g = portao(itens, p['RAW_EXPECTED'], remoto)
+    fechado = g['STATE'] == 'CLOSED'
     rel = {'SOURCE_ID': 'IT-ADAMA-CATALOG', 'source': p['source'],
            'captured_at': p['captured_at'], 'CAPTURED_AT': p['CAPTURED_AT'],
            'SOURCE_COUNTRY': 'IT', 'EVIDENCE_CLASS': 'PRESERVATION_PROOF',
            'PAIS': 'IT', 'RAW_EXPECTED': p['RAW_EXPECTED'],
-           'POR_ESTADO': _contar(itens, 'ESTADO'), 'GATE': g, 'ITENS': itens}
+           'PIPELINE': ['UPLOAD', 'INVENTORY', 'DOWNLOAD_BACK', 'SHA256'],
+           'PRESENCE_IN_BUCKET_IS_NOT_CONTENT_VERIFIED': True,
+           'PRODUCT_CENSUS_COMPLETE': p['PRODUCT_CENSUS_COMPLETE'],
+           'DOCUMENT_CENSUS_COMPLETE': p['DOCUMENT_CENSUS_COMPLETE'],
+           'DOCUMENT_CENSUS_INCOMPLETE_REASON': p['DOCUMENT_CENSUS_INCOMPLETE_REASON'],
+           'POR_ESTADO': _contar(itens, 'ESTADO'), 'GATE': g,
+           'RAW_PRESERVATION_GATE_IT': 'CLOSED' if fechado else 'OPEN',
+           'ADAMA_IT_PUBLIC_CATALOG_COMPLETE': (
+               'YES_FOR_PRODUCTS / NO_FOR_ALL_DOCUMENTS_ROBOTS_RESTRICTION'),
+           'ITALY_CATALOG_HANDOFF_READY': 'YES',
+           'ITALY_LOCAL_FOUNDATION_CAPTURE': 'COMPLETE' if fechado else 'INCOMPLETE',
+           'ITALY_DECISION_INTELLIGENCE_COMPLETE': (
+               'NOT_DECLARED — captar a fundação e responder a pergunta de decisão '
+               'são coisas diferentes, e só a primeira foi feita'),
+           'NO_EAME_IMPORT': 'YES',
+           'ITENS': itens}
     with open(RELATORIO, 'w', encoding='utf-8') as fh:
         json.dump(rel, fh, ensure_ascii=False, indent=2)
     print()
-    print('por estado           :', rel['POR_ESTADO'])
-    print('SHA_VERIFIED         :', g['SHA_VERIFIED'])
-    print('HASH_MISMATCH        :', g['HASH_MISMATCH'])
-    print('ORPHANS              :', g['ORPHANS'])
-    print('FAILED               :', g['FAILED'])
-    print('RAW_PRESERVATION_GATE_IT =', 'CLOSED' if g['STATE'] == 'CLOSED' else 'OPEN')
+    print('por estado             :', rel['POR_ESTADO'])
+    print('REMOTE_PRESENT         :', g['REMOTE_PRESENT'], '/', g['EXPECTED'])
+    print('REMOTE_ABSENT          :', g['REMOTE_ABSENT'])
+    print('CONTENT_HASH_CHECKED   :', g['CONTENT_HASH_CHECKED'])
+    print('SHA_VERIFIED           :', g['SHA_VERIFIED'])
+    print('HASH_MISMATCH          :', g['HASH_MISMATCH'])
+    print('ORPHANS                :', g['ORPHANS'])
+    print('FAILED                 :', g['FAILED'])
+    print('BYTES_EXPECTED         :', g['BYTES_EXPECTED'])
+    print('BYTES_VERIFIED_REMOTELY:', g['BYTES_VERIFIED_REMOTELY'])
+    print('RAW_PRESERVATION_GATE_IT =', rel['RAW_PRESERVATION_GATE_IT'])
     if g['MISSING']:
-        print('  faltam             :', ', '.join(g['MISSING']))
+        print('  faltam               :', ', '.join(g['MISSING']))
     return 0
 
 
