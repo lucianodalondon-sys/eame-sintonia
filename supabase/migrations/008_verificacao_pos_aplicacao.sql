@@ -23,7 +23,7 @@
 -- O teste em tests/test_migrations.py cobre o outro lado — que os arquivos são
 -- coerentes entre si. Os dois juntos fecham a pergunta; nenhum sozinho fecha.
 --
--- RODAR DEPOIS de aplicar 001–007 e 009–017. Ela é a última, não a oitava.
+-- RODAR DEPOIS de aplicar 001–007 e 009–018. Ela é a última, não a oitava.
 --
 -- NÃO EXECUTADA em Supabase. Executada e conferida num PostgreSQL 16
 -- local e descartável: 001–012 montadas do zero, fixture ES carregada e
@@ -199,9 +199,10 @@ begin
   -- 8 · AS CICATRIZES DO BRASIL (015). A lição que governa esta seção é que
   --     no Brasil a regra existia na PROSA e não no CAMPO — e foi o campo que
   --     decidiu a saída publicada.
-  foreach t in array array['local_do_fato_diz_como_se_soube',
-                           'local_da_fonte_nao_sustenta_local_do_fato',
-                           'tentativa_sem_evidencia_nao_e_ausencia'] loop
+  -- As duas travas de localização da 015 foram APOSENTADAS pela 018 junto
+  -- com a coluna que elas guardavam. Elas renasceram sobre conteudo_lugar,
+  -- onde valem para CADA lugar do fato, e são conferidas na seção 11.
+  foreach t in array array['tentativa_sem_evidencia_nao_e_ausencia'] loop
     if not exists (select 1 from pg_constraint where conname=t) then
       faltando := faltando || ('CHECK ' || t)::text;
     end if;
@@ -268,10 +269,10 @@ begin
     faltando := faltando || 'view v_human_sensor_admissivel (016)'::text;
   end if;
 
-  -- 10 · O QUE A CONFERÊNCIA DE LOCALIZAÇÃO ACHOU (017). Duas colunas de
-  --      view, e é por elas que menção deixa de chegar como afirmação.
-  foreach t in array array['fact_sustentado_apenas_por_mencao',
-                           'fact_forca_da_sustentacao'] loop
+  -- 10 · O QUE A CONFERÊNCIA DE LOCALIZAÇÃO ACHOU (017). `fact_forca_da_
+  --      sustentacao` era coluna desta view e saiu na 018: com 0..N lugares,
+  --      a força passou a ser de CADA lugar, e mora em conteudo_lugar.
+  foreach t in array array['fact_sustentado_apenas_por_mencao'] loop
     if not exists (select 1 from information_schema.columns
                     where table_schema='public' and table_name='v_conteudo_localizacao'
                       and column_name=t) then
@@ -279,11 +280,63 @@ begin
     end if;
   end loop;
 
+  -- 11 · O LUGAR DO FATO GANHA DONO (018). Sem estes objetos, o lugar do
+  --      fato volta a ser uma coluna 0..1 e as quatro espécies de lugar
+  --      voltam a colapsar na praça da fonte.
+  foreach t in array array['origem_lugar','conteudo_lugar'] loop
+    if not exists (select 1 from information_schema.tables
+                    where table_schema='public' and table_name=t) then
+      faltando := faltando || ('tabela ' || t || ' (018)')::text;
+    end if;
+  end loop;
+  -- O dono antigo NÃO pode ter voltado: dois donos da mesma lei responderiam
+  -- coisas diferentes um dia, e ninguém saberia qual.
+  if exists (select 1 from information_schema.columns
+              where table_schema='public' and table_name='conteudo'
+                and column_name='fact_geografia_id') then
+    faltando := faltando || 'conteudo.fact_geografia_id voltou (018 desfeita)'::text;
+  end if;
+  foreach t in array array['so_o_escrito_e_o_citado_sustentam_o_lugar_do_fato',
+                           'lugar_do_fato_diz_como_se_soube',
+                           'lugar_do_fato_declara_a_especie_da_evidencia',
+                           'lugar_do_fato_carrega_a_ancora',
+                           'resolvido_aponta_geografia',
+                           'zona_da_fonte_nao_e_divisao_administrativa',
+                           'tempo_do_fato_diz_como_se_soube'] loop
+    if not exists (select 1 from pg_constraint where conname=t) then
+      faltando := faltando || ('CHECK ' || t || ' (018)')::text;
+    end if;
+  end loop;
+  foreach t in array array['escada_de_precisao','f_ocorrencia_nao_e_incidencia'] loop
+    if not exists (select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+                    where n.nspname='public' and p.proname=t) then
+      faltando := faltando || ('funcao ' || t || ' (018)')::text;
+    end if;
+  end loop;
+  foreach t in array array['fact_tempo_texto','fact_tempo_resolucao',
+                           'fact_tempo_evidencia','fact_tempo_origem'] loop
+    if not exists (select 1 from information_schema.columns
+                    where table_schema='public' and table_name='conteudo'
+                      and column_name=t) then
+      faltando := faltando || ('conteudo.' || t || ' (018)')::text;
+    end if;
+  end loop;
+  -- PUBLISHED_AT != FACT_TIME: a ausência de 'PUBLICACAO' no vocabulário é
+  -- a trava. Se ela aparecer, a lei morreu sem que nada mais reprove.
+  if (select pg_get_constraintdef(oid) from pg_constraint
+       where conname like '%fact_tempo_origem%') like '%PUBLICACAO%' then
+    faltando := faltando || 'PUBLICACAO entrou no vocabulario do tempo do fato'::text;
+  end if;
+  if not exists (select 1 from information_schema.views
+                  where table_schema='public' and table_name='v_lugar_do_fato') then
+    faltando := faltando || 'view v_lugar_do_fato (018)'::text;
+  end if;
+
   if array_length(faltando,1) is not null then
     raise exception E'O BANCO NAO BATE COM AS MIGRATIONS.\nFaltando:\n  %',
       array_to_string(faltando, E'\n  ');
   end if;
 
-  raise notice 'migrations 001-017 conferidas: % tabelas, travas, funcoes e RLS no lugar',
+  raise notice 'migrations 001-018 conferidas: % tabelas, travas, funcoes e RLS no lugar',
     array_length(esperadas,1);
 end $$;

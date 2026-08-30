@@ -74,6 +74,23 @@ PORTOES = {
  },
 }
 
+# ── OS CONTRATOS, TAMBÉM DERIVADOS ────────────────────────────────────
+# Um contrato é COMPLETE quando toda cicatriz das famílias dele está PROVED.
+# Mesma regra dos portões, e pela mesma razão: enquanto isto era uma frase
+# num documento, ele podia dizer YES ao lado de uma lacuna aberta — e disse.
+CONTRATOS = {
+ 'LOCATION_CONTRACT_COMPLETE': ['LOCALIZACAO', 'LOCALIZACAO_CONFERENCIA'],
+ 'RELEVANCE_CONTRACT_COMPLETE': ['RELEVANCIA'],
+ 'PROVENANCE_CONTRACT_COMPLETE': ['PROVENIENCIA'],
+ 'IDENTITY_CONTRACT_COMPLETE': ['IDENTIDADE'],
+ 'TEMPORAL_CONTRACT_COMPLETE': ['TEMPO'],
+ 'UNKNOWN_STATE_CONTRACT_COMPLETE': ['AUSENCIA'],
+ 'COUNTRY_ISOLATION_COMPLETE': ['ISOLAMENTO'],
+ 'ANALYTICAL_UNIT_CONTRACT_COMPLETE': ['UNIDADE_ANALITICA'],
+ 'RESILIENCE_CONTRACT_COMPLETE': ['RESILIENCIA'],
+ 'METHOD_CONTRACT_COMPLETE': ['METODO'],
+}
+
 # LOCATION é parte do COLLECTION ENTRY GATE. A resposta está na linha acima
 # — LOCALIZACAO_CONFERENCIA está na lista dele —, e não numa frase de
 # documento que alguém possa reescrever sem que nada reprove.
@@ -118,6 +135,16 @@ def monta():
     cic = monta_cicatrizes()['CICATRIZES']
     fam = estados_por_familia(cic)
     portoes = {k: avalia(v, fam) for k, v in PORTOES.items()}
+
+    contratos = {}
+    for nome, familias in CONTRATOS.items():
+        abertas = [c['ID'] for f in familias for c in fam.get(f, [])
+                   if c['EAME_STATUS'] != 'PROVED']
+        contratos[nome] = {
+            'COMPLETO': 'YES' if not abertas else 'NO',
+            'FAMILIAS': familias,
+            'ABERTAS': abertas,
+        }
     r = raw_es()
 
     # O gate do RAW não é derivável daqui: é medição de outra máquina. O que
@@ -160,6 +187,7 @@ def monta():
             'O portão se chama entrada da COLETA, e o contrato de localização está '
             'em NO. Dizer que localização não é parte dele seria escolher o escopo '
             'depois de ver o resultado.',
+        'CONTRATOS': contratos,
         'PORTOES': portoes,
         'RAW_PRESERVATION_GATE': {
             'ESTADO': raw_estado,
@@ -171,6 +199,8 @@ def monta():
             'HASH_MISMATCH': r['HASH_MISMATCH'],
             'CONFLICT': r['CONFLICT'],
             'FECHADO': 'YES' if raw_fechado else 'NO',
+            'ORFAOS_NO_BUCKET': r.get('ORFAOS_NO_BUCKET'),
+            'DIAGNOSTICO': r.get('DIAGNOSTICO_ISOLADO'),
             'EXTERNAL_DIAGNOSIS_IN_PROGRESS': r['EXTERNAL_DIAGNOSIS_IN_PROGRESS'],
             'NUNCA_ZERO_SENT': r['PORQUE_NUNCA_ZERO_SENT'],
         },
@@ -193,6 +223,10 @@ if __name__ == '__main__':
         print('escrito:', SAIDA)
     print('LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE =',
           d['LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE'])
+    print()
+    for nome, c in d['CONTRATOS'].items():
+        print('%-38s %-4s %s' % (nome, c['COMPLETO'],
+                                 ('abertas: ' + ', '.join(c['ABERTAS'])) if c['ABERTAS'] else ''))
     print()
     for nome, p in d['PORTOES'].items():
         print('%-33s %-8s  %d/%d cicatrizes PROVED'

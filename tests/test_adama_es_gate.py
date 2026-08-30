@@ -323,6 +323,7 @@ class TestOEnsaioNaoEImportacao(unittest.TestCase):
         '015_cicatrizes_do_brasil.sql': 'praca',
         '016_checkpoint_e_unidade_analitica.sql': 'SEM_CHECKPOINT_NAO_GASTEI',
         '017_o_que_a_conferencia_de_localizacao_achou.sql': 'PUBLISHED_AT != FACT_TIME',
+        '018_o_lugar_do_fato_ganha_dono.sql': 'DOIS DONOS DA MESMA LEI',
     }
 
     def test_a_unica_migration_nova_tem_incompatibilidade_provada(self):

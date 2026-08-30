@@ -3,8 +3,8 @@
 #
 # Por que nao basta ler o .sql: um schema pode estar sintaticamente perfeito
 # e ainda assim responder CLOSED para uma janela que so e desconhecida. As
-# As 118 afirmacoes deste job sao sobre SIGNIFICADO, e significado so se
-# mede executando. As 12 mutacoes fecham o outro lado: uma suite verde em
+# As 159 afirmacoes deste job sao sobre SIGNIFICADO, e significado so se
+# mede executando. As 26 mutacoes fecham o outro lado: uma suite verde em
 # cima de codigo quebrado nao prova nada.
 #
 # Banco descartavel do proprio runner. Sem secret, sem tocar no Supabase de
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 1 · aplicar 001–007 e 009–017 num banco vazio
+      - name: 1 · aplicar 001–007 e 009–018 num banco vazio
         run: |
           set -e
           for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
@@ -96,6 +96,12 @@ jobs:
           grep -q "REGRESSOES_CICATRIZES=PASS" /tmp/ci
           # e as mutacoes: cada lei central tem de reprovar quando quebrada
           psql "$PGURL" -At -f supabase/tests/mutacao_cicatrizes.sql 2>&1 | tee /tmp/mu
+          # Uma mutacao que ERRA nao rodou — e o grep de "NAO PEGOU"
+          # nao a veria. Foi assim que tres mutacoes ficaram apontando
+          # para uma coluna aposentada sem que nada reprovasse.
+          grep -qE "^psql.*ERROR" /tmp/mu \
+            && { echo "PARADO: a mutacao ERROU — ela nao chegou a rodar"; exit 1; } \
+            || true
           grep -q "NAO PEGOU" /tmp/mu \
             && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
             || echo "MUTACOES_CICATRIZES=TODAS_PEGARAM"
@@ -109,6 +115,12 @@ jobs:
           # AGGREGATOR != HUMAN_VOICE, SEM_CHECKPOINT_NAO_GASTEI e a identidade
           # que nao carrega a rodada: cada uma tem de reprovar quando quebrada.
           psql "$PGURL" -At -f supabase/tests/mutacao_coleta.sql 2>&1 | tee /tmp/mc
+          # Uma mutacao que ERRA nao rodou — e o grep de "NAO PEGOU"
+          # nao a veria. Foi assim que tres mutacoes ficaram apontando
+          # para uma coluna aposentada sem que nada reprovasse.
+          grep -qE "^psql.*ERROR" /tmp/mc \
+            && { echo "PARADO: a mutacao ERROU — ela nao chegou a rodar"; exit 1; } \
+            || true
           grep -q "NAO PEGOU" /tmp/mc \
             && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
             || echo "MUTACOES_COLETA=TODAS_PEGARAM"
@@ -119,6 +131,26 @@ jobs:
           # Zero custo real: o ator e uma funcao Python. O caminho ate o banco
           # e o MESMO que a producao usa, e e por isso que a prova vale.
           EAME_TEST_DSN="$PGURL" python3 -m unittest tests.test_coleta_resiliente -v
+
+      - name: 4f · o lugar do fato — 41 afirmacoes e 13 mutacoes
+        run: |
+          set -e
+          psql "$PGURL" -f supabase/tests/regressoes_lugar_do_fato.sql 2>&1 | tee /tmp/lf
+          grep -q "REGRESSOES_LUGAR_DO_FATO=PASS" /tmp/lf
+          # O red team: doze tentativas de promover source/base/lista/mencao a
+          # FACT, de achatar 0..N em 1, de fazer published_at virar fact_time.
+          psql "$PGURL" -At -f supabase/tests/mutacao_lugar_do_fato.sql 2>&1 | tee /tmp/ml
+          # Uma mutacao que ERRA nao rodou — e o grep de "NAO PEGOU"
+          # nao a veria. Foi assim que tres mutacoes ficaram apontando
+          # para uma coluna aposentada sem que nada reprovasse.
+          grep -qE "^psql.*ERROR" /tmp/ml \
+            && { echo "PARADO: a mutacao ERROU — ela nao chegou a rodar"; exit 1; } \
+            || true
+          grep -q "NAO PEGOU" /tmp/ml \
+            && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
+            || echo "MUTACOES_LUGAR_DO_FATO=TODAS_PEGARAM"
+          # E a lei tem de ser UMA: core, leitor italiano e banco batendo.
+          EAME_TEST_DSN="$PGURL" python3 -m unittest tests.test_lugar_do_fato -v
 
       - name: 5 · o payload do caso, impresso no log para leitura humana
         if: always()

@@ -15,6 +15,79 @@
  "REGRA": "READY exige TODA cicatriz das famílias do portão em PROVED. Uma única PARTIAL ou ABSENT o deixa em PARTIAL.",
  "LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE": "YES",
  "PORQUE_LOCATION_E_PARTE": "toda coleta que produz documento produz documento com lugar de fato. O portão se chama entrada da COLETA, e o contrato de localização está em NO. Dizer que localização não é parte dele seria escolher o escopo depois de ver o resultado.",
+ "CONTRATOS": {
+  "LOCATION_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "LOCALIZACAO",
+    "LOCALIZACAO_CONFERENCIA"
+   ],
+   "ABERTAS": []
+  },
+  "RELEVANCE_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "RELEVANCIA"
+   ],
+   "ABERTAS": []
+  },
+  "PROVENANCE_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "PROVENIENCIA"
+   ],
+   "ABERTAS": []
+  },
+  "IDENTITY_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "IDENTIDADE"
+   ],
+   "ABERTAS": []
+  },
+  "TEMPORAL_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "TEMPO"
+   ],
+   "ABERTAS": []
+  },
+  "UNKNOWN_STATE_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "AUSENCIA"
+   ],
+   "ABERTAS": []
+  },
+  "COUNTRY_ISOLATION_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "ISOLAMENTO"
+   ],
+   "ABERTAS": []
+  },
+  "ANALYTICAL_UNIT_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "UNIDADE_ANALITICA"
+   ],
+   "ABERTAS": []
+  },
+  "RESILIENCE_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "RESILIENCIA"
+   ],
+   "ABERTAS": []
+  },
+  "METHOD_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "METODO"
+   ],
+   "ABERTAS": []
+  }
+ },
  "PORTOES": {
   "CATALOG_IMPORT_ENGINEERING_GATE": {
    "PERGUNTA": "a engenharia de importar o catálogo regulatório espanhol está pronta?",
@@ -52,45 +125,9 @@
     "RESILIENCIA"
    ],
    "CICATRIZES_COBERTAS": 35,
-   "CICATRIZES_PROVED": 30,
-   "ESTADO": "PARTIAL",
-   "BLOQUEADORES": [
-    {
-     "ID": "BR-26",
-     "FAMILIA": "LOCALIZACAO_CONFERENCIA",
-     "ESTADO": "PARTIAL",
-     "GAP": "BASE, OPERATING e INFLUENCE colapsam todos em source_geografia_id. O EAME sabe dizer \"de onde veio o documento\" e \"onde foi o fato\", e não sabe dizer onde a pessoa atua nem até onde ela alcança.",
-     "ACAO_MINIMA": "quando a HUMAN SENSOR LAYER coletar, os três eixos precisam nascer como linhas de uma tabela pessoa_geografia com PAPEL declarado — nunca como colunas novas em conteudo"
-    },
-    {
-     "ID": "BR-30",
-     "FAMILIA": "LOCALIZACAO_CONFERENCIA",
-     "ESTADO": "ABSENT",
-     "GAP": "conteudo.fact_geografia_id é UMA coluna bigint. Um documento que relata ocorrência na Toscana E na Puglia não é representável, e hoje isso não aparece como perda: aparece como um lugar só.",
-     "ACAO_MINIMA": "conteudo_fact_geografia (conteudo_id, geografia_id, origem, evidencia) antes da primeira coleta que produza documentos multirregionais — não antes da importação do catálogo espanhol, que é registro e não ocorrência"
-    },
-    {
-     "ID": "BR-31",
-     "FAMILIA": "LOCALIZACAO_CONFERENCIA",
-     "ESTADO": "PARTIAL",
-     "GAP": "a escada existe e PARA em PROVINCIA. Não há município, talhão nem coordenada, e não há nível supranacional. Para o calendário agronômico ES/IT isso basta; para ocorrência de campo não vai bastar.",
-     "ACAO_MINIMA": "estender geografia com municipio antes da primeira observação de campo — e nunca deixar precisão ser inferida do texto"
-    },
-    {
-     "ID": "BR-32",
-     "FAMILIA": "LOCALIZACAO_CONFERENCIA",
-     "ESTADO": "PARTIAL",
-     "GAP": "a guarda equivalente no eixo da GEOGRAFIA não existe. Uma lista de \"regiões onde X está registrado\" não tem como se declarar lista territorial, e cada região dela seria lida como lugar de fato como qualquer outra.",
-     "ACAO_MINIMA": "um estado LISTA_TERRITORIAL na origem do lugar do fato, na mesma coluna que já diz COMO se soube — não uma tabela nova"
-    },
-    {
-     "ID": "BR-34",
-     "FAMILIA": "LOCALIZACAO_CONFERENCIA",
-     "ESTADO": "PARTIAL",
-     "GAP": "a 015 devolvia UNRELATED para quem publicou depois do fim da janela, tratando publicação como fato. Era defeito meu, e está corrigido. O que continua faltando é o TEMPO DO FATO como campo: o EAME não tem onde guardar \"o fato aconteceu em junho\" separado de \"o texto saiu em setembro\", e por isso a janela do caso ainda é decidida pela única data que existe.",
-     "ACAO_MINIMA": "fact_tempo + fact_tempo_resolucao em conteudo, reusando o vocabulário de resolução temporal que a 009 já tem — junto com a primeira coleta de ocorrência, não antes"
-    }
-   ]
+   "CICATRIZES_PROVED": 35,
+   "ESTADO": "READY",
+   "BLOQUEADORES": []
   }
  },
  "RAW_PRESERVATION_GATE": {
@@ -98,11 +135,19 @@
   "PROVA": "EXTERNA",
   "VERIFICADO_DAQUI": "NO",
   "EXPECTED": 196,
-  "VERIFIED": 184,
-  "FAILED": 12,
+  "VERIFIED": 185,
+  "FAILED": 11,
   "HASH_MISMATCH": 0,
   "CONFLICT": 0,
   "FECHADO": "NO",
+  "ORFAOS_NO_BUCKET": 0,
+  "DIAGNOSTICO": {
+   "HTTP": 400,
+   "ERROR": "InvalidKey",
+   "CAUSA": "object key contendo caractere não-ASCII",
+   "PROVADO_EM": "ao menos um object key, isolado na máquina espanhola",
+   "PORQUE_IMPORTA": "a falha tem nome e causa. Deixa de ser \"12 falharam\" e passa a ser um defeito de nomeação de chave — que é reparável, e cuja correção é verificável."
+  },
   "EXTERNAL_DIAGNOSIS_IN_PROGRESS": "YES",
   "NUNCA_ZERO_SENT": "a rodada anterior publicou 'zero enviado dos 196'. Era falso: 184 já estavam no bucket e verificados. ZERO ENVIADO != PRESERVADO continua valendo na outra direção — e AFIRMAR ZERO quando não se mediu é o mesmo defeito, virado do avesso. Este arquivo existe para que ZERO_SENT não volte a ser escrito por falta de dado."
  },

@@ -28,6 +28,27 @@ begin
   end;
 end $f$;
 
+-- Recusar não basta: uma linha pode ser recusada pelo motivo ERRADO e o
+-- teste ficar verde sem provar nada. Esta variante exige que a recusa
+-- NOMEIE a trava que deveria disparar.
+create or replace function pg_temp.recusa_por(n text, comando text, trava text)
+returns void language plpgsql as $f$
+declare msg text;
+begin
+  begin
+    execute comando;
+    insert into _ci (nome, ok, detalhe) values (n, false, 'o banco ACEITOU o que a lei proíbe');
+    return;
+  exception when others then msg := sqlerrm;
+  end;
+  if position(trava in msg) > 0 then
+    insert into _ci (nome, ok, detalhe) values (n, true, 'recusado por ' || trava);
+  else
+    insert into _ci (nome, ok, detalhe) values (n, false,
+      'recusado pelo motivo ERRADO — esperava ' || trava || ', veio: ' || left(msg, 70));
+  end if;
+end $f$;
+
 create or replace function pg_temp.loc(cid text)
 returns public.v_conteudo_localizacao language sql stable as $f$
   select l.* from public.v_conteudo_localizacao l
@@ -35,65 +56,80 @@ returns public.v_conteudo_localizacao language sql stable as $f$
 $f$;
 
 
--- ═══ LOCALIZAÇÃO · os cinco casos ════════════════════════════════════
+-- ═══ LOCALIZAÇÃO · os casos ══════════════════════════════════════════
 -- A cicatriz: no Brasil a praça do CANAL carimbava a praça do documento, e
 -- 44 pessoas "discutiam nematoide de café" numa praça com 7.868 ha de café.
+--
+-- Reescrito na 018: o lugar do fato deixou de ser uma coluna e passou a ser
+-- `conteudo_lugar`, porque a coluna expressava 0..1 e o mundo é 0..N.
+
+create or replace function pg_temp.lugares(cid text)
+returns setof public.conteudo_lugar language sql stable as $f$
+  select cl.* from public.conteudo_lugar cl
+    join public.conteudo c on c.id = cl.conteudo_id
+   where c.content_id = cid and cl.papel = 'FACT';
+$f$;
+
 select pg_temp.afirma('A · fonte na região A relata fato na região B',
   (pg_temp.loc('ENSAIO-A')).source_place = 'Foggia'
-  and (pg_temp.loc('ENSAIO-A')).fact_place = 'Toscana',
+  and (pg_temp.loc('ENSAIO-A')).fact_places = array['Toscana'],
   'a fonte é de Foggia e o fato é da Toscana; nenhuma virou a outra');
 
 select pg_temp.afirma('B · fonte tem lugar, fato não tem',
   (pg_temp.loc('ENSAIO-B')).source_place = 'Foggia'
   and (pg_temp.loc('ENSAIO-B')).fact_location_desconhecido
-  and (pg_temp.loc('ENSAIO-B')).fact_precision = 'NOT_KNOWN',
+  and (pg_temp.loc('ENSAIO-B')).fact_locations = 0,
   'o lugar da fonte NÃO preencheu o lugar do fato');
 
 select pg_temp.afirma('C · o fato nomeia a província',
-  (pg_temp.loc('ENSAIO-C')).fact_place = 'Jaén'
-  and (pg_temp.loc('ENSAIO-C')).fact_precision = 'PROVINCIA'
-  and (pg_temp.loc('ENSAIO-C')).fact_geografia_origem = 'ESCRITO',
+  (pg_temp.loc('ENSAIO-C')).fact_places = array['Jaén']
+  and (pg_temp.loc('ENSAIO-C')).fact_precisions = array['PROVINCIA']
+  and (select origem_do_dado from pg_temp.lugares('ENSAIO-C')) = 'ESCRITO',
   'província nomeada e escrita, com evidência');
 
 select pg_temp.afirma('D · país conhecido, região desconhecida',
   (pg_temp.loc('ENSAIO-D')).fact_country::text = 'IT'
-  and (pg_temp.loc('ENSAIO-D')).fact_precision = 'PAIS',
+  and (pg_temp.loc('ENSAIO-D')).fact_precisions = array['PAIS'],
   'o país não faz as vezes de uma região');
 
 select pg_temp.afirma('E · todo lugar do fato carrega COMO se soube',
-  not exists (select 1 from public.conteudo
-               where fact_geografia_id is not null
-                 and (fact_geografia_origem is null or fact_geografia_evidencia is null)),
-  'sem origem e sem trecho, o lugar do fato não entra');
+  not exists (select 1 from public.conteudo_lugar
+               where papel = 'FACT'
+                 and (origem_do_dado is null or evidencia is null
+                      or ancora is null or tipo_de_evidencia is null)),
+  'sem origem, trecho, âncora e espécie de evidência, o lugar do fato não entra');
 
-select pg_temp.recusa('E2 · o lugar da FONTE não sustenta o lugar do FATO', $x$
-  insert into public.conteudo
-    (canal_id, run_id, tipo, content_id, hash_conteudo, source_geografia_id,
-     fact_geografia_id, fact_geografia_origem, fact_geografia_evidencia, rule_version)
-  select c.id, 'ENSAIO-RUN-CICATRIZ', 'artigo', 'ENSAIO-MUT-DA-FONTE', repeat('f',64),
-         g.id, g.id, 'DA_FONTE', 'a ficha do canal diz Foggia', 'ensaio'
-    from public.canal c, public.geografia g
-   where c.channel_id='ENSAIO-CANAL-01' and g.provincia='Foggia'
-$x$);
+select pg_temp.recusa_por('E2 · o lugar da FONTE não sustenta o lugar do FATO', $x$
+  insert into public.conteudo_lugar
+    (conteudo_id, lugar_texto, geografia_id, estado_do_lugar, papel,
+     tipo_de_evidencia, origem_do_dado, evidencia, ancora, rule_version)
+  select ct.id, 'Foggia', g.id, 'RESOLVIDO', 'FACT', 'FIELD_OBSERVATION',
+         'DA_FONTE', 'a ficha do canal diz Foggia', 'sede', 'ensaio'
+    from public.conteudo ct, public.geografia g
+   where ct.content_id='ENSAIO-B' and g.provincia='Foggia'
+$x$, 'so_o_escrito_e_o_citado_sustentam_o_lugar_do_fato');
 
-select pg_temp.recusa('E3 · localização inferida nunca vira declarada', $x$
-  insert into public.conteudo
-    (canal_id, run_id, tipo, content_id, hash_conteudo,
-     fact_geografia_id, fact_geografia_origem, fact_geografia_evidencia, rule_version)
-  select c.id, 'ENSAIO-RUN-CICATRIZ', 'artigo', 'ENSAIO-MUT-DEDUZIDO', repeat('g',64),
-         g.id, 'DEDUZIDO', 'a inteligência inferiu pela audiência', 'ensaio'
-    from public.canal c, public.geografia g
-   where c.channel_id='ENSAIO-CANAL-01' and g.regiao='Toscana' and g.provincia is null
-$x$);
+select pg_temp.recusa_por('E3 · localização inferida nunca vira declarada', $x$
+  insert into public.conteudo_lugar
+    (conteudo_id, lugar_texto, geografia_id, estado_do_lugar, papel,
+     tipo_de_evidencia, origem_do_dado, evidencia, ancora, rule_version)
+  select ct.id, 'Toscana', g.id, 'RESOLVIDO', 'FACT', 'FIELD_OBSERVATION',
+         'DEDUZIDO', 'a inteligência inferiu pela audiência', 'inferido', 'ensaio'
+    from public.conteudo ct, public.geografia g
+   where ct.content_id='ENSAIO-B' and g.regiao='Toscana' and g.provincia is null
+     and g.municipio is null
+$x$, 'so_o_escrito_e_o_citado_sustentam_o_lugar_do_fato');
 
-select pg_temp.recusa('E4 · lugar do fato sem dizer como se soube', $x$
-  insert into public.conteudo
-    (canal_id, run_id, tipo, content_id, hash_conteudo, fact_geografia_id, rule_version)
-  select c.id, 'ENSAIO-RUN-CICATRIZ', 'artigo', 'ENSAIO-MUT-SEM-ORIGEM', repeat('h',64),
-         g.id, 'ensaio'
-    from public.canal c, public.geografia g
-   where c.channel_id='ENSAIO-CANAL-01' and g.regiao='Toscana' and g.provincia is null
-$x$);
+select pg_temp.recusa_por('E4 · lugar do fato sem o trecho que o sustenta', $x$
+  insert into public.conteudo_lugar
+    (conteudo_id, lugar_texto, geografia_id, estado_do_lugar, papel,
+     tipo_de_evidencia, origem_do_dado, ancora, rule_version)
+  select ct.id, 'Toscana', g.id, 'RESOLVIDO', 'FACT', 'FIELD_OBSERVATION',
+         'ESCRITO', 'osservata', 'ensaio'
+    from public.conteudo ct, public.geografia g
+   where ct.content_id='ENSAIO-B' and g.regiao='Toscana' and g.provincia is null
+     and g.municipio is null
+$x$, 'lugar_do_fato_diz_como_se_soube');
 
 
 -- ═══ RELEVÂNCIA · ela mora no conteúdo ═══════════════════════════════
@@ -252,36 +288,32 @@ select pg_temp.afirma('C4 · lugar do fato só MENCIONADO não é sinal exato',
   'cultura, problema, país e janela conferem; o lugar veio de menção, e menção não afirma');
 
 select pg_temp.afirma('C5 · a menção aparece na visão, em vez de passar despercebida',
-  (select fact_sustentado_apenas_por_mencao from public.v_conteudo_localizacao l
-     join public.conteudo c on c.id = l.conteudo_id where c.content_id='ENSAIO-E')
-  and (select fact_forca_da_sustentacao from public.v_conteudo_localizacao l
-     join public.conteudo c on c.id = l.conteudo_id where c.content_id='ENSAIO-E')
-      = 'APENAS_MENCIONADO',
+  (pg_temp.loc('ENSAIO-E')).fact_sustentado_apenas_por_mencao
+  and (select origem_do_dado from pg_temp.lugares('ENSAIO-E')) = 'CITADO',
   'mencionado e afirmado chegam ao consumidor com nomes diferentes');
 
 select pg_temp.afirma('C6 · afirmado no texto continua sendo afirmado',
-  (select fact_forca_da_sustentacao from public.v_conteudo_localizacao l
-     join public.conteudo c on c.id = l.conteudo_id where c.content_id='ENSAIO-A')
-   = 'AFIRMADO_NO_TEXTO'
-  and not (select fact_sustentado_apenas_por_mencao from public.v_conteudo_localizacao l
-     join public.conteudo c on c.id = l.conteudo_id where c.content_id='ENSAIO-A'),
-  'a coluna nova distingue os dois casos, e não marca tudo como menção');
+  (select origem_do_dado from pg_temp.lugares('ENSAIO-A')) = 'ESCRITO'
+  and not (pg_temp.loc('ENSAIO-A')).fact_sustentado_apenas_por_mencao,
+  'a distinção sobrevive por LINHA, e não marca tudo como menção');
 
--- E as lacunas que NÃO foram consertadas ficam medidas, não esquecidas.
-select pg_temp.afirma('C7 · lacuna A continua aberta e DECLARADA',
-  (select count(*) from information_schema.columns
-    where table_schema='public' and table_name='conteudo'
-      and column_name in ('source_geografia_id','fact_geografia_id')) = 2
-  and not exists (select 1 from information_schema.columns
-                   where table_schema='public' and table_name='conteudo'
-                     and column_name like '%operating%'),
-  'BASE != OPERATING != INFLUENCE ainda colapsam na praça da fonte — está na matriz');
+-- As lacunas A e E, que a conferência deixou abertas, FECHARAM na 018.
+-- As duas afirmações abaixo eram "continua aberta e DECLARADA"; agora são
+-- a prova de que fecharam. Inverter um teste sem inverter o mecanismo seria
+-- mover a régua — o mecanismo está em supabase/tests/regressoes_lugar_do_fato.sql.
+select pg_temp.afirma('C7 · lacuna A fechada: as espécies de lugar têm dono',
+  exists (select 1 from information_schema.tables
+           where table_schema='public' and table_name='origem_lugar')
+  and (select count(distinct papel) from public.origem_lugar
+        where papel in ('BASE','OPERATING','INFLUENCE')) = 3,
+  'BASE, OPERATING e INFLUENCE deixaram de colapsar na praça da fonte');
 
-select pg_temp.afirma('C8 · lacuna E continua aberta e DECLARADA',
-  (select data_type from information_schema.columns
-    where table_schema='public' and table_name='conteudo'
-      and column_name='fact_geografia_id') = 'bigint',
-  'um conteúdo tem 0..1 lugar de fato, e o mundo tem 0..N — está na matriz');
+select pg_temp.afirma('C8 · lacuna E fechada: um conteúdo tem 0..N lugares do fato',
+  not exists (select 1 from information_schema.columns
+               where table_schema='public' and table_name='conteudo'
+                 and column_name='fact_geografia_id')
+  and (pg_temp.loc('ENSAIO-F')).fact_locations = 3,
+  'a coluna 0..1 foi APOSENTADA, e o documento de três províncias tem três');
 
 
 -- ═══════════════════════════════════════════════════════════════════════

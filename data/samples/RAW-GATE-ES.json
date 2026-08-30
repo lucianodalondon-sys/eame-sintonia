@@ -1,46 +1,66 @@
 {
  "SOURCE_ID": "RAW-GATE-ES",
- "VERSION": "V2",
+ "VERSION": "V3",
  "captured_at": "2026-08-30",
-
  "O_QUE_ISTO_E": "o estado do bucket raw da Espanha, MEDIDO NA MÁQUINA LOCAL espanhola e recebido aqui por relato da coordenação.",
  "O_QUE_ISTO_NAO_E": "não é medição feita deste ambiente. Este ambiente não tem credencial de Supabase e não conseguiria contar um único asset.",
-
  "MEDIDO_POR": "máquina local espanhola",
  "VERIFICADO_DAQUI": "NO",
  "PORQUE_NAO_VERIFICADO_DAQUI": "SUPABASE_AUTH_AVAILABLE = NO neste ambiente. Refazer a contagem daqui produziria zero, e zero medido sem acesso é NAO_TESTADO, não AUSENTE_MEDIDO.",
  "PROVA": "EXTERNA",
-
  "EXPECTED": 196,
- "ALREADY_PRESENT_VERIFIED": 184,
- "FAILED_WITH_REASON": 12,
+ "ALREADY_PRESENT_VERIFIED": 185,
+ "FAILED_WITH_REASON": 11,
  "HASH_MISMATCH": 0,
  "CONFLICT": 0,
-
- "SOMA_FECHA": "184 + 12 = 196",
-
+ "SOMA_FECHA": "185 + 11 = 196",
  "OS_12_FALHOS": {
+  "QUANTOS_AGORA": 11,
+  "PORQUE_ERAM_12": "a contagem de envio da 2a tentativa dizia 12; o inventário do bucket diz 11. O inventário olha o resultado, e é ele que vale.",
   "PERTENCEM_AO_DENOMINADOR": "YES",
-  "PORQUE": "cada um dos 12 tem ARQUIVO_LOCAL, BYTES e SHA256. Existem, foram baixados e foram conferidos. O que falhou foi o ENVIO, não a obtenção — e por isso eles não saem do denominador 196.",
-  "MODO_DE_FALHA_VISIVEL": "maioria HTTP 400; ao menos NEPTUNE web.pdf com HTTP 520",
+  "PORQUE": "cada um tem ARQUIVO_LOCAL, BYTES e SHA256. Existem, foram baixados e foram conferidos. O que falhou foi o ENVIO, não a obtenção — e por isso eles não saem do denominador 196.",
+  "MODO_DE_FALHA": "HTTP 400 InvalidKey, por caractere não-ASCII na object key",
   "RETRY_MELHOROU": "NO"
  },
-
  "DUAS_TENTATIVAS": [
-  {"quando": "1a", "VERIFIED": 185, "FAILED": 11},
-  {"quando": "2a", "VERIFIED": 184, "FAILED": 12}
+  {
+   "quando": "1a · contagem de envio",
+   "VERIFIED": 185,
+   "FAILED": 11
+  },
+  {
+   "quando": "2a · contagem de envio",
+   "VERIFIED": 184,
+   "FAILED": 12
+  },
+  {
+   "quando": "3a · INVENTÁRIO do bucket",
+   "VERIFIED": 185,
+   "FAILED": 11,
+   "ORFAOS": 0
+  }
  ],
  "PORQUE_AS_DUAS_ESTAO_AQUI": "a segunda tentativa mediu UM a menos, não um a mais. Guardar só a melhor das duas seria escolher o número que agrada. A diferença de 1 entre as tentativas é parte do diagnóstico e está em aberto.",
-
  "EXTERNAL_DIAGNOSIS_IN_PROGRESS": "YES",
  "ONDE": "máquina local espanhola",
  "NAO_TENTAR_REPARAR_DAQUI": "YES",
-
  "ESTADO": "OPEN_EXTERNAL_REPAIR",
-
  "PORQUE_NUNCA_ZERO_SENT": "a rodada anterior publicou 'zero enviado dos 196'. Era falso: 184 já estavam no bucket e verificados. ZERO ENVIADO != PRESERVADO continua valendo na outra direção — e AFIRMAR ZERO quando não se mediu é o mesmo defeito, virado do avesso. Este arquivo existe para que ZERO_SENT não volte a ser escrito por falta de dado.",
-
  "SOURCE_LOCATION": "máquina local espanhola",
  "FACT_LOCATION": "bucket raw do Supabase do projeto",
- "ORIGINAL_LANGUAGE": "pt"
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_MUDOU_DA_V2": "a máquina espanhola passou a INVENTARIAR o bucket em vez de só contar envios. O inventário é uma medição diferente e melhor: ele olha o que ESTÁ LÁ, e não o que foi reportado como enviado. Por isso os números da V2 (184/12) e os da V3 (185/11) não se corrigem: eles respondem perguntas diferentes, e as duas ficam registradas.",
+ "INVENTARIO_REMOTO_OBJETOS": 185,
+ "DO_PLANO_PRESENTES": 185,
+ "DO_PLANO_AUSENTES": 11,
+ "ORFAOS_NO_BUCKET": 0,
+ "PORQUE_ZERO_ORFAOS_IMPORTA": "nenhum objeto no bucket está fora do plano. Sem essa conta, \"185 presentes\" poderia incluir arquivo que ninguém pediu, e a cobertura pareceria melhor do que é.",
+ "DIAGNOSTICO_ISOLADO": {
+  "HTTP": 400,
+  "ERROR": "InvalidKey",
+  "CAUSA": "object key contendo caractere não-ASCII",
+  "PROVADO_EM": "ao menos um object key, isolado na máquina espanhola",
+  "PORQUE_IMPORTA": "a falha tem nome e causa. Deixa de ser \"12 falharam\" e passa a ser um defeito de nomeação de chave — que é reparável, e cuja correção é verificável."
+ },
+ "REPARO_EM_CURSO_ONDE": "máquina local espanhola, frente separada"
 }

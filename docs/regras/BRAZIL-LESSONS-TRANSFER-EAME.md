@@ -4,7 +4,7 @@
 **Nada importado.** Nenhuma migration em produção, catálogo não importado, handoff não
 mesclado, Supabase intocado.
 
-> **`CATALOG_IMPORT_ENGINEERING_GATE = READY`** · **`EAME_COLLECTION_ENTRY_GATE = PARTIAL`**
+> **`CATALOG_IMPORT_ENGINEERING_GATE = READY`** · **`EAME_COLLECTION_ENTRY_GATE = READY`**
 > · **`RAW_PRESERVATION_GATE = OPEN_EXTERNAL_REPAIR`** · **`IMPORT_CAN_BE_NEXT_MISSION = NO`**
 >
 > São dois portões, e não um. Um nome estava fazendo dois trabalhos — a engenharia de
@@ -138,7 +138,12 @@ voltou + zero `raw_asset` = `PAGO_E_NAO_PRESERVADO`**. E uma rodada sem item sai
 | **BR-20** | os estados de rodada existem e a regra de não-repetir não está escrita no caminho produtivo | mesma guarda, mesmo lugar | coleta paga |
 | **BR-21** | não há pool de chaves nem retomada | salvar o bruto por lote e declarar o pool como dado antes de usá-lo | coleta paga |
 
-> **Os cinco foram fechados na rodada seguinte** (016 · 017 · `scripts/coleta_checkpoint.py`
+> **As cinco cicatrizes de FACT LOCATION abertas pela conferência — BR-26, BR-30, BR-31,
+> BR-32, BR-34 — fecharam na migration 018**, que aposentou `conteudo.fact_geografia_id`
+> e deu à lei um dono capaz de 0..N. Ver
+> `docs/relatorios/RELATORIO-LUGAR-DO-FATO.md`.
+>
+> **Os cinco de infraestrutura foram fechados na rodada anterior** (016 · 017 · `scripts/coleta_checkpoint.py`
 > · `supabase/tests/regressoes_coleta.sql` · `tests/test_coleta_resiliente.py`). A tabela
 > acima fica como estava porque é o registro do que se sabia então — ver
 > `docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md` para o estado corrente e para
@@ -155,7 +160,7 @@ coleta não estão provadas.
 
 | contrato | completo? |
 |---|---|
-| `LOCATION_CONTRACT_COMPLETE` | ~~**YES**~~ → **NO** — rebaixado pela conferência: BR-26 · BR-30 · BR-31 · BR-32 · BR-34 |
+| `LOCATION_CONTRACT_COMPLETE` | ~~**YES**~~ → ~~**NO**~~ → **YES** — as cinco fecharam na 018, e agora o valor é **derivado** da matriz, não escrito aqui |
 | `RELEVANCE_CONTRACT_COMPLETE` | **YES** |
 | `TEMPORAL_CONTRACT_COMPLETE` | **YES** |
 | `PROVENANCE_CONTRACT_COMPLETE` | **YES** |
@@ -166,15 +171,19 @@ coleta não estão provadas.
 | `RAW_PRESERVATION_GATE` | **OPEN_EXTERNAL_REPAIR** — 184 de 196 verificados, 12 falharam no envio, 0 hash divergente. Prova externa; ver `data/samples/RAW-GATE-ES.json` |
 | `RESILIENCE_CONTRACT_COMPLETE` | ~~**NO**~~ → **YES** — BR-19 · BR-20 · BR-21 fechados |
 
-O `LOCATION_CONTRACT_COMPLETE` saiu de **YES** e foi para **NO** na mesma rodada em que os
-outros dois saíram de NO para YES. Isso não é um retrocesso: é o resultado de passar dez
-cicatrizes brasileiras mais novas por cima de um contrato que já tinha sido dado por
-fechado, e descobrir que ele fechava seis das dez. Manter o YES teria sido mover a régua.
+O `LOCATION_CONTRACT_COMPLETE` fez o caminho **YES → NO → YES** em três rodadas, e o meio
+é a parte importante. Ele começou YES por afirmação; foi para NO quando dez cicatrizes
+brasileiras mais novas foram passadas por cima dele e cinco não fecharam; e voltou a YES
+quando as cinco foram fechadas com testemunha executável e mutação.
+
+O que mudou de vez foi o **mecanismo**: nenhum destes valores é mais escrito à mão. Todos
+saem de `scripts/portoes_eame.py`, derivados da matriz de cicatrizes, pela mesma regra dos
+portões. Enquanto era uma frase, ele pôde dizer YES ao lado de uma lacuna aberta — e disse.
 
 ## Ordem canônica das migrations
 
 ```
-001–007 · 009 · 010–012 · 013 · 014 catálogo · 015 · 016 · 017 · 008 por último
+001–007 · 009 · 010–012 · 013 · 014 catálogo · 015 · 016 · 017 · 018 · 008 por último
 ```
 
 **O 014 fica vago de propósito.** É o `010_catalogo_publico_fabricante.sql` da branch

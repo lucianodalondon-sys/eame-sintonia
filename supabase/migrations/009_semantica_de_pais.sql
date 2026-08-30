@@ -152,6 +152,10 @@ alter table public.disponibilidade_comercial enable row level security;
 -- FACT_COUNTRY é o país do FATO. Quando ele é desconhecido, a linha cai em
 -- 'NAO_SEI' — nunca herda o país da fonte.
 -- ─────────────────────────────────────────────────────────────────────
+-- ⚠️ ATENÇÃO: as três views desta seção são SUBSTITUÍDAS pela 018. Elas leem
+-- `conteudo.fact_geografia_id`, coluna que a 018 aposenta ao dar à lei do
+-- lugar do fato um dono que expressa 0..N. Editar aqui não muda o banco
+-- depois da 018.
 -- CREATE OR REPLACE nao troca o nome/ordem das colunas de uma view existente.
 -- Como `fact_country` entra na frente, a view precisa ser derrubada e refeita.
 drop view if exists public.v_independencia_por_par;

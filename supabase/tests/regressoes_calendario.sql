@@ -123,10 +123,16 @@ select pg_temp.afirma('05b o calendário guarda a versão da fonte sem virar cap
 
 
 -- ═══ 6 · SOURCE_COUNTRY != FACT_COUNTRY ══════════════════════════════
-select pg_temp.afirma('06 SOURCE_COUNTRY != FACT_COUNTRY · conteudo separa os dois',
+-- A lei não mudou; o DONO mudou. Até a 017 os dois eram colunas de
+-- `conteudo`. A 018 aposentou `fact_geografia_id` porque ela expressava
+-- 0..1 e o mundo é 0..N — o lugar do fato agora é `conteudo_lugar`. A
+-- separação continua sendo a afirmação, e é isso que este teste mede.
+select pg_temp.afirma('06 SOURCE_COUNTRY != FACT_COUNTRY · o lugar do fato tem dono próprio',
   pg_temp.tem_coluna('conteudo','source_geografia_id')
-  and pg_temp.tem_coluna('conteudo','fact_geografia_id'),
-  'a origem do documento e o lugar do fato são colunas distintas');
+  and not pg_temp.tem_coluna('conteudo','fact_geografia_id')
+  and exists (select 1 from information_schema.tables
+               where table_schema='public' and table_name='conteudo_lugar'),
+  'a praça da fonte é coluna do conteúdo; o lugar do fato é tabela, e são 0..N');
 
 select pg_temp.recusa('06b um calendário ES não aceita geografia FR', $x$
   with g as (

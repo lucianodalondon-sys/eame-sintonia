@@ -11,9 +11,9 @@
  "REGRA_DO_PROVED": "PROVED exige testemunha executável encontrável no acervo — teste, constraint, função ou afirmação nomeada. Este script confere cada uma e REBAIXA para NOT_MEASURED o que não achar. Narrativa não vira PROVED.",
  "CICATRIZES_IDENTIFICADAS": 35,
  "PLACAR": {
-  "PROVED": 30,
-  "PARTIAL": 4,
-  "ABSENT": 1,
+  "PROVED": 35,
+  "PARTIAL": 0,
+  "ABSENT": 0,
   "NOT_MEASURED": 0
  },
  "REBAIXADAS_PELA_VERIFICACAO": [],
@@ -575,15 +575,21 @@
    "ONDE_NO_BRASIL": "a separação exigida entre a praça do autor e a praça do documento",
    "WHY_IT_EXISTS": "colapsar as quatro faz a sede do autor virar mapa de ocorrência",
    "EAME_APPLICABLE": "YES",
-   "EAME_STATUS": "PARTIAL",
-   "OWNER": "conteudo.source_geografia_id e conteudo.fact_geografia_id (003) separam DUAS das quatro: a praça da fonte e a praça do fato.",
+   "EAME_STATUS": "PROVED",
+   "OWNER": "origem_lugar (018), com PAPEL declarado em linha — exatamente a ação mínima que a conferência tinha escrito, e não colunas novas em conteudo. FACT não está no vocabulário dela: o lugar do fato é do CONTEÚDO, e é por isso que são duas tabelas e não uma.",
    "EXECUTABLE_PROOF": [
-    "C7 · lacuna A continua aberta e DECLARADA"
+    "L1 · as três espécies do sujeito coexistem",
+    "L5 · promover BASE a FACT é recusado pelo vocabulário",
+    "L6 · a sede citada no documento fica como MENCAO_APENAS",
+    "origem_lugar"
    ],
-   "GAP": "BASE, OPERATING e INFLUENCE colapsam todos em source_geografia_id. O EAME sabe dizer \"de onde veio o documento\" e \"onde foi o fato\", e não sabe dizer onde a pessoa atua nem até onde ela alcança.",
-   "MINIMAL_ACTION": "quando a HUMAN SENSOR LAYER coletar, os três eixos precisam nascer como linhas de uma tabela pessoa_geografia com PAPEL declarado — nunca como colunas novas em conteudo",
+   "GAP": "os quatro coexistem sem sobrescrita e o caso obrigatório está no ensaio — pesquisador em Foggia, instituição nacional, audiência italiana, fato em Grosseto. O que NÃO existe é um leitor que preencha origem_lugar sozinho: hoje as três espécies do sujeito entram por cadastro com evidência escrita.",
+   "MINIMAL_ACTION": null,
    "PROVA_ENCONTRADA": [
-    "C7 · lacuna A continua aberta e DECLARADA"
+    "L1 · as três espécies do sujeito coexistem",
+    "L5 · promover BASE a FACT é recusado pelo vocabulário",
+    "L6 · a sede citada no documento fica como MENCAO_APENAS",
+    "origem_lugar"
    ],
    "PROVA_NAO_ENCONTRADA": []
   },
@@ -659,15 +665,21 @@
    "ONDE_NO_BRASIL": "um documento que relata ocorrência em duas regiões ao mesmo tempo",
    "WHY_IT_EXISTS": "forçar um lugar só faz escolher um e apagar o resto, em silêncio",
    "EAME_APPLICABLE": "YES",
-   "EAME_STATUS": "ABSENT",
-   "OWNER": null,
+   "EAME_STATUS": "PROVED",
+   "OWNER": "conteudo_lugar (018). A coluna conteudo.fact_geografia_id, que expressava 0..1, foi APOSENTADA junto com as duas travas que a guardavam — deixá-la viva ao lado da tabela criaria dois donos da mesma lei.",
    "EXECUTABLE_PROOF": [
-    "C8 · lacuna E continua aberta e DECLARADA"
+    "N1 · um documento sustenta três lugares do fato",
+    "N2 · os três vêm como lista, não como string colada",
+    "N5 · o dono antigo, de 0..1, não existe mais",
+    "conteudo_lugar"
    ],
-   "GAP": "conteudo.fact_geografia_id é UMA coluna bigint. Um documento que relata ocorrência na Toscana E na Puglia não é representável, e hoje isso não aparece como perda: aparece como um lugar só.",
-   "MINIMAL_ACTION": "conteudo_fact_geografia (conteudo_id, geografia_id, origem, evidencia) antes da primeira coleta que produza documentos multirregionais — não antes da importação do catálogo espanhol, que é registro e não ocorrência",
+   "GAP": null,
+   "MINIMAL_ACTION": null,
    "PROVA_ENCONTRADA": [
-    "C8 · lacuna E continua aberta e DECLARADA"
+    "N1 · um documento sustenta três lugares do fato",
+    "N2 · os três vêm como lista, não como string colada",
+    "N5 · o dono antigo, de 0..1, não existe mais",
+    "conteudo_lugar"
    ],
    "PROVA_NAO_ENCONTRADA": []
   },
@@ -678,17 +690,21 @@
    "ONDE_NO_BRASIL": "a escada de precisão declarada por registro",
    "WHY_IT_EXISTS": "somar precisões diferentes no mesmo mapa produz número que não existe",
    "EAME_APPLICABLE": "YES",
-   "EAME_STATUS": "PARTIAL",
-   "OWNER": "precisao_da_geografia() (015) devolve PAIS / REGIAO / PROVINCIA / NOT_KNOWN, derivada da linha e nunca assumida",
+   "EAME_STATUS": "PROVED",
+   "OWNER": "precisao_da_geografia() e escada_de_precisao() (018): PAIS < REGIAO < PROVINCIA < MUNICIPIO < LOCALIDADE < COORDENADA, derivada da LINHA e nunca do texto. Cada país nomeia os degraus como quiser; o degrau é do contrato, o nome é do país, e COUNTRY_ISOLATION continua intacta.",
    "EXECUTABLE_PROOF": [
-    "precisao_da_geografia",
-    "C · o fato nomeia a província"
+    "P1 · a escada chega a MUNICIPIO",
+    "P2 · a escada tem os seis degraus administrativos",
+    "P3 · a precisão nasce da LINHA, nunca do texto",
+    "escada_de_precisao"
    ],
-   "GAP": "a escada existe e PARA em PROVINCIA. Não há município, talhão nem coordenada, e não há nível supranacional. Para o calendário agronômico ES/IT isso basta; para ocorrência de campo não vai bastar.",
-   "MINIMAL_ACTION": "estender geografia com municipio antes da primeira observação de campo — e nunca deixar precisão ser inferida do texto",
+   "GAP": "a escada tem seis degraus e o gazetteer não os preenche todos: o leitor italiano cobre regiões, províncias e o país, e município que não seja capoluogo continua NOT_IN_GAZETTEER. Isso é falta de COBERTURA, declarada, e não falta de contrato — as duas coisas eram a mesma antes da 018.",
+   "MINIMAL_ACTION": null,
    "PROVA_ENCONTRADA": [
-    "precisao_da_geografia",
-    "C · o fato nomeia a província"
+    "P1 · a escada chega a MUNICIPIO",
+    "P2 · a escada tem os seis degraus administrativos",
+    "P3 · a precisão nasce da LINHA, nunca do texto",
+    "escada_de_precisao"
    ],
    "PROVA_NAO_ENCONTRADA": []
   },
@@ -699,17 +715,21 @@
    "ONDE_NO_BRASIL": "a lista de espectro do rótulo lida como ocorrência",
    "WHY_IT_EXISTS": "a lista do rótulo é a maior fábrica de falso positivo que o Brasil teve",
    "EAME_APPLICABLE": "YES",
-   "EAME_STATUS": "PARTIAL",
-   "OWNER": "conteudo_crop_issue.relacao = ESPECTRO_DE_PRODUTO (015) faz a guarda no eixo do PRODUTO: lista de rótulo vira CONTEXT_ONLY, nunca ocorrência.",
+   "EAME_STATUS": "PROVED",
+   "OWNER": "conteudo_lugar.papel = LISTA_TERRITORIAL guarda a lista COM o papel certo, e a lista branca so_o_escrito_e_o_citado_sustentam_o_lugar_do_fato (018) impede que ela vire fato. Guardar a lista é o que permite PROVAR que ela não virou ocorrência — recusar sem rastro não prova nada.",
    "EXECUTABLE_PROOF": [
-    "ESPECTRO_DE_PRODUTO",
-    "lista de rótulo é espectro de produto, não ocorrência observada"
+    "T1 · a lista econômica existe no banco, com o papel certo",
+    "T2 · e nenhum dos três é lugar do fato",
+    "T3 · lista nua promovida a FACT é recusada",
+    "T3b · a lista branca tem exatamente ESCRITO e CITADO"
    ],
-   "GAP": "a guarda equivalente no eixo da GEOGRAFIA não existe. Uma lista de \"regiões onde X está registrado\" não tem como se declarar lista territorial, e cada região dela seria lida como lugar de fato como qualquer outra.",
-   "MINIMAL_ACTION": "um estado LISTA_TERRITORIAL na origem do lugar do fato, na mesma coluna que já diz COMO se soube — não uma tabela nova",
+   "GAP": "a primeira versão da 018 tinha uma trava só para a lista territorial ALÉM da lista branca. A mutação do red team mostrou que ela nunca disparava — a lista já caía na outra. Trava que nunca dispara é pior que nenhuma: dá a impressão de guarda própria. Foi removida, e o conteúdo da lista branca virou teste, porque alargá-la mataria três leis de uma vez.",
+   "MINIMAL_ACTION": null,
    "PROVA_ENCONTRADA": [
-    "ESPECTRO_DE_PRODUTO",
-    "lista de rótulo é espectro de produto, não ocorrência observada"
+    "T1 · a lista econômica existe no banco, com o papel certo",
+    "T2 · e nenhum dos três é lugar do fato",
+    "T3 · lista nua promovida a FACT é recusada",
+    "T3b · a lista branca tem exatamente ESCRITO e CITADO"
    ],
    "PROVA_NAO_ENCONTRADA": []
   },
@@ -743,19 +763,21 @@
    "ONDE_NO_BRASIL": "a separação entre data da publicação e data do fato",
    "WHY_IT_EXISTS": "usar a data de publicação como data do fato descarta o retrospectivo e envelhece o recente",
    "EAME_APPLICABLE": "YES",
-   "EAME_STATUS": "PARTIAL",
-   "OWNER": "f_relevancia_ao_caso (017): publicado ANTES da janela é RETROSPECTIVE, porque documento não relata o futuro; publicado DEPOIS é CONTEXT_ONLY, porque sem tempo do fato a publicação não desqualifica nada.",
+   "EAME_STATUS": "PROVED",
+   "OWNER": "conteudo.fact_tempo_* (018), reusando resolucao_temporal da 009 em vez de criar um segundo vocabulário de precisão. `PUBLICACAO` NÃO existe no vocabulário de origem do tempo, e essa ausência é a trava: não há como declarar que o tempo do fato veio do carimbo da publicação.",
    "EXECUTABLE_PROOF": [
+    "F1 · o tempo do fato tem campo próprio",
+    "F3 · PUBLICACAO não existe no vocabulário de origem do tempo",
     "C1 · publicado DEPOIS da janela não vira UNRELATED",
-    "C2 · publicado ANTES da janela continua RETROSPECTIVE",
-    "C3 · dentro da janela, o sinal exato continua exato"
+    "C2 · publicado ANTES da janela continua RETROSPECTIVE"
    ],
-   "GAP": "a 015 devolvia UNRELATED para quem publicou depois do fim da janela, tratando publicação como fato. Era defeito meu, e está corrigido. O que continua faltando é o TEMPO DO FATO como campo: o EAME não tem onde guardar \"o fato aconteceu em junho\" separado de \"o texto saiu em setembro\", e por isso a janela do caso ainda é decidida pela única data que existe.",
-   "MINIMAL_ACTION": "fact_tempo + fact_tempo_resolucao em conteudo, reusando o vocabulário de resolução temporal que a 009 já tem — junto com a primeira coleta de ocorrência, não antes",
+   "GAP": "o campo existe e a maioria dos conteúdos não o terá preenchido — a fonte raramente diz quando o fato foi. `tempo_do_fato_desconhecido` torna isso dizível em vez de deixar a data de publicação ocupar o lugar vago.",
+   "MINIMAL_ACTION": null,
    "PROVA_ENCONTRADA": [
+    "F1 · o tempo do fato tem campo próprio",
+    "F3 · PUBLICACAO não existe no vocabulário de origem do tempo",
     "C1 · publicado DEPOIS da janela não vira UNRELATED",
-    "C2 · publicado ANTES da janela continua RETROSPECTIVE",
-    "C3 · dentro da janela, o sinal exato continua exato"
+    "C2 · publicado ANTES da janela continua RETROSPECTIVE"
    ],
    "PROVA_NAO_ENCONTRADA": []
   },

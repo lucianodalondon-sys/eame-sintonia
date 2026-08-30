@@ -17,36 +17,17 @@ select 'MUT1 R2  ' || case when (
   then 'NAO PEGOU (teste inutil)' else 'PEGOU' end as resultado;
 rollback;
 
-begin;
--- MUT 2 · a precisão passa a devolver o país como se fosse região
-create or replace function public.precisao_da_geografia(g bigint)
-returns text language sql stable as $x$ select 'REGIAO' $x$;
-select 'MUT2 D   ' || case when (
-  select l.fact_precision from public.v_conteudo_localizacao l
-    join public.conteudo c on c.id=l.conteudo_id where c.content_id='ENSAIO-D') = 'PAIS'
-  then 'NAO PEGOU (teste inutil)' else 'PEGOU' end as resultado;
-rollback;
-
-begin;
--- MUT 3 · a trava do lugar do fato cai
-alter table public.conteudo drop constraint local_da_fonte_nao_sustenta_local_do_fato;
-do $$
-declare aceitou boolean := false;
-begin
-  begin
-    insert into public.conteudo
-      (canal_id, run_id, tipo, content_id, hash_conteudo, source_geografia_id,
-       fact_geografia_id, fact_geografia_origem, fact_geografia_evidencia, rule_version)
-    select c.id, 'ENSAIO-RUN-CICATRIZ', 'artigo', 'MUT3', repeat('m',64),
-           g.id, g.id, 'DA_FONTE', 'a ficha do canal diz Foggia', 'ensaio'
-      from public.canal c, public.geografia g
-     where c.channel_id='ENSAIO-CANAL-01' and g.provincia='Foggia';
-    aceitou := true;
-  exception when others then aceitou := false;
-  end;
-  raise notice 'MUT3 E2   %', case when aceitou then 'PEGOU' else 'NAO PEGOU (teste inutil)' end;
-end $$;
-rollback;
+-- MUT 2 e MUT 3 MUDARAM DE ARQUIVO na 018, junto com o dono da lei.
+--
+-- A precisão da geografia e a trava do lugar do fato deixaram de morar em
+-- `conteudo` e passaram a morar em `conteudo_lugar`. As mutações que as
+-- atacam foram para supabase/tests/mutacao_lugar_do_fato.sql — MUT05 e
+-- MUT06 para a precisão, MUT01 para a trava.
+--
+-- Elas não ficam nos dois lugares: duas mutações para a mesma lei em dois
+-- arquivos é a mesma doença que duas travas para a mesma regra, e a segunda
+-- envelhece sem que ninguém perceba. Esta nota fica no lugar delas para que
+-- a ausência seja lida como mudança de dono, e não como cobertura perdida.
 
 begin;
 -- MUT 4 · o veredito de preservação passa a chamar tudo de preservado
@@ -84,20 +65,24 @@ rollback;
 
 begin;
 -- MUT 6 · a menção volta a chegar ao consumidor disfarçada de afirmação
+-- Refeita na 018: a view passou a ler `conteudo_lugar`, e a coluna de força
+-- da sustentação saiu (com 0..N, a força é de CADA lugar, não do conteúdo).
 create or replace view public.v_conteudo_localizacao with (security_invoker = on) as
 select c.id as conteudo_id, gs.pais as source_country,
-       coalesce(gs.provincia, gs.regiao, 'PAÍS') as source_place,
-       gf.pais as fact_country,
-       coalesce(gf.provincia, gf.regiao, 'PAÍS') as fact_place,
-       c.fact_geografia_origem, c.fact_geografia_evidencia,
-       public.precisao_da_geografia(c.fact_geografia_id) as fact_precision,
-       c.fact_geografia_id is null as fact_location_desconhecido,
-       gs.pais is distinct from gf.pais as fonte_e_fato_em_paises_diferentes,
+       coalesce(gs.municipio, gs.provincia, gs.regiao, gs.nome_da_fonte, 'PAÍS') as source_place,
+       null::pais as fact_country,
+       (select count(*) from public.conteudo_lugar cl
+         where cl.conteudo_id = c.id and cl.papel='FACT') as fact_locations,
+       (select array_agg(cl.lugar_texto order by cl.lugar_texto)
+          from public.conteudo_lugar cl
+         where cl.conteudo_id = c.id and cl.papel='FACT') as fact_places,
+       null::text[] as fact_precisions,
+       false as fact_location_desconhecido,
+       -- a mutação: a menção deixa de ser sinalizada
        false as fact_sustentado_apenas_por_mencao,
-       'AFIRMADO_NO_TEXTO' as fact_forca_da_sustentacao
+       0::bigint as lugares_nao_fato, 0::bigint as lugares_fora_do_gazetteer
   from public.conteudo c
-  left join public.geografia gs on gs.id = c.source_geografia_id
-  left join public.geografia gf on gf.id = c.fact_geografia_id;
+  left join public.geografia gs on gs.id = c.source_geografia_id;
 select 'MUT6 C5  ' || case when not (
   select l.fact_sustentado_apenas_por_mencao from public.v_conteudo_localizacao l
     join public.conteudo c on c.id=l.conteudo_id where c.content_id='ENSAIO-E')
