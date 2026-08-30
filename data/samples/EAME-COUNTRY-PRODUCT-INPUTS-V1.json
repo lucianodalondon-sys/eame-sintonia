@@ -1,0 +1,74 @@
+{
+ "SOURCE_ID": "EAME-COUNTRY-PRODUCT-INPUTS-V1",
+ "captured_at": "2026-08-30",
+ "source": "derivado — SPAIN-DEMO-CONTENT-V1, HANDOFF-ITALIA-PARA-EAME (git show) e FRANCE-SOURCE-FOUNDATION-V1 (branch propria)",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES, IT, FR",
+ "ORIGINAL_LANGUAGE": "pt",
+ "A_TESE_TESTADA": "cada pais e um produto completo. O teste e: os tres pacotes nacionais respondem as mesmas onze perguntas SOZINHOS, sem emprestar dado um do outro?",
+ "REGRA": "nenhum dado espanhol completa Italia ou Franca. Onde um pais nao tem a camada, o valor e a razao, e a lacuna aparece.",
+ "CAMADAS": {
+  "CROPS": {
+   "ES": "SIM — 4.938.534 ha de cereais por cultura e provincia (MAPA SCOT), mais milho por municipio na PAC de Aragon",
+   "IT": "SIM — ISTAT + Eurostat, validados entre si, por regiao",
+   "FR": "SIM — Eurostat NUTS2 2024: trigo 4.214,6 · cevada 1.808,5 · milho grao 1.593,9 mil ha"
+  },
+  "REGIONS": {
+   "ES": "provincia (NUTS3) e municipio catastral, com crosswalk oficial 81/81 em Huesca",
+   "IT": "regione (NUTS2), com a armadilha de vintage NUTS ja medida",
+   "FR": "NUTS2 com rotulos ANTERIORES a fusao de 2016 — Aquitaine, Picardie, Poitou-Charentes"
+  },
+  "ISSUES": {
+   "ES": "67 issues de milho e 99 de cereal de inverno, lidos do ROPF inteiro; nao de lista plausivel",
+   "IT": "do disciplinare regional e do rotulo — ISSUE_KNOWN separado de CURRENT_SIGNAL",
+   "FR": "cultura x alvo ja tabelado no E-Phy: 18.558 usos autorizados, 504 da ADAMA"
+  },
+  "FIELD": {
+   "ES": "RAIF Andaluzia — 21 campanhas, parcela a parcela, com data de AMOSTRAGEM por leitura",
+   "IT": "bollettini regionais em 4+ regioes, com data de PUBLICACAO e fenologia observada no texto",
+   "FR": "NAO — BSV existe e esta indexado pelo ministerio, mas os 17 subdominios draaf.* dao timeout nesta sessao. READ_FAILURE, nao ZERO."
+  },
+  "SCIENCE": {
+   "ES": "3 pares CROP x ISSUE, 88 papers, 36 autores, 5 identidades CONFIRMADAS por ORCID num-found=1, mais dois levantamentos regionais de resistencia",
+   "IT": "OpenAlex dirigido por instituicao italiana; cluster de micotoxina em milho com 208 trabalhos",
+   "FR": "rota identica disponivel, NAO EXECUTADA"
+  },
+  "PEOPLE": {
+   "ES": "6 pesquisadores nos casos, com ORCID e vinculo declarado",
+   "IT": "autores com ORCID, sem a etapa de desambiguacao individual",
+   "FR": "nenhum"
+  },
+  "REGULATORY": {
+   "ES": "ROPF — 1.993 vigentes, 96 da ADAMA, rota do par no servidor, 96 fichas preservadas",
+   "IT": "Ministero — 17.695 registros, 3.712 vigentes, 163 vigentes do grupo ADAMA, 163/163 rotulos parseados",
+   "FR": "E-Phy da ANSES — 15.140 produtos, 267 da ADAMA France SAS, usos ja tabelados"
+  },
+  "ADAMA_PORTFOLIO": {
+   "ES": "96 registros vigentes, com par CROP x ISSUE consultavel; catalogo publico NOT_COLLECTED (403 de borda)",
+   "IT": "163 vigentes com categoria, cultura, dose e grupo MoA em 36% dos rotulos; catalogo publico bloqueado (403 de WAF)",
+   "FR": "267 produtos com 504 usos; catalogo publico bloqueado (403 de borda Akamai)"
+  },
+  "TIMING": {
+   "ES": "janela lida na etiqueta, com APPLICATION separada de MONITORING e fenologia observada como ancora",
+   "IT": "janela de aplicacao separada da de monitoramento, com calendario normativo de lotta obbligatoria",
+   "FR": "NAO — depende do BSV e do rotulo, e o BSV esta bloqueado"
+  },
+  "ACTIONS": {
+   "ES": "mapa V2 com seis estados nas seis funcoes; 1 ACT_NOW em 18 linhas",
+   "IT": "mapa com AGIR AGORA / MONITORAR AGORA / PREPARAR / PLANEJAR e COMMERCIAL sem nada a propor",
+   "FR": "NAO — fundacao nao produz acao"
+  },
+  "UNKNOWNS": {
+   "ES": "UNKNOWN_MAP por caso, no pacote congelado",
+   "IT": "7 unknowns numerados no handoff",
+   "FR": "3 blockers com WHY e WHAT_WOULD_UNBLOCK"
+  }
+ },
+ "VEREDITO": {
+  "PORTAL_ES_INPUT": "READY — 11 de 11 camadas respondidas por fonte espanhola",
+  "PORTAL_IT_INPUT": "READY COM LACUNA NOMEADA — 9 de 11. Faltam PEOPLE com identidade resolvida e a camada de VOZ, que a Italia declarou nao coletada por ordem.",
+  "PORTAL_FR_INPUT": "NOT_READY — 6 de 11. Faltam FIELD, TIMING, ACTIONS, PEOPLE e SCIENCE executada.",
+  "A_TESE_SOBREVIVE": "SIM. Os tres pacotes se sustentam separadamente e as lacunas aparecem como lacunas, nao como buracos preenchidos com dado de vizinho. A Franca esta incompleta e isso esta visivel — que era exatamente o que o teste tinha que mostrar.",
+  "O_QUE_EU_NAO_FIZ": "nao usei area espanhola para estimar area francesa, nem sinal italiano para sugerir sinal frances. Onde falta, falta."
+ }
+}

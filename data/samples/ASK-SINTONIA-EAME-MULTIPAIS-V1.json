@@ -1,0 +1,96 @@
+{
+ "SOURCE_ID": "ASK-SINTONIA-EAME-MULTIPAIS-V1",
+ "captured_at": "2026-08-30",
+ "source": "derivado dos tres pacotes nacionais e dos dois contratos EAME",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES, IT, FR",
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_ISTO_E": "conjunto de aceitacao multipais. Nao e chatbot e nao ha interface.",
+ "QUESTIONS_TESTED": 10,
+ "ANSWERABLE": 5,
+ "PARTIAL": 2,
+ "REFUSED": 3,
+ "COUNTRY_LOCAL": 3,
+ "CROSS_COUNTRY": 7,
+ "O_QUE_AS_RECUSAS_MOSTRAM": "as tres recusas sao todas cross-country e todas pelo mesmo motivo de fundo: comparar exige unidade e tipo de data iguais, e ainda nao temos. Um sistema que respondesse essas tres estaria inventando.",
+ "QUESTIONS": [
+  {
+   "Q": "O que esta acontecendo agora na Espanha?",
+   "ESCOPO": "country-local",
+   "STATUS": "PARTIAL",
+   "A": "No olivar do oeste andaluz a campanha 2026 fechou alta — Cadiz 8,01% de folhas com repilo, a 2a maior de 21 campanhas. Mas a ultima leitura de campo la tem 77 a 95 dias. O que a evidencia autoriza hoje e VERIFICAR o campo, nao aplicar.",
+   "POR_QUE_PARCIAL": "\"agora\" nao tem resposta de campo no oeste. As provincias do leste tem leitura de agosto e estao baixas.",
+   "EVIDENCE": "ES-CASE-001"
+  },
+  {
+   "Q": "O que devo preparar para o proximo ciclo na Italia?",
+   "ESCOPO": "country-local",
+   "STATUS": "ANSWERABLE",
+   "A": "O ciclo 2027 da flavescencia dourada da videira, antes de 31/05. Os tratamentos ao vetor sao obrigatorios por decreto regional e a janela de 2026 ja fechou em junho. E ha 6 produtos ADAMA com Scaphoideus titanus como alvo declarado no rotulo.",
+   "EVIDENCE": "ITALY-HERO-CASES-V1, IT-HERO-001, lido por git show da branch italiana"
+  },
+  {
+   "Q": "Temos resposta registrada nos dois paises?",
+   "ESCOPO": "cross-country",
+   "STATUS": "PARTIAL",
+   "A": "Sim, nos dois — mas as unidades nao sao as mesmas e nao devem ser somadas. Espanha: 96 registros vigentes da ADAMA num registro de 1.993. Italia: 163 vigentes do grupo ADAMA num registro de 3.712 autorizados. Franca: 267 produtos da ADAMA France SAS num registro de 15.140.",
+   "POR_QUE_PARCIAL": "a Espanha conta registro vigente, a Italia conta registro do grupo com identidade de titular resolvida por sede declarada, e a Franca conta produto. Tres unidades.",
+   "EVIDENCE": "EAME-COUNTRY-PRODUCT-INPUTS-V1"
+  },
+  {
+   "Q": "Existe a mesma janela de aplicacao nos dois paises?",
+   "ESCOPO": "cross-country",
+   "STATUS": "REFUSE / NOT_KNOWN",
+   "A": "Nao sei, e nao vou comparar. Nenhum par CROP x ISSUE tem caso trabalhado nos dois paises ao mesmo tempo. O que os dois TEM em comum e a disciplina de separar janela de aplicacao de janela de monitoramento — isso e metodo, nao janela.",
+   "POR_QUE_RECUSAR": "comparar a janela do repilo espanhol com a da flavescencia italiana seria comparar dois problemas diferentes em duas culturas diferentes.",
+   "EVIDENCE": "EAME-COMPARABILITY-CONTRACT-V1"
+  },
+  {
+   "Q": "Esse sinal apareceu antes em algum outro pais?",
+   "ESCOPO": "cross-country",
+   "STATUS": "REFUSE / NOT_KNOWN",
+   "A": "Nao sei, e essa e a pergunta mais perigosa da lista. Nao existe nenhum issue com serie temporal comparavel dos dois lados. Sem isso, dizer que um pais antecipa o outro seria narrativa.",
+   "POR_QUE_RECUSAR": "EARLIER_SIGNAL exige TIME_DELTA sobre datas de OBSERVACAO nos dois lados, e a Italia hoje so tem data de publicacao de boletim.",
+   "EVIDENCE": "EAME-RELATIONSHIP-CONTRACT-V1, regras de admissao"
+  },
+  {
+   "Q": "Qual parte nao e comparavel entre Espanha e Italia?",
+   "ESCOPO": "cross-country",
+   "STATUS": "ANSWERABLE",
+   "A": "Duas coisas. Modo de acao: 1 das 96 fichas espanholas traz codigo de grupo contra 36% dos rotulos italianos — e diferenca de formato de documento, nao de cobertura. E voz e rede tecnica: a Italia nao coletou, entao nao ha lado B.",
+   "RESSALVA": "e cinco outras dimensoes sao PARCIAIS, a mais cara sendo a data do sinal de campo — amostragem na Espanha, publicacao na Italia.",
+   "EVIDENCE": "EAME-COMPARABILITY-CONTRACT-V1"
+  },
+  {
+   "Q": "Por que voce nao recomenda acao comercial?",
+   "ESCOPO": "cross-country",
+   "STATUS": "ANSWERABLE",
+   "A": "Porque COMMERCIAL_CLOCK e NAO SEI nos tres paises. Nada nestes repositorios informa venda, preco, canal ou participacao, e registro nao e disponibilidade. A linha comercial recebe PREPARE BRIEF e VERIFY WITH BUSINESS — nunca instrucao de venda.",
+   "EVIDENCE": "ES-ACTION-MAP-V2 e o mapa italiano, que tambem escreve \"nada a propor\""
+  },
+  {
+   "Q": "Onde esta o milho que importa na EAME?",
+   "ESCOPO": "cross-country",
+   "STATUS": "ANSWERABLE",
+   "A": "Na Franca. Milho grao 2024: Franca 1.593,9 mil ha, Espanha 239,1 mil ha — 6,7 vezes. So a antiga regiao de Aquitaine tem 276,4 mil ha, mais que a Espanha inteira. A Italia tem 495,4 mil ha.",
+   "RESSALVA": "os rotulos de regiao francesa sao das NUTS anteriores a fusao de 2016. E a Franca nao tem sinal de campo medido: o BSV esta bloqueado nesta sessao.",
+   "EVIDENCE": "FRANCE-SOURCE-FOUNDATION-V1; EU-T1-001"
+  },
+  {
+   "Q": "Podemos abrir um portal para a Franca hoje?",
+   "ESCOPO": "country-local",
+   "STATUS": "REFUSE / NOT_KNOWN",
+   "A": "Nao. A Franca responde 6 das 11 camadas. Faltam campo, timing, acoes, pessoas e a ciencia executada. Regulatorio, rotulo, escala e distribuicao estao prontos.",
+   "POR_QUE_RECUSAR": "completar a Franca com dado espanhol ou italiano seria o unico jeito de responder as outras cinco, e isso quebra a tese de que cada pais e um produto.",
+   "EVIDENCE": "EAME-COUNTRY-PRODUCT-INPUTS-V1"
+  },
+  {
+   "Q": "O bloqueio do catalogo da ADAMA e um problema do nosso lado ou do site?",
+   "ESCOPO": "cross-country",
+   "STATUS": "ANSWERABLE",
+   "A": "Do cliente, nao do pais nem da data. Tres paises testados, tres subsites, o mesmo 403 de borda Akamai com Reference #. Na Espanha ate /robots.txt e negado, o que so acontece quando o recusado e o cliente. E uma investigacao externa de 29/08 acessou o site normalmente de outra rede.",
+   "CONSEQUENCIA": "ADAMA_PUBLIC_RESPONSE = NOT_COLLECTED nos tres. Nunca 0.",
+   "EVIDENCE": "PORTAO-ADAMA-ES; FRANCE-SOURCE-FOUNDATION-V1 secao H; handoff italiano"
+  }
+ ]
+}
