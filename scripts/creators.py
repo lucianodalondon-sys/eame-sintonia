@@ -464,6 +464,33 @@ def relevancia(reg, *, colaboracoes=()):
     return 'RESEARCH_NEEDED', porques + ['FALTAM: %s' % ', '.join(faltando)]
 
 
+def fit_para_adama(reg):
+    """Deriva `AUDIENCE_FIT_FOR_ADAMA`. Nunca digitado, nunca por seguidores.
+
+    A pergunta não é "quantos ouvem?", é "quantos dos que ouvem COMPRAM
+    defensivo?". Um crítico de vinho com 200 mil seguidores e um cerealicultor
+    com 20 mil não são comparáveis, e ordená-los pelo mesmo número inverteria a
+    resposta.
+    """
+    consumidor = ('WINE_CONSUMERS', 'FOOD_CONSUMERS', 'GENERAL_PUBLIC')
+    tipo = reg.get('CREATOR_TYPE')
+    aud = reg.get('AUDIENCE_TYPE')
+    cultura_ok = reg.get('CROP_STATE') in ('PROVED', 'PARTIAL')
+
+    if tipo in ('WINE_MEDIA_CREATOR', 'FOOD_CREATOR') or aud in consumidor:
+        return 'LOW', ('audiência de consumidor final — pode servir a B2C, não a '
+                       'ativação junto a quem aplica defensivo')
+    if reg.get('CROP_STATE') == 'WRONG_ASSIGNMENT':
+        return 'LOW', 'cultura atribuída pela seed foi refutada pela evidência'
+    if aud in ('FARMERS', 'AGRONOMISTS', 'TECHNICIANS') and cultura_ok:
+        return 'HIGH', 'audiência declarada de campo e cultura provada'
+    if tipo in ('FARMER_CREATOR', 'AGRONOMIST_CREATOR', 'TECHNICAL_CREATOR') and cultura_ok:
+        return 'MEDIUM', 'perfil de campo com cultura provada; audiência ainda não medida'
+    if tipo in ('FARMER_CREATOR', 'AGRONOMIST_CREATOR', 'TECHNICAL_CREATOR'):
+        return 'MEDIUM', 'perfil de campo; cultura ainda não provada'
+    return 'NOT_KNOWN', 'sem tipo, audiência ou cultura suficientes'
+
+
 def pendencias_de_compliance(reg=None):
     """A base é para DESCOBERTA E PLANEJAMENTO. Ela não autoriza campanha."""
     return {

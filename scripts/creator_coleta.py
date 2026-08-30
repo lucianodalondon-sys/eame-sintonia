@@ -394,6 +394,16 @@ def atividade():
     chaves = _pool()
     perfis = [p for p in cr.carregar('SEED-IT-RESOLVED.json')
               if p.get('HANDLE_EXISTS') == 'YES']
+    # Os handles CORRIGIDOS pela resolução de identidade entram aqui também — e
+    # entram primeiro. Medir atividade do handle errado da seed responderia com
+    # precisão sobre a pessoa errada, que é pior que não responder.
+    for r in cr.carregar('PRIMARY-IDENTITY-RESOLVED.json'):
+        h = r.get('INSTAGRAM')
+        if h and h != cr.NAO_SEI and not any(
+                p['HANDLE'].lower() == h.lower() for p in perfis):
+            perfis.insert(0, {'HANDLE': h, 'CREATOR_ID': r.get('CREATOR_ID'),
+                              'HANDLE_EXISTS': 'YES',
+                              'ORIGIN': 'PRIMARY_IDENTITY_RESOLVED'})
     handles = [p['HANDLE'].lstrip('@') for p in perfis]
     if not handles:
         print('NADA_A_MEDIR=YES · nenhum perfil resolvido'); return

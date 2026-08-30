@@ -389,3 +389,52 @@ class TestQuatroPapeis(unittest.TestCase):
         r.update({'NAME': 'X', 'ACTIVATION_CREATOR': 'YES'})
         self.assertEqual(r['TECHNICAL_SENSOR_CANDIDATE'], cr.NAO_SEI,
                          'marcar creator não pode preencher o papel de sensor')
+
+
+class TestFitParaAdama(unittest.TestCase):
+    """A função sumiu numa reescrita e nada acusou — porque nada a testava.
+
+    O sintoma apareceu só quando outro script a chamou, três commits depois.
+    Estes testes existem para que a próxima remoção acidental falhe aqui.
+    """
+
+    def _reg(self, **kw):
+        r = cr.registro_vazio()
+        r.update({'NAME': 'X', 'CREATOR_TYPE': 'FARMER_CREATOR',
+                  'CROP_STATE': 'PROVED', 'AUDIENCE_TYPE': 'NOT_KNOWN'})
+        r.update(kw)
+        return r
+
+    def test_a_funcao_existe_e_devolve_par(self):
+        fit, porque = cr.fit_para_adama(self._reg())
+        self.assertIn(fit, cr.FIT_ADAMA)
+        self.assertTrue(porque)
+
+    def test_audiencia_de_consumidor_nunca_e_fit_alto(self):
+        for aud in ('WINE_CONSUMERS', 'FOOD_CONSUMERS', 'GENERAL_PUBLIC'):
+            fit, _ = cr.fit_para_adama(self._reg(AUDIENCE_TYPE=aud))
+            self.assertEqual(fit, 'LOW', 'audiência %s não pode dar fit alto' % aud)
+
+    def test_midia_de_vinho_nunca_e_fit_alto(self):
+        fit, _ = cr.fit_para_adama(self._reg(CREATOR_TYPE='WINE_MEDIA_CREATOR'))
+        self.assertEqual(fit, 'LOW')
+
+    def test_cultura_refutada_derruba_o_fit(self):
+        fit, _ = cr.fit_para_adama(self._reg(CROP_STATE='WRONG_ASSIGNMENT'))
+        self.assertEqual(fit, 'LOW')
+
+    def test_campo_com_cultura_e_audiencia_provadas_e_alto(self):
+        fit, _ = cr.fit_para_adama(self._reg(AUDIENCE_TYPE='FARMERS'))
+        self.assertEqual(fit, 'HIGH')
+
+
+class TestFuncoesPublicasNaoSomem(unittest.TestCase):
+    """Guarda de superfície: uma reescrita não pode apagar a API em silêncio."""
+
+    def test_a_superficie_publica_esta_inteira(self):
+        for nome in ('registro_vazio', 'checar', 'promover_marca', 'relevancia',
+                     'provas_de_ativacao', 'fit_para_adama',
+                     'pendencias_de_compliance', 'veredito_crop_protection',
+                     'cobertura', 'carregar'):
+            self.assertTrue(callable(getattr(cr, nome, None)),
+                            '%s sumiu de creators.py' % nome)
