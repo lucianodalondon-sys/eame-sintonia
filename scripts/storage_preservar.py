@@ -170,8 +170,17 @@ def plano():
             'ESTADO': 'PENDING',
         })
 
+    # A data de captura do plano é a da CAPTURA dos bytes, não a de hoje: o plano fala
+    # sobre arquivos que foram lidos do site naquele momento. Sem ela, o guarda de
+    # proveniência barra o artefato — e barra com razão.
+    capturas = sorted({i['CAPTURADO_EM'] for i in itens if i.get('CAPTURADO_EM')})
+
     return {
         'SOURCE_ID': 'ADAMA-ES-PRESERVACAO-PLANO',
+        'captured_at': (capturas[0] if capturas else 'NOT_COLLECTED'),
+        'CAPTURE_DATE': (capturas[0] if capturas else 'NOT_COLLECTED'),
+        'CAPTURA_MAIS_RECENTE': (capturas[-1] if capturas else 'NOT_COLLECTED'),
+        'COUNTRY': 'ES',
         'BUCKET': BUCKET,
         'CONVENCAO_DE_CHAVE': 'ES/adama-website/... — endereçada por conteúdo (sha16 no nome)',
         'ITENS': len(itens),

@@ -47,8 +47,21 @@ Todos em `data/samples/`, versionados.
 | `ADAMA-ES-WINTER_CEREALS-PUBLIC-PORTFOLIO-MAP.json` | cereais de inverno — 15. | 41 KB |
 | `ADAMA-ES-PORTFOLIO-POR-CULTIVO.json` | 132 cultivos → produtos. | 126 KB |
 | `ADAMA-ES-PORTFOLIO-POR-ISSUE.json` | 67 problemas → produtos. | 41 KB |
+| `ADAMA-ES-PRESERVACAO-PLANO.json` | os 196 assets a preservar, com hash. | 112 KB |
+
+E fora de `data/samples/`:
+
+| arquivo | o que é |
+|---|---|
+| `supabase/migrations/010_catalogo_publico_fabricante.sql` | as 15 tabelas do catálogo público. **Não executada.** |
+| `supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql` | 1.814 comandos idempotentes. **Não aplicado.** |
+| `supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql` | as 14 perguntas, com resposta esperada em comentário. |
+| `scripts/storage_preservar.py` | uploader idempotente com verificação por hash. |
+| `scripts/catalogo_importar.py` | artefato → linhas normalizadas → SQL. |
+| `tests/test_roundtrip_catalogo.py` | 20 testes de round-trip. |
 
 Método completo, com o que falhou e por quê: `docs/adama/COLETA-LOCAL-NAVEGADOR-2026-08-30.md`
+(esse é o relatório de execução e tem números intermediários — leia o aviso no topo dele).
 
 **Os 138 PDFs não estão no Git** (296 MB). Estão no disco local em
 `data/raw/ES/adama-website/documentos/`. Ver seção 7.
@@ -61,19 +74,19 @@ Método completo, com o que falhou e por quê: `docs/adama/COLETA-LOCAL-NAVEGADO
 |---|---|---|
 | PRODUCTS | **56** | catálogo inteiro, 0 falha de leitura |
 | DOCUMENTS | 147 | 138 baixados, 9 falhos com motivo |
-| CROP_RELATIONS | 717 | **594 declaradas** + 123 só citadas — ver §4 |
-| ISSUE_RELATIONS | 184 | |
+| CROP_RELATIONS | **711** | **588 declaradas** + 123 só citadas — ver §4 |
+| ISSUE_RELATIONS | **176** | |
 | CROP_ISSUE_RELATIONS | **5** | e os 5 confirmados pelo MAPA — ver §5 |
 | CROP_DOSE_RELATIONS | 26 | cultivo × dose, sem problema. **Não é par.** |
 | APPLICATION_WINDOWS | 3 | |
 | ACTIVE_INGREDIENTS | 73 | 50 substâncias distintas |
-| MODES_OF_ACTION | 19 | 12 códigos distintos |
+| MODES_OF_ACTION | **17** | 12 códigos distintos |
 | CLAIMS | 35 | 29 técnicos · 5 regulatórios · 1 comercial |
 | TECHNOLOGIES | 1 | FullPage® |
 | PRODUCT_RELATIONS | 1 | ANIBAL → HERBOLEX |
 | VIDEOS | 3 | YouTube |
 | RELATED_CONTENT | **0** | o site não publica. Zero medido, não falha. |
-| AMBIGUOUS_TERMS | 212 | termos não resolvidos, listados em vez de chutados |
+| AMBIGUOUS_TERMS | **210** | termos não resolvidos, listados em vez de chutados |
 
 ---
 
@@ -188,7 +201,7 @@ antigo) · a página `Descargar documentos` (é linkada, mas não abre — infla
 Toda ficha tem um bloco `Cultivos` — a lista que a própria ADAMA declara para o produto.
 Isso é diferente da palavra aparecer em algum lugar do texto (comparação, contexto, nota).
 
-- **594 relações declaradas** — use estas para portfólio por cultura.
+- **588 relações declaradas** — use estas para portfólio por cultura.
 - **123 só citadas** — não some com as de cima.
 
 Cada linha de `CROP_RELATIONS` carrega `DECLARATION_SOURCE` com um dos dois valores. As
@@ -206,8 +219,8 @@ os dois daria 35 e estaria errado.
 | estado | nº |
 |---|---|
 | MATCHED_EXACT | **41** |
-| MATCHED_WITH_EVIDENCE | 2 |
-| AMBIGUOUS | 1 |
+| MATCHED_WITH_EVIDENCE | **3** |
+| AMBIGUOUS | **0** |
 | ADAMA_SITE_ONLY | 12 |
 | ROPF_ONLY | 52 |
 
@@ -325,7 +338,7 @@ para `raw/ES/adama-website/<PRODUCT_ID>/<sha16>-<filename>` e confere pelo hash.
 | RELATED_CONTENT = 0 | a única ocorrência de "relacionad*" nas 56 fichas é "Documentos relacionados". O site não publica artigo/webinar/campanha na página de produto. | não existe na fonte |
 | TECHNOLOGIES = 1 | só FullPage® é marcado com ® nas fichas. **Asorbital® aparece na home e em nenhuma das 56 fichas.** | página institucional, não coletada |
 | Página `Descargar documentos` | atrás de portão duro da Akamai (devolve 3 KB de desafio) mesmo do navegador local | pode ter documentos que as fichas não linkam |
-| AMBIGUOUS_TERMS = 212 | termos que casam mais de um rótulo oficial. Listados, não resolvidos por palpite. | resolução exige decisão humana |
+| AMBIGUOUS_TERMS = 210 | termos que casam mais de um rótulo oficial. Listados, não resolvidos por palpite. | resolução exige decisão humana |
 
 **O próximo passo de maior retorno:** ler os 55 rótulos em PDF. É onde mora a tabela
 `CULTIVO × AGENTE × DOSE × PRAZO`, que é o que falta para o gêmeo ficar completo. Os
@@ -335,7 +348,8 @@ arquivos já estão no disco.
 
 ## 9 · Confiança
 
-- **41 guardas** em `tests/test_adama_es.py`, 0 falha. Eram 28 — os 13 novos guardam
+- **44 guardas** em `tests/test_adama_es.py` + **20** em `tests/test_roundtrip_catalogo.py`,
+  0 falha (2 pulam por falta de credencial, declarando o motivo). Eram 28 — os novos guardam
   defeitos **medidos** nesta coleta, não imaginados.
 - **149 testes** nas outras 10 suítes, todas OK.
 - **Verificação manual 5/5** (ficha viva × saída do parser): KAMPAI, AVASTEL, COSAYR,
@@ -363,6 +377,49 @@ Todos corrigidos, todos com guarda:
 E um defeito de **teste**: um guarda proibia o número 41 aparecer no crosswalk (porque
 96−55=41). Quando o dado melhorou, `MATCHED_EXACT` virou 41 de verdade e o guarda
 derrubou um número legítimo. Testar por *valor* era o erro; agora prova *partição*.
+
+---
+
+## 9.1 · Preservação e banco — o que está pronto e o que está travado
+
+**Tudo o que dava para fazer sem credencial está feito.** O que falta é uma coisa só.
+
+| etapa | estado |
+|---|---|
+| schema do catálogo público (migration 010, 15 tabelas) | **escrito**, não executado |
+| plano de preservação (196 assets, 304 MB) | **conferido**, 0 divergência disco↔manifesto |
+| uploader idempotente com verificação por hash | **escrito**, não executado |
+| importador determinístico (1.814 comandos SQL) | **gerado**, não aplicado |
+| 14 perguntas como SQL | **escritas**, resposta esperada calculada |
+| round-trip Git ↔ disco ↔ SQL | **18 testes passando** |
+| round-trip disco ↔ Storage | **PENDENTE** — falta `SUPABASE_URL` + `SUPABASE_SECRET_KEY` |
+| round-trip Git ↔ Postgres | **PENDENTE** — falta `SUPABASE_DB_URL` + `psql` |
+
+**O único bloqueio:** não há credencial do Supabase nesta máquina — nenhuma variável de
+ambiente, sem CLI, sem `psql` — e a missão proíbe procurar segredo. Também não medi o
+Supabase real: `MIGRATIONS_APPLIED`, `TABLES` e `RAW_BUCKET_EXISTS` estão **NOT_MEASURED**,
+não "provavelmente ok".
+
+Para destravar, dois comandos, nesta ordem:
+
+```bash
+export SUPABASE_URL=... SUPABASE_SECRET_KEY=... && python3 scripts/storage_preservar.py --enviar
+```
+```bash
+export SUPABASE_DB_URL=... && psql "$SUPABASE_DB_URL" -f supabase/migrations/010_catalogo_publico_fabricante.sql && python3 scripts/catalogo_importar.py --sql && python3 scripts/catalogo_importar.py --aplicar
+```
+
+Depois disso, `python3 tests/test_roundtrip_catalogo.py` deixa de pular os dois testes.
+
+⚠️ **Enquanto isso não acontece, os 296 MB existem numa máquina só.** Manifesto com
+sha256 não é backup.
+
+### Uma escolha que vale explicar
+
+Os 147 documentos entram no banco com `raw_asset_id` **nulo** — inclusive os 138 que
+existem em disco. É de propósito: o schema só deixa um documento apontar para bytes
+preservados depois de `VERIFIED` no Storage. Preencher o ponteiro agora seria dizer que
+o byte está preservado quando ele está numa máquina só.
 
 ---
 

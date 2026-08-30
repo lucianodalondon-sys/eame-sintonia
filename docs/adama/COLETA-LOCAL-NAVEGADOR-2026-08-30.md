@@ -1,5 +1,31 @@
 # Coleta ADAMA España pelo navegador local — 2026-08-30
 
+> ## ⚠️ NÚMEROS SUPERADOS — leia antes
+>
+> Este é o **relatório de execução**: conta como a coleta foi feita e o que deu errado
+> pelo caminho. Vários números aqui são de **etapas intermediárias**, antes das últimas
+> correções do parser, e ficaram para trás.
+>
+> **O documento canônico é [`ENTREGA-ADAMA-ES-PARA-ABA-PRINCIPAL.md`](ENTREGA-ADAMA-ES-PARA-ABA-PRINCIPAL.md).**
+> Onde os dois divergirem, vale o de lá.
+>
+> O que mudou depois que este texto foi escrito, e por quê:
+>
+> | | aqui | verdadeiro | por quê |
+> |---|---|---|---|
+> | CROP_RELATIONS | 717 (594+123) | **711 (588+123)** | a vírgula do MAPA em "BATATA, BONIATO" gera dois apelidos do MESMO rótulo, e a página que diz as duas palavras contava a relação duas vezes |
+> | ISSUE_RELATIONS | 184 | **176** | mesma causa |
+> | MODES_OF_ACTION | 22 | **17** | 5 eram a palavra seguinte ("FRAC Grupo", "HRAC como"); 2 eram o mesmo código citado duas vezes na ficha |
+> | ACTIVE_INGREDIENTS | 78 | **73** | 5 eram frase, não substância ("Contiene 240 g/l", "Ha Tuberculosis 0,15%") |
+> | AMBIGUOUS_TERMS | 212 | **210** | mesmo termo marcado em duas tabelas da mesma ficha |
+> | MATCHED_WITH_EVIDENCE | 2 | **3** | o SULTAN N saiu de ambíguo quando "base de Metazacloro" virou "Metazacloro" |
+> | AMBIGUOUS (crosswalk) | 1 | **0** | idem |
+> | guardas | 37 | **44** + 20 de round-trip | |
+>
+> As correções estão nos commits `1f4c8ba`, `a40e163` e `ba8c13f`. **O censo de 56
+> produtos, os 138 documentos e os 5 pares confirmados não mudaram** — o que mudou foi a
+> minha leitura das relações, que estava inflada por notação da fonte.
+
 Captura das páginas: **2026-08-30T03:19:24Z**
 Captura dos documentos: **2026-08-30T03:35Z–04:05Z**
 Branch: `claude/adama-es-local-browser`
