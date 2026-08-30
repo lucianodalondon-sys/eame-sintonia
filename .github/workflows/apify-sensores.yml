@@ -40,13 +40,23 @@ on:
           - videos
           - transcricao
           - comentarios
+      lote:
+        description: 'A vai para o runner 1, B para o runner 2'
+        required: true
+        default: A
+        type: choice
+        options: [A, B]
 
 permissions:
   contents: write          # a fase grava o resultado de volta no repositório
 
 jobs:
   coleta:
-    runs-on: [self-hosted, Windows, X64, eame-sintonia-local-2]
+    # O lote escolhe a máquina. Os dois runners rodam ESTE MESMO arquivo com a MESMA
+    # régua — só o universo atribuído muda. Paralelismo compra tempo, não permissividade.
+    runs-on: ${{ inputs.lote == 'A'
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
     defaults:
       run:
         shell: bash
@@ -72,9 +82,12 @@ jobs:
         run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
 
       - name: 2 · rodar a fase
+        env:
+          RUNNER_NAME: ${{ runner.name }}
         run: |
-          echo "FASE=${{ inputs.fase }}"
-          PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py "${{ inputs.fase }}"
+          echo "FASE=${{ inputs.fase }} · LOTE=${{ inputs.lote }} · RUNNER=${{ runner.name }}"
+          PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py \
+            "${{ inputs.fase }}" "${{ inputs.lote }}"
 
       - name: 3 · devolver o resultado ao repositório
         run: |
@@ -87,7 +100,7 @@ jobs:
             exit 0
           fi
           echo "--- o que volta ---"; git diff --cached --stat
-          git commit -q -m "piloto de sensores: fase ${{ inputs.fase }} (run ${{ github.run_id }})"
+          git commit -q -m "piloto de sensores: fase ${{ inputs.fase }} lote ${{ inputs.lote }} (run ${{ github.run_id }})"
           # Outra sessao pode ter empurrado enquanto a fase rodava. Rebase antes de
           # empurrar: perder o commit de outrem por forca bruta seria pior que falhar.
           git pull --rebase --quiet origin "${{ github.ref_name }}" || true
