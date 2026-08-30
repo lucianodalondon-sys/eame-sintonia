@@ -750,5 +750,167 @@ class PortaoRaw(unittest.TestCase):
                     os.environ[k] = v
 
 
+# ────────────────────── autenticação: a cicatriz do "Invalid Compact JWS"
+FAKE_SECRET = 'sb_secret_' + 'z' * 40
+FAKE_JWT = ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.'
+            'eyJyb2xlIjoic2VydmljZV9yb2xlIn0.' + 'a' * 43)
+
+
+class FormatoDaChave(unittest.TestCase):
+    """SECRET KEY ≠ JWT."""
+
+    def test_classifica_pelo_prefixo_sem_decodificar(self):
+        self.assertEqual(pres.classificar_chave(FAKE_SECRET), pres.NEW_SECRET_KEY)
+        self.assertEqual(pres.classificar_chave(FAKE_JWT),
+                         pres.LEGACY_SERVICE_ROLE_JWT)
+
+    def test_chave_publica_e_anon_sao_recusadas(self):
+        """Preservar exige escrita. Chave pública falharia no meio do lote."""
+        for k in ('sb_publishable_' + 'y' * 30, 'anon', '', None, 'abc123'):
+            self.assertEqual(pres.classificar_chave(k), pres.UNKNOWN_KEY_FORMAT)
+
+    def test_formato_desconhecido_nao_produz_cabecalho(self):
+        with self.assertRaises(ValueError):
+            pres.cabecalhos('abc123', pres.UNKNOWN_KEY_FORMAT)
+
+
+class CabecalhoDeAutenticacao(unittest.TestCase):
+    """A · sb_secret_ nunca vira Authorization: Bearer sb_secret_..."""
+
+    def test_chave_nova_vai_so_em_apikey(self):
+        """O defeito medido: o Storage tira o "Bearer ", entrega a uma
+        biblioteca JOSE, e ela rejeita antes de olhar permissão nenhuma."""
+        h = pres.cabecalhos(FAKE_SECRET, pres.NEW_SECRET_KEY)
+        self.assertEqual(h['apikey'], FAKE_SECRET)
+        self.assertNotIn('Authorization', h)
+
+    def test_nenhum_cabecalho_carrega_bearer_com_chave_nova(self):
+        h = pres.cabecalhos(FAKE_SECRET, pres.NEW_SECRET_KEY)
+        for valor in h.values():
+            self.assertNotIn('Bearer', str(valor))
+
+    def test_B_jwt_legado_continua_com_os_dois_cabecalhos(self):
+        h = pres.cabecalhos(FAKE_JWT, pres.LEGACY_SERVICE_ROLE_JWT)
+        self.assertEqual(h['apikey'], FAKE_JWT)
+        self.assertEqual(h['Authorization'], 'Bearer ' + FAKE_JWT)
+
+    def test_a_chave_nunca_e_transformada(self):
+        for k, f in ((FAKE_SECRET, pres.NEW_SECRET_KEY),
+                     (FAKE_JWT, pres.LEGACY_SERVICE_ROLE_JWT)):
+            self.assertEqual(pres.cabecalhos(k, f)['apikey'], k)
+
+
+class SegredoNaoVazaEmTexto(unittest.TestCase):
+    """D · o segredo nunca aparece em stdout/stderr."""
+
+    def test_o_saneador_remove_a_chave_inteira_e_os_pedacos(self):
+        texto = 'falhou com %s no fim' % FAKE_SECRET
+        limpo = pres.sem_segredo(texto, FAKE_SECRET)
+        self.assertNotIn(FAKE_SECRET, limpo)
+        self.assertNotIn(FAKE_SECRET[:12], limpo)
+        self.assertNotIn(FAKE_SECRET[-12:], limpo)
+        self.assertIn('<OMITIDO>', limpo)
+
+    def test_o_canario_reprovado_nao_devolve_a_chave(self):
+        prova = {'AUTH_CANARY': 'FAIL',
+                 'MENSAGEM': pres.sem_segredo('erro com ' + FAKE_JWT, FAKE_JWT)}
+        self.assertNotIn(FAKE_JWT, json.dumps(prova))
+
+    def test_rodar_o_plano_nao_imprime_segredo(self):
+        import contextlib
+        import io
+        antes = {k: os.environ.get(k) for k in ('SUPABASE_URL', 'SUPABASE_SECRET_KEY')}
+        os.environ['SUPABASE_SECRET_KEY'] = FAKE_SECRET
+        os.environ['SUPABASE_URL'] = 'https://exemplo.invalid'
+        buf = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+                url, key, faltam = pres.autenticacao()
+                print('KEY_FORMAT =', pres.classificar_chave(key))
+            self.assertNotIn(FAKE_SECRET, buf.getvalue())
+            self.assertIn('NEW_SECRET_KEY', buf.getvalue())
+        finally:
+            for k, v in antes.items():
+                if v is None:
+                    os.environ.pop(k, None)
+                else:
+                    os.environ[k] = v
+
+
+class CanarioTrancaOEnvio(unittest.TestCase):
+    """E · canário reprovado impede QUALQUER PUT/POST de objeto."""
+
+    def setUp(self):
+        self.chamadas = []
+        self._http_real = pres._http
+
+        def espiao(url, key, metodo, caminho, dados=None, ctype=None,
+                   timeout=300, formato=None):
+            self.chamadas.append((metodo, caminho))
+            return 0, b'nunca deveria ter sido chamado'
+        pres._http = espiao
+
+    def tearDown(self):
+        pres._http = self._http_real
+
+    def _item(self):
+        return [{'OBJETO': 'IT/x/0', 'ARQUIVO_LOCAL': 'data/raw/IT/nao-existe',
+                 'SHA256': 'a' * 64, 'BYTES': 1, 'MEDIA_TYPE': 'application/pdf',
+                 'ESTADO': 'PENDING'}]
+
+    def test_sem_prova_nenhuma_o_envio_nem_comeca(self):
+        with self.assertRaises(pres.CanarioReprovado):
+            pres.enviar(self._item(), 'https://x.invalid', FAKE_SECRET)
+        self.assertEqual(self.chamadas, [], 'houve chamada HTTP sem canário')
+
+    def test_canario_reprovado_nao_deixa_subir_byte(self):
+        with self.assertRaises(pres.CanarioReprovado):
+            pres.enviar(self._item(), 'https://x.invalid', FAKE_SECRET,
+                        prova={'AUTH_CANARY': 'FAIL', 'HTTP': 400})
+        self.assertEqual(self.chamadas, [])
+
+    def test_F_canario_aprovado_deixa_o_pipeline_seguir(self):
+        """Com arquivo de verdade no disco, o envio tem de CHEGAR ao POST.
+
+        Sem isto o teste passaria por acidente — o item de mentira falha ao ler
+        o arquivo e nunca alcança a rede, o que provaria nada."""
+        import hashlib
+        import tempfile
+        corpo = b'evidencia italiana de mentira'
+        with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False,
+                                         dir=os.path.join(RAIZ, 'data', 'raw')) as fh:
+            fh.write(corpo)
+            caminho = fh.name
+        try:
+            item = [{'OBJETO': 'IT/adama-website/DOCUMENT/x.pdf',
+                     'ARQUIVO_LOCAL': os.path.relpath(caminho, RAIZ).replace('\\', '/'),
+                     'SHA256': hashlib.sha256(corpo).hexdigest(),
+                     'BYTES': len(corpo), 'MEDIA_TYPE': 'application/pdf',
+                     'ESTADO': 'PENDING'}]
+            pres.enviar(item, 'https://x.invalid', FAKE_SECRET, verificar=False,
+                        prova={'AUTH_CANARY': 'PASS', 'HTTP': 200})
+        finally:
+            os.unlink(caminho)
+        self.assertIn('POST', [m for m, _ in self.chamadas],
+                      'com canário PASS o envio tinha de chegar ao POST')
+        self.assertTrue(any('/storage/v1/object/' in c for _, c in self.chamadas))
+
+    def test_o_canario_de_verdade_e_somente_leitura(self):
+        pres._http = lambda *a, **k: (self.chamadas.append((a[2], a[3])) or (200, b'[]'))
+        prova = pres.canario('https://x.invalid', FAKE_SECRET)
+        self.assertEqual(prova['AUTH_CANARY'], 'PASS')
+        self.assertEqual([m for m, _ in self.chamadas], ['GET'])
+        self.assertIn('somente leitura', prova['OPERACAO'])
+
+    def test_invalid_compact_jws_e_lido_como_recusa_de_autenticacao(self):
+        corpo = (b'{"statusCode":"403","error":"Unauthorized",'
+                 b'"message":"Invalid Compact JWS"}')
+        pres._http = lambda *a, **k: (400, corpo)
+        prova = pres.canario('https://x.invalid', FAKE_SECRET)
+        self.assertEqual(prova['AUTH_CANARY'], 'FAIL')
+        self.assertTrue(prova['AUTENTICACAO_RECUSADA'])
+        self.assertIn('Invalid Compact JWS', prova['MENSAGEM'])
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -60,6 +60,7 @@ import datetime
 import hashlib
 import json
 import os
+import re
 import sys
 import unicodedata
 import urllib.error
@@ -277,6 +278,67 @@ def _contar(itens, campo):
 
 
 # ─────────────────────────────────────────────────────────── rede
+# ─────────────────────────────────────────── formato da chave, e o cabeçalho
+#
+# A CICATRIZ: o Storage devolveu `Invalid Compact JWS` a TUDO, inclusive ao
+# primeiro inventário. A causa não era permissão — era o cabeçalho.
+#
+# Este código mandava a MESMA chave nos dois lugares:
+#
+#     apikey: <chave>
+#     Authorization: Bearer <chave>
+#
+# Isso funcionava enquanto a chave era a `service_role` antiga, porque ela É um
+# JWT. As chaves novas do Supabase (`sb_secret_...`) são tokens opacos: não têm
+# cabeçalho, corpo nem assinatura. O Storage extrai o `Authorization`, tira o
+# "Bearer " e entrega a uma biblioteca JOSE, que rejeita a string antes de
+# qualquer checagem de permissão — daí o 403 com `Invalid Compact JWS`.
+#
+#     SECRET KEY ≠ JWT
+#
+# Uma chave nova vai SÓ em `apikey`. Nunca em `Authorization: Bearer`.
+NEW_SECRET_KEY = 'NEW_SECRET_KEY'
+LEGACY_SERVICE_ROLE_JWT = 'LEGACY_SERVICE_ROLE_JWT'
+UNKNOWN_KEY_FORMAT = 'UNKNOWN_KEY_FORMAT'
+
+_RE_JWT = re.compile(r'^eyJ[A-Za-z0-9_-]*\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$')
+
+
+def classificar_chave(key):
+    """Formato pelo PREFIXO. Não decodifica, não transforma, não imprime.
+
+    `sb_publishable_` e `anon` são recusadas de propósito: preservar exige
+    escrita, e uma chave pública não escreve — falharia no meio do lote em vez
+    de falhar antes dele.
+    """
+    k = (key or '').strip()
+    if k.startswith('sb_secret_'):
+        return NEW_SECRET_KEY
+    if _RE_JWT.match(k):
+        return LEGACY_SERVICE_ROLE_JWT
+    return UNKNOWN_KEY_FORMAT
+
+
+def cabecalhos(key, formato):
+    """Os cabeçalhos de autenticação, por formato. Nunca os dois às cegas."""
+    if formato == NEW_SECRET_KEY:
+        return {'apikey': key}
+    if formato == LEGACY_SERVICE_ROLE_JWT:
+        return {'apikey': key, 'Authorization': 'Bearer ' + key}
+    raise ValueError('formato de chave nao suportado: %s' % formato)
+
+
+def sem_segredo(texto, key):
+    """Nenhum caractere do segredo sai daqui — nem em erro, nem em log."""
+    s = str(texto)
+    if key:
+        s = s.replace(key, '<OMITIDO>')
+        for pedaco in (key[:12], key[-12:]):
+            if len(pedaco) >= 8:
+                s = s.replace(pedaco, '<OMITIDO>')
+    return s
+
+
 def autenticacao():
     url = os.environ.get('SUPABASE_URL', '').rstrip('/')
     key = os.environ.get('SUPABASE_SECRET_KEY', '')
@@ -284,8 +346,9 @@ def autenticacao():
     return url, key, faltam
 
 
-def _http(url, key, metodo, caminho, dados=None, ctype=None, timeout=300):
-    cab = {'apikey': key, 'Authorization': 'Bearer ' + key}
+def _http(url, key, metodo, caminho, dados=None, ctype=None, timeout=300,
+          formato=None):
+    cab = dict(cabecalhos(key, formato or classificar_chave(key)))
     if ctype:
         cab['Content-Type'] = ctype
     req = urllib.request.Request(url + caminho, data=dados, method=metodo, headers=cab)
@@ -295,10 +358,41 @@ def _http(url, key, metodo, caminho, dados=None, ctype=None, timeout=300):
     except urllib.error.HTTPError as e:
         return e.code, e.read()
     except Exception as e:                                   # rede caiu, DNS, TLS
-        return 0, ('%s: %s' % (type(e).__name__, e)).encode()[:300]
+        return 0, sem_segredo('%s: %s' % (type(e).__name__, e), key).encode()[:300]
 
 
-def inventario_remoto(url, key, prefixo=PREFIXO):
+# O 403 do Storage vem embrulhado num 400, e a palavra que importa está no corpo.
+NEGA_AUTENTICACAO = re.compile(
+    r'invalid compact jws|invalid jwt|bad_jwt|unauthorized|accessdenied|'
+    r'invalid signature|jwt expired', re.I)
+
+
+def canario(url, key, formato=None):
+    """UMA leitura, e nada mais. Prova a autenticação sem tocar no Storage.
+
+    Existe porque a rodada anterior descobriu o defeito de cabeçalho no meio do
+    caminho. Uma leitura barata antes do lote transforma "falhou em algum lugar"
+    em "não começou, e este é o motivo".
+    """
+    formato = formato or classificar_chave(key)
+    st, body = _http(url, key, 'GET', '/storage/v1/bucket', formato=formato)
+    texto = sem_segredo((body or b'').decode('utf-8', 'replace')[:400], key)
+    base = {'KEY_FORMAT': formato, 'HTTP': st,
+            'OPERACAO': 'GET /storage/v1/bucket — somente leitura'}
+    if st == 200:
+        try:
+            nomes = [b.get('name') for b in json.loads(body)]
+        except Exception:
+            nomes = []
+        return dict(base, AUTH_CANARY='PASS', BUCKETS_VISIVEIS=len(nomes),
+                    BUCKET_ALVO_EXISTE=BUCKET in nomes)
+    return dict(base, AUTH_CANARY='FAIL', MENSAGEM=texto,
+                AUTENTICACAO_RECUSADA=bool(NEGA_AUTENTICACAO.search(texto))
+                or st in (400, 401, 403),
+                WHY='nenhum byte sobe enquanto a leitura não passar')
+
+
+def inventario_remoto(url, key, prefixo=PREFIXO, formato=None):
     """O que o bucket diz que tem. A verdade do estado é o objeto remoto."""
     vistos, pilha = {}, [prefixo]
     while pilha:
@@ -306,9 +400,10 @@ def inventario_remoto(url, key, prefixo=PREFIXO):
         corpo = json.dumps({'prefix': atual, 'limit': 1000,
                             'sortBy': {'column': 'name', 'order': 'asc'}}).encode()
         st, body = _http(url, key, 'POST', '/storage/v1/object/list/' + BUCKET,
-                         corpo, 'application/json')
+                         corpo, 'application/json', formato=formato)
         if st != 200:
-            return None, 'list %s devolveu HTTP %s: %s' % (atual, st, body[:120])
+            return None, sem_segredo('list %s devolveu HTTP %s: %s'
+                                     % (atual, st, body[:160]), key)
         for o in json.loads(body):
             nome = '%s/%s' % (atual, o['name'])
             if o.get('id') is None:
@@ -318,7 +413,21 @@ def inventario_remoto(url, key, prefixo=PREFIXO):
     return vistos, None
 
 
-def enviar(itens, url, key, verificar=True):
+class CanarioReprovado(RuntimeError):
+    """Levantada ANTES de qualquer escrita. É a trava, não um aviso."""
+
+
+def enviar(itens, url, key, verificar=True, formato=None, prova=None):
+    """Sobe e confere. RECUSA começar se o canário não tiver passado.
+
+    A trava é aqui, e não na `main`, porque quem chama a função de fora também
+    tem de passar pela leitura. Sem prova de autenticação, zero PUT e zero POST.
+    """
+    if not prova or prova.get('AUTH_CANARY') != 'PASS':
+        raise CanarioReprovado(
+            'canário de leitura não passou (%s) — nenhum objeto foi enviado'
+            % ((prova or {}).get('AUTH_CANARY') or 'NAO_EXECUTADO'))
+    formato = formato or classificar_chave(key)
     for it in itens:
         caminho = os.path.join(RAIZ, it['ARQUIVO_LOCAL'].replace('/', os.sep))
         try:
@@ -334,7 +443,8 @@ def enviar(itens, url, key, verificar=True):
             continue
 
         alvo = '/storage/v1/object/%s/%s' % (BUCKET, urllib.parse.quote(it['OBJETO']))
-        st, body = _http(url, key, 'POST', alvo, corpo, it['MEDIA_TYPE'])
+        st, body = _http(url, key, 'POST', alvo, corpo, it['MEDIA_TYPE'],
+                         formato=formato)
         if st in (200, 201):
             it['ESTADO'] = 'UPLOADED'
         elif st == 409 or b'already exists' in body or b'Duplicate' in body:
@@ -342,7 +452,7 @@ def enviar(itens, url, key, verificar=True):
         else:
             # HTTP_5XX ≠ OBJECT_NOT_PRESERVED — pergunta-se ao bucket antes de
             # carimbar falha.
-            st2, volta = _http(url, key, 'GET', alvo)
+            st2, volta = _http(url, key, 'GET', alvo, formato=formato)
             if (st2 == 200 and len(volta) == it['BYTES']
                     and hashlib.sha256(volta).hexdigest() == it['SHA256']):
                 it['ESTADO'] = 'ALREADY_PRESENT_VERIFIED'
@@ -354,20 +464,21 @@ def enviar(itens, url, key, verificar=True):
                                            'sha256 local' % st)}
                 continue
             it['ESTADO'] = 'FAILED_WITH_REASON'
-            it['MOTIVO'] = 'upload devolveu HTTP %s: %s' % (st, body[:160].decode(
-                'utf-8', 'replace'))
+            it['MOTIVO'] = sem_segredo(
+                'upload devolveu HTTP %s: %s'
+                % (st, body[:160].decode('utf-8', 'replace')), key)
             it['CONFERENCIA_REMOTA_APOS_FALHA'] = {'HTTP_NO_GET': st2,
                                                    'BYTES_DE_VOLTA': len(volta or b'')}
             continue
         if verificar:
-            verificar_um(it, url, key)
+            verificar_um(it, url, key, formato)
     return itens
 
 
-def verificar_um(it, url, key):
+def verificar_um(it, url, key, formato=None):
     """Baixa de volta e reconfere. É aqui que a preservação fecha."""
     alvo = '/storage/v1/object/%s/%s' % (BUCKET, urllib.parse.quote(it['OBJETO']))
-    st, volta = _http(url, key, 'GET', alvo)
+    st, volta = _http(url, key, 'GET', alvo, formato=formato)
     if st != 200:
         it['ESTADO'] = 'FAILED_WITH_REASON'
         it['MOTIVO'] = 'download de volta devolveu HTTP %s' % st
@@ -460,18 +571,40 @@ def main():
         print('PARADO: o maior asset passa do limite de 200 MB.')
         return 4
 
-    remoto, erro = inventario_remoto(url, key)
+    formato = classificar_chave(key)
+    print()
+    print('KEY_FORMAT           :', formato)
+    if formato == UNKNOWN_KEY_FORMAT:
+        print('PARADO: formato de chave não reconhecido.')
+        print('  esperado: sb_secret_... (chave nova) ou um JWT service_role.')
+        print('  chave publicável e anon são recusadas: preservar exige escrita.')
+        print('  nenhum caractere do segredo foi lido, decodificado ou impresso.')
+        return 5
+
+    # CANÁRIO: uma leitura, antes de qualquer byte. Se ela não passar, o lote
+    # não começa — e o motivo fica escrito em vez de aparecer no meio do envio.
+    prova = canario(url, key, formato)
+    print('AUTH_CANARY          :', prova['AUTH_CANARY'], '(HTTP %s, %s)'
+          % (prova['HTTP'], prova['OPERACAO']))
+    if prova['AUTH_CANARY'] != 'PASS':
+        print('  mensagem do servidor:', prova.get('MENSAGEM', '')[:200])
+        print('  UPLOADS_ANTES_DO_CANARIO = 0 — nenhum byte foi enviado.')
+        print('  RAW_PRESERVATION_GATE_IT continua OPEN.')
+        return 6
+    print('  bucket "%s" visível :' % BUCKET, prova.get('BUCKET_ALVO_EXISTE'))
+
+    remoto, erro = inventario_remoto(url, key, formato=formato)
     if erro:
         print('inventário remoto falhou:', erro)
         remoto = None
     itens = p['ITENS']
     if '--enviar' in sys.argv:
-        enviar(itens, url, key)
+        enviar(itens, url, key, formato=formato, prova=prova)
     else:
         for it in itens:
-            verificar_um(it, url, key)
+            verificar_um(it, url, key, formato)
     if remoto is None:
-        remoto, _ = inventario_remoto(url, key)
+        remoto, _ = inventario_remoto(url, key, formato=formato)
 
     g = portao(itens, p['RAW_EXPECTED'], remoto)
     fechado = g['STATE'] == 'CLOSED'
@@ -479,7 +612,10 @@ def main():
            'captured_at': p['captured_at'], 'CAPTURED_AT': p['CAPTURED_AT'],
            'SOURCE_COUNTRY': 'IT', 'EVIDENCE_CLASS': 'PRESERVATION_PROOF',
            'PAIS': 'IT', 'RAW_EXPECTED': p['RAW_EXPECTED'],
-           'PIPELINE': ['UPLOAD', 'INVENTORY', 'DOWNLOAD_BACK', 'SHA256'],
+           'PIPELINE': ['AUTH_CANARY', 'UPLOAD', 'INVENTORY', 'DOWNLOAD_BACK',
+                        'SHA256', 'BYTE_COUNT'],
+           'KEY_FORMAT': formato,
+           'AUTH_CANARY': {k: v for k, v in prova.items() if k != 'MENSAGEM'},
            'PRESENCE_IN_BUCKET_IS_NOT_CONTENT_VERIFIED': True,
            'PRODUCT_CENSUS_COMPLETE': p['PRODUCT_CENSUS_COMPLETE'],
            'DOCUMENT_CENSUS_COMPLETE': p['DOCUMENT_CENSUS_COMPLETE'],
