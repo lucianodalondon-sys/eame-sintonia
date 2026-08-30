@@ -1,0 +1,171 @@
+{
+ "SOURCE_ID": "EAME-COMPARABILITY-CONTRACT-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "source": "derivado — SPAIN-DEMO-CONTENT-V1 (ES) e HANDOFF-ITALIA-PARA-EAME + ITALY-HERO-CASES-V1 (IT, lidos por git show, sem merge)",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES e IT",
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_ISTO_E": "um contrato de COMPARABILIDADE. Ele responde \"podemos comparar estas duas coisas sem misturar conceitos diferentes?\" e NAO cria nenhuma relacao cross-market.",
+ "CROSS_MARKET_RELATION": "NOT_TESTED",
+ "EAME_CROSS_MARKET_READY": "NO",
+ "REGRA": "uma dimensao so vira COMPARABLE se as duas medicoes tiverem a MESMA UNIDADE, a MESMA CONVENCAO e o MESMO TIPO DE DATA. Cobertura parecida nao basta.",
+ "DIMENSOES": [
+  {
+   "DIMENSAO": "REGULATORY_EXPIRY por titular",
+   "ES": "96 vigentes ADAMA; 36 vencendo em 6M, 61 em 12M; 3 vigentes com caducidad passada (de 34 no ROPF inteiro, sobre 1.993 vigentes)",
+   "IT": "163 vigentes grupo ADAMA; 71 vencendo em 6 meses de calendario, 104 em 12M; 8 vigentes com vencimento passado",
+   "VEREDITO": "COMPARABLE",
+   "POR_QUE": "as duas usam JANELA DE MES CALENDARIO. Conferi no codigo espanhol: scripts/metricas_canonicas.py soma meses e faz clamp do dia, nao soma 180 dias. A Italia mediu a diferenca entre as duas convencoes e ela vale 13 registros (58 contra 71). Sem essa checagem, os numeros pareceriam comparaveis e nao seriam.",
+   "A_UNIDADE": "REGISTRO VIGENTE do titular. Nos dois casos.",
+   "O_QUE_AINDA_DIFERE": "o recorte de titular. A Espanha conta \"ADAMA\" por string no campo Titular; a Italia resolveu identidade por sede declarada e separa CORE, LEGAL_ENTITY e ADJACENT. O numero espanhol pode estar sub ou superestimado e isso nao foi medido."
+  },
+  {
+   "DIMENSAO": "REGULATORY_STATUS_LAG (vigente com vencimento passado)",
+   "ES": "3 de 96 vigentes ADAMA (3,1%); 34 de 1.993 no registro inteiro (1,7%)",
+   "IT": "8 de 163 vigentes ADAMA (4,9%)",
+   "VEREDITO": "COMPARABLE",
+   "POR_QUE": "mesma definicao operacional nos dois: campo de estado diz vigente e a data de vencimento ja passou. Os dois se recusam a chamar de erro do ministerio e os dois marcam INVESTIGATE.",
+   "O_QUE_NAO_FAZER": "nao dizer que a Italia tem \"mais atraso\" que a Espanha. As taxas sao 4,9% e 3,1% sobre bases de 163 e 96 — a diferenca cabe no ruido de duas amostras desse tamanho, e ninguem testou significancia."
+  },
+  {
+   "DIMENSAO": "CROP x TARGET de rotulo oficial",
+   "ES": "rota de PAR no servidor do ROPF (idCultivo x idPlaga) + 96 fichas PDF preservadas e lidas",
+   "IT": "163 de 163 rotulos oficiais parseados, com cultura x patogeno x dose x intervalo x n max",
+   "VEREDITO": "PARTIALLY_COMPARABLE",
+   "POR_QUE": "as duas entregam o par, por mecanismos diferentes. O espanhol e uma PERGUNTA ao registro (o servidor faz a intersecao); o italiano e uma LEITURA de rotulo. A unidade difere: na Espanha o par nasce de uma consulta e nao carrega dose; na Italia nasce de uma linha de rotulo e carrega dose.",
+   "PARA_VIRAR_COMPARABLE": "a Espanha precisaria extrair dose e n de aplicacoes das fichas de forma sistematica. Hoje isso foi feito produto a produto, nos casos, e nao no acervo."
+  },
+  {
+   "DIMENSAO": "MODE_OF_ACTION declarado",
+   "ES": "1 de 96 fichas traz codigo de grupo HRAC/IRAC/FRAC",
+   "IT": "36% dos 163 rotulos declaram grupo",
+   "VEREDITO": "NOT_COMPARABLE",
+   "POR_QUE": "1% contra 36% nao e diferenca de cobertura, e diferenca de formato de documento. A ficha espanhola do MAPA simplesmente nao tem esse campo. Comparar MoA entre os dois paises hoje seria comparar o que a Italia declara com o que a Espanha nao publica.",
+   "ARMADILHA_JA_MEDIDA": "a Italia registra que sua cobertura de MoA caiu de 55% errado para 36% certo. A Espanha registra que a sua subiu de 1 para 34 por falso positivo — \"respiracion\" e \"aspiracion\" contem IRAC. Os dois erros sao do mesmo tipo e em direcoes opostas."
+  },
+  {
+   "DIMENSAO": "FIELD_SIGNAL datado",
+   "ES": "RAIF Andaluzia — data de AMOSTRAGEM por leitura individual, parcela a parcela, 21 campanhas",
+   "IT": "bollettini regionais — data de PUBLICACAO do boletim, com fenologia observada descrita no texto",
+   "VEREDITO": "PARTIALLY_COMPARABLE",
+   "POR_QUE": "a Espanha tem data de OBSERVACAO por leitura; a Italia tem data de PUBLICACAO do boletim e a observacao dentro do texto. Sao dois tipos de data e as duas branches ja cairam nessa distincao uma vez cada.",
+   "CONSEQUENCIA_PRATICA": "um \"sinal de 26/08\" italiano e um \"sinal de 26/08\" espanhol nao significam a mesma coisa. Na Espanha essa data seria de amostragem; na Italia e de publicacao do boletim que descreve amostragem anterior.",
+   "PARA_VIRAR_COMPARABLE": "extrair do texto do boletim italiano a data da observacao que ele relata, quando declarada."
+  },
+  {
+   "DIMENSAO": "CROP_AREA regional",
+   "ES": "MAPA SCOT por PROVINCIA (NUTS3) + declaracao PAC por MUNICIPIO em Aragon",
+   "IT": "ISTAT + Eurostat por REGIONE (NUTS2), validados entre si",
+   "VEREDITO": "PARTIALLY_COMPARABLE",
+   "POR_QUE": "as unidades sao de niveis diferentes. Provincia espanhola e NUTS3; regione italiana e NUTS2. Comparaveis SO se subirem ao mesmo nivel, e subir perde a granularidade que da valor aos dois casos.",
+   "ARMADILHA_JA_MEDIDA_PELA_ITALIA": "NUTS 2006 != NUTS 2021 — na vintage errada some o vale do Po.",
+   "NAO_ACHATAR": "a concentracao municipal de Huesca (10 municipios = 47,7%) NAO tem equivalente italiano medido. Achatar para regiao para poder comparar destruiria o achado."
+  },
+  {
+   "DIMENSAO": "MANDATORY_CONTROL_CALENDAR",
+   "ES": "existe pontualmente — a ordem catala de 2020 sobre A. palmeri, com proibicao de semear milho por 3-4 anos nas parcelas afetadas. NAO coletado sistematicamente.",
+   "IT": "decretos de lotta obbligatoria com datas, medidos em 2 regioes para flavescencia",
+   "VEREDITO": "PARTIALLY_COMPARABLE",
+   "PARA_VIRAR_COMPARABLE": "levantar o equivalente espanhol de lucha obligatoria de forma sistematica. Nao foi feito."
+  },
+  {
+   "DIMENSAO": "APPLICATION_WINDOW vs MONITORING_WINDOW",
+   "ES": "separadas no caso do olivo — janela de etiqueta ABERTA contra necessidade de campo NOT_KNOWN",
+   "IT": "separadas no caso da videira — janela do vetor FECHADA e janela de sintoma ABERTA",
+   "VEREDITO": "COMPARABLE",
+   "POR_QUE": "as duas branches chegaram independentemente a mesma distincao, e as duas registram que trata-las como uma so fabricaria urgencia. O conceito e o mesmo e a fonte da janela e a mesma nos dois: o rotulo ou a norma oficial.",
+   "ISSO_E_METODO_NAO_MERCADO": "a convergencia e de disciplina, nao de fenomeno. Nao vira relacao cross-market."
+  },
+  {
+   "DIMENSAO": "RESEARCHER_IDENTITY",
+   "ES": "resolvida por ORCID com num-found=1; CONFIRMADA so nesse caso, CANDIDATA com candidatos listados em qualquer outro",
+   "IT": "consulta dirigida ao OpenAlex por instituicao, com ORCID presente; sem a etapa de desambiguacao individual",
+   "VEREDITO": "PARTIALLY_COMPARABLE",
+   "PARA_VIRAR_COMPARABLE": "aplicar a rota ORCID espanhola aos autores italianos. E barata e nao foi feita."
+  },
+  {
+   "DIMENSAO": "PUBLIC_TECHNICAL_NETWORK e PUBLIC_VOICE",
+   "ES": "50 ADV registradas na Catalunha com contato oficial; corpus de voz de 252 videos e 179 origens, enviesado para olivar andaluz",
+   "IT": "nao coletado",
+   "VEREDITO": "NOT_COMPARABLE",
+   "POR_QUE": "nao ha o que comparar de um lado. E a unica assimetria estrutural entre os dois paises."
+  }
+ ],
+ "CROSS_MARKET_CANDIDATES": [
+  {
+   "CANDIDATO": "REGULATORY_EXPIRY / STATUS_LAG",
+   "CLASSIFICACAO": "COMPARABLE",
+   "POR_QUE": "mesma unidade, mesma convencao de janela (mes calendario, verificado nos dois lados), mesma definicao de anomalia, e os dois se recusam a chamar de erro do ministerio.",
+   "O_QUE_JA_DA_PARA_DIZER": "os dois registros nacionais produzem a mesma anomalia em taxa semelhante — 3 de 96 na Espanha e 8 de 163 na Italia. Nenhum teste de significancia foi feito e a diferenca nao deve ser lida como \"a Italia atrasa mais\".",
+   "RELATION_TYPE_SE_FOSSE_REGISTRADA": "REGULATORY_DIFFERENCE"
+  },
+  {
+   "CANDIDATO": "MILHO",
+   "CLASSIFICACAO": "PARTIALLY_COMPARABLE",
+   "PASSAM": "cultura; planicie de rio irrigada nos dois (Ebro e Po); portfolio de herbicida nos dois",
+   "FALHAM": "o ISSUE. Espanha e Amaranthus palmeri; Italia e piralide e Diabrotica. Sao problemas diferentes com janelas diferentes.",
+   "O_QUE_MUDOU_DESDE_A_ULTIMA_AVALIACAO": "a Italia AGORA tem boletim de milho — Piemonte, 10 numeros em 2026, ultimo de 12/08. A perna de sinal publico deixou de falhar por ausencia. Mas o sinal esta na 5a regiao de milho (6,7% da area), nao nas tres primeiras (71,6%), e o issue continua diferente.",
+   "RELATION_TYPE_SE_FOSSE_REGISTRADA": "SIMILAR_ISSUE, nunca SAME_ISSUE"
+  },
+  {
+   "CANDIDATO": "CEREAIS DE INVERNO",
+   "CLASSIFICACAO": "NOT_COMPARABLE",
+   "POR_QUE": "a Italia nao tem caso de cereal de inverno. Nao ha lado B."
+  },
+  {
+   "CANDIDATO": "VIDEIRA x DOENCA",
+   "CLASSIFICACAO": "NOT_COMPARABLE",
+   "POR_QUE": "a Espanha tem ES-T3-001 para vid x mildiu e NAO trabalhou nenhum caso de videira nesta serie de rodadas. Nao ha lado A."
+  },
+  {
+   "CANDIDATO": "POR MOLECULA (folpet, tebuconazol, azoxistrobina, glifosato, nicosulfurom, lambda-cialotrina)",
+   "CLASSIFICACAO": "PARTIALLY_COMPARABLE",
+   "POR_QUE": "as moleculas aparecem nos dois registros e a substancia ja esta normalizada dos dois lados. Mas comparar molecula sem comparar USO nao diz nada: o mesmo tebuconazol esta em olivo x repilo na Espanha e em outra cultura na Italia.",
+   "O_QUE_FALTARIA": "cruzar substancia x cultura x alvo, nao substancia sozinha."
+  },
+  {
+   "CANDIDATO": "SINAL PRECURSOR (um pais antecipa o outro)",
+   "CLASSIFICACAO": "NOT_COMPARABLE",
+   "POR_QUE": "exigiria serie temporal comparavel do MESMO issue nos dois paises, e nao existe nenhum issue com serie dos dois lados. Criar precursor sem isso seria narrativa.",
+   "A_TENTACAO_NOMEADA": "\"a Italia ve antes o que chega na Espanha\" e uma frase atraente e sem nenhuma evidencia temporal neste repositorio."
+  }
+ ],
+ "ACTION_MAP_CROSS_COUNTRY_CONTRACT": {
+  "ESTADOS": [
+   "ACT_NOW",
+   "VERIFY_NOW",
+   "PREPARE",
+   "PLAN",
+   "WAIT_FOR_INTERNAL_DATA",
+   "NO_ACTION"
+  ],
+  "FUNCOES": [
+   "MARKETING",
+   "MARKET DEVELOPMENT",
+   "COMMERCIAL",
+   "SCIENCE",
+   "SUPPLY",
+   "REGULATORY / PORTFOLIO"
+  ],
+  "CAMPOS_OBRIGATORIOS": [
+   "ACTION_TYPE",
+   "ACTION",
+   "WHY",
+   "WHEN",
+   "UNTIL_WHEN",
+   "EVIDENCE",
+   "MISSING",
+   "POSSIBLE_ECONOMIC_EFFECT"
+  ],
+  "FUNCIONA_NOS_DOIS": "SIM. A Italia ja usa AGIR AGORA / MONITORAR AGORA / PREPARAR / PLANEJAR e COMMERCIAL com \"nada a propor\"; a Espanha usa os seis estados. O mapeamento e direto: MONITORAR AGORA italiano = VERIFY_NOW espanhol.",
+  "A_UNICA_DIVERGENCIA": "a Italia usa \"AGIR AGORA\" para o caso de vencimentos, que na Espanha seria ACT_NOW tambem — as duas sao acoes regulatorias internas que nao dependem de campo. Convergem.",
+  "REGRA_COMUM": "ACT_NOW exige acao executavel hoje E necessidade estabelecida hoje. Janela aberta sozinha nunca produz ACT_NOW. COMMERCIAL nunca recebe instrucao externa de venda enquanto COMMERCIAL_CLOCK for NAO SEI — e ele e NAO SEI nos dois paises."
+ },
+ "VEREDITO_FINAL": {
+  "EAME_COMPARABILITY_READY": "YES para 3 dimensoes (REGULATORY_EXPIRY, REGULATORY_STATUS_LAG, APPLICATION vs MONITORING WINDOW), PARTIAL para 5, NO para 2.",
+  "EAME_CROSS_MARKET_READY": "NO",
+  "POR_QUE_AINDA_NAO": "a unica dimensao plenamente comparavel que produziria uma relacao e a regulatoria, e uma relacao regulatoria entre dois registros nacionais e uma observacao sobre processo administrativo, nao uma relacao de mercado. As dimensoes que produziriam relacao de mercado — issue, sinal de campo, area regional — sao PARTIALLY_COMPARABLE por unidade ou tipo de data, e nenhuma foi normalizada.",
+  "NEXT_SMALLEST_STEP_PARA_EAME": "extrair, de um boletim italiano, a DATA DA OBSERVACAO que ele relata. E o unico passo que transforma FIELD_SIGNAL de PARTIALLY_COMPARABLE em COMPARABLE, e ele e barato."
+ }
+}
