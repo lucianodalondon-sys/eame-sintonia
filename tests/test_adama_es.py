@@ -338,9 +338,24 @@ def test_artefato_nao_deriva_96_menos_55():
         d = json.load(f)
     cw = d['REGULATORY_CROSSWALK']
     assert cw['ROPF_ACTIVE_REGISTRATIONS'] == 96
-    assert 'MATCHED' in cw and cw['MATCHED'] in ('NOT_COLLECTED', 0) or True
-    assert 41 not in [v for v in cw.values() if isinstance(v, int)], (
-        '96-55=41 aparece como numero derivado; unidades diferentes (secao 23)')
+
+    # Este teste checava "o numero 41 nao aparece", porque 96-55=41. Em 2026-08-30 ele
+    # disparou contra um numero LEGITIMO: com o registro finalmente sendo lido da ficha,
+    # MATCHED_EXACT virou 41 de verdade. Testar por VALOR era o defeito — proibir um
+    # numero nao prova nada sobre COMO ele nasceu.
+    #
+    # A prova certa e de PARTICAO: cada entrada do catalogo cai em exatamente um estado.
+    # Se a soma dos estados fecha o catalogo, cada numero veio de classificar linha a
+    # linha; subtracao de denominadores diferentes nao produziria isso.
+    estados = ('MATCHED_EXACT', 'MATCHED_WITH_EVIDENCE', 'AMBIGUOUS', 'ADAMA_SITE_ONLY')
+    soma = sum(cw.get(e, 0) for e in estados if isinstance(cw.get(e), int))
+    catalogo = cw.get('PUBLIC_CATALOG_ENTRIES')
+    if isinstance(catalogo, int) and catalogo:
+        assert soma == catalogo, (
+            'os estados do crosswalk (%d) nao fecham o catalogo (%d) — algum numero nao '
+            'nasceu de classificar entrada' % (soma, catalogo))
+    assert 'DIFERENCA' not in cw and 'ROPF_MENOS_CATALOGO' not in cw, (
+        'apareceu campo de subtracao entre denominadores diferentes (secao 23)')
 
 
 # ── 9 · o que SÓ a coleta ao vivo de 2026-08-30 revelou ─────────────────────

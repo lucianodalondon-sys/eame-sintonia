@@ -72,6 +72,7 @@ def construir(captura):
         dose_rel += d.get('CROP_DOSE_RELATIONS') or []
         ambiguos += d['AMBIGUOUS_TERMS']
         moa += d['MODES_OF_ACTION']
+        tecnologias += d.get('TECHNOLOGIES') or []
         claims += d['CLAIMS']
         videos += d['VIDEOS']
         for ia in d['PRODUCT']['ACTIVE_INGREDIENTS']:
@@ -81,6 +82,35 @@ def construir(captura):
                 janelas.append({k: r[k] for k in (
                     'PRODUCT_ID', 'CROP', 'ISSUE', 'BBCH_FROM', 'BBCH_TO',
                     'APPLICATION_COUNT', 'INTERVAL_DAYS', 'TIMING_FLAGS', 'ANCHOR')})
+
+    # Marca registrada citada na ficha pode ser DUAS coisas diferentes, e só dá para
+    # separar depois que o catálogo inteiro foi lido: se o nome é de OUTRO produto do
+    # catálogo, aquilo é relação entre produtos publicada pela ADAMA (seção 21); se não
+    # é, é plataforma tecnológica (seção 10). A ficha do ANIBAL cita HERBOLEX®, que é
+    # produto; a do POSTSCRIPT 80 cita FullPage®, que é sistema de híbridos de arroz.
+    # Nada aqui é inferido de molécula: só entra o que a ADAMA marcou com ® na página.
+    nome_para_id = {}
+    for p in produtos:
+        if p.get('DISPLAY_NAME') and p.get('PRODUCT_ID'):
+            nome_para_id[A._chave(p['DISPLAY_NAME'])] = p['PRODUCT_ID']
+    so_tecnologia = []
+    for t in tecnologias:
+        alvo = nome_para_id.get(A._chave(t['TECHNOLOGY_NAME']))
+        if alvo and alvo != t['PRODUCT_ID']:
+            relacoes_produto.append({
+                'PRODUCT_ID': t['PRODUCT_ID'],
+                'RELATED_PRODUCT_ID': alvo,
+                'RELATED_PRODUCT_NAME': t['TECHNOLOGY_NAME'],
+                'RELATION_TYPE': 'MENTIONED_ON_PAGE',
+                'PORQUE_NAO_E_MAIS_ESPECIFICO': (
+                    'a pagina cita a marca sem dizer se e complemento, alternativa, '
+                    'programa ou mistura; nomear o tipo seria inferir (secao 21)'),
+                'SOURCE_URL': t['SOURCE_URL'],
+                'EVIDENCE_LEVEL': 'OBSERVED_ON_MANUFACTURER_PAGE',
+            })
+        else:
+            so_tecnologia.append(t)
+    tecnologias = so_tecnologia
 
     if documentos:
         A.baixar_documentos(documentos, captura)
@@ -177,6 +207,8 @@ def construir(captura):
                                     if c['CLAIM_TYPE'] == 'MANUFACTURER_TECHNICAL_CLAIM') or VAZIO,
             'COMMERCIAL_CLAIMS': sum(1 for c in claims
                                      if c['CLAIM_TYPE'] == 'MANUFACTURER_COMMERCIAL_CLAIM') or VAZIO,
+            'TECHNOLOGIES': len(tecnologias) or VAZIO,
+            'PRODUCT_RELATIONS': len(relacoes_produto) or VAZIO,
             'VIDEOS_FOUND': len(videos) or VAZIO,
         },
 

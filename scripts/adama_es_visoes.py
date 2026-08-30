@@ -122,7 +122,7 @@ def visao_familia(art, nome, cfg):
     return {
         'SOURCE_ID': 'ADAMA-ES-%s-PUBLIC-PORTFOLIO-MAP' % nome,
         'DERIVADO_DE': 'data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json',
-        'CAPTURE_DATE': art.get('captured_at'),
+        'captured_at': art.get('captured_at'), 'CAPTURE_DATE': art.get('captured_at'),
         'COUNTRY': 'ES', 'ORIGINAL_LANGUAGE': 'ES',
         'PORQUE_ESTA_VISAO_EXISTE': cfg['PORQUE'],
         'ROTULOS_PROCURADOS': cfg['ROTULOS'],
@@ -179,6 +179,7 @@ def visao_por_cultivo(art):
     return {
         'SOURCE_ID': 'ADAMA-ES-PORTFOLIO-POR-CULTIVO',
         'DERIVADO_DE': 'data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json',
+        'captured_at': art.get('captured_at'),
         'CAPTURE_DATE': art.get('captured_at'), 'COUNTRY': 'ES',
         'REGRA_DE_ENTRADA': 'so cultivo DECLARADO no bloco "Cultivos" da ficha',
         'CULTIVOS': len(linhas),
@@ -224,6 +225,7 @@ def visao_por_issue(art):
     return {
         'SOURCE_ID': 'ADAMA-ES-PORTFOLIO-POR-ISSUE',
         'DERIVADO_DE': 'data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json',
+        'captured_at': art.get('captured_at'),
         'CAPTURE_DATE': art.get('captured_at'), 'COUNTRY': 'ES',
         'ISSUES': len(linhas),
         'LINHAS': linhas,

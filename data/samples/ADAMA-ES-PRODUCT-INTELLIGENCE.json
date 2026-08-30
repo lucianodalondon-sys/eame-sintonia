@@ -8,7 +8,7 @@
  "CAPTURE_DATE": "2026-08-30T03:19:24Z",
  "ESTADO_DO_REGISTRO": "CURRENT",
  "COUNTRY": "ES",
- "HEAD": "d6896d5be8b1fde358b98e265f0e806278ec20c0",
+ "HEAD": "b8082423117cd151c91d52623d4b93668db0222b",
  "GERADO_POR": "scripts/adama_intelligence.py --build",
  "ACESSO": {
   "ADAMA_ES_COLLECTION_READY": "YES",
@@ -3826,7 +3826,7 @@
    "SHA256": "NOT_COLLECTED",
    "CAPTURED_AT": "2026-08-30T03:19:24Z",
    "DOWNLOAD_STATE": "FAILED",
-   "FAILURE_REASON": "curl: (28) Failed to connect to www.mapama.gob.es port 80 after 21029 ms: Timed out",
+   "FAILURE_REASON": "curl: (28) Failed to connect to www.mapama.gob.es port 80 after 21053 ms: Timed out",
    "O_QUE_ISTO_NAO_E": "falha de download NAO e documento inexistente"
   },
   {
@@ -3994,7 +3994,7 @@
    "SHA256": "NOT_COLLECTED",
    "CAPTURED_AT": "2026-08-30T03:19:24Z",
    "DOWNLOAD_STATE": "FAILED",
-   "FAILURE_REASON": "curl: (28) Failed to connect to www.magrama.gob.es port 80 after 21037 ms: Timed out",
+   "FAILURE_REASON": "curl: (28) Failed to connect to www.magrama.gob.es port 80 after 21044 ms: Timed out",
    "O_QUE_ISTO_NAO_E": "falha de download NAO e documento inexistente"
   },
   {
@@ -16001,7 +16001,16 @@
    "EVIDENCE_LEVEL": "MANUFACTURER_TECHNICAL_CLAIM"
   }
  ],
- "TECHNOLOGIES": [],
+ "TECHNOLOGIES": [
+  {
+   "PRODUCT_ID": "ADAMA-ES-ce1c05fe4864",
+   "TECHNOLOGY_NAME": "FullPage",
+   "MARCADOR": "®",
+   "SOURCE_URL": "https://www.adama.com/spain/es/nuestras-soluciones/control-de-malas-hierbas/postscript-80",
+   "EVIDENCE_LEVEL": "MANUFACTURER_TECHNICAL_CLAIM",
+   "PORQUE_ENTROU": "marca registrada citada na ficha e diferente do nome do produto; a ADAMA marcou, esta coleta nao inferiu"
+  }
+ ],
  "CLAIMS": [
   {
    "CLAIM_ID": "CLM-ES-e7f044309201",
@@ -16599,7 +16608,17 @@
    "REGULATORY_CONFIRMATION": "NOT_TESTED"
   }
  ],
- "PRODUCT_RELATIONS": [],
+ "PRODUCT_RELATIONS": [
+  {
+   "PRODUCT_ID": "ADAMA-ES-3d7d78d03e08",
+   "RELATED_PRODUCT_ID": "ADAMA-ES-67b0fd51b90a",
+   "RELATED_PRODUCT_NAME": "HERBOLEX",
+   "RELATION_TYPE": "MENTIONED_ON_PAGE",
+   "PORQUE_NAO_E_MAIS_ESPECIFICO": "a pagina cita a marca sem dizer se e complemento, alternativa, programa ou mistura; nomear o tipo seria inferir (secao 21)",
+   "SOURCE_URL": "https://www.adama.com/spain/es/nuestras-soluciones/control-de-malas-hierbas/anibal",
+   "EVIDENCE_LEVEL": "OBSERVED_ON_MANUFACTURER_PAGE"
+  }
+ ],
  "RELATED_CONTENT": [],
  "VIDEOS": [
   {
@@ -21829,6 +21848,8 @@
   "APPLICATION_WINDOWS": 3,
   "TECHNICAL_CLAIMS": 29,
   "COMMERCIAL_CLAIMS": 1,
+  "TECHNOLOGIES": 1,
+  "PRODUCT_RELATIONS": 1,
   "VIDEOS_FOUND": 3
  },
  "SEMANTICA": {

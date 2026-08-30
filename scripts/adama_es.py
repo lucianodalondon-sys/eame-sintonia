@@ -872,6 +872,7 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
                           'EVIDENCE_LEVEL': 'OBSERVED_ON_MANUFACTURER_PAGE'})
 
     reg = _registro(texto_todo)
+    tecnologias = _tecnologias(texto_todo, nome, pid, url_pagina)
     moa = []
     for esquema, rx in MODO_ACAO:
         for m in rx.finditer(texto_todo):
@@ -912,6 +913,7 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
         'CROP_DOSE_RELATIONS': dose_rel,
         'AMBIGUOUS_TERMS': ambiguos,
         'MODES_OF_ACTION': moa,
+        'TECHNOLOGIES': tecnologias,
         'CLAIMS': claims_da_pagina(est, pid, url_pagina),
         'VIDEOS': [dict(v, PRODUCT_ID=pid, SOURCE_URL=url_pagina) for v in est['VIDEOS']],
         'PARSE_STATS': {'TABELAS': len(est['TABELAS']), 'LINKS': len(est['LINKS']),
@@ -964,6 +966,39 @@ FORM = re.compile(r'\b(SC|EC|WG|WP|SL|EW|OD|CS|ZC|SE|FS|GR|ME|DC|EO|SG|WS|GB|RB)
 def _formulacao(t):
     m = FORM.search(t or '')
     return m.group(1) if m else 'NÃO SEI'
+
+
+MARCA = re.compile(r'\b([A-Z][A-Za-zÁÉÍÓÚÑáéíóúñ0-9-]{2,20})\s*[®™]')
+
+
+def _tecnologias(texto, nome_produto, pid, url_pagina):
+    """Marca registrada citada na ficha que NÃO é o nome do próprio produto.
+
+    A seção 10 pede PROPRIETARY_TECHNOLOGY, e a única forma de a ADAMA marcar isso na
+    página é o ®. POSTSCRIPT 80 cita "híbridos de arroz FullPage®" — FullPage é
+    plataforma, não o produto. Já "KAMPAI®" na ficha do KAMPAI é o produto se
+    autonomeando, e entrar como tecnologia seria ruído.
+
+    Só o que está marcado entra. Nada é inferido de molécula nem de família de produto.
+    """
+    proprio = _chave(nome_produto or '')
+    vistos, fora = set(), []
+    for m in MARCA.finditer(texto or ''):
+        marca = m.group(1)
+        k = _chave(marca)
+        if not k or k in vistos or k == proprio or k in proprio or proprio.startswith(k):
+            continue
+        vistos.add(k)
+        fora.append({
+            'PRODUCT_ID': pid,
+            'TECHNOLOGY_NAME': marca,
+            'MARCADOR': '®' if '®' in m.group(0) else '™',
+            'SOURCE_URL': url_pagina,
+            'EVIDENCE_LEVEL': 'MANUFACTURER_TECHNICAL_CLAIM',
+            'PORQUE_ENTROU': ('marca registrada citada na ficha e diferente do nome do '
+                              'produto; a ADAMA marcou, esta coleta nao inferiu'),
+        })
+    return fora[:8]
 
 
 RX_COMPOSICAO = re.compile(r'composici[oó]n\s*:?\s*(.{3,200}?)(?:\.\s|$|\|)', re.I | re.S)
