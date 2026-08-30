@@ -12,6 +12,7 @@ import italia_rotulo_parse as rp   # noqa: E402
 import italia_colture as ic        # noqa: E402
 import italia_istat as ii2         # noqa: E402
 import italia_cobertura_campo      # noqa: E402,F401
+import italia_tabela_dose as td    # noqa: E402
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
 
@@ -249,6 +250,48 @@ class TestContraFonteReal(unittest.TestCase):
         """A ambiguidade de MAGAN/MAKHTESHIM HOLLAND é IMATERIAL hoje — e provado."""
         inv = italia.inventario_adama(italia.carregar(CSV), datetime.date(2026, 8, 30))
         self.assertEqual(inv['ADAMA_IT_ADJACENT']['ACTIVE'], 0)
+
+
+class TestTabelaDeDose(unittest.TestCase):
+    """A tabela e onde a autorizacao por cultura mora. Fora dela, nao."""
+
+    LEX = {'Cercospora', 'Diabrotica', 'Peronospora', 'Erysiphe'}
+
+    def test_alvo_com_genero_fora_do_verificador_nao_entra(self):
+        """`Trisulfuron metile` e substancia ativa; `Portare quindi` e verbo."""
+        t = ('Coltura Patogeno Dose Barbabietola da zucchero Trisulfuron metile '
+             'Portare quindi 0,5 l/ha')
+        self.assertEqual([], td.linhas_de_uso(t, self.LEX))
+
+    def test_alvo_verificado_entra_com_a_cultura(self):
+        t = ('Coltura Patogeno Dose Barbabietola da zucchero '
+             'Cercosporiosi (Cercospora beticola) 0,75 l/ha')
+        r = td.linhas_de_uso(t, self.LEX)
+        self.assertEqual(1, len(r))
+        self.assertEqual('SUGARBEET', r[0]['CROP'])
+        self.assertIn('Cercospora beticola', r[0]['TARGETS'])
+        self.assertEqual('CROP_TARGET_DOSE', r[0]['ROW_STATE'])
+
+    def test_preposicao_italiana_nao_e_epiteto(self):
+        """`Peronospora` esta no EPPO, mas "Peronospora della vite" nao e binomio."""
+        t = 'Coltura Patogeno Dose Vite Peronospora della vite 1 l/ha'
+        r = td.linhas_de_uso(t, self.LEX)
+        self.assertEqual([], [x for x in r if any('della' in a for a in x['TARGETS'])])
+
+    def test_sem_cabecalho_de_tabela_nao_ha_linha(self):
+        """O mesmo texto FORA da tabela nao pode virar uso autorizado."""
+        t = 'In caso di fallimento della coltura, mais Diabrotica virgifera 1 l/ha'
+        self.assertEqual([], td.linhas_de_uso(t, self.LEX))
+
+    def test_dedupe_e_estrutural(self):
+        t = ('Coltura Patogeno Dose Mais Diabrotica virgifera 1 l/ha '
+             'Mais Diabrotica virgifera 1 l/ha')
+        r = td.linhas_de_uso(t, self.LEX)
+        self.assertEqual(1, len(r))
+
+    def test_lexico_e_externo_e_nao_auto_derivado(self):
+        """Se o verificador voltar a sair dos proprios rotulos, o vernaculo volta."""
+        self.assertIn('eppo-dictionary', td.EPPO_DICT)
 
 
 class TestCoberturaDeCampo(unittest.TestCase):
