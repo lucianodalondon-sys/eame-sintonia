@@ -25,7 +25,7 @@ class AHipoteseCaiuPelaMetadeENaoInteira(unittest.TestCase):
         self.assertIn('sem camada pessoal', self.M['WHAT_HELD'])
 
     def test_a_organizacao_local_foi_provada_e_a_pessoa_nao(self):
-        self.assertEqual(self.M['CEREAL_LOCAL_FIELD_ORGANIZATION_FOUND'], 'YES')
+        self.assertEqual(self.M['CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND'], 'YES')
         self.assertEqual(self.M['LOCAL_ORGANIZATION_SENSOR']['STATE'], 'PROVED')
         self.assertEqual(self.M['TECHNICAL_PERSON_SENSOR']['STATE'], 'NOT_PROVED')
         self.assertIn('LOCAL_ORGANIZATION_SENSOR ≠ TECHNICAL_PERSON_SENSOR',
@@ -63,8 +63,21 @@ class ONaoNuncaVirouNacional(unittest.TestCase):
             self.assertNotIn(p, corpo, p)
 
     def test_o_estado_do_sensor_local_usa_o_rotulo_longo_e_honesto(self):
-        self.assertEqual(self.M['CEREAL_LOCAL_FIELD_SENSOR_FOUND'],
+        self.assertEqual(self.M['CEREAL_LOCAL_HUMAN_PERSON_SENSOR_FOUND'],
                          'NOT_OBSERVED_IN_MEASURED_HIGH_PRIORITY_NETWORKS')
+
+    def test_as_duas_chaves_dizem_de_que_especie_de_sensor_falam(self):
+        """Lado a lado, YES e NOT_OBSERVED liam-se como contradição. São duas
+        perguntas: a organização local existe, a pessoa não."""
+        self.assertNotIn('CEREAL_LOCAL_FIELD_SENSOR_FOUND', self.M)
+        self.assertIn('ORGANIZATION', 'CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND')
+        self.assertIn('HUMAN_PERSON', 'CEREAL_LOCAL_HUMAN_PERSON_SENSOR_FOUND')
+        self.assertIn('dois estados', self.M['WHY_TWO_KEYS'])
+
+    def test_a_linha_de_sensores_humanos_esta_congelada(self):
+        self.assertEqual(self.M['HUMAN_SENSOR_ITALY_LINE'],
+                         'FROZEN_AFTER_CURRENT_EVIDENCE')
+        self.assertIn('NOT_PRODUCTIVE', self.M['HUMAN_SENSOR_FREEZE_MEANS'])
 
     def test_o_grano_duro_nao_e_NO_e_sim_PROMISING(self):
         self.assertIn(self.M['DURUM_FUSARIUM_LOCAL_HUMAN_SENSOR'],

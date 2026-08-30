@@ -282,8 +282,21 @@ def medir():
             'NORMA TÉCNICA ≠ SINAL DE CAMPO',
         ],
 
-        'CEREAL_LOCAL_FIELD_SENSOR_FOUND': achou,
-        'CEREAL_LOCAL_FIELD_ORGANIZATION_FOUND': 'YES',
+        # As duas chaves conviviam sem dizer QUE espécie de sensor cada uma
+        # media, e lado a lado liam-se como contradição: uma diz YES, a outra diz
+        # NOT_OBSERVED. Não são a mesma pergunta. A organização local existe; a
+        # pessoa não. O achado não muda — muda o nome, que passa a dizer de quem
+        # ele fala.
+        #
+        #     ORGANIZATION_SENSOR ≢ HUMAN_PERSON_SENSOR
+        'CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND': 'YES',
+        'CEREAL_LOCAL_HUMAN_PERSON_SENSOR_FOUND': achou,
+        'WHY_TWO_KEYS': (
+            'organização local prospectiva em cereais: PROVADA (Centro Agrometeo '
+            'Locale das Marche). Pessoa pública prospectiva em cereais: NÃO '
+            'OBSERVADA nas redes de alta prioridade medidas. São dois estados, e '
+            'juntá-los num só produziria uma contradição aparente ou uma promoção '
+            'silenciosa'),
         'DURUM_FUSARIUM_LOCAL_HUMAN_SENSOR': duro,
         'IN_CEREALS_MEASURED_SIGNAL_ARCHITECTURE': 'REGIONAL_INSTITUTION_DOMINANT',
         'ARCHITECTURE_MUST_CARRY': (
@@ -291,6 +304,11 @@ def medir():
             'a província e se apoia numa rede de fazendas. Chamar isso de "só a '
             'região" perderia o nó mais local que os cereais têm'),
 
+        'HUMAN_SENSOR_ITALY_LINE': 'FROZEN_AFTER_CURRENT_EVIDENCE',
+        'HUMAN_SENSOR_FREEZE_MEANS': (
+            'a linha de sensores humanos da Itália não recebe nova busca. O que ficou '
+            'por medir está nomeado e continua NOT_MEASURED — congelar não converte '
+            'nenhum NOT_MEASURED em NOT_PRODUCTIVE'),
         'RECOMMENDATION': {
             'COLLECT_RECURRENTLY': (
                 'os notiziari agrometeorológicos PROVINCIAIS das Marche, ao lado dos '
@@ -328,8 +346,10 @@ def main():
             [(a['FACT_LOCATION'], a['PRECISION_SOURCE']) for a in L['FACT_LOCATIONS']]))
         print('      FACT_TIME:', L['TIME']['FACT_TIME'])
     print()
-    print('CEREAL_LOCAL_FIELD_SENSOR_FOUND    =', out['CEREAL_LOCAL_FIELD_SENSOR_FOUND'])
-    print('CEREAL_LOCAL_FIELD_ORGANIZATION    =', out['CEREAL_LOCAL_FIELD_ORGANIZATION_FOUND'])
+    print('CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND =',
+          out['CEREAL_LOCAL_FIELD_ORGANIZATION_SENSOR_FOUND'])
+    print('CEREAL_LOCAL_HUMAN_PERSON_SENSOR_FOUND       =',
+          out['CEREAL_LOCAL_HUMAN_PERSON_SENSOR_FOUND'])
     print('DURUM_FUSARIUM_LOCAL_HUMAN_SENSOR  =', out['DURUM_FUSARIUM_LOCAL_HUMAN_SENSOR'])
     print('SIGNAL_ARCHITECTURE                =', out['IN_CEREALS_MEASURED_SIGNAL_ARCHITECTURE'])
     for k in ('LOCAL_ORGANIZATION_SENSOR', 'TECHNICAL_PERSON_SENSOR',
