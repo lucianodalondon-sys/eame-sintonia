@@ -79,7 +79,9 @@ class OPositivoNaoFalaPelaCulturaDoCaso(unittest.TestCase):
     def test_os_seis_vereditos_nao_sao_o_mesmo_valor(self):
         vals = [self.M[k] for k in
                 ('PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR',
-                 'PROSPECTIVE_TECHNICAL_PERSON_SENSOR', 'PROSPECTIVE_PRODUCER_SENSOR',
+                 'PROSPECTIVE_TECHNICAL_PERSON_SENSOR',
+                 'PROSPECTIVE_PRODUCER_COOP_SENSOR',
+                 'PROSPECTIVE_PRODUCER_PERSON_SENSOR',
                  'PROSPECTIVE_CREATOR_SENSOR', 'PROSPECTIVE_RESEARCHER_SENSOR')]
         self.assertGreaterEqual(len(set(vals)), 3)
 

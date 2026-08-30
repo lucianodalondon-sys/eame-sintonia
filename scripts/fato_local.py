@@ -166,7 +166,11 @@ ANCORAS_POSITIVAS = (
     # frase "non si segnalano infezioni" ficava sem âncora — logo, sem negação a
     # reconhecer. Recusada pelo motivo errado.
     (r'segnal(?:at[oaie]|ano|a|iamo)', OFFICIAL_OCCURRENCE),
-    (r'bollettino\b', OFFICIAL_OCCURRENCE),
+    # `bollettino` sozinho saiu da lista: é o TÍTULO de todo boletim, e como
+    # âncora fazia o cabeçalho "Provincia di Grosseto - Bollettino Frumento" ser
+    # lido como uma observação em Grosseto. O caso real que ela servia —
+    # "segnalato nel bollettino" — já está coberto por `segnal...`.
+    (r'segnalat[oaie]\s+(?:nel|dal)\s+bollettino', OFFICIAL_OCCURRENCE),
     (r'registrat[oaie]', OFFICIAL_OCCURRENCE),
     (r'diffusion[ei]\s+(?:in|nel|nella)\b', REGIONAL_STATEMENT),
     (r'pressione\s+(?:in|nel|nella)\b', REGIONAL_STATEMENT),
@@ -253,6 +257,29 @@ NEGACAO_ESTRUTURAL = (
     r'(?:testimone|vigneto|campo|appezzamento|parcella|tesi)\s+non\s+trattat[oaie]',
     r'non\s+trattat[oaie]\b',
 )
+
+# Escopo declarado pelo PRÓPRIO DOCUMENTO no cabeçalho: "Provincia di Grosseto -
+# Bollettino Frumento del 2026-04-23". Existe porque o boletim que é a perna de
+# campo do caso devolvia ZERO localizações: a frase que relata o sintoma —
+# "Si segnala la comparsa di sintomi lievi nel frumento duro" — não nomeia lugar
+# nenhum, porque o lugar é o documento inteiro.
+#
+# Três travas, e nenhuma é opcional:
+#   · só se aplica a oração que NÃO menciona lugar algum. Frase que nomeou um
+#     lugar e teve esse lugar recusado NÃO é resgatada pelo escopo — senão o
+#     "convegno a Bologna" voltaria pela porta do cabeçalho;
+#   · a precisão é a que o cabeçalho declara, nunca mais fina. Boletim provincial
+#     dá PROVINCE, e província não vira município;
+#   · sai marcado com ORIGIN = DOCUMENT_SCOPE, para nunca se confundir com uma
+#     âncora dentro da frase.
+#
+#     DOCUMENT_SCOPE ≠ IN_SENTENCE_ANCHOR
+ESCOPO_DOC = (
+    (r'provincia\s+di\s+', PROVINCE),
+    (r'regione\s+', REGION),
+    (r'comune\s+di\s+', MUNICIPALITY),
+)
+DOCUMENT_SCOPE = 'DOCUMENT_SCOPE'
 
 CONTENT_GEO_EVIDENCE = 'CONTENT_GEO_EVIDENCE'
 
@@ -401,7 +428,22 @@ def _governa(pos_lugar, positivas, negativas):
     return (pos, neg)
 
 
-def localizacoes_do_fato(texto, *, origem='POST_TEXT'):
+def escopo_do_documento(texto, limite=220):
+    """O lugar que o cabeçalho do documento declara. Só o cabeçalho.
+
+    Procurar no texto inteiro transformaria qualquer menção tardia em escopo —
+    e o escopo tem de ser aquilo que o documento diz ser SOBRE, logo no começo.
+    """
+    cabeca = str(texto or '')[:limite]
+    for padrao, precisao in ESCOPO_DOC:
+        m = re.search('(?i:%s)%s' % (padrao, _NOME), cabeca)
+        if m:
+            return {'PLACE': m.group(1).strip(), 'PRECISION': precisao,
+                    'EVIDENCE': cabeca.strip()[:200]}
+    return None
+
+
+def localizacoes_do_fato(texto, *, origem='POST_TEXT', usar_escopo=True):
     """→ (aceitas, recusadas). Um conteúdo pode ter 0..N localizações do fato.
 
     Cada aceita traz o TRECHO que a sustenta. FACT sem trecho reproduzível não
@@ -409,9 +451,47 @@ def localizacoes_do_fato(texto, *, origem='POST_TEXT'):
     outra pessoa, e não só por mim.
     """
     aceitas, recusadas, vistos = [], [], set()
-    for frase in _frases(texto):
+    frases = list(_frases(texto))
+    # O escopo de documento só existe em DOCUMENTO: uma frase solta que diz
+    # "nel Comune di Parrano" é uma frase, não um cabeçalho de boletim. Sem esta
+    # trava, a própria frase virava cabeçalho e era pulada — e o lugar sumia.
+    escopo = (escopo_do_documento(texto) if usar_escopo and len(frases) > 1 else None)
+    # O cabeçalho declara SOBRE O QUE o documento é. Ele não observa nada, e
+    # lê-lo como observação faria todo boletim afirmar um fato no próprio título.
+    cabecalho = frases[0] if escopo else None
+    for frase in frases:
+        if cabecalho is not None and frase == cabecalho:
+            continue
         ms = mencoes(frase)
         if not ms:
+            # Nenhum lugar na oração. Se ela RELATA algo e o documento declara um
+            # escopo, o fato é do escopo — na precisão do cabeçalho, nem uma
+            # unidade mais fina.
+            if not escopo:
+                continue
+            positivas = _ancoras(frase, ANCORAS_POSITIVAS)
+            negativas = _ancoras(frase, ANCORAS_NEGATIVAS)
+            if not positivas or negativas:
+                continue
+            pos = min(positivas, key=lambda a: a['POS'])
+            if _negada(frase, pos['POS']):
+                continue
+            chave = (escopo['PLACE'], escopo['PRECISION'], 'DOC')
+            if chave in vistos:
+                continue
+            vistos.add(chave)
+            aceitas.append({
+                'FACT_LOCATION': escopo['PLACE'],
+                'FACT_LOCATION_PRECISION': escopo['PRECISION'],
+                'PRECISION_SOURCE': DOCUMENT_SCOPE,
+                'FACT_LOCATION_EVIDENCE': frase[:300],
+                'FACT_LOCATION_SCOPE_EVIDENCE': escopo['EVIDENCE'],
+                'FACT_LOCATION_ANCHOR': pos['TEXT'],
+                'FACT_LOCATION_ORIGIN': origem,
+                'TYPE_OF_EVIDENCE': pos['LABEL'],
+                'WHY': ('a oração relata sem nomear lugar; o lugar é o escopo que o '
+                        'cabeçalho do documento declara'),
+            })
             continue
         positivas = _ancoras(frase, ANCORAS_POSITIVAS)
         negativas = _ancoras(frase, ANCORAS_NEGATIVAS)

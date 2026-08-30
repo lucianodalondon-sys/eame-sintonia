@@ -642,3 +642,72 @@ class OBoletimDeConsorzioAchouMaisTres(unittest.TestCase):
         for frase, esperado in casos.items():
             ok, _ = fl.localizacoes_do_fato(frase)
             self.assertEqual([a['FACT_LOCATION'] for a in ok], esperado, frase[:50])
+
+
+class OEscopoDoDocumentoEACaseFieldLeg(unittest.TestCase):
+    """O boletim que é a perna de campo do CASO devolvia ZERO localizações.
+
+    A frase que relata o sintoma — "Si segnala la comparsa di sintomi lievi nel
+    frumento duro" — não nomeia lugar nenhum, porque o lugar é o documento
+    inteiro: "Provincia di Grosseto - Bollettino Frumento del 2026-04-23".
+    """
+
+    DOC = ('Provincia di Grosseto - Bollettino Frumento del 2026-04-23. '
+           'Fusariosi. Si segnala la comparsa di sintomi lievi nel frumento duro '
+           'in alcune situazioni, mentre il tenero resta esente.')
+
+    def test_o_escopo_do_cabecalho_e_lido(self):
+        e = fl.escopo_do_documento(self.DOC)
+        self.assertEqual(e['PLACE'], 'Grosseto')
+        self.assertEqual(e['PRECISION'], fl.PROVINCE)
+
+    def test_a_frase_sem_lugar_recebe_o_escopo_do_documento(self):
+        ok, _ = fl.localizacoes_do_fato(self.DOC)
+        self.assertEqual(len(ok), 1)
+        self.assertEqual(ok[0]['FACT_LOCATION'], 'Grosseto')
+        self.assertEqual(ok[0]['PRECISION_SOURCE'], fl.DOCUMENT_SCOPE)
+        self.assertIn('frumento duro', ok[0]['FACT_LOCATION_EVIDENCE'])
+
+    def test_a_precisao_e_a_do_cabecalho_e_nunca_mais_fina(self):
+        """§14: não inventar município para melhorar o mapa."""
+        ok, _ = fl.localizacoes_do_fato(self.DOC)
+        self.assertEqual(ok[0]['FACT_LOCATION_PRECISION'], fl.PROVINCE)
+
+    def test_o_escopo_NAO_resgata_frase_cujo_lugar_foi_recusado(self):
+        """Senão o "convegno a Bologna" voltaria pela porta do cabeçalho."""
+        ok, nao = fl.localizacoes_do_fato(
+            'Provincia di Grosseto - Bollettino. Convegno a Bologna sulla fusariosi.')
+        self.assertEqual(ok, [])
+        self.assertIn('Bologna', {r['PLACE'] for r in nao})
+
+    def test_o_escopo_nao_resgata_observacao_negada(self):
+        ok, _ = fl.localizacoes_do_fato(
+            'Provincia di Grosseto - Bollettino. Non si segnalano sintomi.')
+        self.assertEqual(ok, [])
+
+    def test_o_lugar_da_propria_frase_vence_o_escopo(self):
+        ok, _ = fl.localizacoes_do_fato(
+            'Provincia di Grosseto - Bollettino. Constatata fusariosi a Siena.')
+        self.assertEqual([a['FACT_LOCATION'] for a in ok], ['Siena'])
+
+    def test_sem_cabecalho_nao_ha_escopo(self):
+        ok, _ = fl.localizacoes_do_fato(
+            'Bollettino senza intestazione. Si segnala la comparsa di sintomi.')
+        self.assertEqual(ok, [])
+
+    def test_o_titulo_do_boletim_nao_e_uma_observacao(self):
+        """`bollettino` era âncora, e o cabeçalho "Provincia di Grosseto -
+        Bollettino Frumento" virava uma observação em Grosseto."""
+        ok, _ = fl.localizacoes_do_fato(
+            'Provincia di Grosseto - Bollettino Frumento. Il tempo è variabile.')
+        self.assertEqual(ok, [])
+
+    def test_uma_frase_solta_nao_e_um_documento(self):
+        """Sem esta trava, a própria frase virava cabeçalho e era pulada."""
+        ok, nao = fl.localizacoes_do_fato('La sede è nel Comune di Parrano.')
+        self.assertEqual(ok, [])
+        self.assertIn('Parrano', {r['PLACE'] for r in nao})
+
+    def test_mutacao_sem_escopo_de_documento_o_caso_volta_a_zero(self):
+        ok, _ = fl.localizacoes_do_fato(self.DOC, usar_escopo=False)
+        self.assertEqual(ok, [], 'a mutação não mudou nada — a prova não mordia')

@@ -274,6 +274,10 @@ def medir():
                      if p['SENSOR_POTENTIAL'] == sv.PROSPECTIVE_SENSOR]
     tecnicos_prosp = [p for p in pessoas_prosp if p['CLASS'] == sv.TECHNICAL_FIELD_VOICE]
     creators_prosp = [p for p in pessoas_prosp if p['CLASS'] == sv.CREATOR_INFLUENCER]
+    produtores_pessoa = [p for p in PESSOAS
+                         if p['CLASS'] == sv.PRODUCER_COOP_VOICE
+                         and p['ENTITY_KIND'] == sv.PERSON
+                         and p['SENSOR_POTENTIAL'] == sv.PROSPECTIVE_SENSOR]
     coops_prosp = [o for o in ORGANIZACOES_NOVAS
                    if o['CLASS'] == sv.PRODUCER_COOP_VOICE
                    and o['SENSOR_POTENTIAL'] == sv.PROSPECTIVE_SENSOR
@@ -374,11 +378,26 @@ def medir():
             'STRUCTURAL_NEGATION ≠ OBSERVATIONAL_NEGATION',
             'MODELLED_RISK ≠ FIELD_OBSERVATION',
             'PRODUCER_FIELD_REPORT ≠ ORGANIZATION_COMMUNICATION',
+            'PRODUCER_COOP_ORGANIZATION ≠ PRODUCER_PERSON',
         ],
 
         'PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR': 'PROVED',
         'PROSPECTIVE_TECHNICAL_PERSON_SENSOR': 'PROVED' if tecnicos_prosp else 'NOT_PROVED',
-        'PROSPECTIVE_PRODUCER_SENSOR': 'PROVED' if coops_prosp else 'NOT_PROVED',
+
+        # CORREÇÃO. `PROSPECTIVE_PRODUCER_SENSOR = PROVED` vinha do Consorzio
+        # Collio, que é uma ORGANIZAÇÃO. É o mesmo erro da rodada passada com
+        # outro nome: cooperativa não é produtor-pessoa. Nenhum produtor físico
+        # foi medido, e o estado honesto é NOT_PROVED.
+        #
+        #     PRODUCER_COOP_ORGANIZATION ≠ PRODUCER_PERSON
+        'PROSPECTIVE_PRODUCER_COOP_SENSOR': 'PROVED' if coops_prosp else 'NOT_PROVED',
+        'PROSPECTIVE_PRODUCER_PERSON_SENSOR': ('PROVED' if produtores_pessoa
+                                               else 'NOT_PROVED'),
+        'PRODUCER_CORRECTION': (
+            'o veredito anterior de produtor saía do Consorzio Collio — '
+            'ENTITY_KIND=ORGANIZATION. Cooperativa é classe válida de organização e '
+            'não substitui produtor-pessoa. Nenhuma pessoa física produtora foi '
+            'medida nesta rodada'),
         'PROSPECTIVE_CREATOR_SENSOR': 'PROMISING' if creators_prosp else 'NOT_PROVED',
         'PROSPECTIVE_RESEARCHER_SENSOR': 'NOT_PROVED',
         'PROSPECTIVE_HUMAN_PERSON_SENSOR': 'PROVED' if pessoas_prosp else 'NOT_PROVED',
@@ -428,7 +447,9 @@ def main():
     print('FACT_LOCATIONS por tipo:', out['FACT_LOCATIONS_BY_TYPE'])
     print()
     for k in ('PROSPECTIVE_INSTITUTIONAL_FIELD_SENSOR',
-              'PROSPECTIVE_TECHNICAL_PERSON_SENSOR', 'PROSPECTIVE_PRODUCER_SENSOR',
+              'PROSPECTIVE_TECHNICAL_PERSON_SENSOR',
+              'PROSPECTIVE_PRODUCER_COOP_SENSOR',
+              'PROSPECTIVE_PRODUCER_PERSON_SENSOR',
               'PROSPECTIVE_CREATOR_SENSOR', 'PROSPECTIVE_RESEARCHER_SENSOR',
               'PROSPECTIVE_HUMAN_PERSON_SENSOR'):
         print('   %-42s %s' % (k, out[k]))
