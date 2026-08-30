@@ -1,0 +1,58 @@
+{
+ "SOURCE_ID": "EAME-RELATIONSHIP-CONTRACT-V1",
+ "captured_at": "2026-08-30",
+ "source": "derivado — EAME-COMPARABILITY-CONTRACT-V1 e os pacotes nacionais",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "EAME",
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_ISTO_E": "o formato que uma relacao cross-market TERIA que preencher para existir. Nenhuma relacao foi criada. Zero registros.",
+ "RELATIONS": [],
+ "RELATIONS_COUNT": 0,
+ "POR_QUE_ZERO": "o contrato de comparabilidade classificou 3 dimensoes como COMPARABLE, 5 como PARTIAL e 2 como NOT. A unica dimensao plenamente comparavel que produziria relacao e a regulatoria — e uma diferenca entre dois registros nacionais e observacao sobre processo administrativo, nao relacao de mercado.",
+ "CAMPOS_OBRIGATORIOS": [
+  "RELATION_ID",
+  "COUNTRY_A",
+  "COUNTRY_B",
+  "CROP_A",
+  "CROP_B",
+  "ISSUE_A",
+  "ISSUE_B",
+  "RELATION_TYPE",
+  "OBSERVATION_A",
+  "OBSERVATION_B",
+  "TIME_DELTA",
+  "EVIDENCE_A",
+  "EVIDENCE_B",
+  "COMPARABILITY",
+  "INTERPRETATION",
+  "UNKNOWN",
+  "ACTIONABILITY"
+ ],
+ "RELATION_TYPES": [
+  "SAME_ISSUE",
+  "SIMILAR_ISSUE",
+  "EARLIER_SIGNAL",
+  "LATER_SIGNAL",
+  "REGULATORY_DIFFERENCE",
+  "PORTFOLIO_DIFFERENCE",
+  "APPLICATION_WINDOW_DIFFERENCE",
+  "SCIENCE_PROPAGATION",
+  "PUBLIC_COMMUNICATION_DIFFERENCE"
+ ],
+ "SEM_SCORE": "nenhum tipo tem peso e nao ha nota. Somar SAME_ISSUE com REGULATORY_DIFFERENCE nao significa nada.",
+ "REGRAS_DE_ADMISSAO": [
+  "COMPARABILITY e campo obrigatorio e so aceita COMPARABLE. Uma relacao construida sobre dimensao PARTIAL nao entra — vira candidato, nao relacao.",
+  "EARLIER_SIGNAL e LATER_SIGNAL exigem TIME_DELTA calculado sobre DATAS DE OBSERVACAO dos dois lados. Data de publicacao nao serve, e hoje a Italia so tem data de publicacao.",
+  "OBSERVATION_A e OBSERVATION_B tem que declarar o TIPO de data que carregam.",
+  "ISSUE_A e ISSUE_B iguais nao bastam para SAME_ISSUE: o alvo tem que ser a mesma especie, nao a mesma categoria.",
+  "ACTIONABILITY nunca pode ser comercial enquanto COMMERCIAL_CLOCK for NAO SEI — e ele e NAO SEI nos tres paises."
+ ],
+ "A_RELACAO_QUE_MAIS_TENTA_E_POR_QUE_NAO_ENTRA": {
+  "CANDIDATA": "REGULATORY_STATUS_LAG entre ES e IT",
+  "ESTARIA_COMPARABLE": "SIM — mesma definicao operacional, mesma convencao de janela verificada nos dois lados, 3 de 96 e 8 de 163",
+  "POR_QUE_NAO_REGISTREI": "porque ACTIONABILITY seria vazia. Saber que dois registros nacionais produzem a mesma anomalia em taxa parecida nao muda nenhuma acao da ADAMA em nenhum dos dois paises — as acoes ja existem, separadas, nos dois mapas nacionais. Uma relacao que nao muda decisao e enfeite.",
+  "QUANDO_ELA_PASSARIA_A_VALER": "se a taxa divergisse muito entre paises, ou se um pais mostrasse que o atraso se resolve sozinho num prazo tipico — ai o outro saberia quanto esperar antes de investigar. Nenhuma das duas coisas foi medida."
+ },
+ "EAME_CROSS_MARKET_READY": "NO",
+ "O_QUE_FALTA_EM_UMA_LINHA": "uma dimensao COMPARABLE que mude uma decisao. Hoje as comparaveis nao mudam decisao e as que mudariam nao sao comparaveis."
+}

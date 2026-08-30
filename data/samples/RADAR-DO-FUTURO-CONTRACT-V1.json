@@ -1,0 +1,170 @@
+{
+ "SOURCE_ID": "RADAR-DO-FUTURO-CONTRACT-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "source": "contrato canonico — define a entidade FUTURE_THEME, a regua de maturidade e as regras de promocao. Nao ha UI aqui.",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a — e contrato",
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_E": "RADAR DO FUTURO e o motor de ANTECIPACAO. Ele responde \"o que pode importar depois\". Vem ANTES do Radar, que e o motor de casos correntes e em formacao.",
+ "O_QUE_NAO_E": "nao e previsao. Nenhum estado deste contrato afirma que algo VAI acontecer. Os estados descrevem o que ja foi observado e o quanto disso ja se sustenta.",
+ "PALAVRAS_PROIBIDAS": [
+  "PREDICTION",
+  "FORECAST",
+  "FUTURE_EVENT",
+  "PROBABILIDADE",
+  "RISCO ESTIMADO",
+  "SCORE"
+ ],
+ "POR_QUE_SEM_SCORE": "um numero unico esconde qual camada sustenta o tema. Estados discretos obrigam a dizer qual perna existe e qual falta.",
+ "ENTIDADE_FUTURE_THEME": {
+  "IDENTIDADE": [
+   "THEME_ID",
+   "COUNTRY",
+   "CROP",
+   "ISSUE",
+   "REGION",
+   "THEME_TYPE"
+  ],
+  "TEMPO": [
+   "FIRST_OBSERVED_AT",
+   "LAST_OBSERVED_AT",
+   "CAPTURED_AT"
+  ],
+  "SINAIS": [
+   "SCIENCE_SIGNAL",
+   "RESEARCHER_SIGNAL",
+   "TECHNICAL_SIGNAL",
+   "FIELD_SIGNAL",
+   "REGULATORY_SIGNAL",
+   "PORTFOLIO_SIGNAL",
+   "PUBLIC_VOICE_SIGNAL"
+  ],
+  "CONFIRMACAO": [
+   "CURRENT_FIELD_CONFIRMATION"
+  ],
+  "PESO": [
+   "EVIDENCE_COUNT",
+   "INDEPENDENT_LAYERS"
+  ],
+  "ESTADO": [
+   "MOMENTUM_STATE",
+   "MATURITY_STATE",
+   "HORIZON"
+  ],
+  "HONESTIDADE": [
+   "WHAT_WE_KNOW",
+   "WHAT_WE_DONT_KNOW",
+   "WHAT_WOULD_PROMOTE_TO_RADAR"
+  ],
+  "NEGOCIO": [
+   "POTENTIAL_ADAMA_AREAS"
+  ],
+  "PROVA": [
+   "EVIDENCE_PATHS"
+  ],
+  "REGRA_DE_SINAL": "cada campo de sinal so aceita PRESENTE com evidencia nomeada, AUSENTE_MEDIDO (procurei e nao ha) ou NAO_TESTADO. Nunca 0, nunca vazio."
+ },
+ "REGUA_DE_MATURIDADE": [
+  {
+   "STATE": 0,
+   "NOME": "OBSERVED_TOPIC",
+   "SIGNIFICA": "o tema existe como assunto — aparece num registro, numa lista de issues, num vocabulario. Nada mais.",
+   "EXIGE": "uma fonte que o nomeie.",
+   "NAO_AUTORIZA": "nenhuma acao, nenhuma mencao a cliente."
+  },
+  {
+   "STATE": 1,
+   "NOME": "SCIENTIFIC_SIGNAL",
+   "SIGNIFICA": "ha literatura que trata do tema com relevancia para o pais.",
+   "EXIGE": "pelo menos uma publicacao identificada por DOI, com o pais no titulo, no resumo ou na amostragem — nao na afiliacao do autor.",
+   "NAO_AUTORIZA": "dizer que esta acontecendo no campo."
+  },
+  {
+   "STATE": 2,
+   "NOME": "EMERGING_THEME",
+   "SIGNIFICA": "o tema aparece em MAIS DE UMA camada independente.",
+   "EXIGE": "INDEPENDENT_LAYERS >= 2, de tipos diferentes — ciencia, regulatorio, campo, portfolio, norma ou rede tecnica. Duas publicacoes nao sao duas camadas.",
+   "NAO_AUTORIZA": "ser chamado de tendencia. Duas camadas nao sao dinamica."
+  },
+  {
+   "STATE": 3,
+   "NOME": "WATCHLIST_PRIORITY",
+   "SIGNIFICA": "ha >= 2 camadas E uma ancora de tempo — uma janela, um calendario, uma data de ciclo.",
+   "EXIGE": "HORIZON declarado com fonte da data.",
+   "NAO_AUTORIZA": "acao corrente."
+  },
+  {
+   "STATE": 4,
+   "NOME": "ALMOST_RADAR_CASE",
+   "SIGNIFICA": "tudo do estado 3, mais resposta ADAMA registrada identificada e territorio nomeado.",
+   "EXIGE": "REGULATORY_SIGNAL e PORTFOLIO_SIGNAL presentes, REGION nomeada com o nivel da medida.",
+   "O_QUE_FALTA_SEMPRE": "CURRENT_FIELD_CONFIRMATION."
+  },
+  {
+   "STATE": 5,
+   "NOME": "PROMOTED_TO_RADAR",
+   "SIGNIFICA": "deixou de ser tema futuro. Vira caso.",
+   "EXIGE": "CURRENT_FIELD_CONFIRMATION = SIM, com data de OBSERVACAO (nao de publicacao) e suporte amostral declarado.",
+   "NOTA": "esta e a unica transicao que exige campo. E e por isso que ela e a unica que transforma tema em caso."
+  }
+ ],
+ "REGRAS_DE_MOMENTUM": {
+  "ESTADOS": [
+   "NOT_KNOWN",
+   "BASELINE_ESTABLISHED",
+   "GAINING_MOMENTUM",
+   "STABLE",
+   "DECLINING"
+  ],
+  "REGRA_ZERO": "primeira captura e sempre BASELINE_ESTABLISHED. Nunca GAINING_MOMENTUM. Mudanca exige comparacao com captura anterior do MESMO recorte.",
+  "SEM_SERIE": "sem serie temporal, MOMENTUM = NOT_KNOWN. Total acumulado nao e tendencia.",
+  "INSUMOS_ACEITOS": [
+   "DOCUMENTS_BY_YEAR",
+   "RECENT_SHARE",
+   "NEW_AUTHORS",
+   "NEW_INSTITUTIONS",
+   "RECURRENT_AUTHORS",
+   "NEW_REGIONS",
+   "NEW_ISSUES",
+   "PROJECT_OR_CONFERENCE_SIGNAL"
+  ],
+  "RECENT_SHARE_NAO_E_TENDENCIA": "a fracao de trabalhos recentes descreve a composicao de UMA captura. Ela entra como insumo e nao promove sozinha para GAINING_MOMENTUM.",
+  "GRANDE_NAO_E_EMERGENTE": "LARGE_ESTABLISHED_TOPIC e GROWING_TOPIC sao classificacoes diferentes e exigem dados diferentes. Volume alto classifica como grande, nunca como emergente.",
+  "ESTADO_DESTA_RODADA": {
+   "MOMENTUM": "NOT_KNOWN em todos os temas",
+   "POR_QUE": "nao ha serie temporal disponivel. O orcamento do OpenAlex esta zerado (429 por credito, retryAfter ~11,8 h) e o group_by por ano e a unica rota que o daria. Testei o Crossref como alternativa: a busca dele e por relevancia, nao booleana — \"Lolium rigidum herbicide resistance\" devolve 790.707 resultados e a faceta por ano descreve esse conjunto difuso, nao o tema. A faceta existe e nao serve.",
+   "O_QUE_ISSO_SIGNIFICA": "o Radar do Futuro entrega V1 com o campo de dinamica honestamente vazio, e com a regra que o preenche escrita. E o estado correto de uma primeira captura."
+  }
+ },
+ "REGRAS_DE_PROMOCAO": {
+  "CADA_TRANSICAO_EXIGE_EVIDENCIA_NOVA": "nenhum tema sobe de estado por releitura do que ja esta escrito.",
+  "0_para_1": "uma publicacao com DOI e vinculo ao pais fora da afiliacao do autor.",
+  "1_para_2": "uma segunda camada de tipo diferente.",
+  "2_para_3": "uma ancora de tempo com fonte.",
+  "3_para_4": "resposta ADAMA registrada identificada e territorio com nivel de medida declarado.",
+  "4_para_5": "confirmacao de campo corrente, datada por observacao.",
+  "REBAIXAMENTO": "e permitido e nao e derrota. Se uma camada cair — a fonte parar, o dado envelhecer alem do util, uma medicao refutar — o tema desce e o motivo fica registrado."
+ },
+ "LEIS": [
+  "SCIENCE != FIELD",
+  "WATCHLIST != CASE",
+  "MOMENTUM != CAUSALITY",
+  "FUTURE != PREDICTION",
+  "MANY_PAPERS != EMERGING",
+  "FIRST_CAPTURE != GROWING",
+  "NEXT_CYCLE != CURRENT_ACTION",
+  "RESEARCHER_AFFILIATION != FACT_GEOGRAPHY",
+  "NO_EXPLICIT_PRODUCT != NO_PRODUCT"
+ ],
+ "RELACAO_COM_O_RADAR": {
+  "RADAR_DO_FUTURO": "temas que podem importar. Nenhum exige acao corrente.",
+  "RADAR": "casos correntes e em formacao. Exigem confirmacao de campo.",
+  "A_PORTA_ENTRE_OS_DOIS": "CURRENT_FIELD_CONFIRMATION. E a unica.",
+  "FLUXO": "um tema pode ficar anos no Radar do Futuro sem nunca virar caso, e isso nao e falha do tema nem do motor."
+ },
+ "EAME": {
+  "REGRA": "nao existe Radar do Futuro EAME como agregador. Primeiro temas por pais; relacao cross-market so entre temas comparaveis pelo EAME-COMPARABILITY-CONTRACT-V1.",
+  "EAME_FUTURE_RELATIONS": 0
+ }
+}

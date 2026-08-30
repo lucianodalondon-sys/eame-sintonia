@@ -1,0 +1,759 @@
+<title>Casos Sintonia Espanha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Aleo:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --ground:#FBFAF8; --surface:#FFFFFF; --surface-2:#F5F2ED;
+  --ink:#1D1B19; --ink-soft:#6B6560; --ink-faint:#8C857E;
+  --rule:#E4DFD8; --rule-strong:#CFC7BD;
+  --adama:#009845; --adama-deep:#00783F; --adama-warm:#978B87;
+  --known:#00783F; --partial:#A8761F; --unknown:#5F5A55;
+  --band:#F0EDE6; --band-rule:#00783F;
+  --shadow:0 1px 2px rgba(29,27,25,.05), 0 8px 24px -16px rgba(29,27,25,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#17160F; --surface:#1E1D16; --surface-2:#25231B;
+    --ink:#EFEBE3; --ink-soft:#B3ABA0; --ink-faint:#8C857E;
+    --rule:#332F26; --rule-strong:#464034;
+    --adama:#3FBE74; --adama-deep:#5FCB8B; --adama-warm:#A79A94;
+    --known:#5FCB8B; --partial:#D6A44A; --unknown:#B3ABA0;
+    --band:#20211A; --band-rule:#3FBE74;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#17160F; --surface:#1E1D16; --surface-2:#25231B;
+  --ink:#EFEBE3; --ink-soft:#B3ABA0; --ink-faint:#8C857E;
+  --rule:#332F26; --rule-strong:#464034;
+  --adama:#3FBE74; --adama-deep:#5FCB8B; --adama-warm:#A79A94;
+  --known:#5FCB8B; --partial:#D6A44A; --unknown:#B3ABA0;
+  --band:#20211A; --band-rule:#3FBE74;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"LL Brown", Archivo, Arial, Helvetica, sans-serif;
+  font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px}
+
+/* ---------- topo ---------- */
+.top{border-bottom:1px solid var(--rule); padding:34px 0 22px; margin-bottom:30px}
+.brand{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+.brand-mark{
+  font-size:19px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--adama-deep);
+}
+.brand-sub{font-family:Aleo, Georgia, serif; font-size:14px; color:var(--ink-soft)}
+.top-meta{
+  margin-top:14px; display:flex; gap:22px; flex-wrap:wrap;
+  font-family:Aleo, Georgia, serif; font-size:12.5px; color:var(--ink-faint);
+  font-variant-numeric:tabular-nums;
+}
+.top-meta b{color:var(--ink-soft); font-weight:600}
+
+/* ---------- layout ---------- */
+.cols{display:grid; grid-template-columns:250px minmax(0,1fr); gap:44px; align-items:start}
+@media (max-width:880px){ .cols{grid-template-columns:1fr; gap:26px} }
+
+.rail{position:sticky; top:22px; display:flex; flex-direction:column; gap:9px}
+@media (max-width:880px){ .rail{position:static} }
+.rail-k{
+  font-size:11px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--ink-faint); margin:0 0 3px 2px;
+}
+.rail button{
+  display:block; width:100%; text-align:left; cursor:pointer;
+  background:var(--surface); color:var(--ink);
+  border:1px solid var(--rule); border-left:3px solid var(--rule-strong);
+  border-radius:2px; padding:12px 13px; font:inherit;
+  transition:border-color .15s, background .15s;
+}
+.rail button:hover{border-left-color:var(--adama)}
+.rail button:focus-visible{outline:2px solid var(--adama); outline-offset:2px}
+.rail button[aria-current="true"]{border-left-color:var(--adama-deep); background:var(--surface-2)}
+.rail .r-id{font-family:Aleo, Georgia, serif; font-size:11px; color:var(--ink-faint); display:block}
+.rail .r-t{font-weight:600; font-size:14px; display:block; margin:2px 0 4px}
+.rail .r-s{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft)}
+
+/* ---------- caso ---------- */
+.caso-head{padding-bottom:20px; border-bottom:2px solid var(--ink); margin-bottom:26px}
+.eyebrow{
+  margin:0 0 8px; font-family:Aleo, Georgia, serif; font-size:12px;
+  letter-spacing:.06em; color:var(--ink-faint);
+}
+.eyebrow .cid{color:var(--adama-deep); font-weight:700}
+.caso-head h2{
+  margin:0; font-size:clamp(26px,4vw,38px); line-height:1.12; font-weight:700;
+  letter-spacing:-.018em; text-wrap:balance;
+}
+.caso-head h2 .sep{color:var(--adama-warm); font-weight:400}
+.regiao{margin:10px 0 0; color:var(--ink-soft); max-width:62ch}
+.tipo{margin:14px 0 0}
+
+.sec{margin:34px 0}
+.sec h3{
+  margin:0 0 14px; font-size:12px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:700;
+  padding-bottom:7px; border-bottom:1px solid var(--rule);
+  display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+}
+.h3n{font-family:Aleo, Georgia, serif; text-transform:none; letter-spacing:0;
+  font-weight:400; font-size:12px; color:var(--ink-faint)}
+.lede{margin:0 0 20px; font-size:17px; line-height:1.5; max-width:66ch; text-wrap:pretty}
+
+/* ---------- a tripla ---------- */
+.triple{margin:0 0 12px; border:1px solid var(--rule); border-radius:2px; background:var(--surface)}
+.triple-label{
+  display:block; padding:9px 14px; border-bottom:1px solid var(--rule);
+  font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); font-weight:600;
+}
+.triple-cells{display:grid; grid-template-columns:repeat(3,1fr)}
+@media (max-width:640px){ .triple-cells{grid-template-columns:1fr} }
+.cell{padding:12px 14px; border-right:1px solid var(--rule)}
+.cell:last-child{border-right:0}
+@media (max-width:640px){ .cell{border-right:0; border-bottom:1px solid var(--rule)} .cell:last-child{border-bottom:0} }
+.cell-k{
+  display:block; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:4px;
+}
+.cell-v{display:block; font-size:15px; font-variant-numeric:tabular-nums; line-height:1.35}
+.triple-cells .cell:first-child .cell-v{font-size:20px; font-weight:700; letter-spacing:-.01em}
+
+/* ---------- a banda de autorizacao ---------- */
+.autoriza{
+  margin:30px 0; padding:22px 24px; background:var(--band);
+  border-left:3px solid var(--band-rule); border-radius:2px;
+}
+.autoriza-k{
+  margin:0 0 10px; font-size:11px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:700;
+}
+.autoriza-sim{
+  margin:0; font-family:Aleo, Georgia, serif; font-size:19px; line-height:1.4;
+  max-width:60ch; text-wrap:pretty;
+}
+.autoriza-nao{margin:14px 0 0; font-size:14px; color:var(--ink-soft)}
+.autoriza-nao .k, .acao-m .k, .acao-e .k{
+  font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint); margin-right:7px;
+}
+
+/* ---------- listas de definicao ---------- */
+.grid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:34px}
+@media (max-width:760px){ .grid2{grid-template-columns:1fr; gap:26px} }
+.dl{margin:0; display:grid; grid-template-columns:minmax(150px,auto) 1fr; gap:9px 20px}
+@media (max-width:640px){ .dl{grid-template-columns:1fr; gap:3px 0} .dl dd{margin-bottom:12px} }
+.dl dt{
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink-faint); padding-top:3px;
+}
+.dl dd{margin:0; max-width:64ch}
+.nao-sei{color:var(--unknown); font-weight:600}
+
+/* ---------- tres colunas ---------- */
+.tres{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:30px}
+@media (max-width:900px){ .tres{grid-template-columns:1fr; gap:24px} }
+.tres ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:9px}
+.tres li{font-size:14px; line-height:1.5}
+.l-fato li::marker{color:var(--known)}
+.l-interp li{font-style:italic; color:var(--ink-soft)}
+.l-interp li::marker{color:var(--partial)}
+.l-unk li::marker{color:var(--unknown)}
+.col.unk ul li{color:var(--ink)}
+.l-ev{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:7px;
+  font-family:Aleo, Georgia, serif; font-size:13px; color:var(--ink-soft)}
+
+/* ---------- pills ---------- */
+.pill{
+  display:inline-block; padding:4px 10px; border-radius:2px;
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase; font-weight:700;
+  border:1px solid currentColor;
+}
+.pill-act_now{color:var(--known)}
+.pill-verify_now, .pill-verify_field_now{color:var(--partial)}
+.pill-prepare, .pill-preparar{color:var(--ink-soft)}
+.pill-plan, .pill-planejar, .pill-planejar_proximo_ciclo{color:var(--ink-soft)}
+.pill-wait_for_internal_data{color:var(--unknown)}
+.pill-no_action{color:var(--ink-faint)}
+
+/* ---------- tabela de acoes ---------- */
+.tw{overflow-x:auto}
+.acoes{width:100%; border-collapse:collapse; min-width:640px}
+.acoes th, .acoes td{
+  text-align:left; vertical-align:top; padding:14px 16px 14px 0;
+  border-bottom:1px solid var(--rule);
+}
+.acoes thead th{
+  font-size:10.5px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--ink-faint); font-weight:600; padding-bottom:9px;
+  border-bottom:1px solid var(--rule-strong);
+}
+.acoes tbody th{width:170px; font-size:14px; font-weight:600}
+.acoes td:nth-child(2){width:170px}
+.acao{max-width:56ch}
+.acao-t{margin:0 0 7px; font-weight:600}
+.acao-w{margin:0 0 9px; color:var(--ink-soft); font-size:14px}
+.acao-m, .acao-e{margin:0 0 5px; font-size:13px; color:var(--ink-soft)}
+.acao-e{font-family:Aleo, Georgia, serif}
+
+/* ---------- eame ---------- */
+.eame{
+  margin:56px 0 0; padding:24px; border:1px dashed var(--rule-strong);
+  border-radius:2px; background:var(--surface);
+}
+.eame h3{
+  margin:0 0 10px; font-size:12px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:700;
+}
+.eame p{margin:0 0 8px; color:var(--ink-soft); max-width:70ch}
+.eame .zero{
+  font-family:Aleo, Georgia, serif; font-size:30px; color:var(--unknown);
+  font-variant-numeric:tabular-nums; margin:0 0 6px;
+}
+
+.pe{
+  margin:44px 0 0; padding-top:20px; border-top:1px solid var(--rule);
+  font-family:Aleo, Georgia, serif; font-size:12.5px; color:var(--ink-faint);
+  max-width:78ch;
+}
+.pe code{font-family:ui-monospace, Menlo, Consolas, monospace; font-size:12px}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important; animation:none !important} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <span class="brand-mark">ADAMA · Sintonia</span>
+      <span class="brand-sub">casos da Espanha, congelados em V1.1</span>
+    </div>
+    <div class="top-meta">
+      <span><b>HEAD</b> 9ee2716</span>
+      <span><b>artefatos canônicos</b> 13</span>
+      <span><b>congelado em</b> 2026-08-30</span>
+      <span><b>mapa de ação</b> act now 1 · no action 3 · plan 4 · prepare 4 · verify now 3 · wait for internal data 3</span>
+    </div>
+  </header>
+
+  <div class="cols">
+    <nav class="rail" aria-label="Casos">
+      <p class="rail-k">Três casos</p>
+      <button type="button" data-alvo="ES-CASE-001" aria-current="true">
+        <span class="r-id">ES-CASE-001</span>
+        <span class="r-t">OLIVO</span>
+        <span class="r-s">VERIFY_FIELD_NOW</span>
+      </button><button type="button" data-alvo="ES-CASE-003" aria-current="false">
+        <span class="r-id">ES-CASE-003</span>
+        <span class="r-t">TRIGO e CEBADA</span>
+        <span class="r-s">PREPARAR</span>
+      </button><button type="button" data-alvo="ES-CASE-002" aria-current="false">
+        <span class="r-id">ES-CASE-002</span>
+        <span class="r-t">MAIZ</span>
+        <span class="r-s">PLANEJAR PROXIMO CICLO</span>
+      </button>
+    </nav>
+    <main>
+      <article class="caso" id="ES-CASE-001" data-caso="ES-CASE-001" >
+  <header class="caso-head">
+    <p class="eyebrow"><span class="cid">ES-CASE-001</span> · Espanha</p>
+    <h2>OLIVO <span class="sep">×</span> Repilo (Venturia oleaginea)</h2>
+    <p class="regiao">Andalucia occidental — Cadiz (perna forte) e Huelva (perna fraca)</p>
+    <p class="tipo"><span class="pill pill-verify_field_now">VERIFY_FIELD_NOW</span></p>
+  </header>
+
+  <section class="sec">
+    <h3>O que está acontecendo</h3>
+    <p class="lede">a campanha 2026 fechou alta no oeste: Cadiz 8,01% de folhas com repilo visivel (2a maior de 21 campanhas) e Huelva 8,83% (maior da serie). O leste segue baixo — Jaen 0,77%, Granada 0,61%.</p>
+    <div class="triple">
+        <span class="triple-label">Cádiz · repilo visível</span>
+        <div class="triple-cells">
+          <div class="cell"><span class="cell-k">valor</span><span class="cell-v">8,01 %</span></div>
+          <div class="cell"><span class="cell-k">suporte amostral</span><span class="cell-v">141 leituras · 39 parcelas · rede estável</span></div>
+          <div class="cell"><span class="cell-k">idade do dado</span><span class="cell-v">última observação 27/05/2026</span></div>
+        </div>
+      </div><div class="triple">
+        <span class="triple-label">Huelva · repilo visível</span>
+        <div class="triple-cells">
+          <div class="cell"><span class="cell-k">valor</span><span class="cell-v">8,83 %</span></div>
+          <div class="cell"><span class="cell-k">suporte amostral</span><span class="cell-v">18 leituras · 7 parcelas · menor n da série</span></div>
+          <div class="cell"><span class="cell-k">idade do dado</span><span class="cell-v">última observação 14/06/2026</span></div>
+        </div>
+      </div>
+  </section>
+
+  <section class="autoriza">
+    <p class="autoriza-k">O que esta evidência autoriza hoje</p>
+    <p class="autoriza-sim">VERIFICAR O CAMPO no oeste andaluz. Nao aplicar produto.</p>
+    <p class="autoriza-nao"><span class="k">necessidade de campo agora</span> NOT_KNOWN — ultima leitura do oeste tem 77 a 95 dias</p>
+  </section>
+
+  <section class="sec grid2">
+    <div>
+      <h3>Janela</h3>
+      <dl class="dl">
+        <dt>Na etiqueta</dt><dd>CUPROXI FLO: BBCH 10-85, 1-4 aplicacoes, prazo de seguranca 7 dias. NEPTUNE: primeira aplicacao antes da floracion, prazo 120 dias.</dd>
+        <dt>Estado</dt><dd>ABERTA para CUPROXI FLO · FECHADA para NEPTUNE. ABERTA significa que a aplicacao E PERMITIDA neste estagio, NAO que ha necessidade de aplicar.</dd>
+        <dt>Tempo até a janela</dt><dd>janela ja aberta; fim quando a cultura passar de BBCH 85</dd>
+      </dl>
+    </div>
+    <div>
+      <h3>Relógios</h3>
+      <dl class="dl">
+        <dt>Agronômico</dt><dd>fenologia OBSERVADA em agosto/2026: 1.726 registros em endurecimento de hueso (~BBCH 75-79), 57 em envero (~BBCH 81)</dd>
+        <dt>Observação</dt><dd>ver OBSERVATION_DATE — difere por provincia</dd>
+        <dt>Comercial</dt><dd class="nao-sei">NAO SEI</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Resposta</h3>
+    <dl class="dl">
+      <dt>ADAMA · registrada</dt><dd>2 de 180 registros vigentes: CUPROXI FLO (ES-00979, caducidad 2029) e NEPTUNE (ES-00211, caducidad 15-08-2026, vencida e ainda Vigente)</dd>
+      <dt>ADAMA · catálogo público</dt><dd class="nao-sei">NOT_COLLECTED — o catalogo publico da ADAMA esta negado na borda para este ambiente (host inteiro). Ver ES-REVIEW-HANDOFFS. NOT_COLLECTED, nunca 0.</dd>
+      <dt>Concorrente · público</dt><dd class="nao-sei">NOT_COLLECTED — nenhum catalogo de concorrente foi lido. No registro, os maiores titulares do par sao IQV (25+15), Gowan (15) e Ascenza (11).</dd>
+      <dt>Consequência econômica</dt><dd class="nao-sei">NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado.</dd>
+    </dl>
+  </section>
+
+  <section class="sec">
+    <h3>Ciência e pessoas</h3>
+    <dl class="dl">
+      <dt>Ciência</dt><dd>par OLIVE x REPILO: 10 papers, 49 autores distintos, 3 desde 2023</dd>
+      <dt>Pesquisadores</dt><dd>Juan Moral, Antonio Trapero e Concepcion Munoz Diez, vinculo aberto na Universidad de Cordoba. Ancorados pelo ORCID declarado no OpenAlex, NAO por num-found=1.</dd>
+      <dt>Rede técnica pública</dt><dd>NAO MAPEADO para a Andaluzia. As ADV medidas sao da Catalunha.</dd>
+      <dt>Voz pública</dt><dd class="nao-sei">corpus de 252 videos e 179 origens ES, mas a voz fala mais de mosca do olivo (58) do que de repilo (32), e concentra Cordoba (58) contra Huelva (7) e Cadiz (4). 85% dos canais sem papel verificavel.</dd>
+    </dl>
+  </section>
+
+  <section class="sec tres">
+    <div class="col fato">
+      <h3>Fatos</h3>
+      <ul class="l-fato"><li>180 registros vigentes para olivo x repilo; 2 sao da ADAMA.</li><li>Huelva 8,83% e o maior valor das 21 campanhas com leitura; sobre 18 leituras em 7 parcelas.</li><li>Cadiz 8,01% e o 2o maior da serie; sobre 141 leituras em 39 parcelas, com rede estavel.</li><li>As leituras de repilo de 2026 em Huelva e Cadiz vao ate 14/06 e 27/05.</li><li>A fenologia observada em agosto/2026 esta em BBCH ~75-81.</li><li>CUPROXI FLO tem janela BBCH 10-85 e PS de 7 dias na etiqueta.</li><li>NEPTUNE tem &quot;primeira aplicacao antes da floracion&quot; e PS de 120 dias na etiqueta.</li><li>NEPTUNE esta Vigente com caducidad vencida; 13 dos 16 tebuconazois do mesmo par vao ate 2028.</li></ul>
+    </div>
+    <div class="col interp">
+      <h3>Interpretações</h3>
+      <ul class="l-interp"><li>a alta simultanea em duas provincias vizinhas, com Cadiz sustentando estatisticamente, e mais provavel de ser fenomeno regional do que ruido de amostragem.</li><li>primavera alta costuma preceder outono com pressao — mas o proprio backtest do repositorio mostra que a regra de disparo da so UMA safra de antecedencia no melhor caso e ZERO em dois dos tres casos de 2026, com 11 falsos positivos em 14 disparos. Nao vender isso como previsao.</li></ul>
+    </div>
+    <div class="col unk">
+      <h3>Não sabemos</h3>
+      <ul class="l-unk"><li>nao ha leitura de repilo em Huelva/Cadiz depois de junho — nao sabemos o estado de agosto NESSAS provincias.</li><li>repilo incubado (campo 1703), que por definicao antecede o sintoma visivel, tem n=5 em Huelva e n=1 em Cadiz em 2026. Medido e insuficiente; nao sustenta nada.</li><li>por que Neptune e Starpro nao acompanharam a data dos outros 14 tebuconazois.</li><li>COMMERCIAL_CLOCK = NAO SEI. Registro nao e venda.</li></ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Mapa de ação <span class="h3n">6 funções · horizonte verificacao imediata; aplicacao possivel se o campo confirmar, enquanto a cultura estiver ate BBCH 85</span></h3>
+    <div class="tw"><table class="acoes">
+      <thead><tr><th scope="col">Função</th><th scope="col">Estado</th><th scope="col">O quê, por quê, o que falta</th></tr></thead>
+      <tbody><tr>
+          <th scope="row">Regulatory / Portfólio</th>
+          <td><span class="pill pill-act_now">ACT NOW</span></td>
+          <td class="acao">
+            <p class="acao-t">investigar por que NEPTUNE ES-00211 e STARPRO 250 EW pararam em 15-08-2026 enquanto 13 dos 16 tebuconazois do mesmo par vao ate 31-07-2028</p>
+            <p class="acao-w">e registro proprio, vigente com caducidad vencida ha 15 dias, sem fecha limite de venta. A assimetria e medida e nao tem explicacao no registro. Isso e executavel hoje e a necessidade e interna, nao depende do campo.</p>
+            <p class="acao-m"><span class="k">falta</span> o motivo. A pergunta formal ao MAPA esta redigida e NAO enviada.</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-CASE-001.REGULATORY_STATUS_CONFLICT</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Market Development</th>
+          <td><span class="pill pill-verify_now">VERIFY NOW</span></td>
+          <td class="acao">
+            <p class="acao-t">ir ao campo em Cadiz, e so depois em Huelva</p>
+            <p class="acao-w">a primavera fechou alta nas duas e nao ha leitura desde 27/05 e 14/06. Cadiz sustenta o nivel com 141 leituras em 39 parcelas; Huelva com 18 em 7.</p>
+            <p class="acao-m"><span class="k">falta</span> o estado atual do campo. E exatamente isso que a acao produz.</p>
+            <p class="acao-e"><span class="k">evidência</span> serie RAIF 2006-2026; fenologia observada agosto/2026</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Science</th>
+          <td><span class="pill pill-verify_now">VERIFY NOW</span></td>
+          <td class="acao">
+            <p class="acao-t">perguntar ao grupo UCOLIVO da Universidad de Cordoba o que explica a alta do oeste em 2026</p>
+            <p class="acao-w">Moral, Trapero e Munoz Diez tem vinculo aberto na UCO, aparecem no par e sao nomeados na pagina publica do grupo</p>
+            <p class="acao-m"><span class="k">falta</span> nenhuma identidade do par do azeite fechou em num-found=1</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-CIENCIA-PARES-AUTORES; uco.es/ucolivo HTTP 200</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Marketing</th>
+          <td><span class="pill pill-prepare">PREPARE</span></td>
+          <td class="acao">
+            <p class="acao-t">preparar conteudo tecnico de repilo de outono com o dado provincial, sem publicar alerta</p>
+            <p class="acao-w">publicar alerta antes da verificacao de campo seria transformar janela aberta em necessidade. O material pode ficar pronto; a publicacao espera o campo.</p>
+            <p class="acao-m"><span class="k">falta</span> a voz medida e de Cordoba e Jaen, nao de Huelva e Cadiz</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-VOICE-YOUTUBE; ES-VOZ-x-MATRIZ-DE-PRIORIDADE</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Commercial</th>
+          <td><span class="pill pill-wait_for_internal_data">WAIT FOR INTERNAL DATA</span></td>
+          <td class="acao">
+            <p class="acao-t">PREPARE BRIEF e VERIFY WITH BUSINESS. Nenhuma instrucao externa de venda.</p>
+            <p class="acao-w">COMMERCIAL_CLOCK = NAO SEI. Falta de relogio impede ATIVAR, nao impede INFORMAR. Ha uma janela de etiqueta aberta e um registro proprio com caducidad vencida: as duas coisas afetam decisao comercial e nenhuma precisa de dado de venda para ser comunicada.</p>
+            <p class="acao-m"><span class="k">falta</span> disponibilidade em canal, preco e posicao — so o dado interno ADAMA responde</p>
+            <p class="acao-e"><span class="k">evidência</span> o proprio cartao do caso</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Supply</th>
+          <td><span class="pill pill-no_action">NO ACTION</span></td>
+          <td class="acao">
+            <p class="acao-t">nada a fazer</p>
+            <p class="acao-w">nao ha decisao de portfolio a suprir e nao ha necessidade de campo estabelecida</p>
+            <p class="acao-m"><span class="k">falta</span> -</p>
+            <p class="acao-e"><span class="k">evidência</span> -</p>
+          </td>
+        </tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h3>Evidência</h3>
+    <ul class="l-ev"><li>RAIF olivar, dataset CKAN da Junta de Andalucia, arquivos 2006_2016_*_Muestreos.xml, 2017_2024_*, 2025_*, 2026_* — campo &quot;1702 Repilo: % Hojas con Repilo Visible&quot;.</li><li>MAPA ROPF Exportaciones/ExportJsonProductos com idCultivo=1972 e idPlaga=6200.</li><li>MAPA ROPF Productos/GetProductoById para ES-00211, ES-00979, 25139.</li><li>fichas PDF preservadas ES-00211 e ES-00979, secao Usos y Dosis.</li><li>data/samples/BACKTEST-REPILO-LEAD-TIME.json para o poder preditivo da serie.</li></ul>
+  </section>
+</article><article class="caso" id="ES-CASE-003" data-caso="ES-CASE-003" hidden>
+  <header class="caso-head">
+    <p class="eyebrow"><span class="cid">ES-CASE-003</span> · Espanha</p>
+    <h2>TRIGO e CEBADA <span class="sep">×</span> gramineas de folha estreita, com Lolium rigidum (vallico) no topo da dose declarada</h2>
+    <p class="regiao">CASTILLA Y LEON como regiao do caso (escala + resistencia medida + resposta ADAMA + janela), com CATALUÑA como contraste medido</p>
+    <p class="tipo"><span class="pill pill-preparar">PREPARAR</span></p>
+  </header>
+
+  <section class="sec">
+    <h3>O que está acontecendo</h3>
+    <p class="lede">nada de campo, e isso e deliberado. O que ha e uma assimetria medida: o unico produto ADAMA que nomeia Lolium e um ACCase, e o ACCase e o modo de acao com o quadro mais favoravel exatamente onde esta a area — 74% das populacoes de Castilla y Leon ainda suscetiveis em 2012-13, contra 83% resistentes em Cataluña.</p>
+    <div class="triple">
+        <span class="triple-label">Castilla y León · ACCase (diclofop)</span>
+        <div class="triple-cells">
+          <div class="cell"><span class="cell-k">valor</span><span class="cell-v">74 % ainda suscetível</span></div>
+          <div class="cell"><span class="cell-k">suporte amostral</span><span class="cell-v">levantamento aleatório em área de cereal</span></div>
+          <div class="cell"><span class="cell-k">idade do dado</span><span class="cell-v">coleta 2012–2013</span></div>
+        </div>
+      </div><div class="triple">
+        <span class="triple-label">Cataluña · ACCase (diclofop)</span>
+        <div class="triple-cells">
+          <div class="cell"><span class="cell-k">valor</span><span class="cell-v">83 % resistente</span></div>
+          <div class="cell"><span class="cell-k">suporte amostral</span><span class="cell-v">mesmo levantamento</span></div>
+          <div class="cell"><span class="cell-k">idade do dado</span><span class="cell-v">coleta 2012–2013</span></div>
+        </div>
+      </div><div class="triple">
+        <span class="triple-label">Castilla y León · PSII (clortolurón)</span>
+        <div class="triple-cells">
+          <div class="cell"><span class="cell-k">valor</span><span class="cell-v">51 % resistente</span></div>
+          <div class="cell"><span class="cell-k">suporte amostral</span><span class="cell-v">mesmo levantamento</span></div>
+          <div class="cell"><span class="cell-k">idade do dado</span><span class="cell-v">coleta 2012–2013</span></div>
+        </div>
+      </div>
+  </section>
+
+  <section class="autoriza">
+    <p class="autoriza-k">O que esta evidência autoriza hoje</p>
+    <p class="autoriza-sim">antes da sementeira de outubro/novembro</p>
+    <p class="autoriza-nao"><span class="k">necessidade de campo agora</span> n/a — este caso nao reivindica sinal de campo</p>
+  </section>
+
+  <section class="sec grid2">
+    <div>
+      <h3>Janela</h3>
+      <dl class="dl">
+        <dt>Na etiqueta</dt><dd>pos-emergencia, das 3 folhas do cultivo ao fim do afilhamento das daninhas</dd>
+        <dt>Estado</dt><dd>UPCOMING</dd>
+        <dt>Tempo até a janela</dt><dd>sementeira a 6-10 semanas; aplicacao aproximadamente 2 a 5 meses. Intervalo, nao data.</dd>
+      </dl>
+    </div>
+    <div>
+      <h3>Relógios</h3>
+      <dl class="dl">
+        <dt>Agronômico</dt><dd>sementeira outubro/novembro (TYPICAL); aplicacao pos-emergencia de 3 folhas do cultivo ao fim do afilhamento das daninhas (OBSERVED, na etiqueta)</dd>
+        <dt>Observação</dt><dd>n/a</dd>
+        <dt>Comercial</dt><dd class="nao-sei">NAO SEI</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Resposta</h3>
+    <dl class="dl">
+      <dt>ADAMA · registrada</dt><dd>LOLIUM_EXPLICIT_RESPONSE = 1 formulado em duas etiquetas (ACCRESTO 19549 e TOPIK 24 EC 19548, clodinafop-propargil 24%, IdFormulado 3710), restrito a trigo e triticale. GENERIC_GRASS_RESPONSE = 10 registros em trigo e 10 em cebada, com pelo menos 4 quimicas. CEBADA x VALLICO: 3 no pais, 0 ADAMA. O artigo testou um produto de clortoluron da ADAMA (&quot;Clortolurex, Adama Agriculture&quot;) contra estas populacoes: MR nas tres em doses reduzidas, mas ainda controlando duas das tres na dose de campo.</dd>
+      <dt>ADAMA · catálogo público</dt><dd class="nao-sei">NOT_COLLECTED — o catalogo publico da ADAMA esta negado na borda para este ambiente (host inteiro). Ver ES-REVIEW-HANDOFFS. NOT_COLLECTED, nunca 0.</dd>
+      <dt>Concorrente · público</dt><dd class="nao-sei">NOT_COLLECTED. No registro, o par trigo x vallico tem 9 registros no total.</dd>
+      <dt>Consequência econômica</dt><dd class="nao-sei">NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado.</dd>
+    </dl>
+  </section>
+
+  <section class="sec">
+    <h3>Ciência e pessoas</h3>
+    <dl class="dl">
+      <dt>Ciência</dt><dd>dois levantamentos aleatorios publicados. 2000-02 (123 acessoes em Castilla y Leon, Cataluña e Andaluzia) e 2012-13 (Castilla y Leon e Cataluña). Em 2012-13: chlortoluron/PSII 51% R em Castilla y Leon e 92% em Cataluña; chlorsulfuron/ALS 75% nas duas; diclofop/ACCase 83% R em Cataluña e 74% AINDA SUSCETIVEL em Castilla y Leon. Mais o estudo de mecanismo de 2021 em tres populacoes de Calaf e Calonge de Segarra (provincia de Barcelona).</dd>
+      <dt>Pesquisadores</dt><dd>Joel Torra (Universitat de Lleida, ORCID 0000-0002-8666-6780) — primeiro autor do artigo de 2021 e ja CONFIRMADO pela camada cientifica por outra rota.</dd>
+      <dt>Rede técnica pública</dt><dd>NAO MAPEADO para Castilla y Leon.</dd>
+      <dt>Voz pública</dt><dd class="nao-sei">nenhuma. O acervo tem 2 origens de &quot;Leon&quot; em 179.</dd>
+    </dl>
+  </section>
+
+  <section class="sec tres">
+    <div class="col fato">
+      <h3>Fatos</h3>
+      <ul class="l-fato"><li>ACCRESTO e TOPIK 24 EC sao o mesmo formulado (IdFormulado 3710), clodinafop-propargil 24%, caducidad 31-07-2027</li><li>a etiqueta nomeia Lolium rigidum, Alopecurus, Avena e Phalaris com dose por especie</li><li>a etiqueta restringe o uso a trigo e triticale</li><li>ADAMA tem 10 registros de monocotiledoneas anuales em trigo e 10 em cebada, com pelo menos 4 quimicas</li><li>cebada x vallico: 3 registros no pais, 0 ADAMA. cebada x avenas locas: 10, 0 ADAMA</li><li>a janela e pos-emergencia, de 3 folhas do cultivo ao fim do afilhamento das daninhas</li></ul>
+    </div>
+    <div class="col interp">
+      <h3>Interpretações</h3>
+      <ul class="l-interp"><li>com a sementeira a 6-10 semanas e a aplicacao a 2-5 meses, ha tempo real para preparar material tecnico e decidir portfolio — que e exatamente o que um caso de PREPARAR deve entregar.</li></ul>
+    </div>
+    <div class="col unk">
+      <h3>Não sabemos</h3>
+      <ul class="l-unk"><li>a distribuicao regional do vallico: nenhuma fonte de campo consultada tem o campo de daninha. O RAIF de cereais mede pragas e doencas, nao daninhas.</li><li>COMMERCIAL_CLOCK = NAO SEI</li><li>se os produtos de pre-emergencia da ADAMA controlam populacoes resistentes: nao medido, e o registro nao responde eficacia.</li><li>o estado ATUAL: as populacoes foram coletadas em 2014 e 2015. Sao 11 e 12 anos.</li><li>se &quot;Clortolurex&quot; do artigo e o mesmo registro que CLORTUREX FLO no ROPF — nao confirmado em nenhuma fonte</li><li>o grupo da metribuzina e da pendimetalina: o artigo nao os classifica e nao vou classificar por conta propria</li><li>o estado em 2026: o levantamento mais recente e de 2012-2013 e a tendencia era de alta</li><li>a Andaluzia saiu do levantamento de 2012-13 e nao tem dado recente</li></ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Mapa de ação <span class="h3n">6 funções · horizonte antes da sementeira de outubro/novembro</span></h3>
+    <div class="tw"><table class="acoes">
+      <thead><tr><th scope="col">Função</th><th scope="col">Estado</th><th scope="col">O quê, por quê, o que falta</th></tr></thead>
+      <tbody><tr>
+          <th scope="row">Science</th>
+          <td><span class="pill pill-verify_now">VERIFY NOW</span></td>
+          <td class="acao">
+            <p class="acao-t">confirmar se o quadro de 2014-2015 ainda vale, e onde</p>
+            <p class="acao-w">as populacoes do artigo foram coletadas ha 11 e 12 anos, e as tres resistentes sao da provincia de Barcelona. A escala de cereal esta em Burgos, Valladolid, Huesca e Zaragoza. A pergunta que decide o caso e se o quadro se estendeu.</p>
+            <p class="acao-m"><span class="k">falta</span> medicao posterior a 2015 e fora de Barcelona</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-CASE-003.CONVERGENCIA_REGIONAL</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Market Development</th>
+          <td><span class="pill pill-prepare">PREPARE</span></td>
+          <td class="acao">
+            <p class="acao-t">preparar material de gramineas com dose por especie para a janela pos-emergencia</p>
+            <p class="acao-w">a etiqueta do clodinafop ja traz dose graduada — Avena 170-200, Alopecurus 200-250, Phalaris e Lolium 225-300 cc/ha. E material tecnico que ja existe no registro.</p>
+            <p class="acao-m"><span class="k">falta</span> distribuicao regional do vallico; nenhuma fonte de campo consultada mede daninha</p>
+            <p class="acao-e"><span class="k">evidência</span> fichas 19549 e 19548</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Regulatory / Portfólio</th>
+          <td><span class="pill pill-plan">PLAN</span></td>
+          <td class="acao">
+            <p class="acao-t">avaliar extensao de alvo por especie nos dez registros genericos, e avaliar a cebada</p>
+            <p class="acao-w">a cebada e a maior cultura do pais em area, a ADAMA tem 10 registros genericos ali e ZERO com especie nomeada, e a etiqueta do clodinafop exclui a cebada explicitamente</p>
+            <p class="acao-m"><span class="k">falta</span> se ha caminho regulatorio e a que custo</p>
+            <p class="acao-e"><span class="k">evidência</span> cebada x vallico 3/0 e cebada x avenas locas 10/0</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Supply</th>
+          <td><span class="pill pill-plan">PLAN</span></td>
+          <td class="acao">
+            <p class="acao-t">manter em vista</p>
+            <p class="acao-w">se houver decisao de reforcar gramineas em cereal, a producao antecede a sementeira de outubro/novembro</p>
+            <p class="acao-m"><span class="k">falta</span> decisao de portfolio</p>
+            <p class="acao-e"><span class="k">evidência</span> janela lida na etiqueta</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Commercial</th>
+          <td><span class="pill pill-wait_for_internal_data">WAIT FOR INTERNAL DATA</span></td>
+          <td class="acao">
+            <p class="acao-t">PREPARE BRIEF e VERIFY WITH BUSINESS. Nenhuma instrucao externa de venda.</p>
+            <p class="acao-w">COMMERCIAL_CLOCK = NAO SEI. Falta de relogio impede ATIVAR, nao impede INFORMAR. A decisao de alvo por especie em cebada tem prazo de dossie e a sementeira e em 6-10 semanas.</p>
+            <p class="acao-m"><span class="k">falta</span> disponibilidade em canal, preco e posicao — so o dado interno ADAMA responde</p>
+            <p class="acao-e"><span class="k">evidência</span> o proprio cartao do caso</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Marketing</th>
+          <td><span class="pill pill-no_action">NO ACTION</span></td>
+          <td class="acao">
+            <p class="acao-t">nao agir ainda</p>
+            <p class="acao-w">nao ha voz publica medida em Castilla y Leon: o acervo tem 2 origens de &quot;Leon&quot; em 179</p>
+            <p class="acao-m"><span class="k">falta</span> coleta de voz desenhada por cultura e regiao</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-VOZ-x-MATRIZ-DE-PRIORIDADE</p>
+          </td>
+        </tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h3>Evidência</h3>
+    <ul class="l-ev"><li>MAPA ROPF pares: trigo/cebada x 2062, 2017, 2010, 2046, 2030</li><li>fichas 19549 e 19548 baixadas do MAPA e lidas na secao Usos y Dosis</li><li>data/samples/ES-CEREAIS-PARES-ROPF.json</li><li>data/samples/ES-T3-002-raif-cereales-invierno.json para o descarte da septoriose</li></ul>
+  </section>
+</article><article class="caso" id="ES-CASE-002" data-caso="ES-CASE-002" hidden>
+  <header class="caso-head">
+    <p class="eyebrow"><span class="cid">ES-CASE-002</span> · Espanha</p>
+    <h2>MAIZ <span class="sep">×</span> Amaranthus palmeri</h2>
+    <p class="regiao">Huesca (Aragon) e Lleida (Cataluna) — bloco continuo Monegros-Cinca-Litera-Segria</p>
+    <p class="tipo"><span class="pill pill-planejar_proximo_ciclo">PLANEJAR PROXIMO CICLO</span></p>
+  </header>
+
+  <section class="sec">
+    <h3>O que está acontecendo</h3>
+    <p class="lede">tres avisos oficiais do Gobierno de Aragon sobre A. palmeri em 14 meses, o ultimo em 15/07/2026. Nenhum registro da ADAMA declara a especie como alvo.</p>
+    <div class="triple">
+        <span class="triple-label">Huesca · área de milho declarada</span>
+        <div class="triple-cells">
+          <div class="cell"><span class="cell-k">valor</span><span class="cell-v">37 236 ha</span></div>
+          <div class="cell"><span class="cell-k">suporte amostral</span><span class="cell-v">81 municípios · 10 fazem 47,7 %</span></div>
+          <div class="cell"><span class="cell-k">idade do dado</span><span class="cell-v">campanha PAC 2025</span></div>
+        </div>
+      </div><div class="triple">
+        <span class="triple-label">Avisos oficiais de Aragón</span>
+        <div class="triple-cells">
+          <div class="cell"><span class="cell-k">valor</span><span class="cell-v">3 em 14 meses</span></div>
+          <div class="cell"><span class="cell-k">suporte amostral</span><span class="cell-v">serviço fitossanitário regional</span></div>
+          <div class="cell"><span class="cell-k">idade do dado</span><span class="cell-v">último 15/07/2026</span></div>
+        </div>
+      </div>
+  </section>
+
+  <section class="autoriza">
+    <p class="autoriza-k">O que esta evidência autoriza hoje</p>
+    <p class="autoriza-sim">abril/2027</p>
+    <p class="autoriza-nao"><span class="k">necessidade de campo agora</span> n/a — este caso nao reivindica sinal de campo</p>
+  </section>
+
+  <section class="sec grid2">
+    <div>
+      <h3>Janela</h3>
+      <dl class="dl">
+        <dt>Na etiqueta</dt><dd>NICOPERTS 3-4 folhas · ORDAGO SC pre-emergencia ou 1-3 folhas · SULCOTREK pre-emergencia · DIODE 100 BBCH 00-19</dd>
+        <dt>Estado</dt><dd>FECHADA para 2026</dd>
+        <dt>Tempo até a janela</dt><dd>proxima sementeira a partir de abril/2027 — cerca de 7 meses. Data aproximada, calendario TYPICAL.</dd>
+      </dl>
+    </div>
+    <div>
+      <h3>Relógios</h3>
+      <dl class="dl">
+        <dt>Agronômico</dt><dd>TYPICAL — sementeira a partir de abril em Aragon; em 30/08 o milho esta em enchimento de grao ou colheita. Nao ha leitura de fenologia de milho neste repositorio.</dd>
+        <dt>Observação</dt><dd>2026-07-15</dd>
+        <dt>Comercial</dt><dd class="nao-sei">NAO SEI</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Resposta</h3>
+    <dl class="dl">
+      <dt>ADAMA · registrada</dt><dd>EXPLICIT_SPECIES_RESPONSE = NONE. GENERIC_WEED_RESPONSE = 7 produtos de folha larga ou malas hierbas em milho. UNKNOWN_SPECIES_COVERAGE para todos eles.</dd>
+      <dt>ADAMA · catálogo público</dt><dd class="nao-sei">NOT_COLLECTED — o catalogo publico da ADAMA esta negado na borda para este ambiente (host inteiro). Ver ES-REVIEW-HANDOFFS. NOT_COLLECTED, nunca 0.</dd>
+      <dt>Concorrente · público</dt><dd class="nao-sei">no registro: EMIR (ES-01724, Corteva, florasulam + mesotriona, vigente ate 2031) e o unico do pais com AMARANTHUS SPP. como alvo declarado em milho. Catalogo publico da Corteva NAO lido.</dd>
+      <dt>Consequência econômica</dt><dd class="nao-sei">NAO QUANTIFICADO — sem dado de venda, preco ou participacao. Nenhum numero economico inventado.</dd>
+    </dl>
+  </section>
+
+  <section class="sec">
+    <h3>Ciência e pessoas</h3>
+    <dl class="dl">
+      <dt>Ciência</dt><dd>par MAIZE x AMARANTHUS: 31 papers, 83 autores, 16 desde 2023</dd>
+      <dt>Pesquisadores</dt><dd>Mercedes Royuela e Mikel Vicente Eceiza (Univ. Publica de Navarra) e Joel Torra (Universitat de Lleida) — as tres identidades CONFIRMADAS por ORCID num-found=1. STUDY_GEOGRAPHY nao lido: afiliacao nao e local do estudo.</dd>
+      <dt>Rede técnica pública</dt><dd>50 ADV registradas na planicie de Lleida, 39 municipios, contato no registro oficial. PUBLIC_TECHNICAL_NETWORK, com sobreposicao geografica ao bloco de milho medida em COMARCA de um lado e MUNICIPIO do outro.</dd>
+      <dt>Voz pública</dt><dd class="nao-sei">nenhuma. No recorte cego a cultura e a regiao do acervo, todo o eixo Aragon+Catalunya+Navarra soma 5 de 54 origens, e nenhuma declara milho.</dd>
+    </dl>
+  </section>
+
+  <section class="sec tres">
+    <div class="col fato">
+      <h3>Fatos</h3>
+      <ul class="l-fato"><li>3 avisos oficiais de Aragon sobre A. palmeri em 14 meses, o ultimo em 15/07/2026</li><li>51.752 ha de milho declarados na PAC 2025 em Aragon; 37.236 em Huesca</li><li>10 municipios concentram 47,7% do milho de Huesca</li><li>um unico produto em toda a Espanha declara Amaranthus como alvo em milho: EMIR, da Corteva</li><li>zero das 96 fichas ADAMA preservadas cita Amaranthus ou bledo</li><li>7 dessas 96 citam alguma especie de daninha pelo nome, entre elas o proprio NICOPERTS</li><li>todas as janelas de etiqueta dos herbicidas ADAMA de folha larga em milho terminam em BBCH 19 ou antes</li></ul>
+    </div>
+    <div class="col interp">
+      <h3>Interpretações</h3>
+      <ul class="l-interp"><li>a lacuna e de claim registrado, e ela e nomeavel: um concorrente tem o alvo declarado e a ADAMA nao.</li><li>com a janela fechada, o valor deste caso e preparacao, nao venda. Apresentar como urgencia seria fabricar urgencia.</li></ul>
+    </div>
+    <div class="col unk">
+      <h3>Não sabemos</h3>
+      <ul class="l-unk"><li>se os herbicidas ADAMA controlam palmeri resistente — o registro nao responde eficacia e nada aqui responde</li><li>quanto palmeri ha em 2026 e onde: os avisos dizem que existe, nao dizem quanto nem em que parcela</li><li>os nomes dos 10 municipios</li><li>COMMERCIAL_CLOCK = NAO SEI</li></ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h3>Mapa de ação <span class="h3n">6 funções · horizonte abril/2027</span></h3>
+    <div class="tw"><table class="acoes">
+      <thead><tr><th scope="col">Função</th><th scope="col">Estado</th><th scope="col">O quê, por quê, o que falta</th></tr></thead>
+      <tbody><tr>
+          <th scope="row">Marketing</th>
+          <td><span class="pill pill-prepare">PREPARE</span></td>
+          <td class="acao">
+            <p class="acao-t">preparar material, sem campanha</p>
+            <p class="acao-w">a janela fechou. Publicar urgencia agora seria fabricar urgencia. Ha 50 ADV registradas na planicie de Lleida como interlocutor organizado — e isso e adjacencia a rede, nao cobertura dela.</p>
+            <p class="acao-m"><span class="k">falta</span> nenhuma ADV declara cultura; falta o equivalente aragones</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-T6-001-adv-catalunya</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Science</th>
+          <td><span class="pill pill-prepare">PREPARE</span></td>
+          <td class="acao">
+            <p class="acao-t">ler as obras de Joel Torra no par antes de qualquer contato</p>
+            <p class="acao-w">professor na Universitat de Lleida, 10 obras no par, identidade CONFIRMADA por ORCID — e ja e o primeiro autor do artigo que sustenta o caso do cereal</p>
+            <p class="acao-m"><span class="k">falta</span> se as obras tratam de palmeri espanhol. Afiliacao nao e local do estudo.</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-CIENCIA-PARES-AUTORES</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Market Development</th>
+          <td><span class="pill pill-plan">PLAN</span></td>
+          <td class="acao">
+            <p class="acao-t">planejar ensaio para a sementeira de abril/2027 em poucos municipios</p>
+            <p class="acao-w">10 municipios concentram 47,7% do milho de Huesca e 20 concentram 68,4%. Sariñena, Candasnos, Monzon, Tamarite de Litera, San Miguel del Cinca, Esplus, Peñalba, Sena, Grañen e Ilche.</p>
+            <p class="acao-m"><span class="k">falta</span> presenca de palmeri por parcela em 2026</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-T2-003-crosswalk-municipio-aragon</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Regulatory / Portfólio</th>
+          <td><span class="pill pill-plan">PLAN</span></td>
+          <td class="acao">
+            <p class="acao-t">avaliar extensao de alvo para AMARANTHUS SPP. nos herbicidas de folha larga ja registrados em milho</p>
+            <p class="acao-w">um unico produto no pais declara o alvo — EMIR, da Corteva — e ele e florasulam + mesotriona, enquanto a ADAMA ja tem mesotriona registrada em milho. A diferenca visivel esta no claim.</p>
+            <p class="acao-m"><span class="k">falta</span> se ha caminho de extensao e dado de eficacia contra palmeri resistente</p>
+            <p class="acao-e"><span class="k">evidência</span> ES-CASE-002.O_TESTE_DECISIVO</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Commercial</th>
+          <td><span class="pill pill-wait_for_internal_data">WAIT FOR INTERNAL DATA</span></td>
+          <td class="acao">
+            <p class="acao-t">PREPARE BRIEF e VERIFY WITH BUSINESS. Nenhuma instrucao externa de venda.</p>
+            <p class="acao-w">COMMERCIAL_CLOCK = NAO SEI. Falta de relogio impede ATIVAR, nao impede INFORMAR. Ha lacuna de claim nomeavel com concorrente identificado no registro. E informacao de planejamento, nao de ativacao.</p>
+            <p class="acao-m"><span class="k">falta</span> disponibilidade em canal, preco e posicao — so o dado interno ADAMA responde</p>
+            <p class="acao-e"><span class="k">evidência</span> o proprio cartao do caso</p>
+          </td>
+        </tr><tr>
+          <th scope="row">Supply</th>
+          <td><span class="pill pill-no_action">NO ACTION</span></td>
+          <td class="acao">
+            <p class="acao-t">nada a fazer</p>
+            <p class="acao-w">nao ha decisao de portfolio a suprir</p>
+            <p class="acao-m"><span class="k">falta</span> -</p>
+            <p class="acao-e"><span class="k">evidência</span> -</p>
+          </td>
+        </tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h3>Evidência</h3>
+    <ul class="l-ev"><li>MAPA ROPF export idCultivo x idPlaga=2067 para as 4 variantes de milho</li><li>fichas PDF preservadas dos 7 produtos ADAMA, secao Usos y Dosis</li><li>varredura de especie nas 96 fichas ADAMA preservadas</li><li>opendata_sga_parcelas_her_2025.csv, Gobierno de Aragon</li><li>ES-CIENCIA-PARES-AUTORES.json e ES-CIENCIA-PARA-VOZ.json</li><li>ES-T6-001-adv-catalunya.json</li></ul>
+  </section>
+</article>
+
+      <section class="eame">
+        <h3>Camada EAME · relações entre países</h3>
+        <p class="zero">0 relações</p>
+        <p>o contrato de comparabilidade classificou 3 dimensoes como COMPARABLE, 5 como PARTIAL e 2 como NOT. A unica dimensao plenamente comparavel que produziria relacao e a regulatoria — e uma diferenca entre dois registros nacionais e observacao sobre processo administrativo, nao relacao de mercado.</p>
+        <p>uma dimensao COMPARABLE que mude uma decisao. Hoje as comparaveis nao mudam decisao e as que mudariam nao sao comparaveis.</p>
+      </section>
+
+      <p class="pe">Toda a página é gerada de <code>SPAIN-HERO-CASES-V1.json</code>,
+      <code>ES-ACTION-MAP-V2.json</code> e <code>EAME-RELATIONSHIP-CONTRACT-V1.json</code>
+      por <code>scripts/proto_es.py</code>. Nenhum texto de caso foi escrito na tela.
+      O freeze verifica os artefatos por sha256: se um mudar, a página muda junto e
+      <code>scripts/freeze_es.py</code> reprova.</p>
+    </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  var botoes = Array.prototype.slice.call(document.querySelectorAll('.rail button'));
+  var casos = Array.prototype.slice.call(document.querySelectorAll('.caso'));
+  function mostrar(id) {
+    casos.forEach(function (c) { c.hidden = (c.dataset.caso !== id); });
+    botoes.forEach(function (b) { b.setAttribute('aria-current', String(b.dataset.alvo === id)); });
+  }
+  botoes.forEach(function (b) {
+    b.addEventListener('click', function () { mostrar(b.dataset.alvo); });
+  });
+}());
+</script>
