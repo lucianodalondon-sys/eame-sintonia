@@ -1,0 +1,209 @@
+#!/usr/bin/env python3
+"""OS PORTÕES DO EAME — derivados da matriz, nunca afirmados à mão.
+
+Este arquivo existe por causa de uma contradição que EU publiquei. Na mesma
+rodada, o mesmo relatório disse:
+
+    LOCATION_CONTRACT_COMPLETE   = NO   (quatro lacunas abertas)
+    EAME_COLLECTION_ENTRY_GATE   = READY
+
+As duas não podem ser verdade juntas. O portão se chama *collection entry
+gate* — o portão por onde se passa ANTES de coletar —, e toda coleta que
+produza documento produz documento com lugar de fato. Um portão de coleta
+não fica READY com o contrato de localização em NO.
+
+O erro não foi de medição: as cicatrizes estavam medidas certo. Foi de
+NOME. Um nome só estava fazendo dois trabalhos:
+
+  · a engenharia da IMPORTAÇÃO DO CATÁLOGO, que é registro regulatório,
+    é SQL idempotente sobre chave natural, não gasta rota paga, não coleta
+    rede social e NÃO tem lugar de fato nenhum; e
+
+  · a entrada da COLETA EM GERAL, que produz conteúdo com lugar de fato.
+
+O primeiro está pronto. O segundo não. Chamar os dois pelo mesmo nome fez
+READY significar "o EAME inteiro pode coletar", que é falso.
+
+A correção não é rebaixar nem promover nada: é separar os dois portões e
+DERIVAR o estado de cada um das cicatrizes de que ele depende. Um portão
+não pode mais ser declarado READY por quem escreve o relatório.
+
+    python3 scripts/portoes_eame.py
+    python3 scripts/portoes_eame.py --build
+"""
+import json
+import os
+import sys
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(RAIZ, 'scripts'))
+from cicatrizes_brasil import monta as monta_cicatrizes           # noqa: E402
+
+SAIDA = os.path.join(RAIZ, 'data', 'samples', 'PORTOES-EAME.json')
+RAW_ES = os.path.join(RAIZ, 'data', 'samples', 'RAW-GATE-ES.json')
+
+
+# ── DE QUE CADA PORTÃO DEPENDE ────────────────────────────────────────
+# Por FAMÍLIA de cicatriz, não por ID: assim uma cicatriz nova entra no
+# portão certo sozinha, e ninguém precisa lembrar de acrescentá-la.
+PORTOES = {
+ 'CATALOG_IMPORT_ENGINEERING_GATE': {
+   'PERGUNTA': 'a engenharia de importar o catálogo regulatório espanhol está pronta?',
+   'O_QUE_ELE_COBRE':
+     'escrever registro_regulatorio e registro_uso a partir de uma fonte oficial, '
+     'de forma idempotente sobre chave natural, sem gastar rota paga e sem coletar '
+     'rede social.',
+   'O_QUE_ELE_NAO_COBRE':
+     'qualquer coleta que produza documento com LUGAR DE FATO. Um registro '
+     'regulatório não tem lugar de fato: o país dele é o Estado que registrou, '
+     'e isso é lado da FONTE. Por isso as lacunas de localização não o tocam.',
+   'FAMILIAS': ['IDENTIDADE', 'PROVENIENCIA', 'TEMPO', 'AUSENCIA',
+                'ISOLAMENTO', 'METODO', 'LOCALIZACAO'],
+ },
+ 'EAME_COLLECTION_ENTRY_GATE': {
+   'PERGUNTA': 'o EAME pode abrir coleta em geral?',
+   'O_QUE_ELE_COBRE':
+     'TODA coleta — inclusive a que produz conteúdo com lugar de fato, e a que '
+     'gasta rota paga.',
+   'O_QUE_ELE_NAO_COBRE':
+     'nada da lista. É o portão mais abrangente que existe aqui, e é por isso '
+     'que READY nele significa mesmo "o EAME pode coletar".',
+   'FAMILIAS': ['IDENTIDADE', 'PROVENIENCIA', 'TEMPO', 'AUSENCIA', 'ISOLAMENTO',
+                'METODO', 'LOCALIZACAO', 'LOCALIZACAO_CONFERENCIA',
+                'RELEVANCIA', 'UNIDADE_ANALITICA', 'RESILIENCIA'],
+ },
+}
+
+# LOCATION é parte do COLLECTION ENTRY GATE. A resposta está na linha acima
+# — LOCALIZACAO_CONFERENCIA está na lista dele —, e não numa frase de
+# documento que alguém possa reescrever sem que nada reprove.
+LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE = 'YES'
+
+
+def estados_por_familia(cic):
+    d = {}
+    for c in cic:
+        d.setdefault(c['FAMILIA'], []).append(c)
+    return d
+
+
+def avalia(porta, familias):
+    """READY só quando TODA cicatriz de TODA família dele está PROVED."""
+    bloqueadores = []
+    for f in porta['FAMILIAS']:
+        for c in familias.get(f, []):
+            if c['EAME_STATUS'] != 'PROVED':
+                bloqueadores.append({
+                    'ID': c['ID'], 'FAMILIA': f, 'ESTADO': c['EAME_STATUS'],
+                    'GAP': c['GAP'], 'ACAO_MINIMA': c['MINIMAL_ACTION']})
+    cobertas = sum(len(familias.get(f, [])) for f in porta['FAMILIAS'])
+    return {
+        'PERGUNTA': porta['PERGUNTA'],
+        'O_QUE_ELE_COBRE': porta['O_QUE_ELE_COBRE'],
+        'O_QUE_ELE_NAO_COBRE': porta['O_QUE_ELE_NAO_COBRE'],
+        'FAMILIAS': porta['FAMILIAS'],
+        'CICATRIZES_COBERTAS': cobertas,
+        'CICATRIZES_PROVED': cobertas - len(bloqueadores),
+        'ESTADO': 'READY' if not bloqueadores else 'PARTIAL',
+        'BLOQUEADORES': bloqueadores,
+    }
+
+
+def raw_es():
+    with open(RAW_ES, encoding='utf-8') as f:
+        return json.load(f)
+
+
+def monta():
+    cic = monta_cicatrizes()['CICATRIZES']
+    fam = estados_por_familia(cic)
+    portoes = {k: avalia(v, fam) for k, v in PORTOES.items()}
+    r = raw_es()
+
+    # O gate do RAW não é derivável daqui: é medição de outra máquina. O que
+    # esta função faz é RECUSAR-SE a inventá-lo, e passar adiante o que veio.
+    raw_estado = r['ESTADO']
+    raw_fechado = (r['ALREADY_PRESENT_VERIFIED'] == r['EXPECTED']
+                   and r['FAILED_WITH_REASON'] == 0
+                   and r['HASH_MISMATCH'] == 0 and r['CONFLICT'] == 0)
+
+    pode_importar = (portoes['CATALOG_IMPORT_ENGINEERING_GATE']['ESTADO'] == 'READY'
+                     and raw_fechado)
+
+    return {
+        'SOURCE_ID': 'PORTOES-EAME',
+        'VERSION': 'V1',
+        'captured_at': '2026-08-30',
+        'O_QUE_ISTO_E':
+            'o estado de cada portão do EAME, DERIVADO das cicatrizes de que ele '
+            'depende. Nenhum estado aqui foi digitado por alguém.',
+        'O_QUE_ISTO_NAO_E':
+            'não é medição do mundo. É a leitura da nossa própria matriz de cicatrizes '
+            'e do estado externo do bucket raw. Um portão READY diz que as leis que ele '
+            'guarda têm testemunha executável — não que a coleta já aconteceu.',
+        'SOURCE_LOCATION': 'interno',
+        'FACT_LOCATION': 'EAME',
+        'ORIGINAL_LANGUAGE': 'pt',
+        'DERIVADO_DE': ['scripts/cicatrizes_brasil.py',
+                        'data/samples/RAW-GATE-ES.json'],
+        'PORQUE_EXISTE':
+            'um nome estava fazendo dois trabalhos, e por isso o mesmo relatório '
+            'publicou LOCATION_CONTRACT_COMPLETE = NO e um portão de COLETA em '
+            'READY. Separar os dois portões desfaz a contradição sem mover a régua: '
+            'nenhuma cicatriz mudou de estado para isto acontecer.',
+        'REGRA': 'READY exige TODA cicatriz das famílias do portão em PROVED. '
+                 'Uma única PARTIAL ou ABSENT o deixa em PARTIAL.',
+        'LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE':
+            LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE,
+        'PORQUE_LOCATION_E_PARTE':
+            'toda coleta que produz documento produz documento com lugar de fato. '
+            'O portão se chama entrada da COLETA, e o contrato de localização está '
+            'em NO. Dizer que localização não é parte dele seria escolher o escopo '
+            'depois de ver o resultado.',
+        'PORTOES': portoes,
+        'RAW_PRESERVATION_GATE': {
+            'ESTADO': raw_estado,
+            'PROVA': r['PROVA'],
+            'VERIFICADO_DAQUI': r['VERIFICADO_DAQUI'],
+            'EXPECTED': r['EXPECTED'],
+            'VERIFIED': r['ALREADY_PRESENT_VERIFIED'],
+            'FAILED': r['FAILED_WITH_REASON'],
+            'HASH_MISMATCH': r['HASH_MISMATCH'],
+            'CONFLICT': r['CONFLICT'],
+            'FECHADO': 'YES' if raw_fechado else 'NO',
+            'EXTERNAL_DIAGNOSIS_IN_PROGRESS': r['EXTERNAL_DIAGNOSIS_IN_PROGRESS'],
+            'NUNCA_ZERO_SENT': r['PORQUE_NUNCA_ZERO_SENT'],
+        },
+        'IMPORT_CAN_BE_NEXT_MISSION': 'YES' if pode_importar else 'NO',
+        'PORQUE_NAO_IMPORTAR':
+            None if pode_importar else
+            'a engenharia do catálogo está pronta e o RAW gate não fechou: 12 dos '
+            '196 assets falharam no envio, com diagnóstico em curso em outra '
+            'máquina. Importar com o bruto incompleto é importar sem poder voltar '
+            'à evidência.',
+    }
+
+
+if __name__ == '__main__':
+    d = monta()
+    if '--build' in sys.argv:
+        with open(SAIDA, 'w', encoding='utf-8') as f:
+            json.dump(d, f, ensure_ascii=False, indent=1)
+            f.write('\n')
+        print('escrito:', SAIDA)
+    print('LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE =',
+          d['LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE'])
+    print()
+    for nome, p in d['PORTOES'].items():
+        print('%-33s %-8s  %d/%d cicatrizes PROVED'
+              % (nome, p['ESTADO'], p['CICATRIZES_PROVED'], p['CICATRIZES_COBERTAS']))
+        for b in p['BLOQUEADORES']:
+            print('    bloqueia: %-7s %-24s %s' % (b['ID'], b['FAMILIA'], b['ESTADO']))
+    g = d['RAW_PRESERVATION_GATE']
+    print()
+    print('RAW_PRESERVATION_GATE             %s  (prova %s, verificado daqui: %s)'
+          % (g['ESTADO'], g['PROVA'], g['VERIFICADO_DAQUI']))
+    print('    EXPECTED=%d  VERIFIED=%d  FAILED=%d  HASH_MISMATCH=%d  CONFLICT=%d'
+          % (g['EXPECTED'], g['VERIFIED'], g['FAILED'], g['HASH_MISMATCH'], g['CONFLICT']))
+    print()
+    print('IMPORT_CAN_BE_NEXT_MISSION =', d['IMPORT_CAN_BE_NEXT_MISSION'])

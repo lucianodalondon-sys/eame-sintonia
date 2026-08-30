@@ -1,0 +1,46 @@
+{
+ "SOURCE_ID": "RAW-GATE-ES",
+ "VERSION": "V2",
+ "captured_at": "2026-08-30",
+
+ "O_QUE_ISTO_E": "o estado do bucket raw da Espanha, MEDIDO NA MÁQUINA LOCAL espanhola e recebido aqui por relato da coordenação.",
+ "O_QUE_ISTO_NAO_E": "não é medição feita deste ambiente. Este ambiente não tem credencial de Supabase e não conseguiria contar um único asset.",
+
+ "MEDIDO_POR": "máquina local espanhola",
+ "VERIFICADO_DAQUI": "NO",
+ "PORQUE_NAO_VERIFICADO_DAQUI": "SUPABASE_AUTH_AVAILABLE = NO neste ambiente. Refazer a contagem daqui produziria zero, e zero medido sem acesso é NAO_TESTADO, não AUSENTE_MEDIDO.",
+ "PROVA": "EXTERNA",
+
+ "EXPECTED": 196,
+ "ALREADY_PRESENT_VERIFIED": 184,
+ "FAILED_WITH_REASON": 12,
+ "HASH_MISMATCH": 0,
+ "CONFLICT": 0,
+
+ "SOMA_FECHA": "184 + 12 = 196",
+
+ "OS_12_FALHOS": {
+  "PERTENCEM_AO_DENOMINADOR": "YES",
+  "PORQUE": "cada um dos 12 tem ARQUIVO_LOCAL, BYTES e SHA256. Existem, foram baixados e foram conferidos. O que falhou foi o ENVIO, não a obtenção — e por isso eles não saem do denominador 196.",
+  "MODO_DE_FALHA_VISIVEL": "maioria HTTP 400; ao menos NEPTUNE web.pdf com HTTP 520",
+  "RETRY_MELHOROU": "NO"
+ },
+
+ "DUAS_TENTATIVAS": [
+  {"quando": "1a", "VERIFIED": 185, "FAILED": 11},
+  {"quando": "2a", "VERIFIED": 184, "FAILED": 12}
+ ],
+ "PORQUE_AS_DUAS_ESTAO_AQUI": "a segunda tentativa mediu UM a menos, não um a mais. Guardar só a melhor das duas seria escolher o número que agrada. A diferença de 1 entre as tentativas é parte do diagnóstico e está em aberto.",
+
+ "EXTERNAL_DIAGNOSIS_IN_PROGRESS": "YES",
+ "ONDE": "máquina local espanhola",
+ "NAO_TENTAR_REPARAR_DAQUI": "YES",
+
+ "ESTADO": "OPEN_EXTERNAL_REPAIR",
+
+ "PORQUE_NUNCA_ZERO_SENT": "a rodada anterior publicou 'zero enviado dos 196'. Era falso: 184 já estavam no bucket e verificados. ZERO ENVIADO != PRESERVADO continua valendo na outra direção — e AFIRMAR ZERO quando não se mediu é o mesmo defeito, virado do avesso. Este arquivo existe para que ZERO_SENT não volte a ser escrito por falta de dado.",
+
+ "SOURCE_LOCATION": "máquina local espanhola",
+ "FACT_LOCATION": "bucket raw do Supabase do projeto",
+ "ORIGINAL_LANGUAGE": "pt"
+}

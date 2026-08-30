@@ -3,6 +3,12 @@
 **Data:** 2026-08-30 · **Branch:** `claude/sintonia-eame-collection-es`
 **Base:** `5a6114b` · **Banco:** PostgreSQL 16.13 local e descartável. **Supabase de produção não foi tocado.**
 
+> **Este relatório foi corrigido depois de publicado.** A primeira versão continha uma
+> contradição (`EAME_COLLECTION_ENTRY_GATE = READY` ao lado de
+> `LOCATION_CONTRACT_COMPLETE = NO`) e um número falso (*"zero enviado dos 196"*). As duas
+> correções estão nas seções **I** e **K**, com o erro original à vista. Nenhuma cicatriz
+> mudou de estado para acomodá-las.
+
 Esta rodada tinha uma tarefa: fechar os cinco PARTIALs reais do *collection entry gate*.
 Os cinco fecharam, com testemunha executável. E a conferência de localização, que era
 para ser um spot-check de confirmação, **rebaixou um contrato que a rodada anterior tinha
@@ -17,11 +23,11 @@ ordem que aconteceram.
 |---|---|
 | PARTIALs fechados | **5** — BR-14 · BR-16 · BR-19 · BR-20 · BR-21 |
 | Lacunas novas, abertas pela conferência | **5** — BR-26 · BR-30 · BR-31 · BR-32 · BR-34 |
-| Defeitos meus, achados e corrigidos | **3** — índice duplicado (016) · `pode::text` · `UNRELATED` por data de publicação (015) |
+| Defeitos meus, achados e corrigidos | **5** — índice duplicado (016) · `pode::text` · `UNRELATED` por data de publicação (015) · **ZERO publicado onde a resposta era NÃO MEDIDO** · **`READY` contraditório com `LOCATION = NO`** |
 | Migrations novas | 016, 017 |
 | Afirmações SQL | **118** (45 calendário · 19 captura · 33 cicatrizes · 21 coleta) |
 | Mutações | **12**, todas pegaram |
-| Testes Python | **<!--M:TEST_COUNT_CURRENT-->601<!--/M-->**, todos verdes |
+| Testes Python | **<!--M:TEST_COUNT_CURRENT-->616<!--/M-->**, todos verdes |
 | Apify gasto | **0,00 USD** |
 
 ## B · REUSO, NÃO SEGUNDA IMPLEMENTAÇÃO
@@ -159,23 +165,41 @@ mover a régua.
 Nenhuma coleta. Nenhum gasto Apify. Nenhum LinkedIn, Instagram, YouTube ou Meta. Os seis
 perfis do ensaio são **fictícios** e existem só para exercer a recusa.
 
-## I · O GATE DO RAW ESPANHOL — continua prova EXTERNA
+## I · O GATE DO RAW ESPANHOL — prova EXTERNA, e o número que eu publiquei estava errado
 
-Não foi refeito daqui, e a missão manda tratá-lo assim. Estado recebido, inalterado:
+> **CORREÇÃO.** A primeira versão desta seção dizia `RAW_ASSETS = NOT_MEASURED` e o
+> veredito dizia *"zero enviado dos 196"*. **Era falso.** Não porque a medição tenha
+> mudado depois: porque eu escrevi ZERO onde a resposta honesta era NÃO MEDIDO DAQUI.
+> `SOURCE FAILURE ≠ ZERO` é lei deste repositório, e eu a violei na direção mais fácil de
+> não perceber — não medir e publicar zero soa cauteloso, e é uma afirmação sobre o mundo
+> igual a qualquer outra. A medição real da máquina espanhola:
 
 ```
-SUPABASE_AUTH_AVAILABLE      NO
-MIGRATIONS_APPLIED           NOT_MEASURED
-RAW_BUCKET_EXISTS            NOT_MEASURED
-RAW_ASSETS_EXPECTED          196
-PRESERVED_NEW                NOT_MEASURED
-ALREADY_PRESERVED            NOT_MEASURED
-FAILED · CONFLICT · HASH_MISMATCH   NOT_MEASURED
+EXPECTED                     196
+ALREADY_PRESENT_VERIFIED     184
+FAILED_WITH_REASON            12
+HASH_MISMATCH                  0
+CONFLICT                       0
+                             ────
+                       184 + 12 = 196   a conta fecha
 
-RAW_GATE = NOT_CLOSED
+RAW_PRESERVATION_GATE = OPEN_EXTERNAL_REPAIR
 ```
 
-`ZERO ENVIADO ≠ PRESERVADO`. Zero enviado é zero enviado.
+**Os 12 pertencem ao denominador.** Cada um tem `ARQUIVO_LOCAL`, `BYTES` e `SHA256`:
+existem, foram baixados e foram conferidos. O que falhou foi o **envio**, não a obtenção.
+Tirá-los do denominador melhoraria a taxa apagando o problema.
+
+Modo de falha visível: a maioria HTTP 400; ao menos o `NEPTUNE web.pdf` com HTTP 520. **O
+retry não melhorou** — e as duas tentativas ficam registradas porque a segunda mediu **um a
+menos** que a primeira (185/11 → 184/12). Guardar só a melhor das duas seria escolher o
+número que agrada; a diferença de 1 é parte do diagnóstico, e está em aberto.
+
+O diagnóstico dos 12 corre **na máquina local espanhola**. Não foi tentado reparo daqui, e
+nada aqui foi verificado daqui: este ambiente não tem credencial de Supabase, e recontar
+daqui produziria zero — que é exatamente o defeito que esta seção corrige.
+
+Artefato: `data/samples/RAW-GATE-ES.json`.
 
 ## J · MIGRATIONS
 
@@ -187,26 +211,53 @@ Montadas do zero num banco vazio nesta rodada: **15 migrations, todas ok**, `008
 no fim (`migrations 001-017 conferidas: 30 tabelas`). O **014 continua vago de propósito** —
 é o catálogo, e vem da branch paralela.
 
-## K · VEREDITO
+## K · VEREDITO — reconciliado
+
+> **CORREÇÃO.** A primeira versão desta seção publicou
+> `EAME_COLLECTION_ENTRY_GATE = READY` **e** `LOCATION_CONTRACT_COMPLETE = NO` no mesmo
+> bloco. As duas não podem ser verdade juntas: o portão se chama entrada da **COLETA**, e
+> toda coleta que produz documento produz documento com lugar de fato.
+>
+> O erro não foi de medição — as cicatrizes estavam medidas certo, e **nenhuma mudou de
+> estado para desfazer a contradição**. Foi de **nome**: um nome estava fazendo dois
+> trabalhos. A engenharia de importar o catálogo regulatório e a entrada da coleta em geral
+> não são o mesmo portão, e o segundo não estava pronto.
 
 ```
-EAME_COLLECTION_ENTRY_GATE       READY
-  BR-14  PROVED    BR-16  PROVED    BR-19  PROVED
-  BR-20  PROVED    BR-21  PROVED
+LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE   YES
 
-LOCATION_CONTRACT_COMPLETE       NO   (rebaixado nesta rodada, com prova)
-RAW_GATE_ES                      NOT_CLOSED  (prova externa, zero enviado)
+CATALOG_IMPORT_ENGINEERING_GATE   READY     16/16 cicatrizes PROVED
+EAME_COLLECTION_ENTRY_GATE        PARTIAL   30/35 cicatrizes PROVED
+    bloqueia  BR-26  BASE / OPERATING / INFLUENCE colapsados
+    bloqueia  BR-30  fact_geografia_id é 0..1, e o mundo é 0..N
+    bloqueia  BR-31  a escada de precisão para em PROVINCIA
+    bloqueia  BR-32  TERRITORIAL_LIST no eixo da geografia
+    bloqueia  BR-34  falta o TEMPO DO FATO como campo
 
-IMPORT_CAN_BE_NEXT_MISSION       NO
+LOCATION_CONTRACT_COMPLETE        NO
+ANALYTICAL_UNIT_CONTRACT_COMPLETE YES
+RESILIENCE_CONTRACT_COMPLETE      YES
+  BR-14 PROVED · BR-16 PROVED · BR-19 PROVED · BR-20 PROVED · BR-21 PROVED
+
+RAW_PRESERVATION_GATE             OPEN_EXTERNAL_REPAIR
+  EXPECTED 196 · VERIFIED 184 · FAILED 12 · HASH_MISMATCH 0
+
+IMPORT_CAN_BE_NEXT_MISSION        NO
 ```
 
-O portão de entrada da coleta está READY: as cinco leis que ele guarda têm testemunha
-executável e mutação que as morde. **Isso não autoriza importar.**
-`IMPORT_CAN_BE_NEXT_MISSION` exige o portão READY **e** o RAW gate CLOSED, e o RAW gate
-está `NOT_CLOSED` com zero arquivo enviado dos 196 esperados.
+**Por que `CATALOG_IMPORT_ENGINEERING_GATE` não herda as lacunas de localização.** Não é
+conveniência de escopo: um **registro regulatório não tem lugar de fato**. O país de um
+registro é o Estado que registrou, e isso é lado da FONTE. As quatro lacunas abertas são
+todas do lugar do FATO, em `conteudo` — tabela que a importação do catálogo não escreve.
 
-E as cinco lacunas de localização, ainda que nenhuma delas bloqueie a importação do
-catálogo — que é registro regulatório e não ocorrência de campo —, bloqueiam qualquer
-coleta que produza documento com lugar de fato.
+**Por que o portão da coleta não pode ser READY.** Porque ele cobre a coleta que escreve
+`conteudo`, e é exatamente ali que as quatro lacunas moram. Chamar isso de READY faria
+`READY` significar "o EAME inteiro pode coletar", que é falso.
+
+Nada disso é decidido por este texto. `scripts/portoes_eame.py` **deriva** o estado de cada
+portão das cicatrizes de que ele depende, e `tests/test_portoes_eame.py` fecha a saída
+fácil: tirar a família da localização da lista do portão da coleta o faria virar READY sem
+resolver nada — e há um teste que reprova essa edição, e uma mutação que confirma que o
+teste tem dentes.
 
 **Nada foi importado. Nada foi aplicado no Supabase. A instrução era parar aqui.**

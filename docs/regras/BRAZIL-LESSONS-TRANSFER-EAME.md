@@ -4,7 +4,12 @@
 **Nada importado.** Nenhuma migration em produção, catálogo não importado, handoff não
 mesclado, Supabase intocado.
 
-> **`EAME_COLLECTION_ENTRY_GATE = PARTIAL`** · **`IMPORT_CAN_BE_NEXT_MISSION = NO`**
+> **`CATALOG_IMPORT_ENGINEERING_GATE = READY`** · **`EAME_COLLECTION_ENTRY_GATE = PARTIAL`**
+> · **`RAW_PRESERVATION_GATE = OPEN_EXTERNAL_REPAIR`** · **`IMPORT_CAN_BE_NEXT_MISSION = NO`**
+>
+> São dois portões, e não um. Um nome estava fazendo dois trabalhos — a engenharia de
+> importar o catálogo regulatório, que não tem lugar de fato, e a entrada da coleta em
+> geral, que tem. Estados derivados em `scripts/portoes_eame.py`; nenhum deles é digitado.
 
 ---
 
@@ -158,6 +163,7 @@ coleta não estão provadas.
 | `UNKNOWN_STATE_CONTRACT_COMPLETE` | **YES** |
 | `COUNTRY_ISOLATION_COMPLETE` | **YES** |
 | `ANALYTICAL_UNIT_CONTRACT_COMPLETE` | ~~**NO**~~ → **YES** — BR-16 fechado na 016 |
+| `RAW_PRESERVATION_GATE` | **OPEN_EXTERNAL_REPAIR** — 184 de 196 verificados, 12 falharam no envio, 0 hash divergente. Prova externa; ver `data/samples/RAW-GATE-ES.json` |
 | `RESILIENCE_CONTRACT_COMPLETE` | ~~**NO**~~ → **YES** — BR-19 · BR-20 · BR-21 fechados |
 
 O `LOCATION_CONTRACT_COMPLETE` saiu de **YES** e foi para **NO** na mesma rodada em que os
