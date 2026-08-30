@@ -1,0 +1,374 @@
+{
+ "SOURCE_ID": "SPAIN-RADAR-DO-FUTURO-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "COUNTRY": "ES",
+ "source": "derivado do acervo espanhol — nenhuma coleta ampla nova. As duas consultas novas ao ROPF (TRIGO x VALLICO e TRIGO x MONOCOTILEDONEAS) estao nomeadas nos EVIDENCE_PATHS.",
+ "SOURCE_LOCATION": "derivado + MAPA ROPF",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "CONTRATO": "RADAR-DO-FUTURO-CONTRACT-V1",
+ "THEMES_COUNT": 5,
+ "POR_MATURIDADE": {
+  "ALMOST_RADAR_CASE": 2,
+  "EMERGING_THEME": 1,
+  "SCIENTIFIC_SIGNAL": 1,
+  "OBSERVED_TOPIC": 1
+ },
+ "MOMENTUM_MEDIDO_EM": 0,
+ "POR_QUE": "nenhuma serie temporal disponivel — ver REGRAS_DE_MOMENTUM no contrato. Todos os temas em NOT_KNOWN, e essa e a primeira captura.",
+ "PROMOTED_TO_RADAR": 0,
+ "A_LEITURA_DO_CONJUNTO": "dois temas em ALMOST_RADAR_CASE (vallico e palmeri), um EMERGING_THEME que serve de contra-exemplo (septoriose: ciencia ativa, campo quieto), um SCIENTIFIC_SIGNAL grande e sozinho (Xylella) e um OBSERVED_TOPIC (Ramularia). Nenhum foi promovido a caso, porque nenhum tem confirmacao de campo corrente — que e a unica porta.",
+ "THEMES": [
+  {
+   "THEME_ID": "FT-ES-001",
+   "COUNTRY": "ES",
+   "CROP": "TRIGO e CEBADA",
+   "ISSUE": "Vallico (Lolium rigidum) — o alvo declarado depende de um modo de acao que a literatura mede como comprometido",
+   "REGION": "Cataluña (resistencia medida) e Castilla y Leon (escala e quadro menos comprometido)",
+   "THEME_TYPE": "PORTFOLIO_STRUCTURE_x_RESISTANCE",
+   "FIRST_OBSERVED_AT": "1995 (primeiro caso espanhol citado no artigo de 2021)",
+   "LAST_OBSERVED_AT": "2026-08-30 (consulta ao ROPF)",
+   "CAPTURED_AT": "2026-08-30",
+   "SCIENCE_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "Frontiers in Plant Science 2021 (10.3389/fpls.2021.625138), texto completo lido: \"Recently, lack of control with very long-chain fatty acid synthesis (VLCFAS)-inhibiting herbicides has been reported in HR populations that are difficult to manage by chemical means\". Tabela 3: MR/MR/R a prosulfocarb nas tres populacoes. Mais os levantamentos aleatorios de 2000-02 e 2012-13 (Crop Protection)."
+   },
+   "RESEARCHER_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "Joel Torra, Universitat de Lleida, ORCID 0000-0002-8666-6780, identidade CONFIRMADA por num-found=1 e primeiro autor do artigo de 2021."
+   },
+   "TECHNICAL_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao ha rede tecnica mapeada para Castilla y Leon nem para a Cataluña cerealista."
+   },
+   "FIELD_SIGNAL": {
+    "ESTADO": "AUSENTE_MEDIDO",
+    "EVIDENCIA": "nenhuma fonte de campo consultada mede daninha. O RAIF de cereais de inverno mede pragas e doencas, nao Lolium. Procurado e ausente."
+   },
+   "REGULATORY_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "ROPF em 2026-08-30. TRIGO x VALLICO: 9 registros no pais. Destes, 8 sao inibidores de ACCase (6 clodinafop, 2 diclofop) e 1 e mistura de florasulam com fluroxipir. ZERO prosulfocarb. ZERO PSII."
+   },
+   "PORTFOLIO_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "ADAMA tem 2 dos 9 registros do par, e sao o MESMO formulado em duas etiquetas (ACCRESTO 19549 e TOPIK 24 EC 19548, IdFormulado 3710). Na categoria generica TRIGO x MONOCOTILEDONEAS ANUALES (41 registros) ha 8 de prosulfocarb — nenhum da ADAMA — 12 de clortoluron, 7 de metribuzina e ZERO de flufenacet."
+   },
+   "PUBLIC_VOICE_SIGNAL": {
+    "ESTADO": "AUSENTE_MEDIDO",
+    "EVIDENCIA": "o acervo de voz espanhol tem 2 origens de \"Leon\" em 179."
+   },
+   "CURRENT_FIELD_CONFIRMATION": "NAO. Nenhuma medicao de campo de Lolium em 2026.",
+   "EVIDENCE_COUNT": 6,
+   "INDEPENDENT_LAYERS": 4,
+   "CAMADAS": [
+    "ciencia",
+    "pesquisador identificado",
+    "regulatorio",
+    "portfolio"
+   ],
+   "MOMENTUM_STATE": "NOT_KNOWN",
+   "MATURITY_STATE": "ALMOST_RADAR_CASE",
+   "HORIZON": "janela pos-emergencia da safra 2026/27 — sementeira a 6-10 semanas, aplicacao a 2-5 meses",
+   "WHAT_WE_KNOW": [
+    "o registro espanhol para o alvo declarado vallico em trigo e quase inteiramente ACCase: 8 de 9",
+    "o levantamento aleatorio de 2012-13 mediu 83% de resistencia a ACCase na Cataluña e 74% AINDA SUSCETIVEL em Castilla y Leon",
+    "o herbicida de recurso que a literatura descreve — prosulfocarb — existe na Espanha so na categoria generica, com 8 registros e nenhum da ADAMA",
+    "o AUROS testado no artigo de 2021 e um dos 8 prosulfocarb registrados",
+    "flufenacet, que o artigo aponta como a substancia com atividade principal contra Lolium na mistura testada, tem ZERO registros no par generico"
+   ],
+   "WHAT_WE_DONT_KNOW": [
+    "o estado em 2026: as populacoes do artigo foram coletadas em 2014-2015",
+    "se ha resistencia a prosulfocarb no campo espanhol fora das tres populacoes estudadas",
+    "eficacia de qualquer produto: registro nao declara eficacia e nada aqui a mediu",
+    "a distribuicao do vallico por provincia — nenhuma fonte de campo consultada a mede"
+   ],
+   "WHAT_WOULD_PROMOTE_TO_RADAR": "uma medicao de campo datada de infestacao ou de falha de controle de Lolium na safra corrente, com suporte amostral. Nenhuma fonte publica consultada a produz hoje.",
+   "POTENTIAL_ADAMA_AREAS": [
+    "REGULATORY / PORTFOLIO — a concentracao de modo de acao no alvo declarado e um fato de estrutura de registro, e e avaliavel internamente",
+    "SCIENCE — confirmar se o quadro de 2014-15 se estendeu",
+    "MARKET DEVELOPMENT — material tecnico pre-safra com dose por especie, que a etiqueta ja traz"
+   ],
+   "EVIDENCE_PATHS": [
+    "MAPA ROPF export idCultivo=2034 x idPlaga=2062 e x idPlaga=2046, 2026-08-30",
+    "DOI 10.3389/fpls.2021.625138, texto completo",
+    "DOI 10.1016/j.cropro.2017.08.001 e 10.1016/j.cropro.2010.07.005, resumos via DIGITAL.CSIC",
+    "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json"
+   ]
+  },
+  {
+   "THEME_ID": "FT-ES-002",
+   "COUNTRY": "ES",
+   "CROP": "MAIZ",
+   "ISSUE": "Amaranthus palmeri",
+   "REGION": "Huesca (Aragon) e Lleida (Cataluña)",
+   "THEME_TYPE": "NEXT_CYCLE_WATCHLIST",
+   "FIRST_OBSERVED_AT": "2020 (medicao de 185 campos publicada pela Phytoma)",
+   "LAST_OBSERVED_AT": "2026-07-15 (aviso oficial de Aragon)",
+   "CAPTURED_AT": "2026-08-30",
+   "SCIENCE_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "par MAIZE x AMARANTHUS no OpenAlex: 31 papers, 83 autores distintos, 16 desde 2023 (RECENT_SHARE 52%)."
+   },
+   "RESEARCHER_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "3 identidades CONFIRMADAS por ORCID num-found=1 com vinculo espanhol: Mercedes Royuela e Mikel Vicente Eceiza (UPNA) e Joel Torra (UdL)."
+   },
+   "TECHNICAL_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "50 Agrupacions de Defensa Vegetal registradas na planicie de Lleida, 39 municipios, contato no registro oficial. E rede, nao voz, e a sobreposicao com o bloco de milho e geografica."
+   },
+   "FIELD_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "3 avisos oficiais do Gobierno de Aragon em 14 meses: 22/10/2025, 08/06/2026 e 15/07/2026."
+   },
+   "REGULATORY_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "ROPF: um unico produto no pais declara AMARANTHUS SPP. como alvo em milho — EMIR, ES-01724, Corteva, vigente ate 2031. A variante generica MAIZ tem ZERO."
+   },
+   "PORTFOLIO_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "ADAMA: EXPLICIT_SPECIES_RESPONSE = NONE, GENERIC_WEED_RESPONSE = 7 produtos. Zero das 96 fichas ADAMA preservadas cita Amaranthus; 7 delas citam outras especies de daninha pelo nome."
+   },
+   "PUBLIC_VOICE_SIGNAL": {
+    "ESTADO": "AUSENTE_MEDIDO",
+    "EVIDENCIA": "nenhuma origem do eixo Ebro declara milho no acervo de voz."
+   },
+   "CURRENT_FIELD_CONFIRMATION": "PARCIAL — ha aviso oficial datado de 15/07/2026, que confirma presenca. Nao ha medicao de quanto nem de onde por parcela.",
+   "EVIDENCE_COUNT": 7,
+   "INDEPENDENT_LAYERS": 6,
+   "CAMADAS": [
+    "ciencia",
+    "pesquisador identificado",
+    "rede tecnica",
+    "campo (aviso oficial)",
+    "regulatorio",
+    "portfolio"
+   ],
+   "MOMENTUM_STATE": "NOT_KNOWN",
+   "MATURITY_STATE": "ALMOST_RADAR_CASE",
+   "HORIZON": "sementeira de abril/2027 — cerca de 7 meses",
+   "WHAT_WE_KNOW": [
+    "3 avisos oficiais em 14 meses sobre a mesma especie",
+    "10 municipios concentram 47,7% do milho de Huesca, com nomes resolvidos oficialmente",
+    "um concorrente tem o alvo declarado e a ADAMA nao",
+    "todas as janelas de etiqueta dos herbicidas ADAMA de folha larga em milho terminam em BBCH 19 ou antes"
+   ],
+   "WHAT_WE_DONT_KNOW": [
+    "quanto palmeri ha em 2026 e em que parcelas",
+    "se os herbicidas da ADAMA controlam palmeri resistente — nao medido e o registro nao responde",
+    "COMMERCIAL_CLOCK"
+   ],
+   "WHAT_WOULD_PROMOTE_TO_RADAR": "medicao de incidencia por parcela ou comarca na safra corrente. O aviso diz que existe; nao diz quanto.",
+   "POTENTIAL_ADAMA_AREAS": [
+    "REGULATORY / PORTFOLIO — avaliar extensao de alvo por especie",
+    "MARKET DEVELOPMENT — ensaio planejado para abril/2027 em poucos municipios",
+    "SCIENCE — ler as obras de Joel Torra no par antes de contato"
+   ],
+   "EVIDENCE_PATHS": [
+    "data/samples/ES-CASE-002-MAIZ-AMARANTHUS.json",
+    "data/samples/ES-T2-003-crosswalk-municipio-aragon.json",
+    "data/samples/ES-T6-001-adv-catalunya.json"
+   ]
+  },
+  {
+   "THEME_ID": "FT-ES-003",
+   "COUNTRY": "ES",
+   "CROP": "TRIGO",
+   "ISSUE": "Septoriose (Zymoseptoria tritici)",
+   "REGION": "NAO SEI — o par cientifico nao foi filtrado por pais",
+   "THEME_TYPE": "SCIENCE_ACTIVE_FIELD_QUIET",
+   "FIRST_OBSERVED_AT": "2012 (inicio da serie do RAIF de cereais de inverno)",
+   "LAST_OBSERVED_AT": "2026-05-26 (ultima amostragem da campanha)",
+   "CAPTURED_AT": "2026-08-30",
+   "SCIENCE_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "par WHEAT x SEPTORIA: 47 papers, 200 autores distintos, 26 desde 2023 — RECENT_SHARE de 55%, a mais alta dos tres pares espanhois medidos."
+   },
+   "RESEARCHER_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "2 identidades CONFIRMADAS por ORCID — e nenhuma das duas tem vinculo espanhol aberto. Lukas Meile saiu do CBGP em 2024 e esta na ETH Zurique; Julien Alassimone nunca declarou vinculo espanhol. A ponte espanhola mais provavel e Andrea Sanchez-Vallet (UPM/CSIC), ainda CANDIDATA."
+   },
+   "TECHNICAL_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao mapeado."
+   },
+   "FIELD_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "RAIF cereais de inverno, 15 campanhas. 2026 marcou 2,68% de superficie com sintomas — o SEGUNDO ANO MAIS FRACO da serie com n>=100."
+   },
+   "REGULATORY_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "SEPTORIOSIS DEL TRIGO: 95 registros no pais, 4 da ADAMA."
+   },
+   "PORTFOLIO_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "36 pares de cereal de inverno com resposta ADAMA vigente, dos quais septoriose 4."
+   },
+   "PUBLIC_VOICE_SIGNAL": {
+    "ESTADO": "AUSENTE_MEDIDO",
+    "EVIDENCIA": "2 origens de \"Leon\" em 179 no acervo."
+   },
+   "CURRENT_FIELD_CONFIRMATION": "NAO, e ao contrario: a campanha 2026 foi das mais fracas da serie.",
+   "EVIDENCE_COUNT": 5,
+   "INDEPENDENT_LAYERS": 4,
+   "CAMADAS": [
+    "ciencia",
+    "pesquisador identificado",
+    "campo",
+    "regulatorio"
+   ],
+   "MOMENTUM_STATE": "NOT_KNOWN",
+   "MATURITY_STATE": "EMERGING_THEME",
+   "HORIZON": "NAO SEI — nenhuma ancora de tempo propria; a septoriose acompanha o ciclo do cereal mas nao ha janela especifica declarada para este tema",
+   "WHAT_WE_KNOW": [
+    "e o par com maior atividade cientifica recente dos tres medidos",
+    "e o par com o campo mais quieto: 2026 foi o segundo ano mais fraco de 15",
+    "as duas identidades cientificas confirmadas estao fora da Espanha"
+   ],
+   "WHAT_WE_DONT_KNOW": [
+    "se a atividade cientifica alta e espanhola: o par nao foi filtrado por pais",
+    "se a campanha fraca de 2026 se repete",
+    "o estado fora da Andaluzia — nao ha fonte de aviso de cereal para Castilla y Leon"
+   ],
+   "WHAT_WOULD_PROMOTE_TO_RADAR": "uma campanha com pressao medida acima da serie, em regiao com area. Hoje o dado diz o oposto.",
+   "POR_QUE_ESTE_TEMA_EXISTE_NA_LISTA": "porque ele e o contra-exemplo util: ciencia ativa com campo quieto. Um motor que promovesse tema por volume de papers teria promovido este, e teria errado.",
+   "POTENTIAL_ADAMA_AREAS": [
+    "SCIENCE — acompanhar, sem material tecnico",
+    "nenhuma acao de mercado"
+   ],
+   "EVIDENCE_PATHS": [
+    "data/samples/ES-CIENCIA-PARES-AUTORES.json",
+    "data/samples/ES-T3-002-raif-cereales-invierno.json",
+    "data/samples/ES-CIENCIA-PARA-VOZ.json"
+   ]
+  },
+  {
+   "THEME_ID": "FT-ES-004",
+   "COUNTRY": "ES",
+   "CROP": "OLIVO",
+   "ISSUE": "Xylella fastidiosa",
+   "REGION": "NAO SEI",
+   "THEME_TYPE": "LARGE_SCIENCE_CLUSTER_WITHOUT_CASE",
+   "FIRST_OBSERVED_AT": "NAO SEI",
+   "LAST_OBSERVED_AT": "2026-08-29 (captura do quadro de pesquisadores)",
+   "CAPTURED_AT": "2026-08-30",
+   "SCIENCE_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "76 dos 152 pesquisadores do quadro espanhol de olivar carregam XYLELLA entre seus issues — o segundo maior agrupamento, atras de Verticillium (80)."
+   },
+   "RESEARCHER_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "os 152 tem ORCID e >=5 trabalhos no corpus. Nenhum foi desambiguado individualmente para este tema."
+   },
+   "TECHNICAL_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao mapeado."
+   },
+   "FIELD_SIGNAL": {
+    "ESTADO": "AUSENTE_MEDIDO",
+    "EVIDENCIA": "o RAIF do olivar mede repilo, verticilose, mosca, tuberculose e outros. Xylella nao esta entre os campos medidos do dataset consultado."
+   },
+   "REGULATORY_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao consultei o par OLIVO x XYLELLA no ROPF nesta rodada."
+   },
+   "PORTFOLIO_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao medido."
+   },
+   "PUBLIC_VOICE_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao medido para este tema."
+   },
+   "CURRENT_FIELD_CONFIRMATION": "NAO.",
+   "EVIDENCE_COUNT": 2,
+   "INDEPENDENT_LAYERS": 1,
+   "CAMADAS": [
+    "ciencia"
+   ],
+   "MOMENTUM_STATE": "NOT_KNOWN",
+   "MATURITY_STATE": "SCIENTIFIC_SIGNAL",
+   "HORIZON": "NAO SEI",
+   "WHAT_WE_KNOW": [
+    "e o segundo maior agrupamento de issue do quadro cientifico espanhol de olivar",
+    "nao ha nenhuma outra camada medida"
+   ],
+   "WHAT_WE_DONT_KNOW": [
+    "tudo o resto. Regulatorio, portfolio, campo e regiao nao foram consultados para este tema."
+   ],
+   "WHAT_WOULD_PROMOTE_TO_RADAR": "primeiro subir para EMERGING_THEME, o que exige UMA segunda camada — a consulta do par no ROPF e barata e nao foi feita.",
+   "POR_QUE_FICA_NO_ESTADO_1": "volume cientifico alto e UMA camada. A regua nao deixa volume comprar estado.",
+   "POTENTIAL_ADAMA_AREAS": [
+    "NAO SEI — sem camada regulatoria nem de portfolio, nao ha o que propor"
+   ],
+   "EVIDENCE_PATHS": [
+    "data/samples/ES-RESEARCHERS-OLIVE.json"
+   ]
+  },
+  {
+   "THEME_ID": "FT-ES-005",
+   "COUNTRY": "ES",
+   "CROP": "CEBADA",
+   "ISSUE": "Ramularia collo-cygni",
+   "REGION": "NAO SEI",
+   "THEME_TYPE": "OBSERVED_TOPIC",
+   "FIRST_OBSERVED_AT": "NAO SEI",
+   "LAST_OBSERVED_AT": "2026-08-30 (leitura do ROPF)",
+   "CAPTURED_AT": "2026-08-30",
+   "SCIENCE_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao consultado. O orcamento do OpenAlex esta zerado."
+   },
+   "RESEARCHER_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao consultado."
+   },
+   "TECHNICAL_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao mapeado."
+   },
+   "FIELD_SIGNAL": {
+    "ESTADO": "AUSENTE_MEDIDO",
+    "EVIDENCIA": "o RAIF de cereais de inverno mede oidio, roya, septoriose, helmintosporiose e doenca de colo-raiz. Ramularia nao esta entre os campos medidos."
+   },
+   "REGULATORY_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "RAMULARIA O SALPICADO NECROTICO, RAMULARIA COLLO-CYGNI: 15 registros no pais, 3 da ADAMA, so em cebada."
+   },
+   "PORTFOLIO_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "3 registros ADAMA vigentes — a mesma contagem de oidio e de roya amarilla, sobre um universo bem menor (15 contra 63 e 42)."
+   },
+   "PUBLIC_VOICE_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao medido."
+   },
+   "CURRENT_FIELD_CONFIRMATION": "NAO.",
+   "EVIDENCE_COUNT": 1,
+   "INDEPENDENT_LAYERS": 1,
+   "CAMADAS": [
+    "regulatorio/portfolio"
+   ],
+   "MOMENTUM_STATE": "NOT_KNOWN",
+   "MATURITY_STATE": "OBSERVED_TOPIC",
+   "HORIZON": "NAO SEI",
+   "WHAT_WE_KNOW": [
+    "a cebada e a maior cultura da Espanha em area e o registro tem uma entrada propria para Ramularia, com 15 produtos"
+   ],
+   "WHAT_WE_DONT_KNOW": [
+    "se ha ciencia espanhola sobre o tema",
+    "se ha pressao de campo — a fonte de campo consultada nao mede este alvo",
+    "se e um problema crescente ou estavel"
+   ],
+   "WHAT_WOULD_PROMOTE_TO_RADAR": "sair do estado 0 exige uma publicacao com DOI ligada a Espanha. Nao foi procurada porque o orcamento cientifico esta zerado.",
+   "POR_QUE_ESTE_TEMA_ESTA_AQUI": "para mostrar o fundo da regua funcionando. Ha um sinal real — entrada propria no registro e 3 produtos ADAMA — e ele nao compra nada acima do estado 0 sozinho.",
+   "POTENTIAL_ADAMA_AREAS": [
+    "NAO SEI"
+   ],
+   "EVIDENCE_PATHS": [
+    "data/samples/ES-CEREAIS-PARES-ROPF.json"
+   ]
+  }
+ ]
+}
