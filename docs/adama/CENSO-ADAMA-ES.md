@@ -162,6 +162,26 @@ atenda; ou pedir acesso à ADAMA. Nenhuma exige mudar o coletor.
 
 ---
 
+## Verificação manual (seção 26)
+
+Cinco produtos conferidos **um a um contra a ficha viva do MAPA**, não contra o artefato
+do repo — registro e formulado batem em 5/5:
+
+| produto | papel | registro | formulado |
+|---|---|---|---|
+| ACCRESTO | herbicida cereal | 19549 | CLODINAFOP-PROPARGIL 24% [EC] |
+| AVASTEL | fungicida | ES-01818 | FLUXAPYROXAD 7,5% + PROTIOCONAZOL 15% [EC] |
+| KENDO | inseticida | 24942 | LAMBDA CIHALOTRIN 10% [CS] |
+| NICOPERTS | herbicida, milho | 24887 | NICOSULFURON 4% [SC] |
+| COSAYR | inseticida, milho | ES-01942 | CLORANTRANILIPROL 20% [SC] |
+
+A seção 26 pede também um *crop enhancement*. O ROPF vigente da ADAMA não expõe essa
+categoria — ela é uma categoria do **catálogo comercial** (`Mejora de Cultivos`, 1 entrada
+segundo o relato externo), não do registro. Verificá-la exige o site. Registrado como
+pendência, não como ausência.
+
+---
+
 ## Das 21 perguntas da seção 29
 
 Respondidas com evidência: **5, 14, 18 (metade), 19 e 21** — pelo lado regulatório.
