@@ -442,6 +442,64 @@ Regras do diário:
 
 ---
 
+### D-025 — Conta de empresa agrícola não é creator-pessoa
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO — **corrige uma contagem publicada pela própria missão**
+- **Contexto:** `@biocampojoyma` foi corretamente medido como conta de empresa e mesmo
+  assim entrou numa frase de entrega como *"três produtores reais"*. O dado estava certo;
+  a soma, errada.
+- **Decisão:** campo `ACTIVATION_ENTITY_TYPE` de lista fechada, e **duas listas de saída**:
+  `PERSON_CREATORS_ACTIVATION_READY` e `FARM_BUSINESS_PARTNERS_READY`.
+- **Motivo:** uma exploração com canal forte é um parceiro comercial excelente — e isso é
+  **outra relação**, com outro contrato, outro interlocutor e outro preço. Contá-la como
+  creator-pessoa infla o número que o Marketing usa para planear elenco.
+- **Consequência:** 7 pessoas + 2 empresas, nunca somadas. Quatro testes de regressão.
+- **Quem decidiu:** correção pedida pelo dono, aplicada na MISSÃO 14 rodada 4.
+
+---
+
+### D-026 — Cultura casa por palavra inteira, nunca por substring
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO — **corrige uma medição errada da própria missão**
+- **Contexto:** a primeira prova de cultura por conteúdo devolveu **8 `PROVED`**. Lendo o
+  resultado com desconfiança, **seis eram falsos**: `riz` casava dentro de *nariz* e
+  *matriz*; `mais` (milho em italiano) casava com o *mais* **português** de um perfil de
+  Évora, que saiu "MAIZE PROVED".
+- **Decisão:** casamento por palavra inteira, com acentos normalizados, e **remoção** dos
+  termos curtos ambíguos.
+- **Motivo:** era literalmente o erro que o meu próprio código **citava** do
+  `speaker_universo` — consulta frouxa traz outra população com cara de sucesso. Um termo
+  que precisa de contexto para não errar não é termo, é palpite; por isso foi removido em
+  vez de "melhorado".
+- **Consequência:** 8 → 2 `PROVED`. E uma segunda lei junto: para audiência de consumidor,
+  mencionar a cultura prova **assunto**, não lavoura (`CROP_TOPIC_ONLY`).
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 4.
+
+---
+
+### D-027 — Isolamento de namespace é inteiro ou não é
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a rodada 3 moveu o **manifesto** da missão para o seu namespace mas deixou
+  o **bruto** em `data/samples/raw-paid/`, partilhado. A suíte quebrou — e quebrou com
+  razão: os testes da casa exigem que todo arquivo daquele diretório resolva pelo
+  manifesto global.
+- **Decisão:** `coletor.RAW_DIR` também aponta para o namespace da missão. A única execução
+  anterior ao isolamento foi migrada do manifesto global para o da missão, com o caminho
+  corrigido.
+- **Motivo:** um bruto sem manifesto que o alcance é um **arquivo órfão**. Ou os dois são
+  globais, ou os dois são da missão — meio isolamento produz exatamente a inconsistência
+  que o manifesto existe para impedir.
+- **Consequência:** medido por **diferença de conjuntos**, não por impressão: as falhas que
+  eu introduzira eram exatamente duas, e saíram. O baseline subiu de 9 para 11+1 por
+  commits da missão Early Signal, ativa no mesmo branch — nenhuma referencia arquivo meu.
+- **Quem decidiu:** decisão técnica da MISSÃO 14 rodada 4.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
