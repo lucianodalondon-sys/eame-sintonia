@@ -233,5 +233,97 @@ class TestMunicipioNuncaPorAproximacao(unittest.TestCase):
         self.assertIn('Nenhum fuzzy-match', d['CASAMENTO']['METODO'])
 
 
+class TestFreezeEspanhaV1(unittest.TestCase):
+    """O freeze so vale se ele reprovar quando um artefato muda."""
+
+    def test_o_freeze_declara_head_e_hashes(self):
+        d = carrega('SPAIN-DEMO-CONTENT-V1.json')
+        f = d['FREEZE']
+        self.assertRegex(f['HEAD_QUE_SUSTENTA'], r'^[0-9a-f]{40}$')
+        self.assertGreaterEqual(len(f['ARTEFATOS_CANONICOS']), 10)
+        for nome, meta in f['ARTEFATOS_CANONICOS'].items():
+            self.assertRegex(meta['sha256'], r'^[0-9a-f]{64}$', nome)
+            self.assertGreater(meta['bytes'], 0, nome)
+
+    def test_todo_artefato_canonico_existe_e_bate(self):
+        import hashlib
+        d = carrega('SPAIN-DEMO-CONTENT-V1.json')
+        for nome, meta in d['FREEZE']['ARTEFATOS_CANONICOS'].items():
+            p = os.path.join(SAMPLES, nome)
+            self.assertTrue(os.path.exists(p), f'{nome} sumiu do freeze')
+            with open(p, 'rb') as f:
+                atual = hashlib.sha256(f.read()).hexdigest()
+            self.assertEqual(meta['sha256'], atual,
+                             f'{nome} mudou depois do freeze — atualize o freeze '
+                             'de proposito ou reverta a mudanca')
+
+
+class TestRegressaoLeituraFalhaNaoEhZero(unittest.TestCase):
+    """READ_FAILURE != ZERO. Ja aconteceu duas vezes: pdftotext ausente
+    devolveu 0 caracteres em 7 fichas, e clear() no iterparse apagou
+    15 campanhas de septoriose."""
+
+    def test_o_teste_decisivo_do_milho_declara_os_chars_lidos(self):
+        c = carrega('ES-CASE-002-MAIZ-AMARANTHUS.json')
+        for r in c['O_TESTE_DECISIVO']['RESULTADO']:
+            self.assertGreater(r['CHARS_LIDOS'], 1000,
+                               f"{r['PRODUTO']}: zero de Amaranthus so vale "
+                               'com texto efetivamente lido')
+
+    def test_o_zero_do_milho_tem_controle_positivo(self):
+        c = carrega('ES-CASE-002-MAIZ-AMARANTHUS.json')
+        self.assertIn('CONTROLE_QUE_TORNA_O_ZERO_LEGIVEL', c['O_TESTE_DECISIVO'])
+
+    def test_a_serie_do_cereal_nao_pode_ser_vazia(self):
+        d = carrega('ES-T3-002-raif-cereales-invierno.json')
+        serie = d['SERIE_SEPTORIA']
+        com_leitura = [k for k, v in serie.items() if v.get('n_sup')]
+        self.assertGreaterEqual(len(com_leitura), 10,
+                                'serie vazia = bug de leitura, nao ausencia de dado')
+
+
+class TestRegistroNaoEhDisponibilidadeComercial(unittest.TestCase):
+    """REGISTRATION != COMMERCIAL_AVAILABILITY."""
+
+    def test_commercial_clock_e_nao_sei_nos_tres(self):
+        pack = carrega('SPAIN-HERO-CASES-V1.json')
+        for c in pack['CASES']:
+            self.assertIn('NAO SEI', c['COMMERCIAL_CLOCK'], c['CASE_ID'])
+
+    def test_commercial_nunca_recebe_instrucao_de_venda(self):
+        v2 = carrega('ES-ACTION-MAP-V2.json')
+        for k, v in v2.items():
+            if not k.startswith('ES-CASE'):
+                continue
+            self.assertEqual('WAIT_FOR_INTERNAL_DATA',
+                             v['COMMERCIAL']['ACTION_TYPE'], k)
+
+    def test_a_demo_lista_o_que_nao_pode_afirmar(self):
+        d = carrega('SPAIN-DEMO-CONTENT-V1.json')
+        proibido = ' '.join(d['O_QUE_A_DEMO_NAO_PODE_AFIRMAR']).lower()
+        for termo in ('disponibilidade comercial', 'eficacia', 'economico'):
+            self.assertIn(termo, proibido)
+
+
+class TestGenericoNaoEhEspecieExplicita(unittest.TestCase):
+    """GENERIC_TARGET != EXPLICIT_SPECIES_TARGET."""
+
+    def test_o_milho_classifica_a_resposta(self):
+        c = carrega('ES-CASE-002-MAIZ-AMARANTHUS.json')
+        r = c['REGULATORY_RESPONSE']
+        self.assertIn('EXPLICIT_SPECIES_RESPONSE = NONE',
+                      json.dumps(carrega('SPAIN-HERO-CASES-V1.json'), ensure_ascii=False))
+        self.assertIn('O_QUE_ISSO_NAO_E', c['O_TESTE_DECISIVO'])
+        nao_e = c['O_TESTE_DECISIVO']['O_QUE_ISSO_NAO_E']
+        self.assertIn('eficacia', nao_e.lower())
+
+    def test_o_cereal_separa_explicito_de_generico(self):
+        c = carrega('ES-CASE-003-CEREAL-GRAMINEAS.json')
+        pack = carrega('SPAIN-HERO-CASES-V1.json')
+        cereal = [x for x in pack['CASES'] if x['CASE_ID'] == 'ES-CASE-003'][0]
+        self.assertIn('LOLIUM_EXPLICIT_RESPONSE', cereal['ADAMA_REGULATORY_RESPONSE'])
+        self.assertIn('GENERIC_GRASS_RESPONSE', cereal['ADAMA_REGULATORY_RESPONSE'])
+
+
 if __name__ == '__main__':
     unittest.main()

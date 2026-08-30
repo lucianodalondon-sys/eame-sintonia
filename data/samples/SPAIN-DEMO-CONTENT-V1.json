@@ -135,5 +135,97 @@
   },
   "NEXT_PHASE": "DESIGN / PORTAL PROTOTYPE",
   "CONSTRUIDO_NESTA_RODADA": "NADA. Portal e UI seguem proibidos e nenhuma interface foi criada."
+ },
+ "FREEZE": {
+  "FREEZE_AT": "2026-08-30",
+  "HEAD_QUE_SUSTENTA": "afcadd8f2628899df81c25b3e928d6ce92d3cbd4",
+  "HEAD_CURTO": "afcadd8",
+  "PERGUNTA_QUE_O_FREEZE_RESPONDE": "com qual conjunto exato de evidencias esta demo foi construida?",
+  "ARTEFATOS_CANONICOS": {
+   "SPAIN-HERO-CASES-V1.json": {
+    "sha256": "de9b387c4bd0dcecdca5aa8590331aa31c0fca6f60f47392bb83dee9063434ba",
+    "bytes": 28617,
+    "ultimo_commit": "41f287c",
+    "data_do_commit": "2026-08-30T04:00:32+00:00"
+   },
+   "ES-CASE-001-OLIVO-REPILO.json": {
+    "sha256": "2035c4b609db13dbbc945fed395c09c26edf1aa5842f9ff48f9db2de5452996b",
+    "bytes": 19699,
+    "ultimo_commit": "41f287c",
+    "data_do_commit": "2026-08-30T04:00:32+00:00"
+   },
+   "ES-CASE-003-CEREAL-GRAMINEAS.json": {
+    "sha256": "2fe2e8b2d31736a932423894d91c3a16e0d7ba78fd005460661fb8593e8e367b",
+    "bytes": 22055,
+    "ultimo_commit": "41f287c",
+    "data_do_commit": "2026-08-30T04:00:32+00:00"
+   },
+   "ES-CASE-002-MAIZ-AMARANTHUS.json": {
+    "sha256": "bc0fe53f1521bc4a628ec48c5f4007e23cdc152a4e725240e549b6308adbf315",
+    "bytes": 13437,
+    "ultimo_commit": "e9ecc77",
+    "data_do_commit": "2026-08-30T03:37:39+00:00"
+   },
+   "ES-ACTION-MAP-V2.json": {
+    "sha256": "3ecfdc4f829418013699125e7a7e1c5760b52d290f31e0bbb21b793245dd920a",
+    "bytes": 12914,
+    "ultimo_commit": "afcadd8",
+    "data_do_commit": "2026-08-30T04:04:15+00:00"
+   },
+   "ASK-SINTONIA-ACCEPTANCE-ES.json": {
+    "sha256": "5a906485d63dc08695f6526b37a683d9781dc8c1ad912ea92204f1d38f8dd582",
+    "bytes": 13066,
+    "ultimo_commit": "afcadd8",
+    "data_do_commit": "2026-08-30T04:04:15+00:00"
+   },
+   "ES-T2-003-crosswalk-municipio-aragon.json": {
+    "sha256": "b47c31f3b86ec1dcca0837553a36e1c224a88d4930bfa46f5fa4295a1b3dc8c1",
+    "bytes": 8149,
+    "ultimo_commit": "173dc7a",
+    "data_do_commit": "2026-08-30T03:31:31+00:00"
+   },
+   "ES-CIENCIA-PARES-AUTORES.json": {
+    "sha256": "3701e2930c3aa726be56b1a385af3c2931de20bf9340a567ed18b44fb68255e3",
+    "bytes": 26544,
+    "ultimo_commit": "437ef4e",
+    "data_do_commit": "2026-08-30T00:49:15+00:00"
+   },
+   "ES-CIENCIA-PARA-VOZ.json": {
+    "sha256": "5a781e75c39d70c639d1eba9dcde141a1bcb57372b74f37bb225051586462793",
+    "bytes": 19881,
+    "ultimo_commit": "888e4ea",
+    "data_do_commit": "2026-08-30T00:58:56+00:00"
+   },
+   "ES-T6-001-adv-catalunya.json": {
+    "sha256": "e58c987a380cbfa08b7656e58e9f866896f4eb7d7d3ea423a1baa4db1e8c8e81",
+    "bytes": 13753,
+    "ultimo_commit": "00b9ddf",
+    "data_do_commit": "2026-08-30T01:06:56+00:00"
+   },
+   "ES-T2-002-pac-maiz-aragon.json": {
+    "sha256": "376cc51cd52890c622cae06e66416a5ad91857f8087b431dcdf63cb5d4f27b0e",
+    "bytes": 5070,
+    "ultimo_commit": "6733640",
+    "data_do_commit": "2026-08-30T01:13:41+00:00"
+   },
+   "ES-T3-002-raif-cereales-invierno.json": {
+    "sha256": "64726449f6e89b92a12a01a38399ef36caae63bae5529e486b1c814e8ec2e0c1",
+    "bytes": 8940,
+    "ultimo_commit": "0cfd078",
+    "data_do_commit": "2026-08-30T01:04:58+00:00"
+   },
+   "ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json": {
+    "sha256": "8ed48c833c53aa6960fc5f4a95afb9bac9f12f7b85a91d0b69d7cb48eb6afe41",
+    "bytes": 12091,
+    "ultimo_commit": "495c979",
+    "data_do_commit": "2026-08-30T00:55:29+00:00"
+   }
+  },
+  "COMO_REPRODUZIR": "git checkout afcadd8 && python3 -m unittest discover -s tests && python3 scripts/freeze_es.py --verificar",
+  "REGRA": "os hashes sao do conteudo NO MOMENTO do freeze. Se um artefato mudar, o hash muda e o script de verificacao reprova — o freeze nao e um adjetivo.",
+  "DONOS_NAO_DUPLICADOS": "este pacote NAO copia numero de ninguem. Cada bloco aponta para o arquivo dono via REF, e os hashes servem para provar que o dono nao mudou depois.",
+  "FORA_DO_FREEZE": {
+   "ES-REVIEW-HANDOFFS.json": "e artefato de REVISAO das branches paralelas, nao conteudo da demo. Ele muda a cada checkpoint das paralelas e nao deve travar o freeze da Espanha."
+  }
  }
 }
