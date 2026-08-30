@@ -1,0 +1,929 @@
+{
+ "SOURCE_ID": "ADAMA-ES-PRODUCT-INTELLIGENCE",
+ "source": "catalogo publico ADAMA Espana + contraprova MAPA/ROPF",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-30",
+ "CAPTURE_DATE": "2026-08-30",
+ "ESTADO_DO_REGISTRO": "CURRENT",
+ "COUNTRY": "ES",
+ "HEAD": "73f0cb77ace19516ead083fad160dcbdb41f4cb4",
+ "GERADO_POR": "scripts/adama_intelligence.py --build",
+ "ACESSO": {
+  "ADAMA_ES_COLLECTION_READY": "NO",
+  "ALCANCE": "CLIENTE_NEGADO_NO_HOST_INTEIRO",
+  "ROTAS": [
+   {
+    "ROTA": "RAIZ_ES",
+    "URL": "https://www.adama.com/spain/es/",
+    "PARA_QUE_SERVE": "existe o site espanhol para este cliente",
+    "HTTP_STATUS": "403",
+    "ESTADO": "EDGE_BOT_DENIED",
+    "EVIDENCIA": [
+     "Akamai Bot Manager (ak_p)",
+     "corpo \"Access Denied\"",
+     "Akamai \"Reference #\""
+    ]
+   },
+   {
+    "ROTA": "CATALOGO",
+    "URL": "https://www.adama.com/spain/es/products/crop-protection/downloads",
+    "PARA_QUE_SERVE": "a lista nominal de produtos — o DENOMINADOR do censo (secao 3)",
+    "HTTP_STATUS": "403",
+    "ESTADO": "EDGE_BOT_DENIED",
+    "EVIDENCIA": [
+     "Akamai Bot Manager (ak_p)",
+     "corpo \"Access Denied\"",
+     "Akamai \"Reference #\""
+    ]
+   },
+   {
+    "ROTA": "PRODUTOS",
+    "URL": "https://www.adama.com/spain/es/products",
+    "PARA_QUE_SERVE": "rota alternativa de enumeracao",
+    "HTTP_STATUS": "403",
+    "ESTADO": "EDGE_BOT_DENIED",
+    "EVIDENCIA": [
+     "Akamai Bot Manager (ak_p)",
+     "corpo \"Access Denied\"",
+     "Akamai \"Reference #\""
+    ]
+   },
+   {
+    "ROTA": "ROBOTS",
+    "URL": "https://www.adama.com/robots.txt",
+    "PARA_QUE_SERVE": "controle: robots.txt e servido a qualquer cliente por convencao. Negar robots.txt e negar o CLIENTE, nao a rota",
+    "HTTP_STATUS": "403",
+    "ESTADO": "EDGE_BOT_DENIED",
+    "EVIDENCIA": [
+     "Akamai Bot Manager (ak_p)",
+     "corpo \"Access Denied\"",
+     "Akamai \"Reference #\""
+    ]
+   },
+   {
+    "ROTA": "SITEMAP",
+    "URL": "https://www.adama.com/sitemap.xml",
+    "PARA_QUE_SERVE": "rota de enumeracao estruturada, se publicada",
+    "HTTP_STATUS": "403",
+    "ESTADO": "EDGE_BOT_DENIED",
+    "EVIDENCIA": [
+     "Akamai Bot Manager (ak_p)",
+     "corpo \"Access Denied\"",
+     "Akamai \"Reference #\""
+    ]
+   }
+  ],
+  "MAPA_ROPF_READY": "YES",
+  "LEI": "EDGE_BOT_DENIED descreve o IP DESTA sessao perante a borda da ADAMA. NAO descreve o catalogo. SOURCE FAILURE != ZERO: enquanto ADAMA_ES_COLLECTION_READY = NO, CURRENT_CATALOG_TOTAL = NAO SEI, nunca 0 e nunca o numero de um snapshot antigo."
+ },
+ "CENSO": {
+  "CATALOG_TIMESTAMP": "2026-08-30",
+  "CURRENT_CATALOG_TOTAL": "NOT_COLLECTED",
+  "CURRENT_CATALOG_ENUMERATED": "NOT_COLLECTED",
+  "CURRENT_CATALOG_NAMES": "NOT_COLLECTED",
+  "ENUMERATION_COMPLETE": "NO",
+  "PORQUE": "o portao devolveu CLIENTE_NEGADO_NO_HOST_INTEIRO; enumerar sem acesso seria inventar denominador",
+  "SNAPSHOTS_RECUSADOS": {
+   "RELATO_EXTERNO_55": "nao usado — relato de terceiro nao e observacao desta coleta",
+   "SNAPSHOT_ANTIGO_58": "nao usado — pagina cacheada nao fecha denominador atual",
+   "REGRA": "so entra no censo o que ESTA coleta observou ao vivo (secao 3)"
+  }
+ },
+ "PRODUCTS": [],
+ "DOCUMENTS": [],
+ "CROP_RELATIONS": [],
+ "ISSUE_RELATIONS": [],
+ "CROP_ISSUE_RELATIONS": [],
+ "APPLICATION_WINDOWS": [],
+ "ACTIVE_INGREDIENTS": [],
+ "MODES_OF_ACTION": [],
+ "TECHNOLOGIES": [],
+ "CLAIMS": [],
+ "PRODUCT_RELATIONS": [],
+ "RELATED_CONTENT": [],
+ "VIDEOS": [],
+ "REGULATORY_CROSSWALK": {
+  "ROPF_ACTIVE_REGISTRATIONS": 96,
+  "PUBLIC_CATALOG_ENTRIES": "NOT_COLLECTED",
+  "MATCHED_EXACT": 0,
+  "MATCHED_WITH_EVIDENCE": 0,
+  "AMBIGUOUS": 0,
+  "ADAMA_SITE_ONLY": 0,
+  "ROPF_ONLY": "NOT_TESTABLE_WITHOUT_CATALOG",
+  "NOT_TESTABLE_WITHOUT_CATALOG": 96,
+  "PORQUE_NAO_SE_SUBTRAI": "registro nao e produto e catalogo nao e registro — 96 e 55 contam unidades diferentes. Um produto pode ter varios registros; um registro pode nao ter exposicao comercial. A diferenca so vira achado DEPOIS do crosswalk, nunca por subtracao (secao 23).",
+  "LINHAS": [
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "0302445",
+    "REG": "ES-00849",
+    "FORMULADO": "METALDEHIDO 3% [GB] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ACCRESTO",
+    "REG": "19549",
+    "FORMULADO": "CLODINAFOP-PROPARGIL 24% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ADDITION",
+    "REG": "25900",
+    "FORMULADO": "DIFLUFENICAN 4% + PENDIMETALINA 40% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "AGIL",
+    "REG": "19140",
+    "FORMULADO": "PROPAQUIZAFOP 10% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ALISTER",
+    "REG": "24156",
+    "FORMULADO": "DIFLUFENICAN 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ANIBAL",
+    "REG": "23912",
+    "FORMULADO": "CLORTOLURON 40% + DIFLUFENICAN 2,5% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "APHOX",
+    "REG": "11826",
+    "FORMULADO": "PIRIMICARB 50% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ARRODIM",
+    "REG": "ES-01637",
+    "FORMULADO": "CLETODIM 24% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ATHLET",
+    "REG": "ES-00101",
+    "FORMULADO": "BIFENOX 20%  + CLORTOLURON 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "AVASTEL",
+    "REG": "ES-01818",
+    "FORMULADO": "FLUXAPYROXAD 7,5%  + PROTIOCONAZOL 15% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "BABOSIL GRANULADO",
+    "REG": "12812",
+    "FORMULADO": "METALDEHIDO 5% (ADICIONADO DE COLORANTE) [GB] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "BANJO",
+    "REG": "ES-01767",
+    "FORMULADO": "FLUAZINAM 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "BELLALI",
+    "REG": "ES-01955",
+    "FORMULADO": "AZOXISTROBIN 7,5% + FOLPET 37,5%  [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "BENELUS",
+    "REG": "ES-00215",
+    "FORMULADO": "CIPRODINIL 18,75%  + TEBUCONAZOL 12,5% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "BREVIS",
+    "REG": "ES-00073",
+    "FORMULADO": "METAMITRONA 15% [SG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CARAQUIM",
+    "REG": "13174",
+    "FORMULADO": "METALDEHIDO 5% (ADICIONADO DE COLORANTE) [GB] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CARFAL WG",
+    "REG": "23788",
+    "FORMULADO": "FOSETIL-AL 80% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CITROSOL 500",
+    "REG": "19574",
+    "FORMULADO": "IMAZALIL 50% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CITROSOL 7,5 LS",
+    "REG": "19993",
+    "FORMULADO": "IMAZALIL 7,5% (SULFATO) [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CLEAVE",
+    "REG": "ES-01370",
+    "FORMULADO": "FLORASULAM 0,25% + FLUROXIPIR 10% (ESTER METILHEPTIL) [SE] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CLORTOLURON 50 AN",
+    "REG": "15442",
+    "FORMULADO": "CLORTOLURON 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CLORTUREX FLO",
+    "REG": "14578",
+    "FORMULADO": "CLORTOLURON 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "COSAYR",
+    "REG": "ES-01942",
+    "FORMULADO": "CLORANTRANILIPROL 20% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "COTERAN-FW",
+    "REG": "17894",
+    "FORMULADO": "FLUOMETURON 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "COTTONEX 50 SC",
+    "REG": "15454",
+    "FORMULADO": "FLUOMETURON 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "COTTONEX NEOPRO",
+    "REG": "24583",
+    "FORMULADO": "FLUOMETURON 25% + TERBUTILAZINA 20,8% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CUPROXI FLO",
+    "REG": "ES-00979",
+    "FORMULADO": "OXICLORURO DE COBRE 52% (EXPR. EN CU) [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "CUSTODIA",
+    "REG": "25830",
+    "FORMULADO": "AZOXISTROBIN 12% + TEBUCONAZOL 20% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "DAVAI",
+    "REG": "ES-01202",
+    "FORMULADO": "IMAZAMOX 8% [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "DECCOZIL S-7,5",
+    "REG": "15457",
+    "FORMULADO": "IMAZALIL 7,5% (SULFATO) [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "DECCOZIL-50",
+    "REG": "21034",
+    "FORMULADO": "IMAZALIL 50% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "DIFCAN 300 SC",
+    "REG": "24110",
+    "FORMULADO": "DIFLUFENICAN 30% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "DIODE 100",
+    "REG": "ES-01677",
+    "FORMULADO": "MESOTRIONA 10% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "DISCOVERY",
+    "REG": "ES-00711",
+    "FORMULADO": "FLUROXIPIR 20% (meptil ester) [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "DUNKO",
+    "REG": "24895",
+    "FORMULADO": "METAZACLORO 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ELEGANT",
+    "REG": "ES-00198",
+    "FORMULADO": "FLORASULAM 0,625%  + 2,4-D 30% [SE] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ETHOSAT",
+    "REG": "ES-01577",
+    "FORMULADO": "ETOFUMESATO 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "FOLPAN 80 WDG",
+    "REG": "19994",
+    "FORMULADO": "FOLPET 80% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "FOLPAN GOLD",
+    "REG": "24397",
+    "FORMULADO": "FOLPET 40% + METALAXIL-M 4,8% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "FOLPAN GOLD N",
+    "REG": "24761",
+    "FORMULADO": "FOLPET 40% + METALAXIL-M 4,8% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "FOX",
+    "REG": "24158",
+    "FORMULADO": "BIFENOX 48% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "FOX-N",
+    "REG": "24172",
+    "FORMULADO": "BIFENOX 48% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "GENTIS",
+    "REG": "25797",
+    "FORMULADO": "2,4-D ACIDO 36% (2-ETIL-HEXIL ESTER) + FLUROXIPIR 9% (ESTER METILHEPTIL) [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "GOLTIX 700 SC",
+    "REG": "22478",
+    "FORMULADO": "METAMITRONA 70% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "GOLTIX SILVER",
+    "REG": "ES-01603",
+    "FORMULADO": "METAMITRONA 35 % + QUINMERAC 6 % [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "GOLTIX UNO",
+    "REG": "ES-00564",
+    "FORMULADO": "ETOFUMESATO 15% + METAMITRONA 35% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "HERBOLEX",
+    "REG": "ES-00742",
+    "FORMULADO": "GLIFOSATO 36% (SAL ISOPROPILAMINA) [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "HIGHCARD",
+    "REG": "ES-01876",
+    "FORMULADO": "QUIZALOFOP-P-ETIL 10,5% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "KALIF",
+    "REG": "ES-00736",
+    "FORMULADO": "CLOMAZONA 36% [CS] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "KENDO",
+    "REG": "24942",
+    "FORMULADO": "LAMBDA CIHALOTRIN 10% [CS] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "KILSEC",
+    "REG": "23603",
+    "FORMULADO": "PIRIMICARB 50% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "KLARTAN 24 AF",
+    "REG": "18498",
+    "FORMULADO": "TAU-FLUVALINATO 24% [EW] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "KLARTAN EW",
+    "REG": "23858",
+    "FORMULADO": "TAU-FLUVALINATO 24% [EW] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "LAMDEX 2.5 WG",
+    "REG": "24928",
+    "FORMULADO": "LAMBDA CIHALOTRIN 2,5% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "LAMDEX EXTRA",
+    "REG": "17091",
+    "FORMULADO": "LAMBDA CIHALOTRIN 2,5% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "LAMDEX EXTRA N",
+    "REG": "25357",
+    "FORMULADO": "LAMBDA CIHALOTRIN 2,5% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "LEBRON",
+    "REG": "17502",
+    "FORMULADO": "TEFLUTRIN 0,5% [GR] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "LEGACY PLUS",
+    "REG": "24004",
+    "FORMULADO": "CLORTOLURON 40% + DIFLUFENICAN 2,5% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "LEOPARD",
+    "REG": "24082",
+    "FORMULADO": "QUIZALOFOP-P-ETIL 5% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "MAGNATE",
+    "REG": "25641",
+    "FORMULADO": "IMAZALIL 10% [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "MAVRIK",
+    "REG": "16417",
+    "FORMULADO": "TAU-FLUVALINATO 24% [EW] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "MERPAN 80 WDG",
+    "REG": "19995",
+    "FORMULADO": "CAPTAN 80% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "MERPAN 80 WG",
+    "REG": "13188",
+    "FORMULADO": "CAPTAN 80% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "METALIXON",
+    "REG": "12470",
+    "FORMULADO": "METALDEHIDO 5% [GB] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "METENAL",
+    "REG": "12469",
+    "FORMULADO": "METALDEHIDO 5% (ADICIONADO DE COLORANTE) [GB] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "NEPTUNE",
+    "REG": "ES-00211",
+    "FORMULADO": "TEBUCONAZOL 3,6%  + OXICLORURO DE COBRE (exp. como cobre) 36% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "NICOPERTS",
+    "REG": "24887",
+    "FORMULADO": "NICOSULFURON 4% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "NIKITA",
+    "REG": "ES-00474",
+    "FORMULADO": "DICAMBA 31,25%  + MESOTRIONA 15%  + NICOSULFURON 10% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "NIMROD QUATTRO",
+    "REG": "13261",
+    "FORMULADO": "BUPIRIMATO 25% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ORDAGO CAPS",
+    "REG": "ES-00499",
+    "FORMULADO": "PENDIMETALINA 40% [CS] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ORDAGO SC",
+    "REG": "25551",
+    "FORMULADO": "PENDIMETALINA 40% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "ORTHO PHALTAN FLOW",
+    "REG": "18173",
+    "FORMULADO": "FOLPET 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "PILCLYN",
+    "REG": "24786",
+    "FORMULADO": "TEBUCONAZOL 43% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "POSTSCRIPT 80",
+    "REG": "ES-01516",
+    "FORMULADO": "IMAZAMOX 8% [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "POSTSCRIPT 80 XL",
+    "REG": "ES-01721",
+    "FORMULADO": "IMAZAMOX 8% [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "QUIZALOP",
+    "REG": "24081",
+    "FORMULADO": "QUIZALOFOP-P-ETIL 5% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "QUIZALOP 5 EC",
+    "REG": "24598",
+    "FORMULADO": "QUIZALOFOP-P-ETIL 5% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SHOGUN",
+    "REG": "23651",
+    "FORMULADO": "PROPAQUIZAFOP 10% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SONAVIO",
+    "REG": "ES-01867",
+    "FORMULADO": "BIFENOX 48% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SORATEL",
+    "REG": "ES-01665",
+    "FORMULADO": "PROTIOCONAZOL 25% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SORATEL MAX",
+    "REG": "ES-01717",
+    "FORMULADO": "AZOXISTROBIN 20%  + PROTIOCONAZOL 15% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SPYRALE",
+    "REG": "21739",
+    "FORMULADO": "DIFENOCONAZOL 10% + FENPROPIDIN 37,5% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SPYRALE EC",
+    "REG": "25295",
+    "FORMULADO": "DIFENOCONAZOL 10% + FENPROPIDIN 37,5% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "STOCK LS",
+    "REG": "21850",
+    "FORMULADO": "IMAZALIL 7,5% (SULFATO) [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SULCOTREK",
+    "REG": "ES-00142",
+    "FORMULADO": "SULCOTRIONA 17,3%  + TERBUTILAZINA 32,7% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SULTAN N",
+    "REG": "25050",
+    "FORMULADO": "METAZACLORO 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "SUNBRIGHT",
+    "REG": "ES-01366",
+    "FORMULADO": "ACLONIFEN 30%  + IMAZAMOX 2% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "TOLUREX 70 SC",
+    "REG": "25460",
+    "FORMULADO": "CLORTOLURON 70% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "TOPIK 24 EC",
+    "REG": "19548",
+    "FORMULADO": "CLODINAFOP-PROPARGIL 24% [EC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "TORNADO",
+    "REG": "22061",
+    "FORMULADO": "METAMITRONA 70% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "TOUCHDOWN ULTIMO",
+    "REG": "ES-00744",
+    "FORMULADO": "GLIFOSATO 36% (SAL ISOPROPILAMINA) [SL] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "TRIMMER SX",
+    "REG": "ES-00141",
+    "FORMULADO": "TRIBENURON-METIL 50% [WG] P/P",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "TRINITY",
+    "REG": "25667",
+    "FORMULADO": "CLORTOLURON 25%  + DIFLUFENICAN 4%  + PENDIMETALINA 30% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "URBOLE",
+    "REG": "24157",
+    "FORMULADO": "DIFLUFENICAN 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "UROTAN",
+    "REG": "17354",
+    "FORMULADO": "CLORTOLURON 50% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   },
+   {
+    "PRODUCT_ID": null,
+    "DISPLAY_NAME": "VINERGY",
+    "REG": "ES-01463",
+    "FORMULADO": "FOSFONATOS DE POTASIO 67% (equivalente a 45% en ácido fosfónico) + FOLPET 30% [SC] P/V",
+    "ESTADO": "NOT_TESTABLE_WITHOUT_CATALOG",
+    "EVIDENCIA": "o catalogo da ADAMA nao foi lido nesta rodada — sem leitura, ausencia no catalogo NAO e afirmavel"
+   }
+  ]
+ },
+ "AMBIGUOUS_TERMS": [],
+ "MAIZE": {
+  "REGULATORY_MAP": "data/samples/ADAMA-ES-MAIZE-REGULATORY-MAP.json",
+  "MAIZE_PRODUCTS": 22,
+  "MAIZE_CROP_ISSUE_RELATIONS": 20,
+  "MAIZE_PUBLIC_POSITIONING": "NOT_COLLECTED",
+  "MAIZE_TECHNOLOGIES": "NOT_COLLECTED",
+  "PORQUE": "a metade regulatoria foi medida ao vivo; a metade publica depende do site da ADAMA"
+ },
+ "CONTAGENS": {
+  "PRODUCT_PAGES_FOUND": "NOT_COLLECTED",
+  "PRODUCT_PAGES_PARSED": "NOT_COLLECTED",
+  "PRODUCT_PAGES_FAILED": 0,
+  "DOCUMENTS_DISCOVERED": "NOT_COLLECTED",
+  "DOCUMENTS_DOWNLOADED": "NOT_COLLECTED",
+  "FAILED_DOWNLOADS": 0,
+  "DOCUMENTS_BY_TYPE": "NOT_COLLECTED",
+  "TOTAL_BYTES": "NOT_COLLECTED",
+  "CROP_RELATIONS": "NOT_COLLECTED",
+  "ISSUE_RELATIONS": "NOT_COLLECTED",
+  "CROP_ISSUE_RELATIONS": "NOT_COLLECTED",
+  "APPLICATION_WINDOWS": "NOT_COLLECTED",
+  "TECHNICAL_CLAIMS": "NOT_COLLECTED",
+  "COMMERCIAL_CLAIMS": "NOT_COLLECTED",
+  "VIDEOS_FOUND": "NOT_COLLECTED"
+ },
+ "SEMANTICA": {
+  "PUBLIC_ADAMA_CATALOG_PRESENCE": "afirmavel so para o que ESTA coleta viu no catalogo atual",
+  "CURRENT_COMMERCIAL_AVAILABILITY": "NAO_SEI para todo produto (secao 24)",
+  "O_QUE_O_CATALOGO_NAO_PROVA": [
+   "estoque",
+   "venda",
+   "distribuicao",
+   "market share",
+   "receita",
+   "prioridade interna"
+  ],
+  "QUATRO_NIVEIS": "OBSERVED != MANUFACTURER CLAIM != REGULATORY FACT != DERIVED INTERPRETATION — cada linha carrega o seu"
+ },
+ "SAFE_FOR_MAIN_SESSION_TO_CONSUME": "YES",
+ "PORQUE_E_SEGURO": "nenhuma estrutura afirma o que nao foi medido: o que faltou esta como NOT_COLLECTED com o motivo, e nunca como 0 nem como numero de terceiro."
+}

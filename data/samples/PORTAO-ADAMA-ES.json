@@ -1,0 +1,80 @@
+{
+ "SOURCE_ID": "PORTAO-ADAMA-ES",
+ "source": "medicao do acesso a www.adama.com a partir DESTE ambiente de coleta",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a — descreve o ambiente de execucao, nao a Espanha",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-30",
+ "CAPTURE_DATE": "2026-08-30",
+ "ESTADO_DO_REGISTRO": "CURRENT",
+ "HEAD": "73f0cb77ace19516ead083fad160dcbdb41f4cb4",
+ "EGRESS_IP": "160.79.106.137",
+ "MEDIDO_POR": "scripts/adama_es_portao.py --snapshot",
+ "ROTAS": [
+  {
+   "ROTA": "RAIZ_ES",
+   "URL": "https://www.adama.com/spain/es/",
+   "PARA_QUE_SERVE": "existe o site espanhol para este cliente",
+   "HTTP_STATUS": "403",
+   "ESTADO": "EDGE_BOT_DENIED",
+   "EVIDENCIA": [
+    "Akamai Bot Manager (ak_p)",
+    "corpo \"Access Denied\"",
+    "Akamai \"Reference #\""
+   ]
+  },
+  {
+   "ROTA": "CATALOGO",
+   "URL": "https://www.adama.com/spain/es/products/crop-protection/downloads",
+   "PARA_QUE_SERVE": "a lista nominal de produtos — o DENOMINADOR do censo (secao 3)",
+   "HTTP_STATUS": "403",
+   "ESTADO": "EDGE_BOT_DENIED",
+   "EVIDENCIA": [
+    "Akamai Bot Manager (ak_p)",
+    "corpo \"Access Denied\"",
+    "Akamai \"Reference #\""
+   ]
+  },
+  {
+   "ROTA": "PRODUTOS",
+   "URL": "https://www.adama.com/spain/es/products",
+   "PARA_QUE_SERVE": "rota alternativa de enumeracao",
+   "HTTP_STATUS": "403",
+   "ESTADO": "EDGE_BOT_DENIED",
+   "EVIDENCIA": [
+    "Akamai Bot Manager (ak_p)",
+    "corpo \"Access Denied\"",
+    "Akamai \"Reference #\""
+   ]
+  },
+  {
+   "ROTA": "ROBOTS",
+   "URL": "https://www.adama.com/robots.txt",
+   "PARA_QUE_SERVE": "controle: robots.txt e servido a qualquer cliente por convencao. Negar robots.txt e negar o CLIENTE, nao a rota",
+   "HTTP_STATUS": "403",
+   "ESTADO": "EDGE_BOT_DENIED",
+   "EVIDENCIA": [
+    "Akamai Bot Manager (ak_p)",
+    "corpo \"Access Denied\"",
+    "Akamai \"Reference #\""
+   ]
+  },
+  {
+   "ROTA": "SITEMAP",
+   "URL": "https://www.adama.com/sitemap.xml",
+   "PARA_QUE_SERVE": "rota de enumeracao estruturada, se publicada",
+   "HTTP_STATUS": "403",
+   "ESTADO": "EDGE_BOT_DENIED",
+   "EVIDENCIA": [
+    "Akamai Bot Manager (ak_p)",
+    "corpo \"Access Denied\"",
+    "Akamai \"Reference #\""
+   ]
+  }
+ ],
+ "ALCANCE": "CLIENTE_NEGADO_NO_HOST_INTEIRO",
+ "ADAMA_ES_COLLECTION_READY": "NO",
+ "LEI": "EDGE_BOT_DENIED descreve o IP DESTA sessao perante a borda da ADAMA. NAO descreve o catalogo. SOURCE FAILURE != ZERO: enquanto ADAMA_ES_COLLECTION_READY = NO, CURRENT_CATALOG_TOTAL = NAO SEI, nunca 0 e nunca o numero de um snapshot antigo.",
+ "O_QUE_ISTO_NAO_SIGNIFICA": "NAO significa que a ADAMA parou de publicar, nem que o catalogo encolheu, nem que os 55 relatados pela investigacao externa sao falsos. Significa que ESTE IP nao e atendido pela borda da ADAMA.",
+ "QUEM_MANDA": "o estado vivo e derivado por scripts/adama_es_portao.py a cada execucao. Este arquivo e REGISTRO da medicao, nunca a verdade."
+}

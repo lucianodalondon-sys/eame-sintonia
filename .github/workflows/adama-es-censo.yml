@@ -1,0 +1,82 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CENSO ADAMA ES — a mesma rota, de OUTRO IP.
+#
+# Por que existe: a borda da ADAMA (Akamai Bot Manager) nega o IP do ambiente de
+# coleta do agente. O CONNECT completa e a origem responde 403 — inclusive em
+# /robots.txt, o que prova que o recusado e o CLIENTE, nao a rota. Ver o portao:
+#
+#     python3 scripts/adama_es_portao.py
+#
+# O runner do GitHub sai por outro IP. Se a borda o atender, o censo roda inteiro
+# sem mudar uma linha do coletor. Se negar tambem, o job registra a MESMA medicao
+# a partir de um segundo ponto de rede — e duas negacoes de IPs diferentes sao
+# evidencia mais forte de que a rota exige um cliente que nenhum dos dois e.
+#
+# Em nenhum dos casos o job inventa denominador: sem REACHABLE,
+# CURRENT_CATALOG_TOTAL = NOT_COLLECTED.
+#
+# NAO comita PDF. O bruto vai para o Storage privado; o Git leva manifest e hash.
+# ═══════════════════════════════════════════════════════════════════════
+name: adama-es-censo
+
+on:
+  workflow_dispatch:
+    inputs:
+      captura:
+        description: 'data da captura (YYYY-MM-DD) — o job nao inventa a propria data'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  censo:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL:        ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · portao — este runner e atendido pela borda da ADAMA?
+        id: portao
+        run: |
+          set -e
+          python3 scripts/adama_es_portao.py | tee /tmp/portao.txt
+          pronto=$(python3 scripts/adama_es_portao.py --json \
+                   | python3 -c "import json,sys;print(json.load(sys.stdin)['ADAMA_ES_COLLECTION_READY'])")
+          echo "ready=$pronto" >> "$GITHUB_OUTPUT"
+          echo "ADAMA_ES_COLLECTION_READY=$pronto"
+
+      - name: 2 · censo + inteligencia
+        run: |
+          set -e
+          python3 scripts/adama_intelligence.py --build "${{ inputs.captura }}" \
+            > /tmp/ADAMA-ES-PRODUCT-INTELLIGENCE.json
+          python3 scripts/adama_intelligence.py --manifest "${{ inputs.captura }}" \
+            > /tmp/ADAMA-ES-CENSO-MANIFEST.csv
+          python3 - <<'PY'
+          import json
+          d = json.load(open('/tmp/ADAMA-ES-PRODUCT-INTELLIGENCE.json'))
+          c = d['CENSO']
+          print('CURRENT_CATALOG_TOTAL =', c['CURRENT_CATALOG_TOTAL'])
+          print('ENUMERATION_COMPLETE  =', c['ENUMERATION_COMPLETE'])
+          for k, v in d['CONTAGENS'].items():
+              print('%-26s %s' % (k, v))
+          PY
+
+      - name: 3 · testes adversariais sobre o que acabou de ser gerado
+        run: |
+          set -e
+          cp /tmp/ADAMA-ES-PRODUCT-INTELLIGENCE.json data/samples/
+          python3 tests/test_adama_es.py
+
+      - name: 4 · artefatos (JSON e CSV — nenhum PDF)
+        uses: actions/upload-artifact@v4
+        with:
+          name: adama-es-censo-${{ inputs.captura }}
+          path: |
+            /tmp/ADAMA-ES-PRODUCT-INTELLIGENCE.json
+            /tmp/ADAMA-ES-CENSO-MANIFEST.csv
+            /tmp/portao.txt
+          if-no-files-found: error
