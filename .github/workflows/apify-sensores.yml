@@ -1,0 +1,116 @@
+# ═══════════════════════════════════════════════════════════════════════
+# PILOTO DE SENSORES TÉCNICOS — coleta por fases, no runner local.
+#
+# Uma fase por execução, escolhida na mão. Não existe fase "tudo": cada uma
+# grava o resultado no repositório e a seguinte lê o que a anterior deixou.
+# Isso é o que permite PARAR no meio quando a rota estiver ruim, em vez de
+# descobrir o problema depois de gastar tudo.
+#
+#     contratos    GRÁTIS — lê o schema de entrada dos atores. Zero run.
+#     canais       procura canal público das 12 identidades provadas
+#     videos       vídeos dos 6 recortes, por termo técnico
+#     transcricao  transcrição dos vídeos achados
+#     comentarios  comentários dos conteúdos ligados aos 6 recortes
+#
+# `contratos` roda primeiro porque entrada errada é o erro mais caro já medido
+# nesta casa: o piloto italiano queimou 8 execuções e os 8 runs devolveram o
+# mesmo consultor de cibersegurança, porque o Actor descartou em silêncio o
+# campo que não reconhecia.
+#
+# O SEGREDO
+# ---------
+# `APIFY_TOKEN_POOL` entra por secret e vive só no cabeçalho `Authorization`
+# das chamadas. `apify_pool.redigir()` limpa qualquer texto de erro antes do
+# log, porque um traceback de urllib carrega a URL e a URL pode carregar o
+# token. Nada é gravado em arquivo, artefato ou cache.
+# ═══════════════════════════════════════════════════════════════════════
+name: apify-sensores
+
+on:
+  workflow_dispatch:
+    inputs:
+      fase:
+        description: 'qual fase rodar'
+        required: true
+        default: contratos
+        type: choice
+        options:
+          - contratos
+          - canais
+          - videos
+          - transcricao
+          - comentarios
+
+permissions:
+  contents: write          # a fase grava o resultado de volta no repositório
+
+jobs:
+  coleta:
+    runs-on: [self-hosted, eame-sintonia-local]
+    defaults:
+      run:
+        shell: bash
+    env:
+      APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      # `python3` nesta máquina é o atalho da Microsoft Store e falha. O `py` funciona.
+      - name: 0 · interpretador
+        run: |
+          for c in py python3 python; do
+            if $c --version >/dev/null 2>&1; then
+              echo "PY=$c" >> "$GITHUB_ENV"; echo "INTERPRETADOR=$c"; exit 0
+            fi
+          done
+          echo "INTERPRETADOR=NENHUM"; exit 1
+
+      - name: 1 · censo do pool (nunca valor)
+        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+
+      - name: 2 · rodar a fase
+        run: |
+          echo "FASE=${{ inputs.fase }}"
+          PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py "${{ inputs.fase }}"
+
+      - name: 3 · devolver o resultado ao repositório
+        run: |
+          git config user.name  "sintonia-eame-runner"
+          git config user.email "runner@eame-sintonia.local"
+          git add -A data/samples/SENSOR-PILOT data/samples/raw-paid \
+                     data/samples/RUN-MANIFEST.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"
+            exit 0
+          fi
+          echo "--- o que volta ---"; git diff --cached --stat
+          git commit -q -m "piloto de sensores: fase ${{ inputs.fase }} (run ${{ github.run_id }})"
+          # Outra sessao pode ter empurrado enquanto a fase rodava. Rebase antes de
+          # empurrar: perder o commit de outrem por forca bruta seria pior que falhar.
+          git pull --rebase --quiet origin "${{ github.ref_name }}" || true
+          git push origin HEAD:"${{ github.ref_name }}"
+          echo "RESULTADO_COMMITADO=YES"
+
+      - name: 4 · o que a fase gastou
+        if: always()
+        run: |
+          PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
+          import json, os, sys
+          sys.path.insert(0, 'scripts')
+          import proveniencia as pv
+          runs = pv.carregar()
+          meus = {k: v for k, v in runs.items() if v.get('MISSION') == '13-PILOTO-SENSORES-TECNICOS'}
+          custo = sum(v['COST_USD'] for v in meus.values()
+                      if isinstance(v.get('COST_USD'), (int, float)))
+          itens = sum(v['ITEM_COUNT_RAW'] for v in meus.values()
+                      if isinstance(v.get('ITEM_COUNT_RAW'), (int, float)))
+          print('APIFY_RUNS_DA_MISSAO=%d' % len(meus))
+          print('ITEMS_DA_MISSAO=%d' % itens)
+          print('COST_USD_DA_MISSAO=%.6f' % custo)
+          for k, v in sorted(meus.items()):
+              print('  %-52s %-8s itens=%-5s usd=%s'
+                    % (k[:52], v['STATUS'], v['ITEM_COUNT_RAW'], v['COST_USD']))
+          PYEOF

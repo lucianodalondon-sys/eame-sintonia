@@ -1,0 +1,2994 @@
+{
+ "SOURCE_ID": "PILOT-SCOPE-MATRIX-V1",
+ "source": "varredura derivada de data/samples e docs — nenhuma coleta",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "n/a — descreve o acervo, não o mundo",
+ "ORIGINAL_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_MEASUREMENT",
+ "PARA_QUE_SERVE": "ordenar candidatos a recorte do piloto pelo lastro que já existe no acervo, para não repetir NO_OVERLAP_OF_OBSERVATION",
+ "O_QUE_ISTO_MEDE": "MENÇÃO do par no artefato de uma camada",
+ "O_QUE_ISTO_NAO_MEDE": [
+  "não mede a força da camada — MENTION != EVIDENCE",
+  "não mede quantas leituras de campo, quantos papers ou quantos vídeos",
+  "não afirma que o artefato trate do par: afirma que o cita",
+  "não é lugar do fato: o país aqui é o país citado no artefato"
+ ],
+ "VOCABULARY_IS_MULTILINGUAL": "o mesmo problema muda de nome por país",
+ "SHORT_TERM_RULE": "termo com menos de 5 letras só casa como palavra inteira",
+ "FILES_READ": 85,
+ "FILES_SKIPPED": 0,
+ "PAIRS_FOUND": 124,
+ "FROZEN_BY": "aba ÁRBITRA, 2026-08-30, ANTES da coleta",
+ "FROZEN_RULE": "não trocar recorte, não afrouxar limiar, não otimizar o desenho depois de ver o resultado. Recorte sem sobreposição sai OVERLAP_FAILED e fica.",
+ "FRENCH_ASYMMETRY": "a França NÃO tem camada de campo provada nestes testes. Nenhum LEAD_DAYS francês pode ser fabricado contra campo. Os dois recortes franceses servem a cobertura, cross-market, voz técnica, regulatório, área e sobreposição — e qualquer antecedência francesa só é mensurável se existir T1 real em outra camada datada.",
+ "SELECTED_CASES": [
+  {
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "REPILO",
+   "DESIGN_ROLE": "FROZEN_BY_ARBITER",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "FIELD",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 7,
+   "ARTEFACT_COUNT": 27,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-001-OLIVO-REPILO.json",
+     "data/samples/ES-HERO-002-OLIVAR-REPILO-ACAO.json",
+     "data/samples/SPAIN-HERO-CASES-V1.json",
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+     "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md"
+    ],
+    "FIELD": [
+     "data/samples/ES-PRESSAO-x-AREA-OLIVAR.json",
+     "data/samples/ES-T3-001-raif-olivar-repilo-2026.json",
+     "data/samples/ES-T3-001-repilo-serie-historica.json",
+     "data/samples/RAIF-COORTE-REPILO.json"
+    ],
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-CIENCIA-PARES-AUTORES.json",
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-baseline-canais.json",
+     "data/samples/ES-T8-001-transcricoes.json",
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json",
+     "data/samples/ES-VOICE-YOUTUBE.json",
+     "data/samples/ES-VOICE-x-REGUA.json"
+    ]
+   },
+   "WHY_SELECTED": "o par mais lastreado de todo o acervo, e o único com série de campo longa: RAIF, 23 safras, 148.964 leituras. É o único caso em que um confronto temporal posterior tem baseline real. A voz JÁ existe aqui (252 vídeos, 16 vozes técnicas de olivar), então a sobreposição está garantida por construção — exatamente o que faltou na rodada que deu NO_OVERLAP_OF_OBSERVATION.",
+   "MEASURED_IN_THIS_TREE": true,
+   "SPEAKERS_TARGET": "3-5",
+   "SPEAKERS_RESOLVED": 0,
+   "PUBLIC_CHANNEL_STATUS": "NOT_TESTED",
+   "CONTENT_STATUS": "NOT_COLLECTED"
+  },
+  {
+   "CASE_ID": "ES-CEREAL-SEPTORIA",
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "DESIGN_ROLE": "FROZEN_BY_ARBITER",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "FIELD",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 6,
+   "ARTEFACT_COUNT": 15,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json",
+     "data/samples/ES-HERO-003-CEREAIS-SEPTORIA-ACAO.json",
+     "data/samples/SPAIN-HERO-CASES-V1.json",
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "FIELD": [
+     "data/samples/ES-T3-002-raif-cereales-invierno.json"
+    ],
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-CIENCIA-PARES-AUTORES.json",
+     "data/samples/ES-T5-002-corpus-documentos.json",
+     "data/samples/EU-T5-001-openalex-people.json"
+    ]
+   },
+   "WHY_SELECTED": "6 camadas medidas nesta árvore (CASE, FIELD, PORTFOLIO, RADAR, RESEARCHER, SCIENCE) e 14 artefatos — o segundo par espanhol mais lastreado. VOICE NÃO aparece entre as camadas: é o lado cereal do desencontro que a arbitragem nomeou, e é aqui que a voz nova tem de cair para fechá-lo. Tem hero case próprio (ES-HERO-003-CEREAIS-SEPTORIA) e campo em ES-T3-002-raif-cereales-invierno.",
+   "MEASURED_IN_THIS_TREE": true,
+   "SPEAKERS_TARGET": "3-5",
+   "SPEAKERS_RESOLVED": 0,
+   "PUBLIC_CHANNEL_STATUS": "NOT_TESTED",
+   "CONTENT_STATUS": "NOT_COLLECTED"
+  },
+  {
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "FLAVESCENCE",
+   "DESIGN_ROLE": "FROZEN_BY_ARBITER",
+   "EXISTING_LAYERS": [
+    "RADAR"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/ITALY-RADAR-DO-FUTURO-V1.json"
+    ]
+   },
+   "WHY_SELECTED": "o radar italiano registra videira × flavescência como caso CORRENTE (IT-HERO-001), com janela de monitoramento aberta — por isso ele não entrou como tema futuro. Caso aberto é o melhor lugar para testar sensor humano: existe o que confrontar. A rota gratuita achou o recorte mais denso da Itália aqui: 75 obras e 216 autores com afiliação italiana na janela 2022-2026.",
+   "MEASURED_IN_THIS_TREE": true,
+   "SPEAKERS_TARGET": "3-5",
+   "SPEAKERS_RESOLVED": 0,
+   "PUBLIC_CHANNEL_STATUS": "NOT_TESTED",
+   "CONTENT_STATUS": "NOT_COLLECTED"
+  },
+  {
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "COUNTRY": "IT",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FUSARIUM",
+   "DESIGN_ROLE": "FROZEN_BY_ARBITER",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/ITALY-RADAR-DO-FUTURO-V1.json"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   },
+   "WHY_SELECTED": "é o caso IT-CASE-DURUM-FUSARIUM-001, onde a camada de voz humana JÁ foi medida e deu HUMAN_SENSOR_ADDS_NOTHING_IN_THIS_PANEL: 8 alvos, 4 com identidade resolvível, 3 posts em um ano inteiro, 0 sinais do caso. Funciona como controle negativo conhecido — um piloto sem um \"não\" já medido não distingue rota boa de sorte. A perna de campo existe (LaMMA, boletim de 23/04/2026).",
+   "MEASURED_IN_THIS_TREE": true,
+   "SPEAKERS_TARGET": "3-5",
+   "SPEAKERS_RESOLVED": 0,
+   "PUBLIC_CHANNEL_STATUS": "NOT_TESTED",
+   "CONTENT_STATUS": "NOT_COLLECTED"
+  },
+  {
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "DOWNY_MILDEW",
+   "DESIGN_ROLE": "FROZEN_BY_ARBITER",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "COMPETITOR",
+    "PORTFOLIO",
+    "RADAR",
+    "REGULATORY",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 6,
+   "ARTEFACT_COUNT": 7,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "COMPETITOR": [
+     "data/samples/EAME-COMPETITOR-CONTRACT-V1.json"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "REGULATORY": [
+     "data/samples/FR-T4-001/FR-T4-001-adama-crop-target.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json",
+     "data/samples/EU-T5-001-openalex-people.json"
+    ]
+   },
+   "WHY_SELECTED": "o par francês mais lastreado da varredura: 6 camadas. É também o par regulatório número um do país no dicionário canônico — \"Vigne / Mildiou(s)\", 168 usos em X-007 — e tem comunidade científica densa e datável (IFV e INRAE): 100 obras, 278 autores.",
+   "MEASURED_IN_THIS_TREE": true,
+   "SPEAKERS_TARGET": "3-5",
+   "SPEAKERS_RESOLVED": 0,
+   "PUBLIC_CHANNEL_STATUS": "NOT_TESTED",
+   "CONTENT_STATUS": "NOT_COLLECTED"
+  },
+  {
+   "CASE_ID": "FR-CEREAL-SEPTORIA",
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "DESIGN_ROLE": "FROZEN_BY_ARBITER",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 5,
+   "ARTEFACT_COUNT": 6,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json",
+     "data/samples/EU-T5-001-openalex-people.json"
+    ]
+   },
+   "WHY_SELECTED": "espelha ES·CEREAL·SEPTORIA, e o mesmo par nos dois países permite comparação cross-market pela molécula — o eixo que o repositório já provou forte (X-006 cobre 82,1% do uso). A ciência francesa de septoriose é a mais densa que a rota gratuita achou em qualquer país: 147 obras e 326 autores na janela.",
+   "MEASURED_IN_THIS_TREE": true,
+   "SPEAKERS_TARGET": "3-5",
+   "SPEAKERS_RESOLVED": 0,
+   "PUBLIC_CHANNEL_STATUS": "NOT_TESTED",
+   "CONTENT_STATUS": "NOT_COLLECTED"
+  }
+ ],
+ "ROWS": [
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "COMPETITOR",
+    "FIELD",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 8,
+   "ARTEFACT_COUNT": 9,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "COMPETITOR": [
+     "data/samples/EAME-COMPETITOR-CONTRACT-V1.json"
+    ],
+    "FIELD": [
+     "data/samples/ES-T3-001-raif-vid-mildiu-2026.json"
+    ],
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "FIELD",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 7,
+   "ARTEFACT_COUNT": 27,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-001-OLIVO-REPILO.json",
+     "data/samples/ES-HERO-002-OLIVAR-REPILO-ACAO.json",
+     "data/samples/SPAIN-HERO-CASES-V1.json",
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+     "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md"
+    ],
+    "FIELD": [
+     "data/samples/ES-PRESSAO-x-AREA-OLIVAR.json",
+     "data/samples/ES-T3-001-raif-olivar-repilo-2026.json",
+     "data/samples/ES-T3-001-repilo-serie-historica.json",
+     "data/samples/RAIF-COORTE-REPILO.json"
+    ],
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-CIENCIA-PARES-AUTORES.json",
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-baseline-canais.json",
+     "data/samples/ES-T8-001-transcricoes.json",
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json",
+     "data/samples/ES-VOICE-YOUTUBE.json",
+     "data/samples/ES-VOICE-x-REGUA.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "FIELD",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 6,
+   "ARTEFACT_COUNT": 15,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json",
+     "data/samples/ES-HERO-003-CEREAIS-SEPTORIA-ACAO.json",
+     "data/samples/SPAIN-HERO-CASES-V1.json",
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "FIELD": [
+     "data/samples/ES-T3-002-raif-cereales-invierno.json"
+    ],
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-CIENCIA-PARES-AUTORES.json",
+     "data/samples/ES-T5-002-corpus-documentos.json",
+     "data/samples/EU-T5-001-openalex-people.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 6,
+   "ARTEFACT_COUNT": 10,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md"
+    ],
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "FIELD",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 6,
+   "ARTEFACT_COUNT": 10,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json",
+     "data/samples/ES-HERO-003-CEREAIS-SEPTORIA-ACAO.json",
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "FIELD": [
+     "data/samples/ES-T3-002-raif-cereales-invierno.json"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "FIELD",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 6,
+   "ARTEFACT_COUNT": 8,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-HERO-003-CEREAIS-SEPTORIA-ACAO.json"
+    ],
+    "FIELD": [
+     "data/samples/ES-T3-002-raif-cereales-invierno.json"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "FIELD",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 6,
+   "ARTEFACT_COUNT": 7,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-HERO-003-CEREAIS-SEPTORIA-ACAO.json",
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "FIELD": [
+     "data/samples/ES-T3-002-raif-cereales-invierno.json"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "COMPETITOR",
+    "PORTFOLIO",
+    "RADAR",
+    "REGULATORY",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 6,
+   "ARTEFACT_COUNT": 7,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "COMPETITOR": [
+     "data/samples/EAME-COMPETITOR-CONTRACT-V1.json"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "REGULATORY": [
+     "data/samples/FR-T4-001/FR-T4-001-adama-crop-target.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json",
+     "data/samples/EU-T5-001-openalex-people.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 5,
+   "ARTEFACT_COUNT": 13,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-001-OLIVO-REPILO.json",
+     "data/samples/ES-HERO-002-OLIVAR-REPILO-ACAO.json",
+     "data/samples/SPAIN-HERO-CASES-V1.json",
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
+     "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-CIENCIA-PARES-AUTORES.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-VOICE-YOUTUBE.json",
+     "data/samples/ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json",
+     "data/samples/ES-X-VOICE-FIELD.json",
+     "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 5,
+   "ARTEFACT_COUNT": 6,
+   "ARTEFACTS_BY_LAYER": {
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-videos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 5,
+   "ARTEFACT_COUNT": 6,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json",
+     "data/samples/EU-T5-001-openalex-people.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "MAIZE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 5,
+   "ARTEFACT_COUNT": 5,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 11,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-baseline-canais.json",
+     "data/samples/ES-T8-001-comentarios.json",
+     "data/samples/ES-T8-001-transcricoes.json",
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json",
+     "data/samples/ES-VOICE-YOUTUBE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 8,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-baseline-canais.json",
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json",
+     "data/samples/ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 7,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json",
+     "data/samples/SPAIN-HERO-CASES-V1.json",
+     "docs/relatorios/RELATORIO-TRES-HERO-CASES-ES.md"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
+     "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 7,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-baseline-canais.json",
+     "data/samples/ES-T8-001-transcricoes.json",
+     "data/samples/ES-T8-001-videos.json",
+     "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 6,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-transcricoes.json",
+     "data/samples/ES-T8-001-videos.json",
+     "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 6,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-baseline-canais.json",
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "RUST",
+   "EXISTING_LAYERS": [
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 5,
+   "ARTEFACTS_BY_LAYER": {
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "PORTFOLIO",
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 5,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json",
+     "data/samples/EU-T5-001-openalex-people.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-videos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "PORTFOLIO",
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "PORTFOLIO",
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 4,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-videos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "AMARANTHUS",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 9,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-002-MAIZ-AMARANTHUS.json",
+     "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json",
+     "data/samples/ES-CASO-MILHO-AMARANTHUS.json",
+     "data/samples/ES-HERO-001-MILHO-AMARANTHUS-ACAO.json",
+     "data/samples/SPAIN-HERO-CASES-V1.json",
+     "docs/relatorios/RELATORIO-HERO-CASES-V1-ES.md"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json",
+     "data/samples/ES-CIENCIA-PARES-AUTORES.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "AMARANTHUS",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 6,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-002-MAIZ-AMARANTHUS.json",
+     "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json",
+     "data/samples/ES-CASO-MILHO-AMARANTHUS.json",
+     "docs/relatorios/RELATORIO-HERO-CASES-V1-ES.md"
+    ],
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARA-VOZ.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 6,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-transcricoes.json",
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json",
+     "data/samples/ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "FIELD",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "FIELD": [
+     "data/samples/ES-T3-002-raif-cereales-invierno.json"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RADAR",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-001-OLIVO-REPILO.json",
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
+     "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json",
+     "data/samples/EU-T5-001-openalex-people.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "MAIZE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
+     "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/RESEARCHER-OUTLOOK-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-comentarios.json",
+     "data/samples/ES-T8-001-transcricoes.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-transcricoes.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "PORTFOLIO",
+    "RADAR"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "PORTFOLIO",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-comentarios.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "REGULATORY",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "REGULATORY": [
+     "data/samples/FR-T4-001/FR-T4-001-adama-crop-target.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/ITALY-RADAR-DO-FUTURO-V1.json"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "MAIZE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 3,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-comentarios.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 4,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-comentarios.json",
+     "data/samples/ES-VOICE-YOUTUBE.json",
+     "data/samples/ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json",
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RADAR"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "data/samples/ES-CASE-003-CEREAL-GRAMINEAS.json",
+     "data/samples/SPAIN-HERO-CASES-V1.json"
+    ],
+    "RADAR": [
+     "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 3,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-videos.json",
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "AMARANTHUS",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/relatorios/RELATORIO-HERO-CASES-V1-ES.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-CIENCIA-PARES-AUTORES.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "RUST",
+   "EXISTING_LAYERS": [
+    "PORTFOLIO",
+    "RADAR"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "PORTFOLIO": [
+     "data/samples/ADAMA-ES-PRODUCT-INTELLIGENCE.json"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "MAIZE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RADAR"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "MAIZE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "MAIZE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "VOICE": [
+     "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-comentarios.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "PORTFOLIO",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-001-comentarios.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "AMARANTHUS",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/relatorios/RELATORIO-HERO-CASES-V1-ES.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/RESEARCHER-OUTLOOK-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "MAIZE",
+   "ISSUE": "AMARANTHUS",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/relatorios/RELATORIO-HERO-CASES-V1-ES.md"
+    ],
+    "RESEARCHER": [
+     "data/samples/RESEARCHER-OUTLOOK-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "MAIZE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "RADAR"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "MAIZE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "VOICE": [
+     "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EXISTING_LAYERS": [
+    "RADAR",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "RESEARCHER",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "PORTFOLIO",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "PORTFOLIO": [
+     "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "SCIENCE",
+    "VOICE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ],
+    "VOICE": [
+     "data/samples/ES-T8-002-posts.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "SEPTORIA",
+   "EXISTING_LAYERS": [
+    "CASE",
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 2,
+   "ARTEFACT_COUNT": 2,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
+    ],
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "RUST",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "MAIZE",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "VOICE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "VOICE": [
+     "data/samples/ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "ES",
+   "CROP": "VINE",
+   "ISSUE": "RUST",
+   "EXISTING_LAYERS": [
+    "RADAR"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "RUST",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "MAIZE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "VOICE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "VOICE": [
+     "data/samples/ES-T8-001-comentarios.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "OLIVE",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RADAR"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "OLIVE_PESTS",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "CEREAL",
+   "ISSUE": "RUST",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/ES-RESEARCHERS-OLIVE.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "MAIZE",
+   "ISSUE": "VERTICILLIUM",
+   "EXISTING_LAYERS": [
+    "VOICE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "VOICE": [
+     "data/samples/ES-T8-001-comentarios.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "MAIZE",
+   "ISSUE": "XYLELLA",
+   "EXISTING_LAYERS": [
+    "RADAR"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/relatorios/RELATORIO-RADAR-DO-FUTURO.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "AMARANTHUS",
+   "EXISTING_LAYERS": [
+    "CASE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "CASE": [
+     "docs/relatorios/RELATORIO-HERO-CASES-V1-ES.md"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RESEARCHER"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RESEARCHER": [
+     "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "OLIVE",
+   "ISSUE": "HERBICIDE_RESISTANCE",
+   "EXISTING_LAYERS": [
+    "SCIENCE"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "SCIENCE": [
+     "data/samples/ES-T5-002-corpus-documentos.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "FLAVESCENCE",
+   "EXISTING_LAYERS": [
+    "RADAR"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/ITALY-RADAR-DO-FUTURO-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "FUSARIUM",
+   "EXISTING_LAYERS": [
+    "RADAR"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "data/samples/ITALY-RADAR-DO-FUTURO-V1.json"
+    ]
+   }
+  },
+  {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "REPILO",
+   "EXISTING_LAYERS": [
+    "RADAR"
+   ],
+   "LAYER_COUNT": 1,
+   "ARTEFACT_COUNT": 1,
+   "ARTEFACTS_BY_LAYER": {
+    "RADAR": [
+     "docs/adama/RADAR-ADAMA-EAME.md"
+    ]
+   }
+  }
+ ],
+ "captured_at": "2026-08-30",
+ "CAPTURED_AT": "2026-08-30"
+}
