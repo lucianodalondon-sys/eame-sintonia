@@ -512,11 +512,46 @@ videira × doença · molécula · `CROSS_MARKET_READY` = **NO**
 `USER_DECISIONS_REQUIRED` = **nenhuma** para continuar; a única que mudaria o escopo é se
 o portal deve ser desenhado — e a instrução atual é parar antes dele.
 
+### O ACHADO QUE FECHA A RODADA — a camada de campo não cobre onde a cultura está
+
+O `NEXT_SMALLEST_STEP` anterior era medir o campo nas regiões que **realmente** têm as
+culturas. Foi executado, e o resultado é estrutural:
+
+| | região que PUBLICA | fatia da cultura | região que NÃO publica | fatia |
+|---|---|---:|---|---:|
+| **Oliveira** | Vêneto — 28 boletins em 2026 | **0,5 %** | Puglia | **31,2 %** |
+| **Milho** | Friuli-VG — 10 boletins em 2026 | **6,7 %** | Vêneto + Lombardia | **48,2 %** |
+
+**A Puglia diz por quê, no próprio portal:** *"Dal Notiziario Agrometeorologico Regionale
+n. 15 del 11/04/2018, la sezione dedicata alla Fitopatologia **non viene più redatta**
+poiché le competenze sono in fase di trasferimento all'ARIF"*. Oito anos depois, a
+transferência ainda é descrita como em curso. O sinal de mosca-da-azeitona na região que
+tem um terço da oliveira italiana passou para **organizações de produtores** — e os
+boletins expostos em HTML alcançável estão datados de 2024.
+
+**O Vêneto publica zero boletins de milho** sendo a 1ª região de milho do país: seus dois
+boletins de herbáceas de 2026 são trigo (março) e beterraba (junho), enquanto a mesma
+região publica 28 de olivo, 25 de frutícola, 21 de hortícola e 16 de vite.
+
+**O Piemonte fica `NOT_OBTAINED`, não "não existe":** a *bacheca dei bollettini* é
+renderizada por JavaScript e o HTML obtido não traz PDF nem nome de cultura. Depois do que
+aconteceu com o FVG, nenhuma ausência é declarada sem dizer qual rota foi tentada.
+
+> **A consequência para o produto:** um sistema que dependa só de boletim oficial vai
+> enxergar muito bem a cultura errada. Todo sinal de campo italiano tem de ser publicado
+> junto com **a fatia da cultura que aquele sinal representa** — e é por isso que os dois
+> hero cases carregam `SIGNAL_REGION_PCT_NATIONAL` como campo obrigatório.
+
+---
+
 ### NEXT_SMALLEST_STEP
-**Medir a camada de campo de Puglia, Calabria e Sicilia para oliveira, e de Vêneto,
-Lombardia e Piemonte para milho.** São seis páginas de serviço fitossanitário. Hoje os dois
-melhores sinais do país estão em regiões que **não** são onde a cultura vive — e essa é a
-única lacuna que, se fechada, muda a força de dois casos ao mesmo tempo.
+**Renderizar a *bacheca dei bollettini* do Piemonte** — é a única das seis regiões-alvo
+que ficou `NOT_OBTAINED` por razão técnica, e não por ausência medida. O Piemonte é a 3ª
+região de milho (115,7 mil ha, 23,4 %); se publicar boletim de milho, a cobertura do
+`IT-HERO-002` salta de 6,7 % para 30,1 % da área nacional. É uma página.
+
+Depois dela, e só depois: Calabria e Sicilia para oliveira (31,1 % somadas), que decidem
+se o `IT-DEMO-001` pode virar caso de verdade em outra região.
 
 > Os três `NEXT_SMALLEST_STEP` desta branch foram **executados, não recomendados**. O
 > primeiro trocou o caso vencedor de míldio para flavescência; o segundo derrubou um

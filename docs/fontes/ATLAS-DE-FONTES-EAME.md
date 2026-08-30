@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-08-29 — **<!--M:SOURCE_ID_COUNT-->36<!--/M--> fontes registradas** (16 GREEN, 4 YELLOW, 16 NÃO SEI).
+**Estado:** atualizado em 2026-08-30 — **<!--M:SOURCE_ID_COUNT-->37<!--/M--> fontes registradas** (18 GREEN, 4 YELLOW, 15 NÃO SEI).
 **Última atualização:** 2026-08-29
 
 ---
@@ -641,7 +641,7 @@ VERDICT:                      GREEN
 | ID | Fonte | Situação | Motivo medido |
 |---|---|---|---|
 | FR-T1-001 | Agreste — Statistique agricole annuelle (SAA) | **NÃO SEI** | `agreste.agriculture.gouv.fr` falhou por TLS via curl e devolveu **HTTP 503** por outra rota de saída. Indisponibilidade do próprio site, não decisão sobre a fonte. |
-| IT-T1-001 | ISTAT — coltivazioni (SDMX) | **NÃO SEI** | `esploradati.istat.it` não respondeu no tempo limite; `sdmx.istat.it` devolveu 302 sem conteúdo. |
+| IT-T1-001 | ISTAT — coltivazioni (SDMX) | ~~NÃO SEI~~ → **GREEN em 2026-08-30** | alcançada: `esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015_DF_DCSP_COLTIVAZIONI_1,1.0/…?format=csv` responde sem chave. Ver ficha abaixo. |
 | ES-T1-001 | MAPA — Estadística Anual de Superficies y Producciones | **NÃO SEI** | localizados apenas os *esquemas de conceitos* no datos.gob.es, não a série. |
 
 Nenhuma delas é RED: **não foram avaliadas, foram apenas não alcançadas**. Não bloqueiam T1,
@@ -854,6 +854,81 @@ histórica (última atualização em 2023) e o valor operacional está em FR-T3-
 ---
 
 ### T3 · PEST / DISEASE / WEEDS — ITALY e EUROPE
+
+#### IT-T1-001 · ISTAT — Coltivazioni: superfici e produzione
+
+```
+SOURCE_ID:                    IT-T1-001
+SOURCE_OWNER:                 ISTAT
+COUNTRY:                      ITALY
+TERRITORY:                    T1
+ACCESS_METHOD:                SDMX REST, CSV/JSON, sem chave
+                              dataflow IT1,101_1015_DF_DCSP_COLTIVAZIONI_1,1.0
+GEOGRAPHIC_GRANULARITY:       PAÍS · REGIÃO · PROVÍNCIA
+CROPS:                        inclui OLIVEIRA e VIDEIRA — que o Eurostat NÃO dá em NUTS 2
+REAL_EXAMPLE:                 2024: videira 588,8 mil ha (Sicilia 120,2 · Veneto 101,0 ·
+                              Puglia 79,1); oliveira 1.113,7 (Puglia 347,8 · Calabria
+                              184,7 · Sicilia 161,7)
+VERDICT:                      GREEN
+```
+
+**Por que ela importa:** o Eurostat não publica `O1000` nem `W1000` em NUTS 2. Sem o ISTAT,
+as duas maiores culturas permanentes da Itália ficam sem geografia — e sem geografia não há
+caso regional.
+
+**A armadilha, e ela não dá erro.** O ISTAT codifica regiões em **NUTS 2006**; o Eurostat em
+**NUTS 2021**. `ITD3` é Vêneto no primeiro e `ITH3` no segundo. Cruzar pela chave literal
+devolve um resultado **menor e plausível**: somem `ITD*` e `ITE*`, ou seja todo o Nord-Est e
+todo o Centro — Vêneto e Emilia-Romagna, justamente as que mais importam para milho e
+videira. O sintoma foi a soma NUTS 2 do milho dar 261,3 mil ha contra 495,4 nacionais.
+Com o mapeamento: 495,2 (100,0 %). O mapa vive em `scripts/italia_istat.py`.
+
+**Validação cruzada:** milho 495,4 = 495,4 · trigo duro 1.177,4 = 1.177,4 · trigo mole
+520,3 = 520,3 contra o Eurostat. **Idênticos**, porque é o mesmo dado — o Eurostat republica
+o que o ISTAT apura. Videira **não** bate (588,8 × 715,8): definições diferentes, e os dois
+números não se trocam.
+
+#### IT-T3-006 · ERSA Friuli-Venezia Giulia — bollettini colture erbacee
+
+```
+SOURCE_ID:                    IT-T3-006
+SOURCE_OWNER:                 ERSA — Servizio fitosanitario e chimico, FVG
+COUNTRY:                      ITALY · REGION: Friuli-Venezia Giulia
+ACCESS_METHOD:                PDF em caminho previsível, texto extraível
+UPDATE_FREQUENCY:             semanal na safra
+REAL_EXAMPLE:                 "Boll_15_MAIS_120826" — mais em BBCH 65-75, voo de 3ª
+                              geração de piralide, limiar publicado (>3 ovaturas/100
+                              plantas; larvas em 30-40% de 50-100 espigas)
+VERDICT:                      GREEN
+```
+
+**É a única série de boletim de MILHO medida na Itália** — 10 números em 2026, sob difesa
+integrata obbligatoria (art. 19 D.lgs. 150/2012). Foi encontrada só na segunda rodada,
+porque na primeira eu li a página-mãe das *colture erbacee* e não a subpágina
+`bollettini-2026`. `NOT_FOUND ≠ DOES NOT EXIST`, e a diferença era um clique.
+
+#### IT-T3-LOTTA · Decretos regionais de lotta obbligatoria (flavescência dourada)
+
+```
+SOURCE_ID:                    IT-T3-LOTTA-OBBLIGATORIA
+SOURCE_OWNER:                 Regione Lombardia · Regione del Veneto
+TERRITORY:                    T3 (alimenta T4 e T9)
+ACCESS_METHOD:                PDF do ato + bollettini semanais
+REAL_EXAMPLE:                 Lombardia, Comunicato Giunta 25/05/2026 n. 39 (BURL 28/05):
+                              2 tratamentos, 2–14/06 e 17–29/06.
+                              Vêneto, DDR n. 13645 de 14/05/2026: datas NÃO no ato,
+                              delegadas ao boletim semanal (8–19/06 na integrada).
+VERDICT:                      GREEN
+```
+
+**As duas regiões não publicam do mesmo jeito**, e quem tratar "o calendário italiano" como
+uma coisa só vai errar em uma das duas: a Lombardia resolve num documento, o Vêneto exige
+dois — e o segundo muda toda semana.
+
+**A regra de elegibilidade liga a norma ao portfólio:** a Lombardia admite exclusivamente
+produtos cujo rótulo traga como alvo `«cicaline della vite»` ou `«Scaphoideus titanus»`.
+É um critério que se avalia **contra o texto da etichetta**, e por isso `IT-T4-001-ETICHETTA`
+é pré-requisito desta ficha.
 
 #### IT-T3-001 · Bollettini di produzione integrata (Emilia-Romagna e consórcios provinciais)
 
@@ -1309,7 +1384,7 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->36<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
@@ -1324,8 +1399,8 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 8 | 0 | 0 | 6 | 14 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
-| ITALY | 1 | 2 | 0 | 3 | 6 |
-| **Total** | **16** | **4** | **0** | **16** | **36** |
+| ITALY | 3 | 2 | 0 | 2 | 7 |
+| **Total** | **18** | **4** | **0** | **15** | **37** |
 
 ### Cobertura por território
 

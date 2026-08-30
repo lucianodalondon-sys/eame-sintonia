@@ -120,15 +120,38 @@ fechou em junho. Tratá-las como uma só fabricaria urgência.
 
 ---
 
+## F.1 · A INVERSÃO DA COBERTURA — o achado estrutural da rodada
+
+A camada pública de sinal de campo italiana **não** é proporcional à área da cultura, e a
+inversão foi medida em duas culturas ao mesmo tempo:
+
+| | publica | fatia | não publica | fatia |
+|---|---|---:|---|---:|
+| Oliveira | Vêneto (28 boletins) | 0,5 % | Puglia | 31,2 % |
+| Milho | Friuli-VG (10 boletins) | 6,7 % | Vêneto + Lombardia | 48,2 % |
+
+A Puglia declara, no próprio portal agrometeo, que desde **11/04/2018** a seção de
+fitopatologia **não é mais redigida** — competência em transferência para a ARIF, ainda
+descrita como em curso. O sinal migrou para organizações de produtores.
+
+**Consequência de produto, e ela vale para qualquer país:** todo sinal de campo tem de ser
+publicado junto com a **fatia da cultura que representa**. Os dois hero cases italianos
+carregam `SIGNAL_REGION_PCT_NATIONAL` por causa disto.
+
+Artefato: `data/samples/IT-T3-LOTTA/IT-cobertura-campo-vs-area.json`
+
+---
+
 ## G · ITALY_UNKNOWNS
 
 1. **Renovação** de cada autorização que vence após 24/08/2026 — o open data ainda está
    na versão `PROD_FTS_6_20260824`; a próxima publicação resolve.
 2. **Datas de 2027** da lotta obbligatoria — fixadas a cada ano por monitoramento.
-3. **Campo nas três maiores regiões de milho** — Vêneto, Lombardia e Piemonte somam 71,6 %
-   da área e não têm boletim de milho medido.
-4. **Campo nas três maiores regiões de oliveira** — Puglia, Calabria e Sicilia somam 62,3 %
-   e não foram medidas.
+3. **Campo nas três maiores regiões de milho** — Vêneto e Lombardia (48,2 %) foram medidas
+   e **não** publicam boletim de milho; Piemonte (23,4 %) ficou `NOT_OBTAINED` porque a
+   *bacheca* é renderizada por JavaScript.
+4. **Campo em Calabria e Sicilia para oliveira** (31,1 % somadas) — não medidas. A Puglia
+   (31,2 %) foi medida e não publica desde 2018.
 5. **Catálogo comercial** — `adama.com` bloqueado; os ~52 produtos seguem `UNVERIFIED_INPUT`.
 6. **Voz social** — não coletada, por decisão de ordem.
 7. **Concorrentes** — não abertos.

@@ -11,6 +11,7 @@ import italia                      # noqa: E402
 import italia_rotulo_parse as rp   # noqa: E402
 import italia_colture as ic        # noqa: E402
 import italia_istat as ii2         # noqa: E402
+import italia_cobertura_campo      # noqa: E402,F401
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
 
@@ -248,6 +249,40 @@ class TestContraFonteReal(unittest.TestCase):
         """A ambiguidade de MAGAN/MAKHTESHIM HOLLAND é IMATERIAL hoje — e provado."""
         inv = italia.inventario_adama(italia.carregar(CSV), datetime.date(2026, 8, 30))
         self.assertEqual(inv['ADAMA_IT_ADJACENT']['ACTIVE'], 0)
+
+
+class TestCoberturaDeCampo(unittest.TestCase):
+    """A inversao entre onde o sinal esta e onde a cultura esta."""
+
+    @classmethod
+    def setUpClass(cls):
+        import italia_cobertura_campo as cc
+        cls.cc = cc
+        cls.linhas = cc.linhas()
+
+    def test_nao_medido_nunca_conta_como_ausencia(self):
+        """NOT_MEASURED e NOT_OBTAINED ficam fora da conta: senao viram zero."""
+        d = self.cc.inversao(self.linhas, 'Milho gr\u00e3o')
+        self.assertNotIn('Piemonte', d['REGIONS_NOT_PUBLISHING'])
+        self.assertNotIn('Piemonte', d['REGIONS_PUBLISHING'])
+
+    def test_toda_linha_declara_a_rota_tentada_ou_e_nao_medida(self):
+        for l in self.linhas:
+            if l['BULLETINS_2026_MEASURED'] is not None:
+                self.assertTrue(l['ROUTE_TRIED'], l['REGION'])
+
+    def test_a_inversao_e_detectada(self):
+        for cultura in ('Oliveira', 'Milho gr\u00e3o'):
+            self.assertTrue(self.cc.inversao(self.linhas, cultura)['INVERTED'], cultura)
+
+    def test_inversao_falsa_nao_e_reportada(self):
+        """Se quem publica for a maior regiao, INVERTED tem de dar False."""
+        fake = [
+            {'CROP': 'X', 'REGION': 'Grande', 'PCT_NATIONAL': 50.0, 'BULLETINS_2026_MEASURED': 5,
+             'ROUTE_TRIED': 'r'},
+            {'CROP': 'X', 'REGION': 'Pequena', 'PCT_NATIONAL': 2.0, 'BULLETINS_2026_MEASURED': 0,
+             'ROUTE_TRIED': 'r'}]
+        self.assertFalse(self.cc.inversao(fake, 'X')['INVERTED'])
 
 
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
