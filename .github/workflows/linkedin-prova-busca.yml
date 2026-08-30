@@ -19,6 +19,10 @@ on:
         description: 'so ler o contrato dos Actors (gratuito, nao gasta nada)'
         type: boolean
         default: true
+      coletar_posts:
+        description: 'coletar posts dos autores com identidade resolvida'
+        type: boolean
+        default: false
       todos_os_oito:
         description: 'medir os 8 alvos da missao em vez dos 2 da prova'
         type: boolean
@@ -65,7 +69,8 @@ jobs:
 
       - name: provas locais (nenhuma toca a rede)
         run: |
-          python3 -m unittest tests.test_apify_contrato tests.test_linkedin_prova_busca -v 2>&1 | tail -30
+          python3 -m unittest tests.test_apify_contrato tests.test_linkedin_prova_busca \
+            tests.test_fato_local tests.test_linkedin_posts 2>&1 | tail -12
 
       - name: contrato de entrada dos Actors (GET gratuito, zero run)
         env:
@@ -98,11 +103,21 @@ jobs:
           python3 scripts/linkedin_prova_busca.py \
             ${{ inputs.todos_os_oito && '--todos' || '' }}
 
+      # A identidade vem do RAW ja pago da busca; a coleta so alcanca quem
+      # chegou a CONFIRMED ou PLAUSIBLE. Quem nao chegou nao e coletado, e isso
+      # e resultado — nao obstaculo a contornar.
+      - name: coletar posts de quem a identidade permite
+        if: ${{ inputs.coletar_posts == true }}
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/linkedin_posts.py
+
       - name: nenhum token nos artefatos
         if: ${{ always() }}
         run: |
           for f in data/samples/IT-CASOS/IT-APIFY-CONTRATO.json \
-                   data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json; do
+                   data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json \
+                   data/samples/IT-CASOS/IT-LINKEDIN-POSTS.json; do
             [ -f "$f" ] || continue
             if grep -qE 'apify_api_[A-Za-z0-9]{10,}' "$f"; then
               echo "ABORTADO: token no artefato $f"; exit 1
@@ -119,5 +134,6 @@ jobs:
           path: |
             data/samples/IT-CASOS/IT-APIFY-CONTRATO.json
             data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json
+            data/samples/IT-CASOS/IT-LINKEDIN-POSTS.json
             data/samples/raw-paid/
           if-no-files-found: ignore
