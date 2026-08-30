@@ -155,9 +155,122 @@ def resolver():
         'RESOLUTIONS': resolvidos, 'QUEUE': fila})
 
 
+# ─────────────────────────────────────────────────────── validação da seed
+def _chave(txt):
+    """Normaliza para COMPARAR nomes — nunca para gravar.
+
+    O travessão U+2010 e o acento já quebraram uma comparação nesta casa
+    (`Mercado‐Blanco` vs `Mercado-Blanco`). Aqui isso é tratado ANTES de
+    qualquer igualdade, e o valor original nunca é sobrescrito.
+    """
+    import unicodedata
+    t = unicodedata.normalize('NFKD', (txt or '').lower())
+    t = ''.join(c for c in t if not unicodedata.combining(c))
+    for travessao in ('\u2010', '\u2011', '\u2012', '\u2013', '\u2014'):
+        t = t.replace(travessao, '-')
+    return ' '.join(t.replace('.', ' ').replace('_', ' ').replace('-', ' ').split())
+
+
+def _nome_bate(declarado, perfil):
+    """PARCIAL é um estado. Um sobrenome em comum não é 'a mesma pessoa'."""
+    a, b = set(_chave(declarado).split()), set(_chave(perfil).split())
+    if not a or not b:
+        return 'NOT_TESTED'
+    if a == b:
+        return 'EXACT'
+    comuns = a & b
+    if len(comuns) >= 2 or (len(comuns) == 1 and min(len(a), len(b)) == 1):
+        return 'PARTIAL'
+    return 'NO_MATCH'
+
+
+def seed():
+    """Resolve os handles da seed italiana numa execução só.
+
+    Um run com N usernames custa muito menos que N runs, e o que interessa
+    aqui é presença, identidade e atividade — não profundidade de conteúdo.
+    """
+    chaves = _pool()
+    cands = cr.carregar('SEED-IT-CANDIDATES.json')
+    handles = [ (r['ORIGIN_ID'] or '').lstrip('@') for r in cands ]
+    handles = [h for h in handles if h]
+    print('SEED_HANDLES=%d' % len(handles))
+
+    run_id = '%s-SEED-IT-INSTAGRAM' % MISSION
+    itens, man = coletor.executar(
+        ATORES['INSTAGRAM_PROFILE'], {'usernames': handles},
+        token=chaves[0], run_id=run_id, platform='INSTAGRAM', country='IT',
+        mission=MISSION, query='seed italiana — %d handles' % len(handles),
+        source_version=cr.NAO_SEI,
+        evidence_path='data/samples/CREATOR-MAP-EAME/SEED-IT-RESOLVED.json')
+    coletor.registrar(man, item_count_normalized=len(itens))
+    print('STATUS=%s ITENS=%d CUSTO=%s' % (man['STATUS'], len(itens), man['COST_USD']))
+
+    porhandle = {}
+    for it in itens:
+        u = (it.get('username') or '').lower()
+        if u:
+            porhandle[u] = it
+
+    fora = []
+    for r in cands:
+        h = (r['ORIGIN_ID'] or '').lstrip('@').lower()
+        it = porhandle.get(h)
+        linha = {
+            'CREATOR_ID': r['CREATOR_ID'], 'HANDLE': r['ORIGIN_ID'],
+            'NAME_FROM_SEED': r['NAME'],
+            'CROP_CLAIMED_BY_SEED': r['CROP_CLAIMED_BY_SEED'],
+            'SUSPECTED_CHAIN_MISMATCH': r.get('SUSPECTED_CHAIN_MISMATCH'),
+        }
+        if not it:
+            # Falha de leitura != perfil inexistente. O estado diz qual dos dois.
+            linha.update({
+                'HANDLE_EXISTS': 'NOT_RETURNED_BY_ROUTE',
+                'NOTE': 'a rota nao devolveu este handle. NAO significa que o perfil '
+                        'nao existe — SOURCE FAILURE != ZERO.',
+                'PROFILE_URL': cr.NAO_SEI, 'NAME_MATCH': 'NOT_TESTED',
+                'FOLLOWERS': cr.NAO_SEI, 'POSTS_COUNT': cr.NAO_SEI,
+                'BIOGRAPHY': cr.NAO_SEI, 'LAST_ACTIVITY_DATE': cr.NAO_SEI,
+            })
+            fora.append(linha); continue
+
+        posts = it.get('latestPosts') or []
+        datas = sorted([p.get('timestamp') for p in posts if p.get('timestamp')], reverse=True)
+        linha.update({
+            'HANDLE_EXISTS': 'YES',
+            'PROFILE_URL': it.get('url') or ('https://www.instagram.com/%s/' % h),
+            'PROFILE_FULL_NAME': it.get('fullName') or cr.NAO_SEI,
+            'NAME_MATCH': _nome_bate(r['NAME'], it.get('fullName') or ''),
+            'FOLLOWERS': it.get('followersCount', cr.NAO_SEI),
+            'FOLLOWS': it.get('followsCount', cr.NAO_SEI),
+            'POSTS_COUNT': it.get('postsCount', cr.NAO_SEI),
+            'VERIFIED': it.get('verified', cr.NAO_SEI),
+            'PRIVATE': it.get('private', cr.NAO_SEI),
+            'BIOGRAPHY': it.get('biography') or cr.NAO_SEI,
+            'EXTERNAL_URL': it.get('externalUrl') or cr.NAO_SEI,
+            'BUSINESS_CATEGORY': it.get('businessCategoryName') or cr.NAO_SEI,
+            'LATEST_POSTS_SEEN': len(posts),
+            'LAST_ACTIVITY_DATE': datas[0] if datas else cr.NAO_SEI,
+            'AS_OF_DATE': coletor.agora()[:10],
+        })
+        fora.append(linha)
+
+    achados = [x for x in fora if x['HANDLE_EXISTS'] == 'YES']
+    _grava('SEED-IT-RESOLVED.json', {
+        'SOURCE_ID': MISSION, 'CAPTURED_AT': coletor.agora(),
+        'RUN_ID': run_id, 'RUN_STATUS': man['STATUS'], 'COST_USD': man['COST_USD'],
+        'RAW_EVIDENCE_PATH': man['RAW_EVIDENCE_PATH'],
+        'SEED_HANDLES': len(handles), 'RESOLVED': len(achados),
+        'NOT_RETURNED': len(fora) - len(achados),
+        'LAW': 'handle resolvido != cultura provada. Este arquivo resolve IDENTIDADE '
+               'e ATIVIDADE; cultura continua saindo de CONTEUDO.',
+        'PROFILES': fora})
+    print('RESOLVIDOS=%d de %d' % (len(achados), len(handles)))
+
+
 if __name__ == '__main__':
     # Aceita tanto `contratos` quanto `creators-contratos`: a ponte pelo
     # workflow de sensores entrega o nome prefixado.
     fase = (sys.argv[1] if len(sys.argv) > 1 else 'contratos')
     fase = fase[len('creators-'):] if fase.startswith('creators-') else fase
-    {'contratos': contratos, 'resolver': resolver}.get(fase, contratos)()
+    {'contratos': contratos, 'resolver': resolver, 'seed': seed}.get(fase, contratos)()
