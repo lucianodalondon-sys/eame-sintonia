@@ -241,3 +241,33 @@ class TestBaseGravada(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
+
+
+class TestCarregarConheceOsArtefatos(unittest.TestCase):
+    """Uma chave de artefato desconhecida fez uma fase PAGA rodar com zero itens.
+
+    Falhou fechado — não produziu dado errado — mas gastou uma execução para
+    descobrir. Este teste existe para que o próximo artefato novo não repita.
+    """
+
+    def test_seed_e_lida_por_carregar(self):
+        if not os.path.exists(os.path.join(BASE, 'SEED-IT-CANDIDATES.json')):
+            self.skipTest('seed ainda não gravada')
+        self.assertTrue(cr.carregar('SEED-IT-CANDIDATES.json'),
+                        'carregar() devolveu vazio para a seed — chave do artefato '
+                        'não está na lista de carregar()')
+
+    def test_toda_lista_de_artefato_tem_chave_conhecida(self):
+        import glob
+        for caminho in glob.glob(os.path.join(BASE, '*.json')):
+            with open(caminho, encoding='utf-8') as f:
+                d = json.load(f)
+            if not isinstance(d, dict):
+                continue
+            listas = [k for k, v in d.items() if isinstance(v, list) and v
+                      and isinstance(v[0], dict) and len(v) > 2]
+            if not listas:
+                continue
+            nome = os.path.basename(caminho)
+            self.assertTrue(cr.carregar(nome),
+                            '%s tem lista %s que carregar() não alcança' % (nome, listas))

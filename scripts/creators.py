@@ -489,7 +489,12 @@ def carregar(nome):
         return []
     with open(caminho, encoding='utf-8') as f:
         d = json.load(f)
-    for chave in ('CREATORS', 'COLLABORATIONS', 'REGISTROS'):
+    # A lista de chaves precisa acompanhar os artefatos. Quando `SEED-IT-
+    # CANDIDATES.json` chegou com `CANDIDATES`, esta função devolveu [] e a
+    # fase paga rodou com ZERO handles — falhou fechado, como deve, mas gastou
+    # uma execução para descobrir. Chave nova de artefato entra AQUI.
+    for chave in ('CREATORS', 'COLLABORATIONS', 'REGISTROS', 'CANDIDATES',
+                  'PROFILES', 'ACTORS', 'MARKET_EVIDENCE'):
         if isinstance(d, dict) and chave in d:
             return d[chave]
     return d if isinstance(d, list) else []
