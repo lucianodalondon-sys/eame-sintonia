@@ -1,0 +1,246 @@
+{
+  "CATALOG_ID": "ITALY_ADAMA_LOCAL_CATALOG_V1",
+  "SOURCE_ID": "DERIVED/IT-ADAMA-CATALOG-V1",
+  "source": "registro do Ministero (medido) + catálogo ADAMA (bloqueado)",
+  "SOURCE_COUNTRY": "IT",
+  "FACT_COUNTRY": "IT",
+  "PORTFOLIO_COUNTRY": "IT",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "DERIVED_MEASUREMENT",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "SOURCES": {
+    "REGULATORY": {
+      "SOURCE_ID": "IT-T4-001",
+      "NAME": "Banca Dati Prodotti Fitosanitari — Ministero della Salute",
+      "URL": "https://www.fitosanitari.salute.gov.it/",
+      "ROLE": "AUTHORITY",
+      "WHAT_IT_PROVES": "registro, titular, substância, formulação, vencimento, etiqueta",
+      "WHAT_IT_DOES_NOT_PROVE": [
+        "o que a ADAMA apresenta no catálogo comercial",
+        "disponibilidade comercial",
+        "preço",
+        "estoque"
+      ]
+    },
+    "CATALOG": {
+      "SOURCE_ID": "IT-ADAMA-CATALOG",
+      "NAME": "ADAMA Italia — catálogo público",
+      "URL": "https://www.adama.com/italia/it",
+      "ROLE": "MANUFACTURER_CLAIM",
+      "WHAT_IT_PROVES": "o que a empresa APRESENTA localmente",
+      "WHAT_IT_DOES_NOT_PROVE": [
+        "registro",
+        "autorização",
+        "disponibilidade"
+      ]
+    }
+  },
+  "CATALOG_ROUTE_STATE": {
+    "STATE": "ROUTE_BLOCKED_WAF",
+    "MEASURED": [
+      "/italia/it 403",
+      "/italia/it/prodotti 403",
+      "/italy/en 403",
+      "/robots.txt 403"
+    ],
+    "WHY_NOT_EMPTY": "403 uniforme, inclusive no robots.txt, é bloqueio de borda — não diz nada sobre o conteúdo do catálogo",
+    "PRECEDENT": "a Espanha teve o mesmo 403 e resolveu pelo navegador local do usuário; o código dela diz textualmente que o PDF da ADAMA só chega pelo navegador"
+  },
+  "PRODUCTS_REGULATORY": 163,
+  "PRODUCTS_CATALOG": 0,
+  "PRODUCTS_CATALOG_STATE": "NOT_COLLECTED_ROUTE_BLOCKED",
+  "DOCUMENTS_REGULATORY": 163,
+  "DOCUMENTS_BY_TYPE": {
+    "ETICHETTA": 163
+  },
+  "DOCUMENTS_CATALOG": 0,
+  "ACTIVE_SUBSTANCES": 55,
+  "HOLDER_ENTITIES": {
+    "ADAMA ITALIA S.R.L.": 85,
+    "ADAMA AGAN LTD": 35,
+    "ADAMA MAKHTESHIM LTD": 26,
+    "ADAMA DEUTSCHLAND GMBH": 17
+  },
+  "EXTRACTION_STATES": {
+    "OK": 163
+  },
+  "CROP_RELATIONS": 622,
+  "CROP_RELATIONS_BY_ORIGIN": {
+    "CITED": 605,
+    "ROTATION_ONLY": 17
+  },
+  "DECLARED": 0,
+  "CITED": 605,
+  "AUTHORIZED_REGULATORY": 0,
+  "ROTATION_ONLY": 17,
+  "ISSUES_FROM_SOURCE": 1677,
+  "CROP_ISSUE": 0,
+  "CROP_ISSUE_STATE": "NOT_RECONSTRUCTED_FROM_SOURCE",
+  "CROP_ISSUE_CARTESIAN_AVOIDED": 9746,
+  "CROP_ISSUE_WHY": "a tabela cultura↔alvo do PDF não foi reconstruída. Cruzar as listas produziria 9746 pares que ninguém autorizou",
+  "CROP_DOSE": 0,
+  "CROP_DOSE_STATE": "NOT_EXTRACTED — a dose por cultura vive na tabela do PDF",
+  "WINDOWS": 0,
+  "WINDOWS_STATE": "NOT_EXTRACTED — depende da mesma tabela",
+  "CROSSWALK": {
+    "STATES_AVAILABLE": [
+      "LOCAL_REGISTERED",
+      "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED",
+      "REGISTRATION_CONFLICT",
+      "REGISTERED_BUT_NOT_IN_PUBLIC_CATALOG",
+      "NOT_REGISTERED",
+      "NOT_KNOWN"
+    ],
+    "ROWS": 0,
+    "LOCAL_REGISTERED": 0,
+    "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED": 0,
+    "REGISTRATION_CONFLICT": 0,
+    "WHY_ZERO": "o crosswalk precisa dos dois lados e só o regulatório chegou. Preenchê-lo a partir de um lado seria inventar a metade que falta"
+  },
+  "RAW": {
+    "PLAN_EXISTS_FROM_DAY_ONE": true,
+    "PIPELINE": [
+      "DOWNLOAD",
+      "LOCAL_SHA256",
+      "METADATA",
+      "RAW_PLAN",
+      "STORAGE_KEY",
+      "UPLOAD",
+      "REMOTE_INVENTORY",
+      "DOWNLOAD_BACK",
+      "SHA_VERIFY"
+    ],
+    "RAW_EXPECTED": 0,
+    "RAW_REMOTE_PRESENT": 0,
+    "RAW_CONTENT_HASH_VERIFIED": 0,
+    "HASH_MISMATCH": 0,
+    "ORPHANS": 0,
+    "FAILED": 0,
+    "LARGEST_ASSET_MEASURED": "NOT_MEASURED — nenhum asset italiano baixado ainda",
+    "GATE": {
+      "STATE": "OPEN",
+      "EXPECTED": 0,
+      "REMOTE_PRESENT": 0,
+      "REMOTE_ABSENT": 0,
+      "ORPHANS": 0,
+      "FAILED": 0,
+      "CONTENT_HASH_CHECKED": 0,
+      "HASH_MISMATCH": 0,
+      "CONDITIONS": {
+        "EXPECTED_EQ_REMOTE_PRESENT": true,
+        "REMOTE_ABSENT_ZERO": true,
+        "ORPHANS_ZERO": true,
+        "FAILED_ZERO": true,
+        "CONTENT_HASH_CHECKED_EQ_EXPECTED": true,
+        "HASH_MISMATCH_ZERO": true,
+        "EXPECTED_POSITIVE": false
+      },
+      "MISSING": [
+        "EXPECTED_POSITIVE"
+      ],
+      "WHY": "faltam: EXPECTED_POSITIVE"
+    }
+  },
+  "LAWS": [
+    "PORTFÓLIO GLOBAL ≠ PORTFÓLIO LOCAL ITÁLIA",
+    "PUBLIC_CATALOG_PRESENCE ≠ REGULATORY_REGISTRATION",
+    "REGISTRATION ≠ COMMERCIAL_AVAILABILITY",
+    "LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED ≠ NOT_REGISTERED",
+    "CAPTURE ≠ REGISTRATION",
+    "NOME IGUAL ≠ MESMO REGISTRO",
+    "DECLARED_CROP ≠ CITED_CROP ≠ AUTHORIZED_CROP",
+    "DOSE ≠ CROP_ISSUE_PAIR",
+    "MENU_TERM ≠ AUTHORIZED_ISSUE",
+    "PATH ≠ IDENTITY",
+    "RAW PRESENCE ≠ RAW CONTENT VERIFIED",
+    "HTTP_5XX ≠ OBJECT_NOT_PRESERVED",
+    "HOLDER_COUNTRY ≠ REGISTRATION_COUNTRY ≠ PORTFOLIO_COUNTRY",
+    "ROUTE_BLOCKED ≠ CATALOG_EMPTY"
+  ],
+  "HANDOFF": {
+    "WHAT_THE_LOCAL_BROWSER_MUST_BRING": [
+      "a página de listagem do catálogo ADAMA Italia, HTML salvo inteiro",
+      "a paginação completa, ou o parâmetro que a derruba de uma vez",
+      "uma página de produto por categoria, para o schema",
+      "os PDFs que as páginas de produto linkarem, com o nome original",
+      "um índice JSON: URL → arquivo salvo → content-type → bytes"
+    ],
+    "WHY_THIS_SHAPE": "é o mesmo formato que a Espanha usou — data/raw/ES/adama-website/documentos-baixados.json —, e o parser italiano já sabe consumi-lo",
+    "DESTINATION": "data/raw/IT/adama-website/",
+    "WHAT_HAPPENS_NEXT": "o parser tipa documentos, o crosswalk cruza com os 163 registros, e o RAW sobe com hash conferido"
+  },
+  "CASE_ROUND_TRIP": {
+    "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+    "CROP_TERM": "DURUM_WHEAT",
+    "ISSUE_TERM": "fusariosi",
+    "PRODUCTS_WITH_CROP_TERM": 26,
+    "PRODUCTS_WITH_BOTH_TERMS": 6,
+    "PRODUCTS": [
+      {
+        "PRODUCT": "CUSTODIA ULTRA",
+        "REGISTRATION_ID": "015232",
+        "ISSUE_LABEL_AS_WRITTEN": "Triticale Fusariosi",
+        "SCIENTIFIC_NAME": "Fusarium spp.",
+        "ISSUE_TERM_BOUND_TO_ANOTHER_CROP": true,
+        "PAIR_STATE": "CO_PRESENCE_ONLY_NOT_AUTHORIZED_PAIR"
+      },
+      {
+        "PRODUCT": "SEEDRON",
+        "REGISTRATION_ID": "016152",
+        "ISSUE_LABEL_AS_WRITTEN": "Fusariosi",
+        "SCIENTIFIC_NAME": "Fusarium spp.",
+        "ISSUE_TERM_BOUND_TO_ANOTHER_CROP": false,
+        "PAIR_STATE": "CO_PRESENCE_ONLY_NOT_AUTHORIZED_PAIR"
+      },
+      {
+        "PRODUCT": "BLAISE ULTRA",
+        "REGISTRATION_ID": "017358",
+        "ISSUE_LABEL_AS_WRITTEN": "Triticale Fusariosi",
+        "SCIENTIFIC_NAME": "Fusarium spp.",
+        "ISSUE_TERM_BOUND_TO_ANOTHER_CROP": true,
+        "PAIR_STATE": "CO_PRESENCE_ONLY_NOT_AUTHORIZED_PAIR"
+      },
+      {
+        "PRODUCT": "MIRADOR TURBO",
+        "REGISTRATION_ID": "017824",
+        "ISSUE_LABEL_AS_WRITTEN": "Triticale Fusariosi",
+        "SCIENTIFIC_NAME": "Fusarium spp.",
+        "ISSUE_TERM_BOUND_TO_ANOTHER_CROP": true,
+        "PAIR_STATE": "CO_PRESENCE_ONLY_NOT_AUTHORIZED_PAIR"
+      },
+      {
+        "PRODUCT": "MAXENTIS",
+        "REGISTRATION_ID": "018067",
+        "ISSUE_LABEL_AS_WRITTEN": "Fusarium",
+        "SCIENTIFIC_NAME": "Fusarium spp.",
+        "ISSUE_TERM_BOUND_TO_ANOTHER_CROP": false,
+        "PAIR_STATE": "CO_PRESENCE_ONLY_NOT_AUTHORIZED_PAIR"
+      },
+      {
+        "PRODUCT": "KOJAMI",
+        "REGISTRATION_ID": "019095",
+        "ISSUE_LABEL_AS_WRITTEN": "Fusarium",
+        "SCIENTIFIC_NAME": "Fusarium spp.",
+        "ISSUE_TERM_BOUND_TO_ANOTHER_CROP": false,
+        "PAIR_STATE": "CO_PRESENCE_ONLY_NOT_AUTHORIZED_PAIR"
+      }
+    ],
+    "ISSUE_TERM_BOUND_TO_ANOTHER_CROP": 3,
+    "WHAT_THIS_IS": "co-presença de termos no mesmo rótulo — o produto aparece no censo e o caso é reencontrado",
+    "WHAT_THIS_IS_NOT": "autorização de uso contra fusariose em trigo duro. Em 3 dos 6, o alvo está escrito como \"Triticale Fusariosi\": a fusariose ali é do TRITICALE. Fechar o par por co-presença inventaria uma autorização que o rótulo não dá",
+    "WHAT_WOULD_CLOSE_IT": "a tabela cultura↔alvo↔dose do PDF da etiqueta"
+  },
+  "ITALY_CATALOG_HANDOFF_READY": "YES",
+  "RAW_PRESERVATION_GATE_IT": "OPEN",
+  "CATALOG_SIDE_STATE": "NOT_COLLECTED_ROUTE_BLOCKED",
+  "REGULATORY_SIDE_STATE": "MEASURED_COMPLETE",
+  "IMPORT": "NOT_IN_THIS_MISSION — coleta e importação ficam separadas",
+  "STILL_FORBIDDEN_TO_WRITE": [
+    "ITALY OPPORTUNITY",
+    "SALES OPPORTUNITY",
+    "ADAMA SHOULD ACT",
+    "MARKET GAP",
+    "COMMERCIAL_AVAILABILITY"
+  ]
+}
