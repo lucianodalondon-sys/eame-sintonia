@@ -383,10 +383,92 @@ def diag():
         'STDOUT_HEAD': saida[:2000], 'STDERR': erro[:600]})
 
 
+def atividade():
+    """Mede atividade recente dos perfis JÁ resolvidos (§9).
+
+    Só entra aqui quem tem perfil resolvido: medir atividade de um handle que a
+    rota não devolveu produziria `DORMANT` para alguém que talvez publique todo
+    dia noutro endereço. `ACTIVITY_STATE` só sai de `NOT_MEASURED` com data real.
+    """
+    import datetime
+    chaves = _pool()
+    perfis = [p for p in cr.carregar('SEED-IT-RESOLVED.json')
+              if p.get('HANDLE_EXISTS') == 'YES']
+    handles = [p['HANDLE'].lstrip('@') for p in perfis]
+    if not handles:
+        print('NADA_A_MEDIR=YES · nenhum perfil resolvido'); return
+    print('PERFIS_A_MEDIR=%d' % len(handles))
+
+    run_id = '%s-ATIVIDADE-IT' % MISSION
+    itens, man = coletor.executar(
+        ATORES['INSTAGRAM_PROFILE'],
+        {'usernames': handles, 'includeAboutSection': True},
+        token=chaves[0], run_id=run_id, platform='INSTAGRAM', country='IT',
+        mission=MISSION, query='atividade de %d perfis resolvidos' % len(handles),
+        source_version=cr.NAO_SEI,
+        evidence_path='data/samples/CREATOR-MAP-EAME/CREATOR-ACTIVITY.json')
+    coletor.registrar(man, item_count_normalized=len(itens))
+    print('STATUS=%s ITENS=%d CUSTO=%s' % (man['STATUS'], len(itens), man['COST_USD']))
+
+    hoje = datetime.datetime.utcnow()
+    fora = []
+    porhandle = {(i.get('username') or '').lower(): i for i in itens}
+    for p in perfis:
+        h = p['HANDLE'].lstrip('@').lower()
+        it = porhandle.get(h) or {}
+        posts = it.get('latestPosts') or []
+        datas = []
+        for x in posts:
+            t = x.get('timestamp')
+            if not t:
+                continue
+            try:
+                datas.append(datetime.datetime.strptime(t[:10], '%Y-%m-%d'))
+            except ValueError:
+                continue
+        datas.sort(reverse=True)
+        d30 = len([d for d in datas if (hoje - d).days <= 30])
+        d90 = len([d for d in datas if (hoje - d).days <= 90])
+        if not datas:
+            estado, ultimo = 'NOT_MEASURED', cr.NAO_SEI
+        else:
+            ultimo = datas[0].strftime('%Y-%m-%d')
+            dias = (hoje - datas[0]).days
+            estado = ('ACTIVE_RECENT' if dias <= 30 else
+                      'ACTIVE_STALE' if dias <= 180 else 'DORMANT')
+        fora.append({
+            'HANDLE': p['HANDLE'], 'CREATOR_ID': p.get('CREATOR_ID'),
+            'ACTIVITY_STATE': estado, 'LAST_ACTIVITY_DATE': ultimo,
+            'POSTS_LAST_30D': d30 if datas else cr.NAO_SEI,
+            'POSTS_LAST_90D': d90 if datas else cr.NAO_SEI,
+            'POSTS_SEEN': len(posts),
+            'NOTE': ('sem data de post na amostra — NOT_MEASURED, nunca DORMANT'
+                     if not datas else cr.NAO_SEI),
+            'AS_OF_DATE': coletor.agora()[:10],
+        })
+    _grava('CREATOR-ACTIVITY.json', {
+        'SOURCE_ID': MISSION, 'CAPTURED_AT': coletor.agora(),
+        'RUN_ID': run_id, 'RUN_STATUS': man['STATUS'], 'COST_USD': man['COST_USD'],
+        'LAW': 'sem data de conteudo o estado e NOT_MEASURED — nunca DORMANT. '
+               'Falha de leitura != ausencia de atividade.',
+        'MEASURED': len(fora), 'PROFILES': fora})
+    from collections import Counter
+    print('ATIVIDADE:', dict(Counter(f['ACTIVITY_STATE'] for f in fora)))
+
+
 if __name__ == '__main__':
     # Aceita tanto `contratos` quanto `creators-contratos`: a ponte pelo
     # workflow de sensores entrega o nome prefixado.
     fase = (sys.argv[1] if len(sys.argv) > 1 else 'contratos')
     fase = fase[len('creators-'):] if fase.startswith('creators-') else fase
-    {'contratos': contratos, 'resolver': resolver, 'seed': seed,
-     'diag': diag}.get(fase, contratos)()
+    # Fase desconhecida NÃO cai em `contratos`. Um default silencioso faria o
+    # workflow relatar sucesso tendo rodado outra coisa — e o log diria
+    # "contratos" enquanto o pedido dizia "atividade". Falhar aqui é a diferença
+    # entre um erro visível e um artefato que ninguém sabe de onde veio.
+    FASES = {'contratos': contratos, 'resolver': resolver, 'seed': seed,
+             'diag': diag, 'atividade': atividade}
+    if fase not in FASES:
+        print('FASE_DESCONHECIDA=%r · fases validas: %s'
+              % (fase, ', '.join(sorted(FASES))))
+        raise SystemExit(2)
+    FASES[fase]()
