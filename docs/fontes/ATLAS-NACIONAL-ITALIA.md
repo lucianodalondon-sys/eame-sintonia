@@ -122,12 +122,21 @@ Artefato: `data/samples/IT-FONTES/ITALY-REGIONAL-COVERAGE-MATRIX.json`
 
 **Quanto da cultura o sinal realmente cobre:**
 
-| Cultura | sinal cobre | do medido | regiões com sinal |
-|---|---:|---:|---|
-| Videira | **31,1 %** | 44,5 % | Vêneto · Lombardia · E-R · FVG |
-| Milho | **17,1 %** | 65,5 % | Emilia-Romagna · FVG |
-| Oliveira | **0,5 %** | 32,3 % | apenas Vêneto |
-| **Trigo duro** | **0,0 %** | 37,4 % | **nenhuma** |
+| Cultura | sinal cobre | do medido | existe e não lido | regiões com sinal |
+|---|---:|---:|---:|---|
+| Videira | **31,1 %** | 44,5 % | — | Vêneto · Lombardia · E-R · FVG |
+| Milho | **17,1 %** | 40,7 % | **24,8 %** | Emilia-Romagna · FVG |
+| Oliveira | **0,5 %** | 32,3 % | — | apenas Vêneto |
+| **Trigo duro** | **0,0 %** | 37,4 % | — | **nenhuma** |
+
+> **Correção — o Vêneto TEM boletim de milho, por outra rota.** O serviço fitossanitário
+> publica 2 boletins de herbáceas em 2026 (trigo e beterraba) e nenhum de milho. Mas a
+> **AVISP / Veneto Agricoltura** publica o *Bollettino Colture Erbacee*, numerado e
+> semanal, com edições dedicadas à **piralide do mais** (n.42 de 15/07/2022, n.40 de
+> 19/07/2024, n.4 de 20/01/2025) e página de tópico atualizada em **20/05/2026**. O site é
+> um SPA Angular sem render no servidor e o host de arquivo devolve 503: a **existência**
+> está provada pelo índice, o **conteúdo** não foi lido. Fica `NOT_OBTAINED`, fora da
+> cobertura **e** fora da ausência.
 
 > **O trigo duro é a primeira cultura da Itália — 1.177,4 mil ha — e não tem nenhum
 > sinal de campo nas regiões medidas.** É a maior lacuna do país, e ela não aparece em

@@ -542,12 +542,12 @@ Espanha e França.
 
 **E a matriz regional expôs uma lacuna que nenhum caso mostrava:**
 
-| Cultura | sinal cobre | do medido |
-|---|---:|---:|
-| Videira | 31,1 % | 44,5 % |
-| Milho | 17,1 % | 65,5 % |
-| Oliveira | 0,5 % | 32,3 % |
-| **Trigo duro** | **0,0 %** | 37,4 % |
+| Cultura | sinal cobre | do medido | existe e não lido |
+|---|---:|---:|---:|
+| Videira | 31,1 % | 44,5 % | — |
+| Milho | 17,1 % | 40,7 % | **24,8 % (Vêneto)** |
+| Oliveira | 0,5 % | 32,3 % | — |
+| **Trigo duro** | **0,0 %** | 37,4 % | — |
 
 O trigo duro é a **primeira cultura da Itália** — 1.177,4 mil ha, 2,4× o milho — e **não
 tem sinal de campo em nenhuma região medida**. Não aparecia porque nenhum caso foi

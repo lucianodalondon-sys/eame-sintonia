@@ -77,13 +77,23 @@ def linhas():
         # ------------------------------------------------------------------- MILHO
         {'CROP': 'Milho grão', 'REGION': 'Veneto', 'NUTS2': 'ITH3',
          'AREA_THS_HA': 122.9, 'PCT_NATIONAL': 24.8, 'AREA_RANK': 1,
-         'BULLETINS_2026_MEASURED': 0,
-         'ROUTE_TRIED': 'regione.veneto.it/web/fitosanitario/bollettini-fitosanitari-2026',
-         'STATE': 'NO_MAIZE_BULLETIN_IN_ROUTE_MEASURED',
-         'NOTE': ('os dois boletins de "colture erbacee ed industriali" de 2026 são '
-                  'frumento (n. 01, 06/03) e barbabietola/Cercospora (n. 02, 05/06). '
-                  'A mesma região publicou 28 de olivo, 25 de frutícola, 21 de hortícola '
-                  'e 16 de vite.')},
+         'BULLETINS_2026_MEASURED': None,
+         'ROUTE_TRIED': ('regione.veneto.it (serviço fitossanitário) E '
+                         'venetoagricoltura.org (Avisp) — duas rotas, dois resultados'),
+         'STATE': 'BULLETIN_EXISTS_ROUTE_NOT_READABLE',
+         'NOTE': ('CORREÇÃO. A rota do SERVIÇO FITOSSANITÁRIO publica 2 boletins de '
+                  'herbáceas em 2026 — frumento (n.01, 06/03) e beterraba (n.02, 05/06) —, '
+                  'nenhum de milho, contra 28 de olivo e 16 de vite. Mas existe uma '
+                  'SEGUNDA rota: a AVISP/Veneto Agricoltura publica o "Bollettino Colture '
+                  'Erbacee", numerado e semanal, com edições dedicadas à PIRALIDE DO MILHO '
+                  '(n.42 de 15/07/2022, n.40 de 19/07/2024, n.4 de 20/01/2025) e página de '
+                  'tópico atualizada em 20/05/2026. O site é um SPA Angular que não '
+                  'renderiza no servidor e o host de arquivo devolve 503, então o CONTEÚDO '
+                  'não foi lido deste ambiente. A EXISTÊNCIA está provada pelo índice de '
+                  'busca; o conteúdo, não. Isto é NOT_OBTAINED — e deixa de ser ausência.'),
+         'EXISTENCE_EVIDENCE': ('títulos e datas indexados de edições que tratam de '
+                                'piralide do mais'),
+         'CONTENT_STATE': 'NOT_READ_FROM_THIS_ENVIRONMENT'},
         {'CROP': 'Milho grão', 'REGION': 'Lombardia', 'NUTS2': 'ITC4',
          'AREA_THS_HA': 115.8, 'PCT_NATIONAL': 23.4, 'AREA_RANK': 2,
          'BULLETINS_2026_MEASURED': 0,
@@ -109,14 +119,29 @@ def linhas():
 
 
 def inversao(ls, cultura):
-    """Mede se o sinal está onde a cultura está. Só compara linhas MEDIDAS."""
-    med = [x for x in ls if x['CROP'] == cultura and x['BULLETINS_2026_MEASURED'] is not None]
+    """Mede se o sinal está onde a cultura está. Só compara linhas MEDIDAS.
+
+    TRÊS estados, não dois. A rodada de coleta nacional forçou a distinção: o Vêneto
+    NÃO publica boletim de milho pelo serviço fitossanitário, mas a AVISP publica um
+    — e o conteúdo não é legível daqui. Contá-lo como "sem sinal" seria repetir, com
+    outro nome, o erro do FVG: confundir rota não lida com ausência.
+
+        publica              entra na cobertura
+        não publica          entra no denominador, fora da cobertura
+        existe e não lido    fica FORA DOS DOIS, e nomeado
+    """
+    todos = [x for x in ls if x['CROP'] == cultura]
+    med = [x for x in todos if x['BULLETINS_2026_MEASURED'] is not None]
+    naolido = [x for x in todos
+               if x.get('STATE') == 'BULLETIN_EXISTS_ROUTE_NOT_READABLE']
     if not med:
         return None
     com = [x for x in med if x['BULLETINS_2026_MEASURED'] > 0]
     sem = [x for x in med if x['BULLETINS_2026_MEASURED'] == 0]
     return {
         'REGIONS_MEASURED': len(med),
+        'REGIONS_BULLETIN_EXISTS_NOT_READ': [x['REGION'] for x in naolido],
+        'PCT_NATIONAL_EXISTS_NOT_READ': round(sum(x['PCT_NATIONAL'] for x in naolido), 1),
         'REGIONS_PUBLISHING': [x['REGION'] for x in com],
         'REGIONS_NOT_PUBLISHING': [x['REGION'] for x in sem],
         'PCT_NATIONAL_COVERED_BY_SIGNAL': round(sum(x['PCT_NATIONAL'] for x in com), 1),

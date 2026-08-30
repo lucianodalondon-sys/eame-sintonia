@@ -314,6 +314,19 @@ class TestCoberturaDeCampo(unittest.TestCase):
             if l['BULLETINS_2026_MEASURED'] is not None:
                 self.assertTrue(l['ROUTE_TRIED'], l['REGION'])
 
+    def test_existe_e_nao_lido_fica_fora_dos_dois_lados(self):
+        """Boletim que EXISTE e nao foi lido nao conta como cobertura nem como ausencia.
+
+        O Veneto nao publica milho pela rota do servico fitossanitario, mas a AVISP
+        publica um boletim de colture erbacee com edicoes de piralide. Conta-lo como
+        "sem sinal" repetiria, com outro nome, o erro do FVG.
+        """
+        d = self.cc.inversao(self.linhas, 'Milho gr\u00e3o')
+        self.assertIn('Veneto', d['REGIONS_BULLETIN_EXISTS_NOT_READ'])
+        self.assertNotIn('Veneto', d['REGIONS_NOT_PUBLISHING'])
+        self.assertNotIn('Veneto', d['REGIONS_PUBLISHING'])
+        self.assertGreater(d['PCT_NATIONAL_EXISTS_NOT_READ'], 0)
+
     def test_a_inversao_e_detectada(self):
         for cultura in ('Oliveira', 'Milho gr\u00e3o'):
             self.assertTrue(self.cc.inversao(self.linhas, cultura)['INVERTED'], cultura)

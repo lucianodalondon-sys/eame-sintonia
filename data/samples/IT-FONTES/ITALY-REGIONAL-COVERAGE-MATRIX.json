@@ -12,17 +12,20 @@
   "SIGNAL_COVERAGE_BY_CROP": {
     "MAIZE": {
       "CROP": "Milho",
-      "PCT_MEASURED": 65.5,
+      "PCT_MEASURED": 40.7,
       "SIGNAL_COVERS_PCT_OF_CROP": 17.1,
       "REGIONS_WITH_SIGNAL": [
         "Emilia-Romagna",
         "Friuli-Venezia Giulia"
       ],
       "REGIONS_MEASURED_WITHOUT_SIGNAL": [
-        "Veneto",
         "Lombardia",
         "Puglia"
-      ]
+      ],
+      "REGIONS_BULLETIN_EXISTS_NOT_READ": [
+        "Veneto"
+      ],
+      "PCT_EXISTS_NOT_READ": 24.8
     },
     "VINE": {
       "CROP": "Videira",
@@ -36,7 +39,9 @@
       ],
       "REGIONS_MEASURED_WITHOUT_SIGNAL": [
         "Puglia"
-      ]
+      ],
+      "REGIONS_BULLETIN_EXISTS_NOT_READ": [],
+      "PCT_EXISTS_NOT_READ": 0.0
     },
     "OLIVE": {
       "CROP": "Oliveira",
@@ -50,7 +55,9 @@
         "Emilia-Romagna",
         "Friuli-Venezia Giulia",
         "Puglia"
-      ]
+      ],
+      "REGIONS_BULLETIN_EXISTS_NOT_READ": [],
+      "PCT_EXISTS_NOT_READ": 0.0
     },
     "DURUM_WHEAT": {
       "CROP": "Trigo duro",
@@ -63,7 +70,9 @@
         "Emilia-Romagna",
         "Friuli-Venezia Giulia",
         "Puglia"
-      ]
+      ],
+      "REGIONS_BULLETIN_EXISTS_NOT_READ": [],
+      "PCT_EXISTS_NOT_READ": 0.0
     }
   },
   "MATRIX": [
@@ -86,10 +95,12 @@
         "Trigo",
         "Beterraba"
       ],
-      "FIELD_CROPS_ABSENT": [
+      "FIELD_CROPS_ABSENT": [],
+      "FIELD_CROPS_EXISTS_NOT_READ": [
         "Milho"
       ],
-      "FIELD_NOTE": "2026: 28 olivo · 25 frutícola · 21 hortícola · 16+ vite · 2 erbacee (trigo em março, beterraba em junho). ~30 % dos boletins de vite são digitalizados sem camada de texto.",
+      "SECOND_ROUTE": "AVISP / Veneto Agricoltura publica \"Bollettino Colture Erbacee\" com edições dedicadas à piralide do milho — SPA Angular sem render no servidor, arquivo em 503. Existência indexada; conteúdo NÃO lido daqui.",
+      "FIELD_NOTE": "2026, rota do serviço fitossanitário: 28 olivo · 25 frutícola · 21 hortícola · 16+ vite · 2 erbacee (trigo em março, beterraba em junho). ~30 % dos boletins de vite são digitalizados sem camada de texto. O milho NÃO está nesta rota — está na segunda.",
       "MANDATORY_CONTROL": "SIM — DDR 13645/2026 (flavescência); datas via boletim",
       "NETWORK_NODES": [
         "IT-ORG-VENETO-FITO"

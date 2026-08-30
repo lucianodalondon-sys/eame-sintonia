@@ -58,10 +58,16 @@ def matriz():
             'FIELD_STATE': 'PUBLISHED_WEEKLY',
             'FIELD_CROPS': ['Videira', 'Oliveira', 'Frutícolas', 'Hortícolas',
                             'Trigo', 'Beterraba'],
-            'FIELD_CROPS_ABSENT': ['Milho'],
-            'FIELD_NOTE': ('2026: 28 olivo · 25 frutícola · 21 hortícola · 16+ vite · '
-                           '2 erbacee (trigo em março, beterraba em junho). ~30 % dos '
-                           'boletins de vite são digitalizados sem camada de texto.'),
+            'FIELD_CROPS_ABSENT': [],
+            'FIELD_CROPS_EXISTS_NOT_READ': ['Milho'],
+            'SECOND_ROUTE': ('AVISP / Veneto Agricoltura publica "Bollettino Colture '
+                             'Erbacee" com edições dedicadas à piralide do milho — SPA '
+                             'Angular sem render no servidor, arquivo em 503. Existência '
+                             'indexada; conteúdo NÃO lido daqui.'),
+            'FIELD_NOTE': ('2026, rota do serviço fitossanitário: 28 olivo · 25 frutícola · '
+                           '21 hortícola · 16+ vite · 2 erbacee (trigo em março, beterraba '
+                           'em junho). ~30 % dos boletins de vite são digitalizados sem '
+                           'camada de texto. O milho NÃO está nesta rota — está na segunda.'),
             'MANDATORY_CONTROL': 'SIM — DDR 13645/2026 (flavescência); datas via boletim',
             'NETWORK_NODES': ['IT-ORG-VENETO-FITO'],
             'SCIENCE_INSTITUTIONS': ['Dafnae-UniPD', 'CREA-VE'],
@@ -143,13 +149,20 @@ def cobertura_por_cultura(linhas):
     out = {}
     for cultura, nome in (('MAIZE', 'Milho'), ('VINE', 'Videira'),
                           ('OLIVE', 'Oliveira'), ('DURUM_WHEAT', 'Trigo duro')):
-        cob = med = 0.0
-        regs_cob, regs_sem = [], []
+        cob = med = naolido_pct = 0.0
+        regs_cob, regs_sem, naolido = [], [], []
         for l in linhas:
             pct = l.get('PCT_NATIONAL_%s' % cultura)
             if pct is None or l['FIELD_STATE'] in ('NOT_MEASURED', 'NOT_OBTAINED'):
                 continue
             med += pct
+            if nome in l.get('FIELD_CROPS_EXISTS_NOT_READ', []):
+                # Existe e não foi lido: fora dos DOIS lados, e nomeado.
+                # Contá-lo como ausência repetiria o erro do FVG com outro nome.
+                naolido.append(l['REGION'])
+                naolido_pct += pct
+                med -= pct
+                continue
             if nome in l['FIELD_CROPS'] or any(nome in c for c in l['FIELD_CROPS']):
                 cob += pct
                 regs_cob.append(l['REGION'])
@@ -161,6 +174,8 @@ def cobertura_por_cultura(linhas):
             'SIGNAL_COVERS_PCT_OF_CROP': round(cob, 1),
             'REGIONS_WITH_SIGNAL': regs_cob,
             'REGIONS_MEASURED_WITHOUT_SIGNAL': regs_sem,
+            'REGIONS_BULLETIN_EXISTS_NOT_READ': naolido,
+            'PCT_EXISTS_NOT_READ': round(naolido_pct, 1),
         }
     return out
 
