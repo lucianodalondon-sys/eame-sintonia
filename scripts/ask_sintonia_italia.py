@@ -202,6 +202,57 @@ def perguntas():
       'o catálogo comercial; a fonte está bloqueada e não foi contornada')
 
 
+    # ------------------------------------------------- rodada de 30/08: painel e camada
+    painel = _ler('IT-FONTES/ITALY-PANEL-BIAS.json') or {}
+    duro = _ler('IT-T3-LOTTA/IT-trigo-duro-sinal-x-portfolio.json') or {}
+    op = _ler('IT-FONTES/ITALY-OP-FIELD-LAYER.json') or {}
+    pb = painel.get('BY_CROP', {})
+
+    r('Qual a cobertura de sinal de campo do trigo duro na Itália?', PARTIAL,
+      'O número que eu publiquei — 0,0% — não mede o país. Das cinco regiões contadas '
+      'como medidas, 76,8% da área é uma só, a Puglia, cujo serviço parou de redigir '
+      'fitopatologia em 2018; e o FVG entrou no painel com 0,0 mil ha da cultura. '
+      '57,9% do trigo duro italiano NUNCA foi perguntado — Sicília (23,6%), Basilicata '
+      '(9,8%), Marche (6,2%). O veredito é UNMEASURED_NOT_ZERO. '
+      'Perguntando a uma região nova, o sinal apareceu de primeira: o LaMMA publica '
+      'boletim de frumento por província na Toscana, com grano duro separado do tenero, '
+      'fase fenológica e janela.',
+      'ITALY-PANEL-BIAS.json + IT-T3-LAMMA',
+      'as áreas regionais do ISTAT e as rotas efetivamente tentadas',
+      'a distinção entre não perguntado, perguntado sem resposta e inexistente',
+      'quantas edições a Toscana publica por ano — a página é rolante, sem arquivo; '
+      'e o que Puglia, Sicília e Basilicata publicam, que é 62,1% da cultura')
+
+    r('A ADAMA tem resposta para a fusariose de espiga em trigo duro na Itália?', REFUSE,
+      'NÃO SEI, e a pergunta que decide isso é jurídica, não de dados. Fato: dos 14 '
+      'produtos cujo rótulo nomeia grano duro, 13 são herbicidas e 1 é tratamento de '
+      'semente (SEEDRON, cuja fusariose é a transmitida pela semente, não a da espiga) — '
+      'zero fungicidas foliares. Fato: cinco foliares atendem exatamente o conjunto de '
+      'doenças do boletim de campo (MAXENTIS e KOJAMI, azoxystrobin+prothioconazole, '
+      'FRAC 11+3) e nomeiam frumento/COMMON_WHEAT, não DURUM_WHEAT. '
+      'Se "frumento" no rótulo italiano cobre juridicamente o grano duro, NÃO HÁ LACUNA '
+      'NENHUMA e o desencontro é artefato de redação. Se não cobre, a lacuna é real e é '
+      'sobre a maior cultura do país. Responder qualquer das duas seria inventar.',
+      'IT-trigo-duro-sinal-x-portfolio.json',
+      'a classe e os alvos declarados de cada um dos 163 rótulos',
+      'o desencontro observado entre a camada de campo e a de portfólio',
+      'se "frumento" cobre grano duro — exige leitura do decreto de autorização, '
+      'não é extraível do texto do rótulo. CROP_TERM ≠ AUTHORIZED_CROP')
+
+    r('Não há sinal de campo de olivo na Puglia?', ANSWERABLE,
+      'Há — eu é que estava medindo a instituição errada. O serviço regional não '
+      'publica fitopatologia desde 2018, e a ARIF, que assumiu a competência, hoje É a '
+      'editora do notiziario e ainda assim não restaurou a seção: ausência '
+      'estabilizada, não transição. Mas a APOL, organização de produtores de Lecce, '
+      'mantém série semanal numerada de mosca-da-azeitona com edições de 2026. '
+      'O conteúdo dela não foi lido (503 daqui), então isso NÃO vira cobertura. '
+      'SOURCE_LAYER ≠ SIGNAL_ABSENCE.',
+      'ITALY-OP-FIELD-LAYER.json',
+      'o texto da ARIF e os números/datas das edições da APOL indexadas',
+      'que o sinal migrou do serviço regional para a organização de produtores',
+      'o conteúdo dos boletins da APOL, e portanto a qualidade do sinal na Puglia')
+
+
 def regressoes():
     """Cada uma reprova uma confiança falsa que já apareceu nesta branch."""
     casos = _ler('IT-CASOS/ITALY-HERO-CASES-V1.json') or {}
@@ -228,6 +279,29 @@ def regressoes():
     out.append(('REGISTRATION != COMMERCIAL_CATALOG',
                 'NOT_COLLECTED' in str(c1.get('ADAMA_PUBLIC_COMMERCIAL_RESPONSE', '')),
                 '163 autorizações não são um catálogo comercial, e o catálogo não foi obtido'))
+
+    painel = _ler('IT-FONTES/ITALY-PANEL-BIAS.json') or {}
+    duro = _ler('IT-T3-LOTTA/IT-trigo-duro-sinal-x-portfolio.json') or {}
+    op = _ler('IT-FONTES/ITALY-OP-FIELD-LAYER.json') or {}
+
+    out.append(('PANEL_MEASURED != COUNTRY_MEASURED',
+                painel.get('BY_CROP', {}).get('DURUM_WHEAT', {}).get('VERDICT')
+                == 'UNMEASURED_NOT_ZERO',
+                'cobertura apoiada numa regiao so e amostra de tamanho um, nao pais'))
+
+    out.append(('NOT_ASKED != NOT_FOUND != DOES_NOT_EXIST',
+                painel.get('BY_CROP', {}).get('DURUM_WHEAT', {})
+                .get('PCT_NATIONAL_NEVER_ASKED', 0) > 50.0,
+                'mais de metade do trigo duro nunca foi perguntado, e isso nao e zero'))
+
+    out.append(('CROP_TERM != AUTHORIZED_CROP',
+                duro.get('THE_OPEN_QUESTION', {}).get('STATE') == 'NÃO SEI',
+                'nomear frumento nao decide se cobre grano duro; afirmar lacuna seria inventar'))
+
+    out.append(('SOURCE_LAYER != SIGNAL_ABSENCE',
+                'não foi lido' in str(op.get('CORRECTION_TO_MY_OWN_FINDING', {})
+                                      .get('WHAT_THIS_STILL_DOES_NOT_LICENSE', '')),
+                'a camada estatal calada nao prova ausencia de sinal na regiao'))
 
     demo = casos.get('CAPABILITY_DEMONSTRATION_NOT_A_CASE', {})
     out.append(('GENERIC_TARGET != SPECIFIC_TARGET',

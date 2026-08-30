@@ -615,13 +615,24 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
         falhas = [n for n, (ok, _) in self.regs.items() if not ok]
         self.assertEqual([], falhas, 'regressoes de confianca falsa quebradas: %s' % falhas)
 
-    def test_as_cinco_estao_presentes(self):
-        """Apagar uma regressao nao pode ser a forma de fazer a suite passar."""
+    def test_as_nove_estao_presentes(self):
+        """Apagar uma regressao nao pode ser a forma de fazer a suite passar.
+
+        As quatro ultimas nasceram em 30/08/2026, quando eu corrigi tres achados meus
+        no mesmo dia: o "0,0% de trigo duro" que media um jornal descontinuado, o
+        "frumento" que nao decide grano duro, e a Puglia calada que nao estava calada.
+        Elas entram aqui pelo mesmo motivo das cinco primeiras — para que a forma de
+        fazer a suite passar nunca seja apagar a licao.
+        """
         for nome in ('SYMPTOM_WINDOW != APPLICATION_WINDOW',
                      'READ_FAILURE != NO_LABEL',
                      'AFFILIATION != STUDY_GEOGRAPHY',
                      'REGISTRATION != COMMERCIAL_CATALOG',
-                     'GENERIC_TARGET != SPECIFIC_TARGET'):
+                     'GENERIC_TARGET != SPECIFIC_TARGET',
+                     'PANEL_MEASURED != COUNTRY_MEASURED',
+                     'NOT_ASKED != NOT_FOUND != DOES_NOT_EXIST',
+                     'CROP_TERM != AUTHORIZED_CROP',
+                     'SOURCE_LAYER != SIGNAL_ABSENCE'):
             self.assertIn(nome, self.regs)
 
     def test_ask_declara_estado_em_toda_pergunta(self):
