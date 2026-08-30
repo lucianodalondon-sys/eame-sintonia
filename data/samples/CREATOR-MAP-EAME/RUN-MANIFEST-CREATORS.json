@@ -157,12 +157,44 @@
    "OUTPUT_WRITTEN_AT": "2026-08-30T22:58:55Z"
   },
   {
+   "RUN_ID": "14-MAPA-DE-CREATORS-EAME-FR-FR-CR-005",
+   "PLATFORM": "YOUTUBE",
+   "ACTOR": "streamers~youtube-scraper",
+   "ACTOR_VERSION": "0.0.283",
+   "STARTED_AT": "2026-08-30T23:34:14.671Z",
+   "FINISHED_AT": "2026-08-30T23:35:15Z",
+   "INPUT": {
+    "startUrls": [
+     {
+      "url": "https://www.youtube.com/channel/UC3l2JpG0vN8xMkvvfCwavcQ"
+     }
+    ],
+    "maxResults": 30,
+    "sortVideosBy": "NEWEST"
+   },
+   "COUNTRY": "FR",
+   "MISSION": "14-MAPA-DE-CREATORS-EAME",
+   "QUERY": "https://www.youtube.com/channel/UC3l2JpG0vN8xMkvvfCwavcQ",
+   "DATASET_ID": "aSlnC4OS7Bzf8dJzd",
+   "ITEM_COUNT_RAW": 29,
+   "ITEM_COUNT_NORMALIZED": 29,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "PARTIAL",
+   "ERROR": "status da plataforma: READY. ",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-MAP-EAME/FR-ACTIVITY.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-005.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T23:35:15Z"
+  },
+  {
    "RUN_ID": "14-MAPA-DE-CREATORS-EAME-FR-FR-CR-006",
    "PLATFORM": "YOUTUBE",
    "ACTOR": "streamers~youtube-scraper",
    "ACTOR_VERSION": "0.0.283",
-   "STARTED_AT": "2026-08-30T23:12:45.568Z",
-   "FINISHED_AT": "2026-08-30T23:13:24.943Z",
+   "STARTED_AT": "2026-08-30T23:35:16.320Z",
+   "FINISHED_AT": "2026-08-30T23:35:47.840Z",
    "INPUT": {
     "startUrls": [
      {
@@ -175,18 +207,18 @@
    "COUNTRY": "FR",
    "MISSION": "14-MAPA-DE-CREATORS-EAME",
    "QUERY": "https://www.youtube.com/channel/UCo4pMCeqy3BIuVo82bJxWbg",
-   "DATASET_ID": "gakMCEONtRAwtGel5",
+   "DATASET_ID": "8xYrlte9X9kKGxn7j",
    "ITEM_COUNT_RAW": 30,
    "ITEM_COUNT_NORMALIZED": 30,
-   "COST_USD": 0.116,
+   "COST_USD": 0.10400000000000001,
    "SOURCE_VERSION": "NÃO SEI",
    "STATUS": "SUCCESS",
    "ERROR": "statusMessage: Finished! Total 32 requests: 32 succeeded, 0 failed.",
    "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
    "EVIDENCE_PATH": "data/samples/CREATOR-MAP-EAME/FR-ACTIVITY.json",
-   "RAW_EVIDENCE_PATH": "data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-006.raw.json.gz",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-006.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-30T23:13:26Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-30T23:35:49Z"
   },
   {
    "RUN_ID": "14-MAPA-DE-CREATORS-EAME-HUBS",
