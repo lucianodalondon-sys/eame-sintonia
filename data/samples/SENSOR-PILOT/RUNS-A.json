@@ -4,7 +4,7 @@
  "SOURCE_LOCATION": "interno — metadado de coleta",
  "FACT_LOCATION": "n/a — descreve execução, não fato do mundo",
  "ORIGINAL_LANGUAGE": "pt",
- "CAPTURED_AT": "2026-08-30T21:53:10Z",
+ "CAPTURED_AT": "2026-08-30T21:56:25Z",
  "PARA_QUE_SERVE": "fragmento por lote, para dois runners não disputarem o RUN-MANIFEST canônico. A consolidação é um passo serializado.",
  "NUNCA_GRAVAR_TOKEN": "INPUT guarda consulta e parâmetros. Credencial, jamais.",
  "RUNS": [
@@ -229,8 +229,8 @@
    "PLATFORM": "YOUTUBE",
    "ACTOR": "pintostudio~youtube-transcript-scraper",
    "ACTOR_VERSION": "NOT_PRESERVED",
-   "STARTED_AT": "2026-08-30T21:53:08Z",
-   "FINISHED_AT": "2026-08-30T21:53:09Z",
+   "STARTED_AT": "2026-08-30T21:56:23Z",
+   "FINISHED_AT": "2026-08-30T21:56:24Z",
    "INPUT": {
     "videoUrls": [
      {
@@ -270,13 +270,13 @@
    "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
    "COST_USD": "NOT_PRESERVED",
    "SOURCE_VERSION": "captura de 2026-08-30",
-   "STATUS": "PARTIAL",
-   "ERROR": "status da plataforma: None. ",
+   "STATUS": "FAILED",
+   "ERROR": "RuntimeError: API recusou HTTP 400: invalid-input — Input is not valid: Field input.videoUrl is required",
    "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
    "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/TRANSCRICOES-A.json",
-   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-TR-A-0-p1.raw.json.gz",
-   "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-30T21:53:09Z",
+   "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
+   "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-30T21:56:24Z",
    "TOKEN_POSITION_USED": 1,
    "RUNNER_NAME": "SINTONIA-EAME-LOCAL"
   },
