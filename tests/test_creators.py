@@ -687,8 +687,11 @@ class TestNomeDaMetricaEContrato(unittest.TestCase):
         achados = []
         for caminho in glob.glob(os.path.join(ROOT, 'docs', 'creators', '*.md')):
             for n, linha in enumerate(open(caminho, encoding='utf-8'), 1):
-                if 'CREATORS_READY' in linha and 'PERSON' not in linha \
-                        and 'não' not in linha.lower() and 'nunca' not in linha.lower():
+                baixa = linha.lower()
+                # Aceita a menção quando ela aparece a ser NEGADA — é assim que a
+                # própria lei pode ser escrita sem se autoproibir.
+                nega = ('proibid', 'não', 'nao', 'nunca', 'person', '≠', '!=')
+                if 'CREATORS_READY' in linha and not any(x in baixa for x in nega):
                     achados.append('%s:%d' % (os.path.basename(caminho), n))
         self.assertFalse(achados, 'métrica proibida publicada em: %s' % achados)
 
