@@ -222,6 +222,61 @@ COLABORACOES = [
        fonte_tipo='MEDIA',
        nota='A fonte prova a PRÁTICA de colaboração comercial; NÃO nomeia a marca. '
             'Marca fica NÃO SEI — inventar a marca seria o erro que a escada existe para impedir.'),
+
+  # ── ESPANHA · empresa de CROP PROTECTION usando creators. Três casos.
+  dict(id='COL-ES-001', creator_id=cr.NAO_SEI,
+       creator='Lorena Guerra (@agricola_lorew); irmãos Tribaldos (@twinsfarmblog2); '
+               'Miriam Delgado (@jovenes_agricultoras); Angel Caralt (@angelocromatto); '
+               'Carlos Águila (@Carlos7alella); José Antonio Arcos e Ana Rubio (@khalatea)',
+       pais='ES', marca='BASF Agro', marca_tipo='CROP_PROTECTION_COMPANY',
+       data='2020-02',
+       campanha='#YoSoyAgricultor — concurso de fotografia para agricultores, com '
+                'influencers agrícolas como parceiros e jurados',
+       categoria='INSTITUTIONAL_SECTOR', produto=cr.NAO_SEI, plataforma='INSTAGRAM',
+       disclosure=cr.NAO_SEI, estado='BRAND_COLLABORATION_PROVED',
+       mensagem='CORPORATE_IMAGE',
+       url='https://www.basf.com/basf/www/es/es/media/Noticias/Noticias2020/basf-agro-lanza--yosoyagricultor--el-concurso-de-fotografia-dest',
+       fonte_tipo='BRAND_PRIMARY_RELEASE',
+       nota='Release da PRÓPRIA BASF nomeia os influencers com quem se associou. '
+            'Empresa de defensivos usando creators agrícolas na Espanha — mas a peça '
+            'é IMAGEM DO AGRICULTOR, não promoção de produto fitossanitário. '
+            'É exatamente a fronteira que o veredito separa.'),
+
+  dict(id='COL-ES-002', creator_id=cr.NAO_SEI, creator='Sergio Rodríguez (@nitofrutadyverduras)',
+       pais='ES', marca='Seipasa', marca_tipo='CROP_PROTECTION_COMPANY', data='2026-03-03',
+       campanha='Patrocínio da categoria "Tomatito" dos Premios AgroInfluye 2026',
+       categoria='BIOCONTROL', produto=cr.NAO_SEI, plataforma=cr.NAO_SEI,
+       disclosure='CATEGORY_SPONSORSHIP_DISCLOSED', estado='BRAND_COLLABORATION_PROVED',
+       mensagem='EVENT_PRESENCE',
+       url='https://seipasa.com/en/news/seipasa-at-the-agroinfluye-2026-awards/',
+       fonte_tipo='BRAND_PRIMARY_RELEASE',
+       nota='Empresa de bioprotecção patrocinando uma categoria de prêmio LIGADA A '
+            'UMA CULTURA (tomate). É ativação de marca sobre creators, não promoção '
+            'de produto. Seipasa é aqui fonte E objeto — não conta como observador '
+            'independente do próprio patrocínio.'),
+
+  dict(id='COL-ES-003', creator_id=cr.NAO_SEI, creator=cr.NAO_SEI,
+       pais='ES', marca='Syngenta', marca_tipo='CROP_PROTECTION_COMPANY', data='2026-03-03',
+       campanha='Patrocínio da categoria "Embajador del AOVE" dos Premios AgroInfluye 2026',
+       categoria='INSTITUTIONAL_SECTOR', produto=cr.NAO_SEI, plataforma=cr.NAO_SEI,
+       disclosure='CATEGORY_SPONSORSHIP_DISCLOSED', estado='BRAND_COLLABORATION_PROVED',
+       mensagem='EVENT_PRESENCE',
+       url='https://premiosagroinfluye.com/categorias/',
+       fonte_tipo='EVENT_PRIMARY',
+       nota='O nome do premiado desta categoria não foi recuperado nesta rodada — '
+            'fica NÃO SEI, não preenchido por plausibilidade. O patrocínio, esse, '
+            'está declarado pela própria fonte do prêmio.'),
+
+  dict(id='COL-ES-004', creator_id=cr.NAO_SEI, creator='Laura Domínguez (@laura.agrodg)',
+       pais='ES', marca='Kuhn Ibérica', marca_tipo='MACHINERY_COMPANY', data='2026-03-03',
+       campanha='Patrocínio da categoria "Espiga Dorada" dos Premios AgroInfluye 2026',
+       categoria='MACHINERY', produto=cr.NAO_SEI, plataforma=cr.NAO_SEI,
+       disclosure='CATEGORY_SPONSORSHIP_DISCLOSED', estado='BRAND_COLLABORATION_PROVED',
+       mensagem='EVENT_PRESENCE',
+       url='https://premiosagroinfluye.com/categorias/',
+       fonte_tipo='EVENT_PRIMARY',
+       nota='Maquinaria. Entra no mapa de marcas e NÃO conta para o veredito de '
+            'crop protection — categoria não transfere.'),
 ]
 
 # Evidência de MERCADO (país), separada dos pares creator × marca.
@@ -251,6 +306,11 @@ MERCADO = [
        'mais rentáveis que visualizações; ~1.200 € para 4 vídeos/mês a 70.000 visualizações.',
        categoria='INSTITUTIONAL_SECTOR', estado_mercado='MONETISATION_PROVED',
        url='https://www.web-agri.fr/diversification/article/873448/les-agri-influenceurs-levent-le-voile-sur-la-monetisation-de-leurs-contenus'),
+  dict(pais='ES', afirmacao='Premios AgroInfluye: 2ª edição em Sevilha com +300 '
+       'presentes e ~1.500 por streaming; categorias POR CULTURA patrocinadas por '
+       'empresas de insumo — Seipasa (Tomatito), Syngenta (AOVE), Kuhn (Espiga Dorada).',
+       categoria='INSTITUTIONAL_SECTOR', estado_mercado='BRAND_USE_PROVED',
+       url='https://premiosagroinfluye.com/categorias/'),
   dict(pais='FR', afirmacao='Intercéréales (interprofissão) paga parcerias com creators; '
        'a interprofissão leiteira comunica com personalidades web há anos.',
        categoria='FOOD_COMMODITY', estado_mercado='BRAND_USE_PROVED',

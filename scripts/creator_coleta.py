@@ -48,6 +48,53 @@ import apify_pool as ap                                      # noqa: E402
 import coletor                                               # noqa: E402
 import creators as cr                                        # noqa: E402
 
+
+# ─────────────────────────────────────────────── por que urllib e não curl
+# `coletor._curl` chama `curl` por subprocess. No runner Windows isso devolveu
+# stdout VAZIO de forma intermitente, e `json.loads(None)` transformou a falha
+# num `TypeError` que não diz nada sobre a causa:
+#
+#     21:53  contratos via _curl   OK
+#     21:56  seed      via _curl   TypeError (stdout vazio)
+#     22:00  diag      subprocess direto, com -w   OK, 3.463 bytes
+#     22:02  contratos via _curl   TypeError, nos TRÊS atores
+#
+# O mesmo endpoint, com a mesma chave, minutos depois. Isso não é a plataforma
+# recusando: é o subprocesso não entregando saída. Trocar por `urllib` remove a
+# classe inteira do problema — sem processo filho, sem pipe, sem shell — e o
+# resto da casa (`speaker_universo.py`) já prova que urllib funciona nessa
+# máquina.
+#
+# A troca é feita por SUBSTITUIÇÃO de `coletor._curl`, e não por desvio do
+# `coletor`: toda a proveniência (RAW antes de normalizar, RUN_MANIFEST,
+# ACTOR_VERSION, COST_USD) continua passando pela porta única.
+def _http(url, *, token, metodo='GET', corpo=None, timeout=300):
+    import urllib.error
+    import urllib.request
+    dados = json.dumps(corpo).encode('utf-8') if corpo is not None else None
+    req = urllib.request.Request(url, data=dados, method=metodo)
+    req.add_header('Authorization', 'Bearer %s' % token)
+    if dados is not None:
+        req.add_header('Content-Type', 'application/json')
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            bruto = r.read().decode('utf-8')
+    except urllib.error.HTTPError as e:
+        corpo_erro = ''
+        try:
+            corpo_erro = e.read().decode('utf-8')[:300]
+        except Exception:                                    # noqa: BLE001
+            pass
+        # A mensagem pode carregar a URL, e a URL pode carregar o token.
+        raise RuntimeError(ap.redigir('HTTP %d: %s' % (e.code, corpo_erro)))
+    if not bruto.strip():
+        # Resposta vazia é ESTADO, não zero. Dizer isso é o que faltava.
+        raise RuntimeError('resposta VAZIA da plataforma (HTTP 200 sem corpo)')
+    return json.loads(bruto)
+
+
+coletor._curl = _http
+
 MISSION = '14-MAPA-DE-CREATORS-EAME'
 SAIDA = cr.BASE
 
