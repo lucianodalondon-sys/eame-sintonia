@@ -43,18 +43,19 @@
   },
   "PROFILES_RESOLVED": 0,
   "POSTS_READ": 0,
-  "STATE": "NO_PROFILE_RESOLVED",
+  "STATE": "OUTPUT_NOT_PARSED",
   "WHY_THIS_IS_NOT_A_LINKEDIN_MEASUREMENT": "o ator EXISTIU, RODOU e DEVOLVEU: 8 execucoes, 8 itens, FINAL_STATE = TOKEN_OK, STATE = DONE. Nao houve ACTOR_FAILURE nem rotacao. O que falhou foi o MEU mapeamento de campos: procurei profileUrl / url / publicIdentifier e nenhum dos oito itens trouxe algum deles. Portanto \"8 perfis NOT_FOUND\" e resultado do meu parser, NAO resposta do LinkedIn. Chamar isso de ausencia de perfil seria repetir, com ferramenta paga, o erro que esta branch ja corrigiu quatro vezes.",
   "MY_PRESERVATION_DEFECT": "o coletor.py gravou o RAW em data/samples/raw-paid/ dentro do runner, mas o workflow so subiu o JSON de resumo como artefato. O runner foi destruido. Entao gastei 8 execucoes e NAO POSSO INSPECIONAR o que voltou. E exatamente a licao do boletim do LaMMA — evidencia que sustenta um achado tem de ser preservada — agora repetida numa rota PAGA, que e pior, porque nao da para reler de graca.",
   "FIX_APPLIED": "o workflow passa a subir data/samples/raw-paid/ junto do resumo",
   "COST": {
     "TOTAL_ACTOR_RUNS": 8,
     "TOTAL_ITEMS": 8,
-    "TOTAL_COST": "NAO MEDIDO — usageTotalUsd nao veio no resumo",
+    "TOTAL_COST": "0.04 USD (8 x 0.005) — MEASURED na recuperacao",
     "TOKENS_USED": 1,
     "TOKENS_AVAILABLE": 4,
     "DUPLICATES_REMOVED": 0,
-    "NOTE": "so a posicao 1 do pool foi tocada; nenhuma rotacao foi necessaria"
+    "NOTE": "so a posicao 1 do pool foi tocada; nenhuma rotacao foi necessaria",
+    "COST_STATE": "MEASURED"
   },
   "CLOCK": {
     "FIRST_RESEARCHER_LINKEDIN_SIGNAL": {
@@ -80,5 +81,24 @@
     "que os oito nao tenham perfil no LinkedIn",
     "que nao tenham publicado na janela",
     "qualquer coisa sobre a camada de sensores humanos"
-  ]
+  ],
+  "STATE_CORRECTION": {
+    "WAS": "NO_PROFILE_RESOLVED, com os 8 perfis marcados NOT_FOUND",
+    "NOW": "OUTPUT_NOT_PARSED — os 8 passam a OUTPUT_NOT_PARSED",
+    "WHY": "a recuperacao dos runs pagos mostrou que os 8 itens EXISTIAM e eram perfis completos. A URL vive em basic_info.profile_url, aninhada; o parser antigo procurava profileUrl no topo. NOT_FOUND descrevia o mundo; o que houve foi falha minha de leitura.",
+    "LAWS": [
+      "PARSER_MISS ≠ PROFILE_NOT_FOUND",
+      "ACTOR_ITEM ≠ PROFILE",
+      "HTTP_SUCCESS ≠ SEMANTIC_SUCCESS",
+      "DONE ≠ QUESTION_ANSWERED"
+    ],
+    "CORRECTED_AT": "2026-08-30"
+  },
+  "RECOVERY": {
+    "ARTIFACT": "IT-LINKEDIN-RECOVERY.json",
+    "RUNS_RECOVERED": 8,
+    "ITEMS_RECOVERED": 8,
+    "NEW_ACTOR_RUNS": 0,
+    "RAW_PRESERVED": "YES"
+  }
 }
