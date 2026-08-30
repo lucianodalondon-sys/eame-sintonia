@@ -26,6 +26,8 @@ ROTA — `ROUTE_PROVED` ou `ROUTE_NOT_PROVED` —, nunca sobre o campo.
     PROVA DE ROTA ≠ MEDIDA DE SINAL
 """
 import datetime
+import glob
+import gzip
 import json
 import os
 import sys
@@ -103,18 +105,39 @@ def esqueleto(item, prefixo=''):
 
 
 def identidade(item):
-    """O mínimo para dizer QUEM voltou. Local declarado nunca vira fato."""
-    bi = item.get('basic_info') if isinstance(item, dict) else None
-    bi = bi if isinstance(bi, dict) else (item if isinstance(item, dict) else {})
+    """O mínimo para dizer QUEM voltou. Local declarado nunca vira fato.
+
+    A leitura é delegada a `linkedin_schema.extrair_perfil`: existe UM parser, e
+    ele conhece os dois contratos medidos deste fornecedor. Ter aqui uma segunda
+    leitura "só para a prova" foi o que quase custou de novo — ela lia `headline`
+    num item cujo campo se chama `position`, e devolveria NÃO SEI para um título
+    que estava lá.
+    """
+    p = ls.extrair_perfil(item if isinstance(item, dict) else {})
+    nome = p.get('FULLNAME') or ' '.join(
+        x for x in (p.get('FIRST_NAME'), p.get('LAST_NAME')) if x)
     return {
-        'NAME': bi.get('fullname') or bi.get('name')
-                or ' '.join(x for x in (bi.get('first_name'), bi.get('last_name')) if x)
-                or 'NÃO SEI',
-        'HEADLINE': (bi.get('headline') or 'NÃO SEI')[:160],
-        'PROFILE_URL': bi.get('profile_url') or bi.get('public_identifier') or 'NÃO SEI',
-        'PROFILE_DECLARED_LOCATION': str(bi.get('location') or 'NÃO SEI')[:120],
+        'SCHEMA': p.get('SCHEMA'),
+        'NAME': nome or 'NÃO SEI',
+        'HEADLINE': (p.get('HEADLINE') or 'NÃO SEI')[:160],
+        'PROFILE_URL': p.get('PROFILE_URL') or p.get('PUBLIC_IDENTIFIER') or 'NÃO SEI',
+        'PROFILE_DECLARED_LOCATION': str(p.get('LOCATION') or 'NÃO SEI')[:120],
         'FACT_LOCATION': 'NOT_KNOWN — local declarado em perfil não é fato geográfico',
     }
+
+
+def nome_truncado(nome):
+    """LinkedIn abrevia o sobrenome de quem está fora da rede: "Pasquale D.".
+
+    Isso NÃO é outra pessoa e NÃO é uma não-resposta. É a mesma pessoa possível,
+    com o sobrenome que eu precisaria para provar retido pela plataforma. Chamar
+    isso de MISMATCH inventaria uma divergência; chamar de CONFIRMED inventaria
+    uma identidade. É um terceiro estado.
+
+        TRUNCATED_NAME ≠ MISMATCH ≠ CONFIRMED
+    """
+    partes = _norm(nome).split()
+    return bool(partes) and any(len(p) == 1 for p in partes[1:])
 
 
 def _norm(s):
@@ -138,6 +161,94 @@ def bate_o_nome(pedido, voltou):
         return False
     devolvidos = b.split()
     return all(p in devolvidos for p in tokens)
+
+
+RAW_DIR = os.path.join(ROOT, 'data', 'samples', 'raw-paid')
+
+
+def reler_raw():
+    """Refaz a leitura sobre o RAW JÁ PAGO. Zero execuções novas.
+
+    É para isto que `coletor` grava o bruto antes de interpretar. Quando o defeito
+    está no MEU parser — e estava: eu lia `headline` num item cujo campo se chama
+    `position` —, corrigir o parser e reler custa nada. Pagar de novo pelos mesmos
+    dados para consertar um erro meu seria transformar
+
+        DINHEIRO GASTO ≠ DADO PRESERVADO
+
+    de lei em desculpa. O bruto está preservado; a releitura é gratuita.
+    """
+    itens = []
+    for caminho in sorted(glob.glob(os.path.join(RAW_DIR, 'IT-LI-PROVA-*.raw.json.gz'))):
+        alvo = os.path.basename(caminho)[len('IT-LI-PROVA-'):-len('.raw.json.gz')]
+        alvo = alvo.replace('-', ' ')
+        try:
+            with gzip.open(caminho, 'rt', encoding='utf-8') as fh:
+                bruto = json.load(fh)
+        except (OSError, ValueError) as e:
+            itens.append({'_ALVO': alvo, '_RAW_UNREADABLE': type(e).__name__})
+            continue
+        for it in (bruto or []):
+            if isinstance(it, dict):
+                itens.append(dict(it, _ALVO=alvo))
+    return itens
+
+
+def ler_itens(itens, out):
+    """Tudo que se conclui a partir dos itens — usado pela execução E pela releitura."""
+    formas, schemas = {}, {}
+    for it in itens:
+        sch = ls.detectar_schema({k: v for k, v in it.items() if k != '_ALVO'})
+        schemas[sch] = schemas.get(sch, 0) + 1
+        for campo, tipo in esqueleto({k: v for k, v in it.items()
+                                      if k != '_ALVO'}).items():
+            formas[campo] = tipo
+    out['ITEMS_RETURNED'] = len(itens)
+    out['SCHEMA_COUNTS'] = schemas
+    out['RAW_FIELD_MAP'] = formas
+    out['KNOWN_SCHEMAS'] = list(ls.SCHEMAS_CONHECIDOS)
+
+    por_nome = {}
+    for it in itens:
+        ident = identidade({k: v for k, v in it.items() if k != '_ALVO'})
+        ident['REQUESTED_NAME'] = it.get('_ALVO')
+        bate = bate_o_nome(it.get('_ALVO'), ident['NAME'])
+        ident['NAME_MATCHES_REQUEST'] = bate
+        ident['NAME_STATE'] = ('NAME_MATCHES' if bate else
+                               'TRUNCATED_BY_PLATFORM' if nome_truncado(ident['NAME'])
+                               else 'DIFFERENT_NAME')
+        por_nome.setdefault(it.get('_ALVO'), []).append(ident)
+    out['RETURNED_BY_NAME'] = por_nome
+
+    distintos = {(x['NAME'], x['PROFILE_URL']) for v in por_nome.values() for x in v}
+    out['DISTINCT_PEOPLE_RETURNED'] = len(distintos)
+    com_match = [n for n, v in por_nome.items()
+                 if any(x['NAME_MATCHES_REQUEST'] for x in v)]
+    out['NAMES_WITH_A_MATCHING_RETURN'] = sorted(com_match)
+    # Mais de um retorno que bate no nome NAO e identidade resolvida: e homonimia
+    # por resolver. Nome igual nao prova mesma pessoa.
+    out['NAMES_WITH_MORE_THAN_ONE_MATCH'] = sorted(
+        n for n, v in por_nome.items()
+        if sum(1 for x in v if x['NAME_MATCHES_REQUEST']) > 1)
+
+    repetiu = (len(por_nome) > 1 and out['DISTINCT_PEOPLE_RETURNED'] == 1)
+    out['SAME_PERSON_FOR_EVERY_QUERY'] = 'YES' if repetiu else 'NO'
+    if not itens:
+        out['STATE'], out['VERDICT'] = 'NO_ITEMS', 'ROUTE_NOT_PROVED'
+    elif repetiu or not com_match:
+        out['STATE'] = 'RETURNED_BUT_NOT_THE_PEOPLE_ASKED'
+        out['VERDICT'] = 'ROUTE_NOT_PROVED'
+    else:
+        out['STATE'] = 'PROVED_ON_%d_NAMES' % len(com_match)
+        out['VERDICT'] = 'ROUTE_PROVED'
+    out['VERDICT_MUST_CARRY'] = {
+        'SCOPE': '%d nome(s) de 8 — prova de rota' % len(por_nome),
+        'IDENTITY': ('NOT_RESOLVED — nome que bate não prova pessoa; homônimos '
+                     'voltaram para os dois nomes'),
+        'HUMAN_SENSOR_LAYER': 'NOT_MEASURED — nenhum post foi lido nesta prova',
+        'NEXT_GATE': 'resolver homonímia por instituição antes de ampliar para os 8',
+    }
+    return out
 
 
 def executar():
@@ -217,53 +328,35 @@ def executar():
                    'UNITS_PENDING': [u['NAME'] for u in r['UNITS_PENDING']]}
 
     # --------------------------------------------------- portão 3 · schema
-    itens = r['ITEMS']
-    formas, schemas = {}, {}
-    for it in itens:
-        sch = ls.detectar_schema(it)
-        schemas[sch] = schemas.get(sch, 0) + 1
-        for campo, tipo in esqueleto({k: v for k, v in it.items()
-                                      if k != '_ALVO'}).items():
-            formas[campo] = tipo
-    out['ITEMS_RETURNED'] = len(itens)
-    out['SCHEMA_COUNTS'] = schemas
-    out['RAW_FIELD_MAP'] = formas
-    out['KNOWN_SCHEMA'] = ls.SCHEMA_V1
-
-    por_nome = {}
-    for it in itens:
-        ident = identidade(it)
-        ident['REQUESTED_NAME'] = it.get('_ALVO')
-        ident['NAME_MATCHES_REQUEST'] = bate_o_nome(it.get('_ALVO'), ident['NAME'])
-        por_nome.setdefault(it['_ALVO'], []).append(ident)
-    out['RETURNED_BY_NAME'] = por_nome
-
-    distintos = {json.dumps(i, sort_keys=True) for v in por_nome.values() for i in
-                 [{k: x[k] for k in ('NAME', 'PROFILE_URL')} for x in v]}
-    out['DISTINCT_PEOPLE_RETURNED'] = len(distintos)
-    com_match = [n for n, v in por_nome.items() if any(x['NAME_MATCHES_REQUEST'] for x in v)]
-    out['NAMES_WITH_A_MATCHING_RETURN'] = sorted(com_match)
-
-    # O defeito dos 8 runs, dito em uma condicao: consultas diferentes, mesma
-    # pessoa de volta. Se isso reaparecer, a rota NAO esta provada.
-    repetiu = (len(por_nome) > 1 and out['DISTINCT_PEOPLE_RETURNED'] == 1)
-    out['SAME_PERSON_FOR_EVERY_QUERY'] = 'YES' if repetiu else 'NO'
-    if not itens:
-        out['STATE'], out['VERDICT'] = 'NO_ITEMS', 'ROUTE_NOT_PROVED'
-    elif repetiu or not com_match:
-        out['STATE'], out['VERDICT'] = 'RETURNED_BUT_NOT_THE_PEOPLE_ASKED', 'ROUTE_NOT_PROVED'
-    else:
-        out['STATE'], out['VERDICT'] = 'PROVED_ON_%d_NAMES' % len(com_match), 'ROUTE_PROVED'
-    out['VERDICT_MUST_CARRY'] = {
-        'SCOPE': '%d nome(s) de 8 — prova de rota' % len(por_nome),
-        'HUMAN_SENSOR_LAYER': 'NOT_MEASURED — nenhum post foi lido nesta prova',
-        'NEXT_GATE': 'ler o RAW preservado antes de ampliar para os 8',
-    }
-    return out
+    return ler_itens(r['ITEMS'], out)
 
 
 def main():
-    out = executar()
+    if '--reler-raw' in sys.argv:
+        out = {'CASE_ID': 'IT-CASE-DURUM-FUSARIUM-001',
+               'SOURCE_ID': 'DERIVED/IT-LINKEDIN-PROVA-BUSCA',
+               'source': 'releitura do RAW já pago — nenhuma execução nova',
+               'SOURCE_LOCATION': 'LinkedIn', 'FACT_LOCATION': 'ITALY',
+               'ORIGINAL_LANGUAGE': 'it', 'EVIDENCE_CLASS': 'PRIMARY_SOURCE_PROBE',
+               'captured_at': datetime.date.today().isoformat(),
+               'CAPTURED_AT': datetime.date.today().isoformat(),
+               'ACTOR': ACTOR, 'NEW_ACTOR_RUNS': 0, 'COST_USD': 0,
+               'READ_MODE': 'REREAD_PRESERVED_RAW',
+               'TOKEN_VALUE_LOGGED': 'NO', 'TOKEN_VALUE_COMMITTED': 'NO',
+               'LAWS': ['DINHEIRO GASTO ≠ DADO PRESERVADO',
+                        'PROVA DE ROTA ≠ MEDIDA DE SINAL',
+                        'TRUNCATED_NAME ≠ MISMATCH ≠ CONFIRMED',
+                        'SEARCH_HIT ≠ PERSON']}
+        itens = reler_raw()
+        if not itens:
+            out['STATE'] = 'RAW_NOT_PRESENT'
+            out['VERDICT'] = 'NOT_MEASURED'
+            out['WHY'] = ('nenhum RAW de prova em %s — releitura sem bruto não é '
+                          'releitura' % os.path.relpath(RAW_DIR, ROOT))
+        else:
+            ler_itens(itens, out)
+    else:
+        out = executar()
     os.makedirs(os.path.dirname(DEST), exist_ok=True)
     with open(DEST, 'w', encoding='utf-8') as fh:
         fh.write(ap.redigir(json.dumps(out, ensure_ascii=False, indent=2)))
@@ -278,8 +371,9 @@ def main():
         print('   %-46s %s' % (campo[:46], tipo))
     for nome, v in (out.get('RETURNED_BY_NAME') or {}).items():
         for x in v:
-            print('   pedido=%-20s voltou=%-26s bate=%s' % (
-                nome[:20], x['NAME'][:26], x['NAME_MATCHES_REQUEST']))
+            print('   pedido=%-18s voltou=%-24s %-22s %s' % (
+                nome[:18], x['NAME'][:24], x['NAME_STATE'], (x['HEADLINE'] or '')[:60]))
+    print('homonimia por resolver:', out.get('NAMES_WITH_MORE_THAN_ONE_MATCH'))
     print('->', os.path.relpath(DEST, ROOT))
 
 

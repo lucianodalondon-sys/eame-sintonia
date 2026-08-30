@@ -19,9 +19,14 @@ on:
         description: 'so ler o contrato dos Actors (gratuito, nao gasta nada)'
         type: boolean
         default: true
+      reler_raw_do_run:
+        description: 'id do run cujo RAW deve ser relido (gratuito, zero execucao)'
+        type: string
+        default: ''
 
 permissions:
   contents: read
+  actions: read      # so para baixar o RAW ja pago de um run anterior
 
 jobs:
   provar:
@@ -63,8 +68,26 @@ jobs:
           APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
         run: python3 scripts/apify_contrato.py
 
+      # Corrigir o MEU parser nao pode custar dinheiro de novo. O bruto de um run
+      # anterior volta pelo artefato e a leitura e refeita com ZERO execucoes.
+      - name: baixar o RAW ja pago
+        if: ${{ inputs.reler_raw_do_run != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          # Sem `name`: baixa TODOS os artefatos daquele run e funde. O run 3 subiu
+          # sob o nome antigo, e exigir o nome novo faria a releitura falhar por
+          # causa de uma renomeacao minha — nao por falta do bruto.
+          run-id: ${{ inputs.reler_raw_do_run }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          merge-multiple: true
+          path: data/samples
+
+      - name: reler o RAW ja pago (zero execucao, zero custo)
+        if: ${{ inputs.reler_raw_do_run != '' }}
+        run: python3 scripts/linkedin_prova_busca.py --reler-raw
+
       - name: prova de dois nomes
-        if: ${{ inputs.so_contrato == false }}
+        if: ${{ inputs.so_contrato == false && inputs.reler_raw_do_run == '' }}
         env:
           APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
         run: python3 scripts/linkedin_prova_busca.py
@@ -84,7 +107,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
-          name: linkedin-prova-busca
+          # Nome por run: um artefato fixo faria a releitura de amanha baixar o
+          # bruto de hoje pensando que era o de ontem.
+          name: linkedin-prova-busca-${{ github.run_id }}
           path: |
             data/samples/IT-CASOS/IT-APIFY-CONTRATO.json
             data/samples/IT-CASOS/IT-LINKEDIN-PROVA-BUSCA.json

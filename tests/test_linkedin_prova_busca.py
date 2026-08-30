@@ -7,9 +7,12 @@ O que precisa ficar preso aqui:
   · "voltou alguém" nunca é "voltou quem eu pedi";
   · a mesma pessoa para consultas diferentes derruba a prova.
 """
+import gzip
 import json
 import os
+import shutil
 import sys
+import tempfile
 import unittest
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -139,11 +142,23 @@ class QuemVoltou(unittest.TestCase):
 
 class ALeituraDoRaw(unittest.TestCase):
 
+    # Contrato PROFILE_DETAIL_V1_BASIC_INFO. `location.full` e o campo real —
+    # a versao anterior desta fixture escrevia `location.country`, que o parser
+    # nao le, e o teste passava assim mesmo porque a leitura da prova era outra.
+    # Duas leituras deixavam uma fixture errada de pe.
     ITEM = {'basic_info': {'fullname': 'Pasquale De Vita',
                            'headline': 'Ricercatore — CREA',
                            'profile_url': 'https://www.linkedin.com/in/exemplo',
-                           'location': {'country': 'Italy'}},
+                           'location': {'full': 'Roma, Italy',
+                                        'country_code': 'IT'}},
             'experience': [{'company': 'CREA', 'title': 'Ricercatore'}]}
+
+    # Contrato PROFILE_SEARCH_V1_SHORT — a forma REAL medida em 2026-08-30
+    # (run 33320142206). Nao tem basic_info, e o titulo se chama `position`.
+    ITEM_BUSCA = {'id': 'ACoAAA', 'linkedinUrl': 'https://www.linkedin.com/in/exemplo',
+                  'location': {'linkedinText': 'Foggia, Puglia, Italia'},
+                  'name': 'Pasquale De Vita', 'position': 'Ricercatore presso CREA',
+                  'publicIdentifier': 'exemplo'}
 
     def test_o_esqueleto_descreve_a_forma_sem_publicar_valor(self):
         e = pb.esqueleto(self.ITEM)
@@ -166,6 +181,29 @@ class ALeituraDoRaw(unittest.TestCase):
         self.assertIn('Italy', i['PROFILE_DECLARED_LOCATION'])
         self.assertTrue(i['FACT_LOCATION'].startswith('NOT_KNOWN'))
 
+    def test_o_contrato_de_BUSCA_e_lido_pelo_campo_certo(self):
+        """`position`, nao `headline`. Ler o campo errado devolveria NAO SEI
+        para um titulo que estava la — o mesmo defeito dos 8 runs, de novo."""
+        i = pb.identidade(self.ITEM_BUSCA)
+        self.assertEqual(i['SCHEMA'], ls.SCHEMA_BUSCA_V1)
+        self.assertEqual(i['NAME'], 'Pasquale De Vita')
+        self.assertEqual(i['HEADLINE'], 'Ricercatore presso CREA')
+        self.assertIn('Foggia', i['PROFILE_DECLARED_LOCATION'])
+        self.assertTrue(i['FACT_LOCATION'].startswith('NOT_KNOWN'))
+
+    def test_os_dois_contratos_do_mesmo_fornecedor_nao_se_confundem(self):
+        self.assertEqual(ls.detectar_schema(self.ITEM), ls.SCHEMA_V1)
+        self.assertEqual(ls.detectar_schema(self.ITEM_BUSCA), ls.SCHEMA_BUSCA_V1)
+        self.assertNotEqual(ls.SCHEMA_V1, ls.SCHEMA_BUSCA_V1)
+
+    def test_sobrenome_abreviado_pela_plataforma_e_um_terceiro_estado(self):
+        """"Pasquale D." voltou de verdade. Nao e outra pessoa nem e a mesma."""
+        self.assertTrue(pb.nome_truncado('Pasquale D.'))
+        self.assertFalse(pb.nome_truncado('Pasquale De Vita'))
+        self.assertFalse(pb.nome_truncado('Sarp Tecimer'))
+        # e continua NAO batendo: truncado nao vira confirmado por conveniencia
+        self.assertFalse(pb.bate_o_nome('Pasquale De Vita', 'Pasquale D.'))
+
     def test_item_sem_a_forma_conhecida_nao_vira_pessoa(self):
         i = pb.identidade({'algo': 'outro'})
         self.assertEqual(i['NAME'], 'NÃO SEI')
@@ -187,3 +225,78 @@ class OVeredito(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class AReleituraDoRawJaPago(unittest.TestCase):
+    """Corrigir o MEU parser não pode custar dinheiro de novo.
+
+    O bruto é gravado antes de qualquer interpretação exatamente para isto. Se a
+    correção exigisse novo run, `DINHEIRO GASTO ≠ DADO PRESERVADO` viraria frase
+    de efeito em vez de garantia.
+    """
+
+    def setUp(self):
+        self.dir = tempfile.mkdtemp()
+        self.antigo = pb.RAW_DIR
+        pb.RAW_DIR = self.dir
+
+    def tearDown(self):
+        pb.RAW_DIR = self.antigo
+        shutil.rmtree(self.dir, ignore_errors=True)
+
+    def _grava(self, nome_arquivo, itens):
+        caminho = os.path.join(self.dir, nome_arquivo)
+        with gzip.open(caminho, 'wt', encoding='utf-8') as fh:
+            json.dump(itens, fh)
+
+    def test_o_alvo_volta_do_nome_do_arquivo_e_nao_da_ordem_da_lista(self):
+        self._grava('IT-LI-PROVA-Nicola-Pecchioni.raw.json.gz',
+                    [{'name': 'Nicola Pecchioni', 'linkedinUrl': 'https://x/1',
+                      'position': 'CREA'}])
+        itens = pb.reler_raw()
+        self.assertEqual(len(itens), 1)
+        self.assertEqual(itens[0]['_ALVO'], 'Nicola Pecchioni')
+
+    def test_a_releitura_nao_abre_execucao(self):
+        with open(pb.__file__, encoding='utf-8') as fh:
+            corpo = fh.read().split('def reler_raw', 1)[1].split('def ler_itens', 1)[0]
+        self.assertNotIn('coletor.executar', corpo)
+        self.assertNotIn('executar_com_pool', corpo)
+
+    def test_raw_ilegivel_vira_estado_e_nunca_some(self):
+        """Um .gz corrompido não pode virar 'esse nome não voltou nada'."""
+        caminho = os.path.join(self.dir, 'IT-LI-PROVA-Alguem.raw.json.gz')
+        with open(caminho, 'wb') as fh:
+            fh.write(b'nao e gzip')
+        itens = pb.reler_raw()
+        self.assertEqual(len(itens), 1)
+        self.assertIn('_RAW_UNREADABLE', itens[0])
+
+    def test_sem_raw_nenhum_a_releitura_nao_inventa_resultado(self):
+        self.assertEqual(pb.reler_raw(), [])
+
+    def test_a_releitura_corrigida_le_o_titulo_que_o_parser_antigo_perdia(self):
+        self._grava('IT-LI-PROVA-Pasquale-De-Vita.raw.json.gz',
+                    [{'name': 'Pasquale De Vita', 'linkedinUrl': 'https://x/2',
+                      'position': 'Ricercatore CREA',
+                      'location': {'linkedinText': 'Foggia'}},
+                     {'name': 'Pasquale D.', 'linkedinUrl': 'https://x/3',
+                      'position': 'Altro'}])
+        out = {}
+        pb.ler_itens(pb.reler_raw(), out)
+        estados = {x['NAME']: x for v in out['RETURNED_BY_NAME'].values() for x in v}
+        self.assertEqual(estados['Pasquale De Vita']['HEADLINE'], 'Ricercatore CREA')
+        self.assertEqual(estados['Pasquale De Vita']['NAME_STATE'], 'NAME_MATCHES')
+        self.assertEqual(estados['Pasquale D.']['NAME_STATE'], 'TRUNCATED_BY_PLATFORM')
+
+    def test_dois_retornos_que_batem_no_nome_nao_fecham_identidade(self):
+        """Homonimo e o proximo portao, nao um detalhe: nome igual != mesma pessoa."""
+        self._grava('IT-LI-PROVA-Nicola-Pecchioni.raw.json.gz',
+                    [{'name': 'Nicola Pecchioni', 'linkedinUrl': 'https://x/4',
+                      'position': 'CREA'},
+                     {'name': 'Gian Nicola Pecchioni', 'linkedinUrl': 'https://x/5',
+                      'position': 'outra coisa'}])
+        out = {}
+        pb.ler_itens(pb.reler_raw(), out)
+        self.assertEqual(out['NAMES_WITH_MORE_THAN_ONE_MATCH'], ['Nicola Pecchioni'])
+        self.assertIn('NOT_RESOLVED', out['VERDICT_MUST_CARRY']['IDENTITY'])
