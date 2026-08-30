@@ -82,6 +82,10 @@ CAMPOS_CREATOR = [
     'CREATOR_ID', 'ORIGIN_ID', 'NAME', 'DISPLAY_NAME', 'COUNTRY', 'REGION',
     'LANGUAGE', 'OCCUPATION', 'FARM_OR_INSTITUTION', 'ENTITY_KIND',
     'IDENTITY_EVIDENCE', 'IDENTITY_STATE',
+    # Estes quatro viviam nos registros sem estar no contrato desde a rodada 2:
+    # `checar()` só acusa campo AUSENTE, então um campo extra passava calado —
+    # e a garantia de que nenhum campo some em silêncio não os cobria.
+    'HANDLE_EXISTS', 'PROFILE_URL', 'NAME_MATCH', 'ACTIVATION_ENTITY_TYPE',
     # papel — canal, e o ponteiro (nunca a fusão) para o papel de sensor
     'CREATOR_TYPE', 'ACTUAL_FARMER', 'ACTUAL_FARMER_EVIDENCE', 'SENSOR_ROLE_LINK',
     'FARM_TYPE', 'FARM_SCALE',
@@ -470,7 +474,11 @@ def provas_de_ativacao(reg):
     return {
         'IDENTITY_PROVED': reg.get('IDENTITY_STATE') == 'PROVED',
         'COUNTRY_PROVED': reg.get('COUNTRY') not in (None, '', NAO_SEI, 'NOT_KNOWN'),
-        'CROP_FIT_PROVED': reg.get('CROP_STATE') in ('PROVED', 'PARTIAL'),
+        # §2 — `PARTIAL` significa menção única, e "falar uma vez da cultura" está
+        # na lista fechada do que NÃO prova cultura. Aceitá-lo aqui contradiria a
+        # própria régua e inflaria `ACTIVATION_READY` com gente cuja lavoura
+        # ninguém viu. Só `PROVED` passa.
+        'CROP_FIT_PROVED': reg.get('CROP_STATE') == 'PROVED',
         'ROLE_PROVED': reg.get('CREATOR_TYPE') not in (None, '', NAO_SEI),
         'RECENT_ACTIVITY_PROVED': reg.get('ACTIVITY_STATE') == 'ACTIVE_RECENT',
         'PUBLIC_CHANNEL_PROVED': bool(canais),
@@ -701,7 +709,7 @@ def carregar(nome):
     # uma execução para descobrir. Chave nova de artefato entra AQUI.
     for chave in ('CREATORS', 'COLLABORATIONS', 'REGISTROS', 'CANDIDATES',
                   'PROFILES', 'ACTORS', 'MARKET_EVIDENCE', 'VALIDATIONS', 'HUBS',
-                  'MENTIONS', 'YIELD', 'FICHAS', 'RUNS'):
+                  'MENTIONS', 'YIELD', 'FICHAS', 'RUNS', 'CHANNELS'):
         if isinstance(d, dict) and chave in d:
             return d[chave]
     return d if isinstance(d, list) else []

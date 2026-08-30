@@ -119,6 +119,7 @@ def _cand(nome, handle, rota, url, cultura=cr.NAO_SEI, nota=''):
         'COUNTRY': 'ES', 'LANGUAGE': 'es', 'ENTITY_KIND': 'NOT_KNOWN',
         'INSTAGRAM': handle, 'PLATFORMS': ['INSTAGRAM'],
         'HANDLE_EXISTS': 'NOT_TESTED', 'NAME_MATCH': 'NOT_TESTED',
+        'ACTIVATION_ENTITY_TYPE': cr.NAO_SEI,
         'PROFILE_URL': cr.NAO_SEI,
         'IDENTITY_STATE': 'NOT_PROVED',
         'IDENTITY_EVIDENCE': 'nome e handle nomeados por %s; perfil NÃO aberto' % rota,

@@ -133,6 +133,7 @@ def _registro(handle, nome, cultura, idx):
 
         # ── nada foi verificado. Estes quatro campos são o coração do arquivo.
         'HANDLE_EXISTS': 'NOT_TESTED',
+        'ACTIVATION_ENTITY_TYPE': cr.NAO_SEI,
         'PROFILE_URL': cr.NAO_SEI,
         'NAME_MATCH': 'NOT_TESTED',
         'IDENTITY_STATE': 'NOT_PROVED',

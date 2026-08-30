@@ -47,6 +47,27 @@ import creators as cr                                        # noqa: E402
 MISSION = '14-MAPA-DE-CREATORS-EAME'
 CAPTURA = '2026-08-30'
 
+
+# §0 · COM QUEM o Marketing estaria falando. Tabela explícita porque cada linha
+# é um julgamento que precisa poder ser contestado — e não um padrão silencioso.
+ENTIDADE_DE_ATIVACAO = {
+    # a conta leva o nome da exploração, mas há um creator identificável à frente:
+    # a docussérie do Dmax é sobre ele, com o nome dele.
+    '@gomierofarm': 'PERSON_CREATOR',
+    '@narduccio_capicchiaro': 'PERSON_CREATOR',
+    '@Tomy_Rohde': 'PERSON_CREATOR',
+    # §0 · A CORREÇÃO: conta corporativa. Não há evidência de que Francisco Jesús
+    # Montoya a conduza como creator pessoal — ele é fundador e gerente. Fechar
+    # aqui é acordo com uma empresa, não contrato com um creator.
+    '@biocampojoyma': 'FARM_BUSINESS',
+    '@terruzapistachos': 'FARM_BUSINESS',
+    '@nitofrutasyverduras': 'OTHER',          # comércio de fruta e verdura
+    '@twinsfarm': 'MEDIA_ACCOUNT',            # "Tu Web de Agricultura"
+    '@cumbrerizosfera': 'ORGANIZATION',       # Cumbre Rizosfera
+    '@laderasdelnaranco': 'OTHER',            # jardinagem/paisagismo
+}
+DEFAULT_ENTIDADE = 'PERSON_CREATOR'
+
 RESOLUCOES = [
  dict(
    creator_id='IT-CR-006', nome='Davide Gomiero', pais='IT',
@@ -59,9 +80,15 @@ RESOLUCOES = [
    produtor='PROVED',
    produtor_ev='empresa familiar de ~400 ha com ~1.200 bovinos de leite; registro '
                'societario publico; docusserie "Quella pazza fattoria" no Dmax',
-   crops=['MAIZE', 'ALFALFA', 'SOYBEAN', 'FORAGE'], crop_state='PARTIAL',
-   crop_ev='fontes declaram feno, MILHO, alfafa e soja para o rebanho. A seed alegou '
-           'TRIGO e ARROZ: milho confirma MAIZE; trigo e arroz nao aparecem.',
+   crops=['MAIZE', 'ALFALFA', 'SOYBEAN', 'FORAGE'], crop_state='PROVED',
+   prova_tipo='D_FARM_PRODUCTION_PROVED',
+   crop_ev='CLASSE D: producao da exploracao provada por registro societario publico '
+           '(Azienda Agricola F.lli Gomiero) e por imprensa que declara feno, MILHO, '
+           'alfafa e soja para ~1.200 bovinos. As culturas listadas estao PROVADAS; '
+           'o TRIGO e o ARROZ que a SEED alegou continuam NOT_PROVED e nao entram '
+           'em CROPS. Provar uma cultura e refutar outra sao resultados distintos, '
+           'e o registro guarda os dois.',
+   crops_rejeitadas_da_seed=['WHEAT', 'RICE'],
    seguidores={'INSTAGRAM': 457000}, seguidores_nota='@gomierofarm, 3.920 posts',
    audiencia='MIXED',
    audiencia_ev='fonte descreve comunidade de agricultores, criadores e entusiastas',
@@ -211,6 +238,8 @@ def montar():
             'OCCUPATION': r['ocupacao'], 'ENTITY_KIND': r['entidade'],
             'CREATOR_TYPE': r['tipo'],
             'HANDLE_EXISTS': 'YES', 'PROFILE_URL': r['perfil'],
+            'ACTIVATION_ENTITY_TYPE': ENTIDADE_DE_ATIVACAO.get(
+                r['handle_real'], DEFAULT_ENTIDADE),
             'NAME_MATCH': 'RESOLVED_BY_PRIMARY_SEARCH',
             'IDENTITY_STATE': 'PROVED',
             'IDENTITY_EVIDENCE': 'identidade, ocupacao e regiao confirmadas por %d '
@@ -226,6 +255,9 @@ def montar():
             'CROP_EVIDENCE': r['crop_ev'], 'CROP_PROOF_URLS': r['urls'],
             'CROP_CLAIMED_BY_SEED': r.get('handle_da_seed'),
             'CROP_PROVED_BY_CONTENT': r['crops'],
+            'CROP_PROOF_TYPE': r.get('prova_tipo', cr.NAO_SEI),
+            'CROP_PROOF_STRENGTH': 'STRONG' if r.get('prova_tipo') else cr.NAO_SEI,
+            'CROPS_REJECTED_FROM_SEED': r.get('crops_rejeitadas_da_seed', []),
             'INSTAGRAM': r['handle_real'] if 'instagram' in r['perfil'] else cr.NAO_SEI,
             'X': r['handle_real'] if 'x.com' in r['perfil'] else cr.NAO_SEI,
             'PLATFORMS': sorted(r['seguidores']) if r['seguidores'] else cr.NAO_SEI,

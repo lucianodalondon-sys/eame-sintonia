@@ -92,6 +92,7 @@ def montar():
             'INSTAGRAM': handle, 'PLATFORMS': ['INSTAGRAM'],
             'PROFILE_URL': ap.get('PROFILE_URL', cr.NAO_SEI),
             'HANDLE_EXISTS': estado_handle,
+            'ACTIVATION_ENTITY_TYPE': cr.NAO_SEI,
             'NAME_MATCH': ap.get('NAME_MATCH', 'NOT_TESTED'),
             'FOLLOWERS_BY_PLATFORM': ({'INSTAGRAM': foll} if foll is not None
                                       else cr.NAO_SEI),

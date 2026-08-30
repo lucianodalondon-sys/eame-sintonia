@@ -542,3 +542,115 @@ class TestPendenciasSaoAcionaveis(unittest.TestCase):
         pend = cr.pendencias(cr.registro_vazio())
         self.assertIn(cr.MISSING_REGIAO, pend)
         self.assertIn(cr.MISSING_CONTATO, pend)
+
+
+class TestContaDeEmpresaNaoEPessoa(unittest.TestCase):
+    """§0 — `ACCOUNT_OF_FARM_COMPANY != PERSON_CREATOR`.
+
+    Nasceu de um erro de CONTAGEM, não de dado: `@biocampojoyma` estava
+    corretamente medido como conta de empresa e mesmo assim entrou numa frase
+    como "três produtores reais". O dado estava certo; a soma, errada.
+    """
+
+    def test_o_campo_existe_e_e_de_lista_fechada(self):
+        self.assertIn('ACTIVATION_ENTITY_TYPE', cr.CAMPOS_CREATOR)
+        for v in ('PERSON_CREATOR', 'FARM_BUSINESS', 'FARMER_FAMILY_ACCOUNT',
+                  'MEDIA_ACCOUNT', 'ORGANIZATION'):
+            self.assertIn(v, cr.ENTIDADES_DE_ATIVACAO)
+
+    def test_conta_de_empresa_nao_e_pessoa_creator(self):
+        r = cr.registro_vazio()
+        r['ACTIVATION_ENTITY_TYPE'] = 'FARM_BUSINESS'
+        self.assertFalse(cr.e_pessoa_creator(r))
+        r['ACTIVATION_ENTITY_TYPE'] = 'PERSON_CREATOR'
+        self.assertTrue(cr.e_pessoa_creator(r))
+
+    def test_biocampojoyma_continua_empresa(self):
+        regs = cr.carregar('PRIMARY-IDENTITY-RESOLVED.json')
+        if not regs:
+            self.skipTest('base não gravada')
+        r = {x['CREATOR_ID']: x for x in regs}.get('ES-CR-004')
+        self.assertIsNotNone(r)
+        self.assertEqual(r['ACTIVATION_ENTITY_TYPE'], 'FARM_BUSINESS',
+                         'a conta da Bio Campojoyma não pode voltar a ser contada '
+                         'como creator-pessoa')
+
+    def test_as_duas_listas_nao_se_misturam(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'WHO-COULD-MARKETING-CALL.json')
+        if not os.path.exists(caminho):
+            self.skipTest('fichas não geradas')
+        with open(caminho, encoding='utf-8') as f:
+            d = _j.load(f)
+        pessoas = {x['HANDLE'] for x in d.get('PERSON_CREATORS_ACTIVATION_READY', [])}
+        negocios = {x['HANDLE'] for x in d.get('FARM_BUSINESS_PARTNERS_READY', [])}
+        self.assertFalse(pessoas & negocios,
+                         'um handle não pode estar nas duas listas: são relações '
+                         'comerciais diferentes')
+
+
+class TestProvaDeCulturaNaoAfrouxa(unittest.TestCase):
+    """§2 — o que a régua recusa a aceitar como prova."""
+
+    def test_menção_unica_nao_prova(self):
+        r = cr.registro_vazio()
+        r.update({'NAME': 'X', 'IDENTITY_STATE': 'PROVED', 'COUNTRY': 'ES',
+                  'CREATOR_TYPE': 'FARMER_CREATOR', 'ACTIVITY_STATE': 'ACTIVE_RECENT',
+                  'INSTAGRAM': '@x', 'SOURCE_URL': 'https://e.example',
+                  'CROP_STATE': 'PARTIAL'})
+        self.assertFalse(cr.provas_de_ativacao(r)['CROP_FIT_PROVED'],
+                         'PARTIAL é menção única — "falar uma vez da cultura" está '
+                         'na lista fechada do que NÃO prova')
+        self.assertNotEqual(cr.relevancia(r)[0], 'ACTIVATION_READY')
+
+    def test_as_quatro_classes_de_prova_existem(self):
+        for c in ('A_OWN_CROP_DECLARED', 'B_RECURRING_PROFESSIONAL_WORK',
+                  'C_RECURRING_FIELD_CONTENT', 'D_FARM_PRODUCTION_PROVED'):
+            self.assertIn(c, cr.CLASSES_DE_PROVA_DE_CULTURA)
+
+    def test_a_lista_do_que_nao_prova_esta_escrita(self):
+        junto = ' '.join(cr.NAO_PROVA_CULTURA)
+        for x in ('hashtag', 'evento', 'repost', 'uma vez', 'prêmio'):
+            self.assertIn(x, junto)
+
+    def test_classe_de_prova_invalida_e_recusada(self):
+        r = cr.registro_vazio()
+        r.update({'NAME': 'X', 'CROP_PROOF_TYPE': 'E_INVENTADA'})
+        self.assertTrue(any('CROP_PROOF_TYPE_INVALIDO' in f for f in cr.checar(r)))
+
+
+class TestMatcherDeCulturaNaoCasaSubstring(unittest.TestCase):
+    """A primeira versão casava por substring e produziu falsos positivos.
+
+    Medidos ao ler o resultado com desconfiança: 'riz' dentro de nariz/matriz,
+    'mais' (português, de um perfil de Évora) lido como milho italiano. O
+    resultado da rodada caiu de 8 PROVED para 2 depois da correção — seis dos
+    oito eram falsos.
+    """
+
+    def _matcher(self):
+        import importlib.util
+        caminho = os.path.join(ROOT, 'scripts', 'creator_coleta.py')
+        spec = importlib.util.spec_from_file_location('_cc', caminho)
+        mod = importlib.util.module_from_spec(spec)
+        try:
+            spec.loader.exec_module(mod)
+        except SystemExit:
+            pass
+        except Exception:                                    # noqa: BLE001
+            self.skipTest('creator_coleta não importável neste ambiente')
+        return mod._cultura_no_texto
+
+    def test_nariz_e_matriz_nao_sao_arroz(self):
+        f = self._matcher()
+        self.assertEqual({}, f('tenho o nariz frio e a matriz cheia'))
+
+    def test_mais_portugues_nao_e_milho(self):
+        f = self._matcher()
+        self.assertEqual({}, f('quero mais novidades para o campo'))
+
+    def test_termos_reais_continuam_casando(self):
+        f = self._matcher()
+        self.assertIn('MAIZE', f('sembrando maiz esta semana'))
+        self.assertIn('RICE', f('la cosecha de arroz'))
+        self.assertIn('OLIVE', f('hoy en el olivar'))

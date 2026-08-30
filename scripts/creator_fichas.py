@@ -45,6 +45,15 @@ def _atividade():
     return fora
 
 
+def _crop_proof():
+    """Resultado da prova de cultura por CONTEÚDO, indexado por handle."""
+    return {p['HANDLE'].lower(): p for p in cr.carregar('CROP-PROOF.json')}
+
+
+def _fr_activity():
+    return {c['CREATOR_ID']: c for c in cr.carregar('FR-ACTIVITY.json')}
+
+
 def _colabs():
     return cr.carregar('BRAND-COLLABORATIONS-EU.json')
 
@@ -52,6 +61,8 @@ def _colabs():
 def montar():
     atividade = _atividade()
     colabs = _colabs()
+    provas = _crop_proof()
+    fr = _fr_activity()
 
     # Universo: identidades resolvidas + a base de candidatos aberta.
     universo = list(cr.carregar('PRIMARY-IDENTITY-RESOLVED.json'))
@@ -84,6 +95,39 @@ def montar():
             r['POSTS_LAST_90D'] = a['POSTS_LAST_90D']
             r['ACTIVITY_RECENCY'] = a['ACTIVITY_STATE']
 
+        # ── §1-§2 · a prova por CONTEÚDO decide a cultura, acima da bio
+        pv = provas.get(str(r.get('ORIGIN_ID', '')).lower())
+        if pv:
+            r['N_CONTENT_ITEMS_REVIEWED'] = pv['N_CONTENT_ITEMS_REVIEWED']
+            r['CONTENT_TYPES_OBSERVED'] = pv['CONTENT_TYPES_OBSERVED']
+            r['CROP_PROOF_TYPE'] = pv['CROP_PROOF_TYPE']
+            r['CROP_PROOF_STRENGTH'] = pv['CROP_PROOF_STRENGTH']
+            ev = (pv.get('EVIDENCE') or [{}])[0]
+            r['CROP_PROOF_URL'] = ev.get('CROP_PROOF_URL', cr.NAO_SEI)
+            r['CROP_PROOF_DATE'] = ev.get('CROP_PROOF_DATE', cr.NAO_SEI)
+            r['CROP_PROOF_TEXT'] = ev.get('CROP_PROOF_TEXT', cr.NAO_SEI)
+            if pv['CROP_PROOF_RESULT'] == 'PROVED':
+                r['CROP_STATE'] = 'PROVED'
+                r['CROPS'] = pv['CROPS_RECURRING']
+                r['CROP_PROVED_BY_CONTENT'] = pv['CROPS_RECURRING']
+                r['CROP_EVIDENCE'] = pv['REASON']
+            elif pv['CROP_PROOF_RESULT'] == 'PARTIAL':
+                r['CROP_STATE'] = 'PARTIAL'
+                r['CROP_EVIDENCE'] = pv['REASON']
+            else:
+                r['CROP_STATE'] = pv['CROP_PROOF_RESULT']
+                r['CROP_EVIDENCE'] = pv['REASON']
+            r['CROP_TOPIC_ONLY'] = pv.get('CROP_TOPIC_ONLY') or []
+
+        # ── §5 · atividade dos canais franceses
+        f_ativ = fr.get(r.get('CREATOR_ID'))
+        if f_ativ and f_ativ.get('ACTIVITY_STATE') != 'NOT_MEASURED':
+            r['ACTIVITY_STATE'] = f_ativ['ACTIVITY_STATE']
+            r['LAST_ACTIVITY_DATE'] = f_ativ['LAST_ACTIVITY_DATE']
+            r['POSTS_LAST_30D'] = f_ativ['VIDEOS_LAST_30D']
+            r['POSTS_LAST_90D'] = f_ativ['VIDEOS_LAST_90D']
+            r['YOUTUBE'] = f_ativ.get('HANDLE', r.get('YOUTUBE'))
+
         fit, porque_fit = cr.fit_para_adama(r)
         r['AUDIENCE_FIT_FOR_ADAMA'] = fit
         estado, porques = cr.relevancia(r, colaboracoes=colabs)
@@ -92,8 +136,12 @@ def montar():
         meus = [c for c in colabs if c.get('CREATOR_ID') == r['CREATOR_ID']]
         conc = [c for c in meus if c.get('BRAND') in cr.CONCORRENTES]
 
-        provas = cr.provas_de_ativacao(r)
-        faltando = [k for k in cr.PROVAS_DE_ATIVACAO if not provas[k]]
+        # NAO reutilizar o nome `provas`: ele guarda o dicionario de prova de
+        # CULTURA, carregado uma vez antes do laco. Rebinda-lo aqui fazia todos os
+        # registros a partir do segundo perderem a prova de cultura — e o efeito
+        # era invisivel, porque o resultado continuava plausivel.
+        provas_ativacao = cr.provas_de_ativacao(r)
+        faltando = [k for k in cr.PROVAS_DE_ATIVACAO if not provas_ativacao[k]]
 
         fichas.append({
             'COUNTRY': r.get('COUNTRY'), 'REGION': r.get('REGION', cr.NAO_SEI),
@@ -147,6 +195,11 @@ def montar():
                 saida[pais][regiao][cultura] = lista
 
     prontos = [f for f in fichas if f['ACTIVATION_STATE'] == 'ACTIVATION_READY']
+    # §13 · duas relações comerciais diferentes, duas listas diferentes.
+    pessoas = [f for f in prontos if f.get('ACTIVATION_ENTITY_TYPE') == 'PERSON_CREATOR']
+    negocios = [f for f in prontos if f.get('ACTIVATION_ENTITY_TYPE') in
+                ('FARM_BUSINESS', 'FARMER_FAMILY_ACCOUNT')]
+    outros = [f for f in prontos if f not in pessoas and f not in negocios]
     pendentes = Counter()
     for f in fichas:
         if f['ACTIVATION_STATE'] == 'PROMISING':
@@ -177,12 +230,29 @@ def montar():
                                     'COUNTRY': r.get('COUNTRY')} for r in pecuaria],
         'LIVESTOCK_NOTE': 'creators de pecuária saem do mapa de proteção de cultivo '
                           'VEGETAL e ficam listados aqui — não são descartados.',
+        # §13 — a separação que a rodada 3 não fez e que gerou uma contagem errada
+        'PERSON_CREATORS_ACTIVATION_READY': [
+            {'COUNTRY': f['COUNTRY'], 'REGION': f['REGION'], 'CROPS': f['CROPS'],
+             'CREATOR': f['CREATOR'], 'HANDLE': f['HANDLE']} for f in pessoas],
+        'FARM_BUSINESS_PARTNERS_READY': [
+            {'COUNTRY': f['COUNTRY'], 'REGION': f['REGION'], 'CROPS': f['CROPS'],
+             'ACCOUNT': f['CREATOR'], 'HANDLE': f['HANDLE'],
+             'ENTITY': f['ACTIVATION_ENTITY_TYPE']} for f in negocios],
+        'OTHER_READY_ENTITIES': [
+            {'ACCOUNT': f['CREATOR'], 'HANDLE': f['HANDLE'],
+             'ENTITY': f['ACTIVATION_ENTITY_TYPE']} for f in outros],
+        'SPLIT_LAW': 'ACCOUNT_OF_FARM_COMPANY != PERSON_CREATOR. Uma exploração com '
+                     'canal forte é um parceiro comercial — outra relação, outro '
+                     'contrato, outro interlocutor. Contá-la como creator-pessoa infla '
+                     'o número que o Marketing usa para planear elenco.',
     }
     with open(os.path.join(cr.BASE, 'WHO-COULD-MARKETING-CALL.json'), 'w',
               encoding='utf-8') as f:
         json.dump(corpo, f, ensure_ascii=False, indent=2)
     print('gravado: data/samples/CREATOR-MAP-EAME/WHO-COULD-MARKETING-CALL.json')
     print('FICHAS=%d  POR_ESTADO=%s' % (len(fichas), corpo['BY_STATE']))
+    print('PERSON_CREATORS_READY=%d  FARM_BUSINESS_READY=%d  OUTROS=%d'
+          % (len(pessoas), len(negocios), len(outros)))
     print('ACTIVATION_READY:')
     for f in prontos:
         print('  %s · %s · %s → %s (%s)' % (f['COUNTRY'], f['REGION'],

@@ -40,6 +40,27 @@ MISSION = '14-MAPA-DE-CREATORS-EAME'
 CAPTURA = '2026-08-30'
 
 # handle: o que a BIO declara. Campo ausente = a bio não disse.
+
+# §0 · COM QUEM o Marketing estaria falando. Tabela explícita porque cada linha
+# é um julgamento que precisa poder ser contestado — e não um padrão silencioso.
+ENTIDADE_DE_ATIVACAO = {
+    # a conta leva o nome da exploração, mas há um creator identificável à frente:
+    # a docussérie do Dmax é sobre ele, com o nome dele.
+    '@gomierofarm': 'PERSON_CREATOR',
+    '@narduccio_capicchiaro': 'PERSON_CREATOR',
+    '@Tomy_Rohde': 'PERSON_CREATOR',
+    # §0 · A CORREÇÃO: conta corporativa. Não há evidência de que Francisco Jesús
+    # Montoya a conduza como creator pessoal — ele é fundador e gerente. Fechar
+    # aqui é acordo com uma empresa, não contrato com um creator.
+    '@biocampojoyma': 'FARM_BUSINESS',
+    '@terruzapistachos': 'FARM_BUSINESS',
+    '@nitofrutasyverduras': 'OTHER',          # comércio de fruta e verdura
+    '@twinsfarm': 'MEDIA_ACCOUNT',            # "Tu Web de Agricultura"
+    '@cumbrerizosfera': 'ORGANIZATION',       # Cumbre Rizosfera
+    '@laderasdelnaranco': 'OTHER',            # jardinagem/paisagismo
+}
+DEFAULT_ENTIDADE = 'PERSON_CREATOR'
+
 DECLARADO = {
  '@huerto_ecologico.marc': dict(
     pais='ES', tipo='FARMER_CREATOR', produtor='PROVED', facing='FARMER_FACING',
@@ -182,6 +203,7 @@ def montar():
             'INSTAGRAM': handle, 'PLATFORMS': ['INSTAGRAM'],
             'PROFILE_URL': p.get('PROFILE_URL', cr.NAO_SEI),
             'HANDLE_EXISTS': p.get('HANDLE_EXISTS', 'NOT_TESTED'),
+            'ACTIVATION_ENTITY_TYPE': ENTIDADE_DE_ATIVACAO.get(handle, DEFAULT_ENTIDADE),
             'NAME_MATCH': 'NOT_TESTED',
             'FOLLOWERS_BY_PLATFORM': ({'INSTAGRAM': p['FOLLOWERS']}
                                       if isinstance(p.get('FOLLOWERS'), int) else cr.NAO_SEI),

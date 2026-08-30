@@ -474,6 +474,15 @@ HUBS_COM_CONTA_CONFIRMADA = {
     '@agroinfluye': dict(hub='Premios AgroInfluye', pais='ES',
                          url='https://www.instagram.com/agroinfluye/',
                          fonte='nomeada em resultado de busca sobre o premio'),
+    '@fieragricolavr': dict(hub='Fieragricola (Verona)', pais='IT',
+                            url='https://www.instagram.com/fieragricolavr/',
+                            fonte='conta oficial nomeada em busca, ~23 mil seguidores'),
+    '@sivalangers': dict(hub='SIVAL (Angers)', pais='FR',
+                         url='https://www.instagram.com/sivalangers/',
+                         fonte='conta oficial nomeada em busca, 1.316 seguidores'),
+    '@eima_international': dict(hub='EIMA International', pais='IT',
+                                url='https://www.instagram.com/eima_international/',
+                                fonte='URL de publicacao da conta oficial em busca'),
 }
 
 MENCAO = None

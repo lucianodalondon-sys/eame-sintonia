@@ -369,6 +369,7 @@ def _creator(c):
         'BRAND_RELATION_TYPE': 'NOT_KNOWN',
         'AGRICULTURAL_RELEVANCE': cr.NAO_SEI, 'TECHNICAL_RELEVANCE': cr.NAO_SEI,
         'HANDLE_EXISTS': 'NOT_TESTED', 'PROFILE_URL': cr.NAO_SEI,
+        'ACTIVATION_ENTITY_TYPE': 'PERSON_CREATOR',
         'NAME_MATCH': 'NOT_TESTED',
     })
     # Relevância de cadeia: default NOT_KNOWN, sobrescrito só com evidência.
