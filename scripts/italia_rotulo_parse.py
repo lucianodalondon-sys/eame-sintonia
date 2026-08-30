@@ -79,11 +79,15 @@ CROP_TERMS = {
     # assim — 79% de subcontagem —, e entre os perdidos estavam TODOS os fungicidas
     # foliares de cereal. A cultura mais plantada da Itália parecia descoberta por um
     # espaço em branco.
+    # O separador e generalizado de proposito. A varredura de 30/08 sobre os 163
+    # rotulos achou a elisao em DUAS pontuacoes: "frumento tenero e duro" (MAXENTIS,
+    # KOJAMI e outros 10) e "frumento tenero, duro, orzo, segale, avena"
+    # (PRESSING 500). Fixar o `e` teria consertado 11 casos e deixado o 12o de pe —
+    # e o proximo rotulo pode usar "ed". Por isso `\s*(?:,|\s+ed?\s+)\s*`.
     'DURUM_WHEAT': [r'grano\s+duro', r'frumento\s+duro',
-                    r'(?:grano|frumento)\s+tenero\s+e\s+duro',
-                    r'(?:grano|frumento)\s+duro\s+e\s+tenero'],
+                    r'(?:grano|frumento)\s+tenero\s*(?:,|\s+ed?\s+)\s*duro\b'],
     'COMMON_WHEAT': [r'grano\s+tenero', r'frumento\s+tenero',
-                     r'(?:grano|frumento)\s+duro\s+e\s+tenero'],
+                     r'(?:grano|frumento)\s+duro\s*(?:,|\s+ed?\s+)\s*tenero\b'],
     'WHEAT_GENERIC': [r'\bfrumento\b', r'\bgrano\b'],
     'BARLEY': [r'\borzo\b'],
     'RICE': [r'\briso\b'],

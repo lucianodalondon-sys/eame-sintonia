@@ -659,39 +659,137 @@ class TestColetorFalhaSuave(unittest.TestCase):
 
 
 
-class TestFormaCoordenadaDaCultura(unittest.TestCase):
-    """O espaco em branco que fez a maior cultura da Italia parecer descoberta.
+class TestElisaoDeCabeca(unittest.TestCase):
+    """A classe de erro que "frumento tenero e duro" revelou, medida e fechada.
 
-    A tabela de usos autorizados escreve a coluna Coltura como um cabecalho para DUAS
-    culturas: "Frumento tenero e duro (invernale e primaverile)". O padrao
-    `frumento\\s+duro` nao casa nisso — o substantivo nao encosta no adjetivo —, entao
-    o rotulo entrava como se fosse so de trigo mole.
-
-    Medido em 30/08/2026: 11 dos 25 rotulos que autorizam trigo duro estavam sendo
-    perdidos assim (79% de subcontagem), e entre os perdidos estavam TODOS os
-    fungicidas foliares de cereal — inclusive MAXENTIS e KOJAMI, que autorizam
-    explicitamente frumento duro contra Fusarium.
+    A hipotese de partida — "coordenacao quebra o extrator" — era larga demais. Em
+    "mais e sorgo" cada palavra e substantivo de cultura completo e casa sozinha. O que
+    quebra e a ELISAO DE CABECA: cultura de substantivo + modificador em que o
+    substantivo e omitido na segunda ocorrencia. No vocabulario indexado isso so existe
+    no trigo — e custou 12 de 26 rotulos de grano duro (46,2%).
     """
 
-    def test_forma_coordenada_registra_as_duas_culturas(self):
-        for t in ('Coltura Frumento tenero e duro (invernale e primaverile)',
-                  'Grano tenero e duro', 'FRUMENTO TENERO e DURO',
-                  'frumento duro e tenero'):
+    ELIDIDAS = ('Coltura Frumento tenero e duro (invernale e primaverile)',
+                'Grano tenero e duro', 'FRUMENTO TENERO e DURO',
+                'frumento duro e tenero', 'grano tenero ed duro',
+                'per il frumento tenero, duro, orzo, segale, avena',
+                'frumento duro, tenero')
+
+    def test_elisao_registra_as_duas_culturas_em_qualquer_separador(self):
+        """Virgula, "e" e "ed". A varredura achou virgula DEPOIS da primeira correcao."""
+        for t in self.ELIDIDAS:
             c = rp.culturas(t)
             with self.subTest(texto=t):
                 self.assertEqual('CROP_TERM_PRESENT',
-                                 c.get('DURUM_WHEAT', {}).get('STATE'),
-                                 'a forma coordenada tem de registrar trigo duro')
+                                 c.get('DURUM_WHEAT', {}).get('STATE'))
                 self.assertEqual('CROP_TERM_PRESENT',
-                                 c.get('COMMON_WHEAT', {}).get('STATE'),
-                                 'e trigo mole junto — o cabecalho vale para os dois')
+                                 c.get('COMMON_WHEAT', {}).get('STATE'))
 
-    def test_forma_simples_nao_contamina_a_outra_cultura(self):
-        """Consertar a coordenada nao pode passar a inventar a cultura ausente."""
-        so_tenero = rp.culturas('impiego solo su frumento tenero')
-        self.assertIsNone(so_tenero.get('DURUM_WHEAT', {}).get('STATE'))
-        so_duro = rp.culturas('impiego su frumento duro')
-        self.assertIsNone(so_duro.get('COMMON_WHEAT', {}).get('STATE'))
+    def test_elisao_por_virgula_e_um_caso_real_e_nao_hipotetico(self):
+        """PRESSING 500: "per il frumento tenero, duro, orzo, segale, avena".
+
+        Se so o " e " tivesse sido consertado, 11 casos passariam e este ficaria de pe.
+        """
+        c = rp.culturas('erbicida selettivo per il frumento tenero, duro, orzo, '
+                        'segale, avena')
+        self.assertEqual('CROP_TERM_PRESENT', c.get('DURUM_WHEAT', {}).get('STATE'))
+        self.assertEqual('CROP_TERM_PRESENT', c.get('BARLEY', {}).get('STATE'))
+
+    def test_nao_inventa_a_cultura_ausente(self):
+        """Consertar a elisao nao pode passar a alucinar o modificador que falta."""
+        for t, ausente in (('impiego solo su frumento tenero', 'DURUM_WHEAT'),
+                           ('impiego su frumento duro', 'COMMON_WHEAT'),
+                           ('grano tenero, orzo e segale', 'DURUM_WHEAT'),
+                           ('trattamento duro e prolungato del terreno', 'DURUM_WHEAT')):
+            with self.subTest(texto=t):
+                self.assertIsNone(rp.culturas(t).get(ausente, {}).get('STATE'))
+
+    def test_coordenacao_de_substantivos_plenos_nunca_perdeu_nada(self):
+        """A parte da hipotese que a medicao DERRUBOU. Fica no teste para nao voltar."""
+        for t, esperadas in (('mais e sorgo', ('MAIZE', 'SORGHUM')),
+                             ('patata, erba medica', ('POTATO', 'ALFALFA')),
+                             ('girasole, soia, barbabietola',
+                              ('SUNFLOWER', 'SOYBEAN', 'SUGARBEET')),
+                             ('vite, del pomodoro', ('GRAPEVINE', 'TOMATO'))):
+            c = rp.culturas(t)
+            for crop in esperadas:
+                with self.subTest(texto=t, crop=crop):
+                    self.assertEqual('CROP_TERM_PRESENT', c.get(crop, {}).get('STATE'))
+
+    # ------------------------------------------------------------------ MUTACAO
+    def test_mutacao_o_teste_reprova_o_extrator_antigo(self):
+        """Prova que o teste acima MEDE alguma coisa.
+
+        Um teste de regressao que passaria tambem com o codigo defeituoso nao protege
+        nada. Aqui o padrao antigo e reinstalado de proposito e a deteccao TEM de cair.
+        """
+        orig = rp.CROP_TERMS['DURUM_WHEAT']
+        try:
+            rp.CROP_TERMS['DURUM_WHEAT'] = [r'grano\s+duro', r'frumento\s+duro']
+            for t in ('frumento tenero e duro', 'frumento tenero, duro, orzo'):
+                with self.subTest(mutacao='sem elisao', texto=t):
+                    self.assertIsNone(rp.culturas(t).get('DURUM_WHEAT', {}).get('STATE'),
+                                      'o extrator antigo NAO podia achar isto; se acha, '
+                                      'o teste nao esta medindo a correcao')
+        finally:
+            rp.CROP_TERMS['DURUM_WHEAT'] = orig
+
+    def test_mutacao_separador_so_com_e_deixa_a_virgula_passar(self):
+        """A segunda mutacao: a correcao PARCIAL, que foi de fato o meu primeiro erro."""
+        orig = rp.CROP_TERMS['DURUM_WHEAT']
+        try:
+            rp.CROP_TERMS['DURUM_WHEAT'] = [
+                r'grano\s+duro', r'frumento\s+duro',
+                r'(?:grano|frumento)\s+tenero\s+e\s+duro']
+            self.assertEqual('CROP_TERM_PRESENT',
+                             rp.culturas('frumento tenero e duro')
+                             .get('DURUM_WHEAT', {}).get('STATE'),
+                             'a correcao parcial resolvia o " e "')
+            self.assertIsNone(rp.culturas('frumento tenero, duro, orzo')
+                              .get('DURUM_WHEAT', {}).get('STATE'),
+                              'e deixava a virgula de pe — que e o PRESSING 500')
+        finally:
+            rp.CROP_TERMS['DURUM_WHEAT'] = orig
+
+
+VARREDURA = os.path.join(ROOT, 'data', 'samples', 'IT-T4-001', 'IT-COORDINATION-SWEEP.json')
+
+
+@unittest.skipUnless(os.path.exists(VARREDURA), 'varredura ainda nao gerada')
+class TestVarreduraDeCoordenacao(unittest.TestCase):
+    """O raio de alcance medido, e a honestidade do que NAO apareceu."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.d = json.load(open(VARREDURA, encoding='utf-8'))
+
+    def test_a_varredura_leu_o_corpus_inteiro(self):
+        self.assertEqual(163, self.d['LABELS_READ'])
+
+    def test_o_raio_de_alcance_esta_medido(self):
+        self.assertEqual(12, self.d['LABELS_LOST_BY_OLD_PATTERN'])
+        self.assertEqual(14, self.d['DURUM_BEFORE_FIX'])
+        self.assertEqual(26, self.d['DURUM_AFTER_FIX'])
+        self.assertGreater(self.d['UNDERCOUNT_PCT'], 45.0)
+
+    def test_nada_ficou_por_detectar(self):
+        self.assertEqual([], self.d['STILL_UNDETECTED'])
+
+    def test_os_dois_separadores_estao_registrados(self):
+        self.assertIn(',', self.d['SEPARATORS_FOUND'])
+        self.assertIn('e', self.d['SEPARATORS_FOUND'])
+
+    def test_o_que_nao_apareceu_nao_e_declarado_inexistente(self):
+        """NAO ENCONTREI NOS FORMATOS MEDIDOS != NAO EXISTE."""
+        t = self.d['TESTED_AND_NOT_FOUND']
+        self.assertIn('não é "não existe"', t['STATE'])
+        formas = ' '.join(i['FORM'] for i in t['ITEMS'])
+        self.assertIn('mais dolce', formas)
+
+    def test_a_hipotese_larga_fica_registrada_como_derrubada(self):
+        h = self.d['HYPOTHESIS_NARROWED']
+        self.assertIn('coordenação', h['STARTED_AS'])
+        self.assertIn('elisão de cabeça', h['MEASURED_AS'])
 
 
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')

@@ -1,0 +1,202 @@
+{
+  "COUNTRY": "IT",
+  "SOURCE_ID": "DERIVED/IT-COORDINATION-SWEEP",
+  "SOURCE": "os 163 rótulos oficiais de IT-T4-001-ETICHETTA",
+  "CAPTURED_AT": "2026-08-30",
+  "SOURCE_LOCATION": "interno — auditoria de extrator sobre fonte primária",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "DERIVED_INTERPRETATION",
+  "QUESTION": "a coordenação quebra o extrator de cultura, e em quantos rótulos?",
+  "ANSWER": "coordenação por si NÃO quebra. O que quebra é ELISÃO DE CABEÇA, e no vocabulário indexado ela só existe no trigo — onde custou 12 de 26 rótulos de grano duro.",
+  "HYPOTHESIS_NARROWED": {
+    "STARTED_AS": "coordenação (mais e sorgo, pomodoro e patata, vite e olivo)",
+    "MEASURED_AS": "elisão de cabeça em cultura de substantivo + modificador",
+    "WHY": "em \"mais e sorgo\" cada palavra é substantivo de cultura completo e casa sozinha. A perda exige que o substantivo seja OMITIDO na segunda ocorrência, o que só acontece com frumento/grano × tenero/duro."
+  },
+  "LABELS_READ": 163,
+  "LABELS_WITH_HEAD_ELISION": 14,
+  "LABELS_LOST_BY_OLD_PATTERN": 12,
+  "DURUM_BEFORE_FIX": 14,
+  "DURUM_AFTER_FIX": 26,
+  "UNDERCOUNT_PCT": 46.2,
+  "STILL_UNDETECTED": [],
+  "SEPARATORS_FOUND": [
+    ",",
+    "e"
+  ],
+  "WHY_SEPARATOR_IS_GENERIC": "a primeira correção tratou só \" e \". A varredura achou a mesma elisão com VÍRGULA no PRESSING 500 — consertar o \" e \" teria resolvido 11 e deixado o 12º de pé. O padrão aceita \",\" , \" e \" e \" ed \".",
+  "PRODUCTS_RECOVERED": [
+    {
+      "PRODUCT": "BLAISE ULTRA",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|TEBUCONAZOLE",
+      "EXPIRY": "15/08/2026",
+      "ELIDED_FORMS": [
+        "grano tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "CLEAVE",
+      "ACTIVE_SUBSTANCE": "FLUROXYPYR|FLORASULAM",
+      "EXPIRY": "15/02/2027",
+      "ELIDED_FORMS": [
+        "frumento tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "CUSTODIA ULTRA",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|TEBUCONAZOLE",
+      "EXPIRY": "15/08/2026",
+      "ELIDED_FORMS": [
+        "grano tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "KIKKO 50 WG",
+      "ACTIVE_SUBSTANCE": "TRIBENURON",
+      "EXPIRY": "31/01/2035",
+      "ELIDED_FORMS": [
+        "frumento tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "KOJAMI",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|PROTHIOCONAZOLE",
+      "EXPIRY": "31/05/2027",
+      "ELIDED_FORMS": [
+        "frumento tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "KORAL 50 WG",
+      "ACTIVE_SUBSTANCE": "TRIBENURON",
+      "EXPIRY": "31/01/2035",
+      "ELIDED_FORMS": [
+        "frumento tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "MAXENTIS",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|PROTHIOCONAZOLE",
+      "EXPIRY": "31/05/2027",
+      "ELIDED_FORMS": [
+        "frumento tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "MIRADOR TURBO",
+      "ACTIVE_SUBSTANCE": "AZOXYSTROBIN|TEBUCONAZOLE",
+      "EXPIRY": "31/05/2027",
+      "ELIDED_FORMS": [
+        "grano tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "MORAINE",
+      "ACTIVE_SUBSTANCE": "FLUROXYPYR",
+      "EXPIRY": "15/02/2027",
+      "ELIDED_FORMS": [
+        "frumento tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "PRESSING 500",
+      "ACTIVE_SUBSTANCE": "DIFLUFENICAN",
+      "EXPIRY": "31/08/2027",
+      "ELIDED_FORMS": [
+        "frumento tenero, duro"
+      ],
+      "SEPARATOR": [
+        ","
+      ]
+    },
+    {
+      "PRODUCT": "TOMIGAN",
+      "ACTIVE_SUBSTANCE": "FLUROXYPYR",
+      "EXPIRY": "15/02/2027",
+      "ELIDED_FORMS": [
+        "frumento tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    },
+    {
+      "PRODUCT": "TRIMMER 50 WG",
+      "ACTIVE_SUBSTANCE": "TRIBENURON",
+      "EXPIRY": "30/01/2035",
+      "ELIDED_FORMS": [
+        "frumento tenero e duro"
+      ],
+      "SEPARATOR": [
+        "e"
+      ]
+    }
+  ],
+  "CROPS_AFFECTED": [
+    "DURUM_WHEAT",
+    "COMMON_WHEAT"
+  ],
+  "VERDICT_CHANGES": [
+    "a leitura \"o portfólio nomeado para trigo duro não tem fungicida foliar\" caiu: os 5 foliares que casam com o boletim de campo autorizam grano duro",
+    "nenhum verdito de outra cultura mudou — a classe de erro não as alcança"
+  ],
+  "TESTED_AND_NOT_FOUND": {
+    "STATE": "NÃO ENCONTREI NOS FORMATOS MEDIDOS — não é \"não existe\"",
+    "ITEMS": [
+      {
+        "FORM": "mais dolce (modificador que cria cultura distinta)",
+        "LABELS_WITH_IT": 12,
+        "FALSE_POSITIVES_PRODUCED": 0,
+        "NOTE": "todos os 12 também citam \"mais\" isolado, então nenhum produto entra em MAIZE só por causa do milho doce. A conflação existe no índice; neste corpus ela não produziu falso positivo."
+      },
+      {
+        "FORM": "lista de culturas plenas (girasole, soia, barbabietola)",
+        "LOSS": 0,
+        "NOTE": "cada substantivo casa sozinho"
+      },
+      {
+        "FORM": "artigo/preposição compartilhados (vite, del pomodoro)",
+        "LOSS": 0,
+        "NOTE": "a preposição não separa o substantivo do índice"
+      },
+      {
+        "FORM": "singular/plural",
+        "LOSS": 0,
+        "NOTE": "nenhuma forma do corpus depende de flexão para ser reconhecida"
+      }
+    ]
+  },
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "que não exista outra classe de erro de extração — só que esta foi medida",
+    "que rótulos futuros usem as mesmas formas; o separador foi generalizado justamente porque a segunda pontuação apareceu depois da primeira correção",
+    "nada sobre venda, disponibilidade ou prioridade interna"
+  ]
+}
