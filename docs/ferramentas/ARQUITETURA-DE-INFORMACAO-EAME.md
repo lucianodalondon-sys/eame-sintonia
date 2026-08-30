@@ -127,17 +127,38 @@ STATUS:               **PROVED** para exposição · **CONCEPT** para impacto
 ```
 
 ## ÁREA · COMPETITIVE — `PARTIAL`
+
+**Camada estrutural da convergência desde 2026-08-30.** Duas colunas independentes que
+nunca se fundem: RESPOSTA REGISTRADA e ATIVAÇÃO OBSERVADA.
+
 ```
 QUESTIONS:            · quem tem direito de uso no mesmo combate, com que molécula?
                       · quem está mais exposto ao mesmo horizonte regulatório?
-                      · [não respondível] o concorrente está comunicando mais?
-SOURCES:              FR-T4-001, IT-T4-001 (registro) · comunicação: **nenhuma**
+                      · quem está se movimentando agora — e desde quando?
+                      · quem começou primeiro: ciência, campo ou concorrente?
+SOURCES:              FR-T4-001, IT-T4-001, ES ROPF (registro) ·
+                      EU-T9-001 comunicação: 1 de 5 majors ·
+                      **EU-T9-002 META ADS LIBRARY: NÃO TESTADO**
+ESTADOS:              COMPETITOR_REGISTERED_RESPONSE   DEMONSTRABLE
+                      COMPETITOR_PAID_META_ACTIVITY    PLANNED
+                      COMPETITOR_PUBLIC_COMMUNICATION  PLANNED
+                      COMPETITOR_TECHNICAL_ACTIVITY    PLANNED
+                      NOT_KNOWN                        sempre disponível
+RELÓGIO:              COMPETITOR OBSERVATION CLOCK — FIRST_OBSERVED · LAST_OBSERVED ·
+                      CHANGE_OBSERVED · SOURCE_DATE · AS_OF_DATE. É o QUINTO relógio e
+                      não se funde com os quatro do calendário agronômico. Frescor
+                      continua derivado, nunca persistido.
 LIMITATIONS:          contagem de registros **não é participação de mercado** ·
                       agrupamento de razão social em grupo **ainda não medido** (DECK-015) ·
-                      camada de comunicação **inacessível** (403/502/404)
+                      comunicação **inacessível em 4 de 5** (403/502/404) ·
+                      ativação paga **nunca testada** — NAO_TESTADO, não AUSENTE_MEDIDO ·
+                      `OBSERVATION_START != ACTIVITY_START`
 REAL_EXAMPLES:        X-005 · CASE-011 · trigo×septoriose FR: BASF 22, Bayer 20, ADAMA 6
-ADAMA_USERS:          MD · PORTFOLIO · MARKETING · EAME
-STATUS:               **PARTIAL** — `PROVED` no registro, `BLOCKED` na comunicação
+ADAMA_USERS:          MD (decisor central) · PORTFOLIO · MARKETING · SCIENCE · EAME
+DATA_COVERAGE:        NOT_YET_COMPLETE
+STATUS:               **PARTIAL** — `PROVED` no registro, `BLOCKED` na comunicação,
+                      `NÃO TESTADO` na ativação paga
+CONTRATO:             data/samples/EAME-COMPETITOR-CONTRACT-V1.json
 ```
 
 ## ÁREA · MARKET — `PARTIAL`
@@ -173,8 +194,8 @@ STATUS:               **CONCEPT** — sem fonte. YouTube Data API 403, Meta Grap
 ## ÁREA · EVIDENCE & SOURCES — `PROVED`
 ```
 PURPOSE:              toda resposta leva de volta à evidência (DECK-024)
-STATUS:               **PROVED** — <!--M:SOURCE_ID_COUNT-->36<!--/M--> SOURCE_IDs fichados, 16 amostras com proveniência
-                      obrigatória testada, <!--M:TEST_COUNT_CURRENT-->494<!--/M--> provas automatizadas
+STATUS:               **PROVED** — <!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs fichados, 16 amostras com proveniência
+                      obrigatória testada, <!--M:TEST_COUNT_CURRENT-->539<!--/M--> provas automatizadas
 ```
 
 ## ÁREAS AVALIADAS E **NÃO** RECOMENDADAS AGORA

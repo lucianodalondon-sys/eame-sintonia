@@ -11,7 +11,7 @@
  "A_REGRA_QUE_GOVERNA_TUDO": "nenhuma traducao pode mudar o que o campo afirma. Uma frase de exibicao so pode ser MAIS explicita que o enum, nunca menos.",
  "O_TESTE_DE_DERIVA_SEMANTICA": "para cada regra, a pergunta e: um leitor que so viu a frase de exibicao chegaria a uma conclusao que o campo nao sustenta? Se sim, a regra esta errada.",
  "ACENTUACAO": "os textos de exibicao levam acento; os valores de origem nao. A conversao acontece AQUI e em nenhum outro lugar.",
- "REGRAS_COUNT": 83,
+ "REGRAS_COUNT": 103,
  "IDIOMAS": [
   "PT",
   "EN",
@@ -764,6 +764,186 @@
    "DISPLAY_TEXT_EN": "State computed for this date",
    "DISPLAY_TEXT_ES": "Estado calculado para esta fecha",
    "SEMANTIC_RULE": "a data da pergunta viaja com a resposta. Sem ela, o payload vira um fato sem validade."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "COMPETITOR_REGISTERED_RESPONSE",
+   "DISPLAY_KEY": "competitor_state.registered_response",
+   "DISPLAY_TEXT_PT": "Tem resposta registrada neste pais",
+   "DISPLAY_TEXT_EN": "Has a registered response in this country",
+   "DISPLAY_TEXT_ES": "Tiene respuesta registrada en este pais",
+   "SEMANTIC_RULE": "o pais precisa aparecer. PORTFOLIO GLOBAL != PORTFOLIO LOCAL, e a frase sem pais sugere o contrario."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "COMPETITOR_PAID_META_ACTIVITY",
+   "DISPLAY_KEY": "competitor_state.paid_meta_activity",
+   "DISPLAY_TEXT_PT": "Peca publicitaria paga observada",
+   "DISPLAY_TEXT_EN": "Paid advertising piece observed",
+   "DISPLAY_TEXT_ES": "Pieza publicitaria pagada observada",
+   "SEMANTIC_RULE": "observada, nao contada como campanha. META AD != CAMPAIGN SUCCESS e != SALES."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "COMPETITOR_PUBLIC_COMMUNICATION",
+   "DISPLAY_KEY": "competitor_state.public_communication",
+   "DISPLAY_TEXT_PT": "Comunicacao publica observada",
+   "DISPLAY_TEXT_EN": "Public communication observed",
+   "DISPLAY_TEXT_ES": "Comunicacion publica observada",
+   "SEMANTIC_RULE": "comunicacao nao paga. Nao traduzir como campanha nem como anuncio."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "COMPETITOR_TECHNICAL_ACTIVITY",
+   "DISPLAY_KEY": "competitor_state.technical_activity",
+   "DISPLAY_TEXT_PT": "Atividade tecnica publicamente observavel",
+   "DISPLAY_TEXT_EN": "Publicly observable technical activity",
+   "DISPLAY_TEXT_ES": "Actividad tecnica publicamente observable",
+   "SEMANTIC_RULE": "ensaio, palestra, publicacao ou presenca em evento. Nao e lancamento e nao e registro."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "competitor_state.not_known",
+   "DISPLAY_TEXT_PT": "Sem informacao sobre este concorrente neste par",
+   "DISPLAY_TEXT_EN": "No information about this competitor for this pair",
+   "DISPLAY_TEXT_ES": "Sin informacion sobre este competidor en este par",
+   "SEMANTIC_RULE": "ausencia de informacao, nunca ausencia de atividade. Proibido traduzir como inativo."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_RESPONSE",
+   "SOURCE_VALUE": "YES",
+   "DISPLAY_KEY": "competitor_response.yes",
+   "DISPLAY_TEXT_PT": "Resposta registrada: sim, neste pais",
+   "DISPLAY_TEXT_EN": "Registered response: yes, in this country",
+   "DISPLAY_TEXT_ES": "Respuesta registrada: si, en este pais",
+   "SEMANTIC_RULE": "registro autoriza uso. REGISTRATION != SALES != STOCK != COMMERCIAL AVAILABILITY."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_RESPONSE",
+   "SOURCE_VALUE": "NOT_PROVED",
+   "DISPLAY_KEY": "competitor_response.not_proved",
+   "DISPLAY_TEXT_PT": "Resposta registrada nao comprovada neste pais",
+   "DISPLAY_TEXT_EN": "Registered response not proven in this country",
+   "DISPLAY_TEXT_ES": "Respuesta registrada no comprobada en este pais",
+   "SEMANTIC_RULE": "nao comprovada e diferente de nao existe. Proibido traduzir como \"nao tem registro\"."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_RESPONSE",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "competitor_response.not_known",
+   "DISPLAY_TEXT_PT": "Situacao de registro nao consultada",
+   "DISPLAY_TEXT_EN": "Registration status not checked",
+   "DISPLAY_TEXT_ES": "Situacion de registro no consultada",
+   "SEMANTIC_RULE": "a rota nao foi executada. NAO_TESTADO != AUSENTE_MEDIDO."
+  },
+  {
+   "SOURCE_FIELD": "META_ACTIVITY",
+   "SOURCE_VALUE": "OBSERVED",
+   "DISPLAY_KEY": "meta_activity.observed",
+   "DISPLAY_TEXT_PT": "Anuncio pago observado na Meta Ads Library",
+   "DISPLAY_TEXT_EN": "Paid ad observed in the Meta Ads Library",
+   "DISPLAY_TEXT_ES": "Anuncio pagado observado en la Meta Ads Library",
+   "SEMANTIC_RULE": "a fonte tem de ser nomeada. \"Observado nas redes\" apagaria que e peca PAGA e registrada."
+  },
+  {
+   "SOURCE_FIELD": "META_ACTIVITY",
+   "SOURCE_VALUE": "NOT_OBSERVED",
+   "DISPLAY_KEY": "meta_activity.not_observed",
+   "DISPLAY_TEXT_PT": "Nenhum anuncio encontrado nas fontes consultadas",
+   "DISPLAY_TEXT_EN": "No ad found in the sources searched",
+   "DISPLAY_TEXT_ES": "Ningun anuncio encontrado en las fuentes consultadas",
+   "SEMANTIC_RULE": "a frase tem de dizer \"nas fontes consultadas\". SILENCIO != AUSENCIA, e sem o denominador isto vira uma afirmacao que a fonte nao sustenta."
+  },
+  {
+   "SOURCE_FIELD": "META_ACTIVITY",
+   "SOURCE_VALUE": "NOT_SEARCHED",
+   "DISPLAY_KEY": "meta_activity.not_searched",
+   "DISPLAY_TEXT_PT": "A fonte de anuncios nao foi consultada",
+   "DISPLAY_TEXT_EN": "The ad source was not searched",
+   "DISPLAY_TEXT_ES": "La fuente de anuncios no fue consultada",
+   "SEMANTIC_RULE": "este e o estado de hoje para os tres paises. Proibido exibir como \"nenhum anuncio\"."
+  },
+  {
+   "SOURCE_FIELD": "CONVERGENCE_CASE",
+   "SOURCE_VALUE": "COMPETITIVE_CONVERGENCE_WORTH_INVESTIGATING",
+   "DISPLAY_KEY": "convergence_case.worth_investigating",
+   "DISPLAY_TEXT_PT": "Convergencia competitiva que merece investigacao",
+   "DISPLAY_TEXT_EN": "Competitive convergence worth investigating",
+   "DISPLAY_TEXT_ES": "Convergencia competitiva que merece investigacion",
+   "SEMANTIC_RULE": "investigar, nunca agir. A saida e PRIORITY TO INVESTIGATE e quem decide e o Market Development."
+  },
+  {
+   "SOURCE_FIELD": "CONVERGENCE_CASE",
+   "SOURCE_VALUE": "POSSIBLE_EARLY_WINDOW",
+   "DISPLAY_KEY": "convergence_case.possible_early_window",
+   "DISPLAY_TEXT_PT": "O sinal pode estar surgindo antes de forte ativacao publica competitiva",
+   "DISPLAY_TEXT_EN": "The signal may be emerging before strong competitive public activation",
+   "DISPLAY_TEXT_ES": "La senal puede estar surgiendo antes de una fuerte activacion publica competitiva",
+   "SEMANTIC_RULE": "frase inteira, sem encurtar. Proibido virar white space, vantagem competitiva ou oportunidade de venda."
+  },
+  {
+   "SOURCE_FIELD": "CONVERGENCE_CASE",
+   "SOURCE_VALUE": "POSSIBLE_PRE_POSITIONING_SIGNAL",
+   "DISPLAY_KEY": "convergence_case.possible_pre_positioning",
+   "DISPLAY_TEXT_PT": "Possivel sinal de pre-posicionamento",
+   "DISPLAY_TEXT_EN": "Possible pre-positioning signal",
+   "DISPLAY_TEXT_ES": "Posible senal de preposicionamiento",
+   "SEMANTIC_RULE": "e uma pergunta, nao um diagnostico: antecipacao ou calendario normal? A resposta padrao e NAO SEI."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_OBSERVATION_CLOCK",
+   "SOURCE_VALUE": "FIRST_OBSERVED",
+   "DISPLAY_KEY": "competitor_clock.first_observed",
+   "DISPLAY_TEXT_PT": "Primeira vez que NOS observamos",
+   "DISPLAY_TEXT_EN": "First time WE observed it",
+   "DISPLAY_TEXT_ES": "Primera vez que NOSOTROS lo observamos",
+   "SEMANTIC_RULE": "quando nos observamos, nao quando o concorrente comecou. OBSERVATION_START != ACTIVITY_START."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_OBSERVATION_CLOCK",
+   "SOURCE_VALUE": "LAST_OBSERVED",
+   "DISPLAY_KEY": "competitor_clock.last_observed",
+   "DISPLAY_TEXT_PT": "Ultima vez observada",
+   "DISPLAY_TEXT_EN": "Last time observed",
+   "DISPLAY_TEXT_ES": "Ultima vez observada",
+   "SEMANTIC_RULE": "nao significa que parou. Significa que a ultima consulta viu ate aqui."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_OBSERVATION_CLOCK",
+   "SOURCE_VALUE": "CHANGE_OBSERVED",
+   "DISPLAY_KEY": "competitor_clock.change_observed",
+   "DISPLAY_TEXT_PT": "Mudanca de mensagem observada entre duas consultas",
+   "DISPLAY_TEXT_EN": "Message change observed between two checks",
+   "DISPLAY_TEXT_ES": "Cambio de mensaje observado entre dos consultas",
+   "SEMANTIC_RULE": "mudanca so existe da SEGUNDA observacao em diante. FIRST SNAPSHOT != NO CHANGE."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_OBSERVATION_CLOCK",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "competitor_clock.not_known",
+   "DISPLAY_TEXT_PT": "Sem serie de observacao para este concorrente",
+   "DISPLAY_TEXT_EN": "No observation series for this competitor",
+   "DISPLAY_TEXT_ES": "Sin serie de observacion para este competidor",
+   "SEMANTIC_RULE": "sem serie nao ha como separar antecipacao de rotina, e o caso 3 diz isso na cara."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_AUDIENCE",
+   "SOURCE_VALUE": "CAN_INVESTIGATE_NOW",
+   "DISPLAY_KEY": "action_audience.can_investigate_now",
+   "DISPLAY_TEXT_PT": "Quem pode investigar agora",
+   "DISPLAY_TEXT_EN": "Who can investigate now",
+   "DISPLAY_TEXT_ES": "Quien puede investigar ahora",
+   "SEMANTIC_RULE": "investigar nao e agir. WHO CAN INVESTIGATE NOW != WHO SHOULD ACT NOW."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_AUDIENCE",
+   "SOURCE_VALUE": "DECISION_IS_NOT_OURS",
+   "DISPLAY_KEY": "action_audience.decision_is_not_ours",
+   "DISPLAY_TEXT_PT": "O Sintonia prioriza; a decisao e da ADAMA",
+   "DISPLAY_TEXT_EN": "Sintonia prioritises; the decision is ADAMA’s",
+   "DISPLAY_TEXT_ES": "Sintonia prioriza; la decision es de ADAMA",
+   "SEMANTIC_RULE": "nenhuma traducao pode sugerir que o sistema recomenda uma acao comercial."
   }
  ],
  "PROIBICOES_DE_TRADUCAO": [
@@ -794,5 +974,14 @@
   "WINDOW_STATE"
  ],
  "DE_ONDE_VEM_O_TEMPORAL": "as regras temporais correspondem 1:1 aos valores que public.f_case_temporal_context devolve. Fonte: supabase/migrations/010-012.",
- "DEFEITO_CONHECIDO_ACENTUACAO": "ACENTUACAO diz que os textos de exibicao levam acento, e 29 das 29 regras anteriores a esta rodada nao levam. As regras temporais seguiram a convencao REAL do arquivo (sem acento) para nao criar um arquivo meio acentuado. Corrigir os dois lados numa passada unica e trabalho do dono do DISPLAY-LAYER, nao desta missao."
+ "DEFEITO_CONHECIDO_ACENTUACAO": "ACENTUACAO diz que os textos de exibicao levam acento, e 29 das 29 regras anteriores a esta rodada nao levam. As regras temporais seguiram a convencao REAL do arquivo (sem acento) para nao criar um arquivo meio acentuado. Corrigir os dois lados numa passada unica e trabalho do dono do DISPLAY-LAYER, nao desta missao.",
+ "CAMPOS_COMPETITIVOS_ADICIONADOS": [
+  "ACTION_AUDIENCE",
+  "COMPETITOR_OBSERVATION_CLOCK",
+  "COMPETITOR_RESPONSE",
+  "COMPETITOR_STATE",
+  "CONVERGENCE_CASE",
+  "META_ACTIVITY"
+ ],
+ "DE_ONDE_VEM_O_COMPETITIVO": "as regras competitivas correspondem 1:1 aos estados de data/samples/EAME-COMPETITOR-CONTRACT-V1.json. Nenhum dado competitivo foi coletado; estas sao regras de exibicao para capacidade declarada."
 }

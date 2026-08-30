@@ -108,7 +108,7 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
 
     def test_os_valores_das_sentinelas_batem(self):
         t = texto(PROMPT)
-        for m, esperado in [('SOURCE_ID_COUNT', 36), ('RAIF_SEASONS_AVAILABLE', 23),
+        for m, esperado in [('SOURCE_ID_COUNT', 37), ('RAIF_SEASONS_AVAILABLE', 23),
                             ('RAIF_READINGS_TOTAL', 148964), ('ES_EXPIRING_6M', 486),
                             ('ES_EXPIRING_12M', 1004), ('ES_ACTIVE_WITH_PAST_EXPIRY', 34),
                             ('VOICE_ES_RESEARCHERS', 152), ('VOICE_ES_VIDEO_CONTENTS', 252),

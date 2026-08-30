@@ -18,7 +18,7 @@ a reportar, não um erro a ignorar.
 | **HEAD** | ver `git rev-parse HEAD` — o commit de handoff é o último |
 | **REMOTE_HEAD** | idêntico ao local no momento do push |
 | **WORKING_TREE** | limpo |
-| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->494<!--/M--> testes, 0 falhas, 0 erros, 0 pulados** |
+| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->539<!--/M--> testes, 0 falhas, 0 erros, 0 pulados** |
 | **LAST_MAJOR_MISSION** | 10B-ES — fechar os portões estruturais antes de coletar mais |
 | **CURRENT_COUNTRY_SCOPE** | **ESPANHA**. França e Itália **não** foram abertas na camada de voz. |
 
@@ -527,7 +527,7 @@ relatório.** Há teste que varre o repositório atrás de padrão de token.
 ## T · FONTES / ATLAS
 
 Documento dono: `docs/fontes/ATLAS-DE-FONTES-EAME.md`.
-**<!--M:SOURCE_ID_COUNT-->36<!--/M--> SOURCE_IDs · <!--M:SOURCE_FICHA_COUNT-->25<!--/M--> fichas · <!--M:SOURCE_GREEN_COUNT-->16<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI.**
+**<!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs · <!--M:SOURCE_FICHA_COUNT-->26<!--/M--> fichas · <!--M:SOURCE_GREEN_COUNT-->16<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI.**
 
 ### As que a próxima conta precisa conhecer primeiro
 

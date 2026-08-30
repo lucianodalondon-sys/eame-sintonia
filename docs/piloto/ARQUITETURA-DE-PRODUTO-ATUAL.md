@@ -77,6 +77,71 @@ a ADAMA.
 
 ---
 
+## CONVERGÊNCIA — sete camadas, e a concorrência é uma delas
+
+**Adicionado em 2026-08-30.** Um caso de convergência cruza:
+
+```
+CAMPO × CIÊNCIA × CLIMA × REGULATÓRIO × PORTFÓLIO ADAMA LOCAL × CONCORRÊNCIA × TEMPO
+```
+
+`CONCORRÊNCIA` **não é um monitor pendurado ao lado do produto.** É uma camada estrutural,
+e entra com **duas colunas independentes** que nunca se fundem:
+
+| coluna | pergunta | fonte | estado hoje |
+|---|---|---|---|
+| **RESPOSTA REGISTRADA** | quem tem resposta registrada localmente para este par? | registro oficial nacional | `DEMONSTRABLE` — é o X-005, COMPROVADO |
+| **ATIVAÇÃO OBSERVADA** | quem está se movimentando agora? | comunicação · Meta Ads Library · atividade técnica | `PLANNED` — sem dado em nenhum país |
+
+Quatro estados de ativação, mais o quinto que sempre existe. **Nunca somados:**
+
+`COMPETITOR_REGISTERED_RESPONSE` · `COMPETITOR_PAID_META_ACTIVITY` ·
+`COMPETITOR_PUBLIC_COMMUNICATION` · `COMPETITOR_TECHNICAL_ACTIVITY` · `NOT_KNOWN`
+
+**META ADS LIBRARY é fonte estratégica nomeada** (`EU-T9-002`), não um item genérico de
+"social media". Ela prova `ATIVAÇÃO PUBLICITÁRIA OBSERVADA` — e `META AD ≠ SALES`,
+`≠ MARKET SHARE`, `≠ CAMPAIGN SUCCESS`, `≠ STOCK`, `≠ PRODUCT AVAILABILITY`.
+
+**Quinto relógio:** `COMPETITOR OBSERVATION CLOCK` — `FIRST_OBSERVED` · `LAST_OBSERVED` ·
+`CHANGE_OBSERVED` · `SOURCE_DATE` · `AS_OF_DATE`. Ele **não** se funde com os quatro do
+calendário agronômico, e o frescor continua derivado, nunca persistido. Ele existe para
+uma pergunta só: **quem viu primeiro?** — comparando sinal de ciência, sinal de campo,
+sinal competitivo, ativação, janela agronômica e janela comercial quando conhecida.
+
+### As cinco perguntas que todo caso futuro faz
+
+1. quem tem resposta?
+2. quem está anunciando?
+3. quem começou primeiro?
+4. isso coincide com campo, ciência ou janela agronômica?
+5. **ainda existe tempo para agir?**
+
+A quinta é a mais difícil e só tem resposta com resolução temporal suficiente. Com
+`APPROXIMATE` ou sem fenologia observada, a resposta é `NOT_KNOWN` — e continua útil,
+porque diz o que falta medir.
+
+### Três casos conceituais — **capacidade, não dado**
+
+| caso | composição | saída |
+|---|---|---|
+| **COMPETITIVE CONVERGENCE WORTH INVESTIGATING** | sinal de campo + janela + resposta ADAMA + concorrentes com resposta + ativação Meta | `PRIORITY TO INVESTIGATE` |
+| **POSSIBLE EARLY WINDOW** | sinal começando + todos com resposta registrada + nenhuma ativação observada | *"o sinal pode estar surgindo antes de forte ativação pública competitiva"* |
+| **POSSIBLE PRE-POSITIONING SIGNAL** | concorrente anuncia + ciência aponta + campo silencioso | pergunta, e a resposta padrão é `NÃO SEI` |
+
+**Nenhum dos três conclui oportunidade comercial.** O caso 2 nunca é `WHITE SPACE`,
+`COMPETITIVE ADVANTAGE` nem `SALES OPPORTUNITY`. O caso 3 não separa antecipação de rotina
+sem série histórica — e a primeira captura nunca sustenta essa separação.
+
+```
+COMPETITOR_LAYER_IN_ARCHITECTURE = YES
+META_EXPLICIT_SOURCE             = YES
+DATA COVERAGE                    = NOT_YET_COMPLETE
+```
+
+Contrato completo: `data/samples/EAME-COMPETITOR-CONTRACT-V1.json`.
+
+---
+
 ## INTERFACE · Ask Sintonia
 
 **Não é uma quarta ferramenta.** É como se pergunta às duas primeiras. E é um
@@ -132,6 +197,8 @@ ou qualquer número que não mude uma decisão.
 | chamar `ha × incidência` de hectares afetados, área tratada, demanda ou venda | é **índice de exposição relativa**; serve para ordenar |
 | apresentar MT3 como oportunidade | é `ACTIVATION QUESTION` |
 | dizer que um concorrente está silencioso | o correto é `NO PUBLIC ACTIVITY FOUND IN SEARCHED SOURCES` |
+| somar registro, anúncio, comunicação e atividade técnica num indicador | são quatro observações de naturezas diferentes; o número esconderia **qual** delas está acontecendo |
+| ler anúncio como demanda, venda ou *share* | Meta prova `ATIVAÇÃO PUBLICITÁRIA OBSERVADA`, e nada além |
 | mostrar "35 perguntas respondidas pelo sistema" | 5 executam; 35 são contrato |
 | ler `EXPIRED` como `WITHDRAWN` | <!--M:ES_ACTIVE_WITH_PAST_EXPIRY-->34<!--/M--> registros espanhóis provam o contrário |
 | desenhar um menu de módulos independentes | são **duas ferramentas e uma pergunta**, com um motor por baixo |
