@@ -8,7 +8,8 @@
     "NOME_E_HANDLE_ERRADOS_NA_SEED": 1,
     "PESSOA_DIFERENTE_DE_PERSONA": 1,
     "PESSOA_DIFERENTE_DE_EMPRESA": 1,
-    "SEM_ERRO_NA_SEED": 2
+    "NOME_DA_PESSOA_DIFERENTE_DO_NOME_DO_CANAL": 1,
+    "SEM_ERRO_NA_SEED": 1
   },
   "RELEVANCE_STATE": {
     "PROMISING": 6
@@ -29,9 +30,9 @@
       "CLASSE": "NOME_E_HANDLE_ERRADOS_NA_SEED"
     },
     {
-      "DE": "David Forge",
-      "PARA": "David Forge (YouTube)",
-      "CLASSE": "SEM_ERRO_NA_SEED"
+      "DE": "David Forge (nome da pessoa)",
+      "PARA": "@chaineagricole (Chaine Agricole)",
+      "CLASSE": "NOME_DA_PESSOA_DIFERENTE_DO_NOME_DO_CANAL"
     },
     {
       "DE": "Gilles Van Kempen",
@@ -179,6 +180,11 @@
       "CONTENT_FIT": "NÃO SEI",
       "ACTIVITY_RECENCY": "NÃO SEI",
       "RELEVANCE_STATE": "PROMISING",
+      "PERSON_ID": "NÃO SEI",
+      "ENTITY_ID": "NÃO SEI",
+      "OBSERVED_AT": "NÃO SEI",
+      "CREATOR_APPEARANCE_OBSERVED": "NÃO SEI",
+      "PAID_CREATOR_RELATION": "NÃO SEI",
       "SOURCE_URL": "https://www.instagram.com/gomierofarm/",
       "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
       "CAPTURE_DATE": "2026-08-30",
@@ -326,6 +332,11 @@
       "CONTENT_FIT": "NÃO SEI",
       "ACTIVITY_RECENCY": "NÃO SEI",
       "RELEVANCE_STATE": "PROMISING",
+      "PERSON_ID": "NÃO SEI",
+      "ENTITY_ID": "NÃO SEI",
+      "OBSERVED_AT": "NÃO SEI",
+      "CREATOR_APPEARANCE_OBSERVED": "NÃO SEI",
+      "PAID_CREATOR_RELATION": "NÃO SEI",
       "SOURCE_URL": "https://www.instagram.com/narduccio_capicchiaro/",
       "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
       "CAPTURE_DATE": "2026-08-30",
@@ -474,6 +485,11 @@
       "CONTENT_FIT": "NÃO SEI",
       "ACTIVITY_RECENCY": "NÃO SEI",
       "RELEVANCE_STATE": "PROMISING",
+      "PERSON_ID": "NÃO SEI",
+      "ENTITY_ID": "NÃO SEI",
+      "OBSERVED_AT": "NÃO SEI",
+      "CREATOR_APPEARANCE_OBSERVED": "NÃO SEI",
+      "PAID_CREATOR_RELATION": "NÃO SEI",
       "SOURCE_URL": "https://www.eldebate.com/espana/la-voz-de-cordoba/sociedad/20240107/campo-he-encontrado-tranquilidad_165129.html",
       "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
       "CAPTURE_DATE": "2026-08-30",
@@ -624,6 +640,11 @@
       "CONTENT_FIT": "NÃO SEI",
       "ACTIVITY_RECENCY": "NÃO SEI",
       "RELEVANCE_STATE": "PROMISING",
+      "PERSON_ID": "NÃO SEI",
+      "ENTITY_ID": "NÃO SEI",
+      "OBSERVED_AT": "NÃO SEI",
+      "CREATOR_APPEARANCE_OBSERVED": "NÃO SEI",
+      "PAID_CREATOR_RELATION": "NÃO SEI",
       "SOURCE_URL": "https://www.instagram.com/biocampojoyma/",
       "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
       "CAPTURE_DATE": "2026-08-30",
@@ -638,9 +659,9 @@
     },
     {
       "CREATOR_ID": "FR-CR-005",
-      "ORIGIN_ID": "David Forge (YouTube)",
+      "ORIGIN_ID": "@chaineagricole (Chaine Agricole)",
       "NAME": "David Forge",
-      "DISPLAY_NAME": "David Forge (YouTube)",
+      "DISPLAY_NAME": "@chaineagricole (Chaine Agricole)",
       "COUNTRY": "FR",
       "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
       "LANGUAGE": "es",
@@ -650,7 +671,7 @@
       "IDENTITY_EVIDENCE": "identidade, ocupacao e regiao confirmadas por 2 fontes independentes da seed; handle real localizado",
       "IDENTITY_STATE": "PROVED",
       "HANDLE_EXISTS": "YES",
-      "PROFILE_URL": "https://www.youtube.com/@DavidForge",
+      "PROFILE_URL": "https://www.youtube.com/@chaineagricole",
       "NAME_MATCH": "RESOLVED_BY_PRIMARY_SEARCH",
       "ACTIVATION_ENTITY_TYPE": "PERSON_CREATOR",
       "CREATOR_TYPE": "FARMER_CREATOR",
@@ -664,29 +685,33 @@
       "FIELD_VOICE_SOURCE": "NOT_KNOWN",
       "FARMER_CREATOR_ROLE": "YES",
       "CROPS": [
-        "CEREALS",
-        "WHEAT"
+        "WHEAT",
+        "BARLEY",
+        "RAPESEED",
+        "SUNFLOWER"
       ],
       "CROP_STATE": "PROVED",
-      "CROP_EVIDENCE": "exploracao CEREALIFERA de 160 ha; videos semanais sobre as suas parcelas e o seu material",
+      "CROP_EVIDENCE": "CLASSE C: exploracao cerealifera de 160 ha (imprensa) E titulos do proprio canal confirmando por conteudo — \"Semis du ble sans travailler le sol\", \"Engrais sur un colza qui demarre fort\", \"preparer le sol au tournesol\", \"Livraison de la derniere benne de ble\". Cultura lida do CONTEUDO, nao da consulta.",
       "REGIONS": [
         "Indre-et-Loire, Touraine (Centre-Val de Loire)"
       ],
       "TECHNICAL_TOPICS": "NÃO SEI",
-      "CROP_CLAIMED_BY_SEED": "David Forge",
+      "CROP_CLAIMED_BY_SEED": "David Forge (nome da pessoa)",
       "CROP_PROVED_BY_CONTENT": [
-        "CEREALS",
-        "WHEAT"
+        "WHEAT",
+        "BARLEY",
+        "RAPESEED",
+        "SUNFLOWER"
       ],
       "CROP_PROOF_URLS": [
         "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
         "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
       ],
-      "CROP_PROOF_TYPE": "NÃO SEI",
+      "CROP_PROOF_TYPE": "C_RECURRING_FIELD_CONTENT",
       "CROP_PROOF_URL": "NÃO SEI",
       "CROP_PROOF_DATE": "NÃO SEI",
       "CROP_PROOF_TEXT": "NÃO SEI",
-      "CROP_PROOF_STRENGTH": "NÃO SEI",
+      "CROP_PROOF_STRENGTH": "STRONG",
       "N_CONTENT_ITEMS_REVIEWED": "NÃO SEI",
       "CONTENT_TYPES_OBSERVED": "NÃO SEI",
       "SUSPECTED_CHAIN_MISMATCH": "NÃO SEI",
@@ -700,12 +725,12 @@
       ],
       "INSTAGRAM": "NÃO SEI",
       "TIKTOK": "NÃO SEI",
-      "YOUTUBE": "David Forge (YouTube)",
+      "YOUTUBE": "@chaineagricole (Chaine Agricole)",
       "FACEBOOK": "NÃO SEI",
       "LINKEDIN": "NÃO SEI",
       "X": "NÃO SEI",
       "FOLLOWERS_BY_PLATFORM": {
-        "YOUTUBE": 105000
+        "YOUTUBE": 106000
       },
       "AS_OF_DATE": "2026-08-30",
       "POSTING_FREQUENCY": "NÃO SEI",
@@ -761,7 +786,7 @@
         "RECENT_ACTIVITY_PROVED=FALTA",
         "PUBLIC_CHANNEL_PROVED=OK",
         "PENDENTE: MISSING_RECENT_ACTIVITY",
-        "CLASSE_DO_ERRO_DA_SEED=SEM_ERRO_NA_SEED",
+        "CLASSE_DO_ERRO_DA_SEED=NOME_DA_PESSOA_DIFERENTE_DO_NOME_DO_CANAL",
         "FIT_ADAMA=MEDIUM: perfil de campo com cultura provada; audiência ainda não medida"
       ],
       "AUDIENCE_FIT": "NÃO SEI",
@@ -770,6 +795,11 @@
       "CONTENT_FIT": "NÃO SEI",
       "ACTIVITY_RECENCY": "NÃO SEI",
       "RELEVANCE_STATE": "PROMISING",
+      "PERSON_ID": "NÃO SEI",
+      "ENTITY_ID": "NÃO SEI",
+      "OBSERVED_AT": "NÃO SEI",
+      "CREATOR_APPEARANCE_OBSERVED": "NÃO SEI",
+      "PAID_CREATOR_RELATION": "NÃO SEI",
       "SOURCE_URL": "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
       "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
       "CAPTURE_DATE": "2026-08-30",
@@ -778,9 +808,9 @@
       "COLLECTION_ROUTE": "WEB_SEARCH dirigida a resolver identidade",
       "CROPS_REJECTED_FROM_SEED": [],
       "SOURCE_KIND": "PRIMARY_IDENTITY_RESOLUTION",
-      "SEED_HANDLE": "David Forge",
-      "SEED_ERROR_CLASS": "SEM_ERRO_NA_SEED",
-      "FOLLOWERS_NOTE": "inscritos no YouTube"
+      "SEED_HANDLE": "David Forge (nome da pessoa)",
+      "SEED_ERROR_CLASS": "NOME_DA_PESSOA_DIFERENTE_DO_NOME_DO_CANAL",
+      "FOLLOWERS_NOTE": "~106 mil inscritos; canal secundario \"David Forge, les Bonus\" existe"
     },
     {
       "CREATOR_ID": "FR-CR-006",
@@ -918,6 +948,11 @@
       "CONTENT_FIT": "NÃO SEI",
       "ACTIVITY_RECENCY": "NÃO SEI",
       "RELEVANCE_STATE": "PROMISING",
+      "PERSON_ID": "NÃO SEI",
+      "ENTITY_ID": "NÃO SEI",
+      "OBSERVED_AT": "NÃO SEI",
+      "CREATOR_APPEARANCE_OBSERVED": "NÃO SEI",
+      "PAID_CREATOR_RELATION": "NÃO SEI",
       "SOURCE_URL": "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
       "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
       "CAPTURE_DATE": "2026-08-30",

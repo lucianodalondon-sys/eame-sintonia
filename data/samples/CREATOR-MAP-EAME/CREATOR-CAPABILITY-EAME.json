@@ -1,0 +1,1340 @@
+{
+  "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
+  "CAPTURED_AT": "2026-08-30",
+  "QUESTION_ANSWERED": "COUNTRY x REGION x CROP -> ha pessoa ou entidade relevante para ativacao?",
+  "WHAT_THIS_IS_NOT": "nao ordena, nao pontua, nao recomenda contratacao. ACTIVATION_STATE significa que o Marketing JA CONSEGUE AVALIAR — nada alem disso.",
+  "READINESS_METRICS": {
+    "PERSON_CREATOR_ACTIVATION_READY": 8,
+    "FARM_BUSINESS_PARTNER_READY": 2,
+    "MARKETING_CONTACTABLE_ENTITIES_READY": 10,
+    "NOTE": "a soma NÃO se chama CREATORS_READY. Pessoa != empresa, e o nome da métrica é onde essa distinção se perde primeiro."
+  },
+  "METRIC_LAW": "a soma NUNCA se chama CREATORS_READY. Pessoa != empresa.",
+  "DECLARED_SLICES": {
+    "ES|ALMERIA|PROTECTED_HORTICULTURE": {
+      "ANSWER": "READY",
+      "PERSON_CREATOR_ACTIVATION_READY": 3,
+      "FARM_BUSINESS_PARTNER_READY": 3,
+      "MATCHED_VIA_CROPS": [
+        "PROTECTED_HORTICULTURE",
+        "TOMATO",
+        "PEPPER"
+      ],
+      "NOTE": "PROTECTED_HORTICULTURE e cultura guarda-chuva; a resposta vem das culturas membro ['PROTECTED_HORTICULTURE', 'TOMATO', 'PEPPER']"
+    },
+    "ES|ANDALUCIA|OLIVE": {
+      "ANSWER": "READY",
+      "PERSON_CREATOR_ACTIVATION_READY": 2,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "MATCHED_VIA_CROPS": [
+        "OLIVE"
+      ],
+      "NOTE": "NÃO SEI"
+    },
+    "FR|CENTRE_VAL_DE_LOIRE|CEREALS": {
+      "ANSWER": "READY",
+      "PERSON_CREATOR_ACTIVATION_READY": 4,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "MATCHED_VIA_CROPS": [
+        "WHEAT",
+        "BARLEY"
+      ],
+      "NOTE": "CEREALS e cultura guarda-chuva; a resposta vem das culturas membro ['WHEAT', 'BARLEY']"
+    },
+    "IT|ANY|GRAPEVINE": {
+      "ANSWER": "NOT_READY",
+      "CAUSE": "Zero creators PESSOA italianos com VITICULTURE_RELEVANCE provada. Os candidatos de vide da seed externa eram MIDIA DE VINHO (critico, sommelier, blogger) e sairam como WRONG_ASSIGNMENT. A porta natural — Enovitis in Campo — teve a conta oficial PROVADA (@enovitis_) e rendeu ZERO pessoas em 12 publicacoes. O padrao medido e consistente: feiras mencionam empresas, premios mencionam pessoas. Falta uma porta italiana de PESSOAS em viticultura."
+    },
+    "IT|VENETO|MAIZE": {
+      "ANSWER": "READY",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "MATCHED_VIA_CROPS": [
+        "MAIZE"
+      ],
+      "NOTE": "NÃO SEI"
+    }
+  },
+  "LOOKUP_BY_COUNTRY_CROP": {
+    "ES|CAROB": {
+      "COUNTRY": "ES",
+      "CROP": "CAROB",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+          "HANDLE": "@huerto_ecologico.marc",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+          "HANDLE": "@huerto_ecologico.marc",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "ES|EXTENSIVE_CROPS": {
+      "COUNTRY": "ES",
+      "CROP": "EXTENSIVE_CROPS",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Alberto Rojas",
+          "HANDLE": "ES-CR-002",
+          "REGION": "Córdoba (Andalucía)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "ES|GRAPEVINE": {
+      "COUNTRY": "ES",
+      "CROP": "GRAPEVINE",
+      "PERSON_CREATOR_ACTIVATION_READY": 2,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 2,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Francisco Fernandez Barroso",
+          "HANDLE": "@chicurri_agro",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Oliverio Rodriguez Viticultor",
+          "HANDLE": "@oliverio_rodfer",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Francisco Fernandez Barroso",
+          "HANDLE": "@chicurri_agro",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Oliverio Rodriguez Viticultor",
+          "HANDLE": "@oliverio_rodfer",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "ES|MELON": {
+      "COUNTRY": "ES",
+      "CROP": "MELON",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Esther Molina",
+          "HANDLE": "ES-CR-005",
+          "REGION": "Almería (Andalucía)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "ES|NOT_KNOWN": {
+      "COUNTRY": "ES",
+      "CROP": "NOT_KNOWN",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 11,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "ALBERTO ROJAS",
+          "HANDLE": "@agriproduccion",
+          "REGION": "Córdoba",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Eduardo Luna Casaus",
+          "HANDLE": "@la_fuina_de_los_monegros",
+          "REGION": "Robres, Monegros (Aragón)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "MIXED",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        },
+        {
+          "CREATOR": "Lucía Agrofamily",
+          "HANDLE": "@agrofamily_moralesperez",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "MIXED",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_PROVED"
+        },
+        {
+          "CREATOR": "Twins' Farm",
+          "HANDLE": "@twinsfarm",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "MEDIA_ACCOUNT",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "MIXED",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        },
+        {
+          "CREATOR": "Rizosfera.org",
+          "HANDLE": "@cumbrerizosfera",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "ORGANIZATION",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "TECHNICAL_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_PROVED"
+        },
+        {
+          "CREATOR": "Bruno",
+          "HANDLE": "@lajoya.agro",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "GENERAL_CONSUMER",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        },
+        {
+          "CREATOR": "Álvaro Urra",
+          "HANDLE": "@urrapetito",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "FOOD_CONSUMER",
+          "AUDIENCE_FIT_FOR_ADAMA": "LOW",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        },
+        {
+          "CREATOR": "Frutas y Verduras Nito",
+          "HANDLE": "@nitofrutasyverduras",
+          "REGION": "Canárias",
+          "ENTITY_TYPE": "OTHER",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "FOOD_CONSUMER",
+          "AUDIENCE_FIT_FOR_ADAMA": "LOW",
+          "ACTUAL_FARMER": "NOT_PROVED"
+        },
+        {
+          "CREATOR": "La Horteta De Bussy || Creador de Contenido",
+          "HANDLE": "@lahortetadebussy",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "GENERAL_CONSUMER",
+          "AUDIENCE_FIT_FOR_ADAMA": "LOW",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        },
+        {
+          "CREATOR": "Angel Illescas Nombela",
+          "HANDLE": "@angel_illescas_",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "GENERAL_CONSUMER",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        },
+        {
+          "CREATOR": "Laderas del Naranco ® | Jardinería & frutiCULTURA",
+          "HANDLE": "@laderasdelnaranco",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "OTHER",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "GENERAL_CONSUMER",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_PROVED"
+        }
+      ]
+    },
+    "ES|OLIVE": {
+      "COUNTRY": "ES",
+      "CROP": "OLIVE",
+      "PERSON_CREATOR_ACTIVATION_READY": 2,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 4,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+          "HANDLE": "@huerto_ecologico.marc",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Francisco Fernandez Barroso",
+          "HANDLE": "@chicurri_agro",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Fernando Giraldo",
+          "HANDLE": "@Tomy_Rohde",
+          "REGION": "La Carlota, Campina cordobesa, Cordoba (Andalucia)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+          "HANDLE": "@huerto_ecologico.marc",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Francisco Fernandez Barroso",
+          "HANDLE": "@chicurri_agro",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Alberto Rojas",
+          "HANDLE": "ES-CR-002",
+          "REGION": "Córdoba (Andalucía)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "ES|PEPPER": {
+      "COUNTRY": "ES",
+      "CROP": "PEPPER",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 1,
+      "CANDIDATES_TOTAL": 3,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Germán Fernández | Agricultura en invernadero",
+          "HANDLE": "@germanagrolife",
+          "REGION": "Almería",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [
+        {
+          "CREATOR": "Francisco Jesús Montoya",
+          "HANDLE": "@biocampojoyma",
+          "REGION": "Nijar, Almeria (Andalucia)",
+          "ENTITY_TYPE": "FARM_BUSINESS",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Francisco Jesús Montoya",
+          "HANDLE": "@biocampojoyma",
+          "REGION": "Nijar, Almeria (Andalucia)",
+          "ENTITY_TYPE": "FARM_BUSINESS",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Germán Fernández | Agricultura en invernadero",
+          "HANDLE": "@germanagrolife",
+          "REGION": "Almería",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Esther Molina",
+          "HANDLE": "ES-CR-005",
+          "REGION": "Almería (Andalucía)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "ES|PISTACHIO": {
+      "COUNTRY": "ES",
+      "CROP": "PISTACHIO",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 1,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [],
+      "BUSINESSES": [
+        {
+          "CREATOR": "Pistachos Terruza",
+          "HANDLE": "@terruzapistachos",
+          "REGION": "Benamaurel, Granada",
+          "ENTITY_TYPE": "FARM_BUSINESS",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        }
+      ],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Pistachos Terruza",
+          "HANDLE": "@terruzapistachos",
+          "REGION": "Benamaurel, Granada",
+          "ENTITY_TYPE": "FARM_BUSINESS",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        }
+      ]
+    },
+    "ES|PROTECTED_HORTICULTURE": {
+      "COUNTRY": "ES",
+      "CROP": "PROTECTED_HORTICULTURE",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 1,
+      "CANDIDATES_TOTAL": 3,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Germán Fernández | Agricultura en invernadero",
+          "HANDLE": "@germanagrolife",
+          "REGION": "Almería",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [
+        {
+          "CREATOR": "Francisco Jesús Montoya",
+          "HANDLE": "@biocampojoyma",
+          "REGION": "Nijar, Almeria (Andalucia)",
+          "ENTITY_TYPE": "FARM_BUSINESS",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Francisco Jesús Montoya",
+          "HANDLE": "@biocampojoyma",
+          "REGION": "Nijar, Almeria (Andalucia)",
+          "ENTITY_TYPE": "FARM_BUSINESS",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Germán Fernández | Agricultura en invernadero",
+          "HANDLE": "@germanagrolife",
+          "REGION": "Almería",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Caterina Pak",
+          "HANDLE": "ES-CR-003",
+          "REGION": "Almería (Andalucía)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_PROVED"
+        }
+      ]
+    },
+    "ES|TOMATO": {
+      "COUNTRY": "ES",
+      "CROP": "TOMATO",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 1,
+      "CANDIDATES_TOTAL": 3,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "AgroSamanta👩🏼‍🌾",
+          "HANDLE": "@agrosamanta_",
+          "REGION": "Níjar, Almería",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [
+        {
+          "CREATOR": "Francisco Jesús Montoya",
+          "HANDLE": "@biocampojoyma",
+          "REGION": "Nijar, Almeria (Andalucia)",
+          "ENTITY_TYPE": "FARM_BUSINESS",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Francisco Jesús Montoya",
+          "HANDLE": "@biocampojoyma",
+          "REGION": "Nijar, Almeria (Andalucia)",
+          "ENTITY_TYPE": "FARM_BUSINESS",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "AgroSamanta👩🏼‍🌾",
+          "HANDLE": "@agrosamanta_",
+          "REGION": "Níjar, Almería",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Esther Molina",
+          "HANDLE": "ES-CR-005",
+          "REGION": "Almería (Andalucía)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "ES|VEGETABLES": {
+      "COUNTRY": "ES",
+      "CROP": "VEGETABLES",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+          "HANDLE": "@huerto_ecologico.marc",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+          "HANDLE": "@huerto_ecologico.marc",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "ES|WATERMELON": {
+      "COUNTRY": "ES",
+      "CROP": "WATERMELON",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Esther Molina",
+          "HANDLE": "ES-CR-005",
+          "REGION": "Almería (Andalucía)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "FR|BARLEY": {
+      "COUNTRY": "FR",
+      "CROP": "BARLEY",
+      "PERSON_CREATOR_ACTIVATION_READY": 2,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 2,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "David Forge",
+          "HANDLE": "@chaineagricole (Chaine Agricole)",
+          "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "David Forge",
+          "HANDLE": "@chaineagricole (Chaine Agricole)",
+          "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "FR|MAIZE": {
+      "COUNTRY": "FR",
+      "CROP": "MAIZE",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "FR|NOT_KNOWN": {
+      "COUNTRY": "FR",
+      "CROP": "NOT_KNOWN",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 4,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Thierry Bailliet",
+          "HANDLE": "FR-CR-001",
+          "REGION": "Pas-de-Calais (Hauts-de-France)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Marc-Antoine Dumoulin",
+          "HANDLE": "FR-CR-002",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_PROVED"
+        },
+        {
+          "CREATOR": "Océane",
+          "HANDLE": "FR-CR-003",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_PROVED"
+        },
+        {
+          "CREATOR": "Jean-Baptiste De Wever",
+          "HANDLE": "FR-CR-004",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        }
+      ]
+    },
+    "FR|ONION_SEED": {
+      "COUNTRY": "FR",
+      "CROP": "ONION_SEED",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "FR|RAPESEED": {
+      "COUNTRY": "FR",
+      "CROP": "RAPESEED",
+      "PERSON_CREATOR_ACTIVATION_READY": 2,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 2,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "David Forge",
+          "HANDLE": "@chaineagricole (Chaine Agricole)",
+          "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "David Forge",
+          "HANDLE": "@chaineagricole (Chaine Agricole)",
+          "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "FR|SUNFLOWER": {
+      "COUNTRY": "FR",
+      "CROP": "SUNFLOWER",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "David Forge",
+          "HANDLE": "@chaineagricole (Chaine Agricole)",
+          "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "David Forge",
+          "HANDLE": "@chaineagricole (Chaine Agricole)",
+          "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "FR|WHEAT": {
+      "COUNTRY": "FR",
+      "CROP": "WHEAT",
+      "PERSON_CREATOR_ACTIVATION_READY": 2,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 2,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "David Forge",
+          "HANDLE": "@chaineagricole (Chaine Agricole)",
+          "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "David Forge",
+          "HANDLE": "@chaineagricole (Chaine Agricole)",
+          "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Gilles Van Kempen",
+          "HANDLE": "Gilles vk agriculteur du Loiret",
+          "REGION": "Loiret (Centre-Val de Loire)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|ALFALFA": {
+      "COUNTRY": "IT",
+      "CROP": "ALFALFA",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Davide Gomiero",
+          "HANDLE": "@gomierofarm",
+          "REGION": "Limena, Padova, Veneto",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Davide Gomiero",
+          "HANDLE": "@gomierofarm",
+          "REGION": "Limena, Padova, Veneto",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|FORAGE": {
+      "COUNTRY": "IT",
+      "CROP": "FORAGE",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Davide Gomiero",
+          "HANDLE": "@gomierofarm",
+          "REGION": "Limena, Padova, Veneto",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Davide Gomiero",
+          "HANDLE": "@gomierofarm",
+          "REGION": "Limena, Padova, Veneto",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|GRAPEVINE": {
+      "COUNTRY": "IT",
+      "CROP": "GRAPEVINE",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Paolo Nenci",
+          "HANDLE": "IT-CR-001",
+          "REGION": "Chiusi, Toscana",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|LETTUCE": {
+      "COUNTRY": "IT",
+      "CROP": "LETTUCE",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Maria Pezone",
+          "HANDLE": "IT-CR-002",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|MAIZE": {
+      "COUNTRY": "IT",
+      "CROP": "MAIZE",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Davide Gomiero",
+          "HANDLE": "@gomierofarm",
+          "REGION": "Limena, Padova, Veneto",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Davide Gomiero",
+          "HANDLE": "@gomierofarm",
+          "REGION": "Limena, Padova, Veneto",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|MELON": {
+      "COUNTRY": "IT",
+      "CROP": "MELON",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Maria Pezone",
+          "HANDLE": "IT-CR-002",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|NOT_KNOWN": {
+      "COUNTRY": "IT",
+      "CROP": "NOT_KNOWN",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 3,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Yuliya Pyliavska",
+          "HANDLE": "IT-CR-003",
+          "REGION": "Lombardia (Vigevano)",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        },
+        {
+          "CREATOR": "Tommaso Rossi Razzini",
+          "HANDLE": "IT-CR-004",
+          "REGION": "Roma, Lazio",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        },
+        {
+          "CREATOR": "Beatrice Scrocchi",
+          "HANDLE": "IT-CR-005",
+          "REGION": "NÃO SEI",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        }
+      ]
+    },
+    "IT|OLIVE": {
+      "COUNTRY": "IT",
+      "CROP": "OLIVE",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 2,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Leonardo Leggieri",
+          "HANDLE": "@narduccio_capicchiaro",
+          "REGION": "Puglia",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        },
+        {
+          "CREATOR": "Paolo Nenci",
+          "HANDLE": "IT-CR-001",
+          "REGION": "Chiusi, Toscana",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|SOYBEAN": {
+      "COUNTRY": "IT",
+      "CROP": "SOYBEAN",
+      "PERSON_CREATOR_ACTIVATION_READY": 1,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "READY",
+      "PEOPLE": [
+        {
+          "CREATOR": "Davide Gomiero",
+          "HANDLE": "@gomierofarm",
+          "REGION": "Limena, Padova, Veneto",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Davide Gomiero",
+          "HANDLE": "@gomierofarm",
+          "REGION": "Limena, Padova, Veneto",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "ACTIVATION_READY",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "IT|SPELT": {
+      "COUNTRY": "IT",
+      "CROP": "SPELT",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "Paolo Nenci",
+          "HANDLE": "IT-CR-001",
+          "REGION": "Chiusi, Toscana",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "RESEARCH_NEEDED",
+          "FACING": "NÃO SEI",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "PROVED"
+        }
+      ]
+    },
+    "MX|NOT_KNOWN": {
+      "COUNTRY": "MX",
+      "CROP": "NOT_KNOWN",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "La Huerta Malagón",
+          "HANDLE": "@la_huerta_malagon",
+          "REGION": "Guanajuato",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        }
+      ]
+    },
+    "PT|NOT_KNOWN": {
+      "COUNTRY": "PT",
+      "CROP": "NOT_KNOWN",
+      "PERSON_CREATOR_ACTIVATION_READY": 0,
+      "FARM_BUSINESS_PARTNER_READY": 0,
+      "CANDIDATES_TOTAL": 1,
+      "ANSWER": "NOT_READY",
+      "PEOPLE": [],
+      "BUSINESSES": [],
+      "ALL_CANDIDATES": [
+        {
+          "CREATOR": "RICARDO CABRAL/ LÍDER",
+          "HANDLE": "@ironfarmer_rc",
+          "REGION": "Évora",
+          "ENTITY_TYPE": "PERSON_CREATOR",
+          "ACTIVATION_STATE": "PROMISING",
+          "FACING": "FARMER_FACING",
+          "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+          "ACTUAL_FARMER": "NOT_KNOWN"
+        }
+      ]
+    }
+  },
+  "ENTITY_TYPES": [
+    "PERSON_CREATOR",
+    "FARM_BUSINESS",
+    "FARMER_FAMILY_ACCOUNT",
+    "MEDIA_ACCOUNT",
+    "ORGANIZATION",
+    "OTHER",
+    "NÃO SEI"
+  ],
+  "ACTIVATION_STATES": [
+    "ACTIVATION_READY",
+    "PROMISING",
+    "RESEARCH_NEEDED",
+    "NOT_RELEVANT"
+  ],
+  "JOIN_KEYS_FOR_OTHER_MISSIONS": {
+    "KEYS": [
+      "PERSON_ID",
+      "ENTITY_ID",
+      "BRAND",
+      "COUNTRY",
+      "CROP",
+      "OBSERVED_AT"
+    ],
+    "META_CROSSOVER": "se a missao Meta encontrar uma destas pessoas num anuncio, isso vira CREATOR_APPEARANCE_OBSERVED. PAID_CREATOR_RELATION so sobe com prova adicional — e nao e antecipado aqui."
+  },
+  "NOT_ASKED_IS_NOT_NOT_READY": "um recorte ausente deste indice nao e NOT_READY: e NOT_ASKED. \"nao temos\" e \"nao procuramos\" sao respostas diferentes."
+}

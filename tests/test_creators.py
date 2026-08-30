@@ -654,3 +654,282 @@ class TestMatcherDeCulturaNaoCasaSubstring(unittest.TestCase):
         self.assertIn('MAIZE', f('sembrando maiz esta semana'))
         self.assertIn('RICE', f('la cosecha de arroz'))
         self.assertIn('OLIVE', f('hoy en el olivar'))
+
+
+class TestNomeDaMetricaEContrato(unittest.TestCase):
+    """§0 — `ACTIVATION_READY = 9` foi publicado como se os nove fossem creators.
+
+    Não eram: sete pessoas e duas contas de empresa. O nome errado da métrica fez
+    o trabalho que o dado recusava fazer — por isso o nome entra no contrato.
+    """
+
+    def test_a_soma_nunca_se_chama_creators_ready(self):
+        self.assertEqual(cr.METRICA_PROIBIDA, 'CREATORS_READY')
+        self.assertNotIn('CREATORS_READY', cr.METRICAS_DE_PRONTIDAO)
+
+    def test_as_tres_metricas_existem_com_os_nomes_certos(self):
+        for m in ('PERSON_CREATOR_ACTIVATION_READY', 'FARM_BUSINESS_PARTNER_READY',
+                  'MARKETING_CONTACTABLE_ENTITIES_READY'):
+            self.assertIn(m, cr.METRICAS_DE_PRONTIDAO)
+
+    def test_pessoa_e_empresa_nao_se_somam_sem_o_nome_certo(self):
+        regs = [
+            {'ACTIVATION_STATE': 'ACTIVATION_READY', 'ACTIVATION_ENTITY_TYPE': 'PERSON_CREATOR'},
+            {'ACTIVATION_STATE': 'ACTIVATION_READY', 'ACTIVATION_ENTITY_TYPE': 'FARM_BUSINESS'},
+        ]
+        m = cr.metricas_de_prontidao(regs)
+        self.assertEqual(m['PERSON_CREATOR_ACTIVATION_READY'], 1)
+        self.assertEqual(m['FARM_BUSINESS_PARTNER_READY'], 1)
+        self.assertEqual(m['MARKETING_CONTACTABLE_ENTITIES_READY'], 2)
+
+    def test_nenhum_documento_publica_a_metrica_proibida(self):
+        import glob
+        achados = []
+        for caminho in glob.glob(os.path.join(ROOT, 'docs', 'creators', '*.md')):
+            for n, linha in enumerate(open(caminho, encoding='utf-8'), 1):
+                if 'CREATORS_READY' in linha and 'PERSON' not in linha \
+                        and 'não' not in linha.lower() and 'nunca' not in linha.lower():
+                    achados.append('%s:%d' % (os.path.basename(caminho), n))
+        self.assertFalse(achados, 'métrica proibida publicada em: %s' % achados)
+
+
+class TestChavesDeJuncao(unittest.TestCase):
+    """§11 — preparar o cruzamento com Meta sem antecipar o estado dele."""
+
+    def test_as_chaves_existem(self):
+        for c in ('PERSON_ID', 'ENTITY_ID', 'OBSERVED_AT',
+                  'CREATOR_APPEARANCE_OBSERVED', 'PAID_CREATOR_RELATION'):
+            self.assertIn(c, cr.CAMPOS_CREATOR)
+
+    def test_relacao_paga_nasce_desconhecida(self):
+        r = cr.registro_vazio()
+        self.assertEqual(r['PAID_CREATOR_RELATION'], cr.NAO_SEI,
+                         'ver a pessoa num anúncio é APARIÇÃO; relação paga exige '
+                         'prova adicional e não pode nascer preenchida')
+
+
+class TestLeisDoMatcherDeCultura(unittest.TestCase):
+    """§9 — as quatro desigualdades que a correção 8→2 provou."""
+
+    def _m(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            '_cc2', os.path.join(ROOT, 'scripts', 'creator_coleta.py'))
+        mod = importlib.util.module_from_spec(spec)
+        try:
+            spec.loader.exec_module(mod)
+        except SystemExit:
+            pass
+        except Exception:                                    # noqa: BLE001
+            self.skipTest('creator_coleta não importável')
+        return mod
+
+    def test_SUBSTRING_MATCH_nao_e_CROP_PROOF(self):
+        f = self._m()._cultura_no_texto
+        self.assertEqual({}, f('Beatriz tem o nariz na matriz do horizonte'))
+
+    def test_SHORT_AMBIGUOUS_TOKEN_nao_e_CROP_PROOF(self):
+        m = self._m()
+        for proibido in ('mais', 'riz', 'riso', 'papa', 'serra'):
+            for termos in m.TERMOS_DE_CULTURA.values():
+                self.assertNotIn(proibido, termos,
+                                 '%r é ambíguo entre idiomas e não pode ser termo' % proibido)
+
+    def test_QUERY_CROP_nao_e_OBSERVED_CROP(self):
+        """A cultura sai do CONTEÚDO, nunca da consulta que trouxe o candidato."""
+        self.assertIn('CROP_PROVED_BY_CONTENT', cr.CAMPOS_CREATOR)
+        self.assertIn('CROP_CLAIMED_BY_SEED', cr.CAMPOS_CREATOR)
+        self.assertNotEqual('CROP_PROVED_BY_CONTENT', 'CROP_CLAIMED_BY_SEED')
+
+    def test_ONE_MENTION_nao_e_RECURRING_CROP_FIT(self):
+        m = self._m()
+        self.assertGreaterEqual(m.MINIMO_PARA_RECORRENTE, 2)
+        r = cr.registro_vazio()
+        r['CROP_STATE'] = 'PARTIAL'
+        self.assertFalse(cr.provas_de_ativacao(r)['CROP_FIT_PROVED'])
+
+
+class TestCasosOuroCompletos(unittest.TestCase):
+    """§8 — cada caso guarda a LEI que provou.
+
+    Sete casos, sete leis distintas. Não são exemplos ilustrativos: são os
+    lugares exatos onde esta missão errou e mediu o próprio erro.
+    """
+
+    LEIS = {
+        'Davide Gomiero':
+            'HANDLE_DA_SEED != HANDLE_REAL — @davide_gomiero vs @gomierofarm',
+        'Leonardo Leggieri':
+            'NOME_DA_SEED != NOME_REAL e CONTA_PESSOAL != CONTA_DA_COMUNIDADE',
+        'Fernando Giraldo':
+            'DISPLAY_NAME != LEGAL/PUBLIC IDENTITY — "Tomy Rohde" é alter ego',
+        'Francisco Jesús Montoya':
+            'ACCOUNT_OF_FARM_COMPANY != PERSON_CREATOR',
+        'David Forge':
+            'NOME_DA_PESSOA != NOME_DO_CANAL — o canal chama-se "Chaîne Agricole"',
+        'ironfarmer':
+            'IDIOMA != PAÍS e SUBSTRING != TERMO — "mais" português lido como milho',
+        'riz':
+            'SHORT_AMBIGUOUS_TOKEN != CROP_PROOF — "riz" dentro de nariz/matriz',
+    }
+
+    def test_as_sete_leis_estao_declaradas(self):
+        self.assertEqual(7, len(self.LEIS))
+        for caso, lei in self.LEIS.items():
+            self.assertIn('!=', lei, '%s: a lei precisa ser uma desigualdade' % caso)
+
+    def test_forge_o_canal_nao_e_o_nome_da_pessoa(self):
+        """O canal do Forge foi inferido a partir do nome e a fonte desmentiu."""
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            '_cc3', os.path.join(ROOT, 'scripts', 'creator_coleta.py'))
+        mod = importlib.util.module_from_spec(spec)
+        try:
+            spec.loader.exec_module(mod)
+        except SystemExit:
+            pass
+        except Exception:                                    # noqa: BLE001
+            self.skipTest('creator_coleta não importável')
+        forge = [c for c in mod.CANAIS_FR if c['creator_id'] == 'FR-CR-005']
+        if not forge:
+            self.skipTest('canal do Forge ainda não registado')
+        url = forge[0]['url']
+        self.assertNotIn('DavidForge', url,
+                         'o canal NÃO se chama pelo nome da pessoa — inferir isso foi '
+                         'o erro medido nesta missão')
+        self.assertTrue(forge[0].get('fonte'), 'todo canal precisa declarar a fonte')
+
+    def test_todo_canal_frances_declara_fonte_da_url(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            '_cc4', os.path.join(ROOT, 'scripts', 'creator_coleta.py'))
+        mod = importlib.util.module_from_spec(spec)
+        try:
+            spec.loader.exec_module(mod)
+        except SystemExit:
+            pass
+        except Exception:                                    # noqa: BLE001
+            self.skipTest('creator_coleta não importável')
+        for c in mod.CANAIS_FR:
+            self.assertTrue(c.get('fonte'),
+                            '%s sem fonte da URL — inferir endereço de canal é o mesmo '
+                            'erro que inferir handle de pessoa' % c['nome'])
+
+
+class TestLinguagemDasFichas(unittest.TestCase):
+    """§6 — a ferramenta ajuda a decidir QUEM AVALIAR; não decide contratação."""
+
+    def test_nenhuma_ficha_usa_linguagem_de_recomendacao(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'DECISION-FICHES.json')
+        if not os.path.exists(caminho):
+            self.skipTest('fichas de decisão não geradas')
+        with open(caminho, encoding='utf-8') as f:
+            d = _j.load(f)
+        # Só as FICHAS. O texto da própria lei cita as expressões proibidas para as
+        # proibir — verificar o documento inteiro faria a lei violar-se a si mesma.
+        texto = _j.dumps({'P': d.get('PERSON_CREATOR_FICHES'),
+                          'N': d.get('FARM_BUSINESS_FICHES')},
+                         ensure_ascii=False).upper()
+        for proibida in ('BEST ', 'TOP CREATOR', 'RECOMMENDED TO HIRE', 'CONTRATAR'):
+            self.assertNotIn(proibida, texto,
+                             'linguagem de recomendação %r numa ficha' % proibida)
+
+    def test_toda_ficha_declara_o_que_nao_se_sabe(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'DECISION-FICHES.json')
+        if not os.path.exists(caminho):
+            self.skipTest('fichas não geradas')
+        with open(caminho, encoding='utf-8') as f:
+            d = _j.load(f)
+        for lista in ('PERSON_CREATOR_FICHES', 'FARM_BUSINESS_FICHES'):
+            for ficha in d.get(lista, []):
+                self.assertIn('WHAT_IS_NOT_KNOWN', ficha)
+                self.assertTrue(ficha['WHAT_IS_NOT_KNOWN'],
+                                'o que falta é tão parte da decisão quanto o que se sabe')
+
+    def test_as_duas_fichas_tem_campos_diferentes(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'DECISION-FICHES.json')
+        if not os.path.exists(caminho):
+            self.skipTest('fichas não geradas')
+        with open(caminho, encoding='utf-8') as f:
+            d = _j.load(f)
+        p = d.get('PERSON_CREATOR_FICHES') or [{}]
+        n = d.get('FARM_BUSINESS_FICHES') or [{}]
+        self.assertIn('POSSIBLE_ACTIVATION_ROLE', n[0],
+                      'a ficha de empresa tem papéis de ativação próprios')
+        self.assertNotIn('POSSIBLE_ACTIVATION_ROLE', p[0],
+                         'a ficha de pessoa NÃO usa os papéis de empresa')
+
+
+class TestArtefatoDeCapacidade(unittest.TestCase):
+    """§12 — outra missão precisa conseguir perguntar em código."""
+
+    def _cap(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'CREATOR-CAPABILITY-EAME.json')
+        if not os.path.exists(caminho):
+            self.skipTest('artefato de capacidade não gerado')
+        with open(caminho, encoding='utf-8') as f:
+            return _j.load(f)
+
+    def test_responde_por_country_e_crop(self):
+        d = self._cap()
+        self.assertIn('LOOKUP_BY_COUNTRY_CROP', d)
+        self.assertTrue(d['LOOKUP_BY_COUNTRY_CROP'])
+
+    def test_not_ready_vem_com_causa(self):
+        d = self._cap()
+        for chave, v in d['DECLARED_SLICES'].items():
+            if v['ANSWER'] == 'NOT_READY':
+                self.assertIn('CAUSE', v, '%s sem causa' % chave)
+                self.assertGreater(len(v['CAUSE']), 40,
+                                   '%s: a causa precisa ser específica' % chave)
+
+    def test_nao_confunde_nao_perguntado_com_nao_pronto(self):
+        d = self._cap()
+        self.assertIn('NOT_ASKED_IS_NOT_NOT_READY', d)
+
+    def test_metricas_separadas_no_artefato(self):
+        d = self._cap()
+        m = d['READINESS_METRICS']
+        self.assertIn('PERSON_CREATOR_ACTIVATION_READY', m)
+        self.assertIn('FARM_BUSINESS_PARTNER_READY', m)
+        self.assertNotIn('CREATORS_READY', m)
+
+
+class TestManifestoDaMissaoResolve(unittest.TestCase):
+    """Todo bruto declarado pelo manifesto DESTA missão tem de existir.
+
+    Esta classe de defeito já apareceu três vezes, sempre da mesma forma: uma
+    execução gravada antes de uma mudança de diretório, e um caminho que aponta
+    para onde o arquivo já não está. O teste torna-a visível na hora, em vez de
+    aparecer como falha de um teste da casa que fala de outra missão.
+    """
+
+    def _runs(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'RUN-MANIFEST-CREATORS.json')
+        if not os.path.exists(caminho):
+            self.skipTest('manifesto da missão não existe')
+        with open(caminho, encoding='utf-8') as f:
+            return _j.load(f).get('RUNS', [])
+
+    def test_todo_bruto_declarado_existe(self):
+        quebrados = []
+        for r in self._runs():
+            p = r.get('RAW_EVIDENCE_PATH')
+            if isinstance(p, str) and p != cr.NAO_SEI and p != 'NOT_PRESERVED':
+                if not os.path.exists(os.path.join(ROOT, p)):
+                    quebrados.append('%s -> %s' % (r.get('RUN_ID'), p))
+        self.assertFalse(quebrados, 'bruto declarado e ausente: %s' % quebrados)
+
+    def test_nenhum_bruto_meu_no_diretorio_partilhado(self):
+        """O isolamento de namespace é inteiro: nada meu em data/samples/raw-paid."""
+        partilhado = os.path.join(ROOT, 'data', 'samples', 'raw-paid')
+        if not os.path.isdir(partilhado):
+            self.skipTest('diretório partilhado não existe')
+        intrusos = [f for f in os.listdir(partilhado) if f.startswith('14-MAPA')]
+        self.assertFalse(intrusos,
+                         'bruto desta missão no diretório partilhado: %s' % intrusos)

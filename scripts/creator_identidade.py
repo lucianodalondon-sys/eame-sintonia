@@ -181,19 +181,25 @@ RESOLUCOES = [
  # dois fecham o buraco com o recorte que mais interessa: grandes culturas.
  dict(
    creator_id='FR-CR-005', nome='David Forge', pais='FR',
-   handle_da_seed='David Forge', handle_real='David Forge (YouTube)',
-   classe_do_erro='SEM_ERRO_NA_SEED',
+   handle_da_seed='David Forge (nome da pessoa)',
+   handle_real='@chaineagricole (Chaine Agricole)',
+   classe_do_erro='NOME_DA_PESSOA_DIFERENTE_DO_NOME_DO_CANAL',
    entidade='PERSON',
-   perfil='https://www.youtube.com/@DavidForge',
+   perfil='https://www.youtube.com/@chaineagricole',
    regiao='Indre-et-Loire, Touraine (Centre-Val de Loire)',
    ocupacao='agricultor; retomou a exploracao familiar de 160 ha; youtuber desde 2015',
    produtor='PROVED',
    produtor_ev='retomou a exploracao familiar na Touraine; exploracao cerealifera de '
                '160 hectares, declarada por reportagem de imprensa setorial',
-   crops=['CEREALS', 'WHEAT'], crop_state='PROVED',
-   crop_ev='exploracao CEREALIFERA de 160 ha; videos semanais sobre as suas parcelas '
-           'e o seu material',
-   seguidores={'YOUTUBE': 105000}, seguidores_nota='inscritos no YouTube',
+   crops=['WHEAT', 'BARLEY', 'RAPESEED', 'SUNFLOWER'], crop_state='PROVED',
+   prova_tipo='C_RECURRING_FIELD_CONTENT',
+   crop_ev='CLASSE C: exploracao cerealifera de 160 ha (imprensa) E titulos do proprio '
+           'canal confirmando por conteudo — "Semis du ble sans travailler le sol", '
+           '"Engrais sur un colza qui demarre fort", "preparer le sol au tournesol", '
+           '"Livraison de la derniere benne de ble". Cultura lida do CONTEUDO, nao da '
+           'consulta.',
+   seguidores={'YOUTUBE': 106000},
+   seguidores_nota='~106 mil inscritos; canal secundario "David Forge, les Bonus" existe',
    audiencia='NOT_KNOWN', audiencia_ev='nao medida',
    contato='presenca publica no stand #agridemain do Salon de l\'Agriculture',
    contato_tipo='PUBLIC_EVENT_ROUTE',

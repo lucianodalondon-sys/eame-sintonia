@@ -88,6 +88,8 @@ WATCH = [
      '2026-08-30', 'CRITICA — bruto de rota nao replicavel'),
     ('CREATOR-MAP', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-006.raw.json.gz',
      '2026-08-30', 'CRITICA — bruto de rota nao replicavel'),
+    ('CREATOR-MAP', 'data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-005.raw.json.gz',
+     '2026-08-30', 'CRITICA — bruto de rota nao replicavel'),
     ('RUN-MANIFEST', 'data/samples/RUN-MANIFEST.json', '2026-08-29',
      'ALTA — e o indice que faz o RUN_ID resolver; sem ele o bruto vira arquivo orfao'),
 ]

@@ -74,7 +74,13 @@ HUBS = [
             'Fieragricola (@fieragricolavr) mencionou @enovitis_ nas proprias '
             'legendas. Uma porta provada abriu a outra — que e exatamente o que o '
             'portao de identidade deveria produzir.',
-      estado='ACCOUNT_MENTIONED_NOT_RESOLVED', descoberta='BLOCKED',
+      estado='ACCOUNT_PROVED_YIELD_ZERO', descoberta='DEMOTED_AS_CREATOR_HUB',
+      rendimento_medido={'SEGUIDORES': 1110, 'POSTS_LIDOS': 12, 'PESSOAS_DESCOBERTAS': 0},
+      veredito='ENOVITIS_SOCIAL_IDENTITY = PROVED. Conta oficial @enovitis_ confirmada '
+               'pelo site enovitisincampo.it e por publicacoes da propria conta. Mas a '
+               'extracao devolveu ZERO pessoas em 12 publicacoes. Hub tecnico excelente, '
+               'hub de CREATORS pobre — exatamente o padrao ja medido nas outras feiras. '
+               'DEMOTE como fonte de descoberta de creators, mantendo o valor tecnico.',
       nota_resolucao='A raspagem de @enovitis_ NAO devolveu perfil. A mencao deu um '
                      'CANDIDATO de handle; a resolucao nao o confirmou. Mencao != '
                      'conta existente, e o estado guarda a diferenca.',

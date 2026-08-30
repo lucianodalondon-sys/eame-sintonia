@@ -132,6 +132,13 @@ CAMPOS_CREATOR = [
     'AUDIENCE_FIT_FOR_ADAMA',
     'WHY_RELEVANT', 'AUDIENCE_FIT', 'CROP_FIT', 'TECHNICAL_FIT', 'CONTENT_FIT',
     'ACTIVITY_RECENCY', 'RELEVANCE_STATE',
+    # §11 · chaves de junção com as missões vizinhas (Meta, Convergência).
+    # Existem para que um dia OUTRA missão possa dizer "vi esta pessoa num
+    # anúncio" — e para que esse achado entre como APARIÇÃO, nunca como relação
+    # paga. `PAID_CREATOR_RELATION` só sobe com prova adicional, e por isso nasce
+    # e permanece NOT_KNOWN aqui.
+    'PERSON_ID', 'ENTITY_ID', 'OBSERVED_AT',
+    'CREATOR_APPEARANCE_OBSERVED', 'PAID_CREATOR_RELATION',
     # proveniência
     'SOURCE_URL', 'SOURCE_ID', 'CAPTURE_DATE', 'RUN_ID', 'EVIDENCE_PATH',
     'COLLECTION_ROUTE',
@@ -554,6 +561,37 @@ def relevancia(reg, *, colaboracoes=()):
     return 'RESEARCH_NEEDED', porques + ['PENDENTE: %s' % ', '.join(pend)]
 
 
+# §0 · OS NOMES DAS MÉTRICAS SÃO PARTE DO CONTRATO
+# `ACTIVATION_READY = 9` foi publicado como se os nove fossem creators. Não eram:
+# sete são pessoas e dois são contas de empresa. O nome errado da métrica fez o
+# trabalho que o dado recusava fazer.
+#
+# A soma existe e pode ser útil — mas só com o nome que diz o que ela é.
+METRICAS_DE_PRONTIDAO = {
+    'PERSON_CREATOR_ACTIVATION_READY': 'pessoas creators prontas para avaliação',
+    'FARM_BUSINESS_PARTNER_READY': 'contas de exploração/empresa prontas como parceiro',
+    'MARKETING_CONTACTABLE_ENTITIES_READY':
+        'a SOMA das duas — e só pode ser chamada assim. Nunca "CREATORS_READY".',
+}
+METRICA_PROIBIDA = 'CREATORS_READY'
+
+
+def metricas_de_prontidao(registros):
+    """Devolve as três métricas com os nomes certos. Nunca uma só."""
+    prontos = [r for r in registros if r.get('RELEVANCE_STATE') == 'ACTIVATION_READY'
+               or r.get('ACTIVATION_STATE') == 'ACTIVATION_READY']
+    pessoas = [r for r in prontos if r.get('ACTIVATION_ENTITY_TYPE') == 'PERSON_CREATOR']
+    negocios = [r for r in prontos if r.get('ACTIVATION_ENTITY_TYPE') in
+                ('FARM_BUSINESS', 'FARMER_FAMILY_ACCOUNT')]
+    return {
+        'PERSON_CREATOR_ACTIVATION_READY': len(pessoas),
+        'FARM_BUSINESS_PARTNER_READY': len(negocios),
+        'MARKETING_CONTACTABLE_ENTITIES_READY': len(prontos),
+        'NOTE': 'a soma NÃO se chama CREATORS_READY. Pessoa != empresa, e o nome da '
+                'métrica é onde essa distinção se perde primeiro.',
+    }
+
+
 def e_pessoa_creator(reg):
     """§0 — a conta é de uma PESSOA creator?
 
@@ -709,7 +747,8 @@ def carregar(nome):
     # uma execução para descobrir. Chave nova de artefato entra AQUI.
     for chave in ('CREATORS', 'COLLABORATIONS', 'REGISTROS', 'CANDIDATES',
                   'PROFILES', 'ACTORS', 'MARKET_EVIDENCE', 'VALIDATIONS', 'HUBS',
-                  'MENTIONS', 'YIELD', 'FICHAS', 'RUNS', 'CHANNELS'):
+                  'MENTIONS', 'YIELD', 'FICHAS', 'RUNS', 'CHANNELS',
+                  'PERSON_CREATOR_FICHES'):
         if isinstance(d, dict) and chave in d:
             return d[chave]
     return d if isinstance(d, list) else []
