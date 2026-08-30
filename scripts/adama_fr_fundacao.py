@@ -150,8 +150,25 @@ def amostra():
             'RAW_EXPECTED', 'LOCAL_FILES', 'DUPLICATE_REFERENCES',
             'DISTINCT_STORAGE_KEYS', 'TOTAL_BYTES', 'LARGEST_ASSET_BYTES',
             'BUCKET_LIMIT_BYTES', 'EXCEEDS_BUCKET_LIMIT')},
+        # A prova REMOTA, e é ela que fecha o portão. O plano acima mede o
+        # disco; isto mede o que voltou do bucket e bateu byte a byte.
+        'RAW_VERIFICACAO_REMOTA': verificacao_remota(),
         'VEREDITO': veredito(),
     }
+
+
+def verificacao_remota():
+    """→ os números do último round-trip, ou o motivo de não haver nenhum."""
+    r = _ler(raw.RELATORIO)
+    if not r:
+        return {'STATE': 'NEVER_RUN',
+                'WHY': ('nenhum relatório de envio em disco. Presença remota '
+                        'não foi medida nem uma vez')}
+    return {k: r.get(k) for k in (
+        'RAW_EXPECTED', 'REMOTE_PRESENT', 'REMOTE_ABSENT',
+        'CONTENT_HASH_CHECKED', 'SHA_VERIFIED', 'HASH_MISMATCH', 'FAILED',
+        'ORPHANS', 'UNKNOWN_MUST_VERIFY', 'KEY_COLLISIONS',
+        'BYTES_EXPECTED', 'BYTES_VERIFIED_REMOTELY', 'BY_STATE')}
 
 
 def main():

@@ -329,7 +329,10 @@ def canario():
         'TOTAL_STORAGE_QUOTA': 'NOT_KNOWN',
         'WHY_QUOTA_NOT_KNOWN': (
             'a API de Storage não expõe a quota total do projeto a esta '
-            'credencial. Não é 200 MB: 200 MB é o limite POR OBJETO'),
+            'credencial, e limite por objeto é outra coisa. Medido em '
+            '2026-08-30: o bucket `raw` NÃO declara limite por objeto '
+            '(file_size_limit = null). O 200 MB que circulava é configuração '
+            'de projeto, não algo que esta credencial consiga ler'),
         'UPLOAD_ATTEMPTS': 0,
     }
 
