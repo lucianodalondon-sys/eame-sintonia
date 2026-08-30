@@ -261,7 +261,8 @@
   "REGRA": "os hashes sao do conteudo NO MOMENTO do freeze. Se um artefato mudar, o hash muda e o script de verificacao reprova — o freeze nao e um adjetivo.",
   "DONOS_NAO_DUPLICADOS": "este pacote NAO copia numero de ninguem. Cada bloco aponta para o arquivo dono via REF, e os hashes servem para provar que o dono nao mudou depois.",
   "FORA_DO_FREEZE": {
-   "ES-REVIEW-HANDOFFS.json": "e artefato de REVISAO das branches paralelas, nao conteudo da demo. Ele muda a cada checkpoint das paralelas e nao deve travar o freeze da Espanha."
+   "ES-REVIEW-HANDOFFS.json": "e artefato de REVISAO das branches paralelas, nao conteudo da demo. Ele muda a cada checkpoint das paralelas e nao deve travar o freeze da Espanha.",
+   "ADAMA-ES-HANDOFF-GATE-V1.json": "e artefato de PORTAO da branch paralela adama-es-local-browser, nao conteudo da demo. Ele muda toda vez que aquele handoff muda, e travar o freeze da Espanha nele faria o freeze reprovar por trabalho de outra branch."
   },
   "VERSAO_DO_FREEZE": "V1.3",
   "HISTORICO": [

@@ -1,0 +1,264 @@
+"""O portao do handoff ADAMA Espanha continua sendo um portao.
+
+Um portao que aprova tudo nao e portao. Estes testes guardam duas coisas:
+que o veredito continua vindo de medicao (e nao de opiniao), e que os
+defeitos ja encontrados nao somem do artefato sem alguem consertar a origem.
+
+Nenhum teste aqui importa dado. O ensaio contra Postgres real vive em
+supabase/ensaios/ e roda no workflow adama-es-gate.
+"""
+import json
+import os
+import re
+import unittest
+
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+AMOSTRAS = os.path.join(RAIZ, 'data', 'samples')
+PORTAO = os.path.join(AMOSTRAS, 'ADAMA-ES-HANDOFF-GATE-V1.json')
+
+
+def carrega():
+    with open(PORTAO, encoding='utf-8') as f:
+        return json.load(f)
+
+
+class TestOPortaoMediu(unittest.TestCase):
+
+    def setUp(self):
+        self.d = carrega()
+
+    def test_o_handoff_esta_identificado_com_ref_e_head(self):
+        a = self.d['A_LOCALIZACAO']
+        self.assertEqual('origin/claude/adama-es-local-browser', a['REF'])
+        self.assertRegex(a['HEAD'], r'^[0-9a-f]{40}$')
+        self.assertTrue(a['PUSHED'])
+        self.assertGreater(len(a['ARQUIVOS']), 30)
+
+    def test_o_handoff_continua_nao_mesclado(self):
+        """Esta rodada e de GATE. Se aparecer mesclado, alguem importou."""
+        self.assertFalse(self.d['A_LOCALIZACAO']['MESCLADO_NA_PRINCIPAL'])
+        self.assertTrue(self.d['NAO_IMPORTOU_NADA'])
+
+    def test_os_tres_estados_de_portfolio_e_so_tres(self):
+        p = self.d['PORTFOLIO_LOCAL']
+        estados = {x['ESTADO'] for x in p['LINHAS']}
+        self.assertLessEqual(estados, {'LOCAL_REGISTERED',
+                                       'LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED',
+                                       'NOT_KNOWN'})
+        self.assertEqual(len(p['LINHAS']),
+                         p['LOCAL_REGISTERED']
+                         + p['LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED']
+                         + p['NOT_KNOWN'])
+
+    def test_ausencia_no_registro_nunca_vira_nao_registrado(self):
+        """NOT_FOUND != DOES NOT EXIST, tambem aqui."""
+        p = self.d['PORTFOLIO_LOCAL']
+        self.assertIn('AUSENTE_MEDIDO', p['PORQUE_NENHUM_E_NAO_REGISTRADO'])
+        for x in p['LINHAS']:
+            self.assertNotIn('NAO_REGISTRADO', x['ESTADO'])
+
+    def test_o_casamento_por_nome_fica_visivel(self):
+        """3 produtos entram por nome+composicao, e isso nao pode sumir."""
+        p = self.d['PORTFOLIO_LOCAL']
+        bases = p['POR_BASE_DE_CASAMENTO']
+        self.assertIn('NAME_AND_COMPOSITION', bases)
+        for x in p['LINHAS']:
+            if x['ESTADO'] == 'LOCAL_REGISTERED':
+                self.assertIn(x['MATCH_BASIS'],
+                              ('REGISTRATION_NUMBER', 'NAME_AND_COMPOSITION'))
+
+
+class TestOsDefeitosContinuamNomeados(unittest.TestCase):
+    """Se um defeito sumir daqui, ou a origem foi consertada — e o teste tem
+    de ser atualizado de proposito — ou alguem apagou o achado."""
+
+    def setUp(self):
+        self.rt = {x['ID']: x for x in carrega()['RED_TEAM']}
+
+    def test_bbch_00_00_continua_marcado(self):
+        self.assertEqual('DEFEITO_CONFIRMADO', self.rt['RT-6']['RESULTADO'],
+                         'se a origem corrigiu BBCH_TO para 07, atualize este teste')
+        self.assertIn('00-00', self.rt['RT-6']['PROVA'])
+
+    def test_os_dois_numeros_de_registro_continuam_marcados(self):
+        self.assertEqual('DEFEITO_CONFIRMADO', self.rt['RT-10']['RESULTADO'])
+
+    def test_a_contaminacao_de_alvo_continua_marcada(self):
+        self.assertEqual('DEFEITO_CONFIRMADO', self.rt['RT-11']['RESULTADO'])
+        self.assertIn('DECLARATION_SOURCE', self.rt['RT-11']['PROVA'])
+
+    def test_o_site_nao_virou_prova_regulatoria(self):
+        self.assertEqual('HIPOTESE_DERRUBADA', self.rt['RT-1']['RESULTADO'])
+
+    def test_nenhum_produto_de_outro_pais(self):
+        self.assertEqual('HIPOTESE_DERRUBADA', self.rt['RT-2']['RESULTADO'])
+
+    def test_o_catalogo_nao_virou_segundo_dono_da_janela(self):
+        self.assertEqual('HIPOTESE_DERRUBADA', self.rt['RT-9']['RESULTADO'])
+
+
+class TestORedTeamTemDentes(unittest.TestCase):
+    """Um red team que passaria num handoff quebrado nao vale nada."""
+
+    def test_toda_hipotese_derrubada_tem_mutacao_que_a_derruba(self):
+        d = carrega()
+        derrubadas = {x['ID'] for x in d['RED_TEAM']
+                      if x['RESULTADO'] == 'HIPOTESE_DERRUBADA'}
+        com_mutacao = {m['ALVO'] for m in d['RED_TEAM_MUTACOES']}
+        self.assertFalse(derrubadas - com_mutacao,
+                         'hipotese aprovada sem mutacao que a teste: %s'
+                         % sorted(derrubadas - com_mutacao))
+
+    def test_nenhuma_mutacao_passou_batido(self):
+        for m in carrega()['RED_TEAM_MUTACOES']:
+            self.assertEqual('PEGOU', m['RESULTADO'],
+                             '%s: %s' % (m['ALVO'], m['MUTACAO']))
+
+
+class TestEsCase001(unittest.TestCase):
+    """A divergencia nao pode ser fechada por conveniencia."""
+
+    def setUp(self):
+        self.e = carrega()['ES_CASE_001']
+
+    def test_continua_aberta(self):
+        self.assertEqual('ABERTA', self.e['ESTADO'])
+        self.assertFalse(self.e['RESOLVE'])
+
+    def test_o_handoff_nao_traz_janela_nem_par_do_neptune(self):
+        self.assertEqual(0, self.e['O_HANDOFF_TRAZ_JANELA_DO_NEPTUNE'])
+        self.assertEqual(0, self.e['O_HANDOFF_TRAZ_PAR_OLIVO_x_REPILO_DO_NEPTUNE'])
+
+    def test_citar_a_palavra_floracao_nao_conta_como_evidencia(self):
+        """A primeira versao deste portao fechou a divergencia com 18 acertos
+        de palavra, todos em AMBIGUOUS_TERMS. Nenhum era uma data."""
+        self.assertGreater(self.e['CITACOES_DE_FLORACAO_NO_ARTEFATO'], 0)
+        self.assertEqual(0, self.e['CITACOES_QUE_SERVEM_COMO_EVIDENCIA'])
+        self.assertIn('AMBIGUOUS_TERMS', self.e['PORQUE_AS_CITACOES_NAO_SERVEM'])
+
+    def test_o_documento_que_fecharia_esta_localizado(self):
+        docs = self.e['ONDE_A_EVIDENCIA_PROVAVELMENTE_ESTA']
+        self.assertTrue(docs)
+        for x in docs:
+            self.assertRegex(x['SHA256'], r'^[0-9a-f]{64}$')
+
+
+class TestOEnsaioDosCincoCasos(unittest.TestCase):
+
+    def setUp(self):
+        self.e = carrega()['ENSAIO_DOS_CINCO_CASOS']
+
+    def test_os_cinco_casos_foram_executados(self):
+        self.assertEqual('EXECUTADO', self.e['ESTADO'],
+                         'NAO_EXECUTADO nao e PASSOU')
+        self.assertEqual(['A', 'B', 'C', 'D', 'E'], [c['CASO'] for c in self.e['CASOS']])
+
+    def test_nenhum_produto_some_ao_perguntar_por_um_alvo(self):
+        for c in self.e['CASOS']:
+            self.assertFalse(c['SOME_AO_PERGUNTAR_POR_ISSUE'],
+                             'caso %s: produto sumiu' % c['CASO'])
+
+    def test_o_produto_de_nivel_cultura_e_marcado_como_tal(self):
+        b = [c for c in self.e['CASOS'] if c['CASO'] == 'B'][0]
+        self.assertIn('CROP_LEVEL', b['ESCOPO'])
+
+    def test_validade_vencida_aparece_e_nao_vira_retirada(self):
+        c = [x for x in self.e['CASOS'] if x['CASO'] == 'C'][0]
+        self.assertIn('EXPIRY_DATE_PASSED', c['CADUCIDADE'])
+        self.assertNotIn('WITHDRAWN', json.dumps(c))
+
+    def test_o_aproximado_nao_virou_faixa_numerica(self):
+        d = [x for x in self.e['CASOS'] if x['CASO'] == 'D'][0]
+        self.assertIn('APPROXIMATE', d['RESOLUCAO'])
+        self.assertNotIn('CLOSED', d['ESTADO_DA_JANELA'])
+
+    def test_o_dado_ausente_continua_not_known(self):
+        e = [x for x in self.e['CASOS'] if x['CASO'] == 'E'][0]
+        self.assertEqual(['NOT_KNOWN'], e['RESOLUCAO'])
+        self.assertEqual(['NOT_KNOWN'], e['ESTADO_DA_JANELA'])
+
+    def test_todo_caso_carrega_o_texto_original(self):
+        for c in self.e['CASOS']:
+            self.assertTrue(c['REPRESENTADO_SEM_PERDA'], c['CASO'])
+
+
+class TestInterferencia(unittest.TestCase):
+    """Carregar a ADAMA por cima do acervo que ja existe quebra alguma coisa?"""
+
+    def setUp(self):
+        self.i = carrega()['ENSAIO_DE_INTERFERENCIA']
+
+    def test_a_interferencia_foi_medida(self):
+        self.assertEqual('EXECUTADO', self.i['ESTADO'],
+                         'NAO_EXECUTADO nao e PASSOU')
+
+    def test_a_duplicacao_de_registro_esta_nomeada(self):
+        self.assertGreater(self.i['DUPLICADOS'], 0,
+                           'se a duplicacao sumiu, C-7 foi consertado — '
+                           'atualize este teste de proposito')
+        self.assertGreater(self.i['JANELAS_DO_NEPTUNE_NA_VIEW'], 1)
+        self.assertIn('fonte_versao', self.i['CHAVE_NATURAL'])
+
+    def test_capture_nao_e_registration(self):
+        self.assertIn('CAPTURE_NAO_E_REGISTRATION', self.i)
+        self.assertIn('captura', self.i['CAPTURE_NAO_E_REGISTRATION'])
+
+    def test_o_conserto_nao_foi_feito_nesta_rodada(self):
+        self.assertIn('portao', self.i['NAO_CONSERTADO_NESTA_RODADA'])
+        self.assertIn('consulta', self.i['NAO_CONSERTADO_NESTA_RODADA'])
+
+
+class TestVeredito(unittest.TestCase):
+
+    def setUp(self):
+        self.v = carrega()['VEREDITO']
+
+    def test_o_veredito_e_um_dos_tres(self):
+        self.assertIn(self.v['VEREDITO'],
+                      ('HANDOFF_READY_TO_IMPORT', 'HANDOFF_PARTIAL', 'HANDOFF_REJECTED'))
+
+    def test_partial_precisa_dizer_o_que_entra_e_o_que_nao(self):
+        if self.v['VEREDITO'] == 'HANDOFF_PARTIAL':
+            self.assertTrue(self.v['PODE_ENTRAR_AGORA'])
+            self.assertTrue(self.v['NAO_PODE_ENTRAR_AINDA'])
+            for x in self.v['NAO_PODE_ENTRAR_AINDA']:
+                self.assertTrue(x['O_QUE_DESTRAVA'], x['ESTRUTURA'])
+
+    def test_todo_bloqueio_aponta_um_achado_real(self):
+        ids = {x['ID'] for x in carrega()['RED_TEAM']} | \
+              {c['ID'] for c in carrega()['CONFLITOS_COM_O_SCHEMA']}
+        for x in self.v['NAO_PODE_ENTRAR_AINDA']:
+            for b in re.split(r'\s*·\s*', x['BLOQUEIO']):
+                self.assertIn(b, ids, x['ESTRUTURA'])
+
+    def test_o_procedimento_existe_e_nao_foi_executado(self):
+        self.assertGreaterEqual(len(self.v['PROCEDIMENTO_DE_IMPORTACAO_QUANDO_DESTRAVAR']), 5)
+        naofez = ' '.join(self.v['O_QUE_ESTA_RODADA_NAO_FEZ'])
+        for termo in ('nao importou', 'nao aplicou', 'nao mesclou'):
+            self.assertIn(termo, naofez)
+
+
+class TestOEnsaioNaoEImportacao(unittest.TestCase):
+
+    def test_o_arquivo_do_ensaio_declara_que_nao_e_importacao(self):
+        p = os.path.join(RAIZ, 'supabase', 'ensaios', 'ADAMA-ES-ENSAIO-CINCO-CASOS.sql')
+        self.assertTrue(os.path.exists(p))
+        with open(p, encoding='utf-8') as f:
+            cab = f.read(1200)
+        self.assertIn('NÃO É IMPORTAÇÃO', cab)
+        self.assertIn('DESCARTÁVEL', cab)
+
+    def test_o_ensaio_nao_mora_em_migrations(self):
+        mig = os.listdir(os.path.join(RAIZ, 'supabase', 'migrations'))
+        self.assertFalse([f for f in mig if 'ADAMA' in f.upper() or 'ENSAIO' in f.upper()],
+                         'ensaio virou migration — isso seria importacao')
+
+    def test_nenhuma_migration_nova_foi_criada_nesta_rodada(self):
+        """A missao proibe migration nova sem incompatibilidade provada."""
+        mig = sorted(f for f in os.listdir(os.path.join(RAIZ, 'supabase', 'migrations'))
+                     if f.endswith('.sql'))
+        self.assertEqual(12, len(mig), 'migrations: %s' % mig)
+
+
+if __name__ == '__main__':
+    unittest.main()
