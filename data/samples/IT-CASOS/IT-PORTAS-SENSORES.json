@@ -1,0 +1,269 @@
+{
+  "CASE_ID": "IT-CASE-DURUM-FUSARIUM-001",
+  "SOURCE_ID": "DERIVED/IT-PORTAS-SENSORES",
+  "source": "busca pública de canais — nenhuma execução paga",
+  "SOURCE_LOCATION": "web pública italiana",
+  "FACT_LOCATION": "NOT_KNOWN — nenhuma leitura sustentou localização de fato",
+  "ORIGINAL_LANGUAGE": "it",
+  "EVIDENCE_CLASS": "PRIMARY_SOURCE_PROBE",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "CASE_DATE": "2026-04-23",
+  "WINDOW": [
+    "2026-01-01",
+    "2026-05-31"
+  ],
+  "APIFY_RUNS": 0,
+  "APIFY_COST_USD": 0,
+  "LINKEDIN_PANEL": "LINKEDIN_THIS_PANEL_MEASURED_LOW_YIELD — congelado, sem novas execuções",
+  "CHANNELS_BY_RESEARCHER": [
+    {
+      "RESEARCHER": "Sabrina Locatelli",
+      "INSTITUTION": "CREA Cerealicoltura e Colture Industriali — Bergamo",
+      "PRIMARY_PUBLIC_CHANNEL": "EVENTO TÉCNICO → IMPRENSA TÉCNICA",
+      "PRIMARY_CHANNEL_INSTANCE": "Giornata del Mais (CREA Bergamo) → AgroNotizie",
+      "SECONDARY_PUBLIC_CHANNEL": "apresentações em PDF hospedadas por terceiros (CRPA)",
+      "DATED_CONTENT_AVAILABLE": "YES",
+      "FIELD_OR_TECHNICAL_SIGNAL_AVAILABLE": "YES",
+      "LINKEDIN_IDENTITY": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+      "NOTE": "o alvo que o LinkedIn NÃO resolveu é o que mais publica fora dele — a plataforma errada produziu o pior retrato da pessoa certa"
+    },
+    {
+      "RESEARCHER": "Pasquale De Vita",
+      "INSTITUTION": "CREA Cerealicoltura e Colture Industriali — Foggia",
+      "PRIMARY_PUBLIC_CHANNEL": "EVENTO TÉCNICO → IMPRENSA TÉCNICA",
+      "PRIMARY_CHANNEL_INSTANCE": "Durum Days (Foggia) → AgroNotizie / Terra e Vita",
+      "SECONDARY_PUBLIC_CHANNEL": "feiras e convegni regionais (Agripuglia Show)",
+      "DATED_CONTENT_AVAILABLE": "YES",
+      "FIELD_OR_TECHNICAL_SIGNAL_AVAILABLE": "PARTIAL — produção e mercado, não doença",
+      "LINKEDIN_IDENTITY": "IDENTITY_CONFIRMED"
+    },
+    {
+      "RESEARCHER": "Nicola Pecchioni",
+      "INSTITUTION": "CREA Cerealicoltura e Colture Industriali — diretor",
+      "PRIMARY_PUBLIC_CHANNEL": "EVENTO TÉCNICO → IMPRENSA TÉCNICA",
+      "PRIMARY_CHANNEL_INSTANCE": "Durum Days 2026 (TEA4IT, variedades resistentes)",
+      "SECONDARY_PUBLIC_CHANNEL": "creafuturo.crea.gov.it (divulgação, página de autor)",
+      "DATED_CONTENT_AVAILABLE": "YES",
+      "FIELD_OR_TECHNICAL_SIGNAL_AVAILABLE": "NO — melhoramento e divulgação",
+      "LINKEDIN_IDENTITY": "IDENTITY_PLAUSIBLE_NOT_PROVED",
+      "NOTE": "o canal institucional próprio existe e é datado, mas rendeu 2 textos em 3 anos, nenhum sobre doença: PORTA ABERTA, VOLUME BAIXO"
+    },
+    {
+      "RESEARCHER": "Francesca Nocente",
+      "INSTITUTION": "CREA Cerealicoltura e Colture Industriali",
+      "PRIMARY_PUBLIC_CHANNEL": "NOT_FOUND_IN_THIS_SEARCH",
+      "PRIMARY_CHANNEL_INSTANCE": null,
+      "SECONDARY_PUBLIC_CHANNEL": "literatura científica (via co-autoria CREA)",
+      "DATED_CONTENT_AVAILABLE": "NOT_KNOWN",
+      "FIELD_OR_TECHNICAL_SIGNAL_AVAILABLE": "NOT_KNOWN",
+      "LINKEDIN_IDENTITY": "IDENTITY_PLAUSIBLE_NOT_PROVED",
+      "NOTE": "busca por nome não devolveu canal público próprio; OpenAlex esgotado no dia"
+    },
+    {
+      "RESEARCHER": "Daniela Pacifico",
+      "INSTITUTION": "CREA Cerealicoltura e Colture Industriali",
+      "PRIMARY_PUBLIC_CHANNEL": "NOT_FOUND_IN_THIS_SEARCH",
+      "PRIMARY_CHANNEL_INSTANCE": null,
+      "SECONDARY_PUBLIC_CHANNEL": "literatura científica (via co-autoria CREA)",
+      "DATED_CONTENT_AVAILABLE": "NOT_KNOWN",
+      "FIELD_OR_TECHNICAL_SIGNAL_AVAILABLE": "NOT_KNOWN",
+      "LINKEDIN_IDENTITY": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+      "NOTE": "busca por nome não devolveu canal público próprio; OpenAlex esgotado no dia"
+    }
+  ],
+  "RESEARCHERS_WITH_A_PUBLIC_CHANNEL": 3,
+  "RESEARCHERS_WITH_DATED_CONTENT": 3,
+  "CONTENTS_READ": [
+    {
+      "ID": "AGRONOTIZIE/88873",
+      "ARQUIVO": "agronotizie-88873-mais-micotossine-2026-02-13.txt",
+      "URL": "https://agronotizie.imagelinenetwork.com/difesa-e-diserbo/2026/02/13/mais-e-micotossine-un-2025-da-dimenticare/88873",
+      "SHA256_HTML": "08a76e1ab459744fdfa1cecad0af0383110bb01f8d423b6c6a29e849dcec2a8e",
+      "PUBLISHED_AT": "2026-02-13",
+      "CHANNEL": "IMPRENSA TÉCNICA (relato de evento)",
+      "EVENT": "Giornata del Mais 2026, CREA Bergamo, 30/01/2026",
+      "RESEARCHER": "Sabrina Locatelli",
+      "CROP": "mais",
+      "ISSUE": "micotossine",
+      "SIGNAL_TYPES": [
+        "EVENT_PRESENTATION",
+        "DIAGNOSTIC_RESULT",
+        "RETROSPECTIVE_ANALYSIS",
+        "INTERVIEW"
+      ],
+      "RELEVANCE": "CONTROL_POSITIVE",
+      "RELEVANCE_EVIDENCE": "cultura e problema certos para o CONTROLE — mais × micotossine —, não para o caso principal, que é grano duro × fusariosi",
+      "QUANTITATIVE": {
+        "FBs_ACIMA_4_MG_KG_PCT": 72,
+        "FBs_ACIMA_10_MG_KG_PCT": 44,
+        "AFB1_NAO_CONFORME_PCT": 15,
+        "AFB1_LIMITE_UG_KG": 20,
+        "ZONA_OVEST_FBs_ACIMA_4_PCT": 94,
+        "SERIE_HISTORICA": "2011-2025"
+      },
+      "INTERPRETATION_OFFERED": "as fumonisinas são risco crônico e estrutural; a aflatoxina depende de clima quente e árido, e desde 2022 esse padrão é recorrente",
+      "SHA256_TEXTO": "2233b72d4117ccc7c5e6c95b5c1a69f7e2ed718049bcc48abbe378c10f6ab841",
+      "EVIDENCE_STATE": "PRESERVED",
+      "EVIDENCE_PATH": "data/samples/IT-T5-SENSORES/agronotizie-88873-mais-micotossine-2026-02-13.txt",
+      "FACT_LOCATIONS": [],
+      "FACT_LOCATIONS_COUNT": 0,
+      "PLACE_MENTIONS_REJECTED": [
+        {
+          "PLACE": "Bergamo",
+          "WHY": "endereço da entidade"
+        },
+        {
+          "PLACE": "Torino",
+          "WHY": "topônimo sem relação semântica com o acontecimento"
+        },
+        {
+          "PLACE": "Bergamo",
+          "WHY": "topônimo sem relação semântica com o acontecimento"
+        },
+        {
+          "PLACE": "Bergamo",
+          "WHY": "topônimo sem relação semântica com o acontecimento"
+        },
+        {
+          "PLACE": "Piacenza",
+          "WHY": "topônimo sem relação semântica com o acontecimento"
+        },
+        {
+          "PLACE": "Italia",
+          "WHY": "topônimo sem relação semântica com o acontecimento"
+        }
+      ],
+      "TIME": {
+        "FACT_TIME": "stagione 2025",
+        "FACT_TIME_PRECISION": "SEASON",
+        "FACT_TIME_EVIDENCE": "Al classico appuntamento con la Giornata del Mais , organizzata lo scorso 30 gennaio dal Crea Cerealicoltura e Colture Industriali , sede di Bergamo , i dati diffusi sul monitoraggio delle micotossine durante la stagione",
+        "FACT_TIME_ORIGIN": "TEXT/TIED_TO_EVENT",
+        "PUBLISHED_AT": "2026-02-13",
+        "TIME_CANDIDATES_DISCARDED": [
+          {
+            "VALUE": "13 febbraio 2026",
+            "WHY": "PUBLICATION_STAMP_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2011-2025",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          },
+          {
+            "VALUE": "2025-2027",
+            "WHY": "SERIES_RANGE_NOT_FACT_TIME"
+          }
+        ]
+      },
+      "OCCURRENCE_NOT_INCIDENCE": {
+        "BY_TYPE_OF_EVIDENCE": {},
+        "OBSERVED_OCCURRENCES": 0,
+        "INCIDENCE": "NOT_KNOWN",
+        "PREVALENCE": "NOT_KNOWN",
+        "REGIONAL_PRESSURE": "NOT_KNOWN",
+        "WHY": "ocorrência observada não é incidência, prevalência nem pressão regional — e as espécies de evidência não se somam entre si"
+      },
+      "PUBLICATION_RELATIVE_TO_CASE": "BEFORE_CASE",
+      "EARLY_WARNING_STATE": "RETROSPECTIVE_FINDING",
+      "EARLY_WARNING_WHY": "publicado antes do caso, mas sobre uma safra já encerrada (stagione 2025)"
+    },
+    {
+      "ID": "CREA/DURUM-DAYS-2026",
+      "ARQUIVO": null,
+      "URL": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/durum-days-2026-a-foggia-il-convegno-di-riferimento-nazionale-sul-grano-duro",
+      "PUBLISHED_AT": "2026-05-13",
+      "EVENT_DATE": "2026-05-19",
+      "CHANNEL": "SITE INSTITUCIONAL (CREA)",
+      "RESEARCHER": "Pasquale De Vita / Nicola Pecchioni",
+      "CROP": "grano duro",
+      "ISSUE": null,
+      "SIGNAL_TYPES": [
+        "EVENT_PRESENTATION",
+        "PROJECT_UPDATE"
+      ],
+      "RELEVANCE": "GENERAL_RESEARCH",
+      "RELEVANCE_EVIDENCE": "a página do convegno nacional do trigo duro não menciona fusariosi, micotossine nem DON — cultura certa, problema ausente",
+      "EVIDENCE_STATE": "READ_NOT_PRESERVED",
+      "FACT_LOCATIONS": [],
+      "FACT_LOCATIONS_COUNT": 0,
+      "TIME": {
+        "FACT_TIME": "NOT_KNOWN",
+        "PUBLISHED_AT": "2026-05-13"
+      },
+      "PUBLICATION_RELATIVE_TO_CASE": "AFTER_CASE",
+      "EARLY_WARNING_STATE": "NOT_EARLY_WARNING",
+      "EARLY_WARNING_WHY": "publicado no caso ou depois dele"
+    }
+  ],
+  "CONTENTS_READ_COUNT": 2,
+  "FIRST_RESEARCHER_SIGNAL": {
+    "DATE": "2026-02-13",
+    "RESEARCHER": "Sabrina Locatelli",
+    "CHANNEL": "AgroNotizie (relato da Giornata del Mais de 30/01/2026)",
+    "CROP_ISSUE": "mais × micotossine"
+  },
+  "FIRST_TECHNICAL_SIGNAL": {
+    "DATE": "2026-02-13",
+    "SAME_AS_RESEARCHER_SIGNAL": true,
+    "WHY": "o primeiro sinal técnico e o primeiro sinal de pesquisador são o mesmo conteúdo — no canal medido, o pesquisador fala PELA imprensa técnica"
+  },
+  "FIRST_EXACT_CASE_SIGNAL": "NOT_OBSERVED_IN_MEASURED_SAMPLE",
+  "SIGNALS_BEFORE_CASE": [
+    "AGRONOTIZIE/88873"
+  ],
+  "SIGNALS_AROUND_CASE": [],
+  "SIGNALS_AFTER_CASE": [
+    "CREA/DURUM-DAYS-2026"
+  ],
+  "EXACT_CASE_SIGNAL": "NOT_OBSERVED_IN_MEASURED_SAMPLE",
+  "CONTROL_POSITIVE": [
+    "AGRONOTIZIE/88873"
+  ],
+  "RETROSPECTIVE": [
+    "AGRONOTIZIE/88873"
+  ],
+  "FACT_LOCATIONS_FOUND": [],
+  "FACT_LOCATIONS_COUNT": 0,
+  "WHY_NO_FACT_LOCATION": "no controle positivo, os quatro topônimos do texto são: a sede do CREA (Bergamo), a universidade parceira (Torino), a universidade da outra palestrante (Piacenza) e uma menção histórica (Italia). Nenhuma frase liga o acontecimento a um lugar. A própria geografia da fonte é uma zona da rede de monitoramento — \"l'Ovest\" —, que não é unidade administrativa e não tem entrada no gazetteer. SOURCE_GEOGRAPHY ≠ ADMIN_GEOGRAPHY.",
+  "WHAT_RESEARCHERS_ADDED": {
+    "CHRONIC_RISK_CHARACTERIZATION": "quinze anos de série sistemática, e a leitura de que as fumonisinas deixaram de ser evento e viraram risco estrutural — uma afirmação que nenhum boletim semanal produz",
+    "CAUSAL_MECHANISM": "junho acima de 35 °C na segunda metade e estresse hídrico coincidindo com floração e enchimento de grão: o porquê, não só o quanto",
+    "QUANTIFIED_SEVERITY": "72% acima de 4 mg/kg, 44% acima de 10, 15% de AFB1 não conforme",
+    "WHAT_THE_OFFICIAL_LAYER_DID_NOT_HAVE": "a camada oficial dá ocorrência e limite; o pesquisador deu a série, o mecanismo e a leitura de tendência",
+    "WHAT_THEY_DID_NOT_ADD": "nada sobre o caso principal, e nenhuma localização de fato"
+  },
+  "CHANNEL_THAT_PRODUCED_THE_VALUE": "EVENTO TÉCNICO → IMPRENSA TÉCNICA",
+  "STRUCTURAL_FINDING": {
+    "STATE": "RESEARCHER_CHANNEL_IS_RETROSPECTIVE_BY_CALENDAR",
+    "EVIDENCE": "Giornata del Mais em 30/01 relata a safra de milho encerrada em outubro; Durum Days em 19/05 relata estimativas de pré-colheita. A fusariose do trigo duro se decide na floração, em abril.",
+    "CONSEQUENCE": "não é atraso de publicação, é o desenho do calendário. Nenhuma ferramenta de coleta conserta isso.",
+    "WHAT_IT_IS_GOOD_FOR": "risco crônico, mecanismo, tendência, contexto de safra",
+    "WHAT_IT_CANNOT_DO": "avisar sobre a safra que está correndo"
+  },
+  "LAWS": [
+    "LINKEDIN_NOT_PRODUCTIVE_IN_MEASURED_PANEL ≠ HUMAN_SENSOR_LAYER_NOT_PRODUCTIVE",
+    "PUBLICATION_BEFORE_CASE ≠ EARLY_WARNING",
+    "RESEARCHER_CHANNEL_IS_RETROSPECTIVE_BY_CALENDAR",
+    "CONTROL_POSITIVE ≠ EXACT_CASE_SIGNAL",
+    "SOURCE_GEOGRAPHY ≠ ADMIN_GEOGRAPHY",
+    "NOT_FOUND_IN_THIS_SEARCH ≠ DOES_NOT_EXIST",
+    "PLACE_MENTION ≠ FACT_LOCATION",
+    "PUBLISHED_AT ≠ FACT_TIME"
+  ],
+  "LINKEDIN_SENSOR_CAPABILITY": "LOW_IN_MEASURED_PANEL",
+  "RESEARCHER_SENSOR_CAPABILITY": "PROVED_IN_CONTROL",
+  "HUMAN_SENSOR_LAYER": "PROMISING_BUT_NOT_PROVED",
+  "RECOMMENDATION": {
+    "COLLECT": "imprensa técnica italiana (AgroNotizie, Terra e Vita, Informatore Agrario) filtrada por cultura×problema, e os calendários de convegni do CREA e das universidades",
+    "WHY": "é onde o pesquisador realmente fala, com nome, número e citação direta — e é gratuito e datado",
+    "DO_NOT_COLLECT": "mais LinkedIn deste painel; e nenhuma rede social escolhida por existir Actor",
+    "EXPECT": "contexto e risco estrutural, não antecipação. Para antecipação, a porta continua sendo o boletim regional oficial.",
+    "STILL_UNMEASURED": "Francesca Nocente e Daniela Pacifico sem canal próprio achado; OpenAlex esgotado no dia da medição"
+  },
+  "STILL_FORBIDDEN_TO_WRITE": [
+    "ITALY OPPORTUNITY",
+    "SALES OPPORTUNITY",
+    "ADAMA SHOULD ACT",
+    "MARKET GAP"
+  ]
+}
