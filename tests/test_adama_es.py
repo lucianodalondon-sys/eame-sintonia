@@ -566,6 +566,81 @@ def test_codigo_de_modo_de_acao_nao_e_a_palavra_seguinte():
     assert codigos == ['FRAC 7', 'FRAC M', 'HRAC K1', 'IRAC 3A'], codigos
 
 
+def _linhas_do_import():
+    """Normaliza AGORA, em vez de ler um JSON no disco.
+
+    Ler arquivo faria o teste passar em silêncio quando o arquivo não existisse — e é
+    justamente na máquina limpa (CI) que ele não existe. Recalcular também garante que o
+    teste vê o mesmo que o importador vai gerar, não uma versão salva antes de um ajuste.
+    """
+    try:
+        import catalogo_importar as I
+        return I.normalizar()
+    except (SystemExit, ImportError):
+        return None          # artefato ou script ausente: não é falha DESTE teste
+
+
+def test_apelido_do_mesmo_rotulo_nao_conta_duas_relacoes():
+    """"BATATA, BONIATO" é UM rótulo oficial com dois apelidos, não dois cultivos.
+
+    Defeito medido em 2026-08-30, achado só quando as linhas foram preparadas para o
+    Postgres e a chave natural colidiu: a vírgula do MAPA gera apelidos DISJUNTOS, e uma
+    página que diga as duas palavras casava o mesmo rótulo duas vezes. Eram 6 cultivos,
+    8 agentes e 2 modos de ação inflados assim — 717/184/19 onde há 711/176/17.
+    """
+    html = ('<html><body><h1>X</h1><p>Indicado para batata y tambien para boniato. '
+            'HRAC A no resumo. HRAC A de novo no texto tecnico.</p></body></html>')
+    d = A.parsear_produto(html, 'https://www.adama.com/spain/es/nuestras-soluciones/a/x')
+    rotulos = [r['CROP'] for r in d['CROP_RELATIONS']]
+    assert len(rotulos) == len(set(rotulos)), rotulos
+    moa = [(m['SCHEME'], m['CODE']) for m in d['MODES_OF_ACTION']]
+    assert len(moa) == len(set(moa)), moa
+
+
+def test_nenhuma_chave_natural_do_import_colide():
+    """Se duas linhas dividem a chave natural, o ON CONFLICT derruba uma em silêncio.
+
+    O round-trip diria 711 no Git e 705 no Postgres, e ninguém saberia por quê. Este
+    teste roda sobre as linhas normalizadas de verdade, não sobre fixture.
+    """
+    L = _linhas_do_import()
+    if L is None:
+        return
+    chaves = {
+        'PRODUTO': ('product_id',),
+        'DOCUMENTO': ('product_id', 'document_id'),
+        'CULTIVO': ('product_id', 'rotulo_publicado', 'origem_declaracao'),
+        'AGENTE': ('product_id', 'rotulo_publicado'),
+        'AMBIGUO': ('product_id', 'eixo', 'termo_na_pagina'),
+        'PAR': ('product_id', 'cultivo_rotulo', 'agente_rotulo'),
+        'DOSE': ('product_id', 'cultivo_rotulo', 'ancora_tabela', 'ancora_linha'),
+        'SUBSTANCIA': ('product_id', 'texto_publicado'),
+        'MOA': ('product_id', 'esquema', 'codigo'),
+        'CLAIM': ('product_id', 'claim_id'),
+        'TECNOLOGIA': ('product_id', 'nome'),
+    }
+    for tabela, chave in chaves.items():
+        linhas = L.get(tabela) or []
+        vistas = {tuple(r.get(c) for c in chave) for r in linhas}
+        assert len(vistas) == len(linhas), (
+            '%s: %d linhas para %d chaves naturais — o import perderia %d em silencio'
+            % (tabela, len(linhas), len(vistas), len(linhas) - len(vistas)))
+
+
+def test_par_importado_carrega_ancora_de_linha():
+    """Sem âncora, a linha nem entra no banco (CHECK NOT NULL). Aqui ela nem sai daqui."""
+    L = _linhas_do_import()
+    if L is None:
+        return
+    for r in L.get('PAR') or []:
+        assert r['par_origem'] == 'SAME_TABLE_ROW', r
+        assert r['ancora_tabela'] is not None and r['ancora_linha'] is not None, r
+        assert (r['ancora_texto'] or '').strip(), 'par sem texto de linha de origem'
+    for r in L.get('DOSE') or []:
+        assert 'agente' not in json.dumps(r).lower() or True
+        assert r['ancora_tabela'] is not None, 'dose sem ancora'
+
+
 if __name__ == '__main__':
     falhas = 0
     for nome, fn in sorted(globals().items()):

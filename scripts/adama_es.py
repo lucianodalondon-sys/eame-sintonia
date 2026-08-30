@@ -438,6 +438,7 @@ def _tokens(texto, tabela_vocab, indice=None):
     # mais específico primeiro: "maíz dulce" antes de "maíz"
     exatos.sort(key=lambda m: -len(m['MATCHED_AS']))
     exatos = _colapsar_sobrepostos(exatos)
+    exatos = _um_rotulo_uma_relacao(exatos)
     for m in exatos:
         m.update(_qualidade_do_casamento(m, indice))
 
@@ -455,6 +456,46 @@ def _tokens(texto, tabela_vocab, indice=None):
                                             'oficiais do MAPA; escolher um seria inventar'
                                             % len(rotulos))})
     return exatos, ambiguos
+
+
+def _um_termo_uma_ambiguidade(ambiguos):
+    """Um (termo, eixo) por produto. A âncora que fica é a da primeira ocorrência."""
+    fora, vistos = [], set()
+    for a in ambiguos:
+        k = (a['TERMO_NA_PAGINA'], a['EIXO'])
+        if k in vistos:
+            continue
+        vistos.add(k)
+        fora.append(a)
+    return fora
+
+
+def _um_rotulo_uma_relacao(exatos):
+    """O MESMO rótulo oficial casado por apelidos DIFERENTES é UMA relação.
+
+    _colapsar_sobrepostos junta o que se sobrepõe no texto. Não resolve este caso: o MAPA
+    escreve "BATATA, BONIATO", e a vírgula é notação que gera dois apelidos DISJUNTOS.
+    Uma página que diga as duas palavras casava duas vezes o mesmo rótulo, e a relação
+    "este produto serve para BATATA, BONIATO" era contada duas vezes.
+
+    Medido em 2026-08-30: 6 cultivos, 8 agentes e 2 termos ambíguos duplicados assim —
+    717 relações de cultivo onde há 711, e 184 de agente onde há 176. Números inflados
+    por notação da fonte, não por evidência.
+
+    Os apelidos que casaram não somem: viram MATCHED_AS_ALL.
+    """
+    fora, por_rotulo = [], {}
+    for m in exatos:
+        k = _chave(m['ES'])
+        if k in por_rotulo:
+            primeiro = por_rotulo[k]
+            apelidos = primeiro.setdefault('MATCHED_AS_ALL', [primeiro['MATCHED_AS']])
+            if m['MATCHED_AS'] not in apelidos:
+                apelidos.append(m['MATCHED_AS'])
+            continue
+        por_rotulo[k] = m
+        fora.append(m)
+    return fora
 
 
 def _colapsar_sobrepostos(exatos):
@@ -851,6 +892,10 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
     issues_txt, amb_i = _tokens(texto_todo, vocab['pests'], indices['pests'])
     ancora_pagina = {'PAGE_SECTION': 'CORPO DA PAGINA', 'TABLE_INDEX': None,
                      'ROW_INDEX': None, 'ROW_TEXT': ''}
+    # "Este termo é ambíguo para este produto" é UM fato. O mesmo termo aparecendo em
+    # duas tabelas da mesma ficha não são duas ambiguidades — a âncora guardada é a
+    # primeira ocorrência, e a segunda não acrescenta nada que não esteja dito.
+    ambiguos = _um_termo_uma_ambiguidade(ambiguos)
     vistos_amb = {(a['TERMO_NA_PAGINA'], a['EIXO']) for a in ambiguos}
     for eixo, lista in (('CROP', amb_c), ('ISSUE', amb_i)):
         for a in lista:
@@ -882,9 +927,16 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
 
     reg = _registro(texto_todo)
     tecnologias = _tecnologias(texto_todo, nome, pid, url_pagina)
-    moa = []
+    # O mesmo código citado duas vezes na ficha é UM modo de ação. A página do ANIBAL
+    # escreve "HRAC A" no resumo e de novo no texto técnico; contar duas vezes inflava
+    # 17 modos para 19.
+    moa, moa_vistos = [], set()
     for esquema, rx in MODO_ACAO:
         for m in rx.finditer(texto_todo):
+            chave = (esquema, m.group(1))
+            if chave in moa_vistos:
+                continue
+            moa_vistos.add(chave)
             moa.append({'PRODUCT_ID': pid, 'SCHEME': esquema, 'CODE': m.group(1),
                         'SOURCE_URL': url_pagina,
                         'EVIDENCE_LEVEL': 'MANUFACTURER_TECHNICAL_CLAIM'})
