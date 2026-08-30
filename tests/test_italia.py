@@ -156,6 +156,39 @@ class TestModoDeAcao(unittest.TestCase):
         self.assertEqual(rp.modo_de_acao('Fungicida per cereali. Dose 1 l/ha.'), {})
 
 
+class TestCid2Bytes(unittest.TestCase):
+    """O CID de 2 bytes deslocado — o que destrancou os decretos regionais.
+
+    Enganou por um bom tempo porque o terminal desenha `\\x00` como espaco: o texto
+    PARECIA separado por espacos e o corretor de espacos nao casava nada.
+    """
+
+    def test_decodifica_par_nul_mais_deslocamento(self):
+        bruto = 'OGGETTO' + ''.join('\x00' + chr(ord(c) - 29)
+                                    for c in 'Misure di lotta')
+        novo, mudou = rp._decodificar_cid2(bruto)
+        self.assertTrue(mudou)
+        self.assertIn('Misure di lotta', novo)
+
+    def test_apostrofo_e_mapeado_antes_do_deslocamento(self):
+        """0xB6 e o glifo do apostrofo: somar 29 antes o transformaria em 'O-acento'."""
+        bruto = ''.join('\x00' + c for c in [chr(ord('l') - 29), '\xb6',
+                                             chr(ord('a') - 29), chr(ord('n') - 29),
+                                             chr(ord('n') - 29), chr(ord('o') - 29)])
+        novo, _ = rp._decodificar_cid2(bruto)
+        self.assertIn("l'anno", novo)
+
+    def test_texto_sem_nul_fica_intacto(self):
+        t = 'Misure di lotta obbligatoria'
+        self.assertEqual(rp._decodificar_cid2(t), (t, False))
+
+    def test_decodificacao_implausivel_e_recusada(self):
+        """Decodificar e conferir: lixo decodificado preserva o bruto."""
+        bruto = '\x00\xf0\x00\xf1\x00\xf2\x00\xf3'
+        novo, mudou = rp._decodificar_cid2(bruto)
+        self.assertFalse(mudou)
+
+
 class TestColturaHierarquia(unittest.TestCase):
     def test_prova_detecta_nao_aditividade(self):
         """A prova tem de REPROVAR quando pai ≠ soma dos filhos."""

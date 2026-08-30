@@ -141,6 +141,41 @@ ALVO_INV = re.compile(
 DESLOC = 29
 
 
+# CID DE DOIS BYTES COM DESLOCAMENTO — o que destranca os decretos regionais.
+#
+# Os atos oficiais das regiões (decreto do Vêneto DDR 13645, por exemplo) saem do
+# extrator como `OGGETTO\x000\x00L\x00V\x00X\x00U\x00H` — pares `\x00` + byte.
+# É fonte com CID de 2 bytes cujo byte alto é zero e cujo byte baixo está deslocado
+# 29 em relação ao ASCII, o MESMO deslocamento das etichettas. `\x03` decodifica para
+# espaço (0x03 + 29 = 0x20), e é isso que confirma a hipótese em vez de supô-la.
+#
+# Isto enganou por um bom tempo porque o terminal desenha `\x00` como espaço: o texto
+# PARECIA estar separado por espaços e o corretor de espaços não casava nada. Um
+# `repr()` resolveu o que a inspeção visual não resolvia.
+CID2 = re.compile(r'(?:\x00[\x00-\xff]){3,}')
+
+
+def _decodificar_cid2(t):
+    """Decodifica trechos CID de 2 bytes deslocados. Não aplica às cegas: só aceita
+    quando o resultado vira texto latino plausível — decodificação que produz lixo é
+    decodificação errada, e nesse caso o bruto é preservado."""
+    if '\x00' not in t:
+        return t, False
+
+    def rep(m):
+        baixos = m.group(0)[1::2]
+        # 0xB6 é o glifo do apóstrofo neste subconjunto: some 29 e ele viraria 'Ó'.
+        # Mapear ANTES do deslocamento, não depois.
+        dec = ''.join("'" if ord(c) == 0xB6 else chr((ord(c) + DESLOC) & 0xFF)
+                      for c in baixos)
+        if re.fullmatch(r"[ -~\u00c0-\u00ff']{3,}", dec) and re.search(r'[aeiouAEIOU]', dec):
+            return dec
+        return m.group(0)
+
+    novo = CID2.sub(rep, t)
+    return novo, novo != t
+
+
 def _corrigir_deslocamento(t):
     """Desfaz o mapa de fonte deslocado +29, e só quando a evidência o indica.
 
@@ -179,9 +214,12 @@ def texto(caminho):
         import subprocess
         bruto = subprocess.run([sys.executable, os.path.join(HERE, 'pdf_text.py'), caminho],
                                capture_output=True, text=True, timeout=120).stdout
-    t = re.sub(r'\s+', ' ', bruto)
-    t, corrigido = _corrigir_deslocamento(t)
-    return t, corrigido
+    # A ordem importa: o CID de 2 bytes tem de ser decodificado ANTES de colapsar
+    # espaços, senão o `\x00` some e o padrão desaparece.
+    t, cid = _decodificar_cid2(bruto)
+    t = re.sub(r'\s+', ' ', t)
+    t, desloc = _corrigir_deslocamento(t)
+    return t, (cid or desloc)
 
 
 def alvos(t):

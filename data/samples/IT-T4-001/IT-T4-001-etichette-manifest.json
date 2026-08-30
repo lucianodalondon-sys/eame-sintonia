@@ -12,12 +12,11 @@
   "EVIDENCE_CLASS": "REGULATORY_FACT",
   "TARGET_TOTAL": 163,
   "ATTEMPTED": 163,
-  "LABELS_OBTAINED": 161,
-  "COVERAGE_PCT": 98.8,
-  "STATE": "PARTIAL",
+  "LABELS_OBTAINED": 163,
+  "COVERAGE_PCT": 100.0,
+  "STATE": "COMPLETE",
   "BY_STATE": {
-    "NO_LABEL_LINK": 2,
-    "OK": 161
+    "OK": 163
   },
   "LABELS": [
     {
@@ -2319,9 +2318,17 @@
       "STATUS": "Autorizzato con procedura zonale",
       "CAPTURED_AT": "2026-08-30T00:14:54Z",
       "LOOKUP_ATTEMPTS": 8,
-      "LABEL_INTERNAL_ID": null,
-      "HOLDER_REGISTRY_ID": null,
-      "STATE": "NO_LABEL_LINK"
+      "LABEL_INTERNAL_ID": "46740",
+      "HOLDER_REGISTRY_ID": "195",
+      "STATE": "OK",
+      "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46740",
+      "LABEL_FILENAME_DECLARED": "16749__etichettaCLP_04072026.pdf",
+      "LABEL_DATE": "2026-07-04",
+      "BYTES": 201332,
+      "SHA256": "d9bd3866e58fcb6a00473fe35f96c30b28922f9605615b0ded216a962a6cb930",
+      "STORAGE_PATH_LOCAL": "data/raw/IT/etichette/016749_46740.pdf",
+      "STORAGE_PATH_CONVENTION": "IT/IT-T4-001/IT-ETICHETTE-20260830T000216Z/etichette/016749_46740.pdf",
+      "RECOVERED_ON_FINAL_PASS": true
     },
     {
       "COUNTRY": "IT",
@@ -2770,9 +2777,17 @@
       "STATUS": "Autorizzato",
       "CAPTURED_AT": "2026-08-30T00:18:51Z",
       "LOOKUP_ATTEMPTS": 8,
-      "LABEL_INTERNAL_ID": null,
-      "HOLDER_REGISTRY_ID": null,
-      "STATE": "NO_LABEL_LINK"
+      "LABEL_INTERNAL_ID": "38823",
+      "HOLDER_REGISTRY_ID": "195",
+      "STATE": "OK",
+      "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38823",
+      "LABEL_FILENAME_DECLARED": "17432_etichettaCLP_20072022.pdf",
+      "LABEL_DATE": "2022-07-20",
+      "BYTES": 117855,
+      "SHA256": "6efaffbd140af8df8fd9aa4c36cfa24688f752d70d5cc3b3d3ad7035a426dc66",
+      "STORAGE_PATH_LOCAL": "data/raw/IT/etichette/017432_38823.pdf",
+      "STORAGE_PATH_CONVENTION": "IT/IT-T4-001/IT-ETICHETTE-20260830T000216Z/etichette/017432_38823.pdf",
+      "RECOVERED_ON_FINAL_PASS": true
     },
     {
       "COUNTRY": "IT",
@@ -3941,5 +3956,16 @@
       45
     ],
     "NOTE": "NO_LABEL_LINK = NAO OBTIDO apos todas as tentativas. NUNCA significa que o rotulo nao existe: o host estrangula e devolve VAZIO, nao erro. Nove dos catorze foram recuperados so por esperar mais."
+  },
+  "FINAL_PASS": {
+    "PERFORMED": true,
+    "WAITS_SECONDS": [
+      0,
+      20,
+      45,
+      90,
+      150
+    ],
+    "UNRESOLVED_REASON": "READ/ROUTE FAILURE — NAO significa NO_LABEL_EXISTS. Esforco encerrado por decisao: 100% nao muda hero case nenhum."
   }
 }
