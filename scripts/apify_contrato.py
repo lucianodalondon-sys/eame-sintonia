@@ -172,15 +172,21 @@ def main():
             linhas.append(reg)
         out['STATE'] = 'PROBED'
         out['ACTORS'] = linhas
+        # Intencao VAZIA satisfaz qualquer contrato sem campo obrigatorio — e esse
+        # MATCH nao autoriza nada: nao pedir nada nao e pedir certo. So entra aqui
+        # quem declarou uma entrada e ela passou.
         out['READY_TO_SPEND'] = sorted(r['ACTOR'] for r in linhas
-                                       if r.get('STATE') == CONTRACT_MATCH)
+                                       if r.get('STATE') == CONTRACT_MATCH
+                                       and r.get('INTENDED_INPUT'))
+        out['CONTRACT_READ_BUT_NO_INPUT_DECLARED'] = sorted(
+            r['ACTOR'] for r in linhas if not r.get('INTENDED_INPUT'))
     os.makedirs(os.path.dirname(DEST), exist_ok=True)
     with open(DEST, 'w', encoding='utf-8') as fh:
         fh.write(ap.redigir(json.dumps(out, ensure_ascii=False, indent=2)))
     print('STATE =', out['STATE'])
     for r in out.get('ACTORS', []):
         print('  %-46s %s' % (r['ACTOR'][:46], r.get('STATE')))
-        print('     campos do contrato:', ', '.join(r.get('CONTRACT_FIELDS', []))[:220]
+        print('     campos do contrato:', ', '.join(r.get('CONTRACT_FIELDS', []))
               or 'NÃO SEI')
         print('     obrigatorios      :', ', '.join(r.get('REQUIRED', [])) or 'nenhum')
         for campo, d in sorted((r.get('FIELD_DETAIL') or {}).items()):

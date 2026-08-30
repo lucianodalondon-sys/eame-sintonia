@@ -18,10 +18,24 @@ import apify_contrato as ac      # noqa: E402
 import linkedin_prova_busca as pb  # noqa: E402
 import linkedin_schema as ls     # noqa: E402
 
-SCHEMA_BUSCA = {'type': 'object', 'required': ['firstName'],
-                'properties': {'firstName': {'type': 'string'},
-                               'lastName': {'type': 'string'},
-                               'maxItems': {'type': 'integer'}}}
+# O contrato REAL de harvestapi~linkedin-profile-search-by-name, lido de graca
+# em 2026-08-30 (run 33320039453). Copiado do que o ator publica, nao inventado:
+# uma fixture inventada provaria a minha ideia do contrato, nao o contrato.
+SCHEMA_BUSCA = {
+    'type': 'object',
+    'required': ['profileScraperMode'],
+    'properties': {
+        'currentCompanies': {'type': 'array'}, 'currentJobTitles': {'type': 'array'},
+        'firstName': {'type': 'string', 'prefill': 'Satya'},
+        'lastName': {'type': 'string', 'prefill': 'Nadella'},
+        'industryIds': {'type': 'array'}, 'locations': {'type': 'array'},
+        'maxItems': {'type': 'integer'}, 'maxPages': {'type': 'integer'},
+        'pastCompanies': {'type': 'array'}, 'schools': {'type': 'array'},
+        'strictSearch': {'type': 'boolean'},
+        'profileScraperMode': {'type': 'string', 'prefill': 'Full',
+                               'enum': ['Short', 'Full', 'Full + email search']},
+    },
+}
 
 
 class OTetoEDoCodigo(unittest.TestCase):
@@ -67,6 +81,34 @@ class OPortaoDoContratoNaoEDecorativo(unittest.TestCase):
         props, req = ac.campos_do_schema(SCHEMA_BUSCA)
         r = ac.conferir(props, req, pb.entrada_de(pb.NOMES[0]))
         self.assertEqual(r['STATE'], ac.CONTRACT_MATCH)
+
+    def test_o_campo_obrigatorio_do_contrato_real_esta_na_entrada(self):
+        """profileScraperMode e obrigatorio — medido no contrato em 2026-08-30.
+
+        Sem ele a entrada seria recusada pelo portao, e a prova nunca rodaria.
+        """
+        self.assertIn('profileScraperMode', pb.entrada_de(pb.NOMES[0]))
+        self.assertIn(pb.MODO, ('Short', 'Full'))
+
+    def test_a_prova_nunca_pede_busca_de_email(self):
+        """'Full + email search' colheria e-mail de quem nao pediu nada a ninguem.
+
+        A pergunta desta missao — as vozes humanas acrescentam sinal de campo? —
+        se responde com nome, titulo e instituicao. Endereco pessoal nao entra.
+        """
+        self.assertNotEqual(pb.MODO, pb.MODO_PROIBIDO)
+        for alvo in pb.NOMES:
+            self.assertNotIn(pb.MODO_PROIBIDO, pb.entrada_de(alvo).values())
+
+    def test_a_prova_nao_filtra_por_local_nem_por_empresa(self):
+        """Filtrar transformaria 'declarou outro pais' em NOT_FOUND.
+
+        NOT_FOUND != DOES NOT EXIST. A comparacao com instituicao e feita depois,
+        do meu lado, sobre o que voltou.
+        """
+        e = pb.entrada_de(pb.NOMES[0])
+        self.assertNotIn('locations', e)
+        self.assertNotIn('currentCompanies', e)
 
     def test_a_entrada_dos_8_runs_perdidos_seria_recusada(self):
         """searchQuery contra este contrato: campo inexistente, gasto recusado."""

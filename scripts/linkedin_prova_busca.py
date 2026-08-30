@@ -57,14 +57,31 @@ NOMES = [
 ]
 
 
+# O contrato do ator, lido de graça em 2026-08-30 (run 33320039453, 0 USD), diz:
+# obrigatório `profileScraperMode`, com enum ["Short", "Full", "Full + email search"].
+#
+# "Short" basta e é o certo. Para dizer QUEM voltou eu preciso de nome, título e
+# instituição — nada mais. "Full + email search" colheria endereço de e-mail de
+# pessoas que não pediram nada a ninguém: dado pessoal que a pergunta desta missão
+# não precisa, e por isso não se coleta.
+MODO = 'Short'
+MODO_PROIBIDO = 'Full + email search'
+
+
 def entrada_de(alvo, teto=TETO_ITENS):
     """A entrada pretendida. Uma função só, para que contrato e gasto usem a MESMA.
 
     Se a conferência olhasse uma entrada e a execução mandasse outra, o portão
     do contrato seria decorativo.
+
+    Não filtro por `locations` nem por `currentCompanies`, embora o contrato os
+    aceite: um pesquisador que declare outro país ou outra afiliação sairia da
+    resposta e viraria NOT_FOUND — que é exatamente a confusão entre "não achei"
+    e "não existe". Filtrar é do meu lado, depois, comparando nome e instituição
+    com o que voltou.
     """
     return {'firstName': alvo['FIRST'], 'lastName': alvo['LAST'],
-            'maxItems': teto}
+            'profileScraperMode': MODO, 'maxItems': teto}
 
 
 def esqueleto(item, prefixo=''):
