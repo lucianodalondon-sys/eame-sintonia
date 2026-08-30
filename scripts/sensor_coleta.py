@@ -76,6 +76,9 @@ ATORES = {
     'LINKEDIN_POSTS': 'harvestapi~linkedin-post-search',
     'YOUTUBE_SEARCH': 'streamers~youtube-scraper',
     'YOUTUBE_TRANSCRIPT': 'pintostudio~youtube-transcript-scraper',
+    # Reserva com 100% de sucesso em 333 mil execucoes nos ultimos 30 dias, contrato
+    # proprio. Existe porque rota que falha por CONTRATO nao e rota morta.
+    'YOUTUBE_TRANSCRIPT_ALT': 'starvibe~youtube-video-transcript',
     'YOUTUBE_COMMENTS': 'streamers~youtube-comments-scraper',
 }
 
@@ -612,30 +615,63 @@ def transcricao(lote='A'):
     print('  janela de %d dias (desde %s): %d vídeos · %d fora da janela'
           % (janela, corte, len(urls), fora_da_janela))
     achados, mans, custo = [], [], 0.0
-    # Em lotes de 20: um pedido gigante que falha perde tudo; vinte perde vinte.
-    for i in range(0, len(urls), 20):
-        pedaco = urls[i:i + 20]
+    # UM VÍDEO POR EXECUÇÃO, e o contrato veio da própria recusa da plataforma:
+    #
+    #     API recusou HTTP 400: invalid-input — Field input.videoUrl is required
+    #
+    # `videoUrls` (plural, uma lista) é o que rodou na Espanha e está no RUN-MANIFEST;
+    # hoje o ator exige `videoUrl` no SINGULAR. O contrato do ator MUDOU entre as duas
+    # rodadas, e o schema não pôde ser lido antes porque este ator não publica
+    # `inputSchema` no build.
+    #
+    #     ENTRADA PROVADA ONTEM != ENTRADA VÁLIDA HOJE.
+    #
+    # A recusa da API acabou sendo a leitura de contrato que faltava — mas só porque ela
+    # chegou inteira ao manifesto. Enquanto a mensagem se perdia, isto se lia como
+    # "o YouTube não tem legenda", que é uma conclusão sobre a FONTE tirada de um defeito
+    # do CHAMADOR.
+    for i, u in enumerate(urls):
+        rotulo, actor = 'YOUTUBE_TRANSCRIPT', ATORES['YOUTUBE_TRANSCRIPT']
         itens, man, pos = _rodar(
-            ATORES['YOUTUBE_TRANSCRIPT'], {'videoUrls': pedaco},
-            run_id='SENSOR-TR-%s-%d' % (lote, i // 20), platform='YOUTUBE',
-            country='MULTI', query='%d urls' % len(pedaco),
+            actor, {'videoUrl': u['url']},
+            run_id='SENSOR-TR-%s-%d' % (lote, i), platform='YOUTUBE',
+            country='MULTI', query=u['url'],
             evidence_path='data/samples/SENSOR-PILOT/TRANSCRICOES-%s.json' % lote,
             lote=lote)
+        # Ator reserva: se o primeiro recusar a ENTRADA (não a rede), tenta o segundo,
+        # que tem contrato próprio. Rota que falha por contrato não é rota morta.
+        if man and man['STATUS'] == 'FAILED' and 'invalid-input' in str(man.get('ERROR')):
+            rotulo, actor = 'YOUTUBE_TRANSCRIPT_ALT', ATORES['YOUTUBE_TRANSCRIPT_ALT']
+            itens, man, pos = _rodar(
+                actor, {'videoUrl': u['url'], 'url': u['url'],
+                        'videoUrls': [u['url']]},
+                run_id='SENSOR-TRALT-%s-%d' % (lote, i), platform='YOUTUBE',
+                country='MULTI', query=u['url'],
+                evidence_path='data/samples/SENSOR-PILOT/TRANSCRICOES-%s.json' % lote,
+                lote=lote)
         if not man:
             continue
         mans.append(man); custo += _usd(man)
-        prov = _proveniencia(man, ATORES['YOUTUBE_TRANSCRIPT'], lote,
-                             'BATCH-%s-TRANSCRICAO' % lote)
-        for t in (itens or []):
+        prov = _proveniencia(man, actor, lote, 'BATCH-%s-TRANSCRICAO' % lote)
+        if not itens:
+            # Pedida e vazia é um ESTADO, não uma ausência.
             achados.append(dict(prov, **{
-                'SOURCE_URL': t.get('url') or t.get('videoUrl') or pv.NAO_SEI,
+                'SOURCE_URL': u['url'], 'EXTERNAL_ID': pv.NAO_SEI, 'TRANSCRIPT': None,
+                'TRANSCRIPT_AVAILABLE': 'REQUESTED_EMPTY',
+                'TRANSCRIPT_LANGUAGE': pv.NAO_SEI, 'CAPTION_SOURCE': actor,
+                'WHY_EMPTY': str(man.get('ERROR'))[:200]}))
+        for t in (itens or []):
+            texto = _texto_transcricao(t)
+            achados.append(dict(prov, **{
+                'SOURCE_URL': t.get('url') or t.get('videoUrl') or u['url'],
                 'EXTERNAL_ID': t.get('videoId') or pv.NAO_SEI,
-                'TRANSCRIPT': _texto_transcricao(t),
+                'TRANSCRIPT': texto,
+                'TRANSCRIPT_AVAILABLE': 'YES' if texto else 'REQUESTED_EMPTY',
                 'TRANSCRIPT_LANGUAGE': t.get('language') or pv.NAO_SEI,
-                'CAPTION_SOURCE': ATORES['YOUTUBE_TRANSCRIPT'],
+                'CAPTION_SOURCE': actor,
             }))
-        print('      lote %d: %d transcrições (pos %d, %s)'
-              % (i // 20, len(itens or []), pos, man['STATUS']))
+        print('      %d/%d %s: %d itens (pos %d, %s)'
+              % (i + 1, len(urls), rotulo, len(itens or []), pos, man['STATUS']))
         time.sleep(1)
     _registrar_lote(lote, mans)
     com = sum(1 for a in achados if a['TRANSCRIPT'])
