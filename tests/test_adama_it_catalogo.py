@@ -912,5 +912,106 @@ class CanarioTrancaOEnvio(unittest.TestCase):
         self.assertIn('Invalid Compact JWS', prova['MENSAGEM'])
 
 
+class GatewayInstavelNaoDerrubaOPortao(unittest.TestCase):
+    """HTTP_5XX ≠ OBJECT_NOT_PRESERVED — e um hipo não pode custar o lote.
+
+    Medido em 30/08/2026: no primeiro fechamento, 194 dos 195 objetos passaram
+    e UM PDF de 4,1 MB levou 502. O bucket foi consultado, disse que o objeto
+    não estava lá, e o portão caiu por causa de um erro de gateway.
+    """
+
+    def setUp(self):
+        self._real = pres._http
+        self._sleep = pres.time.sleep
+        pres.time.sleep = lambda s: None
+        self.chamadas = []
+        import hashlib
+        import tempfile
+        self.corpo = b'pdf de mentira, mas com bytes de verdade'
+        fh = tempfile.NamedTemporaryFile(suffix='.pdf', delete=False,
+                                         dir=os.path.join(RAIZ, 'data', 'raw'))
+        fh.write(self.corpo)
+        fh.close()
+        self.caminho = fh.name
+        self.item = [{'OBJETO': 'IT/adama-website/DOCUMENT/x.pdf',
+                      'ARQUIVO_LOCAL': os.path.relpath(self.caminho, RAIZ).replace('\\', '/'),
+                      'SHA256': hashlib.sha256(self.corpo).hexdigest(),
+                      'BYTES': len(self.corpo), 'MEDIA_TYPE': 'application/pdf',
+                      'ESTADO': 'PENDING'}]
+
+    def tearDown(self):
+        pres._http = self._real
+        pres.time.sleep = self._sleep
+        os.unlink(self.caminho)
+
+    def _prova(self):
+        return {'AUTH_CANARY': 'PASS', 'HTTP': 200}
+
+    def test_502_seguido_de_sucesso_preserva_o_objeto(self):
+        respostas = {'POST': [(502, b'error code: 502'), (200, b'{}')],
+                     'GET': [(400, b'x' * 88), (200, self.corpo)]}
+
+        def falso(url, key, metodo, caminho, dados=None, ctype=None,
+                  timeout=300, formato=None):
+            self.chamadas.append(metodo)
+            fila = respostas[metodo]
+            return fila.pop(0) if len(fila) > 1 else fila[0]
+        pres._http = falso
+        pres.enviar(self.item, 'https://x.invalid', FAKE_SECRET,
+                    prova=self._prova())
+        self.assertEqual(self.item[0]['ESTADO'], 'VERIFIED')
+        self.assertEqual(self.item[0]['TENTATIVAS_HTTP'], [502, 200])
+        self.assertEqual(self.chamadas.count('POST'), 2)
+
+    def test_o_bucket_e_consultado_ANTES_de_reenviar(self):
+        """Reenviar às cegas depois de resposta ambígua pode duplicar."""
+        respostas = {'POST': [(502, b'boom'), (200, b'{}')],
+                     'GET': [(400, b'nao esta'), (200, self.corpo)]}
+
+        def falso(url, key, metodo, caminho, dados=None, ctype=None,
+                  timeout=300, formato=None):
+            self.chamadas.append(metodo)
+            fila = respostas[metodo]
+            return fila.pop(0) if len(fila) > 1 else fila[0]
+        pres._http = falso
+        pres.enviar(self.item, 'https://x.invalid', FAKE_SECRET, prova=self._prova())
+        self.assertEqual(self.chamadas[:3], ['POST', 'GET', 'POST'],
+                         'houve reenvio sem perguntar ao bucket primeiro')
+
+    def test_erro_permanente_nao_vira_insistencia(self):
+        """400 é o servidor recusando o pedido. Repetir só gasta."""
+        def falso(url, key, metodo, caminho, dados=None, ctype=None,
+                  timeout=300, formato=None):
+            self.chamadas.append(metodo)
+            return (400, b'{"error":"InvalidKey"}') if metodo == 'POST' else (400, b'')
+        pres._http = falso
+        pres.enviar(self.item, 'https://x.invalid', FAKE_SECRET, prova=self._prova())
+        self.assertEqual(self.item[0]['ESTADO'], 'FAILED_WITH_REASON')
+        self.assertEqual(self.chamadas.count('POST'), 1)
+
+    def test_transitorio_esgotado_falha_com_as_tentativas_escritas(self):
+        def falso(url, key, metodo, caminho, dados=None, ctype=None,
+                  timeout=300, formato=None):
+            return (502, b'error code: 502') if metodo == 'POST' else (400, b'')
+        pres._http = falso
+        pres.enviar(self.item, 'https://x.invalid', FAKE_SECRET, prova=self._prova())
+        self.assertEqual(self.item[0]['ESTADO'], 'FAILED_WITH_REASON')
+        self.assertEqual(self.item[0]['TENTATIVAS_HTTP'],
+                         [502] * pres.TENTATIVAS_UPLOAD)
+        self.assertIn('apos %d tentativa' % pres.TENTATIVAS_UPLOAD,
+                      self.item[0]['MOTIVO'])
+
+    def test_objeto_ja_no_bucket_apos_resposta_ambigua_nao_e_reenviado(self):
+        def falso(url, key, metodo, caminho, dados=None, ctype=None,
+                  timeout=300, formato=None):
+            self.chamadas.append(metodo)
+            return (502, b'boom') if metodo == 'POST' else (200, self.corpo)
+        pres._http = falso
+        pres.enviar(self.item, 'https://x.invalid', FAKE_SECRET, prova=self._prova())
+        self.assertEqual(self.item[0]['ESTADO'], 'ALREADY_PRESENT_VERIFIED')
+        self.assertEqual(self.chamadas.count('POST'), 1)
+        self.assertIn('PORQUE_NAO_E_FALHA', self.item[0]['RESPOSTA_AMBIGUA'])
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

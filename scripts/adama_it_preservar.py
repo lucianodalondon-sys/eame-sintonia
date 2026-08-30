@@ -62,6 +62,7 @@ import json
 import os
 import re
 import sys
+import time
 import unicodedata
 import urllib.error
 import urllib.parse
@@ -413,6 +414,19 @@ def inventario_remoto(url, key, prefixo=PREFIXO, formato=None):
     return vistos, None
 
 
+# Um 502 de gateway não diz nada sobre o arquivo — diz que a resposta se perdeu.
+# Três tentativas, com o bucket consultado ENTRE elas para nunca duplicar às
+# cegas. Fora dessa lista (400, 401, 403, 413…) não se insiste: o servidor está
+# recusando o pedido, e repetir só gasta.
+TENTATIVAS_UPLOAD = 3
+ESPERA_ENTRE_TENTATIVAS = 3.0
+TRANSITORIOS = (0, 408, 429, 500, 502, 503, 504, 520, 521, 522, 524)
+
+
+def _transitorio(status):
+    return int(status) in TRANSITORIOS
+
+
 class CanarioReprovado(RuntimeError):
     """Levantada ANTES de qualquer escrita. É a trava, não um aviso."""
 
@@ -443,33 +457,52 @@ def enviar(itens, url, key, verificar=True, formato=None, prova=None):
             continue
 
         alvo = '/storage/v1/object/%s/%s' % (BUCKET, urllib.parse.quote(it['OBJETO']))
-        st, body = _http(url, key, 'POST', alvo, corpo, it['MEDIA_TYPE'],
-                         formato=formato)
-        if st in (200, 201):
-            it['ESTADO'] = 'UPLOADED'
-        elif st == 409 or b'already exists' in body or b'Duplicate' in body:
-            it['ESTADO'] = 'ALREADY_PRESENT'
-        else:
-            # HTTP_5XX ≠ OBJECT_NOT_PRESERVED — pergunta-se ao bucket antes de
-            # carimbar falha.
+        tentativas = []
+        for n in range(TENTATIVAS_UPLOAD):
+            st, body = _http(url, key, 'POST', alvo, corpo, it['MEDIA_TYPE'],
+                             formato=formato)
+            tentativas.append(st)
+            if st in (200, 201):
+                it['ESTADO'] = 'UPLOADED'
+                break
+            if st == 409 or b'already exists' in body or b'Duplicate' in body:
+                it['ESTADO'] = 'ALREADY_PRESENT'
+                break
+
+            # HTTP_5XX ≠ OBJECT_NOT_PRESERVED — pergunta-se ao bucket ANTES de
+            # carimbar falha e antes de reenviar. A verdade do estado é o objeto
+            # remoto, não o número que o proxy devolveu.
             st2, volta = _http(url, key, 'GET', alvo, formato=formato)
             if (st2 == 200 and len(volta) == it['BYTES']
                     and hashlib.sha256(volta).hexdigest() == it['SHA256']):
                 it['ESTADO'] = 'ALREADY_PRESENT_VERIFIED'
                 it['VERIFICACAO'] = 'SHA256_DEPOIS_DE_BAIXAR_DE_VOLTA'
                 it['RESPOSTA_AMBIGUA'] = {
-                    'HTTP_NO_UPLOAD': st,
+                    'HTTP_NO_UPLOAD': st, 'TENTATIVAS': tentativas,
                     'PORQUE_NAO_E_FALHA': ('o upload devolveu %s, mas o objeto está no '
                                            'bucket e os bytes de volta batem com o '
                                            'sha256 local' % st)}
+                break
+
+            # Gateway instável é ruído de rede, não veredito sobre o arquivo.
+            # Medido em 30/08/2026: um PDF de 4,1 MB levou 502 e o objeto NÃO
+            # estava no bucket — um único hipo derrubava o portão dos 195.
+            if _transitorio(st) and n < TENTATIVAS_UPLOAD - 1:
+                time.sleep(ESPERA_ENTRE_TENTATIVAS * (n + 1))
                 continue
+
             it['ESTADO'] = 'FAILED_WITH_REASON'
             it['MOTIVO'] = sem_segredo(
-                'upload devolveu HTTP %s: %s'
-                % (st, body[:160].decode('utf-8', 'replace')), key)
+                'upload devolveu HTTP %s apos %d tentativa(s): %s'
+                % (st, len(tentativas), body[:160].decode('utf-8', 'replace')), key)
+            it['TENTATIVAS_HTTP'] = tentativas
             it['CONFERENCIA_REMOTA_APOS_FALHA'] = {'HTTP_NO_GET': st2,
                                                    'BYTES_DE_VOLTA': len(volta or b'')}
+            break
+        if it['ESTADO'] == 'FAILED_WITH_REASON':
             continue
+        if len(tentativas) > 1:
+            it['TENTATIVAS_HTTP'] = tentativas
         if verificar:
             verificar_um(it, url, key, formato)
     return itens
@@ -488,8 +521,12 @@ def verificar_um(it, url, key, formato=None):
     it['SHA256_REMOTO'] = sha
     it['BYTES_DE_VOLTA'] = len(volta)
     if sha == it['SHA256'] and len(volta) == it['BYTES']:
+        # "já estava lá" e "acabei de subir" são fatos diferentes, e o segundo
+        # não pode engolir o primeiro só porque a conferência passou nos dois.
         it['ESTADO'] = ('ALREADY_PRESENT_VERIFIED'
-                        if it['ESTADO'] == 'ALREADY_PRESENT' else 'VERIFIED')
+                        if it['ESTADO'] in ('ALREADY_PRESENT',
+                                            'ALREADY_PRESENT_VERIFIED')
+                        else 'VERIFIED')
         it['VERIFICACAO'] = 'SHA256_DEPOIS_DE_BAIXAR_DE_VOLTA'
         it['PRESERVADO'] = True
     else:
