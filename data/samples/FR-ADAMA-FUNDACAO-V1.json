@@ -8,7 +8,6 @@
  "layer": "NATIONAL PRODUCT AUTHORIZATION",
  "ARTEFATO": "FR-ADAMA-FUNDACAO-V1",
  "COUNTRY": "FR",
- "GERADO_EM": "2026-08-30T19:34:34+00:00",
  "O_QUE_ESTE_ARQUIVO_E": "os numeros medidos da fundacao francesa. Os bytes ficam em data/raw (nao versionado); aqui ficam as contagens, os hashes e as ressalvas.",
  "FONTES": {
   "REGULATORIA": {
@@ -135,102 +134,1553 @@
   "CATALOG_PRODUCTS": 111,
   "PRODUCTS_CAPTURED": 111,
   "PRODUCTS_WITH_AMM_CLAIM": 111,
-  "DOCUMENTS_FOUND": 153,
-  "DOCUMENTS_DOWNLOADED": 153,
+  "DOCUMENTS_FOUND": 122,
+  "DOCUMENTS_DOWNLOADED": 122,
   "DOCUMENTS_FAILED": 0,
-  "RAW_EXPECTED": 264,
-  "RAW_BYTES": 338060464,
+  "RAW_EXPECTED": 233,
+  "RAW_BYTES": 306547952,
   "LARGEST_ASSET_BYTES": 7443794,
   "CROP_ISSUE_PAIRS_CREATED": 0,
   "CARTESIAN_AVOIDED": 9868
  },
  "CROSSWALK": {
-  "CATALOG_ENTRIES": 111,
-  "CATALOG_ENTRIES_WITH_AMM_CLAIM": 111,
-  "DISTINCT_REGISTRATIONS_BEHIND_CATALOG": 62,
-  "CATALOG_ENTRIES_MINUS_REGISTRATIONS": 49,
-  "REGULATORY_AUTHORIZED": 72,
-  "STATES": {
-   "LOCAL_REGISTERED": 110,
-   "REGISTRATION_CONFLICT": 1
+  "CATALOG_PUBLIC_PRESENTATIONS": 111,
+  "CATALOG_PAGES_WITHOUT_AMM": 0,
+  "CATALOG_DISTINCT_AMMS": 63,
+  "CATALOG_CURRENT_ADAMA_HELD_AMMS": 57,
+  "CATALOG_CURRENT_THIRD_PARTY_HELD_AMMS": 1,
+  "CATALOG_WITHDRAWN_AMMS": 5,
+  "CATALOG_AMM_NOT_FOUND_IN_EPHY": 0,
+  "ADAMA_HELD_CURRENT_REGISTRATIONS": 72,
+  "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG": 15,
+  "WHY_NOT_A_SINGLE_NUMBER": "apresentações, AMMs distintos e registros vigentes são universos diferentes. Somá-los ou usar um pelo outro produz um número que parece o portfólio e não é",
+  "BY_CLASS": {
+   "CURRENT_ADAMA_HELD": 57,
+   "WITHDRAWN_ADAMA_HELD": 5,
+   "CURRENT_THIRD_PARTY_HELD": 1
   },
-  "REGISTERED_BUT_NOT_IN_PUBLIC_CATALOG": 15,
-  "REGISTERED_NOT_IN_CATALOG_AMMS": [
-   "1210675",
-   "2080088",
-   "2150845",
-   "2160064",
-   "2170358",
-   "2190945",
-   "2200028",
-   "2210113",
-   "2210940",
-   "2220639",
-   "2240011",
-   "7500569",
-   "8700118",
-   "9300396",
-   "9600273"
-  ],
-  "IN_CATALOG_BUT_REGISTRATION_WITHDRAWN": 5,
-  "CATALOG_SHOWING_WITHDRAWN": [
+  "BY_AMM": [
    {
-    "PRODUCT": "Merpan SC",
-    "REGISTRATION_ID": "8800417",
-    "REGISTERED_NAME": "MERPAN SC",
-    "REGULATORY_STATE": "RETIRE",
-    "WITHDRAWN": "31/10/2025"
+    "REGISTRATION_ID": "1201086",
+    "CATALOG_NAMES": [
+     "Exelgrow"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/biosolutions/exelgrow"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "EXELGROW",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
    },
    {
-    "PRODUCT": "Momentum F",
-    "REGISTRATION_ID": "2140065",
-    "REGISTERED_NAME": "MOMENTUM F",
-    "REGULATORY_STATE": "RETIRE",
-    "WITHDRAWN": "31/10/2025"
+    "REGISTRATION_ID": "2000003",
+    "CATALOG_NAMES": [
+     "Sultan"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/sultan"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "SULTAN",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
    },
    {
-    "PRODUCT": "Momentum Trio",
+    "REGISTRATION_ID": "2000046",
+    "CATALOG_NAMES": [
+     "Goltix Duo",
+     "Torero Flo"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/goltix-duo",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/torero-flo"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "TORNADO COMBI",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2010398",
+    "CATALOG_NAMES": [
+     "Pandero Gold",
+     "Pythagore"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/pandero-gold",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/pythagore"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "PANDERO GOLD",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2030071",
+    "CATALOG_NAMES": [
+     "Helitox B",
+     "Limarion B",
+     "Warior Blue"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/molluscicideshelicides/helitox-b",
+     "https://www.adama.com/france/fr/protection-des-cultures/molluscicideshelicides/limarion-b",
+     "https://www.adama.com/france/fr/protection-des-cultures/molluscicideshelicides/warior-blue"
+    ],
+    "CATALOG_PAGE_COUNT": 3,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "WARIOR EXTRA",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2070184",
+    "CATALOG_NAMES": [
+     "Constel",
+     "Varia"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/constel",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/varia"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "CONSTEL",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2070185",
+    "CATALOG_NAMES": [
+     "Banjo Extra"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/banjo-extra"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "BANJO EXTRA",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2090010",
+    "CATALOG_NAMES": [
+     "Kontakt",
+     "Kyosk"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/kontakt",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/kyosk"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "KAKI",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2100112",
+    "CATALOG_NAMES": [
+     "Baïa E"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/regulateurs/baia-e"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "BAÏA E",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2100215",
+    "CATALOG_NAMES": [
+     "Pentium Flo"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/pentium-flo"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "PENTIUM FLO",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2130068",
+    "CATALOG_NAMES": [
+     "Compil"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/compil"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "COMPIL",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2130140",
+    "CATALOG_NAMES": [
+     "Codix",
+     "Resum"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/codix",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/resum"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "CODIX",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
     "REGISTRATION_ID": "2140050",
+    "CATALOG_NAMES": [
+     "Momentum Trio"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/momentum-trio"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "WITHDRAWN_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "RETIRE",
     "REGISTERED_NAME": "MOMENTUM TRIO",
-    "REGULATORY_STATE": "RETIRE",
-    "WITHDRAWN": "31/10/2025"
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": "31/10/2025",
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
    },
    {
-    "PRODUCT": "Elysium",
+    "REGISTRATION_ID": "2140065",
+    "CATALOG_NAMES": [
+     "Momentum F"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/momentum-f"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "WITHDRAWN_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "RETIRE",
+    "REGISTERED_NAME": "MOMENTUM F",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": "31/10/2025",
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2150002",
+    "CATALOG_NAMES": [
+     "Brevis"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/regulateurs/brevis"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "BREVIS",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2160208",
+    "CATALOG_NAMES": [
+     "Bandrille",
+     "Trinity"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/bandrille",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/trinity"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "TRINITY",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2160556",
+    "CATALOG_NAMES": [
+     "Afaena"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/afaena"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "AFAENA",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
     "REGISTRATION_ID": "2170691",
+    "CATALOG_NAMES": [
+     "Elysium"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/elysium"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "WITHDRAWN_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "RETIRE",
     "REGISTERED_NAME": "TAVAS",
-    "REGULATORY_STATE": "RETIRE",
-    "WITHDRAWN": "24/05/2025"
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": "24/05/2025",
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
    },
    {
-    "PRODUCT": "Sunset",
+    "REGISTRATION_ID": "2171141",
+    "CATALOG_NAMES": [
+     "Bogota Plus"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/regulateurs/bogota-plus"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "BOGOTA PLUS",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2180001",
+    "CATALOG_NAMES": [
+     "Custodia"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/custodia"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "CUSTODIA",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2180260",
+    "CATALOG_NAMES": [
+     "Balesta",
+     "Gusto 3",
+     "Opposum",
+     "Surikate",
+     "Taste"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/molluscicideshelicides/balesta",
+     "https://www.adama.com/france/fr/protection-des-cultures/molluscicideshelicides/gusto-3",
+     "https://www.adama.com/france/fr/protection-des-cultures/molluscicideshelicides/opposum",
+     "https://www.adama.com/france/fr/protection-des-cultures/molluscicideshelicides/surikate",
+     "https://www.adama.com/france/fr/protection-des-cultures/molluscicideshelicides/taste"
+    ],
+    "CATALOG_PAGE_COUNT": 5,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "CARAKOL 3",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2180318",
+    "CATALOG_NAMES": [
+     "Arktis",
+     "Barnum"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/arktis",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/barnum"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "ARKTIS",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2180619",
+    "CATALOG_NAMES": [
+     "Colt",
+     "Papel"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/colt",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/papel"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "COLT",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2180672",
+    "CATALOG_NAMES": [
+     "Fox"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/fox"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "FOX",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2190016",
+    "CATALOG_NAMES": [
+     "Klartan Jet",
+     "Mavrik Jet",
+     "Talita Jet"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/insecticides/klartan-jet",
+     "https://www.adama.com/france/fr/protection-des-cultures/insecticides/mavrik-jet",
+     "https://www.adama.com/france/fr/protection-des-cultures/insecticides/talita-jet"
+    ],
+    "CATALOG_PAGE_COUNT": 3,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "MAVRIK JET",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2190246",
+    "CATALOG_NAMES": [
+     "Linati"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/linati"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "LINATI",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2190321",
+    "CATALOG_NAMES": [
+     "Sesto",
+     "Stavento"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/sesto",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/stavento"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "SESTO",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2190893",
+    "CATALOG_NAMES": [
+     "Extase Gold"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/extase-gold"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "EXTASE GOLD",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2200317",
+    "CATALOG_NAMES": [
+     "Davaï",
+     "Saltus"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/davai",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/saltus"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "DAVAI",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
     "REGISTRATION_ID": "2200620",
+    "CATALOG_NAMES": [
+     "Sunset"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/regulateurs/sunset"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "WITHDRAWN_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "RETIRE",
     "REGISTERED_NAME": "SUNSET",
-    "REGULATORY_STATE": "RETIRE",
-    "WITHDRAWN": "31/01/2025"
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": "31/01/2025",
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2210036",
+    "CATALOG_NAMES": [
+     "Body"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/body"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "BODY",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2210138",
+    "CATALOG_NAMES": [
+     "Bandoneon",
+     "Electron"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/bandoneon",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/electron"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "BANDONEON",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2220529",
+    "CATALOG_NAMES": [
+     "Dazago",
+     "Goltix Silver"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/dazago",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/goltix-silver"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "GOLTIX SILVER",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2220625",
+    "CATALOG_NAMES": [
+     "Alasi",
+     "Stemper"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/regulateurs/alasi",
+     "https://www.adama.com/france/fr/protection-des-cultures/regulateurs/stemper"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "STEMPER",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2220656",
+    "CATALOG_NAMES": [
+     "Ethosat SC"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/ethosat-sc"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "ETHOSAT SC",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2220867",
+    "CATALOG_NAMES": [
+     "Sunbright"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/sunbright"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "SUNBRIGHT",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2230121",
+    "CATALOG_NAMES": [
+     "Syncity, anti-mildiou de la vigne",
+     "Vinergy, formulation innovante contre le mildiou de la vigne"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/syncity",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/vinergy"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "LASVEGAS",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2230815",
+    "CATALOG_NAMES": [
+     "Kojami",
+     "Maxentis",
+     "Sideral",
+     "Vedette"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/kojami",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/maxentis",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/sideral",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/vedette"
+    ],
+    "CATALOG_PAGE_COUNT": 4,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "MAXENTIS",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2240001",
+    "CATALOG_NAMES": [
+     "Bilbatra",
+     "Forapro",
+     "Hermione",
+     "Robava"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/bilbatra",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/forapro",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/hermione",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/robava"
+    ],
+    "CATALOG_PAGE_COUNT": 4,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "FORAPRO",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2240039",
+    "CATALOG_NAMES": [
+     "Arrodim"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/arrodim"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "ARRODIM",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2240236",
+    "CATALOG_NAMES": [
+     "Avastel",
+     "Iryna",
+     "Lilia",
+     "Zoya"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/avastel",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/iryna",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/lilia",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/zoya"
+    ],
+    "CATALOG_PAGE_COUNT": 4,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "AVASTEL",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2250086",
+    "CATALOG_NAMES": [
+     "Bellali"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/bellali"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "BELLALI",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2250282",
+    "CATALOG_NAMES": [
+     "Milena"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/milena"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_THIRD_PARTY_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "HARNIKO",
+    "HOLDER": "GLOBACHEM NV",
+    "HOLDER_NORMALIZED": "GLOBACHEM NV",
+    "ADAMA_HOLDER": "NO",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "2250461",
+    "CATALOG_NAMES": [
+     "Cosayr",
+     "Pilier SC"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/insecticides/cosayr",
+     "https://www.adama.com/france/fr/protection-des-cultures/insecticides/pilier-sc"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "COSAYR",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "7600008",
+    "CATALOG_NAMES": [
+     "Nimrod"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/nimrod"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "NIMROD",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "8700020",
+    "CATALOG_NAMES": [
+     "Racer ME",
+     "Rider"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/racer-me",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/rider"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "RACER ME",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "8800199",
+    "CATALOG_NAMES": [
+     "Agil",
+     "Ambition",
+     "Claxon"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/agil",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/ambition",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/claxon"
+    ],
+    "CATALOG_PAGE_COUNT": 3,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "AGIL",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "8800417",
+    "CATALOG_NAMES": [
+     "Merpan SC"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/merpan-sc"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "WITHDRAWN_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "RETIRE",
+    "REGISTERED_NAME": "MERPAN SC",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": "31/10/2025",
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "8900564",
+    "CATALOG_NAMES": [
+     "Klartan Up",
+     "Mavrik Up",
+     "Talita Up"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/insecticides/klartan",
+     "https://www.adama.com/france/fr/protection-des-cultures/insecticides/mavrik",
+     "https://www.adama.com/france/fr/protection-des-cultures/insecticides/talita"
+    ],
+    "CATALOG_PAGE_COUNT": 3,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "MAVRIK FLO",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "8900620",
+    "CATALOG_NAMES": [
+     "Folpan SC"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/folpan-sc"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "FOLPAN SC",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9000619",
+    "CATALOG_NAMES": [
+     "Profi CTU",
+     "Shvat"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/profi-ctu",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/shvat"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "TOLURGAN 50 SC",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9100034",
+    "CATALOG_NAMES": [
+     "C3 Sun",
+     "JADEX-O-460"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/regulateurs/c3-sun",
+     "https://www.adama.com/france/fr/protection-des-cultures/regulateurs/jadex-o-460"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "JADEX-O-460",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9100645",
+    "CATALOG_NAMES": [
+     "Celio",
+     "Dyvel"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/celio",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/dyvel"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "CELIO",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9300108",
+    "CATALOG_NAMES": [
+     "Merpan 80 WDG"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/merpan-80-wdg"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "MERPAN 80 WDG",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9300143",
+    "CATALOG_NAMES": [
+     "Folpan 80 WDG"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/folpan-80-wdg"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "FOLPAN 80 WDG",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9300322",
+    "CATALOG_NAMES": [
+     "Goltix Flo",
+     "Tornado SC"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/goltix-flo",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/tornado-sc"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "TORNADO SC",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9300335",
+    "CATALOG_NAMES": [
+     "Belvédère Duo",
+     "Tolima"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/belvedere-duo",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/tolima"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "KONTAKTTWIN",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9300487",
+    "CATALOG_NAMES": [
+     "Spyrale"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/spyrale"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "SPYRALE",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9500361",
+    "CATALOG_NAMES": [
+     "Danagan",
+     "Goltix 70 UD"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/danagan",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/goltix-70-ud"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "DANAGAN",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9600390",
+    "CATALOG_NAMES": [
+     "Agave",
+     "Glyphogan Speed",
+     "Pratiko Speed",
+     "Typhon"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/agave",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/glyphogan-speed",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/pratiko-speed",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/typhon"
+    ],
+    "CATALOG_PAGE_COUNT": 4,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "TYPHON",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9600512",
+    "CATALOG_NAMES": [
+     "Hidalgo Star",
+     "Vinostar"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/hidalgo-star",
+     "https://www.adama.com/france/fr/protection-des-cultures/fongicides/vinostar"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "EPYLOG FLASH",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9800098",
+    "CATALOG_NAMES": [
+     "Goltix 90 Ultradispersible"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/goltix-90-ultradispersible"
+    ],
+    "CATALOG_PAGE_COUNT": 1,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "GOLTIX 90 ULTRADISPERSIBLE",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
+   },
+   {
+    "REGISTRATION_ID": "9800100",
+    "CATALOG_NAMES": [
+     "Shvat 700",
+     "Tablo 700"
+    ],
+    "CATALOG_PAGES": [
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/shvat-700",
+     "https://www.adama.com/france/fr/protection-des-cultures/herbicides/tablo-700"
+    ],
+    "CATALOG_PAGE_COUNT": 2,
+    "CLASS": "CURRENT_ADAMA_HELD",
+    "E_PHY_FOUND": true,
+    "CURRENT_AUTHORIZATION_STATE": "AUTORISE",
+    "REGISTERED_NAME": "TABLO 700",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "HOLDER_NORMALIZED": "ADAMA FRANCE SAS",
+    "ADAMA_HOLDER": "YES",
+    "WITHDRAWAL_DATE": null,
+    "WHY": "presença no catálogo e titularidade são atributos diferentes; coexistir não é contradição"
    }
   ],
-  "REGISTRATION_CONFLICTS": [
+  "CATALOG_SHOWING_WITHDRAWN": [
    {
-    "PRODUCT": "Milena",
-    "CLAIMED": "2250282",
-    "WHY": "o catálogo publica um AMM que não existe entre os registros ADAMA medidos na ANSES"
+    "CATALOG_NAMES": [
+     "Merpan SC"
+    ],
+    "REGISTRATION_ID": "8800417",
+    "REGISTERED_NAME": "MERPAN SC",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "CATALOG_PRESENT": "YES",
+    "AUTHORIZATION_CURRENT": "NO",
+    "WITHDRAWAL_DATE": "31/10/2025"
+   },
+   {
+    "CATALOG_NAMES": [
+     "Momentum F"
+    ],
+    "REGISTRATION_ID": "2140065",
+    "REGISTERED_NAME": "MOMENTUM F",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "CATALOG_PRESENT": "YES",
+    "AUTHORIZATION_CURRENT": "NO",
+    "WITHDRAWAL_DATE": "31/10/2025"
+   },
+   {
+    "CATALOG_NAMES": [
+     "Momentum Trio"
+    ],
+    "REGISTRATION_ID": "2140050",
+    "REGISTERED_NAME": "MOMENTUM TRIO",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "CATALOG_PRESENT": "YES",
+    "AUTHORIZATION_CURRENT": "NO",
+    "WITHDRAWAL_DATE": "31/10/2025"
+   },
+   {
+    "CATALOG_NAMES": [
+     "Elysium"
+    ],
+    "REGISTRATION_ID": "2170691",
+    "REGISTERED_NAME": "TAVAS",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "CATALOG_PRESENT": "YES",
+    "AUTHORIZATION_CURRENT": "NO",
+    "WITHDRAWAL_DATE": "24/05/2025"
+   },
+   {
+    "CATALOG_NAMES": [
+     "Sunset"
+    ],
+    "REGISTRATION_ID": "2200620",
+    "REGISTERED_NAME": "SUNSET",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "CATALOG_PRESENT": "YES",
+    "AUTHORIZATION_CURRENT": "NO",
+    "WITHDRAWAL_DATE": "31/01/2025"
+   }
+  ],
+  "IN_CATALOG_BUT_REGISTRATION_WITHDRAWN": 5,
+  "THIRD_PARTY_HELD_DETAIL": [
+   {
+    "CATALOG_NAMES": [
+     "Milena"
+    ],
+    "REGISTRATION_ID": "2250282",
+    "REGISTERED_NAME": "HARNIKO",
+    "HOLDER": "GLOBACHEM NV",
+    "STATE": "CATALOG_PRESENTED_BY_ADAMA + REGISTRATION_HELD_BY_THIRD_PARTY",
+    "WHY": "a ADAMA apresenta e outro titula. Não interpretado como distribuição, licenciamento, co-marketing, revenda nem propriedade — apenas registrado"
+   }
+  ],
+  "AMM_NOT_FOUND_DETAIL": [],
+  "CURRENT_ADAMA_HELD_NOT_IN_CATALOG_DETAIL": [
+   {
+    "REGISTRATION_ID": "1210675",
+    "REGISTERED_NAME": "EXEL AMINOPLUS",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2080088",
+    "REGISTERED_NAME": "NEMO",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2150845",
+    "REGISTERED_NAME": "BACKPACK",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2160064",
+    "REGISTERED_NAME": "NEGEV",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2170358",
+    "REGISTERED_NAME": "NIKITA",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2190945",
+    "REGISTERED_NAME": "CATZO",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2200028",
+    "REGISTERED_NAME": "CLEAVE",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2210113",
+    "REGISTERED_NAME": "TOMIGAN 200",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2210940",
+    "REGISTERED_NAME": "ULTIMUS",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2220639",
+    "REGISTERED_NAME": "HELANOV",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "2240011",
+    "REGISTERED_NAME": "GOLTIX GOLD",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "7500569",
+    "REGISTERED_NAME": "PIRIMOR G",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "8700118",
+    "REGISTERED_NAME": "ATHLET",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "9300396",
+    "REGISTERED_NAME": "C5SUN",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
+   },
+   {
+    "REGISTRATION_ID": "9600273",
+    "REGISTERED_NAME": "VIP",
+    "HOLDER": "ADAMA FRANCE SAS",
+    "STATE": "CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG",
+    "WHY": "não observado na vitrine pública nesta captura. NÃO é descontinuado, não vendido, inativo nem de baixa prioridade — nenhum desses estados nasce aqui"
    }
   ],
   "NOT_REGISTERED": 0,
-  "WHY_NOT_REGISTERED_ZERO": "NOT_REGISTERED exige a autoridade devolvendo ausência para aquele produto. Falta de casamento aqui vira LOCAL_PRESENT_BUT_REGISTRATION_NOT_PROVED, nunca NOT_REGISTERED"
+  "WHY_NOT_REGISTERED_ZERO": "NOT_REGISTERED exige a autoridade devolvendo ausência para aquele produto. Falta de casamento, ou AMM fora desta versão do dataset, vira AMM_NOT_FOUND_IN_EPHY — nunca NOT_REGISTERED",
+  "AUTHORISED_CROP_ISSUE_SOURCE": "E_PHY",
+  "CATALOG_CROP_ISSUE": "NOT_RECONSTRUCTED",
+  "WHY_CATALOG_CROP_ISSUE_NOT_RECONSTRUCTED": "a ficha traz lista de culturas e lista de alvos, soltas. O par francês existe amarrado no E-Phy, e é de lá que ele vem"
+ },
+ "DOCUMENT_TYPING": {
+  "DOCUMENTS": 122,
+  "BY_TYPE": {
+   "FICHE_TECHNIQUE": 70,
+   "OTHER": 9,
+   "BROCHURE": 22,
+   "UNKNOWN_DOCUMENT_TYPE": 21
+  },
+  "BY_TEXT_STATE": {
+   "TEXT_OK": 101,
+   "TEXT_SCRAMBLED": 19,
+   "TEXT_EMPTY": 2
+  },
+  "UNKNOWN_DOCUMENT_TYPE": 21,
+  "TYPED": 101,
+  "STATE": "PARTIAL_WITH_EXACT_UNKNOWN_COUNT",
+  "DOCUMENTS_COVERING_MORE_THAN_ONE_PAGE": 7,
+  "DOCUMENTS_DECLARING_OWN_AMM": 81
  },
  "RAW": {
-  "RAW_EXPECTED": 191,
-  "LOCAL_FILES": 265,
-  "DUPLICATE_REFERENCES": 74,
-  "DISTINCT_STORAGE_KEYS": 191,
-  "TOTAL_BYTES": 209211359,
+  "RAW_EXPECTED": 234,
+  "LOCAL_FILES": 234,
+  "DUPLICATE_REFERENCES": 0,
+  "DISTINCT_STORAGE_KEYS": 234,
+  "TOTAL_BYTES": 310516860,
   "LARGEST_ASSET_BYTES": 7443794,
   "BUCKET_LIMIT_BYTES": 209715200,
   "EXCEEDS_BUCKET_LIMIT": false,
-  "KEY_COLLISIONS": 0,
-  "GATE": {
+  "KEY_COLLISIONS": 0
+ },
+ "VEREDITO": {
+  "FRANCE_LOCAL_FOUNDATION_CAPTURE": "PARTIAL",
+  "EXACT_REASON": [
+   "o portão RAW está aberto: CONTENT_HASH_CHECKED_EQ_EXPECTED, REMOTE_PRESENT_EQ_EXPECTED, SHA_VERIFIED_EQ_EXPECTED"
+  ],
+  "CONDITIONS": {
+   "E_PHY_EXECUTION": "VALID",
+   "CATALOG_ENUMERATION": "COMPLETE",
+   "CATALOG_TO_EPHY_CROSSWALK": "COMPLETE",
+   "DOCUMENT_TYPING": "PARTIAL_WITH_EXACT_UNKNOWN_COUNT",
+   "RAW_PRESERVATION_GATE_FR": "OPEN"
+  },
+  "RAW_GATE_DETAIL": {
    "RAW_PRESERVATION_GATE_FR": "OPEN",
    "CONDITIONS": {
     "EXPECTED_POSITIVE": true,
@@ -248,6 +1698,11 @@
     "SHA_VERIFIED_EQ_EXPECTED"
    ],
    "WHY": "faltam: CONTENT_HASH_CHECKED_EQ_EXPECTED, REMOTE_PRESENT_EQ_EXPECTED, SHA_VERIFIED_EQ_EXPECTED"
+  },
+  "DOCUMENT_COVERAGE_LIMITATION": {
+   "UNKNOWN_DOCUMENT_TYPE": 21,
+   "OF_DOCUMENTS": 122,
+   "WHY": "19 PDFs usam fonte com subconjunto sem mapa /ToUnicode e 2 não têm texto extraível. Decodificar por deslocamento seria adivinhar, e texto quase-certo decidindo o TIPO de um documento produz rótulo que parece medido e não é"
   }
  }
 }

@@ -404,54 +404,118 @@ class PaisNaoSeMistura(unittest.TestCase):
 
 
 class CrosswalkNaoInfla(unittest.TestCase):
+    """As contagens do crosswalk, contra um registro inventado de propósito.
 
-    REG = [{'REGISTRATION_ID': '2180260', 'PRODUCT': 'CARAKOL 3',
-            'SECOND_NAMES': 'GUSTO 3 | BALESTA', 'STATE': 'AUTORISE'},
-           {'REGISTRATION_ID': '2240236', 'PRODUCT': 'AVASTEL',
-            'SECOND_NAMES': '', 'STATE': 'AUTORISE'}]
+    Tudo aqui é fixture: o crosswalk contra o dado real vive em
+    `test_adama_fr_redteam.py`. Aqui o que se testa e a ARITMETICA — se ela
+    depende do E-Phy em disco, ela deixa de ser testavel em maquina limpa.
+    """
+
+    CARAKOL = {'REGISTRATION_ID': '2180260', 'PRODUCT': 'CARAKOL 3',
+               'SECOND_NAMES': 'GUSTO 3 | BALESTA', 'HOLDER': 'ADAMA FRANCE SAS',
+               'STATE': 'AUTORISE', 'WITHDRAWN': ''}
+    AVASTEL = {'REGISTRATION_ID': '2240236', 'PRODUCT': 'AVASTEL',
+               'SECOND_NAMES': '', 'HOLDER': 'ADAMA FRANCE SAS',
+               'STATE': 'AUTORISE', 'WITHDRAWN': ''}
+    SUNSET = {'REGISTRATION_ID': '2200620', 'PRODUCT': 'SUNSET',
+              'SECOND_NAMES': '', 'HOLDER': 'ADAMA FRANCE SAS',
+              'STATE': 'RETIRE', 'WITHDRAWN': '31/01/2025'}
+    HARNIKO = {'REGISTRATION_ID': '2250282', 'PRODUCT': 'HARNIKO',
+               'SECOND_NAMES': '', 'HOLDER': 'GLOBACHEM NV',
+               'STATE': 'AUTORISE', 'WITHDRAWN': ''}
+
+    def mundo(self, *registros):
+        """→ (registro francês inteiro, recorte ADAMA).
+
+        O recorte sai do índice por `e_do_grupo`, e não à mão: escrever os dois
+        separados deixaria a fixture afirmar que a GLOBACHEM é ADAMA — que é
+        exatamente o erro que estes testes existem para pegar.
+        """
+        registros = list(registros) or [self.CARAKOL, self.AVASTEL,
+                                        self.SUNSET, self.HARNIKO]
+        adama = [r for r in registros if fr.e_do_grupo(r['HOLDER'])]
+        return ({r['REGISTRATION_ID']: r for r in registros}, adama)
+
+    def cruza(self, fichas, *registros):
+        indice, lista = self.mundo(*registros)
+        return fr.crosswalk(fichas, indice, lista)
 
     def test_duas_fichas_de_um_amm_contam_um_registro(self):
-        fichas = [{'PRODUCT_NAME': 'Balesta', 'REGISTRATION_ID_CLAIMED': '2180260'},
-                  {'PRODUCT_NAME': 'Gusto 3', 'REGISTRATION_ID_CLAIMED': '2180260'}]
-        c = fr.crosswalk(fichas, self.REG)
-        self.assertEqual(c['CATALOG_ENTRIES'], 2)
-        self.assertEqual(c['DISTINCT_REGISTRATIONS_BEHIND_CATALOG'], 1)
+        c = self.cruza([{'PRODUCT_NAME': 'Balesta', 'REGISTRATION_ID_CLAIMED': '2180260'},
+                        {'PRODUCT_NAME': 'Gusto 3', 'REGISTRATION_ID_CLAIMED': '2180260'}])
+        self.assertEqual(c['CATALOG_PUBLIC_PRESENTATIONS'], 2)
+        self.assertEqual(c['CATALOG_DISTINCT_AMMS'], 1)
 
-    def test_registrado_e_ausente_da_vitrine_e_contado(self):
-        fichas = [{'PRODUCT_NAME': 'Balesta', 'REGISTRATION_ID_CLAIMED': '2180260'}]
-        c = fr.crosswalk(fichas, self.REG)
-        self.assertGreaterEqual(c['REGISTERED_BUT_NOT_IN_PUBLIC_CATALOG'], 1)
+    def test_o_registro_alcancado_por_duas_fichas_guarda_os_dois_nomes(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Balesta', 'REGISTRATION_ID_CLAIMED': '2180260'},
+                        {'PRODUCT_NAME': 'Gusto 3', 'REGISTRATION_ID_CLAIMED': '2180260'}])
+        e = c['BY_AMM'][0]
+        self.assertEqual(e['CATALOG_PAGE_COUNT'], 2)
+        self.assertEqual(e['CATALOG_NAMES'], ['Balesta', 'Gusto 3'])
+        self.assertEqual(e['REGISTERED_NAME'], 'CARAKOL 3')
 
-    def test_ficha_com_registro_retirado_e_contada_e_nomeada(self):
-        """A vitrine mostra 5 produtos com registro retirado. Isso precisa aparecer."""
-        reg = [{'REGISTRATION_ID': '2200620', 'PRODUCT': 'SUNSET',
-                'SECOND_NAMES': '', 'STATE': 'RETIRE', 'WITHDRAWN': '31/01/2025'}]
-        c = fr.crosswalk([{'PRODUCT_NAME': 'Sunset',
-                           'REGISTRATION_ID_CLAIMED': '2200620'}], reg)
+    def test_registrado_e_ausente_da_vitrine_e_contado_sem_juizo(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Balesta', 'REGISTRATION_ID_CLAIMED': '2180260'}])
+        self.assertEqual(c['CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG'], 1)
+        d = c['CURRENT_ADAMA_HELD_NOT_IN_CATALOG_DETAIL'][0]
+        self.assertEqual(d['REGISTRATION_ID'], '2240236')
+        self.assertIn('NÃO é descontinuado', d['WHY'])
+
+    def test_ficha_com_registro_retirado_sai_com_data(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Sunset', 'REGISTRATION_ID_CLAIMED': '2200620'}])
         self.assertEqual(c['IN_CATALOG_BUT_REGISTRATION_WITHDRAWN'], 1)
-        self.assertEqual(c['CATALOG_SHOWING_WITHDRAWN'][0]['WITHDRAWN'], '31/01/2025')
+        self.assertEqual(c['CATALOG_SHOWING_WITHDRAWN'][0]['WITHDRAWAL_DATE'],
+                         '31/01/2025')
 
-    def test_estar_na_vitrine_nao_prova_autorizacao_vigente(self):
-        """LOCAL_REGISTERED diz que o AMM existe, não que ele vale hoje."""
-        reg = [{'REGISTRATION_ID': '2200620', 'PRODUCT': 'SUNSET',
-                'SECOND_NAMES': '', 'STATE': 'RETIRE', 'WITHDRAWN': '31/01/2025'}]
-        c = fr.crosswalk([{'PRODUCT_NAME': 'Sunset',
-                           'REGISTRATION_ID_CLAIMED': '2200620'}], reg)
-        self.assertEqual(c['STATES'].get(fr.LOCAL_REGISTERED), 1)
-        self.assertEqual(c['REGULATORY_AUTHORIZED'], 0)
+    def test_retirado_nao_conta_como_vigente_na_vitrine(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Sunset', 'REGISTRATION_ID_CLAIMED': '2200620'}])
+        self.assertEqual(c['CATALOG_CURRENT_ADAMA_HELD_AMMS'], 0)
+        self.assertEqual(c['CATALOG_WITHDRAWN_AMMS'], 1)
 
-    def test_amm_de_titular_de_fora_do_grupo_vira_conflito_e_nao_fato(self):
-        """A ficha Milena publica um AMM da GLOBACHEM. Engolir isso inflaria o portfólio."""
-        c = fr.crosswalk([{'PRODUCT_NAME': 'Milena',
-                           'REGISTRATION_ID_CLAIMED': '2250282'}], self.REG)
-        self.assertEqual(c['STATES'].get(fr.REGISTRATION_CONFLICT), 1)
-        self.assertEqual(c['DISTINCT_REGISTRATIONS_BEHIND_CATALOG'], 0)
+    def test_terceiro_conta_como_terceiro_e_nao_some_do_total(self):
+        """O erro que este teste guarda: chamado de conflito, o AMM sumia da conta."""
+        c = self.cruza([{'PRODUCT_NAME': 'Milena', 'REGISTRATION_ID_CLAIMED': '2250282'}])
+        self.assertEqual(c['CATALOG_DISTINCT_AMMS'], 1)
+        self.assertEqual(c['CATALOG_CURRENT_THIRD_PARTY_HELD_AMMS'], 1)
+        self.assertEqual(c['CATALOG_CURRENT_ADAMA_HELD_AMMS'], 0)
+        self.assertEqual(c['BY_CLASS'].get(fr.AMBIGUOUS_CONFLICT, 0), 0)
 
-    def test_not_registered_fica_em_zero_e_explica(self):
-        """Nunca por eliminação. Zero aqui é uma recusa, não uma contagem."""
-        c = fr.crosswalk([{'PRODUCT_NAME': 'INEXISTENTE'}], self.REG)
+    def test_o_terceiro_sai_com_o_estado_factual_e_sem_interpretacao(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Milena', 'REGISTRATION_ID_CLAIMED': '2250282'}])
+        d = c['THIRD_PARTY_HELD_DETAIL'][0]
+        self.assertEqual(d['HOLDER'], 'GLOBACHEM NV')
+        self.assertIn('CATALOG_PRESENTED_BY_ADAMA', d['STATE'])
+        for palavra in ('distribuição', 'licenciamento', 'co-marketing', 'revenda'):
+            self.assertIn(palavra, d['WHY'])
+
+    def test_amm_fora_do_registro_nao_vira_NOT_REGISTERED(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Fantasma',
+                         'REGISTRATION_ID_CLAIMED': '9999999'}])
+        self.assertEqual(c['CATALOG_AMM_NOT_FOUND_IN_EPHY'], 1)
         self.assertEqual(c['NOT_REGISTERED'], 0)
         self.assertIn('exige a autoridade', c['WHY_NOT_REGISTERED_ZERO'])
+
+    def test_as_quatro_classes_somam_o_total_de_amms(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Balesta', 'REGISTRATION_ID_CLAIMED': '2180260'},
+                        {'PRODUCT_NAME': 'Sunset', 'REGISTRATION_ID_CLAIMED': '2200620'},
+                        {'PRODUCT_NAME': 'Milena', 'REGISTRATION_ID_CLAIMED': '2250282'},
+                        {'PRODUCT_NAME': 'Fantasma', 'REGISTRATION_ID_CLAIMED': '9999999'}])
+        self.assertEqual(c['CATALOG_CURRENT_ADAMA_HELD_AMMS']
+                         + c['CATALOG_CURRENT_THIRD_PARTY_HELD_AMMS']
+                         + c['CATALOG_WITHDRAWN_AMMS']
+                         + c['CATALOG_AMM_NOT_FOUND_IN_EPHY'],
+                         c['CATALOG_DISTINCT_AMMS'])
+
+    def test_vitrine_mais_fora_da_vitrine_fecha_no_total_de_vigentes(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Balesta', 'REGISTRATION_ID_CLAIMED': '2180260'}])
+        self.assertEqual(c['CATALOG_CURRENT_ADAMA_HELD_AMMS']
+                         + c['CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG'],
+                         c['ADAMA_HELD_CURRENT_REGISTRATIONS'])
+
+    def test_ficha_sem_amm_e_contada_a_parte(self):
+        c = self.cruza([{'PRODUCT_NAME': 'Sem numero'}])
+        self.assertEqual(c['CATALOG_PAGES_WITHOUT_AMM'], 1)
+        self.assertEqual(c['CATALOG_DISTINCT_AMMS'], 0)
 
 
 class CensoNaoMente(unittest.TestCase):

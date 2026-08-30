@@ -131,6 +131,40 @@ def _slug(url):
     return '-'.join(partes[-2:]) if len(partes) >= 2 else (partes[-1] if partes else 'produto')
 
 
+_ILEGAIS_NOME = re.compile(r'[^A-Za-z0-9._-]+')
+
+
+def nome_local_documento(url):
+    """Nome de arquivo em disco ÚNICO POR URL.
+
+    A primeira versão nomeava o arquivo com `<ficha>__<basename da URL>`. A rota
+    de documentos da ADAMA France é `/france/fr/media/NNNN/download?attachment`,
+    e o basename dela é literalmente `download` para TODOS os documentos. Quatro
+    documentos diferentes na mesma ficha viravam quatro gravações no MESMO
+    arquivo, e sobrava o último.
+
+    Medido: 153 referências, 122 URLs distintas, e apenas 100 arquivos em disco.
+    53 conteúdos baixados foram apagados por cima — e o manifesto seguia
+    afirmando 153, porque cada um tinha sido hasheado ANTES de ser sobrescrito.
+    O manifesto estava certo sobre o passado e errado sobre o disco.
+
+        DOWNLOADED ≠ STILL ON DISK
+
+    Agora o nome sai da URL inteira, com um sufixo de hash dela: duas fichas que
+    apontam para o MESMO documento continuam compartilhando um arquivo só (é o
+    mesmo documento), e dois documentos diferentes nunca dividem nome.
+    """
+    u = urllib.parse.urlparse(url)
+    partes = [x for x in urllib.parse.unquote(u.path).split('/') if x]
+    base = partes[-1] if partes else 'documento'
+    raiz, ext = os.path.splitext(base)
+    ext = _ILEGAIS_NOME.sub('', ext)[:12] or '.pdf'
+    trilha = '-'.join(partes[-2:]) if len(partes) >= 2 else base
+    trilha = _ILEGAIS_NOME.sub('-', trilha).strip('-')[:60] or 'documento'
+    digest = hashlib.sha256(url.encode('utf-8')).hexdigest()[:10]
+    return '%s-%s%s' % (trilha, digest, ext)
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # 1 · A JANELA — Chrome de verdade, perfil e porta da França
 # ══════════════════════════════════════════════════════════════════════════════
@@ -297,33 +331,125 @@ def _gravar(caminho, dados):
     return {'BYTES': len(dados), 'SHA256': _sha_bytes(dados)}
 
 
-def baixar_documento(ctx, doc, amm, slug):
-    """Baixa pelo próprio navegador: a rota de documento tem a mesma porta da página."""
+def _amm_da_chave(amms):
+    """Qual AMM abre o caminho de um documento compartilhado por várias fichas.
+
+    Um PDF citado por oito fichas de AMMs diferentes não pertence a nenhum deles
+    em particular. Escolher o primeiro seria arbitrário e pareceria um fato.
+    """
+    distintos = sorted({a for a in amms if a})
+    if not distintos:
+        return 'SEM-AMM'
+    if len(distintos) == 1:
+        return distintos[0]
+    return 'PARTAGE'
+
+
+def baixar_documento(ctx, url, referencias):
+    """Baixa UM documento e pendura nele todas as fichas que o citam.
+
+    `referencias` são as fichas que apontam para esta URL — porque um documento
+    pode cobrir mais de um produto:
+
+        1 PDF ≠ 1 ficha ≠ 1 AMM
+
+    Medido: 7 URLs são citadas por mais de uma ficha, e uma delas aparece em
+    OITO. Baixar uma vez por ficha duplicaria a evidência e faria parecer que há
+    oito documentos onde há um.
+    """
+    doc_type = fr.tipo_de_documento(
+        (referencias[0].get('LINK_TEXT') or '') + ' ' + url)
+    amms = [r.get('AMM') for r in referencias]
+    base = {
+        'URL': url,
+        'DOC_TYPE_FROM_NAME': doc_type,
+        'REFERENCED_BY': referencias,
+        'CATALOG_PAGE_COUNT': len(referencias),
+        'CATALOG_NAMES': sorted({r.get('CATALOG_NAME') for r in referencias
+                                 if r.get('CATALOG_NAME')}),
+        'AMMS_FROM_REFERRING_PAGES': sorted({a for a in amms if a}),
+        'COUNTRY': COUNTRY,
+    }
     try:
-        resp = ctx.request.get(doc['URL'], timeout=180000)
+        resp = ctx.request.get(url, timeout=180000)
     except Exception as e:                                        # noqa: BLE001
-        return dict(doc, STATE='FAILED', WHY=str(e)[:160])
+        return dict(base, STATE='FAILED', WHY=str(e)[:160])
     if resp.status != 200:
-        return dict(doc, STATE='FAILED', HTTP=resp.status,
+        return dict(base, STATE='FAILED', HTTP=resp.status,
                     WHY='a rota do documento respondeu %d' % resp.status)
     corpo = resp.body()
-    nome = urllib.parse.unquote(os.path.basename(
-        urllib.parse.urlparse(doc['URL']).path)) or (slug + '.pdf')
-    if not os.path.splitext(nome)[1]:
-        nome += '.pdf'
-    destino = os.path.join(DOCUMENTOS, '%s__%s' % (slug, nome))
+    nome_url = urllib.parse.unquote(
+        os.path.basename(urllib.parse.urlparse(url).path)) or 'documento.pdf'
+    destino = os.path.join(DOCUMENTOS, nome_local_documento(url))
     medido = _gravar(destino, corpo)
-    return dict(doc, STATE='LOCAL_ONLY', HTTP=200,
-                ORIGINAL_FILENAME=nome,
+    return dict(base, STATE='LOCAL_ONLY', HTTP=200,
+                ORIGINAL_FILENAME=nome_url,
                 CONTENT_TYPE=(resp.headers or {}).get('content-type'),
                 LOCAL_PATH=os.path.relpath(destino, ROOT),
-                RELATED_REGISTRATION=amm,
+                RELATED_REGISTRATION=_amm_da_chave(amms),
                 # A chave é aberta pelo sha do CONTEÚDO: a rota
-                # `/media/NNNN/download` dá o nome "download" a dezenas de PDFs
+                # `/media/NNNN/download` dá o nome "download" a 122 PDFs
                 # diferentes, e chave por nome os empilharia num objeto só.
-                STORAGE_KEY=fr.storage_key(COUNTRY, amm, doc['DOC_TYPE'], nome,
-                                           medido['SHA256']),
-                COUNTRY=COUNTRY, CAPTURED_AT=agora(), **medido)
+                STORAGE_KEY=fr.storage_key(COUNTRY, _amm_da_chave(amms), doc_type,
+                                           nome_url, medido['SHA256']),
+                CAPTURED_AT=agora(), **medido)
+
+
+def referencias_de_documento(fichas):
+    """→ {URL: [referências]}. Uma entrada por documento, não por citação."""
+    porurl = {}
+    for f in fichas:
+        for d in f.get('DOCUMENTS') or []:
+            porurl.setdefault(d['URL'], []).append({
+                'PAGE_URL': f['URL'],
+                'CATALOG_NAME': f.get('PRODUCT_NAME'),
+                'AMM': f.get('REGISTRATION_ID_CLAIMED'),
+                'LINK_TEXT': d.get('LINK_TEXT'),
+            })
+    return porurl
+
+
+def baixar_documentos(ctx, porurl):
+    fora = []
+    for i, (url, refs) in enumerate(sorted(porurl.items()), 1):
+        d = baixar_documentos_um(ctx, url, refs)
+        fora.append(d)
+        if i % 20 == 0 or i == len(porurl):
+            print('  documentos %d/%d' % (i, len(porurl)))
+    return fora
+
+
+def baixar_documentos_um(ctx, url, refs):
+    return baixar_documento(ctx, url, refs)
+
+
+def rebaixar_documentos():
+    """Refaz SÓ os documentos, a partir das fichas já capturadas.
+
+    Existe porque o defeito de nome fez 53 conteúdos serem gravados por cima. As
+    111 fichas em disco estão intactas — o slug delas é único — então recensear
+    o catálogo inteiro seria refazer 111 páginas boas para consertar documentos.
+    """
+    from playwright.sync_api import sync_playwright
+    with open(MANIFESTO, encoding='utf-8') as fh:
+        m = json.load(fh)
+    porurl = referencias_de_documento(m['PRODUCTS'])
+    print('referências:', sum(len(v) for v in porurl.values()),
+          '| URLs distintas:', len(porurl))
+    os.makedirs(DOCUMENTOS, exist_ok=True)
+    with sync_playwright() as p:
+        ctx = abrir(p)
+        pids = _pids()
+        print('PID do Chrome frances:', pids or '(nao medido)')
+        documentos = baixar_documentos(ctx, porurl)
+        ctx.close()
+    m['DOCUMENTS'] = documentos
+    m['DOCUMENT_REFERENCES'] = sum(len(v) for v in porurl.values())
+    m['DOCUMENTS_DISTINCT_URLS'] = len(porurl)
+    m['CAPTURED_AT'] = agora()
+    with open(MANIFESTO, 'w', encoding='utf-8') as fh:
+        json.dump(m, fh, ensure_ascii=False, indent=1)
+    return m
 
 
 def coletar(quantos=10):
@@ -351,7 +477,7 @@ def coletar(quantos=10):
         if quantos and quantos < indice['CATALOG_PRODUCTS']:
             alvos = _amostra_diversa(indice['PRODUCTS'], quantos)
 
-        fichas, documentos = [], []
+        fichas = []
         for i, alvo in enumerate(alvos, 1):
             f, html = ficha(pg, alvo['URL'])
             caminho = os.path.join(PAGINAS, alvo['SLUG'] + '.html')
@@ -360,15 +486,15 @@ def coletar(quantos=10):
             f['STORAGE_KEY'] = fr.storage_key(
                 COUNTRY, f['REGISTRATION_ID_CLAIMED'], 'PAGE_CAPTURE',
                 alvo['SLUG'] + '.html', f['HTML_SHA256'])
-            for d in f['DOCUMENTS']:
-                documentos.append(baixar_documento(
-                    ctx, d, f['REGISTRATION_ID_CLAIMED'], alvo['SLUG']))
             fichas.append(f)
             print('  %2d/%d  %-22s AMM %-9s culturas %2d  alvos %2d  docs %d'
                   % (i, len(alvos), f['PRODUCT_NAME'][:22],
                      f['REGISTRATION_ID_CLAIMED'] or '-',
                      len(f['CROPS_LISTED']), len(f['KEY_TARGETS_LISTED']),
                      len(f['DOCUMENTS'])))
+
+        # Documentos DEPOIS das fichas, e uma vez por URL — não uma por citação.
+        documentos = baixar_documentos(ctx, referencias_de_documento(fichas))
         ctx.close()
 
     manifesto = {
@@ -380,6 +506,8 @@ def coletar(quantos=10):
         'CATALOG_PRODUCTS': indice['CATALOG_PRODUCTS'],
         'PRODUCTS_CAPTURED': len(fichas),
         'PRODUCTS': fichas,
+        'DOCUMENT_REFERENCES': sum(len(f.get('DOCUMENTS') or []) for f in fichas),
+        'DOCUMENTS_DISTINCT_URLS': len(documentos),
         'DOCUMENTS': documentos,
     }
     with open(MANIFESTO, 'w', encoding='utf-8') as fh:
@@ -453,7 +581,9 @@ def main():
         print('CATALOG_PRODUCTS:', i['CATALOG_PRODUCTS'],
               '| paginas:', i['PAGES_WALKED'])
         return 0
-    if modo == '--coletar':
+    if modo == '--documentos':
+        rebaixar_documentos()
+    elif modo == '--coletar':
         n = int(sys.argv[2]) if len(sys.argv) > 2 else 10
         coletar(n)
     m = medir()

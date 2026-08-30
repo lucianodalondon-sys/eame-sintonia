@@ -80,11 +80,26 @@ O QUE O CRUZAMENTO DOS 111 ACHOU (2026-08-30)
    titular GLOBACHEM NV. Não é do grupo ADAMA.
 
    Isto é o limite honesto do número 72: ele conta o que a ADAMA TITULA na
-   França, e a ADAMA também apresenta produto registrado por terceiro. O
-   crosswalk marca REGISTRATION_CONFLICT em vez de engolir a afirmação, e o
-   número não é corrigido no escuro.
+   França, e a ADAMA também apresenta produto registrado por terceiro.
 
        HOLDER ≠ PORTFOLIO, e desta vez o titular nem é do grupo
+
+   CORREÇÃO — a primeira versão chamou isso de REGISTRATION_CONFLICT, e estava
+   errada. A ADAMA diz "eu apresento este produto"; a ANSES diz "o titular deste
+   AMM é a GLOBACHEM". São afirmações sobre atributos DIFERENTES — vitrine e
+   titularidade — e as duas podem ser verdadeiras ao mesmo tempo.
+
+       ADAMA_CATALOG_PRESENCE + THIRD_PARTY_REGISTRATION ≠ REGISTRATION_CONFLICT
+
+   O erro custou uma contagem: chamado de conflito, o AMM saía do total e o
+   catálogo aparecia com 62 registros distintos. Resolvido contra o registro
+   francês INTEIRO em vez de contra o recorte ADAMA, são 63 — e as somas fecham:
+
+       57 ADAMA vigentes na vitrine + 15 fora da vitrine = 72 ADAMA vigentes
+       57 + 1 de terceiro + 5 retirados               = 63 AMMs no catálogo
+
+   CONFLITO fica reservado para contradição real: duas fontes afirmando coisas
+   incompatíveis sobre o MESMO atributo.
 
 O QUE ESTE ARQUIVO SE RECUSA A FAZER
 --------------------------------------
@@ -345,6 +360,103 @@ def registro_medido(so_autorizados=False):
     return fora
 
 
+def _linha_registro(r):
+    return {
+        'REGISTRATION_ID': (r.get('numero AMM') or '').strip(),
+        'PRODUCT': (r.get('nom produit') or '').strip(),
+        'SECOND_NAMES': (r.get('seconds noms commerciaux') or '').strip(),
+        'HOLDER': (r.get('titulaire') or '').strip(),
+        'SUBSTANCES': (r.get('Substances actives') or '').strip(),
+        'FUNCTION': (r.get('fonctions') or '').strip(),
+        'FORMULATION': (r.get('formulations') or '').strip(),
+        'STATE': (r.get('Etat d’autorisation') or '').strip(),
+        'PRODUCT_TYPE': (r.get('type produit') or '').strip(),
+        'FIRST_AUTHORIZED': (r.get('Date de première autorisation') or '').strip(),
+        'WITHDRAWN': (r.get('Date de retrait du produit') or '').strip(),
+        'COUNTRY': COUNTRY,
+    }
+
+
+def registro_completo():
+    """→ {AMM: registro} para os 15.140 produtos franceses, não só os da ADAMA.
+
+    Existe por causa da `Milena`: a ficha publica um AMM que NÃO está entre os
+    registros ADAMA, e resolver isso dentro do recorte ADAMA só consegue dizer
+    "não achei". Contra o registro inteiro, a resposta é outra e é um fato:
+    o AMM existe, está autorizado, chama-se HARNIKO e o titular é a GLOBACHEM.
+
+        NOT_FOUND_IN_MY_SLICE ≠ NOT_FOUND_IN_THE_REGISTRY
+    """
+    fora = {}
+    for r in _ler('produits_utf8.csv'):
+        linha = _linha_registro(r)
+        amm = linha['REGISTRATION_ID']
+        if amm:
+            fora.setdefault(amm, linha)
+    return fora
+
+
+# ── classificação de um AMM do catálogo contra a autoridade ──────────────────
+CURRENT_ADAMA_HELD = 'CURRENT_ADAMA_HELD'
+CURRENT_THIRD_PARTY_HELD = 'CURRENT_THIRD_PARTY_HELD'
+WITHDRAWN_ADAMA_HELD = 'WITHDRAWN_ADAMA_HELD'
+WITHDRAWN_THIRD_PARTY_HELD = 'WITHDRAWN_THIRD_PARTY_HELD'
+AMM_NOT_FOUND_IN_EPHY = 'AMM_NOT_FOUND_IN_EPHY'
+AMBIGUOUS_CONFLICT = 'AMBIGUOUS_CONFLICT'
+CLASSES_AMM = (CURRENT_ADAMA_HELD, CURRENT_THIRD_PARTY_HELD,
+               WITHDRAWN_ADAMA_HELD, WITHDRAWN_THIRD_PARTY_HELD,
+               AMM_NOT_FOUND_IN_EPHY, AMBIGUOUS_CONFLICT)
+
+
+def resolver_amm(amm, indice=None):
+    """→ o que a autoridade francesa diz sobre este AMM. Sem interpretar por quê.
+
+    A `Milena` obrigou esta função a existir e obrigou uma lei junto:
+
+        ADAMA_CATALOG_PRESENCE + THIRD_PARTY_REGISTRATION ≠ REGISTRATION_CONFLICT
+
+    A ADAMA diz "eu apresento este produto". A ANSES diz "o titular deste AMM é
+    a GLOBACHEM". As duas afirmações são sobre coisas DIFERENTES — vitrine e
+    titularidade — e podem ser verdadeiras ao mesmo tempo. Distribuição,
+    licenciamento, co-marketing e revenda explicariam isso, e este arquivo NÃO
+    escolhe entre elas: registra o fato de que as duas coexistem.
+
+    CONFLITO fica reservado para contradição real: as duas fontes afirmando
+    coisas incompatíveis sobre o MESMO atributo.
+    """
+    indice = registro_completo() if indice is None else indice
+    amm = str(amm or '').strip()
+    if not amm:
+        return {'CLASS': AMM_NOT_FOUND_IN_EPHY, 'REGISTRATION_ID': None,
+                'E_PHY_FOUND': False,
+                'WHY': 'a ficha não publica número de AMM'}
+    r = indice.get(amm)
+    if not r:
+        return {'CLASS': AMM_NOT_FOUND_IN_EPHY, 'REGISTRATION_ID': amm,
+                'E_PHY_FOUND': False,
+                'WHY': ('o AMM não está entre os %d produtos do registro francês. '
+                        'NÃO é NOT_REGISTERED: pode ser autorização nova demais '
+                        'para esta versão do dataset, ou número publicado errado'
+                        % len(indice))}
+    do_grupo = e_do_grupo(r['HOLDER'])
+    vigente = r['STATE'] == AUTORIZADO
+    classe = {(True, True): CURRENT_ADAMA_HELD,
+              (True, False): WITHDRAWN_ADAMA_HELD,
+              (False, True): CURRENT_THIRD_PARTY_HELD,
+              (False, False): WITHDRAWN_THIRD_PARTY_HELD}[(do_grupo, vigente)]
+    return {
+        'CLASS': classe, 'REGISTRATION_ID': amm, 'E_PHY_FOUND': True,
+        'CURRENT_AUTHORIZATION_STATE': r['STATE'],
+        'REGISTERED_NAME': r['PRODUCT'],
+        'HOLDER': r['HOLDER'],
+        'HOLDER_NORMALIZED': dobra(r['HOLDER']),
+        'ADAMA_HOLDER': 'YES' if do_grupo else 'NO',
+        'WITHDRAWAL_DATE': r['WITHDRAWN'] or None,
+        'WHY': ('presença no catálogo e titularidade são atributos diferentes; '
+                'coexistir não é contradição'),
+    }
+
+
 def usos_medidos(amms=None):
     """As linhas de uso autorizado, já com o identificador aberto."""
     fora = []
@@ -483,14 +595,22 @@ MANIFESTO_CATALOGO = os.path.join(ROOT, 'data', 'raw', COUNTRY, 'adama-website',
                                   'MANIFESTO-CATALOGO.json')
 
 
-def crosswalk(fichas=None, registro=None):
-    """Catálogo ↔ ANSES, com as duas contagens que não podem ser a mesma.
+def crosswalk(fichas=None, indice=None, registro_adama=None):
+    """CATÁLOGO → E-PHY e E-PHY → CATÁLOGO. Os dois sentidos, e nunca uma soma só.
 
-    FICHAS são apresentações comerciais. REGISTROS são AMMs. Uma ficha e um
-    registro parecem a mesma coisa até o dia em que duas fichas publicam o mesmo
-    AMM — e então somar fichas conta o mesmo registro duas vezes.
+    Uma contagem única de "portfólio francês" seria falsa em qualquer valor que
+    tivesse, porque são universos diferentes que não se somam:
 
-        CATALOG_ENTRY ≠ REGISTRATION
+        apresentações públicas .... o que a vitrine mostra (fichas)
+        AMMs distintos ............ quantos registros estão por trás delas
+        ADAMA-held vigentes ....... o que a ADAMA titula e vale hoje
+        de terceiros .............. apresentado pela ADAMA, titulado por outro
+        retirados ................. na vitrine, sem autorização vigente
+
+    As duas perguntas que o crosswalk tem de responder:
+
+        "esta ficha pública aponta para qual AMM?"      catálogo -> E-Phy
+        "este registro autorizado está na vitrine?"     E-Phy -> catálogo
     """
     if fichas is None:
         if not os.path.isfile(MANIFESTO_CATALOGO):
@@ -498,55 +618,104 @@ def crosswalk(fichas=None, registro=None):
         with open(MANIFESTO_CATALOGO, encoding='utf-8') as fh:
             fichas = json.load(fh)['PRODUCTS']
 
-    registro = registro_medido() if registro is None else registro
-    por_id = {r['REGISTRATION_ID']: r for r in registro}
-    vivos = {r['REGISTRATION_ID'] for r in registro if r['STATE'] == AUTORIZADO}
-    estados = {}
-    amms_no_catalogo = set()
-    conflitos = []
-    vitrine_com_retirado = []
-    for f in fichas:
-        r = cruzar({'PRODUCT_NAME': f.get('PRODUCT_NAME'),
-                    'REGISTRATION_ID': f.get('REGISTRATION_ID_CLAIMED')}, registro)
-        estados[r['STATE']] = estados.get(r['STATE'], 0) + 1
-        if r['STATE'] == LOCAL_REGISTERED:
-            amms_no_catalogo.add(r['REGISTRATION_ID'])
-            alvo = por_id.get(r['REGISTRATION_ID'])
-            if alvo and alvo['STATE'] != AUTORIZADO:
-                vitrine_com_retirado.append({
-                    'PRODUCT': f.get('PRODUCT_NAME'),
-                    'REGISTRATION_ID': r['REGISTRATION_ID'],
-                    'REGISTERED_NAME': alvo['PRODUCT'],
-                    'REGULATORY_STATE': alvo['STATE'],
-                    'WITHDRAWN': alvo['WITHDRAWN']})
-        elif r['STATE'] == REGISTRATION_CONFLICT:
-            conflitos.append({'PRODUCT': f.get('PRODUCT_NAME'),
-                              'CLAIMED': f.get('REGISTRATION_ID_CLAIMED'),
-                              'WHY': r.get('WHY')})
+    indice = registro_completo() if indice is None else indice
+    registro_adama = (registro_medido() if registro_adama is None
+                      else registro_adama)
+    adama_vigentes = {r['REGISTRATION_ID'] for r in registro_adama
+                      if r['STATE'] == AUTORIZADO}
 
-    # O outro lado do cruzamento: registrado e ausente da vitrine.
-    fora_do_catalogo = sorted(vivos - amms_no_catalogo)
+    # ── sentido 1: cada ficha aponta para qual AMM, e o que a autoridade diz ──
+    por_amm = {}
+    sem_amm = []
+    for f in fichas:
+        amm = str(f.get('REGISTRATION_ID_CLAIMED') or '').strip()
+        if not amm:
+            sem_amm.append(f.get('PRODUCT_NAME'))
+            continue
+        entrada = por_amm.setdefault(amm, {
+            'REGISTRATION_ID': amm, 'CATALOG_NAMES': [], 'CATALOG_PAGES': []})
+        entrada['CATALOG_NAMES'].append(f.get('PRODUCT_NAME'))
+        entrada['CATALOG_PAGES'].append(f.get('URL'))
+
+    for amm, e in por_amm.items():
+        e['CATALOG_PAGE_COUNT'] = len(e['CATALOG_PAGES'])
+        e['CATALOG_NAMES'] = sorted(n for n in e['CATALOG_NAMES'] if n)
+        e.update(resolver_amm(amm, indice))
+
+    classes = {}
+    for e in por_amm.values():
+        classes[e['CLASS']] = classes.get(e['CLASS'], 0) + 1
+
+    # ── sentido 2: cada registro ADAMA vigente aparece na vitrine? ────────────
+    na_vitrine = set(por_amm)
+    fora_da_vitrine = sorted(adama_vigentes - na_vitrine)
+    detalhe_fora = [{'REGISTRATION_ID': a,
+                     'REGISTERED_NAME': (indice.get(a) or {}).get('PRODUCT'),
+                     'HOLDER': (indice.get(a) or {}).get('HOLDER'),
+                     'STATE': 'CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG',
+                     'WHY': ('não observado na vitrine pública nesta captura. '
+                             'NÃO é descontinuado, não vendido, inativo nem de '
+                             'baixa prioridade — nenhum desses estados nasce aqui')}
+                    for a in fora_da_vitrine]
+
+    vitrine_com_retirado = [
+        {'CATALOG_NAMES': e['CATALOG_NAMES'], 'REGISTRATION_ID': e['REGISTRATION_ID'],
+         'REGISTERED_NAME': e.get('REGISTERED_NAME'), 'HOLDER': e.get('HOLDER'),
+         'CATALOG_PRESENT': 'YES', 'AUTHORIZATION_CURRENT': 'NO',
+         'WITHDRAWAL_DATE': e.get('WITHDRAWAL_DATE')}
+        for e in por_amm.values()
+        if e['CLASS'] in (WITHDRAWN_ADAMA_HELD, WITHDRAWN_THIRD_PARTY_HELD)]
+
+    terceiros = [
+        {'CATALOG_NAMES': e['CATALOG_NAMES'], 'REGISTRATION_ID': e['REGISTRATION_ID'],
+         'REGISTERED_NAME': e.get('REGISTERED_NAME'), 'HOLDER': e.get('HOLDER'),
+         'STATE': 'CATALOG_PRESENTED_BY_ADAMA + REGISTRATION_HELD_BY_THIRD_PARTY',
+         'WHY': ('a ADAMA apresenta e outro titula. Não interpretado como '
+                 'distribuição, licenciamento, co-marketing, revenda nem '
+                 'propriedade — apenas registrado')}
+        for e in por_amm.values()
+        if e['CLASS'] in (CURRENT_THIRD_PARTY_HELD, WITHDRAWN_THIRD_PARTY_HELD)]
+
+    nao_achados = [{'CATALOG_NAMES': e['CATALOG_NAMES'],
+                    'REGISTRATION_ID': e['REGISTRATION_ID'], 'WHY': e['WHY']}
+                   for e in por_amm.values() if e['CLASS'] == AMM_NOT_FOUND_IN_EPHY]
+
     return {
-        'CATALOG_ENTRIES': len(fichas),
-        'CATALOG_ENTRIES_WITH_AMM_CLAIM': sum(
-            1 for f in fichas if f.get('REGISTRATION_ID_CLAIMED')),
-        'DISTINCT_REGISTRATIONS_BEHIND_CATALOG': len(amms_no_catalogo),
-        'CATALOG_ENTRIES_MINUS_REGISTRATIONS':
-            len(amms_no_catalogo) and len(fichas) - len(amms_no_catalogo),
-        'REGULATORY_AUTHORIZED': len(vivos),
-        'STATES': estados,
-        'REGISTERED_BUT_NOT_IN_PUBLIC_CATALOG': len(fora_do_catalogo),
-        'REGISTERED_NOT_IN_CATALOG_AMMS': fora_do_catalogo,
-        # A vitrine não acompanha a autoridade em tempo real, e isso é um fato
-        # sobre a vitrine — não um erro de leitura.
-        'IN_CATALOG_BUT_REGISTRATION_WITHDRAWN': len(vitrine_com_retirado),
+        # os universos, separados de propósito
+        'CATALOG_PUBLIC_PRESENTATIONS': len(fichas),
+        'CATALOG_PAGES_WITHOUT_AMM': len(sem_amm),
+        'CATALOG_DISTINCT_AMMS': len(por_amm),
+        'CATALOG_CURRENT_ADAMA_HELD_AMMS': classes.get(CURRENT_ADAMA_HELD, 0),
+        'CATALOG_CURRENT_THIRD_PARTY_HELD_AMMS': classes.get(CURRENT_THIRD_PARTY_HELD, 0),
+        'CATALOG_WITHDRAWN_AMMS': (classes.get(WITHDRAWN_ADAMA_HELD, 0)
+                                   + classes.get(WITHDRAWN_THIRD_PARTY_HELD, 0)),
+        'CATALOG_AMM_NOT_FOUND_IN_EPHY': classes.get(AMM_NOT_FOUND_IN_EPHY, 0),
+        'ADAMA_HELD_CURRENT_REGISTRATIONS': len(adama_vigentes),
+        'CURRENT_ADAMA_HELD_NOT_OBSERVED_IN_PUBLIC_CATALOG': len(fora_da_vitrine),
+        'WHY_NOT_A_SINGLE_NUMBER': (
+            'apresentações, AMMs distintos e registros vigentes são universos '
+            'diferentes. Somá-los ou usar um pelo outro produz um número que '
+            'parece o portfólio e não é'),
+
+        'BY_CLASS': classes,
+        'BY_AMM': sorted(por_amm.values(), key=lambda e: e['REGISTRATION_ID']),
+
         'CATALOG_SHOWING_WITHDRAWN': vitrine_com_retirado,
-        'REGISTRATION_CONFLICTS': conflitos,
+        'IN_CATALOG_BUT_REGISTRATION_WITHDRAWN': len(vitrine_com_retirado),
+        'THIRD_PARTY_HELD_DETAIL': terceiros,
+        'AMM_NOT_FOUND_DETAIL': nao_achados,
+        'CURRENT_ADAMA_HELD_NOT_IN_CATALOG_DETAIL': detalhe_fora,
+
         'NOT_REGISTERED': 0,
         'WHY_NOT_REGISTERED_ZERO': (
             'NOT_REGISTERED exige a autoridade devolvendo ausência para aquele '
-            'produto. Falta de casamento aqui vira LOCAL_PRESENT_BUT_'
-            'REGISTRATION_NOT_PROVED, nunca NOT_REGISTERED'),
+            'produto. Falta de casamento, ou AMM fora desta versão do dataset, '
+            'vira AMM_NOT_FOUND_IN_EPHY — nunca NOT_REGISTERED'),
+        'AUTHORISED_CROP_ISSUE_SOURCE': 'E_PHY',
+        'CATALOG_CROP_ISSUE': 'NOT_RECONSTRUCTED',
+        'WHY_CATALOG_CROP_ISSUE_NOT_RECONSTRUCTED': (
+            'a ficha traz lista de culturas e lista de alvos, soltas. O par '
+            'francês existe amarrado no E-Phy, e é de lá que ele vem'),
     }
 
 
