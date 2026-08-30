@@ -1,0 +1,45 @@
+{
+ "SOURCE_LOCATION": "derivado — nenhuma coleta nova",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-30",
+ "REGRA_DESTE_MAPA": "cada acao aponta para um fato ja no repositorio. Onde a funcao nao pode agir, o arquivo diz o que FALTA. Nenhuma acao supoe disponibilidade comercial, venda, participacao de mercado ou eficacia de produto.",
+ "SOURCE_ID": "ES-HERO-003-CEREAIS-SEPTORIA-ACAO",
+ "source": "derivado — ES-COMPARACAO-TRES-TERRITORIOS + ES-CEREAIS-PARES-ROPF + ES-AREA-CEREAIS-MAPA + ES-CIENCIA-PARES-AUTORES + ES-CIENCIA-PARA-VOZ",
+ "FACT_LOCATION": "SPAIN (Castilla y Leon concentra ~1,91 M ha de cereal de inverno)",
+ "CASO": "WINTER CEREALS x Septoriose e doencas foliares",
+ "STATUS_DO_CASO": "PORTFOLIO_FORTE_SEM_SINAL — o inverso exato do milho",
+ "A_ASSIMETRIA": "o milho tem sinal de campo atual e lacuna de portfolio. O cereal de inverno tem o dobro do portfolio (36 pares ADAMA contra 16) sobre a maior area do pais (3,9 M ha) e nao tem sinal atual localizado. Sao dois problemas opostos e nao se resolvem com a mesma acao.",
+ "ESCALA": "CEBADA 2.089.550 ha + TRIGO 1.809.563 ha — as duas maiores da Espanha",
+ "SINAL": "NO_CURRENT_EVIDENCE_FOUND — o ITACyL tem secao propria de cereais de inverno com essas doencas, mas nenhum aviso de cereal na lista de 2026 (que traz frutais, batata, pimentao e vinha). O aviso de WDV localizado e de 30/04/2024.",
+ "O_QUE_SINAL_AUSENTE_SIGNIFICA": "NO_CURRENT_EVIDENCE_FOUND e estado declarado de busca, nao ausencia de doenca no campo. O ITACyL tem secao propria de cereais de inverno com essas doencas; a lista de avisos de 2026 que localizei traz frutais, batata, pimentao e vinha. Isso pode ser a fonte nao publicar, eu nao ter achado a fonte certa, ou a safra estar calma. Nao sei qual.",
+ "PORTFOLIO": "36 pares com ADAMA vigente — o DOBRO do milho. Septoriose 4, rincosporiose 5, helmintosporiose 4, fusariose 4, dicotiledoneas 9.",
+ "MAPA_DE_ACAO": {
+  "MARKET_DEVELOPMENT": {
+   "PODE_AGIR": "SIM, e o relogio ja esta correndo",
+   "ACAO": "a sementeira e outubro/novembro, a 6-10 semanas da captura. E o unico dos tres territorios com janela ABRINDO em semanas e portfolio ja registrado para responder. Confianca do calendario: TYPICAL, nao OBSERVED."
+  },
+  "SCIENCE": {
+   "PODE_AGIR": "NAO COMO SE ESPERAVA — e este e o achado",
+   "MEDIDO": "o par TRIGO x SEPTORIA e o mais rico dos tres em ciencia: 47 papers, 200 autores distintos, 26 desde 2023. Mas as 2 identidades CONFIRMADAS nao tem vinculo espanhol aberto: Lukas Meile esta na ETH Zurique desde 2025 e saiu do CBGP espanhol em 2024; Julien Alassimone nunca declarou vinculo espanhol.",
+   "A_EXCECAO": "Andrea Sanchez-Vallet, 18 obras no par, e a autora numero 1 e tem vinculo espanhol declarado (UPM 2020-2026, CSIC desde 2026). A identidade dela ficou CANDIDATA na busca por nome (num-found=461), mas o ORCID declarado no registro de autor do OpenAlex concorda com o primeiro candidato. E a ponte mais provavel para a Espanha neste par e ainda nao esta fechada.",
+   "DENOMINADOR": "5 identidades testadas de 200 autores distintos. A conclusao vale para o topo por numero de obras, nao para o par. Ampliar depende do orcamento OpenAlex, zerado."
+  },
+  "MARKETING": {
+   "PODE_AGIR": "NAO AINDA",
+   "POR_QUE": "mesma lacuna do milho: o acervo de voz e de olivar andaluz. Castilla y Leon aparece como \"Leon\" com 2 origens em 179."
+  },
+  "REGULATORY": {
+   "PODE_AGIR": "BAIXA PRIORIDADE",
+   "POR_QUE": "36 pares ADAMA vigentes cobrem septoriose (4), rincosporiose (5), helmintosporiose (4), fusariose (4) e dicotiledoneas (9). Nao ha lacuna de alvo aqui como ha no milho."
+  },
+  "COMMERCIAL": {
+   "PODE_AGIR": "NAO",
+   "POR_QUE": "NAO SEI. Registro nao e venda."
+  },
+  "SUPPLY": {
+   "PODE_AGIR": "NAO",
+   "POR_QUE": "NAO SEI."
+  }
+ },
+ "A_PERGUNTA_QUE_FICA": "o portfolio mais forte da ADAMA na Espanha esta sobre a maior area do pais e e o territorio de que menos sabemos. Fechar isso e achar a fonte de aviso de cereal, nao coletar mais registro."
+}
