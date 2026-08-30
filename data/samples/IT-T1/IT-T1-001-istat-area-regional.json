@@ -1,0 +1,653 @@
+{
+  "COUNTRY": "IT",
+  "SOURCE_ID": "IT-T1-001",
+  "SOURCE": "ISTAT — Coltivazioni: superfici e produzione (dataflow 101_1015_DF_DCSP_COLTIVAZIONI_1), SDMX REST",
+  "SOURCE_URL": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015_DF_DCSP_COLTIVAZIONI_1,1.0",
+  "CAPTURED_AT": "2026-08-30",
+  "REFERENCE_YEAR": "2024",
+  "DATA_TYPE": "ART (superficie totale, ettari)",
+  "SOURCE_LOCATION": "ITALY",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "IT",
+  "EVIDENCE_CLASS": "OFFICIAL_STATISTIC",
+  "SHA256_EXTRACT": "040afebeb3c763fd739c6017affcc70f15f11cf0fad758636830b4186f0a0525",
+  "WHY_THIS_SOURCE": "O Eurostat NÃO publica oliveira nem videira em NUTS 2. Sem o ISTAT, as duas maiores culturas permanentes da Itália ficam sem geografia.",
+  "NUTS_VINTAGE_TRAP": {
+    "PROBLEM": "O ISTAT codifica regiões em NUTS 2006; o Eurostat em NUTS 2021.",
+    "AFFECTED": {
+      "ITD1": "ITH1",
+      "ITD2": "ITH2",
+      "ITD3": "ITH3",
+      "ITD4": "ITH4",
+      "ITD5": "ITH5",
+      "ITE1": "ITI1",
+      "ITE2": "ITI2",
+      "ITE3": "ITI3",
+      "ITE4": "ITI4"
+    },
+    "SYMPTOM": "Cruzar pela chave literal não dá erro: dá resultado menor e plausível. Somem ITD* (Nord-Est) e ITE* (Centro) — ou seja, Veneto e Emilia-Romagna, as duas que mais importam para milho e videira.",
+    "MEASURED": "Antes do mapeamento a soma NUTS 2 do milho dava 261,3 mil ha contra 495,4 nacionais. Depois: 495,2 (100,0%)."
+  },
+  "CROSS_SOURCE_VALIDATION": {
+    "MAIZE": {
+      "ISTAT_NATIONAL": 495.4,
+      "EUROSTAT_2024": 495.4,
+      "STATE": "IDENTICAL"
+    },
+    "DURUM_WHEAT": {
+      "ISTAT_NATIONAL": 1177.4,
+      "EUROSTAT_2024": 1177.4,
+      "STATE": "IDENTICAL"
+    },
+    "COMMON_WHEAT": {
+      "ISTAT_NATIONAL": 520.3,
+      "EUROSTAT_2024": 520.3,
+      "STATE": "IDENTICAL"
+    },
+    "OLIVE": {
+      "ISTAT_NATIONAL": 1113.7,
+      "EUROSTAT_2024": 1083.0,
+      "STATE": "CLOSE_NOT_IDENTICAL",
+      "DIFF": 30.7
+    },
+    "VINE": {
+      "ISTAT_NATIONAL": 588.8,
+      "EUROSTAT_W1000_2024": 715.8,
+      "STATE": "DIFFERENT_DEFINITION",
+      "NOTE": "não trocar um pelo outro; o recorte ISTAT é usado para ORDENAR regiões"
+    },
+    "READING": "Milho, trigo duro e trigo mole batem EXATAMENTE — é o mesmo dado, o Eurostat republica o que o ISTAT apura. Por isso a divergência regional era erro de chave e não discordância de fonte."
+  },
+  "BY_CROP": {
+    "MAIZE": {
+      "CROP": "Milho grão",
+      "ISTAT_CODES": [
+        "MAIZE"
+      ],
+      "EUROSTAT_CODE": "C1500",
+      "NATIONAL_THS_HA": 495.4,
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 495.2,
+      "REGIONAL_COVERAGE_PCT": 100.0,
+      "BY_REGION": [
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "AREA_THS_HA": 122.9
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "AREA_THS_HA": 115.8
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "AREA_THS_HA": 115.7
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 51.4
+        },
+        {
+          "NUTS2": "ITH4",
+          "REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 33.1
+        },
+        {
+          "NUTS2": "ITI4",
+          "REGION": "Lazio",
+          "AREA_THS_HA": 13.2
+        },
+        {
+          "NUTS2": "ITF3",
+          "REGION": "Campania",
+          "AREA_THS_HA": 12.5
+        },
+        {
+          "NUTS2": "ITF1",
+          "REGION": "Abruzzo",
+          "AREA_THS_HA": 7.5
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "AREA_THS_HA": 6.2
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "AREA_THS_HA": 4.6
+        },
+        {
+          "NUTS2": "ITF6",
+          "REGION": "Calabria",
+          "AREA_THS_HA": 4.1
+        },
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "AREA_THS_HA": 2.4
+        },
+        {
+          "NUTS2": "ITG2",
+          "REGION": "Sardegna",
+          "AREA_THS_HA": 2.4
+        },
+        {
+          "NUTS2": "ITF2",
+          "REGION": "Molise",
+          "AREA_THS_HA": 1.2
+        },
+        {
+          "NUTS2": "ITF4",
+          "REGION": "Puglia",
+          "AREA_THS_HA": 0.8
+        },
+        {
+          "NUTS2": "ITF5",
+          "REGION": "Basilicata",
+          "AREA_THS_HA": 0.8
+        },
+        {
+          "NUTS2": "ITH2",
+          "REGION": "Provincia Autonoma di Trento",
+          "AREA_THS_HA": 0.3
+        },
+        {
+          "NUTS2": "ITG1",
+          "REGION": "Sicilia",
+          "AREA_THS_HA": 0.2
+        },
+        {
+          "NUTS2": "ITC3",
+          "REGION": "Liguria",
+          "AREA_THS_HA": 0.1
+        },
+        {
+          "NUTS2": "ITC2",
+          "REGION": "Valle d'Aosta",
+          "AREA_THS_HA": 0.0
+        },
+        {
+          "NUTS2": "ITH1",
+          "REGION": "Provincia Autonoma di Bolzano/Bozen",
+          "AREA_THS_HA": 0.0
+        }
+      ],
+      "TOP3_CONCENTRATION_PCT": 71.6
+    },
+    "DURUM_WHEAT": {
+      "CROP": "Trigo duro",
+      "ISTAT_CODES": [
+        "WHEATD"
+      ],
+      "EUROSTAT_CODE": "C1120",
+      "NATIONAL_THS_HA": 1177.4,
+      "REGIONS_REPORTING": 18,
+      "NUTS2_SUM_THS_HA": 1177.4,
+      "REGIONAL_COVERAGE_PCT": 100.0,
+      "BY_REGION": [
+        {
+          "NUTS2": "ITF4",
+          "REGION": "Puglia",
+          "AREA_THS_HA": 338.5
+        },
+        {
+          "NUTS2": "ITG1",
+          "REGION": "Sicilia",
+          "AREA_THS_HA": 277.5
+        },
+        {
+          "NUTS2": "ITF5",
+          "REGION": "Basilicata",
+          "AREA_THS_HA": 115.2
+        },
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "AREA_THS_HA": 72.8
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 69.5
+        },
+        {
+          "NUTS2": "ITF3",
+          "REGION": "Campania",
+          "AREA_THS_HA": 52.6
+        },
+        {
+          "NUTS2": "ITF2",
+          "REGION": "Molise",
+          "AREA_THS_HA": 44.7
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "AREA_THS_HA": 43.7
+        },
+        {
+          "NUTS2": "ITI4",
+          "REGION": "Lazio",
+          "AREA_THS_HA": 39.6
+        },
+        {
+          "NUTS2": "ITF1",
+          "REGION": "Abruzzo",
+          "AREA_THS_HA": 35.2
+        },
+        {
+          "NUTS2": "ITF6",
+          "REGION": "Calabria",
+          "AREA_THS_HA": 23.1
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "AREA_THS_HA": 16.6
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "AREA_THS_HA": 16.3
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "AREA_THS_HA": 15.3
+        },
+        {
+          "NUTS2": "ITG2",
+          "REGION": "Sardegna",
+          "AREA_THS_HA": 14.3
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "AREA_THS_HA": 2.5
+        },
+        {
+          "NUTS2": "ITH2",
+          "REGION": "Provincia Autonoma di Trento",
+          "AREA_THS_HA": 0.0
+        },
+        {
+          "NUTS2": "ITH4",
+          "REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 0.0
+        }
+      ],
+      "TOP3_CONCENTRATION_PCT": 62.1
+    },
+    "COMMON_WHEAT": {
+      "CROP": "Trigo mole",
+      "ISTAT_CODES": [
+        "COMMEAT"
+      ],
+      "EUROSTAT_CODE": "C1110",
+      "NATIONAL_THS_HA": 520.3,
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 520.4,
+      "REGIONAL_COVERAGE_PCT": 100.0,
+      "BY_REGION": [
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 131.5
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "AREA_THS_HA": 94.7
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "AREA_THS_HA": 72.7
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "AREA_THS_HA": 63.1
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "AREA_THS_HA": 28.9
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "AREA_THS_HA": 27.1
+        },
+        {
+          "NUTS2": "ITF1",
+          "REGION": "Abruzzo",
+          "AREA_THS_HA": 22.8
+        },
+        {
+          "NUTS2": "ITF3",
+          "REGION": "Campania",
+          "AREA_THS_HA": 15.8
+        },
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "AREA_THS_HA": 14.2
+        },
+        {
+          "NUTS2": "ITI4",
+          "REGION": "Lazio",
+          "AREA_THS_HA": 11.6
+        },
+        {
+          "NUTS2": "ITH4",
+          "REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 11.3
+        },
+        {
+          "NUTS2": "ITF6",
+          "REGION": "Calabria",
+          "AREA_THS_HA": 9.2
+        },
+        {
+          "NUTS2": "ITF4",
+          "REGION": "Puglia",
+          "AREA_THS_HA": 7.2
+        },
+        {
+          "NUTS2": "ITF5",
+          "REGION": "Basilicata",
+          "AREA_THS_HA": 6.9
+        },
+        {
+          "NUTS2": "ITF2",
+          "REGION": "Molise",
+          "AREA_THS_HA": 2.7
+        },
+        {
+          "NUTS2": "ITG2",
+          "REGION": "Sardegna",
+          "AREA_THS_HA": 0.3
+        },
+        {
+          "NUTS2": "ITC3",
+          "REGION": "Liguria",
+          "AREA_THS_HA": 0.1
+        },
+        {
+          "NUTS2": "ITH1",
+          "REGION": "Provincia Autonoma di Bolzano/Bozen",
+          "AREA_THS_HA": 0.1
+        },
+        {
+          "NUTS2": "ITH2",
+          "REGION": "Provincia Autonoma di Trento",
+          "AREA_THS_HA": 0.1
+        },
+        {
+          "NUTS2": "ITG1",
+          "REGION": "Sicilia",
+          "AREA_THS_HA": 0.1
+        },
+        {
+          "NUTS2": "ITC2",
+          "REGION": "Valle d'Aosta",
+          "AREA_THS_HA": 0.0
+        }
+      ],
+      "TOP3_CONCENTRATION_PCT": 57.4
+    },
+    "OLIVE": {
+      "CROP": "Oliveira",
+      "ISTAT_CODES": [
+        "OLIVTAB_OIL"
+      ],
+      "EUROSTAT_CODE": "O1000",
+      "NATIONAL_THS_HA": 1113.7,
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 1113.6,
+      "REGIONAL_COVERAGE_PCT": 100.0,
+      "BY_REGION": [
+        {
+          "NUTS2": "ITF4",
+          "REGION": "Puglia",
+          "AREA_THS_HA": 347.8
+        },
+        {
+          "NUTS2": "ITF6",
+          "REGION": "Calabria",
+          "AREA_THS_HA": 184.7
+        },
+        {
+          "NUTS2": "ITG1",
+          "REGION": "Sicilia",
+          "AREA_THS_HA": 161.7
+        },
+        {
+          "NUTS2": "ITI4",
+          "REGION": "Lazio",
+          "AREA_THS_HA": 82.9
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "AREA_THS_HA": 81.9
+        },
+        {
+          "NUTS2": "ITF3",
+          "REGION": "Campania",
+          "AREA_THS_HA": 68.2
+        },
+        {
+          "NUTS2": "ITG2",
+          "REGION": "Sardegna",
+          "AREA_THS_HA": 40.6
+        },
+        {
+          "NUTS2": "ITF1",
+          "REGION": "Abruzzo",
+          "AREA_THS_HA": 38.9
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "AREA_THS_HA": 27.2
+        },
+        {
+          "NUTS2": "ITF5",
+          "REGION": "Basilicata",
+          "AREA_THS_HA": 26.1
+        },
+        {
+          "NUTS2": "ITC3",
+          "REGION": "Liguria",
+          "AREA_THS_HA": 19.2
+        },
+        {
+          "NUTS2": "ITF2",
+          "REGION": "Molise",
+          "AREA_THS_HA": 14.3
+        },
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "AREA_THS_HA": 6.9
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "AREA_THS_HA": 5.3
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 4.6
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "AREA_THS_HA": 2.4
+        },
+        {
+          "NUTS2": "ITH2",
+          "REGION": "Provincia Autonoma di Trento",
+          "AREA_THS_HA": 0.4
+        },
+        {
+          "NUTS2": "ITH4",
+          "REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 0.3
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "AREA_THS_HA": 0.2
+        },
+        {
+          "NUTS2": "ITC2",
+          "REGION": "Valle d'Aosta",
+          "AREA_THS_HA": 0.0
+        },
+        {
+          "NUTS2": "ITH1",
+          "REGION": "Provincia Autonoma di Bolzano/Bozen",
+          "AREA_THS_HA": 0.0
+        }
+      ],
+      "TOP3_CONCENTRATION_PCT": 62.3
+    },
+    "VINE": {
+      "CROP": "Videira (uva DOP + IGP + de mesa)",
+      "ISTAT_CODES": [
+        "GRAPEDOPWINE",
+        "GRAPEIGPWINE",
+        "TABLEGRAPES"
+      ],
+      "EUROSTAT_CODE": null,
+      "NATIONAL_THS_HA": 588.8,
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 588.9,
+      "REGIONAL_COVERAGE_PCT": 100.0,
+      "BY_REGION": [
+        {
+          "NUTS2": "ITG1",
+          "REGION": "Sicilia",
+          "AREA_THS_HA": 120.2
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "AREA_THS_HA": 101.0
+        },
+        {
+          "NUTS2": "ITF4",
+          "REGION": "Puglia",
+          "AREA_THS_HA": 79.1
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "AREA_THS_HA": 54.6
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "AREA_THS_HA": 39.9
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 34.7
+        },
+        {
+          "NUTS2": "ITH4",
+          "REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 28.6
+        },
+        {
+          "NUTS2": "ITF1",
+          "REGION": "Abruzzo",
+          "AREA_THS_HA": 19.9
+        },
+        {
+          "NUTS2": "ITG2",
+          "REGION": "Sardegna",
+          "AREA_THS_HA": 19.7
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "AREA_THS_HA": 18.2
+        },
+        {
+          "NUTS2": "ITI4",
+          "REGION": "Lazio",
+          "AREA_THS_HA": 17.0
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "AREA_THS_HA": 11.7
+        },
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "AREA_THS_HA": 11.7
+        },
+        {
+          "NUTS2": "ITH2",
+          "REGION": "Provincia Autonoma di Trento",
+          "AREA_THS_HA": 10.0
+        },
+        {
+          "NUTS2": "ITF3",
+          "REGION": "Campania",
+          "AREA_THS_HA": 8.0
+        },
+        {
+          "NUTS2": "ITH1",
+          "REGION": "Provincia Autonoma di Bolzano/Bozen",
+          "AREA_THS_HA": 5.9
+        },
+        {
+          "NUTS2": "ITF6",
+          "REGION": "Calabria",
+          "AREA_THS_HA": 4.2
+        },
+        {
+          "NUTS2": "ITF2",
+          "REGION": "Molise",
+          "AREA_THS_HA": 1.5
+        },
+        {
+          "NUTS2": "ITF5",
+          "REGION": "Basilicata",
+          "AREA_THS_HA": 1.5
+        },
+        {
+          "NUTS2": "ITC3",
+          "REGION": "Liguria",
+          "AREA_THS_HA": 1.1
+        },
+        {
+          "NUTS2": "ITC2",
+          "REGION": "Valle d'Aosta",
+          "AREA_THS_HA": 0.4
+        }
+      ],
+      "TOP3_CONCENTRATION_PCT": 51.0,
+      "DEFINITION_NOTE": "o ISTAT não declara código Eurostat para videira. A soma das três rubricas dá 588,8 mil ha contra 715,8 do Eurostat W1000 (2024): as definições NÃO coincidem e os dois números NÃO devem ser trocados um pelo outro. Para ordenar REGIÕES, o recorte ISTAT é coerente consigo mesmo, e é para isso que ele é usado aqui."
+    }
+  },
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "produção",
+    "rendimento",
+    "pressão de praga",
+    "venda",
+    "presença comercial"
+  ]
+}

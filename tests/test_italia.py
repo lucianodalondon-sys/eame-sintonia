@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import italia                      # noqa: E402
 import italia_rotulo_parse as rp   # noqa: E402
 import italia_colture as ic        # noqa: E402
+import italia_istat as ii2         # noqa: E402
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
 
@@ -206,6 +207,29 @@ class TestColturaHierarquia(unittest.TestCase):
         self.assertNotIn('C1100', ic.COMMODITY)
         self.assertIn('C1110', ic.COMMODITY)
         self.assertIn('C1120', ic.COMMODITY)
+
+
+class TestNutsVintage(unittest.TestCase):
+    """A armadilha silenciosa: ISTAT publica em NUTS 2006, Eurostat em NUTS 2021."""
+
+    def test_veneto_e_emilia_sao_remapeados(self):
+        self.assertEqual(ii2.canonico('ITD3'), 'ITH3')   # Veneto
+        self.assertEqual(ii2.canonico('ITD5'), 'ITH5')   # Emilia-Romagna
+        self.assertEqual(ii2.canonico('ITE1'), 'ITI1')   # Toscana
+
+    def test_codigo_ja_corrente_passa_direto(self):
+        self.assertEqual(ii2.canonico('ITC4'), 'ITC4')   # Lombardia nao mudou
+
+    def test_todo_destino_e_regiao_conhecida(self):
+        """Um mapeamento que aponta para fora da tabela apagaria a regiao de novo."""
+        for destino in ii2.NUTS2006_PARA_2021.values():
+            self.assertIn(destino, ii2.REGIOES)
+
+    def test_o_mapa_cobre_o_nordeste_e_o_centro(self):
+        """Sao ITD* e ITE* que somem: exatamente Veneto e Emilia-Romagna."""
+        origens = set(ii2.NUTS2006_PARA_2021)
+        self.assertTrue(all(o.startswith(('ITD', 'ITE')) for o in origens))
+        self.assertEqual(len(origens), 9)
 
 
 @unittest.skipUnless(os.path.exists(CSV), 'dataset bruto não versionado')
