@@ -120,7 +120,7 @@ class TestLei5CategoriaNaoTransfere(unittest.TestCase):
                    'PRODUCT_CATEGORY': 'MACHINERY', 'MESSAGE_KIND': 'PRODUCT_PROMOTION',
                    'RELATIONSHIP_STATE': 'PAID_PARTNERSHIP_PROVED'}]
         v = cr.veredito_crop_protection(colabs, paises=('FR',))
-        self.assertEqual(v['FR']['ESTADO'], 'NOT_PROVED')
+        self.assertEqual(v['FR']['ESTADO'], cr.AUSENTE_NO_CORPUS)
 
     def test_empresa_de_defensivo_com_peca_institucional_e_PARTIAL(self):
         colabs = [{'COUNTRY': 'FR', 'BRAND': 'Bayer', 'BRAND_KIND': 'CROP_PROTECTION_COMPANY',
@@ -140,14 +140,14 @@ class TestLei5CategoriaNaoTransfere(unittest.TestCase):
         v = cr.veredito_crop_protection([], paises=('ES', 'IT', 'FR', 'DE'),
                                         testados=('ES', 'IT', 'FR'))
         self.assertEqual(v['DE']['ESTADO'], 'NOT_TESTED')
-        self.assertEqual(v['ES']['ESTADO'], 'NOT_PROVED')
+        self.assertEqual(v['ES']['ESTADO'], cr.AUSENTE_NO_CORPUS)
 
     def test_mencao_organica_nao_conta_como_prova(self):
         colabs = [{'COUNTRY': 'IT', 'BRAND': 'Syngenta', 'BRAND_KIND': 'CROP_PROTECTION_COMPANY',
                    'PRODUCT_CATEGORY': 'CROP_PROTECTION', 'MESSAGE_KIND': 'PRODUCT_PROMOTION',
                    'RELATIONSHIP_STATE': 'ORGANIC_MENTION'}]
         self.assertEqual(cr.veredito_crop_protection(colabs, paises=('IT',))['IT']['ESTADO'],
-                         'NOT_PROVED')
+                         cr.AUSENTE_NO_CORPUS)
 
 
 class TestLei6SemAuthorityScore(unittest.TestCase):
@@ -170,14 +170,14 @@ class TestLei6SemAuthorityScore(unittest.TestCase):
         r['IDENTITY_STATE'] = cr.NAO_SEI
         r['FOLLOWERS_BY_PLATFORM'] = {'INSTAGRAM': 900000}
         e, porques = cr.relevancia(r)
-        self.assertEqual(e, 'RESEARCH_NEEDED')
-        self.assertTrue(any('IDENTIDADE_NAO_PROVADA' in p for p in porques))
+        self.assertNotEqual(e, 'ACTIVATION_READY')
+        self.assertTrue(any('IDENTITY_PROVED=FALTA' in p for p in porques))
 
     def test_cultura_nao_provada_nao_chega_a_activation_ready(self):
         r = self._base_ok()
         r['CROP_STATE'] = 'NOT_PROVED'; r['CROP_EVIDENCE'] = cr.NAO_SEI; r['CROPS'] = cr.NAO_SEI
         e, _ = cr.relevancia(r)
-        self.assertEqual(e, 'PROMISING')
+        self.assertNotEqual(e, 'ACTIVATION_READY')
 
     def test_activation_ready_nao_e_autorizacao_de_campanha(self):
         p = cr.pendencias_de_compliance()
@@ -271,3 +271,121 @@ class TestCarregarConheceOsArtefatos(unittest.TestCase):
             nome = os.path.basename(caminho)
             self.assertTrue(cr.carregar(nome),
                             '%s tem lista %s que carregar() não alcança' % (nome, listas))
+
+
+class TestCorrecaoSemantica(unittest.TestCase):
+    """§0 — ausência observada num corpus não é ausência no mercado.
+
+    A primeira redação desta missão publicou "a faixa está vazia nos três
+    países". Isso extrapolava: o corpus medido é pequeno e enviesado pelas
+    fontes que alcançamos. O estado passou a carregar o próprio escopo.
+    """
+
+    def test_o_estado_nomeia_o_corpus(self):
+        self.assertEqual(cr.AUSENTE_NO_CORPUS, 'NOT_OBSERVED_IN_MEASURED_CORPUS')
+        self.assertIn('CORPUS', cr.AUSENTE_NO_CORPUS)
+
+    def test_o_veredito_viaja_com_a_ressalva(self):
+        v = cr.veredito_crop_protection([], paises=('IT',))
+        self.assertIn('ESTE_ESTADO_NAO_SIGNIFICA', v['IT'])
+        junto = ' '.join(v['IT']['ESTE_ESTADO_NAO_SIGNIFICA']).lower()
+        for proibido in ('ninguém faz', 'white space', 'oportunidade comercial'):
+            self.assertIn(proibido, junto)
+
+    def test_o_veredito_declara_o_corpus_medido(self):
+        v = cr.veredito_crop_protection([], paises=('IT',))
+        self.assertIn('CORPUS_MEDIDO', v['IT'])
+
+    def test_nenhum_artefato_AFIRMA_a_frase_extrapolada(self):
+        """A frase que causou a correção não pode voltar como AFIRMAÇÃO.
+
+        O teste é por linha e não por documento, e aceita a frase quando ela
+        aparece sendo NEGADA — é assim que a própria correção fica escrita sem
+        se autoproibir. Banir a palavra em vez da afirmação tornaria impossível
+        documentar o erro, que é justamente o que não queremos perder.
+        """
+        import glob
+        proibidas = ('faixa está vazia', 'faixa vazia', 'white space',
+                     'espaço livre', 'ninguém faz', 'vazia nos três países')
+        # Marcas de que a linha NEGA a frase em vez de afirmá-la.
+        nega = ('≠', 'não ', 'nao ', 'não\u00a0', 'nunca', 'extrapol',
+                'correção', 'correcao', 'proibid', 'errado', 'não é', '!=')
+        achados = []
+        for caminho in glob.glob(os.path.join(ROOT, 'docs', 'creators', '*.md')):
+            for n, linha in enumerate(open(caminho, encoding='utf-8'), 1):
+                baixa = linha.lower()
+                if any(f in baixa for f in proibidas) and not any(x in baixa for x in nega):
+                    achados.append('%s:%d %s' % (os.path.basename(caminho), n,
+                                                 linha.strip()[:70]))
+        self.assertFalse(achados, 'frase extrapolada AFIRMADA: %s' % achados)
+
+class TestTipoDeRelacaoNaoEEscada(unittest.TestCase):
+    """§11 — os cinco tipos NÃO são equivalentes e NÃO são degraus."""
+
+    def test_e_conjunto_sem_ordem(self):
+        self.assertIsInstance(cr.TIPOS_DE_RELACAO, frozenset)
+        self.assertFalse(hasattr(cr.TIPOS_DE_RELACAO, 'index'),
+                         'um tipo de relação com índice viraria escada, e '
+                         '"patrocinou uma categoria" viraria "ativa produto"')
+
+    def test_os_cinco_existem_e_sao_distintos(self):
+        for t in ('BRAND_ECOSYSTEM_SPONSORSHIP', 'BRAND_EVENT_COLLABORATION',
+                  'BRAND_COLLABORATION_PROVED', 'PAID_PARTNERSHIP_PROVED',
+                  'PRODUCT_ACTIVATION_PROVED'):
+            self.assertIn(t, cr.TIPOS_DE_RELACAO)
+
+    def test_forca_e_tipo_sao_campos_diferentes(self):
+        self.assertIn('BRAND_RELATIONSHIP_STATE', cr.CAMPOS_CREATOR)
+        self.assertIn('BRAND_RELATION_TYPE', cr.CAMPOS_CREATOR)
+
+
+class TestSeisProvasDeAtivacao(unittest.TestCase):
+    """§10 — marca e seguidores NÃO são requisito de ACTIVATION_READY."""
+
+    def _pronto(self):
+        r = cr.registro_vazio()
+        r.update({'CREATOR_ID': 'A-1', 'NAME': 'X', 'IDENTITY_STATE': 'PROVED',
+                  'COUNTRY': 'ES', 'CROP_STATE': 'PROVED', 'CROPS': ['OLIVE'],
+                  'CROP_EVIDENCE': 'vídeo de poda', 'OLIVE_GROWING_RELEVANCE': 'PROVED',
+                  'CREATOR_TYPE': 'FARMER_CREATOR', 'ACTIVITY_STATE': 'ACTIVE_RECENT',
+                  'INSTAGRAM': '@x', 'SOURCE_URL': 'https://e.example'})
+        return r
+
+    def test_pronto_sem_nenhuma_marca_no_historico(self):
+        r = self._pronto()
+        self.assertEqual(r['BRAND_RELATIONSHIP_STATE'], cr.NAO_SEI)
+        self.assertEqual(cr.relevancia(r)[0], 'ACTIVATION_READY')
+
+    def test_pronto_sem_nenhum_seguidor_declarado(self):
+        r = self._pronto()
+        self.assertEqual(r['FOLLOWERS_BY_PLATFORM'], cr.NAO_SEI)
+        self.assertEqual(cr.relevancia(r)[0], 'ACTIVATION_READY')
+
+    def test_sem_atividade_recente_nao_esta_pronto(self):
+        r = self._pronto(); r['ACTIVITY_STATE'] = 'NOT_MEASURED'
+        self.assertNotEqual(cr.relevancia(r)[0], 'ACTIVATION_READY')
+
+    def test_as_seis_provas_sao_reportadas_uma_a_uma(self):
+        p = cr.provas_de_ativacao(self._pronto())
+        for prova in cr.PROVAS_DE_ATIVACAO:
+            self.assertIn(prova, p)
+
+    def test_marca_e_seguidores_nao_sao_prova(self):
+        junto = ' '.join(cr.PROVAS_DE_ATIVACAO)
+        self.assertNotIn('BRAND', junto)
+        self.assertNotIn('FOLLOWER', junto)
+
+
+class TestQuatroPapeis(unittest.TestCase):
+    """§14 — quatro papéis, quatro campos, nenhum herdando do outro."""
+
+    def test_os_quatro_campos_existem(self):
+        for c in ('ACTIVATION_CREATOR', 'TECHNICAL_SENSOR_CANDIDATE',
+                  'FIELD_VOICE_SOURCE', 'FARMER_CREATOR_ROLE'):
+            self.assertIn(c, cr.CAMPOS_CREATOR)
+
+    def test_creator_nao_vira_sensor_por_omissao(self):
+        r = cr.registro_vazio()
+        r.update({'NAME': 'X', 'ACTIVATION_CREATOR': 'YES'})
+        self.assertEqual(r['TECHNICAL_SENSOR_CANDIDATE'], cr.NAO_SEI,
+                         'marcar creator não pode preencher o papel de sensor')

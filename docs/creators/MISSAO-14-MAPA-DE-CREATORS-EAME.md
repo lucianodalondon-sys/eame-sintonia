@@ -62,7 +62,7 @@ Evidência preservada em `MARKET-EVIDENCE-EU.json` (8 registros). Destaques:
 |---|---|---|
 | **ES** | **PARTIAL** | 3 casos de empresa de defensivo usando creators — nenhum é ativação de **produto** |
 | **FR** | **PARTIAL** | 1 caso — patrocínio de imagem corporativa, não de produto |
-| **IT** | **NOT_PROVED** | testado nesta rodada; nada encontrado |
+| **IT** | **`NOT_OBSERVED_IN_MEASURED_CORPUS`** | testado; nada encontrado **dentro do corpus medido** |
 
 O veredito é **derivado por `creators.veredito_crop_protection()`**, não digitado. A
 distinção que ele executa é a que decide a resposta:
@@ -71,25 +71,58 @@ distinção que ele executa é a que decide a resposta:
 empresa de crop protection usando creator   ≠   ativação de produto fitossanitário
 ```
 
+### O que estes estados NÃO significam
+
+> **Correção aplicada nesta rodada.** A primeira redação afirmava que a faixa de ativação
+> de produto estaria livre e desocupada nos três países. Isso **não** era o que havia sido
+> medido: era extrapolação, e está agora proibida por teste
+> (`test_nenhum_artefato_AFIRMA_a_frase_extrapolada`).
+
+O que foi medido é:
+
+```
+CROP_PROTECTION_PRODUCT_CREATOR_ACTIVATION = NOT_OBSERVED_IN_MEASURED_CORPUS
+```
+
+E o corpus medido é **pequeno e enviesado pelas fontes que alcançamos**: pesquisa aberta
+por buscador mais **uma** rota Apify de Instagram. Ele **não** inclui varredura sistemática
+de posts patrocinados, arquivos de campanha das marcas, nem plataformas de influencer
+marketing.
+
+| não observado no corpus **não** é | |
+|---|---|
+| ≠ ninguém faz | uma marca pode ativar produto com creator sem que a nossa busca alcance |
+| ≠ white space de mercado | ausência de observação não mede ocupação de mercado |
+| ≠ oportunidade comercial | a decisão comercial depende de dados que esta base não tem |
+
+O mesmo vale para a Itália: **`NOT_OBSERVED_IN_MEASURED_CORPUS` não significa
+`ITALY_DOES_NOT_USE_AGRICULTURAL_CREATORS`** — a Itália tem, e está provado neste mesmo
+documento. Significa apenas que **não se observou uso ligado especificamente a crop
+protection** dentro do universo medido.
+
+A ressalva viaja **dentro do JSON**, no campo `ESTE_ESTADO_NAO_SIGNIFICA`, para que não se
+perca entre o dado e o slide.
+
 **Os quatro casos, todos preservados com fonte:**
 
-| caso | marca | tipo de peça | estado |
+| caso | marca | tipo de relação | mensagem |
 |---|---|---|---|
-| `#YoSoyAgricultor` (ES, 2020) | **BASF Agro** | concurso de fotografia; influencers nomeados como parceiros | imagem corporativa |
-| Categoria *Tomatito* (ES, 2026) | **Seipasa** | patrocínio de categoria de prêmio ligada a **cultura** | presença em evento |
-| Categoria *Embajador del AOVE* (ES, 2026) | **Syngenta** | patrocínio de categoria | presença em evento |
-| Salon de l'Agriculture (FR, 2023) | **Bayer** | stories patrocinadas por creator **generalista** | imagem corporativa |
+| `#YoSoyAgricultor` (ES, 2020) | **BASF Agro** | `BRAND_COLLABORATION_PROVED` | imagem corporativa |
+| Categoria *Tomatito* (ES, 2026) | **Seipasa** | `BRAND_ECOSYSTEM_SPONSORSHIP` | presença em evento |
+| Categoria *Embajador del AOVE* (ES, 2026) | **Syngenta** | `BRAND_ECOSYSTEM_SPONSORSHIP` | presença em evento |
+| Salon de l'Agriculture (FR, 2023) | **Bayer** | `PAID_PARTNERSHIP_PROVED` | imagem corporativa |
 
-**A conclusão estratégica, e ela é acionável:**
+Os cinco tipos de relação **não são degraus** e não são equivalentes:
+`BRAND_ECOSYSTEM_SPONSORSHIP` · `BRAND_EVENT_COLLABORATION` ·
+`BRAND_COLLABORATION_PROVED` · `PAID_PARTNERSHIP_PROVED` · `PRODUCT_ACTIVATION_PROVED`.
+São um `frozenset` **sem índice**, e um teste proíbe dar-lhes ordem — porque num contínuo
+"a Syngenta patrocinou uma categoria" vira, três leituras depois, "a Syngenta ativa produto
+com creators".
 
-> As concorrentes **já estão** no jogo de creators — mas todas na faixa de **imagem,
-> setor e evento**. A faixa de **ativação de produto fitossanitário via creator**
-> está, nesta medição, **vazia nos três países**.
-
-Isso é ao mesmo tempo um **espaço livre** e um **aviso**: o caso francês (Bayer) terminou
-com a creator encerrando a parceria após repercussão pública negativa, investigada por
-dois veículos independentes. A faixa está vazia provavelmente porque é **regulada e
-reputacionalmente cara** — ver §L.
+**Sobre o caso francês:** a creator encerrou a parceria após repercussão pública,
+investigada por dois veículos. Isso está registrado como **fato daquele caso**, e não como
+causa geral do mercado — não se infere dele por que a ativação de produto não foi observada
+nos outros países.
 
 ---
 

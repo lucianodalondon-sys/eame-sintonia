@@ -1,16 +1,28 @@
 # ═══════════════════════════════════════════════════════════════════════
-# MAPA DE CREATORS — coleta no runner residencial.
+# MAPA DE CREATORS (MISSÃO 14) — pessoa como CANAL de comunicação.
 #
-# Existe porque o contêiner da sessão NÃO alcança as fontes: medido nesta
-# missão, `plataformatierra.es`, `revistamercados.com`, `cibotoday.it`,
-# `reporterre.net` e `desmog.com` devolveram EGRESS_BLOCKED. A máquina local é
-# a mesma rota que já foi a única a abrir o catálogo ADAMA.
+# Workflow PRÓPRIO, separado do `apify-sensores` (EARLY SIGNAL: pessoa como
+# SENSOR técnico). Os runners são compartilhados; o resto não:
 #
-#     contratos   GRÁTIS — lê o schema dos atores. Zero run, zero custo.
-#     resolver    resolve perfil de quem TEM handle vindo de fonte.
+#     WORKFLOW    apify-creators.yml          (este)
+#     DATASET     data/samples/CREATOR-MAP-EAME/
+#     RUN_ID      prefixo 14-MAPA-DE-CREATORS-EAME-*
+#     MANIFEST    CREATOR-MAP-EAME/RUN-MANIFEST-CREATORS.json
+#     NAMESPACE   commit limitado aos caminhos desta missão
 #
-# `contratos` roda primeiro por lei da casa: entrada errada é o erro mais caro
-# já medido aqui.
+# POR QUE ISTO EXISTE, E POR QUE A PONTE MORREU
+# -----------------------------------------------
+# O GitHub só registra `workflow_dispatch` para arquivos presentes no branch
+# PADRÃO. Enquanto este arquivo vivia só no branch de trabalho, as fases de
+# creators entravam por uma ponte no `apify-sensores.yml`. A ponte funcionava e
+# era errada: misturava as duas missões no mesmo workflow, no mesmo commit e no
+# mesmo manifesto. Com este arquivo promovido, a ponte foi removida.
+#
+# CONCORRÊNCIA
+# ------------
+# `concurrency` impede dois jobs DESTA missão colidirem — o passo 3 faz commit,
+# e dois commits simultâneos na mesma branch é a colisão que já custou um rebase.
+# Paralelismo ENTRE missões continua permitido: o grupo é nomeado pela missão.
 # ═══════════════════════════════════════════════════════════════════════
 name: apify-creators
 
@@ -22,14 +34,31 @@ on:
         required: true
         default: contratos
         type: choice
-        options: [contratos, resolver]
+        options:
+          - contratos      # GRÁTIS — lê ator e INPUT SCHEMA. Zero run, zero custo.
+          - diag           # mede a resposta crua da plataforma
+          - seed           # resolve os handles da seed
+          - resolver       # resolve perfis com handle vindo de fonte
+          - atividade      # mede atividade 30/90d dos perfis resolvidos
+      runner:
+        description: 'qual runner usar'
+        required: true
+        default: '2'
+        type: choice
+        options: ['1', '2']
 
 permissions:
   contents: write
 
+concurrency:
+  group: creator-map-${{ github.ref_name }}
+  cancel-in-progress: false
+
 jobs:
   coleta:
-    runs-on: [self-hosted, Windows, X64, eame-sintonia-local-2]
+    runs-on: ${{ inputs.runner == '1'
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
     defaults:
       run:
         shell: bash
@@ -41,7 +70,22 @@ jobs:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
-      - name: 0 · interpretador
+      # Este workflow é despachável a partir do branch PADRÃO, mas os scripts da
+      # missão vivem no branch de trabalho. Rodar contra um ref sem eles falharia
+      # com um traceback de import — que não diz o que houve. Falhar aqui, com a
+      # frase certa, custa dez segundos e evita a caçada.
+      - name: 0 · o ref tem os scripts desta missão?
+        run: |
+          if [ ! -f scripts/creator_coleta.py ]; then
+            echo "SCRIPTS_AUSENTES=YES"
+            echo "O ref '${{ github.ref_name }}' nao contem scripts/creator_coleta.py."
+            echo "Despache este workflow contra o branch da missao 14."
+            exit 1
+          fi
+          echo "SCRIPTS_PRESENTES=YES"
+
+      # `python3` nesta maquina e o atalho da Microsoft Store e falha. `py` funciona.
+      - name: 1 · interpretador
         run: |
           for c in py python3 python; do
             if $c --version >/dev/null 2>&1; then
@@ -50,25 +94,56 @@ jobs:
           done
           echo "INTERPRETADOR=NENHUM"; exit 1
 
-      - name: 1 · censo do pool (presença e formato — nunca valor)
+      - name: 2 · censo do pool (presenca e formato — nunca valor)
         run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
 
-      - name: 2 · rodar a fase
+      - name: 3 · rodar a fase
         run: |
           echo "FASE=${{ inputs.fase }} · RUNNER=${{ runner.name }}"
           PYTHONIOENCODING=utf-8 $PY scripts/creator_coleta.py "${{ inputs.fase }}"
 
-      - name: 3 · devolver o resultado ao repositório
+      - name: 4 · devolver o resultado (so os caminhos DESTA missao)
         run: |
           git config user.name  "sintonia-eame-runner"
           git config user.email "runner@eame-sintonia.local"
-          git add -A data/samples/CREATOR-MAP-EAME data/samples/raw-paid \
-                     data/samples/RUN-MANIFEST.json 2>/dev/null || true
+          # Namespace: nunca `git add -A`. A missao Early Signal pode estar
+          # gravando em data/samples/ no mesmo instante, e levar o arquivo dela
+          # num commit meu criaria um commit que nenhuma das duas missoes fez.
+          git add data/samples/CREATOR-MAP-EAME 2>/dev/null || true
+          git add data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-* 2>/dev/null || true
           if git diff --cached --quiet; then
-            echo "NADA_MUDOU=YES"; exit 0
+            echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"; exit 0
           fi
-          git diff --cached --stat
+          echo "--- o que volta ---"; git diff --cached --stat
           git commit -q -m "mapa de creators: fase ${{ inputs.fase }} (run ${{ github.run_id }})"
           git pull --rebase --quiet origin "${{ github.ref_name }}" || true
           git push origin HEAD:"${{ github.ref_name }}"
           echo "RESULTADO_COMMITADO=YES"
+
+      - name: 5 · o que a fase gastou (manifesto DESTA missao)
+        if: always()
+        run: |
+          PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
+          import json, os, sys
+          sys.path.insert(0, 'scripts')
+          import creators as cr
+          caminho = os.path.join(cr.BASE, 'RUN-MANIFEST-CREATORS.json')
+          if not os.path.exists(caminho):
+              print('APIFY_RUNS_DA_MISSAO=0'); print('COST_USD_DA_MISSAO=0'); raise SystemExit
+          with open(caminho, encoding='utf-8') as f:
+              d = json.load(f)
+          runs = d.get('RUNS') or d
+          runs = list(runs.values()) if isinstance(runs, dict) else runs
+          runs = [r for r in runs if isinstance(r, dict) and r.get('RUN_ID')]
+          custo = sum(r['COST_USD'] for r in runs
+                      if isinstance(r.get('COST_USD'), (int, float)))
+          itens = sum(r['ITEM_COUNT_RAW'] for r in runs
+                      if isinstance(r.get('ITEM_COUNT_RAW'), (int, float)))
+          print('APIFY_RUNS_DA_MISSAO=%d' % len(runs))
+          print('ITEMS_DA_MISSAO=%d' % itens)
+          print('COST_USD_DA_MISSAO=%.6f' % custo)
+          for r in runs:
+              print('  %-56s %-8s itens=%-5s usd=%s'
+                    % (r['RUN_ID'][:56], r.get('STATUS'), r.get('ITEM_COUNT_RAW'),
+                       r.get('COST_USD')))
+          PYEOF

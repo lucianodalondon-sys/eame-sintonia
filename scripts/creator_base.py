@@ -42,6 +42,10 @@ sys.path.insert(0, HERE)
 import creators as cr                                        # noqa: E402
 
 MISSION = '14-MAPA-DE-CREATORS-EAME'
+
+# Patrocinar a categoria de um prêmio e ativar um produto com a pessoa são fatos
+# diferentes. Este mapa impede que o segundo seja lido a partir do primeiro.
+TIPOS_DE_RELACAO_POR_CASO = {'COL-FR-001': 'PAID_PARTNERSHIP_PROVED', 'COL-FR-002': 'BRAND_COLLABORATION_PROVED', 'COL-IT-001': 'BRAND_COLLABORATION_PROVED', 'COL-ES-001': 'BRAND_COLLABORATION_PROVED', 'COL-ES-002': 'BRAND_ECOSYSTEM_SPONSORSHIP', 'COL-ES-003': 'BRAND_ECOSYSTEM_SPONSORSHIP', 'COL-ES-004': 'BRAND_ECOSYSTEM_SPONSORSHIP'}
 CAPTURA = '2026-08-30'
 ROTA = 'WEB_SEARCH (contêiner) — WebFetch bloqueado por política de egresso'
 
@@ -360,6 +364,9 @@ def _creator(c):
         # O duplo papel: declarado, nunca deduzido um do outro.
         'ACTIVATION_CREATOR': 'NOT_KNOWN',
         'TECHNICAL_SENSOR_CANDIDATE': 'NOT_KNOWN',
+        'FIELD_VOICE_SOURCE': 'NOT_KNOWN',
+        'FARMER_CREATOR_ROLE': 'NOT_KNOWN',
+        'BRAND_RELATION_TYPE': 'NOT_KNOWN',
         'AGRICULTURAL_RELEVANCE': cr.NAO_SEI, 'TECHNICAL_RELEVANCE': cr.NAO_SEI,
         'HANDLE_EXISTS': 'NOT_TESTED', 'PROFILE_URL': cr.NAO_SEI,
         'NAME_MATCH': 'NOT_TESTED',
@@ -401,6 +408,8 @@ def _colab(c):
         'DATE': c['data'], 'CAMPAIGN': c['campanha'], 'PRODUCT_CATEGORY': c['categoria'],
         'PRODUCT_NAME': c['produto'], 'PLATFORM': c['plataforma'],
         'SPONSORED_DISCLOSURE': c['disclosure'], 'RELATIONSHIP_STATE': c['estado'],
+        # TIPO da relação — dimensão distinta da FORÇA da evidência (§11).
+        'RELATION_TYPE': TIPOS_DE_RELACAO_POR_CASO.get(c['id'], 'NOT_KNOWN'),
         'MESSAGE_KIND': c['mensagem'], 'SOURCE_URL': c['url'],
         'SOURCE_KIND': c['fonte_tipo'], 'CAPTURE_DATE': CAPTURA, 'NOTE': c['nota'],
     })

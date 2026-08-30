@@ -98,6 +98,20 @@ coletor._curl = _http
 MISSION = '14-MAPA-DE-CREATORS-EAME'
 SAIDA = cr.BASE
 
+# ─────────────────────────────── ISOLAMENTO ENTRE MISSÕES (§3)
+# EARLY SIGNAL e CREATOR MAP já rodaram ao mesmo tempo, e os dois escreviam no
+# MESMO `data/samples/RUN-MANIFEST.json`. Dois runners gravando o mesmo JSON não
+# é uma corrida improvável: é a corrida garantida, porque `pv.gravar()` lê tudo,
+# junta e reescreve o arquivo inteiro — quem terminar por último apaga o outro.
+#
+# A correção não é lock: é NAMESPACE. Cada missão tem o seu manifesto, e o
+# `RUN_ID` continua resolvendo dentro dele. Redirecionar `pv.MANIFESTO` (mesma
+# técnica da substituição de `coletor._curl`) mantém a porta única do `coletor`
+# intacta e tira o ponto de disputa.
+import proveniencia as pv                                    # noqa: E402
+
+pv.MANIFESTO = os.path.join(cr.BASE, 'RUN-MANIFEST-CREATORS.json')
+
 # Atores. Os dois primeiros já foram provados nesta casa (piloto de sensores);
 # os de Instagram/TikTok são novos e por isso a fase `contratos` existe: entrada
 # errada é o erro mais caro já medido aqui (8 execuções, 8 vezes o mesmo

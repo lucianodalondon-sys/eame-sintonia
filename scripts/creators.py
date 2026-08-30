@@ -85,8 +85,9 @@ CAMPOS_CREATOR = [
     # papel — canal, e o ponteiro (nunca a fusão) para o papel de sensor
     'CREATOR_TYPE', 'ACTUAL_FARMER', 'ACTUAL_FARMER_EVIDENCE', 'SENSOR_ROLE_LINK',
     'FARM_TYPE', 'FARM_SCALE',
-    # os DOIS papéis, lado a lado e nunca somados
+    # os QUATRO papéis, lado a lado e nunca somados nem herdados um do outro
     'ACTIVATION_CREATOR', 'TECHNICAL_SENSOR_CANDIDATE',
+    'FIELD_VOICE_SOURCE', 'FARMER_CREATOR_ROLE',
     # cultura e assunto — provados, nunca inferidos de "é agro"
     'CROPS', 'CROP_STATE', 'CROP_EVIDENCE', 'REGIONS', 'TECHNICAL_TOPICS',
     # o que a SEED alegou vs o que o CONTEÚDO provou — nunca o mesmo campo
@@ -109,8 +110,8 @@ CAMPOS_CREATOR = [
     'CROP_CONTENT', 'MACHINERY_CONTENT', 'PRODUCT_CONTENT',
     'RURAL_LIFESTYLE_CONTENT', 'FOOD_WINE_CONTENT',
     'AGRICULTURAL_RELEVANCE', 'TECHNICAL_RELEVANCE',
-    # marca
-    'BRAND_RELATIONSHIP_STATE', 'BRAND_COLLABORATIONS',
+    # marca — FORÇA da evidência e TIPO da relação são dimensões separadas
+    'BRAND_RELATIONSHIP_STATE', 'BRAND_RELATION_TYPE', 'BRAND_COLLABORATIONS',
     'COMPETITOR_COLLABORATION', 'ADAMA_COLLABORATION_OBSERVED',
     # contato público profissional
     'PUBLIC_CONTACT_ROUTE', 'CONTACT_KIND',
@@ -130,7 +131,7 @@ CAMPOS_CREATOR = [
 CAMPOS_COLABORACAO = [
     'COLLAB_ID', 'CREATOR_ID', 'CREATOR_NAME', 'COUNTRY', 'BRAND', 'BRAND_KIND',
     'DATE', 'CAMPAIGN', 'PRODUCT_CATEGORY', 'PRODUCT_NAME', 'PLATFORM',
-    'SPONSORED_DISCLOSURE', 'RELATIONSHIP_STATE', 'MESSAGE_KIND',
+    'SPONSORED_DISCLOSURE', 'RELATIONSHIP_STATE', 'RELATION_TYPE', 'MESSAGE_KIND',
     'SOURCE_URL', 'SOURCE_KIND', 'CAPTURE_DATE', 'EVIDENCE_PATH', 'NOTE',
 ]
 
@@ -163,6 +164,26 @@ ESCADA_MARCA = (
     'BRAND_COLLABORATION_PROVED',
     'PAID_PARTNERSHIP_PROVED',
 )
+
+# ─────────────────────────────────────── TIPO de relação (§11) — SEM ORDEM
+# Estes cinco NÃO são degraus e NÃO são equivalentes: são COISAS DIFERENTES que
+# uma marca pode fazer. Patrocinar a categoria de um prêmio, aparecer num evento
+# com um creator, colaborar com ele, pagar-lhe e ativar um PRODUTO com ele são
+# cinco fatos distintos, e o erro caro é tratá-los como um contínuo — porque aí
+# "a Syngenta patrocinou uma categoria" vira, três leituras depois, "a Syngenta
+# ativa produto com creators".
+#
+# Por isso este campo é uma LISTA FECHADA SEM ÍNDICE, e `test_tipo_de_relacao_
+# nao_e_escada` proíbe qualquer comparação de ordem sobre ele. A força da
+# EVIDÊNCIA continua em `BRAND_RELATIONSHIP_STATE`, que é outra dimensão.
+TIPOS_DE_RELACAO = frozenset((
+    'BRAND_ECOSYSTEM_SPONSORSHIP',   # patrocina o ecossistema: categoria, prêmio
+    'BRAND_EVENT_COLLABORATION',     # colabora num evento
+    'BRAND_COLLABORATION_PROVED',    # colabora com a pessoa
+    'PAID_PARTNERSHIP_PROVED',       # paga a pessoa
+    'PRODUCT_ACTIVATION_PROVED',     # ativa um PRODUTO com a pessoa
+    'NOT_KNOWN',
+))
 
 # O que a peça COMUNICA. Separado de PRODUCT_CATEGORY de propósito: uma empresa
 # de defensivos pode patrocinar conteúdo que não promove defensivo nenhum, e
@@ -369,6 +390,41 @@ def _sim(v):
     return str(v).upper() in ('YES', 'TRUE', 'SIM', '1')
 
 
+# As SEIS provas de `ACTIVATION_READY` (§10). Note o que NÃO está na lista:
+# histórico de marca e número de seguidores. Nenhum dos dois é requisito — um
+# creator sem nenhuma campanha anterior pode ser exatamente o que o Marketing
+# procura, e seguidor alto sem cultura provada já mostrou, nesta missão, entregar
+# audiência de consumidor de vinho no lugar de produtor de uva.
+PROVAS_DE_ATIVACAO = (
+    'IDENTITY_PROVED', 'COUNTRY_PROVED', 'CROP_FIT_PROVED',
+    'ROLE_PROVED', 'RECENT_ACTIVITY_PROVED', 'PUBLIC_CHANNEL_PROVED',
+)
+
+
+def provas_de_ativacao(reg):
+    """Devolve as seis provas, uma a uma, com o valor que as sustenta.
+
+    Devolver o detalhe — e não só o veredito — é o que permite ao Marketing ver
+    QUAL prova falta em cada pessoa, que é a pergunta operacional real: "o que
+    preciso descobrir para poder avaliar este nome?".
+    """
+    canais = [p for p in ('INSTAGRAM', 'TIKTOK', 'YOUTUBE', 'FACEBOOK', 'LINKEDIN', 'X')
+              if reg.get(p) not in (None, '', NAO_SEI)]
+    contato = [c for c in ('PUBLIC_CONTACT_ROUTE', 'BUSINESS_EMAIL', 'MANAGEMENT',
+                           'AGENCY', 'CONTACT_FORM', 'PUBLIC_DM_ROUTE')
+               if reg.get(c) not in (None, '', NAO_SEI, 'NOT_KNOWN')]
+    return {
+        'IDENTITY_PROVED': reg.get('IDENTITY_STATE') == 'PROVED',
+        'COUNTRY_PROVED': reg.get('COUNTRY') not in (None, '', NAO_SEI, 'NOT_KNOWN'),
+        'CROP_FIT_PROVED': reg.get('CROP_STATE') in ('PROVED', 'PARTIAL'),
+        'ROLE_PROVED': reg.get('CREATOR_TYPE') not in (None, '', NAO_SEI),
+        'RECENT_ACTIVITY_PROVED': reg.get('ACTIVITY_STATE') == 'ACTIVE_RECENT',
+        'PUBLIC_CHANNEL_PROVED': bool(canais),
+        '_CANAIS': canais,
+        '_ROTAS_DE_CONTATO': contato,
+    }
+
+
 def relevancia(reg, *, colaboracoes=()):
     """LEI 6 — estado DERIVADO de evidência, nunca nota, nunca ordenação por
     seguidores.
@@ -376,32 +432,9 @@ def relevancia(reg, *, colaboracoes=()):
     Devolve (estado, porques). `porques` é a lista de motivos legíveis: é ela
     que vai para a ficha "WHO COULD MARKETING CALL?", não o estado sozinho.
     """
-    porques = []
-
-    identidade_ok = reg.get('IDENTITY_STATE') == 'PROVED'
-    cultura_ok = reg.get('CROP_STATE') == 'PROVED'
-    ativo = reg.get('ACTIVITY_STATE') == 'ACTIVE_RECENT'
-    plataforma_ok = any(reg.get(p) not in (None, NAO_SEI)
-                        for p in ('INSTAGRAM', 'TIKTOK', 'YOUTUBE', 'FACEBOOK', 'LINKEDIN', 'X'))
-
-    if not identidade_ok:
-        return 'RESEARCH_NEEDED', ['IDENTIDADE_NAO_PROVADA: sem ficha de origem não promove']
-    porques.append('IDENTIDADE_PROVADA')
-
-    if not plataforma_ok:
-        return 'RESEARCH_NEEDED', porques + ['NENHUM_CANAL_PUBLICO_RESOLVIDO']
-
-    if cultura_ok:
-        porques.append('CULTURA_PROVADA: %s' % reg.get('CROPS'))
-    else:
-        porques.append('CULTURA_NAO_PROVADA: não entra em recorte por cultura')
-
-    if ativo:
-        porques.append('ATIVIDADE_RECENTE_MEDIDA')
-    elif reg.get('ACTIVITY_STATE') == 'NOT_MEASURED':
-        porques.append('ATIVIDADE_NAO_MEDIDA: rota de medição não executada')
-    else:
-        porques.append('ATIVIDADE_%s' % reg.get('ACTIVITY_STATE'))
+    p = provas_de_ativacao(reg)
+    faltando = [k for k in PROVAS_DE_ATIVACAO if not p[k]]
+    porques = ['%s=%s' % (k, 'OK' if p[k] else 'FALTA') for k in PROVAS_DE_ATIVACAO]
 
     # Conflito com concorrente é INFORMAÇÃO para o Marketing, não desqualificação.
     conc = [c for c in colaboracoes
@@ -410,45 +443,25 @@ def relevancia(reg, *, colaboracoes=()):
             and c.get('RELATIONSHIP_STATE') in ('BRAND_COLLABORATION_PROVED',
                                                 'PAID_PARTNERSHIP_PROVED')]
     if conc:
-        porques.append('CONFLITO_CONCORRENTE: %s' % ', '.join(sorted({c['BRAND'] for c in conc})))
+        porques.append('CONFLITO_CONCORRENTE: %s'
+                       % ', '.join(sorted({c['BRAND'] for c in conc})))
 
-    if reg.get('CREATOR_TYPE') == 'OTHER' and not cultura_ok:
-        return 'NOT_RELEVANT', porques + ['SEM_TIPO_E_SEM_CULTURA']
+    if not faltando:
+        # A sétima condição: uma rota de contato OU presença profissional pública
+        # bastante para o Marketing avaliar. Canal público resolvido conta.
+        if p['_ROTAS_DE_CONTATO'] or p['_CANAIS']:
+            return 'ACTIVATION_READY', porques
+        return 'PROMISING', porques + ['SEM_ROTA_DE_CONTATO_NEM_CANAL']
 
-    # ACTIVATION_READY = há evidência suficiente para o Marketing AVALIAR.
-    # Não é autorização de campanha, e o campo de compliance vai junto.
-    if identidade_ok and cultura_ok and ativo:
-        return 'ACTIVATION_READY', porques
-    if identidade_ok and (cultura_ok or ativo):
-        return 'PROMISING', porques
-    return 'RESEARCH_NEEDED', porques
-
-
-def fit_para_adama(reg):
-    """Deriva `AUDIENCE_FIT_FOR_ADAMA`. Nunca digitado, nunca por seguidores.
-
-    A pergunta não é "quantos ouvem?", é "quantos dos que ouvem COMPRAM
-    defensivo?". Um crítico de vinho com 200 mil seguidores e um cerealicultor
-    com 20 mil não são comparáveis, e ordená-los pelo mesmo número inverteria a
-    resposta.
-    """
-    consumidor = ('WINE_CONSUMERS', 'FOOD_CONSUMERS', 'GENERAL_PUBLIC')
-    tipo = reg.get('CREATOR_TYPE')
-    aud = reg.get('AUDIENCE_TYPE')
-    cultura_ok = reg.get('CROP_STATE') in ('PROVED', 'PARTIAL')
-
-    if tipo in ('WINE_MEDIA_CREATOR', 'FOOD_CREATOR') or aud in consumidor:
-        return 'LOW', ('audiência de consumidor final — pode servir a B2C, não a '
-                       'ativação junto a quem aplica defensivo')
     if reg.get('CROP_STATE') == 'WRONG_ASSIGNMENT':
-        return 'LOW', 'cultura atribuída pela seed foi refutada pela evidência'
-    if aud in ('FARMERS', 'AGRONOMISTS', 'TECHNICIANS') and cultura_ok:
-        return 'HIGH', 'audiência declarada de campo e cultura provada'
-    if tipo in ('FARMER_CREATOR', 'AGRONOMIST_CREATOR', 'TECHNICAL_CREATOR') and cultura_ok:
-        return 'MEDIUM', 'perfil de campo com cultura provada; audiência ainda não medida'
-    if tipo in ('FARMER_CREATOR', 'AGRONOMIST_CREATOR', 'TECHNICAL_CREATOR'):
-        return 'MEDIUM', 'perfil de campo; cultura ainda não provada'
-    return 'NOT_KNOWN', 'sem tipo, audiência ou cultura suficientes'
+        return 'NOT_RELEVANT', porques + [
+            'CULTURA_REFUTADA: a cultura atribuída foi medida como errada — não '
+            'entra no recorte desta cultura (pode servir a outro)']
+
+    # Quantas faltam decide entre "quase lá" e "pesquisar".
+    if len(faltando) <= 2 and p['IDENTITY_PROVED']:
+        return 'PROMISING', porques + ['FALTAM: %s' % ', '.join(faltando)]
+    return 'RESEARCH_NEEDED', porques + ['FALTAM: %s' % ', '.join(faltando)]
 
 
 def pendencias_de_compliance(reg=None):
@@ -463,18 +476,35 @@ def pendencias_de_compliance(reg=None):
     }
 
 
+# O estado que substitui `NOT_PROVED` — e o motivo de ele ser longo de propósito.
+# `NOT_PROVED` é curto, e por ser curto foi lido como "não existe". Este nome não
+# cabe numa manchete, que é exatamente o ponto: ele obriga quem o cita a carregar
+# junto o escopo em que a ausência foi observada.
+AUSENTE_NO_CORPUS = 'NOT_OBSERVED_IN_MEASURED_CORPUS'
+
+# O que este estado NÃO autoriza dizer. Viaja junto do veredito, no próprio JSON,
+# para que a ressalva não se perca entre o dado e o slide.
+NAO_SIGNIFICA = [
+    'não significa "ninguém faz"',
+    'não significa "white space de mercado"',
+    'não significa "oportunidade comercial"',
+    'não significa que o país não usa creators agrícolas — só que, no corpus '
+    'medido, não se observou uso ligado especificamente a crop protection',
+]
+
+
 def veredito_crop_protection(colaboracoes, *, paises=('ES', 'IT', 'FR'), testados=None):
     """LEI 5 — categoria não transfere, e empresa de defensivo não é peça de defensivo.
 
-    Três estados por país, e a diferença entre eles é a pergunta do briefing:
+    Quatro estados por país:
 
-        PROVED      há peça PAGA/COLABORADA cuja CATEGORIA é CROP_PROTECTION
-                    e cuja MENSAGEM promove produto ou ensina uso de produto.
-        PARTIAL     há uso comprovado de creator por EMPRESA de crop protection,
-                    mas a peça é institucional/advocacy/evento — ou a categoria
-                    é de defensivo e o patrocínio não está provado.
-        NOT_PROVED  o país foi testado e nada disso apareceu.
-        NOT_TESTED  o país não foi testado. Nunca confundir com NOT_PROVED.
+        PROVED       há ativação de PRODUTO fitossanitário com creator.
+        PARTIAL      empresa de crop protection usando creator para
+                     ecossistema, evento, imagem ou setor — nunca produto.
+        NOT_OBSERVED_IN_MEASURED_CORPUS
+                     o país foi testado e nada apareceu DENTRO DO CORPUS MEDIDO.
+                     Ausência observada num corpus não é ausência no mercado.
+        NOT_TESTED   o país não foi pesquisado. Nunca confundir com o anterior.
     """
     testados = set(testados if testados is not None else paises)
     fora = {}
@@ -484,7 +514,8 @@ def veredito_crop_protection(colaboracoes, *, paises=('ES', 'IT', 'FR'), testado
     for pais in paises:
         if pais not in testados:
             fora[pais] = {'ESTADO': 'NOT_TESTED', 'CASOS': [], 'MOTIVO':
-                          'país não pesquisado nesta rodada — ausência de busca não é ausência de fato'}
+                          'país não pesquisado nesta rodada — ausência de busca não é ausência de fato',
+                          'ESTE_ESTADO_NAO_SIGNIFICA': NAO_SIGNIFICA}
             continue
         do_pais = [c for c in colaboracoes if c.get('COUNTRY') == pais]
         pleno = [c for c in do_pais
@@ -506,11 +537,18 @@ def veredito_crop_protection(colaboracoes, *, paises=('ES', 'IT', 'FR'), testado
                       'produto fitossanitário provada — institucional/advocacy/evento não é '
                       'ativação de produto' % len(parcial))
         else:
-            estado, casos = 'NOT_PROVED', []
-            motivo = 'testado nesta rodada; nenhuma evidência pública encontrada'
+            estado, casos = AUSENTE_NO_CORPUS, []
+            motivo = ('testado nesta rodada; nenhuma evidência encontrada DENTRO DO '
+                      'CORPUS MEDIDO — que é pequeno e enviesado pelas fontes que '
+                      'alcançamos')
         fora[pais] = {
             'ESTADO': estado,
             'MOTIVO': motivo,
+            'ESTE_ESTADO_NAO_SIGNIFICA': NAO_SIGNIFICA,
+            'CORPUS_MEDIDO': 'pesquisa aberta por buscador + 1 rota Apify de Instagram; '
+                             'NÃO inclui varredura sistemática de posts patrocinados, '
+                             'nem arquivos de campanha das marcas, nem plataformas de '
+                             'influencer marketing',
             'CASOS': [{k: c.get(k) for k in
                        ('BRAND', 'CREATOR_NAME', 'DATE', 'PRODUCT_CATEGORY', 'MESSAGE_KIND',
                         'RELATIONSHIP_STATE', 'PLATFORM', 'SOURCE_URL')} for c in casos],
