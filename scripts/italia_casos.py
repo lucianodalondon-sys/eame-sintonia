@@ -59,12 +59,27 @@ def casos():
                       'SOURCE': 'IT-T3-003 (Regione Lombardia, Servizio Fitosanitario)',
                       'INSTITUTIONAL_LAYER': 'remete ao Documento tecnico ufficiale n. 29 '
                                              'dei Servizi Fitosanitari Nazionali'},
-            'WINDOW': {'STATE': 'OPEN',
-                       'WINDOW_FOR_SYMPTOM_RECOGNITION': 'início de agosto a fim de setembro',
-                       'AS_OF': '2026-08-30',
-                       'WINDOW_FOR_VECTOR_CONTROL': 'NÃO SEI — não medido. O produto da ADAMA '
-                                                    'age no VETOR; a janela publicada é de '
-                                                    'RECONHECIMENTO DE SINTOMA. Não são a mesma.'},
+            'WINDOW': {
+                'STATE': 'SPLIT — as duas janelas foram medidas e NÃO coincidem',
+                'AS_OF': '2026-08-30',
+                'WINDOW_FOR_SYMPTOM_RECOGNITION': {
+                    'STATE': 'OPEN',
+                    'DECLARED': 'início-meados de agosto a fim de setembro',
+                    'WHAT_IT_ENABLES': 'monitoramento e reconhecimento de sintoma foliar. '
+                                       'NÃO é janela de aplicação.'},
+                'WINDOW_FOR_VECTOR_CONTROL': {
+                    'STATE': 'CLOSED_FOR_2026',
+                    'EVIDENCE': ('o boletim de 31/07/2026 diz "Dando per effettuati gli '
+                                 'obbligatori trattamenti insetticidi per il controllo del '
+                                 'vettore della malattia" — ou seja, DÁ POR FEITOS os '
+                                 'tratamentos ao vetor nesta data'),
+                    'REGULATORY_NATURE': ('os tratamentos ao vetor são OBBLIGATORI na '
+                                          'Lombardia (DGR 29/12/2021 n. XI-5836) — obrigação '
+                                          'regulatória anual, não recomendação'),
+                    'CONSEQUENCE': ('é ONDE o produto da ADAMA age, e está FECHADA em 2026. '
+                                    'A decisão comercial correspondente é do PRÓXIMO CICLO. '
+                                    'Declarar a janela de sintoma como se fosse janela de '
+                                    'aplicação seria fabricar urgência.')}},
             'SCIENCE': {'STATE': 'MEASURED', 'GRAPEVINE_PHYTOPLASMA_WORKS': 135,
                         'SCAPHOIDEUS_TITANUS_WORKS': 66, 'SOURCE': 'IT-T5-001'},
             'ADAMA_REGISTERED_RESPONSE': {
@@ -77,7 +92,8 @@ def casos():
                                 'senza superare 0,3 l/ha'),
                 'EVIDENCE_CLASS': 'REGULATORY_FACT', 'SOURCE': 'IT-T4-001-ETICHETTA'},
             'WHAT_IS_UNKNOWN': [
-                'janela de controle do vetor', 'área de videira por região',
+                'datas exatas dos tratamentos obrigatórios ao vetor em 2026',
+                'se a obrigação vale igual no Vêneto', 'área de videira por região',
                 'se o mesmo sinal vale no Vêneto', 'disponibilidade comercial',
                 'pressão real de campo em 30/08', 'prioridade interna da ADAMA Italia'],
         },

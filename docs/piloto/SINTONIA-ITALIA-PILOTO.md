@@ -261,7 +261,8 @@ noutra, e as pernas estão medidas.
 |---|---|---|
 | ESCALA | 715,8 mil ha — 3ª cultura do país · **região: `NÃO SEI`** | `EU-T1-001` |
 | CAMPO | **`CURRENT_SIGNAL`** — Bollettino Regionale LA VITE n.6, **31/07/2026** | `IT-T3-003` |
-| JANELA | **`OPEN`** — *"da inizio agosto alla fine settembre"* para reconhecer sintomas foliares; hoje é **30/08** | idem |
+| JANELA (sintoma) | **`OPEN`** — *"inizio-metà agosto alla fine settembre"*; hoje é **30/08** | idem |
+| JANELA (vetor) | **`CLOSED_FOR_2026`** — e é nela que o produto da ADAMA age | idem |
 | CIÊNCIA | fitoplasma da videira **135** · *Scaphoideus titanus* **66** | `IT-T5-001` |
 | **ADAMA** | **6 produtos vigentes com *Scaphoideus titanus* como ALVO DECLARADO no rótulo** | `IT-T4-001-ETICHETTA` |
 
@@ -280,13 +281,38 @@ agronômica aberta, ciência e resposta registrada da ADAMA** apontam para o mes
 *Documento tecnico ufficiale n. 29 dei Servizi Fitosanitari Nazionali*, o que dá ao caso
 uma camada institucional nacional além da regional.
 
-**Ressalva que não pode ser apagada:** o boletim descreve a janela para **reconhecer
-sintomas foliares** da doença. O produto da ADAMA atua sobre o **vetor**, não sobre o
-fitoplasma. As duas coisas são do mesmo caso, mas **não são a mesma janela** — a janela de
-controle do vetor tem de ser medida, e não foi. `WINDOW_FOR_VECTOR_CONTROL = NÃO SEI`.
+### As duas janelas foram medidas, e não coincidem
 
-**O que falta:** regionalizar a área de videira (exige ISTAT); medir a janela do vetor;
-confirmar se a mesma janela vale no Vêneto.
+Esta era a ressalva do caso, e ela foi resolvida — com um resultado que **corrige a própria
+recomendação anterior deste documento**. O boletim diz, textualmente:
+
+> *"**Dando per effettuati gli obbligatori trattamenti insetticidi per il controllo del
+> vettore della malattia**, il periodo tra inizio-metà di agosto alla fine settembre è
+> quello in cui risultano maggiormente riconoscibili gli eventuali sintomi fogliari."*
+
+Duas coisas saem daí, e as duas importam:
+
+1. **Os tratamentos ao vetor são `OBBLIGATORI`** na Lombardia (DGR 29/12/2021 n. XI-5836).
+   É **obrigação regulatória anual**, não recomendação técnica.
+2. **Em 31/07 o boletim já os DÁ POR FEITOS.** Portanto
+   `WINDOW_FOR_VECTOR_CONTROL = CLOSED_FOR_2026`.
+
+A janela aberta hoje é de **reconhecimento de sintoma** — monitoramento, não aplicação. E é
+justamente na janela **fechada** que o `tau-fluvalinate` da ADAMA age.
+
+> **Correção da recomendação.** Uma versão anterior desta análise classificou o caso como
+> **AGIR AGORA** para MARKET DEVELOPMENT. Está errado, e a correção é a medição acima: a
+> decisão comercial deste caso é do **próximo ciclo**. Tratar a janela de sintoma como se
+> fosse janela de aplicação seria exatamente **fabricar urgência**, que é o que a missão
+> proíbe. O caso continua sendo o mais forte da Itália — o que muda é o relógio.
+
+**O que a obrigatoriedade acrescenta:** existe um **evento anual garantido por norma** em
+que o problema tem de ser tratado. Isso é estrutura, não demanda —
+`FIELD PRESSURE ≠ DEMAND` continua valendo, e sem dado interno
+`COMMERCIAL_CLOCK = NÃO SEI`.
+
+**O que falta:** regionalizar a área de videira (exige ISTAT); as datas exatas dos
+tratamentos obrigatórios em 2026; confirmar se a obrigação vale igual no Vêneto.
 
 > **Nota de método.** Este caso quase não apareceu. Ele só surgiu porque o
 > `NEXT_SMALLEST_STEP` — *"abrir o boletim de videira da safra corrente"* — foi executado
@@ -366,7 +392,8 @@ Sem dado interno da ADAMA, `COMMERCIAL_CLOCK = NÃO SEI` em todas as linhas.
 |---|---|---|---|---|
 | REGULATORY / PORTFOLIO | Revisar as **71** autorizações do grupo que vencem em 6 meses de calendário | 13 delas vencem **na mesma data**, 2027-02-28 | `IT-T4-001` | **AGIR AGORA** |
 | REGULATORY | Conferir as **8** autorizações vigentes com vencimento já passado | o campo de estado atrasa ≥ 9 dias | `IT-T4-001` | **AGIR AGORA** |
-| MARKET DEVELOPMENT | **Caso videira × flavescência na Lombardia** | **janela aberta agora** (ago–set) e resposta registrada existente | `IT-HERO-001` | **AGIR AGORA** |
+| MARKET DEVELOPMENT | Caso videira × flavescência na Lombardia | janela do **vetor fechada em 2026**; obrigação é anual e volta | `IT-HERO-001` | **PRÓXIMO CICLO** |
+| SCIENCE / MD | Monitorar sintoma de flavescência ago–set | janela de **reconhecimento** aberta agora | `IT-HERO-001` | **AGIR AGORA** |
 | SCIENCE | Abrir contato com o cluster de micotoxina em milho | 208 trabalhos, autores com ORCID e atividade em 2026 | `IT-T5-001` | PREPARAR |
 | MARKETING | Manejo de resistência em daninhas de milho, com os MoA do próprio rótulo | ≥6 grupos declarados no portfólio | `IT-HERO-003` | PLANEJAR |
 | COMMERCIAL | — | **nada a propor**: sem dado de venda, qualquer ação seria fabricada | — | — |
@@ -427,7 +454,9 @@ Lombardia · Piemonte (**71,6 %**)
 ### F · ISSUES / TIME
 `CURRENT_FIELD_SIGNALS` = **2** — oliveira × *Bactrocera* × Vêneto (26/08/2026) e
 videira × flavescência × Lombardia (31/07/2026)
-`CURRENT_AGRONOMIC_WINDOWS` = **2 abertas** · `MAIZE_FIELD_SIGNAL` = **NOT_FOUND (medido)**
+`CURRENT_AGRONOMIC_WINDOWS` = **2 abertas** — mas em `IT-HERO-001` a janela aberta é de
+**monitoramento**, não de aplicação: a de aplicação ao vetor está `CLOSED_FOR_2026`
+`MAIZE_FIELD_SIGNAL` = **NOT_FOUND (medido)**
 
 ### G · SCIENCE
 `SCIENCE_DISCOVERY_READY` = **SIM** · `RELEVANT_PAPERS` = 208 no recorte profundo ·
@@ -466,13 +495,14 @@ gravada em cada registro de rótulo, pronta para quando houver credencial.
 4. Calendário agronômico regional não coletado → janela do milho `NOT_DERIVED`.
 
 ### NEXT_SMALLEST_STEP
-**Medir a janela de controle do VETOR em `IT-HERO-001`.** O boletim de 31/07 dá a janela
-para *reconhecer sintomas* da flavescência (ago–set); o produto da ADAMA atua sobre
-*Scaphoideus titanus*. São o mesmo caso e **não são a mesma janela**. Um documento — o
-*disciplinare* de videira da Lombardia ou o Documento tecnico ufficiale n. 29 — decide se
-existe decisão acionável **nesta safra** ou só na próxima.
+**Obter o calendário dos tratamentos obrigatórios ao vetor da flavescência na Lombardia
+e no Vêneto** — o *disciplinare* regional ou o Documento tecnico ufficiale n. 29. São uma
+ou duas páginas, e entregam a única coisa que falta ao caso mais forte da Itália: **as
+datas** em que a obrigação anual acontece. Com elas, `IT-HERO-001` passa a ter janela
+datada para o próximo ciclo em vez de "próximo ciclo" genérico.
 
-O passo anterior era *"abrir o boletim de videira da safra corrente"*, e foi executado
-dentro desta mesma rodada: foi ele que trocou o caso de míldio para flavescência e
-mostrou uma janela aberta. **O menor passo seguinte costuma valer mais que a próxima
-grande coleta.**
+> **Por que confiar neste tipo de passo.** Esta rodada teve dois `NEXT_SMALLEST_STEP`, e
+> os dois foram **executados em vez de recomendados**. O primeiro trocou o caso vencedor
+> de míldio para flavescência. O segundo mostrou que a janela que eu tinha chamado de
+> aberta é de monitoramento, e derrubou um **AGIR AGORA** que eu mesmo tinha escrito.
+> **Nenhuma coleta grande desta rodada mudou tanto quanto esses dois downloads.**
