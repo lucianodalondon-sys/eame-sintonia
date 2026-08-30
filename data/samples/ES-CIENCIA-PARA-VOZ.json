@@ -465,9 +465,48 @@
  "COM_VINCULO_ABERTO_NA_ESPANHA_COM_RESSALVA": 4,
  "ONDE_A_RESSALVA_MUDA_A_LEITURA": "so em Julien Alassimone. O unico vinculo sem fim dele e um pos-doc iniciado em 2013 nos EUA, e ele nao tem nenhum vinculo espanhol em toda a trajetoria — a ressalva nao muda a conclusao que importa aqui, que e a ausencia da Espanha. Nos casos espanhois (Trapero 1978, Genilloud 2009, Diez 2019, Eceiza 2019) a ressalva nao retira ninguem da contagem: retira apenas a frase \"esta hoje em X\".",
  "ACHADO_4_CANAL_AUTODECLARADO_NAO_E_CANAL_VERIFICADO": {
-  "TESTADO": "1 das 7 URLs autodeclaradas — a de Joel Torra, weedresearch.udl.cat/english.htm",
-  "RESULTADO": "HTTP 404. O grupo mudou para grem.udl.cat e o registro ORCID nao acompanhou.",
-  "AS_OUTRAS_6": "NAO TESTADAS.",
-  "REGRA": "CANAIS_AUTODECLARADOS neste arquivo significa \"a pessoa declarou esta URL\", nunca \"esta URL funciona\". Resolver a URL e passo separado."
+  "TESTADAS": "6 de 6 URLs autodeclaradas resolvidas (curl -L, ate 3 tentativas).",
+  "RESULTADO": [
+   {
+    "pessoa": "Joel Torra",
+    "url": "http://www.weedresearch.udl.cat/english.htm",
+    "estado": "MORTA",
+    "detalhe": "em https o host responde 404 (\"Pagina no trobada\" do proprio site do grupo); em http redireciona para grem.udl.cat, que o proxy desta sessao recusou (connect_rejected). O grupo mudou de endereco e o ORCID nao acompanhou.",
+    "ressalva": "o 404 e fato da fonte; o bloqueio no endereco novo e limite MEU. Sao coisas diferentes."
+   },
+   {
+    "pessoa": "Antonio Trapero",
+    "url": "https://dialnet.unirioja.es/servlet/autor?codigo=244826",
+    "estado": "VIVA (HTTP 200)",
+    "detalhe": "em http devolveu 503 na primeira tentativa e 200 em https. 503 transitorio nao e URL morta — SOURCE FAILURE != ZERO."
+   },
+   {
+    "pessoa": "Antonio Trapero",
+    "url": "https://www.scopus.com/",
+    "estado": "NAO E CANAL",
+    "detalhe": "HTTP 403 na home. E a home generica de um indice comercial com muro de acesso, sem identificador da pessoa. Nao aponta para ninguem."
+   },
+   {
+    "pessoa": "Concepcion Munoz Diez",
+    "url": "https://www.uco.es/ucolivo",
+    "estado": "VIVA (HTTP 200)",
+    "detalhe": "pagina do grupo UCOLIVO"
+   },
+   {
+    "pessoa": "Concepcion Munoz Diez",
+    "url": "https://masterolivicultura.org",
+    "estado": "VIVA (HTTP 200)",
+    "detalhe": "pagina de um mestrado"
+   },
+   {
+    "pessoa": "Olga Genilloud",
+    "url": "https://www.medinadiscovery.com",
+    "estado": "VIVA (HTTP 200)",
+    "detalhe": "pagina da Fundacion MEDINA"
+   }
+  ],
+  "PLACAR": "4 vivas, 1 morta, 1 que nem e canal. Nenhuma e canal pessoal: todas sao pagina de grupo, de instituicao ou indice.",
+  "REGRA": "CANAIS_AUTODECLARADOS significa \"a pessoa declarou esta URL\", nunca \"esta URL funciona\" e nunca \"esta pessoa fala ali\". Resolver a URL e passo separado, e ler o que ha nela e um terceiro.",
+  "NAO_LIDO": "nenhum conteudo dessas paginas foi lido. Saber que respondem 200 nao autoriza dizer o que dizem."
  }
 }
