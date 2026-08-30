@@ -196,3 +196,35 @@ class OVereditoNaoUltrapassaOMedido(unittest.TestCase):
         self.assertIn('FACT_LOCATION', deve['LOCATION_RULE'])
         for proibido in ('ITALY OPPORTUNITY', 'ADAMA SHOULD ACT'):
             self.assertIn(proibido, deve['STILL_FORBIDDEN'])
+
+
+class OPainelEstaCongelado(unittest.TestCase):
+    """Congelar é uma decisão, e uma decisão precisa de guarda.
+
+    Sem isto, bastaria alguém disparar o workflow de novo — de boa-fé, para
+    "conferir" — e a coleta paga voltaria a rodar sobre uma pergunta já
+    respondida.
+    """
+
+    def test_o_painel_esta_congelado_no_codigo(self):
+        self.assertTrue(lp.PAINEL_CONGELADO)
+        self.assertEqual(lp.PAINEL_ESTADO,
+                         'LINKEDIN_THIS_PANEL_MEASURED_LOW_YIELD')
+
+    def test_executar_nao_abre_execucao_nenhuma_com_o_painel_congelado(self):
+        """Nem sequer chega a ler o pool: sai antes de qualquer chamada."""
+        out = lp.executar()
+        self.assertEqual(out['STATE'], lp.PAINEL_ESTADO)
+        self.assertEqual(out['NEW_ACTOR_RUNS'], 0)
+        self.assertEqual(out['COST_USD'], 0)
+
+    def test_o_congelamento_e_do_painel_e_nao_da_camada(self):
+        out = lp.executar()
+        self.assertIn('LINKEDIN_NOT_', out['THIS_FREEZE_DOES_NOT_MEAN'])
+        self.assertIn('!= HUMAN_SENSOR_LAYER_NOT_PRODUCTIVE',
+                      out['THIS_FREEZE_DOES_NOT_MEAN'])
+
+    def test_o_congelamento_guarda_quando_e_com_que_run_foi_medido(self):
+        """Congelar sem dizer com base em que seria congelar por cansaço."""
+        self.assertEqual(lp.PAINEL_MEDIDO_EM, '2026-08-30')
+        self.assertTrue(lp.PAINEL_RUN.isdigit())

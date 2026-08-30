@@ -55,6 +55,26 @@ import linkedin_prova_busca as pb  # noqa: E402
 DEST = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'IT-LINKEDIN-POSTS.json')
 ACTOR = 'harvestapi~linkedin-post-search'
 
+# ---------------------------------------------------------------- CONGELADO
+# O painel foi medido em 2026-08-30: 4 autores elegíveis, 4 perguntados, 0 por
+# perguntar, 3 posts em um ano, 1 na janela (um anúncio de vaga), zero sinal.
+#
+# A pergunta está RESPONDIDA para este painel, e por isso ele fecha. Pagar de
+# novo pelos mesmos quatro perfis não produziria informação nova. E aumentar o
+# painel de LinkedIn agora, para procurar um positivo, seria mover a amostra
+# DEPOIS de ver o resultado — o vício que transforma medição em ilustração.
+#
+#     LINKEDIN_NOT_PRODUCTIVE_IN_MEASURED_PANEL
+#     ≠ HUMAN_SENSOR_LAYER_NOT_PRODUCTIVE
+#
+# O congelamento é do PAINEL, não da plataforma nem da camada. Outro painel, com
+# outra pergunta e amostra definida ANTES, é outra missão — e passa por aqui de
+# novo com `PAINEL_CONGELADO` revisto de propósito, nunca por descuido.
+PAINEL_CONGELADO = True
+PAINEL_ESTADO = 'LINKEDIN_THIS_PANEL_MEASURED_LOW_YIELD'
+PAINEL_MEDIDO_EM = '2026-08-30'
+PAINEL_RUN = '33321302014'
+
 CASE_DATE = datetime.date(2026, 4, 23)
 JANELA = (datetime.date(2026, 1, 1), datetime.date(2026, 5, 31))
 TETO_AUTORES = 8
@@ -316,6 +336,20 @@ def executar():
                     'RETROSPECTIVE_FINDING ≠ EARLY_WARNING',
                     'MEDIA_SIGNAL ≠ FIELD_SIGNAL',
                     'PAINEL MEDIDO ≠ PAÍS MEDIDO']}
+
+    if PAINEL_CONGELADO:
+        out['STATE'] = PAINEL_ESTADO
+        out['NEW_ACTOR_RUNS'] = 0
+        out['COST_USD'] = 0
+        out['HUMAN_SENSOR_VERDICT'] = 'HUMAN_SENSOR_ADDS_NOTHING_IN_THIS_PANEL'
+        out['WHY'] = ('painel medido em %s (run %s) e congelado. Repetir a mesma '
+                      'pergunta aos mesmos quatro perfis nao produz informacao '
+                      'nova; ampliar o painel agora seria mover a amostra depois '
+                      'do resultado.' % (PAINEL_MEDIDO_EM, PAINEL_RUN))
+        out['THIS_FREEZE_DOES_NOT_MEAN'] = (
+            'que a camada de sensores humanos nao produz — LINKEDIN_NOT_'
+            'PRODUCTIVE_IN_MEASURED_PANEL != HUMAN_SENSOR_LAYER_NOT_PRODUCTIVE')
+        return out
 
     ks = ap.pool()
     if not ks:

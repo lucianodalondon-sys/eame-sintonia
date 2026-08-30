@@ -245,7 +245,10 @@ class TempoDoFatoNaoEDataDePublicacao(unittest.TestCase):
     def test_toda_data_do_fato_carrega_o_trecho_que_a_prova(self):
         r = fl.tempo_do_fato('Durante marzo i sintomi.', '2026-04-20')
         self.assertIn('marzo', r['FACT_TIME_EVIDENCE'])
-        self.assertEqual(r['FACT_TIME_ORIGIN'], 'POST_TEXT')
+        # A origem agora diz TAMBEM por que a data foi aceita: ela estava
+        # amarrada ao acontecimento. "veio do texto" nao bastava — o carimbo da
+        # publicacao tambem vem do texto.
+        self.assertEqual(r['FACT_TIME_ORIGIN'], 'TEXT/TIED_TO_EVENT')
 
 
 class GeotagNaoFechaFato(unittest.TestCase):
@@ -319,3 +322,74 @@ class MutacaoDasLeisCentrais(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class OCarimboDaPublicacaoNaoPodeVirarTempoDoFato(unittest.TestCase):
+    """Defeito medido em 2026-08-30 sobre um artigo REAL do AgroNotizie.
+
+    A implementação pegava a PRIMEIRA expressão temporal do texto. Num artigo de
+    imprensa, a primeira é o carimbo da publicação — e ela devolvia, para uma
+    reportagem de 13/02/2026 sobre a safra de 2025, `FACT_TIME = 13 febbraio`.
+    A lei estava escrita no arquivo e a implementação a contornava por dentro.
+    """
+
+    ARTIGO = ('13 febbraio 2026 Mais e micotossine, un 2025 da dimenticare. '
+              'Al classico appuntamento con la Giornata del Mais, organizzata lo '
+              'scorso 30 gennaio dal Crea, sede di Bergamo, i dati diffusi sul '
+              'monitoraggio delle micotossine durante la stagione 2025 confermano '
+              "tendenze allarmanti, uno dei picchi dell'intera serie storica "
+              '2011-2025.')
+
+    def test_o_carimbo_da_publicacao_e_descartado_e_dito(self):
+        r = fl.tempo_do_fato(self.ARTIGO, '2026-02-13')
+        self.assertNotEqual(r['FACT_TIME'], '13 febbraio')
+        descartados = {d['VALUE']: d['WHY'] for d in r['TIME_CANDIDATES_DISCARDED']}
+        self.assertEqual(descartados.get('13 febbraio 2026'), fl.PUBLICATION_STAMP)
+
+    def test_o_tempo_do_fato_e_a_safra_e_nao_a_data_do_jornal(self):
+        r = fl.tempo_do_fato(self.ARTIGO, '2026-02-13')
+        self.assertEqual(r['FACT_TIME'], 'stagione 2025')
+        self.assertEqual(r['FACT_TIME_PRECISION'], fl.SEASON)
+        self.assertEqual(r['PUBLISHED_AT'], '2026-02-13')
+
+    def test_intervalo_de_serie_historica_nao_e_data_de_acontecimento(self):
+        """"2011-2025" e o alcance da MEDICAO, nao a data do que foi medido."""
+        self.assertFalse(fl._e_campanha('2011-2025'))
+        self.assertTrue(fl._e_campanha('2025/26'))
+        self.assertTrue(fl._e_campanha('2025-26'))
+        r = fl.tempo_do_fato(self.ARTIGO, '2026-02-13')
+        self.assertNotEqual(r['FACT_TIME'], '2011-2025')
+
+    def test_data_solta_sem_ancora_de_acontecimento_nao_vira_tempo_do_fato(self):
+        r = fl.tempo_do_fato('Il regolamento del 2019 resta in vigore.', '2026-02-13')
+        self.assertEqual(r['FACT_TIME'], 'NOT_KNOWN')
+        self.assertIn('FACT_TIME_CANDIDATES', r)
+
+    def test_uma_data_igual_a_publicacao_mas_ancorada_ainda_e_descartada(self):
+        """Se o texto diz "campioni raccolti il 13 febbraio" e publica no mesmo
+        dia, o campo continua sendo o da publicacao ate prova em contrario."""
+        r = fl.tempo_do_fato('Campioni osservati il 13 febbraio 2026.', '2026-02-13')
+        descartados = {d['VALUE'] for d in r['TIME_CANDIDATES_DISCARDED']}
+        self.assertIn('13 febbraio 2026', descartados)
+
+
+class OGazetteerDizOQueNaoCobre(unittest.TestCase):
+    """Bergamo aparecia TRES vezes num artigo real e nao era recusada por lei
+    nenhuma: era invisivel, porque faltava no gazetteer. O resultado certo veio
+    pelo motivo errado — e isso nao conta como protecao."""
+
+    def test_bergamo_existe_e_e_julgada_pela_lei(self):
+        nomes = {n for n, _ in fl.GAZETTEER}
+        self.assertIn('Bergamo', nomes)
+        _, nao = fl.localizacoes_do_fato('Giornata del Mais, sede di Bergamo.')
+        self.assertEqual(nao[0]['WHY'], 'endereço da entidade')
+
+    def test_e_quando_ha_ancora_de_verdade_bergamo_e_fato(self):
+        ok, _ = fl.localizacoes_do_fato('Fumonisine rilevate a Bergamo nel 2025.')
+        self.assertEqual([a['FACT_LOCATION'] for a in ok], ['Bergamo'])
+
+    def test_a_cobertura_e_declarada_e_nao_presumida(self):
+        c = fl.cobertura()
+        self.assertEqual(c['MUNICIPALITIES'], 0)
+        self.assertIn('NOT_IN_GAZETTEER', c['LIMIT'])
+        self.assertIn('Ovest', c['ALSO_NOT_COVERED'])

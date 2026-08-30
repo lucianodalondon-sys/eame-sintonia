@@ -107,8 +107,21 @@ PROVINCIAS = (
     'Pesaro', 'Fermo', 'Perugia', 'Terni', 'Roma', 'Viterbo', 'Latina',
     'Frosinone', 'Rieti', 'Campobasso', 'Isernia', 'Chieti', "L'Aquila",
     'Pescara', 'Teramo', 'Milano', 'Torino', 'Genova', 'Verona', 'Padova',
+    # Acrescentadas em 2026-08-30 depois de ler um artigo real: "Bergamo"
+    # aparecia TRÊS vezes e não era recusada por lei nenhuma — era invisível,
+    # porque faltava no gazetteer. O resultado certo veio pelo motivo errado, e
+    # isso não conta. As demais são a área do milho e do trigo do norte, que o
+    # painel toca e o gazetteer não cobria.
+    'Bergamo', 'Brescia', 'Cremona', 'Mantova', 'Pavia', 'Lodi', 'Novara',
+    'Vercelli', 'Alessandria', 'Cuneo', 'Asti', 'Rovigo', 'Treviso', 'Venezia',
+    'Vicenza', 'Belluno', 'Udine', 'Pordenone', 'Gorizia', 'Trieste',
 )
 
+# Um topônimo fora desta lista não é recusado: ele é INVISÍVEL. São coisas
+# diferentes, e confundi-las esconde a falta de cobertura atrás de um resultado
+# que parece correto. `cobertura()` existe para que a lacuna seja dizível.
+#
+#     NOT_IN_GAZETTEER ≠ NOT_A_PLACE ≠ REJECTED_BY_LAW
 GAZETTEER = tuple([(n, REGION) for n in REGIOES] +
                   [(n, PROVINCE) for n in PROVINCIAS] +
                   [('Italia', COUNTRY), ('Italy', COUNTRY)])
@@ -169,6 +182,22 @@ ANCORAS_NEGATIVAS = (
 )
 
 CONTENT_GEO_EVIDENCE = 'CONTENT_GEO_EVIDENCE'
+
+
+def cobertura():
+    """O que o gazetteer cobre — para que o silêncio dele seja legível.
+
+    Sem isto, "nenhuma localização encontrada" e "nenhuma localização coberta"
+    saem idênticos do outro lado.
+    """
+    return {'REGIONS': len(REGIOES), 'PROVINCES': len(PROVINCIAS),
+            'COUNTRY_FORMS': 2, 'MUNICIPALITIES': 0,
+            'LIMIT': ('só regiões, províncias e o país. Município que não seja '
+                      'capoluogo de província é NOT_IN_GAZETTEER — invisível, '
+                      'não recusado'),
+            'ALSO_NOT_COVERED': ('zonas próprias das redes de monitoramento '
+                                 '("Ovest", "areale nord") não são unidades '
+                                 'administrativas e não têm entrada aqui')}
 
 
 def _sem_acento(s):
@@ -311,42 +340,119 @@ def geo_do_conteudo(valor, *, origem='ACTOR.geo'):
 
 # ------------------------------------------------------------------- tempo
 DAY, WEEK, MONTH, SEASON, YEAR = 'DAY', 'WEEK', 'MONTH', 'SEASON', 'YEAR'
+PUBLICATION_STAMP = 'PUBLICATION_STAMP_NOT_FACT_TIME'
 MESES = ('gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio',
          'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre')
+MES_NUM = {m: i + 1 for i, m in enumerate(MESES)}
+
+# `SEASON` vem primeiro de propósito: "stagione 2025" é sobre o ciclo da cultura,
+# e um ano solto pode ser qualquer coisa — o ano da publicação, inclusive.
 TEMPO = (
-    (r'\b(\d{4}-\d{2}-\d{2})\b', DAY),
-    (r'\b(\d{1,2}\s+(?:%s))\b' % '|'.join(MESES), DAY),
-    (r'\b(oggi|ieri|stamattina)\b', DAY),
-    (r'\b(la\s+settimana\s+scorsa|questa\s+settimana|nei\s+giorni\s+scorsi)\b', WEEK),
-    (r'\b(?:durante|a|ad|nel\s+mese\s+di|in)\s+((?:%s))\b' % '|'.join(MESES), MONTH),
-    (r'\b(campagna\s+\d{4}[/-]\d{2,4}|annata\s+\d{4}[/-]\d{2,4})\b', SEASON),
+    (r'\b((?:campagna|annata|stagione|raccolt[oa])\s+\d{4}(?:[/-]\d{2,4})?)\b', SEASON),
+    # "2025/26" é uma safra. "2011-2025" é uma SÉRIE HISTÓRICA, e foi o que este
+    # padrão devolveu como tempo do fato num artigo real: quinze anos de dados
+    # virando a data de um acontecimento. `_e_campanha` separa os dois.
     (r'\b(\d{4}[/-]\d{2,4})\b', SEASON),
-    (r'\b(?:nel|del)\s+(\d{4})\b', YEAR),
+    (r'\b(la\s+settimana\s+scorsa|questa\s+settimana|nei\s+giorni\s+scorsi)\b', WEEK),
+    (r'\b(\d{1,2}\s+(?:%s)(?:\s+\d{4})?)\b' % '|'.join(MESES), DAY),
+    (r'\b(oggi|ieri|stamattina)\b', DAY),
+    (r'\b(?:durante|nel\s+mese\s+di|a|ad|in)\s+((?:%s))\b' % '|'.join(MESES), MONTH),
+    (r'\b(?:nel|del|nella\s+stagione)\s+(\d{4})\b', YEAR),
 )
+
+# Palavras que dizem "o acontecimento se deu nesse tempo". Sem uma delas por
+# perto, uma data solta no texto pode ser qualquer data — a da publicação, a de
+# um congresso, a de um regulamento.
+ANCORAS_DE_TEMPO_DO_FATO = (
+    r'monitoraggio', r'campion[ei]', r'stagione', r'annata', r'campagna',
+    r'raccolt[oa]', r'osservat[oaie]', r'rilevat[oaie]', r'constatat[oaie]',
+    r'riscontrat[oaie]', r'colpit[oaie]', r'contaminaz', r'superament',
+    r'infezion', r'attacch[io]', r'sintomi', r'annata', r'coltura',
+)
+
+
+def _e_campanha(valor):
+    """"2025/26" e "2025-26" são safra. "2011-2025" é intervalo de série."""
+    m = re.match(r'^(\d{4})[/-](\d{2,4})$', str(valor).strip())
+    if not m:
+        return True                       # "stagione 2025" e afins: já é safra
+    a, b = int(m.group(1)), m.group(2)
+    seguinte = a + 1
+    return b == str(seguinte)[-len(b):] and int(b) != 0
+
+
+def _resolve_dia(texto, ano_padrao):
+    """"13 febbraio [2026]" -> (2026, 2, 13). Só para comparar com a publicação."""
+    m = re.match(r'(\d{1,2})\s+([a-z]+)(?:\s+(\d{4}))?$', _baixo(texto).strip())
+    if not m or m.group(2) not in MES_NUM:
+        return None
+    ano = int(m.group(3)) if m.group(3) else ano_padrao
+    return (ano, MES_NUM[m.group(2)], int(m.group(1))) if ano else None
 
 
 def tempo_do_fato(texto, published_at=None):
     """FACT_TIME só com evidência própria. `published_at` NUNCA o preenche.
 
-    Um post de 20/04 que diz "la settimana scorsa" fala de meados de abril; um
-    que diz "campagna 2025/26" fala de uma safra inteira. Copiar a data de
-    publicação para dentro do fato inventaria precisão que ninguém declarou.
+    A primeira versão pegava a PRIMEIRA expressão temporal do texto. Num artigo
+    de imprensa, a primeira expressão é o carimbo da publicação — e ela devolvia,
+    para uma reportagem de 13/02/2026 sobre a safra de 2025, `FACT_TIME =
+    13 febbraio`. Ou seja: entregava a data de publicação no campo que existe
+    exatamente para não recebê-la. A lei estava escrita e a implementação a
+    contornava por dentro.
 
         PUBLISHED_AT ≠ FACT_TIME
+
+    Agora: toda expressão temporal é candidata; a que RESOLVE para a data de
+    publicação é descartada como `PUBLICATION_STAMP`; e vence a que estiver
+    amarrada ao acontecimento — por ser de safra/estação, ou por dividir a
+    oração com uma âncora de tempo do fato. Sem nenhuma assim, o resultado é
+    `NOT_KNOWN` com os candidatos à vista, e não um chute com cara de precisão.
     """
-    low = _baixo(texto)
-    for padrao, precisao in TEMPO:
-        m = re.search(padrao, low)
-        if m:
-            return {'FACT_TIME': m.group(1), 'FACT_TIME_PRECISION': precisao,
-                    'FACT_TIME_EVIDENCE': texto[max(0, m.start() - 60):m.end() + 60],
-                    'FACT_TIME_ORIGIN': 'POST_TEXT',
-                    'PUBLISHED_AT': published_at or 'NOT_DATED_PRECISELY'}
+    ano_pub = None
+    if published_at and re.match(r'^\d{4}-\d{2}-\d{2}$', str(published_at)):
+        ano_pub = int(str(published_at)[:4])
+    pub = tuple(int(x) for x in str(published_at).split('-')) if ano_pub else None
+
+    candidatos, descartados = [], []
+    for frase in _frases(texto):
+        low = _baixo(frase)
+        ancorada = any(re.search(a, low) for a in ANCORAS_DE_TEMPO_DO_FATO)
+        for padrao, precisao in TEMPO:
+            for m in re.finditer(padrao, low):
+                valor = m.group(1)
+                if precisao == DAY and pub and _resolve_dia(valor, ano_pub) == pub:
+                    descartados.append({'VALUE': valor, 'WHY': PUBLICATION_STAMP})
+                    continue
+                if precisao == SEASON and not _e_campanha(valor):
+                    # Intervalo de série histórica: é o alcance da MEDIÇÃO, não a
+                    # data do que foi medido. Fica registrado, não vira FACT_TIME.
+                    descartados.append({'VALUE': valor, 'WHY': 'SERIES_RANGE_NOT_FACT_TIME'})
+                    continue
+                candidatos.append({
+                    'VALUE': valor, 'PRECISION': precisao,
+                    'TIED_TO_EVENT': ancorada,
+                    'EVIDENCE': frase[:220]})
+
+    def peso(c):
+        # Safra/estação primeiro: é a única que fala do ciclo da cultura por si.
+        return (0 if c['PRECISION'] == SEASON and c['TIED_TO_EVENT'] else
+                1 if c['TIED_TO_EVENT'] else 2)
+
+    amarrados = [c for c in candidatos if c['TIED_TO_EVENT']]
+    if amarrados:
+        e = sorted(amarrados, key=peso)[0]
+        return {'FACT_TIME': e['VALUE'], 'FACT_TIME_PRECISION': e['PRECISION'],
+                'FACT_TIME_EVIDENCE': e['EVIDENCE'],
+                'FACT_TIME_ORIGIN': 'TEXT/TIED_TO_EVENT',
+                'PUBLISHED_AT': published_at or 'NOT_DATED_PRECISELY',
+                'TIME_CANDIDATES_DISCARDED': descartados}
     return {'FACT_TIME': 'NOT_KNOWN', 'FACT_TIME_PRECISION': NOT_KNOWN,
             'FACT_TIME_EVIDENCE': None, 'FACT_TIME_ORIGIN': 'NOT_STATED',
             'PUBLISHED_AT': published_at or 'NOT_DATED_PRECISELY',
-            'WHY': 'o texto não datou o acontecimento; a data de publicação não '
-                   'preenche esse campo'}
+            'FACT_TIME_CANDIDATES': [c['VALUE'] for c in candidatos][:8],
+            'TIME_CANDIDATES_DISCARDED': descartados,
+            'WHY': ('nenhuma expressão temporal ficou amarrada ao acontecimento; '
+                    'a data de publicação não preenche esse campo')}
 
 
 def ocorrencia_nao_e_incidencia(tipos):
