@@ -1,0 +1,48 @@
+{
+ "SOURCE_ID": "SENSOR-PILOT/CONTRATOS-DE-ENTRADA",
+ "source": "GET /v2/acts/{actor} e /v2/actor-builds/{id} — leitura, zero run",
+ "SOURCE_LOCATION": "Apify",
+ "FACT_LOCATION": "n/a — descreve ferramenta",
+ "ORIGINAL_LANGUAGE": "en",
+ "APIFY_RUNS": 0,
+ "ITEMS": 0,
+ "COST_USD": 0,
+ "POR_QUE_EXISTE": "o piloto italiano gastou 8 execuções mandando entrada que o ator ignorava, e os 8 runs devolveram a mesma pessoa errada. Ler o contrato custa zero.",
+ "ACTORS": [
+  {
+   "LABEL": "LINKEDIN_SEARCH_BY_NAME",
+   "ACTOR": "harvestapi~linkedin-profile-search-by-name",
+   "STATE": "NOT_REACHED"
+  },
+  {
+   "LABEL": "LINKEDIN_PROFILE_SEARCH",
+   "ACTOR": "harvestapi~linkedin-profile-search",
+   "STATE": "NOT_REACHED"
+  },
+  {
+   "LABEL": "LINKEDIN_PROFILE",
+   "ACTOR": "harvestapi~linkedin-profile-scraper",
+   "STATE": "NOT_REACHED"
+  },
+  {
+   "LABEL": "LINKEDIN_POSTS",
+   "ACTOR": "harvestapi~linkedin-post-search",
+   "STATE": "NOT_REACHED"
+  },
+  {
+   "LABEL": "YOUTUBE_SEARCH",
+   "ACTOR": "streamers~youtube-scraper",
+   "STATE": "NOT_REACHED"
+  },
+  {
+   "LABEL": "YOUTUBE_TRANSCRIPT",
+   "ACTOR": "pintostudio~youtube-transcript-scraper",
+   "STATE": "NOT_REACHED"
+  },
+  {
+   "LABEL": "YOUTUBE_COMMENTS",
+   "ACTOR": "streamers~youtube-comments-scraper",
+   "STATE": "NOT_REACHED"
+  }
+ ]
+}
