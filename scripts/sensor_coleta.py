@@ -134,6 +134,69 @@ def _curl_compat(url, *, token, timeout=60):
     return coletor._curl(url, token=token, timeout=timeout, **extra)
 
 
+# ── TRANSPORTE ENDURECIDO ────────────────────────────────────────────────────────
+# MEDIDO, não suposto: na primeira rodada paralela, 7 de 12 buscas de YouTube voltaram
+#
+#     TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+#
+# que é `json.loads(None)` — o `_curl` do `coletor` chama `subprocess.run(curl, ...)` e
+# devolve `json.loads(r.stdout)` sem guardar contra `stdout` vazio ou nulo. Com dois
+# runners na MESMA máquina disparando curl ao mesmo tempo, isso deixou de ser raro.
+#
+# O padrão de falha é o que denuncia: as mesmas consultas alternaram SUCCESS e FAILED
+# entre os lotes, sem relação com o termo buscado. Falha de transporte, não de rota.
+#
+#     FALHA DE TRANSPORTE != ROTA MORTA. E o pior: registrada como FAILED, ela vira
+#     "o YouTube não devolveu nada" no relatório — que é exatamente a leitura errada
+#     que a lei SOURCE FAILURE != ZERO existe para impedir.
+#
+# A troca é de TRANSPORTE, não de porta: `coletor.executar()` continua sendo a única
+# porta paga, continua gravando o RAW antes de normalizar e continua montando o
+# manifesto. Só o modo de falar HTTP muda — urllib em vez de subprocesso, sem stdout
+# para se perder, com retentativa em queda de rede e NUNCA em recusa da API.
+# `coletor.py` não é alterado: um 4xx da Apify é resposta, e resposta não se repete.
+def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
+    import urllib.error
+    import urllib.request
+    dados = json.dumps(corpo).encode('utf-8') if corpo is not None else None
+    cab = {'Authorization': 'Bearer %s' % token}
+    if dados is not None:
+        cab['Content-Type'] = 'application/json'
+    ultimo = ''
+    for n in range(4):
+        req = urllib.request.Request(url, data=dados, headers=cab, method=metodo)
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                bruto = r.read().decode('utf-8', 'replace')
+            if not bruto.strip():
+                ultimo = 'corpo vazio'
+            else:
+                return json.loads(bruto)
+        except urllib.error.HTTPError as e:
+            corpo_erro = ''
+            try:
+                corpo_erro = e.read().decode('utf-8', 'replace')
+            except Exception:                                 # noqa: BLE001
+                pass
+            if 400 <= e.code < 500:
+                # Recusa da API é RESPOSTA. Devolve o JSON dela para o coletor ler o
+                # motivo, em vez de repetir a mesma pergunta e receber o mesmo não.
+                try:
+                    return json.loads(corpo_erro)
+                except ValueError:
+                    return {'error': {'type': 'http-%d' % e.code,
+                                      'message': ap.redigir(corpo_erro)[:300]}}
+            ultimo = 'HTTP %d' % e.code
+        except Exception as e:                                # noqa: BLE001
+            ultimo = ap.redigir('%s: %s' % (type(e).__name__, e))[:160]
+        if n < 3:
+            time.sleep(2 ** n)
+    raise RuntimeError('transporte falhou apos 4 tentativas: %s' % ultimo)
+
+
+coletor._curl = _curl_robusto          # a porta continua a mesma; o transporte, não
+
+
 def _pessoas(lote=None):
     with open(UNIVERSO, encoding='utf-8') as f:
         d = json.load(f)
@@ -165,6 +228,46 @@ def _usd(man):
 
 def _slug(s):
     return ''.join(c if c.isalnum() else '-' for c in (s or '')).strip('-')[:36]
+
+
+def _registrar_lote(lote, mans):
+    """Manifesto POR LOTE. O canônico não é tocado por execução paralela.
+
+    MEDIDO na primeira rodada paralela: os dois runners chamaram `coletor.registrar()`,
+    que reescreve `RUN-MANIFEST.json` inteiro. O lote B empurrou primeiro; o lote A caiu
+    em `CONFLICT (content): Merge conflict in data/samples/RUN-MANIFEST.json`, o rebase
+    parou no meio, e **29 candidatos já pagos ficaram na máquina sem chegar ao
+    repositório**. Dinheiro gasto, dado não preservado.
+
+        DOIS DONOS DO MESMO ARQUIVO É UM DONO A MAIS.
+
+    Cada lote passa a escrever `RUNS-{lote}.json`, que só ele toca. A consolidação para o
+    `RUN-MANIFEST` canônico acontece depois, num passo único e serializado — onde não há
+    corrida possível. Nada se perde: os campos do manifesto são exatamente os mesmos.
+    """
+    if not mans:
+        return
+    caminho = os.path.join(SAIDA, 'RUNS-%s.json' % lote)
+    antigos = []
+    if os.path.exists(caminho):
+        try:
+            with open(caminho, encoding='utf-8') as f:
+                antigos = json.load(f).get('RUNS') or []
+        except ValueError:
+            antigos = []
+    por_id = {r['RUN_ID']: r for r in antigos}
+    for m in mans:
+        por_id[m['RUN_ID']] = m
+    _gravar('RUNS-%s.json' % lote, {
+        'SOURCE_ID': 'SENSOR-PILOT/RUNS-%s' % lote,
+        'source': 'manifesto de execução do lote %s — fragmento, não o canônico' % lote,
+        'SOURCE_LOCATION': 'interno — metadado de coleta',
+        'FACT_LOCATION': 'n/a — descreve execução, não fato do mundo',
+        'ORIGINAL_LANGUAGE': 'pt', 'CAPTURED_AT': coletor.agora(),
+        'PARA_QUE_SERVE': ('fragmento por lote, para dois runners não disputarem o '
+                           'RUN-MANIFEST canônico. A consolidação é um passo serializado.'),
+        'NUNCA_GRAVAR_TOKEN': 'INPUT guarda consulta e parâmetros. Credencial, jamais.',
+        'RUNS': [por_id[k] for k in sorted(por_id)]})
 
 
 def _proveniencia(man, actor, lote, batch_id):
@@ -320,8 +423,7 @@ def canais(lote='A'):
                   % (len(itens or []), pos, man['STATUS']))
         time.sleep(1)
 
-    for m in mans:
-        coletor.registrar(m)
+    _registrar_lote(lote, mans)
     caminho = _gravar('CANAIS-%s.json' % lote, {
         'SOURCE_ID': 'SENSOR-PILOT/CANAIS-%s' % lote,
         'source': 'busca pública por nome via Apify (LinkedIn por nome + YouTube)',
@@ -445,8 +547,7 @@ def videos(lote='A'):
         print('      %d vídeos (pos %d, %s)' % (len(itens or []), pos, man['STATUS']))
         time.sleep(1)
 
-    for m in mans:
-        coletor.registrar(m)
+    _registrar_lote(lote, mans)
     caminho = _gravar('VIDEOS-%s.json' % lote, {
         'SOURCE_ID': 'SENSOR-PILOT/VIDEOS-%s' % lote,
         'source': 'busca YouTube por termo técnico na língua do país, via Apify',
@@ -504,8 +605,7 @@ def transcricao(lote='A'):
         print('      lote %d: %d transcrições (pos %d, %s)'
               % (i // 20, len(itens or []), pos, man['STATUS']))
         time.sleep(1)
-    for m in mans:
-        coletor.registrar(m)
+    _registrar_lote(lote, mans)
     com = sum(1 for a in achados if a['TRANSCRIPT'])
     caminho = _gravar('TRANSCRICOES-%s.json' % lote, {
         'SOURCE_ID': 'SENSOR-PILOT/TRANSCRICOES-%s' % lote,
@@ -605,8 +705,7 @@ def comentarios(lote='A'):
         print('      lote %d: %d comentários (pos %d, %s)'
               % (i // 20, len(itens or []), pos, man['STATUS']))
         time.sleep(1)
-    for m in mans:
-        coletor.registrar(m)
+    _registrar_lote(lote, mans)
     caminho = _gravar('COMENTARIOS-%s.json' % lote, {
         'SOURCE_ID': 'SENSOR-PILOT/COMENTARIOS-%s' % lote,
         'source': 'comentários públicos de vídeos DOS RECORTES, via Apify',
