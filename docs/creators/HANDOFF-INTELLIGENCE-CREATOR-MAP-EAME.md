@@ -4,6 +4,54 @@
 
 ---
 
+## 0 · LEITURA RÁPIDA — o estado, em nove linhas
+
+| | |
+|---|---|
+| **CAPABILITY STATUS** | **`FROZEN_WAITING_FOR_INTELLIGENCE`** |
+| **WHAT IT CAN ANSWER TODAY** | *"Para esta cultura, neste país e região, quem o Marketing já consegue avaliar — e o que ainda não sabemos sobre essa pessoa?"* |
+| **WHERE IT CAN ANSWER TODAY** | ES × Almería × hortícolas · ES × Andalucía × olivo · FR × Centre-Val de Loire × cereais · IT × Veneto × milho · **18 combinações `COUNTRY\|CROP`** |
+| **WHERE IT CANNOT ANSWER TODAY** | **IT × vide** (`CAPABILITY_COVERAGE_GAP`) · qualquer país fora de ES/IT/FR · qualquer cultura fora das 18 |
+| **PERSON_CREATOR_ACTIVATION_READY** | **8** |
+| **FARM_BUSINESS_PARTNER_READY** | **2** |
+| **`CREATORS_READY`** | **`PROHIBITED_METRIC`** — pessoa ≠ empresa |
+| **WHAT CHANGES OVER TIME** | **atividade** (dias) → é o campo que expira primeiro. Cultura (semanas). Identidade (raro, mas invalida tudo). Marca (nunca se apaga). Seguidores (contínuo, **não muda decisão**) |
+| **REVALIDATION RULE** | **`NOT_YET_DEFINED`** — nenhuma validade arbitrária foi atribuída |
+
+### A pergunta, e a que ela NÃO é
+
+> **WHO COULD MARKETING EVALUATE / CALL?**
+> **NÃO:** *who should Marketing hire?*
+
+### A lei que precisa viajar com os dados
+
+> **`PERSON_CREATOR` e `FARM_BUSINESS` nunca se somam sob o nome de creators.**
+> Uma `FARM_BUSINESS` pode ser altamente útil para Marketing, campo, evento ou conteúdo —
+> e continua **fora** da contagem de creators-pessoa. São relações comerciais diferentes,
+> com outro contrato, outro interlocutor e outro preço.
+
+### A fronteira com a CONVERGÊNCIA
+
+O Creator Map pode acrescentar a um caso `ACTIVATION_ROUTE_AVAILABLE` ou
+`RELEVANT_PUBLIC_VOICE_AVAILABLE` **quando provado**.
+
+**Não confirma** `FIELD_PROBLEM` · `INCIDENCE` · `MARKET_OPPORTUNITY` · `PRODUCT_FIT`.
+É uma camada de **AUDIÊNCIA / ATIVAÇÃO / VOZ PÚBLICA** — um creator prova que existe *voz*
+para aquela cultura naquele lugar, e nada além disso.
+
+### HOW TO JOIN
+
+| frente | chave / gancho |
+|---|---|
+| **META** | `PERSON_ID` · `ENTITY_ID` · `BRAND` · `OBSERVED_AT` → `CREATOR_APPEARANCE_OBSERVED`. `PAID_CREATOR_RELATION` **só com prova adicional** |
+| **COMPETITION** | `BRAND` × `RELATION_TYPE` — 4 casos de concorrente já mapeados |
+| **RADAR / CASES** | `COUNTRY` × `CROP` → `CREATOR-CAPABILITY-EAME.json` |
+| **FIELD** | creators com conteúdo de campo → `FIELD_VOICE` (não iniciado) |
+| **EXPERTS** | `SENSOR_ROLE_LINK` — ponteiro, nunca fusão |
+| **TIME** | `AS_OF_DATE` em toda métrica de atividade |
+
+---
+
 ## 1 · O QUE ESTA CAPACIDADE PROVOU
 
 **Pergunta de negócio que ela responde:**

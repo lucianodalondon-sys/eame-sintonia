@@ -1,0 +1,197 @@
+{
+  "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
+  "CAPTURED_AT": "2026-08-30",
+  "STATE": "FROZEN_WAITING_FOR_INTELLIGENCE",
+  "WHAT_FROZEN_MEANS": "fixar o que foi medido. NAO e arredondar para cima o que quase fechou, e nao autoriza nenhum estado alem dos declarados aqui.",
+  "READINESS": {
+    "PERSON_CREATOR_ACTIVATION_READY": 8,
+    "FARM_BUSINESS_PARTNER_READY": 2,
+    "MARKETING_CONTACTABLE_ENTITIES_READY": 10,
+    "NOTE": "a soma NÃO se chama CREATORS_READY. Pessoa != empresa, e o nome da métrica é onde essa distinção se perde primeiro."
+  },
+  "PROHIBITED_METRIC": {
+    "NAME": "CREATORS_READY",
+    "STATUS": "PROHIBITED_METRIC",
+    "WHY": "pessoa != empresa; a soma so pode chamar-se MARKETING_CONTACTABLE_ENTITIES_READY"
+  },
+  "DECLARED_VS_MEASURED": "MATCH",
+  "FRANCE": {
+    "David Forge": "ACTIVATION_READY",
+    "Gilles Van Kempen": "ACTIVATION_READY"
+  },
+  "ITALY_VITE": {
+    "STATE": "NOT_READY",
+    "CLASSIFICATION": "CAPABILITY_COVERAGE_GAP",
+    "DOES_NOT_PROVE": "NO_CREATORS_EXIST",
+    "CAUSE": [
+      "candidatos consumer/wine-media nao provam creator agricola",
+      "Enovitis oficial foi resolvido (@enovitis_, site enovitisincampo.it)",
+      "12 publicacoes medidas",
+      "zero pessoas reveladas",
+      "feiras observadas rendem predominantemente EMPRESAS",
+      "falta uma porta de PESSOAS em viticultura"
+    ]
+  },
+  "ENOVITIS": {
+    "OFFICIAL_IDENTITY": "PROVED",
+    "CREATOR_HUB_YIELD": "0 pessoas / 12 publicacoes medidas",
+    "CREATOR_HUB_ROLE": "DEMOTED",
+    "TECHNICAL_EVENT_VALUE": "PRESERVED"
+  },
+  "CONTENT_RATE_MIN_N": {
+    "VALUE": 30,
+    "STATUS": "PROPOSAL_ONLY",
+    "WHY": "aguarda arbitragem; nao foi tornada canonica"
+  },
+  "REVALIDATION_RULE": "NOT_YET_DEFINED",
+  "SUPABASE": {
+    "CANONICAL_CREATOR_SCHEMA_VISIBLE_IN_REPO": "NO",
+    "DOES_NOT_MEAN": "SUPABASE_EAME_DOES_NOT_EXIST",
+    "MIGRATION_APPLIED": "NO",
+    "PROPOSAL": "PRESERVED"
+  },
+  "ENTITY_SEPARATION_LAW": "PERSON_CREATOR e FARM_BUSINESS nunca se somam sob o nome de creators. Uma FARM_BUSINESS pode ser altamente util para Marketing, campo, evento ou conteudo — e continua fora da contagem de creators-pessoa.",
+  "CONVERGENCE_BOUNDARY": {
+    "CAN_ADD": [
+      "ACTIVATION_ROUTE_AVAILABLE",
+      "RELEVANT_PUBLIC_VOICE_AVAILABLE"
+    ],
+    "CANNOT_CONFIRM": [
+      "FIELD_PROBLEM",
+      "INCIDENCE",
+      "MARKET_OPPORTUNITY",
+      "PRODUCT_FIT"
+    ],
+    "LAYER": "AUDIENCE / ACTIVATION / PUBLIC VOICE"
+  },
+  "MAIN_QUESTION": "WHO COULD MARKETING EVALUATE / CALL?",
+  "NOT_THE_QUESTION": "WHO SHOULD MARKETING HIRE?",
+  "READY_ENTITIES": [
+    {
+      "NAME": "Davide Gomiero",
+      "HANDLE": "@gomierofarm",
+      "COUNTRY": "IT",
+      "REGION": "Limena, Padova, Veneto",
+      "CROPS": [
+        "MAIZE",
+        "ALFALFA",
+        "SOYBEAN",
+        "FORAGE"
+      ],
+      "ENTITY_TYPE": "PERSON_CREATOR",
+      "LAST_ACTIVITY_DATE": "2026-08-24"
+    },
+    {
+      "NAME": "Francisco Jesús Montoya",
+      "HANDLE": "@biocampojoyma",
+      "COUNTRY": "ES",
+      "REGION": "Nijar, Almeria (Andalucia)",
+      "CROPS": [
+        "PEPPER",
+        "TOMATO",
+        "PROTECTED_HORTICULTURE"
+      ],
+      "ENTITY_TYPE": "FARM_BUSINESS",
+      "LAST_ACTIVITY_DATE": "2026-07-31"
+    },
+    {
+      "NAME": "David Forge",
+      "HANDLE": "@chaineagricole (Chaine Agricole)",
+      "COUNTRY": "FR",
+      "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+      "CROPS": [
+        "WHEAT",
+        "BARLEY",
+        "RAPESEED",
+        "SUNFLOWER"
+      ],
+      "ENTITY_TYPE": "PERSON_CREATOR",
+      "LAST_ACTIVITY_DATE": "2026-08-04"
+    },
+    {
+      "NAME": "Gilles Van Kempen",
+      "HANDLE": "Gilles vk agriculteur du Loiret",
+      "COUNTRY": "FR",
+      "REGION": "Loiret (Centre-Val de Loire)",
+      "CROPS": [
+        "WHEAT",
+        "RAPESEED",
+        "BARLEY",
+        "MAIZE",
+        "ONION_SEED"
+      ],
+      "ENTITY_TYPE": "PERSON_CREATOR",
+      "LAST_ACTIVITY_DATE": "2026-08-29"
+    },
+    {
+      "NAME": "Huerto Ecolgico Marc Agricultura Regenerativa",
+      "HANDLE": "@huerto_ecologico.marc",
+      "COUNTRY": "ES",
+      "REGION": "NÃO SEI",
+      "CROPS": [
+        "OLIVE",
+        "CAROB",
+        "VEGETABLES"
+      ],
+      "ENTITY_TYPE": "PERSON_CREATOR",
+      "LAST_ACTIVITY_DATE": "2026-08-30"
+    },
+    {
+      "NAME": "Germán Fernández | Agricultura en invernadero",
+      "HANDLE": "@germanagrolife",
+      "COUNTRY": "ES",
+      "REGION": "Almería",
+      "CROPS": [
+        "PEPPER",
+        "PROTECTED_HORTICULTURE"
+      ],
+      "ENTITY_TYPE": "PERSON_CREATOR",
+      "LAST_ACTIVITY_DATE": "2026-08-29"
+    },
+    {
+      "NAME": "AgroSamanta👩🏼‍🌾",
+      "HANDLE": "@agrosamanta_",
+      "COUNTRY": "ES",
+      "REGION": "Níjar, Almería",
+      "CROPS": [
+        "TOMATO"
+      ],
+      "ENTITY_TYPE": "PERSON_CREATOR",
+      "LAST_ACTIVITY_DATE": "2026-08-27"
+    },
+    {
+      "NAME": "Francisco Fernandez Barroso",
+      "HANDLE": "@chicurri_agro",
+      "COUNTRY": "ES",
+      "REGION": "NÃO SEI",
+      "CROPS": [
+        "OLIVE",
+        "GRAPEVINE"
+      ],
+      "ENTITY_TYPE": "PERSON_CREATOR",
+      "LAST_ACTIVITY_DATE": "2026-08-25"
+    },
+    {
+      "NAME": "Oliverio Rodriguez Viticultor",
+      "HANDLE": "@oliverio_rodfer",
+      "COUNTRY": "ES",
+      "REGION": "NÃO SEI",
+      "CROPS": [
+        "GRAPEVINE"
+      ],
+      "ENTITY_TYPE": "PERSON_CREATOR",
+      "LAST_ACTIVITY_DATE": "2026-08-28"
+    },
+    {
+      "NAME": "Pistachos Terruza",
+      "HANDLE": "@terruzapistachos",
+      "COUNTRY": "ES",
+      "REGION": "Benamaurel, Granada",
+      "CROPS": [
+        "PISTACHIO"
+      ],
+      "ENTITY_TYPE": "FARM_BUSINESS",
+      "LAST_ACTIVITY_DATE": "2026-08-30"
+    }
+  ]
+}

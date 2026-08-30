@@ -936,3 +936,123 @@ class TestManifestoDaMissaoResolve(unittest.TestCase):
         intrusos = [f for f in os.listdir(partilhado) if f.startswith('14-MAPA')]
         self.assertFalse(intrusos,
                          'bruto desta missão no diretório partilhado: %s' % intrusos)
+
+
+class TestCongelamentoDoPiloto(unittest.TestCase):
+    """§1 — o estado congelado é DERIVADO dos artefatos, nunca digitado.
+
+    Um estado escrito à mão envelhece em silêncio: alguém mexe num artefato, o
+    número muda, e o documento continua a dizer o antigo.
+    """
+
+    def _freeze(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'PILOT-FREEZE-STATE.json')
+        if not os.path.exists(caminho):
+            self.skipTest('congelamento não gravado')
+        with open(caminho, encoding='utf-8') as f:
+            return _j.load(f)
+
+    def test_o_declarado_bate_com_o_medido(self):
+        d = self._freeze()
+        self.assertEqual('MATCH', d['DECLARED_VS_MEASURED'],
+                         'o congelamento diverge do que os artefatos medem')
+
+    def test_o_estado_e_congelado(self):
+        self.assertEqual('FROZEN_WAITING_FOR_INTELLIGENCE', self._freeze()['STATE'])
+
+    def test_a_metrica_proibida_esta_marcada_como_proibida(self):
+        d = self._freeze()
+        self.assertEqual('PROHIBITED_METRIC', d['PROHIBITED_METRIC']['STATUS'])
+        self.assertEqual('CREATORS_READY', d['PROHIBITED_METRIC']['NAME'])
+
+    def test_italia_vite_e_lacuna_de_cobertura_nao_prova_de_ausencia(self):
+        d = self._freeze()['ITALY_VITE']
+        self.assertEqual('CAPABILITY_COVERAGE_GAP', d['CLASSIFICATION'])
+        self.assertEqual('NO_CREATORS_EXIST', d['DOES_NOT_PROVE'])
+        self.assertGreaterEqual(len(d['CAUSE']), 5, 'a causa precisa ser específica')
+
+    def test_enovitis_identidade_provada_e_papel_rebaixado(self):
+        e = self._freeze()['ENOVITIS']
+        self.assertEqual('PROVED', e['OFFICIAL_IDENTITY'])
+        self.assertEqual('DEMOTED', e['CREATOR_HUB_ROLE'])
+        self.assertEqual('PRESERVED', e['TECHNICAL_EVENT_VALUE'],
+                         'rebaixar como hub de creators não apaga o valor técnico')
+
+    def test_supabase_nao_afirma_ausencia_do_supabase(self):
+        s = self._freeze()['SUPABASE']
+        self.assertEqual('NO', s['CANONICAL_CREATOR_SCHEMA_VISIBLE_IN_REPO'])
+        self.assertEqual('SUPABASE_EAME_DOES_NOT_EXIST', s['DOES_NOT_MEAN'])
+        self.assertEqual('NO', s['MIGRATION_APPLIED'])
+
+    def test_content_rate_continua_proposta(self):
+        self.assertEqual('PROPOSAL_ONLY',
+                         self._freeze()['CONTENT_RATE_MIN_N']['STATUS'])
+
+    def test_a_pergunta_principal_nao_e_contratacao(self):
+        d = self._freeze()
+        self.assertIn('EVALUATE', d['MAIN_QUESTION'])
+        self.assertIn('HIRE', d['NOT_THE_QUESTION'])
+
+
+class TestValidadeDaFicha(unittest.TestCase):
+    """§2 — ninguém fica "pronto para sempre"."""
+
+    def _fichas(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'DECISION-FICHES.json')
+        if not os.path.exists(caminho):
+            self.skipTest('fichas não geradas')
+        with open(caminho, encoding='utf-8') as f:
+            d = _j.load(f)
+        return d.get('PERSON_CREATOR_FICHES', []) + d.get('FARM_BUSINESS_FICHES', [])
+
+    def test_toda_ficha_pronta_carrega_data_e_janela(self):
+        for f in self._fichas():
+            for campo in ('AS_OF_DATE', 'LAST_ACTIVITY_DATE',
+                          'ACTIVITY_WINDOW_MEASURED', 'ACTIVITY_EVIDENCE',
+                          'REVALIDATION_NEEDED_AFTER'):
+                self.assertIn(campo, f, '%s sem %s' % (f.get('NAME') or
+                                                       f.get('ENTITY_NAME'), campo))
+
+    def test_nenhuma_validade_foi_inventada(self):
+        for f in self._fichas():
+            self.assertEqual('NOT_YET_DEFINED', f['REVALIDATION_NEEDED_AFTER'],
+                             'atribuir uma validade sem contrato seria inventar '
+                             'precisão que nada sustenta')
+
+
+class TestArtefatoDeCapacidadeCompleto(unittest.TestCase):
+    """§6 — lookup pelos cinco eixos, e os dez campos por resultado."""
+
+    def _cap(self):
+        import json as _j
+        caminho = os.path.join(BASE, 'CREATOR-CAPABILITY-EAME.json')
+        if not os.path.exists(caminho):
+            self.skipTest('artefato não gerado')
+        with open(caminho, encoding='utf-8') as f:
+            return _j.load(f)
+
+    def test_os_cinco_eixos_de_lookup_existem(self):
+        d = self._cap()
+        for idx in ('LOOKUP_BY_COUNTRY_CROP', 'LOOKUP_BY_COUNTRY_REGION',
+                    'LOOKUP_BY_ENTITY_TYPE', 'LOOKUP_BY_ACTIVATION_STATE'):
+            self.assertIn(idx, d)
+            self.assertTrue(d[idx], '%s vazio' % idx)
+
+    def test_cada_resultado_preserva_os_dez_campos(self):
+        d = self._cap()
+        exigidos = d['FIELDS_PRESERVED_PER_RESULT']
+        self.assertEqual(10, len(exigidos))
+        amostra = list(d['LOOKUP_BY_ACTIVATION_STATE'].values())[0][0]
+        for campo in exigidos:
+            self.assertIn(campo, amostra, '%s ausente do resultado' % campo)
+
+    def test_o_artefato_declara_que_nao_ordena(self):
+        self.assertIn('NO_RANKING', self._cap())
+
+    def test_a_fronteira_com_a_convergencia_esta_no_artefato(self):
+        b = self._cap()['CONVERGENCE_BOUNDARY']
+        for x in ('FIELD_PROBLEM', 'INCIDENCE', 'MARKET_OPPORTUNITY', 'PRODUCT_FIT'):
+            self.assertIn(x, b['CREATOR_MAP_CANNOT_CONFIRM'])
+        self.assertIn('ACTIVATION_ROUTE_AVAILABLE', b['CREATOR_MAP_CAN_ADD'])

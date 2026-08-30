@@ -26,6 +26,7 @@ sys.path.insert(0, HERE)
 import creators as cr                                        # noqa: E402
 
 MISSION = '14-MAPA-DE-CREATORS-EAME'
+CAPTURA = '2026-08-30'
 PROIBIDAS = ('BEST', 'TOP CREATOR', 'RECOMMENDED TO HIRE', 'MELHOR', 'CONTRATAR')
 
 PAPEIS_DE_ATIVACAO = ('FIELD_CONTENT_PARTNER', 'FARM_VISIT', 'TECHNICAL_EVENT_PARTNER',
@@ -72,6 +73,15 @@ def montar():
                 'CROP_PROVED': f.get('CROPS'),
                 'CROP_PROOF_EVIDENCE': f.get('WHY_RELEVANT'),
                 'RECENT_ACTIVITY': f.get('RECENT_ACTIVITY'),
+                # §2 · nenhuma ficha diz "pronto para sempre"
+                'AS_OF_DATE': CAPTURA,
+                'LAST_ACTIVITY_DATE': (f.get('RECENT_ACTIVITY') or {}).get(
+                    'LAST_ACTIVITY_DATE', cr.NAO_SEI),
+                'ACTIVITY_WINDOW_MEASURED': '30 e 90 dias a partir de AS_OF_DATE',
+                'ACTIVITY_EVIDENCE': 'contagem de publicacoes na rota publica medida',
+                'REVALIDATION_NEEDED_AFTER': 'NOT_YET_DEFINED',
+                'REVALIDATION_NOTE': 'atividade e pericivel; nenhuma validade '
+                                     'arbitraria foi atribuida',
                 'AUDIENCE_FACING': f.get('FACING'),
                 'AUDIENCE_FIT_FOR_ADAMA': f.get('AUDIENCE_FIT_FOR_ADAMA'),
                 'AUDIENCE_FIT_REASON': f.get('AUDIENCE_FIT_REASON'),
@@ -98,6 +108,12 @@ def montar():
                 'CROP': f.get('CROPS'),
                 'PRODUCTION_ROLE': f.get('ACTUAL_FARMER_EVIDENCE', cr.NAO_SEI),
                 'RECENT_ACTIVITY': f.get('RECENT_ACTIVITY'),
+                'AS_OF_DATE': CAPTURA,
+                'LAST_ACTIVITY_DATE': (f.get('RECENT_ACTIVITY') or {}).get(
+                    'LAST_ACTIVITY_DATE', cr.NAO_SEI),
+                'ACTIVITY_WINDOW_MEASURED': '30 e 90 dias a partir de AS_OF_DATE',
+                'ACTIVITY_EVIDENCE': 'contagem de publicacoes na rota publica medida',
+                'REVALIDATION_NEEDED_AFTER': 'NOT_YET_DEFINED',
                 'PUBLIC_CONTACT': f.get('PUBLIC_CONTACT'),
                 'WHY_RELEVANT': f.get('WHY_RELEVANT'),
                 'POSSIBLE_ACTIVATION_ROLE': ['FIELD_CONTENT_PARTNER', 'FARM_VISIT',

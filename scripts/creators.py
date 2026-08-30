@@ -748,7 +748,7 @@ def carregar(nome):
     for chave in ('CREATORS', 'COLLABORATIONS', 'REGISTROS', 'CANDIDATES',
                   'PROFILES', 'ACTORS', 'MARKET_EVIDENCE', 'VALIDATIONS', 'HUBS',
                   'MENTIONS', 'YIELD', 'FICHAS', 'RUNS', 'CHANNELS',
-                  'PERSON_CREATOR_FICHES'):
+                  'PERSON_CREATOR_FICHES', 'READY_ENTITIES'):
         if isinstance(d, dict) and chave in d:
             return d[chave]
     return d if isinstance(d, list) else []

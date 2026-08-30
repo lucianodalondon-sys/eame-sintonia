@@ -51,6 +51,18 @@ GRUPOS_DE_CULTURA = {
     'PROTECTED_HORTICULTURE': ['PROTECTED_HORTICULTURE', 'TOMATO', 'PEPPER'],
 }
 
+# §2 · ACTIVATION_READY tem DATA. Atividade recente é perecível: um recorte
+# medido há três meses não é o mesmo recorte hoje. Mas inventar uma validade
+# ("vale 90 dias") seria inventar precisão que nada sustenta — a cadência de
+# publicação varia por pessoa, por cultura e por estação.
+#
+# Por isso a regra fica declarada como AUSENTE, e não preenchida por plausibilidade.
+REVALIDATION_RULE = 'NOT_YET_DEFINED'
+REVALIDATION_NOTE = (
+    'Nenhuma validade arbitraria foi atribuida. ACTIVITY_WINDOW_MEASURED diz o que '
+    'foi medido e AS_OF_DATE diz quando; quem usar a ficha decide, com esses dois '
+    'dados, se precisa remedir. Ninguem fica "pronto para sempre".')
+
 CAUSAS_NOT_READY = {
     ('IT', 'ANY', 'GRAPEVINE'):
         'Zero creators PESSOA italianos com VITICULTURE_RELEVANCE provada. Os '
@@ -62,25 +74,59 @@ CAUSAS_NOT_READY = {
 }
 
 
+def _registro(f):
+    """Um resultado do lookup — com tudo o que §6 exige preservado.
+
+    Inclusive `WHAT_IS_NOT_KNOWN`: quem consulta a capacidade a partir de outra
+    missão precisa receber a lacuna junto com o achado, senão a lacuna perde-se
+    exatamente no ponto em que o dado é reutilizado.
+    """
+    ativ = f.get('RECENT_ACTIVITY') or {}
+    return {
+        'CREATOR': f.get('CREATOR'), 'HANDLE': f.get('HANDLE'),
+        'PUBLIC_CHANNEL': f.get('PROFILE_URL', cr.NAO_SEI),
+        'COUNTRY': f.get('COUNTRY'), 'REGION': f.get('REGION'),
+        'ENTITY_TYPE': f.get('ACTIVATION_ENTITY_TYPE'),
+        'ACTIVATION_STATE': f.get('ACTIVATION_STATE'),
+        'ACTUAL_FARMER': f.get('ACTUAL_FARMER'),
+        'IDENTITY_EVIDENCE': f.get('EVIDENCE') or [],
+        'CROP_PROOF': {'CROPS': f.get('CROPS'), 'STATE': f.get('CROP_STATE'),
+                       'WHY': f.get('WHY_RELEVANT')},
+        'RECENT_ACTIVITY': ativ,
+        # §2 · a ficha carrega a sua propria data e o que foi medido
+        'AS_OF_DATE': CAPTURA,
+        'LAST_ACTIVITY_DATE': ativ.get('LAST_ACTIVITY_DATE', cr.NAO_SEI),
+        'ACTIVITY_WINDOW_MEASURED': '30 e 90 dias, contados a partir de AS_OF_DATE',
+        'ACTIVITY_EVIDENCE': ('posts/videos lidos na rota publica; '
+                              '30d=%s 90d=%s' % (ativ.get('POSTS_LAST_30D', cr.NAO_SEI),
+                                                 ativ.get('POSTS_LAST_90D', cr.NAO_SEI))),
+        'REVALIDATION_NEEDED_AFTER': REVALIDATION_RULE,
+        'PUBLIC_CONTACT': f.get('PUBLIC_CONTACT', cr.NAO_SEI),
+        'AUDIENCE_FACING': f.get('FACING', cr.NAO_SEI),
+        'AUDIENCE_FIT_FOR_ADAMA': f.get('AUDIENCE_FIT_FOR_ADAMA'),
+        'BRAND_HISTORY': f.get('BRAND_HISTORY', 'NOT_OBSERVED'),
+        'COMPETITOR_HISTORY': f.get('COMPETITOR_HISTORY', 'NOT_OBSERVED'),
+        'WHAT_IS_NOT_KNOWN': f.get('MISSING_PROOFS'),
+    }
+
+
 def montar():
     fichas = cr.carregar('WHO-COULD-MARKETING-CALL.json')
     prontos = [f for f in fichas if f.get('ACTIVATION_STATE') == 'ACTIVATION_READY']
 
     indice = defaultdict(list)
+    por_regiao, por_entidade, por_estado = (defaultdict(list), defaultdict(list),
+                                            defaultdict(list))
     for f in fichas:
         crops = f.get('CROPS')
         crops = crops if isinstance(crops, list) else ([] if crops in (None, cr.NAO_SEI)
                                                        else [crops])
         for c in (crops or ['NOT_KNOWN']):
-            indice[(f.get('COUNTRY'), c)].append({
-                'CREATOR': f.get('CREATOR'), 'HANDLE': f.get('HANDLE'),
-                'REGION': f.get('REGION'),
-                'ENTITY_TYPE': f.get('ACTIVATION_ENTITY_TYPE'),
-                'ACTIVATION_STATE': f.get('ACTIVATION_STATE'),
-                'FACING': f.get('FACING'),
-                'AUDIENCE_FIT_FOR_ADAMA': f.get('AUDIENCE_FIT_FOR_ADAMA'),
-                'ACTUAL_FARMER': f.get('ACTUAL_FARMER'),
-            })
+            registro = _registro(f)
+            indice[(f.get('COUNTRY'), c)].append(registro)
+            por_regiao[(f.get('COUNTRY'), f.get('REGION'))].append(registro)
+            por_entidade[f.get('ACTIVATION_ENTITY_TYPE')].append(registro)
+            por_estado[f.get('ACTIVATION_STATE')].append(registro)
 
     lookup = {}
     for (pais, crop), gente in sorted(indice.items(), key=lambda x: (str(x[0][0]), str(x[0][1]))):
@@ -142,6 +188,32 @@ def montar():
         'METRIC_LAW': 'a soma NUNCA se chama CREATORS_READY. Pessoa != empresa.',
         'DECLARED_SLICES': declarados,
         'LOOKUP_BY_COUNTRY_CROP': lookup,
+        'LOOKUP_BY_COUNTRY_REGION': {'%s|%s' % (k[0], k[1]): v
+                                     for k, v in sorted(por_regiao.items(),
+                                                        key=lambda x: str(x[0]))},
+        'LOOKUP_BY_ENTITY_TYPE': {str(k): v for k, v in sorted(por_entidade.items(),
+                                                               key=lambda x: str(x[0]))},
+        'LOOKUP_BY_ACTIVATION_STATE': {str(k): v for k, v in sorted(por_estado.items(),
+                                                                    key=lambda x: str(x[0]))},
+        'FIELDS_PRESERVED_PER_RESULT': [
+            'IDENTITY_EVIDENCE', 'CROP_PROOF', 'RECENT_ACTIVITY', 'PUBLIC_CHANNEL',
+            'PUBLIC_CONTACT', 'AUDIENCE_FACING', 'BRAND_HISTORY', 'COMPETITOR_HISTORY',
+            'AS_OF_DATE', 'WHAT_IS_NOT_KNOWN'],
+        'REVALIDATION_RULE': REVALIDATION_RULE,
+        'REVALIDATION_NOTE': REVALIDATION_NOTE,
+        'NO_RANKING': 'este artefato nao ordena e nao pontua. A ordem das listas e a '
+                      'ordem de insercao, sem significado.',
+        # §8 · a fronteira com a Convergencia, escrita no proprio artefato
+        'CONVERGENCE_BOUNDARY': {
+            'CREATOR_MAP_CAN_ADD': ['ACTIVATION_ROUTE_AVAILABLE',
+                                    'RELEVANT_PUBLIC_VOICE_AVAILABLE'],
+            'CREATOR_MAP_CANNOT_CONFIRM': ['FIELD_PROBLEM', 'INCIDENCE',
+                                           'MARKET_OPPORTUNITY', 'PRODUCT_FIT'],
+            'LAYER': 'AUDIENCE / ACTIVATION / PUBLIC VOICE',
+            'WHY': 'um creator prova que existe VOZ para aquela cultura naquele lugar. '
+                   'Nao prova que ha problema de campo, nem incidencia, nem oportunidade '
+                   'de mercado, nem encaixe de produto — essas vem de outras camadas.',
+        },
         'ENTITY_TYPES': list(cr.ENTIDADES_DE_ATIVACAO),
         'ACTIVATION_STATES': list(cr.RELEVANCIA),
         'JOIN_KEYS_FOR_OTHER_MISSIONS': {

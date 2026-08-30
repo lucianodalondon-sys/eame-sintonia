@@ -20,6 +20,17 @@ Verificação feita, e o resultado é ele próprio um achado:
 > se vê aqui: os cinco workflows existem no registo do Actions e **as suas definições não
 > estão na árvore atual**.
 
+**Estado canónico, no nome exato:**
+
+```
+CANONICAL_CREATOR_SCHEMA_VISIBLE_IN_REPO = NO
+MIGRATION_APPLIED                        = NO
+PROPOSAL                                 = PRESERVED
+```
+
+> Isto **não** significa `SUPABASE_EAME_DOES_NOT_EXIST`. Significa apenas que **este
+> repositório não expõe** um schema/migração canónico para esta capacidade.
+
 **Conclusão:** não há, hoje, destino canónico do Supabase visível neste repositório para o
 Mapa de Creators. Portanto **não se documenta um contrato existente — propõe-se um mínimo.**
 
@@ -78,3 +89,6 @@ envelhece em silêncio. Se forem materializados por desempenho, que seja como **
 3. Só então uma migração é escrita — contra o schema real, não contra esta proposta.
 
 **Nenhuma tabela foi criada. Nenhuma migração foi executada.**
+
+A decisão do modelo persistente acontece depois de
+**RODADA DE INTELIGÊNCIA → RED TEAM → ARBITRAGEM** — não antes.
