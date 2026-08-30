@@ -103,6 +103,8 @@ def montar():
             'PROFILE_URL': r.get('PROFILE_URL', cr.NAO_SEI),
             'ENTITY_KIND': r.get('ENTITY_KIND'),
             'CREATOR_TYPE': r.get('CREATOR_TYPE'),
+            'FACING': r.get('FACING', cr.NAO_SEI),
+            'ACTIVATION_ENTITY_TYPE': r.get('ACTIVATION_ENTITY_TYPE', cr.NAO_SEI),
             'ACTUAL_FARMER': r.get('ACTUAL_FARMER'),
             'ACTUAL_FARMER_EVIDENCE': r.get('ACTUAL_FARMER_EVIDENCE'),
             'WHY_RELEVANT': porques,

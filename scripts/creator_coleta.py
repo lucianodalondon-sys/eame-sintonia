@@ -654,42 +654,79 @@ def descobertos():
 # Termos por cultura, em ES/IT/FR/EN. Deliberadamente ESPECÍFICOS: a lição do
 # `speaker_universo` vale aqui igual — consulta frouxa não traz mais do mesmo,
 # traz OUTRA população. "verde" ou "campo" não entram; "olivar" e "vendimia" sim.
+# Termos por cultura. A PRIMEIRA versão desta lista fez casamento por SUBSTRING e
+# produziu falsos positivos graves, medidos ao ler o resultado:
+#
+#     'riz'  (arroz em francês)  casava dentro de nariz, matriz, Beatriz, horizonte
+#     'mais' (milho em italiano) casava com o "mais" português de @ironfarmer_rc,
+#            que é de Évora e escreve em português — e o perfil saiu "MAIZE PROVED"
+#     'serra' (estufa em italiano) casava com serra de montanha
+#     'papa'  (batata) casava com papa/papá
+#     'riso'  (arroz em italiano) casava com riso/sorriso
+#
+# É exatamente o erro que o `speaker_universo` documenta e que este arquivo cita:
+# consulta frouxa não traz mais do mesmo, traz OUTRA população com cara de
+# sucesso. Agora o casamento é por PALAVRA INTEIRA, e os termos curtos ambíguos
+# foram REMOVIDOS em vez de "melhorados" — um termo que precisa de contexto para
+# não errar não é um termo, é um palpite.
 TERMOS_DE_CULTURA = {
-    'OLIVE':        ['olivar', 'olivo', 'aceituna', 'almazara', 'oliveto', 'olivicoltura',
-                     'olivier', 'oliveraie', 'olive grove'],
-    'GRAPEVINE':    ['viñedo', 'viña', 'vendimia', 'viticultura', 'vigneto', 'vendemmia',
-                     'vigne', 'vignoble', 'vineyard'],
-    'CEREALS':      ['trigo', 'cebada', 'cereal', 'siega', 'cosechadora', 'grano duro',
-                     'frumento', 'orzo', 'blé', 'orge', 'moisson', 'wheat', 'barley'],
-    'MAIZE':        ['maíz', 'mais', 'maïs', 'maize', 'ensilado', 'insilato', 'ensilage'],
-    'RICE':         ['arroz', 'riso', 'risaia', 'riz', 'rice paddy'],
-    'PROTECTED_HORTICULTURE': ['invernadero', 'invernaderos', 'serra', 'serre',
-                               'greenhouse', 'hortícola', 'horticola'],
-    'TOMATO':       ['tomate', 'pomodoro', 'tomatoes'],
-    'PEPPER':       ['pimiento', 'peperone', 'poivron'],
-    'PISTACHIO':    ['pistacho', 'pistacchio', 'pistache'],
-    'ALMOND':       ['almendro', 'almendra', 'mandorlo', 'amandier'],
-    'CITRUS':       ['cítricos', 'citricos', 'naranjo', 'agrumi', 'agrumes'],
-    'POTATO':       ['patata', 'papa', 'pomme de terre'],
-    'SUNFLOWER':    ['girasol', 'girasole', 'tournesol'],
+    'OLIVE':        ['olivar', 'olivo', 'olivos', 'aceituna', 'aceitunas', 'almazara',
+                     'oliveto', 'olivicoltura', 'olivier', 'oliveraie', 'olive grove'],
+    'GRAPEVINE':    ['vinedo', 'vinedos', 'vina', 'vendimia', 'viticultura', 'vigneto',
+                     'vendemmia', 'vignoble', 'viticoltura', 'vineyard'],
+    'CEREALS':      ['trigo', 'cebada', 'cereal', 'cereales', 'siega', 'cosechadora',
+                     'grano duro', 'frumento', 'orzo', 'ble', 'orge', 'moisson',
+                     'wheat', 'barley'],
+    'MAIZE':        ['maiz', 'mais_it_REMOVIDO', 'maize', 'ensilado', 'insilato',
+                     'ensilage', 'semis de mais'],
+    'RICE':         ['arroz', 'risaia', 'risaie', 'arrozal'],
+    'PROTECTED_HORTICULTURE': ['invernadero', 'invernaderos', 'greenhouse',
+                               'horticola', 'horticolas'],
+    'TOMATO':       ['tomate', 'tomates', 'pomodoro', 'pomodori'],
+    'PEPPER':       ['pimiento', 'pimientos', 'peperone', 'poivron'],
+    'PISTACHIO':    ['pistacho', 'pistachos', 'pistacchio', 'pistache'],
+    'ALMOND':       ['almendro', 'almendros', 'almendra', 'mandorlo', 'amandier'],
+    'CITRUS':       ['citricos', 'naranjo', 'naranjos', 'agrumi', 'agrumes'],
+    'POTATO':       ['patata', 'patatas', 'pomme de terre'],
+    'SUNFLOWER':    ['girasol', 'girasoles', 'girasole', 'tournesol'],
 }
+TERMOS_DE_CULTURA['MAIZE'] = [t for t in TERMOS_DE_CULTURA['MAIZE']
+                              if not t.endswith('_REMOVIDO')]
 
 # Quantos conteúdos distintos mencionando a cultura fazem "recorrente" (classe C).
 # Escolhido ANTES de ver o resultado, e registrado aqui por isso.
 MINIMO_PARA_RECORRENTE = 2
 
+# Quem FALA de uma cultura não necessariamente a PRODUZ. Para audiências de
+# consumidor, mencionar tomate dez vezes prova assunto, não lavoura — um creator
+# de comida publica receitas. Nestes casos o achado sai como TOPIC, nunca como
+# CROP_FIT.
+FACING_QUE_NAO_PROVA_PRODUCAO = ('FOOD_CONSUMER', 'GENERAL_CONSUMER', 'WINE_CONSUMER')
+
+_RX_TERMOS = None
+
+
+def _normaliza(txt):
+    import unicodedata
+    t = unicodedata.normalize('NFKD', (txt or '').lower())
+    return ''.join(c for c in t if not unicodedata.combining(c))
+
 
 def _cultura_no_texto(texto):
-    """Devolve {cultura: [trechos]} para os termos ENCONTRADOS no texto."""
-    baixo = (texto or '').lower()
+    """Devolve {cultura: [trechos]} — casamento por PALAVRA INTEIRA."""
+    global _RX_TERMOS
+    import re
+    if _RX_TERMOS is None:
+        _RX_TERMOS = {c: re.compile(r'\b(?:%s)\b' % '|'.join(
+            re.escape(_normaliza(t)) for t in termos))
+            for c, termos in TERMOS_DE_CULTURA.items()}
+    plano = _normaliza(texto)
     fora = {}
-    for cultura, termos in TERMOS_DE_CULTURA.items():
-        for t in termos:
-            if t in baixo:
-                i = baixo.find(t)
-                fora.setdefault(cultura, []).append(
-                    (texto[max(0, i - 60):i + 80] or '').replace('\n', ' ').strip())
-                break
+    for cultura, rx in _RX_TERMOS.items():
+        m = rx.search(plano)
+        if m:
+            i = m.start()
+            fora[cultura] = [(texto[max(0, i - 60):i + 80] or '').replace('\n', ' ').strip()]
     return fora
 
 
@@ -747,9 +784,19 @@ def conteudo():
         pontuais = sorted([c for c, n in achados.items()
                            if n < MINIMO_PARA_RECORRENTE])
 
+        facing = a.get('FACING') or ''
+        consumidor = (facing in FACING_QUE_NAO_PROVA_PRODUCAO
+                      or a.get('CREATOR_TYPE') in ('FOOD_CREATOR', 'WINE_MEDIA_CREATOR'))
         if not posts:
             estado, tipo, forca = 'NOT_KNOWN', cr.NAO_SEI, cr.NAO_SEI
             motivo = 'a rota nao devolveu conteudo — NAO e ausencia de cultura'
+        elif recorrentes and consumidor:
+            # Assunto observado, producao NAO provada. Os dois num campo so
+            # transformariam um creator de receitas em produtor de tomate.
+            estado, tipo, forca = 'NOT_PROVED', cr.NAO_SEI, cr.NAO_SEI
+            motivo = ('CROP_TOPIC_OBSERVED (%s) mas o perfil e de audiencia de '
+                      'consumidor: mencionar a cultura prova ASSUNTO, nao lavoura'
+                      % ','.join(recorrentes))
         elif recorrentes:
             estado = 'PROVED'
             tipo, forca = 'C_RECURRING_FIELD_CONTENT', 'STRONG'
@@ -770,7 +817,9 @@ def conteudo():
             'N_CONTENT_ITEMS_REVIEWED': len(posts),
             'CONTENT_TYPES_OBSERVED': sorted({p.get('type') or 'UNKNOWN'
                                               for p in posts}) or cr.NAO_SEI,
+            'FACING': facing or cr.NAO_SEI,
             'CROPS_RECURRING': recorrentes,
+            'CROP_TOPIC_ONLY': recorrentes if consumidor else [],
             'CROPS_MENTIONED_ONCE': pontuais,
             'CROP_PROOF_RESULT': estado,
             'CROP_PROOF_TYPE': tipo, 'CROP_PROOF_STRENGTH': forca,
