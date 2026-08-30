@@ -1,0 +1,738 @@
+{
+ "SOURCE_ID": "ES-T5-003",
+ "source": "OpenAlex /works group_by=authorships.author.id (agregado) + ORCID Public API expanded-search",
+ "SOURCE_LOCATION": "EUROPE (OpenAlex, Reino Unido/EUA) e ORCID (EUA)",
+ "FACT_LOCATION": "o par CROP x ISSUE e espanhol (veio do ROPF). A autoria NAO e: a busca do OpenAlex nao foi filtrada por pais.",
+ "ORIGINAL_LANGUAGE": "EN",
+ "captured_at": "2026-08-30",
+ "METODO": "CROP x ISSUE (do ROPF espanhol) -> papers -> autores -> identidade ORCID. Nunca o caminho inverso.",
+ "POR_QUE_group_by": "consulta agregada devolve o quadro inteiro de autores por 1 chamada; buscar autor a autor consome o orcamento diario do OpenAlex em poucos registros.",
+ "ORCAMENTO_OPENALEX": {
+  "ESTADO_AO_FECHAR": "ESGOTADO",
+  "CORPO_DA_RECUSA": "HTTP 429 — \"Insufficient budget. This request costs $0.0001 but you only have $0 remaining. Resets at midnight UTC.\"",
+  "retryAfter_s": 83587,
+  "LEITURA": "429 aqui NAO e limite de taxa por IP compartilhado; e credito diario zerado. Sao diagnosticos diferentes e ja confundi os dois uma vez.",
+  "CONSEQUENCIA": "os conjuntos completos de autores (49 / 83 / 200) nao foram baixados. So o topo por numero de obras foi persistido. Isso e limite de leitura declarado, nao ausencia."
+ },
+ "IDENTITY_RULE": "CONFIRMADA somente quando a busca ORCID por nome devolve num-found=1. Qualquer outro numero e CANDIDATA com os candidatos listados. Ambiguidade nunca e colapsada em um vencedor.",
+ "IDENTITY_RULE_SEGUNDA_ANCORA": "ORCID_DECLARADO_NO_OPENALEX vem do proprio registro de autor do OpenAlex (fila ES-T5-002), nao de busca por nome. Onde ele existe, e ancora mais forte que a busca — mas so cobre quem ja estava na fila antiga.",
+ "ROLE_RULE": "RESEARCHER porque o registro do trabalho declara afiliacao institucional. Papel nunca inferido.",
+ "REGION_RULE": "NAO SEI. O registro traz instituicao, nao provincia. Inferir provincia pela sede seria SOURCE_LOCATION virando FACT_LOCATION.",
+ "VOZ_PUBLICA": "NAO TESTADA nesta rodada. Ciencia prova papel; social mede voz publica. Sao camadas separadas e a segunda ainda nao foi aberta para estes nomes.",
+ "PAIRS_SENT_TO_SCIENCE": 3,
+ "PAPERS_TOTAL": 88,
+ "RESEARCHERS_PERSISTIDOS": 36,
+ "IDENTITIES_CONFIRMADAS": 5,
+ "IDENTITIES_CANDIDATAS": 8,
+ "IDENTITIES_NAO_ENCONTRADAS": 2,
+ "IDENTITIES_NAO_TESTADAS": 21,
+ "OLD_152_SURVIVES_TOTAL": 6,
+ "NEW_RESEARCHERS_TOTAL": 30,
+ "PARES": [
+  {
+   "PAIR": "OLIVE_x_REPILO",
+   "ORIGEM_DO_PAR": "par ja existente no acervo (ES-T3-001 / RAIF)",
+   "OPENALEX_QUERY": "title_and_abstract.search: olive AND repilo (ROPF: OLIVO x REPILO)",
+   "PAPERS_UNIVERSE": 10,
+   "PAPERS_DESDE_2023": 3,
+   "AUTORES_DISTINTOS_NO_PAR": 49,
+   "AUTORES_PERSISTIDOS": 12,
+   "DENOMINADOR_DA_SOBREVIVENCIA": "os 12 autores persistidos (top por numero de obras no par), NAO os 49 autores distintos",
+   "OLD_152_SURVIVES": 4,
+   "OLD_152_SURVIVES_QUEM": [
+    "Juan Moral",
+    "Antonio Trapero Casas",
+    "Concepción M. Díez",
+    "Lorenzo León"
+   ],
+   "NEW_RESEARCHERS": 8,
+   "AUTHORS": [
+    {
+     "NAME": "Juan Moral",
+     "OPENALEX_ID": "https://openalex.org/A5032245944",
+     "WORKS_IN_PAIR": 4,
+     "IDENTITY_STATUS": "CANDIDATA",
+     "ORCID_SEARCH_NUM_FOUND": 18,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-1153-2809",
+       "nome": "Juan Moral Moral",
+       "insts": [
+        "University of Córdoba"
+       ]
+      },
+      {
+       "orcid": "0000-0002-3636-0732",
+       "nome": "Juan Moral",
+       "insts": [
+        "Consejería de Educación yl Cultura Jaén",
+        "Junta de Andalucía Consejería de Educación"
+       ]
+      },
+      {
+       "orcid": "0000-0002-9571-2398",
+       "nome": "Juan Moral",
+       "insts": []
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": "https://orcid.org/0000-0002-1153-2809",
+     "ORCID_DECLARADO_ORIGEM": "ES-T5-002 — campo orcid do proprio registro de autor do OpenAlex",
+     "JA_ESTAVA_NA_FILA_152": true,
+     "ORGANIZATION_NA_FILA_152": "University of Córdoba",
+     "BUSCA_ORCID_CONCORDA_COM_O_DECLARADO": "SIM — o ORCID declarado no OpenAlex aparece entre os candidatos da busca por nome"
+    },
+    {
+     "NAME": "Luis F. Roca",
+     "OPENALEX_ID": "https://openalex.org/A5044243449",
+     "WORKS_IN_PAIR": 3,
+     "IDENTITY_STATUS": "CANDIDATA",
+     "ORCID_SEARCH_NUM_FOUND": 63,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-6556-0872",
+       "nome": "luis ROCA",
+       "insts": []
+      },
+      {
+       "orcid": "0000-0002-6553-5001",
+       "nome": "Luis Roca",
+       "insts": []
+      },
+      {
+       "orcid": "0000-0001-8510-2097",
+       "nome": "Luis Roca",
+       "insts": []
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Antonio Trapero Casas",
+     "OPENALEX_ID": "https://openalex.org/A5048261289",
+     "WORKS_IN_PAIR": 3,
+     "IDENTITY_STATUS": "CANDIDATA",
+     "ORCID_SEARCH_NUM_FOUND": 40,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0003-3652-3527",
+       "nome": "Antonio Casas",
+       "insts": [
+        "University of Zaragoza"
+       ]
+      },
+      {
+       "orcid": "0000-0001-9060-4948",
+       "nome": "Jose Antonio Casas",
+       "insts": []
+      },
+      {
+       "orcid": "0000-0002-6088-830X",
+       "nome": "ANTONIO CASAS PEREZ",
+       "insts": [
+        "Universidad Politécnica de Madrid - Technical University of Madrid"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": "https://orcid.org/0000-0003-3089-8301",
+     "ORCID_DECLARADO_ORIGEM": "ES-T5-002 — campo orcid do proprio registro de autor do OpenAlex",
+     "JA_ESTAVA_NA_FILA_152": true,
+     "ORGANIZATION_NA_FILA_152": "University of Córdoba",
+     "BUSCA_ORCID_CONCORDA_COM_O_DECLARADO": "NAO — a busca devolveu 40 perfis e o ORCID declarado no OpenAlex nao esta entre os 3 candidatos retidos. Isso NAO refuta a identidade: a busca so reteve os 3 primeiros de 40."
+    },
+    {
+     "NAME": "MOHAMMED ALSALIMIYA",
+     "OPENALEX_ID": "https://openalex.org/A5019165746",
+     "WORKS_IN_PAIR": 2,
+     "IDENTITY_STATUS": "NAO_ENCONTRADA",
+     "ORCID_SEARCH_NUM_FOUND": 0,
+     "ORCID_SEARCH_CANDIDATOS": [],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Miguel A. Botella",
+     "OPENALEX_ID": "https://openalex.org/A5032049889",
+     "WORKS_IN_PAIR": 2,
+     "IDENTITY_STATUS": "CANDIDATA",
+     "ORCID_SEARCH_NUM_FOUND": 6,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-8867-1831",
+       "nome": "Miguel Ángel Botella",
+       "insts": [
+        "Universidad de Malaga",
+        "Universidad de Málaga, Instituto de Hortofruticultura Subtropical y Mediterranea, La Mayora"
+       ]
+      },
+      {
+       "orcid": "0009-0002-0098-9050",
+       "nome": "Miguel Ibabe Botella",
+       "insts": [
+        "Universidad Complutense de Madrid"
+       ]
+      },
+      {
+       "orcid": "0009-0003-3307-7469",
+       "nome": "Miguel Ugeda Botella",
+       "insts": [
+        "Generalitat Valenciana"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Concepción M. Díez",
+     "OPENALEX_ID": "https://openalex.org/A5084951013",
+     "WORKS_IN_PAIR": 2,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": "https://orcid.org/0000-0002-1888-3628",
+     "ORCID_DECLARADO_ORIGEM": "ES-T5-002 — campo orcid do proprio registro de autor do OpenAlex",
+     "JA_ESTAVA_NA_FILA_152": true,
+     "ORGANIZATION_NA_FILA_152": "University of Córdoba",
+     "BUSCA_ORCID_CONCORDA_COM_O_DECLARADO": "NAO COMPARAVEL — a busca por nome no ORCID nao foi executada para este autor (orcamento OpenAlex/rodada fechou antes)"
+    },
+    {
+     "NAME": "Francisco Abel Guerrero-Páez",
+     "OPENALEX_ID": "https://openalex.org/A5116242187",
+     "WORKS_IN_PAIR": 2,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "J. Romero",
+     "OPENALEX_ID": "https://openalex.org/A5006543879",
+     "WORKS_IN_PAIR": 1,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Oscar Vera",
+     "OPENALEX_ID": "https://openalex.org/A5007073667",
+     "WORKS_IN_PAIR": 1,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Lorenzo León",
+     "OPENALEX_ID": "https://openalex.org/A5008500325",
+     "WORKS_IN_PAIR": 1,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": "https://orcid.org/0000-0002-5664-3393",
+     "ORCID_DECLARADO_ORIGEM": "ES-T5-002 — campo orcid do proprio registro de autor do OpenAlex",
+     "JA_ESTAVA_NA_FILA_152": true,
+     "ORGANIZATION_NA_FILA_152": "Andalusian Institute of Agricultural and Fisheries Research and Training",
+     "BUSCA_ORCID_CONCORDA_COM_O_DECLARADO": "NAO COMPARAVEL — a busca por nome no ORCID nao foi executada para este autor (orcamento OpenAlex/rodada fechou antes)"
+    },
+    {
+     "NAME": "N. Navarro",
+     "OPENALEX_ID": "https://openalex.org/A5009759146",
+     "WORKS_IN_PAIR": 1,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "R. Fernández-Escobar",
+     "OPENALEX_ID": "https://openalex.org/A5012920886",
+     "WORKS_IN_PAIR": 1,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    }
+   ]
+  },
+  {
+   "PAIR": "MAIZE_x_AMARANTHUS",
+   "ORIGEM_DO_PAR": "par saiu da matriz de issues do milho lida do ROPF inteiro (ES-MILHO-PARES-ROPF.json), nao de lista plausivel",
+   "OPENALEX_QUERY": "title_and_abstract.search: maize AND Amaranthus (ROPF: MAIZ x AMARANTHUS)",
+   "PAPERS_UNIVERSE": 31,
+   "PAPERS_DESDE_2023": 16,
+   "AUTORES_DISTINTOS_NO_PAR": 83,
+   "AUTORES_PERSISTIDOS": 12,
+   "DENOMINADOR_DA_SOBREVIVENCIA": "os 12 autores persistidos (top por numero de obras no par), NAO os 83 autores distintos",
+   "OLD_152_SURVIVES": 0,
+   "OLD_152_SURVIVES_QUEM": [],
+   "NEW_RESEARCHERS": 12,
+   "AUTHORS": [
+    {
+     "NAME": "Mercedes Royuela",
+     "OPENALEX_ID": "https://openalex.org/A5001217518",
+     "WORKS_IN_PAIR": 15,
+     "IDENTITY_STATUS": "CONFIRMADA",
+     "ORCID_SEARCH_NUM_FOUND": 1,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-1085-2229",
+       "nome": "Mercedes Royuela",
+       "insts": [
+        "Universidad Publica de Navarra"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Ana Zabalza",
+     "OPENALEX_ID": "https://openalex.org/A5052345545",
+     "WORKS_IN_PAIR": 15,
+     "IDENTITY_STATUS": "CANDIDATA",
+     "ORCID_SEARCH_NUM_FOUND": 5,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-6286-2314",
+       "nome": "Ana Zabalza",
+       "insts": []
+      },
+      {
+       "orcid": "0000-0001-6954-6317",
+       "nome": "Ana Zabalza",
+       "insts": [
+        "Universidad Publica de Navarra Escuela Técnica Superior de Ingenieros Agrónomos"
+       ]
+      },
+      {
+       "orcid": "0000-0003-3860-5251",
+       "nome": "Ana Zabalza",
+       "insts": [
+        "Hospital del Mar",
+        "Institut Hospital del Mar d'Investigacions Mèdiques"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Miriam Gil‐Monreal",
+     "OPENALEX_ID": "https://openalex.org/A5020954488",
+     "WORKS_IN_PAIR": 14,
+     "IDENTITY_STATUS": "CANDIDATA",
+     "ORCID_SEARCH_NUM_FOUND": 14,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-6622-2234",
+       "nome": "Miriam Gil-Monreal",
+       "insts": [
+        "Universidad Pública de Navarra"
+       ]
+      },
+      {
+       "orcid": "0000-0001-6157-0291",
+       "nome": "Miriam Gil",
+       "insts": []
+      },
+      {
+       "orcid": "0000-0002-9973-4957",
+       "nome": "MIRIAM GIL",
+       "insts": []
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Joel Torra",
+     "OPENALEX_ID": "https://openalex.org/A5079587955",
+     "WORKS_IN_PAIR": 10,
+     "IDENTITY_STATUS": "CONFIRMADA",
+     "ORCID_SEARCH_NUM_FOUND": 1,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-8666-6780",
+       "nome": "Joel Torra",
+       "insts": [
+        "Universitat de Lleida"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Mikel Vicente Eceiza",
+     "OPENALEX_ID": "https://openalex.org/A5078322974",
+     "WORKS_IN_PAIR": 8,
+     "IDENTITY_STATUS": "CONFIRMADA",
+     "ORCID_SEARCH_NUM_FOUND": 1,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-1684-270X",
+       "nome": "Mikel Vicente Eceiza",
+       "insts": [
+        "European Weed Research Society",
+        "Public University of Navarre"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Ainhoa Zulet-González",
+     "OPENALEX_ID": "https://openalex.org/A5032163922",
+     "WORKS_IN_PAIR": 6,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "María Barco-Antoñanzas",
+     "OPENALEX_ID": "https://openalex.org/A5078015612",
+     "WORKS_IN_PAIR": 6,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "J. Recasens",
+     "OPENALEX_ID": "https://openalex.org/A5034031822",
+     "WORKS_IN_PAIR": 5,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Manuel Fernández-Escalada",
+     "OPENALEX_ID": "https://openalex.org/A5011572929",
+     "WORKS_IN_PAIR": 4,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Laura Scarabel",
+     "OPENALEX_ID": "https://openalex.org/A5028192714",
+     "WORKS_IN_PAIR": 4,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Josep María Llenes",
+     "OPENALEX_ID": "https://openalex.org/A5006540496",
+     "WORKS_IN_PAIR": 3,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Michiel Huybrechts",
+     "OPENALEX_ID": "https://openalex.org/A5011366708",
+     "WORKS_IN_PAIR": 3,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    }
+   ]
+  },
+  {
+   "PAIR": "WHEAT_x_SEPTORIA",
+   "ORIGEM_DO_PAR": "par saiu da matriz de cereais de inverno lida do ROPF inteiro (ES-CEREAIS-PARES-ROPF.json)",
+   "OPENALEX_QUERY": "title_and_abstract.search: wheat AND Septoria (ROPF: TRIGO x SEPTORIA)",
+   "PAPERS_UNIVERSE": 47,
+   "PAPERS_DESDE_2023": 26,
+   "AUTORES_DISTINTOS_NO_PAR": 200,
+   "AUTORES_PERSISTIDOS": 12,
+   "DENOMINADOR_DA_SOBREVIVENCIA": "os 12 autores persistidos (top por numero de obras no par), NAO os 200 autores distintos",
+   "OLD_152_SURVIVES": 2,
+   "OLD_152_SURVIVES_QUEM": [
+    "Andrea Sánchez‐Vallet",
+    "Olga Genilloud"
+   ],
+   "NEW_RESEARCHERS": 10,
+   "AUTHORS": [
+    {
+     "NAME": "Andrea Sánchez‐Vallet",
+     "OPENALEX_ID": "https://openalex.org/A5004215689",
+     "WORKS_IN_PAIR": 18,
+     "IDENTITY_STATUS": "CANDIDATA",
+     "ORCID_SEARCH_NUM_FOUND": 461,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-3668-9503",
+       "nome": "Andrea Sanchez Vallet",
+       "insts": [
+        "Consejo Superior de Investigaciones Científicas",
+        "ETH Zurich"
+       ]
+      },
+      {
+       "orcid": "0000-0002-3510-4251",
+       "nome": "Andrea Sánchez",
+       "insts": []
+      },
+      {
+       "orcid": "0000-0003-3347-7561",
+       "nome": "Andrea Sánchez",
+       "insts": []
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": "https://orcid.org/0000-0002-3668-9503",
+     "ORCID_DECLARADO_ORIGEM": "ES-T5-002 — campo orcid do proprio registro de autor do OpenAlex",
+     "JA_ESTAVA_NA_FILA_152": true,
+     "ORGANIZATION_NA_FILA_152": "Centre for Plant Biotechnology and Genomics",
+     "BUSCA_ORCID_CONCORDA_COM_O_DECLARADO": "SIM — o ORCID declarado no OpenAlex aparece entre os candidatos da busca por nome"
+    },
+    {
+     "NAME": "Lukas Meile",
+     "OPENALEX_ID": "https://openalex.org/A5018016326",
+     "WORKS_IN_PAIR": 9,
+     "IDENTITY_STATUS": "CONFIRMADA",
+     "ORCID_SEARCH_NUM_FOUND": 1,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-2680-3309",
+       "nome": "Lukas Meile",
+       "insts": [
+        "Centro de Biotecnología y Genómica de Plantas",
+        "ETH Zurich"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Julien Alassimone",
+     "OPENALEX_ID": "https://openalex.org/A5048181674",
+     "WORKS_IN_PAIR": 8,
+     "IDENTITY_STATUS": "CONFIRMADA",
+     "ORCID_SEARCH_NUM_FOUND": 1,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-8118-2605",
+       "nome": "Julien Alassimone",
+       "insts": [
+        "Biogemma",
+        "INRA Centre de Montpellier"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Cécile Lorrain",
+     "OPENALEX_ID": "https://openalex.org/A5054372618",
+     "WORKS_IN_PAIR": 7,
+     "IDENTITY_STATUS": "NAO_ENCONTRADA",
+     "ORCID_SEARCH_NUM_FOUND": 0,
+     "ORCID_SEARCH_CANDIDATOS": [],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Bruce A. McDonald",
+     "OPENALEX_ID": "https://openalex.org/A5056400720",
+     "WORKS_IN_PAIR": 7,
+     "IDENTITY_STATUS": "CANDIDATA",
+     "ORCID_SEARCH_NUM_FOUND": 7,
+     "ORCID_SEARCH_CANDIDATOS": [
+      {
+       "orcid": "0000-0002-2343-7331",
+       "nome": "Bruce McDonald",
+       "insts": []
+      },
+      {
+       "orcid": "0000-0003-4521-1429",
+       "nome": "Bruce McDonald",
+       "insts": [
+        "University of Cape Town"
+       ]
+      },
+      {
+       "orcid": "0000-0002-9666-7170",
+       "nome": "Bruce McDonald",
+       "insts": [
+        "JMIR Publications Inc"
+       ]
+      }
+     ],
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Cristian Carrasco‐López",
+     "OPENALEX_ID": "https://openalex.org/A5002506151",
+     "WORKS_IN_PAIR": 6,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Olga Genilloud",
+     "OPENALEX_ID": "https://openalex.org/A5044224553",
+     "WORKS_IN_PAIR": 6,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": "https://orcid.org/0000-0002-4202-1219",
+     "ORCID_DECLARADO_ORIGEM": "ES-T5-002 — campo orcid do proprio registro de autor do OpenAlex",
+     "JA_ESTAVA_NA_FILA_152": true,
+     "ORGANIZATION_NA_FILA_152": "Fundación Medina",
+     "BUSCA_ORCID_CONCORDA_COM_O_DECLARADO": "NAO COMPARAVEL — a busca por nome no ORCID nao foi executada para este autor (orcamento OpenAlex/rodada fechou antes)"
+    },
+    {
+     "NAME": "Víctor González-Menéndez",
+     "OPENALEX_ID": "https://openalex.org/A5044725945",
+     "WORKS_IN_PAIR": 6,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Rachel Serrano",
+     "OPENALEX_ID": "https://openalex.org/A5086243739",
+     "WORKS_IN_PAIR": 6,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Agustina De Francesco",
+     "OPENALEX_ID": "https://openalex.org/A5011001162",
+     "WORKS_IN_PAIR": 5,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Thomas A. Mackenzie",
+     "OPENALEX_ID": "https://openalex.org/A5059531773",
+     "WORKS_IN_PAIR": 5,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    },
+    {
+     "NAME": "Marta Suarez‐Fernandez",
+     "OPENALEX_ID": "https://openalex.org/A5038597784",
+     "WORKS_IN_PAIR": 4,
+     "IDENTITY_STATUS": "NAO_TESTADA",
+     "ORCID_SEARCH_NUM_FOUND": null,
+     "ORCID_SEARCH_CANDIDATOS": null,
+     "ORCID_DECLARADO_NO_OPENALEX": null,
+     "ORCID_DECLARADO_ORIGEM": null,
+     "JA_ESTAVA_NA_FILA_152": false,
+     "ORGANIZATION_NA_FILA_152": null
+    }
+   ]
+  }
+ ],
+ "LIMITE_DA_BUSCA_ORCID": "a busca expanded-search reteve no maximo 3 candidatos por nome. Onde num-found > 3, ausencia de um ORCID entre os candidatos e limite da leitura, nunca refutacao.",
+ "CONTRACHEQUE_DO_NUMERO_SURPREENDENTE": {
+  "NUMERO": "MAIZE_x_AMARANTHUS: OLD_152_SURVIVES = 0 de 12",
+  "LEITURA_ERRADA_QUE_EU_QUASE_PUBLIQUEI": "\"a ciencia do milho na Espanha e uma comunidade separada, invisivel para a fila antiga\".",
+  "CONTRACHEQUE": "a fila de 152 tem INCLUSION_RULE = \"pelo menos um tema de cultura OLIVE\". Medido: CROPS OLIVE em 152/152, MAIZE em 0/152. Zero sobreviventes no milho e GARANTIDO PELA REGRA DE ENTRADA, nao e descoberta.",
+  "VEREDITO": "o 0/12 do milho NAO e sinal. Nao sustenta nenhuma afirmacao sobre a comunidade cientifica do milho.",
+  "O_QUE_SOBRA_COMO_SINAL_DE_VERDADE": [
+   "dentro do proprio azeite, onde a fila antiga PODIA acertar: ela ja marcava 19 pessoas com ISSUE=REPILO, e ainda assim so 4 dos 12 autores do par OLIVE x REPILO estavam nela. 8 sao novos. A rota do par acha gente que a rota por tema perdeu — no terreno onde a rota por tema jogava em casa.",
+   "a fila antiga tem 29 pessoas com ISSUE=WEEDS, e nenhuma delas apareceu no par MAIZE x AMARANTHUS. \"Pesquisador de daninhas no corpus do azeite\" nao e \"pesquisador de daninhas do milho\". Sinal fraco: denominador e o top-12, nao os 83 autores do par."
+  ],
+  "DENOMINADOR_DESTE_CONTRACHEQUE": "12 autores persistidos por par (top por obras), contra 152 registros da fila ES-T5-002."
+ },
+ "LACUNA_DECLARADA": "os conjuntos completos de autores por par (49 / 83 / 200 distintos) nao foram baixados — orcamento OpenAlex zerado. Toda taxa de sobrevivencia aqui tem denominador 12, nao o par inteiro. Ampliar o denominador muda os numeros e nao foi feito."
+}
