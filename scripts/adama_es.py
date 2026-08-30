@@ -34,7 +34,11 @@ ROOT = os.path.dirname(HERE)
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 COUNTRY = 'ES'
 BASE = 'https://www.adama.com'
-CATALOGO = BASE + '/spain/es/products/crop-protection/downloads'
+# Rota do catálogo MEDIDA no site vivo em 2026-08-30, não suposta. A rota antiga
+# (/spain/es/products/crop-protection/downloads) devolve Access Denied porque NÃO EXISTE
+# neste site: a ADAMA España publica em /nuestras-soluciones, e items_per_page=All é o
+# parâmetro do próprio Drupal deles que derruba a paginação de 24 em 24.
+CATALOGO = BASE + '/spain/es/nuestras-soluciones?items_per_page=All'
 
 UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
       '(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36')
@@ -155,7 +159,13 @@ class _Arvore(HTMLParser):
             self._titulo_nivel = tag
             self._buf_titulo = ''
         elif tag == 'a' and a.get('href'):
+            # title e type entram porque o Drupal da ADAMA serve documento por rota opaca:
+            # href="/spain/es/media/1781/download?attachment" não tem extensão, e o nome
+            # real do arquivo ("L30002_06_AGIL_SPECIMEN.pdf") só existe no title. Medido
+            # na captura de 2026-08-30: sem isso, 0 documentos são vistos em 56 páginas.
             self._href, self._link_txt = a['href'], ''
+            self._link_title = a.get('title') or ''
+            self._link_mime = a.get('type') or ''
         elif tag == 'iframe' and a.get('src'):
             self._talvez_video(a['src'], '')
         elif tag == 'meta':
@@ -198,9 +208,12 @@ class _Arvore(HTMLParser):
             self._titulo_nivel = None
         elif tag == 'a' and self._href is not None:
             self.links.append({'HREF': self._href, 'TEXTO': self._link_txt.strip()[:220],
-                               'SECAO': self._secao})
+                               'SECAO': self._secao,
+                               'TITULO': getattr(self, '_link_title', '')[:220],
+                               'MIME_DECLARADO': getattr(self, '_link_mime', '')[:80]})
             self._talvez_video(self._href, self._link_txt)
             self._href, self._link_txt = None, ''
+            self._link_title, self._link_mime = '', ''
         if self._pilha:
             self._pilha.pop()
 
@@ -274,6 +287,26 @@ def classificar_documento(texto_link, url):
 
 
 EXT_DOC = re.compile(r'\.(pdf|docx?|xlsx?|pptx?)(\?|#|$)', re.I)
+MIME_DOC = re.compile(r'application/(pdf|msword|vnd\.(openxmlformats|ms-))', re.I)
+ROTA_MEDIA = re.compile(r'/media/\d+/download', re.I)
+
+
+def _eh_documento(href, titulo, mime):
+    """Três provas independentes de que o link é arquivo, não página.
+
+    Só a extensão na URL não basta: a ADAMA España serve por /media/<id>/download, sem
+    extensão nenhuma. Devolve (True/False, de_onde_veio_a_prova) — o "de onde" entra no
+    artefato para que nenhum documento apareça sem dizer por que foi tratado como tal.
+    """
+    if href and EXT_DOC.search(href):
+        return True, 'EXTENSAO_NA_URL'
+    if titulo and EXT_DOC.search(titulo):
+        return True, 'EXTENSAO_NO_TITLE'
+    if mime and MIME_DOC.search(mime):
+        return True, 'MIME_DECLARADO_NO_LINK'
+    if href and ROTA_MEDIA.search(href):
+        return True, 'ROTA_DE_DOWNLOAD_DO_SITE'
+    return False, ''
 
 
 def documentos_da_pagina(estrutura, url_pagina, product_id):
@@ -281,12 +314,17 @@ def documentos_da_pagina(estrutura, url_pagina, product_id):
     vistos, fora = set(), []
     for l in estrutura['LINKS']:
         href = _absolutizar(l['HREF'], url_pagina)
-        if not href or not EXT_DOC.search(href):
+        titulo = l.get('TITULO') or ''
+        mime = l.get('MIME_DECLARADO') or ''
+        ehdoc, prova = _eh_documento(href, titulo, mime)
+        if not href or not ehdoc:
             continue
         if href in vistos:
             continue                      # mesma URL duas vezes na página não é dois docs
         vistos.add(href)
-        tipo, evid = classificar_documento(l['TEXTO'], href)
+        # O title é o nome que a ADAMA deu ao arquivo; classificar por ele antes da URL
+        # opaca é ler a fonte, não adivinhar.
+        tipo, evid = classificar_documento((l['TEXTO'] + ' ' + titulo).strip(), href)
         fora.append({
             'PRODUCT_ID': product_id,
             'DOCUMENT_ID': 'DOC-%s-%s' % (COUNTRY, hashlib.sha1(href.encode()).hexdigest()[:12]),
@@ -295,9 +333,13 @@ def documentos_da_pagina(estrutura, url_pagina, product_id):
             'URL': href,
             'SOURCE_PAGE': url_pagina,
             'LINK_TEXT': l['TEXTO'],
+            'LINK_TITLE': titulo,
+            'MIME_DECLARADO': mime,
+            'PROVA_DE_QUE_E_DOCUMENTO': prova,
             'PAGE_SECTION': l['SECAO'],
-            'FILENAME': href.split('/')[-1].split('?')[0],
-            'VISIBLE_DOCUMENT_DATE': _data_visivel(l['TEXTO']),
+            'FILENAME': (titulo.strip() if EXT_DOC.search(titulo or '')
+                         else href.split('/')[-1].split('?')[0]),
+            'VISIBLE_DOCUMENT_DATE': _data_visivel(l['TEXTO'] + ' ' + titulo),
             'COUNTRY': COUNTRY,
             'HTTP_STATUS': 'NOT_ATTEMPTED',
             'MEDIA_TYPE': 'NOT_COLLECTED',
@@ -684,7 +726,7 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
         'COUNTRY': COUNTRY,
         'DISPLAY_NAME': nome,
         'PAGE_URL': url_pagina,
-        'CATEGORY': _categoria(est, texto_todo),
+        'CATEGORY': _categoria(est, texto_todo, url_pagina),
         'REGISTRATION_ID': reg.group(0) if reg else 'NÃO SEI',
         'ADAMA_INTERNAL_ID': 'NÃO SEI',
         'CURRENT_CATALOG_STATUS': catalog_status,
@@ -732,7 +774,15 @@ CATEGORIAS = [
 ]
 
 
-def _categoria(est, texto):
+def _categoria(est, texto, url_pagina=''):
+    # A URL da própria ficha vem ANTES de tudo. O menu do site lista as quatro categorias
+    # em toda página, e "Control de Enfermedades" é o primeiro link do menu — varrer LINKS
+    # em ordem de DOM devolvia fungicida para o AGIL, que é herbicida. Medido em
+    # 2026-08-30: pelo menu, 56/56 fichas saíam com a MESMA categoria errada.
+    caminho = (url_pagina or '').replace('-', ' ')   # slug usa hífen; a regex fala espaço
+    for nome, rx in CATEGORIAS:
+        if rx.search(caminho):
+            return nome
     # A migalha de pão do catálogo é mais confiável que o corpo: uma página de fungicida
     # que cita "malas hierbas" numa comparação não é herbicida.
     for l in est['LINKS']:
@@ -784,8 +834,50 @@ def _ingredientes(t, vocab=None):
 # 7 · ROTA VIVA — enumerar, baixar, hashear
 # ══════════════════════════════════════════════════════════════════════════════
 
+# ── CAPTURA LOCAL: o navegador é o cliente HTTP, o Python continua sendo o parser ──
+#
+# Por que existe: a Akamai da adama.com recusa curl/requests/urllib com 403 mesmo saindo
+# da rede doméstica — medido em 2026-08-30 na máquina do usuário, não em datacenter. O
+# navegador local passa. Então o navegador busca e grava um pacote JSON, e o Python lê
+# desse pacote em vez da rede. NADA MAIS muda: mesmo parser, mesmas regras, mesma lei.
+#
+# O que isto NÃO é: cache. Um pacote carrega CAPTURA_UTC e o status HTTP real de cada
+# página; página que não veio 200 continua sendo falha, nunca ausência.
+
+_PACOTES = {}
+
+
+def carregar_captura(*caminhos):
+    """Registra pacotes de captura do navegador. Devolve quantas páginas ficaram vivas."""
+    for c in caminhos:
+        if not c or not os.path.exists(c):
+            continue
+        with open(c, encoding='utf-8') as f:
+            d = json.load(f)
+        for rota, v in (d.get('PAGINAS') or {}).items():
+            _PACOTES[_chave_rota(rota)] = dict(v, CAPTURA_UTC=d.get('CAPTURA_UTC'),
+                                               PACOTE=os.path.basename(c))
+    return len(_PACOTES)
+
+
+def _chave_rota(u):
+    """Compara pela rota, não pela string: com host ou sem host é a mesma página."""
+    u = (u or '').strip()
+    for p in ('https://www.adama.com', 'http://www.adama.com', 'https://adama.com'):
+        if u.startswith(p):
+            u = u[len(p):]
+    return u or '/'
+
+
 def buscar(url, timeout=45, binario=False):
     """Devolve (estado, conteudo, http_status). Falha NUNCA vira conteúdo vazio."""
+    if not binario:
+        alvo = _PACOTES.get(_chave_rota(url))
+        if alvo is not None:
+            code = alvo.get('status')
+            if code == 200:
+                return 'OK', alvo['html'], '200'
+            return 'HTTP_%s' % code, None, str(code)
     dest = '-' if not binario else None
     cmd = ['curl', '-sSL', '-m', str(timeout), '-A', UA,
            '-H', 'Accept-Language: es-ES,es;q=0.9', '-w', '\n%{http_code}', url]
@@ -864,12 +956,22 @@ def baixar_documentos(docs, captura, limite=None):
 
 ROTAS_ENUM = [
     ('CATALOGO_HTML',   CATALOGO),
+    ('CATALOGO_P1',     BASE + '/spain/es/nuestras-soluciones'),
     ('PRODUTOS_HTML',   BASE + '/spain/es/products'),
     ('SITEMAP',         BASE + '/sitemap.xml'),
-    ('DRUPAL_VIEW',     CATALOGO + '?page=0'),
 ]
 
-RX_PRODUTO = re.compile(r'/spain/es/[a-z0-9-]*products?/[a-z0-9/-]+', re.I)
+# Só a família VIVA entra no censo: /nuestras-soluciones/<categoria>/<slug>. A família
+# antiga (/products/...) continua LINKADA no site — o link "Descargar documentos" aponta
+# para /spain/es/products/crop-protection/downloads — mas em 2026-08-30 essa rota devolve
+# só o desafio da Akamai (3 KB, meta refresh), do datacenter E do navegador local. Contar
+# um link que não abre como produto seria inflar o denominador em 1.
+RX_PRODUTO = re.compile(
+    r'/spain/es/nuestras-soluciones/[a-z0-9-]+/[a-z0-9-]+', re.I)
+
+# Rotas que o site linka mas que NÃO são produto. Ficam nomeadas para que sumirem do
+# censo seja uma decisão registrada, não um filtro silencioso.
+RX_NAO_PRODUTO = re.compile(r'/(downloads|descargar|search|buscar)\b', re.I)
 
 
 def enumerar_catalogo(captura):
