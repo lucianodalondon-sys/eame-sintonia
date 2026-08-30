@@ -1,6 +1,7 @@
 {
   "source": "DATA CLOCK — manifesto de versões das fontes que mudam",
   "sources": [
+    "CREATOR-MAP",
     "CREATOR-MAP-ES",
     "CREATOR-MAP-IT",
     "ES-T3-001",
@@ -224,7 +225,7 @@
     },
     {
       "SOURCE_ID": "CREATOR-MAP-IT",
-      "FILE": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-SEED-IT-INSTAGRAM.raw.json.gz",
+      "FILE": "data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-SEED-IT-INSTAGRAM.raw.json.gz",
       "VERSION_DATE": "2026-08-30",
       "COLLECTION_DATE": "2026-08-30",
       "SIZE_BYTES": 312117,
@@ -233,7 +234,7 @@
     },
     {
       "SOURCE_ID": "CREATOR-MAP-IT",
-      "FILE": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-ATIVIDADE-IT.raw.json.gz",
+      "FILE": "data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-ATIVIDADE-IT.raw.json.gz",
       "VERSION_DATE": "2026-08-30",
       "COLLECTION_DATE": "2026-08-30",
       "SIZE_BYTES": 331413,
@@ -242,16 +243,16 @@
     },
     {
       "SOURCE_ID": "CREATOR-MAP-ES",
-      "FILE": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-HUBS.raw.json.gz",
+      "FILE": "data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-HUBS.raw.json.gz",
       "VERSION_DATE": "2026-08-30",
       "COLLECTION_DATE": "2026-08-30",
-      "SIZE_BYTES": 13815,
-      "SHA256": "280ea5c639844327f851dbe7a55b73972965077a82da3bfbf86964f54854a067",
+      "SIZE_BYTES": 53967,
+      "SHA256": "833f3047c737ecc574c9188422e75e45caccd1cca1819f3a89c5886ec7abd105",
       "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel; mencoes da conta do premio"
     },
     {
       "SOURCE_ID": "CREATOR-MAP-ES",
-      "FILE": "data/samples/raw-paid/14-MAPA-DE-CREATORS-EAME-DESCOBERTOS.raw.json.gz",
+      "FILE": "data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-DESCOBERTOS.raw.json.gz",
       "VERSION_DATE": "2026-08-30",
       "COLLECTION_DATE": "2026-08-30",
       "SIZE_BYTES": 340963,
@@ -259,12 +260,30 @@
       "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel; 22 perfis descobertos por hub"
     },
     {
+      "SOURCE_ID": "CREATOR-MAP",
+      "FILE": "data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-CROP-PROOF.raw.json.gz",
+      "VERSION_DATE": "2026-08-30",
+      "COLLECTION_DATE": "2026-08-30",
+      "SIZE_BYTES": 242409,
+      "SHA256": "2d1b4fe551e87d73dc3dfe59ebbdadac1af33b3ede865b8a9b78238b9205918b",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
+      "SOURCE_ID": "CREATOR-MAP",
+      "FILE": "data/samples/CREATOR-MAP-EAME/raw-paid/14-MAPA-DE-CREATORS-EAME-FR-FR-CR-006.raw.json.gz",
+      "VERSION_DATE": "2026-08-30",
+      "COLLECTION_DATE": "2026-08-30",
+      "SIZE_BYTES": 10529,
+      "SHA256": "a8c8ab0a37a4034c849027599caddbb97012d7a6196d026cf5bc44490baf7922",
+      "ARCHIVING_URGENCY": "CRITICA — bruto de rota nao replicavel"
+    },
+    {
       "SOURCE_ID": "RUN-MANIFEST",
       "FILE": "data/samples/RUN-MANIFEST.json",
       "VERSION_DATE": "2026-08-29",
       "COLLECTION_DATE": "2026-08-30",
-      "SIZE_BYTES": 31241,
-      "SHA256": "33927fba88384cbbb3c545f05c6821f4880f86733b88b6b2d80c72987cd65c11",
+      "SIZE_BYTES": 32633,
+      "SHA256": "029793cd3c99af730fe9059089d6d0cb80742bcf62250209a5d2f185bda57b2b",
       "ARCHIVING_URGENCY": "ALTA — e o indice que faz o RUN_ID resolver; sem ele o bruto vira arquivo orfao"
     }
   ]

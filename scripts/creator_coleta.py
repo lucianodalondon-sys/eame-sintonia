@@ -112,6 +112,13 @@ import proveniencia as pv                                    # noqa: E402
 
 pv.MANIFESTO = os.path.join(cr.BASE, 'RUN-MANIFEST-CREATORS.json')
 
+# O isolamento tem de ser INTEIRO. Deixar o bruto no `data/samples/raw-paid/`
+# partilhado enquanto o manifesto ia para o namespace da missao quebrou os testes
+# da casa que exigem que TODO arquivo daquele diretorio resolva pelo manifesto
+# GLOBAL — e quebrou com razao: um bruto sem manifesto que o alcance e um arquivo
+# orfao. Ou o bruto e global com manifesto global, ou os dois sao da missao.
+coletor.RAW_DIR = os.path.join(cr.BASE, 'raw-paid')
+
 # Atores. Os dois primeiros já foram provados nesta casa (piloto de sensores);
 # os de Instagram/TikTok são novos e por isso a fase `contratos` existe: entrada
 # errada é o erro mais caro já medido aqui (8 execuções, 8 vezes o mesmo

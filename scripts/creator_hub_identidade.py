@@ -74,7 +74,10 @@ HUBS = [
             'Fieragricola (@fieragricolavr) mencionou @enovitis_ nas proprias '
             'legendas. Uma porta provada abriu a outra — que e exatamente o que o '
             'portao de identidade deveria produzir.',
-      estado='ACCOUNT_RESOLVED', descoberta='ENABLED',
+      estado='ACCOUNT_MENTIONED_NOT_RESOLVED', descoberta='BLOCKED',
+      nota_resolucao='A raspagem de @enovitis_ NAO devolveu perfil. A mencao deu um '
+                     'CANDIDATO de handle; a resolucao nao o confirmou. Mencao != '
+                     'conta existente, e o estado guarda a diferenca.',
       nota='hub tecnicamente excelente (6.500 visitantes, viticultores e agrónomos, '
            'agroquímicos em demonstração) e mesmo assim BLOQUEADO: sem conta provada '
            'não se raspa. Resolver a conta é a próxima ação italiana.'),
