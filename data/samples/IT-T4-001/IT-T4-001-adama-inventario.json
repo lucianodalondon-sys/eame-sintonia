@@ -1,0 +1,1229 @@
+{
+  "COUNTRY": "IT",
+  "SOURCE_ID": "IT-T4-001",
+  "SOURCE_NAME": "Ministero della Salute — Banca dati dei prodotti fitosanitari",
+  "LICENSE": "CC BY 4.0",
+  "DATASET_FILE": "PROD_FTS_6_20260824.csv",
+  "DATASET_SHA256": "8fe401895592c41e522dcedefac81bb8ddb6f5822286694b0860c9f6ce7d13be",
+  "DATASET_BYTES": 4594315,
+  "SOURCE_VERSION": "PROD_FTS_6_20260824 (nome do arquivo é a versão)",
+  "CAPTURED_AT": "2026-08-30T00:11:42Z",
+  "AS_OF_DATE": "2026-08-30",
+  "SOURCE_LOCATION": "ITALY",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "IT",
+  "EVIDENCE_CLASS": "REGULATORY_FACT",
+  "GEOGRAPHIC_NOTE": "A sede da empresa traz província, mas é SOURCE_LOCATION (local da EMPRESA), nunca FACT_LOCATION agronômico.",
+  "NATIONAL_CENSUS": {
+    "TOTAL_PRODUCTS": 17695,
+    "DISTINCT_REGISTRATIONS": 17695,
+    "DISTINCT_HOLDERS": 576,
+    "CURRENT_AUTHORIZED": 3712,
+    "REVOKED": 13216,
+    "EXPIRED": 764,
+    "SUSPENDED": 3,
+    "BY_STATUS": {
+      "Revocato": 13216,
+      "Autorizzato": 1181,
+      "Ri-registrato": 1052,
+      "Scaduto": 764,
+      "Autorizzato con procedura zonale": 526,
+      "Autorizzato Art. 10 D.P.R. 290/2001": 337,
+      "Autorizzato in regime di Riconoscimento Reciproco": 280,
+      "Rinnovato Art. 43 Reg. 1107/2009": 192,
+      "Autorizzato Art. 34 Reg. 1107/2009": 109,
+      "Autorizzato in deroga (art. 53 Reg. 1107/2009)": 20,
+      "Ri-registrato (Air 1 Fase 1)": 13,
+      "Sospeso": 3,
+      "Autorizzato provvisoriamente": 2
+    }
+  },
+  "IDENTITY_METHOD": {
+    "RULE": "Escopo decidido por CAMPO DECLARADO no registro (indirizzo_sede_amministrativa), nunca por semelhança de nome.",
+    "CORE_EVIDENCE": "cinco razões sociais declaram sede administrativa c/o ADAMA ITALIA S.R.L., VIA ZANICA 19, GRASSOBBIO (BG)",
+    "HOLDER_REGISTRY_ID": "151 (IDD do servlet do Ministero, constante para as consultas ADAMA testadas)",
+    "PRIOR_FIGURE_RECONCILED": "A ficha anterior do Atlas publicava 155 e 58 atribuindo-os a ADAMA ITALIA S.R.L. Os números reproduzem EXATAMENTE, mas o denominador é o GRUPO (substring ADAMA = 5 razões sociais), não a entidade italiana. A entidade italiana sozinha tem 77 vigentes com vencimento futuro. Número certo, rótulo errado."
+  },
+  "SCOPES": {
+    "ADAMA_IT_LEGAL_ENTITY": {
+      "HOLDER_STRINGS": [
+        "ADAMA ITALIA S.R.L."
+      ],
+      "IDENTITY_EVIDENCE": [
+        "ragione_sociale == ADAMA ITALIA S.R.L."
+      ],
+      "REGISTRATIONS_TOTAL": 240,
+      "ACTIVE": 85,
+      "REVOKED": 153,
+      "EXPIRED_STATUS": 2,
+      "SUSPENDED": 0,
+      "UNIQUE_PRODUCT_NAMES": 240,
+      "UNIQUE_PRODUCT_NAMES_ACTIVE": 85,
+      "ACTIVE_SUBSTANCES": [
+        "AZOXYSTROBIN",
+        "BIFENOX",
+        "CAPTAN",
+        "CHLORANTRANILIPROLE",
+        "CHLOROTOLURON",
+        "CLETHODIM",
+        "CLODINAFOP",
+        "CLOQUINTOCET MEXYL",
+        "CYMOXANIL",
+        "DICAMBA",
+        "DIFENOCONAZOLE",
+        "DIFLUFENICAN",
+        "FENPROPIDIN",
+        "FLONICAMID (IKI-220)",
+        "FLORASULAM",
+        "FLUROXYPYR",
+        "FLUXAPYROXAD",
+        "FOLPET",
+        "LAMBDA-CYHALOTHRIN",
+        "MEFENPYR DIETHYL",
+        "MESOSULFURON-METHYL",
+        "MESOTRIONE",
+        "METALAXYL-M",
+        "METALDEHYDE",
+        "METAMITRON",
+        "NICOSULFURON",
+        "PENDIMETHALIN",
+        "PINOXADEN",
+        "PIRIMICARB",
+        "PLANT OILS / RAPE SEED OIL",
+        "PROPAQUIZAFOP",
+        "PROTHIOCONAZOLE",
+        "TAU-FLUVALINATE",
+        "TEBUCONAZOLE",
+        "TEFLUTHRIN",
+        "TRIBENURON"
+      ],
+      "ACTIVE_SUBSTANCES_COUNT": 36,
+      "ACTIVE_WITH_PAST_EXPIRY": 8,
+      "ACTIVE_WITHOUT_EXPIRY_DATE": 0,
+      "ACTIVE_WITH_FUTURE_EXPIRY": 77,
+      "EXPIRING_6M": 39,
+      "EXPIRING_12M": 56,
+      "EXPIRING_6M_DETAIL": [
+        {
+          "expiry": "2026-08-31",
+          "reg": "008259",
+          "product": "LAMDEX EXTRA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "013402",
+          "product": "LUMA-KL",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METALDEHYDE",
+          "formulation": "ESCA GRANULARE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "013560",
+          "product": "FORZA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "013590",
+          "product": "NINJA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "015275",
+          "product": "DURAVIS",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "017687",
+          "product": "ELTIRA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "018111",
+          "product": "ARRODIM",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "CLETHODIM",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Autorizzato Art. 34 Reg. 1107/2009"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "004701",
+          "product": "PIRIMOR 50",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "007876",
+          "product": "PIRIMOR 17,5",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "014091",
+          "product": "APHOX",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "017340",
+          "product": "APHOX 50",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "017409",
+          "product": "XINTECH 50",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "002732",
+          "product": "GOLTIX",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "007603",
+          "product": "NORTIM",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "POLVERE BAGNABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "008599",
+          "product": "GOLD-BEET",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "GRANULARE SOLUBILE IN ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "010569",
+          "product": "GOLTIX 700 SC",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "016084",
+          "product": "BREVIS",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "GRANULARE SOLUBILE IN ACQUA",
+          "status": "Autorizzato con procedura zonale"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "018156",
+          "product": "APYZA WG",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "FLONICAMID (IKI-220)",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato Art. 34 Reg. 1107/2009"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "018165",
+          "product": "APYZA 500 WG",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "FLONICAMID (IKI-220)",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato Art. 34 Reg. 1107/2009"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "018813",
+          "product": "GOLTIX BETA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato Art. 10 D.P.R. 290/2001"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "018814",
+          "product": "GOLTIX TOP",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato Art. 10 D.P.R. 290/2001"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "016823",
+          "product": "ACTIVUS 40 SC",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato in regime di Riconoscimento Reciproco"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017094",
+          "product": "ANTHEM EKO",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017123",
+          "product": "AVANA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017660",
+          "product": "ACTIGAN EKO",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017661",
+          "product": "PRESTIGAN EKO",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "007555",
+          "product": "KLARTAN 20 EW",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "007864",
+          "product": "TAU AL 240 EW",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "POLVERE BAGNABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "009800",
+          "product": "MAVRIK SMART",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "012023",
+          "product": "KLARTAN SMART",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "014190",
+          "product": "MAVRIK EW",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "014210",
+          "product": "EVURE PRO",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "017968",
+          "product": "MAVRIK JET",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE|PIRIMICARB",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Autorizzato in regime di Riconoscimento Reciproco"
+        },
+        {
+          "expiry": "2027-02-15",
+          "reg": "016475",
+          "product": "CLEAVE",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "FLUROXYPYR|FLORASULAM",
+          "formulation": "SOSPENSIONE-EMULSIONE",
+          "status": "Autorizzato con procedura zonale"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "009005",
+          "product": "AGIL",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "011660",
+          "product": "SHOGUN",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "015253",
+          "product": "FALCON MK",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "017115",
+          "product": "ZETROLA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "017206",
+          "product": "LIGA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Autorizzato"
+        }
+      ]
+    },
+    "ADAMA_GROUP_IT_CORE": {
+      "HOLDER_STRINGS": [
+        "ADAMA AGAN LTD",
+        "ADAMA DEUTSCHLAND GMBH",
+        "ADAMA IRVITA N.V.",
+        "ADAMA ITALIA S.R.L.",
+        "ADAMA MAKHTESHIM LTD"
+      ],
+      "IDENTITY_EVIDENCE": [
+        "indirizzo_sede_amministrativa declara c/o ADAMA ITALIA S.R.L.",
+        "ragione_sociale == ADAMA ITALIA S.R.L."
+      ],
+      "REGISTRATIONS_TOTAL": 602,
+      "ACTIVE": 163,
+      "REVOKED": 425,
+      "EXPIRED_STATUS": 14,
+      "SUSPENDED": 0,
+      "UNIQUE_PRODUCT_NAMES": 600,
+      "UNIQUE_PRODUCT_NAMES_ACTIVE": 163,
+      "ACTIVE_SUBSTANCES": [
+        "2,4-D",
+        "AZOXYSTROBIN",
+        "BIFENOX",
+        "BUPIRIMATE",
+        "CAPTAN",
+        "CHLORANTRANILIPROLE",
+        "CHLOROTOLURON",
+        "CLETHODIM",
+        "CLODINAFOP",
+        "CLOQUINTOCET MEXYL",
+        "CYMOXANIL",
+        "DICAMBA",
+        "DIFENOCONAZOLE",
+        "DIFLUFENICAN",
+        "ETHOFUMESATE",
+        "FENPROPIDIN",
+        "FLONICAMID (IKI-220)",
+        "FLORASULAM",
+        "FLUAZINAM",
+        "FLUDIOXONIL",
+        "FLUROXYPYR",
+        "FLUXAPYROXAD",
+        "FOLPET",
+        "FOSETYL-ALUMINIUM",
+        "GLYPHOSATE",
+        "IMAZALIL (AKA ENILCONAZOLE)",
+        "IMAZAMOX",
+        "ISOXADIFEN ETHYL",
+        "LAMBDA-CYHALOTHRIN",
+        "MEFENPYR DIETHYL",
+        "MESOSULFURON-METHYL",
+        "MESOTRIONE",
+        "METALAXYL-M",
+        "METALDEHYDE",
+        "METAMITRON",
+        "METAZACHLOR",
+        "NICOSULFURON",
+        "PARAFFIN OIL/(CAS 97862-82-3)",
+        "PENDIMETHALIN",
+        "PHENMEDIPHAM",
+        "PINOXADEN",
+        "PIRIMICARB",
+        "PLANT OILS / RAPE SEED OIL",
+        "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+        "PROPAQUIZAFOP",
+        "PROTHIOCONAZOLE",
+        "QUIZALOFOP-P-ETHYL",
+        "SULCOTRIONE",
+        "TAU-FLUVALINATE",
+        "TEBUCONAZOLE",
+        "TEFLUTHRIN",
+        "TERBUTHYLAZINE",
+        "TRIBENURON"
+      ],
+      "ACTIVE_SUBSTANCES_COUNT": 53,
+      "ACTIVE_WITH_PAST_EXPIRY": 8,
+      "ACTIVE_WITHOUT_EXPIRY_DATE": 0,
+      "ACTIVE_WITH_FUTURE_EXPIRY": 155,
+      "EXPIRING_6M": 71,
+      "EXPIRING_12M": 104,
+      "EXPIRING_6M_DETAIL": [
+        {
+          "expiry": "2026-08-31",
+          "reg": "008259",
+          "product": "LAMDEX EXTRA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "013402",
+          "product": "LUMA-KL",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METALDEHYDE",
+          "formulation": "ESCA GRANULARE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "013560",
+          "product": "FORZA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "013590",
+          "product": "NINJA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "015275",
+          "product": "DURAVIS",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "017687",
+          "product": "ELTIRA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "LAMBDA-CYHALOTHRIN",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-08-31",
+          "reg": "018111",
+          "product": "ARRODIM",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "CLETHODIM",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Autorizzato Art. 34 Reg. 1107/2009"
+        },
+        {
+          "expiry": "2026-09-30",
+          "reg": "009790",
+          "product": "CONTATTO 320",
+          "holder": "ADAMA DEUTSCHLAND GMBH",
+          "actives": "PHENMEDIPHAM",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-09-30",
+          "reg": "011734",
+          "product": "CONTATTO DOUBLE SC",
+          "holder": "ADAMA DEUTSCHLAND GMBH",
+          "actives": "PHENMEDIPHAM",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-09-30",
+          "reg": "016152",
+          "product": "SEEDRON",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "FLUDIOXONIL|TEBUCONAZOLE",
+          "formulation": "SOSPENSIONE CONCENTRATA PER CONCIA",
+          "status": "Autorizzato con procedura zonale"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "004701",
+          "product": "PIRIMOR 50",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "007876",
+          "product": "PIRIMOR 17,5",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "011526",
+          "product": "SULTAN",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "METAZACHLOR",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "014091",
+          "product": "APHOX",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "014380",
+          "product": "CLORMET",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "METAZACHLOR",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "015235",
+          "product": "MOMENTUM",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "FOSETYL-ALUMINIUM",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "017335",
+          "product": "MOVER",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "FOSETYL-ALUMINIUM",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "017337",
+          "product": "VANGUARD",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "FOSETYL-ALUMINIUM",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "017340",
+          "product": "APHOX 50",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "017409",
+          "product": "XINTECH 50",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PIRIMICARB",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "017898",
+          "product": "RIMENSIS",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "FOSETYL-ALUMINIUM",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-10-31",
+          "reg": "018244",
+          "product": "MOMENTUM PFNPE",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "FOSETYL-ALUMINIUM",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "002732",
+          "product": "GOLTIX",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "007603",
+          "product": "NORTIM",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "POLVERE BAGNABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "008599",
+          "product": "GOLD-BEET",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "GRANULARE SOLUBILE IN ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "010569",
+          "product": "GOLTIX 700 SC",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "016084",
+          "product": "BREVIS",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "GRANULARE SOLUBILE IN ACQUA",
+          "status": "Autorizzato con procedura zonale"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "017580",
+          "product": "GOLTIX SUPER",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "ETHOFUMESATE|METAMITRON",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato in regime di Riconoscimento Reciproco"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "017983",
+          "product": "GOLDBEET SUPER",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "ETHOFUMESATE|METAMITRON",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "018156",
+          "product": "APYZA WG",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "FLONICAMID (IKI-220)",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato Art. 34 Reg. 1107/2009"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "018165",
+          "product": "APYZA 500 WG",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "FLONICAMID (IKI-220)",
+          "formulation": "GRANULARE IDRODISPERSIBILE",
+          "status": "Autorizzato Art. 34 Reg. 1107/2009"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "018813",
+          "product": "GOLTIX BETA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato Art. 10 D.P.R. 290/2001"
+        },
+        {
+          "expiry": "2026-11-30",
+          "reg": "018814",
+          "product": "GOLTIX TOP",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "METAMITRON",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato Art. 10 D.P.R. 290/2001"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "016697",
+          "product": "CINDER",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "PENDIMETHALIN",
+          "formulation": "CONCENTRATO FLUIDO MISCIBILE IN OLI",
+          "status": "Autorizzato con procedura zonale"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "016823",
+          "product": "ACTIVUS 40 SC",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato in regime di Riconoscimento Reciproco"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017094",
+          "product": "ANTHEM EKO",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017116",
+          "product": "ACTIVUS ME",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE DI CAPSULE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017123",
+          "product": "AVANA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017398",
+          "product": "DOMITREL 400 CS",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE DI CAPSULE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017658",
+          "product": "PRESTIGAN ME",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "PENDIMETHALIN",
+          "formulation": "CONCENTRATO FLUIDO MISCIBILE IN OLI",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017659",
+          "product": "ACTIGAN ME",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "PENDIMETHALIN",
+          "formulation": "CONCENTRATO FLUIDO MISCIBILE IN OLI",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017660",
+          "product": "ACTIGAN EKO",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-15",
+          "reg": "017661",
+          "product": "PRESTIGAN EKO",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PENDIMETHALIN",
+          "formulation": "SOSPENSIONE CONCENTRATA",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "002983",
+          "product": "NIMROD",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "BUPIRIMATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "007555",
+          "product": "KLARTAN 20 EW",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "007864",
+          "product": "TAU AL 240 EW",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "POLVERE BAGNABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "009800",
+          "product": "MAVRIK SMART",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "012023",
+          "product": "KLARTAN SMART",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "013405",
+          "product": "VERBUM EW",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "BUPIRIMATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "013771",
+          "product": "NIMROD 250 EW",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "BUPIRIMATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "014074",
+          "product": "TRINEX 250 EW",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "BUPIRIMATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "014190",
+          "product": "MAVRIK EW",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "014210",
+          "product": "EVURE PRO",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "015740",
+          "product": "VINETO",
+          "holder": "ADAMA MAKHTESHIM LTD",
+          "actives": "BUPIRIMATE|TEBUCONAZOLE",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-01-31",
+          "reg": "017968",
+          "product": "MAVRIK JET",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "TAU-FLUVALINATE|PIRIMICARB",
+          "formulation": "EMULSIONE OLIO/ACQUA",
+          "status": "Autorizzato in regime di Riconoscimento Reciproco"
+        },
+        {
+          "expiry": "2027-02-15",
+          "reg": "016312",
+          "product": "TOMIGAN",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "FLUROXYPYR",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Autorizzato con procedura zonale"
+        },
+        {
+          "expiry": "2027-02-15",
+          "reg": "016475",
+          "product": "CLEAVE",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "FLUROXYPYR|FLORASULAM",
+          "formulation": "SOSPENSIONE-EMULSIONE",
+          "status": "Autorizzato con procedura zonale"
+        },
+        {
+          "expiry": "2027-02-15",
+          "reg": "018101",
+          "product": "MORAINE",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "FLUROXYPYR",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "009005",
+          "product": "AGIL",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "011243",
+          "product": "LEOPARD 5 EC",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "QUIZALOFOP-P-ETHYL",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "011660",
+          "product": "SHOGUN",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "011789",
+          "product": "MANAGER",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "QUIZALOFOP-P-ETHYL",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "012279",
+          "product": "ERBY 5 EC",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "QUIZALOFOP-P-ETHYL",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "013299",
+          "product": "MAGIO'",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "QUIZALOFOP-P-ETHYL",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "013711",
+          "product": "QUIZA 5 EC",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "QUIZALOFOP-P-ETHYL",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "013876",
+          "product": "APACHE",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "QUIZALOFOP-P-ETHYL",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "014375",
+          "product": "LION 5 EC",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "QUIZALOFOP-P-ETHYL",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "015253",
+          "product": "FALCON MK",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "017115",
+          "product": "ZETROLA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Ri-registrato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "017206",
+          "product": "LIGA",
+          "holder": "ADAMA ITALIA S.R.L.",
+          "actives": "PROPAQUIZAFOP",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Autorizzato"
+        },
+        {
+          "expiry": "2027-02-28",
+          "reg": "017332",
+          "product": "HANUKYS",
+          "holder": "ADAMA AGAN LTD",
+          "actives": "QUIZALOFOP-P-ETHYL",
+          "formulation": "CONCENTRATO EMULSIONABILE",
+          "status": "Autorizzato"
+        }
+      ]
+    },
+    "ADAMA_IT_ADJACENT": {
+      "HOLDER_STRINGS": [
+        "MAGAN ITALIA S.R.L.",
+        "MAKHTESHIM AGAN HOLLAND B.V."
+      ],
+      "IDENTITY_EVIDENCE": [
+        "nome sugere o grupo; registro NÃO declara sede c/o ADAMA ITALIA"
+      ],
+      "REGISTRATIONS_TOTAL": 31,
+      "ACTIVE": 0,
+      "REVOKED": 26,
+      "EXPIRED_STATUS": 5,
+      "SUSPENDED": 0,
+      "UNIQUE_PRODUCT_NAMES": 31,
+      "UNIQUE_PRODUCT_NAMES_ACTIVE": 0,
+      "ACTIVE_SUBSTANCES": [],
+      "ACTIVE_SUBSTANCES_COUNT": 0,
+      "ACTIVE_WITH_PAST_EXPIRY": 0,
+      "ACTIVE_WITHOUT_EXPIRY_DATE": 0,
+      "ACTIVE_WITH_FUTURE_EXPIRY": 0,
+      "EXPIRING_6M": 0,
+      "EXPIRING_12M": 0,
+      "EXPIRING_6M_DETAIL": []
+    }
+  },
+  "EXPIRY_WINDOW_DEFINITION": {
+    "WHY_IT_MATTERS": "A resposta a \"quantos vencem em 6 meses\" muda com a convenção, e a diferença NÃO é arredondamento.",
+    "EXPIRING_180_DAYS": 58,
+    "EXPIRING_183_DAYS": 71,
+    "EXPIRING_CALENDAR_6_MONTHS_TO_2027_02_28": 71,
+    "CLIFF": "13 autorizações vencem TODAS em 2027-02-28. 180 dias exclui essa data; 6 meses de calendário a inclui. Publicar um número sem a convenção é publicar ambiguidade.",
+    "CONVENTION_ADOPTED": "calendário (6 meses = mesma data 6 meses à frente)"
+  },
+  "ANOMALY_ACTIVE_WITH_PAST_EXPIRY": {
+    "COUNT": 8,
+    "ALL_EXPIRED_ON": "2026-08-15",
+    "DATASET_DATED": "2026-08-24",
+    "MEANING": "O campo stato_amministrativo NÃO acompanha a data de vencimento em tempo real: 8 autorizações vencidas em 15/08 seguiam Autorizzato/Ri-registrato num arquivo de 24/08. LAG mínimo medido: 9 dias. EXPIRY ≠ WITHDRAWAL, e status tampouco é oráculo de vigência.",
+    "CONSEQUENCE": "Nenhum alerta de vencimento pode ser derivado só do status. A data manda."
+  },
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "vendas",
+    "participação de mercado",
+    "disponibilidade comercial atual",
+    "prioridade interna da ADAMA Italia",
+    "presença no catálogo comercial"
+  ]
+}

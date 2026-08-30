@@ -1,0 +1,732 @@
+{
+  "COUNTRY": "IT",
+  "SOURCE_ID": "EU-T1-001",
+  "DATASET": "apro_cpshr",
+  "STRUCPRO": "AR_THS_HA",
+  "SOURCE_NAME": "Eurostat — Crop production in EU standard humidity by NUTS 2 region",
+  "SOURCE_LOCATION": "EUROPE",
+  "FACT_LOCATION": "ITALY",
+  "ORIGINAL_LANGUAGE": "EN",
+  "REFERENCE_YEAR": "2024",
+  "SOURCE_UPDATED": "2026-05-28T23:00:00+0200",
+  "CAPTURED_AT": "2026-08-30T00:04:56Z",
+  "EVIDENCE_CLASS": "OFFICIAL_STATISTIC",
+  "UNIT": "thousand hectares (area sown/harvested)",
+  "METHOD_NOTE": "Ranking em NÍVEL COMMODITY: seleção sem sobreposição, com aditividade pai=filhos PROVADA aritmeticamente. Agregados nunca entram no mesmo ranking das folhas.",
+  "HIERARCHY_PROOF": [
+    {
+      "PARENT": "C1100",
+      "PARENT_VALUE": 1697.75,
+      "CHILDREN": [
+        "C1110",
+        "C1120"
+      ],
+      "CHILDREN_SUM": 1697.75,
+      "DIFF": 0.0,
+      "STATE": "PROVED"
+    },
+    {
+      "PARENT": "C1110",
+      "PARENT_VALUE": 520.31,
+      "CHILDREN": [
+        "C1111",
+        "C1112"
+      ],
+      "CHILDREN_SUM": 520.31,
+      "DIFF": 0.0,
+      "STATE": "PROVED"
+    },
+    {
+      "PARENT": "C1300",
+      "PARENT_VALUE": 239.08,
+      "CHILDREN": [
+        "C1310",
+        "C1320"
+      ],
+      "CHILDREN_SUM": 239.08,
+      "DIFF": 0.0,
+      "STATE": "PROVED"
+    },
+    {
+      "PARENT": "C1400",
+      "PARENT_VALUE": 94.34,
+      "CHILDREN": [
+        "C1410",
+        "C1420"
+      ],
+      "CHILDREN_SUM": 94.34,
+      "DIFF": 0.0,
+      "STATE": "PROVED"
+    },
+    {
+      "PARENT": "I1110-1130",
+      "PARENT_VALUE": 476.58,
+      "CHILDREN": [
+        "I1110",
+        "I1120",
+        "I1130"
+      ],
+      "CHILDREN_SUM": 476.57,
+      "DIFF": 0.01,
+      "STATE": "PROVED"
+    },
+    {
+      "PARENT": "C0000",
+      "PARENT_VALUE": 2837.5,
+      "CHILDREN": [
+        "C1000",
+        "C2000"
+      ],
+      "CHILDREN_SUM": 2837.5,
+      "DIFF": 0.0,
+      "STATE": "PROVED"
+    },
+    {
+      "PARENT": "C2000",
+      "PARENT_VALUE": 226.13,
+      "CHILDREN": [
+        "C2100",
+        "C2200"
+      ],
+      "CHILDREN_SUM": 226.13,
+      "DIFF": 0.0,
+      "STATE": "PROVED"
+    }
+  ],
+  "YIELD_LIMITATION": "YLD_HUMD_EU_T_HA não existe em NUTS 2 (medido). Só ÁREA desce a região.",
+  "NUTS2_NOTE": "ITH1 (Bolzano) e ITH2 (Trento) são duas NUTS 2 para UMA região administrativa (Trentino-Alto Adige).",
+  "COMMODITY_RANKING": [
+    {
+      "CROP_CODE": "C1120",
+      "CROP": "Durum wheat",
+      "AREA_THS_HA": 1177.44,
+      "RANK_COMMODITY": 1,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITF4",
+          "REGION": "Puglia",
+          "ADMIN_REGION": "Puglia",
+          "AREA_THS_HA": 338.5
+        },
+        {
+          "NUTS2": "ITG1",
+          "REGION": "Sicilia",
+          "ADMIN_REGION": "Sicilia",
+          "AREA_THS_HA": 277.55
+        },
+        {
+          "NUTS2": "ITF5",
+          "REGION": "Basilicata",
+          "ADMIN_REGION": "Basilicata",
+          "AREA_THS_HA": 115.16
+        },
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "ADMIN_REGION": "Marche",
+          "AREA_THS_HA": 72.82
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 69.54
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 1177.45,
+      "NATIONAL_VS_NUTS2_DIFF": -0.01,
+      "TOP3_CONCENTRATION_PCT": 62.1,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "O1000",
+      "CROP": "Olives",
+      "AREA_THS_HA": 1083.01,
+      "RANK_COMMODITY": 2,
+      "REGIONAL_BREAKDOWN": "NÃO SEI — apro_cpshr não publica esta rubrica em NUTS 2"
+    },
+    {
+      "CROP_CODE": "W1000",
+      "CROP": "Grapes",
+      "AREA_THS_HA": 715.79,
+      "RANK_COMMODITY": 3,
+      "REGIONAL_BREAKDOWN": "NÃO SEI — apro_cpshr não publica esta rubrica em NUTS 2"
+    },
+    {
+      "CROP_CODE": "C1110",
+      "CROP": "Common wheat and spelt",
+      "AREA_THS_HA": 520.31,
+      "RANK_COMMODITY": 4,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 131.52
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "ADMIN_REGION": "Veneto",
+          "AREA_THS_HA": 94.67
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "ADMIN_REGION": "Piemonte",
+          "AREA_THS_HA": 72.71
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 63.1
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "ADMIN_REGION": "Umbria",
+          "AREA_THS_HA": 28.9
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 520.32,
+      "NATIONAL_VS_NUTS2_DIFF": -0.01,
+      "TOP3_CONCENTRATION_PCT": 57.4,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "C1500",
+      "CROP": "Grain maize and corn-cob-mix",
+      "AREA_THS_HA": 495.35,
+      "RANK_COMMODITY": 5,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "ADMIN_REGION": "Veneto",
+          "AREA_THS_HA": 122.91
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 115.82
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "ADMIN_REGION": "Piemonte",
+          "AREA_THS_HA": 115.75
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 51.41
+        },
+        {
+          "NUTS2": "ITH4",
+          "REGION": "Friuli-Venezia Giulia",
+          "ADMIN_REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 33.06
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 495.38,
+      "NATIONAL_VS_NUTS2_DIFF": -0.03,
+      "TOP3_CONCENTRATION_PCT": 71.6,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "I1130",
+      "CROP": "Soya",
+      "AREA_THS_HA": 336.74,
+      "RANK_COMMODITY": 6,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "ADMIN_REGION": "Veneto",
+          "AREA_THS_HA": 160.14
+        },
+        {
+          "NUTS2": "ITH4",
+          "REGION": "Friuli-Venezia Giulia",
+          "ADMIN_REGION": "Friuli-Venezia Giulia",
+          "AREA_THS_HA": 66.59
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 52.5
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 44.36
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "ADMIN_REGION": "Piemonte",
+          "AREA_THS_HA": 12.37
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 336.74,
+      "NATIONAL_VS_NUTS2_DIFF": 0.0,
+      "TOP3_CONCENTRATION_PCT": 82.9,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "C1300",
+      "CROP": "Barley",
+      "AREA_THS_HA": 239.08,
+      "RANK_COMMODITY": 7,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 24.29
+        },
+        {
+          "NUTS2": "ITF1",
+          "REGION": "Abruzzo",
+          "ADMIN_REGION": "Abruzzo",
+          "AREA_THS_HA": 20.45
+        },
+        {
+          "NUTS2": "ITF4",
+          "REGION": "Puglia",
+          "ADMIN_REGION": "Puglia",
+          "AREA_THS_HA": 19.05
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 17.42
+        },
+        {
+          "NUTS2": "ITF5",
+          "REGION": "Basilicata",
+          "ADMIN_REGION": "Basilicata",
+          "AREA_THS_HA": 17.19
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 239.08,
+      "NATIONAL_VS_NUTS2_DIFF": 0.0,
+      "TOP3_CONCENTRATION_PCT": 26.7,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "C2000",
+      "CROP": "Rice",
+      "AREA_THS_HA": 226.13,
+      "RANK_COMMODITY": 8,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "ADMIN_REGION": "Piemonte",
+          "AREA_THS_HA": 117.67
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 95.51
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 5.25
+        },
+        {
+          "NUTS2": "ITG2",
+          "REGION": "Sardegna",
+          "ADMIN_REGION": "Sardegna",
+          "AREA_THS_HA": 3.6
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "ADMIN_REGION": "Veneto",
+          "AREA_THS_HA": 3.35
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 226.13,
+      "NATIONAL_VS_NUTS2_DIFF": 0.0,
+      "TOP3_CONCENTRATION_PCT": 96.6,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "I1120",
+      "CROP": "Sunflower seed",
+      "AREA_THS_HA": 110.4,
+      "RANK_COMMODITY": 9,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "ADMIN_REGION": "Marche",
+          "AREA_THS_HA": 35.08
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "ADMIN_REGION": "Toscana",
+          "AREA_THS_HA": 20.96
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "ADMIN_REGION": "Umbria",
+          "AREA_THS_HA": 15.4
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 15.13
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "ADMIN_REGION": "Piemonte",
+          "AREA_THS_HA": 5.3
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 110.41,
+      "NATIONAL_VS_NUTS2_DIFF": -0.01,
+      "TOP3_CONCENTRATION_PCT": 64.7,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "C1400",
+      "CROP": "Oats and spring cereal mixtures (mixed grain other than maslin)",
+      "AREA_THS_HA": 94.34,
+      "RANK_COMMODITY": 10,
+      "REGIONAL_BREAKDOWN": "NÃO SEI — apro_cpshr não publica esta rubrica em NUTS 2"
+    },
+    {
+      "CROP_CODE": "P1200",
+      "CROP": "Broad and field beans",
+      "AREA_THS_HA": 53.35,
+      "RANK_COMMODITY": 11,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "ADMIN_REGION": "Toscana",
+          "AREA_THS_HA": 13.79
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "ADMIN_REGION": "Umbria",
+          "AREA_THS_HA": 10.64
+        },
+        {
+          "NUTS2": "ITF4",
+          "REGION": "Puglia",
+          "ADMIN_REGION": "Puglia",
+          "AREA_THS_HA": 6.31
+        },
+        {
+          "NUTS2": "ITG1",
+          "REGION": "Sicilia",
+          "ADMIN_REGION": "Sicilia",
+          "AREA_THS_HA": 4.57
+        },
+        {
+          "NUTS2": "ITF1",
+          "REGION": "Abruzzo",
+          "ADMIN_REGION": "Abruzzo",
+          "AREA_THS_HA": 4.11
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 53.37,
+      "NATIONAL_VS_NUTS2_DIFF": -0.02,
+      "TOP3_CONCENTRATION_PCT": 57.6,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "R1000",
+      "CROP": "Potatoes (including seed potatoes)",
+      "AREA_THS_HA": 49.09,
+      "RANK_COMMODITY": 12,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITF3",
+          "REGION": "Campania",
+          "ADMIN_REGION": "Campania",
+          "AREA_THS_HA": 9.77
+        },
+        {
+          "NUTS2": "ITG1",
+          "REGION": "Sicilia",
+          "ADMIN_REGION": "Sicilia",
+          "AREA_THS_HA": 9.2
+        },
+        {
+          "NUTS2": "ITF1",
+          "REGION": "Abruzzo",
+          "ADMIN_REGION": "Abruzzo",
+          "AREA_THS_HA": 6.13
+        },
+        {
+          "NUTS2": "ITF6",
+          "REGION": "Calabria",
+          "ADMIN_REGION": "Calabria",
+          "AREA_THS_HA": 5.12
+        },
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 3.88
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 49.1,
+      "NATIONAL_VS_NUTS2_DIFF": -0.01,
+      "TOP3_CONCENTRATION_PCT": 51.1,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "C1700",
+      "CROP": "Sorghum",
+      "AREA_THS_HA": 43.28,
+      "RANK_COMMODITY": 13,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 24.05
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "ADMIN_REGION": "Veneto",
+          "AREA_THS_HA": 3.72
+        },
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "ADMIN_REGION": "Marche",
+          "AREA_THS_HA": 3.03
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 2.81
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "ADMIN_REGION": "Toscana",
+          "AREA_THS_HA": 2.13
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 43.27,
+      "NATIONAL_VS_NUTS2_DIFF": 0.01,
+      "TOP3_CONCENTRATION_PCT": 71.2,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "I1110",
+      "CROP": "Rape and turnip rape seeds",
+      "AREA_THS_HA": 29.43,
+      "RANK_COMMODITY": 14,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 6.88
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "ADMIN_REGION": "Veneto",
+          "AREA_THS_HA": 4.99
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 4.0
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "ADMIN_REGION": "Piemonte",
+          "AREA_THS_HA": 3.16
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "ADMIN_REGION": "Toscana",
+          "AREA_THS_HA": 2.88
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 29.44,
+      "NATIONAL_VS_NUTS2_DIFF": -0.01,
+      "TOP3_CONCENTRATION_PCT": 53.9,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "R2000",
+      "CROP": "Sugar beet (excluding seed)",
+      "AREA_THS_HA": 29.23,
+      "RANK_COMMODITY": 15,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITH5",
+          "REGION": "Emilia-Romagna",
+          "ADMIN_REGION": "Emilia-Romagna",
+          "AREA_THS_HA": 16.36
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "ADMIN_REGION": "Veneto",
+          "AREA_THS_HA": 7.7
+        },
+        {
+          "NUTS2": "ITI3",
+          "REGION": "Marche",
+          "ADMIN_REGION": "Marche",
+          "AREA_THS_HA": 2.4
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 2.05
+        },
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "ADMIN_REGION": "Piemonte",
+          "AREA_THS_HA": 0.39
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 29.24,
+      "NATIONAL_VS_NUTS2_DIFF": -0.01,
+      "TOP3_CONCENTRATION_PCT": 90.5,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    },
+    {
+      "CROP_CODE": "C1600",
+      "CROP": "Triticale",
+      "AREA_THS_HA": 14.85,
+      "RANK_COMMODITY": 16,
+      "TOP_REGIONS": [
+        {
+          "NUTS2": "ITC1",
+          "REGION": "Piemonte",
+          "ADMIN_REGION": "Piemonte",
+          "AREA_THS_HA": 4.81
+        },
+        {
+          "NUTS2": "ITC4",
+          "REGION": "Lombardia",
+          "ADMIN_REGION": "Lombardia",
+          "AREA_THS_HA": 3.7
+        },
+        {
+          "NUTS2": "ITH3",
+          "REGION": "Veneto",
+          "ADMIN_REGION": "Veneto",
+          "AREA_THS_HA": 2.19
+        },
+        {
+          "NUTS2": "ITI1",
+          "REGION": "Toscana",
+          "ADMIN_REGION": "Toscana",
+          "AREA_THS_HA": 0.82
+        },
+        {
+          "NUTS2": "ITI2",
+          "REGION": "Umbria",
+          "ADMIN_REGION": "Umbria",
+          "AREA_THS_HA": 0.6
+        }
+      ],
+      "REGIONS_REPORTING": 21,
+      "NUTS2_SUM_THS_HA": 14.87,
+      "NATIONAL_VS_NUTS2_DIFF": -0.02,
+      "TOP3_CONCENTRATION_PCT": 72.0,
+      "REGIONAL_BREAKDOWN": "AVAILABLE"
+    }
+  ],
+  "MAIZE_POSITION": {
+    "RANK_COMMODITY": 5,
+    "AREA_THS_HA": 495.35,
+    "RANK_AMONG_ARABLE_EXCLUDING_PERMANENT": 3,
+    "TOP_REGIONS": [
+      {
+        "NUTS2": "ITH3",
+        "REGION": "Veneto",
+        "ADMIN_REGION": "Veneto",
+        "AREA_THS_HA": 122.91
+      },
+      {
+        "NUTS2": "ITC4",
+        "REGION": "Lombardia",
+        "ADMIN_REGION": "Lombardia",
+        "AREA_THS_HA": 115.82
+      },
+      {
+        "NUTS2": "ITC1",
+        "REGION": "Piemonte",
+        "ADMIN_REGION": "Piemonte",
+        "AREA_THS_HA": 115.75
+      },
+      {
+        "NUTS2": "ITH5",
+        "REGION": "Emilia-Romagna",
+        "ADMIN_REGION": "Emilia-Romagna",
+        "AREA_THS_HA": 51.41
+      },
+      {
+        "NUTS2": "ITH4",
+        "REGION": "Friuli-Venezia Giulia",
+        "ADMIN_REGION": "Friuli-Venezia Giulia",
+        "AREA_THS_HA": 33.06
+      }
+    ],
+    "TOP3_CONCENTRATION_PCT": 71.6,
+    "WHAT_THIS_DOES_NOT_PROVE": [
+      "market share",
+      "vendas",
+      "prioridade interna ADAMA Italia",
+      "relevância de qualquer issue específico"
+    ]
+  },
+  "PERMANENT_CROP_LIMITATION": {
+    "CROPS_WITHOUT_NUTS2": [
+      "O1000",
+      "W1000",
+      "C1400"
+    ],
+    "MEANING": "Área nacional existe; recorte regional NÃO existe nesta fonte. É NÃO SEI, não zero, e não autoriza tratar oliveira/videira como cultura sem geografia — exige outra fonte (ISTAT) para regionalizar."
+  }
+}
