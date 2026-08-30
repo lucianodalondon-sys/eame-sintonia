@@ -129,8 +129,7 @@ def contratos():
     fora = []
     for rotulo, actor in ATORES.items():
         try:
-            d = coletor._curl('%s/acts/%s' % (coletor.API, actor),
-                              token=token, timeout=60, tentativas=2)
+            d = _curl_compat('%s/acts/%s' % (coletor.API, actor), token=token)
         except Exception as e:                                # noqa: BLE001
             # A MENSAGEM, não só o nome da classe. A primeira versão imprimia só
             # `TypeError` para os sete atores, e um nome de classe sem mensagem não
@@ -151,8 +150,7 @@ def contratos():
         try:
             bid = ((a.get('taggedBuilds') or {}).get('latest') or {}).get('buildId')
             if bid:
-                b = coletor._curl('%s/actor-builds/%s' % (coletor.API, bid),
-                                  token=token, timeout=60, tentativas=2)
+                b = _curl_compat('%s/actor-builds/%s' % (coletor.API, bid), token=token)
                 sch = (((b.get('data') or {}).get('inputSchema')) or '')
                 if isinstance(sch, str) and sch.strip():
                     sch = json.loads(sch)
