@@ -145,6 +145,69 @@ def institucionais():
     ]
 
 
+def tecnicos():
+    """Camada TÉCNICA — separada de pesquisador e separada de creator, de propósito.
+
+    Descoberta pela rota que substituiu a reprovada: `CROP × ISSUE → conteúdo → pessoa`.
+    Executada UMA vez, para flavescência dourada, e o resultado responde a pergunta de
+    forma diferente da esperada — ver `VOICE_VERDICT`.
+    """
+    return [
+        {'ORIGIN_ID': 'IT-TEC-TERRETRURIA', 'TYPE': 'COOPERATIVE_TECHNICAL_SERVICE',
+         'NAME': "Terre dell'Etruria — servizio agronomi", 'REGION': 'Toscana',
+         'ROLE': 'COOPERATIVE_AGRONOMISTS',
+         'ROLE_EVIDENCE': ('a cooperativa mantém seção própria "agronomi/vite" com '
+                           'bollettini agronomici assinados pelo serviço técnico'),
+         'CROPS': ['Videira'], 'ISSUES': ['Flavescência dourada'],
+         'CHANNELS': ['https://www.terretruria.it/agronomi/vite/16-bollettini-agronomici-per-vite/'],
+         'PUBLIC_CONTENT': ('orientação de monitoramento de flavescência para Livorno e '
+                            'Grosseto, com a observação de que o fitoplasma ainda não '
+                            'chegou — ou seja, sinal de AUSÊNCIA vigiada, não de presença'),
+         'IDENTITY_STATUS': 'INSTITUTIONAL_CONFIRMED',
+         'SELECTION_REASON': ('cooperativa que PRODUZ sinal de campo em videira na 4ª '
+                              'região vitícola — segundo caso medido depois da Co.Pro.B.')},
+        {'ORIGIN_ID': 'IT-TEC-AGRALIA', 'TYPE': 'TECHNICAL_ADVISORY',
+         'NAME': 'Agralia Studio Agronomico (Brescia)', 'REGION': 'Lombardia',
+         'ROLE': 'PRIVATE_AGRONOMIC_ADVISORY',
+         'ROLE_EVIDENCE': ('estúdio agronômico declarado, com bollettini próprios de '
+                           'agrometeo viticoltura e olivicoltura e blog técnico assinado'),
+         'NAMED_AUTHOR': 'Massimiliano Perazzoli',
+         'AUTHOR_EVIDENCE': 'assinatura no artigo técnico sobre flavescência (30/01/2024)',
+         'CROPS': ['Videira', 'Oliveira'], 'ISSUES': ['Flavescência dourada'],
+         'CHANNELS': ['https://www.agralia.it/'],
+         'PUBLIC_CONTENT': 'blog técnico + bollettini agrometeo próprios, ativos até 2026',
+         'IDENTITY_STATUS': 'ORGANIZATION_CONFIRMED / PERSON_NAMED_NOT_VERIFIED',
+         'SELECTION_REASON': ('primeira PESSOA técnica nomeada da camada italiana, achada '
+                              'pela rota CROP×ISSUE e não por busca de influenciador')},
+    ]
+
+
+def voz_verdito():
+    """O que a rota substituta respondeu, executada uma vez para flavescência."""
+    return {
+        'SCOPE_TESTED': 'flavescenza dorata × videira',
+        'ROUTE': 'CROP × ISSUE → conteúdo público → origem → papel',
+        'CREATORS_FOUND': 0,
+        'YOUTUBE_CHANNELS_FOUND': 0,
+        'WHAT_WAS_FOUND_INSTEAD': [
+            'serviços regionais (Piemonte, Campania) e o Serviço Fitossanitário Nacional',
+            'técnicos de cooperativa (Terre dell\'Etruria) publicando bollettini de vite',
+            'estúdio agronômico privado com autor nomeado (Agralia / Massimiliano Perazzoli)',
+            'conteúdo técnico de empresa (Bayer, SLM Italia)',
+            'imprensa técnica cobrindo encontro de campo entre as fileiras (Canelli, Piemonte)',
+        ],
+        'VERDICT': 'NO_CREATOR_LAYER_ON_THIS_ISSUE / TECHNICAL_LAYER_EXISTS',
+        'READING': ('a voz pública técnica italiana sobre este problema é ORGANIZACIONAL, '
+                    'não pessoal. Não há camada de creator para coletar; há uma camada de '
+                    'TÉCNICO dentro de cooperativas e estúdios agronômicos. Isso é achado '
+                    'sobre o país, não falha de coleta — e explica por que a busca por '
+                    '"influenciadores" devolvia canais de trator.'),
+        'CONSEQUENCE': ('a camada de voz italiana deve ser construída por ORGANIZAÇÃO com '
+                        'técnico nomeado, não por perfil social. O motor de voz do Brasil '
+                        'continua reusável; muda o ALVO, não o método.'),
+    }
+
+
 def concorrentes():
     """Sinal público de concorrente, restrito aos crop×issue dos casos."""
     return [
@@ -213,7 +276,7 @@ def creators_rejeitados():
 
 
 def main():
-    origens = institucionais()
+    origens = institucionais() + tecnicos()
     comps = concorrentes()
     pesq = _ler('IT-T5-001/ITALY-RESEARCHER-UNIVERSE.json')
 
@@ -243,9 +306,11 @@ def main():
              'TOTAL': pesq.get('UNIVERSE_TOTAL'), 'WITH_ORCID': pesq.get('WITH_ORCID')}
             if pesq else {'STATUS': 'PENDING — build em curso'}),
         'FARMER_CREATOR_LAYER': creators_rejeitados(),
+        'VOICE_ROUTE_SECOND_TEST': voz_verdito(),
         'WHAT_IS_MISSING': [
             'produtores individuais com conteúdo público — não iniciado',
-            'creators verificados por CROP×ISSUE — rota de descoberta trocada, não reexecutada',
+            'creators verificados por CROP×ISSUE — rota substituta executada uma vez e '
+            'devolveu ZERO creators; ver VOICE_ROUTE_SECOND_TEST',
             'canais sociais dos pesquisadores — camada seguinte',
         ],
     }

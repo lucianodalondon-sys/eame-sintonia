@@ -18,6 +18,8 @@
     "COOPERATIVE": 1,
     "PRODUCER_ORG": 1,
     "TECHNICAL_MEDIA": 3,
+    "COOPERATIVE_TECHNICAL_SERVICE": 1,
+    "TECHNICAL_ADVISORY": 1,
     "COMPANY": 4
   },
   "INSTITUTIONAL_ORIGINS": [
@@ -256,6 +258,49 @@
       "PUBLIC_CONTENT": "perfil MARKET_AND_POLICY",
       "IDENTITY_STATUS": "INSTITUTIONAL_CONFIRMED",
       "SELECTION_REASON": "segunda mídia técnica nacional com rota estruturada aberta"
+    },
+    {
+      "ORIGIN_ID": "IT-TEC-TERRETRURIA",
+      "TYPE": "COOPERATIVE_TECHNICAL_SERVICE",
+      "NAME": "Terre dell'Etruria — servizio agronomi",
+      "REGION": "Toscana",
+      "ROLE": "COOPERATIVE_AGRONOMISTS",
+      "ROLE_EVIDENCE": "a cooperativa mantém seção própria \"agronomi/vite\" com bollettini agronomici assinados pelo serviço técnico",
+      "CROPS": [
+        "Videira"
+      ],
+      "ISSUES": [
+        "Flavescência dourada"
+      ],
+      "CHANNELS": [
+        "https://www.terretruria.it/agronomi/vite/16-bollettini-agronomici-per-vite/"
+      ],
+      "PUBLIC_CONTENT": "orientação de monitoramento de flavescência para Livorno e Grosseto, com a observação de que o fitoplasma ainda não chegou — ou seja, sinal de AUSÊNCIA vigiada, não de presença",
+      "IDENTITY_STATUS": "INSTITUTIONAL_CONFIRMED",
+      "SELECTION_REASON": "cooperativa que PRODUZ sinal de campo em videira na 4ª região vitícola — segundo caso medido depois da Co.Pro.B."
+    },
+    {
+      "ORIGIN_ID": "IT-TEC-AGRALIA",
+      "TYPE": "TECHNICAL_ADVISORY",
+      "NAME": "Agralia Studio Agronomico (Brescia)",
+      "REGION": "Lombardia",
+      "ROLE": "PRIVATE_AGRONOMIC_ADVISORY",
+      "ROLE_EVIDENCE": "estúdio agronômico declarado, com bollettini próprios de agrometeo viticoltura e olivicoltura e blog técnico assinado",
+      "NAMED_AUTHOR": "Massimiliano Perazzoli",
+      "AUTHOR_EVIDENCE": "assinatura no artigo técnico sobre flavescência (30/01/2024)",
+      "CROPS": [
+        "Videira",
+        "Oliveira"
+      ],
+      "ISSUES": [
+        "Flavescência dourada"
+      ],
+      "CHANNELS": [
+        "https://www.agralia.it/"
+      ],
+      "PUBLIC_CONTENT": "blog técnico + bollettini agrometeo próprios, ativos até 2026",
+      "IDENTITY_STATUS": "ORGANIZATION_CONFIRMED / PERSON_NAMED_NOT_VERIFIED",
+      "SELECTION_REASON": "primeira PESSOA técnica nomeada da camada italiana, achada pela rota CROP×ISSUE e não por busca de influenciador"
     }
   ],
   "COMPETITOR_SIGNALS": [
@@ -383,9 +428,25 @@
     "WHAT_REPLACES_IT": "a rota inversa, que a missão já prescrevia: CROP × REGION × TOPIC → conteúdo → pessoa. Ela devolveu, em duas buscas, o Consorzio de Piacenza, a FMach, a Giornata del Mais do CREA e o conteúdo técnico de dois concorrentes — todos ligados aos issues dos casos.",
     "ROUTE_STATUS_YOUTUBE_RSS": "FUNCIONA sem chave de API — 15 itens por canal, com data e ID. O gargalo é DISCOVERY, não coleta."
   },
+  "VOICE_ROUTE_SECOND_TEST": {
+    "SCOPE_TESTED": "flavescenza dorata × videira",
+    "ROUTE": "CROP × ISSUE → conteúdo público → origem → papel",
+    "CREATORS_FOUND": 0,
+    "YOUTUBE_CHANNELS_FOUND": 0,
+    "WHAT_WAS_FOUND_INSTEAD": [
+      "serviços regionais (Piemonte, Campania) e o Serviço Fitossanitário Nacional",
+      "técnicos de cooperativa (Terre dell'Etruria) publicando bollettini de vite",
+      "estúdio agronômico privado com autor nomeado (Agralia / Massimiliano Perazzoli)",
+      "conteúdo técnico de empresa (Bayer, SLM Italia)",
+      "imprensa técnica cobrindo encontro de campo entre as fileiras (Canelli, Piemonte)"
+    ],
+    "VERDICT": "NO_CREATOR_LAYER_ON_THIS_ISSUE / TECHNICAL_LAYER_EXISTS",
+    "READING": "a voz pública técnica italiana sobre este problema é ORGANIZACIONAL, não pessoal. Não há camada de creator para coletar; há uma camada de TÉCNICO dentro de cooperativas e estúdios agronômicos. Isso é achado sobre o país, não falha de coleta — e explica por que a busca por \"influenciadores\" devolvia canais de trator.",
+    "CONSEQUENCE": "a camada de voz italiana deve ser construída por ORGANIZAÇÃO com técnico nomeado, não por perfil social. O motor de voz do Brasil continua reusável; muda o ALVO, não o método."
+  },
   "WHAT_IS_MISSING": [
     "produtores individuais com conteúdo público — não iniciado",
-    "creators verificados por CROP×ISSUE — rota de descoberta trocada, não reexecutada",
+    "creators verificados por CROP×ISSUE — rota substituta executada uma vez e devolveu ZERO creators; ver VOICE_ROUTE_SECOND_TEST",
     "canais sociais dos pesquisadores — camada seguinte"
   ]
 }

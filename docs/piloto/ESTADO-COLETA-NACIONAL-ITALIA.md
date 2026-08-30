@@ -16,8 +16,8 @@
 | `ITALY_PRODUCT_INTELLIGENCE_READY` | **SIM (regulatório)** · **NÃO (comercial)** | 163/163 rótulos, 49 usos autorizados, 90 pares cultura×alvo · site 403 |
 | `ITALY_RESEARCHER_UNIVERSE_READY` | **PARCIAL** | 1 de 5 recortes construído; os outros 4 estrangulados, não vazios |
 | `ITALY_TECHNICAL_NETWORK_READY` | **PARCIAL** | 8 nós institucionais com `ROLE_EVIDENCE`; pessoas individuais não iniciadas |
-| `ITALY_CREATOR_UNIVERSE_READY` | **NÃO** | rota testada e **reprovada** (6,7 %); rota substituta identificada, não executada |
-| `ITALY_PUBLIC_VOICE_READY` | **NÃO** | nenhum conteúdo de voz coletado; a camada tem rota (RSS) e não tem alvo |
+| `ITALY_CREATOR_UNIVERSE_READY` | **NÃO — e provavelmente não existe** | rota reprovada (6,7 %); a substituta devolveu **zero creators** e uma camada técnica |
+| `ITALY_PUBLIC_VOICE_READY` | **NÃO, com método definido** | a voz sobre o issue é **organizacional**, não pessoal — muda o alvo, não o motor |
 
 `ITALY_PILOT_INTELLIGENCE_READY` = **SIM** · `ITALY_DEMO_CONTENT_READY` = **SIM** ·
 `READY_TO_DESIGN_ITALY_PORTAL` = **NÃO — e parar antes dele é a instrução**
@@ -124,10 +124,46 @@ recortes estrangulados) · `FOLLOWER_AUTHORITY_ERRORS` 0 (seguidor não é campo
 4. Piemonte e Piacenza com bollettini em JS → `NOT_OBTAINED`.
 5. Trigo duro sem nenhuma fonte de campo medida.
 
+### O SEGUNDO TESTE DA ROTA DE VOZ — executado, e mudou a pergunta
+
+O `NEXT_SMALLEST_STEP` anterior era rodar a rota substituta **uma vez**, para
+`flavescenza dorata`. Foi rodado. Resultado:
+
+```
+CREATORS ENCONTRADOS          0
+CANAIS DE YOUTUBE             0
+```
+
+E o que apareceu no lugar:
+
+- serviços regionais (Piemonte, Campania) e o Serviço Fitossanitário Nacional;
+- **técnicos de cooperativa** — `Terre dell'Etruria` publica *bollettini agronomici per
+  vite* assinados pelo próprio serviço técnico, com orientação de monitoramento de
+  flavescência para Livorno e Grosseto (e a observação de que o fitoplasma **ainda não
+  chegou** — sinal de ausência vigiada, que também é sinal);
+- **estúdio agronômico privado com autor nomeado** — `Agralia` (Brescia),
+  *Massimiliano Perazzoli*, com bollettini agrometeo próprios de viticoltura e olivicoltura;
+- conteúdo técnico de empresa (Bayer, SLM Italia);
+- imprensa técnica cobrindo **encontro de campo entre as fileiras** (Canelli, Piemonte).
+
+> **A voz pública técnica italiana sobre este problema é ORGANIZACIONAL, não pessoal.**
+> Não há camada de creator para coletar; há uma camada de **técnico** dentro de
+> cooperativas e estúdios agronômicos. Isso é um achado **sobre o país**, não uma falha de
+> coleta — e explica por que buscar "influenciadores agrícolas italianos" devolvia canais
+> de trator.
+
+**Consequência de método:** a camada de voz italiana deve ser construída **por
+organização com técnico nomeado**, não por perfil social. O motor de voz do Brasil
+continua reusável — **muda o alvo, não o método.**
+
 ### NEXT_SMALLEST_STEP
-**Executar a rota de creators que substituiu a reprovada, uma vez, para um único
-`CROP × ISSUE`.** Concretamente: *flavescenza dorata* — buscar quem publica conteúdo
-técnico sobre ela, verificar identidade e papel por evidência estruturada, e medir a
-mesma taxa de relevância. Se passar do gate, a camada de voz italiana tem método; se não
-passar, a Itália não tem voz pública técnica sobre o issue e isso é um achado, não uma
-falha. Uma busca decide.
+**Repetir o teste de voz para um segundo `CROP × ISSUE`** — *piralide/diabrotica em
+milho* — e ver se o padrão se confirma. Se a voz também for organizacional ali, a Itália
+tem uma regra de país e não uma coincidência de issue, e a camada de voz pode ser
+desenhada com alvo certo desde o início: cooperativas com serviço técnico, estúdios
+agronômicos e consórcios provinciais — não perfis sociais.
+
+Uma busca decide, de novo. Os cinco `NEXT_SMALLEST_STEP` desta branch foram **executados,
+não recomendados**, e cada um mudou uma conclusão: o caso vencedor, a região do caso, o
+horizonte de ação, a existência do sinal de milho e agora a natureza da própria camada de
+voz.
