@@ -181,6 +181,27 @@ O salto não é do portfólio: é da leitura. A ADAMA escreve o registro de trê
 (`ES-01603`, `25186`, `24.887`) e o parser conhecia só a primeira — 30 das 56 fichas
 saíam sem registro tendo o número publicado na página.
 
+### Confirmação do par (§16) — 5 de 5
+
+A rota do par (`POST /regfiweb/Exportaciones/ExportJsonProductos` com `idCultivo` +
+`idPlaga`) foi executada daqui, uma requisição por par. O MAPA **responde a esta
+máquina** — o bloqueio é só da ADAMA.
+
+| par | registro | conjunto do MAPA | veredito |
+|---|---|---|---|
+| ARROZ × Dicotiledóneas | ES-01516 (POSTSCRIPT 80) | 38 registros | **CONFIRMED** |
+| CEBADA × Malas hierbas | 25667 (TRINITY) | 12 | **CONFIRMED** |
+| CENTENO × Malas hierbas | 25667 | 6 | **CONFIRMED** |
+| TRIGO × Malas hierbas | 25667 | 16 | **CONFIRMED** |
+| TRITICALE × Malas hierbas | 25667 | 6 | **CONFIRMED** |
+
+Todos titulados à ADAMA Agriculture España e todos `Vigente`. O casamento é pelo
+**número de registro**, nunca por nome comercial — sem número, o par sairia `AMBIGUOUS`,
+que é diferente de não confirmado. Par confirmado sobe de `MANUFACTURER_TECHNICAL_CLAIM`
+para `REGULATORY_FACT`; os outros não sobem.
+
+Artefato: `data/samples/ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json`.
+
 96 registros vigentes no ROPF e 56 entradas no catálogo **contam unidades diferentes**.
 Um produto pode ter vários registros; um registro pode não ter exposição comercial. A
 diferença só vira achado depois do crosswalk, nunca por subtração.
@@ -229,7 +250,7 @@ AVASTEL, e o trigo real ia junto. Agora descarta exatamente um item do fim.
 
 ## 8 · Verificação
 
-- **Guardas:** 36 no `test_adama_es.py`, 0 falha. Eram 28; os 8 novos guardam
+- **Guardas:** 37 no `test_adama_es.py`, 0 falha. Eram 28; os 9 novos guardam
   exatamente os defeitos acima.
 - **Demais suítes:** 149 testes (`portao` 40, `operacao` 37, `coleta_externa` 29,
   `pipeline` 18, `evidence` 16, `canonico` 9), todas OK.

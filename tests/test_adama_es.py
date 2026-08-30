@@ -485,6 +485,39 @@ def test_cultivo_declarado_e_cultivo_citado_nao_se_somam():
         assert fonte in ('DECLARADO_NO_BLOCO_CULTIVOS', 'CITADO_NO_CORPO_DA_PAGINA'), crop
 
 
+def test_confirmacao_do_mapa_nao_apaga_a_diferenca_entre_os_tres_estados():
+    """Confirmado, não-confirmado e não-testado são TRÊS coisas, e o artefato conta as três.
+
+    O risco real: uma consulta que falha virar "não confirmado", ou um par nunca
+    perguntado virar "confirmado" por omissão. Cada par tem que dizer em qual dos três
+    caiu, e a soma dos três tem que fechar o total de pares.
+    """
+    caminho = os.path.join(ROOT, 'data', 'samples', 'ADAMA-ES-PRODUCT-INTELLIGENCE.json')
+    if not os.path.exists(caminho):
+        return
+    with open(caminho, encoding='utf-8') as f:
+        d = json.load(f)
+    pares = d['CROP_ISSUE_RELATIONS']
+    if not pares:
+        return
+    validos = {'ADAMA_CLAIM_MAPA_CONFIRMED', 'ADAMA_CLAIM_MAPA_NOT_CONFIRMED',
+               'ADAMA_ONLY_NOT_TESTED', 'AMBIGUOUS', 'NOT_TESTED'}
+    for r in pares:
+        assert r.get('MAPA_CONFIRMATION') in validos, r.get('MAPA_CONFIRMATION')
+        if r.get('MAPA_CONFIRMATION') == 'ADAMA_CLAIM_MAPA_CONFIRMED':
+            assert r.get('EVIDENCE_LEVEL') == 'REGULATORY_FACT', (
+                'par confirmado pelo MAPA continua carimbado como claim do fabricante')
+            ev = r.get('MAPA_EVIDENCIA') or {}
+            assert ev.get('MAPA_ID_CULTIVO') and ev.get('MAPA_ID_PLAGA'), (
+                'confirmacao sem os ids oficiais que a produziram')
+
+    c = d['CONTAGENS']
+    soma = (c.get('REGULATORY_CONFIRMED_RELATIONS', 0)
+            + c.get('RELATIONS_NOT_CONFIRMED_BY_MAPA', 0)
+            + c.get('RELATIONS_NOT_TESTED_AGAINST_MAPA', 0))
+    assert soma <= len(pares), 'as contagens de confirmacao passam do total de pares'
+
+
 if __name__ == '__main__':
     falhas = 0
     for nome, fn in sorted(globals().items()):

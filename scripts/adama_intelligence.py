@@ -115,6 +115,24 @@ def construir(captura):
     if documentos:
         A.baixar_documentos(documentos, captura)
 
+    # A confirmação do par contra o MAPA roda em arquivo separado (uma requisição por
+    # par). Se ela já existe no disco, o veredito volta para cá e carimba a relação; se
+    # não existe, o par continua ADAMA_ONLY_NOT_TESTED — que é diferente de não
+    # confirmado, e a diferença tem que aparecer.
+    conf = _ler('ADAMA-ES-CONFIRMACAO-REGULATORIA-DO-PAR.json') or {}
+    veredito = {(l['PRODUCT_ID'], l['CROP'], l['ISSUE']): l
+                for l in (conf.get('LINHAS') or [])}
+    for r in par_rel:
+        v = veredito.get((r['PRODUCT_ID'], r['CROP'], r['ISSUE']))
+        if not v:
+            continue
+        r['MAPA_CONFIRMATION'] = v['ESTADO']
+        r['MAPA_EVIDENCIA'] = {k: v.get(k) for k in (
+            'MAPA_ID_CULTIVO', 'MAPA_ID_PLAGA', 'MAPA_REGISTROS_NO_PAR', 'MAPA_NOME',
+            'MAPA_TITULAR', 'MAPA_ESTADO', 'MAPA_SERVIDOR_TIMESTAMP', 'PORQUE')}
+        if v['ESTADO'] == 'ADAMA_CLAIM_MAPA_CONFIRMED':
+            r['EVIDENCE_LEVEL'] = 'REGULATORY_FACT'
+
     fichas = X.fichas_ropf()
     linhas_cw = X.cruzar(produtos, fichas)
     resumo_cw = X.resumo(linhas_cw, fichas)
@@ -202,6 +220,15 @@ def construir(captura):
             'ISSUE_RELATIONS': len(issue_rel) or VAZIO,
             'CROP_ISSUE_RELATIONS': len(par_rel) or VAZIO,
             'CROP_DOSE_RELATIONS': len(dose_rel) or VAZIO,
+            'REGULATORY_CONFIRMED_RELATIONS': sum(
+                1 for r in par_rel
+                if r.get('MAPA_CONFIRMATION') == 'ADAMA_CLAIM_MAPA_CONFIRMED'),
+            'RELATIONS_NOT_CONFIRMED_BY_MAPA': sum(
+                1 for r in par_rel
+                if r.get('MAPA_CONFIRMATION') == 'ADAMA_CLAIM_MAPA_NOT_CONFIRMED'),
+            'RELATIONS_NOT_TESTED_AGAINST_MAPA': sum(
+                1 for r in par_rel
+                if r.get('MAPA_CONFIRMATION') == 'ADAMA_ONLY_NOT_TESTED'),
             'APPLICATION_WINDOWS': len(janelas) or VAZIO,
             'TECHNICAL_CLAIMS': sum(1 for c in claims
                                     if c['CLAIM_TYPE'] == 'MANUFACTURER_TECHNICAL_CLAIM') or VAZIO,
