@@ -51,7 +51,7 @@ def construir(captura):
     }
 
     produtos, documentos = [], []
-    crop_rel, issue_rel, par_rel, ambiguos = [], [], [], []
+    crop_rel, issue_rel, par_rel, dose_rel, ambiguos = [], [], [], [], []
     ingredientes, moa, tecnologias, claims = [], [], [], []
     relacoes_produto, conteudo, videos, janelas = [], [], [], []
 
@@ -69,6 +69,7 @@ def construir(captura):
         crop_rel += d['CROP_RELATIONS']
         issue_rel += d['ISSUE_RELATIONS']
         par_rel += d['CROP_ISSUE_RELATIONS']
+        dose_rel += d.get('CROP_DOSE_RELATIONS') or []
         ambiguos += d['AMBIGUOUS_TERMS']
         moa += d['MODES_OF_ACTION']
         claims += d['CLAIMS']
@@ -131,6 +132,11 @@ def construir(captura):
         'CROP_RELATIONS': crop_rel,
         'ISSUE_RELATIONS': issue_rel,
         'CROP_ISSUE_RELATIONS': par_rel,
+        # A tabela dominante da ADAMA España é CULTIVO × DOSE, sem coluna de agente. Ela
+        # entra numa estrutura PRÓPRIA, e não dentro de CROP_ISSUE_RELATIONS: dose por
+        # cultivo é evidência real, mas não é par, e misturar as duas seria exatamente o
+        # cartesiano que a seção 8 proíbe.
+        'CROP_DOSE_RELATIONS': dose_rel,
         'APPLICATION_WINDOWS': janelas,
         'ACTIVE_INGREDIENTS': ingredientes,
         'MODES_OF_ACTION': moa,
@@ -165,6 +171,7 @@ def construir(captura):
             'CROP_RELATIONS': len(crop_rel) or VAZIO,
             'ISSUE_RELATIONS': len(issue_rel) or VAZIO,
             'CROP_ISSUE_RELATIONS': len(par_rel) or VAZIO,
+            'CROP_DOSE_RELATIONS': len(dose_rel) or VAZIO,
             'APPLICATION_WINDOWS': len(janelas) or VAZIO,
             'TECHNICAL_CLAIMS': sum(1 for c in claims
                                     if c['CLAIM_TYPE'] == 'MANUFACTURER_TECHNICAL_CLAIM') or VAZIO,

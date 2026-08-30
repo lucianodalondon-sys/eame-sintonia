@@ -699,8 +699,16 @@ MODO_ACAO = [
 ]
 
 REGISTRO = re.compile(r'\b(?:ES-\d{5}|\d{5,6}\s*/\s*\d{2})\b')
+# A ADAMA España escreve concentração de DUAS formas, e antes só uma era lida:
+#   "Propaquizafop 10% [EC] p/v"   -> percentual
+#   "Dicamba 120 g/l + Mesotriona 50 g/l"  -> massa por volume
+# COLTRANE saía com ACTIVE_INGREDIENTS vazio só por causa disso — o dado estava na
+# página, escrito por extenso, e o parser não tinha a unidade no vocabulário.
+# O separador entre nome e numero varia: espaco, dois-pontos, reticencias ou fileira de
+# pontos, como em "Petoxamida … 60% PV". Exigir so espaco perdia o ROMIN inteiro.
 CONCENTRACAO = re.compile(
-    r'([A-Za-zÁÉÍÓÚÑáéíóúñ][A-Za-zÁÉÍÓÚÑáéíóúñ\s-]{3,40}?)\s+(\d+(?:[.,]\d+)?)\s*%\s*'
+    r'([A-Za-zÁÉÍÓÚÑáéíóúñ][A-Za-zÁÉÍÓÚÑáéíóúñ\s-]{3,40}?)[\s.:·…]+(\d+(?:[.,]\d+)?)\s*'
+    r'(%|g\s*/\s*l|g\s*/\s*kg|mg\s*/\s*kg|g\s*/\s*L)\s*'
     r'(?:\[?(\w{1,3})\]?)?\s*(?:p/v|p/p|w/v|w/w)?', re.I)
 
 
@@ -831,6 +839,10 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
         'CAPTURED_AT': captured_at,
         'FORMULATION': _formulacao(texto_todo),
         'ACTIVE_INGREDIENTS': _ingredientes(texto_todo, vocab),
+        # A linha "Composición:" crua fica junto. KENDO publica "lambda cihalotrin" e
+        # NENHUMA concentração; sem guardar o texto, o produto sairia como se a página
+        # não dissesse nada sobre composição — e ela diz, só não diz quanto.
+        'COMPOSITION_TEXT_PUBLICADO': _composicao(texto_todo),
         'PUBLIC_ADAMA_CATALOG_PRESENCE': 'YES' if catalog_status == 'CURRENT' else 'NÃO SEI',
         'CURRENT_COMMERCIAL_AVAILABILITY': 'NAO_SEI',
         'PORQUE_NAO_SEI_DISPONIBILIDADE': (
@@ -901,6 +913,15 @@ def _formulacao(t):
     return m.group(1) if m else 'NÃO SEI'
 
 
+RX_COMPOSICAO = re.compile(r'composici[oó]n\s*:?\s*(.{3,200}?)(?:\.\s|$|\|)', re.I | re.S)
+
+
+def _composicao(t):
+    """O texto que a ADAMA publica depois de "Composición:", cru, sem interpretar."""
+    m = RX_COMPOSICAO.search(t or '')
+    return re.sub(r'\s+', ' ', m.group(1)).strip() if m else 'NÃO SEI'
+
+
 def _ingredientes(t, vocab=None):
     """Substância + concentração. Um nome que contém cultivo ou agente não é substância.
 
@@ -922,8 +943,11 @@ def _ingredientes(t, vocab=None):
         if any(p in proibidos for p in palavras):
             continue
         vistos.add(_chave(nome))
-        fora.append({'NAME': nome, 'CONCENTRATION': m.group(2) + '%',
-                     'FORMULATION_CODE': m.group(3) or 'NÃO SEI',
+        unidade = re.sub(r'\s+', '', m.group(3)).lower()
+        fora.append({'NAME': nome,
+                     'CONCENTRATION': m.group(2) + ('%' if unidade == '%' else ' ' + unidade),
+                     'CONCENTRATION_UNIT': unidade,
+                     'FORMULATION_CODE': m.group(4) or 'NÃO SEI',
                      'EVIDENCE_LEVEL': 'OBSERVED_ON_MANUFACTURER_PAGE'})
     return fora[:12]
 
@@ -943,10 +967,24 @@ def _ingredientes(t, vocab=None):
 # página; página que não veio 200 continua sendo falha, nunca ausência.
 
 _PACOTES = {}
+_PACOTES_PADRAO = [
+    os.path.join(ROOT, 'data', 'raw', 'ES', 'adama-website', n)
+    for n in ('ADAMA-ES-PACOTE-CATALOGO.json', 'ADAMA-ES-PACOTE-PAGINAS.json')
+]
+_JA_TENTOU = [False]
+
+
+def _captura_padrao():
+    """Carrega os pacotes do disco uma vez. Ausência não é erro: só não há captura."""
+    if not _JA_TENTOU[0]:
+        _JA_TENTOU[0] = True
+        carregar_captura(*_PACOTES_PADRAO)
+    return _PACOTES
 
 
 def carregar_captura(*caminhos):
     """Registra pacotes de captura do navegador. Devolve quantas páginas ficaram vivas."""
+    _JA_TENTOU[0] = True
     for c in caminhos:
         if not c or not os.path.exists(c):
             continue
@@ -970,7 +1008,7 @@ def _chave_rota(u):
 def buscar(url, timeout=45, binario=False):
     """Devolve (estado, conteudo, http_status). Falha NUNCA vira conteúdo vazio."""
     if not binario:
-        alvo = _PACOTES.get(_chave_rota(url))
+        alvo = _captura_padrao().get(_chave_rota(url))
         if alvo is not None:
             code = alvo.get('status')
             if code == 200:
@@ -1010,6 +1048,43 @@ def sha256_do_arquivo(caminho):
     return h.hexdigest()
 
 
+DOCS_LOCAIS = os.path.join(ROOT, 'data', 'raw', 'ES', 'adama-website',
+                           'documentos-baixados.json')
+DOCS_DIR = os.path.join(ROOT, 'data', 'raw', 'ES', 'adama-website', 'documentos')
+
+
+def _documentos_locais():
+    """Índice media_id -> arquivo já trazido pelo navegador. Vazio se não houver."""
+    if not os.path.exists(DOCS_LOCAIS):
+        return {}
+    with open(DOCS_LOCAIS, encoding='utf-8') as f:
+        return json.load(f)
+
+
+_RX_MEDIA_ID = re.compile(r'/media/(\d+)/download', re.I)
+
+
+def _binario_local(url, local):
+    """Mesma assinatura de buscar(binario=True), servindo do disco.
+
+    Devolve None quando não há cópia local — aí a rota de rede segue valendo. O PDF da
+    ADAMA só chega pelo navegador (curl leva 403), então sem isto o download "de verdade"
+    da seção 12 nunca acontece nesta máquina.
+    """
+    if not local:
+        return None
+    m = _RX_MEDIA_ID.search(url or '')
+    if not m:
+        return None
+    d = local.get(m.group(1))
+    if not d:
+        return None
+    caminho = os.path.join(DOCS_DIR, d['ARQUIVO'])
+    if not os.path.exists(caminho):
+        return None
+    return 'OK', {'PATH': caminho, 'MEDIA_TYPE': d.get('MIME', '')}, '200'
+
+
 def baixar_documentos(docs, captura, limite=None):
     """Baixa DE VERDADE. Guarda bytes+sha256. Distingue FAILED de NOT_FOUND.
 
@@ -1018,8 +1093,9 @@ def baixar_documentos(docs, captura, limite=None):
     construção, não por revisão.
     """
     por_hash, baixados, falhos = {}, 0, 0
+    local = _documentos_locais()
     for d in (docs if limite is None else docs[:limite]):
-        estado, res, code = buscar(d['URL'], binario=True)
+        estado, res, code = _binario_local(d['URL'], local) or buscar(d['URL'], binario=True)
         d['HTTP_STATUS'] = code
         d['CAPTURED_AT'] = captura
         if estado != 'OK':

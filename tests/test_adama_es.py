@@ -172,11 +172,14 @@ def test_enumeracao_sem_acesso_e_not_collected_nunca_zero():
 
 def test_denominador_so_conta_o_observado_ao_vivo():
     """O catálogo só devolve total quando uma rota respondeu NESTA captura."""
+    # A familia de URL da fixture MUDOU porque o site mudou: em 2026-08-30 o catalogo
+    # vivo publica em /nuestras-soluciones/<categoria>/<slug>. A intencao do teste e a
+    # mesma — URL repetida nao pode inflar o denominador.
     paginas = {
         A.CATALOGO: '<html><body>'
-                    '<a href="/spain/es/products/crop-protection/alpha">ALPHA</a>'
-                    '<a href="/spain/es/products/crop-protection/beta">BETA</a>'
-                    '<a href="/spain/es/products/crop-protection/alpha">ALPHA de novo</a>'
+                    '<a href="/spain/es/nuestras-soluciones/control-de-plagas/alpha">ALPHA</a>'
+                    '<a href="/spain/es/nuestras-soluciones/control-de-plagas/beta">BETA</a>'
+                    '<a href="/spain/es/nuestras-soluciones/control-de-plagas/alpha">ALPHA 2</a>'
                     '</body></html>'}
     original = A.buscar
     A.buscar = lambda url, timeout=45, binario=False: (
@@ -193,10 +196,10 @@ def test_denominador_so_conta_o_observado_ao_vivo():
 def test_pagina_institucional_nao_entra_como_produto():
     paginas = {
         A.CATALOGO: '<html><body>'
-                    '<a href="/spain/es/products/crop-protection/gamma">GAMMA</a>'
+                    '<a href="/spain/es/nuestras-soluciones/control-de-plagas/gamma">GAMMA</a>'
                     '<a href="/spain/es/about-us">Quiénes somos</a>'
                     '<a href="/spain/es/contact">Contacto</a>'
-                    '<a href="/spain/es/products/crop-protection/downloads/x.pdf">Etiqueta</a>'
+                    '<a href="/spain/es/nuestras-soluciones/x/y.pdf">Etiqueta</a>'
                     '</body></html>'}
     original = A.buscar
     A.buscar = lambda url, timeout=45, binario=False: (
@@ -338,6 +341,98 @@ def test_artefato_nao_deriva_96_menos_55():
     assert 'MATCHED' in cw and cw['MATCHED'] in ('NOT_COLLECTED', 0) or True
     assert 41 not in [v for v in cw.values() if isinstance(v, int)], (
         '96-55=41 aparece como numero derivado; unidades diferentes (secao 23)')
+
+
+# ── 9 · o que SÓ a coleta ao vivo de 2026-08-30 revelou ─────────────────────
+#
+# Cada teste abaixo nasce de um defeito MEDIDO, não imaginado. O comentário diz qual.
+
+def test_categoria_vem_da_ficha_e_nao_do_menu():
+    """O menu do site lista as quatro categorias em toda página.
+
+    Defeito medido: varrer LINKS em ordem de DOM devolvia CONTROL_DE_ENFERMEDADES para
+    as 56 fichas, porque esse é o primeiro item do menu. AGIL é herbicida.
+    """
+    html = ('<html><body><nav>'
+            '<a href="/spain/es/nuestras-soluciones?f[0]=treatment:151">Control de Enfermedades</a>'
+            '<a href="/spain/es/nuestras-soluciones?f[0]=treatment:156">Control de Malas Hierbas</a>'
+            '</nav><h1>AGIL</h1></body></html>')
+    d = A.parsear_produto(
+        html, 'https://www.adama.com/spain/es/nuestras-soluciones/control-de-malas-hierbas/agil')
+    assert d['PRODUCT']['CATEGORY'] == 'CONTROL_DE_MALAS_HIERBAS', (
+        'a categoria veio do menu, nao da ficha')
+
+
+def test_documento_sem_extensao_na_url_ainda_e_documento():
+    """A ADAMA serve por /media/<id>/download, sem extensão; o nome vive no title.
+
+    Defeito medido: exigir extensão na URL via 0 documentos em 56 fichas — e 0 teria
+    sido lido como "a ADAMA não publica rótulo", que é falso.
+    """
+    html = ('<html><body><h1>X</h1><a href="/spain/es/media/11/download?attachment" '
+            'type="application/pdf; length=127023" title="AGIL FDS.pdf">Ficha de seguridad</a>'
+            '</body></html>')
+    d = A.parsear_produto(html, 'https://www.adama.com/spain/es/nuestras-soluciones/a/x')
+    assert len(d['DOCUMENTS']) == 1, 'documento sem extensao na URL foi ignorado'
+    doc = d['DOCUMENTS'][0]
+    assert doc['FILENAME'] == 'AGIL FDS.pdf', 'nome do arquivo nao veio do title'
+    assert doc['PROVA_DE_QUE_E_DOCUMENTO'], 'documento entrou sem dizer por que'
+
+
+def test_dose_com_unidade_no_cabecalho_nao_vira_par():
+    """CULTIVO × DOSE é dose, não par. E a unidade pode estar no cabeçalho.
+
+    Defeito medido: a linha inteira era descartada por falta de agente, e a dose ia
+    junto. O risco oposto é pior: virar par sem agente nomeado.
+    """
+    html = ('<html><body><h1>X</h1><h2>Registros</h2><table>'
+            '<tr><th>CULTIVO</th><th>DOSIS (L/Ha)</th></tr>'
+            '<tr><td>Alcachofa</td><td>3,0</td></tr></table></body></html>')
+    d = A.parsear_produto(html, 'https://www.adama.com/spain/es/nuestras-soluciones/a/x')
+    assert not d['CROP_ISSUE_RELATIONS'], 'linha sem agente virou par'
+    doses = d['CROP_DOSE_RELATIONS']
+    assert len(doses) == 1, 'a dose por cultivo se perdeu'
+    assert doses[0]['DOSE'] == '3,0 l/ha', doses[0]['DOSE']
+    assert doses[0]['DOSE_UNIT_SOURCE'] == 'CABECALHO_DA_TABELA'
+    assert doses[0]['PAIR_DERIVABLE'] is False
+    assert doses[0]['ISSUE'] == 'NÃO SEI'
+
+
+def test_cabecalho_nao_atravessa_secao_diferente():
+    """A herança de cabeçalho é restrita: mesma seção e mesmo número de colunas.
+
+    Sem esse limite, o cabeçalho de uma tabela de dose contaminaria a tabela de HRAC
+    da mesma ficha — e uma dose apareceria onde a ADAMA não publicou nenhuma.
+    """
+    tabelas = [
+        {'INDICE': 0, 'SECAO': 'Registros', 'CABECALHO': ['CULTIVO', 'DOSIS (L/Ha)'],
+         'LINHAS': [{'INDICE': 0, 'CELULAS': ['Ajos', '2,5']}]},
+        {'INDICE': 1, 'SECAO': 'Beneficios', 'CABECALHO': [],
+         'LINHAS': [{'INDICE': 0, 'CELULAS': ['Pendimetalina', 'K1']}]},
+    ]
+    A.herdar_cabecalho(tabelas)
+    assert tabelas[1]['CABECALHO'] == [], 'cabecalho atravessou para outra secao'
+
+
+def test_concentracao_em_g_por_litro_e_lida():
+    """"Dicamba 120 g/l" é concentração publicada tanto quanto "10%".
+
+    Defeito medido: COLTRANE saía com ACTIVE_INGREDIENTS vazio porque a regex só
+    conhecia o símbolo de porcentagem.
+    """
+    ia = A._ingredientes('Composición: Dicamba 120 g/l + Mesotriona 50 g/l')
+    nomes = {x['NAME'].lower(): x['CONCENTRATION'] for x in ia}
+    assert 'dicamba' in nomes and nomes['dicamba'] == '120 g/l', ia
+
+
+def test_captura_local_nao_apaga_falha_http():
+    """Pacote do navegador não é cache: página que não veio 200 continua sendo falha."""
+    A._PACOTES.clear()
+    A._PACOTES[A._chave_rota('https://www.adama.com/x')] = {'status': 500, 'html': ''}
+    estado, corpo, code = A.buscar('https://www.adama.com/x')
+    A._PACOTES.clear()
+    assert estado != 'OK' and corpo is None and code == '500', (
+        'status ruim na captura virou conteudo vazio')
 
 
 if __name__ == '__main__':

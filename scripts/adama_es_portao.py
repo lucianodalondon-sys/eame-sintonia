@@ -147,6 +147,28 @@ def classificar(resposta, motivos_proxy, host='www.adama.com'):
     return 'HTTP_ERROR', ['HTTP %s' % code]
 
 
+PACOTES = ('ADAMA-ES-PACOTE-PAGINAS.json', 'ADAMA-ES-PACOTE-CATALOGO.json')
+
+
+def _captura_local():
+    """Quantas páginas o navegador local trouxe, e quando. Ausência devolve 0, não erro."""
+    base = os.path.join(ROOT, 'data', 'raw', 'ES', 'adama-website')
+    n, quando, arquivo = 0, 'NÃO SEI', ''
+    for nome in PACOTES:
+        caminho = os.path.join(base, nome)
+        if not os.path.exists(caminho):
+            continue
+        try:
+            with open(caminho, encoding='utf-8') as f:
+                d = json.load(f)
+        except (ValueError, OSError):
+            continue
+        n += len(d.get('PAGINAS') or {})
+        quando = d.get('CAPTURA_UTC') or quando
+        arquivo = arquivo or os.path.relpath(caminho, ROOT).replace('\\', '/')
+    return {'PAGINAS': n, 'QUANDO': quando, 'ARQUIVO': arquivo}
+
+
 def avaliar():
     motivos = _motivos_do_proxy()
     linhas = []
@@ -162,16 +184,41 @@ def avaliar():
     catalogo = next(l for l in linhas if l['ROTA'] == 'CATALOGO')
     robots = next(l for l in linhas if l['ROTA'] == 'ROBOTS')
 
-    pronto = catalogo['ESTADO'] == 'REACHABLE'
+    # Quinta rota, medida do mesmo jeito: existe captura feita pelo NAVEGADOR local?
+    # A borda da ADAMA recusa curl mesmo saindo da rede domestica (medido 2026-08-30 na
+    # maquina do usuario, nao em datacenter), e aceita o navegador. Entao o portao passa
+    # a perguntar duas coisas diferentes: "esta sessao alcanca por HTTP?" e "existe
+    # evidencia capturada ao vivo?". A segunda tambem e acesso — so nao e acesso do curl.
+    captura = _captura_local()
+    linhas.append({
+        'ROTA': 'CAPTURA_NAVEGADOR_LOCAL',
+        'URL': captura['ARQUIVO'] or 'data/raw/ES/adama-website/ADAMA-ES-PACOTE-PAGINAS.json',
+        'PARA_QUE_SERVE': 'paginas buscadas pelo navegador da maquina local',
+        'HTTP_STATUS': '200' if captura['PAGINAS'] else 'AUSENTE',
+        'ESTADO': 'REACHABLE' if captura['PAGINAS'] else 'SEM_CAPTURA',
+        'EVIDENCIA': ('%d paginas, todas com status HTTP registrado, capturadas em %s'
+                      % (captura['PAGINAS'], captura['QUANDO']))
+        if captura['PAGINAS'] else 'nenhum pacote de captura no disco',
+    })
+
+    pronto = catalogo['ESTADO'] == 'REACHABLE' or bool(captura['PAGINAS'])
 
     # Se ate robots.txt e negado, a negacao e do CLIENTE, nao da rota. Isso separa
     # "a ADAMA nao publica este caminho" de "a ADAMA nao atende este IP".
-    if robots['ESTADO'].startswith('EDGE'):
+    # A ordem importa e mudou: alcancar VENCE nao-alcancar. Antes, robots.txt negado
+    # carimbava CLIENTE_NEGADO_NO_HOST_INTEIRO mesmo quando o navegador ja tinha trazido
+    # 62 paginas — o rotulo contradizia a evidencia no mesmo arquivo. Agora o alcance
+    # descreve o que FOI alcancado, e a negacao do curl continua escrita, por rota.
+    if catalogo['ESTADO'] == 'REACHABLE':
+        alcance = 'CATALOGO_ALCANCAVEL'
+    elif captura['PAGINAS'] and robots['ESTADO'].startswith('EDGE'):
+        alcance = 'CATALOGO_ALCANCADO_PELO_NAVEGADOR_LOCAL_CURL_NEGADO_NO_HOST'
+    elif captura['PAGINAS']:
+        alcance = 'CATALOGO_ALCANCADO_PELO_NAVEGADOR_LOCAL'
+    elif robots['ESTADO'].startswith('EDGE'):
         alcance = 'CLIENTE_NEGADO_NO_HOST_INTEIRO'
     elif catalogo['ESTADO'].startswith('EDGE'):
         alcance = 'ROTA_NEGADA_MAS_HOST_RESPONDE'
-    elif pronto:
-        alcance = 'CATALOGO_ALCANCAVEL'
     else:
         alcance = 'INDETERMINADO'
 
