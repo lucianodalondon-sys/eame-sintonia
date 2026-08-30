@@ -73,13 +73,108 @@
  "C_AGRICULTURE_SOURCE": {
   "ESTADO": "GREEN — JA NO ACERVO (Eurostat NUTS2, EU-T1-001)",
   "RESSALVA_DE_VINTAGE": "os rotulos de regiao sao das NUTS ANTIGAS — Champagne-Ardenne, Picardie, Poitou-Charentes, Aquitaine. As regioes administrativas francesas foram fundidas em 2016. A Italia ja mediu que NUTS 2006 != NUTS 2021 faz o vale do Po sumir. Aqui o efeito e o inverso: as regioes de 2024 aparecem com nome de antes de 2016.",
-  "O_QUE_FALTA": "Agreste, a estatistica agricola nacional francesa, nao foi aberta. Daria a serie nativa e a regiao atual."
+  "O_QUE_FALTA": "Agreste, a estatistica agricola nacional francesa, nao foi aberta. Daria a serie nativa e a regiao atual.",
+  "ATUALIZACAO_2026_08_30": "consulta propria ao Eurostat nesta rodada, no nivel nacional e com o codigo de medida correto (AR_THS_HA). 79 culturas disponiveis; 20 com area acima de 40 mil ha.",
+  "AGRESTE": {
+   "ESTADO": "BLOCKED_ON_TESTED_ROUTES",
+   "MEDIDO": "agreste.agriculture.gouv.fr nao completa a transferencia. O tunel CONNECT e estabelecido e a resposta nao vem; falha em ~0,5 s, diferente dos 50 s dos subdominios draaf.*. Sao dois modos de falha distintos e nao vou tratar como o mesmo.",
+   "A_ROTA_DE_OPEN_DATA_TAMBEM_NAO_RESOLVE": "o data.gouv.fr tem 28 conjuntos Agreste, inclusive a Statistique Agricole Annuelle (id 5369a047a3a729239d20631f, last_modified 2025-09-23). Mas o unico recurso dela e um LINK de volta para agreste.agriculture.gouv.fr. O open data frances aponta para o host bloqueado.",
+   "O_QUE_ISSO_CUSTA": "perde-se granularidade por departamento e a serie de producao. A area por cultura e por regiao esta coberta pelo Eurostat.",
+   "WHAT_WOULD_UNBLOCK": "outro IP de saida."
+  }
  },
  "D_TOP_CROPS_2024_mil_ha": {
-  "Common wheat and spelt": 4214.6,
-  "Barley": 1808.5,
-  "Grain maize and corn-cob-mix": 1593.9,
-  "Sugar beet (excluding seed)": 411.7
+  "FONTE": "Eurostat apro_cpshr, strucpro=AR_THS_HA, geo=FR, time=2024 — consulta nova nesta rodada, HTTP 200",
+  "POR_QUE_REFEITO": "a versao anterior deste campo vinha do recorte EU-T1-001, que so amostrou 4 culturas para a Franca. A videira e os oleaginosos, que sao materiais, estavam de fora.",
+  "CULTURAS": [
+   {
+    "CODE": "C1110",
+    "LABEL": "Common wheat and spelt",
+    "AREA_KHA": 4214.57
+   },
+   {
+    "CODE": "C1111",
+    "LABEL": "Common winter wheat and spelt",
+    "AREA_KHA": 4177.13
+   },
+   {
+    "CODE": "I1110-1130",
+    "LABEL": "Rape, turnip rape, sunflower seeds and soya",
+    "AREA_KHA": 2233.02
+   },
+   {
+    "CODE": "I1110",
+    "LABEL": "Rape and turnip rape seeds",
+    "AREA_KHA": 1326.66
+   },
+   {
+    "CODE": "I1111",
+    "LABEL": "Winter rape and turnip rape seeds",
+    "AREA_KHA": 1325.14
+   },
+   {
+    "CODE": "C1310",
+    "LABEL": "Winter barley",
+    "AREA_KHA": 1244.57
+   },
+   {
+    "CODE": "I1120",
+    "LABEL": "Sunflower seed",
+    "AREA_KHA": 753.68
+   },
+   {
+    "CODE": "W1000",
+    "LABEL": "Grapes",
+    "AREA_KHA": 741.33
+   },
+   {
+    "CODE": "C1320",
+    "LABEL": "Spring barley",
+    "AREA_KHA": 563.93
+   },
+   {
+    "CODE": "G9900",
+    "LABEL": "Other plants harvested green from arable land n.e.c.",
+    "AREA_KHA": 439.27
+   },
+   {
+    "CODE": "V0000_S0000",
+    "LABEL": "Fresh vegetables (including melons) and strawberries",
+    "AREA_KHA": 274.49
+   },
+   {
+    "CODE": "C1120",
+    "LABEL": "Durum wheat",
+    "AREA_KHA": 239.61
+   },
+   {
+    "CODE": "P1100",
+    "LABEL": "Field peas",
+    "AREA_KHA": 166.41
+   },
+   {
+    "CODE": "C1400",
+    "LABEL": "Oats and spring cereal mixtures (mixed grain other than maslin)",
+    "AREA_KHA": 162.5
+   },
+   {
+    "CODE": "I2100",
+    "LABEL": "Fibre flax",
+    "AREA_KHA": 158.29
+   },
+   {
+    "CODE": "I1130",
+    "LABEL": "Soya",
+    "AREA_KHA": 152.68
+   }
+  ],
+  "AGREGADOS": {
+   "CEREAIS_TOTAL": 8526.62,
+   "CEREAIS_SEM_ARROZ": 8513.13
+  },
+  "MILHO_GRAO": "1.593,9 mil ha — vem do recorte NUTS2 (EU-T1-001), nao desta consulta, porque o codigo agregado foi filtrado aqui.",
+  "A_FORMA_DA_AGRICULTURA_FRANCESA": "trigo mole 4.214,6 · oleaginosos 2.233,0 (colza 1.326,7 + girassol 753,7 + soja 152,7) · cevada 1.808,5 (inverno 1.244,6 + primavera 563,9) · milho grao 1.593,9 · uva 741,3.",
+  "CONTRASTE_COM_A_ESPANHA": "a Espanha tem 4.938,5 mil ha de cereais liderados por CEVADA, mais o olivar. A Franca tem 8.526,6 mil ha de cereais liderados por TRIGO, mais um bloco oleaginoso de 2,2 milhoes de ha que a Espanha nao tem. Nao sao o mesmo pais agricola com escalas diferentes: sao estruturas diferentes."
  },
  "E_TOP_REGIONS_MILHO_GRAO_2024_mil_ha": [
   {
@@ -123,7 +218,26 @@
   "WHY": "nao e politica de egresso — o tunel CONNECT e estabelecido com 200. E o servidor de destino que nao completa. Nao e rota inexistente: o indice oficial as publica.",
   "WHAT_WOULD_UNBLOCK": "outro IP de saida (um runner do GitHub Actions, como a branch ADAMA ja tentou para o site da ADAMA), ou uma rota alternativa de agregacao. Nao testei web.archive.org: ja esta barrado no rele desta sessao.",
   "ESTADO_HONESTO": "READ_FAILURE, nao ZERO. Nao afirmo que a Franca nao publica boletim: o indice do proprio ministerio prova que publica.",
-  "ARMADILHA_QUE_A_ITALIA_JA_PAGOU": "NOT_FOUND != DOES NOT EXIST. O milho italiano TINHA boletim e a pagina lida era a errada. Aqui o indice esta lido e as folhas e que nao abrem."
+  "ARMADILHA_QUE_A_ITALIA_JA_PAGOU": "NOT_FOUND != DOES NOT EXIST. O milho italiano TINHA boletim e a pagina lida era a errada. Aqui o indice esta lido e as folhas e que nao abrem.",
+  "ROTAS_ALTERNATIVAS_TESTADAS_2026_08_30": [
+   {
+    "ROTA": "data.gouv.fr, busca por BSV",
+    "RESULTADO": "1 conjunto — \"Archive en agro-ecologie de BSV\", corpus de 41.000 documentos historicos (1960-2000, qualidade de OCR media) hospedado em pestobserver.eu. E arquivo de pesquisa, nao boletim corrente."
+   },
+   {
+    "ROTA": "vigicultures.fr",
+    "RESULTADO": "HTTP 200 mas a pagina tem 14 caracteres de texto. E aplicacao com acesso restrito, nao fonte publica."
+   },
+   {
+    "ROTA": "chambres-agriculture.fr",
+    "RESULTADO": "HTTP 200 em 13,3 s. Nao explorado — e portal nacional das camaras, e os BSV ficam nas camaras regionais. Rota possivel e nao percorrida."
+   },
+   {
+    "ROTA": "draaf.* (17 subdominios)",
+    "RESULTADO": "timeout de 50 s, ja medido em tres regioes. Nao repetido nesta rodada, como pedido."
+   }
+  ],
+  "FIELD_FRANCE": "BLOCKED_ON_TESTED_ROUTES"
  },
  "G_SCIENCE_ROUTES": {
   "ESTADO": "REUTILIZAVEL SEM MUDANCA",
@@ -158,22 +272,22 @@
  },
  "INITIAL_BLOCKERS": [
   {
-   "BLOCKER": "BSV regionais (draaf.*)",
-   "WHY": "timeout de 50 s apos CONNECT aceito, em tres regioes testadas",
-   "WHAT_WOULD_UNBLOCK": "outro IP de saida ou rota agregadora"
+   "BLOCKER": "BSV regionais",
+   "WHY": "timeout nos 17 subdominios draaf.*; as tres alternativas testadas nao servem (arquivo historico, app restrita, portal nao percorrido)",
+   "WHAT_WOULD_UNBLOCK": "outro IP de saida, ou percorrer as camaras regionais"
+  },
+  {
+   "BLOCKER": "Agreste",
+   "WHY": "o host nao completa a transferencia e o open data aponta de volta para ele",
+   "WHAT_WOULD_UNBLOCK": "outro IP de saida"
   },
   {
    "BLOCKER": "catalogo publico ADAMA France",
    "WHY": "403 de borda Akamai, igual a ES e IT",
-   "WHAT_WOULD_UNBLOCK": "a mesma coisa que destravaria os outros dois — rede residencial ou runner atendido"
-  },
-  {
-   "BLOCKER": "Agreste (estatistica nacional)",
-   "WHY": "nao aberta nesta rodada, por ordem de prioridade",
-   "WHAT_WOULD_UNBLOCK": "uma consulta; nao ha indicio de bloqueio"
+   "WHAT_WOULD_UNBLOCK": "rede residencial ou runner atendido"
   }
  ],
- "FOUNDATION_READY": "PARTIAL — regulatorio, rotulo, escala, distribuicao e ciencia prontos ou reutilizaveis; CAMPO bloqueado e catalogo do fabricante bloqueado.",
+ "FOUNDATION_READY": "PARTIAL — regulatorio, rotulo, escala (agora completa) e distribuicao prontos; CAMPO e AGRESTE bloqueados em todas as rotas testadas; catalogo do fabricante bloqueado.",
  "O_QUE_NAO_FOI_FEITO_DE_PROPOSITO": [
   "nenhum portal",
   "nenhuma coleta social",
