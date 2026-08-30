@@ -156,7 +156,8 @@
   "o estado ATUAL: as populacoes foram coletadas em 2014 e 2015. Sao 11 e 12 anos.",
   "se \"Clortolurex\" do artigo e o mesmo registro que CLORTUREX FLO no ROPF — nao confirmado em nenhuma fonte",
   "o grupo da metribuzina e da pendimetalina: o artigo nao os classifica e nao vou classificar por conta propria",
-  "resistencia em Castilla y Leon depois de 1999"
+  "o estado em 2026: o levantamento mais recente e de 2012-2013 e a tendencia era de alta",
+  "a Andaluzia saiu do levantamento de 2012-13 e nao tem dado recente"
  ],
  "EVIDENCE_PATHS": [
   "MAPA ROPF pares: trigo/cebada x 2062, 2017, 2010, 2046, 2030",
@@ -344,8 +345,8 @@
  },
  "STATUS_REAVALIADO": {
   "ANTES": "PREPARAR",
-  "DEPOIS": "PREPARAR — mantido, com a base trocada",
-  "POR_QUE": "a base deixou de ser \"o generico esta bem posicionado\" (que era leitura minha de um resumo) e passou a ser \"o portfolio inteiro, especifico e generico, esta exposto aos grupos que a literatura mede como comprometidos no nordeste\" — com tabela, dose e perfil por populacao. Isso e conversa tecnica pre-safra de verdade."
+  "DEPOIS": "PREPARAR — e agora com regiao nomeada",
+  "POR_QUE": "as quatro pernas convergem em Castilla y Leon, e a assimetria por modo de acao entre as duas regioes e material para conversa tecnica pre-safra. O caso deixou de depender de uma frase (\"widespread\") e passou a ter numero por regiao e por grupo."
  },
  "CONVERGENCIA_REGIONAL": {
   "PERGUNTA_DA_SECAO_5_2": "existe regiao onde escala de cereal de inverno, resistencia de Lolium, resposta ADAMA e janela proxima convergem?",
@@ -354,6 +355,62 @@
   "ONDE_ESTA_A_ESCALA": "Burgos 344.804 ha, Valladolid 283.710, Ciudad Real 276.084, Toledo 268.120, Cuenca 262.224, Huesca 260.862, Palencia 256.803, Zaragoza 223.107 (SCOT, total cereais).",
   "O_QUE_LIGA_OS_DOIS": "o artigo situa TODOS os campos de origem no \"nordeste da Espanha\" e afirma que \"grass control was based on chlortoluron for several decades\" ali. Huesca e Zaragoza somam 483.969 ha e sao nordeste. Mas as populacoes medidas sao de Barcelona, e a unica populacao de Huesca testada foi a SUSCETIVEL.",
   "CASTILLA_Y_LEON": "a unica citacao e de 1999, regiao do Duero, e so para chlorsulfuron (ALS). Tem 27 anos e cobre um grupo. Nao sustenta um caso pre-safra ali.",
-  "VEREDITO": "ha convergencia de REGIAO AMPLA (nordeste: escala real + historico de resistencia + resposta ADAMA + janela proxima) e NAO ha convergencia de PROVINCIA. Nomear Huesca como territorio de resistencia seria promover a moldura do artigo a medicao, e a unica medicao de Huesca no artigo diz o contrario."
+  "VEREDITO": "ha convergencia de REGIAO AMPLA (nordeste: escala real + historico de resistencia + resposta ADAMA + janela proxima) e NAO ha convergencia de PROVINCIA. Nomear Huesca como territorio de resistencia seria promover a moldura do artigo a medicao, e a unica medicao de Huesca no artigo diz o contrario.",
+  "REAVALIADA": {
+   "RESPOSTA": "SIM, e a regiao tem nome: CASTILLA Y LEON.",
+   "AS_QUATRO_PERNAS": {
+    "ESCALA": "a maior do pais em cereal de inverno — ~1,91 M ha na comunidade, com Burgos, Valladolid e Palencia entre as oito maiores provincias",
+    "RESISTENCIA_MEDIDA": "levantamento aleatorio de 2012-13: PSII 51% R, ALS 75% R, ACCase 74% ainda suscetivel",
+    "RESPOSTA_ADAMA": "clodinafop (ACCase) com Lolium nomeado na etiqueta, restrito a trigo e triticale; mais dez registros genericos de monocotiledoneas",
+    "JANELA": "pos-emergencia, das 3 folhas do cultivo ao fim do afilhamento — sementeira a 6-10 semanas"
+   },
+   "A_PERNA_FRACA": "a idade do dado. 2012-2013, com tendencia de alta declarada no proprio resumo.",
+   "O_QUE_MUDOU_NO_VEREDITO_ANTERIOR": "eu tinha escrito \"NAO ha convergencia de PROVINCIA\" e mantinha o caso sem regiao nomeada. Com o levantamento regional, ha convergencia de REGIAO com as quatro pernas. Provincia continua sem medicao — os levantamentos param em regiao."
+  }
+ },
+ "GEOGRAFIA_DA_RESISTENCIA": {
+  "ESTADO": "REGIONAL_SURVEY_MEASURED — melhor do que MEASURED_SAMPLING_LOCATIONS_ONLY",
+  "COMO_FOI_ACHADO": "os dois levantamentos nacionais que o artigo de 2021 citava estavam sem resumo no Crossref e no Semantic Scholar. Os resumos completos estao no repositorio DIGITAL.CSIC, no modo full de metadados. Duas chamadas, gratuitas.",
+  "LEVANTAMENTO_2012_2013": {
+   "FONTE": "Loureiro, Escorial, Hernandez Plaza, Gonzalez Andujar, Chueca — Crop Protection, 2017. DOI 10.1016/j.cropro.2017.08.001. Handle DIGITAL.CSIC 10261/166722.",
+   "DESENHO": "levantamento ALEATORIO em areas de cereal de Castilla y Leon e Cataluña.",
+   "RESULTADOS_LITERAIS": {
+    "chlortoluron (PSII)": "51% das acessoes de Castilla y Leon resistentes; 92% das de Cataluña",
+    "chlorsulfuron (ALS)": "75% das acessoes das DUAS regioes resistentes",
+    "diclofop-methyl (ACCase)": "Cataluña 83% resistentes; em Castilla y Leon 74% das populacoes AINDA CLASSIFICADAS COMO SUSCETIVEIS",
+    "resistencia multipla": "aumentou consideravelmente, especialmente em Cataluña, onde 75% das acessoes eram resistentes a multiplos herbicidas",
+    "tendencia": "os niveis subiram para os tres herbicidas em Castilla y Leon desde 2000, e para chlortoluron e chlorsulfuron em Cataluña"
+   },
+   "CITACAO": "Lolium rigidum Gaud. is the most prevalent and damaging grass weed of winter cereals in Spain. L. rigidum infestations are frequently treated with herbicides and, consequently, populations have evolved resistance. In 2012–2013 a random survey was conducted across cereal cropping areas of the Castilla-León and Cataluña regions to establish the distribution and frequency of herbicide resistance in L. rigidum populations to chlortoluron (Photosystem II inhibitor), chlorsulfuron (Acetolactate synthase inhibitor) and diclofop-methyl (Acetyl CoA Carboxylase inhibitor), commonly used herbicides for L. rigidum control in Spain. The results of this survey were compared with the results of a previous survey conducted in 2000–02. Resistance to PSII and ALS-inhibiting herbicides was common: 51% and 92% of the accessions collected from Castilla-León and Cataluña respectively were resistant to chlortoluron, while 75% of accessions from both regions were resistant to chlorsulfuron. Resistance to ACCase was more widespread in Cataluña, where 83% of accessions were classified as resistant, than in Castilla-León where 74% of the populations were still classified as susceptible to diclofop-methyl. These results show that resistance levels to all three herbicides had increased in Castilla-León since 2000 and to chlortoluron and chlorsulfuron in Cataluña. The accessions were also treated with the double dose (2X) of each herbicide. The percentage of L. rigidum that now exhibits multiple herbicide"
+  },
+  "LEVANTAMENTO_2000_2002": {
+   "FONTE": "Crop Protection, 2010. DOI 10.1016/j.cropro.2010.07.005. Handle 10261/87400.",
+   "DESENHO": "123 acessoes amostradas aleatoriamente em Castilla y Leon, Cataluña e ANDALUZIA.",
+   "RESULTADOS_LITERAIS": {
+    "regiao mais afetada": "Cataluña, regiao de cultivo intensivo com maior pressao de selecao",
+    "ALS em Cataluña": "60% das acessoes com algum nivel de resistencia a chlorsulfuron",
+    "glifosato em Castilla y Leon": "6,9% das acessoes com alguma resistencia — descrito como problema incipiente",
+    "o resto": "\"For the other herbicides and regions the majority of the accessions remained susceptible\""
+   },
+   "CITACAO": "Lolium rigidum is the most prevalent and damaging grass weed of winter cereals in Spain. L. rigidum infestations are frequently treated with herbicides and, consequently, populations have evolved resistance. The objective of this study was to determine the extent and frequency of herbicide resistance in L. rigidum populations in Spain to the selective herbicides chlortoluron, diclofop-methyl and chlorsulfuron, commonly used for its control in-crop, and to glyphosate. The response to these herbicides was evaluated on 123 accessions surveyed randomly across cereal cropping areas of the regions of Castile and León, Catalonia and Andalusia. The fresh weight and the frequency of undamaged plants were calculated for each accession and herbicide. At the regional level, higher frequencies of accessions displaying resistance occurred in Catalonia, an intensively cropped region with a greater herbicide selection pressure. Of concern is that in this region the 60% of the accessions displayed some level of resistance to the ALS-inhibiting herbicide chlorsulfuron. The 6.9% of the accessions found in Castile and León with some resistance to glyphosate could also indicate an incipient problem of "
+  },
+  "O_QUE_A_SERIE_PERMITE_DIZER": "ha DOIS levantamentos aleatorios, com 12 anos de intervalo, cobrindo as duas regioes que importam. Isso deixou de ser \"widespread\" e virou distribuicao com numero por regiao e por modo de acao.",
+  "O_QUE_A_SERIE_NAO_PERMITE": [
+   "o levantamento mais recente e de 2012-2013. Sao 13-14 anos, e a tendencia media era de ALTA. Nao extrapolar para 2026.",
+   "a Andaluzia entrou no levantamento de 2000-02 e NAO entrou no de 2012-13. Nao ha dado recente para ela.",
+   "nenhum dos dois levantamentos desce a provincia. Regiao e o nivel medido."
+  ]
+ },
+ "A_ASSIMETRIA_QUE_DECIDE_O_CASO": {
+  "O_ACHADO": "a resposta com claim de especie da ADAMA e o clodinafop, um ACCase. E o ACCase e justamente o modo de acao com o quadro MAIS FAVORAVEL em Castilla y Leon: 74% das populacoes ainda suscetiveis em 2012-13. Em Cataluña, 83% resistentes.",
+  "E_O_INVERSO_NO_BLOCO_GENERICO": "seis dos dez registros genericos da ADAMA por cultura sao clortoluron ou metribuzina. O clortoluron e PSII: 51% resistentes em Castilla y Leon e 92% em Cataluña.",
+  "ONDE_ISSO_IMPORTA": "Castilla y Leon concentra a area — Burgos 344.804 ha, Valladolid 283.710 e Palencia 256.803 no total de cereais, so entre as oito maiores provincias. Cataluña nao esta entre elas.",
+  "A_LEITURA": "o produto com claim de especie tem o seu melhor terreno remanescente exatamente onde esta a area, e o seu pior terreno na Cataluña. Isso e o oposto do que eu escrevi na rodada anterior.",
+  "CORRECAO_EXPLICITA_DA_RODADA_ANTERIOR": "eu escrevi que \"o produto com claim de especie esta no grupo comprometido\". Com o levantamento regional na mao, isso e verdade em Cataluña e FALSO em Castilla y Leon, que e onde esta a area. A frase generalizava uma regiao para o pais.",
+  "O_QUE_NAO_AFIRMO": [
+   "nao afirmo eficacia: suscetibilidade em levantamento nao e controle em lavoura, e o levantamento tem 13 anos",
+   "nao afirmo que a ADAMA deve concentrar em Castilla y Leon: isso e decisao comercial e COMMERCIAL_CLOCK e NAO SEI",
+   "nao afirmo nada sobre metribuzina: nenhum dos levantamentos a testou"
+  ]
  }
 }

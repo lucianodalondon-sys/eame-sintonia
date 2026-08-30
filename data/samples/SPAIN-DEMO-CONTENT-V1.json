@@ -138,13 +138,13 @@
  },
  "FREEZE": {
   "FREEZE_AT": "2026-08-30",
-  "HEAD_QUE_SUSTENTA": "afcadd8f2628899df81c25b3e928d6ce92d3cbd4",
-  "HEAD_CURTO": "afcadd8",
+  "HEAD_QUE_SUSTENTA": "9ee2716901312783280d0df580f5eaa4c7b1379a",
+  "HEAD_CURTO": "9ee2716",
   "PERGUNTA_QUE_O_FREEZE_RESPONDE": "com qual conjunto exato de evidencias esta demo foi construida?",
   "ARTEFATOS_CANONICOS": {
    "SPAIN-HERO-CASES-V1.json": {
-    "sha256": "de9b387c4bd0dcecdca5aa8590331aa31c0fca6f60f47392bb83dee9063434ba",
-    "bytes": 28617,
+    "sha256": "d12dc30c64ae6821eda6aa2c6bdeb1c8fb91907beb676132ebd0d6f5241a1753",
+    "bytes": 29242,
     "ultimo_commit": "41f287c",
     "data_do_commit": "2026-08-30T04:00:32+00:00"
    },
@@ -155,8 +155,8 @@
     "data_do_commit": "2026-08-30T04:00:32+00:00"
    },
    "ES-CASE-003-CEREAL-GRAMINEAS.json": {
-    "sha256": "2fe2e8b2d31736a932423894d91c3a16e0d7ba78fd005460661fb8593e8e367b",
-    "bytes": 22055,
+    "sha256": "a4b866d2ce23c2b1a064bdf8112d22231343f1c4d6feb7113bc2c271e247ec76",
+    "bytes": 29960,
     "ultimo_commit": "41f287c",
     "data_do_commit": "2026-08-30T04:00:32+00:00"
    },
@@ -226,6 +226,20 @@
   "DONOS_NAO_DUPLICADOS": "este pacote NAO copia numero de ninguem. Cada bloco aponta para o arquivo dono via REF, e os hashes servem para provar que o dono nao mudou depois.",
   "FORA_DO_FREEZE": {
    "ES-REVIEW-HANDOFFS.json": "e artefato de REVISAO das branches paralelas, nao conteudo da demo. Ele muda a cada checkpoint das paralelas e nao deve travar o freeze da Espanha."
-  }
+  },
+  "VERSAO_DO_FREEZE": "V1.1",
+  "HISTORICO": [
+   {
+    "DE": "V1 (HEAD afcadd8)",
+    "PARA": "V1.1",
+    "QUANDO": "2026-08-30",
+    "ARTEFATOS_QUE_MUDARAM": [
+     "SPAIN-HERO-CASES-V1.json",
+     "ES-CASE-003-CEREAL-GRAMINEAS.json"
+    ],
+    "POR_QUE": "a geografia da resistencia do Lolium foi resolvida por levantamento regional (Crop Protection 2010 e 2017, resumos obtidos no DIGITAL.CSIC). O caso do cereal ganhou regiao nomeada e uma correcao do que eu tinha escrito.",
+    "O_QUE_ISSO_PROVA": "o teste do freeze reprovou sozinho quando o artefato mudou. O re-freeze e deliberado e datado, nao silencioso."
+   }
+  ]
  }
 }
