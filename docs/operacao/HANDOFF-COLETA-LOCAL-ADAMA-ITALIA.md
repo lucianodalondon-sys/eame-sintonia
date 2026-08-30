@@ -178,3 +178,36 @@ coisa* é a forma local de `COBERTURA ALTA ≠ COBERTURA CORRETA`, e há teste q
 essa promoção: `test_edicao_lida_nao_promove_a_regiao_a_coberta`.
 
 `AVISP_INDEX_HANDOFF_STATUS = READY_TO_RUN`
+
+---
+
+## 8 · TERCEIRO ALVO — OS QUATRO RECORTES DE PESQUISADORES NO OPENALEX
+
+Mesma natureza do item 7: não é WAF, não é ADAMA, e **não é conteúdo que se obtenha com
+mais paciência daqui**.
+
+**O que foi medido.** A primeira coleta estrangulou o IP deste ambiente ao paginar de 100
+em 100 a cada 1,6 s. Eu corrigi a paginação (200 por página, 8 s entre chamadas) e anotei
+que uma pausa resolvia. **Nova tentativa em 30/08, ~8 horas depois, com a paginação já
+lenta e três esperas de 25 s / 50 s / 75 s: HTTP 429 no primeiro recorte.** O bloqueio é
+sobre o **IP de saída**, com duração maior que a sessão.
+
+**O que falta obter** — quatro recortes `CROP × ISSUE`, todos com o número de obras já
+conhecido da primeira sondagem:
+
+| Recorte | Obras | Consulta |
+|---|---:|---|
+| `VINE_FLAVESCENCE` | 135 | `grapevine AND (flavescence OR Scaphoideus)` |
+| `MAIZE_BORER_DIABROTICA` | 30 | `maize AND (Ostrinia OR Diabrotica)` |
+| `OLIVE_BACTROCERA` | 70 | `olive AND (Bactrocera OR "olive fly")` |
+| `DURUM_FUSARIUM` | 78 | `"durum wheat" AND (Fusarium OR mycotoxin OR deoxynivalenol)` |
+
+**Como rodar:** `python3 scripts/italia_pesquisadores.py` numa máquina residencial, ou
+daqui mesmo com um `mailto` reconhecido pelo OpenAlex (a API dá cota maior ao *polite
+pool*). O script já pagina devagar e **já falha suave**: um recorte estrangulado sai como
+`THROTTLED_NOT_EMPTY` com contagem `None`, e a coleta continua nos outros.
+
+**A regra que não pode ser relaxada no retorno:** `SOURCE FAILURE ≠ ZERO`. Recorte que a
+fonte recusou **não** é recorte sem pesquisadores, e não pode entrar no artefato com `0`.
+
+`OPENALEX_HANDOFF_STATUS = READY_TO_RUN`

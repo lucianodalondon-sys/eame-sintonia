@@ -139,12 +139,32 @@ def montar(teto=400):
     universo = {}
     por_escopo = {}
     for chave, cfg in ESCOPOS.items():
-        obras, n = percorrer(cfg['Q'], teto=teto)
+        # FALHA DE FONTE NÃO PODE DERRUBAR A COLETA INTEIRA. Medido em 2026-08-30: o
+        # 429 escapava daqui e matava o processo, de modo que os recortes JÁ coletados
+        # nesta execução iam junto. É a lei SOURCE FAILURE ≠ ZERO aplicada ao próprio
+        # coletor: o recorte estrangulado precisa sair marcado como THROTTLED, e não
+        # ausente — ausente seria indistinguível de "não há pesquisador nenhum".
+        try:
+            obras, n = percorrer(cfg['Q'], teto=teto)
+        except urllib.error.HTTPError as e:
+            por_escopo[chave] = {
+                'CASE': cfg['CASE'], 'CROP': cfg['CROP'], 'ISSUE': cfg['ISSUE'],
+                'QUERY': cfg['Q'],
+                'STATE': 'THROTTLED_NOT_EMPTY',
+                'HTTP': e.code,
+                'WORKS_TRAVERSED': None,
+                'AUTHORS_WITH_IT_AFFILIATION': None,
+                'WHY_NOT_ZERO': ('a fonte recusou a requisição; isso não é medição de '
+                                 'ausência. SOURCE FAILURE ≠ ZERO.'),
+            }
+            time.sleep(8.0)
+            continue
         time.sleep(8.0)
         rec, meta = pessoas(obras)
         por_escopo[chave] = {
             'CASE': cfg['CASE'], 'CROP': cfg['CROP'], 'ISSUE': cfg['ISSUE'],
             'QUERY': cfg['Q'], 'WORKS_TRAVERSED': n,
+            'STATE': 'BUILT',
             'AUTHORS_WITH_IT_AFFILIATION': len(rec),
         }
         for aid, c in rec.items():

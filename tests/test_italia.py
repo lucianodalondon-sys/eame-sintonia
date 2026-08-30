@@ -595,6 +595,47 @@ class TestCamadaOP(unittest.TestCase):
         self.assertIn('ausência estabilizada', arif['SHARPENED_2026_08_30'])
 
 
+
+class TestColetorFalhaSuave(unittest.TestCase):
+    """SOURCE FAILURE != ZERO aplicada ao proprio coletor.
+
+    Medido em 30/08/2026: o 429 do OpenAlex escapava de montar() e matava o processo,
+    de modo que os recortes ja coletados NAQUELA execucao iam junto. Pior que perder
+    trabalho: um recorte que sumiu do artefato e indistinguivel de um recorte que
+    devolveu zero pesquisadores.
+    """
+
+    def test_estrangulamento_marca_o_recorte_e_nao_derruba_a_coleta(self):
+        import urllib.error
+        import italia_pesquisadores as ip
+
+        chamadas = []
+
+        def percorrer_falso(q, teto=400):
+            chamadas.append(q)
+            if len(chamadas) == 1:
+                raise urllib.error.HTTPError('u', 429, 'Too Many Requests', {}, None)
+            return [], 0
+
+        orig_perc, orig_sleep = ip.percorrer, ip.time.sleep
+        ip.percorrer, ip.time.sleep = percorrer_falso, lambda *_: None
+        try:
+            _, escopos = ip.montar(teto=1)
+        finally:
+            ip.percorrer, ip.time.sleep = orig_perc, orig_sleep
+
+        self.assertEqual(len(ip.ESCOPOS), len(escopos),
+                         'todo recorte tem de aparecer, inclusive o que falhou')
+        estrang = [v for v in escopos.values() if v.get('STATE') == 'THROTTLED_NOT_EMPTY']
+        self.assertEqual(1, len(estrang))
+        self.assertEqual(429, estrang[0]['HTTP'])
+        self.assertIsNone(estrang[0]['AUTHORS_WITH_IT_AFFILIATION'],
+                          'recorte estrangulado nao pode declarar contagem — nem zero')
+        self.assertIn('SOURCE FAILURE', estrang[0]['WHY_NOT_ZERO'])
+        self.assertGreater(len(chamadas), 1,
+                           'a coleta tem de continuar depois do recorte que falhou')
+
+
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 
 

@@ -71,9 +71,18 @@ apaga o Nord-Est e o Centro em silêncio.
 Entrega `CROP × TARGET × DOSE × INTERVALO × Nº APLICAÇÕES` e grupo HRAC/FRAC/IRAC.
 Mais `IT-T3-LOTTA`: decretos de lotta obbligatoria com datas.
 
-### E/F · SCIENCE / RESEARCHERS — **GREEN**
-OpenAlex dirigido por `CROP × ISSUE`. ⚠️ estrangula por rajada: consulta lenta é regra,
-não defeito.
+### E/F · SCIENCE / RESEARCHERS — **GREEN (1 de 5 recortes) · BLOCKED (4)**
+OpenAlex dirigido por `CROP × ISSUE`. ⚠️ **Reclassificado em 30/08.** Eu tinha anotado
+"estrangula por rajada; consulta lenta é regra". Nova tentativa **oito horas depois**, com
+paginação lenta desde o início e três esperas de 25 s / 50 s / 75 s: **HTTP 429 já no
+primeiro recorte.** Não é limite de rajada que se contorna esperando dentro da execução —
+é **bloqueio de duração maior sobre o IP de saída deste ambiente**.
+
+Consequência: os 4 recortes (`VINE_FLAVESCENCE` 135 obras · `MAIZE_BORER_DIABROTICA` 30 ·
+`OLIVE_BACTROCERA` 70 · `DURUM_FUSARIUM` 78) **não se resolvem com mais paciência aqui**.
+Vão para o handoff pela mesma rota do catálogo comercial da ADAMA — máquina residencial ou
+`mailto`/chave reconhecido —, não para um backlog de retry. Continuam `NOT_COLLECTED`, e
+**não** "sem pesquisadores".
 
 ### G · TECHNICAL NETWORK — **GREEN, parcial**
 Serviços regionais + **Consorzio Fitosanitario Provinciale di Piacenza** + **Fondazione
