@@ -1,0 +1,49 @@
+{
+  "SOURCE_ID": "DERIVED/IT-LINKEDIN-IDENTITY",
+  "source": "validacao sobre RAW ja pago — 0 runs novos",
+  "SOURCE_LOCATION": "LinkedIn",
+  "FACT_LOCATION": "NUNCA DERIVADO do perfil",
+  "ORIGINAL_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "DERIVED_INTERPRETATION",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+  "NEW_ACTOR_RUNS": 0,
+  "RUN_URL": "https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/33319361538",
+  "STATE": "ALL_TARGETS_NOT_ENOUGH_EVIDENCE",
+  "THE_FINDING": "todos os 8 itens pagos sao a MESMA pessoa — um Cybersecurity Consultant sem nenhuma relacao com os alvos italianos. O Actor apimaestro~linkedin-profile-detail ignorou o campo searchQuery: ele espera a URL de UM perfil, nao uma consulta de busca. Devolveu um perfil padrao oito vezes.",
+  "IDENTITY_BY_TARGET": {
+    "Pasquale De Vita": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+    "Nicola Pecchioni": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+    "Sabrina Locatelli": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+    "Francesca Nocente": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+    "Daniela Pacifico": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+    "Stefano Biagetti": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+    "Giovanni Drei": "IDENTITY_NOT_ENOUGH_EVIDENCE",
+    "Federico Cavina": "IDENTITY_NOT_ENOUGH_EVIDENCE"
+  },
+  "WHY_NOT_MISMATCH": "MISMATCH diria que o Actor procurou e achou outra pessoa. Ele nunca chegou a procurar: a consulta foi descartada. NOT_ENOUGH_EVIDENCE e o estado honesto.",
+  "CONFIRMED": 0,
+  "PLAUSIBLE": 0,
+  "MISMATCH": 0,
+  "NOT_ENOUGH_EVIDENCE": 8,
+  "ORPHAN_PROFILES": 8,
+  "ORPHAN_DISTINCT_PEOPLE": 1,
+  "SOURCE_LOCATION_CAPTURED": "sim, como PROFILE_DECLARED_LOCATION",
+  "LAWS": [
+    "SEARCH_HIT ≠ PERSON",
+    "ACTOR_SUCCESS ≠ USEFUL_DATA",
+    "WRONG_INPUT_CONTRACT ≠ WRONG_PLATFORM",
+    "SOURCE_LOCATION ≠ FACT_LOCATION"
+  ],
+  "CORRECT_ACTORS_FOUND": {
+    "PROFILE_RESOLUTION": "harvestapi/linkedin-profile-search-by-name (6759 users, no cookies)",
+    "POST_SEARCH": "harvestapi/linkedin-post-search (25348 users, no cookies)",
+    "POST_BY_PROFILE": "supreme_coder/linkedin-post (15985 users)",
+    "COMPANY_POSTS": "harvestapi/linkedin-company-posts (10350 users)",
+    "HOW_FOUND": "GET /v2/store — gratuito, 0 runs"
+  },
+  "WHY_I_STOPPED_HERE": "o Actor certo esta identificado, mas §11 exige 1-2 provas pequenas com leitura do RAW e confirmacao de schema ANTES de ampliar. Disparar agora, sem orcamento de contexto para conferir o RAW com o mesmo rigor, repetiria exatamente o erro que custou os 8 runs.",
+  "HUMAN_SENSOR_VERDICT": "HUMAN_SENSOR_LAYER_PROMISING_BUT_NOT_PROVED",
+  "HUMAN_SENSOR_NOTE": "INALTERADO — nenhum conteudo humano foi lido",
+  "INFRA_VERDICT": "LINKEDIN_PIPELINE_PARTIAL"
+}
