@@ -138,15 +138,15 @@
  },
  "FREEZE": {
   "FREEZE_AT": "2026-08-30",
-  "HEAD_QUE_SUSTENTA": "9ee2716901312783280d0df580f5eaa4c7b1379a",
-  "HEAD_CURTO": "9ee2716",
+  "HEAD_QUE_SUSTENTA": "459c3485f79b2a349ed1065afc4bdcc973a7753e",
+  "HEAD_CURTO": "459c348",
   "PERGUNTA_QUE_O_FREEZE_RESPONDE": "com qual conjunto exato de evidencias esta demo foi construida?",
   "ARTEFATOS_CANONICOS": {
    "SPAIN-HERO-CASES-V1.json": {
     "sha256": "d12dc30c64ae6821eda6aa2c6bdeb1c8fb91907beb676132ebd0d6f5241a1753",
     "bytes": 29242,
-    "ultimo_commit": "41f287c",
-    "data_do_commit": "2026-08-30T04:00:32+00:00"
+    "ultimo_commit": "7c50518",
+    "data_do_commit": "2026-08-30T04:14:23+00:00"
    },
    "ES-CASE-001-OLIVO-REPILO.json": {
     "sha256": "2035c4b609db13dbbc945fed395c09c26edf1aa5842f9ff48f9db2de5452996b",
@@ -157,8 +157,8 @@
    "ES-CASE-003-CEREAL-GRAMINEAS.json": {
     "sha256": "a4b866d2ce23c2b1a064bdf8112d22231343f1c4d6feb7113bc2c271e247ec76",
     "bytes": 29960,
-    "ultimo_commit": "41f287c",
-    "data_do_commit": "2026-08-30T04:00:32+00:00"
+    "ultimo_commit": "7c50518",
+    "data_do_commit": "2026-08-30T04:14:23+00:00"
    },
    "ES-CASE-002-MAIZ-AMARANTHUS.json": {
     "sha256": "bc0fe53f1521bc4a628ec48c5f4007e23cdc152a4e725240e549b6308adbf315",
@@ -219,6 +219,36 @@
     "bytes": 12091,
     "ultimo_commit": "495c979",
     "data_do_commit": "2026-08-30T00:55:29+00:00"
+   },
+   "SPAIN-RADAR-DO-FUTURO-V1.json": {
+    "sha256": "6ed5fefbcf63fffec6ff7ac96f3e798f11ea04e7f8742e5d99a4438b8117b20b",
+    "bytes": 17385,
+    "ultimo_commit": "5e65516",
+    "data_do_commit": "2026-08-30T12:16:17+00:00"
+   },
+   "RADAR-DO-FUTURO-CONTRACT-V1.json": {
+    "sha256": "59ff728aeaea9da7df10b0aa87006114e7bb6a28f93601dba40ade31090532a3",
+    "bytes": 6981,
+    "ultimo_commit": "5e65516",
+    "data_do_commit": "2026-08-30T12:16:17+00:00"
+   },
+   "DISPLAY-LAYER-V1.json": {
+    "sha256": "8478bd65fc0c6dcde8dff371ae87b391bd4891e3991cda0ae4c0fda702a6ac1d",
+    "bytes": 13527,
+    "ultimo_commit": "625a259",
+    "data_do_commit": "2026-08-30T12:22:12+00:00"
+   },
+   "DESIGN-DATA-CONTRACT-V1.json": {
+    "sha256": "d291146a3769e8287699c15ccb4067807c792d05af6cb5831f0978596a44ad09",
+    "bytes": 9922,
+    "ultimo_commit": "625a259",
+    "data_do_commit": "2026-08-30T12:22:12+00:00"
+   },
+   "RESEARCHER-OUTLOOK-V1.json": {
+    "sha256": "fd6cca398a111315244358f7ccfca370276f443398bb53f332fa8e179842a5e0",
+    "bytes": 7606,
+    "ultimo_commit": "625a259",
+    "data_do_commit": "2026-08-30T12:22:12+00:00"
    }
   },
   "COMO_REPRODUZIR": "git checkout afcadd8 && python3 -m unittest discover -s tests && python3 scripts/freeze_es.py --verificar",
@@ -227,7 +257,7 @@
   "FORA_DO_FREEZE": {
    "ES-REVIEW-HANDOFFS.json": "e artefato de REVISAO das branches paralelas, nao conteudo da demo. Ele muda a cada checkpoint das paralelas e nao deve travar o freeze da Espanha."
   },
-  "VERSAO_DO_FREEZE": "V1.1",
+  "VERSAO_DO_FREEZE": "V1.2",
   "HISTORICO": [
    {
     "DE": "V1 (HEAD afcadd8)",
@@ -239,7 +269,44 @@
     ],
     "POR_QUE": "a geografia da resistencia do Lolium foi resolvida por levantamento regional (Crop Protection 2010 e 2017, resumos obtidos no DIGITAL.CSIC). O caso do cereal ganhou regiao nomeada e uma correcao do que eu tinha escrito.",
     "O_QUE_ISSO_PROVA": "o teste do freeze reprovou sozinho quando o artefato mudou. O re-freeze e deliberado e datado, nao silencioso."
+   },
+   {
+    "DE": "V1.1",
+    "PARA": "V1.2",
+    "QUANDO": "2026-08-30",
+    "ARTEFATOS_ADICIONADOS": [
+     "SPAIN-RADAR-DO-FUTURO-V1.json",
+     "RADAR-DO-FUTURO-CONTRACT-V1.json",
+     "DISPLAY-LAYER-V1.json",
+     "DESIGN-DATA-CONTRACT-V1.json",
+     "RESEARCHER-OUTLOOK-V1.json"
+    ],
+    "POR_QUE": "o pacote de conteudo ganhou tres camadas novas: o Radar do Futuro (contrato + temas da Espanha), a camada de exibicao e o contrato de dados para o Design.",
+    "NADA_FOI_REMOVIDO": true
    }
   ]
+ },
+ "RADAR_DO_FUTURO": {
+  "REF": "SPAIN-RADAR-DO-FUTURO-V1.json",
+  "THEMES": 5,
+  "PROMOTED_TO_RADAR": 0,
+  "ORDEM_NO_PRODUTO": "vem ANTES do Radar de casos",
+  "MOMENTUM_MEDIDO_EM": 0,
+  "POR_QUE_ZERO_MOMENTUM": "nao ha serie temporal — primeira captura. Ver RADAR-DO-FUTURO-CONTRACT-V1."
+ },
+ "DISPLAY_LAYER": {
+  "REF": "DISPLAY-LAYER-V1.json",
+  "REGRAS": 29,
+  "IDIOMAS": [
+   "PT",
+   "EN",
+   "ES"
+  ],
+  "FECHA": "a lacuna DISPLAY_LAYER = MISSING que o prototipo revelou"
+ },
+ "DESIGN_HANDOFF": {
+  "REF": "DESIGN-DATA-CONTRACT-V1.json",
+  "ENTREGUE_A": "Claude Design",
+  "ESTA_BRANCH_NAO_CONSTROI_MAIS_UI": true
  }
 }
