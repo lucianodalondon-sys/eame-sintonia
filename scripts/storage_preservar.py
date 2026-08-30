@@ -625,7 +625,13 @@ if __name__ == '__main__':
                     continue
                 if (len(volta) == a['BYTES']
                         and hashlib.sha256(volta).hexdigest() == a['SHA256']):
-                    bons.append(a['OBJETO'])
+                    # Guarda-se QUAL objeto passou, não só quantos. A execução de
+                    # 2026-08-30 gravou só as contagens, e "196 = 196 com as duas listas
+                    # de problema vazias" só prova o conjunto por dedução. Prova por
+                    # asset é mais barata de escrever agora do que de reconstruir depois.
+                    bons.append({'OBJETO': a['OBJETO'], 'MEDIA_ID': a.get('MEDIA_ID'),
+                                 'CLASSE': a['CLASSE'], 'BYTES': a['BYTES'],
+                                 'SHA256': a['SHA256']})
                     total += len(volta)
                 else:
                     ruins.append({'OBJETO': a['OBJETO'], 'BYTES_REMOTOS': len(volta),
@@ -651,6 +657,7 @@ if __name__ == '__main__':
                            'HASH_MISMATCH': len(ruins),
                            'NAO_BAIXARAM': ausentes_,
                            'DIVERGENTES': ruins,
+                           'VERIFICADOS': bons,
                            'BYTES_VERIFICADOS_REMOTAMENTE': total},
                           f, ensure_ascii=False, indent=1)
             print('escrito em %s' % os.path.relpath(caminho, ROOT))

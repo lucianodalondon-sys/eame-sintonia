@@ -80,39 +80,58 @@ Foram três execuções incrementais, e cada uma resolveu uma classe:
 foi o limite sendo levantado, não o meu palpite. 158.083.718 bytes, `VERIFIED` com
 sha256 conferido depois de baixar de volta.
 
-> **`RAW_PRESERVATION_GATE = CLOSED`** para presença, órfãos e falhas — os três medidos
-> no inventário remoto da execução C.
+> **`RAW_PRESERVATION_GATE = CLOSED`**
+> **`RAW_CONTENT_INTEGRITY_GATE = CLOSED`**
 
-### ⚠️ Presença no inventário ≠ bytes conferidos
+### Presença no inventário ≠ bytes conferidos — a lei fica, a pendência caiu
 
-Uma ressalva que este relatório não pode arredondar. As execuções incrementais carimbam
-`PRESENTE_NO_INVENTARIO_REMOTO` em quem não foi alvo: isso prova que o objeto **existe**,
-não que o **conteúdo** dele está certo.
-
-Do que os artefatos vivos sustentam hoje:
-
-| | |
-|---|---|
-| objetos com sha256 reconferido **e prova em artefato no disco** | **11** |
-| objetos com prova apenas de **presença** | **185** |
-| objetos que **nunca** tiveram o conteúdo conferido em execução nenhuma | **1** — media 2981, `TOPIC Folleto Diptico.pdf` |
-
-Os 184 da execução A **foram** conferidos por download + hash, mas aquele relatório foi
-sobrescrito antes de eu consertar o histórico. A prova existiu e se perdeu; contar com ela
-seria citar um documento que não existe mais.
-
-O media 2981 é o caso que mais importa: ele é o que recebeu **520**, e 520 é justamente
+Presença no inventário prova que o objeto **existe**. Não prova que o **conteúdo** está
+certo. Essa distinção continua sendo lei aqui, e por um motivo concreto: o media 2981
+recebeu **520** no upload, e 520 é a resposta que se perde no meio — que é exatamente
 quando gravação parcial é plausível. Objeto presente com bytes truncados passaria por
 preservado.
 
-**Uma execução só de leitura fecha isso**, sem reenviar nada:
+Por isso a preservação **não** foi declarada fechada nas contagens incrementais. Foi
+declarada depois de uma **medição integral**, só de leitura:
 
-```bash
+```
 py scripts/storage_preservar.py --diagnosticar --verificar-tudo
 ```
 
-Ela baixa os 196 de volta, reconfere o sha256 de cada um e escreve
-`ADAMA-ES-PRESERVACAO-VERIFICACAO.json` — uma medição, não uma cadeia de três relatórios.
+| | |
+|---|---|
+| `ASSETS_ESPERADOS` | 196 |
+| `SHA_VERIFIED` | **196** |
+| `HASH_MISMATCH` | **0** |
+| `NAO_BAIXARAM` | **0** |
+| `BYTES_VERIFICADOS_REMOTAMENTE` | **304.482.907** |
+
+Cada um dos 196 foi **baixado de volta do bucket** e teve o sha256 recalculado e comparado
+com o local. Uma medição, não uma cadeia de relatórios com um elo destruído no meio.
+Artefato: `data/samples/ADAMA-ES-PRESERVACAO-VERIFICACAO.json`.
+
+**O media 2981 está entre os 196 verificados.** Os bytes que o 520 deixou no bucket são os
+bytes certos — o que confirma que aquele 520 foi perda de resposta, não gravação parcial.
+Isso é agora medido, e não mais inferido do fato de o objeto existir.
+
+> Uma ressalva sobre a própria prova: o artefato daquela execução gravou **contagens**, não
+> a lista de quais objetos passaram. Com `esperados = verificados = 196` e as duas listas
+> de problema vazias, o conjunto está provado por dedução — mas prova por asset é melhor, e
+> a partir de agora o arquivo guarda também o nome, o tamanho e o sha de cada um.
+
+### A história inteira, que não se apaga
+
+| execução | modo | resultado | o que caiu |
+|---|---|---|---|
+| A | lote inteiro | 184 ok / 12 falhos | primeira passada |
+| B | `--so-ausentes` | 195 ok / 1 falho | as 10 chaves com caractere recusado pelo Storage |
+| C | `--so-ausentes` | **196 ok / 0 falho** | AVASTEL, após o limite global subir de 50 MB para 200 MB |
+| D | `--verificar-tudo` (leitura) | **196 sha conferidos** | a última dúvida: conteúdo, não só presença |
+
+O `185 → 184` que assombrou o meio do caminho tinha uma causa e ela fica registrada: o
+media 2981 recebeu 520, foi carimbado `FAILED`, e o objeto **estava no bucket**. O
+relatório local subcontava em 1. Foi isso que criou a lei
+`HTTP_5XX ≠ OBJECT_NOT_PRESERVED`, hoje com quatro guardas de regressão.
 
 Os 2 pacotes de captura entram porque sem eles o censo não se reproduz.
 
@@ -285,7 +304,7 @@ manifesto.
 
 **C · SUPABASE** — `AUTH_AVAILABLE = NO`. Tudo o mais: `NOT_MEASURED`.
 
-**D · STORAGE** — 196 esperados · **196 presentes no bucket** · 0 ausentes · 0 falhos · 0 órfãos · 0 hash mismatch · 304.482.907 bytes.
+**D · STORAGE** — 196 esperados · **196 presentes** · **196 com sha256 reconferido depois de baixar de volta** · 0 ausentes · 0 falhos · 0 órfãos · 0 hash mismatch · 304.482.907 bytes.
 
 **E · POSTGRES** — migration 010 escrita, 15 tabelas, não executada. 1.814 comandos
 gerados, não aplicados.
@@ -305,7 +324,7 @@ quê; entrega canônica corrigida; **0 número velho restante**.
 | | |
 |---|---|
 | `ADAMA_ES_PUBLIC_CATALOG_COMPLETE` | **YES** |
-| `ADAMA_ES_RAW_PRESERVED` | **YES** — 196/196 no Storage, 0 órfão |
+| `ADAMA_ES_RAW_PRESERVED` | **YES** — 196/196 no Storage, conteúdo conferido, 0 órfão |
 | `ADAMA_ES_DOCUMENTS_PRESERVED` | **YES** — 138 PDFs, 296 MB |
 | `ADAMA_ES_POSTGRES_INTEGRATED` | **NO** — bloqueado por credencial |
 | `SAFE_FOR_MAIN_TO_MERGE` | **YES** — nada aplicado remotamente, tudo reversível |
@@ -328,4 +347,6 @@ inflada, e a infraestrutura ao redor, que não existia.
 E continua valendo o que a coleta **não** prova: estoque · venda · distribuição · market
 share · receita · prioridade interna da ADAMA.
 
-✅ **Os 296 MB deixaram de existir numa máquina só.** Os 196 objetos estão no Storage, presença medida no inventário remoto, 0 órfão. A conferência de CONTEÚDO dos 196 numa medição só ainda não foi feita — ver a ressalva na seção 3.
+✅ **Os 296 MB deixaram de existir numa máquina só.** Os 196 objetos estão no Storage, e
+os 196 foram baixados de volta com o sha256 reconferido. Presença **e** conteúdo, medidos.
+É essa a diferença entre um manifesto e um backup.
