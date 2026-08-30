@@ -438,3 +438,107 @@ class TestFuncoesPublicasNaoSomem(unittest.TestCase):
                      'cobertura', 'carregar'):
             self.assertTrue(callable(getattr(cr, nome, None)),
                             '%s sumiu de creators.py' % nome)
+
+
+class TestCasosOuroDaSeed(unittest.TestCase):
+    """§8 — os QUATRO erros que a seed italiana custou, travados contra regressão.
+
+    Cada um prova uma lei diferente, e as três frases que eles sustentam são:
+
+        HANDLE_MATCH  != IDENTITY_MATCH
+        ACCOUNT       != PERSON
+        DISPLAY_NAME  != LEGAL/PUBLIC IDENTITY
+
+    Estes testes leem a base gravada. Se alguém "arrumar" um registro achando que
+    o handle da seed estava certo, o teste cai — que é exatamente o ponto.
+    """
+
+    def _ident(self):
+        regs = cr.carregar('PRIMARY-IDENTITY-RESOLVED.json')
+        if not regs:
+            self.skipTest('resolução de identidade ainda não gravada')
+        return {r['CREATOR_ID']: r for r in regs}, {r.get('SEED_HANDLE'): r for r in regs}
+
+    # ── caso 1 · o endereço estava errado, a pessoa não
+    def test_gomiero_o_handle_da_seed_nao_e_o_real(self):
+        _, porseed = self._ident()
+        r = porseed.get('@davide_gomiero')
+        self.assertIsNotNone(r, 'o caso Gomiero sumiu da base')
+        self.assertEqual(r['ORIGIN_ID'], '@gomierofarm')
+        self.assertNotEqual(r['ORIGIN_ID'], r['SEED_HANDLE'],
+                            'HANDLE_MATCH != IDENTITY_MATCH: o handle da seed não '
+                            'pode voltar a ser tratado como o real')
+        self.assertEqual(r['SEED_ERROR_CLASS'], 'HANDLE_ERRADO_NA_SEED')
+
+    # ── caso 2 · nome e endereço errados ao mesmo tempo
+    def test_leggieri_nome_e_handle_corrigidos(self):
+        _, porseed = self._ident()
+        r = porseed.get('@evolovers')
+        self.assertIsNotNone(r, 'o caso Leggieri sumiu da base')
+        self.assertEqual(r['NAME'], 'Leonardo Leggieri',
+                         'o nome da seed era "Leggeri" — a grafia corrigida não pode '
+                         'regredir')
+        self.assertEqual(r['ORIGIN_ID'], '@narduccio_capicchiaro')
+        self.assertNotEqual(r['ORIGIN_ID'], '@evolovers.eu',
+                            'a conta PESSOAL não é a conta da COMUNIDADE')
+
+    # ── caso 3 · a persona não é a pessoa
+    def test_tomy_rohde_e_persona_nao_pessoa(self):
+        porid, _ = self._ident()
+        r = porid.get('ES-CR-001')
+        self.assertIsNotNone(r, 'o caso Tomy Rohde sumiu da base')
+        self.assertEqual(r['NAME'], 'Fernando Giraldo',
+                         'DISPLAY_NAME != LEGAL/PUBLIC IDENTITY: o NAME precisa ser a '
+                         'pessoa, não o alter ego')
+        self.assertEqual(r['DISPLAY_NAME'], '@Tomy_Rohde')
+        self.assertTrue(any('PERSONA' in str(p).upper() for p in r['WHY_RELEVANT']),
+                        'a ficha precisa dizer que o handle é um alter ego — quem '
+                        'contrata "Tomy Rohde" contrata Fernando Giraldo')
+
+    # ── caso 4 · a conta é da empresa
+    def test_biocampojoyma_e_empresa_nao_pessoa(self):
+        porid, _ = self._ident()
+        r = porid.get('ES-CR-004')
+        self.assertIsNotNone(r, 'o caso Bio Campojoyma sumiu da base')
+        self.assertEqual(r['ENTITY_KIND'], 'ORGANIZATION',
+                         'ACCOUNT != PERSON: @biocampojoyma é a conta da EMPRESA. '
+                         'Marcá-la como PERSON transformaria um acordo B2B com uma '
+                         'produtora num contrato de influencer com um produtor.')
+        self.assertEqual(r['SEED_ERROR_CLASS'], 'PESSOA_DIFERENTE_DE_EMPRESA')
+
+    # ── a lei geral que os quatro sustentam
+    def test_toda_correcao_de_handle_fica_rastreavel(self):
+        regs = cr.carregar('PRIMARY-IDENTITY-RESOLVED.json')
+        if not regs:
+            self.skipTest('base não gravada')
+        for r in regs:
+            self.assertIn('SEED_HANDLE', r, '%s perdeu o handle de origem' % r['NAME'])
+            self.assertIn('SEED_ERROR_CLASS', r,
+                          '%s perdeu a classe do erro — sem ela a correção vira '
+                          'silenciosa' % r['NAME'])
+
+
+class TestPendenciasSaoAcionaveis(unittest.TestCase):
+    """§11 — PROMISING precisa dizer QUAL requisito falta."""
+
+    def test_cada_prova_tem_um_codigo_de_pendencia(self):
+        for prova in cr.PROVAS_DE_ATIVACAO:
+            self.assertIn(prova, cr.MOTIVO_PENDENTE,
+                          '%s não tem código MISSING_* — o Marketing veria '
+                          '"PROMISING" sem saber o que buscar' % prova)
+
+    def test_promising_carrega_o_motivo(self):
+        r = cr.registro_vazio()
+        r.update({'NAME': 'X', 'IDENTITY_STATE': 'PROVED', 'COUNTRY': 'ES',
+                  'CREATOR_TYPE': 'FARMER_CREATOR', 'INSTAGRAM': '@x',
+                  'SOURCE_URL': 'https://e.example'})
+        estado, porques = cr.relevancia(r)
+        self.assertEqual(estado, 'PROMISING')
+        junto = ' '.join(porques)
+        self.assertIn('MISSING_CROP_PROOF', junto)
+        self.assertIn('MISSING_RECENT_ACTIVITY', junto)
+
+    def test_regiao_e_contato_ausentes_aparecem(self):
+        pend = cr.pendencias(cr.registro_vazio())
+        self.assertIn(cr.MISSING_REGIAO, pend)
+        self.assertIn(cr.MISSING_CONTATO, pend)

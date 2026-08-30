@@ -466,6 +466,86 @@ def atividade():
     print('ATIVIDADE:', dict(Counter(f['ACTIVITY_STATE'] for f in fora)))
 
 
+# ─────────────────────────────────────────── §4 · extração por HUB
+# Só entram contas de hub que uma FONTE mostrou. Adivinhar o Instagram de uma
+# feira a partir do nome dela é o mesmo erro que adivinhar o de uma pessoa — e a
+# missão já mediu o preço disso quatro vezes.
+HUBS_COM_CONTA_CONFIRMADA = {
+    '@agroinfluye': dict(hub='Premios AgroInfluye', pais='ES',
+                         url='https://www.instagram.com/agroinfluye/',
+                         fonte='nomeada em resultado de busca sobre o premio'),
+}
+
+MENCAO = None
+
+
+def _mencoes(texto):
+    """Extrai @handles de uma legenda.
+
+    Uma menção NÃO é um creator: é um CANDIDATO com uma rota de descoberta. A
+    conta do prêmio menciona nomeados, patrocinadores, o local do evento e a
+    própria organizadora — separar isso é trabalho da validação, não daqui.
+    """
+    global MENCAO
+    if MENCAO is None:
+        import re
+        MENCAO = re.compile(r'@([A-Za-z0-9._]{2,30})')
+    return ['@' + m.rstrip('.') for m in MENCAO.findall(texto or '')]
+
+
+def hubs():
+    """Raspa as contas de hub confirmadas e extrai as menções das legendas."""
+    chaves = _pool()
+    alvos = list(HUBS_COM_CONTA_CONFIRMADA)
+    print('HUBS_COM_CONTA=%d' % len(alvos))
+
+    run_id = '%s-HUBS' % MISSION
+    itens, man = coletor.executar(
+        ATORES['INSTAGRAM_PROFILE'],
+        {'usernames': [h.lstrip('@') for h in alvos]},
+        token=chaves[0], run_id=run_id, platform='INSTAGRAM', country='EU',
+        mission=MISSION, query='hubs: %s' % ', '.join(alvos),
+        source_version=cr.NAO_SEI,
+        evidence_path='data/samples/CREATOR-MAP-EAME/HUB-EXTRACTION.json')
+    coletor.registrar(man, item_count_normalized=len(itens))
+    print('STATUS=%s ITENS=%d CUSTO=%s' % (man['STATUS'], len(itens), man['COST_USD']))
+
+    fora = []
+    for it in itens:
+        u = '@' + (it.get('username') or '')
+        meta = HUBS_COM_CONTA_CONFIRMADA.get(u.lower(), {})
+        posts = it.get('latestPosts') or []
+        achados = {}
+        for post in posts:
+            legenda = post.get('caption') or ''
+            for m in _mencoes(legenda):
+                if m.lower() == u.lower():
+                    continue                       # a conta mencionando a si mesma
+                achados.setdefault(m.lower(), {'HANDLE': m, 'MENTIONS': 0, 'POSTS': []})
+                achados[m.lower()]['MENTIONS'] += 1
+                if len(achados[m.lower()]['POSTS']) < 2:
+                    achados[m.lower()]['POSTS'].append(post.get('url') or cr.NAO_SEI)
+        fora.append({
+            'HUB': meta.get('hub', cr.NAO_SEI), 'HUB_HANDLE': u,
+            'COUNTRY': meta.get('pais', cr.NAO_SEI),
+            'HUB_FOLLOWERS': it.get('followersCount', cr.NAO_SEI),
+            'POSTS_READ': len(posts),
+            'PEOPLE_DISCOVERED': len(achados),
+            'NOTE': 'menção != creator. Cada handle aqui e CANDIDATO com uma rota de '
+                    'descoberta, e ainda pode ser patrocinador, local ou organizadora.',
+            'MENTIONS': sorted(achados.values(), key=lambda x: -x['MENTIONS']),
+        })
+        print('  %-22s posts=%-3d mencoes_unicas=%d' % (u, len(posts), len(achados)))
+
+    _grava('HUB-EXTRACTION.json', {
+        'SOURCE_ID': MISSION, 'CAPTURED_AT': coletor.agora(),
+        'RUN_ID': run_id, 'RUN_STATUS': man['STATUS'], 'COST_USD': man['COST_USD'],
+        'LAW': 'So entram contas de hub que uma FONTE mostrou. Adivinhar o Instagram '
+               'de uma feira pelo nome dela e o mesmo erro que adivinhar o de uma '
+               'pessoa.',
+        'HUBS': fora})
+
+
 if __name__ == '__main__':
     # Aceita tanto `contratos` quanto `creators-contratos`: a ponte pelo
     # workflow de sensores entrega o nome prefixado.
@@ -476,7 +556,7 @@ if __name__ == '__main__':
     # "contratos" enquanto o pedido dizia "atividade". Falhar aqui é a diferença
     # entre um erro visível e um artefato que ninguém sabe de onde veio.
     FASES = {'contratos': contratos, 'resolver': resolver, 'seed': seed,
-             'diag': diag, 'atividade': atividade}
+             'diag': diag, 'atividade': atividade, 'hubs': hubs}
     if fase not in FASES:
         print('FASE_DESCONHECIDA=%r · fases validas: %s'
               % (fase, ', '.join(sorted(FASES))))

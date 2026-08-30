@@ -40,6 +40,7 @@ on:
           - seed           # resolve os handles da seed
           - resolver       # resolve perfis com handle vindo de fonte
           - atividade      # mede atividade 30/90d dos perfis resolvidos
+          - hubs           # extrai mencoes das contas de hub confirmadas
       runner:
         description: 'qual runner usar'
         required: true

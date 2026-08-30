@@ -107,7 +107,9 @@ CAMPOS_CREATOR = [
     # forma de conteúdo e audiência
     'VIDEO_ORIENTED', 'SHORT_FORM', 'LONG_FORM', 'FIELD_CONTENT',
     'TECHNICAL_CONTENT', 'AUDIENCE_TYPE',
-    'CROP_CONTENT', 'MACHINERY_CONTENT', 'PRODUCT_CONTENT',
+    'FACING', 'CROP_CONTENT', 'MACHINERY_CONTENT', 'PRODUCT_CONTENT',
+    'FIELD_CONTENT_RATE', 'TECHNICAL_CONTENT_RATE', 'PRODUCT_CONTENT_RATE',
+    'CONSUMER_CONTENT_RATE', 'CONTENT_RATE_N',
     'RURAL_LIFESTYLE_CONTENT', 'FOOD_WINE_CONTENT',
     'AGRICULTURAL_RELEVANCE', 'TECHNICAL_RELEVANCE',
     # marca — FORÇA da evidência e TIPO da relação são dimensões separadas
@@ -207,6 +209,12 @@ CONCORRENTES = (
 
 AUDIENCIAS = ('FARMERS', 'AGRONOMISTS', 'TECHNICIANS', 'GENERAL_PUBLIC', 'STUDENTS',
               'WINE_CONSUMERS', 'FOOD_CONSUMERS', 'MIXED', 'NOT_KNOWN')
+
+# Para quem a pessoa FALA. Separado de AUDIENCE_TYPE de propósito: o primeiro é o
+# público observado, este é o lado do balcão. Um agrônomo de empresa fala para
+# produtor; um chef fala para consumidor — e os dois podem ter o mesmo número.
+FACING = ('FARMER_FACING', 'AGRONOMIST_FACING', 'TECHNICAL_FACING',
+          'GENERAL_CONSUMER', 'WINE_CONSUMER', 'FOOD_CONSUMER', 'MIXED', 'NOT_KNOWN')
 
 # Quão perto essa audiência está de quem COMPRA defensivo. É o campo que impede
 # um chef com 2 milhões de seguidores de parecer melhor que um cerealicultor com
@@ -425,6 +433,32 @@ def provas_de_ativacao(reg):
     }
 
 
+# §11 — o motivo pendente, em código de uma palavra. `PROMISING` sozinho manda a
+# pessoa de volta para a fila; `PROMISING + MISSING_RECENT_ACTIVITY` diz a alguém
+# exatamente o que buscar amanhã de manhã.
+MOTIVO_PENDENTE = {
+    'IDENTITY_PROVED': 'IDENTITY_PARTIAL',
+    'COUNTRY_PROVED': 'MISSING_COUNTRY',
+    'CROP_FIT_PROVED': 'MISSING_CROP_PROOF',
+    'ROLE_PROVED': 'MISSING_ROLE',
+    'RECENT_ACTIVITY_PROVED': 'MISSING_RECENT_ACTIVITY',
+    'PUBLIC_CHANNEL_PROVED': 'MISSING_PUBLIC_CHANNEL',
+}
+MISSING_REGIAO = 'MISSING_REGION'
+MISSING_CONTATO = 'MISSING_PUBLIC_CONTACT'
+
+
+def pendencias(reg):
+    """Devolve os códigos do que falta — a lista que o Marketing lê."""
+    p = provas_de_ativacao(reg)
+    fora = [MOTIVO_PENDENTE[k] for k in PROVAS_DE_ATIVACAO if not p[k]]
+    if reg.get('REGION') in (None, '', NAO_SEI, 'NOT_KNOWN'):
+        fora.append(MISSING_REGIAO)
+    if not p['_ROTAS_DE_CONTATO']:
+        fora.append(MISSING_CONTATO)
+    return fora
+
+
 def relevancia(reg, *, colaboracoes=()):
     """LEI 6 — estado DERIVADO de evidência, nunca nota, nunca ordenação por
     seguidores.
@@ -446,12 +480,14 @@ def relevancia(reg, *, colaboracoes=()):
         porques.append('CONFLITO_CONCORRENTE: %s'
                        % ', '.join(sorted({c['BRAND'] for c in conc})))
 
+    pend = pendencias(reg)
     if not faltando:
         # A sétima condição: uma rota de contato OU presença profissional pública
         # bastante para o Marketing avaliar. Canal público resolvido conta.
         if p['_ROTAS_DE_CONTATO'] or p['_CANAIS']:
-            return 'ACTIVATION_READY', porques
-        return 'PROMISING', porques + ['SEM_ROTA_DE_CONTATO_NEM_CANAL']
+            return 'ACTIVATION_READY', porques + (
+                ['PENDENTE_NAO_BLOQUEANTE: %s' % ', '.join(pend)] if pend else [])
+        return 'PROMISING', porques + ['PENDENTE: %s' % ', '.join(pend)]
 
     if reg.get('CROP_STATE') == 'WRONG_ASSIGNMENT':
         return 'NOT_RELEVANT', porques + [
@@ -460,8 +496,8 @@ def relevancia(reg, *, colaboracoes=()):
 
     # Quantas faltam decide entre "quase lá" e "pesquisar".
     if len(faltando) <= 2 and p['IDENTITY_PROVED']:
-        return 'PROMISING', porques + ['FALTAM: %s' % ', '.join(faltando)]
-    return 'RESEARCH_NEEDED', porques + ['FALTAM: %s' % ', '.join(faltando)]
+        return 'PROMISING', porques + ['PENDENTE: %s' % ', '.join(pend)]
+    return 'RESEARCH_NEEDED', porques + ['PENDENTE: %s' % ', '.join(pend)]
 
 
 def fit_para_adama(reg):
