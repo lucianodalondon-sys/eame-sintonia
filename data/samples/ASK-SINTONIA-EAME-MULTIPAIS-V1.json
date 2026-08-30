@@ -6,13 +6,13 @@
  "FACT_LOCATION": "ES, IT, FR",
  "ORIGINAL_LANGUAGE": "pt",
  "O_QUE_ISTO_E": "conjunto de aceitacao multipais. Nao e chatbot e nao ha interface.",
- "QUESTIONS_TESTED": 10,
- "ANSWERABLE": 5,
- "PARTIAL": 2,
- "REFUSED": 3,
+ "QUESTIONS_TESTED": 17,
+ "ANSWERABLE": 9,
+ "PARTIAL": 4,
+ "REFUSED": 4,
  "COUNTRY_LOCAL": 3,
  "CROSS_COUNTRY": 7,
- "O_QUE_AS_RECUSAS_MOSTRAM": "as tres recusas sao todas cross-country e todas pelo mesmo motivo de fundo: comparar exige unidade e tipo de data iguais, e ainda nao temos. Um sistema que respondesse essas tres estaria inventando.",
+ "O_QUE_AS_RECUSAS_MOSTRAM": "agora sao quatro recusas. Tres sao cross-country e uma e do Radar do Futuro — \"que assunto esta ganhando atencao cientifica\", que e a pergunta que um motor de antecipacao mais quer responder e a que ele menos pode responder sem serie temporal. Recusar essa e o teste do motor.",
  "QUESTIONS": [
   {
    "Q": "O que esta acontecendo agora na Espanha?",
@@ -91,6 +91,67 @@
    "A": "Do cliente, nao do pais nem da data. Tres paises testados, tres subsites, o mesmo 403 de borda Akamai com Reference #. Na Espanha ate /robots.txt e negado, o que so acontece quando o recusado e o cliente. E uma investigacao externa de 29/08 acessou o site normalmente de outra rede.",
    "CONSEQUENCIA": "ADAMA_PUBLIC_RESPONSE = NOT_COLLECTED nos tres. Nunca 0.",
    "EVIDENCE": "PORTAO-ADAMA-ES; FRANCE-SOURCE-FOUNDATION-V1 secao H; handoff italiano"
+  },
+  {
+   "Q": "Quais temas podem importar no proximo ciclo na Espanha?",
+   "ESCOPO": "radar-do-futuro",
+   "STATUS": "ANSWERABLE",
+   "A": "Dois estao em ALMOST_RADAR_CASE. O vallico em cereal de inverno, com janela pos-emergencia a 2-5 meses. E o Amaranthus palmeri em milho, com sementeira em abril de 2027. Nenhum dos dois e caso: falta confirmacao de campo corrente nos dois.",
+   "RESSALVA": "\"podem importar\" e o limite da frase. Nenhum estado deste motor afirma que algo vai acontecer.",
+   "EVIDENCE": "SPAIN-RADAR-DO-FUTURO-V1"
+  },
+  {
+   "Q": "Que assunto esta ganhando atencao cientifica?",
+   "ESCOPO": "radar-do-futuro",
+   "STATUS": "REFUSE / NOT_KNOWN",
+   "A": "Nao sei. Tenho volume por tema, nao dinamica. MOMENTUM esta NOT_KNOWN em todos os sete temas dos dois paises porque nao ha serie temporal: o orcamento do OpenAlex esta zerado e a busca do Crossref e por relevancia, nao booleana — a faceta por ano dela descreve um conjunto difuso de 790 mil trabalhos, nao o tema.",
+   "POR_QUE_RECUSAR": "\"ganhando\" e uma afirmacao de tendencia. Total acumulado nao e tendencia, e primeira captura nunca e crescimento.",
+   "O_QUE_DESTRAVA": "uma segunda captura do mesmo recorte, ou o group_by por ano do OpenAlex quando o credito voltar.",
+   "EVIDENCE": "RADAR-DO-FUTURO-CONTRACT-V1, REGRAS_DE_MOMENTUM"
+  },
+  {
+   "Q": "Quais pesquisadores estao trabalhando nisso?",
+   "ESCOPO": "radar-do-futuro",
+   "STATUS": "PARTIAL",
+   "A": "Para os temas espanhois, tres identidades confirmadas por ORCID num-found=1: Joel Torra (Universitat de Lleida), Mercedes Royuela e Mikel Vicente Eceiza (Universidad Publica de Navarra). Joel Torra aparece nos dois temas de maior maturidade, achado por duas rotas independentes. Para o tema italiano do milho, cinco nomes com ORCID declarado no OpenAlex, encabecados por Antonio Logrieco e Paola Battilani.",
+   "POR_QUE_PARCIAL": "os italianos nao passaram pela desambiguacao por busca de nome, e nenhum registro afirma onde o estudo foi feito. Afiliacao nao e geografia do fato.",
+   "EVIDENCE": "RESEARCHER-OUTLOOK-V1"
+  },
+  {
+   "Q": "Isso ja esta acontecendo no campo?",
+   "ESCOPO": "radar-do-futuro",
+   "STATUS": "ANSWERABLE",
+   "A": "Em nenhum dos sete temas. CURRENT_FIELD_CONFIRMATION e NAO em todos, com uma excecao parcial: o Amaranthus palmeri tem tres avisos oficiais de Aragon, o ultimo de 15/07/2026, que confirmam presenca mas nao medem quanto nem onde por parcela.",
+   "RESSALVA": "para o vallico, a ausencia e medida e vale a pena dizer por que: nenhuma fonte de campo consultada mede daninha. O RAIF de cereais mede pragas e doencas.",
+   "EVIDENCE": "SPAIN-RADAR-DO-FUTURO-V1, campo CURRENT_FIELD_CONFIRMATION"
+  },
+  {
+   "Q": "O que falta para esse tema virar um caso?",
+   "ESCOPO": "radar-do-futuro",
+   "STATUS": "ANSWERABLE",
+   "A": "Sempre a mesma coisa, e por isso ela e a unica porta: confirmacao de campo corrente, datada por observacao e com suporte amostral. Para o vallico seria uma medicao de infestacao ou de falha de controle na safra corrente. Para o palmeri, incidencia por parcela ou comarca. Cada tema carrega essa frase no proprio registro.",
+   "EVIDENCE": "RADAR-DO-FUTURO-CONTRACT-V1, transicao 4 para 5"
+  },
+  {
+   "Q": "A ADAMA possui alguma resposta publica para esses temas?",
+   "ESCOPO": "cross-country",
+   "STATUS": "PARTIAL",
+   "A": "Resposta REGISTRADA, sim, e esta medida. Resposta PUBLICA, nao sei em nenhum dos tres paises: o catalogo publico da ADAMA recusa o acesso desta rede com 403 de borda em ES, IT e FR.",
+   "POR_QUE_PARCIAL": "registro e catalogo sao camadas diferentes e so uma foi lida.",
+   "EVIDENCE": "PORTAO-ADAMA-ES; FRANCE-SOURCE-FOUNDATION-V1"
+  },
+  {
+   "Q": "E hora de agir ou apenas acompanhar nesses temas?",
+   "ESCOPO": "radar-do-futuro",
+   "STATUS": "ANSWERABLE",
+   "A": "Acompanhar, nos sete. Nenhum tema do Radar do Futuro autoriza acao corrente — por definicao, um tema que autorizasse ja seria caso. O que existe agora e preparacao: para o vallico, material tecnico pre-safra; para o palmeri, ensaio planejado para abril de 2027.",
+   "RESSALVA": "isso nao vale para o Radar. La ha exatamente um ACT_NOW em dezoito linhas na Espanha, e ele e regulatorio interno.",
+   "EVIDENCE": "RADAR-DO-FUTURO-CONTRACT-V1, RELACAO_COM_O_RADAR"
   }
- ]
+ ],
+ "POR_ESCOPO": {
+  "country-local": 3,
+  "cross-country": 8,
+  "radar-do-futuro": 6
+ }
 }
