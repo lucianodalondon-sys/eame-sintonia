@@ -230,6 +230,16 @@ def _slug(s):
     return ''.join(c if c.isalnum() else '-' for c in (s or '')).strip('-')[:36]
 
 
+def _hoje():
+    import datetime
+    return datetime.date.today()
+
+
+def _dias(n):
+    import datetime
+    return datetime.timedelta(days=n)
+
+
 def _registrar_lote(lote, mans):
     """Manifesto POR LOTE. O canônico não é tocado por execução paralela.
 
@@ -572,13 +582,28 @@ def transcricao(lote='A'):
     fonte = _ler('VIDEOS-%s.json' % lote)
     if not fonte:
         print('SEM_VIDEOS_NAO_GASTEI — rode a fase `videos` antes'); return 1
-    urls, alvo = [], []
+    # JANELA. O árbitro congelou 90 dias, extensível a 180 para quem publica pouco. Aqui
+    # a extensão não é escolha de conveniência: 90 dias devolvem 6 vídeos em 440 e cobrem
+    # só 3 dos 6 recortes; 180 devolvem 16 e cobrem os 6. Transcrever fora da janela seria
+    # coletar histórico, que o contrato proíbe nesta etapa.
+    #
+    # E este número JÁ É UM ACHADO, antes de qualquer transcrição: 440 vídeos existem
+    # nestes seis pares, e 16 deles são dos últimos seis meses. A conversa técnica em
+    # vídeo nestes pares não é fluxo diário; é fio de água.
+    janela = int(os.environ.get('SENSOR_JANELA_DIAS') or 180)
+    corte = (_hoje() - _dias(janela)).isoformat()
+    urls, alvo, fora_da_janela = [], [], 0
     vistos = set()
     for v in fonte['ITEMS']:
-        u = v.get('SOURCE_URL')
-        if u and u != pv.NAO_SEI and u not in vistos:
-            vistos.add(u); urls.append({'url': u}); alvo.append(v)
-    print('  %d vídeos únicos para transcrever' % len(urls))
+        u, p = v.get('SOURCE_URL'), str(v.get('PUBLISHED_AT') or '')[:10]
+        if not u or u == pv.NAO_SEI or u in vistos:
+            continue
+        if not p or p < corte:
+            fora_da_janela += 1
+            continue
+        vistos.add(u); urls.append({'url': u}); alvo.append(v)
+    print('  janela de %d dias (desde %s): %d vídeos · %d fora da janela'
+          % (janela, corte, len(urls), fora_da_janela))
     achados, mans, custo = [], [], 0.0
     # Em lotes de 20: um pedido gigante que falha perde tudo; vinte perde vinte.
     for i in range(0, len(urls), 20):
@@ -647,6 +672,17 @@ def comentarios(lote='A'):
         print('SEM_VIDEOS_NAO_GASTEI — rode a fase `videos` antes'); return 1
     # Só vídeo com comentário declarado e do recorte. Pedir comentário de vídeo com zero
     # comentário é gastar para receber vazio.
+    # POR QUE OS COMENTÁRIOS NÃO SEGUEM A JANELA DE 180 DIAS, e isso é decisão declarada:
+    #
+    # 1. a rota de comentários devolve TEMPO RELATIVO ("hace 2 años"), não data. Filtrar
+    #    comentário por janela é impossível com o que a fonte dá, e converter relativo em
+    #    absoluto inventaria precisão que ela não deu;
+    # 2. dos 16 vídeos dentro da janela, apenas 2 declaram qualquer comentário. Um
+    #    subexperimento sobre voz de campo rodado em 2 vídeos não responde nada.
+    #
+    # O filtro que FICA é o do assunto: os 440 vídeos vieram das consultas dos 6 recortes,
+    # então todo alvo aqui está ligado a um par crop×issue declarado. É o que o contrato
+    # exige — comentário só em conteúdo dos 6 recortes, nunca agrícola genérico.
     alvos = [v for v in fonte['ITEMS']
              if isinstance(v.get('COMMENTS_COUNT'), int) and v['COMMENTS_COUNT'] > 0]
     alvos.sort(key=lambda v: -(v.get('COMMENTS_COUNT') or 0))
