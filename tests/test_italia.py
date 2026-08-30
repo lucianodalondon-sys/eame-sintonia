@@ -18,6 +18,7 @@ import italia_vies_de_painel       # noqa: E402,F401
 import italia_trigo_duro           # noqa: E402,F401
 import italia_camada_op            # noqa: E402,F401
 import italia_antecipacao          # noqa: E402,F401
+import italia_voz_humana           # noqa: E402,F401
 import italia_tabela_dose as td    # noqa: E402
 
 CSV = os.path.join(ROOT, 'data', 'raw', 'IT', 'PROD_FTS_6_20260824.csv')
@@ -1075,6 +1076,100 @@ class TestFutureEvidenceCannotClosePastCase(unittest.TestCase):
         itens = [v['ITEM'] for v in viol]
         self.assertIn('Bollettino LaMMA Grosseto — frumento', itens)
 
+
+VOZ = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'IT-HUMAN-SENSOR-PILOT.json')
+
+
+@unittest.skipUnless(os.path.exists(VOZ), 'piloto de voz humana ainda nao gerado')
+class TestCamadaDeSensoresHumanos(unittest.TestCase):
+    """PESSOAS FUNCIONAM COMO SENSORES? Medido, e o "nao" tem forma."""
+
+    @classmethod
+    def setUpClass(cls):
+        import italia_voz_humana as vh
+        cls.vh = vh
+        cls.d = json.load(open(VOZ, encoding='utf-8'))
+
+    def test_porta_fechada_nunca_vira_ausencia_de_sinal(self):
+        """LinkedIn e Instagram devolvem 200 com muro de login. HTTP 200 != FONTE VIVA."""
+        for p in ('LINKEDIN', 'INSTAGRAM'):
+            est = self.d['PLATFORM_STATE'][p]
+            with self.subTest(plataforma=p):
+                self.assertEqual(200, est['HTTP'])
+                self.assertIn('ACCESS_FAILURE', est['STATE'])
+                self.assertIn('ACCESS_FAILURE ≠ NO_SIGNAL', est['LAW'])
+
+    def test_o_verdito_e_in_sample_e_nao_not_exists(self):
+        """Com 2 de 3 portas fechadas, so cabe dizer o que NAO foi observado."""
+        self.assertEqual('HUMAN_SENSOR_LAYER_NOT_PROVED_IN_SAMPLE', self.d['VERDICT'])
+        self.assertIn('NOT_PROVED_IN_SAMPLE e não NOT_EXISTS', self.d['VERDICT_WHY'])
+
+    def test_classes_sem_sinal_dizem_nao_observado_e_nao_inexistente(self):
+        for k in ('FIRST_RESEARCHER_SIGNAL', 'FIRST_TECHNICAL_SIGNAL',
+                  'FIRST_CREATOR_SIGNAL'):
+            with self.subTest(classe=k):
+                self.assertEqual('NOT_OBSERVED_IN_MEASURED_SAMPLE',
+                                 self.d['CLOCK_BY_CLASS'][k]['STATE'])
+                self.assertIsNone(self.d['CLOCK_BY_CLASS'][k]['DATE'])
+
+    def test_data_aproximada_nunca_coloca_nada_antes_do_caso(self):
+        """"6 mesi fa" nao e 2026-02-xx. Aproximacao nao fecha afirmacao temporal.
+
+        O webinar da Adama provavelmente e anterior a 23/04. "Provavelmente" e
+        exatamente o que esta proibido de virar BEFORE_CASE.
+        """
+        aprox = [p for p in self.d['PROFILES']
+                 if p.get('DATE_STATE') == 'NOT_DATED_PRECISELY']
+        self.assertGreaterEqual(len(aprox), 2)
+        for p in aprox:
+            with self.subTest(quem=p['NAME']):
+                self.assertNotEqual('BEFORE_CASE', p.get('RELATIVE_TO_CASE'))
+
+    def test_o_unico_sinal_anterior_esta_qualificado(self):
+        """Corteva veio 25 dias antes — de outra doenca, sem regiao, e e comercial."""
+        c = [x for x in self.d['CONTENTS_READ']
+             if x.get('RELATIVE_TO_CASE') == 'BEFORE_CASE']
+        self.assertEqual(1, len(c))
+        self.assertEqual(25, c[0]['DAYS_BEFORE_CASE'])
+        self.assertEqual('Septoria', c[0]['ISSUE'])
+        self.assertIn('não é o issue do caso', c[0]['DOES_NOT_ADD'])
+        inst = self.d['CLOCK_BY_CLASS']['FIRST_INSTITUTIONAL_SIGNAL']
+        self.assertEqual('BEFORE_CASE', inst['STATE'])
+
+    def test_o_artigo_de_2024_fica_fora_da_janela(self):
+        """CLASSE CERTA != JANELA CERTA. Encaixaria na narrativa e seria falso."""
+        b = [x for x in self.d['CONTENTS_READ'] if 'Biagetti' in x['PERSON_OR_ORGANIZATION']][0]
+        self.assertEqual('2024-04-20', b['PUBLISHED_AT'])
+        self.assertEqual('OUT_OF_WINDOW', b['RELATIVE_TO_CASE'])
+        self.assertIn('seria falso', b['WHY_EXCLUDED'])
+
+    def test_concorrente_entra_so_como_contexto(self):
+        """A Corteva aparece porque calhou, nao porque foi coletada como concorrente."""
+        cor = [p for p in self.d['PROFILES'] if p['NAME'] == 'Corteva Agriscience'][0]
+        self.assertTrue(cor['COMPETITOR_CONTEXT_ONLY'])
+        t = json.dumps(self.d, ensure_ascii=False).lower()
+        for proibido in ('competitor portfolio', 'meta ads', 'ads library'):
+            self.assertNotIn(proibido, t)
+
+    def test_nenhum_token_vazou_para_o_artefato(self):
+        """Nunca gravar credencial. Vale para o artefato e para o script."""
+        import re as _re
+        alvo = json.dumps(self.d, ensure_ascii=False)
+        fonte = open(os.path.join(ROOT, 'scripts', 'italia_voz_humana.py'),
+                     encoding='utf-8').read()
+        pad = _re.compile(r'apify_api_[A-Za-z0-9]{10,}')
+        for nome, txt in (('artefato', alvo), ('script', fonte)):
+            with self.subTest(onde=nome):
+                self.assertIsNone(pad.search(txt))
+        self.assertFalse(self.d['APIFY']['TOKEN_1_USED'])
+        self.assertEqual(0, self.d['APIFY']['TOTAL_ACTOR_RUNS'])
+
+    def test_a_amostra_respeitou_os_tetos(self):
+        c = self.d['COUNTS']
+        self.assertLessEqual(c['PROFILES_OR_ENTITIES'], c['LIMIT_PROFILES'])
+        self.assertLessEqual(c['YOUTUBE_ITEMS_SCREENED'], c['LIMIT_CONTENTS'])
+        self.assertIn('não fechar pergunta', c['STOPPED_EARLY_BECAUSE'])
+
 CASOS = os.path.join(ROOT, 'data', 'samples', 'IT-CASOS', 'ITALY-HERO-CASES-V1.json')
 
 
@@ -1095,7 +1190,7 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
         falhas = [n for n, (ok, _) in self.regs.items() if not ok]
         self.assertEqual([], falhas, 'regressoes de confianca falsa quebradas: %s' % falhas)
 
-    def test_as_dezesseis_estao_presentes(self):
+    def test_as_dezoito_estao_presentes(self):
         """Apagar uma regressao nao pode ser a forma de fazer a suite passar.
 
         As quatro ultimas nasceram em 30/08/2026, quando eu corrigi tres achados meus
@@ -1119,7 +1214,9 @@ class TestRegressoesDeConfiancaFalsa(unittest.TestCase):
                      'ROUTE_OPENED != SIGNAL_READ',
                      'PAST_WINDOW != OPEN_WINDOW',
                      'FUTURE_EVIDENCE_CANNOT_CLOSE_PAST_CASE',
-                     'OBSERVED_SYMPTOM != MODELLED_RISK'):
+                     'OBSERVED_SYMPTOM != MODELLED_RISK',
+                     'ACCESS_FAILURE != NO_SIGNAL',
+                     'APPROXIMATE_DATE != DATED_EVIDENCE'):
             self.assertIn(nome, self.regs)
 
     def test_ask_declara_estado_em_toda_pergunta(self):

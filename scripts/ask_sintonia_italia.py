@@ -303,6 +303,22 @@ def perguntas():
       'se qualquer uma delas publica boletim de cereal — nenhuma foi negada, só não lida')
 
 
+    voz = _ler('IT-CASOS/IT-HUMAN-SENSOR-PILOT.json') or {}
+    r('Pessoas funcionaram como sensores antecipados no caso do trigo duro?', PARTIAL,
+      'Na amostra medida, não. Nenhuma das quatro classes humanas — pesquisador, '
+      'técnico, produtor, creator — produziu sinal datado ANTES de 23/04/2026 sobre '
+      'fusariose em grano duro. O único item anterior é de uma EMPRESA (Corteva, '
+      '29/03/2026, 25 dias antes) com observação de campo real, mas sobre SEPTORIA, sem '
+      'região nomeada. A camada de pesquisa convoca depois: o Durum Days 2026 foi em '
+      '19/05. A voz do produtor falou de PREÇO em 03/07. Creator: zero, pelo terceiro '
+      'crop×issue seguido. MAS duas das três plataformas estavam fechadas por login, '
+      'então o veredito é NOT_PROVED_IN_SAMPLE, não NOT_EXISTS.',
+      'IT-HUMAN-SENSOR-PILOT.json',
+      'as datas de publicação de cada conteúdo lido e o estado HTTP de cada plataforma',
+      'a classificação por classe de voz e a posição de cada uma no tempo',
+      'o que LinkedIn e Instagram teriam mostrado — ACCESS_FAILURE ≠ NO_SIGNAL')
+
+
 def regressoes():
     """Cada uma reprova uma confiança falsa que já apareceu nesta branch."""
     casos = _ler('IT-CASOS/ITALY-HERO-CASES-V1.json') or {}
@@ -379,6 +395,18 @@ def regressoes():
                 pnl.get('COVERAGE_MOVED') is False
                 and pnl.get('PCT_NATIONAL_NOW_COVERED') == 3.7,
                 'sondar 37,9% da cultura sem ler boletim nao move cobertura nenhuma'))
+
+    voz = _ler('IT-CASOS/IT-HUMAN-SENSOR-PILOT.json') or {}
+    out.append(('ACCESS_FAILURE != NO_SIGNAL',
+                'ACCESS_FAILURE' in str(voz.get('PLATFORM_STATE', {})
+                                        .get('LINKEDIN', {}).get('STATE', '')),
+                'LinkedIn e Instagram devolvem 200 com muro de login; 200 nao e fonte viva'))
+
+    out.append(('APPROXIMATE_DATE != DATED_EVIDENCE',
+                all(p.get('RELATIVE_TO_CASE') != 'BEFORE_CASE'
+                    for p in voz.get('PROFILES', [])
+                    if p.get('DATE_STATE') == 'NOT_DATED_PRECISELY'),
+                '"6 mesi fa" nao coloca o webinar antes do caso'))
 
     ant = _ler('IT-CASOS/IT-CASE-DURUM-FUSARIUM-001-antecipacao.json') or {}
     out.append(('FUTURE_EVIDENCE_CANNOT_CLOSE_PAST_CASE',
