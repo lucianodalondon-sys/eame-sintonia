@@ -36,13 +36,67 @@
    }
   ],
   "O_QUE_ISSO_DECIDE_NOS_TRES_CASOS": "ADAMA_PUBLIC_RESPONSE = NOT_COLLECTED nos tres cartoes V1, com o motivo nomeado. COMPETITOR_PUBLIC_RESPONSE tambem: nenhum catalogo de concorrente foi lido, e o que sabemos de EMIR vem do registro, nao do site da Corteva.",
-  "MERGE": "NAO FEITO. A branch permanece separada."
+  "MERGE": "NAO FEITO. A branch permanece separada.",
+  "REVIEW_COMPLETO_2026_08_30": {
+   "HEAD": "8680c58",
+   "TESTES_NA_BRANCH": "28 metodos em tests/test_adama_es.py — um por erro nomeado na propria missao. Nao rodados aqui: rodar exigiria checkout, e o review e read-only.",
+   "CODIGO": {
+    "scripts/adama_es.py": "937 linhas — coletor",
+    "scripts/adama_es_portao.py": "249 — portao de acesso",
+    "scripts/adama_intelligence.py": "271 — montagem do artefato",
+    "scripts/adama_crosswalk.py": "391 — cruzamento com o ROPF"
+   },
+   "CLASSIFICACAO_POR_ARTEFATO": [
+    {
+     "ARTEFATO": "ADAMA-ES-MAIZE-REGULATORY-MAP.json",
+     "VEREDITO": "USABLE",
+     "USADO": "SIM — deu os 7 produtos de folha larga do teste decisivo do Caso 2",
+     "POR_QUE": "22 produtos e 20 pares confirmados um a um pelo servidor do MAPA. E fato regulatorio, nao leitura de site."
+    },
+    {
+     "ARTEFATO": "ES-MAPA-VOCABULARIO-IDS.json",
+     "VEREDITO": "USABLE",
+     "USADO": "redundancia — ja havia equivalente local",
+     "POR_QUE": "448 cultivos e 708 pragas com id, lidos dos <option> do proprio ROPF. E a chave que torna a rota do par executavel."
+    },
+    {
+     "ARTEFATO": "PORTAO-ADAMA-ES.json + adama_es_portao.py",
+     "VEREDITO": "USABLE",
+     "USADO": "SIM — sustenta ADAMA_PUBLIC_RESPONSE = NOT_COLLECTED nos tres cartoes",
+     "POR_QUE": "separa negacao de borda de ausencia de fonte, com cinco rotas testadas e todas 403, inclusive /robots.txt."
+    },
+    {
+     "ARTEFATO": "ADAMA-ES-PRODUCT-INTELLIGENCE.json",
+     "VEREDITO": "PARTIAL",
+     "POR_QUE": "PRODUCTS, DOCUMENTS, CLAIMS, MODES_OF_ACTION, APPLICATION_WINDOWS e TECHNOLOGIES vazios, todos marcados NOT_COLLECTED com motivo. Vale como documentacao do bloqueio, nao como evidencia de produto."
+    },
+    {
+     "ARTEFATO": "scripts/adama_es.py (coletor)",
+     "VEREDITO": "USABLE, NAO EXERCITADO",
+     "POR_QUE": "nunca rodou contra o site real porque o site nega o cliente. O desenho e defensavel — par so nasce de linha de tabela, dedupe por sha256, claim nasce como MANUFACTURER_STATEMENT — mas nao ha prova de campo."
+    },
+    {
+     "ARTEFATO": ".github/workflows/adama-es-censo.yml",
+     "VEREDITO": "USABLE",
+     "POR_QUE": "tenta a mesma rota de outro IP. Se a borda atender o runner, o censo roda sem mudar linha; se negar, sao duas negacoes de IPs distintos."
+    }
+   ],
+   "O_QUE_NAO_DUPLIQUEI": "nada foi copiado para o main. O que usei, usei por git show e reconfirmei por consulta propria ao ROPF em 30/08.",
+   "MERGE": "NAO FEITO.",
+   "ADAMA_ES_DATACENTER_HANDOFF_REVIEW": "DONE"
+  }
  },
  "ADAMA_ES_LOCAL": {
-  "BRANCH": "claude/adama-es-local*",
-  "ESTADO": "LOCAL_HANDOFF = PENDING",
-  "MEDIDO": "nenhuma branch remota casa o prefixo. As remotas sao: claude/adama-es-commercial-intelligence-rqgy44 claude/sintonia-eame-collection-es claude/sintonia-eame-handoff-gd3g45 claude/sintonia-eame-repo-setup-xccfob claude/sintonia-italy-pilot-b1l401",
-  "CONSEQUENCIA": "o catalogo publico da ADAMA continua NOT_COLLECTED. Nao bloqueia nenhum dos tres casos, que se sustentam em registro oficial e campo."
+  "BRANCH_PROCURADA": [
+   "claude/adama-es-local*",
+   "claude/*adama*local*",
+   "claude/*commercial*browser*"
+  ],
+  "METODO": "git ls-remote --heads origin, listagem completa, mais busca por local|browser|commercial",
+  "RESULTADO": "as unicas cinco branches remotas sao collection-es, adama-es-commercial-intelligence-rqgy44, italy-pilot-b1l401, handoff-gd3g45 e repo-setup-xccfob. Nenhuma casa os prefixos locais.",
+  "LOCAL_ADAMA_HANDOFF": "PENDING",
+  "NAO_AFIRMO": "nao afirmo que a missao local nao existe. Afirmo que nenhuma branch dela apareceu no remoto ate 30/08.",
+  "O_QUE_DESTRAVARIA": "a branch aparecer. Os testes que ela precisaria passar ja estao listados na secao 7.1 do briefing e nao foram executados por falta de objeto."
  },
  "ITALIA": {
   "BRANCH": "claude/sintonia-italy-pilot-b1l401",
@@ -62,6 +116,20 @@
    "AVANCO": "2 commits, 4.671 linhas. ISTAT destravou a geografia e moveu o caso da videira de lugar; e o portfolio elegivel inteiro para a lotta obbligatoria vence antes da proxima janela.",
    "CLASSIFICACAO": "AVANCO MATERIAL — registrado, nao consumido. Nenhum merge, nenhuma duplicacao de trabalho.",
    "O_PARALELO_QUE_NAO_VIRA_CASO": "os dois paises acharam, com registros diferentes, achados de TEMPO REGULATORIO: a Espanha tem 2 de 180 vigentes com caducidad vencida no par do olivo; a Italia tem um portfolio inteiro vencendo antes da proxima janela obrigatoria. E o mesmo tipo de pergunta feita a dois registros nacionais. Continua NAO sendo um caso cross-market."
+  },
+  "GATE_2026_08_30": {
+   "HEAD": "1401f23",
+   "FONTE_DO_GATE": "docs/piloto/HANDOFF-ITALIA-PARA-EAME.md, escrito pela propria branch para esta finalidade. Lido, nao refeito.",
+   "ITALY_REGULATORY_READY": "YES — 17.695 registros, 3.712 vigentes, 576 titulares; grupo ADAMA 602 registros e 163 vigentes, com identidade de titular resolvida por campo declarado (sede C/O ADAMA ITALIA), nao por string.",
+   "ITALY_PRODUCT_INTELLIGENCE_READY": "PARTIAL — o RÓTULO oficial esta 163/163 e traz cultura x patogeno x dose x intervalo x n max. O que falta e o CATALOGO COMERCIAL: adama.com nega com 403 de WAF, igual a Espanha.",
+   "ITALY_SOURCE_UNIVERSE_READY": "YES — regulatorio, rotulo, escala ISTAT+Eurostat, campo regional em tres regioes, norma regional de lotta obbligatoria e ciencia. Sete camadas com rota reproduzivel.",
+   "ITALY_RESEARCHER_UNIVERSE_READY": "PARTIAL — ha consulta dirigida ao OpenAlex por instituicao italiana e cluster de micotoxina com 208 trabalhos, autores com ORCID. Falta a resolucao de identidade individual que a Espanha fez (num-found=1).",
+   "ITALY_TECHNICAL_NETWORK_READY": "NO — nao ha equivalente italiano das ADV catalas medido.",
+   "ITALY_CREATOR_UNIVERSE_READY": "NO — declarado como nao coletado por decisao de ordem.",
+   "ITALY_PUBLIC_VOICE_READY": "NO — mesma razao.",
+   "ITALY_DEMO_CONTENT_READY": "YES para tres casos — ITALY-HERO-CASES-V1 com IT-HERO-001 (5/5), IT-HERO-002 (5/5) e IT-HERO-003 (3/5), mais IT-DEMO-001 registrado explicitamente como NAO caso.",
+   "A_CAMADA_QUE_FALTA_NOMEADA": "VOZ. Rede tecnica, creators e voz publica sao NO na Italia; a Espanha tem rede tecnica (50 ADV) e voz medida (mesmo que enviesada para olivar andaluz). E a unica assimetria estrutural entre os dois paises.",
+   "O_QUE_A_ITALIA_CORRIGIU_SOZINHA": "\"o milho TINHA boletim, e eu tinha lido a pagina errada\" — Piemonte publica serie propria de boletim de milho, 10 numeros em 2026, o ultimo de 12/08. O achado negativo estava certo no escopo e errado no rotulo. NOT_FOUND != DOES NOT EXIST."
   }
  },
  "CROSS_MARKET_GATE": {
