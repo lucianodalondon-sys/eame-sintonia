@@ -1,17 +1,20 @@
-# RAW FRANÇA — preservação pelo runner local do eame-sintonia.
-#
-# Por que este workflow NÃO faz checkout: os 234 objetos a preservar são dado
-# bruto, e `data/raw/` é ignorado pelo Git de propósito (D-003). Um checkout
-# traria o código e NENHUM byte para enviar — e o portão fecharia com zero.
-# Então o job trabalha no worktree que já existe nesta máquina, e a primeira
-# coisa que ele faz é PROVAR que está no worktree certo, na branch certa.
-#
-#     CHECKOUT ≠ OS BYTES ESTÃO AQUI
-#
-# O runner é o do eame-sintonia (SINTONIA-EAME-LOCAL, label
-# `eame-sintonia-local`). Os outros dois runners desta máquina pertencem ao
-# portal-sintonia e não podem pegar este job — por isso o label é exigido.
 name: adama-fr-raw-preserve
+
+# Fecha o RAW frances: sobe os 234 objetos de data/raw/FR/ para o bucket, le o
+# inventario, baixa cada um DE VOLTA e confere sha256 e bytes.
+#
+# NAO tem checkout, e isso e de proposito. Os RAW estao FORA do Git — data/raw e
+# ignorado por politica do repositorio — e existem so em C:\eame-sintonia-fr,
+# nesta maquina. Um runner GitHub-hosted nao enxerga um byte deles. Por isso o
+# job exige a etiqueta do runner local dedicado, e prova onde esta antes de
+# escrever qualquer coisa.
+#
+#     CHECKOUT != OS BYTES ESTAO AQUI
+#     PRESENCE_IN_BUCKET != CONTENT_VERIFIED
+#
+# Os 234 sao 111 paginas de produto + 122 documentos distintos + 1 pacote E-Phy.
+# O numero anterior (191) esta REVOGADO: ele vinha de um manifesto em que 53
+# documentos tinham sido gravados por cima uns dos outros.
 
 on:
   workflow_dispatch:
@@ -21,72 +24,73 @@ permissions:
 
 jobs:
   preservar:
-    runs-on: [self-hosted, eame-sintonia-local]
-    defaults:
-      run:
-        shell: bash
-        working-directory: C:\eame-sintonia-fr
-    env:
-      FR_WORKTREE: C:\eame-sintonia-fr
-      FR_BRANCH: claude/adama-fr-local-catalog
-
+    # As quatro etiquetas juntas: so o runner dedicado ao eame-sintonia atende.
+    # Os outros dois runners desta maquina pertencem ao portal-sintonia.
+    runs-on: [self-hosted, Windows, X64, eame-sintonia-local]
+    timeout-minutes: 90
     steps:
-      - name: 1 · provar o worktree antes de qualquer coisa
+      - name: provar a maquina, o worktree e a branch antes de tocar no Storage
+        shell: powershell
         run: |
-          echo "PWD          : $(pwd)"
-          BRANCH="$(git branch --show-current)"
-          HEAD="$(git rev-parse HEAD)"
-          SUJO="$(git status --porcelain | wc -l)"
-          echo "FR_BRANCH    : $BRANCH"
-          echo "FR_HEAD      : $HEAD"
-          echo "ALTERACOES   : $SUJO"
-          [ "$BRANCH" = "$FR_BRANCH" ] || { echo "branch errada"; exit 1; }
-          [ "$SUJO" -eq 0 ] || { echo "arvore suja: nao rodar assim"; exit 1; }
-          echo "RUNNER_CAN_SEE_WORKTREE = TRUE"
+          "RUNNER_NAME = $env:RUNNER_NAME"
+          $existe = Test-Path 'C:\eame-sintonia-fr'
+          "WORKTREE_EXISTS = $existe"
+          if (-not $existe) { "PARADO: este runner nao enxerga o acervo frances"; exit 1 }
+          Set-Location 'C:\eame-sintonia-fr'
+          $branch = (git rev-parse --abbrev-ref HEAD | Out-String).Trim()
+          $head   = (git rev-parse HEAD | Out-String).Trim()
+          $sujo   = (git status --porcelain | Measure-Object -Line).Lines
+          "FR_BRANCH = $branch"
+          "FR_HEAD = $head"
+          "ALTERACOES_NAO_COMMITADAS = $sujo"
+          if ($branch -ne 'claude/adama-fr-local-catalog') { "PARADO: branch errada"; exit 1 }
+          $n = (Get-ChildItem -Recurse -File 'data\raw\FR').Count
+          "RAW_FILES_ON_DISK = $n"
+          if ($n -lt 230) { "PARADO: acervo incompleto no disco"; exit 1 }
+          "RUNNER_CAN_SEE_WORKTREE = TRUE"
 
-      - name: 2 · achar o Python de bootstrap
-        run: |
-          # O runner pode rodar sob outra conta, e o `py` do usuario pode nao
-          # estar no PATH dele. Falhar fechado aqui e melhor do que descobrir
-          # no meio de um upload de 310 MB.
-          for c in py python3 python \
-                   "/c/Users/London1/AppData/Local/Programs/Python/Launcher/py"; do
-            if command -v "$c" >/dev/null 2>&1 || [ -x "$c" ]; then
-              echo "BOOTSTRAP_PYTHON=$c" >> "$GITHUB_ENV"
-              echo "candidato de bootstrap: $c"
-              exit 0
-            fi
-          done
-          echo "nenhum Python de bootstrap visivel para este runner"
-          exit 1
-
-      - name: 3 · provar o runtime (trabalho feito, nao comando encontrado)
-        run: |
-          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py
-
-      - name: 4 · canario de autenticacao — somente leitura
+      - name: canario de autenticacao — somente leitura, antes do primeiro byte
+        shell: powershell
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          # Sem isto o Python escreve em cp1252 no Windows e MORRE no primeiro
+          # acento que ele mesmo imprime — depois de ja ter subido arquivo, o que
+          # deixaria o estado ambiguo. Medido nesta maquina.
+          PYTHONIOENCODING: utf-8
+          PYTHONUTF8: '1'
         run: |
-          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py --exec \
-            scripts/adama_fr_raw.py --canario
+          Set-Location 'C:\eame-sintonia-fr'
+          py scripts\runtime_python.py --exec scripts\adama_fr_raw.py --canario
+          if ($LASTEXITCODE -ne 0) { "PARADO: canario reprovou. UPLOAD_ATTEMPTS = 0"; exit $LASTEXITCODE }
 
-      - name: 5 · plano RAW medido do disco (sem rede)
+      - name: plano RAW medido do disco, sem rede
+        shell: powershell
+        env:
+          PYTHONIOENCODING: utf-8
+          PYTHONUTF8: '1'
         run: |
-          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py --exec \
-            scripts/adama_fr_raw.py --plano
+          Set-Location 'C:\eame-sintonia-fr'
+          py scripts\runtime_python.py --exec scripts\adama_fr_raw.py --plano
 
-      - name: 6 · enviar, baixar de volta e reconferir hash a hash
+      - name: upload, inventario, download de volta, sha256 e bytes
+        shell: powershell
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          PYTHONIOENCODING: utf-8
+          PYTHONUTF8: '1'
         run: |
-          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py --exec \
-            scripts/adama_fr_raw.py --enviar
+          Set-Location 'C:\eame-sintonia-fr'
+          py scripts\runtime_python.py --exec scripts\adama_fr_raw.py --enviar
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: 7 · veredito da fundacao francesa
+      - name: veredito da fundacao francesa
         if: always()
+        shell: powershell
+        env:
+          PYTHONIOENCODING: utf-8
+          PYTHONUTF8: '1'
         run: |
-          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py --exec \
-            scripts/adama_fr_fundacao.py
+          Set-Location 'C:\eame-sintonia-fr'
+          py scripts\runtime_python.py --exec scripts\adama_fr_fundacao.py
