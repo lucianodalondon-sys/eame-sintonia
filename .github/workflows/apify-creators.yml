@@ -1,0 +1,74 @@
+# ═══════════════════════════════════════════════════════════════════════
+# MAPA DE CREATORS — coleta no runner residencial.
+#
+# Existe porque o contêiner da sessão NÃO alcança as fontes: medido nesta
+# missão, `plataformatierra.es`, `revistamercados.com`, `cibotoday.it`,
+# `reporterre.net` e `desmog.com` devolveram EGRESS_BLOCKED. A máquina local é
+# a mesma rota que já foi a única a abrir o catálogo ADAMA.
+#
+#     contratos   GRÁTIS — lê o schema dos atores. Zero run, zero custo.
+#     resolver    resolve perfil de quem TEM handle vindo de fonte.
+#
+# `contratos` roda primeiro por lei da casa: entrada errada é o erro mais caro
+# já medido aqui.
+# ═══════════════════════════════════════════════════════════════════════
+name: apify-creators
+
+on:
+  workflow_dispatch:
+    inputs:
+      fase:
+        description: 'qual fase rodar'
+        required: true
+        default: contratos
+        type: choice
+        options: [contratos, resolver]
+
+permissions:
+  contents: write
+
+jobs:
+  coleta:
+    runs-on: [self-hosted, Windows, X64, eame-sintonia-local-2]
+    defaults:
+      run:
+        shell: bash
+    env:
+      APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: 0 · interpretador
+        run: |
+          for c in py python3 python; do
+            if $c --version >/dev/null 2>&1; then
+              echo "PY=$c" >> "$GITHUB_ENV"; echo "INTERPRETADOR=$c"; exit 0
+            fi
+          done
+          echo "INTERPRETADOR=NENHUM"; exit 1
+
+      - name: 1 · censo do pool (presença e formato — nunca valor)
+        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+
+      - name: 2 · rodar a fase
+        run: |
+          echo "FASE=${{ inputs.fase }} · RUNNER=${{ runner.name }}"
+          PYTHONIOENCODING=utf-8 $PY scripts/creator_coleta.py "${{ inputs.fase }}"
+
+      - name: 3 · devolver o resultado ao repositório
+        run: |
+          git config user.name  "sintonia-eame-runner"
+          git config user.email "runner@eame-sintonia.local"
+          git add -A data/samples/CREATOR-MAP-EAME data/samples/raw-paid \
+                     data/samples/RUN-MANIFEST.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "NADA_MUDOU=YES"; exit 0
+          fi
+          git diff --cached --stat
+          git commit -q -m "mapa de creators: fase ${{ inputs.fase }} (run ${{ github.run_id }})"
+          git pull --rebase --quiet origin "${{ github.ref_name }}" || true
+          git push origin HEAD:"${{ github.ref_name }}"
+          echo "RESULTADO_COMMITADO=YES"
