@@ -1,0 +1,80 @@
+{
+  "dataset_owner": "META_COMPETITOR_EAME",
+  "as_of_date": "2026-08-30T23:35:40+00:00",
+  "countries": [
+    "ES",
+    "IT",
+    "FR"
+  ],
+  "api_auth_state": "API_TOKEN_AUSENTE",
+  "meta_ads_library_api_access": {
+    "estado": "API_TOKEN_AUSENTE",
+    "medidas": [
+      {
+        "http": "500",
+        "bytes": "126",
+        "corpo": "{\"error\":{\"message\":\"An unknown error has occurred.\",\"type\":\"OAuthException\",\"code\":1,\"fbtrace_id\":\"A1NlVwQOC3bcw5ctBzAPg7T\"}}",
+        "versao": "v23.0",
+        "com_token": false
+      },
+      {
+        "http": "500",
+        "bytes": "126",
+        "corpo": "{\"error\":{\"message\":\"An unknown error has occurred.\",\"type\":\"OAuthException\",\"code\":1,\"fbtrace_id\":\"AsVBMJDrNLZdx3muTf_IyFq\"}}",
+        "versao": "v21.0",
+        "com_token": false
+      }
+    ],
+    "nota": "A API pede token de aplicativo do Facebook. Este repositorio nao tem nenhum, e a missao proibe usar a conta do usuario. Isto e ausencia de cracha, nao porta fechada."
+  },
+  "meta_ads_library_ui_access_http": {
+    "http": "403",
+    "bytes": "481",
+    "corpo": "<!DOCTYPE html>\n<html>\n<head>\n<title>Ad Library</title>\n</head>\n<body>\n<script>\n\n(function() {\n  if (document.readyState !== 'loading') {\n    executeChallenge();\n  } else {\n    document.addEventListener('DOMContentLoaded', executeChallenge);\n  }\n  function executeChallenge() {\n    fetch('/__rd_verify_Q_6hBQRJDKW9ZlvJzPpRArm7tB_3cGzM6lcMZyz0Lgvwr35jgA?challenge=3', {\n      method: 'POST',\n    })\n  ",
+    "url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ES&q=fungicida&media_type=all&locale=en_US",
+    "estado": "UI_BLOQUEADA"
+  },
+  "meta_ads_library_ui_access_janela": {
+    "estado": "UI_ABERTA_SEM_LOGIN",
+    "navegador": "Chrome/151.0.7922.174",
+    "medidas": [
+      {
+        "country": "ES",
+        "url_pedida": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ES&q=fungicida&media_type=all&locale=en_US",
+        "url_final": "https://web.facebook.com/ads/library/?active_status=active&ad_type=all&country=ES&is_targeted_country=false&media_type=all&q=fungicida&search_type=keyword_unordered&sort_data[mode]=total_impressions&sort_data[direction]=desc",
+        "titulo": "Ad Library",
+        "bytes": 1983991,
+        "resultados_declarados": "38",
+        "sessao": "NAO_LOGADO",
+        "cartoes_lidos_sem_rolar": 24
+      },
+      {
+        "country": "IT",
+        "url_pedida": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=IT&q=fungicida&media_type=all&locale=en_US",
+        "url_final": "https://web.facebook.com/ads/library/?active_status=active&ad_type=all&country=IT&is_targeted_country=false&media_type=all&q=fungicida&search_type=keyword_unordered&sort_data[mode]=total_impressions&sort_data[direction]=desc",
+        "titulo": "Ad Library",
+        "bytes": 1593589,
+        "resultados_declarados": "13",
+        "sessao": "NAO_LOGADO",
+        "cartoes_lidos_sem_rolar": 13
+      },
+      {
+        "country": "FR",
+        "url_pedida": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=FR&q=fungicida&media_type=all&locale=en_US",
+        "url_final": "https://web.facebook.com/ads/library/?active_status=active&ad_type=all&country=FR&is_targeted_country=false&media_type=all&q=fungicida&search_type=keyword_unordered&sort_data[mode]=total_impressions&sort_data[direction]=desc",
+        "titulo": "Ad Library",
+        "bytes": 1321590,
+        "resultados_declarados": null,
+        "sessao": "NAO_LOGADO",
+        "cartoes_lidos_sem_rolar": 0
+      }
+    ]
+  },
+  "eu_commercial_ad_access": "PROVED",
+  "meta_route": "META_ADS_LIBRARY_UI_CHROME_COM_JANELA",
+  "limitacoes": [
+    "Sem token de aplicativo, a rota oficial nao pode ser exercida. A missao proibe usar a conta do usuario para obter um.",
+    "A leitura por janela le o que a pagina publica MOSTRA. Se a Meta esconder um campo da UI, ele nao existe nesta coleta — e ausencia de campo na fonte, nao ausencia no mundo.",
+    "Rolagem infinita: a contagem so e completa quando a lista para de crescer. Ver COMPLETA_OBSERVADA / TRUNCADA_POR_LIMITE."
+  ]
+}
