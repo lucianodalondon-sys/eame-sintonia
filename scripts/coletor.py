@@ -102,8 +102,19 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     manifesto = pv.novo_run(
         run_id, PLATFORM=platform, ACTOR=actor,
         ACTOR_VERSION=d.get('buildNumber') or d.get('buildId') or pv.NOT_PRESERVED,
-        STARTED_AT=d.get('startedAt') or started,
-        FINISHED_AT=d.get('finishedAt') or agora(),
+        # HORA SÓ DA PLATAFORMA. O fallback anterior era `or started` / `or agora()`, e
+        # `started` é a hora LOCAL de quando o coletor começou a chamar. Numa execução que
+        # falha, a plataforma não devolve `data` — e o manifesto passava a registrar a
+        # hora local como se fosse a hora de execução. É exatamente a promoção que a lei
+        # desta casa proíbe, e foi um teste do próprio repositório que a flagrou nas
+        # execuções falhas do piloto de sensores.
+        #
+        #     HORA DE ESCRITA != HORA DE EXECUÇÃO, inclusive quando a execução falhou.
+        #
+        # Sem hora medida, `NOT_PRESERVED` — e `pv.ordem()` devolve NAO_DIZIVEL, que é a
+        # resposta certa. A hora local continua guardada, no campo dela: OUTPUT_WRITTEN_AT.
+        STARTED_AT=d.get('startedAt') or pv.NOT_PRESERVED,
+        FINISHED_AT=d.get('finishedAt') or pv.NOT_PRESERVED,
         INPUT=entrada, COUNTRY=country, MISSION=mission, QUERY=query,
         DATASET_ID=dataset or pv.NOT_PRESERVED,
         ITEM_COUNT_RAW=len(itens), ITEM_COUNT_NORMALIZED=pv.NOT_PRESERVED,
@@ -116,13 +127,33 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     return itens, manifesto
 
 
-def registrar(manifesto, *, item_count_normalized=None):
-    """Acrescenta a execução ao manifesto persistido, sem apagar as anteriores."""
+def registrar(manifesto, *, item_count_normalized=None, reconciliar=False):
+    """Grava a execução como FRAGMENTO PRÓPRIO, sob a pasta do dono dela.
+
+    A versão anterior lia o manifesto global inteiro, acrescentava uma linha e reescrevia
+    o arquivo todo. Com uma missão só, funcionava. Com duas rodando nos mesmos runners,
+    virou o defeito: dois processos reescrevendo o mesmo arquivo global deram
+    `CONFLICT (content)` num rebase, o rebase parou no meio, e 29 candidatos JÁ PAGOS
+    ficaram na máquina sem chegar ao repositório.
+
+        DINHEIRO GASTO != DADO PRESERVADO.
+
+    Agora cada execução escreve `data/runs/<DONO>/<RUN_ID>.json`, de forma atômica. Dois
+    donos não compartilham caminho, então não há concorrência a gerenciar — ela deixa de
+    existir. O índice global vira uma VISTA, reconstruível por `pv.reconciliar()`.
+
+    `reconciliar=True` refaz o índice global na hora, e fica DESLIGADO por padrão de
+    propósito: reconciliar dentro de uma coleta paralela reintroduziria exatamente a
+    escrita concorrente que este arquivo passou a evitar. Reconciliação é passo
+    serializado, feito depois, por quem consolida.
+    """
     if item_count_normalized is not None:
         manifesto['ITEM_COUNT_NORMALIZED'] = item_count_normalized
-    runs = pv.carregar()
-    runs[manifesto['RUN_ID']] = manifesto
-    pv.gravar([runs[k] for k in sorted(runs)], captured_at=agora()[:10])
+    if manifesto.get('DATASET_OWNER') in (None, '', pv.NOT_PRESERVED):
+        manifesto['DATASET_OWNER'] = pv.dono_da_missao(manifesto.get('MISSION'))
+    pv.gravar_fragmento(manifesto)
+    if reconciliar:
+        pv.reconciliar(agora()[:10])
     return manifesto
 
 

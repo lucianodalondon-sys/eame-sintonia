@@ -1,0 +1,36 @@
+{
+ "RUN_ID": "GATE-TEST-RUNMANIFEST-2026-08-29-d",
+ "PLATFORM": "LINKEDIN",
+ "ACTOR": "harvestapi~linkedin-profile-search",
+ "ACTOR_VERSION": "0.0.265",
+ "STARTED_AT": "2026-08-29T12:35:55.037Z",
+ "FINISHED_AT": "2026-08-29T12:36:07.437Z",
+ "INPUT": {
+  "profileScraperMode": "Full",
+  "searchQuery": "olivar",
+  "currentJobTitles": [
+   "asesor agrícola"
+  ],
+  "locations": [
+   "Spain"
+  ],
+  "maxItems": 5,
+  "takePages": 1
+ },
+ "COUNTRY": "ES",
+ "MISSION": "10B-ES",
+ "QUERY": "teste de portao do coletor — nao e coleta",
+ "DATASET_ID": "MbEX1fDkX0ahwQ6TO",
+ "ITEM_COUNT_RAW": 5,
+ "ITEM_COUNT_NORMALIZED": 5,
+ "COST_USD": 0,
+ "SOURCE_VERSION": "LinkedIn publico",
+ "STATUS": "SUCCESS",
+ "ERROR": "NOT_PRESERVED",
+ "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+ "EVIDENCE_PATH": "n/a — execucao de verificacao do portao",
+ "RAW_EVIDENCE_PATH": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "OUTPUT_WRITTEN_AT": "2026-08-29T12:36:07Z",
+ "DATASET_OWNER": "VOICE_ES"
+}

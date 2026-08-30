@@ -1,0 +1,29 @@
+{
+ "RUN_ID": "ES-T8-002-PROFILES-2026-08-29-a",
+ "PLATFORM": "LINKEDIN",
+ "ACTOR": "apify/harvestapi~linkedin-profile-scraper",
+ "ACTOR_VERSION": "NOT_PRESERVED",
+ "STARTED_AT": "NOT_PRESERVED",
+ "FINISHED_AT": "NOT_PRESERVED",
+ "INPUT": {
+  "profileScraperMode": "Profile details no email ($4 per 1k)",
+  "queries": "120 URLs de perfil em 12 lotes de 10 (limite do plano gratuito)",
+  "LISTA_LITERAL": "data/samples/ES-T8-002-entradas-enriquecimento.json"
+ },
+ "COUNTRY": "ES",
+ "MISSION": "10A-ES",
+ "QUERY": "enriquecimento de identidade das origens vindas da busca de posts",
+ "DATASET_ID": "NOT_PRESERVED",
+ "ITEM_COUNT_RAW": 120,
+ "ITEM_COUNT_NORMALIZED": 115,
+ "COST_USD": 0.484,
+ "SOURCE_VERSION": "LinkedIn público",
+ "STATUS": "SUCCESS",
+ "ERROR": "NOT_PRESERVED",
+ "CAPTURE_METHOD": "run-sync-get-dataset-items",
+ "EVIDENCE_PATH": "data/samples/ES-VOICE-LINKEDIN.json",
+ "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "OUTPUT_WRITTEN_AT": "2026-08-29T03:54:31Z",
+ "DATASET_OWNER": "VOICE_ES"
+}

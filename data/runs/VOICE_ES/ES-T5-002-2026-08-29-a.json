@@ -1,0 +1,28 @@
+{
+ "RUN_ID": "ES-T5-002-2026-08-29-a",
+ "PLATFORM": "OPENALEX",
+ "ACTOR": "scripts/corpus_es.py (coletor próprio, rota gratuita)",
+ "ACTOR_VERSION": "NOT_PRESERVED",
+ "STARTED_AT": "NOT_PRESERVED",
+ "FINISHED_AT": "NOT_PRESERVED",
+ "INPUT": {
+  "filtro": "institutions.country_code:es, publication_year:2019-2026",
+  "temas": "12, cada um com CROP e ISSUE declarados"
+ },
+ "COUNTRY": "ES",
+ "MISSION": "10A-ES",
+ "QUERY": "12 temas declarados",
+ "DATASET_ID": "NOT_PRESERVED",
+ "ITEM_COUNT_RAW": 1771,
+ "ITEM_COUNT_NORMALIZED": 1771,
+ "COST_USD": 0.0,
+ "SOURCE_VERSION": "OpenAlex, snapshot contínuo",
+ "STATUS": "SUCCESS",
+ "ERROR": "rota GRATUITA e replicável: o bruto é cache (D-003), a cadeia o refaz",
+ "CAPTURE_METHOD": "REST JSON sem chave",
+ "EVIDENCE_PATH": "data/samples/ES-T5-002-corpus-documentos.json",
+ "RAW_EVIDENCE_PATH": "data/raw/ES-T5-002/openalex_works.json",
+ "RAW_EVIDENCE_STATE": "NOT_APPLICABLE",
+ "OUTPUT_WRITTEN_AT": "NOT_PRESERVED",
+ "DATASET_OWNER": "VOICE_ES"
+}

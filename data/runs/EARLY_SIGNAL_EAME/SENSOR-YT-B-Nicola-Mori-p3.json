@@ -1,0 +1,35 @@
+{
+ "RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+ "PLATFORM": "YOUTUBE",
+ "ACTOR": "streamers~youtube-scraper",
+ "ACTOR_VERSION": "0.0.283",
+ "STARTED_AT": "2026-08-30T21:32:23.820Z",
+ "FINISHED_AT": "2026-08-30T21:32:39.342Z",
+ "INPUT": {
+  "searchQueries": [
+   "Nicola Mori University of Verona"
+  ],
+  "maxResults": 10,
+  "maxResultsShorts": 0,
+  "maxResultStreams": 0,
+  "videoType": "video"
+ },
+ "COUNTRY": "IT",
+ "MISSION": "13-PILOTO-SENSORES-TECNICOS",
+ "QUERY": "Nicola Mori University of Verona",
+ "DATASET_ID": "wcRRvRmhEukvdkbjZ",
+ "ITEM_COUNT_RAW": 10,
+ "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
+ "COST_USD": 0.008,
+ "SOURCE_VERSION": "captura de 2026-08-30",
+ "STATUS": "SUCCESS",
+ "ERROR": "statusMessage: Finished! Total 11 requests: 11 succeeded, 0 failed.",
+ "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+ "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/CANAIS-B.json",
+ "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-YT-B-Nicola-Mori-p3.raw.json.gz",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "OUTPUT_WRITTEN_AT": "2026-08-30T21:32:40Z",
+ "TOKEN_POSITION_USED": 3,
+ "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+ "DATASET_OWNER": "EARLY_SIGNAL_EAME"
+}

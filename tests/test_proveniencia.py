@@ -112,14 +112,52 @@ class TestOrdemExigeHoraMedida(unittest.TestCase):
                          'sem STARTED_AT/FINISHED_AT medidos, ordem nao e afirmavel')
         self.assertTrue(motivo)
 
+    # A LEI NÃO MUDOU. MUDOU O ATALHO QUE IDENTIFICAVA A PORTA ANTIGA.
+    #
+    # A versão anterior separava execução velha de nova por PREFIXO DO NOME:
+    # `not RUN_ID.startswith('GATE-TEST')`. Funcionava porque, naquele momento, as únicas
+    # execuções vindas da porta nova se chamavam `GATE-TEST-*`.
+    #
+    # As 12 execuções do piloto de sensores vieram da MESMA porta nova — capturam
+    # `startedAt` da plataforma E gravam `OUTPUT_WRITTEN_AT` — e não se chamam GATE-TEST.
+    # O atalho as classificou como antigas, e o teste quebrou apontando para dado correto.
+    #
+    #     CONVENÇÃO DE NOME NÃO É PROPRIEDADE DO DADO.
+    #
+    # O discriminador real já existe e o portão já o usa: `CAPTURE_METHOD`. A lei segue
+    # idêntica e segue asseverada — hora de escrita nunca vira hora de execução na porta
+    # ANTIGA, que é onde a hora de execução nunca foi medida. E entra a asserção inversa,
+    # que antes não existia.
+    PORTA_NOVA = 'POST /acts/{actor}/runs?waitForFinish'
+
     def test_hora_de_escrita_nao_e_hora_de_execucao(self):
         runs = pv.carregar()
-        antigas = [r for r in runs.values() if not r['RUN_ID'].startswith('GATE-TEST')]
+        antigas = [r for r in runs.values()
+                   if self.PORTA_NOVA not in str(r['CAPTURE_METHOD'])]
         com_escrita = [r for r in antigas if r['OUTPUT_WRITTEN_AT'] != pv.NOT_PRESERVED]
         self.assertTrue(com_escrita, 'a hora de escrita foi medida e precisa estar guardada')
         for r in com_escrita:
             self.assertEqual(pv.NOT_PRESERVED, r['STARTED_AT'],
                              'hora de escrita nao pode ser promovida a hora de execucao')
+
+    def test_porta_nova_mede_as_duas_horas_de_fontes_diferentes(self):
+        """O contraponto: quem passa pela porta nova TEM as duas, e elas não se confundem.
+
+        Sem esta asserção, o teste acima passaria num sistema que simplesmente parasse de
+        gravar `STARTED_AT` — o jeito mais fácil de nunca promover hora de escrita é não
+        ter hora de execução nenhuma.
+        """
+        runs = pv.carregar()
+        novas = [r for r in runs.values()
+                 if self.PORTA_NOVA in str(r['CAPTURE_METHOD'])
+                 and r['STATUS'] != 'FAILED']
+        self.assertTrue(novas, 'nenhuma execucao pela porta nova para verificar')
+        for r in novas:
+            self.assertNotEqual(pv.NOT_PRESERVED, r['OUTPUT_WRITTEN_AT'],
+                                'porta nova sem hora de escrita: %s' % r['RUN_ID'])
+            self.assertNotEqual(r['STARTED_AT'], r['OUTPUT_WRITTEN_AT'],
+                                'as duas horas ficaram identicas em %s — sinal de que uma '
+                                'foi copiada da outra' % r['RUN_ID'])
 
     def test_execucao_nova_sustenta_ordem(self):
         runs = pv.carregar()

@@ -1,0 +1,45 @@
+{
+ "RUN_ID": "ES-T8-002-TITLESEARCH-2026-08-29-a",
+ "PLATFORM": "LINKEDIN",
+ "ACTOR": "apify/harvestapi~linkedin-profile-search",
+ "ACTOR_VERSION": "NOT_PRESERVED",
+ "STARTED_AT": "NOT_PRESERVED",
+ "FINISHED_AT": "NOT_PRESERVED",
+ "INPUT": {
+  "rodada_1": {
+   "profileScraperMode": "Full",
+   "searchQuery": "olivar",
+   "currentJobTitles": [
+    "asesor agrícola",
+    "técnico agrícola",
+    "ingeniero agrónomo"
+   ],
+   "locations": [
+    "Spain"
+   ],
+   "maxItems": 10,
+   "takePages": 1
+  },
+  "rodada_2": "6 conjuntos cargo x região",
+  "rodada_3": "5 buscas só por cargo"
+ },
+ "COUNTRY": "ES",
+ "MISSION": "10A-ES",
+ "QUERY": "descoberta por CARGO DECLARADO, não por post",
+ "DATASET_ID": "NOT_PRESERVED",
+ "ITEM_COUNT_RAW": 101,
+ "ITEM_COUNT_NORMALIZED": 87,
+ "COST_USD": "NOT_PRESERVED",
+ "SOURCE_VERSION": "LinkedIn público",
+ "STATUS": "PARTIAL",
+ "ERROR": "4 das 11 consultas devolveram 0 — sobre-restricao, falha fechada. O bruto desta execucao foi fundido com o do enriquecimento antes de ser preservado: os dois compartilham o mesmo arquivo e NAO sao separaveis a posteriori.",
+ "CAPTURE_METHOD": "run-sync-get-dataset-items",
+ "EVIDENCE_PATH": "data/samples/ES-VOICE-LINKEDIN.json",
+ "RAW_EVIDENCE_PATH": [
+  "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+  "data/samples/raw-paid/ES-T8-002-titlesearch-test.raw.json.gz"
+ ],
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "OUTPUT_WRITTEN_AT": "2026-08-29T04:00:17Z",
+ "DATASET_OWNER": "VOICE_ES"
+}

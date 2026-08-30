@@ -77,6 +77,46 @@ WATCH = [
 ]
 
 
+# O BRUTO PAGO DEIXA DE SER LISTA DIGITADA.
+#
+# As oito linhas de `raw-paid` acima foram escritas a mao quando havia oito arquivos. O
+# piloto de sensores produziu mais de quarenta, e nenhum entrou — o relogio seguiu
+# dizendo que vigiava o bruto pago enquanto a maior parte dele estava fora.
+#
+# Uma lista digitada de arquivos e a mesma classe de defeito que esta casa ja proibiu para
+# denominador: ela nao acompanha o disco, e o silencio dela parece cobertura.
+#
+#     O DENOMINADOR NUNCA E UMA LISTA DIGITADA — nem quando quem digitou fui eu.
+#
+# Agora o conjunto vem do DIRETORIO. Arquivo novo em raw-paid entra vigiado sozinho, e o
+# teste que exige "todo bruto pago no relogio" passa a ser satisfeito por construcao, em
+# vez de por manutencao manual que ninguem lembra de fazer.
+RAW_PAID_REL = 'data/samples/raw-paid'
+
+
+def brutos_pagos(root=ROOT):
+    """Todo bruto pago que EXISTE em disco, em ordem estavel."""
+    d = os.path.join(root, RAW_PAID_REL)
+    if not os.path.isdir(d):
+        return []
+    return ['%s/%s' % (RAW_PAID_REL, n) for n in sorted(os.listdir(d))
+            if not n.startswith('.')]
+
+
+def watch_completo(root=ROOT):
+    """A lista declarada MAIS o que o diretorio de bruto pago tiver hoje."""
+    ja = {rel for _, rel, _, _ in WATCH}
+    fora = list(WATCH)
+    for rel in brutos_pagos(root):
+        if rel in ja:
+            continue
+        # SOURCE_ID derivado do nome do arquivo, que e o RUN_ID que o produziu.
+        sid = os.path.basename(rel).split('.raw.')[0]
+        fora.append((sid, rel, '2026-08-30',
+                     'CRITICA — bruto de rota nao replicavel (derivado do diretorio)'))
+    return fora
+
+
 def sha256(path, limit=None):
     h = hashlib.sha256()
     with open(path, 'rb') as f:
@@ -91,7 +131,7 @@ def sha256(path, limit=None):
 if __name__ == '__main__':
     today = datetime.date.today().isoformat()
     rows = []
-    for sid, rel, version, urgency in WATCH:
+    for sid, rel, version, urgency in watch_completo():
         p = os.path.join(ROOT, rel)
         if not os.path.exists(p):
             rows.append({'SOURCE_ID': sid, 'FILE': rel, 'STATUS': 'AUSENTE'})

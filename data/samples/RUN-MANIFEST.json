@@ -8,6 +8,12 @@
  "PARA_QUE_SERVE": "dado um registro qualquer, o RUN_ID leva a esta tabela e a tabela diz que ator rodou, com que entrada, quando, quanto custou e onde está a evidência bruta. Sem isto o RUN_ID só agrupa registros entre si.",
  "CAMPO_DESCONHECIDO": "NOT_PRESERVED significa que o campo existiu na execução e não foi capturado. É confissão, não ausência de dado — e é diferente de NÃO SEI, que é a fonte não informar.",
  "NUNCA_GRAVAR_TOKEN": "INPUT guarda consulta e parâmetros. Credencial, jamais.",
+ "DONO_DO_DADO": "toda execução declara DATASET_OWNER. Runner compartilhado entre missões é permitido; dataset misturado não é. Contar execuções sem filtrar por dono mistura missões e produz um número que parece certo.",
+ "ESCRITA_PRIMARIA": "este arquivo é DERIVADO de data/runs/<DONO>/<RUN_ID>.json. Ele não é o ponto de escrita concorrente — cada execução escreve o próprio fragmento, e dois donos nunca tocam o mesmo caminho.",
+ "RUNS_BY_OWNER": {
+  "EARLY_SIGNAL_EAME": 12,
+  "VOICE_ES": 10
+ },
  "RUNS": [
   {
    "RUN_ID": "ES-T5-002-2026-08-29-a",
@@ -34,7 +40,8 @@
    "EVIDENCE_PATH": "data/samples/ES-T5-002-corpus-documentos.json",
    "RAW_EVIDENCE_PATH": "data/raw/ES-T5-002/openalex_works.json",
    "RAW_EVIDENCE_STATE": "NOT_APPLICABLE",
-   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED"
+   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "ES-T8-001-2026-08-29-a",
@@ -81,7 +88,8 @@
    "EVIDENCE_PATH": "data/samples/ES-T8-001-videos.json",
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T03:30:45Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:30:45Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "ES-T8-001-COMMENTS-2026-08-29-a",
@@ -109,7 +117,8 @@
    "EVIDENCE_PATH": "data/samples/ES-T8-001-comentarios.json",
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T04:42:28Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T04:42:28Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "ES-T8-001-TRANSCRIPT-2026-08-29-a",
@@ -196,7 +205,8 @@
    "EVIDENCE_PATH": "data/samples/ES-T8-001-transcricoes.json",
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T03:37:37Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:37:37Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "ES-T8-002-2026-08-29-a",
@@ -256,7 +266,8 @@
     "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz"
    ],
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T03:21:49Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:21:49Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "ES-T8-002-PROFILES-2026-08-29-a",
@@ -284,7 +295,8 @@
    "EVIDENCE_PATH": "data/samples/ES-VOICE-LINKEDIN.json",
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T03:54:31Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:54:31Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "ES-T8-002-TITLESEARCH-2026-08-29-a",
@@ -328,7 +340,8 @@
     "data/samples/raw-paid/ES-T8-002-titlesearch-test.raw.json.gz"
    ],
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T04:00:17Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T04:00:17Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "ES-T8-003-2026-08-29-a",
@@ -363,7 +376,8 @@
    "EVIDENCE_PATH": "data/samples/ES-VOICE-INSTAGRAM.json",
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-003-instagram-hashtags.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T03:57:18Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T03:57:18Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "GATE-TEST-RUNMANIFEST-2026-08-29-c",
@@ -398,7 +412,8 @@
    "EVIDENCE_PATH": "n/a — execucao de verificacao do portao",
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-c.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T12:35:02Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T12:35:02Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "GATE-TEST-RUNMANIFEST-2026-08-29-d",
@@ -433,7 +448,8 @@
    "EVIDENCE_PATH": "n/a — execucao de verificacao do portao",
    "RAW_EVIDENCE_PATH": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz",
    "RAW_EVIDENCE_STATE": "PRESERVED",
-   "OUTPUT_WRITTEN_AT": "2026-08-29T12:36:07Z"
+   "OUTPUT_WRITTEN_AT": "2026-08-29T12:36:07Z",
+   "DATASET_OWNER": "VOICE_ES"
   },
   {
    "RUN_ID": "SENSOR-LI-B-Andrea-Sánchez-Vallet-p3",
@@ -469,7 +485,8 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:31:34Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-LI-B-Cristian-Carrasco-López-p3",
@@ -505,7 +522,8 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:31:50Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-LI-B-F--Quaglino-p3",
@@ -541,7 +559,8 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:32:04Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-LI-B-Frédéric-Suffert-p3",
@@ -577,7 +596,8 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:32:46Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-LI-B-Nicola-Mori-p3",
@@ -613,7 +633,8 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:32:23Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-LI-B-Thierry-C--Marcel-p3",
@@ -649,15 +670,16 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:33:01Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-YT-B-Andrea-Sánchez-Vallet-p3",
    "PLATFORM": "YOUTUBE",
    "ACTOR": "streamers~youtube-scraper",
    "ACTOR_VERSION": "NOT_PRESERVED",
-   "STARTED_AT": "2026-08-30T21:31:34Z",
-   "FINISHED_AT": "2026-08-30T21:31:44Z",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
    "INPUT": {
     "searchQueries": [
      "Andrea Sánchez‐Vallet Centre for Plant Biotechnology and Genomics"
@@ -683,15 +705,16 @@
    "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:31:44Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-YT-B-Cristian-Carrasco-López-p3",
    "PLATFORM": "YOUTUBE",
    "ACTOR": "streamers~youtube-scraper",
    "ACTOR_VERSION": "NOT_PRESERVED",
-   "STARTED_AT": "2026-08-30T21:31:50Z",
-   "FINISHED_AT": "2026-08-30T21:31:55Z",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
    "INPUT": {
     "searchQueries": [
      "Cristian Carrasco‐López Centre for Plant Biotechnology and Genomics"
@@ -717,7 +740,8 @@
    "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:31:55Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-YT-B-F--Quaglino-p3",
@@ -751,7 +775,8 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:32:18Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-YT-B-Frédéric-Suffert-p3",
@@ -785,7 +810,8 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:32:53Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
@@ -819,15 +845,16 @@
    "RAW_EVIDENCE_STATE": "PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:32:40Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   },
   {
    "RUN_ID": "SENSOR-YT-B-Thierry-C--Marcel-p3",
    "PLATFORM": "YOUTUBE",
    "ACTOR": "streamers~youtube-scraper",
    "ACTOR_VERSION": "NOT_PRESERVED",
-   "STARTED_AT": "2026-08-30T21:33:01Z",
-   "FINISHED_AT": "2026-08-30T21:33:16Z",
+   "STARTED_AT": "NOT_PRESERVED",
+   "FINISHED_AT": "NOT_PRESERVED",
    "INPUT": {
     "searchQueries": [
      "Thierry C. Marcel Institut National de Recherche pour l'Agriculture"
@@ -853,7 +880,8 @@
    "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
    "OUTPUT_WRITTEN_AT": "2026-08-30T21:33:16Z",
    "TOKEN_POSITION_USED": 3,
-   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2"
+   "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+   "DATASET_OWNER": "EARLY_SIGNAL_EAME"
   }
  ]
 }

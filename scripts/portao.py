@@ -117,8 +117,24 @@ def avaliar():
     # O invariante não é "existem N execuções com hora": é "toda execução que passou pela
     # porta nova tem hora MEDIDA PELA PLATAFORMA". As antigas legitimamente não têm, e
     # nunca terão — o que elas não podem é fingir que têm.
+    #
+    # EXECUÇÃO QUE FALHOU NÃO TEM HORA PARA MEDIR, e exigir uma é pedir invenção.
+    # Quando o ator recusa a entrada ou a rede cai, a plataforma não devolve `data`: não
+    # existe `startedAt`, porque não houve execução na plataforma. A versão anterior do
+    # coletor preenchia esse buraco com a hora LOCAL, e o portão ficava verde lendo hora
+    # de escrita como hora de execução — exatamente a promoção que a lei proíbe.
+    #
+    # Corrigido o coletor para gravar NOT_PRESERVED, três execuções falhas do piloto de
+    # sensores passaram a barrar este portão. O defeito não era delas: era do invariante,
+    # que supunha que tudo o que passa pela porta nova chega a rodar.
+    #
+    #     FALHOU != RODOU SEM HORA.
+    #
+    # O invariante correto é sobre execução que EXECUTOU. A falha continua no manifesto,
+    # continua contada, e continua sem sustentar ordem — que é o estado certo para ela.
     PORTA_NOVA = 'POST /acts/{actor}/runs?waitForFinish'
-    pela_porta = [r for r in runs.values() if PORTA_NOVA in str(r['CAPTURE_METHOD'])]
+    pela_porta = [r for r in runs.values()
+                  if PORTA_NOVA in str(r['CAPTURE_METHOD']) and r['STATUS'] != 'FAILED']
     sem_hora = [r['RUN_ID'] for r in pela_porta
                 if pv.NOT_PRESERVED in (r['STARTED_AT'], r['FINISHED_AT'])]
     fingindo = [r['RUN_ID'] for r in runs.values()

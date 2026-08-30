@@ -1,0 +1,36 @@
+{
+ "RUN_ID": "GATE-TEST-RUNMANIFEST-2026-08-29-c",
+ "PLATFORM": "LINKEDIN",
+ "ACTOR": "harvestapi~linkedin-profile-search",
+ "ACTOR_VERSION": "0.0.265",
+ "STARTED_AT": "2026-08-29T12:34:56.146Z",
+ "FINISHED_AT": "2026-08-29T12:35:01.794Z",
+ "INPUT": {
+  "profileScraperMode": "Full",
+  "searchQuery": "olivar",
+  "currentJobTitles": [
+   "asesor agrícola"
+  ],
+  "locations": [
+   "Spain"
+  ],
+  "maxItems": 5,
+  "takePages": 1
+ },
+ "COUNTRY": "ES",
+ "MISSION": "10B-ES",
+ "QUERY": "teste de portao do coletor — nao e coleta",
+ "DATASET_ID": "q7CzW9bd6PN3wTpGM",
+ "ITEM_COUNT_RAW": 0,
+ "ITEM_COUNT_NORMALIZED": 0,
+ "COST_USD": 0,
+ "SOURCE_VERSION": "LinkedIn publico",
+ "STATUS": "PARTIAL",
+ "ERROR": "SUCCEEDED com ZERO itens — degradacao que se apresenta como sucesso. statusMessage da plataforma: \"free user run limit reached\" (o ator limita contas gratuitas a 10 execucoes). Registro corrigido depois que o coletor passou a detectar este caso.",
+ "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+ "EVIDENCE_PATH": "n/a — execucao de verificacao do portao",
+ "RAW_EVIDENCE_PATH": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-c.raw.json.gz",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "OUTPUT_WRITTEN_AT": "2026-08-29T12:35:02Z",
+ "DATASET_OWNER": "VOICE_ES"
+}

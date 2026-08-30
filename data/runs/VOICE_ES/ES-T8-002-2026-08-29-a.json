@@ -1,0 +1,61 @@
+{
+ "RUN_ID": "ES-T8-002-2026-08-29-a",
+ "PLATFORM": "LINKEDIN",
+ "ACTOR": "apify/harvestapi~linkedin-post-search",
+ "ACTOR_VERSION": "NOT_PRESERVED",
+ "STARTED_AT": "NOT_PRESERVED",
+ "FINISHED_AT": "NOT_PRESERVED",
+ "INPUT": {
+  "lote_a": {
+   "searchQueries": [
+    "repilo olivo",
+    "Venturia oleaginea",
+    "olivar fungicida",
+    "sanidad vegetal olivar"
+   ],
+   "maxPosts": 25,
+   "postedLimit": "any",
+   "sortBy": "date"
+  },
+  "lote_b": {
+   "searchQueries": [
+    "repilo del olivo",
+    "Venturia oleaginea olivar",
+    "tuberculosis del olivo",
+    "Verticillium olivar",
+    "sanidad vegetal olivar España",
+    "fungicida olivar",
+    "olivar Andalucía plaga",
+    "asesoramiento fitosanitario olivar",
+    "tratamiento olivar cobre",
+    "Xylella olivar España",
+    "mosca del olivo Bactrocera",
+    "agronomo olivar",
+    "cooperativa olivar tratamiento",
+    "RAIF Andalucía"
+   ],
+   "maxPosts": 40,
+   "postedLimit": "any",
+   "sortBy": "date"
+  }
+ },
+ "COUNTRY": "ES",
+ "MISSION": "10A-ES",
+ "QUERY": "18 termos técnicos sobre olivar e sanidade vegetal",
+ "DATASET_ID": "NOT_PRESERVED",
+ "ITEM_COUNT_RAW": 472,
+ "ITEM_COUNT_NORMALIZED": 372,
+ "COST_USD": "NOT_PRESERVED",
+ "SOURCE_VERSION": "LinkedIn público",
+ "STATUS": "SUCCESS",
+ "ERROR": "100 duplicatas por POST_ID entre consultas — ver DEDUPE",
+ "CAPTURE_METHOD": "run-sync-get-dataset-items",
+ "EVIDENCE_PATH": "data/samples/ES-T8-002-posts.json",
+ "RAW_EVIDENCE_PATH": [
+  "data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz",
+  "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz"
+ ],
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "OUTPUT_WRITTEN_AT": "2026-08-29T03:21:49Z",
+ "DATASET_OWNER": "VOICE_ES"
+}

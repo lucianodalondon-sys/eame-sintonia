@@ -1,0 +1,29 @@
+{
+ "RUN_ID": "ES-T8-001-COMMENTS-2026-08-29-a",
+ "PLATFORM": "YOUTUBE",
+ "ACTOR": "apify/streamers~youtube-comments-scraper",
+ "ACTOR_VERSION": "NOT_PRESERVED",
+ "STARTED_AT": "NOT_PRESERVED",
+ "FINISHED_AT": "NOT_PRESERVED",
+ "INPUT": {
+  "startUrls": "48 vídeos on-topic (ISSUE declarado) com >=1 comentário",
+  "maxComments": 40,
+  "sortCommentsBy": "TOP_COMMENTS"
+ },
+ "COUNTRY": "ES",
+ "MISSION": "10A-ES",
+ "QUERY": "comentários dos 48 vídeos on-topic",
+ "DATASET_ID": "NOT_PRESERVED",
+ "ITEM_COUNT_RAW": 346,
+ "ITEM_COUNT_NORMALIZED": 346,
+ "COST_USD": "NOT_PRESERVED",
+ "SOURCE_VERSION": "comentários públicos; a rota devolve tempo relativo, não data",
+ "STATUS": "SUCCESS",
+ "ERROR": "NOT_PRESERVED",
+ "CAPTURE_METHOD": "run-sync-get-dataset-items",
+ "EVIDENCE_PATH": "data/samples/ES-T8-001-comentarios.json",
+ "RAW_EVIDENCE_PATH": "data/samples/raw-paid/ES-T8-001-youtube-comments.raw.json.gz",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "OUTPUT_WRITTEN_AT": "2026-08-29T04:42:28Z",
+ "DATASET_OWNER": "VOICE_ES"
+}

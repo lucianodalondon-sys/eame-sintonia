@@ -1,0 +1,35 @@
+{
+ "RUN_ID": "SENSOR-YT-B-F--Quaglino-p3",
+ "PLATFORM": "YOUTUBE",
+ "ACTOR": "streamers~youtube-scraper",
+ "ACTOR_VERSION": "0.0.283",
+ "STARTED_AT": "2026-08-30T21:32:04.843Z",
+ "FINISHED_AT": "2026-08-30T21:32:17.001Z",
+ "INPUT": {
+  "searchQueries": [
+   "F. Quaglino University of Milan"
+  ],
+  "maxResults": 10,
+  "maxResultsShorts": 0,
+  "maxResultStreams": 0,
+  "videoType": "video"
+ },
+ "COUNTRY": "IT",
+ "MISSION": "13-PILOTO-SENSORES-TECNICOS",
+ "QUERY": "F. Quaglino University of Milan",
+ "DATASET_ID": "qZs00AhGIyR2aiMOK",
+ "ITEM_COUNT_RAW": 6,
+ "ITEM_COUNT_NORMALIZED": "NOT_PRESERVED",
+ "COST_USD": 0.012,
+ "SOURCE_VERSION": "captura de 2026-08-30",
+ "STATUS": "SUCCESS",
+ "ERROR": "statusMessage: Finished! Total 8 requests: 8 succeeded, 0 failed.",
+ "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+ "EVIDENCE_PATH": "data/samples/SENSOR-PILOT/CANAIS-B.json",
+ "RAW_EVIDENCE_PATH": "data/samples/raw-paid/SENSOR-YT-B-F--Quaglino-p3.raw.json.gz",
+ "RAW_EVIDENCE_STATE": "PRESERVED",
+ "OUTPUT_WRITTEN_AT": "2026-08-30T21:32:18Z",
+ "TOKEN_POSITION_USED": 3,
+ "RUNNER_NAME": "SINTONIA-EAME-LOCAL-2",
+ "DATASET_OWNER": "EARLY_SIGNAL_EAME"
+}
