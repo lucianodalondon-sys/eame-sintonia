@@ -11,6 +11,7 @@ disco.
     python3 scripts/storage_preservar.py --provar-destino   # so leitura, nao envia
     python3 scripts/storage_preservar.py --diagnosticar     # inventario + UMA tentativa
     python3 scripts/storage_preservar.py --enviar           # exige autenticação
+    python3 scripts/storage_preservar.py --enviar --so-ausentes # so o que falta NO BUCKET
     python3 scripts/storage_preservar.py --enviar --so-falhos  # so o que falhou antes
     python3 scripts/storage_preservar.py --enviar --sem-verificar-hash
 
@@ -51,6 +52,7 @@ import json
 import os
 import re
 import sys
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -76,6 +78,68 @@ def _sha_e_bytes(caminho):
             h.update(bloco)
             n += len(bloco)
     return h.hexdigest(), n
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 0 · A CHAVE DE STORAGE — dono único, provado por resposta do servidor
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# O Supabase recusou 10 dos 196 com corpo explícito:
+#
+#     {"statusCode":"400","error":"InvalidKey","code":"InvalidKey",
+#      "message":"Invalid key: ES/adama-website/.../0bc1...-Díptico Ordago...pdf"}
+#
+# Não é suposição a partir do número: é o servidor nomeando a causa. O conjunto que
+# ele aceita é o de baixo — e o teste de falsificação já tinha derrubado espaço (83
+# objetos preservados o têm) e parênteses (41 o têm). Nenhum dos dois sai daqui.
+#
+# O que a regra faz, em ordem, sem depender de locale nem de sistema de arquivos:
+#
+#   1. NFC no caminho inteiro   "Di"+U+0301 e "Dí" viram A MESMA coisa. Sem isto, o
+#                               mesmo arquivo geraria duas chaves dependendo de a
+#                               fonte ter mandado decomposto ou composto — e o
+#                               `title` da ADAMA manda dos dois jeitos.
+#   2. dobra o acento para ASCII  í -> i, ñ -> n. Legível, e não perde nada: o nome
+#                               original fica guardado em ORIGINAL_FILENAME.
+#   3. o que sobrar fora do conjunto vira "_"   inclusive "%", que é o caso do
+#                               media 581 — mesma lei, caractere diferente.
+#   4. limite de tamanho por segmento, preservando a extensão.
+#
+# PATH != IDENTITY. A identidade continua sendo run_id + sha256 + metadata + source
+# url. O nome físico é infraestrutura, e pode ser seguro sem mudar o que o asset É.
+
+# Conjunto aceito pelo Storage. '/' fica de fora de propósito: é separador de pasta e
+# é tratado antes, segmento a segmento.
+_PERMITIDO = set(
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
+    "!-.*'() &$@=;:+,?"
+)
+_MAX_SEGMENTO = 120
+
+
+def chave_de_storage(bruta):
+    """Caminho de objeto seguro e DETERMINÍSTICO. Mesmo asset, sempre a mesma chave."""
+    segmentos = []
+    for seg in unicodedata.normalize('NFC', bruta or '').split('/'):
+        if not seg:
+            continue
+        # dobra acento: decompõe e joga fora a marca combinante
+        base = ''.join(c for c in unicodedata.normalize('NFD', seg)
+                       if unicodedata.category(c) != 'Mn')
+        limpo = ''.join(c if c in _PERMITIDO else '_' for c in base)
+        limpo = _encurtar(limpo)
+        segmentos.append(limpo if limpo.strip('.') else '_')
+    return '/'.join(segmentos)
+
+
+def _encurtar(seg):
+    """Corta pelo meio do NOME, nunca da extensão — e só quando passa do limite."""
+    if len(seg) <= _MAX_SEGMENTO:
+        return seg
+    raiz, ponto, ext = seg.rpartition('.')
+    if ponto and 0 < len(ext) <= 8:
+        return raiz[:_MAX_SEGMENTO - len(ext) - 1] + '.' + ext
+    return seg[:_MAX_SEGMENTO]
 
 
 def plano():
@@ -120,12 +184,17 @@ def plano():
                               'ERRO': 'disco diverge do manifesto',
                               'SHA_DISCO': sha, 'SHA_MANIFESTO': d['SHA256']})
             continue
-        objeto = chave_do_doc.get(mid) or 'ES/adama-website/sem-produto/%s-%s' % (
+        bruta = chave_do_doc.get(mid) or 'ES/adama-website/sem-produto/%s-%s' % (
             sha[:16], d['ARQUIVO'])
         itens.append({
             'CLASSE': 'DOCUMENTO', 'MEDIA_ID': mid,
             'ARQUIVO_LOCAL': os.path.relpath(caminho, ROOT).replace('\\', '/'),
-            'OBJETO': objeto, 'MEDIA_TYPE': d.get('MIME') or 'application/pdf',
+            # ORIGINAL_FILENAME não é decoração: é o nome que a ADAMA publicou, e é o
+            # que permite achar o arquivo de volta na fonte. A chave é infraestrutura.
+            'ORIGINAL_FILENAME': bruta.rsplit('/', 1)[-1],
+            'OBJETO_BRUTO': bruta,
+            'OBJETO': chave_de_storage(bruta),
+            'MEDIA_TYPE': d.get('MIME') or 'application/pdf',
             'BYTES': n, 'SHA256': sha,
             'CAPTURADO_EM': captura_do_doc.get(mid) or d.get('CAPTURA_UTC'),
             'SOURCE_URL': 'https://www.adama.com/spain/es/media/%s/download?attachment' % mid,
@@ -148,10 +217,13 @@ def plano():
                                       'ERRO': 'disco diverge do manifesto'})
                     continue
                 nome = os.path.basename(caminho)
+                bruta = 'ES/adama-website/paginas/%s-%s' % (sha[:16], nome)
                 itens.append({
                     'CLASSE': 'PAGINA', 'URL': r['URL'],
                     'ARQUIVO_LOCAL': r['ARQUIVO'],
-                    'OBJETO': 'ES/adama-website/paginas/%s-%s' % (sha[:16], nome),
+                    'ORIGINAL_FILENAME': nome,
+                    'OBJETO_BRUTO': bruta,
+                    'OBJETO': chave_de_storage(bruta),
                     'MEDIA_TYPE': 'text/html; charset=utf-8',
                     'BYTES': n, 'SHA256': sha,
                     'CAPTURADO_EM': None, 'SOURCE_URL': r['URL'], 'ESTADO': 'PENDING',
@@ -166,9 +238,12 @@ def plano():
         sha, n = _sha_e_bytes(caminho)
         with open(caminho, encoding='utf-8') as f:
             cap = json.load(f).get('CAPTURA_UTC')
+        bruta = 'ES/adama-website/pacotes/%s-%s' % (sha[:16], nome)
         itens.append({
             'CLASSE': 'PACOTE', 'ARQUIVO_LOCAL': 'data/raw/ES/adama-website/' + nome,
-            'OBJETO': 'ES/adama-website/pacotes/%s-%s' % (sha[:16], nome),
+            'ORIGINAL_FILENAME': nome,
+            'OBJETO_BRUTO': bruta,
+            'OBJETO': chave_de_storage(bruta),
             'MEDIA_TYPE': 'application/json', 'BYTES': n, 'SHA256': sha,
             'CAPTURADO_EM': cap, 'SOURCE_URL': 'https://www.adama.com/spain/es/',
             'ESTADO': 'PENDING',
@@ -427,10 +502,31 @@ def preservar(itens, url, key, verificar_hash=True):
         elif ja_existia:
             it['ESTADO'] = 'ALREADY_PRESENT'
         else:
+            # HTTP 5XX != OBJETO NÃO PRESERVADO.
+            #
+            # Medido em 2026-08-30: o media 2981 recebeu 520 no upload e foi carimbado
+            # FAILED — mas o inventário remoto depois provou que o objeto ESTAVA lá.
+            # 520 é a resposta que se perdeu, não a gravação. Antes de chamar de falha,
+            # pergunta-se ao bucket; a verdade do estado é o objeto remoto, não o
+            # número que o proxy devolveu.
+            st2, volta = _http(url, key, 'GET', alvo)
+            if (st2 == 200 and len(volta) == it['BYTES']
+                    and hashlib.sha256(volta).hexdigest() == it['SHA256']):
+                it['ESTADO'] = 'ALREADY_PRESENT_VERIFIED'
+                it['VERIFICACAO'] = 'SHA256_DEPOIS_DE_BAIXAR_DE_VOLTA'
+                it['RESPOSTA_AMBIGUA'] = {
+                    'HTTP_NO_UPLOAD': st,
+                    'PORQUE_NAO_E_FALHA': ('o upload devolveu %s, mas o objeto esta no '
+                                           'bucket e os bytes de volta batem com o '
+                                           'sha256 local' % st),
+                    'DIAGNOSTICO': detalhe}
+                continue
             it['ESTADO'] = 'FAILED_WITH_REASON'
             # O motivo carrega o CORPO, não só o número. "HTTP 400" sozinho não diz se a
             # correção é no nome do objeto, no tamanho, no mime ou em outro lugar.
             it['MOTIVO'] = 'upload devolveu HTTP %s' % st
+            it['CONFERENCIA_REMOTA_APOS_FALHA'] = {'HTTP_NO_GET': st2,
+                                                   'BYTES_DE_VOLTA': len(volta or b'')}
             it['DIAGNOSTICO'] = detalhe
             continue
 
@@ -479,6 +575,9 @@ def resumo(itens, capturado_em=None):
         'HASH_MISMATCH': sum(1 for i in itens
                              if i['ESTADO'] == 'FAILED_WITH_REASON'
                              and 'NAO batem' in (i.get('MOTIVO') or '')),
+        'SEM_ESTADO_CONHECIDO': sum(1 for i in itens
+                                    if i['ESTADO'] in ('PENDING',
+                                                       'NAO_MEDIDO_NESTA_EXECUCAO')),
         'LEI': ('preserved=true so para VERIFIED e ALREADY_PRESENT_VERIFIED. HTTP 200 no '
                 'upload diz que o servidor aceitou, nao que os bytes certos chegaram.'),
     }
@@ -607,7 +706,27 @@ if __name__ == '__main__':
         if os.path.exists(RELATORIO):
             with open(RELATORIO, encoding='utf-8') as f:
                 anterior = json.load(f)
-        if '--so-falhos' in sys.argv:
+        remoto_antes, estado_anterior = None, {}
+        if anterior:
+            estado_anterior = {a['OBJETO']: a for a in anterior['ASSETS']}
+
+        if '--so-ausentes' in sys.argv:
+            # A verdade do que falta é o BUCKET, não o relatório da rodada passada.
+            # O relatório errou por 1 em 2026-08-30 (disse FAILED sobre objeto que
+            # estava lá), e reenviar a partir de relatório velho é reenviar cego.
+            remoto_antes, erros = inventario_remoto(url, key)
+            if erros:
+                print('ERROS_DE_LISTAGEM=%s' % erros[:3])
+                print('recuso calcular ausentes sobre inventario incompleto')
+                sys.exit(7)
+            alvos = [a for a in p['ASSETS'] if a['OBJETO'] not in remoto_antes]
+            print('REMOTE_BEFORE=%d  DO_PLANO_PRESENTES=%d  ALVOS_AUSENTES=%d'
+                  % (len(remoto_antes),
+                     sum(1 for a in p['ASSETS'] if a['OBJETO'] in remoto_antes),
+                     len(alvos)))
+            for a in alvos:
+                print('  ALVO %-6s %s' % (a.get('MEDIA_ID'), a['OBJETO'].split('/')[-1]))
+        elif '--so-falhos' in sys.argv:
             if not anterior:
                 print('sem relatorio anterior — nao sei quais foram os falhos')
                 sys.exit(6)
@@ -620,17 +739,59 @@ if __name__ == '__main__':
         itens = preservar(alvos, url, key,
                           verificar_hash='--sem-verificar-hash' not in sys.argv)
 
+        # Quem já estava no bucket e não foi alvo: o estado vem do INVENTÁRIO, medido
+        # agora, não do relatório antigo. Foi assim que o 185º apareceu.
+        if remoto_antes is not None:
+            alvo_obj = {a['OBJETO'] for a in alvos}
+            for a in p['ASSETS']:
+                if a['OBJETO'] in alvo_obj:
+                    continue
+                if a['OBJETO'] in remoto_antes:
+                    estado_anterior[a['OBJETO']] = dict(
+                        a, ESTADO='ALREADY_PRESENT_VERIFIED',
+                        VERIFICACAO='PRESENTE_NO_INVENTARIO_REMOTO',
+                        TOCADO_NESTA_EXECUCAO=False)
+
         # Quem não foi alvo mantém o estado que JÁ tinha, medido antes. Não se inventa
         # estado para item que esta execução não tocou.
         if len(alvos) != len(p['ASSETS']):
             por_objeto = {a['OBJETO']: a for a in itens}
-            for a in anterior['ASSETS']:
-                if a['OBJETO'] not in por_objeto:
-                    por_objeto[a['OBJETO']] = dict(a, TOCADO_NESTA_EXECUCAO=False)
-            itens = [por_objeto[a['OBJETO']] for a in p['ASSETS']
-                     if a['OBJETO'] in por_objeto]
+            for chave, a in estado_anterior.items():
+                if chave not in por_objeto:
+                    por_objeto[chave] = dict(a, TOCADO_NESTA_EXECUCAO=False)
+            # Nenhum asset do plano pode SUMIR do relatório. Se esta execução não o
+            # tocou e não havia estado anterior, ele sai como NAO_MEDIDO — que é
+            # diferente de preservado e diferente de falho. Item sem estado é o buraco
+            # por onde a contagem mente.
+            itens = [por_objeto.get(a['OBJETO'],
+                                    dict(a, ESTADO='NAO_MEDIDO_NESTA_EXECUCAO',
+                                         TOCADO_NESTA_EXECUCAO=False))
+                     for a in p['ASSETS']]
 
         r = dict(resumo(itens, p.get('captured_at')), BUCKET=BUCKET, ASSETS=itens)
+
+        # §12 · identidade da execução, para reconstruir FAILED -> PRESENT depois
+        r['EXECUCAO'] = {
+            'RUN_ID': 'ES-M12-IMPORT-CATALOGO-ADAMA-2026-08-30-a',
+            'MODO': ('SO_AUSENTES' if '--so-ausentes' in sys.argv else
+                     'SO_FALHOS' if '--so-falhos' in sys.argv else 'LOTE_INTEIRO'),
+            'ALVOS_DESTA_EXECUCAO': len(alvos),
+            'INTOCADOS': len(p['ASSETS']) - len(alvos),
+            'REMOTE_BEFORE': (len(remoto_antes) if remoto_antes is not None
+                              else 'NAO_MEDIDO'),
+        }
+        if '--so-ausentes' in sys.argv:
+            depois, _ = inventario_remoto(url, key)
+            do_plano = sum(1 for a in p['ASSETS'] if a['OBJETO'] in depois)
+            r['EXECUCAO']['REMOTE_AFTER'] = len(depois)
+            r['EXECUCAO']['REMOTE_AFTER_DO_PLANO'] = do_plano
+            r['EXECUCAO']['REMOTE_ABSENT_DEPOIS'] = [
+                a['OBJETO'] for a in p['ASSETS'] if a['OBJETO'] not in depois]
+            r['EXECUCAO']['ORFAOS_DEPOIS'] = [
+                o for o in depois if o not in {a['OBJETO'] for a in p['ASSETS']}]
+            print('REMOTE_AFTER=%d  DO_PLANO=%d/%d  ORFAOS=%d'
+                  % (len(depois), do_plano, len(p['ASSETS']),
+                     len(r['EXECUCAO']['ORFAOS_DEPOIS'])))
 
         # O relatório anterior NÃO é sobrescrito em silêncio. A segunda execução apagou a
         # primeira, e com ela a resposta de "qual asset mudou de estado entre as duas" —
@@ -652,7 +813,7 @@ if __name__ == '__main__':
         with open(RELATORIO, 'w', encoding='utf-8') as f:
             json.dump(r, f, ensure_ascii=False, indent=1)
         for k in ('ASSETS_ESPERADOS', 'PRESERVADOS_E_VERIFICADOS', 'FALHOS',
-                  'HASH_MISMATCH', 'POR_ESTADO'):
+                  'HASH_MISMATCH', 'SEM_ESTADO_CONHECIDO', 'POR_ESTADO'):
             print('%s=%s' % (k, r[k]))
         sys.exit(1 if r['FALHOS'] else 0)
 

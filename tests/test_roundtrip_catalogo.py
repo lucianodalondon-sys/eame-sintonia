@@ -328,6 +328,169 @@ class TestLeituraDoBucketNaoConfundeFalhaComAusencia(unittest.TestCase):
                       'bucket publico tem de ser detectado — e o envio recusado')
 
 
+class TestChaveDeStorage(unittest.TestCase):
+    """O contrato da chave, provado por resposta do servidor — não por palpite.
+
+    O Supabase recusou 10 dos 196 com corpo explícito:
+        {"statusCode":"400","error":"InvalidKey","code":"InvalidKey",
+         "message":"Invalid key: .../0bc1...-Díptico Ordago...pdf"}
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import storage_preservar as S
+        cls.S = S
+
+    def test_acento_sai_composto_e_decomposto_pelo_mesmo_caminho(self):
+        """"Dí" (U+00ED) e "Di"+U+0301 são o MESMO nome. Têm de dar a mesma chave.
+
+        A ADAMA manda dos dois jeitos: o media 3746 veio decomposto (acento solto) e o
+        4951 veio composto. Sem normalizar, o mesmo arquivo geraria duas chaves conforme
+        a forma que a fonte usou — e duas chaves para um asset é duas identidades.
+        """
+        composto = self.S.chave_de_storage('ES/x/abc-Díptico.pdf')
+        decomposto = self.S.chave_de_storage('ES/x/abc-Díptico.pdf')
+        self.assertEqual(composto, decomposto)
+        self.assertEqual('ES/x/abc-Diptico.pdf', composto)
+
+    def test_o_conjunto_aceito_pelo_storage_e_respeitado(self):
+        casos = {
+            'ES/x/a-arquivo.pdf': 'ES/x/a-arquivo.pdf',
+            'ES/x/a-com espaco.pdf': 'ES/x/a-com espaco.pdf',        # 83 preservados têm
+            'ES/x/a-com (parenteses).pdf': 'ES/x/a-com (parenteses).pdf',   # 41 têm
+            'ES/x/a-Algodón.pdf': 'ES/x/a-Algodon.pdf',
+            'ES/x/a-VIÑA.pdf': 'ES/x/a-VINA.pdf',
+            "ES/x/a-UTF-8''N%20Q.pdf": "ES/x/a-UTF-8''N_20Q.pdf",     # % não é aceito
+            'ES/x/a-中文.pdf': 'ES/x/a-__.pdf',
+        }
+        for bruta, esperada in casos.items():
+            with self.subTest(bruta=bruta):
+                self.assertEqual(esperada, self.S.chave_de_storage(bruta))
+
+    def test_espaco_e_parentese_NAO_sao_removidos(self):
+        """Foram falsificados como causa. Tirá-los seria superstição, não engenharia."""
+        k = self.S.chave_de_storage('ES/x/a-Folleto (2024) v1.pdf')
+        self.assertIn(' ', k)
+        self.assertIn('(', k)
+
+    def test_nome_muito_longo_e_cortado_preservando_a_extensao(self):
+        k = self.S.chave_de_storage('ES/x/' + 'a' * 400 + '.pdf')
+        seg = k.split('/')[-1]
+        self.assertLessEqual(len(seg), 120)
+        self.assertTrue(seg.endswith('.pdf'), seg)
+
+    def test_e_deterministica_e_idempotente(self):
+        bruta = 'ES/x/abc-Díptico Ordago (4) Ago.pdf'
+        um = self.S.chave_de_storage(bruta)
+        self.assertEqual(um, self.S.chave_de_storage(bruta))
+        self.assertEqual(um, self.S.chave_de_storage(um), 'aplicar duas vezes muda a chave')
+
+    def test_sha_diferente_produz_chave_diferente(self):
+        """"Díptico.pdf" e "Diptico.pdf" dobram para o mesmo nome. O sha16 os separa."""
+        a = self.S.chave_de_storage('ES/x/%s-Díptico.pdf' % ('a' * 16))
+        b = self.S.chave_de_storage('ES/x/%s-Diptico.pdf' % ('b' * 16))
+        self.assertNotEqual(a, b)
+        igual = self.S.chave_de_storage('ES/x/%s-Diptico.pdf' % ('a' * 16))
+        self.assertEqual(a, igual, 'mesmo sha + mesmo nome dobrado = mesma chave')
+
+    def test_no_plano_real_nenhuma_chave_colide(self):
+        """Colisão não se resolve por probabilidade: se houver, tem de ser detectada."""
+        p = self.S.plano()
+        if not p['ASSETS']:
+            self.skipTest('sem RAW local nesta máquina')
+        por_chave = {}
+        for a in p['ASSETS']:
+            por_chave.setdefault(a['OBJETO'], set()).add(a['SHA256'])
+        colisoes = {k: v for k, v in por_chave.items() if len(v) > 1}
+        self.assertEqual({}, colisoes, 'dois conteúdos diferentes na MESMA chave')
+        self.assertEqual(len(p['ASSETS']), len(por_chave))
+
+    def test_o_nome_original_nao_e_destruido(self):
+        p = self.S.plano()
+        if not p['ASSETS']:
+            self.skipTest('sem RAW local nesta máquina')
+        for a in p['ASSETS']:
+            self.assertTrue(a.get('ORIGINAL_FILENAME'), a['OBJETO'])
+            self.assertTrue(a.get('OBJETO_BRUTO'), a['OBJETO'])
+
+    def test_a_regra_nova_nao_move_objeto_ja_preservado(self):
+        """Se mexesse numa chave já no bucket, o reenvio criaria uma SEGUNDA cópia.
+
+        O inventário remoto de 2026-08-30 provou 185 presentes. Nenhum deles pode mudar
+        de chave — e nenhum muda, porque quem já subiu já era do conjunto aceito.
+        """
+        diag = _json(os.path.join(SAMPLES, 'ADAMA-ES-PRESERVACAO-DIAGNOSTICO.json'))
+        p = self.S.plano()
+        if not diag or not p['ASSETS']:
+            self.skipTest('sem diagnóstico remoto ou sem RAW local')
+        ausentes = set(diag['DO_PLANO_AUSENTES'])
+        moveram = [a['OBJETO_BRUTO'] for a in p['ASSETS']
+                   if a['OBJETO'] != a['OBJETO_BRUTO'] and a['OBJETO_BRUTO'] not in ausentes]
+        self.assertEqual([], moveram, 'a regra mudaria a chave de um objeto JÁ preservado')
+
+
+class TestRespostaAmbiguaNaoViraFalha(unittest.TestCase):
+    """HTTP 5XX != OBJETO NÃO PRESERVADO.
+
+    Medido: o media 2981 recebeu 520 no upload, foi carimbado FAILED, e o inventário
+    remoto depois mostrou o objeto lá. O 520 foi a resposta que se perdeu, não a
+    gravação. Quem decide o estado é o objeto remoto, não o número do proxy.
+    """
+
+    def setUp(self):
+        import storage_preservar as S
+        self.S = S
+        self.original = S._http
+        self.item = {'ARQUIVO_LOCAL': 'data/raw/ES/adama-website/'
+                                      'ADAMA-ES-PACOTE-CATALOGO.json',
+                     'OBJETO': 'ES/teste/chave.json', 'MEDIA_TYPE': 'application/json'}
+        caminho = os.path.join(ROOT, self.item['ARQUIVO_LOCAL'])
+        if not os.path.exists(caminho):
+            self.skipTest('sem RAW local nesta máquina')
+        with open(caminho, 'rb') as f:
+            self.bytes = f.read()
+        self.item['BYTES'] = len(self.bytes)
+        self.item['SHA256'] = hashlib.sha256(self.bytes).hexdigest()
+
+    def tearDown(self):
+        self.S._http = self.original
+
+    def _cenario(self, status_upload, corpo_get):
+        def falso(url, key, m, p, d=None, c=None, timeout=300, detalhe=None):
+            if m == 'POST':
+                if detalhe is not None:
+                    detalhe.update({'HTTP_STATUS': status_upload,
+                                    'RESPONSE_BODY_SANITIZED': 'simulado'})
+                return status_upload, b'gateway error'
+            return (200, corpo_get) if corpo_get is not None else (404, b'')
+        self.S._http = falso
+
+    def test_520_com_objeto_presente_e_hash_certo_vira_verificado(self):
+        self._cenario(520, self.bytes)
+        r = self.S.preservar([dict(self.item)], 'https://x', 'k')[0]
+        self.assertEqual('ALREADY_PRESENT_VERIFIED', r['ESTADO'])
+        self.assertEqual(520, r['RESPOSTA_AMBIGUA']['HTTP_NO_UPLOAD'])
+
+    def test_520_com_objeto_ausente_continua_falha(self):
+        self._cenario(520, None)
+        r = self.S.preservar([dict(self.item)], 'https://x', 'k')[0]
+        self.assertEqual('FAILED_WITH_REASON', r['ESTADO'])
+        self.assertEqual(404, r['CONFERENCIA_REMOTA_APOS_FALHA']['HTTP_NO_GET'])
+
+    def test_520_com_bytes_diferentes_continua_falha(self):
+        """Objeto presente com OUTRO conteúdo não é preservação: é colisão."""
+        self._cenario(520, b'outra coisa qualquer')
+        r = self.S.preservar([dict(self.item)], 'https://x', 'k')[0]
+        self.assertEqual('FAILED_WITH_REASON', r['ESTADO'])
+
+    def test_400_com_objeto_ausente_continua_falha(self):
+        """A regra vale para qualquer resposta ruim, não só 5xx — e 400 real falha."""
+        self._cenario(400, None)
+        r = self.S.preservar([dict(self.item)], 'https://x', 'k')[0]
+        self.assertEqual('FAILED_WITH_REASON', r['ESTADO'])
+        self.assertIn('400', r['MOTIVO'])
+
+
 class TestElosQuePrecisamDeCredencial(unittest.TestCase):
     """Não passam por omissão: PULAM, e dizem exatamente o que falta."""
 
