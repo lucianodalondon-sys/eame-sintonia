@@ -68,6 +68,23 @@ jobs:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
+      # BASE LIMPA. O runner e persistente: o que a execucao anterior deixou continua na
+      # pasta. Quando a rodada passada morreu no meio de um rebase, o commit preso ficou
+      # no branch local — e as DUAS tentativas seguintes tentaram replicar aquele commit
+      # velho e conflitaram de novo, com dado novo ja coletado e pago esperando.
+      #
+      #     RUNNER PERSISTENTE != ARVORE LIMPA.
+      #
+      # `actions/checkout` limpa arquivo nao rastreado, nao desfaz commit local.
+      - name: 0a · base limpa antes de qualquer coleta
+        run: |
+          git rebase --abort 2>/dev/null || true
+          git merge --abort 2>/dev/null || true
+          git fetch --quiet origin "${{ github.ref_name }}"
+          git reset --hard --quiet "origin/${{ github.ref_name }}"
+          git clean -fdq data/samples 2>/dev/null || true
+          echo "BASE=$(git log --oneline -1)"
+
       # `python3` nesta máquina é o atalho da Microsoft Store e falha. O `py` funciona.
       - name: 0 · interpretador
         run: |
