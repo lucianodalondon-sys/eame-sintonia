@@ -156,7 +156,7 @@ E o que apareceu no lugar:
 organização com técnico nomeado**, não por perfil social. O motor de voz do Brasil
 continua reusável — **muda o alvo, não o método.**
 
-### NEXT_SMALLEST_STEP
+### NEXT_SMALLEST_STEP — executado
 **Repetir o teste de voz para um segundo `CROP × ISSUE`** — *piralide/diabrotica em
 milho* — e ver se o padrão se confirma. Se a voz também for organizacional ali, a Itália
 tem uma regra de país e não uma coincidência de issue, e a camada de voz pode ser
@@ -167,3 +167,60 @@ Uma busca decide, de novo. Os cinco `NEXT_SMALLEST_STEP` desta branch foram **ex
 não recomendados**, e cada um mudou uma conclusão: o caso vencedor, a região do caso, o
 horizonte de ação, a existência do sinal de milho e agora a natureza da própria camada de
 voz.
+
+---
+
+## ADENDO DE 30/08 — TRÊS CORREÇÕES CONTRA ACHADOS MEUS, NO MESMO DIA
+
+O teste de voz do milho foi executado: **zero creators de novo**, e a voz organizacional
+passa de coincidência de issue a **regra de país**. Mas o que a rodada produziu de mais
+importante não foi camada nova — foi **descobrir que três números meus não mediam o que
+diziam medir**. Vale registrar porque o padrão é o mesmo nos três.
+
+**1 · O painel não era o país.** `TRIGO DURO · 0,0 % de cobertura` estava certo em
+aritmética e errado em sentido: **76,8 %** da área contada como *medida* era **uma região
+só** — a Puglia, cujo serviço parou de redigir fitopatologia em 2018 — e o FVG entrou no
+painel com **0,0 mil ha** da cultura. **57,9 % do trigo duro italiano nunca foi
+perguntado.** Entra `PAINEL MEDIDO ≠ PAÍS MEDIDO`, com o corolário
+`NOT_ASKED ≠ NOT_FOUND ≠ DOES NOT EXIST` — **três** estados, não um.
+
+**2 · Perguntando a uma região nova, o sinal apareceu de primeira.** O **LaMMA/Toscana**
+publica boletim fitossanitário **por província**, e Grosseto e Pisa trazem **grano duro
+separado do tenero**, com doença, **BBCH**, risco e janela de tratamento. A maior cultura
+do país tem sinal de campo público; eu é que não tinha perguntado.
+
+**3 · O sinal de olivo mudou de dono.** Na Puglia a **ARIF** hoje **é a editora** do
+notiziario e mesmo assim não restaurou a fitopatologia — ausência **estabilizada**, não
+transição. Mas a **APOL** (Lecce) mantém série semanal numerada com edições de **2026**.
+Entra `SOURCE_LAYER ≠ SIGNAL_ABSENCE`: eu tinha perguntado à **instituição** errada dentro
+da região certa, como antes tinha perguntado às **regiões** erradas.
+
+**O que a rodada NÃO produziu, e é o mais importante dela.** O cruzamento campo × portfólio
+para trigo duro dá um desencontro nítido — dos 14 produtos que nomeiam grano duro, **13 são
+herbicidas e 1 é tratamento de semente; zero fungicidas foliares**, enquanto o sinal de
+campo é **fusariose de espiga na floração**. E mesmo assim a resposta é **`NÃO SEI`**,
+porque cinco foliares que atendem exatamente o conjunto de doenças do boletim nomeiam
+*frumento*, e **se "frumento" cobre juridicamente o grano duro não há lacuna nenhuma**.
+`CROP_TERM ≠ AUTHORIZED_CROP`. A pergunta que decide é de direito regulatório, não de
+extração — e vale mais registrada em aberto do que resolvida por palpite.
+
+As quatro leis novas viraram **regressão executável** (9 no total) e o guarda anti-remoção
+passou de cinco para nove nomes.
+
+### PRONTIDÃO — o que muda
+
+| | Antes | Agora |
+|---|---|---|
+| `ITALY_SOURCE_UNIVERSE_READY` | SIM | **SIM, com a ressalva medida**: o universo de *fontes* estava pronto; o de **camadas** não. Faltavam `IT-T3-LAMMA` e `IT-T3-OP`, e nenhuma sondagem por região os teria achado |
+| `ITALY_FIELD_COVERAGE_TRUSTWORTHY` | *(não existia)* | **NÃO** — toda cobertura publicada passa a exigir `SINGLE_REGION_DEPENDENCE_PCT` ao lado |
+
+### NEXT_SMALLEST_STEP (novo)
+**Sondar a Sicília e a Basilicata para trigo duro** — 33,4 % da cultura, ambas
+`NOT_MEASURED`, ambas `PANEL_EXPANSION`. A Toscana provou que a classe existe com 3,7 % da
+área; as duas maiores regiões nunca perguntadas decidem se ela é nacional ou local.
+
+**E, em paralelo, a pergunta jurídica**: obter o decreto de autorização de **MAXENTIS** ou
+**KOJAMI** e ler se *frumento* abrange *grano duro*. É a única pergunta desta branch cuja
+resposta muda um veredito inteiro — de "desencontro observado" para "lacuna real", ou para
+"artefato de redação de rótulo".
+
