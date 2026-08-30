@@ -3,7 +3,7 @@
 #
 # Por que nao basta ler o .sql: um schema pode estar sintaticamente perfeito
 # e ainda assim responder CLOSED para uma janela que so e desconhecida. As
-# As 159 afirmacoes deste job sao sobre SIGNIFICADO, e significado so se
+# As 192 afirmacoes deste job sao sobre SIGNIFICADO, e significado so se
 # mede executando. As 26 mutacoes fecham o outro lado: uma suite verde em
 # cima de codigo quebrado nao prova nada.
 #
@@ -151,6 +151,28 @@ jobs:
             || echo "MUTACOES_LUGAR_DO_FATO=TODAS_PEGARAM"
           # E a lei tem de ser UMA: core, leitor italiano e banco batendo.
           EAME_TEST_DSN="$PGURL" python3 -m unittest tests.test_lugar_do_fato -v
+
+      - name: 4g · o catalogo ADAMA Espanha — import, idempotencia e red team
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/migrations/014_catalogo_publico_fabricante.sql \
+            || true   # ja aplicada no passo 1; aqui so garante presenca
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q \
+            -f supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql
+          # O import roda TRES vezes. Se nao for idempotente, os contadores da
+          # suite reprovam — foi assim que 108 virando 216 foi descoberto.
+          for i in 1 2 3; do
+            psql "$PGURL" -v ON_ERROR_STOP=1 -q \
+              -f supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql
+          done
+          psql "$PGURL" -f supabase/tests/regressoes_catalogo_es.sql 2>&1 | tee /tmp/cat
+          grep -q "REGRESSOES_CATALOGO_ES=PASS" /tmp/cat
+          # E o import e deterministico: regenerar da mesma entrada nao muda nada.
+          sha1=$(sha256sum supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql | cut -d' ' -f1)
+          python3 scripts/catalogo_importar.py --sql >/dev/null
+          sha2=$(sha256sum supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql | cut -d' ' -f1)
+          [ "$sha1" = "$sha2" ] && echo "IMPORT_DETERMINISTICO=PASS" \
+            || { echo "PARADO: mesma entrada gerou import diferente"; exit 1; }
 
       - name: 5 · o payload do caso, impresso no log para leitura humana
         if: always()

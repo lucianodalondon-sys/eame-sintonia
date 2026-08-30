@@ -143,13 +143,27 @@ class TestAsTravasNoSchema(unittest.TestCase):
             for p in ('score', 'peso', 'nota', 'rank', 'pontua'):
                 self.assertNotIn(p, c, 'coluna %s parece um score' % c)
 
-    def test_o_014_fica_reservado_para_o_catalogo(self):
+    def test_o_014_reservado_foi_OCUPADO_pelo_catalogo(self):
+        """A reserva cumpriu a funcao dela.
+
+        Este teste afirmava que o 014 estava VAGO. Ficou vago tres rodadas,
+        de proposito, esperando a migration do catalogo da branch paralela —
+        e a missao de importacao controlada a trouxe, renumerada de 010 para
+        014. Um buraco declarado que e ocupado por quem estava declarado nao
+        e um buraco preenchido por acaso: e a reserva funcionando.
+
+        O que continua valendo: o 014 e do catalogo e de mais nada.
+        """
         mig = sorted(f for f in os.listdir(os.path.join(RAIZ, 'supabase', 'migrations'))
                      if f.endswith('.sql'))
-        self.assertFalse([f for f in mig if f.startswith('014')],
-                         '014 e do catalogo da branch paralela e fica vago ate ele entrar')
+        m014 = [f for f in mig if f.startswith('014')]
+        self.assertEqual(['014_catalogo_publico_fabricante.sql'], m014)
         self.assertIn('015_cicatrizes_do_brasil.sql', mig)
+        # A 015 continua contando a historia da reserva, e a 014 diz que a ocupou.
         self.assertIn('O NÚMERO 014 ESTÁ RESERVADO', self.sql)
+        with open(os.path.join(RAIZ, 'supabase', 'migrations', m014[0]),
+                  encoding='utf-8') as f:
+            self.assertIn('RENUMERADA', f.read())
 
 
 class TestOBrasilFoiLidoENaoLembrado(unittest.TestCase):

@@ -324,6 +324,7 @@ class TestOEnsaioNaoEImportacao(unittest.TestCase):
         '016_checkpoint_e_unidade_analitica.sql': 'SEM_CHECKPOINT_NAO_GASTEI',
         '017_o_que_a_conferencia_de_localizacao_achou.sql': 'PUBLISHED_AT != FACT_TIME',
         '018_o_lugar_do_fato_ganha_dono.sql': 'DOIS DONOS DA MESMA LEI',
+        '014_catalogo_publico_fabricante.sql': 'HANDOFF_SCHEMA_VALID_THEN',
     }
 
     def test_a_unica_migration_nova_tem_incompatibilidade_provada(self):
@@ -344,11 +345,29 @@ class TestOEnsaioNaoEImportacao(unittest.TestCase):
                                '013_captura_nao_e_registro.sql'), encoding='utf-8') as f:
             self.assertIn('3 vezes', f.read(), 'a 013 cita o defeito medido')
 
-    def test_o_catalogo_continua_fora_desta_branch(self):
-        """Ler do ref para provar ordem nao e mesclar."""
+    def test_o_catalogo_entrou_SELETIVAMENTE_e_nao_por_merge(self):
+        """Este teste ja afirmou que o catalogo estava FORA, e afirmava certo.
+
+        Ele existia para impedir um merge cego enquanto a importacao nao
+        estava autorizada. A missao de importacao controlada autorizou, e o
+        que mudou foi UMA migration renumerada mais os artefatos que ela
+        precisa — nao a branch inteira.
+
+        O que o teste guarda agora e a diferenca entre integracao seletiva e
+        merge: os scripts que so fazem sentido na maquina do operador
+        continuam FORA, e e por eles que se mede se alguem mesclou.
+        """
         mig = os.listdir(os.path.join(RAIZ, 'supabase', 'migrations'))
-        self.assertFalse([f for f in mig if 'catalogo' in f.lower()],
-                         'a migration do catalogo entrou na branch — isso seria merge')
+        cat = [f for f in mig if 'catalogo' in f.lower()]
+        self.assertEqual(['014_catalogo_publico_fabricante.sql'], cat,
+                         'entrou mais de uma migration de catalogo: %s' % cat)
+        # Categoria E do inventario: ferramenta de coleta e de envio moram na
+        # maquina do operador. Se aparecerem aqui, houve merge.
+        so_do_operador = ('storage_preservar.py', 'recolher_lote.sh', 'adama_es.py')
+        scripts = os.listdir(os.path.join(RAIZ, 'scripts'))
+        for f in so_do_operador:
+            self.assertNotIn(f, scripts,
+                             '%s e da maquina do operador — se subiu, foi merge' % f)
 
 
 if __name__ == '__main__':

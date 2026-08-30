@@ -1,6 +1,6 @@
 {
  "SOURCE_ID": "RAW-GATE-ES",
- "VERSION": "V4",
+ "VERSION": "V5",
  "captured_at": "2026-08-30",
  "O_QUE_ISTO_E": "o estado do bucket raw da Espanha, MEDIDO NA MÁQUINA LOCAL espanhola e recebido aqui por relato da coordenação.",
  "O_QUE_ISTO_NAO_E": "não é medição feita deste ambiente. Este ambiente não tem credencial de Supabase e não conseguiria contar um único asset.",
@@ -87,5 +87,27 @@
   "O_QUE_DESTRAVOU": "o Global file size limit do Supabase subiu de 50 MB para 200 MB. O arquivo existia, tinha bytes e tinha SHA256 desde o começo: o que faltava era espaço permitido, não o arquivo."
  },
  "QUEM_EXECUTOU": "o operador, na máquina local espanhola",
- "ESTA_BRANCH_EXECUTOU_O_UPLOAD": "NO"
+ "ESTA_BRANCH_EXECUTOU_O_UPLOAD": "NO",
+ "O_QUE_MUDOU_DA_V4": "nada foi remedido. O que mudou é que eu li o artefato do handoff em vez da mensagem que o resumia, e ele separa duas coisas que eu tinha juntado: PRESENÇA NO INVENTÁRIO e BYTES CONFERIDOS. Os 196 estão presentes; o conteúdo de quase todos não foi re-conferido por download+hash nesta cadeia de execuções.",
+ "PRESENCA_NAO_E_CONTEUDO": {
+  "LEI": "PRESENTE_NO_INVENTARIO != BYTES_CONFERIDOS. É o HTTP 200 != LIVE_CONTENT aplicado ao nosso próprio bucket: o objeto existir não prova que os bytes certos chegaram.",
+  "MEDIDO_NO_ARTEFATO_VIVO_DO_HANDOFF": {
+   "PRESENTE_NO_INVENTARIO_REMOTO": 195,
+   "SHA256_DEPOIS_DE_BAIXAR_DE_VOLTA": 1
+  },
+  "DECLARADO_NO_RELATORIO_DO_HANDOFF": {
+   "com_sha256_reconferido_e_prova_em_artefato": 11,
+   "com_prova_apenas_de_presenca": 185,
+   "que_NUNCA_tiveram_conteudo_conferido": 1
+  },
+  "O_UNICO_NUNCA_CONFERIDO": "media 2981 — TOPIC Folleto Diptico.pdf",
+  "PORQUE_ELE_E_O_QUE_MAIS_IMPORTA": "é justamente o que recebeu HTTP 520, e 520 é quando gravação parcial é plausível. Objeto presente com bytes truncados passaria por preservado.",
+  "PORQUE_OS_184_DA_PRIMEIRA_EXECUCAO_NAO_CONTAM": "eles foram conferidos por download+hash, e aquele relatório foi sobrescrito antes de o histórico ser consertado. A prova existiu e se perdeu. Citá-la seria citar documento que não existe mais — palavras do próprio handoff.",
+  "O_REMEDIO_EXISTE_E_TEM_NOME": "py scripts/storage_preservar.py --diagnosticar --verificar-tudo",
+  "ONDE": "máquina local do operador — só leitura, baixa os 196 e reconfere numa medição única",
+  "CUSTO": "zero em Apify; um download de 304 MB"
+ },
+ "RAW_PRESENCE_GATE": "CLOSED",
+ "RAW_CONTENT_VERIFIED_GATE": "OPEN",
+ "PORQUE_DOIS_GATES": "a rodada anterior tinha UM gate e ele respondia à pergunta da presença enquanto o nome sugeria conteúdo. Separar não rebaixa nada: os 196 continuam presentes, e o que passa a ser dizível é que o conteúdo de 185 deles ainda não foi reconferido."
 }

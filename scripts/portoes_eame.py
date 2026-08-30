@@ -165,6 +165,20 @@ def monta():
                    and r.get('ORFAOS_NO_BUCKET', 0) == 0
                    and r.get('DO_PLANO_AUSENTES', 0) == 0)
     raw_derivado = 'CLOSED' if raw_fechado else 'OPEN_EXTERNAL_REPAIR'
+
+    # PRESENÇA != CONTEÚDO CONFERIDO. O gate acima responde à presença — é o
+    # que os números medem. O conteúdo é outra pergunta, e o artefato do
+    # handoff a responde separado: dos 196 presentes, 11 tiveram sha256
+    # reconferido por download+hash e 1 nunca teve o conteúdo conferido em
+    # execução nenhuma — justamente o que recebeu 520.
+    #
+    # Este segundo gate NÃO entra em IMPORT_CAN_BE_NEXT_MISSION: importar
+    # organiza os ponteiros para a evidência, e um ponteiro para bytes ainda
+    # não reconferidos continua sendo o ponteiro certo. O que ele bloqueia é
+    # AFIRMAR que o round-trip de evidência está provado — e é por isso que
+    # ele aparece no relatório em vez de ficar implícito.
+    pnc = r.get('PRESENCA_NAO_E_CONTEUDO') or {}
+    conteudo_gate = r.get('RAW_CONTENT_VERIFIED_GATE', 'NAO_MEDIDO')
     raw_declarado = r['ESTADO']
     if raw_declarado != raw_derivado:
         # Falha fechada: o portão de importação NÃO abre com o artefato
@@ -228,6 +242,12 @@ def monta():
             'HASH_MISMATCH': r['HASH_MISMATCH'],
             'CONFLICT': r['CONFLICT'],
             'FECHADO': 'YES' if raw_fechado else 'NO',
+            'RAW_CONTENT_VERIFIED_GATE': conteudo_gate,
+            'CONTEUDO_RECONFERIDO': (pnc.get('DECLARADO_NO_RELATORIO_DO_HANDOFF') or {})
+                                     .get('com_sha256_reconferido_e_prova_em_artefato'),
+            'CONTEUDO_NUNCA_CONFERIDO': (pnc.get('DECLARADO_NO_RELATORIO_DO_HANDOFF') or {})
+                                         .get('que_NUNCA_tiveram_conteudo_conferido'),
+            'REMEDIO_DO_CONTEUDO': pnc.get('O_REMEDIO_EXISTE_E_TEM_NOME'),
             'ORFAOS_NO_BUCKET': r.get('ORFAOS_NO_BUCKET'),
             'DIAGNOSTICO': r.get('DIAGNOSTICO_ISOLADO'),
             'EXTERNAL_DIAGNOSIS_IN_PROGRESS': r['EXTERNAL_DIAGNOSIS_IN_PROGRESS'],
@@ -272,6 +292,10 @@ if __name__ == '__main__':
           % (g['ESTADO'], g['PROVA'], g['VERIFICADO_DAQUI']))
     if g['DIVERGENCIA']:
         print('    ⚠ ', g['DIVERGENCIA'])
+    print('RAW_CONTENT_VERIFIED_GATE         %s  (%s de 196 com sha256 reconferido, '
+          '%s nunca conferido)'
+          % (g['RAW_CONTENT_VERIFIED_GATE'], g['CONTEUDO_RECONFERIDO'],
+             g['CONTEUDO_NUNCA_CONFERIDO']))
     print('    EXPECTED=%d  VERIFIED=%d  FAILED=%d  HASH_MISMATCH=%d  CONFLICT=%d'
           % (g['EXPECTED'], g['VERIFIED'], g['FAILED'], g['HASH_MISMATCH'], g['CONFLICT']))
     print()

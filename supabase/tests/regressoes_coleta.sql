@@ -44,18 +44,24 @@ create or replace function pg_temp.recusa_por(n text, comando text, trava text)
 returns void language plpgsql as $f$
 declare msg text;
 begin
+  -- O comando roda DENTRO de um bloco com EXCEPTION, que é uma subtransação.
+  -- Se ele PASSAR, o `raise` desfaz o que ele fez — sem isso, um teste
+  -- negativo que aceita deixa a mutação no banco e envenena todas as
+  -- afirmações seguintes. Foi o que aconteceu na primeira execução da suíte
+  -- do catálogo: um UPDATE passou, virou 41 linhas, e os contadores do gate
+  -- reprovaram por culpa do teste, não do dado.
   begin
     execute comando;
-    insert into _co (nome, ok, detalhe) values (n, false, 'o banco ACEITOU o que a lei proíbe');
-    return;
-  exception when others then
-    msg := sqlerrm;
+    raise exception 'ACEITOU_O_QUE_DEVERIA_RECUSAR';
+  exception when others then msg := sqlerrm;
   end;
-  if position(trava in msg) > 0 then
+  if msg = 'ACEITOU_O_QUE_DEVERIA_RECUSAR' then
+    insert into _co (nome, ok, detalhe) values (n, false, 'o banco ACEITOU o que a lei proíbe');
+  elsif position(trava in msg) > 0 then
     insert into _co (nome, ok, detalhe) values (n, true, 'recusado por ' || trava);
   else
     insert into _co (nome, ok, detalhe) values (n, false,
-      'recusado pelo motivo ERRADO — esperava ' || trava || ', veio: ' || left(msg, 80));
+      'recusado pelo motivo ERRADO — esperava ' || trava || ', veio: ' || left(msg,70));
   end if;
 end $f$;
 
