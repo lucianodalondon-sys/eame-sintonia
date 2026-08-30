@@ -501,6 +501,30 @@ def _qualidade_do_casamento(meta, indice):
     return {'MATCH_QUALITY': 'EXACT_OFFICIAL_LABEL'}
 
 
+def cultivos_declarados(est):
+    """Os itens do bloco "Cultivos" da ficha, como a ADAMA escreveu.
+
+    O parser marca cada texto com a SEÇÃO em que caiu. O título da seção SEGUINTE entra
+    por ÚLTIMO nessa lista, porque o rótulo só vira seção no fechamento da tag. Então se
+    descarta EXATAMENTE UM item do fim, e só se ele for nome de seção da página.
+
+    Descartar TODOS os que são nome de seção estava errado e foi medido: a ficha do
+    AVASTEL tem "Trigo" como título de outro bloco mais abaixo, e o filtro largo apagava
+    o trigo do bloco de cultivos — o produto ficava sem nenhum cultivo declarado.
+    """
+    secoes = {t['SECAO'] for t in est['TEXTOS'] if t['SECAO']}
+    fora = []
+    for t in est['TEXTOS']:
+        if t['SECAO'] != 'Cultivos':
+            continue
+        s = (t['TEXTO'] or '').strip()
+        if s and len(s) <= 80:
+            fora.append(s)
+    if fora and fora[-1] in secoes:
+        fora.pop()
+    return fora
+
+
 def herdar_cabecalho(tabelas):
     """A ADAMA parte UMA tabela lógica em vários <table>; só o primeiro leva o cabeçalho.
 
@@ -699,6 +723,24 @@ MODO_ACAO = [
 ]
 
 REGISTRO = re.compile(r'\b(?:ES-\d{5}|\d{5,6}\s*/\s*\d{2})\b')
+
+# A ADAMA España escreve o registro de TRÊS formas — "ES-01603", "25186" e "24.887" —
+# e a regex acima só conhecia a primeira. Ancorar no rótulo "Nº de registro:" é o que
+# torna seguro aceitar um número solto: sem o rótulo, cinco dígitos podem ser qualquer
+# coisa na página. Medido em 2026-08-30: sem isto, 30 das 56 fichas saíam com NÃO SEI
+# tendo o número publicado.
+REGISTRO_ROTULADO = re.compile(
+    r'n[ºo°.]{0,2}\s*de\s*registro\s*:?\s*'
+    r'(ES-\d{4,6}|\d{2}\.\d{3}|\d{4,6}\s*/\s*\d{2}|\d{4,6})', re.I)
+
+
+def _registro(texto):
+    """Número de registro publicado. O rótulo vem primeiro; o padrão solto é o reserva."""
+    m = REGISTRO_ROTULADO.search(texto or '')
+    if m:
+        return re.sub(r'\s+', '', m.group(1))
+    m = REGISTRO.search(texto or '')
+    return m.group(0) if m else 'NÃO SEI'
 # A ADAMA España escreve concentração de DUAS formas, e antes só uma era lida:
 #   "Propaquizafop 10% [EC] p/v"   -> percentual
 #   "Dicamba 120 g/l + Mesotriona 50 g/l"  -> massa por volume
@@ -807,10 +849,21 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
                 vistos_amb.add((a['TERMO_NA_PAGINA'], eixo))
                 ambiguos.append(dict(a, PRODUCT_ID=pid, EIXO=eixo,
                                      SOURCE_URL=url_pagina, ANCHOR=ancora_pagina))
+    # As 56 fichas têm um bloco "Cultivos" — a lista que a PRÓPRIA ADAMA declara para o
+    # produto. Isso é diferente de "a palavra apareceu em algum lugar da página": KAMPAI
+    # declara 3 cultivos no bloco e o varredor de texto acha 10, porque casa termo em
+    # texto solto. Os dois entram, com a fonte escrita em cada linha — quem for montar
+    # portfólio por cultura usa DECLARADO_NO_BLOCO_CULTIVOS e ignora o resto.
+    declarados = {_chave(x) for x in cultivos_declarados(est)}
     for c in crops_txt:
         crop_rel.append({'PRODUCT_ID': pid, 'CROP': c['ES'], 'CROP_EPPO': c['EPPO'],
                          'SOURCE_URL': url_pagina, 'SOURCE_OWNER': 'ADAMA_PAGE',
                          'PAIR_DERIVABLE': any(p[0] == c['ES'] for p in pares_vistos),
+                         'DECLARATION_SOURCE': (
+                             'DECLARADO_NO_BLOCO_CULTIVOS'
+                             if _chave(c.get('MATCHED_AS') or c['ES']) in declarados
+                             or _chave(c['ES']) in declarados
+                             else 'CITADO_NO_CORPO_DA_PAGINA'),
                          'EVIDENCE_LEVEL': 'OBSERVED_ON_MANUFACTURER_PAGE'})
     for i in issues_txt:
         issue_rel.append({'PRODUCT_ID': pid, 'ISSUE': i['ES'], 'ISSUE_EPPO': i['EPPO'],
@@ -818,7 +871,7 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
                           'PAIR_DERIVABLE': any(p[1] == i['ES'] for p in pares_vistos),
                           'EVIDENCE_LEVEL': 'OBSERVED_ON_MANUFACTURER_PAGE'})
 
-    reg = REGISTRO.search(texto_todo)
+    reg = _registro(texto_todo)
     moa = []
     for esquema, rx in MODO_ACAO:
         for m in rx.finditer(texto_todo):
@@ -832,7 +885,7 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
         'DISPLAY_NAME': nome,
         'PAGE_URL': url_pagina,
         'CATEGORY': _categoria(est, texto_todo, url_pagina),
-        'REGISTRATION_ID': reg.group(0) if reg else 'NÃO SEI',
+        'REGISTRATION_ID': reg,
         'ADAMA_INTERNAL_ID': 'NÃO SEI',
         'CURRENT_CATALOG_STATUS': catalog_status,
         'FIRST_SEEN': captured_at,

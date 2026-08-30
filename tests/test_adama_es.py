@@ -435,6 +435,41 @@ def test_captura_local_nao_apaga_falha_http():
         'status ruim na captura virou conteudo vazio')
 
 
+def test_registro_solto_so_conta_com_o_rotulo_do_lado():
+    """"25186" só é registro quando a página escreve "Nº de registro:" antes.
+
+    Defeito medido: a regex só conhecia ES-#####, e 30 das 56 fichas saíam com NÃO SEI
+    tendo o numero publicado. O risco oposto — cinco digitos soltos virarem registro —
+    fica fechado pela ancora no rotulo.
+    """
+    assert A._registro('Nº de registro: 25186 Envases: 5L') == '25186'
+    assert A._registro('Nº de registro: 24.887') == '24.887'
+    assert A._registro('Nº de registro: ES-01209') == 'ES-01209'
+    assert A._registro('Envases: 10L. Precio 25186 pesetas') == 'NÃO SEI', (
+        'numero solto sem o rotulo virou registro')
+
+
+def test_cultivo_declarado_e_cultivo_citado_nao_se_somam():
+    """O bloco "Cultivos" é declaração; o corpo do texto é menção. São coisas diferentes.
+
+    Defeito medido: o filtro que limpava o titulo vazado apagava tambem cultivo real,
+    porque "Trigo" tambem e titulo de outro bloco na mesma ficha. AVASTEL ficava sem
+    nenhum cultivo declarado.
+    """
+    html = ('<html><body><h1>X</h1>'
+            '<h3>Cultivos</h3><div>Cebada</div><div>Trigo</div>'
+            '<h3>Trigo</h3><div>bla</div>'
+            '<h3>Información Adicional del Producto</h3><div>bla</div>'
+            '</body></html>')
+    declarados = A.cultivos_declarados(A.estruturar(html))
+    assert declarados == ['Cebada', 'Trigo'], declarados
+
+    d = A.parsear_produto(html, 'https://www.adama.com/spain/es/nuestras-soluciones/a/x')
+    fontes = {r['CROP']: r['DECLARATION_SOURCE'] for r in d['CROP_RELATIONS']}
+    for crop, fonte in fontes.items():
+        assert fonte in ('DECLARADO_NO_BLOCO_CULTIVOS', 'CITADO_NO_CORPO_DA_PAGINA'), crop
+
+
 if __name__ == '__main__':
     falhas = 0
     for nome, fn in sorted(globals().items()):
