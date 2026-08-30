@@ -1,0 +1,774 @@
+{
+  "DATASET": "ITALY-RESEARCHER-UNIVERSE",
+  "COUNTRY": "IT",
+  "SOURCE_ID": "IT-T5-001",
+  "SOURCE": "OpenAlex",
+  "CAPTURED_AT": "2026-08-30",
+  "EVIDENCE_CLASS": "SCIENTIFIC_LITERATURE",
+  "STATE": "PARTIAL",
+  "SOURCE_LOCATION": "GLOBAL (índice)",
+  "FACT_LOCATION": "NÃO SEI — a afiliação é do AUTOR, não do estudo",
+  "METHOD": "CROP×ISSUE já medido → obras → autores → recorrência. Sem cota, sem seguidores.",
+  "SCOPE_BUILT": {
+    "NAME": "MAIZE_MYCOTOXIN",
+    "QUERY": "(maize OR corn) AND (Fusarium OR aflatoxin OR mycotoxin)",
+    "WORKS_TRAVERSED": 208,
+    "AUTHORS_WITH_IT_AFFILIATION": 452,
+    "DETAILED_HERE": 25
+  },
+  "SCOPES_NOT_BUILT": {
+    "LIST": [
+      "VINE_FLAVESCENCE (135 obras)",
+      "MAIZE_BORER_DIABROTICA (30)",
+      "OLIVE_BACTROCERA (70)",
+      "DURUM_FUSARIUM (78)"
+    ],
+    "REASON": "THROTTLED — ver RATE_LIMIT_FINDING",
+    "STATE": "NOT_COLLECTED, e NÃO \"sem pesquisadores\""
+  },
+  "RATE_LIMIT_FINDING": {
+    "OBSERVED": "o OpenAlex passou a devolver 429 até para consulta AVULSA deste ambiente",
+    "CAUSE_MEASURED": "rajada, não volume diário: paginar de 100 em 100 a cada 1,6 s derrubou o IP inteiro, e as retentativas realimentavam o estrangulamento",
+    "WHAT_CLEARED_IT": "parar por ~45 s devolveu 200 imediatamente",
+    "WHAT_STILL_FAILS": "mesmo com per-page=200 e 8 s entre chamadas, a construção completa dos 5 recortes não terminou",
+    "LESSON": "IP compartilhado de datacenter tem orçamento de RAJADA muito menor que o documentado. Consulta dirigida precisa ser lenta, e esse custo entra no planejamento em vez de virar surpresa.",
+    "NOT_A_SOURCE_FAILURE": "a fonte é GREEN e responde — o limite está do nosso lado da conexão. SOURCE FAILURE ≠ ZERO, e isto nem é falha da fonte."
+  },
+  "UNIVERSE_TOTAL": 25,
+  "WITH_ORCID": 25,
+  "ACTIVE_SINCE_2024": 22,
+  "INSTITUTIONS_TOP": {
+    "Università Cattolica del Sacro Cuore": 193,
+    "Institute of Sciences of Food Production": 115,
+    "National Research Council": 88,
+    "University of Milan": 67,
+    "University of Turin": 67,
+    "University of Parma": 43,
+    "University of Udine": 28,
+    "Sapienza University of Rome": 26,
+    "University of Sassari": 22,
+    "University of Bologna": 20,
+    "University of Padua": 20,
+    "University of Perugia": 19,
+    "Cereal Research Centre": 15,
+    "University of Florence": 15,
+    "Istituto Zooprofilattico Sperimentale dell'Umbria e delle Marche": 15
+  },
+  "CONFOUNDER_DECLARED": "As instituições líderes (Cattolica-Piacenza, Torino, Milano, Udine) ficam nas MESMAS regiões que lideram a área de milho. A concordância pode ser sinal agronômico OU densidade institucional. NÃO separado. Esta é a mesma pergunta que ficou aberta na Espanha, e ela nasce declarada aqui.",
+  "WHAT_THIS_DOES_NOT_PROVE": [
+    "pressão de campo",
+    "demanda",
+    "região do fenômeno",
+    "alcance público",
+    "disposição a falar"
+  ],
+  "UNIVERSE": [
+    {
+      "ORIGIN_ID": "IT-RES-A5030669619",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Antonio Logrieco",
+      "OPENALEX_ID": "https://openalex.org/A5030669619",
+      "ORCID": "https://orcid.org/0000-0002-8606-451X",
+      "INSTITUTIONS": [
+        "Institute of Sciences of Food Production",
+        "National Research Council"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 27,
+      "LAST_ACTIVITY": 2026,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5054943286",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Paola Battilani",
+      "OPENALEX_ID": "https://openalex.org/A5054943286",
+      "ORCID": "https://orcid.org/0000-0003-1287-1711",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 24,
+      "LAST_ACTIVITY": 2026,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5090626214",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Antonio Gallo",
+      "OPENALEX_ID": "https://openalex.org/A5090626214",
+      "ORCID": "https://orcid.org/0000-0002-4700-4450",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 18,
+      "LAST_ACTIVITY": 2026,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5078398485",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Alessandra Lanubile",
+      "OPENALEX_ID": "https://openalex.org/A5078398485",
+      "ORCID": "https://orcid.org/0000-0002-1868-4469",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 16,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5018341697",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Antonio Moretti",
+      "OPENALEX_ID": "https://openalex.org/A5018341697",
+      "ORCID": "https://orcid.org/0000-0002-5232-6972",
+      "INSTITUTIONS": [
+        "Institute of Sciences of Food Production",
+        "National Research Council"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 15,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5023775552",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Adriano Marocco",
+      "OPENALEX_ID": "https://openalex.org/A5023775552",
+      "ORCID": "https://orcid.org/0000-0001-5378-5591",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 13,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5000502286",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Marco Camardo Leggieri",
+      "OPENALEX_ID": "https://openalex.org/A5000502286",
+      "ORCID": "https://orcid.org/0000-0002-6547-7702",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 12,
+      "LAST_ACTIVITY": 2026,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5024282165",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Paola Giorni",
+      "OPENALEX_ID": "https://openalex.org/A5024282165",
+      "ORCID": "https://orcid.org/0000-0001-9538-1835",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 10,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5059857211",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Chiara Dall’Asta",
+      "OPENALEX_ID": "https://openalex.org/A5059857211",
+      "ORCID": "https://orcid.org/0000-0003-0716-8394",
+      "INSTITUTIONS": [
+        "University of Parma"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 9,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5020359958",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Francesca Ghilardelli",
+      "OPENALEX_ID": "https://openalex.org/A5020359958",
+      "ORCID": "https://orcid.org/0000-0001-8631-1544",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 9,
+      "LAST_ACTIVITY": 2023,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5079904373",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Valentina Scarpino",
+      "OPENALEX_ID": "https://openalex.org/A5079904373",
+      "ORCID": "https://orcid.org/0000-0002-9994-9907",
+      "INSTITUTIONS": [
+        "University of Turin"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 9,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5061913370",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Massimo Blandino",
+      "OPENALEX_ID": "https://openalex.org/A5061913370",
+      "ORCID": "https://orcid.org/0000-0003-3719-2520",
+      "INSTITUTIONS": [
+        "University of Turin"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 9,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5076199777",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Miriam Haidukowski",
+      "OPENALEX_ID": "https://openalex.org/A5076199777",
+      "ORCID": "https://orcid.org/0000-0002-6072-8939",
+      "INSTITUTIONS": [
+        "Institute of Sciences of Food Production",
+        "National Research Council"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 8,
+      "LAST_ACTIVITY": 2024,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5063835037",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Darina Balkova",
+      "OPENALEX_ID": "https://openalex.org/A5063835037",
+      "ORCID": "https://orcid.org/0000-0002-5485-7101",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 7,
+      "LAST_ACTIVITY": 2026,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5033089170",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Terenzio Bertuzzi",
+      "OPENALEX_ID": "https://openalex.org/A5033089170",
+      "ORCID": "https://orcid.org/0000-0003-2235-6991",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 6,
+      "LAST_ACTIVITY": 2024,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5056855792",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Stefania Somma",
+      "OPENALEX_ID": "https://openalex.org/A5056855792",
+      "ORCID": "https://orcid.org/0000-0002-7074-7092",
+      "INSTITUTIONS": [
+        "Institute of Sciences of Food Production",
+        "National Research Council"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 6,
+      "LAST_ACTIVITY": 2024,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5007144479",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Roberto Pilu",
+      "OPENALEX_ID": "https://openalex.org/A5007144479",
+      "ORCID": "https://orcid.org/0000-0003-0181-2169",
+      "INSTITUTIONS": [
+        "University of Milan"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 6,
+      "LAST_ACTIVITY": 2024,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5086403588",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Lorenzo Stagnati",
+      "OPENALEX_ID": "https://openalex.org/A5086403588",
+      "ORCID": "https://orcid.org/0000-0002-4924-7309",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 6,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5004639109",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Matteo Busconi",
+      "OPENALEX_ID": "https://openalex.org/A5004639109",
+      "ORCID": "https://orcid.org/0000-0002-7824-3446",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 6,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5009023828",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Amedeo Reyneri",
+      "OPENALEX_ID": "https://openalex.org/A5009023828",
+      "ORCID": "https://orcid.org/0000-0002-4859-9572",
+      "INSTITUTIONS": [
+        "University of Turin"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 6,
+      "LAST_ACTIVITY": 2022,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5101851624",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Gabriele Rocchetti",
+      "OPENALEX_ID": "https://openalex.org/A5101851624",
+      "ORCID": "https://orcid.org/0000-0003-3488-4513",
+      "INSTITUTIONS": [
+        "Università Cattolica del Sacro Cuore"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 6,
+      "LAST_ACTIVITY": 2026,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5068306082",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Mario Masiello",
+      "OPENALEX_ID": "https://openalex.org/A5068306082",
+      "ORCID": "https://orcid.org/0000-0003-3989-2539",
+      "INSTITUTIONS": [
+        "Institute of Sciences of Food Production",
+        "National Research Council"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 5,
+      "LAST_ACTIVITY": 2024,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5038819573",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Severino Zara",
+      "OPENALEX_ID": "https://openalex.org/A5038819573",
+      "ORCID": "https://orcid.org/0000-0003-4809-9321",
+      "INSTITUTIONS": [
+        "University of Sassari"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 5,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5044372666",
+      "TYPE": "RESEARCHER",
+      "PERSON": "M. Spanghero",
+      "OPENALEX_ID": "https://openalex.org/A5044372666",
+      "ORCID": "https://orcid.org/0000-0001-9782-8194",
+      "INSTITUTIONS": [
+        "University of Udine"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 5,
+      "LAST_ACTIVITY": 2025,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    },
+    {
+      "ORIGIN_ID": "IT-RES-A5028743456",
+      "TYPE": "RESEARCHER",
+      "PERSON": "Michelangelo Pascale",
+      "OPENALEX_ID": "https://openalex.org/A5028743456",
+      "ORCID": "https://orcid.org/0000-0002-3898-1030",
+      "INSTITUTIONS": [
+        "Institute of Food Science",
+        "Institute of Sciences of Food Production",
+        "National Research Council"
+      ],
+      "ROR": "NÃO COLETADO — exige nova chamada, hoje estrangulada",
+      "COUNTRY": "IT",
+      "INSTITUTION_REGION": "NÃO SEI",
+      "FACT_REGION": "NÃO DERIVADO — afiliação não é região do fenômeno",
+      "CROPS": [
+        "Milho"
+      ],
+      "ISSUES": [
+        "Micotoxina / Fusarium"
+      ],
+      "PUBLICATIONS_IN_SCOPE": 5,
+      "LAST_ACTIVITY": 2022,
+      "IDENTITY_STATUS": "ORCID_PRESENT",
+      "ROLE": "RESEARCHER",
+      "ROLE_EVIDENCE": "autoria com afiliação italiana declarada no registro OpenAlex",
+      "SELECTION_REASON": "recorrência dentro de CROP×ISSUE medido — não cota",
+      "PUBLIC_CHANNELS": "NOT_COLLECTED",
+      "REACH": "não é campo deste dataset"
+    }
+  ]
+}

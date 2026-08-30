@@ -82,11 +82,21 @@ def _get(params, tentativas=6):
 
 
 def percorrer(busca, pais='it', desde=DESDE, teto=400):
+    """Poucas requisições grandes, não muitas pequenas.
+
+    Medido nesta rodada: paginar de 100 em 100 a cada 1,6 s fez o OpenAlex estrangular
+    o IP inteiro deste ambiente — a ponto de uma consulta AVULSA passar a devolver 429.
+    O erro não foi o volume diário; foi a RAJADA, e as retentativas a realimentavam.
+
+    `per-page=200` é o máximo da API e resolve quase todo recorte em UMA requisição
+    (135, 30, 70, 78 obras). Com 8 s entre chamadas, o recorte inteiro custa ~6
+    requisições. Consulta dirigida não precisa ser rápida — precisa terminar.
+    """
     f = ('institutions.country_code:%s,from_publication_date:%s,'
          'title_and_abstract.search:%s' % (pais, desde, busca))
     obras, cursor, n = [], '*', 0
     while cursor and n < teto:
-        d = _get({'filter': f, 'per-page': 100, 'cursor': cursor, 'mailto': MAILTO,
+        d = _get({'filter': f, 'per-page': 200, 'cursor': cursor, 'mailto': MAILTO,
                   'select': 'id,doi,publication_year,authorships'})
         if not d:
             break
@@ -94,7 +104,9 @@ def percorrer(busca, pais='it', desde=DESDE, teto=400):
             n += 1
             obras.append(w)
         cursor = d['meta'].get('next_cursor')
-        time.sleep(1.6)
+        if not d['results']:
+            break
+        time.sleep(8.0)
     return obras, n
 
 
@@ -128,6 +140,7 @@ def montar(teto=400):
     por_escopo = {}
     for chave, cfg in ESCOPOS.items():
         obras, n = percorrer(cfg['Q'], teto=teto)
+        time.sleep(8.0)
         rec, meta = pessoas(obras)
         por_escopo[chave] = {
             'CASE': cfg['CASE'], 'CROP': cfg['CROP'], 'ISSUE': cfg['ISSUE'],

@@ -512,6 +512,50 @@ videira × doença · molécula · `CROSS_MARKET_READY` = **NO**
 `USER_DECISIONS_REQUIRED` = **nenhuma** para continuar; a única que mudaria o escopo é se
 o portal deve ser desenhado — e a instrução atual é parar antes dele.
 
+### RODADA DE COLETA NACIONAL — o que a camada ganhou, e o que ela recusou
+
+**A tabela de doses passou a ligar cultura a alvo.** O repositório vinha publicando
+`CROP_TERM_PRESENT` com uma ressalva que eu mesmo tinha escrito: *"a associação
+cultura↔alvo mora numa coluna de tabela que a extração de PDF perde"*. Verdade sobre o
+**documento**, falso sobre a **região da tabela** — o texto perde a grade mas preserva a
+ordem de leitura. Recortar a tabela em vez do documento produziu **49 linhas de uso
+autorizado**, 13 com dose, e **90 pares cultura × alvo**.
+
+O verificador de gênero teve de ser **externo**, e o caminho errado veio primeiro: tentei
+construí-lo a partir dos próprios rótulos e as duas ordens de captura vazam vernáculo
+italiano (`Amaranto`, `Carota`, `Erba`, `Contro`). Nome comum italiano tem a **mesma
+forma** de um binômio. A saída foi reuso: o `eppo-dictionary.json` que a Espanha já
+preservou. E o custo fica declarado — o dicionário é espanhol, **`Scaphoideus` não está
+nele**, então a tabela **subestima** os alvos italianos: o número é **piso, não teto**.
+
+**A rota de creators foi reprovada pelo próprio gate.** 60 vídeos, 4 canais, **6,7 %** de
+relevância a `CROP × ISSUE`. Edagricole e Agri Italia testam **tratores**; Agri Italia está
+parado desde **2015**. A rota inversa — `CROP × REGION × TOPIC → conteúdo → pessoa` —
+devolveu em duas buscas o Consorzio de Piacenza, a FMach, a *Giornata del Mais* do CREA e
+conteúdo técnico de dois concorrentes, todos ligados aos issues dos casos.
+
+**O bloqueio comercial é da classe, não da ADAMA.** `adama.com`, `syngenta.it`,
+`cropscience.bayer.it` e `omnitrattore.it` respondem **403**; `agro.basf.it` e `corteva.it`
+respondem 200. São os sites do setor que recusam IP de datacenter — o que reclassifica a
+lacuna de "problema da ADAMA" para característica do território, válida também para
+Espanha e França.
+
+**E a matriz regional expôs uma lacuna que nenhum caso mostrava:**
+
+| Cultura | sinal cobre | do medido |
+|---|---:|---:|
+| Videira | 31,1 % | 44,5 % |
+| Milho | 17,1 % | 65,5 % |
+| Oliveira | 0,5 % | 32,3 % |
+| **Trigo duro** | **0,0 %** | 37,4 % |
+
+O trigo duro é a **primeira cultura da Itália** — 1.177,4 mil ha, 2,4× o milho — e **não
+tem sinal de campo em nenhuma região medida**. Não aparecia porque nenhum caso foi
+construído sobre ele; aparece agora porque a matriz obriga a olhar cultura por cultura em
+vez de caso por caso.
+
+---
+
 ### O ACHADO QUE FECHA A RODADA — a camada de campo não cobre onde a cultura está
 
 O `NEXT_SMALLEST_STEP` anterior era medir o campo nas regiões que **realmente** têm as
