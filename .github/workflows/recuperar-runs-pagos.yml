@@ -42,6 +42,11 @@ jobs:
           APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
         run: python3 scripts/apify_recuperar.py
 
+      - name: validar identidade dos 8 alvos (0 runs novos)
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/linkedin_validar.py
+
       - name: conferir que nenhum token entrou no que sobe
         if: always()
         run: |
@@ -57,5 +62,6 @@ jobs:
           name: runs-pagos-recuperados
           path: |
             data/samples/IT-CASOS/IT-LINKEDIN-RECOVERY.json
+            data/samples/IT-CASOS/IT-LINKEDIN-IDENTITY.json
             data/samples/raw-paid/
           if-no-files-found: warn
