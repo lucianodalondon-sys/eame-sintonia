@@ -241,6 +241,57 @@ def _http(metodo, url, key, dados=None, ctype=None):
         return e.code, e.read()
 
 
+def canario():
+    """Prova de autenticação SÓ DE LEITURA, antes de escrever um byte.
+
+    Um upload que falha por credencial errada não falha limpo: ele pode gravar
+    metade do lote, ou gravar num bucket que não é o nosso, e o diagnóstico vem
+    depois de 310 MB de tentativa. A leitura vem antes e custa uma requisição.
+
+        AUTH_UNKNOWN ≠ AUTH_OK
+        Se o canário não passa, UPLOAD_ATTEMPTS = 0.
+
+    E de quebra mede a capacidade na única fonte autoritativa que estas
+    credenciais alcançam: o próprio bucket declara o limite POR OBJETO. A quota
+    TOTAL do projeto não é exposta pela API de Storage — e inventar um número
+    para ela seria pior do que dizer que não se sabe.
+
+        PER_OBJECT_LIMIT ≠ TOTAL_PROJECT_QUOTA
+    """
+    url, key, faltam = credencial()
+    if faltam:
+        return {'SUPABASE_AUTH_CANARY': 'FAIL', 'RAW_BUCKET_ACCESS': 'FAIL',
+                'UPLOAD_ATTEMPTS': 0, 'MISSING': faltam,
+                'WHY': 'sem credencial no ambiente'}
+
+    st, body = _http('GET', '%s/storage/v1/bucket/%s' % (url, BUCKET), key)
+    if st != 200:
+        return {'SUPABASE_AUTH_CANARY': 'FAIL' if st in (401, 403) else 'UNKNOWN',
+                'RAW_BUCKET_ACCESS': 'FAIL', 'HTTP': st, 'UPLOAD_ATTEMPTS': 0,
+                'WHY': ('a leitura do bucket %r devolveu %d. Nada foi enviado'
+                        % (BUCKET, st))}
+    try:
+        info = json.loads(body.decode('utf-8'))
+    except ValueError:
+        info = {}
+
+    limite = info.get('file_size_limit')
+    return {
+        'SUPABASE_AUTH_CANARY': 'PASS',
+        'RAW_BUCKET_ACCESS': 'PASS',
+        'BUCKET': info.get('name') or BUCKET,
+        'BUCKET_PUBLIC': info.get('public'),
+        'PER_OBJECT_LIMIT_BYTES': limite,
+        'PER_OBJECT_LIMIT_SOURCE': ('declarado pelo próprio bucket' if limite
+                                    else 'o bucket não declara limite por objeto'),
+        'TOTAL_STORAGE_QUOTA': 'NOT_KNOWN',
+        'WHY_QUOTA_NOT_KNOWN': (
+            'a API de Storage não expõe a quota total do projeto a esta '
+            'credencial. Não é 200 MB: 200 MB é o limite POR OBJETO'),
+        'UPLOAD_ATTEMPTS': 0,
+    }
+
+
 def enviar(p=None, verificar=True):
     """Sobe e confere. `preserved` só depois do hash de volta bater."""
     url, key, faltam = credencial()
@@ -248,12 +299,18 @@ def enviar(p=None, verificar=True):
         return {'STATE': 'NO_CREDENTIALS', 'MISSING': faltam,
                 'WHY': ('sem credencial no ambiente. Este arquivo não procura '
                         'segredo em disco nem cria credencial')}
+    # A conferência LOCAL vem antes da que custa rede: um lote já desqualificado
+    # pelo tamanho não precisa de nenhuma requisição para ser recusado.
     p = p or plano()
     if p['EXCEEDS_BUCKET_LIMIT']:
         return {'STATE': 'ASSET_TOO_LARGE',
                 'LARGEST_ASSET_BYTES': p['LARGEST_ASSET_BYTES'],
                 'WHY': ('um asset passa do limite do bucket. Evidência original '
                         'não é comprimida para caber')}
+
+    c = canario()
+    if c['SUPABASE_AUTH_CANARY'] != 'PASS':
+        return dict(c, STATE='AUTH_CANARY_FAILED')
 
     resultado = []
     for it in p['ITEMS']:
@@ -323,6 +380,12 @@ def _relatorio(p, itens):
         'FAILED': conta.get(FAILED, 0),
         'UNKNOWN_MUST_VERIFY': conta.get(UNKNOWN_MUST_VERIFY, 0),
         'ORPHANS': 0,
+        # Bytes de objetos cujo hash VOLTOU e bateu. Não é "bytes enviados":
+        # enviado é o que eu afirmo; verificado é o que o servidor devolveu.
+        'BYTES_VERIFIED_REMOTELY': sum(i['BYTES'] for i in itens
+                                       if i['STATE'] == CONTENT_HASH_VERIFIED),
+        'BYTES_EXPECTED': sum(i['BYTES'] for i in itens),
+        'KEY_COLLISIONS': len(p.get('KEY_COLLISIONS') or []),
         'BY_STATE': conta,
         'ITEMS': itens,
     }
@@ -376,14 +439,29 @@ def main():
         print('%-24s : %s' % ('CREDENCIAL', 'presente' if not faltam
                               else 'ausente (' + ', '.join(faltam) + ')'))
         return 0
+    if modo == '--canario':
+        c = canario()
+        for k, v in c.items():
+            print('%-26s : %s' % (k, v))
+        return 0 if c['SUPABASE_AUTH_CANARY'] == 'PASS' else 1
+
     r = enviar() if modo == '--enviar' else verificar()
     if r.get('STATE') == 'NO_CREDENTIALS':
         print('sem credencial:', ', '.join(r['MISSING']))
         return 1
+    if r.get('STATE') == 'AUTH_CANARY_FAILED':
+        print('canario de autenticacao REPROVOU. UPLOAD_ATTEMPTS = 0')
+        print('motivo:', r.get('WHY'))
+        return 1
     for k in ('RAW_EXPECTED', 'REMOTE_PRESENT', 'REMOTE_ABSENT',
-              'CONTENT_HASH_CHECKED', 'SHA_VERIFIED', 'HASH_MISMATCH', 'FAILED'):
-        print('%-24s : %s' % (k, r[k]))
-    print('%-24s : %s' % ('GATE', r['GATE']['RAW_PRESERVATION_GATE_FR']))
+              'CONTENT_HASH_CHECKED', 'SHA_VERIFIED', 'HASH_MISMATCH', 'FAILED',
+              'ORPHANS', 'KEY_COLLISIONS', 'BYTES_EXPECTED',
+              'BYTES_VERIFIED_REMOTELY'):
+        print('%-26s : %s' % (k, r[k]))
+    print('%-26s : %s' % ('RAW_PRESERVATION_GATE_FR',
+                          r['GATE']['RAW_PRESERVATION_GATE_FR']))
+    if r['GATE']['MISSING']:
+        print('%-26s : %s' % ('FALTAM', ', '.join(r['GATE']['MISSING'])))
     return 0 if r['GATE']['RAW_PRESERVATION_GATE_FR'] == 'CLOSED' else 1
 
 

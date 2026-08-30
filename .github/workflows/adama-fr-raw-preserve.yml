@@ -1,0 +1,92 @@
+# RAW FRANÇA — preservação pelo runner local do eame-sintonia.
+#
+# Por que este workflow NÃO faz checkout: os 234 objetos a preservar são dado
+# bruto, e `data/raw/` é ignorado pelo Git de propósito (D-003). Um checkout
+# traria o código e NENHUM byte para enviar — e o portão fecharia com zero.
+# Então o job trabalha no worktree que já existe nesta máquina, e a primeira
+# coisa que ele faz é PROVAR que está no worktree certo, na branch certa.
+#
+#     CHECKOUT ≠ OS BYTES ESTÃO AQUI
+#
+# O runner é o do eame-sintonia (SINTONIA-EAME-LOCAL, label
+# `eame-sintonia-local`). Os outros dois runners desta máquina pertencem ao
+# portal-sintonia e não podem pegar este job — por isso o label é exigido.
+name: adama-fr-raw-preserve
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preservar:
+    runs-on: [self-hosted, eame-sintonia-local]
+    defaults:
+      run:
+        shell: bash
+        working-directory: C:\eame-sintonia-fr
+    env:
+      FR_WORKTREE: C:\eame-sintonia-fr
+      FR_BRANCH: claude/adama-fr-local-catalog
+
+    steps:
+      - name: 1 · provar o worktree antes de qualquer coisa
+        run: |
+          echo "PWD          : $(pwd)"
+          BRANCH="$(git branch --show-current)"
+          HEAD="$(git rev-parse HEAD)"
+          SUJO="$(git status --porcelain | wc -l)"
+          echo "FR_BRANCH    : $BRANCH"
+          echo "FR_HEAD      : $HEAD"
+          echo "ALTERACOES   : $SUJO"
+          [ "$BRANCH" = "$FR_BRANCH" ] || { echo "branch errada"; exit 1; }
+          [ "$SUJO" -eq 0 ] || { echo "arvore suja: nao rodar assim"; exit 1; }
+          echo "RUNNER_CAN_SEE_WORKTREE = TRUE"
+
+      - name: 2 · achar o Python de bootstrap
+        run: |
+          # O runner pode rodar sob outra conta, e o `py` do usuario pode nao
+          # estar no PATH dele. Falhar fechado aqui e melhor do que descobrir
+          # no meio de um upload de 310 MB.
+          for c in py python3 python \
+                   "/c/Users/London1/AppData/Local/Programs/Python/Launcher/py"; do
+            if command -v "$c" >/dev/null 2>&1 || [ -x "$c" ]; then
+              echo "BOOTSTRAP_PYTHON=$c" >> "$GITHUB_ENV"
+              echo "candidato de bootstrap: $c"
+              exit 0
+            fi
+          done
+          echo "nenhum Python de bootstrap visivel para este runner"
+          exit 1
+
+      - name: 3 · provar o runtime (trabalho feito, nao comando encontrado)
+        run: |
+          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py
+
+      - name: 4 · canario de autenticacao — somente leitura
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py --exec \
+            scripts/adama_fr_raw.py --canario
+
+      - name: 5 · plano RAW medido do disco (sem rede)
+        run: |
+          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py --exec \
+            scripts/adama_fr_raw.py --plano
+
+      - name: 6 · enviar, baixar de volta e reconferir hash a hash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py --exec \
+            scripts/adama_fr_raw.py --enviar
+
+      - name: 7 · veredito da fundacao francesa
+        if: always()
+        run: |
+          "$BOOTSTRAP_PYTHON" scripts/runtime_python.py --exec \
+            scripts/adama_fr_fundacao.py

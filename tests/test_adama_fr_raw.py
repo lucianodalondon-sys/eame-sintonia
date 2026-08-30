@@ -115,8 +115,14 @@ class Credencial(unittest.TestCase):
 
 class ArquivoGrande(unittest.TestCase):
 
-    def test_asset_acima_do_limite_para_o_lote(self):
-        """Comprimir evidência original para caber mudaria o que ela É."""
+    def test_asset_acima_do_limite_para_o_lote_sem_tocar_a_rede(self):
+        """Comprimir evidência original para caber mudaria o que ela É.
+
+        E a recusa acontece ANTES de qualquer requisição: um lote já
+        desqualificado pelo tamanho não precisa de rede para ser recusado. Este
+        teste roda com credencial de mentira de propósito — se alguém inverter a
+        ordem e o código sair para a rede, ele quebra aqui e não em produção.
+        """
         os.environ['SUPABASE_URL'] = 'https://exemplo.invalid'
         os.environ['SUPABASE_SECRET_KEY'] = 'chave-de-teste'
         try:
@@ -131,6 +137,65 @@ class ArquivoGrande(unittest.TestCase):
 
     def test_o_limite_do_bucket_esta_escrito_e_nao_e_adivinhado(self):
         self.assertEqual(raw.LIMITE_BUCKET_BYTES, 200 * 1024 * 1024)
+
+
+class Canario(unittest.TestCase):
+    """A prova de leitura que vem antes de escrever qualquer byte."""
+
+    def setUp(self):
+        self.antes = {k: os.environ.get(k)
+                      for k in ('SUPABASE_URL', 'SUPABASE_SECRET_KEY')}
+        for k in self.antes:
+            os.environ.pop(k, None)
+
+    def tearDown(self):
+        for k, v in self.antes.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+
+    def test_sem_credencial_o_canario_reprova_e_nao_tenta_upload(self):
+        c = raw.canario()
+        self.assertEqual(c['SUPABASE_AUTH_CANARY'], 'FAIL')
+        self.assertEqual(c['UPLOAD_ATTEMPTS'], 0)
+
+    def test_canario_reprovado_impede_o_envio(self):
+        r = raw.enviar(p={'ITEMS': [], 'RAW_EXPECTED': 1,
+                          'EXCEEDS_BUCKET_LIMIT': False})
+        self.assertEqual(r['STATE'], 'NO_CREDENTIALS')
+
+    def test_limite_por_objeto_nao_e_quota_total(self):
+        """200 MB é por arquivo. A quota do projeto é outra coisa, e não se sabe."""
+        os.environ['SUPABASE_URL'] = 'https://exemplo.invalid'
+        os.environ['SUPABASE_SECRET_KEY'] = 'x'
+        chamadas = []
+
+        def falso(metodo, url, key, dados=None, ctype=None):
+            chamadas.append((metodo, url))
+            return 200, b'{"name":"raw","public":false,"file_size_limit":209715200}'
+
+        original, raw._http = raw._http, falso
+        try:
+            c = raw.canario()
+        finally:
+            raw._http = original
+        self.assertEqual(c['SUPABASE_AUTH_CANARY'], 'PASS')
+        self.assertEqual(c['RAW_BUCKET_ACCESS'], 'PASS')
+        self.assertEqual(c['PER_OBJECT_LIMIT_BYTES'], 209715200)
+        self.assertEqual(c['TOTAL_STORAGE_QUOTA'], 'NOT_KNOWN')
+        self.assertEqual([m for m, _ in chamadas], ['GET'])
+
+    def test_403_no_bucket_reprova_e_zera_tentativas(self):
+        os.environ['SUPABASE_URL'] = 'https://exemplo.invalid'
+        os.environ['SUPABASE_SECRET_KEY'] = 'x'
+        original, raw._http = raw._http, lambda *a, **k: (403, b'{}')
+        try:
+            c = raw.canario()
+        finally:
+            raw._http = original
+        self.assertEqual(c['SUPABASE_AUTH_CANARY'], 'FAIL')
+        self.assertEqual(c['UPLOAD_ATTEMPTS'], 0)
 
 
 class PlanoDoDisco(unittest.TestCase):

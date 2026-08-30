@@ -417,7 +417,37 @@ def conferir_saida(*, caminhos, exit_code=None, contagem=None, contagem_minima=1
     return dict(base, STATE=SAIDA_OK, WHY='saídas presentes, com bytes e com registros')
 
 
+def executar(argv):
+    """`--exec alvo.py [args]` → roda o alvo COM o interpretador provado.
+
+    Existe para o runner. Lá não há como saber de antemão qual Python está
+    instalado, e escrever o caminho à mão num workflow é a mesma aposta que
+    produziu o falso "download concluído": funciona até a máquina mudar.
+
+    O bootstrap pode ser qualquer Python que consiga importar este módulo —
+    inclusive um com a casa errada. Ele descobre o certo e ENTREGA o trabalho a
+    ele, com o ambiente junto.
+    """
+    if not argv:
+        print('uso: runtime_python.py --exec <script.py> [args...]')
+        return 2
+    a = descobrir()
+    p = portao(a)
+    if p['PYTHON_RUNTIME_GATE'] != 'CLOSED':
+        print('PYTHON_RUNTIME_GATE = OPEN — faltam:', ', '.join(p['MISSING']))
+        return 1
+    prefixo, ambiente = comando(a)
+    alvo = list(prefixo) + list(argv)
+    print('runtime :', a['EXECUTABLE'])
+    print('prefix  :', a.get('PREFIX'))
+    print('rodando :', ' '.join(argv))
+    sys.stdout.flush()
+    return subprocess.call(alvo, env=ambiente)
+
+
 def main():
+    if '--exec' in sys.argv:
+        return executar(sys.argv[sys.argv.index('--exec') + 1:])
     a = descobrir()
     p = portao(a)
     print('PYTHON_RUNTIME_GATE     :', p['PYTHON_RUNTIME_GATE'])
