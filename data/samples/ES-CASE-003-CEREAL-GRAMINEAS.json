@@ -150,14 +150,83 @@
   "com a sementeira a 6-10 semanas e a aplicacao a 2-5 meses, ha tempo real para preparar material tecnico e decidir portfolio — que e exatamente o que um caso de PREPARAR deve entregar."
  ],
  "UNKNOWNS": [
-  "se ha resistencia a ACCase em Lolium rigidum espanhol: NAO MEDIDO neste repositorio. A etiqueta nao traz texto de manejo de resistencia. Nao afirmar sem fonte.",
   "a distribuicao regional do vallico: nenhuma fonte de campo consultada tem o campo de daninha. O RAIF de cereais mede pragas e doencas, nao daninhas.",
-  "COMMERCIAL_CLOCK = NAO SEI"
+  "COMMERCIAL_CLOCK = NAO SEI",
+  "a distribuicao REGIONAL da resistencia dentro da Espanha: o resumo diz \"widespread\" e nao diz onde. As tres populacoes do estudo de 2021 sao espanholas e a regiao nao foi lida.",
+  "se os produtos de pre-emergencia da ADAMA controlam populacoes resistentes: nao medido, e o registro nao responde eficacia."
  ],
  "EVIDENCE_PATHS": [
   "MAPA ROPF pares: trigo/cebada x 2062, 2017, 2010, 2046, 2030",
   "fichas 19549 e 19548 baixadas do MAPA e lidas na secao Usos y Dosis",
   "data/samples/ES-CEREAIS-PARES-ROPF.json",
   "data/samples/ES-T3-002-raif-cereales-invierno.json para o descarte da septoriose"
- ]
+ ],
+ "O_BLOQUEIO_MATERIAL_RESOLVIDO": {
+  "PERGUNTA": "ha resistencia a ACCase em Lolium rigidum na Espanha, com fonte defensavel?",
+  "RESPOSTA": "SIM, e a fonte e explicita.",
+  "ROTA": "Crossref API (gratuita), busca dirigida \"Lolium rigidum ACCase resistance Spain wheat\". Nao foi revisao bibliografica: foram duas consultas.",
+  "FONTE_PRINCIPAL": {
+   "DOI": "10.3389/fpls.2021.625138",
+   "TITULO": "Target-Site and Non-target-Site Resistance Mechanisms Confer Multiple and Cross- Resistance to ALS and ACCase Inhibiting Herbicides in Lolium rigidum From Spain",
+   "REVISTA": "Frontiers in Plant Science",
+   "ANO": 2021,
+   "AUTORES": [
+    "Joel Torra",
+    "José María Montull",
+    "Andreu Taberner",
+    "Nawaporn Onkokesung",
+    "Neil Boonham",
+    "Robert Edwards"
+   ],
+   "O_QUE_O_RESUMO_DIZ_LITERALMENTE": "\"In winter cereals crops in Spain, resistance to acetolactate synthase (ALS)- and acetyl-CoA carboxylase (ACCase)-inhibiting herbicides has become widespread, with farmers having to rely on pre-emergence herbicides over the last two decades to maintain weed control. Recently, lack of control with very long-chain fatty acid synthesis (VLCFAS)-inhibiting herbicides has been reported in HR populations that are difficult to manage by chemical means.\"",
+   "NIVEL_DE_LEITURA": "li o RESUMO no registro do Crossref, nao o texto completo. Tudo que afirmo vem dessa frase.",
+   "A_CONVERGENCIA_QUE_NAO_FOI_PROCURADA": "o primeiro autor e Joel Torra — o mesmo pesquisador que a camada cientifica ja tinha CONFIRMADO por ORCID (0000-0002-8666-6780, Universitat de Lleida) atraves do par MILHO x AMARANTHUS. Duas rotas independentes, partindo de culturas diferentes, chegaram na mesma pessoa."
+  },
+  "FONTE_SECUNDARIA": {
+   "DOI": "10.1016/j.cropro.2017.08.001",
+   "TITULO": "Current status in herbicide resistance in Lolium rigidum in winter cereal fields in Spain: Evolution of resistance 12 years after",
+   "REVISTA": "Crop Protection",
+   "ANO": 2017,
+   "AUTORES": [
+    "Iñigo Loureiro",
+    "Concepción Escorial",
+    "Eva Hernández Plaza",
+    "José L. González Andújar",
+    "María Cristina Chueca"
+   ],
+   "NOTA": "sem resumo no Crossref. Entra como existencia de monitoramento espanhol de 12 anos, nao como afirmacao de conteudo."
+  }
+ },
+ "O_QUE_ISSO_MUDA_NO_CASO": {
+  "A_VIRADA": "o unico produto da ADAMA que nomeia Lolium na etiqueta e o clodinafop-propargil, um inibidor de ACCase — exatamente o grupo que a literatura descreve como amplamente comprometido em cereal de inverno espanhol.",
+  "E_O_OUTRO_LADO": "o resumo diz que os agricultores passaram a depender de herbicidas de PRE-EMERGENCIA. Os dez registros genericos da ADAMA em monocotiledoneas incluem pendimetalina, clortoluron, metribuzina e diflufenican — quimicas de pre-emergencia e pos precoce. O portfolio generico esta onde a literatura diz que o mercado foi parar.",
+  "A_LEITURA_HONESTA": "a arquitetura publica do portfolio esta melhor posicionada do que os rotulos declaram: o produto com claim de especie esta no grupo comprometido, e os produtos sem claim de especie estao no grupo para onde o manejo migrou.",
+  "O_QUE_ISSO_NAO_AFIRMA": [
+   "nao afirma que o clodinafop deixou de funcionar em nenhuma parcela concreta",
+   "nao afirma que os produtos de pre-emergencia da ADAMA controlam Lolium resistente — eficacia nao foi medida e o registro nao a declara",
+   "nao afirma estrategia anti-resistencia da ADAMA: ver o achado seguinte"
+  ]
+ },
+ "ARQUITETURA_DE_MODO_DE_ACAO": {
+  "PERGUNTA_DA_SECAO_4_2": "a arquitetura publica do portfolio mostra diversidade de modos de acao?",
+  "O_QUE_O_REGISTRO_DECLARA": "substancia ativa, sempre. Sao pelo menos quatro quimicas distintas nos dez registros genericos por cultura.",
+  "O_QUE_O_REGISTRO_NAO_DECLARA": "modo de acao. O campo nao existe no ROPF e nao aparece nas fichas.",
+  "MEDIDO_NAS_96_FICHAS_ADAMA": {
+   "COM_CODIGO_DE_GRUPO_HRAC_IRAC_FRAC": "1 de 96 (ARRODIM)",
+   "COM_A_PALAVRA_RESISTENC*": "33 de 96",
+   "ACCRESTO_E_TOPIK": "nenhum dos dois traz codigo de grupo nem a palavra resistencia",
+   "CONCLUSAO": "nao da para afirmar \"estrategia anti-resistencia\" a partir do material publico: a diversidade quimica esta declarada, a classificacao de modo de acao nao esta. Agrupar as substancias por modo de acao seria classificacao MINHA, nao leitura da fonte, e por isso nao entra como fato."
+  },
+  "ERRO_QUE_ESSA_CONTAGEM_QUASE_PUBLICOU": {
+   "PRIMEIRA_MEDIDA": "34 de 96 fichas com HRAC/IRAC/FRAC.",
+   "CORRIGIDO_PARA": "1 de 96.",
+   "CAUSA": "busca por substring sem limite de palavra e sem distincao de caixa. \"respiracion\" (26 ocorrencias) e \"aspiracion\" (15) contem a sequencia IRAC. Tambem \"fraccion\" e \"fracaso\" contem FRAC.",
+   "LICAO": "sigla curta de agronomia dentro de texto em espanhol precisa de \\b e de caixa. Um acronimo de quatro letras casa dentro de palavra comum."
+  }
+ },
+ "STATUS_REAVALIADO": {
+  "ANTES": "PREPARAR",
+  "DEPOIS": "PREPARAR — reforcado",
+  "POR_QUE": "a lacuna deixou de ser so \"claim por especie\" e passou a ter contexto tecnico com fonte: o claim de especie que existe esta no grupo que a literatura descreve como comprometido. Isso e material para conversa tecnica pre-safra, que e exatamente o que um caso de PREPARAR deve entregar."
+ }
 }

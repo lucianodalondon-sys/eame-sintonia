@@ -384,5 +384,59 @@
   "MAPA ROPF Productos/GetProductoById para ES-00211, ES-00979, 25139.",
   "fichas PDF preservadas ES-00211 e ES-00979, secao Usos y Dosis.",
   "data/samples/BACKTEST-REPILO-LEAD-TIME.json para o poder preditivo da serie."
- ]
+ ],
+ "RELOGIOS_FORMALIZADOS": {
+  "OBSERVED_AT": {
+   "HUELVA": "2026-06-14 (ultima leitura de repilo)",
+   "CADIZ": "2026-05-27",
+   "JAEN": "2026-08-19",
+   "CORDOBA": "2026-08-18",
+   "GRANADA": "2026-08-19",
+   "SEVILLA": "2026-08-17",
+   "MALAGA": "2026-07-01"
+  },
+  "SAMPLE_PERIOD": {
+   "HUELVA": "2026-03-03 a 2026-06-14, n=18",
+   "CADIZ": "2026-02-10 a 2026-05-27, n=141"
+  },
+  "FILE_DATE": "2026-08-24 (generated= no proprio XML)",
+  "PUBLICATION_DATE": "2026-08-26T09:13:40 (last_modified do recurso no CKAN da Junta de Andalucia, verificado em 30/08)",
+  "CAPTURED_AT": "2026-08-29 (primeira captura) e 2026-08-30 (reproducao integral)",
+  "SIGNAL_FRESHNESS_CLASS": "SEASON_2026_SPRING_READING — nao CURRENT_SIGNAL",
+  "POR_QUE_ESSA_CLASSE": "as quatro datas sao diferentes e so uma delas e a observacao. Huelva e Cadiz nao tem leitura de repilo depois de junho e maio. Chamar isso de sinal corrente seria repetir o erro que ja foi pego uma vez.",
+  "O_QUE_ISSO_NAO_INVALIDA": "as provincias do leste TEM leitura de agosto (Jaen 19/08, Granada 19/08, Cordoba 18/08, Sevilla 17/08) e elas estao baixas. Entao a ausencia de leitura no oeste e da fonte, nao da campanha: o RAIF continuou amostrando em agosto, so nao no oeste."
+ },
+ "MAGNITUDE_x_SAMPLE_SUPPORT": {
+  "REGRA": "magnitude e suporte amostral ficam em campos separados e nao se compensam.",
+  "HUELVA": {
+   "MAGNITUDE": "8,83% — maior das 21 campanhas com leitura",
+   "SAMPLE_SUPPORT": "FRACO: 18 leituras, 7 parcelas. E o menor n de toda a serie; o segundo menor foi 38 leituras em 2024.",
+   "REDE": "encolheu de 34 parcelas (2006) para 7 (2026)"
+  },
+  "CADIZ": {
+   "MAGNITUDE": "8,01% — 2a maior da serie, atras de 2013 (9,71%)",
+   "SAMPLE_SUPPORT": "FORTE: 141 leituras, 39 parcelas",
+   "REDE": "estavel, 39-59 parcelas em todas as 21 campanhas"
+  },
+  "VEREDITO": "a magnitude de Huelva e real e reproduzida, e sobreviveu ao teste de sobrevivencia de parcela. O suporte amostral dela nao e equivalente ao de Cadiz e o caso nao deve ser apresentado como se fosse."
+ },
+ "STATUS_REAVALIADO": {
+  "ANTES": "AGIR AGORA",
+  "DEPOIS": "AGIR AGORA — mantido, e o motivo mudou",
+  "POR_QUE_SE_MANTEM": "o que sustenta \"agora\" nao e o frescor da leitura, e a janela: CUPROXI FLO autoriza BBCH 10-85 com prazo de 7 dias, e a fenologia OBSERVADA em agosto/2026 esta em BBCH 75-81. Isso e verificavel hoje, na etiqueta e no campo.",
+  "O_QUE_MUDOU_NA_REDACAO": "o caso deixa de ser \"ha um surto agora\" e passa a ser \"a campanha de primavera fechou alta no oeste e a janela de outono esta aberta\". A acao e a mesma; a afirmacao e menor e verdadeira.",
+  "SE_ALGUEM_DISCORDAR": "a leitura alternativa defensavel e PREPARAR/MONITORAR, porque o dado de campo do oeste tem 77-95 dias. Nao ha como decidir entre as duas com o dado publico atual, e a diferenca pratica e pequena: as duas mandam olhar o outono no oeste."
+ },
+ "CLASSIFICACAO_DE_EVIDENCIA": {
+  "REGULATORY_FACT": [
+   "estado, caducidad, titular, tramite e datas dos registros ES-00211, ES-00979 e 25139, lidos do ROPF",
+   "as linhas de Usos y Dosis das fichas oficiais: BBCH 10-85, 1-4 aplicacoes, PS 7 dias (CUPROXI FLO); primeira aplicacao antes da floracion, PS 120 dias (NEPTUNE)"
+  ],
+  "MANUFACTURER_INFORMATION": [
+   "NENHUMA. O catalogo publico da ADAMA nao foi coletado — o host esta negado na borda para este ambiente. Ver ES-REVIEW-HANDOFFS."
+  ],
+  "DERIVED_WINDOW": [
+   "\"a janela do CUPROXI FLO esta aberta em 30/08/2026\" e DERIVADA: cruza o BBCH da etiqueta (fato regulatorio) com a fenologia observada no RAIF em agosto (fato de campo). Nenhuma das duas fontes afirma a janela; a juncao e minha."
+  ]
+ }
 }
