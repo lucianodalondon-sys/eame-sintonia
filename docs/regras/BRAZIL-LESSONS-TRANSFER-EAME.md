@@ -5,7 +5,7 @@
 mesclado, Supabase intocado.
 
 > **`CATALOG_IMPORT_ENGINEERING_GATE = READY`** · **`EAME_COLLECTION_ENTRY_GATE = READY`**
-> · **`RAW_PRESERVATION_GATE = OPEN_EXTERNAL_REPAIR`** · **`IMPORT_CAN_BE_NEXT_MISSION = NO`**
+> · **`RAW_PRESERVATION_GATE = CLOSED`** · **`IMPORT_CAN_BE_NEXT_MISSION = YES`**
 >
 > São dois portões, e não um. Um nome estava fazendo dois trabalhos — a engenharia de
 > importar o catálogo regulatório, que não tem lugar de fato, e a entrada da coleta em
@@ -168,7 +168,7 @@ coleta não estão provadas.
 | `UNKNOWN_STATE_CONTRACT_COMPLETE` | **YES** |
 | `COUNTRY_ISOLATION_COMPLETE` | **YES** |
 | `ANALYTICAL_UNIT_CONTRACT_COMPLETE` | ~~**NO**~~ → **YES** — BR-16 fechado na 016 |
-| `RAW_PRESERVATION_GATE` | **OPEN_EXTERNAL_REPAIR** — 184 de 196 verificados, 12 falharam no envio, 0 hash divergente. Prova externa; ver `data/samples/RAW-GATE-ES.json` |
+| `RAW_PRESERVATION_GATE` | **CLOSED** — 196 de 196 presentes, 0 ausentes, 0 órfãos, 0 hash divergente. Prova **externa**: quem enviou e conferiu foi a máquina do operador, não esta branch. Ver `data/samples/RAW-GATE-ES.json` |
 | `RESILIENCE_CONTRACT_COMPLETE` | ~~**NO**~~ → **YES** — BR-19 · BR-20 · BR-21 fechados |
 
 O `LOCATION_CONTRACT_COMPLETE` fez o caminho **YES → NO → YES** em três rodadas, e o meio

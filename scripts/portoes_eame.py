@@ -149,10 +149,34 @@ def monta():
 
     # O gate do RAW não é derivável daqui: é medição de outra máquina. O que
     # esta função faz é RECUSAR-SE a inventá-lo, e passar adiante o que veio.
-    raw_estado = r['ESTADO']
+    #
+    # Mas o artefato traz DUAS coisas que dizem a mesma verdade: os números e
+    # o campo ESTADO. Dois donos da mesma afirmação é o defeito que este
+    # repositório persegue, e aqui ele teria uma forma particularmente ruim —
+    # alguém escrever ESTADO='CLOSED' num arquivo e o portão de importação
+    # abrir sem que nenhum número tivesse mudado.
+    #
+    # Por isso o estado é DERIVADO dos números, e o campo declarado só é
+    # aceito quando concorda com eles. Discordância não é resolvida em
+    # silêncio: vira DIVERGENTE, e nada abre.
     raw_fechado = (r['ALREADY_PRESENT_VERIFIED'] == r['EXPECTED']
                    and r['FAILED_WITH_REASON'] == 0
-                   and r['HASH_MISMATCH'] == 0 and r['CONFLICT'] == 0)
+                   and r['HASH_MISMATCH'] == 0 and r['CONFLICT'] == 0
+                   and r.get('ORFAOS_NO_BUCKET', 0) == 0
+                   and r.get('DO_PLANO_AUSENTES', 0) == 0)
+    raw_derivado = 'CLOSED' if raw_fechado else 'OPEN_EXTERNAL_REPAIR'
+    raw_declarado = r['ESTADO']
+    if raw_declarado != raw_derivado:
+        # Falha fechada: o portão de importação NÃO abre com o artefato
+        # discordando de si mesmo.
+        raw_fechado = False
+        raw_estado = 'DIVERGENTE'
+        raw_porque_divergente = (
+            'o artefato declara %s e os números dizem %s — enquanto os dois não '
+            'concordarem, nada abre.' % (raw_declarado, raw_derivado))
+    else:
+        raw_estado = raw_derivado
+        raw_porque_divergente = None
 
     pode_importar = (portoes['CATALOG_IMPORT_ENGINEERING_GATE']['ESTADO'] == 'READY'
                      and raw_fechado)
@@ -191,8 +215,13 @@ def monta():
         'PORTOES': portoes,
         'RAW_PRESERVATION_GATE': {
             'ESTADO': raw_estado,
+            'ESTADO_DECLARADO_NO_ARTEFATO': raw_declarado,
+            'ESTADO_DERIVADO_DOS_NUMEROS': raw_derivado,
+            'DIVERGENCIA': raw_porque_divergente,
             'PROVA': r['PROVA'],
             'VERIFICADO_DAQUI': r['VERIFICADO_DAQUI'],
+            'ESTA_BRANCH_EXECUTOU_O_UPLOAD': r.get('ESTA_BRANCH_EXECUTOU_O_UPLOAD', 'NO'),
+            'DO_PLANO_AUSENTES': r.get('DO_PLANO_AUSENTES'),
             'EXPECTED': r['EXPECTED'],
             'VERIFIED': r['ALREADY_PRESENT_VERIFIED'],
             'FAILED': r['FAILED_WITH_REASON'],
@@ -207,10 +236,14 @@ def monta():
         'IMPORT_CAN_BE_NEXT_MISSION': 'YES' if pode_importar else 'NO',
         'PORQUE_NAO_IMPORTAR':
             None if pode_importar else
-            'a engenharia do catálogo está pronta e o RAW gate não fechou: 12 dos '
-            '196 assets falharam no envio, com diagnóstico em curso em outra '
-            'máquina. Importar com o bruto incompleto é importar sem poder voltar '
-            'à evidência.',
+            ('a engenharia do catálogo não está READY.'
+             if portoes['CATALOG_IMPORT_ENGINEERING_GATE']['ESTADO'] != 'READY'
+             else 'o RAW gate não fechou: %s de %s assets ausentes do bucket. '
+                  'Importar com o bruto incompleto é importar sem poder voltar à '
+                  'evidência.' % (r.get('DO_PLANO_AUSENTES'), r['EXPECTED'])),
+        'O_QUE_YES_SIGNIFICA':
+            'que a PRÓXIMA missão pode ser a importação. Não que esta rodada deva '
+            'importar, e não que a importação já tenha sido feita.',
     }
 
 
@@ -237,6 +270,8 @@ if __name__ == '__main__':
     print()
     print('RAW_PRESERVATION_GATE             %s  (prova %s, verificado daqui: %s)'
           % (g['ESTADO'], g['PROVA'], g['VERIFICADO_DAQUI']))
+    if g['DIVERGENCIA']:
+        print('    ⚠ ', g['DIVERGENCIA'])
     print('    EXPECTED=%d  VERIFIED=%d  FAILED=%d  HASH_MISMATCH=%d  CONFLICT=%d'
           % (g['EXPECTED'], g['VERIFIED'], g['FAILED'], g['HASH_MISMATCH'], g['CONFLICT']))
     print()

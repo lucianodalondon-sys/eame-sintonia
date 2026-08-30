@@ -156,18 +156,72 @@ class TestMutacoes(unittest.TestCase):
         self.assertEqual('READY',
                          P.monta()['PORTOES']['EAME_COLLECTION_ENTRY_GATE']['ESTADO'])
 
-    def test_um_raw_gate_fechado_ainda_nao_bastaria_sozinho(self):
-        """IMPORT exige o portao do catalogo E o raw. Nao um so."""
+    def test_raw_aberto_nunca_deixa_import_virar_yes(self):
+        """A trava que esta missao pediu, nos DOIS caminhos que a burlariam.
+
+        Caminho 1: os numeros dizem que faltam assets. Caminho 2: os numeros
+        estao certos e alguem escreve ESTADO='CLOSED' num arquivo. Nenhum
+        dos dois pode abrir o portao — e o segundo e o mais facil de fazer
+        sem querer, porque nao exige mentir sobre nenhum numero.
+        """
         real = P.raw_es
-        P.raw_es = lambda: dict(real(), ALREADY_PRESENT_VERIFIED=196,
-                                FAILED_WITH_REASON=0, ESTADO='CLOSED')
+        casos = [
+            ('faltam assets no bucket',
+             dict(ALREADY_PRESENT_VERIFIED=185, FAILED_WITH_REASON=11,
+                  DO_PLANO_AUSENTES=11, ESTADO='OPEN_EXTERNAL_REPAIR')),
+            ('ESTADO diz CLOSED e os numeros dizem que nao',
+             dict(ALREADY_PRESENT_VERIFIED=185, FAILED_WITH_REASON=11,
+                  DO_PLANO_AUSENTES=11, ESTADO='CLOSED')),
+            ('ha orfaos no bucket',
+             dict(ORFAOS_NO_BUCKET=3, ESTADO='CLOSED')),
+            ('um hash divergente',
+             dict(HASH_MISMATCH=1, ESTADO='CLOSED')),
+        ]
         try:
-            self.assertEqual('YES', P.monta()['IMPORT_CAN_BE_NEXT_MISSION'],
-                             'com o raw fechado e o catalogo READY, IMPORT deveria '
-                             'poder ser SIM — se nao muda, a conta nao le o raw')
+            for nome, mudanca in casos:
+                with self.subTest(caso=nome):
+                    P.raw_es = lambda m=mudanca: dict(real(), **m)
+                    d = P.monta()
+                    self.assertEqual('NO', d['IMPORT_CAN_BE_NEXT_MISSION'],
+                                     'RAW aberto deixou IMPORT virar YES: %s' % nome)
+                    self.assertNotEqual('CLOSED', d['RAW_PRESERVATION_GATE']['ESTADO'])
+                    self.assertTrue(d['PORQUE_NAO_IMPORTAR'])
         finally:
             P.raw_es = real
-        self.assertEqual('NO', P.monta()['IMPORT_CAN_BE_NEXT_MISSION'])
+        # E, com o raw de verdade, ele volta a YES — sem isso os quatro casos
+        # acima estariam verdes so porque a conta diz NAO para tudo.
+        self.assertEqual('YES', P.monta()['IMPORT_CAN_BE_NEXT_MISSION'])
+
+    def test_o_artefato_discordando_de_si_mesmo_falha_fechado(self):
+        """ESTADO e os numeros sao dois donos da mesma verdade. Quando
+        discordam, o portao nao escolhe o mais conveniente: ele para."""
+        real = P.raw_es
+        P.raw_es = lambda: dict(real(), ESTADO='OPEN_EXTERNAL_REPAIR')
+        try:
+            g = P.monta()['RAW_PRESERVATION_GATE']
+            self.assertEqual('DIVERGENTE', g['ESTADO'])
+            self.assertTrue(g['DIVERGENCIA'])
+            self.assertEqual('NO', P.monta()['IMPORT_CAN_BE_NEXT_MISSION'],
+                             'divergencia no artefato deixou o portao abrir')
+        finally:
+            P.raw_es = real
+
+    def test_o_catalogo_partial_tambem_barra_o_import(self):
+        """IMPORT exige os DOIS. Sem isto, o raw fechado abriria sozinho."""
+        import cicatrizes_brasil as C
+        alvo = [c for c in C.CICATRIZES if c['ID'] == 'BR-13'][0]
+        antes = alvo['EAME_STATUS']
+        alvo['EAME_STATUS'] = 'PARTIAL'
+        try:
+            d = P.monta()
+            self.assertEqual('PARTIAL',
+                             d['PORTOES']['CATALOG_IMPORT_ENGINEERING_GATE']['ESTADO'])
+            self.assertEqual('NO', d['IMPORT_CAN_BE_NEXT_MISSION'])
+            self.assertEqual('CLOSED', d['RAW_PRESERVATION_GATE']['ESTADO'],
+                             'o raw nao devia mudar: o defeito e do outro lado')
+        finally:
+            alvo['EAME_STATUS'] = antes
+        self.assertEqual('YES', P.monta()['IMPORT_CAN_BE_NEXT_MISSION'])
 
 
 class TestORawEEstrangeiro(unittest.TestCase):
@@ -216,11 +270,43 @@ class TestORawEEstrangeiro(unittest.TestCase):
         self.assertEqual(0, self.r['ORFAOS_NO_BUCKET'])
         self.assertTrue(self.r['PORQUE_ZERO_ORFAOS_IMPORTA'].strip())
 
-    def test_o_estado_nao_e_fechado_e_nem_finge_ser(self):
+    def test_o_estado_fechou_e_a_conta_fecha_com_ele(self):
+        """Este teste ja afirmou OPEN_EXTERNAL_REPAIR, e afirmava certo.
+
+        O operador rodou `storage_preservar.py --enviar --so-ausentes` na
+        maquina espanhola e o ultimo asset entrou. O que o teste guarda e a
+        coerencia: FECHADO so pode ser YES quando os numeros fecham.
+        """
         g = self.d['RAW_PRESERVATION_GATE']
-        self.assertEqual('NO', g['FECHADO'])
-        self.assertEqual('OPEN_EXTERNAL_REPAIR', g['ESTADO'])
-        self.assertEqual('YES', g['EXTERNAL_DIAGNOSIS_IN_PROGRESS'])
+        self.assertEqual('YES', g['FECHADO'])
+        self.assertEqual('CLOSED', g['ESTADO'])
+        self.assertEqual(g['EXPECTED'], g['VERIFIED'])
+        self.assertEqual(0, g['FAILED'])
+        self.assertEqual(0, g['ORFAOS_NO_BUCKET'])
+        self.assertEqual('NO', g['EXTERNAL_DIAGNOSIS_IN_PROGRESS'])
+
+    def test_fechado_nao_quer_dizer_que_esta_branch_enviou(self):
+        """CLOSED aqui e "recebido como prova externa", nao "medido daqui"."""
+        g = self.d['RAW_PRESERVATION_GATE']
+        self.assertEqual('NO', g['VERIFICADO_DAQUI'])
+        self.assertEqual('NO', g['ESTA_BRANCH_EXECUTOU_O_UPLOAD'])
+        self.assertEqual('EXTERNA', g['PROVA'])
+
+    def test_o_caminho_ate_zero_nao_foi_apagado(self):
+        """12 -> 11 -> 0. Guardar so o final faria o fechamento parecer que
+        sempre esteve fechado, e as duas causas medidas sumiriam com ele."""
+        h = self.r['OS_12_FALHOS']
+        self.assertEqual(0, h['QUANTOS_AGORA'])
+        self.assertIn('12', h['HISTORICO'])
+        self.assertGreaterEqual(len(h['CAUSAS_MEDIDAS']), 2,
+                                'as causas eram duas: object key nao-ASCII e o '
+                                'limite de tamanho do bucket')
+        self.assertEqual(4, len(self.r['DUAS_TENTATIVAS']))
+
+    def test_o_import_yes_diz_o_que_ele_nao_significa(self):
+        self.assertEqual('YES', self.d['IMPORT_CAN_BE_NEXT_MISSION'])
+        self.assertIn('PRÓXIMA', self.d['O_QUE_YES_SIGNIFICA'])
+        self.assertIsNone(self.d['PORQUE_NAO_IMPORTAR'])
 
     def test_nenhum_documento_corrente_ainda_afirma_zero_enviado(self):
         """A frase 'zero enviado' era FALSA: 184 estavam la e verificados.

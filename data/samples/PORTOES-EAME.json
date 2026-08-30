@@ -131,15 +131,20 @@
   }
  },
  "RAW_PRESERVATION_GATE": {
-  "ESTADO": "OPEN_EXTERNAL_REPAIR",
+  "ESTADO": "CLOSED",
+  "ESTADO_DECLARADO_NO_ARTEFATO": "CLOSED",
+  "ESTADO_DERIVADO_DOS_NUMEROS": "CLOSED",
+  "DIVERGENCIA": null,
   "PROVA": "EXTERNA",
   "VERIFICADO_DAQUI": "NO",
+  "ESTA_BRANCH_EXECUTOU_O_UPLOAD": "NO",
+  "DO_PLANO_AUSENTES": 0,
   "EXPECTED": 196,
-  "VERIFIED": 185,
-  "FAILED": 11,
+  "VERIFIED": 196,
+  "FAILED": 0,
   "HASH_MISMATCH": 0,
   "CONFLICT": 0,
-  "FECHADO": "NO",
+  "FECHADO": "YES",
   "ORFAOS_NO_BUCKET": 0,
   "DIAGNOSTICO": {
    "HTTP": 400,
@@ -148,9 +153,10 @@
    "PROVADO_EM": "ao menos um object key, isolado na máquina espanhola",
    "PORQUE_IMPORTA": "a falha tem nome e causa. Deixa de ser \"12 falharam\" e passa a ser um defeito de nomeação de chave — que é reparável, e cuja correção é verificável."
   },
-  "EXTERNAL_DIAGNOSIS_IN_PROGRESS": "YES",
+  "EXTERNAL_DIAGNOSIS_IN_PROGRESS": "NO",
   "NUNCA_ZERO_SENT": "a rodada anterior publicou 'zero enviado dos 196'. Era falso: 184 já estavam no bucket e verificados. ZERO ENVIADO != PRESERVADO continua valendo na outra direção — e AFIRMAR ZERO quando não se mediu é o mesmo defeito, virado do avesso. Este arquivo existe para que ZERO_SENT não volte a ser escrito por falta de dado."
  },
- "IMPORT_CAN_BE_NEXT_MISSION": "NO",
- "PORQUE_NAO_IMPORTAR": "a engenharia do catálogo está pronta e o RAW gate não fechou: 12 dos 196 assets falharam no envio, com diagnóstico em curso em outra máquina. Importar com o bruto incompleto é importar sem poder voltar à evidência."
+ "IMPORT_CAN_BE_NEXT_MISSION": "YES",
+ "PORQUE_NAO_IMPORTAR": null,
+ "O_QUE_YES_SIGNIFICA": "que a PRÓXIMA missão pode ser a importação. Não que esta rodada deva importar, e não que a importação já tenha sido feita."
 }

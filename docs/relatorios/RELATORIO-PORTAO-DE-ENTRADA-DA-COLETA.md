@@ -27,7 +27,7 @@ ordem que aconteceram.
 | Migrations novas | 016, 017 |
 | Afirmações SQL | **118** (45 calendário · 19 captura · 33 cicatrizes · 21 coleta) |
 | Mutações | **12**, todas pegaram |
-| Testes Python | **<!--M:TEST_COUNT_CURRENT-->643<!--/M-->**, todos verdes |
+| Testes Python | **<!--M:TEST_COUNT_CURRENT-->648<!--/M-->**, todos verdes |
 | Apify gasto | **0,00 USD** |
 
 ## B · REUSO, NÃO SEGUNDA IMPLEMENTAÇÃO
@@ -186,6 +186,11 @@ CONFLICT                       0
 RAW_PRESERVATION_GATE = OPEN_EXTERNAL_REPAIR
 ```
 
+> **FECHOU DEPOIS.** O operador rodou `storage_preservar.py --enviar --so-ausentes` na
+> máquina espanhola e os 196 entraram: `RAW_PRESERVATION_GATE = CLOSED`. Os números acima
+> ficam porque eram o que se sabia nesta rodada — o estado corrente é derivado em
+> `data/samples/PORTOES-EAME.json`.
+
 **Os 12 pertencem ao denominador.** Cada um tem `ARQUIVO_LOCAL`, `BYTES` e `SHA256`:
 existem, foram baixados e foram conferidos. O que falhou foi o **envio**, não a obtenção.
 Tirá-los do denominador melhoraria a taxa apagando o problema.
@@ -239,10 +244,10 @@ ANALYTICAL_UNIT_CONTRACT_COMPLETE YES
 RESILIENCE_CONTRACT_COMPLETE      YES
   BR-14 PROVED · BR-16 PROVED · BR-19 PROVED · BR-20 PROVED · BR-21 PROVED
 
-RAW_PRESERVATION_GATE             OPEN_EXTERNAL_REPAIR
+RAW_PRESERVATION_GATE             OPEN_EXTERNAL_REPAIR   → hoje CLOSED
   EXPECTED 196 · VERIFIED 184 · FAILED 12 · HASH_MISMATCH 0
 
-IMPORT_CAN_BE_NEXT_MISSION        NO
+IMPORT_CAN_BE_NEXT_MISSION        NO                     → hoje YES
 ```
 
 **Por que `CATALOG_IMPORT_ENGINEERING_GATE` não herda as lacunas de localização.** Não é

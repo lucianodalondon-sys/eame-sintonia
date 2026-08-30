@@ -199,17 +199,21 @@ LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE   YES
 CATALOG_IMPORT_ENGINEERING_GATE   READY     16/16 cicatrizes PROVED
 EAME_COLLECTION_ENTRY_GATE        READY     35/35 cicatrizes PROVED
 
-RAW_PRESERVATION_GATE             OPEN_EXTERNAL_REPAIR
+RAW_PRESERVATION_GATE             OPEN_EXTERNAL_REPAIR   → hoje CLOSED
   EXPECTED 196 · PRESENTES 185 · AUSENTES 11 · ÓRFÃOS 0 · HASH_MISMATCH 0
   HTTP 400 InvalidKey — object key com caractere não-ASCII
   reparo em curso na máquina espanhola · VERIFICADO_DAQUI = NO
 
-IMPORT_CAN_BE_NEXT_MISSION        NO
+IMPORT_CAN_BE_NEXT_MISSION        NO                     → hoje YES
 ```
 
 `IMPORT_CAN_BE_NEXT_MISSION` exige o portão do catálogo READY **e** o RAW gate CLOSED. O
-portão está READY; o RAW está `OPEN_EXTERNAL_REPAIR`, com 11 dos 196 assets ainda fora do
-bucket. Onze arquivos são poucos e o defeito tem causa nomeada — e importar com o bruto
+portão está READY; o RAW estava `OPEN_EXTERNAL_REPAIR`, com 11 dos 196 assets ainda fora
+do bucket. Onze arquivos são poucos e o defeito tem causa nomeada — e importar com o bruto
 incompleto é importar sem poder voltar à evidência.
+
+> **FECHOU DEPOIS.** O reenvio dos ausentes na máquina espanhola levou os 196 ao bucket, e
+> `IMPORT_CAN_BE_NEXT_MISSION` passou a **YES** pela derivação. Ver
+> `docs/relatorios/RELATORIO-FECHAMENTO-RAW-ES.md`.
 
 **Nada foi importado. Nada foi aplicado no Supabase. A instrução era parar aqui.**
