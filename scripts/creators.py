@@ -542,7 +542,7 @@ def carregar(nome):
     # fase paga rodou com ZERO handles — falhou fechado, como deve, mas gastou
     # uma execução para descobrir. Chave nova de artefato entra AQUI.
     for chave in ('CREATORS', 'COLLABORATIONS', 'REGISTROS', 'CANDIDATES',
-                  'PROFILES', 'ACTORS', 'MARKET_EVIDENCE'):
+                  'PROFILES', 'ACTORS', 'MARKET_EVIDENCE', 'VALIDATIONS', 'HUBS'):
         if isinstance(d, dict) and chave in d:
             return d[chave]
     return d if isinstance(d, list) else []

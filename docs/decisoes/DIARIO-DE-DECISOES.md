@@ -213,6 +213,104 @@ Regras do diário:
 
 ---
 
+### D-013 — Creator e sensor são dois papéis, e nunca uma ficha só
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a MISSÃO 14 pergunta *"quem já fala com esse público?"*; o EARLY SIGNAL
+  pergunta *"quem enxerga o problema primeiro?"*. A mesma pessoa pode servir às duas, e a
+  tentação de somar as duas num "score de pessoa" é imediata.
+- **Decisão:** contratos separados. `SENSOR_ROLE_LINK` é **ponteiro**, nunca fusão, e
+  nenhum campo do mapa de creators herda valor do universo de sensores.
+- **Motivo:** um pesquisador com âncora ORCID é sensor excelente e pode ser canal inútil;
+  um creator com 400 mil seguidores pode ser canal excelente e sensor inútil. Uma lista
+  somada não responde a nenhuma das duas perguntas.
+- **Consequência:** `test_papel_de_sensor_e_ponteiro_nunca_campo_fundido` proíbe
+  `SENSOR_SCORE`, `AUTHORITY_SCORE`, `INFLUENCE_SCORE` e `RANK` no contrato.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-014 — Produto final não prova lavoura
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** uma seed externa de 25 creators italianos trouxe críticos de vinho e
+  sommeliers de azeite catalogados como candidatos de **viticultura** e **olivicultura**,
+  e um **garden designer** catalogado em **fruticultura**.
+- **Decisão:** `WINE_RELEVANCE` ≠ `VITICULTURE_RELEVANCE` e `OLIVE_OIL_RELEVANCE` ≠
+  `OLIVE_GROWING_RELEVANCE`, em campos distintos. `CROP_STATE` ganha o estado
+  `WRONG_ASSIGNMENT` — "provei que não é" não é a mesma coisa que "não consegui provar".
+- **Motivo:** o custo é comercial, não semântico. Uma ativação de fungicida de videira
+  entregue a uma audiência de consumidores de vinho fala com quem nunca comprará o
+  produto — e o número de seguidores faria isso parecer sucesso. **Medido:** os cinco
+  maiores perfis da seed somam ~452 mil seguidores e **quatro são mídia de vinho**.
+- **Consequência:** 3 dos 10 candidatos validados saíram `WRONG_ASSIGNMENT`.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-015 — Suspeita nossa nunca vira veredito sozinha
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** o portão levanta `SUSPECTED_CHAIN_MISMATCH` por léxico do handle
+  (`wine`, `evo`, `oil`, `sommelier`, `garden`). Foi tentador deixá-lo rebaixar sozinho.
+- **Decisão:** a suspeita **prioriza a checagem** e nunca promove a `WRONG_ASSIGNMENT`.
+- **Motivo:** ela **errou**. `@evolovers` foi suspeito por *"EVO = azeite, produto
+  final"*; a medição mostrou um **produtor pugliês** cuja comunidade nasceu de podas e
+  colheitas no próprio olival. Um portão que confiasse na suspeita teria descartado o
+  melhor olivicultor da lista pelo nome do handle — cometendo, do lado cético, o mesmo
+  erro que a seed cometeu do lado otimista.
+- **Consequência:** `SUSPICION_OUTCOME` registra `CONFIRMED` / `REFUTED_BY_EVIDENCE` por
+  candidato. Nesta rodada: 3 confirmadas, 1 refutada.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-016 — Empresa de defensivo usando creator ≠ ativação de produto fitossanitário
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a pergunta do dono era binária — *farmfluencers são usados para crop
+  protection na Europa?* Os quatro casos encontrados são todos de empresas de defensivo
+  (BASF, Seipasa, Syngenta, Bayer) contratando creators — mas **nenhum** promove um
+  produto fitossanitário.
+- **Decisão:** três estados por país. `PROVED` exige peça de **categoria** crop protection
+  **com mensagem de produto**; `PARTIAL` cobre empresa de defensivo usando creator para
+  imagem, setor ou evento; `NOT_TESTED` nunca se confunde com `NOT_PROVED`.
+- **Motivo:** colapsar os dois faria a ADAMA concluir que a faixa de ativação de produto
+  já está ocupada — quando ela está, nesta medição, **vazia nos três países**. A diferença
+  entre "o mercado existe" e "esta faixa do mercado existe" é a decisão inteira.
+- **Consequência:** ES `PARTIAL` (3 casos) · FR `PARTIAL` (1) · IT `NOT_PROVED`. E o caso
+  francês registra o custo reputacional: a creator encerrou a parceria após investigação
+  de dois veículos independentes.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
+### D-017 — No runner Windows, urllib no lugar de curl
+
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** `coletor._curl` chama `curl` por subprocess. No runner residencial isso
+  devolveu **stdout vazio de forma intermitente**, e `json.loads(None)` virou um
+  `TypeError` que não diz nada sobre a causa. Medido no mesmo endpoint, com a mesma
+  chave: 21:53 OK · 21:56 falha · 22:00 OK (subprocess direto) · 22:02 falha nos três
+  atores.
+- **Decisão:** `creator_coleta.py` substitui `coletor._curl` por uma implementação
+  `urllib`. A troca é por **substituição**, não por desvio: RAW antes de normalizar,
+  `RUN_MANIFEST`, `ACTOR_VERSION` e `COST_USD` continuam passando pela porta única.
+- **Motivo:** "a plataforma recusou" e "o subprocesso não entregou saída" produzem o mesmo
+  `FAILED` com causas opostas. Sem processo filho, sem pipe e sem shell, a classe inteira
+  do defeito desaparece — e `speaker_universo.py` já provava que urllib funciona na
+  máquina.
+- **Consequência:** a fase seguinte resolveu **25 de 25** perfis por **US$ 0,0624**.
+  Resposta vazia agora é estado com mensagem, nunca `TypeError` mudo.
+- **Quem decidiu:** decisão técnica da MISSÃO 14.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
