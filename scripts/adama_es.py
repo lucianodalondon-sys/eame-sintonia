@@ -901,7 +901,7 @@ def parsear_produto(html, url_pagina, vocab=None, catalog_status='STATUS_UNKNOWN
         'FIRST_SEEN': captured_at,
         'CAPTURED_AT': captured_at,
         'FORMULATION': _formulacao(texto_todo),
-        'ACTIVE_INGREDIENTS': _ingredientes(texto_todo, vocab),
+        'ACTIVE_INGREDIENTS': _ingredientes(texto_todo, vocab, nome),
         # A linha "Composición:" crua fica junto. KENDO publica "lambda cihalotrin" e
         # NENHUMA concentração; sem guardar o texto, o produto sairia como se a página
         # não dissesse nada sobre composição — e ela diz, só não diz quanto.
@@ -1024,9 +1024,11 @@ def _composicao(t):
 # 7,4%", "hasta el 20%", "y el 78%", "equivalente a". Nenhuma é substância; todas são
 # a frase respirando antes do número.
 LIGACAO = {'de', 'del', 'en', 'a', 'al', 'el', 'la', 'los', 'las', 'un', 'una', 'y', 'o',
-           'con', 'por', 'que', 'hasta', 'contiene', 'contienen', 'este', 'esta',
-           'producto', 'expresado', 'expresada', 'equivalente', 'ligeramente',
-           'inferior', 'superior', 'composicion', 'aproximadamente', 'riqueza'}
+           'con', 'por', 'que', 'hasta', 'contiene', 'contienen', 'contine', 'este',
+           'esta', 'producto', 'expresado', 'expresada', 'equivalente', 'ligeramente',
+           'inferior', 'superior', 'composicion', 'aproximadamente', 'riqueza', 'base'}
+# "contine" nao e engano meu: e como a ficha do ORDAGO CAPS escreve, e sem isso o
+# ingrediente ativo dele saia como "ORDAGO CAPS contine".
 
 # "Oxicloruro de cobre, expresado en Cu, 52% p/v" — convenção de rótulo espanhol: o
 # nome da substância é o que vem ANTES da primeira vírgula, e "expresado en X" diz só
@@ -1035,22 +1037,29 @@ EXPRESADO = re.compile(r'^([A-Za-zÁÉÍÓÚÑáéíóúñ][A-Za-zÁÉÍÓÚÑá
                        r'expresad[oa]\s+en\s+[^,]{1,20},\s*(\d+(?:[.,]\d+)?)\s*%', re.I)
 
 
-def _limpa_nome_substancia(nome):
-    """Tira ligação da frente e do fim, e o rótulo "Composición" colado (defeito da fonte).
+def _limpa_nome_substancia(nome, nome_produto=''):
+    """Tira ligação, o rótulo "Composición" colado, e o nome do próprio produto.
 
-    A ficha do SUNBRIGHT publica "ComposiciónAclonifen 300 g/l" — sem espaço, no HTML de
-    origem. Descolar o rótulo é ler a fonte; inventar o nome seria outra coisa.
+    Três vícios da fonte, todos medidos:
+      SUNBRIGHT     "ComposiciónAclonifen 300 g/l"  — rótulo colado, sem espaço
+      ORDAGO CAPS   "ORDAGO CAPS contine Pendimetalina 33%" — o produto se autonomeia
+      HIGHCARD      "Este producto contiene 7,4%"   — frase, nenhuma substância
+
+    Descolar rótulo e descontar o nome do produto é ler a fonte. O que sobra é o nome
+    da substância, ou nada — e nada é uma resposta melhor do que "ORDAGO CAPS contine".
     """
     nome = re.sub(r'^composici[oó]n\s*:?\s*', '', (nome or '').strip(' .,-:'), flags=re.I)
     palavras = [p for p in nome.split() if p]
-    while palavras and _chave(palavras[0]) in LIGACAO:
+    do_produto = set((_chave(nome_produto) or '').split())
+    while palavras and (_chave(palavras[0]) in LIGACAO
+                        or (do_produto and _chave(palavras[0]) in do_produto)):
         palavras.pop(0)
     while palavras and _chave(palavras[-1]) in LIGACAO:
         palavras.pop()
     return ' '.join(palavras)
 
 
-def _ingredientes(t, vocab=None):
+def _ingredientes(t, vocab=None, nome_produto=''):
     """Substância + concentração, lidas SÓ da frase de composição quando ela existe.
 
     O erro que isto conserta era de ESCOPO: varrer a página inteira fazia a expressão
@@ -1070,7 +1079,7 @@ def _ingredientes(t, vocab=None):
 
     m = EXPRESADO.search(alvo)
     if m:
-        fora.append({'NAME': _limpa_nome_substancia(m.group(1)),
+        fora.append({'NAME': _limpa_nome_substancia(m.group(1), nome_produto),
                      'CONCENTRATION': m.group(2) + '%', 'CONCENTRATION_UNIT': '%',
                      'FORMULATION_CODE': 'NÃO SEI',
                      'NOTA': 'rotulo escreve "expresado en" — a concentracao e do elemento',
@@ -1078,7 +1087,7 @@ def _ingredientes(t, vocab=None):
         vistos.add(_chave(fora[0]['NAME']))
 
     for m in CONCENTRACAO.finditer(alvo):
-        nome = _limpa_nome_substancia(m.group(1))
+        nome = _limpa_nome_substancia(m.group(1), nome_produto)
         palavras = _chave(nome).split()
         if len(nome) < 4 or _chave(nome) in vistos:
             continue
