@@ -1,0 +1,61 @@
+# Recupera execucoes JA PAGAS na Apify. NENHUM Actor e iniciado.
+#
+# Existe porque a rodada anterior gastou 8 execucoes e nao conseguiu ler nada: o
+# RAW ficou dentro do runner, que foi destruido. A cicatriz do Brasil:
+# DINHEIRO GASTO != DADO PRESERVADO.
+#
+# Este workflow so faz GET. O artefato sobe o RAW ANTES de qualquer interpretacao.
+name: recuperar-runs-pagos
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recuperar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: mascarar cada chave do pool
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: |
+          python3 - <<'PY' > /tmp/mask.txt
+          import os, re
+          for k in re.split(r'[,;\s]+', os.environ.get('APIFY_TOKEN_POOL','')):
+              if k.strip():
+                  print(k.strip())
+          PY
+          while IFS= read -r k; do
+            [ -n "$k" ] && echo "::add-mask::$k"
+          done < /tmp/mask.txt
+          rm -f /tmp/mask.txt
+
+      - name: recuperar (somente GET, nenhum Actor iniciado)
+        env:
+          APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+        run: python3 scripts/apify_recuperar.py
+
+      - name: conferir que nenhum token entrou no que sobe
+        if: always()
+        run: |
+          if grep -rqE 'apify_api_[A-Za-z0-9]{10,}' data/samples/ 2>/dev/null; then
+            echo "ABORTADO: token em data/samples"; exit 1
+          fi
+          echo "sem token nos artefatos"
+
+      # O RAW sobe JUNTO — foi exatamente isto que faltou da ultima vez.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: runs-pagos-recuperados
+          path: |
+            data/samples/IT-CASOS/IT-LINKEDIN-RECOVERY.json
+            data/samples/raw-paid/
+          if-no-files-found: warn
