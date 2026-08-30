@@ -112,8 +112,13 @@ def contratos():
             d = coletor._curl('%s/acts/%s' % (coletor.API, actor),
                               token=token, timeout=60, tentativas=2)
         except Exception as e:                                # noqa: BLE001
-            print('%-26s INDISPONIVEL  %s' % (rotulo, ap.redigir(type(e).__name__)))
-            fora.append({'LABEL': rotulo, 'ACTOR': actor, 'STATE': 'NOT_REACHED'})
+            # A MENSAGEM, não só o nome da classe. A primeira versão imprimia só
+            # `TypeError` para os sete atores, e um nome de classe sem mensagem não
+            # diz o que quebrou — obriga a gastar outra execução para descobrir.
+            motivo = ap.redigir('%s: %s' % (type(e).__name__, e))[:300]
+            print('%-26s INDISPONIVEL  %s' % (rotulo, motivo))
+            fora.append({'LABEL': rotulo, 'ACTOR': actor, 'STATE': 'NOT_REACHED',
+                         'REASON': motivo})
             continue
         if d.get('error'):
             print('%-26s RECUSADO      %s' % (rotulo, str(d['error'].get('type'))[:40]))
