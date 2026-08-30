@@ -1,6 +1,6 @@
 {
  "SOURCE_ID": "RAW-GATE-ES",
- "VERSION": "V5",
+ "VERSION": "V6",
  "captured_at": "2026-08-30",
  "O_QUE_ISTO_E": "o estado do bucket raw da Espanha, MEDIDO NA MÁQUINA LOCAL espanhola e recebido aqui por relato da coordenação.",
  "O_QUE_ISTO_NAO_E": "não é medição feita deste ambiente. Este ambiente não tem credencial de Supabase e não conseguiria contar um único asset.",
@@ -45,6 +45,12 @@
    "VERIFIED": 196,
    "FAILED": 0,
    "ORFAOS": 0
+  },
+  {
+   "quando": "5a · --verificar-tudo, download de volta dos 196",
+   "VERIFIED": 196,
+   "FAILED": 0,
+   "HASH_MISMATCH": 0
   }
  ],
  "PORQUE_AS_DUAS_ESTAO_AQUI": "a segunda tentativa mediu UM a menos, não um a mais. Guardar só a melhor das duas seria escolher o número que agrada. A diferença de 1 entre as tentativas é parte do diagnóstico e está em aberto.",
@@ -105,9 +111,29 @@
   "PORQUE_OS_184_DA_PRIMEIRA_EXECUCAO_NAO_CONTAM": "eles foram conferidos por download+hash, e aquele relatório foi sobrescrito antes de o histórico ser consertado. A prova existiu e se perdeu. Citá-la seria citar documento que não existe mais — palavras do próprio handoff.",
   "O_REMEDIO_EXISTE_E_TEM_NOME": "py scripts/storage_preservar.py --diagnosticar --verificar-tudo",
   "ONDE": "máquina local do operador — só leitura, baixa os 196 e reconfere numa medição única",
-  "CUSTO": "zero em Apify; um download de 304 MB"
+  "CUSTO": "zero em Apify; um download de 304 MB",
+  "ESTADO_AGORA": "a LEI fica: PRESENTE_NO_INVENTARIO != BYTES_CONFERIDOS. O que caiu foi a PENDÊNCIA neste conjunto — os dois gates fecharam, e por medições diferentes."
  },
  "RAW_PRESENCE_GATE": "CLOSED",
- "RAW_CONTENT_VERIFIED_GATE": "OPEN",
- "PORQUE_DOIS_GATES": "a rodada anterior tinha UM gate e ele respondia à pergunta da presença enquanto o nome sugeria conteúdo. Separar não rebaixa nada: os 196 continuam presentes, e o que passa a ser dizível é que o conteúdo de 185 deles ainda não foi reconferido."
+ "RAW_CONTENT_VERIFIED_GATE": "CLOSED",
+ "PORQUE_DOIS_GATES": "a rodada anterior tinha UM gate e ele respondia à pergunta da presença enquanto o nome sugeria conteúdo. Separar não rebaixa nada: os 196 continuam presentes, e o que passa a ser dizível é que o conteúdo de 185 deles ainda não foi reconferido.",
+ "O_QUE_MUDOU_DA_V5": "a medição integral rodou na máquina do operador: cada um dos 196 objetos foi BAIXADO DE VOLTA do bucket e teve o sha256 recalculado contra o local. Uma medição só, em vez de uma cadeia de três relatórios com um elo destruído no meio.",
+ "RAW_CONTENT_HASH_CHECKED": 196,
+ "RAW_SHA_VERIFIED": 196,
+ "FAILED_TO_DOWNLOAD": 0,
+ "BYTES_VERIFICADOS_REMOTAMENTE": 304482907,
+ "RAW_CONTENT_INTEGRITY_GATE": "CLOSED",
+ "A_MEDICAO_INTEGRAL": {
+  "ARTEFATO": "ADAMA-ES-PRESERVACAO-VERIFICACAO.json (handoff @ fec5ead)",
+  "METODO": "baixou cada objeto e recalculou sha256 — conteúdo conferido, não presença",
+  "ASSETS_ESPERADOS": 196,
+  "SHA_VERIFIED": 196,
+  "HASH_MISMATCH": 0,
+  "NAO_BAIXARAM": 0,
+  "DIVERGENTES": 0,
+  "BYTES": 304482907,
+  "O_QUE_RESOLVEU": "o media 2981. Ele recebeu 520 no upload, e 520 é a resposta que se perde — quando gravação parcial é plausível. Estava presente desde o começo, e presença não é conteúdo. Agora está medido: os bytes que aquele 520 deixou são os bytes certos. O 520 foi perda de RESPOSTA, não de gravação, e isso deixou de ser inferência.",
+  "A_RESSALVA_QUE_O_PROPRIO_HANDOFF_NAO_ARREDONDA": "o artefato daquela execução gravou CONTAGENS, não a lista de quais objetos passaram. Com esperados = verificados = 196 e as duas listas de problema vazias, o conjunto está provado POR DEDUÇÃO — e prova por asset é melhor. As execuções seguintes guardam nome, tamanho e sha de cada um."
+ },
+ "ESTA_BRANCH_EXECUTOU_A_VERIFICACAO": "NO"
 }

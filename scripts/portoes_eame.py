@@ -178,7 +178,18 @@ def monta():
     # AFIRMAR que o round-trip de evidência está provado — e é por isso que
     # ele aparece no relatório em vez de ficar implícito.
     pnc = r.get('PRESENCA_NAO_E_CONTEUDO') or {}
-    conteudo_gate = r.get('RAW_CONTENT_VERIFIED_GATE', 'NAO_MEDIDO')
+    # O gate do CONTEÚDO também é derivado, e da medição integral — não do
+    # campo que o artefato declara. A medição baixou cada objeto de volta e
+    # recalculou o sha256.
+    mi = r.get('A_MEDICAO_INTEGRAL') or {}
+    conteudo_ok = (mi.get('SHA_VERIFIED') == r['EXPECTED']
+                   and mi.get('HASH_MISMATCH') == 0
+                   and mi.get('NAO_BAIXARAM') == 0
+                   and mi.get('DIVERGENTES') == 0)
+    conteudo_gate = 'CLOSED' if conteudo_ok else 'OPEN'
+    conteudo_declarado = r.get('RAW_CONTENT_INTEGRITY_GATE', 'NAO_MEDIDO')
+    if conteudo_declarado != conteudo_gate:
+        conteudo_gate = 'DIVERGENTE'
     raw_declarado = r['ESTADO']
     if raw_declarado != raw_derivado:
         # Falha fechada: o portão de importação NÃO abre com o artefato
@@ -192,8 +203,80 @@ def monta():
         raw_estado = raw_derivado
         raw_porque_divergente = None
 
+    # ── §15 · PRONTIDÃO DA ENTREGA, derivada dos arquivos ─────────────
+    # Nenhum destes é digitado. Cada um pergunta ao repositório.
+    def existe(*p):
+        return os.path.exists(os.path.join(RAIZ, *p))
+
+    def texto(*p):
+        with open(os.path.join(RAIZ, *p), encoding='utf-8') as f:
+            return f.read()
+
+    prontidao = {}
+
+    # A primeira versão desta verificação contava a expressão "ON CONFLICT"
+    # no arquivo inteiro — e achou 3 num arquivo com 2 INSERT, porque uma
+    # delas estava num COMENTÁRIO explicando a lei. O gate reprovou o
+    # arquivo por causa da prosa que descreve o gate. Sétima vez que este
+    # padrão aparece no projeto; a correção é sempre a mesma: medir a
+    # ESTRUTURA, não o texto.
+    def instrucoes(sql):
+        """Comandos SQL, sem comentários de linha."""
+        limpo = '\n'.join(l.split('--')[0] for l in sql.splitlines())
+        return [c.strip() for c in limpo.split(';') if c.strip()]
+
+    falta = []
+    imp_reg = ('supabase', 'importacoes', 'ES-REGULATORIO-ROPF-2026-08-29.sql')
+    if not existe(*imp_reg):
+        falta.append('a importação regulatória não existe')
+    else:
+        cmds = instrucoes(texto(*imp_reg))
+        for c in cmds:
+            baixo = c.lower()
+            for proibido in ('update ', 'delete ', 'truncate ', 'drop '):
+                if baixo.startswith(proibido):
+                    falta.append('a importação regulatória contém %s' % proibido.strip())
+            if 'insert into' in baixo and 'on conflict' not in baixo:
+                falta.append('há INSERT sem ON CONFLICT declarado')
+    if not existe('scripts', 'regulatorio_importar.py'):
+        falta.append('o gerador determinístico não existe')
+    if not existe('supabase', 'tests', 'regressoes_regulatorio_es.sql'):
+        falta.append('a suíte do regulatório não existe')
+    prontidao['ES_REGULATORY_IMPORT_GATE'] = {
+        'ESTADO': 'READY' if not falta else 'PARTIAL', 'FALTANDO': falta}
+
+    falta = []
+    for peca, cam in (('migration do catálogo',
+                       ('supabase', 'migrations', '014_catalogo_publico_fabricante.sql')),
+                      ('import do catálogo',
+                       ('supabase', 'importacoes', 'ADAMA-ES-CATALOGO-2026-08-30.sql')),
+                      ('import regulatório', imp_reg),
+                      ('a cadeia canônica', ('scripts', 'cadeia_canonica.sh'))):
+        if not existe(*cam):
+            falta.append('falta %s' % peca)
+    prontidao['RECONCILED_IMPORT_PACKAGE_READY'] = {
+        'ESTADO': 'YES' if not falta else 'NO', 'FALTANDO': falta}
+
+    falta = []
+    wf = ('.github', 'workflows', 'supabase-migrate.yml')
+    if not existe(*wf):
+        falta.append('o workflow de produção não existe')
+    else:
+        t = texto(*wf)
+        if 'cadeia_canonica.sh' not in t:
+            falta.append('o workflow não usa a cadeia canônica — duas ordens')
+        if 'inventario_esperado.py' not in t:
+            falta.append('o pré-voo ainda não é derivado')
+        if 'case "$n" in 0|23|26|30' in t:
+            falta.append('o pré-voo ainda tem lista fixa de contagens')
+    prontidao['PRODUCTION_MIGRATION_PATH'] = {
+        'ESTADO': 'READY' if not falta else 'PARTIAL', 'FALTANDO': falta}
+
+    tudo_pronto = (all(v['ESTADO'] in ('READY', 'YES') for v in prontidao.values())
+                   and conteudo_gate == 'CLOSED')
+
     pode_importar = (portoes['CATALOG_IMPORT_ENGINEERING_GATE']['ESTADO'] == 'READY'
-                     and raw_fechado)
+                     and raw_fechado and tudo_pronto)
 
     return {
         'SOURCE_ID': 'PORTOES-EAME',
@@ -225,6 +308,7 @@ def monta():
             'O portão se chama entrada da COLETA, e o contrato de localização está '
             'em NO. Dizer que localização não é parte dele seria escolher o escopo '
             'depois de ver o resultado.',
+        'PRONTIDAO_DA_ENTREGA': prontidao,
         'CONTRATOS': contratos,
         'PORTOES': portoes,
         'RAW_PRESERVATION_GATE': {
@@ -242,12 +326,11 @@ def monta():
             'HASH_MISMATCH': r['HASH_MISMATCH'],
             'CONFLICT': r['CONFLICT'],
             'FECHADO': 'YES' if raw_fechado else 'NO',
-            'RAW_CONTENT_VERIFIED_GATE': conteudo_gate,
-            'CONTEUDO_RECONFERIDO': (pnc.get('DECLARADO_NO_RELATORIO_DO_HANDOFF') or {})
-                                     .get('com_sha256_reconferido_e_prova_em_artefato'),
-            'CONTEUDO_NUNCA_CONFERIDO': (pnc.get('DECLARADO_NO_RELATORIO_DO_HANDOFF') or {})
-                                         .get('que_NUNCA_tiveram_conteudo_conferido'),
-            'REMEDIO_DO_CONTEUDO': pnc.get('O_REMEDIO_EXISTE_E_TEM_NOME'),
+            'RAW_CONTENT_INTEGRITY_GATE': conteudo_gate,
+            'SHA_VERIFIED': mi.get('SHA_VERIFIED'),
+            'BYTES_VERIFICADOS_REMOTAMENTE': mi.get('BYTES'),
+            'A_LEI_QUE_FICA': pnc.get('LEI'),
+            'A_RESSALVA_DA_PROVA': mi.get('A_RESSALVA_QUE_O_PROPRIO_HANDOFF_NAO_ARREDONDA'),
             'ORFAOS_NO_BUCKET': r.get('ORFAOS_NO_BUCKET'),
             'DIAGNOSTICO': r.get('DIAGNOSTICO_ISOLADO'),
             'EXTERNAL_DIAGNOSIS_IN_PROGRESS': r['EXTERNAL_DIAGNOSIS_IN_PROGRESS'],
@@ -292,10 +375,15 @@ if __name__ == '__main__':
           % (g['ESTADO'], g['PROVA'], g['VERIFICADO_DAQUI']))
     if g['DIVERGENCIA']:
         print('    ⚠ ', g['DIVERGENCIA'])
-    print('RAW_CONTENT_VERIFIED_GATE         %s  (%s de 196 com sha256 reconferido, '
-          '%s nunca conferido)'
-          % (g['RAW_CONTENT_VERIFIED_GATE'], g['CONTEUDO_RECONFERIDO'],
-             g['CONTEUDO_NUNCA_CONFERIDO']))
+    print('RAW_CONTENT_INTEGRITY_GATE        %s  (%s de %s baixados de volta e com '
+          'sha256 reconferido)'
+          % (g['RAW_CONTENT_INTEGRITY_GATE'], g['SHA_VERIFIED'], g['EXPECTED']))
+    print()
+    for k, v in d['PRONTIDAO_DA_ENTREGA'].items():
+        print('%-38s %s' % (k, v['ESTADO'] if isinstance(v, dict) else v))
+        if isinstance(v, dict) and v.get('FALTANDO'):
+            for f in v['FALTANDO']:
+                print('    falta: %s' % f)
     print('    EXPECTED=%d  VERIFIED=%d  FAILED=%d  HASH_MISMATCH=%d  CONFLICT=%d'
           % (g['EXPECTED'], g['VERIFIED'], g['FAILED'], g['HASH_MISMATCH'], g['CONFLICT']))
     print()

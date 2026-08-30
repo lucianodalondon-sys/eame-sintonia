@@ -15,6 +15,20 @@
  "REGRA": "READY exige TODA cicatriz das famílias do portão em PROVED. Uma única PARTIAL ou ABSENT o deixa em PARTIAL.",
  "LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE": "YES",
  "PORQUE_LOCATION_E_PARTE": "toda coleta que produz documento produz documento com lugar de fato. O portão se chama entrada da COLETA, e o contrato de localização está em NO. Dizer que localização não é parte dele seria escolher o escopo depois de ver o resultado.",
+ "PRONTIDAO_DA_ENTREGA": {
+  "ES_REGULATORY_IMPORT_GATE": {
+   "ESTADO": "READY",
+   "FALTANDO": []
+  },
+  "RECONCILED_IMPORT_PACKAGE_READY": {
+   "ESTADO": "YES",
+   "FALTANDO": []
+  },
+  "PRODUCTION_MIGRATION_PATH": {
+   "ESTADO": "READY",
+   "FALTANDO": []
+  }
+ },
  "CONTRATOS": {
   "LOCATION_CONTRACT_COMPLETE": {
    "COMPLETO": "YES",
@@ -145,10 +159,11 @@
   "HASH_MISMATCH": 0,
   "CONFLICT": 0,
   "FECHADO": "YES",
-  "RAW_CONTENT_VERIFIED_GATE": "OPEN",
-  "CONTEUDO_RECONFERIDO": 11,
-  "CONTEUDO_NUNCA_CONFERIDO": 1,
-  "REMEDIO_DO_CONTEUDO": "py scripts/storage_preservar.py --diagnosticar --verificar-tudo",
+  "RAW_CONTENT_INTEGRITY_GATE": "CLOSED",
+  "SHA_VERIFIED": 196,
+  "BYTES_VERIFICADOS_REMOTAMENTE": 304482907,
+  "A_LEI_QUE_FICA": "PRESENTE_NO_INVENTARIO != BYTES_CONFERIDOS. É o HTTP 200 != LIVE_CONTENT aplicado ao nosso próprio bucket: o objeto existir não prova que os bytes certos chegaram.",
+  "A_RESSALVA_DA_PROVA": "o artefato daquela execução gravou CONTAGENS, não a lista de quais objetos passaram. Com esperados = verificados = 196 e as duas listas de problema vazias, o conjunto está provado POR DEDUÇÃO — e prova por asset é melhor. As execuções seguintes guardam nome, tamanho e sha de cada um.",
   "ORFAOS_NO_BUCKET": 0,
   "DIAGNOSTICO": {
    "HTTP": 400,

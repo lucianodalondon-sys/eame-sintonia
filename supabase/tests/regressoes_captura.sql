@@ -270,11 +270,23 @@ begin
   -- MESMA captura corrente — e a segunda só existia porque a ficha pública
   -- não publica timing nenhum. Essa sai pela regra de importação (só nasce
   -- janela quando a fonte publica algo), não pela 013.
+  --
+  -- ATUALIZADO na integração do catálogo: o número absoluto do LOG saiu da
+  -- afirmação. Ele era 3 quando as únicas capturas do NEPTUNE eram as do
+  -- ensaio; a importação regulatória canônica trouxe uma captura REAL do
+  -- ROPF e o log foi para 4 — que é o log fazendo exatamente o trabalho
+  -- dele. Fixar o número faria a próxima captura legítima reprovar um teste
+  -- que existe para provar que capturas se ACUMULAM.
+  --
+  -- O que é durável, e o que o teste passa a afirmar:
+  --   · o estado CORRENTE continua 2, mexa quem mexer no log;
+  --   · o log é MAIOR que o corrente — se fossem iguais, ou a 013 parou de
+  --     filtrar a captura antiga, ou alguém apagou histórico para "limpar".
   insert into _rc (nome, ok, detalhe) values (
-    '09 a condição original remontada: log 3, corrente 2 — a 013 tira a da captura antiga',
-    no_log = 3 and corrente = 2,
-    format('log %s janela(s) do NEPTUNE, estado corrente %s. A terceira sai pela '
-           'regra de importação, não pela 013.', no_log, corrente));
+    '09 a condição original remontada: o log cresce, o corrente não — a 013 filtra a captura antiga',
+    corrente = 2 and no_log > corrente,
+    format('log %s janela(s) do NEPTUNE, estado corrente %s. O log acumula capturas; '
+           'o corrente é derivado as-of e não se move com elas.', no_log, corrente));
 end $$;
 
 

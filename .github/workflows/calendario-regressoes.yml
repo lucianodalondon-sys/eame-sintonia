@@ -152,13 +152,42 @@ jobs:
           # E a lei tem de ser UMA: core, leitor italiano e banco batendo.
           EAME_TEST_DSN="$PGURL" python3 -m unittest tests.test_lugar_do_fato -v
 
+      - name: 4h · A CADEIA CANONICA, na MESMA ordem que a producao usa
+        run: |
+          set -e
+          # Este passo existe para que workflow e fresh-db nao possam divergir:
+          # os dois chamam o MESMO scripts/cadeia_canonica.sh. Se a ordem mudar
+          # num lugar, muda nos dois.
+          psql "$PGURL" -tAc "select 1" >/dev/null
+          # Um banco novo so para a cadeia, sem os ensaios: e assim que a
+          # producao vai ver o mundo — dado com fonte, e nada ficticio.
+          psql "$PGURL" -c "drop database if exists cadeia" -c "create database cadeia" \
+            2>/dev/null || true
+          CADEIA="${PGURL%/*}/cadeia"
+          psql "$CADEIA" -tAc "$(python3 scripts/inventario_esperado.py --sql)" | \
+            grep -q . && { echo "PARADO: banco novo ja tem tabela fora do Git"; exit 1; } || true
+          bash scripts/cadeia_canonica.sh migrations "$CADEIA" | tail -3
+          psql "$CADEIA" -v ON_ERROR_STOP=1 -f supabase/migrations/008_verificacao_pos_aplicacao.sql \
+            2>&1 | grep -q conferidas
+          psql "$CADEIA" -v ON_ERROR_STOP=1 -q -f supabase/fixtures/es_calendario_mvp.sql
+          bash scripts/cadeia_canonica.sh importacoes "$CADEIA"
+          # E de novo: a cadeia inteira e idempotente, nao so cada import.
+          bash scripts/cadeia_canonica.sh importacoes "$CADEIA"
+          psql "$CADEIA" -f supabase/tests/regressoes_regulatorio_es.sql 2>&1 | tee /tmp/rg
+          grep -q "REGRESSOES_REGULATORIO_ES=PASS" /tmp/rg
+          psql "$CADEIA" -f supabase/tests/regressoes_catalogo_es.sql 2>&1 | tee /tmp/ct2
+          grep -q "REGRESSOES_CATALOGO_ES=PASS" /tmp/ct2
+          echo "FRESH_DB_FULL_CHAIN=GREEN"
+
       - name: 4g · o catalogo ADAMA Espanha — import, idempotencia e red team
         run: |
           set -e
           psql "$PGURL" -v ON_ERROR_STOP=1 -q -f supabase/migrations/014_catalogo_publico_fabricante.sql \
             || true   # ja aplicada no passo 1; aqui so garante presenca
+          # No banco COM ensaios, o pre-requisito vem do import canonico —
+          # o ensaio ficou para o caso em que se quer medir sem ele.
           psql "$PGURL" -v ON_ERROR_STOP=1 -q \
-            -f supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql
+            -f supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql
           # O import roda TRES vezes. Se nao for idempotente, os contadores da
           # suite reprovam — foi assim que 108 virando 216 foi descoberto.
           for i in 1 2 3; do

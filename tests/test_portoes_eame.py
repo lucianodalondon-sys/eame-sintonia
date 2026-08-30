@@ -270,6 +270,28 @@ class TestORawEEstrangeiro(unittest.TestCase):
         self.assertEqual(0, self.r['ORFAOS_NO_BUCKET'])
         self.assertTrue(self.r['PORQUE_ZERO_ORFAOS_IMPORTA'].strip())
 
+    def test_conteudo_conferido_e_diferente_de_presenca_e_os_dois_fecharam(self):
+        """A LEI fica; o que caiu foi a pendencia neste conjunto.
+
+        A rodada anterior tinha RAW_CONTENT_VERIFIED_GATE = OPEN com 11 de
+        196 reconferidos e 1 nunca conferido. A maquina do operador rodou a
+        medicao integral — baixou cada objeto de volta e recalculou o sha256
+        — e os 196 fecharam por CONTEUDO, nao por presenca.
+        """
+        m = self.r['A_MEDICAO_INTEGRAL']
+        self.assertEqual(196, m['SHA_VERIFIED'])
+        self.assertEqual(196, m['ASSETS_ESPERADOS'])
+        self.assertEqual(0, m['HASH_MISMATCH'])
+        self.assertEqual(0, m['NAO_BAIXARAM'])
+        self.assertEqual('CLOSED', self.r['RAW_CONTENT_INTEGRITY_GATE'])
+        # A lei continua escrita, e nao foi apagada junto com a pendencia.
+        self.assertIn('!=', self.r['PRESENCA_NAO_E_CONTEUDO']['LEI'])
+        # E a ressalva sobre a propria prova continua registrada: aquele
+        # artefato gravou CONTAGENS, nao a lista por asset.
+        self.assertIn('DEDUÇÃO',
+                      m['A_RESSALVA_QUE_O_PROPRIO_HANDOFF_NAO_ARREDONDA'].upper()
+                      .replace('DEDUCAO', 'DEDUÇÃO'))
+
     def test_o_estado_fechou_e_a_conta_fecha_com_ele(self):
         """Este teste ja afirmou OPEN_EXTERNAL_REPAIR, e afirmava certo.
 
@@ -301,7 +323,9 @@ class TestORawEEstrangeiro(unittest.TestCase):
         self.assertGreaterEqual(len(h['CAUSAS_MEDIDAS']), 2,
                                 'as causas eram duas: object key nao-ASCII e o '
                                 'limite de tamanho do bucket')
-        self.assertEqual(4, len(self.r['DUAS_TENTATIVAS']))
+        # Cinco medições agora: as tres de envio, o inventario, e a
+        # verificacao integral que baixou os 196 de volta.
+        self.assertGreaterEqual(len(self.r['DUAS_TENTATIVAS']), 5)
 
     def test_o_import_yes_diz_o_que_ele_nao_significa(self):
         self.assertEqual('YES', self.d['IMPORT_CAN_BE_NEXT_MISSION'])
