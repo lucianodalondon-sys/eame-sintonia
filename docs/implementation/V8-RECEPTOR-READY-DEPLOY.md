@@ -176,7 +176,7 @@ chamado *creators*.
 ## 4 · PROVAS
 
 `tests/test_v8_receptor_ready.py` — **27 provas**, dentro das
-<!--M:TEST_COUNT_CURRENT-->786<!--/M--> da suíte, 0 falhas. As 759 anteriores preservadas.
+<!--M:TEST_COUNT_CURRENT-->813<!--/M--> da suíte, 0 falhas. As 759 anteriores preservadas.
 
 Inclui prova de que o `.gz` devolve os bytes originais, e de que `support.js` é runtime e
 não uma segunda cópia da lógica.

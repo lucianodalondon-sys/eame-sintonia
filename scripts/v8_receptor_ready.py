@@ -132,8 +132,14 @@ def campo(cam, rid, nome):
     return m.group(1).strip() if m else None
 
 
-def medir():
-    idx, sup, mapjs = abrir()
+def medir(fontes=None, shas=None):
+    """Mede uma testemunha de deploy.
+
+    `fontes` permite medir OUTRA testemunha com a mesma logica — e o que o
+    fechamento de uma linha usa, para nao existir um segundo medidor quase
+    identico que possa divergir deste.
+    """
+    idx, sup, mapjs = fontes if fontes else abrir()
     cam = logica(idx)
     mk = markup(idx)
     telas = fatiar(mk)
@@ -233,12 +239,14 @@ def medir():
     passa_hose = sum(1 for v in hoses.values() if v['VERDICT'] == 'PASS')
     lingua_ok = all(v['CAI_EM_UNKNOWN'] for v in lingua.values())
 
+    s = shas or {'INDEX': SHA_INDEX, 'SUPPORT': SHA_SUPPORT, 'CROPMAP': SHA_CROPMAP,
+                 'ZIP': SHA_ZIP, 'INDEX_BYTES': 372418}
     return {
         'CASCO': {
             'FORMATO': 'pasta deploy/ — markup e logica em index.html, runtime em support.js',
-            'INDEX_SHA256': SHA_INDEX, 'SUPPORT_SHA256': SHA_SUPPORT,
-            'CROPMAP_SHA256': SHA_CROPMAP, 'ZIP_SHA256': SHA_ZIP,
-            'INDEX_BYTES': 372418, 'LOGICA_CHARS': len(cam), 'MARKUP_CHARS': len(mk),
+            'INDEX_SHA256': s['INDEX'], 'SUPPORT_SHA256': s['SUPPORT'],
+            'CROPMAP_SHA256': s['CROPMAP'], 'ZIP_SHA256': s['ZIP'],
+            'INDEX_BYTES': s['INDEX_BYTES'], 'LOGICA_CHARS': len(cam), 'MARKUP_CHARS': len(mk),
             'TELAS': sorted(telas),
             'SUPPORT_E_RUNTIME_NAO_LOGICA': ('const receptor' not in sup
                                              and 'CONV_LEGS' not in sup),

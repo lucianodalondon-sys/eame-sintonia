@@ -1,0 +1,369 @@
+{
+  "CASCO": {
+    "FORMATO": "pasta deploy/ — markup e logica em index.html, runtime em support.js",
+    "INDEX_SHA256": "d28f6b5876e2fa28720eb555a8b99a275e56c229ed0ac5c4b07edf89f4e81328",
+    "SUPPORT_SHA256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe",
+    "CROPMAP_SHA256": "a55c6011e6aadb014b2617c8f5b302d9d2fb4bbfb1ee3e444cad345bbb1614c8",
+    "ZIP_SHA256": "b1256d71708cfaae97b20756c18a67774cf3bdb826bb909404a6222d6f5c925b",
+    "INDEX_BYTES": 372425,
+    "LOGICA_CHARS": 89455,
+    "MARKUP_CHARS": 277292,
+    "TELAS": [
+      "acervo",
+      "config",
+      "eame",
+      "fontes",
+      "home",
+      "lib",
+      "obj",
+      "radar",
+      "relatorios"
+    ],
+    "SUPPORT_E_RUNTIME_NAO_LOGICA": true
+  },
+  "RECEPTORES_DECLARADOS": [
+    {
+      "RECEPTOR_ID": "R-H1-TERRITORIAL",
+      "HOSE_ID": "H1",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "TERRITORIAL_OBSERVATION",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · HOSE_DECLARED_NOT_WIRED"
+    },
+    {
+      "RECEPTOR_ID": "R-H2-REGISTRATION-DEADLINE",
+      "HOSE_ID": "H2",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "REGISTRATION_DEADLINE",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · HOSE_DECLARED_NOT_WIRED"
+    },
+    {
+      "RECEPTOR_ID": "R-H3-COMPETITOR-IDENTITY",
+      "HOSE_ID": "H3",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "COMPETITOR_PRODUCT_IDENTITY",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · AGREEMENT_NOT_COMPUTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H4-OBSERVED-PAID-ACTIVITY",
+      "HOSE_ID": "H4",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "OBSERVED_PAID_ACTIVITY",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · EVIDENCE_NOT_RESOLVED"
+    },
+    {
+      "RECEPTOR_ID": "R-H5-FIELD-PRESSURE",
+      "HOSE_ID": "H5",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "FIELD_PRESSURE_SERIES",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · READINGS_NOT_INGESTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H7-SCIENTIFIC-PUBLICATION",
+      "HOSE_ID": "H7",
+      "PARENT_HOSE_ID": "H7",
+      "DISPLAY_LABEL": "H7 · CIÊNCIA",
+      "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PUBLICATION",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · COLLECTION_NOT_STARTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H2-LOCAL-ADAMA-PORTFOLIO",
+      "HOSE_ID": "H2",
+      "PARENT_HOSE_ID": "H2",
+      "DISPLAY_LABEL": "H2 · PORTFÓLIO",
+      "CANONICAL_PAYLOAD_TYPE": "LOCAL_ADAMA_PORTFOLIO_CONTEXT",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · LOCAL_CONFIRMATION_MISSING"
+    },
+    {
+      "RECEPTOR_ID": "R-H6-FIELD-VOICE",
+      "HOSE_ID": "H6",
+      "PARENT_HOSE_ID": "H6",
+      "DISPLAY_LABEL": "H6 · CAMPO",
+      "CANONICAL_PAYLOAD_TYPE": "FIELD_VOICE_OBSERVATION",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_COLLECTION_NOT_STARTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H7-SCIENTIFIC-PERSON",
+      "HOSE_ID": "H7",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PERSON",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · ISSUE_EXPERTISE_NOT_PROVED"
+    },
+    {
+      "RECEPTOR_ID": "R-H6-CREATOR",
+      "HOSE_ID": "H6",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "PERSON_CREATOR | FARM_BUSINESS_ENTITY | CREATOR_CONTENT_PROFILE",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · ENTITIES_DECLARED_CONTENT_NOT_INGESTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H8-COMPANY-LOCAL-ACCOUNT",
+      "HOSE_ID": "H8",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "COMPANY_LOCAL_ACCOUNT",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_COLLECTION_NOT_STARTED"
+    },
+    {
+      "RECEPTOR_ID": "R-INFRA-SOURCE-CLOCKS",
+      "HOSE_ID": "INFRA",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "SOURCE_CLOCKS",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · PIPELINE_NOT_INSTRUMENTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H9-CONTENT-ENTITY",
+      "HOSE_ID": "H9",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "CONTENT_ENTITY | CONTENT_TRANSLATION | ONTOLOGY_TERM",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_REPRESENTATIONS_NOT_WIRED"
+    }
+  ],
+  "VERDICTS": {
+    "HOSES": {
+      "H1": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H1-TERRITORIAL",
+        "CANONICAL_PAYLOAD_TYPE": "TERRITORIAL_OBSERVATION"
+      },
+      "H2": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H2-REGISTRATION-DEADLINE",
+        "CANONICAL_PAYLOAD_TYPE": "REGISTRATION_DEADLINE"
+      },
+      "H3": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H3-COMPETITOR-IDENTITY",
+        "CANONICAL_PAYLOAD_TYPE": "COMPETITOR_PRODUCT_IDENTITY"
+      },
+      "H4": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H4-OBSERVED-PAID-ACTIVITY",
+        "CANONICAL_PAYLOAD_TYPE": "OBSERVED_PAID_ACTIVITY"
+      },
+      "H5": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H5-FIELD-PRESSURE",
+        "CANONICAL_PAYLOAD_TYPE": "FIELD_PRESSURE_SERIES"
+      },
+      "H6": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H6-CREATOR",
+        "CANONICAL_PAYLOAD_TYPE": "PERSON_CREATOR | FARM_BUSINESS_ENTITY | CREATOR_CONTENT_PROFILE"
+      },
+      "H7": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H7-SCIENTIFIC-PERSON",
+        "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PERSON"
+      },
+      "H8": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H8-COMPANY-LOCAL-ACCOUNT",
+        "CANONICAL_PAYLOAD_TYPE": "COMPANY_LOCAL_ACCOUNT"
+      },
+      "H9": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H9-CONTENT-ENTITY",
+        "CANONICAL_PAYLOAD_TYPE": "CONTENT_ENTITY | CONTENT_TRANSLATION | ONTOLOGY_TERM"
+      }
+    },
+    "HOSES_WITH_COMPLETE_RECEIVER": 9,
+    "SUBRECEPTORES": {
+      "R-H7-SCIENTIFIC-PUBLICATION": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "HOSE_ID": "H7",
+        "PARENT_HOSE_ID": "H7",
+        "DISPLAY_LABEL": "H7 · CIÊNCIA"
+      },
+      "R-H2-LOCAL-ADAMA-PORTFOLIO": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "HOSE_ID": "H2",
+        "PARENT_HOSE_ID": "H2",
+        "DISPLAY_LABEL": "H2 · PORTFÓLIO"
+      },
+      "R-H6-FIELD-VOICE": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "HOSE_ID": "H6",
+        "PARENT_HOSE_ID": "H6",
+        "DISPLAY_LABEL": "H6 · CAMPO"
+      }
+    },
+    "SUBRECEPTOR_HOSE_ID_CANONICAL": "PASS",
+    "DISPLAY_LABEL_SEPARATE": "PASS",
+    "PARENT_HOSE_ID_STRUCTURAL": "PASS",
+    "SOURCE_LANGUAGE_UNKNOWN_GLOBAL": "PASS",
+    "FIELD_VOICE_ENTITY_KIND_CANONICAL": "PASS",
+    "RADAR_CONVERGENCE_PARITY": "PASS",
+    "DEAD_HANDLERS": 0,
+    "EVIDENCE_DRAWER_HOSES_COVERED": 9,
+    "ACTION_TYPE_CANONICAL": "PASS",
+    "ACTION_MAP_OBJECT_ID": "PASS",
+    "TIMELINE_TYPED": "PASS",
+    "GITHUB_PROVENANCE": "PASS",
+    "SUPABASE_PROVENANCE": "PASS",
+    "CROP_MAP_GUARD": "PASS",
+    "NO_FRONTEND_SECRET": "PASS"
+  },
+  "HELPER": {
+    "HOSE_ID_CANONICO": true,
+    "HOSE_ID_DO_DISPLAY_LABEL": false,
+    "DISPLAY_LABEL_SEPARADO": true,
+    "PARENT_HOSE_ID_ESTRUTURAL": true,
+    "PARENT_HOSE_ID_NO_NOTE": false,
+    "PARENT_HOSE_ID_COMO_LINHA_DE_CAMPO": true
+  },
+  "SOURCE_LANGUAGE": {
+    "R-H9-CONTENT-ENTITY": {
+      "EXPRESSAO": "(base.srcLang || 'unknown').toUpperCase()",
+      "CAI_EM_UNKNOWN": true,
+      "CAI_EM_TRACO": false
+    },
+    "R-H7-SCIENTIFIC-PUBLICATION": {
+      "EXPRESSAO": "'UNKNOWN'",
+      "CAI_EM_UNKNOWN": true,
+      "CAI_EM_TRACO": false
+    },
+    "R-H6-FIELD-VOICE": {
+      "EXPRESSAO": "'UNKNOWN'",
+      "CAI_EM_UNKNOWN": true,
+      "CAI_EM_TRACO": false
+    }
+  },
+  "ENTITY_KIND": {
+    "VOCABULARIO_CANONICO": [
+      "PERSON_CREATOR",
+      "FARM_BUSINESS_ENTITY"
+    ],
+    "FONTE_DA_AUTORIDADE": "data/supabase/SUPABASE-CANONICAL-SCHEMA.json :: VOCABULARIES.creator_entity_kind, usado por field_voice_observation.entity_kind",
+    "R-H6-CREATOR": [
+      "FARM_BUSINESS_ENTITY",
+      "PERSON_CREATOR"
+    ],
+    "R-H6-FIELD-VOICE": [
+      "FARM_BUSINESS_ENTITY",
+      "PERSON_CREATOR"
+    ],
+    "DRIFT": []
+  },
+  "HANDLERS_MORTOS": [],
+  "CONVERGENCIA": {
+    "RADAR": [
+      "conv.propositionId",
+      "conv.kind",
+      "conv.state",
+      "conv.independentCount",
+      "l.family",
+      "l.dependency",
+      "l.dependencyNote",
+      "l.openEvidence"
+    ],
+    "OBJ": [
+      "conv.propositionId",
+      "conv.kind",
+      "conv.state",
+      "conv.independentCount",
+      "l.family",
+      "l.dependency",
+      "l.dependencyNote",
+      "l.openEvidence"
+    ],
+    "PERNAS": [
+      {
+        "SIGNAL_FAMILY": "TERRITORIAL",
+        "INDEPENDENCE_STATE": "INDEPENDENT",
+        "DEPENDENCY_RELATION": "INDEPENDENT_SOURCE"
+      },
+      {
+        "SIGNAL_FAMILY": "FIELD_HISTORICAL",
+        "INDEPENDENCE_STATE": "DEPENDENT",
+        "DEPENDENCY_RELATION": "SOURCE_DEPENDENCY"
+      }
+    ],
+    "CONTAGEM_DERIVADA": true
+  },
+  "GAVETA": {
+    "HOSES": [
+      "H1",
+      "H2",
+      "H3",
+      "H4",
+      "H5",
+      "H6",
+      "H7",
+      "H8",
+      "H9"
+    ]
+  },
+  "TIMELINE": {
+    "CAMPOS": [
+      "EVENT_ID",
+      "EVENT_TYPE",
+      "EVENT_AT",
+      "EVENT_AT_RESOLUTION",
+      "SOURCE_ID",
+      "OBSERVATION_ID",
+      "STATE_BEFORE",
+      "STATE_AFTER",
+      "GAP_REASON"
+    ]
+  },
+  "LOAD_STATES": {
+    "DECLARADOS": [
+      "UNWIRED",
+      "LOADING",
+      "READY",
+      "EMPTY_VALID",
+      "NOT_STARTED",
+      "NOT_AVAILABLE",
+      "BLOCKED",
+      "ERROR_FAIL_CLOSED"
+    ],
+    "EXERCIDOS": {
+      "UNWIRED": 10,
+      "NOT_STARTED": 3
+    }
+  },
+  "DIFF_CONTRA_TESTEMUNHA_ANTERIOR": {
+    "SHA_ANTERIOR": "a103bd62e3bbe92cbd56dd5b0da43a878fe4244db7bfbf89d683eaea8b024dc8",
+    "LINHAS_ALTERADAS": 2,
+    "LINHAS": [
+      "-        FIELD('ENTITY_KIND', 'PERSON_CREATOR | FARM_BUSINESS', 'construcao'), FIELD('PLATFORM', null, 'naomedido'),",
+      "+        FIELD('ENTITY_KIND', 'PERSON_CREATOR | FARM_BUSINESS_ENTITY', 'construcao'), FIELD('PLATFORM', null, 'naomedido'),"
+    ],
+    "BYTES_A_MAIS": 7,
+    "NOTA": "7 bytes a mais e o tamanho exato de \"_ENTITY\". support.js e crop-map.js tem SHA identico ao export anterior: so o index mudou."
+  }
+}

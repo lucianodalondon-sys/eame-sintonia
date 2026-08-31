@@ -368,9 +368,16 @@ class TestOrfaos(Base):
         self.assertNotIn('ABSENT_AS_RECEPTOR', estados)
 
     def test_zero_orfa_nao_e_lido_como_casco_pronto(self):
-        self.assertIn('O_QUE_ZERO_AQUI_NAO_SIGNIFICA', ORFAOS['TWO_DIFFERENT_NUMBERS'])
-        self.assertIn('NAO significa casco pronto',
-                      ORFAOS['TWO_DIFFERENT_NUMBERS']['O_QUE_ZERO_AQUI_NAO_SIGNIFICA'])
+        """A ressalva continua no arquivo mesmo depois de tudo fechar.
+
+        No index (12) o zero convivia com tres receptores expondo o rotulo no
+        lugar do HOSE_ID. O texto foi reescrito no fechamento, e a lei
+        permanece: quem fecha o casco e a medicao dos receptores, nao esta
+        contagem.
+        """
+        texto = ORFAOS['TWO_DIFFERENT_NUMBERS']['O_QUE_ZERO_AQUI_NAO_SIGNIFICA']
+        self.assertIn('nunca significou casco pronto', texto)
+        self.assertIn('DISPLAY_LABEL no lugar do HOSE_ID', texto)
 
     def test_nenhuma_classificacao_mudou_para_chegar_a_zero(self):
         self.assertEqual(ORFAOS['SUMMARY']['CLASS_COUNTS'], {

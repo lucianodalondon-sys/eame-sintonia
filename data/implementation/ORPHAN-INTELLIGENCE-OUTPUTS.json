@@ -19,10 +19,10 @@
     "ORPHAN_CANONICAL_INTELLIGENCE_OUTPUTS": 0,
     "MEANING": "depois desta matriz, TODA saida canonica tem receptor DECLARADO",
     "OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO": 0,
-    "MEANING_2": "zero saidas apontam para receptor ausente no casco index (12). Toda saida canonica tem receptor, e o receptor existe.",
+    "MEANING_2": "zero saidas apontam para receptor ausente, e nenhuma com drift de helper. Toda saida canonica tem receptor, o receptor existe e expoe o HOSE_ID canonico.",
     "UNIT_WARNING": "Duas unidades diferentes, nunca somadas: SAIDAS e RECEPTORES. Varias saidas dividem o mesmo receptor, entao os dois numeros nunca batem. Enquanto houve receptor ausente, contar um pelo outro dava numero errado.",
-    "HISTORICO": "index (10): 10 saidas ausentes em 6 receptores. index (11): 2 saidas ausentes em 1 receptor (H6). index (12): 0 em 0.",
-    "O_QUE_ZERO_AQUI_NAO_SIGNIFICA": "Zero saida orfa NAO significa casco pronto. Tres receptores tem o dado canonico e expoem DISPLAY_LABEL no lugar do HOSE_ID — o destino existe e a etiqueta da porta esta errada.",
+    "HISTORICO": "index (10): 10 saidas ausentes em 6 receptores. index (11): 2 saidas ausentes em 1 receptor (H6). index (12): 0 ausentes, 6 saidas com drift de helper. deploy closeout: 0 e 0.",
+    "O_QUE_ZERO_AQUI_NAO_SIGNIFICA": "Zero saida orfa nunca significou casco pronto por si so — no index (12) o zero convivia com tres receptores que expunham DISPLAY_LABEL no lugar do HOSE_ID. O que fecha o casco e a medicao dos receptores, nao esta contagem. As duas coisas so coincidem agora porque as duas foram medidas.",
     "WHY_BOTH": "Se eu publicasse so o primeiro numero, um zero limpo esconderia as saidas sem para onde ir. Se publicasse so o segundo, pareceria que a rodada nao produziu nada.",
     "DERIVED_BY": "scripts/v8_receptor_audit.py — nenhum destes numeros foi digitado"
   },
@@ -157,30 +157,33 @@
       "WHERE": "data/samples/ES-T5-002-corpus-documentos.json + EU-T5-001-openalex-people.json",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "R-SUB-SCIENCE-PUBLICATION-EVIDENCE",
-      "CASCO_RECEPTOR_STATE": "PRESENT_HELPER_DRIFT",
+      "CASCO_RECEPTOR_STATE": "PRESENT_CANONICAL",
       "WHY_IT_MATTERS": "SCIENTIFIC_PERSON != SCIENTIFIC_PUBLICATION. Sem este subreceptor, a camada Ciencia herdaria a lista de pessoas de H7 e o produto passaria a dizer que ha ciencia por tras de um caso porque encontrou um pesquisador.",
       "REAUDIT_INDEX11": "payload canonico; HOSE_ID = H7·CIENCIA, fora de H1..H9, sem PARENT_HOSE_ID",
-      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note"
+      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note",
+      "CLOSEOUT": "helper corrigido: hoseId canonico, displayLabel e parentHoseId em campos proprios"
     },
     {
       "OUTPUT": "LOCAL_ADAMA_PORTFOLIO_CONTEXT",
       "WHERE": "data/samples/RADAR-ADAMA-prothioconazole.json + ES-T4-005-ficha-primaria-es01717.json + ES-T4-004-denominaciones-*",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT",
-      "CASCO_RECEPTOR_STATE": "PRESENT_HELPER_DRIFT",
+      "CASCO_RECEPTOR_STATE": "PRESENT_CANONICAL",
       "WHY_IT_MATTERS": "REGISTRATION_DEADLINE != LOCAL_ADAMA_PORTFOLIO_CONTEXT. Sem este subreceptor, alguem liga H2 na camada Portfolio e o portal passa a dizer que a ADAMA tem resposta registrada porque um registro qualquer — de qualquer titular — tem prazo.",
       "REAUDIT_INDEX11": "payload canonico; HOSE_ID = H2·PORTFOLIO, fora de H1..H9, sem PARENT_HOSE_ID",
-      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note"
+      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note",
+      "CLOSEOUT": "helper corrigido: hoseId canonico, displayLabel e parentHoseId em campos proprios"
     },
     {
       "OUTPUT": "FIELD_VOICE_OBSERVATION (posts, videos, comentarios, transcricoes)",
       "WHERE": "data/samples/ES-T8-001-* · ES-T8-002-* · ES-X-VOICE-FIELD.json · ES-VOICE-*",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "R-SUB-FIELD-VOICE-OBSERVED",
-      "CASCO_RECEPTOR_STATE": "PRESENT_HELPER_DRIFT",
+      "CASCO_RECEPTOR_STATE": "PRESENT_CANONICAL",
       "WHY_IT_MATTERS": "voices[] tem a entidade e nao tem a observacao. Nome nao e sinal.",
       "REAUDIT_INDEX11": "payload canonico; HOSE_ID = H6·CAMPO, fora de H1..H9, sem PARENT_HOSE_ID",
-      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note"
+      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note",
+      "CLOSEOUT": "helper corrigido: hoseId canonico, displayLabel e parentHoseId em campos proprios"
     },
     {
       "OUTPUT": "CONTENT_ENTITY + CONTENT_TRANSLATION + ONTOLOGY_TERM",
@@ -268,18 +271,20 @@
       "WHERE": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json · PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json · ES-VOICE-MEDIA-ROUTES.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H6-CREATOR-ENTITY (fila de entrada) + R-SUB-FIELD-VOICE-OBSERVED",
-      "CASCO_RECEPTOR_STATE": "PRESENT_HELPER_DRIFT",
+      "CASCO_RECEPTOR_STATE": "PRESENT_CANONICAL",
       "REAUDIT_INDEX11": "a metade H6 continua sem receptor",
-      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note"
+      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note",
+      "CLOSEOUT": "helper corrigido: hoseId canonico, displayLabel e parentHoseId em campos proprios"
     },
     {
       "OUTPUT": "ES_X_VOICE_SCIENCE",
       "WHERE": "data/samples/ES-X-VOICE-SCIENCE.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H7 + R-SUB-SCIENCE-PUBLICATION-EVIDENCE",
-      "CASCO_RECEPTOR_STATE": "PRESENT_HELPER_DRIFT",
+      "CASCO_RECEPTOR_STATE": "PRESENT_CANONICAL",
       "REAUDIT_INDEX11": "os dois existem; HOSE_ID do subreceptor esta fora do vocabulario",
-      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note"
+      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note",
+      "CLOSEOUT": "helper corrigido: hoseId canonico, displayLabel e parentHoseId em campos proprios"
     },
     {
       "OUTPUT": "DATA_CLOCK_manifest",
@@ -320,9 +325,10 @@
       "WHERE": "data/samples/",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT :: ACTIVE_INGREDIENT + REGISTRATION_REFS",
-      "CASCO_RECEPTOR_STATE": "PRESENT_HELPER_DRIFT",
+      "CASCO_RECEPTOR_STATE": "PRESENT_CANONICAL",
       "REAUDIT_INDEX11": "campos presentes no subreceptor de portfolio",
-      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note"
+      "REAUDIT_INDEX12": "payload e hose canonicos no dado; o helper ainda expoe DISPLAY_LABEL como hoseId e PARENT_HOSE_ID vai concatenado em note",
+      "CLOSEOUT": "helper corrigido: hoseId canonico, displayLabel e parentHoseId em campos proprios"
     },
     {
       "OUTPUT": "COMPETITOR-azoxy-prothio-italy",
@@ -414,5 +420,11 @@
     },
     "NOTA": "Nenhuma saida canonica aponta para receptor ausente: o estado ABSENT saiu do inventario. As tres marcadas PRESENT_HELPER_DRIFT tem o dado certo e a exposicao errada — e ninguem consegue casar \"H7 · CIENCIA\" com \"H7\".",
     "HISTORICO": "index (10): 10 saidas ausentes. index (11): 2. index (12): 0."
+  },
+  "CLOSEOUT": {
+    "CASCO": "casco/canonical/deploy-v8-closeout/",
+    "SHA256_INDEX": "d28f6b5876e2fa28720eb555a8b99a275e56c229ed0ac5c4b07edf89f4e81328",
+    "DATE": "2026-08-31",
+    "NOTA": "Nenhuma saida canonica com receptor ausente e nenhuma com drift de helper. Todos os receptores em PRESENT_CANONICAL."
   }
 }
