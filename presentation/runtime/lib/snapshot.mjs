@@ -105,11 +105,13 @@ export function buildSnapshot() {
       unresolved: hose === 'H3' && !H.H3.resolved,
     })
 
+    // Os chips diziam COUNTRY_OF_FACT / CROP / ISSUE — nomes de coluna. Quem le
+    // quer o lugar e o assunto, nao o nome do campo. SLICE saiu do card: e
+    // identificador interno e vive no detalhe.
     const meta = []
-    if (c.COUNTRY) meta.push('COUNTRY_OF_FACT · ' + c.COUNTRY)
-    meta.push('CROP · ' + (c.CROP || 'NOT_KNOWN'))
-    meta.push('ISSUE · ' + (c.ISSUE || 'NOT_KNOWN'))
-    if (c.SLICE) meta.push('SLICE · ' + c.SLICE)
+    if (c.COUNTRY) meta.push(rot(c.COUNTRY))
+    if (c.CROP) meta.push(rot(c.CROP))
+    if (c.ISSUE) meta.push(rot(c.ISSUE))
 
     // Portoes: medidos, nunca promovidos.
     const gates = []
@@ -223,17 +225,17 @@ export function buildSnapshot() {
   for (const s of H.H1.sources) {
     sources.push({
       name: s.SOURCE_ENTITY_ID,
-      role: `SOURCE_ROLE · boletim territorial · ${s.SOURCE_COUNTRY} · SOURCE_ID ${s.SOURCE_ENTITY_ID}`,
+      role: `Boletim territorial · ${PAIS_NOME[s.SOURCE_COUNTRY] || s.SOURCE_COUNTRY}`,
       v: s.SOURCE_ROUTE_PROVED === 'YES' ? 'provado' : s.BODY_EXTRACTION_SUCCESS ? 'parcial' : 'naoconect',
       pub: '—', capture: H.H1.captured_at || '—', age: '—', latency: 'NÃO MEDIDA',
       docs: `${s.DOCS_FETCHED ?? '—'} / ${s.DOCS_TRIED ?? '—'}`,
     })
   }
-  sources.push({ name: 'IT-T4-001 · registro nacional italiano', role: 'SOURCE_ROLE · registro e prazo · SOURCE_ID ' + H.H2.source_id, v: 'provado', pub: H.H2.captured_at || '—', capture: H.H2.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H2.in_force} em vigor` })
-  sources.push({ name: 'ES-T3-001 · RAIF Andalucía', role: 'SOURCE_ROLE · serie de campo · SOURCE_ID ' + H.H5.source_id, v: 'medido', pub: H.H5.captured_at || '—', capture: H.H5.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H5.readings_total} leituras` })
-  sources.push({ name: 'EUIPO · registro de marcas', role: 'SOURCE_ROLE · marca · SOURCE_ID ' + H.H3.source_id, v: H.H3.resolved ? 'provado' : 'revisar', pub: H.H3.captured_at || '—', capture: H.H3.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H3.canonical_entities} tuplas preliminares` })
-  sources.push({ name: `Contas publicas de concorrente · ${H.H8.canonical_entities} identificadas`, role: 'SOURCE_ROLE · comunicacao publica · CONTENT_COLLECTION_STAGE NOT_STARTED · SOURCE_ID ' + H.H8.source_id, v: 'medido', pub: '—', capture: '—', age: '—', latency: 'NÃO MEDIDA', docs: H.H8.attempted + ' tentadas' })
-  sources.push({ name: 'Meta · biblioteca de anuncios', role: 'SOURCE_ROLE · atividade paga observada · SOURCE_ID ' + H.H4.source_id, v: 'medido', pub: H.H4.captured_at || '—', capture: H.H4.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H4.canonical_entities} cartoes` })
+  sources.push({ name: 'IT-T4-001 · registro nacional italiano', role: 'Registro nacional e prazos de vencimento', v: 'provado', pub: H.H2.captured_at || '—', capture: H.H2.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H2.in_force} em vigor` })
+  sources.push({ name: 'ES-T3-001 · RAIF Andalucía', role: 'Serie historica de campo', v: 'medido', pub: H.H5.captured_at || '—', capture: H.H5.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H5.readings_total} leituras` })
+  sources.push({ name: 'EUIPO · registro de marcas', role: 'Registro de marcas', v: H.H3.resolved ? 'provado' : 'revisar', pub: H.H3.captured_at || '—', capture: H.H3.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H3.canonical_entities} tuplas preliminares` })
+  sources.push({ name: `Contas publicas de concorrente · ${H.H8.canonical_entities} identificadas`, role: 'Comunicacao publica · conteudo ainda nao coletado', v: 'medido', pub: '—', capture: '—', age: '—', latency: 'NÃO MEDIDA', docs: H.H8.attempted + ' tentadas' })
+  sources.push({ name: 'Meta · biblioteca de anuncios', role: 'Atividade paga observada', v: 'medido', pub: H.H4.captured_at || '—', capture: H.H4.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H4.canonical_entities} cartoes` })
 
   // ── VOLUMES (home) ───────────────────────────────────────────────────────
   // Volume nunca e atencao — mas some-lo do portal fazia H4 e H3 parecerem
@@ -335,14 +337,15 @@ export function buildSnapshot() {
       // Pais · regiao · cultura · problema · data. Cada campo ausente diz
       // NOT_KNOWN em vez de sumir: 15 dos 22 tem localidade e 12 tem tempo, e
       // esconder a ausencia faria os 22 parecerem iguais.
-      sub: [it.COUNTRY_OF_FACT || it.SOURCE_COUNTRY || '—',
-            it.REGION_OF_FACT || 'REGION NOT_KNOWN',
-            crops.length ? crops.join(' / ') : 'CROP NOT_KNOWN',
-            issue || 'ISSUE NOT_KNOWN',
+      sub: [rot(it.COUNTRY_OF_FACT || it.SOURCE_COUNTRY) || '—',
+            it.REGION_OF_FACT || 'Regiao nao conhecida',
+            crops.length ? crops.map(rot).join(' / ') : 'Cultura nao conhecida',
+            rot(issue) || 'Problema nao nomeado',
             // PUB e a data em que a fonte publicou. NAO e o tempo do fato: a
             // medicao conta WITH_TIME = 12 nos 22, e PUBLISHED_AT existe em
             // todos. Chamar isto de TIME faria 22 parecerem 12 provados.
-            it.PUBLISHED_AT ? 'PUB ' + it.PUBLISHED_AT : 'PUB NOT_KNOWN'].join(' · '),
+            it.PUBLISHED_AT ? 'Publicado em ' + it.PUBLISHED_AT
+                            : 'Data de publicacao nao conhecida'].join(' · '),
       sourceId: it.SOURCE_ENTITY_ID || '—',
       capture: it.PUBLISHED_AT || it.CAPTURED_AT || '—',
       country: it.COUNTRY_OF_FACT || it.SOURCE_COUNTRY || '—',
@@ -367,7 +370,7 @@ export function buildSnapshot() {
   for (const e of proximos) {
     acervoRows.push({
       title: `${e.product} · REG ${e.reg}`,
-      sub: [`ATIVO ${e.actives}`, `STATUS ${e.status}`, `VENCE ${e.expiry}`].join(' · '),
+      sub: [e.actives, e.status, `Vence em ${e.expiry}`].join(' · '),
       sourceId: H.H2.source_id || 'IT-T4-001',
       capture: H.H2.captured_at || '—',
       country: 'IT',
@@ -388,11 +391,9 @@ export function buildSnapshot() {
     const produto = (p.PRODUCT_NAME_NA_META || []).join(' / ') || p.NOME_NORMALIZADO || '—'
     acervoRows.push({
       title: `${p.META_COMPANY} · ${produto}`,
-      sub: [`ANUNCIOS OBSERVADOS ${p.ADS_OBSERVED}`,
-            `MARCA ${(p.TM_ST13 || []).join(',') || '—'} (${(p.TM_OFFICE || []).join(',') || '—'})`,
-            `REGISTRO ${p.REGISTRATION_ID || '—'} · ${p.REGISTRATION_HOLDER || '—'}`,
-            `TITULAR ${p.CONCORDANCIA_DE_TITULAR || 'NOT_KNOWN'}`,
-            'PRELIMINAR · NAO E ENTRADA FINAL'].join(' · '),
+      sub: [`${p.ADS_OBSERVED} anuncios observados`,
+            `Registro ${p.REGISTRATION_ID || '—'} · ${p.REGISTRATION_HOLDER || '—'}`,
+            'Cruzamento preliminar'].join(' · '),
       sourceId: H.H3.source_id || '—',
       capture: H.H3.captured_at || '—',
       country: p.COUNTRY || '—',
@@ -413,10 +414,9 @@ export function buildSnapshot() {
   for (const a of (H.H8.accounts || [])) {
     acervoRows.push({
       title: `${a.COMPANY} · ${a.PLATFORM}${a.ACCOUNT_HANDLE ? ' · ' + a.ACCOUNT_HANDLE : ''}`,
-      sub: [`IDENTIDADE ${a.ACCOUNT_IDENTITY_STATE || 'NOT_KNOWN'}`,
-            `ESCOPO ${a.COUNTRY_SCOPE || 'NOT_KNOWN'}`,
-            `COLETA AUTORIZADA ${a.COLLECTION_AUTHORIZED ? 'SIM' : 'NAO'}`,
-            'CONTENT_COLLECTION_STAGE NOT_STARTED'].join(' · '),
+      sub: [`Identidade: ${(rot(a.ACCOUNT_IDENTITY_STATE) || 'Nao sabemos').toLowerCase()}`,
+            `Alcance: ${(rot(a.COUNTRY_SCOPE) || 'Nao sabemos').toLowerCase()}`,
+            'Conteudo ainda nao coletado'].join(' · '),
       sourceId: H.H8.source_id || '—',
       capture: H.H8.captured_at || '—',
       country: a.COUNTRY || '—',
@@ -547,7 +547,7 @@ export function buildSnapshot() {
       v: H.H3.resolved ? 'provado' : 'naopronto',
       question: 'A mesma marca de concorrente aparece com registro local e atividade paga observada em mais de um mercado?',
       common: `Unidade comum: tupla (competidor, pais, produto). ${H.H3.canonical_entities} com cadeia fechada, ${H.H3.not_known} sem.`,
-      different: 'A concordancia titular fecha por pais. O que nao fecha e a entrada final de refresh, que depende do handoff da Meta.',
+      different: 'A concordancia titular fecha por pais. O que nao fecha e a entrada final de refresh: falta reexecutar o cruzamento contra o freeze da Meta.',
       owner: 'Market Development regional — investigacao',
       sequence: 'NAO MEDIDA',
       lanes: [
@@ -678,11 +678,51 @@ const NOT_NAMED = {
   issue: { pt: 'issue nao nomeado', en: 'issue not named', es: 'problema no nombrado', fr: 'problème non nommé', it: 'problema non nominato' },
 }
 
+// ── CAMADA DE ROTULO HUMANO ───────────────────────────────────────────────
+//
+// O valor canonico NAO muda: 'DURUM_WHEAT' continua DURUM_WHEAT dentro do
+// objeto, na evidencia e na proveniencia. O que muda e o que a pessoa LE.
+//
+// Quem abre o portal e diretor, marketing, regulatorio. Ninguem precisa saber
+// que existe um campo chamado COUNTRY_OF_FACT para entender que o fato
+// aconteceu na Espanha.
+const PAIS_NOME = { ES: 'Espanha', IT: 'Italia', FR: 'Franca' }
+
+const ROTULO = {
+  DURUM_WHEAT: 'Trigo duro', CEREAL: 'Cereais', OLIVE: 'Oliveira',
+  VINE: 'Videira', WHEAT: 'Trigo',
+  REPILO: 'Repilo', SEPTORIA: 'Septoria', FUSARIUM: 'Fusarium',
+  DOWNY_MILDEW: 'Mildio', FLAVESCENCE: 'Flavescencia dourada',
+  ATTENTION_READY: 'Pronto para atencao',
+  ATTENTION_CANDIDATE_TEST: 'Caso emergente',
+  VALID_EVIDENCE_NOT_ATTENTION_READY: 'Evidencia observada',
+  NEEDS_EVIDENCE: 'Precisa de evidencia',
+  FORMING: 'Em formacao', WATCH: 'Em observacao',
+  FUTURE: 'Futuro', ARCHIVED: 'Arquivado',
+  PROVED: 'Confirmado', REJECTED: 'Descartado', NOT_KNOWN: 'Nao sabemos',
+  NOT_STARTED: 'Nao iniciada', NOT_MEASURED: 'Nao medido',
+  LOCAL_COUNTRY_PROVED: 'Local confirmado', GLOBAL: 'Global',
+  PERSON_CREATOR: 'Voz de campo', FARM_BUSINESS_ENTITY: 'Negocio agricola',
+}
+
+/** Troca um valor de maquina pelo rotulo humano. Sem rotulo, tira o underscore. */
+const rot = (v) => {
+  if (v === null || v === undefined || v === '') return null
+  const k = String(v)
+  if (ROTULO[k]) return ROTULO[k]
+  if (PAIS_NOME[k]) return PAIS_NOME[k]
+  return /^[A-Z0-9_]+$/.test(k) && k.includes('_')
+    ? k.charAt(0) + k.slice(1).toLowerCase().replace(/_/g, ' ')
+    : k
+}
+
 function titleFor(c, type, lang = 'pt') {
   if (type === 'reg' || type === 'comp') return TITLE_FRAME[type][lang]
-  const crop = c.CROP || NOT_NAMED.crop[lang]
-  const issue = c.ISSUE || NOT_NAMED.issue[lang]
-  return `${TITLE_FRAME[type][lang]} — ${crop} / ${issue} (${c.COUNTRY})`
+  // O titulo responde O QUE, em duas palavras. O pais saiu do titulo: ele ja
+  // aparece na linha de baixo, e repetir rouba a leitura de dez segundos.
+  const crop = rot(c.CROP) || NOT_NAMED.crop[lang]
+  const issue = rot(c.ISSUE) || NOT_NAMED.issue[lang]
+  return `${crop} · ${issue}`
 }
 
 // O bloqueador tem duas partes: a MOLDURA ("Bloqueador: ...") e o MOTIVO.
@@ -722,7 +762,20 @@ function blockerFor(c, type, H, lang = 'pt') {
   // Motivo citado do freeze: marcado como medicao, nao traduzido.
   const citado = (txt) => p(lang === 'pt' ? txt : `${txt}  [PT · MEASURED_AS_IS]`)
 
-  if (type === 'comp' && !H.H3.resolved) return citado(H.H3.unresolved_reason)
+  // O bloqueador congelado em H3 diz "o handoff da Meta ainda nao foi
+  // congelado". Neste snapshot ele e falso — H4 esta congelado. Mostrar o
+  // texto velho no cartao seria pedir uma coisa que ja existe.
+  //
+  // O estado NAO muda: FINAL_REFRESH_INPUT continua NO, porque o impedimento
+  // cair nao roda o cruzamento. Muda o que falta fazer.
+  if (type === 'comp' && !H.H3.resolved) {
+    const metaCongelada = !!(H.H4 && H.H4.canonical_entities)
+    return metaCongelada && /handoff/i.test(H.H3.unresolved_reason || '')
+      ? p(lang === 'pt'
+          ? 'falta reexecutar o cruzamento contra o freeze da Meta, que ja existe. A cadeia segue preliminar ate isso.'
+          : 'the cross-check against the frozen Meta handoff has not been re-run. The chain stays preliminary until it is.')
+      : citado(H.H3.unresolved_reason)
+  }
   if (type === 'case') {
     if (f.WITH_ISSUE === 0) return p(BLOCK.noIssue[lang])
     if (f.WITH_FULL_KEY === 0) return p(BLOCK.noKey[lang])

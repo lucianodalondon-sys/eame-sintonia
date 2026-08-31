@@ -382,6 +382,64 @@ export function instrument(html) {
   out = replaceBlock(out, 'const asymRows = [',
     'const asymRows = window.__SINTONIA__.asymRows || [];', log)
 
+  // 5o · PASSAGEM EXECUTIVA · nomes de tipo e de estado em portugues de gente.
+  //
+  //      Os codigos canonicos continuam INTACTOS no dado, na evidencia e na
+  //      proveniencia — o que muda e a etiqueta que aparece na tela. Quem abre
+  //      o portal e diretor, marketing ou regulatorio, e ninguem precisa saber
+  //      que existe um tipo chamado LONGITUDINAL_FIELD_PRESSURE para entender
+  //      que aquilo e a pressao da doenca no campo ao longo dos anos.
+  for (const [de, para] of [
+    ["label: 'PHENOMENON CASE'", "label: 'Caso de campo'"],
+    ["label: 'REGULATORY DEADLINE'", "label: 'Prazo regulatorio'"],
+    ["label: 'COMPETITOR IDENTITY CHAIN'", "label: 'Cadeia de concorrente'"],
+    ["label: 'LONGITUDINAL FIELD PRESSURE'", "label: 'Pressao de campo'"],
+  ]) out = replaceOnce(out, de, para, 'ux:tipo ' + de.slice(8, 34), log)
+
+  // Os estados diziam o portao em vez de dizer a situacao. "EVIDENCIA VALIDA ·
+  // NAO PRONTO" e verdade e nao ajuda ninguem a decidir; "Evidencia observada"
+  // diz a mesma coisa e cabe num cartao.
+  for (const [de, para] of [
+    ["ready:     { label: 'PRONTO PARA ATENÇÃO'", "ready:     { label: 'Pronto para atenção'"],
+    ["candidate: { label: 'CANDIDATO EM TESTE'", "candidate: { label: 'Caso emergente'"],
+    ["valid:     { label: 'EVIDÊNCIA VÁLIDA · NÃO PRONTO'", "valid:     { label: 'Evidência observada'"],
+    ["needs:     { label: 'PRECISA DE EVIDÊNCIA'", "needs:     { label: 'Precisa de evidência'"],
+    ["forming:   { label: 'EM FORMAÇÃO'", "forming:   { label: 'Em formação'"],
+    ["watch:     { label: 'EM OBSERVAÇÃO'", "watch:     { label: 'Em observação'"],
+    ["future:    { label: 'FUTURO'", "future:    { label: 'Futuro'"],
+    ["archived:  { label: 'ARQUIVADO'", "archived:  { label: 'Arquivado'"],
+    ["empty:     { label: 'EMPTY_VALID · SEM OBJETO'", "empty:     { label: 'Sem objeto deste tipo'"],
+  ]) out = replaceOnce(out, de, para, 'ux:estado ' + de.slice(0, 10), log)
+
+  // 5p · CARD COM UMA IDEIA SO · cada cartao do radar carregava a matriz
+  //      inteira de portoes: sete linhas de "provado / nao provado" dentro de
+  //      um cartao que ja tem titulo, lugar, assunto e estado.
+  //
+  //      A matriz nao sai do produto: ela continua no DETALHE, que e onde
+  //      alguem vai de fato conferir portao por portao. No cartao ela virava
+  //      ruido — e o cartao existe para responder O QUE e ONDE em dois
+  //      segundos, nao para auditar.
+  //
+  //      A marcacao e a mesma nos quatro lugares onde o cartao aparece, entao
+  //      a troca e 4x e conferida: se o casco mudar, o build para.
+  {
+    const alvo = '<div style="display:flex;flex-direction:column;gap:5px;padding:12px;' +
+      'border-radius:12px;background:rgba(255,255,255,.025);border:1px solid var(--hair2)">\n' +
+      '                    <sc-for list="{{ o.gates }}" as="g"'
+    const novo = alvo.replace('<div style=', '<div data-ux="portoes-do-cartao" style=')
+    const n = out.split(alvo).length - 1
+    if (n !== 4) throw new Error(`FAIL_CLOSED · "cartao:portoes" casou ${n}x (esperado 4)`)
+    out = out.split(alvo).join(novo)
+    log.push({ patch: 'cartao:portoes-fora-do-cartao (4x)', bytes_out: 0, bytes_in: 0 })
+  }
+
+  out = replaceOnce(out, '</head>',
+    `<style>
+  /* PASSAGEM EXECUTIVA · o cartao responde O QUE e ONDE. O detalhe audita. */
+  [data-ux="portoes-do-cartao"] { display: none !important; }
+</style>
+</head>`, 'ux:css', log)
+
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
     'const volumes = window.__SINTONIA__.volumes || [];', log)
