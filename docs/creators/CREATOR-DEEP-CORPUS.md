@@ -253,3 +253,187 @@ arquivos:
 escreve `IDENTITY`, `ROLE` ou `ACTIVATION_STATE`**.
 
 O acervo parou nos 10 perfis. **Nenhum creator novo foi aberto.**
+
+---
+
+# SELO DA V1 — validação semântica e congelamento
+
+Artefato: [`CORPUS-V1-SEAL.json`](../../data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-V1-SEAL.json)
+· código em [`creator_corpus_selo.py`](../../scripts/creator_corpus_selo.py).
+**Zero coleta, zero Apify, zero custo** — só leitura do que já estava preservado,
+mais leitura READ-ONLY de artefatos canônicos de outras branches por `git show`,
+sem copiar arquivo e sem trocar de branch.
+
+## 1 · a janela real: 442 não é 280
+
+O número que a missão pede não é o número que a coleta devolveu.
+
+| | itens |
+|---|---:|
+| `ALL_ITEMS_COLLECTED` | **442** |
+| `LAST_90D_CORPUS` | **280** |
+| `ITEMS_91_180D` | 62 |
+| `ITEMS_OLDER_THAN_180D` | 100 |
+
+Nenhum item antigo foi descartado para o número caber. Os 100 itens com mais de
+180 dias **provam histórico** e continuam no acervo, separados.
+
+| alvo | tipo | tent. | sucesso | itens | 90d | 91–180d | >180d | mais antigo → mais novo |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| PC-01 `@gomierofarm` | pessoa | 1 | 1 | 50 | **50** | 0 | 0 | 2026-06-08 → 2026-08-24 |
+| PC-02 `@chaineagricole` | pessoa | 1 | 1 | 43 | **5** | 2 | 36 | 2023-09-02 → 2026-08-04 |
+| PC-03 Gilles vk | pessoa | **0** | 0 | 0 | 0 | 0 | 0 | — |
+| PC-04 `@huerto_ecologico.marc` | pessoa | 1 | 1 | 50 | **32** | 16 | 2 | 2024-02-07 → 2026-08-30 |
+| PC-05 `@germanagrolife` | pessoa | 1 | 1 | 50 | **50** | 0 | 0 | 2026-06-04 → 2026-08-29 |
+| PC-06 `@agrosamanta_` | pessoa | 1 | 1 | 50 | **28** | 22 | 0 | 2026-04-09 → 2026-08-27 |
+| PC-07 `@chicurri_agro` | pessoa | 1 | 1 | 50 | **8** | 10 | 32 | 2025-01-08 → 2026-08-25 |
+| PC-08 `@oliverio_rodfer` | pessoa | 1 | 1 | 50 | **50** | 0 | 0 | 2026-07-20 → 2026-08-28 |
+| FB-09 `@biocampojoyma` | empresa | 1 | 1 | 49 | **7** | 12 | 30 | 2025-01-21 → 2026-07-31 |
+| FB-10 `@terruzapistachos` | empresa | 1 | 1 | 50 | **50** | 0 | 0 | 2026-07-09 → 2026-08-30 |
+
+PC-03 conta **0 canais tentados**, não uma tentativa falhada: não havia endereço
+para tentar. Quatro alvos (PC-02, PC-04 parcialmente, PC-07, FB-09) só alcançam
+o alvo de 30 itens **somando histórico**; dentro de `LAST_90D` eles têm 5, 8 e 7.
+Isso está escrito em `EXACT_LIMITATION` de cada um.
+
+## 2 · identidade dos canais usados
+
+**9 `PROVED` · 1 `NOT_APPLICABLE`.** Todo canal que produziu material é
+literalmente o `PUBLIC_CHANNEL` do artefato congelado — a coleta não aceita
+handle, nome nem busca como entrada. **Nenhum canal descoberto nesta missão foi
+usado**, e portanto nenhum material foi atribuído a alguém por semelhança de
+nome, avatar, idioma ou tema.
+
+**Um `CORRECTION_CANDIDATE`:** o PC-01 anuncia um canal de YouTube — *"Canale
+Gomiero Farm"* — na legenda do próprio Instagram provado. É declaração da
+própria conta, e é forte. Continua sendo **apenas candidato**: `USED_IN_THIS_CORPUS
+= NO`, `MATERIALS_ATTRIBUTED = 0`. O Creator Map está congelado e não foi
+escrito; o candidato fica para a atualização dele.
+
+> Aqui o detector também errou e foi corrigido: a primeira versão aceitava a
+> palavra *youtube* como gatilho e devolveu **`y Spotify`** e **`o Spotify.`**
+> como candidatos — pedaços da frase *"en YouTube y Spotify"*. Candidato de canal
+> que é uma preposição solta não é candidato fraco: é ruído com cara de
+> descoberta. Agora exige a palavra CANAL antes do nome.
+
+**PC-03 · Gilles vk** permanece exatamente assim:
+`CREATOR_IDENTITY` = conforme o Creator Map · `CONTENT_CHANNEL_PROVED = NO` ·
+`CORPUS_ITEMS = 0` · `CORPUS_ZERO_MEANING = NO_PROVED_CONTENT_ROUTE`.
+Em nenhum lugar deste relatório está escrito que ele não publica.
+
+## 3 · regressões e cobertura por idioma
+
+Os quatro defeitos viraram teste executável, mais dois:
+
+| regressão | estado |
+|---|---|
+| `FR_MAIS_NOT_MAIZE_GUARD` | **PASS** |
+| `BIO_BRAND_NOT_BIOLOGICAL_GUARD` | **PASS** |
+| `HASHTAG_ALONE_NOT_TECHNICAL_MANAGEMENT_GUARD` | **PASS** |
+| `HASHTAG_GUARD_STILL_CLASSIFIES` | **PASS** |
+| `ACTOR_SCHEMA_ROUTE_GUARD` | **PASS** |
+| `NO_RELEVANCE_SCORE` | **PASS** |
+
+A quarta existe porque uma guarda que só sabe dizer *não* passaria com o
+classificador desligado: ela exige que cultura **mais** sinal de manejo continue
+produzindo `CROP_MANAGEMENT`.
+
+**`CLASSIFICATION_COVERAGE_OBSERVED`** — e não acurácia, porque não há gabarito
+humano:
+
+| idioma | itens com texto | classificados | em `OTHER` |
+|---|---:|---:|---:|
+| ES | 288 | 138 | 150 |
+| FR | 43 | 24 | 19 |
+| IT | 30 | 6 | 24 |
+| ambíguo / não sei | 81 | 10 | 71 |
+
+Abri **12 itens italianos em `OTHER`** à mão. Veredito:
+**`ITALIAN_OTHER_CONTAINS_MISSED_RELEVANT_CONTENT`** ·
+**`ITALIAN_DICTIONARY_COVERAGE_GAP = PROVED`**. O que escapou: **7 de evento**
+(a feira italiana chama-se *Agrishow* e se apresenta como festival; o léxico só
+conhece *feria/fiera/jornada*), **3 de maquinaria** (drone, engate rápido, marca
+de implemento) e **1 ensaio de campo com fertilizante** (*"campo PROVA"*, com
+rótulo `#adv` que também não estava previsto).
+
+**O dicionário italiano não foi expandido.** Expandir até o número ficar bonito
+é como se fabrica cobertura falsa. Consequência declarada: toda contagem
+temática do PC-01 é **piso, não medida** — ali
+`NOT_OBSERVED_IN_MEASURED_CORPUS` significa, em parte, *não-lido*.
+
+## 4 · duplicatas
+
+`WITHIN_PLATFORM_DUPLICATES = 0` · `UNIQUE_ITEMS = 442` (por id estável, não por
+texto parecido) · `CROSS_PLATFORM_DUPLICATION = NOT_MEASURED`.
+
+Não existe chave segura ligando um post do Instagram ao mesmo vídeo no YouTube.
+Ainda assim, nenhuma contagem agregada aqui pode estar inflada por crosspost
+entre plataformas: **PC-02 é YouTube puro e todos os outros são Instagram puro**
+no acervo — nenhum alvo tem as duas.
+
+## 5 · comentários
+
+199 preservados como camada própria, agora com papel:
+**`UNKNOWN` 198 · `COMPANY` 1**. O papel só sobe de `UNKNOWN` com evidência
+escrita **dentro do próprio comentário**; nenhum comentarista virou produtor.
+
+Agregados permitidos, e só esses: `FIELD_VOICE_OBSERVED` (**4** relatos em
+primeira pessoa) e `AUDIENCE_QUESTION_OBSERVED` (**31** perguntas, 3 delas
+técnicas). Proibidos e ausentes: `INCIDENCE`, `OUTBREAK`, `TREND`.
+
+## 6 · contexto ADAMA local — agora medido, e não em todo lugar
+
+| país | artefato canônico lido (read-only) | estado |
+|---|---|---|
+| ES | `ES-ADAMA-PORTFOLIO-ROPF.json` · 162 culturas de registros vigentes | **`MEASURED`** |
+| FR | `FR-T4-001-adama-crop-target.json` · **TOP-25** de usos autorizados | **`MEASURED_POSITIVE_ONLY`** |
+| IT | `IT-ADAMA-CATALOG-V1.json` | **`NOT_MEASURED`** |
+
+O caso italiano é o próprio artefato que responde: ele declara
+**`AUTHORIZED_REGULATORY = 0`** — as 622 relações cultura↔produto são `CITED` ou
+`ROTATION_ONLY`, e citação em rótulo não é autorização por cultura.
+
+O caso francês é um recorte de exibição: um TOP-25 **prova presença e não prova
+ausência**. Dizer *"não há portfólio para esta cultura"* com base nele seria
+transformar um recorte em ausência de autorização.
+
+Sobreposição observada, por alvo, via crosswalk explícito:
+PC-04 e PC-05 `OLIVE·PEPPER·TOMATO` · FB-09 `MAIZE·PEPPER·TOMATO` ·
+PC-06 e PC-08 `TOMATO` · PC-07 `OLIVE` · PC-02 `WHEAT·BARLEY` ·
+**FB-10 sem sobreposição** (pistácio não está no registro ADAMA ES) ·
+PC-01 `NOT_MEASURED` · PC-03 `MEASURED_FROM_CREATOR_MAP_CROPS_ONLY`, porque a
+cultura dele vem do mapa e não do acervo — nenhuma publicação dele foi lida.
+
+Nada disso significa *"a ADAMA deve usar esta pessoa"* nem *"o produto X deve
+ser anunciado com ela"*.
+
+## 7 · perfil, não score
+
+Dez perfis com o vocabulário de quatro estados —
+`OBSERVED` · `NOT_OBSERVED_IN_MEASURED_CORPUS` · `NOT_MEASURED` ·
+`NOT_APPLICABLE` — em COUNTRY, REGION, CROP, ISSUE, FIELD_CONTENT,
+TECHNICAL_CONTENT, CROP_PROTECTION, AUDIENCE_TYPE, BRAND_HISTORY,
+COMPETITOR_HISTORY, SPONSORED_CONTENT, ACTIVATION_STYLE e LOCAL_ADAMA_CONTEXT.
+
+`ADAMA_RELEVANCE_SCORE`, `CREATOR_SCORE`, `RANKING` e `FOLLOWER_RANK` não
+existem, e há uma regressão que **falha** se algum deles aparecer num artefato.
+
+## 8 · freeze
+
+| condição | estado |
+|---|---|
+| `COLLECTION_WINDOW_RECONCILED` | YES |
+| `USED_CHANNEL_IDENTITIES_AUDITED` | YES |
+| `FALSE_POSITIVE_REGRESSIONS` | PASS |
+| `LANGUAGE_COVERAGE_EXPOSED` | YES |
+| `COMMENT_SEMANTICS_GUARDED` | YES |
+| `NO_RELEVANCE_SCORE` | YES |
+
+**`CREATOR_DEEP_CORPUS_V1 = FROZEN`** ·
+**`OPTIONAL_REFRESH_INPUT = READY_WITH_LIMITATIONS`**
+
+As limitações que viajam junto com o congelamento, e que qualquer uso precisa
+respeitar: Gilles sem rota de conteúdo; contexto ADAMA não medido na Itália e só
+positivo na França; cobertura italiana **provadamente** incompleta; quatro alvos
+que só chegam a profundidade somando histórico; região do fato não extraída do
+texto; e só texto lido — imagem e vídeo, não.

@@ -330,8 +330,12 @@ def carregar(nome, base=None):
         return []
     with open(caminho, encoding='utf-8') as f:
         d = json.load(f)
+    # Chave nova de artefato entra AQUI. Sem isso a função devolve o dicionário
+    # inteiro e quem itera recebe as CHAVES — strings — em vez dos registros. O
+    # Creator Map já pagou essa: a fase paga rodou com zero handles porque a
+    # chave do artefato não estava na lista.
     for chave in ('MATERIALS', 'ENTITIES', 'PROFILES', 'COMMENTS',
-                  'OBSERVATIONS', 'BRAND_EVENTS', 'RUNS'):
+                  'OBSERVATIONS', 'BRAND_EVENTS', 'RUNS', 'ACTORS'):
         if isinstance(d, dict) and chave in d:
             return d[chave]
     return d
