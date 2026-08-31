@@ -1,0 +1,115 @@
+{
+  "SOURCE_ID": "SUPABASE-V8-READ-CONTRACT-EAME-2026-08-31",
+  "source": "O que o V8 pede e o que recebe. Contrato de leitura, sem wiring.",
+  "SOURCE_LOCATION": "SINTONIA",
+  "FACT_LOCATION": "ES / IT / FR",
+  "ARTIFACT_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "READ_CONTRACT",
+  "captured_at": "2026-08-31",
+  "CAPTURED_AT": "2026-08-31",
+
+  "MODE": {"V8_WIRED": "NO", "REAL_DATA_PUBLISHED": "NO"},
+
+  "PRINCIPIOS": {
+    "SEM_DEZESSETE_JOINS_NO_NAVEGADOR": "O V8 chama uma view ou RPC por superficie. A normalizacao fica no banco.",
+    "VIEW_NAO_REDEFINE_REGRA": "Views sao projecoes de leitura. Nenhuma reimplementa readiness, convergencia ou defensibilidade — todas leem de UMA derivacao.",
+    "SEM_SEGREDO_NO_FRONTEND": "O portal fala com um servidor; o servidor fala com o Supabase. SERVICE_ROLE_KEY nunca atravessa o navegador.",
+    "O_CASCO_E_CONSUMIDOR": "Se o casco pedir um alias, o adapter traduz lendo ui_alias. O banco nunca aprende o alias."
+  },
+
+  "SURFACES": [
+    {
+      "SURFACE": "HOME · fila de atencao",
+      "CALL": "get_attention_feed(p_country, p_display_language)",
+      "READS": ["v_attention_feed", "v_attention_readiness"],
+      "RETURNS": ["items[]", "empty_reason", "blocking_gate_counts"],
+      "RECEPTOR_V8": "R-H1..R-H5 via RADAR_OBJECT_CARD",
+      "REGRA": "Fila vazia devolve empty_reason e a contagem de qual portao segurou cada objeto. Nunca lista vazia sem motivo.",
+      "ESTADO_HOJE": "ATTENTION_READY = 0. A fila nasce vazia e isso e previsto."
+    },
+    {
+      "SURFACE": "RADAR DE ATENCAO",
+      "CALL": "select * from v_radar where country = $1",
+      "RETURNS": ["attention_object_id", "object_type", "attention_state", "adama_line", "blocker_text", "last_evidence_at", "title", "language", "fallback_used"],
+      "REGRA": "OBJECT_TYPE em toda linha. Sem ele o usuario nao distingue um vencimento de um caso de campo — foi o defeito do V7."
+    },
+    {
+      "SURFACE": "OBJECT DETAIL",
+      "CALL": "get_attention_object(p_object_id, p_display_language)",
+      "READS": ["v_object_detail", "v_convergence_state", "v_object_timeline", "v_action_map", "object_clock", "attention_object_unknown"],
+      "RETURNS": ["object", "type_specific", "clocks[]", "unknowns[]", "convergence", "timeline[]", "actions[]", "representation", "fallback_used"],
+      "REGRA": "Bloco que o tipo nao tem NAO volta vazio: volta ausente. NOT_APPLICABLE nao e lacuna."
+    },
+    {
+      "SURFACE": "EVIDENCE DRAWER",
+      "CALL": "get_evidence(p_evidence_id, p_display_language)",
+      "READS": ["v_evidence_drawer"],
+      "RETURNS": ["evidence", "source_provenance", "storage_provenance", "original_text", "source_language", "translation", "translation_provenance", "fallback_used"],
+      "REGRA": "ORIGINAL_TEXT sempre na lingua da fonte, fora da cadeia de fallback. Traducao vem marcada e nunca no lugar.",
+      "DEVE_ALCANCAR": ["H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9"],
+      "ESTADO_DO_CASCO": "index (11) alcanca 5 das 9. O contrato exige 9; o casco corrige."
+    },
+    {
+      "SURFACE": "CROP MAP",
+      "CALL": "select * from v_crop_map_point where country = $1",
+      "RETURNS": ["object_id", "object_type", "attention_state", "country", "region", "locality_text", "geometry", "geo_resolution", "crop", "is_drawable", "undrawable_reason"],
+      "REGRA": "is_drawable e DERIVADO no banco. O cliente nao decide o que pintar, e o contador de nao-desenhaveis vem junto."
+    },
+    {
+      "SURFACE": "CAMADA EAME",
+      "CALL": "select * from v_eame_cross_market",
+      "RETURNS": ["proposition", "countries[]", "common", "different", "comparable_dimensions[]", "not_comparable[]", "regional_owner"],
+      "REGRA": "So as dimensoes declaradas comparaveis. Juntar tudo fabricaria uniformidade."
+    },
+    {
+      "SURFACE": "FONTES",
+      "CALL": "select * from v_source_status",
+      "RETURNS": ["source_id", "source_name", "source_role", "source_status", "latest_source_publication", "latest_capture", "observation_age_days", "pipeline_latency_state", "content_collection_stage"],
+      "REGRA": "Cinco relogios separados. PIPELINE_LATENCY = NOT_MEASURED nunca vira zero."
+    },
+    {
+      "SURFACE": "PESSOAS · camada do PHENOMENON_CASE",
+      "CALL": "select * from v_issue_expert where crop_term_id = $1 and issue_term_id = $2",
+      "RETURNS": ["person_id", "display_name", "organization", "relation_to_issue_as_declared", "evidence_id"],
+      "REGRA": "A view ja filtra por issue_expertise_state = PROVED. Quem nao passou no portao nao chega ao V8 como especialista do problema — e a lista nao tem ordem.",
+      "ESTADO_HOJE": "zero linhas. A camada mostra EMPTY_VALID com o motivo."
+    },
+    {
+      "SURFACE": "CREATOR · capability contextual",
+      "CALL": "select * from creator_content_profile where ...",
+      "WRITE": "insert into entry_path_event (entry_path, attention_object_id, crop_term_id, region, country)",
+      "REGRA": "Unica escrita que o portal faz, e nao e inteligencia: e telemetria de rota, sem user_id, sem sessao, sem IP.",
+      "POR_QUE": "A arbitragem decidiu que Creator vira ferramenta com dado de uso. Sem esta escrita, a decisao nunca pode ser tomada."
+    }
+  ],
+
+  "ESCRITA_PELO_PORTAL": {
+    "PERMITIDO": ["entry_path_event"],
+    "PROIBIDO": "qualquer tabela de inteligencia canonica. Usuario do portal nao escreve objeto, evidencia, estado nem acao.",
+    "COMO": "RLS: portal_reader tem INSERT apenas em entry_path_event e SELECT no que o pais dele autoriza."
+  },
+
+  "IDIOMA_NA_LEITURA": {
+    "PEDIDO": {"OBJECT_ID": "obrigatorio", "DISPLAY_LANGUAGE": "obrigatorio"},
+    "RESPOSTA": ["estrutura canonica (uma so)", "representacao no idioma resolvido", "original da evidencia preservado"],
+    "SEMPRE_DECLARADO": ["REQUESTED_LANGUAGE", "DISPLAY_LANGUAGE", "FALLBACK_USED"],
+    "CADEIA": ["<pedido>", "en", "pt"],
+    "EXEMPLO_PERMITIDO": {"REQUESTED_LANGUAGE": "fr", "DISPLAY_LANGUAGE": "en", "FALLBACK_USED": "YES", "FALLBACK_CHAIN": ["fr", "en"]},
+    "PROIBIDO": "devolver o texto em EN dizendo DISPLAY_LANGUAGE = fr. Fingir que FR existe e pior do que nao ter FR.",
+    "SEM_NENHUMA": {"FALLBACK_USED": "NO_REPRESENTATION_AVAILABLE", "text": null},
+    "EVIDENCIA_FORA_DA_CADEIA": "ORIGINAL_TEXT nunca sofre fallback: e exibido na lingua da fonte, sempre."
+  },
+
+  "ESTADOS_NA_LEITURA": {
+    "O_QUE_O_BANCO_DEVOLVE": ["READY", "EMPTY_VALID", "NOT_STARTED", "NOT_AVAILABLE", "BLOCKED"],
+    "O_QUE_O_RECEPTOR_ACRESCENTA": ["UNWIRED", "LOADING", "ERROR_FAIL_CLOSED"],
+    "POR_QUE_SEPARADO": "UNWIRED e propriedade da LIGACAO e LOADING e da REQUISICAO. Nenhum dos dois e um fato sobre o mercado, e por isso nenhum entra no banco.",
+    "COMO_O_V8_COMBINA": "o receptor comeca UNWIRED; ao chamar vira LOADING; a resposta traz o data_state do banco; falha de transporte vira ERROR_FAIL_CLOSED sem nunca degradar para EMPTY_VALID."
+  },
+
+  "ALIAS_NA_LEITURA": {
+    "REGRA": "O adapter do V8 le sintonia.ui_alias e traduz canonico -> alias na fronteira.",
+    "NUNCA": "o banco devolver o alias como tipo",
+    "QUANDO_O_CASCO_CORRIGIR": "a traducao vira identidade e ui_alias fica so como registro historico do que ja foi divergente"
+  }
+}
