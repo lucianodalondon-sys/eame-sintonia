@@ -156,4 +156,4 @@ Sendo explícito, para que ninguém leia decisão onde não há:
 | [`V8-PRODUCT-SPEC-EAME.md`](V8-PRODUCT-SPEC-EAME.md) | a especificação fechada |
 | `data/arbitration/*.json` | schema · máquina de estados · mapa de mangueiras |
 
-**Suíte: 759 provas, 0 falhas.**
+**Suíte: 786 provas, 0 falhas.**
