@@ -73,12 +73,12 @@ documento. É o que um CASE precisa, e veio de uma única fonte institucional.
 
 | Recorte | Estado | Por quê |
 |---|---|---|
-| `ES · OLIVE × REPILO` | `PARTIAL` | RAIF entrega país, região e cultura; o corpo das páginas de dataset **nunca nomeia repilo** |
-| `ES · WHEAT × SEPTORIA` | `PARTIAL` | idem — a série está no XML de dados, não no texto publicado |
+| `ES · OLIVE × REPILO` | `PARTIAL` | RAIF entrega país, região e cultura; **nas páginas medidas** o corpo não nomeia repilo |
+| `ES · WHEAT × SEPTORIA` | `PARTIAL` | idem — nas mesmas páginas, a série está no XML de dados e não no texto publicado |
 | `IT · VINE × FLAVESCENCE` | `PARTIAL` | o único item que a nomeava era um **quiz didático**, reprovado pelo guard |
 | `IT · DURUM_WHEAT × FUSARIUM` | **`CASE_SIGNAL_READY`** | ver §3 |
-| `FR · VINE × DOWNY_MILDEW` | `PARTIAL` | 11 corpos lidos; o *mildiou* aparece em **catálogo de variedades, nota do cobre e história do século XIX** — nunca como observação corrente |
-| `FR · WHEAT × SEPTORIA` | `PARTIAL` | ARVALIS entrega corpo e região, sem alvo nomeado |
+| `FR · VINE × DOWNY_MILDEW` | `PARTIAL` | 11 corpos lidos; **nos corpos medidos** o *mildiou* aparece em catálogo de variedades, nota do cobre e história do século XIX — `CASE_READY_FIELD_BULLETIN = NOT_PROVED` **neste corpus** |
+| `FR · WHEAT × SEPTORIA` | `PARTIAL` | **nos 2 corpos medidos** a ARVALIS entrega corpo e região, sem alvo nomeado |
 
 Nenhum recorte é `NOT_PROVED`. Onde não fechou, o estado correto é
 **`SIGNAL_NOT_PROVED_IN_MEASURED_CORPUS`** — não *"não existe sinal"*.
@@ -140,6 +140,9 @@ NEW_EFFECTIVE_FULL_CASE_KEY   = 1 / 22
   `ES · OLIVE × REPILO` não recebe `ISSUE = REPILO` por isso. O corpo sustenta ou o campo
   fica `NOT_KNOWN`.
 - **Rota alcançável ≠ sinal territorial.** As duas coisas vivem em campos separados.
+- **`NOT_FOUND_IN_MEASURED_CORPUS` nunca vira `DOES_NOT_EXIST`.** Toda ausência é afirmada
+  com o escopo do que foi lido: quantos corpos, de quais fontes, em que rodada. Uma fonte
+  não lida não é uma fonte silenciosa.
 
 ---
 
@@ -161,9 +164,13 @@ NEW_EFFECTIVE_FULL_CASE_KEY   = 1 / 22
 1. **`ISSUE` em 5 / 22.** Serviços que publicam dados abertos (RAIF) põem o alvo no **XML**,
    não no texto da página. A rota de texto não alcança o alvo dessas fontes.
 2. **`TIME` em 12 / 22.** Páginas institucionais frequentemente não datam o corpo.
-3. **França: 11 corpos, zero observação corrente.** IFV e ARVALIS publicam catálogo,
-   nota técnica e história — não boletim de campo. **BSV continua a perna que falta**, e
-   segue sem itens datados nas rotas testadas.
+3. **França — escopo estrito da afirmação.** Nos **11 corpos medidos** de `FR-VIGNEVIN` e
+   `FR-ARVALIS` nesta rodada, `CASE_READY_FIELD_BULLETIN = NOT_PROVED`: o que foi lido é
+   catálogo de variedades, nota técnica e conteúdo histórico. **Isto não afirma o que essas
+   instituições publicam em geral**, nem que a França não tenha boletim de campo — afirma
+   apenas o que estes 11 corpos contêm. O `BSV`, que é a rota nacional de boletim de campo,
+   **não foi lido nesta rodada** e segue sem itens datados nas rotas antes testadas:
+   `SIGNAL_NOT_PROVED_IN_MEASURED_CORPUS`, nunca `NO_SIGNAL_EXISTS`.
 4. **Uma única fonte fechou caso.** LaMMA é 1 de 5. A capacidade está demonstrada por
    **uma** instância, não por recorrência.
 5. **`ES-RAIF` trouxe páginas de 2017 e 2018** junto das de 2026 — o portal de dados
@@ -211,3 +218,77 @@ MERGED          NO
 **O FUNCIONAL e o refresh futuro consomem este commit**, não o HEAD da branch. Os cinco
 artefatos do §11 estão todos dentro dele. Qualquer commit posterior nesta branch é
 trabalho de outra missão e não faz parte deste handoff.
+
+
+---
+
+## 13 · SELO SEMÂNTICO FINAL — duas verificações documentais
+
+Executadas em `2026-08-31` sobre material **já preservado**. Nenhuma rede, nenhuma coleta,
+nenhum extrator reaberto.
+
+### 13.1 · A testemunha do caso italiano — `FUSARIUM_ISSUE_EVIDENCE_PROVED = YES`
+
+A pergunta era legítima: *«Si segnala la comparsa di sintomi lievi nel frumento duro»*
+prova cultura, sintoma, tempo e lugar — **não prova, sozinha, que o alvo é Fusarium**.
+
+O corpo preservado responde. `Fusariosi` é o **cabeçalho da seção**, e o texto é contíguo:
+
+> «… Il quadro evidenzia una diffusione generalizzata con intensità variabile.
+> **Fusariosi** Si segnala la comparsa di sintomi lievi nel frumento duro in alcune
+> situazioni, mentre il tenero resta esente. **Rischio fusariosi da modello.** Il rischio
+> risulta elevato nelle classi precoci e medie del frumento tenero nel sud …»
+
+Três coisas se sustentam nessa passagem única:
+
+1. **`Fusariosi` é o alvo declarado da seção**, imediatamente antes da observação — não vem
+   do nome do recorte, nem da busca, nem de barra lateral, nem de menu, nem de metadado.
+2. **O próprio documento separa observação de modelo.** *«Si segnala la comparsa di
+   sintomi»* é sintoma visto; *«Rischio fusariosi da modello»* é saída de modelo, e vem
+   depois, nomeada como tal. A observação que sustenta o caso é a primeira.
+3. **A cultura é distinguida dentro da própria frase** — *duro* com sintoma, *tenero*
+   isento. Não é uma menção genérica a cereal.
+
+```
+IT_DURUM_WHEAT_FUSARIUM        = CASE_SIGNAL_READY   (mantido)
+FUSARIUM_ISSUE_EVIDENCE_PROVED = YES
+ISSUE_EVIDENCE                 = lamma.toscana.it/previ/ita/agrometeo/html/Grosseto_ftsnt.html
+                                 seção "Fusariosi", posição 1.125 do corpo preservado,
+                                 contígua à observação, no mesmo documento e contexto
+```
+
+### 13.2 · Escopo das afirmações sobre a França — `FRENCH_CORPUS_CLAIM_SCOPED = YES`
+
+Três frases foram reescritas por dizerem mais do que a medição sustenta:
+
+| Antes | Depois |
+|---|---|
+| «o *mildiou* … **nunca** como observação corrente» | «**nos corpos medidos** … `CASE_READY_FIELD_BULLETIN = NOT_PROVED` **neste corpus**» |
+| «**IFV e ARVALIS publicam** catálogo, nota técnica e história — não boletim de campo» | «nos **11 corpos medidos** … **isto não afirma o que essas instituições publicam em geral**» |
+| «o corpo das páginas de dataset **nunca nomeia** repilo» | «**nas páginas medidas** o corpo não nomeia repilo» |
+
+O que **permanece medido e verdadeiro**, sem alteração:
+
+```
+VIGNEVIN_ROUTE_REACHABLE = YES     (9 corpos lidos)
+ARVALIS_ROUTE_REACHABLE  = YES     (2 corpos lidos)
+SOURCE_ROUTE_REACHABLE  ≠  CASE_READY_TERRITORIAL_SIGNAL
+```
+
+O `BSV` — a rota francesa que de fato publica boletim de campo — **não foi lida nesta
+rodada**. Não estava entre as cinco autorizadas. Sua ausência do corpus é escolha de escopo,
+não evidência sobre a França.
+
+### 13.3 · O que estas verificações não mudaram
+
+```
+TERRITORIAL_CAPABILITY  = PARTIAL        (inalterado)
+MANDATORY_HANDOFF_READY = YES            (inalterado)
+UNIQUE_BODY_ANALYZED_ITEMS = 22          WITH_ISSUE = 5/22
+SLICES_CASE_SIGNAL_READY = 1             SLICES_PARTIAL = 5   SLICES_NOT_PROVED = 0
+WITH_FULL_TERRITORIAL_CASE_KEY = 1/22
+MISSION_STATE = PARKED                   MORE_COLLECTION_NEEDED = NO
+```
+
+Nenhuma coleta foi feita para defender o caso, e nenhuma seria permitida se ele tivesse
+caído.
