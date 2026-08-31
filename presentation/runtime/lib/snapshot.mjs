@@ -306,9 +306,17 @@ export function buildSnapshot() {
     acervoRows.push({
       // O titulo e o que a fonte declara; sem titulo, o proprio ITEM_ID.
       title: it.SOURCE_NAME || it.ITEM_ID,
+      // Pais · regiao · cultura · problema · data. Cada campo ausente diz
+      // NOT_KNOWN em vez de sumir: 15 dos 22 tem localidade e 12 tem tempo, e
+      // esconder a ausencia faria os 22 parecerem iguais.
       sub: [it.COUNTRY_OF_FACT || it.SOURCE_COUNTRY || '—',
+            it.REGION_OF_FACT || 'REGION NOT_KNOWN',
             crops.length ? crops.join(' / ') : 'CROP NOT_KNOWN',
-            issue || 'ISSUE NOT_KNOWN'].join(' · '),
+            issue || 'ISSUE NOT_KNOWN',
+            // PUB e a data em que a fonte publicou. NAO e o tempo do fato: a
+            // medicao conta WITH_TIME = 12 nos 22, e PUBLISHED_AT existe em
+            // todos. Chamar isto de TIME faria 22 parecerem 12 provados.
+            it.PUBLISHED_AT ? 'PUB ' + it.PUBLISHED_AT : 'PUB NOT_KNOWN'].join(' · '),
       sourceId: it.SOURCE_ENTITY_ID || '—',
       capture: it.PUBLISHED_AT || it.CAPTURED_AT || '—',
       country: it.COUNTRY_OF_FACT || it.SOURCE_COUNTRY || '—',
