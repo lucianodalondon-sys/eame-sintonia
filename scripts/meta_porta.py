@@ -171,7 +171,8 @@ def medir(token=None):
             'esconder um campo da UI, ele nao existe nesta coleta — e ausencia '
             'de campo na fonte, nao ausencia no mundo.',
             'Rolagem infinita: a contagem so e completa quando a lista para de '
-            'crescer. Ver COMPLETA_OBSERVADA / TRUNCADA_POR_LIMITE.',
+            'crescer. A completude e medida contra o numero que a propria fonte '
+            'declara. Ver COMPLETE_MATCHES_SOURCE_COUNT / SHORT_OF_SOURCE_COUNT.',
         ],
     }
 

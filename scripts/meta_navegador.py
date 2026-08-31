@@ -121,35 +121,88 @@ def js_json(alvo, expressao, timeout=90):
         return {'_nao_json': str(bruto)[:400]}
 
 
-# ── rolagem ──────────────────────────────────────────────────────────────────
-# A Biblioteca carrega por rolagem infinita. Rolar N vezes NAO garante ter tudo:
-# devolve quantos cartoes havia antes e depois, para que quem le saiba se a
-# lista PAROU de crescer (COMPLETA_OBSERVADA) ou se ainda crescia quando parei
-# (TRUNCADA_POR_LIMITE). Chamar isso de "todos os anuncios" sem essa distincao
-# seria transformar limite meu em fato do mundo.
-COMPLETA_OBSERVADA = 'COMPLETA_OBSERVADA'
-TRUNCADA_POR_LIMITE = 'TRUNCADA_POR_LIMITE'
+# ── rolagem e completude ─────────────────────────────────────────────────────
+# A PRIMEIRA REGRA DE COMPLETUDE ESTAVA ERRADA, E O ERRO FOI MEDIDO
+# ------------------------------------------------------------------
+# A versao original dizia "lista completa" quando a contagem parava de crescer
+# tres leituras seguidas. Em 30/08/2026 isso reprovou no teste mais simples que
+# existe: reler a mesma pagina.
+#
+#     Bayer Crop Science Espana, ES ... 1a leitura 189 cartoes
+#                                       2a leitura  29 cartoes, 3 rolagens,
+#                                       e AS DUAS diziam "completa"
+#
+# A pausa de carregamento e indistinguivel do fim da lista quando o unico sinal
+# e "parou de crescer". E a consequencia nao seria pequena: com os dois lados
+# marcados como completos, o relogio teria anunciado 160 `AD_STOPPED_OBSERVED`
+# — 160 afirmacoes de que a Bayer parou de veicular anuncios que continuavam la.
+#
+#     PAROU_DE_CRESCER != CHEGOU_AO_FIM
+#
+# A regra nova usa o denominador que a PROPRIA FONTE publica no alto da pagina
+# ("~230 results"). Comparar o que li com o que a fonte diz existir e a unica
+# checagem que nao depende de eu adivinhar o comportamento do carregamento.
+COMPLETA_BATE_COM_A_FONTE = 'COMPLETE_MATCHES_SOURCE_COUNT'
+AQUEM_DA_FONTE = 'SHORT_OF_SOURCE_COUNT'
+FONTE_NAO_DECLARA = 'SOURCE_COUNT_NOT_DECLARED'
+
+# 0,95 e tolerancia, nao arredondamento: o numero da fonte vem com "~" e ela
+# mesma o trata como aproximado. Exigir igualdade exata marcaria como incompleta
+# uma leitura que pegou tudo.
+TOLERANCIA = 0.95
+
+
+def _numero(declarado):
+    if not declarado:
+        return None
+    try:
+        return int(str(declarado).replace(',', '').replace('.', '').strip())
+    except ValueError:
+        return None
+
+
+def completude(lidos, declarado):
+    n = _numero(declarado)
+    if n is None:
+        return {'state': FONTE_NAO_DECLARA, 'read': lidos,
+                'source_count': None, 'ratio': None,
+                'nota': 'a pagina nao publicou "~N results". Sem denominador da '
+                        'fonte, nao da para afirmar completude.'}
+    razao = round(lidos / n, 3) if n else None
+    return {'state': COMPLETA_BATE_COM_A_FONTE if (n and lidos >= TOLERANCIA * n)
+            else AQUEM_DA_FONTE,
+            'read': lidos, 'source_count': n, 'ratio': razao,
+            'nota': 'li %d de ~%d que a fonte declara' % (lidos, n)}
 
 _CONTA = r'''(()=>{return String((document.body.innerText.match(/Library ID:/g)||[]).length)})()'''
 
 
-def rolar_ate_parar(alvo, max_rolagens=40, pausa=2.2):
+def rolar_ate_parar(alvo, declarado=None, max_rolagens=40, pausa=2.2,
+                    paciencia=8):
+    """Rola ate alcancar o numero que a fonte declara, ou ate desistir.
+
+    `paciencia` e quantas rolagens SEM crescimento eu aguento antes de desistir.
+    Era 3, e 3 foi o que produziu a leitura de 29 cartoes numa pagina de 230:
+    uma pausa de rede de sete segundos bastava para parecer o fim da lista.
+    """
+    alvo_n = _numero(declarado)
     antes = int(js(alvo, _CONTA) or 0)
-    estavel = 0
+    parado = 0
     n = 0
     for n in range(1, max_rolagens + 1):
+        if alvo_n and antes >= TOLERANCIA * alvo_n:
+            break
         js(alvo, 'window.scrollTo(0, document.body.scrollHeight); "ok"')
         time.sleep(pausa)
         agora = int(js(alvo, _CONTA) or 0)
-        if agora == antes:
-            estavel += 1
-            if estavel >= 3:
-                return {'cartoes': agora, 'rolagens': n,
-                        'completude': COMPLETA_OBSERVADA}
-        else:
-            estavel = 0
+        parado = parado + 1 if agora == antes else 0
         antes = agora
-    return {'cartoes': antes, 'rolagens': n, 'completude': TRUNCADA_POR_LIMITE}
+        if parado >= paciencia:
+            break
+    c = completude(antes, declarado)
+    c.update({'cartoes': antes, 'rolagens': n,
+              'parou_sem_crescer': parado >= paciencia})
+    return c
 
 
 # ── leitura do cartao ────────────────────────────────────────────────────────

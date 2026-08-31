@@ -40,7 +40,7 @@ missao proibe ate o rascunho disso:
 
 `AD_STOPPED_OBSERVED` merece cuidado extra: um anuncio some da listagem tanto
 quando para quanto quando a rolagem nao chegou nele. Por isso o evento so e
-emitido se o snapshot anterior E o novo forem COMPLETA_OBSERVADA para aquele
+emitido se o snapshot anterior E o novo forem COMPLETE_MATCHES_SOURCE_COUNT
 recorte; se nao forem, sai `AD_ABSENT_UNEXPLAINED`.
 """
 import copy
@@ -56,7 +56,10 @@ STATUS_CHANGED = 'STATUS_CHANGED'
 NEW_COUNTRY_ACTIVITY = 'NEW_COUNTRY_ACTIVITY'
 BASELINE_ONLY = 'BASELINE_ONLY'
 
-COMPLETA_OBSERVADA = 'COMPLETA_OBSERVADA'
+# so este estado autoriza afirmar que um anuncio PAROU. Ver meta_navegador.py:
+# a regra antiga ('parou de crescer') marcou como completa uma leitura de 29
+# cartoes numa pagina de 230, e teria produzido 160 'parou de veicular' falsos.
+COMPLETA_OBSERVADA = 'COMPLETE_MATCHES_SOURCE_COUNT'
 
 
 def chave(anuncio):
@@ -158,7 +161,7 @@ def fundir(entidades, snapshot):
                 'event': AD_STOPPED_OBSERVED if (antes_ok and agora_ok)
                 else AD_ABSENT_UNEXPLAINED,
                 'meta_ad_library_id': k, 'as_of_date': agora,
-                'nota': ('sumiu de uma listagem COMPLETA_OBSERVADA nas duas pontas'
+                'nota': ('sumiu de uma listagem completa segundo a fonte nas duas pontas'
                          if (antes_ok and agora_ok) else
                          'sumiu, mas a listagem nao estava completa nas duas pontas; '
                          'pode ser limite da coleta, nao fim da veiculacao'),

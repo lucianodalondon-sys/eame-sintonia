@@ -200,7 +200,7 @@ def registro(cartao, pagina, pais, completude, momento):
 # Entao coleta-se tudo, e quem decide relevancia sao os ANUNCIOS: o leitor extrai
 # cultura, problema e categoria do texto, e pagina sem sinal nenhum aparece com
 # zero. Nada e descartado em silencio — a missao pede exatamente isso.
-def coletar_pagina(pagina, pais, momento, max_rolagens=12):
+def coletar_pagina(pagina, pais, momento, max_rolagens=60):
     pid = pagina.get('page_id')
     if not pid:
         return [], {'page_id': None, 'estado': 'PAGE_ID_AUSENTE'}
@@ -210,17 +210,23 @@ def coletar_pagina(pagina, pais, momento, max_rolagens=12):
     alvo = nav.abrir(url, espera=15)
     try:
         cab = nav.cabecalho(alvo)
-        rol = nav.rolar_ate_parar(alvo, max_rolagens=max_rolagens)
+        declarado = cab.get('resultados_declarados')
+        rol = nav.rolar_ate_parar(alvo, declarado=declarado,
+                                  max_rolagens=max_rolagens)
         cart = nav.cartoes(alvo)
     finally:
         nav.fechar(alvo)
-    completude = rol['completude']
-    regs = [registro(c, pagina, pais, completude, momento)
+    # a completude e recalculada com o numero de cartoes REALMENTE parseados, que
+    # pode diferir da contagem de "Library ID:" no texto durante a rolagem.
+    completude = nav.completude(len(cart.get('cartoes', [])), declarado)
+    regs = [registro(c, pagina, pais, completude['state'], momento)
             for c in cart.get('cartoes', [])]
     diag = {'page_id': pid, 'page_name': pagina.get('page_name'), 'country': pais,
-            'url': url, 'results_declared': cab.get('resultados_declarados'),
+            'url': url, 'results_declared': declarado,
             'cards_read': len(regs), 'scrolls': rol['rolagens'],
-            'completeness': completude}
+            'stopped_without_growth': rol.get('parou_sem_crescer'),
+            'completeness': completude['state'],
+            'completeness_detail': completude}
     return regs, diag
 
 
@@ -300,9 +306,66 @@ def rodar(arquivo_anunciantes, paises=PAISES, limite_paginas=None,
             'events': len(eventos), 'diagnostics': diagnostico}
 
 
+def repescagem(destino_entidades, destino_eventos, arquivo_anunciantes,
+               max_rolagens=60):
+    """Volta so nos recortes que ficaram AQUEM_DA_FONTE.
+
+    Nao e refinamento cosmetico. Enquanto um recorte esta truncado, o relogio
+    NAO pode dizer que um anuncio parou de veicular — some da lista quem parou
+    e tambem quem ficou depois do ponto onde a rolagem desistiu. Fechar o
+    truncamento e o que destrava `AD_STOPPED_OBSERVED` na proxima rodada.
+    """
+    acervo = _carregar(destino_entidades, {})
+    truncados = [d for d in acervo.get('collection_diagnostics', [])
+                 if d.get('completeness') == nav.AQUEM_DA_FONTE]
+    if not truncados:
+        print('nenhum recorte truncado — nada a repescar')
+        return acervo
+    por_id = {}
+    for p in paginas_de(arquivo_anunciantes):
+        por_id[p['page_id']] = p
+    momento = agora()
+    snapshot, diagnostico = [], []
+    for d in truncados:
+        pagina = por_id.get(d['page_id'])
+        if not pagina:
+            continue
+        regs, diag = coletar_pagina(pagina, d['country'], momento,
+                                    max_rolagens=max_rolagens)
+        snapshot.extend(regs)
+        diagnostico.append(diag)
+        print('  %-34s %s  %3d cartoes (antes %s)  %s' % (
+            (pagina.get('page_name') or '')[:34], d['country'], len(regs),
+            d.get('cards_read'), diag.get('completeness')), flush=True)
+
+    entidades, eventos = relogio.fundir(acervo.get('entities', {}), snapshot)
+    # a repescagem SUBSTITUI o diagnostico daquele recorte: manter o antigo
+    # deixaria o acervo dizendo "truncado" sobre algo que ja foi fechado.
+    novos = {(d['page_id'], d['country']): d for d in diagnostico}
+    diags = [novos.get((d.get('page_id'), d.get('country')), d)
+             for d in acervo.get('collection_diagnostics', [])]
+    acervo.update({
+        'as_of_date': momento,
+        'collection_diagnostics': diags,
+        'summary': relogio.resumo(entidades, eventos, True),
+        'entities': entidades,
+        'repescagem': {'recortes': len(diagnostico), 'max_rolagens': max_rolagens},
+    })
+    _salvar(destino_entidades, acervo)
+    antigos = _carregar(destino_eventos, {'events': []})
+    antigos['events'] = (antigos.get('events') or []) + eventos
+    antigos['as_of_date'] = momento
+    _salvar(destino_eventos, antigos)
+    return acervo
+
+
 def main():
     alvo = sys.argv[1] if len(sys.argv) > 1 else 'concorrentes'
     limite = int(sys.argv[2]) if len(sys.argv) > 2 else None
+    if alvo == 'repescagem':
+        repescagem(ENTIDADES, EVENTOS,
+                   os.path.join(PASTA, 'META-ADVERTISERS-EAME-V1.json'))
+        return
     if alvo == 'adama':
         arq = os.path.join(PASTA, 'META-OWN-ADVERTISERS-ADAMA-V1.json')
         ent = os.path.join(PASTA, 'META-OWN-ADS-ENTITIES-ADAMA-V1.json')

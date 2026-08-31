@@ -25,6 +25,7 @@ import unittest
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+import meta_navegador as navegador  # noqa: E402
 import meta_relogio as relogio  # noqa: E402
 import meta_leitura as leitura  # noqa: E402
 import meta_anunciante as anunciante  # noqa: E402
@@ -48,7 +49,7 @@ def anuncio(lid, **extra):
         'creative_text_hash': 'h1',
         'start_date': '2026-07-01',
         'as_of_date': '2026-08-30T10:00:00+00:00',
-        'collection_completeness': 'COMPLETA_OBSERVADA',
+        'collection_completeness': 'COMPLETE_MATCHES_SOURCE_COUNT',
     }
     base.update(extra)
     return base
@@ -101,8 +102,8 @@ class SumirNaoEParar(unittest.TestCase):
     """AD_STOPPED so com listagem completa nas duas pontas."""
 
     def test_lista_truncada_nao_vira_anuncio_parado(self):
-        ent, _ = relogio.fundir({}, [anuncio('555', collection_completeness='TRUNCADA_POR_LIMITE')])
-        _, ev = relogio.fundir(ent, [anuncio('999', collection_completeness='TRUNCADA_POR_LIMITE')])
+        ent, _ = relogio.fundir({}, [anuncio('555', collection_completeness='SHORT_OF_SOURCE_COUNT')])
+        _, ev = relogio.fundir(ent, [anuncio('999', collection_completeness='SHORT_OF_SOURCE_COUNT')])
         eventos = [e['event'] for e in ev if e['meta_ad_library_id'] == '555']
         self.assertIn(relogio.AD_ABSENT_UNEXPLAINED, eventos)
         self.assertNotIn(relogio.AD_STOPPED_OBSERVED, eventos)
@@ -112,6 +113,40 @@ class SumirNaoEParar(unittest.TestCase):
         _, ev = relogio.fundir(ent, [anuncio('777')])
         eventos = [e['event'] for e in ev if e['meta_ad_library_id'] == '666']
         self.assertIn(relogio.AD_STOPPED_OBSERVED, eventos)
+
+
+class CompletudeVemDaFonte(unittest.TestCase):
+    """A regra antiga ("parou de crescer") leu 29 cartoes numa pagina que a
+    fonte declarava com 230 e chamou aquilo de completa. Com os dois lados
+    marcados assim, o relogio teria emitido 160 "parou de veicular" falsos."""
+
+    def test_leitura_muito_abaixo_do_declarado_nao_e_completa(self):
+        c = navegador.completude(29, '230')
+        self.assertEqual(c['state'], navegador.AQUEM_DA_FONTE)
+        self.assertEqual(c['source_count'], 230)
+        self.assertLess(c['ratio'], 0.2)
+
+    def test_leitura_que_bate_com_o_declarado_e_completa(self):
+        self.assertEqual(navegador.completude(79, '79')['state'],
+                         navegador.COMPLETA_BATE_COM_A_FONTE)
+
+    def test_tolerancia_aceita_o_til_da_fonte_mas_nao_metade(self):
+        self.assertEqual(navegador.completude(96, '100')['state'],
+                         navegador.COMPLETA_BATE_COM_A_FONTE)
+        self.assertEqual(navegador.completude(50, '100')['state'],
+                         navegador.AQUEM_DA_FONTE)
+
+    def test_sem_denominador_da_fonte_nao_se_afirma_completude(self):
+        c = navegador.completude(40, None)
+        self.assertEqual(c['state'], navegador.FONTE_NAO_DECLARA)
+        self.assertNotEqual(c['state'], navegador.COMPLETA_BATE_COM_A_FONTE)
+
+    def test_o_separador_de_milhar_da_fonte_e_lido(self):
+        self.assertEqual(navegador.completude(1, '1,100')['source_count'], 1100)
+
+    def test_so_o_estado_forte_autoriza_dizer_que_um_anuncio_parou(self):
+        self.assertEqual(relogio.COMPLETA_OBSERVADA,
+                         navegador.COMPLETA_BATE_COM_A_FONTE)
 
 
 class SemLinhaDeBaseNaoESemMudanca(unittest.TestCase):
@@ -156,7 +191,7 @@ class IdiomaNaoEPais(unittest.TestCase):
                   'HYBRID GROWER KA BA? Machete herbicide',
                   'links': [], 'rotulos': [], 'n_img': 1, 'n_video': 0}
         r = coleta.registro(cartao, {'company': 'Syngenta', 'page_id': '9'},
-                            'ES', 'COMPLETA_OBSERVADA', '2026-08-30T00:00:00+00:00')
+                            'ES', 'COMPLETE_MATCHES_SOURCE_COUNT', '2026-08-30T00:00:00+00:00')
         self.assertEqual(r['country_reached'], 'ES')
         self.assertIn('AD_REACHED_COUNTRY', r['country_param_semantics'])
         self.assertIsNone(r['target_locations'])
@@ -202,7 +237,7 @@ class AnuncioNaoEVendaNemRegistro(unittest.TestCase):
                   'Fungicida para viñedo', 'links': [], 'rotulos': [],
                   'n_img': 1, 'n_video': 0}
         r = coleta.registro(cartao, {'company': 'X', 'page_id': '9'}, 'ES',
-                            'COMPLETA_OBSERVADA', '2026-08-30T00:00:00+00:00')
+                            'COMPLETE_MATCHES_SOURCE_COUNT', '2026-08-30T00:00:00+00:00')
         self.assertNotIn('local_registration', json.dumps(r).lower())
 
 
@@ -213,7 +248,7 @@ class RespostaNaoEAtivacao(unittest.TestCase):
         cartao = {'library_id': '1', 'texto': 'Active\nLibrary ID: 1\nSponsored\nolá',
                   'links': [], 'rotulos': [], 'n_img': 1, 'n_video': 0}
         r = coleta.registro(cartao, {'company': 'X', 'page_id': '9'}, 'IT',
-                            'COMPLETA_OBSERVADA', '2026-08-30T00:00:00+00:00')
+                            'COMPLETE_MATCHES_SOURCE_COUNT', '2026-08-30T00:00:00+00:00')
         self.assertNotIn('registered_response', json.dumps(r).lower())
 
 
