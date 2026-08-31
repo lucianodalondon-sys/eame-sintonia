@@ -333,10 +333,12 @@ export function instrument(html) {
           return !code || r.country === code;
         });
         var conta = function (l) { return meu.filter(function (r) { return r.line === l; }).length; };
-        var prazo = conta('PRAZO'), cadeia = conta('CADEIA');
-        var partes = [meu.length + ' linhas', (meu.length - prazo - cadeia) + ' com corpo analisado'];
+        var prazo = conta('PRAZO'), cadeia = conta('CADEIA'), contas = conta('CONTA');
+        var partes = [meu.length + ' linhas',
+                      (meu.length - prazo - cadeia - contas) + ' com corpo analisado'];
         if (prazo) partes.push(prazo + ' registros com prazo');
         if (cadeia) partes.push(cadeia + ' cadeias preliminares');
+        if (contas) partes.push(contas + ' contas publicas · conteudo NAO coletado');
         return partes.join(' · ') + ' · fonte e captura por linha';
       })()
     };`,

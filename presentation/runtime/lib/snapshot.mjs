@@ -402,6 +402,30 @@ export function buildSnapshot() {
     })
   }
 
+  // ── ACERVO · H8 · as contas publicas das empresas ───────────────────────
+  // Conta de EMPRESA, nao de pessoa: por isso a identidade pode aparecer aqui,
+  // ao contrario de H6 e H7, onde ha gente e o tratamento GDPR nao comecou.
+  //
+  // Cada linha carrega CONTENT_COLLECTION_STAGE = NOT_STARTED. Isso nao e
+  // rodape: e o que impede ler estas 44 linhas como "medimos o que elas
+  // publicam". Nao medimos. Zero conteudo coletado nao e zero conteudo
+  // publicado, e nao e silencio.
+  for (const a of (H.H8.accounts || [])) {
+    acervoRows.push({
+      title: `${a.COMPANY} · ${a.PLATFORM}${a.ACCOUNT_HANDLE ? ' · ' + a.ACCOUNT_HANDLE : ''}`,
+      sub: [`IDENTIDADE ${a.ACCOUNT_IDENTITY_STATE || 'NOT_KNOWN'}`,
+            `ESCOPO ${a.COUNTRY_SCOPE || 'NOT_KNOWN'}`,
+            `COLETA AUTORIZADA ${a.COLLECTION_AUTHORIZED ? 'SIM' : 'NAO'}`,
+            'CONTENT_COLLECTION_STAGE NOT_STARTED'].join(' · '),
+      sourceId: H.H8.source_id || '—',
+      capture: H.H8.captured_at || '—',
+      country: a.COUNTRY || '—',
+      line: 'CONTA',
+      lineColor: 'rgba(255,255,255,.62)',
+      lineBorder: 'rgba(151,139,135,.55)',
+    })
+  }
+
   // ── H7 · CIENCIA / EXPERT ────────────────────────────────────────────────
   // Pessoa encontrada nao e especialista. O artefato mede NOT_REACHED nos dois
   // niveis, entao nenhuma linha aqui pode dizer "especialista". Tambem nao

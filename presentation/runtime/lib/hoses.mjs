@@ -225,6 +225,11 @@ export function h8() {
     by_country_scope: c.BY_COUNTRY_SCOPE ?? null,
     content_collection_stage: 'NOT_STARTED',
     zero_is_not_silence: 'CONTENT_COLLECTION_STAGE = NOT_STARTED. Zero conteudo coletado nao e zero conteudo publicado.',
+    // As contas em si. Sao contas de EMPRESA: identidade de empresa nao e dado
+    // pessoal, e por isso podem ser exibidas — ao contrario de H6 e H7, onde ha
+    // gente e o tratamento GDPR nao comecou.
+    accounts,
+    captured_at: c.captured_at || c.CAPTURED_AT || null,
     source_id: c.SOURCE_ID,
   }
 }
