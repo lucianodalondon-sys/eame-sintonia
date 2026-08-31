@@ -701,7 +701,8 @@ export function instrument(html) {
       var dentro = !exato && COMPOSTO.test(t);
       if (!exato && !dentro) continue;
       var p = n.parentElement;
-      if (!p || p.closest('[data-ux-tecnico]')) continue;
+      if (!p || p.tagName === 'SCRIPT' || p.tagName === 'STYLE') continue;
+      if (p.closest('[data-ux-tecnico]')) continue;
       // Rotulo composto some sozinho, sem levar a linha inteira junto: o valor
       // ao lado costuma ser a informacao util.
       var alvo = exato ? (linhaDe(p) || p) : p;
@@ -747,7 +748,9 @@ export function instrument(html) {
     var n = el;
     while (n && n.parentElement) {
       var p = n.parentElement;
-      if (p.children.length >= 8 && p.getBoundingClientRect().height > 3000) return n;
+      // Limiar frouxo de proposito: a coluna da Visao Geral tem menos secoes e
+      // menos altura que a do objeto, e o criterio apertado a deixava de fora.
+      if (p.children.length >= 4 && p.getBoundingClientRect().height > 1200) return n;
       n = p;
     }
     return null;
@@ -773,6 +776,49 @@ export function instrument(html) {
     // 3 · a timeline vira faixa: contexto, nao protagonista.
     var tl = secao('Timeline de inteligência do objeto');
     if (tl && !tl.hasAttribute('data-ux-faixa')) tl.setAttribute('data-ux-faixa', '1');
+
+    // 4 · a Visao Geral tambem precisa responder QUEM DEVE OLHAR.
+    //
+    //     As quatro acoes NAO sao do objeto aberto: elas nascem do conjunto
+    //     inteiro — "nomear o issue nos itens territoriais", "confirmar efeito
+    //     no rotulo dos 155 registros". Sao acoes do portal. Por isso podem
+    //     aparecer na Visao Geral sem inventar nada.
+    //
+    //     E uma COPIA do mesmo bloco, refeita a cada redesenho para nunca
+    //     mostrar um estado velho. Se o bloco original nao existir, nao ha
+    //     copia — nada e fabricado para preencher a tela.
+    //     Clonar nao dava: o casco so desenha a tela do objeto quando ela esta
+    //     aberta, entao na Visao Geral o bloco original nem existe no DOM.
+    //     Este e montado a partir de window.__SINTONIA__.departments, que e a
+    //     MESMA fonte do outro — e usa os tokens de cor do proprio casco.
+    var momento = secao('C · LEITURA DO MOMENTO') || secao('Leitura do momento');
+    var deps = (window.__SINTONIA__ && window.__SINTONIA__.departments) || [];
+    var antiga = document.getElementById('ux-acoes-na-home');
+    if (momento && deps.length && !antiga) {
+      var box = document.createElement('div');
+      box.id = 'ux-acoes-na-home';
+      box.setAttribute('style',
+        'background:var(--s1);border:1px solid var(--hair2);border-radius:16px;' +
+        'padding:22px 24px;margin:12px 0;');
+      var h = '<div style="font:600 11px/1 var(--font-primary);letter-spacing:.12em;' +
+        'color:var(--t3);margin-bottom:6px">QUEM DEVE OLHAR</div>' +
+        '<div style="font:400 11.5px/1.5 var(--font-primary);color:var(--t3);' +
+        'margin-bottom:16px">Uma ação por área, e o estado dela. Área sem ação ' +
+        'sustentada aparece como não determinada — o portal não preenche.</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">';
+      deps.forEach(function (d) {
+        h += '<div style="border:1px solid var(--hair2);border-radius:12px;padding:14px 16px">' +
+          '<div style="font:600 11.5px/1.3 var(--font-primary);color:var(--t1);' +
+          'margin-bottom:8px">' + d.name + '</div>' +
+          '<div style="font:400 11.5px/1.45 var(--font-primary);color:var(--t2);' +
+          'margin-bottom:10px">' + (d.action || '—') + '</div>' +
+          '<span style="font:600 9.5px/1 var(--font-primary);letter-spacing:.08em;' +
+          'border:1px dashed var(--hair2);border-radius:9999px;padding:5px 9px;' +
+          'color:var(--t3)">' + (d.state || '—') + '</span></div>';
+      });
+      box.innerHTML = h + '</div>';
+      momento.parentElement.insertBefore(box, momento.nextElementSibling);
+    }
   }
 
   // ── FRASES QUE EXPLICAM, E POR ISSO NAO PODEM SER ESCONDIDAS ────────────
@@ -802,6 +848,12 @@ export function instrument(html) {
   function frases() {
     var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
     while ((n = w.nextNode())) {
+      // O proprio <script> e um no de texto, e ele contem as frases que estao
+      // sendo procuradas. Sem esta linha, a varredura reescrevia o codigo-fonte
+      // exibido no DOM e o dicionario passava a apontar cada frase para ela
+      // mesma. Nao quebrava nada em execucao — e era sujeira que eu ia deixar.
+      var pai = n.parentElement;
+      if (!pai || pai.tagName === 'SCRIPT' || pai.tagName === 'STYLE') continue;
       var v = n.nodeValue;
       // Nem toda frase de maquina tem underscore: "H5 depende de H1" nao tem.
       // O filtro barato so serve para nao varrer a pagina inteira a toa.
