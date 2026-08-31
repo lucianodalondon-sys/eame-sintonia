@@ -123,6 +123,17 @@ export function h4() {
     slices_total: s2.slices_total,
     slices_content: s2.slices_content,
     slices_honest_zero: s2.slices_honest_zero,
+    // Os 67 recortes, um por pagina x pais. E aqui que mora a profundidade:
+    // empresa, pagina, pais, cartoes, anuncios representados e o estado —
+    // inclusive os 29 zeros honestos, que o snapshot 2 revisita de proposito.
+    slices: (readFrozen(HOSES.H4.freeze, 'data/samples/META-EAME/META-TEMPORAL-SNAPSHOT-MANIFEST.json').slices || [])
+      .map(x => ({
+        competitor: x.competitor, page_name: x.page_name, page_id: x.page_id,
+        country: x.ad_delivery_country, state: x.snapshot_1_state,
+        cards: x.snapshot_1_cards, ads: x.snapshot_1_ads_represented,
+        declared: x.snapshot_1_source_declared_count,
+        completeness: x.snapshot_1_completeness,
+      })),
     limitations: f.exact_limitations,
     cannot_claim: f.cannot_claim,
     captured_at: s2.collection_completed_at,

@@ -232,9 +232,9 @@ export function buildSnapshot() {
     })
   }
   sources.push({ name: 'IT-T4-001 · registro nacional italiano', role: 'Registro nacional e prazos de vencimento', v: 'provado', pub: H.H2.captured_at || '—', capture: H.H2.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H2.in_force} em vigor` })
-  sources.push({ name: 'ES-T3-001 · RAIF Andalucía', role: 'Serie historica de campo', v: 'medido', pub: H.H5.captured_at || '—', capture: H.H5.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H5.readings_total} leituras` })
+  sources.push({ name: 'ES-T3-001 · RAIF Andalucía', role: 'Série histórica de campo', v: 'medido', pub: H.H5.captured_at || '—', capture: H.H5.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H5.readings_total} leituras` })
   sources.push({ name: 'EUIPO · registro de marcas', role: 'Registro de marcas', v: H.H3.resolved ? 'provado' : 'revisar', pub: H.H3.captured_at || '—', capture: H.H3.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H3.canonical_entities} tuplas preliminares` })
-  sources.push({ name: `Contas publicas de concorrente · ${H.H8.canonical_entities} identificadas`, role: 'Comunicacao publica · conteudo ainda nao coletado', v: 'medido', pub: '—', capture: '—', age: '—', latency: 'NÃO MEDIDA', docs: H.H8.attempted + ' tentadas' })
+  sources.push({ name: `Contas públicas de concorrente · ${H.H8.canonical_entities} identificadas`, role: 'Comunicação pública · conteúdo ainda não coletado', v: 'medido', pub: '—', capture: '—', age: '—', latency: 'NÃO MEDIDA', docs: H.H8.attempted + ' tentadas' })
   sources.push({ name: 'Meta · biblioteca de anuncios', role: 'Atividade paga observada', v: 'medido', pub: H.H4.captured_at || '—', capture: H.H4.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H4.canonical_entities} cartoes` })
 
   // ── VOLUMES (home) ───────────────────────────────────────────────────────
@@ -421,6 +421,36 @@ export function buildSnapshot() {
       capture: H.H8.captured_at || '—',
       country: a.COUNTRY || '—',
       line: 'CONTA',
+      lineColor: 'rgba(255,255,255,.62)',
+      lineBorder: 'rgba(151,139,135,.55)',
+    })
+  }
+
+  // ── ACERVO · H4 · os 67 recortes da Meta ────────────────────────────────
+  // Um recorte e uma pagina x um pais. E o menor pedaco que a Meta prova, e e
+  // por ele que se navega — nao pelos 1.925 cartoes, que nao cabem em tela
+  // nenhuma e nao respondem pergunta nenhuma sozinhos.
+  //
+  // ZERO HONESTO E A PARTE DELICADA. 29 dos 67 nao tinham conteudo. Isso NAO
+  // significa "concorrente parado": significa que nada foi capturado naquele
+  // recorte. O snapshot 2 revisita os zeros de proposito — revisitar so os
+  // ativos esconderia quem saiu do zero e enviesaria a medida numa direcao so.
+  //
+  // Nada aqui vira venda, investimento, participacao ou preparo de lancamento.
+  // A Meta prova atividade paga publica observada, e para nisso.
+  for (const sl of (H.H4.slices || [])) {
+    const zero = sl.state === 'SLICE_HONEST_ZERO'
+    acervoRows.push({
+      title: `${sl.competitor} · ${sl.page_name}`,
+      sub: zero
+        ? 'Nenhum conteudo capturado neste recorte · nao e ausencia de atividade'
+        : [`${sl.cards} cartoes observados`,
+           `${sl.ads} anuncios representados`,
+           sl.declared ? `fonte declara ${sl.declared}` : null].filter(Boolean).join(' · '),
+      sourceId: H.H4.source_id || 'META',
+      capture: String(H.H4.captured_at || '—').slice(0, 10),
+      country: sl.country || '—',
+      line: zero ? 'ZERO' : 'META',
       lineColor: 'rgba(255,255,255,.62)',
       lineBorder: 'rgba(151,139,135,.55)',
     })
@@ -686,7 +716,7 @@ const NOT_NAMED = {
 // Quem abre o portal e diretor, marketing, regulatorio. Ninguem precisa saber
 // que existe um campo chamado COUNTRY_OF_FACT para entender que o fato
 // aconteceu na Espanha.
-const PAIS_NOME = { ES: 'Espanha', IT: 'Italia', FR: 'Franca' }
+const PAIS_NOME = { ES: 'Espanha', IT: 'Itália', FR: 'França' }
 
 const ROTULO = {
   DURUM_WHEAT: 'Trigo duro', CEREAL: 'Cereais', OLIVE: 'Oliveira',

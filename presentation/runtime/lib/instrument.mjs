@@ -643,11 +643,17 @@ export function instrument(html) {
         });
         var conta = function (l) { return meu.filter(function (r) { return r.line === l; }).length; };
         var prazo = conta('PRAZO'), cadeia = conta('CADEIA'), contas = conta('CONTA');
+        var meta = conta('META'), zero = conta('ZERO');
         var partes = [meu.length + ' linhas',
-                      (meu.length - prazo - cadeia - contas) + ' com corpo analisado'];
+                      (meu.length - prazo - cadeia - contas - meta - zero) + ' com corpo analisado'];
         if (prazo) partes.push(prazo + ' registros com prazo');
         if (cadeia) partes.push(cadeia + ' cadeias preliminares');
-        if (contas) partes.push(contas + ' contas publicas · conteudo NAO coletado');
+        if (contas) partes.push(contas + ' contas públicas · conteúdo não coletado');
+        // Zero honesto conta SEPARADO. Somar com os recortes que tiveram
+        // conteudo diria que os dois foram lidos do mesmo jeito — e a diferenca
+        // entre "nada foi capturado" e "nada existe" e o produto inteiro.
+        if (meta) partes.push(meta + ' recortes da Meta com conteúdo');
+        if (zero) partes.push(zero + ' recortes sem conteúdo capturado');
         return partes.join(' · ') + ' · fonte e captura por linha';
       })()
     };`,
@@ -890,7 +896,44 @@ export function instrument(html) {
     // repetida nao vira duas famílias — continua dita por inteiro.
     ['Mesma origem publicadora da perna TERRITORIAL (H5 depende de H1).',
      'Mesma origem publicadora da observação territorial: a série de campo depende dela.'],
+    // Os estados de ausencia NAO sao escondidos — seria esconder a resposta.
+    // Sao TRADUZIDOS. O valor canonico segue intacto no dado e reaparece
+    // inteiro nos detalhes tecnicos.
   ];
+
+  // Estes seis nao sao frase: sao ESTADO, e aparecem em qualquer idioma porque
+  // o valor canonico e o mesmo em todo lugar. Precisam de uma tabela por
+  // idioma — sem isso a reescrita rodava DEPOIS do i18n e devolvia portugues
+  // no meio de uma tela em ingles.
+  //
+  // O valor canonico nao muda em lugar nenhum: some da tela, volta inteiro nos
+  // detalhes tecnicos.
+  var ESTADOS = {
+    CONTENT_COLLECTION_STAGE: { pt: 'coleta de conteúdo', en: 'content collection',
+      es: 'recopilación de contenido', fr: 'collecte de contenu', it: 'raccolta di contenuti' },
+    NOT_KNOWN: { pt: 'Não sabemos', en: 'Not known', es: 'No sabemos',
+      fr: 'Non connu', it: 'Non sappiamo' },
+    NOT_MEASURED: { pt: 'Não medido', en: 'Not measured', es: 'No medido',
+      fr: 'Non mesuré', it: 'Non misurato' },
+    NOT_STARTED: { pt: 'Não iniciada', en: 'Not started', es: 'No iniciada',
+      fr: 'Non commencée', it: 'Non iniziata' },
+    EMPTY_VALID: { pt: 'Sem objeto confirmado', en: 'No confirmed object',
+      es: 'Sin objeto confirmado', fr: 'Aucun objet confirmé', it: 'Nessun oggetto confermato' },
+    NOT_PROVED: { pt: 'Não confirmado', en: 'Not confirmed', es: 'No confirmado',
+      fr: 'Non confirmé', it: 'Non confermato' },
+    NOT_READY: { pt: 'Precisa de mais evidência', en: 'Needs more evidence',
+      es: 'Necesita más evidencia', fr: 'Plus de preuves nécessaires', it: 'Servono più prove' },
+  };
+
+  // O idioma atual: o casco nao expoe, entao a funcao de troca e embrulhada
+  // uma vez para guardar a ultima escolha.
+  var LANG = 'pt';
+  if (typeof window.__UI_LANG__ === 'function' && !window.__UI_LANG__.__ux) {
+    var orig = window.__UI_LANG__;
+    var wrap = function (l) { LANG = l || LANG; return orig.apply(this, arguments); };
+    wrap.__ux = true;
+    window.__UI_LANG__ = wrap;
+  }
 
   function frases() {
     var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
@@ -908,6 +951,9 @@ export function instrument(html) {
       for (var i = 0; i < FRASES.length; i++) {
         if (v.indexOf(FRASES[i][0]) >= 0) v = v.split(FRASES[i][0]).join(FRASES[i][1]);
       }
+      for (var k in ESTADOS) {
+        if (v.indexOf(k) >= 0) v = v.split(k).join(ESTADOS[k][LANG] || ESTADOS[k].pt);
+      }
       if (v !== n.nodeValue) n.nodeValue = v;
     }
   }
@@ -918,7 +964,14 @@ export function instrument(html) {
     pendente = setTimeout(function () { marcar(); ordenar(); frases(); botao(); }, 120);
   }
   agenda();
-  new MutationObserver(agenda).observe(document.body, { childList: true, subtree: true });
+  // characterData tambem: trocar o idioma NAO recria elementos, so reescreve
+  // texto. Sem esta linha a passagem executiva sobrevivia ate a pessoa clicar
+  // em EN — e a tela voltava a mostrar SOURCE_BACKEND, UNWIRED e R-H8-*.
+  //
+  // Nao ha laco: marcar() so mexe em atributo, e frases() so escreve quando o
+  // texto muda de fato — na segunda passada nao ha o que trocar.
+  new MutationObserver(agenda).observe(document.body,
+    { childList: true, subtree: true, characterData: true });
 })();
 </script>
 </body>`, 'ux:detalhes-tecnicos', log)
