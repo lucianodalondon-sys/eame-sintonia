@@ -340,19 +340,57 @@ nas três:
 company da Meta == grupo do titular da marca == grupo do titular do registro
 ```
 
+### ⚠️ Duas unidades, duas contas — e elas **não se subtraem**
+
+`TUPLA` e `PRODUTO` são coisas diferentes. O mesmo produto anunciado por um
+concorrente em dois países é **duas tuplas e um produto**. Cada decomposição
+fecha por `assert`, separadamente.
+
+**Unidade `TUPLA` (competidor, país, produto normalizado)**
+
 | | |
 |---|---:|
-| `META_ADVERTISED_PRODUCTS_OBSERVED` | **145** |
-| tuplas (competidor, país, produto) | **171** |
-| **`THREE_LAYER_CHAIN_PROVED`** | **35** |
-| **`THREE_LAYER_CHAIN_REJECTED`** | **0** |
-| **`THREE_LAYER_CHAIN_NOT_KNOWN`** | **136** |
-| produtos distintos com ao menos uma cadeia | **28** *(era 36)* |
+| `THREE_LAYER_CANDIDATES_TOTAL` | **166** |
+| `THREE_LAYER_CHAIN_PROVED_TUPLES` | **35** |
+| `THREE_LAYER_CHAIN_REJECTED_TUPLES` | **0** |
+| `THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES` | **131** |
+| soma | **166** ✓ |
+
+**Unidade `PRODUTO` (nome normalizado)**
+
+| | |
+|---|---:|
+| `META_PRODUCTS_TOTAL` | **141** |
+| `META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN` | **28** |
+| `META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN` | **113** |
+| soma | **141** ✓ |
+
+**Por que 141 e não 145.** O `ads_by_product_proved` da Meta traz **145 nomes
+crus**. Quatro pares são o mesmo nome em caixas diferentes —
+`SPECTRUM`/`Spectrum`, `VELIFER`/`Velifer`, `GAXY`/`Gaxy`, `KUSABI`/`Kusabi` —
+e colapsam ao normalizar. **145 − 4 = 141**, exato.
+
+> `145 − 28 = 117` seria subtração entre um total de **nomes crus** e uma
+> contagem de **produtos normalizados**. Não é uma conta; é uma mistura de
+> unidades.
+
+### ⚠️ Um defeito meu que a conferência de unidade encontrou
+
+Os blocos da Meta usam `{"state": "NOT_KNOWN"}` para dizer **"nenhum produto
+provado neste bloco"**. Meu extrator leu `state` como se fosse o nome de um
+produto e criou **cinco tuplas fantasma** (Seipasa ES, Albaugh FR, Nufarm FR,
+Syngenta FR, Bayer IT).
+
+Nada "quebrava": elas caíam todas em `NOT_KNOWN`. O denominador é que ficava
+**5 maior que a realidade** — 171 candidatas em vez de 166, e 136 `NOT_KNOWN`
+em vez de 131. **Ausência declarada pela outra missão nunca pode entrar como
+observação.** O descarte agora é explícito e vem listado no artefato.
 
 **Os 8 produtos que caíram** eram nome igual sem concordância de empresa ou de
-país. Dos 136 `NOT_KNOWN`: 88 sem marca **e** sem registro do grupo naquele país,
-46 com marca mas sem registro local provado, 2 de empresas fora da amostra
-(Albaugh, Seipasa).
+país. Dos **131** `NOT_KNOWN` em unidade de tupla: **85** sem marca **e** sem
+registro do grupo naquele país, **46** com marca mas sem registro local provado.
+
+`THREE_LAYER_UNIT_RECONCILED = YES`
 
 ### `URBOLE_GUARD = PASS`, e ele foi **exercido**
 
@@ -479,9 +517,10 @@ titular — o link está `PROVED`."
 2. **Ligar `CROP` e `ISSUE`.** É o bloqueio real da convergência. As fichas
    individuais de ES e as etiquetas de IT/FR trazem cultura e alvo; o dataset
    aberto, não.
-3. **No refresh final: montar as 35 cadeias de três camadas** (28 produtos) com
-   o handoff da Meta, **depois** que ele for congelado pelo coordenador. Já estão
-   medidas, auditadas e esperando — `FINAL_REFRESH_INPUT = NO` até lá.
+3. **No refresh final: montar as 35 cadeias de três camadas** (35 tuplas ·
+   28 produtos) com o handoff da Meta, **depois** que ele for congelado pelo
+   coordenador. Já estão medidas, auditadas e esperando —
+   `FINAL_REFRESH_INPUT = NO` até lá.
 4. **Não voltar a patentes.** Não ampliar concorrentes. Não alterar casco.
 
 ---
@@ -507,7 +546,7 @@ titular — o link está `PROVED`."
 | `supabase/tests/regressoes_concorrente.sql` `mutacao_concorrente.sql` | 32 afirmações + 7 mutações |
 | `data/samples/COMPETITOR-THREE-LAYER-AUDIT.json` | o red team da junção Meta |
 | `scripts/concorrente_tres_camadas.py` | a auditoria + o portão URBOLE exercido |
-| `tests/test_concorrente.py` | 67 testes |
+| `tests/test_concorrente.py` | 70 testes |
 | `.github/workflows/concorrente-portao.yml` | onde o SQL é realmente provado |
 | `docs/piloto/COMPETITOR-FORESIGHT-PILOT.md` | o relatório da rodada 1 (A–S) |
 

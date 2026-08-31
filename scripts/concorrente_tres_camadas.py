@@ -64,9 +64,29 @@ def ler_da_branch_meta():
     return json.loads(bruto.decode('utf-8')), sha
 
 
+# ⚠️ `{"state": "NOT_KNOWN"}` É A MISSÃO META DIZENDO "NENHUM PRODUTO PROVADO
+# NESTE BLOCO" — NÃO É UM PRODUTO CHAMADO "state".
+#
+# A primeira versão deste extrator leu essa chave como nome de produto e criou
+# CINCO tuplas fantasma (Seipasa ES, Albaugh FR, Nufarm FR, Syngenta FR,
+# Bayer IT). Elas caíam todas em NOT_KNOWN, então nada "quebrava" — só o
+# denominador ficava 5 maior do que a realidade. Foi a conferência de unidade
+# que as encontrou: 146 nomes nos blocks contra 145 no METRICS, e a diferença
+# era exatamente `state`.
+#
+# `ABSENCE_MARKER` é ausência declarada pela outra missão, e ausência
+# declarada nunca entra como observação.
+ABSENCE_MARKER = 'state'
+
+
 def tuplas_da_meta(pilot):
-    """(competidor, país, produto) → nº de anúncios observados."""
-    out = {}
+    """
+    (competidor, país, produto normalizado) → anúncios observados.
+
+    Devolve também o que foi DESCARTADO, porque um extrator que descarta em
+    silêncio é indistinguível de um que nunca viu nada.
+    """
+    out, descartadas = {}, []
     for b in pilot['blocks']:
         comp = (b.get('competitor') or '').upper()
         pais = b.get('country_reached')
@@ -76,11 +96,19 @@ def tuplas_da_meta(pilot):
         for nome, n in itens:
             if not nome:
                 continue
+            if nome == ABSENCE_MARKER:
+                descartadas.append({
+                    'COMPETITOR': comp, 'COUNTRY': pais, 'CHAVE': nome,
+                    'VALOR': n,
+                    'MOTIVO': 'marcador de AUSÊNCIA declarado pela missão Meta '
+                              '("nenhum produto provado neste bloco"), não é '
+                              'nome de produto'})
+                continue
             k = (comp, pais, normalizar(nome))
             atual = out.setdefault(k, {'ANUNCIOS': 0, 'NOMES_NA_META': set()})
             atual['ANUNCIOS'] += n if isinstance(n, int) else 1
             atual['NOMES_NA_META'].add(nome)
-    return out
+    return out, descartadas
 
 
 def indices_da_missao():
@@ -184,7 +212,7 @@ def classificar_tupla(comp, pais, nome, base, marcas, registros, por_nome):
 
 def auditar():
     pilot, sha = ler_da_branch_meta()
-    tuplas = tuplas_da_meta(pilot)
+    tuplas, descartadas = tuplas_da_meta(pilot)
     marcas, registros, por_nome = indices_da_missao()
 
     provadas, recusadas, nao_sabidas = [], [], []
@@ -199,7 +227,7 @@ def auditar():
         {'THREE_LAYER_CHAIN_PROVED': provadas,
          'THREE_LAYER_CHAIN_REJECTED': recusadas,
          'THREE_LAYER_CHAIN_NOT_KNOWN': nao_sabidas}[r['ESTADO']].append(r)
-    return pilot, sha, tuplas, provadas, recusadas, nao_sabidas
+    return pilot, sha, tuplas, descartadas, provadas, recusadas, nao_sabidas
 
 
 def exercer_o_portao_urbole():
@@ -260,16 +288,31 @@ def colisoes(provadas):
 
 
 def main():
-    pilot, sha, tuplas, provadas, recusadas, nao_sabidas = auditar()
+    pilot, sha, tuplas, descartadas, provadas, recusadas, nao_sabidas = auditar()
     _, _, por_nome = indices_da_missao()
     guarda = portao_urbole(por_nome)
     exercicio = exercer_o_portao_urbole()
     guarda['EXERCIDO_POR_MUTACAO'] = exercicio
     col = colisoes(provadas)
 
+    # ── CONSERVAÇÃO 1 · na unidade TUPLA ────────────────────────────────
     total = len(provadas) + len(recusadas) + len(nao_sabidas)
     assert total == len(tuplas), (
-        f'a auditoria não conserva: {total} classificadas de {len(tuplas)} tuplas')
+        f'a auditoria não conserva na unidade TUPLA: {total} classificadas de '
+        f'{len(tuplas)} candidatas')
+
+    # ── CONSERVAÇÃO 2 · na unidade PRODUTO ──────────────────────────────
+    #
+    # Uma conta separada, e NUNCA misturada com a de tuplas: o mesmo produto
+    # pode ser anunciado por um concorrente em dois países, e viraria dois na
+    # conta de tuplas e um na de produtos. `145 - 28 = 117` seria uma
+    # subtração entre unidades diferentes.
+    produtos_todos = {k[2] for k in tuplas}
+    produtos_provados = {c['NOME_NORMALIZADO'] for c in provadas}
+    produtos_sem_cadeia = produtos_todos - produtos_provados
+    assert len(produtos_provados) + len(produtos_sem_cadeia) == len(produtos_todos), (
+        'a auditoria não conserva na unidade PRODUTO')
+    assert produtos_provados <= produtos_todos
 
     motivos = {}
     for c in nao_sabidas:
@@ -301,33 +344,73 @@ def main():
         },
 
         'UNIVERSO': {
-            'TUPLAS_COMPETIDOR_PAIS_PRODUTO_NA_META': len(tuplas),
             'ANUNCIOS_OBSERVADOS_NA_META': 1111,
-            'CONSERVACAO': f'{total} classificadas de {len(tuplas)} — fecha',
+            'THREE_LAYER_CANDIDATE_UNIT': 'TUPLA (competidor, país, produto '
+                                          'normalizado)',
+            'THREE_LAYER_CANDIDATES_TOTAL': len(tuplas),
+            'DESCARTADAS_ANTES_DE_CANDIDATAR': {
+                'N': len(descartadas),
+                'MOTIVO': f'a chave `{ABSENCE_MARKER}` é marcador de AUSÊNCIA '
+                          'declarado pela missão Meta, não nome de produto',
+                'QUAIS': descartadas,
+                'EFEITO_DO_DEFEITO': ('a primeira contagem publicou '
+                                      f'{len(tuplas) + len(descartadas)} candidatas '
+                                      f'e {len(nao_sabidas) + len(descartadas)} '
+                                      'NOT_KNOWN. O denominador estava 5 maior que '
+                                      'a realidade — nada "quebrava", porque as '
+                                      'fantasmas caíam todas em NOT_KNOWN.'),
+            },
             'ATENCAO_A_UNIDADE': (
-                'a rodada anterior contou PRODUTOS (145 → 70 → 36); esta conta '
-                'TUPLAS (competidor, país, produto). São unidades diferentes e '
-                'não se comparam direto. Os dois recortes vêm em RESULTADO.'),
+                'TUPLA e PRODUTO são unidades diferentes e não se subtraem entre '
+                'si. O mesmo produto anunciado em dois países é DUAS tuplas e UM '
+                'produto. Cada decomposição fecha por assert, separadamente.'),
         },
 
         'RESULTADO': {
-            'UNIDADE': 'TUPLA (competidor, país, produto)',
+            'UNIDADE': 'TUPLA (competidor, país, produto normalizado)',
+            'THREE_LAYER_CHAIN_PROVED_TUPLES': len(provadas),
+            'THREE_LAYER_CHAIN_REJECTED_TUPLES': len(recusadas),
+            'THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES': len(nao_sabidas),
+            'CONSERVACAO_TUPLAS': {
+                'SOMA': total, 'TOTAL': len(tuplas), 'FECHA': total == len(tuplas),
+                'VERIFICADO_POR': 'assert, não por leitura',
+            },
+            # nomes antigos, sem unidade no nome, mantidos para não quebrar
+            # quem já os cita — mas apontando para a unidade certa
             'THREE_LAYER_CHAIN_PROVED': len(provadas),
             'THREE_LAYER_CHAIN_REJECTED': len(recusadas),
             'THREE_LAYER_CHAIN_NOT_KNOWN': len(nao_sabidas),
             'MOTIVOS_DO_NOT_KNOWN': motivos,
             'POR_UNIDADE_PRODUTO': {
-                'UNIDADE': 'PRODUTO (nome normalizado), a unidade da rodada '
-                           'anterior — para comparar maçã com maçã',
-                'PRODUTOS_DISTINTOS_NA_META': len({k[2] for k in tuplas}),
-                'PRODUTOS_COM_AO_MENOS_UMA_CADEIA_PROVED': len(
-                    {c['NOME_NORMALIZADO'] for c in provadas}),
+                'UNIDADE': 'PRODUTO (nome normalizado)',
+                'META_PRODUCTS_TOTAL': len(produtos_todos),
+                'META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN': len(produtos_provados),
+                'META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN': len(
+                    produtos_sem_cadeia),
+                'CONSERVACAO_PRODUTOS': {
+                    'SOMA': len(produtos_provados) + len(produtos_sem_cadeia),
+                    'TOTAL': len(produtos_todos),
+                    'FECHA': (len(produtos_provados) + len(produtos_sem_cadeia)
+                              == len(produtos_todos)),
+                    'VERIFICADO_POR': 'assert, não por leitura',
+                },
+                'NOMES_CRUS_NA_META': 145,
+                'POR_QUE_145_NAO_E_O_TOTAL_NORMALIZADO': (
+                    'o `ads_by_product_proved` do METRICS traz 145 nomes CRUS. '
+                    'Quatro pares são o mesmo nome em caixas diferentes — '
+                    'SPECTRUM/Spectrum, VELIFER/Velifer, GAXY/Gaxy, '
+                    'KUSABI/Kusabi — e colapsam ao normalizar. Por isso o total '
+                    'em unidade de produto é 141, e não 145.'),
                 'ANUNCIADO_ANTES_COMO': '36 — obtido casando SÓ o nome',
                 'DIFERENCA_EXPLICADA': ('o 36 antigo casava nome de produto com '
                                         'nome de marca, sem exigir que o titular '
                                         'da marca, o do registro e a company da '
                                         'Meta fossem o mesmo grupo, nem que o país '
                                         'fosse o mesmo nas três pontas'),
+                'NAO_SUBTRAIR_ENTRE_UNIDADES': (
+                    '145 - 28 = 117 seria subtração entre um total de nomes crus '
+                    'e uma contagem de produtos normalizados. As duas contas '
+                    'corretas estão acima, cada uma fechando na sua unidade.'),
             },
         },
 
@@ -362,10 +445,14 @@ def main():
     with open(SAIDA, 'w', encoding='utf-8') as f:
         json.dump(art, f, ensure_ascii=False, indent=2)
 
-    print(f'tuplas (competidor, país, produto) na Meta: {len(tuplas)}')
-    print(f'  THREE_LAYER_CHAIN_PROVED     {len(provadas)}')
-    print(f'  THREE_LAYER_CHAIN_REJECTED   {len(recusadas)}')
-    print(f'  THREE_LAYER_CHAIN_NOT_KNOWN  {len(nao_sabidas)}')
+    print(f'UNIDADE TUPLA (competidor, país, produto): {len(tuplas)} candidatas '
+          f'· {len(descartadas)} descartadas antes (marcador de ausência)')
+    print(f'  THREE_LAYER_CHAIN_PROVED_TUPLES     {len(provadas)}')
+    print(f'  THREE_LAYER_CHAIN_REJECTED_TUPLES   {len(recusadas)}')
+    print(f'  THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES  {len(nao_sabidas)}')
+    print(f'UNIDADE PRODUTO: {len(produtos_todos)} no total · '
+          f'{len(produtos_provados)} com cadeia · '
+          f'{len(produtos_sem_cadeia)} sem')
     for m, n in sorted(motivos.items(), key=lambda kv: -kv[1]):
         print(f'      {n:>4}  {m}')
     print(f"\nURBOLE_GUARD = {guarda['URBOLE_GUARD']}")

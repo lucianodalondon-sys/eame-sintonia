@@ -15,28 +15,87 @@
     "ESTADO_DO_HANDOFF_META": "NÃO CONGELADO pelo coordenador"
   },
   "UNIVERSO": {
-    "TUPLAS_COMPETIDOR_PAIS_PRODUTO_NA_META": 171,
     "ANUNCIOS_OBSERVADOS_NA_META": 1111,
-    "CONSERVACAO": "171 classificadas de 171 — fecha",
-    "ATENCAO_A_UNIDADE": "a rodada anterior contou PRODUTOS (145 → 70 → 36); esta conta TUPLAS (competidor, país, produto). São unidades diferentes e não se comparam direto. Os dois recortes vêm em RESULTADO."
+    "THREE_LAYER_CANDIDATE_UNIT": "TUPLA (competidor, país, produto normalizado)",
+    "THREE_LAYER_CANDIDATES_TOTAL": 166,
+    "DESCARTADAS_ANTES_DE_CANDIDATAR": {
+      "N": 5,
+      "MOTIVO": "a chave `state` é marcador de AUSÊNCIA declarado pela missão Meta, não nome de produto",
+      "QUAIS": [
+        {
+          "COMPETITOR": "SEIPASA",
+          "COUNTRY": "ES",
+          "CHAVE": "state",
+          "VALOR": "NOT_KNOWN",
+          "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+        },
+        {
+          "COMPETITOR": "ALBAUGH",
+          "COUNTRY": "FR",
+          "CHAVE": "state",
+          "VALOR": "NOT_KNOWN",
+          "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+        },
+        {
+          "COMPETITOR": "NUFARM",
+          "COUNTRY": "FR",
+          "CHAVE": "state",
+          "VALOR": "NOT_KNOWN",
+          "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+        },
+        {
+          "COMPETITOR": "SYNGENTA",
+          "COUNTRY": "FR",
+          "CHAVE": "state",
+          "VALOR": "NOT_KNOWN",
+          "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+        },
+        {
+          "COMPETITOR": "BAYER",
+          "COUNTRY": "IT",
+          "CHAVE": "state",
+          "VALOR": "NOT_KNOWN",
+          "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+        }
+      ],
+      "EFEITO_DO_DEFEITO": "a primeira contagem publicou 171 candidatas e 136 NOT_KNOWN. O denominador estava 5 maior que a realidade — nada \"quebrava\", porque as fantasmas caíam todas em NOT_KNOWN."
+    },
+    "ATENCAO_A_UNIDADE": "TUPLA e PRODUTO são unidades diferentes e não se subtraem entre si. O mesmo produto anunciado em dois países é DUAS tuplas e UM produto. Cada decomposição fecha por assert, separadamente."
   },
   "RESULTADO": {
-    "UNIDADE": "TUPLA (competidor, país, produto)",
+    "UNIDADE": "TUPLA (competidor, país, produto normalizado)",
+    "THREE_LAYER_CHAIN_PROVED_TUPLES": 35,
+    "THREE_LAYER_CHAIN_REJECTED_TUPLES": 0,
+    "THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES": 131,
+    "CONSERVACAO_TUPLAS": {
+      "SOMA": 166,
+      "TOTAL": 166,
+      "FECHA": true,
+      "VERIFICADO_POR": "assert, não por leitura"
+    },
     "THREE_LAYER_CHAIN_PROVED": 35,
     "THREE_LAYER_CHAIN_REJECTED": 0,
-    "THREE_LAYER_CHAIN_NOT_KNOWN": 136,
+    "THREE_LAYER_CHAIN_NOT_KNOWN": 131,
     "MOTIVOS_DO_NOT_KNOWN": {
-      "ALBAUGH não está na amostra dos seis concorrentes desta missão": 1,
-      "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome": 88,
-      "nenhum registro local PROVED deste grupo com este nome": 46,
-      "SEIPASA não está na amostra dos seis concorrentes desta missão": 1
+      "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome": 85,
+      "nenhum registro local PROVED deste grupo com este nome": 46
     },
     "POR_UNIDADE_PRODUTO": {
-      "UNIDADE": "PRODUTO (nome normalizado), a unidade da rodada anterior — para comparar maçã com maçã",
-      "PRODUTOS_DISTINTOS_NA_META": 142,
-      "PRODUTOS_COM_AO_MENOS_UMA_CADEIA_PROVED": 28,
+      "UNIDADE": "PRODUTO (nome normalizado)",
+      "META_PRODUCTS_TOTAL": 141,
+      "META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN": 28,
+      "META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN": 113,
+      "CONSERVACAO_PRODUTOS": {
+        "SOMA": 141,
+        "TOTAL": 141,
+        "FECHA": true,
+        "VERIFICADO_POR": "assert, não por leitura"
+      },
+      "NOMES_CRUS_NA_META": 145,
+      "POR_QUE_145_NAO_E_O_TOTAL_NORMALIZADO": "o `ads_by_product_proved` do METRICS traz 145 nomes CRUS. Quatro pares são o mesmo nome em caixas diferentes — SPECTRUM/Spectrum, VELIFER/Velifer, GAXY/Gaxy, KUSABI/Kusabi — e colapsam ao normalizar. Por isso o total em unidade de produto é 141, e não 145.",
       "ANUNCIADO_ANTES_COMO": "36 — obtido casando SÓ o nome",
-      "DIFERENCA_EXPLICADA": "o 36 antigo casava nome de produto com nome de marca, sem exigir que o titular da marca, o do registro e a company da Meta fossem o mesmo grupo, nem que o país fosse o mesmo nas três pontas"
+      "DIFERENCA_EXPLICADA": "o 36 antigo casava nome de produto com nome de marca, sem exigir que o titular da marca, o do registro e a company da Meta fossem o mesmo grupo, nem que o país fosse o mesmo nas três pontas",
+      "NAO_SUBTRAIR_ENTRE_UNIDADES": "145 - 28 = 117 seria subtração entre um total de nomes crus e uma contagem de produtos normalizados. As duas contas corretas estão acima, cada uma fechando na sua unidade."
     }
   },
   "URBOLE_GUARD": {
@@ -1039,17 +1098,6 @@
   "RECUSADAS": [],
   "NOT_KNOWN": [
     {
-      "META_COMPANY": "ALBAUGH",
-      "COUNTRY": "FR",
-      "PRODUCT_NAME_NA_META": [
-        "state"
-      ],
-      "ADS_OBSERVED": 1,
-      "NOME_NORMALIZADO": "STATE",
-      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
-      "MOTIVO": "ALBAUGH não está na amostra dos seis concorrentes desta missão"
-    },
-    {
       "META_COMPANY": "BASF",
       "COUNTRY": "ES",
       "PRODUCT_NAME_NA_META": [
@@ -1683,18 +1731,6 @@
       "NOME_NORMALIZADO": "VYNYTY",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
-      "EXISTE_SOB_OUTRO_TITULAR": false
-    },
-    {
-      "META_COMPANY": "BAYER",
-      "COUNTRY": "IT",
-      "PRODUCT_NAME_NA_META": [
-        "state"
-      ],
-      "ADS_OBSERVED": 1,
-      "NOME_NORMALIZADO": "STATE",
-      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
-      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
       "EXISTE_SOB_OUTRO_TITULAR": false
     },
     {
@@ -2359,29 +2395,6 @@
       "EXISTE_SOB_OUTRO_TITULAR": false
     },
     {
-      "META_COMPANY": "NUFARM",
-      "COUNTRY": "FR",
-      "PRODUCT_NAME_NA_META": [
-        "state"
-      ],
-      "ADS_OBSERVED": 1,
-      "NOME_NORMALIZADO": "STATE",
-      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
-      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
-      "EXISTE_SOB_OUTRO_TITULAR": false
-    },
-    {
-      "META_COMPANY": "SEIPASA",
-      "COUNTRY": "ES",
-      "PRODUCT_NAME_NA_META": [
-        "state"
-      ],
-      "ADS_OBSERVED": 1,
-      "NOME_NORMALIZADO": "STATE",
-      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
-      "MOTIVO": "SEIPASA não está na amostra dos seis concorrentes desta missão"
-    },
-    {
       "META_COMPANY": "SYNGENTA",
       "COUNTRY": "ES",
       "PRODUCT_NAME_NA_META": [
@@ -2389,18 +2402,6 @@
       ],
       "ADS_OBSERVED": 1,
       "NOME_NORMALIZADO": "ANGELLO",
-      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
-      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
-      "EXISTE_SOB_OUTRO_TITULAR": false
-    },
-    {
-      "META_COMPANY": "SYNGENTA",
-      "COUNTRY": "FR",
-      "PRODUCT_NAME_NA_META": [
-        "state"
-      ],
-      "ADS_OBSERVED": 1,
-      "NOME_NORMALIZADO": "STATE",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
       "EXISTE_SOB_OUTRO_TITULAR": false

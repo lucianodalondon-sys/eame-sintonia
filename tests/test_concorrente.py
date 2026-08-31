@@ -432,7 +432,10 @@ class JuncaoComAsOutrasMissoes(unittest.TestCase):
 
     def test_a_juncao_com_meta_foi_MEDIDA_AUDITADA_e_nao_esperada(self):
         m = self.v['JOIN_READINESS']['META']['MEDIDO_NESTA_RODADA']
-        self.assertGreater(m['THREE_LAYER_CHAIN_PROVED'], 0)
+        self.assertGreater(m['THREE_LAYER_CHAIN_PROVED_TUPLES'], 0)
+        self.assertEqual(m['THREE_LAYER_UNIT_RECONCILED'], 'YES')
+        self.assertTrue(m['CONSERVACAO_TUPLAS']['FECHA'])
+        self.assertTrue(m['CONSERVACAO_PRODUTOS']['FECHA'])
         self.assertEqual(m['URBOLE_GUARD'], 'PASS')
         self.assertTrue(m['URBOLE_GUARD_EXERCIDO'])
         self.assertEqual(m['FINAL_REFRESH_INPUT'], 'NO')
@@ -543,12 +546,47 @@ class RedTeamDaCadeiaDeTresCamadas(unittest.TestCase):
     def setUp(self):
         self.a = ler('COMPETITOR-THREE-LAYER-AUDIT.json')
 
-    def test_a_auditoria_conserva(self):
+    def test_conserva_na_unidade_TUPLA(self):
         r = self.a['RESULTADO']
-        total = (r['THREE_LAYER_CHAIN_PROVED'] + r['THREE_LAYER_CHAIN_REJECTED']
-                 + r['THREE_LAYER_CHAIN_NOT_KNOWN'])
+        total = (r['THREE_LAYER_CHAIN_PROVED_TUPLES']
+                 + r['THREE_LAYER_CHAIN_REJECTED_TUPLES']
+                 + r['THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES'])
+        self.assertEqual(total,
+                         self.a['UNIVERSO']['THREE_LAYER_CANDIDATES_TOTAL'])
+        self.assertTrue(r['CONSERVACAO_TUPLAS']['FECHA'])
+
+    def test_conserva_na_unidade_PRODUTO_separadamente(self):
+        u = self.a['RESULTADO']['POR_UNIDADE_PRODUTO']
         self.assertEqual(
-            total, self.a['UNIVERSO']['TUPLAS_COMPETIDOR_PAIS_PRODUTO_NA_META'])
+            u['META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN']
+            + u['META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN'],
+            u['META_PRODUCTS_TOTAL'])
+        self.assertTrue(u['CONSERVACAO_PRODUTOS']['FECHA'])
+
+    def test_as_duas_unidades_nao_se_misturam(self):
+        # TUPLA e PRODUTO são contas diferentes: o mesmo produto em dois
+        # países é DUAS tuplas e UM produto. `145 - 28 = 117` seria subtração
+        # entre um total de nomes crus e uma contagem de normalizados.
+        u = self.a['RESULTADO']['POR_UNIDADE_PRODUTO']
+        t = self.a['UNIVERSO']
+        self.assertIn('NAO_SUBTRAIR_ENTRE_UNIDADES', u)
+        self.assertIn('ATENCAO_A_UNIDADE', t)
+        self.assertNotEqual(u['META_PRODUCTS_TOTAL'],
+                            t['THREE_LAYER_CANDIDATES_TOTAL'])
+        self.assertEqual(u['NOMES_CRUS_NA_META'], 145)
+        self.assertLess(u['META_PRODUCTS_TOTAL'], u['NOMES_CRUS_NA_META'])
+
+    def test_o_marcador_de_ausencia_nao_virou_produto(self):
+        # `{"state": "NOT_KNOWN"}` é a missão Meta dizendo "nenhum produto
+        # provado neste bloco". Lê-lo como produto inflava o denominador em 5.
+        d = self.a['UNIVERSO']['DESCARTADAS_ANTES_DE_CANDIDATAR']
+        self.assertGreater(d['N'], 0, 'o descarte sumiu — o defeito pode ter voltado')
+        for x in d['QUAIS']:
+            self.assertEqual(x['CHAVE'], 'state')
+        nomes = {n for c in (self.a['PROVADAS'] + self.a['RECUSADAS']
+                             + self.a['NOT_KNOWN'])
+                 for n in c['PRODUCT_NAME_NA_META']}
+        self.assertNotIn('state', nomes)
 
     def test_toda_cadeia_provada_tem_concordancia_de_titular_nas_tres_pontas(self):
         for c in self.a['PROVADAS']:
@@ -587,7 +625,7 @@ class RedTeamDaCadeiaDeTresCamadas(unittest.TestCase):
 
     def test_o_36_antigo_foi_corrigido_e_a_diferenca_explicada(self):
         u = self.a['RESULTADO']['POR_UNIDADE_PRODUTO']
-        self.assertLess(u['PRODUTOS_COM_AO_MENOS_UMA_CADEIA_PROVED'], 36)
+        self.assertLess(u['META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN'], 36)
         self.assertIn('titular', u['DIFERENCA_EXPLICADA'])
 
 

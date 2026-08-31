@@ -280,19 +280,36 @@ def main():
                     'REGRA_AUDITADA': ('company da Meta == grupo do titular da '
                                        'marca == grupo do titular do registro '
                                        'local, e o mesmo país nas três'),
+                    # ── unidade TUPLA ──────────────────────────────────
+                    'THREE_LAYER_CANDIDATE_UNIT': aud['UNIVERSO'][
+                        'THREE_LAYER_CANDIDATE_UNIT'],
+                    'THREE_LAYER_CANDIDATES_TOTAL': aud['UNIVERSO'][
+                        'THREE_LAYER_CANDIDATES_TOTAL'],
+                    'THREE_LAYER_CHAIN_PROVED_TUPLES': aud['RESULTADO'][
+                        'THREE_LAYER_CHAIN_PROVED_TUPLES'],
+                    'THREE_LAYER_CHAIN_REJECTED_TUPLES': aud['RESULTADO'][
+                        'THREE_LAYER_CHAIN_REJECTED_TUPLES'],
+                    'THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES': aud['RESULTADO'][
+                        'THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES'],
+                    'CONSERVACAO_TUPLAS': aud['RESULTADO']['CONSERVACAO_TUPLAS'],
+                    # ── unidade PRODUTO, conta separada ────────────────
                     'META_ADVERTISED_PRODUCTS_OBSERVED': 145,
-                    'PRODUTOS_DISTINTOS_APOS_NORMALIZAR': aud['RESULTADO'][
-                        'POR_UNIDADE_PRODUTO']['PRODUTOS_DISTINTOS_NA_META'],
-                    'TUPLAS_COMPETIDOR_PAIS_PRODUTO': aud['UNIVERSO'][
-                        'TUPLAS_COMPETIDOR_PAIS_PRODUTO_NA_META'],
-                    'THREE_LAYER_CHAIN_PROVED': aud['RESULTADO'][
-                        'THREE_LAYER_CHAIN_PROVED'],
-                    'THREE_LAYER_CHAIN_REJECTED': aud['RESULTADO'][
-                        'THREE_LAYER_CHAIN_REJECTED'],
-                    'THREE_LAYER_CHAIN_NOT_KNOWN': aud['RESULTADO'][
-                        'THREE_LAYER_CHAIN_NOT_KNOWN'],
-                    'PRODUTOS_COM_CADEIA_PROVED': aud['RESULTADO'][
-                        'POR_UNIDADE_PRODUTO']['PRODUTOS_COM_AO_MENOS_UMA_CADEIA_PROVED'],
+                    'META_PRODUCTS_TOTAL': aud['RESULTADO'][
+                        'POR_UNIDADE_PRODUTO']['META_PRODUCTS_TOTAL'],
+                    'META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN': aud['RESULTADO'][
+                        'POR_UNIDADE_PRODUTO'][
+                        'META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN'],
+                    'META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN': aud[
+                        'RESULTADO']['POR_UNIDADE_PRODUTO'][
+                        'META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN'],
+                    'CONSERVACAO_PRODUTOS': aud['RESULTADO'][
+                        'POR_UNIDADE_PRODUTO']['CONSERVACAO_PRODUTOS'],
+                    'THREE_LAYER_UNIT_RECONCILED': 'YES',
+                    'NAO_SUBTRAIR_ENTRE_UNIDADES': aud['RESULTADO'][
+                        'POR_UNIDADE_PRODUTO']['NAO_SUBTRAIR_ENTRE_UNIDADES'],
+                    'DEFEITO_ENCONTRADO_NA_CONFERENCIA_DE_UNIDADE': aud[
+                        'UNIVERSO']['DESCARTADAS_ANTES_DE_CANDIDATAR'][
+                        'EFEITO_DO_DEFEITO'],
                     'O_36_ANTERIOR': ('caiu para 28 produtos quando a exigência de '
                                       'titular entrou. Oito eram nome igual sem '
                                       'concordância de empresa ou de país.'),
@@ -404,10 +421,16 @@ def main():
     a = art['CAPABILITIES']['C_COMPETITOR_TIMELINE']
     del a
     j = art['JOIN_READINESS']['META']['MEDIDO_NESTA_RODADA']
-    print(f"\nRED TEAM DA JUNCAO META: PROVED={j['THREE_LAYER_CHAIN_PROVED']} "
-          f"REJECTED={j['THREE_LAYER_CHAIN_REJECTED']} "
-          f"NOT_KNOWN={j['THREE_LAYER_CHAIN_NOT_KNOWN']} · "
-          f"URBOLE_GUARD={j['URBOLE_GUARD']}")
+    print(f"\nRED TEAM DA JUNCAO META")
+    print(f"  TUPLAS  : {j['THREE_LAYER_CANDIDATES_TOTAL']} candidatas = "
+          f"{j['THREE_LAYER_CHAIN_PROVED_TUPLES']} PROVED + "
+          f"{j['THREE_LAYER_CHAIN_REJECTED_TUPLES']} REJECTED + "
+          f"{j['THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES']} NOT_KNOWN")
+    print(f"  PRODUTOS: {j['META_PRODUCTS_TOTAL']} = "
+          f"{j['META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN']} com cadeia + "
+          f"{j['META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN']} sem")
+    print(f"  URBOLE_GUARD={j['URBOLE_GUARD']} · "
+          f"UNIT_RECONCILED={j['THREE_LAYER_UNIT_RECONCILED']}")
     print('\nCAPABILITIES')
     for k, v in art['CAPABILITIES'].items():
         ver = v.get('VEREDICTO') or v.get('PATENT_LAYER')
