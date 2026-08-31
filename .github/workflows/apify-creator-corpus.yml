@@ -1,0 +1,162 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CREATOR CONTENT CORPUS (MISSÃO 15) — o ACERVO, não o mapa.
+#
+# Workflow PRÓPRIO, separado do `apify-creators`. Os runners são
+# compartilhados; o resto não:
+#
+#     WORKFLOW    apify-creator-corpus.yml    (este)
+#     DATASET     data/samples/CREATOR-CONTENT-CORPUS-EAME/
+#     RUN_ID      prefixo 15-CREATOR-CONTENT-CORPUS-EAME-*
+#     MANIFEST    CREATOR-CONTENT-CORPUS-EAME/RUN-MANIFEST-CORPUS.json
+#     NAMESPACE   commit limitado aos caminhos DESTA missão
+#
+# POR QUE NÃO UMA FASE A MAIS NO `apify-creators`
+# -------------------------------------------------
+# Porque o Creator Map está CONGELADO. Um workflow que escreve nos dois
+# diretórios pode, num commit distraído, devolver arquivo ao mapa — e o
+# congelamento deixaria de ser verificável pelo histórico. Dono diferente,
+# workflow diferente. O `apify-creators.yml` já pagou por essa lição uma vez,
+# quando as fases de creators entravam por uma ponte no `apify-sensores`.
+#
+# ORDEM DAS FASES, E POR QUE `contratos` VEM PRIMEIRO
+# -----------------------------------------------------
+#   contratos   GRÁTIS. Lê ator e INPUT SCHEMA. Zero run, zero custo.
+#   instagram   posts dos 8 canais Instagram do universo fechado
+#   youtube     vídeos do canal YouTube, com legenda quando houver
+#   comentarios AMOSTRA de comentários dos materiais mais relevantes
+#
+# Ator descarta em silêncio o campo que não reconhece. Ler o schema custa zero.
+# ═══════════════════════════════════════════════════════════════════════
+name: apify-creator-corpus
+
+on:
+  workflow_dispatch:
+    inputs:
+      fase:
+        description: 'qual fase rodar'
+        required: true
+        default: contratos
+        type: choice
+        options:
+          - contratos      # GRÁTIS — lê ator e INPUT SCHEMA
+          - instagram      # posts dos canais Instagram
+          - youtube        # vídeos do canal YouTube
+          - comentarios    # amostra de comentários
+      runner:
+        description: 'qual runner usar'
+        required: true
+        default: '2'
+        type: choice
+        options: ['1', '2']
+
+permissions:
+  contents: write
+
+# Dois jobs DESTA missão não podem colidir: o passo 4 faz commit, e dois
+# commits simultâneos na mesma branch é a colisão que já custou um rebase.
+# Paralelismo ENTRE missões continua permitido — o grupo é nomeado pela missão.
+concurrency:
+  group: creator-corpus-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  coleta:
+    runs-on: ${{ inputs.runner == '1'
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
+    defaults:
+      run:
+        shell: bash
+    env:
+      APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      # Este workflow é despachável a partir do branch PADRÃO, mas os scripts
+      # vivem no branch da missão. Rodar contra um ref sem eles falharia com um
+      # traceback de import — que não diz o que houve.
+      - name: 0 · o ref tem os scripts desta missão?
+        run: |
+          if [ ! -f scripts/creator_corpus_coleta.py ]; then
+            echo "SCRIPTS_AUSENTES=YES"
+            echo "O ref '${{ github.ref_name }}' nao contem scripts/creator_corpus_coleta.py."
+            echo "Despache este workflow contra o branch da missao 15."
+            exit 1
+          fi
+          echo "SCRIPTS_PRESENTES=YES"
+
+      # `python3` nesta maquina e o atalho da Microsoft Store e falha. `py` funciona.
+      - name: 1 · interpretador
+        run: |
+          for c in py python3 python; do
+            if $c --version >/dev/null 2>&1; then
+              echo "PY=$c" >> "$GITHUB_ENV"; echo "INTERPRETADOR=$c"; exit 0
+            fi
+          done
+          echo "INTERPRETADOR=NENHUM"; exit 1
+
+      - name: 2 · censo do pool (presenca e formato — nunca valor)
+        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+
+      # O universo e derivado do artefato CONGELADO e custa zero. Refaze-lo a
+      # cada corrida garante que a coleta nunca parta de uma lista velha.
+      - name: 3 · fechar o universo nos 10 congelados (grátis)
+        run: PYTHONIOENCODING=utf-8 $PY scripts/creator_corpus.py universo
+
+      - name: 4 · rodar a fase
+        run: |
+          echo "FASE=${{ inputs.fase }} · RUNNER=${{ runner.name }}"
+          PYTHONIOENCODING=utf-8 $PY scripts/creator_corpus_coleta.py "${{ inputs.fase }}"
+
+      - name: 5 · devolver o resultado (so os caminhos DESTA missao)
+        run: |
+          git config user.name  "sintonia-eame-runner"
+          git config user.email "runner@eame-sintonia.local"
+          # Nunca `git add -A`. O CREATOR-MAP-EAME esta CONGELADO e nao pode
+          # entrar num commit desta missao nem por distracao.
+          git add data/samples/CREATOR-CONTENT-CORPUS-EAME 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"; exit 0
+          fi
+          if ! git diff --cached --name-only | grep -qv '^data/samples/CREATOR-CONTENT-CORPUS-EAME/'; then
+            echo "NAMESPACE_LIMPO=YES"
+          else
+            echo "NAMESPACE_VIOLADO=YES · ha arquivo fora do diretorio desta missao"
+            git diff --cached --name-only; exit 1
+          fi
+          echo "--- o que volta ---"; git diff --cached --stat
+          git commit -q -m "creator content corpus: fase ${{ inputs.fase }} (run ${{ github.run_id }})"
+          git pull --rebase --quiet origin "${{ github.ref_name }}" || true
+          git push origin HEAD:"${{ github.ref_name }}"
+          echo "RESULTADO_COMMITADO=YES"
+
+      - name: 6 · o que a fase gastou (manifesto DESTA missao)
+        if: always()
+        run: |
+          PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
+          import json, os, sys
+          sys.path.insert(0, 'scripts')
+          import creator_corpus as cc
+          caminho = os.path.join(cc.BASE, 'RUN-MANIFEST-CORPUS.json')
+          if not os.path.exists(caminho):
+              print('APIFY_RUNS_DA_MISSAO=0'); print('COST_USD_DA_MISSAO=0'); raise SystemExit
+          with open(caminho, encoding='utf-8') as f:
+              d = json.load(f)
+          runs = d.get('RUNS') or d
+          runs = list(runs.values()) if isinstance(runs, dict) else runs
+          runs = [r for r in runs if isinstance(r, dict) and r.get('RUN_ID')]
+          custo = sum(r['COST_USD'] for r in runs
+                      if isinstance(r.get('COST_USD'), (int, float)))
+          itens = sum(r['ITEM_COUNT_RAW'] for r in runs
+                      if isinstance(r.get('ITEM_COUNT_RAW'), (int, float)))
+          print('APIFY_RUNS_DA_MISSAO=%d' % len(runs))
+          print('ITEMS_DA_MISSAO=%d' % itens)
+          print('COST_USD_DA_MISSAO=%.6f' % custo)
+          for r in runs:
+              print('  %-56s %-8s itens=%-5s usd=%s'
+                    % (r['RUN_ID'][:56], r.get('STATUS'), r.get('ITEM_COUNT_RAW'),
+                       r.get('COST_USD')))
+          PYEOF
