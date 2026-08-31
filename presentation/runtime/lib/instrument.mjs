@@ -455,6 +455,16 @@ export function instrument(html) {
     log.push({ patch: 'ux:' + de.slice(0, 24), bytes_out: de.length * n, bytes_in: para.length * n })
   }
 
+  // 5r · QUATRO FRASES QUE AINDA FALAVAM EM NOME DE CAMPO
+  //
+  //      Estas nao podiam ser escondidas como as outras: sao a explicacao, nao
+  //      o encanamento. Cada uma protege uma distincao que o produto inteiro
+  //      depende de manter. Entao foram REESCRITAS, palavra por palavra, sem
+  //      perder a distincao.
+  //      A troca acontece em tempo de execucao, junto com o resto da passagem:
+  //      algumas dessas frases sao montadas na hora ("4 OBJETO(S) SEM ..."), e
+  //      um replace no arquivo nao alcanca o que ainda nao existe.
+
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
     'const volumes = window.__SINTONIA__.volumes || [];', log)
@@ -662,6 +672,10 @@ export function instrument(html) {
   // O nome de campo aparece no meio da frase, entao o teste de igualdade acima
   // nao pega — e era por ai que sobravam cem underscores na tela.
   var COMPOSTO = /[A-Z][A-Z0-9]*_[A-Z0-9_]{2,}/;
+  // Nomes de maquina que NAO usam underscore e por isso escapavam:
+  // identificador de receptor (R-H1-TERRITORIAL), codigo de mangueira (H2 · ...)
+  // e o estado de encanamento UNWIRED.
+  var OUTROS = /^(R-H\\d[A-Z0-9-]*|H[1-9] · .+|UNWIRED|PROVENANCE|RECEPTOR_ID|HOSE_ID)$/;
   // Estes ficam: sao a RESPOSTA, nao o encanamento. Esconder "nao sabemos"
   // seria esconder justamente o que o portal existe para dizer.
   var FICAM = /^(NAO SEI|NAO MEDIDO|NOT_KNOWN|NOT_MEASURED|EMPTY_VALID|NAO MEDIDA)$/;
@@ -683,7 +697,7 @@ export function instrument(html) {
       var t = (n.nodeValue || '').trim();
       if (t.length < 4 || t.length > 90) continue;
       if (FICAM.test(t)) continue;
-      var exato = MAQUINA.test(t);
+      var exato = MAQUINA.test(t) || OUTROS.test(t);
       var dentro = !exato && COMPOSTO.test(t);
       if (!exato && !dentro) continue;
       var p = n.parentElement;
@@ -709,10 +723,100 @@ export function instrument(html) {
     document.body.appendChild(b);
   }
 
+  // ── ORDEM DA PAGINA ─────────────────────────────────────────────────────
+  //
+  // O mapa de acoes estava a dezessete mil pixels do topo, depois de tres
+  // blocos de receptor. Quem abre o objeto le O QUE e ONDE em dois segundos
+  // e depois precisa rolar meia hora para descobrir QUEM DEVE OLHAR.
+  //
+  // Nada e recriado: o mesmo no do DOM e movido de lugar. O casco redesenha a
+  // cada troca de estado, entao a mudanca e reaplicada pelo observador.
+  function tituloEl(txt) {
+    var t = txt.toLowerCase();
+    var els = document.querySelectorAll('*');
+    for (var i = 0; i < els.length; i++) {
+      var e = els[i];
+      if (e.children.length === 0 && e.textContent.trim().toLowerCase() === t) return e;
+    }
+    return null;
+  }
+
+  // A secao e o filho da COLUNA que contem o titulo. A coluna e o ancestral
+  // alto com muitos filhos — e assim que a pagina do objeto e montada.
+  function secaoDe(el) {
+    var n = el;
+    while (n && n.parentElement) {
+      var p = n.parentElement;
+      if (p.children.length >= 8 && p.getBoundingClientRect().height > 3000) return n;
+      n = p;
+    }
+    return null;
+  }
+  function secao(txt) { var e = tituloEl(txt); return e ? secaoDe(e) : null; }
+
+  function ordenar() {
+    // 1 · blocos de receptor sao engenharia: vao para os detalhes tecnicos.
+    ['Receptor territorial do objeto', 'Receptor de vozes e ativação',
+     'Receptor de especialista do problema'].forEach(function (t) {
+      var s = secao(t);
+      if (s && !s.hasAttribute('data-ux-tecnico')) s.setAttribute('data-ux-tecnico', '1');
+    });
+
+    // 2 · o mapa de acoes sobe para logo depois da sintese.
+    var acoes = secao('Mapa de ações por área');
+    var sintese = secao('Síntese');
+    if (acoes && sintese && sintese.parentElement === acoes.parentElement &&
+        acoes.previousElementSibling !== sintese) {
+      sintese.parentElement.insertBefore(acoes, sintese.nextElementSibling);
+    }
+
+    // 3 · a timeline vira faixa: contexto, nao protagonista.
+    var tl = secao('Timeline de inteligência do objeto');
+    if (tl && !tl.hasAttribute('data-ux-faixa')) tl.setAttribute('data-ux-faixa', '1');
+  }
+
+  // ── FRASES QUE EXPLICAM, E POR ISSO NAO PODEM SER ESCONDIDAS ────────────
+  //
+  // Quatro frases falavam em nome de campo no meio da explicacao. Nao dava
+  // para esconder: elas SAO a explicacao, e cada uma protege uma distincao de
+  // que o produto inteiro depende. Foram reescritas, sem perder a distincao.
+  //
+  // A troca e feita aqui e nao no arquivo porque parte delas e montada na hora
+  // ("4 OBJETO(S) SEM ...") — um replace no HTML nao alcanca o que ainda nao
+  // existe. Trocar texto nao dispara o observador (ele olha childList), entao
+  // nao ha laco.
+  var FRASES = [
+    ['GEO_RESOLUTION = POINT', 'coordenada'],
+    ['REGISTRATION_DEADLINE ≠ LOCAL_ADAMA_PORTFOLIO_CONTEXT. Prazo de registro nunca prova resposta ADAMA.',
+     'Prazo de registro e resposta da ADAMA são coisas diferentes: a data de um registro nunca prova o que a ADAMA vai fazer.'],
+    ['REGISTERED_RESPONSE_STATE permanece NOT_PROVED',
+     'a resposta da ADAMA segue não confirmada'],
+    ['a soma NÃO se chama CREATORS_READY. Pessoa != empresa,',
+     'a soma não pode se chamar "criadores prontos". Pessoa não é empresa,'],
+    // Codigo de mangueira dentro da frase. A lei que ela protege — uma fonte
+    // repetida nao vira duas famílias — continua dita por inteiro.
+    ['Mesma origem publicadora da perna TERRITORIAL (H5 depende de H1).',
+     'Mesma origem publicadora da observação territorial: a série de campo depende dela.'],
+  ];
+
+  function frases() {
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
+    while ((n = w.nextNode())) {
+      var v = n.nodeValue;
+      // Nem toda frase de maquina tem underscore: "H5 depende de H1" nao tem.
+      // O filtro barato so serve para nao varrer a pagina inteira a toa.
+      if (!v || (v.indexOf('_') < 0 && !/\\bH[1-9]\\b/.test(v))) continue;
+      for (var i = 0; i < FRASES.length; i++) {
+        if (v.indexOf(FRASES[i][0]) >= 0) v = v.split(FRASES[i][0]).join(FRASES[i][1]);
+      }
+      if (v !== n.nodeValue) n.nodeValue = v;
+    }
+  }
+
   var pendente = null;
   function agenda() {
     clearTimeout(pendente);
-    pendente = setTimeout(function () { marcar(); botao(); }, 120);
+    pendente = setTimeout(function () { marcar(); ordenar(); frases(); botao(); }, 120);
   }
   agenda();
   new MutationObserver(agenda).observe(document.body, { childList: true, subtree: true });
@@ -731,6 +835,26 @@ export function instrument(html) {
     padding: 9px 14px; cursor: pointer;
   }
   #ux-tec-btn:hover { color: var(--t1); }
+
+  /* TIMELINE COMO FAIXA · ela ocupava dois mil pixels de altura para contar
+     tres a cinco marcos. Vira uma tira horizontal que rola de lado; cada marco
+     ganha largura fixa e a coluna de cada evento para de esticar a pagina.
+     Nenhum evento foi removido — todos continuam ali, lado a lado. */
+  /* O atributo style chega NORMALIZADO pelo navegador: "98px 28px", com
+     espaco. O seletor sem espaco nao casava nada — a faixa continuava com dois
+     mil e oitocentos pixels de altura e eu quase dei por resolvido. */
+  [data-ux-faixa] div:has(> [style*="98px 28px"]) {
+    flex-direction: row !important;
+    gap: 18px; overflow-x: auto; padding-bottom: 10px;
+  }
+  [data-ux-faixa] [style*="98px 28px"] {
+    display: flex !important; flex-direction: column !important;
+    flex: 0 0 220px; align-items: flex-start !important;
+  }
+  [data-ux-faixa] [style*="98px 28px"] > div {
+    align-items: flex-start !important; text-align: left !important;
+    width: 100%; padding-top: 0 !important;
+  }
 </style>
 </head>`, 'ux:css-tecnico', log)
 

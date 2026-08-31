@@ -579,23 +579,23 @@ export function buildSnapshot() {
   const evDe = (hose) => Object.keys(EVIDENCE).filter(k => EVIDENCE[k].hose === hose)
   const base = (hose) => { const e = evDe(hose); return e.length ? e : [] }
   const departments = [
-    { name: 'Market Development', kind: 'invest', core: true, state: 'naodeterm', basis: base('H1'),
+    { name: 'Market Development', kind: 'Investigacao', core: true, state: 'Acao nao determinada', basis: base('H1'),
       action: 'Programar a segunda leitura independente dos recortes em teste.',
       why: 'E a unica acao que muda o estado de um objeto hoje: nenhum recorte tem confirmacao independente.',
       time: 'antes do proximo checkpoint · data nao determinada' },
-    { name: 'Technical / Science', kind: 'invest', state: 'naodeterm', basis: base('H1'),
+    { name: 'Technical / Science', kind: 'Investigacao', state: 'Acao nao determinada', basis: base('H1'),
       action: 'Nomear o issue por fonte tecnica nos itens territoriais.',
       why: `O portao "issue nomeado" esta aberto em ${RAW.filter(o => o.type === 'case').length} recortes de fenomeno.`,
       time: 'sem prazo externo · depende de agenda tecnica' },
-    { name: 'Regulatorio', kind: 'invest', state: 'naodeterm', basis: base('H2'),
+    { name: 'Regulatorio', kind: 'Investigacao', state: 'Acao nao determinada', basis: base('H2'),
       action: `Confirmar efeito no rotulo dos ${H.H2.canonical_entities} registros com data futura.`,
       why: 'Expiracao declarada nao e retirada de produto — o efeito exige confirmacao.',
       time: 'ligado a data oficial do registro' },
     // Esta acao envelheceu junto com o elo 4: pedir o freeze da Meta nao faz
     // mais sentido, porque ele existe. O que falta agora e outra coisa.
-    { name: 'Competitive Intelligence', kind: 'invest', state: 'naodeterm', basis: base('H3'),
+    { name: 'Competitive Intelligence', kind: 'Investigacao', state: 'Acao nao determinada', basis: base('H3'),
       action: motivoSuperado
-        ? 'Reexecutar o cruzamento de H3 contra o freeze congelado da Meta e recongelar H3.'
+        ? 'Reexecutar o cruzamento da cadeia de concorrente contra o material congelado da Meta, e congelar o resultado.'
         : 'Congelar o handoff canonico da Meta para liberar a entrada final de refresh.',
       why: motivoSuperado
         ? `${H.H3.canonical_entities} tuplas continuam em join preliminar. O impedimento declarado caiu (Meta congelada em ${String(PROV.H4.COMMIT_SHA).slice(0, 12)}), mas ninguem rodou o cruzamento de novo.`
