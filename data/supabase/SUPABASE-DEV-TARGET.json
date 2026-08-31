@@ -1,0 +1,129 @@
+{
+  "SOURCE_ID": "SUPABASE-DEV-TARGET-EAME-2026-08-31",
+  "source": "Resolucao do alvo DEV. Existencia do projeto e acesso local sao coisas diferentes.",
+  "CORRECAO_DE_SEMANTICA": {
+    "O_QUE_EU_DISSE_ANTES": "DEV_INSTANCE_AVAILABLE = NO",
+    "O_QUE_EU_TINHA_MEDIDO": "ausencia de credencial e de cliente NESTA MAQUINA",
+    "POR_QUE_ESTAVA_ERRADO": "conclui sobre a EXISTENCIA do banco a partir de uma medicao do MEU ACESSO. Um projeto pode existir e estar saudavel sem eu conseguir ve-lo.",
+    "NOVA_DEFINICAO": "DEV_INSTANCE_AVAILABLE = existe banco DEV UTILIZAVEL. Depende do inventario, nao da minha credencial.",
+    "O_QUE_CONTINUA_VALENDO": "CLAUDE_LOCAL_SUPABASE_ACCESS = NO. A medicao estava certa; o rotulo e que estava errado."
+  },
+  "PROJETO": {
+    "NAME": "eame-sintonia",
+    "PROJECT_REF": "odhdwvugikjdvkapbowe",
+    "REGION": "eu-west-1",
+    "STATUS": "ACTIVE_HEALTHY",
+    "MEDIDO_POR": "Luciano, na conta Supabase",
+    "VERIFICADO_POR_MIM": false,
+    "POR_QUE_NAO": "nao ha credencial nesta maquina, e credencial nao e coisa que eu manuseie"
+  },
+  "ACESSO_LOCAL": {
+    "ENV": {
+      "SUPABASE_ACCESS_TOKEN": false,
+      "SUPABASE_SERVICE_ROLE_KEY": false,
+      "SUPABASE_ANON_KEY": false,
+      "SUPABASE_DB_URL": false,
+      "SUPABASE_URL": false
+    },
+    "BIN": {
+      "supabase": false,
+      "psql": false,
+      "pg_dump": false,
+      "docker": false
+    },
+    "CLAUDE_LOCAL_SUPABASE_ACCESS": "NO",
+    "POR_QUE": "sem token e sem cliente, nao ha como abrir conexao. E credencial nao e coisa que eu deva manusear: quem tem acesso roda as consultas."
+  },
+  "INVENTARIO_CONTRATO": [
+    {
+      "CHAVE": "DATABASE_VERSION",
+      "SQL": "select version();",
+      "PARA_QUE": "saber contra que Postgres a migration vai rodar"
+    },
+    {
+      "CHAVE": "EXISTING_SCHEMAS",
+      "SQL": "select nspname from pg_namespace where nspname not like 'pg_%' and nspname <> 'information_schema' order by 1;",
+      "PARA_QUE": "descobrir se ja existe um schema sintonia, ou outro em uso"
+    },
+    {
+      "CHAVE": "EXISTING_TABLES",
+      "SQL": "select table_schema, table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema not in ('pg_catalog','information_schema') order by 1,2;",
+      "PARA_QUE": "toda tabela fora dos schemas de sistema"
+    },
+    {
+      "CHAVE": "EXISTING_VIEWS",
+      "SQL": "select table_schema, table_name from information_schema.views where table_schema not in ('pg_catalog','information_schema') order by 1,2;",
+      "PARA_QUE": "views ja existentes"
+    },
+    {
+      "CHAVE": "EXISTING_FUNCTIONS",
+      "SQL": "select n.nspname, p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname not in ('pg_catalog','information_schema') order by 1,2;",
+      "PARA_QUE": "funcoes e RPCs ja existentes"
+    },
+    {
+      "CHAVE": "EXISTING_RLS_POLICIES",
+      "SQL": "select schemaname, tablename, policyname from pg_policies order by 1,2,3;",
+      "PARA_QUE": "politicas ja aplicadas — e se ha tabela sem nenhuma"
+    },
+    {
+      "CHAVE": "EXISTING_USER_DATA",
+      "SQL": "select schemaname, relname, n_live_tup from pg_stat_user_tables where n_live_tup > 0 order by n_live_tup desc;",
+      "PARA_QUE": "a pergunta que decide tudo: ha LINHA em alguma tabela? Tabela vazia e descartavel; tabela com linha e de alguem"
+    },
+    {
+      "CHAVE": "EXISTING_MIGRATION_HISTORY",
+      "SQL": "select version, name from supabase_migrations.schema_migrations order by version;  -- pode nao existir: ausencia tambem e resposta",
+      "PARA_QUE": "saber se alguma migration ja correu neste projeto"
+    },
+    {
+      "CHAVE": "AUTH_USERS",
+      "SQL": "select count(*) from auth.users;",
+      "PARA_QUE": "usuario cadastrado e dado de gente. Um projeto com usuario NAO e descartavel, mesmo com as tabelas vazias"
+    },
+    {
+      "CHAVE": "STORAGE_OBJECTS",
+      "SQL": "select count(*) from storage.objects;",
+      "PARA_QUE": "arquivo guardado tambem e dado de alguem"
+    }
+  ],
+  "INVENTARIO_EXECUTADO": false,
+  "INVENTARIO": null,
+  "CLASSIFICACAO": {
+    "SAFE_TO_USE_AS_DEV": "NEEDS_DECISION",
+    "DEV_INSTANCE_AVAILABLE": "NOT_MEASURED",
+    "WHY": [
+      "inventario nao executado: sem acesso, sem leitura, sem veredito"
+    ],
+    "MOTIVOS_DE_BLOQUEIO": [],
+    "MOTIVOS_DE_ATENCAO": []
+  },
+  "REGRA_DO_CLASSIFICADOR": {
+    "BLOQUEIA": [
+      "usuario em auth.users",
+      "objeto em storage",
+      "qualquer tabela com linha"
+    ],
+    "ATENCAO": [
+      "schema alheio",
+      "schema sintonia ja com tabela",
+      "migration ja aplicada"
+    ],
+    "NUNCA": "devolver YES por ausencia de informacao. \"Nao sei o que tem dentro\" e o contrario de \"esta vazio\".",
+    "NOME_IGUAL_NAO_E_PROVA": "o projeto se chamar eame-sintonia nao prova que e o ambiente certo, nem que esta vazio. So o inventario prova."
+  },
+  "MIGRATION_APPLIED_DEV": "NO",
+  "READY_TO_APPLY_MIGRATION_DEV": "NO",
+  "PORTAO_DE_APLICACAO": {
+    "PODE_APLICAR": false,
+    "RECUSAS": [
+      "SAFE_TO_USE_AS_DEV = NEEDS_DECISION",
+      "inventario nao executado",
+      "sem acesso local: quem aplica e quem tem credencial"
+    ],
+    "ALVO": "odhdwvugikjdvkapbowe",
+    "CONFIRMAR_ANTES": "o alvo NAO e producao — hoje nao existe projeto de producao declarado, e por isso mesmo a checagem tem de ser explicita quando existir",
+    "ORDEM_DE_APLICACAO": [
+      "supabase/migrations/0001_initial_canonical_schema.sql"
+    ]
+  }
+}
