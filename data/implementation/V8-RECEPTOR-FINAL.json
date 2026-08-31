@@ -1,0 +1,432 @@
+{
+  "CASCO": {
+    "PATH": "casco/canonical/SINTONIA-EAME-V8-FINAL.html",
+    "MARKUP_CHARS": 277205,
+    "DATA_LAYER_CHARS": 89176,
+    "TELAS": [
+      "acervo",
+      "config",
+      "eame",
+      "fontes",
+      "home",
+      "lib",
+      "obj",
+      "radar",
+      "relatorios"
+    ],
+    "ASSETS_JS": 5
+  },
+  "RECEPTORES_DECLARADOS": [
+    {
+      "RECEPTOR_ID": "R-H1-TERRITORIAL",
+      "HOSE_ID": "H1",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "TERRITORIAL_OBSERVATION",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · HOSE_DECLARED_NOT_WIRED"
+    },
+    {
+      "RECEPTOR_ID": "R-H2-REGISTRATION-DEADLINE",
+      "HOSE_ID": "H2",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "REGISTRATION_DEADLINE",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · HOSE_DECLARED_NOT_WIRED"
+    },
+    {
+      "RECEPTOR_ID": "R-H3-COMPETITOR-IDENTITY",
+      "HOSE_ID": "H3",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "COMPETITOR_PRODUCT_IDENTITY",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · AGREEMENT_NOT_COMPUTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H4-OBSERVED-PAID-ACTIVITY",
+      "HOSE_ID": "H4",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "OBSERVED_PAID_ACTIVITY",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · EVIDENCE_NOT_RESOLVED"
+    },
+    {
+      "RECEPTOR_ID": "R-H5-FIELD-PRESSURE",
+      "HOSE_ID": "H5",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "FIELD_PRESSURE_SERIES",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · READINGS_NOT_INGESTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H7-SCIENTIFIC-PUBLICATION",
+      "HOSE_ID": "H7",
+      "PARENT_HOSE_ID": "H7",
+      "DISPLAY_LABEL": "H7 · CIÊNCIA",
+      "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PUBLICATION",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · COLLECTION_NOT_STARTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H2-LOCAL-ADAMA-PORTFOLIO",
+      "HOSE_ID": "H2",
+      "PARENT_HOSE_ID": "H2",
+      "DISPLAY_LABEL": "H2 · PORTFÓLIO",
+      "CANONICAL_PAYLOAD_TYPE": "LOCAL_ADAMA_PORTFOLIO_CONTEXT",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · LOCAL_CONFIRMATION_MISSING"
+    },
+    {
+      "RECEPTOR_ID": "R-H6-FIELD-VOICE",
+      "HOSE_ID": "H6",
+      "PARENT_HOSE_ID": "H6",
+      "DISPLAY_LABEL": "H6 · CAMPO",
+      "CANONICAL_PAYLOAD_TYPE": "FIELD_VOICE_OBSERVATION",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_COLLECTION_NOT_STARTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H7-SCIENTIFIC-PERSON",
+      "HOSE_ID": "H7",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PERSON",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · ISSUE_EXPERTISE_NOT_PROVED"
+    },
+    {
+      "RECEPTOR_ID": "R-H6-CREATOR",
+      "HOSE_ID": "H6",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "PERSON_CREATOR | FARM_BUSINESS_ENTITY | CREATOR_CONTENT_PROFILE",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · ENTITIES_DECLARED_CONTENT_NOT_INGESTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H8-COMPANY-LOCAL-ACCOUNT",
+      "HOSE_ID": "H8",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "COMPANY_LOCAL_ACCOUNT",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_COLLECTION_NOT_STARTED"
+    },
+    {
+      "RECEPTOR_ID": "R-INFRA-SOURCE-CLOCKS",
+      "HOSE_ID": "INFRA",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "SOURCE_CLOCKS",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · PIPELINE_NOT_INSTRUMENTED"
+    },
+    {
+      "RECEPTOR_ID": "R-H9-CONTENT-ENTITY",
+      "HOSE_ID": "H9",
+      "PARENT_HOSE_ID": null,
+      "DISPLAY_LABEL": null,
+      "CANONICAL_PAYLOAD_TYPE": "CONTENT_ENTITY | CONTENT_TRANSLATION | ONTOLOGY_TERM",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_REPRESENTATIONS_NOT_WIRED"
+    }
+  ],
+  "VERDICTS": {
+    "HOSES": {
+      "H1": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H1-TERRITORIAL",
+        "CANONICAL_PAYLOAD_TYPE": "TERRITORIAL_OBSERVATION"
+      },
+      "H2": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H2-REGISTRATION-DEADLINE",
+        "CANONICAL_PAYLOAD_TYPE": "REGISTRATION_DEADLINE"
+      },
+      "H3": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H3-COMPETITOR-IDENTITY",
+        "CANONICAL_PAYLOAD_TYPE": "COMPETITOR_PRODUCT_IDENTITY"
+      },
+      "H4": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H4-OBSERVED-PAID-ACTIVITY",
+        "CANONICAL_PAYLOAD_TYPE": "OBSERVED_PAID_ACTIVITY"
+      },
+      "H5": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H5-FIELD-PRESSURE",
+        "CANONICAL_PAYLOAD_TYPE": "FIELD_PRESSURE_SERIES"
+      },
+      "H6": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H6-CREATOR",
+        "CANONICAL_PAYLOAD_TYPE": "PERSON_CREATOR | FARM_BUSINESS_ENTITY | CREATOR_CONTENT_PROFILE"
+      },
+      "H7": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H7-SCIENTIFIC-PERSON",
+        "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PERSON"
+      },
+      "H8": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H8-COMPANY-LOCAL-ACCOUNT",
+        "CANONICAL_PAYLOAD_TYPE": "COMPANY_LOCAL_ACCOUNT"
+      },
+      "H9": {
+        "VERDICT": "PASS",
+        "MISSING": [],
+        "RECEPTOR_ID": "R-H9-CONTENT-ENTITY",
+        "CANONICAL_PAYLOAD_TYPE": "CONTENT_ENTITY | CONTENT_TRANSLATION | ONTOLOGY_TERM"
+      }
+    },
+    "HOSES_WITH_COMPLETE_RECEIVER": 9,
+    "SUBRECEPTORES": {
+      "R-H7-SCIENTIFIC-PUBLICATION": {
+        "VERDICT": "FAIL",
+        "MISSING": [
+          "PARENT_HOSE_ID nao e campo estrutural do receptor: e concatenado em note",
+          "hoseId exposto e o DISPLAY_LABEL \"H7 · CIÊNCIA\", nao o HOSE_ID canonico"
+        ],
+        "HOSE_ID": "H7",
+        "PARENT_HOSE_ID": "H7",
+        "DISPLAY_LABEL": "H7 · CIÊNCIA",
+        "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PUBLICATION"
+      },
+      "R-H2-LOCAL-ADAMA-PORTFOLIO": {
+        "VERDICT": "FAIL",
+        "MISSING": [
+          "PARENT_HOSE_ID nao e campo estrutural do receptor: e concatenado em note",
+          "hoseId exposto e o DISPLAY_LABEL \"H2 · PORTFÓLIO\", nao o HOSE_ID canonico"
+        ],
+        "HOSE_ID": "H2",
+        "PARENT_HOSE_ID": "H2",
+        "DISPLAY_LABEL": "H2 · PORTFÓLIO",
+        "CANONICAL_PAYLOAD_TYPE": "LOCAL_ADAMA_PORTFOLIO_CONTEXT"
+      },
+      "R-H6-FIELD-VOICE": {
+        "VERDICT": "FAIL",
+        "MISSING": [
+          "PARENT_HOSE_ID nao e campo estrutural do receptor: e concatenado em note",
+          "hoseId exposto e o DISPLAY_LABEL \"H6 · CAMPO\", nao o HOSE_ID canonico"
+        ],
+        "HOSE_ID": "H6",
+        "PARENT_HOSE_ID": "H6",
+        "DISPLAY_LABEL": "H6 · CAMPO",
+        "CANONICAL_PAYLOAD_TYPE": "FIELD_VOICE_OBSERVATION"
+      }
+    },
+    "SUBRECEPTORES_PASS": 0,
+    "HELPER_HOSE_ID_VEM_DO_DISPLAY_LABEL": true,
+    "PARENT_HOSE_ID_ESTRUTURAL": false,
+    "PARENT_HOSE_ID_NO_NOTE": true,
+    "DEAD_HANDLERS": 0,
+    "RADAR_CONVERGENCE_PARITY": "PASS",
+    "EVIDENCE_DRAWER_HOSES_COVERED": 9,
+    "ACTION_TYPE_CANONICAL": "PASS",
+    "ACTION_MAP_OBJECT_ID": "PASS",
+    "TIMELINE_STATES_SEPARATE": "PASS",
+    "TIMELINE_SOURCE_ID_TYPED": "PASS",
+    "CREATOR_ENTITY_KIND_CANONICAL": "PASS",
+    "SOURCE_LANGUAGE_UNKNOWN_GLOBAL": "FAIL",
+    "CROP_MAP_GUARD": "PASS",
+    "GITHUB_PROVENANCE": "PASS",
+    "SUPABASE_PROVENANCE": "PASS",
+    "NO_FRONTEND_SECRET": "PASS"
+  },
+  "HANDLERS_MORTOS": [],
+  "CONVERGENCIA": {
+    "RADAR": [
+      "conv.propositionId",
+      "conv.kind",
+      "conv.state",
+      "conv.independentCount",
+      "l.family",
+      "l.dependency",
+      "l.dependencyNote",
+      "l.openEvidence"
+    ],
+    "OBJ": [
+      "conv.propositionId",
+      "conv.kind",
+      "conv.state",
+      "conv.independentCount",
+      "l.family",
+      "l.dependency",
+      "l.dependencyNote",
+      "l.openEvidence"
+    ],
+    "PERNAS": [
+      {
+        "SIGNAL_FAMILY": "TERRITORIAL",
+        "INDEPENDENCE_STATE": "INDEPENDENT",
+        "DEPENDENCY_RELATION": "INDEPENDENT_SOURCE"
+      },
+      {
+        "SIGNAL_FAMILY": "FIELD_HISTORICAL",
+        "INDEPENDENCE_STATE": "DEPENDENT",
+        "DEPENDENCY_RELATION": "SOURCE_DEPENDENCY"
+      }
+    ],
+    "CONTAGEM_DERIVADA": true
+  },
+  "GAVETA": {
+    "ENTRADAS": [
+      [
+        "EV-0001",
+        "H1"
+      ],
+      [
+        "EV-0002",
+        "H2"
+      ],
+      [
+        "EV-0003",
+        "H3"
+      ],
+      [
+        "EV-0004",
+        "H4"
+      ],
+      [
+        "EV-0005",
+        "H1"
+      ],
+      [
+        "EV-0006",
+        "H5"
+      ],
+      [
+        "EV-0007",
+        "H6"
+      ],
+      [
+        "EV-0008",
+        "H7"
+      ],
+      [
+        "EV-0009",
+        "H8"
+      ],
+      [
+        "EV-0010",
+        "H9"
+      ]
+    ],
+    "HOSES": [
+      "H1",
+      "H2",
+      "H3",
+      "H4",
+      "H5",
+      "H6",
+      "H7",
+      "H8",
+      "H9"
+    ],
+    "LINGUAS": [
+      "EN",
+      "ES",
+      "IT",
+      "UNKNOWN"
+    ],
+    "HANDLERS": [
+      "drawer.showOriginal",
+      "drawer.showTranslation"
+    ]
+  },
+  "ACAO": {
+    "CANONICOS": [
+      "BUSINESS_DECISION",
+      "INVESTIGATION",
+      "SYSTEM_DECISION"
+    ],
+    "DISPLAYS": [
+      "BUSINESS",
+      "INVESTIGATION",
+      "SYSTEM"
+    ],
+    "PERSISTE_CANONICO": true,
+    "OBJECT_ID": true,
+    "GUARD_EVIDENCE_BASIS": true
+  },
+  "TIMELINE": {
+    "CAMPOS": [
+      "EVENT_ID",
+      "EVENT_TYPE",
+      "EVENT_AT",
+      "EVENT_AT_RESOLUTION",
+      "SOURCE_ID",
+      "OBSERVATION_ID",
+      "STATE_BEFORE",
+      "STATE_AFTER",
+      "GAP_REASON"
+    ],
+    "SETA_CONCATENADA": false
+  },
+  "SOURCE_LANGUAGE": {
+    "R-H9-CONTENT-ENTITY": {
+      "EXPRESSAO": "(base.srcLang || 'unknown').toUpperCase()",
+      "CAI_EM_UNKNOWN": true,
+      "CAI_EM_TRACO": false
+    },
+    "R-H7-SCIENTIFIC-PUBLICATION": {
+      "EXPRESSAO": "null",
+      "CAI_EM_UNKNOWN": false,
+      "CAI_EM_TRACO": true
+    },
+    "R-H6-FIELD-VOICE": {
+      "EXPRESSAO": "null",
+      "CAI_EM_UNKNOWN": false,
+      "CAI_EM_TRACO": true
+    }
+  },
+  "CREATOR": {
+    "FARM_BUSINESS_ENTITY_PRESENTE": true,
+    "CREATOR_CONTENT_PROFILE_PRESENTE": true,
+    "ENTRY_PATH_VALORES": [
+      "FROM_ATTENTION_OBJECT",
+      "FROM_CROP_REGION_SEARCH"
+    ]
+  },
+  "MAPA": {
+    "GUARD_NO_ASSET": true,
+    "DECLARA_NAO_DESENHAVEIS": true,
+    "RESOLUCOES_NOS_PONTOS": [
+      "NOT_KNOWN"
+    ]
+  },
+  "PROVENIENCIA": {
+    "GITHUB": true,
+    "SUPABASE": true,
+    "SEGREDOS": []
+  },
+  "LOAD_STATES": {
+    "DECLARADOS": [
+      "UNWIRED",
+      "LOADING",
+      "READY",
+      "EMPTY_VALID",
+      "NOT_STARTED",
+      "NOT_AVAILABLE",
+      "BLOCKED",
+      "ERROR_FAIL_CLOSED"
+    ],
+    "EXERCIDOS": {
+      "UNWIRED": 10,
+      "NOT_STARTED": 3
+    }
+  }
+}

@@ -492,11 +492,18 @@ class TestOrfaosReauditados(Base):
         self.assertNotIn('ORPHAN_INTELLIGENCE_OUTPUT',
                          [o['CLASS'] for o in ORFAOS['OUTPUTS']])
 
-    def test_saidas_sem_receptor_cairam_de_dez_para_duas(self):
-        self.assertEqual(ORFAOS['SUMMARY']['OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO'], 2)
+    def test_no_index11_faltava_so_o_receptor_de_H6(self):
+        """Fato historico do index (11), preservado no proprio arquivo.
+
+        O inventario e vivo e hoje mede o index (12); o que ficou registrado do
+        index (11) e a lista de receptores ausentes daquele momento. Apagar
+        apagaria a prova de que o patch mudou algo.
+        """
         self.assertEqual(len(ORFAOS['RECEPTORS_ABSENT_IN_CASCO_INDEX11']), 1)
         self.assertEqual(ORFAOS['RECEPTORS_ABSENT_IN_CASCO_INDEX11'][0]['RECEPTOR'],
                          'R-H6-CREATOR-ENTITY')
+        self.assertIn('index (11): 2 saidas ausentes',
+                      ORFAOS['TWO_DIFFERENT_NUMBERS']['HISTORICO'])
 
     def test_o_inventario_anterior_nao_foi_apagado(self):
         """Apagar o 'antes' apagaria a prova de que o patch mudou algo."""
