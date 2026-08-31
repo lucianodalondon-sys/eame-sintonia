@@ -19,6 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 
 from supabase_dev_target import (  # noqa: E402
+    INVENTARIO_MEDIDO,
     INVENTARIO, PROJETO, SCHEMAS_DE_SISTEMA, acesso_local, classificar,
     gerar_inventario_sql, medir, preparar_aplicacao,
 )
@@ -171,13 +172,99 @@ class TestInventario(unittest.TestCase):
         self.assertIn(PROJETO['PROJECT_REF'], INV_SQL)
 
 
+class TestInventarioMedido(unittest.TestCase):
+    """O inventario voltou, por acesso autorizado fora desta maquina."""
+
+    def test_o_projeto_existente_reprova_como_DEV(self):
+        c = classificar(INVENTARIO_MEDIDO)
+        self.assertEqual(c['SAFE_TO_USE_AS_DEV'], 'NO')
+        self.assertEqual(c['DEV_INSTANCE_AVAILABLE'], 'NO')
+        self.assertEqual(ALVO['EXISTING_PROJECT_SAFE_AS_DEV'], 'NO')
+        self.assertEqual(ALVO['EXISTING_PROJECT_AVAILABLE'], 'YES')
+
+    def test_os_dois_motivos_de_bloqueio_estao_medidos(self):
+        c = classificar(INVENTARIO_MEDIDO)
+        texto = ' '.join(c['MOTIVOS_DE_BLOQUEIO'])
+        self.assertIn('732 objeto(s) em storage', texto)
+        self.assertIn('19 tabela(s) com linhas', texto)
+        self.assertEqual(INVENTARIO_MEDIDO['LINHAS_TOTAIS'], 1932)
+
+    def test_bloqueio_vence_inventario_incompleto(self):
+        """A ordem que um inventario real corrigiu.
+
+        Vieram contagens, nao as listas de schema e tabela. Antes, a guarda de
+        completude respondia primeiro e devolvia NEEDS_DECISION — com 732 arquivos
+        medidos la dentro. 'Nao sei tudo, mas sei que ha 732 arquivos' e NAO.
+        """
+        parcial = {k: INVENTARIO_MEDIDO[k] for k in
+                   ('EXISTING_USER_DATA', 'AUTH_USERS', 'STORAGE_OBJECTS')}
+        self.assertNotIn('EXISTING_SCHEMAS', parcial)
+        c = classificar(parcial)
+        self.assertEqual(c['SAFE_TO_USE_AS_DEV'], 'NO')
+        self.assertIn('inventario parcial', ' '.join(c['MOTIVOS_DE_ATENCAO']))
+
+    def test_sem_bloqueio_a_incompletude_ainda_pede_decisao(self):
+        """A guarda antiga continua valendo onde ela importa."""
+        c = classificar({'AUTH_USERS': 0, 'STORAGE_OBJECTS': 0})
+        self.assertEqual(c['SAFE_TO_USE_AS_DEV'], 'NEEDS_DECISION')
+        self.assertIn('inventario incompleto', c['WHY'][0])
+
+    def test_zero_usuarios_nao_libera_nada(self):
+        """AUTH_USERS = 0 e verdade, e nao muda o veredito."""
+        self.assertEqual(INVENTARIO_MEDIDO['AUTH_USERS'], 0)
+        self.assertEqual(classificar(INVENTARIO_MEDIDO)['SAFE_TO_USE_AS_DEV'], 'NO')
+
+    def test_o_que_nao_foi_recebido_esta_declarado(self):
+        self.assertIn('EXISTING_SCHEMAS', INVENTARIO_MEDIDO['NAO_RECEBIDO'])
+        self.assertIn('EXISTING_MIGRATION_HISTORY', INVENTARIO_MEDIDO['NAO_RECEBIDO'])
+        self.assertFalse(INVENTARIO_MEDIDO['EXECUTADO_POR_MIM'])
+
+    def test_os_achados_do_inventario_estao_registrados(self):
+        achados = {a['ACHADO'] for a in ALVO['ACHADOS_DO_INVENTARIO']}
+        self.assertTrue(any('PUBLIC_POLICIES = 0' in a for a in achados))
+        self.assertTrue(any('dominio SINTONIA' in a for a in achados))
+        self.assertTrue(any('schema_migracao = 17' in a for a in achados))
+        for a in ALVO['ACHADOS_DO_INVENTARIO']:
+            self.assertTrue(a['ACAO'])
+            self.assertNotIn('apagar', a['ACAO'])
+
+
+class TestAlvoDev(unittest.TestCase):
+
+    def test_a_estrategia_nao_foi_escolhida_em_silencio(self):
+        d = ALVO['DEV_TARGET']
+        self.assertEqual(d['DEV_TARGET_STRATEGY'], 'NEEDS_DECISION')
+        self.assertEqual(d['DEV_TARGET_CREATED'], 'NO')
+        self.assertEqual(len(d['OPCOES']), 2)
+        self.assertEqual(d['RECOMENDACAO']['NAO_E_DECISAO'], 'e recomendacao. Nada foi criado.')
+
+    def test_a_recomendacao_vem_do_inventario_e_nao_de_gosto(self):
+        r = ALVO['DEV_TARGET']['RECOMENDACAO']
+        self.assertEqual(r['ESCOLHA'], 'B')
+        self.assertIn('nao e preferencia: e o inventario', r['POR_QUE'])
+        self.assertIn('17 migrations', r['POR_QUE'])
+
+    def test_os_requisitos_do_ambiente_dev(self):
+        req = ' '.join(ALVO['DEV_TARGET']['REQUISITOS_DO_AMBIENTE_DEV'])
+        for marca in ('nao carregar dado de producao', 'SOMENTE migrations',
+                      'descartavel', 'PROJECT_REF proprio',
+                      'service role NUNCA no frontend'):
+            self.assertIn(marca, req)
+        self.assertIn('odhdwvugikjdvkapbowe', req)
+
+    def test_o_projeto_existente_fica_intocado(self):
+        nao = ' '.join(ALVO['DEV_TARGET']['O_QUE_NAO_FAZER_COM_O_PROJETO_EXISTENTE'])
+        for marca in ('nao aplicar a migration', 'nao limpar', 'nao apagar',
+                      'nao reutilizar como sandbox'):
+            self.assertIn(marca, nao)
+
+
 class TestPortaoDeAplicacao(unittest.TestCase):
 
     def test_o_portao_recusa_hoje(self):
-        p = preparar_aplicacao()
+        p = preparar_aplicacao(INVENTARIO_MEDIDO)
         self.assertFalse(p['PODE_APLICAR'])
-        self.assertIn('inventario nao executado', p['RECUSAS'])
-        self.assertIn('SAFE_TO_USE_AS_DEV = NEEDS_DECISION', p['RECUSAS'])
+        self.assertIn('SAFE_TO_USE_AS_DEV = NO', p['RECUSAS'])
 
     def test_o_portao_recusa_mesmo_com_projeto_vazio_sem_acesso(self):
         """Inventario limpo nao basta: quem aplica e quem tem credencial."""
@@ -191,8 +278,9 @@ class TestPortaoDeAplicacao(unittest.TestCase):
     def test_nada_foi_aplicado(self):
         self.assertEqual(ALVO['MIGRATION_APPLIED_DEV'], 'NO')
         self.assertEqual(ALVO['READY_TO_APPLY_MIGRATION_DEV'], 'NO')
-        self.assertFalse(ALVO['INVENTARIO_EXECUTADO'])
-        self.assertIsNone(ALVO['INVENTARIO'])
+        # o inventario agora existe — e o veredito piorou, nao melhorou
+        self.assertTrue(ALVO['INVENTARIO_EXECUTADO'])
+        self.assertEqual(ALVO['INVENTARIO']['STORAGE_OBJECTS'], 732)
 
 
 class TestNaoRegressao(unittest.TestCase):

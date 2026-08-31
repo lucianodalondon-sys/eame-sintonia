@@ -86,16 +86,207 @@
       "PARA_QUE": "arquivo guardado tambem e dado de alguem"
     }
   ],
-  "INVENTARIO_EXECUTADO": false,
-  "INVENTARIO": null,
-  "CLASSIFICACAO": {
-    "SAFE_TO_USE_AS_DEV": "NEEDS_DECISION",
-    "DEV_INSTANCE_AVAILABLE": "NOT_MEASURED",
-    "WHY": [
-      "inventario nao executado: sem acesso, sem leitura, sem veredito"
+  "INVENTARIO_EXECUTADO": true,
+  "INVENTARIO": {
+    "MEDIDO_POR": "acesso autorizado, fora desta maquina",
+    "EXECUTADO_POR_MIM": false,
+    "AUTH_USERS": 0,
+    "STORAGE_BUCKETS": 1,
+    "STORAGE_OBJECTS": 732,
+    "PUBLIC_VIEWS": 16,
+    "PUBLIC_FUNCTIONS": 20,
+    "PUBLIC_POLICIES": 0,
+    "PUBLIC_TABLES_WITH_ROWS": 19,
+    "SUPABASE_DEVELOPMENT_BRANCHES_EXISTING": 0,
+    "EXISTING_USER_DATA": [
+      {
+        "schemaname": "public",
+        "relname": "catalogo_captura",
+        "n_live_tup": 1
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto",
+        "n_live_tup": 56
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_agente",
+        "n_live_tup": 176
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_claim",
+        "n_live_tup": 35
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_cultivo",
+        "n_live_tup": 711
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_cultivo_agente",
+        "n_live_tup": 5
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_cultivo_dose",
+        "n_live_tup": 26
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_documento",
+        "n_live_tup": 147
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_janela_aplicacao",
+        "n_live_tup": 3
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_modo_acao",
+        "n_live_tup": 17
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_relacao",
+        "n_live_tup": 1
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_substancia",
+        "n_live_tup": 73
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_produto_tecnologia",
+        "n_live_tup": 1
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_registro_crosswalk",
+        "n_live_tup": 108
+      },
+      {
+        "schemaname": "public",
+        "relname": "catalogo_termo_ambiguo",
+        "n_live_tup": 210
+      },
+      {
+        "schemaname": "public",
+        "relname": "collection_run",
+        "n_live_tup": 4
+      },
+      {
+        "schemaname": "public",
+        "relname": "raw_asset",
+        "n_live_tup": 245
+      },
+      {
+        "schemaname": "public",
+        "relname": "registro_regulatorio",
+        "n_live_tup": 96
+      },
+      {
+        "schemaname": "public",
+        "relname": "schema_migracao",
+        "n_live_tup": 17
+      }
     ],
-    "MOTIVOS_DE_BLOQUEIO": [],
-    "MOTIVOS_DE_ATENCAO": []
+    "LINHAS_TOTAIS": 1932,
+    "NAO_RECEBIDO": [
+      "EXISTING_SCHEMAS",
+      "EXISTING_TABLES (lista)",
+      "EXISTING_VIEWS (lista)",
+      "EXISTING_FUNCTIONS (lista)",
+      "EXISTING_MIGRATION_HISTORY",
+      "DATABASE_VERSION"
+    ]
+  },
+  "ACHADOS_DO_INVENTARIO": [
+    {
+      "ACHADO": "PUBLIC_POLICIES = 0 com 19 tabelas contendo dado",
+      "POR_QUE_IMPORTA": "sem politica, o acesso depende de RLS estar desligada ou de GRANT. Num projeto Supabase, tabela sem RLS fica legivel pela chave anonima. Nao e o meu projeto e nao vou mexer — mas e um fato medido que alguem precisa olhar.",
+      "ACAO": "reportar; nenhuma alteracao feita"
+    },
+    {
+      "ACHADO": "os nomes das tabelas sao do dominio SINTONIA: catalogo_produto, registro_regulatorio, raw_asset, collection_run",
+      "POR_QUE_IMPORTA": "isto nao parece um projeto alheio: parece uma implementacao anterior ou paralela do proprio SINTONIA. Se for, o dado la dentro pode ter valor, e a relacao dele com o modelo canonico desta rodada e uma pergunta em aberto — nao uma coincidencia de nome.",
+      "ACAO": "pergunta aberta; nao resolvida por palpite"
+    },
+    {
+      "ACHADO": "schema_migracao = 17",
+      "POR_QUE_IMPORTA": "o projeto tem historia de migration propria. Qualquer branch dele herda essa historia, e a migration canonica nao pousaria em banco limpo.",
+      "ACAO": "e o argumento tecnico que sustenta a recomendacao B"
+    }
+  ],
+  "DEV_TARGET": {
+    "DEV_TARGET_STRATEGY": "NEEDS_DECISION",
+    "DEV_TARGET_CREATED": "NO",
+    "POR_QUE_NAO_ESCOLHI": "o briefing proibe escolher em silencio, e as duas opcoes tem custo e consequencia diferentes. A recomendacao esta abaixo com o motivo; a decisao e do Luciano.",
+    "OPCOES": [
+      {
+        "ID": "A",
+        "NOME": "Supabase Development Branch a partir do projeto existente",
+        "EXIGE": [
+          "plano que ofereca branching",
+          "projeto ligado a um repositorio Git",
+          "custo por branch aceito"
+        ],
+        "CONTRA_MEDIDO": "a branch nasce do projeto pai, e o pai tem 17 linhas em schema_migracao e 19 tabelas com dado. A migration canonica cairia em cima de um schema que NAO esta limpo — que e exatamente o que o proprio classificador marca como \"nao pode assumir banco limpo\". E o requisito \"nao carregar production data automaticamente\" fica dependendo de configuracao, em vez de ser garantido pela origem.",
+        "A_FAVOR": "nasce ligada ao projeto real, e some quando a branch some"
+      },
+      {
+        "ID": "B",
+        "NOME": "novo projeto Supabase DEV separado",
+        "EXIGE": [
+          "criar projeto",
+          "PROJECT_REF proprio",
+          "nome que se leia como DEV"
+        ],
+        "A_FAVOR_MEDIDO": "nasce vazio por construcao: nenhum dado de producao pode vir junto porque nao ha de onde vir. Nenhuma historia de migration para colidir. E o isolamento nao depende de configuracao — depende de ser outro projeto.",
+        "CONTRA": "mais um projeto para manter, e outro conjunto de chaves para guardar"
+      }
+    ],
+    "RECOMENDACAO": {
+      "ESCOLHA": "B",
+      "POR_QUE": "nao e preferencia: e o inventario. O projeto existente tem 17 migrations aplicadas e 19 tabelas com linha. Uma branch herdaria as duas coisas, e a migration canonica pousaria sobre schema ocupado. Um projeto novo comeca vazio porque nao ha de onde herdar.",
+      "NAO_E_DECISAO": "e recomendacao. Nada foi criado."
+    },
+    "REQUISITOS_DO_AMBIENTE_DEV": [
+      "nao carregar dado de producao automaticamente — nem por copia, nem por seed",
+      "receber SOMENTE migrations",
+      "ser explicitamente descartavel: apagar e recriar nao pode doer",
+      "ter PROJECT_REF proprio, diferente de odhdwvugikjdvkapbowe",
+      "nome que se leia como DEV sem precisar consultar ninguem",
+      "service role NUNCA no frontend: a chave vai para um servidor",
+      "ser identificavel como DEV pelo proprio REF, nao so pelo nome"
+    ],
+    "O_QUE_NAO_FAZER_COM_O_PROJETO_EXISTENTE": [
+      "nao aplicar a migration canonica nele",
+      "nao limpar",
+      "nao apagar",
+      "nao reutilizar como sandbox descartavel"
+    ]
+  },
+  "EXISTING_PROJECT_AVAILABLE": "YES",
+  "EXISTING_PROJECT_SAFE_AS_DEV": "NO",
+  "CLASSIFICACAO": {
+    "SAFE_TO_USE_AS_DEV": "NO",
+    "DEV_INSTANCE_AVAILABLE": "NO",
+    "WHY": [
+      "ha 732 objeto(s) em storage — arquivo guardado e dado de alguem",
+      "19 tabela(s) com linhas: public.catalogo_captura(1), public.catalogo_produto(56), public.catalogo_produto_agente(176), public.catalogo_produto_claim(35), public.catalogo_produto_cultivo(711), public.catalogo_produto_cultivo_agente(5)"
+    ],
+    "MOTIVOS_DE_BLOQUEIO": [
+      "ha 732 objeto(s) em storage — arquivo guardado e dado de alguem",
+      "19 tabela(s) com linhas: public.catalogo_captura(1), public.catalogo_produto(56), public.catalogo_produto_agente(176), public.catalogo_produto_claim(35), public.catalogo_produto_cultivo(711), public.catalogo_produto_cultivo_agente(5)"
+    ],
+    "MOTIVOS_DE_ATENCAO": [
+      "inventario parcial (faltam EXISTING_SCHEMAS, EXISTING_TABLES), mas ha bloqueio medido: o veredito nao depende do que falta"
+    ]
   },
   "REGRA_DO_CLASSIFICADOR": {
     "BLOQUEIA": [
@@ -116,8 +307,7 @@
   "PORTAO_DE_APLICACAO": {
     "PODE_APLICAR": false,
     "RECUSAS": [
-      "SAFE_TO_USE_AS_DEV = NEEDS_DECISION",
-      "inventario nao executado",
+      "SAFE_TO_USE_AS_DEV = NO",
       "sem acesso local: quem aplica e quem tem credencial"
     ],
     "ALVO": "odhdwvugikjdvkapbowe",

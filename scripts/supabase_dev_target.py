@@ -94,6 +94,39 @@ SCHEMAS_DE_SISTEMA = ('auth', 'storage', 'extensions', 'graphql', 'graphql_publi
                       'realtime', 'supabase_functions', 'supabase_migrations',
                       'vault', 'pgsodium', 'pgsodium_masks', 'net', 'cron', 'public')
 
+# ── inventario MEDIDO por acesso autorizado, fora desta maquina ──────────────
+# Recebido pronto. Nao foi eu quem rodou; registrado como medicao externa.
+TABELAS_COM_LINHA = {
+    'catalogo_captura': 1, 'catalogo_produto': 56, 'catalogo_produto_agente': 176,
+    'catalogo_produto_claim': 35, 'catalogo_produto_cultivo': 711,
+    'catalogo_produto_cultivo_agente': 5, 'catalogo_produto_cultivo_dose': 26,
+    'catalogo_produto_documento': 147, 'catalogo_produto_janela_aplicacao': 3,
+    'catalogo_produto_modo_acao': 17, 'catalogo_produto_relacao': 1,
+    'catalogo_produto_substancia': 73, 'catalogo_produto_tecnologia': 1,
+    'catalogo_registro_crosswalk': 108, 'catalogo_termo_ambiguo': 210,
+    'collection_run': 4, 'raw_asset': 245, 'registro_regulatorio': 96,
+    'schema_migracao': 17,
+}
+
+INVENTARIO_MEDIDO = {
+    'MEDIDO_POR': 'acesso autorizado, fora desta maquina',
+    'EXECUTADO_POR_MIM': False,
+    'AUTH_USERS': 0,
+    'STORAGE_BUCKETS': 1,
+    'STORAGE_OBJECTS': 732,
+    'PUBLIC_VIEWS': 16,
+    'PUBLIC_FUNCTIONS': 20,
+    'PUBLIC_POLICIES': 0,
+    'PUBLIC_TABLES_WITH_ROWS': 19,
+    'SUPABASE_DEVELOPMENT_BRANCHES_EXISTING': 0,
+    'EXISTING_USER_DATA': [{'schemaname': 'public', 'relname': k, 'n_live_tup': v}
+                           for k, v in TABELAS_COM_LINHA.items()],
+    'LINHAS_TOTAIS': sum(TABELAS_COM_LINHA.values()),
+    'NAO_RECEBIDO': ['EXISTING_SCHEMAS', 'EXISTING_TABLES (lista)', 'EXISTING_VIEWS (lista)',
+                     'EXISTING_FUNCTIONS (lista)', 'EXISTING_MIGRATION_HISTORY',
+                     'DATABASE_VERSION'],
+}
+
 
 def classificar(inv):
     """Transforma um inventario em veredito. Sem inventario, NEEDS_DECISION.
@@ -107,21 +140,6 @@ def classificar(inv):
             'DEV_INSTANCE_AVAILABLE': 'NOT_MEASURED',
             'WHY': ['inventario nao executado: sem acesso, sem leitura, sem veredito'],
             'MOTIVOS_DE_BLOQUEIO': [], 'MOTIVOS_DE_ATENCAO': [],
-        }
-
-    # Inventario INCOMPLETO nao e inventario limpo. Sem esta guarda, um dicionario
-    # vazio passaria por "nada encontrado" e devolveria YES — que e exatamente a
-    # regra que este classificador existe para nao violar.
-    obrigatorias = ('EXISTING_SCHEMAS', 'EXISTING_TABLES', 'EXISTING_USER_DATA',
-                    'AUTH_USERS', 'STORAGE_OBJECTS')
-    ausentes = [k for k in obrigatorias if k not in inv]
-    if ausentes:
-        return {
-            'SAFE_TO_USE_AS_DEV': 'NEEDS_DECISION',
-            'DEV_INSTANCE_AVAILABLE': 'NOT_MEASURED',
-            'WHY': ['inventario incompleto: faltam %s' % ', '.join(ausentes)],
-            'MOTIVOS_DE_BLOQUEIO': [],
-            'MOTIVOS_DE_ATENCAO': ['chave ausente nao e chave vazia'],
         }
 
     bloqueia, atencao = [], []
@@ -157,6 +175,26 @@ def classificar(inv):
     if historico:
         atencao.append('%d migration(s) ja aplicada(s) neste projeto' % len(historico))
 
+    # ORDEM QUE IMPORTA, e que um inventario real corrigiu:
+    # evidencia que bloqueia vence a incompletude. "Nao sei tudo, mas sei que ha
+    # 732 arquivos la dentro" e NAO, nao e "precisa decidir". A guarda de
+    # completude so vale quando NADA bloqueia — la e que a ausencia de informacao
+    # poderia virar um YES indevido.
+    obrigatorias = ('EXISTING_SCHEMAS', 'EXISTING_TABLES', 'EXISTING_USER_DATA',
+                    'AUTH_USERS', 'STORAGE_OBJECTS')
+    ausentes = [k for k in obrigatorias if k not in inv]
+    if not bloqueia and ausentes:
+        return {
+            'SAFE_TO_USE_AS_DEV': 'NEEDS_DECISION',
+            'DEV_INSTANCE_AVAILABLE': 'NOT_MEASURED',
+            'WHY': ['inventario incompleto: faltam %s' % ', '.join(ausentes)],
+            'MOTIVOS_DE_BLOQUEIO': [],
+            'MOTIVOS_DE_ATENCAO': ['chave ausente nao e chave vazia'],
+        }
+    if ausentes:
+        atencao.append('inventario parcial (faltam %s), mas ha bloqueio medido: o '
+                       'veredito nao depende do que falta' % ', '.join(ausentes))
+
     if bloqueia:
         veredito, disp = 'NO', 'NO'
     elif atencao:
@@ -188,6 +226,88 @@ def acesso_local():
     }
 
 
+DEV_TARGET = {
+    'DEV_TARGET_STRATEGY': 'NEEDS_DECISION',
+    'DEV_TARGET_CREATED': 'NO',
+    'POR_QUE_NAO_ESCOLHI': ('o briefing proibe escolher em silencio, e as duas opcoes '
+                            'tem custo e consequencia diferentes. A recomendacao esta '
+                            'abaixo com o motivo; a decisao e do Luciano.'),
+    'OPCOES': [
+        {
+            'ID': 'A', 'NOME': 'Supabase Development Branch a partir do projeto existente',
+            'EXIGE': ['plano que ofereca branching', 'projeto ligado a um repositorio Git',
+                      'custo por branch aceito'],
+            'CONTRA_MEDIDO': (
+                'a branch nasce do projeto pai, e o pai tem 17 linhas em schema_migracao '
+                'e 19 tabelas com dado. A migration canonica cairia em cima de um schema '
+                'que NAO esta limpo — que e exatamente o que o proprio classificador marca '
+                'como "nao pode assumir banco limpo". E o requisito "nao carregar '
+                'production data automaticamente" fica dependendo de configuracao, em vez '
+                'de ser garantido pela origem.'),
+            'A_FAVOR': 'nasce ligada ao projeto real, e some quando a branch some',
+        },
+        {
+            'ID': 'B', 'NOME': 'novo projeto Supabase DEV separado',
+            'EXIGE': ['criar projeto', 'PROJECT_REF proprio', 'nome que se leia como DEV'],
+            'A_FAVOR_MEDIDO': (
+                'nasce vazio por construcao: nenhum dado de producao pode vir junto porque '
+                'nao ha de onde vir. Nenhuma historia de migration para colidir. E o '
+                'isolamento nao depende de configuracao — depende de ser outro projeto.'),
+            'CONTRA': 'mais um projeto para manter, e outro conjunto de chaves para guardar',
+        },
+    ],
+    'RECOMENDACAO': {
+        'ESCOLHA': 'B',
+        'POR_QUE': ('nao e preferencia: e o inventario. O projeto existente tem 17 '
+                    'migrations aplicadas e 19 tabelas com linha. Uma branch herdaria as '
+                    'duas coisas, e a migration canonica pousaria sobre schema ocupado. '
+                    'Um projeto novo comeca vazio porque nao ha de onde herdar.'),
+        'NAO_E_DECISAO': 'e recomendacao. Nada foi criado.',
+    },
+    'REQUISITOS_DO_AMBIENTE_DEV': [
+        'nao carregar dado de producao automaticamente — nem por copia, nem por seed',
+        'receber SOMENTE migrations',
+        'ser explicitamente descartavel: apagar e recriar nao pode doer',
+        'ter PROJECT_REF proprio, diferente de odhdwvugikjdvkapbowe',
+        'nome que se leia como DEV sem precisar consultar ninguem',
+        'service role NUNCA no frontend: a chave vai para um servidor',
+        'ser identificavel como DEV pelo proprio REF, nao so pelo nome',
+    ],
+    'O_QUE_NAO_FAZER_COM_O_PROJETO_EXISTENTE': [
+        'nao aplicar a migration canonica nele',
+        'nao limpar', 'nao apagar', 'nao reutilizar como sandbox descartavel',
+    ],
+}
+
+ACHADOS_DO_INVENTARIO = [
+    {
+        'ACHADO': 'PUBLIC_POLICIES = 0 com 19 tabelas contendo dado',
+        'POR_QUE_IMPORTA': ('sem politica, o acesso depende de RLS estar desligada ou de '
+                            'GRANT. Num projeto Supabase, tabela sem RLS fica legivel pela '
+                            'chave anonima. Nao e o meu projeto e nao vou mexer — mas e um '
+                            'fato medido que alguem precisa olhar.'),
+        'ACAO': 'reportar; nenhuma alteracao feita',
+    },
+    {
+        'ACHADO': ('os nomes das tabelas sao do dominio SINTONIA: catalogo_produto, '
+                   'registro_regulatorio, raw_asset, collection_run'),
+        'POR_QUE_IMPORTA': ('isto nao parece um projeto alheio: parece uma implementacao '
+                            'anterior ou paralela do proprio SINTONIA. Se for, o dado la '
+                            'dentro pode ter valor, e a relacao dele com o modelo canonico '
+                            'desta rodada e uma pergunta em aberto — nao uma coincidencia '
+                            'de nome.'),
+        'ACAO': 'pergunta aberta; nao resolvida por palpite',
+    },
+    {
+        'ACHADO': 'schema_migracao = 17',
+        'POR_QUE_IMPORTA': ('o projeto tem historia de migration propria. Qualquer branch '
+                            'dele herda essa historia, e a migration canonica nao pousaria '
+                            'em banco limpo.'),
+        'ACAO': 'e o argumento tecnico que sustenta a recomendacao B',
+    },
+]
+
+
 def medir(inventario=None):
     cls = classificar(inventario)
     return {
@@ -209,6 +329,10 @@ def medir(inventario=None):
         'INVENTARIO_CONTRATO': INVENTARIO,
         'INVENTARIO_EXECUTADO': inventario is not None,
         'INVENTARIO': inventario,
+        'ACHADOS_DO_INVENTARIO': ACHADOS_DO_INVENTARIO,
+        'DEV_TARGET': DEV_TARGET,
+        'EXISTING_PROJECT_AVAILABLE': 'YES',
+        'EXISTING_PROJECT_SAFE_AS_DEV': cls['SAFE_TO_USE_AS_DEV'],
         'CLASSIFICACAO': cls,
         'REGRA_DO_CLASSIFICADOR': {
             'BLOQUEIA': ['usuario em auth.users', 'objeto em storage',
@@ -303,8 +427,8 @@ def preparar_aplicacao(inventario=None):
 
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8')
-    m = medir()
-    m['PORTAO_DE_APLICACAO'] = preparar_aplicacao()
+    m = medir(INVENTARIO_MEDIDO)
+    m['PORTAO_DE_APLICACAO'] = preparar_aplicacao(INVENTARIO_MEDIDO)
     if '--sync' in sys.argv:
         os.makedirs(os.path.dirname(INVENTARIO_SQL), exist_ok=True)
         with open(INVENTARIO_SQL, 'w', encoding='utf-8', newline='\n') as fh:
