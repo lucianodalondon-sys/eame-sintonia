@@ -3,7 +3,7 @@
   "SOURCE_BACKEND": "GITHUB",
   "MODE": "FROZEN_SNAPSHOT",
   "NOT_SUPABASE": "Este bundle nao veio do Supabase. O adapter de snapshot sera trocado depois.",
-  "GENERATED_FROM_HEAD": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+  "GENERATED_FROM_HEAD": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
   "LANGS": [
    "pt",
    "en",
@@ -643,7 +643,7 @@
    "prov": {
     "SOURCE_BACKEND": "GITHUB",
     "REPOSITORY": "lucianodalondon-sys/eame-sintonia",
-    "COMMIT_SHA": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+    "COMMIT_SHA": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
     "SOURCE_ID": "ES-T3-001",
     "AS_OF_DATE": "2026-08-29",
     "HOSE": "FIELD_HISTORICAL"
@@ -910,7 +910,7 @@
    "level": "naoprovado",
    "original": null,
    "translated": null,
-   "commit": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
    "asOf": "2026-08-29",
    "note": "JUDGMENT_REQUIRED · se uma serie retrospectiva sem antecedencia provada merece fila de atencao, ou se e contexto",
    "unresolved": false
@@ -1092,7 +1092,7 @@
    "level": "medido",
    "original": "1702 Repilo: % Hojas  con Repilo Visible",
    "translated": null,
-   "commit": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
    "asOf": "2026-08-29",
    "note": "consequencia material: Cadiz 2026 = 8,01 NAO e o maximo da serie. Cadiz teve 9,71 em 2013, 8,40 em 2010 e 7,95 em 2009. Huelva 8,83 em 2026 E o maximo de toda a serie.",
    "unresolved": false
@@ -1120,7 +1120,7 @@
    "level": "naoprovado",
    "original": null,
    "translated": null,
-   "commit": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
    "asOf": "2026-08-29",
    "note": "VIDEO_x_SCIENCE = NOT_REACHED por casamento de nome. Nos dois niveis: 1 candidato nao confirmado por pessoa, e zero por instituicao no metodo estrito — enquanto o metodo frouxo produz falso positivo demonstravel. A rota SCIENCE -> RESEARCHER -> PUBLIC EXPLANATION nao esta refutada; ela apenas nao se constroi com nome.",
    "unresolved": false
@@ -2823,7 +2823,7 @@
     },
     {
      "k": "PROVENANCE · COMMIT_SHA",
-     "v": "000d2312e59a"
+     "v": "31e594bbd9c9"
     },
     {
      "k": "CANONICAL_ENTITIES",
@@ -2871,7 +2871,7 @@
     },
     {
      "k": "PROVENANCE · COMMIT_SHA",
-     "v": "000d2312e59a"
+     "v": "31e594bbd9c9"
     },
     {
      "k": "CANONICAL_ENTITIES",
@@ -2988,7 +2988,12 @@
    "core": true,
    "state": "naodeterm",
    "basis": [
-    "EV-0001"
+    "EV-0001",
+    "EV-0002",
+    "EV-0003",
+    "EV-0004",
+    "EV-0005",
+    "EV-0006"
    ],
    "action": "Programar a segunda leitura independente dos recortes em teste.",
    "why": "E a unica acao que muda o estado de um objeto hoje: nenhum recorte tem confirmacao independente.",
@@ -2999,7 +3004,12 @@
    "kind": "invest",
    "state": "naodeterm",
    "basis": [
-    "EV-0001"
+    "EV-0001",
+    "EV-0002",
+    "EV-0003",
+    "EV-0004",
+    "EV-0005",
+    "EV-0006"
    ],
    "action": "Nomear o issue por fonte tecnica nos itens territoriais.",
    "why": "O portao \"issue nomeado\" esta aberto em 6 recortes de fenomeno.",
@@ -3010,7 +3020,12 @@
    "kind": "invest",
    "state": "naodeterm",
    "basis": [
-    "EV-0001"
+    "EV-0008",
+    "EV-0010",
+    "EV-0011",
+    "EV-0012",
+    "EV-0013",
+    "EV-0014"
    ],
    "action": "Confirmar efeito no rotulo dos 155 registros com data futura.",
    "why": "Expiracao declarada nao e retirada de produto — o efeito exige confirmacao.",
@@ -3021,11 +3036,16 @@
    "kind": "invest",
    "state": "naodeterm",
    "basis": [
-    "EV-0001"
+    "EV-0009",
+    "EV-0015",
+    "EV-0016",
+    "EV-0017",
+    "EV-0018",
+    "EV-0019"
    ],
-   "action": "Congelar o handoff canonico da Meta para liberar a entrada final de refresh.",
-   "why": "36 tuplas estao presas em join preliminar por causa disso.",
-   "time": "depende do coordenador da Meta"
+   "action": "Reexecutar o cruzamento de H3 contra o freeze congelado da Meta e recongelar H3.",
+   "why": "36 tuplas continuam em join preliminar. O impedimento declarado caiu (Meta congelada em acfd987141d5), mas ninguem rodou o cruzamento de novo.",
+   "time": "sem impedimento externo · depende de rodar"
   }
  ],
  "archived": [],
@@ -3062,7 +3082,7 @@
    "loaded": true,
    "raw_rows": 148964,
    "canonical_entities": 23,
-   "commit": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
    "as_of": "2026-08-29"
   },
   "H6": {
@@ -3076,7 +3096,7 @@
    "loaded": true,
    "raw_rows": 153,
    "canonical_entities": 0,
-   "commit": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
    "as_of": "2026-08-29"
   },
   "H8": {
@@ -5579,7 +5599,7 @@
   "H5": {
    "SOURCE_BACKEND": "GITHUB",
    "REPOSITORY": "lucianodalondon-sys/eame-sintonia",
-   "COMMIT_SHA": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+   "COMMIT_SHA": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
    "SOURCE_ID": "ES-T3-001",
    "AS_OF_DATE": "2026-08-29",
    "HOSE": "FIELD_HISTORICAL"
@@ -5595,7 +5615,7 @@
   "H7": {
    "SOURCE_BACKEND": "GITHUB",
    "REPOSITORY": "lucianodalondon-sys/eame-sintonia",
-   "COMMIT_SHA": "000d2312e59a9bc134cdd6b6d8cf4688168bd8fc",
+   "COMMIT_SHA": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
    "SOURCE_ID": "ES-X-VOICE-SCIENCE",
    "AS_OF_DATE": "2026-08-29",
    "HOSE": "SCIENCE_EXPERT"
