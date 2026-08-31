@@ -1,0 +1,148 @@
+# ═══════════════════════════════════════════════════════════════════════
+# COMUNICAÇÃO PÚBLICA DO CONCORRENTE — coleta por fase, no runner local.
+#
+# Uma fase por execução, escolhida na mão. `contratos` é GRÁTIS e roda
+# primeiro: ele faz um GET no ator e prova que o ator EXISTE com aquele
+# identificador antes de qualquer execução paga.
+#
+#     contratos    GRÁTIS — lê o ator. Zero run, zero item, zero custo.
+#     posts        posts das contas AUTORIZADAS de uma plataforma
+#
+# Três dos quatro identificadores de ator desta missão nunca foram
+# executados por esta casa. Rodar `posts` antes de `contratos` passar é
+# repetir o erro mais caro já medido aqui: o piloto italiano queimou 8
+# execuções pagas mandando um campo que o Actor descartava em silêncio, e
+# os 8 runs devolveram o mesmo consultor de cibersegurança.
+#
+#     ENTRADA ERRADA != PLATAFORMA ERRADA.
+#
+# O QUE ESTE WORKFLOW NÃO DECIDE
+# -------------------------------
+# Quem entra na coleta já está decidido em `CONTAS-V1.json`, resolvido de
+# graça, fora daqui. A fase paga só LÊ aquela lista e só aceita linha com
+# COLLECTION_AUTHORIZED = YES — que significa PROVED **e** LOCAL_COUNTRY.
+# Nenhum passo abaixo promove conta.
+#
+# O SEGREDO NÃO SAI DAQUI
+# ------------------------
+# `APIFY_TOKEN_POOL` entra por secret e vive só no cabeçalho Authorization.
+# `apify_pool.redigir()` limpa qualquer texto de erro antes do log, porque um
+# traceback de urllib carrega a URL e a URL pode carregar o token.
+# ═══════════════════════════════════════════════════════════════════════
+name: comunicacao-publica
+
+on:
+  workflow_dispatch:
+    inputs:
+      fase:
+        description: 'qual fase rodar'
+        required: true
+        default: contratos
+        type: choice
+        options: [contratos, posts]
+      plataforma:
+        description: 'só para a fase posts'
+        required: true
+        default: YOUTUBE
+        type: choice
+        options: [YOUTUBE, INSTAGRAM, FACEBOOK, LINKEDIN]
+
+permissions:
+  contents: write
+
+jobs:
+  coleta:
+    # Runner local, e não ubuntu-latest, pela mesma medição que já mandou nas
+    # outras missões: o IP de contêiner leva 429 e 403 onde a máquina
+    # residencial passa.
+    runs-on: [self-hosted, Windows, X64, eame-sintonia-local-2]
+    defaults:
+      run:
+        shell: bash
+    env:
+      APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      # RUNNER PERSISTENTE != ÁRVORE LIMPA. `actions/checkout` limpa arquivo
+      # não rastreado; não desfaz commit local preso de uma rodada que morreu
+      # no meio de um rebase.
+      - name: 0a · base limpa antes de qualquer coleta
+        run: |
+          git rebase --abort 2>/dev/null || true
+          git merge --abort 2>/dev/null || true
+          git fetch --quiet origin "${{ github.ref_name }}"
+          git reset --hard --quiet "origin/${{ github.ref_name }}"
+          echo "BASE=$(git log --oneline -1)"
+
+      # `python3` nesta máquina é o atalho da Microsoft Store e falha. `py` funciona.
+      - name: 0 · interpretador
+        run: |
+          for c in py python3 python; do
+            if $c --version >/dev/null 2>&1; then
+              echo "PY=$c" >> "$GITHUB_ENV"; echo "INTERPRETADOR=$c"; exit 0
+            fi
+          done
+          echo "INTERPRETADOR=NENHUM"; exit 1
+
+      - name: 1 · censo do pool (presença e quantidade — nunca valor)
+        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+
+      # A régua de identidade roda de novo, de graça, ANTES da fase paga. Ela é
+      # determinística sobre a evidência gravada: se o resultado mudar aqui,
+      # alguém mexeu na régua ou na evidência, e a coleta tem que ver a lista nova.
+      - name: 2 · reconferir quem está autorizado (grátis)
+        run: |
+          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_identidade.py
+          PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py
+
+      - name: 3 · rodar a fase
+        env:
+          RUNNER_NAME: ${{ runner.name }}
+        run: |
+          echo "FASE=${{ inputs.fase }} · PLATAFORMA=${{ inputs.plataforma }}"
+          if [ "${{ inputs.fase }}" = "contratos" ]; then
+            PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_coleta.py contratos
+          else
+            PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_coleta.py posts \
+              "${{ inputs.plataforma }}"
+          fi
+
+      - name: 4 · classificar e medir (grátis, sobre o que acabou de chegar)
+        if: always()
+        run: |
+          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_classificar.py || true
+          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_medir.py || true
+
+      - name: 5 · devolver o resultado ao repositório
+        run: |
+          set -e
+          git config user.name  "sintonia-eame-runner"
+          git config user.email "runner@eame-sintonia.local"
+          git add -A "data/samples/COMPETITOR-PUBLIC-COMM" "data/samples/raw-paid" || true
+          if git diff --cached --quiet; then
+            echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"; exit 0
+          fi
+          echo "--- o que volta ---"; git diff --cached --stat
+          git commit -q -m "comunicacao publica: fase ${{ inputs.fase }} ${{ inputs.plataforma }} (run ${{ github.run_id }})"
+          # Outra sessao pode ter empurrado enquanto a fase rodava. Se o rebase
+          # conflitar, ABORTA e falha ALTO — nunca imprime sucesso com o dado preso
+          # na maquina.
+          for tentativa in 1 2 3; do
+            git fetch --quiet origin "${{ github.ref_name }}"
+            if git rebase --quiet "origin/${{ github.ref_name }}"; then
+              if git push --quiet origin HEAD:"${{ github.ref_name }}"; then
+                echo "RESULTADO_COMMITADO=YES (tentativa $tentativa)"; exit 0
+              fi
+              echo "push recusado, outra sessao chegou antes — tentando de novo"
+            else
+              echo "CONFLITO no rebase, abortando (tentativa $tentativa)"
+              git rebase --abort || true
+            fi
+            sleep $((tentativa * 5))
+          done
+          echo "RESULTADO_COMMITADO=NO · nao consegui devolver o resultado"
+          exit 1

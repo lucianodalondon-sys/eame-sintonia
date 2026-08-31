@@ -1,0 +1,235 @@
+{
+ "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1",
+ "DATASET_OWNER": "COMPETITOR_PUBLIC_COMMUNICATION_EAME",
+ "source": "leitura do site oficial local de cada COMPANY x COUNTRY, em navegador com janela",
+ "SOURCE_LOCATION": "site do próprio concorrente — primeira parte",
+ "FACT_LOCATION": "n/a — o fato aqui é o que o site DECLARA, não o que acontece no campo",
+ "ORIGINAL_LANGUAGE": "es · it · fr",
+ "EVIDENCE_CLASS": "PRIMARY_DECLARED_LINK",
+ "captured_at": "2026-08-30",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+
+ "COMO_FOI_LIDO": "navegação real + leitura dos elementos <a href> da página. O href é o que a empresa DECLARA, não o que um buscador sugere.",
+
+ "POR_QUE_NAVEGADOR_E_NAO_FETCH": "o primeiro teste usou busca HTTP simples em syngenta.fr e levou HTTP 403. É a mesma porta que o catálogo ADAMA já tinha ensinado nesta casa: borda de CDN recusa cliente sem janela. Navegador com janela abre. FETCH_403 != SITE_FORA_DO_AR.",
+
+ "O_QUE_ESTA_LEITURA_PROVA": "que aquele site declara aquele link. Nada além disso.",
+ "O_QUE_ELA_NAO_PROVA": [
+  "não prova que a conta seja do PAÍS — o site espanhol da BASF declara o LinkedIn GLOBAL /company/basf",
+  "não prova que a conta esteja ativa",
+  "não prova que a conta fale de proteção de cultivos — o site francês da Bayer declara /dekalbfr, que é marca de semente",
+  "ausência de link não prova ausência de conta: prova ausência de DECLARAÇÃO"
+ ],
+
+ "ARMADILHA_MEDIDA_1_PAGINA_ERRADA": "a primeira tentativa foi bayer.com/es/es/espana, que caiu em bayer.com/en/not-found — página 404 GLOBAL — e ainda assim serviu rodapé com cinco links sociais, todos GLOBAIS (/company/bayer, /Bayer, /bayerofficial). Uma leitura que só olhasse os links teria promovido a conta global da Bayer a conta espanhola de proteção de cultivos. Por isso todo âncora aqui registra a URL FINAL e o TÍTULO da página.",
+
+ "ARMADILHA_MEDIDA_2_SUBDOMINIO_DE_IDIOMA": "o site italiano da Bayer declara it.linkedin.com/company/bayer-cropscience. O prefixo `it.` é o subdomínio de IDIOMA do LinkedIn, não a conta: a conta é `bayer-cropscience`, sem marca de país. Ler `it.` como Itália seria inferir país pela língua, que o §6 proíbe.",
+
+ "ARMADILHA_MEDIDA_3_LINK_QUE_NAO_E_CONTA": "três formas de ruído apareceram e nenhuma é conta: facebook.com/policy.php (aviso do fornecedor de cookies, presente em 4 sites), youtube.com/watch?v=... (vídeo) e youtube.com/playlist?list=... (playlist). A BASF France declara SÓ uma playlist — que se lê como 'tem YouTube' e não é conta nenhuma.",
+
+ "ANCHOR_KINDS": {
+  "LOCAL_DOMAIN": "domínio próprio do país (cropscience.bayer.es)",
+  "COUNTRY_SECTION_OF_GLOBAL_DOMAIN": "seção de país dentro do domínio global (corteva.com/es). Continua sendo primeira parte, mas o dono do domínio é global — e isso muda o que o rodapé costuma listar."
+ },
+
+ "ANCHORS": [
+  {
+   "COMPANY": "BAYER", "COUNTRY": "ES",
+   "REQUESTED_URL": "https://www.cropscience.bayer.es/",
+   "FINAL_URL": "https://www.cropscience.bayer.es/",
+   "PAGE_TITLE": "Inicio | Bayer",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.facebook.com/Bayer4CropsES", "LABEL": ""},
+    {"HREF": "https://www.youtube.com/c/BayerCropScienceEspa%C3%B1a", "LABEL": ""},
+    {"HREF": "https://www.instagram.com/bayer4cropses/", "LABEL": ""},
+    {"HREF": "https://www.youtube.com/watch?v=iWTktO4WKQ0", "LABEL": "Ver vídeo"}
+   ]
+  },
+  {
+   "COMPANY": "BAYER", "COUNTRY": "IT",
+   "REQUESTED_URL": "https://www.cropscience.bayer.it/",
+   "FINAL_URL": "https://www.cropscience.bayer.it/",
+   "PAGE_TITLE": "Bayer Crop Science Italia",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.facebook.com/BayerCropScienceItalia", "LABEL": ""},
+    {"HREF": "https://www.youtube.com/user/BayerCropScienceIT", "LABEL": ""},
+    {"HREF": "https://www.instagram.com/bayer_italia", "LABEL": ""},
+    {"HREF": "https://it.linkedin.com/company/bayer-cropscience", "LABEL": ""}
+   ]
+  },
+  {
+   "COMPANY": "BAYER", "COUNTRY": "FR",
+   "REQUESTED_URL": "https://agro.bayer.fr/",
+   "FINAL_URL": "https://agro.bayer.fr/",
+   "PAGE_TITLE": "Protection des cultures, conseils et outils agronomiques | Agro Bayer",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.facebook.com/dekalbfr", "LABEL": ""},
+    {"HREF": "https://www.youtube.com/@BayerAgri", "LABEL": ""},
+    {"HREF": "https://www.youtube.com/watch?v=NqYEfsuaBbg", "LABEL": "Voir la vidéo"}
+   ]
+  },
+
+  {
+   "COMPANY": "SYNGENTA", "COUNTRY": "ES",
+   "REQUESTED_URL": "https://www.syngenta.es/",
+   "FINAL_URL": "https://www.syngenta.es/",
+   "PAGE_TITLE": "Syngenta | Tecnología al servicio del agricultor",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.facebook.com/SyngentaES/", "LABEL": "Facebook"},
+    {"HREF": "https://instagram.com/syngenta.es", "LABEL": "Instagram"},
+    {"HREF": "https://www.youtube.com/user/SyngentaES", "LABEL": "YouTube"},
+    {"HREF": "https://www.facebook.com/policy.php/", "LABEL": "Más información sobre este proveedor"},
+    {"HREF": "https://www.youtube.com/watch?v=rZV7WGA9y8M&t=1s", "LABEL": ""}
+   ]
+  },
+  {
+   "COMPANY": "SYNGENTA", "COUNTRY": "IT",
+   "REQUESTED_URL": "https://www.syngenta.it/",
+   "FINAL_URL": "https://www.syngenta.it/",
+   "PAGE_TITLE": "Syngenta Italia | Soluzioni innovative per l'agricoltura",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.facebook.com/Syngenta-2007689772789481", "LABEL": "Facebook"},
+    {"HREF": "https://www.youtube.com/Syngentaitaly", "LABEL": "YouTube"},
+    {"HREF": "https://www.instagram.com/syngentaitalia/", "LABEL": "Instagram"},
+    {"HREF": "https://www.facebook.com/policy.php/", "LABEL": "Per saperne di più su questo fornitore"}
+   ]
+  },
+  {
+   "COMPANY": "SYNGENTA", "COUNTRY": "FR",
+   "REQUESTED_URL": "https://www.syngenta.fr/",
+   "FINAL_URL": "https://www.syngenta.fr/",
+   "PAGE_TITLE": "Semences et produits phytosanitaires pour les cultures - Syngenta",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.facebook.com/SyngentaFrance", "LABEL": "Facebook"},
+    {"HREF": "https://youtube.com/user/SyngentaFrance/", "LABEL": "YouTube"},
+    {"HREF": "https://www.facebook.com/policy.php/", "LABEL": "En savoir plus sur ce fournisseur"}
+   ]
+  },
+
+  {
+   "COMPANY": "BASF", "COUNTRY": "ES",
+   "REQUESTED_URL": "https://www.agro.basf.es/",
+   "FINAL_URL": "https://www.agro.basf.es/es/",
+   "PAGE_TITLE": "Bienvenidos a BASF Agro España",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.instagram.com/basf_agroes/", "LABEL": "Link to instagram"},
+    {"HREF": "https://es-la.facebook.com/BASF.Agro.Espana/", "LABEL": "Link to facebook"},
+    {"HREF": "https://www.linkedin.com/company/basf", "LABEL": "Link to linkedin"},
+    {"HREF": "https://www.youtube.com/playlist?v=tNVpHYn5hZQ&list=PL6qwtP-pW0yQJvssDjPH7qB2K8nOowsGU", "LABEL": "Link to youtube"}
+   ]
+  },
+  {
+   "COMPANY": "BASF", "COUNTRY": "IT",
+   "REQUESTED_URL": "https://www.agro.basf.it/",
+   "FINAL_URL": "https://www.agro.basf.it/it/",
+   "PAGE_TITLE": "Benvenuti in BASF Agricultural Solutions Italia",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.linkedin.com/company/basf/?originalSubdomain=it", "LABEL": "Link to linkedin"},
+    {"HREF": "https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091/", "LABEL": "Link to facebook"},
+    {"HREF": "https://www.instagram.com/basf_global/?hl=it", "LABEL": "Link to instagram"},
+    {"HREF": "https://youtube.com/playlist?list=PL6qwtP-pW0yTjVhFPDJ164KR3ot2_zgqy", "LABEL": "Link to youtube"}
+   ]
+  },
+  {
+   "COMPANY": "BASF", "COUNTRY": "FR",
+   "REQUESTED_URL": "https://www.agro.basf.fr/",
+   "FINAL_URL": "https://www.agro.basf.fr/fr/",
+   "PAGE_TITLE": "La protection des cultures avec BASF",
+   "ANCHOR_KIND": "LOCAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.youtube.com/playlist?list=PL6qwtP-pW0yRMtJpEWKVqnNL_THdY8OwH", "LABEL": "Link to youtube"}
+   ]
+  },
+
+  {
+   "COMPANY": "CORTEVA", "COUNTRY": "ES",
+   "REQUESTED_URL": "https://www.corteva.es/",
+   "FINAL_URL": "https://www.corteva.com/es/",
+   "PAGE_TITLE": "El futuro de la agricultura | Corteva Agriscience",
+   "ANCHOR_KIND": "COUNTRY_SECTION_OF_GLOBAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.facebook.com/CortevaES", "LABEL": "se abre en una pestaña nueva"}
+   ]
+  },
+  {
+   "COMPANY": "CORTEVA", "COUNTRY": "IT",
+   "REQUESTED_URL": "https://www.corteva.it/",
+   "FINAL_URL": "https://www.corteva.com/it/",
+   "PAGE_TITLE": "Agrofarmaci per proteggere le colture | Corteva Agriscience",
+   "ANCHOR_KIND": "COUNTRY_SECTION_OF_GLOBAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": []
+  },
+  {
+   "COMPANY": "CORTEVA", "COUNTRY": "FR",
+   "REQUESTED_URL": "https://www.corteva.fr/",
+   "FINAL_URL": "https://www.corteva.com/fr/",
+   "PAGE_TITLE": "Bienvenue chez Corteva Agriscience",
+   "ANCHOR_KIND": "COUNTRY_SECTION_OF_GLOBAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.youtube.com/@CortevaBiologicals", "LABEL": "s’ouvre dans un nouvel onglet"},
+    {"HREF": "https://www.instagram.com/cortevabiologicals/", "LABEL": "s’ouvre dans un nouvel onglet"}
+   ]
+  },
+
+  {
+   "COMPANY": "NUFARM", "COUNTRY": "ES",
+   "REQUESTED_URL": "https://www.nufarm.com/es/",
+   "FINAL_URL": "https://nufarm.com/es/",
+   "PAGE_TITLE": "Nufarm Spain",
+   "ANCHOR_KIND": "COUNTRY_SECTION_OF_GLOBAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.linkedin.com/company/nufarm/", "LABEL": "LinkedIn"},
+    {"HREF": "https://www.youtube.com/user/nufarmespana", "LABEL": "YouTube"},
+    {"HREF": "https://www.facebook.com/policy.php/", "LABEL": "Saiba mais sobre este provedor"}
+   ]
+  },
+  {
+   "COMPANY": "NUFARM", "COUNTRY": "IT",
+   "REQUESTED_URL": "https://www.nufarm.com/it/",
+   "FINAL_URL": "https://nufarm.com/it/",
+   "PAGE_TITLE": "Nufarm Italy",
+   "ANCHOR_KIND": "COUNTRY_SECTION_OF_GLOBAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://au.linkedin.com/company/nufarm", "LABEL": "LinkedIn"},
+    {"HREF": "https://www.facebook.com/Nufarm-Italia-2312073685546312", "LABEL": "facebook-square"},
+    {"HREF": "https://www.facebook.com/policy.php/", "LABEL": "Saiba mais sobre este provedor"}
+   ]
+  },
+  {
+   "COMPANY": "NUFARM", "COUNTRY": "FR",
+   "REQUESTED_URL": "https://www.nufarm.com/fr/",
+   "FINAL_URL": "https://nufarm.com/fr/",
+   "PAGE_TITLE": "Nufarm France",
+   "ANCHOR_KIND": "COUNTRY_SECTION_OF_GLOBAL_DOMAIN",
+   "ANCHOR_SITE_STATE": "PROVED",
+   "DECLARED_LINKS": [
+    {"HREF": "https://www.facebook.com/people/Nufarm-France/100088697208474/", "LABEL": ""},
+    {"HREF": "https://www.linkedin.com/company/nufarm/", "LABEL": ""},
+    {"HREF": "https://www.facebook.com/policy.php/", "LABEL": "Saiba mais sobre este provedor"}
+   ]
+  }
+ ]
+}
