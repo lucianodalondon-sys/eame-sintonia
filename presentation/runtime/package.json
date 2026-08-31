@@ -1,0 +1,11 @@
+{
+  "name": "sintonia-eame-preview",
+  "private": true,
+  "version": "8.1.0",
+  "description": "Runtime de apresentacao derivado do CASCO V8 canonico. O canonico nao e alterado: e lido, conferido por SHA e instrumentado na saida com dados reais congelados.",
+  "type": "module",
+  "scripts": {
+    "prepare:inputs": "node prepare-inputs.mjs",
+    "build": "node build-runtime.mjs"
+  }
+}
