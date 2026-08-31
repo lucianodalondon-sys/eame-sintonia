@@ -16,19 +16,23 @@ explícita.
 
 QUEM ENTRA
 -----------
-Somente `ACCOUNT_IDENTITY_STATE = PROVED` **e** `ACCOUNT_SCOPE = LOCAL_COUNTRY`. Nada
-global, nada regional, nada de marca de produto, nada indeciso.
+As TRÊS perguntas têm que fechar: `ACCOUNT_IDENTITY_STATE = PROVED`, `COUNTRY_SCOPE =
+LOCAL_COUNTRY_PROVED` e `PAGE_ROLE = COMPANY`.
 
-Ficam de fora, e ficam ESCRITOS no próprio manifesto para que a ausência seja legível:
+Ficam de fora, e ficam ESCRITOS no próprio manifesto para que a ausência seja legível.
+O motivo primário separa DOIS eixos que não podem virar um:
 
-  · GLOBAL      a conta é oficial e é do grupo (LinkedIn /company/basf, /bayer-cropscience)
-  · PRODUCT     a conta é de marca, não da empresa no país (DEKALB France, Corteva
-                Biologicals). A DEKALB é restrita à França e isso fica gravado — mas
-                conta de marca não é conta da empresa, e somar as duas faria a contagem
-                por concorrente medir duas coisas no mesmo balde.
-  · NOT_KNOWN   não deu para fechar por rota pública. As três contas de LinkedIn da
-                Nufarm batem em muro de cadastro, e entrar com login não é rota
-                autorizada nesta casa. Isto é limite da NOSSA rota, não da empresa.
+  · GLOBAL              eixo PAÍS. A conta é oficial e é do grupo (LinkedIn
+                        /company/basf, /bayer-cropscience).
+  · COUNTRY_NOT_KNOWN   eixo PAÍS. Não deu para fechar por rota pública — as três
+                        contas de LinkedIn da Nufarm batem em muro de cadastro, e
+                        entrar com login não é rota autorizada nesta casa. Limite da
+                        NOSSA rota, não da empresa.
+  · PRODUCT_BRAND_ROLE  eixo PAPEL, e NÃO é um estado de país. A `DEKALB France` tem o
+                        país **PROVADO** — a página se chama assim e aponta para
+                        bayer-agri.fr — e mesmo assim fica fora, porque é marca de
+                        semente e o lote é COMPANY x COUNTRY. Chamá-la de "não local"
+                        era falso, e essa era a redação anterior deste arquivo.
 
 A ORDEM DE EXECUÇÃO É PARTE DO CONTRATO
 -----------------------------------------
@@ -69,14 +73,14 @@ def montar(caminho=CONTAS):
             'PLATFORM': c['PLATFORM'],
             'ACCOUNT_HANDLE': c['ACCOUNT_HANDLE'],
             'ACCOUNT_URL': c['ACCOUNT_URL'],
-            'ACCOUNT_SCOPE': c['ACCOUNT_SCOPE'],
+            'COUNTRY_SCOPE': c['COUNTRY_SCOPE'],
+            'PAGE_ROLE': c['PAGE_ROLE'],
             'IDENTITY_EVIDENCE': c['ACCOUNT_IDENTITY_EVIDENCE'],
-            'SCOPE_EVIDENCE': c['ACCOUNT_SCOPE_EVIDENCE'],
+            'COUNTRY_SCOPE_EVIDENCE': c['COUNTRY_SCOPE_EVIDENCE'],
+            'PAGE_ROLE_EVIDENCE': c['PAGE_ROLE_EVIDENCE'],
         }
-        if c.get('ACCOUNT_SCOPE_CHAIN'):
-            linha['SCOPE_EVIDENCE_CHAIN'] = c['ACCOUNT_SCOPE_CHAIN']
-        if c.get('ACCOUNT_COUNTRY_RESTRICTED'):
-            linha['ACCOUNT_COUNTRY_RESTRICTED'] = c['ACCOUNT_COUNTRY_RESTRICTED']
+        if c.get('COUNTRY_SCOPE_CHAIN'):
+            linha['COUNTRY_SCOPE_CHAIN'] = c['COUNTRY_SCOPE_CHAIN']
         (dentro if c['COLLECTION_AUTHORIZED'] == 'YES' else fora).append(linha)
 
     dentro.sort(key=lambda x: (ORDEM.index(x['PLATFORM']), x['COUNTRY'], x['COMPANY']))
@@ -104,7 +108,10 @@ def montar(caminho=CONTAS):
 
     fora_por_escopo = {}
     for x in fora:
-        fora_por_escopo[x['ACCOUNT_SCOPE']] = fora_por_escopo.get(x['ACCOUNT_SCOPE'], 0) + 1
+        k = ('PRODUCT_BRAND_ROLE' if x['PAGE_ROLE'] != 'COMPANY'
+             else ('COUNTRY_NOT_KNOWN' if x['COUNTRY_SCOPE'] == 'NOT_KNOWN'
+                   else x['COUNTRY_SCOPE']))
+        fora_por_escopo[k] = fora_por_escopo.get(k, 0) + 1
 
     return {
         'SOURCE_ID': 'PUBLIC-COMM-FIRST-BATCH-EAME',
@@ -115,7 +122,8 @@ def montar(caminho=CONTAS):
             'esta lista NÃO muda depois da primeira coleta paga. Critério novo produz '
             'uma V2 explícita, com a V1 preservada — senão o rendimento fica medido '
             'contra um denominador que se mexeu.'),
-        'ENTRY_RULE': 'ACCOUNT_IDENTITY_STATE = PROVED E ACCOUNT_SCOPE = LOCAL_COUNTRY',
+        'ENTRY_RULE': ('ACCOUNT_IDENTITY_STATE = PROVED E COUNTRY_SCOPE = '
+                       'LOCAL_COUNTRY_PROVED E PAGE_ROLE = COMPANY'),
         'source': 'derivado de CONTAS-V1 — nenhuma coleta, nenhum custo',
         'EVIDENCE_CLASS': 'DERIVED_SCOPE',
         'APIFY_RUNS': 0, 'COST_USD': 0,
@@ -134,10 +142,20 @@ def montar(caminho=CONTAS):
         'ACCOUNTS': dentro,
 
         'EXCLUDED_ACCOUNTS': fora,
-        'EXCLUDED_BY_SCOPE': fora_por_escopo,
+        'EXCLUDED_BY_PRIMARY_REASON': fora_por_escopo,
         'EXCLUDED_MEANS': (
-            'conta OFICIAL que não é conta DAQUELE PAÍS. Não é conta errada e não é '
-            'empresa que não comunica.'),
+            'conta OFICIAL que não entra no lote COMPANY x COUNTRY. O motivo pode ser '
+            'o PAÍS (global, ou não provado) OU o PAPEL (página de marca/produto). '
+            'PRODUCT_BRAND_ROLE não quer dizer que o país seja desconhecido: a DEKALB '
+            'France tem o país PROVADO e fica fora pelo papel. Nenhum destes casos é '
+            'conta errada, e nenhum é empresa que não comunica.'),
+        'IDENTITY_STAGE': 'FREEZE_READY',
+        'MANIFEST_STAGE': 'FREEZE_READY',
+        'CONTENT_COLLECTION_STAGE': 'NOT_STARTED',
+        'MISSION_STATE': 'READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE',
+        'MISSION_IS_NOT_FINISHED_BECAUSE': (
+            'falta conteúdo real. Identidade congelada não responde "sobre o que a '
+            'empresa está falando" nem "o que mudou".'),
 
         'ZERO_MEANS_NOW': ('NO_CONTENT_COLLECTION_EXECUTED — nenhuma coleta rodou. '
                            'Nenhum zero desta missão fala sobre o mundo ainda.'),
@@ -166,6 +184,6 @@ if __name__ == '__main__':
         print('  passo %s  %-10s %2d contas  · %s'
               % (p['STEP'], p['PLATFORM'], p['ACCOUNTS'], p['GATE']))
     print('')
-    print('FORA DO LOTE (oficiais, mas nao do pais): %d  %s'
-          % (len(m['EXCLUDED_ACCOUNTS']), m['EXCLUDED_BY_SCOPE']))
+    print('FORA DO LOTE (oficiais, por pais OU por papel): %d  %s'
+          % (len(m['EXCLUDED_ACCOUNTS']), m['EXCLUDED_BY_PRIMARY_REASON']))
     print('ESTADO: %s' % m['STATE'])

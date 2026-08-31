@@ -14,7 +14,9 @@ não um caso inventado — inclusive os que reprovam.
 O teste mais importante é o negativo: provar que a régua RECUSA o que ela tem que
 recusar. Uma régua que só é testada com o que ela aceita não é testada.
 """
+import io
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -64,15 +66,15 @@ checa('acento percent-encoded volta inteiro',
 
 
 # ── escopo: o que promove e, principalmente, o que NÃO promove ──────────────────
-print('\nescopo — LOCAL_COUNTRY só com marca de país no IDENTIFICADOR:')
+print('\npaís — LOCAL_COUNTRY_PROVED só com marca de país no IDENTIFICADOR:')
 checa('SyngentaFrance -> FR local', ident.escopo('SyngentaFrance', 'FR')[0],
-      'LOCAL_COUNTRY')
+      'LOCAL_COUNTRY_PROVED')
 checa('syngentaitalia grudado -> IT local', ident.escopo('syngentaitalia', 'IT')[0],
-      'LOCAL_COUNTRY')
+      'LOCAL_COUNTRY_PROVED')
 checa('nufarmespana grudado -> ES local', ident.escopo('nufarmespana', 'ES')[0],
-      'LOCAL_COUNTRY')
+      'LOCAL_COUNTRY_PROVED')
 checa('Bayer4CropsES por troca de caixa -> ES local',
-      ident.escopo('Bayer4CropsES', 'ES')[0], 'LOCAL_COUNTRY')
+      ident.escopo('Bayer4CropsES', 'ES')[0], 'LOCAL_COUNTRY_PROVED')
 
 print('\n  os NEGATIVOS — cada um é um erro que a régua tem que recusar:')
 checa('basf_global nunca vira local', ident.escopo('basf_global', 'IT')[0], 'GLOBAL')
@@ -92,20 +94,20 @@ checa('marca de 2 letras NAO vale grudada no fim',
 print('\npromoção por irmão — mesmo identificador, caixa diferente:')
 contas = [
     ident._linha('BAYER', 'ES', 'FACEBOOK', 'u', {}, 'Bayer4CropsES', 'PROVED',
-                 'LOCAL_COUNTRY', 'e', 'e'),
+                 'LOCAL_COUNTRY_PROVED', 'e', 'e'),
     ident._linha('BAYER', 'ES', 'INSTAGRAM', 'u', {}, 'bayer4cropses', 'PROVED',
                  ident.NAO_SEI, 'e', 'e'),
     # semelhança NÃO é identidade: basf_agroes e basf.agro.espana sao contas DIFERENTES
     ident._linha('BASF', 'ES', 'FACEBOOK', 'u', {}, 'BASF.Agro.Espana', 'PROVED',
-                 'LOCAL_COUNTRY', 'e', 'e'),
+                 'LOCAL_COUNTRY_PROVED', 'e', 'e'),
     ident._linha('BASF', 'ES', 'INSTAGRAM', 'u', {}, 'basf_agroes', 'PROVED',
                  ident.NAO_SEI, 'e', 'e'),
 ]
 ident.promover_por_irmao(contas)
 checa('instagram bayer4cropses promovido pelo irmao do facebook',
-      contas[1]['ACCOUNT_SCOPE'], 'LOCAL_COUNTRY')
+      contas[1]['COUNTRY_SCOPE'], 'LOCAL_COUNTRY_PROVED')
 checa('basf_agroes NAO e promovido por basf.agro.espana (nao e o mesmo handle)',
-      contas[3]['ACCOUNT_SCOPE'], ident.NAO_SEI)
+      contas[3]['COUNTRY_SCOPE'], ident.NAO_SEI)
 
 
 # ── a coleta exige as DUAS perguntas ────────────────────────────────────────────
@@ -115,10 +117,42 @@ checa('PROVED + GLOBAL nao autoriza',
                    'GLOBAL', 'e', 'e')['COLLECTION_AUTHORIZED'], 'NO')
 checa('CANDIDATE + LOCAL nao autoriza',
       ident._linha('X', 'ES', 'FACEBOOK', 'u', {}, 'xES', 'CANDIDATE',
-                   'LOCAL_COUNTRY', 'e', 'e')['COLLECTION_AUTHORIZED'], 'NO')
-checa('PROVED + LOCAL autoriza',
+                   'LOCAL_COUNTRY_PROVED', 'e', 'e')['COLLECTION_AUTHORIZED'], 'NO')
+checa('PROVED + LOCAL + COMPANY autoriza',
       ident._linha('X', 'ES', 'FACEBOOK', 'u', {}, 'xES', 'PROVED',
-                   'LOCAL_COUNTRY', 'e', 'e')['COLLECTION_AUTHORIZED'], 'YES')
+                   'LOCAL_COUNTRY_PROVED', 'e', 'e')['COLLECTION_AUTHORIZED'], 'YES')
+
+# ── O ERRO SEMANTICO QUE A ABA ARBITRA PEGOU ───────────────────────────────────
+# PRODUCT nao e um estado de pais. A pagina DEKALB France tem o pais PROVADO e mesmo
+# assim fica fora do lote COMPANY x COUNTRY — pelo PAPEL, nunca pela localidade.
+print('\nPAGE_ROLE e COUNTRY_SCOPE sao eixos diferentes:')
+dekalb = ident._linha('BAYER', 'FR', 'FACEBOOK', 'u', {}, 'dekalbfr', 'PROVED',
+                      'LOCAL_COUNTRY_PROVED', 'e', 'e', papel='PRODUCT_BRAND')
+checa('DEKALB France tem o pais PROVADO',
+      dekalb['COUNTRY_SCOPE'], 'LOCAL_COUNTRY_PROVED')
+checa('e mesmo assim NAO entra no lote COMPANY x COUNTRY',
+      dekalb['ELIGIBLE_FOR_COMPANY_LOCAL_BATCH'], 'NO')
+checa('e o motivo escrito e o PAPEL, nao o pais',
+      len([r for r in dekalb['EXCLUSION_REASONS'] if 'MARCA/PRODUTO' in r]), 1)
+# A assercao precisa e "nenhuma razao acusa o COUNTRY_SCOPE" — e nao "a palavra pais
+# nao aparece". A razao do PAPEL cita "a empresa no país" legitimamente, e cacar a
+# palavra reprovava um texto correto.
+checa('nenhum motivo de exclusao acusa o COUNTRY_SCOPE',
+      [r for r in dekalb['EXCLUSION_REASONS'] if 'COUNTRY_SCOPE=' in r], [])
+
+# O oposto: papel de marca E pais nao provado. As DUAS razoes ficam escritas.
+corteva = ident._linha('CORTEVA', 'FR', 'YOUTUBE', 'u', {}, 'CortevaBiologicals',
+                       'PROVED', ident.NAO_SEI, 'e', 'e', papel='PRODUCT_BRAND')
+checa('duas reprovacoes produzem DUAS razoes, nao uma',
+      len(corteva['EXCLUSION_REASONS']), 2)
+
+# Nenhum artefato desta missao pode criar ranking de prova que ninguem mediu.
+print('\nnenhum ranking de prova inventado:')
+import re as _re
+_fonte = io.open(os.path.join(ROOT, 'scripts', 'comunicacao_identidade.py'),
+                 encoding='utf-8').read()
+checa('nao existe "prova mais forte" no codigo',
+      bool(_re.search(r'(mais forte|melhor prova|prova mais)', _fonte)), False)
 
 
 # ── nenhuma empresa nos dois lados da lista ─────────────────────────────────────

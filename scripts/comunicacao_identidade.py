@@ -13,19 +13,28 @@ pode ser refeito quantas vezes o critério mudar sem gastar um centavo. É a mes
 separação que o `sensor_canal_identidade.py` já usa nesta casa, pelo mesmo motivo: quando
 eu errar a regra, o conserto tem que ser grátis.
 
-DUAS PERGUNTAS INDEPENDENTES, NUNCA UMA
+TRÊS PERGUNTAS INDEPENDENTES, NUNCA UMA
 -----------------------------------------
-    1. A conta é OFICIAL da empresa?     -> ACCOUNT_IDENTITY_STATE
-    2. A conta é DAQUELE PAÍS?           -> ACCOUNT_SCOPE
+    1. A conta é OFICIAL da empresa?          -> ACCOUNT_IDENTITY_STATE
+    2. A conta é DAQUELE PAÍS?                -> COUNTRY_SCOPE
+    3. A conta é da EMPRESA ou de uma MARCA?  -> PAGE_ROLE
 
-Colapsar as duas é o erro que a missão manda não cometer. A BASF Espanha declara, no
-próprio site espanhol, o LinkedIn `/company/basf`. A conta é **oficial** (a pergunta 1
-fecha) e é **global** (a pergunta 2 reprova). Ler aquilo como atividade espanhola seria
-transformar o comunicado de Ludwigshafen em movimento de mercado em Sevilha.
+Colapsar quaisquer duas é o erro que a missão manda não cometer. A BASF Espanha declara,
+no próprio site espanhol, o LinkedIn `/company/basf`. A conta é **oficial** (a 1 fecha) e
+é **global** (a 2 reprova). Ler aquilo como atividade espanhola seria transformar o
+comunicado de Ludwigshafen em movimento de mercado em Sevilha.
 
-Só passa para a coleta quem responde SIM às DUAS:
+A terceira pergunta nasceu de um erro MEU, pego pela aba árbitra. Eu tinha só duas, e
+escrevi a página `DEKALB France` como escopo `PRODUCT` — o que a fez aparecer no relatório
+entre as contas "não locais". Ela É local: a página se chama "DEKALB France" e aponta para
+bayer-agri.fr. Um campo só me obrigou a escolher qual verdade apagar, e eu apaguei a certa.
 
-    COLLECTION_AUTHORIZED = (estado == PROVED) e (escopo == LOCAL_COUNTRY)
+    LOCALIDADE PROVADA E PAPEL DE MARCA SÃO VERDADE AO MESMO TEMPO.
+    PRODUCT NÃO É UM ESTADO DE PAÍS.
+
+Só passa para a coleta quem responde SIM às TRÊS:
+
+    COLLECTION_AUTHORIZED = (estado == PROVED) e (pais == LOCAL_COUNTRY_PROVED) e (papel == COMPANY)
 
 O QUE PROVA "OFICIAL"
 ----------------------
@@ -47,9 +56,11 @@ O que NÃO prova, e cada um destes apareceu de verdade na leitura:
   · **o parâmetro de idioma.** `/company/basf/?originalSubdomain=it` e
     `/basf_global/?hl=it` — o `?hl=it` é preferência de exibição, não dono da conta.
     E o segundo caso diz `global` no próprio handle.
-  · **o site onde o link foi achado.** O site francês da Bayer declara `/dekalbfr`.
-    Dekalb é marca de semente: escopo `PRODUCT`, não `LOCAL_COUNTRY`. O site francês
-    da Corteva declara `@CortevaBiologicals` — de novo produto, não país.
+  · **o site onde o link foi achado.** O site francês da Corteva declara
+    `@CortevaBiologicals`, e o canal não nomeia país nenhum — o site onde o link
+    aparece não prova o país da conta. (A `/dekalbfr` é o caso oposto e por isso
+    instrutivo: ali o país está provado pela PRÓPRIA página, e o que a exclui é o
+    papel de marca, medido em `PAGE_ROLE`.)
 
 O QUE NEM CHEGA A SER CANDIDATO
 ---------------------------------
@@ -170,7 +181,7 @@ def _fatias(handle):
 
 
 def escopo(handle, pais):
-    """→ (ACCOUNT_SCOPE, evidência). Decide pelo IDENTIFICADOR, nunca pelo site."""
+    """→ (COUNTRY_SCOPE, evidência). Decide pelo IDENTIFICADOR, nunca pelo site."""
     if not handle:
         return NAO_SEI, 'não foi possível ler um identificador de conta nesta URL'
     fatias = _fatias(handle)
@@ -186,14 +197,14 @@ def escopo(handle, pais):
 
     do_pais = [m for m in MARCAS_DE_PAIS[pais] if m in fatias]
     if do_pais:
-        return 'LOCAL_COUNTRY', (
+        return 'LOCAL_COUNTRY_PROVED', (
             'o identificador "%s" carrega marca de país explícita (%s) para %s'
             % (handle, ', '.join(do_pais), pais))
 
     grudado = ''.join(fatias)
     colada = [m for m in MARCAS_POR_EXTENSO[pais] if grudado.endswith(m)]
     if colada:
-        return 'LOCAL_COUNTRY', (
+        return 'LOCAL_COUNTRY_PROVED', (
             'o identificador "%s" termina com o nome do país por extenso ("%s"), sem '
             'separador. Só nome por extenso vale grudado — "es"/"it"/"fr" no fim de '
             'palavra colidem à toa.' % (handle, colada[0]))
@@ -260,8 +271,39 @@ def resolver(ancora):
     return fora
 
 
-def _linha(empresa, pais, plataforma, url, link, handle, estado, escopo_, ev, ev_escopo):
-    autorizada = 'YES' if (estado == 'PROVED' and escopo_ == 'LOCAL_COUNTRY') else 'NO'
+def _linha(empresa, pais, plataforma, url, link, handle, estado, escopo_, ev, ev_escopo,
+           papel='COMPANY', ev_papel=None):
+    """Uma linha de conta. TRÊS perguntas independentes, nunca colapsadas.
+
+    A primeira versão deste arquivo tinha DUAS, e isso produziu um erro semântico que a
+    aba árbitra pegou: a página `DEKALB France` saiu com escopo `PRODUCT`, e o relatório
+    a listou entre as contas "não locais". Mas a localidade dela está PROVADA — a página
+    se chama "DEKALB France" e aponta para bayer-agri.fr. O que a tira do lote não é o
+    país; é o PAPEL.
+
+        LOCALIDADE PROVADA E PAPEL DE MARCA PODEM SER VERDADE AO MESMO TEMPO.
+
+    Um campo só forçava a escolher qual verdade apagar. Agora são três:
+
+        ACCOUNT_IDENTITY_STATE   a conta é oficial da empresa?
+        COUNTRY_SCOPE            a conta é daquele país?
+        PAGE_ROLE                a conta é da EMPRESA ou de uma MARCA/PRODUTO?
+
+    E a elegibilidade é a conjunção das três. `ELIGIBLE_FOR_COMPANY_LOCAL_BATCH = NO`
+    passa a ter um motivo LEGÍVEL, em vez de virar "não é local" quando é.
+    """
+    razoes = []
+    if estado != 'PROVED':
+        razoes.append('a conta não está PROVED como oficial (%s)' % estado)
+    if escopo_ != 'LOCAL_COUNTRY_PROVED':
+        razoes.append('o país da conta não está provado como %s (COUNTRY_SCOPE=%s)'
+                      % (pais, escopo_))
+    if papel != 'COMPANY':
+        razoes.append('a página é de MARCA/PRODUTO, não da empresa no país '
+                      '(PAGE_ROLE=%s). O lote é COMPANY x COUNTRY: somar marca e '
+                      'empresa faria a contagem por concorrente medir duas coisas '
+                      'no mesmo balde.' % papel)
+    apta = 'YES' if not razoes else 'NO'
     return {
         'ACCOUNT_CELL_ID': '%s|%s|%s' % (empresa, pais, plataforma),
         'COMPANY': empresa,
@@ -272,13 +314,18 @@ def _linha(empresa, pais, plataforma, url, link, handle, estado, escopo_, ev, ev
         'ACCOUNT_LABEL_ON_SITE': link.get('LABEL') or NAO_SEI,
         'ACCOUNT_IDENTITY_STATE': estado,
         'ACCOUNT_IDENTITY_EVIDENCE': ev,
-        'ACCOUNT_SCOPE': escopo_,
-        'ACCOUNT_SCOPE_EVIDENCE': ev_escopo,
-        'COLLECTION_AUTHORIZED': autorizada,
+        'COUNTRY_SCOPE': escopo_,
+        'COUNTRY_SCOPE_EVIDENCE': ev_escopo,
+        'PAGE_ROLE': papel,
+        'PAGE_ROLE_EVIDENCE': ev_papel or (
+            'nada na leitura indicou página de marca ou de produto; o padrão é a '
+            'conta da própria empresa'),
+        'ELIGIBLE_FOR_COMPANY_LOCAL_BATCH': apta,
+        'EXCLUSION_REASONS': razoes,
+        'COLLECTION_AUTHORIZED': apta,
         'COLLECTION_AUTHORIZED_WHY': (
-            'PROVED e LOCAL_COUNTRY — as duas perguntas fecham' if autorizada == 'YES'
-            else 'estado=%s escopo=%s — a coleta exige PROVED E LOCAL_COUNTRY'
-                 % (estado, escopo_)),
+            'PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham'
+            if apta == 'YES' else ' · '.join(razoes)),
     }
 
 
@@ -293,7 +340,7 @@ def _linha(empresa, pais, plataforma, url, link, handle, estado, escopo_, ev, ev
 PROVA_INVERSA = {
     # ── FECHARAM COMO LOCAL ────────────────────────────────────────────────────
     ('BAYER', 'FR', 'YOUTUBE', 'BayerAgri'): {
-        'SCOPE': 'LOCAL_COUNTRY',
+        'SCOPE': 'LOCAL_COUNTRY_PROVED',
         'CHAIN': ['https://www.youtube.com/@BayerAgri'],
         'EVIDENCE': (
             'a descrição do PRÓPRIO canal declara o país: "En France, à vos côtés, pour '
@@ -301,7 +348,7 @@ PROVA_INVERSA = {
             'do vídeo nem a língua da interface — é o canal dizendo a quem serve.'),
     },
     ('SYNGENTA', 'IT', 'FACEBOOK', 'Syngenta-2007689772789481'): {
-        'SCOPE': 'LOCAL_COUNTRY',
+        'SCOPE': 'LOCAL_COUNTRY_PROVED',
         'CHAIN': ['https://www.facebook.com/Syngenta-2007689772789481',
                   'https://www.syngenta.it/'],
         'EVIDENCE': (
@@ -310,14 +357,24 @@ PROVA_INVERSA = {
             '"syngenta.it", que é exatamente o âncora italiano.'),
     },
     ('BASF', 'IT', 'FACEBOOK', 'BASF-Agricultural-Solutions-1741459832625091'): {
-        'SCOPE': 'LOCAL_COUNTRY',
+        'SCOPE': 'LOCAL_COUNTRY_PROVED',
         'CHAIN': ['https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091/',
                   'https://www.agro.basf.it/it'],
+        # POSTAL_ADDRESS_IN_COUNTRY = STRONG_COUNTRY_EVIDENCE. Nada além disso.
+        #
+        # A primeira redação dizia que endereço postal era "a evidência de país mais
+        # forte que uma página pública dá". Isso é um RANKING, e nenhum ranking foi
+        # medido nesta casa: não sabemos se endereço vale mais que domínio local, que
+        # descrição explícita, que telefone ou que link do site oficial. Afirmar uma
+        # ordem sem medir cria uma régua que outras missões vão herdar como se fosse
+        # fato — e ranking herdado sem medição é como número que entra por parecer alto.
         'EVIDENCE': (
             'a página declara ENDEREÇO FÍSICO na Itália (Via Marconato 8, Cesano '
             'Maderno, Italy), telefone +39, e-mail info.agroitalia@basf.com e o site '
-            'agro.basf.it/it, que é o âncora italiano. Endereço postal é a evidência de '
-            'país mais forte que uma página pública dá.'),
+            'agro.basf.it/it, que é o âncora italiano. Quatro declarações de país '
+            'independentes na mesma página. POSTAL_ADDRESS_IN_COUNTRY = '
+            'STRONG_COUNTRY_EVIDENCE — sem ordenar contra as outras formas de prova, '
+            'que esta missão não mediu.'),
     },
 
     # ── FECHARAM COMO NÃO-LOCAL. Também é resultado: tira a conta do limbo. ─────
@@ -346,37 +403,47 @@ PROVA_INVERSA = {
             'sozinha: pedir `it.linkedin.com` entregou a página em `de.linkedin.com`. '
             'Se `it.` fosse a Itália, `de.` seria a Alemanha — e é a MESMA conta.'),
     },
+    # O CASO QUE OBRIGOU A SEPARAR PAÍS DE PAPEL. A localidade da DEKALB France está
+    # PROVADA — a página se chama assim e aponta para o domínio francês da Bayer. Chamá-la
+    # de "não local" era falso. O que a exclui é o PAPEL, e agora os dois convivem.
     ('BAYER', 'FR', 'FACEBOOK', 'dekalbfr'): {
-        'SCOPE': 'PRODUCT',
-        'COUNTRY_RESTRICTED': 'FR',
+        'SCOPE': 'LOCAL_COUNTRY_PROVED',
+        'ROLE': 'PRODUCT_BRAND',
         'CHAIN': ['https://www.facebook.com/dekalbfr'],
         'EVIDENCE': (
-            'a página se chama "DEKALB France", é classificada por ela mesma como '
-            '"Produto/serviço" e aponta para bayer-agri.fr. DEKALB é MARCA DE SEMENTE: '
-            'o escopo é PRODUCT. Ela É restrita à França, e isso fica gravado em '
-            'COUNTRY_RESTRICTED — mas conta de marca de produto não é a conta da '
-            'empresa no país, e misturar as duas faria a contagem por concorrente '
-            'medir marca e empresa no mesmo balde.'),
+            'o país está PROVADO: a página se chama "DEKALB France" e declara o site '
+            'bayer-agri.fr, domínio agrícola francês da Bayer.'),
+        'ROLE_EVIDENCE': (
+            'a própria página se classifica como "Produto/serviço", e DEKALB é marca de '
+            'SEMENTE da Bayer, não a conta da Bayer na França. Papel de marca não '
+            'apaga a prova de país — as duas coisas são verdade ao mesmo tempo.'),
     },
+    # Aqui as DUAS reprovam, e as duas ficam escritas. Colapsar em "PRODUCT" esconderia
+    # que o país também não foi provado.
     ('CORTEVA', 'FR', 'YOUTUBE', 'CortevaBiologicals'): {
-        'SCOPE': 'PRODUCT',
+        'SCOPE': NAO_SEI,
+        'ROLE': 'PRODUCT_BRAND',
         'CHAIN': ['https://www.youtube.com/@CortevaBiologicals'],
         'EVIDENCE': (
-            'a descrição declara linha de negócio, não país: "Stoller and Symborg '
-            'became part of Corteva Biologicals". Nenhuma menção à França. O site '
-            'francês da Corteva a lista, mas o site onde o link aparece não define o '
-            'escopo da conta.'),
+            'a descrição não nomeia país nenhum: "Stoller and Symborg became part of '
+            'Corteva Biologicals". O site francês da Corteva lista o canal, mas o site '
+            'onde o link aparece não prova o país da conta.'),
+        'ROLE_EVIDENCE': (
+            'o nome declarado é uma linha de negócio — Corteva Biologicals — e não a '
+            'Corteva na França.'),
     },
     ('CORTEVA', 'FR', 'INSTAGRAM', 'cortevabiologicals'): {
-        'SCOPE': 'PRODUCT',
+        'SCOPE': NAO_SEI,
+        'ROLE': 'PRODUCT_BRAND',
         'CHAIN': ['https://www.instagram.com/cortevabiologicals/'],
         'EVIDENCE': (
-            'o nome declarado é "Corteva Biologicals" e a bio é "Growing Together" — '
-            'linha de produto, sem país. Mesmo caso do canal de YouTube.'),
+            'nome "Corteva Biologicals", bio "Growing Together" — nenhuma menção à '
+            'França. Mesmo caso do canal de YouTube.'),
+        'ROLE_EVIDENCE': 'linha de produto, não a empresa no país.',
     },
 
     ('BASF', 'ES', 'INSTAGRAM', 'basf_agroes'): {
-        'SCOPE': 'LOCAL_COUNTRY',
+        'SCOPE': 'LOCAL_COUNTRY_PROVED',
         'CHAIN': ['https://www.instagram.com/basf_agroes/',
                   'https://linktr.ee/basf_agroes',
                   'https://www.agro.basf.es/es/'],
@@ -397,19 +464,38 @@ def promover_por_prova_inversa(contas):
         p = PROVA_INVERSA.get(chave)
         if not p or c['ACCOUNT_IDENTITY_STATE'] != 'PROVED':
             continue
-        c['ACCOUNT_SCOPE'] = p['SCOPE']
-        c['ACCOUNT_SCOPE_EVIDENCE'] = p['EVIDENCE']
-        c['ACCOUNT_SCOPE_CHAIN'] = p['CHAIN']
-        # Uma conta pode ser de PRODUTO **e** restrita a um país. A taxonomia do §1 só
-        # deixa marcar um escopo, então o país não cabe em ACCOUNT_SCOPE — e perder essa
-        # informação seria apagar um fato observado. Ela fica em campo próprio.
-        if p.get('COUNTRY_RESTRICTED'):
-            c['ACCOUNT_COUNTRY_RESTRICTED'] = p['COUNTRY_RESTRICTED']
-        if p['SCOPE'] == 'LOCAL_COUNTRY':
-            c['COLLECTION_AUTHORIZED'] = 'YES'
-            c['COLLECTION_AUTHORIZED_WHY'] = (
-                'PROVED e LOCAL_COUNTRY — as duas perguntas fecham, e o escopo veio da '
-                'prova de ida e volta, não do formato do handle')
+        c['COUNTRY_SCOPE'] = p['SCOPE']
+        c['COUNTRY_SCOPE_EVIDENCE'] = p['EVIDENCE']
+        c['COUNTRY_SCOPE_CHAIN'] = p['CHAIN']
+        if p.get('ROLE'):
+            c['PAGE_ROLE'] = p['ROLE']
+            c['PAGE_ROLE_EVIDENCE'] = p.get('ROLE_EVIDENCE') or NAO_SEI
+        _reavaliar(c)
+
+
+def _reavaliar(c):
+    """Recalcula elegibilidade a partir das TRÊS perguntas. Altera in-place.
+
+    Existe para que a regra viva num lugar só. Antes ela estava escrita em `_linha` e
+    repetida em cada promotor — e regra copiada é regra que diverge na primeira pressa.
+    """
+    razoes = []
+    if c['ACCOUNT_IDENTITY_STATE'] != 'PROVED':
+        razoes.append('a conta não está PROVED como oficial (%s)'
+                      % c['ACCOUNT_IDENTITY_STATE'])
+    if c.get('COUNTRY_SCOPE') != 'LOCAL_COUNTRY_PROVED':
+        razoes.append('o país da conta não está provado como %s (COUNTRY_SCOPE=%s)'
+                      % (c['COUNTRY'], c.get('COUNTRY_SCOPE')))
+    if c.get('PAGE_ROLE') != 'COMPANY':
+        razoes.append('a página é de MARCA/PRODUTO, não da empresa no país '
+                      '(PAGE_ROLE=%s). O lote é COMPANY x COUNTRY.' % c.get('PAGE_ROLE'))
+    apta = 'YES' if not razoes else 'NO'
+    c['ELIGIBLE_FOR_COMPANY_LOCAL_BATCH'] = apta
+    c['EXCLUSION_REASONS'] = razoes
+    c['COLLECTION_AUTHORIZED'] = apta
+    c['COLLECTION_AUTHORIZED_WHY'] = (
+        'PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham'
+        if apta == 'YES' else ' · '.join(razoes))
 
 
 def _achatado(handle):
@@ -433,21 +519,22 @@ def promover_por_irmao(contas):
     duas contas diferentes da mesma empresa, e adivinhar isso seria o erro de sempre.
     """
     locais = {_achatado(c['ACCOUNT_HANDLE']): c for c in contas
-              if c.get('ACCOUNT_SCOPE') == 'LOCAL_COUNTRY'}
+              if c.get('COUNTRY_SCOPE') == 'LOCAL_COUNTRY_PROVED'}
     for c in contas:
-        if c.get('ACCOUNT_SCOPE') != NAO_SEI or c['ACCOUNT_IDENTITY_STATE'] != 'PROVED':
+        if c.get('COUNTRY_SCOPE') != NAO_SEI or c['ACCOUNT_IDENTITY_STATE'] != 'PROVED':
             continue
         irmao = locais.get(_achatado(c['ACCOUNT_HANDLE']))
         if not irmao or irmao is c:
             continue
-        c['ACCOUNT_SCOPE'] = 'LOCAL_COUNTRY'
-        c['ACCOUNT_SCOPE_EVIDENCE'] = (
+        # O irmão promove o PAÍS. Ele NÃO promove o papel: a página pode ser da marca e
+        # do país ao mesmo tempo, e quem decide papel é a leitura da própria página.
+        c['COUNTRY_SCOPE'] = 'LOCAL_COUNTRY_PROVED'
+        c['COUNTRY_SCOPE_EVIDENCE'] = (
             'o mesmo identificador ("%s") aparece no %s da mesma empresa e país, onde '
             'ele carrega marca de país explícita. Mesma conta, caixa diferente porque a '
             'plataforma escreve a URL do seu jeito.'
             % (c['ACCOUNT_HANDLE'], irmao['PLATFORM']))
-        c['COLLECTION_AUTHORIZED'] = 'YES'
-        c['COLLECTION_AUTHORIZED_WHY'] = 'PROVED e LOCAL_COUNTRY — as duas perguntas fecham'
+        _reavaliar(c)
 
 
 def montar(caminho=EVIDENCIA):
@@ -476,14 +563,32 @@ def montar(caminho=EVIDENCIA):
                     'COLLECTION_AUTHORIZED': 'NO',
                 })
 
-    por_estado, por_escopo = {}, {}
+    por_estado, por_escopo, por_papel = {}, {}, {}
     for c in contas:
         e = c['ACCOUNT_IDENTITY_STATE']
         por_estado[e] = por_estado.get(e, 0) + 1
         if e != 'REJECTED':
-            s = c.get('ACCOUNT_SCOPE', NAO_SEI)
+            s = c.get('COUNTRY_SCOPE', NAO_SEI)
             por_escopo[s] = por_escopo.get(s, 0) + 1
+            r = c.get('PAGE_ROLE', NAO_SEI)
+            por_papel[r] = por_papel.get(r, 0) + 1
     por_estado[NAO_SEI] = por_estado.get(NAO_SEI, 0) + len(silencio)
+
+    # A exclusão é contada por UM motivo primário, senão a soma passa do total. A ordem
+    # é papel primeiro: uma página de marca fica fora do lote COMPANY x COUNTRY mesmo com
+    # o país provado, então o papel é o motivo que decide sozinho. Os outros motivos
+    # continuam inteiros em EXCLUSION_REASONS de cada linha — nada se perde.
+    fora_por_motivo = {}
+    for c in contas:
+        if c['ACCOUNT_IDENTITY_STATE'] != 'PROVED' or c['COLLECTION_AUTHORIZED'] == 'YES':
+            continue
+        if c.get('PAGE_ROLE') != 'COMPANY':
+            k = 'PRODUCT_BRAND_ROLE'
+        elif c.get('COUNTRY_SCOPE') in ('GLOBAL', 'REGIONAL_EUROPE', 'OTHER'):
+            k = c['COUNTRY_SCOPE']
+        else:
+            k = 'COUNTRY_NOT_KNOWN'
+        fora_por_motivo[k] = fora_por_motivo.get(k, 0) + 1
 
     autorizadas = [c for c in contas if c['COLLECTION_AUTHORIZED'] == 'YES']
     return {
@@ -497,12 +602,25 @@ def montar(caminho=EVIDENCIA):
         'APIFY_RUNS': 0,
         'COST_USD': 0,
         'REGRA_DE_PROMOCAO': (
-            'OFICIAL e DAQUELE PAÍS são duas perguntas independentes. '
-            'COLLECTION_AUTHORIZED = PROVED E LOCAL_COUNTRY.'),
+            'TRÊS perguntas independentes: a conta é OFICIAL? é DAQUELE PAÍS? é da '
+            'EMPRESA ou de uma MARCA? '
+            'ELIGIBLE_FOR_COMPANY_LOCAL_BATCH = PROVED E LOCAL_COUNTRY_PROVED E '
+            'PAGE_ROLE=COMPANY.'),
+        'OS_QUATRO_ESTADOS_SAO_DIFERENTES': {
+            'LOCAL_COUNTRY_PROVED': 'o país da conta está provado por evidência declarada',
+            'GLOBAL': 'a conta declara alcance mundial ou sede fora do país',
+            'PRODUCT_BRAND (PAGE_ROLE)': (
+                'a página é de uma marca/produto. NÃO é um estado de país: uma página '
+                'de marca pode ter o país PROVADO — a DEKALB France tem — e mesmo assim '
+                'ficar fora do lote COMPANY x COUNTRY.'),
+            'NOT_KNOWN': 'não foi possível decidir por rota pública. Não é reprovação.',
+        },
         'ACCOUNTS_ATTEMPTED': len(contas) + len(silencio),
         'ACCOUNTS_FOUND_AS_LINK': len(contas),
         'BY_IDENTITY_STATE': por_estado,
-        'BY_SCOPE': por_escopo,
+        'BY_COUNTRY_SCOPE': por_escopo,
+        'BY_PAGE_ROLE': por_papel,
+        'EXCLUDED_BY_PRIMARY_REASON': fora_por_motivo,
         'ACCOUNTS_AUTHORIZED_FOR_COLLECTION': len(autorizadas),
         'ACCOUNTS': contas,
         'NO_LINK_DECLARED': silencio,
@@ -519,8 +637,10 @@ if __name__ == '__main__':
           % corpo['ACCOUNTS_ATTEMPTED'])
     print('links encontrados nos sites oficiais:          %d'
           % corpo['ACCOUNTS_FOUND_AS_LINK'])
-    print('por estado: %s' % corpo['BY_IDENTITY_STATE'])
-    print('por escopo: %s' % corpo['BY_SCOPE'])
+    print('por estado:   %s' % corpo['BY_IDENTITY_STATE'])
+    print('por país:     %s' % corpo['BY_COUNTRY_SCOPE'])
+    print('por papel:    %s' % corpo['BY_PAGE_ROLE'])
+    print('excluídas:    %s' % corpo['EXCLUDED_BY_PRIMARY_REASON'])
     print('')
     print('AUTORIZADAS A COLETAR: %d' % corpo['ACCOUNTS_AUTHORIZED_FOR_COLLECTION'])
     for c in corpo['ACCOUNTS']:
@@ -528,9 +648,11 @@ if __name__ == '__main__':
             print('  %-9s %s  %-10s %s' % (c['COMPANY'], c['COUNTRY'],
                                            c['PLATFORM'], c['ACCOUNT_URL']))
     print('')
-    print('OFICIAIS MAS NÃO AUTORIZADAS (escopo não é o país):')
+    print('OFICIAIS FORA DO LOTE COMPANY x COUNTRY — país e papel em colunas separadas:')
+    print('  %-9s %-3s %-10s %-22s %-14s %s'
+          % ('EMPRESA', 'PAÍS', 'PLATAFORMA', 'COUNTRY_SCOPE', 'PAGE_ROLE', 'HANDLE'))
     for c in corpo['ACCOUNTS']:
         if c['ACCOUNT_IDENTITY_STATE'] == 'PROVED' and c['COLLECTION_AUTHORIZED'] == 'NO':
-            print('  %-9s %s  %-10s %-11s %s' % (c['COMPANY'], c['COUNTRY'],
-                                                 c['PLATFORM'], c['ACCOUNT_SCOPE'],
-                                                 c['ACCOUNT_HANDLE']))
+            print('  %-9s %-3s %-10s %-22s %-14s %s'
+                  % (c['COMPANY'], c['COUNTRY'], c['PLATFORM'],
+                     c['COUNTRY_SCOPE'], c['PAGE_ROLE'], c['ACCOUNT_HANDLE']))

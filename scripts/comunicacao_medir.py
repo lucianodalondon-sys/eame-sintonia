@@ -18,7 +18,9 @@ AS TRÊS AUSÊNCIAS SÃO DIFERENTES, E O RELATÓRIO NÃO PODE COLAPSAR
 -------------------------------------------------------------------
     NOT_ATTEMPTED       não tentei (empresa fora do primeiro lote)
     NO_LINK_DECLARED    tentei, e o site oficial não declarou link
-    NOT_AUTHORIZED      achei conta oficial, mas ela não é daquele país
+    NOT_ELIGIBLE        achei conta oficial, mas ela não entra no lote COMPANY x
+                        COUNTRY — por PAÍS (global/desconhecido) ou por PAPEL (página
+                        de marca). São dois eixos, e o relatório mostra qual foi
     COLLECTED_ZERO      coletei e a conta não publicou na janela
 
 Só a última é sobre a EMPRESA. As três primeiras são sobre a NOSSA cobertura. Um número
@@ -102,8 +104,30 @@ def montar():
         'B_ACCOUNTS_PROVED': len(provadas),
         'B_ACCOUNTS_AUTHORIZED_LOCAL': len(autorizadas),
         'C_REJECTED_NOT_AN_ACCOUNT': len(rejeitadas),
-        'C_PROVED_BUT_NOT_LOCAL': len(oficiais_fora),
+        'C_PROVED_BUT_NOT_ELIGIBLE': len(oficiais_fora),
+        'C_EXCLUDED_BY_PRIMARY_REASON': (contas.get('EXCLUDED_BY_PRIMARY_REASON') or {}),
         'D_PLATFORMS_WITH_AUTHORIZED_ACCOUNT': sorted({c['PLATFORM'] for c in autorizadas}),
+        'IDENTITY_STAGE': 'FREEZE_READY',
+        'MANIFEST_STAGE': 'FREEZE_READY',
+        'CONTENT_COLLECTION_STAGE': 'NOT_STARTED',
+        'MISSION_STATE': 'READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE',
+        # AUSÊNCIA DE VALIDADOR NÃO É APROVAÇÃO. Escrever PASS aqui sem instrumento
+        # seria a mesma classe de erro que esta missão persegue nos dados: um estado
+        # confortável ocupando o lugar de "não medi".
+        'WORKFLOW_STATIC_VALIDATION': 'NOT_MEASURED',
+        'WORKFLOW_STATIC_VALIDATION_TRIED': [
+            'gh api repos/:owner/:repo/actions/workflows — o workflow NÃO aparece, '
+            'porque o GitHub só registra workflow que está no branch default, e este '
+            'está num branch de missão. Sem registro, não há parse do lado deles.',
+            'py -c import yaml — PyYAML não instalado',
+            'node -e require("yaml") — módulo ausente; nenhum node_modules no repo',
+            'ruby -ryaml, yamllint, actionlint — nenhum existe nesta máquina',
+        ],
+        'WORKFLOW_STATIC_VALIDATION_WHY_NOT': (
+            'instalar dependência não estava autorizado nesta rodada, e um validador '
+            'caseiro escrito por mim provaria a minha própria leitura do arquivo, não '
+            'a do GitHub.'),
+        'WORKFLOW_RUNTIME_VALIDATION': 'NOT_EXECUTED',
         'D_PLATFORMS_COLLECTED': sorted(coletadas),
         'E_TOTAL_ITEMS': len(itens),
         'F_WINDOW': ('%s dias' % (classificado.get('COLLECTION_WINDOW_DAYS') or NAO_SEI)
@@ -143,7 +167,7 @@ def montar():
         'AS_QUATRO_AUSENCIAS': {
             'NOT_ATTEMPTED': universo.get('OUT_OF_FIRST_BATCH') or [],
             'NO_LINK_DECLARED': len(contas.get('NO_LINK_DECLARED') or []),
-            'NOT_AUTHORIZED_SCOPE': len(oficiais_fora),
+            'NOT_ELIGIBLE': len(oficiais_fora),
             'COLLECTED_ZERO': 0 if not itens else NAO_SEI,
         },
         'AS_QUATRO_AUSENCIAS_LEITURA': (
@@ -162,7 +186,8 @@ if __name__ == '__main__':
     print('  casas tentadas .................. %d' % m['A_ACCOUNTS_ATTEMPTED'])
     print('  contas oficiais provadas ........ %d' % m['B_ACCOUNTS_PROVED'])
     print('  destas, LOCAIS e autorizadas .... %d' % m['B_ACCOUNTS_AUTHORIZED_LOCAL'])
-    print('  oficiais mas nao locais ......... %d' % m['C_PROVED_BUT_NOT_LOCAL'])
+    print('  oficiais fora do lote ........... %d  %s'
+          % (m['C_PROVED_BUT_NOT_ELIGIBLE'], m['C_EXCLUDED_BY_PRIMARY_REASON']))
     print('  URLs que nem eram conta ......... %d' % m['C_REJECTED_NOT_AN_ACCOUNT'])
     print('  itens coletados ................. %d' % m['E_TOTAL_ITEMS'])
     print('  execucoes pagas / custo ......... %d / %.6f USD'

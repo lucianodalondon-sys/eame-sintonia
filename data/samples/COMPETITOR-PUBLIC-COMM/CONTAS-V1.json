@@ -8,7 +8,13 @@
  "EVIDENCE_CLASS": "DERIVED_IDENTITY",
  "APIFY_RUNS": 0,
  "COST_USD": 0,
- "REGRA_DE_PROMOCAO": "OFICIAL e DAQUELE PAÍS são duas perguntas independentes. COLLECTION_AUTHORIZED = PROVED E LOCAL_COUNTRY.",
+ "REGRA_DE_PROMOCAO": "TRÊS perguntas independentes: a conta é OFICIAL? é DAQUELE PAÍS? é da EMPRESA ou de uma MARCA? ELIGIBLE_FOR_COMPANY_LOCAL_BATCH = PROVED E LOCAL_COUNTRY_PROVED E PAGE_ROLE=COMPANY.",
+ "OS_QUATRO_ESTADOS_SAO_DIFERENTES": {
+  "LOCAL_COUNTRY_PROVED": "o país da conta está provado por evidência declarada",
+  "GLOBAL": "a conta declara alcance mundial ou sede fora do país",
+  "PRODUCT_BRAND (PAGE_ROLE)": "a página é de uma marca/produto. NÃO é um estado de país: uma página de marca pode ter o país PROVADO — a DEKALB France tem — e mesmo assim ficar fora do lote COMPANY x COUNTRY.",
+  "NOT_KNOWN": "não foi possível decidir por rota pública. Não é reprovação."
+ },
  "ACCOUNTS_ATTEMPTED": 72,
  "ACCOUNTS_FOUND_AS_LINK": 44,
  "BY_IDENTITY_STATE": {
@@ -16,11 +22,19 @@
   "REJECTED": 12,
   "NOT_KNOWN": 28
  },
- "BY_SCOPE": {
-  "LOCAL_COUNTRY": 22,
+ "BY_COUNTRY_SCOPE": {
+  "LOCAL_COUNTRY_PROVED": 23,
   "GLOBAL": 4,
-  "PRODUCT": 3,
-  "NOT_KNOWN": 3
+  "NOT_KNOWN": 5
+ },
+ "BY_PAGE_ROLE": {
+  "COMPANY": 29,
+  "PRODUCT_BRAND": 3
+ },
+ "EXCLUDED_BY_PRIMARY_REASON": {
+  "GLOBAL": 4,
+  "PRODUCT_BRAND_ROLE": 3,
+  "COUNTRY_NOT_KNOWN": 3
  },
  "ACCOUNTS_AUTHORIZED_FOR_COLLECTION": 22,
  "ACCOUNTS": [
@@ -34,10 +48,14 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em ES (https://www.cropscience.bayer.es/, título \"Inicio | Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"Bayer4CropsES\" carrega marca de país explícita (es) para ES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"Bayer4CropsES\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "BAYER|ES|YOUTUBE",
@@ -49,10 +67,14 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em ES (https://www.cropscience.bayer.es/, título \"Inicio | Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceEspaña\" carrega marca de país explícita (españa) para ES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceEspaña\" carrega marca de país explícita (españa) para ES",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "BAYER|ES|INSTAGRAM",
@@ -64,10 +86,14 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em ES (https://www.cropscience.bayer.es/, título \"Inicio | Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o mesmo identificador (\"bayer4cropses\") aparece no FACEBOOK da mesma empresa e país, onde ele carrega marca de país explícita. Mesma conta, caixa diferente porque a plataforma escreve a URL do seu jeito.",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o mesmo identificador (\"bayer4cropses\") aparece no FACEBOOK da mesma empresa e país, onde ele carrega marca de país explícita. Mesma conta, caixa diferente porque a plataforma escreve a URL do seu jeito.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "BAYER|ES|YOUTUBE",
@@ -79,10 +105,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Ver vídeo",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: é um vídeo, não um canal",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "BAYER|IT|FACEBOOK",
@@ -94,10 +127,14 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em IT (https://www.cropscience.bayer.it/, título \"Bayer Crop Science Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceItalia\" carrega marca de país explícita (italia) para IT",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceItalia\" carrega marca de país explícita (italia) para IT",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "BAYER|IT|YOUTUBE",
@@ -109,10 +146,14 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em IT (https://www.cropscience.bayer.it/, título \"Bayer Crop Science Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceIT\" carrega marca de país explícita (it) para IT",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceIT\" carrega marca de país explícita (it) para IT",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "BAYER|IT|INSTAGRAM",
@@ -124,10 +165,14 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em IT (https://www.cropscience.bayer.it/, título \"Bayer Crop Science Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"bayer_italia\" carrega marca de país explícita (italia) para IT",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"bayer_italia\" carrega marca de país explícita (italia) para IT",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "BAYER|IT|LINKEDIN",
@@ -139,11 +184,17 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em IT (https://www.cropscience.bayer.it/, título \"Bayer Crop Science Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "GLOBAL",
-   "ACCOUNT_SCOPE_EVIDENCE": "a página se chama \"Bayer | Crop Science\" e se descreve como \"a responsible, GLOBAL team\", sem país. E a prova de que o subdomínio é interface veio sozinha: pedir `it.linkedin.com` entregou a página em `de.linkedin.com`. Se `it.` fosse a Itália, `de.` seria a Alemanha — e é a MESMA conta.",
+   "COUNTRY_SCOPE": "GLOBAL",
+   "COUNTRY_SCOPE_EVIDENCE": "a página se chama \"Bayer | Crop Science\" e se descreve como \"a responsible, GLOBAL team\", sem país. E a prova de que o subdomínio é interface veio sozinha: pedir `it.linkedin.com` entregou a página em `de.linkedin.com`. Se `it.` fosse a Itália, `de.` seria a Alemanha — e é a MESMA conta.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://it.linkedin.com/company/bayer-cropscience"
    ]
   },
@@ -157,14 +208,19 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em FR (https://agro.bayer.fr/, título \"Protection des cultures, conseils et outils agronomiques | Agro Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "PRODUCT",
-   "ACCOUNT_SCOPE_EVIDENCE": "a página se chama \"DEKALB France\", é classificada por ela mesma como \"Produto/serviço\" e aponta para bayer-agri.fr. DEKALB é MARCA DE SEMENTE: o escopo é PRODUCT. Ela É restrita à França, e isso fica gravado em COUNTRY_RESTRICTED — mas conta de marca de produto não é a conta da empresa no país, e misturar as duas faria a contagem por concorrente medir marca e empresa no mesmo balde.",
-   "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_CHAIN": [
-    "https://www.facebook.com/dekalbfr"
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o país está PROVADO: a página se chama \"DEKALB France\" e declara o site bayer-agri.fr, domínio agrícola francês da Bayer.",
+   "PAGE_ROLE": "PRODUCT_BRAND",
+   "PAGE_ROLE_EVIDENCE": "a própria página se classifica como \"Produto/serviço\", e DEKALB é marca de SEMENTE da Bayer, não a conta da Bayer na França. Papel de marca não apaga a prova de país — as duas coisas são verdade ao mesmo tempo.",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY."
    ],
-   "ACCOUNT_COUNTRY_RESTRICTED": "FR"
+   "COLLECTION_AUTHORIZED": "NO",
+   "COLLECTION_AUTHORIZED_WHY": "a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY.",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.facebook.com/dekalbfr"
+   ]
   },
   {
    "ACCOUNT_CELL_ID": "BAYER|FR|YOUTUBE",
@@ -176,11 +232,15 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BAYER em FR (https://agro.bayer.fr/, título \"Protection des cultures, conseils et outils agronomiques | Agro Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "a descrição do PRÓPRIO canal declara o país: \"En France, à vos côtés, pour trouver des solutions adaptées à l'agriculture française\". Não é a língua do vídeo nem a língua da interface — é o canal dizendo a quem serve.",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "a descrição do PRÓPRIO canal declara o país: \"En France, à vos côtés, pour trouver des solutions adaptées à l'agriculture française\". Não é a língua do vídeo nem a língua da interface — é o canal dizendo a quem serve.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham, e o escopo veio da prova de ida e volta, não do formato do handle",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://www.youtube.com/@BayerAgri"
    ]
   },
@@ -194,10 +254,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Voir la vidéo",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: é um vídeo, não um canal",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|ES|FACEBOOK",
@@ -209,10 +276,14 @@
    "ACCOUNT_LABEL_ON_SITE": "Facebook",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em ES (https://www.syngenta.es/, título \"Syngenta | Tecnología al servicio del agricultor\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"SyngentaES\" carrega marca de país explícita (es) para ES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"SyngentaES\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|ES|INSTAGRAM",
@@ -224,10 +295,14 @@
    "ACCOUNT_LABEL_ON_SITE": "Instagram",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em ES (https://www.syngenta.es/, título \"Syngenta | Tecnología al servicio del agricultor\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"syngenta.es\" carrega marca de país explícita (es) para ES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"syngenta.es\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|ES|YOUTUBE",
@@ -239,10 +314,14 @@
    "ACCOUNT_LABEL_ON_SITE": "YouTube",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em ES (https://www.syngenta.es/, título \"Syngenta | Tecnología al servicio del agricultor\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"SyngentaES\" carrega marca de país explícita (es) para ES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"SyngentaES\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|ES|FACEBOOK",
@@ -254,10 +333,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Más información sobre este proveedor",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: aviso do fornecedor de cookies do Facebook, não é página de empresa",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|ES|YOUTUBE",
@@ -269,10 +355,17 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: é um vídeo, não um canal",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|IT|FACEBOOK",
@@ -284,11 +377,15 @@
    "ACCOUNT_LABEL_ON_SITE": "Facebook",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em IT (https://www.syngenta.it/, título \"Syngenta Italia | Soluzioni innovative per l'agricoltura\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "ida e volta fechada. O identificador é um número de página e não dizia nada; a própria página declara o nome de usuário \"syngentaitalia\" e o site \"syngenta.it\", que é exatamente o âncora italiano.",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "ida e volta fechada. O identificador é um número de página e não dizia nada; a própria página declara o nome de usuário \"syngentaitalia\" e o site \"syngenta.it\", que é exatamente o âncora italiano.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham, e o escopo veio da prova de ida e volta, não do formato do handle",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://www.facebook.com/Syngenta-2007689772789481",
     "https://www.syngenta.it/"
    ]
@@ -303,10 +400,14 @@
    "ACCOUNT_LABEL_ON_SITE": "YouTube",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em IT (https://www.syngenta.it/, título \"Syngenta Italia | Soluzioni innovative per l'agricoltura\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"Syngentaitaly\" termina com o nome do país por extenso (\"italy\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"Syngentaitaly\" termina com o nome do país por extenso (\"italy\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|IT|INSTAGRAM",
@@ -318,10 +419,14 @@
    "ACCOUNT_LABEL_ON_SITE": "Instagram",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em IT (https://www.syngenta.it/, título \"Syngenta Italia | Soluzioni innovative per l'agricoltura\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"syngentaitalia\" termina com o nome do país por extenso (\"italia\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"syngentaitalia\" termina com o nome do país por extenso (\"italia\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|IT|FACEBOOK",
@@ -333,10 +438,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Per saperne di più su questo fornitore",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: aviso do fornecedor de cookies do Facebook, não é página de empresa",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|FR|FACEBOOK",
@@ -348,10 +460,14 @@
    "ACCOUNT_LABEL_ON_SITE": "Facebook",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em FR (https://www.syngenta.fr/, título \"Semences et produits phytosanitaires pour les cultures - Syngenta\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"SyngentaFrance\" carrega marca de país explícita (france) para FR",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"SyngentaFrance\" carrega marca de país explícita (france) para FR",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|FR|YOUTUBE",
@@ -363,10 +479,14 @@
    "ACCOUNT_LABEL_ON_SITE": "YouTube",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em FR (https://www.syngenta.fr/, título \"Semences et produits phytosanitaires pour les cultures - Syngenta\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"SyngentaFrance\" carrega marca de país explícita (france) para FR",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"SyngentaFrance\" carrega marca de país explícita (france) para FR",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "SYNGENTA|FR|FACEBOOK",
@@ -378,10 +498,17 @@
    "ACCOUNT_LABEL_ON_SITE": "En savoir plus sur ce fournisseur",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: aviso do fornecedor de cookies do Facebook, não é página de empresa",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "BASF|ES|INSTAGRAM",
@@ -393,11 +520,15 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to instagram",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BASF em ES (https://www.agro.basf.es/es/, título \"Bienvenidos a BASF Agro España\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "ida e volta fechada. O site espanhol declara a conta, e a conta declara de volta o site espanhol: a bio do Instagram aponta para linktr.ee/basf_agroes, e essa página lista quatro endereços em agro.basf.es — incluindo a raiz /es/, que é exatamente o âncora. Não é a LÍNGUA da bio que decide (isso o §6 proíbe); é o endereço declarado.",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "ida e volta fechada. O site espanhol declara a conta, e a conta declara de volta o site espanhol: a bio do Instagram aponta para linktr.ee/basf_agroes, e essa página lista quatro endereços em agro.basf.es — incluindo a raiz /es/, que é exatamente o âncora. Não é a LÍNGUA da bio que decide (isso o §6 proíbe); é o endereço declarado.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham, e o escopo veio da prova de ida e volta, não do formato do handle",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://www.instagram.com/basf_agroes/",
     "https://linktr.ee/basf_agroes",
     "https://www.agro.basf.es/es/"
@@ -413,10 +544,14 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to facebook",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BASF em ES (https://www.agro.basf.es/es/, título \"Bienvenidos a BASF Agro España\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"BASF.Agro.Espana\" carrega marca de país explícita (espana) para ES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"BASF.Agro.Espana\" carrega marca de país explícita (espana) para ES",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "BASF|ES|LINKEDIN",
@@ -428,11 +563,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to linkedin",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BASF em ES (https://www.agro.basf.es/es/, título \"Bienvenidos a BASF Agro España\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "GLOBAL",
-   "ACCOUNT_SCOPE_EVIDENCE": "a própria página declara sede em Ludwigshafen, site basf.com e \"mais de 111.000 funcionários (...) em quase todos os países do mundo\". É a conta do grupo, não a da Espanha.",
+   "COUNTRY_SCOPE": "GLOBAL",
+   "COUNTRY_SCOPE_EVIDENCE": "a própria página declara sede em Ludwigshafen, site basf.com e \"mais de 111.000 funcionários (...) em quase todos os países do mundo\". É a conta do grupo, não a da Espanha.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como ES (COUNTRY_SCOPE=GLOBAL)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como ES (COUNTRY_SCOPE=GLOBAL)",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://www.linkedin.com/company/basf/"
    ]
   },
@@ -446,10 +587,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to youtube",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: é uma playlist, não um canal",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "BASF|IT|LINKEDIN",
@@ -461,11 +609,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to linkedin",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BASF em IT (https://www.agro.basf.it/it/, título \"Benvenuti in BASF Agricultural Solutions Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "GLOBAL",
-   "ACCOUNT_SCOPE_EVIDENCE": "mesma conta do caso espanhol — sede Ludwigshafen, site basf.com, alcance mundial declarado. O `?originalSubdomain=it` da URL é preferência de exibição, não outra conta.",
+   "COUNTRY_SCOPE": "GLOBAL",
+   "COUNTRY_SCOPE_EVIDENCE": "mesma conta do caso espanhol — sede Ludwigshafen, site basf.com, alcance mundial declarado. O `?originalSubdomain=it` da URL é preferência de exibição, não outra conta.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://www.linkedin.com/company/basf/"
    ]
   },
@@ -479,11 +633,15 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to facebook",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BASF em IT (https://www.agro.basf.it/it/, título \"Benvenuti in BASF Agricultural Solutions Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "a página declara ENDEREÇO FÍSICO na Itália (Via Marconato 8, Cesano Maderno, Italy), telefone +39, e-mail info.agroitalia@basf.com e o site agro.basf.it/it, que é o âncora italiano. Endereço postal é a evidência de país mais forte que uma página pública dá.",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "a página declara ENDEREÇO FÍSICO na Itália (Via Marconato 8, Cesano Maderno, Italy), telefone +39, e-mail info.agroitalia@basf.com e o site agro.basf.it/it, que é o âncora italiano. Quatro declarações de país independentes na mesma página. POSTAL_ADDRESS_IN_COUNTRY = STRONG_COUNTRY_EVIDENCE — sem ordenar contra as outras formas de prova, que esta missão não mediu.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham, e o escopo veio da prova de ida e volta, não do formato do handle",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091/",
     "https://www.agro.basf.it/it"
    ]
@@ -498,10 +656,16 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to instagram",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de BASF em IT (https://www.agro.basf.it/it/, título \"Benvenuti in BASF Agricultural Solutions Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "GLOBAL",
-   "ACCOUNT_SCOPE_EVIDENCE": "o próprio identificador \"basf_global\" declara \"global\"",
+   "COUNTRY_SCOPE": "GLOBAL",
+   "COUNTRY_SCOPE_EVIDENCE": "o próprio identificador \"basf_global\" declara \"global\"",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=GLOBAL — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como IT (COUNTRY_SCOPE=GLOBAL)"
   },
   {
    "ACCOUNT_CELL_ID": "BASF|IT|YOUTUBE",
@@ -513,10 +677,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to youtube",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: é uma playlist, não um canal",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "BASF|FR|YOUTUBE",
@@ -528,10 +699,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Link to youtube",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: é uma playlist, não um canal",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "CORTEVA|ES|FACEBOOK",
@@ -543,10 +721,14 @@
    "ACCOUNT_LABEL_ON_SITE": "se abre en una pestaña nueva",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de CORTEVA em ES (https://www.corteva.com/es/, título \"El futuro de la agricultura | Corteva Agriscience\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"CortevaES\" carrega marca de país explícita (es) para ES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"CortevaES\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "CORTEVA|FR|YOUTUBE",
@@ -558,11 +740,18 @@
    "ACCOUNT_LABEL_ON_SITE": "s’ouvre dans un nouvel onglet",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de CORTEVA em FR (https://www.corteva.com/fr/, título \"Bienvenue chez Corteva Agriscience\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "PRODUCT",
-   "ACCOUNT_SCOPE_EVIDENCE": "a descrição declara linha de negócio, não país: \"Stoller and Symborg became part of Corteva Biologicals\". Nenhuma menção à França. O site francês da Corteva a lista, mas o site onde o link aparece não define o escopo da conta.",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "a descrição não nomeia país nenhum: \"Stoller and Symborg became part of Corteva Biologicals\". O site francês da Corteva lista o canal, mas o site onde o link aparece não prova o país da conta.",
+   "PAGE_ROLE": "PRODUCT_BRAND",
+   "PAGE_ROLE_EVIDENCE": "o nome declarado é uma linha de negócio — Corteva Biologicals — e não a Corteva na França.",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)",
+    "a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY."
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN) · a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY.",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://www.youtube.com/@CortevaBiologicals"
    ]
   },
@@ -576,11 +765,18 @@
    "ACCOUNT_LABEL_ON_SITE": "s’ouvre dans un nouvel onglet",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de CORTEVA em FR (https://www.corteva.com/fr/, título \"Bienvenue chez Corteva Agriscience\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "PRODUCT",
-   "ACCOUNT_SCOPE_EVIDENCE": "o nome declarado é \"Corteva Biologicals\" e a bio é \"Growing Together\" — linha de produto, sem país. Mesmo caso do canal de YouTube.",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "nome \"Corteva Biologicals\", bio \"Growing Together\" — nenhuma menção à França. Mesmo caso do canal de YouTube.",
+   "PAGE_ROLE": "PRODUCT_BRAND",
+   "PAGE_ROLE_EVIDENCE": "linha de produto, não a empresa no país.",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)",
+    "a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY."
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_CHAIN": [
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN) · a página é de MARCA/PRODUTO, não da empresa no país (PAGE_ROLE=PRODUCT_BRAND). O lote é COMPANY x COUNTRY.",
+   "COUNTRY_SCOPE_CHAIN": [
     "https://www.instagram.com/cortevabiologicals/"
    ]
   },
@@ -594,10 +790,16 @@
    "ACCOUNT_LABEL_ON_SITE": "LinkedIn",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de NUFARM em ES (https://nufarm.com/es/, título \"Nufarm Spain\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "NUFARM|ES|YOUTUBE",
@@ -609,10 +811,14 @@
    "ACCOUNT_LABEL_ON_SITE": "YouTube",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de NUFARM em ES (https://nufarm.com/es/, título \"Nufarm Spain\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"nufarmespana\" termina com o nome do país por extenso (\"espana\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"nufarmespana\" termina com o nome do país por extenso (\"espana\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "NUFARM|ES|FACEBOOK",
@@ -624,10 +830,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Saiba mais sobre este provedor",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: aviso do fornecedor de cookies do Facebook, não é página de empresa",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como ES (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "NUFARM|IT|LINKEDIN",
@@ -639,10 +852,16 @@
    "ACCOUNT_LABEL_ON_SITE": "LinkedIn",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de NUFARM em IT (https://nufarm.com/it/, título \"Nufarm Italy\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "NUFARM|IT|FACEBOOK",
@@ -654,10 +873,14 @@
    "ACCOUNT_LABEL_ON_SITE": "facebook-square",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de NUFARM em IT (https://nufarm.com/it/, título \"Nufarm Italy\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"Nufarm-Italia-2312073685546312\" carrega marca de país explícita (italia) para IT",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"Nufarm-Italia-2312073685546312\" carrega marca de país explícita (italia) para IT",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "NUFARM|IT|FACEBOOK",
@@ -669,10 +892,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Saiba mais sobre este provedor",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: aviso do fornecedor de cookies do Facebook, não é página de empresa",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como IT (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "NUFARM|FR|FACEBOOK",
@@ -684,10 +914,14 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de NUFARM em FR (https://nufarm.com/fr/, título \"Nufarm France\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "LOCAL_COUNTRY",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"Nufarm-France\" carrega marca de país explícita (france) para FR",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"Nufarm-France\" carrega marca de país explícita (france) para FR",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "YES",
+   "EXCLUSION_REASONS": [],
    "COLLECTION_AUTHORIZED": "YES",
-   "COLLECTION_AUTHORIZED_WHY": "PROVED e LOCAL_COUNTRY — as duas perguntas fecham"
+   "COLLECTION_AUTHORIZED_WHY": "PROVED + LOCAL_COUNTRY_PROVED + PAGE_ROLE=COMPANY — as três fecham"
   },
   {
    "ACCOUNT_CELL_ID": "NUFARM|FR|LINKEDIN",
@@ -699,10 +933,16 @@
    "ACCOUNT_LABEL_ON_SITE": "NOT_KNOWN",
    "ACCOUNT_IDENTITY_STATE": "PROVED",
    "ACCOUNT_IDENTITY_EVIDENCE": "o site oficial local de NUFARM em FR (https://nufarm.com/fr/, título \"Nufarm France\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=PROVED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
   },
   {
    "ACCOUNT_CELL_ID": "NUFARM|FR|FACEBOOK",
@@ -714,10 +954,17 @@
    "ACCOUNT_LABEL_ON_SITE": "Saiba mais sobre este provedor",
    "ACCOUNT_IDENTITY_STATE": "REJECTED",
    "ACCOUNT_IDENTITY_EVIDENCE": "não é conta: aviso do fornecedor de cookies do Facebook, não é página de empresa",
-   "ACCOUNT_SCOPE": "NOT_KNOWN",
-   "ACCOUNT_SCOPE_EVIDENCE": "n/a",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "COUNTRY_SCOPE_EVIDENCE": "n/a",
+   "PAGE_ROLE": "COMPANY",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "ELIGIBLE_FOR_COMPANY_LOCAL_BATCH": "NO",
+   "EXCLUSION_REASONS": [
+    "a conta não está PROVED como oficial (REJECTED)",
+    "o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
+   ],
    "COLLECTION_AUTHORIZED": "NO",
-   "COLLECTION_AUTHORIZED_WHY": "estado=REJECTED escopo=NOT_KNOWN — a coleta exige PROVED E LOCAL_COUNTRY"
+   "COLLECTION_AUTHORIZED_WHY": "a conta não está PROVED como oficial (REJECTED) · o país da conta não está provado como FR (COUNTRY_SCOPE=NOT_KNOWN)"
   }
  ],
  "NO_LINK_DECLARED": [
