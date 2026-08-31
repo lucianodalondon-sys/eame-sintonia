@@ -6,3 +6,10 @@
 # `-text` proíbe qualquer normalização de fim de linha. `-diff` impede que o Git
 # tente ler o arquivo como texto em diffs.
 casco/canonical/** -text -diff
+
+# Mesma lei, mesmo motivo, outro lugar. O runtime de apresentacao guarda a sua
+# propria copia do casco e do design system em `vendor/`, e o build confere cada
+# byte por SHA-256. A regra acima nao alcancava esta pasta: bastou criar um
+# worktree novo para o checkout trocar LF por CRLF no `support.js`, e o build
+# parou com "SHA-256 divergente". Nao foi edicao — foi o checkout.
+presentation/runtime/vendor/** -text -diff

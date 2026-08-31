@@ -111,6 +111,98 @@ export function instrument(html) {
     'OBJECT_ID: o.id, OBJECT_TYPE: TYPES[o.type].code,\n      COUNTRY_OF_FACT: (o.f && o.f.COUNTRY_OF_FACT) || COUNTRY[s.country].name,',
     'F1:country-of-fact', log)
 
+  // 5b · OBJECT DETAIL · o casco caia em `|| RAW[0]` quando o tipo pedido nao
+  //      existia no pais. Isso nao e um vazio: e o objeto de OUTRO tipo posando
+  //      de resposta. Medido no snapshot: ES nao tem `reg`, IT nao tem `field`,
+  //      FR nao tem nem `field` nem `reg` — quatro telas mentindo.
+  //
+  //      Trocado por um objeto EMPTY_VALID declarado. Nenhum campo de outro
+  //      objeto entra, e evidenceId fica null: sem objeto, sem gaveta.
+  //      O casco nao tinha estado para "nao ha objeto" — so estados de objeto
+  //      que existe. Um vazio precisa de nome proprio, senao vira 'ARQUIVADO'
+  //      ou 'PRECISA DE EVIDENCIA', que sao outras coisas.
+  out = replaceOnce(out,
+    "archived:  { label: 'ARQUIVADO', color: T3, border: EARTH, dash: 'dashed' }",
+    `archived:  { label: 'ARQUIVADO', color: T3, border: EARTH, dash: 'dashed' },
+      empty:     { label: 'EMPTY_VALID · SEM OBJETO', color: T3, border: EARTH, dash: 'dashed' }`,
+    'estado:empty-valid', log)
+
+  out = replaceOnce(out,
+    'const base = RAW.find(o => o.type === t) || RAW[0];',
+    `const base = RAW.find(o => o.type === t) || {
+      id: '—', type: t, line: 'none', state: 'empty', win: 'naosei',
+      evidenceId: null, gates: [],
+      title: 'SEM OBJETO DESTE TIPO NESTE PAÍS',
+      meta: 'EMPTY_VALID · a mangueira não entregou objeto deste tipo para ' + COUNTRY[s.country].name,
+      blocker: 'Não há bloqueador: não há objeto. Ausência declarada, não falha.',
+      last: '—'
+    };`,
+    'detail:sem-fallback-de-tipo-errado', log)
+
+  // 5c · SELO DE PAIS · 'FUNDAÇÃO COMPLETA' e 'EM COLETA' eram texto fixo no
+  //      casco. Nenhum dos tres paises tem objeto promovido (ready = 0 nos
+  //      tres), entao 'FUNDAÇÃO COMPLETA' era uma afirmacao que o proprio
+  //      snapshot desmente. O selo passa a ser contagem medida, nao adjetivo.
+  out = replaceOnce(out, 'const COUNTRY = {',
+    `const __LANE__ = function (c) {
+      return ((window.__SINTONIA__.eameLanes || []).filter(function (x) { return x.code === c; })[0]) || {};
+    };
+    const __BADGE__ = function (c) {
+      var l = __LANE__(c);
+      if (l.objects === undefined) return 'NÃO MEDIDO';
+      return l.objects + ' OBJETOS · ' + (l.ready || 0) + ' PROMOVIDOS';
+    };
+    const COUNTRY = {`, 'country:selo-helper', log)
+
+  for (const [code, marca] of [
+    ['ES', "es: { name: 'Espanha', kind: 'PAÍS', badge: 'FUNDAÇÃO COMPLETA',"],
+    ['IT', "it: { name: 'Itália', kind: 'PAÍS', badge: 'EM COLETA',"],
+    ['FR', "fr: { name: 'França', kind: 'PAÍS', badge: 'EM COLETA',"],
+  ]) {
+    out = replaceOnce(out, marca,
+      marca.replace(/badge: '[^']*',/, `badge: __BADGE__('${code}'),`),
+      `country:selo-${code}`, log)
+  }
+
+  // 5d · EVIDENCE_ID · o casco amarrava o id da evidencia ao TIPO do objeto,
+  //      nao ao objeto. Todo objeto `case` mostrava EV-0001, fosse ele qual
+  //      fosse — e um objeto vazio mostrava EV-0001 tambem, evidencia de um
+  //      objeto que nem estava na tela.
+  //
+  //      Passa a ser sempre `base.evidenceId`: a evidencia do objeto aberto,
+  //      e null quando nao ha objeto. Onde o casco declarava null, continua
+  //      null — nao inventamos evidencia para afirmacao que ninguem provou.
+  out = replaceOnce(out,
+    `        case: [['fato observado','EV-0001'],['localidade do fato','EV-0001'],['issue nomeado',null]],
+        reg: [['data oficial','EV-0002'],['registro afetado','EV-0002'],['efeito no rótulo',null]],
+        comp: [['marca localizada','EV-0003'],['atividade paga observada','EV-0004'],['registro local',null]],`,
+    `        case: [['fato observado',base.evidenceId],['localidade do fato',base.evidenceId],['issue nomeado',null]],
+        reg: [['data oficial',base.evidenceId],['registro afetado',base.evidenceId],['efeito no rótulo',null]],
+        comp: [['marca localizada',base.evidenceId],['atividade paga observada',base.evidenceId],['registro local',null]],`,
+    'evidencia:do-objeto-nao-do-tipo', log)
+
+  // 5e · mesma lei nas faixas de fundacao. A faixa 4 apontava para EV-0002,
+  //      evidencia de OUTRO objeto; vira null. Sub-declarar e honesto,
+  //      sobre-declarar nao.
+  out = replaceOnce(out,
+    "const eid = ['EV-0001', null, null, 'EV-0002', null, null, null][n] || null;",
+    "const eid = [base.evidenceId, null, null, null, null, null, null][n] || null;",
+    'evidencia:faixas-do-objeto', log)
+
+  // 5f · pernas de convergencia · a perna TERRITORIAL tambem citava EV-0001
+  //      fixo. Vira a evidencia do objeto aberto. A perna DEPENDENTE perde o
+  //      id fixo e fica null: ela existe para mostrar que UMA fonte repetida
+  //      nao vira duas, e para isso nao precisa fingir um id.
+  out = replaceOnce(out,
+    "        evidenceId: 'EV-0001', independence: 'INDEPENDENT', dependency: null, observedAt: null },",
+    "        evidenceId: base.evidenceId, independence: 'INDEPENDENT', dependency: null, observedAt: null },",
+    'convergencia:perna-do-objeto', log)
+
+  out = replaceOnce(out,
+    "        evidenceId: 'EV-0006', independence: 'DEPENDENT', dependency: 'SOURCE_DEPENDENCY',",
+    "        evidenceId: null, independence: 'DEPENDENT', dependency: 'SOURCE_DEPENDENCY',",
+    'convergencia:perna-dependente-sem-id-falso', log)
+
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
     'const volumes = window.__SINTONIA__.volumes || [];', log)
