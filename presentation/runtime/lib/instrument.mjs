@@ -136,9 +136,11 @@ export function instrument(html) {
     `const base = RAW.find(o => o.type === t) || {
       id: '—', type: t, line: 'none', state: 'empty', win: 'naosei',
       evidenceId: null, gates: [],
-      title: 'SEM OBJETO DESTE TIPO NESTE PAÍS',
-      meta: 'EMPTY_VALID · a mangueira não entregou objeto deste tipo para ' + COUNTRY[s.country].name,
-      blocker: 'Não há bloqueador: não há objeto. Ausência declarada, não falha.',
+      title: 'Nenhum objeto confirmado',
+      meta: 'Ainda não há evidência suficiente para descrever um caso deste tipo em ' +
+            COUNTRY[s.country].name + '.',
+      blocker: 'Não há bloqueador porque não há objeto. Isto é ausência declarada, não tela quebrada: ' +
+               'nenhuma evidência deste tipo foi coletada neste país até aqui.',
       last: '—'
     };`,
     'detail:sem-fallback-de-tipo-errado', log)
@@ -464,6 +466,51 @@ export function instrument(html) {
   //      A troca acontece em tempo de execucao, junto com o resto da passagem:
   //      algumas dessas frases sao montadas na hora ("4 OBJETO(S) SEM ..."), e
   //      um replace no arquivo nao alcanca o que ainda nao existe.
+
+  // 5s · O QUE SABEMOS / O QUE FALTA · os dois eram lista fixa.
+  //
+  //      "O que sabemos" tinha duas frases por tipo, iguais para qualquer
+  //      objeto. "O que falta" tinha QUATRO itens fixos — os mesmos quatro,
+  //      sempre, inclusive para objetos que ja tinham aquele portao fechado.
+  //      Era fixture com cara de medicao.
+  //
+  //      Agora os dois saem dos PORTOES do objeto aberto: portao fechado vira
+  //      linha em "sabemos", portao aberto vira linha em "falta", com o estado
+  //      real do portao. Objeto sem portao nao inventa nenhum dos dois.
+  out = replaceOnce(out,
+    "const known = t === 'case' ? ['Fato observado, com fonte, data e localidade do fato.','Recorte geográfico declarado pela própria fonte.'] : (t === 'reg' ? ['Data oficial e registro afetado, pela fonte oficial.','Titular do registro conforme a base oficial.'] : []);",
+    `const __fechado__ = function (g) {
+      var v = String((g && (g.v || g[1])) || '');
+      return !/^N[ÃA]O/i.test(v);
+    };
+    const known = base.id === '—'
+      // Sem objeto: o unico fato que sobra e o recorte do pais, e ele e
+      // verdade. Nao ha bullet inventado — se nem isso houvesse, a lista
+      // ficaria vazia e o casco desenha o vazio.
+      ? [COUNTRY[s.country] ? 'País do recorte: ' + COUNTRY[s.country].name : null,
+         RAW.length ? RAW.length + ' objeto(s) de outros tipos neste país' : null].filter(Boolean)
+      : (base.gates || []).filter(__fechado__).map(function (g) { return (g.k || g[0]) + '.'; });`,
+    'vazio:o-que-sabemos-vem-dos-portoes', log)
+
+  out = replaceOnce(out,
+    `    const missing = [
+      { v: 'naoprovado', t: 'Issue nomeado por fonte técnica independente.' },
+      { v: 'naomedido', t: 'Linha de base e N por leitura.' },
+      { v: 'naopronto', t: 'Segunda leitura independente do mesmo fato.' },
+      { v: 'naoconect', t: 'Relógio agronômico do país.' }
+    ].map(m => ({ tag: ST[m.v].label, color: ST[m.v].color, border: ST[m.v].border, t: m.t }));`,
+    `    const missing = (base.id === '—'
+      ? [{ v: 'naopronto', t: 'Um objeto deste tipo neste país. Nenhum foi formado — ausência declarada, não falha.' }]
+      : (base.gates || []).filter(function (g) { return !__fechado__(g); })
+          .map(function (g) {
+            // O portao ja vem com o ROTULO no lugar da chave; volta-se a chave
+            // para achar a cor, e sem correspondencia usa-se um vazio neutro.
+            var rot = String((g && (g.v || g[1])) || '');
+            var chave = Object.keys(ST).filter(function (k) { return ST[k].label === rot; })[0] || 'naopronto';
+            return { v: chave, t: (g.k || g[0]) + '.' };
+          })
+    ).map(m => ({ tag: ST[m.v].label, color: ST[m.v].color, border: ST[m.v].border, t: m.t }));`,
+    'vazio:o-que-falta-vem-dos-portoes', log)
 
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
