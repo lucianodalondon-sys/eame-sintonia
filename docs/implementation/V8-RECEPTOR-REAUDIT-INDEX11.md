@@ -276,7 +276,7 @@ Há teste que reprova se alguma classe se mover.
 ## 10 · PROVAS
 
 `tests/test_v8_receptors_impl.py` — **55 provas** novas, dentro das
-<!--M:TEST_COUNT_CURRENT-->913<!--/M--> da suíte, 0 falhas. As 589 anteriores foram
+<!--M:TEST_COUNT_CURRENT-->924<!--/M--> da suíte, 0 falhas. As 589 anteriores foram
 preservadas.
 
 **Estas provas travam a medição, não aprovam o casco.** Quando o Claude Design corrigir um
