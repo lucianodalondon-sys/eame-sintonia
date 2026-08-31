@@ -1,0 +1,401 @@
+{
+  "SOURCE_ID": "V8-COMPONENT-DATA-CONTRACTS-EAME-2026-08-31",
+  "source": "Contrato de dados dos componentes que o casco V8 JA DESENHOU. Nenhum redesenho: so o que cada componente precisa receber.",
+  "SOURCE_LOCATION": "SINTONIA",
+  "FACT_LOCATION": "ES / IT / FR",
+  "ARTIFACT_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "CONTRACT_DECLARATION",
+  "captured_at": "2026-08-31",
+  "CAPTURED_AT": "2026-08-31",
+  "VISUAL_VERDICT_ACCEPTED": {
+    "STATE": "PASSOU",
+    "NOTE": "Estes cinco componentes existem e estao visualmente corretos. Este artefato NAO pede redesenho de nenhum deles — pede os campos que faltam para que possam receber dado real.",
+    "COMPONENTS_CONFIRMED_PRESENT": [
+      "Convergencia de evidencias",
+      "Single signal explicitamente separado",
+      "Alinhamento contextual != convergencia",
+      "Timeline de inteligencia do objeto",
+      "Mapa de acoes por area",
+      "Horizonte de acao",
+      "Mapa de culturas no Radar",
+      "Mapa de culturas na Camada EAME",
+      "Evidence Drawer / Ver original"
+    ]
+  },
+  "CANONICAL_VOCABULARY": {
+    "SIGNAL_FAMILIES": [
+      "TERRITORIAL",
+      "SCIENCE_RESEARCHER",
+      "NATIONAL_REGISTRY",
+      "TRADEMARK",
+      "META_PAID_ADS",
+      "CREATOR",
+      "FIELD_HISTORICAL",
+      "COMPETITOR_PUBLIC_COMM"
+    ],
+    "DEPENDENCY_TYPES": [
+      "SOURCE_DEPENDENCY",
+      "OBSERVATION_DEPENDENCY",
+      "ENTITY_DEPENDENCY",
+      "DERIVATION_DEPENDENCY",
+      "SEMANTIC_DEPENDENCY",
+      "INDEPENDENT_SOURCE"
+    ],
+    "CONVERGENCE_KINDS": [
+      "PHENOMENON_CONVERGENCE",
+      "IDENTITY_CONVERGENCE",
+      "CONTEXTUAL_ALIGNMENT"
+    ],
+    "CONVERGENCE_LAW": "CONVERGENCE_REQUIRES = SAME_PROPOSITION + INDEPENDENT_EVIDENCE. Os tres tipos NUNCA entram no mesmo numero.",
+    "ACTION_TYPES": [
+      "BUSINESS_DECISION",
+      "SYSTEM_DECISION",
+      "INVESTIGATION"
+    ],
+    "ATTENTION_STATES": [
+      "ATTENTION_READY",
+      "ATTENTION_CANDIDATE_TEST",
+      "VALID_EVIDENCE_NOT_ATTENTION_READY",
+      "NEEDS_EVIDENCE",
+      "FORMING",
+      "WATCH",
+      "FUTURE",
+      "ARCHIVED"
+    ],
+    "GEO_RESOLUTIONS": [
+      "COUNTRY",
+      "NUTS2",
+      "PROVINCE",
+      "MUNICIPALITY",
+      "LOCALITY_TEXT",
+      "POINT",
+      "NOT_KNOWN"
+    ]
+  },
+  "COMPONENTS": [
+    {
+      "COMPONENT_ID": "CONVERGENCE_COMPONENT",
+      "CASCO_KEYS_TODAY": [
+        "conv",
+        "convLegs",
+        "convContext"
+      ],
+      "RENDERED_IN": [
+        "radar",
+        "obj"
+      ],
+      "PURPOSE": "Mostrar quantas familias INDEPENDENTES sustentam A MESMA proposicao, e separar do que apenas se alinha ao assunto.",
+      "REQUIRED_FIELDS": {
+        "PROPOSITION_ID": "identificador da proposicao unica que as pernas sustentam",
+        "PROPOSITION_TEXT": "a proposicao em palavras, ja presente no casco como conv.proposition",
+        "LEGS": {
+          "SIGNAL_FAMILY": "uma das oito familias canonicas — hoje o casco tem so o rotulo 'FAMILIA CAMPO'",
+          "EVIDENCE_ID": "ponteiro para a evidencia que sustenta esta perna",
+          "INDEPENDENCE_STATE": "INDEPENDENT | DEPENDENT | NOT_PROVED",
+          "DEPENDENCY_RELATION": "quando DEPENDENT: um dos seis DEPENDENCY_TYPES, mais o alvo da dependencia",
+          "SOURCE_ID": "fonte da perna",
+          "OBSERVED_AT": "data da observacao desta perna"
+        },
+        "CONVERGENCE_KIND": "PHENOMENON_CONVERGENCE | IDENTITY_CONVERGENCE | CONTEXTUAL_ALIGNMENT",
+        "CONVERGENCE_STATE": "SINGLE_SIGNAL | MULTI_SIGNAL | NOT_PROVED",
+        "INDEPENDENT_FAMILY_COUNT": "contagem derivada, nunca digitada"
+      },
+      "OPTIONAL_FIELDS": [
+        "CONTEXT_ALIGNMENTS[]",
+        "REFUTED_LEGS[]"
+      ],
+      "GUARDS": [
+        "SAME_PROPOSITION_REQUIRED",
+        "INDEPENDENT_EVIDENCE_REQUIRED",
+        "THREE_CONVERGENCE_KINDS_NEVER_SUMMED",
+        "CONTEXTUAL_ALIGNMENT_NEVER_COUNTS_AS_LEG",
+        "SINGLE_SIGNAL_IS_LEGITIMATE",
+        "DERIVED_DEPENDENCY_ON_META_H3_H4",
+        "SAME_PUBLISHER_H5_H1_IS_NOT_INDEPENDENT"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem INDEPENDENCE_STATE provado a perna NAO conta. Duas pernas com DEPENDENCY_RELATION entre si renderizam como UMA familia, com a relacao visivel. Nunca somar para chegar a dois.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "PRESENT": "conv.state (SINGLE SIGNAL · 1 FAMILIA / MULTI SIGNAL), conv.single, conv.proposition, convLegs[].family, convLegs[].source, convLegs[].fields[] com 'INDEPENDENCIA: INDEPENDENTE' como texto, convContext[] com role 'ALINHAMENTO CONTEXTUAL — NAO SOMA COMO EVIDENCIA'",
+        "SEMANTICS_CORRECT": "a lei esta certa na tela: single signal e legitimo, alinhamento contextual nao soma, e a contagem de familias vem de convLegs.length (derivada, nao digitada)",
+        "MISSING": [
+          "PROPOSITION_ID",
+          "SIGNAL_FAMILY como valor do vocabulario",
+          "EVIDENCE_ID",
+          "INDEPENDENCE_STATE como campo tipado",
+          "DEPENDENCY_RELATION",
+          "CONVERGENCE_KIND"
+        ],
+        "WORST_GAP": "DEPENDENCY_RELATION nao existe em lugar nenhum do casco. As duas dependencias medidas do produto — H3 depende de H4 por DERIVATION_DEPENDENCY, H5 depende de H1 por SOURCE_DEPENDENCY — nao tem como ser mostradas. Sem isso, duas pernas que sao a mesma evidencia vista de outro angulo vao renderizar como MULTI SIGNAL. Foi exatamente esse erro que a rodada de refresh encontrou: cinco das seis convergencias da V1 eram a mesma evidencia."
+      }
+    },
+    {
+      "COMPONENT_ID": "OBJECT_TIMELINE",
+      "CASCO_KEYS_TODAY": [
+        "timeline",
+        "timelineKinds",
+        "objHistory"
+      ],
+      "RENDERED_IN": [
+        "radar",
+        "obj"
+      ],
+      "PURPOSE": "Mostrar o que aconteceu com o objeto ao longo do tempo, incluindo os vazios reais.",
+      "REQUIRED_FIELDS": {
+        "EVENT_ID": "identificador do evento",
+        "EVENT_TYPE": "um dos onze tipos ja listados no casco em timelineKinds",
+        "EVENT_AT": "data ISO — o casco hoje so tem o rotulo de exibicao ('23 ABR')",
+        "EVENT_AT_RESOLUTION": "DATA_EXATA | SEMANA | MES | FASE_FENOLOGICA | ESTACAO | NAO_CONHECIDA",
+        "SOURCE_ID": "fonte do evento",
+        "OBSERVATION_ID": "observacao que originou o evento, quando houver",
+        "STATE_BEFORE": "estado de atencao antes — vazio quando o evento cria o objeto",
+        "STATE_AFTER": "estado de atencao depois",
+        "WHAT_CHANGED": "o que mudou, em uma frase — ja presente como timeline[].changed"
+      },
+      "OPTIONAL_FIELDS": [
+        "SIGNAL_FAMILY_ADDED",
+        "GAP_REASON",
+        "TRIGGER_ID"
+      ],
+      "GUARDS": [
+        "GAP_IS_AN_EVENT_NOT_AN_ABSENCE_OF_EVENTS",
+        "STATE_CHANGE_REQUIRES_BOTH_STATES",
+        "NEVER_DRAW_PRECISION_THE_DATE_DOES_NOT_HAVE",
+        "CAPTURE_DATE_IS_NOT_SOURCE_DATE_IS_NOT_OBSERVATION_DATE"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "evento sem EVENT_AT nao entra na linha; entra como VAZIO TEMPORAL com o motivo. Sem STATE_BEFORE e STATE_AFTER nao existe evento de mudanca de estado.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "PRESENT": "timeline[] com date / res / source / title / changed / kind, e o tipo VAZIO TEMPORAL desenhado com trilho tracejado. timelineKinds[] lista os onze tipos de evento canonicos.",
+        "SEMANTICS_CORRECT": "o vazio temporal como EVENTO e a decisao mais dificil e o casco acertou: 'o intervalo e real e permanece vazio ate existir confirmacao independente'. EVENT_AT_RESOLUTION ja existe como res.",
+        "MISSING": [
+          "EVENT_ID",
+          "EVENT_AT como data ISO",
+          "SOURCE_ID",
+          "OBSERVATION_ID",
+          "STATE_BEFORE",
+          "STATE_AFTER"
+        ],
+        "COUNT": "3 de 8 campos obrigatorios presentes (EVENT_TYPE, WHAT_CHANGED, EVENT_AT_RESOLUTION)",
+        "NOTE": "objHistory[] existe, esta vazio e e uma segunda lista para a mesma coisa. Duas listas de historico e uma pergunta de design, nao um bloqueio de receptor."
+      }
+    },
+    {
+      "COMPONENT_ID": "CROP_INTELLIGENCE_MAP",
+      "CASCO_KEYS_TODAY": [
+        "mapHighlight",
+        "mapStates",
+        "mapFilters",
+        "mapHoles"
+      ],
+      "RENDERED_IN": [
+        "radar",
+        "obj",
+        "eame"
+      ],
+      "PURPOSE": "Mostrar onde os objetos estao, por cultura e regiao — e onde NAO olhamos.",
+      "REQUIRED_FIELDS": {
+        "COUNTRY": "pais do fato",
+        "REGION": "regiao declarada pela fonte",
+        "LOCALITY_OR_GEOMETRY": "localidade em texto OU geometria, nunca as duas fingindo ser a mesma coisa",
+        "GEO_RESOLUTION": "um dos sete valores de GEO_RESOLUTIONS",
+        "CROP": "cultura",
+        "OBJECT_ID": "objeto ancorado neste ponto",
+        "OBJECT_TYPE": "tipo do objeto",
+        "ATTENTION_STATE": "estado de atencao do objeto"
+      },
+      "OPTIONAL_FIELDS": [
+        "ISSUE",
+        "CROP_AREA_HA",
+        "COVERAGE_STATE",
+        "OBSERVED_AT"
+      ],
+      "GUARDS": [
+        "NO_GEOMETRY_NO_PAINT",
+        "LOCALITY_TEXT_IS_NOT_A_POINT",
+        "SOURCE_LOCATION_IS_NOT_FACT_LOCATION",
+        "COVERAGE_HOLE_MUST_BE_DECLARED_NOT_LEFT_BLANK",
+        "COUNTRY_ISOLATION_NO_CROSS_COUNTRY_EVIDENCE"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_AVAILABLE",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem GEO_RESOLUTION o ponto nao e desenhado. Localidade em texto NUNCA vira coordenada por geocodificacao silenciosa. Area de cultura sem geometria conectada nao pinta mancha por estimativa.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "PRESENT": "mapa em resolucao de PAIS (mapStates: ESP / ITA / FRA com rotulo de fundacao e cor), mapHighlight pelo pais selecionado, seis filtros em mapFilters (com REGIAO = NAO CONECTADA), e tres buracos declarados em mapHoles",
+        "SEMANTICS_CORRECT": "mapHoles e a melhor parte: o casco declara que nao ha geometria de cultura conectada, que nenhum objeto tem coordenada provada, e que a cobertura por regiao ainda nao permite dizer onde nao olhamos. Nada e pintado por estimativa.",
+        "MISSING": [
+          "LOCALITY_OR_GEOMETRY",
+          "GEO_RESOLUTION",
+          "OBJECT_ID",
+          "OBJECT_TYPE",
+          "ATTENTION_STATE por ponto",
+          "CROP como valor"
+        ],
+        "NOTE": "hoje o mapa e uma coropletica de pais. Nao ha estrutura para receber UM objeto num lugar. CROP aparece so como rotulo de filtro ('TODAS'), nunca como valor."
+      }
+    },
+    {
+      "COMPONENT_ID": "ACTION_MAP",
+      "CASCO_KEYS_TODAY": [
+        "departments",
+        "actionAreas",
+        "regionalAreas",
+        "horizon"
+      ],
+      "RENDERED_IN": [
+        "radar",
+        "obj",
+        "eame"
+      ],
+      "PURPOSE": "Dizer quem deve olhar, o que fazer, e com base em que evidencia — ou que nao ha acao defensavel.",
+      "REQUIRED_FIELDS": {
+        "OBJECT_ID": "objeto a que a acao se refere",
+        "DEPARTMENT": "area responsavel",
+        "ACTION_TYPE": "BUSINESS_DECISION | SYSTEM_DECISION | INVESTIGATION",
+        "ACTION_STATE": "estado da acao, incluindo NOT_APPLICABLE e NOT_DETERMINED",
+        "ACTION_TEXT": "a acao em uma frase — ja presente como departments[].action",
+        "EVIDENCE_BASIS": "os EVIDENCE_ID que sustentam a acao; vazio bloqueia BUSINESS_DECISION"
+      },
+      "OPTIONAL_FIELDS": [
+        "TIME_HORIZON",
+        "WHY_TEXT",
+        "IS_CENTRAL_AREA",
+        "REGIONAL_OWNER"
+      ],
+      "GUARDS": [
+        "NO_EVIDENCE_NO_BUSINESS_DECISION",
+        "SYSTEM_DECISION_DOES_NOT_PROVE_BUSINESS_VALUE",
+        "CENTRAL_USER_ABSORPTION_GUARD",
+        "NOT_APPLICABLE_IS_NOT_A_GAP",
+        "ALERT_IS_FORBIDDEN_FOR_REGULATORY_DEADLINE_MAX_IS_REVIEW"
+      ],
+      "CENTRAL_USER_ABSORPTION_GUARD": "Market Development e usuario central por decisao arquitetonica, NAO porque recebeu todas as linhas da tabela.",
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "acao sem EVIDENCE_BASIS renderiza como SEM ACAO DEFENSAVEL AINDA, nunca como acao fraca. ACTION_TYPE ausente bloqueia a linha.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "PRESENT": "sete areas com action / why / time / kind (BUSINESS | INVESTIGATION | SYSTEM) / state, com 'SEM ACAO DEFENSAVEL AINDA' para as tres areas comerciais e acento verde so em Market Development. Horizonte de acao em quatro faixas com estado por faixa.",
+        "SEMANTICS_CORRECT": "kind ja carrega os tres ACTION_TYPES canonicos com outros nomes (BUSINESS = BUSINESS_DECISION, INVESTIGATION = INVESTIGATION, SYSTEM = SYSTEM_DECISION), e o guard de absorcao esta respeitado: Market Development e a unica area central e as outras seis nao recebem tudo.",
+        "MISSING": [
+          "OBJECT_ID",
+          "EVIDENCE_BASIS",
+          "ACTION_TYPE com o nome canonico"
+        ],
+        "COUNT": "3 de 6 campos obrigatorios presentes (DEPARTMENT, ACTION_STATE, ACTION_TEXT)",
+        "WORST_GAP": "EVIDENCE_BASIS. Hoje nada impede que uma acao de negocio apareca sem evidencia por tras: o casco garante isso por texto fixo, nao por campo."
+      }
+    },
+    {
+      "COMPONENT_ID": "EVIDENCE_DRAWER",
+      "CASCO_KEYS_TODAY": [
+        "drawerOpen",
+        "openDrawer",
+        "closeDrawer",
+        "drawerClaim",
+        "drawerFields"
+      ],
+      "RENDERED_IN": [
+        "global — aberto de radar e obj"
+      ],
+      "PURPOSE": "Levar QUALQUER afirmacao ate a evidencia original, em qualquer mangueira H1..H9.",
+      "REQUIRED_FIELDS": {
+        "CLAIM_TEXT": "a afirmacao — ja presente como drawerClaim",
+        "OBJECT_ID": "objeto de origem da afirmacao",
+        "HOSE_ID": "mangueira de origem — H1..H9",
+        "EVIDENCE_ID": "evidencia especifica",
+        "SOURCE_ID": "fonte",
+        "SOURCE_LOCATION": "pais da publicacao — ja presente como rotulo",
+        "FACT_LOCATION": "pais e regiao do fato — ja presente como rotulo",
+        "SOURCE_PUBLISHED_AT": "data da fonte",
+        "CAPTURED_AT": "data de captura",
+        "EVIDENCE_LEVEL": "nivel de evidencia — ja presente",
+        "PROVENANCE": "envelope completo, GITHUB ou SUPABASE",
+        "ORIGINAL_TEXT": "o trecho original, na lingua da fonte",
+        "SOURCE_LANGUAGE": "lingua do original",
+        "TRANSLATED_TEXT": "traducao, quando existir",
+        "TRANSLATION_PROVENANCE": "quem traduziu, quando, com que qualidade",
+        "DISPLAY_LANGUAGE": "lingua atualmente exibida"
+      },
+      "OPTIONAL_FIELDS": [
+        "SOURCE_URL",
+        "DOCUMENT_EXCERPT",
+        "PASSAGE_OFFSETS"
+      ],
+      "GUARDS": [
+        "MUST_TRACE_ALL_NINE_HOSES",
+        "TRANSLATION_NEVER_REPLACES_ORIGINAL",
+        "SOURCE_LOCATION_IS_NOT_FACT_LOCATION",
+        "NO_EVIDENCE_ID_NO_DRAWER",
+        "PROVENANCE_RENDERS_IDENTICALLY_FOR_BOTH_BACKENDS"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_AVAILABLE",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "afirmacao sem EVIDENCE_ID nao abre gaveta — o link nao existe, em vez de abrir uma gaveta vazia. Traducao sem ORIGINAL_TEXT nao renderiza.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "PRESENT": "drawerClaim (uma frase) e drawerFields[7]: FONTE, DATA DA FONTE, DATA DE CAPTURA, LOCALIDADE DA FONTE, LOCALIDADE DO FATO, NIVEL DE EVIDENCIA, PROVENIENCIA",
+        "SEMANTICS_CORRECT": "LOCALIDADE DA FONTE e LOCALIDADE DO FATO sao campos distintos, com a explicacao na propria gaveta ('uma publicacao francesa pode descrever um fato espanhol, e isso nunca move o fato de pais'). Essa distincao e rara e esta certa.",
+        "BLOCKER_1_GLOBAL_NOT_PER_OBJECT": "openDrawer e o.evidence fazem a mesma coisa: this.set({drawerOpen: true}). Nenhum id e passado. drawerClaim e drawerFields sao chaves de topo, iguais para todos. A gaveta abre sempre com o mesmo conteudo, venha de que objeto vier.",
+        "BLOCKER_2_PROVENANCE_IS_ONE_STRING": "PROVENIENCIA e um unico campo de texto com o valor 'hash / commit — slot'. Nao ha discriminador de backend, nem repositorio/caminho/commit, nem schema/tabela/chave/snapshot.",
+        "BLOCKER_3_MULTILINGUAL_NOT_BOUND": "os rotulos TRECHO ORIGINAL e IDIOMA DA FONTE nao tem valor ligado; o corpo e um paragrafo estatico de politica. Os botoes 'Ver original' e 'Mostrar traducao' NAO tem sc-camel-on-click: sao botoes desenhados, com cursor de clique e sem acao.",
+        "TRACES_ALL_HOSES": "NO",
+        "MISSING": [
+          "OBJECT_ID",
+          "HOSE_ID",
+          "EVIDENCE_ID",
+          "SOURCE_ID",
+          "PROVENANCE estruturado",
+          "ORIGINAL_TEXT",
+          "SOURCE_LANGUAGE",
+          "TRANSLATED_TEXT",
+          "TRANSLATION_PROVENANCE",
+          "DISPLAY_LANGUAGE"
+        ]
+      }
+    }
+  ],
+  "SUMMARY": {
+    "COMPONENTS_AUDITED": 5,
+    "COMPONENTS_WITH_COMPLETE_CONTRACT_IN_CASCO": 0,
+    "COMPONENTS_WITH_CORRECT_SEMANTICS_IN_CASCO": 5,
+    "NOTE": "Os cinco componentes acertam a LEI e erram o CAMPO. Nenhum precisa ser redesenhado; todos precisam de campo onde hoje ha rotulo."
+  }
+}

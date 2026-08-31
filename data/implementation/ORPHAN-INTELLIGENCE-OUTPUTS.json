@@ -1,0 +1,323 @@
+{
+  "SOURCE_ID": "ORPHAN-INTELLIGENCE-OUTPUTS-EAME-2026-08-31",
+  "source": "Inventario de saidas canonicas de inteligencia e o receptor de cada uma. Objetivo: nenhuma orfa.",
+  "SOURCE_LOCATION": "SINTONIA",
+  "FACT_LOCATION": "ES / IT / FR",
+  "ARTIFACT_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "COVERAGE_AUDIT",
+  "captured_at": "2026-08-31",
+  "CAPTURED_AT": "2026-08-31",
+  "DEFINITIONS": {
+    "ORPHAN_INTELLIGENCE_OUTPUT": "saida canonica de inteligencia sobre o mercado que NAO tem receptor declarado em lugar nenhum",
+    "SUBRECEPTOR_OF_EXISTING_HOSE": "tem destino dentro de um receptor ja declarado",
+    "AUXILIARY_RECEPTOR_REQUIRED": "precisa de receptor proprio, declarado nesta rodada",
+    "NOT_CANONICAL": "artefato de metodo, QA, contrato de escopo ou exploracao — nao e inteligencia sobre o mercado",
+    "DEPRECATED": "substituido por artefato posterior, com o sucessor nomeado",
+    "HONESTY_RULE": "Reclassificar algo inconveniente como NAO CANONICO para chegar a zero seria fraude de auditoria. Cada NOT_CANONICAL abaixo tem motivo verificavel: e sobre o processo, nao sobre o mercado."
+  },
+  "TWO_DIFFERENT_NUMBERS": {
+    "ORPHAN_CANONICAL_INTELLIGENCE_OUTPUTS": 0,
+    "MEANING": "depois desta matriz, TODA saida canonica tem receptor DECLARADO",
+    "OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO": 10,
+    "MEANING_2": "essas saidas apontam para receptores que o casco ainda NAO tem. Declarar destino nao e ter destino.",
+    "UNIT_WARNING": "Duas unidades diferentes, nunca somadas: 10 SAIDAS apontam para 6 RECEPTORES ausentes. Varias saidas dividem o mesmo receptor faltante. Contar saidas e contar receptores da numeros diferentes porque medem coisas diferentes.",
+    "WHY_BOTH": "Se eu publicasse so o primeiro numero, um zero limpo esconderia as saidas sem para onde ir. Se publicasse so o segundo, pareceria que a rodada nao produziu nada.",
+    "DERIVED_BY": "scripts/v8_receptor_audit.py — nenhum destes numeros foi digitado"
+  },
+  "OUTPUTS": [
+    {
+      "OUTPUT": "TERRITORIAL_ITEMS",
+      "WHERE": "data/samples/TERRITORIAL/FINAL.json + refresh-corrected V2",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H1-TERRITORIAL-OBSERVATION",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "FIELD_HISTORICAL (serie RAIF)",
+      "WHERE": "refresh-corrected V2 :: FIELD_HISTORICAL",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H5-FIELD-PRESSURE-SERIES",
+      "CASCO_RECEPTOR_STATE": "PARTIAL",
+      "LEDGER": "RAIF_SEASONS_AVAILABLE = 23 · RAIF_READINGS_TOTAL = 148964"
+    },
+    {
+      "OUTPUT": "REGULATORY_DEADLINE_OBJECT",
+      "WHERE": "refresh-corrected V2 :: REGULATORY_DEADLINE_OBJECT",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H2-REGISTRATION-DEADLINE",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "IDENTITY_CHAIN_OBJECT",
+      "WHERE": "refresh-corrected V2 :: IDENTITY_CHAIN_OBJECT",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H3-COMPETITOR-IDENTITY-CHAIN",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "OBSERVED_PAID_ACTIVITY (Meta)",
+      "WHERE": "handoff a2fad2d / commit acfd987",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H4-OBSERVED-PAID-ACTIVITY",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "ITALIAN_LABELS (163 rotulos, 24 ausentes do disco)",
+      "WHERE": "refresh-corrected V2 :: ITALIAN_LABELS",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H2-REGISTRATION-DEADLINE :: LABEL_EFFECT_STATE + EVIDENCE_FIELDS",
+      "CASCO_RECEPTOR_STATE": "PARTIAL",
+      "NOTE": "rotulo do registro, nao portfolio da ADAMA — nao confundir com R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT"
+    },
+    {
+      "OUTPUT": "CREATOR_LAST_90D + CREATOR_READINESS",
+      "WHERE": "refresh-corrected V2",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H6-CREATOR-ENTITY",
+      "CASCO_RECEPTOR_STATE": "PARTIAL",
+      "LEDGER_CORRECTION": "LAST_90D = 164 (o 280 foi copiado do briefing; o freeze diz 164)"
+    },
+    {
+      "OUTPUT": "ATTENTION_CANDIDATES (9)",
+      "WHERE": "data/refresh-corrected/ATTENTION-CANDIDATES.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H1 / R-H2 / R-H3 / R-H5 via RADAR_OBJECT_CARD",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "ACTION_CANDIDATES (9) + ACTION_TYPES (3)",
+      "WHERE": "data/refresh-corrected/ACTION-CANDIDATES.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "ACTION_MAP",
+      "CASCO_RECEPTOR_STATE": "PARTIAL",
+      "MISSING_IN_CASCO": "EVIDENCE_BASIS e OBJECT_ID"
+    },
+    {
+      "OUTPUT": "SOURCE_LATENCY_EAME (por fonte)",
+      "WHERE": "data/refresh-corrected/SOURCE-LATENCY-EAME.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "SOURCE_CLOCKS (tela fontes: sourceClocks + sources)",
+      "CASCO_RECEPTOR_STATE": "PARTIAL",
+      "NOTE": "os cinco relogios de fonte existem no casco, incluindo 'Latencia de pipeline: NAO MEDIDA' — sem instrumentacao nao existe zero"
+    },
+    {
+      "OUTPUT": "SIGNAL_DEPENDENCY_GRAPH_V2 :: RELATIONS (17) + DEPENDENCY_TYPES (6)",
+      "WHERE": "data/refresh-corrected/SIGNAL-DEPENDENCY-GRAPH-V2.json",
+      "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
+      "RECEPTOR": "CONVERGENCE_COMPONENT :: DEPENDENCY_RELATION",
+      "CASCO_RECEPTOR_STATE": "ABSENT",
+      "WHY_IT_MATTERS": "sem este campo, duas pernas que sao a mesma evidencia vista de outro angulo renderizam como MULTI SIGNAL. Foi esse erro que o refresh encontrou: cinco das seis convergencias da V1 eram a mesma evidencia."
+    },
+    {
+      "OUTPUT": "SIGNAL_FAMILIES (8) + CONVERGENCE_KINDS (3)",
+      "WHERE": "SIGNAL-DEPENDENCY-GRAPH-V2.json",
+      "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
+      "RECEPTOR": "CONVERGENCE_COMPONENT :: SIGNAL_FAMILY + CONVERGENCE_KIND",
+      "CASCO_RECEPTOR_STATE": "ABSENT",
+      "NOTE": "o casco tem o rotulo 'FAMILIA CAMPO' como texto livre, nao um valor do vocabulario de oito"
+    },
+    {
+      "OUTPUT": "COMPANY_LOCAL_ACCOUNT (22 contas de concorrente resolvidas)",
+      "WHERE": "commit c25e44b + data/samples/ES-COMPETITOR-VOICE.json",
+      "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
+      "RECEPTOR": "R-H8-COMPANY-LOCAL-ACCOUNT",
+      "CASCO_RECEPTOR_STATE": "ABSENT",
+      "WHY_IT_MATTERS": "a identidade esta resolvida e a coleta de conteudo nao comecou. Sem receptor, zero conteudo vira silencio da empresa em vez de coleta nao executada."
+    },
+    {
+      "OUTPUT": "SCIENTIFIC_PUBLICATION (corpus cientifico ES)",
+      "WHERE": "data/samples/ES-T5-002-corpus-documentos.json + EU-T5-001-openalex-people.json",
+      "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
+      "RECEPTOR": "R-SUB-SCIENCE-PUBLICATION-EVIDENCE",
+      "CASCO_RECEPTOR_STATE": "ABSENT",
+      "WHY_IT_MATTERS": "SCIENTIFIC_PERSON != SCIENTIFIC_PUBLICATION. Sem este subreceptor, a camada Ciencia herdaria a lista de pessoas de H7 e o produto passaria a dizer que ha ciencia por tras de um caso porque encontrou um pesquisador."
+    },
+    {
+      "OUTPUT": "LOCAL_ADAMA_PORTFOLIO_CONTEXT",
+      "WHERE": "data/samples/RADAR-ADAMA-prothioconazole.json + ES-T4-005-ficha-primaria-es01717.json + ES-T4-004-denominaciones-*",
+      "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
+      "RECEPTOR": "R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT",
+      "CASCO_RECEPTOR_STATE": "ABSENT",
+      "WHY_IT_MATTERS": "REGISTRATION_DEADLINE != LOCAL_ADAMA_PORTFOLIO_CONTEXT. Sem este subreceptor, alguem liga H2 na camada Portfolio e o portal passa a dizer que a ADAMA tem resposta registrada porque um registro qualquer — de qualquer titular — tem prazo."
+    },
+    {
+      "OUTPUT": "FIELD_VOICE_OBSERVATION (posts, videos, comentarios, transcricoes)",
+      "WHERE": "data/samples/ES-T8-001-* · ES-T8-002-* · ES-X-VOICE-FIELD.json · ES-VOICE-*",
+      "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
+      "RECEPTOR": "R-SUB-FIELD-VOICE-OBSERVED",
+      "CASCO_RECEPTOR_STATE": "ABSENT",
+      "WHY_IT_MATTERS": "voices[] tem a entidade e nao tem a observacao. Nome nao e sinal."
+    },
+    {
+      "OUTPUT": "CONTENT_ENTITY + CONTENT_TRANSLATION + ONTOLOGY_TERM",
+      "WHERE": "commit 1443f643 (contrato multilingue) + X-006-substance-normalisation.json + X-007-canonical-agro-dictionary.json + X-006-eu-cas-to-ephy.json",
+      "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
+      "RECEPTOR": "R-H9-TEXT-CONTENT",
+      "CASCO_RECEPTOR_STATE": "ABSENT_AS_RECEPTOR",
+      "NOTE": "UI_LANGUAGE existe e funciona. SOURCE / ARTIFACT / DISPLAY / TRANSLATION_TARGET nao existem como campo.",
+      "LEDGER": "SOURCE_RECORD_LANGUAGE_COVERAGE = MEASURED_ZERO_DECLARED — 283 de 5.998 registros tem o campo, zero tem valor"
+    },
+    {
+      "OUTPUT": "SCIENTIFIC_PERSON (pesquisadores ES)",
+      "WHERE": "data/samples/ES-RESEARCHERS-OLIVE.json + RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H7-SCIENTIFIC-PERSON",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "CHANGE_EVENTS ES 2025-2026",
+      "WHERE": "data/samples/CHANGE-EVENTS-es-2025-2026.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "OBJECT_TIMELINE",
+      "CASCO_RECEPTOR_STATE": "PARTIAL",
+      "MISSING_IN_CASCO": "EVENT_ID, EVENT_AT em ISO, STATE_BEFORE, STATE_AFTER"
+    },
+    {
+      "OUTPUT": "BACKTEST_REPILO_LEAD_TIME",
+      "WHERE": "data/samples/BACKTEST-REPILO-LEAD-TIME.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H5 :: BACKTEST_STATE + FALSE_POSITIVE_RATE",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "RAIF_COORTE_REPILO",
+      "WHERE": "data/samples/RAIF-COORTE-REPILO.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H5 :: COHORT_STATE",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "CROSS_MARKET prothioconazole cereal",
+      "WHERE": "data/samples/CROSS-MARKET-prothioconazole-cereal.json",
+      "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
+      "RECEPTOR": "EAME_CROSS_MARKET (crossCases + comparability + asymRows + timingLanes)",
+      "CASCO_RECEPTOR_STATE": "PARTIAL",
+      "NOTE": "a camada EAME inteira e hoje um conjunto de listas fixas. O componente existe e o contrato de recepcao dele nao foi declarado antes desta rodada."
+    },
+    {
+      "OUTPUT": "EU_NUTS2_CROP_AREA + EU_CEREAL_PRICES + EU_WHEAT_YIELD",
+      "WHERE": "data/samples/EU-T1-001-nuts2-crop-area.json · EU-T10-001-cereal-prices.json · EU-T1-002-wheat-yield-country.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "EAME_CROSS_MARKET :: comparability + CROP_INTELLIGENCE_MAP :: CROP_AREA_HA",
+      "CASCO_RECEPTOR_STATE": "PARTIAL",
+      "NOTE": "area de cultura e preco de referencia ja sao dimensoes COMPARAVEIS declaradas no casco; rendimento ainda nao e uma delas"
+    },
+    {
+      "OUTPUT": "ES_PRESSAO_x_AREA_OLIVAR + X-001 (mildiu vs clima, calor vs trigo)",
+      "WHERE": "data/samples/ES-PRESSAO-x-AREA-OLIVAR.json · X-001-*",
+      "CLASS": "NOT_CANONICAL",
+      "REASON": "cruzamentos exploratorios de missao anterior; nenhum entrou no conjunto canonico fechado pela arbitragem. Clima nao tem mangueira, e o casco declara Clima como NAO MEDIDO — consistente.",
+      "NOTE": "se clima virar canonico, precisa de mangueira nova. Criar mangueira esta fora do escopo desta rodada."
+    },
+    {
+      "OUTPUT": "CASE-006 rain window vs yield",
+      "WHERE": "data/samples/CASE-006-es41-rain-window-vs-yield.json",
+      "CLASS": "NOT_CANONICAL",
+      "REASON": "caso exploratorio anterior a ontologia de ATTENTION_OBJECT; a unidade CASE deixou de ser a unidade superior do produto"
+    },
+    {
+      "OUTPUT": "SPEAKER_UNIVERSE + PUBLIC_TECHNICAL_VOICE_QUEUE + ES-VOICE-MEDIA-ROUTES",
+      "WHERE": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json · PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json · ES-VOICE-MEDIA-ROUTES.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H6-CREATOR-ENTITY (fila de entrada) + R-SUB-FIELD-VOICE-OBSERVED",
+      "CASCO_RECEPTOR_STATE": "ABSENT"
+    },
+    {
+      "OUTPUT": "ES_X_VOICE_SCIENCE",
+      "WHERE": "data/samples/ES-X-VOICE-SCIENCE.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H7 + R-SUB-SCIENCE-PUBLICATION-EVIDENCE",
+      "CASCO_RECEPTOR_STATE": "ABSENT"
+    },
+    {
+      "OUTPUT": "DATA_CLOCK_manifest",
+      "WHERE": "data/samples/DATA-CLOCK-manifest.json",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "SOURCE_CLOCKS",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "SLICE_PLASVI_vertical + FR-T13-001-distribution",
+      "WHERE": "data/samples/",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H1-TERRITORIAL-OBSERVATION (recorte FR)",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "PILOT_SCOPE_MATRIX_V1",
+      "WHERE": "data/samples/PILOT-SCOPE-MATRIX-V1.json",
+      "CLASS": "NOT_CANONICAL",
+      "REASON": "contrato de escopo (o schema das seis fatias). E o que corrigiu o bug do parser ingenuo. Contrato, nao payload."
+    },
+    {
+      "OUTPUT": "ASK-SINTONIA benchmark/teste · BENCHMARK-ORDENACAO-B2 · BENCHMARK-RESEARCH-SAVING-B1",
+      "WHERE": "data/samples/",
+      "CLASS": "NOT_CANONICAL",
+      "REASON": "avaliacao do proprio sistema, nao inteligencia sobre o mercado"
+    },
+    {
+      "OUTPUT": "AUDITORIA-REGRA-COLETA-EXTERNA · ROTAS-EXTERNAS-TESTADAS-M09 · POLITICA-RAW-ROTA-PAGA · PORTAO-10B-ES · REDTEAM-CASE-014-datas · RUN-MANIFEST · INVENTARIO-SCRATCHPAD-HANDOFF",
+      "WHERE": "data/samples/",
+      "CLASS": "NOT_CANONICAL",
+      "REASON": "auditoria, politica de coleta, manifesto de execucao e inventario de handoff — todos sobre o processo"
+    },
+    {
+      "OUTPUT": "ES-T4-004-denominaciones-comunes / -medida / -padrao e ES-T4-005-divergencia-resolvida",
+      "WHERE": "data/samples/",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT :: ACTIVE_INGREDIENT + REGISTRATION_REFS",
+      "CASCO_RECEPTOR_STATE": "ABSENT"
+    },
+    {
+      "OUTPUT": "COMPETITOR-azoxy-prothio-italy",
+      "WHERE": "data/samples/",
+      "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
+      "RECEPTOR": "R-H3-COMPETITOR-IDENTITY-CHAIN",
+      "CASCO_RECEPTOR_STATE": "PARTIAL"
+    },
+    {
+      "OUTPUT": "refresh V1 (FINAL-INTELLIGENCE-REFRESH-EAME + SIGNAL-DEPENDENCY-GRAPH)",
+      "WHERE": "data/refresh/",
+      "CLASS": "DEPRECATED",
+      "SUPERSEDED_BY": "data/refresh-corrected/FINAL-INTELLIGENCE-REFRESH-EAME-V2.json e SIGNAL-DEPENDENCY-GRAPH-V2.json",
+      "REASON": "a V1 media so CASE, publicou ACT_NOW = 0 como estado do produto inteiro com 155 prazos fora da medicao, e contou como convergencia cinco vezes a mesma evidencia. Fica no repositorio como testemunha do erro."
+    }
+  ],
+  "RECEPTORS_ABSENT_IN_CASCO": [
+    {
+      "RECEPTOR": "R-H8-COMPANY-LOCAL-ACCOUNT",
+      "BLOCKS": "22 contas de concorrente resolvidas"
+    },
+    {
+      "RECEPTOR": "R-H9-TEXT-CONTENT",
+      "BLOCKS": "todo texto de fonte com lingua, original e traducao — atravessa as nove mangueiras"
+    },
+    {
+      "RECEPTOR": "R-SUB-SCIENCE-PUBLICATION-EVIDENCE",
+      "BLOCKS": "corpus cientifico espanhol"
+    },
+    {
+      "RECEPTOR": "R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT",
+      "BLOCKS": "resposta registrada local da ADAMA"
+    },
+    {
+      "RECEPTOR": "R-SUB-FIELD-VOICE-OBSERVED",
+      "BLOCKS": "posts, videos, comentarios e transcricoes ja coletados"
+    },
+    {
+      "RECEPTOR": "CONVERGENCE_COMPONENT :: DEPENDENCY_RELATION",
+      "BLOCKS": "as 17 relacoes tipadas do grafo de dependencia"
+    }
+  ],
+  "SUMMARY": {
+    "OUTPUTS_INVENTORIED": 35,
+    "ORPHAN_CANONICAL_INTELLIGENCE_OUTPUTS": 0,
+    "OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO": 10,
+    "CLASS_COUNTS": {
+      "SUBRECEPTOR_OF_EXISTING_HOSE": 21,
+      "AUXILIARY_RECEPTOR_REQUIRED": 8,
+      "NOT_CANONICAL": 5,
+      "DEPRECATED": 1
+    }
+  }
+}

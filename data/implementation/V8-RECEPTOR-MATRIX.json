@@ -1,0 +1,1125 @@
+{
+  "SOURCE_ID": "V8-RECEPTOR-MATRIX-EAME-2026-08-31",
+  "source": "Contrato formal de recepcao do casco V8. Declaracao, nao implementacao.",
+  "SOURCE_LOCATION": "SINTONIA",
+  "FACT_LOCATION": "ES / IT / FR",
+  "ARTIFACT_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "CONTRACT_DECLARATION",
+  "captured_at": "2026-08-31",
+  "CAPTURED_AT": "2026-08-31",
+  "MODE": {
+    "REAL_DATA_WIRED": "NO",
+    "COLLECTION_EXECUTED": "NO",
+    "INTELLIGENCE_CHANGED": "NO",
+    "CASCO_V7_MODIFIED": "NO",
+    "CASCO_V8_MODIFIED": "NO",
+    "NOTE": "O casco V8 e um export do Claude Design. Editar o HTML a mao criaria um fork que o proximo export destruiria. Toda mudanca de receptor sai como PATCH DE DESIGN, nunca como edicao deste arquivo."
+  },
+  "CASCO_WITNESS": {
+    "PATH": "casco/canonical/SINTONIA-EAME-V8-RECEPTOR-CANDIDATE.html",
+    "ORIGIN": "Claude Design export — index (10).html, 2026-08-31 02:19",
+    "BYTES": 1451775,
+    "SHA256": "8905fcb5dac7d8854ad661f60ba83d7f029ca3bd7cbf44ac925c3efce1d3eaf5",
+    "DUPLICATE_OF": "index (9).html — mesmo SHA-256, mesmo tamanho: um arquivo baixado duas vezes",
+    "V7_STILL_WITNESS": "casco/canonical/SINTONIA-EAME-PILOT-V7.html — a31ea1848a99e48cbfcdd2574a284eaeba9017110fb6ea107c6e4f39d4187c6a",
+    "SCREENS": [
+      "home",
+      "radar",
+      "obj",
+      "acervo",
+      "fontes",
+      "relatorios",
+      "eame",
+      "lib",
+      "config"
+    ],
+    "DATA_LAYER_BYTES": 53786,
+    "NOTE": "Toda afirmacao CASCO_MEASURED desta matriz e verificada contra estes bytes por teste. Se o export mudar, o teste reprova."
+  },
+  "RECEPTOR_ENVELOPE": {
+    "RULE": "Todo receptor recebe o mesmo envelope. A UI nunca sabe de qual backend veio: o adapter decide. Nao existe 'receptor GitHub' e 'receptor Supabase' — existe UM receptor canonico.",
+    "FIELDS": {
+      "RECEPTOR_ID": "identificador estavel do receptor",
+      "HOSE_ID": "mangueira de origem — H1..H9",
+      "CANONICAL_PAYLOAD_TYPE": "tipo da entidade canonica recebida",
+      "LOAD_STATE": "estado de transporte — um dos oito",
+      "NO_DATA_REASON": "obrigatorio quando LOAD_STATE nao e READY",
+      "PROVENANCE": "envelope de proveniencia — ver PROVENANCE_ENVELOPE",
+      "EVIDENCE_POINTERS": "lista de ponteiros para evidencia original",
+      "AS_OF_DATE": "data a que o payload se refere",
+      "FAIL_CLOSED_REASON": "obrigatorio quando LOAD_STATE = BLOCKED ou ERROR_FAIL_CLOSED"
+    },
+    "LAW_TRANSPORT_IS_NOT_DATA": "Estado de transporte nunca vira dado. Lista vazia por falta de ligacao (UNWIRED) e lista vazia por resultado legitimo (EMPTY_VALID) NAO podem renderizar igual. Erro de rede nunca vira 'nao ha evidencia'."
+  },
+  "LOAD_STATES": {
+    "UNWIRED": "o receptor existe e nunca foi ligado a fonte nenhuma",
+    "LOADING": "requisicao em curso",
+    "READY": "payload presente e valido",
+    "EMPTY_VALID": "a fonte respondeu e o conjunto vazio e o resultado correto",
+    "NOT_STARTED": "a rota existe, e declarada, e a coleta nao comecou",
+    "NOT_AVAILABLE": "a fonte nao oferece este dado — nao e lacuna nossa",
+    "BLOCKED": "guard recusou o payload; o motivo e obrigatorio",
+    "ERROR_FAIL_CLOSED": "falha de transporte ou de validacao; o receptor fecha e declara, nunca degrada para vazio"
+  },
+  "PROVENANCE_ENVELOPE": {
+    "DISCRIMINATOR": "SOURCE_BACKEND",
+    "VALUES": [
+      "GITHUB",
+      "SUPABASE"
+    ],
+    "GITHUB": [
+      "SOURCE_BACKEND",
+      "REPOSITORY",
+      "PATH",
+      "COMMIT_SHA",
+      "HASH",
+      "SOURCE_ID",
+      "AS_OF_DATE"
+    ],
+    "SUPABASE": [
+      "SOURCE_BACKEND",
+      "SCHEMA",
+      "TABLE_OR_VIEW",
+      "PRIMARY_KEY",
+      "SNAPSHOT_ID",
+      "CAPTURED_AT",
+      "SOURCE_ID",
+      "AS_OF_DATE"
+    ],
+    "UI_RULE": "A UI renderiza PROVENIENCIA de forma identica nos dois casos. O rotulo muda; o componente nao.",
+    "PINNED_READ_RULE": "Leitura GitHub e sempre por COMMIT_SHA fixo. Um branch se move e responde diferente a cada hora sem ninguem ter mudado nada.",
+    "SECURITY": {
+      "NEVER_IN_FRONTEND": [
+        "SERVICE_ROLE_KEY",
+        "secret",
+        "token",
+        "senha",
+        "chave privada"
+      ],
+      "RULE": "O casco recebe entidade canonica ja resolvida. Credencial de backend nunca atravessa o receptor."
+    }
+  },
+  "RECEPTORS": [
+    {
+      "RECEPTOR_ID": "R-H1-TERRITORIAL-OBSERVATION",
+      "HOSE_ID": "H1-TERRITORIAL",
+      "CANONICAL_PAYLOAD_TYPE": "TERRITORIAL_OBSERVATION",
+      "COMPONENT_ID": [
+        "RADAR_OBJECT_CARD",
+        "OBJECT_DETAIL_FIELD_LAYER",
+        "ACERVO_ROW",
+        "EVIDENCE_DRAWER"
+      ],
+      "REQUIRED_FIELDS": [
+        "OBJECT_ID",
+        "OBJECT_TYPE",
+        "COUNTRY_OF_FACT",
+        "REGION_OF_FACT",
+        "CROP",
+        "ISSUE",
+        "ISSUE_EVIDENCE_PASSAGE",
+        "PUBLISHED_AT",
+        "SOURCE_ID",
+        "ATTENTION_STATE",
+        "BLOCKER",
+        "LAST_EVIDENCE_AT"
+      ],
+      "OPTIONAL_FIELDS": [
+        "LOCALITY_OF_FACT",
+        "DOCUMENT_EXCERPT",
+        "PHENOLOGY_AT_OBSERVATION",
+        "ADAMA_LINE"
+      ],
+      "GUARDS": [
+        "CROP_ISSUE_PAIRING_NOT_PROVEN",
+        "MULTI_BULLETIN_DOCUMENT_GUARD",
+        "SIDEBAR_NOT_BODY",
+        "ORG_NAME_NOT_LOCALITY",
+        "BINARY_NOT_DOCUMENT",
+        "EDUCATIONAL_QUIZ_NOT_FIELD_SIGNAL"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "ISSUE_EVIDENCE_PASSAGE",
+        "DOCUMENT_EXCERPT",
+        "SOURCE_URL",
+        "SOURCE_LOCATION",
+        "FACT_LOCATION"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem par cultura x problema na MESMA passagem o objeto nao e construido; o receptor entra BLOCKED com NO_DATA_REASON = CROP_ISSUE_PAIRING_NOT_PROVEN. Nunca produto cartesiano.",
+      "KNOWN_LIMIT": "corpo completo nao preservado: so DOCUMENT_EXCERPT de 3.000 caracteres e as passagens de evidencia",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "KEYS_PRESENT_IN_CASCO": [
+          "objects",
+          "forming",
+          "needsEvidence",
+          "archived",
+          "objCount",
+          "obj"
+        ],
+        "PRESENT_AS": "slots visuais com title / meta[] / gates[] / blocker / lastEvidence — todos texto de exibicao",
+        "MISSING_FIELDS": [
+          "OBJECT_ID",
+          "COUNTRY_OF_FACT",
+          "REGION_OF_FACT",
+          "CROP",
+          "ISSUE",
+          "ISSUE_EVIDENCE_PASSAGE",
+          "PUBLISHED_AT",
+          "SOURCE_ID",
+          "LAST_EVIDENCE_AT como data"
+        ],
+        "MISSING_ENVELOPE": [
+          "LOAD_STATE",
+          "NO_DATA_REASON",
+          "PROVENANCE",
+          "EVIDENCE_POINTERS",
+          "AS_OF_DATE"
+        ],
+        "NOTE": "meta[] e um array de strings ('Espanha', 'Regiao — slot'). Nao ha campo. Um array de rotulos nao e um contrato: o adapter nao tem onde escrever CROP sem inventar a posicao."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-H2-REGISTRATION-DEADLINE",
+      "HOSE_ID": "H2-REGULATORY-DEADLINE",
+      "CANONICAL_PAYLOAD_TYPE": "REGISTRATION_DEADLINE",
+      "COMPONENT_ID": [
+        "RADAR_OBJECT_CARD",
+        "OBJECT_DETAIL_REGULATORY",
+        "REPORT_ROW",
+        "EVIDENCE_DRAWER"
+      ],
+      "REQUIRED_FIELDS": [
+        "OBJECT_ID",
+        "OBJECT_TYPE",
+        "COUNTRY",
+        "REGISTRATION_NUMBER",
+        "REGISTRATION_HOLDER",
+        "PRODUCT_NAME",
+        "DEADLINE_DATE",
+        "DEADLINE_KIND",
+        "STATUS_AS_DECLARED_BY_SOURCE",
+        "SOURCE_ID",
+        "ATTENTION_STATE"
+      ],
+      "OPTIONAL_FIELDS": [
+        "LABEL_EFFECT_STATE",
+        "ACTIVE_INGREDIENT",
+        "RENEWAL_STATE"
+      ],
+      "GUARDS": [
+        "EXPIRY_IS_NOT_WITHDRAWAL",
+        "EXPIRY_DATE_REACHED_IS_NOT_PRODUCT_DISCONTINUED",
+        "STATUS_AS_DECLARED_BY_SOURCE_NEVER_REINTERPRETED",
+        "CROP_AND_ISSUE_ARE_NOT_APPLICABLE_NEVER_INVENTED",
+        "REGISTRATION_DEADLINE_IS_NOT_LOCAL_ADAMA_PORTFOLIO_CONTEXT"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_AVAILABLE",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "OFFICIAL_REGISTRY_ROW",
+        "SOURCE_URL",
+        "SOURCE_PUBLISHED_AT"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem data futura declarada pela fonte nao ha objeto. Acao maxima e REVIEW; ALERT e proibido. Estado da fonte ambiguo entra BLOCKED com revisao humana exigida.",
+      "KNOWN_LIMIT": "so a Italia existe neste acervo. ES e FR precisam do equivalente antes de generalizar.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "KEYS_PRESENT_IN_CASCO": [
+          "objects",
+          "obj",
+          "typeSwitch"
+        ],
+        "PRESENT_AS": "tipo REG existe com composicao propria (DIMS.reg: Registro, Titular, Prazo, Status da fonte, Efeito no rotulo) e a lei EXPIRY != WITHDRAWAL esta escrita na sintese",
+        "MISSING_FIELDS": [
+          "OBJECT_ID",
+          "REGISTRATION_NUMBER",
+          "REGISTRATION_HOLDER",
+          "PRODUCT_NAME",
+          "DEADLINE_DATE",
+          "DEADLINE_KIND",
+          "STATUS_AS_DECLARED_BY_SOURCE",
+          "SOURCE_ID"
+        ],
+        "MISSING_ENVELOPE": [
+          "LOAD_STATE",
+          "NO_DATA_REASON",
+          "PROVENANCE",
+          "EVIDENCE_POINTERS",
+          "AS_OF_DATE"
+        ],
+        "NOTE": "a composicao modular por tipo esta correta e e a melhor parte do V8. O que falta e onde escrever o numero do registro."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-H3-COMPETITOR-IDENTITY-CHAIN",
+      "HOSE_ID": "H3-COMPETITOR-IDENTITY-CHAIN",
+      "CANONICAL_PAYLOAD_TYPE": "COMPETITOR_PRODUCT_IDENTITY",
+      "COMPONENT_ID": [
+        "RADAR_OBJECT_CARD",
+        "OBJECT_DETAIL_CHAIN",
+        "PHENOMENON_COMPETITION_CONTEXT",
+        "EVIDENCE_DRAWER"
+      ],
+      "REQUIRED_FIELDS": [
+        "OBJECT_ID",
+        "OBJECT_TYPE",
+        "COUNTRY",
+        "COMPETITOR_NAME",
+        "NORMALIZED_PRODUCT",
+        "TRADEMARK_REGISTRATION_ID",
+        "TRADEMARK_HOLDER",
+        "LOCAL_REGISTRATION_ID",
+        "LOCAL_REGISTRATION_HOLDER",
+        "OBSERVED_PAID_ACTIVITY_REF",
+        "AGREEMENT_STATE",
+        "URBOLE_GUARD_RESULT",
+        "ATTENTION_STATE"
+      ],
+      "OPTIONAL_FIELDS": [
+        "HOLDER_GROUP",
+        "TRADEMARK_OFFICE",
+        "TRADEMARK_FILED_AT",
+        "TRADEMARK_STATUS"
+      ],
+      "GUARDS": [
+        "URBOLE_GUARD",
+        "DERIVED_DEPENDENCY_ON_META",
+        "IDENTITY_CONVERGENCE_IS_NOT_PHENOMENON_CONVERGENCE",
+        "CROP_AND_ISSUE_ARE_NOT_APPLICABLE_NEVER_INVENTED"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "TRADEMARK_RECORD_REF",
+        "LOCAL_REGISTRATION_ROW_REF",
+        "OBSERVED_PAID_ACTIVITY_REF"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem concordancia de titular E pais nas tres pontas o estado e NOT_KNOWN, nunca 'sem cadeia'. Zero recusas sem portao exercido e portao sem dentes: URBOLE_GUARD_RESULT e obrigatorio mesmo quando passa.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "KEYS_PRESENT_IN_CASCO": [
+          "chain",
+          "chainLimits",
+          "isComp"
+        ],
+        "PRESENT_AS": "tres elos nomeados (Marca registrada / Registro local do produto / Atividade paga observada) com estado por elo, e os seis 'nao pode afirmar' listados em chainLimits",
+        "MISSING_FIELDS": [
+          "OBJECT_ID",
+          "COMPETITOR_NAME",
+          "NORMALIZED_PRODUCT",
+          "TRADEMARK_REGISTRATION_ID",
+          "TRADEMARK_HOLDER",
+          "LOCAL_REGISTRATION_ID",
+          "LOCAL_REGISTRATION_HOLDER",
+          "AGREEMENT_STATE",
+          "URBOLE_GUARD_RESULT"
+        ],
+        "MISSING_ENVELOPE": [
+          "LOAD_STATE",
+          "NO_DATA_REASON",
+          "PROVENANCE",
+          "EVIDENCE_POINTERS",
+          "AS_OF_DATE"
+        ],
+        "TERMS_ABSENT_FROM_CASCO": [
+          "URBOLE"
+        ],
+        "NOTE": "a forma da cadeia esta certa. Falta o campo que diz se titular e pais concordam — que e a unica coisa que a cadeia decide."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-H4-OBSERVED-PAID-ACTIVITY",
+      "HOSE_ID": "H4-META",
+      "CANONICAL_PAYLOAD_TYPE": "OBSERVED_PAID_ACTIVITY",
+      "COMPONENT_ID": [
+        "OBJECT_DETAIL_CHAIN_LINK_3",
+        "EVIDENCE_DRAWER"
+      ],
+      "REQUIRED_FIELDS": [
+        "EVIDENCE_ID",
+        "PLATFORM",
+        "PAGE_ID",
+        "PAGE_NAME",
+        "PAGE_COUNTRY_SCOPE",
+        "OBSERVED_AT",
+        "OBSERVATION_WINDOW",
+        "AD_CARD_COUNT",
+        "CANNOT_CLAIM_LIST"
+      ],
+      "OPTIONAL_FIELDS": [
+        "AD_DELIVERY_COUNTRY_STATE",
+        "SNAPSHOT_REF"
+      ],
+      "GUARDS": [
+        "PAGE_COUNTRY_SCOPE_IS_NOT_AD_DELIVERY_COUNTRY",
+        "AD_CARD_IS_NOT_AD",
+        "SEVEN_CANNOT_CLAIM",
+        "OPERATIONAL_TEMPORAL_SIGNAL_VALUE_NOT_PROVED",
+        "IS_EVIDENCE_NOT_AN_OBJECT_TYPE"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_STARTED",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "AD_CARD_REF",
+        "SNAPSHOT_REF",
+        "OBSERVED_AT"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "zero de leitura e NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING. O receptor NAO cria superficie propria: DO_NOT_BUILD = META_DASHBOARD.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "KEYS_PRESENT_IN_CASCO": [
+          "chain",
+          "chainLimits"
+        ],
+        "PRESENT_AS": "um unico elo 'Atividade paga observada — observada, nao interpretada', estado MEDIDO, dentro de chain",
+        "MISSING_FIELDS": [
+          "EVIDENCE_ID",
+          "PLATFORM",
+          "PAGE_ID",
+          "PAGE_NAME",
+          "PAGE_COUNTRY_SCOPE",
+          "OBSERVED_AT",
+          "OBSERVATION_WINDOW",
+          "AD_CARD_COUNT"
+        ],
+        "MISSING_ENVELOPE": [
+          "LOAD_STATE",
+          "NO_DATA_REASON",
+          "PROVENANCE",
+          "EVIDENCE_POINTERS",
+          "AS_OF_DATE"
+        ],
+        "NOTE": "correto em NAO ter superficie propria. Incompleto porque a linha nao carrega o anuncio: sem EVIDENCE_ID a gaveta nao consegue abrir a observacao que sustenta o elo."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-H5-FIELD-PRESSURE-SERIES",
+      "HOSE_ID": "H5-LONGITUDINAL-FIELD",
+      "CANONICAL_PAYLOAD_TYPE": "FIELD_PRESSURE_SERIES",
+      "COMPONENT_ID": [
+        "RADAR_OBJECT_CARD",
+        "OBJECT_DETAIL_SERIES",
+        "PHENOMENON_FIELD_CONTEXT",
+        "EVIDENCE_DRAWER"
+      ],
+      "REQUIRED_FIELDS": [
+        "OBJECT_ID",
+        "OBJECT_TYPE",
+        "COUNTRY",
+        "REGION",
+        "CROP",
+        "ISSUE",
+        "READINGS",
+        "READING_N_PER_POINT",
+        "SEASON_RANGE",
+        "BASELINE_KIND",
+        "BASELINE_STATE",
+        "COHORT_STATE",
+        "BACKTEST_STATE",
+        "INDEPENDENCE_FROM_TERRITORIAL_STATE"
+      ],
+      "OPTIONAL_FIELDS": [
+        "FALSE_POSITIVE_RATE",
+        "LEAD_TIME_MEASURED",
+        "PROVINCE_BREAKDOWN"
+      ],
+      "GUARDS": [
+        "FIELD_PRESSURE_IS_NOT_DEMAND",
+        "HA_X_INCIDENCE_ORDERS_NEVER_DIMENSIONS",
+        "MEAN_NEVER_TRAVELS_WITHOUT_N",
+        "SAME_PUBLISHER_IS_NOT_INDEPENDENT_OBSERVATION",
+        "ADAMA_CONTEXT_DECLARED_IS_NOT_LOCAL_PRODUCT_AUTHORIZATION_PROVED"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "SERIES_ARTIFACT_REF",
+        "READING_SOURCE_REF",
+        "BACKTEST_ARTIFACT_REF"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem BASELINE_STATE provado a serie renderiza como serie e NUNCA como tendencia ou crescimento. INDEPENDENCE_FROM_TERRITORIAL_RAIF = NOT_PROVED impede contar como segunda perna de convergencia.",
+      "LEDGER_NOTE": "o numero canonico de safras e do ledger: RAIF_SEASONS_AVAILABLE = 23, RAIF_READINGS_TOTAL = 148964. Um artefato de recorte nao e uma segunda opiniao sobre o total.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "KEYS_PRESENT_IN_CASCO": [
+          "fieldStats",
+          "isField",
+          "obj"
+        ],
+        "PRESENT_AS": "cinco rotulos com valor de ausencia fixo (N por leitura NAO MEDIDO, Linha de base NAO ESTABELECIDA, Coorte NAO PROVADA, Backtest NAO PRONTO, Falsos positivos NAO MEDIDOS)",
+        "MISSING_FIELDS": [
+          "OBJECT_ID",
+          "COUNTRY",
+          "REGION",
+          "CROP",
+          "ISSUE",
+          "READINGS",
+          "SEASON_RANGE",
+          "BASELINE_KIND",
+          "INDEPENDENCE_FROM_TERRITORIAL_STATE"
+        ],
+        "MISSING_ENVELOPE": [
+          "LOAD_STATE",
+          "NO_DATA_REASON",
+          "PROVENANCE",
+          "EVIDENCE_POINTERS",
+          "AS_OF_DATE"
+        ],
+        "NOTE": "fieldStats hoje so sabe dizer que nao sabe. Nao ha onde entregar READINGS[] quando existir — e existe: 148.964 leituras em 23 safras."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-H6-CREATOR-ENTITY",
+      "HOSE_ID": "H6-CREATOR",
+      "CANONICAL_PAYLOAD_TYPE": "PERSON_CREATOR | FARM_BUSINESS_ENTITY | CREATOR_CONTENT_PROFILE",
+      "COMPONENT_ID": [
+        "OBJECT_DETAIL_VOICES",
+        "CROP_REGION_SEARCH_RESULT"
+      ],
+      "REQUIRED_FIELDS": [
+        "ENTITY_ID",
+        "ENTITY_KIND",
+        "COUNTRY",
+        "DISPLAY_NAME",
+        "RELATION_TO_CROP_REGION",
+        "ENTRY_PATH",
+        "GDPR_TREATMENT_STATE",
+        "ROW_COUNT",
+        "ENTITY_COUNT"
+      ],
+      "OPTIONAL_FIELDS": [
+        "CHANNEL_REF",
+        "CONTENT_PROFILE_REF",
+        "LAST_OBSERVED_AT"
+      ],
+      "GUARDS": [
+        "PERSON_CREATOR_IS_NOT_FARM_BUSINESS",
+        "SUM_IS_NEVER_CALLED_CREATORS_READY",
+        "CREATOR_ACTIVATION_ROUTE_IS_NOT_CREATOR_ISSUE_EVIDENCE",
+        "FOLLOWERS_ARE_NOT_AUTHORITY",
+        "ROW_IS_NOT_ENTITY"
+      ],
+      "ENTRY_PATH_VOCABULARY": [
+        "FROM_ATTENTION_OBJECT",
+        "FROM_CROP_REGION_SEARCH"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_STARTED",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "PROFILE_REF",
+        "OBSERVED_CONTENT_REF"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem ENTRY_PATH instrumentado nao ha promocao a ferramenta: o receptor continua contextual e sem navegacao propria. ROW_COUNT e ENTITY_COUNT viajam sempre juntos — a inflacao medida foi de 2,6x.",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "KEYS_PRESENT_IN_CASCO": [
+          "voices"
+        ],
+        "PRESENT_AS": "duas linhas com kind explicito — 'PERSON CREATOR' e 'FARM BUSINESS / PARTNER' — separadas, com nota GDPR na primeira",
+        "PRESERVED_CORRECTLY": "PERSON_CREATOR != FARM_BUSINESS esta visivel na interface e nao ha numero somado",
+        "MISSING_FIELDS": [
+          "ENTITY_ID",
+          "COUNTRY",
+          "DISPLAY_NAME",
+          "RELATION_TO_CROP_REGION",
+          "ENTRY_PATH",
+          "GDPR_TREATMENT_STATE",
+          "ROW_COUNT",
+          "ENTITY_COUNT"
+        ],
+        "MISSING_ENVELOPE": [
+          "LOAD_STATE",
+          "NO_DATA_REASON",
+          "PROVENANCE",
+          "EVIDENCE_POINTERS",
+          "AS_OF_DATE"
+        ],
+        "TERMS_ABSENT_FROM_CASCO": [
+          "ENTRY_PATH",
+          "FROM_ATTENTION_OBJECT",
+          "FROM_CROP_REGION_SEARCH"
+        ],
+        "ENTRY_PATH_MEASURED": "voices e renderizado apenas dentro da tela obj. A rota de busca CROP+REGION nao existe como componente. Sem instrumentacao, a decisao de promover Creator a ferramenta nao tem dado de uso — que era exatamente a condicao da arbitragem."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-H7-SCIENTIFIC-PERSON",
+      "HOSE_ID": "H7-EXPERT",
+      "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PERSON",
+      "COMPONENT_ID": [
+        "OBJECT_DETAIL_PEOPLE_LAYER"
+      ],
+      "REQUIRED_FIELDS": [
+        "PERSON_ID",
+        "DISPLAY_NAME",
+        "ORGANIZATION",
+        "RELATION_TO_ISSUE_AS_DECLARED",
+        "IDENTITY_PROVED",
+        "ISSUE_EXPERTISE_PROVED",
+        "GDPR_TREATMENT_STATE",
+        "COUNTRY"
+      ],
+      "OPTIONAL_FIELDS": [
+        "ORCID",
+        "CROP_EXPERTISE",
+        "PUBLICATION_REFS"
+      ],
+      "GUARDS": [
+        "ISSUE_EXPERTISE_PROVED_REQUIRED_BEFORE_RENDERING_AS_ISSUE_EXPERT",
+        "IDENTITY_PROVED_IS_NOT_ISSUE_EXPERTISE_PROVED",
+        "CROP_EXPERTISE_IS_NOT_CROP_X_ISSUE_EXPERTISE",
+        "RECURRENCE_IS_NOT_AUTHORITY_NO_ORDER_NO_SCORE",
+        "GDPR_BEFORE_ANY_EXPOSURE",
+        "SCIENTIFIC_PERSON_IS_NOT_SCIENTIFIC_PUBLICATION"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_AVAILABLE",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "DECLARATION_SOURCE_REF",
+        "PUBLICATION_REFS"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "ISSUE_EXPERTISE_PROVED = false ou ausente BLOQUEIA a renderizacao como especialista do problema. A pessoa pode aparecer como pessoa relacionada, nunca como autoridade no problema. NOT_MEASURABLE != NOT_PROVED.",
+      "KNOWN_LIMIT": "corpus cientifico so espanhol — expertise IT e FR fica NOT_READY, e isso e NOT_AVAILABLE, nao lacuna nossa",
+      "CASCO_MEASURED": {
+        "STATE": "PARTIAL",
+        "KEYS_PRESENT_IN_CASCO": [
+          "experts"
+        ],
+        "PRESENT_AS": "tres linhas com name / relation / state, sem ordem e sem ranking, com a regra escrita acima da lista",
+        "GATE_MEASURED": "o portao existe como FRASE ('So aparece como especialista do problema quando a expertise no problema estiver provada — e sob tratamento GDPR') e como rotulo de estado (NAO PROVADO / NAO SEI). NAO existe como campo booleano que bloqueie a renderizacao.",
+        "MISSING_FIELDS": [
+          "PERSON_ID",
+          "ORGANIZATION",
+          "IDENTITY_PROVED",
+          "ISSUE_EXPERTISE_PROVED",
+          "GDPR_TREATMENT_STATE",
+          "COUNTRY"
+        ],
+        "MISSING_ENVELOPE": [
+          "LOAD_STATE",
+          "NO_DATA_REASON",
+          "PROVENANCE",
+          "EVIDENCE_POINTERS",
+          "AS_OF_DATE"
+        ],
+        "TERMS_ABSENT_FROM_CASCO": [
+          "ISSUE_EXPERTISE_PROVED"
+        ],
+        "SURFACE_DRIFT": "experts e renderizado na tela radar. A arbitragem coloca a camada Pessoas dentro do PHENOMENON_CASE (OBJECT DETAIL). No radar a lista aparece fora de qualquer objeto — e portao por objeto nao tem onde ser exercido.",
+        "NOTE": "uma regra escrita em prosa nao bloqueia renderizacao. O bloqueio precisa ser um campo."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-H8-COMPANY-LOCAL-ACCOUNT",
+      "HOSE_ID": "H8-PUBLIC-COMM",
+      "CANONICAL_PAYLOAD_TYPE": "COMPANY_LOCAL_ACCOUNT",
+      "COMPONENT_ID": [
+        "SOURCES_ROUTE_ROW"
+      ],
+      "REQUIRED_FIELDS": [
+        "ACCOUNT_ID",
+        "COMPANY_NAME",
+        "PLATFORM",
+        "COUNTRY_SCOPE",
+        "PAGE_ROLE",
+        "CONTENT_COLLECTION_STAGE",
+        "ROUTE_STATE",
+        "IDENTITY_RESOLVED_AT"
+      ],
+      "OPTIONAL_FIELDS": [
+        "ACCOUNT_URL",
+        "LAST_IDENTITY_CHECK_AT"
+      ],
+      "GUARDS": [
+        "IDENTITY_IS_NOT_SIGNAL",
+        "COUNTRY_SCOPE_IS_NOT_PAGE_ROLE",
+        "ACCOUNT_IS_NOT_COMPANY",
+        "ZERO_IS_NO_CONTENT_COLLECTION_EXECUTED_NEVER_COMPANY_NOT_COMMUNICATING"
+      ],
+      "CONTENT_COLLECTION_STAGE_VOCABULARY": [
+        "NOT_STARTED",
+        "RUNNING",
+        "PARTIAL",
+        "COMPLETE"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_STARTED",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "REQUIRED_LOAD_STATE_TODAY": "NOT_STARTED",
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "IDENTITY_RESOLUTION_REF"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "CONTENT_COLLECTION_STAGE = NOT_STARTED: a mangueira existe, esta declarada em Fontes e NAO corre. O receptor precisa saber renderizar 'rota conhecida, coleta nao iniciada' — que nao e vazio, nao e erro e nao e silencio da empresa.",
+      "CASCO_MEASURED": {
+        "STATE": "ABSENT",
+        "KEYS_PRESENT_IN_CASCO": [],
+        "MISSING_FIELDS": [
+          "ACCOUNT_ID",
+          "COMPANY_NAME",
+          "PLATFORM",
+          "COUNTRY_SCOPE",
+          "PAGE_ROLE",
+          "CONTENT_COLLECTION_STAGE",
+          "ROUTE_STATE",
+          "IDENTITY_RESOLVED_AT"
+        ],
+        "MISSING_ENVELOPE": [
+          "LOAD_STATE",
+          "NO_DATA_REASON",
+          "PROVENANCE",
+          "EVIDENCE_POINTERS",
+          "AS_OF_DATE"
+        ],
+        "TERMS_ABSENT_FROM_CASCO": [
+          "CONTENT_COLLECTION_STAGE",
+          "NOT_STARTED"
+        ],
+        "NOTE": "sources[] tem cinco slots genericos (regulatoria, cientifica, campo, mercado, clima). Nenhum representa conta local de empresa, e o estado NAO INICIADA existe na paleta (ST.naoiniciada) mas nao e usado em Fontes. As 22 contas resolvidas do acervo nao tem para onde ir."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-H9-TEXT-CONTENT",
+      "HOSE_ID": "H9-MULTILINGUAL",
+      "CANONICAL_PAYLOAD_TYPE": "CONTENT_ENTITY + CONTENT_TRANSLATION + ONTOLOGY_TERM",
+      "COMPONENT_ID": [
+        "EVIDENCE_DRAWER",
+        "ALL_TEXT_BEARING_COMPONENTS"
+      ],
+      "REQUIRED_FIELDS": [
+        "CANONICAL_ENTITY_ID",
+        "SOURCE_LANGUAGE",
+        "DISPLAY_LANGUAGE",
+        "ORIGINAL_TEXT",
+        "TRANSLATED_TEXT",
+        "TRANSLATION_PROVENANCE"
+      ],
+      "OPTIONAL_FIELDS": [
+        "TRANSLATION_QUALITY",
+        "TRANSLATED_AT",
+        "ONTOLOGY_TERM_ID",
+        "UI_LANGUAGE"
+      ],
+      "GUARDS": [
+        "SOURCE_LANGUAGE_IS_NOT_ARTIFACT_LANGUAGE_IS_NOT_UI_LANGUAGE_IS_NOT_DISPLAY_LANGUAGE",
+        "CANONICAL_ID_IS_NOT_DISPLAY_LABEL",
+        "ORIGINAL_QUOTE_IS_NOT_TRANSLATED_QUOTE",
+        "TRANSLATION_NEVER_REPLACES_ORIGINAL",
+        "UNKNOWN_STAYS_UNKNOWN",
+        "CLOSED_LANGUAGE_VOCABULARY"
+      ],
+      "LANGUAGE_VOCABULARY": [
+        "pt",
+        "en",
+        "es",
+        "fr",
+        "it",
+        "MULTILINGUAL",
+        "UNKNOWN"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_AVAILABLE",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "ORIGINAL_TEXT",
+        "SOURCE_REFERENCE"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "lingua fora do vocabulario fechado recusa a criacao da entidade (BLOCKED). Sem ORIGINAL_TEXT nao se renderiza traducao — nunca a traducao sozinha. SOURCE_LANGUAGE ausente e UNKNOWN, e UNKNOWN continua UNKNOWN.",
+      "LEDGER_NOTE": "SOURCE_RECORD_LANGUAGE_COVERAGE = MEASURED_ZERO_DECLARED: dos 5.998 registros medidos, 283 tem o campo de lingua e ZERO tem valor declarado. O receptor nasce recebendo UNKNOWN na maioria dos casos, e isso e o estado correto.",
+      "CASCO_MEASURED": {
+        "STATE": "ABSENT_AS_RECEPTOR",
+        "KEYS_PRESENT_IN_CASCO": [
+          "langCode",
+          "langOpen",
+          "setLang",
+          "multilingual"
+        ],
+        "PRESENT_AS": "seletor de UI_LANGUAGE com cinco linguas (pt/en/es/it/fr) e quatro frases de politica na tela lib",
+        "DRAWER_MEASURED": "a gaveta tem os rotulos 'TRECHO ORIGINAL' e 'IDIOMA DA FONTE' e os botoes 'Ver original' e 'Mostrar traducao'. Os rotulos nao tem valor ligado e os botoes NAO tem handler (sem sc-camel-on-click). O corpo e um paragrafo estatico explicando a politica, nao o trecho.",
+        "MISSING_FIELDS": [
+          "CANONICAL_ENTITY_ID",
+          "SOURCE_LANGUAGE",
+          "DISPLAY_LANGUAGE",
+          "ORIGINAL_TEXT",
+          "TRANSLATED_TEXT",
+          "TRANSLATION_PROVENANCE"
+        ],
+        "TERMS_ABSENT_FROM_CASCO": [
+          "CANONICAL_ENTITY_ID",
+          "SOURCE_LANGUAGE",
+          "DISPLAY_LANGUAGE",
+          "TRANSLATION_PROVENANCE"
+        ],
+        "NOTE": "UI_LANGUAGE esta implementado. As outras quatro linguas do contrato (SOURCE / ARTIFACT / DISPLAY / TRANSLATION_TARGET) nao existem como campo. Botao sem handler e a mesma classe de defeito do 'ranking de recorrencia' do V7: parece vivo e nao esta ligado."
+      }
+    }
+  ],
+  "SUBRECEPTORS": [
+    {
+      "RECEPTOR_ID": "R-SUB-SCIENCE-PUBLICATION-EVIDENCE",
+      "HOSE_ID": "H1-TERRITORIAL / H7-EXPERT — camada Ciencia do PHENOMENON_CASE",
+      "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PUBLICATION",
+      "COMPONENT_ID": [
+        "OBJECT_DETAIL_SCIENCE_LAYER",
+        "EVIDENCE_DRAWER"
+      ],
+      "WHY_IT_CANNOT_DISAPPEAR": "SCIENTIFIC_PERSON != SCIENTIFIC_PUBLICATION. H7 NAO e a resposta automatica para 'Ciencia'. Uma pessoa nao e uma publicacao: a camada Ciencia de um caso precisa receber o TRABALHO, nao so o AUTOR. Roteirizar Ciencia para H7 esconderia que nenhuma publicacao foi ligada ao fenomeno.",
+      "REQUIRED_FIELDS": [
+        "PUBLICATION_ID",
+        "TITLE",
+        "PUBLISHED_AT",
+        "VENUE",
+        "AUTHORS",
+        "RELATION_TO_ISSUE_AS_DECLARED",
+        "PEER_REVIEWED_STATE",
+        "SOURCE_LANGUAGE",
+        "SOURCE_ID"
+      ],
+      "OPTIONAL_FIELDS": [
+        "DOI",
+        "OPENALEX_ID",
+        "ABSTRACT_EXCERPT",
+        "CROP",
+        "ISSUE"
+      ],
+      "GUARDS": [
+        "SCIENTIFIC_PERSON_IS_NOT_SCIENTIFIC_PUBLICATION",
+        "AUTHOR_OF_PAPER_IS_NOT_EXPERT_ON_ISSUE",
+        "PUBLICATION_COUNT_IS_NOT_AUTHORITY",
+        "TOPIC_MATCH_IS_NOT_ISSUE_EVIDENCE"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_AVAILABLE",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "PUBLICATION_REF",
+        "ABSTRACT_EXCERPT",
+        "DOI"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem publicacao ligada ao issue a camada Ciencia mostra EMPTY_VALID com o motivo — nunca herda a lista de pessoas para parecer cheia.",
+      "CASCO_MEASURED": {
+        "STATE": "ABSENT",
+        "KEYS_PRESENT_IN_CASCO": [
+          "evidenceLayers",
+          "obj"
+        ],
+        "PRESENT_AS": "a palavra 'Ciencia' existe como CAMADA COM ESTADO (evidenceLayers: Ciencia = EM COLETA) e como dimensao (DIMS.case: Ciencia, 'literatura em coleta'). E um chip de estado.",
+        "MISSING_FIELDS": [
+          "PUBLICATION_ID",
+          "TITLE",
+          "PUBLISHED_AT",
+          "VENUE",
+          "AUTHORS",
+          "RELATION_TO_ISSUE_AS_DECLARED",
+          "PEER_REVIEWED_STATE",
+          "SOURCE_LANGUAGE",
+          "SOURCE_ID"
+        ],
+        "TERMS_ABSENT_FROM_CASCO": [
+          "SCIENTIFIC_PUBLICATION"
+        ],
+        "NOTE": "existe uma area chamada Ciencia e nao existe onde entregar uma publicacao. E exatamente o caso que o brief nomeia: nao basta existir uma area chamada Ciencia."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT",
+      "HOSE_ID": "H1-TERRITORIAL — camada Portfolio local do PHENOMENON_CASE",
+      "CANONICAL_PAYLOAD_TYPE": "LOCAL_ADAMA_PORTFOLIO_CONTEXT",
+      "COMPONENT_ID": [
+        "OBJECT_DETAIL_PORTFOLIO_LAYER",
+        "EVIDENCE_DRAWER"
+      ],
+      "WHY_IT_CANNOT_DISAPPEAR": "REGISTRATION_DEADLINE != LOCAL_ADAMA_PORTFOLIO_CONTEXT. H2 NAO e a resposta automatica para 'Portfolio'. H2 carrega o prazo de UM registro — de qualquer titular, inclusive de concorrente. A pergunta 'a ADAMA tem resposta registrada para este alvo neste pais?' e outra pergunta, com outra fonte e outro dono.",
+      "REQUIRED_FIELDS": [
+        "COUNTRY",
+        "CROP",
+        "ISSUE",
+        "REGISTERED_RESPONSE_STATE",
+        "ADAMA_PRODUCT_REFS",
+        "REGISTRATION_REFS",
+        "LABEL_AUTHORIZES_TARGET_STATE",
+        "SOURCE_ID"
+      ],
+      "OPTIONAL_FIELDS": [
+        "ACTIVE_INGREDIENT",
+        "LABEL_USE_STAGE",
+        "COMPETING_RESPONSES"
+      ],
+      "GUARDS": [
+        "REGISTRATION_DEADLINE_IS_NOT_LOCAL_ADAMA_PORTFOLIO_CONTEXT",
+        "ADAMA_CONTEXT_DECLARED_IN_ARTIFACT_IS_NOT_LOCAL_PRODUCT_AUTHORIZATION_PROVED",
+        "GLOBAL_CATALOGUE_IS_NOT_LOCAL_REGISTRATION",
+        "PORTFOLIO_IS_CONTEXT_NOT_PHENOMENON_EVIDENCE"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_AVAILABLE",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "REGISTRATION_ROW_REF",
+        "LABEL_REF"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem resposta registrada local confirmada, REGISTERED_RESPONSE_STATE = NOT_PROVED e nenhuma acao comercial e liberada. O bloco jamais reaproveita o prazo regulatorio de H2 como se fosse resposta da ADAMA.",
+      "CASCO_MEASURED": {
+        "STATE": "ABSENT",
+        "KEYS_PRESENT_IN_CASCO": [
+          "evidenceLayers",
+          "obj",
+          "departments"
+        ],
+        "PRESENT_AS": "'Portfolio local ADAMA' existe como camada com estado (NAO PROVADO, 'resposta registrada nao confirmada') e como area de acao ('Confirmar se existe resposta registrada local para o alvo'). E um chip e uma frase.",
+        "MISSING_FIELDS": [
+          "COUNTRY",
+          "CROP",
+          "ISSUE",
+          "REGISTERED_RESPONSE_STATE",
+          "ADAMA_PRODUCT_REFS",
+          "REGISTRATION_REFS",
+          "LABEL_AUTHORIZES_TARGET_STATE",
+          "SOURCE_ID"
+        ],
+        "NOTE": "a pergunta esta na tela, a resposta nao tem onde chegar. Se este subreceptor nao existir, alguem vai ligar H2 aqui — e o portal passara a dizer que a ADAMA tem produto porque um registro qualquer tem prazo."
+      }
+    },
+    {
+      "RECEPTOR_ID": "R-SUB-FIELD-VOICE-OBSERVED",
+      "HOSE_ID": "H6-CREATOR — voz de campo observada",
+      "CANONICAL_PAYLOAD_TYPE": "FIELD_VOICE_OBSERVATION",
+      "COMPONENT_ID": [
+        "OBJECT_DETAIL_VOICES",
+        "EVIDENCE_DRAWER"
+      ],
+      "WHY_IT_CANNOT_DISAPPEAR": "A entidade (quem fala) e a observacao (o que foi dito, quando, sobre que cultura e regiao) sao coisas diferentes. Sem o subreceptor de observacao, a voz de campo vira uma lista de nomes — e nome nao e sinal.",
+      "REQUIRED_FIELDS": [
+        "OBSERVATION_ID",
+        "ENTITY_ID",
+        "ENTITY_KIND",
+        "PLATFORM",
+        "OBSERVED_AT",
+        "COUNTRY",
+        "CROP_MENTIONED",
+        "REGION_MENTIONED",
+        "ORIGINAL_TEXT",
+        "SOURCE_LANGUAGE",
+        "RELATION_TO_ISSUE_STATE",
+        "GDPR_TREATMENT_STATE"
+      ],
+      "OPTIONAL_FIELDS": [
+        "ISSUE_MENTIONED",
+        "CONTENT_REF",
+        "ENGAGEMENT_OBSERVED"
+      ],
+      "GUARDS": [
+        "PERSON_CREATOR_IS_NOT_FARM_BUSINESS",
+        "MENTION_IS_NOT_FIELD_OBSERVATION",
+        "ENGAGEMENT_IS_NOT_AUTHORITY_AND_IS_NOT_PREVALENCE",
+        "PUBLIC_POST_IS_NOT_CONSENT_GDPR_FIRST",
+        "OBSERVED_VOICE_IS_CONTEXT_NOT_PHENOMENON_LEG"
+      ],
+      "LOAD_STATES": [
+        "UNWIRED",
+        "LOADING",
+        "READY",
+        "EMPTY_VALID",
+        "NOT_STARTED",
+        "BLOCKED",
+        "ERROR_FAIL_CLOSED"
+      ],
+      "PROVENANCE_FIELDS": {
+        "EXPECTED_BACKENDS": [
+          "GITHUB",
+          "SUPABASE"
+        ],
+        "USES": "PROVENANCE_ENVELOPE"
+      },
+      "EVIDENCE_FIELDS": [
+        "ORIGINAL_TEXT",
+        "CONTENT_REF",
+        "OBSERVED_AT"
+      ],
+      "FAIL_CLOSED_BEHAVIOR": "sem GDPR_TREATMENT_STATE resolvido a pessoa identificada NAO renderiza. Voz observada nunca conta como perna de convergencia do fenomeno: entra como ALINHAMENTO CONTEXTUAL.",
+      "CASCO_MEASURED": {
+        "STATE": "ABSENT",
+        "KEYS_PRESENT_IN_CASCO": [
+          "voices"
+        ],
+        "PRESENT_AS": "voices tem a ENTIDADE (dois kinds separados, com nota GDPR). Nao tem a OBSERVACAO.",
+        "MISSING_FIELDS": [
+          "OBSERVATION_ID",
+          "PLATFORM",
+          "OBSERVED_AT",
+          "COUNTRY",
+          "CROP_MENTIONED",
+          "REGION_MENTIONED",
+          "ORIGINAL_TEXT",
+          "SOURCE_LANGUAGE",
+          "RELATION_TO_ISSUE_STATE",
+          "GDPR_TREATMENT_STATE"
+        ],
+        "TERMS_ABSENT_FROM_CASCO": [
+          "FIELD_VOICE"
+        ],
+        "NOTE": "a separacao entidade/negocio foi preservada e isso e o mais dificil. Falta o que a pessoa disse."
+      }
+    }
+  ],
+  "SUMMARY": {
+    "RECEPTORS_DECLARED": 9,
+    "SUBRECEPTORS_DECLARED": 3,
+    "CASCO_STATE_COUNTS": {
+      "PARTIAL": 7,
+      "ABSENT": 4,
+      "ABSENT_AS_RECEPTOR": 1
+    },
+    "HOSES_WITH_COMPLETE_RECEIVER_IN_CASCO": 0,
+    "NOTE": "Contrato declarado 9/9. Casco implementa 0/9. Os dois numeros sao diferentes e nao devem ser somados nem trocados um pelo outro."
+  }
+}
