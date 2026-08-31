@@ -1,0 +1,105 @@
+{
+  "SOURCE_ID": "CASCO-CANONICO-EAME",
+  "source": "entrega do cliente em 2026-08-30 — arquivo 'index (7).html', copiado byte a byte",
+  "SOURCE_LOCATION": "C:/Users/London1/Downloads/index (7).html",
+  "FACT_LOCATION": "n/a — descreve o produto, nao o mundo",
+  "ORIGINAL_LANGUAGE": "pt",
+  "EVIDENCE_CLASS": "PRESERVED_ORIGINAL",
+  "captured_at": "2026-08-30",
+  "CAPTURED_AT": "2026-08-30",
+
+  "CASCO_V7": "CANONICAL_PILOT_SHELL",
+  "CANONICAL_STATUS": "FROZEN_PILOT_SHELL",
+  "ORIGINAL_FILENAME": "index (7).html",
+  "CANONICAL_FILE": "casco/canonical/SINTONIA-EAME-PILOT-V7.html",
+  "BYTE_SIZE": 1397724,
+  "SHA256": "a31ea1848a99e48cbfcdd2574a284eaeba9017110fb6ea107c6e4f39d4187c6a",
+
+  "PROVA_DE_INTEGRIDADE": {
+    "METODO": "tres medicoes independentes do mesmo arquivo",
+    "SHA_DO_ORIGINAL_EM_DOWNLOADS": "a31ea1848a99e48cbfcdd2574a284eaeba9017110fb6ea107c6e4f39d4187c6a",
+    "SHA_DA_COPIA_EM_DISCO": "a31ea1848a99e48cbfcdd2574a284eaeba9017110fb6ea107c6e4f39d4187c6a",
+    "SHA_DO_BLOB_GUARDADO_PELO_GIT": "a31ea1848a99e48cbfcdd2574a284eaeba9017110fb6ea107c6e4f39d4187c6a",
+    "BYTES_DO_BLOB": 1397724,
+    "CMP_BYTE_A_BYTE": "IDENTICOS",
+    "CASCO_SHA_MATCH": "YES",
+
+    "A_ARMADILHA_QUE_FOI_FECHADA": {
+      "O_QUE_ERA": "este ambiente tem core.autocrlf = true e o repositorio nao tinha .gitattributes",
+      "O_QUE_TERIA_ACONTECIDO": "o Git trocaria LF por CRLF no proximo checkout. O arquivo em disco passaria a ter outro SHA-256, e a testemunha morreria em silencio — com o commit continuando limpo",
+      "A_CORRECAO": ".gitattributes com 'casco/canonical/** -text -diff'",
+      "COMO_SE_CONFERE": "git check-attr text diff -- casco/canonical/SINTONIA-EAME-PILOT-V7.html  deve devolver 'unset' nos dois",
+      "VERIFICADO_EM": "2026-08-30"
+    },
+
+    "COMO_REVERIFICAR": [
+      "sha256sum casco/canonical/SINTONIA-EAME-PILOT-V7.html",
+      "git cat-file -p :casco/canonical/SINTONIA-EAME-PILOT-V7.html | sha256sum",
+      "os dois devem devolver a31ea1848a99e48cbfcdd2574a284eaeba9017110fb6ea107c6e4f39d4187c6a"
+    ]
+  },
+
+  "O_QUE_NAO_FOI_FEITO_COM_O_ARQUIVO": [
+    "nao foi minificado",
+    "nao foi reformatado",
+    "nao foi reconstruido",
+    "nao foi extraido e recompilado",
+    "nao foi editado em nenhum byte"
+  ],
+
+  "O_QUE_ELE_E": {
+    "TIPO": "pagina React empacotada — runtime proprio 'dc-runtime' + React 18.3.1 e ReactDOM 18.3.1 UMD embutidos",
+    "SUPERFICIES": 12,
+    "ITENS_DE_NAVEGACAO_NO_RAIL": 10,
+    "ITENS_NA_BARRA_SUPERIOR": 4,
+    "PAISES": ["ES", "IT", "FR"],
+    "CAMADA": "EAME (cross-market)",
+    "IDIOMAS": ["pt", "en", "es", "it", "fr"],
+    "ATIVOS_EMBUTIDOS": 17
+  },
+
+  "AUTORIDADE": {
+    "SOBRE_A_INTERFACE": "CASCO_V7 manda. Nao e hipotese e nao e tela temporaria.",
+    "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md": {
+      "PAPEL": "PRODUCT_ARCHITECTURE_HYPOTHESIS / HISTORICAL_PRODUCT_CONTRACT",
+      "NAO_E": "UI_CANONICAL_AUTHORITY",
+      "O_QUE_CONTINUA_VALENDO_INTEIRO": "as leis de saida (FACT / INTERPRETATION / ACTION), os limites do que nao se pode afirmar, os estados de prova e os contratos de dado",
+      "O_QUE_ELE_NAO_DECIDE": "quantas superficies o portal tem"
+    },
+    "prototype/portal/index.html": "artefato historico das MISSOES 02-03, CONGELADO por D-007 desde 2026-08-28. NAO e o casco.",
+    "build/sintonia-es.html": "artefato historico — tres casos espanhois gerados do freeze. NAO e o casco."
+  },
+
+  "POLITICA_DE_VERSAO": {
+    "V7": "BASELINE PRESERVADA — byte a byte, para sempre, nunca destruida",
+    "V8": "PRODUTO EVOLUIDO — construido SOBRE o V7, em versao nova",
+    "CONGELADO_NAO_E_IMUTAVEL": "o congelamento serve a analise: preservar baseline, medir o produto real, nao mexer na interface antes de entender a inteligencia, e permitir comparacao antes/depois",
+    "PRODUCT_IMPLEMENTATION_MODE": "NOT_ENTERED",
+    "QUANDO_A_EVOLUCAO_E_AUTORIZADA": "RODADA DE INTELIGENCIA -> REFRESH FINAL -> RED TEAM EXTERNO -> ARBITRAGEM -> comando explicito de entrada em PRODUCT IMPLEMENTATION MODE",
+    "O_QUE_O_V8_PODERA_FAZER": [
+      "alterar, ampliar, combinar e dividir ferramentas",
+      "criar capacidades e ferramentas novas",
+      "mudar textos, semantica, cards e hierarquia de informacao",
+      "alterar fluxos e navegacao quando necessario",
+      "adicionar views, filtros, cruzamentos, Action Map, Time/Window, Meta Competition, Creator/Activation, contexto de especialista e timelines de concorrente",
+      "melhorar Radar do Futuro, Radar/Casos, Acervo, Fontes e Analises",
+      "demover ou eliminar superficies que se provarem redundantes"
+    ],
+    "CONTRATO_DE_MUDANCA": {
+      "ORIGEM_OBRIGATORIA": ["INTELLIGENCE FINDING", "USER / DEPARTMENT NEED", "NEW PROVED CAPABILITY", "RED TEAM FINDING + ARBITRATION APPROVAL"],
+      "CAMPOS_OBRIGATORIOS": ["CURRENT_STATE", "PROBLEM", "EVIDENCE", "PROPOSED_CHANGE", "WHO_BENEFITS", "DECISION_HELPED", "DAILY_VALUE", "ESSENCE_ALIGNMENT"],
+      "REGRA": "nenhuma alteracao nasce de gosto"
+    },
+    "ESSENCE_RISK_DO_V8": {
+      "A_ESSENCIA": "o SINTONIA nao resolve falta de informacao; resolve excesso de informacao desconectada",
+      "O_CAMINHO_QUE_NAO_PODE_SE_PERDER": "MUITAS OBSERVACOES -> CONVERGENCIAS -> POUCOS ASSUNTOS QUE MERECEM ATENCAO -> EVIDENCIA -> CONTEXTO LOCAL -> TEMPO -> QUEM DEVERIA OLHAR -> POSSIVEL DECISAO",
+      "O_QUE_NAO_PODE_VIRAR": ["dashboard regulatorio", "biblioteca de documentos", "feed de noticias", "ranking de pessoas", "painel de anuncios", "colecao de KPIs"]
+    }
+  },
+
+  "LEITURA_DERIVADA": {
+    "ONDE": "data/samples/CASCO-EAME/",
+    "ARQUIVOS": ["CASCO-BASELINE-V7.json", "app-logic.jsx", "screens/*.txt"],
+    "AVISO": "sao leitura, nao o casco. Se divergirem do arquivo canonico, o arquivo canonico vence."
+  }
+}

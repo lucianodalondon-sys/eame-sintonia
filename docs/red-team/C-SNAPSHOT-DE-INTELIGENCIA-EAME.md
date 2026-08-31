@@ -39,9 +39,16 @@ todas por `git show`, sem trazer nenhuma linha para cá:
 | `origin/claude/eame-agro-creators-map-77c4ld` | `08a637d` | CREATOR MAP rodada 2 |
 | `origin/claude/adama-es-local-browser` (via `HEAD` detach `fa523a7`) | — | catálogo ADAMA Espanha |
 
-⚠️ **Nenhuma delas foi mesclada na branch padrão.** O acervo do SINTONIA EAME hoje **não
-existe inteiro em nenhum lugar**. Isso é um bloqueador de integração, não de inteligência,
-e está em `Q · CASCO/PIPELINE GAPS`.
+⚠️ **Nenhuma delas foi mesclada na branch padrão, e isso NÃO é um pedido de merge.**
+
+O acervo do SINTONIA EAME hoje não existe inteiro em nenhum lugar — o que é um fato de
+**custódia**, não um defeito a corrigir agora. Fundir seis árvores experimentais só para
+criar "um repo com tudo" importaria código de missão para dentro de código de missão, sem
+arbitragem.
+
+**A regra do refresh final:** consumir os **handoffs canônicos** de cada missão — o
+documento que a missão escreveu para ser lido de fora — e não a árvore inteira dela.
+A integração vem depois de `RODADA DE INTELIGÊNCIA → RED TEAM → ARBITRAGEM`.
 
 ---
 
@@ -57,7 +64,7 @@ Estado por camada, com o número que o sustenta. Nada aqui é estimativa.
 | ADAMA | **96 em vigor** | 602 registros · **163 vigentes** · 53 substâncias | 267 já existentes · **72 autorizados** |
 | vencendo ≤6 meses | **486** (ADAMA **36**) | 71 (calendário) · 58 (180 d) | não medido nesta rodada |
 | vencendo ≤12 meses | **1.004** (ADAMA **61**) | **104** | não medido |
-| anomalia `vigente` × caducidade passada | **34** (ADAMA 3) | **8** | não medido |
+| `STATUS_DATE_CONFLICT_OBSERVED` — `vigente` com caducidade anterior ao snapshot | **34** (ADAMA 3) | **8** | não medido |
 | cultura × alvo | via consulta ao servidor | 622 relações, **`CROP_ISSUE = 0`** (tabela do PDF não reconstruída) | **367 linhas ancoradas · 161 pares distintos** |
 | dose | de PDF | **`NOT_EXTRACTED`** | **562 linhas** |
 | BBCH | — | — | **376 mín / 414 máx** |
@@ -192,6 +199,23 @@ GAPS`.
 
 ## C.6 · CREATOR MAP — rodada 2
 
+> ### ⚠️ `SUPERSEDED_PENDING_REFRESH` — leia antes de usar qualquer número desta seção
+>
+> **O piloto do Creator Map fechou em 2026-08-30**, depois que esta seção foi escrita.
+> Branch `claude/eame-agro-creators-map-77c4ld`, HEAD `248bd27`, estado
+> `FROZEN_WAITING_FOR_INTELLIGENCE`. O handoff canônico é
+> `docs/creators/HANDOFF-INTELLIGENCE-CREATOR-MAP-EAME.md`.
+>
+> **Pelo menos três coisas mudaram materialmente**, e nenhuma foi integrada aqui:
+> o congelamento declara **8 / 2 / 10** onde esta seção registra 18 / 2 / 4 / 12;
+> **a França passou a ter os dois `ACTIVATION_READY`**, e não IT + ES como está abaixo;
+> e `CREATORS_READY` virou **`PROHIBITED_METRIC`** — contar creators "prontos" deixou de
+> ser uma métrica legítima.
+>
+> **Os números abaixo continuam sendo o que era verdade no snapshot de PASSAGEM 1**, e
+> ficam registrados como tal. **Não os cite como estado atual.** Eles serão reconciliados
+> no refresh único, quando as quatro entregas estiverem na mesa.
+
 `WHO-COULD-MARKETING-CALL.json`: **18 fichas** em `COUNTRY → REGION → CROP`.
 
 ```
@@ -231,7 +255,7 @@ encontrado, **o que não é "a ADAMA nunca fez"**.
 **Limites duros:** 34 dos 43 hubs `NOT_TESTED` com `PEOPLE_EXTRACTED = 0`; audiência não
 medida em ninguém fora de Gomiero; **só Instagram** foi usado.
 
-## C.6 · ESCALA E MERCADO
+## C.7 · ESCALA E MERCADO
 
 - **Área por NUTS2** `EU-T1-001` e **preço de cereal** `EU-T10-001`: as **únicas duas
   dimensões comparáveis** entre os três países (X-008).
@@ -244,7 +268,7 @@ medida em ninguém fora de Gomiero; **só Instagram** foi usado.
   hectare afetado, área tratada, demanda nem venda.
 - **Rendimento por região não existe** (medido). `MARKET` não é um dataset.
 
-## C.7 · CLIMA · COMPETIÇÃO · DISTRIBUIÇÃO
+## C.8 · CLIMA · COMPETIÇÃO · DISTRIBUIÇÃO
 
 | camada | estado | por quê |
 |---|---|---|
@@ -254,16 +278,30 @@ medida em ninguém fora de Gomiero; **só Instagram** foi usado.
 | **COMPETIÇÃO · ativação paga (Meta)** | **`NÃO TESTADO`** | `EU-T9-002` nomeada como fonte estratégica, nunca aberta. `NÃO TESTADO` ≠ `AUSENTE_MEDIDO` |
 | **DISTRIBUIÇÃO** | **PARCIAL, só FR** | SIRENE: 4.646 atacadistas de grãos. Dá **a rede**, não o **fluxo** |
 
-## C.8 · TEMPO — a camada mais fraca, e a que o casco mais quer
+## C.9 · TEMPO — a camada mais fraca, e a que o casco mais quer
 
 ```
-JANELA AGRONÔMICA POR CULTURA × REGIÃO ......... NÃO CONECTADA em ES, IT e FR
-JANELA REGISTRADA (rótulo) ..................... FR sim (376/414 BBCH) · ES 3 · IT 0
+APPLICATION_WINDOW (janela agronômica real) .... NÃO CONECTADA em ES, IT e FR
+LABEL_USE_STAGE (estágio autorizado no rótulo).. FR 376/414 BBCH · ES 3 · IT 0
 JANELA REGULATÓRIA (vencimento) ................ PROVADA nos três — é a única forte
 FENOLOGIA OBSERVADA ............................ IT sim, pontual · ES não · FR não
 IDADE DA EVIDÊNCIA ............................. derivada, nunca persistida
 JANELA DE DECISÃO ORGANIZACIONAL ............... NÃO DETERMINADA em lugar nenhum
 ```
+
+⚠️ **`LABEL_USE_STAGE` não é `APPLICATION_WINDOW`.** As 376 linhas francesas com BBCH dizem
+**em que estágio da planta o uso é autorizado** — é uma *restrição* escrita no rótulo, não o
+estágio em que a lavoura está hoje, nem a janela em que se pode agir.
+
+```
+LABEL_STAGE  ≠  REAL-TIME CROP WINDOW  ≠  CURRENT FIELD STAGE  ≠  COMMERCIAL WINDOW
+```
+
+O enunciado correto é **`WINDOW_CONSTRAINT_DATA_EXISTS_FR`** — e **não**
+`APPLICATION_WINDOW_READY_FR`. O rótulo ajuda a *construir* a janela; sozinho ele não a
+fecha, porque falta o componente temporal e local (onde a cultura está, agora, naquela
+região). **`Janelas da Cultura` continua sem relógio vivo da lavoura em país nenhum** — e o
+casco já separa esses dois relógios, o que está certo. Fundi-los seria erro grave.
 
 **O vencimento de registro é a única antecipação temporal forte que este projeto tem** — e
 ela é forte porque a data é **publicada**, não prevista. Tudo o mais que parecia antecipar
@@ -271,7 +309,7 @@ foi medido e reprovado: voz × campo deu `NO_RELIABLE_SIGNAL` (ρ máximo 0,442 
 ≈0,648 com n=10, e os sinais **se invertem** entre defasagens); o backtest de lead time deu
 **1 safra no melhor caso e 0 em duas de três**.
 
-## C.9 · PLACAR DA CAMADA DE EVIDÊNCIA
+## C.10 · PLACAR DA CAMADA DE EVIDÊNCIA
 
 `37 SOURCE_IDs · 26 fichas · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI` ·
 **649 provas automatizadas** · 16 amostras com proveniência obrigatória testada.
@@ -475,7 +513,7 @@ COUNTRY FR   REGION nacional   CROP vigne   ISSUE mildiou
 
 | candidato | por que ficou fora |
 |---|---|
-| ES · 34 registros `Vigente` com caducidade passada (31 na mesma data) | é `INVESTIGATE` de qualidade de fonte, não item de decisão de negócio. Vai para `Análises`, não para a fila |
+| ES · 34 + IT · 8 registros `Vigente` com caducidade anterior ao snapshot | **`STATUS_DATE_CONFLICT_OBSERVED` · `INVESTIGATE_CANDIDATE`** — ainda não sabemos o que a coluna de validade significa exatamente, nem o que `Vigente` significa. Pode ser renovação, prorrogação, transição, data de documento ou snapshot velho. **Não é** produto vencido, registro irregular, erro regulatório, risco nem oportunidade — e publicar como qualquer uma dessas coisas seria inventar |
 | IT · milho × piralide (5/5) | forte, mas duplica a lógica de F.2 sem trazer decisão nova nesta rodada |
 | Creator `ACTIVATION_READY` (Gomiero, IT · milho) | **é oferta, não atenção.** Só vira item de fila quando amarrado a um caso — hoje nenhum caso italiano de milho está aberto |
 | ES · milho × *Amaranthus palmeri* | tem caso escrito, **não tem camada de campo** |
@@ -490,7 +528,7 @@ COUNTRY FR   REGION nacional   CROP vigne   ISSUE mildiou
 | área | motivo real hoje | com que dado | frequência honesta |
 |---|---|---|---|
 | **MARKET DEVELOPMENT** (usuário central) | a fila de quatro itens de `F`, e o que mudou de estado nela | ROPF · RAIF · boletins IT · E-Phy | **semanal** — a fila não muda todo dia, e fingir que muda é vender feed |
-| **REGULATÓRIO** | 486 ES em ≤6 m (36 ADAMA) · 104 IT em ≤12 m · 34 + 8 anomalias `vigente`/vencido | registros nacionais | **semanal**, e **diária** perto de data-limite |
+| **REGULATÓRIO** | 486 ES em ≤6 m (36 ADAMA) · 104 IT em ≤12 m · 34 + 8 casos de `STATUS_DATE_CONFLICT_OBSERVED` a investigar | registros nacionais | **semanal**, e **diária** perto de data-limite |
 | **PORTFÓLIO** | assimetria de resposta registrada entre países; 12 produtos ES presentes no catálogo **sem registro provado**; crosswalk IT em **zero** | crosswalk catálogo↔registro | **por evento** de catálogo ou registro |
 | **TÉCNICO / AGRONOMIA** | boletim italiano semanal com fenologia observada; coorte RAIF; **196 perguntas técnicas** de audiência com o que o campo não entende | `IT-T3-*` · `ES-T3-001` · `SENSOR-PILOT` | **semanal na safra** |
 | **MARKETING** | a pergunta de ativação FR; **18 fichas de creator** com `MISSING_PROOFS`; 4 casos de concorrente com creator (BASF, Seipasa, Syngenta, Bayer) | `WHO-COULD-MARKETING-CALL` · `BRAND-COLLABORATIONS-EU` | **quinzenal** |

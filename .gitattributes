@@ -1,0 +1,8 @@
+# O casco canônico é testemunha byte-a-byte. `core.autocrlf` está ligado neste
+# ambiente: sem esta regra, o Git trocaria LF por CRLF no checkout e o SHA-256 do
+# arquivo em disco deixaria de bater com o do original medido. A testemunha morreria
+# em silêncio, e ninguém veria — o commit continuaria "limpo".
+#
+# `-text` proíbe qualquer normalização de fim de linha. `-diff` impede que o Git
+# tente ler o arquivo como texto em diffs.
+casco/canonical/** -text -diff
