@@ -466,7 +466,7 @@ class DoisSnapshotsNaoProvamCicloDeVida(unittest.TestCase):
     def test_nada_muda_devolve_present_both_e_nenhuma_transicao(self):
         r = temporal.comparar_slice(['1'], ['1'], True)
         self.assertEqual(r['present_both'], ['1'])
-        self.assertEqual(r['slice_transition'], temporal.SLICE_UNCHANGED)
+        self.assertEqual(r['slice_transition'], temporal.ACTIVE_BOTH)
         self.assertEqual(r['newly_observed'], [])
 
     def test_active_again_nao_existe_com_dois_snapshots(self):
@@ -496,8 +496,65 @@ class DoisSnapshotsNaoProvamCicloDeVida(unittest.TestCase):
         with open(scaminho, encoding='utf-8') as f:
             s = json.load(f)
         self.assertEqual(s['manifest_frozen_at'], m['frozen_at'])
-        self.assertLess(m['frozen_at'], s['as_of_date'],
+        self.assertLess(m['frozen_at'], s['collection_started_at'],
                         'o denominador tem de estar congelado ANTES da coleta')
+
+    def test_profundidade_de_leitura_nao_pode_virar_mudanca_de_mercado(self):
+        """Os 587 'novos' da primeira comparacao saiam TODOS de 7 recortes onde
+        o snapshot 2 leu mais fundo que o 1. Medir a propria mudanca de metodo e
+        chamar de mudanca do concorrente e o erro mais caro possivel aqui."""
+        caminho = os.path.join(PASTA, 'META-TEMPORAL-COMPARISON-V1.json')
+        if not os.path.exists(caminho):
+            self.skipTest('comparacao ainda nao gerada')
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+        confundidos = [s for s in d['slices'] if not s['read_depth_comparable']]
+        for s in confundidos:
+            self.assertGreater(s['snapshot_2_cards'], s['snapshot_1_cards'])
+        soma_confundida = sum(len(s['newly_observed']) for s in confundidos)
+        self.assertEqual(
+            d['totals_unit_ad_card_all_slices']['NEWLY_OBSERVED']
+            - d['totals_unit_ad_card_read_depth_comparable']['NEWLY_OBSERVED'],
+            soma_confundida)
+        self.assertEqual(d['read_depth_confounded']['slices'], len(confundidos))
+
+    def test_change_observed_usa_so_os_recortes_comparaveis(self):
+        caminho = os.path.join(PASTA, 'META-TEMPORAL-COMPARISON-V1.json')
+        if not os.path.exists(caminho):
+            self.skipTest('comparacao ainda nao gerada')
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+        c = d['totals_unit_ad_card_read_depth_comparable']
+        t = d['slice_transitions_unit_slice']
+        esperado = 'YES' if (c['NEWLY_OBSERVED']
+                             or c['NO_LONGER_OBSERVED_IN_SNAPSHOT_2']
+                             or t['ZERO_TO_ACTIVE'] or t['ACTIVE_TO_ZERO']) else 'NO'
+        self.assertEqual(d['change_observed'], esperado)
+
+    def test_conservacao_dos_recortes_no_snapshot_2(self):
+        caminho = os.path.join(PASTA, 'META-SNAPSHOT-2-OBSERVATIONS.json')
+        if not os.path.exists(caminho):
+            self.skipTest('snapshot 2 ainda nao rodou')
+        with open(caminho, encoding='utf-8') as f:
+            s = json.load(f)
+        self.assertEqual(s['slices_successful'] + s['slices_failed'],
+                         s['slices_total'])
+        self.assertEqual(s['slices_content'] + s['slices_honest_zero'],
+                         s['slices_successful'])
+        self.assertEqual(s['slices_preexisting'] + s['slices_new_this_resume'],
+                         s['slices_total'])
+
+    def test_a_janela_de_coleta_nao_finge_um_instante(self):
+        caminho = os.path.join(PASTA, 'META-SNAPSHOT-2-OBSERVATIONS.json')
+        if not os.path.exists(caminho):
+            self.skipTest('snapshot 2 ainda nao rodou')
+        with open(caminho, encoding='utf-8') as f:
+            s = json.load(f)
+        self.assertLess(s['collection_started_at'], s['collection_completed_at'])
+        momentos = {o['observed_at'] for o in s['observations']
+                    if o.get('slice_state') == 'SLICE_OK'}
+        self.assertGreater(len(momentos), 1,
+                           'cada observacao mantem seu proprio observed_at')
 
     def test_a_comparacao_no_disco_nao_afirma_ciclo_de_vida_completo(self):
         caminho = os.path.join(PASTA, 'META-TEMPORAL-COMPARISON-V1.json')

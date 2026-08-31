@@ -66,10 +66,18 @@ ZERO_HONESTO = 'SLICE_HONEST_ZERO'
 
 PRESENT_BOTH = 'PRESENT_BOTH'
 NEWLY_OBSERVED = 'NEWLY_OBSERVED'
-NO_LONGER_OBSERVED = 'NO_LONGER_OBSERVED'
+# O NOME LONGO E DE PROPOSITO
+# `AD_STOPPED` afirmaria que a veiculacao terminou. A fonte nao diz isso: ela
+# so deixou de listar o anuncio naquele recorte. Sumir da lista e o que
+# observamos; parar de veicular e uma interpretacao que a fonte nao sustenta.
+#
+#     NO_LONGER_OBSERVED_IN_SNAPSHOT_2 != AD_STOPPED
+NO_LONGER_OBSERVED = 'NO_LONGER_OBSERVED_IN_SNAPSHOT_2'
+# estados de RECORTE (nao de anuncio)
 ZERO_TO_ACTIVE = 'ZERO_TO_ACTIVE'
 ACTIVE_TO_ZERO = 'ACTIVE_TO_ZERO'
-SLICE_UNCHANGED = 'SLICE_UNCHANGED_STATE'
+ACTIVE_BOTH = 'ACTIVE_BOTH'
+ZERO_BOTH = 'ZERO_BOTH'
 
 
 def agora():
@@ -194,48 +202,95 @@ def coletar_slice(s, momento, max_rolagens=60):
     }
 
 
+def chave_estavel(x):
+    """A identidade do recorte. Nao e posicao no arquivo — e quem, qual pagina,
+    qual pais de entrega. Retomar por indice quebraria se a ordem mudasse."""
+    return (x.get('competitor'), x.get('page_id'), x.get('ad_delivery_country'))
+
+
 def coletar_snapshot_2():
+    """Retoma o snapshot 2 sem tocar no que ja foi observado.
+
+    O SNAPSHOT 2 E UMA JANELA, NAO UM INSTANTE
+    -------------------------------------------
+    Os 37 primeiros recortes foram lidos a partir de 01:53:38Z de 31/08/2026, e
+    a coleta foi interrompida. Retomar NAO significa reler os 37 para "deixar
+    tudo com horario proximo": isso gastaria rede a toa e, pior, apagaria a
+    unica observacao que aqueles recortes tem.
+
+    Cada observacao guarda o SEU proprio `observed_at`. O arquivo guarda a
+    janela — inicio, retomada e fim. Fingir que 67 recortes foram vistos no
+    mesmo segundo seria mais arrumado e menos verdadeiro.
+
+        JANELA_DE_COLETA != INSTANTE_DE_COLETA
+    """
     manifesto = _ler(MANIFESTO)
     if not manifesto:
         raise RuntimeError('manifesto nao congelado — rode `congelar` primeiro')
-    momento = agora()
+    retomada = agora()
     anterior = _ler(SNAP2, {})
-    feitos = {(o['page_id'], o['ad_delivery_country']): o
-              for o in (anterior.get('observations') or [])
+    feitos = {chave_estavel(o): o for o in (anterior.get('observations') or [])
               if o.get('slice_state') == 'SLICE_OK'}
+    inicio = (anterior.get('collection_started_at')
+              or anterior.get('as_of_date') or retomada)
+    novos = 0
     saida, falhas = [], []
+
+    def gravar(fim=None):
+        ok = [o for o in saida if o.get('slice_state') == 'SLICE_OK']
+        _salvar(SNAP2, {
+            'dataset_owner': 'META_COMPETITOR_EAME',
+            'collection_started_at': inicio,
+            'collection_resumed_at': retomada,
+            'collection_completed_at': fim,
+            'as_of_date_nota': ('esta captura e uma JANELA. Cada observacao tem '
+                                'seu proprio observed_at.'),
+            'manifest_frozen_at': manifesto['frozen_at'],
+            'slices_total': manifesto['slices_total'],
+            'slices_preexisting': len(feitos),
+            'slices_new_this_resume': novos,
+            'slices_successful': len(ok),
+            'slices_failed': sum(1 for o in saida
+                                 if o.get('slice_state') == 'SLICE_FAILED'),
+            'slices_content': sum(1 for o in ok if len(o.get('ads', [])) > 0),
+            'slices_honest_zero': sum(
+                1 for o in ok if len(o.get('ads', [])) == 0
+                and o.get('completeness') == nav.ZERO_DECLARADO),
+            'observations': saida,
+        })
+
     for s in manifesto['slices']:
-        chave = (s['page_id'], s['ad_delivery_country'])
+        chave = chave_estavel(s)
         if chave in feitos:
             saida.append(feitos[chave])
             continue
-        try:
-            o = coletar_slice(s, momento)
-        except Exception as e:
-            o = {'competitor': s['competitor'], 'page_id': s['page_id'],
-                 'page_name': s['page_name'],
-                 'ad_delivery_country': s['ad_delivery_country'],
-                 'observed_at': momento, 'slice_state': 'SLICE_FAILED',
-                 'error': str(e)[:200], 'ads': []}
-            falhas.append(o)
+        momento = agora()
+        o = None
+        # UMA repeticao imediata, e so para falha de transporte/Chrome. Query
+        # valida com numero estranho NAO se repete: repetir ate o numero
+        # agradar e como se escolhe o resultado sem perceber.
+        for tentativa in (1, 2):
+            try:
+                o = coletar_slice(s, momento)
+                o['attempt'] = tentativa
+                break
+            except Exception as e:
+                erro = str(e)[:200]
+                if tentativa == 2:
+                    o = {'competitor': s['competitor'], 'page_id': s['page_id'],
+                         'page_name': s['page_name'],
+                         'ad_delivery_country': s['ad_delivery_country'],
+                         'observed_at': momento, 'slice_state': 'SLICE_FAILED',
+                         'error': erro, 'attempts': 2, 'ads': []}
+                    falhas.append(o)
+        novos += 1
         saida.append(o)
         print('  %-34s %s  %3d cartoes  %s' % (
             (s['page_name'] or '')[:34], s['ad_delivery_country'],
             len(o.get('ads', [])), o.get('completeness', o.get('slice_state'))),
             flush=True)
-        _salvar(SNAP2, {'dataset_owner': 'META_COMPETITOR_EAME',
-                        'as_of_date': momento,
-                        'manifest_frozen_at': manifesto['frozen_at'],
-                        'slices_total': manifesto['slices_total'],
-                        'observations': saida})
-    _salvar(SNAP2, {'dataset_owner': 'META_COMPETITOR_EAME',
-                    'as_of_date': momento,
-                    'manifest_frozen_at': manifesto['frozen_at'],
-                    'slices_total': manifesto['slices_total'],
-                    'slices_successful': sum(1 for o in saida
-                                             if o.get('slice_state') == 'SLICE_OK'),
-                    'slices_failed': len(falhas),
-                    'observations': saida})
+        gravar()
+    gravar(fim=agora())
     return saida, falhas
 
 
@@ -250,11 +305,14 @@ def comparar_slice(ids_antes, ids_depois, ambas_pontas_completas):
     """
     antes, depois = set(ids_antes or []), set(ids_depois or [])
     sumidos = sorted(antes - depois)
-    transicao = SLICE_UNCHANGED
-    if not antes and depois:
+    if antes and depois:
+        transicao = ACTIVE_BOTH
+    elif not antes and depois:
         transicao = ZERO_TO_ACTIVE
     elif antes and not depois:
         transicao = ACTIVE_TO_ZERO
+    else:
+        transicao = ZERO_BOTH
     return {
         'present_both': sorted(antes & depois),
         'newly_observed': sorted(depois - antes),
@@ -267,15 +325,17 @@ def comparar_slice(ids_antes, ids_depois, ambas_pontas_completas):
 def comparar():
     manifesto = _ler(MANIFESTO, {})
     s2 = _ler(SNAP2, {})
-    obs = {(o['page_id'], o['ad_delivery_country']): o
-           for o in (s2.get('observations') or [])}
+    obs = {chave_estavel(o): o for o in (s2.get('observations') or [])}
     linhas = []
-    tot = {PRESENT_BOTH: 0, NEWLY_OBSERVED: 0, NO_LONGER_OBSERVED: 0,
-           ZERO_TO_ACTIVE: 0, ACTIVE_TO_ZERO: 0}
+    tot = {PRESENT_BOTH: 0, NEWLY_OBSERVED: 0, NO_LONGER_OBSERVED: 0}
+    slices_estado = {ZERO_TO_ACTIVE: 0, ACTIVE_TO_ZERO: 0,
+                     ACTIVE_BOTH: 0, ZERO_BOTH: 0}
+    comparaveis = {PRESENT_BOTH: 0, NEWLY_OBSERVED: 0, NO_LONGER_OBSERVED: 0,
+                   'slices': 0}
+    confundidos = {'slices': 0, 'cards_gained_by_deeper_reading': 0}
     nao_comparaveis = []
     for s in manifesto.get('slices', []):
-        chave = (s['page_id'], s['ad_delivery_country'])
-        o = obs.get(chave)
+        o = obs.get(chave_estavel(s))
         if not o or o.get('slice_state') != 'SLICE_OK':
             nao_comparaveis.append({**chave_dict(s), 'motivo': 'SLICE_NOT_OBSERVED'})
             continue
@@ -286,30 +346,83 @@ def comparar():
                  (nav.COMPLETA_BATE_COM_A_FONTE, nav.ZERO_DECLARADO))
         r = comparar_slice(s['snapshot_1_library_ids'],
                            [a['library_id'] for a in o.get('ads', [])], forte)
-        if r['slice_transition'] in tot:
-            tot[r['slice_transition']] += 1
+        # PROFUNDIDADE DE LEITURA: o confundidor descoberto em 31/08/2026
+        # ---------------------------------------------------------------
+        # O snapshot 1 foi lido com uma regra que parava de rolar assim que a
+        # soma de anuncios alcancava o total declarado pela fonte. Essa regra
+        # foi corrigida ANTES do snapshot 2, que rolou mais fundo. Resultado:
+        #
+        #     BASF Agro ES ....... 466 cartoes no s1 -> 897 no s2
+        #     Corteva IT .........  79 -> 151
+        #     UPL Corp France FR..  47 ->  87
+        #
+        # Os 587 "novos" saem TODOS de sete recortes assim. Chamar isso de
+        # anuncio novo seria medir a minha mudanca de metodo e chamar de
+        # mudanca do mercado — o erro mais caro que existe aqui.
+        #
+        #     LI_MAIS_FUNDO != APARECERAM_MAIS_ANUNCIOS
+        #
+        # O recorte so entra na conta de mudanca se o snapshot 1 tiver lido pelo
+        # menos tao fundo quanto o 2. Os outros ficam visiveis e fora da conta.
+        profundidade_ok = s['snapshot_1_cards'] >= o.get('cards', 0)
+        slices_estado[r['slice_transition']] += 1
         tot[PRESENT_BOTH] += len(r['present_both'])
         tot[NEWLY_OBSERVED] += len(r['newly_observed'])
         tot[NO_LONGER_OBSERVED] += len(r['no_longer_observed'])
+        if profundidade_ok:
+            comparaveis[PRESENT_BOTH] += len(r['present_both'])
+            comparaveis[NEWLY_OBSERVED] += len(r['newly_observed'])
+            comparaveis[NO_LONGER_OBSERVED] += len(r['no_longer_observed'])
+            comparaveis['slices'] += 1
+        else:
+            confundidos['slices'] += 1
+            confundidos['cards_gained_by_deeper_reading'] += (
+                o.get('cards', 0) - s['snapshot_1_cards'])
         linhas.append({
             **chave_dict(s),
             'snapshot_1_state': s['snapshot_1_state'],
             'snapshot_1_completeness': s['snapshot_1_completeness'],
             'snapshot_2_completeness': o.get('completeness'),
             'both_ends_complete': forte,
+            'snapshot_1_cards': s['snapshot_1_cards'],
+            'snapshot_2_cards': o.get('cards'),
+            'read_depth_comparable': profundidade_ok,
             **r,
         })
-    mudou = any(v for k, v in tot.items()
-                if k in (NEWLY_OBSERVED, NO_LONGER_OBSERVED, ZERO_TO_ACTIVE,
-                         ACTIVE_TO_ZERO))
+    # a mudanca so pode ser afirmada onde a profundidade de leitura e comparavel
+    mudou = (comparaveis[NEWLY_OBSERVED] or comparaveis[NO_LONGER_OBSERVED]
+             or slices_estado[ZERO_TO_ACTIVE] or slices_estado[ACTIVE_TO_ZERO])
     saida = {
         'dataset_owner': 'META_COMPETITOR_EAME',
         'snapshot_1_as_of_date': manifesto.get('snapshot_1_as_of_date'),
-        'snapshot_2_as_of_date': s2.get('as_of_date'),
+        'snapshot_2_collection_started_at': s2.get('collection_started_at'),
+        'snapshot_2_collection_resumed_at': s2.get('collection_resumed_at'),
+        'snapshot_2_collection_completed_at': s2.get('collection_completed_at'),
         'slices_in_manifest': manifesto.get('slices_total'),
         'slices_compared': len(linhas),
         'slices_not_comparable': nao_comparaveis,
-        'totals_unit_ad_card': tot,
+        'totals_unit_ad_card_all_slices': tot,
+        'totals_unit_ad_card_read_depth_comparable': comparaveis,
+        'read_depth_confounded': {
+            **confundidos,
+            'motivo': ('o snapshot 1 parava de rolar ao fechar a conta de '
+                       'anuncios da fonte; o snapshot 2 rolou ate a lista parar '
+                       'de crescer. Onde o 2 leu mais fundo, "novo" mede metodo, '
+                       'nao mercado.'),
+        },
+        'change_observed_basis': ('somente os recortes com profundidade de '
+                                  'leitura comparavel entram nesta conta'),
+        'slice_transitions_unit_slice': slices_estado,
+        'unidades': {
+            'PRESENT_BOTH / NEWLY_OBSERVED / NO_LONGER_OBSERVED_IN_SNAPSHOT_2':
+                'unidade = CARTAO (grupo de criativo), identificado por library_id',
+            'ZERO_TO_ACTIVE / ACTIVE_TO_ZERO / ACTIVE_BOTH / ZERO_BOTH':
+                'unidade = RECORTE (page_id x ad_delivery_country)',
+        },
+        'no_longer_observed_nota': (
+            'NO_LONGER_OBSERVED_IN_SNAPSHOT_2 != AD_STOPPED. A fonte deixou de '
+            'listar o anuncio naquele recorte; ela nao declarou fim de '
+            'veiculacao.'),
         'change_observed': 'YES' if mudou else 'NO',
         'temporal_comparison_capability': (
             'PROVED' if linhas else 'NOT_PROVED'),
@@ -346,6 +459,8 @@ if __name__ == '__main__':
     elif acao == 'comparar':
         r = comparar()
         print(json.dumps({k: r[k] for k in (
-            'snapshot_1_as_of_date', 'snapshot_2_as_of_date', 'slices_compared',
-            'totals_unit_ad_card', 'change_observed',
-            'temporal_comparison_capability')}, ensure_ascii=False, indent=2))
+            'snapshot_1_as_of_date', 'snapshot_2_collection_started_at',
+            'snapshot_2_collection_completed_at', 'slices_compared',
+            'totals_unit_ad_card_all_slices', 'totals_unit_ad_card_read_depth_comparable', 'read_depth_confounded', 'slice_transitions_unit_slice',
+            'change_observed', 'temporal_comparison_capability')},
+            ensure_ascii=False, indent=2))
