@@ -481,6 +481,66 @@ export function buildSnapshot() {
   // A cadeia de identidade e cross-market por construcao (ES/IT/FR). O prazo
   // regulatorio nao e: vive so na Italia, e dizer o contrario seria inventar.
   const idchain = RAW.find(o => o.type === 'comp')
+  // ── MOMENTO · derivado, nao redigido ────────────────────────────────────
+  // As tres frases eram texto fixo. Continuavam verdadeiras por sorte: se um
+  // objeto mudasse de estado, a primeira passaria a mentir sem ninguem notar.
+  //
+  // "O que mudou" exige historico, e este snapshot NAO tem freeze anterior para
+  // comparar. Entao a resposta honesta e NAO MEDIDA — nao "nada mudou".
+  const portoesAbertos = {}
+  for (const o of RAW) {
+    for (const [rotulo, estado] of (o.gates || [])) {
+      if (String(estado).startsWith('nao')) {
+        portoesAbertos[rotulo] = (portoesAbertos[rotulo] || 0) + 1
+      }
+    }
+  }
+  const maisComum = Object.entries(portoesAbertos).sort((a, b) => b[1] - a[1])[0]
+  const momentum = [
+    { kicker: 'O QUE MUDOU', color: 'rgba(255,255,255,.42)',
+      text: 'NAO MEDIDO. Este snapshot nao carrega freeze anterior para comparar. ' +
+            'Mudanca de estado exige dois momentos, e so ha um.' },
+    { kicker: 'O QUE ESTA PARADO', color: '#f89e18',
+      text: maisComum
+        ? `O portao mais aberto e "${maisComum[0]}": ${maisComum[1]} de ${RAW.length} objetos param nele.`
+        : 'Nenhum portao aberto medido.' },
+    { kicker: 'O QUE BLOQUEIA', color: 'rgba(255,255,255,.72)',
+      text: `Nenhum dos ${RAW.length} objetos tem relogio agronomico conectado: ` +
+            'toda leitura de janela segue NAO MEDIDA, e o portal prefere silencio a estimativa.' },
+  ]
+
+  // ── COMPARABILIDADE · o que foi medido em cada pais, e so isso ──────────
+  // A tabela dizia "comparavel" para area de cultura e preco de referencia nos
+  // tres paises. Nenhuma das duas foi medida em pais nenhum nesta rodada.
+  // Afirmar comparabilidade sem medir os dois lados e afirmar duas vezes.
+  const temTipo = (code, tipo) => porPais(code).some(o => o.type === tipo)
+  const cmp = (f) => ({ es: f('ES'), it: f('IT'), fr: f('FR') })
+  const comparability = [
+    { d: 'Area de cultura', ...cmp(() => 'naomedido') },
+    { d: 'Preco de referencia', ...cmp(() => 'naomedido') },
+    // Regulatorio: so a Italia teve o registro nacional lido. Comparar exige
+    // os dois lados; um lado lido e outro nao e incomparavel, nao parcial.
+    { d: 'Regulatorio', ...cmp((c) => (temTipo(c, 'reg') ? 'parcial' : 'naocomp')) },
+    { d: 'Sinal de campo', ...cmp((c) => (temTipo(c, 'field') ? 'parcial' : 'naocomp')) },
+    { d: 'Clima', ...cmp(() => 'naomedido') },
+    { d: 'Portfolio local', ...cmp(() => 'naomedido') },
+    { d: 'Atividade de concorrencia', ...cmp((c) => (temTipo(c, 'comp') ? 'parcial' : 'naocomp')) },
+    { d: 'Tempo / janela', ...cmp(() => 'naomedido') },
+  ]
+
+  // ── ASSIMETRIA · objetos reais, nao "slot 01" ───────────────────────────
+  // Uma linha por problema realmente nomeado, e o que cada pais tem sobre ele.
+  const issues = [...new Set(RAW.map(o => o.f && o.f.ISSUE).filter(Boolean))]
+  const asymRows = issues.map(issue => {
+    const cel = (code) => {
+      const o = porPais(code).find(x => x.f && x.f.ISSUE === issue)
+      if (!o) return 'NAO SEI'
+      const par = (o.gates || []).find(g => g[0] === 'Par cultura x problema')
+      return par && par[1] === 'provado' ? 'PROVADA' : 'NAO PROVADA'
+    }
+    return { problem: issue, es: cel('ES'), it: cel('IT'), fr: cel('FR') }
+  })
+
   const crossCases = [
     {
       line: '#c04ab8', lineLabel: 'CADEIA DE IDENTIDADE', type: 'comp',
@@ -567,6 +627,7 @@ export function buildSnapshot() {
       CANONICAL_CASCO_SHA: 'd28f6b5876e2fa28720eb555a8b99a275e56c229ed0ac5c4b07edf89f4e81328',
     },
     RAW, EVIDENCE, sources, volumes, fieldStats, voices, chain, acervoRows, experts, eameLanes, reports, crossCases, departments,
+    momentum, comparability, asymRows,
     archived: [],
     coverage,
     stateMachine: stateMachine.ESTADO_MEDIDO_HOJE,

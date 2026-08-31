@@ -3,7 +3,7 @@
   "SOURCE_BACKEND": "GITHUB",
   "MODE": "FROZEN_SNAPSHOT",
   "NOT_SUPABASE": "Este bundle nao veio do Supabase. O adapter de snapshot sera trocado depois.",
-  "GENERATED_FROM_HEAD": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+  "GENERATED_FROM_HEAD": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
   "LANGS": [
    "pt",
    "en",
@@ -643,7 +643,7 @@
    "prov": {
     "SOURCE_BACKEND": "GITHUB",
     "REPOSITORY": "lucianodalondon-sys/eame-sintonia",
-    "COMMIT_SHA": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+    "COMMIT_SHA": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
     "SOURCE_ID": "ES-T3-001",
     "AS_OF_DATE": "2026-08-29",
     "HOSE": "FIELD_HISTORICAL"
@@ -910,7 +910,7 @@
    "level": "naoprovado",
    "original": null,
    "translated": null,
-   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+   "commit": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
    "asOf": "2026-08-29",
    "note": "JUDGMENT_REQUIRED · se uma serie retrospectiva sem antecedencia provada merece fila de atencao, ou se e contexto",
    "unresolved": false
@@ -1092,7 +1092,7 @@
    "level": "medido",
    "original": "1702 Repilo: % Hojas  con Repilo Visible",
    "translated": null,
-   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+   "commit": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
    "asOf": "2026-08-29",
    "note": "consequencia material: Cadiz 2026 = 8,01 NAO e o maximo da serie. Cadiz teve 9,71 em 2013, 8,40 em 2010 e 7,95 em 2009. Huelva 8,83 em 2026 E o maximo de toda a serie.",
    "unresolved": false
@@ -1120,7 +1120,7 @@
    "level": "naoprovado",
    "original": null,
    "translated": null,
-   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+   "commit": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
    "asOf": "2026-08-29",
    "note": "VIDEO_x_SCIENCE = NOT_REACHED por casamento de nome. Nos dois niveis: 1 candidato nao confirmado por pessoa, e zero por instituicao no metodo estrito — enquanto o metodo frouxo produz falso positivo demonstravel. A rota SCIENCE -> RESEARCHER -> PUBLIC EXPLANATION nao esta refutada; ela apenas nao se constroi com nome.",
    "unresolved": false
@@ -2823,7 +2823,7 @@
     },
     {
      "k": "PROVENANCE · COMMIT_SHA",
-     "v": "31e594bbd9c9"
+     "v": "13c311009cf1"
     },
     {
      "k": "CANONICAL_ENTITIES",
@@ -2871,7 +2871,7 @@
     },
     {
      "k": "PROVENANCE · COMMIT_SHA",
-     "v": "31e594bbd9c9"
+     "v": "13c311009cf1"
     },
     {
      "k": "CANONICAL_ENTITIES",
@@ -3048,6 +3048,105 @@
    "time": "sem impedimento externo · depende de rodar"
   }
  ],
+ "momentum": [
+  {
+   "kicker": "O QUE MUDOU",
+   "color": "rgba(255,255,255,.42)",
+   "text": "NAO MEDIDO. Este snapshot nao carrega freeze anterior para comparar. Mudanca de estado exige dois momentos, e so ha um."
+  },
+  {
+   "kicker": "O QUE ESTA PARADO",
+   "color": "#f89e18",
+   "text": "O portao mais aberto e \"Chave territorial completa\": 5 de 9 objetos param nele."
+  },
+  {
+   "kicker": "O QUE BLOQUEIA",
+   "color": "rgba(255,255,255,.72)",
+   "text": "Nenhum dos 9 objetos tem relogio agronomico conectado: toda leitura de janela segue NAO MEDIDA, e o portal prefere silencio a estimativa."
+  }
+ ],
+ "comparability": [
+  {
+   "d": "Area de cultura",
+   "es": "naomedido",
+   "it": "naomedido",
+   "fr": "naomedido"
+  },
+  {
+   "d": "Preco de referencia",
+   "es": "naomedido",
+   "it": "naomedido",
+   "fr": "naomedido"
+  },
+  {
+   "d": "Regulatorio",
+   "es": "naocomp",
+   "it": "parcial",
+   "fr": "naocomp"
+  },
+  {
+   "d": "Sinal de campo",
+   "es": "parcial",
+   "it": "naocomp",
+   "fr": "naocomp"
+  },
+  {
+   "d": "Clima",
+   "es": "naomedido",
+   "it": "naomedido",
+   "fr": "naomedido"
+  },
+  {
+   "d": "Portfolio local",
+   "es": "naomedido",
+   "it": "naomedido",
+   "fr": "naomedido"
+  },
+  {
+   "d": "Atividade de concorrencia",
+   "es": "parcial",
+   "it": "parcial",
+   "fr": "parcial"
+  },
+  {
+   "d": "Tempo / janela",
+   "es": "naomedido",
+   "it": "naomedido",
+   "fr": "naomedido"
+  }
+ ],
+ "asymRows": [
+  {
+   "problem": "REPILO",
+   "es": "NAO PROVADA",
+   "it": "NAO SEI",
+   "fr": "NAO SEI"
+  },
+  {
+   "problem": "SEPTORIA",
+   "es": "NAO PROVADA",
+   "it": "NAO SEI",
+   "fr": "NAO PROVADA"
+  },
+  {
+   "problem": "FLAVESCENCE",
+   "es": "NAO SEI",
+   "it": "NAO PROVADA",
+   "fr": "NAO SEI"
+  },
+  {
+   "problem": "FUSARIUM",
+   "es": "NAO SEI",
+   "it": "PROVADA",
+   "fr": "NAO SEI"
+  },
+  {
+   "problem": "DOWNY_MILDEW",
+   "es": "NAO SEI",
+   "it": "NAO SEI",
+   "fr": "PROVADA"
+  }
+ ],
  "archived": [],
  "coverage": {
   "H1": {
@@ -3082,7 +3181,7 @@
    "loaded": true,
    "raw_rows": 148964,
    "canonical_entities": 23,
-   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+   "commit": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
    "as_of": "2026-08-29"
   },
   "H6": {
@@ -3096,7 +3195,7 @@
    "loaded": true,
    "raw_rows": 153,
    "canonical_entities": 0,
-   "commit": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+   "commit": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
    "as_of": "2026-08-29"
   },
   "H8": {
@@ -5599,7 +5698,7 @@
   "H5": {
    "SOURCE_BACKEND": "GITHUB",
    "REPOSITORY": "lucianodalondon-sys/eame-sintonia",
-   "COMMIT_SHA": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+   "COMMIT_SHA": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
    "SOURCE_ID": "ES-T3-001",
    "AS_OF_DATE": "2026-08-29",
    "HOSE": "FIELD_HISTORICAL"
@@ -5615,7 +5714,7 @@
   "H7": {
    "SOURCE_BACKEND": "GITHUB",
    "REPOSITORY": "lucianodalondon-sys/eame-sintonia",
-   "COMMIT_SHA": "31e594bbd9c9b4c4ac0dffe8d3b4755789395a4e",
+   "COMMIT_SHA": "13c311009cf1a2b1c504240b62c43b621d3acfb9",
    "SOURCE_ID": "ES-X-VOICE-SCIENCE",
    "AS_OF_DATE": "2026-08-29",
    "HOSE": "SCIENCE_EXPERT"

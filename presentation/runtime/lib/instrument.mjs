@@ -371,6 +371,17 @@ export function instrument(html) {
     };});`,
     'relogios:cor-segue-a-medicao', log)
 
+  // 5n · MOMENTO, COMPARABILIDADE e ASSIMETRIA · os tres eram texto fixo.
+  //      O de comparabilidade era o pior: afirmava "comparavel" para area de
+  //      cultura e preco de referencia nos tres paises, e nenhuma das duas foi
+  //      medida em pais nenhum. A assimetria listava "Objeto — slot 01".
+  out = replaceBlock(out, 'const momentum = [',
+    'const momentum = window.__SINTONIA__.momentum || [];', log)
+  out = replaceBlock(out, 'const comparability = [',
+    'const comparability = window.__SINTONIA__.comparability || [];', log)
+  out = replaceBlock(out, 'const asymRows = [',
+    'const asymRows = window.__SINTONIA__.asymRows || [];', log)
+
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
     'const volumes = window.__SINTONIA__.volumes || [];', log)
