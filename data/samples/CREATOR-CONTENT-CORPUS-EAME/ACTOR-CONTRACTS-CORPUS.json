@@ -1,0 +1,45 @@
+{
+  "CAPTURED_AT": "2026-08-31T00:54:48Z",
+  "METHOD": "GET /v2/acts/{actor} — leitura, zero run, zero custo",
+  "WHY": "ator descarta em silêncio o campo que não reconhece; ler o schema é grátis, descobrir com dinheiro que ele era outro não é.",
+  "ACTORS": [
+    {
+      "LABEL": "INSTAGRAM_POSTS",
+      "ACTOR": "apify~instagram-scraper",
+      "STATE": "AVAILABLE",
+      "TITLE": "Instagram Scraper",
+      "USERNAME": "apify",
+      "INPUT_FIELDS": [],
+      "REQUIRED": []
+    },
+    {
+      "LABEL": "INSTAGRAM_COMMENTS",
+      "ACTOR": "apify~instagram-comment-scraper",
+      "STATE": "AVAILABLE",
+      "TITLE": "Instagram Comments Scraper",
+      "USERNAME": "apify",
+      "INPUT_FIELDS": [],
+      "REQUIRED": []
+    },
+    {
+      "LABEL": "YOUTUBE",
+      "ACTOR": "streamers~youtube-scraper",
+      "STATE": "AVAILABLE",
+      "TITLE": "YouTube Scraper",
+      "USERNAME": "streamers",
+      "INPUT_FIELDS": [],
+      "REQUIRED": []
+    },
+    {
+      "LABEL": "TIKTOK",
+      "ACTOR": "clockworks~tiktok-scraper",
+      "STATE": "AVAILABLE",
+      "TITLE": "TikTok Scraper",
+      "USERNAME": "clockworks",
+      "INPUT_FIELDS": [],
+      "REQUIRED": []
+    }
+  ],
+  "DATASET_OWNER": "CREATOR_CONTENT_CORPUS_EAME",
+  "SOURCE_ID": "15-CREATOR-CONTENT-CORPUS-EAME"
+}
