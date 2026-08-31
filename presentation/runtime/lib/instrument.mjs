@@ -325,7 +325,14 @@ export function instrument(html) {
         var n = (window.__SINTONIA__.acervoRows || []).filter(function (r) {
           return !code || r.country === code;
         }).length;
-        return n + ' documentos com corpo analisado · fonte e captura por linha';
+        // "documentos" deixou de servir: com H2 ligado, a lista tem documento
+        // analisado E registro nacional com prazo. Chamar tudo de documento
+        // seria dizer que o registro foi lido como texto, e nao foi.
+        var docs = (window.__SINTONIA__.acervoRows || []).filter(function (r) {
+          return (!code || r.country === code) && r.line !== 'PRAZO';
+        }).length;
+        return n + ' linhas · ' + docs + ' com corpo analisado · ' +
+               (n - docs) + ' registros com prazo · fonte e captura por linha';
       })()
     };`,
     'acervo:valores', log)

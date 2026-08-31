@@ -306,6 +306,32 @@ export function buildSnapshot() {
     })
   }
 
+  // ── ACERVO · H2 · os prazos reais do registro nacional italiano ──────────
+  // Registro nao e documento, mas e material do acervo pelo mesmo motivo: e o
+  // que a fonte declara, linha a linha, com a fonte e a captura do lado.
+  //
+  // Entram os 20 proximos vencimentos congelados em IT-T4-001. NAO entram os
+  // 155 como alerta: alerta e regua do Radar, e a regua nao muda porque a
+  // profundidade aumentou. Aqui e profundidade, e so.
+  //
+  // Ordenados por data — o mais proximo primeiro, que e a unica ordem util
+  // para quem vai ler.
+  const proximos = [...(H.H2.next_expiries || [])].sort((a, b) =>
+    String(a.expiry).localeCompare(String(b.expiry)))
+  for (const e of proximos) {
+    acervoRows.push({
+      title: `${e.product} · REG ${e.reg}`,
+      sub: [`ATIVO ${e.actives}`, `STATUS ${e.status}`, `VENCE ${e.expiry}`].join(' · '),
+      sourceId: H.H2.source_id || 'IT-T4-001',
+      capture: H.H2.captured_at || '—',
+      country: 'IT',
+      // Data no futuro nao e linha de produto e nao e cor de alerta: e data.
+      line: 'PRAZO',
+      lineColor: 'rgba(255,255,255,.62)',
+      lineBorder: 'rgba(151,139,135,.55)',
+    })
+  }
+
   // ── H7 · CIENCIA / EXPERT ────────────────────────────────────────────────
   // Pessoa encontrada nao e especialista. O artefato mede NOT_REACHED nos dois
   // niveis, entao nenhuma linha aqui pode dizer "especialista". Tambem nao
