@@ -1,0 +1,59 @@
+{
+ "SOURCE_ID": "FUNCTIONAL-SANDBOX-FIXTURES",
+ "O_QUE_ISTO_E": "proveniencia das fixtures do sandbox funcional. As fixtures sao aparadas; o SHA aqui e do ARTEFATO INTEIRO, lido do Git no commit fixado.",
+ "REGRA": "fixture NAO e fonte de verdade. Se divergir do artefato canonico, o artefato vence e a fixture e regerada.",
+ "captured_at": "2026-08-30",
+ "CAPTURED_AT": "2026-08-30",
+ "EVIDENCE_CLASS": "DERIVED_FIXTURE",
+ "ORIGENS": [
+  {
+   "FIXTURE": "creator-capability-sample.json",
+   "CAPABILITY": "CREATOR_MAP",
+   "SOURCE_BRANCH": "claude/eame-agro-creators-map-77c4ld",
+   "SOURCE_COMMIT": "2018c5c8e0bd2c0d63d7ee14af423f158544a4d8",
+   "SOURCE_PATH": "data/samples/CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json",
+   "FULL_ARTIFACT_SHA256": "438ba932e917edf3305b2e0447146b16d3965f3d443ba9ab2c948b6430188f4e",
+   "FULL_ARTIFACT_BYTES": 495223,
+   "COMO_REEXTRAIR": "git show 2018c5c:data/samples/CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json"
+  },
+  {
+   "FIXTURE": "public-comm-batch-sample.json",
+   "CAPABILITY": "COMPETITOR_PUBLIC_COMMUNICATION",
+   "SOURCE_BRANCH": "claude/eame-competitor-public-communication",
+   "SOURCE_COMMIT": "c25e44ba14d963f45a3381205b2759690fef66b9",
+   "SOURCE_PATH": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json",
+   "FULL_ARTIFACT_SHA256": "b47da409cbc55f455048154e4c1456c8d1f0b17d13308951016e69934057dc31",
+   "FULL_ARTIFACT_BYTES": 29203,
+   "COMO_REEXTRAIR": "git show c25e44b:data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json"
+  },
+  {
+   "FIXTURE": "public-comm-batch-sample.json (bloco OS_QUATRO_ESTADOS)",
+   "CAPABILITY": "COMPETITOR_PUBLIC_COMMUNICATION",
+   "SOURCE_BRANCH": "claude/eame-competitor-public-communication",
+   "SOURCE_COMMIT": "c25e44ba14d963f45a3381205b2759690fef66b9",
+   "SOURCE_PATH": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+   "FULL_ARTIFACT_SHA256": "60477fada6f509bdfd933b54fde47d0aa0e48416172c55f9d064f33c324758d3",
+   "FULL_ARTIFACT_BYTES": 64578,
+   "COMO_REEXTRAIR": "git show c25e44b:data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json"
+  },
+  {
+   "FIXTURE": "nenhuma — o diretorio de especialistas ja esta nesta branch",
+   "CAPABILITY": "EXPERT_DIRECTORY",
+   "SOURCE_BRANCH": "claude/sintonia-eame-portal-baseline",
+   "SOURCE_COMMIT": "in-tree",
+   "SOURCE_PATH": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
+   "FULL_ARTIFACT_SHA256": "ver data/functional-sandbox/PREP-MEDICAO.json",
+   "FULL_ARTIFACT_BYTES": null,
+   "COMO_REEXTRAIR": "ja esta na arvore"
+  }
+ ],
+ "CAPACIDADE_SEM_ARTEFATO": {
+  "COMPETITOR_FORESIGHT": {
+   "ESTADO": "NO_ARTIFACT_IN_REPO",
+   "MEDIDO_EM": "2026-08-30",
+   "COMO_FOI_MEDIDO": "varredura de nomes de arquivo em TODOS os refs de origin (13 branches) e git grep por \"foresight\"",
+   "O_QUE_EXISTE": "apenas a fronteira declarada por OUTRA missao, dentro de MEDICAO-PRIMEIRO-LOTE-V1.json: \"IP, BRAND, REGULATORY e PRODUCT continuam do Foresight\"",
+   "CONSEQUENCIA": "nenhum adaptador de Foresight pode ser preparado. Preparar um a partir do nome seria inventar schema."
+  }
+ }
+}

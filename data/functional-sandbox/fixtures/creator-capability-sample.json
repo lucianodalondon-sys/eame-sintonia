@@ -1,0 +1,4779 @@
+{
+ "FIXTURE": "aparada de CREATOR-CAPABILITY-EAME.json — NAO e o artefato canonico",
+ "SOURCE_ID": "14-MAPA-DE-CREATORS-EAME",
+ "CAPTURED_AT": "2026-08-30",
+ "QUESTION_ANSWERED": "COUNTRY x REGION x CROP -> ha pessoa ou entidade relevante para ativacao?",
+ "WHAT_THIS_IS_NOT": "nao ordena, nao pontua, nao recomenda contratacao. ACTIVATION_STATE significa que o Marketing JA CONSEGUE AVALIAR — nada alem disso.",
+ "READINESS_METRICS": {
+  "PERSON_CREATOR_ACTIVATION_READY": 8,
+  "FARM_BUSINESS_PARTNER_READY": 2,
+  "MARKETING_CONTACTABLE_ENTITIES_READY": 10,
+  "NOTE": "a soma NÃO se chama CREATORS_READY. Pessoa != empresa, e o nome da métrica é onde essa distinção se perde primeiro."
+ },
+ "METRIC_LAW": "a soma NUNCA se chama CREATORS_READY. Pessoa != empresa.",
+ "ENTITY_TYPES": [
+  "PERSON_CREATOR",
+  "FARM_BUSINESS",
+  "FARMER_FAMILY_ACCOUNT",
+  "MEDIA_ACCOUNT",
+  "ORGANIZATION",
+  "OTHER",
+  "NÃO SEI"
+ ],
+ "ACTIVATION_STATES": [
+  "ACTIVATION_READY",
+  "PROMISING",
+  "RESEARCH_NEEDED",
+  "NOT_RELEVANT"
+ ],
+ "FIELDS_PRESERVED_PER_RESULT": [
+  "IDENTITY_EVIDENCE",
+  "CROP_PROOF",
+  "RECENT_ACTIVITY",
+  "PUBLIC_CHANNEL",
+  "PUBLIC_CONTACT",
+  "AUDIENCE_FACING",
+  "BRAND_HISTORY",
+  "COMPETITOR_HISTORY",
+  "AS_OF_DATE",
+  "WHAT_IS_NOT_KNOWN"
+ ],
+ "JOIN_KEYS_FOR_OTHER_MISSIONS": {
+  "KEYS": [
+   "PERSON_ID",
+   "ENTITY_ID",
+   "BRAND",
+   "COUNTRY",
+   "CROP",
+   "OBSERVED_AT"
+  ],
+  "META_CROSSOVER": "se a missao Meta encontrar uma destas pessoas num anuncio, isso vira CREATOR_APPEARANCE_OBSERVED. PAID_CREATOR_RELATION so sobe com prova adicional — e nao e antecipado aqui."
+ },
+ "CONVERGENCE_BOUNDARY": {
+  "CREATOR_MAP_CAN_ADD": [
+   "ACTIVATION_ROUTE_AVAILABLE",
+   "RELEVANT_PUBLIC_VOICE_AVAILABLE"
+  ],
+  "CREATOR_MAP_CANNOT_CONFIRM": [
+   "FIELD_PROBLEM",
+   "INCIDENCE",
+   "MARKET_OPPORTUNITY",
+   "PRODUCT_FIT"
+  ],
+  "LAYER": "AUDIENCE / ACTIVATION / PUBLIC VOICE",
+  "WHY": "um creator prova que existe VOZ para aquela cultura naquele lugar. Nao prova que ha problema de campo, nem incidencia, nem oportunidade de mercado, nem encaixe de produto — essas vem de outras camadas."
+ },
+ "NO_RANKING": "este artefato nao ordena e nao pontua. A ordem das listas e a ordem de insercao, sem significado.",
+ "NOT_ASKED_IS_NOT_NOT_READY": "um recorte ausente deste indice nao e NOT_READY: e NOT_ASKED. \"nao temos\" e \"nao procuramos\" sao respostas diferentes.",
+ "REVALIDATION_RULE": "NOT_YET_DEFINED",
+ "LOOKUP_BY_COUNTRY_CROP": {
+  "ES|OLIVE": {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "PERSON_CREATOR_ACTIVATION_READY": 2,
+   "FARM_BUSINESS_PARTNER_READY": 0,
+   "CANDIDATES_TOTAL": 4,
+   "ANSWER": "READY",
+   "PEOPLE": [
+    {
+     "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+     "HANDLE": "@huerto_ecologico.marc",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/huerto_ecologico.marc"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "CAROB",
+       "VEGETABLES"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-30",
+      "POSTS_LAST_30D": 10,
+      "POSTS_LAST_90D": 10
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    },
+    {
+     "CREATOR": "Francisco Fernandez Barroso",
+     "HANDLE": "@chicurri_agro",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/chicurri_agro"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "GRAPEVINE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-25",
+      "POSTS_LAST_30D": 4,
+      "POSTS_LAST_90D": 8
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-25",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=8",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    }
+   ],
+   "BUSINESSES": [],
+   "ALL_CANDIDATES": [
+    {
+     "CREATOR": "Fernando Giraldo",
+     "HANDLE": "@Tomy_Rohde",
+     "PUBLIC_CHANNEL": "https://x.com/Tomy_Rohde",
+     "COUNTRY": "ES",
+     "REGION": "La Carlota, Campina cordobesa, Cordoba (Andalucia)",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "PROMISING",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.eldebate.com/espana/la-voz-de-cordoba/sociedad/20240107/campo-he-encontrado-tranquilidad_165129.html",
+      "https://www.directoalpaladar.com/actualidad-1/hablamos-tomy-rohde-agricultor-cordoba-que-ha-conseguido-que-le-compren-tractor-gracias-a-twitter"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=FALTA",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE: MISSING_RECENT_ACTIVITY"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "NOT_MEASURED",
+      "LAST_ACTIVITY_DATE": "NÃO SEI",
+      "POSTS_LAST_30D": "NÃO SEI",
+      "POSTS_LAST_90D": "NÃO SEI"
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "marca propria \"Aceite de Tom\" — rota comercial publica",
+     "AUDIENCE_FACING": "NÃO SEI",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": [
+      "RECENT_ACTIVITY_PROVED"
+     ]
+    },
+    {
+     "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+     "HANDLE": "@huerto_ecologico.marc",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/huerto_ecologico.marc"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "CAROB",
+       "VEGETABLES"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-30",
+      "POSTS_LAST_30D": 10,
+      "POSTS_LAST_90D": 10
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    },
+    {
+     "CREATOR": "Francisco Fernandez Barroso",
+     "HANDLE": "@chicurri_agro",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/chicurri_agro"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "GRAPEVINE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-25",
+      "POSTS_LAST_30D": 4,
+      "POSTS_LAST_90D": 8
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-25",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=8",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    },
+    {
+     "CREATOR": "Alberto Rojas",
+     "HANDLE": "ES-CR-002",
+     "PUBLIC_CHANNEL": "NÃO SEI",
+     "COUNTRY": "ES",
+     "REGION": "Córdoba (Andalucía)",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "RESEARCH_NEEDED",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.eldebate.com/espana/andalucia/20260619/olivar-redes-sociales-campo-andaluz-viraliza-fenomeno-agroinfluencers_430188.html"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "EXTENSIVE_CROPS"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=FALTA",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=FALTA",
+       "PUBLIC_CHANNEL_PROVED=FALTA",
+       "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "NOT_MEASURED",
+      "LAST_ACTIVITY_DATE": "NÃO SEI",
+      "POSTS_LAST_30D": "NÃO SEI",
+      "POSTS_LAST_90D": "NÃO SEI"
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "NÃO SEI",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": [
+      "IDENTITY_PROVED",
+      "RECENT_ACTIVITY_PROVED",
+      "PUBLIC_CHANNEL_PROVED"
+     ]
+    }
+   ]
+  },
+  "ES|CAROB": {
+   "COUNTRY": "ES",
+   "CROP": "CAROB",
+   "PERSON_CREATOR_ACTIVATION_READY": 1,
+   "FARM_BUSINESS_PARTNER_READY": 0,
+   "CANDIDATES_TOTAL": 1,
+   "ANSWER": "READY",
+   "PEOPLE": [
+    {
+     "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+     "HANDLE": "@huerto_ecologico.marc",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/huerto_ecologico.marc"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "CAROB",
+       "VEGETABLES"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-30",
+      "POSTS_LAST_30D": 10,
+      "POSTS_LAST_90D": 10
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    }
+   ],
+   "BUSINESSES": [],
+   "ALL_CANDIDATES": [
+    {
+     "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+     "HANDLE": "@huerto_ecologico.marc",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/huerto_ecologico.marc"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "CAROB",
+       "VEGETABLES"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-30",
+      "POSTS_LAST_30D": 10,
+      "POSTS_LAST_90D": 10
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    }
+   ]
+  },
+  "ES|MELON": {
+   "COUNTRY": "ES",
+   "CROP": "MELON",
+   "PERSON_CREATOR_ACTIVATION_READY": 0,
+   "FARM_BUSINESS_PARTNER_READY": 0,
+   "CANDIDATES_TOTAL": 1,
+   "ANSWER": "NOT_READY",
+   "PEOPLE": [],
+   "BUSINESSES": [],
+   "ALL_CANDIDATES": [
+    {
+     "CREATOR": "Esther Molina",
+     "HANDLE": "ES-CR-005",
+     "PUBLIC_CHANNEL": "NÃO SEI",
+     "COUNTRY": "ES",
+     "REGION": "Almería (Andalucía)",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "RESEARCH_NEEDED",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.plataformatierra.es/actualidad/agroinfluencers-mas-moda-agricultura-2024"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "PEPPER",
+       "TOMATO",
+       "MELON",
+       "WATERMELON"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=FALTA",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=FALTA",
+       "PUBLIC_CHANNEL_PROVED=FALTA",
+       "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "NOT_MEASURED",
+      "LAST_ACTIVITY_DATE": "NÃO SEI",
+      "POSTS_LAST_30D": "NÃO SEI",
+      "POSTS_LAST_90D": "NÃO SEI"
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "NÃO SEI",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": [
+      "IDENTITY_PROVED",
+      "RECENT_ACTIVITY_PROVED",
+      "PUBLIC_CHANNEL_PROVED"
+     ]
+    }
+   ]
+  },
+  "ES|GRAPEVINE": {
+   "COUNTRY": "ES",
+   "CROP": "GRAPEVINE",
+   "PERSON_CREATOR_ACTIVATION_READY": 2,
+   "FARM_BUSINESS_PARTNER_READY": 0,
+   "CANDIDATES_TOTAL": 2,
+   "ANSWER": "READY",
+   "PEOPLE": [
+    {
+     "CREATOR": "Francisco Fernandez Barroso",
+     "HANDLE": "@chicurri_agro",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/chicurri_agro"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "GRAPEVINE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-25",
+      "POSTS_LAST_30D": 4,
+      "POSTS_LAST_90D": 8
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-25",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=8",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    },
+    {
+     "CREATOR": "Oliverio Rodriguez Viticultor",
+     "HANDLE": "@oliverio_rodfer",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/oliverio_rodfer",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/oliverio_rodfer"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "GRAPEVINE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-28",
+      "POSTS_LAST_30D": 12,
+      "POSTS_LAST_90D": 12
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-28",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    }
+   ],
+   "BUSINESSES": [],
+   "ALL_CANDIDATES": [
+    {
+     "CREATOR": "Francisco Fernandez Barroso",
+     "HANDLE": "@chicurri_agro",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/chicurri_agro"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "OLIVE",
+       "GRAPEVINE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-25",
+      "POSTS_LAST_30D": 4,
+      "POSTS_LAST_90D": 8
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-25",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=8",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    },
+    {
+     "CREATOR": "Oliverio Rodriguez Viticultor",
+     "HANDLE": "@oliverio_rodfer",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/oliverio_rodfer",
+     "COUNTRY": "ES",
+     "REGION": "NÃO SEI",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/oliverio_rodfer"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "GRAPEVINE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK",
+       "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-28",
+      "POSTS_LAST_30D": 12,
+      "POSTS_LAST_90D": 12
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-28",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "NÃO SEI",
+     "AUDIENCE_FACING": "FARMER_FACING",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    }
+   ]
+  },
+  "IT|MAIZE": {
+   "COUNTRY": "IT",
+   "CROP": "MAIZE",
+   "PERSON_CREATOR_ACTIVATION_READY": 1,
+   "FARM_BUSINESS_PARTNER_READY": 0,
+   "CANDIDATES_TOTAL": 1,
+   "ANSWER": "READY",
+   "PEOPLE": [
+    {
+     "CREATOR": "Davide Gomiero",
+     "HANDLE": "@gomierofarm",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+     "COUNTRY": "IT",
+     "REGION": "Limena, Padova, Veneto",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/gomierofarm/",
+      "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+      "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "MAIZE",
+       "ALFALFA",
+       "SOYBEAN",
+       "FORAGE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-24",
+      "POSTS_LAST_30D": 6,
+      "POSTS_LAST_90D": 12
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+     "AUDIENCE_FACING": "NÃO SEI",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    }
+   ],
+   "BUSINESSES": [],
+   "ALL_CANDIDATES": [
+    {
+     "CREATOR": "Davide Gomiero",
+     "HANDLE": "@gomierofarm",
+     "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+     "COUNTRY": "IT",
+     "REGION": "Limena, Padova, Veneto",
+     "ENTITY_TYPE": "PERSON_CREATOR",
+     "ACTIVATION_STATE": "ACTIVATION_READY",
+     "ACTUAL_FARMER": "PROVED",
+     "IDENTITY_EVIDENCE": [
+      "https://www.instagram.com/gomierofarm/",
+      "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+      "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+     ],
+     "CROP_PROOF": {
+      "CROPS": [
+       "MAIZE",
+       "ALFALFA",
+       "SOYBEAN",
+       "FORAGE"
+      ],
+      "STATE": "PROVED",
+      "WHY": [
+       "IDENTITY_PROVED=OK",
+       "COUNTRY_PROVED=OK",
+       "CROP_FIT_PROVED=OK",
+       "ROLE_PROVED=OK",
+       "RECENT_ACTIVITY_PROVED=OK",
+       "PUBLIC_CHANNEL_PROVED=OK"
+      ]
+     },
+     "RECENT_ACTIVITY": {
+      "STATE": "ACTIVE_RECENT",
+      "LAST_ACTIVITY_DATE": "2026-08-24",
+      "POSTS_LAST_30D": 6,
+      "POSTS_LAST_90D": 12
+     },
+     "AS_OF_DATE": "2026-08-30",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+     "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+     "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+     "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+     "AUDIENCE_FACING": "NÃO SEI",
+     "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+     "BRAND_HISTORY": "NOT_OBSERVED",
+     "COMPETITOR_HISTORY": "NOT_OBSERVED",
+     "WHAT_IS_NOT_KNOWN": "NENHUMA"
+    }
+   ]
+  }
+ },
+ "LOOKUP_BY_ACTIVATION_STATE": {
+  "ACTIVATION_READY": [
+   {
+    "CREATOR": "Davide Gomiero",
+    "HANDLE": "@gomierofarm",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+    "COUNTRY": "IT",
+    "REGION": "Limena, Padova, Veneto",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/gomierofarm/",
+     "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+     "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 6,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Davide Gomiero",
+    "HANDLE": "@gomierofarm",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+    "COUNTRY": "IT",
+    "REGION": "Limena, Padova, Veneto",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/gomierofarm/",
+     "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+     "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 6,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Davide Gomiero",
+    "HANDLE": "@gomierofarm",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+    "COUNTRY": "IT",
+    "REGION": "Limena, Padova, Veneto",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/gomierofarm/",
+     "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+     "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 6,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Davide Gomiero",
+    "HANDLE": "@gomierofarm",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+    "COUNTRY": "IT",
+    "REGION": "Limena, Padova, Veneto",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/gomierofarm/",
+     "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+     "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 6,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Jesús Montoya",
+    "HANDLE": "@biocampojoyma",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/biocampojoyma/",
+    "COUNTRY": "ES",
+    "REGION": "Nijar, Almeria (Andalucia)",
+    "ENTITY_TYPE": "FARM_BUSINESS",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/biocampojoyma/",
+     "https://fruittoday.com/bio-campojoyma-se-acerca-al-poniente-con-un-punto-de-recogida/",
+     "https://agroautentico.com/2021/05/campojoyma-y-pimiento-bio/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-07-31",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 7
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-07-31",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=7",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "canal corporativo publico da Bio Campojoyma",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Jesús Montoya",
+    "HANDLE": "@biocampojoyma",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/biocampojoyma/",
+    "COUNTRY": "ES",
+    "REGION": "Nijar, Almeria (Andalucia)",
+    "ENTITY_TYPE": "FARM_BUSINESS",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/biocampojoyma/",
+     "https://fruittoday.com/bio-campojoyma-se-acerca-al-poniente-con-un-punto-de-recogida/",
+     "https://agroautentico.com/2021/05/campojoyma-y-pimiento-bio/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-07-31",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 7
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-07-31",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=7",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "canal corporativo publico da Bio Campojoyma",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Jesús Montoya",
+    "HANDLE": "@biocampojoyma",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/biocampojoyma/",
+    "COUNTRY": "ES",
+    "REGION": "Nijar, Almeria (Andalucia)",
+    "ENTITY_TYPE": "FARM_BUSINESS",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/biocampojoyma/",
+     "https://fruittoday.com/bio-campojoyma-se-acerca-al-poniente-con-un-punto-de-recogida/",
+     "https://agroautentico.com/2021/05/campojoyma-y-pimiento-bio/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-07-31",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 7
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-07-31",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=7",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "canal corporativo publico da Bio Campojoyma",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "David Forge",
+    "HANDLE": "@chaineagricole (Chaine Agricole)",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+    "COUNTRY": "FR",
+    "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
+     "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-04",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 4
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-04",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=4",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "David Forge",
+    "HANDLE": "@chaineagricole (Chaine Agricole)",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+    "COUNTRY": "FR",
+    "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
+     "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-04",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 4
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-04",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=4",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "David Forge",
+    "HANDLE": "@chaineagricole (Chaine Agricole)",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+    "COUNTRY": "FR",
+    "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
+     "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-04",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 4
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-04",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=4",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "David Forge",
+    "HANDLE": "@chaineagricole (Chaine Agricole)",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+    "COUNTRY": "FR",
+    "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
+     "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-04",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 4
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-04",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=4",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+    "HANDLE": "@huerto_ecologico.marc",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/huerto_ecologico.marc"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "CAROB",
+      "VEGETABLES"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+    "HANDLE": "@huerto_ecologico.marc",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/huerto_ecologico.marc"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "CAROB",
+      "VEGETABLES"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+    "HANDLE": "@huerto_ecologico.marc",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/huerto_ecologico.marc"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "CAROB",
+      "VEGETABLES"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Germán Fernández | Agricultura en invernadero",
+    "HANDLE": "@germanagrolife",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/germanagrolife",
+    "COUNTRY": "ES",
+    "REGION": "Almería",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/germanagrolife"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 12,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "director do @agrolifepodcast — rota profissional pública",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Germán Fernández | Agricultura en invernadero",
+    "HANDLE": "@germanagrolife",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/germanagrolife",
+    "COUNTRY": "ES",
+    "REGION": "Almería",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/germanagrolife"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 12,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "director do @agrolifepodcast — rota profissional pública",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "AgroSamanta👩🏼‍🌾",
+    "HANDLE": "@agrosamanta_",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/agrosamanta_",
+    "COUNTRY": "ES",
+    "REGION": "Níjar, Almería",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/agrosamanta_"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "TOMATO"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-27",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-27",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "agrosamanta18@gmail.com",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Fernandez Barroso",
+    "HANDLE": "@chicurri_agro",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/chicurri_agro"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "GRAPEVINE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-25",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 8
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-25",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=8",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Fernandez Barroso",
+    "HANDLE": "@chicurri_agro",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/chicurri_agro"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "GRAPEVINE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-25",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 8
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-25",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=8",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Oliverio Rodriguez Viticultor",
+    "HANDLE": "@oliverio_rodfer",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/oliverio_rodfer",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/oliverio_rodfer"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "GRAPEVINE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-28",
+     "POSTS_LAST_30D": 12,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-28",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Pistachos Terruza",
+    "HANDLE": "@terruzapistachos",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/terruzapistachos",
+    "COUNTRY": "ES",
+    "REGION": "Benamaurel, Granada",
+    "ENTITY_TYPE": "FARM_BUSINESS",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/terruzapistachos"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PISTACHIO"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 12,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   }
+  ]
+ },
+ "LOOKUP_BY_ENTITY_TYPE": {
+  "PERSON_CREATOR": [
+   {
+    "CREATOR": "Davide Gomiero",
+    "HANDLE": "@gomierofarm",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+    "COUNTRY": "IT",
+    "REGION": "Limena, Padova, Veneto",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/gomierofarm/",
+     "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+     "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 6,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Davide Gomiero",
+    "HANDLE": "@gomierofarm",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+    "COUNTRY": "IT",
+    "REGION": "Limena, Padova, Veneto",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/gomierofarm/",
+     "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+     "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 6,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Davide Gomiero",
+    "HANDLE": "@gomierofarm",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+    "COUNTRY": "IT",
+    "REGION": "Limena, Padova, Veneto",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/gomierofarm/",
+     "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+     "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 6,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Davide Gomiero",
+    "HANDLE": "@gomierofarm",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+    "COUNTRY": "IT",
+    "REGION": "Limena, Padova, Veneto",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/gomierofarm/",
+     "https://www.padovastories.com/story/gomiero-farm-davide-gomiero/",
+     "https://padova.coldiretti.it/news/oscar-green-2022-due-padovani-fra-i-vincitori/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 6,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=6 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Leonardo Leggieri",
+    "HANDLE": "@narduccio_capicchiaro",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/narduccio_capicchiaro/",
+    "COUNTRY": "IT",
+    "REGION": "Puglia",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/narduccio_capicchiaro/",
+     "https://www.cronachedigusto.it/l-intervista/lolio-raccontato-sui-social-cinque-evocreator-bravissimi-da-seguire/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_RECENT_ACTIVITY"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_STALE",
+     "LAST_ACTIVITY_DATE": "2026-07-27",
+     "POSTS_LAST_30D": 0,
+     "POSTS_LAST_90D": 5
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-07-27",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=0 90d=5",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "e-mail profissional publicado no proprio perfil (dominio evolovers.it)",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "RECENT_ACTIVITY_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Fernando Giraldo",
+    "HANDLE": "@Tomy_Rohde",
+    "PUBLIC_CHANNEL": "https://x.com/Tomy_Rohde",
+    "COUNTRY": "ES",
+    "REGION": "La Carlota, Campina cordobesa, Cordoba (Andalucia)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.eldebate.com/espana/la-voz-de-cordoba/sociedad/20240107/campo-he-encontrado-tranquilidad_165129.html",
+     "https://www.directoalpaladar.com/actualidad-1/hablamos-tomy-rohde-agricultor-cordoba-que-ha-conseguido-que-le-compren-tractor-gracias-a-twitter"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_RECENT_ACTIVITY"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "marca propria \"Aceite de Tom\" — rota comercial publica",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "RECENT_ACTIVITY_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "David Forge",
+    "HANDLE": "@chaineagricole (Chaine Agricole)",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+    "COUNTRY": "FR",
+    "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
+     "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-04",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 4
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-04",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=4",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "David Forge",
+    "HANDLE": "@chaineagricole (Chaine Agricole)",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+    "COUNTRY": "FR",
+    "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
+     "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-04",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 4
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-04",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=4",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "David Forge",
+    "HANDLE": "@chaineagricole (Chaine Agricole)",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+    "COUNTRY": "FR",
+    "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
+     "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-04",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 4
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-04",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=4",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "David Forge",
+    "HANDLE": "@chaineagricole (Chaine Agricole)",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+    "COUNTRY": "FR",
+    "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.terre-net.fr/2017/article/125795/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing",
+     "https://www.agri-mutuel.com/actualites/david-forge-youtubeur-et-paysan-la-campagne-camera-au-poing/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-04",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 4
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-04",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=4",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Gilles Van Kempen",
+    "HANDLE": "Gilles vk agriculteur du Loiret",
+    "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+    "COUNTRY": "FR",
+    "REGION": "Loiret (Centre-Val de Loire)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://blog.spotifarm.fr/tour-de-plaine-spotifarm/10-chaines-youtube-a-suivre-en-agriculture",
+     "https://www.frenchweb.fr/agtech-4-youtubeurs-stars-de-lagtech/281831"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+    "HANDLE": "@huerto_ecologico.marc",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/huerto_ecologico.marc"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "CAROB",
+      "VEGETABLES"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+    "HANDLE": "@huerto_ecologico.marc",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/huerto_ecologico.marc"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "CAROB",
+      "VEGETABLES"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Huerto Ecolgico Marc Agricultura Regenerativa",
+    "HANDLE": "@huerto_ecologico.marc",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/huerto_ecologico.marc"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "CAROB",
+      "VEGETABLES"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Germán Fernández | Agricultura en invernadero",
+    "HANDLE": "@germanagrolife",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/germanagrolife",
+    "COUNTRY": "ES",
+    "REGION": "Almería",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/germanagrolife"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 12,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "director do @agrolifepodcast — rota profissional pública",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Germán Fernández | Agricultura en invernadero",
+    "HANDLE": "@germanagrolife",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/germanagrolife",
+    "COUNTRY": "ES",
+    "REGION": "Almería",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/germanagrolife"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 12,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "director do @agrolifepodcast — rota profissional pública",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "AgroSamanta👩🏼‍🌾",
+    "HANDLE": "@agrosamanta_",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/agrosamanta_",
+    "COUNTRY": "ES",
+    "REGION": "Níjar, Almería",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/agrosamanta_"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "TOMATO"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-27",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-27",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "agrosamanta18@gmail.com",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Fernandez Barroso",
+    "HANDLE": "@chicurri_agro",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/chicurri_agro"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "GRAPEVINE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-25",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 8
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-25",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=8",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Fernandez Barroso",
+    "HANDLE": "@chicurri_agro",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/chicurri_agro"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "GRAPEVINE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-25",
+     "POSTS_LAST_30D": 4,
+     "POSTS_LAST_90D": 8
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-25",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=4 90d=8",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "ALBERTO ROJAS",
+    "HANDLE": "@agriproduccion",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/agriproduccion",
+    "COUNTRY": "ES",
+    "REGION": "Córdoba",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/agriproduccion"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "PARTIAL",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-28",
+     "POSTS_LAST_30D": 9,
+     "POSTS_LAST_90D": 9
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-28",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=9 90d=9",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Oliverio Rodriguez Viticultor",
+    "HANDLE": "@oliverio_rodfer",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/oliverio_rodfer",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/oliverio_rodfer"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "GRAPEVINE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-28",
+     "POSTS_LAST_30D": 12,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-28",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Eduardo Luna Casaus",
+    "HANDLE": "@la_fuina_de_los_monegros",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/la_fuina_de_los_monegros",
+    "COUNTRY": "ES",
+    "REGION": "Robres, Monegros (Aragón)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/la_fuina_de_los_monegros"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "PARTIAL",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-20",
+     "POSTS_LAST_30D": 2,
+     "POSTS_LAST_90D": 8
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-20",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=2 90d=8",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "MIXED",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Lucía Agrofamily",
+    "HANDLE": "@agrofamily_moralesperez",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/agrofamily_moralesperez",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "NOT_PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/agrofamily_moralesperez"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "PARTIAL",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-28",
+     "POSTS_LAST_30D": 9,
+     "POSTS_LAST_90D": 9
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-28",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=9 90d=9",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "MIXED",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Bruno",
+    "HANDLE": "@lajoya.agro",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/lajoya.agro",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/lajoya.agro"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 9,
+     "POSTS_LAST_90D": 9
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=9 90d=9",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "GENERAL_CONSUMER",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Álvaro Urra",
+    "HANDLE": "@urrapetito",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/urrapetito",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/urrapetito"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_REGION"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 5,
+     "POSTS_LAST_90D": 9
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=5 90d=9",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "urra@thehungeragency.com",
+    "AUDIENCE_FACING": "FOOD_CONSUMER",
+    "AUDIENCE_FIT_FOR_ADAMA": "LOW",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "La Horteta De Bussy || Creador de Contenido",
+    "HANDLE": "@lahortetadebussy",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/lahortetadebussy",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/lahortetadebussy"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-24",
+     "POSTS_LAST_30D": 3,
+     "POSTS_LAST_90D": 9
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-24",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=3 90d=9",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "GENERAL_CONSUMER",
+    "AUDIENCE_FIT_FOR_ADAMA": "LOW",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Angel Illescas Nombela",
+    "HANDLE": "@angel_illescas_",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/angel_illescas_",
+    "COUNTRY": "ES",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/angel_illescas_"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "PARTIAL",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_REGION"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "angelillescasnombela@hotmail.com",
+    "AUDIENCE_FACING": "GENERAL_CONSUMER",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "La Huerta Malagón",
+    "HANDLE": "@la_huerta_malagon",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/la_huerta_malagon",
+    "COUNTRY": "MX",
+    "REGION": "Guanajuato",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/la_huerta_malagon"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-29",
+     "POSTS_LAST_30D": 10,
+     "POSTS_LAST_90D": 10
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-29",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=10 90d=10",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "RICARDO CABRAL/ LÍDER",
+    "HANDLE": "@ironfarmer_rc",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/ironfarmer_rc",
+    "COUNTRY": "PT",
+    "REGION": "Évora",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "PROMISING",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/ironfarmer_rc"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: MISSING_CROP_PROOF, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-26",
+     "POSTS_LAST_30D": 8,
+     "POSTS_LAST_90D": 9
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-26",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=8 90d=9",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "CROP_FIT_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Alberto Rojas",
+    "HANDLE": "ES-CR-002",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "ES",
+    "REGION": "Córdoba (Andalucía)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.eldebate.com/espana/andalucia/20260619/olivar-redes-sociales-campo-andaluz-viraliza-fenomeno-agroinfluencers_430188.html"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "EXTENSIVE_CROPS"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Alberto Rojas",
+    "HANDLE": "ES-CR-002",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "ES",
+    "REGION": "Córdoba (Andalucía)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.eldebate.com/espana/andalucia/20260619/olivar-redes-sociales-campo-andaluz-viraliza-fenomeno-agroinfluencers_430188.html"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "OLIVE",
+      "EXTENSIVE_CROPS"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Caterina Pak",
+    "HANDLE": "ES-CR-003",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "ES",
+    "REGION": "Almería (Andalucía)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "NOT_PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.plataformatierra.es/actualidad/agroinfluencers-mas-moda-agricultura-2024"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Esther Molina",
+    "HANDLE": "ES-CR-005",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "ES",
+    "REGION": "Almería (Andalucía)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.plataformatierra.es/actualidad/agroinfluencers-mas-moda-agricultura-2024"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "MELON",
+      "WATERMELON"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Esther Molina",
+    "HANDLE": "ES-CR-005",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "ES",
+    "REGION": "Almería (Andalucía)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.plataformatierra.es/actualidad/agroinfluencers-mas-moda-agricultura-2024"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "MELON",
+      "WATERMELON"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Esther Molina",
+    "HANDLE": "ES-CR-005",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "ES",
+    "REGION": "Almería (Andalucía)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.plataformatierra.es/actualidad/agroinfluencers-mas-moda-agricultura-2024"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "MELON",
+      "WATERMELON"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Esther Molina",
+    "HANDLE": "ES-CR-005",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "ES",
+    "REGION": "Almería (Andalucía)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.plataformatierra.es/actualidad/agroinfluencers-mas-moda-agricultura-2024"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "MELON",
+      "WATERMELON"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Paolo Nenci",
+    "HANDLE": "IT-CR-001",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "IT",
+    "REGION": "Chiusi, Toscana",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.cibotoday.it/storie/agricoltura/influencer-agricoltura-italiani-chi-sono.html"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "GRAPEVINE",
+      "SPELT",
+      "OLIVE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Paolo Nenci",
+    "HANDLE": "IT-CR-001",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "IT",
+    "REGION": "Chiusi, Toscana",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.cibotoday.it/storie/agricoltura/influencer-agricoltura-italiani-chi-sono.html"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "GRAPEVINE",
+      "SPELT",
+      "OLIVE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Paolo Nenci",
+    "HANDLE": "IT-CR-001",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "IT",
+    "REGION": "Chiusi, Toscana",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.cibotoday.it/storie/agricoltura/influencer-agricoltura-italiani-chi-sono.html"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "GRAPEVINE",
+      "SPELT",
+      "OLIVE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Maria Pezone",
+    "HANDLE": "IT-CR-002",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "IT",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.cibotoday.it/storie/agricoltura/influencer-agricoltura-italiani-chi-sono.html"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "LETTUCE",
+      "MELON"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Maria Pezone",
+    "HANDLE": "IT-CR-002",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "IT",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.cibotoday.it/storie/agricoltura/influencer-agricoltura-italiani-chi-sono.html"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "LETTUCE",
+      "MELON"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Yuliya Pyliavska",
+    "HANDLE": "IT-CR-003",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "IT",
+    "REGION": "Lombardia (Vigevano)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.informatorevigevanese.it/attualita/2023/04/04/news/trecentomila-followers-yuliya-la-blogger-che-parla-di-agricoltura-e-trattori-556068/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_CROP_PROOF, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "CROP_FIT_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Tommaso Rossi Razzini",
+    "HANDLE": "IT-CR-004",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "IT",
+    "REGION": "Roma, Lazio",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.cibotoday.it/citta/roma/the-roman-farmer-agroinfluencer-rossi-razzini.html"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_CROP_PROOF, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": [
+     {
+      "BRAND": "NÃO SEI",
+      "TYPE": "BRAND_COLLABORATION_PROVED",
+      "DATE": "NÃO SEI"
+     }
+    ],
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "CROP_FIT_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Beatrice Scrocchi",
+    "HANDLE": "IT-CR-005",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "IT",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.influenxer.it/influencer/agricoltura-social-coltivatori"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_CROP_PROOF, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "CROP_FIT_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Thierry Bailliet",
+    "HANDLE": "FR-CR-001",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "FR",
+    "REGION": "Pas-de-Calais (Hauts-de-France)",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.pleinchamp.com/actualite/l-agriculture-merite-d-etre-expliquee-la-mission-sans-relache-de-thierry-bailliet"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_CROP_PROOF, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "CROP_FIT_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Marc-Antoine Dumoulin",
+    "HANDLE": "FR-CR-002",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "FR",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "NOT_PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.tiktok.com/@agricoolteur"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_CROP_PROOF, MISSING_RECENT_ACTIVITY, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "CROP_FIT_PROVED",
+     "RECENT_ACTIVITY_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Océane",
+    "HANDLE": "FR-CR-003",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "FR",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "NOT_PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.youtube.com/channel/UCfadEVaW_44cJOlN5m0xkEQ"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_CROP_PROOF, MISSING_RECENT_ACTIVITY, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "CROP_FIT_PROVED",
+     "RECENT_ACTIVITY_PROVED"
+    ]
+   },
+   {
+    "CREATOR": "Jean-Baptiste De Wever",
+    "HANDLE": "FR-CR-004",
+    "PUBLIC_CHANNEL": "NÃO SEI",
+    "COUNTRY": "FR",
+    "REGION": "NÃO SEI",
+    "ENTITY_TYPE": "PERSON_CREATOR",
+    "ACTIVATION_STATE": "RESEARCH_NEEDED",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.reech.com/fr/blog/les-influenceurs/qui-sont-sont-les-agri-youtubeurs"
+    ],
+    "CROP_PROOF": {
+     "CROPS": "NÃO SEI",
+     "STATE": "NOT_PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=FALTA",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=FALTA",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=FALTA",
+      "PUBLIC_CHANNEL_PROVED=FALTA",
+      "PENDENTE: IDENTITY_PARTIAL, MISSING_CROP_PROOF, MISSING_RECENT_ACTIVITY, MISSING_PUBLIC_CHANNEL, MISSING_REGION, MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "NOT_MEASURED",
+     "LAST_ACTIVITY_DATE": "NÃO SEI",
+     "POSTS_LAST_30D": "NÃO SEI",
+     "POSTS_LAST_90D": "NÃO SEI"
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "NÃO SEI",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=NÃO SEI 90d=NÃO SEI",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": [
+     {
+      "BRAND": "Manitou France",
+      "TYPE": "BRAND_COLLABORATION_PROVED",
+      "DATE": "NÃO SEI"
+     }
+    ],
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": [
+     "IDENTITY_PROVED",
+     "CROP_FIT_PROVED",
+     "RECENT_ACTIVITY_PROVED",
+     "PUBLIC_CHANNEL_PROVED"
+    ]
+   }
+  ],
+  "FARM_BUSINESS": [
+   {
+    "CREATOR": "Francisco Jesús Montoya",
+    "HANDLE": "@biocampojoyma",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/biocampojoyma/",
+    "COUNTRY": "ES",
+    "REGION": "Nijar, Almeria (Andalucia)",
+    "ENTITY_TYPE": "FARM_BUSINESS",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/biocampojoyma/",
+     "https://fruittoday.com/bio-campojoyma-se-acerca-al-poniente-con-un-punto-de-recogida/",
+     "https://agroautentico.com/2021/05/campojoyma-y-pimiento-bio/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-07-31",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 7
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-07-31",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=7",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "canal corporativo publico da Bio Campojoyma",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Jesús Montoya",
+    "HANDLE": "@biocampojoyma",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/biocampojoyma/",
+    "COUNTRY": "ES",
+    "REGION": "Nijar, Almeria (Andalucia)",
+    "ENTITY_TYPE": "FARM_BUSINESS",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/biocampojoyma/",
+     "https://fruittoday.com/bio-campojoyma-se-acerca-al-poniente-con-un-punto-de-recogida/",
+     "https://agroautentico.com/2021/05/campojoyma-y-pimiento-bio/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-07-31",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 7
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-07-31",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=7",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "canal corporativo publico da Bio Campojoyma",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Francisco Jesús Montoya",
+    "HANDLE": "@biocampojoyma",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/biocampojoyma/",
+    "COUNTRY": "ES",
+    "REGION": "Nijar, Almeria (Andalucia)",
+    "ENTITY_TYPE": "FARM_BUSINESS",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "PROVED",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/biocampojoyma/",
+     "https://fruittoday.com/bio-campojoyma-se-acerca-al-poniente-con-un-punto-de-recogida/",
+     "https://agroautentico.com/2021/05/campojoyma-y-pimiento-bio/"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PEPPER",
+      "TOMATO",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-07-31",
+     "POSTS_LAST_30D": 1,
+     "POSTS_LAST_90D": 7
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-07-31",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=1 90d=7",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "canal corporativo publico da Bio Campojoyma",
+    "AUDIENCE_FACING": "NÃO SEI",
+    "AUDIENCE_FIT_FOR_ADAMA": "NOT_KNOWN",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   },
+   {
+    "CREATOR": "Pistachos Terruza",
+    "HANDLE": "@terruzapistachos",
+    "PUBLIC_CHANNEL": "https://www.instagram.com/terruzapistachos",
+    "COUNTRY": "ES",
+    "REGION": "Benamaurel, Granada",
+    "ENTITY_TYPE": "FARM_BUSINESS",
+    "ACTIVATION_STATE": "ACTIVATION_READY",
+    "ACTUAL_FARMER": "NOT_KNOWN",
+    "IDENTITY_EVIDENCE": [
+     "https://www.instagram.com/terruzapistachos"
+    ],
+    "CROP_PROOF": {
+     "CROPS": [
+      "PISTACHIO"
+     ],
+     "STATE": "PROVED",
+     "WHY": [
+      "IDENTITY_PROVED=OK",
+      "COUNTRY_PROVED=OK",
+      "CROP_FIT_PROVED=OK",
+      "ROLE_PROVED=OK",
+      "RECENT_ACTIVITY_PROVED=OK",
+      "PUBLIC_CHANNEL_PROVED=OK",
+      "PENDENTE_NAO_BLOQUEANTE: MISSING_PUBLIC_CONTACT"
+     ]
+    },
+    "RECENT_ACTIVITY": {
+     "STATE": "ACTIVE_RECENT",
+     "LAST_ACTIVITY_DATE": "2026-08-30",
+     "POSTS_LAST_30D": 12,
+     "POSTS_LAST_90D": 12
+    },
+    "AS_OF_DATE": "2026-08-30",
+    "LAST_ACTIVITY_DATE": "2026-08-30",
+    "ACTIVITY_WINDOW_MEASURED": "30 e 90 dias, contados a partir de AS_OF_DATE",
+    "ACTIVITY_EVIDENCE": "posts/videos lidos na rota publica; 30d=12 90d=12",
+    "REVALIDATION_NEEDED_AFTER": "NOT_YET_DEFINED",
+    "PUBLIC_CONTACT": "NÃO SEI",
+    "AUDIENCE_FACING": "FARMER_FACING",
+    "AUDIENCE_FIT_FOR_ADAMA": "MEDIUM",
+    "BRAND_HISTORY": "NOT_OBSERVED",
+    "COMPETITOR_HISTORY": "NOT_OBSERVED",
+    "WHAT_IS_NOT_KNOWN": "NENHUMA"
+   }
+  ]
+ }
+}

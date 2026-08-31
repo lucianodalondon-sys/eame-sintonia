@@ -1,0 +1,277 @@
+{
+ "SOURCE_ID": "FUNCTIONAL-SANDBOX/PREP-MEDICAO",
+ "source": "derivado dos adaptadores sobre fixtures reais — nenhuma coleta, custo zero",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "n/a — descreve o acervo, nao o mundo",
+ "ORIGINAL_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_MEASUREMENT",
+ "captured_at": "2026-08-30",
+ "CAPTURED_AT": "2026-08-30",
+ "MODE": "PROTOTYPE_ONLY",
+ "CASCO_V7_MODIFIED": false,
+ "REAL_DATA_WIRED": false,
+ "PRODUCT_IMPLEMENTATION_MODE": "NOT_ENTERED",
+ "COMO_REPRODUZIR": "py scripts/functional_sandbox.py --medicao",
+ "OBJETOS_POR_CAPACIDADE": {
+  "CREATOR_OBJECTS": {
+   "ROWS": 33,
+   "ENTITIES": 33,
+   "BY_ANALYTICAL_UNIT": {
+    "FARM_BUSINESS_ENTITY": 2,
+    "PERSON": 31
+   }
+  },
+  "PUBLIC_COMM_OBJECTS": {
+   "ROWS": 22,
+   "ENTITIES": 22,
+   "BY_ANALYTICAL_UNIT": {
+    "COMPANY_LOCAL_ACCOUNT": 22
+   }
+  },
+  "EXPERT_OBJECTS": {
+   "ROWS": 13,
+   "ENTITIES": 13,
+   "BY_ANALYTICAL_UNIT": {
+    "SCIENTIFIC_PERSON": 13
+   }
+  }
+ },
+ "CARDINALIDADE_PERIGOSA": {
+  "ONDE": "CREATOR_CAPABILITY.LOOKUP_BY_ACTIVATION_STATE.ACTIVATION_READY",
+  "LINHAS": 26,
+  "ENTIDADES": 10,
+  "FATOR_DE_INFLACAO": 2.6,
+  "POR_QUE": "a mesma pessoa aparece uma vez por cultura. Contar linha e contar cultura, nao gente.",
+  "LEI": "ROW != ENTITY"
+ },
+ "CONTA_NAO_E_EMPRESA": {
+  "CONTAS_LOCAIS": 22,
+  "EMPRESAS_DISTINTAS": 5,
+  "LEI": "COMPANY_LOCAL_ACCOUNT != COMPANY"
+ },
+ "RECORTES_TESTADOS": 3,
+ "RECORTES_COM_CREATOR_PRONTO": 1,
+ "RECORTES_SEM_CREATOR_PRONTO": [
+  "IT-VINE-FLAVESCENCE",
+  "FR-CEREAL-SEPTORIA"
+ ],
+ "O_QUE_ISTO_SUGERE": "creator pronto e caso aberto nao coincidem por acaso. Em 2 dos 3 recortes congelados nao ha creator pronto nenhum. E medicao, nao veredito — a decisao entre ferramenta propria e camada de caso pertence a arbitragem.",
+ "CAPACIDADE_SEM_ARTEFATO": {
+  "COMPETITOR_FORESIGHT": "NO_ARTIFACT_IN_REPO — adaptar_foresight() falha fechado"
+ },
+ "RECORTES": [
+  {
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "REPILO",
+   "CAMADAS_DO_CASCO": {
+    "Campo": "NAO MEDIDO",
+    "Ciencia": "PARCIAL — 2 pessoa(s) com identidade provada",
+    "Clima": "NAO MEDIDO",
+    "Regulatorio": "NAO MEDIDO",
+    "Portfolio local ADAMA": "NAO MEDIDO",
+    "Competicao": "PARCIAL — 10 conta(s) local(is) provada(s), CONTEUDO NAO COLETADO",
+    "Tempo": "NAO CONECTADO"
+   },
+   "CAMADA_NOVA_AUDIENCIA_ATIVACAO": {
+    "PERSON_CREATOR_ACTIVATION_READY": 2,
+    "FARM_BUSINESS_PARTNER_READY": 0,
+    "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY",
+    "PESSOAS": [
+     "Huerto Ecolgico Marc Agricultura Regenerativa",
+     "Francisco Fernandez Barroso"
+    ],
+    "EMPRESAS": [],
+    "O_QUE_ISTO_NAO_PROVA": [
+     "FIELD_PROBLEM",
+     "INCIDENCE",
+     "MARKET_OPPORTUNITY",
+     "PRODUCT_FIT"
+    ]
+   },
+   "CAMADA_CIENCIA_PESSOAS": {
+    "IDENTIDADE_PROVADA": 2,
+    "NOMES": [
+     "Blanca B. Landa",
+     "Jesús Mercado‐Blanco"
+    ],
+    "CANAL_PUBLICO": "NAO VEM DESTE ARTEFATO",
+    "CONTEUDO_LIGADO_A_PESSOA": "NAO PROVADO PARA NINGUEM"
+   },
+   "CAMADA_COMPETICAO_COMUNICACAO": {
+    "CONTAS_LOCAIS_PROVADAS": 10,
+    "EMPRESAS_COM_CONTA_LOCAL": [
+     "BASF",
+     "BAYER",
+     "CORTEVA",
+     "NUFARM",
+     "SYNGENTA"
+    ],
+    "CONTEUDO": "NOT_COLLECTED — nenhuma coleta executada",
+    "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING",
+    "ATIVACAO_PAGA_META": "NAO TESTADO — camada separada, nunca somada a esta"
+   },
+   "CONVERGENCIA": {
+    "PERNAS_COM_EVIDENCIA_INDEPENDENTE": 2,
+    "REGRA": "contagem de pernas NUNCA vira score; independencia precisa ser provada",
+    "O_QUE_FALTA_PARA_FECHAR": "campo datado, portfolio local ligado ao par, e tempo"
+   },
+   "TEMPO": {
+    "JANELA_AGRONOMICA": "NAO CONECTADA",
+    "JANELA_DE_DECISAO": "NAO DETERMINADA",
+    "POR_QUE": "nenhuma das tres capacidades novas entrega relogio de lavoura"
+   },
+   "MAPA_DE_ACAO": {
+    "MARKETING": "pode avaliar 2 pessoa(s) e 0 empresa(s)",
+    "TECNICO_CIENCIA": "pode consultar 2 especialista(s) com identidade provada",
+    "MARKET_DEVELOPMENT": "AREA CENTRAL — avalia e programa a investigacao",
+    "REGULATORIO": "NAO DETERMINADO nesta preparacao",
+    "PORTFOLIO": "NAO DETERMINADO nesta preparacao",
+    "COMERCIAL": "NAO DETERMINADO nesta preparacao",
+    "SUPPLY": "NAO SE APLICA — sem evidencia que torne a area relevante"
+   },
+   "WIRED_TO_CASCO": false,
+   "MODE": "PROTOTYPE_ONLY"
+  },
+  {
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "COUNTRY": "IT",
+   "CROP": "GRAPEVINE",
+   "ISSUE": "FLAVESCENCE",
+   "CAMADAS_DO_CASCO": {
+    "Campo": "NAO MEDIDO",
+    "Ciencia": "PARCIAL — 2 pessoa(s) com identidade provada",
+    "Clima": "NAO MEDIDO",
+    "Regulatorio": "NAO MEDIDO",
+    "Portfolio local ADAMA": "NAO MEDIDO",
+    "Competicao": "PARCIAL — 8 conta(s) local(is) provada(s), CONTEUDO NAO COLETADO",
+    "Tempo": "NAO CONECTADO"
+   },
+   "CAMADA_NOVA_AUDIENCIA_ATIVACAO": {
+    "PERSON_CREATOR_ACTIVATION_READY": 0,
+    "FARM_BUSINESS_PARTNER_READY": 0,
+    "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY",
+    "PESSOAS": [],
+    "EMPRESAS": [],
+    "O_QUE_ISTO_NAO_PROVA": [
+     "FIELD_PROBLEM",
+     "INCIDENCE",
+     "MARKET_OPPORTUNITY",
+     "PRODUCT_FIT"
+    ]
+   },
+   "CAMADA_CIENCIA_PESSOAS": {
+    "IDENTIDADE_PROVADA": 2,
+    "NOMES": [
+     "F. Quaglino",
+     "Nicola Mori"
+    ],
+    "CANAL_PUBLICO": "NAO VEM DESTE ARTEFATO",
+    "CONTEUDO_LIGADO_A_PESSOA": "NAO PROVADO PARA NINGUEM"
+   },
+   "CAMADA_COMPETICAO_COMUNICACAO": {
+    "CONTAS_LOCAIS_PROVADAS": 8,
+    "EMPRESAS_COM_CONTA_LOCAL": [
+     "BASF",
+     "BAYER",
+     "NUFARM",
+     "SYNGENTA"
+    ],
+    "CONTEUDO": "NOT_COLLECTED — nenhuma coleta executada",
+    "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING",
+    "ATIVACAO_PAGA_META": "NAO TESTADO — camada separada, nunca somada a esta"
+   },
+   "CONVERGENCIA": {
+    "PERNAS_COM_EVIDENCIA_INDEPENDENTE": 2,
+    "REGRA": "contagem de pernas NUNCA vira score; independencia precisa ser provada",
+    "O_QUE_FALTA_PARA_FECHAR": "campo datado, portfolio local ligado ao par, e tempo"
+   },
+   "TEMPO": {
+    "JANELA_AGRONOMICA": "NAO CONECTADA",
+    "JANELA_DE_DECISAO": "NAO DETERMINADA",
+    "POR_QUE": "nenhuma das tres capacidades novas entrega relogio de lavoura"
+   },
+   "MAPA_DE_ACAO": {
+    "MARKETING": "nada a avaliar neste recorte",
+    "TECNICO_CIENCIA": "pode consultar 2 especialista(s) com identidade provada",
+    "MARKET_DEVELOPMENT": "AREA CENTRAL — avalia e programa a investigacao",
+    "REGULATORIO": "NAO DETERMINADO nesta preparacao",
+    "PORTFOLIO": "NAO DETERMINADO nesta preparacao",
+    "COMERCIAL": "NAO DETERMINADO nesta preparacao",
+    "SUPPLY": "NAO SE APLICA — sem evidencia que torne a area relevante"
+   },
+   "WIRED_TO_CASCO": false,
+   "MODE": "PROTOTYPE_ONLY"
+  },
+  {
+   "CASE_ID": "FR-CEREAL-SEPTORIA",
+   "COUNTRY": "FR",
+   "CROP": "CEREALS",
+   "ISSUE": "SEPTORIA",
+   "CAMADAS_DO_CASCO": {
+    "Campo": "NAO MEDIDO",
+    "Ciencia": "PARCIAL — 2 pessoa(s) com identidade provada",
+    "Clima": "NAO MEDIDO",
+    "Regulatorio": "NAO MEDIDO",
+    "Portfolio local ADAMA": "NAO MEDIDO",
+    "Competicao": "PARCIAL — 4 conta(s) local(is) provada(s), CONTEUDO NAO COLETADO",
+    "Tempo": "NAO CONECTADO"
+   },
+   "CAMADA_NOVA_AUDIENCIA_ATIVACAO": {
+    "PERSON_CREATOR_ACTIVATION_READY": 0,
+    "FARM_BUSINESS_PARTNER_READY": 0,
+    "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY",
+    "PESSOAS": [],
+    "EMPRESAS": [],
+    "O_QUE_ISTO_NAO_PROVA": [
+     "FIELD_PROBLEM",
+     "INCIDENCE",
+     "MARKET_OPPORTUNITY",
+     "PRODUCT_FIT"
+    ]
+   },
+   "CAMADA_CIENCIA_PESSOAS": {
+    "IDENTIDADE_PROVADA": 2,
+    "NOMES": [
+     "Frédéric Suffert",
+     "Thierry C. Marcel"
+    ],
+    "CANAL_PUBLICO": "NAO VEM DESTE ARTEFATO",
+    "CONTEUDO_LIGADO_A_PESSOA": "NAO PROVADO PARA NINGUEM"
+   },
+   "CAMADA_COMPETICAO_COMUNICACAO": {
+    "CONTAS_LOCAIS_PROVADAS": 4,
+    "EMPRESAS_COM_CONTA_LOCAL": [
+     "BAYER",
+     "NUFARM",
+     "SYNGENTA"
+    ],
+    "CONTEUDO": "NOT_COLLECTED — nenhuma coleta executada",
+    "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING",
+    "ATIVACAO_PAGA_META": "NAO TESTADO — camada separada, nunca somada a esta"
+   },
+   "CONVERGENCIA": {
+    "PERNAS_COM_EVIDENCIA_INDEPENDENTE": 2,
+    "REGRA": "contagem de pernas NUNCA vira score; independencia precisa ser provada",
+    "O_QUE_FALTA_PARA_FECHAR": "campo datado, portfolio local ligado ao par, e tempo"
+   },
+   "TEMPO": {
+    "JANELA_AGRONOMICA": "NAO CONECTADA",
+    "JANELA_DE_DECISAO": "NAO DETERMINADA",
+    "POR_QUE": "nenhuma das tres capacidades novas entrega relogio de lavoura"
+   },
+   "MAPA_DE_ACAO": {
+    "MARKETING": "nada a avaliar neste recorte",
+    "TECNICO_CIENCIA": "pode consultar 2 especialista(s) com identidade provada",
+    "MARKET_DEVELOPMENT": "AREA CENTRAL — avalia e programa a investigacao",
+    "REGULATORIO": "NAO DETERMINADO nesta preparacao",
+    "PORTFOLIO": "NAO DETERMINADO nesta preparacao",
+    "COMERCIAL": "NAO DETERMINADO nesta preparacao",
+    "SUPPLY": "NAO SE APLICA — sem evidencia que torne a area relevante"
+   },
+   "WIRED_TO_CASCO": false,
+   "MODE": "PROTOTYPE_ONLY"
+  }
+ ]
+}
