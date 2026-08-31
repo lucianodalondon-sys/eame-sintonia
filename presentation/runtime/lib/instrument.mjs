@@ -325,14 +325,19 @@ export function instrument(html) {
         var n = (window.__SINTONIA__.acervoRows || []).filter(function (r) {
           return !code || r.country === code;
         }).length;
-        // "documentos" deixou de servir: com H2 ligado, a lista tem documento
-        // analisado E registro nacional com prazo. Chamar tudo de documento
-        // seria dizer que o registro foi lido como texto, e nao foi.
-        var docs = (window.__SINTONIA__.acervoRows || []).filter(function (r) {
-          return (!code || r.country === code) && r.line !== 'PRAZO';
-        }).length;
-        return n + ' linhas · ' + docs + ' com corpo analisado · ' +
-               (n - docs) + ' registros com prazo · fonte e captura por linha';
+        // "documentos" deixou de servir: a lista tem tres coisas diferentes.
+        // Documento analisado foi lido como texto; registro nacional e prazo
+        // declarado; cadeia e cruzamento preliminar. Somar os tres num numero
+        // so diria que foram lidos do mesmo jeito, e nao foram.
+        var meu = (window.__SINTONIA__.acervoRows || []).filter(function (r) {
+          return !code || r.country === code;
+        });
+        var conta = function (l) { return meu.filter(function (r) { return r.line === l; }).length; };
+        var prazo = conta('PRAZO'), cadeia = conta('CADEIA');
+        var partes = [meu.length + ' linhas', (meu.length - prazo - cadeia) + ' com corpo analisado'];
+        if (prazo) partes.push(prazo + ' registros com prazo');
+        if (cadeia) partes.push(cadeia + ' cadeias preliminares');
+        return partes.join(' · ') + ' · fonte e captura por linha';
       })()
     };`,
     'acervo:valores', log)

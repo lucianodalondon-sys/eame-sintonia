@@ -283,12 +283,38 @@ export function buildSnapshot() {
   ]
 
   // ── CADEIA COMPETITIVA (H3) ──────────────────────────────────────────────
+  //
+  // RECONCILIACAO H3 x H4, e ela nao e edicao de frase.
+  //
+  // H3 declara FINAL_REFRESH_INPUT = NO com um motivo datado: "a Meta e fonte
+  // externa a esta missao e seu handoff ainda nao foi congelado". Esse motivo
+  // era verdade quando H3 foi congelado. NESTE snapshot ele e falso: H4 esta
+  // congelado, e o commit esta a duas linhas daqui.
+  //
+  // O que NAO fazemos: virar FINAL_REFRESH_INPUT para YES. O motivo cair nao
+  // executa o join — quem tem de rodar de novo e o cruzamento de H3 contra o
+  // H4 congelado, e ninguem rodou. Promover por queda de impedimento seria
+  // promover por conveniencia.
+  //
+  // O que fazemos: registrar que o impedimento declarado foi superado, com a
+  // prova (o commit do freeze de H4), e dizer o que passou a faltar.
+  const h4Congelado = !!(H.H4 && PROV.H4 && PROV.H4.COMMIT_SHA)
+  const motivoCitaHandoff = /handoff/i.test(H.H3.unresolved_reason || '')
+  const motivoSuperado = h4Congelado && motivoCitaHandoff
+  const elo4Nota = motivoSuperado
+    ? `IMPEDIMENTO DECLARADO SUPERADO · o motivo congelado em H3 era "${H.H3.unresolved_reason}", ` +
+      `e o handoff da Meta esta congelado neste snapshot em ${String(PROV.H4.COMMIT_SHA).slice(0, 12)}. ` +
+      'FINAL_REFRESH_INPUT continua NO: o motivo cair nao roda o cruzamento. ' +
+      'Falta reexecutar o join de H3 contra o freeze de H4 e recongelar H3. ' +
+      'PROMOVIDAS = 0.'
+    : H.H3.unresolved_reason
+
   const p0 = H.H3.provadas[0]
   const chain = [
     { step: 'ELO 1', k: 'Marca registrada', v: 'provado', note: p0 ? `${p0.NOME_NORMALIZADO} · ${p0.TM_OFFICE?.[0] || '—'} · ${p0.TM_ST13?.[0] || '—'}` : 'sem tupla' },
     { step: 'ELO 2', k: 'Registro local do produto', v: 'provado', note: p0 ? `registro ${p0.REGISTRATION_ID} · ${p0.REGISTRATION_HOLDER}` : 'sem tupla' },
     { step: 'ELO 3', k: 'Atividade paga observada', v: 'medido', note: p0 ? `${p0.ADS_OBSERVED} anuncios observados em ${p0.COUNTRY}` : 'sem tupla' },
-    { step: 'ELO 4', k: 'Entrada final de refresh', v: H.H3.resolved ? 'provado' : 'naopronto', note: H.H3.unresolved_reason },
+    { step: 'ELO 4', k: 'Entrada final de refresh', v: H.H3.resolved ? 'provado' : 'naopronto', note: elo4Nota },
   ]
 
   // ── ACERVO · documentos reais, um por linha ──────────────────────────────
@@ -347,6 +373,30 @@ export function buildSnapshot() {
       country: 'IT',
       // Data no futuro nao e linha de produto e nao e cor de alerta: e data.
       line: 'PRAZO',
+      lineColor: 'rgba(255,255,255,.62)',
+      lineBorder: 'rgba(151,139,135,.55)',
+    })
+  }
+
+  // ── ACERVO · H3 · as 36 cadeias preliminares, navegaveis ────────────────
+  // Todas carregam FINAL_REFRESH_INPUT = NO. Entram com o estado que tem e
+  // NENHUMA e promovida: o Radar nao ganha uma linha por causa disto.
+  //
+  // Nada aqui diz lancamento, investimento, venda ou pressao de mercado.
+  // "Anuncios observados" e contagem de anuncio observado, e para nisso.
+  for (const p of (H.H3.provadas || [])) {
+    const produto = (p.PRODUCT_NAME_NA_META || []).join(' / ') || p.NOME_NORMALIZADO || '—'
+    acervoRows.push({
+      title: `${p.META_COMPANY} · ${produto}`,
+      sub: [`ANUNCIOS OBSERVADOS ${p.ADS_OBSERVED}`,
+            `MARCA ${(p.TM_ST13 || []).join(',') || '—'} (${(p.TM_OFFICE || []).join(',') || '—'})`,
+            `REGISTRO ${p.REGISTRATION_ID || '—'} · ${p.REGISTRATION_HOLDER || '—'}`,
+            `TITULAR ${p.CONCORDANCIA_DE_TITULAR || 'NOT_KNOWN'}`,
+            'PRELIMINAR · NAO E ENTRADA FINAL'].join(' · '),
+      sourceId: H.H3.source_id || '—',
+      capture: H.H3.captured_at || '—',
+      country: p.COUNTRY || '—',
+      line: 'CADEIA',
       lineColor: 'rgba(255,255,255,.62)',
       lineBorder: 'rgba(151,139,135,.55)',
     })
