@@ -29,6 +29,8 @@ import meta_relogio as relogio  # noqa: E402
 import meta_leitura as leitura  # noqa: E402
 import meta_anunciante as anunciante  # noqa: E402
 import meta_coleta as coleta  # noqa: E402
+import meta_convergencia as convergencia  # noqa: E402
+import meta_piloto as piloto  # noqa: E402
 
 PASTA = os.path.join(ROOT, 'data', 'samples', 'META-EAME')
 
@@ -242,6 +244,103 @@ class ImagemNaoEProva(unittest.TestCase):
     def test_ingrediente_sai_so_quando_o_anuncio_o_escreve(self):
         r = leitura.ler({'creative_text': 'Contiene azoxistrobina 250 g/L'})
         self.assertEqual(r['active_ingredient_state'], 'PROVED')
+
+
+class FerramentaCaidaNaoEAusencia(unittest.TestCase):
+    """Na primeira rodada real, o Chrome caiu e a ADAMA foi gravada como
+    ADVERTISER_NOT_RESOLVED. Ler aquilo depois como "a ADAMA nao anuncia" seria
+    transformar navegador fechado em fato de mercado. Estes testes proibem."""
+
+    def test_porta_recusada_nao_vira_nao_resolvido(self):
+        erro = ('<urlopen error [WinError 10061] Nenhuma conexao pode ser feita '
+                'porque a maquina de destino as recusou ativamente>')
+        self.assertEqual(anunciante.estado_de_falha(erro),
+                         anunciante.COLLECTION_FAILED_BROWSER_DOWN)
+        self.assertNotEqual(anunciante.estado_de_falha(erro),
+                            anunciante.ADVERTISER_NOT_RESOLVED)
+
+    def test_falha_desconhecida_tambem_nao_vira_nao_resolvido(self):
+        self.assertEqual(anunciante.estado_de_falha(ValueError('json quebrado')),
+                         anunciante.COLLECTION_FAILED_OTHER)
+
+    def test_o_arquivo_gravado_conta_falha_de_ferramenta_a_parte(self):
+        if not os.path.exists(anunciante.DEST_COMP):
+            self.skipTest('resolucao ainda nao rodou')
+        with open(anunciante.DEST_COMP, encoding='utf-8') as f:
+            d = json.load(f)
+        self.assertIn('advertisers_tool_failure', d)
+        soma = (d['advertisers_resolved'] + d['advertisers_not_resolved']
+                + d['advertisers_tool_failure'])
+        self.assertEqual(soma, d['advertisers_attempted'],
+                         'toda empresa tentada precisa cair em exatamente um estado')
+
+
+class CruzamentoNaoColapsa(unittest.TestCase):
+    """As duas camadas se encontram numa CELULA, e nunca numa so coluna."""
+
+    def test_registro_sem_anuncio_e_anuncio_sem_registro_sao_celulas_distintas(self):
+        reg = {('ADAMA', 'IT'): [{'product_name': 'MAXENTIS', 'registration': '018067'}]}
+        ati = {('SYNGENTA', 'IT'): {'ads': 3, 'active': 2, 'products': set(),
+                                    'library_ids': ['1']}}
+        celulas = {c['company_base']: c for c in
+                   convergencia.cruzar(reg, {'IT'}, ati)}
+        self.assertEqual(celulas['ADAMA']['competitor_registered_response'], 'YES')
+        self.assertEqual(celulas['ADAMA']['competitor_paid_meta_activity'], 'NOT_PROVED')
+        self.assertEqual(celulas['SYNGENTA']['competitor_paid_meta_activity'], 'YES')
+        self.assertEqual(celulas['SYNGENTA']['competitor_registered_response'],
+                         convergencia.CONSULTADO_SEM_ACHADO)
+
+    def test_pais_sem_fonte_regulatoria_nao_vira_sem_registro(self):
+        ati = {('BASF', 'FR'): {'ads': 1, 'active': 1, 'products': set(),
+                                'library_ids': ['9']}}
+        c = convergencia.cruzar({}, {'IT'}, ati)[0]
+        self.assertEqual(c['competitor_registered_response'],
+                         convergencia.NAO_CONSULTADO)
+        self.assertNotEqual(c['competitor_registered_response'], 'NO')
+
+    def test_anuncio_nao_promove_produto_a_autorizado(self):
+        reg = {('ADAMA', 'IT'): [{'product_name': 'MAXENTIS', 'registration': '018067'}]}
+        ati = {('ADAMA', 'IT'): {'ads': 1, 'active': 1,
+                                 'products': {'KOJAMI'}, 'library_ids': ['1']}}
+        c = convergencia.cruzar(reg, {'IT'}, ati)[0]
+        self.assertEqual(c['product_crosscheck'][0]['state'],
+                         convergencia.PRODUCT_MATCH_NOT_PROVED)
+
+    def test_nome_igual_casa_e_traz_o_numero_do_registro(self):
+        reg = {('ADAMA', 'IT'): [{'product_name': 'MAXENTIS', 'registration': '018067'}]}
+        ati = {('ADAMA', 'IT'): {'ads': 1, 'active': 1,
+                                 'products': {'MAXENTIS'}, 'library_ids': ['1']}}
+        c = convergencia.cruzar(reg, {'IT'}, ati)[0]
+        self.assertEqual(c['product_crosscheck'][0]['state'],
+                         convergencia.PRODUCT_MATCH_PROVED)
+        self.assertEqual(c['product_crosscheck'][0]['registration'], '018067')
+
+
+class ArtefatoEDerivado(unittest.TestCase):
+    def test_o_artefato_se_declara_derivado_e_nao_dono_da_verdade(self):
+        art = piloto.artefato({'entities': {}, 'as_of_date': 'x'}, {'events': []})
+        self.assertTrue(art['read_only'])
+        self.assertFalse(art['is_source_of_truth'])
+        self.assertTrue(art['not_wired_to_portal'])
+        self.assertTrue(art['cannot_claim'])
+
+    def test_o_artefato_nao_carrega_escore_de_pressao(self):
+        art = piloto.artefato({'entities': {}}, {'events': []})
+        texto = json.dumps(art).lower()
+        for proibida in PROIBIDAS:
+            self.assertNotIn(proibida, texto)
+
+    def test_inativo_sem_data_de_fim_nao_conta_como_recente(self):
+        ent = {'entities': {'1': {'active_status': 'INACTIVE', 'end_date': None,
+                                  'company': 'X', 'reading': {}}}}
+        m = piloto.metricas(ent, {}, {'events': []})
+        self.assertEqual(m['inactive_last_365d'], 0)
+        self.assertEqual(m['inactive_end_date_not_read'], 1)
+
+    def test_toda_contagem_sai_com_denominador(self):
+        m = piloto.metricas({'entities': {}}, {}, {'events': []})
+        self.assertIn('crop_proved_denominator', m)
+        self.assertIn('issue_proved_denominator', m)
 
 
 class DonoDoDataset(unittest.TestCase):

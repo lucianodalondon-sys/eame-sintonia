@@ -125,6 +125,25 @@ PAGE_SCOPE_NOT_KNOWN = 'PAGE_SCOPE_NOT_KNOWN'
 
 ADVERTISER_RESOLVED = 'ADVERTISER_RESOLVED'
 ADVERTISER_NOT_RESOLVED = 'ADVERTISER_NOT_RESOLVED'
+# Medido na primeira rodada, em 30/08/2026: o Chrome caiu durante a resolucao da
+# Seipasa e da ADAMA, e as duas foram gravadas como ADVERTISER_NOT_RESOLVED. O
+# erro era `WinError 10061` — a porta 9224 recusando conexao. Isto e falha da
+# NOSSA ferramenta, e ler aquilo depois como "a ADAMA nao anuncia" seria
+# transformar navegador fechado em fato sobre o mercado.
+#
+#     FERRAMENTA_CAIU != NAO_ENCONTRADO != NAO_EXISTE
+COLLECTION_FAILED_BROWSER_DOWN = 'COLLECTION_FAILED_BROWSER_DOWN'
+COLLECTION_FAILED_OTHER = 'COLLECTION_FAILED_OTHER'
+
+_SINAIS_DE_PORTA_MORTA = ('10061', 'WinError', 'refused', 'urlopen error',
+                          'Connection refused', 'timed out')
+
+
+def estado_de_falha(erro):
+    txt = str(erro)
+    return (COLLECTION_FAILED_BROWSER_DOWN
+            if any(s in txt for s in _SINAIS_DE_PORTA_MORTA)
+            else COLLECTION_FAILED_OTHER)
 
 PROVA_DETALHE = 'PAGE_ID_FROM_AD_DETAIL_URL'
 PROVA_IRMA = 'PAGE_ID_FROM_SIBLING_PANEL_CLICK'
@@ -392,9 +411,17 @@ def rodar(empresas, dono, destino):
         try:
             r = resolver(e)
         except Exception as exc:
-            r = {'company': e, 'estado': ADVERTISER_NOT_RESOLVED,
-                 'erro': str(exc)[:300], 'pages': [], 'attempts': []}
-        checkpoint[chave] = r
+            r = {'company': e, 'estado': estado_de_falha(exc),
+                 'erro': str(exc)[:300], 'pages': [], 'attempts': [],
+                 'nota': 'falha da NOSSA ferramenta. Nao conclua nada sobre a '
+                         'empresa a partir deste registro.'}
+        # falha de ferramenta NAO entra no checkpoint: gravar faria a proxima
+        # rodada pular a empresa e herdar o buraco para sempre.
+        if r['estado'] == ADVERTISER_RESOLVED or \
+                r['estado'] == ADVERTISER_NOT_RESOLVED:
+            checkpoint[chave] = r
+        else:
+            print('     !! %s — nao vou gravar no checkpoint' % r['estado'])
         _salvar(CHECKPOINT, checkpoint)
         resultados.append(r)
         print('     -> %s, %d pagina(s)' % (r['estado'], len(r.get('pages', []))))
@@ -407,10 +434,18 @@ def rodar(empresas, dono, destino):
         'advertisers_attempted': len(empresas),
         'advertisers_resolved': sum(1 for r in resultados
                                     if r['estado'] == ADVERTISER_RESOLVED),
+        'advertisers_not_resolved': sum(1 for r in resultados
+                                        if r['estado'] == ADVERTISER_NOT_RESOLVED),
+        'advertisers_tool_failure': sum(
+            1 for r in resultados
+            if r['estado'] in (COLLECTION_FAILED_BROWSER_DOWN,
+                               COLLECTION_FAILED_OTHER)),
         'companies': resultados,
         'limitacoes': [
             'ADVERTISER_NOT_RESOLVED significa "nao achei por esta rota", nunca '
             '"nao anuncia".',
+            'COLLECTION_FAILED_* e falha NOSSA (navegador caiu, porta recusou). '
+            'Nao e informacao sobre a empresa, e a empresa continua por medir.',
             'O rotulo de pais e da Meta, no painel de paginas irmas. Pagina sem '
             'rotulo fica GLOBAL_OR_UNLABELED_PAGE — nao vira local pelo nome.',
             'A pagina semente sai com PAGE_SCOPE_NOT_KNOWN quando nao aparece '

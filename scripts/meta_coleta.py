@@ -185,7 +185,22 @@ def registro(cartao, pagina, pais, completude, momento):
 
 
 # ── coleta de uma pagina num pais ────────────────────────────────────────────
-def coletar_pagina(pagina, pais, momento, max_rolagens=40):
+# POR QUE NENHUMA PAGINA E FILTRADA PELO NOME
+# --------------------------------------------
+# A tentacao era coletar so as paginas com cara de agro. A lista resolvida em
+# 30/08/2026 mostra que o nome erra dos DOIS lados:
+#
+#     "UPL Iberia", "Certis Belchim Espana", "FMC Italia"   sem token agro,
+#                                                            e sao as certas
+#     "Instytut Adama Mickiewicza"                           casa com "adama",
+#                                                            e e um instituto
+#                                                            cultural polones
+#     "FMC Moto Srl"                                         motocicletas
+#
+# Entao coleta-se tudo, e quem decide relevancia sao os ANUNCIOS: o leitor extrai
+# cultura, problema e categoria do texto, e pagina sem sinal nenhum aparece com
+# zero. Nada e descartado em silencio — a missao pede exatamente isso.
+def coletar_pagina(pagina, pais, momento, max_rolagens=12):
     pid = pagina.get('page_id')
     if not pid:
         return [], {'page_id': None, 'estado': 'PAGE_ID_AUSENTE'}
