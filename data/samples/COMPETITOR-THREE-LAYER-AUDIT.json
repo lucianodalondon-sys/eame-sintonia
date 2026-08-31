@@ -1,0 +1,2681 @@
+{
+  "SOURCE_ID": "COMPETITOR-THREE-LAYER-AUDIT",
+  "source": "red team da junção IP × REGISTRO LOCAL × META",
+  "SOURCE_LOCATION": "interno — derivado",
+  "FACT_LOCATION": "ES · IT · FR",
+  "CAMADA_DO_PILOTO": "CROSS-BRANCH JOIN AUDIT",
+  "captured_at": "2026-08-30",
+  "O_QUE_ESTA_AUDITORIA_CORRIGE": "a rodada anterior anunciou 36 cadeias de três camadas casando APENAS o nome do produto anunciado com o nome da marca. Só o nome. É a falha que a testemunha URBOLE existe para impedir. Aqui a cadeia exige concordância de titular nas TRÊS pontas e o mesmo país.",
+  "REGRA": "company da Meta == grupo do titular da marca == grupo do titular do registro local, e o PAÍS igual nas três.",
+  "FONTE_EXTERNA": {
+    "BRANCH": "claude/eame-meta-competitor",
+    "COMMIT": "4cee050e39b2aff868323812ae9b345fd084bcd9",
+    "ARQUIVO": "data/samples/META-EAME/META-COMPETITOR-PILOT-EAME.json",
+    "COMO_FOI_LIDO": "git show — somente leitura. Nenhum merge, nenhum checkout, nenhuma alteração de índice.",
+    "ESTADO_DO_HANDOFF_META": "NÃO CONGELADO pelo coordenador"
+  },
+  "UNIVERSO": {
+    "TUPLAS_COMPETIDOR_PAIS_PRODUTO_NA_META": 171,
+    "ANUNCIOS_OBSERVADOS_NA_META": 1111,
+    "CONSERVACAO": "171 classificadas de 171 — fecha",
+    "ATENCAO_A_UNIDADE": "a rodada anterior contou PRODUTOS (145 → 70 → 36); esta conta TUPLAS (competidor, país, produto). São unidades diferentes e não se comparam direto. Os dois recortes vêm em RESULTADO."
+  },
+  "RESULTADO": {
+    "UNIDADE": "TUPLA (competidor, país, produto)",
+    "THREE_LAYER_CHAIN_PROVED": 35,
+    "THREE_LAYER_CHAIN_REJECTED": 0,
+    "THREE_LAYER_CHAIN_NOT_KNOWN": 136,
+    "MOTIVOS_DO_NOT_KNOWN": {
+      "ALBAUGH não está na amostra dos seis concorrentes desta missão": 1,
+      "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome": 88,
+      "nenhum registro local PROVED deste grupo com este nome": 46,
+      "SEIPASA não está na amostra dos seis concorrentes desta missão": 1
+    },
+    "POR_UNIDADE_PRODUTO": {
+      "UNIDADE": "PRODUTO (nome normalizado), a unidade da rodada anterior — para comparar maçã com maçã",
+      "PRODUTOS_DISTINTOS_NA_META": 142,
+      "PRODUTOS_COM_AO_MENOS_UMA_CADEIA_PROVED": 28,
+      "ANUNCIADO_ANTES_COMO": "36 — obtido casando SÓ o nome",
+      "DIFERENCA_EXPLICADA": "o 36 antigo casava nome de produto com nome de marca, sem exigir que o titular da marca, o do registro e a company da Meta fossem o mesmo grupo, nem que o país fosse o mesmo nas três pontas"
+    }
+  },
+  "URBOLE_GUARD": {
+    "URBOLE_GUARD": "PASS",
+    "PARES_ENCONTRADOS": 2,
+    "ACEITOS_COMO_PROVED": 0,
+    "DETALHE": [
+      {
+        "GRUPO_DA_MARCA": "SYNGENTA",
+        "REGISTRATION_ID": "24157",
+        "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+        "REGISTRATION_GRUPO": "ADAMA",
+        "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH"
+      },
+      {
+        "GRUPO_DA_MARCA": "SYNGENTA",
+        "REGISTRATION_ID": "24157",
+        "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+        "REGISTRATION_GRUPO": "ADAMA",
+        "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH"
+      }
+    ],
+    "LEI": "SAME_NAME != SAME_COMPETITOR_PRODUCT",
+    "EXERCIDO_POR_MUTACAO": {
+      "MUTACAO": "a Meta anuncia URBOLE como SYNGENTA na Espanha",
+      "ESTADO_DEVOLVIDO": "THREE_LAYER_CHAIN_REJECTED",
+      "PEGOU": true,
+      "TITULAR_CONFLITANTE": [
+        "ADAMA Agriculture España S.A."
+      ],
+      "REGISTRATION_ID": [
+        "24157"
+      ],
+      "MOTIVO": "o nome existe no registro local deste país sob titular de OUTRO grupo. Nome igual não é mesmo produto de concorrente"
+    }
+  },
+  "COLISOES_DE_NOME_ENTRE_AS_PROVADAS": "nenhuma",
+  "ESTADO_DAS_PROVADAS": {
+    "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+    "FINAL_REFRESH_INPUT": "NO",
+    "POR_QUE": "a Meta é fonte externa a esta missão e seu handoff ainda não foi congelado. Entrada final de refresh só depois do handoff canônico da Meta."
+  },
+  "PROVADAS": [
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Collis"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "COLLIS",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000001324078"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "23748",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001324078"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Dagonis"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "DAGONIS",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000013519285"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "ES-00554",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000013519285"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Revycare"
+      ],
+      "ADS_OBSERVED": 60,
+      "NOME_NORMALIZADO": "REVYCARE",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000017770512"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+      ],
+      "REGISTRATION_ID": "ES-01263",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "/EM500000017770512"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Revyona"
+      ],
+      "ADS_OBSERVED": 21,
+      "NOME_NORMALIZADO": "REVYONA",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000016807372"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+      ],
+      "REGISTRATION_ID": "ES-01394",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "/EM500000016807372"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Serifel"
+      ],
+      "ADS_OBSERVED": 17,
+      "NOME_NORMALIZADO": "SERIFEL",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000011920238"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF CORPORATION']"
+      ],
+      "REGISTRATION_ID": "ES-00558",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000011920238"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "SPECTRUM",
+        "Spectrum"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "SPECTRUM",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000001812056"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "24742",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001812056"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "VELIFER",
+        "Velifer"
+      ],
+      "ADS_OBSERVED": 9,
+      "NOME_NORMALIZADO": "VELIFER",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000010979979"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+      ],
+      "REGISTRATION_ID": "ES-01405",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000010979979"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Vivando"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "VIVANDO",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000002963965"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "24143",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000002963965"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Belanty"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "BELANTY",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000015574288"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "2210797",
+      "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS FRANCE SAS",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "/EM500000015574288"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Revyona"
+      ],
+      "ADS_OBSERVED": 8,
+      "NOME_NORMALIZADO": "REVYONA",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000016807372"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+      ],
+      "REGISTRATION_ID": "2210798",
+      "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS FRANCE SAS",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "/EM500000016807372"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Serifel"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "SERIFEL",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000011920238"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF CORPORATION']"
+      ],
+      "REGISTRATION_ID": "2171248",
+      "REGISTRATION_HOLDER": "BASF FRANCE SAS",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000011920238"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Spectrum"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "SPECTRUM",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000001812056"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "9900251",
+      "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS FRANCE SAS",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001812056"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "ALLSTAR"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "ALLSTAR",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000001323971"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "018125",
+      "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS ITALY S.R.L.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001323971"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Belanty"
+      ],
+      "ADS_OBSERVED": 6,
+      "NOME_NORMALIZADO": "BELANTY",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000015574288"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "018377",
+      "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS ITALY S.R.L.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "/EM500000015574288"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Beyond"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "BEYOND",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000003317617"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF Agrochemical Products B.V.']"
+      ],
+      "REGISTRATION_ID": "010925",
+      "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS ITALY S.R.L.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000003317617"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Dagonis"
+      ],
+      "ADS_OBSERVED": 10,
+      "NOME_NORMALIZADO": "DAGONIS",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000013519285"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "016658",
+      "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS ITALY S.R.L.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000013519285"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Envita"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "ENVITA",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "IT502019000031420",
+        "EM500000018140681"
+      ],
+      "TM_OFFICE": [
+        "EM",
+        "IT"
+      ],
+      "TM_APPLICANT": [
+        "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+      ],
+      "REGISTRATION_ID": "019119",
+      "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "http://tmview.uibm.gov.it/trademark/data/IT502019000031420"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "RevyPro"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "REVYPRO",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000018832290"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+      ],
+      "REGISTRATION_ID": "018285",
+      "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000018832290"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Revysion"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "REVYSION",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000017999982"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+      ],
+      "REGISTRATION_ID": "018137",
+      "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "http://euipo.europa.eu/trademark/data/EM500000017999982"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Serifel"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "SERIFEL",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000011920238"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF CORPORATION']"
+      ],
+      "REGISTRATION_ID": "017272",
+      "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000011920238"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Spectrum"
+      ],
+      "ADS_OBSERVED": 13,
+      "NOME_NORMALIZADO": "SPECTRUM",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000001812056"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "012954",
+      "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001812056"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Stratos"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "STRATOS",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000006472393"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "007984",
+      "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "http://euipo.europa.eu/trademark/data/EM500000006472393"
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Cayunis"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "CAYUNIS",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000014452312"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Bayer Intellectual Property GmbH']"
+      ],
+      "REGISTRATION_ID": "ES-01408",
+      "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+      "REGISTRATION_GRUPO": "BAYER",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000014452312"
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Flint"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "FLINT",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000000860684",
+        "EM500000000103168"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Bayer Intellectual Property GmbH']"
+      ],
+      "REGISTRATION_ID": "22338",
+      "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+      "REGISTRATION_GRUPO": "BAYER",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000000860684"
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Incelo"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "INCELO",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000012077591"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Bayer Intellectual Property GmbH']"
+      ],
+      "REGISTRATION_ID": "ES-01437",
+      "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+      "REGISTRATION_GRUPO": "BAYER",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000012077591"
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Monolith"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "MONOLITH",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000012702528"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Bayer Intellectual Property GmbH']"
+      ],
+      "REGISTRATION_ID": "ES-00497",
+      "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+      "REGISTRATION_GRUPO": "BAYER",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000012702528"
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Musketeer"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "MUSKETEER",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000018530568"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Bayer Intellectual Property GmbH']"
+      ],
+      "REGISTRATION_ID": "ES-00651",
+      "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+      "REGISTRATION_GRUPO": "BAYER",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000018530568"
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Prosaro"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "PROSARO",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "ES500000002100617",
+        "EM500000018562950"
+      ],
+      "TM_OFFICE": [
+        "EM",
+        "ES"
+      ],
+      "TM_APPLICANT": [
+        "['BAYER INTELLECTUAL PROPERTY GMBH']",
+        "['Bayer Intellectual Property GmbH']"
+      ],
+      "REGISTRATION_ID": "25661",
+      "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+      "REGISTRATION_GRUPO": "BAYER",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://consultas2.oepm.es/trademark/data/ES500000002100617"
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Teldor"
+      ],
+      "ADS_OBSERVED": 11,
+      "NOME_NORMALIZADO": "TELDOR",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000018531491"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Bayer Intellectual Property GmbH']"
+      ],
+      "REGISTRATION_ID": "ES-00324",
+      "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+      "REGISTRATION_GRUPO": "BAYER",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000018531491"
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Hector"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "HECTOR",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000018233809"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Corteva Agriscience LLC']"
+      ],
+      "REGISTRATION_ID": "ES-01529",
+      "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+      "REGISTRATION_GRUPO": "CORTEVA",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000018233809"
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Quelex"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "QUELEX",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000011422367"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Corteva Agriscience LLC']"
+      ],
+      "REGISTRATION_ID": "ES-00735",
+      "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+      "REGISTRATION_GRUPO": "CORTEVA",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000011422367"
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "UNIVOQ"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "UNIVOQ",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000015175987"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Corteva Agriscience LLC']"
+      ],
+      "REGISTRATION_ID": "ES-01386",
+      "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+      "REGISTRATION_GRUPO": "CORTEVA",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "/EM500000015175987"
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Viballa"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "VIBALLA",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000017900369"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['Corteva Agriscience LLC']"
+      ],
+      "REGISTRATION_ID": "ES-01754",
+      "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+      "REGISTRATION_GRUPO": "CORTEVA",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000017900369"
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Xanadu"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "XANADU",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "ES500000003593343",
+        "EM500000017824848"
+      ],
+      "TM_OFFICE": [
+        "EM",
+        "ES"
+      ],
+      "TM_APPLICANT": [
+        "['UPL EUROPE LTD']"
+      ],
+      "REGISTRATION_ID": "ES-00830",
+      "REGISTRATION_HOLDER": "UPL HOLDINGS COÖPERATIEF U.A.",
+      "REGISTRATION_GRUPO": "UPL",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://consultas2.oepm.es/trademark/data/ES500000003593343"
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Yukon"
+      ],
+      "ADS_OBSERVED": 12,
+      "NOME_NORMALIZADO": "YUKON",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000016608127"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['UPL EUROPE LTD']"
+      ],
+      "REGISTRATION_ID": "ES-01540",
+      "REGISTRATION_HOLDER": "UPL HOLDINGS COÖPERATIEF U.A.",
+      "REGISTRATION_GRUPO": "UPL",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "http://euipo.europa.eu/trademark/data/EM500000016608127"
+    }
+  ],
+  "RECUSADAS": [],
+  "NOT_KNOWN": [
+    {
+      "META_COMPANY": "ALBAUGH",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "state"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "STATE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "ALBAUGH não está na amostra dos seis concorrentes desta missão"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "AgCelence"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "AGCELENCE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Cabrio"
+      ],
+      "ADS_OBSERVED": 9,
+      "NOME_NORMALIZADO": "CABRIO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Delan"
+      ],
+      "ADS_OBSERVED": 34,
+      "NOME_NORMALIZADO": "DELAN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "InVigor"
+      ],
+      "ADS_OBSERVED": 21,
+      "NOME_NORMALIZADO": "INVIGOR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Priaxor"
+      ],
+      "ADS_OBSERVED": 17,
+      "NOME_NORMALIZADO": "PRIAXOR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "RAK"
+      ],
+      "ADS_OBSERVED": 18,
+      "NOME_NORMALIZADO": "RAK",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Revysol"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "REVYSOL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Sercadis"
+      ],
+      "ADS_OBSERVED": 16,
+      "NOME_NORMALIZADO": "SERCADIS",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Tercero"
+      ],
+      "ADS_OBSERVED": 8,
+      "NOME_NORMALIZADO": "TERCERO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Vizura"
+      ],
+      "ADS_OBSERVED": 19,
+      "NOME_NORMALIZADO": "VIZURA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "XARVIO"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "XARVIO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "F500"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "F500",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Retengo"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "RETENGO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Revysol"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "REVYSOL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "XARVIO"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "XARVIO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Agrigenius"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "AGRIGENIUS",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Axalion"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "AXALION",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Cabrio"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "CABRIO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Delan"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "DELAN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Efficon"
+      ],
+      "ADS_OBSERVED": 12,
+      "NOME_NORMALIZADO": "EFFICON",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "EliteSea"
+      ],
+      "ADS_OBSERVED": 7,
+      "NOME_NORMALIZADO": "ELITESEA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Enervin"
+      ],
+      "ADS_OBSERVED": 9,
+      "NOME_NORMALIZADO": "ENERVIN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "F500"
+      ],
+      "ADS_OBSERVED": 6,
+      "NOME_NORMALIZADO": "F500",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Initium"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "INITIUM",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "MAXIA"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "MAXIA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Nealta"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "NEALTA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Retengo"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "RETENGO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Revysol"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "REVYSOL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Stomp"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "STOMP",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Tanaris"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "TANARIS",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Xemium"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "XEMIUM",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Atlantis"
+      ],
+      "ADS_OBSERVED": 9,
+      "NOME_NORMALIZADO": "ATLANTIS",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Aviator"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "AVIATOR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Bayfolan"
+      ],
+      "ADS_OBSERVED": 40,
+      "NOME_NORMALIZADO": "BAYFOLAN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "BioAct"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "BIOACT",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Citrus"
+      ],
+      "ADS_OBSERVED": 8,
+      "NOME_NORMALIZADO": "CITRUS",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Cuprosan"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "CUPROSAN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Evo"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "EVO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Expert"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "EXPERT",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "FLiPPER"
+      ],
+      "ADS_OBSERVED": 10,
+      "NOME_NORMALIZADO": "FLIPPER",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Luna"
+      ],
+      "ADS_OBSERVED": 6,
+      "NOME_NORMALIZADO": "LUNA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Mateno"
+      ],
+      "ADS_OBSERVED": 15,
+      "NOME_NORMALIZADO": "MATENO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Milraz"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "MILRAZ",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Nematool"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "NEMATOOL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Previcur"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "PREVICUR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Rapsody"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "RAPSODY",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Roundup"
+      ],
+      "ADS_OBSERVED": 6,
+      "NOME_NORMALIZADO": "ROUNDUP",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Serenade"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "SERENADE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Sivanto"
+      ],
+      "ADS_OBSERVED": 16,
+      "NOME_NORMALIZADO": "SIVANTO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Suzukii"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "SUZUKII",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Velsinum"
+      ],
+      "ADS_OBSERVED": 17,
+      "NOME_NORMALIZADO": "VELSINUM",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Velum"
+      ],
+      "ADS_OBSERVED": 10,
+      "NOME_NORMALIZADO": "VELUM",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Vynyty"
+      ],
+      "ADS_OBSERVED": 12,
+      "NOME_NORMALIZADO": "VYNYTY",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BAYER",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "state"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "STATE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Amylo"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "AMYLO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Amylo-X"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "AMYLOX",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Beloukha"
+      ],
+      "ADS_OBSERVED": 10,
+      "NOME_NORMALIZADO": "BELOUKHA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Botanigard"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "BOTANIGARD",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Breaker"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "BREAKER",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "C-Bio"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "CBIO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Cedroz"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "CEDROZ",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Dinamite"
+      ],
+      "ADS_OBSERVED": 6,
+      "NOME_NORMALIZADO": "DINAMITE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Incrementum"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "INCREMENTUM",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Incremetum"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "INCREMETUM",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Karbicure"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "KARBICURE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Katoun"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "KATOUN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Koromite"
+      ],
+      "ADS_OBSERVED": 10,
+      "NOME_NORMALIZADO": "KOROMITE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "KUSABI",
+        "Kusabi"
+      ],
+      "ADS_OBSERVED": 8,
+      "NOME_NORMALIZADO": "KUSABI",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Majestik"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "MAJESTIK",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Max"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "MAX",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Mildicut"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "MILDICUT",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Mimic"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "MIMIC",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Mospilan"
+      ],
+      "ADS_OBSERVED": 10,
+      "NOME_NORMALIZADO": "MOSPILAN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Mycotrol"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "MYCOTROL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Nemaclean"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "NEMACLEAN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Neudosan"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "NEUDOSAN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Proactive"
+      ],
+      "ADS_OBSERVED": 7,
+      "NOME_NORMALIZADO": "PROACTIVE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Problad"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "PROBLAD",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Ranman"
+      ],
+      "ADS_OBSERVED": 7,
+      "NOME_NORMALIZADO": "RANMAN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Sonar"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "SONAR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Teppeki"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "TEPPEKI",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CERTIS BELCHIM",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Tri-soil"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "TRISOIL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "BioForge"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "BIOFORGE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "BlueN"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "BLUEN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Corteva"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "CORTEVA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Entecta"
+      ],
+      "ADS_OBSERVED": 8,
+      "NOME_NORMALIZADO": "ENTECTA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "EQUI-SUN"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "EQUISUN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Farfule"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "FARFULE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Qalcova"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "QALCOVA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Spintor"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "SPINTOR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "SullicaB"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "SULLICAB",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Zorvec"
+      ],
+      "ADS_OBSERVED": 8,
+      "NOME_NORMALIZADO": "ZORVEC",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Corteva"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "CORTEVA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Entecta"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "ENTECTA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Quelex"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "QUELEX",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Zorvec"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "ZORVEC",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Laser"
+      ],
+      "ADS_OBSERVED": 6,
+      "NOME_NORMALIZADO": "LASER",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "CORTEVA",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Qalcova"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "QALCOVA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Benevia"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "BENEVIA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Cyazypyr"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "CYAZYPYR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Exirel"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "EXIREL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Spotlight"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "SPOTLIGHT",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Verimark"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "VERIMARK",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Arc"
+      ],
+      "ADS_OBSERVED": 29,
+      "NOME_NORMALIZADO": "ARC",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Coragen"
+      ],
+      "ADS_OBSERVED": 8,
+      "NOME_NORMALIZADO": "CORAGEN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Cyazypyr"
+      ],
+      "ADS_OBSERVED": 13,
+      "NOME_NORMALIZADO": "CYAZYPYR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Exirel"
+      ],
+      "ADS_OBSERVED": 36,
+      "NOME_NORMALIZADO": "EXIREL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Spotlight"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "SPOTLIGHT",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "FMC",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Visarel"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "VISAREL",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "NUFARM",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "state"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "STATE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "SEIPASA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "state"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "STATE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "SEIPASA não está na amostra dos seis concorrentes desta missão"
+    },
+    {
+      "META_COMPANY": "SYNGENTA",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Angello"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "ANGELLO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "SYNGENTA",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "state"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "STATE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "SYNGENTA",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "Angello"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "ANGELLO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "NUVITA"
+      ],
+      "ADS_OBSERVED": 6,
+      "NOME_NORMALIZADO": "NUVITA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Omite"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "OMITE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Select"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "SELECT",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Syllit"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "SYLLIT",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Althia"
+      ],
+      "ADS_OBSERVED": 9,
+      "NOME_NORMALIZADO": "ALTHIA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Argos"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "ARGOS",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Bovato"
+      ],
+      "ADS_OBSERVED": 10,
+      "NOME_NORMALIZADO": "BOVATO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Calsun"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "CALSUN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "GAXY",
+        "Gaxy"
+      ],
+      "ADS_OBSERVED": 12,
+      "NOME_NORMALIZADO": "GAXY",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "GoActiv"
+      ],
+      "ADS_OBSERVED": 9,
+      "NOME_NORMALIZADO": "GOACTIV",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Hycoxa"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "HYCOXA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Linifibre"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "LINIFIBRE",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "NUVITA"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "NUVITA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Pronutiva"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "PRONUTIVA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Squaw"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "SQUAW",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Start"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "START",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Stylor"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "STYLOR",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Thiopron"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "THIOPRON",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Tonilin"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "TONILIN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "FR",
+      "PRODUCT_NAME_NA_META": [
+        "Vacciplant"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "VACCIPLANT",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "UPL",
+      "COUNTRY": "IT",
+      "PRODUCT_NAME_NA_META": [
+        "NUVITA"
+      ],
+      "ADS_OBSERVED": 4,
+      "NOME_NORMALIZADO": "NUVITA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    }
+  ],
+  "O_QUE_UMA_CADEIA_PROVADA_PROVA": "que a mesma empresa, no mesmo país, tem marca depositada com aquele nome, autorização local com aquele nome, e anúncio observado com aquele nome. Três fatos públicos sobre a mesma identidade.",
+  "O_QUE_ELA_NAO_PROVA": [
+    "não prova que o anúncio seja daquele produto registrado",
+    "não prova venda, investimento, share nem pressão competitiva",
+    "não prova lançamento nem intenção",
+    "a company da Meta é a classificação DELES; esta missão a aceita como declarada e não a re-verifica contra registro societário"
+  ]
+}

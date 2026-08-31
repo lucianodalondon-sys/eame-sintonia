@@ -1,0 +1,161 @@
+# ═══════════════════════════════════════════════════════════════════════
+# COMPETITOR FORESIGHT — o portao do piloto de concorrencia.
+#
+# A maquina que gerou este import nao tem psql nem senha do Supabase. Entao
+# o SQL nao foi executado ao ser escrito — ele e provado AQUI, contra um
+# Postgres 16 DESCARTAVEL do proprio runner.
+#
+# Tres coisas sao medidas, e nenhuma delas e "o arquivo parece certo":
+#   1. as migrations 019 e 020 aplicam num banco montado do zero;
+#   2. o import de 19.702 eventos (ES + IT + FR) entra sem violar trava;
+#   3. as 32 afirmacoes passam E as 7 mutacoes REPROVAM.
+#
+# A terceira e a que importa. Uma suite verde em cima de esquema quebrado
+# e a mesma sensacao de seguranca que este piloto existe para negar.
+#
+# NAO importa nada em producao. NAO toca no Supabase. Sem secret.
+# ═══════════════════════════════════════════════════════════════════════
+name: concorrente-portao
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'supabase/migrations/019_*.sql'
+      - 'supabase/migrations/020_*.sql'
+      - 'supabase/importacoes/COMPETITOR-FORESIGHT-*.sql'
+      - 'supabase/tests/regressoes_concorrente.sql'
+      - 'supabase/tests/mutacao_concorrente.sql'
+      - 'scripts/concorrente_*.py'
+      - 'scripts/ip_tmview.py'
+      - '.github/workflows/concorrente-portao.yml'
+  pull_request:
+    paths:
+      - 'supabase/migrations/019_*.sql'
+      - 'supabase/migrations/020_*.sql'
+      - 'supabase/importacoes/COMPETITOR-FORESIGHT-*.sql'
+      - 'supabase/tests/*concorrente*.sql'
+
+permissions:
+  contents: read
+
+jobs:
+  portao:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: eame_concorrente
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 20
+    env:
+      PGURL: postgresql://postgres:postgres@localhost:5432/eame_concorrente
+      PGPASSWORD: postgres
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+
+      - name: 1 · o gerador e determinístico?
+        # Se o mesmo artefato produzir dois arquivos diferentes, o import nao
+        # e auditavel: ninguem consegue dizer se uma linha mudou porque o dado
+        # mudou ou porque o gerador variou.
+        run: |
+          set -e
+          antes=$(sha256sum supabase/importacoes/COMPETITOR-FORESIGHT-*.sql | cut -d' ' -f1)
+          python3 scripts/concorrente_importar.py > /dev/null
+          depois=$(sha256sum supabase/importacoes/COMPETITOR-FORESIGHT-*.sql | cut -d' ' -f1)
+          test "$antes" = "$depois" \
+            && echo "IMPORT_DETERMINISTICO=PASS ($antes)" \
+            || { echo "PARADO: o gerador nao e deterministico"; exit 1; }
+          git diff --exit-code --stat supabase/importacoes/ \
+            || { echo "PARADO: o arquivo no Git difere do que o script gera"; exit 1; }
+
+      - name: 2 · aplicar 001–007 e 009–020 num banco vazio
+        run: |
+          set -e
+          for f in $(ls supabase/migrations/*.sql | grep -v '/008_'); do
+            num=$(basename "$f" | cut -c1-3)
+            psql "$PGURL" -v ON_ERROR_STOP=1 -q -f "$f" \
+              && echo "MIGRATION_$num=PASS" \
+              || { echo "MIGRATION_$num=FAIL"; exit 1; }
+          done
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q \
+            -f supabase/migrations/008_verificacao_pos_aplicacao.sql
+          echo "MIGRATIONS=PASS"
+
+      - name: 3 · a fundação ADAMA entra ANTES — e tem de sobreviver
+        # A camada do concorrente e DERIVADA. Se ela quebrar a fundacao do
+        # registro espanhol, ela esta virando dona do que nao e dela.
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q \
+            -f supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql
+          n=$(psql "$PGURL" -tAc \
+            "select count(*) from public.registro_regulatorio where fonte='MAPA_ROPF'")
+          test "$n" = "96" \
+            && echo "FUNDACAO_ADAMA=96" \
+            || { echo "PARADO: fundacao ADAMA com $n registros, esperado 96"; exit 1; }
+
+      - name: 4 · o import do piloto
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -q \
+            -f supabase/importacoes/COMPETITOR-FORESIGHT-2026-08-30.sql
+          ev=$(psql "$PGURL" -tAc "select count(*) from public.evento_concorrente")
+          lk=$(psql "$PGURL" -tAc "select count(*) from public.evento_concorrente_link")
+          echo "EVENTOS=$ev  LINKS=$lk"
+          test "$ev" = "19702" || { echo "PARADO: esperado 19702 eventos"; exit 1; }
+          test "$lk" = "1696"  || { echo "PARADO: esperado 1696 links"; exit 1; }
+
+      - name: 5 · a fundação ADAMA continua intocada depois do import
+        run: |
+          set -e
+          n=$(psql "$PGURL" -tAc \
+            "select count(*) from public.registro_regulatorio where fonte='MAPA_ROPF'")
+          test "$n" = "96" \
+            && echo "FUNDACAO_INTOCADA=PASS" \
+            || { echo "PARADO: o import mexeu na fundacao alheia"; exit 1; }
+
+      - name: 6 · regressões de significado
+        run: |
+          set -e
+          psql "$PGURL" -f supabase/tests/regressoes_concorrente.sql 2>&1 | tee /tmp/r
+          grep -q "REGRESSOES_CONCORRENTE=PASS" /tmp/r
+
+      - name: 7 · mutações — cada lei tem de reprovar quando quebrada
+        run: |
+          set -e
+          psql "$PGURL" -At -f supabase/tests/mutacao_concorrente.sql 2>&1 | tee /tmp/mu
+          # Uma mutacao que ERRA nao chegou a rodar, e o grep de "NAO PEGOU"
+          # nao a veria. Esse buraco ja deixou tres mutacoes apontando para
+          # uma coluna aposentada sem que nada reprovasse.
+          grep -qE "^psql.*ERROR" /tmp/mu \
+            && { echo "PARADO: a mutacao ERROU — ela nao chegou a rodar"; exit 1; } \
+            || true
+          grep -q "NAO PEGOU" /tmp/mu \
+            && { echo "PARADO: mutacao nao pegou — a lei perdeu os dentes"; exit 1; } \
+            || echo "MUTACOES_CONCORRENTE=TODAS_PEGARAM"
+
+      - name: 8 · as views respondem, e mostram o buraco
+        # A view de cobertura existe para expor ausencia. Se ela devolver so
+        # as camadas cheias, o piloto passa a parecer completo.
+        run: |
+          set -e
+          echo '── cobertura por camada ──'
+          psql "$PGURL" -c "select * from public.v_competidor_cobertura_camada"
+          echo '── antecedência, 10 primeiras ──'
+          psql "$PGURL" -c "select * from public.v_competidor_antecedencia limit 10"
+          echo '── links recusados ──'
+          psql "$PGURL" -c "select * from public.v_competidor_links_recusados"
+          vazias=$(psql "$PGURL" -tAc "select count(*) from
+            public.v_competidor_cobertura_camada where eventos = 0")
+          test "$vazias" = "18" \
+            && echo "CAMADAS_VAZIAS_VISIVEIS=18 (6 concorrentes x 3 camadas)" \
+            || { echo "PARADO: a view escondeu camada vazia"; exit 1; }

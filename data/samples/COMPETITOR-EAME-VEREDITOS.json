@@ -1,0 +1,329 @@
+{
+  "SOURCE_ID": "COMPETITOR-EAME-VEREDITOS",
+  "source": "derivação sobre os artefatos medidos desta missão",
+  "SOURCE_LOCATION": "interno — derivado",
+  "FACT_LOCATION": "ES · IT · FR",
+  "CAMADA_DO_PILOTO": "VEREDICTO POR CAPACIDADE",
+  "captured_at": "2026-08-30",
+  "COUNTRY_COVERAGE": {
+    "REGRA": "todo número vem com denominador. Os totais de registro NÃO são comparáveis entre países: ES publica o conjunto corrente, IT guarda o revogado desde 1970, FR publica autorizado + retirado.",
+    "POR_PAIS": {
+      "ES": {
+        "ESTADO": "MEASURED",
+        "FONTE": "ROPF — Registro Oficial de Productos Fitosanitarios (MAPA)",
+        "VERSAO_DA_FONTE": "2026-08-31T02:28:05.6560691+02:00",
+        "TRADEMARKS": 5579,
+        "LOCAL_REGISTRATIONS": 3084,
+        "LOCAL_REGISTRATIONS_EM_VIGOR": 1993,
+        "LINKED_CHAINS": 209,
+        "TM_BEFORE_REG": 158,
+        "REG_BEFORE_TM": 51,
+        "UNLINKED": 5335,
+        "FALSE_LINKS_REJECTED": 9,
+        "PARTIAL": 24,
+        "RUIDO_CASADOR_FROUXO": 151,
+        "SUBCONTAGEM_POR_ANTECESSOR": 0,
+        "TAXA_DE_LIGACAO": "209 de 5579"
+      },
+      "IT": {
+        "ESTADO": "MEASURED",
+        "FONTE": "Banca dati dei prodotti fitosanitari — Ministero della Salute",
+        "VERSAO_DA_FONTE": "PROD_FTS_6_20260824.csv",
+        "TRADEMARKS": 5690,
+        "LOCAL_REGISTRATIONS": 17695,
+        "LOCAL_REGISTRATIONS_EM_VIGOR": 3715,
+        "LINKED_CHAINS": 334,
+        "TM_BEFORE_REG": 227,
+        "REG_BEFORE_TM": 107,
+        "UNLINKED": 5219,
+        "FALSE_LINKS_REJECTED": 38,
+        "PARTIAL": 111,
+        "RUIDO_CASADOR_FROUXO": 828,
+        "SUBCONTAGEM_POR_ANTECESSOR": 1351,
+        "TAXA_DE_LIGACAO": "334 de 5690"
+      },
+      "FR": {
+        "ESTADO": "MEASURED",
+        "FONTE": "Catalogue E-Phy — ANSES, via data.gouv.fr",
+        "VERSAO_DA_FONTE": "produits_utf8.csv",
+        "TRADEMARKS": 7612,
+        "LOCAL_REGISTRATIONS": 15140,
+        "LOCAL_REGISTRATIONS_EM_VIGOR": 2691,
+        "LINKED_CHAINS": 1140,
+        "TM_BEFORE_REG": 702,
+        "REG_BEFORE_TM": 407,
+        "UNLINKED": 6188,
+        "FALSE_LINKS_REJECTED": 79,
+        "PARTIAL": 315,
+        "RUIDO_CASADOR_FROUXO": 1103,
+        "SUBCONTAGEM_POR_ANTECESSOR": 1458,
+        "TAXA_DE_LIGACAO": "1140 de 7612"
+      }
+    },
+    "SOMA_DOS_MEDIDOS": {
+      "LINKED_CHAINS": 1683,
+      "TM_BEFORE_REG": 1087,
+      "REG_BEFORE_TM": 565,
+      "FALSE_LINKS_REJECTED": 126,
+      "UNLINKED": 16742
+    },
+    "NOT_MEASURED": []
+  },
+  "CAPABILITIES": {
+    "A_TRADEMARK_CHANGE_WATCH": {
+      "VEREDICTO": "PROMISING",
+      "O_QUE_ESTA_PROVADO": "a rota TMview responde e devolve depósito recente: 346 depósitos desde 2025-01-01 nos quatro escritórios, um deles a três dias da coleta.",
+      "O_QUE_NAO_ESTA_PROVADO": {
+        "DAILY_VALUE": "NOT_PROVED",
+        "POR_QUE": "existe UMA captura. Uma fotografia não mede cadência. Provar valor diário exige duas capturas separadas por dias e a contagem do que apareceu entre elas."
+      },
+      "RECENT_TRADEMARK_ACTIVITY_EXISTS": "YES",
+      "TRADEMARK_WATCH_AS_CHANGE_SOURCE": "PROMISING",
+      "COMO_PROMOVER": "segunda captura do TMview em D+7 e D+30, com o mesmo portão de filtro, e a contagem de depósitos novos por janela."
+    },
+    "B_TRADEMARK_TO_LOCAL_REGISTRATION_LINK": {
+      "VEREDICTO": "PROVED",
+      "ONDE": "ES · IT · FR — os três medidos com a MESMA régua",
+      "EVIDENCIA": "1683 cadeias ligadas (209 ES · 334 IT · 1140 FR), com 126 recusas publicadas por titular divergente.",
+      "A_REGRA": "duas concordâncias obrigatórias: nome normalizado E grupo do titular. Nome sozinho nunca promove.",
+      "REGRESSAO_DE_OURO": "URBOLE — marca da SYNGENTA, registro espanhol 24157 da ADAMA. SAME_NAME != SAME_COMPETITOR_PRODUCT.",
+      "LIMITE": "16742 marcas ficaram NO_LINK nos três países somados. A maioria esmagadora das marcas de um concorrente NÃO tem registro local de mesmo nome."
+    },
+    "C_COMPETITOR_TIMELINE": {
+      "VEREDICTO": "PARTIAL",
+      "O_QUE_EXISTE": "1683 cadeias com DUAS camadas (IP + REGULATORY), datadas e rastreáveis à fonte.",
+      "O_QUE_FALTA": "as outras três camadas da cadeia de cinco. NOT_JOINED_IN_THIS_MISSION — ver JOIN_READINESS.",
+      "CADEIAS_COM_5_DE_5": 0,
+      "HISTORICAL_PRECEDENCE_OBSERVED": {
+        "TM_BEFORE_REG": 1087,
+        "REG_BEFORE_TM": 565,
+        "DE": 1652,
+        "LEITURA": "a marca precedeu o registro em 1087 de 1652 pares ligados, nos três países independentes. É PRECEDÊNCIA HISTÓRICA OBSERVADA."
+      },
+      "OPERATIONAL_EARLY_WARNING_VALUE": {
+        "ESTADO": "NOT_PROVED",
+        "POR_QUE": "a mediana defensável é 1546 dias (~4.2 anos), com amplitude bruta de [-21478, 13004]. Um sinal que chega anos antes pode estar cedo DEMAIS para decisão operacional. Precedência não é aviso prévio útil enquanto ninguém medir a janela em que a decisão é tomada.",
+        "PROIBIDO_DIZER": [
+          "a marca prevê o registro",
+          "a marca dá 6 anos de antecedência útil",
+          "temos aviso prévio de lançamento"
+        ]
+      }
+    },
+    "D_PATENT_WATCH": {
+      "PATENT_LAYER": "DEMOTED / NOT_USED",
+      "PATENT_BRAND_LINKAGE_ROUTE": "REFUTED_FOR_PILOT",
+      "O_QUE_FOI_REFUTADO": "apenas PATENT_LOOKUP_BY_COMMERCIAL_BRAND_NAME: buscar o nome comercial da marca no texto completo do Espacenet. 0 de 5 casos recuperaram o titular correto.",
+      "PATENT_WATCH_COMO_UM_TODO": "NOT_TESTED",
+      "ROTAS_QUE_NAO_FORAM_TESTADAS": [
+        "APPLICANT_BASED_PATENT_WATCH — busca por titular normalizado",
+        "TECHNOLOGY_WATCH — por classificação técnica",
+        "ACTIVE_INGREDIENT_WATCH — por substância ativa",
+        "FORMULATION_WATCH — por formulação",
+        "ASSIGNEE_FAMILY_WATCH — por família de patente do titular"
+      ],
+      "PROIBIDO_ESCREVER": "PATENT_WATCH = REFUTED",
+      "MOTIVO": "refutar a camada com o teste de UMA rota é o mesmo erro que este piloto passou a rodada evitando.",
+      "EVIDENCIA": "COMPETITOR-PATENT-DEMOTE",
+      "DECISAO": "parar aqui. Patente não entra e não volta nesta missão."
+    }
+  },
+  "REGULATORY_WATCH": {
+    "REGULATORY_CHANGE_IN_THIS_INTERVAL": "0 OBSERVED",
+    "INTERVALO": "29/08/2026 → 31/08/2026 · 40092 comparações campo a campo",
+    "REGULATORY_CHANGE_CADENCE": "NOT_PROVED",
+    "POR_QUE": "dois dias são dois dias. Uma janela curta sem mudança não mede a frequência com que o registro se mexe.",
+    "PROIBIDO_DIZER": [
+      "o registro não se mexe no dia a dia",
+      "o registro é estático",
+      "o ROPF não tem sinal"
+    ],
+    "PARIDADE": {
+      "ES": "ver PORTAO_DE_VERSAO — duas versões arquivadas existem",
+      "IT": "BASELINE_ESTABLISHED — existe UMA captura (PROD_FTS_6_20260824.csv). Sem segunda versão não há ausência de mudança, há ausência de comparação.",
+      "FR": "BASELINE_ESTABLISHED — existe UMA captura do E-Phy (20260825). Idem."
+    }
+  },
+  "JOIN_READINESS": {
+    "REGRA": "esta branch declara o que ELA juntou. O estado das outras missões é lido dos handoffs delas, não afirmado por aqui.",
+    "CREATOR": {
+      "CREATOR_DATA_AVAILABLE_IN_THIS_SNAPSHOT": "NO",
+      "ESTADO_REAL_DA_CAPACIDADE": "FROZEN_WAITING_FOR_INTELLIGENCE",
+      "ONDE": "branch claude/eame-agro-creators-map-77c4ld · docs/creators/HANDOFF-INTELLIGENCE-CREATOR-MAP-EAME.md",
+      "CHAVE_DE_JUNCAO_QUE_ELE_DECLARA": "BRAND × RELATION_TYPE",
+      "CHAVE_QUE_ESTA_CAMADA_OFERECE": "BRAND (evento_concorrente.brand)",
+      "PRONTO_PARA_O_REFRESH": "SIM — as duas pontas declaram BRAND",
+      "PROIBIDO_DIZER": "não existe creator no repositório"
+    },
+    "META": {
+      "META_DATA_AVAILABLE_IN_THIS_SNAPSHOT": "NO",
+      "ESTADO_REAL_DA_CAPACIDADE": "EM CONSTRUÇÃO, missão paralela",
+      "ONDE": "branch claude/eame-meta-competitor · data/samples/META-EAME/",
+      "O_QUE_ELA_JA_TEM": "1.111 anúncios observados dos MESMOS seis concorrentes, em ES/IT/FR, com 145 produtos de marca provados",
+      "MEDIDO_NESTA_RODADA": {
+        "ATENCAO": "a primeira medição desta junção casava APENAS o nome do produto anunciado com o nome da marca, e anunciou 36 cadeias. Era a falha que URBOLE existe para impedir. O número foi AUDITADO com concordância de titular nas três pontas.",
+        "REGRA_AUDITADA": "company da Meta == grupo do titular da marca == grupo do titular do registro local, e o mesmo país nas três",
+        "META_ADVERTISED_PRODUCTS_OBSERVED": 145,
+        "PRODUTOS_DISTINTOS_APOS_NORMALIZAR": 142,
+        "TUPLAS_COMPETIDOR_PAIS_PRODUTO": 171,
+        "THREE_LAYER_CHAIN_PROVED": 35,
+        "THREE_LAYER_CHAIN_REJECTED": 0,
+        "THREE_LAYER_CHAIN_NOT_KNOWN": 136,
+        "PRODUTOS_COM_CADEIA_PROVED": 28,
+        "O_36_ANTERIOR": "caiu para 28 produtos quando a exigência de titular entrou. Oito eram nome igual sem concordância de empresa ou de país.",
+        "URBOLE_GUARD": "PASS",
+        "URBOLE_GUARD_EXERCIDO": true,
+        "COLISOES_DE_NOME": "nenhuma",
+        "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+        "FINAL_REFRESH_INPUT": "NO",
+        "POR_QUE_NAO_E_FINAL": "a Meta é fonte externa a esta missão e seu handoff ainda NÃO foi congelado pelo coordenador. Entrada final de refresh só depois do handoff canônico da Meta.",
+        "COMO_FOI_MEDIDO": "git show somente-leitura sobre claude/eame-meta-competitor @ 4cee050e3. Nenhum merge, nenhum checkout, nenhuma alteração de índice."
+      },
+      "PROIBIDO_DIZER": "não existe Meta no repositório"
+    },
+    "PRODUCT_CATALOG": {
+      "CATALOG_DATA_AVAILABLE_IN_THIS_SNAPSHOT": "NO",
+      "O_QUE_EXISTE_NAS_FOUNDATIONS": "catálogos ADAMA de ES, IT e FR, em branches próprias (claude/adama-es-local-browser, adama-it-local-catalog, adama-fr-local-catalog). São catálogos DA ADAMA, não dos concorrentes.",
+      "CATALOGO_DE_CONCORRENTE": "NOT_COLLECTED em nenhuma branch conhecida",
+      "PROIBIDO_DIZER": "os concorrentes não publicam catálogo"
+    }
+  },
+  "FALSE_LINK_METRICS": {
+    "REGRA": "duas métricas com nome próprio. Nenhuma substitui a outra: elas medem estágios diferentes do matcher, sobre universos que não se tocam.",
+    "POR_PAIS": {
+      "ES": {
+        "UNIVERSOS": {
+          "MARCAS_COM_NOME_EXATO_NO_REGISTRO": 242,
+          "MARCAS_SEM_NOME_EXATO_COM_4_OU_MAIS_CHARS": 5266,
+          "MARCAS_SEM_NOME_EXATO_CURTAS_DEMAIS": 69,
+          "NOMES_NA_INTERSECAO_DOS_DOIS_UNIVERSOS": 0,
+          "DISJUNTOS": true
+        },
+        "PROVA_DE_DISJUNCAO": "0 nomes na interseção. Uma marca ou tem nome idêntico a um produto do registro, ou não tem — nunca as duas coisas.",
+        "STRICT_MATCH_FALSE_LINKS_REJECTED": {
+          "VALOR": 9,
+          "DENOMINADOR": 242,
+          "UNIVERSO": "as 242 marcas cujo nome normalizado É uma chave do registro",
+          "ESTAGIO_DO_MATCHER": "PRODUÇÃO — é o casador que gera os links",
+          "REGRA_DE_REJEICAO": "o nome normalizado bate EXATAMENTE, mas o grupo do titular do registro é OUTRO concorrente conhecido",
+          "O_QUE_MEDE": "quantos links o casador ESTRITO recusou depois de formá-los como candidatos. É a régua funcionando.",
+          "TESTEMUNHA": "URBOLE — marca SYNGENTA, registro ES 24157 da ADAMA"
+        },
+        "LOOSE_CANDIDATE_LINKS_REJECTED": {
+          "VALOR": 151,
+          "DENOMINADOR": 441,
+          "UNIVERSO": "as 5266 marcas cujo nome normalizado NÃO é chave do registro (as curtas demais, com menos de 4 caracteres, ficam fora dos dois universos)",
+          "ESTAGIO_DO_MATCHER": "CONTRAFACTUAL — este casador NUNCA gerou link. Ele é rodado só para medir o dano que a frouxidão causaria",
+          "REGRA_DE_REJEICAO": "casamento por PREFIXO (um nome é começo do outro); errado quando o grupo do titular difere",
+          "O_QUE_MEDE": "quantos links ERRADOS um casador frouxo criaria — links que o casador de produção nem chega a formar."
+        },
+        "POR_QUE_NAO_SE_SUBSTITUEM": "o 9 é o que a régua RECUSOU tendo formado o candidato; o 151 é o que ela nem chegou a formar. Trocar um pelo outro produziria duas leituras erradas ao mesmo tempo: a régua pareceria 17x mais falha, ou o ganho de exigir titular pareceria 17x menor.",
+        "AMBAS_PERMANECEM": true
+      },
+      "IT": {
+        "UNIVERSOS": {
+          "MARCAS_COM_NOME_EXATO_NO_REGISTRO": 469,
+          "MARCAS_SEM_NOME_EXATO_COM_4_OU_MAIS_CHARS": 5145,
+          "MARCAS_SEM_NOME_EXATO_CURTAS_DEMAIS": 74,
+          "NOMES_NA_INTERSECAO_DOS_DOIS_UNIVERSOS": 0,
+          "DISJUNTOS": true
+        },
+        "PROVA_DE_DISJUNCAO": "0 nomes na interseção. Uma marca ou tem nome idêntico a um produto do registro, ou não tem — nunca as duas coisas.",
+        "STRICT_MATCH_FALSE_LINKS_REJECTED": {
+          "VALOR": 38,
+          "DENOMINADOR": 483,
+          "UNIVERSO": "as 469 marcas cujo nome normalizado É uma chave do registro",
+          "ESTAGIO_DO_MATCHER": "PRODUÇÃO — é o casador que gera os links",
+          "REGRA_DE_REJEICAO": "o nome normalizado bate EXATAMENTE, mas o grupo do titular do registro é OUTRO concorrente conhecido",
+          "O_QUE_MEDE": "quantos links o casador ESTRITO recusou depois de formá-los como candidatos. É a régua funcionando.",
+          "TESTEMUNHA": "URBOLE — marca SYNGENTA, registro ES 24157 da ADAMA"
+        },
+        "LOOSE_CANDIDATE_LINKS_REJECTED": {
+          "VALOR": 828,
+          "DENOMINADOR": 1364,
+          "UNIVERSO": "as 5145 marcas cujo nome normalizado NÃO é chave do registro (as curtas demais, com menos de 4 caracteres, ficam fora dos dois universos)",
+          "ESTAGIO_DO_MATCHER": "CONTRAFACTUAL — este casador NUNCA gerou link. Ele é rodado só para medir o dano que a frouxidão causaria",
+          "REGRA_DE_REJEICAO": "casamento por PREFIXO (um nome é começo do outro); errado quando o grupo do titular difere",
+          "O_QUE_MEDE": "quantos links ERRADOS um casador frouxo criaria — links que o casador de produção nem chega a formar."
+        },
+        "POR_QUE_NAO_SE_SUBSTITUEM": "o 9 é o que a régua RECUSOU tendo formado o candidato; o 151 é o que ela nem chegou a formar. Trocar um pelo outro produziria duas leituras erradas ao mesmo tempo: a régua pareceria 17x mais falha, ou o ganho de exigir titular pareceria 17x menor.",
+        "AMBAS_PERMANECEM": true
+      },
+      "FR": {
+        "UNIVERSOS": {
+          "MARCAS_COM_NOME_EXATO_NO_REGISTRO": 1422,
+          "MARCAS_SEM_NOME_EXATO_COM_4_OU_MAIS_CHARS": 6096,
+          "MARCAS_SEM_NOME_EXATO_CURTAS_DEMAIS": 92,
+          "NOMES_NA_INTERSECAO_DOS_DOIS_UNIVERSOS": 0,
+          "DISJUNTOS": true
+        },
+        "PROVA_DE_DISJUNCAO": "0 nomes na interseção. Uma marca ou tem nome idêntico a um produto do registro, ou não tem — nunca as duas coisas.",
+        "STRICT_MATCH_FALSE_LINKS_REJECTED": {
+          "VALOR": 79,
+          "DENOMINADOR": 1534,
+          "UNIVERSO": "as 1422 marcas cujo nome normalizado É uma chave do registro",
+          "ESTAGIO_DO_MATCHER": "PRODUÇÃO — é o casador que gera os links",
+          "REGRA_DE_REJEICAO": "o nome normalizado bate EXATAMENTE, mas o grupo do titular do registro é OUTRO concorrente conhecido",
+          "O_QUE_MEDE": "quantos links o casador ESTRITO recusou depois de formá-los como candidatos. É a régua funcionando.",
+          "TESTEMUNHA": "URBOLE — marca SYNGENTA, registro ES 24157 da ADAMA"
+        },
+        "LOOSE_CANDIDATE_LINKS_REJECTED": {
+          "VALOR": 1103,
+          "DENOMINADOR": 1821,
+          "UNIVERSO": "as 6096 marcas cujo nome normalizado NÃO é chave do registro (as curtas demais, com menos de 4 caracteres, ficam fora dos dois universos)",
+          "ESTAGIO_DO_MATCHER": "CONTRAFACTUAL — este casador NUNCA gerou link. Ele é rodado só para medir o dano que a frouxidão causaria",
+          "REGRA_DE_REJEICAO": "casamento por PREFIXO (um nome é começo do outro); errado quando o grupo do titular difere",
+          "O_QUE_MEDE": "quantos links ERRADOS um casador frouxo criaria — links que o casador de produção nem chega a formar."
+        },
+        "POR_QUE_NAO_SE_SUBSTITUEM": "o 9 é o que a régua RECUSOU tendo formado o candidato; o 151 é o que ela nem chegou a formar. Trocar um pelo outro produziria duas leituras erradas ao mesmo tempo: a régua pareceria 17x mais falha, ou o ganho de exigir titular pareceria 17x menor.",
+        "AMBAS_PERMANECEM": true
+      }
+    },
+    "RECONCILIACAO_ES": {
+      "OLD_151_METRIC_NAME": "LOOSE_CANDIDATE_LINKS_REJECTED",
+      "OLD_151_DENOMINATOR": 441,
+      "OLD_151_UNIVERSO": "5.266 marcas SEM nome exato no registro",
+      "OLD_151_ESTAGIO": "CONTRAFACTUAL — nunca gerou link",
+      "NEW_9_METRIC_NAME": "STRICT_MATCH_FALSE_LINKS_REJECTED",
+      "NEW_9_DENOMINATOR": 242,
+      "NEW_9_UNIVERSO": "242 marcas COM nome exato no registro",
+      "NEW_9_ESTAGIO": "PRODUÇÃO — é o casador que gera os links",
+      "INTERSECAO_DOS_UNIVERSOS": 0,
+      "UMA_SUBSTITUIU_A_OUTRA": false,
+      "HOUVE_MUDANCA_METODOLOGICA": false,
+      "VEREDICTO": "são métricas DIFERENTES, medidas sobre conjuntos disjuntos, e ambas permanecem. O 151 mede o dano que a frouxidão causaria; o 9 mede o que a régua recusou tendo formado o candidato.",
+      "ES_REGRESSION_PRESERVED": "YES"
+    }
+  },
+  "CONVERGENCE_READINESS": {
+    "REGRA": "as duas camadas entram como FATOS SEPARADOS. Não é preciso ter o link marca→registro para usar qualquer uma delas.",
+    "COMPETITOR_BRAND_EVENT_OBSERVED": {
+      "ESTADO": "PRONTO",
+      "EVENTOS": 9661,
+      "CHAVES": [
+        "COMPETITOR",
+        "COUNTRY",
+        "BRAND",
+        "EFFECTIVE_DATE"
+      ]
+    },
+    "COMPETITOR_LOCAL_REGISTRATION_OBSERVED": {
+      "ESTADO": "PRONTO",
+      "EVENTOS": 11675,
+      "CHAVES": [
+        "COMPETITOR",
+        "COUNTRY",
+        "REGULATORY_ID",
+        "EFFECTIVE_DATE"
+      ]
+    },
+    "TIMELINE_QUANDO_HA_LINK": {
+      "ESTADO": "PRONTO onde o link é PROVED",
+      "CADEIAS": 1683
+    },
+    "O_QUE_AINDA_NAO_LIGA": {
+      "CROP_E_ISSUE": "nenhum dos três registros nacionais traz cultura e alvo neste dataset. Sem eles, a camada de concorrente NÃO entra no eixo cultura×praga que é o coração da convergência."
+    },
+    "NAO_CRIAR_SCORE": "nenhum número desta camada é ranking ou ameaça."
+  }
+}

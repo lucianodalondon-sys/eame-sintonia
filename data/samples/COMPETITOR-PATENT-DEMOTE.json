@@ -1,0 +1,97 @@
+{
+  "SOURCE_ID": "COMPETITOR-PATENT-DEMOTE",
+  "source": "Espacenet (EPO) — busca pública, via navegador com janela gráfica",
+  "SOURCE_LOCATION": "worldwide.espacenet.com",
+  "FACT_LOCATION": "mundial / EP",
+  "ORIGINAL_LANGUAGE": "en",
+  "CAMADA_DO_PILOTO": "PATENT / TECHNOLOGY",
+  "captured_at": "2026-08-30",
+  "VEREDITO": "PATENT_LAYER = DEMOTED / NOT_USED · PATENT_BRAND_LINKAGE_ROUTE = REFUTED_FOR_PILOT",
+  "VEREDITO_EM_UMA_FRASE": "a ROTA que morreu foi PATENT_LOOKUP_BY_COMMERCIAL_BRAND_NAME, em 5 de 5 casos. A camada de patente inteira NAO foi testada e continua sem veredicto.",
+  "ACESSO": {
+    "curl_com_User_Agent_de_navegador": "403",
+    "ops.epo.org (API OPS)": "403 — exige chave de cliente que este projeto não tem",
+    "navegador_com_janela_grafica": "200 — a página abre depois de uma tela de verificação anti-robô que passa sozinha, sem interação",
+    "NOTA_DE_METODO": "nenhuma verificação anti-robô foi resolvida nem contornada: a página liberou o acesso sozinha após alguns segundos de espera.",
+    "VOLUME_DISPONIVEL": "busca por titular `pa=syngenta` devolve 6.333 resultados — o volume existe e não é o problema"
+  },
+  "O_TESTE_QUE_DECIDIU": {
+    "PERGUNTA": "uma patente pode ser ligada com confiança a uma MARCA e a um REGISTRO deste piloto?",
+    "COMO_FOI_FEITO": "busca em texto completo (`ftxt`) pelo nome exato de 5 marcas que o crosswalk já provou PROVED ou que foram observadas como depósito recente, conferindo o titular do primeiro resultado.",
+    "POR_QUE_ASSIM": "marca e registro são as duas únicas chaves que este piloto possui. Se nenhuma delas alcança a patente, não existe junção defensável — e um join sem chave é exatamente o 'casamento por nome parecido' que a missão proíbe.",
+    "CASOS": [
+      {
+        "MARCA": "PROSARO",
+        "CONCORRENTE": "BAYER",
+        "CROSSWALK": "PROVED",
+        "RESULTADOS": 35,
+        "PRIMEIRO_RESULTADO": "EP3618633A1 — HBCO HERBALS AND BIO CHEMICALS OUTSOURCING [FR]",
+        "TITULAR_CONFERE": false,
+        "LEITURA": "a marca aparece no texto de patentes de OUTRAS empresas"
+      },
+      {
+        "MARCA": "VERDALIS",
+        "CONCORRENTE": "CORTEVA",
+        "CROSSWALK": "NOT_KNOWN",
+        "RESULTADOS": 0,
+        "PRIMEIRO_RESULTADO": null,
+        "TITULAR_CONFERE": false,
+        "LEITURA": "marca depositada em 2026-07-16/17 em ES, IT e FR. Zero patentes. Uma marca nova não tem rastro em patente."
+      },
+      {
+        "MARCA": "DUAL GOLD",
+        "CONCORRENTE": "SYNGENTA",
+        "CROSSWALK": "PROVED",
+        "RESULTADOS": 184,
+        "PRIMEIRO_RESULTADO": "US11730514B2 — FUJIAN MEDICAL UNIV UNION HOSPITAL [CN], dispositivo de implante de marcador de ouro",
+        "TITULAR_CONFERE": false,
+        "LEITURA": "o nome da marca é composto por palavras comuns; o texto completo casa com qualquer domínio"
+      },
+      {
+        "MARCA": "LIBERATOR",
+        "CONCORRENTE": "BAYER",
+        "CROSSWALK": "PROVED",
+        "RESULTADOS": 1544,
+        "PRIMEIRO_RESULTADO": "US5533655A — coldre de bolso para equipamento eletrônico portátil",
+        "TITULAR_CONFERE": false,
+        "LEITURA": "1.544 resultados, nenhum deles do titular da marca no topo"
+      },
+      {
+        "MARCA": "NITROPLUS",
+        "CONCORRENTE": "CORTEVA",
+        "CROSSWALK": "NOT_KNOWN",
+        "RESULTADOS": 60,
+        "PRIMEIRO_RESULTADO": "US6060081A — DAIICHI SEIYAKU CO [JP], composições contendo genes",
+        "TITULAR_CONFERE": false,
+        "LEITURA": "marca depositada em 2026-08-18 em ES e IT; o texto casa com farmacêutica japonesa dos anos 90"
+      }
+    ],
+    "PLACAR": "0 de 5 — nenhuma das cinco marcas recuperou uma patente do titular correto no primeiro resultado",
+    "RUIDO": "1.823 resultados somados nas cinco buscas, nenhum atribuível ao concorrente pela chave testada"
+  },
+  "POR_QUE_A_CHAVE_NAO_EXISTE": "patente nomeia MOLÉCULA, FORMULAÇÃO e MECANISMO. Marca e registro nomeiam PRODUTO COMERCIAL. Os dois documentos falam de coisas diferentes com vocabulários diferentes, e nenhum campo os une. Ligar os dois exigiria a substância ativa como ponte — que existe no registro (`Formulado`) mas não no nome da marca, e que casaria a patente com o SETOR INTEIRO, não com um concorrente.",
+  "O_QUE_SERIA_PRECISO_PARA_PROMOVER": [
+    "chave de cliente da API OPS da EPO, para consulta por titular normalizado em vez de texto livre",
+    "ponte pela SUBSTÂNCIA ATIVA, ligando `Formulado` do registro ao texto da patente — e mesmo assim o resultado seria do setor, não do concorrente",
+    "aceitar que a resposta é sobre TECNOLOGIA, e não sobre lançamento: a própria missão já registra que patente pode estar anos antes, global, ou nunca virar produto"
+  ],
+  "DECISAO": "DEMOTE, conforme §7 e §B da missão. A camada não entra na timeline nem no Supabase desta rodada. A porta fica documentada e reabre sem trabalho perdido quando houver chave de OPS.",
+  "O_QUE_ISTO_NAO_PROVA": [
+    "não prova que os concorrentes não patenteiam — a busca por titular devolveu 6.333 resultados só para a Syngenta",
+    "não prova que patente seja inútil como inteligência; prova que ela não se junta a ESTA cadeia com as chaves que ESTE piloto tem",
+    "cinco marcas não são uma amostra estatística. São cinco casos, todos negativos, e é assim que estão apresentados",
+    "nao prova que PATENT_WATCH nao funcione: quatro rotas alternativas continuam sem teste, e a busca por titular ja se sabe que responde"
+  ],
+  "PATENT_BRAND_LINKAGE_ROUTE": "REFUTED_FOR_PILOT",
+  "PATENT_WATCH_COMO_UM_TODO": "NOT_TESTED",
+  "ROTAS_QUE_NAO_FORAM_TESTADAS": [
+    "APPLICANT_BASED_PATENT_WATCH — busca por titular normalizado (a busca por titular devolveu 6.333 resultados so para a Syngenta: o volume existe e nao foi avaliado)",
+    "TECHNOLOGY_WATCH — por classificacao tecnica",
+    "ACTIVE_INGREDIENT_WATCH — por substancia ativa",
+    "FORMULATION_WATCH — por formulacao",
+    "ASSIGNEE_FAMILY_WATCH — por familia de patente do titular"
+  ],
+  "PROIBIDO_ESCREVER": "PATENT_WATCH = REFUTED",
+  "POR_QUE_E_PROIBIDO": "refutar uma camada com o teste de UMA rota e o mesmo erro que este piloto passou a rodada inteira evitando. Cinco casos negativos refutam o casamento por nome comercial, e nada alem disso.",
+  "PATENT_LAYER": "DEMOTED / NOT_USED"
+}

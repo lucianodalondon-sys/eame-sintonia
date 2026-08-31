@@ -1,0 +1,156 @@
+{
+  "SOURCE_ID": "COMPETITOR-PILOT-AMOSTRA",
+  "source": "ROPF — Registro Oficial de Productos Fitosanitarios (MAPA, Espanha)",
+  "SOURCE_LOCATION": "servicio.mapa.gob.es/regfiweb",
+  "FACT_LOCATION": "ES",
+  "ORIGINAL_LANGUAGE": "es",
+  "CAMADA_DO_PILOTO": "REGULATORY — usado aqui apenas para DIMENSIONAR a amostra",
+  "captured_at": "2026-08-30",
+  "export_server_timestamp": "2026-08-31T02:28:05.6560691+02:00",
+  "access_note": "POST /regfiweb/Exportaciones/ExportJsonProductos",
+  "O_QUE_ESTE_NUMERO_E": "quantas autorizações cada empresa detém no registro espanhol, hoje.",
+  "O_QUE_ESTE_NUMERO_NAO_E": "não é market share, não é volume vendido, não é presença comercial e não é força de portfólio. Um registro pode estar em vigor e o produto nunca ter ido ao mercado.",
+  "REGISTRO_INTEIRO": {
+    "TOTAL": 3084,
+    "BY_FIELD_Estado": {
+      "Vigente": 1993,
+      "Cancelado": 1091
+    },
+    "BY_FILTER_IdEstado": {
+      "1_VIGENTE": 1998,
+      "2_CANCELADO": 1086
+    },
+    "SELLING_OFF_PERIOD": [
+      "16192",
+      "25454",
+      "ES-00195",
+      "ES-01106",
+      "ES-01107"
+    ],
+    "RULE": "IdEstado=1 == Estado=='Vigente' OR (Estado=='Cancelado' AND fechaLimiteVenta >= hoje)",
+    "MEANING": {
+      "FILTER_ANSWERS": "ainda pode ser vendido?",
+      "FIELD_ANSWERS": "a autorizacao esta em vigor?"
+    },
+    "WARNING": "os dois numeros sao corretos e respondem a perguntas diferentes. Publicar um deles sem dizer qual pergunta ele responde e erro."
+  },
+  "TITULARES_DISTINTOS": 262,
+  "REGRA_DE_AGRUPAMENTO": "prefixo declarado sobre o campo Titular, listado em GRUPOS no script. Sem casamento por semelhança: duas razões sociais só somam quando o prefixo declarado as cobre, e as duas ficam visíveis em RAZOES_SOCIAIS.",
+  "POR_GRUPO": {
+    "ADAMA": {
+      "REGISTROS": 188,
+      "ESTADO_VIGENTE": 96,
+      "ESTADO_CANCELADO": 92,
+      "CANCELADO_EM_ESCOAMENTO": 0,
+      "RAZOES_SOCIAIS": {
+        "ADAMA AGRICULTURE ESPAÑA S.A.": 188
+      },
+      "FILTRO_VIGENTE": 96
+    },
+    "CORTEVA": {
+      "REGISTROS": 121,
+      "ESTADO_VIGENTE": 70,
+      "ESTADO_CANCELADO": 51,
+      "CANCELADO_EM_ESCOAMENTO": 2,
+      "RAZOES_SOCIAIS": {
+        "CORTEVA AGRISCIENCE SPAIN, S.L.U. (SEVILLA)": 121
+      },
+      "FILTRO_VIGENTE": 72
+    },
+    "FMC": {
+      "REGISTROS": 143,
+      "ESTADO_VIGENTE": 50,
+      "ESTADO_CANCELADO": 93,
+      "CANCELADO_EM_ESCOAMENTO": 0,
+      "RAZOES_SOCIAIS": {
+        "FMC AGRICULTURAL SOLUTIONS S.A.U.": 143
+      },
+      "FILTRO_VIGENTE": 50
+    },
+    "CERTIS BELCHIM": {
+      "REGISTROS": 58,
+      "ESTADO_VIGENTE": 42,
+      "ESTADO_CANCELADO": 16,
+      "CANCELADO_EM_ESCOAMENTO": 1,
+      "RAZOES_SOCIAIS": {
+        "CERTIS BELCHIM B.V.": 58
+      },
+      "FILTRO_VIGENTE": 43
+    },
+    "SYNGENTA": {
+      "REGISTROS": 170,
+      "ESTADO_VIGENTE": 95,
+      "ESTADO_CANCELADO": 75,
+      "CANCELADO_EM_ESCOAMENTO": 1,
+      "RAZOES_SOCIAIS": {
+        "SYNGENTA ESPAÑA, S.A.": 170
+      },
+      "FILTRO_VIGENTE": 96
+    },
+    "UPL": {
+      "REGISTROS": 94,
+      "ESTADO_VIGENTE": 68,
+      "ESTADO_CANCELADO": 26,
+      "CANCELADO_EM_ESCOAMENTO": 0,
+      "RAZOES_SOCIAIS": {
+        "UPL HOLDINGS COÖPERATIEF U.A.": 32,
+        "UPL IBERIA, S.A.": 62
+      },
+      "FILTRO_VIGENTE": 68
+    },
+    "BASF": {
+      "REGISTROS": 119,
+      "ESTADO_VIGENTE": 70,
+      "ESTADO_CANCELADO": 49,
+      "CANCELADO_EM_ESCOAMENTO": 0,
+      "RAZOES_SOCIAIS": {
+        "BASF AGRICULTURAL SOLUTIONS SPAIN S.L.U.": 119
+      },
+      "FILTRO_VIGENTE": 70
+    },
+    "BAYER": {
+      "REGISTROS": 179,
+      "ESTADO_VIGENTE": 85,
+      "ESTADO_CANCELADO": 94,
+      "CANCELADO_EM_ESCOAMENTO": 0,
+      "RAZOES_SOCIAIS": {
+        "BAYER CROPSCIENCE, S.L. (BARCELONA)": 179
+      },
+      "FILTRO_VIGENTE": 85
+    },
+    "NUFARM": {
+      "REGISTROS": 147,
+      "ESTADO_VIGENTE": 102,
+      "ESTADO_CANCELADO": 45,
+      "CANCELADO_EM_ESCOAMENTO": 0,
+      "RAZOES_SOCIAIS": {
+        "NUFARM ESPAÑA S.A.": 147
+      },
+      "FILTRO_VIGENTE": 102
+    }
+  },
+  "AMOSTRA_DO_PILOTO": [
+    "NUFARM",
+    "SYNGENTA",
+    "BAYER",
+    "BASF",
+    "CORTEVA",
+    "UPL"
+  ],
+  "CRITERIO": "os 6 maiores por registros com Estado=Vigente, excluída a ADAMA. A missão pede 4–6 bem feitos em vez de oito pela metade.",
+  "FORA_DA_AMOSTRA": [
+    "FMC",
+    "CERTIS BELCHIM"
+  ],
+  "DA_MISSAO_E_AUSENTES_DO_ROPF": [],
+  "COBERTURA_DA_AMOSTRA": {
+    "REGISTROS_DOS_ESCOLHIDOS": 830,
+    "REGISTROS_NO_REGISTRO_INTEIRO": 3084,
+    "LEITURA": "830 registros em 3084 — a amostra é uma FATIA do registro espanhol, e não o registro espanhol."
+  },
+  "LIMITES": [
+    "ES apenas. Este artefato NÃO dimensiona IT nem FR: não há registro local desses dois países no acervo, e o peso na Espanha não se transfere para eles.",
+    "Uma empresa pode operar na Espanha através de pessoa jurídica cujo prefixo não está declarado em GRUPOS. Ela apareceria como não agrupada, e o script não a inventa.",
+    "ARYSTA, ALBAUGH, SHARDA, ASCENZA e outras pesam no registro e NÃO estão na lista da missão. Ficar de fora é decisão do recorte, não medida de irrelevância."
+  ]
+}

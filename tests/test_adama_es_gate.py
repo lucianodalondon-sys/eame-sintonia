@@ -325,6 +325,13 @@ class TestOEnsaioNaoEImportacao(unittest.TestCase):
         '017_o_que_a_conferencia_de_localizacao_achou.sql': 'PUBLISHED_AT != FACT_TIME',
         '018_o_lugar_do_fato_ganha_dono.sql': 'DOIS DONOS DA MESMA LEI',
         '014_catalogo_publico_fabricante.sql': 'HANDOFF_SCHEMA_VALID_THEN',
+        # COMPETITOR FORESIGHT PILOT — as duas migrations do concorrente.
+        # 019: o defeito que ela evita é criar uma SEGUNDA verdade sobre
+        #      empresa, registro e anúncio ao lado dos donos que já existem.
+        # 020: o defeito que ela evita é a view somar as camadas cheias e
+        #      fazer a ausência das vazias desaparecer da leitura.
+        '019_evento_do_concorrente.sql': 'SEGUNDA verdade',
+        '020_views_do_concorrente.sql': 'ZERO AQUI É NOT_COLLECTED, NUNCA NOT_HAPPENING',
     }
 
     def test_a_unica_migration_nova_tem_incompatibilidade_provada(self):
