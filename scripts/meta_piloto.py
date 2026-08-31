@@ -35,6 +35,8 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+sys.path.insert(0, HERE)
+import meta_identidade as identidade  # noqa: E402
 PASTA = os.path.join(ROOT, 'data', 'samples', 'META-EAME')
 ENTIDADES = os.path.join(PASTA, 'META-ADS-ENTITIES-EAME-V1.json')
 EVENTOS = os.path.join(PASTA, 'META-ADS-EVENTS-EAME-V1.json')
@@ -132,24 +134,26 @@ def metricas(acervo, anunciantes, eventos):
     }
 
 
-# PERFIL DE ENTREGA — o escopo da pagina medido, em vez de lido no nome
-# ----------------------------------------------------------------------
-# Medido em 30/08/2026, com a coleta pais a pais:
+# ONDE OS ANUNCIOS FORAM ENTREGUES — e SO isso
+# ---------------------------------------------
+# Esta funcao ja se chamou "perfil de entrega" e chegou a produzir um
+# `delivery_profile_state = PROVED` que era lido como se provasse a
+# nacionalidade da pagina. Nao prova. O coordenador recusou em 31/08/2026, e a
+# recusa esta certa:
 #
-#     Bayer Crop Science Espana .... ES 189 · IT 0 · FR 0
-#     Bayer Crop Science Italia .... ES   0 · IT 48 · FR 0
-#     Bayer Crop Science Australia . ES   1 · IT  1 · FR 0
+#     ANUNCIOS_ENTREGUES_NA_ES != PAGINA_E_ESPANHOLA
 #
-# Isso e prova de comportamento, e vale mais que o "Espana" no fim do nome: uma
-# pagina pode se chamar Espana e entregar na Europa inteira. O estado sai como
-# `SINGLE_COUNTRY_DELIVERY_OBSERVED` — OBSERVADO, nunca DECLARADO, porque so
-# medimos os tres paises do piloto. Uma pagina que entrega so na Espanha ENTRE
-# ES, IT e FR pode estar entregando na Alemanha sem que a gente saiba.
+# `Bayer Crop Science Espana` com 209 anuncios na Espanha e zero na Italia e na
+# Franca mostra uma DECISAO DE MIDIA daquela janela. Uma pagina global que
+# escolhe anunciar so na Espanha produz exatamente o mesmo desenho. Os dois
+# casos sao indistinguiveis por aqui, e chamar um de prova era inventar.
 #
-#     ENTREGA_OBSERVADA_NOS_TRES != ENTREGA_NO_MUNDO
-UM_PAIS = 'SINGLE_COUNTRY_DELIVERY_OBSERVED'
-VARIOS_PAISES = 'MULTI_COUNTRY_DELIVERY_OBSERVED'
-SEM_ENTREGA = 'NO_DELIVERY_OBSERVED_IN_PILOT_COUNTRIES'
+# O que sobra — e continua valioso — e a contagem por pais de entrega, com o
+# zero separado entre PROVADO PELA FONTE e NAO LIDO. A nacionalidade da pagina
+# mora em `meta_identidade.py`, e la ela so sai PROVED com rotulo da Meta.
+ENTREGA_UM_PAIS = 'ADS_DELIVERED_IN_ONE_PILOT_COUNTRY'
+ENTREGA_VARIOS = 'ADS_DELIVERED_IN_MORE_THAN_ONE_PILOT_COUNTRY'
+SEM_ENTREGA = 'NO_ADS_DELIVERED_IN_PILOT_COUNTRIES'
 
 
 def perfil_de_entrega(acervo, paises=('ES', 'IT', 'FR')):
@@ -179,16 +183,20 @@ def perfil_de_entrega(acervo, paises=('ES', 'IT', 'FR')):
                 if diag.get((pid, c)) == 'ZERO_CONFIRMED_BY_SOURCE'
                 else 'ZERO_NOT_CONFIRMED_' + str(diag.get((pid, c)) or 'NOT_READ'))
             for c in zeros}
-        p['delivery_profile'] = (SEM_ENTREGA if not com else
-                                 UM_PAIS if len(com) == 1 else VARIOS_PAISES)
-        p['delivery_profile_state'] = (
-            'PROVED' if all(v == 'ZERO_CONFIRMED_BY_SOURCE'
-                            for v in p['zero_countries'].values())
-            else 'PARTIAL')
-        p['delivery_profile_denominator'] = list(paises)
-        p['nota'] = ('perfil OBSERVADO entre ES, IT e FR apenas. Nao diz nada '
-                     'sobre entrega fora desses tres paises. O perfil so e '
-                     'PROVED quando cada zero foi confirmado pela fonte.')
+        p['ad_delivery_pattern'] = (SEM_ENTREGA if not com else
+                                    ENTREGA_UM_PAIS if len(com) == 1
+                                    else ENTREGA_VARIOS)
+        p['ad_delivery_pattern_state'] = (
+            'ALL_ZEROS_CONFIRMED_BY_SOURCE'
+            if all(v == 'ZERO_CONFIRMED_BY_SOURCE'
+                   for v in p['zero_countries'].values())
+            else 'SOME_ZEROS_NOT_CONFIRMED')
+        p['ad_delivery_denominator'] = list(paises)
+        p['page_country_scope'] = 'SEE_META-PAGE-IDENTITY-EAME-V1.json'
+        p['nota'] = ('isto e ENTREGA DE ANUNCIO entre ES, IT e FR, e nada mais. '
+                     'NAO prova nacionalidade, sede nem escopo da pagina: uma '
+                     'pagina global que escolhe um pais produz o mesmo desenho. '
+                     'Ver page_country_scope em meta_identidade.py.')
     return por_pagina
 
 
@@ -328,8 +336,19 @@ def rodar():
     met = metricas(acervo, anunciantes, eventos)
     met['top_20_evidence'] = top_evidencias(acervo)
     perfis = perfil_de_entrega(acervo)
-    met['page_delivery_profile'] = list(perfis.values())
-    art['page_delivery_profile'] = list(perfis.values())
+    # o nome do campo mudou junto com o sentido: era `page_delivery_profile`, e
+    # `page_...` fazia parecer atributo da pagina. E do ANUNCIO.
+    met['ad_delivery_by_page'] = list(perfis.values())
+    art['ad_delivery_by_page'] = list(perfis.values())
+    linhas = identidade.inventario(ANUNCIANTES, acervo)
+    met['page_identity_summary'] = identidade.resumo(linhas)
+    art['page_identity_summary'] = identidade.resumo(linhas)
+    with open(os.path.join(PASTA, 'META-PAGE-IDENTITY-EAME-V1.json'), 'w',
+              encoding='utf-8') as f:
+        json.dump({'dataset_owner': 'META_COMPETITOR_EAME',
+                   'as_of_date': acervo.get('as_of_date'),
+                   'summary': identidade.resumo(linhas), 'pages': linhas},
+                  f, ensure_ascii=False, indent=2)
     os.makedirs(PASTA, exist_ok=True)
     with open(DEST, 'w', encoding='utf-8') as f:
         json.dump(art, f, ensure_ascii=False, indent=2)

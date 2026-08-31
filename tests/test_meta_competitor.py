@@ -26,12 +26,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import meta_navegador as navegador  # noqa: E402
+import meta_identidade as identidade  # noqa: E402
 import meta_relogio as relogio  # noqa: E402
 import meta_leitura as leitura  # noqa: E402
 import meta_anunciante as anunciante  # noqa: E402
 import meta_coleta as coleta  # noqa: E402
 import meta_convergencia as convergencia  # noqa: E402
 import meta_piloto as piloto  # noqa: E402
+import meta_temporal as temporal  # noqa: E402
 
 PASTA = os.path.join(ROOT, 'data', 'samples', 'META-EAME')
 
@@ -348,6 +350,163 @@ class FerramentaCaidaNaoEAusencia(unittest.TestCase):
                 + d['advertisers_tool_failure'])
         self.assertEqual(soma, d['advertisers_attempted'],
                          'toda empresa tentada precisa cair em exatamente um estado')
+
+
+class GuardaDeIdentidadeDoAnunciante(unittest.TestCase):
+    """ADAMA_ADVERTISER_IDENTITY_GUARD.
+
+    O `Instytut Adama Mickiewicza` — instituto cultural polones — entrou como
+    ADAMA por casamento nominal e levou 33 dos 40 cartoes do acervo PROPRIO.
+    Estes testes existem para que ele nunca mais seja agregado.
+    """
+
+    def test_o_instituto_polones_e_recusado(self):
+        g = identidade.guarda_identidade('Instytut Adama Mickiewicza', 'ADAMA')
+        self.assertEqual(g['state'], identidade.IDENTIDADE_RECUSADA)
+
+    def test_a_pagina_real_da_adama_e_aceita(self):
+        self.assertEqual(
+            identidade.guarda_identidade('ADAMA Ltd.', 'ADAMA')['state'],
+            identidade.IDENTIDADE_ACEITA)
+
+    def test_paginas_legitimas_de_concorrentes_continuam_passando(self):
+        for nome, empresa in [('Bayer Crop Science España', 'Bayer'),
+                              ('UPL Iberia', 'UPL'),
+                              ('Certis Belchim España', 'Certis Belchim'),
+                              ('Corteva.Agriscience', 'Corteva'),
+                              ('SEIPASA', 'Seipasa')]:
+            self.assertEqual(
+                identidade.guarda_identidade(nome, empresa)['state'],
+                identidade.IDENTIDADE_ACEITA, nome)
+
+    def test_token_no_meio_do_nome_nunca_agrega(self):
+        for nome in ['Fundacao Adama Cultural', 'Amigos de Adama',
+                     'Instytut Adama Mickiewicza']:
+            self.assertEqual(
+                identidade.guarda_identidade(nome, 'ADAMA')['state'],
+                identidade.IDENTIDADE_RECUSADA, nome)
+
+    def test_o_acervo_limpo_no_disco_nao_contem_o_falso(self):
+        caminho = os.path.join(PASTA, 'META-OWN-ADS-ENTITIES-ADAMA-CLEAN-V1.json')
+        if not os.path.exists(caminho):
+            self.skipTest('limpeza ainda nao rodou')
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+        nomes = {e.get('page_name_resolved') for e in d['entities'].values()}
+        self.assertNotIn('Instytut Adama Mickiewicza', nomes)
+        self.assertEqual(d['identity_guard']['adama_false_cards_rejected'], 33)
+        self.assertEqual(d['identity_guard']['adama_real_cards_remaining'],
+                         len(d['entities']))
+
+    def test_os_recusados_foram_preservados_e_nao_apagados(self):
+        caminho = os.path.join(PASTA, 'META-OWN-ADS-REJECTED-IDENTITY-V1.json')
+        if not os.path.exists(caminho):
+            self.skipTest('limpeza ainda nao rodou')
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+        self.assertEqual(len(d['entities']), 33)
+
+
+class EntregaNaoProvaNacionalidade(unittest.TestCase):
+    """ADS_DELIVERED_IN_ES != PAGE_IS_SPANISH."""
+
+    def test_pagina_sem_rotulo_da_meta_fica_not_proved(self):
+        p = {'page_name': 'Bayer Crop Science España', 'country_label_by_meta': None}
+        self.assertEqual(identidade.escopo_de_pais(p)['page_country_scope'],
+                         identidade.SCOPE_NOT_PROVED)
+
+    def test_so_o_rotulo_da_meta_promove(self):
+        p = {'page_name': 'Corteva Agriscience', 'country_label_by_meta': 'Italy'}
+        e = identidade.escopo_de_pais(p)
+        self.assertEqual(e['page_country_scope'], identidade.LOCAL_PROVED)
+        self.assertEqual(e['country_code'], 'IT')
+
+    def test_papel_da_pagina_nao_e_inventado_a_partir_da_categoria(self):
+        r = identidade.papel({'category': 'Agricultural Service'})
+        self.assertEqual(r['page_role'], identidade.ROLE_NOT_PROVED)
+
+    def test_o_inventario_no_disco_nao_conta_entrega_como_localidade(self):
+        caminho = os.path.join(PASTA, 'META-PAGE-IDENTITY-EAME-V1.json')
+        if not os.path.exists(caminho):
+            self.skipTest('inventario ainda nao gerado')
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+        for p in d['pages']:
+            if p['page_country_scope']['page_country_scope'] != 'NOT_PROVED':
+                self.assertIsNotNone(p['page_country_scope']['proof'])
+        s = d['summary']
+        self.assertEqual(s['page_country_scope_local_proved']
+                         + s['page_country_scope_global_proved']
+                         + s['page_country_scope_not_proved'],
+                         s['page_ids_proved'])
+
+
+class DoisSnapshotsNaoProvamCicloDeVida(unittest.TestCase):
+    """O que dois pontos no tempo podem e nao podem dizer."""
+
+    def test_o_que_some_de_lista_incompleta_nao_pode_ser_afirmado(self):
+        r = temporal.comparar_slice(['1', '2'], ['1'], ambas_pontas_completas=False)
+        self.assertEqual(r['no_longer_observed'], [])
+        self.assertEqual(r['absent_but_not_claimable'], ['2'])
+
+    def test_com_as_duas_pontas_completas_a_ausencia_pode_ser_afirmada(self):
+        r = temporal.comparar_slice(['1', '2'], ['1'], ambas_pontas_completas=True)
+        self.assertEqual(r['no_longer_observed'], ['2'])
+        self.assertEqual(r['absent_but_not_claimable'], [])
+
+    def test_zero_para_ativo_e_visivel_porque_o_zero_foi_revisitado(self):
+        r = temporal.comparar_slice([], ['9'], True)
+        self.assertEqual(r['slice_transition'], temporal.ZERO_TO_ACTIVE)
+        self.assertEqual(r['newly_observed'], ['9'])
+
+    def test_ativo_para_zero(self):
+        self.assertEqual(temporal.comparar_slice(['9'], [], True)['slice_transition'],
+                         temporal.ACTIVE_TO_ZERO)
+
+    def test_nada_muda_devolve_present_both_e_nenhuma_transicao(self):
+        r = temporal.comparar_slice(['1'], ['1'], True)
+        self.assertEqual(r['present_both'], ['1'])
+        self.assertEqual(r['slice_transition'], temporal.SLICE_UNCHANGED)
+        self.assertEqual(r['newly_observed'], [])
+
+    def test_active_again_nao_existe_com_dois_snapshots(self):
+        # o estado nao pode nem ser produzido pela funcao de comparacao
+        r = temporal.comparar_slice(['1'], ['1'], True)
+        self.assertNotIn('ACTIVE_AGAIN', json.dumps(r))
+        self.assertNotIn('active_again', json.dumps(r).lower())
+
+    def test_o_manifesto_congelado_inclui_os_zeros(self):
+        caminho = os.path.join(PASTA, 'META-TEMPORAL-SNAPSHOT-MANIFEST.json')
+        if not os.path.exists(caminho):
+            self.skipTest('manifesto ainda nao congelado')
+        with open(caminho, encoding='utf-8') as f:
+            m = json.load(f)
+        self.assertEqual(m['slices_with_ads'] + m['slices_honest_zero'],
+                         m['slices_total'])
+        self.assertGreater(m['slices_honest_zero'], 0,
+                           'sem revisitar zeros, ZERO_TO_ACTIVE seria invisivel')
+
+    def test_o_manifesto_e_congelado_antes_da_coleta(self):
+        mcaminho = os.path.join(PASTA, 'META-TEMPORAL-SNAPSHOT-MANIFEST.json')
+        scaminho = os.path.join(PASTA, 'META-SNAPSHOT-2-OBSERVATIONS.json')
+        if not (os.path.exists(mcaminho) and os.path.exists(scaminho)):
+            self.skipTest('snapshot 2 ainda nao rodou')
+        with open(mcaminho, encoding='utf-8') as f:
+            m = json.load(f)
+        with open(scaminho, encoding='utf-8') as f:
+            s = json.load(f)
+        self.assertEqual(s['manifest_frozen_at'], m['frozen_at'])
+        self.assertLess(m['frozen_at'], s['as_of_date'],
+                        'o denominador tem de estar congelado ANTES da coleta')
+
+    def test_a_comparacao_no_disco_nao_afirma_ciclo_de_vida_completo(self):
+        caminho = os.path.join(PASTA, 'META-TEMPORAL-COMPARISON-V1.json')
+        if not os.path.exists(caminho):
+            self.skipTest('comparacao ainda nao gerada')
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+        self.assertEqual(d['full_lifecycle_state_capability'], 'NOT_PROVED')
+        self.assertIn(d['change_observed'], ('YES', 'NO'))
 
 
 class CruzamentoNaoColapsa(unittest.TestCase):
