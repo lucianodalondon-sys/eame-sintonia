@@ -66,11 +66,35 @@
       "ZERO_BOTH": 29
     },
     "change_observed": "NO",
-    "change_observed_basis": "somente os recortes com profundidade de leitura comparavel entram nesta conta"
+    "change_observed_basis": "somente os recortes com profundidade de leitura comparavel entram nesta conta",
+    "stable_entities_alignable_across_raw_snapshots": 1340,
+    "stable_entities_alignable_definition": "entidades do snapshot 1 reencontradas no snapshot 2 BRUTO, em qualquer recorte. Mede realinhamento, NAO autoriza claim de mudanca.",
+    "stable_entities_lost_in_realignment": 0,
+    "temporal_comparable_depth_slices": 60,
+    "temporal_noncomparable_depth_slices": 7,
+    "temporal_entities_in_comparable_depth_slices": 337,
+    "present_both": 337,
+    "newly_observed": 0,
+    "no_longer_observed": 0,
+    "method_depth_delta_cards": 587,
+    "method_depth_delta_excluded_from_temporal_change_claim": "YES",
+    "method_depth_delta_nao_e": "NEW_AD_ACTIVITY. Sao cartoes que ja estavam la e o snapshot 1 nao chegou a ler.",
+    "change_observed_scope": "60 DEPTH-COMPARABLE SLICES BETWEEN THE TWO MEASURED SNAPSHOTS",
+    "change_observed_frase_permitida": "NO CHANGE OBSERVED IN THE COMPARABLE MEASURED SLICES DURING THIS SHORT OBSERVATION WINDOW",
+    "change_observed_frase_proibida": "os concorrentes nao mudaram sua atividade na Meta"
   },
   "page_model": {
-    "page_identity_model": "PROVED",
+    "page_id_proof_capability": "PROVED",
+    "page_id_proof_denominator": 23,
+    "page_country_scope_capability": "PARTIAL_LOW_COVERAGE",
+    "page_country_scope_coverage": "1 de 23 paginas",
+    "page_role_capability": "NOT_PROVED",
     "ad_delivery_country_model": "PROVED",
+    "ad_delivery_country_scope": [
+      "ES",
+      "IT",
+      "FR"
+    ],
     "page_ids_proved": 23,
     "page_country_scope_local_proved": 1,
     "page_country_scope_global_proved": 0,
@@ -82,7 +106,18 @@
       "FR"
     ],
     "aviso": "PROVED_LOCAL_META_PAGES conta SOMENTE paginas rotuladas por pais pela propria Meta. Distribuicao de entrega nao entra nesta conta — e a pergunta ao lado, nao esta.",
-    "lei": "ADS_DELIVERED_IN_ES != PAGE_IS_SPANISH. A comparacao temporal usa page_id x ad_delivery_country e NAO depende de a pagina ser local."
+    "leis_permanentes": [
+      "PAGE_COUNTRY_SCOPE != AD_DELIVERY_COUNTRY",
+      "AD_REACHED_OR_OBSERVED_IN_COUNTRY != AD_TARGETED_TO_COUNTRY",
+      "ADS_DELIVERED_IN_ES != PAGE_IS_SPANISH"
+    ],
+    "frase_proibida": "\"dirigido a Espanha/Franca/Italia\" sem target_location ou prova equivalente. O que temos e pais de ENTREGA observada.",
+    "nota": "a comparacao temporal usa page_id x ad_delivery_country e NAO depende de a pagina ser local."
+  },
+  "capability_statement": {
+    "observable_unit": "COMPETITOR x PROVED PAGE_ID x AD_DELIVERY_COUNTRY x SNAPSHOT",
+    "claim": "COMPETITOR_PAID_META_ACTIVITY_OBSERVED",
+    "nao_depende_de": "a pagina ser local ao pais de entrega"
   },
   "own_dataset_adama": {
     "adama_advertiser_identity_guard": "PASS",
@@ -95,7 +130,12 @@
   },
   "capabilities": {
     "meta_snapshot_capability": "PROVED",
-    "meta_temporal_comparison_capability": "PROVED",
+    "temporal_comparison_mechanism": "PROVED",
+    "meta_temporal_comparison_capability": "PROVED_FOR_COMPARABLE_SLICES",
+    "temporal_comparison_scope": "60 de 67 recortes",
+    "operational_temporal_signal_value": "NOT_PROVED",
+    "daily_intelligence_value": "NOT_PROVED",
+    "operational_value_nota": "a janela medida tem cerca de uma hora. Isso mostra que o mecanismo compara; nao mostra que a cadencia diaria produz sinal util. Provar isso exigiria outra medicao, e nao ha terceira coleta autorizada.",
     "full_lifecycle_state_capability": "NOT_PROVED",
     "full_lifecycle_nota": "ACTIVE_AGAIN exige ativo -> ausente -> ativo, e isso pede tres pontos no tempo."
   },
@@ -149,5 +189,8 @@
     "que um anuncio parou de veicular porque sumiu da lista"
   ],
   "more_collection_needed": "NO",
-  "mission_state": "PARKED"
+  "meta_competitor": "ACCEPTED",
+  "mandatory_handoff_ready": "YES",
+  "mission_state": "PARKED",
+  "no_further_action_now": "YES"
 }

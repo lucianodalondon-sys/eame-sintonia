@@ -566,6 +566,94 @@ class DoisSnapshotsNaoProvamCicloDeVida(unittest.TestCase):
         self.assertIn(d['change_observed'], ('YES', 'NO'))
 
 
+class SelosDoHandoffNaoPodemSerAmbiguos(unittest.TestCase):
+    """Cada selo do handoff carrega o proprio denominador.
+
+    Um selo agregado mente por omissao: `PAGE_IDENTITY_MODEL = PROVED` dava a
+    entender que pais e papel da pagina tambem estavam provados, quando estao
+    em 1 de 23 e 0 de 23. E `TEMPORAL_ENTITIES_COMPARABLE = 1340` podia ser
+    lido como universo valido para afirmar mudanca, quando o universo valido
+    tem 337 cartoes em 60 recortes.
+    """
+
+    def _handoff(self):
+        caminho = os.path.join(PASTA, 'META-HANDOFF-FREEZE-V1.json')
+        if not os.path.exists(caminho):
+            self.skipTest('handoff ainda nao gerado')
+        with open(caminho, encoding='utf-8') as f:
+            return json.load(f)
+
+    def test_o_selo_agregado_de_identidade_nao_existe_mais(self):
+        h = self._handoff()
+        self.assertNotIn('page_identity_model', h['page_model'])
+        self.assertEqual(h['page_model']['page_id_proof_capability'], 'PROVED')
+        self.assertEqual(h['page_model']['page_role_capability'], 'NOT_PROVED')
+        self.assertEqual(h['page_model']['page_country_scope_capability'],
+                         'PARTIAL_LOW_COVERAGE')
+
+    def test_os_1340_nao_se_apresentam_como_universo_de_mudanca(self):
+        h = self._handoff()['temporal']
+        self.assertNotIn('temporal_entities_comparable', h)
+        self.assertEqual(h['stable_entities_alignable_across_raw_snapshots'], 1340)
+        self.assertEqual(h['temporal_entities_in_comparable_depth_slices'], 337)
+        self.assertNotEqual(h['temporal_entities_in_comparable_depth_slices'],
+                            h['stable_entities_alignable_across_raw_snapshots'])
+
+    def test_os_587_nunca_aparecem_como_atividade_nova(self):
+        h = self._handoff()
+        t = h['temporal']
+        self.assertEqual(t['method_depth_delta_cards'], 587)
+        self.assertEqual(
+            t['method_depth_delta_excluded_from_temporal_change_claim'], 'YES')
+        # `NEW_AD_ACTIVITY` PODE aparecer — mas so na frase que o proibe. O que
+        # nao pode existir e uma CHAVE com esse nome carregando os 587.
+        def chaves(o):
+            if isinstance(o, dict):
+                for k, v in o.items():
+                    yield k
+                    yield from chaves(v)
+            elif isinstance(o, list):
+                for i in o:
+                    yield from chaves(i)
+        self.assertNotIn('new_ad_activity', {k.lower() for k in chaves(h)})
+        self.assertIn('NEW_AD_ACTIVITY', t['method_depth_delta_nao_e'])
+
+    def test_change_observed_carrega_o_escopo_junto(self):
+        t = self._handoff()['temporal']
+        self.assertEqual(t['change_observed'], 'NO')
+        self.assertIn('DEPTH-COMPARABLE SLICES', t['change_observed_scope'])
+        self.assertIn('COMPARABLE MEASURED SLICES',
+                      t['change_observed_frase_permitida'])
+
+    def test_mecanismo_provado_nao_vira_valor_operacional_provado(self):
+        c = self._handoff()['capabilities']
+        self.assertEqual(c['temporal_comparison_mechanism'], 'PROVED')
+        self.assertEqual(c['operational_temporal_signal_value'], 'NOT_PROVED')
+        self.assertEqual(c['daily_intelligence_value'], 'NOT_PROVED')
+        self.assertEqual(c['meta_temporal_comparison_capability'],
+                         'PROVED_FOR_COMPARABLE_SLICES')
+
+    def test_o_handoff_nao_diz_dirigido_a_um_pais(self):
+        h = self._handoff()
+        texto = json.dumps(h, ensure_ascii=False).lower()
+        for proibida in ('targeted to spain', 'targeted to france',
+                         'targeted to italy', 'dirigido a espanha'):
+            self.assertNotIn(proibida, texto.replace('"dirigido a espanha', ''))
+        self.assertIn('AD_REACHED_OR_OBSERVED_IN_COUNTRY != AD_TARGETED_TO_COUNTRY',
+                      h['page_model']['leis_permanentes'])
+
+    def test_o_foresight_e_superado_e_nao_invalido(self):
+        f = self._handoff()['foresight_lineage']
+        self.assertEqual(f['state'], 'SUPERSEDED_INPUT')
+        self.assertEqual(f['foresight_rejoin_required'], 'YES')
+        self.assertNotIn('INVALID', json.dumps(f))
+
+    def test_o_commit_de_congelamento_esta_carimbado(self):
+        h = self._handoff()
+        self.assertTrue(h['meta_canonical_freeze_commit'],
+                        'o handoff precisa apontar para um commit')
+
+
 class CruzamentoNaoColapsa(unittest.TestCase):
     """As duas camadas se encontram numa CELULA, e nunca numa so coluna."""
 

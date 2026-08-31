@@ -64,6 +64,51 @@ def montar(freeze_commit=None):
     cartoes2 = {a['library_id'] for o in obs2 for a in o.get('ads', [])}
     guarda = (adama.get('identity_guard') or {})
 
+    # ── O QUE OS 1.340 SAO, EXATAMENTE ──────────────────────────────────────
+    # O numero foi reportado como TEMPORAL_ENTITIES_COMPARABLE, e isso podia ser
+    # lido como "universo valido para afirmar mudanca". Nao e. Os 1.340 sao as
+    # entidades do snapshot 1 que voltaram a ser encontradas no snapshot 2 BRUTO
+    # — util para saber que nenhuma se perdeu no realinhamento, e insuficiente
+    # para sustentar claim de mudanca, porque 7 dos 67 recortes foram lidos com
+    # profundidades diferentes.
+    #
+    #     REALINHAVEL_NO_BRUTO != VALIDO_PARA_AFIRMAR_MUDANCA
+    #
+    # O universo que sustenta claim de mudanca sao os 337 cartoes dos 60
+    # recortes de profundidade comparavel.
+    alinhaveis = set(ent1) & cartoes2
+    comparaveis = (cmp_.get('totals_unit_ad_card_read_depth_comparable') or {})
+    confundidos = (cmp_.get('read_depth_confounded') or {})
+    selos_temporais = {
+        'stable_entities_alignable_across_raw_snapshots': len(alinhaveis),
+        'stable_entities_alignable_definition': (
+            'entidades do snapshot 1 reencontradas no snapshot 2 BRUTO, em '
+            'qualquer recorte. Mede realinhamento, NAO autoriza claim de '
+            'mudanca.'),
+        'stable_entities_lost_in_realignment': len(set(ent1) - cartoes2),
+        'temporal_comparable_depth_slices': comparaveis.get('slices'),
+        'temporal_noncomparable_depth_slices': confundidos.get('slices'),
+        'temporal_entities_in_comparable_depth_slices':
+            comparaveis.get('PRESENT_BOTH'),
+        'present_both': comparaveis.get('PRESENT_BOTH'),
+        'newly_observed': comparaveis.get('NEWLY_OBSERVED'),
+        'no_longer_observed': comparaveis.get('NO_LONGER_OBSERVED_IN_SNAPSHOT_2'),
+        'method_depth_delta_cards': confundidos.get('cards_gained_by_deeper_reading'),
+        'method_depth_delta_excluded_from_temporal_change_claim': 'YES',
+        'method_depth_delta_nao_e': (
+            'NEW_AD_ACTIVITY. Sao cartoes que ja estavam la e o snapshot 1 nao '
+            'chegou a ler.'),
+        'change_observed': cmp_.get('change_observed'),
+        'change_observed_scope': (
+            '%s DEPTH-COMPARABLE SLICES BETWEEN THE TWO MEASURED SNAPSHOTS'
+            % comparaveis.get('slices')),
+        'change_observed_frase_permitida': (
+            'NO CHANGE OBSERVED IN THE COMPARABLE MEASURED SLICES DURING THIS '
+            'SHORT OBSERVATION WINDOW'),
+        'change_observed_frase_proibida': (
+            'os concorrentes nao mudaram sua atividade na Meta'),
+    }
+
     return {
         'artifact': 'META-HANDOFF-FREEZE-V1',
         'dataset_owner': 'META_COMPETITOR_EAME',
@@ -131,15 +176,42 @@ def montar(freeze_commit=None):
             'slice_transitions_unit_slice': cmp_.get('slice_transitions_unit_slice'),
             'change_observed': cmp_.get('change_observed'),
             'change_observed_basis': cmp_.get('change_observed_basis'),
+            **selos_temporais,
         },
 
+        # PAGE_IDENTITY_MODEL = PROVED, sozinho, mentia por omissao: dava a
+        # entender que pais e papel da pagina tambem estavam provados. Estao em
+        # 1 de 23 e 0 de 23. Cada capacidade sai com o proprio selo e o proprio
+        # denominador.
         'page_model': {
-            'page_identity_model': 'PROVED',
+            'page_id_proof_capability': 'PROVED',
+            'page_id_proof_denominator': (ident.get('summary') or {}).get(
+                'page_ids_proved'),
+            'page_country_scope_capability': 'PARTIAL_LOW_COVERAGE',
+            'page_country_scope_coverage': '%s de %s paginas' % (
+                (ident.get('summary') or {}).get('page_country_scope_local_proved'),
+                (ident.get('summary') or {}).get('page_ids_proved')),
+            'page_role_capability': 'NOT_PROVED',
             'ad_delivery_country_model': 'PROVED',
+            'ad_delivery_country_scope': ['ES', 'IT', 'FR'],
             **(ident.get('summary') or {}),
-            'lei': 'ADS_DELIVERED_IN_ES != PAGE_IS_SPANISH. A comparacao temporal '
-                   'usa page_id x ad_delivery_country e NAO depende de a pagina '
-                   'ser local.',
+            'leis_permanentes': [
+                'PAGE_COUNTRY_SCOPE != AD_DELIVERY_COUNTRY',
+                'AD_REACHED_OR_OBSERVED_IN_COUNTRY != AD_TARGETED_TO_COUNTRY',
+                'ADS_DELIVERED_IN_ES != PAGE_IS_SPANISH',
+            ],
+            'frase_proibida': (
+                '"dirigido a Espanha/Franca/Italia" sem target_location ou prova '
+                'equivalente. O que temos e pais de ENTREGA observada.'),
+            'nota': 'a comparacao temporal usa page_id x ad_delivery_country e '
+                    'NAO depende de a pagina ser local.',
+        },
+
+        'capability_statement': {
+            'observable_unit': ('COMPETITOR x PROVED PAGE_ID x '
+                                'AD_DELIVERY_COUNTRY x SNAPSHOT'),
+            'claim': 'COMPETITOR_PAID_META_ACTIVITY_OBSERVED',
+            'nao_depende_de': 'a pagina ser local ao pais de entrega',
         },
 
         'own_dataset_adama': {
@@ -151,10 +223,26 @@ def montar(freeze_commit=None):
             'rejected_preserved_in': guarda.get('rejected_preserved_in'),
         },
 
+        # MECANISMO E VALOR SAO DUAS COISAS
+        # Duas leituras separadas por cerca de uma hora provam que o relogio
+        # COMPARA. Nao provam que comparar todo dia entrega sinal util para o
+        # Daily Intelligence — para isso seria preciso medir uma cadencia real,
+        # e a missao esta parada.
+        #
+        #     MECANISMO_FUNCIONA != CADENCIA_TEM_VALOR
         'capabilities': {
             'meta_snapshot_capability': 'PROVED',
-            'meta_temporal_comparison_capability':
-                cmp_.get('temporal_comparison_capability'),
+            'temporal_comparison_mechanism': 'PROVED',
+            'meta_temporal_comparison_capability': 'PROVED_FOR_COMPARABLE_SLICES',
+            'temporal_comparison_scope': '%s de %s recortes' % (
+                comparaveis.get('slices'), (manif or {}).get('slices_total')),
+            'operational_temporal_signal_value': 'NOT_PROVED',
+            'daily_intelligence_value': 'NOT_PROVED',
+            'operational_value_nota': (
+                'a janela medida tem cerca de uma hora. Isso mostra que o '
+                'mecanismo compara; nao mostra que a cadencia diaria produz '
+                'sinal util. Provar isso exigiria outra medicao, e nao ha '
+                'terceira coleta autorizada.'),
             'full_lifecycle_state_capability': 'NOT_PROVED',
             'full_lifecycle_nota': (
                 'ACTIVE_AGAIN exige ativo -> ausente -> ativo, e isso pede tres '
@@ -217,7 +305,10 @@ def montar(freeze_commit=None):
         ],
 
         'more_collection_needed': 'NO',
+        'meta_competitor': 'ACCEPTED',
+        'mandatory_handoff_ready': 'YES',
         'mission_state': 'PARKED',
+        'no_further_action_now': 'YES',
     }
 
 
