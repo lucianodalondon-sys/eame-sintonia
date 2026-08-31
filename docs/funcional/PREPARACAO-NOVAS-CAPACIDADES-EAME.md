@@ -24,7 +24,46 @@ MANDATORY_HANDOFFS_ACCEPTED = 2/4
 | fixtures + proveniência | `data/functional-sandbox/fixtures/` |
 | medição derivada | `data/functional-sandbox/PREP-MEDICAO.json` |
 
-**Suíte inteira:** `392 testes · OK · 0 falhas`.
+**Suíte inteira:** `460 testes · OK · 0 falhas` — o número subiu depois desta rodada, com o
+contrato multilíngue. As 63 provas desta bancada continuam as mesmas.
+
+---
+
+## GUARDRAIL ARQUITETURAL HERDADO — contrato multilíngue
+
+```
+MULTILINGUAL_CONTRACT_SOURCE_COMMIT = 1443f6435d4297a4563f25d83473142fc12e1f0d
+MULTILINGUAL_CONTRACT_STATE         = ACCEPTED_FROZEN
+```
+
+Documento: [`docs/arquitetura/CONTRATO-MULTILINGUE-SINTONIA-EAME.md`](../arquitetura/CONTRATO-MULTILINGUE-SINTONIA-EAME.md)
+· modelo em `scripts/multilingual_contract.py` · 68 provas em `tests/test_multilingual.py`.
+
+**O funcional consome este contrato como guardrail congelado.** Toda preparação daqui em
+diante — schema, adaptador, fixture, teste, sandbox, contrato de UI — respeita:
+
+```
+ONE_CANONICAL_CORPUS = YES        SEPARATE_DATABASE_PER_LANGUAGE = NO
+
+SOURCE_LANGUAGE ≠ ARTIFACT_LANGUAGE ≠ UI_LANGUAGE
+                ≠ DISPLAY_LANGUAGE ≠ TRANSLATION_TARGET_LANGUAGE
+
+CANONICAL_ID ≠ DISPLAY_LABEL
+ORIGINAL_QUOTE ≠ TRANSLATED_QUOTE ≠ SOURCE_REFERENCE
+```
+
+**E `NÃO SEI` continua `NÃO SEI`.** Nenhum adaptador pode reinterpretar língua ausente como
+português, inglês, multilíngue ou qualquer outra coisa — nem inferi-la a partir da tradução
+exibida. O estado legado é `LEGACY_SOURCE_LANGUAGE_INTEGRITY = NOT_PROVED`, medido em
+**0 de 5.998** registros com língua de origem declarada.
+
+**O que o guardrail NÃO autoriza**, mesmo estando aceito e congelado:
+
+```
+CORPUS_MIGRATION · MASS_TRANSLATION · SEARCH_INDEX_IMPLEMENTATION
+DISEASE_ICON_BINDING · REAL_DATA_WIRING · CASCO_V8_IMPLEMENTATION
+FINAL_INTELLIGENCE_REFRESH
+```
 
 ---
 
