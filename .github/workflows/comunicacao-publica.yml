@@ -94,10 +94,35 @@ jobs:
       # A régua de identidade roda de novo, de graça, ANTES da fase paga. Ela é
       # determinística sobre a evidência gravada: se o resultado mudar aqui,
       # alguém mexeu na régua ou na evidência, e a coleta tem que ver a lista nova.
-      - name: 2 · reconferir quem está autorizado (grátis)
+      # A régua roda de novo, de graça, e os testes junto. Mas o LOTE **não** é
+      # regenerado aqui: ele está congelado, e regerar destruiria o denominador contra o
+      # qual o rendimento vai ser medido. Se a régua e o lote divergirem, o passo abaixo
+      # AVISA e a coleta segue obedecendo ao lote — a divergência aparece no git diff e é
+      # decisão humana, não conserto silencioso de máquina.
+      - name: 2 · reconferir a régua e os testes (grátis, não regera o lote)
         run: |
           PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_identidade.py
           PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py
+          PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
+          import json
+          lote = json.load(open('data/samples/COMPETITOR-PUBLIC-COMM/'
+                                'PUBLIC-COMM-FIRST-BATCH-EAME.json', encoding='utf-8'))
+          contas = json.load(open('data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json',
+                                  encoding='utf-8'))
+          no_lote = {c['ACCOUNT_URL'] for c in lote['ACCOUNTS']}
+          pela_regua = {c['ACCOUNT_URL'] for c in contas['ACCOUNTS']
+                        if c['COLLECTION_AUTHORIZED'] == 'YES'}
+          print('LOTE_CONGELADO_EM=%s' % lote['FROZEN_AT'])
+          print('CONTAS_NO_LOTE=%d' % len(no_lote))
+          if no_lote == pela_regua:
+              print('LOTE_x_REGUA=IGUAIS')
+          else:
+              print('LOTE_x_REGUA=DIVERGEM — a coleta obedece ao LOTE')
+              for u in sorted(pela_regua - no_lote):
+                  print('  a regua liberou e o lote NAO tem: %s' % u)
+              for u in sorted(no_lote - pela_regua):
+                  print('  o lote tem e a regua NAO libera mais: %s' % u)
+          PYEOF
 
       - name: 3 · rodar a fase
         env:

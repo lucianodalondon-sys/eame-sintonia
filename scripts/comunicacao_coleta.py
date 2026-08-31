@@ -58,7 +58,13 @@ import coletor                 # noqa: E402  — porta única das rotas pagas
 
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 SAIDA = os.path.join(SAMPLES, 'COMPETITOR-PUBLIC-COMM')
-CONTAS = os.path.join(SAIDA, 'CONTAS-V1.json')
+# A coleta obedece ao LOTE CONGELADO, não à régua. `CONTAS-V1.json` muda quando o
+# critério de identidade muda — o que é bom enquanto nada foi pago. Depois da primeira
+# execução paga, a lista tem que parar de se mexer, senão o rendimento fica medido contra
+# um denominador que mudou no meio.
+#
+#     LISTA QUE MUDA SOZINHA APAGA A MEDIÇÃO DO RENDIMENTO.
+LOTE = os.path.join(SAIDA, 'PUBLIC-COMM-FIRST-BATCH-EAME.json')
 
 MISSION = '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
 DATASET_OWNER = 'COMPETITOR_PUBLIC_COMMUNICATION_EAME'
@@ -81,9 +87,14 @@ ATORES = {
 
 
 def contas_autorizadas(plataforma=None):
-    with open(CONTAS, encoding='utf-8') as f:
+    """As contas do LOTE CONGELADO. Este arquivo não decide quem entra — ele obedece."""
+    if not os.path.exists(LOTE):
+        raise SystemExit(
+            'sem lote congelado. Rode `py scripts/comunicacao_lote.py` antes.\n'
+            'A coleta paga não improvisa a lista: ela obedece a uma lista datada.')
+    with open(LOTE, encoding='utf-8') as f:
         d = json.load(f)
-    cs = [c for c in d['ACCOUNTS'] if c['COLLECTION_AUTHORIZED'] == 'YES']
+    cs = d['ACCOUNTS']
     if plataforma:
         cs = [c for c in cs if c['PLATFORM'] == plataforma]
     return cs

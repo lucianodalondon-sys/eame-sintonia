@@ -291,6 +291,90 @@ def _linha(empresa, pais, plataforma, url, link, handle, estado, escopo_, ev, ev
 #
 # Onde a volta NÃO fechou, não há linha aqui. Silêncio é NOT_KNOWN, não é reprovação.
 PROVA_INVERSA = {
+    # ── FECHARAM COMO LOCAL ────────────────────────────────────────────────────
+    ('BAYER', 'FR', 'YOUTUBE', 'BayerAgri'): {
+        'SCOPE': 'LOCAL_COUNTRY',
+        'CHAIN': ['https://www.youtube.com/@BayerAgri'],
+        'EVIDENCE': (
+            'a descrição do PRÓPRIO canal declara o país: "En France, à vos côtés, pour '
+            'trouver des solutions adaptées à l\'agriculture française". Não é a língua '
+            'do vídeo nem a língua da interface — é o canal dizendo a quem serve.'),
+    },
+    ('SYNGENTA', 'IT', 'FACEBOOK', 'Syngenta-2007689772789481'): {
+        'SCOPE': 'LOCAL_COUNTRY',
+        'CHAIN': ['https://www.facebook.com/Syngenta-2007689772789481',
+                  'https://www.syngenta.it/'],
+        'EVIDENCE': (
+            'ida e volta fechada. O identificador é um número de página e não dizia '
+            'nada; a própria página declara o nome de usuário "syngentaitalia" e o site '
+            '"syngenta.it", que é exatamente o âncora italiano.'),
+    },
+    ('BASF', 'IT', 'FACEBOOK', 'BASF-Agricultural-Solutions-1741459832625091'): {
+        'SCOPE': 'LOCAL_COUNTRY',
+        'CHAIN': ['https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091/',
+                  'https://www.agro.basf.it/it'],
+        'EVIDENCE': (
+            'a página declara ENDEREÇO FÍSICO na Itália (Via Marconato 8, Cesano '
+            'Maderno, Italy), telefone +39, e-mail info.agroitalia@basf.com e o site '
+            'agro.basf.it/it, que é o âncora italiano. Endereço postal é a evidência de '
+            'país mais forte que uma página pública dá.'),
+    },
+
+    # ── FECHARAM COMO NÃO-LOCAL. Também é resultado: tira a conta do limbo. ─────
+    ('BASF', 'ES', 'LINKEDIN', 'basf'): {
+        'SCOPE': 'GLOBAL',
+        'CHAIN': ['https://www.linkedin.com/company/basf/'],
+        'EVIDENCE': (
+            'a própria página declara sede em Ludwigshafen, site basf.com e '
+            '"mais de 111.000 funcionários (...) em quase todos os países do mundo". '
+            'É a conta do grupo, não a da Espanha.'),
+    },
+    ('BASF', 'IT', 'LINKEDIN', 'basf'): {
+        'SCOPE': 'GLOBAL',
+        'CHAIN': ['https://www.linkedin.com/company/basf/'],
+        'EVIDENCE': (
+            'mesma conta do caso espanhol — sede Ludwigshafen, site basf.com, alcance '
+            'mundial declarado. O `?originalSubdomain=it` da URL é preferência de '
+            'exibição, não outra conta.'),
+    },
+    ('BAYER', 'IT', 'LINKEDIN', 'bayer-cropscience'): {
+        'SCOPE': 'GLOBAL',
+        'CHAIN': ['https://it.linkedin.com/company/bayer-cropscience'],
+        'EVIDENCE': (
+            'a página se chama "Bayer | Crop Science" e se descreve como "a responsible, '
+            'GLOBAL team", sem país. E a prova de que o subdomínio é interface veio '
+            'sozinha: pedir `it.linkedin.com` entregou a página em `de.linkedin.com`. '
+            'Se `it.` fosse a Itália, `de.` seria a Alemanha — e é a MESMA conta.'),
+    },
+    ('BAYER', 'FR', 'FACEBOOK', 'dekalbfr'): {
+        'SCOPE': 'PRODUCT',
+        'COUNTRY_RESTRICTED': 'FR',
+        'CHAIN': ['https://www.facebook.com/dekalbfr'],
+        'EVIDENCE': (
+            'a página se chama "DEKALB France", é classificada por ela mesma como '
+            '"Produto/serviço" e aponta para bayer-agri.fr. DEKALB é MARCA DE SEMENTE: '
+            'o escopo é PRODUCT. Ela É restrita à França, e isso fica gravado em '
+            'COUNTRY_RESTRICTED — mas conta de marca de produto não é a conta da '
+            'empresa no país, e misturar as duas faria a contagem por concorrente '
+            'medir marca e empresa no mesmo balde.'),
+    },
+    ('CORTEVA', 'FR', 'YOUTUBE', 'CortevaBiologicals'): {
+        'SCOPE': 'PRODUCT',
+        'CHAIN': ['https://www.youtube.com/@CortevaBiologicals'],
+        'EVIDENCE': (
+            'a descrição declara linha de negócio, não país: "Stoller and Symborg '
+            'became part of Corteva Biologicals". Nenhuma menção à França. O site '
+            'francês da Corteva a lista, mas o site onde o link aparece não define o '
+            'escopo da conta.'),
+    },
+    ('CORTEVA', 'FR', 'INSTAGRAM', 'cortevabiologicals'): {
+        'SCOPE': 'PRODUCT',
+        'CHAIN': ['https://www.instagram.com/cortevabiologicals/'],
+        'EVIDENCE': (
+            'o nome declarado é "Corteva Biologicals" e a bio é "Growing Together" — '
+            'linha de produto, sem país. Mesmo caso do canal de YouTube.'),
+    },
+
     ('BASF', 'ES', 'INSTAGRAM', 'basf_agroes'): {
         'SCOPE': 'LOCAL_COUNTRY',
         'CHAIN': ['https://www.instagram.com/basf_agroes/',
@@ -316,6 +400,11 @@ def promover_por_prova_inversa(contas):
         c['ACCOUNT_SCOPE'] = p['SCOPE']
         c['ACCOUNT_SCOPE_EVIDENCE'] = p['EVIDENCE']
         c['ACCOUNT_SCOPE_CHAIN'] = p['CHAIN']
+        # Uma conta pode ser de PRODUTO **e** restrita a um país. A taxonomia do §1 só
+        # deixa marcar um escopo, então o país não cabe em ACCOUNT_SCOPE — e perder essa
+        # informação seria apagar um fato observado. Ela fica em campo próprio.
+        if p.get('COUNTRY_RESTRICTED'):
+            c['ACCOUNT_COUNTRY_RESTRICTED'] = p['COUNTRY_RESTRICTED']
         if p['SCOPE'] == 'LOCAL_COUNTRY':
             c['COLLECTION_AUTHORIZED'] = 'YES'
             c['COLLECTION_AUTHORIZED_WHY'] = (
