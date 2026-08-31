@@ -18,6 +18,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 
+import supabase_dev_target as alvo  # noqa: E402
 from supabase_dev_target import (  # noqa: E402
     INVENTARIO_MEDIDO,
     INVENTARIO, PROJETO, SCHEMAS_DE_SISTEMA, acesso_local, classificar,
@@ -171,7 +172,39 @@ class TestInventario(unittest.TestCase):
             self.assertIn(marca, INV_SQL)
 
     def test_o_projeto_esta_nomeado_no_sql(self):
-        self.assertIn(PROJETO['PROJECT_REF'], INV_SQL)
+        # O inventario aponta para o DEV NOVO. O ref antigo nao pode aparecer:
+        # um SQL de leitura colado no projeto errado le o projeto errado.
+        self.assertIn(alvo.DEV_TARGET['DEV_PROJECT_REF'], INV_SQL)
+        self.assertNotIn(PROJETO['PROJECT_REF'], INV_SQL)
+
+    def test_o_veredito_sai_separado_do_sql(self):
+        # As duas perguntas, cada uma com nome proprio no resultado.
+        for chave in ('DATA_EMPTY', 'SCHEMA_CLEAN', 'SAFE_FOR_CANONICAL_MIGRATION'):
+            self.assertIn("'%s'" % chave, INV_SQL)
+
+    def test_o_veredito_nao_conta_o_supabase_como_sujeira(self):
+        # O bug do avesso: reprovar todo projeto novo porque ele nasce com auth,
+        # storage e realtime dentro.
+        for sistema in ('auth', 'storage', 'extensions', 'realtime', 'vault',
+                        'supabase_migrations'):
+            self.assertIn("('%s')" % sistema, INV_SQL)
+
+    def test_a_linha_e_contada_de_verdade_e_nao_estimada(self):
+        # n_live_tup e estimativa do coletor: pode dizer 0 numa tabela cheia.
+        # Um zero falso aqui autorizaria a migration em cima do dado de alguem.
+        self.assertIn('query_to_xml', INV_SQL)
+        self.assertIn('count(*) real', INV_SQL)
+
+    def test_objeto_de_extensao_nao_conta_como_schema_sujo(self):
+        self.assertIn("d.deptype = 'e'", INV_SQL)
+
+    def test_o_veredito_tambem_nao_escreve_nada(self):
+        proibido = re.compile(r'\b(insert|update|delete|drop|alter|create|truncate|grant)\b',
+                              re.I)
+        depois = INV_SQL.split('VEREDITO')[-1]
+        for linha in depois.splitlines():
+            corpo = linha.split('--')[0]
+            self.assertIsNone(proibido.search(corpo), linha)
 
 
 class TestInventarioMedido(unittest.TestCase):
@@ -239,10 +272,27 @@ class TestAlvoDev(unittest.TestCase):
         # opcao A previa. Nao e escolha em silencio — e a opcao que sobrou.
         d = ALVO['DEV_TARGET']
         self.assertEqual(d['DEV_TARGET_STRATEGY'], 'NEW_PROJECT')
-        self.assertEqual(d['DEV_TARGET_CREATED'], 'NO')
-        self.assertIsNone(d['DEV_PROJECT_REF'])
         self.assertEqual(len(d['OPCOES']), 2)
-        self.assertEqual(d['RECOMENDACAO']['NAO_E_DECISAO'], 'e recomendacao. Nada foi criado.')
+
+    def test_o_projeto_novo_existe_e_isso_nao_o_aprova(self):
+        # A opcao B saiu do papel: o projeto foi criado. Este teste guarda a
+        # distancia entre as duas coisas — ter REF proprio e UM requisito, nao a
+        # aprovacao. A branch reprovada tambem tinha REF proprio.
+        d = ALVO['DEV_TARGET']
+        self.assertEqual(d['DEV_TARGET_CREATED'], 'YES')
+        self.assertEqual(d['DEV_PROJECT_REF'], 'xhqebdweltytnghiavew')
+        self.assertNotIn(d['DEV_PROJECT_REF'], alvo.REFS_RECUSADOS)
+        # existir nao mede nada do que decide
+        self.assertEqual(d['DEV_INVENTARIO_EXECUTADO'], 'NO')
+        self.assertEqual(d['DEV_DATA_EMPTY'], 'NOT_MEASURED')
+        self.assertEqual(d['DEV_SCHEMA_CLEAN'], 'NOT_MEASURED')
+        self.assertFalse(d['DEV_VERIFICADO_POR_MIM'])
+
+    def test_o_portao_continua_recusando_o_alvo_novo_por_falta_de_inventario(self):
+        # O portao nao pode abrir so porque o REF saiu da lista de recusados.
+        p = alvo.preparar_aplicacao(None, 'xhqebdweltytnghiavew')
+        self.assertFalse(p['PODE_APLICAR'])
+        self.assertTrue(any('inventario' in r for r in p['RECUSAS']))
 
     def test_a_recomendacao_vem_do_inventario_e_nao_de_gosto(self):
         r = ALVO['DEV_TARGET']['RECOMENDACAO']

@@ -114,9 +114,12 @@ class TestEstrategia(unittest.TestCase):
     def test_estrategia_virou_projeto_novo(self):
         self.assertEqual(alvo.DEV_TARGET['DEV_TARGET_STRATEGY'], 'NEW_PROJECT')
 
-    def test_nada_foi_criado(self):
-        self.assertEqual(alvo.DEV_TARGET['DEV_TARGET_CREATED'], 'NO')
-        self.assertIsNone(alvo.DEV_TARGET['DEV_PROJECT_REF'])
+    def test_o_projeto_novo_foi_criado_e_ainda_nao_foi_medido(self):
+        # Mudou desde a rodada anterior: o projeto existe. O que NAO mudou e que
+        # existir nao autoriza nada — o inventario e que autoriza.
+        self.assertEqual(alvo.DEV_TARGET['DEV_TARGET_CREATED'], 'YES')
+        self.assertEqual(alvo.DEV_TARGET['DEV_PROJECT_REF'], 'xhqebdweltytnghiavew')
+        self.assertEqual(alvo.DEV_TARGET['DEV_INVENTARIO_EXECUTADO'], 'NO')
 
 
 class TestBateriaDeValidacao(unittest.TestCase):

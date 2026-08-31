@@ -1,0 +1,43 @@
+{
+  "SOURCE_ID": "SUPABASE-POST-MIGRATION-PLAN-EAME-2026-08-31",
+  "source": "Medicao do DEV depois da migration. Contagem vem do catalogo, nao do texto do .sql.",
+  "DEV_PROJECT_REF": "xhqebdweltytnghiavew",
+  "REFS_RECUSADOS": {
+    "odhdwvugikjdvkapbowe": "parent: 732 objetos em storage, 19 tabelas com dado",
+    "hvtycqsrdtmxxodwcwph": "branch develop: 51 tabelas herdadas e public.schema_migracao"
+  },
+  "EXECUTADA": false,
+  "POR_QUE_NAO": "nao ha credencial nesta maquina. Quem tem acesso roda; o SQL se reprova sozinho.",
+  "ORDEM": [
+    "supabase/inventory/0000_readonly_inventory.sql (antes de tudo)",
+    "supabase/migrations/0001_initial_canonical_schema.sql",
+    "supabase/validation/0002_dev_validation.sql",
+    "supabase/validation/0003_post_migration_checks.sql"
+  ],
+  "ESPERADO_DA_AUTORIDADE": {
+    "TABLES": 57,
+    "VIEWS": 13,
+    "RPCS": 4,
+    "DB_SCHEMA": "sintonia"
+  },
+  "VERIFICACOES_POR_TIPO": {
+    "ESTRUTURA": 8,
+    "ACHADO": 1,
+    "ISOLAMENTO": 9,
+    "MULTILINGUE": 8,
+    "PROVENIENCIA": 6,
+    "NEGATIVA": 9
+  },
+  "TOTAL": 41,
+  "VERIFICACOES_NEGATIVAS": 9,
+  "DEPENDE_DO_FRONTEND": false,
+  "TRANSACAO": "BEGIN ... ROLLBACK — inclusive o GRANT some no fim",
+  "ACHADO_REGISTRADO": {
+    "O_QUE": "a migration cria papeis e politicas e nao da GRANT",
+    "POR_QUE_IMPORTA": "politica filtra LINHA; GRANT libera TABELA. Sem GRANT, portal_reader nao le nem o pais dele — o isolamento por pais existe no papel e esta desligado na pratica.",
+    "HOJE_E_SEGURO": "sim: negar tudo erra para o lado certo",
+    "HOJE_ESTA_COMPLETO": "nao",
+    "ONDE_SE_CORRIGE": "data/supabase/SUPABASE-CANONICAL-SCHEMA.json, secao RLS, e regerar a migration. Nao no .sql a mao.",
+    "CORRIGIDO_NESTA_RODADA": "NO"
+  }
+}

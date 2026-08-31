@@ -324,8 +324,13 @@ class TestNumerosEntreDocumentos(unittest.TestCase):
         """
         suite = unittest.defaultTestLoader.discover(os.path.dirname(os.path.abspath(__file__)))
         n = suite.countTestCases()
-        self.assertRegex(self.DOCS['corrente'], rf'TESTES_REAIS\s*=\s*{n}\b',
-                         f'o documento CORRENTE não declara TESTES_REAIS = {n}')
+        # O número publicado leva separador de milhar, como todo número do ledger:
+        # 1.007, não 1007. O formato é o do sync; o valor continua sendo o contado
+        # aqui, e é ele que reprova o documento se envelhecer.
+        publicado = f'{n:,}'.replace(',', '.')
+        self.assertRegex(self.DOCS['corrente'],
+                         rf'TESTES_REAIS\s*=\s*{re.escape(publicado)}\b',
+                         f'o documento CORRENTE não declara TESTES_REAIS = {publicado}')
 
     def test_o_numero_da_missao_08_e_historico(self):
         """91 é o que a MISSÃO 08 mediu. Reescrever seria apagar o registro."""

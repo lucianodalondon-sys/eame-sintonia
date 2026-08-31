@@ -109,9 +109,11 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
 
     def test_a_contagem_de_testes_do_handoff_bate(self):
         n = self.L['TEST_COUNT_CURRENT']['VALUE']
-        self.assertRegex(texto(HANDOFF), rf'\*\*{n} testes',
+        # publicado com separador de milhar, como o resto dos numeros do ledger
+        pub = re.escape(f'{n:,}'.replace(',', '.'))
+        self.assertRegex(texto(HANDOFF), rf'\*\*{pub} testes',
                          'o handoff publica uma contagem de testes que nao e a atual')
-        self.assertRegex(texto(PROMPT), rf'Esperado: {n} testes')
+        self.assertRegex(texto(PROMPT), rf'Esperado: {pub} testes')
 
 
 class TestInventarioDoScratchpad(unittest.TestCase):
