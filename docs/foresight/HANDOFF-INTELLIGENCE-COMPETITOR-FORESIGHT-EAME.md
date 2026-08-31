@@ -318,14 +318,31 @@ que é o coração da convergência. Este é o próximo trabalho, e não um deta
 ## 12 · META JOIN READINESS
 
 ```
-META_DATA_AVAILABLE_IN_THIS_SNAPSHOT = NO
-ESTADO REAL DA CAPACIDADE            = EM CONSTRUÇÃO, missão paralela
+META_CANONICAL_SOURCE_COMMIT = acfd987   (declarado pela própria missão Meta)
+ESTADO DA CAPACIDADE META    = ACCEPTED · PARKED
 ONDE  branch claude/eame-meta-competitor · data/samples/META-EAME/
 ```
 
 > ⚠️ A primeira entrega escreveu que "não existe Meta no repositório".
-> **Errado, e corrigido.** A missão Meta já tem **1.111 anúncios observados dos
-> mesmos seis concorrentes**, em ES/IT/FR.
+> **Errado, e corrigido.** A Meta congelou, e o join foi **reexecutado** sobre a
+> base congelada.
+
+### A fonte é um COMMIT, não a ponta de uma branch
+
+Uma branch se move. Um join que aponta para a ponta responde diferente a cada
+hora sem que ninguém tenha mudado nada. `concorrente_tres_camadas.py` lê o
+commit fixo **`acfd987`**, que é o que `META-HANDOFF-FREEZE-V1.json` declara como
+`meta_canonical_freeze_commit`.
+
+**Uma sutileza que virou trava:** em `acfd987` o handoff já existia, mas ainda
+não podia nomear o próprio commit — o campo entrou depois, em `68f3cd8`. Então a
+**declaração** é lida da ponta e o **dado** é lido do congelado. O que impede a
+ponta de contrabandear dado novo é uma comparação de blob: se o arquivo tiver
+mudado entre os dois, o script **para**. Verificado — mesmo blob.
+
+E os nomes crus deixaram de ser número cravado no código: são **contados** nos
+blocos e **conferidos** contra `snapshot_1.raw_product_names_proved` do handoff
+da Meta. Divergência para o script. Bateu: **151 = 151**.
 
 ### ⚠️ A junção foi MEDIDA, depois **AUDITADA** — e o número caiu
 
@@ -350,47 +367,57 @@ fecha por `assert`, separadamente.
 
 | | |
 |---|---:|
-| `THREE_LAYER_CANDIDATES_TOTAL` | **166** |
-| `THREE_LAYER_CHAIN_PROVED_TUPLES` | **35** |
+| `THREE_LAYER_CANDIDATES_TOTAL` | **174** |
+| `THREE_LAYER_CHAIN_PROVED_TUPLES` | **36** |
 | `THREE_LAYER_CHAIN_REJECTED_TUPLES` | **0** |
-| `THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES` | **131** |
-| soma | **166** ✓ |
+| `THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES` | **138** |
+| soma | **174** ✓ |
 
 **Unidade `PRODUTO` (nome normalizado)**
 
 | | |
 |---|---:|
-| `META_PRODUCTS_TOTAL` | **141** |
-| `META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN` | **28** |
-| `META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN` | **113** |
-| soma | **141** ✓ |
+| `META_RAW_PRODUCT_NAMES` | **151** (contados e conferidos com a Meta) |
+| `META_PRODUCTS_TOTAL` | **147** |
+| `META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN` | **29** |
+| `META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN` | **118** |
+| soma | **147** ✓ |
 
-**Por que 141 e não 145.** O `ads_by_product_proved` da Meta traz **145 nomes
-crus**. Quatro pares são o mesmo nome em caixas diferentes —
-`SPECTRUM`/`Spectrum`, `VELIFER`/`Velifer`, `GAXY`/`Gaxy`, `KUSABI`/`Kusabi` —
-e colapsam ao normalizar. **145 − 4 = 141**, exato.
+**Por que 147 e não 151.** Quatro pares são o mesmo nome em caixas diferentes —
+`SPECTRUM`/`Spectrum`, `VELIFER`/`Velifer`, `GAXY`/`Gaxy`, `KUSABI`/`Kusabi` — e
+colapsam ao normalizar. **151 − 4 = 147**, exato.
 
-> `145 − 28 = 117` seria subtração entre um total de **nomes crus** e uma
-> contagem de **produtos normalizados**. Não é uma conta; é uma mistura de
-> unidades.
+> `151 − 29` seria subtração entre um total de **nomes crus** e uma contagem de
+> **produtos normalizados**. Não é uma conta; é mistura de unidades.
+
+### A linhagem, corrigida sem apagar nada
+
+| | antes | agora |
+|---|---|---|
+| commit Meta | `4cee050` | **`acfd987`** |
+| cartões | 1.111 | **1.340** |
+| nomes crus | 145 | **151** |
+| produtos normalizados | 141 | **147** |
+| **cadeias provadas** | 35 tuplas · 28 produtos | **36 tuplas · 29 produtos** |
+
+```
+OLD_RESULT        = SUPERSEDED_BY_CORRECTED_META_INPUT
+LINEAGE_CORRECTION = COMPLETE
+```
+
+> O resultado anterior **não é inválido**. Foi medido corretamente sobre o input
+> daquele momento. O que mudou foi **o ponteiro da fonte** — e só ele: o casador,
+> o portão URBOLE, a normalização e as três concordâncias obrigatórias são
+> exatamente os do commit congelado do Foresight, `25194e3`.
 
 ### ⚠️ Um defeito meu que a conferência de unidade encontrou
 
 Os blocos da Meta usam `{"state": "NOT_KNOWN"}` para dizer **"nenhum produto
-provado neste bloco"**. Meu extrator leu `state` como se fosse o nome de um
-produto e criou **cinco tuplas fantasma** (Seipasa ES, Albaugh FR, Nufarm FR,
-Syngenta FR, Bayer IT).
-
-Nada "quebrava": elas caíam todas em `NOT_KNOWN`. O denominador é que ficava
-**5 maior que a realidade** — 171 candidatas em vez de 166, e 136 `NOT_KNOWN`
-em vez de 131. **Ausência declarada pela outra missão nunca pode entrar como
-observação.** O descarte agora é explícito e vem listado no artefato.
-
-**Os 8 produtos que caíram** eram nome igual sem concordância de empresa ou de
-país. Dos **131** `NOT_KNOWN` em unidade de tupla: **85** sem marca **e** sem
-registro do grupo naquele país, **46** com marca mas sem registro local provado.
-
-`THREE_LAYER_UNIT_RECONCILED = YES`
+provado neste bloco"**. Meu extrator leu `state` como se fosse nome de produto e
+criou **cinco tuplas fantasma**. Nada "quebrava" — elas caíam todas em
+`NOT_KNOWN` — só o denominador ficava 5 maior que a realidade. **Ausência
+declarada por outra missão nunca entra como observação.** O descarte agora é
+explícito e vem listado no artefato.
 
 ### `URBOLE_GUARD = PASS`, e ele foi **exercido**
 
@@ -414,8 +441,8 @@ Meta. A leitura foi `git show` somente-leitura sobre
 `claude/eame-meta-competitor` — **nenhum merge, nenhum checkout, nenhuma
 alteração de índice**.
 
-Exemplos provados: `Revycare` (60 anúncios, BASF ES, reg ES-01263) · `Revyona`
-(21, ES-01394) · `Serifel` (17, ES-00558) · `Belanty` (4, BASF FR, AMM 2210797).
+Exemplos provados: `Revycare` (BASF ES, reg ES-01263) · `Revyona` (ES-01394) ·
+`Serifel` (ES-00558) · `Belanty` (BASF FR, AMM 2210797).
 
 **Chave de junção:** `BRAND` × `COUNTRY` × `TIME`.
 
@@ -517,10 +544,9 @@ titular — o link está `PROVED`."
 2. **Ligar `CROP` e `ISSUE`.** É o bloqueio real da convergência. As fichas
    individuais de ES e as etiquetas de IT/FR trazem cultura e alvo; o dataset
    aberto, não.
-3. **No refresh final: montar as 35 cadeias de três camadas** (35 tuplas ·
-   28 produtos) com o handoff da Meta, **depois** que ele for congelado pelo
-   coordenador. Já estão medidas, auditadas e esperando —
-   `FINAL_REFRESH_INPUT = NO` até lá.
+3. **No refresh final: montar as 36 cadeias de três camadas** (36 tuplas ·
+   29 produtos) sobre a Meta congelada em `acfd987`. Já estão medidas,
+   auditadas e reexecutadas sobre a base corrigida.
 4. **Não voltar a patentes.** Não ampliar concorrentes. Não alterar casco.
 
 ---
@@ -546,7 +572,7 @@ titular — o link está `PROVED`."
 | `supabase/tests/regressoes_concorrente.sql` `mutacao_concorrente.sql` | 32 afirmações + 7 mutações |
 | `data/samples/COMPETITOR-THREE-LAYER-AUDIT.json` | o red team da junção Meta |
 | `scripts/concorrente_tres_camadas.py` | a auditoria + o portão URBOLE exercido |
-| `tests/test_concorrente.py` | 70 testes |
+| `tests/test_concorrente.py` | 73 testes |
 | `.github/workflows/concorrente-portao.yml` | onde o SQL é realmente provado |
 | `docs/piloto/COMPETITOR-FORESIGHT-PILOT.md` | o relatório da rodada 1 (A–S) |
 

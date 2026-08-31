@@ -9,15 +9,47 @@
   "REGRA": "company da Meta == grupo do titular da marca == grupo do titular do registro local, e o PAÍS igual nas três.",
   "FONTE_EXTERNA": {
     "BRANCH": "claude/eame-meta-competitor",
-    "COMMIT": "4cee050e39b2aff868323812ae9b345fd084bcd9",
+    "META_CANONICAL_SOURCE_COMMIT": "acfd987141d57e810bbef6e5e2c21b1d40124ce3",
+    "DECLARADO_PELA_PROPRIA_META_EM": "data/samples/META-EAME/META-HANDOFF-FREEZE-V1.json",
+    "REF_DE_ONDE_A_DECLARACAO_FOI_LIDA": "origin/claude/eame-meta-competitor",
+    "BLOB_DO_ARQUIVO_LIDO": "0648435d4b278d6bfc6fbeb8dc806cbc7c0f3e76",
+    "POR_QUE_DECLARACAO_E_DADO_VEM_DE_LUGARES_DIFERENTES": "em acfd987 o handoff já existia mas ainda não podia nomear o próprio commit. O campo entrou depois. A declaração vem da ponta, o dado vem do congelado, e o script PARA se o arquivo tiver mudado entre os dois — foi verificado: mesmo blob.",
     "ARQUIVO": "data/samples/META-EAME/META-COMPETITOR-PILOT-EAME.json",
-    "COMO_FOI_LIDO": "git show — somente leitura. Nenhum merge, nenhum checkout, nenhuma alteração de índice.",
-    "ESTADO_DO_HANDOFF_META": "NÃO CONGELADO pelo coordenador"
+    "COMO_FOI_LIDO": "git show sobre COMMIT FIXO — somente leitura. Nenhum merge, nenhum checkout, nenhuma alteração de índice.",
+    "ESTADO_DO_HANDOFF_META": {
+      "meta_competitor": "ACCEPTED",
+      "mission_state": "PARKED",
+      "mandatory_handoff_ready": "YES"
+    },
+    "POR_QUE_COMMIT_E_NAO_BRANCH": "uma branch se move. Um join que aponta para a ponta responde diferente a cada hora sem que ninguém tenha mudado nada.",
+    "SNAPSHOT_DECLARADO_PELA_META": {
+      "as_of_date": "2026-08-31T01:03:30+00:00",
+      "ad_observations": 1417,
+      "unique_cards": 1340,
+      "ads_represented": 2236,
+      "stable_ad_entities": 1340,
+      "raw_product_names_proved": 151
+    }
+  },
+  "LINHAGEM": {
+    "OLD_META_INPUT": {
+      "AD_CARDS": 1111,
+      "RAW_PRODUCT_NAMES": 145,
+      "NORMALIZED_PRODUCTS": 141,
+      "PROVED_TUPLES": 35,
+      "PROVED_PRODUCTS": 28,
+      "COMMIT_META_DE_ONDE_VEIO": "4cee050",
+      "ESTADO": "SUPERSEDED_BY_CORRECTED_META_INPUT",
+      "NAO_E": "inválido — foi medido corretamente sobre o input daquele momento"
+    },
+    "LINEAGE_CORRECTION": "COMPLETE",
+    "O_QUE_MUDOU": "apenas o ponteiro da fonte externa: 4cee050 -> acfd987",
+    "O_QUE_NAO_MUDOU": "o casador. classificar_tupla, o portão URBOLE, a normalização e as três concordâncias obrigatórias são as do commit congelado do Foresight 25194e3"
   },
   "UNIVERSO": {
     "ANUNCIOS_OBSERVADOS_NA_META": 1111,
     "THREE_LAYER_CANDIDATE_UNIT": "TUPLA (competidor, país, produto normalizado)",
-    "THREE_LAYER_CANDIDATES_TOTAL": 166,
+    "THREE_LAYER_CANDIDATES_TOTAL": 174,
     "DESCARTADAS_ANTES_DE_CANDIDATAR": {
       "N": 5,
       "MOTIVO": "a chave `state` é marcador de AUSÊNCIA declarado pela missão Meta, não nome de produto",
@@ -58,44 +90,50 @@
           "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
         }
       ],
-      "EFEITO_DO_DEFEITO": "a primeira contagem publicou 171 candidatas e 136 NOT_KNOWN. O denominador estava 5 maior que a realidade — nada \"quebrava\", porque as fantasmas caíam todas em NOT_KNOWN."
+      "EFEITO_DO_DEFEITO": "a primeira contagem publicou 179 candidatas e 143 NOT_KNOWN. O denominador estava 5 maior que a realidade — nada \"quebrava\", porque as fantasmas caíam todas em NOT_KNOWN."
     },
     "ATENCAO_A_UNIDADE": "TUPLA e PRODUTO são unidades diferentes e não se subtraem entre si. O mesmo produto anunciado em dois países é DUAS tuplas e UM produto. Cada decomposição fecha por assert, separadamente."
   },
   "RESULTADO": {
     "UNIDADE": "TUPLA (competidor, país, produto normalizado)",
-    "THREE_LAYER_CHAIN_PROVED_TUPLES": 35,
+    "THREE_LAYER_CHAIN_PROVED_TUPLES": 36,
     "THREE_LAYER_CHAIN_REJECTED_TUPLES": 0,
-    "THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES": 131,
+    "THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES": 138,
     "CONSERVACAO_TUPLAS": {
-      "SOMA": 166,
-      "TOTAL": 166,
+      "SOMA": 174,
+      "TOTAL": 174,
       "FECHA": true,
       "VERIFICADO_POR": "assert, não por leitura"
     },
-    "THREE_LAYER_CHAIN_PROVED": 35,
+    "THREE_LAYER_CHAIN_PROVED": 36,
     "THREE_LAYER_CHAIN_REJECTED": 0,
-    "THREE_LAYER_CHAIN_NOT_KNOWN": 131,
+    "THREE_LAYER_CHAIN_NOT_KNOWN": 138,
     "MOTIVOS_DO_NOT_KNOWN": {
-      "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome": 85,
-      "nenhum registro local PROVED deste grupo com este nome": 46
+      "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome": 89,
+      "nenhum registro local PROVED deste grupo com este nome": 49
     },
     "POR_UNIDADE_PRODUTO": {
       "UNIDADE": "PRODUTO (nome normalizado)",
-      "META_PRODUCTS_TOTAL": 141,
-      "META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN": 28,
-      "META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN": 113,
+      "META_PRODUCTS_TOTAL": 147,
+      "META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN": 29,
+      "META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN": 118,
       "CONSERVACAO_PRODUTOS": {
-        "SOMA": 141,
-        "TOTAL": 141,
+        "SOMA": 147,
+        "TOTAL": 147,
         "FECHA": true,
         "VERIFICADO_POR": "assert, não por leitura"
       },
-      "NOMES_CRUS_NA_META": 145,
-      "POR_QUE_145_NAO_E_O_TOTAL_NORMALIZADO": "o `ads_by_product_proved` do METRICS traz 145 nomes CRUS. Quatro pares são o mesmo nome em caixas diferentes — SPECTRUM/Spectrum, VELIFER/Velifer, GAXY/Gaxy, KUSABI/Kusabi — e colapsam ao normalizar. Por isso o total em unidade de produto é 141, e não 145.",
-      "ANUNCIADO_ANTES_COMO": "36 — obtido casando SÓ o nome",
-      "DIFERENCA_EXPLICADA": "o 36 antigo casava nome de produto com nome de marca, sem exigir que o titular da marca, o do registro e a company da Meta fossem o mesmo grupo, nem que o país fosse o mesmo nas três pontas",
-      "NAO_SUBTRAIR_ENTRE_UNIDADES": "145 - 28 = 117 seria subtração entre um total de nomes crus e uma contagem de produtos normalizados. As duas contas corretas estão acima, cada uma fechando na sua unidade."
+      "NOMES_CRUS_NA_META": 151,
+      "NOMES_CRUS_DECLARADOS_PELA_META": 151,
+      "CONFERENCIA_CRUZADA": "contados nos blocos e comparados com `snapshot_1.raw_product_names_proved` do handoff da Meta. Divergência PARA o script.",
+      "POR_QUE_O_CRU_NAO_E_O_TOTAL_NORMALIZADO": "os blocos trazem 151 nomes CRUS. 4 pares são o mesmo nome em caixas diferentes — SPECTRUM/Spectrum, VELIFER/Velifer, GAXY/Gaxy, KUSABI/Kusabi — e colapsam ao normalizar. Por isso o total em unidade de produto é 147, e não 151.",
+      "RESULTADO_SUPERADO": {
+        "PRODUTOS_COM_CADEIA": 28,
+        "SOBRE_QUAL_INPUT": "145 nomes crus · 1111 cartões",
+        "ESTADO": "SUPERSEDED_BY_CORRECTED_META_INPUT",
+        "NAO_E": "inválido — foi medido corretamente sobre o input daquele momento"
+      },
+      "NAO_SUBTRAIR_ENTRE_UNIDADES": "151 - 29 seria subtração entre um total de nomes CRUS e uma contagem de produtos NORMALIZADOS. As duas contas corretas estão acima, cada uma fechando na sua unidade, por assert."
     }
   },
   "URBOLE_GUARD": {
@@ -145,7 +183,7 @@
       "PRODUCT_NAME_NA_META": [
         "Collis"
       ],
-      "ADS_OBSERVED": 3,
+      "ADS_OBSERVED": 4,
       "NOME_NORMALIZADO": "COLLIS",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -172,7 +210,7 @@
       "PRODUCT_NAME_NA_META": [
         "Dagonis"
       ],
-      "ADS_OBSERVED": 3,
+      "ADS_OBSERVED": 49,
       "NOME_NORMALIZADO": "DAGONIS",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -199,7 +237,7 @@
       "PRODUCT_NAME_NA_META": [
         "Revycare"
       ],
-      "ADS_OBSERVED": 60,
+      "ADS_OBSERVED": 197,
       "NOME_NORMALIZADO": "REVYCARE",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -226,7 +264,7 @@
       "PRODUCT_NAME_NA_META": [
         "Revyona"
       ],
-      "ADS_OBSERVED": 21,
+      "ADS_OBSERVED": 28,
       "NOME_NORMALIZADO": "REVYONA",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -253,7 +291,7 @@
       "PRODUCT_NAME_NA_META": [
         "Serifel"
       ],
-      "ADS_OBSERVED": 17,
+      "ADS_OBSERVED": 41,
       "NOME_NORMALIZADO": "SERIFEL",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -278,10 +316,37 @@
       "META_COMPANY": "BASF",
       "COUNTRY": "ES",
       "PRODUCT_NAME_NA_META": [
+        "Signum"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "SIGNUM",
+      "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+      "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+      "FINAL_REFRESH_INPUT": "NO",
+      "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+      "TM_ST13": [
+        "EM500000001318179"
+      ],
+      "TM_OFFICE": [
+        "EM"
+      ],
+      "TM_APPLICANT": [
+        "['BASF SE']"
+      ],
+      "REGISTRATION_ID": "23977",
+      "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+      "REGISTRATION_GRUPO": "BASF",
+      "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+      "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001318179"
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
         "SPECTRUM",
         "Spectrum"
       ],
-      "ADS_OBSERVED": 3,
+      "ADS_OBSERVED": 6,
       "NOME_NORMALIZADO": "SPECTRUM",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -309,7 +374,7 @@
         "VELIFER",
         "Velifer"
       ],
-      "ADS_OBSERVED": 9,
+      "ADS_OBSERVED": 18,
       "NOME_NORMALIZADO": "VELIFER",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -336,7 +401,7 @@
       "PRODUCT_NAME_NA_META": [
         "Vivando"
       ],
-      "ADS_OBSERVED": 3,
+      "ADS_OBSERVED": 4,
       "NOME_NORMALIZADO": "VIVANDO",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -909,7 +974,7 @@
       "PRODUCT_NAME_NA_META": [
         "Teldor"
       ],
-      "ADS_OBSERVED": 11,
+      "ADS_OBSERVED": 12,
       "NOME_NORMALIZADO": "TELDOR",
       "ESTADO": "THREE_LAYER_CHAIN_PROVED",
       "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
@@ -1103,7 +1168,7 @@
       "PRODUCT_NAME_NA_META": [
         "AgCelence"
       ],
-      "ADS_OBSERVED": 5,
+      "ADS_OBSERVED": 11,
       "NOME_NORMALIZADO": "AGCELENCE",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1113,10 +1178,46 @@
       "META_COMPANY": "BASF",
       "COUNTRY": "ES",
       "PRODUCT_NAME_NA_META": [
+        "Agrigenio"
+      ],
+      "ADS_OBSERVED": 3,
+      "NOME_NORMALIZADO": "AGRIGENIO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
         "Cabrio"
       ],
-      "ADS_OBSERVED": 9,
+      "ADS_OBSERVED": 25,
       "NOME_NORMALIZADO": "CABRIO",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Clearfield"
+      ],
+      "ADS_OBSERVED": 9,
+      "NOME_NORMALIZADO": "CLEARFIELD",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Cleranda"
+      ],
+      "ADS_OBSERVED": 5,
+      "NOME_NORMALIZADO": "CLERANDA",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
       "EXISTE_SOB_OUTRO_TITULAR": false
@@ -1127,7 +1228,7 @@
       "PRODUCT_NAME_NA_META": [
         "Delan"
       ],
-      "ADS_OBSERVED": 34,
+      "ADS_OBSERVED": 41,
       "NOME_NORMALIZADO": "DELAN",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1137,9 +1238,33 @@
       "META_COMPANY": "BASF",
       "COUNTRY": "ES",
       "PRODUCT_NAME_NA_META": [
+        "Enervin"
+      ],
+      "ADS_OBSERVED": 22,
+      "NOME_NORMALIZADO": "ENERVIN",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Initium"
+      ],
+      "ADS_OBSERVED": 7,
+      "NOME_NORMALIZADO": "INITIUM",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
         "InVigor"
       ],
-      "ADS_OBSERVED": 21,
+      "ADS_OBSERVED": 71,
       "NOME_NORMALIZADO": "INVIGOR",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1151,7 +1276,7 @@
       "PRODUCT_NAME_NA_META": [
         "Priaxor"
       ],
-      "ADS_OBSERVED": 17,
+      "ADS_OBSERVED": 45,
       "NOME_NORMALIZADO": "PRIAXOR",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1161,9 +1286,21 @@
       "META_COMPANY": "BASF",
       "COUNTRY": "ES",
       "PRODUCT_NAME_NA_META": [
+        "Provisia"
+      ],
+      "ADS_OBSERVED": 1,
+      "NOME_NORMALIZADO": "PROVISIA",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
         "RAK"
       ],
-      "ADS_OBSERVED": 18,
+      "ADS_OBSERVED": 30,
       "NOME_NORMALIZADO": "RAK",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1187,8 +1324,20 @@
       "PRODUCT_NAME_NA_META": [
         "Sercadis"
       ],
-      "ADS_OBSERVED": 16,
+      "ADS_OBSERVED": 18,
       "NOME_NORMALIZADO": "SERCADIS",
+      "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+      "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+      "EXISTE_SOB_OUTRO_TITULAR": false
+    },
+    {
+      "META_COMPANY": "BASF",
+      "COUNTRY": "ES",
+      "PRODUCT_NAME_NA_META": [
+        "Stroby"
+      ],
+      "ADS_OBSERVED": 2,
+      "NOME_NORMALIZADO": "STROBY",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
       "EXISTE_SOB_OUTRO_TITULAR": false
@@ -1199,7 +1348,7 @@
       "PRODUCT_NAME_NA_META": [
         "Tercero"
       ],
-      "ADS_OBSERVED": 8,
+      "ADS_OBSERVED": 25,
       "NOME_NORMALIZADO": "TERCERO",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1211,7 +1360,7 @@
       "PRODUCT_NAME_NA_META": [
         "Vizura"
       ],
-      "ADS_OBSERVED": 19,
+      "ADS_OBSERVED": 46,
       "NOME_NORMALIZADO": "VIZURA",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1223,7 +1372,7 @@
       "PRODUCT_NAME_NA_META": [
         "XARVIO"
       ],
-      "ADS_OBSERVED": 4,
+      "ADS_OBSERVED": 41,
       "NOME_NORMALIZADO": "XARVIO",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1499,7 +1648,7 @@
       "PRODUCT_NAME_NA_META": [
         "Bayfolan"
       ],
-      "ADS_OBSERVED": 40,
+      "ADS_OBSERVED": 41,
       "NOME_NORMALIZADO": "BAYFOLAN",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1511,7 +1660,7 @@
       "PRODUCT_NAME_NA_META": [
         "BioAct"
       ],
-      "ADS_OBSERVED": 5,
+      "ADS_OBSERVED": 6,
       "NOME_NORMALIZADO": "BIOACT",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1547,7 +1696,7 @@
       "PRODUCT_NAME_NA_META": [
         "Evo"
       ],
-      "ADS_OBSERVED": 3,
+      "ADS_OBSERVED": 4,
       "NOME_NORMALIZADO": "EVO",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1559,7 +1708,7 @@
       "PRODUCT_NAME_NA_META": [
         "Expert"
       ],
-      "ADS_OBSERVED": 1,
+      "ADS_OBSERVED": 2,
       "NOME_NORMALIZADO": "EXPERT",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1571,7 +1720,7 @@
       "PRODUCT_NAME_NA_META": [
         "FLiPPER"
       ],
-      "ADS_OBSERVED": 10,
+      "ADS_OBSERVED": 11,
       "NOME_NORMALIZADO": "FLIPPER",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1595,7 +1744,7 @@
       "PRODUCT_NAME_NA_META": [
         "Mateno"
       ],
-      "ADS_OBSERVED": 15,
+      "ADS_OBSERVED": 18,
       "NOME_NORMALIZADO": "MATENO",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1607,7 +1756,7 @@
       "PRODUCT_NAME_NA_META": [
         "Milraz"
       ],
-      "ADS_OBSERVED": 1,
+      "ADS_OBSERVED": 2,
       "NOME_NORMALIZADO": "MILRAZ",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1643,7 +1792,7 @@
       "PRODUCT_NAME_NA_META": [
         "Rapsody"
       ],
-      "ADS_OBSERVED": 1,
+      "ADS_OBSERVED": 2,
       "NOME_NORMALIZADO": "RAPSODY",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1679,7 +1828,7 @@
       "PRODUCT_NAME_NA_META": [
         "Sivanto"
       ],
-      "ADS_OBSERVED": 16,
+      "ADS_OBSERVED": 17,
       "NOME_NORMALIZADO": "SIVANTO",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1691,7 +1840,7 @@
       "PRODUCT_NAME_NA_META": [
         "Suzukii"
       ],
-      "ADS_OBSERVED": 1,
+      "ADS_OBSERVED": 2,
       "NOME_NORMALIZADO": "SUZUKII",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -1703,7 +1852,7 @@
       "PRODUCT_NAME_NA_META": [
         "Velsinum"
       ],
-      "ADS_OBSERVED": 17,
+      "ADS_OBSERVED": 20,
       "NOME_NORMALIZADO": "VELSINUM",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -1715,7 +1864,7 @@
       "PRODUCT_NAME_NA_META": [
         "Velum"
       ],
-      "ADS_OBSERVED": 10,
+      "ADS_OBSERVED": 12,
       "NOME_NORMALIZADO": "VELUM",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -2244,7 +2393,7 @@
       "PRODUCT_NAME_NA_META": [
         "Laser"
       ],
-      "ADS_OBSERVED": 6,
+      "ADS_OBSERVED": 3,
       "NOME_NORMALIZADO": "LASER",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -2256,7 +2405,7 @@
       "PRODUCT_NAME_NA_META": [
         "Qalcova"
       ],
-      "ADS_OBSERVED": 2,
+      "ADS_OBSERVED": 1,
       "NOME_NORMALIZADO": "QALCOVA",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -2328,7 +2477,7 @@
       "PRODUCT_NAME_NA_META": [
         "Arc"
       ],
-      "ADS_OBSERVED": 29,
+      "ADS_OBSERVED": 26,
       "NOME_NORMALIZADO": "ARC",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -2472,7 +2621,7 @@
       "PRODUCT_NAME_NA_META": [
         "Althia"
       ],
-      "ADS_OBSERVED": 9,
+      "ADS_OBSERVED": 2,
       "NOME_NORMALIZADO": "ALTHIA",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -2496,7 +2645,7 @@
       "PRODUCT_NAME_NA_META": [
         "Bovato"
       ],
-      "ADS_OBSERVED": 10,
+      "ADS_OBSERVED": 6,
       "NOME_NORMALIZADO": "BOVATO",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -2508,7 +2657,7 @@
       "PRODUCT_NAME_NA_META": [
         "Calsun"
       ],
-      "ADS_OBSERVED": 3,
+      "ADS_OBSERVED": 1,
       "NOME_NORMALIZADO": "CALSUN",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
@@ -2533,7 +2682,7 @@
       "PRODUCT_NAME_NA_META": [
         "GoActiv"
       ],
-      "ADS_OBSERVED": 9,
+      "ADS_OBSERVED": 5,
       "NOME_NORMALIZADO": "GOACTIV",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
@@ -2617,7 +2766,7 @@
       "PRODUCT_NAME_NA_META": [
         "Stylor"
       ],
-      "ADS_OBSERVED": 2,
+      "ADS_OBSERVED": 1,
       "NOME_NORMALIZADO": "STYLOR",
       "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
       "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",

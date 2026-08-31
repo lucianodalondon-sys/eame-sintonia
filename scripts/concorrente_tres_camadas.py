@@ -20,15 +20,30 @@ Aqui a cadeia exige **concordância de titular nas TRÊS pontas**:
 Nome igual com titular incompatível **não forma cadeia** — vira
 `THREE_LAYER_CHAIN_REJECTED`, e a recusa é publicada.
 
-A META AINDA É FONTE EXTERNA A ESTA MISSÃO
-  O handoff da Meta **não foi congelado pelo coordenador**. Por isso mesmo a
-  cadeia que passa em tudo sai como:
+A META FOI CONGELADA — E A FONTE PASSA A SER UM COMMIT FIXO
+  A missão Meta declarou seu congelamento em
+  `META-HANDOFF-FREEZE-V1.json`:
 
-      PRELIMINARY_CROSS_BRANCH_JOIN = PROVED
-      FINAL_REFRESH_INPUT           = NO
+      meta_canonical_freeze_commit = acfd987
+      meta_competitor              = ACCEPTED
+      mission_state                = PARKED
 
-  Nenhum merge é feito. A leitura da branch da Meta é somente-leitura, por
-  `git show`, e o arquivo lido fica declarado com o commit de origem.
+  Este script deixa de ler *a ponta de uma branch viva* e passa a ler **um
+  commit fixo**. A diferença não é estética: uma branch se move, e um join
+  que aponta para a ponta responde diferente a cada hora sem que ninguém
+  tenha mudado nada. Um commit fixo é uma fonte com data.
+
+  ⚠️ O QUE MUDOU NESTA REEXECUÇÃO — E O QUE NÃO MUDOU
+    MUDOU  apenas o PONTEIRO da fonte externa: `4cee050` → `acfd987`.
+    NÃO MUDOU nada do casador. `classificar_tupla`, o portão URBOLE, a
+    normalização e as três concordâncias obrigatórias estão exatamente como
+    no commit congelado do Foresight, `25194e3`. Afrouxar o casamento para
+    recuperar quantidade seria trocar a régua pelo resultado.
+
+  O resultado anterior NÃO é inválido:
+      OLD_RESULT = SUPERSEDED_BY_CORRECTED_META_INPUT
+
+  Nenhum merge é feito. A leitura continua somente-leitura, por `git show`.
 """
 import json
 import os
@@ -42,8 +57,33 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from concorrente_crosswalk import normalizar  # noqa: E402
 
+# ── a fonte externa, FIXADA no commit que a própria missão Meta declarou ──
 BRANCH_META = 'claude/eame-meta-competitor'
+COMMIT_META = 'acfd987'          # meta_canonical_freeze_commit — o DADO
+# ⚠️ A DECLARAÇÃO NÃO MORA NO COMMIT QUE ELA DECLARA.
+#   Em `acfd987` o handoff da Meta já existia, mas ainda não podia nomear o
+#   próprio commit — um commit não conhece o próprio sha antes de existir. O
+#   campo `meta_canonical_freeze_commit` entrou depois, em `68f3cd8`.
+#   Então a DECLARAÇÃO é lida da ponta da branch e o DADO é lido do commit
+#   congelado. Ler os dois do mesmo lugar seria mais simples e estaria errado.
+#   O que impede a ponta de contrabandear dado novo é o teste de igualdade do
+#   blob, feito abaixo: se o arquivo tiver mudado entre os dois, o script PARA.
+REF_DECLARACAO = 'origin/claude/eame-meta-competitor'
 ARQUIVO_META = 'data/samples/META-EAME/META-COMPETITOR-PILOT-EAME.json'
+HANDOFF_META = 'data/samples/META-EAME/META-HANDOFF-FREEZE-V1.json'
+
+# o input que esta missão usava antes do congelamento da Meta. Fica escrito
+# porque um número que some não é corrigido: é apagado.
+INPUT_SUPERADO = {
+    'AD_CARDS': 1111,
+    'RAW_PRODUCT_NAMES': 145,
+    'NORMALIZED_PRODUCTS': 141,
+    'PROVED_TUPLES': 35,
+    'PROVED_PRODUCTS': 28,
+    'COMMIT_META_DE_ONDE_VEIO': '4cee050',
+    'ESTADO': 'SUPERSEDED_BY_CORRECTED_META_INPUT',
+    'NAO_E': 'inválido — foi medido corretamente sobre o input daquele momento',
+}
 
 # O vocabulário de empresa da Meta e o desta missão precisam encostar. O
 # casamento é por caixa alta exata — NÃO por semelhança.
@@ -56,12 +96,50 @@ def ler(nome):
 
 
 def ler_da_branch_meta():
-    """Somente leitura. `git show` não altera índice, working tree nem branch."""
+    """
+    Somente leitura, de um COMMIT FIXO. `git show` não altera índice, working
+    tree nem branch — e um commit não se move enquanto ninguém olha.
+
+    Confere também que o commit fixado é o que a própria missão Meta declara
+    como canônico. Se ela mudar de ideia, este script PARA em vez de seguir
+    lendo um congelamento que já não é o congelamento.
+    """
     sha = subprocess.check_output(
-        ['git', 'rev-parse', BRANCH_META], cwd=RAIZ, text=True).strip()
+        ['git', 'rev-parse', COMMIT_META], cwd=RAIZ, text=True).strip()
+
+    # 1 · a DECLARAÇÃO, lida de onde ela existe
+    handoff = json.loads(subprocess.check_output(
+        ['git', 'show', f'{REF_DECLARACAO}:{HANDOFF_META}'], cwd=RAIZ).decode('utf-8'))
+    declarado = handoff.get('meta_canonical_freeze_commit')
+    if not declarado:
+        raise SystemExit(
+            'PARADO: o handoff da Meta não declara meta_canonical_freeze_commit. '
+            'Sem declaração, um join não escolhe sozinho de onde lê.')
+    if not sha.startswith(declarado):
+        raise SystemExit(
+            f'PARADO: este script lê {COMMIT_META}, mas o handoff da Meta '
+            f'declara {declarado} como canônico. Um join não escolhe sozinho '
+            'de qual congelamento ele lê.')
+
+    # 2 · o DADO, lido do commit congelado — e a prova de que ler a
+    #     declaração da ponta não trouxe dado novo junto
+    blob_congelado = subprocess.check_output(
+        ['git', 'rev-parse', f'{COMMIT_META}:{ARQUIVO_META}'],
+        cwd=RAIZ, text=True).strip()
+    blob_na_ponta = subprocess.check_output(
+        ['git', 'rev-parse', f'{REF_DECLARACAO}:{ARQUIVO_META}'],
+        cwd=RAIZ, text=True).strip()
+    if blob_congelado != blob_na_ponta:
+        raise SystemExit(
+            f'PARADO: {ARQUIVO_META} mudou entre o commit congelado '
+            f'({blob_congelado[:9]}) e a ponta da branch ({blob_na_ponta[:9]}). '
+            'A declaração e o dado deixaram de descrever a mesma coisa.')
+
     bruto = subprocess.check_output(
-        ['git', 'show', f'{BRANCH_META}:{ARQUIVO_META}'], cwd=RAIZ)
-    return json.loads(bruto.decode('utf-8')), sha
+        ['git', 'show', f'{COMMIT_META}:{ARQUIVO_META}'], cwd=RAIZ)
+    handoff['_BLOB_DO_ARQUIVO_LIDO'] = blob_congelado
+    handoff['_REF_DA_DECLARACAO'] = REF_DECLARACAO
+    return json.loads(bruto.decode('utf-8')), sha, handoff
 
 
 # ⚠️ `{"state": "NOT_KNOWN"}` É A MISSÃO META DIZENDO "NENHUM PRODUTO PROVADO
@@ -211,7 +289,7 @@ def classificar_tupla(comp, pais, nome, base, marcas, registros, por_nome):
 
 
 def auditar():
-    pilot, sha = ler_da_branch_meta()
+    pilot, sha, handoff = ler_da_branch_meta()
     tuplas, descartadas = tuplas_da_meta(pilot)
     marcas, registros, por_nome = indices_da_missao()
 
@@ -227,7 +305,7 @@ def auditar():
         {'THREE_LAYER_CHAIN_PROVED': provadas,
          'THREE_LAYER_CHAIN_REJECTED': recusadas,
          'THREE_LAYER_CHAIN_NOT_KNOWN': nao_sabidas}[r['ESTADO']].append(r)
-    return pilot, sha, tuplas, descartadas, provadas, recusadas, nao_sabidas
+    return pilot, sha, handoff, tuplas, descartadas, provadas, recusadas, nao_sabidas
 
 
 def exercer_o_portao_urbole():
@@ -288,7 +366,7 @@ def colisoes(provadas):
 
 
 def main():
-    pilot, sha, tuplas, descartadas, provadas, recusadas, nao_sabidas = auditar()
+    pilot, sha, handoff, tuplas, descartadas, provadas, recusadas, nao_sabidas = auditar()
     _, _, por_nome = indices_da_missao()
     guarda = portao_urbole(por_nome)
     exercicio = exercer_o_portao_urbole()
@@ -308,6 +386,20 @@ def main():
     # conta de tuplas e um na de produtos. `145 - 28 = 117` seria uma
     # subtração entre unidades diferentes.
     produtos_todos = {k[2] for k in tuplas}
+    # os nomes CRUS, contados — não cravados. `145` era o número da rodada
+    # anterior e ficou escrito no código; com a Meta congelada ele virou
+    # mentira silenciosa. Agora sai do dado e é conferido contra o que a
+    # própria Meta declara em `snapshot_1.raw_product_names_proved`.
+    nomes_crus = set()
+    for b in pilot['blocks']:
+        prods = b.get('products') or {}
+        nomes_crus.update(x for x in (prods if isinstance(prods, dict) else prods)
+                          if x != ABSENCE_MARKER)
+    crus_declarados = (handoff.get('snapshot_1') or {}).get('raw_product_names_proved')
+    assert crus_declarados is None or len(nomes_crus) == crus_declarados, (
+        f'os blocos trazem {len(nomes_crus)} nomes crus e a Meta declara '
+        f'{crus_declarados}. Duas fontes da mesma missão discordando não é '
+        'detalhe: é sinal de que uma das duas mudou sem a outra.')
     produtos_provados = {c['NOME_NORMALIZADO'] for c in provadas}
     produtos_sem_cadeia = produtos_todos - produtos_provados
     assert len(produtos_provados) + len(produtos_sem_cadeia) == len(produtos_todos), (
@@ -336,11 +428,36 @@ def main():
 
         'FONTE_EXTERNA': {
             'BRANCH': BRANCH_META,
-            'COMMIT': sha,
+            'META_CANONICAL_SOURCE_COMMIT': sha,
+            'DECLARADO_PELA_PROPRIA_META_EM': HANDOFF_META,
+            'REF_DE_ONDE_A_DECLARACAO_FOI_LIDA': handoff.get('_REF_DA_DECLARACAO'),
+            'BLOB_DO_ARQUIVO_LIDO': handoff.get('_BLOB_DO_ARQUIVO_LIDO'),
+            'POR_QUE_DECLARACAO_E_DADO_VEM_DE_LUGARES_DIFERENTES': (
+                'em acfd987 o handoff já existia mas ainda não podia nomear o '
+                'próprio commit. O campo entrou depois. A declaração vem da '
+                'ponta, o dado vem do congelado, e o script PARA se o arquivo '
+                'tiver mudado entre os dois — foi verificado: mesmo blob.'),
             'ARQUIVO': ARQUIVO_META,
-            'COMO_FOI_LIDO': 'git show — somente leitura. Nenhum merge, nenhum '
-                             'checkout, nenhuma alteração de índice.',
-            'ESTADO_DO_HANDOFF_META': 'NÃO CONGELADO pelo coordenador',
+            'COMO_FOI_LIDO': 'git show sobre COMMIT FIXO — somente leitura. '
+                             'Nenhum merge, nenhum checkout, nenhuma alteração '
+                             'de índice.',
+            'ESTADO_DO_HANDOFF_META': {
+                'meta_competitor': handoff.get('meta_competitor'),
+                'mission_state': handoff.get('mission_state'),
+                'mandatory_handoff_ready': handoff.get('mandatory_handoff_ready'),
+            },
+            'POR_QUE_COMMIT_E_NAO_BRANCH': (
+                'uma branch se move. Um join que aponta para a ponta responde '
+                'diferente a cada hora sem que ninguém tenha mudado nada.'),
+            'SNAPSHOT_DECLARADO_PELA_META': handoff.get('snapshot_1'),
+        },
+        'LINHAGEM': {
+            'OLD_META_INPUT': INPUT_SUPERADO,
+            'LINEAGE_CORRECTION': 'COMPLETE',
+            'O_QUE_MUDOU': 'apenas o ponteiro da fonte externa: 4cee050 -> acfd987',
+            'O_QUE_NAO_MUDOU': ('o casador. classificar_tupla, o portão URBOLE, a '
+                                'normalização e as três concordâncias obrigatórias '
+                                'são as do commit congelado do Foresight 25194e3'),
         },
 
         'UNIVERSO': {
@@ -394,23 +511,33 @@ def main():
                               == len(produtos_todos)),
                     'VERIFICADO_POR': 'assert, não por leitura',
                 },
-                'NOMES_CRUS_NA_META': 145,
-                'POR_QUE_145_NAO_E_O_TOTAL_NORMALIZADO': (
-                    'o `ads_by_product_proved` do METRICS traz 145 nomes CRUS. '
-                    'Quatro pares são o mesmo nome em caixas diferentes — '
-                    'SPECTRUM/Spectrum, VELIFER/Velifer, GAXY/Gaxy, '
-                    'KUSABI/Kusabi — e colapsam ao normalizar. Por isso o total '
-                    'em unidade de produto é 141, e não 145.'),
-                'ANUNCIADO_ANTES_COMO': '36 — obtido casando SÓ o nome',
-                'DIFERENCA_EXPLICADA': ('o 36 antigo casava nome de produto com '
-                                        'nome de marca, sem exigir que o titular '
-                                        'da marca, o do registro e a company da '
-                                        'Meta fossem o mesmo grupo, nem que o país '
-                                        'fosse o mesmo nas três pontas'),
+                'NOMES_CRUS_NA_META': len(nomes_crus),
+                'NOMES_CRUS_DECLARADOS_PELA_META': crus_declarados,
+                'CONFERENCIA_CRUZADA': (
+                    'contados nos blocos e comparados com '
+                    '`snapshot_1.raw_product_names_proved` do handoff da Meta. '
+                    'Divergência PARA o script.'),
+                'POR_QUE_O_CRU_NAO_E_O_TOTAL_NORMALIZADO': (
+                    f'os blocos trazem {len(nomes_crus)} nomes CRUS. '
+                    f'{len(nomes_crus) - len(produtos_todos)} pares são o mesmo '
+                    'nome em caixas diferentes — SPECTRUM/Spectrum, '
+                    'VELIFER/Velifer, GAXY/Gaxy, KUSABI/Kusabi — e colapsam ao '
+                    f'normalizar. Por isso o total em unidade de produto é '
+                    f'{len(produtos_todos)}, e não {len(nomes_crus)}.'),
+                'RESULTADO_SUPERADO': {
+                    'PRODUTOS_COM_CADEIA': INPUT_SUPERADO['PROVED_PRODUCTS'],
+                    'SOBRE_QUAL_INPUT': f"{INPUT_SUPERADO['RAW_PRODUCT_NAMES']} "
+                                        'nomes crus · '
+                                        f"{INPUT_SUPERADO['AD_CARDS']} cartões",
+                    'ESTADO': INPUT_SUPERADO['ESTADO'],
+                    'NAO_E': INPUT_SUPERADO['NAO_E'],
+                },
                 'NAO_SUBTRAIR_ENTRE_UNIDADES': (
-                    '145 - 28 = 117 seria subtração entre um total de nomes crus '
-                    'e uma contagem de produtos normalizados. As duas contas '
-                    'corretas estão acima, cada uma fechando na sua unidade.'),
+                    f'{len(nomes_crus)} - '
+                    f'{len(produtos_provados)} seria subtração entre um total de '
+                    'nomes CRUS e uma contagem de produtos NORMALIZADOS. As duas '
+                    'contas corretas estão acima, cada uma fechando na sua '
+                    'unidade, por assert.'),
             },
         },
 

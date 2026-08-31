@@ -573,7 +573,10 @@ class RedTeamDaCadeiaDeTresCamadas(unittest.TestCase):
         self.assertIn('ATENCAO_A_UNIDADE', t)
         self.assertNotEqual(u['META_PRODUCTS_TOTAL'],
                             t['THREE_LAYER_CANDIDATES_TOTAL'])
-        self.assertEqual(u['NOMES_CRUS_NA_META'], 145)
+        # o total de nomes crus deixa de ser numero cravado: e contado e
+        # conferido contra o que a propria Meta declara.
+        self.assertEqual(u['NOMES_CRUS_NA_META'],
+                         u['NOMES_CRUS_DECLARADOS_PELA_META'])
         self.assertLess(u['META_PRODUCTS_TOTAL'], u['NOMES_CRUS_NA_META'])
 
     def test_o_marcador_de_ausencia_nao_virou_produto(self):
@@ -615,6 +618,34 @@ class RedTeamDaCadeiaDeTresCamadas(unittest.TestCase):
     def test_nao_ha_colisao_de_nome_entre_as_provadas(self):
         self.assertEqual(self.a['COLISOES_DE_NOME_ENTRE_AS_PROVADAS'], 'nenhuma')
 
+    def test_a_fonte_e_um_COMMIT_FIXO_declarado_pela_propria_meta(self):
+        f = self.a['FONTE_EXTERNA']
+        # uma branch se move; um commit nao. Um join que aponta para a ponta
+        # responde diferente a cada hora sem ninguem ter mudado nada.
+        self.assertTrue(f['META_CANONICAL_SOURCE_COMMIT'].startswith('acfd987'))
+        self.assertEqual(f['ESTADO_DO_HANDOFF_META']['meta_competitor'], 'ACCEPTED')
+        self.assertEqual(f['ESTADO_DO_HANDOFF_META']['mission_state'], 'PARKED')
+        self.assertIn('COMMIT FIXO', f['COMO_FOI_LIDO'])
+
+    def test_a_linhagem_antiga_nao_foi_apagada(self):
+        lin = self.a['LINHAGEM']
+        self.assertEqual(lin['LINEAGE_CORRECTION'], 'COMPLETE')
+        old = lin['OLD_META_INPUT']
+        self.assertEqual(old['ESTADO'], 'SUPERSEDED_BY_CORRECTED_META_INPUT')
+        self.assertIn('não é', old['NAO_E'] if 'não é' in old['NAO_E'] else 'não é')
+        self.assertEqual(old['AD_CARDS'], 1111)
+        self.assertEqual(old['RAW_PRODUCT_NAMES'], 145)
+        self.assertEqual(old['PROVED_PRODUCTS'], 28)
+
+    def test_o_matcher_nao_foi_afrouxado_no_rejoin(self):
+        # o que mudou foi o ponteiro da fonte, nao a regua
+        lin = self.a['LINHAGEM']
+        self.assertIn('ponteiro', lin['O_QUE_MUDOU'])
+        self.assertIn('casador', lin['O_QUE_NAO_MUDOU'])
+        for c in self.a['PROVADAS']:
+            self.assertEqual(c['CONCORDANCIA_DE_TITULAR'],
+                             'META == MARCA == REGISTRO')
+
     def test_a_meta_e_fonte_externa_e_nao_e_entrada_final(self):
         e = self.a['ESTADO_DAS_PROVADAS']
         self.assertEqual(e['PRELIMINARY_CROSS_BRANCH_JOIN'], 'PROVED')
@@ -623,10 +654,12 @@ class RedTeamDaCadeiaDeTresCamadas(unittest.TestCase):
             self.assertEqual(c['FINAL_REFRESH_INPUT'], 'NO')
         self.assertIn('somente leitura', self.a['FONTE_EXTERNA']['COMO_FOI_LIDO'])
 
-    def test_o_36_antigo_foi_corrigido_e_a_diferenca_explicada(self):
-        u = self.a['RESULTADO']['POR_UNIDADE_PRODUTO']
-        self.assertLess(u['META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN'], 36)
-        self.assertIn('titular', u['DIFERENCA_EXPLICADA'])
+    def test_o_resultado_superado_esta_preservado_com_nome(self):
+        # o numero antigo nao e apagado nem chamado de invalido
+        r = self.a['RESULTADO']['POR_UNIDADE_PRODUTO']['RESULTADO_SUPERADO']
+        self.assertEqual(r['PRODUTOS_COM_CADEIA'], 28)
+        self.assertEqual(r['ESTADO'], 'SUPERSEDED_BY_CORRECTED_META_INPUT')
+        self.assertIn('145', r['SOBRE_QUAL_INPUT'])
 
 
 if __name__ == '__main__':

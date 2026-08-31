@@ -293,7 +293,10 @@ def main():
                         'THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES'],
                     'CONSERVACAO_TUPLAS': aud['RESULTADO']['CONSERVACAO_TUPLAS'],
                     # ── unidade PRODUTO, conta separada ────────────────
-                    'META_ADVERTISED_PRODUCTS_OBSERVED': 145,
+                    'META_CANONICAL_SOURCE_COMMIT': aud['FONTE_EXTERNA'][
+                        'META_CANONICAL_SOURCE_COMMIT'],
+                    'META_RAW_PRODUCT_NAMES': aud['RESULTADO'][
+                        'POR_UNIDADE_PRODUTO']['NOMES_CRUS_NA_META'],
                     'META_PRODUCTS_TOTAL': aud['RESULTADO'][
                         'POR_UNIDADE_PRODUTO']['META_PRODUCTS_TOTAL'],
                     'META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN': aud['RESULTADO'][
@@ -310,9 +313,15 @@ def main():
                     'DEFEITO_ENCONTRADO_NA_CONFERENCIA_DE_UNIDADE': aud[
                         'UNIVERSO']['DESCARTADAS_ANTES_DE_CANDIDATAR'][
                         'EFEITO_DO_DEFEITO'],
-                    'O_36_ANTERIOR': ('caiu para 28 produtos quando a exigência de '
-                                      'titular entrou. Oito eram nome igual sem '
-                                      'concordância de empresa ou de país.'),
+                    'LINHAGEM': aud['LINHAGEM'],
+                    'OLD_RESULT': 'SUPERSEDED_BY_CORRECTED_META_INPUT',
+                    'O_QUE_MUDOU_DO_RESULTADO_ANTERIOR': (
+                        'a Meta congelou uma base corrigida — 1.340 cartões e 151 '
+                        'nomes crus, contra 1.111 e 145. Só o PONTEIRO da fonte '
+                        'mudou (4cee050 → acfd987); o casador é o mesmo do commit '
+                        'congelado do Foresight. O resultado anterior não é '
+                        'inválido: foi medido corretamente sobre o input daquele '
+                        'momento.'),
                     'URBOLE_GUARD': aud['URBOLE_GUARD']['URBOLE_GUARD'],
                     'URBOLE_GUARD_EXERCIDO': aud['URBOLE_GUARD'][
                         'EXERCIDO_POR_MUTACAO']['PEGOU'],
@@ -327,7 +336,7 @@ def main():
                     'COMO_FOI_MEDIDO': (
                         'git show somente-leitura sobre '
                         f"{aud['FONTE_EXTERNA']['BRANCH']} @ "
-                        f"{aud['FONTE_EXTERNA']['COMMIT'][:9]}. Nenhum merge, "
+                        f"{aud['FONTE_EXTERNA']['META_CANONICAL_SOURCE_COMMIT'][:9]}. Nenhum merge, "
                         'nenhum checkout, nenhuma alteração de índice.'),
                 },
                 'PROIBIDO_DIZER': 'não existe Meta no repositório',
