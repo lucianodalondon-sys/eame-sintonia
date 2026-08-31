@@ -1,0 +1,207 @@
+{
+  "SOURCE_ID": "SUPABASE-DEV-VALIDATION-PLAN-EAME-2026-08-31",
+  "source": "Bateria de validacao do DEV, escrita para rodar dentro do Postgres.",
+  "DEV_PROJECT_REF": null,
+  "REFS_RECUSADOS": {
+    "odhdwvugikjdvkapbowe": "parent: 732 objetos em storage, 19 tabelas com dado",
+    "hvtycqsrdtmxxodwcwph": "branch develop: 51 tabelas herdadas e public.schema_migracao"
+  },
+  "EXECUTADA": false,
+  "POR_QUE_NAO": "duas razoes, e a segunda e a que manda agora: nao ha credencial nesta maquina, e nao ha banco limpo para rodar. O SQL roda sozinho e se reprova sozinho quando o alvo existir.",
+  "ORDEM": [
+    "supabase/inventory/0000_readonly_inventory.sql (no DEV novo, antes de tudo)",
+    "supabase/migrations/0001_initial_canonical_schema.sql",
+    "supabase/validation/0002_dev_validation.sql"
+  ],
+  "VERIFICACOES_NEGATIVAS": 27,
+  "VERIFICACOES_POSITIVAS": 17,
+  "TOTAL": 44,
+  "NEGATIVAS": [
+    {
+      "NOME": "EXPIRY_NE_WITHDRAWAL",
+      "TENTA": "prazo com expiry_is_withdrawal = true"
+    },
+    {
+      "NOME": "PRAZO_NAO_AUTORIZA_BUSINESS_DECISION",
+      "TENTA": "objeto de prazo com max_authorized_action = BUSINESS_DECISION"
+    },
+    {
+      "NOME": "MEDIA_EXIGE_N",
+      "TENTA": "leitura de serie com n = 0"
+    },
+    {
+      "NOME": "MEDIA_EXIGE_N_NAO_NULO",
+      "TENTA": "leitura de serie com n nulo"
+    },
+    {
+      "NOME": "LOCALITY_TEXT_NAO_E_POINT",
+      "TENTA": "localidade em texto carregando geometria"
+    },
+    {
+      "NOME": "POINT_EXIGE_GEOMETRIA",
+      "TENTA": "resolucao POINT sem geometria"
+    },
+    {
+      "NOME": "GEOMETRIA_EXIGE_ORIGEM",
+      "TENTA": "geometria sem fonte declarada"
+    },
+    {
+      "NOME": "DEPENDENTE_DECLARA_ALVO",
+      "TENTA": "perna DEPENDENT sem tipo de dependencia e sem alvo"
+    },
+    {
+      "NOME": "INDEPENDENTE_NAO_TEM_ALVO",
+      "TENTA": "perna INDEPENDENT apontando para outra perna"
+    },
+    {
+      "NOME": "SOURCE_LANGUAGE_VOCABULARIO_FECHADO",
+      "TENTA": "lingua fora do vocabulario"
+    },
+    {
+      "NOME": "SOURCE_LANGUAGE_NAO_ACEITA_TRACO",
+      "TENTA": "lingua igual a travessao"
+    },
+    {
+      "NOME": "EXPERTISE_PROVADA_EXIGE_EVIDENCIA",
+      "TENTA": "expertise PROVED sem evidencia"
+    },
+    {
+      "NOME": "GDPR_ANTES_DA_IDENTIDADE",
+      "TENTA": "observacao de pessoa identificada com GDPR nao iniciado"
+    },
+    {
+      "NOME": "LATENCIA_SEM_MEDICAO_E_NULA",
+      "TENTA": "latencia com valor sem estado PROVED"
+    },
+    {
+      "NOME": "PUBLICADO_EXIGE_SOMBRA",
+      "TENTA": "publish_run PUBLISHED sem sombra aprovada"
+    },
+    {
+      "NOME": "BACKENDS_NAO_SE_MISTURAM",
+      "TENTA": "proveniencia com repositorio E tabela ao mesmo tempo"
+    },
+    {
+      "NOME": "GITHUB_EXIGE_COMMIT",
+      "TENTA": "proveniencia GITHUB sem commit_sha"
+    },
+    {
+      "NOME": "PORTFOLIO_E_SEMPRE_CONTEXTO",
+      "TENTA": "portfolio local marcado como evidencia"
+    },
+    {
+      "NOME": "OBJETO_NAO_SE_RELACIONA_CONSIGO",
+      "TENTA": "objeto relacionado a si mesmo"
+    },
+    {
+      "NOME": "MUDANCA_DE_ESTADO_EXIGE_ESTADO",
+      "TENTA": "evento STATE_CHANGE sem estado depois"
+    },
+    {
+      "NOME": "VAZIO_TEMPORAL_DECLARA_MOTIVO",
+      "TENTA": "evento GAP sem motivo"
+    },
+    {
+      "NOME": "SEM_DATA_SEM_PRECISAO",
+      "TENTA": "evento sem data com resolucao exata"
+    },
+    {
+      "NOME": "PERFIL_PERTENCE_A_UMA_ENTIDADE",
+      "TENTA": "perfil de creator sem pessoa e sem negocio"
+    },
+    {
+      "NOME": "CONCORDANCIA_EXIGE_PORTAO",
+      "TENTA": "cadeia com concordancia PROVED e portao NOT_RUN"
+    },
+    {
+      "NOME": "PAR_PROVADO_EXIGE_PASSAGEM",
+      "TENTA": "pareamento cultura x problema PROVED sem a passagem"
+    },
+    {
+      "NOME": "OFFSETS_ANDAM_EM_PAR",
+      "TENTA": "offset de passagem pela metade"
+    },
+    {
+      "NOME": "TRADUCAO_NAO_E_NA_LINGUA_DE_ORIGEM",
+      "TENTA": "traducao com lingua UNKNOWN"
+    }
+  ],
+  "POSITIVAS": [
+    {
+      "NOME": "TABLES_ACTUAL",
+      "ESPERADO": "57"
+    },
+    {
+      "NOME": "VIEWS_ACTUAL",
+      "ESPERADO": "13"
+    },
+    {
+      "NOME": "RPCS_ACTUAL",
+      "ESPERADO": "5"
+    },
+    {
+      "NOME": "ENUMS_ACTUAL",
+      "ESPERADO": "27"
+    },
+    {
+      "NOME": "RLS_ENABLED_ALL",
+      "ESPERADO": "57"
+    },
+    {
+      "NOME": "PUBLISHER_POLICIES",
+      "ESPERADO": "57"
+    },
+    {
+      "NOME": "INDEXES_ON_FK",
+      "ESPERADO": "86"
+    },
+    {
+      "NOME": "CONVERGENCE_SINGLE_SIGNAL",
+      "ESPERADO": "SINGLE_SIGNAL"
+    },
+    {
+      "NOME": "READINESS_NOT_READY",
+      "ESPERADO": "false"
+    },
+    {
+      "NOME": "COUNTRY_ISOLATION_ES",
+      "ESPERADO": "1"
+    },
+    {
+      "NOME": "COUNTRY_ISOLATION_IT",
+      "ESPERADO": "1"
+    },
+    {
+      "NOME": "COUNTRY_ISOLATION_FR",
+      "ESPERADO": "1"
+    },
+    {
+      "NOME": "MULTILINGUAL_ONE_OBJECT",
+      "ESPERADO": "1"
+    },
+    {
+      "NOME": "MULTILINGUAL_FIVE_LANGUAGES",
+      "ESPERADO": "5"
+    },
+    {
+      "NOME": "ORIGINAL_PRESERVED",
+      "ESPERADO": "texto original em espanhol"
+    },
+    {
+      "NOME": "PROVENANCE_REACHES_COMMIT",
+      "ESPERADO": "d7b289425c5e436f3ce68e367b8706e11910f43b"
+    },
+    {
+      "NOME": "ALLOWED_COUNTRIES_DENIES_BY_DEFAULT",
+      "ESPERADO": "0"
+    }
+  ],
+  "TRANSACAO": "BEGIN ... ROLLBACK — o DEV sai como entrou",
+  "ESPERADO_DO_SCHEMA": {
+    "TABLES": 57,
+    "VIEWS": 13,
+    "RPCS": 5,
+    "ENUMS": 27,
+    "INDEXES": 86
+  }
+}

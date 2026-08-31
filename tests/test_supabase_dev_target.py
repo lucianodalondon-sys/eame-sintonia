@@ -119,7 +119,9 @@ class TestClassificador(unittest.TestCase):
             EXISTING_SCHEMAS=['public', 'auth', 'sintonia'],
             EXISTING_TABLES=[{'table_schema': 'sintonia', 'table_name': 'attention_object'}]))
         self.assertEqual(c['SAFE_TO_USE_AS_DEV'], 'NEEDS_DECISION')
-        self.assertIn('nao pode assumir banco limpo', str(c['MOTIVOS_DE_ATENCAO']))
+        # mudou de lista: isto e sujeira de SCHEMA, nao de dado
+        self.assertIn('nao pode assumir banco limpo', str(c['MOTIVOS_DE_SCHEMA']))
+        self.assertEqual(c['SCHEMA_CLEAN'], 'NO')
 
     def test_migration_ja_aplicada_pede_decisao(self):
         c = classificar(com(EXISTING_MIGRATION_HISTORY=[
@@ -231,10 +233,14 @@ class TestInventarioMedido(unittest.TestCase):
 
 class TestAlvoDev(unittest.TestCase):
 
-    def test_a_estrategia_nao_foi_escolhida_em_silencio(self):
+    def test_a_estrategia_foi_decidida_pela_medicao_nao_por_mim(self):
+        # Deixou de ser NEEDS_DECISION porque a opcao A foi TENTADA e medida: a
+        # branch herdou schema e migrations do pai, exatamente como o contra da
+        # opcao A previa. Nao e escolha em silencio — e a opcao que sobrou.
         d = ALVO['DEV_TARGET']
-        self.assertEqual(d['DEV_TARGET_STRATEGY'], 'NEEDS_DECISION')
+        self.assertEqual(d['DEV_TARGET_STRATEGY'], 'NEW_PROJECT')
         self.assertEqual(d['DEV_TARGET_CREATED'], 'NO')
+        self.assertIsNone(d['DEV_PROJECT_REF'])
         self.assertEqual(len(d['OPCOES']), 2)
         self.assertEqual(d['RECOMENDACAO']['NAO_E_DECISAO'], 'e recomendacao. Nada foi criado.')
 
@@ -272,8 +278,12 @@ class TestPortaoDeAplicacao(unittest.TestCase):
         self.assertFalse(p['PODE_APLICAR'])
         self.assertIn('sem acesso local: quem aplica e quem tem credencial', p['RECUSAS'])
 
-    def test_o_alvo_e_o_projeto_informado(self):
-        self.assertEqual(preparar_aplicacao()['ALVO'], 'odhdwvugikjdvkapbowe')
+    def test_o_alvo_deixou_de_ser_fixo(self):
+        # Antes, ALVO era o parent, escrito no codigo. Isso era um alvo errado
+        # esperando a hora de ser usado. Agora quem aplica informa o REF, e o
+        # portao recusa os que ja foram medidos e reprovados.
+        self.assertIsNone(preparar_aplicacao()['ALVO'])
+        self.assertEqual(preparar_aplicacao(ref='ref-x')['ALVO'], 'ref-x')
 
     def test_nada_foi_aplicado(self):
         self.assertEqual(ALVO['MIGRATION_APPLIED_DEV'], 'NO')

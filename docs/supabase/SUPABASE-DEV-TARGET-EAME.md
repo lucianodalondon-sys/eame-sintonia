@@ -165,7 +165,98 @@ ser identificável como DEV pelo próprio REF, não só pelo nome
 
 ---
 
-## 6 · SAÍDA
+## 6 · A OPÇÃO A FOI TENTADA, MEDIDA E REPROVADA
+
+A branch foi criada com `WITH_DATA=false` e medida:
+
+```
+DEV_BRANCH = develop        DEV_BRANCH_REF = hvtycqsrdtmxxodwcwph
+PARENT_PROJECT_REF = odhdwvugikjdvkapbowe          STATUS = ACTIVE_HEALTHY
+
+PUBLIC_TABLES_WITH_ROWS ... 0        STORAGE_OBJECTS ... 0        AUTH_USERS ... 0
+PUBLIC_TABLES ............ 51        PUBLIC_VIEWS .... 16         PUBLIC_FUNCTIONS ... 20
+PUBLIC_POLICIES .......... 0         public.schema_migracao EXISTS = YES
+```
+
+**`WITH_DATA=false` barrou o dado e não barrou o schema.** A branch chegou sem uma linha
+sequer — e com 51 tabelas, 16 views, 20 funções e a tabela de migrations do pai.
+
+```
+DEV_BRANCH_DATA_EMPTY ....................... YES
+DEV_BRANCH_SCHEMA_CLEAN ..................... NO
+DEV_BRANCH_SAFE_FOR_CANONICAL_MIGRATION ..... NO
+```
+
+A branch fica **intocada**: não aplicar a migration, não limpar, não dar `DROP` para abrir
+espaço, não adaptar a migration ao schema legado. E não tocar no parent.
+
+### E isso achou um segundo bug meu — o mesmo erro, do outro lado
+
+Rodei meu próprio classificador contra esta medição antes de escrever qualquer coisa. Ele
+respondeu **`YES`**.
+
+Ele media **dado**: usuário, arquivo, linha. Zero em todos os três. Mas *vazio de dado* não
+é *limpo de schema* — são **duas perguntas**, e eu só estava fazendo uma.
+
+> Na rodada passada eu tratei "não sei tudo" como se fosse "está vazio".
+> Nesta, tratei "não tem dado" como se fosse "está limpo". É o mesmo erro virado do avesso.
+
+Corrigido. O classificador agora responde as duas separado, e a migration exige as duas:
+
+```
+DATA_EMPTY = YES   ·   SCHEMA_CLEAN = NO   →   SAFE_FOR_CANONICAL_MIGRATION = NO
+```
+
+`public` estava na minha lista de "schema de sistema" — e está certo, todo Postgres tem um.
+Mas **tabela dentro de `public` não vem com o Postgres: alguém criou.** Era por aí que as 51
+passavam sem serem vistas.
+
+### O alvo saiu do código
+
+`preparar_aplicacao()` tinha o REF do **parent** escrito dentro dele como alvo. Era um alvo
+errado esperando a hora de ser usado. Agora quem aplica informa o REF, e o portão **recusa**
+os dois já medidos:
+
+```
+odhdwvugikjdvkapbowe   parent: 732 objetos em storage, 19 tabelas com dado
+hvtycqsrdtmxxodwcwph   branch develop: 51 tabelas herdadas e public.schema_migracao
+```
+
+---
+
+## 7 · A BATERIA DE VALIDAÇÃO EXISTE, ESCRITA PARA RODAR SOZINHA
+
+Não há banco limpo e não há credencial aqui. Em vez de descrever o que *deveria* ser testado,
+o teste está escrito em SQL: `supabase/validation/0002_dev_validation.sql`, gerado por
+`scripts/supabase_dev_validation.py`.
+
+**44 verificações — e as 27 que valem são as negativas.** Contar tabela prova que o `CREATE`
+correu; só a **linha recusada** prova que a lei pega. Cada negativa tenta inserir algo
+proibido e marca `PASS` **quando o banco recusa**:
+
+```
+prazo de expiração declarado como retirada          média sem o n
+prazo autorizando decisão de negócio                localidade em texto carregando ponto
+perna dependente sem dizer de quem depende          perna independente apontando para outra
+publicação sem a sombra aprovada                    proveniência misturando GitHub e Supabase
+língua fora do vocabulário · língua igual a `—`     portfólio local marcado como evidência
+expertise provada sem evidência                     voz de pessoa identificada antes do GDPR
+… e mais 15
+```
+
+As 17 positivas contam e derivam: 57 tabelas, 13 views, 5 funções, 27 vocabulários, RLS nas
+57, isolamento nos três países, um objeto com cinco idiomas e o original preservado,
+proveniência que chega no commit `d7b2894…` do H2, e `allowed_countries()` devolvendo vazio
+por padrão — porta fechada até alguém abrir.
+
+**Tudo dentro de uma transação que termina em `ROLLBACK`.** O banco sai como entrou.
+
+**Ordem:** inventário → migration → validação. O inventário roda **primeiro**, no DEV novo —
+foi ele que reprovou o parent e teria reprovado a branch.
+
+---
+
+## 8 · SAÍDA
 
 ```
 EXISTING_SUPABASE_PROJECT    = eame-sintonia · odhdwvugikjdvkapbowe · eu-west-1 · ACTIVE_HEALTHY
@@ -176,13 +267,19 @@ EXISTING_STORAGE_OBJECTS = 732
 PUBLIC_TABLES_WITH_ROWS  = 19        (1.932 linhas)
 PUBLIC_VIEWS = 16   PUBLIC_FUNCTIONS = 20   PUBLIC_POLICIES = 0   AUTH_USERS = 0
 
+DEV_BRANCH_REF = hvtycqsrdtmxxodwcwph
+DEV_BRANCH_DATA_EMPTY = YES   DEV_BRANCH_SCHEMA_CLEAN = NO
+DEV_BRANCH_SAFE_FOR_CANONICAL_MIGRATION = NO
+
 CLAUDE_LOCAL_SUPABASE_ACCESS = NO
 DEV_INSTANCE_AVAILABLE       = NO
 
-DEV_TARGET_STRATEGY = NEEDS_DECISION   (recomendação: NEW_PROJECT)
+DEV_TARGET_STRATEGY = NEW_PROJECT      (a opção A foi tentada e medida)
 DEV_TARGET_CREATED  = NO
+DEV_PROJECT_REF     = (aguardando REF limpo)
 
 MIGRATION_APPLIED_DEV = NO      REAL_DATA_PUBLISHED = NO
+DEV_VALIDATION_SUITE = 44 verificações escritas · NOT_EXECUTED
 
 READY_TO_APPLY_MIGRATION_DEV = NO
 READY_FOR_FIRST_SHADOW_LOAD  = NO
@@ -210,17 +307,14 @@ Continuam **exatamente** como registradas. Não escondidas, não resolvidas por 
 ### `EXACT_BLOCKERS`
 
 ```
-1  DEV_TARGET_STRATEGY = NEEDS_DECISION
-   escolher entre A e B. A recomendação é B, com o motivo medido.
-   Nada será criado sem essa decisão.
+1  NEW CLEAN DEV PROJECT REQUIRED
+   é o bloqueador exato. Os dois alvos existentes foram medidos e reprovados:
+   o parent por dado, a branch por schema. O portão recusa os dois pelo REF.
 
-2  DEV_PROJECT_REF / DEV_BRANCH_REF ainda não existe
-   a migration não é aplicada até esse identificador chegar
-
-3  quem aplica é quem tem a credencial
+2  quem aplica é quem tem a credencial
    o portão recusa enquanto CLAUDE_LOCAL_SUPABASE_ACCESS for NO
 
-4  pergunta aberta: o que é o dado do projeto existente?
+3  pergunta aberta: o que é o dado do projeto existente?
    os nomes são do domínio SINTONIA. Se for implementação anterior, a relação
    dele com o modelo canônico precisa de resposta — de alguém, não de palpite
 ```

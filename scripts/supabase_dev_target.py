@@ -138,8 +138,11 @@ def classificar(inv):
         return {
             'SAFE_TO_USE_AS_DEV': 'NEEDS_DECISION',
             'DEV_INSTANCE_AVAILABLE': 'NOT_MEASURED',
+            'DATA_EMPTY': 'NOT_MEASURED',
+            'SCHEMA_CLEAN': 'NOT_MEASURED',
+            'SAFE_FOR_CANONICAL_MIGRATION': 'NO',   # nao medido nunca autoriza
             'WHY': ['inventario nao executado: sem acesso, sem leitura, sem veredito'],
-            'MOTIVOS_DE_BLOQUEIO': [], 'MOTIVOS_DE_ATENCAO': [],
+            'MOTIVOS_DE_BLOQUEIO': [], 'MOTIVOS_DE_SCHEMA': [], 'MOTIVOS_DE_ATENCAO': [],
         }
 
     bloqueia, atencao = [], []
@@ -165,15 +168,41 @@ def classificar(inv):
     if alheios:
         atencao.append('schema fora do sistema e fora do sintonia: %s' % alheios)
 
+    # SEGUNDA DIMENSAO, e uma branch real me ensinou que ela existe.
+    #
+    # Ate aqui eu media DADO: usuario, arquivo, linha. Uma development branch criada
+    # com WITH_DATA=false chegou com 0 linha, 0 arquivo, 0 usuario — e 51 tabelas,
+    # 16 views, 20 funcoes e public.schema_migracao herdadas do pai. O meu
+    # classificador respondeu YES. Estava errado pelo mesmo motivo de sempre, so que
+    # do outro lado: ausencia de dado NAO e ausencia de schema.
+    #
+    # Banco vazio de dado e banco limpo de schema sao DUAS perguntas. A migration
+    # canonica precisa das duas respondidas com sim.
+    schema = []
     tabelas = [t for t in inv.get('EXISTING_TABLES', [])
                if t.get('table_schema') not in SCHEMAS_DE_SISTEMA]
     if any(t.get('table_schema') == 'sintonia' for t in tabelas):
-        atencao.append('ja existe schema sintonia com tabela: a migration nao pode '
-                       'assumir banco limpo')
+        schema.append('ja existe schema sintonia com tabela: a migration nao pode '
+                      'assumir banco limpo')
+
+    # 'public' esta em SCHEMAS_DE_SISTEMA porque todo Postgres tem. Mas tabela DENTRO
+    # de public nao vem com o Postgres: alguem criou.
+    em_public = [t for t in inv.get('EXISTING_TABLES', [])
+                 if t.get('table_schema') == 'public']
+    n_public = inv.get('PUBLIC_TABLES', len(em_public))
+    if n_public:
+        schema.append('%d tabela(s) em public que nao sao minhas: o banco esta vazio '
+                      'de dado e nao esta limpo de schema' % n_public)
+    if inv.get('PUBLIC_VIEWS', 0) or inv.get('PUBLIC_FUNCTIONS', 0):
+        schema.append('%d view(s) e %d funcao(oes) em public, herdadas'
+                      % (inv.get('PUBLIC_VIEWS', 0), inv.get('PUBLIC_FUNCTIONS', 0)))
 
     historico = inv.get('EXISTING_MIGRATION_HISTORY')
     if historico:
-        atencao.append('%d migration(s) ja aplicada(s) neste projeto' % len(historico))
+        schema.append('%d migration(s) ja aplicada(s) neste projeto' % len(historico))
+    if inv.get('SCHEMA_MIGRACAO_EXISTS'):
+        schema.append('public.schema_migracao existe: o banco tem historia de '
+                      'migration propria, e ela nao e a minha')
 
     # ORDEM QUE IMPORTA, e que um inventario real corrigiu:
     # evidencia que bloqueia vence a incompletude. "Nao sei tudo, mas sei que ha
@@ -187,8 +216,11 @@ def classificar(inv):
         return {
             'SAFE_TO_USE_AS_DEV': 'NEEDS_DECISION',
             'DEV_INSTANCE_AVAILABLE': 'NOT_MEASURED',
+            'DATA_EMPTY': 'NOT_MEASURED',
+            'SCHEMA_CLEAN': 'NOT_MEASURED',
+            'SAFE_FOR_CANONICAL_MIGRATION': 'NO',
             'WHY': ['inventario incompleto: faltam %s' % ', '.join(ausentes)],
-            'MOTIVOS_DE_BLOQUEIO': [],
+            'MOTIVOS_DE_BLOQUEIO': [], 'MOTIVOS_DE_SCHEMA': schema,
             'MOTIVOS_DE_ATENCAO': ['chave ausente nao e chave vazia'],
         }
     if ausentes:
@@ -197,18 +229,27 @@ def classificar(inv):
 
     if bloqueia:
         veredito, disp = 'NO', 'NO'
-    elif atencao:
+    elif atencao or schema:
         veredito, disp = 'NEEDS_DECISION', 'NOT_MEASURED'
     else:
         veredito, disp = 'YES', 'YES'
 
+    # As duas perguntas, respondidas separado. Nenhuma responde pela outra.
+    dado_vazio = 'NO' if bloqueia else 'YES'
+    schema_limpo = 'NO' if schema else 'YES'
+    pode_migrar = 'YES' if (dado_vazio == 'YES' and schema_limpo == 'YES') else 'NO'
+
     return {
         'SAFE_TO_USE_AS_DEV': veredito,
         'DEV_INSTANCE_AVAILABLE': disp,
-        'WHY': (bloqueia or atencao or
-                ['nenhuma tabela com linha, nenhum usuario, nenhum objeto em storage, '
-                 'nenhum schema alheio']),
+        'DATA_EMPTY': dado_vazio,
+        'SCHEMA_CLEAN': schema_limpo,
+        'SAFE_FOR_CANONICAL_MIGRATION': pode_migrar,
+        'WHY': (bloqueia or schema or atencao or
+                ['sem linha, sem usuario, sem arquivo em storage, sem schema alheio, '
+                 'e nenhuma tabela herdada em public']),
         'MOTIVOS_DE_BLOQUEIO': bloqueia,
+        'MOTIVOS_DE_SCHEMA': schema,
         'MOTIVOS_DE_ATENCAO': atencao,
     }
 
@@ -226,12 +267,45 @@ def acesso_local():
     }
 
 
+# A branch foi criada, medida — e reprovada. Pelo motivo que estava escrito na
+# opcao A antes de ela existir.
+BRANCH = {
+    'DEV_BRANCH': 'develop',
+    'DEV_BRANCH_REF': 'hvtycqsrdtmxxodwcwph',
+    'PARENT_PROJECT_REF': 'odhdwvugikjdvkapbowe',
+    'WITH_DATA': False,
+    'STATUS': 'ACTIVE_HEALTHY',
+    'VERIFICADO_POR_MIM': False,
+    'MEDIDO': {
+        'PUBLIC_TABLES': 51, 'PUBLIC_VIEWS': 16, 'PUBLIC_FUNCTIONS': 20,
+        'PUBLIC_POLICIES': 0, 'PUBLIC_TABLES_WITH_ROWS': 0,
+        'STORAGE_OBJECTS': 0, 'AUTH_USERS': 0, 'SCHEMA_MIGRACAO_EXISTS': True,
+    },
+    'DEV_BRANCH_DATA_EMPTY': 'YES',
+    'DEV_BRANCH_SCHEMA_CLEAN': 'NO',
+    'DEV_BRANCH_SAFE_FOR_CANONICAL_MIGRATION': 'NO',
+    'O_QUE_ISSO_ENSINOU': (
+        'WITH_DATA=false barrou o DADO e nao barrou o SCHEMA. A branch chegou com 0 '
+        'linha, 0 arquivo, 0 usuario — e 51 tabelas, 16 views, 20 funcoes e '
+        'public.schema_migracao herdados do pai. Vazio de dado nao e limpo de schema.'),
+    'BUG_QUE_ISSO_ACHOU': (
+        'o classificador media so dado, e por isso devolveu YES para esta branch. '
+        'Corrigido: DATA_EMPTY e SCHEMA_CLEAN sao duas perguntas, e '
+        'SAFE_FOR_CANONICAL_MIGRATION exige as duas com sim.'),
+    'O_QUE_NAO_FAZER': ['nao aplicar a migration canonica aqui',
+                        'nao limpar a branch', 'nao dar DROP para abrir espaco',
+                        'nao adaptar a migration ao schema legado',
+                        'nao tocar no parent'],
+}
+
 DEV_TARGET = {
-    'DEV_TARGET_STRATEGY': 'NEEDS_DECISION',
+    'DEV_TARGET_STRATEGY': 'NEW_PROJECT',
     'DEV_TARGET_CREATED': 'NO',
-    'POR_QUE_NAO_ESCOLHI': ('o briefing proibe escolher em silencio, e as duas opcoes '
-                            'tem custo e consequencia diferentes. A recomendacao esta '
-                            'abaixo com o motivo; a decisao e do Luciano.'),
+    'DEV_PROJECT_REF': None,
+    'POR_QUE_AGORA_TEM_ESTRATEGIA': (
+        'a decisao deixou de ser preferencia: a opcao A foi tentada e medida. A branch '
+        'herdou schema e historia de migration do pai, exatamente como o contra da '
+        'opcao A dizia. Sobra B. Falta o REF limpo.'),
     'OPCOES': [
         {
             'ID': 'A', 'NOME': 'Supabase Development Branch a partir do projeto existente',
@@ -401,15 +475,32 @@ def gerar_inventario_sql():
     return '\n'.join(L)
 
 
-def preparar_aplicacao(inventario=None):
+# Dois REFs medidos e reprovados. A lista nao e conselho: e recusa.
+REFS_RECUSADOS = {
+    'odhdwvugikjdvkapbowe': 'parent: 732 objetos em storage e 19 tabelas com dado',
+    'hvtycqsrdtmxxodwcwph': 'branch develop: vazia de dado, suja de schema — 51 tabelas '
+                            'herdadas e public.schema_migracao',
+}
+
+
+def preparar_aplicacao(inventario=None, ref=None):
     """Portao antes de aplicar a migration. Recusa por padrao.
 
-    Quatro condicoes, todas obrigatorias. Nenhuma delas e 'o nome do projeto bate'.
+    Cinco condicoes, todas obrigatorias. Nenhuma delas e 'o nome do projeto bate'.
     """
     cls = classificar(inventario)
     recusas = []
+    if ref in REFS_RECUSADOS:
+        recusas.append('alvo %s esta na lista de recusados: %s'
+                       % (ref, REFS_RECUSADOS[ref]))
+    if ref is None:
+        recusas.append('nenhum DEV_PROJECT_REF limpo foi informado')
     if cls['SAFE_TO_USE_AS_DEV'] != 'YES':
         recusas.append('SAFE_TO_USE_AS_DEV = %s' % cls['SAFE_TO_USE_AS_DEV'])
+    if cls['SAFE_FOR_CANONICAL_MIGRATION'] != 'YES':
+        recusas.append('SAFE_FOR_CANONICAL_MIGRATION = %s (DATA_EMPTY = %s, '
+                       'SCHEMA_CLEAN = %s)' % (cls['SAFE_FOR_CANONICAL_MIGRATION'],
+                                               cls['DATA_EMPTY'], cls['SCHEMA_CLEAN']))
     if inventario is None:
         recusas.append('inventario nao executado')
     if acesso_local()['CLAUDE_LOCAL_SUPABASE_ACCESS'] != 'YES':
@@ -417,7 +508,8 @@ def preparar_aplicacao(inventario=None):
     return {
         'PODE_APLICAR': not recusas,
         'RECUSAS': recusas,
-        'ALVO': PROJETO['PROJECT_REF'],
+        'ALVO': ref,
+        'REFS_RECUSADOS': REFS_RECUSADOS,
         'CONFIRMAR_ANTES': ('o alvo NAO e producao — hoje nao existe projeto de producao '
                             'declarado, e por isso mesmo a checagem tem de ser explicita '
                             'quando existir'),
@@ -428,7 +520,12 @@ def preparar_aplicacao(inventario=None):
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8')
     m = medir(INVENTARIO_MEDIDO)
-    m['PORTAO_DE_APLICACAO'] = preparar_aplicacao(INVENTARIO_MEDIDO)
+    m['BRANCH_MEDIDA'] = BRANCH
+    m['BRANCH_CLASSIFICADA'] = classificar({
+        'EXISTING_SCHEMAS': ['public'], 'EXISTING_TABLES': [], 'EXISTING_USER_DATA': [],
+        'AUTH_USERS': 0, 'STORAGE_OBJECTS': 0, **BRANCH['MEDIDO']})
+    m['PORTAO_DE_APLICACAO'] = preparar_aplicacao(INVENTARIO_MEDIDO,
+                                                  BRANCH['DEV_BRANCH_REF'])
     if '--sync' in sys.argv:
         os.makedirs(os.path.dirname(INVENTARIO_SQL), exist_ok=True)
         with open(INVENTARIO_SQL, 'w', encoding='utf-8', newline='\n') as fh:

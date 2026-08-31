@@ -223,9 +223,10 @@
     }
   ],
   "DEV_TARGET": {
-    "DEV_TARGET_STRATEGY": "NEEDS_DECISION",
+    "DEV_TARGET_STRATEGY": "NEW_PROJECT",
     "DEV_TARGET_CREATED": "NO",
-    "POR_QUE_NAO_ESCOLHI": "o briefing proibe escolher em silencio, e as duas opcoes tem custo e consequencia diferentes. A recomendacao esta abaixo com o motivo; a decisao e do Luciano.",
+    "DEV_PROJECT_REF": null,
+    "POR_QUE_AGORA_TEM_ESTRATEGIA": "a decisao deixou de ser preferencia: a opcao A foi tentada e medida. A branch herdou schema e historia de migration do pai, exatamente como o contra da opcao A dizia. Sobra B. Falta o REF limpo.",
     "OPCOES": [
       {
         "ID": "A",
@@ -276,6 +277,9 @@
   "CLASSIFICACAO": {
     "SAFE_TO_USE_AS_DEV": "NO",
     "DEV_INSTANCE_AVAILABLE": "NO",
+    "DATA_EMPTY": "NO",
+    "SCHEMA_CLEAN": "NO",
+    "SAFE_FOR_CANONICAL_MIGRATION": "NO",
     "WHY": [
       "ha 732 objeto(s) em storage — arquivo guardado e dado de alguem",
       "19 tabela(s) com linhas: public.catalogo_captura(1), public.catalogo_produto(56), public.catalogo_produto_agente(176), public.catalogo_produto_claim(35), public.catalogo_produto_cultivo(711), public.catalogo_produto_cultivo_agente(5)"
@@ -283,6 +287,9 @@
     "MOTIVOS_DE_BLOQUEIO": [
       "ha 732 objeto(s) em storage — arquivo guardado e dado de alguem",
       "19 tabela(s) com linhas: public.catalogo_captura(1), public.catalogo_produto(56), public.catalogo_produto_agente(176), public.catalogo_produto_claim(35), public.catalogo_produto_cultivo(711), public.catalogo_produto_cultivo_agente(5)"
+    ],
+    "MOTIVOS_DE_SCHEMA": [
+      "16 view(s) e 20 funcao(oes) em public, herdadas"
     ],
     "MOTIVOS_DE_ATENCAO": [
       "inventario parcial (faltam EXISTING_SCHEMAS, EXISTING_TABLES), mas ha bloqueio medido: o veredito nao depende do que falta"
@@ -304,13 +311,68 @@
   },
   "MIGRATION_APPLIED_DEV": "NO",
   "READY_TO_APPLY_MIGRATION_DEV": "NO",
+  "BRANCH_MEDIDA": {
+    "DEV_BRANCH": "develop",
+    "DEV_BRANCH_REF": "hvtycqsrdtmxxodwcwph",
+    "PARENT_PROJECT_REF": "odhdwvugikjdvkapbowe",
+    "WITH_DATA": false,
+    "STATUS": "ACTIVE_HEALTHY",
+    "VERIFICADO_POR_MIM": false,
+    "MEDIDO": {
+      "PUBLIC_TABLES": 51,
+      "PUBLIC_VIEWS": 16,
+      "PUBLIC_FUNCTIONS": 20,
+      "PUBLIC_POLICIES": 0,
+      "PUBLIC_TABLES_WITH_ROWS": 0,
+      "STORAGE_OBJECTS": 0,
+      "AUTH_USERS": 0,
+      "SCHEMA_MIGRACAO_EXISTS": true
+    },
+    "DEV_BRANCH_DATA_EMPTY": "YES",
+    "DEV_BRANCH_SCHEMA_CLEAN": "NO",
+    "DEV_BRANCH_SAFE_FOR_CANONICAL_MIGRATION": "NO",
+    "O_QUE_ISSO_ENSINOU": "WITH_DATA=false barrou o DADO e nao barrou o SCHEMA. A branch chegou com 0 linha, 0 arquivo, 0 usuario — e 51 tabelas, 16 views, 20 funcoes e public.schema_migracao herdados do pai. Vazio de dado nao e limpo de schema.",
+    "BUG_QUE_ISSO_ACHOU": "o classificador media so dado, e por isso devolveu YES para esta branch. Corrigido: DATA_EMPTY e SCHEMA_CLEAN sao duas perguntas, e SAFE_FOR_CANONICAL_MIGRATION exige as duas com sim.",
+    "O_QUE_NAO_FAZER": [
+      "nao aplicar a migration canonica aqui",
+      "nao limpar a branch",
+      "nao dar DROP para abrir espaco",
+      "nao adaptar a migration ao schema legado",
+      "nao tocar no parent"
+    ]
+  },
+  "BRANCH_CLASSIFICADA": {
+    "SAFE_TO_USE_AS_DEV": "NEEDS_DECISION",
+    "DEV_INSTANCE_AVAILABLE": "NOT_MEASURED",
+    "DATA_EMPTY": "YES",
+    "SCHEMA_CLEAN": "NO",
+    "SAFE_FOR_CANONICAL_MIGRATION": "NO",
+    "WHY": [
+      "51 tabela(s) em public que nao sao minhas: o banco esta vazio de dado e nao esta limpo de schema",
+      "16 view(s) e 20 funcao(oes) em public, herdadas",
+      "public.schema_migracao existe: o banco tem historia de migration propria, e ela nao e a minha"
+    ],
+    "MOTIVOS_DE_BLOQUEIO": [],
+    "MOTIVOS_DE_SCHEMA": [
+      "51 tabela(s) em public que nao sao minhas: o banco esta vazio de dado e nao esta limpo de schema",
+      "16 view(s) e 20 funcao(oes) em public, herdadas",
+      "public.schema_migracao existe: o banco tem historia de migration propria, e ela nao e a minha"
+    ],
+    "MOTIVOS_DE_ATENCAO": []
+  },
   "PORTAO_DE_APLICACAO": {
     "PODE_APLICAR": false,
     "RECUSAS": [
+      "alvo hvtycqsrdtmxxodwcwph esta na lista de recusados: branch develop: vazia de dado, suja de schema — 51 tabelas herdadas e public.schema_migracao",
       "SAFE_TO_USE_AS_DEV = NO",
+      "SAFE_FOR_CANONICAL_MIGRATION = NO (DATA_EMPTY = NO, SCHEMA_CLEAN = NO)",
       "sem acesso local: quem aplica e quem tem credencial"
     ],
-    "ALVO": "odhdwvugikjdvkapbowe",
+    "ALVO": "hvtycqsrdtmxxodwcwph",
+    "REFS_RECUSADOS": {
+      "odhdwvugikjdvkapbowe": "parent: 732 objetos em storage e 19 tabelas com dado",
+      "hvtycqsrdtmxxodwcwph": "branch develop: vazia de dado, suja de schema — 51 tabelas herdadas e public.schema_migracao"
+    },
     "CONFIRMAR_ANTES": "o alvo NAO e producao — hoje nao existe projeto de producao declarado, e por isso mesmo a checagem tem de ser explicita quando existir",
     "ORDEM_DE_APLICACAO": [
       "supabase/migrations/0001_initial_canonical_schema.sql"
