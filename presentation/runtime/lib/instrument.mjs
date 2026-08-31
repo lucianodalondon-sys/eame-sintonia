@@ -86,6 +86,7 @@ export function instrument(html) {
     }).map(o => Object.assign({}, o, {
       title: __T__(o, 'title', s.lang) || o.title,
       blocker: __T__(o, 'blocker', s.lang) || o.blocker,
+      last: __T__(o, 'last', s.lang) || o.last,
       gates: (o.gates || []).map(g => gate(g[0], g[1]))
     }));`, log)
 
@@ -179,7 +180,104 @@ export function instrument(html) {
       }))),`,
     'drawer:provenance-real', log)
 
-  // 13 · arquivados
+  // 13 · ACERVO · as quatro barras cinzas viram os documentos reais.
+  //      O casco ja usa <sc-for> em outros pontos; aqui e o mesmo mecanismo e
+  //      exatamente a mesma marcacao de linha — mesma grade, mesma fonte,
+  //      mesmas cores. So o conteudo deixa de ser barra e passa a ser texto.
+  const ROW = (inner) =>
+    '<div style="display:grid;grid-template-columns:1fr 130px 116px 96px;gap:14px;align-items:center;' +
+    'padding:16px 18px;border-bottom:1px solid var(--hair2)">' + inner + '</div>'
+
+  const oldRows = [...out.matchAll(
+    /<div style="display:grid;grid-template-columns:1fr 130px 116px 96px;gap:14px;align-items:center;padding:16px 18px;border-bottom:1px solid var\(--hair2\)">[\s\S]*?<\/div>\n?/g
+  )]
+  if (oldRows.length !== 4) {
+    throw new Error(`FAIL_CLOSED · esperava 4 linhas de acervo no casco, achei ${oldRows.length}`)
+  }
+  const firstRow = oldRows[0]
+  const bloco =
+    '<sc-for list="{{ acervoRows }}" as="r" hint-placeholder-count="4">\n' +
+    ROW(
+      '<span style="display:flex;flex-direction:column;gap:4px;min-width:0">' +
+      '<span style="font:500 12px/1.35 var(--font-primary);color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.title }}</span>' +
+      '<span style="font:400 10.5px/1.3 var(--font-primary);color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.sub }}</span>' +
+      '</span>' +
+      '<span style="font:500 11px/1 var(--font-primary);color:var(--t3)">{{ r.sourceId }}</span>' +
+      '<span style="font:500 11px/1 var(--font-primary);color:var(--t3)">{{ r.capture }}</span>' +
+      '<span style="justify-self:end;font:600 9.5px/1 var(--font-primary);padding:5px 9px;border-radius:9999px;' +
+      'border:1px solid {{ r.lineBorder }};color:{{ r.lineColor }}">{{ r.line }}</span>'
+    ) +
+    '\n</sc-for>\n'
+
+  // remove as tres linhas seguintes e troca a primeira pelo laco
+  out = out.replace(oldRows[3][0], '').replace(oldRows[2][0], '').replace(oldRows[1][0], '')
+  out = out.replace(firstRow[0], bloco)
+  log.push({ patch: 'acervo:documentos-reais', bytes_out: firstRow[0].length, bytes_in: bloco.length })
+
+  // 13b · a nota de rodape do acervo deixa de dizer que o dado ainda nao veio
+  out = replaceOnce(out,
+    'Paginação preparada — o acervo real entra depois do freeze',
+    '{{ acervoNote }}',
+    'acervo:nota', log)
+
+  // 13c · lista e nota entram nos valores do template
+  out = replaceOnce(out,
+    '      acervoOn, acervoColor, setAcervo\n    };',
+    `      acervoOn, acervoColor, setAcervo,
+      acervoRows: (window.__SINTONIA__.acervoRows || []).filter(r => {
+        var code = { es: 'ES', it: 'IT', fr: 'FR' }[s.country];
+        return !code || r.country === code;
+      }),
+      acervoNote: (function () {
+        var code = { es: 'ES', it: 'IT', fr: 'FR' }[s.country];
+        var n = (window.__SINTONIA__.acervoRows || []).filter(function (r) {
+          return !code || r.country === code;
+        }).length;
+        return n + ' documentos com corpo analisado · fonte e captura por linha';
+      })()
+    };`,
+    'acervo:valores', log)
+
+  // 14 · H7 · ciencia/expert. Pessoa encontrada nunca vira especialista aqui:
+  //      o gate ISSUE_EXPERTISE_PROVED continua sendo quem decide o rotulo.
+  out = replaceBlock(out, 'const EXPERTS = [',
+    'const EXPERTS = window.__SINTONIA__.experts || [];', log)
+
+  // 15 · EAME · numeros reais por pais na camada cross-market
+  out = replaceBlock(out, "const eameLanes = ['es','it','fr'].map(k => ({",
+    `const eameLanes = (window.__SINTONIA__.eameLanes || []).map(x => {
+      var k = x.code.toLowerCase();
+      return {
+        code: x.code, name: COUNTRY[k].name, foundation: COUNTRY[k].badge,
+        color: COUNTRY[k].badgeColor, border: COUNTRY[k].badgeBorder,
+        freshness: x.freshness, signals: x.signals, windows: x.windows,
+        gaps: x.gaps, open: drill(k, 'home'), openCases: drill(k, 'radar')
+      };
+    });`, log)
+
+  // 16 · RELATORIOS · os freezes que sustentam este snapshot
+  out = replaceBlock(out, 'const reports = [',
+    `const reports = (window.__SINTONIA__.reports || []).map(r => ({
+      kind: r.kind, title: r.title, fields: r.fields, note: r.note,
+      state: ST[r.v].label, color: ST[r.v].color, border: ST[r.v].border, dash: ST[r.v].dash
+    }));`, log)
+
+  // 17 · casos cross-market · so o que atravessa mercado de verdade
+  out = replaceBlock(out, 'const crossCases = [',
+    `const crossCases = (window.__SINTONIA__.crossCases || []).map(c => ({
+      line: c.line, lineLabel: c.lineLabel, question: c.question,
+      common: c.common, different: c.different, owner: c.owner, sequence: c.sequence,
+      state: ST[c.v].label, color: ST[c.v].color, border: ST[c.v].border, dash: ST[c.v].dash,
+      lanes: c.lanes.map(l => ({ code: l.code, state: ST[l.v].label, color: ST[l.v].color, border: ST[l.v].border, dash: ST[l.v].dash })),
+      typeCode: TYPES[c.type].code, typeLabel: TYPES[c.type].label,
+      typeRadius: TYPES[c.type].radius, typeStroke: TYPES[c.type].stroke
+    }));`, log)
+
+  // 18 · mapa de acoes · a acao ligada ao portao que realmente segura
+  out = replaceBlock(out, 'const departments = [',
+    'const departments = window.__SINTONIA__.departments || [];', log)
+
+  // 19 · arquivados
   out = replaceBlock(out, 'const archived = [',
     `const archived = (window.__SINTONIA__.archived || []).map(a => Object.assign({}, typeVis(a.type), {
       title: a.title, reason: a.reason, state: a.state, when: a.when

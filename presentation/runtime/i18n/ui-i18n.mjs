@@ -56,40 +56,79 @@ export function emitRuntime(dict) {
   var KEY = 'sintonia.ui.lang';
   var cur = 'pt';
 
+  // Indice sem caixa.
+  //
+  // O casco escreve "Hierarquia de leitura" no HTML e deixa o CSS
+  // (text-transform: uppercase) mostrar em caixa alta. Procurar pela forma
+  // que aparece na tela nunca acha o texto que esta no codigo — foi assim que
+  // metade dos titulos ficou sem traduzir. Entao casamos sem caixa, e devolvemos
+  // a traducao crua: o mesmo CSS cuida da aparencia.
+  var LOWER = {};
+  for (var l in T) {
+    LOWER[l] = {};
+    for (var k in T[l]) LOWER[l][k.toLowerCase()] = T[l][k];
+  }
+  function lookup(tbl, low, s) {
+    var v = tbl[s];
+    return v != null ? v : low[s.toLowerCase()];
+  }
+
   // Idioma preservado entre recargas — preferencia de apresentacao.
   window.__INIT_LANG__ = function () {
     try { var v = localStorage.getItem(KEY); if (v && LANGS.indexOf(v) >= 0) return v; } catch (e) {}
     return 'pt';
   };
 
-  // O texto original em portugues fica guardado no proprio no. Assim trocar
-  // de idioma varias vezes nunca traduz em cima de traducao.
+  // Qual e o texto de origem deste no?
+  //
+  // ARMADILHA QUE JA CUSTOU CARO: guardar o portugues na primeira visita e
+  // confiar nele para sempre. O casco reescreve o MESMO no de texto quando o
+  // estado muda — trocar o pais reaproveita o no do cabecalho. Com o valor
+  // velho em cache, a traducao era escrita por cima do dado novo e o rotulo
+  // ficava preso em "Spain" mesmo com a Italia selecionada.
+  //
+  // Entao: so confiamos no cache quando o texto atual e exatamente o que NOS
+  // escrevemos da ultima vez. Se estiver diferente, quem mudou foi o casco, e
+  // o valor atual passa a ser a nova origem.
   function original(node) {
-    if (node.__pt == null) node.__pt = node.nodeValue;
+    if (node.__out != null && node.nodeValue === node.__out) return node.__pt;
+    node.__pt = node.nodeValue;
+    node.__out = null;
     return node.__pt;
+  }
+
+  function write(node, value) {
+    node.nodeValue = value;
+    node.__out = value;
   }
 
   function apply(root) {
     if (cur === 'pt') {
-      walk(root, function (n) { if (n.__pt != null) n.nodeValue = n.__pt; });
+      walk(root, function (n) {
+        if (n.__out != null && n.nodeValue === n.__out && n.__pt != null) {
+          n.nodeValue = n.__pt;
+          n.__out = null;
+        }
+      });
       return;
     }
-    var tbl = T[cur] || {};
+    var tbl = T[cur] || {}, low = LOWER[cur] || {};
     walk(root, function (n) {
       var pt = original(n);
+      if (pt == null) return;
       var trimmed = pt.trim();
       if (!trimmed) return;
-      var hit = tbl[trimmed];
+      var hit = lookup(tbl, low, trimmed);
       if (hit == null && trimmed.indexOf(' · ') > 0) {
         // Muitos rotulos do casco sao compostos ("MAQUINA DE ATENCAO · ITALIA").
         // Traduz peca por peca; se nenhuma peca for conhecida, deixa como esta.
         var parts = trimmed.split(' · '), any = false;
         var out = parts.map(function (p) {
-          var t = tbl[p]; if (t != null) { any = true; return t; } return p;
+          var t = lookup(tbl, low, p); if (t != null) { any = true; return t; } return p;
         });
         if (any) hit = out.join(' · ');
       }
-      if (hit != null) n.nodeValue = pt.replace(trimmed, hit);
+      if (hit != null) write(n, pt.replace(trimmed, hit));
     });
   }
 

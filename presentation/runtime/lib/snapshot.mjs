@@ -7,6 +7,7 @@
 import { readFrozen, fullSha, HOSES, h1, h2, h3, h4, h5, h6, h7, h8, h9 } from './hoses.mjs'
 
 const LANGS = ['pt', 'en', 'es', 'fr', 'it']
+const LAST_LABEL = { pt: 'Ultima evidencia', en: 'Last evidence', es: 'Última evidencia', fr: 'Dernière preuve', it: 'Ultima evidenza' }
 
 /** Representacao textual por idioma, sem fabricar o que nao existe. */
 const rep = (byLang) => {
@@ -149,14 +150,15 @@ export function buildSnapshot() {
       srcLang,
       // Titulo e bloqueador sao TEXTO. Vao por representacao de idioma.
       i18n: {
-        title: rep({ pt: titleFor(c, type) }),
-        blocker: rep({ pt: blockerPt }),
+        title: Object.fromEntries(LANGS.map(l => [l, titleFor(c, type, l)])),
+        blocker: Object.fromEntries(LANGS.map(l => [l, blockerFor(c, type, H, l)])),
+        last: Object.fromEntries(LANGS.map(l => [l, `${LAST_LABEL[l]} · ${PROV[hose].AS_OF_DATE || '—'}`])),
       },
       title: titleFor(c, type),
       meta,
       gates,
       blocker: blockerPt,
-      last: 'Ultima evidencia · ' + (PROV[hose].AS_OF_DATE || '—'),
+      last: `${LAST_LABEL.pt} · ${PROV[hose].AS_OF_DATE || '—'}`,
       // Campos reais que o receptor F1 passa a exibir quando existem.
       f: {
         COUNTRY_OF_FACT: c.COUNTRY || null,
@@ -230,13 +232,23 @@ export function buildSnapshot() {
   sources.push({ name: 'IT-T4-001 · registro nacional italiano', role: 'SOURCE_ROLE · registro e prazo · SOURCE_ID ' + H.H2.source_id, v: 'provado', pub: H.H2.captured_at || '—', capture: H.H2.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H2.in_force} em vigor` })
   sources.push({ name: 'ES-T3-001 · RAIF Andalucía', role: 'SOURCE_ROLE · serie de campo · SOURCE_ID ' + H.H5.source_id, v: 'medido', pub: H.H5.captured_at || '—', capture: H.H5.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H5.readings_total} leituras` })
   sources.push({ name: 'EUIPO · registro de marcas', role: 'SOURCE_ROLE · marca · SOURCE_ID ' + H.H3.source_id, v: H.H3.resolved ? 'provado' : 'revisar', pub: H.H3.captured_at || '—', capture: H.H3.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H3.canonical_entities} tuplas preliminares` })
+  sources.push({ name: `Contas publicas de concorrente · ${H.H8.canonical_entities} identificadas`, role: 'SOURCE_ROLE · comunicacao publica · CONTENT_COLLECTION_STAGE NOT_STARTED · SOURCE_ID ' + H.H8.source_id, v: 'medido', pub: '—', capture: '—', age: '—', latency: 'NÃO MEDIDA', docs: H.H8.attempted + ' tentadas' })
   sources.push({ name: 'Meta · biblioteca de anuncios', role: 'SOURCE_ROLE · atividade paga observada · SOURCE_ID ' + H.H4.source_id, v: 'medido', pub: H.H4.captured_at || '—', capture: H.H4.captured_at || '—', age: '—', latency: 'NÃO MEDIDA', docs: `${H.H4.canonical_entities} cartoes` })
 
   // ── VOLUMES (home) ───────────────────────────────────────────────────────
+  // Volume nunca e atencao — mas some-lo do portal fazia H4 e H3 parecerem
+  // inexistentes. Eles existem, medidos; o que nao existe e objeto de atencao
+  // sustentado por eles. Cada linha diz a unidade, para nao virar "numero".
   const volumes = [
     { k: 'Itens com corpo analisado', v: String(H.H1.canonical_entities) },
     { k: 'Fontes conectadas', v: String(sources.length) },
     { k: 'Leituras de campo', v: String(H.H5.readings_total) },
+    { k: 'Cartoes unicos na Meta', v: String(H.H4.canonical_entities) },
+    { k: 'Observacoes de anuncio', v: String(H.H4.observations) },
+    { k: 'Tuplas de concorrente (preliminares)', v: String(H.H3.canonical_entities) },
+    { k: 'Tuplas sem cadeia fechada', v: String(H.H3.not_known) },
+    { k: 'Registros IT com prazo futuro', v: String(H.H2.canonical_entities) },
+    { k: 'Vozes de campo (pessoas)', v: String(H.H6.person_creator) },
   ]
 
   // ── SERIE DE CAMPO ───────────────────────────────────────────────────────
@@ -267,6 +279,140 @@ export function buildSnapshot() {
     { step: 'ELO 4', k: 'Entrada final de refresh', v: H.H3.resolved ? 'provado' : 'naopronto', note: H.H3.unresolved_reason },
   ]
 
+  // ── ACERVO · documentos reais, um por linha ──────────────────────────────
+  // Sao as passagens que H1 baixou e analisou. Documento nao e objeto de
+  // atencao: entra aqui como material bruto, com fonte, captura e pais.
+  const itemsFinal = readFrozen(HOSES.H1.freeze, 'data/samples/TERRITORIAL/FINAL.json').ITEMS
+  const itemsCorpo = readFrozen(HOSES.H1.freeze, 'data/samples/TERRITORIAL/CORPO-R2.json').ITEMS
+  const vistos = new Set()
+  const acervoRows = []
+  for (const it of [...itemsFinal, ...itemsCorpo]) {
+    if (vistos.has(it.ITEM_ID)) continue
+    vistos.add(it.ITEM_ID)
+    const issue = it.ISSUE && it.ISSUE !== 'NOT_KNOWN' ? it.ISSUE : null
+    const crops = Array.isArray(it.CROP) ? it.CROP : it.CROP ? [it.CROP] : []
+    acervoRows.push({
+      // O titulo e o que a fonte declara; sem titulo, o proprio ITEM_ID.
+      title: it.SOURCE_NAME || it.ITEM_ID,
+      sub: [it.COUNTRY_OF_FACT || it.SOURCE_COUNTRY || '—',
+            crops.length ? crops.join(' / ') : 'CROP NOT_KNOWN',
+            issue || 'ISSUE NOT_KNOWN'].join(' · '),
+      sourceId: it.SOURCE_ENTITY_ID || '—',
+      capture: it.PUBLISHED_AT || it.CAPTURED_AT || '—',
+      country: it.COUNTRY_OF_FACT || it.SOURCE_COUNTRY || '—',
+      line: issue && DISEASE_ISSUES.has(issue) ? 'DISEASE' : 'SEM LINHA',
+      lineColor: issue && DISEASE_ISSUES.has(issue) ? '#00a0df' : 'rgba(255,255,255,.42)',
+      lineBorder: issue && DISEASE_ISSUES.has(issue) ? 'rgba(0,160,223,.45)' : 'rgba(151,139,135,.4)',
+    })
+  }
+
+  // ── H7 · CIENCIA / EXPERT ────────────────────────────────────────────────
+  // Pessoa encontrada nao e especialista. O artefato mede NOT_REACHED nos dois
+  // niveis, entao nenhuma linha aqui pode dizer "especialista". Tambem nao
+  // exibimos nome: identidade de pessoa exige tratamento GDPR que nao foi feito.
+  const u7 = H.H7.universe || {}
+  const experts = [
+    { name: `Pesquisadores no universo · ${u7.PESQUISADORES ?? '—'}`,
+      org: 'ES-RESEARCHERS-OLIVE', proved: false, v: 'medido',
+      relation: 'IDENTIDADE NAO EXPOSTA · tratamento GDPR nao iniciado' },
+    { name: `Candidatos por nome · ${H.H7.candidates ?? '—'}`,
+      org: 'cruzamento LinkedIn x YouTube x ciencia', proved: false, v: 'naoprovado',
+      relation: 'casamento por nome nao prova expertise no issue' },
+    { name: `Confirmados por segundo campo · ${H.H7.confirmed_by_second_field}`,
+      org: H.H7.state, proved: false, v: 'naoprovado',
+      relation: 'ISSUE_EXPERTISE_PROVED = FALSE em 100% do universo' },
+  ]
+
+  // ── EAME · camada cross-market, numero real por pais ─────────────────────
+  const porPais = (code) => RAW.filter(o => ((o.f && o.f.COUNTRY_OF_FACT) || '').split('/').includes(code))
+  const eameLanes = ['ES', 'IT', 'FR'].map(code => {
+    const objs = porPais(code)
+    return {
+      code,
+      objects: objs.length,
+      candidates: objs.filter(o => o.state === 'candidate').length,
+      ready: objs.filter(o => o.state === 'ready').length,
+      evidence: objs.filter(o => o.evidenceId).length,
+      signals: String(objs.length),
+      // Nenhum pais tem relogio agronomico conectado: janela segue nao medida.
+      windows: 'NAO MEDIDO',
+      freshness: PROV.H1.AS_OF_DATE || '—',
+      gaps: code === 'ES' ? 'issue nao nomeado por fonte tecnica em nenhum item'
+        : code === 'IT' ? 'par cultura x problema provado em 1 item, segunda leitura ausente'
+        : 'chave territorial completa nao fecha em nenhum item',
+    }
+  })
+
+  // ── RELATORIOS · os freezes que sustentam este snapshot ──────────────────
+  const reports = Object.entries(PROV).map(([id, p]) => ({
+    kind: 'FREEZE',
+    title: `${id} · ${p.HOSE}`,
+    v: 'provado',
+    fields: [
+      { k: 'SOURCE_ID', v: p.SOURCE_ID || '—' },
+      { k: 'AS_OF_DATE', v: p.AS_OF_DATE || '—' },
+      { k: 'PROVENANCE · COMMIT_SHA', v: p.COMMIT_SHA.slice(0, 12) },
+      { k: 'CANONICAL_ENTITIES', v: String(H[id].canonical_entities ?? '—') },
+    ],
+    note: 'Um freeze nao muda depois de emitido. Correcoes entram como nova versao.',
+  }))
+
+  // ── CROSS-MARKET · o unico objeto que atravessa os tres mercados ─────────
+  // A cadeia de identidade e cross-market por construcao (ES/IT/FR). O prazo
+  // regulatorio nao e: vive so na Italia, e dizer o contrario seria inventar.
+  const idchain = RAW.find(o => o.type === 'comp')
+  const crossCases = [
+    {
+      line: '#c04ab8', lineLabel: 'CADEIA DE IDENTIDADE', type: 'comp',
+      v: H.H3.resolved ? 'provado' : 'naopronto',
+      question: 'A mesma marca de concorrente aparece com registro local e atividade paga observada em mais de um mercado?',
+      common: `Unidade comum: tupla (competidor, pais, produto). ${H.H3.canonical_entities} com cadeia fechada, ${H.H3.not_known} sem.`,
+      different: 'A concordancia titular fecha por pais. O que nao fecha e a entrada final de refresh, que depende do handoff da Meta.',
+      owner: 'Market Development regional — investigacao',
+      sequence: 'NAO MEDIDA',
+      lanes: [
+        { code: 'ES', v: 'parcial' },
+        { code: 'IT', v: 'parcial' },
+        { code: 'FR', v: 'parcial' },
+      ],
+    },
+    {
+      line: '#00a0df', lineLabel: 'PRAZO REGULATORIO', type: 'reg', v: 'parcial',
+      question: 'O prazo regulatorio observado toca mais de um mercado?',
+      common: `${H.H2.canonical_entities} registros ADAMA em vigor com data futura declarada.`,
+      different: 'Medido apenas na Italia. Espanha e Franca nao tiveram o registro nacional lido nesta rodada — ausencia de leitura, nao ausencia de prazo.',
+      owner: 'Regulatorio local + coordenacao regional',
+      sequence: 'NAO MEDIDA',
+      lanes: [
+        { code: 'ES', v: 'naosei' },
+        { code: 'IT', v: 'provado' },
+        { code: 'FR', v: 'naosei' },
+      ],
+    },
+  ]
+
+  // ── MAPA DE ACOES · a acao que muda o estado, e so ela ───────────────────
+  // Cada area recebe a acao ligada ao portao que esta segurando de verdade.
+  const evPrimeira = Object.keys(EVIDENCE)[0]
+  const departments = [
+    { name: 'Market Development', kind: 'invest', core: true, state: 'naodeterm', basis: [evPrimeira],
+      action: 'Programar a segunda leitura independente dos recortes em teste.',
+      why: 'E a unica acao que muda o estado de um objeto hoje: nenhum recorte tem confirmacao independente.',
+      time: 'antes do proximo checkpoint · data nao determinada' },
+    { name: 'Technical / Science', kind: 'invest', state: 'naodeterm', basis: [evPrimeira],
+      action: 'Nomear o issue por fonte tecnica nos itens territoriais.',
+      why: `O portao "issue nomeado" esta aberto em ${RAW.filter(o => o.type === 'case').length} recortes de fenomeno.`,
+      time: 'sem prazo externo · depende de agenda tecnica' },
+    { name: 'Regulatorio', kind: 'invest', state: 'naodeterm', basis: [evPrimeira],
+      action: `Confirmar efeito no rotulo dos ${H.H2.canonical_entities} registros com data futura.`,
+      why: 'Expiracao declarada nao e retirada de produto — o efeito exige confirmacao.',
+      time: 'ligado a data oficial do registro' },
+    { name: 'Competitive Intelligence', kind: 'invest', state: 'naodeterm', basis: [evPrimeira],
+      action: 'Congelar o handoff canonico da Meta para liberar a entrada final de refresh.',
+      why: `${H.H3.canonical_entities} tuplas estao presas em join preliminar por causa disso.`,
+      time: 'depende do coordenador da Meta' },
+  ]
+
   // ── COBERTURA ────────────────────────────────────────────────────────────
   const coverage = {}
   for (const id of Object.keys(HOSES)) {
@@ -290,7 +436,7 @@ export function buildSnapshot() {
       LANGS,
       CANONICAL_CASCO_SHA: 'd28f6b5876e2fa28720eb555a8b99a275e56c229ed0ac5c4b07edf89f4e81328',
     },
-    RAW, EVIDENCE, sources, volumes, fieldStats, voices, chain,
+    RAW, EVIDENCE, sources, volumes, fieldStats, voices, chain, acervoRows, experts, eameLanes, reports, crossCases, departments,
     archived: [],
     coverage,
     stateMachine: stateMachine.ESTADO_MEDIDO_HOJE,
@@ -308,21 +454,89 @@ export function buildSnapshot() {
   }
 }
 
-function titleFor(c, type) {
-  if (type === 'reg') return 'Prazo regulatorio — registros ADAMA na Italia'
-  if (type === 'comp') return 'Cadeia de identidade — convergencia marca x registro x atividade'
-  if (type === 'field') return `Pressao longitudinal de campo — ${c.CROP} / ${c.ISSUE} (${c.COUNTRY})`
-  return `Fenomeno — ${c.CROP || 'cultura nao nomeada'} / ${c.ISSUE || 'issue nao nomeado'} (${c.COUNTRY})`
+// O titulo e COMPOSTO por nos a partir de campos estruturados (cultura, issue,
+// pais) — nao e citacao de fonte. Por isso pode sair nos cinco idiomas sem
+// fabricar traducao de ninguem: o que traduz e a nossa moldura, e CROP/ISSUE
+// continuam no vocabulario canonico, sem traducao, em todos eles.
+const TITLE_FRAME = {
+  reg: {
+    pt: 'Prazo regulatorio — registros ADAMA na Italia',
+    en: 'Regulatory deadline — ADAMA registrations in Italy',
+    es: 'Plazo regulatorio — registros ADAMA en Italia',
+    fr: 'Échéance réglementaire — enregistrements ADAMA en Italie',
+    it: 'Scadenza regolatoria — registrazioni ADAMA in Italia',
+  },
+  comp: {
+    pt: 'Cadeia de identidade — convergencia marca x registro x atividade',
+    en: 'Identity chain — trademark x registration x activity convergence',
+    es: 'Cadena de identidad — convergencia marca x registro x actividad',
+    fr: 'Chaîne d’identité — convergence marque x enregistrement x activité',
+    it: 'Catena di identità — convergenza marchio x registrazione x attività',
+  },
+  field: {
+    pt: 'Pressao longitudinal de campo', en: 'Longitudinal field pressure',
+    es: 'Presión longitudinal de campo', fr: 'Pression longitudinale de terrain',
+    it: 'Pressione longitudinale di campo',
+  },
+  case: {
+    pt: 'Fenomeno', en: 'Phenomenon', es: 'Fenómeno', fr: 'Phénomène', it: 'Fenomeno',
+  },
+}
+const NOT_NAMED = {
+  crop: { pt: 'cultura nao nomeada', en: 'crop not named', es: 'cultivo no nombrado', fr: 'culture non nommée', it: 'coltura non nominata' },
+  issue: { pt: 'issue nao nomeado', en: 'issue not named', es: 'problema no nombrado', fr: 'problème non nommé', it: 'problema non nominato' },
 }
 
-function blockerFor(c, type, H) {
-  if (type === 'comp' && !H.H3.resolved) return 'Bloqueador: ' + H.H3.unresolved_reason
+function titleFor(c, type, lang = 'pt') {
+  if (type === 'reg' || type === 'comp') return TITLE_FRAME[type][lang]
+  const crop = c.CROP || NOT_NAMED.crop[lang]
+  const issue = c.ISSUE || NOT_NAMED.issue[lang]
+  return `${TITLE_FRAME[type][lang]} — ${crop} / ${issue} (${c.COUNTRY})`
+}
+
+// O bloqueador tem duas partes: a MOLDURA ("Bloqueador: ...") e o MOTIVO.
+// A moldura e nossa e vai nos cinco idiomas. O motivo, quando vem citado de um
+// freeze (H3, H5), fica na lingua em que foi medido — traduzir uma medicao
+// alheia seria inventar. Por isso ele sai marcado.
+const BLOCK = {
+  frame: { pt: 'Bloqueador', en: 'Blocker', es: 'Bloqueador', fr: 'Bloqueur', it: 'Bloccante' },
+  noIssue: {
+    pt: 'nenhuma passagem nomeia o issue por fonte tecnica — sem nome, nao ha par cultura x problema.',
+    en: 'no passage names the issue via a technical source — with no name there is no crop x issue pair.',
+    es: 'ningún pasaje nombra el problema por fuente técnica — sin nombre no hay par cultivo x problema.',
+    fr: 'aucun passage ne nomme le problème via une source technique — sans nom, pas de paire culture x problème.',
+    it: 'nessun passaggio nomina il problema tramite fonte tecnica — senza nome non c’è coppia coltura x problema.',
+  },
+  noKey: {
+    pt: 'chave territorial completa nao fecha em nenhum item.',
+    en: 'the complete territorial key does not close in any item.',
+    es: 'la clave territorial completa no cierra en ningún ítem.',
+    fr: 'la clé territoriale complète ne se ferme dans aucun élément.',
+    it: 'la chiave territoriale completa non chiude in nessun elemento.',
+  },
+  judgment: {
+    pt: 'julgamento humano exigido', en: 'human judgment required',
+    es: 'juicio humano exigido', fr: 'jugement humain requis', it: 'giudizio umano richiesto',
+  },
+  weak: {
+    pt: 'convergencia insuficiente para atencao.', en: 'convergence insufficient for attention.',
+    es: 'convergencia insuficiente para atención.', fr: 'convergence insuffisante pour l’attention.',
+    it: 'convergenza insufficiente per l’attenzione.',
+  },
+}
+
+function blockerFor(c, type, H, lang = 'pt') {
   const f = c.FACTS || {}
+  const p = (motivo) => `${BLOCK.frame[lang]}: ${motivo}`
+  // Motivo citado do freeze: marcado como medicao, nao traduzido.
+  const citado = (txt) => p(lang === 'pt' ? txt : `${txt}  [PT · MEASURED_AS_IS]`)
+
+  if (type === 'comp' && !H.H3.resolved) return citado(H.H3.unresolved_reason)
   if (type === 'case') {
-    if (f.WITH_ISSUE === 0) return 'Bloqueador: nenhuma passagem nomeia o issue por fonte tecnica — sem nome, nao ha par cultura x problema.'
-    if (f.WITH_FULL_KEY === 0) return 'Bloqueador: chave territorial completa nao fecha em nenhum item.'
+    if (f.WITH_ISSUE === 0) return p(BLOCK.noIssue[lang])
+    if (f.WITH_FULL_KEY === 0) return p(BLOCK.noKey[lang])
   }
-  if (type === 'field') return 'Bloqueador: ' + (H.H5.finding_max || 'leitura da serie exige escopo completo.')
-  if (c.JUDGMENT_REQUIRED) return 'Bloqueador: julgamento humano exigido — ' + c.JUDGMENT_REQUIRED
-  return 'Bloqueador: convergencia insuficiente para atencao.'
+  if (type === 'field') return citado(H.H5.finding_max || BLOCK.weak[lang])
+  if (c.JUDGMENT_REQUIRED) return citado(`${BLOCK.judgment[lang]} — ${c.JUDGMENT_REQUIRED}`)
+  return p(BLOCK.weak[lang])
 }
