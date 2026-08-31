@@ -1,0 +1,169 @@
+{
+ "SOURCE_ID": "REFRESH-CORRECTED/SIGNAL-DEPENDENCY-GRAPH-V2",
+ "source": "derivado dos handoffs congelados — nenhuma coleta, nenhuma rede",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "n/a",
+ "ARTIFACT_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_DEPENDENCY_ANALYSIS",
+ "captured_at": "2026-08-31",
+ "CAPTURED_AT": "2026-08-31",
+ "BASE_REFRESH_COMMIT": "eb18c87c7e75a3fe0f186c43ff5e60a83b28b0f1",
+ "DEPENDENCY_TYPES": [
+  "SOURCE_DEPENDENCY",
+  "OBSERVATION_DEPENDENCY",
+  "ENTITY_DEPENDENCY",
+  "DERIVATION_DEPENDENCY",
+  "SEMANTIC_DEPENDENCY",
+  "INDEPENDENT_SOURCE"
+ ],
+ "RELATIONS": [
+  {
+   "FROM": "FORESIGHT_THREE_LAYER",
+   "TO": "META_PAID_ADS",
+   "DEPENDENCY_TYPE": "DERIVATION_DEPENDENCY",
+   "WHY": "a perna META da cadeia E o anuncio da Meta, lido por git show sobre commit fixo"
+  },
+  {
+   "FROM": "FORESIGHT_THREE_LAYER",
+   "TO": "FORESIGHT_TRADEMARK_REGISTRATION_CROSSWALK",
+   "DEPENDENCY_TYPE": "DERIVATION_DEPENDENCY",
+   "WHY": "as duas primeiras pernas sao o proprio crosswalk marca<->registro"
+  },
+  {
+   "FROM": "FORESIGHT_REGISTRATION_LEG",
+   "TO": "NATIONAL_REGULATORY_REGISTRY",
+   "DEPENDENCY_TYPE": "SOURCE_DEPENDENCY",
+   "WHY": "le ROPF (ES), Ministero (IT) e E-Phy (FR) — as mesmas bases do regulatorio"
+  },
+  {
+   "FROM": "LOCAL_ADAMA_PORTFOLIO",
+   "TO": "NATIONAL_REGULATORY_REGISTRY",
+   "DEPENDENCY_TYPE": "SOURCE_DEPENDENCY",
+   "WHY": "o portfolio local provado sai do registro nacional"
+  },
+  {
+   "FROM": "REGULATORY_DEADLINE",
+   "TO": "NATIONAL_REGULATORY_REGISTRY",
+   "DEPENDENCY_TYPE": "DERIVATION_DEPENDENCY",
+   "WHY": "o objeto de vencimento e derivado do mesmo registro nacional"
+  },
+  {
+   "FROM": "CREATOR_DEEP_CORPUS",
+   "TO": "CREATOR_MAP",
+   "DEPENDENCY_TYPE": "ENTITY_DEPENDENCY",
+   "WHY": "o corpus le o conteudo das identidades que o mapa resolveu"
+  },
+  {
+   "FROM": "RESEARCHER_CORPUS",
+   "TO": "EXPERT_DIRECTORY",
+   "DEPENDENCY_TYPE": "ENTITY_DEPENDENCY",
+   "WHY": "o corpus de pesquisador herda a identidade resolvida pelo diretorio"
+  },
+  {
+   "FROM": "SCIENCE_CORPUS",
+   "TO": "OPENALEX_INDEX",
+   "DEPENDENCY_TYPE": "SOURCE_DEPENDENCY",
+   "WHY": "OpenAlex e infraestrutura de DESCOBERTA. SAME_INDEX != SAME_EVIDENCE: dois artigos achados pelo mesmo indice continuam sendo dois artigos"
+  },
+  {
+   "FROM": "TERRITORIAL_LISTING",
+   "TO": "TERRITORIAL_BODY",
+   "DEPENDENCY_TYPE": "OBSERVATION_DEPENDENCY",
+   "WHY": "duas leituras do MESMO documento; a missao declara LISTING_ROLE = DISCOVERY_INDEX_ONLY"
+  },
+  {
+   "FROM": "META_SNAPSHOT_2",
+   "TO": "META_SNAPSHOT_1",
+   "DEPENDENCY_TYPE": "OBSERVATION_DEPENDENCY",
+   "WHY": "as mesmas paginas, cerca de uma hora de distancia"
+  },
+  {
+   "FROM": "FIELD_HISTORICAL_RAIF",
+   "TO": "TERRITORIAL_RAIF",
+   "DEPENDENCY_TYPE": "SOURCE_DEPENDENCY",
+   "WHY": "mesmo publicador RAIF; a linhagem parcela-a-parcela nao esta preservada. INDEPENDENCE = NOT_PROVED"
+  },
+  {
+   "FROM": "MULTI_BULLETIN_DOCUMENT",
+   "TO": "CROP_ISSUE_PAIRING",
+   "DEPENDENCY_TYPE": "SEMANTIC_DEPENDENCY",
+   "WHY": "um documento com varios boletins nao autoriza produto cartesiano entre culturas e problemas: o par so fecha dentro da mesma passagem"
+  },
+  {
+   "FROM": "NATIONAL_REGISTRATION_FOR_PAIR",
+   "TO": "FIELD_OBSERVATION_OF_PAIR",
+   "DEPENDENCY_TYPE": "SEMANTIC_DEPENDENCY",
+   "WHY": "registro autorizado para cultura x alvo oferece CONTEXTO DE PORTFOLIO. Nao confirma que o fenomeno de campo existe: SEMANTIC_MISMATCH_NOT_CORROBORATION"
+  },
+  {
+   "FROM": "COMPETITOR_PUBLIC_COMM",
+   "TO": "META_PAID_ADS",
+   "DEPENDENCY_TYPE": "INDEPENDENT_SOURCE",
+   "WHY": "organica em canal proprio e paga na Biblioteca sao rotas diferentes — mas a primeira nao tem conteudo coletado, entao nao entra como sinal"
+  },
+  {
+   "FROM": "TERRITORIAL_BODY",
+   "TO": "NATIONAL_REGULATORY_REGISTRY",
+   "DEPENDENCY_TYPE": "INDEPENDENT_SOURCE",
+   "WHY": "boletim regional e registro nacional sao publicadores e processos diferentes"
+  },
+  {
+   "FROM": "TERRITORIAL_BODY",
+   "TO": "SCIENCE_CORPUS",
+   "DEPENDENCY_TYPE": "INDEPENDENT_SOURCE",
+   "WHY": "servico fitossanitario e publicacao indexada sao fontes independentes"
+  },
+  {
+   "FROM": "CREATOR_MAP",
+   "TO": "META_PAID_ADS",
+   "DEPENDENCY_TYPE": "INDEPENDENT_SOURCE",
+   "WHY": "perfil publico de creator e anuncio pago de empresa sao fontes distintas"
+  }
+ ],
+ "RELATIONS_TOTAL": 17,
+ "RELATIONS_DEPENDENT": 13,
+ "RELATIONS_INDEPENDENT": 4,
+ "RELATIONS_BY_TYPE": {
+  "DERIVATION_DEPENDENCY": 3,
+  "SOURCE_DEPENDENCY": 4,
+  "ENTITY_DEPENDENCY": 2,
+  "OBSERVATION_DEPENDENCY": 2,
+  "SEMANTIC_DEPENDENCY": 2,
+  "INDEPENDENT_SOURCE": 4
+ },
+ "SIGNAL_FAMILIES": {
+  "TERRITORIAL": true,
+  "SCIENCE_RESEARCHER": true,
+  "NATIONAL_REGISTRY": true,
+  "TRADEMARK": true,
+  "META_PAID_ADS": true,
+  "CREATOR": true,
+  "FIELD_HISTORICAL": true,
+  "COMPETITOR_PUBLIC_COMM": false
+ },
+ "FAMILIES_THAT_CAN_COUNT_TODAY": [
+  "CREATOR",
+  "FIELD_HISTORICAL",
+  "META_PAID_ADS",
+  "NATIONAL_REGISTRY",
+  "SCIENCE_RESEARCHER",
+  "TERRITORIAL",
+  "TRADEMARK"
+ ],
+ "FAMILIES_THAT_CANNOT_COUNT_TODAY": [
+  "COMPETITOR_PUBLIC_COMM"
+ ],
+ "LAWS": [
+  "2 cards != 2 independent signals",
+  "SAME_INDEX != SAME_EVIDENCE",
+  "SAME_PUBLISHER != INDEPENDENT_OBSERVATION",
+  "SEMANTIC_MISMATCH_NOT_CORROBORATION",
+  "CONVERGENCE_REQUIRES = SAME_PROPOSITION + INDEPENDENT_EVIDENCE"
+ ],
+ "CONVERGENCE_KINDS": {
+  "PHENOMENON_CONVERGENCE": "duas familias independentes afirmam O MESMO fenomeno",
+  "IDENTITY_CONVERGENCE": "duas fontes sustentam a mesma IDENTIDADE (marca, titular, produto)",
+  "CONTEXTUAL_ALIGNMENT": "uma fonte oferece contexto para a outra sem afirmar a mesma proposicao",
+  "NUNCA_SOMAR": "os tres tipos nunca entram no mesmo numero"
+ }
+}

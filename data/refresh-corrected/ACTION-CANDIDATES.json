@@ -1,0 +1,167 @@
+{
+ "SOURCE_ID": "REFRESH-CORRECTED/ACTION-CANDIDATES",
+ "ACTION_TYPES": [
+  "BUSINESS_DECISION",
+  "SYSTEM_DECISION",
+  "INVESTIGATION"
+ ],
+ "CENTRAL_USER_ABSORPTION_GUARD": "Market Development e usuario central por decisao arquitetonica, NAO porque recebeu todas as linhas da tabela",
+ "CANDIDATES": [
+  {
+   "CANDIDATE_ID": "TERR-ES_OLIVE_REPILO",
+   "ACTION_TYPE": "INVESTIGATION",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "MARKET_DEVELOPMENT"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  },
+  {
+   "CANDIDATE_ID": "TERR-ES_CEREAL_SEPTORIA",
+   "ACTION_TYPE": "INVESTIGATION",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "MARKET_DEVELOPMENT"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  },
+  {
+   "CANDIDATE_ID": "TERR-IT_VINE_FLAVESCENCE",
+   "ACTION_TYPE": "INVESTIGATION",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "MARKET_DEVELOPMENT"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  },
+  {
+   "CANDIDATE_ID": "TERR-IT_DURUM_WHEAT_FUSARIUM",
+   "ACTION_TYPE": "INVESTIGATION",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "ATTENTION_CANDIDATE_TEST"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "MARKET_DEVELOPMENT"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  },
+  {
+   "CANDIDATE_ID": "TERR-FR_VINE_DOWNY_MILDEW",
+   "ACTION_TYPE": "INVESTIGATION",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "MARKET_DEVELOPMENT"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  },
+  {
+   "CANDIDATE_ID": "TERR-FR_CEREAL_SEPTORIA",
+   "ACTION_TYPE": "INVESTIGATION",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "MARKET_DEVELOPMENT"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  },
+  {
+   "CANDIDATE_ID": "FIELD-ES-OLIVE-REPILO",
+   "ACTION_TYPE": "INVESTIGATION",
+   "EVIDENCE_INPUTS": [
+    "data/samples/ES-T3-001-raif-olivar-repilo-2026.json",
+    "data/samples/ES-T3-001-repilo-serie-historica.json",
+    "data/samples/BACKTEST-REPILO-LEAD-TIME.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "MARKET_DEVELOPMENT"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  },
+  {
+   "CANDIDATE_ID": "REGDEADLINE-IT-ADAMA",
+   "ACTION_TYPE": "BUSINESS_DECISION",
+   "EVIDENCE_INPUTS": [
+    "origin/claude/sintonia-italy-pilot-b1l401:data/samples/IT-T4-001/IT-T4-001-adama-expiries.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "ATTENTION_CANDIDATE_TEST"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "REGULATORY",
+     "PORTFOLIO"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  },
+  {
+   "CANDIDATE_ID": "IDCHAIN-FORESIGHT-META",
+   "ACTION_TYPE": "INVESTIGATION",
+   "EVIDENCE_INPUTS": [
+    "dc32ce0:data/samples/COMPETITOR-THREE-LAYER-AUDIT.json"
+   ],
+   "DERIVATION_RULE": "acao so existe onde o estado do candidato a sustenta",
+   "FACTS": {
+    "ATTENTION_STATE": "ATTENTION_CANDIDATE_TEST"
+   },
+   "INFERENCES": {
+    "OWNERS": [
+     "MARKET_DEVELOPMENT"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se a acao e de negocio ou de desenvolvimento do proprio sistema — SYSTEM_DECISION nao prova valor de negocio"
+  }
+ ]
+}

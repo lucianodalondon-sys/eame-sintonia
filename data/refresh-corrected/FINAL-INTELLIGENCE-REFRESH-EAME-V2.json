@@ -1,0 +1,1662 @@
+{
+ "SOURCE_ID": "REFRESH-CORRECTED/FINAL-INTELLIGENCE-REFRESH-EAME-V2",
+ "source": "correcao pre-arbitragem — tudo re-derivado, zero rede",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES · IT · FR",
+ "ARTIFACT_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_INTELLIGENCE",
+ "captured_at": "2026-08-31",
+ "CAPTURED_AT": "2026-08-31",
+ "BASE_REFRESH_COMMIT": "eb18c87c7e75a3fe0f186c43ff5e60a83b28b0f1",
+ "REFRESH_V1_WITNESS": "eb18c87c7e75a3fe0f186c43ff5e60a83b28b0f1",
+ "NEW_COLLECTION": "NO",
+ "NETWORK_REQUESTS": 0,
+ "SLICE_PARSER_BUG": {
+  "FOUND_IN_V1": true,
+  "AFFECTED_SLICES": [
+   "FR_VINE_DOWNY_MILDEW"
+  ],
+  "DETAIL": {
+   "ES_OLIVE_REPILO": {
+    "SCHEMA": {
+     "COUNTRY": "ES",
+     "CROP": "OLIVE",
+     "ISSUE": "REPILO",
+     "CASE_ID": "ES-OLIVE-REPILO"
+    },
+    "NAIVE": {
+     "CROP": "OLIVE",
+     "ISSUE": "REPILO"
+    }
+   },
+   "ES_CEREAL_SEPTORIA": {
+    "SCHEMA": {
+     "COUNTRY": "ES",
+     "CROP": "CEREAL",
+     "ISSUE": "SEPTORIA",
+     "CASE_ID": "ES-CEREAL-SEPTORIA"
+    },
+    "NAIVE": {
+     "CROP": "CEREAL",
+     "ISSUE": "SEPTORIA"
+    }
+   },
+   "IT_VINE_FLAVESCENCE": {
+    "SCHEMA": {
+     "COUNTRY": "IT",
+     "CROP": "VINE",
+     "ISSUE": "FLAVESCENCE",
+     "CASE_ID": "IT-VINE-FLAVESCENCE"
+    },
+    "NAIVE": {
+     "CROP": "VINE",
+     "ISSUE": "FLAVESCENCE"
+    }
+   },
+   "IT_DURUM_WHEAT_FUSARIUM": {
+    "SCHEMA": {
+     "COUNTRY": "IT",
+     "CROP": "DURUM_WHEAT",
+     "ISSUE": "FUSARIUM",
+     "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM"
+    },
+    "NAIVE": {
+     "CROP": "DURUM_WHEAT",
+     "ISSUE": "FUSARIUM"
+    }
+   },
+   "FR_VINE_DOWNY_MILDEW": {
+    "SCHEMA": {
+     "COUNTRY": "FR",
+     "CROP": "VINE",
+     "ISSUE": "DOWNY_MILDEW",
+     "CASE_ID": "FR-VINE-DOWNY_MILDEW"
+    },
+    "NAIVE": {
+     "CROP": "VINE_DOWNY",
+     "ISSUE": "MILDEW"
+    }
+   },
+   "FR_CEREAL_SEPTORIA": {
+    "SCHEMA": {
+     "COUNTRY": "FR",
+     "CROP": "CEREAL",
+     "ISSUE": "SEPTORIA",
+     "CASE_ID": "FR-CEREAL-SEPTORIA"
+    },
+    "NAIVE": {
+     "CROP": "CEREAL",
+     "ISSUE": "SEPTORIA"
+    }
+   }
+  },
+  "FIX": "schema explicito de PILOT-SCOPE-MATRIX-V1, nunca split"
+ },
+ "TERRITORIAL_BODY_ITEMS_REPROCESSED": 22,
+ "TERRITORIAL_ITEMS": [
+  {
+   "ITEM_ID": "ES-RAIF::https-www-juntadeandalucia-es-datosabiertos-portal-dataset-raif",
+   "SOURCE_ENTITY_ID": "ES-RAIF",
+   "SOURCE_URL": "https://www.juntadeandalucia.es/datosabiertos/portal/dataset/raif",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE",
+     "CEREAL",
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-08-24",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": true,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 4420,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-08-24",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 7,
+    "AGE_OF_OBSERVATION_DAYS": 7,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 4420,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-RAIF::w-juntadeandalucia-es-datosabiertos-portal-dataset-cdc8b852-6e4a-4336-9785-606fbbdc2243-n3",
+   "SOURCE_ENTITY_ID": "ES-RAIF",
+   "SOURCE_URL": "https://www.juntadeandalucia.es/datosabiertos/portal/dataset/cdc8b852-6e4a-4336-9785-606fbbdc2243.n3",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE",
+     "CEREAL",
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "2017-05-24",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": true,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 6988,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2017-05-24",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 3386,
+    "AGE_OF_OBSERVATION_DAYS": 3386,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 6988,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-RAIF::-juntadeandalucia-es-datosabiertos-portal-dataset-cdc8b852-6e4a-4336-9785-606fbbdc2243-xml",
+   "SOURCE_ENTITY_ID": "ES-RAIF",
+   "SOURCE_URL": "https://www.juntadeandalucia.es/datosabiertos/portal/dataset/cdc8b852-6e4a-4336-9785-606fbbdc2243.xml",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE",
+     "CEREAL",
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "2017-05-24",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": true,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 4733,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2017-05-24",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 3386,
+    "AGE_OF_OBSERVATION_DAYS": 3386,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 4733,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-RAIF::ntadeandalucia-es-datosabiertos-portal-dataset-cdc8b852-6e4a-4336-9785-606fbbdc2243-jsonld",
+   "SOURCE_ENTITY_ID": "ES-RAIF",
+   "SOURCE_URL": "https://www.juntadeandalucia.es/datosabiertos/portal/dataset/cdc8b852-6e4a-4336-9785-606fbbdc2243.jsonld",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE",
+     "CEREAL",
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "2018-06-08",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": true,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 15067,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2018-06-08",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 3006,
+    "AGE_OF_OBSERVATION_DAYS": 3006,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 15067,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-RAIF::https-www-juntadeandalucia-es-datosabiertos-portal-dataset-",
+   "SOURCE_ENTITY_ID": "ES-RAIF",
+   "SOURCE_URL": "https://www.juntadeandalucia.es/datosabiertos/portal/dataset/",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 5187,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 5187,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-",
+   "SOURCE_ENTITY_ID": "ES-OLIMERCA",
+   "SOURCE_URL": "https://www.olimerca.com/",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 22007,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 22007,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-noticias",
+   "SOURCE_ENTITY_ID": "ES-OLIMERCA",
+   "SOURCE_URL": "https://www.olimerca.com/noticias",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 26399,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 26399,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-noticias-i-d-i",
+   "SOURCE_ENTITY_ID": "ES-OLIMERCA",
+   "SOURCE_URL": "https://www.olimerca.com/noticias/I+D+i",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 16990,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 16990,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-noticias-normativa",
+   "SOURCE_ENTITY_ID": "ES-OLIMERCA",
+   "SOURCE_URL": "https://www.olimerca.com/noticias/Normativa",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 26856,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 26856,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-noticias-precios",
+   "SOURCE_ENTITY_ID": "ES-OLIMERCA",
+   "SOURCE_URL": "https://www.olimerca.com/noticias/Precios",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Andalucía",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "OLIVE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 26957,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 26957,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "IT-LAMMA::https-www-lamma-toscana-it-previ-ita-agrometeo-html-grosseto-ftsnt-html",
+   "SOURCE_ENTITY_ID": "IT-LAMMA",
+   "SOURCE_URL": "https://www.lamma.toscana.it/previ/ita/agrometeo/html/Grosseto_ftsnt.html",
+   "COUNTRY": {
+    "VALUE": "IT",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Toscana",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "CEREAL",
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [
+     "SEPTORIA",
+     "FUSARIUM",
+     "DOWNY_MILDEW"
+    ],
+    "STATE": "PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-04-23",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": true,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [
+     {
+      "CROP": "CEREAL",
+      "ISSUE": "SEPTORIA",
+      "PROOF": "termo da cultura dentro do trecho do problema",
+      "PASSAGE": "ggini né nel nord né nel sud della provincia, sia per il frumento tenero che per il duro. Septoria La septoria rimane la patologia principale. Nel nord si osservano livelli medi nel tenero"
+     },
+     {
+      "CROP": "CEREAL",
+      "ISSUE": "FUSARIUM",
+      "PROOF": "termo da cultura dentro do trecho do problema",
+      "PASSAGE": "u livelli medi. Il quadro evidenzia una diffusione generalizzata con intensità variabile. Fusariosi Si segnala la comparsa di sintomi lievi nel frumento duro in alcune situazioni, mentre il"
+     },
+     {
+      "CROP": "VINE",
+      "ISSUE": "DOWNY_MILDEW",
+      "PROOF": "termo da cultura dentro do trecho do problema",
+      "PASSAGE": "3 Fenologia Le fasi fenologiche prevalenti sono \"grappoli visibili\" e \"grappoli distesi\". Peronospora Nella maggior parte dei casi le piante sono recettive al parassita. Il rischio peronospor"
+     },
+     {
+      "CROP": "DURUM_WHEAT",
+      "ISSUE": "FUSARIUM",
+      "PROOF": "cultura NOMEADA dentro do trecho, ausente do rotulo do item",
+      "PASSAGE": "u livelli medi. Il quadro evidenzia una diffusione generalizzata con intensità variabile. Fusariosi Si segnala la comparsa di sintomi lievi nel frumento duro in alcune situazioni, mentre il"
+     }
+    ],
+    "PAIRS_TESTED": 6,
+    "PAIRS_CARTESIAN_AVOIDED": 3,
+    "STATE": "PAIRED"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 11333,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "PROVED",
+    "STAGE_TERMS_FOUND": [
+     "fenologia",
+     "fasi fenologiche",
+     "fenologic",
+     "grappoli visibili",
+     "grappoli distesi"
+    ],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "PROVED",
+    "TRIGGER_TERMS_FOUND": [
+     "trattamento",
+     "si consiglia",
+     "raccomanda",
+     "recettive al parassita"
+    ],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-04-23",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 130,
+    "AGE_OF_OBSERVATION_DAYS": 130,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 11333,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Bordeaux",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [
+     "FLAVESCENCE",
+     "DOWNY_MILDEW"
+    ],
+    "STATE": "PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": true,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [
+     {
+      "CROP": "VINE",
+      "ISSUE": "DOWNY_MILDEW",
+      "PROOF": "termo da cultura dentro do trecho do problema",
+      "PASSAGE": "atiques et techniques de la filière. Onze nouvelles variétés résistantes à l’oïdium et au mildiou inscrites au Catalogue officiel Découvrez les onze nouvelles variétés de vigne du Catalog"
+     }
+    ],
+    "PAIRS_TESTED": 2,
+    "PAIRS_CARTESIAN_AVOIDED": 1,
+    "STATE": "PAIRED"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 12271,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "PROVED",
+    "STAGE_TERMS_FOUND": [
+     "stade"
+    ],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 12271,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-publications-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/publications/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "NOT_KNOWN",
+    "BASIS": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 445,
+    "EXCERPT_CHARS": 445,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "PROVED",
+    "TRIGGER_TERMS_FOUND": [
+     "protection"
+    ],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 445,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 445
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-lifv-lance-sa-collection-durabilite-de-la-pepiniere-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/article/lifv-lance-sa-collection-durabilite-de-la-pepiniere/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "NOT_KNOWN",
+    "BASIS": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-07-06",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 4389,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-07-06",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 56,
+    "AGE_OF_OBSERVATION_DAYS": 56,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 4389,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::ze-nouvelles-varietes-resistantes-a-loidium-et-au-mildiou-inscrites-au-catalogue-officiel-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/article/onze-nouvelles-varietes-resistantes-a-loidium-et-au-mildiou-inscrites-au-catalogue-officiel/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "NOT_KNOWN",
+    "BASIS": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [
+     "DOWNY_MILDEW"
+    ],
+    "STATE": "PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-07-06",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [
+     {
+      "CROP": "VINE",
+      "ISSUE": "DOWNY_MILDEW",
+      "PROOF": "termo da cultura dentro do trecho do problema",
+      "PASSAGE": "Onze nouvelles variétés résistantes à l’oïdium et au mildiou inscrites au Catalogue officiel - Institut Français de la Vigne et du Vin --> Innovation"
+     }
+    ],
+    "PAIRS_TESTED": 1,
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "PAIRED"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 3978,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "PROVED",
+    "TRIGGER_TERMS_FOUND": [
+     "traitement"
+    ],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-07-06",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 56,
+    "AGE_OF_OBSERVATION_DAYS": 56,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 3978,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::www-vignevin-com-article-tester-cooperer-innover-la-viticulture-au-prisme-des-living-labs-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/article/tester-cooperer-innover-la-viticulture-au-prisme-des-living-labs/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Beaujolais",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-06-17",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 6407,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-06-17",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 75,
+    "AGE_OF_OBSERVATION_DAYS": 75,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 6407,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-congres-international-dedies-aux-virus-de-la-vigne-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/article/congres-international-dedies-aux-virus-de-la-vigne/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Bourgogne",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-05-28",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 7090,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "PROVED",
+    "TRIGGER_TERMS_FOUND": [
+     "traitement"
+    ],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-05-28",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 95,
+    "AGE_OF_OBSERVATION_DAYS": 95,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 7090,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-note-cuivre-2026-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/article/note-cuivre-2026/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "NOT_KNOWN",
+    "BASIS": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [
+     "DOWNY_MILDEW"
+    ],
+    "STATE": "PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-05-20",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_TESTED": 1,
+    "PAIRS_CARTESIAN_AVOIDED": 1,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 2791,
+    "EXCERPT_CHARS": 2791,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-05-20",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 103,
+    "AGE_OF_OBSERVATION_DAYS": 103,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 2791,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 2791
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-black-rot-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/article/black-rot/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "NOT_KNOWN",
+    "BASIS": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-05-13",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 2475,
+    "EXCERPT_CHARS": 2475,
+    "CROP_STAGE_AT_OBSERVATION": "PROVED",
+    "STAGE_TERMS_FOUND": [
+     "stade"
+    ],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-05-13",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 110,
+    "AGE_OF_OBSERVATION_DAYS": 110,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 2475,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 2475
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-publication-de-la-note-technique-nationale-oscar-2026-",
+   "SOURCE_ENTITY_ID": "FR-VIGNEVIN",
+   "SOURCE_URL": "https://www.vignevin.com/article/publication-de-la-note-technique-nationale-oscar-2026/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "NOT_KNOWN",
+    "BASIS": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "VINE"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [
+     "DOWNY_MILDEW"
+    ],
+    "STATE": "PROVED"
+   },
+   "TIME": {
+    "VALUE": "2026-03-12",
+    "STATE": "PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_TESTED": 1,
+    "PAIRS_CARTESIAN_AVOIDED": 1,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 5379,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "PROVED",
+    "TRIGGER_TERMS_FOUND": [
+     "traitement"
+    ],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "PUBLISHED_AT": "2026-03-12",
+    "CAPTURED_AT": "2026-08-31",
+    "SOURCE_LATENCY_DAYS": 172,
+    "AGE_OF_OBSERVATION_DAYS": 172,
+    "STATE": "MEASURED",
+    "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+   },
+   "DOCUMENT_CHARS": 5379,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "FR-ARVALIS::https-www-arvalis-fr-",
+   "SOURCE_ENTITY_ID": "FR-ARVALIS",
+   "SOURCE_URL": "https://www.arvalis.fr/",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "Bretagne",
+    "BASIS": "NAMED_IN_TEXT",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "CEREAL"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 3515,
+    "EXCERPT_CHARS": 3000,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 3515,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 3000
+  },
+  {
+   "ITEM_ID": "FR-ARVALIS::https-www-arvalis-fr-infos-techniques-types-dinfos-techniques-articles-et-actus-techniques",
+   "SOURCE_ENTITY_ID": "FR-ARVALIS",
+   "SOURCE_URL": "https://www.arvalis.fr/infos-techniques/types-dinfos-techniques/articles-et-actus-techniques",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "BASIS": "INHERITED_FROM_MANDATE",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "NOT_KNOWN",
+    "BASIS": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "CROP": {
+    "VALUE": [
+     "CEREAL"
+    ],
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": [],
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "NOT_KNOWN",
+    "STATE": "NOT_PROVED"
+   },
+   "MULTI_BULLETIN_DOCUMENT": false,
+   "CROP_ISSUE_PAIRING": {
+    "PAIRS_PROVEN": [],
+    "PAIRS_CARTESIAN_AVOIDED": 0,
+    "STATE": "CROP_ISSUE_PAIRING_NOT_PROVEN"
+   },
+   "PHENOLOGY": {
+    "TEXT_SCOPE": "DOCUMENT_EXCERPT + EVIDENCE_PASSAGES",
+    "FULL_BODY_PRESERVED": false,
+    "DOCUMENT_CHARS_DECLARED": 930,
+    "EXCERPT_CHARS": 930,
+    "CROP_STAGE_AT_OBSERVATION": "NOT_PROVED",
+    "STAGE_TERMS_FOUND": [],
+    "APPLICATION_TRIGGER_AT_OBSERVATION": "NOT_PROVED",
+    "TRIGGER_TERMS_FOUND": [],
+    "CURRENT_CROP_STAGE_TODAY": "NOT_PROVED",
+    "CURRENT_APPLICATION_WINDOW": "NOT_PROVED",
+    "LEI": "OBSERVATION_STAGE != CURRENT_STAGE"
+   },
+   "LATENCY": {
+    "SOURCE_LATENCY_DAYS": null,
+    "STATE": "NOT_MEASURABLE",
+    "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+   },
+   "DOCUMENT_CHARS": 930,
+   "FULL_BODY_PRESERVED": false,
+   "EXCERPT_CHARS": 930
+  }
+ ],
+ "FIELD_HISTORICAL": {
+  "FIELD_HISTORICAL_SCOPE": "IN",
+  "FIELD_HISTORICAL_INPUT_COMMIT": "in-tree @ eb18c87",
+  "ARTIFACTS": [
+   "data/samples/ES-T3-001-raif-olivar-repilo-2026.json",
+   "data/samples/ES-T3-001-repilo-serie-historica.json",
+   "data/samples/BACKTEST-REPILO-LEAD-TIME.json"
+  ],
+  "COUNTRY": "ES",
+  "CROP": "OLIVE",
+  "ISSUE": "REPILO",
+  "REGION_SCOPE": "Andalucia — 7 provincias",
+  "SAMPLINGS_2026": 20970,
+  "LAST_OBSERVATION_SEASON": 2026,
+  "CAPTURED_AT": "2026-08-28",
+  "HISTORICAL_BASELINE": {
+   "SEASONS_IN_PRESERVED_SERIES": 11,
+   "READINGS_IN_PRESERVED_SERIES": 44584,
+   "METRIC": "1702 Repilo: % Hojas con Repilo Visible — média das leituras por safra e província",
+   "BASELINE_TYPE": "RETROSPECTIVE BASELINE POSSIBLE",
+   "COHORT_CONTROL_PROVINCES": 5,
+   "DIVERGENCIA_DECLARADA": "o artefato de serie preservado declara 11 safras e 44584 leituras; o backtest declara serie completa de 23 safras (2003-2026). As duas unidades sao diferentes e nao se escolhe a mais conveniente."
+  },
+  "LEAD_TIME_BACKTEST": {
+   "RULE_DECLARED_BEFORE_LOOKING": "dispara na safra Y se media(Y) > media(Y-1) > media(Y-2) E media(Y) >= 1,5 x a media das tres safras anteriores. Regra simples e escrita ANTES de rodar, para nao ser calibrada no proprio resultado.",
+   "TOTAL_FIRES": 14,
+   "LEAD_TIME": {
+    "Huelva": "pico historico em 2026; a regra disparou em 2025 E 2026 -> 1 safra de antecedencia",
+    "Cádiz": "alta em 2026; a regra disparou SO em 2026 -> zero antecedencia",
+    "Sevilla": "alta em 2026; a regra disparou SO em 2026 -> zero antecedencia"
+   },
+   "FALSE_POSITIVE_LOAD": "11 dos 14 disparos nao precedem nenhum evento de escala 2026: Huelva 2012/2013/2018, Cadiz 2009/2013, Sevilla 2009/2021, Cordoba 2012, Granada 2024, Malaga 2010. Um radar com esta regra pediria atencao muitas vezes sem que algo grande viesse depois.",
+   "HONEST_CONCLUSION": "a pressao de campo medida NAO e um motor de aviso de 6 a 12 meses. Ela entrega, no melhor caso observado, UMA SAFRA de antecedencia, e em dois dos tres casos de 2026 entregou ZERO. Uma safra ainda e util para planejamento de campanha - mas nao e 'sabemos antes'."
+  },
+  "INDEPENDENCE_FROM_TERRITORIAL_RAIF": {
+   "TERRITORIAL_SOURCE_ENTITIES": [
+    "ES-OLIMERCA",
+    "ES-RAIF",
+    "FR-ARVALIS",
+    "FR-VIGNEVIN",
+    "IT-LAMMA"
+   ],
+   "RAIF_APPEARS_IN_TERRITORIAL": [
+    "ES-RAIF"
+   ],
+   "CLASSIFICATION": "SOURCE_DEPENDENCY_ONLY",
+   "STATE": "NOT_PROVED",
+   "WHY": "o territorial e o historico compartilham o publicador RAIF em pelo menos um item. SAME_PUBLISHER nao prova INDEPENDENT_OBSERVATION, e a linhagem parcela-a-parcela nao esta preservada. Nao se compra uma segunda perna por inferencia."
+  },
+  "ADAMA_CONTEXT_DECLARED_IN_ARTIFACT": "Neptune — fungicida ADAMA para repilo (radar público ES)",
+  "ADAMA_CONTEXT_LAW": "declaracao em artefato NAO e LOCAL_PRODUCT_AUTHORIZATION_PROVED, nem PRODUCT_FIT_PROVED, nem APPLICATION_WINDOW_PROVED",
+  "LOCAL_PRODUCT_AUTHORIZATION_PROVED": "NOT_MEASURED",
+  "FIELD_PRESSURE_LAW": "FIELD_PRESSURE != DEMAND",
+  "OBJECT_TYPE": "LONGITUDINAL_FIELD_PRESSURE",
+  "UNIT": "COUNTRY x REGION x CROP x ISSUE x TIME"
+ },
+ "REGULATORY_DEADLINE_OBJECT": {
+  "OBJECT_TYPE": "REGULATORY_DEADLINE",
+  "UNIT": "COUNTRY x REGISTRATION x PRODUCT x DEADLINE",
+  "COUNTRY": "IT",
+  "SOURCE_ID": "IT-T4-001",
+  "DATASET_FILE": "PROD_FTS_6_20260824.csv",
+  "CAPTURED_AT": "2026-08-28",
+  "PRODUCTS_TOTAL": 17695,
+  "IN_FORCE": 3712,
+  "WITH_FUTURE_EXPIRY": 3466,
+  "ADAMA_IN_FORCE_WITH_FUTURE_EXPIRY": 155,
+  "NEXT_EXPIRIES_LISTED": 20,
+  "PRODUCTS_PER_EXPIRY_DATE": {
+   "2026-08-31": 7,
+   "2026-09-30": 3,
+   "2026-10-31": 10
+  },
+  "STATUS_AS_DECLARED_BY_SOURCE": "in_force / with_future_expiry, como a fonte declara",
+  "LAWS": [
+   "EXPIRY != WITHDRAWAL",
+   "EXPIRY_DATE_REACHED != PRODUCT_DISCONTINUED"
+  ],
+  "PERMITTED_ACTION": "REVIEW / CONFIRMATION BY REGULATORY",
+  "FORBIDDEN_ACTION": "ALERT: PRODUCT WILL DISAPPEAR",
+  "NOT_A_DASHBOARD": "entra como candidato de RADAR / ATTENTION QUEUE, nunca como painel regulatorio"
+ },
+ "IDENTITY_CHAIN_OBJECT": {
+  "OBJECT_TYPE": "IDENTITY_CHAIN_CONVERGENCE",
+  "UNIT": "COMPETITOR x COUNTRY x PRODUCT",
+  "PROPOSITION": "a mesma identidade de produto/titular e sustentada entre trademark + registro local + Meta",
+  "PROVED_TUPLES": 36,
+  "PROVED_PRODUCTS": 29,
+  "CANDIDATE_TUPLES": 174,
+  "NOT_KNOWN_TUPLES": 138,
+  "REJECTED_TUPLES": 0,
+  "BY_COUNTRY": {
+   "ES": 22,
+   "FR": 4,
+   "IT": 10
+  },
+  "BY_COMPANY": {
+   "BASF": 23,
+   "BAYER": 7,
+   "CORTEVA": 4,
+   "UPL": 2
+  },
+  "URBOLE_GUARD": "PASS",
+  "IS_NOT": "CASE_MULTI_SIGNAL_CONVERGENCE",
+  "DOES_NOT_REQUIRE": [
+   "CROP",
+   "ISSUE"
+  ],
+  "DOES_NOT_PROVE": [
+   "FIELD_PROBLEM",
+   "DEMAND",
+   "MARKET_MOVEMENT",
+   "SALES",
+   "SUCCESS"
+  ]
+ },
+ "ITALIAN_LABELS": {
+  "LABEL_MANIFEST_TARGET": 163,
+  "LABELS_HASHED_IN_MANIFEST": 163,
+  "MANIFEST_STATE": "COMPLETE",
+  "LOCAL_LABEL_PDFS_AVAILABLE_NOW": 139,
+  "LOCAL_LABEL_PDFS_MISSING_NOW": 24,
+  "WHERE_LOOKED": [
+   "C:\\eame-sintonia-it\\data\\raw\\IT",
+   "C:\\eame-sintonia\\data\\raw\\IT",
+   "C:\\eame-sintonia-precorr\\data\\raw\\IT"
+  ],
+  "WHERE_FOUND": "C:\\eame-sintonia-it\\data\\raw\\IT",
+  "CROP_ISSUE_RECONSTRUCTION_MODE": "LOCAL_REPROCESSING_POSSIBLE_PARTIAL",
+  "NOTE": "SHA-256 preservado no manifesto NAO substitui o arquivo. Manifesto completo com PDF ausente = RECOLLECTION_REQUIRED para a parte ausente.",
+  "RECONSTRUCTION_EXECUTED": "NO"
+ },
+ "CREATOR_LAST_90D": {
+  "FROM_CORPUS_DELIVERY": 164,
+  "MATERIALS_TOTAL": 442,
+  "UNIT": "materiais na janela de 90 dias, contados por item",
+  "NOTE": "lido do freeze a509c12, nao do texto de nenhum documento"
+ },
+ "CREATOR_READINESS": {
+  "PERSON_CREATOR_ACTIVATION_READY": 8,
+  "FARM_BUSINESS_PARTNER_READY": 2,
+  "MARKETING_CONTACTABLE_ENTITIES_READY": 10,
+  "NOTE": "a soma NÃO se chama CREATORS_READY. Pessoa != empresa, e o nome da métrica é onde essa distinção se perde primeiro."
+ },
+ "SOURCE_LATENCY": {
+  "MEASURED_ITEMS": 12,
+  "TOTAL_ITEMS": 22,
+  "BY_SOURCE": {
+   "ES-RAIF": {
+    "N": 4,
+    "DAYS": [
+     7,
+     3006,
+     3386,
+     3386
+    ]
+   },
+   "IT-LAMMA": {
+    "N": 1,
+    "DAYS": [
+     130
+    ]
+   },
+   "FR-VIGNEVIN": {
+    "N": 7,
+    "DAYS": [
+     56,
+     56,
+     75,
+     95,
+     103,
+     110,
+     172
+    ]
+   }
+  },
+  "LAW": "PIPELINE_LATENCY != AGE_OF_OBSERVATION",
+  "NO_SCORE": true
+ },
+ "FULL_CASE_KEYS_V2": 1,
+ "FULL_CASE_KEY_SLICES_V2": [
+  "IT_DURUM_WHEAT_FUSARIUM"
+ ],
+ "FR_FULL_CASE_KEYS_V2": 0,
+ "PHENOLOGY_AT_OBSERVATION_PROVED_ITEMS": 3,
+ "APPLICATION_TRIGGER_AT_OBSERVATION_PROVED_ITEMS": 5,
+ "MULTI_BULLETIN_DOCUMENTS": 6,
+ "PAIRS_CARTESIAN_AVOIDED": 6,
+ "CASE_MULTI_SIGNAL_CONVERGENCES": 0,
+ "IDENTITY_CHAIN_CONVERGENCES": 36,
+ "LONGITUDINAL_FIELD_OBJECTS": 1,
+ "REGULATORY_DEADLINE_OBJECTS": 155,
+ "ATTENTION_READY": [],
+ "ATTENTION_CANDIDATE_TEST": [
+  "TERR-IT_DURUM_WHEAT_FUSARIUM",
+  "REGDEADLINE-IT-ADAMA",
+  "IDCHAIN-FORESIGHT-META"
+ ],
+ "VALID_EVIDENCE_NOT_ATTENTION_READY": [
+  "TERR-ES_OLIVE_REPILO",
+  "TERR-ES_CEREAL_SEPTORIA",
+  "TERR-IT_VINE_FLAVESCENCE",
+  "TERR-FR_VINE_DOWNY_MILDEW",
+  "TERR-FR_CEREAL_SEPTORIA",
+  "FIELD-ES-OLIVE-REPILO"
+ ],
+ "NO_SCORE_DECLARATION": "nenhum score agregado neste artefato",
+ "PRODUCT_IMPLEMENTATION_MODE": "NOT_ENTERED",
+ "CASCO_V7_MODIFIED": "NO"
+}

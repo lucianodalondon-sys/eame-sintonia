@@ -1,0 +1,228 @@
+{
+ "SOURCE_ID": "REFRESH-CORRECTED/SOURCE-LATENCY",
+ "LAW": "PIPELINE_LATENCY != AGE_OF_OBSERVATION",
+ "LIMITE_DESTA_MEDICAO": "todos os itens tem o MESMO CAPTURED_AT (2026-08-31): foi uma captura unica. Por construcao, SOURCE_LATENCY == AGE_OF_OBSERVATION em todas as linhas. Isto mede IDADE DO DOCUMENTO NA PRIMEIRA CAPTURA, nao latencia de regime de um pipeline que roda com cadencia. Separar as duas exige uma segunda captura, e nao ha coleta autorizada nesta passagem.",
+ "MEASURED_ITEMS": 12,
+ "TOTAL_ITEMS": 22,
+ "BY_SOURCE": {
+  "ES-RAIF": {
+   "N": 4,
+   "DAYS": [
+    7,
+    3006,
+    3386,
+    3386
+   ]
+  },
+  "IT-LAMMA": {
+   "N": 1,
+   "DAYS": [
+    130
+   ]
+  },
+  "FR-VIGNEVIN": {
+   "N": 7,
+   "DAYS": [
+    56,
+    56,
+    75,
+    95,
+    103,
+    110,
+    172
+   ]
+  }
+ },
+ "ITEMS": [
+  {
+   "ITEM_ID": "ES-RAIF::https-www-juntadeandalucia-es-datosabiertos-portal-dataset-raif",
+   "SOURCE": "ES-RAIF",
+   "PUBLISHED_AT": "2026-08-24",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 7,
+   "AGE_OF_OBSERVATION_DAYS": 7,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "ES-RAIF::w-juntadeandalucia-es-datosabiertos-portal-dataset-cdc8b852-6e4a-4336-9785-606fbbdc2243-n3",
+   "SOURCE": "ES-RAIF",
+   "PUBLISHED_AT": "2017-05-24",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 3386,
+   "AGE_OF_OBSERVATION_DAYS": 3386,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "ES-RAIF::-juntadeandalucia-es-datosabiertos-portal-dataset-cdc8b852-6e4a-4336-9785-606fbbdc2243-xml",
+   "SOURCE": "ES-RAIF",
+   "PUBLISHED_AT": "2017-05-24",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 3386,
+   "AGE_OF_OBSERVATION_DAYS": 3386,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "ES-RAIF::ntadeandalucia-es-datosabiertos-portal-dataset-cdc8b852-6e4a-4336-9785-606fbbdc2243-jsonld",
+   "SOURCE": "ES-RAIF",
+   "PUBLISHED_AT": "2018-06-08",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 3006,
+   "AGE_OF_OBSERVATION_DAYS": 3006,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "ES-RAIF::https-www-juntadeandalucia-es-datosabiertos-portal-dataset-",
+   "SOURCE": "ES-RAIF",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-",
+   "SOURCE": "ES-OLIMERCA",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-noticias",
+   "SOURCE": "ES-OLIMERCA",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-noticias-i-d-i",
+   "SOURCE": "ES-OLIMERCA",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-noticias-normativa",
+   "SOURCE": "ES-OLIMERCA",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "ES-OLIMERCA::https-www-olimerca-com-noticias-precios",
+   "SOURCE": "ES-OLIMERCA",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "IT-LAMMA::https-www-lamma-toscana-it-previ-ita-agrometeo-html-grosseto-ftsnt-html",
+   "SOURCE": "IT-LAMMA",
+   "PUBLISHED_AT": "2026-04-23",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 130,
+   "AGE_OF_OBSERVATION_DAYS": 130,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-",
+   "SOURCE": "FR-VIGNEVIN",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-publications-",
+   "SOURCE": "FR-VIGNEVIN",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-lifv-lance-sa-collection-durabilite-de-la-pepiniere-",
+   "SOURCE": "FR-VIGNEVIN",
+   "PUBLISHED_AT": "2026-07-06",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 56,
+   "AGE_OF_OBSERVATION_DAYS": 56,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::ze-nouvelles-varietes-resistantes-a-loidium-et-au-mildiou-inscrites-au-catalogue-officiel-",
+   "SOURCE": "FR-VIGNEVIN",
+   "PUBLISHED_AT": "2026-07-06",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 56,
+   "AGE_OF_OBSERVATION_DAYS": 56,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::www-vignevin-com-article-tester-cooperer-innover-la-viticulture-au-prisme-des-living-labs-",
+   "SOURCE": "FR-VIGNEVIN",
+   "PUBLISHED_AT": "2026-06-17",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 75,
+   "AGE_OF_OBSERVATION_DAYS": 75,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-congres-international-dedies-aux-virus-de-la-vigne-",
+   "SOURCE": "FR-VIGNEVIN",
+   "PUBLISHED_AT": "2026-05-28",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 95,
+   "AGE_OF_OBSERVATION_DAYS": 95,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-note-cuivre-2026-",
+   "SOURCE": "FR-VIGNEVIN",
+   "PUBLISHED_AT": "2026-05-20",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 103,
+   "AGE_OF_OBSERVATION_DAYS": 103,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-black-rot-",
+   "SOURCE": "FR-VIGNEVIN",
+   "PUBLISHED_AT": "2026-05-13",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 110,
+   "AGE_OF_OBSERVATION_DAYS": 110,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "FR-VIGNEVIN::https-www-vignevin-com-article-publication-de-la-note-technique-nationale-oscar-2026-",
+   "SOURCE": "FR-VIGNEVIN",
+   "PUBLISHED_AT": "2026-03-12",
+   "CAPTURED_AT": "2026-08-31",
+   "SOURCE_LATENCY_DAYS": 172,
+   "AGE_OF_OBSERVATION_DAYS": 172,
+   "STATE": "MEASURED",
+   "LEI": "PIPELINE_LATENCY != AGE_OF_OBSERVATION"
+  },
+  {
+   "ITEM_ID": "FR-ARVALIS::https-www-arvalis-fr-",
+   "SOURCE": "FR-ARVALIS",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  },
+  {
+   "ITEM_ID": "FR-ARVALIS::https-www-arvalis-fr-infos-techniques-types-dinfos-techniques-articles-et-actus-techniques",
+   "SOURCE": "FR-ARVALIS",
+   "SOURCE_LATENCY_DAYS": null,
+   "STATE": "NOT_MEASURABLE",
+   "WHY": "falta PUBLISHED_AT ou CAPTURED_AT"
+  }
+ ]
+}

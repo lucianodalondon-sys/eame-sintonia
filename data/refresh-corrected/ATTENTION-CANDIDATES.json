@@ -1,0 +1,300 @@
+{
+ "SOURCE_ID": "REFRESH-CORRECTED/ATTENTION-CANDIDATES",
+ "MEASURED_NOT_WRITTEN": "cada linha separa FACTS de INFERENCES e de JUDGMENT_REQUIRED",
+ "CANDIDATES": [
+  {
+   "CANDIDATE_ID": "TERR-ES_OLIVE_REPILO",
+   "TYPE": "TERRITORIAL_SLICE",
+   "SLICE": "ES_OLIVE_REPILO",
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "REPILO",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "item do pais com par cultura x problema provado DENTRO da mesma passagem, mais REGION e TIME provados",
+   "FACTS": {
+    "BODY_ITEMS_IN_COUNTRY": 10,
+    "WITH_CROP": 9,
+    "WITH_ISSUE": 0,
+    "WITH_TIME": 4,
+    "WITH_LOCALITY": 10,
+    "WITH_PAIR_PROVEN": 0,
+    "WITH_FULL_KEY": 0,
+    "EXACT_BLOCKER_PER_ITEM": {
+     "FALTA: ISSUE": 4,
+     "FALTA: CROP + ISSUE + TIME": 1,
+     "FALTA: ISSUE + TIME": 5
+    }
+   },
+   "INFERENCES": {
+    "INDEPENDENT_SIGNAL_FAMILIES": [],
+    "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE"
+   },
+   "JUDGMENT_REQUIRED": "se um recorte com UMA familia merece fila de atencao",
+   "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY",
+   "ITEMS_WITH_FULL_KEY": [],
+   "PAIR_PASSAGES": []
+  },
+  {
+   "CANDIDATE_ID": "TERR-ES_CEREAL_SEPTORIA",
+   "TYPE": "TERRITORIAL_SLICE",
+   "SLICE": "ES_CEREAL_SEPTORIA",
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "item do pais com par cultura x problema provado DENTRO da mesma passagem, mais REGION e TIME provados",
+   "FACTS": {
+    "BODY_ITEMS_IN_COUNTRY": 10,
+    "WITH_CROP": 4,
+    "WITH_ISSUE": 0,
+    "WITH_TIME": 4,
+    "WITH_LOCALITY": 10,
+    "WITH_PAIR_PROVEN": 0,
+    "WITH_FULL_KEY": 0,
+    "EXACT_BLOCKER_PER_ITEM": {
+     "FALTA: ISSUE": 4,
+     "FALTA: CROP + ISSUE + TIME": 1,
+     "FALTA: ISSUE + TIME": 5
+    }
+   },
+   "INFERENCES": {
+    "INDEPENDENT_SIGNAL_FAMILIES": [],
+    "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE"
+   },
+   "JUDGMENT_REQUIRED": "se um recorte com UMA familia merece fila de atencao",
+   "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY",
+   "ITEMS_WITH_FULL_KEY": [],
+   "PAIR_PASSAGES": []
+  },
+  {
+   "CANDIDATE_ID": "TERR-IT_VINE_FLAVESCENCE",
+   "TYPE": "TERRITORIAL_SLICE",
+   "SLICE": "IT_VINE_FLAVESCENCE",
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "FLAVESCENCE",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "item do pais com par cultura x problema provado DENTRO da mesma passagem, mais REGION e TIME provados",
+   "FACTS": {
+    "BODY_ITEMS_IN_COUNTRY": 1,
+    "WITH_CROP": 1,
+    "WITH_ISSUE": 0,
+    "WITH_TIME": 1,
+    "WITH_LOCALITY": 1,
+    "WITH_PAIR_PROVEN": 0,
+    "WITH_FULL_KEY": 0,
+    "EXACT_BLOCKER_PER_ITEM": {}
+   },
+   "INFERENCES": {
+    "INDEPENDENT_SIGNAL_FAMILIES": [],
+    "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE"
+   },
+   "JUDGMENT_REQUIRED": "se um recorte com UMA familia merece fila de atencao",
+   "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY",
+   "ITEMS_WITH_FULL_KEY": [],
+   "PAIR_PASSAGES": []
+  },
+  {
+   "CANDIDATE_ID": "TERR-IT_DURUM_WHEAT_FUSARIUM",
+   "TYPE": "TERRITORIAL_SLICE",
+   "SLICE": "IT_DURUM_WHEAT_FUSARIUM",
+   "COUNTRY": "IT",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FUSARIUM",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "item do pais com par cultura x problema provado DENTRO da mesma passagem, mais REGION e TIME provados",
+   "FACTS": {
+    "BODY_ITEMS_IN_COUNTRY": 1,
+    "WITH_CROP": 0,
+    "WITH_ISSUE": 1,
+    "WITH_TIME": 1,
+    "WITH_LOCALITY": 1,
+    "WITH_PAIR_PROVEN": 1,
+    "WITH_FULL_KEY": 1,
+    "EXACT_BLOCKER_PER_ITEM": {}
+   },
+   "INFERENCES": {
+    "INDEPENDENT_SIGNAL_FAMILIES": [
+     "TERRITORIAL"
+    ],
+    "CONVERGENCE_CLASS": "SINGLE_SIGNAL"
+   },
+   "JUDGMENT_REQUIRED": "se um recorte com UMA familia merece fila de atencao",
+   "ATTENTION_STATE": "ATTENTION_CANDIDATE_TEST",
+   "ITEMS_WITH_FULL_KEY": [
+    "IT-LAMMA::https-www-lamma-toscana-it-previ-ita-agrometeo-html-grosseto-ftsnt-html"
+   ],
+   "PAIR_PASSAGES": [
+    "u livelli medi. Il quadro evidenzia una diffusione generalizzata con intensità variabile. Fusariosi Si segnala la comparsa di sintomi lievi nel frumento duro in alcune situazioni, mentre il"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "TERR-FR_VINE_DOWNY_MILDEW",
+   "TYPE": "TERRITORIAL_SLICE",
+   "SLICE": "FR_VINE_DOWNY_MILDEW",
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "DOWNY_MILDEW",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "item do pais com par cultura x problema provado DENTRO da mesma passagem, mais REGION e TIME provados",
+   "FACTS": {
+    "BODY_ITEMS_IN_COUNTRY": 11,
+    "WITH_CROP": 9,
+    "WITH_ISSUE": 4,
+    "WITH_TIME": 7,
+    "WITH_LOCALITY": 4,
+    "WITH_PAIR_PROVEN": 2,
+    "WITH_FULL_KEY": 0,
+    "EXACT_BLOCKER_PER_ITEM": {
+     "FALTA: TIME": 1,
+     "FALTA: REGION + ISSUE + TIME": 2,
+     "FALTA: REGION + ISSUE": 2,
+     "FALTA: REGION": 3,
+     "FALTA: ISSUE": 2,
+     "FALTA: ISSUE + TIME": 1
+    }
+   },
+   "INFERENCES": {
+    "INDEPENDENT_SIGNAL_FAMILIES": [],
+    "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE"
+   },
+   "JUDGMENT_REQUIRED": "se um recorte com UMA familia merece fila de atencao",
+   "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY",
+   "ITEMS_WITH_FULL_KEY": [],
+   "PAIR_PASSAGES": []
+  },
+  {
+   "CANDIDATE_ID": "TERR-FR_CEREAL_SEPTORIA",
+   "TYPE": "TERRITORIAL_SLICE",
+   "SLICE": "FR_CEREAL_SEPTORIA",
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "EVIDENCE_INPUTS": [
+    "11fd7b54e27adaaebed18f049f90b80b05806943:data/samples/TERRITORIAL/FINAL.json"
+   ],
+   "DERIVATION_RULE": "item do pais com par cultura x problema provado DENTRO da mesma passagem, mais REGION e TIME provados",
+   "FACTS": {
+    "BODY_ITEMS_IN_COUNTRY": 11,
+    "WITH_CROP": 2,
+    "WITH_ISSUE": 0,
+    "WITH_TIME": 7,
+    "WITH_LOCALITY": 4,
+    "WITH_PAIR_PROVEN": 0,
+    "WITH_FULL_KEY": 0,
+    "EXACT_BLOCKER_PER_ITEM": {
+     "FALTA: TIME": 1,
+     "FALTA: REGION + ISSUE + TIME": 2,
+     "FALTA: REGION + ISSUE": 2,
+     "FALTA: REGION": 3,
+     "FALTA: ISSUE": 2,
+     "FALTA: ISSUE + TIME": 1
+    }
+   },
+   "INFERENCES": {
+    "INDEPENDENT_SIGNAL_FAMILIES": [],
+    "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE"
+   },
+   "JUDGMENT_REQUIRED": "se um recorte com UMA familia merece fila de atencao",
+   "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY",
+   "ITEMS_WITH_FULL_KEY": [],
+   "PAIR_PASSAGES": []
+  },
+  {
+   "CANDIDATE_ID": "FIELD-ES-OLIVE-REPILO",
+   "TYPE": "LONGITUDINAL_FIELD_PRESSURE",
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "REPILO",
+   "EVIDENCE_INPUTS": [
+    "data/samples/ES-T3-001-raif-olivar-repilo-2026.json",
+    "data/samples/ES-T3-001-repilo-serie-historica.json",
+    "data/samples/BACKTEST-REPILO-LEAD-TIME.json"
+   ],
+   "DERIVATION_RULE": "serie preservada + coorte + backtest com regra declarada antes",
+   "FACTS": {
+    "SAMPLINGS_2026": 20970,
+    "SEASONS_IN_PRESERVED_SERIES": 11,
+    "READINGS_IN_PRESERVED_SERIES": 44584,
+    "BACKTEST_TOTAL_FIRES": 14,
+    "BACKTEST_FALSE_POSITIVE_LOAD": "11 dos 14 disparos nao precedem nenhum evento de escala 2026: Huelva 2012/2013/2018, Cadiz 2009/2013, Sevilla 2009/2021, Cordoba 2012, Granada 2024, Malaga 2010. Um radar com esta regra pediria atencao muitas vezes sem que algo grande viesse depois."
+   },
+   "INFERENCES": {
+    "INDEPENDENCE_FROM_TERRITORIAL_RAIF": "NOT_PROVED",
+    "CONVERGENCE_CLASS": "SINGLE_SIGNAL"
+   },
+   "JUDGMENT_REQUIRED": "se uma serie retrospectiva sem antecedencia provada merece fila de atencao, ou se e contexto",
+   "ATTENTION_STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY",
+   "WHY": "a pressao de campo medida NAO e um motor de aviso de 6 a 12 meses. Ela entrega, no melhor caso observado, UMA SAFRA de antecedencia, e em dois dos tres casos de 2026 entregou ZERO. Uma safra ainda e util para planejamento de campanha - mas nao e 'sabemos antes'."
+  },
+  {
+   "CANDIDATE_ID": "REGDEADLINE-IT-ADAMA",
+   "TYPE": "REGULATORY_DEADLINE",
+   "COUNTRY": "IT",
+   "CROP": null,
+   "ISSUE": null,
+   "EVIDENCE_INPUTS": [
+    "origin/claude/sintonia-italy-pilot-b1l401:data/samples/IT-T4-001/IT-T4-001-adama-expiries.json"
+   ],
+   "DERIVATION_RULE": "registros ADAMA em vigor com vencimento futuro, como a fonte declara",
+   "FACTS": {
+    "ADAMA_IN_FORCE_WITH_FUTURE_EXPIRY": 155,
+    "IN_FORCE": 3712,
+    "WITH_FUTURE_EXPIRY": 3466,
+    "NEXT_EXPIRIES_LISTED": 20
+   },
+   "INFERENCES": {
+    "PERMITTED_ACTION": "REVIEW / CONFIRMATION BY REGULATORY",
+    "FORBIDDEN_ACTION": "ALERT: PRODUCT WILL DISAPPEAR"
+   },
+   "JUDGMENT_REQUIRED": "quais datas merecem revisao, e por quem",
+   "ATTENTION_STATE": "ATTENTION_CANDIDATE_TEST"
+  },
+  {
+   "CANDIDATE_ID": "IDCHAIN-FORESIGHT-META",
+   "TYPE": "IDENTITY_CHAIN_CONVERGENCE",
+   "COUNTRY": "ES/IT/FR",
+   "CROP": null,
+   "ISSUE": null,
+   "EVIDENCE_INPUTS": [
+    "dc32ce0:data/samples/COMPETITOR-THREE-LAYER-AUDIT.json"
+   ],
+   "DERIVATION_RULE": "concordancia de titular e pais nas tres pontas",
+   "FACTS": {
+    "PROVED_TUPLES": 36,
+    "PROVED_PRODUCTS": 29,
+    "CANDIDATE_TUPLES": 174,
+    "NOT_KNOWN_TUPLES": 138,
+    "REJECTED_TUPLES": 0,
+    "BY_COUNTRY": {
+     "ES": 22,
+     "FR": 4,
+     "IT": 10
+    },
+    "URBOLE_GUARD": "PASS"
+   },
+   "INFERENCES": {
+    "IS_NOT": "CASE_MULTI_SIGNAL_CONVERGENCE",
+    "DOES_NOT_PROVE": [
+     "FIELD_PROBLEM",
+     "DEMAND",
+     "MARKET_MOVEMENT",
+     "SALES",
+     "SUCCESS"
+    ]
+   },
+   "JUDGMENT_REQUIRED": "se identidade de produto de concorrente, sem cultura e sem problema, merece fila de atencao",
+   "ATTENTION_STATE": "ATTENTION_CANDIDATE_TEST"
+  }
+ ]
+}
