@@ -256,8 +256,20 @@ export function buildSnapshot() {
     { k: 'Leituras', v: String(H.H5.readings_total), st: 'medido' },
     { k: 'Safras disponiveis', v: String(H.H5.seasons_available), st: 'provado' },
     { k: 'Intervalo', v: (H.H5.season_range || []).join('–') || '—', st: 'provado' },
+    { k: 'Provincias', v: `${(H.H5.provinces || []).length} · ${(H.H5.provinces || []).join(', ')}`, st: 'provado' },
+    // O nome do campo importa: 1702 e repilo VISIVEL. 1703 e INCUBADO, outra
+    // medida e outro numero. Sem o nome, os dois viram "repilo" e a serie passa
+    // a somar coisas diferentes.
+    { k: 'Metrica', v: H.H5.field || '—', st: 'provado' },
+    { k: 'Coorte', v: H.H5.cohort_rule || '—', st: 'provado' },
     { k: 'Linha de base', v: 'RETROSPECTIVA POSSIVEL', st: 'parcial' },
     { k: 'Backtest', v: 'NÃO PRONTO', st: 'naopronto' },
+    // O achado congelado. Retrospectiva NAO vira alerta: o que ela diz e que
+    // 2026 em Cadiz nao e excepcional, e que em Huelva e. Duas direcoes
+    // diferentes na mesma serie — por isso o estado e 'medido', nao 'alerta'.
+    { k: 'Achado congelado', v: H.H5.finding_max || '—', st: 'medido' },
+    { k: 'Limitacao declarada', v: H.H5.finding_scope || '—', st: 'parcial' },
+    { k: 'Outra medida no mesmo pacote', v: H.H5.field_note || '—', st: 'parcial' },
   ]
 
   // ── VOZES (H6) — pessoa nunca somada com empresa ─────────────────────────
