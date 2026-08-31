@@ -440,6 +440,21 @@ export function instrument(html) {
 </style>
 </head>`, 'ux:css', log)
 
+  // 5q · "SINGLE SIGNAL" e o nome do estado no contrato, em ingles, dentro de
+  //      uma tela em portugues. O estado nao muda; o rotulo passa a dizer a
+  //      mesma coisa em palavra de gente.
+  //      Aparece em mais de um lugar, entao a troca e por contagem conferida.
+  for (const [de, para, n] of [
+    ['SINGLE SIGNAL · 1 FAMÍLIA INDEPENDENTE', 'UM SINAL SÓ · UMA FAMÍLIA INDEPENDENTE', 2],
+    // 1x, e nao 2: a troca de cima ja consumiu as duas ocorrencias longas.
+    ['SINGLE SIGNAL · 1 FAMÍLIA', 'UM SINAL SÓ', 1],
+  ]) {
+    const achou = out.split(de).length - 1
+    if (achou !== n) throw new Error(`FAIL_CLOSED · "${de}" casou ${achou}x (esperado ${n})`)
+    out = out.split(de).join(para)
+    log.push({ patch: 'ux:' + de.slice(0, 24), bytes_out: de.length * n, bytes_in: para.length * n })
+  }
+
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
     'const volumes = window.__SINTONIA__.volumes || [];', log)
@@ -625,6 +640,99 @@ export function instrument(html) {
     `const archived = (window.__SINTONIA__.archived || []).map(a => Object.assign({}, typeVis(a.type), {
       title: a.title, reason: a.reason, state: a.state, when: a.when
     }));`, log)
+
+  // 20 · DETALHES TECNICOS, FECHADOS POR PADRAO
+  //
+  // O detalhe do objeto era uma tela de engenharia: EVIDENCE_ID, SOURCE_ID,
+  // OBSERVED_AT, INDEPENDENCE_STATE, SIGNAL_FAMILY, CANONICAL_PAYLOAD_TYPE.
+  // Tudo verdadeiro, tudo necessario — e nenhum diretor precisa disso aberto.
+  //
+  // Nada e removido. As linhas ficam no DOM, com o mesmo texto e o mesmo valor,
+  // e voltam inteiras num clique. O que muda e o estado inicial.
+  //
+  // Por que em tempo de execucao e nao no HTML: o casco redesenha a tela a cada
+  // troca de estado, entao marcar uma vez no arquivo nao pegaria o que aparece
+  // depois. O observador reaplica a marcacao a cada redesenho.
+  out = replaceOnce(out, '</body>',
+    `<script>
+(function () {
+  // Nome de maquina: TUDO_MAIUSCULO com underscore, ou codigo tipo EV-0001.
+  var MAQUINA = /^([A-Z][A-Z0-9]*_[A-Z0-9_]+|[A-Z]{2,}-\\d{3,}|PROP-\\d+)$/;
+  // Rotulo composto: "SIGNAL_FAMILY · TERRITORIAL", "GEO_RESOLUTION · NOT_KNOWN".
+  // O nome de campo aparece no meio da frase, entao o teste de igualdade acima
+  // nao pega — e era por ai que sobravam cem underscores na tela.
+  var COMPOSTO = /[A-Z][A-Z0-9]*_[A-Z0-9_]{2,}/;
+  // Estes ficam: sao a RESPOSTA, nao o encanamento. Esconder "nao sabemos"
+  // seria esconder justamente o que o portal existe para dizer.
+  var FICAM = /^(NAO SEI|NAO MEDIDO|NOT_KNOWN|NOT_MEASURED|EMPTY_VALID|NAO MEDIDA)$/;
+
+  function linhaDe(el) {
+    // sobe ate a linha que contem o rotulo e o valor, sem passar do bloco
+    var n = el, i = 0;
+    while (n && n.parentElement && i++ < 3) {
+      n = n.parentElement;
+      if (n.children.length >= 2 && n.children.length <= 4) return n;
+    }
+    return null;
+  }
+
+  function marcar() {
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    var n, alvos = [];
+    while ((n = w.nextNode())) {
+      var t = (n.nodeValue || '').trim();
+      if (t.length < 4 || t.length > 90) continue;
+      if (FICAM.test(t)) continue;
+      var exato = MAQUINA.test(t);
+      var dentro = !exato && COMPOSTO.test(t);
+      if (!exato && !dentro) continue;
+      var p = n.parentElement;
+      if (!p || p.closest('[data-ux-tecnico]')) continue;
+      // Rotulo composto some sozinho, sem levar a linha inteira junto: o valor
+      // ao lado costuma ser a informacao util.
+      var alvo = exato ? (linhaDe(p) || p) : p;
+      if (alvo && !alvo.hasAttribute('data-ux-tecnico')) alvos.push(alvo);
+    }
+    alvos.forEach(function (l) { l.setAttribute('data-ux-tecnico', '1'); });
+    return alvos.length;
+  }
+
+  function botao() {
+    if (document.getElementById('ux-tec-btn')) return;
+    var b = document.createElement('button');
+    b.id = 'ux-tec-btn';
+    b.textContent = 'Detalhes técnicos';
+    b.onclick = function () {
+      var on = document.body.classList.toggle('ux-tecnico-aberto');
+      b.textContent = on ? 'Ocultar detalhes técnicos' : 'Detalhes técnicos';
+    };
+    document.body.appendChild(b);
+  }
+
+  var pendente = null;
+  function agenda() {
+    clearTimeout(pendente);
+    pendente = setTimeout(function () { marcar(); botao(); }, 120);
+  }
+  agenda();
+  new MutationObserver(agenda).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+</body>`, 'ux:detalhes-tecnicos', log)
+
+  out = replaceOnce(out, '</style>\n</head>',
+    `  /* Fechado por padrao. Nada foi removido: um clique traz tudo de volta. */
+  body:not(.ux-tecnico-aberto) [data-ux-tecnico] { display: none !important; }
+  #ux-tec-btn {
+    position: fixed; right: 18px; bottom: 18px; z-index: 9999;
+    font: 600 10.5px/1 var(--font-primary); letter-spacing: .04em;
+    color: var(--t2); background: var(--s1);
+    border: 1px solid var(--hair2); border-radius: 9999px;
+    padding: 9px 14px; cursor: pointer;
+  }
+  #ux-tec-btn:hover { color: var(--t1); }
+</style>
+</head>`, 'ux:css-tecnico', log)
 
   return { html: out, log }
 }
