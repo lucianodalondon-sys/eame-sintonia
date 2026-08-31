@@ -325,6 +325,52 @@ export function instrument(html) {
     "FIELD('COUNTRY_SCOPE', null, 'naomedido'),",
     'h8:country-scope-nao-vem-da-tela', log)
 
+  // 5m · RELOGIOS · cinco dos sete vinham com known: true para QUALQUER objeto,
+  //      e mostrando travessao como valor. Dizer "conhecido" e mostrar "—" na
+  //      mesma linha e a definicao de declarar sem medir.
+  //
+  //      Cada relogio passa a perguntar se EXISTE medicao correspondente neste
+  //      objeto. Nenhuma das medidas abaixo foi coletada nesta rodada:
+  //
+  //        tempo da observacao   nao ha OBSERVATION_TIME. PUBLISHED_AT e a data
+  //                              em que a fonte publicou, e nao serve: publicar
+  //                              nao e observar
+  //        BBCH na observacao    nao coletado
+  //        estagio atual         exige relogio agronomico do pais; nao conectado
+  //        uso em rotulo         exige leitura do rotulo registrado; nao feita
+  //        janela de aplicacao   nao deriva de estagio nem de prazo
+  //        estacao futura        nao medida
+  //
+  //      Sobra UM que existe de verdade: o prazo regulatorio, e so quando o
+  //      objeto aberto e do tipo prazo. As categorias nao se convertem umas nas
+  //      outras — prazo nao vira janela de aplicacao.
+  out = replaceOnce(out,
+    `    const clocks = CLOCKS.map(c => ({
+      k: c.k, res: c.res, note: c.note, value: c.value,
+      known: !!c.known, unknown: !c.known,`,
+    `    const MEDIDO_AQUI = {
+      'Prazo regulatório': t === 'reg' && !!base.f && !!base.f.PUBLISHED_AT
+    };
+    const clocks = CLOCKS.map(c => {
+      var medido = !!MEDIDO_AQUI[c.k];
+      return {
+      k: c.k, res: medido ? c.res : 'NÃO MEDIDA', note: c.note,
+      value: medido ? 'REGULATORY_DEADLINE · ' + base.f.PUBLISHED_AT
+                    : String(c.value).replace(/ · .*$/, ' · NOT_MEASURED'),
+      known: medido, unknown: !medido,`,
+    'relogios:so-o-que-foi-medido', log)
+
+  out = replaceOnce(out,
+    `      color: c.known ? T2 : T3,
+      border: c.known ? 'var(--hair2)' : EARTH,
+      dash: c.known ? 'solid' : 'dashed'
+    }));`,
+    `      color: medido ? T2 : T3,
+      border: medido ? 'var(--hair2)' : EARTH,
+      dash: medido ? 'solid' : 'dashed'
+    };});`,
+    'relogios:cor-segue-a-medicao', log)
+
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
     'const volumes = window.__SINTONIA__.volumes || [];', log)
