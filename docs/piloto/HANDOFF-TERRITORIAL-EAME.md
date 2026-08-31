@@ -197,3 +197,17 @@ prova `LOCALITY`, `CROP` e `COUNTRY`; não fecha `ISSUE` nem `FULL_CASE_KEY`.
 
 Os artefatos da rodada anterior **não foram apagados**. A comparação entre eles é a prova
 de que o defeito era de captura, não da fonte.
+
+---
+
+## 12 · COMMIT CONGELADO
+
+```
+SOURCE_COMMIT   11fd7b54e27adaaebed18f049f90b80b05806943
+BRANCH          claude/sintonia-essencia-convergencia-kn83zy
+MERGED          NO
+```
+
+**O FUNCIONAL e o refresh futuro consomem este commit**, não o HEAD da branch. Os cinco
+artefatos do §11 estão todos dentro dele. Qualquer commit posterior nesta branch é
+trabalho de outra missão e não faz parte deste handoff.
