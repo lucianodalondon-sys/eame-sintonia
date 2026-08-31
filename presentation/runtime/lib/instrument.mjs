@@ -227,10 +227,15 @@ export function instrument(html) {
   //      Sem evento, sem linha. Vazio na timeline e resposta, nao falha.
   out = replaceBlock(out, 'const TL = [',
     `const TL = (function () {
+      // ATENCAO ao id do evento: ele e DESENHADO na tela. Na primeira versao eu
+      // montei 'EVT-' + base.id, e base.id e 'TERR-ES_OLIVE_REPILO' — com
+      // underscore. A varredura que esconde nome de maquina pegou a linha, e
+      // com ela o EVENTO INTEIRO: a timeline ficou com zero marcos. O id agora
+      // e sequencial e nao carrega o identificador canonico.
       var f = base.f || {}, ev = [];
       var quando = f.PUBLISHED_AT || (base.prov && base.prov.AS_OF_DATE) || null;
       if (quando) ev.push({
-        k: 'capture', id: 'EVT-' + base.id + '-CAP', type: 'FIRST_CAPTURE', at: quando,
+        k: 'capture', id: 'EVT-01', type: 'FIRST_CAPTURE', at: quando,
         date: quando, res: 'DATA_EXATA',
         sourceName: 'SINTONIA', sourceId: f.SOURCE_ID || null,
         title: 'Captura congelada pela mangueira',
@@ -238,7 +243,7 @@ export function instrument(html) {
         before: null, after: null, obs: null
       });
       if (f.ATTENTION_STATE_RAW) ev.push({
-        k: 'state', id: 'EVT-' + base.id + '-ST', type: 'STATE_CHANGE', at: quando,
+        k: 'state', id: 'EVT-02', type: 'STATE_CHANGE', at: quando,
         date: quando || '—', res: quando ? 'DATA_EXATA' : 'NAO_CONHECIDA',
         sourceName: 'SINTONIA', sourceId: f.SOURCE_ID || null,
         title: 'Estado declarado: ' + f.ATTENTION_STATE_RAW,
@@ -253,12 +258,12 @@ export function instrument(html) {
         var rotulo = g && (g.k || g[0]), estado = String((g && (g.v || g[1])) || '');
         if (/^N[ÃA]O/i.test(estado)) {
           ev.push({
-            k: 'gap', id: 'EVT-' + base.id + '-GAP' + i, type: 'GAP', at: null,
+            k: 'gap', id: 'EVT-' + (10 + i), type: 'GAP', at: null,
             date: '—', res: 'NAO_CONHECIDA', sourceName: null, sourceId: null,
             title: 'Portao aberto: ' + rotulo,
             changed: 'O intervalo e real e permanece vazio ate este portao fechar.',
             before: null, after: null, obs: null,
-            gapReason: String(rotulo).toUpperCase().replace(/[^A-Z0-9]+/g, '_') + '_NOT_PROVEN'
+            gapReason: 'portão ainda aberto'
           });
         }
       });
@@ -511,6 +516,15 @@ export function instrument(html) {
           })
     ).map(m => ({ tag: ST[m.v].label, color: ST[m.v].color, border: ST[m.v].border, t: m.t }));`,
     'vazio:o-que-falta-vem-dos-portoes', log)
+
+  // 5t · A etiqueta da afirmacao mostrava o identificador da evidencia
+  //      ("EVIDÊNCIA · EV-0001"). Para quem le, o que importa e SE ha evidencia;
+  //      QUAL evidencia e o id, e id e coisa da gaveta e dos detalhes tecnicos,
+  //      onde ele continua inteiro.
+  out = replaceOnce(out,
+    "tag: c[1] ? 'EVIDÊNCIA · ' + c[1] : 'SEM EVIDENCE_ID',",
+    "tag: c[1] ? 'COM EVIDÊNCIA' : 'SEM EVIDÊNCIA',",
+    'ux:etiqueta-de-evidencia-sem-id', log)
 
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
@@ -795,18 +809,28 @@ export function instrument(html) {
     return null;
   }
 
-  // A secao e o filho da COLUNA que contem o titulo. A coluna e o ancestral
-  // alto com muitos filhos — e assim que a pagina do objeto e montada.
+  // A secao e o filho da COLUNA. E a coluna e o ancestral com MAIS filhos —
+  // nao o primeiro que passar num limiar.
+  //
+  // Eu tinha escrito "o primeiro ancestral com 4+ filhos e mais de 1200px".
+  // Funcionou ate eu afrouxar o limiar para alcancar a Visao Geral: no detalhe
+  // do objeto o par de titulos passou a satisfazer a condicao ANTES da coluna,
+  // a marca caiu no cabecalho, e a timeline ficou com zero marcos. Eu quase
+  // reportei TIMELINE_HORIZONTAL = YES com a timeline vazia.
+  //
+  // Agora sobe ate o topo, guarda os candidatos e escolhe o de maior fan-out.
+  // Um limiar sozinho nao sabe o que e coluna; a comparacao sabe.
   function secaoDe(el) {
-    var n = el;
-    while (n && n.parentElement) {
+    var n = el, melhor = null, melhorN = 3;
+    while (n && n.parentElement && n.parentElement !== document.body) {
       var p = n.parentElement;
-      // Limiar frouxo de proposito: a coluna da Visao Geral tem menos secoes e
-      // menos altura que a do objeto, e o criterio apertado a deixava de fora.
-      if (p.children.length >= 4 && p.getBoundingClientRect().height > 1200) return n;
+      if (p.children.length > melhorN && p.getBoundingClientRect().height > 600) {
+        melhorN = p.children.length;
+        melhor = n;
+      }
       n = p;
     }
-    return null;
+    return melhor;
   }
   function secao(txt) { var e = tituloEl(txt); return e ? secaoDe(e) : null; }
 
@@ -896,6 +920,12 @@ export function instrument(html) {
     // repetida nao vira duas famílias — continua dita por inteiro.
     ['Mesma origem publicadora da perna TERRITORIAL (H5 depende de H1).',
      'Mesma origem publicadora da observação territorial: a série de campo depende dela.'],
+    // Duas frases da tela de Fontes. A lei que cada uma protege continua
+    // inteira; some so o vocabulario interno (H0, H1..H9, o nome do estado).
+    ['Infraestrutura de fonte, não é mangueira: não existe H0 no vocabulário H1..H9. Cinco relógios distintos; idade da observação nunca é latência de pipeline.',
+     'Infraestrutura da fonte, não uma fonte de dados: cinco relógios distintos, e a idade da observação nunca é latência de processamento.'],
+    ['Sem CONTENT_COLLECTION_STAGE = COMPLETE, nenhuma leitura sobre volume ou tom de comunicação é emitida.',
+     'Enquanto a coleta de conteúdo não estiver completa, nenhuma leitura sobre volume ou tom de comunicação é emitida.'],
     // Os estados de ausencia NAO sao escondidos — seria esconder a resposta.
     // Sao TRADUZIDOS. O valor canonico segue intacto no dado e reaparece
     // inteiro nos detalhes tecnicos.
@@ -972,6 +1002,19 @@ export function instrument(html) {
   // texto muda de fato — na segunda passada nao ha o que trocar.
   new MutationObserver(agenda).observe(document.body,
     { childList: true, subtree: true, characterData: true });
+
+  // DUAS REDES DE SEGURANCA, e elas nao sao zelo excessivo: sao um bug medido.
+  //
+  // Ao trocar de tela o casco troca o container inteiro. O observador disparava
+  // NO MEIO da troca — achava pouca coisa, marcava 2 elementos — e depois nao
+  // vinha mutacao nenhuma para corrigir. Resultado: a tela do objeto voltava a
+  // mostrar EVIDENCE_ID, SOURCE_ID e INDEPENDENCE_STATE, e eu so vi porque
+  // olhei a imagem em vez de confiar na contagem.
+  //
+  // O clique cobre a navegacao na hora; o pulso lento cobre o que nao vier de
+  // clique. Marcar e idempotente: quem ja esta marcado e ignorado.
+  document.addEventListener('click', agenda, true);
+  setInterval(agenda, 800);
 })();
 </script>
 </body>`, 'ux:detalhes-tecnicos', log)
