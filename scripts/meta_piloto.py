@@ -97,7 +97,19 @@ def metricas(acervo, anunciantes, eventos):
         'advertisers_resolved': (anunciantes or {}).get('advertisers_resolved'),
         'pages_resolved_with_page_id': sum(
             1 for c in empresas for p in c.get('pages', []) if p.get('page_id')),
+        # DOIS NUMEROS, PORQUE SAO DUAS COISAS
+        # A entidade do acervo e um CARTAO (grupo de criativo). A fonte conta
+        # ANUNCIOS. Publicar so um dos dois faria a leitura errada em algum
+        # lugar: "1.111 anuncios" quando sao 1.111 cartoes, ou o contrario.
+        'ad_cards_found': len(ent),
+        'ads_represented_by_source_declaration': sum(
+            int(e.get('ads_in_this_creative_group') or 1) for e in ent.values()),
+        'cards_with_declared_creative_group': sum(
+            1 for e in ent.values()
+            if int(e.get('ads_in_this_creative_group') or 1) > 1),
         'ads_found': len(ent),
+        'ads_found_nota': 'igual a ad_cards_found. CARTAO != ANUNCIO — ver '
+                          'ads_represented_by_source_declaration.',
         'active_ads_observed': ativos,
         'inactive_last_365d': inativos_365,
         'inactive_end_date_not_read': sem_data_fim,

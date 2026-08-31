@@ -146,6 +146,30 @@ COMPLETA_BATE_COM_A_FONTE = 'COMPLETE_MATCHES_SOURCE_COUNT'
 AQUEM_DA_FONTE = 'SHORT_OF_SOURCE_COUNT'
 FONTE_NAO_DECLARA = 'SOURCE_COUNT_NOT_DECLARED'
 
+# CARTAO NAO E ANUNCIO — medido, e a conta fecha
+# ----------------------------------------------
+# Pagina Syngenta global, ES, 30/08/2026:
+#
+#     a fonte declara ............ ~15 results
+#     cartoes na tela ............ 13
+#     cartoes que dizem
+#     "2 ads use this creative
+#      and text" ................. 2
+#
+#     11 cartoes de 1 anuncio + 2 cartoes de 2 anuncios = 15. Exato.
+#
+# Ou seja: o cartao e um GRUPO DE CRIATIVO, e o numero declarado pela fonte
+# conta ANUNCIOS. Comparar cartoes com o declarado marcava como incompleta uma
+# leitura que tinha pegado tudo — troquei um erro que mentia a favor por outro
+# que mentia contra. A comparacao certa e soma-de-anuncios contra o declarado.
+#
+#     CARTAO != ANUNCIO
+#
+# Efeito colateral util: esse "N ads use this creative and text" e a PROPRIA
+# FONTE dizendo que aquelas pecas compartilham criativo e texto. E a evidencia
+# mais forte de familia de anuncio que existe aqui — e vem declarada, nao
+# inferida por semelhanca (ver missao, item 15).
+
 # 0,95 e tolerancia, nao arredondamento: o numero da fonte vem com "~" e ela
 # mesma o trata como aproximado. Exigir igualdade exata marcaria como incompleta
 # uma leitura que pegou tudo.
@@ -161,7 +185,13 @@ def _numero(declarado):
         return None
 
 
+def anuncios_em(cartoes):
+    """Soma os anuncios que os cartoes representam. Cartao sem grupo vale 1."""
+    return sum(int(c.get('ads_neste_cartao') or 1) for c in (cartoes or []))
+
+
 def completude(lidos, declarado):
+    """`lidos` e contagem de ANUNCIOS (ver anuncios_em), nao de cartoes."""
     n = _numero(declarado)
     if n is None:
         return {'state': FONTE_NAO_DECLARA, 'read': lidos,
@@ -174,7 +204,15 @@ def completude(lidos, declarado):
             'read': lidos, 'source_count': n, 'ratio': razao,
             'nota': 'li %d de ~%d que a fonte declara' % (lidos, n)}
 
-_CONTA = r'''(()=>{return String((document.body.innerText.match(/Library ID:/g)||[]).length)})()'''
+# conta ANUNCIOS, nao cartoes: cada cartao vale 1, e o cartao que declara
+# "N ads use this creative and text" vale N.
+_CONTA = r'''(()=>{
+ const t = document.body.innerText || '';
+ const cartoes = (t.match(/Library ID:/g)||[]).length;
+ const grupos = [...t.matchAll(/(\d+)\s+ads?\s+use\s+this\s+creative\s+and\s+text/gi)];
+ const extra = grupos.reduce((a,m)=>a + (parseInt(m[1],10)-1), 0);
+ return String(cartoes + extra);
+})()'''
 
 
 def rolar_ate_parar(alvo, declarado=None, max_rolagens=40, pausa=2.2,
@@ -226,8 +264,13 @@ _CARTOES = r'''(()=>{
    const links = [...n.querySelectorAll('a[href]')].map(a=>a.href);
    const rotulos = [...n.querySelectorAll('[aria-label]')].map(e=>e.getAttribute('aria-label')).filter(Boolean);
    const imgs = [...n.querySelectorAll('img')].map(i=>i.src).filter(s=>/scontent|fbcdn/.test(s));
+   // "3 ads use this creative and text" — a propria Meta dizendo que aquele
+   // cartao representa MAIS DE UM anuncio. Sem isto, cartao seria confundido
+   // com anuncio, e a conta nunca fecharia com o total declarado pela fonte.
+   const g = t.match(/(\d+)\s+ads?\s+use\s+this\s+creative\s+and\s+text/i);
    saida.push({
      library_id: id,
+     ads_neste_cartao: g ? parseInt(g[1], 10) : 1,
      texto: t,
      links: links.slice(0,20),
      rotulos: [...new Set(rotulos)].slice(0,25),

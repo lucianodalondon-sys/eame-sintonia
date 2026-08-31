@@ -147,6 +147,19 @@ def registro(cartao, pagina, pais, completude, momento):
     r = {
         'meta_ad_library_id': cartao['library_id'],
         'ad_snapshot_url': nav.url_biblioteca(id=cartao['library_id']),
+        # A FAMILIA DE CRIATIVO, DECLARADA PELA FONTE
+        # A missao (item 15) pede para distinguir campanha de variacao de
+        # criativo, e para nao afirmar parentesco sem evidencia. Aqui nao ha
+        # inferencia por semelhanca: a propria Meta escreve "N ads use this
+        # creative and text" no cartao. O que NAO temos e o library_id dos
+        # outros N-1 — a fonte mostra so o representante. Por isso o campo diz
+        # quantos sao e admite que nao sabe quais.
+        'ads_in_this_creative_group': cartao.get('ads_neste_cartao', 1),
+        'creative_group_state': ('SAME_CREATIVE_AND_TEXT_DECLARED_BY_SOURCE'
+                                 if (cartao.get('ads_neste_cartao') or 1) > 1
+                                 else 'SINGLE_AD_CARD'),
+        'creative_group_sibling_ids': None,
+        'creative_group_sibling_ids_state': 'NOT_EXPOSED_BY_SOURCE_IN_LIST_VIEW',
         'company': pagina.get('company'),
         'page_name_in_card': nome_anunciante(texto),
         'page_name_resolved': pagina.get('page_name'),
@@ -216,14 +229,19 @@ def coletar_pagina(pagina, pais, momento, max_rolagens=60):
         cart = nav.cartoes(alvo)
     finally:
         nav.fechar(alvo)
-    # a completude e recalculada com o numero de cartoes REALMENTE parseados, que
-    # pode diferir da contagem de "Library ID:" no texto durante a rolagem.
-    completude = nav.completude(len(cart.get('cartoes', [])), declarado)
+    # a completude e recalculada com os cartoes REALMENTE parseados, e em
+    # ANUNCIOS — cartao que declara "2 ads use this creative and text" vale 2.
+    cartoes = cart.get('cartoes', [])
+    anuncios = nav.anuncios_em(cartoes)
+    completude = nav.completude(anuncios, declarado)
     regs = [registro(c, pagina, pais, completude['state'], momento)
-            for c in cart.get('cartoes', [])]
+            for c in cartoes]
     diag = {'page_id': pid, 'page_name': pagina.get('page_name'), 'country': pais,
             'url': url, 'results_declared': declarado,
-            'cards_read': len(regs), 'scrolls': rol['rolagens'],
+            'cards_read': len(regs), 'ads_represented': anuncios,
+            'cards_vs_ads_nota': ('cartao e grupo de criativo; um cartao pode '
+                                  'representar varios anuncios. CARTAO != ANUNCIO'),
+            'scrolls': rol['rolagens'],
             'stopped_without_growth': rol.get('parou_sem_crescer'),
             'completeness': completude['state'],
             'completeness_detail': completude}

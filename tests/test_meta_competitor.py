@@ -144,6 +144,32 @@ class CompletudeVemDaFonte(unittest.TestCase):
     def test_o_separador_de_milhar_da_fonte_e_lido(self):
         self.assertEqual(navegador.completude(1, '1,100')['source_count'], 1100)
 
+    def test_cartao_nao_e_anuncio_e_a_conta_fecha_com_a_fonte(self):
+        # medido na pagina Syngenta global, ES: ~15 declarados, 13 cartoes,
+        # dois deles com 2 anuncios cada -> 11 + 4 = 15
+        cartoes = ([{'ads_neste_cartao': 1}] * 11) + ([{'ads_neste_cartao': 2}] * 2)
+        self.assertEqual(len(cartoes), 13)
+        self.assertEqual(navegador.anuncios_em(cartoes), 15)
+        self.assertEqual(navegador.completude(navegador.anuncios_em(cartoes), '15')['state'],
+                         navegador.COMPLETA_BATE_COM_A_FONTE)
+        self.assertEqual(navegador.completude(len(cartoes), '15')['state'],
+                         navegador.AQUEM_DA_FONTE,
+                         'contar cartoes reprova uma leitura que pegou tudo')
+
+    def test_cartao_sem_grupo_vale_um(self):
+        self.assertEqual(navegador.anuncios_em([{}, {'ads_neste_cartao': None}]), 2)
+
+    def test_grupo_declarado_pela_fonte_nao_inventa_os_irmaos(self):
+        cartao = {'library_id': '1', 'ads_neste_cartao': 3,
+                  'texto': 'Active\nLibrary ID: 1\nSponsored\nolá',
+                  'links': [], 'rotulos': [], 'n_img': 1, 'n_video': 0}
+        r = coleta.registro(cartao, {'company': 'X', 'page_id': '9'}, 'ES',
+                            'COMPLETE_MATCHES_SOURCE_COUNT', '2026-08-30T00:00:00+00:00')
+        self.assertEqual(r['ads_in_this_creative_group'], 3)
+        self.assertEqual(r['creative_group_state'],
+                         'SAME_CREATIVE_AND_TEXT_DECLARED_BY_SOURCE')
+        self.assertIsNone(r['creative_group_sibling_ids'])
+
     def test_so_o_estado_forte_autoriza_dizer_que_um_anuncio_parou(self):
         self.assertEqual(relogio.COMPLETA_OBSERVADA,
                          navegador.COMPLETA_BATE_COM_A_FONTE)
