@@ -18,9 +18,10 @@
   "TWO_DIFFERENT_NUMBERS": {
     "ORPHAN_CANONICAL_INTELLIGENCE_OUTPUTS": 0,
     "MEANING": "depois desta matriz, TODA saida canonica tem receptor DECLARADO",
-    "OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO": 10,
+    "OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO": 2,
     "MEANING_2": "essas saidas apontam para receptores que o casco ainda NAO tem. Declarar destino nao e ter destino.",
-    "UNIT_WARNING": "Duas unidades diferentes, nunca somadas: 10 SAIDAS apontam para 6 RECEPTORES ausentes. Varias saidas dividem o mesmo receptor faltante. Contar saidas e contar receptores da numeros diferentes porque medem coisas diferentes.",
+    "UNIT_WARNING": "Duas unidades diferentes, nunca somadas: SAIDAS e RECEPTORES. Varias saidas dividem o mesmo receptor faltante, entao os dois numeros nunca batem. No casco index (11) sobram 2 SAIDAS ausentes, e as duas apontam para o MESMO receptor: H6.",
+    "HISTORICO": "index (10): 10 saidas ausentes em 6 receptores. index (11): 2 saidas ausentes em 1 receptor.",
     "WHY_BOTH": "Se eu publicasse so o primeiro numero, um zero limpo esconderia as saidas sem para onde ir. Se publicasse so o segundo, pareceria que a rodada nao produziu nada.",
     "DERIVED_BY": "scripts/v8_receptor_audit.py — nenhum destes numeros foi digitado"
   },
@@ -30,59 +31,67 @@
       "WHERE": "data/samples/TERRITORIAL/FINAL.json + refresh-corrected V2",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H1-TERRITORIAL-OBSERVATION",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "receptor completo; payload declarado TERRITORIAL_ATTENTION_OBJECT"
     },
     {
       "OUTPUT": "FIELD_HISTORICAL (serie RAIF)",
       "WHERE": "refresh-corrected V2 :: FIELD_HISTORICAL",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H5-FIELD-PRESSURE-SERIES",
-      "CASCO_RECEPTOR_STATE": "PARTIAL",
-      "LEDGER": "RAIF_SEASONS_AVAILABLE = 23 · RAIF_READINGS_TOTAL = 148964"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "LEDGER": "RAIF_SEASONS_AVAILABLE = 23 · RAIF_READINGS_TOTAL = 148964",
+      "REAUDIT_INDEX11": "receptor completo; payload declarado LONGITUDINAL_FIELD_SERIES"
     },
     {
       "OUTPUT": "REGULATORY_DEADLINE_OBJECT",
       "WHERE": "refresh-corrected V2 :: REGULATORY_DEADLINE_OBJECT",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H2-REGISTRATION-DEADLINE",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "receptor completo; payload declarado REGULATORY_DEADLINE"
     },
     {
       "OUTPUT": "IDENTITY_CHAIN_OBJECT",
       "WHERE": "refresh-corrected V2 :: IDENTITY_CHAIN_OBJECT",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H3-COMPETITOR-IDENTITY-CHAIN",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "receptor completo; payload declarado COMPETITOR_IDENTITY_CHAIN"
     },
     {
       "OUTPUT": "OBSERVED_PAID_ACTIVITY (Meta)",
       "WHERE": "handoff a2fad2d / commit acfd987",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H4-OBSERVED-PAID-ACTIVITY",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "receptor completo; payload declarado PAID_ACTIVITY_EVIDENCE"
     },
     {
       "OUTPUT": "ITALIAN_LABELS (163 rotulos, 24 ausentes do disco)",
       "WHERE": "refresh-corrected V2 :: ITALIAN_LABELS",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H2-REGISTRATION-DEADLINE :: LABEL_EFFECT_STATE + EVIDENCE_FIELDS",
-      "CASCO_RECEPTOR_STATE": "PARTIAL",
-      "NOTE": "rotulo do registro, nao portfolio da ADAMA — nao confundir com R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "NOTE": "rotulo do registro, nao portfolio da ADAMA — nao confundir com R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT",
+      "REAUDIT_INDEX11": "receptor H2 presente"
     },
     {
       "OUTPUT": "CREATOR_LAST_90D + CREATOR_READINESS",
       "WHERE": "refresh-corrected V2",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H6-CREATOR-ENTITY",
-      "CASCO_RECEPTOR_STATE": "PARTIAL",
-      "LEDGER_CORRECTION": "LAST_90D = 164 (o 280 foi copiado do briefing; o freeze diz 164)"
+      "CASCO_RECEPTOR_STATE": "ABSENT",
+      "LEDGER_CORRECTION": "LAST_90D = 164 (o 280 foi copiado do briefing; o freeze diz 164)",
+      "REAUDIT_INDEX11": "voices[] ganhou ENTITY_KIND, ENTRY_PATH, GDPR e ROW/ENTITY_COUNT, mas NAO ha receptor com HOSE_ID = H6 nem envelope"
     },
     {
       "OUTPUT": "ATTENTION_CANDIDATES (9)",
       "WHERE": "data/refresh-corrected/ATTENTION-CANDIDATES.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H1 / R-H2 / R-H3 / R-H5 via RADAR_OBJECT_CARD",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "os quatro receptores existem, todos com nome alias"
     },
     {
       "OUTPUT": "ACTION_CANDIDATES (9) + ACTION_TYPES (3)",
@@ -90,79 +99,89 @@
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "ACTION_MAP",
       "CASCO_RECEPTOR_STATE": "PARTIAL",
-      "MISSING_IN_CASCO": "EVIDENCE_BASIS e OBJECT_ID"
+      "MISSING_IN_CASCO": "EVIDENCE_BASIS e OBJECT_ID",
+      "REAUDIT_INDEX11": "EVIDENCE_BASIS entrou e o guard e executavel; faltam OBJECT_ID e ACTION_TYPE canonico"
     },
     {
       "OUTPUT": "SOURCE_LATENCY_EAME (por fonte)",
       "WHERE": "data/refresh-corrected/SOURCE-LATENCY-EAME.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "SOURCE_CLOCKS (tela fontes: sourceClocks + sources)",
-      "CASCO_RECEPTOR_STATE": "PARTIAL",
-      "NOTE": "os cinco relogios de fonte existem no casco, incluindo 'Latencia de pipeline: NAO MEDIDA' — sem instrumentacao nao existe zero"
+      "CASCO_RECEPTOR_STATE": "PRESENT_HOSE_DRIFT",
+      "NOTE": "os cinco relogios de fonte existem no casco, incluindo 'Latencia de pipeline: NAO MEDIDA' — sem instrumentacao nao existe zero",
+      "REAUDIT_INDEX11": "receptor completo; HOSE_ID = H0, fora do vocabulario H1..H9"
     },
     {
       "OUTPUT": "SIGNAL_DEPENDENCY_GRAPH_V2 :: RELATIONS (17) + DEPENDENCY_TYPES (6)",
       "WHERE": "data/refresh-corrected/SIGNAL-DEPENDENCY-GRAPH-V2.json",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "CONVERGENCE_COMPONENT :: DEPENDENCY_RELATION",
-      "CASCO_RECEPTOR_STATE": "ABSENT",
-      "WHY_IT_MATTERS": "sem este campo, duas pernas que sao a mesma evidencia vista de outro angulo renderizam como MULTI SIGNAL. Foi esse erro que o refresh encontrou: cinco das seis convergencias da V1 eram a mesma evidencia."
+      "CASCO_RECEPTOR_STATE": "PRESENT_OBJ_ONLY",
+      "WHY_IT_MATTERS": "sem este campo, duas pernas que sao a mesma evidencia vista de outro angulo renderizam como MULTI SIGNAL. Foi esse erro que o refresh encontrou: cinco das seis convergencias da V1 eram a mesma evidencia.",
+      "REAUDIT_INDEX11": "DEPENDENCY_RELATION existe no Object Detail e NAO no Radar: o bloco do Radar ficou na versao anterior"
     },
     {
       "OUTPUT": "SIGNAL_FAMILIES (8) + CONVERGENCE_KINDS (3)",
       "WHERE": "SIGNAL-DEPENDENCY-GRAPH-V2.json",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "CONVERGENCE_COMPONENT :: SIGNAL_FAMILY + CONVERGENCE_KIND",
-      "CASCO_RECEPTOR_STATE": "ABSENT",
-      "NOTE": "o casco tem o rotulo 'FAMILIA CAMPO' como texto livre, nao um valor do vocabulario de oito"
+      "CASCO_RECEPTOR_STATE": "PRESENT_OBJ_ONLY",
+      "NOTE": "o casco tem o rotulo 'FAMILIA CAMPO' como texto livre, nao um valor do vocabulario de oito",
+      "REAUDIT_INDEX11": "SIGNAL_FAMILY e CONVERGENCE_KIND existem no Object Detail; o Radar so mostra a familia"
     },
     {
       "OUTPUT": "COMPANY_LOCAL_ACCOUNT (22 contas de concorrente resolvidas)",
       "WHERE": "commit c25e44b + data/samples/ES-COMPETITOR-VOICE.json",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "R-H8-COMPANY-LOCAL-ACCOUNT",
-      "CASCO_RECEPTOR_STATE": "ABSENT",
-      "WHY_IT_MATTERS": "a identidade esta resolvida e a coleta de conteudo nao comecou. Sem receptor, zero conteudo vira silencio da empresa em vez de coleta nao executada."
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "WHY_IT_MATTERS": "a identidade esta resolvida e a coleta de conteudo nao comecou. Sem receptor, zero conteudo vira silencio da empresa em vez de coleta nao executada.",
+      "REAUDIT_INDEX11": "receptor completo com CONTENT_COLLECTION_STAGE = NOT_STARTED; payload declarado COMPANY_PUBLIC_ACCOUNT"
     },
     {
       "OUTPUT": "SCIENTIFIC_PUBLICATION (corpus cientifico ES)",
       "WHERE": "data/samples/ES-T5-002-corpus-documentos.json + EU-T5-001-openalex-people.json",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "R-SUB-SCIENCE-PUBLICATION-EVIDENCE",
-      "CASCO_RECEPTOR_STATE": "ABSENT",
-      "WHY_IT_MATTERS": "SCIENTIFIC_PERSON != SCIENTIFIC_PUBLICATION. Sem este subreceptor, a camada Ciencia herdaria a lista de pessoas de H7 e o produto passaria a dizer que ha ciencia por tras de um caso porque encontrou um pesquisador."
+      "CASCO_RECEPTOR_STATE": "PRESENT_HOSE_DRIFT",
+      "WHY_IT_MATTERS": "SCIENTIFIC_PERSON != SCIENTIFIC_PUBLICATION. Sem este subreceptor, a camada Ciencia herdaria a lista de pessoas de H7 e o produto passaria a dizer que ha ciencia por tras de um caso porque encontrou um pesquisador.",
+      "REAUDIT_INDEX11": "payload canonico; HOSE_ID = H7·CIENCIA, fora de H1..H9, sem PARENT_HOSE_ID"
     },
     {
       "OUTPUT": "LOCAL_ADAMA_PORTFOLIO_CONTEXT",
       "WHERE": "data/samples/RADAR-ADAMA-prothioconazole.json + ES-T4-005-ficha-primaria-es01717.json + ES-T4-004-denominaciones-*",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT",
-      "CASCO_RECEPTOR_STATE": "ABSENT",
-      "WHY_IT_MATTERS": "REGISTRATION_DEADLINE != LOCAL_ADAMA_PORTFOLIO_CONTEXT. Sem este subreceptor, alguem liga H2 na camada Portfolio e o portal passa a dizer que a ADAMA tem resposta registrada porque um registro qualquer — de qualquer titular — tem prazo."
+      "CASCO_RECEPTOR_STATE": "PRESENT_HOSE_DRIFT",
+      "WHY_IT_MATTERS": "REGISTRATION_DEADLINE != LOCAL_ADAMA_PORTFOLIO_CONTEXT. Sem este subreceptor, alguem liga H2 na camada Portfolio e o portal passa a dizer que a ADAMA tem resposta registrada porque um registro qualquer — de qualquer titular — tem prazo.",
+      "REAUDIT_INDEX11": "payload canonico; HOSE_ID = H2·PORTFOLIO, fora de H1..H9, sem PARENT_HOSE_ID"
     },
     {
       "OUTPUT": "FIELD_VOICE_OBSERVATION (posts, videos, comentarios, transcricoes)",
       "WHERE": "data/samples/ES-T8-001-* · ES-T8-002-* · ES-X-VOICE-FIELD.json · ES-VOICE-*",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "R-SUB-FIELD-VOICE-OBSERVED",
-      "CASCO_RECEPTOR_STATE": "ABSENT",
-      "WHY_IT_MATTERS": "voices[] tem a entidade e nao tem a observacao. Nome nao e sinal."
+      "CASCO_RECEPTOR_STATE": "PRESENT_HOSE_DRIFT",
+      "WHY_IT_MATTERS": "voices[] tem a entidade e nao tem a observacao. Nome nao e sinal.",
+      "REAUDIT_INDEX11": "payload canonico; HOSE_ID = H6·CAMPO, fora de H1..H9, sem PARENT_HOSE_ID"
     },
     {
       "OUTPUT": "CONTENT_ENTITY + CONTENT_TRANSLATION + ONTOLOGY_TERM",
       "WHERE": "commit 1443f643 (contrato multilingue) + X-006-substance-normalisation.json + X-007-canonical-agro-dictionary.json + X-006-eu-cas-to-ephy.json",
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "R-H9-TEXT-CONTENT",
-      "CASCO_RECEPTOR_STATE": "ABSENT_AS_RECEPTOR",
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
       "NOTE": "UI_LANGUAGE existe e funciona. SOURCE / ARTIFACT / DISPLAY / TRANSLATION_TARGET nao existem como campo.",
-      "LEDGER": "SOURCE_RECORD_LANGUAGE_COVERAGE = MEASURED_ZERO_DECLARED — 283 de 5.998 registros tem o campo, zero tem valor"
+      "LEDGER": "SOURCE_RECORD_LANGUAGE_COVERAGE = MEASURED_ZERO_DECLARED — 283 de 5.998 registros tem o campo, zero tem valor",
+      "REAUDIT_INDEX11": "receptor completo; payload declarado MULTILINGUAL_CONTENT_REPRESENTATION"
     },
     {
       "OUTPUT": "SCIENTIFIC_PERSON (pesquisadores ES)",
       "WHERE": "data/samples/ES-RESEARCHERS-OLIVE.json + RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H7-SCIENTIFIC-PERSON",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "receptor completo; payload declarado ISSUE_EXPERT"
     },
     {
       "OUTPUT": "CHANGE_EVENTS ES 2025-2026",
@@ -170,21 +189,24 @@
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "OBJECT_TIMELINE",
       "CASCO_RECEPTOR_STATE": "PARTIAL",
-      "MISSING_IN_CASCO": "EVENT_ID, EVENT_AT em ISO, STATE_BEFORE, STATE_AFTER"
+      "MISSING_IN_CASCO": "EVENT_ID, EVENT_AT em ISO, STATE_BEFORE, STATE_AFTER",
+      "REAUDIT_INDEX11": "EVENT_ID, EVENT_TYPE, EVENT_AT, OBSERVATION_ID e GAP_REASON entraram; STATE_BEFORE/STATE_AFTER chegam concatenados e SOURCE_ID nao e campo tipado"
     },
     {
       "OUTPUT": "BACKTEST_REPILO_LEAD_TIME",
       "WHERE": "data/samples/BACKTEST-REPILO-LEAD-TIME.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H5 :: BACKTEST_STATE + FALSE_POSITIVE_RATE",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "campos presentes no receptor H5"
     },
     {
       "OUTPUT": "RAIF_COORTE_REPILO",
       "WHERE": "data/samples/RAIF-COORTE-REPILO.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H5 :: COHORT_STATE",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "campo presente no receptor H5"
     },
     {
       "OUTPUT": "CROSS_MARKET prothioconazole cereal",
@@ -192,7 +214,8 @@
       "CLASS": "AUXILIARY_RECEPTOR_REQUIRED",
       "RECEPTOR": "EAME_CROSS_MARKET (crossCases + comparability + asymRows + timingLanes)",
       "CASCO_RECEPTOR_STATE": "PARTIAL",
-      "NOTE": "a camada EAME inteira e hoje um conjunto de listas fixas. O componente existe e o contrato de recepcao dele nao foi declarado antes desta rodada."
+      "NOTE": "a camada EAME inteira e hoje um conjunto de listas fixas. O componente existe e o contrato de recepcao dele nao foi declarado antes desta rodada.",
+      "REAUDIT_INDEX11": "lanes ganharam COUNTRY_OBJECT_REF e COUNTRY_EVIDENCE_REF; a camada segue sem envelope de receptor"
     },
     {
       "OUTPUT": "EU_NUTS2_CROP_AREA + EU_CEREAL_PRICES + EU_WHEAT_YIELD",
@@ -200,7 +223,8 @@
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "EAME_CROSS_MARKET :: comparability + CROP_INTELLIGENCE_MAP :: CROP_AREA_HA",
       "CASCO_RECEPTOR_STATE": "PARTIAL",
-      "NOTE": "area de cultura e preco de referencia ja sao dimensoes COMPARAVEIS declaradas no casco; rendimento ainda nao e uma delas"
+      "NOTE": "area de cultura e preco de referencia ja sao dimensoes COMPARAVEIS declaradas no casco; rendimento ainda nao e uma delas",
+      "REAUDIT_INDEX11": "CROP_AREA_HA entrou nos pontos do mapa; comparability segue lista fixa"
     },
     {
       "OUTPUT": "ES_PRESSAO_x_AREA_OLIVAR + X-001 (mildiu vs clima, calor vs trigo)",
@@ -220,14 +244,16 @@
       "WHERE": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json · PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json · ES-VOICE-MEDIA-ROUTES.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H6-CREATOR-ENTITY (fila de entrada) + R-SUB-FIELD-VOICE-OBSERVED",
-      "CASCO_RECEPTOR_STATE": "ABSENT"
+      "CASCO_RECEPTOR_STATE": "ABSENT",
+      "REAUDIT_INDEX11": "a metade H6 continua sem receptor"
     },
     {
       "OUTPUT": "ES_X_VOICE_SCIENCE",
       "WHERE": "data/samples/ES-X-VOICE-SCIENCE.json",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H7 + R-SUB-SCIENCE-PUBLICATION-EVIDENCE",
-      "CASCO_RECEPTOR_STATE": "ABSENT"
+      "CASCO_RECEPTOR_STATE": "PRESENT_HOSE_DRIFT",
+      "REAUDIT_INDEX11": "os dois existem; HOSE_ID do subreceptor esta fora do vocabulario"
     },
     {
       "OUTPUT": "DATA_CLOCK_manifest",
@@ -241,7 +267,8 @@
       "WHERE": "data/samples/",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H1-TERRITORIAL-OBSERVATION (recorte FR)",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "mesmo receptor de H1"
     },
     {
       "OUTPUT": "PILOT_SCOPE_MATRIX_V1",
@@ -266,14 +293,16 @@
       "WHERE": "data/samples/",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-SUB-LOCAL-ADAMA-PORTFOLIO-CONTEXT :: ACTIVE_INGREDIENT + REGISTRATION_REFS",
-      "CASCO_RECEPTOR_STATE": "ABSENT"
+      "CASCO_RECEPTOR_STATE": "PRESENT_HOSE_DRIFT",
+      "REAUDIT_INDEX11": "campos presentes no subreceptor de portfolio"
     },
     {
       "OUTPUT": "COMPETITOR-azoxy-prothio-italy",
       "WHERE": "data/samples/",
       "CLASS": "SUBRECEPTOR_OF_EXISTING_HOSE",
       "RECEPTOR": "R-H3-COMPETITOR-IDENTITY-CHAIN",
-      "CASCO_RECEPTOR_STATE": "PARTIAL"
+      "CASCO_RECEPTOR_STATE": "PRESENT_ALIAS",
+      "REAUDIT_INDEX11": "receptor completo; payload declarado COMPETITOR_IDENTITY_CHAIN"
     },
     {
       "OUTPUT": "refresh V1 (FINAL-INTELLIGENCE-REFRESH-EAME + SIGNAL-DEPENDENCY-GRAPH)",
@@ -283,7 +312,16 @@
       "REASON": "a V1 media so CASE, publicou ACT_NOW = 0 como estado do produto inteiro com 155 prazos fora da medicao, e contou como convergencia cinco vezes a mesma evidencia. Fica no repositorio como testemunha do erro."
     }
   ],
-  "RECEPTORS_ABSENT_IN_CASCO": [
+  "RECEPTORS_ABSENT_IN_CASCO_INDEX11": [
+    {
+      "RECEPTOR": "R-H6-CREATOR-ENTITY",
+      "BLOCKS": "CREATOR_LAST_90D, CREATOR_READINESS, SPEAKER_UNIVERSE e as filas de voz publica",
+      "WHY": "voices[] recebeu ENTITY_KIND, ENTRY_PATH, GDPR_TREATMENT_STATE e ROW_COUNT/ENTITY_COUNT, e nada disso e um receptor: nao ha RECEPTOR_ID, LOAD_STATE, PROVENANCE, EVIDENCE_POINTERS, AS_OF_DATE nem FAIL_CLOSED_REASON, e nenhum receptor declara HOSE_ID = H6",
+      "PAYLOADS_SEM_DESTINO": ["PERSON_CREATOR", "FARM_BUSINESS_ENTITY", "CREATOR_CONTENT_PROFILE"]
+    }
+  ],
+
+  "RECEPTORS_ABSENT_IN_CASCO_INDEX10": [
     {
       "RECEPTOR": "R-H8-COMPANY-LOCAL-ACCOUNT",
       "BLOCKS": "22 contas de concorrente resolvidas"
@@ -312,12 +350,25 @@
   "SUMMARY": {
     "OUTPUTS_INVENTORIED": 35,
     "ORPHAN_CANONICAL_INTELLIGENCE_OUTPUTS": 0,
-    "OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO": 10,
+    "OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO": 2,
     "CLASS_COUNTS": {
       "SUBRECEPTOR_OF_EXISTING_HOSE": 21,
       "AUXILIARY_RECEPTOR_REQUIRED": 8,
       "NOT_CANONICAL": 5,
       "DEPRECATED": 1
     }
+  },
+  "REAUDIT": {
+    "CASCO": "casco/canonical/SINTONIA-EAME-V8-DATA-READY.html",
+    "SHA256": "774ce0fbf3cdc567d95df872bd4299c89f5f46dfcede977a68387021abe6968a",
+    "DATE": "2026-08-31",
+    "ESTADOS": {
+      "PRESENT_ALIAS": "receptor com envelope completo; CANONICAL_PAYLOAD_TYPE e um alias sem ADAPTER_ALIAS_MAP",
+      "PRESENT_HOSE_DRIFT": "receptor com payload canonico; HOSE_ID fora de H1..H9 sem PARENT_HOSE_ID separado",
+      "PRESENT_OBJ_ONLY": "presente no Object Detail e ausente no Radar",
+      "PARTIAL": "campos entraram, outros ainda faltam",
+      "ABSENT": "sem receptor"
+    },
+    "NOTA": "O estado ABSENT caiu de 10 saidas para 1. A que sobra e H6: voices[] recebeu os campos pedidos mas continua sem envelope de receptor, e nenhum receptor declara HOSE_ID = H6."
   }
 }

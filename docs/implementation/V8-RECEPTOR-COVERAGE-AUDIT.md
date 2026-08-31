@@ -1,5 +1,11 @@
 # V8 · AUDITORIA DE COBERTURA DE RECEPTORES — SINTONIA EAME
 
+> ⚠️ **ESTE DOCUMENTO MEDE O `index (10)` — o casco ANTES do patch de recepção.**
+> A medição corrente está em
+> [V8-RECEPTOR-REAUDIT-INDEX11.md](V8-RECEPTOR-REAUDIT-INDEX11.md).
+> Ele fica no repositório porque é a prova do "antes": sem ele, não há como
+> mostrar que o patch mudou alguma coisa.
+
 **Data:** 2026-08-31 · artefatos executáveis em `data/implementation/`
 
 ```
@@ -257,7 +263,7 @@ Vale registrar, porque a próxima rodada vai mexer no arquivo:
 ## 9 · PROVAS
 
 `tests/test_v8_receptors.py` — **49 provas**, dentro das
-<!--M:TEST_COUNT_CURRENT-->589<!--/M--> da suíte, 0 falhas.
+<!--M:TEST_COUNT_CURRENT-->644<!--/M--> da suíte, 0 falhas.
 
 Duas coisas diferentes, que nunca se misturam:
 

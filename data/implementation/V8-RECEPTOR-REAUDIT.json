@@ -1,0 +1,405 @@
+{
+  "VERDICTS": {
+    "HOSES": {
+      "H1": {
+        "VERDICT": "FAIL",
+        "ENVELOPE": "COMPLETE",
+        "PAYLOAD_NAME": "ALIAS_WITHOUT_MAP",
+        "MISSING": [
+          "CANONICAL_PAYLOAD_TYPE canonico ou ADAPTER_ALIAS_MAP (declarado: TERRITORIAL_ATTENTION_OBJECT)"
+        ]
+      },
+      "H2": {
+        "VERDICT": "FAIL",
+        "ENVELOPE": "COMPLETE",
+        "PAYLOAD_NAME": "ALIAS_WITHOUT_MAP",
+        "MISSING": [
+          "CANONICAL_PAYLOAD_TYPE canonico ou ADAPTER_ALIAS_MAP (declarado: REGULATORY_DEADLINE)"
+        ]
+      },
+      "H3": {
+        "VERDICT": "FAIL",
+        "ENVELOPE": "COMPLETE",
+        "PAYLOAD_NAME": "ALIAS_WITHOUT_MAP",
+        "MISSING": [
+          "CANONICAL_PAYLOAD_TYPE canonico ou ADAPTER_ALIAS_MAP (declarado: COMPETITOR_IDENTITY_CHAIN)"
+        ]
+      },
+      "H4": {
+        "VERDICT": "FAIL",
+        "ENVELOPE": "COMPLETE",
+        "PAYLOAD_NAME": "ALIAS_WITHOUT_MAP",
+        "MISSING": [
+          "CANONICAL_PAYLOAD_TYPE canonico ou ADAPTER_ALIAS_MAP (declarado: PAID_ACTIVITY_EVIDENCE)"
+        ]
+      },
+      "H5": {
+        "VERDICT": "FAIL",
+        "ENVELOPE": "COMPLETE",
+        "PAYLOAD_NAME": "ALIAS_WITHOUT_MAP",
+        "MISSING": [
+          "CANONICAL_PAYLOAD_TYPE canonico ou ADAPTER_ALIAS_MAP (declarado: LONGITUDINAL_FIELD_SERIES)"
+        ]
+      },
+      "H6": {
+        "VERDICT": "FAIL",
+        "MISSING": "nenhum receptor com HOSE_ID = H6"
+      },
+      "H7": {
+        "VERDICT": "FAIL",
+        "ENVELOPE": "COMPLETE",
+        "PAYLOAD_NAME": "ALIAS_WITHOUT_MAP",
+        "MISSING": [
+          "CANONICAL_PAYLOAD_TYPE canonico ou ADAPTER_ALIAS_MAP (declarado: ISSUE_EXPERT)"
+        ]
+      },
+      "H8": {
+        "VERDICT": "FAIL",
+        "ENVELOPE": "COMPLETE",
+        "PAYLOAD_NAME": "ALIAS_WITHOUT_MAP",
+        "MISSING": [
+          "CANONICAL_PAYLOAD_TYPE canonico ou ADAPTER_ALIAS_MAP (declarado: COMPANY_PUBLIC_ACCOUNT)"
+        ]
+      },
+      "H9": {
+        "VERDICT": "FAIL",
+        "ENVELOPE": "COMPLETE",
+        "PAYLOAD_NAME": "ALIAS_WITHOUT_MAP",
+        "MISSING": [
+          "CANONICAL_PAYLOAD_TYPE canonico ou ADAPTER_ALIAS_MAP (declarado: MULTILINGUAL_CONTENT_REPRESENTATION)"
+        ]
+      }
+    },
+    "SUBRECEPTORES": {
+      "RECEPTOR_SCIENTIFIC_PUBLICATION": {
+        "VERDICT": "FAIL",
+        "MISSING": [
+          "HOSE_ID fora de H1..H9 (H7·CIÊNCIA) sem PARENT_HOSE_ID separado; esperado PARENT_HOSE_ID = H7"
+        ],
+        "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PUBLICATION"
+      },
+      "RECEPTOR_LOCAL_ADAMA_PORTFOLIO": {
+        "VERDICT": "FAIL",
+        "MISSING": [
+          "HOSE_ID fora de H1..H9 (H2·PORTFÓLIO) sem PARENT_HOSE_ID separado; esperado PARENT_HOSE_ID = H2"
+        ],
+        "CANONICAL_PAYLOAD_TYPE": "LOCAL_ADAMA_PORTFOLIO_CONTEXT"
+      },
+      "RECEPTOR_FIELD_VOICE_OBSERVATION": {
+        "VERDICT": "FAIL",
+        "MISSING": [
+          "HOSE_ID fora de H1..H9 (H6·CAMPO) sem PARENT_HOSE_ID separado; esperado PARENT_HOSE_ID = H6"
+        ],
+        "CANONICAL_PAYLOAD_TYPE": "FIELD_VOICE_OBSERVATION"
+      }
+    },
+    "HOSES_WITH_COMPLETE_RECEIVER": 0,
+    "HOSES_WITH_COMPLETE_ENVELOPE": 8,
+    "HOSES_WITH_CANONICAL_PAYLOAD_NAME": 0,
+    "NOTA_DAS_DUAS_MEDIDAS": "Envelope e nome sao coisas diferentes. Uma mangueira sem receptor nenhum e uma mangueira completa com o nome errado nao estao a mesma distancia, e um unico numero esconderia isso.",
+    "CANONICAL_PAYLOAD_TYPE_DRIFT": "FAIL",
+    "SUBRECEPTOR_PARENT_HOSE_DRIFT": "FAIL",
+    "ACTION_TYPE_CANONICAL_DRIFT": "FAIL",
+    "EVIDENCE_DRAWER_TRACES_ALL_HOSES": "FAIL",
+    "DEAD_HANDLERS": "FAIL",
+    "BLOCK_PARITY_RADAR_OBJ": "FAIL"
+  },
+  "CASCO": {
+    "PATH": "casco/canonical/SINTONIA-EAME-V8-DATA-READY.html",
+    "MARKUP_CHARS": 274729,
+    "DATA_LAYER_CHARS": 84203,
+    "TELAS": [
+      "acervo",
+      "config",
+      "eame",
+      "fontes",
+      "home",
+      "lib",
+      "obj",
+      "radar",
+      "relatorios"
+    ],
+    "ASSETS_JS": 5
+  },
+  "RECEPTORES_DECLARADOS": [
+    {
+      "RECEPTOR_ID": "RECEPTOR_TERRITORIAL_OBJECT",
+      "HOSE_ID": "H1",
+      "CANONICAL_PAYLOAD_TYPE": "TERRITORIAL_ATTENTION_OBJECT",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · HOSE_DECLARED_NOT_WIRED",
+      "EVIDENCE_POINTERS": "base.evidenceId ? 1 : 0",
+      "FAIL_CLOSED_BEHAVIOR": "Sem ISSUE_EVIDENCE_PASSAGE o issue não é afirmado; sem SOURCE_ID o campo não é exibido como dado."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_REGULATORY_DEADLINE",
+      "HOSE_ID": "H2",
+      "CANONICAL_PAYLOAD_TYPE": "REGULATORY_DEADLINE",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · HOSE_DECLARED_NOT_WIRED",
+      "EVIDENCE_POINTERS": "1",
+      "FAIL_CLOSED_BEHAVIOR": "Alerta é proibido para prazo regulatório: o máximo é REVIEW. Sem DEADLINE_DATE não há linha na timeline."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_COMPETITOR_IDENTITY_CHAIN",
+      "HOSE_ID": "H3",
+      "CANONICAL_PAYLOAD_TYPE": "COMPETITOR_IDENTITY_CHAIN",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · AGREEMENT_NOT_COMPUTED",
+      "EVIDENCE_POINTERS": "1",
+      "FAIL_CLOSED_BEHAVIOR": "Sem AGREEMENT_STATE provado a cadeia renderiza como não validada, mesmo com os três elos presentes."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_OBSERVED_PAID_ACTIVITY",
+      "HOSE_ID": "H4",
+      "CANONICAL_PAYLOAD_TYPE": "PAID_ACTIVITY_EVIDENCE",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · EVIDENCE_NOT_RESOLVED",
+      "EVIDENCE_POINTERS": "1",
+      "FAIL_CLOSED_BEHAVIOR": "Sem EVIDENCE_ID a gaveta não abre: o link de evidência deixa de existir em vez de abrir vazio."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_LONGITUDINAL_FIELD",
+      "HOSE_ID": "H5",
+      "CANONICAL_PAYLOAD_TYPE": "LONGITUDINAL_FIELD_SERIES",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · READINGS_NOT_INGESTED",
+      "EVIDENCE_POINTERS": "0",
+      "FAIL_CLOSED_BEHAVIOR": "Série sem BASELINE_STATE não plota tendência; ponto sem READING_N_PER_POINT não entra em média."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_SCIENTIFIC_PUBLICATION",
+      "HOSE_ID": "H7·CIÊNCIA",
+      "CANONICAL_PAYLOAD_TYPE": "SCIENTIFIC_PUBLICATION",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · COLLECTION_NOT_STARTED",
+      "EVIDENCE_POINTERS": "0",
+      "FAIL_CLOSED_BEHAVIOR": "Publicação sem RELATION_TO_ISSUE_AS_DECLARED não entra como perna de convergência."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_LOCAL_ADAMA_PORTFOLIO",
+      "HOSE_ID": "H2·PORTFÓLIO",
+      "CANONICAL_PAYLOAD_TYPE": "LOCAL_ADAMA_PORTFOLIO_CONTEXT",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · LOCAL_CONFIRMATION_MISSING",
+      "EVIDENCE_POINTERS": "0",
+      "FAIL_CLOSED_BEHAVIOR": "Sem confirmação local, REGISTERED_RESPONSE_STATE permanece NOT_PROVED e nenhuma ação comercial é liberada."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_FIELD_VOICE_OBSERVATION",
+      "HOSE_ID": "H6·CAMPO",
+      "CANONICAL_PAYLOAD_TYPE": "FIELD_VOICE_OBSERVATION",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_COLLECTION_NOT_STARTED",
+      "EVIDENCE_POINTERS": "0",
+      "FAIL_CLOSED_BEHAVIOR": "Observação sem GDPR_TREATMENT_STATE tratado não é exibida com identidade."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_ISSUE_EXPERT",
+      "HOSE_ID": "H7",
+      "CANONICAL_PAYLOAD_TYPE": "ISSUE_EXPERT",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · ISSUE_EXPERTISE_NOT_PROVED",
+      "EVIDENCE_POINTERS": "0",
+      "FAIL_CLOSED_BEHAVIOR": "Ranking é proibido: sem expertise provada a pessoa nunca aparece como especialista do problema."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_PUBLIC_COMMUNICATION",
+      "HOSE_ID": "H8",
+      "CANONICAL_PAYLOAD_TYPE": "COMPANY_PUBLIC_ACCOUNT",
+      "LOAD_STATE": "NOT_STARTED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_COLLECTION_NOT_STARTED",
+      "EVIDENCE_POINTERS": "0",
+      "FAIL_CLOSED_BEHAVIOR": "Sem CONTENT_COLLECTION_STAGE = COMPLETE, nenhuma leitura sobre volume ou tom de comunicação é emitida."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_SOURCE_CLOCKS",
+      "HOSE_ID": "H0",
+      "CANONICAL_PAYLOAD_TYPE": "SOURCE_CLOCKS",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · PIPELINE_NOT_INSTRUMENTED",
+      "EVIDENCE_POINTERS": "0",
+      "FAIL_CLOSED_BEHAVIOR": "PIPELINE_LATENCY sem instrumentação renderiza NOT_MEASURED; zero é proibido."
+    },
+    {
+      "RECEPTOR_ID": "RECEPTOR_MULTILINGUAL_CONTENT",
+      "HOSE_ID": "H9",
+      "CANONICAL_PAYLOAD_TYPE": "MULTILINGUAL_CONTENT_REPRESENTATION",
+      "LOAD_STATE": "UNWIRED",
+      "NO_DATA_REASON": "NO_DATA_REASON · CONTENT_REPRESENTATIONS_NOT_WIRED",
+      "EVIDENCE_POINTERS": "0",
+      "FAIL_CLOSED_BEHAVIOR": "Tradução sem ORIGINAL_TEXT não é renderizada; tradução nunca substitui o original."
+    }
+  ],
+  "HOSES": {
+    "TOTAL": 9,
+    "COM_RECEPTOR": [
+      "H1",
+      "H2",
+      "H3",
+      "H4",
+      "H5",
+      "H7",
+      "H8",
+      "H9"
+    ],
+    "SEM_RECEPTOR": [
+      "H6"
+    ],
+    "HOSES_WITH_COMPLETE_RECEIVER": 8
+  },
+  "DRIFT": {
+    "ADAPTER_ALIAS_MAP_EXISTE": false,
+    "CANONICAL_PAYLOAD_TYPE_DRIFT": [
+      {
+        "HOSE_ID": "H1",
+        "DECLARADO": "TERRITORIAL_ATTENTION_OBJECT",
+        "CANONICO": [
+          "TERRITORIAL_OBSERVATION"
+        ]
+      },
+      {
+        "HOSE_ID": "H2",
+        "DECLARADO": "REGULATORY_DEADLINE",
+        "CANONICO": [
+          "REGISTRATION_DEADLINE"
+        ]
+      },
+      {
+        "HOSE_ID": "H3",
+        "DECLARADO": "COMPETITOR_IDENTITY_CHAIN",
+        "CANONICO": [
+          "COMPETITOR_PRODUCT_IDENTITY"
+        ]
+      },
+      {
+        "HOSE_ID": "H4",
+        "DECLARADO": "PAID_ACTIVITY_EVIDENCE",
+        "CANONICO": [
+          "OBSERVED_PAID_ACTIVITY"
+        ]
+      },
+      {
+        "HOSE_ID": "H5",
+        "DECLARADO": "LONGITUDINAL_FIELD_SERIES",
+        "CANONICO": [
+          "FIELD_PRESSURE_SERIES"
+        ]
+      },
+      {
+        "HOSE_ID": "H7",
+        "DECLARADO": "ISSUE_EXPERT",
+        "CANONICO": [
+          "SCIENTIFIC_PERSON"
+        ]
+      },
+      {
+        "HOSE_ID": "H8",
+        "DECLARADO": "COMPANY_PUBLIC_ACCOUNT",
+        "CANONICO": [
+          "COMPANY_LOCAL_ACCOUNT"
+        ]
+      },
+      {
+        "HOSE_ID": "H9",
+        "DECLARADO": "MULTILINGUAL_CONTENT_REPRESENTATION",
+        "CANONICO": [
+          "CONTENT_ENTITY",
+          "CONTENT_TRANSLATION",
+          "ONTOLOGY_TERM"
+        ]
+      }
+    ],
+    "PARENT_HOSE_ID_EXISTE": false,
+    "SUBRECEPTOR_PARENT_HOSE_DRIFT": [
+      {
+        "RECEPTOR_ID": "RECEPTOR_SCIENTIFIC_PUBLICATION",
+        "HOSE_ID": "H7·CIÊNCIA"
+      },
+      {
+        "RECEPTOR_ID": "RECEPTOR_LOCAL_ADAMA_PORTFOLIO",
+        "HOSE_ID": "H2·PORTFÓLIO"
+      },
+      {
+        "RECEPTOR_ID": "RECEPTOR_FIELD_VOICE_OBSERVATION",
+        "HOSE_ID": "H6·CAMPO"
+      },
+      {
+        "RECEPTOR_ID": "RECEPTOR_SOURCE_CLOCKS",
+        "HOSE_ID": "H0"
+      }
+    ],
+    "ACTION_TYPE_PERSISTIDO": [
+      "BUSINESS",
+      "INVESTIGATION",
+      "SYSTEM"
+    ],
+    "ACTION_TYPE_CANONICAL_DRIFT": [
+      "BUSINESS",
+      "SYSTEM"
+    ],
+    "DISPLAY_ACTION_TYPE_EXISTE": false
+  },
+  "GAVETA": {
+    "HOSES_ALCANCADAS": [
+      "H1",
+      "H2",
+      "H3",
+      "H4",
+      "H5"
+    ],
+    "HANDLERS": [
+      "drawer.showOriginal",
+      "drawer.showTranslation"
+    ]
+  },
+  "HANDLERS_MORTOS": [
+    "openDrawer"
+  ],
+  "BLOCO_DIVERGENTE": {
+    "CONVERGENCIA_NO_OBJ": [
+      "conv.propositionId",
+      "conv.kind",
+      "conv.independentCount",
+      "l.dependency",
+      "l.dependencyNote"
+    ],
+    "CONVERGENCIA_NO_RADAR": []
+  },
+  "MAPA": {
+    "GUARD_NO_ASSET": true,
+    "DECLARA_NAO_DESENHAVEIS": true
+  },
+  "CONVERGENCIA": {
+    "PERNAS": [
+      {
+        "SIGNAL_FAMILY": "TERRITORIAL",
+        "INDEPENDENCE_STATE": "INDEPENDENT",
+        "DEPENDENCY_RELATION": "INDEPENDENT_SOURCE"
+      },
+      {
+        "SIGNAL_FAMILY": "FIELD_HISTORICAL",
+        "INDEPENDENCE_STATE": "DEPENDENT",
+        "DEPENDENCY_RELATION": "SOURCE_DEPENDENCY"
+      }
+    ],
+    "INDEPENDENT_FAMILY_COUNT": 1,
+    "CONVERGENCE_STATE": "SINGLE_SIGNAL"
+  },
+  "LOAD_STATES": {
+    "DECLARADOS": [
+      "UNWIRED",
+      "LOADING",
+      "READY",
+      "EMPTY_VALID",
+      "NOT_STARTED",
+      "NOT_AVAILABLE",
+      "BLOCKED",
+      "ERROR_FAIL_CLOSED"
+    ],
+    "EXERCIDOS": {
+      "UNWIRED": 9,
+      "NOT_STARTED": 3
+    }
+  }
+}

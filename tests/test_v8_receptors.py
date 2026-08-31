@@ -422,11 +422,18 @@ class TestOrfaos(Base):
                          m['ORFAOS']['RECEPTOR_AUSENTE_NO_CASCO'])
 
     def test_as_duas_unidades_nao_se_confundem(self):
-        """10 saidas apontam para 6 receptores. Nunca somar."""
+        """Saidas e receptores sao unidades distintas — nunca somar.
+
+        No index (11) sao 2 saidas apontando para 1 receptor (H6). No index (10)
+        eram 10 saidas em 6 receptores. Os dois inventarios ficam no arquivo:
+        apagar o anterior apagaria a prova de que o patch mudou alguma coisa.
+        """
         saidas = ORFAOS['SUMMARY']['OUTPUTS_WHOSE_RECEPTOR_IS_ABSENT_IN_THE_CASCO']
-        receptores = len(ORFAOS['RECEPTORS_ABSENT_IN_CASCO'])
+        receptores = len(ORFAOS['RECEPTORS_ABSENT_IN_CASCO_INDEX11'])
         self.assertNotEqual(saidas, receptores)
+        self.assertGreater(len(ORFAOS['RECEPTORS_ABSENT_IN_CASCO_INDEX10']), receptores)
         self.assertIn('UNIT_WARNING', ORFAOS['TWO_DIFFERENT_NUMBERS'])
+        self.assertIn('HISTORICO', ORFAOS['TWO_DIFFERENT_NUMBERS'])
 
 
 class TestMedicaoDoCasco(Base):
