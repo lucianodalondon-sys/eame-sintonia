@@ -628,7 +628,11 @@ export function buildSnapshot() {
         ? 'Reexecutar o cruzamento da cadeia de concorrente contra o material congelado da Meta, e congelar o resultado.'
         : 'Congelar o handoff canonico da Meta para liberar a entrada final de refresh.',
       why: motivoSuperado
-        ? `${H.H3.canonical_entities} tuplas continuam em join preliminar. O impedimento declarado caiu (Meta congelada em ${String(PROV.H4.COMMIT_SHA).slice(0, 12)}), mas ninguem rodou o cruzamento de novo.`
+        // O SHA do freeze da Meta NAO entra aqui: identificador de commit e
+        // vocabulario de engenharia numa tela executiva. O estado real nao
+        // muda — o material congelado continua existindo, e o SHA segue
+        // inteiro na gaveta de evidencia e nos detalhes tecnicos.
+        ? `${H.H3.canonical_entities} tuplas continuam em join preliminar. O material congelado da Meta ja esta disponivel, mas o cruzamento ainda nao foi refeito sobre ele.`
         : `${H.H3.canonical_entities} tuplas estao presas em join preliminar por causa disso.`,
       time: motivoSuperado ? 'sem impedimento externo · depende de rodar' : 'depende do coordenador da Meta' },
   ]

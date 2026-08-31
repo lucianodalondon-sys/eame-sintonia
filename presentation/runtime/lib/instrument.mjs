@@ -779,16 +779,28 @@ export function instrument(html) {
     return alvos.length;
   }
 
+  // O botao vive NO FLUXO do conteudo, no fim da tela atual.
+  //
+  // Antes era position:fixed com z-index 9999 no canto inferior direito, e
+  // por isso cobria os numeros de "Volume coletado" — "Fontes conectadas" e
+  // "Leituras de campo" ficavam debaixo dele. Um botao de diagnostico nunca
+  // pode tapar um KPI. No fluxo ele nao cobre nada, e como o casco troca o
+  // container ao navegar, cada tela recebe o seu.
   function botao() {
-    if (document.getElementById('ux-tec-btn')) return;
-    var b = document.createElement('button');
+    var tela = document.querySelector('[data-screen-label]');
+    if (!tela) return;
+    var b = document.getElementById('ux-tec-btn');
+    if (b && b.parentElement === tela) return;      // ja esta no lugar certo
+    if (b) b.parentElement.removeChild(b);
+    b = document.createElement('button');
     b.id = 'ux-tec-btn';
-    b.textContent = 'Detalhes técnicos';
+    b.textContent = document.body.classList.contains('ux-tecnico-aberto')
+      ? 'Ocultar detalhes técnicos' : 'Detalhes técnicos';
     b.onclick = function () {
       var on = document.body.classList.toggle('ux-tecnico-aberto');
       b.textContent = on ? 'Ocultar detalhes técnicos' : 'Detalhes técnicos';
     };
-    document.body.appendChild(b);
+    tela.appendChild(b);
   }
 
   // ── ORDEM DA PAGINA ─────────────────────────────────────────────────────
@@ -834,6 +846,38 @@ export function instrument(html) {
   }
   function secao(txt) { var e = tituloEl(txt); return e ? secaoDe(e) : null; }
 
+  // ── DE QUE TELA E ESTE NO? ──────────────────────────────────────────────
+  //
+  // "Leitura do momento" existe TRES vezes no casco: uma na Visao Geral e
+  // outra na coluna estreita do Radar. Procurar por titulo no documento
+  // inteiro achava a do Radar, e o bloco "Quem deve olhar" era inserido
+  // dentro da barra lateral — 92px de largura, uma palavra por linha, o
+  // conteudo principal em branco. E ficava la: como o bloco ja existia,
+  // nenhuma passagem seguinte o reconstruia no lugar certo, entao voltar
+  // para a Visao Geral nao curava. So o reload.
+  //
+  // O casco marca cada tela com data-screen-label. Entao a pergunta deixa de
+  // ser "onde esta esse texto?" e passa a ser "esse no pertence a Visao
+  // Geral?". Titulo repetido nao engana mais.
+  function telaHome() {
+    var els = document.querySelectorAll('[data-screen-label="Visão Geral"]');
+    for (var i = 0; i < els.length; i++) {
+      if (els[i].getBoundingClientRect().height > 0) return els[i];
+    }
+    return null;
+  }
+  function tituloEmHome(txt) {
+    var home = telaHome();
+    if (!home) return null;
+    var t = txt.toLowerCase();
+    var els = home.querySelectorAll('*');
+    for (var i = 0; i < els.length; i++) {
+      var e = els[i];
+      if (e.children.length === 0 && e.textContent.trim().toLowerCase() === t) return e;
+    }
+    return null;
+  }
+
   function ordenar() {
     // 1 · blocos de receptor sao engenharia: vao para os detalhes tecnicos.
     ['Receptor territorial do objeto', 'Receptor de vozes e ativação',
@@ -868,9 +912,27 @@ export function instrument(html) {
     //     aberta, entao na Visao Geral o bloco original nem existe no DOM.
     //     Este e montado a partir de window.__SINTONIA__.departments, que e a
     //     MESMA fonte do outro — e usa os tokens de cor do proprio casco.
-    var momento = secao('C · LEITURA DO MOMENTO') || secao('Leitura do momento');
-    var deps = (window.__SINTONIA__ && window.__SINTONIA__.departments) || [];
+    //     O bloco pertence EXCLUSIVAMENTE ao container da Visao Geral. Fora
+    //     dela ele nao existe: e removido, nunca reparenteado. Dados sao
+    //     compartilhados com o detalhe do objeto; o no do DOM nao e.
+    var home = telaHome();
     var antiga = document.getElementById('ux-acoes-na-home');
+
+    // Nao estamos na Visao Geral, ou a copia acabou fora dela (o casco troca o
+    // container inteiro ao navegar): tira do caminho e sai.
+    if (antiga && (!home || !home.contains(antiga))) {
+      antiga.parentElement.removeChild(antiga);
+      antiga = null;
+    }
+
+    var ancora = tituloEmHome('C · Leitura do momento') || tituloEmHome('Leitura do momento');
+    var momento = ancora ? secaoDe(ancora) : null;
+    // A ancora tem que estar mesmo dentro da Visao Geral, e a secao escolhida
+    // precisa ser larga: coluna estreita nao recebe este bloco.
+    if (momento && (!home || !home.contains(momento) ||
+        momento.getBoundingClientRect().width < 400)) momento = null;
+
+    var deps = (window.__SINTONIA__ && window.__SINTONIA__.departments) || [];
     if (momento && deps.length && !antiga) {
       var box = document.createElement('div');
       box.id = 'ux-acoes-na-home';
@@ -1023,7 +1085,8 @@ export function instrument(html) {
     `  /* Fechado por padrao. Nada foi removido: um clique traz tudo de volta. */
   body:not(.ux-tecnico-aberto) [data-ux-tecnico] { display: none !important; }
   #ux-tec-btn {
-    position: fixed; right: 18px; bottom: 18px; z-index: 9999;
+    /* No fluxo, no fim da tela. Fixed cobria os KPIs de "Volume coletado". */
+    display: block; margin: 24px 0 8px auto; position: static;
     font: 600 10.5px/1 var(--font-primary); letter-spacing: .04em;
     color: var(--t2); background: var(--s1);
     border: 1px solid var(--hair2); border-radius: 9999px;
