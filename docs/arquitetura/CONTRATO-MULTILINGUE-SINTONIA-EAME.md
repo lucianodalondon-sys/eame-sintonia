@@ -1,418 +1,415 @@
 # CONTRATO MULTILÍNGUE — SINTONIA EAME
 
 **Data:** 2026-08-30 · **Branch:** `claude/sintonia-eame-portal-baseline`
-**Modo:** contrato + modelo executável. **Nenhuma tradução em massa foi executada.**
+**Revisão:** **RED TEAM + FREEZE** — sete correções sobre a versão anterior deste documento.
 
 ```
+MULTILINGUAL_CONTRACT_V1 = FROZEN
+
 ONE SHELL  +  ONE CANONICAL CORPUS  +  MULTIPLE LANGUAGE REPRESENTATIONS
-
-PRODUCT_IMPLEMENTATION_MODE = NOT_ENTERED
-CASCO_V7_MODIFIED           = NO
-MASS_TRANSLATION_EXECUTED   = NO
 ```
+
+> **`FROZEN` congela o desenho arquitetural. E só isso.**
+> Não significa `CORPUS_MIGRATED`, não significa `ALL_TRANSLATIONS_READY`, não significa
+> `SEARCH_INDEX_IMPLEMENTED`, não significa `DISEASE_ICON_BINDING_IMPLEMENTED`.
 
 | | |
 |---|---|
 | modelo executável | [`scripts/multilingual_contract.py`](../../scripts/multilingual_contract.py) |
-| provas | [`tests/test_multilingual.py`](../../tests/test_multilingual.py) — **38 provas** |
-
-> **Por que o contrato é código e não só texto.** Um contrato que vive só em documento não
-> impede nada. As sete regras abaixo têm prova que **reprova** quem as quebrar — inclusive
-> eu, daqui a três semanas.
+| provas | [`tests/test_multilingual.py`](../../tests/test_multilingual.py) — **68 provas** |
 
 ---
 
-## 0 · O QUE JÁ EXISTE — medido, não suposto
+## 0 · O QUE ESTE RED TEAM CORRIGIU — no meu próprio contrato
 
-Metade deste contrato já está no repositório. Medi antes de propor.
-
-| peça | estado medido |
-|---|---|
-| **`ORIGINAL_LANGUAGE` como lei** | **78 de 81** arquivos de `data/samples` já declaram (96 %) |
-| **`SOURCE_LOCATION` ≠ `FACT_LOCATION`** | 704 ocorrências de cada — a separação geográfica já é hábito |
-| **Ontologia com ID próprio** | `eppo-dictionary.json`: **492 culturas · 1.381 pragas**, chaveadas por **código EPPO** — `OLVEU` = *Olea europaea*, `SEPTTR` = *Zymoseptoria tritici* |
-| **Camada de exibição** | `DISPLAY-LAYER-V1.json`: **103 regras**, 33 campos de origem, cada uma com `SEMANTIC_RULE` própria |
-| **Casco V7** | seletor de idioma com **5 línguas** (PT · EN · ES · IT · FR) e a lei escrita: *"as strings da interface saem de dicionário, não do conteúdo"* |
-
-### 0.1 · E as três lacunas que a medição encontrou
-
-**① O vocabulário de língua está aberto.** 78 arquivos usam **15 grafias diferentes** para
-o que deveria ser um conjunto fechado de 5:
-
-```
-'ES' 18 · 'pt' 15 · 'es' 11 · 'EN' 9 · 'multi' 8 · 'FR' 4 · 'IT' 3
-'FR/ES' 2 · 'FR/ES/IT' 2 · 'FR/ES/IT/EN' · 'en (majoritario)' · 'ES / EN' · 'EN / FR' · 'FR/IT' · 'en'
-```
-
-**17 de 78 (22 %) não são uma língua** — são `MULTI` disfarçado de código.
-
-**② E o `pt` denuncia uma confusão real.** Quinze artefatos declaram
-`ORIGINAL_LANGUAGE: pt`. Nenhuma fonte espanhola, francesa ou italiana é portuguesa —
-esses arquivos são **análises derivadas escritas em português**. O campo está registrando
-*"a língua em que eu escrevi"*, não *"a língua da fonte"*. **É exatamente a confusão que
-a seção 1 existe para acabar.**
-
-**③ A camada de exibição cobre 3 das 5 línguas do casco.** `DISPLAY-LAYER-V1` tem
-`DISPLAY_TEXT_PT`, `_EN` e `_ES`. **Não tem `_FR` nem `_IT`.** Para fechar as cinco línguas
-que o casco oferece faltam **206 strings** (103 regras × 2 línguas).
-
-**④ Não existe ícone oficial de doença no casco.** Medido: o único SVG embutido é a forma
-**"A"** da marca ADAMA, e `disease-control` é **cor de linha de produto** (`#00a0df`), não
-ícone. Ver seção `ONTOLOGY_MODEL`.
-
----
-
-# 1 · A SEPARAÇÃO QUE MANDA EM TUDO
-
-Três coisas, três campos, nenhum herda do outro:
-
-| campo | o que é | quem decide | muda com tradução? |
+| # | eu tinha escrito | está errado porque | agora |
 |---|---|---|---|
-| **`SOURCE_LANGUAGE`** | a língua em que a fonte publicou | **a fonte** | **NUNCA** |
-| **`UI_LANGUAGE`** | a língua dos menus, botões, filtros e estados | o usuário | não se aplica |
-| **`DISPLAY_LANGUAGE`** | a língua em que o conteúdo é apresentado | o usuário | é ela que muda |
+| 1 | `ORIGINAL_LANGUAGE` como campo único | está sobrecarregado: mistura fonte, artefato e apresentação | **cinco papéis** distintos |
+| 2 | *"78 de 81 declaram língua — 96 %"* | isso é **convenção de arquivo**, não propriedade da evidência | dois números separados |
+| 3 | `ACTIVE_INGREDIENT` entre os imutáveis | obrigaria mostrar grafia francesa a leitor italiano | **ID canônico + rótulo local** |
+| 4 | `SOURCE_QUOTE` como identificador | citação não é chave | `ORIGINAL_QUOTE` / `TRANSLATED_QUOTE` / `SOURCE_REFERENCE` |
+| 5 | EPPO como espinha da ontologia inteira | EPPO cobre planta e organismo, **não** molécula, evento nem departamento | `EPPO_BACKED_ENTITY_ID` declarado |
+| 6 | `PENDING_OFFICIAL_ICON` | soa como *"o ícone oficial não existe"* — **ele existe** | três estados separados |
+| 7 | `SOURCE_LANGUAGE_PRESERVED = YES` | misturava o selo do **contrato** com o do **acervo** | `CONTRACT_GUARD` ≠ `CORPUS_AUDIT_RESULT` |
 
-> **Uma tradução francês→espanhol NÃO transforma a fonte em espanhola.**
-> Há prova disso: traduzir uma entidade para quatro línguas deixa `SOURCE_LANGUAGE`,
-> `ORIGINAL_TEXT` e o hash do original **byte a byte idênticos**.
+### 0.1 · A correção nº 2, medida — e ela é dura
 
-**Regra de vocabulário.** `SOURCE_LANGUAGE` aceita apenas `pt · en · es · fr · it`, em
-minúsculo. Qualquer outra coisa vira **estado**, não língua:
+Eu afirmei cobertura de **96 %**. Fui medir o nível que importa — o **registro**, não o
+arquivo:
 
-- `MULTI` — o documento tem mais de uma língua. **`MULTI` não é uma língua**: um documento
-  multilíngue não tem língua de origem, tem várias, e cada trecho tem a sua.
-- `UNKNOWN` — não foi possível decidir. **Falha fechada**: `content_entity()` recusa criar
-  o objeto.
+```
+registros identificáveis varridos ................. 5.998
+com CAMPO de língua ................................. 283   (4,7 %)
+com um VALOR de língua de verdade ..................... 0   (0,00 %)
+```
 
-**Traduzir para a própria língua de origem é recusado** — o estado correto é
-`SOURCE_ORIGINAL`, e chamar isso de tradução criaria uma versão que ninguém produziu.
+**Os 283 dizem `NÃO SEI`. Todos.**
+
+O número `78/81` era real, mas media **os artefatos que eu e as outras missões escrevemos**
+— um cabeçalho de convenção. **Nenhum registro de fonte no acervo tem língua de origem
+declarada.** Transformar convenção de arquivo em propriedade da evidência era exatamente o
+erro que o red team apontou, e ele estava certo.
+
+```
+ARTIFACTS_WITH_LEGACY_LANGUAGE_DECLARATION = 78/81
+SOURCE_RECORDS_WITH_LANGUAGE_FIELD         = 283 / 5.998
+SOURCE_RECORDS_WITH_DECLARED_VALUE         = 0
+SOURCE_RECORD_LANGUAGE_COVERAGE            = MEASURED_ZERO_DECLARED
+SOURCE_RECORD_LANGUAGE_PROOF               = NOT_MEASURED
+```
+
+---
+
+# 1 · OS CINCO PAPÉIS DE LÍNGUA
+
+Cinco coisas, cinco campos, **nenhum herda do outro**:
+
+| papel | o que é | quem decide | muda com tradução? |
+|---|---|---|---|
+| **`SOURCE_LANGUAGE`** | a língua da **evidência / fonte original** | a fonte | **NUNCA** |
+| **`ARTIFACT_LANGUAGE`** | a língua em que um relatório, handoff ou análise do SINTONIA foi escrito | quem escreveu | não |
+| **`UI_LANGUAGE`** | menus, botões, filtros, estados | o usuário | não se aplica |
+| **`DISPLAY_LANGUAGE`** | a língua escolhida para apresentar o conteúdo | o usuário | é ela que muda |
+| **`TRANSLATION_TARGET_LANGUAGE`** | a língua de uma representação traduzida | o pipeline | — |
+
+**Por que `ARTIFACT_LANGUAGE` teve de nascer:** quinze arquivos do acervo declaram `pt`.
+Nenhuma fonte espanhola, francesa ou italiana é portuguesa — são **análises escritas em
+português sobre fontes estrangeiras**. O campo estava guardando *"a língua de quem
+escreveu"*. Um boletim francês resumido num relatório em português tem
+`SOURCE_LANGUAGE = fr` **e** `ARTIFACT_LANGUAGE = pt`, e os dois são verdade ao mesmo tempo.
+
+## 1.1 · Vocabulário fechado — sete valores, e dois deles não são línguas
+
+```
+en · es · fr · it · pt          ← línguas
+MULTILINGUAL · UNKNOWN          ← ESTADOS
+```
+
+**`MULTILINGUAL` não é uma língua.** Um documento multilíngue não tem língua de origem:
+tem várias, e cada trecho tem a sua. Por isso:
+
+> **`SOURCE_LANGUAGE = MULTILINGUAL` exige `SEGMENT_LANGUAGE` por trecho, ou a declaração
+> explícita de que alguém decidiu.** Deixar `"FR/ES/IT"` virar `MULTILINGUAL` em silêncio
+> seria trocar um dado ruim por um estado bonito.
+
+**`UNKNOWN` é preservado quando não foi medido.** Não vira chute, e não vira `en`.
+
+**Uma string como `"FR/ES/IT/EN"` não é um language code** — e é recusada.
 
 ---
 
 # 2 · CANONICAL_ENTITY_MODEL
 
-**Um objeto. Várias línguas. Nunca vários objetos.**
-
 ```
 CONTENT_ENTITY
-  CONTENT_ID              chave canônica — sobrevive a toda tradução
-  SOURCE_LANGUAGE         pt|en|es|fr|it  ·  None quando MULTI
-  SOURCE_LANGUAGE_STATE   OK | MULTI | UNKNOWN
-  ORIGINAL_TEXT           o texto como a fonte publicou
-  ORIGINAL_TEXT_HASH      SHA-256 — é o gatilho de reversão do cache
-  SOURCE                  SOURCE_ID + URL
-  PUBLISHED_AT            data da fonte
-  FACT_COUNTRY            onde o fato acontece (≠ onde a fonte está)
-  NON_TRANSLATABLE        os sete identificadores da seção 5
-  TRANSLATIONS            { lang: CONTENT_TRANSLATION }
+  CONTENT_ID                chave canônica — sobrevive a toda tradução
+  SOURCE_LANGUAGE           pt|en|es|fr|it   ·  None quando MULTILINGUAL
+  SOURCE_LANGUAGE_STATE     OK | MULTILINGUAL | UNKNOWN
+  ARTIFACT_LANGUAGE         a língua de quem escreveu sobre isto
+  SEGMENTS[]                SEGMENT_ID · SEGMENT_LANGUAGE · TEXT
+  ORIGINAL_TEXT             o texto como a fonte publicou
+  ORIGINAL_TEXT_HASH        SHA-256 — o gatilho de invalidação do cache
+  ORIGINAL_QUOTE            o trecho citado, byte a byte
+  SOURCE_REFERENCE          URL · DOI · registro · document ID
+  SOURCE                    SOURCE_ID + URL
+  PUBLISHED_AT · FACT_COUNTRY
+  IDENTITIES{}              apenas o grupo A da seção 3
+  TRANSLATIONS{ lang: … }
 ```
 
 ```
 CONTENT_TRANSLATION
-  CONTENT_ID              o MESMO id — nunca um id novo
-  TRANSLATION_LANGUAGE    pt|en|es|fr|it
-  TRANSLATED_TEXT
-  TRANSLATION_METHOD      MACHINE | HUMAN | SOURCE_PROVIDED
-  TRANSLATION_VERSION     inteiro
-  TRANSLATED_AT
-  QUALITY_STATE           ver seção 9
-  SOURCE_TEXT_HASH        o hash do original NO MOMENTO da tradução
-  IS_EVIDENCE             sempre false — ver seção 4
+  CONTENT_ID                     o MESMO id — nunca um id novo
+  TRANSLATION_TARGET_LANGUAGE
+  TRANSLATED_TEXT · TRANSLATED_QUOTE
+  TRANSLATION_METHOD             MACHINE | HUMAN | SOURCE_PROVIDED
+  TRANSLATION_VERSION · TRANSLATED_AT
+  QUALITY_STATE                  ver seção 9
+  SOURCE_TEXT_HASH               o hash do original NO MOMENTO da tradução
+  IS_EVIDENCE                    sempre false
 ```
-
-**Por que `SOURCE_TEXT_HASH` mora na tradução e não na entidade:** é ele que responde
-*"esta tradução ainda vale?"* sem precisar guardar o texto antigo. Ver seção 10.
 
 ---
 
-# 3 · ONTOLOGY_MODEL — a identidade não muda com a língua
+# 3 · IDENTIDADE CANÔNICA ≠ RÓTULO TRADUZIDO
+
+## Grupo A — identidade que **nunca** se traduz
+
+```
+TRADEMARK_ID · TRADEMARK_CANONICAL_NAME
+COMPANY_ID   · COMPANY_LEGAL_NAME
+REGISTRATION_ID
+SCIENTIFIC_NAME
+PRODUCT_COMMERCIAL_NAME
+```
+
+Traduzir qualquer um **destrói a chave**. `ES-00211` não tem tradução; `MAXENTIS` é
+`MAXENTIS` em toda parte; razão social é identidade jurídica.
+
+## Grupo B — ID canônico invariante, **rótulo local legítimo**
+
+```
+ACTIVE_INGREDIENT_ID · CROP_ID · ISSUE_ID
+MOLECULE_ID · EVENT_TYPE_ID · DEPARTMENT_ID
+```
+
+**A correção que eu precisava fazer:** `ACTIVE_INGREDIENT` estava no grupo A. Errado.
+
+```
+CAS-178928-70-6
+  LABEL_FR = prothioconazole      LABEL_ES = protioconazol
+  LABEL_IT = protioconazolo       LABEL_EN = prothioconazole
+```
+
+São **três grafias diferentes da mesma molécula**. Exigir igualdade byte a byte obrigaria a
+mostrar a grafia francesa a um leitor italiano. **A invariância é do ID, nunca do rótulo** —
+e há prova de que o ID sobrevive às três grafias.
+
+Usar um campo do grupo B como identidade imutável é **recusado em código**.
+
+---
+
+# 4 · CITAÇÃO — três coisas, não uma
+
+| campo | o que é | pode ser traduzido? |
+|---|---|---|
+| **`ORIGINAL_QUOTE`** | o trecho original, byte a byte como capturado | **não** |
+| **`TRANSLATED_QUOTE`** | representação para leitura | sim, **marcada** |
+| **`SOURCE_REFERENCE`** | URL · DOI · registro · document ID | não |
+
+> **`TRANSLATED_QUOTE ≠ ORIGINAL_QUOTE`.** A tradução **pode** ser apresentada — desde que
+> claramente marcada como tradução. O que **não** pode é **substituir** o original.
+
+Toda exibição carrega, em qualquer língua: `ORIGINAL_QUOTE` · `QUOTE_IS_TRANSLATION` ·
+`QUOTE_IS_EVIDENCE` · `VIEW ORIGINAL` · `SOURCE` · `SOURCE_REFERENCE` · `SOURCE_LANGUAGE`.
+
+Há prova de que a citação original sai idêntica nas cinco línguas, mesmo quando a traduzida
+está na tela.
+
+---
+
+# 5 · ONTOLOGY_MODEL
 
 ```
 ONTOLOGY_TERM
-  TERM_ID                 EPPO quando existir; interno quando não
-  KIND                    CROP | ISSUE | MOLECULE | EVENT_TYPE | DEPARTMENT
-  SCIENTIFIC_NAME         o ancoradouro entre línguas
-  LABELS                  { es, en, fr, it, pt }
-  ALIASES                 { lang: [...] }   ← é o que faz a busca funcionar de verdade
-  ADAMA_DISEASE_ICON_ID   ver abaixo
-  ICON_BINDING_STATE      BOUND | PENDING_OFFICIAL_ICON | NOT_APPLICABLE
+  TERM_ID                  EPPO quando existir; CANONICAL_ID explícito quando não
+  KIND                     CROP | ISSUE | MOLECULE | EVENT_TYPE | DEPARTMENT
+  EPPO_BACKED_ENTITY_ID    YES | NO | NOT_MEASURED   ← declarado, nunca adivinhado
+  SCIENTIFIC_NAME          o ancoradouro entre línguas
+  LABELS{ es, en, fr, it, pt }
+  ALIASES{ lang: [...] }
+  ADAMA_DISEASE_ICON_ID
 ```
 
-**O ancoradouro já existe.** `SEPTTR` é `Zymoseptoria tritici` em qualquer língua. Um caso
-francês e um caso espanhol de septória apontam para **o mesmo `TERM_ID`** — e é por isso
-que a camada EAME pode comparar sem traduzir nada.
+## 5.1 · O que o EPPO cobre — e o que não cobre
 
-**Cadeia de fallback, sempre declarada:**
+Medido no `eppo-dictionary.json`:
 
-```
-rótulo na língua pedida  →  SCIENTIFIC_NAME  →  rótulo em EN  →  qualquer rótulo  →  TERM_ID
-```
+| | total | chave em forma EPPO | fora da forma |
+|---|---:|---:|---:|
+| **culturas** | 492 | **484 (98,4 %)** | 8 |
+| **pragas / doenças** | 1.381 | **1.347 (97,5 %)** | 34 |
 
-**Nunca devolve vazio, e nunca esconde o desvio.** Pedir o rótulo italiano de *Plasmopara
-viticola* devolve o nome científico **com `FALLBACK = SCIENTIFIC_NAME`** — a tela precisa
-poder dizer por que está mostrando latim.
+As 42 chaves fora da forma são texto solto usado como chave — `"only annual species"`,
+`"sunflower"`, `"rice"`, `"perennial species"`. **Rótulo nunca pode ser chave primária**, e
+essas 42 são o exemplo vivo disso dentro do próprio acervo.
 
-**Lacuna medida:** o dicionário EPPO tem `es` e `scientific`. **Não tem `fr`, `it` nem
-`en`.** São 1.873 termos sem rótulo em 3 das 5 línguas do casco. Isso não impede a
-identidade — impede o rótulo bonito, e o fallback declarado cobre o intervalo.
+**E EPPO só existe para planta e organismo.** `MOLECULE`, `EVENT_TYPE` e `DEPARTMENT`
+**não têm e não terão** código EPPO — declarar `EPPO_BACKED = YES` para eles é recusado em
+código. Precisam de outro identificador canônico explícito: CAS para molécula, enum próprio
+para tipo de evento e departamento.
 
-## 3.1 · `ADAMA_DISEASE_ICON_ID`
-
-O design system da ADAMA tem ícones oficiais de doença, e o casco futuro deve usar o ícone
-oficial correspondente.
-
-**Estado medido hoje:** o casco V7 **não traz nenhum**. O único SVG embutido é a forma "A"
-da marca; `disease-control` é a **cor** da linha de produto, não um ícone de doença.
-
-**Contrato, sem inventar ID:**
+## 5.2 · Fallback declarado, nunca silencioso
 
 ```
-ISSUE com ícone oficial vinculado   →  BOUND
-ISSUE sem ícone oficial ainda       →  PENDING_OFFICIAL_ICON
-CROP / MOLECULE / DEPARTMENT        →  NOT_APPLICABLE
+rótulo na língua pedida → SCIENTIFIC_NAME → rótulo EN → qualquer rótulo → TERM_ID
 ```
 
-> **Regra: não criar ícone genérico quando existir o oficial.** Enquanto o conjunto oficial
-> não chegar, o estado é `PENDING_OFFICIAL_ICON` e a tela mostra a cor da linha — que é
-> oficial — em vez de um desenho inventado que depois teria de ser desfeito.
+Pedir o rótulo italiano de *Plasmopara viticola* devolve o nome científico **com
+`FALLBACK = SCIENTIFIC_NAME`** — a tela precisa poder dizer por que está mostrando latim.
 
 ---
 
-# 4 · EVIDENCE_RULES
+# 6 · ÍCONE OFICIAL DE DOENÇA — três estados, não um
 
-> **`TRANSLATED_EVIDENCE ≠ ORIGINAL_EVIDENCE`**
-
-Tradução é **representação para leitura**. Nunca é a prova.
-
-**Toda exibição carrega a porta de volta** — inclusive quando não houve tradução nenhuma:
+**Correção de estado.** O casco V7 não carregar os ícones **não** significa que eles não
+existam. Eles existem, no **design system da ADAMA disponível no Claude Design**.
 
 ```
-TRANSLATED FROM <LANGUAGE>     ·  presente só quando houve tradução
-VIEW ORIGINAL                  ·  SEMPRE
-SOURCE                         ·  SEMPRE
-IS_EVIDENCE                    ·  true apenas no texto original
+OFFICIAL_ADAMA_DISEASE_ICON_ASSET = EXISTS_EXTERNALLY_IN_DESIGN_SYSTEM
+DISEASE_ICON_CROSSWALK            = NOT_MEASURED
+TECHNICAL_ICON_BINDING            = NOT_IMPLEMENTED
 ```
 
-**Sem tradução, mostra o original — nunca vazio.** Pedir um boletim francês em português
-sem tradução registrada devolve o texto francês com `QUALITY_STATE = SOURCE_ORIGINAL` e
-`TRANSLATED_FROM = None`. Tela vazia seria pior que língua errada: sugeriria ausência de
-conteúdo onde há conteúdo.
+São **três perguntas diferentes**, e `PENDING_OFFICIAL_ICON` confundia as três:
 
-**Claim regulatório, científico ou técnico nunca perde a ligação com o original.** Isto não
-é preferência de UX: um vencimento de registro, uma dose de rótulo ou uma citação de
-boletim são afirmações que alguém vai defender numa reunião. Defende-se o original.
+1. **o ativo existe?** — sim, fora daqui;
+2. **existe o mapa `DISEASE_ID ↔ ADAMA_DISEASE_ICON_ID`?** — não foi medido;
+3. **o vínculo técnico está feito?** — não implementado.
+
+**Contrato:** `ISSUE_ID / DISEASE_ID → ADAMA_DISEASE_ICON_ID`. A implementação futura
+**consulta e reutiliza o asset oficial** do Claude Design.
+
+> **Não desenhar ícone substituto. Não extrair nem recriar manualmente agora. Não modificar
+> o V7.** Há prova de que o estado nunca sai como *missing*.
 
 ---
 
-# 5 · O QUE NÃO SE TRADUZ
+# 7 · SEARCH_MODEL — modelo pronto, índice não
 
-Sete campos são **identidade**, não texto. Traduzir qualquer um destrói a chave:
+```
+CROSS_LANGUAGE_SEARCH_MODEL = READY          ← desenho, provado em teste
+CROSS_LANGUAGE_SEARCH_INDEX = NOT_IMPLEMENTED
+```
 
-| campo | por quê |
-|---|---|
-| `PRODUCT_COMMERCIAL_NAME` | MAXENTIS é MAXENTIS em toda parte |
-| `COMPANY_NAME` | razão social é identidade jurídica |
-| `TRADEMARK` | é a chave nova que o Foresight traz — `BRAND` |
-| `ACTIVE_INGREDIENT` | tem nome por língua, mas quem manda é o CAS |
-| `SCIENTIFIC_NAME` | é justamente o ancoradouro entre línguas |
-| `REGISTRATION_ID` | `ES-00211` não tem tradução |
-| `SOURCE_QUOTE` | citação traduzida deixa de ser citação |
+**Nove caminhos de recuperação, todos declarados.** O consumidor precisa saber **por que** o
+item apareceu — achar pelo `REGISTRATION_ID` é uma confiança; achar por texto traduzido por
+máquina é outra:
 
-**Há prova de que os sete saem idênticos em todas as línguas de exibição**, e de que um
-campo fora da lista é recusado na criação da entidade.
+```
+CANONICAL_ID_MATCH                 REGISTRATION_ID_MATCH
+ORIGINAL_TEXT_MATCH                OFFICIAL_ALIAS_MATCH
+HUMAN_REVIEWED_TRANSLATION_MATCH   MACHINE_TRANSLATION_MATCH
+SEMANTIC_MATCH                     ← declarado, NÃO implementado
+ONTOLOGY_LABEL_MATCH               ← acrescentado: rótulo oficial não é apelido
+SCIENTIFIC_NAME_MATCH              ← acrescentado: atravessa as 5 línguas sem tradução
+```
 
-**Nota sobre `ACTIVE_INGREDIENT`:** *prothioconazole* / *protioconazol* / *protioconazolo*
-são a mesma molécula. A tradução do **rótulo** é legítima e vive na ontologia
-(`KIND = MOLECULE`); o **campo de identidade** do conteúdo preserva a grafia da fonte. São
-duas coisas, e o modelo as separa.
+Os dois últimos são acréscimos meus aos sete nomeados pelo coordenador, e estão marcados
+como acréscimo: encaixá-los à força em `OFFICIAL_ALIAS_MATCH` diria que um rótulo oficial é
+apelido, o que é falso.
+
+**Um índice, não um acervo por língua.** Provado: buscar *"mildiu"* em espanhol encontra um
+boletim publicado **em francês**, e o caminho vem junto. Há prova de que máquina e humano
+saem como caminhos **diferentes**, e de que `SEMANTIC_MATCH` está no vocabulário e **não**
+no índice.
 
 ---
 
-# 6 · SEARCH_MODEL — um índice, não um acervo por língua
-
-Uma busca em ES precisa achar material originalmente em FR, IT ou EN — **e devolver o mesmo
-objeto canônico**.
-
-**Seis caminhos, todos apontando para o mesmo ID:**
-
-```
-CANONICAL ENTITY IDS   →  CONTENT_ID · TERM_ID
-IDENTIFICADORES        →  marca, registro, nome comercial, nome científico
-SCIENTIFIC_NAME        →  atravessa as cinco línguas sem tradução
-MULTILINGUAL LABELS    →  o rótulo da ontologia em cada língua
-ALIASES                →  "mildiu", "mildiou", "peronospora" → PLASVI
-ORIGINAL TEXT          →  o texto da fonte
-TRANSLATED TEXT        →  o texto traduzido
-```
-
-**`SEMANTIC SEARCH` fica de fora por enquanto**, e a razão é medida: busca semântica traz
-resultado sem caminho auditável, e este produto tem por lei mostrar de onde veio cada
-coisa. Entra depois, como **caminho adicional declarado**, nunca substituindo os outros.
-
-**O caminho do achado viaja com o resultado.** Achar pelo `REGISTRATION_ID` é uma confiança;
-achar pelo texto traduzido por máquina é outra. Quem lê precisa poder distinguir — há prova
-de que o caminho sai declarado e de que pelo menos três caminhos diferentes funcionam.
-
-**Provado:** buscar *"mildiu"* (espanhol) encontra um boletim publicado **em francês**, e
-`Plasmopara viticola` encontra os dois lados sem passar por tradução nenhuma.
-
----
-
-# 7 · INTELIGÊNCIA GERADA — uma decisão, várias narrativas
-
-**A estrutura do caso é independente de língua. A narrativa não.**
-
-```
-ESTRUTURAL (uma só)                       NARRATIVA (uma por língua)
-  COUNTRY · REGION                          título legível
-  CROP_ID · ISSUE_ID    ← ontologia         síntese do caso
-  TIME / WINDOW                             "por que está no radar"
-  ATTENTION_STATE                           "o que não sabemos"
-  ACTION_OWNER                              rótulo de estado (DISPLAY-LAYER)
-  CONVERGENCE_LEGS
-  EVIDENCE POINTERS
-```
-
-> **`ONE INTELLIGENCE OBJECT → MULTIPLE LANGUAGE PRESENTATIONS`.**
-> Nunca quatro decisões diferentes. Se a versão italiana de um caso disser algo que a
-> francesa não diz, **não é tradução — é outro caso**, e isso é defeito.
-
-O `DISPLAY-LAYER-V1` já implementa a lei que protege isso, e ela é a melhor frase deste
-contrato inteiro:
-
-> *"Nenhuma tradução pode mudar o que o campo afirma. Uma frase de exibição só pode ser
-> **mais explícita** que o enum, nunca menos."*
-
-E o teste de deriva que vem junto: *"um leitor que só viu a frase de exibição chegaria a uma
-conclusão que o campo não sustenta? Se sim, a regra está errada."*
-
----
-
-# 8 · UI_I18N_MODEL — interface e conteúdo são coisas diferentes
+# 8 · UI_I18N_MODEL
 
 | | UI | CONTEÚDO |
 |---|---|---|
 | o que é | menus, botões, filtros, estados, departamentos, rótulos | boletins, posts, documentos, citações |
 | quantidade | finita e pequena | cresce sem parar |
-| método | **i18n tradicional** — dicionário de chaves, versionado no repositório | pipeline de tradução com proveniência |
+| método | **i18n tradicional**, dicionário versionado | pipeline com proveniência |
 | runtime | **nunca** chama IA | traduz uma vez, guarda, reusa |
-| quem revisa | uma vez, por pessoa | ver seção 9 |
 
 > **Proibido usar IA em runtime para traduzir menu, botão, filtro, estado, departamento ou
-> rótulo.** É caro, é lento, é não-determinístico — e um botão que muda de texto entre duas
-> sessões destrói a confiança em tudo o que está ao redor dele.
+> rótulo.** Um botão que muda de texto entre duas sessões destrói a confiança em tudo o que
+> está ao redor dele.
 
-**O casco já está do lado certo:** *"as strings da interface saem de dicionário, não do
-conteúdo"*. O dicionário é que ainda não existe.
+O `DISPLAY-LAYER-V1` (103 regras, 33 campos de origem) é exatamente essa fronteira: traduz
+**valores de enum canônico**, que é UI. Entra no dicionário de i18n, com a `SEMANTIC_RULE`
+viajando junto como nota do tradutor — e com a lei que ela já carrega:
 
-**Ponte com o `DISPLAY-LAYER-V1`:** as 103 regras são exatamente a fronteira entre os dois
-mundos — traduzem **valores de enum canônico** (`VERIFY_FIELD_NOW` → *"Verificar o campo
-agora"*), que é UI, não conteúdo. Elas entram no dicionário de i18n, com a `SEMANTIC_RULE`
-viajando junto como comentário do tradutor.
+> *"Nenhuma tradução pode mudar o que o campo afirma. Uma frase de exibição só pode ser
+> **mais explícita** que o enum, nunca menos."*
 
 ---
 
 # 9 · TRANSLATION_PROVENANCE
 
-Toda tradução de conteúdo responde seis perguntas, sempre:
+Seis perguntas, sempre: `SOURCE_LANGUAGE` · `DISPLAY_LANGUAGE` · `TRANSLATION_METHOD` ·
+`TRANSLATION_VERSION` · `TRANSLATED_AT` · `QUALITY_STATE`.
 
-```
-ORIGINAL_LANGUAGE =        DISPLAY_LANGUAGE =        TRANSLATION_METHOD =
-TRANSLATION_VERSION =      TRANSLATED_AT =           QUALITY_STATE =
-```
-
-**Quatro estados, e o método não escolhe sozinho:**
-
-| estado | significa |
+| método | qualidades que **pode** declarar |
 |---|---|
-| `SOURCE_ORIGINAL` | não é tradução: é o texto da fonte |
-| `MACHINE_TRANSLATED` | máquina, **sem** revisão humana |
-| `HUMAN_REVIEWED` | pessoa leu e aprovou |
-| `SOURCE_PROVIDED_TRANSLATION` | a própria fonte publicou nesta língua |
+| `MACHINE` | `MACHINE_TRANSLATED` · `HUMAN_REVIEWED` (só depois de alguém revisar) |
+| `HUMAN` | `HUMAN_REVIEWED` |
+| `SOURCE_PROVIDED` | `SOURCE_PROVIDED_TRANSLATION` |
 
-**Máquina não vira revisada sozinha.** O método restringe o que pode ser declarado:
-
-```
-MACHINE          →  MACHINE_TRANSLATED  ou  HUMAN_REVIEWED (só depois de alguém revisar)
-HUMAN            →  HUMAN_REVIEWED
-SOURCE_PROVIDED  →  SOURCE_PROVIDED_TRANSLATION
-```
-
-Declarar `MACHINE_TRANSLATED` num método `HUMAN` é recusado, e há prova.
-
-> **Por que esta é a regra mais importante da seção:** afirmar revisão humana onde não houve
-> é o único erro desta camada que **o usuário não consegue detectar**. Todos os outros ele
-> percebe lendo. Este, não.
+> **Máquina não vira revisada sozinha.** É o único erro desta camada que **o usuário não
+> consegue detectar lendo**. Todos os outros ele percebe.
 
 ---
 
 # 10 · CACHE_VERSIONING
 
 ```
-TRANSLATE_ONCE  →  STORE  →  VERSION  →  REUSE
+TRANSLATE_ONCE → STORE → VERSION → REUSE
+
+FRESH    hash igual ao original de hoje       → reusar
+STALE    o texto canônico mudou               → retraduzir, VERSION + 1
+MISSING  nunca traduzido nesta língua         → traduzir
 ```
 
-Três estados, decididos por hash e não por data:
-
-| estado | quando | o que fazer |
-|---|---|---|
-| `FRESH` | `SOURCE_TEXT_HASH` == hash atual do original | **reusar** |
-| `STALE` | o texto canônico mudou depois da tradução | retraduzir, `VERSION + 1` |
-| `MISSING` | nunca traduzido para esta língua | traduzir |
-
-**Reexibir não envelhece nada.** Abrir o mesmo caso cinco vezes em espanhol continua
-`FRESH` — há prova disso, e é o teste que evita a conta absurda.
-
-**A versão antiga não se apaga.** `TRANSLATION_VERSION` cresce e as anteriores ficam: se
-alguém citou a versão 1 numa apresentação, essa citação precisa continuar resolvível.
-
-**O que dispara nova versão:** mudança no **texto canônico**. Não dispara: mudança de
-layout, de rótulo de UI, de idioma da interface, nem reexibição.
+**Reexibir não envelhece nada** — cinco aberturas seguidas continuam `FRESH`, e há prova.
+**A versão antiga não se apaga:** se alguém citou a v1 numa apresentação, essa citação
+precisa continuar resolvível.
 
 ---
 
-# 11 · KNOWN_GAPS
+# 11 · KNOWN_GAPS — backlog medido, não preenchido
 
-| # | lacuna | tamanho medido |
-|---|---|---|
-| **K1** | `ORIGINAL_LANGUAGE` com vocabulário aberto | **15 grafias** em 78 arquivos; **17 (22 %)** não são língua única |
-| **K2** | `ORIGINAL_LANGUAGE: pt` em análises derivadas | **15 arquivos** confundem língua da fonte com língua do documento |
-| **K3** | Camada de exibição só em PT/EN/ES | faltam **206 strings** (103 regras × FR e IT) |
-| **K4** | Ontologia sem rótulo em FR/IT/EN | **1.873 termos** (492 culturas + 1.381 pragas) com `es` + `scientific` apenas |
-| **K5** | Chaves não-EPPO no dicionário | há entradas como `"only annual species"` usadas como chave |
-| **K6** | Sem ícones oficiais de doença | o casco V7 não traz nenhum; `ICON_BINDING_STATE = PENDING_OFFICIAL_ICON` |
-| **K7** | `ALIASES` não existem no acervo | são o que faz a busca cross-language funcionar; hoje só o modelo os prevê |
-| **K8** | Nenhuma tradução de conteúdo existe | zero `CONTENT_TRANSLATION` no repositório — o contrato precede o pipeline |
-| **K9** | Busca semântica fora | por decisão: falta caminho auditável |
-| **K10** | Custo de tradução não medido | nenhum orçamento, nenhuma rota escolhida, nenhum teste de volume |
+| # | lacuna | tamanho | triagem |
+|---|---|---|---|
+| **K1** | vocabulário de língua aberto no legado | 15 grafias · 17/78 não são língua | `MUST_HAVE_FOR_PILOT` |
+| **K2** | `pt` confundindo artefato com fonte | 15 arquivos | `MUST_HAVE_FOR_PILOT` |
+| **K3** | registros de fonte sem língua | **0 de 5.998 declarados** | `MUST_HAVE_FOR_PILOT` (só para os recortes do piloto) |
+| **K4** | `DISPLAY_STRINGS_MISSING_FR_IT` | **206** (103 × 2) | `MUST_HAVE_FOR_PILOT` — o casco oferece 5 línguas |
+| **K5** | `ONTOLOGY_TERMS_WITHOUT_FULL_MULTILINGUAL_LABELS` | **1.873** | **`CAN_FALLBACK_TO_ORIGINAL_LABEL`** |
+| **K6** | chaves não-EPPO no dicionário | 42 | `NICE_TO_HAVE` |
+| **K7** | `DISEASE_ICON_CROSSWALK` | não medido | `MUST_HAVE_FOR_PILOT` (só para os issues do piloto) |
+| **K8** | `ALIASES` não existem no acervo | — | `MUST_HAVE_FOR_PILOT` — é o que faz a busca cross-language funcionar |
+| **K9** | nenhuma `CONTENT_TRANSLATION` existe | zero | `NICE_TO_HAVE` |
+| **K10** | custo de tradução não medido | — | `NICE_TO_HAVE` |
 
-**K1 e K2 são os únicos que dá para fechar sem coletar nada** — são um passe de
-normalização sobre 78 arquivos, com o portão `normalizar_lingua()` já escrito e testado.
-**Não os fechei nesta rodada:** mexer em 78 artefatos de outras missões é integração, e
-integração está fora deste modo.
+> **Não traduzir 1.873 termos só porque estão vazios.** O fallback declarado
+> (`SCIENTIFIC_NAME`) cobre o intervalo, e o piloto consome uma fração mínima desses termos.
+> **Prioridade é o que o piloto realmente usa** — hoje, seis recortes.
+
+**Nada disto foi fechado nesta rodada.** K1 e K2 seriam um passe de normalização com o
+portão já escrito e testado — mas mexer em 78 artefatos de outras missões é **migração**, e
+migração está fora deste modo.
 
 ---
 
 # ENTREGA
 
 ```
-ONE_CANONICAL_CORPUS               = YES
-SEPARATE_DATABASE_PER_LANGUAGE     = NO
-SOURCE_LANGUAGE_PRESERVED          = YES
-ONTOLOGY_LANGUAGE_INDEPENDENT      = YES
-ORIGINAL_EVIDENCE_PRESERVED        = YES
-CROSS_LANGUAGE_SEARCH_DESIGN       = READY
-ADAMA_DISEASE_ICON_BINDING_PLANNED = YES
+MULTILINGUAL_CONTRACT_V1 = FROZEN
 
-PRODUCT_IMPLEMENTATION_MODE = NOT_ENTERED
-CASCO_V7_MODIFIED           = NO
-MASS_TRANSLATION_EXECUTED   = NO
+── contrato (o que as provas garantem) ──────────────────────────────
+ONE_CANONICAL_CORPUS                   = YES
+SEPARATE_DATABASE_PER_LANGUAGE         = NO
+ONTOLOGY_LANGUAGE_INDEPENDENT          = YES
+SOURCE_LANGUAGE_PRESERVATION_RULE      = PROVED_BY_TESTS
+ORIGINAL_EVIDENCE_PRESERVATION_RULE    = PROVED_BY_TESTS
+SOURCE_LANGUAGE_NE_ARTIFACT_LANGUAGE   = PROVED_BY_TESTS
+CANONICAL_ONTOLOGY_MODEL               = FROZEN
+ORIGINAL_QUOTE_MODEL                   = FROZEN — byte a byte, nunca substituível
+TRANSLATED_QUOTE_MODEL                 = FROZEN — permitida, sempre marcada
+ACTIVE_INGREDIENT_IDENTITY_MODEL       = CANONICAL_ID + LOCAL_LABELS
+CROSS_LANGUAGE_SEARCH_MODEL            = READY
+
+── acervo legado (o que foi medido) ─────────────────────────────────
+ARTIFACTS_WITH_LEGACY_LANGUAGE_DECLARATION = 78/81
+SOURCE_RECORD_LANGUAGE_COVERAGE            = MEASURED_ZERO_DECLARED (0 / 5.998)
+LEGACY_LANGUAGE_FIELD_INTEGRITY            = NOT_PROVED
+LEGACY_SOURCE_LANGUAGE_INTEGRITY           = NOT_PROVED
+LEGACY_CORPUS_EVIDENCE_INTEGRITY           = NOT_MEASURED
+LEGACY_CORPUS_MULTILINGUAL_COMPLIANCE      = NOT_MEASURED
+
+── ontologia ────────────────────────────────────────────────────────
+EPPO_CROPS                  = 492  (484 em forma de código, 98,4 %)
+EPPO_ISSUES                 = 1.381 (1.347 em forma de código, 97,5 %)
+NON_EPPO_ENTITY_STRATEGY    = CANONICAL_ID explícito por tipo — CAS para molécula,
+                              enum próprio para EVENT_TYPE e DEPARTMENT
+
+── ícone ────────────────────────────────────────────────────────────
+OFFICIAL_ADAMA_DISEASE_ICON_ASSET = EXISTS_EXTERNALLY_IN_DESIGN_SYSTEM
+DISEASE_ICON_CROSSWALK            = NOT_MEASURED
+TECHNICAL_ICON_BINDING            = NOT_IMPLEMENTED
+
+── implementação ────────────────────────────────────────────────────
+CROSS_LANGUAGE_SEARCH_INDEX  = NOT_IMPLEMENTED
+DISPLAY_STRINGS_MISSING_FR_IT = 206
+ONTOLOGY_LABEL_GAPS           = 1.873
+PRODUCT_IMPLEMENTATION_MODE   = NOT_ENTERED
+CASCO_V7_MODIFIED             = NO
+CORPUS_MIGRATION_EXECUTED     = NO
+MASS_TRANSLATION_EXECUTED     = NO
+
+MISSION_STATE = PARKED
 ```
-
-**`CROSS_LANGUAGE_SEARCH_DESIGN = READY`** é sobre o **desenho**, e o desenho está provado
-ponta a ponta com dado de fixture: busca em espanhol acha material francês, e o nome
-científico atravessa tudo. **Não** significa que o índice exista — `K7` e `K8` continuam
-abertos.
-
-**O que este contrato deliberadamente não faz:** não traduz o acervo, não cria banco por
-idioma, não escolhe fornecedor de tradução, não mede custo e não toca no casco.
