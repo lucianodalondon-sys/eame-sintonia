@@ -203,6 +203,62 @@ export function instrument(html) {
     "        evidenceId: null, independence: 'DEPENDENT', dependency: 'SOURCE_DEPENDENCY',",
     'convergencia:perna-dependente-sem-id-falso', log)
 
+  // 5g · TIMELINE · o casco trazia quatro eventos fixos, os mesmos para todo
+  //      objeto: um boletim publicado em 23 ABR, uma captura em 31 AGO, e uma
+  //      mudanca de estado FORMING -> ATTENTION_CANDIDATE_TEST. Nenhum objeto
+  //      tem esses eventos medidos, e varios nunca estiveram em FORMING.
+  //
+  //      Passa a ser derivada do objeto aberto, e so entra o que existe:
+  //
+  //      CAPTURA      · a data em que a mangueira congelou. Medida.
+  //      ESTADO       · o estado declarado do objeto. O estado ANTERIOR nao foi
+  //                     medido, entao fica NULL — nao inventamos de onde veio.
+  //      VAZIO        · so quando um portao do proprio objeto esta aberto. O
+  //                     motivo e o nome do portao, nao um texto generico.
+  //
+  //      PUBLICACAO DA FONTE nao entra: para estes objetos PUBLISHED_AT e igual
+  //      a data de captura, ou seja, nao ha data de publicacao propria medida.
+  //      Sem evento, sem linha. Vazio na timeline e resposta, nao falha.
+  out = replaceBlock(out, 'const TL = [',
+    `const TL = (function () {
+      var f = base.f || {}, ev = [];
+      var quando = f.PUBLISHED_AT || (base.prov && base.prov.AS_OF_DATE) || null;
+      if (quando) ev.push({
+        k: 'capture', id: 'EVT-' + base.id + '-CAP', type: 'FIRST_CAPTURE', at: quando,
+        date: quando, res: 'DATA_EXATA',
+        sourceName: 'SINTONIA', sourceId: f.SOURCE_ID || null,
+        title: 'Captura congelada pela mangueira',
+        changed: 'Documento congelado com proveniencia: commit, fonte e data.',
+        before: null, after: null, obs: null
+      });
+      if (f.ATTENTION_STATE_RAW) ev.push({
+        k: 'state', id: 'EVT-' + base.id + '-ST', type: 'STATE_CHANGE', at: quando,
+        date: quando || '—', res: quando ? 'DATA_EXATA' : 'NAO_CONHECIDA',
+        sourceName: 'SINTONIA', sourceId: f.SOURCE_ID || null,
+        title: 'Estado declarado: ' + f.ATTENTION_STATE_RAW,
+        changed: 'Estado medido pelos portoes deste objeto.',
+        before: null, after: f.ATTENTION_STATE_RAW, obs: null
+      });
+      (base.gates || []).forEach(function (g, i) {
+        // Atencao: quando chega aqui o portao ja passou por gate(), que troca
+        // a chave crua ('naoprovado') pelo ROTULO ('NÃO PROVADO'). Comparar com
+        // a chave crua nao casa nada — foi o que aconteceu na primeira tentativa
+        // e a timeline saiu sem nenhum vazio, como se nao houvesse portao aberto.
+        var rotulo = g && (g.k || g[0]), estado = String((g && (g.v || g[1])) || '');
+        if (/^N[ÃA]O/i.test(estado)) {
+          ev.push({
+            k: 'gap', id: 'EVT-' + base.id + '-GAP' + i, type: 'GAP', at: null,
+            date: '—', res: 'NAO_CONHECIDA', sourceName: null, sourceId: null,
+            title: 'Portao aberto: ' + rotulo,
+            changed: 'O intervalo e real e permanece vazio ate este portao fechar.',
+            before: null, after: null, obs: null,
+            gapReason: String(rotulo).toUpperCase().replace(/[^A-Z0-9]+/g, '_') + '_NOT_PROVEN'
+          });
+        }
+      });
+      return ev;
+    })();`, log)
+
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
     'const volumes = window.__SINTONIA__.volumes || [];', log)
