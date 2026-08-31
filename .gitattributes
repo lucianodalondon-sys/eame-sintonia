@@ -6,3 +6,11 @@
 # `-text` proíbe qualquer normalização de fim de linha. `-diff` impede que o Git
 # tente ler o arquivo como texto em diffs.
 casco/canonical/** -text -diff
+
+# Os blocos de supabase/execution/ carregam FATIAS LITERAIS da migration canônica,
+# e a prova de reconstrução compara byte a byte. Aqui NÃO entra `-text`, e é de
+# propósito: a prova confronta arquivos que passam pela MESMA regra de fim de
+# linha — o 0001 e os cinco blocos são todos `.sql` normalizados igual. Fixar um
+# lado com `-text` e deixar o outro normalizado é justamente o que faria os dois
+# divergirem em Linux. Se um dia o 0001 for congelado com `-text`, os blocos têm
+# de ser congelados na mesma linha.

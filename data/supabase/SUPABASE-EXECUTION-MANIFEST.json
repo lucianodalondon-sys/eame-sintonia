@@ -1,0 +1,168 @@
+{
+  "SOURCE_ID": "SUPABASE-EXECUTION-MANIFEST-EAME-2026-08-31",
+  "source": "Divisao da migration canonica em pedacos executaveis. Corte de ferramenta, nao de modelagem: nada muda de sentido.",
+  "DEV_PROJECT_REF": "xhqebdweltytnghiavew",
+  "CANONICAL_0001_SHA256": "41ffeb52941718a34a01135e2f76bc4611a2978e049175f90cf4014117e335ec",
+  "SHA_BATE_COM_O_DECLARADO": true,
+  "CANONICAL_0001_BYTES": 117943,
+  "MIGRATION_APPLIED_DEV": "PARTIAL",
+  "POR_QUE_PARCIAL": "o bloco a foi aplicado e os quatro seguintes nao. Enquanto e e nao correr, MIGRATION_APPLIED_DEV nao e YES.",
+  "ALREADY_APPLIED_BLOCK": "supabase/execution/0001a_already_applied.sql",
+  "REMAINING_BLOCKS": [
+    "supabase/execution/0001b_tables_remaining.sql",
+    "supabase/execution/0001c_foreign_keys_indexes.sql",
+    "supabase/execution/0001d_roles_rls_policies.sql",
+    "supabase/execution/0001e_views_rpcs.sql"
+  ],
+  "ORDEM_DE_EXECUCAO": [
+    "supabase/execution/0001b_tables_remaining.sql",
+    "supabase/execution/0001c_foreign_keys_indexes.sql",
+    "supabase/execution/0001d_roles_rls_policies.sql",
+    "supabase/execution/0001e_views_rpcs.sql"
+  ],
+  "ARQUIVOS": [
+    {
+      "FILE": "supabase/execution/0001a_already_applied.sql",
+      "BLOCO": "a",
+      "TITULO": "JA APLICADO PELO CHATGPT — nao rodar de novo",
+      "PARA_QUE": "schema sintonia, os 27 vocabularios fechados e as quatro primeiras tabelas. Fica separado para poder ser CONFERIDO em vez de reexecutado.",
+      "STARTS_WITH": "CREATE SCHEMA IF NOT EXISTS sintonia;",
+      "ENDS_WITH": ");",
+      "BYTES": 8683,
+      "SHA256": "ecee4dd305d9a8a0af38d0b67f5f6d7b3e0c9cdc4eb4bf1ca1cc7bdeaffb5627",
+      "CORPO_BYTES": 7207,
+      "CORPO_SHA256": "2ee9420d2d0f0929bde587f78152ceee6ee463e56b8aed22d5fb6cf59ca9ad6c",
+      "STATEMENTS_COUNT": 33,
+      "STATEMENTS_POR_TIPO": {
+        "CREATE SCHEMA": 1,
+        "CREATE TABLE": 4,
+        "CREATE TYPE": 27,
+        "SET": 1
+      },
+      "JA_APLICADO": true,
+      "LINHAS_NO_ORIGINAL": "1-106"
+    },
+    {
+      "FILE": "supabase/execution/0001b_tables_remaining.sql",
+      "BLOCO": "b",
+      "TITULO": "TABELAS RESTANTES",
+      "PARA_QUE": "as tabelas que faltam. Nenhuma FK aqui: as chaves estrangeiras vem no bloco c, entao a ordem entre as tabelas nao importa.",
+      "STARTS_WITH": "CREATE TABLE source_snapshot (",
+      "ENDS_WITH": ");",
+      "BYTES": 38919,
+      "SHA256": "b043589ae2718abfef2e491fc9df9d5bade08b9d2b93135209fb5c69ab4cc60a",
+      "CORPO_BYTES": 37815,
+      "CORPO_SHA256": "4bf560f07f0db7cb8d01c00bc974d16f2a1947ba9d97fb3ff650899fcd1a2bcb",
+      "STATEMENTS_COUNT": 53,
+      "STATEMENTS_POR_TIPO": {
+        "CREATE TABLE": 53
+      },
+      "JA_APLICADO": false,
+      "LINHAS_NO_ORIGINAL": "106-872"
+    },
+    {
+      "FILE": "supabase/execution/0001c_foreign_keys_indexes.sql",
+      "BLOCO": "c",
+      "TITULO": "CHAVES ESTRANGEIRAS E INDICES",
+      "PARA_QUE": "as FKs com ON DELETE explicito e os indices. Exige todas as tabelas de pe — por isso vem depois de b.",
+      "STARTS_WITH": "ALTER TABLE ontology_term_label ADD CONSTRAINT ontology_term_label_term_id_fk",
+      "ENDS_WITH": "CREATE INDEX entry_path_event_crop_term_id_idx ON entry_path_event (crop_term_id);",
+      "BYTES": 34469,
+      "SHA256": "d952be31007b9585029cf6b569a69deb6652ad54d0b40b0c09cd89cbf4a6f6f4",
+      "CORPO_BYTES": 33372,
+      "CORPO_SHA256": "36abbb46e328a9e20ba7329064c1b698836cf652c8ffdba1b51f9fd22e283171",
+      "STATEMENTS_COUNT": 198,
+      "STATEMENTS_POR_TIPO": {
+        "ALTER TABLE": 112,
+        "CREATE INDEX": 86
+      },
+      "JA_APLICADO": false,
+      "LINHAS_NO_ORIGINAL": "872-1302"
+    },
+    {
+      "FILE": "supabase/execution/0001d_roles_rls_policies.sql",
+      "BLOCO": "d",
+      "TITULO": "PAPEIS, RLS E POLITICAS",
+      "PARA_QUE": "os papeis, o helper allowed_countries(), o RLS ligado em toda tabela e as politicas. O helper vem junto porque toda politica de pais chama ele.",
+      "STARTS_WITH": "DO $$ BEGIN",
+      "ENDS_WITH": "…TE POLICY portal_write_telemetry ON entry_path_event FOR INSERT TO portal_reader WITH CHECK (true);",
+      "BYTES": 17691,
+      "SHA256": "3997b50ccae16789a746671830f102624b23f7997fe342e563125bf36de4266b",
+      "CORPO_BYTES": 16560,
+      "CORPO_SHA256": "c4f33be6fd4e9d07125356a907ad682a49b76002c996c401bcad450329f55c4a",
+      "STATEMENTS_COUNT": 142,
+      "STATEMENTS_POR_TIPO": {
+        "ALTER TABLE": 57,
+        "CREATE FUNCTION": 1,
+        "CREATE POLICY": 82,
+        "DO": 2
+      },
+      "JA_APLICADO": false,
+      "LINHAS_NO_ORIGINAL": "1302-1488"
+    },
+    {
+      "FILE": "supabase/execution/0001e_views_rpcs.sql",
+      "BLOCO": "e",
+      "TITULO": "VIEWS E RPCS",
+      "PARA_QUE": "as 13 views e os 4 RPCs. Leem tudo o que veio antes, entao sao os ultimos.",
+      "STARTS_WITH": "CREATE OR REPLACE VIEW v_convergence_state AS",
+      "ENDS_WITH": "$fn$;",
+      "BYTES": 24023,
+      "SHA256": "08a312381a8e32ab272617fef968c957236cf1a1997474a031feecb92bd94c65",
+      "CORPO_BYTES": 22972,
+      "CORPO_SHA256": "2377ef268637ad4e3bb49d5fe44b7cafb3b3e256fb8d1e842336389d837c5fca",
+      "STATEMENTS_COUNT": 17,
+      "STATEMENTS_POR_TIPO": {
+        "CREATE FUNCTION": 4,
+        "CREATE VIEW": 13
+      },
+      "JA_APLICADO": false,
+      "LINHAS_NO_ORIGINAL": "1488-1999"
+    }
+  ],
+  "STATEMENTS_TOTAL": 443,
+  "PROVA_DE_RECONSTRUCAO": {
+    "RECONSTRUCTION_MATCH": "YES",
+    "SEMANTIC_DIFF": 0,
+    "DESCONSIDERADO": [
+      "BEGIN; do original",
+      "COMMIT; do original",
+      "a separacao fisica entre os arquivos"
+    ],
+    "CORPO_SHA256": "37b85809508e54943213e64cfd168e54ab83f02ecdf6633c07f3dea6bc0a7073",
+    "CORPO_BYTES": 117926,
+    "O_QUE_SAIU_DO_ORIGINAL": {
+      "LINHAS_REMOVIDAS": [
+        "BEGIN;",
+        "COMMIT;"
+      ],
+      "LINHAS_REMOVIDAS_LITERAIS": [
+        "'BEGIN;\\r\\n'",
+        "'COMMIT;\\r\\n'"
+      ],
+      "CARACTERES_REMOVIDOS": 17,
+      "SO_SAIU_A_TRANSACAO": true,
+      "ORIGINAL_SHA256": "41ffeb52941718a34a01135e2f76bc4611a2978e049175f90cf4014117e335ec",
+      "ALVO_SHA256": "37b85809508e54943213e64cfd168e54ab83f02ecdf6633c07f3dea6bc0a7073",
+      "COMO_FOI_REMOVIDO": "por posicao, apontada pelo leitor de statements. Um replace de texto apagaria tambem os BEGIN que vivem dentro dos corpos DO $$ e das funcoes."
+    }
+  },
+  "O_QUE_NAO_FOI_TOCADO": [
+    "supabase/migrations/0001_initial_canonical_schema.sql (mesmo sha256)",
+    "data/supabase/SUPABASE-CANONICAL-SCHEMA.json",
+    "supabase/validation/0002_dev_validation.sql",
+    "supabase/validation/0003_post_migration_checks.sql",
+    "V8",
+    "Vercel",
+    "design"
+  ],
+  "EXECUTADO_POR_MIM": false,
+  "POR_QUE_NAO": "nao ha credencial nesta maquina, e nao e o meu papel aqui: quem aplica e quem tem acesso.",
+  "PROVA_NO_DISCO": {
+    "RECONSTRUCTION_MATCH": "YES",
+    "SEMANTIC_DIFF": 0,
+    "CORPO_SHA256": "37b85809508e54943213e64cfd168e54ab83f02ecdf6633c07f3dea6bc0a7073",
+    "CORPO_SHA256_ESPERADO": "37b85809508e54943213e64cfd168e54ab83f02ecdf6633c07f3dea6bc0a7073",
+    "LIDO_DE": "os cinco arquivos gravados, nao da memoria do gerador"
+  }
+}
