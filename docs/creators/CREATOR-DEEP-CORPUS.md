@@ -437,3 +437,91 @@ respeitar: Gilles sem rota de conteúdo; contexto ADAMA não medido na Itália e
 positivo na França; cobertura italiana **provadamente** incompleta; quatro alvos
 que só chegam a profundidade somando histórico; região do fato não extraída do
 texto; e só texto lido — imagem e vídeo, não.
+
+---
+
+# REGISTRO FINAL — denominador, dois freezes e park
+
+Duas verificações documentais. **Nada foi reclassificado, nenhum dicionário foi
+ampliado, nenhuma coleta foi feita.**
+
+## 1 · o denominador da cobertura, explicitado
+
+`ES 288 + FR 43 + IT 30 = 361`, e o acervo tem **442**. Os 81 restantes não são
+resto — e não são itens mal classificados. São itens cujo **idioma** a rota não
+conseguiu atribuir, e por isso nunca chegaram a ser oferecidos ao classificador
+temático. É outra coisa: *"olhou e não achou tema"* e *"nem chegou a olhar"* não
+podem morar no mesmo número.
+
+`CLASSIFICATION_COVERAGE_DENOMINATOR_DEFINITION` = itens cujo idioma o detector
+de palavras funcionais atribuiu a **ES, FR ou IT**. O denominador **não é o
+acervo**.
+
+| | itens |
+|---|---:|
+| `ALL_ITEMS_COLLECTED` | 442 |
+| `ITEMS_ELIGIBLE_FOR_TEXT_CLASSIFICATION` | **361** |
+| `ITEMS_NOT_IN_CLASSIFICATION_DENOMINATOR` | **81** |
+| **soma** | **442** · `RECONCILED = YES` |
+
+Os 81, por motivo real e medido — cada item num motivo só, senão a soma não
+fecharia:
+
+| motivo | itens |
+|---|---:|
+| `LANGUAGE_NOT_ASSIGNED` | **54** |
+| `NO_USABLE_TEXT` | **21** |
+| `MIXED_LANGUAGE` | **6** |
+| `OTHER_MEASURED_REASON` | 0 |
+| `NON_TARGET_LANGUAGE` | **`NOT_MEASURED`** |
+
+`NON_TARGET_LANGUAGE` **não é zero, é não-medido**. Separar *"está numa quarta
+língua"* de *"nenhuma palavra funcional de ES/FR/IT casou"* exigiria um detector
+novo — e detector novo é ampliar dicionário, o que esta rodada proíbe. Esses
+itens estão contados **dentro** de `LANGUAGE_NOT_ASSIGNED`. Escrever `0` ali
+seria afirmar uma medição que não foi feita.
+
+`CLASSIFICATION_COVERAGE_OBSERVED` continua sendo a métrica.
+`CLASSIFIER_ACCURACY` continua não existindo.
+
+## 2 · os dois freezes, e por que não pode ser um só
+
+| artefato | commit congelado |
+|---|---|
+| `CREATOR_MAP_EAME` | `248bd27027506a5f531a117ce50d35eb5304b152` |
+| `CREATOR_DEEP_CORPUS_V1` | `a509c12` |
+
+`CREATOR_MAP_FROZEN_FILES_CHANGED_SINCE_MAP_FREEZE = 0` · **PASS**, conferido
+por `git diff` e não por afirmação.
+
+**Regra para quem consumir:** ler o Creator Map pelo commit do freeze **dele** e
+o Deep Corpus pelo commit do freeze **dele**. Nunca assumir
+`LATEST_BRANCH_HEAD = CREATOR_MAP_FREEZE` — o branch continua andando, este
+próprio registro é um commit novo, e quem ler o mapa pelo HEAD acabará um dia
+lendo um mapa que alguém mexeu depois.
+
+## 3 · estado canônico preservado
+
+`TARGETS = 10` (`PERSON_CREATORS = 8` · `FARM_BUSINESS = 2`) ·
+`CONTENT_ROUTES_PROVED = 9` · `CONTENT_ROUTES_NOT_PROVED = 1` ·
+`ALL_ITEMS_COLLECTED = 442` · `UNIQUE_ITEMS = 442` ·
+`ITEMS_LAST_90D = 280` · `ITEMS_91_180D = 62` · `ITEMS_OLDER_THAN_180D = 100` ·
+`COMMENTS_COLLECTED = 199` · `ITALIAN_DICTIONARY_COVERAGE_GAP = PROVED` ·
+`PC01_YOUTUBE = CORRECTION_CANDIDATE` com `CORPUS_ITEMS_ATTRIBUTED = 0` ·
+`GILLES_CONTENT_ROUTE = NO_PROVED_CONTENT_ROUTE` ·
+`LOCAL_ADAMA_CONTEXT_ES = MEASURED` ·
+`LOCAL_ADAMA_CONTEXT_FR = MEASURED_POSITIVE_ONLY` ·
+`LOCAL_ADAMA_CONTEXT_IT = NOT_MEASURED`.
+
+As oito limitações continuam válidas e **nenhuma delas invalida o corpus**. Elas
+recortam o que se pode afirmar; não apagam os 442 materiais preservados nem as
+17 execuções com bruto guardado.
+
+## 4 · park
+
+`CREATOR_DEEP_CORPUS_V1 = FROZEN` ·
+`OPTIONAL_REFRESH_INPUT = READY_WITH_LIMITATIONS` ·
+**`MISSION_STATE = PARKED`** · `NO_MORE_COLLECTION = YES`.
+
+Nenhuma atividade nova nesta missão até o `FINAL_INTELLIGENCE_REFRESH` ou uma
+correção pedida pelo coordenador.

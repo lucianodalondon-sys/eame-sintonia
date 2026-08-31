@@ -380,6 +380,108 @@ LEITURA_MANUAL_IT = {
 }
 
 
+def denominador_da_cobertura(materiais):
+    """De onde sai o denominador da cobertura, e o que ficou de fora dele.
+
+    `ES 288 + FR 43 + IT 30 = 361`, e o acervo tem 442. Os 81 restantes não são
+    resto: são itens cujo IDIOMA a rota não conseguiu atribuir. A diferença
+    entre "classificado como OTHER" e "fora do denominador" é a diferença entre
+    um classificador que olhou e não achou tema, e um item que nunca chegou a
+    ser oferecido a ele — e sem essa distinção a cobertura por idioma parece
+    pior ou melhor do que é.
+
+    Nada é reclassificado aqui e nenhum dicionário é ampliado. Cada item cai em
+    UM motivo, na ordem em que o motivo aparece, para que a soma feche sem que
+    ninguém precise acreditar.
+    """
+    motivos = {'NO_USABLE_TEXT': 0, 'MIXED_LANGUAGE': 0,
+               'LANGUAGE_NOT_ASSIGNED': 0, 'OTHER_MEASURED_REASON': 0}
+    elegiveis = 0
+    for m in materiais:
+        lang = idioma(_todo_texto(m))
+        if lang in ('ES', 'FR', 'IT'):
+            elegiveis += 1
+            continue
+        # A ordem importa: sem texto utilizável, a pergunta do idioma nem chega
+        # a ser feita. Contar o mesmo item em dois motivos quebraria a soma.
+        if m.get('TEXT_SUBSTANCE') == 'HASHTAGS_OR_EMPTY' or lang == 'TEXT_TOO_SHORT':
+            motivos['NO_USABLE_TEXT'] += 1
+        elif lang == 'AMBIGUOUS':
+            motivos['MIXED_LANGUAGE'] += 1
+        elif lang == 'NOT_KNOWN':
+            motivos['LANGUAGE_NOT_ASSIGNED'] += 1
+        else:
+            motivos['OTHER_MEASURED_REASON'] += 1
+
+    fora = sum(motivos.values())
+    saida = dict(motivos)
+    saida['NON_TARGET_LANGUAGE'] = NOT_MEASURED
+    return {
+        'CLASSIFICATION_COVERAGE_DENOMINATOR_DEFINITION': (
+            'itens cujo idioma o detector de palavras funcionais atribuiu a ES, '
+            'FR ou IT. O denominador NÃO é o acervo: é o subconjunto que chegou '
+            'a ser oferecido ao classificador temático.'),
+        'ITEMS_ELIGIBLE_FOR_TEXT_CLASSIFICATION': elegiveis,
+        'ITEMS_NOT_IN_CLASSIFICATION_DENOMINATOR': fora,
+        'BY_REASON': saida,
+        'REASON_NOTES': {
+            'NO_USABLE_TEXT': 'legenda só com hashtag, arroba ou emoji',
+            'MIXED_LANGUAGE': 'empate entre idiomas. Espanhol e italiano '
+                              'partilham palavras funcionais, e desempatar '
+                              'produziria uma cobertura que mede o desempate',
+            'LANGUAGE_NOT_ASSIGNED': 'há texto, mas nenhuma palavra funcional de '
+                                     'ES, FR ou IT apareceu — interjeição, marca, '
+                                     'anglicismo, frase de três palavras',
+            'NON_TARGET_LANGUAGE': 'NÃO MEDIDO, e por isso não é zero. Separar '
+                                   '"quarta língua" de "nenhuma palavra funcional '
+                                   'casou" exigiria um detector novo, e detector '
+                                   'novo é ampliar dicionário — proibido nesta '
+                                   'rodada. Esses itens estão contados DENTRO de '
+                                   'LANGUAGE_NOT_ASSIGNED.',
+        },
+        'CONSERVATION': {
+            'ALL_ITEMS_COLLECTED': len(materiais),
+            'SUM': elegiveis + fora,
+            'RECONCILED': 'YES' if elegiveis + fora == len(materiais) else 'NO'},
+        'METRIC_PRESERVED': 'CLASSIFICATION_COVERAGE_OBSERVED',
+        'METRIC_FORBIDDEN': 'CLASSIFIER_ACCURACY',
+        'NOTHING_RECLASSIFIED': 'YES',
+    }
+
+
+# ═══════════════════════════════════════════ os DOIS freezes
+CREATOR_MAP_FROZEN_COMMIT = '248bd27027506a5f531a117ce50d35eb5304b152'
+CREATOR_DEEP_CORPUS_V1_FROZEN_COMMIT = 'a509c12'
+
+
+def dois_freezes():
+    """Dois artefatos, dois congelamentos, dois commits. Nunca o HEAD do branch.
+
+    O branch continua andando — este próprio registro é um commit novo. Quem
+    consumir o Creator Map pelo HEAD acabaria lendo, um dia, um mapa que alguém
+    mexeu depois. `LATEST_BRANCH_HEAD != CREATOR_MAP_FREEZE` é a suposição que
+    este bloco existe para impedir, e ele confere por diff em vez de afirmar.
+    """
+    r = subprocess.run(['git', 'diff', '--name-only',
+                        CREATOR_MAP_FROZEN_COMMIT, 'HEAD',
+                        '--', 'data/samples/CREATOR-MAP-EAME'],
+                       cwd=ROOT, capture_output=True, text=True)
+    mudados = [l for l in r.stdout.splitlines() if l.strip()]
+    return {
+        'CREATOR_MAP_FROZEN_COMMIT': CREATOR_MAP_FROZEN_COMMIT,
+        'CREATOR_DEEP_CORPUS_V1_FROZEN_COMMIT': CREATOR_DEEP_CORPUS_V1_FROZEN_COMMIT,
+        'CREATOR_MAP_FROZEN_FILES_CHANGED_SINCE_MAP_FREEZE': len(mudados),
+        'CHANGED_FILES': mudados,
+        'STATE': 'PASS' if not mudados else 'FAIL_LISTED_ABOVE',
+        'DOWNSTREAM_RULE': 'consumir o Creator Map pelo commit do freeze DELE e o '
+                           'Deep Corpus pelo commit do freeze DELE. Nunca assumir '
+                           'LATEST_BRANCH_HEAD = CREATOR_MAP_FREEZE.',
+        'WHY_TWO': 'artefatos diferentes, perguntas diferentes, congelamentos em '
+                   'datas diferentes. Um commit só serviria aos dois apenas se '
+                   'nada mais fosse acontecer no branch — e está acontecendo.',
+    }
+
+
 def amostra_italiana(materiais, n=12):
     """§3 · amostra dirigida do italiano em OTHER. Não vira taxa de acurácia."""
     alvo = [m for m in materiais
@@ -755,6 +857,7 @@ def selo():
             'METRIC': 'CLASSIFICATION_COVERAGE_OBSERVED',
             'NOT_PUBLISHED': 'CLASSIFIER_ACCURACY — não há gabarito humano suficiente',
             'BY_LANGUAGE': idiomas,
+            'DENOMINATOR': denominador_da_cobertura(materiais),
             'ITALIAN_MANUAL_REVIEW': veredito_it,
             'ITALIAN_DICTIONARY_COVERAGE_GAP': veredito_it['GAP'],
             'ITALIAN_SAMPLE_REVIEWED': len(amostra),
@@ -767,12 +870,22 @@ def selo():
                                              'troca de branch'},
         'RELEVANCE_PROFILES': perfil,
         'PROHIBITED_METRIC': cc.SCORE_PROIBIDO,
+        'TWO_FREEZES': dois_freezes(),
         'FREEZE_CONDITIONS': condicoes,
         'CREATOR_DEEP_CORPUS_V1': 'FROZEN' if ok else 'NOT_FROZEN',
         'OPTIONAL_REFRESH_INPUT': ('READY_WITH_LIMITATIONS' if ok else 'NOT_READY'),
         'EXACT_BLOCKER': cc.NOT_KNOWN if ok else 'ver FREEZE_CONDITIONS',
     })
     print('── 8 · freeze')
+    den = denominador_da_cobertura(materiais)
+    print('  denominador: elegíveis=%d · fora=%d · conservação=%s'
+          % (den['ITEMS_ELIGIBLE_FOR_TEXT_CLASSIFICATION'],
+             den['ITEMS_NOT_IN_CLASSIFICATION_DENOMINATOR'],
+             den['CONSERVATION']['RECONCILED']))
+    print('  motivos:', den['BY_REASON'])
+    dois = dois_freezes()
+    print('  Creator Map alterado desde o freeze DELE: %d arquivo(s) · %s'
+          % (dois['CREATOR_MAP_FROZEN_FILES_CHANGED_SINCE_MAP_FREEZE'], dois['STATE']))
     for k, v in condicoes.items():
         print('  %-34s %s' % (k, v))
     print('  CREATOR_DEEP_CORPUS_V1 =', 'FROZEN' if ok else 'NOT_FROZEN')

@@ -403,6 +403,32 @@
         "CLASSIFICATION_COVERAGE_OBSERVED": "24/43"
       }
     },
+    "DENOMINATOR": {
+      "CLASSIFICATION_COVERAGE_DENOMINATOR_DEFINITION": "itens cujo idioma o detector de palavras funcionais atribuiu a ES, FR ou IT. O denominador NÃO é o acervo: é o subconjunto que chegou a ser oferecido ao classificador temático.",
+      "ITEMS_ELIGIBLE_FOR_TEXT_CLASSIFICATION": 361,
+      "ITEMS_NOT_IN_CLASSIFICATION_DENOMINATOR": 81,
+      "BY_REASON": {
+        "NO_USABLE_TEXT": 21,
+        "MIXED_LANGUAGE": 6,
+        "LANGUAGE_NOT_ASSIGNED": 54,
+        "OTHER_MEASURED_REASON": 0,
+        "NON_TARGET_LANGUAGE": "NOT_MEASURED"
+      },
+      "REASON_NOTES": {
+        "NO_USABLE_TEXT": "legenda só com hashtag, arroba ou emoji",
+        "MIXED_LANGUAGE": "empate entre idiomas. Espanhol e italiano partilham palavras funcionais, e desempatar produziria uma cobertura que mede o desempate",
+        "LANGUAGE_NOT_ASSIGNED": "há texto, mas nenhuma palavra funcional de ES, FR ou IT apareceu — interjeição, marca, anglicismo, frase de três palavras",
+        "NON_TARGET_LANGUAGE": "NÃO MEDIDO, e por isso não é zero. Separar \"quarta língua\" de \"nenhuma palavra funcional casou\" exigiria um detector novo, e detector novo é ampliar dicionário — proibido nesta rodada. Esses itens estão contados DENTRO de LANGUAGE_NOT_ASSIGNED."
+      },
+      "CONSERVATION": {
+        "ALL_ITEMS_COLLECTED": 442,
+        "SUM": 442,
+        "RECONCILED": "YES"
+      },
+      "METRIC_PRESERVED": "CLASSIFICATION_COVERAGE_OBSERVED",
+      "METRIC_FORBIDDEN": "CLASSIFIER_ACCURACY",
+      "NOTHING_RECLASSIFIED": "YES"
+    },
     "ITALIAN_MANUAL_REVIEW": {
       "VERDICT": "ITALIAN_OTHER_CONTAINS_MISSED_RELEVANT_CONTENT",
       "GAP": "PROVED",
@@ -1929,6 +1955,15 @@
     "NAME": "ADAMA_RELEVANCE_SCORE",
     "STATUS": "PROHIBITED_METRIC",
     "WHY": "oito eixos somados viram um número que esconde qual eixo está vazio — e o eixo vazio é a informação que o Marketing precisa ver."
+  },
+  "TWO_FREEZES": {
+    "CREATOR_MAP_FROZEN_COMMIT": "248bd27027506a5f531a117ce50d35eb5304b152",
+    "CREATOR_DEEP_CORPUS_V1_FROZEN_COMMIT": "a509c12",
+    "CREATOR_MAP_FROZEN_FILES_CHANGED_SINCE_MAP_FREEZE": 0,
+    "CHANGED_FILES": [],
+    "STATE": "PASS",
+    "DOWNSTREAM_RULE": "consumir o Creator Map pelo commit do freeze DELE e o Deep Corpus pelo commit do freeze DELE. Nunca assumir LATEST_BRANCH_HEAD = CREATOR_MAP_FREEZE.",
+    "WHY_TWO": "artefatos diferentes, perguntas diferentes, congelamentos em datas diferentes. Um commit só serviria aos dois apenas se nada mais fosse acontecer no branch — e está acontecendo."
   },
   "FREEZE_CONDITIONS": {
     "COLLECTION_WINDOW_RECONCILED": "YES",
