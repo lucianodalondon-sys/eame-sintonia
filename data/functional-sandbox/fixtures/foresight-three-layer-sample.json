@@ -1,0 +1,1178 @@
+{
+ "FIXTURE": "aparada de COMPETITOR-THREE-LAYER-AUDIT.json — NAO e o artefato canonico",
+ "SOURCE_ID": "COMPETITOR-THREE-LAYER-AUDIT",
+ "captured_at": "2026-08-30",
+ "FACT_LOCATION": "ES · IT · FR",
+ "REGRA": "company da Meta == grupo do titular da marca == grupo do titular do registro local, e o PAÍS igual nas três.",
+ "O_QUE_ESTA_AUDITORIA_CORRIGE": "a rodada anterior anunciou 36 cadeias de três camadas casando APENAS o nome do produto anunciado com o nome da marca. Só o nome. É a falha que a testemunha URBOLE existe para impedir. Aqui a cadeia exige concordância de titular nas TRÊS pontas e o mesmo país.",
+ "FONTE_EXTERNA": {
+  "BRANCH": "claude/eame-meta-competitor",
+  "COMMIT": "4cee050e39b2aff868323812ae9b345fd084bcd9",
+  "ARQUIVO": "data/samples/META-EAME/META-COMPETITOR-PILOT-EAME.json",
+  "COMO_FOI_LIDO": "git show — somente leitura. Nenhum merge, nenhum checkout, nenhuma alteração de índice.",
+  "ESTADO_DO_HANDOFF_META": "NÃO CONGELADO pelo coordenador"
+ },
+ "UNIVERSO": {
+  "ANUNCIOS_OBSERVADOS_NA_META": 1111,
+  "THREE_LAYER_CANDIDATE_UNIT": "TUPLA (competidor, país, produto normalizado)",
+  "THREE_LAYER_CANDIDATES_TOTAL": 166,
+  "DESCARTADAS_ANTES_DE_CANDIDATAR": {
+   "N": 5,
+   "MOTIVO": "a chave `state` é marcador de AUSÊNCIA declarado pela missão Meta, não nome de produto",
+   "QUAIS": [
+    {
+     "COMPETITOR": "SEIPASA",
+     "COUNTRY": "ES",
+     "CHAVE": "state",
+     "VALOR": "NOT_KNOWN",
+     "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+    },
+    {
+     "COMPETITOR": "ALBAUGH",
+     "COUNTRY": "FR",
+     "CHAVE": "state",
+     "VALOR": "NOT_KNOWN",
+     "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+    },
+    {
+     "COMPETITOR": "NUFARM",
+     "COUNTRY": "FR",
+     "CHAVE": "state",
+     "VALOR": "NOT_KNOWN",
+     "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+    },
+    {
+     "COMPETITOR": "SYNGENTA",
+     "COUNTRY": "FR",
+     "CHAVE": "state",
+     "VALOR": "NOT_KNOWN",
+     "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+    },
+    {
+     "COMPETITOR": "BAYER",
+     "COUNTRY": "IT",
+     "CHAVE": "state",
+     "VALOR": "NOT_KNOWN",
+     "MOTIVO": "marcador de AUSÊNCIA declarado pela missão Meta (\"nenhum produto provado neste bloco\"), não é nome de produto"
+    }
+   ],
+   "EFEITO_DO_DEFEITO": "a primeira contagem publicou 171 candidatas e 136 NOT_KNOWN. O denominador estava 5 maior que a realidade — nada \"quebrava\", porque as fantasmas caíam todas em NOT_KNOWN."
+  },
+  "ATENCAO_A_UNIDADE": "TUPLA e PRODUTO são unidades diferentes e não se subtraem entre si. O mesmo produto anunciado em dois países é DUAS tuplas e UM produto. Cada decomposição fecha por assert, separadamente."
+ },
+ "RESULTADO": {
+  "UNIDADE": "TUPLA (competidor, país, produto normalizado)",
+  "THREE_LAYER_CHAIN_PROVED_TUPLES": 35,
+  "THREE_LAYER_CHAIN_REJECTED_TUPLES": 0,
+  "THREE_LAYER_CHAIN_NOT_KNOWN_TUPLES": 131,
+  "CONSERVACAO_TUPLAS": {
+   "SOMA": 166,
+   "TOTAL": 166,
+   "FECHA": true,
+   "VERIFICADO_POR": "assert, não por leitura"
+  },
+  "THREE_LAYER_CHAIN_PROVED": 35,
+  "THREE_LAYER_CHAIN_REJECTED": 0,
+  "THREE_LAYER_CHAIN_NOT_KNOWN": 131,
+  "MOTIVOS_DO_NOT_KNOWN": {
+   "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome": 85,
+   "nenhum registro local PROVED deste grupo com este nome": 46
+  },
+  "POR_UNIDADE_PRODUTO": {
+   "UNIDADE": "PRODUTO (nome normalizado)",
+   "META_PRODUCTS_TOTAL": 141,
+   "META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN": 28,
+   "META_PRODUCTS_WITHOUT_PROVED_THREE_LAYER_CHAIN": 113,
+   "CONSERVACAO_PRODUTOS": {
+    "SOMA": 141,
+    "TOTAL": 141,
+    "FECHA": true,
+    "VERIFICADO_POR": "assert, não por leitura"
+   },
+   "NOMES_CRUS_NA_META": 145,
+   "POR_QUE_145_NAO_E_O_TOTAL_NORMALIZADO": "o `ads_by_product_proved` do METRICS traz 145 nomes CRUS. Quatro pares são o mesmo nome em caixas diferentes — SPECTRUM/Spectrum, VELIFER/Velifer, GAXY/Gaxy, KUSABI/Kusabi — e colapsam ao normalizar. Por isso o total em unidade de produto é 141, e não 145.",
+   "ANUNCIADO_ANTES_COMO": "36 — obtido casando SÓ o nome",
+   "DIFERENCA_EXPLICADA": "o 36 antigo casava nome de produto com nome de marca, sem exigir que o titular da marca, o do registro e a company da Meta fossem o mesmo grupo, nem que o país fosse o mesmo nas três pontas",
+   "NAO_SUBTRAIR_ENTRE_UNIDADES": "145 - 28 = 117 seria subtração entre um total de nomes crus e uma contagem de produtos normalizados. As duas contas corretas estão acima, cada uma fechando na sua unidade."
+  }
+ },
+ "URBOLE_GUARD": {
+  "URBOLE_GUARD": "PASS",
+  "PARES_ENCONTRADOS": 2,
+  "ACEITOS_COMO_PROVED": 0,
+  "DETALHE": [
+   {
+    "GRUPO_DA_MARCA": "SYNGENTA",
+    "REGISTRATION_ID": "24157",
+    "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+    "REGISTRATION_GRUPO": "ADAMA",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH"
+   },
+   {
+    "GRUPO_DA_MARCA": "SYNGENTA",
+    "REGISTRATION_ID": "24157",
+    "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+    "REGISTRATION_GRUPO": "ADAMA",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH"
+   }
+  ],
+  "LEI": "SAME_NAME != SAME_COMPETITOR_PRODUCT",
+  "EXERCIDO_POR_MUTACAO": {
+   "MUTACAO": "a Meta anuncia URBOLE como SYNGENTA na Espanha",
+   "ESTADO_DEVOLVIDO": "THREE_LAYER_CHAIN_REJECTED",
+   "PEGOU": true,
+   "TITULAR_CONFLITANTE": [
+    "ADAMA Agriculture España S.A."
+   ],
+   "REGISTRATION_ID": [
+    "24157"
+   ],
+   "MOTIVO": "o nome existe no registro local deste país sob titular de OUTRO grupo. Nome igual não é mesmo produto de concorrente"
+  }
+ },
+ "COLISOES_DE_NOME_ENTRE_AS_PROVADAS": "nenhuma",
+ "ESTADO_DAS_PROVADAS": {
+  "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+  "FINAL_REFRESH_INPUT": "NO",
+  "POR_QUE": "a Meta é fonte externa a esta missão e seu handoff ainda não foi congelado. Entrada final de refresh só depois do handoff canônico da Meta."
+ },
+ "O_QUE_UMA_CADEIA_PROVADA_PROVA": "que a mesma empresa, no mesmo país, tem marca depositada com aquele nome, autorização local com aquele nome, e anúncio observado com aquele nome. Três fatos públicos sobre a mesma identidade.",
+ "O_QUE_ELA_NAO_PROVA": [
+  "não prova que o anúncio seja daquele produto registrado",
+  "não prova venda, investimento, share nem pressão competitiva",
+  "não prova lançamento nem intenção",
+  "a company da Meta é a classificação DELES; esta missão a aceita como declarada e não a re-verifica contra registro societário"
+ ],
+ "PROVADAS": [
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Collis"
+   ],
+   "ADS_OBSERVED": 3,
+   "NOME_NORMALIZADO": "COLLIS",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000001324078"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "23748",
+   "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001324078"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Dagonis"
+   ],
+   "ADS_OBSERVED": 3,
+   "NOME_NORMALIZADO": "DAGONIS",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000013519285"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "ES-00554",
+   "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000013519285"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Revycare"
+   ],
+   "ADS_OBSERVED": 60,
+   "NOME_NORMALIZADO": "REVYCARE",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000017770512"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+   ],
+   "REGISTRATION_ID": "ES-01263",
+   "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "/EM500000017770512"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Revyona"
+   ],
+   "ADS_OBSERVED": 21,
+   "NOME_NORMALIZADO": "REVYONA",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000016807372"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+   ],
+   "REGISTRATION_ID": "ES-01394",
+   "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "/EM500000016807372"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Serifel"
+   ],
+   "ADS_OBSERVED": 17,
+   "NOME_NORMALIZADO": "SERIFEL",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000011920238"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF CORPORATION']"
+   ],
+   "REGISTRATION_ID": "ES-00558",
+   "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000011920238"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "SPECTRUM",
+    "Spectrum"
+   ],
+   "ADS_OBSERVED": 3,
+   "NOME_NORMALIZADO": "SPECTRUM",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000001812056"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "24742",
+   "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001812056"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "VELIFER",
+    "Velifer"
+   ],
+   "ADS_OBSERVED": 9,
+   "NOME_NORMALIZADO": "VELIFER",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000010979979"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+   ],
+   "REGISTRATION_ID": "ES-01405",
+   "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000010979979"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Vivando"
+   ],
+   "ADS_OBSERVED": 3,
+   "NOME_NORMALIZADO": "VIVANDO",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000002963965"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "24143",
+   "REGISTRATION_HOLDER": "BASF Agricultural Solutions Spain S.L.U.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000002963965"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "FR",
+   "PRODUCT_NAME_NA_META": [
+    "Belanty"
+   ],
+   "ADS_OBSERVED": 4,
+   "NOME_NORMALIZADO": "BELANTY",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000015574288"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "2210797",
+   "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS FRANCE SAS",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "/EM500000015574288"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "FR",
+   "PRODUCT_NAME_NA_META": [
+    "Revyona"
+   ],
+   "ADS_OBSERVED": 8,
+   "NOME_NORMALIZADO": "REVYONA",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000016807372"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+   ],
+   "REGISTRATION_ID": "2210798",
+   "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS FRANCE SAS",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "/EM500000016807372"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "FR",
+   "PRODUCT_NAME_NA_META": [
+    "Serifel"
+   ],
+   "ADS_OBSERVED": 3,
+   "NOME_NORMALIZADO": "SERIFEL",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000011920238"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF CORPORATION']"
+   ],
+   "REGISTRATION_ID": "2171248",
+   "REGISTRATION_HOLDER": "BASF FRANCE SAS",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000011920238"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "FR",
+   "PRODUCT_NAME_NA_META": [
+    "Spectrum"
+   ],
+   "ADS_OBSERVED": 4,
+   "NOME_NORMALIZADO": "SPECTRUM",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000001812056"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "9900251",
+   "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS FRANCE SAS",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001812056"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "ALLSTAR"
+   ],
+   "ADS_OBSERVED": 1,
+   "NOME_NORMALIZADO": "ALLSTAR",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000001323971"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "018125",
+   "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS ITALY S.R.L.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001323971"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "Belanty"
+   ],
+   "ADS_OBSERVED": 6,
+   "NOME_NORMALIZADO": "BELANTY",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000015574288"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "018377",
+   "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS ITALY S.R.L.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "/EM500000015574288"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "Beyond"
+   ],
+   "ADS_OBSERVED": 1,
+   "NOME_NORMALIZADO": "BEYOND",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000003317617"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF Agrochemical Products B.V.']"
+   ],
+   "REGISTRATION_ID": "010925",
+   "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS ITALY S.R.L.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000003317617"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "Dagonis"
+   ],
+   "ADS_OBSERVED": 10,
+   "NOME_NORMALIZADO": "DAGONIS",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000013519285"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "016658",
+   "REGISTRATION_HOLDER": "BASF AGRICULTURAL SOLUTIONS ITALY S.R.L.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000013519285"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "Envita"
+   ],
+   "ADS_OBSERVED": 1,
+   "NOME_NORMALIZADO": "ENVITA",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "IT502019000031420",
+    "EM500000018140681"
+   ],
+   "TM_OFFICE": [
+    "EM",
+    "IT"
+   ],
+   "TM_APPLICANT": [
+    "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+   ],
+   "REGISTRATION_ID": "019119",
+   "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "http://tmview.uibm.gov.it/trademark/data/IT502019000031420"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "RevyPro"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "REVYPRO",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000018832290"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+   ],
+   "REGISTRATION_ID": "018285",
+   "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000018832290"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "Revysion"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "REVYSION",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000017999982"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF Agro B.V. Arnhem (NL), Zweigniederlassung Freienbach']"
+   ],
+   "REGISTRATION_ID": "018137",
+   "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "http://euipo.europa.eu/trademark/data/EM500000017999982"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "Serifel"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "SERIFEL",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000011920238"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF CORPORATION']"
+   ],
+   "REGISTRATION_ID": "017272",
+   "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000011920238"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "Spectrum"
+   ],
+   "ADS_OBSERVED": 13,
+   "NOME_NORMALIZADO": "SPECTRUM",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000001812056"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "012954",
+   "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000001812056"
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "IT",
+   "PRODUCT_NAME_NA_META": [
+    "Stratos"
+   ],
+   "ADS_OBSERVED": 1,
+   "NOME_NORMALIZADO": "STRATOS",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000006472393"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['BASF SE']"
+   ],
+   "REGISTRATION_ID": "007984",
+   "REGISTRATION_HOLDER": "BASF ITALIA S.P.A.",
+   "REGISTRATION_GRUPO": "BASF",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "http://euipo.europa.eu/trademark/data/EM500000006472393"
+  },
+  {
+   "META_COMPANY": "BAYER",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Cayunis"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "CAYUNIS",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000014452312"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Bayer Intellectual Property GmbH']"
+   ],
+   "REGISTRATION_ID": "ES-01408",
+   "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   "REGISTRATION_GRUPO": "BAYER",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000014452312"
+  },
+  {
+   "META_COMPANY": "BAYER",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Flint"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "FLINT",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000000860684",
+    "EM500000000103168"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Bayer Intellectual Property GmbH']"
+   ],
+   "REGISTRATION_ID": "22338",
+   "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   "REGISTRATION_GRUPO": "BAYER",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000000860684"
+  },
+  {
+   "META_COMPANY": "BAYER",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Incelo"
+   ],
+   "ADS_OBSERVED": 3,
+   "NOME_NORMALIZADO": "INCELO",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000012077591"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Bayer Intellectual Property GmbH']"
+   ],
+   "REGISTRATION_ID": "ES-01437",
+   "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   "REGISTRATION_GRUPO": "BAYER",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000012077591"
+  },
+  {
+   "META_COMPANY": "BAYER",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Monolith"
+   ],
+   "ADS_OBSERVED": 3,
+   "NOME_NORMALIZADO": "MONOLITH",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000012702528"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Bayer Intellectual Property GmbH']"
+   ],
+   "REGISTRATION_ID": "ES-00497",
+   "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   "REGISTRATION_GRUPO": "BAYER",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000012702528"
+  },
+  {
+   "META_COMPANY": "BAYER",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Musketeer"
+   ],
+   "ADS_OBSERVED": 4,
+   "NOME_NORMALIZADO": "MUSKETEER",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000018530568"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Bayer Intellectual Property GmbH']"
+   ],
+   "REGISTRATION_ID": "ES-00651",
+   "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   "REGISTRATION_GRUPO": "BAYER",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000018530568"
+  },
+  {
+   "META_COMPANY": "BAYER",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Prosaro"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "PROSARO",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "ES500000002100617",
+    "EM500000018562950"
+   ],
+   "TM_OFFICE": [
+    "EM",
+    "ES"
+   ],
+   "TM_APPLICANT": [
+    "['BAYER INTELLECTUAL PROPERTY GMBH']",
+    "['Bayer Intellectual Property GmbH']"
+   ],
+   "REGISTRATION_ID": "25661",
+   "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   "REGISTRATION_GRUPO": "BAYER",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://consultas2.oepm.es/trademark/data/ES500000002100617"
+  },
+  {
+   "META_COMPANY": "BAYER",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Teldor"
+   ],
+   "ADS_OBSERVED": 11,
+   "NOME_NORMALIZADO": "TELDOR",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000018531491"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Bayer Intellectual Property GmbH']"
+   ],
+   "REGISTRATION_ID": "ES-00324",
+   "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   "REGISTRATION_GRUPO": "BAYER",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000018531491"
+  },
+  {
+   "META_COMPANY": "CORTEVA",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Hector"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "HECTOR",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000018233809"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Corteva Agriscience LLC']"
+   ],
+   "REGISTRATION_ID": "ES-01529",
+   "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+   "REGISTRATION_GRUPO": "CORTEVA",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000018233809"
+  },
+  {
+   "META_COMPANY": "CORTEVA",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Quelex"
+   ],
+   "ADS_OBSERVED": 1,
+   "NOME_NORMALIZADO": "QUELEX",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000011422367"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Corteva Agriscience LLC']"
+   ],
+   "REGISTRATION_ID": "ES-00735",
+   "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+   "REGISTRATION_GRUPO": "CORTEVA",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000011422367"
+  },
+  {
+   "META_COMPANY": "CORTEVA",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "UNIVOQ"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "UNIVOQ",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000015175987"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Corteva Agriscience LLC']"
+   ],
+   "REGISTRATION_ID": "ES-01386",
+   "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+   "REGISTRATION_GRUPO": "CORTEVA",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "/EM500000015175987"
+  },
+  {
+   "META_COMPANY": "CORTEVA",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Viballa"
+   ],
+   "ADS_OBSERVED": 4,
+   "NOME_NORMALIZADO": "VIBALLA",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000017900369"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['Corteva Agriscience LLC']"
+   ],
+   "REGISTRATION_ID": "ES-01754",
+   "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+   "REGISTRATION_GRUPO": "CORTEVA",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://euipo.europa.eu/trademark/data/EM500000017900369"
+  },
+  {
+   "META_COMPANY": "UPL",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Xanadu"
+   ],
+   "ADS_OBSERVED": 2,
+   "NOME_NORMALIZADO": "XANADU",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "ES500000003593343",
+    "EM500000017824848"
+   ],
+   "TM_OFFICE": [
+    "EM",
+    "ES"
+   ],
+   "TM_APPLICANT": [
+    "['UPL EUROPE LTD']"
+   ],
+   "REGISTRATION_ID": "ES-00830",
+   "REGISTRATION_HOLDER": "UPL HOLDINGS COÖPERATIEF U.A.",
+   "REGISTRATION_GRUPO": "UPL",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "https://consultas2.oepm.es/trademark/data/ES500000003593343"
+  },
+  {
+   "META_COMPANY": "UPL",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Yukon"
+   ],
+   "ADS_OBSERVED": 12,
+   "NOME_NORMALIZADO": "YUKON",
+   "ESTADO": "THREE_LAYER_CHAIN_PROVED",
+   "PRELIMINARY_CROSS_BRANCH_JOIN": "PROVED",
+   "FINAL_REFRESH_INPUT": "NO",
+   "MOTIVO_DO_NAO_FINAL": "o handoff da Meta ainda não foi congelado pelo coordenador",
+   "TM_ST13": [
+    "EM500000016608127"
+   ],
+   "TM_OFFICE": [
+    "EM"
+   ],
+   "TM_APPLICANT": [
+    "['UPL EUROPE LTD']"
+   ],
+   "REGISTRATION_ID": "ES-01540",
+   "REGISTRATION_HOLDER": "UPL HOLDINGS COÖPERATIEF U.A.",
+   "REGISTRATION_GRUPO": "UPL",
+   "CONCORDANCIA_DE_TITULAR": "META == MARCA == REGISTRO",
+   "SOURCE_URL": "http://euipo.europa.eu/trademark/data/EM500000016608127"
+  }
+ ],
+ "RECUSADAS": [],
+ "NOT_KNOWN": [
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "AgCelence"
+   ],
+   "ADS_OBSERVED": 5,
+   "NOME_NORMALIZADO": "AGCELENCE",
+   "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+   "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+   "EXISTE_SOB_OUTRO_TITULAR": false
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Cabrio"
+   ],
+   "ADS_OBSERVED": 9,
+   "NOME_NORMALIZADO": "CABRIO",
+   "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+   "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+   "EXISTE_SOB_OUTRO_TITULAR": false
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Delan"
+   ],
+   "ADS_OBSERVED": 34,
+   "NOME_NORMALIZADO": "DELAN",
+   "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+   "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+   "EXISTE_SOB_OUTRO_TITULAR": false
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "InVigor"
+   ],
+   "ADS_OBSERVED": 21,
+   "NOME_NORMALIZADO": "INVIGOR",
+   "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+   "MOTIVO": "nenhum registro local PROVED deste grupo com este nome",
+   "EXISTE_SOB_OUTRO_TITULAR": false
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "Priaxor"
+   ],
+   "ADS_OBSERVED": 17,
+   "NOME_NORMALIZADO": "PRIAXOR",
+   "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+   "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+   "EXISTE_SOB_OUTRO_TITULAR": false
+  },
+  {
+   "META_COMPANY": "BASF",
+   "COUNTRY": "ES",
+   "PRODUCT_NAME_NA_META": [
+    "RAK"
+   ],
+   "ADS_OBSERVED": 18,
+   "NOME_NORMALIZADO": "RAK",
+   "ESTADO": "THREE_LAYER_CHAIN_NOT_KNOWN",
+   "MOTIVO": "nenhuma marca deste grupo com este nome neste país · nenhum registro local PROVED deste grupo com este nome",
+   "EXISTE_SOB_OUTRO_TITULAR": false
+  }
+ ]
+}

@@ -25,6 +25,11 @@ CREATOR = os.path.join(FIX, 'creator-capability-sample.json')
 PUBCOMM = os.path.join(FIX, 'public-comm-batch-sample.json')
 QUEBRADO = os.path.join(FIX, 'schema-incompativel.json')
 EXPERT = os.path.join(ROOT, 'data', 'samples', 'SPEAKER-UNIVERSE-PILOT-V1.json')
+# DELTA 2026-08-30
+DEEP = os.path.join(FIX, 'creator-deep-corpus-sample.json')
+FSX = os.path.join(FIX, 'foresight-crosswalk-sample.json')
+FS3L = os.path.join(FIX, 'foresight-three-layer-sample.json')
+SCI = os.path.join(FIX, 'science-corpus-targets-sample.json')
 
 
 class TestParsing(unittest.TestCase):
@@ -199,10 +204,22 @@ class TestAusenciaExplicita(unittest.TestCase):
             self.assertEqual(o['FIELDS']['PUBLIC_CHANNEL_STATE'], 'NOT_IN_THIS_ARTIFACT')
             self.assertTrue(any('CONTENT_LINKED' in x for x in o['WHAT_IS_NOT_KNOWN']))
 
-    def test_foresight_falha_fechado_por_falta_de_artefato(self):
-        with self.assertRaises(fp.SchemaIncompativel) as ctx:
-            fp.adaptar_foresight()
-        self.assertIn('NO_ARTIFACT_IN_REPO', str(ctx.exception))
+    def test_conta_publica_declara_handoff_ausente(self):
+        objs = fp.adaptar_public_comm(fp.carregar(PUBCOMM))
+        self.assertEqual(objs[0]['PROVENANCE']['CONTENT_COLLECTION_STAGE'], 'NOT_STARTED')
+
+    def test_deep_corpus_declara_rota_sem_conteudo(self):
+        objs = fp.adaptar_creator_deep_corpus(fp.carregar(DEEP))
+        sem = [o for o in objs if o['FIELDS']['CONTENT_ROUTE'] != 'PROVED']
+        self.assertTrue(sem, 'a fixture precisa conter o caso sem rota de conteudo')
+        for o in sem:
+            self.assertTrue(any('NO_PROVED_CONTENT_ROUTE' in x
+                                for x in o['WHAT_IS_NOT_KNOWN']))
+
+    def test_meta_declarada_nao_verificavel(self):
+        objs = fp.adaptar_foresight_three_layer(fp.carregar(FS3L))
+        for o in objs:
+            self.assertEqual(o['PROVENANCE']['META_LEG'], 'NOT_VERIFIABLE_FROM_ORIGIN')
 
 
 class TestSchemaIncompativel(unittest.TestCase):
@@ -277,8 +294,24 @@ class TestProveniencia(unittest.TestCase):
         for o in man['ORIGENS']:
             self.assertIn('SOURCE_COMMIT', o)
             self.assertIn('SOURCE_PATH', o)
+    def test_a_ausencia_do_foresight_foi_superada_e_nao_apagada(self):
+        """`NOT_FOUND_AT_SNAPSHOT != DOES_NOT_EXIST`.
+
+        A medicao de ausencia nao e apagada: ela e marcada SUPERSEDED, com a data em que
+        deixou de valer. Apagar esconderia que a afirmacao existiu e estava certa para o
+        snapshot dela.
+        """
+        man = fp.carregar(os.path.join(FIX, 'FIXTURES-PROVENANCE.json'))
         f = man['CAPACIDADE_SEM_ARTEFATO']['COMPETITOR_FORESIGHT']
-        self.assertEqual(f['ESTADO'], 'NO_ARTIFACT_IN_REPO')
+        self.assertTrue(f['ESTADO'].startswith('SUPERSEDED'))
+        self.assertIn('25194e3', f['ONDE'])
+        self.assertIn('NOT_FOUND_AT_SNAPSHOT', f['NOTA'])
+
+    def test_a_meta_nao_e_alcancavel_a_partir_de_origin(self):
+        man = fp.carregar(os.path.join(FIX, 'FIXTURES-PROVENANCE.json'))
+        m = man['CAPACIDADE_SEM_ARTEFATO']['META_COMPETITOR']
+        self.assertEqual(m['ESTADO'], 'BRANCH_NOT_PUSHED_TO_ORIGIN')
+        self.assertIn('SEGUNDA MAO', m['O_QUE_EXISTE'])
 
 
 class TestGuardrails(unittest.TestCase):
@@ -302,6 +335,198 @@ class TestGuardrails(unittest.TestCase):
         objs = fp.adaptar_expert_directory(fp.carregar(EXPERT))
         texto = ' '.join(objs[0]['GUARDRAILS'])
         self.assertIn('RECURRENCE != AUTHORITY', texto)
+
+
+class TestUrboleGuard(unittest.TestCase):
+    """REGRESSAO OBRIGATORIA · `URBOLE_GUARD = PASS`.
+
+    `SAME_NAME != SAME_COMPETITOR_PRODUCT`. Um portao sem dentes e um portao com zero
+    recusas dao a mesma tela — por isso a recusa e EXERCIDA aqui, com a mutacao que a
+    provoca, e nao apenas observada no dado real.
+    """
+
+    def test_nome_igual_titular_diferente_e_recusado(self):
+        # o caso real: marca URBOLE da SYNGENTA, registro espanhol 24157 da ADAMA
+        self.assertEqual(
+            fp.urbole_guard('URBOLE', 'SYNGENTA', 'ES', 'URBOLE', 'ADAMA', 'ES'),
+            'REJECTED_HOLDER_MISMATCH')
+
+    def test_nome_e_titular_iguais_mas_pais_diferente_e_recusado(self):
+        self.assertEqual(
+            fp.urbole_guard('COLLIS', 'BASF', 'ES', 'COLLIS', 'BASF', 'IT'),
+            'REJECTED_COUNTRY_MISMATCH')
+
+    def test_tres_concordancias_promovem(self):
+        self.assertEqual(
+            fp.urbole_guard('COLLIS', 'BASF', 'ES', 'COLLIS', 'BASF', 'ES'), 'PROVED')
+
+    def test_nome_diferente_nao_e_recusa_e_sim_desconhecido(self):
+        self.assertEqual(
+            fp.urbole_guard('COLLIS', 'BASF', 'ES', 'REVYCARE', 'BASF', 'ES'), 'NOT_KNOWN')
+
+    def test_guard_e_reexercido_no_adaptador(self):
+        objs = fp.adaptar_foresight_crosswalk(fp.carregar(FSX))
+        for o in objs:
+            f = o['FIELDS']
+            if f['LINK_STATE_DECLARED'] == 'PROVED':
+                self.assertEqual(f['LINK_STATE_REEXERCISED'], 'PROVED',
+                                 'par declarado PROVED que o guard nao sustenta: %s'
+                                 % o['IDENTITY_KEY'])
+
+    def test_o_caso_urbole_esta_na_fixture_e_nao_e_proved(self):
+        objs = fp.adaptar_foresight_crosswalk(fp.carregar(FSX))
+        urbole = [o for o in objs if str(o['FIELDS'].get('BRAND', '')).upper() == 'URBOLE']
+        self.assertTrue(urbole, 'a fixture precisa conter o caso URBOLE')
+        for o in urbole:
+            self.assertNotEqual(o['FIELDS']['LINK_STATE_REEXERCISED'], 'PROVED')
+
+    def test_artefato_declara_o_guard_como_pass(self):
+        d = fp.carregar(FS3L)
+        self.assertEqual(d['URBOLE_GUARD']['URBOLE_GUARD'], 'PASS')
+        self.assertEqual(d['URBOLE_GUARD']['ACEITOS_COMO_PROVED'], 0)
+
+
+class TestForesight(unittest.TestCase):
+    """O Foresight deixou de ser ausencia. `NOT_FOUND_AT_SNAPSHOT != DOES_NOT_EXIST`."""
+
+    def test_freeze_aceito_viaja_na_proveniencia(self):
+        objs = fp.adaptar_foresight_crosswalk(fp.carregar(FSX))
+        for o in objs:
+            p = o['PROVENANCE']
+            self.assertEqual(p['FORESIGHT_ARTIFACT_STATE'], 'EXISTS')
+            self.assertEqual(p['FORESIGHT_CANONICAL_FREEZE'], 'ACCEPTED')
+            self.assertEqual(p['FORESIGHT_SOURCE_COMMIT'], '25194e3')
+
+    def test_nao_e_entrada_de_refresh_final(self):
+        objs = (fp.adaptar_foresight_crosswalk(fp.carregar(FSX))
+                + fp.adaptar_foresight_three_layer(fp.carregar(FS3L)))
+        for o in objs:
+            self.assertEqual(o['PROVENANCE']['FINAL_REFRESH_INPUT'], 'NO')
+
+    def test_crop_e_issue_ausentes_e_declarados(self):
+        objs = fp.adaptar_foresight_crosswalk(fp.carregar(FSX))
+        for o in objs:
+            self.assertIsNone(o['FIELDS']['CROP'])
+            self.assertIsNone(o['FIELDS']['ISSUE'])
+            self.assertTrue(any('CROP e ISSUE' in x for x in o['WHAT_IS_NOT_KNOWN']))
+
+    def test_unidades_do_foresight_nao_se_misturam(self):
+        cross = fp.adaptar_foresight_crosswalk(fp.carregar(FSX))
+        tres = fp.adaptar_foresight_three_layer(fp.carregar(FS3L))
+        with self.assertRaises(fp.UnidadeMisturada):
+            fp.juntar(cross + tres, cross, por='COUNTRY')
+
+    def test_chaves_nao_colidem(self):
+        for fn, path in ((fp.adaptar_foresight_crosswalk, FSX),
+                         (fp.adaptar_foresight_three_layer, FS3L)):
+            chaves = [o['IDENTITY_KEY'] for o in fn(fp.carregar(path))]
+            self.assertEqual(len(chaves), len(set(chaves)))
+
+    def test_tupla_e_produto_sao_unidades_diferentes(self):
+        d = fp.carregar(FS3L)
+        r = d['RESULTADO']
+        self.assertEqual(r['UNIDADE'], 'TUPLA (competidor, país, produto normalizado)')
+        self.assertNotEqual(r['THREE_LAYER_CHAIN_PROVED_TUPLES'],
+                            r['POR_UNIDADE_PRODUTO']['META_PRODUCTS_WITH_PROVED_THREE_LAYER_CHAIN'])
+
+
+class TestExpertiseNoCaso(unittest.TestCase):
+    """`IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED`.
+
+    A medicao anterior contou "2 especialistas em ES x OLIVE x REPILO" usando so o
+    diretorio. O proprio artefato de identidade diz que a pessoa herda CROP e ISSUE da
+    CONSULTA que a trouxe — herdar da consulta nao e expertise.
+    """
+    TERMOS_REPILO = ('repilo', 'venturia oleaginea', 'spilocaea oleagina',
+                     'fusicladium oleagineum', 'peacock spot', 'olive scab')
+
+    def _experts(self, case_id):
+        return [o for o in fp.adaptar_expert_directory(fp.carregar(EXPERT))
+                if o['FIELDS'].get('CASE_ID') == case_id]
+
+    def test_es_olive_repilo_tem_identidade_mas_nao_expertise(self):
+        corpus = fp.carregar(SCI)
+        pessoas = self._experts('ES-OLIVE-REPILO')
+        self.assertEqual(len(pessoas), 2, 'o diretorio tem duas pessoas neste recorte')
+        for p in pessoas:
+            r = fp.expertise_no_caso(p, corpus, 'OLIVE', 'REPILO', self.TERMOS_REPILO)
+            self.assertEqual(r['COUNTRY_MATCH'], 'PROVED')
+            self.assertEqual(r['CROP_EXPERTISE'], 'PROVED')
+            self.assertEqual(r['ISSUE_BY_TITLE'], 0)
+            self.assertEqual(r['ISSUE_EXPERTISE'], 'NOT_PROVED')
+            self.assertEqual(r['CASE_LEVEL_EXPERTISE'], 'NOT_PROVED')
+
+    def test_o_campo_issue_da_consulta_nao_promove(self):
+        corpus = fp.carregar(SCI)
+        pessoas = self._experts('ES-OLIVE-REPILO')
+        por_consulta = sum(fp.expertise_no_caso(p, corpus, 'OLIVE', 'REPILO',
+                                                self.TERMOS_REPILO)['ISSUE_BY_QUERY_FIELD']
+                           for p in pessoas)
+        self.assertGreater(por_consulta, 0, 'ha ISSUE=REPILO herdado da consulta')
+        for p in pessoas:
+            r = fp.expertise_no_caso(p, corpus, 'OLIVE', 'REPILO', self.TERMOS_REPILO)
+            self.assertNotEqual(r['ISSUE_EXPERTISE'], 'PROVED')
+
+    def test_ausencia_no_corpus_espanhol_e_not_measurable_e_nao_not_proved(self):
+        corpus = fp.carregar(SCI)
+        for case_id, crop, issue, termos in (
+                ('IT-VINE-FLAVESCENCE', 'GRAPEVINE', 'FLAVESCENCE',
+                 ('flavescence', 'scaphoideus')),):
+            for p in self._experts(case_id):
+                r = fp.expertise_no_caso(p, corpus, crop, issue, termos)
+                self.assertEqual(r['WORKS_IN_CORPUS'], 0)
+                self.assertEqual(r['ISSUE_EXPERTISE'], 'NOT_MEASURABLE')
+                self.assertIn('NAO e ausencia de obra', r['WHY'])
+
+    def test_a_regua_e_a_mesma_para_todos_os_recortes(self):
+        corpus = fp.carregar(SCI)
+        for p in self._experts('FR-CEREAL-SEPTORIA'):
+            r = fp.expertise_no_caso(p, corpus, 'CEREALS', 'SEPTORIA',
+                                     ('septoria', 'zymoseptoria'))
+            self.assertNotEqual(r['ISSUE_EXPERTISE'], 'PROVED',
+                                'se 1 REPILO nao promove Landa, 2 SEPTORIA nao promove aqui')
+
+
+class TestDeepCorpus(unittest.TestCase):
+    """`IDENTIDADE != CONTEUDO`. O Creator Map diz QUEM; o corpus diz o que o material mostra."""
+
+    def test_unidade_propria(self):
+        for o in fp.adaptar_creator_deep_corpus(fp.carregar(DEEP)):
+            self.assertEqual(o['ANALYTICAL_UNIT'], 'CREATOR_CONTENT_PROFILE')
+
+    def test_rotas_de_conteudo_medidas(self):
+        objs = fp.adaptar_creator_deep_corpus(fp.carregar(DEEP))
+        provadas = [o for o in objs if o['FIELDS']['CONTENT_ROUTE'] == 'PROVED']
+        self.assertEqual(len(objs), 10)
+        self.assertEqual(len(provadas), 9)
+        self.assertEqual(len(objs) - len(provadas), 1)
+
+    def test_issue_do_conteudo_e_classe_de_linha_nunca_problema_nomeado(self):
+        objs = fp.adaptar_creator_deep_corpus(fp.carregar(DEEP))
+        vistas = set()
+        for o in objs:
+            vistas.update((o['FIELDS']['ISSUES_OBSERVED_IN_CONTENT'] or {}).keys())
+        self.assertTrue(vistas <= {'WEED', 'PEST', 'DISEASE'},
+                        'o corpus nao classifica problema nomeado: %s' % vistas)
+        for termo in ('REPILO', 'FLAVESCENCE', 'SEPTORIA'):
+            self.assertNotIn(termo, vistas)
+
+    def test_score_proibido_viaja_no_artefato(self):
+        d = fp.carregar(DEEP)
+        self.assertEqual(d['PROHIBITED_METRIC']['STATUS'], 'PROHIBITED_METRIC')
+        self.assertEqual(d['PROHIBITED_METRIC']['NAME'], 'ADAMA_RELEVANCE_SCORE')
+
+    def test_nao_observado_nao_e_ausencia(self):
+        for o in fp.adaptar_creator_deep_corpus(fp.carregar(DEEP)):
+            texto = ' '.join(o['GUARDRAILS'])
+            self.assertIn('NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP', texto)
+
+    def test_identidade_e_conteudo_nao_se_juntam_por_engano(self):
+        ident = [o for o in fp.adaptar_creator_capability(fp.carregar(CREATOR))
+                 if o['ANALYTICAL_UNIT'] == 'PERSON']
+        cont = fp.adaptar_creator_deep_corpus(fp.carregar(DEEP))
+        with self.assertRaises(fp.UnidadeMisturada):
+            fp.juntar(ident + cont, cont, por='COUNTRY')
 
 
 if __name__ == '__main__':

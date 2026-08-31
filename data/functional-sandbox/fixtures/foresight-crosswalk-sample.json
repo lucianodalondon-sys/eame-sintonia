@@ -1,0 +1,750 @@
+{
+ "FIXTURE": "aparada de COMPETITOR-CROSSWALK.json — NAO e o artefato canonico",
+ "SOURCE_ID": "COMPETITOR-CROSSWALK",
+ "captured_at": "2026-08-30",
+ "FACT_LOCATION": "ES",
+ "REGRA": "duas concordâncias obrigatórias: nome normalizado do produto E grupo do titular. Nome sozinho nunca promove a PROVED.",
+ "NORMALIZACAO": "acento, caixa e pontuação. NÃO remove sufixo, número nem prefixo: FENOVA S != FENOVA SUPER, CUREX 3 != CUREX.",
+ "ESCOPO": "marcas com efeito na Espanha — escritório ES (nacional) e EM (marca da UE, que protege a Espanha). IT e FR ficam de fora deste crosswalk porque o registro do outro lado é espanhol.",
+ "UNIVERSO": {
+  "MARCAS_ES_MAIS_EM_COLETADAS": 6182,
+  "MARCAS_TESTADAS_APOS_DEDUPLICAR": 5579,
+  "PRODUTOS_NO_REGISTRO_ES": 3084,
+  "NOMES_DISTINTOS_NO_REGISTRO": 3083
+ },
+ "POR_ESTADO": {
+  "PROVED": 209,
+  "REJECTED_HOLDER_MISMATCH": 9,
+  "PARTIAL": 24,
+  "NOT_KNOWN": 5335
+ },
+ "PROVED_POR_GRUPO": {
+  "NUFARM": 24,
+  "SYNGENTA": 39,
+  "BAYER": 47,
+  "BASF": 39,
+  "CORTEVA": 46,
+  "UPL": 14
+ },
+ "TAXA_DE_LIGACAO": "209 pares PROVED em 5579 marcas testadas — 3.7%. A maioria esmagadora das marcas de um concorrente NÃO tem registro espanhol de mesmo nome.",
+ "RUIDO_MEDIDO": {
+  "O_QUE_FOI_TESTADO": "um casador por PREFIXO foi realmente rodado sobre as mesmas marcas, para medir o que a frouxidão produziria. Ele não foi usado para gerar links.",
+  "PARES_EXTRAS_QUE_ELE_CRIARIA": 441,
+  "DESTES_COM_TITULAR_ERRADO": 151,
+  "TAXA_DE_FALSO_LINK_DO_CASADOR_FROUXO": "151 de 441",
+  "AMOSTRA": [
+   {
+    "TM_NAME": "\"WINCHE\"",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "WINCHE 24 LE",
+    "REGISTRATION_ID": "23018",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "CREDIT",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "CREDIT 540",
+    "REGISTRATION_ID": "25738",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "FUSILADE",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "FUSILADE 125 EC",
+    "REGISTRATION_ID": "25006",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "FUSILADE",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "FUSILADE MAX",
+    "REGISTRATION_ID": "15814",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "SENTO",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "SENTOSAN",
+    "REGISTRATION_ID": "ES-00032",
+    "TITULAR_DO_REGISTRO": "ASCENZA PRODUCTOS PARA AGRICULTURA S.A.U.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "APOLO",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "APOLO 50 SC",
+    "REGISTRATION_ID": "24611",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "TYLLANEX",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "TYLLANEX MAGNUM",
+    "REGISTRATION_ID": "24855",
+    "TITULAR_DO_REGISTRO": "SYNGENTA ESPAÑA, S.A.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "CHAMP",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "CHAMP DP",
+    "REGISTRATION_ID": "23718",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "CHAMP",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "CHAMP SC",
+    "REGISTRATION_ID": "23190",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "CHAMP",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "CHAMPION FLOW",
+    "REGISTRATION_ID": "22742",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "\"PYRINEX\"",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "PYRINEX 48 EC",
+    "REGISTRATION_ID": "16643",
+    "TITULAR_DO_REGISTRO": "ADAMA Agriculture España S.A.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "\"PYRINEX\"",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "PYRINEX 5 G",
+    "REGISTRATION_ID": "18742",
+    "TITULAR_DO_REGISTRO": "ADAMA Agriculture España S.A.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "\"PYRINEX\"",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "PYRINEX JARDIN",
+    "REGISTRATION_ID": "21480",
+    "TITULAR_DO_REGISTRO": "ADAMA Agriculture España S.A.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "CLEMENTGROS",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "CLEMENTGROS PLUS",
+    "REGISTRATION_ID": "18926",
+    "TITULAR_DO_REGISTRO": "NUFARM ESPAÑA S.A.",
+    "ESTARIA_ERRADO": false
+   },
+   {
+    "TM_NAME": "ELECT",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "ELECTICIDE",
+    "REGISTRATION_ID": "ES-01381",
+    "TITULAR_DO_REGISTRO": "SHARDA CROPCHEM ESPAÑA S.L.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "ELECT",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "ELECTIS",
+    "REGISTRATION_ID": "23055",
+    "TITULAR_DO_REGISTRO": "GOWAN CROP PROTECTION LTD.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "ELECT",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "ELECTIS COBRE WG",
+    "REGISTRATION_ID": "ES-00597",
+    "TITULAR_DO_REGISTRO": "GOWAN CROP PROTECTION LTD.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "ELECT",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "ELECTIS CX",
+    "REGISTRATION_ID": "ES-00007",
+    "TITULAR_DO_REGISTRO": "GOWAN CROP PROTECTION LTD.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "ELECT",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "ELECTIS D",
+    "REGISTRATION_ID": "ES-00074",
+    "TITULAR_DO_REGISTRO": "GOWAN CROP PROTECTION LTD.",
+    "ESTARIA_ERRADO": true
+   },
+   {
+    "TM_NAME": "ELECT",
+    "GRUPO_DA_MARCA": "NUFARM",
+    "REGISTRO_QUE_SERIA_LIGADO": "ELECTIS TRIO WDG",
+    "REGISTRATION_ID": "ES-00344",
+    "TITULAR_DO_REGISTRO": "GOWAN CROP PROTECTION LTD.",
+    "ESTARIA_ERRADO": true
+   }
+  ],
+  "REJEITADOS_PELO_CASADOR_ESTRITO": [
+   {
+    "GRUPO_DA_MARCA": "NUFARM",
+    "TM_NAME": "DAYTONA",
+    "ST13": "EM500000018993366",
+    "TM_OFFICE": "EM",
+    "TM_APPLICANT": [
+     "Nufarm Europe GmbH"
+    ],
+    "TM_APPLICATION_DATE": "2024-03-01",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+    "REGISTRATION_ID": "25409",
+    "REGISTRATION_PRODUCT": "DAYTONA",
+    "REGISTRATION_HOLDER": "FMC Agricultural Solutions S.A.U.",
+    "REGISTRATION_GRUPO": "FMC",
+    "REGISTRATION_ESTADO": "Cancelado",
+    "REGISTRATION_DATE": "09-09-2013",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de FMC e a marca é de NUFARM. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   },
+   {
+    "GRUPO_DA_MARCA": "SYNGENTA",
+    "TM_NAME": "URBOLE",
+    "ST13": "ES500000004065698",
+    "TM_OFFICE": "ES",
+    "TM_APPLICANT": [
+     "SYNGENTA CROP PROTECTION AG"
+    ],
+    "TM_APPLICATION_DATE": "2020-05-07",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+    "REGISTRATION_ID": "24157",
+    "REGISTRATION_PRODUCT": "URBOLE",
+    "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+    "REGISTRATION_GRUPO": "ADAMA",
+    "REGISTRATION_ESTADO": "Vigente",
+    "REGISTRATION_DATE": "28-05-2007",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   },
+   {
+    "GRUPO_DA_MARCA": "SYNGENTA",
+    "TM_NAME": "KENDO",
+    "ST13": "EM500000005008263",
+    "TM_OFFICE": "EM",
+    "TM_APPLICANT": [
+     "Syngenta Limited"
+    ],
+    "TM_APPLICATION_DATE": "2006-03-24",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+    "REGISTRATION_ID": "24942",
+    "REGISTRATION_PRODUCT": "KENDO",
+    "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+    "REGISTRATION_GRUPO": "ADAMA",
+    "REGISTRATION_ESTADO": "Vigente",
+    "REGISTRATION_DATE": "08-04-2013",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   },
+   {
+    "GRUPO_DA_MARCA": "SYNGENTA",
+    "TM_NAME": "URBOLE",
+    "ST13": "EM500000018235093",
+    "TM_OFFICE": "EM",
+    "TM_APPLICANT": [
+     "SYNGENTA CROP PROTECTION AG"
+    ],
+    "TM_APPLICATION_DATE": "2020-05-08",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+    "REGISTRATION_ID": "24157",
+    "REGISTRATION_PRODUCT": "URBOLE",
+    "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+    "REGISTRATION_GRUPO": "ADAMA",
+    "REGISTRATION_ESTADO": "Vigente",
+    "REGISTRATION_DATE": "28-05-2007",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   },
+   {
+    "GRUPO_DA_MARCA": "SYNGENTA",
+    "TM_NAME": "TORNADO",
+    "ST13": "EM500000000317917",
+    "TM_OFFICE": "EM",
+    "TM_APPLICANT": [
+     "SYNGENTA CROP PROTECTION AG"
+    ],
+    "TM_APPLICATION_DATE": "1996-08-09",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "FORA_DAS_CLASSES_AGRO",
+    "REGISTRATION_ID": "22061",
+    "REGISTRATION_PRODUCT": "TORNADO",
+    "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+    "REGISTRATION_GRUPO": "ADAMA",
+    "REGISTRATION_ESTADO": "Vigente",
+    "REGISTRATION_DATE": "22-02-2000",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   },
+   {
+    "GRUPO_DA_MARCA": "SYNGENTA",
+    "TM_NAME": "TENDER",
+    "ST13": "EM500000001449784",
+    "TM_OFFICE": "EM",
+    "TM_APPLICANT": [
+     "SYNGENTA CROP PROTECTION AG"
+    ],
+    "TM_APPLICATION_DATE": "2000-01-06",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+    "REGISTRATION_ID": "ES-00538",
+    "REGISTRATION_PRODUCT": "TENDER",
+    "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+    "REGISTRATION_GRUPO": "BAYER",
+    "REGISTRATION_ESTADO": "Vigente",
+    "REGISTRATION_DATE": "22-02-1995",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de BAYER e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   },
+   {
+    "GRUPO_DA_MARCA": "BAYER",
+    "TM_NAME": "ALISTER",
+    "ST13": "EM500000018722788",
+    "TM_OFFICE": "EM",
+    "TM_APPLICANT": [
+     "Bayer Intellectual Property GmbH"
+    ],
+    "TM_APPLICATION_DATE": "2022-06-27",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+    "REGISTRATION_ID": "24156",
+    "REGISTRATION_PRODUCT": "ALISTER",
+    "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+    "REGISTRATION_GRUPO": "ADAMA",
+    "REGISTRATION_ESTADO": "Vigente",
+    "REGISTRATION_DATE": "24-05-2007",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de BAYER. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   },
+   {
+    "GRUPO_DA_MARCA": "BASF",
+    "TM_NAME": "INTREPID",
+    "ST13": "ES500000001947699",
+    "TM_OFFICE": "ES",
+    "TM_APPLICANT": [
+     "BASF AGRO B.V., ARNHEM (NL), ZWEIGNIEDERLASSUNG FREIENBACH"
+    ],
+    "TM_APPLICATION_DATE": "1995-02-15",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+    "REGISTRATION_ID": "ES-01106",
+    "REGISTRATION_PRODUCT": "INTREPID",
+    "REGISTRATION_HOLDER": "CORTEVA AGRISCIENCE SPAIN, S.L.U. (Sevilla)",
+    "REGISTRATION_GRUPO": "CORTEVA",
+    "REGISTRATION_ESTADO": "Cancelado",
+    "REGISTRATION_DATE": "18-04-2018",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de CORTEVA e a marca é de BASF. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   },
+   {
+    "GRUPO_DA_MARCA": "BASF",
+    "TM_NAME": "ACCRESTO",
+    "ST13": "EM500000010111301",
+    "TM_OFFICE": "EM",
+    "TM_APPLICANT": [
+     "BASF SE"
+    ],
+    "TM_APPLICATION_DATE": "2011-06-24",
+    "TM_STATUS": "Registered",
+    "AGROCHEMICAL_RELEVANCE": "CLASSE_1_E_5",
+    "REGISTRATION_ID": "19549",
+    "REGISTRATION_PRODUCT": "ACCRESTO",
+    "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+    "REGISTRATION_GRUPO": "ADAMA",
+    "REGISTRATION_ESTADO": "Vigente",
+    "REGISTRATION_DATE": "24-10-1994",
+    "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+    "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de BASF. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+   }
+  ]
+ },
+ "O_QUE_UM_PAR_PROVED_PROVA": "que existe uma marca registrada com este nome e um produto autorizado com este nome, e que os dois titulares pertencem ao mesmo grupo declarado. NADA ALÉM DISSO.",
+ "O_QUE_ELE_NAO_PROVA": [
+  "não prova que o produto está à venda",
+  "não prova que a marca foi depositada PARA aquele produto",
+  "não prova lançamento, estratégia, nem intenção",
+  "não prova relação societária: o agrupamento de titular é declarado em GRUPOS, por prefixo, e não lido de registro societário"
+ ],
+ "PARES": [
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "URBOLE",
+   "ST13": "ES500000004065698",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "SYNGENTA CROP PROTECTION AG"
+   ],
+   "TM_APPLICATION_DATE": "2020-05-07",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "24157",
+   "REGISTRATION_PRODUCT": "URBOLE",
+   "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+   "REGISTRATION_GRUPO": "ADAMA",
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "28-05-2007",
+   "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+   "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+  },
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "URBOLE",
+   "ST13": "EM500000018235093",
+   "TM_OFFICE": "EM",
+   "TM_APPLICANT": [
+    "SYNGENTA CROP PROTECTION AG"
+   ],
+   "TM_APPLICATION_DATE": "2020-05-08",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "24157",
+   "REGISTRATION_PRODUCT": "URBOLE",
+   "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+   "REGISTRATION_GRUPO": "ADAMA",
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "28-05-2007",
+   "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+   "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "NICOVITA",
+   "ST13": "ES500000003064133",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "NUFARM EUROPE GMBH"
+   ],
+   "TM_APPLICATION_DATE": "2013-02-19",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "25080",
+   "REGISTRATION_PRODUCT": "NICOVITA",
+   "REGISTRATION_HOLDER": "NUFARM ESPAÑA S.A.",
+   "REGISTRATION_GRUPO": "NUFARM",
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "10-12-2008",
+   "ESTADO_DO_LINK": "PROVED",
+   "MOTIVO": "nome e grupo do titular conferem nos dois lados"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "EPOPEE",
+   "ST13": "ES500000002750435",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "NUFARM EUROPE GMBH"
+   ],
+   "TM_APPLICATION_DATE": "2007-01-18",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "CLASSE_1_E_5",
+   "REGISTRATION_ID": "24649",
+   "REGISTRATION_PRODUCT": "EPOPEE",
+   "REGISTRATION_HOLDER": "NUFARM ESPAÑA S.A.",
+   "REGISTRATION_GRUPO": "NUFARM",
+   "REGISTRATION_ESTADO": "Cancelado",
+   "REGISTRATION_DATE": "10-12-2008",
+   "ESTADO_DO_LINK": "PROVED",
+   "MOTIVO": "nome e grupo do titular conferem nos dois lados"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "DAUPAREX",
+   "ST13": "ES500000000834980",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "NUFARM EUROPE GMBH"
+   ],
+   "TM_APPLICATION_DATE": "1976-12-22",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "23042",
+   "REGISTRATION_PRODUCT": "DAUPAREX",
+   "REGISTRATION_HOLDER": "NUFARM ESPAÑA S.A.",
+   "REGISTRATION_GRUPO": "NUFARM",
+   "REGISTRATION_ESTADO": "Cancelado",
+   "REGISTRATION_DATE": "07-07-2003",
+   "ESTADO_DO_LINK": "PROVED",
+   "MOTIVO": "nome e grupo do titular conferem nos dois lados"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "NORDIKA",
+   "ST13": "ES500000002750429",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "NUFARM EUROPE GMBH"
+   ],
+   "TM_APPLICATION_DATE": "2007-01-18",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "CLASSE_1_E_5",
+   "REGISTRATION_ID": "25843",
+   "REGISTRATION_PRODUCT": "NORDIKA",
+   "REGISTRATION_HOLDER": "NUFARM ESPAÑA S.A.",
+   "REGISTRATION_GRUPO": "NUFARM",
+   "REGISTRATION_ESTADO": "Cancelado",
+   "REGISTRATION_DATE": "14-02-2017",
+   "ESTADO_DO_LINK": "PROVED",
+   "MOTIVO": "nome e grupo do titular conferem nos dois lados"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "TOUAREG",
+   "ST13": "ES500000002745636",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "NUFARM EUROPE GMBH"
+   ],
+   "TM_APPLICATION_DATE": "2006-12-15",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "CLASSE_1_E_5",
+   "REGISTRATION_ID": "25769",
+   "REGISTRATION_PRODUCT": "TOUAREG",
+   "REGISTRATION_HOLDER": "NUFARM ESPAÑA S.A.",
+   "REGISTRATION_GRUPO": "NUFARM",
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "19-07-2016",
+   "ESTADO_DO_LINK": "PROVED",
+   "MOTIVO": "nome e grupo do titular conferem nos dois lados"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "IRYDIA",
+   "ST13": "ES500000002715342",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "NUFARM EUROPE GMBH"
+   ],
+   "TM_APPLICATION_DATE": "2006-06-05",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "CLASSE_1_E_5",
+   "REGISTRATION_ID": "24558",
+   "REGISTRATION_PRODUCT": "IRYDIA",
+   "REGISTRATION_HOLDER": "NUFARM ESPAÑA S.A.",
+   "REGISTRATION_GRUPO": "NUFARM",
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "03-09-2007",
+   "ESTADO_DO_LINK": "PROVED",
+   "MOTIVO": "nome e grupo do titular conferem nos dois lados"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "BUTRYFLOW",
+   "ST13": "ES500000003063877",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "NUFARM ESPAÑA S.A."
+   ],
+   "TM_APPLICATION_DATE": "2013-02-18",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "25713",
+   "REGISTRATION_PRODUCT": "BUTRYFLOW",
+   "REGISTRATION_HOLDER": "NUFARM ESPAÑA S.A.",
+   "REGISTRATION_GRUPO": "NUFARM",
+   "REGISTRATION_ESTADO": "Cancelado",
+   "REGISTRATION_DATE": "12-02-2015",
+   "ESTADO_DO_LINK": "PROVED",
+   "MOTIVO": "nome e grupo do titular conferem nos dois lados"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "KOSSO",
+   "ST13": "ES500000002653936",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "NUFARM ESPAÑA S.A."
+   ],
+   "TM_APPLICATION_DATE": "2005-05-27",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "24033",
+   "REGISTRATION_PRODUCT": "KOSSO",
+   "REGISTRATION_HOLDER": "NUFARM ESPAÑA S.A.",
+   "REGISTRATION_GRUPO": "NUFARM",
+   "REGISTRATION_ESTADO": "Cancelado",
+   "REGISTRATION_DATE": "16-05-2006",
+   "ESTADO_DO_LINK": "PROVED",
+   "MOTIVO": "nome e grupo do titular conferem nos dois lados"
+  },
+  {
+   "GRUPO_DA_MARCA": "NUFARM",
+   "TM_NAME": "DAYTONA",
+   "ST13": "EM500000018993366",
+   "TM_OFFICE": "EM",
+   "TM_APPLICANT": [
+    "Nufarm Europe GmbH"
+   ],
+   "TM_APPLICATION_DATE": "2024-03-01",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "25409",
+   "REGISTRATION_PRODUCT": "DAYTONA",
+   "REGISTRATION_HOLDER": "FMC Agricultural Solutions S.A.U.",
+   "REGISTRATION_GRUPO": "FMC",
+   "REGISTRATION_ESTADO": "Cancelado",
+   "REGISTRATION_DATE": "09-09-2013",
+   "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+   "MOTIVO": "o nome confere, mas o registro é de FMC e a marca é de NUFARM. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+  },
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "KENDO",
+   "ST13": "EM500000005008263",
+   "TM_OFFICE": "EM",
+   "TM_APPLICANT": [
+    "Syngenta Limited"
+   ],
+   "TM_APPLICATION_DATE": "2006-03-24",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "24942",
+   "REGISTRATION_PRODUCT": "KENDO",
+   "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+   "REGISTRATION_GRUPO": "ADAMA",
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "08-04-2013",
+   "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+   "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+  },
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "TORNADO",
+   "ST13": "EM500000000317917",
+   "TM_OFFICE": "EM",
+   "TM_APPLICANT": [
+    "SYNGENTA CROP PROTECTION AG"
+   ],
+   "TM_APPLICATION_DATE": "1996-08-09",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "FORA_DAS_CLASSES_AGRO",
+   "REGISTRATION_ID": "22061",
+   "REGISTRATION_PRODUCT": "TORNADO",
+   "REGISTRATION_HOLDER": "ADAMA Agriculture España S.A.",
+   "REGISTRATION_GRUPO": "ADAMA",
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "22-02-2000",
+   "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+   "MOTIVO": "o nome confere, mas o registro é de ADAMA e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+  },
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "TENDER",
+   "ST13": "EM500000001449784",
+   "TM_OFFICE": "EM",
+   "TM_APPLICANT": [
+    "SYNGENTA CROP PROTECTION AG"
+   ],
+   "TM_APPLICATION_DATE": "2000-01-06",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "ES-00538",
+   "REGISTRATION_PRODUCT": "TENDER",
+   "REGISTRATION_HOLDER": "BAYER CROPSCIENCE, S.L. (Barcelona)",
+   "REGISTRATION_GRUPO": "BAYER",
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "22-02-1995",
+   "ESTADO_DO_LINK": "REJECTED_HOLDER_MISMATCH",
+   "MOTIVO": "o nome confere, mas o registro é de BAYER e a marca é de SYNGENTA. Nenhum dos dois documentos diz por quê, e este crosswalk não inventa a explicação"
+  },
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "DYNASTY",
+   "ST13": "ES500000001987692",
+   "TM_OFFICE": "ES",
+   "TM_APPLICANT": [
+    "SYNGENTA LIMITED"
+   ],
+   "TM_APPLICATION_DATE": "1995-09-28",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "ES-01448",
+   "REGISTRATION_PRODUCT": "DYNASTY",
+   "REGISTRATION_HOLDER": "SHARDA CROPCHEM ESPAÑA S.L.",
+   "REGISTRATION_GRUPO": null,
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "10-11-2022",
+   "ESTADO_DO_LINK": "PARTIAL",
+   "MOTIVO": "o nome confere; o titular do registro está fora da amostra e a relação societária não foi verificada"
+  },
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "Dynasty",
+   "ST13": "EM500000003910247",
+   "TM_OFFICE": "EM",
+   "TM_APPLICANT": [
+    "Syngenta Limited"
+   ],
+   "TM_APPLICATION_DATE": "2004-07-01",
+   "TM_STATUS": "Expired",
+   "AGROCHEMICAL_RELEVANCE": "CLASSE_1_E_5",
+   "REGISTRATION_ID": "ES-01448",
+   "REGISTRATION_PRODUCT": "DYNASTY",
+   "REGISTRATION_HOLDER": "SHARDA CROPCHEM ESPAÑA S.L.",
+   "REGISTRATION_GRUPO": null,
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "10-11-2022",
+   "ESTADO_DO_LINK": "PARTIAL",
+   "MOTIVO": "o nome confere; o titular do registro está fora da amostra e a relação societária não foi verificada"
+  },
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "BOXER",
+   "ST13": "EM500000006499198",
+   "TM_OFFICE": "EM",
+   "TM_APPLICANT": [
+    "Syngenta Limited"
+   ],
+   "TM_APPLICATION_DATE": "2007-11-28",
+   "TM_STATUS": "Registered",
+   "AGROCHEMICAL_RELEVANCE": "SO_CLASSE_5",
+   "REGISTRATION_ID": "ES-00990",
+   "REGISTRATION_PRODUCT": "BOXER",
+   "REGISTRATION_HOLDER": "RAINBOW AGROSCIENCES EUROPE, S.A.U.",
+   "REGISTRATION_GRUPO": null,
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "15-12-2004",
+   "ESTADO_DO_LINK": "PARTIAL",
+   "MOTIVO": "o nome confere; o titular do registro está fora da amostra e a relação societária não foi verificada"
+  },
+  {
+   "GRUPO_DA_MARCA": "SYNGENTA",
+   "TM_NAME": "AIKIDO",
+   "ST13": "EM500000001224443",
+   "TM_OFFICE": "EM",
+   "TM_APPLICANT": [
+    "Syngenta Limited"
+   ],
+   "TM_APPLICATION_DATE": "1999-06-30",
+   "TM_STATUS": "Ended",
+   "AGROCHEMICAL_RELEVANCE": "CLASSE_1_E_5",
+   "REGISTRATION_ID": "25640",
+   "REGISTRATION_PRODUCT": "AIKIDO",
+   "REGISTRATION_HOLDER": "ASCENZA PRODUCTOS PARA AGRICULTURA S.A.U.",
+   "REGISTRATION_GRUPO": null,
+   "REGISTRATION_ESTADO": "Vigente",
+   "REGISTRATION_DATE": "20-12-2012",
+   "ESTADO_DO_LINK": "PARTIAL",
+   "MOTIVO": "o nome confere; o titular do registro está fora da amostra e a relação societária não foi verificada"
+  }
+ ],
+ "NOTA_DA_FIXTURE": "a selecao original concatenava listas que se sobrepunham (o caso URBOLE aparece tambem entre os REJECTED). Deduplicado por TM_OFFICE|ST13|REGISTRATION_ID — 2 linha(s) removida(s)."
+}

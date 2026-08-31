@@ -45,15 +45,68 @@
    "FULL_ARTIFACT_SHA256": "ver data/functional-sandbox/PREP-MEDICAO.json",
    "FULL_ARTIFACT_BYTES": null,
    "COMO_REEXTRAIR": "ja esta na arvore"
+  },
+  {
+   "FIXTURE": "foresight-crosswalk-sample.json",
+   "CAPABILITY": "COMPETITOR_FORESIGHT",
+   "SOURCE_BRANCH": "claude/eame-competitor-foresight",
+   "SOURCE_COMMIT": "25194e3",
+   "FREEZE": "ACCEPTED",
+   "SOURCE_PATH": "data/samples/COMPETITOR-CROSSWALK.json",
+   "FULL_ARTIFACT_SHA256": "213e85952ff43122d2affcf0ceae48b7e3aedc269fa167af1bd61d2d767cb754",
+   "FULL_ARTIFACT_BYTES": 232778,
+   "COMO_REEXTRAIR": "git show 25194e3:data/samples/COMPETITOR-CROSSWALK.json"
+  },
+  {
+   "FIXTURE": "foresight-three-layer-sample.json",
+   "CAPABILITY": "COMPETITOR_FORESIGHT",
+   "SOURCE_BRANCH": "claude/eame-competitor-foresight",
+   "SOURCE_COMMIT": "25194e3",
+   "FREEZE": "ACCEPTED",
+   "SOURCE_PATH": "data/samples/COMPETITOR-THREE-LAYER-AUDIT.json",
+   "FULL_ARTIFACT_SHA256": "174ed6e1d041b45a8d6a976e5c44e64d797c1cbad8a5a91ddda84cfe5b8663c9",
+   "FULL_ARTIFACT_BYTES": 88073,
+   "COMO_REEXTRAIR": "git show 25194e3:data/samples/COMPETITOR-THREE-LAYER-AUDIT.json",
+   "AVISO": "a perna META desta auditoria vem de branch NAO publicada em origin (claude/eame-meta-competitor, commit 4cee050). Ela nao e verificavel daqui."
+  },
+  {
+   "FIXTURE": "creator-deep-corpus-sample.json",
+   "CAPABILITY": "CREATOR_DEEP_CORPUS",
+   "SOURCE_BRANCH": "claude/eame-agro-creators-map-77c4ld",
+   "SOURCE_COMMIT": "a509c12",
+   "FREEZE": "CORPUS_V1_FROZEN",
+   "SOURCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-DELIVERY.json + CREATOR-CORPUS-FICHES.json",
+   "FULL_ARTIFACT_SHA256": "09301d3278b2e6cbe129a13a7443495b68ee0b4ef8229694c24001deea573b3d + dbdaa3c774f1aff87b018312d7a5cd66c66070e34a16d9427572b27a1ff09df3",
+   "FULL_ARTIFACT_BYTES": 90349,
+   "COMO_REEXTRAIR": "git show a509c12:data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-DELIVERY.json"
+  },
+  {
+   "FIXTURE": "science-corpus-targets-sample.json",
+   "CAPABILITY": "EXPERT_DIRECTORY",
+   "SOURCE_BRANCH": "claude/sintonia-eame-portal-baseline",
+   "SOURCE_COMMIT": "in-tree",
+   "SOURCE_PATH": "data/samples/ES-T5-002-corpus-documentos.json",
+   "FULL_ARTIFACT_SHA256": "73be45fcfd44ed5e8aed85b9744246b714964cb14b91b0f2a97fe827e385e233",
+   "FULL_ARTIFACT_BYTES": 4870817,
+   "COMO_REEXTRAIR": "ja esta na arvore"
   }
  ],
  "CAPACIDADE_SEM_ARTEFATO": {
   "COMPETITOR_FORESIGHT": {
-   "ESTADO": "NO_ARTIFACT_IN_REPO",
+   "ESTADO": "SUPERSEDED — o artefato existe desde 2026-08-30",
+   "ONDE": "claude/eame-competitor-foresight @ 25194e3",
+   "NOTA": "a medicao de ausencia anterior era verdadeira apenas para o snapshot em que foi feita. NOT_FOUND_AT_SNAPSHOT != DOES_NOT_EXIST."
+  },
+  "META_COMPETITOR": {
+   "ESTADO": "BRANCH_NOT_PUSHED_TO_ORIGIN",
    "MEDIDO_EM": "2026-08-30",
-   "COMO_FOI_MEDIDO": "varredura de nomes de arquivo em TODOS os refs de origin (13 branches) e git grep por \"foresight\"",
-   "O_QUE_EXISTE": "apenas a fronteira declarada por OUTRA missao, dentro de MEDICAO-PRIMEIRO-LOTE-V1.json: \"IP, BRAND, REGULATORY e PRODUCT continuam do Foresight\"",
-   "CONSEQUENCIA": "nenhum adaptador de Foresight pode ser preparado. Preparar um a partir do nome seria inventar schema."
+   "COMO_FOI_MEDIDO": "git ls-remote --heads origin -> 13 heads, nenhuma contem \"meta\"",
+   "O_QUE_EXISTE": "a missao Foresight leu claude/eame-meta-competitor @ 4cee050 e publicou a auditoria da juncao. Os numeros da Meta chegam ate aqui em SEGUNDA MAO.",
+   "CONSEQUENCIA": "nenhum adaptador da Meta pode ser preparado: o artefato nao e alcancavel a partir de origin."
   }
+ },
+ "DELTA_REFRESH": {
+  "DATA": "2026-08-30",
+  "O_QUE_MUDOU": "Foresight deixou de ser NO_ARTIFACT_IN_REPO; Deep Corpus entrou; expertise por ISSUE passou a ser medida contra o corpus cientifico"
  }
 }

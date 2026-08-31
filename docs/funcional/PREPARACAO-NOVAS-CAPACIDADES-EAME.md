@@ -2,378 +2,415 @@
 
 **Data:** 2026-08-30 · **Branch:** `claude/sintonia-eame-portal-baseline`
 **Modo:** `PREPARE · MEASURE · MAP · TEST` — **`DO NOT INTEGRATE`**
+**Revisão:** **DELTA REFRESH 2026-08-30** — quatro fatos mudaram desde a primeira passagem.
 
 ```
 PRODUCT_IMPLEMENTATION_MODE = NOT_ENTERED
 FINAL_REFRESH_EXECUTED      = NO
 CASCO_V7_MODIFIED           = NO
 REAL_DATA_WIRED             = NO
+MANDATORY_HANDOFFS_ACCEPTED = 2/4
 ```
 
 > Nada aqui está ligado ao casco. Os adaptadores rodam sobre **fixtures aparadas** de
 > artefatos reais, lidos do Git em commit fixado. Nenhuma escrita em Supabase, nenhuma
 > alteração de schema canônico, nenhuma branch mesclada, nenhuma superfície criada.
 
-**Onde as coisas estão**
-
 | | |
 |---|---|
 | adaptadores | [`scripts/functional_prep.py`](../../scripts/functional_prep.py) |
 | protótipo isolado | [`scripts/functional_sandbox.py`](../../scripts/functional_sandbox.py) |
-| provas | [`tests/test_functional_prep.py`](../../tests/test_functional_prep.py) — **36 provas** |
+| provas | [`tests/test_functional_prep.py`](../../tests/test_functional_prep.py) — **63 provas** |
 | fixtures + proveniência | `data/functional-sandbox/fixtures/` |
 | medição derivada | `data/functional-sandbox/PREP-MEDICAO.json` |
 
-**Suíte inteira:** `365 testes · OK · 0 falhas`.
+**Suíte inteira:** `392 testes · OK · 0 falhas`.
 
 ---
 
-## 0 · AS TRÊS MEDIÇÕES QUE MUDAM COMO SE LIGA ISTO DEPOIS
+## 0 · O QUE MUDOU NESTE DELTA — e o que foi retirado
 
-Antes das fichas, o que a preparação **mediu** — e que nenhum documento dizia.
+### 0.1 · Duas afirmações minhas foram retiradas
 
-### 0.1 · Linha de índice não é entidade — inflação de **2,6×**
+| afirmação anterior | veredito | por quê |
+|---|---|---|
+| *"Expert Directory acende em 3 de 3 recortes"* | **RETIRADA** | media **identidade**, não expertise no problema. Identidade acende em 3/3; expertise no problema acende em **0 de 3** |
+| *"Creator pronto em 1 de 3; vazio em 2 de 3"* | **REFORMULADA** | o número era **rota de ativação por `COUNTRY + CROP`**, e foi apresentado como se fosse relevância no problema do caso |
 
-O índice do Creator Map lista a mesma pessoa **uma vez por cultura**.
+### 0.2 · Foresight deixou de ser ausência
 
-```
-LOOKUP_BY_ACTIVATION_STATE.ACTIVATION_READY     26 linhas
-                                                10 entidades distintas
-                                                 8 PERSON_CREATOR + 2 FARM_BUSINESS
-```
-
-Quem ligar a mangueira contando linha publica **26 creators prontos** onde há **10 pessoas
-e empresas**. O adaptador deduplica por identidade, e `contar()` **sempre** devolve os dois
-números — nunca só um. É a mesma lei que o repositório já pagou em `157 canais / 252 vídeos`.
-
-### 0.2 · Conta local não é empresa
+A medição anterior — *"`NO_ARTIFACT_IN_REPO`, varredura em 13 refs"* — **era verdadeira
+para o snapshot em que foi feita e deixou de ser**. Ela não foi apagada: está marcada
+`SUPERSEDED`, com a data em que parou de valer, e há prova disso.
 
 ```
-22 contas locais provadas    →    5 empresas distintas
-ES 10 · IT 8 · FR 4               BAYER 7 · SYNGENTA 8 · NUFARM 3 · BASF 3 · CORTEVA 1
+NOT_FOUND_AT_SNAPSHOT  ≠  DOES_NOT_EXIST
 ```
 
-Colapsar conta em empresa apagaria exatamente o que a camada mede: **a mesma empresa fala
-diferente em países diferentes**. `COMPANY_LOCAL_ACCOUNT ≠ COMPANY`.
+```
+FORESIGHT_ARTIFACT_STATE   = EXISTS
+FORESIGHT_CANONICAL_FREEZE = ACCEPTED
+FORESIGHT_SOURCE_BRANCH    = claude/eame-competitor-foresight
+FORESIGHT_SOURCE_COMMIT    = 25194e3
+FINAL_REFRESH_INPUT        = NO       (exige 4/4; hoje 2/4)
+```
 
-### 0.3 · Creator pronto e caso aberto **não coincidem**
+### 0.3 · A Meta continua fora de alcance — mas não por não existir
 
-Testei os três recortes congelados no protótipo isolado:
+**Medido:** `git ls-remote --heads origin` devolve **13 heads e nenhuma contém "meta"**.
+A branch `claude/eame-meta-competitor` **não está publicada**.
 
-| recorte | pessoas prontas | empresas prontas | especialistas | contas locais |
-|---|---:|---:|---:|---:|
-| `ES-OLIVE-REPILO` | **2** | 0 | 2 | 10 |
-| `IT-VINE-FLAVESCENCE` | **0** | 0 | 2 | 8 |
-| `FR-CEREAL-SEPTORIA` | **0** | 0 | 2 | 4 |
+Isso **não** é "Meta nunca testada". A missão Foresight leu a branch da Meta no commit
+`4cee050` e publicou a auditoria da junção. **Os números da Meta chegam até aqui em segunda
+mão** — 1.111 anúncios observados, 35 cadeias de três camadas provadas, 131 `NOT_KNOWN`.
+Todo objeto que os carrega sai com `META_LEG = NOT_VERIFIABLE_FROM_ORIGIN`.
 
-**Em 2 dos 3 recortes não há creator pronto nenhum.** Isso é medição, não veredito — mas é
-o teste que a PASSAGEM 1 pediu para decidir entre *ferramenta própria* e *camada de caso*
-(J4). Uma ferramenta de creators alimentada por caso ficaria vazia em dois terços dos casos
-congelados; uma ferramenta autônoma teria conteúdo, mas responderia uma pergunta que não é
-a do caso. **A decisão pertence à arbitragem.**
+### 0.4 · O Deep Corpus mudou o diagnóstico dos creators
+
+O gap antigo — *"pessoa↔canal 5/13, conteúdo↔pessoa 0"* — **misturava duas capacidades**.
+Aquele número é dos **pesquisadores**, e continua valendo para eles. Para os **creators**,
+o estado é outro e é melhor:
+
+```
+TARGETS ................... 10   (8 PERSON_CREATOR + 2 FARM_BUSINESS)
+CONTENT_ROUTES_PROVED ..... 9
+CONTENT_ROUTES_NOT_PROVED . 1    Gilles Van Kempen
+MATERIAIS COLETADOS ....... 442  (Instagram 399 · YouTube 43)
+ÚLTIMOS 90 DIAS ........... 164  · últimos 30 dias 116
+```
+
+**Por que a única rota não provada é interessante:** o endereço registrado de Gilles Van
+Kempen **é uma busca, não um canal**. Coletar de uma página de resultados atribuiria à
+pessoa o que o buscador devolveu. Recusar foi certo.
+
+---
+
+## 1 · AS QUATRO MEDIÇÕES QUE MUDAM COMO SE LIGA ISTO DEPOIS
+
+### 1.1 · Linha de índice não é entidade — inflação de **2,6×**
+
+```
+LOOKUP_BY_ACTIVATION_STATE.ACTIVATION_READY   26 linhas → 10 entidades
+                                               8 PERSON_CREATOR + 2 FARM_BUSINESS
+```
+`contar()` devolve **sempre** os dois números. `ROW ≠ ENTITY`.
+
+### 1.2 · Conta local não é empresa
+
+```
+22 contas locais provadas → 5 empresas distintas
+```
+
+### 1.3 · **`CROP_EXPERTISE ≠ CROP_X_ISSUE_EXPERTISE`** — medido, não herdado
+
+Esta é a correção mais importante do delta, e eu a **medi contra o corpus científico**, não
+apenas aceitei o veredito.
+
+O artefato de identidade declara, ele mesmo, que *"a pessoa herda `CROP` e `ISSUE` da
+**consulta** que a trouxe, nunca do título"*. Então o campo `ISSUE` não pode provar
+expertise. A prova forte exige o termo do problema **no título de um trabalho**.
+
+| pessoa | obras no corpus | `ISSUE=REPILO` pela consulta | **repilo no título** | concentração real |
+|---|---:|---:|---:|---|
+| **Blanca B. Landa** | 42 | 1 | **0** | XYLELLA 33 · VERTICILLIUM 19 |
+| **Jesús Mercado-Blanco** | 27 | 3 | **0** | VERTICILLIUM 26 · XYLELLA 10 |
+
+E o corpus inteiro: **4 documentos de 1.771** têm termo de repilo no título — e **nenhum
+dos quatro é assinado por elas**. Os autores que aparecem são outros (Juan Moral em 2 dos
+4, entre outros). *Isso é pista, não promoção:* nenhum deles passou pela mesma régua ainda.
+
+```
+ES_OLIVE_REPILO_CASE_EXPERTS = NOT_PROVED
+```
+
+**Nunca `0 experts exist`** — as duas pessoas existem, têm ORCID resolvido e são
+especialistas de olivar. **Nunca `2 experts ready`** — nenhuma sustenta *repilo*.
+
+**A mesma régua para todos.** Thierry C. Marcel tem 2 trabalhos com `ISSUE=SEPTORIA` pela
+consulta e **0** com o termo no título. Se 1 REPILO não promove Landa, 2 SEPTORIA não
+promove Marcel. Há prova disso.
+
+### 1.4 · O conteúdo dos creators **não** sustenta o problema do caso
+
+Agora que o Deep Corpus existe, dava para testar. Testei:
+
+```
+FICHAS COM ISSUE OBSERVADO NO CONTEÚDO ....... 5 de 10
+CLASSES OBSERVADAS ........................... WEED · PEST · DISEASE
+COBERTURA TOTAL .............................. PEST 16 · WEED 6 · DISEASE 5
+```
+
+O corpus classifica problema **no nível da linha ADAMA**, nunca no nível do problema
+nomeado. Não existe `REPILO`, `FLAVESCENCE` nem `SEPTORIA` em nenhuma ficha — e há prova
+disso, que falha se algum dia aparecer.
+
+```
+ISSUE_SPECIFIC_CREATOR_RELEVANCE = NOT_PROVED
+```
+
+⚠️ **E isso não reduz o valor do Creator Map.** Ele continua sendo rota de ativação e de
+voz pública mesmo sem sustentar o problema do caso — são perguntas diferentes. O próprio
+artefato já declara a fronteira: pode acrescentar `ACTIVATION_ROUTE_AVAILABLE` e
+`RELEVANT_PUBLIC_VOICE_AVAILABLE`; **não** confirma `FIELD_PROBLEM`, `INCIDENCE`,
+`MARKET_OPPORTUNITY` nem `PRODUCT_FIT`.
+
+---
+
+## 2 · OS TRÊS CASOS, CAMADA POR CAMADA
+
+**`OBSERVED_IN_3_TEST_CASES`** — nunca `EAME_COVERAGE_RATE`. Três recortes escolhidos não
+são amostra de nada.
+
+| camada | ES · OLIVE × REPILO | IT · VINE × FLAVESCENCE | FR · CEREAL × SEPTORIA |
+|---|---|---|---|
+| **CREATOR_ACTIVATION_ROUTE** | **PROVED** (2 pessoas) | NOT_PROVED | NOT_PROVED |
+| **CREATOR_ISSUE_RELEVANCE** | NOT_PROVED | NOT_PROVED | NOT_PROVED |
+| **EXPERT_DIRECTORY_AVAILABILITY** | **PROVED** (2) | **PROVED** (2) | **PROVED** (2) |
+| **EXPERT_CASE_EXPERTISE** | **NOT_PROVED** | **NOT_READY** | **NOT_PROVED** |
+| **COMPETITOR_PUBLIC_COMM_ACCOUNTS** | PARTIAL (10 contas) | PARTIAL (8) | PARTIAL (4) |
+| **FORESIGHT_PROVISIONAL** | PARTIAL | PARTIAL | PARTIAL |
+| **META_PROVISIONAL** | NOT_READY | NOT_READY | NOT_READY |
+| **TERRITORIAL_PROVISIONAL** | NOT_READY | NOT_READY | NOT_READY |
+
+**A distinção que o booleano escondia.** `NOT_READY` do expert italiano **não** é
+`NOT_PROVED`: o corpus científico disponível é espanhol (`institutions.country_code:es`),
+e Quaglino e Mori têm **zero obras nele**. Ausência no corpus espanhol **não é ausência de
+obra** — é ausência de régua. Dizer `NOT_PROVED` ali seria reprovar duas pessoas por um
+recorte de consulta.
+
+Cada camada carrega, separadamente: `ENTITY_AVAILABLE` · `CASE_KEY_MATCH_PROVED` ·
+`CASE_ISSUE_MATCH_PROVED` · `CONTENT_AVAILABLE` · `CANONICAL_HANDOFF_AVAILABLE`.
 
 ---
 
 # A · CREATOR MAP
 
 ```
-CAPABILITY                  = CREATOR_MAP
-SOURCE_HANDOFF              = docs/creators/HANDOFF-INTELLIGENCE-CREATOR-MAP-EAME.md
-SOURCE_ARTIFACT             = data/samples/CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json
-SOURCE_BRANCH               = claude/eame-agro-creators-map-77c4ld
-SOURCE_COMMIT               = 2018c5c8e0bd2c0d63d7ee14af423f158544a4d8
-STATE                       = FROZEN_WAITING_FOR_INTELLIGENCE
-SAFE_TO_PREPARE_NOW         = YES
+CAPABILITY          = CREATOR_MAP
+SOURCE_ARTIFACT     = data/samples/CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json
+SOURCE_COMMIT       = 2018c5c
+STATE               = FROZEN_WAITING_FOR_INTELLIGENCE · ACCEPTED (1 de 4)
+ANALYTICAL_UNIT     = PERSON · FARM_BUSINESS_ENTITY   (duas, e nunca se somam)
+SAFE_TO_PREPARE_NOW = YES
+DECISION_QUESTION   = WHO COULD MARKETING EVALUATE/CALL?  — nunca *hire*
 ```
 
-**`ANALYTICAL_UNIT` — duas, e elas nunca se somam**
-
-```
-PERSON                 pessoa física com canal público        8 ACTIVATION_READY
-FARM_BUSINESS_ENTITY   empresa agrícola                       2 PARTNER_READY
-```
-
-O próprio artefato escreve a lei: *"a soma NUNCA se chama `CREATORS_READY`. Pessoa ≠
-empresa."* Tipos `MEDIA_ACCOUNT`, `ORGANIZATION` e `OTHER` **não viram objeto** — forçá-los
-numa das duas unidades seria o erro que a fonte proíbe. Há prova disso.
-
-**`DECISION_QUESTION`**
-> *Se o Marketing quiser agir para esta cultura neste país/região, quem já tem relevância
-> real junto àquele público?* — e a pergunta é **avaliar/chamar**, nunca *contratar*.
-
-**`REAL_FIELDS_AVAILABLE`** (10 preservados por resultado, todos medidos)
-`IDENTITY_EVIDENCE` · `CROP_PROOF` · `RECENT_ACTIVITY` (30/90 d, com `AS_OF_DATE`) ·
-`PUBLIC_CHANNEL` · `PUBLIC_CONTACT` · `AUDIENCE_FACING` · `BRAND_HISTORY` ·
-`COMPETITOR_HISTORY` · `AS_OF_DATE` · `WHAT_IS_NOT_KNOWN`
-mais `ENTITY_TYPE`, `ACTIVATION_STATE`, `ACTUAL_FARMER`, `COUNTRY`, `REGION`.
-
-**`MISSING_FIELDS`**
-`AUDIENCE_TYPE` (não medida em ninguém fora de um caso) · `REVALIDATION_NEEDED_AFTER`
-(`NOT_YET_DEFINED` **de propósito** — cadência varia por pessoa, cultura e estação, e uma
-validade arbitrária seria precisão sem lastro) · `PUBLIC_CONTACT` em boa parte das fichas ·
-`REGION` em várias.
-
-**`JOIN_KEYS_PROVED`** — declaradas pela própria fonte
-`PERSON_ID` · `ENTITY_ID` · `BRAND` · `COUNTRY` · `CROP` · `OBSERVED_AT`
-
-**`JOIN_KEYS_NOT_PROVED`**
-`CROP → ISSUE` — o creator prova cultura, **nunca problema de campo** ·
-`PERSON ↔ SCIENTIFIC_PERSON` (nenhum ORCID neste artefato) ·
-`PERSON ↔ META_AD` — a própria fonte diz que, se a missão Meta achar uma destas pessoas
-num anúncio, isso vira `CREATOR_APPEARANCE_OBSERVED`, e **`PAID_CREATOR_RELATION` só sobe
-com prova adicional**.
-
-**`EXISTING_SURFACE_CANDIDATE`** · `Radar/Casos` → detalhe do caso (aba `Áreas ADAMA`, rota
-de ação de Marketing) · `Acervo` (as fichas são material com proveniência)
-**`CASE_LAYER_CANDIDATE`** · **SIM** — camada `AUDIÊNCIA / ATIVAÇÃO` dentro do caso
-**`NEW_TOOL_CANDIDATE`** · **`BOTH_POSSIBLE`** — e 0.3 é o dado que decide
-
-**`SEMANTIC_GUARDRAILS`**
-```
-PERSON_CREATOR != FARM_BUSINESS — a soma nunca se chama CREATORS_READY
-ACTIVATION_READY = "o Marketing já consegue avaliar" — nunca "contratar"
-FOLLOWERS != AUTHORITY · o artefato não ordena e não pontua
-ROW != ENTITY (2,6× de inflação medida)
-NOT_ASKED != NOT_READY — recorte ausente do índice não é reprovação
-CREATOR não confirma FIELD_PROBLEM, INCIDENCE, MARKET_OPPORTUNITY nem PRODUCT_FIT
-```
-
-**`BLOCKED_UNTIL_FINAL_HANDOFF`** · nada. O handoff chegou e está congelado.
-**O que ainda não pode ser mostrado:** audiência de ninguém; qualquer ordenação; qualquer
-número que some pessoa com empresa.
+`REAL_FIELDS_AVAILABLE` · os 10 preservados por resultado + `ENTITY_TYPE`,
+`ACTIVATION_STATE`, `ACTUAL_FARMER`, `COUNTRY`, `REGION`.
+`MISSING_FIELDS` · `AUDIENCE_TYPE` · `REVALIDATION_NEEDED_AFTER` (`NOT_YET_DEFINED` **de
+propósito**) · `PUBLIC_CONTACT` e `REGION` em várias fichas.
+`JOIN_KEYS_PROVED` · `PERSON_ID` · `ENTITY_ID` · `BRAND` · `COUNTRY` · `CROP` · `OBSERVED_AT`
+`JOIN_KEYS_NOT_PROVED` · `CROP → ISSUE` · `PERSON ↔ SCIENTIFIC_PERSON` · `PERSON ↔ META_AD`
+(se a Meta achar uma destas pessoas num anúncio, vira `CREATOR_APPEARANCE_OBSERVED`;
+`PAID_CREATOR_RELATION` só sobe com prova adicional)
+`EXISTING_SURFACE_CANDIDATE` · `Radar/Casos` → detalhe do caso · `Acervo`
+`CASE_LAYER_CANDIDATE` · SIM — camada `AUDIÊNCIA / ATIVAÇÃO`
+`NEW_TOOL_CANDIDATE` · **`BOTH_POSSIBLE`**
 
 ---
 
-# B · COMPETITOR FORESIGHT
+# B · CREATOR DEEP CORPUS — capacidade nova, papel separado
 
 ```
-CAPABILITY                  = COMPETITOR_FORESIGHT
-SOURCE_HANDOFF              = NENHUM
-STATE                       = NO_ARTIFACT_IN_REPO
-SAFE_TO_PREPARE_NOW         = NO
+CAPABILITY          = CREATOR_DEEP_CORPUS
+SOURCE_ARTIFACT     = CORPUS-DELIVERY.json + CREATOR-CORPUS-FICHES.json
+SOURCE_COMMIT       = a509c12
+STATE               = CORPUS_V1 FROZEN · OPTIONAL_REFRESH_INPUT = READY_WITH_LIMITATIONS
+ANALYTICAL_UNIT     = CREATOR_CONTENT_PROFILE   — unidade própria, de propósito
+SAFE_TO_PREPARE_NOW = YES
+DECISION_QUESTION   = WHAT THE MEASURED PUBLIC CORPUS SHOWS ABOUT THAT ENTITY
 ```
 
-**Medido, não suposto.** Varri **os 13 refs de `origin`** por nome de arquivo contendo
-*foresight* e por `git grep`. Resultado: **zero artefatos**. As duas únicas ocorrências
-estão dentro de artefato de **outra** missão, e são a fronteira que ela declara:
+**Os dois papéis não se fundem.** O Creator Map diz **quem**; o corpus diz **o que o
+material público mostra**. Fundi-los faria o corpus responder a pergunta do mapa. O
+adaptador usa unidade própria e `juntar()` recusa a mistura — há prova disso.
 
-> *"IP, BRAND, REGULATORY e PRODUCT continuam do Foresight. Esta camada só entrega
-> `PUBLIC COMMUNICATION EVENTS` e usa ID de lá quando existir; senão, `NOT_KNOWN`."*
-> — `MEDICAO-PRIMEIRO-LOTE-V1.json`, com `READY_FOR_FORESIGHT_JOIN = NO`
-
-**`ANALYTICAL_UNIT`** · desconhecida. Os candidatos plausíveis são unidades **diferentes**
-entre si — `TRADEMARK`, `LOCAL_REGISTRATION`, `PRODUCT/BRAND`, `PATENT` — e escolher uma
-agora seria desenhar schema a partir do nome da missão.
-
-`adaptar_foresight()` **existe e levanta erro**, com a data e o método da medição na
-mensagem. **A falha é a entrega.** Há prova disso.
-
-**`BLOCKED_UNTIL_FINAL_HANDOFF`** · **tudo.**
+`REAL_FIELDS_AVAILABLE` · `CHANNEL_STATE` · `N_CONTENT_ITEMS_REVIEWED` ·
+`RECENT_ACTIVITY_BY_WINDOW` · `CONTENT_TYPES_OBSERVED` · `TEXT_SUBSTANCE` ·
+`CROPS_OBSERVED` · `ISSUES_OBSERVED` · `AUDIENCE_EVIDENCE` · `BRANDS_OBSERVED` ·
+`COMPETITOR_RELATIONSHIP_EVIDENCE` · `SPONSORED_CONTENT_EVIDENCE`
+`MISSING_FIELDS` · imagem e vídeo **não foram lidos** (só texto) · região do fato não
+extraída · `LOCAL_ADAMA_CONTEXT` `NOT_KNOWN` · audiência ainda `NOT_KNOWN` na maioria
+`SEMANTIC_GUARDRAILS`
+```
+IDENTIDADE (mapa) != CONTEÚDO (corpus)
+NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP
+ADAMA_RELEVANCE_SCORE = PROHIBITED_METRIC — somar oito eixos esconde o eixo vazio
+FOLLOWERS DESC não é ordem de valor
+```
 
 ---
 
-# C · COMPETITOR PUBLIC COMMUNICATION
+# C · COMPETITOR FORESIGHT — freeze aceito
 
 ```
-CAPABILITY                  = COMPETITOR_PUBLIC_COMMUNICATION
-SOURCE_ARTIFACT             = data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json
-SOURCE_BRANCH               = claude/eame-competitor-public-communication
-SOURCE_COMMIT               = c25e44ba14d963f45a3381205b2759690fef66b9
-STATE                       = IDENTITY FREEZE_READY · CONTENT_COLLECTION_STAGE = NOT_STARTED
-SAFE_TO_PREPARE_NOW         = YES — somente a estrutura de identidade
+CAPABILITY          = COMPETITOR_FORESIGHT
+SOURCE_HANDOFF      = docs/foresight/HANDOFF-INTELLIGENCE-COMPETITOR-FORESIGHT-EAME.md
+SOURCE_BRANCH       = claude/eame-competitor-foresight
+SOURCE_COMMIT       = 25194e3
+FREEZE              = ACCEPTED
+ADAPTER_STATE       = PREPARED (sobre freeze aceito) · FINAL_REFRESH_INPUT = NO
+SAFE_TO_PREPARE_NOW = YES
+DECISION_QUESTION   = WHAT HAS THIS COMPETITOR REGISTERED AND FILED — WHERE, AND WHEN?
+                      NÃO: what is this competitor about to launch?
 ```
 
-**`ANALYTICAL_UNIT` = `COMPANY_LOCAL_ACCOUNT`** — uma conta, numa plataforma, num país.
-**Nunca "a empresa".**
+**Duas unidades analíticas, e elas não se somam:**
 
-**Lote autorizado: 22 contas** (recontei de forma independente e bate)
+| unidade | o que é | volume na fixture |
+|---|---|---|
+| `TRADEMARK_REGISTRATION_LINK` | o **par** marca↔registro | 18 objetos |
+| `COMPETITOR_COUNTRY_PRODUCT_TUPLE` | (competidor, país, produto normalizado) | 35 objetos |
 
+Números do artefato: **9.661 marcas** · **1.683 cadeias ligadas** (209 ES · 334 IT ·
+1.140 FR) · **126 falsos links recusados e publicados** · taxa de ligação **3,7 %** ·
+`PROVED` 209 · `REJECTED_HOLDER_MISMATCH` 9 · `PARTIAL` 24 · `NOT_KNOWN` 5.335.
+
+`MISSING_FIELDS` · **`CROP` e `ISSUE`** — nenhum dos três registros nacionais os traz.
+**Sem eles a camada não entra no eixo cultura × praga**, que é o coração da convergência.
+Este é o bloqueador estrutural da capacidade, não um detalhe.
+
+`SEMANTIC_GUARDRAILS`
 ```
-ES 10 · IT 8 · FR 4
-BAYER 7 · SYNGENTA 8 · NUFARM 3 · BASF 3 · CORTEVA 1
-FACEBOOK 10 · YOUTUBE 7 · INSTAGRAM 5 · LINKEDIN 0 (bloqueado: nenhuma conta local provada)
-22 URLs distintas — nenhuma colisão
-```
-
-Regra de entrada, escrita pela fonte: `ACCOUNT_IDENTITY_STATE = PROVED` **E**
-`COUNTRY_SCOPE = LOCAL_COUNTRY_PROVED` **E** `PAGE_ROLE = COMPANY`.
-Funil: 72 tentadas → 44 com link → 32 `PROVED` → **22 autorizadas**.
-
-**`REAL_FIELDS_AVAILABLE`** · `COMPANY` · `COUNTRY` · `PLATFORM` · `ACCOUNT_HANDLE` ·
-`ACCOUNT_URL` · `COUNTRY_SCOPE` · `PAGE_ROLE` — cada um com **evidência própria**
-(`IDENTITY_EVIDENCE`, `COUNTRY_SCOPE_EVIDENCE`, `PAGE_ROLE_EVIDENCE`).
-
-**`MISSING_FIELDS`** · **o conteúdo inteiro.** Nenhum post, nenhum vídeo, nenhuma data,
-nenhum tema. `CONTENT_COLLECTION_STAGE = NOT_STARTED`, e a missão declara por que ainda não
-terminou: *"identidade congelada não responde 'sobre o que a empresa está falando' nem 'o
-que mudou'."*
-
-**`JOIN_KEYS_PROVED`** · `COUNTRY` · `COMPANY` (para agrupar contas, nunca para colapsá-las)
-**`JOIN_KEYS_NOT_PROVED`** · `COMPANY ↔ LOCAL_REGISTRATION` (é do Foresight, que não existe)
-· `ACCOUNT ↔ META_PAID_ACTIVITY` (camada separada, nunca somada) ·
-`ACCOUNT ↔ CROP/ISSUE` (só o conteúdo diria, e ele não existe)
-
-**`EXISTING_SURFACE_CANDIDATE`** · `Caso` → aba `Convergência` → bloco **Competição como
-camada** — que no casco já tem as quatro linhas certas e todas em `NÃO SEI`. Também
-`Fontes`, como origem com estado de acesso.
-**`CASE_LAYER_CANDIDATE`** · **SIM**
-**`NEW_TOOL_CANDIDATE`** · **`CAN_FIT_EXISTING_SURFACE`** — o casco já reservou o lugar; a
-decisão canônica de 2026-08-30 é que competição é **camada estrutural**, não aba própria
-
-**`SEMANTIC_GUARDRAILS`**
-```
-COUNTRY_SCOPE != PAGE_ROLE — duas perguntas independentes. A DEKALB France recuperou a
-   prova que tinha justamente porque PRODUCT_BRAND deixou de ser um estado de país
-OFFICIAL_ACCOUNT != LOCAL_COUNTRY_ACCOUNT
 SAME_NAME != SAME_COMPETITOR_PRODUCT
-PUBLIC_COMMUNICATION != META_PAID_ACTIVITY — PUBLIC=YES com META=NO_OBSERVED é estado
-   válido, não contradição
+NICE_CLASS != AGROCHEMICAL PROOF          (4.496 das 9.661 marcas caem na classe 5;
+                                           2.551 são da Bayer, que tem divisão farma)
+HISTORICAL_PRECEDENCE != OPERATIONAL_EARLY_WARNING   (mediana de 1.546 dias ≈ 4,2 anos)
+NOT_JOINED != NOT_AVAILABLE != ZERO
+PATENT_WATCH != REFUTED — uma ROTA foi refutada, não a camada
+```
+
+### `URBOLE_GUARD = PASS` — regressão obrigatória, e **exercida**
+
+O portão exige **três concordâncias**: nome normalizado **+** grupo do titular **+** país.
+
+```
+URBOLE  marca SYNGENTA  ×  registro ES 24157 da ADAMA   →  REJECTED_HOLDER_MISMATCH
+COLLIS  BASF ES         ×  COLLIS BASF IT               →  REJECTED_COUNTRY_MISMATCH
+COLLIS  BASF ES         ×  COLLIS BASF ES               →  PROVED
+COLLIS                  ×  REVYCARE                     →  NOT_KNOWN  (não é recusa)
+```
+
+Um portão sem dentes e um portão com zero recusas dão a mesma tela — por isso a recusa é
+**provocada** nos testes, não apenas observada. E o adaptador **re-exerce** o portão sobre
+cada par: se a fonte disser `PROVED` e o guard discordar, o objeto sai com o estado do
+guard e a divergência declarada.
+
+---
+
+# D · COMPETITOR PUBLIC COMMUNICATION — preservado
+
+```
+IDENTITY_STAGE           = FROZEN          AUTHORIZED_ACCOUNTS = 22
+MANIFEST_STAGE           = FROZEN          ES = 10 · IT = 8 · FR = 4
+CONTENT_COLLECTION_STAGE = NOT_STARTED     ITEMS_COLLECTED = 0
+OPTIONAL_REFRESH_INPUT   = NOT_READY
+ANALYTICAL_UNIT          = COMPANY_LOCAL_ACCOUNT
+```
+
+Funil: 72 tentadas → 44 com link → 32 `PROVED` → **22 autorizadas**.
+Plataformas: FACEBOOK 10 · YOUTUBE 7 · INSTAGRAM 5 · **LINKEDIN 0** (bloqueado: nenhuma
+conta local provada). Empresas: SYNGENTA 8 · BAYER 7 · NUFARM 3 · BASF 3 · CORTEVA 1.
+
+```
+ACCOUNT != COMPANY
+COUNTRY_SCOPE != PAGE_ROLE     (a DEKALB France recuperou a prova que tinha quando
+                                PRODUCT_BRAND deixou de ser um estado de país)
 ZERO hoje = NO_CONTENT_COLLECTION_EXECUTED · NUNCA COMPANY_NOT_COMMUNICATING
 ```
 
-**`BLOCKED_UNTIL_FINAL_HANDOFF`** · **todo o conteúdo**, e com ele qualquer afirmação sobre
-tema, frequência, mudança ou silêncio de concorrente.
+---
+
+# E · RESEARCHER / EXPERT DIRECTORY — corrigido
+
+```
+CAPABILITY          = EXPERT_DIRECTORY
+ANALYTICAL_UNIT     = SCIENTIFIC_PERSON
+RESEARCHER_AS_EXPERT_DIRECTORY      = STRENGTHENED   (veredito do coordenador)
+RESEARCHER_AS_DAILY_PERSON_SENSOR   = NOT_PROVED
+SAFE_TO_PREPARE_NOW = YES
+```
+
+**Três degraus, e eles não se substituem:**
+
+| degrau | estado | evidência |
+|---|---|---|
+| identidade científica | **PROVADA para 13** | ORCID resolvido, instituição declarada, obra em 2024+ |
+| `PERSON ↔ PUBLIC_CHANNEL` | **PROVADO para 5 de 13** | 44 candidatos → 7 canais `PROVED`, 12 `PLAUSIBLE`, 25 `NOT_PROVED` |
+| `PUBLIC_CONTENT ↔ SAME_PERSON` | **NÃO PROVADO para ninguém** | o modo usado do ator não devolve cargo nem empresa |
+| **expertise no problema do caso** | **0 de 6** | ver 1.3 — medido contra o corpus |
+
+```
+IDENTITY_LINKAGE_BARRIER_REDUCED = YES
+SCIENCE_TO_PUBLIC_VOICE_LINK     = CAPABILITY_NOW_TESTABLE   (não PROVED)
+```
+
+**Portão obrigatório antes de contar qualquer especialista dentro de um caso:**
+`COUNTRY_MATCH` **+** `CROP_EXPERTISE_PROVED` **+** `ISSUE_EXPERTISE_PROVED`.
+Implementado em `expertise_no_caso()`, que devolve os três separados — nunca um booleano.
 
 ---
 
-# D · RESEARCHER / EXPERT DIRECTORY
+# F · EARLY SIGNAL TERRITORIAL — em voo
 
 ```
-CAPABILITY                  = EXPERT_DIRECTORY
-SOURCE_ARTIFACT             = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json  (nesta branch)
-                            + data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json
-STATE                       = RESEARCHER_AS_EXPERT_DIRECTORY = STRENGTHENED (veredito da
-                              árbitra; ver ressalva abaixo)
-                              RESEARCHER_AS_DAILY_PERSON_SENSOR = NOT_PROVED
-SAFE_TO_PREPARE_NOW         = YES
+STATE                = MISSÃO EM CURSO — sem handoff
+MEASUREMENT_STATE    = PROVISIONAL_MEASUREMENT
+SNAPSHOT             = 841fb54 · data/samples/TERRITORIAL/MEDICAO.json
+SAFE_TO_PREPARE_NOW  = NO — nenhum adaptador construído
+ANALYTICAL_UNIT      = CASE_SIGNAL (item territorial datado)
 ```
 
-⚠️ **Ressalva de custódia.** As strings `RESEARCHER_AS_EXPERT_DIRECTORY` e `STRENGTHENED`
-**não existem em nenhuma branch** — procurei. São vereditos da aba árbitra, e esta rodada os
-respeita como vieram. **A medição que os sustenta existe; o veredito escrito, não.** Mesma
-situação dos estados do EARLY SIGNAL, já registrada em `O8` da PASSAGEM 1.
+Medição intermediária, **não** estado final: 22 fontes tentadas · 17 alcançáveis ·
+**3 provadas** · 13 itens · `CROP` 100 % · `COUNTRY` 69 % · `REGION` 69 % · **`ISSUE` 15 %**
+· chave completa **8 %** · **0 sobreposições entre fontes**.
 
-**`ANALYTICAL_UNIT` = `SCIENTIFIC_PERSON`** — e ela **não** é a mesma unidade que `PERSON`
-do Creator Map. Um pesquisador com ORCID e um creator com handle são entidades diferentes,
-provadas por rotas diferentes. `juntar()` recusa misturá-las.
-
-**Números medidos:** 1.045 candidatos → 476 elegíveis → 13 tentados → **13 com identidade
-provada**, distribuídos nos seis recortes congelados (2 por recorte), com ORCID resolvido em
-`pub.orcid.org`, instituição declarada e obra em 2024 ou depois.
-
-**`REAL_FIELDS_AVAILABLE`** · `PERSON_ID` (ORCID/OpenAlex) · `NAME` · `INSTITUTION` ·
-`ROLE` · `CASE_ID` · `COUNTRY` + `COUNTRY_BASIS` (que diz explicitamente que é afiliação,
-não nacionalidade)
-
-**`MISSING_FIELDS`** · `PUBLIC_CHANNEL` não vem deste artefato · `REGION_OF_STUDY` **não
-existe no registro** (0 % em 1.771 de 1.771, e está certo) · nenhum conteúdo ligado a
-pessoa · cargo e empresa declarados não foram lidos (o modo usado do ator não os devolve)
-
-**`JOIN_KEYS_PROVED`**
-`CASE_ID` — a chave que amarra pesquisador a recorte, e a mais valiosa que este artefato tem
-`PERSON_ID` (ORCID) · `COUNTRY`
-
-**`JOIN_KEYS_NOT_PROVED`** — e este é o ponto fino
-```
-PERSON ↔ PUBLIC_CHANNEL     PARCIAL — 7 canais PROVED cobrindo 5 pessoas de 13;
-                            12 PLAUSIBLE sem régua de promoção escrita; 25 NOT_PROVED
-PUBLIC_CHANNEL ↔ CONTENT    NÃO PROVADO PARA NINGUÉM
-SCIENTIFIC_PERSON ↔ PERSON  não testado — são unidades diferentes
-```
-Enunciado correto, o mesmo da PASSAGEM 1: `IDENTITY_LINKAGE_BARRIER_REDUCED` +
-`CAPABILITY_NOW_TESTABLE`. **Não** `SCIENCE_TO_PUBLIC_VOICE_LINK = PROVED`.
-
-**`EXISTING_SURFACE_CANDIDATE`** · `Caso` → aba `Ciência e pessoas`
-**`CASE_LAYER_CANDIDATE`** · **SIM, e é o encaixe mais natural de todas as capacidades
-estudadas** — `CASE_ID` já é a chave, e o protótipo acendeu 2 especialistas em **cada um**
-dos três recortes testados. É a única capacidade nova que não deixou recorte vazio.
-**`NEW_TOOL_CANDIDATE`** · **`CAN_FIT_EXISTING_SURFACE`**
-
-**`SEMANTIC_GUARDRAILS`**
-```
-RECURRENCE != AUTHORITY — sem ordem, sem score, sem ranking
-AUTHOR AFFILIATION != REGION OF STUDY
-IDENTITY_PROVED != PUBLIC_CHANNEL_PROVED != CONTENT_LINKED
-IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED
-pessoas identificadas exigem tratamento GDPR antes de qualquer exposição
-CONTAGEM ALTA NÃO VALIDA IDENTIDADE — 58 organizações contra mediana 2 foi conflação
-```
+Sem `ISSUE`, o item não entra num caso `país × cultura × problema`.
 
 ---
 
-# E · EARLY SIGNAL TERRITORIAL — **em voo, não preparado**
-
-```
-CAPABILITY                  = EARLY_SIGNAL_TERRITORIAL
-SOURCE_ARTIFACT             = data/samples/TERRITORIAL/MEDICAO.json
-SOURCE_BRANCH               = claude/sintonia-eame-repo-setup-xccfob (841fb54)
-STATE                       = MISSÃO EM CURSO — sem handoff
-SAFE_TO_PREPARE_NOW         = NO
-```
-
-O artefato existe e é real, mas a missão é **uma das quatro que abrem o refresh final**.
-Registro só a forma, para o adaptador não nascer errado depois:
-
-```
-ANALYTICAL_UNIT   CASE_SIGNAL (item territorial datado), não pessoa e não conta
-22 fontes tentadas · 17 alcançáveis · 3 PROVADAS · 13 itens
-CROP 100 % · COUNTRY 69 % · REGION 69 % · ISSUE 15 % · CHAVE COMPLETA 8 %
-MULTI_SOURCE_OVERLAPS = 0 · INDEPENDENT_LAYER_OVERLAPS = 0
-```
-
-**O número que importa para o produto:** `ISSUE` em **15 %** e chave completa em **8 %**.
-Sem `ISSUE`, um item territorial não entra num caso `país × cultura × problema` — ele fica
-no Radar do Futuro como sinal solto. **E zero sobreposições entre fontes significa zero
-convergência até agora.**
-
-**`BLOCKED_UNTIL_FINAL_HANDOFF`** · tudo. Não preparei adaptador.
-
----
-
-# F · CLASSIFICAÇÃO — sem decidir nada
+# G · CLASSIFICAÇÃO — sem decidir nada
 
 | capacidade | classificação | por quê |
 |---|---|---|
-| **EXPERT_DIRECTORY** | `CAN_FIT_EXISTING_SURFACE` + `CASE_LAYER_CANDIDATE` | `CASE_ID` já é a chave; acendeu em 3 de 3 recortes |
 | **COMPETITOR_PUBLIC_COMMUNICATION** | `CAN_FIT_EXISTING_SURFACE` | o casco já reservou as quatro linhas de competição no caso |
-| **CREATOR_MAP** | **`BOTH_POSSIBLE`** | acendeu em 1 de 3 recortes: cabe como camada, mas ficaria vazia demais |
-| **EARLY_SIGNAL_TERRITORIAL** | `NOT_ENOUGH_EVIDENCE` | missão em curso; `ISSUE` em 15 % |
-| **COMPETITOR_FORESIGHT** | `NOT_ENOUGH_EVIDENCE` | não existe artefato |
+| **COMPETITOR_FORESIGHT** | `CAN_FIT_EXISTING_SURFACE` + `CASE_LAYER_CANDIDATE` | mesma camada de competição; **mas sem `CROP`/`ISSUE` não entra no eixo do caso** |
+| **EXPERT_DIRECTORY** | `CASE_LAYER_CANDIDATE` | `CASE_ID` é a chave; **a expertise no problema precisa de portão** |
+| **CREATOR_MAP** | **`BOTH_POSSIBLE`** | rota de ativação existe; relevância no problema não |
+| **CREATOR_DEEP_CORPUS** | `CASE_LAYER_CANDIDATE` (dentro do creator) | é conteúdo sobre a entidade, não entidade |
+| **EARLY_SIGNAL_TERRITORIAL** | `NOT_ENOUGH_EVIDENCE` | missão em curso |
+| **META** | `NOT_ENOUGH_EVIDENCE` | branch não publicada em origin |
 
-**Nenhum `FINAL_TOOL` foi escrito.** Essa decisão pertence a
-`FINAL REFRESH → RED TEAM → ARBITRATION → FINAL TOOL DEFINITION`.
+**Nenhum `FINAL_TOOL` foi escrito.**
 
 ---
 
-# G · ONDE O CASCO V7 HOJE NÃO COMPORTA
-
-Medido contra as doze superfícies, sem propor mudança:
+# H · ONDE O CASCO V7 HOJE NÃO COMPORTA
 
 | # | capacidade | o casco tem lugar? |
 |---|---|---|
-| G1 | especialista por caso | **sim** — aba `Ciência e pessoas` |
+| G1 | especialista por caso | **sim** — aba `Ciência e pessoas`. Falta o **portão de expertise** |
 | G2 | competição como camada do caso | **sim** — quatro linhas, todas em `NÃO SEI` |
-| G3 | **creator / ativação** | **não.** Zero superfícies, zero blocos, zero campos. É o `P3` da PASSAGEM 1, e continua aberto |
-| G4 | **quinto relógio — "quem viu primeiro"** | **não.** O casco tem quatro relógios agronômicos; `COMPETITOR OBSERVATION CLOCK` não existe |
-| G5 | **fila do que falta provar** (`MISSING_PROOFS`) | **não.** `Fontes` mostra estado da fonte, não estado da prova |
-| G6 | **conta local × país × plataforma** | **parcial.** `Fontes` comporta a origem; não há onde mostrar 22 contas por empresa e país |
+| G3 | **creator / ativação** | **não.** Zero superfícies |
+| G4 | **quinto relógio — "quem viu primeiro"** | **não** |
+| G5 | **fila do que falta provar** | **não** |
+| G6 | conta local × país × plataforma | **parcial** |
+| **G7** | **marca (`BRAND`) como chave** | **não.** É a chave nova que o Foresight traz, e **não existe em nenhuma camada do casco** |
+| **G8** | **conteúdo público de creator** (442 materiais, janelas 30/90 d) | **não** |
 
 ---
 
-# H · PERGUNTAS QUE SÓ OS HANDOFFS FINAIS RESPONDEM
+# I · PERGUNTAS QUE SÓ OS HANDOFFS FINAIS RESPONDEM
 
-1. **Creator vira camada de caso ou ferramenta própria?** O dado que decide é quantos
-   recortes abertos têm creator pronto. Hoje: **1 de 3**. O fechamento do piloto pode mudar.
-2. **A camada Meta muda o `PAID_CREATOR_RELATION`?** A fonte já declarou que um creator num
-   anúncio vira `CREATOR_APPEARANCE_OBSERVED`, e **não** relação paga.
-3. **O Foresight traz `LOCAL_REGISTRATION` como chave?** Sem ela, `COMPANY ↔ REGISTRO` não
-   fecha, e a competição fica só com identidade de conta.
-4. **A coleta de conteúdo do concorrente sobrevive ao runner?** `MISSION_STATE =
-   READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE`.
-5. **O territorial fecha `ISSUE` acima de 15 %?** Abaixo disso, sinal territorial não entra
-   em caso — fica no Radar do Futuro.
-6. **Os 12 canais `PLAUSIBLE` sobem para `PROVED`?** É o que move
-   `PERSON ↔ PUBLIC_CHANNEL` de 5/13 para perto de 17/13… ou não move.
+1. **O Foresight fecha `CROP`/`ISSUE`?** Sem isso a camada de concorrente não entra no eixo
+   cultura × praga — e é o coração da convergência.
+2. **A Meta será publicada em `origin`?** Hoje os números dela chegam em segunda mão.
+3. **O territorial fecha `ISSUE` acima de 15 %?**
+4. **Os 12 canais `PLAUSIBLE` de pesquisadores sobem para `PROVED`?**
+5. **Existe corpus científico não-espanhol?** Sem ele, `EXPERT_CASE_EXPERTISE` de IT e FR
+   fica `NOT_READY` para sempre — e `NOT_READY` não é `NOT_PROVED`.
+6. **Alguém aplica a régua de expertise aos autores que realmente publicam sobre repilo?**
+   O corpus os mostra; nenhum passou pelo portão.
 
 ---
 
@@ -384,41 +421,29 @@ PRODUCT_IMPLEMENTATION_MODE = NOT_ENTERED
 FINAL_REFRESH_EXECUTED      = NO
 CASCO_V7_MODIFIED           = NO
 REAL_DATA_WIRED             = NO
+MANDATORY_HANDOFFS_ACCEPTED = 2/4
 
-CAPABILITIES_PREPARED       = 3   CREATOR_MAP · COMPETITOR_PUBLIC_COMMUNICATION ·
-                                  EXPERT_DIRECTORY
-CAPABILITIES_REFUSED        = 2   COMPETITOR_FORESIGHT (sem artefato) ·
-                                  EARLY_SIGNAL_TERRITORIAL (missão em curso)
+CAPABILITIES_PREPARED  = 5   CREATOR_MAP · CREATOR_DEEP_CORPUS · COMPETITOR_FORESIGHT ·
+                             COMPETITOR_PUBLIC_COMMUNICATION · EXPERT_DIRECTORY
+CAPABILITIES_REFUSED   = 2   EARLY_SIGNAL_TERRITORIAL (em voo) ·
+                             META (branch não publicada em origin)
 
-ADAPTERS_PREPARED           = 4   adaptar_creator_capability · adaptar_public_comm ·
-                                  adaptar_expert_directory · adaptar_foresight (falha
-                                  fechado, de propósito)
-                                  + juntar() e contar(), que impõem as leis
+ADAPTERS_PREPARED      = 6   creator_capability · creator_deep_corpus ·
+                             foresight_crosswalk · foresight_three_layer ·
+                             public_comm · expert_directory
+                             + urbole_guard() · expertise_no_caso() · juntar() · contar()
 
-TESTS_ADDED                 = 36  (suíte: 329 -> 365, OK, 0 falhas)
-
-STRUCTURAL_GAPS_FOUND       = 6   G1..G6 — e três são novos: creator sem superfície,
-                                  quinto relógio ausente, fila de provas sem casa
-
+TESTS_ADDED            = 63  (suíte 329 → 392, OK, 0 falhas)
+STRUCTURAL_GAPS_FOUND  = 8   G1..G8 — dois novos neste delta (BRAND, conteúdo de creator)
 READY_FOR_FINAL_REFRESH_LATER = YES
 
 EXACT_BLOCKERS
-  1  COMPETITOR FORESIGHT nao tem artefato em nenhuma das 13 branches de origin
-  2  conteudo de comunicacao publica: CONTENT_COLLECTION_STAGE = NOT_STARTED
-  3  EARLY SIGNAL TERRITORIAL sem handoff; ISSUE em 15 %, chave completa em 8 %
-  4  META COMPETITOR sem entrega — EU-T9-002 continua NAO TESTADO
-  5  PERSON <-> PUBLIC_CHANNEL provado para 5 de 13; conteudo ligado a pessoa: ninguem
-  6  vereditos da arbitra (EARLY SIGNAL e EXPERT DIRECTORY) sem artefato no repositorio
+  1  FORESIGHT sem CROP e ISSUE — a camada nao entra no eixo cultura x praga
+  2  META: branch claude/eame-meta-competitor NAO publicada em origin (13 heads medidas)
+  3  PUBLIC COMM: CONTENT_COLLECTION_STAGE = NOT_STARTED, 0 itens
+  4  TERRITORIAL sem handoff; ISSUE em 15 %, chave completa em 8 %
+  5  EXPERT: expertise no problema NAO PROVADA em 0 de 6 pessoas dos tres recortes
+  6  EXPERT IT e FR: NAO MENSURAVEL — o corpus cientifico disponivel e espanhol
+  7  CREATOR: ISSUE do conteudo e classe de linha, nunca problema nomeado
+  8  PERSON <-> PUBLIC_CHANNEL de pesquisador provado em 5 de 13; conteudo em ninguem
 ```
-
-**Notas de execução**
-
-- Os testes ficaram em `tests/test_functional_prep.py`, e **não** em `tests/functional-prep/`
-  como o briefing sugeriu: `unittest discover` **não entra** em diretório cujo nome tem
-  hífen, e a suíte seria pulada em silêncio. Teste que não roda é pior que teste que falta.
-- Adicionar 36 provas mudou `TEST_COUNT_CURRENT` de 329 para 365 e a suíte reprovou seis
-  documentos com número velho — que é exatamente o mecanismo funcionando.
-  `scripts/metricas_canonicas.py --sync` corrigiu os seis marcadores; o handoff e o prompt
-  da nova conta foram atualizados à mão porque a contagem deles vive em prosa, fora de
-  marcador. No `PROMPT-PARA-NOVA-CONTA-CLAUDE.md` havia ainda um `TEST_COUNT_CURRENT = 280`
-  contradizendo o próprio arquivo três linhas abaixo; foi corrigido junto.

@@ -7,11 +7,15 @@
  "EVIDENCE_CLASS": "DERIVED_MEASUREMENT",
  "captured_at": "2026-08-30",
  "CAPTURED_AT": "2026-08-30",
+ "DELTA_REFRESH": "2026-08-30 — Foresight aceito, Deep Corpus congelado, expertise por ISSUE medida contra o corpus cientifico",
  "MODE": "PROTOTYPE_ONLY",
  "CASCO_V7_MODIFIED": false,
  "REAL_DATA_WIRED": false,
  "PRODUCT_IMPLEMENTATION_MODE": "NOT_ENTERED",
+ "FINAL_REFRESH_EXECUTED": "NO",
+ "MANDATORY_HANDOFFS_ACCEPTED": "2/4",
  "COMO_REPRODUZIR": "py scripts/functional_sandbox.py --medicao",
+ "SCOPE_NOTE": "OBSERVED_IN_3_TEST_CASES — nunca EAME_COVERAGE_RATE. Tres recortes escolhidos nao sao amostra de nada.",
  "OBJETOS_POR_CAPACIDADE": {
   "CREATOR_OBJECTS": {
    "ROWS": 33,
@@ -19,6 +23,13 @@
    "BY_ANALYTICAL_UNIT": {
     "FARM_BUSINESS_ENTITY": 2,
     "PERSON": 31
+   }
+  },
+  "CREATOR_CONTENT_PROFILES": {
+   "ROWS": 10,
+   "ENTITIES": 10,
+   "BY_ANALYTICAL_UNIT": {
+    "CREATOR_CONTENT_PROFILE": 10
    }
   },
   "PUBLIC_COMM_OBJECTS": {
@@ -34,6 +45,20 @@
    "BY_ANALYTICAL_UNIT": {
     "SCIENTIFIC_PERSON": 13
    }
+  },
+  "FORESIGHT_LINKS": {
+   "ROWS": 18,
+   "ENTITIES": 18,
+   "BY_ANALYTICAL_UNIT": {
+    "TRADEMARK_REGISTRATION_LINK": 18
+   }
+  },
+  "FORESIGHT_THREE_LAYER": {
+   "ROWS": 35,
+   "ENTITIES": 35,
+   "BY_ANALYTICAL_UNIT": {
+    "COMPETITOR_COUNTRY_PRODUCT_TUPLE": 35
+   }
   }
  },
  "CARDINALIDADE_PERIGOSA": {
@@ -41,7 +66,6 @@
   "LINHAS": 26,
   "ENTIDADES": 10,
   "FATOR_DE_INFLACAO": 2.6,
-  "POR_QUE": "a mesma pessoa aparece uma vez por cultura. Contar linha e contar cultura, nao gente.",
   "LEI": "ROW != ENTITY"
  },
  "CONTA_NAO_E_EMPRESA": {
@@ -49,15 +73,35 @@
   "EMPRESAS_DISTINTAS": 5,
   "LEI": "COMPANY_LOCAL_ACCOUNT != COMPANY"
  },
- "RECORTES_TESTADOS": 3,
- "RECORTES_COM_CREATOR_PRONTO": 1,
- "RECORTES_SEM_CREATOR_PRONTO": [
-  "IT-VINE-FLAVESCENCE",
-  "FR-CEREAL-SEPTORIA"
- ],
- "O_QUE_ISTO_SUGERE": "creator pronto e caso aberto nao coincidem por acaso. Em 2 dos 3 recortes congelados nao ha creator pronto nenhum. E medicao, nao veredito — a decisao entre ferramenta propria e camada de caso pertence a arbitragem.",
- "CAPACIDADE_SEM_ARTEFATO": {
-  "COMPETITOR_FORESIGHT": "NO_ARTIFACT_IN_REPO — adaptar_foresight() falha fechado"
+ "CREATOR_DEEP_CORPUS": {
+  "TARGETS": 10,
+  "CONTENT_ROUTES_PROVED": 9,
+  "CONTENT_ROUTES_NOT_PROVED": 1,
+  "SEM_ROTA_QUEM": [
+   "Gilles Van Kempen"
+  ],
+  "FICHAS_COM_ISSUE_NO_CONTEUDO": 5,
+  "ISSUE_E_CLASSE_DE_LINHA": "WEED / PEST / DISEASE — nunca problema nomeado",
+  "LEI": "IDENTIDADE (Creator Map) != CONTEUDO (Deep Corpus)"
+ },
+ "EXPERTISE_POR_CASO": {
+  "ES-OLIVE-REPILO": "NOT_PROVED",
+  "IT-VINE-FLAVESCENCE": "NOT_READY",
+  "FR-CEREAL-SEPTORIA": "NOT_PROVED"
+ },
+ "CREATOR_ISSUE_POR_CASO": {
+  "ES-OLIVE-REPILO": "NOT_PROVED",
+  "IT-VINE-FLAVESCENCE": "NOT_PROVED",
+  "FR-CEREAL-SEPTORIA": "NOT_PROVED"
+ },
+ "CREATOR_ROTA_POR_CASO": {
+  "ES-OLIVE-REPILO": "PROVED",
+  "IT-VINE-FLAVESCENCE": "NOT_PROVED",
+  "FR-CEREAL-SEPTORIA": "NOT_PROVED"
+ },
+ "AFIRMACOES_RETIRADAS": {
+  "EXPERT_3_OF_3": "RETIRADA — media identidade, nao expertise no problema",
+  "CREATOR_2_OF_3_VAZIOS": "REFORMULADA — o numero era rota de ativacao por COUNTRY+CROP, nunca relevancia no problema"
  },
  "RECORTES": [
   {
@@ -67,69 +111,151 @@
    "ISSUE": "REPILO",
    "CAMADAS_DO_CASCO": {
     "Campo": "NAO MEDIDO",
-    "Ciencia": "PARCIAL — 2 pessoa(s) com identidade provada",
+    "Ciencia": "PARCIAL — 2 identidade(s); expertise no problema NOT_PROVED",
     "Clima": "NAO MEDIDO",
     "Regulatorio": "NAO MEDIDO",
     "Portfolio local ADAMA": "NAO MEDIDO",
-    "Competicao": "PARCIAL — 10 conta(s) local(is) provada(s), CONTEUDO NAO COLETADO",
+    "Competicao": "PARCIAL — 10 conta(s) local(is); 18 par(es) marca<->registro; conteudo NAO coletado",
     "Tempo": "NAO CONECTADO"
    },
-   "CAMADA_NOVA_AUDIENCIA_ATIVACAO": {
-    "PERSON_CREATOR_ACTIVATION_READY": 2,
-    "FARM_BUSINESS_PARTNER_READY": 0,
-    "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY",
-    "PESSOAS": [
-     "Huerto Ecolgico Marc Agricultura Regenerativa",
-     "Francisco Fernandez Barroso"
-    ],
-    "EMPRESAS": [],
-    "O_QUE_ISTO_NAO_PROVA": [
-     "FIELD_PROBLEM",
-     "INCIDENCE",
-     "MARKET_OPPORTUNITY",
-     "PRODUCT_FIT"
-    ]
-   },
-   "CAMADA_CIENCIA_PESSOAS": {
-    "IDENTIDADE_PROVADA": 2,
-    "NOMES": [
-     "Blanca B. Landa",
-     "Jesús Mercado‐Blanco"
-    ],
-    "CANAL_PUBLICO": "NAO VEM DESTE ARTEFATO",
-    "CONTEUDO_LIGADO_A_PESSOA": "NAO PROVADO PARA NINGUEM"
-   },
-   "CAMADA_COMPETICAO_COMUNICACAO": {
-    "CONTAS_LOCAIS_PROVADAS": 10,
-    "EMPRESAS_COM_CONTA_LOCAL": [
-     "BASF",
-     "BAYER",
-     "CORTEVA",
-     "NUFARM",
-     "SYNGENTA"
-    ],
-    "CONTEUDO": "NOT_COLLECTED — nenhuma coleta executada",
-    "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING",
-    "ATIVACAO_PAGA_META": "NAO TESTADO — camada separada, nunca somada a esta"
-   },
-   "CONVERGENCIA": {
-    "PERNAS_COM_EVIDENCIA_INDEPENDENTE": 2,
-    "REGRA": "contagem de pernas NUNCA vira score; independencia precisa ser provada",
-    "O_QUE_FALTA_PARA_FECHAR": "campo datado, portfolio local ligado ao par, e tempo"
-   },
+   "CAMADAS": [
+    {
+     "LAYER": "CREATOR_ACTIVATION_ROUTE",
+     "STATE": "PROVED",
+     "EVIDENCE": "casamento por COUNTRY + CROP, e SO por isso",
+     "MATCH_KEY": "COUNTRY + CROP",
+     "ENTITY_AVAILABLE": 18,
+     "CASE_KEY_MATCH_PROVED": 4,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CONTENT_AVAILABLE": null,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "PERSON_CREATOR_ACTIVATION_READY": 2,
+     "FARM_BUSINESS_PARTNER_READY": 0,
+     "NAMES": [
+      "Huerto Ecolgico Marc Agricultura Regenerativa",
+      "Francisco Fernandez Barroso"
+     ],
+     "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY"
+    },
+    {
+     "LAYER": "CREATOR_ISSUE_RELEVANCE",
+     "STATE": "NOT_PROVED",
+     "EVIDENCE": "o corpus profundo classifica problema por LINHA (DISEASE, PEST, WEED), nunca por problema nomeado como REPILO",
+     "ENTITY_AVAILABLE": 7,
+     "CONTENT_AVAILABLE": 349,
+     "CONTENT_ROUTES_PROVED": 7,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "ISSUE_CLASSES_OBSERVED": {
+      "PEST": 16,
+      "WEED": 5,
+      "DISEASE": 5
+     },
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "LEI": "CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+    },
+    {
+     "LAYER": "EXPERT_DIRECTORY_AVAILABILITY",
+     "STATE": "PROVED",
+     "EVIDENCE": "2 pessoa(s) com identidade provada e ORCID resolvido, amarradas por CASE_ID",
+     "ENTITY_AVAILABLE": 2,
+     "CASE_KEY_MATCH_PROVED": 2,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "NAMES": [
+      "Blanca B. Landa",
+      "Jesús Mercado‐Blanco"
+     ]
+    },
+    {
+     "LAYER": "EXPERT_CASE_EXPERTISE",
+     "STATE": "NOT_PROVED",
+     "EVIDENCE": "nenhum trabalho com o problema no titulo. O campo ISSUE do corpus vem da CONSULTA que trouxe o documento, nao de leitura — herdar da consulta nao e expertise",
+     "COUNTRY_MATCH": "PROVED",
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "PER_PERSON": [
+      {
+       "PERSON": "Blanca B. Landa",
+       "PERSON_ID": "https://openalex.org/A5046191184",
+       "COUNTRY_MATCH": "PROVED",
+       "WORKS_IN_CORPUS": 42,
+       "CROP_EXPERTISE": "PROVED",
+       "CROP_WORKS": 41,
+       "ISSUE_BY_QUERY_FIELD": 1,
+       "ISSUE_BY_TITLE": 0,
+       "ISSUE_EXPERTISE": "NOT_PROVED",
+       "CASE_LEVEL_EXPERTISE": "NOT_PROVED",
+       "WHY": "o campo ISSUE vem da consulta que trouxe o documento, nao de leitura do titulo. Sem termo no titulo, nao ha prova de expertise no problema",
+       "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED · CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+      },
+      {
+       "PERSON": "Jesús Mercado‐Blanco",
+       "PERSON_ID": "https://openalex.org/A5076239639",
+       "COUNTRY_MATCH": "PROVED",
+       "WORKS_IN_CORPUS": 27,
+       "CROP_EXPERTISE": "PROVED",
+       "CROP_WORKS": 26,
+       "ISSUE_BY_QUERY_FIELD": 3,
+       "ISSUE_BY_TITLE": 0,
+       "ISSUE_EXPERTISE": "NOT_PROVED",
+       "CASE_LEVEL_EXPERTISE": "NOT_PROVED",
+       "WHY": "o campo ISSUE vem da consulta que trouxe o documento, nao de leitura do titulo. Sem termo no titulo, nao ha prova de expertise no problema",
+       "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED · CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+      }
+     ],
+     "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED"
+    },
+    {
+     "LAYER": "COMPETITOR_PUBLIC_COMM_ACCOUNTS",
+     "STATE": "PARTIAL",
+     "EVIDENCE": "identidade congelada; conteudo NAO coletado",
+     "ENTITY_AVAILABLE": 10,
+     "COMPANIES": [
+      "BASF",
+      "BAYER",
+      "CORTEVA",
+      "NUFARM",
+      "SYNGENTA"
+     ],
+     "CASE_KEY_MATCH_PROVED": 10,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CONTENT_AVAILABLE": 0,
+     "CONTENT_COLLECTION_STAGE": "NOT_STARTED",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING"
+    },
+    {
+     "LAYER": "FORESIGHT_PROVISIONAL",
+     "STATE": "PARTIAL",
+     "EVIDENCE": "crosswalk marca<->registro disponivel; CROP e ISSUE ausentes nos tres registros nacionais, entao a camada nao entra no eixo cultura x praga",
+     "ENTITY_AVAILABLE": 18,
+     "THREE_LAYER_TUPLES": 21,
+     "CASE_KEY_MATCH_PROVED": 18,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "FREEZE": "ACCEPTED",
+     "SOURCE_COMMIT": "25194e3",
+     "URBOLE_GUARD": "PASS"
+    },
+    {
+     "LAYER": "META_PROVISIONAL",
+     "STATE": "NOT_READY",
+     "EVIDENCE": "a branch da Meta nao esta publicada em origin (13 heads, nenhuma \"meta\"). Os numeros chegam em SEGUNDA MAO pela auditoria do Foresight",
+     "ENTITY_AVAILABLE": 21,
+     "META_LEG": "NOT_VERIFIABLE_FROM_ORIGIN",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "CASE_ISSUE_MATCH_PROVED": 0
+    },
+    {
+     "LAYER": "TERRITORIAL_PROVISIONAL",
+     "STATE": "NOT_READY",
+     "EVIDENCE": "missao em voo; medicao intermediaria apenas, com commit declarado",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "SNAPSHOT": "841fb54 · data/samples/TERRITORIAL/MEDICAO.json",
+     "MEASUREMENT_STATE": "PROVISIONAL_MEASUREMENT"
+    }
+   ],
    "TEMPO": {
     "JANELA_AGRONOMICA": "NAO CONECTADA",
-    "JANELA_DE_DECISAO": "NAO DETERMINADA",
-    "POR_QUE": "nenhuma das tres capacidades novas entrega relogio de lavoura"
-   },
-   "MAPA_DE_ACAO": {
-    "MARKETING": "pode avaliar 2 pessoa(s) e 0 empresa(s)",
-    "TECNICO_CIENCIA": "pode consultar 2 especialista(s) com identidade provada",
-    "MARKET_DEVELOPMENT": "AREA CENTRAL — avalia e programa a investigacao",
-    "REGULATORIO": "NAO DETERMINADO nesta preparacao",
-    "PORTFOLIO": "NAO DETERMINADO nesta preparacao",
-    "COMERCIAL": "NAO DETERMINADO nesta preparacao",
-    "SUPPLY": "NAO SE APLICA — sem evidencia que torne a area relevante"
+    "JANELA_DE_DECISAO": "NAO DETERMINADA"
    },
    "WIRED_TO_CASCO": false,
    "MODE": "PROTOTYPE_ONLY"
@@ -141,65 +267,143 @@
    "ISSUE": "FLAVESCENCE",
    "CAMADAS_DO_CASCO": {
     "Campo": "NAO MEDIDO",
-    "Ciencia": "PARCIAL — 2 pessoa(s) com identidade provada",
+    "Ciencia": "PARCIAL — 2 identidade(s); expertise no problema NOT_READY",
     "Clima": "NAO MEDIDO",
     "Regulatorio": "NAO MEDIDO",
     "Portfolio local ADAMA": "NAO MEDIDO",
-    "Competicao": "PARCIAL — 8 conta(s) local(is) provada(s), CONTEUDO NAO COLETADO",
+    "Competicao": "PARCIAL — 8 conta(s) local(is); 0 par(es) marca<->registro; conteudo NAO coletado",
     "Tempo": "NAO CONECTADO"
    },
-   "CAMADA_NOVA_AUDIENCIA_ATIVACAO": {
-    "PERSON_CREATOR_ACTIVATION_READY": 0,
-    "FARM_BUSINESS_PARTNER_READY": 0,
-    "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY",
-    "PESSOAS": [],
-    "EMPRESAS": [],
-    "O_QUE_ISTO_NAO_PROVA": [
-     "FIELD_PROBLEM",
-     "INCIDENCE",
-     "MARKET_OPPORTUNITY",
-     "PRODUCT_FIT"
-    ]
-   },
-   "CAMADA_CIENCIA_PESSOAS": {
-    "IDENTIDADE_PROVADA": 2,
-    "NOMES": [
-     "F. Quaglino",
-     "Nicola Mori"
-    ],
-    "CANAL_PUBLICO": "NAO VEM DESTE ARTEFATO",
-    "CONTEUDO_LIGADO_A_PESSOA": "NAO PROVADO PARA NINGUEM"
-   },
-   "CAMADA_COMPETICAO_COMUNICACAO": {
-    "CONTAS_LOCAIS_PROVADAS": 8,
-    "EMPRESAS_COM_CONTA_LOCAL": [
-     "BASF",
-     "BAYER",
-     "NUFARM",
-     "SYNGENTA"
-    ],
-    "CONTEUDO": "NOT_COLLECTED — nenhuma coleta executada",
-    "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING",
-    "ATIVACAO_PAGA_META": "NAO TESTADO — camada separada, nunca somada a esta"
-   },
-   "CONVERGENCIA": {
-    "PERNAS_COM_EVIDENCIA_INDEPENDENTE": 2,
-    "REGRA": "contagem de pernas NUNCA vira score; independencia precisa ser provada",
-    "O_QUE_FALTA_PARA_FECHAR": "campo datado, portfolio local ligado ao par, e tempo"
-   },
+   "CAMADAS": [
+    {
+     "LAYER": "CREATOR_ACTIVATION_ROUTE",
+     "STATE": "NOT_PROVED",
+     "EVIDENCE": "casamento por COUNTRY + CROP, e SO por isso",
+     "MATCH_KEY": "COUNTRY + CROP",
+     "ENTITY_AVAILABLE": 7,
+     "CASE_KEY_MATCH_PROVED": 1,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CONTENT_AVAILABLE": null,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "PERSON_CREATOR_ACTIVATION_READY": 0,
+     "FARM_BUSINESS_PARTNER_READY": 0,
+     "NAMES": [],
+     "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY"
+    },
+    {
+     "LAYER": "CREATOR_ISSUE_RELEVANCE",
+     "STATE": "NOT_PROVED",
+     "EVIDENCE": "o corpus profundo classifica problema por LINHA (nenhuma), nunca por problema nomeado como FLAVESCENCE",
+     "ENTITY_AVAILABLE": 1,
+     "CONTENT_AVAILABLE": 50,
+     "CONTENT_ROUTES_PROVED": 1,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "ISSUE_CLASSES_OBSERVED": {},
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "LEI": "CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+    },
+    {
+     "LAYER": "EXPERT_DIRECTORY_AVAILABILITY",
+     "STATE": "PROVED",
+     "EVIDENCE": "2 pessoa(s) com identidade provada e ORCID resolvido, amarradas por CASE_ID",
+     "ENTITY_AVAILABLE": 2,
+     "CASE_KEY_MATCH_PROVED": 2,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "NAMES": [
+      "F. Quaglino",
+      "Nicola Mori"
+     ]
+    },
+    {
+     "LAYER": "EXPERT_CASE_EXPERTISE",
+     "STATE": "NOT_READY",
+     "EVIDENCE": "nenhum trabalho destas pessoas no corpus disponivel — o corpus e espanhol (institutions.country_code:es). Ausencia aqui NAO e ausencia de obra",
+     "COUNTRY_MATCH": "PROVED",
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "PER_PERSON": [
+      {
+       "PERSON": "F. Quaglino",
+       "PERSON_ID": "https://openalex.org/A5057322051",
+       "COUNTRY_MATCH": "PROVED",
+       "WORKS_IN_CORPUS": 0,
+       "CROP_EXPERTISE": "NOT_MEASURABLE",
+       "CROP_WORKS": 0,
+       "ISSUE_BY_QUERY_FIELD": 0,
+       "ISSUE_BY_TITLE": 0,
+       "ISSUE_EXPERTISE": "NOT_MEASURABLE",
+       "CASE_LEVEL_EXPERTISE": "NOT_MEASURABLE",
+       "WHY": "nenhum trabalho desta pessoa neste corpus — o corpus e espanhol, e ausencia aqui NAO e ausencia de obra",
+       "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED · CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+      },
+      {
+       "PERSON": "Nicola Mori",
+       "PERSON_ID": "https://openalex.org/A5002982424",
+       "COUNTRY_MATCH": "PROVED",
+       "WORKS_IN_CORPUS": 0,
+       "CROP_EXPERTISE": "NOT_MEASURABLE",
+       "CROP_WORKS": 0,
+       "ISSUE_BY_QUERY_FIELD": 0,
+       "ISSUE_BY_TITLE": 0,
+       "ISSUE_EXPERTISE": "NOT_MEASURABLE",
+       "CASE_LEVEL_EXPERTISE": "NOT_MEASURABLE",
+       "WHY": "nenhum trabalho desta pessoa neste corpus — o corpus e espanhol, e ausencia aqui NAO e ausencia de obra",
+       "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED · CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+      }
+     ],
+     "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED"
+    },
+    {
+     "LAYER": "COMPETITOR_PUBLIC_COMM_ACCOUNTS",
+     "STATE": "PARTIAL",
+     "EVIDENCE": "identidade congelada; conteudo NAO coletado",
+     "ENTITY_AVAILABLE": 8,
+     "COMPANIES": [
+      "BASF",
+      "BAYER",
+      "NUFARM",
+      "SYNGENTA"
+     ],
+     "CASE_KEY_MATCH_PROVED": 8,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CONTENT_AVAILABLE": 0,
+     "CONTENT_COLLECTION_STAGE": "NOT_STARTED",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING"
+    },
+    {
+     "LAYER": "FORESIGHT_PROVISIONAL",
+     "STATE": "PARTIAL",
+     "EVIDENCE": "crosswalk marca<->registro disponivel; CROP e ISSUE ausentes nos tres registros nacionais, entao a camada nao entra no eixo cultura x praga",
+     "ENTITY_AVAILABLE": 0,
+     "THREE_LAYER_TUPLES": 10,
+     "CASE_KEY_MATCH_PROVED": 0,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "FREEZE": "ACCEPTED",
+     "SOURCE_COMMIT": "25194e3",
+     "URBOLE_GUARD": "PASS"
+    },
+    {
+     "LAYER": "META_PROVISIONAL",
+     "STATE": "NOT_READY",
+     "EVIDENCE": "a branch da Meta nao esta publicada em origin (13 heads, nenhuma \"meta\"). Os numeros chegam em SEGUNDA MAO pela auditoria do Foresight",
+     "ENTITY_AVAILABLE": 10,
+     "META_LEG": "NOT_VERIFIABLE_FROM_ORIGIN",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "CASE_ISSUE_MATCH_PROVED": 0
+    },
+    {
+     "LAYER": "TERRITORIAL_PROVISIONAL",
+     "STATE": "NOT_READY",
+     "EVIDENCE": "missao em voo; medicao intermediaria apenas, com commit declarado",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "SNAPSHOT": "841fb54 · data/samples/TERRITORIAL/MEDICAO.json",
+     "MEASUREMENT_STATE": "PROVISIONAL_MEASUREMENT"
+    }
+   ],
    "TEMPO": {
     "JANELA_AGRONOMICA": "NAO CONECTADA",
-    "JANELA_DE_DECISAO": "NAO DETERMINADA",
-    "POR_QUE": "nenhuma das tres capacidades novas entrega relogio de lavoura"
-   },
-   "MAPA_DE_ACAO": {
-    "MARKETING": "nada a avaliar neste recorte",
-    "TECNICO_CIENCIA": "pode consultar 2 especialista(s) com identidade provada",
-    "MARKET_DEVELOPMENT": "AREA CENTRAL — avalia e programa a investigacao",
-    "REGULATORIO": "NAO DETERMINADO nesta preparacao",
-    "PORTFOLIO": "NAO DETERMINADO nesta preparacao",
-    "COMERCIAL": "NAO DETERMINADO nesta preparacao",
-    "SUPPLY": "NAO SE APLICA — sem evidencia que torne a area relevante"
+    "JANELA_DE_DECISAO": "NAO DETERMINADA"
    },
    "WIRED_TO_CASCO": false,
    "MODE": "PROTOTYPE_ONLY"
@@ -211,64 +415,144 @@
    "ISSUE": "SEPTORIA",
    "CAMADAS_DO_CASCO": {
     "Campo": "NAO MEDIDO",
-    "Ciencia": "PARCIAL — 2 pessoa(s) com identidade provada",
+    "Ciencia": "PARCIAL — 2 identidade(s); expertise no problema NOT_PROVED",
     "Clima": "NAO MEDIDO",
     "Regulatorio": "NAO MEDIDO",
     "Portfolio local ADAMA": "NAO MEDIDO",
-    "Competicao": "PARCIAL — 4 conta(s) local(is) provada(s), CONTEUDO NAO COLETADO",
+    "Competicao": "PARCIAL — 4 conta(s) local(is); 0 par(es) marca<->registro; conteudo NAO coletado",
     "Tempo": "NAO CONECTADO"
    },
-   "CAMADA_NOVA_AUDIENCIA_ATIVACAO": {
-    "PERSON_CREATOR_ACTIVATION_READY": 0,
-    "FARM_BUSINESS_PARTNER_READY": 0,
-    "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY",
-    "PESSOAS": [],
-    "EMPRESAS": [],
-    "O_QUE_ISTO_NAO_PROVA": [
-     "FIELD_PROBLEM",
-     "INCIDENCE",
-     "MARKET_OPPORTUNITY",
-     "PRODUCT_FIT"
-    ]
-   },
-   "CAMADA_CIENCIA_PESSOAS": {
-    "IDENTIDADE_PROVADA": 2,
-    "NOMES": [
-     "Frédéric Suffert",
-     "Thierry C. Marcel"
-    ],
-    "CANAL_PUBLICO": "NAO VEM DESTE ARTEFATO",
-    "CONTEUDO_LIGADO_A_PESSOA": "NAO PROVADO PARA NINGUEM"
-   },
-   "CAMADA_COMPETICAO_COMUNICACAO": {
-    "CONTAS_LOCAIS_PROVADAS": 4,
-    "EMPRESAS_COM_CONTA_LOCAL": [
-     "BAYER",
-     "NUFARM",
-     "SYNGENTA"
-    ],
-    "CONTEUDO": "NOT_COLLECTED — nenhuma coleta executada",
-    "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING",
-    "ATIVACAO_PAGA_META": "NAO TESTADO — camada separada, nunca somada a esta"
-   },
-   "CONVERGENCIA": {
-    "PERNAS_COM_EVIDENCIA_INDEPENDENTE": 2,
-    "REGRA": "contagem de pernas NUNCA vira score; independencia precisa ser provada",
-    "O_QUE_FALTA_PARA_FECHAR": "campo datado, portfolio local ligado ao par, e tempo"
-   },
+   "CAMADAS": [
+    {
+     "LAYER": "CREATOR_ACTIVATION_ROUTE",
+     "STATE": "NOT_PROVED",
+     "EVIDENCE": "casamento por COUNTRY + CROP, e SO por isso",
+     "MATCH_KEY": "COUNTRY + CROP",
+     "ENTITY_AVAILABLE": 6,
+     "CASE_KEY_MATCH_PROVED": 0,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CONTENT_AVAILABLE": null,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "PERSON_CREATOR_ACTIVATION_READY": 0,
+     "FARM_BUSINESS_PARTNER_READY": 0,
+     "NAMES": [],
+     "NUNCA_SOMAR": "pessoa != empresa; a soma nao se chama CREATORS_READY"
+    },
+    {
+     "LAYER": "CREATOR_ISSUE_RELEVANCE",
+     "STATE": "NOT_PROVED",
+     "EVIDENCE": "o corpus profundo classifica problema por LINHA (WEED), nunca por problema nomeado como SEPTORIA",
+     "ENTITY_AVAILABLE": 2,
+     "CONTENT_AVAILABLE": 43,
+     "CONTENT_ROUTES_PROVED": 1,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "ISSUE_CLASSES_OBSERVED": {
+      "WEED": 1
+     },
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "LEI": "CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+    },
+    {
+     "LAYER": "EXPERT_DIRECTORY_AVAILABILITY",
+     "STATE": "PROVED",
+     "EVIDENCE": "2 pessoa(s) com identidade provada e ORCID resolvido, amarradas por CASE_ID",
+     "ENTITY_AVAILABLE": 2,
+     "CASE_KEY_MATCH_PROVED": 2,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "NAMES": [
+      "Frédéric Suffert",
+      "Thierry C. Marcel"
+     ]
+    },
+    {
+     "LAYER": "EXPERT_CASE_EXPERTISE",
+     "STATE": "NOT_PROVED",
+     "EVIDENCE": "nenhum trabalho com o problema no titulo. O campo ISSUE do corpus vem da CONSULTA que trouxe o documento, nao de leitura — herdar da consulta nao e expertise",
+     "COUNTRY_MATCH": "PROVED",
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "PER_PERSON": [
+      {
+       "PERSON": "Frédéric Suffert",
+       "PERSON_ID": "https://openalex.org/A5056275737",
+       "COUNTRY_MATCH": "PROVED",
+       "WORKS_IN_CORPUS": 1,
+       "CROP_EXPERTISE": "NOT_PROVED",
+       "CROP_WORKS": 0,
+       "ISSUE_BY_QUERY_FIELD": 0,
+       "ISSUE_BY_TITLE": 0,
+       "ISSUE_EXPERTISE": "NOT_PROVED",
+       "CASE_LEVEL_EXPERTISE": "NOT_PROVED",
+       "WHY": "o campo ISSUE vem da consulta que trouxe o documento, nao de leitura do titulo. Sem termo no titulo, nao ha prova de expertise no problema",
+       "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED · CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+      },
+      {
+       "PERSON": "Thierry C. Marcel",
+       "PERSON_ID": "https://openalex.org/A5002633327",
+       "COUNTRY_MATCH": "PROVED",
+       "WORKS_IN_CORPUS": 2,
+       "CROP_EXPERTISE": "NOT_PROVED",
+       "CROP_WORKS": 0,
+       "ISSUE_BY_QUERY_FIELD": 2,
+       "ISSUE_BY_TITLE": 0,
+       "ISSUE_EXPERTISE": "NOT_PROVED",
+       "CASE_LEVEL_EXPERTISE": "NOT_PROVED",
+       "WHY": "o campo ISSUE vem da consulta que trouxe o documento, nao de leitura do titulo. Sem termo no titulo, nao ha prova de expertise no problema",
+       "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED · CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE"
+      }
+     ],
+     "LEI": "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED"
+    },
+    {
+     "LAYER": "COMPETITOR_PUBLIC_COMM_ACCOUNTS",
+     "STATE": "PARTIAL",
+     "EVIDENCE": "identidade congelada; conteudo NAO coletado",
+     "ENTITY_AVAILABLE": 4,
+     "COMPANIES": [
+      "BAYER",
+      "NUFARM",
+      "SYNGENTA"
+     ],
+     "CASE_KEY_MATCH_PROVED": 4,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CONTENT_AVAILABLE": 0,
+     "CONTENT_COLLECTION_STAGE": "NOT_STARTED",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "ZERO_SIGNIFICA": "NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING"
+    },
+    {
+     "LAYER": "FORESIGHT_PROVISIONAL",
+     "STATE": "PARTIAL",
+     "EVIDENCE": "crosswalk marca<->registro disponivel; CROP e ISSUE ausentes nos tres registros nacionais, entao a camada nao entra no eixo cultura x praga",
+     "ENTITY_AVAILABLE": 0,
+     "THREE_LAYER_TUPLES": 4,
+     "CASE_KEY_MATCH_PROVED": 0,
+     "CASE_ISSUE_MATCH_PROVED": 0,
+     "CANONICAL_HANDOFF_AVAILABLE": "YES",
+     "FREEZE": "ACCEPTED",
+     "SOURCE_COMMIT": "25194e3",
+     "URBOLE_GUARD": "PASS"
+    },
+    {
+     "LAYER": "META_PROVISIONAL",
+     "STATE": "NOT_READY",
+     "EVIDENCE": "a branch da Meta nao esta publicada em origin (13 heads, nenhuma \"meta\"). Os numeros chegam em SEGUNDA MAO pela auditoria do Foresight",
+     "ENTITY_AVAILABLE": 4,
+     "META_LEG": "NOT_VERIFIABLE_FROM_ORIGIN",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "CASE_ISSUE_MATCH_PROVED": 0
+    },
+    {
+     "LAYER": "TERRITORIAL_PROVISIONAL",
+     "STATE": "NOT_READY",
+     "EVIDENCE": "missao em voo; medicao intermediaria apenas, com commit declarado",
+     "CANONICAL_HANDOFF_AVAILABLE": "NO",
+     "SNAPSHOT": "841fb54 · data/samples/TERRITORIAL/MEDICAO.json",
+     "MEASUREMENT_STATE": "PROVISIONAL_MEASUREMENT"
+    }
+   ],
    "TEMPO": {
     "JANELA_AGRONOMICA": "NAO CONECTADA",
-    "JANELA_DE_DECISAO": "NAO DETERMINADA",
-    "POR_QUE": "nenhuma das tres capacidades novas entrega relogio de lavoura"
-   },
-   "MAPA_DE_ACAO": {
-    "MARKETING": "nada a avaliar neste recorte",
-    "TECNICO_CIENCIA": "pode consultar 2 especialista(s) com identidade provada",
-    "MARKET_DEVELOPMENT": "AREA CENTRAL — avalia e programa a investigacao",
-    "REGULATORIO": "NAO DETERMINADO nesta preparacao",
-    "PORTFOLIO": "NAO DETERMINADO nesta preparacao",
-    "COMERCIAL": "NAO DETERMINADO nesta preparacao",
-    "SUPPLY": "NAO SE APLICA — sem evidencia que torne a area relevante"
+    "JANELA_DE_DECISAO": "NAO DETERMINADA"
    },
    "WIRED_TO_CASCO": false,
    "MODE": "PROTOTYPE_ONLY"

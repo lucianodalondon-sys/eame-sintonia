@@ -1,0 +1,1882 @@
+{
+ "FIXTURE": "aparada de CORPUS-DELIVERY + CREATOR-CORPUS-FICHES — NAO e o artefato canonico",
+ "SOURCE_ID": "15-CREATOR-CONTENT-CORPUS-EAME",
+ "DATASET_OWNER": "CREATOR_CONTENT_CORPUS_EAME",
+ "A_PERSON_CREATORS_ATTEMPTED": 8,
+ "B_FARM_BUSINESSES_ATTEMPTED": 2,
+ "C_MATERIALS_COLLECTED": 442,
+ "D_MATERIALS_BY_PLATFORM": {
+  "INSTAGRAM": 399,
+  "YOUTUBE": 43
+ },
+ "E_COVERAGE_BY_WINDOW": {
+  "OLDER_THAN_365D": 53,
+  "LAST_365D": 48,
+  "LAST_180D": 61,
+  "LAST_90D": 164,
+  "LAST_30D": 116
+ },
+ "G_ISSUE_COVERAGE": {
+  "WEED": 6,
+  "PEST": 16,
+  "DISEASE": 5
+ },
+ "Q_LOCAL_ADAMA_CONTEXT_OVERLAP": {
+  "STATE": "NOT_KNOWN",
+  "WHY": "portfólio ADAMA local provado não está visível nesta branch"
+ },
+ "U_META_CROSSOVER_READINESS": {
+  "JOIN_KEYS": [
+   "PERSON_ID",
+   "ENTITY_ID",
+   "HANDLE",
+   "BRAND",
+   "COUNTRY",
+   "CROP",
+   "OBSERVED_AT"
+  ],
+  "IF_META_FINDS_THEM": "CREATOR_APPEARANCE_OBSERVED",
+  "PAID_CREATOR_RELATION": "só sobe a PROVED com prova adicional — não é antecipado aqui"
+ },
+ "W_STILL_NOT_KNOWN": [
+  "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch",
+  "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+  "nenhum comentário amostrado: audiência permanece NOT_KNOWN",
+  "nenhum material de proteção de cultivos no corpus lido — NOT_OBSERVED_IN_CORPUS, nunca \"não fala disso\"",
+  "nenhum material: o endereço registrado é uma BUSCA, não um canal. Coletar de uma página de resultados atribuiria à pessoa o que o buscador devolvesse.",
+  "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha"
+ ],
+ "CHANNELS_NOT_COLLECTED": [
+  {
+   "ENTITY_ID": "PC-03",
+   "HANDLE": "Gilles vk agriculteur du Loiret",
+   "WHY": "o endereço registrado é uma BUSCA, não um canal. Coletar de uma página de resultados atribuiria à pessoa o que o buscador devolvesse."
+  }
+ ],
+ "PROHIBITED_METRIC": {
+  "NAME": "ADAMA_RELEVANCE_SCORE",
+  "STATUS": "PROHIBITED_METRIC",
+  "WHY": "oito eixos somados viram um número que esconde qual eixo está vazio — e o eixo vazio é a informação que o Marketing precisa ver."
+ },
+ "X_HANDOFF_FOR_INTELLIGENCE": {
+  "DATASET_OWNER": "CREATOR_CONTENT_CORPUS_EAME",
+  "OWNS": [
+   "CONTENT MATERIALS",
+   "CONTENT OBSERVATIONS",
+   "AUDIENCE SAMPLE",
+   "BRAND RELATIONSHIP EVIDENCE"
+  ],
+  "DOES_NOT_OWN": [
+   "IDENTITY",
+   "ROLE",
+   "ACTIVATION_STATE"
+  ],
+  "CREATOR_MAP_STATE": "FROZEN — não tocado por esta missão",
+  "SUPABASE": "nenhuma migração aplicada; modelo apenas PROPOSTO",
+  "OPTIONAL_REFRESH_INPUT": "READY",
+  "BLOCKS_NOTHING": "EARLY SIGNAL, META COMPETITOR e COMPETITOR FORESIGHT seguem sem depender desta missão"
+ },
+ "WHAT_THIS_IS": "perfil de relevância por evidência. NÃO é recomendação de contratação e NÃO é ranking.",
+ "NO_RANKING": "seguidores, views e likes ficam preservados como métrica pública. FOLLOWERS DESC não é ordem de valor.",
+ "FICHES_TOTAL": 10,
+ "PROFILES": [
+  {
+   "ENTITY_ID": "PC-01",
+   "PERSON_ID": "PC-01",
+   "NAME": "Davide Gomiero",
+   "HANDLE": "@gomierofarm",
+   "ENTITY_TYPE": "PERSON_CREATOR",
+   "COUNTRY": "IT",
+   "REGION": "Limena, Padova, Veneto",
+   "CROPS_PROVED": [
+    "MAIZE",
+    "ALFALFA",
+    "SOYBEAN",
+    "FORAGE"
+   ],
+   "PUBLIC_CHANNEL": "https://www.instagram.com/gomierofarm/",
+   "PUBLIC_CONTACT": "Oscar Green 2022 (Coldiretti Padova); perfil publico de imprensa regional",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 50,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "LAST_90D": 44,
+    "LAST_30D": 6
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "OTHER": 43,
+    "MACHINERY": 3,
+    "EVENT": 3,
+    "SPONSORED_CONTENT": 2,
+    "FIELD_ROUTINE": 2,
+    "PLANTING": 1,
+    "HARVEST": 1
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_RICH": 33,
+    "TEXT_SHORT": 13,
+    "HASHTAGS_OR_EMPTY": 4
+   },
+   "CROPS_OBSERVED": {},
+   "ISSUES_OBSERVED": {},
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/Dail2iNshJf/",
+    "https://www.instagram.com/p/DbaqL7mMQpE/"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [],
+   "CROP_PROTECTION_EXAMPLES": [],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 45,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {
+     "NOISE": 15,
+     "OPINION": 28,
+     "QUESTION": 2
+    }
+   },
+   "BRANDS_OBSERVED": [],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [],
+   "COMPETITOR_HISTORY": "NOT_OBSERVED_IN_CORPUS",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [
+    {
+     "CONTENT_ID": "PC-01-IG-DaiB1PBsHm-",
+     "URL": "https://www.instagram.com/p/DaiB1PBsHm-/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    },
+    {
+     "CONTENT_ID": "PC-01-IG-DbaqL7mMQpE",
+     "URL": "https://www.instagram.com/p/DbaqL7mMQpE/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    }
+   ],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "MAIZE",
+      "ALFALFA",
+      "SOYBEAN",
+      "FORAGE"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {},
+     "OVERLAP": [],
+     "STATE": "NO_OVERLAP_IN_CORPUS",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "Limena, Padova, Veneto",
+     "COUNTRY_NAMED_IN_MATERIALS": {
+      "IT": 16
+     },
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 2,
+     "N_OBSERVED": 50,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 0,
+     "EXPLANATION_MATERIALS": 0,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 50,
+      "N_MATCHING": 0,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "NO_TECHNICAL_CONTENT_IN_CORPUS"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 0,
+     "BY_ISSUE": {},
+     "STATE": "NOT_OBSERVED_IN_CORPUS"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "NOT_KNOWN",
+     "COMMENTS_SAMPLED": 45,
+     "BY_COMMENT_CLASS": {
+      "NOISE": 15,
+      "OPINION": 28,
+      "QUESTION": 2
+     },
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "EVENT",
+      "FIELD_CONTENT"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_MARKETING_USE_CASES": [
+    "EVENT",
+    "FIELD_CONTENT"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "nenhum material de proteção de cultivos no corpus lido — NOT_OBSERVED_IN_CORPUS, nunca \"não fala disso\"",
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.instagram.com/p/Dail2iNshJf/",
+    "https://www.instagram.com/p/DbaqL7mMQpE/"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "PC-02",
+   "PERSON_ID": "PC-02",
+   "NAME": "David Forge",
+   "HANDLE": "@chaineagricole (Chaine Agricole)",
+   "ENTITY_TYPE": "PERSON_CREATOR",
+   "COUNTRY": "FR",
+   "REGION": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+   "CROPS_PROVED": [
+    "WHEAT",
+    "BARLEY",
+    "RAPESEED",
+    "SUNFLOWER"
+   ],
+   "PUBLIC_CHANNEL": "https://www.youtube.com/@chaineagricole",
+   "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 43,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "LAST_365D": 10,
+    "OLDER_THAN_365D": 27,
+    "LAST_30D": 1,
+    "LAST_180D": 1,
+    "LAST_90D": 4
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "OTHER": 19,
+    "MACHINERY": 4,
+    "NUTRITION": 3,
+    "CROP_MANAGEMENT": 20,
+    "FIELD_ROUTINE": 19,
+    "HARVEST": 12,
+    "PLANTING": 7,
+    "APPLICATION_CONTENT": 1,
+    "CROP_PROTECTION": 1,
+    "WEED_CONTENT": 1
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_RICH": 43
+   },
+   "CROPS_OBSERVED": {
+    "BARLEY": 6,
+    "RAPESEED": 9,
+    "WHEAT": 13,
+    "SUNFLOWER": 5,
+    "MAIZE": 1
+   },
+   "ISSUES_OBSERVED": {
+    "WEED": 1
+   },
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.youtube.com/watch?v=94mweX3vSBQ",
+    "https://www.youtube.com/watch?v=9Pee_lQ4t7c",
+    "https://www.youtube.com/watch?v=AVGaMZWYG9A",
+    "https://www.youtube.com/watch?v=Aj4Y2eamQig",
+    "https://www.youtube.com/watch?v=C-Vo_sCIjws"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [
+    "https://www.youtube.com/watch?v=94mweX3vSBQ",
+    "https://www.youtube.com/watch?v=9Pee_lQ4t7c",
+    "https://www.youtube.com/watch?v=AVGaMZWYG9A",
+    "https://www.youtube.com/watch?v=Aj4Y2eamQig",
+    "https://www.youtube.com/watch?v=C-Vo_sCIjws"
+   ],
+   "CROP_PROTECTION_EXAMPLES": [
+    "https://www.youtube.com/watch?v=j1Erf2Ou2hM",
+    "https://www.youtube.com/watch?v=zU2IXpjEzIQ"
+   ],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 0,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {}
+   },
+   "BRANDS_OBSERVED": [],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [],
+   "COMPETITOR_HISTORY": "NOT_OBSERVED_IN_CORPUS",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "WHEAT",
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {
+      "BARLEY": 6,
+      "RAPESEED": 9,
+      "WHEAT": 13,
+      "SUNFLOWER": 5,
+      "MAIZE": 1
+     },
+     "OVERLAP": [
+      "BARLEY",
+      "RAPESEED",
+      "SUNFLOWER",
+      "WHEAT"
+     ],
+     "STATE": "OVERLAP_OBSERVED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "Indre-et-Loire, Touraine (Centre-Val de Loire)",
+     "COUNTRY_NAMED_IN_MATERIALS": {
+      "FR": 1
+     },
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 20,
+     "N_OBSERVED": 43,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 20,
+     "EXPLANATION_MATERIALS": 0,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 43,
+      "N_MATCHING": 20,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "TECHNICAL_CONTENT_OBSERVED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 2,
+     "BY_ISSUE": {
+      "WEED": 1
+     },
+     "STATE": "CROP_PROTECTION_CONTENT_OBSERVED"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "GENERAL_AG",
+     "COMMENTS_SAMPLED": 0,
+     "BY_COMMENT_CLASS": {},
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "FIELD_CONTENT"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_MARKETING_USE_CASES": [
+    "FIELD_CONTENT",
+    "TECHNICAL_EDUCATION"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "nenhum comentário amostrado: audiência permanece NOT_KNOWN",
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.youtube.com/watch?v=j1Erf2Ou2hM",
+    "https://www.youtube.com/watch?v=zU2IXpjEzIQ"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "PC-03",
+   "PERSON_ID": "PC-03",
+   "NAME": "Gilles Van Kempen",
+   "HANDLE": "Gilles vk agriculteur du Loiret",
+   "ENTITY_TYPE": "PERSON_CREATOR",
+   "COUNTRY": "FR",
+   "REGION": "Loiret (Centre-Val de Loire)",
+   "CROPS_PROVED": [
+    "WHEAT",
+    "RAPESEED",
+    "BARLEY",
+    "MAIZE",
+    "ONION_SEED"
+   ],
+   "PUBLIC_CHANNEL": "https://www.youtube.com/results?search_query=Gilles+vk+agriculteur+du+Loiret",
+   "PUBLIC_CONTACT": "presenca publica no stand #agridemain do Salon de l'Agriculture",
+   "CHANNEL_STATE": "CHANNEL_NOT_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 0,
+   "RECENT_ACTIVITY_BY_WINDOW": {},
+   "CONTENT_TYPES_OBSERVED": {},
+   "TEXT_SUBSTANCE": {},
+   "CROPS_OBSERVED": {},
+   "ISSUES_OBSERVED": {},
+   "FIELD_CONTENT_EXAMPLES": [],
+   "TECHNICAL_CONTENT_EXAMPLES": [],
+   "CROP_PROTECTION_EXAMPLES": [],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 0,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {}
+   },
+   "BRANDS_OBSERVED": [],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [],
+   "COMPETITOR_HISTORY": "NOT_KNOWN",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "WHEAT",
+      "RAPESEED",
+      "BARLEY",
+      "MAIZE",
+      "ONION_SEED"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {},
+     "OVERLAP": [],
+     "STATE": "NOT_MEASURED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "Loiret (Centre-Val de Loire)",
+     "COUNTRY_NAMED_IN_MATERIALS": {},
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 0,
+     "N_OBSERVED": 0,
+     "STATE": "NOT_MEASURED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 0,
+     "EXPLANATION_MATERIALS": 0,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 0,
+      "N_MATCHING": 0,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "NOT_MEASURED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 0,
+     "BY_ISSUE": {},
+     "STATE": "NOT_MEASURED"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "NOT_KNOWN",
+     "COMMENTS_SAMPLED": 0,
+     "BY_COMMENT_CLASS": {},
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "NOT_KNOWN"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_MARKETING_USE_CASES": [
+    "OTHER"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "nenhum material: o endereço registrado é uma BUSCA, não um canal. Coletar de uma página de resultados atribuiria à pessoa o que o buscador devolvesse.",
+    "nenhum comentário amostrado: audiência permanece NOT_KNOWN",
+    "nenhum material de proteção de cultivos no corpus lido — NOT_OBSERVED_IN_CORPUS, nunca \"não fala disso\"",
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "PC-04",
+   "PERSON_ID": "PC-04",
+   "NAME": "Huerto Ecolgico Marc Agricultura Regenerativa",
+   "HANDLE": "@huerto_ecologico.marc",
+   "ENTITY_TYPE": "PERSON_CREATOR",
+   "COUNTRY": "ES",
+   "REGION": "NÃO SEI",
+   "CROPS_PROVED": [
+    "OLIVE",
+    "CAROB",
+    "VEGETABLES"
+   ],
+   "PUBLIC_CHANNEL": "https://www.instagram.com/huerto_ecologico.marc",
+   "PUBLIC_CONTACT": "NÃO SEI",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 50,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "OLDER_THAN_365D": 1,
+    "LAST_365D": 1,
+    "LAST_180D": 16,
+    "LAST_90D": 21,
+    "LAST_30D": 11
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "CONSUMER_FACING": 1,
+    "FARM_LIFESTYLE": 20,
+    "FARM_BUSINESS": 1,
+    "OTHER": 17,
+    "APPLICATION_CONTENT": 2,
+    "CROP_MANAGEMENT": 8,
+    "CROP_PROTECTION": 2,
+    "FIELD_ROUTINE": 10,
+    "PEST_CONTENT": 5,
+    "IRRIGATION": 3,
+    "MACHINERY": 3,
+    "TECHNICAL_EXPLANATION": 4,
+    "WEED_CONTENT": 2,
+    "DISEASE_CONTENT": 2,
+    "NUTRITION": 2,
+    "SPONSORED_CONTENT": 4,
+    "HARVEST": 5
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_RICH": 47,
+    "TEXT_SHORT": 3
+   },
+   "CROPS_OBSERVED": {
+    "OLIVE": 1,
+    "TOMATO": 20,
+    "CAROB": 2,
+    "PROTECTED_HORTICULTURE": 2,
+    "PEPPER": 1
+   },
+   "ISSUES_OBSERVED": {
+    "PEST": 5,
+    "WEED": 2,
+    "DISEASE": 2
+   },
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DW_eIotDDM5/",
+    "https://www.instagram.com/p/DXg_6HNDLgc/",
+    "https://www.instagram.com/p/DY_6CrvsEmw/",
+    "https://www.instagram.com/p/DYdOJe5sJdM/",
+    "https://www.instagram.com/p/DYxsMUWMMrc/"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DW_eIotDDM5/",
+    "https://www.instagram.com/p/DYKLvOXsNTw/",
+    "https://www.instagram.com/p/DY_6CrvsEmw/",
+    "https://www.instagram.com/p/DYdOJe5sJdM/",
+    "https://www.instagram.com/p/DYxsMUWMMrc/"
+   ],
+   "CROP_PROTECTION_EXAMPLES": [
+    "https://www.instagram.com/p/DW_eIotDDM5/",
+    "https://www.instagram.com/p/DYKLvOXsNTw/",
+    "https://www.instagram.com/p/DY_6CrvsEmw/",
+    "https://www.instagram.com/p/DYxsMUWMMrc/",
+    "https://www.instagram.com/p/DZ77gZpjCy7/"
+   ],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 71,
+    "TECHNICAL_QUESTIONS": [
+     "Que variedad?",
+     "Justo lo que tienen mis tomates, si le echo azufre en la parte de abajo se corregirá la plaga??? Creo que me dado cuenta demasiado tarde.... 😢",
+     "Madre mia vaya tomates que variedad son?"
+    ],
+    "BY_CLASS": {
+     "NOISE": 2,
+     "QUESTION": 18,
+     "OPINION": 42,
+     "FIRST_PERSON_FIELD_REPORT": 2,
+     "TECHNICAL_QUESTION": 3,
+     "TECHNICAL_REPLY": 4
+    }
+   },
+   "BRANDS_OBSERVED": [],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [],
+   "COMPETITOR_HISTORY": "NOT_OBSERVED_IN_CORPUS",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [
+    {
+     "CONTENT_ID": "PC-04-IG-DYxsMUWMMrc",
+     "URL": "https://www.instagram.com/p/DYxsMUWMMrc/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    },
+    {
+     "CONTENT_ID": "PC-04-IG-DZZ_kNIs09Y",
+     "URL": "https://www.instagram.com/p/DZZ_kNIs09Y/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    },
+    {
+     "CONTENT_ID": "PC-04-IG-DbdqVwCMqOf",
+     "URL": "https://www.instagram.com/p/DbdqVwCMqOf/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    },
+    {
+     "CONTENT_ID": "PC-04-IG-DcfukEkM1xT",
+     "URL": "https://www.instagram.com/p/DcfukEkM1xT/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    }
+   ],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "OLIVE",
+      "CAROB",
+      "VEGETABLES"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {
+      "OLIVE": 1,
+      "TOMATO": 20,
+      "CAROB": 2,
+      "PROTECTED_HORTICULTURE": 2,
+      "PEPPER": 1
+     },
+     "OVERLAP": [
+      "CAROB",
+      "OLIVE"
+     ],
+     "STATE": "OVERLAP_OBSERVED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "NÃO SEI",
+     "COUNTRY_NAMED_IN_MATERIALS": {},
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 13,
+     "N_OBSERVED": 50,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 15,
+     "EXPLANATION_MATERIALS": 4,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 50,
+      "N_MATCHING": 15,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "TECHNICAL_CONTENT_OBSERVED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 10,
+     "BY_ISSUE": {
+      "PEST": 5,
+      "WEED": 2,
+      "DISEASE": 2
+     },
+     "STATE": "CROP_PROTECTION_CONTENT_OBSERVED"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "MIXED",
+     "COMMENTS_SAMPLED": 71,
+     "BY_COMMENT_CLASS": {
+      "NOISE": 2,
+      "QUESTION": 18,
+      "OPINION": 42,
+      "FIRST_PERSON_FIELD_REPORT": 2,
+      "TECHNICAL_QUESTION": 3,
+      "TECHNICAL_REPLY": 4
+     },
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "FIELD_CONTENT",
+      "STORYTELLING",
+      "TECHNICAL_EXPLANATION"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_MARKETING_USE_CASES": [
+    "FIELD_CONTENT",
+    "STORYTELLING",
+    "TECHNICAL_EDUCATION"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.instagram.com/p/DW_eIotDDM5/",
+    "https://www.instagram.com/p/DYKLvOXsNTw/",
+    "https://www.instagram.com/p/DY_6CrvsEmw/",
+    "https://www.instagram.com/p/DYxsMUWMMrc/",
+    "https://www.instagram.com/p/DZ77gZpjCy7/"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "PC-05",
+   "PERSON_ID": "PC-05",
+   "NAME": "Germán Fernández | Agricultura en invernadero",
+   "HANDLE": "@germanagrolife",
+   "ENTITY_TYPE": "PERSON_CREATOR",
+   "COUNTRY": "ES",
+   "REGION": "Almería",
+   "CROPS_PROVED": [
+    "PEPPER",
+    "PROTECTED_HORTICULTURE"
+   ],
+   "PUBLIC_CHANNEL": "https://www.instagram.com/germanagrolife",
+   "PUBLIC_CONTACT": "director do @agrolifepodcast — rota profissional pública",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 50,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "LAST_90D": 29,
+    "LAST_30D": 21
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "OTHER": 30,
+    "BRAND_MENTION": 1,
+    "FARM_LIFESTYLE": 1,
+    "FIELD_ROUTINE": 12,
+    "HARVEST": 5,
+    "CROP_MANAGEMENT": 14,
+    "DISEASE_CONTENT": 1,
+    "EVENT": 2,
+    "SPONSORED_CONTENT": 3,
+    "FARM_BUSINESS": 3,
+    "PEST_CONTENT": 7,
+    "WEED_CONTENT": 1,
+    "IRRIGATION": 2,
+    "PLANTING": 6,
+    "TECHNICAL_EXPLANATION": 5,
+    "BIOLOGICALS": 2
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_RICH": 48,
+    "TEXT_SHORT": 2
+   },
+   "CROPS_OBSERVED": {
+    "PROTECTED_HORTICULTURE": 31,
+    "TOMATO": 3,
+    "PEPPER": 8,
+    "OLIVE": 1
+   },
+   "ISSUES_OBSERVED": {
+    "DISEASE": 1,
+    "PEST": 7,
+    "WEED": 1
+   },
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DZ5cSuMloq3/",
+    "https://www.instagram.com/p/DZS-FOLoKqy/",
+    "https://www.instagram.com/p/DZp8brKovae/",
+    "https://www.instagram.com/p/DZshM8lIfGK/",
+    "https://www.instagram.com/p/DZx3B3bs4DB/"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DZS-FOLoKqy/",
+    "https://www.instagram.com/p/DZp8brKovae/",
+    "https://www.instagram.com/p/DZshM8lIfGK/",
+    "https://www.instagram.com/p/DZx3B3bs4DB/",
+    "https://www.instagram.com/p/DaLdy6DF-ns/"
+   ],
+   "CROP_PROTECTION_EXAMPLES": [
+    "https://www.instagram.com/p/DZS-FOLoKqy/",
+    "https://www.instagram.com/p/DZp8brKovae/",
+    "https://www.instagram.com/p/DZshM8lIfGK/",
+    "https://www.instagram.com/p/DalI4hsCAv6/",
+    "https://www.instagram.com/p/Db34RG3IhyI/"
+   ],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 46,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {
+     "QUESTION": 3,
+     "NOISE": 3,
+     "OPINION": 38,
+     "FIRST_PERSON_FIELD_REPORT": 1,
+     "TECHNICAL_REPLY": 1
+    }
+   },
+   "BRANDS_OBSERVED": [
+    "BASF"
+   ],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [
+    {
+     "BRAND": "BASF",
+     "CONTENT_ID": "PC-05-IG-DZ24Gu7H-oQ",
+     "URL": "https://www.instagram.com/p/DZ24Gu7H-oQ/",
+     "OBSERVED_AT": "2026-06-21",
+     "EVIDENCE_LEVEL": "BRAND_MENTION"
+    }
+   ],
+   "COMPETITOR_HISTORY": "OBSERVED",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [
+    {
+     "CONTENT_ID": "PC-05-IG-DZS-FOLoKqy",
+     "URL": "https://www.instagram.com/p/DZS-FOLoKqy/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    },
+    {
+     "CONTENT_ID": "PC-05-IG-DZshM8lIfGK",
+     "URL": "https://www.instagram.com/p/DZshM8lIfGK/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    },
+    {
+     "CONTENT_ID": "PC-05-IG-DcTLkMggUI7",
+     "URL": "https://www.instagram.com/p/DcTLkMggUI7/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    }
+   ],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "PEPPER",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {
+      "PROTECTED_HORTICULTURE": 31,
+      "TOMATO": 3,
+      "PEPPER": 8,
+      "OLIVE": 1
+     },
+     "OVERLAP": [
+      "PEPPER",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "STATE": "OVERLAP_OBSERVED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "Almería",
+     "COUNTRY_NAMED_IN_MATERIALS": {
+      "ES": 26
+     },
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 17,
+     "N_OBSERVED": 50,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 14,
+     "EXPLANATION_MATERIALS": 5,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 50,
+      "N_MATCHING": 14,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "TECHNICAL_CONTENT_OBSERVED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 8,
+     "BY_ISSUE": {
+      "DISEASE": 1,
+      "PEST": 7,
+      "WEED": 1
+     },
+     "STATE": "CROP_PROTECTION_CONTENT_OBSERVED"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "GENERAL_AG",
+     "COMMENTS_SAMPLED": 46,
+     "BY_COMMENT_CLASS": {
+      "QUESTION": 3,
+      "NOISE": 3,
+      "OPINION": 38,
+      "FIRST_PERSON_FIELD_REPORT": 1,
+      "TECHNICAL_REPLY": 1
+     },
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "EVENT",
+      "FIELD_CONTENT",
+      "STORYTELLING",
+      "TECHNICAL_EXPLANATION"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_MARKETING_USE_CASES": [
+    "EVENT",
+    "FIELD_CONTENT",
+    "STORYTELLING",
+    "TECHNICAL_EDUCATION"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.instagram.com/p/DZS-FOLoKqy/",
+    "https://www.instagram.com/p/DZp8brKovae/",
+    "https://www.instagram.com/p/DZshM8lIfGK/",
+    "https://www.instagram.com/p/DalI4hsCAv6/",
+    "https://www.instagram.com/p/Db34RG3IhyI/"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "PC-06",
+   "PERSON_ID": "PC-06",
+   "NAME": "AgroSamanta👩🏼‍🌾",
+   "HANDLE": "@agrosamanta_",
+   "ENTITY_TYPE": "PERSON_CREATOR",
+   "COUNTRY": "ES",
+   "REGION": "Níjar, Almería",
+   "CROPS_PROVED": [
+    "TOMATO"
+   ],
+   "PUBLIC_CHANNEL": "https://www.instagram.com/agrosamanta_",
+   "PUBLIC_CONTACT": "agrosamanta18@gmail.com",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 50,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "LAST_180D": 22,
+    "LAST_90D": 18,
+    "LAST_30D": 10
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "OTHER": 39,
+    "FARM_BUSINESS": 2,
+    "EVENT": 1,
+    "PEST_CONTENT": 3,
+    "TECHNICAL_EXPLANATION": 1,
+    "FARM_LIFESTYLE": 2,
+    "SPONSORED_CONTENT": 3,
+    "CROP_MANAGEMENT": 3,
+    "DISEASE_CONTENT": 1,
+    "FIELD_ROUTINE": 3,
+    "PLANTING": 3,
+    "WEED_CONTENT": 1
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_RICH": 43,
+    "TEXT_SHORT": 7
+   },
+   "CROPS_OBSERVED": {
+    "PROTECTED_HORTICULTURE": 16,
+    "TOMATO": 3
+   },
+   "ISSUES_OBSERVED": {
+    "PEST": 3,
+    "DISEASE": 1,
+    "WEED": 1
+   },
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DZXQOtGM0yb/",
+    "https://www.instagram.com/p/DbpxGb5sUdY/",
+    "https://www.instagram.com/p/DcOBEgJDIbe/",
+    "https://www.instagram.com/p/DcVz-Vas9h8/"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DXeKdToEhCn/",
+    "https://www.instagram.com/p/DZXQOtGM0yb/",
+    "https://www.instagram.com/p/DcOBEgJDIbe/",
+    "https://www.instagram.com/p/DcVz-Vas9h8/"
+   ],
+   "CROP_PROTECTION_EXAMPLES": [
+    "https://www.instagram.com/p/DXeKdToEhCn/",
+    "https://www.instagram.com/p/DZXQOtGM0yb/",
+    "https://www.instagram.com/p/DcVz-Vas9h8/"
+   ],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 14,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {
+     "OPINION": 11,
+     "QUESTION": 3
+    }
+   },
+   "BRANDS_OBSERVED": [],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [],
+   "COMPETITOR_HISTORY": "NOT_OBSERVED_IN_CORPUS",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [
+    {
+     "CONTENT_ID": "PC-06-IG-DXogdYtjN3I",
+     "URL": "https://www.instagram.com/p/DXogdYtjN3I/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    },
+    {
+     "CONTENT_ID": "PC-06-IG-DYzbfXWsSJE",
+     "URL": "https://www.instagram.com/p/DYzbfXWsSJE/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    },
+    {
+     "CONTENT_ID": "PC-06-IG-DaP6-e2ssGt",
+     "URL": "https://www.instagram.com/p/DaP6-e2ssGt/",
+     "EVIDENCE_LEVEL": "NOT_KNOWN"
+    }
+   ],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "TOMATO"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {
+      "PROTECTED_HORTICULTURE": 16,
+      "TOMATO": 3
+     },
+     "OVERLAP": [
+      "TOMATO"
+     ],
+     "STATE": "OVERLAP_OBSERVED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "Níjar, Almería",
+     "COUNTRY_NAMED_IN_MATERIALS": {
+      "ES": 4
+     },
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 4,
+     "N_OBSERVED": 50,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 4,
+     "EXPLANATION_MATERIALS": 1,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 50,
+      "N_MATCHING": 4,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "TECHNICAL_CONTENT_OBSERVED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 3,
+     "BY_ISSUE": {
+      "PEST": 3,
+      "DISEASE": 1,
+      "WEED": 1
+     },
+     "STATE": "CROP_PROTECTION_CONTENT_OBSERVED"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "GENERAL_AG",
+     "COMMENTS_SAMPLED": 14,
+     "BY_COMMENT_CLASS": {
+      "OPINION": 11,
+      "QUESTION": 3
+     },
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "EVENT",
+      "FIELD_CONTENT",
+      "STORYTELLING",
+      "TECHNICAL_EXPLANATION"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_MARKETING_USE_CASES": [
+    "EVENT",
+    "FIELD_CONTENT",
+    "STORYTELLING",
+    "TECHNICAL_EDUCATION"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.instagram.com/p/DXeKdToEhCn/",
+    "https://www.instagram.com/p/DZXQOtGM0yb/",
+    "https://www.instagram.com/p/DcVz-Vas9h8/"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "PC-07",
+   "PERSON_ID": "PC-07",
+   "NAME": "Francisco Fernandez Barroso",
+   "HANDLE": "@chicurri_agro",
+   "ENTITY_TYPE": "PERSON_CREATOR",
+   "COUNTRY": "ES",
+   "REGION": "NÃO SEI",
+   "CROPS_PROVED": [
+    "OLIVE",
+    "GRAPEVINE"
+   ],
+   "PUBLIC_CHANNEL": "https://www.instagram.com/chicurri_agro",
+   "PUBLIC_CONTACT": "NÃO SEI",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 50,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "OLDER_THAN_365D": 11,
+    "LAST_365D": 21,
+    "LAST_180D": 10,
+    "LAST_90D": 4,
+    "LAST_30D": 4
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "OTHER": 12,
+    "CROP_MANAGEMENT": 26,
+    "FIELD_ROUTINE": 29,
+    "PLANTING": 21,
+    "HARVEST": 16,
+    "NUTRITION": 6,
+    "IRRIGATION": 5,
+    "FARM_BUSINESS": 9,
+    "BRAND_MENTION": 4,
+    "APPLICATION_CONTENT": 2,
+    "CROP_PROTECTION": 2,
+    "TECHNICAL_EXPLANATION": 1,
+    "MACHINERY": 1,
+    "CONSUMER_FACING": 1
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_RICH": 49,
+    "TEXT_SHORT": 1
+   },
+   "CROPS_OBSERVED": {
+    "OLIVE": 35,
+    "GRAPEVINE": 3
+   },
+   "ISSUES_OBSERVED": {},
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DJ9v8wFI64_/",
+    "https://www.instagram.com/p/DJm0CCaA2hJ/",
+    "https://www.instagram.com/p/DKJrUYfKWBs/",
+    "https://www.instagram.com/p/DKz2bWwonvZ/",
+    "https://www.instagram.com/p/DL5aknXIrsy/"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DJ9v8wFI64_/",
+    "https://www.instagram.com/p/DJm0CCaA2hJ/",
+    "https://www.instagram.com/p/DKz2bWwonvZ/",
+    "https://www.instagram.com/p/DL5aknXIrsy/",
+    "https://www.instagram.com/p/DLQHoWHIxMx/"
+   ],
+   "CROP_PROTECTION_EXAMPLES": [
+    "https://www.instagram.com/p/DW1vje2AF69/",
+    "https://www.instagram.com/p/DXuZqAoAGaN/"
+   ],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 1,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {
+     "TECHNICAL_REPLY": 1
+    }
+   },
+   "BRANDS_OBSERVED": [
+    "SYNGENTA"
+   ],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [
+    {
+     "BRAND": "SYNGENTA",
+     "CONTENT_ID": "PC-07-IG-DSHyltKjPua",
+     "URL": "https://www.instagram.com/p/DSHyltKjPua/",
+     "OBSERVED_AT": "2025-12-11",
+     "EVIDENCE_LEVEL": "BRAND_MENTION"
+    },
+    {
+     "BRAND": "SYNGENTA",
+     "CONTENT_ID": "PC-07-IG-DT4z4LJDJvI",
+     "URL": "https://www.instagram.com/p/DT4z4LJDJvI/",
+     "OBSERVED_AT": "2026-01-24",
+     "EVIDENCE_LEVEL": "BRAND_MENTION"
+    },
+    {
+     "BRAND": "SYNGENTA",
+     "CONTENT_ID": "PC-07-IG-DTQOe1XCCFy",
+     "URL": "https://www.instagram.com/p/DTQOe1XCCFy/",
+     "OBSERVED_AT": "2026-01-08",
+     "EVIDENCE_LEVEL": "BRAND_MENTION"
+    },
+    {
+     "BRAND": "SYNGENTA",
+     "CONTENT_ID": "PC-07-IG-DUGHYjeCL-X",
+     "URL": "https://www.instagram.com/p/DUGHYjeCL-X/",
+     "OBSERVED_AT": "2026-01-29",
+     "EVIDENCE_LEVEL": "BRAND_MENTION"
+    }
+   ],
+   "COMPETITOR_HISTORY": "OBSERVED",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "OLIVE",
+      "GRAPEVINE"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {
+      "OLIVE": 35,
+      "GRAPEVINE": 3
+     },
+     "OVERLAP": [
+      "GRAPEVINE",
+      "OLIVE"
+     ],
+     "STATE": "OVERLAP_OBSERVED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "NÃO SEI",
+     "COUNTRY_NAMED_IN_MATERIALS": {
+      "ES": 2
+     },
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 31,
+     "N_OBSERVED": 50,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 26,
+     "EXPLANATION_MATERIALS": 1,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 50,
+      "N_MATCHING": 26,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "TECHNICAL_CONTENT_OBSERVED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 2,
+     "BY_ISSUE": {},
+     "STATE": "CROP_PROTECTION_CONTENT_OBSERVED"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "GENERAL_AG",
+     "COMMENTS_SAMPLED": 1,
+     "BY_COMMENT_CLASS": {
+      "TECHNICAL_REPLY": 1
+     },
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "FIELD_CONTENT",
+      "TECHNICAL_EXPLANATION"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_MARKETING_USE_CASES": [
+    "FIELD_CONTENT",
+    "TECHNICAL_EDUCATION"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.instagram.com/p/DW1vje2AF69/",
+    "https://www.instagram.com/p/DXuZqAoAGaN/"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "PC-08",
+   "PERSON_ID": "PC-08",
+   "NAME": "Oliverio Rodriguez Viticultor",
+   "HANDLE": "@oliverio_rodfer",
+   "ENTITY_TYPE": "PERSON_CREATOR",
+   "COUNTRY": "ES",
+   "REGION": "NÃO SEI",
+   "CROPS_PROVED": [
+    "GRAPEVINE"
+   ],
+   "PUBLIC_CHANNEL": "https://www.instagram.com/oliverio_rodfer",
+   "PUBLIC_CONTACT": "NÃO SEI",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 50,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "LAST_30D": 36,
+    "LAST_90D": 14
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "OTHER": 43,
+    "CROP_MANAGEMENT": 6,
+    "FIELD_ROUTINE": 6,
+    "HARVEST": 6,
+    "FARM_BUSINESS": 1
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_SHORT": 33,
+    "HASHTAGS_OR_EMPTY": 17
+   },
+   "CROPS_OBSERVED": {
+    "GRAPEVINE": 50,
+    "TOMATO": 3
+   },
+   "ISSUES_OBSERVED": {},
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/Db2gk4WNeQg/",
+    "https://www.instagram.com/p/DbjE_i6OCow/",
+    "https://www.instagram.com/p/Dbpl0RKNU3_/",
+    "https://www.instagram.com/p/Dbq1Np8tavh/",
+    "https://www.instagram.com/p/DbuKJb_q3UT/"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/Db2gk4WNeQg/",
+    "https://www.instagram.com/p/DbjE_i6OCow/",
+    "https://www.instagram.com/p/Dbpl0RKNU3_/",
+    "https://www.instagram.com/p/Dbq1Np8tavh/",
+    "https://www.instagram.com/p/DbuKJb_q3UT/"
+   ],
+   "CROP_PROTECTION_EXAMPLES": [],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 9,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {
+     "OPINION": 6,
+     "FIRST_PERSON_FIELD_REPORT": 1,
+     "QUESTION": 2
+    }
+   },
+   "BRANDS_OBSERVED": [],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [],
+   "COMPETITOR_HISTORY": "NOT_OBSERVED_IN_CORPUS",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "GRAPEVINE"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {
+      "GRAPEVINE": 50,
+      "TOMATO": 3
+     },
+     "OVERLAP": [
+      "GRAPEVINE"
+     ],
+     "STATE": "OVERLAP_OBSERVED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "NÃO SEI",
+     "COUNTRY_NAMED_IN_MATERIALS": {},
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 6,
+     "N_OBSERVED": 50,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 6,
+     "EXPLANATION_MATERIALS": 0,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 50,
+      "N_MATCHING": 6,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "TECHNICAL_CONTENT_OBSERVED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 0,
+     "BY_ISSUE": {},
+     "STATE": "NOT_OBSERVED_IN_CORPUS"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "GENERAL_AG",
+     "COMMENTS_SAMPLED": 9,
+     "BY_COMMENT_CLASS": {
+      "OPINION": 6,
+      "FIRST_PERSON_FIELD_REPORT": 1,
+      "QUESTION": 2
+     },
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "FIELD_CONTENT"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_MARKETING_USE_CASES": [
+    "FIELD_CONTENT",
+    "TECHNICAL_EDUCATION"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "nenhum material de proteção de cultivos no corpus lido — NOT_OBSERVED_IN_CORPUS, nunca \"não fala disso\"",
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.instagram.com/p/Db2gk4WNeQg/",
+    "https://www.instagram.com/p/DbjE_i6OCow/",
+    "https://www.instagram.com/p/Dbpl0RKNU3_/",
+    "https://www.instagram.com/p/Dbq1Np8tavh/",
+    "https://www.instagram.com/p/DbuKJb_q3UT/"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "FB-09",
+   "PERSON_ID": "NOT_KNOWN",
+   "NAME": "Francisco Jesús Montoya",
+   "HANDLE": "@biocampojoyma",
+   "ENTITY_TYPE": "FARM_BUSINESS",
+   "COUNTRY": "ES",
+   "REGION": "Nijar, Almeria (Andalucia)",
+   "CROPS_PROVED": [
+    "PEPPER",
+    "TOMATO",
+    "PROTECTED_HORTICULTURE"
+   ],
+   "PUBLIC_CHANNEL": "https://www.instagram.com/biocampojoyma/",
+   "PUBLIC_CONTACT": "canal corporativo publico da Bio Campojoyma",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 49,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "OLDER_THAN_365D": 14,
+    "LAST_365D": 16,
+    "LAST_180D": 12,
+    "LAST_90D": 7
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "BIOLOGICALS": 8,
+    "OTHER": 28,
+    "FARM_LIFESTYLE": 7,
+    "CROP_MANAGEMENT": 4,
+    "NUTRITION": 1,
+    "EVENT": 6,
+    "FARM_BUSINESS": 1,
+    "CONSUMER_FACING": 2
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_RICH": 49
+   },
+   "CROPS_OBSERVED": {
+    "TOMATO": 15,
+    "PEPPER": 8,
+    "MAIZE": 1,
+    "PROTECTED_HORTICULTURE": 1
+   },
+   "ISSUES_OBSERVED": {},
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DJJvVksIgJi/",
+    "https://www.instagram.com/p/DQ7m4e5DNMe/",
+    "https://www.instagram.com/p/DRW6Sh3jH47/",
+    "https://www.instagram.com/p/DUaAiWdjHSr/"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DFFPKyeuMmf/",
+    "https://www.instagram.com/p/DJJvVksIgJi/",
+    "https://www.instagram.com/p/DQ7m4e5DNMe/",
+    "https://www.instagram.com/p/DRW6Sh3jH47/",
+    "https://www.instagram.com/p/DUJFzkKiGPc/"
+   ],
+   "CROP_PROTECTION_EXAMPLES": [
+    "https://www.instagram.com/p/DFFPKyeuMmf/",
+    "https://www.instagram.com/p/DQ7m4e5DNMe/",
+    "https://www.instagram.com/p/DRW6Sh3jH47/",
+    "https://www.instagram.com/p/DUJFzkKiGPc/",
+    "https://www.instagram.com/p/DUaAiWdjHSr/"
+   ],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 3,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {
+     "OPINION": 2,
+     "NOISE": 1
+    }
+   },
+   "BRANDS_OBSERVED": [],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [],
+   "COMPETITOR_HISTORY": "NOT_OBSERVED_IN_CORPUS",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "PEPPER",
+      "TOMATO",
+      "PROTECTED_HORTICULTURE"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {
+      "TOMATO": 15,
+      "PEPPER": 8,
+      "MAIZE": 1,
+      "PROTECTED_HORTICULTURE": 1
+     },
+     "OVERLAP": [
+      "PEPPER",
+      "PROTECTED_HORTICULTURE",
+      "TOMATO"
+     ],
+     "STATE": "OVERLAP_OBSERVED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "Nijar, Almeria (Andalucia)",
+     "COUNTRY_NAMED_IN_MATERIALS": {
+      "ES": 17
+     },
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 4,
+     "N_OBSERVED": 49,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 9,
+     "EXPLANATION_MATERIALS": 0,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 49,
+      "N_MATCHING": 9,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "TECHNICAL_CONTENT_OBSERVED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 8,
+     "BY_ISSUE": {},
+     "STATE": "CROP_PROTECTION_CONTENT_OBSERVED"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "GENERAL_AG",
+     "COMMENTS_SAMPLED": 3,
+     "BY_COMMENT_CLASS": {
+      "OPINION": 2,
+      "NOISE": 1
+     },
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "EVENT",
+      "FIELD_CONTENT",
+      "STORYTELLING"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_PARTNERSHIP_USE_CASES": [
+    "CASE_STUDY",
+    "CONTENT_PRODUCTION",
+    "EVENT",
+    "FARMER_ACCESS",
+    "FIELD_TRIAL_CONTEXT",
+    "FIELD_VISIT",
+    "TECHNICAL_DEMO"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.instagram.com/p/DFFPKyeuMmf/",
+    "https://www.instagram.com/p/DQ7m4e5DNMe/",
+    "https://www.instagram.com/p/DRW6Sh3jH47/",
+    "https://www.instagram.com/p/DUJFzkKiGPc/",
+    "https://www.instagram.com/p/DUaAiWdjHSr/"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  },
+  {
+   "ENTITY_ID": "FB-10",
+   "PERSON_ID": "NOT_KNOWN",
+   "NAME": "Pistachos Terruza",
+   "HANDLE": "@terruzapistachos",
+   "ENTITY_TYPE": "FARM_BUSINESS",
+   "COUNTRY": "ES",
+   "REGION": "Benamaurel, Granada",
+   "CROPS_PROVED": [
+    "PISTACHIO"
+   ],
+   "PUBLIC_CHANNEL": "https://www.instagram.com/terruzapistachos",
+   "PUBLIC_CONTACT": "NÃO SEI",
+   "CHANNEL_STATE": "CHANNEL_RESOLVED",
+   "N_CONTENT_ITEMS_REVIEWED": 50,
+   "RECENT_ACTIVITY_BY_WINDOW": {
+    "LAST_90D": 23,
+    "LAST_30D": 27
+   },
+   "CONTENT_TYPES_OBSERVED": {
+    "OTHER": 33,
+    "APPLICATION_CONTENT": 3,
+    "CROP_MANAGEMENT": 11,
+    "CROP_PROTECTION": 3,
+    "FIELD_ROUTINE": 7,
+    "PLANTING": 3,
+    "TECHNICAL_EXPLANATION": 3,
+    "MACHINERY": 4,
+    "NUTRITION": 3,
+    "WEED_CONTENT": 1,
+    "IRRIGATION": 3,
+    "PEST_CONTENT": 1,
+    "DISEASE_CONTENT": 1,
+    "EVENT": 1,
+    "FARM_LIFESTYLE": 1
+   },
+   "TEXT_SUBSTANCE": {
+    "TEXT_RICH": 50
+   },
+   "CROPS_OBSERVED": {
+    "PISTACHIO": 48
+   },
+   "ISSUES_OBSERVED": {
+    "WEED": 1,
+    "PEST": 1,
+    "DISEASE": 1
+   },
+   "FIELD_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DakP-Hgn_Zh/",
+    "https://www.instagram.com/p/Damu4oSCsSG/",
+    "https://www.instagram.com/p/Daucc0vk2Ph/",
+    "https://www.instagram.com/p/Db2e17ItS_n/",
+    "https://www.instagram.com/p/DbICLWpteqP/"
+   ],
+   "TECHNICAL_CONTENT_EXAMPLES": [
+    "https://www.instagram.com/p/DakP-Hgn_Zh/",
+    "https://www.instagram.com/p/Damu4oSCsSG/",
+    "https://www.instagram.com/p/Daucc0vk2Ph/",
+    "https://www.instagram.com/p/Db2e17ItS_n/",
+    "https://www.instagram.com/p/DbICLWpteqP/"
+   ],
+   "CROP_PROTECTION_EXAMPLES": [
+    "https://www.instagram.com/p/DakP-Hgn_Zh/",
+    "https://www.instagram.com/p/Daucc0vk2Ph/",
+    "https://www.instagram.com/p/DbICLWpteqP/",
+    "https://www.instagram.com/p/DcLRaZVN_aE/",
+    "https://www.instagram.com/p/Dcia_HtikbC/"
+   ],
+   "AUDIENCE_EVIDENCE": {
+    "COMMENTS_SAMPLED": 10,
+    "TECHNICAL_QUESTIONS": [],
+    "BY_CLASS": {
+     "OPINION": 6,
+     "NOISE": 4
+    }
+   },
+   "BRANDS_OBSERVED": [],
+   "COMPETITOR_RELATIONSHIP_EVIDENCE": [],
+   "COMPETITOR_HISTORY": "NOT_OBSERVED_IN_CORPUS",
+   "COMPETITOR_HISTORY_LAW": "NOT_OBSERVED_IN_CORPUS != NO_RELATIONSHIP. O corpus é amostra do que é público.",
+   "SPONSORED_CONTENT_EVIDENCE": [],
+   "LOCAL_ADAMA_CONTEXT": "NOT_KNOWN",
+   "RELEVANCE_PROFILE": {
+    "A_CROP_ALIGNMENT": {
+     "CROPS_PROVED_BY_CREATOR_MAP": [
+      "PISTACHIO"
+     ],
+     "CROPS_OBSERVED_IN_CORPUS": {
+      "PISTACHIO": 48
+     },
+     "OVERLAP": [
+      "PISTACHIO"
+     ],
+     "STATE": "OVERLAP_OBSERVED",
+     "LAW": "QUERY_CROP != PROVED_CROP. O que o corpus mostra não reescreve o que o Creator Map provou."
+    },
+    "B_REGION_ALIGNMENT": {
+     "REGION_FROM_CREATOR_MAP": "Benamaurel, Granada",
+     "COUNTRY_NAMED_IN_MATERIALS": {
+      "ES": 5
+     },
+     "STATE": "INHERITED_ONLY",
+     "LAW": "LANGUAGE != COUNTRY. Região do fato não foi extraída do texto nesta rodada; a região da ficha é a do Creator Map."
+    },
+    "C_FARM_PROXIMITY": {
+     "FIELD_MATERIALS": 12,
+     "N_OBSERVED": 50,
+     "STATE": "FIELD_CONTENT_OBSERVED",
+     "ACTUAL_FARMER": "INHERITED_FROM_CREATOR_MAP"
+    },
+    "D_TECHNICAL_DEPTH": {
+     "TECHNICAL_MATERIALS": 12,
+     "EXPLANATION_MATERIALS": 3,
+     "RATE": {
+      "METRIC": "TECHNICAL_CONTENT_RATE",
+      "STATE": "WITHHELD_PENDING_ARBITRATION",
+      "N_OBSERVED": 50,
+      "N_MATCHING": 12,
+      "WHY_WITHHELD": "CONTENT_RATE_MIN_N=30 é PROPOSAL_ONLY no PILOT-FREEZE-STATE. Chegar a 30 materiais não torna a taxa publicável."
+     },
+     "STATE": "TECHNICAL_CONTENT_OBSERVED"
+    },
+    "E_CROP_PROTECTION_RELEVANCE": {
+     "MATERIALS": 6,
+     "BY_ISSUE": {
+      "WEED": 1,
+      "PEST": 1,
+      "DISEASE": 1
+     },
+     "STATE": "CROP_PROTECTION_CONTENT_OBSERVED"
+    },
+    "F_AUDIENCE_FACING": {
+     "VALUE": "GENERAL_AG",
+     "COMMENTS_SAMPLED": 10,
+     "BY_COMMENT_CLASS": {
+      "OPINION": 6,
+      "NOISE": 4
+     },
+     "LAW": "profissão de seguidor não se infere. COMMENTER != FARMER."
+    },
+    "G_ACTIVATION_STYLE": {
+     "OBSERVED": [
+      "EVENT",
+      "FIELD_CONTENT",
+      "STORYTELLING",
+      "TECHNICAL_EXPLANATION"
+     ]
+    },
+    "H_LOCAL_ADAMA_CONTEXT": {
+     "VALUE": "NOT_KNOWN",
+     "WHY": "o cruzamento só é lícito com portfólio ADAMA local PROVADO, e esse artefato não está visível nesta branch. NOT_ASKED != NOT_KNOWN por ausência de portfólio.",
+     "DOES_NOT_MEAN": [
+      "ADAMA deve usar esta pessoa",
+      "produto X deve ser anunciado com ela"
+     ]
+    }
+   },
+   "POSSIBLE_PARTNERSHIP_USE_CASES": [
+    "CONTENT_PRODUCTION",
+    "EVENT",
+    "FIELD_TRIAL_CONTEXT",
+    "FIELD_VISIT",
+    "TECHNICAL_DEMO"
+   ],
+   "USE_CASES_ARE": "hipóteses de AVALIAÇÃO. Não são recomendação de contratação.",
+   "RECURRENCE_LAW": "RECURRENCE != AUTHORITY != QUALITY != MARKET IMPORTANCE.",
+   "WHAT_IS_NOT_KNOWN": [
+    "região do fato não extraída do texto: só a região herdada do Creator Map está na ficha",
+    "imagem e vídeo não foram lidos: só TEXTO. Material sem legenda não foi classificado por conteúdo visual",
+    "LOCAL_ADAMA_CONTEXT não cruzado: portfólio ADAMA local não visível nesta branch"
+   ],
+   "TOP_EVIDENCE": [
+    "https://www.instagram.com/p/DakP-Hgn_Zh/",
+    "https://www.instagram.com/p/Daucc0vk2Ph/",
+    "https://www.instagram.com/p/DbICLWpteqP/",
+    "https://www.instagram.com/p/DcLRaZVN_aE/",
+    "https://www.instagram.com/p/Dcia_HtikbC/"
+   ],
+   "AS_OF_DATE": "2026-08-30"
+  }
+ ]
+}
