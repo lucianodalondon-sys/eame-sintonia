@@ -136,6 +136,20 @@ class CompletudeVemDaFonte(unittest.TestCase):
         self.assertEqual(navegador.completude(50, '100')['state'],
                          navegador.AQUEM_DA_FONTE)
 
+    def test_zero_provado_pela_fonte_nao_se_confunde_com_zero_por_falta_de_leitura(self):
+        provado = navegador.completude(0, None, sem_resultados=True)
+        naolido = navegador.completude(0, None, sem_resultados=False)
+        self.assertEqual(provado['state'], navegador.ZERO_DECLARADO)
+        self.assertEqual(naolido['state'], navegador.FONTE_NAO_DECLARA)
+        self.assertNotEqual(provado['state'], naolido['state'])
+
+    def test_texto_de_zero_com_cartoes_lidos_nao_vira_zero_provado(self):
+        # se a pagina diz "sem resultados" mas eu li cartoes, algo esta errado:
+        # o estado forte nao pode sair so pelo texto.
+        self.assertNotEqual(
+            navegador.completude(5, '5', sem_resultados=True)['state'],
+            navegador.ZERO_DECLARADO)
+
     def test_sem_denominador_da_fonte_nao_se_afirma_completude(self):
         c = navegador.completude(40, None)
         self.assertEqual(c['state'], navegador.FONTE_NAO_DECLARA)

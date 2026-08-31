@@ -145,6 +145,15 @@ def js_json(alvo, expressao, timeout=90):
 COMPLETA_BATE_COM_A_FONTE = 'COMPLETE_MATCHES_SOURCE_COUNT'
 AQUEM_DA_FONTE = 'SHORT_OF_SOURCE_COUNT'
 FONTE_NAO_DECLARA = 'SOURCE_COUNT_NOT_DECLARED'
+# Quando nao ha nenhum anuncio, a pagina NAO imprime "~N results" — imprime
+# "No ads match your search criteria". Sem este estado, um zero provado pela
+# fonte ficava indistinguivel de um zero por falha de leitura, e o perfil de
+# entrega ("esta pagina nao entrega na Franca") passaria a repousar num
+# rotulo que so quer dizer "nao sei".
+#
+#     ZERO_PROVADO != ZERO_POR_FALTA_DE_LEITURA
+ZERO_DECLARADO = 'ZERO_CONFIRMED_BY_SOURCE'
+SEM_RESULTADOS_TEXTO = 'No ads match your search criteria'
 
 # CARTAO NAO E ANUNCIO — medido, e a conta fecha
 # ----------------------------------------------
@@ -190,9 +199,14 @@ def anuncios_em(cartoes):
     return sum(int(c.get('ads_neste_cartao') or 1) for c in (cartoes or []))
 
 
-def completude(lidos, declarado):
+def completude(lidos, declarado, sem_resultados=False):
     """`lidos` e contagem de ANUNCIOS (ver anuncios_em), nao de cartoes."""
     n = _numero(declarado)
+    if sem_resultados and lidos == 0:
+        return {'state': ZERO_DECLARADO, 'read': 0, 'source_count': 0,
+                'ratio': None,
+                'nota': 'a fonte escreveu "%s". Zero PROVADO, nao zero por '
+                        'falta de leitura.' % SEM_RESULTADOS_TEXTO}
     if n is None:
         return {'state': FONTE_NAO_DECLARA, 'read': lidos,
                 'source_count': None, 'ratio': None,
@@ -223,13 +237,24 @@ def rolar_ate_parar(alvo, declarado=None, max_rolagens=40, pausa=2.2,
     Era 3, e 3 foi o que produziu a leitura de 29 cartoes numa pagina de 230:
     uma pausa de rede de sete segundos bastava para parecer o fim da lista.
     """
+    # DOIS SINAIS PARA PARAR, NAO UM
+    # Parar assim que a soma de anuncios alcanca o declarado economiza tempo e
+    # CUSTA EVIDENCIA: medido em 30/08/2026, a pagina UPL Corp France fechou a
+    # conta com 47 cartoes (116 anuncios para ~110 declarados) enquanto a
+    # rodada anterior, sem esse corte, tinha lido 87 cartoes. Cada cartao e um
+    # criativo com texto proprio — e o texto e o que alimenta cultura, problema
+    # e produto. Alcancar o total de anuncios nao e o mesmo que ter visto todos
+    # os criativos.
+    #
+    #     CONTA_FECHADA != TUDO_LIDO
+    #
+    # Entao o alvo da fonte deixa de ser motivo para parar sozinho: so paro
+    # quando ele foi alcancado E a lista parou de crescer.
     alvo_n = _numero(declarado)
     antes = int(js(alvo, _CONTA) or 0)
     parado = 0
     n = 0
     for n in range(1, max_rolagens + 1):
-        if alvo_n and antes >= TOLERANCIA * alvo_n:
-            break
         js(alvo, 'window.scrollTo(0, document.body.scrollHeight); "ok"')
         time.sleep(pausa)
         agora = int(js(alvo, _CONTA) or 0)
@@ -295,6 +320,7 @@ _CABECALHO = r'''(()=>{
    titulo: document.title,
    bytes: document.documentElement.outerHTML.length,
    resultados_declarados: m ? m[1] : null,
+   sem_resultados: /No ads match your search criteria/i.test(t),
    logado: !/\bLog in\b/.test(t) ? 'INDEFINIDO' : 'NAO_LOGADO'
  });
 })()'''

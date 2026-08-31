@@ -233,7 +233,8 @@ def coletar_pagina(pagina, pais, momento, max_rolagens=60):
     # ANUNCIOS — cartao que declara "2 ads use this creative and text" vale 2.
     cartoes = cart.get('cartoes', [])
     anuncios = nav.anuncios_em(cartoes)
-    completude = nav.completude(anuncios, declarado)
+    completude = nav.completude(anuncios, declarado,
+                                sem_resultados=bool(cab.get('sem_resultados')))
     regs = [registro(c, pagina, pais, completude['state'], momento)
             for c in cartoes]
     diag = {'page_id': pid, 'page_name': pagina.get('page_name'), 'country': pais,
@@ -334,8 +335,14 @@ def repescagem(destino_entidades, destino_eventos, arquivo_anunciantes,
     truncamento e o que destrava `AD_STOPPED_OBSERVED` na proxima rodada.
     """
     acervo = _carregar(destino_entidades, {})
+    # dois motivos para voltar num recorte, e o segundo nao e obvio:
+    #   1. ficou AQUEM_DA_FONTE — falta anuncio;
+    #   2. e grande. Recorte grande foi lido com o corte antigo, que parava ao
+    #      fechar a conta de anuncios e deixava cartoes para tras. Conta fechada
+    #      nao e tudo lido, e o cartao perdido leva o texto do criativo junto.
     truncados = [d for d in acervo.get('collection_diagnostics', [])
-                 if d.get('completeness') == nav.AQUEM_DA_FONTE]
+                 if d.get('completeness') == nav.AQUEM_DA_FONTE
+                 or (d.get('cards_read') or 0) >= 40]
     if not truncados:
         print('nenhum recorte truncado — nada a repescar')
         return acervo
@@ -377,9 +384,58 @@ def repescagem(destino_entidades, destino_eventos, arquivo_anunciantes,
     return acervo
 
 
+def conferir_zeros(destino_entidades, arquivo_anunciantes):
+    """Volta so nos recortes que deram zero SEM denominador da fonte.
+
+    E barato: le o cabecalho e nao rola nada, porque nao ha o que rolar. O que
+    esta em jogo nao e volume, e o sentido do zero. `SOURCE_COUNT_NOT_DECLARED`
+    quer dizer "nao sei"; `ZERO_CONFIRMED_BY_SOURCE` quer dizer "a fonte disse
+    que nao ha". O perfil de entrega de uma pagina — "nao entrega na Franca" —
+    so pode se apoiar no segundo.
+    """
+    acervo = _carregar(destino_entidades, {})
+    alvos = [d for d in acervo.get('collection_diagnostics', [])
+             if d.get('cards_read') == 0
+             and d.get('completeness') == nav.FONTE_NAO_DECLARA]
+    if not alvos:
+        print('nenhum zero por conferir')
+        return acervo
+    por_id = {p['page_id']: p for p in paginas_de(arquivo_anunciantes)}
+    trocados = 0
+    for d in alvos:
+        p = por_id.get(d['page_id'])
+        if not p:
+            continue
+        url = nav.url_biblioteca(active_status='all', ad_type='all',
+                                 country=d['country'], view_all_page_id=p['page_id'],
+                                 search_type='page', media_type='all')
+        aba = nav.abrir(url, espera=14)
+        try:
+            cab = nav.cabecalho(aba)
+        finally:
+            nav.fechar(aba)
+        c = nav.completude(0, cab.get('resultados_declarados'),
+                           sem_resultados=bool(cab.get('sem_resultados')))
+        d['completeness'] = c['state']
+        d['completeness_detail'] = c
+        trocados += 1 if c['state'] == nav.ZERO_DECLARADO else 0
+        print('  %-34s %s  %s' % ((p.get('page_name') or '')[:34], d['country'],
+                                  c['state']), flush=True)
+    acervo['zeros_conferidos'] = {'recortes': len(alvos),
+                                  'confirmados_pela_fonte': trocados}
+    _salvar(destino_entidades, acervo)
+    return acervo
+
+
 def main():
     alvo = sys.argv[1] if len(sys.argv) > 1 else 'concorrentes'
     limite = int(sys.argv[2]) if len(sys.argv) > 2 else None
+    if alvo == 'zeros':
+        conferir_zeros(ENTIDADES,
+                       os.path.join(PASTA, 'META-ADVERTISERS-EAME-V1.json'))
+        conferir_zeros(os.path.join(PASTA, 'META-OWN-ADS-ENTITIES-ADAMA-V1.json'),
+                       os.path.join(PASTA, 'META-OWN-ADVERTISERS-ADAMA-V1.json'))
+        return
     if alvo == 'repescagem':
         repescagem(ENTIDADES, EVENTOS,
                    os.path.join(PASTA, 'META-ADVERTISERS-EAME-V1.json'))

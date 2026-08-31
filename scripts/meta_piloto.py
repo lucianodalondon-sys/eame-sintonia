@@ -154,6 +154,10 @@ SEM_ENTREGA = 'NO_DELIVERY_OBSERVED_IN_PILOT_COUNTRIES'
 
 def perfil_de_entrega(acervo, paises=('ES', 'IT', 'FR')):
     ent = (acervo or {}).get('entities', {})
+    # o zero de um pais so vale como "nao entrega ali" se a FONTE tiver dito
+    # que nao ha anuncio. Zero por leitura que nao aconteceu e outra coisa.
+    diag = {(d.get('page_id'), d.get('country')): d.get('completeness')
+            for d in (acervo or {}).get('collection_diagnostics', [])}
     por_pagina = {}
     for e in ent.values():
         pid = e.get('page_id')
@@ -166,14 +170,25 @@ def perfil_de_entrega(acervo, paises=('ES', 'IT', 'FR')):
         for c in (e.get('countries_reached_observed') or []):
             if c in p['ads_by_country_reached']:
                 p['ads_by_country_reached'][c] += 1
-    for p in por_pagina.values():
+    for pid, p in por_pagina.items():
         com = [c for c, n in p['ads_by_country_reached'].items() if n > 0]
         p['countries_with_ads'] = com
+        zeros = [c for c in paises if p['ads_by_country_reached'].get(c, 0) == 0]
+        p['zero_countries'] = {
+            c: ('ZERO_CONFIRMED_BY_SOURCE'
+                if diag.get((pid, c)) == 'ZERO_CONFIRMED_BY_SOURCE'
+                else 'ZERO_NOT_CONFIRMED_' + str(diag.get((pid, c)) or 'NOT_READ'))
+            for c in zeros}
         p['delivery_profile'] = (SEM_ENTREGA if not com else
                                  UM_PAIS if len(com) == 1 else VARIOS_PAISES)
+        p['delivery_profile_state'] = (
+            'PROVED' if all(v == 'ZERO_CONFIRMED_BY_SOURCE'
+                            for v in p['zero_countries'].values())
+            else 'PARTIAL')
         p['delivery_profile_denominator'] = list(paises)
         p['nota'] = ('perfil OBSERVADO entre ES, IT e FR apenas. Nao diz nada '
-                     'sobre entrega fora desses tres paises.')
+                     'sobre entrega fora desses tres paises. O perfil so e '
+                     'PROVED quando cada zero foi confirmado pela fonte.')
     return por_pagina
 
 
