@@ -1,0 +1,508 @@
+{
+ "SOURCE_ID": "REFRESH/FINAL-INTELLIGENCE-REFRESH-EAME",
+ "source": "derivado de quatro handoffs obrigatorios + entradas opcionais, todos por commit fixo. Nenhuma coleta, custo zero.",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES · IT · FR",
+ "ARTIFACT_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_INTELLIGENCE",
+ "captured_at": "2026-08-31",
+ "CAPTURED_AT": "2026-08-31",
+ "MANDATORY_HANDOFFS_ACCEPTED": "4/4",
+ "INPUTS": {
+  "CREATOR_MAP": {
+   "COMMIT": "248bd27027506a5f531a117ce50d35eb5304b152",
+   "STATE": "ACCEPTED",
+   "MANDATORY": true,
+   "FILES": {
+    "freeze": "data/samples/CREATOR-MAP-EAME/PILOT-FREEZE-STATE.json",
+    "capability": "data/samples/CREATOR-MAP-EAME/CREATOR-CAPABILITY-EAME.json"
+   }
+  },
+  "COMPETITOR_FORESIGHT": {
+   "COMMIT": "dc32ce0",
+   "ORIGINAL_FREEZE": "25194e3",
+   "STATE": "ACCEPTED",
+   "MANDATORY": true,
+   "LINEAGE_CORRECTION": "COMPLETE",
+   "FILES": {
+    "three_layer": "data/samples/COMPETITOR-THREE-LAYER-AUDIT.json",
+    "crosswalk": "data/samples/COMPETITOR-CROSSWALK.json"
+   }
+  },
+  "EARLY_SIGNAL_TERRITORIAL": {
+   "COMMIT": "11fd7b54e27adaaebed18f049f90b80b05806943",
+   "HANDOFF_COMMIT": "4ea268d0cbdc5f28f535b6288ee6c48bea20a6aa",
+   "STATE": "PARTIAL",
+   "MANDATORY": true,
+   "MANDATORY_HANDOFF_READY": "YES",
+   "FILES": {
+    "final": "data/samples/TERRITORIAL/FINAL.json"
+   }
+  },
+  "META_COMPETITOR": {
+   "COMMIT": "acfd987",
+   "HANDOFF_COMMIT": "a2fad2d",
+   "STATE": "ACCEPTED",
+   "MANDATORY": true,
+   "FILES": {
+    "freeze": "data/samples/META-EAME/META-HANDOFF-FREEZE-V1.json"
+   },
+   "HANDOFF_FILE_AT": "a2fad2d"
+  },
+  "CREATOR_DEEP_CORPUS": {
+   "COMMIT": "a509c12",
+   "STATE": "READY_WITH_LIMITATIONS",
+   "MANDATORY": false,
+   "FILES": {
+    "delivery": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-DELIVERY.json"
+   }
+  },
+  "MULTILINGUAL_CONTRACT": {
+   "COMMIT": "1443f6435d4297a4563f25d83473142fc12e1f0d",
+   "STATE": "ACCEPTED_FROZEN",
+   "MANDATORY": false,
+   "ROLE": "PRODUCT_GUARDRAIL — nao e sinal de inteligencia",
+   "FILES": {}
+  }
+ },
+ "INPUT_BLOBS": {
+  "FORESIGHT_THREE_LAYER": "2d6b26b3c9ad2b3e9c8e308c0364bd61a187983b",
+  "TERRITORIAL_FINAL": "36292f88f032ae5ff789c58f6ae0ccadee45312b",
+  "META_FREEZE": "cbb71518fdaa139b4b259705ca4555711689fd13"
+ },
+ "TERRITORIAL_MEASUREMENT": {
+  "UNIQUE_BODY_ANALYZED_ITEMS": 22,
+  "WITH_COUNTRY": 22,
+  "WITH_LOCALITY": 15,
+  "WITH_CROP": 21,
+  "WITH_ISSUE": 5,
+  "WITH_TIME": 12,
+  "WITH_COUNTRY_CROP": 21,
+  "WITH_COUNTRY_CROP_ISSUE": 5,
+  "WITH_COUNTRY_CROP_ISSUE_TIME": 4,
+  "WITH_FULL_TERRITORIAL_CASE_KEY": 1
+ },
+ "TERRITORIAL_SLICES": {
+  "CASE_SIGNAL_READY": [
+   "IT_DURUM_WHEAT_FUSARIUM"
+  ],
+  "PARTIAL": [
+   "ES_OLIVE_REPILO",
+   "ES_WHEAT_SEPTORIA",
+   "IT_VINE_FLAVESCENCE",
+   "FR_VINE_DOWNY_MILDEW",
+   "FR_WHEAT_SEPTORIA"
+  ]
+ },
+ "META_CAPABILITIES": {
+  "meta_snapshot_capability": "PROVED",
+  "temporal_comparison_mechanism": "PROVED",
+  "meta_temporal_comparison_capability": "PROVED_FOR_COMPARABLE_SLICES",
+  "temporal_comparison_scope": "60 de 67 recortes",
+  "operational_temporal_signal_value": "NOT_PROVED",
+  "daily_intelligence_value": "NOT_PROVED",
+  "operational_value_nota": "a janela medida tem cerca de uma hora. Isso mostra que o mecanismo compara; nao mostra que a cadencia diaria produz sinal util. Provar isso exigiria outra medicao, e nao ha terceira coleta autorizada.",
+  "full_lifecycle_state_capability": "NOT_PROVED",
+  "full_lifecycle_nota": "ACTIVE_AGAIN exige ativo -> ausente -> ativo, e isso pede tres pontos no tempo."
+ },
+ "META_SNAPSHOT_1": {
+  "as_of_date": "2026-08-31T01:03:30+00:00",
+  "ad_observations": 1417,
+  "unique_cards": 1340,
+  "ads_represented": 2236,
+  "stable_ad_entities": 1340,
+  "raw_product_names_proved": 151
+ },
+ "META_PAGE_MODEL": {
+  "page_id_proof_capability": "PROVED",
+  "page_id_proof_denominator": 23,
+  "page_country_scope_capability": "PARTIAL_LOW_COVERAGE",
+  "page_country_scope_coverage": "1 de 23 paginas",
+  "page_role_capability": "NOT_PROVED",
+  "ad_delivery_country_model": "PROVED",
+  "ad_delivery_country_scope": [
+   "ES",
+   "IT",
+   "FR"
+  ],
+  "page_ids_proved": 23,
+  "page_country_scope_local_proved": 1,
+  "page_country_scope_global_proved": 0,
+  "page_country_scope_not_proved": 22,
+  "page_roles_proved": 0,
+  "ad_delivery_countries": [
+   "ES",
+   "IT",
+   "FR"
+  ],
+  "aviso": "PROVED_LOCAL_META_PAGES conta SOMENTE paginas rotuladas por pais pela propria Meta. Distribuicao de entrega nao entra nesta conta — e a pergunta ao lado, nao esta.",
+  "leis_permanentes": [
+   "PAGE_COUNTRY_SCOPE != AD_DELIVERY_COUNTRY",
+   "AD_REACHED_OR_OBSERVED_IN_COUNTRY != AD_TARGETED_TO_COUNTRY",
+   "ADS_DELIVERED_IN_ES != PAGE_IS_SPANISH"
+  ],
+  "frase_proibida": "\"dirigido a Espanha/Franca/Italia\" sem target_location ou prova equivalente. O que temos e pais de ENTREGA observada.",
+  "nota": "a comparacao temporal usa page_id x ad_delivery_country e NAO depende de a pagina ser local."
+ },
+ "META_CANNOT_CLAIM": [
+  "quanto o concorrente investiu",
+  "que o concorrente vendeu qualquer coisa",
+  "participacao de mercado",
+  "sucesso de campanha",
+  "que o produto anunciado esta autorizado naquele pais",
+  "que a pagina e daquele pais porque entregou anuncios la",
+  "que um anuncio parou de veicular porque sumiu da lista"
+ ],
+ "CREATOR_READINESS": {
+  "PERSON_CREATOR_ACTIVATION_READY": 8,
+  "FARM_BUSINESS_PARTNER_READY": 2,
+  "MARKETING_CONTACTABLE_ENTITIES_READY": 10,
+  "NOTE": "a soma NÃO se chama CREATORS_READY. Pessoa != empresa, e o nome da métrica é onde essa distinção se perde primeiro."
+ },
+ "CREATOR_DEEP_CORPUS": {
+  "TARGETS": 10,
+  "MATERIALS": 442,
+  "LAST_90D": 164,
+  "ISSUE_COVERAGE": {
+   "WEED": 6,
+   "PEST": 16,
+   "DISEASE": 5
+  }
+ },
+ "COMPETITOR_PRODUCT_OBSERVATIONS": {
+  "UNIT": "TUPLA (competidor, pais, produto normalizado)",
+  "PROVED_TUPLES": 36,
+  "PROVED_PRODUCTS": 29,
+  "CANDIDATE_TUPLES": 174,
+  "NOT_KNOWN_TUPLES": 138,
+  "REJECTED_TUPLES": 0,
+  "BY_COUNTRY": {
+   "ES": 22,
+   "FR": 4,
+   "IT": 10
+  },
+  "BY_COMPANY": {
+   "BASF": 23,
+   "BAYER": 7,
+   "CORTEVA": 4,
+   "UPL": 2
+  },
+  "URBOLE_GUARD": "PASS",
+  "CROP": {
+   "VALUE": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  "ISSUE": {
+   "VALUE": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  "POR_QUE_NAO_VIRA_CASO": "nenhum dos tres registros nacionais traz cultura x alvo neste dataset. Sem CROP e ISSUE a observacao nao entra na chave COUNTRY x REGION x CROP x ISSUE x TIME. Ela e real, e e de outra unidade.",
+  "DEPENDENCIA": "a perna META desta cadeia depende de META_PAID_ADS — nao somar as duas como familias independentes."
+ },
+ "CASE_CANDIDATES": [
+  {
+   "CASE_ID": "REFRESH-CASE-001",
+   "SLICE": "IT_DURUM_WHEAT_FUSARIUM",
+   "COUNTRY": {
+    "VALUE": "IT",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "declarado no item territorial",
+    "STATE": "PROVED"
+   },
+   "CROP": {
+    "VALUE": "DURUM_WHEAT",
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": "FUSARIUM",
+    "STATE": "PROVED"
+   },
+   "TIME": {
+    "VALUE": "PUBLISHED_AT do boletim",
+    "STATE": "PROVED"
+   },
+   "SIGNALS_PRESENT": [
+    "TERRITORIAL"
+   ],
+   "INDEPENDENT_SIGNAL_FAMILIES": [
+    "TERRITORIAL"
+   ],
+   "INDEPENDENT_SIGNAL_FAMILY_COUNT": 1,
+   "DEPENDENT_SIGNALS": [],
+   "EVIDENCE": [
+    {
+     "SOURCE": "IT-LAMMA",
+     "URL": "https://www.lamma.toscana.it/previ/ita/agrometeo/html/Grosseto_ftsnt.html",
+     "PUBLISHED_AT": "2026-04-23",
+     "REGION": "Toscana",
+     "ISSUE": [
+      "SEPTORIA",
+      "FUSARIUM",
+      "DOWNY_MILDEW"
+     ],
+     "QUOTE": "ggini né nel nord né nel sud della provincia, sia per il frumento tenero che per il duro. Septoria La septoria rimane la patologia principale. Nel nord si osservano livelli medi nel tenero"
+    }
+   ],
+   "SOURCE_COMMITS": {
+    "TERRITORIAL_DATA": "11fd7b54e27adaaebed18f049f90b80b05806943",
+    "TERRITORIAL_HANDOFF": "4ea268d0cbdc5f28f535b6288ee6c48bea20a6aa"
+   },
+   "WHAT_IS_PROVED": "uma observacao territorial com as CINCO ancoras no corpo do documento: pais, localidade, cultura, problema e tempo.",
+   "WHAT_IS_NOT_PROVED": [
+    "nenhuma segunda familia independente confirma este par",
+    "expertise de especialista no problema: NOT_PROVED",
+    "rota de creator especifica do problema: NOT_PROVED",
+    "janela de aplicacao: nao existe relogio de lavoura conectado",
+    "resposta ADAMA local para o par: NOT_MEASURED nesta rodada"
+   ],
+   "CONVERGENCE_CLASS": "SINGLE_SIGNAL",
+   "WHY_IT_MAY_DESERVE_ATTENTION": "e o unico recorte de todo o acervo em que a chave territorial completa fecha no corpo do documento, e nao no indice.",
+   "WHAT_WOULD_CHANGE_A_DECISION": "uma segunda familia independente sobre o MESMO par — ciencia com o problema no titulo, registro local com cultura x alvo, ou campo datado.",
+   "WHAT_IS_STILL_MISSING": [
+    "segunda familia independente",
+    "janela agronomica",
+    "resposta local ADAMA medida para o par"
+   ]
+  },
+  {
+   "CASE_ID": "REFRESH-PARTIAL-002",
+   "SLICE": "ES_OLIVE_REPILO",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "parcial",
+    "STATE": "PARTIAL"
+   },
+   "CROP": {
+    "VALUE": "OLIVE",
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": "REPILO",
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "PUBLISHED_AT",
+    "STATE": "PROVED"
+   },
+   "SIGNALS_PRESENT": [
+    "TERRITORIAL"
+   ],
+   "INDEPENDENT_SIGNAL_FAMILIES": [],
+   "INDEPENDENT_SIGNAL_FAMILY_COUNT": 0,
+   "DEPENDENT_SIGNALS": [],
+   "EVIDENCE": null,
+   "SOURCE_COMMITS": {
+    "TERRITORIAL_DATA": "11fd7b54e27adaaebed18f049f90b80b05806943"
+   },
+   "WHAT_IS_PROVED": "pais, cultura e tempo. país, região, cultura e tempo provados; ISSUE não sustentado pelo corpo",
+   "WHAT_IS_NOT_PROVED": [
+    "o problema nao foi sustentado pelo CORPO do documento"
+   ],
+   "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE",
+   "WHY_IT_MAY_DESERVE_ATTENTION": "o recorte existe e tem lastro parcial; falta o problema, que e o que amarra o caso.",
+   "WHAT_WOULD_CHANGE_A_DECISION": "o problema nomeado no corpo de um documento.",
+   "WHAT_IS_STILL_MISSING": [
+    "ISSUE no corpo"
+   ]
+  },
+  {
+   "CASE_ID": "REFRESH-PARTIAL-003",
+   "SLICE": "ES_WHEAT_SEPTORIA",
+   "COUNTRY": {
+    "VALUE": "ES",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "parcial",
+    "STATE": "PARTIAL"
+   },
+   "CROP": {
+    "VALUE": "WHEAT",
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": "SEPTORIA",
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "PUBLISHED_AT",
+    "STATE": "PROVED"
+   },
+   "SIGNALS_PRESENT": [
+    "TERRITORIAL"
+   ],
+   "INDEPENDENT_SIGNAL_FAMILIES": [],
+   "INDEPENDENT_SIGNAL_FAMILY_COUNT": 0,
+   "DEPENDENT_SIGNALS": [],
+   "EVIDENCE": null,
+   "SOURCE_COMMITS": {
+    "TERRITORIAL_DATA": "11fd7b54e27adaaebed18f049f90b80b05806943"
+   },
+   "WHAT_IS_PROVED": "pais, cultura e tempo. país, região, cultura e tempo provados; ISSUE não sustentado pelo corpo",
+   "WHAT_IS_NOT_PROVED": [
+    "o problema nao foi sustentado pelo CORPO do documento"
+   ],
+   "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE",
+   "WHY_IT_MAY_DESERVE_ATTENTION": "o recorte existe e tem lastro parcial; falta o problema, que e o que amarra o caso.",
+   "WHAT_WOULD_CHANGE_A_DECISION": "o problema nomeado no corpo de um documento.",
+   "WHAT_IS_STILL_MISSING": [
+    "ISSUE no corpo"
+   ]
+  },
+  {
+   "CASE_ID": "REFRESH-PARTIAL-004",
+   "SLICE": "IT_VINE_FLAVESCENCE",
+   "COUNTRY": {
+    "VALUE": "IT",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "parcial",
+    "STATE": "PARTIAL"
+   },
+   "CROP": {
+    "VALUE": "VINE",
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": "FLAVESCENCE",
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "PUBLISHED_AT",
+    "STATE": "PROVED"
+   },
+   "SIGNALS_PRESENT": [
+    "TERRITORIAL"
+   ],
+   "INDEPENDENT_SIGNAL_FAMILIES": [],
+   "INDEPENDENT_SIGNAL_FAMILY_COUNT": 0,
+   "DEPENDENT_SIGNALS": [],
+   "EVIDENCE": null,
+   "SOURCE_COMMITS": {
+    "TERRITORIAL_DATA": "11fd7b54e27adaaebed18f049f90b80b05806943"
+   },
+   "WHAT_IS_PROVED": "pais, cultura e tempo. país, região, cultura e tempo provados; ISSUE não sustentado pelo corpo",
+   "WHAT_IS_NOT_PROVED": [
+    "o problema nao foi sustentado pelo CORPO do documento"
+   ],
+   "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE",
+   "WHY_IT_MAY_DESERVE_ATTENTION": "o recorte existe e tem lastro parcial; falta o problema, que e o que amarra o caso.",
+   "WHAT_WOULD_CHANGE_A_DECISION": "o problema nomeado no corpo de um documento.",
+   "WHAT_IS_STILL_MISSING": [
+    "ISSUE no corpo"
+   ]
+  },
+  {
+   "CASE_ID": "REFRESH-PARTIAL-005",
+   "SLICE": "FR_VINE_DOWNY_MILDEW",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "parcial",
+    "STATE": "PARTIAL"
+   },
+   "CROP": {
+    "VALUE": "VINE_DOWNY",
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": "MILDEW",
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "PUBLISHED_AT",
+    "STATE": "PROVED"
+   },
+   "SIGNALS_PRESENT": [
+    "TERRITORIAL"
+   ],
+   "INDEPENDENT_SIGNAL_FAMILIES": [],
+   "INDEPENDENT_SIGNAL_FAMILY_COUNT": 0,
+   "DEPENDENT_SIGNALS": [],
+   "EVIDENCE": null,
+   "SOURCE_COMMITS": {
+    "TERRITORIAL_DATA": "11fd7b54e27adaaebed18f049f90b80b05806943"
+   },
+   "WHAT_IS_PROVED": "pais, cultura e tempo. país, região, cultura e tempo provados; ISSUE não sustentado pelo corpo",
+   "WHAT_IS_NOT_PROVED": [
+    "o problema nao foi sustentado pelo CORPO do documento"
+   ],
+   "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE",
+   "WHY_IT_MAY_DESERVE_ATTENTION": "o recorte existe e tem lastro parcial; falta o problema, que e o que amarra o caso.",
+   "WHAT_WOULD_CHANGE_A_DECISION": "o problema nomeado no corpo de um documento.",
+   "WHAT_IS_STILL_MISSING": [
+    "ISSUE no corpo"
+   ]
+  },
+  {
+   "CASE_ID": "REFRESH-PARTIAL-006",
+   "SLICE": "FR_WHEAT_SEPTORIA",
+   "COUNTRY": {
+    "VALUE": "FR",
+    "STATE": "PROVED"
+   },
+   "REGION": {
+    "VALUE": "parcial",
+    "STATE": "PARTIAL"
+   },
+   "CROP": {
+    "VALUE": "WHEAT",
+    "STATE": "PROVED"
+   },
+   "ISSUE": {
+    "VALUE": "SEPTORIA",
+    "STATE": "NOT_PROVED"
+   },
+   "TIME": {
+    "VALUE": "PUBLISHED_AT",
+    "STATE": "PROVED"
+   },
+   "SIGNALS_PRESENT": [
+    "TERRITORIAL"
+   ],
+   "INDEPENDENT_SIGNAL_FAMILIES": [],
+   "INDEPENDENT_SIGNAL_FAMILY_COUNT": 0,
+   "DEPENDENT_SIGNALS": [],
+   "EVIDENCE": null,
+   "SOURCE_COMMITS": {
+    "TERRITORIAL_DATA": "11fd7b54e27adaaebed18f049f90b80b05806943"
+   },
+   "WHAT_IS_PROVED": "pais, cultura e tempo. país, região, cultura e tempo provados; ISSUE não sustentado pelo corpo",
+   "WHAT_IS_NOT_PROVED": [
+    "o problema nao foi sustentado pelo CORPO do documento"
+   ],
+   "CONVERGENCE_CLASS": "NOT_ENOUGH_EVIDENCE",
+   "WHY_IT_MAY_DESERVE_ATTENTION": "o recorte existe e tem lastro parcial; falta o problema, que e o que amarra o caso.",
+   "WHAT_WOULD_CHANGE_A_DECISION": "o problema nomeado no corpo de um documento.",
+   "WHAT_IS_STILL_MISSING": [
+    "ISSUE no corpo"
+   ]
+  }
+ ],
+ "CASE_CANDIDATE_COUNT": 6,
+ "MULTI_SIGNAL_CONVERGENCES": [],
+ "PARTIAL_CONVERGENCES": [],
+ "SINGLE_SIGNAL_CASES": [
+  "REFRESH-CASE-001"
+ ],
+ "NOT_ENOUGH_EVIDENCE_CASES": [
+  "REFRESH-PARTIAL-002",
+  "REFRESH-PARTIAL-003",
+  "REFRESH-PARTIAL-004",
+  "REFRESH-PARTIAL-005",
+  "REFRESH-PARTIAL-006"
+ ],
+ "NO_SCORE_DECLARATION": "este artefato nao contem ADAMA_OPPORTUNITY_SCORE, MARKET_OPPORTUNITY_SCORE nem SALES_SCORE. Nenhum numero aqui ordena por valor.",
+ "PRODUCT_IMPLEMENTATION_MODE": "NOT_ENTERED",
+ "CASCO_V7_MODIFIED": "NO",
+ "REAL_DATA_WIRED": "NO",
+ "FINAL_TOOL_SET_DECIDED": "NO"
+}

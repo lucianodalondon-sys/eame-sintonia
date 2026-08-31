@@ -1,0 +1,173 @@
+{
+ "SOURCE_ID": "REFRESH/SIGNAL-DEPENDENCY-GRAPH",
+ "source": "derivado dos handoffs congelados — nenhuma coleta",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "n/a — descreve o acervo, nao o mundo",
+ "ARTIFACT_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_DEPENDENCY_ANALYSIS",
+ "captured_at": "2026-08-31",
+ "CAPTURED_AT": "2026-08-31",
+ "POR_QUE_ESTE_ARQUIVO_VEM_PRIMEIRO": "contar convergencia antes de provar independencia produz numero bonito e falso. Duas telas nao sao dois sinais; duas leituras do mesmo documento tampouco.",
+ "LEI": "2 cards != 2 independent signals",
+ "RELACOES": [
+  {
+   "FROM": "FORESIGHT_THREE_LAYER",
+   "TO": "META_PAID_ADS",
+   "RELATION": "DERIVED_FROM",
+   "WHY": "a perna META da cadeia de tres camadas E o anuncio da Meta. O Foresight le acfd987 por git show e usa o anuncio como terceira concordancia.",
+   "CONSEQUENCE": "FORESIGHT_THREE_LAYER + META_AD nunca contam como duas familias independentes para o mesmo produto/pais.",
+   "GUARD": "DERIVED_DEPENDENCY_ON_META"
+  },
+  {
+   "FROM": "FORESIGHT_THREE_LAYER",
+   "TO": "FORESIGHT_TRADEMARK_REGISTRATION_CROSSWALK",
+   "RELATION": "DERIVED_FROM",
+   "WHY": "as duas primeiras pernas da cadeia sao o proprio crosswalk marca<->registro.",
+   "CONSEQUENCE": "cadeia e crosswalk sao a mesma evidencia vista com uma perna a mais.",
+   "GUARD": "SAME_DATA_DIFFERENT_VIEW"
+  },
+  {
+   "FROM": "FORESIGHT_REGISTRATION_LEG",
+   "TO": "NATIONAL_REGULATORY_REGISTRY",
+   "RELATION": "SAME_SOURCE",
+   "WHY": "a perna de registro do Foresight le ROPF (ES), Ministero (IT) e E-Phy (FR) — exatamente as mesmas bases da camada regulatoria e do portfolio local.",
+   "CONSEQUENCE": "somar FORESIGHT e REGULATORIO como duas familias para o mesmo pais conta o registro nacional duas vezes.",
+   "GUARD": "SHARED_REGISTRY_NOT_TWO_FAMILIES"
+  },
+  {
+   "FROM": "LOCAL_ADAMA_PORTFOLIO",
+   "TO": "NATIONAL_REGULATORY_REGISTRY",
+   "RELATION": "DERIVED_FROM",
+   "WHY": "o portfolio local provado sai do registro nacional, com o catalogo publico como segunda ponta apenas onde ela abriu.",
+   "CONSEQUENCE": "portfolio e registro nao sao duas observacoes independentes.",
+   "GUARD": "SHARED_REGISTRY_NOT_TWO_FAMILIES"
+  },
+  {
+   "FROM": "CREATOR_DEEP_CORPUS",
+   "TO": "CREATOR_MAP",
+   "RELATION": "DERIVED_FROM",
+   "WHY": "o corpus profundo le o conteudo das identidades que o Creator Map resolveu. Sem a identidade do mapa nao ha alvo de coleta.",
+   "CONSEQUENCE": "identidade e conteudo do mesmo creator sao UMA familia com duas observacoes, nao duas familias.",
+   "GUARD": "SAME_ENTITY_DIFFERENT_OBSERVATION"
+  },
+  {
+   "FROM": "RESEARCHER_CORPUS",
+   "TO": "EXPERT_DIRECTORY",
+   "RELATION": "DERIVED_FROM",
+   "WHY": "o corpus de pesquisador herda a identidade do diretorio; os dois saem do mesmo OpenAlex.",
+   "CONSEQUENCE": "ciencia e pesquisador nao sao duas familias independentes.",
+   "GUARD": "SAME_SOURCE"
+  },
+  {
+   "FROM": "TERRITORIAL_LISTING",
+   "TO": "TERRITORIAL_BODY",
+   "RELATION": "SAME_SOURCE",
+   "WHY": "listagem e corpo sao duas leituras do MESMO documento. A propria missao declara LISTING_ROLE = DISCOVERY_INDEX_ONLY.",
+   "CONSEQUENCE": "a listagem nao e evidencia; nao acrescenta sinal ao corpo.",
+   "GUARD": "SAME_DATA_DIFFERENT_VIEW"
+  },
+  {
+   "FROM": "META_SNAPSHOT_2",
+   "TO": "META_SNAPSHOT_1",
+   "RELATION": "SAME_ENTITY_DIFFERENT_OBSERVATION",
+   "WHY": "as duas capturas leem as MESMAS paginas com cerca de uma hora de distancia.",
+   "CONSEQUENCE": "dois snapshots nao sao duas fontes; sao dois instantes da mesma.",
+   "GUARD": "SAME_ENTITY_DIFFERENT_OBSERVATION"
+  },
+  {
+   "FROM": "COMPETITOR_PUBLIC_COMM",
+   "TO": "META_PAID_ADS",
+   "RELATION": "INDEPENDENT_SOURCE",
+   "WHY": "comunicacao organica em canal proprio e anuncio pago na Biblioteca sao rotas e naturezas diferentes.",
+   "CONSEQUENCE": "seriam duas familias — mas COMPETITOR_PUBLIC_COMM ainda nao tem conteudo coletado, entao hoje nao entra como sinal.",
+   "GUARD": "IDENTITY_IS_NOT_SIGNAL"
+  },
+  {
+   "FROM": "TERRITORIAL_BODY",
+   "TO": "NATIONAL_REGULATORY_REGISTRY",
+   "RELATION": "INDEPENDENT_SOURCE",
+   "WHY": "boletim fitossanitario regional e registro nacional sao publicadores, processos e cadencias diferentes.",
+   "CONSEQUENCE": "podem contar como duas familias independentes.",
+   "GUARD": null
+  },
+  {
+   "FROM": "TERRITORIAL_BODY",
+   "TO": "SCIENCE_CORPUS",
+   "RELATION": "INDEPENDENT_SOURCE",
+   "WHY": "boletim de servico fitossanitario e publicacao cientifica indexada sao fontes independentes.",
+   "CONSEQUENCE": "podem contar como duas familias independentes.",
+   "GUARD": null
+  },
+  {
+   "FROM": "CREATOR_MAP",
+   "TO": "META_PAID_ADS",
+   "RELATION": "INDEPENDENT_SOURCE",
+   "WHY": "perfil publico de creator e anuncio pago de empresa sao fontes distintas.",
+   "CONSEQUENCE": "se a Meta encontrar um creator num anuncio isso vira CREATOR_APPEARANCE_OBSERVED — e PAID_CREATOR_RELATION so sobe com prova adicional.",
+   "GUARD": "NOT_ANTICIPATED"
+  }
+ ],
+ "RELACOES_TOTAL": 12,
+ "RELACOES_DEPENDENTES": 8,
+ "RELACOES_INDEPENDENTES": 4,
+ "FAMILIAS_DE_SINAL": {
+  "TERRITORIAL": {
+   "INDEPENDENT": true,
+   "SOURCE": "boletins de servico fitossanitario regional / imprensa tecnica"
+  },
+  "SCIENCE_RESEARCHER": {
+   "INDEPENDENT": true,
+   "SOURCE": "OpenAlex",
+   "NOTA": "ciencia e pesquisador sao UMA familia, nao duas"
+  },
+  "NATIONAL_REGISTRY": {
+   "INDEPENDENT": true,
+   "SOURCE": "ROPF (ES) · Ministero (IT) · E-Phy (FR)",
+   "NOTA": "compartilhada por REGULATORIO, PORTFOLIO LOCAL e pela perna de registro do FORESIGHT"
+  },
+  "TRADEMARK": {
+   "INDEPENDENT": true,
+   "SOURCE": "TMview (OEPM · UIBM · INPI · EUIPO)"
+  },
+  "META_PAID_ADS": {
+   "INDEPENDENT": true,
+   "SOURCE": "Meta Ads Library (UI)",
+   "NOTA": "a cadeia de tres camadas do Foresight DEPENDE desta familia"
+  },
+  "CREATOR": {
+   "INDEPENDENT": true,
+   "SOURCE": "perfis publicos + corpus de conteudo",
+   "NOTA": "mapa e corpus profundo sao UMA familia"
+  },
+  "COMPETITOR_PUBLIC_COMM": {
+   "INDEPENDENT": true,
+   "SOURCE": "22 contas oficiais provadas",
+   "SIGNAL_TODAY": false,
+   "NOTA": "CONTENT_COLLECTION = NOT_STARTED. Identidade nao e sinal."
+  },
+  "FIELD_HISTORICAL": {
+   "INDEPENDENT": true,
+   "SOURCE": "RAIF Andaluzia (ES-T3-001)",
+   "NOTA": "artefato canonico em arvore, FORA da lista de entradas do coordenador — declarado, nao consumido como prova"
+  }
+ },
+ "FAMILIAS_QUE_PODEM_CONTAR_HOJE": [
+  "TERRITORIAL",
+  "SCIENCE_RESEARCHER",
+  "NATIONAL_REGISTRY",
+  "TRADEMARK",
+  "META_PAID_ADS",
+  "CREATOR",
+  "FIELD_HISTORICAL"
+ ],
+ "FAMILIAS_QUE_NAO_CONTAM_HOJE": [
+  "COMPETITOR_PUBLIC_COMM"
+ ],
+ "DOUBLE_COUNT_GUARDS": [
+  "DERIVED_DEPENDENCY_ON_META — cadeia Foresight nao soma com anuncio Meta",
+  "SHARED_REGISTRY_NOT_TWO_FAMILIES — registro nacional conta uma vez",
+  "SAME_ENTITY_DIFFERENT_OBSERVATION — creator identidade+conteudo conta uma vez",
+  "SAME_DATA_DIFFERENT_VIEW — listagem territorial nao acrescenta ao corpo",
+  "IDENTITY_IS_NOT_SIGNAL — 22 contas provadas sem conteudo nao sao sinal"
+ ]
+}
