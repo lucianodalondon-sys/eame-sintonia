@@ -108,7 +108,11 @@ export function instrument(html) {
   // 5 · COUNTRY_OF_FACT sai do fato, nao do seletor de pais da barra
   out = replaceOnce(out,
     'OBJECT_ID: o.id, OBJECT_TYPE: TYPES[o.type].code, COUNTRY_OF_FACT: COUNTRY[s.country].name,',
-    'OBJECT_ID: o.id, OBJECT_TYPE: TYPES[o.type].code,\n      COUNTRY_OF_FACT: (o.f && o.f.COUNTRY_OF_FACT) || COUNTRY[s.country].name,',
+    // O fallback para COUNTRY[s.country].name era eu mesmo repetindo o erro que
+    // vim corrigir: quando o objeto NAO declara pais, a tela respondia com o
+    // pais do seletor. Seletor e filtro de interface, nunca fato. Sem pais
+    // declarado, a resposta e NOT_KNOWN.
+    'OBJECT_ID: o.id, OBJECT_TYPE: TYPES[o.type].code,\n      COUNTRY_OF_FACT: (o.f && o.f.COUNTRY_OF_FACT) || \'NOT_KNOWN\',',
     'F1:country-of-fact', log)
 
   // 5b · OBJECT DETAIL · o casco caia em `|| RAW[0]` quando o tipo pedido nao
@@ -258,6 +262,68 @@ export function instrument(html) {
       });
       return ev;
     })();`, log)
+
+  // 5h · MAPA · os pontos jogavam fora o que o objeto sabe e usavam o pais do
+  //      seletor como COUNTRY. Cultura e problema iam para null mesmo existindo
+  //      no objeto. Agora tudo vem de o.f, e o que falta diz NOT_KNOWN.
+  //
+  //      GEO_RESOLUTION continua NOT_KNOWN de proposito: ninguem mediu
+  //      geometria, e regiao em texto NAO vira ponto no mapa.
+  out = replaceOnce(out,
+    `      COUNTRY: COUNTRY[s.country].name, REGION: null, LOCALITY_OR_GEOMETRY: null,
+      GEO_RESOLUTION: 'NOT_KNOWN', CROP: null, ISSUE: null,`,
+    `      COUNTRY: (o.f && o.f.COUNTRY_OF_FACT) || 'NOT_KNOWN',
+      REGION: (o.f && o.f.REGION_OF_FACT) || 'NOT_KNOWN',
+      LOCALITY_OR_GEOMETRY: null,
+      GEO_RESOLUTION: 'NOT_KNOWN',
+      CROP: (o.f && o.f.CROP) || 'NOT_KNOWN', ISSUE: (o.f && o.f.ISSUE) || 'NOT_KNOWN',`,
+    'mapa:ponto-vem-do-objeto', log)
+
+  // 5i · o filtro do mapa mostrava o pais do seletor como se fosse fato
+  //      PROVADO. Filtro e recorte de tela; vira 'FILTRO', nao 'provado'.
+  out = replaceOnce(out,
+    "{ k: 'PAÍS', v: COUNTRY[s.country].name, v2: 'provado' },",
+    "{ k: 'PAÍS (FILTRO DE TELA)', v: COUNTRY[s.country].name, v2: 'naomedido' },",
+    'mapa:filtro-nao-e-fato', log)
+
+  // 5j · a ficha do objeto declarava COUNTRY_OF_FACT = pais do seletor, e
+  //      marcava 'provado'. Duas mentiras numa linha: a origem e o estado.
+  out = replaceOnce(out,
+    "FIELD('COUNTRY_OF_FACT', COUNTRY[s.country].name, 'provado'), FIELD('REGION_OF_FACT', null, 'naomedido'),",
+    `FIELD('COUNTRY_OF_FACT', (base.f && base.f.COUNTRY_OF_FACT) || 'NOT_KNOWN', (base.f && base.f.COUNTRY_OF_FACT) ? 'provado' : 'naomedido'),
+        FIELD('REGION_OF_FACT', (base.f && base.f.REGION_OF_FACT) || null, (base.f && base.f.REGION_OF_FACT) ? 'provado' : 'naomedido'),`,
+    'ficha:country-of-fact-do-objeto', log)
+
+  // Esta linha aparece SEIS vezes — um receptor de cada mangueira repete o
+  // mesmo erro. O portao de "casou 1x" pegou isso, e foi bom: eu ia corrigir
+  // um e deixar cinco. Aqui a contagem esperada e 6, e continua sendo um
+  // portao: se o casco mudar e virarem 5 ou 7, o build para.
+  {
+    const alvo = "FIELD('COUNTRY', COUNTRY[s.country].name, 'provado'),"
+    const novo = "FIELD('COUNTRY', (base.f && base.f.COUNTRY_OF_FACT) || 'NOT_KNOWN', " +
+                 "(base.f && base.f.COUNTRY_OF_FACT) ? 'provado' : 'naomedido'),"
+    const n = out.split(alvo).length - 1
+    if (n !== 6) throw new Error(`FAIL_CLOSED · "ficha:country-do-objeto" casou ${n}x (esperado 6)`)
+    out = out.split(alvo).join(novo)
+    log.push({ patch: 'ficha:country-do-objeto (6x)', bytes_out: alvo.length * 6, bytes_in: novo.length * 6 })
+  }
+
+  // 5k · FACT_LOCATION · a proibicao mais direta do contrato, escrita no
+  //      casco em uma linha: o lugar do FATO vinha do seletor de pais. Se
+  //      alguem trocasse para Franca, o fato "acontecia" na Franca.
+  out = replaceOnce(out,
+    "{ k: 'FACT_LOCATION', v: COUNTRY[s.country].name, color: T2 },",
+    `{ k: 'FACT_LOCATION', v: (base.f && base.f.COUNTRY_OF_FACT) || 'NOT_KNOWN',
+          color: (base.f && base.f.COUNTRY_OF_FACT) ? T2 : T3 },`,
+    'fato:location-nao-vem-da-tela', log)
+
+  // 5l · COUNTRY_SCOPE de H8 declarado como 'provado' a partir do seletor. O
+  //      escopo de uma conta e medido no artefato (LOCAL_COUNTRY_PROVED,
+  //      GLOBAL, NOT_KNOWN) e nao tem nada com a tela aberta.
+  out = replaceOnce(out,
+    "FIELD('COUNTRY_SCOPE', COUNTRY[s.country].name, 'provado'),",
+    "FIELD('COUNTRY_SCOPE', null, 'naomedido'),",
+    'h8:country-scope-nao-vem-da-tela', log)
 
   // 6 · volumes da home
   out = replaceBlock(out, 'const volumes = [',
