@@ -7,24 +7,44 @@
   "EVIDENCE_CLASS": "PUBLISH_PLAN",
   "captured_at": "2026-08-31",
   "CAPTURED_AT": "2026-08-31",
-
   "MODE": {
     "FIRST_LOAD_EXECUTED": "NO",
     "COLLECTION_EXECUTED": "NO",
     "NOTA": "Nada foi recolhido. Toda entrada abaixo ja existe congelada num commit fixo."
   },
-
-  "LEI_DE_LEITURA": "Toda leitura e por COMMIT_SHA fixo. Uma branch se move e responde diferente a cada hora sem ninguem ter mudado nada.",
-
+  "LEI_DE_LEITURA": "Toda leitura e por COMMIT_SHA fixo. Nenhuma entrada usa branch. Uma branch se move e responde diferente a cada hora sem ninguem ter mudado nada.",
   "PIPELINE": [
-    {"passo": 1, "nome": "CANONICAL FREEZE", "faz": "resolve cada commit fixo e confirma que o blob existe"},
-    {"passo": 2, "nome": "VALIDATE", "faz": "aplica os guards da mangueira ao artefato de entrada; guard reprovado = FAIL CLOSED, nunca linha degradada"},
-    {"passo": 3, "nome": "TRANSFORM", "faz": "adapta para o payload CANONICO — nunca para o alias do casco"},
-    {"passo": 4, "nome": "UPSERT", "faz": "grava por chave natural, idempotente"},
-    {"passo": 5, "nome": "VALIDATE SHADOW", "faz": "compara o publicado com o freeze, campo a campo"},
-    {"passo": 6, "nome": "PUBLISH", "faz": "so marca PUBLISHED se a sombra passou inteira"}
+    {
+      "passo": 1,
+      "nome": "CANONICAL FREEZE",
+      "faz": "resolve cada commit fixo e confirma que o blob existe"
+    },
+    {
+      "passo": 2,
+      "nome": "VALIDATE",
+      "faz": "aplica os guards da mangueira ao artefato de entrada; guard reprovado = FAIL CLOSED, nunca linha degradada"
+    },
+    {
+      "passo": 3,
+      "nome": "TRANSFORM",
+      "faz": "adapta para o payload CANONICO — nunca para o alias do casco"
+    },
+    {
+      "passo": 4,
+      "nome": "UPSERT",
+      "faz": "grava por chave natural, idempotente"
+    },
+    {
+      "passo": 5,
+      "nome": "VALIDATE SHADOW",
+      "faz": "compara o publicado com o freeze, campo a campo"
+    },
+    {
+      "passo": 6,
+      "nome": "PUBLISH",
+      "faz": "so marca PUBLISHED se a sombra passou inteira"
+    }
   ],
-
   "IDEMPOTENCIA": {
     "REGRA": "Reexecutar a mesma versao nao duplica objeto, evidencia, evento nem traducao.",
     "COMO": "chave natural estavel por familia, nunca surrogate gerada na carga",
@@ -39,7 +59,6 @@
     },
     "PROIBIDO": "usar titulo traduzido como chave. O titulo muda por idioma e por revisao; a chave nao pode."
   },
-
   "INPUTS": [
     {
       "HOSE_ID": "H1",
@@ -48,10 +67,33 @@
       "HANDOFF_COMMIT": "4ea268d0cbdc5f28f535b6288ee6c48bea20a6aa",
       "INPUT_ARTIFACT": "data/samples/TERRITORIAL/FINAL.json",
       "ADAPTER": "scripts/refresh_correction.py :: reprocessar() + pareamento()",
-      "DESTINATION_TABLES": ["source", "source_snapshot", "evidence", "geo_anchor", "observation", "territorial_observation", "attention_object", "phenomenon_case", "attention_object_evidence", "object_clock", "storage_provenance", "source_provenance"],
-      "EXPECTED_ENTITY_COUNT": {"territorial_observation": 22, "attention_object": "NOT_MEASURED"},
+      "DESTINATION_TABLES": [
+        "source",
+        "source_snapshot",
+        "evidence",
+        "geo_anchor",
+        "observation",
+        "territorial_observation",
+        "attention_object",
+        "phenomenon_case",
+        "attention_object_evidence",
+        "object_clock",
+        "storage_provenance",
+        "source_provenance"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "territorial_observation": 22,
+        "attention_object": "NOT_MEASURED"
+      },
       "POR_QUE_NOT_MEASURED": "22 itens territoriais foram reprocessados, mas quantos viram ATTENTION_OBJECT depende do guard de pareamento rodar na carga. Afirmar o numero antes de rodar seria inventa-lo.",
-      "GUARDS": ["CROP_ISSUE_PAIRING_NOT_PROVEN", "MULTI_BULLETIN_DOCUMENT_GUARD", "SIDEBAR_NOT_BODY", "ORG_NAME_NOT_LOCALITY", "BINARY_NOT_DOCUMENT", "EDUCATIONAL_QUIZ_NOT_FIELD_SIGNAL"],
+      "GUARDS": [
+        "CROP_ISSUE_PAIRING_NOT_PROVEN",
+        "MULTI_BULLETIN_DOCUMENT_GUARD",
+        "SIDEBAR_NOT_BODY",
+        "ORG_NAME_NOT_LOCALITY",
+        "BINARY_NOT_DOCUMENT",
+        "EDUCATIONAL_QUIZ_NOT_FIELD_SIGNAL"
+      ],
       "VALIDATION_QUERY": "select count(*) from territorial_observation where crop_term_id is not null and issue_term_id is not null and observation_id in (select observation_id from phenomenon_case_pairing_proved)",
       "FAIL_CLOSED": "sem par cultura x problema na MESMA passagem, nao cria attention_object. Nunca produto cartesiano.",
       "KNOWN_LIMIT": "corpo completo nao preservado: so DOCUMENT_EXCERPT de 3.000 caracteres"
@@ -59,39 +101,107 @@
     {
       "HOSE_ID": "H2",
       "CANONICAL_PAYLOAD": "REGISTRATION_DEADLINE",
-      "SOURCE_COMMIT": "RESOLVER_ANTES_DA_CARGA",
-      "NOTA_DO_COMMIT": "O mapa de mangueiras aponta para origin/...italy-pilot, que e uma BRANCH. A lei de leitura exige commit fixo: resolver o SHA e registra-lo aqui antes da primeira carga.",
-      "INPUT_ARTIFACT": "registro nacional italiano + 163 rotulos (24 ausentes do disco)",
-      "DESTINATION_TABLES": ["source", "evidence", "organization", "product", "registration", "registration_deadline", "attention_object", "regulatory_deadline_object", "storage_provenance"],
-      "EXPECTED_ENTITY_COUNT": {"registration_deadline": "NOT_MEASURED", "italian_labels": 163, "labels_missing_from_disk": 24},
-      "GUARDS": ["EXPIRY_IS_NOT_WITHDRAWAL", "EXPIRY_DATE_REACHED_IS_NOT_PRODUCT_DISCONTINUED", "STATUS_AS_DECLARED_BY_SOURCE_NEVER_REINTERPRETED", "CROP_E_ISSUE_NOT_APPLICABLE"],
+      "SOURCE_COMMIT": "d7b289425c5e436f3ce68e367b8706e11910f43b",
+      "NOTA_DO_COMMIT": "RESOLVIDO. O artefato tem UMA versao na branch e o conteudo no HEAD e identico ao do commit. Ver data/supabase/H2-COMMIT-RESOLUTION.json.",
+      "INPUT_ARTIFACT": "data/samples/IT-T4-001/IT-T4-001-adama-expiries.json",
+      "DESTINATION_TABLES": [
+        "source",
+        "evidence",
+        "organization",
+        "product",
+        "registration",
+        "registration_deadline",
+        "attention_object",
+        "regulatory_deadline_object",
+        "storage_provenance"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "registration_deadline": "NOT_MEASURED",
+        "italian_labels": "NOT_MEASURED"
+      },
+      "GUARDS": [
+        "EXPIRY_IS_NOT_WITHDRAWAL",
+        "EXPIRY_DATE_REACHED_IS_NOT_PRODUCT_DISCONTINUED",
+        "STATUS_AS_DECLARED_BY_SOURCE_NEVER_REINTERPRETED",
+        "CROP_E_ISSUE_NOT_APPLICABLE"
+      ],
       "VALIDATION_QUERY": "select count(*) from registration_deadline where deadline_date > current_date and expiry_is_withdrawal = false",
       "FAIL_CLOSED": "sem data futura declarada pela fonte, nao ha objeto. Acao maxima e INVESTIGATION; BUSINESS_DECISION e proibido por check.",
-      "KNOWN_LIMIT": "so a Italia existe neste acervo. ES e FR precisam do equivalente antes de generalizar."
+      "KNOWN_LIMIT": "so a Italia existe neste acervo. ES e FR precisam do equivalente antes de generalizar.",
+      "SOURCE_BRANCH_AT_REFERENCE": "origin/claude/sintonia-italy-pilot-b1l401",
+      "INPUT_CONTENT_SHA256": "ee9d835d2a82470eeb8c84fbc9443d7b7f199311535ebeba4dac601565a6495c",
+      "INPUT_BLOB_SHA": "26a645477326d4f0c4bd825487fbe59fdde7049f",
+      "SUB_INPUT_NAO_FIXADO": {
+        "PATH": "data/samples/IT-T4-001/IT-T4-001-etichette-manifest.json",
+        "STATUS": "NOT_PINNED",
+        "WHY": "tres versoes na branch, com RUN_IDs e tamanhos diferentes: 6,9 KB, 170 KB e 171 KB. Escolher uma e decisao de quem sabe qual run e canonica.",
+        "CANDIDATOS": [
+          "6bd46e3e03eb233316a9e804db5d7d129887218f",
+          "31c853a51fc6c0be07747c8e2e5044533feebbcc",
+          "64758664cb34253f33a0a1dc14911c49ae5831a8"
+        ],
+        "EFEITO": "enquanto nao houver escolha, a contagem de rotulos e NOT_MEASURED e o sub-input nao entra na primeira carga."
+      }
     },
     {
       "HOSE_ID": "H3",
       "CANONICAL_PAYLOAD": "COMPETITOR_PRODUCT_IDENTITY",
-      "SOURCE_COMMIT": "dc32ce0",
-      "FREEZE_COMMIT": "25194e3",
-      "INPUT_ARTIFACT": "cadeia de identidade competitiva — 36 tuplas",
-      "DESTINATION_TABLES": ["organization", "product", "trademark_record", "registration", "competitor_product_identity", "attention_object", "competitor_identity_chain_object", "dependency_edge", "storage_provenance"],
-      "EXPECTED_ENTITY_COUNT": {"competitor_product_identity": 36, "attention_object": 0},
+      "SOURCE_COMMIT": "dc32ce079b8a645b39bddd5e31ecb384b61fbc92",
+      "FREEZE_COMMIT": "25194e3da340f64b57330c923565ed219e32e8e4",
+      "INPUT_ARTIFACT": "NOT_RESOLVED",
+      "DESTINATION_TABLES": [
+        "organization",
+        "product",
+        "trademark_record",
+        "registration",
+        "competitor_product_identity",
+        "attention_object",
+        "competitor_identity_chain_object",
+        "dependency_edge",
+        "storage_provenance"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "competitor_product_identity": "NOT_MEASURED",
+        "attention_object": 0
+      },
       "POR_QUE_ZERO": "36 tuplas existem e nenhuma tem OBJECT_SPECIFIC_TRIGGER: o gatilho exige mudanca observada entre DUAS leituras com intervalo real, e so houve uma captura. Zero aqui e resultado, nao falha.",
-      "GUARDS": ["URBOLE_GUARD", "DERIVED_DEPENDENCY_ON_META", "IDENTITY_CONVERGENCE_IS_NOT_PHENOMENON_CONVERGENCE"],
+      "GUARDS": [
+        "URBOLE_GUARD",
+        "DERIVED_DEPENDENCY_ON_META",
+        "IDENTITY_CONVERGENCE_IS_NOT_PHENOMENON_CONVERGENCE"
+      ],
       "VALIDATION_QUERY": "select agreement_state, urbole_guard_result, count(*) from competitor_product_identity group by 1,2",
       "FAIL_CLOSED": "sem concordancia de titular E pais nas tres pontas, agreement_state = NOT_PROVED. Zero recusas sem portao exercido e portao sem dentes: urbole_guard_result nunca fica NOT_RUN em linha com agreement PROVED.",
-      "DEPENDENCY_TO_PUBLISH": {"from": "H3", "to": "H4", "type": "DERIVATION_DEPENDENCY", "why": "a perna META da cadeia E o anuncio da Meta"}
+      "DEPENDENCY_TO_PUBLISH": {
+        "from": "H3",
+        "to": "H4",
+        "type": "DERIVATION_DEPENDENCY",
+        "why": "a perna META da cadeia E o anuncio da Meta"
+      },
+      "NOTA_DO_ARTEFATO": "O mapa dizia \"36 tuplas\" e nenhum artefato do commit fixo tem 36 de nada: COMPETITOR-CROSSWALK tem 242 pares, PILOT-AMOSTRA tem 6. Escolher por semelhanca de nome seria inventar proveniencia. Candidatos em SUPABASE-PUBLISHER-DRYRUN.json."
     },
     {
       "HOSE_ID": "H4",
       "CANONICAL_PAYLOAD": "OBSERVED_PAID_ACTIVITY",
-      "SOURCE_COMMIT": "acfd987",
-      "HANDOFF_COMMIT": "a2fad2d",
-      "INPUT_ARTIFACT": "observacao de atividade paga na Biblioteca de Anuncios",
-      "DESTINATION_TABLES": ["source", "evidence", "observation", "observed_paid_activity", "storage_provenance"],
-      "EXPECTED_ENTITY_COUNT": {"observed_paid_activity": "NOT_MEASURED"},
-      "GUARDS": ["PAGE_COUNTRY_SCOPE_IS_NOT_AD_DELIVERY_COUNTRY", "AD_CARD_IS_NOT_AD", "SEVEN_CANNOT_CLAIM", "OPERATIONAL_TEMPORAL_SIGNAL_VALUE_NOT_PROVED"],
+      "SOURCE_COMMIT": "acfd987141d57e810bbef6e5e2c21b1d40124ce3",
+      "HANDOFF_COMMIT": "a2fad2d03e04ba071a7a66b0a502b5a515b5246b",
+      "INPUT_ARTIFACT": "data/samples/META-EAME/META-ADS-EVENTS-EAME-V1.json",
+      "DESTINATION_TABLES": [
+        "source",
+        "evidence",
+        "observation",
+        "observed_paid_activity",
+        "storage_provenance"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "observed_paid_activity": "NOT_MEASURED"
+      },
+      "GUARDS": [
+        "PAGE_COUNTRY_SCOPE_IS_NOT_AD_DELIVERY_COUNTRY",
+        "AD_CARD_IS_NOT_AD",
+        "SEVEN_CANNOT_CLAIM",
+        "OPERATIONAL_TEMPORAL_SIGNAL_VALUE_NOT_PROVED"
+      ],
       "VALIDATION_QUERY": "select count(*) from observed_paid_activity where array_length(cannot_claim_list,1) >= 6",
       "FAIL_CLOSED": "zero de leitura e NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING.",
       "DO_NOT_BUILD": "META_DASHBOARD — H4 nao ganha superficie nem objeto proprio",
@@ -100,39 +210,109 @@
     {
       "HOSE_ID": "H5",
       "CANONICAL_PAYLOAD": "FIELD_PRESSURE_SERIES",
-      "SOURCE_COMMIT": "ad041d7",
-      "INPUT_ARTIFACT": "serie historica RAIF + backtest + coorte",
-      "DESTINATION_TABLES": ["source", "field_pressure_series", "field_pressure_reading", "observation", "attention_object", "longitudinal_field_pressure_object", "dependency_edge", "storage_provenance"],
-      "EXPECTED_ENTITY_COUNT": {"field_pressure_series": "NOT_MEASURED", "field_pressure_reading": 148964, "seasons": 23},
-      "LEDGER": "RAIF_SEASONS_AVAILABLE = 23 · RAIF_READINGS_TOTAL = 148964 — o dono e scripts/metricas_canonicas.py. O Supabase reproduz e nao redefine.",
-      "GUARDS": ["FIELD_PRESSURE_IS_NOT_DEMAND", "MEAN_NEVER_TRAVELS_WITHOUT_N", "SAME_PUBLISHER_IS_NOT_INDEPENDENT_OBSERVATION"],
+      "SOURCE_COMMIT": "ad041d7edc197763b4d309526729f70e300ed517",
+      "INPUT_ARTIFACT": "data/samples/ES-T3-001-repilo-serie-historica.json + RAIF-COORTE-REPILO.json + BACKTEST-REPILO-LEAD-TIME.json",
+      "DESTINATION_TABLES": [
+        "source",
+        "field_pressure_series",
+        "field_pressure_reading",
+        "observation",
+        "attention_object",
+        "longitudinal_field_pressure_object",
+        "dependency_edge",
+        "storage_provenance"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "field_pressure_series": "NOT_MEASURED",
+        "field_pressure_reading": "LEDGER_DERIVED",
+        "seasons": "LEDGER_DERIVED"
+      },
+      "LEDGER": "RAIF_SEASONS_AVAILABLE = 23 · RAIF_READINGS_TOTAL = 148964 — o dono e scripts/metricas_canonicas.py, que conta o PACOTE RAIF inteiro. Os tres artefatos fixados aqui sao resumos (serie, coorte, backtest) e NAO contem essas listas: medi e nao achei. O numero continua valido e continua do ledger; o que nao se pode e dizer que sai destes blobs.",
+      "GUARDS": [
+        "FIELD_PRESSURE_IS_NOT_DEMAND",
+        "MEAN_NEVER_TRAVELS_WITHOUT_N",
+        "SAME_PUBLISHER_IS_NOT_INDEPENDENT_OBSERVATION"
+      ],
       "VALIDATION_QUERY": "select count(*) as readings, count(distinct season) as seasons from field_pressure_reading r join field_pressure_series s using (series_id) where s.source_id = 'RAIF'",
       "FAIL_CLOSED": "leitura sem n nao entra: a coluna e NOT NULL com check n > 0. Sem baseline_state PROVED a serie nao vira tendencia.",
-      "DEPENDENCY_TO_PUBLISH": {"from": "H5", "to": "H1", "type": "SOURCE_DEPENDENCY", "why": "o RAIF e publicador dos dois lados; nao conta como segunda perna"}
+      "DEPENDENCY_TO_PUBLISH": {
+        "from": "H5",
+        "to": "H1",
+        "type": "SOURCE_DEPENDENCY",
+        "why": "o RAIF e publicador dos dois lados; nao conta como segunda perna"
+      }
     },
     {
       "HOSE_ID": "H6",
-      "CANONICAL_PAYLOAD": ["PERSON_CREATOR", "FARM_BUSINESS_ENTITY", "CREATOR_CONTENT_PROFILE"],
-      "SOURCE_COMMIT": ["248bd27", "a509c12"],
-      "INPUT_ARTIFACT": "mapa de creators + corpus profundo",
-      "DESTINATION_TABLES": ["person", "person_creator", "farm_business_entity", "creator_content_profile", "observation", "field_voice_observation", "content_entity", "entry_path_event", "storage_provenance"],
-      "EXPECTED_ENTITY_COUNT": {"creator_last_90d": 164, "person_creator": "NOT_MEASURED", "farm_business_entity": "NOT_MEASURED"},
-      "LEDGER_CORRECTION": "LAST_90D = 164. O 280 foi copiado do briefing; o freeze diz 164.",
-      "GUARDS": ["PERSON_CREATOR_IS_NOT_FARM_BUSINESS", "SUM_IS_NEVER_CALLED_CREATORS_READY", "FOLLOWERS_ARE_NOT_AUTHORITY", "ROW_IS_NOT_ENTITY"],
+      "CANONICAL_PAYLOAD": [
+        "PERSON_CREATOR",
+        "FARM_BUSINESS_ENTITY",
+        "CREATOR_CONTENT_PROFILE"
+      ],
+      "SOURCE_COMMIT": [
+        "248bd27027506a5f531a117ce50d35eb5304b152",
+        "a509c124f03500fa7a99d55de724eb322ce24b19"
+      ],
+      "INPUT_ARTIFACT": "data/samples/CREATOR-MAP-EAME/CREATORS-ES-IT-FR.json + CREATOR-CONTENT-CORPUS-EAME/CORPUS-UNIVERSE.json + CORPUS-OBSERVATIONS.json",
+      "DESTINATION_TABLES": [
+        "person",
+        "person_creator",
+        "farm_business_entity",
+        "creator_content_profile",
+        "observation",
+        "field_voice_observation",
+        "content_entity",
+        "entry_path_event",
+        "storage_provenance"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "person_creator": "NOT_MEASURED",
+        "farm_business_entity": "NOT_MEASURED",
+        "creator_content_profile": "NOT_MEASURED"
+      },
+      "LEDGER_CORRECTION": "LAST_90D = 164 vem do freeze do refresh, nao destes blobs: medi as tres listas e nenhuma da 164. Ate alguem apontar a lista que sustenta o 164, a contagem de carga e NOT_MEASURED.",
+      "GUARDS": [
+        "PERSON_CREATOR_IS_NOT_FARM_BUSINESS",
+        "SUM_IS_NEVER_CALLED_CREATORS_READY",
+        "FOLLOWERS_ARE_NOT_AUTHORITY",
+        "ROW_IS_NOT_ENTITY"
+      ],
       "VALIDATION_QUERY": "select 'person_creator' as kind, count(*) from person_creator union all select 'farm_business_entity', count(*) from farm_business_entity",
       "PROIBIDO_NA_VALIDACAO": "somar as duas linhas do resultado acima num numero so",
       "FAIL_CLOSED": "sem ENTRY_PATH instrumentado nao ha promocao a ferramenta. entry_path_event existe desde a primeira carga, vazia.",
-      "KNOWN_LIMIT": "ROW != ENTITY: inflacao medida de 2,6x. As duas contagens sempre viajam juntas."
+      "KNOWN_LIMIT": "ROW != ENTITY: inflacao medida de 2,6x. As duas contagens sempre viajam juntas.",
+      "MEASURED_NOS_BLOBS_FIXADOS": {
+        "CREATORS-ES-IT-FR.json::CREATORS": 14,
+        "CORPUS-UNIVERSE.json::ENTITIES": 10,
+        "CORPUS-OBSERVATIONS.json::MATERIALS": 442
+      }
     },
     {
       "HOSE_ID": "H7",
       "CANONICAL_PAYLOAD": "SCIENTIFIC_PERSON",
-      "SOURCE_COMMIT": "ad041d7",
-      "INPUT_ARTIFACT": "data/samples/ES-RESEARCHERS-OLIVE.json + corpus cientifico ES",
-      "DESTINATION_TABLES": ["person", "scientific_person", "scientific_publication", "publication_author", "issue_expertise", "organization", "storage_provenance"],
-      "EXPECTED_ENTITY_COUNT": {"scientific_person": "NOT_MEASURED", "issue_expertise_proved": 0},
+      "SOURCE_COMMIT": "ad041d7edc197763b4d309526729f70e300ed517",
+      "INPUT_ARTIFACT": "data/samples/ES-RESEARCHERS-OLIVE.json + data/samples/ES-T5-002-corpus-documentos.json",
+      "DESTINATION_TABLES": [
+        "person",
+        "scientific_person",
+        "scientific_publication",
+        "publication_author",
+        "issue_expertise",
+        "organization",
+        "storage_provenance"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "scientific_person": "NOT_MEASURED",
+        "issue_expertise_proved": 0
+      },
       "POR_QUE_ZERO": "nenhuma pessoa tem expertise no problema provada hoje. Zero e o estado correto e a view v_issue_expert devolve vazio com o motivo.",
-      "GUARDS": ["ISSUE_EXPERTISE_PROVED_REQUIRED", "IDENTITY_PROVED_IS_NOT_ISSUE_EXPERTISE_PROVED", "RECURRENCE_IS_NOT_AUTHORITY", "GDPR_BEFORE_ANY_EXPOSURE", "SCIENTIFIC_PERSON_IS_NOT_SCIENTIFIC_PUBLICATION"],
+      "GUARDS": [
+        "ISSUE_EXPERTISE_PROVED_REQUIRED",
+        "IDENTITY_PROVED_IS_NOT_ISSUE_EXPERTISE_PROVED",
+        "RECURRENCE_IS_NOT_AUTHORITY",
+        "GDPR_BEFORE_ANY_EXPOSURE",
+        "SCIENTIFIC_PERSON_IS_NOT_SCIENTIFIC_PUBLICATION"
+      ],
       "VALIDATION_QUERY": "select issue_expertise_state, count(*) from issue_expertise group by 1",
       "FAIL_CLOSED": "issue_expertise_state PROVED sem evidence_id e recusado por check.",
       "KNOWN_LIMIT": "corpus so espanhol — expertise IT e FR e NOT_AVAILABLE, nao lacuna nossa"
@@ -140,38 +320,84 @@
     {
       "HOSE_ID": "H8",
       "CANONICAL_PAYLOAD": "COMPANY_LOCAL_ACCOUNT",
-      "SOURCE_COMMIT": "c25e44b",
-      "INPUT_ARTIFACT": "22 contas locais de concorrente, identidade resolvida",
-      "DESTINATION_TABLES": ["organization", "company_local_account", "storage_provenance"],
-      "EXPECTED_ENTITY_COUNT": {"company_local_account": 22, "company_public_content": 0},
+      "SOURCE_COMMIT": "c25e44ba14d963f45a3381205b2759690fef66b9",
+      "INPUT_ARTIFACT": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "DESTINATION_TABLES": [
+        "organization",
+        "company_local_account",
+        "storage_provenance"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "company_local_account": "NOT_MEASURED",
+        "company_public_content": 0
+      },
       "POR_QUE_ZERO": "CONTENT_COLLECTION_STAGE = NOT_STARTED em todas as 22. Zero conteudo NAO e ausencia de comunicacao.",
-      "GUARDS": ["IDENTITY_IS_NOT_SIGNAL", "COUNTRY_SCOPE_IS_NOT_PAGE_ROLE", "ACCOUNT_IS_NOT_COMPANY", "ZERO_IS_NO_CONTENT_COLLECTION_EXECUTED"],
+      "GUARDS": [
+        "IDENTITY_IS_NOT_SIGNAL",
+        "COUNTRY_SCOPE_IS_NOT_PAGE_ROLE",
+        "ACCOUNT_IS_NOT_COMPANY",
+        "ZERO_IS_NO_CONTENT_COLLECTION_EXECUTED"
+      ],
       "VALIDATION_QUERY": "select content_collection_stage, count(*) from company_local_account group by 1",
       "EXPECTED_VALIDATION_RESULT": "NOT_STARTED = 22",
-      "FAIL_CLOSED": "a mangueira existe, esta declarada em Fontes e NAO corre."
+      "FAIL_CLOSED": "a mangueira existe, esta declarada em Fontes e NAO corre.",
+      "MEASURED_NOS_BLOBS_FIXADOS": {
+        "CONTAS-V1.json::ACCOUNTS": 44,
+        "CONTAS-V1.json::NO_LINK_DECLARED": 28
+      },
+      "CORRECAO": "Eu tinha escrito 22 contas. O blob congelado tem 44 em ACCOUNTS e 28 em NO_LINK_DECLARED — nem 44 nem 44-28=16 dao 22. O 22 nao tem sustentacao neste artefato e virou NOT_MEASURED. O zero de conteudo continua: e resultado de CONTENT_COLLECTION_STAGE = NOT_STARTED, nao contagem de lista."
     },
     {
       "HOSE_ID": "H9",
-      "CANONICAL_PAYLOAD": ["CONTENT_ENTITY", "CONTENT_TRANSLATION", "ONTOLOGY_TERM"],
-      "SOURCE_COMMIT": "1443f643",
-      "INPUT_ARTIFACT": "contrato multilingue + X-006 + X-007 (dicionario agro canonico)",
-      "DESTINATION_TABLES": ["ontology_term", "ontology_term_label", "content_entity", "content_translation", "attention_object_representation"],
-      "EXPECTED_ENTITY_COUNT": {"content_translation": 0, "ontology_term": "NOT_MEASURED"},
+      "CANONICAL_PAYLOAD": [
+        "CONTENT_ENTITY",
+        "CONTENT_TRANSLATION",
+        "ONTOLOGY_TERM"
+      ],
+      "SOURCE_COMMIT": "1443f6435d4297a4563f25d83473142fc12e1f0d",
+      "INPUT_ARTIFACT": "data/samples/X-007-canonical-agro-dictionary.json + data/samples/X-006-eu-cas-to-ephy.json",
+      "DESTINATION_TABLES": [
+        "ontology_term",
+        "ontology_term_label",
+        "content_entity",
+        "content_translation",
+        "attention_object_representation"
+      ],
+      "EXPECTED_ENTITY_COUNT": {
+        "content_translation": 0,
+        "ontology_term": "NOT_MEASURED"
+      },
       "POR_QUE_ZERO_TRADUCAO": "o acervo NAO foi traduzido, e traduzir nao esta autorizado. content_translation nasce vazia e isso e EMPTY_VALID.",
       "LEDGER": "SOURCE_RECORD_LANGUAGE_COVERAGE = MEASURED_ZERO_DECLARED — 283 de 5.998 registros tem o campo de lingua e ZERO tem valor. A maioria entra como source_language = UNKNOWN, e UNKNOWN continua UNKNOWN.",
-      "GUARDS": ["CLOSED_LANGUAGE_VOCABULARY", "CANONICAL_ID_IS_NOT_DISPLAY_LABEL", "ORIGINAL_QUOTE_IS_NOT_TRANSLATED_QUOTE", "TRANSLATION_NEVER_REPLACES_ORIGINAL"],
+      "GUARDS": [
+        "CLOSED_LANGUAGE_VOCABULARY",
+        "CANONICAL_ID_IS_NOT_DISPLAY_LABEL",
+        "ORIGINAL_QUOTE_IS_NOT_TRANSLATED_QUOTE",
+        "TRANSLATION_NEVER_REPLACES_ORIGINAL"
+      ],
       "VALIDATION_QUERY": "select source_language, count(*) from evidence group by 1",
       "FAIL_CLOSED": "lingua fora do vocabulario fechado recusa a criacao da linha — e o enum language_code que garante."
     }
   ],
-
   "DEPENDENCY_EDGES_A_PUBLICAR": [
-    {"from_kind": "HOSE", "from_id": "H3", "to_kind": "HOSE", "to_id": "H4", "dependency_type": "DERIVATION_DEPENDENCY", "why": "a perna META da cadeia E o anuncio da Meta, lido por git show sobre commit fixo"},
-    {"from_kind": "HOSE", "from_id": "H5", "to_kind": "HOSE", "to_id": "H1", "dependency_type": "SOURCE_DEPENDENCY", "why": "o RAIF publica os dois lados: SAME_PUBLISHER != INDEPENDENT_OBSERVATION"}
+    {
+      "from_kind": "HOSE",
+      "from_id": "H3",
+      "to_kind": "HOSE",
+      "to_id": "H4",
+      "dependency_type": "DERIVATION_DEPENDENCY",
+      "why": "a perna META da cadeia E o anuncio da Meta, lido por git show sobre commit fixo"
+    },
+    {
+      "from_kind": "HOSE",
+      "from_id": "H5",
+      "to_kind": "HOSE",
+      "to_id": "H1",
+      "dependency_type": "SOURCE_DEPENDENCY",
+      "why": "o RAIF publica os dois lados: SAME_PUBLISHER != INDEPENDENT_OBSERVATION"
+    }
   ],
-
   "UI_ALIAS_A_PUBLICAR": "a tabela ui_alias recebe o UI_ALIAS_MAP do schema canonico na primeira carga. E o unico lugar do banco onde os oito nomes do index (11) aparecem.",
-
   "ORDEM_SUGERIDA": [
     "1 · ontology_term + ontology_term_label + source — nada existe sem termo e sem fonte",
     "2 · H9 (content_entity) — guardrail transversal, entra ANTES de haver texto",

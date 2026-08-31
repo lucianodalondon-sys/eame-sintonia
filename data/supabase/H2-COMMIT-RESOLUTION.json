@@ -1,0 +1,50 @@
+{
+  "SOURCE_ID": "H2-COMMIT-RESOLUTION-EAME-2026-08-31",
+  "source": "Resolucao do commit imutavel do payload de H2. Branch nao e proveniencia.",
+  "REPOSITORY": "lucianodalondon-sys/eame-sintonia",
+  "BRANCH_AT_REFERENCE": "origin/claude/sintonia-italy-pilot-b1l401",
+  "PAYLOAD_DECLARADO": {
+    "PATH": "data/samples/IT-T4-001/IT-T4-001-adama-expiries.json",
+    "STATUS": "RESOLVED",
+    "RESOLVED_COMMIT_SHA": "d7b289425c5e436f3ce68e367b8706e11910f43b",
+    "COMMIT_DATE": "2026-08-28",
+    "COMMIT_SUBJECT": "research: add Italian and Spanish regulatory sources; measure T4 asymmetry",
+    "VERSOES_NA_BRANCH": 1,
+    "HEAD_IDENTICO_AO_COMMIT": true,
+    "BLOB_SHA": "26a645477326d4f0c4bd825487fbe59fdde7049f",
+    "CONTENT_SHA256": "ee9d835d2a82470eeb8c84fbc9443d7b7f199311535ebeba4dac601565a6495c",
+    "BYTES": 3780
+  },
+  "ARTEFATOS_SECUNDARIOS": [
+    {
+      "PATH": "data/samples/IT-T4-001/IT-T4-001-etichette-manifest.json",
+      "STATUS": "FAIL_CLOSED",
+      "WHY": "o artefato tem 3 versoes na branch; escolher uma e decisao de quem sabe, nao do script",
+      "COMMITS": [
+        {
+          "SHA": "6bd46e3e03eb233316a9e804db5d7d129887218f",
+          "DATE": "2026-08-30",
+          "SUBJECT": "italia: as datas da lotta obbligatoria, e o portfolio elegivel inteiro vence antes da proxima"
+        },
+        {
+          "SHA": "31c853a51fc6c0be07747c8e2e5044533feebbcc",
+          "DATE": "2026-08-30",
+          "SUBJECT": "italia: 161 de 163 rotulos, e o melhor caso nao era o que a ciencia apontava"
+        },
+        {
+          "SHA": "64758664cb34253f33a0a1dc14911c49ae5831a8",
+          "DATE": "2026-08-30",
+          "SUBJECT": "italia: a string do titular nao e a entidade, e o rotulo derruba a limitacao do Atlas"
+        }
+      ]
+    }
+  ],
+  "RESOLVED_COMMIT_SHA": "d7b289425c5e436f3ce68e367b8706e11910f43b",
+  "H2_PROVENANCE_MUTABLE_REF": "NO",
+  "STATUS": "RESOLVED",
+  "O_QUE_CONTA_PARA_H2": "Somente o INPUT_SCHEMA declarado no FINAL-HOSE-MAP: IT-T4-001-adama-expiries.json. Ele tem UMA versao e resolve limpo.",
+  "SECUNDARIO_NAO_RESOLVIDO": "IT-T4-001-etichette-manifest.json tem TRES versoes na branch, com RUN_IDs diferentes e tamanhos de 6,9 KB, 170 KB e 171 KB. Sao estados diferentes de uma coleta, nao reescritas do mesmo estado. Escolher uma e decisao de quem sabe qual run e canonica — o script recusa escolher. Enquanto nao houver escolha, a contagem de 163 rotulos do plano de primeira carga vira NOT_MEASURED. Este artefato entrou pelo plano que eu escrevi, nao pelo mapa de mangueiras: nao bloqueia a proveniencia de H2.",
+  "ALCANCAVEL_DA_BRANCH_DE_TRABALHO": true,
+  "COMO_FOI_RESOLVIDO": "git log da branch pelo caminho do artefato. O artefato tem UMA versao: foi criado num commit e nunca mais tocado, e o conteudo no HEAD da branch e identico ao daquele commit. Nao houve escolha entre versoes — se houvesse, o script devolveria FAIL_CLOSED em vez de pegar o HEAD.",
+  "POR_QUE_NAO_O_HEAD_DA_BRANCH": "HEAD e movel. Se alguem commitar na branch amanha, a leitura muda sem que o dado tenha mudado. O commit do artefato nao se move."
+}

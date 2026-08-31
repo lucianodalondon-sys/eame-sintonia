@@ -200,7 +200,7 @@ do helper `FIELD()` aplicado a dois campos.
 ## 5 · PROVAS
 
 `tests/test_v8_receptors_final.py` — **46 provas**, dentro das
-<!--M:TEST_COUNT_CURRENT-->813<!--/M--> da suíte, 0 falhas. As 713 anteriores preservadas.
+<!--M:TEST_COUNT_CURRENT-->859<!--/M--> da suíte, 0 falhas. As 713 anteriores preservadas.
 
 As provas travam a medição, não aprovam o casco. Quando um item for corrigido, a prova
 correspondente reprova — obrigando a remedir.

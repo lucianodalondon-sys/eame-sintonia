@@ -109,11 +109,25 @@ def sql_tabelas(d):
         for c in t['columns']:
             if c.get('fk'):
                 alvo_tab, alvo_col = c['fk'].split('.')
+                acao = c.get('on_delete', 'NO ACTION')
                 alteracoes.append(
                     'ALTER TABLE %s ADD CONSTRAINT %s_%s_fk\n'
-                    '  FOREIGN KEY (%s) REFERENCES %s (%s);'
-                    % (t['name'], t['name'], c['name'], c['name'], alvo_tab, alvo_col))
+                    '  FOREIGN KEY (%s) REFERENCES %s (%s)\n'
+                    '  ON DELETE %s ON UPDATE CASCADE;  -- %s'
+                    % (t['name'], t['name'], c['name'], c['name'], alvo_tab, alvo_col,
+                       acao, c.get('on_delete_rule', '')))
     return '\n'.join(partes), '\n'.join(alteracoes)
+
+
+def sql_indices(d):
+    idx = d.get('INDEXES')
+    if not idx:
+        return ''
+    linhas = ['\n-- ── INDICES ───────────────────────────────────────────────────────────',
+              '-- %s' % idx['POR_QUE']]
+    for i in idx['LISTA']:
+        linhas.append('CREATE INDEX %s ON %s (%s);' % (i['name'], i['table'], i['column']))
+    return '\n'.join(linhas)
 
 
 def _com_virgula(linha):
@@ -127,7 +141,9 @@ def _com_virgula(linha):
 def sql_views(d):
     linhas = ['\n-- ── VIEWS DE LEITURA ──────────────────────────────────────────────────',
               '-- Projecoes. A fonte de verdade continua normalizada: nenhuma view',
-              '-- redefine regra, e nenhuma duplica logica que ja existe em outra.']
+              '-- redefine regra, e nenhuma duplica logica que ja existe em outra.',
+              '-- Onde pode faltar linha o join e LEFT: view nenhuma esconde',
+              '-- NOT_PROVED ou UNKNOWN sumindo com a linha.']
     for v in d['VIEWS']:
         linhas.append('\n-- %s · %s' % (v['name'], v['purpose']))
         if v.get('why'):
@@ -135,20 +151,27 @@ def sql_views(d):
         linhas.append('-- LE: %s' % ', '.join(v['reads']))
         if v.get('derives'):
             linhas.append('-- DERIVA: %s' % ', '.join(v['derives']))
-    linhas.append('\n-- O corpo das views entra na proxima rodada, junto com o publisher.')
-    linhas.append('-- Declarar a assinatura antes do corpo evita que cada view invente')
-    linhas.append('-- sua propria versao da regra.')
+        if not v.get('body'):
+            raise ValueError('view %s sem corpo' % v['name'])
+        linhas.append('CREATE OR REPLACE VIEW %s AS\n%s;' % (v['name'], v['body']))
     return '\n'.join(linhas)
 
 
 def sql_rpcs(d):
-    linhas = ['\n-- ── RPCs ──────────────────────────────────────────────────────────────']
+    linhas = ['\n-- ── RPCs ──────────────────────────────────────────────────────────────',
+              '-- O V8 nao monta a inteligencia com dezessete joins no navegador.',
+              '-- SECURITY INVOKER de proposito: a RPC NAO contorna RLS.']
     for r in d['RPCS']:
-        linhas.append('\n-- %s(%s)' % (r['name'], ', '.join(r['args'])))
-        linhas.append('--   %s' % r['purpose'])
+        linhas.append('\n-- %s' % r['purpose'])
         linhas.append('--   RETORNA: %s' % ', '.join(r['returns']))
         if r.get('why'):
             linhas.append('--   POR QUE: %s' % r['why'])
+        if not r.get('body'):
+            raise ValueError('rpc %s sem corpo' % r['name'])
+        linhas.append(
+            'CREATE OR REPLACE FUNCTION %s(%s)\nRETURNS %s\nLANGUAGE plpgsql STABLE '
+            'SECURITY INVOKER AS $fn$\n%s\n$fn$;'
+            % (r['name'], ', '.join(r['args']), r['returns_sql'], r['body']))
     p = d['LANGUAGE_FALLBACK_POLICY']
     linhas.append('\n-- FALLBACK DE IDIOMA: %s' % ' -> '.join(p['CHAIN']))
     linhas.append('-- %s' % p['REGRA'])
@@ -173,15 +196,57 @@ def sql_rls(d):
 
 
 def sql_rls_policies(d):
-    linhas = []
+    rls = d['RLS']
+    linhas = ['-- Papeis. Criados se nao existirem; NOLOGIN porque quem loga e a aplicacao.']
+    for papel, porque in rls['PAPEIS'].items():
+        if papel == 'anon':
+            linhas.append('--   anon: %s (nenhuma policy = nao le nada)' % porque)
+            continue
+        linhas.append("DO $$ BEGIN\n  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '%s')"
+                      "\n  THEN CREATE ROLE %s NOLOGIN; END IF;\nEND $$;  -- %s"
+                      % (papel, papel, porque))
+    linhas.append('')
+    linhas.append('-- %s' % rls['HELPER']['porque'])
+    linhas.append(rls['HELPER']['sql'].strip())
+    linhas.append('')
+    linhas.append('-- RLS ligado em TODAS as tabelas. Sem policy, o acesso e negado:')
+    linhas.append('-- o padrao seguro e negar e abrir depois.')
     for t in d['TABLES']:
         linhas.append('ALTER TABLE %s ENABLE ROW LEVEL SECURITY;' % t['name'])
     linhas.append('')
-    linhas.append('-- Isolamento por pais nas tabelas que tem country. As politicas'
-                  '\n-- concretas entram com a autenticacao, na rodada de wiring.')
+
+    com_pais = [t['name'] for t in d['TABLES']
+                if any(c['name'] == 'country' for c in t['columns'])]
+    filhas = [t['name'] for t in d['TABLES']
+              if any(c['name'] == 'attention_object_id' for c in t['columns'])
+              and t['name'] not in com_pais]
+
+    linhas.append('-- 1 · o publisher escreve; e a unica coisa que escreve inteligencia')
     for t in d['TABLES']:
-        if any(c['name'] == 'country' for c in t['columns']):
-            linhas.append('--   %s: filtrar por country' % t['name'])
+        linhas.append('CREATE POLICY publisher_all ON %s FOR ALL TO publisher_role '
+                      'USING (true) WITH CHECK (true);' % t['name'])
+    linhas.append('')
+    linhas.append('-- 2 · o portal le so o pais autorizado. Sem SET, allowed_countries()')
+    linhas.append('--     devolve vazio e nenhuma linha passa.')
+    for nome in com_pais:
+        linhas.append('CREATE POLICY portal_read_country ON %s FOR SELECT TO portal_reader '
+                      'USING (country = ANY (allowed_countries()));' % nome)
+    linhas.append('')
+    linhas.append('-- 3 · a tabela filha herda o pais da raiz, sem repetir a coluna')
+    for nome in filhas:
+        linhas.append('CREATE POLICY portal_read_child ON %s FOR SELECT TO portal_reader '
+                      'USING (EXISTS (SELECT 1 FROM attention_object o '
+                      'WHERE o.attention_object_id = %s.attention_object_id '
+                      'AND o.country = ANY (allowed_countries())));' % (nome, nome))
+    linhas.append('')
+    linhas.append('-- 4 · a UNICA escrita do portal, e nao e inteligencia: rota de entrada')
+    linhas.append('CREATE POLICY portal_write_telemetry ON entry_path_event FOR INSERT '
+                  'TO portal_reader WITH CHECK (true);')
+    linhas.append('')
+    linhas.append('-- O que NAO entra agora, por depender de decisao de autenticacao:')
+    for item in rls['BLOQUEADO_POR_DECISAO_DE_AUTENTICACAO']:
+        linhas.append('--   %s' % item)
+    linhas.append('-- %s' % rls['REGRA_QUE_NAO_MUDA'])
     return '\n'.join(linhas)
 
 
@@ -192,6 +257,7 @@ def gerar(d):
         sql_enums(d),
         tabelas,
         fks,
+        sql_indices(d),
         sql_rls(d),
         sql_rls_policies(d),
         sql_views(d),

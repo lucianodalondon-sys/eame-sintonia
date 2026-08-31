@@ -164,7 +164,7 @@ receptores. As duas coisas coincidem agora porque as duas foram medidas.
 ## 8 · PROVAS
 
 `tests/test_v8_receptor_closeout.py` — **27 provas**, dentro das
-<!--M:TEST_COUNT_CURRENT-->813<!--/M--> da suíte, 0 falhas. As 786 anteriores preservadas.
+<!--M:TEST_COUNT_CURRENT-->859<!--/M--> da suíte, 0 falhas. As 786 anteriores preservadas.
 
 Incluem: o diff de uma linha, os 7 bytes, o SHA idêntico de `support.js` e `crop-map.js`, a
 ausência de `FARM_BUSINESS` abreviado, a fonte única de verdade e o medidor não duplicado.

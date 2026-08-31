@@ -1,0 +1,137 @@
+/* ADAMA Brasil — Typography Tokens
+   Primary:   LL Brown (Lineto) — licensed OTF files in assets/fonts/
+   Secondary: Aleo (slab serif, free via Google Fonts)
+   Alternate: Arial (system fallback)
+*/
+
+/* ── LL Brown @font-face ────────────────────────────── */
+@font-face {
+  font-family: 'BrownLL';
+  src: url('../assets/fonts/BrownLL-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BrownLL';
+  src: url('../assets/fonts/BrownLL-ThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BrownLL';
+  src: url('../assets/fonts/BrownLL-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BrownLL';
+  src: url('../assets/fonts/BrownLL-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BrownLL';
+  src: url('../assets/fonts/BrownLL-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BrownLL';
+  src: url('../assets/fonts/BrownLL-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BrownLL';
+  src: url('../assets/fonts/BrownLL-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BrownLL';
+  src: url('../assets/fonts/BrownLL-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ── Aleo (secondary slab serif — variable font) ────── */
+@font-face {
+  font-family: 'Aleo';
+  src: url('../assets/fonts/Aleo-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Aleo';
+  src: url('../assets/fonts/Aleo-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+
+  /* ── Font Families ──────────────────────────────────── */
+  --font-primary:   'BrownLL', Arial, sans-serif;
+  --font-secondary: 'Aleo', Georgia, serif;
+  --font-alternate: Arial, Helvetica, sans-serif;
+
+  /* ── Font Sizes ─────────────────────────────────────── */
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.8125rem;  /* 13px */
+  --text-base: 1rem;       /* 16px */
+  --text-md:   1.0625rem;  /* 17px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  1.875rem;   /* 30px */
+  --text-4xl:  2.25rem;    /* 36px */
+  --text-5xl:  3rem;       /* 48px */
+  --text-6xl:  3.75rem;    /* 60px */
+
+  /* ── Font Weights ───────────────────────────────────── */
+  --weight-light:     300;
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
+  --weight-black:     900;
+
+  /* ── Line Heights ───────────────────────────────────── */
+  --leading-none:    1;
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+  --leading-loose:   1.8;
+
+  /* ── Letter Spacing ─────────────────────────────────── */
+  --tracking-tighter: -0.02em;
+  --tracking-tight:   -0.01em;
+  --tracking-normal:   0;
+  --tracking-wide:     0.04em;
+  --tracking-wider:    0.08em;
+  --tracking-widest:   0.15em;
+
+  /* ── Semantic Typography ────────────────────────────── */
+  --type-display:   var(--weight-bold)   var(--text-5xl)/var(--leading-tight) var(--font-primary);
+  --type-h1:        var(--weight-bold)   var(--text-4xl)/var(--leading-tight) var(--font-primary);
+  --type-h2:        var(--weight-bold)   var(--text-3xl)/var(--leading-snug)  var(--font-primary);
+  --type-h3:        var(--weight-semibold) var(--text-2xl)/var(--leading-snug) var(--font-primary);
+  --type-h4:        var(--weight-semibold) var(--text-xl)/var(--leading-normal) var(--font-primary);
+  --type-body-lg:   var(--weight-regular) var(--text-lg)/var(--leading-relaxed) var(--font-primary);
+  --type-body:      var(--weight-regular) var(--text-base)/var(--leading-relaxed) var(--font-primary);
+  --type-body-sm:   var(--weight-regular) var(--text-sm)/var(--leading-normal) var(--font-primary);
+  --type-label:     var(--weight-semibold) var(--text-sm)/var(--leading-none) var(--font-primary);
+  --type-caption:   var(--weight-regular) var(--text-xs)/var(--leading-normal) var(--font-primary);
+}

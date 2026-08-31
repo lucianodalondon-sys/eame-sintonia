@@ -469,8 +469,13 @@ class TestComunicacaoPublica(Base):
                          ['NOT_STARTED', 'RUNNING', 'PARTIAL', 'COMPLETE'])
         h8 = next(i for i in PUB['INPUTS'] if i['HOSE_ID'] == 'H8')
         self.assertIn('NAO e ausencia de comunicacao', h8['POR_QUE_ZERO'])
-        self.assertEqual(h8['EXPECTED_ENTITY_COUNT']['company_local_account'], 22)
+        # o zero de conteudo continua: e resultado do guard, nao contagem de lista
         self.assertEqual(h8['EXPECTED_ENTITY_COUNT']['company_public_content'], 0)
+        # ja a contagem de contas caiu para NOT_MEASURED: eu tinha escrito 22 e o
+        # blob congelado tem 44 em ACCOUNTS. Numero sem lastro nao vira expectativa.
+        self.assertEqual(h8['EXPECTED_ENTITY_COUNT']['company_local_account'],
+                         'NOT_MEASURED')
+        self.assertIn('Eu tinha escrito 22 contas', h8['CORRECAO'])
 
     def test_a_conta_existe_antes_do_conteudo(self):
         self.assertIn('company_local_account', TAB)
@@ -558,11 +563,14 @@ class TestPublisher(Base):
         self.assertIn('COMMIT_SHA', p['PINNED_READ_RULE'])
         self.assertIn('COMMIT_SHA fixo', PUB['LEI_DE_LEITURA'])
 
-    def test_a_branch_do_h2_esta_declarada_e_nao_escondida(self):
-        """Uma entrada fora da lei, dita em voz alta."""
+    def test_o_h2_deixou_de_apontar_para_branch(self):
+        """Era a unica entrada fora da lei. Foi resolvida para um SHA imutavel."""
         h2 = next(i for i in PUB['INPUTS'] if i['HOSE_ID'] == 'H2')
-        self.assertEqual(h2['SOURCE_COMMIT'], 'RESOLVER_ANTES_DA_CARGA')
-        self.assertIn('BRANCH', h2['NOTA_DO_COMMIT'])
+        self.assertEqual(len(h2['SOURCE_COMMIT']), 40)
+        self.assertNotIn('origin/', h2['SOURCE_COMMIT'])
+        self.assertIn('RESOLVIDO', h2['NOTA_DO_COMMIT'])
+        self.assertEqual(h2['SOURCE_BRANCH_AT_REFERENCE'],
+                         'origin/claude/sintonia-italy-pilot-b1l401')
 
     def test_contagem_que_nao_pode_ser_afirmada_e_NOT_MEASURED(self):
         h1 = next(i for i in PUB['INPUTS'] if i['HOSE_ID'] == 'H1')

@@ -238,9 +238,29 @@
   },
   "PROVENANCE_ENVELOPE": {
     "DISCRIMINATOR": "SOURCE_BACKEND",
-    "VALUES": ["GITHUB", "SUPABASE"],
-    "GITHUB": ["SOURCE_BACKEND", "REPOSITORY", "PATH", "COMMIT_SHA", "HASH", "SOURCE_ID", "AS_OF_DATE"],
-    "SUPABASE": ["SOURCE_BACKEND", "SCHEMA", "TABLE_OR_VIEW", "PRIMARY_KEY", "SNAPSHOT_ID", "CAPTURED_AT", "SOURCE_ID", "AS_OF_DATE"],
+    "VALUES": [
+      "GITHUB",
+      "SUPABASE"
+    ],
+    "GITHUB": [
+      "SOURCE_BACKEND",
+      "REPOSITORY",
+      "PATH",
+      "COMMIT_SHA",
+      "HASH",
+      "SOURCE_ID",
+      "AS_OF_DATE"
+    ],
+    "SUPABASE": [
+      "SOURCE_BACKEND",
+      "SCHEMA",
+      "TABLE_OR_VIEW",
+      "PRIMARY_KEY",
+      "SNAPSHOT_ID",
+      "CAPTURED_AT",
+      "SOURCE_ID",
+      "AS_OF_DATE"
+    ],
     "ONDE_MORA": "tabela storage_provenance, com tres checks que impedem linha hibrida",
     "UI_RULE": "A UI renderiza PROVENIENCIA de forma identica nos dois casos. O rotulo muda; o componente nao.",
     "PINNED_READ_RULE": "Leitura GitHub e sempre por COMMIT_SHA fixo. Uma branch se move e responde diferente a cada hora sem ninguem ter mudado nada.",
@@ -250,12 +270,17 @@
       "POR_QUE_SEPARADAS": "quando o dado ja estiver no Supabase, SOURCE_BACKEND = SUPABASE descreveria a ENTREGA. Se fosse o unico campo, apagaria a origem externa real, e o portal passaria a dizer que a fonte de um boletim andaluz e 'Supabase'."
     },
     "SECURITY": {
-      "NEVER_IN_FRONTEND": ["SERVICE_ROLE_KEY", "secret", "token", "senha", "chave privada"],
+      "NEVER_IN_FRONTEND": [
+        "SERVICE_ROLE_KEY",
+        "secret",
+        "token",
+        "senha",
+        "chave privada"
+      ],
       "RULE": "O portal fala com um servidor; o servidor fala com o Supabase. storage_provenance guarda REFERENCIAS — repositorio, caminho, commit, tabela, chave — nunca credenciais.",
       "POR_QUE_IMPORTA": "SERVICE_ROLE_KEY ignora RLS por definicao. Envia-la ao navegador transformaria o plano de RLS inteiro em decoracao."
     }
   },
-
   "UI_ALIAS_MAP": {
     "REGRA": "Alias de apresentacao existe, e declarado, e NUNCA e o tipo persistido.",
     "MAP": [
@@ -375,7 +400,9 @@
           "name": "term_id",
           "type": "text",
           "null": false,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "language",
@@ -436,7 +463,9 @@
           "type": "text",
           "null": true,
           "fk": "source.source_id",
-          "note": "geometria exige origem explicita"
+          "note": "geometria exige origem explicita",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "checks": [
@@ -538,7 +567,9 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "captured_at",
@@ -584,7 +615,9 @@
           "name": "source_id",
           "type": "text",
           "pk": true,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "source_status",
@@ -641,19 +674,25 @@
           "name": "evidence_id",
           "type": "text",
           "null": false,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "snapshot_id",
           "type": "text",
           "null": true,
-          "fk": "source_snapshot.snapshot_id"
+          "fk": "source_snapshot.snapshot_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "original_ref",
@@ -751,7 +790,9 @@
           "name": "source_id",
           "type": "text",
           "null": true,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "as_of_date",
@@ -762,7 +803,9 @@
           "name": "publish_run_id",
           "type": "text",
           "null": true,
-          "fk": "publish_run.publish_run_id"
+          "fk": "publish_run.publish_run_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "checks": [
@@ -794,13 +837,17 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "snapshot_id",
           "type": "text",
           "null": true,
-          "fk": "source_snapshot.snapshot_id"
+          "fk": "source_snapshot.snapshot_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "source_location_country",
@@ -813,7 +860,9 @@
           "type": "text",
           "null": true,
           "fk": "geo_anchor.geo_id",
-          "note": "pais e regiao do FATO — nunca o mesmo campo"
+          "note": "pais e regiao do FATO — nunca o mesmo campo",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "source_published_at",
@@ -909,7 +958,9 @@
           "name": "evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "created_at",
@@ -930,7 +981,9 @@
           "name": "canonical_entity_id",
           "type": "text",
           "null": false,
-          "fk": "content_entity.canonical_entity_id"
+          "fk": "content_entity.canonical_entity_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "translation_language",
@@ -1040,7 +1093,9 @@
           "name": "publish_run_id",
           "type": "text",
           "null": true,
-          "fk": "publish_run.publish_run_id"
+          "fk": "publish_run.publish_run_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "created_at",
@@ -1069,7 +1124,9 @@
           "name": "attention_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "language",
@@ -1144,7 +1201,9 @@
           "name": "attention_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "requirement",
@@ -1189,13 +1248,17 @@
           "name": "attention_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "evidence_id",
           "type": "text",
           "null": false,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "role",
@@ -1217,7 +1280,9 @@
           "name": "attention_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "unknown_key",
@@ -1249,7 +1314,9 @@
           "name": "attention_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "clock_kind",
@@ -1283,7 +1350,9 @@
           "name": "source_id",
           "type": "text",
           "null": true,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "pk": [
@@ -1306,25 +1375,33 @@
           "name": "attention_object_id",
           "type": "text",
           "pk": true,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "geo_id",
           "type": "text",
           "null": false,
-          "fk": "geo_anchor.geo_id"
+          "fk": "geo_anchor.geo_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "crop_term_id",
           "type": "text",
           "null": false,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "issue_term_id",
           "type": "text",
           "null": false,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "crop_issue_pairing_state",
@@ -1337,7 +1414,9 @@
           "type": "text",
           "null": true,
           "fk": "evidence.evidence_id",
-          "note": "a passagem onde cultura e problema coocorrem"
+          "note": "a passagem onde cultura e problema coocorrem",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "checks": [
@@ -1356,13 +1435,17 @@
           "name": "attention_object_id",
           "type": "text",
           "pk": true,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "registration_id",
           "type": "text",
           "null": false,
-          "fk": "registration.registration_id"
+          "fk": "registration.registration_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "deadline_date",
@@ -1410,13 +1493,17 @@
           "name": "attention_object_id",
           "type": "text",
           "pk": true,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "competitor_product_identity_id",
           "type": "text",
           "null": false,
-          "fk": "competitor_product_identity.identity_id"
+          "fk": "competitor_product_identity.identity_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         }
       ]
     },
@@ -1429,13 +1516,17 @@
           "name": "attention_object_id",
           "type": "text",
           "pk": true,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "series_id",
           "type": "text",
           "null": false,
-          "fk": "field_pressure_series.series_id"
+          "fk": "field_pressure_series.series_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         }
       ]
     },
@@ -1469,19 +1560,25 @@
           "name": "geo_id",
           "type": "text",
           "null": true,
-          "fk": "geo_anchor.geo_id"
+          "fk": "geo_anchor.geo_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "signal_family",
@@ -1501,7 +1598,9 @@
           "name": "observation_id",
           "type": "text",
           "pk": true,
-          "fk": "observation.observation_id"
+          "fk": "observation.observation_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "country_of_fact",
@@ -1517,13 +1616,17 @@
           "name": "crop_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "issue_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "issue_evidence_passage",
@@ -1544,7 +1647,9 @@
           "name": "document_excerpt_evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "multi_bulletin_document",
@@ -1578,13 +1683,17 @@
           "name": "holder_organization_id",
           "type": "text",
           "null": true,
-          "fk": "organization.organization_id"
+          "fk": "organization.organization_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "product_id",
           "type": "text",
           "null": true,
-          "fk": "product.product_id"
+          "fk": "product.product_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "status_as_declared_by_source",
@@ -1595,7 +1704,9 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "unique": [
@@ -1621,7 +1732,9 @@
           "name": "registration_id",
           "type": "text",
           "null": false,
-          "fk": "registration.registration_id"
+          "fk": "registration.registration_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "deadline_date",
@@ -1649,13 +1762,17 @@
           "name": "evidence_id",
           "type": "text",
           "null": false,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "as_of_date",
@@ -1689,7 +1806,9 @@
           "name": "active_ingredient_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "is_adama",
@@ -1760,13 +1879,17 @@
           "name": "holder_organization_id",
           "type": "text",
           "null": true,
-          "fk": "organization.organization_id"
+          "fk": "organization.organization_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ]
     },
@@ -1791,31 +1914,41 @@
           "name": "competitor_organization_id",
           "type": "text",
           "null": false,
-          "fk": "organization.organization_id"
+          "fk": "organization.organization_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "normalized_product_id",
           "type": "text",
           "null": true,
-          "fk": "product.product_id"
+          "fk": "product.product_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "trademark_id",
           "type": "text",
           "null": true,
-          "fk": "trademark_record.trademark_id"
+          "fk": "trademark_record.trademark_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "local_registration_id",
           "type": "text",
           "null": true,
-          "fk": "registration.registration_id"
+          "fk": "registration.registration_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "observed_paid_activity_id",
           "type": "text",
           "null": true,
-          "fk": "observed_paid_activity.paid_activity_id"
+          "fk": "observed_paid_activity.paid_activity_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "agreement_state",
@@ -1860,7 +1993,9 @@
           "name": "observation_id",
           "type": "text",
           "null": false,
-          "fk": "observation.observation_id"
+          "fk": "observation.observation_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "platform",
@@ -1940,7 +2075,9 @@
           "name": "organization_id",
           "type": "text",
           "null": false,
-          "fk": "organization.organization_id"
+          "fk": "organization.organization_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "platform",
@@ -2002,7 +2139,9 @@
           "name": "account_id",
           "type": "text",
           "null": false,
-          "fk": "company_local_account.account_id"
+          "fk": "company_local_account.account_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "published_at",
@@ -2024,7 +2163,9 @@
           "name": "evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ]
     },
@@ -2054,13 +2195,17 @@
           "name": "crop_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "issue_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "season_range",
@@ -2111,7 +2256,9 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ]
     },
@@ -2130,7 +2277,9 @@
           "name": "series_id",
           "type": "text",
           "null": false,
-          "fk": "field_pressure_series.series_id"
+          "fk": "field_pressure_series.series_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "observed_at",
@@ -2167,13 +2316,17 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "observation_id",
           "type": "text",
           "null": true,
-          "fk": "observation.observation_id"
+          "fk": "observation.observation_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "checks": [
@@ -2233,13 +2386,17 @@
           "name": "person_id",
           "type": "text",
           "pk": true,
-          "fk": "person.person_id"
+          "fk": "person.person_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "organization_id",
           "type": "text",
           "null": true,
-          "fk": "organization.organization_id"
+          "fk": "organization.organization_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "relation_to_issue_as_declared",
@@ -2250,7 +2407,9 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ]
     },
@@ -2312,13 +2471,17 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ]
     },
@@ -2331,13 +2494,17 @@
           "name": "publication_id",
           "type": "text",
           "null": false,
-          "fk": "scientific_publication.publication_id"
+          "fk": "scientific_publication.publication_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "person_id",
           "type": "text",
           "null": false,
-          "fk": "person.person_id"
+          "fk": "person.person_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "author_position",
@@ -2360,19 +2527,25 @@
           "name": "person_id",
           "type": "text",
           "null": false,
-          "fk": "person.person_id"
+          "fk": "person.person_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "crop_term_id",
           "type": "text",
           "null": false,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "issue_term_id",
           "type": "text",
           "null": false,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "issue_expertise_state",
@@ -2384,7 +2557,9 @@
           "name": "evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "evaluated_at",
@@ -2416,7 +2591,9 @@
           "name": "person_id",
           "type": "text",
           "pk": true,
-          "fk": "person.person_id"
+          "fk": "person.person_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "relation_to_crop_region",
@@ -2428,7 +2605,9 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ]
     },
@@ -2448,7 +2627,9 @@
           "name": "organization_id",
           "type": "text",
           "null": true,
-          "fk": "organization.organization_id"
+          "fk": "organization.organization_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "display_name",
@@ -2470,7 +2651,9 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ]
     },
@@ -2495,13 +2678,17 @@
           "name": "person_id",
           "type": "text",
           "null": true,
-          "fk": "person.person_id"
+          "fk": "person.person_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "business_id",
           "type": "text",
           "null": true,
-          "fk": "farm_business_entity.business_id"
+          "fk": "farm_business_entity.business_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "platform",
@@ -2522,7 +2709,9 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "checks": [
@@ -2547,13 +2736,17 @@
           "name": "observation_id",
           "type": "text",
           "pk": true,
-          "fk": "observation.observation_id"
+          "fk": "observation.observation_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "profile_id",
           "type": "text",
           "null": true,
-          "fk": "creator_content_profile.profile_id"
+          "fk": "creator_content_profile.profile_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "entity_kind",
@@ -2574,13 +2767,17 @@
           "name": "crop_mentioned_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "issue_mentioned_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "region_mentioned",
@@ -2592,7 +2789,9 @@
           "type": "text",
           "null": true,
           "fk": "content_entity.canonical_entity_id",
-          "note": "o texto original vive em content_entity"
+          "note": "o texto original vive em content_entity",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "relation_to_issue_state",
@@ -2635,13 +2834,17 @@
           "name": "crop_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "issue_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "registered_response_state",
@@ -2659,7 +2862,9 @@
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "is_context_not_evidence",
@@ -2685,19 +2890,25 @@
           "name": "context_id",
           "type": "text",
           "null": false,
-          "fk": "local_adama_portfolio_context.context_id"
+          "fk": "local_adama_portfolio_context.context_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "product_id",
           "type": "text",
           "null": true,
-          "fk": "product.product_id"
+          "fk": "product.product_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "registration_id",
           "type": "text",
           "null": true,
-          "fk": "registration.registration_id"
+          "fk": "registration.registration_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         }
       ],
       "pk": [
@@ -2720,7 +2931,9 @@
           "name": "attention_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "proposition_text",
@@ -2755,7 +2968,9 @@
           "name": "proposition_id",
           "type": "text",
           "null": false,
-          "fk": "convergence_proposition.proposition_id"
+          "fk": "convergence_proposition.proposition_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "signal_family",
@@ -2766,13 +2981,17 @@
           "name": "evidence_id",
           "type": "text",
           "null": false,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "source_id",
           "type": "text",
           "null": false,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "observed_at",
@@ -2795,7 +3014,9 @@
           "name": "depends_on_leg_id",
           "type": "text",
           "null": true,
-          "fk": "convergence_leg.leg_id"
+          "fk": "convergence_leg.leg_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "dependency_note",
@@ -2860,7 +3081,9 @@
           "name": "evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "unique": [
@@ -2888,13 +3111,17 @@
           "name": "from_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "to_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "relation_kind",
@@ -2910,7 +3137,9 @@
           "name": "evidence_id",
           "type": "text",
           "null": true,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "unique": [
@@ -2941,7 +3170,9 @@
           "name": "attention_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "event_type",
@@ -2964,13 +3195,17 @@
           "name": "source_id",
           "type": "text",
           "null": true,
-          "fk": "source.source_id"
+          "fk": "source.source_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "observation_id",
           "type": "text",
           "null": true,
-          "fk": "observation.observation_id"
+          "fk": "observation.observation_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "state_before",
@@ -3032,7 +3267,9 @@
           "name": "attention_object_id",
           "type": "text",
           "null": false,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_3_OBRIGATORIA"
         },
         {
           "name": "department",
@@ -3101,13 +3338,17 @@
           "name": "action_id",
           "type": "text",
           "null": false,
-          "fk": "action.action_id"
+          "fk": "action.action_id",
+          "on_delete": "CASCADE",
+          "on_delete_rule": "REGRA_2_FILHA_CAI_COM_A_RAIZ"
         },
         {
           "name": "evidence_id",
           "type": "text",
           "null": false,
-          "fk": "evidence.evidence_id"
+          "fk": "evidence.evidence_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         }
       ],
       "pk": [
@@ -3136,13 +3377,17 @@
           "name": "attention_object_id",
           "type": "text",
           "null": true,
-          "fk": "attention_object.attention_object_id"
+          "fk": "attention_object.attention_object_id",
+          "on_delete": "SET NULL",
+          "on_delete_rule": "REGRA_4_OPCIONAL"
         },
         {
           "name": "crop_term_id",
           "type": "text",
           "null": true,
-          "fk": "ontology_term.term_id"
+          "fk": "ontology_term.term_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "region",
@@ -3229,7 +3474,9 @@
           "name": "publish_run_id",
           "type": "text",
           "null": false,
-          "fk": "publish_run.publish_run_id"
+          "fk": "publish_run.publish_run_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "repository",
@@ -3274,7 +3521,9 @@
           "name": "publish_run_id",
           "type": "text",
           "null": false,
-          "fk": "publish_run.publish_run_id"
+          "fk": "publish_run.publish_run_id",
+          "on_delete": "RESTRICT",
+          "on_delete_rule": "REGRA_1_IMUTAVEIS"
         },
         {
           "name": "family",
@@ -3362,7 +3611,8 @@
       "derives": [
         "independent_family_count",
         "convergence_state"
-      ]
+      ],
+      "body": "SELECT p.proposition_id,\n       p.attention_object_id,\n       p.proposition_text,\n       p.convergence_kind,\n       count(DISTINCT l.signal_family)\n         FILTER (WHERE l.independence_state = 'INDEPENDENT')          AS independent_family_count,\n       count(*) FILTER (WHERE l.independence_state = 'DEPENDENT')     AS dependent_leg_count,\n       count(*)                                                       AS leg_count,\n       CASE WHEN count(DISTINCT l.signal_family)\n                   FILTER (WHERE l.independence_state = 'INDEPENDENT') >= 2\n            THEN 'MULTI_SIGNAL' ELSE 'SINGLE_SIGNAL' END              AS convergence_state\n  FROM convergence_proposition p\n  LEFT JOIN convergence_leg l ON l.proposition_id = p.proposition_id\n GROUP BY p.proposition_id, p.attention_object_id, p.proposition_text, p.convergence_kind"
     },
     {
       "name": "v_attention_readiness",
@@ -3375,7 +3625,8 @@
       "derives": [
         "computed_is_ready",
         "blocking_requirements"
-      ]
+      ],
+      "body": "WITH gate AS (\n  SELECT o.attention_object_id,\n         r.requirement,\n         coalesce(r.state, 'NOT_MEASURED'::field_state) AS state\n    FROM attention_object o\n    CROSS JOIN unnest(ARRAY['VALID_EVIDENCE','OBJECT_SPECIFIC_TRIGGER','TIME_RELEVANCE',\n                            'DECISION_QUESTION','DECISION_OWNER']) AS req(requirement)\n    LEFT JOIN attention_readiness r\n           ON r.attention_object_id = o.attention_object_id\n          AND r.requirement = req.requirement\n)\nSELECT attention_object_id,\n       count(*) FILTER (WHERE state = 'PROVED')                       AS proved_gates,\n       count(*)                                                       AS total_gates,\n       bool_and(state = 'PROVED')                                     AS computed_is_ready,\n       array_agg(requirement ORDER BY requirement)\n         FILTER (WHERE state <> 'PROVED')                             AS blocking_requirements\n  FROM gate\n GROUP BY attention_object_id"
     },
     {
       "name": "v_attention_feed",
@@ -3384,7 +3635,8 @@
         "attention_object",
         "v_attention_readiness",
         "attention_object_representation"
-      ]
+      ],
+      "body": "SELECT o.attention_object_id,\n       o.object_type,\n       o.country,\n       o.attention_state,\n       o.decision_question,\n       o.decision_owner,\n       o.adama_line,\n       o.blocker_text,\n       o.as_of_date,\n       o.last_evidence_at,\n       rd.computed_is_ready,\n       rd.blocking_requirements,\n       rp.language,\n       rp.title,\n       rp.summary,\n       rp.attention_reason\n  FROM attention_object o\n  LEFT JOIN v_attention_readiness rd ON rd.attention_object_id = o.attention_object_id\n  LEFT JOIN attention_object_representation rp ON rp.attention_object_id = o.attention_object_id\n WHERE o.attention_state = 'ATTENTION_READY'"
     },
     {
       "name": "v_radar",
@@ -3393,7 +3645,8 @@
         "attention_object",
         "attention_object_representation",
         "attention_readiness"
-      ]
+      ],
+      "body": "SELECT o.attention_object_id,\n       o.object_type,\n       o.country,\n       o.attention_state,\n       o.adama_line,\n       o.blocker_text,\n       o.last_evidence_at,\n       rd.blocking_requirements,\n       rp.language,\n       rp.title\n  FROM attention_object o\n  LEFT JOIN v_attention_readiness rd ON rd.attention_object_id = o.attention_object_id\n  LEFT JOIN attention_object_representation rp ON rp.attention_object_id = o.attention_object_id"
     },
     {
       "name": "v_object_detail",
@@ -3406,7 +3659,8 @@
         "longitudinal_field_pressure_object",
         "object_clock",
         "attention_object_unknown"
-      ]
+      ],
+      "body": "SELECT o.attention_object_id,\n       o.object_type,\n       o.country,\n       o.attention_state,\n       o.decision_question,\n       o.decision_owner,\n       o.as_of_date,\n       pc.geo_id                          AS case_geo_id,\n       pc.crop_term_id                    AS case_crop_term_id,\n       pc.issue_term_id                   AS case_issue_term_id,\n       pc.crop_issue_pairing_state,\n       rdo.registration_id                AS deadline_registration_id,\n       rdo.deadline_date,\n       rdo.deadline_kind,\n       rdo.status_as_declared_by_source,\n       rdo.label_effect_state,\n       rdo.max_authorized_action,\n       cic.competitor_product_identity_id,\n       lfp.series_id\n  FROM attention_object o\n  LEFT JOIN phenomenon_case pc                    ON pc.attention_object_id  = o.attention_object_id\n  LEFT JOIN regulatory_deadline_object rdo        ON rdo.attention_object_id = o.attention_object_id\n  LEFT JOIN competitor_identity_chain_object cic  ON cic.attention_object_id = o.attention_object_id\n  LEFT JOIN longitudinal_field_pressure_object lfp ON lfp.attention_object_id = o.attention_object_id"
     },
     {
       "name": "v_evidence_drawer",
@@ -3419,7 +3673,8 @@
         "storage_provenance",
         "content_entity",
         "content_translation"
-      ]
+      ],
+      "body": "SELECT e.evidence_id,\n       e.source_id,\n       s.source_name,\n       s.source_role,\n       e.source_location_country,\n       g.country                     AS fact_location_country,\n       g.region                      AS fact_location_region,\n       e.source_published_at,\n       e.captured_at,\n       e.evidence_level,\n       e.original_text,\n       e.source_language,\n       e.document_excerpt,\n       e.passage_start,\n       e.passage_end,\n       e.source_url,\n       sp.snapshot_id                AS source_snapshot_id,\n       sp.original_ref,\n       stp.source_backend,\n       stp.repository, stp.path, stp.commit_sha, stp.content_hash,\n       stp.db_schema, stp.table_or_view, stp.primary_key, stp.snapshot_id AS storage_snapshot_id,\n       stp.as_of_date,\n       ce.canonical_entity_id,\n       ce.original_text              AS canonical_original_text,\n       ce.source_language            AS canonical_source_language\n  FROM evidence e\n  LEFT JOIN source s              ON s.source_id = e.source_id\n  LEFT JOIN geo_anchor g          ON g.geo_id = e.fact_location_geo_id\n  LEFT JOIN source_provenance sp  ON sp.evidence_id = e.evidence_id\n  LEFT JOIN storage_provenance stp ON stp.subject_kind = 'evidence'\n                                  AND stp.subject_id = e.evidence_id\n  LEFT JOIN content_entity ce     ON ce.evidence_id = e.evidence_id"
     },
     {
       "name": "v_crop_map_point",
@@ -3433,7 +3688,8 @@
       "derives": [
         "is_drawable",
         "undrawable_reason"
-      ]
+      ],
+      "body": "SELECT o.attention_object_id           AS object_id,\n       o.object_type,\n       o.attention_state,\n       g.country,\n       g.region,\n       g.locality_text,\n       g.geometry,\n       g.geo_resolution,\n       pc.crop_term_id                 AS crop,\n       (g.geo_resolution = 'POINT' AND g.geometry IS NOT NULL) AS is_drawable,\n       CASE WHEN g.geo_resolution = 'POINT' AND g.geometry IS NOT NULL THEN NULL\n            WHEN g.geo_resolution = 'NOT_KNOWN' THEN 'GEO_RESOLUTION_NOT_KNOWN'\n            WHEN g.geometry IS NULL              THEN 'NO_GEOMETRY'\n            ELSE 'RESOLUTION_' || g.geo_resolution::text END      AS undrawable_reason\n  FROM attention_object o\n  LEFT JOIN phenomenon_case pc ON pc.attention_object_id = o.attention_object_id\n  LEFT JOIN geo_anchor g       ON g.geo_id = pc.geo_id"
     },
     {
       "name": "v_object_timeline",
@@ -3444,7 +3700,8 @@
       ],
       "derives": [
         "state_transition_label"
-      ]
+      ],
+      "body": "SELECT ev.event_id,\n       ev.attention_object_id,\n       ev.event_type,\n       ev.event_at,\n       ev.event_at_resolution,\n       ev.source_id,\n       ev.observation_id,\n       ev.state_before,\n       ev.state_after,\n       ev.what_changed,\n       ev.signal_family_added,\n       ev.gap_reason,\n       ev.trigger_id,\n       CASE WHEN ev.state_before IS NULL AND ev.state_after IS NULL THEN NULL\n            ELSE coalesce(ev.state_before::text, '—') || ' → '\n                 || coalesce(ev.state_after::text, '—') END AS state_transition_label\n  FROM object_event ev"
     },
     {
       "name": "v_action_map",
@@ -3457,7 +3714,8 @@
       "derives": [
         "evidence_basis_count",
         "is_defensible"
-      ]
+      ],
+      "body": "SELECT a.action_id,\n       a.attention_object_id,\n       a.department,\n       a.action_type,\n       a.action_state,\n       a.action_text,\n       a.why_text,\n       a.time_horizon,\n       a.is_central_area,\n       a.regional_owner,\n       count(ae.evidence_id)                                   AS evidence_basis_count,\n       array_remove(array_agg(ae.evidence_id), NULL)           AS evidence_basis,\n       (a.action_type <> 'BUSINESS_DECISION'\n        OR count(ae.evidence_id) > 0)                          AS is_defensible\n  FROM action a\n  LEFT JOIN action_evidence ae ON ae.action_id = a.action_id\n GROUP BY a.action_id, a.attention_object_id, a.department, a.action_type,\n          a.action_state, a.action_text, a.why_text, a.time_horizon,\n          a.is_central_area, a.regional_owner"
     },
     {
       "name": "v_eame_cross_market",
@@ -3467,7 +3725,8 @@
         "attention_object",
         "object_relation",
         "field_pressure_series"
-      ]
+      ],
+      "body": "SELECT r.relation_id,\n       r.relation_kind,\n       r.dependency_type,\n       fo.attention_object_id  AS from_object_id,\n       fo.country              AS from_country,\n       fo.object_type          AS from_object_type,\n       fo.attention_state      AS from_state,\n       to_.attention_object_id AS to_object_id,\n       to_.country             AS to_country,\n       to_.object_type         AS to_object_type,\n       to_.attention_state     AS to_state,\n       r.evidence_id\n  FROM object_relation r\n  JOIN attention_object fo  ON fo.attention_object_id = r.from_object_id\n  JOIN attention_object to_ ON to_.attention_object_id = r.to_object_id\n WHERE fo.country <> to_.country"
     },
     {
       "name": "v_source_status",
@@ -3476,7 +3735,8 @@
         "source",
         "source_clock",
         "source_snapshot"
-      ]
+      ],
+      "body": "SELECT s.source_id,\n       s.source_name,\n       s.source_role,\n       s.country                      AS publication_country,\n       s.access_state,\n       s.collection_state,\n       c.source_status,\n       c.latest_source_publication,\n       c.latest_capture,\n       c.observation_age_days,\n       c.pipeline_latency_state,\n       c.pipeline_latency_seconds,\n       count(sn.snapshot_id)          AS snapshot_count\n  FROM source s\n  LEFT JOIN source_clock c    ON c.source_id = s.source_id\n  LEFT JOIN source_snapshot sn ON sn.source_id = s.source_id\n GROUP BY s.source_id, s.source_name, s.source_role, s.country, s.access_state,\n          s.collection_state, c.source_status, c.latest_source_publication,\n          c.latest_capture, c.observation_age_days, c.pipeline_latency_state,\n          c.pipeline_latency_seconds"
     },
     {
       "name": "v_issue_expert",
@@ -3487,7 +3747,8 @@
         "scientific_person",
         "issue_expertise"
       ],
-      "filter": "issue_expertise_state = 'PROVED'"
+      "filter": "issue_expertise_state = 'PROVED'",
+      "body": "SELECT p.person_id,\n       p.display_name,\n       p.country,\n       p.identity_proved,\n       p.gdpr_treatment_state,\n       o.name                         AS organization,\n       sp.relation_to_issue_as_declared,\n       ie.crop_term_id,\n       ie.issue_term_id,\n       ie.issue_expertise_state,\n       ie.evidence_id\n  FROM issue_expertise ie\n  JOIN person p            ON p.person_id = ie.person_id\n  JOIN scientific_person sp ON sp.person_id = ie.person_id\n  LEFT JOIN organization o ON o.organization_id = sp.organization_id\n WHERE ie.issue_expertise_state = 'PROVED'\n   AND p.gdpr_treatment_state IN ('CLEARED','IN_REVIEW')"
     },
     {
       "name": "v_publish_provenance",
@@ -3498,7 +3759,8 @@
         "publish_run",
         "publish_run_freeze",
         "storage_provenance"
-      ]
+      ],
+      "body": "SELECT o.attention_object_id,\n       o.country,\n       o.object_type,\n       pr.publish_run_id,\n       pr.pipeline_version,\n       pr.schema_version,\n       pr.published_at,\n       pr.status,\n       pr.shadow_validation_passed,\n       prf.repository,\n       prf.path,\n       prf.commit_sha,\n       prf.hose_id,\n       stp.source_backend,\n       stp.as_of_date\n  FROM attention_object o\n  LEFT JOIN publish_run pr        ON pr.publish_run_id = o.publish_run_id\n  LEFT JOIN publish_run_freeze prf ON prf.publish_run_id = pr.publish_run_id\n  LEFT JOIN storage_provenance stp ON stp.subject_kind = 'attention_object'\n                                  AND stp.subject_id = o.attention_object_id"
     }
   ],
   "RPCS": [
@@ -3516,7 +3778,9 @@
         "display_language",
         "fallback_used"
       ],
-      "why": "O V8 nao monta a inteligencia com dezessete joins no navegador. E o fallback e declarado, nunca fingido."
+      "why": "O V8 nao monta a inteligencia com dezessete joins no navegador. E o fallback e declarado, nunca fingido.",
+      "returns_sql": "TABLE (\n  attention_object_id text,\n  object_type object_type,\n  country char(2),\n  attention_state attention_state,\n  decision_question text,\n  decision_owner department,\n  computed_is_ready boolean,\n  blocking_requirements text[],\n  display_language language_code,\n  requested_language language_code,\n  fallback_used text,\n  title text,\n  summary text,\n  what_we_dont_know text\n)",
+      "body": "BEGIN\n  RETURN QUERY\n    SELECT o.attention_object_id, o.object_type, o.country, o.attention_state,\n           o.decision_question, o.decision_owner,\n           rd.computed_is_ready, rd.blocking_requirements,\n           rr.language, rr.requested_language, rr.fallback_used,\n           rr.title, rr.summary, rr.what_we_dont_know\n      FROM attention_object o\n      LEFT JOIN v_attention_readiness rd ON rd.attention_object_id = o.attention_object_id\n      LEFT JOIN LATERAL resolve_representation(o.attention_object_id, p_display_language) rr\n             ON TRUE\n     WHERE o.attention_object_id = p_object_id;\nEND;"
     },
     {
       "name": "get_attention_feed",
@@ -3529,7 +3793,9 @@
         "items",
         "empty_reason",
         "blocking_gate_counts"
-      ]
+      ],
+      "returns_sql": "TABLE (\n  attention_object_id text,\n  object_type object_type,\n  attention_state attention_state,\n  blocker_text text,\n  display_language language_code,\n  requested_language language_code,\n  fallback_used text,\n  title text,\n  empty_reason text\n)",
+      "body": "DECLARE\n  v_total int;\nBEGIN\n  SELECT count(*) INTO v_total\n    FROM attention_object o\n   WHERE o.country = p_country AND o.attention_state = 'ATTENTION_READY';\n\n  IF v_total = 0 THEN\n    -- fila vazia se mostra vazia, COM o motivo. Nunca uma lista muda.\n    RETURN QUERY\n      SELECT NULL::text, NULL::object_type, NULL::attention_state, NULL::text,\n             NULL::language_code, p_display_language, NULL::text, NULL::text,\n             coalesce(\n               (SELECT 'NO_OBJECT_PASSED_ALL_GATES: ' ||\n                       string_agg(DISTINCT req, ', ')\n                  FROM attention_object o2\n                  JOIN v_attention_readiness rd2\n                    ON rd2.attention_object_id = o2.attention_object_id\n                  CROSS JOIN LATERAL unnest(rd2.blocking_requirements) AS req\n                 WHERE o2.country = p_country),\n               'NO_OBJECTS_FOR_COUNTRY');\n    RETURN;\n  END IF;\n\n  RETURN QUERY\n    SELECT o.attention_object_id, o.object_type, o.attention_state, o.blocker_text,\n           rr.language, rr.requested_language, rr.fallback_used, rr.title, NULL::text\n      FROM attention_object o\n      LEFT JOIN LATERAL resolve_representation(o.attention_object_id, p_display_language) rr\n             ON TRUE\n     WHERE o.country = p_country AND o.attention_state = 'ATTENTION_READY';\nEND;"
     },
     {
       "name": "get_evidence",
@@ -3546,7 +3812,9 @@
         "source_language",
         "translation",
         "fallback_used"
-      ]
+      ],
+      "returns_sql": "TABLE (\n  evidence_id text,\n  source_id text,\n  source_backend source_backend,\n  repository text,\n  path text,\n  commit_sha char(40),\n  db_schema text,\n  table_or_view text,\n  primary_key text,\n  source_location_country char(2),\n  fact_location_country char(2),\n  evidence_level evidence_level,\n  original_text text,\n  source_language language_code,\n  translated_text text,\n  translation_language language_code,\n  translation_provenance text,\n  display_language language_code,\n  requested_language language_code,\n  fallback_used text\n)",
+      "body": "BEGIN\n  RETURN QUERY\n    SELECT d.evidence_id, d.source_id, d.source_backend,\n           d.repository, d.path, d.commit_sha,\n           d.db_schema, d.table_or_view, d.primary_key,\n           d.source_location_country, d.fact_location_country,\n           d.evidence_level,\n           -- ORIGINAL_TEXT nunca sofre fallback: vai na lingua da fonte, sempre\n           d.original_text, d.source_language,\n           t.translated_text, t.translation_language, t.translation_provenance,\n           coalesce(t.translation_language, d.source_language) AS display_language,\n           p_display_language,\n           CASE WHEN t.translation_language IS NULL THEN 'NO_TRANSLATION_ORIGINAL_ONLY'\n                WHEN t.translation_language = p_display_language THEN 'NO'\n                ELSE 'YES' END\n      FROM v_evidence_drawer d\n      LEFT JOIN content_translation t\n             ON t.canonical_entity_id = d.canonical_entity_id\n            AND t.translation_language = p_display_language\n     WHERE d.evidence_id = p_evidence_id;\nEND;"
     },
     {
       "name": "resolve_representation",
@@ -3562,7 +3830,9 @@
         "fallback_used",
         "fallback_chain"
       ],
-      "why": "Uma implementacao, nao uma por view. Se FR nao existe, devolve EN dizendo que devolveu EN."
+      "why": "Uma implementacao, nao uma por view. Se FR nao existe, devolve EN dizendo que devolveu EN.",
+      "returns_sql": "TABLE (\n  language language_code,\n  title text,\n  summary text,\n  interpretation text,\n  attention_reason text,\n  what_we_know text,\n  what_we_dont_know text,\n  requested_language language_code,\n  fallback_used text\n)",
+      "body": "DECLARE\n  v_chain language_code[] := ARRAY[p_requested_language, 'en', 'pt'];\n  v_lang  language_code;\nBEGIN\n  -- a cadeia e explicita e curta. Nunca fabricar traducao para preencher.\n  FOREACH v_lang IN ARRAY v_chain LOOP\n    IF EXISTS (SELECT 1 FROM attention_object_representation r\n                WHERE r.attention_object_id = p_entity_id AND r.language = v_lang) THEN\n      RETURN QUERY\n        SELECT r.language, r.title, r.summary, r.interpretation, r.attention_reason,\n               r.what_we_know, r.what_we_dont_know,\n               p_requested_language,\n               CASE WHEN v_lang = p_requested_language THEN 'NO' ELSE 'YES' END\n          FROM attention_object_representation r\n         WHERE r.attention_object_id = p_entity_id AND r.language = v_lang;\n      RETURN;\n    END IF;\n  END LOOP;\n  -- nenhuma lingua da cadeia existe: dizer isso, nao inventar\n  RETURN QUERY SELECT NULL::language_code, NULL::text, NULL::text, NULL::text,\n                      NULL::text, NULL::text, NULL::text,\n                      p_requested_language, 'NO_REPRESENTATION_AVAILABLE'::text;\nEND;"
     }
   ],
   "LANGUAGE_FALLBACK_POLICY": {
@@ -3591,5 +3861,495 @@
       "DERIVA_DE": "count(*) em field_pressure_reading do series RAIF"
     },
     "ONDE_MORA_A_VERDADE": "scripts/metricas_canonicas.py. O Supabase reproduz; nao redefine."
+  },
+  "RLS": {
+    "PAPEIS": {
+      "publisher_role": "escreve inteligencia canonica; so no backend, nunca no browser",
+      "portal_reader": "le o que o pais dele autoriza; escreve APENAS entry_path_event",
+      "anon": "nao le nada de inteligencia"
+    },
+    "HELPER": {
+      "nome": "allowed_countries",
+      "sql": "\nCREATE OR REPLACE FUNCTION allowed_countries() RETURNS char(2)[]\nLANGUAGE sql STABLE AS $$\n  -- Deny by default. Enquanto o modelo de identidade nao for decidido, a funcao\n  -- devolve o que estiver na configuracao de sessao; sem configuracao, vazio.\n  -- NAO inventa papel de usuario e NAO le claim de JWT que ainda nao existe.\n  SELECT coalesce(\n    string_to_array(nullif(current_setting('sintonia.countries', true), ''), ',')::char(2)[],\n    ARRAY[]::char(2)[]\n  );\n$$;",
+      "porque": "Uma politica que lesse um claim de JWT com formato ainda nao decidido seria invencao. Esta funcao e exercitavel hoje via SET, nega por padrao, e troca de implementacao sem mexer nas politicas."
+    },
+    "POLITICAS_AGORA": [
+      {
+        "nome": "publisher_all",
+        "aplica_a": "TODAS as tabelas",
+        "papel": "publisher_role",
+        "sql": "FOR ALL TO publisher_role USING (true) WITH CHECK (true)",
+        "porque": "o publisher e a unica coisa que escreve inteligencia canonica"
+      },
+      {
+        "nome": "portal_read_country",
+        "aplica_a": "tabelas com coluna country",
+        "papel": "portal_reader",
+        "sql": "FOR SELECT TO portal_reader USING (country = ANY (allowed_countries()))",
+        "porque": "isolamento por pais exercitavel; sem configuracao de sessao, nao le nada"
+      },
+      {
+        "nome": "portal_read_child",
+        "aplica_a": "tabelas filhas sem country",
+        "papel": "portal_reader",
+        "sql": "FOR SELECT TO portal_reader USING (EXISTS (SELECT 1 FROM attention_object o WHERE o.attention_object_id = attention_object_id AND o.country = ANY (allowed_countries())))",
+        "porque": "a filha herda o pais da raiz; nao precisa da coluna"
+      },
+      {
+        "nome": "portal_write_telemetry",
+        "aplica_a": "entry_path_event",
+        "papel": "portal_reader",
+        "sql": "FOR INSERT TO portal_reader WITH CHECK (true)",
+        "porque": "unica escrita do portal, e nao e inteligencia: e rota de entrada"
+      }
+    ],
+    "BLOQUEADO_POR_DECISAO_DE_AUTENTICACAO": [
+      "como o pais do usuario chega ate o banco (claim de JWT? tabela de membership?)",
+      "multi-tenant: a coluna tenant_id nao entra antes de existir cliente multiplo",
+      "auditoria de acesso: quem leu o que — entra quando houver usuario real"
+    ],
+    "REGRA_QUE_NAO_MUDA": "SERVICE_ROLE_KEY nunca vai para o frontend. O navegador fala com um servidor; o servidor fala com o Supabase."
+  },
+  "FOREIGN_KEY_POLICY": {
+    "REGRA_1_IMUTAVEIS": "FK que aponta para evidence, source, source_snapshot, publish_run, ontology_term, observation, content_entity e sempre RESTRICT. Evidencia e fonte sao historia: apagar uma delas por baixo de um objeto que a cita destruiria a linhagem que este produto inteiro existe para preservar.",
+    "REGRA_2_FILHA_CAI_COM_A_RAIZ": "FK que faz parte da CHAVE PRIMARIA da tabela e CASCADE. A tabela filha nao existe sem a raiz: phenomenon_case sem attention_object nao e nada.",
+    "REGRA_3_OBRIGATORIA": "FK NOT NULL fora da PK e RESTRICT. A linha depende dela; apagar o alvo deixaria a linha invalida.",
+    "REGRA_4_OPCIONAL": "FK que aceita nulo e SET NULL. O vinculo some, a linha continua — e a ausencia fica declarada como ausencia.",
+    "ORDEM": "a regra 1 vence as outras tres."
+  },
+  "INDEXES": {
+    "POR_QUE": "O Postgres indexa PK e UNIQUE, e NAO a coluna que aponta para fora. Sem estes indices todo join do produto varre a tabela inteira, e o produto e feito de joins. Nao ha indice em coluna que ja e a primeira da PK ou de um UNIQUE: seria duplicado.",
+    "LISTA": [
+      {
+        "table": "geo_anchor",
+        "column": "geometry_source_id",
+        "name": "geo_anchor_geometry_source_id_idx"
+      },
+      {
+        "table": "source_provenance",
+        "column": "source_id",
+        "name": "source_provenance_source_id_idx"
+      },
+      {
+        "table": "source_provenance",
+        "column": "snapshot_id",
+        "name": "source_provenance_snapshot_id_idx"
+      },
+      {
+        "table": "storage_provenance",
+        "column": "source_id",
+        "name": "storage_provenance_source_id_idx"
+      },
+      {
+        "table": "storage_provenance",
+        "column": "publish_run_id",
+        "name": "storage_provenance_publish_run_id_idx"
+      },
+      {
+        "table": "evidence",
+        "column": "source_id",
+        "name": "evidence_source_id_idx"
+      },
+      {
+        "table": "evidence",
+        "column": "snapshot_id",
+        "name": "evidence_snapshot_id_idx"
+      },
+      {
+        "table": "evidence",
+        "column": "fact_location_geo_id",
+        "name": "evidence_fact_location_geo_id_idx"
+      },
+      {
+        "table": "content_entity",
+        "column": "evidence_id",
+        "name": "content_entity_evidence_id_idx"
+      },
+      {
+        "table": "attention_object",
+        "column": "publish_run_id",
+        "name": "attention_object_publish_run_id_idx"
+      },
+      {
+        "table": "attention_object_evidence",
+        "column": "evidence_id",
+        "name": "attention_object_evidence_evidence_id_idx"
+      },
+      {
+        "table": "object_clock",
+        "column": "source_id",
+        "name": "object_clock_source_id_idx"
+      },
+      {
+        "table": "phenomenon_case",
+        "column": "geo_id",
+        "name": "phenomenon_case_geo_id_idx"
+      },
+      {
+        "table": "phenomenon_case",
+        "column": "crop_term_id",
+        "name": "phenomenon_case_crop_term_id_idx"
+      },
+      {
+        "table": "phenomenon_case",
+        "column": "issue_term_id",
+        "name": "phenomenon_case_issue_term_id_idx"
+      },
+      {
+        "table": "phenomenon_case",
+        "column": "pairing_evidence_id",
+        "name": "phenomenon_case_pairing_evidence_id_idx"
+      },
+      {
+        "table": "regulatory_deadline_object",
+        "column": "registration_id",
+        "name": "regulatory_deadline_object_registration_id_idx"
+      },
+      {
+        "table": "competitor_identity_chain_object",
+        "column": "competitor_product_identity_id",
+        "name": "competitor_identity_chain_object_competitor_product_identity_id_idx"
+      },
+      {
+        "table": "longitudinal_field_pressure_object",
+        "column": "series_id",
+        "name": "longitudinal_field_pressure_object_series_id_idx"
+      },
+      {
+        "table": "observation",
+        "column": "geo_id",
+        "name": "observation_geo_id_idx"
+      },
+      {
+        "table": "observation",
+        "column": "source_id",
+        "name": "observation_source_id_idx"
+      },
+      {
+        "table": "observation",
+        "column": "evidence_id",
+        "name": "observation_evidence_id_idx"
+      },
+      {
+        "table": "territorial_observation",
+        "column": "crop_term_id",
+        "name": "territorial_observation_crop_term_id_idx"
+      },
+      {
+        "table": "territorial_observation",
+        "column": "issue_term_id",
+        "name": "territorial_observation_issue_term_id_idx"
+      },
+      {
+        "table": "territorial_observation",
+        "column": "document_excerpt_evidence_id",
+        "name": "territorial_observation_document_excerpt_evidence_id_idx"
+      },
+      {
+        "table": "registration",
+        "column": "holder_organization_id",
+        "name": "registration_holder_organization_id_idx"
+      },
+      {
+        "table": "registration",
+        "column": "product_id",
+        "name": "registration_product_id_idx"
+      },
+      {
+        "table": "registration",
+        "column": "source_id",
+        "name": "registration_source_id_idx"
+      },
+      {
+        "table": "registration_deadline",
+        "column": "registration_id",
+        "name": "registration_deadline_registration_id_idx"
+      },
+      {
+        "table": "registration_deadline",
+        "column": "evidence_id",
+        "name": "registration_deadline_evidence_id_idx"
+      },
+      {
+        "table": "registration_deadline",
+        "column": "source_id",
+        "name": "registration_deadline_source_id_idx"
+      },
+      {
+        "table": "product",
+        "column": "active_ingredient_term_id",
+        "name": "product_active_ingredient_term_id_idx"
+      },
+      {
+        "table": "trademark_record",
+        "column": "holder_organization_id",
+        "name": "trademark_record_holder_organization_id_idx"
+      },
+      {
+        "table": "trademark_record",
+        "column": "evidence_id",
+        "name": "trademark_record_evidence_id_idx"
+      },
+      {
+        "table": "competitor_product_identity",
+        "column": "competitor_organization_id",
+        "name": "competitor_product_identity_competitor_organization_id_idx"
+      },
+      {
+        "table": "competitor_product_identity",
+        "column": "normalized_product_id",
+        "name": "competitor_product_identity_normalized_product_id_idx"
+      },
+      {
+        "table": "competitor_product_identity",
+        "column": "trademark_id",
+        "name": "competitor_product_identity_trademark_id_idx"
+      },
+      {
+        "table": "competitor_product_identity",
+        "column": "local_registration_id",
+        "name": "competitor_product_identity_local_registration_id_idx"
+      },
+      {
+        "table": "competitor_product_identity",
+        "column": "observed_paid_activity_id",
+        "name": "competitor_product_identity_observed_paid_activity_id_idx"
+      },
+      {
+        "table": "observed_paid_activity",
+        "column": "observation_id",
+        "name": "observed_paid_activity_observation_id_idx"
+      },
+      {
+        "table": "company_local_account",
+        "column": "organization_id",
+        "name": "company_local_account_organization_id_idx"
+      },
+      {
+        "table": "company_public_content",
+        "column": "account_id",
+        "name": "company_public_content_account_id_idx"
+      },
+      {
+        "table": "company_public_content",
+        "column": "evidence_id",
+        "name": "company_public_content_evidence_id_idx"
+      },
+      {
+        "table": "field_pressure_series",
+        "column": "crop_term_id",
+        "name": "field_pressure_series_crop_term_id_idx"
+      },
+      {
+        "table": "field_pressure_series",
+        "column": "issue_term_id",
+        "name": "field_pressure_series_issue_term_id_idx"
+      },
+      {
+        "table": "field_pressure_series",
+        "column": "source_id",
+        "name": "field_pressure_series_source_id_idx"
+      },
+      {
+        "table": "field_pressure_reading",
+        "column": "series_id",
+        "name": "field_pressure_reading_series_id_idx"
+      },
+      {
+        "table": "field_pressure_reading",
+        "column": "source_id",
+        "name": "field_pressure_reading_source_id_idx"
+      },
+      {
+        "table": "field_pressure_reading",
+        "column": "observation_id",
+        "name": "field_pressure_reading_observation_id_idx"
+      },
+      {
+        "table": "scientific_person",
+        "column": "organization_id",
+        "name": "scientific_person_organization_id_idx"
+      },
+      {
+        "table": "scientific_person",
+        "column": "source_id",
+        "name": "scientific_person_source_id_idx"
+      },
+      {
+        "table": "scientific_publication",
+        "column": "source_id",
+        "name": "scientific_publication_source_id_idx"
+      },
+      {
+        "table": "scientific_publication",
+        "column": "evidence_id",
+        "name": "scientific_publication_evidence_id_idx"
+      },
+      {
+        "table": "publication_author",
+        "column": "person_id",
+        "name": "publication_author_person_id_idx"
+      },
+      {
+        "table": "issue_expertise",
+        "column": "crop_term_id",
+        "name": "issue_expertise_crop_term_id_idx"
+      },
+      {
+        "table": "issue_expertise",
+        "column": "issue_term_id",
+        "name": "issue_expertise_issue_term_id_idx"
+      },
+      {
+        "table": "issue_expertise",
+        "column": "evidence_id",
+        "name": "issue_expertise_evidence_id_idx"
+      },
+      {
+        "table": "person_creator",
+        "column": "source_id",
+        "name": "person_creator_source_id_idx"
+      },
+      {
+        "table": "farm_business_entity",
+        "column": "organization_id",
+        "name": "farm_business_entity_organization_id_idx"
+      },
+      {
+        "table": "farm_business_entity",
+        "column": "source_id",
+        "name": "farm_business_entity_source_id_idx"
+      },
+      {
+        "table": "creator_content_profile",
+        "column": "person_id",
+        "name": "creator_content_profile_person_id_idx"
+      },
+      {
+        "table": "creator_content_profile",
+        "column": "business_id",
+        "name": "creator_content_profile_business_id_idx"
+      },
+      {
+        "table": "creator_content_profile",
+        "column": "source_id",
+        "name": "creator_content_profile_source_id_idx"
+      },
+      {
+        "table": "field_voice_observation",
+        "column": "profile_id",
+        "name": "field_voice_observation_profile_id_idx"
+      },
+      {
+        "table": "field_voice_observation",
+        "column": "crop_mentioned_term_id",
+        "name": "field_voice_observation_crop_mentioned_term_id_idx"
+      },
+      {
+        "table": "field_voice_observation",
+        "column": "issue_mentioned_term_id",
+        "name": "field_voice_observation_issue_mentioned_term_id_idx"
+      },
+      {
+        "table": "field_voice_observation",
+        "column": "content_entity_id",
+        "name": "field_voice_observation_content_entity_id_idx"
+      },
+      {
+        "table": "local_adama_portfolio_context",
+        "column": "crop_term_id",
+        "name": "local_adama_portfolio_context_crop_term_id_idx"
+      },
+      {
+        "table": "local_adama_portfolio_context",
+        "column": "issue_term_id",
+        "name": "local_adama_portfolio_context_issue_term_id_idx"
+      },
+      {
+        "table": "local_adama_portfolio_context",
+        "column": "source_id",
+        "name": "local_adama_portfolio_context_source_id_idx"
+      },
+      {
+        "table": "portfolio_product_ref",
+        "column": "product_id",
+        "name": "portfolio_product_ref_product_id_idx"
+      },
+      {
+        "table": "portfolio_product_ref",
+        "column": "registration_id",
+        "name": "portfolio_product_ref_registration_id_idx"
+      },
+      {
+        "table": "convergence_proposition",
+        "column": "attention_object_id",
+        "name": "convergence_proposition_attention_object_id_idx"
+      },
+      {
+        "table": "convergence_leg",
+        "column": "proposition_id",
+        "name": "convergence_leg_proposition_id_idx"
+      },
+      {
+        "table": "convergence_leg",
+        "column": "evidence_id",
+        "name": "convergence_leg_evidence_id_idx"
+      },
+      {
+        "table": "convergence_leg",
+        "column": "source_id",
+        "name": "convergence_leg_source_id_idx"
+      },
+      {
+        "table": "convergence_leg",
+        "column": "depends_on_leg_id",
+        "name": "convergence_leg_depends_on_leg_id_idx"
+      },
+      {
+        "table": "dependency_edge",
+        "column": "evidence_id",
+        "name": "dependency_edge_evidence_id_idx"
+      },
+      {
+        "table": "object_relation",
+        "column": "to_object_id",
+        "name": "object_relation_to_object_id_idx"
+      },
+      {
+        "table": "object_relation",
+        "column": "evidence_id",
+        "name": "object_relation_evidence_id_idx"
+      },
+      {
+        "table": "object_event",
+        "column": "attention_object_id",
+        "name": "object_event_attention_object_id_idx"
+      },
+      {
+        "table": "object_event",
+        "column": "source_id",
+        "name": "object_event_source_id_idx"
+      },
+      {
+        "table": "object_event",
+        "column": "observation_id",
+        "name": "object_event_observation_id_idx"
+      },
+      {
+        "table": "action_evidence",
+        "column": "evidence_id",
+        "name": "action_evidence_evidence_id_idx"
+      },
+      {
+        "table": "entry_path_event",
+        "column": "attention_object_id",
+        "name": "entry_path_event_attention_object_id_idx"
+      },
+      {
+        "table": "entry_path_event",
+        "column": "crop_term_id",
+        "name": "entry_path_event_crop_term_id_idx"
+      }
+    ]
   }
 }

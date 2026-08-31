@@ -1,0 +1,417 @@
+{
+  "SOURCE_ID": "SUPABASE-PUBLISHER-DRYRUN-EAME-2026-08-31",
+  "source": "Publisher em dry run sobre os commits fixos. Nada gravado.",
+  "MODE": {
+    "DRY_RUN": "YES",
+    "COMMIT": "NO",
+    "DB_CONNECTION": "NONE",
+    "REAL_DATA_PUBLISHED": "NO"
+  },
+  "INPUTS_TOTAL": 9,
+  "INPUTS_PLANNED": 8,
+  "INPUTS_NOT_RESOLVED": [
+    "H3"
+  ],
+  "PLANO": [
+    {
+      "HOSE_ID": "H1",
+      "STATUS": "PLANNED",
+      "ARTEFATOS": [
+        {
+          "PATH": "data/samples/TERRITORIAL/FINAL.json",
+          "STATUS": "OK",
+          "COMMIT": "11fd7b54e27adaaebed18f049f90b80b05806943",
+          "BYTES": 121214,
+          "CONTENT_SHA256": "c00f739da884f9a89dce850d9076f71dd1b2af582b00eeb012d2a448f68fe725",
+          "COUNTED_LIST": "ITEMS",
+          "MEASURED_COUNT": 22
+        }
+      ],
+      "UPSERT_KEYS": 22,
+      "UPSERT_KEYS_DISTINTAS": 22,
+      "DESTINATION_TABLES": [
+        "source",
+        "source_snapshot",
+        "evidence",
+        "geo_anchor",
+        "observation",
+        "territorial_observation",
+        "attention_object",
+        "phenomenon_case",
+        "attention_object_evidence",
+        "object_clock",
+        "storage_provenance",
+        "source_provenance"
+      ],
+      "GUARDS_A_APLICAR": [
+        "CROP_ISSUE_PAIRING_NOT_PROVEN",
+        "MULTI_BULLETIN_DOCUMENT_GUARD",
+        "SIDEBAR_NOT_BODY",
+        "ORG_NAME_NOT_LOCALITY",
+        "BINARY_NOT_DOCUMENT",
+        "EDUCATIONAL_QUIZ_NOT_FIELD_SIGNAL"
+      ],
+      "EXPECTED_DECLARADO": {
+        "territorial_observation": 22,
+        "attention_object": "NOT_MEASURED"
+      },
+      "MEASURED_AGORA": {
+        "FINAL.json": 22
+      }
+    },
+    {
+      "HOSE_ID": "H2",
+      "STATUS": "PLANNED",
+      "ARTEFATOS": [
+        {
+          "PATH": "data/samples/IT-T4-001/IT-T4-001-adama-expiries.json",
+          "STATUS": "OK",
+          "COMMIT": "d7b289425c5e436f3ce68e367b8706e11910f43b",
+          "BYTES": 3780,
+          "CONTENT_SHA256": "ee9d835d2a82470eeb8c84fbc9443d7b7f199311535ebeba4dac601565a6495c",
+          "COUNTED_LIST": null,
+          "MEASURED_COUNT": "NOT_MEASURED"
+        }
+      ],
+      "UPSERT_KEYS": 0,
+      "UPSERT_KEYS_DISTINTAS": 0,
+      "DESTINATION_TABLES": [
+        "source",
+        "evidence",
+        "organization",
+        "product",
+        "registration",
+        "registration_deadline",
+        "attention_object",
+        "regulatory_deadline_object",
+        "storage_provenance"
+      ],
+      "GUARDS_A_APLICAR": [
+        "EXPIRY_IS_NOT_WITHDRAWAL",
+        "EXPIRY_DATE_REACHED_IS_NOT_PRODUCT_DISCONTINUED",
+        "STATUS_AS_DECLARED_BY_SOURCE_NEVER_REINTERPRETED",
+        "CROP_E_ISSUE_NOT_APPLICABLE"
+      ],
+      "EXPECTED_DECLARADO": {
+        "registration_deadline": "NOT_MEASURED",
+        "italian_labels": "NOT_MEASURED"
+      },
+      "MEASURED_AGORA": {
+        "IT-T4-001-adama-expiries.json": "NOT_MEASURED"
+      }
+    },
+    {
+      "HOSE_ID": "H3",
+      "STATUS": "NOT_RESOLVED",
+      "CANDIDATOS": {
+        "WHY": "o mapa descreve \"cadeia de identidade competitiva — 36 tuplas\" e nenhum artefato do commit fixo tem 36 de nada: COMPETITOR-CROSSWALK tem 242 pares, PILOT-AMOSTRA tem 6. Escolher por semelhanca de nome seria inventar proveniencia.",
+        "PATHS": [
+          "data/samples/COMPETITOR-CROSSWALK.json",
+          "data/samples/COMPETITOR-EAME-PARIDADE.json",
+          "data/samples/COMPETITOR-PILOT-AMOSTRA.json",
+          "data/samples/COMPETITOR-IP-TMVIEW.json"
+        ]
+      }
+    },
+    {
+      "HOSE_ID": "H4",
+      "STATUS": "PLANNED",
+      "ARTEFATOS": [
+        {
+          "PATH": "data/samples/META-EAME/META-ADS-EVENTS-EAME-V1.json",
+          "STATUS": "OK",
+          "COMMIT": "acfd987141d57e810bbef6e5e2c21b1d40124ce3",
+          "BYTES": 384803,
+          "CONTENT_SHA256": "ef331aff0d8dd66483ab115a669b490ee72595822cfb1fa2c2d4994ca9e63dc1",
+          "COUNTED_LIST": "events",
+          "MEASURED_COUNT": 1421
+        }
+      ],
+      "UPSERT_KEYS": 1421,
+      "UPSERT_KEYS_DISTINTAS": 1421,
+      "DESTINATION_TABLES": [
+        "source",
+        "evidence",
+        "observation",
+        "observed_paid_activity",
+        "storage_provenance"
+      ],
+      "GUARDS_A_APLICAR": [
+        "PAGE_COUNTRY_SCOPE_IS_NOT_AD_DELIVERY_COUNTRY",
+        "AD_CARD_IS_NOT_AD",
+        "SEVEN_CANNOT_CLAIM",
+        "OPERATIONAL_TEMPORAL_SIGNAL_VALUE_NOT_PROVED"
+      ],
+      "EXPECTED_DECLARADO": {
+        "observed_paid_activity": "NOT_MEASURED"
+      },
+      "MEASURED_AGORA": {
+        "META-ADS-EVENTS-EAME-V1.json": 1421
+      }
+    },
+    {
+      "HOSE_ID": "H5",
+      "STATUS": "PLANNED",
+      "ARTEFATOS": [
+        {
+          "PATH": "data/samples/ES-T3-001-repilo-serie-historica.json",
+          "STATUS": "OK",
+          "COMMIT": "ad041d7edc197763b4d309526729f70e300ed517",
+          "BYTES": 4004,
+          "CONTENT_SHA256": "3ba4ce36072289f06492c82f9c04899b96638e0f69d6713c15ca7220e572ef3d",
+          "COUNTED_LIST": null,
+          "MEASURED_COUNT": "NOT_MEASURED"
+        },
+        {
+          "PATH": "data/samples/RAIF-COORTE-REPILO.json",
+          "STATUS": "OK",
+          "COMMIT": "ad041d7edc197763b4d309526729f70e300ed517",
+          "BYTES": 23902,
+          "CONTENT_SHA256": "13d8f65ebf302c2c039be2560be6c6182fa4b0103e63f7a5f09ead10e60860ab",
+          "COUNTED_LIST": null,
+          "MEASURED_COUNT": "NOT_MEASURED"
+        },
+        {
+          "PATH": "data/samples/BACKTEST-REPILO-LEAD-TIME.json",
+          "STATUS": "OK",
+          "COMMIT": "ad041d7edc197763b4d309526729f70e300ed517",
+          "BYTES": 2417,
+          "CONTENT_SHA256": "093e535d90da5b3666cb8811482abc5a826afb217b98a223df2604823ad241e6",
+          "COUNTED_LIST": null,
+          "MEASURED_COUNT": "NOT_MEASURED"
+        }
+      ],
+      "UPSERT_KEYS": 0,
+      "UPSERT_KEYS_DISTINTAS": 0,
+      "DESTINATION_TABLES": [
+        "source",
+        "field_pressure_series",
+        "field_pressure_reading",
+        "observation",
+        "attention_object",
+        "longitudinal_field_pressure_object",
+        "dependency_edge",
+        "storage_provenance"
+      ],
+      "GUARDS_A_APLICAR": [
+        "FIELD_PRESSURE_IS_NOT_DEMAND",
+        "MEAN_NEVER_TRAVELS_WITHOUT_N",
+        "SAME_PUBLISHER_IS_NOT_INDEPENDENT_OBSERVATION"
+      ],
+      "EXPECTED_DECLARADO": {
+        "field_pressure_series": "NOT_MEASURED",
+        "field_pressure_reading": "LEDGER_DERIVED",
+        "seasons": "LEDGER_DERIVED"
+      },
+      "MEASURED_AGORA": {
+        "ES-T3-001-repilo-serie-historica.json": "NOT_MEASURED",
+        "RAIF-COORTE-REPILO.json": "NOT_MEASURED",
+        "BACKTEST-REPILO-LEAD-TIME.json": "NOT_MEASURED"
+      }
+    },
+    {
+      "HOSE_ID": "H6",
+      "STATUS": "PLANNED",
+      "ARTEFATOS": [
+        {
+          "PATH": "data/samples/CREATOR-MAP-EAME/CREATORS-ES-IT-FR.json",
+          "STATUS": "OK",
+          "COMMIT": "248bd27027506a5f531a117ce50d35eb5304b152",
+          "BYTES": 77389,
+          "CONTENT_SHA256": "97e47956543797fc3df4cdc507479b46e7b72106781f504975922ddefbb01b27",
+          "COUNTED_LIST": "CREATORS",
+          "MEASURED_COUNT": 14
+        },
+        {
+          "PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-UNIVERSE.json",
+          "STATUS": "OK",
+          "COMMIT": "a509c124f03500fa7a99d55de724eb322ce24b19",
+          "BYTES": 9669,
+          "CONTENT_SHA256": "2b3d61e9836c590cdd18dee8736e9a2f75c5135b9cde15d25f0518dca15cbecc",
+          "COUNTED_LIST": "ENTITIES",
+          "MEASURED_COUNT": 10
+        },
+        {
+          "PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-OBSERVATIONS.json",
+          "STATUS": "OK",
+          "COMMIT": "a509c124f03500fa7a99d55de724eb322ce24b19",
+          "BYTES": 958305,
+          "CONTENT_SHA256": "00b1e7515851faeb32352db8798466c75e26149c2f22e9118b0d483fce615d82",
+          "COUNTED_LIST": "MATERIALS",
+          "MEASURED_COUNT": 442
+        }
+      ],
+      "UPSERT_KEYS": 466,
+      "UPSERT_KEYS_DISTINTAS": 466,
+      "DESTINATION_TABLES": [
+        "person",
+        "person_creator",
+        "farm_business_entity",
+        "creator_content_profile",
+        "observation",
+        "field_voice_observation",
+        "content_entity",
+        "entry_path_event",
+        "storage_provenance"
+      ],
+      "GUARDS_A_APLICAR": [
+        "PERSON_CREATOR_IS_NOT_FARM_BUSINESS",
+        "SUM_IS_NEVER_CALLED_CREATORS_READY",
+        "FOLLOWERS_ARE_NOT_AUTHORITY",
+        "ROW_IS_NOT_ENTITY"
+      ],
+      "EXPECTED_DECLARADO": {
+        "person_creator": "NOT_MEASURED",
+        "farm_business_entity": "NOT_MEASURED",
+        "creator_content_profile": "NOT_MEASURED"
+      },
+      "MEASURED_AGORA": {
+        "CREATORS-ES-IT-FR.json": 14,
+        "CORPUS-UNIVERSE.json": 10,
+        "CORPUS-OBSERVATIONS.json": 442
+      }
+    },
+    {
+      "HOSE_ID": "H7",
+      "STATUS": "PLANNED",
+      "ARTEFATOS": [
+        {
+          "PATH": "data/samples/ES-RESEARCHERS-OLIVE.json",
+          "STATUS": "OK",
+          "COMMIT": "ad041d7edc197763b4d309526729f70e300ed517",
+          "BYTES": 273006,
+          "CONTENT_SHA256": "a4c541d129db421f9c9c60ba6ef01f6ed0ed15f7ca35437a7502edc54630ea21",
+          "COUNTED_LIST": "RESEARCHERS",
+          "MEASURED_COUNT": 152
+        },
+        {
+          "PATH": "data/samples/ES-T5-002-corpus-documentos.json",
+          "STATUS": "OK",
+          "COMMIT": "ad041d7edc197763b4d309526729f70e300ed517",
+          "BYTES": 4696453,
+          "CONTENT_SHA256": "c03f7408d720e80d9354dc476a92454ac12c903b86812fda7d5b6b31a601118c",
+          "COUNTED_LIST": "DOCUMENTS",
+          "MEASURED_COUNT": 1771
+        }
+      ],
+      "UPSERT_KEYS": 1923,
+      "UPSERT_KEYS_DISTINTAS": 1923,
+      "DESTINATION_TABLES": [
+        "person",
+        "scientific_person",
+        "scientific_publication",
+        "publication_author",
+        "issue_expertise",
+        "organization",
+        "storage_provenance"
+      ],
+      "GUARDS_A_APLICAR": [
+        "ISSUE_EXPERTISE_PROVED_REQUIRED",
+        "IDENTITY_PROVED_IS_NOT_ISSUE_EXPERTISE_PROVED",
+        "RECURRENCE_IS_NOT_AUTHORITY",
+        "GDPR_BEFORE_ANY_EXPOSURE",
+        "SCIENTIFIC_PERSON_IS_NOT_SCIENTIFIC_PUBLICATION"
+      ],
+      "EXPECTED_DECLARADO": {
+        "scientific_person": "NOT_MEASURED",
+        "issue_expertise_proved": 0
+      },
+      "MEASURED_AGORA": {
+        "ES-RESEARCHERS-OLIVE.json": 152,
+        "ES-T5-002-corpus-documentos.json": 1771
+      }
+    },
+    {
+      "HOSE_ID": "H8",
+      "STATUS": "PLANNED",
+      "ARTEFATOS": [
+        {
+          "PATH": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "STATUS": "OK",
+          "COMMIT": "c25e44ba14d963f45a3381205b2759690fef66b9",
+          "BYTES": 64578,
+          "CONTENT_SHA256": "60477fada6f509bdfd933b54fde47d0aa0e48416172c55f9d064f33c324758d3",
+          "COUNTED_LIST": "ACCOUNTS",
+          "MEASURED_COUNT": 44
+        }
+      ],
+      "UPSERT_KEYS": 44,
+      "UPSERT_KEYS_DISTINTAS": 44,
+      "DESTINATION_TABLES": [
+        "organization",
+        "company_local_account",
+        "storage_provenance"
+      ],
+      "GUARDS_A_APLICAR": [
+        "IDENTITY_IS_NOT_SIGNAL",
+        "COUNTRY_SCOPE_IS_NOT_PAGE_ROLE",
+        "ACCOUNT_IS_NOT_COMPANY",
+        "ZERO_IS_NO_CONTENT_COLLECTION_EXECUTED"
+      ],
+      "EXPECTED_DECLARADO": {
+        "company_local_account": "NOT_MEASURED",
+        "company_public_content": 0
+      },
+      "MEASURED_AGORA": {
+        "CONTAS-V1.json": 44
+      }
+    },
+    {
+      "HOSE_ID": "H9",
+      "STATUS": "PLANNED",
+      "ARTEFATOS": [
+        {
+          "PATH": "data/samples/X-007-canonical-agro-dictionary.json",
+          "STATUS": "OK",
+          "COMMIT": "1443f6435d4297a4563f25d83473142fc12e1f0d",
+          "BYTES": 86376,
+          "CONTENT_SHA256": "298d8990b21de834d023610c615b6f7efa8d4dc1c2f77445a6ebf84d8ebbecea",
+          "COUNTED_LIST": "records",
+          "MEASURED_COUNT": 105
+        },
+        {
+          "PATH": "data/samples/X-006-eu-cas-to-ephy.json",
+          "STATUS": "OK",
+          "COMMIT": "1443f6435d4297a4563f25d83473142fc12e1f0d",
+          "BYTES": 1910,
+          "CONTENT_SHA256": "7e824b467eea5a08cb104f1ba6e847ba5350fc070d479a76b706d3eb87cc216d",
+          "COUNTED_LIST": "matches",
+          "MEASURED_COUNT": 3
+        }
+      ],
+      "UPSERT_KEYS": 108,
+      "UPSERT_KEYS_DISTINTAS": 108,
+      "DESTINATION_TABLES": [
+        "ontology_term",
+        "ontology_term_label",
+        "content_entity",
+        "content_translation",
+        "attention_object_representation"
+      ],
+      "GUARDS_A_APLICAR": [
+        "CLOSED_LANGUAGE_VOCABULARY",
+        "CANONICAL_ID_IS_NOT_DISPLAY_LABEL",
+        "ORIGINAL_QUOTE_IS_NOT_TRANSLATED_QUOTE",
+        "TRANSLATION_NEVER_REPLACES_ORIGINAL"
+      ],
+      "EXPECTED_DECLARADO": {
+        "content_translation": 0,
+        "ontology_term": "NOT_MEASURED"
+      },
+      "MEASURED_AGORA": {
+        "X-007-canonical-agro-dictionary.json": 105,
+        "X-006-eu-cas-to-ephy.json": 3
+      }
+    }
+  ],
+  "IDEMPOTENCIA": {
+    "DUAS_PASSAGENS_IDENTICAS": true,
+    "CHAVES_PASSAGEM_1": 3984,
+    "CHAVES_PASSAGEM_2": 3984,
+    "NOVAS_ENTIDADES_NA_SEGUNDA": 0,
+    "SEM_CHAVE_DUPLICADA": true,
+    "CHAVE_NAO_USA_TITULO": true,
+    "COMO": "a chave deriva de (commit, caminho, lista, indice) — tudo imutavel. Titulo traduzido nunca entra: ele muda por idioma e por revisao."
+  },
+  "DIVERGENCIAS_DECLARADO_x_MEDIDO": []
+}

@@ -1,0 +1,48 @@
+/* ADAMA Brasil — Product Patterns
+   Seamless tiles cut from the official continuous pattern fills.
+   Use with background-repeat. One pattern per product category — never cross categories.
+   Source: BrandWell → Guidelines → Product Guidelines → Product Graphics → Patterns
+*/
+
+:root {
+  --pattern-crop:    url('../assets/patterns/crop-tile.png');     /* @kind other */
+  --pattern-weed:    url('../assets/patterns/weed-tile.png');     /* @kind other */
+  --pattern-disease: url('../assets/patterns/disease-tile.png');  /* @kind other */
+  --pattern-pest:    url('../assets/patterns/pest-tile.png');     /* @kind other */
+}
+
+/* ── Flat style — pattern on white ─────────────────────────────────────── */
+.adama-pattern            { background-repeat: repeat; background-position: center; }
+.adama-pattern--crop      { background-image: var(--pattern-crop); }
+.adama-pattern--weed      { background-image: var(--pattern-weed); }
+.adama-pattern--disease   { background-image: var(--pattern-disease); }
+.adama-pattern--pest      { background-image: var(--pattern-pest); }
+
+/* ── Primary treatment — PREFERRED USE ─────────────────────────────────────
+   The pattern sits over its own primary colour with an understated gradient.
+   This is the official preferred application, not the flat version.          */
+.adama-pattern--primary          { background-repeat: repeat; background-blend-mode: soft-light; }
+.adama-pattern--primary.adama-pattern--crop {
+  background-image: var(--pattern-crop),
+    linear-gradient(160deg, #fbb040 0%, var(--color-crop-enhancement) 55%, #e8890c 100%);
+}
+.adama-pattern--primary.adama-pattern--weed {
+  background-image: var(--pattern-weed),
+    linear-gradient(160deg, #93cc23 0%, var(--color-weed-control) 55%, #6a9c17 100%);
+}
+.adama-pattern--primary.adama-pattern--disease {
+  background-image: var(--pattern-disease),
+    linear-gradient(160deg, #33b5e6 0%, var(--color-disease-control) 55%, #0086bd 100%);
+}
+.adama-pattern--primary.adama-pattern--pest {
+  background-image: var(--pattern-pest),
+    linear-gradient(160deg, #b32aab 0%, var(--color-pest-control) 55%, #7d1478 100%);
+}
+
+/* Ready-made raster versions of the primary treatment, if you prefer the
+   original artwork over the CSS blend:
+     assets/patterns/<crop|weed|disease|pest>-gradient.png
+   Flat swatches (pattern on white):
+     assets/patterns/<crop|weed|disease|pest>-flat.png
+   Photoshop pattern stamp:
+     assets/patterns/ADAMA-Patterns.pat                                       */

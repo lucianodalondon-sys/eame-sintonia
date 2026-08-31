@@ -263,7 +263,7 @@ Vale registrar, porque a próxima rodada vai mexer no arquivo:
 ## 9 · PROVAS
 
 `tests/test_v8_receptors.py` — **49 provas**, dentro das
-<!--M:TEST_COUNT_CURRENT-->813<!--/M--> da suíte, 0 falhas.
+<!--M:TEST_COUNT_CURRENT-->859<!--/M--> da suíte, 0 falhas.
 
 Duas coisas diferentes, que nunca se misturam:
 

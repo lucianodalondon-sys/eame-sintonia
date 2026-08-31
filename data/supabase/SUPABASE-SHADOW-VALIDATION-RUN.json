@@ -1,0 +1,99 @@
+{
+  "SOURCE_ID": "SUPABASE-SHADOW-VALIDATION-RUN-EAME-2026-08-31",
+  "source": "Validador de sombra implementado e exercitado sobre fixture.",
+  "MODE": {
+    "DB_CONNECTION": "NONE",
+    "EXERCISED_ON": "FIXTURE",
+    "PROVA_A_LOGICA": "SIM",
+    "PROVA_UM_BANCO_REAL": "NAO"
+  },
+  "DIMENSOES_COMPARADAS": [
+    "row_count",
+    "entity_count",
+    "ids",
+    "types",
+    "countries",
+    "states",
+    "dates",
+    "evidence_ids",
+    "source_ids",
+    "relations",
+    "dependency_types",
+    "actions",
+    "translations",
+    "provenance"
+  ],
+  "CASO_BANCO_FIEL": {
+    "PUBLISH": "OK",
+    "FAMILIES": 5
+  },
+  "CASO_OBJETO_PROMOVIDO": {
+    "PUBLISH": "FAIL_CLOSED",
+    "FAMILIES_FAILED": [
+      "attention_object"
+    ],
+    "CONTAGEM_ERA_IGUAL": true,
+    "O_QUE_PEGOU": [
+      {
+        "DIMENSION": "states",
+        "VERDICT": "MISMATCH",
+        "EXPECTED": [
+          "ATTENTION_CANDIDATE_TEST",
+          "FORMING",
+          "NEEDS_EVIDENCE"
+        ],
+        "FOUND": [
+          "ATTENTION_READY",
+          "FORMING",
+          "NEEDS_EVIDENCE"
+        ]
+      }
+    ],
+    "POR_QUE_IMPORTA": "o freeze diz ATTENTION_CANDIDATE_TEST e o banco diz ATTENTION_READY. A contagem bate. Um validador que so contasse deixaria passar, e o objeto apareceria na fila de atencao como se tivesse atravessado os cinco portoes."
+  },
+  "MULTILINGUE": {
+    "OBJETOS_DISTINTOS": [
+      "AO-IT-001"
+    ],
+    "IDIOMAS": [
+      "en",
+      "es",
+      "fr",
+      "it",
+      "pt"
+    ],
+    "UM_OBJETO_VARIAS_REPRESENTACOES": true,
+    "NENHUM_OBJETO_POR_IDIOMA": true
+  },
+  "ISOLAMENTO_POR_PAIS": {
+    "ES_ONLY": [
+      "AO-ES-001"
+    ],
+    "IT_ONLY": [
+      "AO-IT-001"
+    ],
+    "FR_ONLY": [
+      "AO-FR-001"
+    ],
+    "VAZAMENTO": {},
+    "CROSS_COUNTRY_INVALIDO": [],
+    "ISOLADO": true
+  },
+  "PROVENIENCIA_PONTA_A_PONTA": {
+    "CADEIA": [
+      "attention_object AO-IT-001",
+      "attention_object_evidence",
+      "evidence EV-0002",
+      "source SRC-0002",
+      "source_snapshot",
+      "publish_run",
+      "publish_run_freeze",
+      "commit d7b289425c5e436f3ce68e367b8706e11910f43b"
+    ],
+    "RESPONDE_QUAL_COMMIT_PRODUZIU": true,
+    "RESPONDE_QUAL_FONTE_SUSTENTA": true,
+    "ELOS": 8,
+    "VIEW_QUE_FAZ_ISSO": "v_publish_provenance"
+  },
+  "LIMITE_DESTA_RODADA": "a fixture prova que o comparador pega a mudanca de semantica. NAO prova nada sobre um banco real: nao ha instancia, e o SQL nunca foi executado."
+}
