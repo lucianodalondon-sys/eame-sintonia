@@ -10,6 +10,255 @@
  "NUNCA_GRAVAR_TOKEN": "INPUT guarda consulta e parâmetros. Credencial, jamais.",
  "RUNS": [
   {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-09",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:05:53.811Z",
+   "FINISHED_AT": "2026-08-31T01:06:03.071Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DFFPKyeuMmf/",
+     "https://www.instagram.com/p/DFXYetSu89l/",
+     "https://www.instagram.com/p/DG7s55MCE9Z/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 3 materiais de FB-09",
+   "DATASET_ID": "dWcYJIUNMPvN40AmN",
+   "ITEM_COUNT_RAW": 3,
+   "ITEM_COUNT_NORMALIZED": 3,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-09.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:03Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-10",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:04.292Z",
+   "FINISHED_AT": "2026-08-31T01:06:11.815Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DakP-Hgn_Zh/",
+     "https://www.instagram.com/p/Daucc0vk2Ph/",
+     "https://www.instagram.com/p/Dcia_HtikbC/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 3 materiais de FB-10",
+   "DATASET_ID": "gzMu9kkSduqXxHBNo",
+   "ITEM_COUNT_RAW": 10,
+   "ITEM_COUNT_NORMALIZED": 10,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Finished! Total 3 requests: 3 succeeded, 0 failed.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-FB-10.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:12Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-01",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:13.218Z",
+   "FINISHED_AT": "2026-08-31T01:06:20.640Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DZ-EehvM-Cp/",
+     "https://www.instagram.com/p/DZ2gVpzs3p4/",
+     "https://www.instagram.com/p/DZ4wJCIsB8D/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 3 materiais de PC-01",
+   "DATASET_ID": "Nm1wJSxeKmOPxVyVY",
+   "ITEM_COUNT_RAW": 45,
+   "ITEM_COUNT_NORMALIZED": 45,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-01.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:21Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-04",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:22.177Z",
+   "FINISHED_AT": "2026-08-31T01:06:37.088Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DW_eIotDDM5/",
+     "https://www.instagram.com/p/DY_6CrvsEmw/",
+     "https://www.instagram.com/p/DZTIrVrDJ-g/",
+     "https://www.instagram.com/p/DZrW9wxsAAF/",
+     "https://www.instagram.com/p/DaC1g2hMTIb/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 5 materiais de PC-04",
+   "DATASET_ID": "P8gkv0hrNhrrh2lFO",
+   "ITEM_COUNT_RAW": 71,
+   "ITEM_COUNT_NORMALIZED": 71,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Crawled 4/5 pages, 0 failed requests, desired concurrency 6.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-04.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:38Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-05",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:38.864Z",
+   "FINISHED_AT": "2026-08-31T01:06:44.416Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DalI4hsCAv6/",
+     "https://www.instagram.com/p/DbVRq7Pg_fH/",
+     "https://www.instagram.com/p/DcguUNKIbKo/",
+     "https://www.instagram.com/p/DZshM8lIfGK/",
+     "https://www.instagram.com/p/Db34RG3IhyI/",
+     "https://www.instagram.com/p/DbTdGI3ML7X/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 6 materiais de PC-05",
+   "DATASET_ID": "T2gsT7b7LzRdWgcqm",
+   "ITEM_COUNT_RAW": 46,
+   "ITEM_COUNT_NORMALIZED": 46,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-05.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:45Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-06",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:45.823Z",
+   "FINISHED_AT": "2026-08-31T01:06:51.283Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DZXQOtGM0yb/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 1 materiais de PC-06",
+   "DATASET_ID": "eGtVtf9AIxNmGHQ0k",
+   "ITEM_COUNT_RAW": 14,
+   "ITEM_COUNT_NORMALIZED": 14,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-06.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:51Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-07",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:52.617Z",
+   "FINISHED_AT": "2026-08-31T01:06:57.648Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/DW1vje2AF69/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 1 materiais de PC-07",
+   "DATASET_ID": "nkhQFN58pa06z3lPr",
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": 1,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-07.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:06:58Z"
+  },
+  {
+   "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-08",
+   "PLATFORM": "INSTAGRAM",
+   "ACTOR": "apify~instagram-comment-scraper",
+   "ACTOR_VERSION": "0.0.591",
+   "STARTED_AT": "2026-08-31T01:06:58.793Z",
+   "FINISHED_AT": "2026-08-31T01:07:04.917Z",
+   "INPUT": {
+    "directUrls": [
+     "https://www.instagram.com/p/Db10ZMbqjMF/",
+     "https://www.instagram.com/p/Db1J1cct38S/",
+     "https://www.instagram.com/p/Db2gk4WNeQg/"
+    ],
+    "resultsLimit": 30
+   },
+   "COUNTRY": "NOT_KNOWN",
+   "MISSION": "15-CREATOR-CONTENT-CORPUS-EAME",
+   "QUERY": "amostra de comentários de 3 materiais de PC-08",
+   "DATASET_ID": "EbchzFhDwnOdkoqd8",
+   "ITEM_COUNT_RAW": 9,
+   "ITEM_COUNT_NORMALIZED": 9,
+   "COST_USD": 0,
+   "SOURCE_VERSION": "NÃO SEI",
+   "STATUS": "SUCCESS",
+   "ERROR": "statusMessage: Starting the crawler.",
+   "CAPTURE_METHOD": "POST /acts/{actor}/runs?waitForFinish + GET /datasets/{id}/items",
+   "EVIDENCE_PATH": "data/samples/CREATOR-CONTENT-CORPUS-EAME/CORPUS-COMMENTS.json",
+   "RAW_EVIDENCE_PATH": "data/samples/raw-paid/15-CREATOR-CONTENT-CORPUS-EAME-CM-PC-08.raw.json.gz",
+   "RAW_EVIDENCE_STATE": "PRESERVED",
+   "OUTPUT_WRITTEN_AT": "2026-08-31T01:07:05Z"
+  },
+  {
    "RUN_ID": "15-CREATOR-CONTENT-CORPUS-EAME-IG-FB-09",
    "PLATFORM": "INSTAGRAM",
    "ACTOR": "apify~instagram-scraper",
