@@ -1,0 +1,75 @@
+{
+ "SOURCE_ID": "ARBITRATION/ATTENTION-STATE-MACHINE",
+ "source": "decisao de arbitragem do coordenador, 2026-08-31",
+ "SOURCE_LOCATION": "decisao de produto",
+ "FACT_LOCATION": "n/a",
+ "ARTIFACT_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "PRODUCT_DECISION",
+ "captured_at": "2026-08-31",
+ "CAPTURED_AT": "2026-08-31",
+
+ "DECISAO_QUE_MUDA_TUDO": "MULTI_SIGNAL_REQUIRED_FOR_ATTENTION = NO",
+ "POR_QUE": "exigir convergencia multi-sinal para tudo mataria o unico objeto com decisao de negocio defensavel do acervo — um vencimento regulatorio, que por natureza tem UMA fonte e nao pode ter duas. Convergencia vira forca ADICIONAL onde for semanticamente aplicavel.",
+
+ "ATTENTION_READINESS_GATE": {
+  "REGRA": "os CINCO sao obrigatorios e conjuntivos. Faltando um, o objeto nao e READY.",
+  "REQUISITOS": [
+   {"NOME": "VALID_EVIDENCE", "O_QUE_E": "evidencia preservada, rastreavel ate a fonte original", "FALHA_SE": "so ha derivacao, ou o corpo nao esta preservado"},
+   {"NOME": "OBJECT_SPECIFIC_TRIGGER", "O_QUE_E": "o gatilho DAQUELE tipo de objeto — nao um gatilho universal", "FALHA_SE": "nao ha o que mudou; captura unica nao produz trigger"},
+   {"NOME": "TIME_RELEVANCE", "O_QUE_E": "existe tempo organizacional para agir, ou a data e futura e publicada", "FALHA_SE": "janela NOT_READY e sem prazo futuro"},
+   {"NOME": "DECISION_QUESTION", "O_QUE_E": "a pergunta de decisao esta escrita e e respondivel", "FALHA_SE": "a pergunta nao muda nenhuma decisao"},
+   {"NOME": "DECISION_OWNER", "O_QUE_E": "departamento dono, derivado do caso", "FALHA_SE": "nenhum dono defensavel — NO_DEFENSIBLE_ACTION_YET"}
+  ],
+  "CONVERGENCIA": {
+   "OBRIGATORIA": false,
+   "PAPEL": "forca adicional, quando semanticamente aplicavel",
+   "REGRA": "CONVERGENCE_REQUIRES = SAME_PROPOSITION + INDEPENDENT_EVIDENCE",
+   "NAO_CONTA": "CONTEXTUAL_ALIGNMENT nunca entra na conta de convergencia",
+   "TIPOS": {
+    "PHENOMENON_CONVERGENCE": "duas familias independentes afirmam o mesmo fenomeno",
+    "IDENTITY_CONVERGENCE": "duas ou mais fontes sustentam a mesma identidade",
+    "CONTEXTUAL_ALIGNMENT": "uma fonte da contexto a outra, sem afirmar a mesma proposicao"
+   },
+   "NUNCA_SOMAR_OS_TRES": true
+  }
+ },
+
+ "STATES": [
+  {"STATE": "NEEDS_EVIDENCE", "SIGNIFICA": "o recorte existe e falta evidencia para sustentar o objeto", "MOSTRA_NA_HOME": false},
+  {"STATE": "VALID_EVIDENCE_NOT_ATTENTION_READY", "SIGNIFICA": "evidencia real e verificada; ainda nao responde por que agora", "MOSTRA_NA_HOME": false, "NOTA": "estado com dignidade — nao e lixo e nao e quase"},
+  {"STATE": "ATTENTION_CANDIDATE_TEST", "SIGNIFICA": "passa em parte do portao; esta em teste", "MOSTRA_NA_HOME": "somente com rotulo explicito de teste"},
+  {"STATE": "ATTENTION_READY", "SIGNIFICA": "os cinco requisitos do portao estao satisfeitos", "MOSTRA_NA_HOME": true},
+  {"STATE": "ARCHIVED_HISTORICAL", "SIGNIFICA": "foi relevante, deixou de ser; a evidencia permanece", "MOSTRA_NA_HOME": false}
+ ],
+
+ "TRANSITIONS": [
+  {"FROM": "NEEDS_EVIDENCE", "TO": "VALID_EVIDENCE_NOT_ATTENTION_READY", "WHEN": "VALID_EVIDENCE passa"},
+  {"FROM": "VALID_EVIDENCE_NOT_ATTENTION_READY", "TO": "ATTENTION_CANDIDATE_TEST", "WHEN": "OBJECT_SPECIFIC_TRIGGER passa"},
+  {"FROM": "ATTENTION_CANDIDATE_TEST", "TO": "ATTENTION_READY", "WHEN": "TIME_RELEVANCE + DECISION_QUESTION + DECISION_OWNER passam"},
+  {"FROM": "ATTENTION_READY", "TO": "VALID_EVIDENCE_NOT_ATTENTION_READY", "WHEN": "a janela fecha ou o dono deixa de existir", "NOTA": "rebaixar nunca e retrocesso"},
+  {"FROM": "ATTENTION_READY", "TO": "ARCHIVED_HISTORICAL", "WHEN": "a decisao foi tomada ou o ciclo passou"},
+  {"FROM": "VALID_EVIDENCE_NOT_ATTENTION_READY", "TO": "NEEDS_EVIDENCE", "WHEN": "um guard derruba a evidencia que sustentava", "NOTA": "aconteceu de verdade: SIDEBAR_NOT_BODY removeu DOWNY_MILDEW de itens franceses"}
+ ],
+
+ "ESTADO_MEDIDO_HOJE": {
+  "AS_OF": "refresh corrigido, commit ad041d7",
+  "ATTENTION_READY": 0,
+  "ATTENTION_CANDIDATE_TEST": 3,
+  "VALID_EVIDENCE_NOT_ATTENTION_READY": 6,
+  "POR_QUE_ZERO_READY": "nenhum candidato responde OBJECT_SPECIFIC_TRIGGER: nenhuma camada tem duas leituras com intervalo real. Meta tem uma hora, territorial tem captura unica, Foresight tem uma captura, RAIF tem serie anual sem leitura intra-safra.",
+  "O_QUE_DESTRAVARIA": "uma segunda leitura com intervalo real em qualquer camada — nao uma fonte nova"
+ },
+
+ "HOME_RULE": {
+  "MOSTRA_PRIORITARIAMENTE": "ATTENTION_READY",
+  "PODE_MOSTRAR": "ATTENTION_CANDIDATE_TEST, com rotulo explicito",
+  "NUNCA_MOSTRA": "VALID_EVIDENCE_NOT_ATTENTION_READY como se fosse atencao",
+  "SE_A_FILA_ESTIVER_VAZIA": "dizer que esta vazia. Fila vazia e resultado, nao falha de interface. Preencher com candidato sem rotulo seria fabricar atencao."
+ },
+
+ "TRANSVERSAL": {
+  "WHAT_IS_STILL_UNKNOWN": "estado transversal em TODO objeto, nunca ferramenta",
+  "ESTADOS_DE_CAMPO": ["PROVED", "NOT_PROVED", "NOT_MEASURED", "NOT_READY", "NOT_APPLICABLE"],
+  "DO_NOT_BUILD": "audit dashboard"
+ }
+}

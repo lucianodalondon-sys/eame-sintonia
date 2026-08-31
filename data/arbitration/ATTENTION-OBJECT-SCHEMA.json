@@ -1,0 +1,134 @@
+{
+ "SOURCE_ID": "ARBITRATION/ATTENTION-OBJECT-SCHEMA",
+ "source": "decisao de arbitragem do coordenador, 2026-08-31 — nao e medicao",
+ "SOURCE_LOCATION": "decisao de produto",
+ "FACT_LOCATION": "n/a — descreve o produto, nao o mundo",
+ "ARTIFACT_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "PRODUCT_DECISION",
+ "captured_at": "2026-08-31",
+ "CAPTURED_AT": "2026-08-31",
+ "ARBITRATION_COMPLETE": "YES",
+ "BASE_CORRECTION_COMMIT": "ad041d7edc197763b4d309526729f70e300ed517",
+
+ "TOP_LEVEL_PRODUCT_UNIT": "ATTENTION_OBJECT",
+ "POR_QUE_NAO_E_MAIS_CASE": "o refresh corrigido mediu quatro unidades diferentes e o V7 so tinha uma. Publicar ACT_NOW = 0 medindo apenas CASE escondia 155 registros com data publica futura. Forcar os quatro na chave do caso exigiria inventar CROP e ISSUE — que e o que os guards proibem.",
+
+ "ENVELOPE_COMUM": {
+  "ATTENTION_OBJECT_ID": "identidade canonica, NEUTRA DE IDIOMA (contrato multilingue 1443f643)",
+  "OBJECT_TYPE": "um de OBJECT_TYPES",
+  "COUNTRY": "obrigatorio em todos os tipos",
+  "ATTENTION_STATE": "ver ATTENTION-STATE-MACHINE.json",
+  "SOURCE_COMMITS": "commit fixo de cada entrada que sustenta o objeto",
+  "EVIDENCE": "ponteiros para a evidencia original, nunca traduzida",
+  "WHAT_IS_STILL_UNKNOWN": "lista; estado transversal, nunca ferramenta",
+  "DECISION_QUESTION": "a pergunta de decisao que este objeto responde",
+  "DECISION_OWNER": "departamento dono; nunca preenchido para completar tabela",
+  "TIME": "bloco de tempo, com os sete campos separados",
+  "PROVENANCE": "SOURCE_ID · AS_OF_DATE · EVIDENCE_CLASS",
+  "LANGUAGE_NOTE": "um objeto, varias representacoes. NUNCA um objeto por idioma."
+ },
+
+ "CAMPOS_DE_ESTADO_PERMITIDOS": ["PROVED", "NOT_PROVED", "NOT_MEASURED", "NOT_READY", "NOT_APPLICABLE"],
+ "REGRA_DE_ESTADO": "NOT_APPLICABLE e um estado de primeira classe. Um REGULATORY_DEADLINE nao tem CROP: isso e NOT_APPLICABLE, nunca NOT_KNOWN nem campo vazio.",
+
+ "OBJECT_TYPES": {
+
+  "PHENOMENON_CASE": {
+   "UNIT": "COUNTRY x REGION x CROP x ISSUE x TIME",
+   "DECISION_QUESTION": "um problema medido, num lugar, num momento, merece investigacao?",
+   "REQUIRED": ["COUNTRY", "REGION", "CROP", "ISSUE", "OBSERVATION_TIME"],
+   "PAIRING_GUARD": "CROP_ISSUE_PAIRING_NOT_PROVEN — o par so fecha quando o termo da cultura aparece DENTRO da passagem que sustenta o problema. Documento multi-boletim nao autoriza produto cartesiano.",
+   "DIMENSIONS": ["FIELD", "SCIENCE", "COMPETITION", "LOCAL_ADAMA_PORTFOLIO", "PEOPLE", "TIME", "ACTION", "UNKNOWNS", "EVIDENCE"],
+   "OBJECT_SPECIFIC_TRIGGER": "observacao de campo com as cinco ancoras no CORPO do documento",
+   "CONVERGENCE_APPLICABLE": true,
+   "EXAMPLE_TODAY": "IT x Toscana/Grosseto x DURUM_WHEAT x FUSARIUM (1 objeto)",
+   "NOTA": "DURUM_WHEAT nao esta no rotulo do item; aparece dentro da passagem da fusariose. O par fecha pela passagem, nao pela etiqueta."
+  },
+
+  "REGULATORY_DEADLINE": {
+   "UNIT": "COUNTRY x REGISTRATION x PRODUCT x DEADLINE",
+   "DECISION_QUESTION": "esta data publica futura exige revisao, e de quem?",
+   "REQUIRED": ["COUNTRY", "REGISTRATION_ID", "PRODUCT", "DEADLINE", "STATUS_AS_DECLARED_BY_SOURCE"],
+   "NOT_APPLICABLE": ["CROP", "ISSUE", "REGION"],
+   "DIMENSIONS": ["REGISTRATION", "HOLDER", "DEADLINE", "ACTION", "EVIDENCE"],
+   "OBJECT_SPECIFIC_TRIGGER": "prazo futuro publicado pela autoridade nacional",
+   "CONVERGENCE_APPLICABLE": false,
+   "LAWS": ["EXPIRY != WITHDRAWAL", "EXPIRY_DATE_REACHED != PRODUCT_DISCONTINUED"],
+   "PERMITTED_ACTION": "REVIEW / CONFIRMATION",
+   "FORBIDDEN_ACTION": "ALERT: PRODUCT WILL DISAPPEAR",
+   "DO_NOT_BUILD": "dashboard regulatorio",
+   "EXAMPLE_TODAY": "IT — 155 registros ADAMA em vigor com vencimento futuro"
+  },
+
+  "COMPETITOR_IDENTITY_CHAIN": {
+   "UNIT": "COMPETITOR x COUNTRY x PRODUCT",
+   "DECISION_QUESTION": "a mesma identidade de produto/titular se sustenta entre marca, registro local e anuncio observado?",
+   "REQUIRED": ["COMPETITOR", "COUNTRY", "PRODUCT_NORMALIZED", "HOLDER_AGREEMENT"],
+   "NOT_APPLICABLE": ["CROP", "ISSUE"],
+   "DIMENSIONS": ["TRADEMARK", "LOCAL_REGISTRATION", "OBSERVED_PAID_ACTIVITY", "EVIDENCE"],
+   "OBJECT_SPECIFIC_TRIGGER": "mudanca observada na cadeia — deposito novo, registro novo, ou aparicao/desaparicao de anuncio entre duas leituras com intervalo real",
+   "CONVERGENCE_APPLICABLE": "IDENTITY_CONVERGENCE apenas",
+   "GUARDS": ["SAME_NAME != SAME_COMPETITOR_PRODUCT (URBOLE_GUARD)", "IDENTITY_CONVERGENCE != PHENOMENON_CONVERGENCE", "PAGE_COUNTRY_SCOPE != AD_DELIVERY_COUNTRY", "a perna META e DERIVED_DEPENDENCY_ON_META e nao conta duas vezes"],
+   "DOES_NOT_PROVE": ["FIELD_PROBLEM", "DEMAND", "MARKET_MOVEMENT", "SALES", "SUCCESS", "que o produto anunciado esta autorizado naquele pais"],
+   "EXAMPLE_TODAY": "36 tuplas provadas · 29 produtos · ES 22 · IT 10 · FR 4",
+   "NOTA_DE_ATENCAO": "as 36 NAO entram na Home so por existirem. Sem trigger, o estado e VALID_EVIDENCE_NOT_ATTENTION_READY."
+  },
+
+  "LONGITUDINAL_FIELD_PRESSURE": {
+   "UNIT": "COUNTRY x REGION x CROP x ISSUE x TIME",
+   "DECISION_QUESTION": "a pressao medida ao longo de safras muda a ordem de investigacao?",
+   "REQUIRED": ["COUNTRY", "REGION", "CROP", "ISSUE", "SERIES", "BASELINE", "COHORT_CONTROL"],
+   "DIMENSIONS": ["SERIES", "BASELINE", "COHORT", "BACKTEST", "EVIDENCE"],
+   "OBJECT_SPECIFIC_TRIGGER": "leitura nova da serie que muda a posicao relativa de uma regiao",
+   "CONVERGENCE_APPLICABLE": true,
+   "GUARDS": ["FIELD_PRESSURE != DEMAND", "ha x incidencia e RELATIVE EXPOSURE INDEX: ordena, nunca dimensiona", "a media nunca viaja sem o n", "SAME_PUBLISHER != INDEPENDENT_OBSERVATION"],
+   "EXAMPLE_TODAY": "ES x Andaluzia x OLIVE x REPILO (RAIF)",
+   "INDEPENDENCE_FROM_TERRITORIAL_RAIF": "NOT_PROVED — nao contar como segunda perna sem linhagem parcela-a-parcela",
+   "BACKTEST_HONESTO": "14 disparos, 11 falsos positivos; no melhor caso UMA safra de antecedencia"
+  }
+ },
+
+ "TIME_BLOCK": {
+  "ONDE_VIVE": "dentro do objeto — JANELAS DA CULTURA deixa de ser superficie primaria",
+  "CAMPOS_QUE_NUNCA_SE_FUNDEM": [
+   "OBSERVATION_TIME",
+   "STAGE_AT_OBSERVATION",
+   "CURRENT_CROP_STAGE",
+   "LABEL_USE_STAGE",
+   "APPLICATION_WINDOW",
+   "REGULATORY_DEADLINE",
+   "FUTURE_SEASON_WINDOW"
+  ],
+  "REGRA": "UNKNOWN continua UNKNOWN. Nao fabricar calendario, e nao projetar a janela de uma safra sobre a seguinte.",
+  "MEDIDO_HOJE": {
+   "STAGE_AT_OBSERVATION": "PROVADO em 3 de 22 itens territoriais",
+   "APPLICATION_TRIGGER_AT_OBSERVATION": "PROVADO em 5 de 22",
+   "CURRENT_CROP_STAGE": "NOT_PROVED em 22 de 22",
+   "APPLICATION_WINDOW": "NOT_PROVED em ES, IT e FR"
+  }
+ },
+
+ "MULTILINGUAL": {
+  "CONTRACT_COMMIT": "1443f6435d4297a4563f25d83473142fc12e1f0d",
+  "STATE": "PRESERVED",
+  "ATTENTION_OBJECT_ID": "LANGUAGE_NEUTRAL",
+  "REGRA": "ONE CANONICAL CORPUS + MULTIPLE LANGUAGE REPRESENTATIONS. Nunca duplicar objeto por idioma.",
+  "SOURCE_LANGUAGE_NE_DISPLAY_LANGUAGE": true
+ },
+
+ "ADAMA_DESIGN": {
+  "OFFICIAL_ADAMA_DISEASE_ICON_ASSET": "EXISTS_EXTERNALLY_IN_DESIGN_SYSTEM",
+  "BINDING_NO_V8": "DISEASE_ID -> OFFICIAL_ADAMA_DISEASE_ICON_ID",
+  "DISEASE_ICON_CROSSWALK": "NOT_MEASURED",
+  "REGRA": "nao criar substituto generico"
+ },
+
+ "DO_NOT_BUILD": [
+  "META_DASHBOARD",
+  "dashboard regulatorio",
+  "Radar Regulatorio / Radar Meta / Radar Foresight / Radar Campo como quatro superficies",
+  "audit dashboard de UNKNOWN",
+  "ranking de especialista",
+  "qualquer score agregado"
+ ]
+}

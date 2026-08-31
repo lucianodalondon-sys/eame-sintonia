@@ -1,0 +1,175 @@
+{
+ "SOURCE_ID": "ARBITRATION/FINAL-HOSE-MAP-EAME",
+ "source": "mapa de mangueiras fechado na arbitragem — NENHUMA LIGACAO REAL EXECUTADA",
+ "SOURCE_LOCATION": "decisao de produto",
+ "FACT_LOCATION": "n/a",
+ "ARTIFACT_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "PRODUCT_DECISION",
+ "captured_at": "2026-08-31",
+ "CAPTURED_AT": "2026-08-31",
+
+ "REAL_DATA_WIRED": "NO",
+ "V8_IMPLEMENTATION_STARTED": "NO",
+ "CASCO_V7_MODIFIED": "NO",
+
+ "CADEIA_CANONICA": [
+  "FROZEN SOURCE / HANDOFF",
+  "canonical adapter",
+  "canonical entity / observation",
+  "dependency guard",
+  "attention object builder",
+  "attention readiness",
+  "action map",
+  "surface",
+  "evidence drawer"
+ ],
+
+ "REGRA_DE_OURO": "toda mangueira le COMMIT FIXO. Uma branch se move; um join que aponta para a ponta responde diferente a cada hora sem que ninguem tenha mudado nada.",
+
+ "HOSES": [
+
+  {
+   "HOSE_ID": "H1-TERRITORIAL",
+   "SOURCE_COMMIT": "11fd7b54e27adaaebed18f049f90b80b05806943",
+   "HANDOFF_COMMIT": "4ea268d0cbdc5f28f535b6288ee6c48bea20a6aa",
+   "INPUT_SCHEMA": "data/samples/TERRITORIAL/FINAL.json — ITEMS[] com COUNTRY_OF_FACT, REGION_OF_FACT, CROP[], ISSUE[], ISSUE_EVIDENCE{}, PUBLISHED_AT, DOCUMENT_EXCERPT",
+   "ADAPTER": "scripts/refresh_correction.py :: reprocessar() + pareamento()",
+   "CANONICAL_OBJECT": "TERRITORIAL_OBSERVATION",
+   "OBJECT_TYPE": "PHENOMENON_CASE",
+   "GUARDS": ["CROP_ISSUE_PAIRING_NOT_PROVEN", "MULTI_BULLETIN_DOCUMENT_GUARD", "SIDEBAR_NOT_BODY", "ORG_NAME_NOT_LOCALITY", "BINARY_NOT_DOCUMENT", "EDUCATIONAL_QUIZ_NOT_FIELD_SIGNAL"],
+   "SURFACE_CONSUMERS": ["RADAR DE ATENCAO", "OBJECT DETAIL > camada Campo", "ACERVO", "FONTES"],
+   "FAIL_CLOSED_BEHAVIOR": "sem par cultura x problema na MESMA passagem, o objeto nao e construido. Nao ha fallback para produto cartesiano.",
+   "LIMITE_CONHECIDO": "o corpo completo NAO esta preservado: so DOCUMENT_EXCERPT (3.000 chars) e as passagens de evidencia"
+  },
+
+  {
+   "HOSE_ID": "H2-REGULATORY-DEADLINE",
+   "SOURCE_COMMIT": "origin/claude/sintonia-italy-pilot-b1l401",
+   "INPUT_SCHEMA": "data/samples/IT-T4-001/IT-T4-001-adama-expiries.json — products_total, in_force, with_future_expiry, adama_in_force_with_future_expiry, adama_next_expiries[]",
+   "ADAPTER": "scripts/refresh_correction.py :: regulatory_deadlines()",
+   "CANONICAL_OBJECT": "REGISTRATION_DEADLINE",
+   "OBJECT_TYPE": "REGULATORY_DEADLINE",
+   "GUARDS": ["EXPIRY != WITHDRAWAL", "EXPIRY_DATE_REACHED != PRODUCT_DISCONTINUED", "STATUS_AS_DECLARED_BY_SOURCE — nunca reinterpretado"],
+   "SURFACE_CONSUMERS": ["RADAR DE ATENCAO", "OBJECT DETAIL (composicao propria, sem dimensoes de fenomeno)", "RELATORIOS"],
+   "FAIL_CLOSED_BEHAVIOR": "sem data futura declarada pela fonte, nao ha objeto. A acao maxima e REVIEW; ALERT e proibido.",
+   "PENDENCIA": "so a Italia esta neste artefato. ES e FR precisam do equivalente antes de generalizar."
+  },
+
+  {
+   "HOSE_ID": "H3-COMPETITOR-IDENTITY-CHAIN",
+   "SOURCE_COMMIT": "dc32ce0",
+   "ORIGINAL_FREEZE": "25194e3",
+   "INPUT_SCHEMA": "data/samples/COMPETITOR-THREE-LAYER-AUDIT.json — PROVADAS[], RESULTADO{}, URBOLE_GUARD{}, FONTE_EXTERNA{}",
+   "ADAPTER": "scripts/refresh_correction.py :: identity_chain()",
+   "CANONICAL_OBJECT": "COMPETITOR_PRODUCT_IDENTITY",
+   "OBJECT_TYPE": "COMPETITOR_IDENTITY_CHAIN",
+   "GUARDS": ["URBOLE_GUARD (nome + grupo do titular + pais)", "DERIVED_DEPENDENCY_ON_META — a perna Meta nao conta duas vezes", "IDENTITY_CONVERGENCE != PHENOMENON_CONVERGENCE", "CROP e ISSUE = NOT_APPLICABLE, nunca inventados"],
+   "SURFACE_CONSUMERS": ["RADAR DE ATENCAO", "OBJECT DETAIL", "OBJECT DETAIL de PHENOMENON_CASE > camada Competicao (como CONTEXTO, nunca como perna)"],
+   "FAIL_CLOSED_BEHAVIOR": "sem concordancia de titular E pais nas tres pontas, o estado e NOT_KNOWN. Zero recusas sem portao exercido e portao sem dentes.",
+   "DEPENDENCIA": "H4-META"
+  },
+
+  {
+   "HOSE_ID": "H4-META",
+   "SOURCE_COMMIT": "acfd987",
+   "HANDOFF_COMMIT": "a2fad2d",
+   "INPUT_SCHEMA": "data/samples/META-EAME/META-COMPETITOR-PILOT-EAME.json + META-HANDOFF-FREEZE-V1.json",
+   "ADAPTER": "consumido DENTRO de H3 — nao tem adaptador proprio de superficie",
+   "CANONICAL_OBJECT": "OBSERVED_PAID_ACTIVITY",
+   "OBJECT_TYPE": "evidencia / perna de competicao — NAO e OBJECT_TYPE proprio",
+   "GUARDS": ["PAGE_COUNTRY_SCOPE != AD_DELIVERY_COUNTRY", "AD_CARD != AD", "os sete cannot_claim do handoff", "OPERATIONAL_TEMPORAL_SIGNAL_VALUE = NOT_PROVED"],
+   "SURFACE_CONSUMERS": ["OBJECT DETAIL > camada Competicao > linha atividade paga", "EVIDENCE DRAWER"],
+   "FAIL_CLOSED_BEHAVIOR": "zero de leitura e NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING",
+   "DO_NOT_BUILD": "META_DASHBOARD"
+  },
+
+  {
+   "HOSE_ID": "H5-LONGITUDINAL-FIELD",
+   "SOURCE_COMMIT": "in-tree @ ad041d7",
+   "INPUT_SCHEMA": "data/samples/ES-T3-001-raif-olivar-repilo-2026.json + ES-T3-001-repilo-serie-historica.json + BACKTEST-REPILO-LEAD-TIME.json",
+   "ADAPTER": "scripts/refresh_correction.py :: field_historical()",
+   "CANONICAL_OBJECT": "FIELD_PRESSURE_SERIES",
+   "OBJECT_TYPE": "LONGITUDINAL_FIELD_PRESSURE",
+   "GUARDS": ["FIELD_PRESSURE != DEMAND", "ha x incidencia ordena, nunca dimensiona", "a media nunca viaja sem o n", "SAME_PUBLISHER != INDEPENDENT_OBSERVATION", "ADAMA_CONTEXT_DECLARED_IN_ARTIFACT != LOCAL_PRODUCT_AUTHORIZATION_PROVED"],
+   "SURFACE_CONSUMERS": ["RADAR DE ATENCAO", "OBJECT DETAIL", "OBJECT DETAIL de PHENOMENON_CASE > camada Campo (como CONTEXTO)"],
+   "FAIL_CLOSED_BEHAVIOR": "INDEPENDENCE_FROM_TERRITORIAL_RAIF = NOT_PROVED: nao contar como segunda perna sem linhagem parcela-a-parcela",
+   "ESCOPO_DA_SERIE": "o artefato de serie preservado cobre o RECORTE MODERNO; o numero canonico do ledger e RAIF_SEASONS_AVAILABLE = 23 e RAIF_READINGS_TOTAL = 148.964, de RAIF-COORTE-REPILO.json.",
+   "CORRECAO_DE_ENQUADRAMENTO": "o refresh corrigido (ad041d7) tratou isto como DIVERGENCIA ABERTA. Estava errado: o repositorio ja resolveu na MISSAO 02 — a leitura antiga usou so os arquivos modernos e publicou o numero menor; o pacote tem tambem os arquivos por provincia de 2003-2016. Ha teste no repositorio que reprova documento corrente que volte a afirmar o numero antigo, e foi ele que pegou este erro.",
+   "QUEM_MANDA_NO_NUMERO": "scripts/metricas_canonicas.py — o ledger, nunca o documento"
+  },
+
+  {
+   "HOSE_ID": "H6-CREATOR",
+   "SOURCE_COMMIT": "248bd27027506a5f531a117ce50d35eb5304b152",
+   "DEEP_CORPUS_COMMIT": "a509c12",
+   "INPUT_SCHEMA": "CREATOR-CAPABILITY-EAME.json (identidade) + CORPUS-DELIVERY.json (conteudo)",
+   "ADAPTER": "scripts/functional_prep.py :: adaptar_creator_capability() + adaptar_creator_deep_corpus()",
+   "CANONICAL_OBJECT": "PERSON_CREATOR / FARM_BUSINESS_ENTITY / CREATOR_CONTENT_PROFILE",
+   "OBJECT_TYPE": "capability contextual — NAO e ATTENTION_OBJECT no V8 inicial",
+   "GUARDS": ["PERSON_CREATOR != FARM_BUSINESS", "a soma nunca se chama CREATORS_READY", "CREATOR ACTIVATION ROUTE != CREATOR ISSUE EVIDENCE", "FOLLOWERS != AUTHORITY", "ROW != ENTITY (2,6x de inflacao medida)"],
+   "SURFACE_CONSUMERS": ["OBJECT DETAIL > rota de acao de Marketing (contextual)", "busca por CROP + REGION"],
+   "FAIL_CLOSED_BEHAVIOR": "sem ENTRY_PATH instrumentado, nao ha promocao a ferramenta",
+   "STATE": "TEST_AS_CAPABILITY",
+   "INSTRUMENTAR": ["ENTRY_PATH = FROM_ATTENTION_OBJECT", "ENTRY_PATH = FROM_CROP_REGION_SEARCH"]
+  },
+
+  {
+   "HOSE_ID": "H7-EXPERT",
+   "SOURCE_COMMIT": "in-tree @ ad041d7",
+   "INPUT_SCHEMA": "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json + ES-T5-002-corpus-documentos.json",
+   "ADAPTER": "scripts/functional_prep.py :: adaptar_expert_directory() + expertise_no_caso()",
+   "CANONICAL_OBJECT": "SCIENTIFIC_PERSON",
+   "OBJECT_TYPE": "capability contextual",
+   "GUARDS": ["ISSUE_EXPERTISE_PROVED obrigatorio antes de apresentar alguem como especialista do problema", "IDENTITY_PROVED != ISSUE_EXPERTISE_PROVED", "CROP_EXPERTISE != CROP_X_ISSUE_EXPERTISE", "RECURRENCE != AUTHORITY — sem ordem, sem score", "GDPR antes de qualquer exposicao"],
+   "SURFACE_CONSUMERS": ["OBJECT DETAIL > camada Pessoas (somente PHENOMENON_CASE)"],
+   "FAIL_CLOSED_BEHAVIOR": "sem ISSUE_EXPERTISE_PROVED a pessoa NAO aparece como especialista do problema. NOT_MEASURABLE != NOT_PROVED.",
+   "DO_NOT_BUILD": "ranking de recorrencia"
+  },
+
+  {
+   "HOSE_ID": "H8-PUBLIC-COMM",
+   "SOURCE_COMMIT": "c25e44b",
+   "INPUT_SCHEMA": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json — 22 contas",
+   "ADAPTER": "scripts/functional_prep.py :: adaptar_public_comm()",
+   "CANONICAL_OBJECT": "COMPANY_LOCAL_ACCOUNT",
+   "OBJECT_TYPE": "nao produz objeto de atencao hoje",
+   "GUARDS": ["IDENTITY_IS_NOT_SIGNAL", "COUNTRY_SCOPE != PAGE_ROLE", "ACCOUNT != COMPANY", "zero e NO_CONTENT_COLLECTION_EXECUTED, nunca COMPANY_NOT_COMMUNICATING"],
+   "SURFACE_CONSUMERS": ["FONTES (como rota conhecida e nao coletada)"],
+   "FAIL_CLOSED_BEHAVIOR": "CONTENT_COLLECTION_STAGE = NOT_STARTED: a mangueira existe e nao corre",
+   "STATE": "ROTA_FUTURA"
+  },
+
+  {
+   "HOSE_ID": "H9-MULTILINGUAL",
+   "SOURCE_COMMIT": "1443f6435d4297a4563f25d83473142fc12e1f0d",
+   "INPUT_SCHEMA": "contrato congelado — nao e fonte de dado",
+   "ADAPTER": "scripts/multilingual_contract.py",
+   "CANONICAL_OBJECT": "CONTENT_ENTITY + CONTENT_TRANSLATION + ONTOLOGY_TERM",
+   "OBJECT_TYPE": "GUARDRAIL TRANSVERSAL — atravessa todas as mangueiras",
+   "GUARDS": ["SOURCE_LANGUAGE != ARTIFACT_LANGUAGE != UI_LANGUAGE != DISPLAY_LANGUAGE != TRANSLATION_TARGET_LANGUAGE", "CANONICAL_ID != DISPLAY_LABEL", "ORIGINAL_QUOTE != TRANSLATED_QUOTE", "NAO SEI continua NAO SEI"],
+   "SURFACE_CONSUMERS": ["todas"],
+   "FAIL_CLOSED_BEHAVIOR": "lingua fora do vocabulario fechado recusa a criacao da entidade",
+   "STATE": "ACCEPTED_FROZEN"
+  }
+ ],
+
+ "MANGUEIRAS_QUE_NAO_EXISTEM_E_NAO_DEVEM_SER_CRIADAS": [
+  {"NOME": "META -> superficie propria", "MOTIVO": "DO_NOT_BUILD = META_DASHBOARD"},
+  {"NOME": "REGULATORY -> dashboard", "MOTIVO": "vencimento autoriza REVIEW, nao painel"},
+  {"NOME": "UNKNOWN -> audit dashboard", "MOTIVO": "estado transversal, nunca ferramenta"},
+  {"NOME": "CREATOR -> navegacao primaria no V8 inicial", "MOTIVO": "TEST_AS_CAPABILITY ate haver uso real"},
+  {"NOME": "qualquer score agregado", "MOTIVO": "somar eixos esconde o eixo vazio"}
+ ],
+
+ "ORDEM_DE_LIGACAO_SUGERIDA": [
+  {"ORDEM": 1, "HOSE": "H2-REGULATORY-DEADLINE", "POR_QUE": "e o unico objeto com decisao de negocio defensavel hoje, e a fonte e oficial e primaria"},
+  {"ORDEM": 2, "HOSE": "H1-TERRITORIAL", "POR_QUE": "produz o unico PHENOMENON_CASE com chave completa"},
+  {"ORDEM": 3, "HOSE": "H9-MULTILINGUAL", "POR_QUE": "guardrail transversal: entra antes de haver texto na tela"},
+  {"ORDEM": 4, "HOSE": "H3-COMPETITOR-IDENTITY-CHAIN", "POR_QUE": "36 tuplas prontas, mas sem trigger de atencao ainda"},
+  {"ORDEM": 5, "HOSE": "H5-LONGITUDINAL-FIELD", "POR_QUE": "serie longa, com backtest honesto sobre o limite"},
+  {"ORDEM": 6, "HOSE": "H7-EXPERT", "POR_QUE": "contextual dentro do caso, com portao de expertise"},
+  {"ORDEM": 7, "HOSE": "H6-CREATOR", "POR_QUE": "contextual e instrumentado, sem navegacao propria"},
+  {"ORDEM": 8, "HOSE": "H8-PUBLIC-COMM", "POR_QUE": "so quando houver conteudo"}
+ ],
+ "NOTA_SOBRE_A_ORDEM": "sugestao, nao instrucao de implementacao. Nenhuma ligacao foi executada."
+}
