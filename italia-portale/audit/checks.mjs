@@ -1297,11 +1297,16 @@ check('V3', 'No unreviewed research prose was transported to the browser', () =>
   const payload = JSON.stringify((V && V.collections) || {});
   if (/"RESEARCH":/.test(payload)) bad.push('a RESEARCH field reached a record');
   if (/_ORIGINAL_RESEARCH_TEXT":/.test(payload)) bad.push('an *_ORIGINAL_RESEARCH_TEXT field reached a record');
-  const ALLOWED = /^(ID|ENTITY_TYPE|QA_STATUS|CLIENT_SAFE|PROVENANCE|ORIGIN_LAYER|CLAIM_DOMAIN)$/;
+  /* A non-client-safe record keeps its FACTS — the gate governs what may be
+     ASSERTED, not what may EXIST. Stubbing it to an id would have shrunk the
+     label layer from 2030 pairs to 1512 and from 78 label targets to 51, which
+     is a loss of fact dressed as caution. What it must not carry is the
+     unreviewed READING: a localized *_IT / *_EN pair. */
   if (V) {
     for (const [fam, rows] of Object.entries(V.collections || {})) {
-      const leaky = (rows || []).filter((r) => r && r.CLIENT_SAFE !== true && Object.keys(r).some((k) => !ALLOWED.test(k)));
-      if (leaky.length) bad.push(`${fam}: ${leaky.length} non-client-safe record(s) carry payload`);
+      const leaky = (rows || []).filter((r) => r && r.CLIENT_SAFE !== true &&
+        Object.keys(r).some((k) => k.endsWith('_IT') || k.endsWith('_EN')));
+      if (leaky.length) bad.push(`${fam}: ${leaky.length} non-client-safe record(s) carry a localized reading`);
     }
   }
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 8) };
@@ -1422,6 +1427,88 @@ check('V7', 'The audited window contract survives the V2.1 ingestion', () => {
     measured: w ? `${w.count} windows` : 'ABSENT',
     detail: { canonical: canon.length, decreeReadings: decree.length, fieldSignals: fs2 ? fs2.count : 0, bad },
   };
+});
+
+check('V8', 'The label-use layer keeps every pair the package carries', () => {
+  /* Mission §5 is explicit: preserve the 2030 verified ministerial label-use
+     pairs, 35 crops, 78 targets, and do NOT zero this layer.
+
+     The client-safe gate legitimately limits what may be ASSERTED — 1512 of the
+     2030 are client-safe — but it does not shrink the layer. Total and
+     client-safe are two different numbers and the model has to carry both, or
+     the portfolio screen quietly loses a third of the evidence with nothing
+     failing. Deduplicating to a distinct product x crop x target key would drop
+     it to 1077; that would also be a loss, because the same triple can be
+     proved by two different rows of the label. */
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const V = ctx.ITALY_HANDOFF_V21;
+  const bad = [];
+  const pkg = (V && V.collections && V.collections['products.relationships']) || [];
+  const pkgSafe = pkg.filter((r) => r.CLIENT_SAFE === true).length;
+  const crops = new Set(pkg.map((r) => r.CROP_ON_LABEL).filter(Boolean));
+  const targets = new Set(pkg.map((r) => r.TARGET_ON_LABEL).filter(Boolean));
+
+  /* Two different numbers, and the model must carry both.
+     The LABEL-USE LAYER is the source table: 2030 rows, 35 crops, 78 targets.
+     The RELATIONSHIP layer is the distinct view of it — the package's own law
+     says the three LINK_STRENGTH values do not sum, so the same product x crop
+     x target proved twice is one relationship, not two. Requiring the
+     relationship layer to hold 2030 would be requiring it to double-count. */
+  const C = AM.collections || {};
+  const layer = Object.entries(C).find(([, c]) => c && c.count === pkg.length);
+  if (!layer) bad.push(`no collection holds the ${pkg.length} label-use rows`);
+  else {
+    const rows = layer[1].records || [];
+    const lc = new Set(rows.map((r) => r.cropOnLabel || r.CROP_ON_LABEL || r.crop).filter(Boolean));
+    const lt = new Set(rows.map((r) => r.targetOnLabel || r.TARGET_ON_LABEL || r.target).filter(Boolean));
+    if (lc.size < crops.size) bad.push(`the layer exposes ${lc.size} label crops; the package has ${crops.size}`);
+    if (lt.size < targets.size) bad.push(`the layer exposes ${lt.size} label targets; the package has ${targets.size}`);
+  }
+  const rel = C.productRelationships;
+  if (!rel) bad.push('collections.productRelationships is absent');
+  else {
+    /* Every relationship the model presents as client-safe must be able to say
+       which QA state it inherits. 518 of the 2030 source rows are unreviewed;
+       a relationship that rests only on those may exist, but it may not be
+       asserted, and without a QA stamp nobody can tell which is which. */
+    const unstamped = (rel.records || []).filter((r) => r.clientSafe === true && !r.qaStatus && !r.QA_STATUS);
+    if (unstamped.length) bad.push(`${unstamped.length} relationship(s) are marked client-safe with no QA status to inherit it from`);
+  }
+  return {
+    pass: bad.length === 0,
+    expected: `>= ${pkg.length} rows`,
+    measured: rel ? `${rel.count} rows` : 'ABSENT',
+    detail: { packageRows: pkg.length, packageClientSafe: pkgSafe, labelCrops: crops.size, labelTargets: targets.size, bad },
+  };
+});
+
+check('V9', 'Every V2.1 family the package supplies actually reaches the model', () => {
+  /* A family can be silently skipped by mapping it to the wrong key — the
+     record count then reflects the old source and nothing fails. This walks the
+     manifest and asks, for each family, whether the model chose the V2.1
+     source and ended up with the package's row count. */
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const V = ctx.ITALY_HANDOFF_V21;
+  if (!V || !AM.ingest) return { pass: false, expected: 'package and ingest report', measured: 'ABSENT' };
+  const chosen = {};
+  for (const f of (AM.ingest.report && AM.ingest.report.families) || []) chosen[f.family] = f;
+  const bad = [];
+  /* families whose package rows must be visible somewhere in the model */
+  const MUST = {
+    'products.regulatory': 163, 'products.commercial': 51, 'products.relationships': 2030,
+    fieldSignals: 122, market: 157, competitors: 577, science: 88, researchers: 60,
+    resistance: 34, voices: 79, channels: 62, sources: 189, news: 8, events: 40,
+    opportunities: 3, futureSignals: 3, regulatoryFutureFacts: 47, activeIngredients: 53,
+  };
+  const totals = Object.values(AM.collections || {}).map((c) => c && c.count);
+  for (const [fam, n] of Object.entries(MUST)) {
+    const pkgRows = (V.collections[fam] || []).length;
+    if (pkgRows !== n) { bad.push(`${fam}: package has ${pkgRows}, this check expects ${n} — re-read the manifest`); continue; }
+    if (!totals.includes(n)) bad.push(`${fam}: ${n} rows are in the package but no collection in the model holds ${n}`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 12) };
 });
 
 export function runAll(only) {

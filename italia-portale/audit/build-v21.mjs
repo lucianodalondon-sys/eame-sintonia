@@ -14,15 +14,17 @@
        every *_ORIGINAL_RESEARCH_TEXT stay out of the browser. The approved
        *_IT / *_EN fields travel; the public quotes travel untouched.
 
-   2 · CARRIES THE CORPUS AS A STUB.
+   2 · KEEPS THE CORPUS FACTS, DROPS THE CORPUS PROSE.
        CLIENT_SAFE_RULE: only CLIENT_SAFE=true may sustain a client-visible
-       claim. A CLIENT_SAFE=false record still has to be COUNTED — the
-       transparency panel must be able to say how large the corpus is — but its
-       unreviewed prose has no business on a public URL. So a non-safe record
-       travels as its identity and its QA state, and nothing else.
+       claim. But the gate is about what may be ASSERTED, not about what may
+       EXIST. A label-use row that has not been re-read is still a row of a
+       ministerial label: stubbing it to an id would shrink the layer from 2030
+       pairs to 1512 and from 78 label targets to 51, which is a loss of fact
+       dressed as caution. So a non-safe record keeps its scalar facts and loses
+       its prose — the unreviewed READING is what must not sit on a public URL.
 
-   Measured on this package: 15.7 MB raw -> 7.3 MB transported -> 0.46 MB over
-   the wire once the host gzips it, which is less than the file it replaces.
+   Measured on this package: 15.7 MB raw -> 9.9 MB transported -> 0.56 MB over
+   the wire once the host gzips it, still less than the file it replaces.
 
      node audit/build-v21.mjs [packageDir]
    --------------------------------------------------------------------------- */
@@ -44,8 +46,19 @@ const records = (j) => {
 
 const M = read('APP-MANIFEST.json');
 
-/* the identity every record carries, kept even for the corpus so it can be counted */
-const STUB_FIELDS = ['ID', 'ENTITY_TYPE', 'QA_STATUS', 'CLIENT_SAFE', 'PROVENANCE', 'ORIGIN_LAYER', 'CLAIM_DOMAIN'];
+/* A narrative field is one the package localized: it has a sibling <FIELD>_IT.
+   That is the prose — a reading, in the researcher's words. Everything else is
+   a scalar fact read off a document: a product name, a registration number, a
+   crop as written on the label, a date, an enum. */
+const narrativeFields = (r) => {
+  const out = new Set();
+  for (const k of Object.keys(r)) {
+    if (k.endsWith('_IT')) { const base = k.slice(0, -3); if (r[base] !== undefined) out.add(base); }
+    if (k === 'RESEARCH') out.add(k);
+    if (k.endsWith('_ORIGINAL_RESEARCH_TEXT')) out.add(k);
+  }
+  return out;
+};
 
 const stripResearch = (r) => {
   const o = {};
@@ -56,9 +69,22 @@ const stripResearch = (r) => {
   }
   return o;
 };
-const stub = (r) => {
+
+/* The corpus record. The client-safe gate is about what may be ASSERTED, not
+   about what may EXIST: a label-use row that has not been re-read is still a
+   row of a ministerial label, and dropping its crop and target would shrink the
+   layer from 2030 pairs to 1512 and from 78 label targets to 51 — a loss of
+   fact, not a gain in safety. So the facts travel and the PROSE does not: an
+   unreviewed reading has no business on a public URL, and CLIENT_SAFE=false
+   still forbids the row from closing an assertion. */
+const corpus = (r) => {
+  const drop = narrativeFields(r);
   const o = {};
-  for (const k of STUB_FIELDS) if (r[k] !== undefined) o[k] = r[k];
+  for (const k of Object.keys(r)) {
+    if (drop.has(k)) continue;
+    if (k.endsWith('_IT') || k.endsWith('_EN')) continue;
+    o[k] = r[k];
+  }
   return o;
 };
 
@@ -69,7 +95,7 @@ for (const c of M.COLLECTIONS) {
   let R;
   try { R = records(read(c.FILE)); } catch (e) { console.error('  UNREADABLE', c.FILE); continue; }
   const safe = R.filter((r) => r && r.CLIENT_SAFE === true);
-  const transported = R.map((r) => (r.CLIENT_SAFE === true ? stripResearch(r) : stub(r)));
+  const transported = R.map((r) => (r.CLIENT_SAFE === true ? stripResearch(r) : corpus(r)));
   /* the APP_KEY is "APP.products.regulatory" — the leaf is the family name */
   const key = String(c.APP_KEY).replace(/^APP\./, '');
   collections[key] = transported;
@@ -91,7 +117,7 @@ const payload = {
   DOUBLE_COUNT_WARNING: M.DOUBLE_COUNT_WARNING,
   TRANSPORT_LAW:
     'RESEARCH and *_ORIGINAL_RESEARCH_TEXT are not transported: the package says the Design never reads them. ' +
-    'A CLIENT_SAFE=false record travels as identity + QA state only, so it can be counted without putting unreviewed prose on a public URL.',
+    'A CLIENT_SAFE=false record keeps its FACTS and loses its PROSE: the gate is about what may be asserted, not about what may exist.',
   MANIFEST: report.families,
   collections,
 };
