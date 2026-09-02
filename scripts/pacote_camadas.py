@@ -32,6 +32,10 @@ def camada_vozes():
     for c in it_com:
         if c.get('SPEECH_TYPE') not in ('FIRST_PERSON_FIELD_REPORT', 'TECHNICAL_REPLY'):
             continue
+        # ⚠️ A PLATEIA DO CANAL VIAJA COM A FALA. Sem ela, 56 vozes italianas parecem 56
+        # vozes de lavoura — e 32 delas sao de horta e jardim domestico, falando de
+        # roseira e limoeiro. RELATO EM PRIMEIRA PESSOA SOBRE UM VASO NAO E VOZ DE LAVOURA.
+        plateia = c.get('CHANNEL_AUDIENCE_KIND') or 'NOT_KNOWN'
         v = V.get(c.get('VIDEO_ID')) or porurl.get(c.get('SOURCE_URL')) or {}
         prova = ('um comentarista escreveu isto sob este video'
                  if c['SPEECH_TYPE'] == 'FIRST_PERSON_FIELD_REPORT'
@@ -39,6 +43,8 @@ def camada_vozes():
         fora.append(OrderedDict([
             ('ID', novo_id('IT-VOICE')),
             ('KIND', c.get('SPEECH_TYPE')),
+            ('CHANNEL_AUDIENCE_KIND', plateia),
+            ('CHANNEL_AUDIENCE_EVIDENCE', c.get('CHANNEL_AUDIENCE_EVIDENCE')),
             ('PERSON', c.get('COMMENTER_NAME')),
             ('PERSON_IDENTITY_STATE', 'NAO_ATRIBUIVEL — handle publico pseudonimizado'),
             ('ROLE', 'NAO SEI'), ('ORGANIZATION', 'NAO SEI'),
@@ -69,6 +75,11 @@ def camada_vozes():
         ('COUNT', len(fora)),
         ('DENOMINATOR', {'IT_COMMENTS_READ': len(it_com),
                          'ALL_COMMENTS_READ': len(med['COMMENTS_ITEMS'])}),
+        ('BY_CHANNEL_AUDIENCE', dict(__import__('collections').Counter(
+            v['CHANNEL_AUDIENCE_KIND'] for v in fora))),
+        ('AUDIENCE_LAW', 'PROFESSIONAL_FIELD_AUDIENCE e HOBBY_GARDEN_AUDIENCE NAO se '
+                         'somam. A segunda fala de roseira, limoeiro e aveleira de '
+                         'quintal — e voz real, de gente real, e NAO e lavoura.'),
         ('NEVER', 'nunca criar citacao para pessoa real. TEXT_ORIGINAL e literal.'),
         ('VOICES', fora)]))
 

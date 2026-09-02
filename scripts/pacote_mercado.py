@@ -33,8 +33,8 @@ from pacote_normalizar import grava, env, novo_id, DR, ROOT, local_json  # noqa:
 REAL, DERIV = 'REAL_SOURCE', 'REAL_DERIVED'
 
 
-def main():
-    caminho = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, '.tmp', 'mkt.json')
+def camada_mercado(caminho=None):
+    caminho = caminho or (sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, '.tmp', 'mkt.json'))
     if not os.path.exists(caminho):
         print('FALTA %s — rode o leque de mercado antes' % caminho); return 1
     r = json.load(open(caminho, encoding='utf-8'))
@@ -170,4 +170,4 @@ def main():
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(camada_fenologia() if 'fenologia' in __file__ else camada_mercado())

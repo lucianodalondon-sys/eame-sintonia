@@ -95,7 +95,13 @@ def main():
         ('REAL_CROP_TARGET_PRODUCT_LINKS', n('ADAMA/adama-crop-problem-product.json')),
         ('REAL_CROP_TERMS_IN_PORTFOLIO', n('ADAMA/adama-italy-crops.json')),
         ('REAL_CROP_WINDOWS', n('CROP-WINDOWS/crop-windows.json')),
-        ('REAL_CURRENT_PHENOLOGY_SIGNALS', 0),
+        # ⚠️ Este numero ja esteve ESCRITO A MAO como 0, quando a camada nao existia.
+        # Numero digitado a mao envelhece sem avisar — passa a mentir no dia em que o
+        # dado chega. Agora ele conta o arquivo.
+        ('REAL_CURRENT_PHENOLOGY_SIGNALS', n('CROP-WINDOWS/current-phenology.json')),
+        ('REAL_REGIONS_WITH_CURRENT_BULLETIN', n('CROP-WINDOWS/regional-bulletin-sources.json')),
+        ('REAL_MARKET_SOURCES_MAPPED', n('MARKET-PULSE/market-sources.json')),
+        ('REAL_MARKET_CAPABILITIES_MAPPED', n('MARKET-PULSE/market-capabilities.json')),
         ('REAL_MARKET_RECORDS', mkt),
         ('REAL_NEWS', n('NEWS/news.json')),
         ('REAL_META_ADS_REACHING_ITALY', pagos),
@@ -147,9 +153,16 @@ def main():
           'produtos (11,7%%)**. Os outros 144 não têm linha de uso lida. Isso é cobertura de '
           'LEITURA, não ausência de registro.' % C['REAL_CROP_TARGET_PRODUCT_LINKS'],
           '',
-          '**Sinais de fenologia corrente: 0.** Não há boletim de estádio fenológico lido '
-          'para setembro de 2026. O que existe é regulatório (datas do ato) e sinal pontual '
-          'de uma província. É a maior lacuna do pacote.']
+          '**Vozes de campo: %d — mas elas NÃO se somam.** A varredura de 02/09 mediu a '
+          'plateia do canal de cada fala. Ver `BY_CHANNEL_AUDIENCE` em '
+          '`VOCI-DAL-CAMPO/field-voices.json`: uma parte vem de canal de HORTA DOMESTICA e '
+          'fala de roseira e limoeiro. Relato em primeira pessoa sobre um vaso não é voz de '
+          'lavoura.' % C['REAL_FIELD_VOICES'],
+          '',
+          '**Sinais de fenologia corrente: %d, de %d regiões.** Esta lacuna estava declarada '
+          'como a MAIOR do pacote, com valor 0, e foi fechada na varredura noturna de '
+          '02/09/2026. O que não mudou: são 6 regiões de 20, e nenhuma fala pelo país.'
+          % (C['REAL_CURRENT_PHENOLOGY_SIGNALS'], C['REAL_REGIONS_WITH_CURRENT_BULLETIN'])]
 
     d0 = os.path.join(PKG, '00-START-HERE')
     os.makedirs(d0, exist_ok=True)

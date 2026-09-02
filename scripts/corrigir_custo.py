@@ -57,7 +57,7 @@ def corrigir(token):
     reais = _runs_reais(token)
     print('runs lidos na plataforma: %d' % len(reais))
     total_antes = total_depois = 0.0
-    for lote in ('A', 'B', 'C', 'D'):
+    for lote in ('A', 'B', 'C', 'D', 'E'):
         cam = os.path.join(SAIDA, 'RUNS-%s.json' % lote)
         if not os.path.exists(cam):
             continue

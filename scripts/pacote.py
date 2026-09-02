@@ -29,6 +29,10 @@ from pacote_camadas2 import (camada_fontes, camada_janelas,          # noqa: E40
                              camada_oportunidades, camada_futuro)
 from pacote_camadas3 import (camada_noticias, camada_eventos,        # noqa: E402
                              camada_pessoas, camada_acervo)
+from pacote_fenologia import camada_fenologia                    # noqa: E402
+from pacote_mercado import camada_mercado                        # noqa: E402
+
+TMP = os.path.join(os.path.dirname(HERE), '.tmp')
 
 ORDEM = [
     ('FONTES', camada_fontes),          # primeiro: todo o resto referencia SOURCE_ID
@@ -43,6 +47,13 @@ ORDEM = [
     ('NOTICIAS', camada_noticias),
     ('EVENTOS', camada_eventos),
     ('ACERVO', camada_acervo),
+    # ⚠️ Estas duas vem de artefato de leque, e por um instante eu as chamei por
+    # SUBPROCESSO — o que reintroduziria exatamente o bug que este arquivo existe para
+    # impedir: processo novo, contador de ID novo. Aqui elas sao FUNCAO importada, como
+    # todas as outras. UM PROCESSO, UM CONTADOR.
+    ('FENOLOGIA CORRENTE', lambda: camada_fenologia(
+        os.path.join(TMP, 'madrugada.json'))),
+    ('MARKET PULSE', lambda: camada_mercado(os.path.join(TMP, 'mkt.json'))),
 ]
 
 

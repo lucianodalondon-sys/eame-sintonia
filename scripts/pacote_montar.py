@@ -20,6 +20,7 @@ import json
 import os
 import re
 import sys
+import shutil
 import zipfile
 from collections import Counter, OrderedDict, defaultdict
 
@@ -234,9 +235,51 @@ def seguranca():
     return achados, proibidos
 
 
+def copiar_prosa():
+    """A prosa do handoff mora no REPOSITORIO e e copiada para o pacote.
+
+    ⚠️ Ela ja morou dentro de `build/`, e um `rm -rf build/...` antes de reconstruir
+    apagou cinco documentos sem deixar rastro — inclusive o README-FIRST.
+
+        ARTEFATO GERADO PODE SER APAGADO. TEXTO ESCRITO A MAO, NAO.
+
+    O nome do arquivo na origem carrega a pasta de destino antes do `_`, para que a
+    copia seja mecanica e nao dependa de uma tabela que envelhece.
+    """
+    origem = os.path.join(ROOT, 'research', 'italy-demo-reality', 'handoff')
+    if not os.path.isdir(origem):
+        print('  (sem prosa em research/italy-demo-reality/handoff)')
+        return 0
+    n = 0
+    for f in sorted(os.listdir(origem)):
+        if '_' not in f or not f.endswith('.md'):
+            continue
+        pasta, nome = f.split('_', 1)
+        d = os.path.join(PKG, pasta)
+        os.makedirs(d, exist_ok=True)
+        shutil.copy2(os.path.join(origem, f), os.path.join(d, nome))
+        n += 1
+    # e o acervo de pesquisa
+    arq = os.path.join(ROOT, 'research', 'italy-demo-reality')
+    d2 = os.path.join(PKG, '02-RESEARCH-ARCHIVE')
+    os.makedirs(d2, exist_ok=True)
+    for f in sorted(os.listdir(arq)):
+        if f.endswith('.md'):
+            shutil.copy2(os.path.join(arq, f), os.path.join(d2, f))
+            n += 1
+    regua = os.path.join(ROOT, 'docs', 'regras', 'REGUA-ITALIA-FITOSSANITARIA.md')
+    if os.path.exists(regua):
+        shutil.copy2(regua, os.path.join(d2, 'REGUA-ITALIA-FITOSSANITARIA.md'))
+        n += 1
+    print('  prosa copiada: %d arquivos' % n)
+    return n
+
+
 def main():
     if not os.path.isdir(DR):
         print('PACOTE_NAO_MONTADO — rode os scripts pacote_*.py antes'); return 1
+    print('PROSA')
+    copiar_prosa()
     print('RELACOES')
     idx, links = relacoes()
     print('VALIDACAO')

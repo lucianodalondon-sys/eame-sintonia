@@ -108,8 +108,21 @@ LOTES = {
     # A busca de vídeo custou 0,00 no lote C. Abrir recorte é de graça; só o
     # comentário é pago. Então o critério aqui é COBERTURA, não economia.
     'D': ['IT-SUGARBEET-WEED', 'IT-RICE-WEED', 'IT-APPLE-DISEASE', 'IT-VINE-WEED'],
+    # ── LOTE E · 2026-09-02, madrugada ──────────────────────────────────────────
+    # Quatro recortes escolhidos por CRUZAMENTO, nao por curiosidade:
+    #   OLIVE-BACTROCERA  o sinal e CORRENTE (Modena, set/2026, capturas subindo), a
+    #                     ciencia tem 71 obras e 223 autores italianos, e 12 registros
+    #                     ADAMA citam OLIVE. Tres camadas apontando para o mesmo lugar.
+    #   CEREAL-SEPTORIA   61 produtos citam trigo e o recorte ITALIANO nunca existiu — so
+    #                     ES e FR. MAXENTIS e KOJAMI nomeiam Zymoseptoria na linha de uso.
+    #   APPLE-INSECT      «Linea Insetticidi Melo» e novidade 2026 da propria ADAMA, 48
+    #                     registros citam APPLE, e APYZA tem linha de uso para afideos de
+    #                     macieira COM dose. E a unica linha do portfolio com lancamento no ano.
+    #   TOMATO-DISEASE    57 registros citam TOMATO e a colheita e agora.
+    'E': ['IT-OLIVE-BACTROCERA', 'IT-CEREAL-SEPTORIA', 'IT-APPLE-INSECT',
+          'IT-TOMATO-DISEASE'],
 }
-OFFSET_DO_LOTE = {'A': 0, 'B': 2, 'C': 4, 'D': 6}  # posição inicial no pool
+OFFSET_DO_LOTE = {'A': 0, 'B': 2, 'C': 4, 'D': 6, 'E': 8}  # posição inicial no pool
 
 # ── TERMOS POR RECORTE ───────────────────────────────────────────────────────────
 # NA LÍNGUA DO PAÍS, sempre. Buscar "septoria wheat" na França devolve literatura
@@ -152,6 +165,17 @@ TERMOS = {
                          'ticchiolatura melo trattamenti', 'melo maculatura bruna'],
     'IT-VINE-WEED': ['diserbo del vigneto', 'gestione del sottofila vigneto',
                      'inerbimento vigneto', 'diserbo sottofila vite'],
+    # ── LOTE E ──────────────────────────────────────────────────────────────────
+    # `mosca delle olive` e o nome do oficio; `Bactrocera oleae` e o do artigo. Os dois
+    # entram, porque devolvem gente diferente — tecnico de campo e pesquisador.
+    'IT-OLIVE-BACTROCERA': ['mosca delle olive difesa', 'Bactrocera oleae olivo',
+                            'monitoraggio mosca olivo', 'trattamento mosca olive'],
+    'IT-CEREAL-SEPTORIA': ['septoriosi del frumento', 'malattie fogliari frumento',
+                           'difesa cereali a paglia', 'ruggine gialla frumento'],
+    'IT-APPLE-INSECT': ['afidi del melo difesa', 'carpocapsa del melo',
+                        'insetticidi melo difesa', 'difesa melo insetti'],
+    'IT-TOMATO-DISEASE': ['peronospora del pomodoro', 'difesa pomodoro malattie',
+                          'alternaria pomodoro', 'botrite pomodoro difesa'],
 }
 
 # Locais para a busca do LinkedIn por nome. País, nunca cidade adivinhada.

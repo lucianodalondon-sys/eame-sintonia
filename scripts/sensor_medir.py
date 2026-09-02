@@ -151,6 +151,46 @@ LUGARES = {
 }
 
 
+
+# ── EIXO NOVO · 2026-09-02 · QUEM E A PLATEIA DO CANAL ──────────────────────────
+# POR QUE ISTO PRECISOU NASCER, e o que a falta ja tinha escondido:
+# o lote E abriu recortes de melo, pomodoro e olivo. Os relatos de campo saltaram de 11
+# para 34 — e a leitura ingenua seria «triplicamos a voz do campo italiano».
+#
+# Lendo um a um, a maioria fala de ROSEIRA, LIMOEIRO e AVELEIRA DE QUINTAL. Os canais sao
+# `Orto Da Coltivare`, `Natura e Bellezza`, `Stockergarden` — horta e jardim domestico.
+#
+#     RELATO EM PRIMEIRA PESSOA SOBRE UM VASO NAO E VOZ DE LAVOURA.
+#
+# A distincao e do CANAL, nao do comentario: quem comenta num canal de horta e plateia de
+# horta. E ela e uma LISTA DECLARADA, nao uma inferencia — cada canal entra pelo nome, e
+# canal fora da lista sai NAO_SEI, jamais «profissional por omissao».
+CANAL_HOBBY = [
+    'orto da coltivare', 'natura e bellezza', 'stockergarden', 'bosco di ogigia',
+    'vivere in campagna', 'coltivobio', "albera', luce in natura", 'albera',
+    'giardinaggio', 'orto e giardino', 'il mio orto', 'fai da te',
+]
+CANAL_PROFISSIONAL = [
+    'agricoltura innovativa', 'viticoltura riccardo castaldi', 'portocork',
+    'aipo verona', 'matej vignaiuolo', 'mragriquad', 'agri957', 'matt the farmer',
+    "l'informatore agrario", 'informatore agrario', 'agronotizie', 'agrestetv',
+    'coldiretti', 'confagricoltura', 'consorzio', 'ente nazionale risi',
+    'giornate fitopatologiche', 'betaitalia', 'risoitaliano', 'sata', 'unibo',
+]
+
+
+def plateia_do_canal(canal):
+    """→ (classe, evidência). Canal fora das duas listas sai NÃO SEI."""
+    c = _n(canal)
+    for t in CANAL_HOBBY:
+        if t in c:
+            return 'HOBBY_GARDEN_AUDIENCE', 'canal na lista declarada de horta/jardim: "%s"' % t
+    for t in CANAL_PROFISSIONAL:
+        if t in c:
+            return 'PROFESSIONAL_FIELD_AUDIENCE', 'canal na lista declarada profissional: "%s"' % t
+    return NAO_SEI, 'canal fora das duas listas declaradas — NAO SEI, nunca profissional por omissao'
+
+
 def _tem(texto, termos):
     for t in termos:
         if _n(t) in texto:
@@ -233,13 +273,13 @@ def lugar_do_fato(texto):
 def medir():
     videos, vistos = [], set()
     trans = {}
-    for L in ('A', 'B', 'C'):
+    for L in ('A', 'B', 'C', 'D', 'E'):
         d = _ler('TRANSCRICOES-%s.json' % L) or {'ITEMS': []}
         for t in d['ITEMS']:
             if t.get('TRANSCRIPT'):
                 trans[t['SOURCE_URL']] = t['TRANSCRIPT']
     dups = 0
-    for L in ('A', 'B', 'C'):
+    for L in ('A', 'B', 'C', 'D', 'E'):
         d = _ler('VIDEOS-%s.json' % L) or {'ITEMS': []}
         for v in d['ITEMS']:
             chave = ('YOUTUBE', v.get('EXTERNAL_ID'))
@@ -268,7 +308,7 @@ def medir():
     por_id = {v.get('EXTERNAL_ID'): v for v in videos}
 
     coments, vistos_c, dups_c = [], set(), 0
-    for L in ('A', 'B', 'C'):
+    for L in ('A', 'B', 'C', 'D', 'E'):
         d = _ler('COMENTARIOS-%s.json' % L) or {'ITEMS': []}
         for c in d['ITEMS']:
             chave = c.get('COMMENT_ID')
@@ -313,8 +353,12 @@ def medir():
                     'autor é o próprio canal (%s) — apresentador, não testemunha'
                     % (c.get('COMMENTER_NAME') or ''))
             pais_fato, nome = lugar_do_fato(c.get('COMMENT_TEXT_RAW'))
+            plateia, plateia_ev = plateia_do_canal(
+                c.get('SOURCE_ENTITY') or (v.get('CHANNEL') if v else ''))
             coments.append(dict(c, **{
                 'SPEECH_TYPE': tipo, 'SPEECH_TYPE_EVIDENCE': ev,
+                'CHANNEL_AUDIENCE_KIND': plateia,
+                'CHANNEL_AUDIENCE_EVIDENCE': plateia_ev,
                 'COUNTRY_OF_FACT': pais_fato,
                 'COUNTRY_OF_FACT_EVIDENCE': ('o texto nomeia "%s"' % nome) if nome
                 else 'nenhum lugar nomeado',
