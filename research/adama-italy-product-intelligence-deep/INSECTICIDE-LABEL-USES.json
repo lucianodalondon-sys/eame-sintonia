@@ -1,0 +1,12 @@
+{
+  "BUILT_AT": "2026-09-02",
+  "REGISTRY_FILE": "PROD_FTS_6_20260831.csv",
+  "REGISTRY_SNAPSHOT_DATE": "2026-08-31",
+  "CATALOG_CAPTURED_AT": "2026-08-30",
+  "SYNTHETIC_RECORDS": 0,
+  "RECORDS": [],
+  "COUNT": 0,
+  "STATE": "REAL_GAP",
+  "WHY": "as 51 etichette foram baixadas e conferidas por sha256 em 2026-08-30, mas os PDF vivem em data/raw (fora do Git) e no bucket Supabase, sem credencial neste ambiente; adama.com devolve 403 aqui",
+  "WHAT_WOULD_UNBLOCK": "rodar a extracao na maquina local, ou expor SUPABASE_URL/SUPABASE_SECRET_KEY"
+}

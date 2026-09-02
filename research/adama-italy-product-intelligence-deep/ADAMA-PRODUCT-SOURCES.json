@@ -1,0 +1,145 @@
+{
+  "BUILT_AT": "2026-09-02",
+  "RULE": "fonte bloqueada != fonte inexistente. HTTP 200 != conteudo lido.",
+  "SOURCES": [
+    {
+      "SOURCE_ID": "IT-T4-001",
+      "SOURCE_NAME": "Ministero della Salute — Banca dati dei prodotti fitosanitari (open data)",
+      "URL": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+      "SOURCE_TYPE": "REGISTRO_OFICIAL_OPEN_DATA",
+      "AUTHORITY_CLASS": "OFFICIAL_NATIONAL_REGISTER",
+      "ACCESS_STATE": "READ_OK",
+      "LAST_READ": "2026-09-02",
+      "DOCUMENT_DATE": "2026-08-31",
+      "HTTP": "200 · CSV 4.594.276 bytes · 17.695 linhas lidas",
+      "WHAT_IT_CAN_PROVE": [
+        "existencia da autorizacao",
+        "numero de registro",
+        "titular e sede",
+        "substancias ativas e teor",
+        "formulacao",
+        "data de registro e de vencimento",
+        "estado administrativo",
+        "revogacao: motivo e datas"
+      ],
+      "WHAT_IT_CANNOT_PROVE": [
+        "cultura",
+        "alvo",
+        "dose",
+        "BBCH",
+        "intervalo de carencia",
+        "periodo de smaltimento",
+        "se o produto e vendido hoje",
+        "preco, volume ou share"
+      ]
+    },
+    {
+      "SOURCE_ID": "IT-ADAMA-CATALOG",
+      "SOURCE_NAME": "Catalogo publico ADAMA Italia (paginas de produto + documentos)",
+      "URL": "https://www.adama.com/italia/it/",
+      "SOURCE_TYPE": "SITE_INSTITUCIONAL_DO_FABRICANTE",
+      "AUTHORITY_CLASS": "MANUFACTURER_CLAIM",
+      "ACCESS_STATE": "BLOCKED_FROM_THIS_ENVIRONMENT__PREVIOUSLY_READ_LOCALLY",
+      "LAST_READ": "2026-08-30",
+      "DOCUMENT_DATE": "2026-08-30",
+      "HTTP": "403 Akamai aqui (curl, Chromium headless, rota de fetch); 200 em navegador COM JANELA na maquina local",
+      "WHAT_IT_CAN_PROVE": [
+        "quais produtos a ADAMA expoe publicamente na Italia",
+        "categoria impressa na pagina",
+        "numero de registro que a empresa publica",
+        "ingrediente ativo e formulacao como declarados",
+        "quais documentos existem por produto"
+      ],
+      "WHAT_IT_CANNOT_PROVE": [
+        "autorizacao (isso e do registro)",
+        "cultura x alvo (as culturas na pagina sao links de busca, nao declaracao)",
+        "que o produto e vendido hoje"
+      ]
+    },
+    {
+      "SOURCE_ID": "HRAC-LOOKUP",
+      "SOURCE_NAME": "HRAC Global — Herbicide Classification Lookup",
+      "URL": "https://www.hracglobal.com/tools/classification-lookup",
+      "SOURCE_TYPE": "CLASSIFICACAO_TECNICA_INTERNACIONAL",
+      "AUTHORITY_CLASS": "INDUSTRY_STANDARD_BODY",
+      "ACCESS_STATE": "READ_OK",
+      "LAST_READ": "2026-09-02",
+      "HTTP": "200 · 418.606 bytes · 365 ingredientes parseados",
+      "WHAT_IT_CAN_PROVE": [
+        "grupo HRAC e WSSA e familia quimica de herbicida"
+      ],
+      "WHAT_IT_CANNOT_PROVE": [
+        "resistencia presente em campo na Italia",
+        "registro italiano"
+      ]
+    },
+    {
+      "SOURCE_ID": "IRAC-MOA",
+      "SOURCE_NAME": "IRAC — Mode of Action Classification (online)",
+      "URL": "https://irac-online.org/mode-of-action/classification-online/",
+      "SOURCE_TYPE": "CLASSIFICACAO_TECNICA_INTERNACIONAL",
+      "AUTHORITY_CLASS": "INDUSTRY_STANDARD_BODY",
+      "ACCESS_STATE": "READ_OK",
+      "LAST_READ": "2026-09-02",
+      "HTTP": "200 · 602.668 bytes · 280 ingredientes parseados",
+      "WHAT_IT_CAN_PROVE": [
+        "grupo e subgrupo IRAC de inseticida"
+      ],
+      "WHAT_IT_CANNOT_PROVE": [
+        "estagio de vida alvo",
+        "registro italiano"
+      ]
+    },
+    {
+      "SOURCE_ID": "FRAC-CODE-LIST",
+      "SOURCE_NAME": "FRAC Code List 2026 (PDF)",
+      "URL": "https://www.frac.info/media/s1zfrjqa/frac-code-list-2026.pdf",
+      "SOURCE_TYPE": "CLASSIFICACAO_TECNICA_INTERNACIONAL",
+      "AUTHORITY_CLASS": "INDUSTRY_STANDARD_BODY",
+      "ACCESS_STATE": "DOWNLOADED_BUT_NOT_RELIABLY_PARSED",
+      "LAST_READ": "2026-09-02",
+      "DOCUMENT_DATE": "2026",
+      "HTTP": "200 · 911.769 bytes · 18 paginas",
+      "WHY_NOT_USED": "a fonte de texto do PDF usa subconjunto de fonte e a extracao perde glifos: 'M 04' sai como 'M 0', 'quinone' sai como 'uinone'. Publicar o codigo FRAC seria publicar o defeito do extrator como se fosse a fonte.",
+      "WHAT_IT_CAN_PROVE": [
+        "nada, nesta leitura"
+      ],
+      "WHAT_IT_CANNOT_PROVE": [
+        "codigo FRAC por ingrediente — ate ser lido com extrator que preserve digitos"
+      ]
+    },
+    {
+      "SOURCE_ID": "EU-PESTICIDES-DB",
+      "SOURCE_NAME": "EU Pesticides Database — active substances",
+      "URL": "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances",
+      "SOURCE_TYPE": "REGISTRO_OFICIAL_EU",
+      "AUTHORITY_CLASS": "OFFICIAL_EU",
+      "ACCESS_STATE": "BLOCKED_FROM_THIS_ENVIRONMENT",
+      "LAST_READ": "2026-09-02",
+      "HTTP": "200 no shell HTML da SPA; toda rota de dados devolve 307 -> https://sorry.ec.europa.eu/ (bloqueio de borda)",
+      "WHY_IT_MATTERS": "e a fonte da camada de futuro regulatorio EU: aprovacao, extensao, renovacao, nao-renovacao",
+      "WHAT_IT_CAN_PROVE": [
+        "estado de aprovacao EU por substancia ativa — quando alcancavel"
+      ],
+      "WHAT_IT_CANNOT_PROVE": [
+        "nada nesta sessao: o conteudo nao foi lido"
+      ]
+    },
+    {
+      "SOURCE_ID": "IT-BANCA-DATI-ETICHETTE",
+      "SOURCE_NAME": "Banca Dati fitosanitari — etichette ministeriais",
+      "URL": "https://www.fitosanitari.salute.gov.it/",
+      "SOURCE_TYPE": "REGISTRO_OFICIAL_DOCUMENTAL",
+      "AUTHORITY_CLASS": "OFFICIAL_NATIONAL_REGISTER",
+      "ACCESS_STATE": "BLOCKED_FROM_THIS_ENVIRONMENT",
+      "LAST_READ": "2026-09-02",
+      "HTTP": "handshake TLS falha pelo gateway de saida (cadeia do host nao valida)",
+      "WHAT_IT_CAN_PROVE": [
+        "etichetta ministerial: cultura, alvo, dose, carencia — a camada que falta"
+      ],
+      "WHAT_IT_CANNOT_PROVE": [
+        "nada nesta sessao"
+      ]
+    }
+  ]
+}

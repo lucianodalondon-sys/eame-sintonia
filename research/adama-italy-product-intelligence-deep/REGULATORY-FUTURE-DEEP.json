@@ -1,0 +1,24 @@
+{
+  "BUILT_AT": "2026-09-02",
+  "STATE": "REAL_GAP",
+  "RECORDS": [],
+  "COUNT": 0,
+  "WHY": "a EU Pesticides Database devolve 307 -> sorry.ec.europa.eu em toda rota de dados a partir deste ambiente; o shell HTML responde 200 mas nao carrega dado nenhum",
+  "RULE_PRESERVED_FOR_WHEN_IT_IS_BUILT": {
+    "STATES": [
+      "APPROVED",
+      "APPROVAL_EXTENDED",
+      "RENEWAL_UNDER_REVIEW",
+      "DRAFT_NON_RENEWAL",
+      "ARTICLE_21_REVIEW",
+      "NON_RENEWED",
+      "UNKNOWN"
+    ],
+    "NEVER": [
+      "EXTENSION = RENEWAL",
+      "DRAFT = DECISION"
+    ]
+  },
+  "INPUT_READY": "as 169 substancias ativas ja estao normalizadas em ACTIVE-INGREDIENTS.json com os registros italianos ligados a cada uma; falta so o estado EU",
+  "WHAT_WOULD_UNBLOCK": "ler a EU Pesticides Database de navegador com janela, como foi feito com o catalogo ADAMA"
+}

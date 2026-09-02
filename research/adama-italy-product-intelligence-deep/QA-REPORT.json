@@ -1,0 +1,279 @@
+{
+  "QA_SAMPLE_SIZE": 36,
+  "QA_PASS": 35,
+  "QA_CORRECTED": 0,
+  "QA_REJECTED": 0,
+  "QA_UNREVIEWED": 1,
+  "MEASURED_ERROR_RATE": 0.0,
+  "SAMPLE_SEED": 20260902,
+  "DETECTOR_SELF_TEST": {
+    "METHOD": "fault injection nos registros publicados, QA reexecutado, arquivo restaurado",
+    "FAULTS_INJECTED": 4,
+    "FAULTS_INSIDE_SAMPLE": 3,
+    "FAULTS_CAUGHT": 3,
+    "DETECTOR_RECALL_ON_SAMPLED_FAULTS": 1.0,
+    "TYPES_PROVEN": [
+      "HOLDER_MISMATCH",
+      "REGISTRATION_NOT_IN_SOURCE",
+      "INFERENCE_STRONGER_THAN_SOURCE__MARKETABLE"
+    ],
+    "TYPE_NOT_EXERCISED_BY_LUCK": "CATEGORY_NOT_THE_PRINTED_ONE — o produto adulterado nao foi sorteado"
+  },
+  "METHOD": "cada checagem reabre o CSV do Ministero e o censo do catalogo e tenta derrubar o registro",
+  "RESULTS": [
+    {
+      "STRATUM": "HERBICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0021",
+      "NAME": "Nicogan® V.O.",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "HERBICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0041",
+      "NAME": "Sonavio®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "HERBICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0047",
+      "NAME": "Max-Ace® Rice Cropping Solution",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "HERBICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0024",
+      "NAME": "Elegant® 2fd",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "HERBICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0013",
+      "NAME": "Activus® ME",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FUNGICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0034",
+      "NAME": "Stavento®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FUNGICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0006",
+      "NAME": "Seedron®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FUNGICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0032",
+      "NAME": "Nimrod® 250 EW",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FUNGICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0010",
+      "NAME": "Folpan® Gold",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FUNGICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0005",
+      "NAME": "Banjo®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "INSETICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0040",
+      "NAME": "Apyza® WG",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "INSETICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0004",
+      "NAME": "Schermo® 0.5 G",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "INSETICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0051",
+      "NAME": "Cosayr® 200 SC",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "INSETICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0002",
+      "NAME": "Mavrik® Smart",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "INSETICIDAS",
+      "PRODUCT_ID": "IT-PRODUCT-0003",
+      "NAME": "Pirimor® 50",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "SPECIALI_TODOS",
+      "PRODUCT_ID": "IT-PRODUCT-0029",
+      "NAME": "Brevis®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "SPECIALI_TODOS",
+      "PRODUCT_ID": "IT-PRODUCT-0030",
+      "NAME": "Exelgrow®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "SPECIALI_TODOS",
+      "PRODUCT_ID": "IT-PRODUCT-0031",
+      "NAME": "Parleaf",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "SPECIALI_TODOS",
+      "PRODUCT_ID": "IT-PRODUCT-0035",
+      "NAME": "Budge®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "SPECIALI_TODOS",
+      "PRODUCT_ID": "IT-PRODUCT-0038",
+      "NAME": "Powerfilm®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "OUTRO_TITULAR",
+      "PRODUCT_ID": "IT-PRODUCT-0007",
+      "NAME": "Mirador® SC",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "OUTRO_TITULAR",
+      "PRODUCT_ID": "IT-PRODUCT-0009",
+      "NAME": "Mavita® 250 EC",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "OUTRO_TITULAR",
+      "PRODUCT_ID": "IT-PRODUCT-0012",
+      "NAME": "Zakeo® 250 SC",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "OUTRO_TITULAR",
+      "PRODUCT_ID": "IT-PRODUCT-0016",
+      "NAME": "Timeline® Trio",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "OUTRO_TITULAR",
+      "PRODUCT_ID": "IT-PRODUCT-0027",
+      "NAME": "Clematis®",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "VENCIMENTO_SENSIVEL",
+      "PRODUCT_ID": "017358",
+      "NAME": "BLAISE ULTRA",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "VENCIMENTO_SENSIVEL",
+      "PRODUCT_ID": "017690",
+      "NAME": "VANTEX",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "VENCIMENTO_SENSIVEL",
+      "PRODUCT_ID": "015232",
+      "NAME": "CUSTODIA ULTRA",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "VENCIMENTO_SENSIVEL",
+      "PRODUCT_ID": "015630",
+      "NAME": "CARSON 45% WG",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "VENCIMENTO_SENSIVEL",
+      "PRODUCT_ID": "017688",
+      "NAME": "ANTERLEX",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-METAMITRON",
+      "NAME": "METAMITRON",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-CHLOROTOLURON",
+      "NAME": "CHLOROTOLURON",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-CARBOFURAN",
+      "NAME": "CARBOFURAN",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-BIFENOX",
+      "NAME": "BIFENOX",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-DELTAMETHRIN",
+      "NAME": "DELTAMETHRIN",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "ROTULOS_MULTI_CULTURA",
+      "PRODUCT_ID": null,
+      "NAME": null,
+      "VERDICT": "QA_UNREVIEWED",
+      "FINDINGS": [
+        "nenhum uso de rotulo foi extraido: os 51 PDF nao sao alcancaveis deste ambiente"
+      ]
+    }
+  ]
+}
