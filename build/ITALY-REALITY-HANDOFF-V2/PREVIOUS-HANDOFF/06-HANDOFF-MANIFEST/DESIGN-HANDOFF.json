@@ -1,0 +1,661 @@
+{
+ "PACKAGE": "SINTONIA-ITALY-PILOT-REALITY-HANDOFF",
+ "BUILT_AT": "2026-09-02",
+ "FOR": "o Claude que vai desenhar o portal do piloto italiano",
+ "START_WITH": [
+  "00-START-HERE/README-FIRST.md",
+  "00-START-HERE/EXECUTIVE-SUMMARY.md",
+  "00-START-HERE/WHAT-TO-USE-IN-THE-PORTAL.md",
+  "00-START-HERE/REALITY-COUNTS.md",
+  "05-GAPS-AND-LIMITS/DO-NOT-CLAIM.md",
+  "01-DESIGN-READY/",
+  "01-DESIGN-READY/RELATIONSHIPS/entity-links.json",
+  "04-PROVENANCE/REAL-vs-DEMO-SUMMARY.md"
+ ],
+ "READING_ORDER_WHY": "README define o que e real e o que nao pode ser dito. WHAT-TO-USE separa o que vai direto do que precisa de interpretacao. DO-NOT-CLAIM vem ANTES dos dados de proposito: e mais facil nao escrever a frase errada do que apaga-la depois.",
+ "LAYERS": {
+  "ADAMA/adama-crop-problem-product.json": {
+   "ARRAY": "LINKS",
+   "COUNT": 219,
+   "BY_PROVENANCE": {
+    "REAL_FACT": 219
+   }
+  },
+  "ADAMA/adama-italy-crops.json": {
+   "ARRAY": "CROPS",
+   "COUNT": 17,
+   "BY_PROVENANCE": {
+    "REAL_DERIVED": 17
+   }
+  },
+  "ADAMA/adama-italy-products.json": {
+   "ARRAY": "PRODUCTS",
+   "COUNT": 163,
+   "BY_PROVENANCE": {
+    "REAL_FACT": 163
+   }
+  },
+  "ARCHIVE/archive-index.json": {
+   "ARRAY": "DATASETS",
+   "COUNT": 12,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 7,
+    "REAL_FACT": 4,
+    "REAL_DERIVED": 1
+   }
+  },
+  "COMPETITOR-WATCH/competitor-activities.json": {
+   "ARRAY": "ACTIVITIES",
+   "COUNT": 561,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 561
+   }
+  },
+  "COMPETITOR-WATCH/competitor-companies.json": {
+   "ARRAY": "COMPANIES",
+   "COUNT": 14,
+   "BY_PROVENANCE": {
+    "REAL_DERIVED": 14
+   }
+  },
+  "COMPETITOR-WATCH/competitor-products.json": {
+   "ARRAY": "PRODUCTS",
+   "COUNT": 36,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 36
+   }
+  },
+  "CONVERGENCE/convergence.json": {
+   "ARRAY": "CONVERGENCE",
+   "COUNT": 38,
+   "BY_PROVENANCE": {
+    "REAL_DERIVED": 38
+   }
+  },
+  "CROP-WINDOWS/crop-windows.json": {
+   "ARRAY": "WINDOWS",
+   "COUNT": 7,
+   "BY_PROVENANCE": {
+    "REAL_FACT": 5,
+    "REAL_SOURCE": 2
+   }
+  },
+  "CROP-WINDOWS/current-phenology.json": {
+   "ARRAY": "PHENOLOGY",
+   "COUNT": 73,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 73
+   }
+  },
+  "CROP-WINDOWS/regional-bulletin-sources.json": {
+   "ARRAY": "SOURCES",
+   "COUNT": 6,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 6
+   }
+  },
+  "EVENTS/events.json": {
+   "ARRAY": "EVENTS",
+   "COUNT": 18,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 18
+   }
+  },
+  "FUTURE-RADAR/future-signals.json": {
+   "ARRAY": "SIGNALS",
+   "COUNT": 3,
+   "BY_PROVENANCE": {
+    "REAL_DERIVED": 2,
+    "REAL_FACT": 1
+   }
+  },
+  "LABEL-USE/label-term-census.json": {
+   "ARRAY": "TERMS",
+   "COUNT": 17,
+   "BY_PROVENANCE": {
+    "REAL_FACT": 17
+   }
+  },
+  "LABEL-USE/label-use-pairs.json": {
+   "ARRAY": "PAIRS",
+   "COUNT": 2030,
+   "BY_PROVENANCE": {
+    "REAL_DERIVED": 518,
+    "REAL_FACT": 1512
+   }
+  },
+  "MARKET-PULSE/market-capabilities.json": {
+   "ARRAY": "CAPABILITIES",
+   "COUNT": 111,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 111
+   }
+  },
+  "MARKET-PULSE/market-pulse.json": {
+   "ARRAY": "PRICES",
+   "COUNT": 77,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 77
+   }
+  },
+  "MARKET-PULSE/market-sources.json": {
+   "ARRAY": "SOURCES",
+   "COUNT": 7,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 7
+   }
+  },
+  "NEWS/news.json": {
+   "ARRAY": "NEWS",
+   "COUNT": 8,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 8
+   }
+  },
+  "OPPORTUNITIES/opportunities.json": {
+   "ARRAY": "OPPORTUNITIES",
+   "COUNT": 3,
+   "BY_PROVENANCE": {
+    "REAL_DERIVED": 3
+   }
+  },
+  "PEOPLE/people.json": {
+   "ARRAY": "PEOPLE",
+   "COUNT": 15,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 15
+   }
+  },
+  "SCIENCE/herbicide-resistance.json": {
+   "ARRAY": "RESISTANCES",
+   "COUNT": 34,
+   "BY_PROVENANCE": {
+    "REAL_FACT": 34
+   }
+  },
+  "SCIENCE/research-themes.json": {
+   "ARRAY": "THEMES",
+   "COUNT": 5,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 5
+   }
+  },
+  "SCIENCE/researchers.json": {
+   "ARRAY": "RESEARCHERS",
+   "COUNT": 60,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 60
+   }
+  },
+  "SCIENCE/scientific-records.json": {
+   "ARRAY": "RECORDS",
+   "COUNT": 88,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 88
+   }
+  },
+  "SOURCES/sources.json": {
+   "ARRAY": "SOURCES",
+   "COUNT": 31,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 31
+   }
+  },
+  "VOCI-DAL-CAMPO/field-voices.json": {
+   "ARRAY": "VOICES",
+   "COUNT": 58,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 58
+   }
+  },
+  "VOCI-DAL-CAMPO/italian-channels.json": {
+   "ARRAY": "CHANNELS",
+   "COUNT": 62,
+   "BY_PROVENANCE": {
+    "REAL_SOURCE": 62
+   }
+  }
+ },
+ "DEPENDENCIES": {
+  "RELATIONSHIPS/entity-links.json": "resolve IDs contra 06-HANDOFF-MANIFEST/ID-INDEX.json",
+  "todas as camadas": "apontam para SOURCE_ID de 01-DESIGN-READY/SOURCES/sources.json"
+ },
+ "TOTAL_FILES": 87,
+ "FILES": [
+  {
+   "FILE": "00-START-HERE/EXECUTIVE-SUMMARY.md",
+   "BYTES": 9836,
+   "RECORDS": null
+  },
+  {
+   "FILE": "00-START-HERE/FAKE-TO-REAL-REPLACEMENTS.md",
+   "BYTES": 8376,
+   "RECORDS": null
+  },
+  {
+   "FILE": "00-START-HERE/O-QUE-MUDOU-NESTA-NOITE.md",
+   "BYTES": 4916,
+   "RECORDS": null
+  },
+  {
+   "FILE": "00-START-HERE/README-FIRST.md",
+   "BYTES": 5348,
+   "RECORDS": null
+  },
+  {
+   "FILE": "00-START-HERE/REALITY-COUNTS.md",
+   "BYTES": 4965,
+   "RECORDS": null
+  },
+  {
+   "FILE": "00-START-HERE/TOP-REAL-CONTENT-FOR-DEMO.md",
+   "BYTES": 11436,
+   "RECORDS": null
+  },
+  {
+   "FILE": "00-START-HERE/WHAT-TO-USE-IN-THE-PORTAL.md",
+   "BYTES": 8444,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/ADAMA/adama-crop-problem-product.json",
+   "BYTES": 160485,
+   "RECORDS": 219
+  },
+  {
+   "FILE": "01-DESIGN-READY/ADAMA/adama-fungicides.json",
+   "BYTES": 8666,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/ADAMA/adama-herbicides.json",
+   "BYTES": 16570,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/ADAMA/adama-insecticides.json",
+   "BYTES": 4596,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/ADAMA/adama-italy-crops.json",
+   "BYTES": 6833,
+   "RECORDS": 17
+  },
+  {
+   "FILE": "01-DESIGN-READY/ADAMA/adama-italy-products.json",
+   "BYTES": 180620,
+   "RECORDS": 163
+  },
+  {
+   "FILE": "01-DESIGN-READY/ADAMA/adama-other-lines.json",
+   "BYTES": 1118,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/ARCHIVE/PENDING-atos-ue-2026.md",
+   "BYTES": 21685,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/ARCHIVE/PENDING-modena-adama.md",
+   "BYTES": 22869,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/ARCHIVE/archive-index.json",
+   "BYTES": 3483,
+   "RECORDS": 12
+  },
+  {
+   "FILE": "01-DESIGN-READY/COMPETITOR-WATCH/competitor-activities.json",
+   "BYTES": 586630,
+   "RECORDS": 561
+  },
+  {
+   "FILE": "01-DESIGN-READY/COMPETITOR-WATCH/competitor-companies.json",
+   "BYTES": 4075,
+   "RECORDS": 14
+  },
+  {
+   "FILE": "01-DESIGN-READY/COMPETITOR-WATCH/competitor-products.json",
+   "BYTES": 7427,
+   "RECORDS": 36
+  },
+  {
+   "FILE": "01-DESIGN-READY/CONVERGENCE/convergence.json",
+   "BYTES": 285223,
+   "RECORDS": 38
+  },
+  {
+   "FILE": "01-DESIGN-READY/CROP-WINDOWS/OVERNIGHT-SYNTHESIS.md",
+   "BYTES": 41440,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/CROP-WINDOWS/PENDING-trentino-er.md",
+   "BYTES": 27200,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/CROP-WINDOWS/ROUTE-TEST-ISMEA-ISTAT.md",
+   "BYTES": 8346,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/CROP-WINDOWS/crop-windows.json",
+   "BYTES": 9728,
+   "RECORDS": 7
+  },
+  {
+   "FILE": "01-DESIGN-READY/CROP-WINDOWS/current-phenology.json",
+   "BYTES": 134003,
+   "RECORDS": 73
+  },
+  {
+   "FILE": "01-DESIGN-READY/CROP-WINDOWS/regional-bulletin-sources.json",
+   "BYTES": 34132,
+   "RECORDS": 6
+  },
+  {
+   "FILE": "01-DESIGN-READY/EVENTS/events.json",
+   "BYTES": 12100,
+   "RECORDS": 18
+  },
+  {
+   "FILE": "01-DESIGN-READY/FUTURE-RADAR/future-signals.json",
+   "BYTES": 6222,
+   "RECORDS": 3
+  },
+  {
+   "FILE": "01-DESIGN-READY/LABEL-USE/label-term-census.json",
+   "BYTES": 12459,
+   "RECORDS": 17
+  },
+  {
+   "FILE": "01-DESIGN-READY/LABEL-USE/label-use-pairs.json",
+   "BYTES": 2017879,
+   "RECORDS": 2030
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/FEASIBILITY-AUDIT.md",
+   "BYTES": 17182,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/crop-market-summaries.json",
+   "BYTES": 927,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/crop-summary-frumento-duro.md",
+   "BYTES": 24872,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/crop-summary-mais.md",
+   "BYTES": 23717,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/crop-summary-olivo---olio-di-oliva.md",
+   "BYTES": 26537,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/crop-summary-riso.md",
+   "BYTES": 34802,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/crop-summary-vite---vino.md",
+   "BYTES": 31485,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/market-capabilities.json",
+   "BYTES": 113954,
+   "RECORDS": 111
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/market-pulse.json",
+   "BYTES": 53250,
+   "RECORDS": 77
+  },
+  {
+   "FILE": "01-DESIGN-READY/MARKET-PULSE/market-sources.json",
+   "BYTES": 102114,
+   "RECORDS": 7
+  },
+  {
+   "FILE": "01-DESIGN-READY/NEWS/news.json",
+   "BYTES": 6593,
+   "RECORDS": 8
+  },
+  {
+   "FILE": "01-DESIGN-READY/OPPORTUNITIES/opportunities.json",
+   "BYTES": 9157,
+   "RECORDS": 3
+  },
+  {
+   "FILE": "01-DESIGN-READY/PEOPLE/people.json",
+   "BYTES": 7571,
+   "RECORDS": 15
+  },
+  {
+   "FILE": "01-DESIGN-READY/RELATIONSHIPS/convergence-links.json",
+   "BYTES": 132108,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/RELATIONSHIPS/entity-links.json",
+   "BYTES": 2907,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/SCIENCE/PENDING-gire-mapas.md",
+   "BYTES": 24431,
+   "RECORDS": null
+  },
+  {
+   "FILE": "01-DESIGN-READY/SCIENCE/herbicide-resistance.json",
+   "BYTES": 45649,
+   "RECORDS": 34
+  },
+  {
+   "FILE": "01-DESIGN-READY/SCIENCE/research-themes.json",
+   "BYTES": 4322,
+   "RECORDS": 5
+  },
+  {
+   "FILE": "01-DESIGN-READY/SCIENCE/researchers.json",
+   "BYTES": 39297,
+   "RECORDS": 60
+  },
+  {
+   "FILE": "01-DESIGN-READY/SCIENCE/scientific-records.json",
+   "BYTES": 61950,
+   "RECORDS": 88
+  },
+  {
+   "FILE": "01-DESIGN-READY/SOURCES/sources.json",
+   "BYTES": 15248,
+   "RECORDS": 31
+  },
+  {
+   "FILE": "01-DESIGN-READY/VOCI-DAL-CAMPO/field-voices.json",
+   "BYTES": 92648,
+   "RECORDS": 58
+  },
+  {
+   "FILE": "01-DESIGN-READY/VOCI-DAL-CAMPO/italian-channels.json",
+   "BYTES": 32434,
+   "RECORDS": 62
+  },
+  {
+   "FILE": "02-DEMO-STORIES/AS-CINCO-HISTORIAS.md",
+   "BYTES": 10765,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ADAMA-ITALY-HERBICIDE-UNIVERSE.md",
+   "BYTES": 12341,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ADAMA-ITALY-PORTFOLIO-DEEP-DIVE.md",
+   "BYTES": 9799,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/FAKE_TO_REAL_REPLACEMENT_PLAN.md",
+   "BYTES": 8376,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-AUDITORIA-DO-PAR.md",
+   "BYTES": 14186,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-COMPETITOR-REAL-ACTIVITY.md",
+   "BYTES": 10107,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-CREATORS-REALITY.md",
+   "BYTES": 4844,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-CROP-WINDOWS-REAL-EVIDENCE.md",
+   "BYTES": 11270,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-DEMO-REALITY-MASTER-INDEX.md",
+   "BYTES": 12091,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-EVENTS-AND-FAIRS.md",
+   "BYTES": 6405,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-EXISTING-REALITY-INVENTORY.md",
+   "BYTES": 15877,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-FONTES-PRIMARIAS-RELATORIO.md",
+   "BYTES": 42009,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-FUTURE-RADAR-REAL-SIGNALS.md",
+   "BYTES": 8329,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-NEWS-REAL-SIGNALS.md",
+   "BYTES": 7021,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-OPPORTUNITY-CANDIDATES-REAL.md",
+   "BYTES": 9567,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-PIEMONTE-FLAVESCENZA-2026.md",
+   "BYTES": 32713,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-REGIONAL-CROP-REALITY.md",
+   "BYTES": 5976,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-REGUA-RESULTADO-V0.md",
+   "BYTES": 21950,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-SCIENCE-RESEARCHER-REALITY.md",
+   "BYTES": 7641,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-SOCIAL-REALITY.md",
+   "BYTES": 4421,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-VIDEO-TRANSCRIPT-REALITY.md",
+   "BYTES": 6500,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/ITALY-VOCI-DAL-CAMPO-REAL-SOURCES.md",
+   "BYTES": 9307,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/REGUA-ITALIA-FITOSSANITARIA.md",
+   "BYTES": 14021,
+   "RECORDS": null
+  },
+  {
+   "FILE": "02-RESEARCH-ARCHIVE/TOP-50-REAL-OBJECTS.md",
+   "BYTES": 11436,
+   "RECORDS": null
+  },
+  {
+   "FILE": "03-SOURCE-REGISTRY/MASTER-SOURCE-REGISTRY.json",
+   "BYTES": 15450,
+   "RECORDS": null
+  },
+  {
+   "FILE": "03-SOURCE-REGISTRY/MASTER-SOURCE-REGISTRY.md",
+   "BYTES": 6641,
+   "RECORDS": null
+  },
+  {
+   "FILE": "04-PROVENANCE/PROVENANCE-MATRIX.json",
+   "BYTES": 558431,
+   "RECORDS": null
+  },
+  {
+   "FILE": "04-PROVENANCE/REAL-vs-DEMO-SUMMARY.md",
+   "BYTES": 1123,
+   "RECORDS": null
+  },
+  {
+   "FILE": "05-GAPS-AND-LIMITS/DO-NOT-CLAIM.md",
+   "BYTES": 9023,
+   "RECORDS": null
+  },
+  {
+   "FILE": "05-GAPS-AND-LIMITS/KNOWN-GAPS.md",
+   "BYTES": 6822,
+   "RECORDS": null
+  },
+  {
+   "FILE": "06-HANDOFF-MANIFEST/DESIGN-HANDOFF.json",
+   "BYTES": 14847,
+   "RECORDS": null
+  },
+  {
+   "FILE": "06-HANDOFF-MANIFEST/ID-INDEX.json",
+   "BYTES": 496394,
+   "RECORDS": null
+  },
+  {
+   "FILE": "06-HANDOFF-MANIFEST/VALIDATION-REPORT.json",
+   "BYTES": 315,
+   "RECORDS": null
+  }
+ ]
+}

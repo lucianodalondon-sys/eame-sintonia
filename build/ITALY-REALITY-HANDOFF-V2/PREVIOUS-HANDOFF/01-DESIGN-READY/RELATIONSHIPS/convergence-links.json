@@ -1,0 +1,4524 @@
+{
+ "LAYER": "CONVERGENCE_LINKS",
+ "BUILT_AT": "2026-09-02",
+ "O_QUE_E": "para cada convergencia, o que existe nas outras camadas sobre a mesma cultura e o mesmo alvo",
+ "LAW": "CROP_TERM_PRESENT nao e ABOUT_THAT_CROP. Toda ligacao carrega COMO foi feita, e uma ligacao que bate so na cultura NAO sustenta frase de tela sobre a cultura.",
+ "ORDEM_DE_FORCA": [
+  "CHAVE_EXATA (produto e par de rotulo): mesmo par cultura x alvo",
+  "ALVO_TAMBEM_BATE: cultura e alvo casam no mesmo item",
+  "SO_A_CULTURA_BATE: apenas o termo da cultura aparece"
+ ],
+ "DICIONARIO_E_NOSSO": {
+  "O_QUE_E": "as camadas nasceram em momentos diferentes e cada uma usa o vocabulario da sua fonte. Este mapa liga as chaves, e e ato nosso -- pode estar errado, e por isso vai escrito.",
+  "CULTURA": {
+   "VITE": [
+    "vite",
+    "viti",
+    "vigneto",
+    "uva",
+    "grape",
+    "vine",
+    "videira",
+    "vid"
+   ],
+   "MELO": [
+    "melo",
+    "meli",
+    "mela",
+    "apple",
+    "pomacee",
+    "macieira"
+   ],
+   "MAIS_DOLCE": [
+    "mais dolce",
+    "sweet corn"
+   ],
+   "PERO": [
+    "pero",
+    "peri",
+    "pera",
+    "pear"
+   ],
+   "PESCO": [
+    "pesco",
+    "pesca",
+    "peach",
+    "nettarin"
+   ],
+   "OLIVO": [
+    "olivo",
+    "olive",
+    "oliveto",
+    "oliva",
+    "oliveira"
+   ],
+   "POMODORO": [
+    "pomodoro",
+    "tomato",
+    "tomate"
+   ],
+   "FRUMENTO": [
+    "frumento",
+    "grano tenero",
+    "grano duro",
+    "wheat",
+    "durum",
+    "trigo",
+    "cereal",
+    "cereali"
+   ],
+   "GRANO_GEN": [
+    "grano",
+    "wheat",
+    "durum",
+    "cereal",
+    "cereali"
+   ],
+   "MAIS": [
+    "mais",
+    "granoturco",
+    "maize",
+    "corn",
+    "milho"
+   ],
+   "ORZO": [
+    "orzo",
+    "barley",
+    "cevada"
+   ],
+   "RISO": [
+    "riso",
+    "risaia",
+    "rice",
+    "arroz"
+   ],
+   "SOIA": [
+    "soia",
+    "soybean",
+    "soja"
+   ],
+   "BARBABIETOLA": [
+    "barbabietola",
+    "bietola",
+    "sugar beet",
+    "beet"
+   ],
+   "PATATA": [
+    "patata",
+    "potato",
+    "batata"
+   ],
+   "GIRASOLE": [
+    "girasole",
+    "sunflower"
+   ],
+   "COLZA": [
+    "colza",
+    "rapeseed"
+   ],
+   "OLEAGINOSE": [
+    "oleaginose",
+    "oilseed"
+   ],
+   "ORTAGGI": [
+    "ortagg",
+    "orticol",
+    "vegetable"
+   ],
+   "ORTICOLE": [
+    "ortagg",
+    "orticol",
+    "vegetable"
+   ],
+   "AGRUMI": [
+    "agrumi",
+    "citrus",
+    "arancio",
+    "limone"
+   ],
+   "ACTINIDIA": [
+    "actinidia",
+    "kiwi"
+   ],
+   "FRAGOLA": [
+    "fragola",
+    "strawberry"
+   ]
+  },
+  "ALVO": {
+   "SCAFOIDEO": [
+    "scaphoideus",
+    "scafoideo",
+    "flavescenza",
+    "flavescencia"
+   ],
+   "FLAVESCENZA": [
+    "flavescenza",
+    "flavescencia",
+    "scaphoideus",
+    "giallumi"
+   ],
+   "PERONOSPORA": [
+    "peronospora",
+    "plasmopara",
+    "mildiu",
+    "downy mildew"
+   ],
+   "OIDIO": [
+    "oidio",
+    "erysiphe",
+    "powdery mildew",
+    "mal bianco"
+   ],
+   "BOTRITE": [
+    "botrite",
+    "botrytis",
+    "muffa grigia"
+   ],
+   "TICCHIOLATURA": [
+    "ticchiolatura",
+    "venturia",
+    "scab"
+   ],
+   "SEPTORIOSI": [
+    "septorio",
+    "zymoseptoria",
+    "septoria"
+   ],
+   "FUSARIOSI": [
+    "fusario",
+    "fusarium",
+    "don",
+    "micotossin",
+    "mycotoxin"
+   ],
+   "RUGGINE": [
+    "ruggine",
+    "puccinia",
+    "rust"
+   ],
+   "CARPOCAPSA": [
+    "carpocapsa",
+    "cydia pomonella",
+    "codling"
+   ],
+   "AFIDI": [
+    "afid",
+    "aphis",
+    "myzus",
+    "aphid",
+    "pulgon"
+   ],
+   "MOSCA_OLIVO": [
+    "bactrocera",
+    "mosca dell",
+    "olive fly"
+   ],
+   "PIRALIDE": [
+    "piralide",
+    "ostrinia"
+   ],
+   "DIABROTICA": [
+    "diabrotica"
+   ],
+   "CIMICE": [
+    "cimice",
+    "halyomorpha"
+   ],
+   "CICALINA_GEN": [
+    "cicalin",
+    "empoasca",
+    "scaphoideus"
+   ],
+   "CICALINE": [
+    "cicalin",
+    "empoasca",
+    "scaphoideus"
+   ],
+   "GIAVONE": [
+    "echinochloa",
+    "giavone"
+   ],
+   "LOIETTO": [
+    "lolium",
+    "loietto",
+    "loglio"
+   ],
+   "BRUSONE": [
+    "brusone",
+    "pyricularia",
+    "magnaporthe"
+   ],
+   "NOTTUA": [
+    "nottu",
+    "agrotis",
+    "spodoptera"
+   ],
+   "RAGNETTO": [
+    "ragnetto",
+    "tetranychus"
+   ],
+   "ACARO_GEN": [
+    "acar",
+    "tetranychus",
+    "eriophy"
+   ],
+   "CERCOSPORA": [
+    "cercospor"
+   ]
+  }
+ },
+ "TETO_POR_RELACAO": 25,
+ "TETO_POR_QUE": "uma lista de 400 IDs numa tela nao e informacao, e ruido. O numero cheio esta em cada *_HOW.",
+ "COUNT": 38,
+ "TOTAL_POR_FORCA": {
+  "ALVO_TAMBEM_BATE": 245,
+  "DECLARADO_NA_FONTE": 0,
+  "TERMO_PRESENTE": 2128
+ },
+ "LINKS": [
+  {
+   "FROM": "IT-CONV-001",
+   "FROM_PAIR": "POMODORO x PERONOSPORA",
+   "CROP": "POMODORO",
+   "TARGET": "PERONOSPORA",
+   "AUDIENCE_VERDICT": "PREDOMINANTEMENTE_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-052",
+    "IT-PRD-081",
+    "IT-PRD-082",
+    "IT-PRD-127",
+    "IT-PRD-128",
+    "IT-PRD-129"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-969",
+    "IT-LBL-1448",
+    "IT-LBL-1453",
+    "IT-LBL-1737",
+    "IT-LBL-1743",
+    "IT-LBL-1749"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-036",
+    "IT-VOICE-037",
+    "IT-VOICE-039",
+    "IT-VOICE-044",
+    "IT-VOICE-046",
+    "IT-VOICE-048",
+    "IT-VOICE-051",
+    "IT-VOICE-052",
+    "IT-VOICE-055",
+    "IT-VOICE-056",
+    "IT-VOICE-057",
+    "IT-VOICE-058"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-045",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-003",
+    "IT-PHEN-001",
+    "IT-PHEN-055"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 9,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-012"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-002",
+   "FROM_PAIR": "MELO x TICCHIOLATURA",
+   "CROP": "MELO",
+   "TARGET": "TICCHIOLATURA",
+   "AUDIENCE_VERDICT": "MISTO",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-008",
+    "IT-PRD-025",
+    "IT-PRD-034",
+    "IT-PRD-053",
+    "IT-PRD-075",
+    "IT-PRD-115"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-260",
+    "IT-LBL-581",
+    "IT-LBL-787",
+    "IT-LBL-974",
+    "IT-LBL-1432",
+    "IT-LBL-1621"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-018",
+    "IT-VOICE-022",
+    "IT-VOICE-023",
+    "IT-VOICE-024",
+    "IT-VOICE-025",
+    "IT-VOICE-029",
+    "IT-VOICE-032",
+    "IT-VOICE-033",
+    "IT-VOICE-040",
+    "IT-VOICE-042",
+    "IT-VOICE-043",
+    "IT-VOICE-047",
+    "IT-VOICE-049",
+    "IT-VOICE-050"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 14,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-043",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-023",
+    "IT-PHEN-019",
+    "IT-PHEN-029",
+    "IT-PHEN-030",
+    "IT-PHEN-031"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 15,
+    "SO_A_CULTURA_BATE": 4,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-012"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-003",
+   "FROM_PAIR": "VITE x SCAFOIDEO",
+   "CROP": "VITE",
+   "TARGET": "SCAFOIDEO",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-004",
+    "IT-PRD-006",
+    "IT-PRD-019",
+    "IT-PRD-032",
+    "IT-PRD-057",
+    "IT-PRD-058"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-065",
+    "IT-LBL-159",
+    "IT-LBL-466",
+    "IT-LBL-658",
+    "IT-LBL-1035",
+    "IT-LBL-1115"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-002",
+    "IT-VOICE-003",
+    "IT-VOICE-004",
+    "IT-VOICE-005",
+    "IT-VOICE-006",
+    "IT-VOICE-007",
+    "IT-VOICE-008",
+    "IT-VOICE-009",
+    "IT-VOICE-019",
+    "IT-VOICE-021",
+    "IT-VOICE-027",
+    "IT-VOICE-028",
+    "IT-VOICE-030"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 13,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-037",
+    "IT-PHEN-038",
+    "IT-PHEN-040",
+    "IT-PHEN-041",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-003",
+    "IT-PHEN-018",
+    "IT-PHEN-021",
+    "IT-PHEN-015",
+    "IT-PHEN-017",
+    "IT-PHEN-032",
+    "IT-PHEN-051",
+    "IT-PHEN-052",
+    "IT-PHEN-054",
+    "IT-PHEN-057",
+    "IT-PHEN-060",
+    "IT-PHEN-010",
+    "IT-PHEN-012"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 16,
+    "SO_A_CULTURA_BATE": 17,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_CROP_WINDOWS": [
+    "IT-WIN-001",
+    "IT-WIN-002",
+    "IT-WIN-003",
+    "IT-WIN-004",
+    "IT-WIN-005",
+    "IT-WIN-006"
+   ],
+   "RELATED_CROP_WINDOWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 6,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-032",
+    "IT-SCI-003",
+    "IT-SCI-004",
+    "IT-SCI-005",
+    "IT-SCI-006",
+    "IT-SCI-007",
+    "IT-SCI-008",
+    "IT-SCI-009",
+    "IT-SCI-010",
+    "IT-SCI-011",
+    "IT-SCI-012",
+    "IT-SCI-013",
+    "IT-SCI-014",
+    "IT-SCI-015",
+    "IT-SCI-016",
+    "IT-SCI-017",
+    "IT-SCI-018",
+    "IT-SCI-019",
+    "IT-SCI-020",
+    "IT-SCI-021",
+    "IT-SCI-022",
+    "IT-SCI-023",
+    "IT-SCI-024",
+    "IT-SCI-025",
+    "IT-SCI-026"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 44,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-001"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-005",
+    "IT-COMP-ACT-013",
+    "IT-COMP-ACT-018",
+    "IT-COMP-ACT-032",
+    "IT-COMP-ACT-034",
+    "IT-COMP-ACT-039",
+    "IT-COMP-ACT-051",
+    "IT-COMP-ACT-052",
+    "IT-COMP-ACT-054",
+    "IT-COMP-ACT-057",
+    "IT-COMP-ACT-058",
+    "IT-COMP-ACT-061",
+    "IT-COMP-ACT-117",
+    "IT-COMP-ACT-125",
+    "IT-COMP-ACT-136",
+    "IT-COMP-ACT-137",
+    "IT-COMP-ACT-141",
+    "IT-COMP-ACT-149",
+    "IT-COMP-ACT-152",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-159",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-176",
+    "IT-COMP-ACT-179",
+    "IT-COMP-ACT-183"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 42,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-002",
+    "IT-NEWS-008"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-002",
+    "IT-EVT-005"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-001"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 0,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PEOPLE": [
+    "IT-PER-075"
+   ],
+   "RELATED_PEOPLE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-004",
+   "FROM_PAIR": "VITE x PERONOSPORA",
+   "CROP": "VITE",
+   "TARGET": "PERONOSPORA",
+   "AUDIENCE_VERDICT": "PREDOMINANTEMENTE_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-037",
+    "IT-PRD-052",
+    "IT-PRD-053",
+    "IT-PRD-075",
+    "IT-PRD-077",
+    "IT-PRD-081",
+    "IT-PRD-082",
+    "IT-PRD-115",
+    "IT-PRD-127",
+    "IT-PRD-128",
+    "IT-PRD-129",
+    "IT-PRD-152"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-796",
+    "IT-LBL-967",
+    "IT-LBL-980",
+    "IT-LBL-1438",
+    "IT-LBL-1442",
+    "IT-LBL-1446",
+    "IT-LBL-1451",
+    "IT-LBL-1627",
+    "IT-LBL-1735",
+    "IT-LBL-1741",
+    "IT-LBL-1747",
+    "IT-LBL-1958"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-002",
+    "IT-VOICE-003",
+    "IT-VOICE-004",
+    "IT-VOICE-005",
+    "IT-VOICE-006",
+    "IT-VOICE-007",
+    "IT-VOICE-008",
+    "IT-VOICE-009",
+    "IT-VOICE-019",
+    "IT-VOICE-021",
+    "IT-VOICE-027",
+    "IT-VOICE-028",
+    "IT-VOICE-030"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 13,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-037",
+    "IT-PHEN-040",
+    "IT-PHEN-041",
+    "IT-PHEN-051",
+    "IT-PHEN-052",
+    "IT-PHEN-054",
+    "IT-PHEN-057",
+    "IT-PHEN-060",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-049",
+    "IT-PHEN-015",
+    "IT-PHEN-001",
+    "IT-PHEN-017",
+    "IT-PHEN-038"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 22,
+    "SO_A_CULTURA_BATE": 11,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_CROP_WINDOWS": [
+    "IT-WIN-001",
+    "IT-WIN-002",
+    "IT-WIN-003",
+    "IT-WIN-004",
+    "IT-WIN-005",
+    "IT-WIN-006"
+   ],
+   "RELATED_CROP_WINDOWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 6,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-087",
+    "IT-SCI-003",
+    "IT-SCI-004",
+    "IT-SCI-005",
+    "IT-SCI-006",
+    "IT-SCI-007",
+    "IT-SCI-008",
+    "IT-SCI-009",
+    "IT-SCI-010",
+    "IT-SCI-011",
+    "IT-SCI-012",
+    "IT-SCI-013",
+    "IT-SCI-014",
+    "IT-SCI-015",
+    "IT-SCI-016",
+    "IT-SCI-017",
+    "IT-SCI-018",
+    "IT-SCI-019",
+    "IT-SCI-020",
+    "IT-SCI-021",
+    "IT-SCI-022",
+    "IT-SCI-023",
+    "IT-SCI-024",
+    "IT-SCI-025",
+    "IT-SCI-026"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 44,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-001"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-005",
+    "IT-COMP-ACT-013",
+    "IT-COMP-ACT-018",
+    "IT-COMP-ACT-032",
+    "IT-COMP-ACT-034",
+    "IT-COMP-ACT-039",
+    "IT-COMP-ACT-051",
+    "IT-COMP-ACT-052",
+    "IT-COMP-ACT-054",
+    "IT-COMP-ACT-057",
+    "IT-COMP-ACT-058",
+    "IT-COMP-ACT-061",
+    "IT-COMP-ACT-117",
+    "IT-COMP-ACT-125",
+    "IT-COMP-ACT-136",
+    "IT-COMP-ACT-137",
+    "IT-COMP-ACT-141",
+    "IT-COMP-ACT-149",
+    "IT-COMP-ACT-152",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-159",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-176",
+    "IT-COMP-ACT-179",
+    "IT-COMP-ACT-183"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 42,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-002",
+    "IT-NEWS-008"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-002",
+    "IT-EVT-005"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-001"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PEOPLE": [
+    "IT-PER-075"
+   ],
+   "RELATED_PEOPLE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-005",
+   "FROM_PAIR": "MELO x AFIDI",
+   "CROP": "MELO",
+   "TARGET": "AFIDI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-003",
+    "IT-PRD-004",
+    "IT-PRD-006",
+    "IT-PRD-007",
+    "IT-PRD-010",
+    "IT-PRD-019",
+    "IT-PRD-032",
+    "IT-PRD-044",
+    "IT-PRD-046",
+    "IT-PRD-055",
+    "IT-PRD-057",
+    "IT-PRD-058",
+    "IT-PRD-074",
+    "IT-PRD-111",
+    "IT-PRD-114",
+    "IT-PRD-126",
+    "IT-PRD-139"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-023",
+    "IT-LBL-024",
+    "IT-LBL-025",
+    "IT-LBL-052",
+    "IT-LBL-053",
+    "IT-LBL-146",
+    "IT-LBL-147",
+    "IT-LBL-230",
+    "IT-LBL-231",
+    "IT-LBL-232",
+    "IT-LBL-319",
+    "IT-LBL-453",
+    "IT-LBL-454",
+    "IT-LBL-645",
+    "IT-LBL-646",
+    "IT-LBL-816",
+    "IT-LBL-896",
+    "IT-LBL-991",
+    "IT-LBL-992",
+    "IT-LBL-993",
+    "IT-LBL-1022",
+    "IT-LBL-1023",
+    "IT-LBL-1102",
+    "IT-LBL-1103",
+    "IT-LBL-1364"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-018",
+    "IT-VOICE-022",
+    "IT-VOICE-023",
+    "IT-VOICE-024",
+    "IT-VOICE-025",
+    "IT-VOICE-029",
+    "IT-VOICE-032",
+    "IT-VOICE-033",
+    "IT-VOICE-040",
+    "IT-VOICE-042",
+    "IT-VOICE-043",
+    "IT-VOICE-047",
+    "IT-VOICE-049",
+    "IT-VOICE-050"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 14,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-043",
+    "IT-PHEN-019",
+    "IT-PHEN-023",
+    "IT-PHEN-029",
+    "IT-PHEN-030",
+    "IT-PHEN-031"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 13,
+    "SO_A_CULTURA_BATE": 6,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-012"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-006",
+   "FROM_PAIR": "PERO x TICCHIOLATURA",
+   "CROP": "PERO",
+   "TARGET": "TICCHIOLATURA",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-053",
+    "IT-PRD-075",
+    "IT-PRD-115"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-976",
+    "IT-LBL-1434",
+    "IT-LBL-1623"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-019"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 13,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-007",
+   "FROM_PAIR": "MELO x CARPOCAPSA",
+   "CROP": "MELO",
+   "TARGET": "CARPOCAPSA",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-004",
+    "IT-PRD-006",
+    "IT-PRD-010",
+    "IT-PRD-019",
+    "IT-PRD-032",
+    "IT-PRD-044",
+    "IT-PRD-046",
+    "IT-PRD-057",
+    "IT-PRD-058",
+    "IT-PRD-074",
+    "IT-PRD-126",
+    "IT-PRD-158"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-058",
+    "IT-LBL-152",
+    "IT-LBL-320",
+    "IT-LBL-459",
+    "IT-LBL-651",
+    "IT-LBL-817",
+    "IT-LBL-897",
+    "IT-LBL-1028",
+    "IT-LBL-1108",
+    "IT-LBL-1365",
+    "IT-LBL-1669",
+    "IT-LBL-1976",
+    "IT-LBL-1981"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-018",
+    "IT-VOICE-022",
+    "IT-VOICE-023",
+    "IT-VOICE-024",
+    "IT-VOICE-025",
+    "IT-VOICE-029",
+    "IT-VOICE-032",
+    "IT-VOICE-033",
+    "IT-VOICE-040",
+    "IT-VOICE-042",
+    "IT-VOICE-043",
+    "IT-VOICE-047",
+    "IT-VOICE-049",
+    "IT-VOICE-050"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 14,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-023",
+    "IT-PHEN-043",
+    "IT-PHEN-019",
+    "IT-PHEN-029",
+    "IT-PHEN-030",
+    "IT-PHEN-031"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 14,
+    "SO_A_CULTURA_BATE": 5,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-012"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-008",
+   "FROM_PAIR": "POMODORO x AFIDI",
+   "CROP": "POMODORO",
+   "TARGET": "AFIDI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-003",
+    "IT-PRD-007",
+    "IT-PRD-055",
+    "IT-PRD-111",
+    "IT-PRD-114"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-033",
+    "IT-LBL-034",
+    "IT-LBL-035",
+    "IT-LBL-240",
+    "IT-LBL-241",
+    "IT-LBL-242",
+    "IT-LBL-999",
+    "IT-LBL-1000",
+    "IT-LBL-1001",
+    "IT-LBL-1553",
+    "IT-LBL-1554",
+    "IT-LBL-1555",
+    "IT-LBL-1601",
+    "IT-LBL-1602",
+    "IT-LBL-1603"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-036",
+    "IT-VOICE-037",
+    "IT-VOICE-039",
+    "IT-VOICE-044",
+    "IT-VOICE-046",
+    "IT-VOICE-048",
+    "IT-VOICE-051",
+    "IT-VOICE-052",
+    "IT-VOICE-055",
+    "IT-VOICE-056",
+    "IT-VOICE-057",
+    "IT-VOICE-058"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-045",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-003",
+    "IT-PHEN-055"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 10,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-012"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-009",
+   "FROM_PAIR": "FRUMENTO x FUSARIOSI",
+   "CROP": "FRUMENTO",
+   "TARGET": "FUSARIOSI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-138",
+    "IT-PRD-142",
+    "IT-PRD-149",
+    "IT-PRD-163"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-1872",
+    "IT-LBL-1873",
+    "IT-LBL-1906",
+    "IT-LBL-1937",
+    "IT-LBL-2013"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-062",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069",
+    "IT-SCI-080",
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 5,
+    "SO_A_CULTURA_BATE": 36,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 10,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-004",
+    "IT-NEWS-005"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-002"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-010",
+   "FROM_PAIR": "FRUMENTO x SEPTORIOSI",
+   "CROP": "FRUMENTO",
+   "TARGET": "SEPTORIOSI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-138",
+    "IT-PRD-142",
+    "IT-PRD-149",
+    "IT-PRD-163"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-1870",
+    "IT-LBL-1901",
+    "IT-LBL-1902",
+    "IT-LBL-1933",
+    "IT-LBL-2008",
+    "IT-LBL-2009"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-088",
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 40,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 10,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-004",
+    "IT-NEWS-005"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-002"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-011",
+   "FROM_PAIR": "GRANO_GEN x FUSARIOSI",
+   "CROP": "GRANO_GEN",
+   "TARGET": "FUSARIOSI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-062",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069",
+    "IT-SCI-080",
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 5,
+    "SO_A_CULTURA_BATE": 36,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 10,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-013",
+    "IT-EVT-016"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-012",
+   "FROM_PAIR": "FRUMENTO x OIDIO",
+   "CROP": "FRUMENTO",
+   "TARGET": "OIDIO",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-142",
+    "IT-PRD-149",
+    "IT-PRD-163"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-1908",
+    "IT-LBL-1939",
+    "IT-LBL-2015"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069",
+    "IT-SCI-070"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 41,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 10,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-004",
+    "IT-NEWS-005"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-002"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-013",
+   "FROM_PAIR": "VITE x CICALINA_GEN",
+   "CROP": "VITE",
+   "TARGET": "CICALINA_GEN",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-002",
+    "IT-VOICE-003",
+    "IT-VOICE-004",
+    "IT-VOICE-005",
+    "IT-VOICE-006",
+    "IT-VOICE-007",
+    "IT-VOICE-008",
+    "IT-VOICE-009",
+    "IT-VOICE-019",
+    "IT-VOICE-021",
+    "IT-VOICE-027",
+    "IT-VOICE-028",
+    "IT-VOICE-030"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 13,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-037",
+    "IT-PHEN-038",
+    "IT-PHEN-040",
+    "IT-PHEN-041",
+    "IT-PHEN-060",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-018",
+    "IT-PHEN-021",
+    "IT-PHEN-015",
+    "IT-PHEN-001",
+    "IT-PHEN-017",
+    "IT-PHEN-032",
+    "IT-PHEN-051",
+    "IT-PHEN-052",
+    "IT-PHEN-054",
+    "IT-PHEN-057",
+    "IT-PHEN-006",
+    "IT-PHEN-008"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 16,
+    "SO_A_CULTURA_BATE": 17,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_CROP_WINDOWS": [
+    "IT-WIN-001",
+    "IT-WIN-002",
+    "IT-WIN-003",
+    "IT-WIN-004",
+    "IT-WIN-005",
+    "IT-WIN-006"
+   ],
+   "RELATED_CROP_WINDOWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 6,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-032",
+    "IT-SCI-003",
+    "IT-SCI-004",
+    "IT-SCI-005",
+    "IT-SCI-006",
+    "IT-SCI-007",
+    "IT-SCI-008",
+    "IT-SCI-009",
+    "IT-SCI-010",
+    "IT-SCI-011",
+    "IT-SCI-012",
+    "IT-SCI-013",
+    "IT-SCI-014",
+    "IT-SCI-015",
+    "IT-SCI-016",
+    "IT-SCI-017",
+    "IT-SCI-018",
+    "IT-SCI-019",
+    "IT-SCI-020",
+    "IT-SCI-021",
+    "IT-SCI-022",
+    "IT-SCI-023",
+    "IT-SCI-024",
+    "IT-SCI-025",
+    "IT-SCI-026"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 44,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-001"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-005",
+    "IT-COMP-ACT-013",
+    "IT-COMP-ACT-018",
+    "IT-COMP-ACT-032",
+    "IT-COMP-ACT-034",
+    "IT-COMP-ACT-039",
+    "IT-COMP-ACT-051",
+    "IT-COMP-ACT-052",
+    "IT-COMP-ACT-054",
+    "IT-COMP-ACT-057",
+    "IT-COMP-ACT-058",
+    "IT-COMP-ACT-061",
+    "IT-COMP-ACT-117",
+    "IT-COMP-ACT-125",
+    "IT-COMP-ACT-136",
+    "IT-COMP-ACT-137",
+    "IT-COMP-ACT-141",
+    "IT-COMP-ACT-149",
+    "IT-COMP-ACT-152",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-159",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-176",
+    "IT-COMP-ACT-179",
+    "IT-COMP-ACT-183"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 42,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-002",
+    "IT-NEWS-008"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-002",
+    "IT-EVT-005"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-001"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 0,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PEOPLE": [
+    "IT-PER-075"
+   ],
+   "RELATED_PEOPLE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-014",
+   "FROM_PAIR": "VITE x OIDIO",
+   "CROP": "VITE",
+   "TARGET": "OIDIO",
+   "AUDIENCE_VERDICT": "PREDOMINANTEMENTE_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-071",
+    "IT-PRD-132"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-1343",
+    "IT-LBL-1852"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-002",
+    "IT-VOICE-003",
+    "IT-VOICE-004",
+    "IT-VOICE-005",
+    "IT-VOICE-006",
+    "IT-VOICE-007",
+    "IT-VOICE-008",
+    "IT-VOICE-009",
+    "IT-VOICE-019",
+    "IT-VOICE-021",
+    "IT-VOICE-027",
+    "IT-VOICE-028",
+    "IT-VOICE-030"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 13,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-037",
+    "IT-PHEN-040",
+    "IT-PHEN-041",
+    "IT-PHEN-051",
+    "IT-PHEN-052",
+    "IT-PHEN-054",
+    "IT-PHEN-057",
+    "IT-PHEN-060",
+    "IT-PHEN-049",
+    "IT-PHEN-015",
+    "IT-PHEN-001",
+    "IT-PHEN-017",
+    "IT-PHEN-038",
+    "IT-PHEN-032",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 10,
+    "SO_A_CULTURA_BATE": 23,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_CROP_WINDOWS": [
+    "IT-WIN-001",
+    "IT-WIN-002",
+    "IT-WIN-003",
+    "IT-WIN-004",
+    "IT-WIN-005",
+    "IT-WIN-006"
+   ],
+   "RELATED_CROP_WINDOWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 6,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-003",
+    "IT-SCI-004",
+    "IT-SCI-005",
+    "IT-SCI-006",
+    "IT-SCI-007",
+    "IT-SCI-008",
+    "IT-SCI-009",
+    "IT-SCI-010",
+    "IT-SCI-011",
+    "IT-SCI-012",
+    "IT-SCI-013",
+    "IT-SCI-014",
+    "IT-SCI-015",
+    "IT-SCI-016",
+    "IT-SCI-017",
+    "IT-SCI-018",
+    "IT-SCI-019",
+    "IT-SCI-020",
+    "IT-SCI-021",
+    "IT-SCI-022",
+    "IT-SCI-023",
+    "IT-SCI-024",
+    "IT-SCI-025",
+    "IT-SCI-026",
+    "IT-SCI-027"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 45,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-001"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-005",
+    "IT-COMP-ACT-013",
+    "IT-COMP-ACT-018",
+    "IT-COMP-ACT-032",
+    "IT-COMP-ACT-034",
+    "IT-COMP-ACT-039",
+    "IT-COMP-ACT-051",
+    "IT-COMP-ACT-052",
+    "IT-COMP-ACT-054",
+    "IT-COMP-ACT-057",
+    "IT-COMP-ACT-058",
+    "IT-COMP-ACT-061",
+    "IT-COMP-ACT-117",
+    "IT-COMP-ACT-125",
+    "IT-COMP-ACT-136",
+    "IT-COMP-ACT-137",
+    "IT-COMP-ACT-141",
+    "IT-COMP-ACT-149",
+    "IT-COMP-ACT-152",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-159",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-176",
+    "IT-COMP-ACT-179",
+    "IT-COMP-ACT-183"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 42,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-002",
+    "IT-NEWS-008"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-002",
+    "IT-EVT-005"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-001"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PEOPLE": [
+    "IT-PER-075"
+   ],
+   "RELATED_PEOPLE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-015",
+   "FROM_PAIR": "RISO x GIAVONE",
+   "CROP": "RISO",
+   "TARGET": "GIAVONE",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-014",
+    "IT-PHEN-016",
+    "IT-PHEN-010",
+    "IT-PHEN-011"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 4,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-023",
+    "IT-RES-024",
+    "IT-RES-025",
+    "IT-RES-026",
+    "IT-RES-001",
+    "IT-RES-006",
+    "IT-RES-013",
+    "IT-RES-018",
+    "IT-RES-020",
+    "IT-RES-021",
+    "IT-RES-022",
+    "IT-RES-034"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 4,
+    "SO_A_CULTURA_BATE": 8,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-016",
+   "FROM_PAIR": "GRANO_GEN x SEPTORIOSI",
+   "CROP": "GRANO_GEN",
+   "TARGET": "SEPTORIOSI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-088",
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 40,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 10,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-013",
+    "IT-EVT-016"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-017",
+   "FROM_PAIR": "FRUMENTO x RUGGINE",
+   "CROP": "FRUMENTO",
+   "TARGET": "RUGGINE",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-138",
+    "IT-PRD-142",
+    "IT-PRD-149",
+    "IT-PRD-163"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-1871",
+    "IT-LBL-1904",
+    "IT-LBL-1905",
+    "IT-LBL-1935",
+    "IT-LBL-1936",
+    "IT-LBL-2011",
+    "IT-LBL-2012"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-088",
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 40,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 10,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-004",
+    "IT-NEWS-005"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-002"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-018",
+   "FROM_PAIR": "FRUMENTO x LOIETTO",
+   "CROP": "FRUMENTO",
+   "TARGET": "LOIETTO",
+   "AUDIENCE_VERDICT": "NAO_SEI",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069",
+    "IT-SCI-070"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 41,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031",
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 3,
+    "SO_A_CULTURA_BATE": 7,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-004",
+    "IT-NEWS-005"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-002"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-019",
+   "FROM_PAIR": "GRANO_GEN x OIDIO",
+   "CROP": "GRANO_GEN",
+   "TARGET": "OIDIO",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069",
+    "IT-SCI-070"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 41,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 10,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-013",
+    "IT-EVT-016"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-020",
+   "FROM_PAIR": "GRANO_GEN x RUGGINE",
+   "CROP": "GRANO_GEN",
+   "TARGET": "RUGGINE",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-088",
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 40,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 10,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-013",
+    "IT-EVT-016"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-021",
+   "FROM_PAIR": "GRANO_GEN x LOIETTO",
+   "CROP": "GRANO_GEN",
+   "TARGET": "LOIETTO",
+   "AUDIENCE_VERDICT": "NAO_SEI",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069",
+    "IT-SCI-070"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 41,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031",
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-017"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 3,
+    "SO_A_CULTURA_BATE": 7,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-013",
+    "IT-EVT-016"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-022",
+   "FROM_PAIR": "MAIS x GIAVONE",
+   "CROP": "MAIS",
+   "TARGET": "GIAVONE",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-010",
+    "IT-VOICE-011",
+    "IT-VOICE-012",
+    "IT-VOICE-013",
+    "IT-VOICE-014",
+    "IT-VOICE-015",
+    "IT-VOICE-016",
+    "IT-VOICE-017"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 8,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-014",
+    "IT-PHEN-048",
+    "IT-PHEN-005",
+    "IT-PHEN-003",
+    "IT-PHEN-022"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 5,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-004"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-027",
+    "IT-RES-011"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-001"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-006",
+    "IT-EVT-009"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-002"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-001"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-023",
+   "FROM_PAIR": "MAIS x DIABROTICA",
+   "CROP": "MAIS",
+   "TARGET": "DIABROTICA",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-010",
+    "IT-PRD-044",
+    "IT-PRD-046",
+    "IT-PRD-074",
+    "IT-PRD-126"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-342",
+    "IT-LBL-366",
+    "IT-LBL-839",
+    "IT-LBL-863",
+    "IT-LBL-919",
+    "IT-LBL-943",
+    "IT-LBL-1387",
+    "IT-LBL-1411",
+    "IT-LBL-1691",
+    "IT-LBL-1715"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-010",
+    "IT-VOICE-011",
+    "IT-VOICE-012",
+    "IT-VOICE-013",
+    "IT-VOICE-014",
+    "IT-VOICE-015",
+    "IT-VOICE-016",
+    "IT-VOICE-017"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 8,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-022",
+    "IT-PHEN-014",
+    "IT-PHEN-048",
+    "IT-PHEN-005",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 4,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-004"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-011",
+    "IT-RES-027"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-001"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-006",
+    "IT-EVT-009"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-002"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 0,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-001"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-024",
+   "FROM_PAIR": "ORZO x LOIETTO",
+   "CROP": "ORZO",
+   "TARGET": "LOIETTO",
+   "AUDIENCE_VERDICT": "NAO_SEI",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-025",
+   "FROM_PAIR": "SOIA x AFIDI",
+   "CROP": "SOIA",
+   "TARGET": "AFIDI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-010",
+    "IT-PRD-044",
+    "IT-PRD-046",
+    "IT-PRD-074",
+    "IT-PRD-126"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-361",
+    "IT-LBL-858",
+    "IT-LBL-938",
+    "IT-LBL-1406",
+    "IT-LBL-1710"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 13,
+    "SO_A_CULTURA_BATE": 0,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-002",
+    "IT-RES-003",
+    "IT-RES-004",
+    "IT-RES-005",
+    "IT-RES-012",
+    "IT-RES-022"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 6,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-006"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-026",
+   "FROM_PAIR": "VITE x BOTRITE",
+   "CROP": "VITE",
+   "TARGET": "BOTRITE",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-053",
+    "IT-PRD-075",
+    "IT-PRD-115"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-981",
+    "IT-LBL-1439",
+    "IT-LBL-1628"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-002",
+    "IT-VOICE-003",
+    "IT-VOICE-004",
+    "IT-VOICE-005",
+    "IT-VOICE-006",
+    "IT-VOICE-007",
+    "IT-VOICE-008",
+    "IT-VOICE-009",
+    "IT-VOICE-019",
+    "IT-VOICE-021",
+    "IT-VOICE-027",
+    "IT-VOICE-028",
+    "IT-VOICE-030"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 13,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-040",
+    "IT-PHEN-057",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-049",
+    "IT-PHEN-037",
+    "IT-PHEN-017",
+    "IT-PHEN-038",
+    "IT-PHEN-041",
+    "IT-PHEN-032",
+    "IT-PHEN-051",
+    "IT-PHEN-052",
+    "IT-PHEN-054",
+    "IT-PHEN-060",
+    "IT-PHEN-007",
+    "IT-PHEN-009"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 14,
+    "SO_A_CULTURA_BATE": 19,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_CROP_WINDOWS": [
+    "IT-WIN-001",
+    "IT-WIN-002",
+    "IT-WIN-003",
+    "IT-WIN-004",
+    "IT-WIN-005",
+    "IT-WIN-006"
+   ],
+   "RELATED_CROP_WINDOWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 6,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-014",
+    "IT-SCI-003",
+    "IT-SCI-004",
+    "IT-SCI-005",
+    "IT-SCI-006",
+    "IT-SCI-007",
+    "IT-SCI-008",
+    "IT-SCI-009",
+    "IT-SCI-010",
+    "IT-SCI-011",
+    "IT-SCI-012",
+    "IT-SCI-013",
+    "IT-SCI-015",
+    "IT-SCI-016",
+    "IT-SCI-017",
+    "IT-SCI-018",
+    "IT-SCI-019",
+    "IT-SCI-020",
+    "IT-SCI-021",
+    "IT-SCI-022",
+    "IT-SCI-023",
+    "IT-SCI-024",
+    "IT-SCI-025",
+    "IT-SCI-026",
+    "IT-SCI-027"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 44,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-001"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-005",
+    "IT-COMP-ACT-013",
+    "IT-COMP-ACT-018",
+    "IT-COMP-ACT-032",
+    "IT-COMP-ACT-034",
+    "IT-COMP-ACT-039",
+    "IT-COMP-ACT-051",
+    "IT-COMP-ACT-052",
+    "IT-COMP-ACT-054",
+    "IT-COMP-ACT-057",
+    "IT-COMP-ACT-058",
+    "IT-COMP-ACT-061",
+    "IT-COMP-ACT-117",
+    "IT-COMP-ACT-125",
+    "IT-COMP-ACT-136",
+    "IT-COMP-ACT-137",
+    "IT-COMP-ACT-141",
+    "IT-COMP-ACT-149",
+    "IT-COMP-ACT-152",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-159",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-176",
+    "IT-COMP-ACT-179",
+    "IT-COMP-ACT-183"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 42,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-002",
+    "IT-NEWS-008"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-002",
+    "IT-EVT-005"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-001"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PEOPLE": [
+    "IT-PER-075"
+   ],
+   "RELATED_PEOPLE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-027",
+   "FROM_PAIR": "MAIS x ABUTILON",
+   "CROP": "MAIS",
+   "TARGET": "ABUTILON",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-022",
+    "IT-PRD-106"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-561",
+    "IT-LBL-1527"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-010",
+    "IT-VOICE-011",
+    "IT-VOICE-012",
+    "IT-VOICE-013",
+    "IT-VOICE-014",
+    "IT-VOICE-015",
+    "IT-VOICE-016",
+    "IT-VOICE-017"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 8,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-014",
+    "IT-PHEN-048",
+    "IT-PHEN-005",
+    "IT-PHEN-003",
+    "IT-PHEN-022"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 5,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-004"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-011",
+    "IT-RES-027"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-001"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-006",
+    "IT-EVT-009"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-002"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-001"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-028",
+   "FROM_PAIR": "MAIS x CHENOPODIO",
+   "CROP": "MAIS",
+   "TARGET": "CHENOPODIO",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-010",
+    "IT-VOICE-011",
+    "IT-VOICE-012",
+    "IT-VOICE-013",
+    "IT-VOICE-014",
+    "IT-VOICE-015",
+    "IT-VOICE-016",
+    "IT-VOICE-017"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 8,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-014",
+    "IT-PHEN-048",
+    "IT-PHEN-005",
+    "IT-PHEN-003",
+    "IT-PHEN-022"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 5,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-004"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-011",
+    "IT-RES-027"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-001"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-006",
+    "IT-EVT-009"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-002"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-001"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-029",
+   "FROM_PAIR": "MAIS x PIRALIDE",
+   "CROP": "MAIS",
+   "TARGET": "PIRALIDE",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-010",
+    "IT-PRD-044",
+    "IT-PRD-046",
+    "IT-PRD-074",
+    "IT-PRD-126"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-343",
+    "IT-LBL-840",
+    "IT-LBL-920",
+    "IT-LBL-1388",
+    "IT-LBL-1692"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-010",
+    "IT-VOICE-011",
+    "IT-VOICE-012",
+    "IT-VOICE-013",
+    "IT-VOICE-014",
+    "IT-VOICE-015",
+    "IT-VOICE-016",
+    "IT-VOICE-017"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 8,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-048",
+    "IT-PHEN-022",
+    "IT-PHEN-014",
+    "IT-PHEN-005",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 2,
+    "SO_A_CULTURA_BATE": 3,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-004"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-011",
+    "IT-RES-027"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-001"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-006",
+    "IT-EVT-009"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-002"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 1,
+    "SO_A_CULTURA_BATE": 0,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-001"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-030",
+   "FROM_PAIR": "FRUMENTO x PAPAVERO",
+   "CROP": "FRUMENTO",
+   "TARGET": "PAPAVERO",
+   "AUDIENCE_VERDICT": "NAO_SEI",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069",
+    "IT-SCI-070"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 41,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 3,
+    "SO_A_CULTURA_BATE": 7,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-004",
+    "IT-NEWS-005"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_FUTURE_SIGNALS": [
+    "IT-FUT-002"
+   ],
+   "RELATED_FUTURE_SIGNALS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-031",
+   "FROM_PAIR": "GRANO_GEN x PAPAVERO",
+   "CROP": "GRANO_GEN",
+   "TARGET": "PAPAVERO",
+   "AUDIENCE_VERDICT": "NAO_SEI",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-001"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-046",
+    "IT-SCI-047",
+    "IT-SCI-048",
+    "IT-SCI-049",
+    "IT-SCI-050",
+    "IT-SCI-051",
+    "IT-SCI-052",
+    "IT-SCI-053",
+    "IT-SCI-054",
+    "IT-SCI-055",
+    "IT-SCI-056",
+    "IT-SCI-057",
+    "IT-SCI-058",
+    "IT-SCI-059",
+    "IT-SCI-060",
+    "IT-SCI-061",
+    "IT-SCI-062",
+    "IT-SCI-063",
+    "IT-SCI-064",
+    "IT-SCI-065",
+    "IT-SCI-066",
+    "IT-SCI-067",
+    "IT-SCI-068",
+    "IT-SCI-069",
+    "IT-SCI-070"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 41,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-002"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-014",
+    "IT-RES-015",
+    "IT-RES-016",
+    "IT-RES-007",
+    "IT-RES-008",
+    "IT-RES-010",
+    "IT-RES-017",
+    "IT-RES-029",
+    "IT-RES-030",
+    "IT-RES-031"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 3,
+    "SO_A_CULTURA_BATE": 7,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-004",
+    "IT-COMP-ACT-009",
+    "IT-COMP-ACT-011",
+    "IT-COMP-ACT-016",
+    "IT-COMP-ACT-027",
+    "IT-COMP-ACT-037",
+    "IT-COMP-ACT-042",
+    "IT-COMP-ACT-043",
+    "IT-COMP-ACT-046",
+    "IT-COMP-ACT-062",
+    "IT-COMP-ACT-127",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-188",
+    "IT-COMP-ACT-238",
+    "IT-COMP-ACT-253",
+    "IT-COMP-ACT-255",
+    "IT-COMP-ACT-273",
+    "IT-COMP-ACT-293",
+    "IT-COMP-ACT-406",
+    "IT-COMP-ACT-407",
+    "IT-COMP-ACT-408",
+    "IT-COMP-ACT-409",
+    "IT-COMP-ACT-410"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-013",
+    "IT-EVT-016"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-032",
+   "FROM_PAIR": "ORZO x OIDIO",
+   "CROP": "ORZO",
+   "TARGET": "OIDIO",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-071",
+    "IT-PRD-112",
+    "IT-PRD-132",
+    "IT-PRD-142",
+    "IT-PRD-163"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-1332",
+    "IT-LBL-1576",
+    "IT-LBL-1841",
+    "IT-LBL-1915",
+    "IT-LBL-2022"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 12,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-033",
+   "FROM_PAIR": "VITE x MARCIUME",
+   "CROP": "VITE",
+   "TARGET": "MARCIUME",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [],
+   "RELATED_LABEL_PAIRS": [],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-002",
+    "IT-VOICE-003",
+    "IT-VOICE-004",
+    "IT-VOICE-005",
+    "IT-VOICE-006",
+    "IT-VOICE-007",
+    "IT-VOICE-008",
+    "IT-VOICE-009",
+    "IT-VOICE-019",
+    "IT-VOICE-021",
+    "IT-VOICE-027",
+    "IT-VOICE-028",
+    "IT-VOICE-030"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 13,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-002",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-003",
+    "IT-PHEN-037",
+    "IT-PHEN-017",
+    "IT-PHEN-038",
+    "IT-PHEN-040",
+    "IT-PHEN-041",
+    "IT-PHEN-032",
+    "IT-PHEN-051",
+    "IT-PHEN-052",
+    "IT-PHEN-054",
+    "IT-PHEN-057",
+    "IT-PHEN-060",
+    "IT-PHEN-012",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-013",
+    "IT-PHEN-018"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 9,
+    "SO_A_CULTURA_BATE": 24,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_CROP_WINDOWS": [
+    "IT-WIN-001",
+    "IT-WIN-002",
+    "IT-WIN-003",
+    "IT-WIN-004",
+    "IT-WIN-005",
+    "IT-WIN-006"
+   ],
+   "RELATED_CROP_WINDOWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 6,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_SCIENCE": [
+    "IT-SCI-003",
+    "IT-SCI-004",
+    "IT-SCI-005",
+    "IT-SCI-006",
+    "IT-SCI-007",
+    "IT-SCI-008",
+    "IT-SCI-009",
+    "IT-SCI-010",
+    "IT-SCI-011",
+    "IT-SCI-012",
+    "IT-SCI-013",
+    "IT-SCI-014",
+    "IT-SCI-015",
+    "IT-SCI-016",
+    "IT-SCI-017",
+    "IT-SCI-018",
+    "IT-SCI-019",
+    "IT-SCI-020",
+    "IT-SCI-021",
+    "IT-SCI-022",
+    "IT-SCI-023",
+    "IT-SCI-024",
+    "IT-SCI-025",
+    "IT-SCI-026",
+    "IT-SCI-027"
+   ],
+   "RELATED_SCIENCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 45,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESEARCH_THEMES": [
+    "IT-THEME-001"
+   ],
+   "RELATED_RESEARCH_THEMES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-005",
+    "IT-COMP-ACT-013",
+    "IT-COMP-ACT-018",
+    "IT-COMP-ACT-032",
+    "IT-COMP-ACT-034",
+    "IT-COMP-ACT-039",
+    "IT-COMP-ACT-051",
+    "IT-COMP-ACT-052",
+    "IT-COMP-ACT-054",
+    "IT-COMP-ACT-057",
+    "IT-COMP-ACT-058",
+    "IT-COMP-ACT-061",
+    "IT-COMP-ACT-117",
+    "IT-COMP-ACT-125",
+    "IT-COMP-ACT-136",
+    "IT-COMP-ACT-137",
+    "IT-COMP-ACT-141",
+    "IT-COMP-ACT-149",
+    "IT-COMP-ACT-152",
+    "IT-COMP-ACT-156",
+    "IT-COMP-ACT-159",
+    "IT-COMP-ACT-160",
+    "IT-COMP-ACT-176",
+    "IT-COMP-ACT-179",
+    "IT-COMP-ACT-183"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 42,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_NEWS": [
+    "IT-NEWS-002",
+    "IT-NEWS-008"
+   ],
+   "RELATED_NEWS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_EVENTS": [
+    "IT-EVT-002",
+    "IT-EVT-005"
+   ],
+   "RELATED_EVENTS_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 2,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_OPPORTUNITIES": [
+    "IT-OPP-001"
+   ],
+   "RELATED_OPPORTUNITIES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PEOPLE": [
+    "IT-PER-075"
+   ],
+   "RELATED_PEOPLE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-034",
+   "FROM_PAIR": "PATATA x PERONOSPORA",
+   "CROP": "PATATA",
+   "TARGET": "PERONOSPORA",
+   "AUDIENCE_VERDICT": "SUSTENTADO_POR_CANAL_PROFISSIONAL",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-052",
+    "IT-PRD-053",
+    "IT-PRD-075",
+    "IT-PRD-081",
+    "IT-PRD-082",
+    "IT-PRD-115",
+    "IT-PRD-127",
+    "IT-PRD-128",
+    "IT-PRD-129"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-972",
+    "IT-LBL-982",
+    "IT-LBL-1440",
+    "IT-LBL-1450",
+    "IT-LBL-1456",
+    "IT-LBL-1629",
+    "IT-LBL-1740",
+    "IT-LBL-1746",
+    "IT-LBL-1752"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-012",
+    "IT-PHEN-013",
+    "IT-PHEN-046"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 2,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-035",
+   "FROM_PAIR": "MELO x CIMICE",
+   "CROP": "MELO",
+   "TARGET": "CIMICE",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-004",
+    "IT-PRD-006",
+    "IT-PRD-019",
+    "IT-PRD-032",
+    "IT-PRD-057",
+    "IT-PRD-058"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-061",
+    "IT-LBL-155",
+    "IT-LBL-462",
+    "IT-LBL-654",
+    "IT-LBL-1031",
+    "IT-LBL-1111"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_FIELD_VOICES": [
+    "IT-VOICE-018",
+    "IT-VOICE-022",
+    "IT-VOICE-023",
+    "IT-VOICE-024",
+    "IT-VOICE-025",
+    "IT-VOICE-029",
+    "IT-VOICE-032",
+    "IT-VOICE-033",
+    "IT-VOICE-040",
+    "IT-VOICE-042",
+    "IT-VOICE-043",
+    "IT-VOICE-047",
+    "IT-VOICE-049",
+    "IT-VOICE-050"
+   ],
+   "RELATED_FIELD_VOICES_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 14,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-004",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-019",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-005",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-043",
+    "IT-PHEN-023",
+    "IT-PHEN-029",
+    "IT-PHEN-030",
+    "IT-PHEN-031"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 14,
+    "SO_A_CULTURA_BATE": 5,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_RESISTANCE": [
+    "IT-RES-012"
+   ],
+   "RELATED_RESISTANCE_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-036",
+   "FROM_PAIR": "PATATA x AFIDI",
+   "CROP": "PATATA",
+   "TARGET": "AFIDI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-003",
+    "IT-PRD-004",
+    "IT-PRD-006",
+    "IT-PRD-007",
+    "IT-PRD-010",
+    "IT-PRD-019",
+    "IT-PRD-032",
+    "IT-PRD-044",
+    "IT-PRD-046",
+    "IT-PRD-055",
+    "IT-PRD-057",
+    "IT-PRD-058",
+    "IT-PRD-074",
+    "IT-PRD-111",
+    "IT-PRD-114",
+    "IT-PRD-126"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-036",
+    "IT-LBL-037",
+    "IT-LBL-038",
+    "IT-LBL-039",
+    "IT-LBL-072",
+    "IT-LBL-073",
+    "IT-LBL-074",
+    "IT-LBL-075",
+    "IT-LBL-166",
+    "IT-LBL-167",
+    "IT-LBL-168",
+    "IT-LBL-169",
+    "IT-LBL-243",
+    "IT-LBL-244",
+    "IT-LBL-245",
+    "IT-LBL-246",
+    "IT-LBL-369",
+    "IT-LBL-474",
+    "IT-LBL-475",
+    "IT-LBL-476",
+    "IT-LBL-477",
+    "IT-LBL-666",
+    "IT-LBL-667",
+    "IT-LBL-668",
+    "IT-LBL-669"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-012",
+    "IT-PHEN-013",
+    "IT-PHEN-046"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 2,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-037",
+   "FROM_PAIR": "AGRUMI x AFIDI",
+   "CROP": "AGRUMI",
+   "TARGET": "AFIDI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-010",
+    "IT-PRD-044",
+    "IT-PRD-046",
+    "IT-PRD-074",
+    "IT-PRD-126"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-306",
+    "IT-LBL-803",
+    "IT-LBL-883",
+    "IT-LBL-1351",
+    "IT-LBL-1655"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-056"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 1,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   },
+   "RELATED_COMPETITOR_ACTIVITY": [
+    "IT-COMP-ACT-165",
+    "IT-COMP-ACT-170",
+    "IT-COMP-ACT-194",
+    "IT-COMP-ACT-314",
+    "IT-COMP-ACT-319",
+    "IT-COMP-ACT-320",
+    "IT-COMP-ACT-326",
+    "IT-COMP-ACT-333",
+    "IT-COMP-ACT-337",
+    "IT-COMP-ACT-340",
+    "IT-COMP-ACT-341",
+    "IT-COMP-ACT-343",
+    "IT-COMP-ACT-345",
+    "IT-COMP-ACT-356",
+    "IT-COMP-ACT-373"
+   ],
+   "RELATED_COMPETITOR_ACTIVITY_HOW": {
+    "ALVO_TAMBEM_BATE": 0,
+    "SO_A_CULTURA_BATE": 15,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  },
+  {
+   "FROM": "IT-CONV-038",
+   "FROM_PAIR": "PESCO x AFIDI",
+   "CROP": "PESCO",
+   "TARGET": "AFIDI",
+   "AUDIENCE_VERDICT": "SUSTENTADO_SO_POR_HORTA_DOMESTICA",
+   "RELATED_PRODUCTS": [
+    "IT-PRD-003",
+    "IT-PRD-010",
+    "IT-PRD-044",
+    "IT-PRD-046",
+    "IT-PRD-074",
+    "IT-PRD-111",
+    "IT-PRD-114",
+    "IT-PRD-126"
+   ],
+   "RELATED_LABEL_PAIRS": [
+    "IT-LBL-018",
+    "IT-LBL-019",
+    "IT-LBL-020",
+    "IT-LBL-021",
+    "IT-LBL-022",
+    "IT-LBL-310",
+    "IT-LBL-807",
+    "IT-LBL-887",
+    "IT-LBL-1355",
+    "IT-LBL-1538",
+    "IT-LBL-1539",
+    "IT-LBL-1540",
+    "IT-LBL-1541",
+    "IT-LBL-1542",
+    "IT-LBL-1586",
+    "IT-LBL-1587",
+    "IT-LBL-1588",
+    "IT-LBL-1589",
+    "IT-LBL-1590",
+    "IT-LBL-1659"
+   ],
+   "RELATED_PRODUCTS_HOW": "CHAVE_EXATA: mesmo par cultura x alvo no rotulo. Nao ha casamento por texto aqui.",
+   "RELATED_PHENOLOGY": [
+    "IT-PHEN-001",
+    "IT-PHEN-006",
+    "IT-PHEN-008",
+    "IT-PHEN-010",
+    "IT-PHEN-012",
+    "IT-PHEN-002",
+    "IT-PHEN-007",
+    "IT-PHEN-009",
+    "IT-PHEN-011",
+    "IT-PHEN-013",
+    "IT-PHEN-003",
+    "IT-PHEN-059",
+    "IT-PHEN-047",
+    "IT-PHEN-019"
+   ],
+   "RELATED_PHENOLOGY_HOW": {
+    "ALVO_TAMBEM_BATE": 11,
+    "SO_A_CULTURA_BATE": 3,
+    "AVISO": "os que batem so na cultura sustentam «este item menciona esta cultura», nunca «este item e sobre esta cultura». CROP_TERM_PRESENT nao e ABOUT_THAT_CROP."
+   }
+  }
+ ]
+}

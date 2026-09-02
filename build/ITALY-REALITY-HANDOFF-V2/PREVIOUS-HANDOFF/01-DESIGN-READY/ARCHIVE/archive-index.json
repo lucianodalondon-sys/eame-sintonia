@@ -1,0 +1,111 @@
+{
+ "LAYER": "ARCHIVE_INDEX",
+ "COUNTRY": "IT",
+ "BUILT_AT": "2026-09-02",
+ "SOURCE_ARTIFACTS": [
+  "repositorio eame-sintonia"
+ ],
+ "PROVENANCE_DEFAULT": "REAL_DERIVED",
+ "NOTE": "PONTEIRO, nao copia. O bruto pesado fica no repositorio; o pacote leva o caminho.",
+ "COUNT": 12,
+ "REPO": "https://github.com/lucianodalondon-sys/eame-sintonia",
+ "WARNING": "varios destes vivem em OUTRAS branches. A lista diz qual.",
+ "DATASETS": [
+  {
+   "ID": "IT-ARC-001",
+   "DATASET": "SENSOR-PILOT",
+   "REPO_PATH": "data/samples/SENSOR-PILOT/",
+   "CONTENT": "603 videos, 24 transcricoes, 1.326 comentarios, 9 recortes",
+   "SIZE": "8,1 MB",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-ARC-002",
+   "DATASET": "META-EAME",
+   "REPO_PATH": "data/samples/META-EAME/ (branch claude/eame-meta-competitor)",
+   "CONTENT": "1.340 cartoes de anuncio, 414 alcancando a Italia",
+   "SIZE": "6,5 MB",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-ARC-003",
+   "DATASET": "REGULATORIO IT",
+   "REPO_PATH": "data/samples/IT-T4-001/ (branch claude/adama-it-local-catalog)",
+   "CONTENT": "163 registros vigentes, 163 rotulos parseados",
+   "SIZE": "1,2 MB",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-ARC-004",
+   "DATASET": "CATALOGO ADAMA IT",
+   "REPO_PATH": "data/samples/IT-CATALOGO/",
+   "CONTENT": "51 produtos, 141 documentos",
+   "SIZE": "620 KB",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-ARC-005",
+   "DATASET": "BOLETINS DE CAMPO",
+   "REPO_PATH": "data/samples/IT-T5-SENSORES/",
+   "CONTENT": "6 boletins em texto integral + LaMMA Grosseto",
+   "SIZE": "95 KB",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-ARC-006",
+   "DATASET": "PIEMONTE FLAVESCENZA",
+   "REPO_PATH": "data/samples/PIEMONTE-FD/ + data/raw/IT/PIEMONTE-FD/",
+   "CONTENT": "8 documentos oficiais; texto no Git, PDF fora",
+   "SIZE": "11,4 MB",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-ARC-007",
+   "DATASET": "CORPUS PESQUISADOR",
+   "REPO_PATH": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
+   "CONTENT": "763 materiais, 582 como evidencia, 12 identidades provadas",
+   "SIZE": "2,1 MB",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-ARC-008",
+   "DATASET": "CIENCIA POR RECORTE",
+   "REPO_PATH": "data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json",
+   "CONTENT": "5 recortes, 320 obras, 876 autores italianos",
+   "SIZE": "76 KB",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-ARC-009",
+   "DATASET": "GIRE",
+   "REPO_PATH": "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json",
+   "CONTENT": "23 fichas, 34 linhas de resistencia",
+   "SIZE": "168 KB",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-ARC-010",
+   "DATASET": "CAMADA UE",
+   "REPO_PATH": "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json",
+   "CONTENT": "15 atos lidos e verificados por refutador",
+   "SIZE": "192 KB",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-ARC-011",
+   "DATASET": "PARES CULTURA x ALVO",
+   "REPO_PATH": "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json",
+   "CONTENT": "46 pares do corpus de video/comentario",
+   "SIZE": "127 KB",
+   "PROVENANCE": "REAL_DERIVED"
+  },
+  {
+   "ID": "IT-ARC-012",
+   "DATASET": "PRECO UE",
+   "REPO_PATH": "data/samples/IT-MERCADO/",
+   "CONTENT": "cereal 16.193 registros, azeite 23.387",
+   "SIZE": "35 KB (resumo; a serie completa se rebusca pela API)",
+   "PROVENANCE": "REAL_SOURCE"
+  }
+ ]
+}
