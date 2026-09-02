@@ -344,7 +344,7 @@
           <div style="position:relative;overflow:hidden;border-radius:14px;border:1px solid rgba(203,197,195,0.14);background:#1C1817;padding:16px 18px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:center">
             <div style="display:flex;flex-direction:column;gap:10px">
               <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblAppWindow }} · {{ t.lblDome }}</div>
-              <div style="display:flex;align-items:flex-end;gap:12px"><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.wsLabel }}</span><div style="flex:1;height:44px;position:relative;-webkit-mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;background:rgba(151,139,135,0.28)"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ cs.progressPct }};background:{{ cs.st.color }}"></div></div><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.weLabel }}</span></div>
+              <sc-if value="{{ cs.hasWindow }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:flex-end;gap:12px"><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.wsLabel }}</span><div style="flex:1;height:44px;position:relative;-webkit-mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;background:rgba(151,139,135,0.28)"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ cs.progressPct }};background:{{ cs.st.color }}"></div></div><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.weLabel }}</span></div></sc-if><sc-if value="{{ cs.noWindow }}" hint-placeholder-val="{{ false }}"><div style="font-size:11.5px;color:#B1A9A7;line-height:1.5">{{ t.csNoCanonicalWindow }}</div></sc-if>
               <div style="border-top:1px dotted rgba(151,139,135,0.55)"></div>
               <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
                 <div style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblCropStage }}</span><span style="font-size:11.5px;color:#EDEAE9">{{ cs.stageL }}</span></div>
@@ -1735,7 +1735,7 @@
           <div style="display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08)">
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
               <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#F89E18">GIRE · CONFIRMED ITALIAN RESISTANCE CASES</span>
-              <span style="font-size:9.5px;color:#8F8886">{{ gireStats.total }} {{ t.gireCases }} · {{ gireStats.linked }} {{ t.gireOverlap }} · {{ gireStats.herbicides }} {{ t.gireHerb }}</span>
+              <span style="font-size:9.5px;color:#8F8886">{{ gireStats.total }} {{ t.gireCases }} · {{ gireStats.linked }} {{ t.gireOverlap }}</span><span style="font-size:9.5px;color:#8F8886">{{ t.gireHerbNote }} {{ gireStats.herbicides }} {{ t.gireHerb }}</span>
             </div>
             <sc-for list="{{ gireShown }}" as="g" hint-placeholder-count="8">
               <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1.2fr) minmax(0,1fr);gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);align-items:baseline">
@@ -1751,7 +1751,7 @@
               </div>
             </sc-for>
             <sc-if value="{{ gireHasMore }}" hint-placeholder-val="{{ true }}">
-              <span onClick="{{ toggleGire }}" style="align-self:flex-start;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:0.06em;color:#F89E18">SHOW ALL {{ gireStats.total }} CASES · +{{ gireMore }} →</span>
+              <span onClick="{{ toggleGire }}" style="align-self:flex-start;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:0.06em;color:#F89E18">{{ t.gireShowAll }} {{ gireStats.total }} {{ t.gireCasesUpper }} · +{{ gireMore }} →</span>
             </sc-if>
             <sc-if value="{{ gireAllOpen }}" hint-placeholder-val="{{ false }}">
               <span onClick="{{ toggleGire }}" style="align-self:flex-start;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:0.06em;color:#8F8886">SHOW FEWER ←</span>
@@ -2062,9 +2062,14 @@ class Component extends DCLogic {
     mCrop: 'maize', mTab: 'crop',
     lang: (() => { try { return localStorage.getItem('sintonia_lang') === 'en' ? 'en' : 'it'; } catch (e) { return 'it'; } })(),
     productId: null, portTab: 'commercial', portCat: '',
-    windowId: null, wCrop: '', wBucket: '', calCrop: 'Durum Wheat', calRegion: null, calStart: 7, calH: 12, calBucket: '', calMode: 'calendar', calDetail: false, signalId: null, sigGroup: '', evidenceIdx: null, briefDept: null, copied: false, showNotifs: false, fieldState: '', showComposer: false, composerText: '', extraMessages: [] };
+    /* calStart is the month offset the calendar opens on. It was 7, which put AM.REF
+       2026-09-02 at 8.6% of the track — the reference date pinned to the left edge with
+       almost no history behind it — while the calendar's own TODAY button computes
+       Math.round(8 - calH / 3) = 4, so pressing TODAY while already at "today" jumped the
+       view. 4 puts the reference date at 33.6% (4 months behind, 8 ahead) and makes the
+       default agree with the button. Row count is unchanged (4 either way). */
+    windowId: null, wCrop: '', wBucket: '', calCrop: 'Durum Wheat', calRegion: null, calStart: 4, calH: 12, calBucket: '', calMode: 'calendar', calDetail: false, signalId: null, sigGroup: '', evidenceIdx: null, briefDept: null, copied: false, showNotifs: false, fieldState: '', showComposer: false, composerText: '', extraMessages: [] };
 
-  openWindow(id) { this.go({ view: 'window', windowId: id }); }
   openEvent(id) { this.go({ view: 'event', eventId: id }); }
   openCProduct(name) { this.go({ view: 'cproduct', cproductId: name }); }
   compWith(f) { this.go(Object.assign({ view: 'competitors', compView: 'feed', fCompany: '', fType: '', fCrop: '', fIssue: '', fPeriod: '', compShown: 12 }, f)); }
@@ -2241,8 +2246,9 @@ class Component extends DCLogic {
     const C = this.M() ? this.M().collections : null;
     this.go({ view: 'case', caseId: C ? this._resolveId(C.opportunities.records, id, 'legacyCaseId') : id });
   }
-  /* Line 2388 declares openWindow too; a class body keeps the LAST definition, so
-     this one wins. The earlier declaration is now dead and should be deleted. */
+  /* The shorthand `openWindow(id) { this.go({view:'window', windowId: id}) }` that used to
+     sit beside openEvent has been deleted. A class body keeps the LAST definition, so it
+     never ran; this one does, and it is the one that resolves a legacy id. */
   openWindow(id) {
     const C = this.M() ? this.M().collections : null;
     this.go({ view: 'window', windowId: C ? this._resolveId(C.cropWindows.records, id, 'legacyCaseId') : id });
@@ -3340,6 +3346,11 @@ class Component extends DCLogic {
          `updated` integer, which claimed the second thing, is gone. */
       updatedLabel: csFresh === null ? (T.ksNotKnown || '') : (csFresh + csT('ago')),
       statusLabel: csStatus ? wst(csStatus) : (csRec && csRec.windowApplication ? csEnum(csRec.windowApplication) : ((T.WSTATUS && T.WSTATUS.DATE_UNKNOWN) || '')),
+      /* The dome bar draws two dates and a fill from the CANONICAL window. On a case with
+         no canonical window (IT-OPP-003 of 3) it drew '—', a 0% fill and '—': a decorative
+         empty gauge. progressPct is a string ('0%'), which is truthy, so the markup had
+         nothing safe to test — hence this boolean. */
+      hasWindow: !!csWinRec, noWindow: !csWinRec,
       wsLabel: (csWinRec && csDate(csWinRec.startDate)) || '—',
       weLabel: (csWinRec && csDate(csWinRec.endDate)) || '—',
       /* The record's OWN declared window states are real 3/3 and survive even
@@ -3432,8 +3443,15 @@ class Component extends DCLogic {
       /* No theme in the real science collection declares a case. */
       relatedThemes: [],
       goArchive: () => this.archiveWith({ aCase: cs0.id }),
-      goCompetitors: () => this.compWith(csCropK ? { fCrop: csCropK, fIssue: csIssueK || '' } : {}),
-      goWindow: () => csWinRec && this.openWindow(csWinRec.windowId)
+      goCompetitors: () => this.compWith(csCropK ? { fCrop: csCropK, fIssue: csIssueK || '' } : {})
+      /* goWindow used to be declared here as `csWinRec && openWindow(csWinRec.windowId)` and
+         was then overwritten further down by the windows block. Two definitions, one silently
+         dead. The surviving one navigates on LEGACY_CASE_ID — upstream's OWN declared edge,
+         filled 29/29 — instead of on the crop x issue guard. That guard exists to stop an
+         unconfirmed join from feeding DATES and STAGES onto this screen, which is a different
+         job from deciding where a link goes: IT-OPP-003 is portfolio-wide (cropKeys [],
+         issueKey null) so the guard can never pass, yet upstream declares IT-WIN-0029 as its
+         window. Navigation follows the declaration; facts still follow the guard. */
     };
     // ---- crop calendar · rolling canonical timeline · preparation clock
     /* §7 · THE ROW UNIVERSE MOVED. This screen used to draw 40 crop x region rows
@@ -3930,6 +3948,14 @@ class Component extends DCLogic {
     const wDeco = (w) => Object.assign({}, w, {
       go: () => this.openWindow(w.id),
       cropL: cl(w.crop), issueL: il(w.issue), statusL: wst(w.status),
+      /* MINOR 15 · `regulatory` is a raw model pass-through and its ACT_STATE is the
+         analyst's Portuguese working enum (measured values on this package: JA_NO_ACERVO,
+         PRIMARY_SOURCE_READ). Nothing in the markup binds it today — verified over the
+         whole template — but the raw string was the only act-state on the row, so a future
+         binding would have printed Portuguese. The localized reading now sits beside it
+         under a name a template would reach for. */
+      actStateL: w.regulatory ? actStateL(w.regulatory.actState) : '',
+      regulatoryActLabel: w.regulatory ? (w.regulatory.act + ' · ' + actStateL(w.regulatory.actState)) : '',
       /* open / days / remaining stay on the object because other blocks read them,
          but the STATE is upstream CURRENT_STATUS — presentation only counts days. */
       open: w.open === true,
@@ -4101,10 +4127,11 @@ class Component extends DCLogic {
     /* A narrative field is only shown when upstream approved a localized
        version. Otherwise the state is shown, never the raw research note. */
     const sgNar = (n) => (n && n.state === 'CLEAR') ? (s.lang === 'en' ? (n.en || n.it) : (n.it || n.en)) : null;
-    /* Only a narrative OBJECT declares a state. WHY_WATCH arrives as an array on the real
-       records, and `[]` is truthy, so the old test reported "internal reading, not approved
-       for display" for a field that had simply never been written — a state invented in
-       presentation. It must carry a `state` string to be reported. */
+    /* Only a narrative OBJECT declares a state. Measured, all ten narrative fields on the
+       3 real records do carry one — but `[]` and `''` are values this function was also
+       reachable with, and `[]` is truthy, which would have reported "internal reading, not
+       approved for display" for a field that had simply never been written. A state is
+       reported only when upstream actually wrote one. */
     const narState = (n) => (!n || typeof n.state !== 'string') ? null : n.state === 'CLEAR' ? null
       : n.state === 'NOT_ESTABLISHED' ? (T.notEstablished || 'non ancora stabilito')
       : (T.notApprovedForDisplay || 'lettura interna, non pubblicabile');
