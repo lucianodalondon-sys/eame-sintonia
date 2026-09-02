@@ -2786,11 +2786,6 @@ class Component extends DCLogic {
     dataStateTotals.indexRows = dataState.filter((r) => r.isIndex).reduce((a, r) => a + r.total, 0);
     dataStateTotals.notSummed = dataState.filter((r) => !r.inTotal && !r.isIndex).reduce((a, r) => a + r.total, 0);
     dataStateTotals.total = dataStateTotals.real + dataStateTotals.derived + dataStateTotals.demo;
-    /* The columns do not add up to the rows on screen, and saying so is the point:
-       the excluded rows keep their own numbers and are labelled one by one. */
-    dataStateTotals.note = EITHER(
-      dataStateTotals.total + ' righe sommate. Escluse dal totale: ' + dataStateTotals.notSummed + ' righe contenute o ricavate da altri livelli e ' + dataStateTotals.indexRows + ' righe di indice. Ogni riga esclusa resta in elenco con il proprio numero.',
-      dataStateTotals.total + ' rows summed. Excluded from the total: ' + dataStateTotals.notSummed + ' rows contained in or derived from other layers and ' + dataStateTotals.indexRows + ' index rows. Every excluded row stays listed with its own number.');
     dataStateTotals.layers = dataState.length;
     dataStateTotals.sourceLayers = dsInTotal.length;
     /* The footnote the markup still has to render (see the report): without it the
