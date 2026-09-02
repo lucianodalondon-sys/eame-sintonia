@@ -1,0 +1,581 @@
+[
+ {
+  "domain": "Opportunity Radar + Opportunity Detail (D.CASES, D.REGION_STATS, decorate(), Data-State panel)",
+  "summary": "Today the Opportunity Radar is 100% legacy fixture. `const CASES = D.CASES.map(c => this.decorate(c))` (portale.html:2515) turns 29 hand-authored demo cases into the default feed: 8 KPI tiles, the card grid, the 20-tile region map with per-region \"cases / +N signals\", and the full Opportunity Detail (hero, window bar, portfolio block, KNOW/WATCH, evidence bars, mini-map, competitor rows, action map, executive timeline, sources). Facts on that screen come from three different places and only one is real. The audited part is the CANONICAL layer: each demo case looks up its canonical window by LEGACY_CASE_ID and takes START_DATE, END_DATE, DATE_STATE, DATE_CONFIDENCE, CURRENT_STATUS, STATUS_REASON, CROP_STAGE_CLASS, ISSUE_STAGE_CLASS from it (italy-demo-data.js:243-273) — 29 windows, all PROVENANCE=EXPECTED_NORM, all SOURCE_IDS=[], all PRODUCT_MATCHES=[]. The portfolio strength classes are also real: italy-demo-data.js:280-311 calls ITALY_LABEL_VERDICTS.verdict(crop, issue, product) (12 VERIFIED, 7 NOT_FOUND, default LABEL_CHECK_NEEDED). Everything else on the card and the detail page — issue title, latin name, crop, region, `sub`, `cat`/category colour, products list, `primary`, happening, why, know[], watch[], timeline[], evidence{field,science,official,people,market}, evidenceTotal, evidenceLabel, origin, updated, adjacent[], source, competitors[], actions[], departments[] — is authored or generated inside italy-demo-data.js (competitors[] is literally built from a seeded PRNG, timeline[] is arithmetic on `origin`). The real backing is 3 records in ITALY_INGEST.OPPORTUNITIES.",
+  "realSource": "APP.collections.upstreamOpportunities — 3 records from ITALY_INGEST.OPPORTUNITIES (PROVENANCE REAL_DERIVED), enriched by APP.collections.windows (29 ITALY_CANONICAL windows, provenance CANONICAL/EXPECTED_NORM) for dates and status, by window.ITALY_LABEL_VERDICTS.verdict() for portfolio strength (currently NOT read by italy-app-model.js at all), and by AM.productByKey for product identity. Per-region numbers can only come from APP.collections.windows (9 regions, 29 windows). The 29 D.CASES become an explicit default-OFF demo collection (APP.collections.demoOpportunityScenarios, provenance DEMO_SCENARIO).",
+  "confidence": "high",
+  "occurrences": [
+   {
+    "file": "italy-app-model.js",
+    "line": 254,
+    "symbol": "D.CASES",
+    "snippet": "const opportunities = coll((D.CASES || []).map(c => { const w = windows.records.find(x => x.legacyCaseId === c.id) || null; const upstream = upstreamOppIds[String(c.id).toUpperCase()] || null; ...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "THE HEADLINE VIOLATION. APP.collections.opportunities — the collection the whole radar, the search index and the nav count are built on — is the 29 demo cases. Every fact on the card (issue, crop, region, latin, products, primary, evidence, origin) is a fixture value. Measured: counts.opportunities = 29, of which only 3 carry isUpstreamReal, and one of those 3 is a false positive (see line 252).",
+    "replacement": "const opportunities = coll((IG.OPPORTUNITIES || []).map(mapUpstreamOpportunity), P.REAL_SOURCE, 'upstream opportunity candidates; the only real radar feed'); — i.e. opportunities becomes an alias of the enriched upstreamOpportunities. The 29 D.CASES move to a new, separately-named collection: const demoOpportunityScenarios = coll((D.CASES||[]).map(c => Object.assign({}, c, { provenance: P.DEMO_SCENARIO, isDemoScenario: true })), P.DEMO_SCENARIO, 'presentation scenarios; OFF by default, never counted')."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 252,
+    "symbol": "upstreamOppIds / D.CASES join",
+    "snippet": "const upstreamOppIds = {}; (IG.OPPORTUNITIES || []).forEach(o => { upstreamOppIds[String(o.ID || o.id || '').toUpperCase()] = o; }); ... const upstream = upstreamOppIds[String(c.id).toUpperCase()] || null;",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "MEASURED BUG, not just a legacy read. The join keys IG.OPPORTUNITIES.ID (IT-OPP-001..003) against D.CASES.id (IT-OPP-001..029). Those are two unrelated id spaces that happen to collide on the first three values. IG.OPPORTUNITIES carries its own LEGACY_CASE_ID = IT-HERO-001..003, and the string 'IT-HERO' appears nowhere in italy-demo-data.js, italy-canonical-windows.js or portale.html (grep count 0 in all three). Result measured at runtime: demo case IT-OPP-003 (Durum Wheat / Fusarium Head Blight / Toscana) is flagged isUpstreamReal and attached to upstream IT-OPP-003, whose TITLE is 'Portfolio ADAMA Italia (transversal, nao e uma cultura) x Calendario de vencimento das autorizacoes'. A demo Fusarium case is currently labelled real and bound to an authorisation-expiry record. Cases 001 and 002 happen to agree by content, which is luck, not a key.",
+    "replacement": "DELETE the join entirely. Once opportunities IS upstreamOpportunities there is nothing to join. If a demo scenario ever needs to point at a real record, key on IG.OPPORTUNITIES[i].LEGACY_CASE_ID and accept that it currently matches nothing."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 102,
+    "symbol": "D.CASES",
+    "snippet": "(D.CASES || []).forEach(c => (c.productLinks || []).forEach(l => { const e = byName[norm(l.name)]; if (e) e.links.push({ crop: c.crop, issue: c.issue, region: c.region, caseId: c.id, strength: l.strength }); }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is the ONLY thing that populates product.links, and therefore product.verifiedLinks / checkNeededLinks / relatedLinks / rejectedLinks and AM.strengthFor(). Those feed the Portfolio screen and the case portfolio block. The strength value itself is real (it came from LV.verdict inside italy-demo-data.js:281), but the crop/issue/region/caseId tuple attached to it is demo. Product-relationship is on the §2 forbidden-from-demo list.",
+    "replacement": "Read ITALY_LABEL_VERDICTS directly — italy-app-model.js does not touch it today. Replace with: const LV = window.ITALY_LABEL_VERDICTS || {}; (LV.VERIFIED||[]).forEach(([crop,issue,prod]) => { const e = byName[norm(prod)]; if (e) e.links.push({ crop, issue, region: null, caseId: null, strength: 'VERIFIED_LABEL_MATCH', source: 'LABEL_AUDIT' }); }); (LV.NOT_FOUND||[]).forEach(([crop,issue,prod]) => { const e = byName[norm(prod)]; if (e) e.links.push({ crop, issue, region: null, caseId: null, strength: 'NO_CONFIRMED_MATCH_CURRENT_READING', source: 'LABEL_AUDIT' }); }); Then additionally push a LABEL_CHECK_NEEDED link for each name in IG.OPPORTUNITIES[i].ADAMA_PRODUCTS not already covered. Measured: this yields 12 verified + 7 rejected links against 166 products, versus 80 links today."
+   },
+   {
+    "file": "portale.html",
+    "line": 2515,
+    "symbol": "D.CASES",
+    "snippet": "const CASES = D.CASES.map(c => this.decorate(c));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The single root of the whole domain. Everything downstream (filtered, visibleCases, cs0, fieldCases, search 'OPPORTUNITY CASES', source-detail cases, evidence-detail cases) reads this const. 29 demo rows presented as the real radar.",
+    "replacement": "const APPO = APP0 ? APP0.opportunities.records : []; const CASES = APPO.map(o => this.decorateOpportunity(o)); and, gated: const DEMO_CASES = s.showScenarios ? (APP0.demoOpportunityScenarios.records).map(c => this.decorate(c)) : []; — note state.showScenarios already exists at portale.html:2384 and defaults to false, so the default-OFF switch is already there."
+   },
+   {
+    "file": "portale.html",
+    "line": 2544,
+    "symbol": "CASES (derived from D.CASES)",
+    "snippet": "let filtered = CASES.filter(c => (!s.fCrop || c.crop === s.fCrop) && ... && (!s.fProduct || c.products.includes(s.fProduct)) && (!s.fDept || c.departments.includes(s.fDept)));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Filters on c.products (demo array) and c.departments (generated from ACTIONS[c.cat] in italy-demo-data.js:313-314). Real opportunities have ADAMA_PRODUCTS in only 1 of 3 records and have no department field at all.",
+    "replacement": "filtered = CASES.filter(c => (!s.fCrop || c.crop === s.fCrop) && (!s.fIssue || c.issue === s.fIssue) && (!s.fRegion || c.regionKeys.includes(s.fRegion)) && (!s.fStatus || c.status === s.fStatus) && (!s.fProduct || c.adamaProducts.includes(s.fProduct))); DROP the fDept clause and the department filter control — no real field backs it."
+   },
+   {
+    "file": "portale.html",
+    "line": 2546,
+    "symbol": "CASES (derived)",
+    "snippet": "const sorters = { relevant: ... a.st.rank - b.st.rank || a.evidenceTotal ..., closing: (a,b) => (a.windowOpen ? a.we : 999 + a.ws) - ..., newest: (a,b) => a.updated - b.updated, ... }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "'relevant' sorts by evidenceTotal, which is the sum of the invented evidence{} object. 'newest' sorts by c.updated, an invented days-ago integer. 'closing' sorts by c.ws/c.we, demo day offsets. None of the three exists on a real opportunity.",
+    "replacement": "Keep only sorts that real fields support: 'closing' -> compare canonical window daysToEnd/daysToStart where a canonical window is bound, nulls last; 'crop' and 'region' -> string compare on the real CROP / REGION; and add 'freshness' -> WHAT_IS_HAPPENING.FRESHNESS_DAYS (present 3/3: 17, 18, 6). DELETE the 'relevant' and 'newest' options from the select at portale.html:189."
+   },
+   {
+    "file": "portale.html",
+    "line": 2547,
+    "symbol": "CASES (derived)",
+    "snippet": "const visibleCases = s.showAll ? filtered : filtered.slice(0, 12);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Slices to 12. With 3 real records the 'VIEW ALL 29 OPPORTUNITIES' affordance and the 12-card page are meaningless.",
+    "replacement": "const visibleCases = filtered; canShowAll: false. Keep the button only when scenario mode is on."
+   },
+   {
+    "file": "portale.html",
+    "line": 2557,
+    "symbol": "D.KPI (K)",
+    "snippet": "const K = D.KPI;  ... kpiDef = [[K.total, ...], [K.windowOpen, ...], [K.nextCycle, ...], [K.dateUnknown, ...], [K.windowClosed, ...], [K.matches, ...], [K.links, ...], [K.movements, ...]]",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Measured D.KPI = {total:29, windowOpen:6, windowClosed:16, nextCycle:2, dateUnknown:5, matches:13, links:80, movements:43, ...}. total 29 is the demo case count. The four status buckets are the 29 canonical windows' CURRENT_STATUS, so they are real but they count WINDOWS, not opportunities. matches:13 and links:80 come from the demo productLinks. movements:43 comes from D.ACTIVITIES (72 demo rows) not the 503 real COMP_ACTIVITIES.",
+    "replacement": "kpiDef = [[AM.counts.opportunities /* = 3 */, t.kpiTotal, ...], then the four status tiles fed from AM.collections.windows.records filtered by .status (measured: WINDOW_OPEN 6, WINDOW_CLOSED 16, NEXT_CYCLE 2, DATE_UNKNOWN 5 — relabel the tiles 'finestre canoniche' so the denominator is honest), then [LV.verifiedCount /* 12 */, t.kpiVerified], then [LV.verifiedCount + LV.notFoundCount + pendingChecks, t.kpiLinks], then [AM.counts.competitorActivities /* 503 */, t.kpiMovements]]."
+   },
+   {
+    "file": "portale.html",
+    "line": 2564,
+    "symbol": "D.REGION_STATS",
+    "snippet": "const regionTiles = D.REGION_STATS.map(r => Object.assign({}, r, { gc: r.col + 1, gr: r.row + 1, go: () => this.radarWith({ fRegion: r.name }) }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "MIXED, and the split matters. name/col/row/short/gc/gr are pure layout (VISUAL_ONLY, §4). r.cases and r.signals are facts. Measured: r.cases summed = 29 and reproduces the canonical-window-per-region count EXACTLY (Veneto 6, Puglia 6, Emilia-Romagna 4, Lombardia 3, Piemonte 3, Sicilia 3, Toscana 2, FVG 1, Trentino-Alto Adige 1, all others 0) — so cases is DERIVABLE_FROM_REAL. r.signals summed = 56, which is D.SIGNALS, the DEMO_SCENARIO future-scenario feed. Real futureSignals = 3 and their REGION values measure as 'NAO SEI' x2 and 'UE' x1 — zero regional attribution exists. r.color/border/textColor/active are driven by those invented numbers, so the map's colour is a fact claim.",
+    "replacement": "const REGION_GRID = D.REGION_STATS.map(r => ({ name: r.name, short: r.short, gc: r.col + 1, gr: r.row + 1 })); /* layout only, allowed under §4 — move to APP.ui.regionGrid */ const winByRegion = {}; AM.collections.windows.records.forEach(w => { if (w.region) winByRegion[w.region] = (winByRegion[w.region]||0) + 1; }); const regionTiles = REGION_GRID.map(r => { const n = winByRegion[r.name] || 0; return Object.assign({}, r, { windows: n, active: n > 0, color: n ? '#00783F' : 'rgba(255,255,255,0.05)', border: n ? '#00783F' : 'rgba(255,255,255,0.10)', textColor: n ? '#fff' : '#B1A9A7', go: () => this.radarWith({ fRegion: r.name }) }); }); — and DELETE r.signals."
+   },
+   {
+    "file": "portale.html",
+    "line": 2565,
+    "symbol": "D.REGION_STATS (derived)",
+    "snippet": "const regionRank = regionTiles.filter(r => r.cases > 0).sort((a, b) => b.cases - a.cases || b.signals - a.signals).slice(0, 7);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The '+N signals' column rendered at portale.html:265 is the invented per-region signal count; the tiebreak sort is also driven by it.",
+    "replacement": "const regionRank = regionTiles.filter(r => r.windows > 0).sort((a, b) => b.windows - a.windows || a.name.localeCompare(b.name)).slice(0, 9); and delete the '+{{ r.signals }} signals' span from the markup."
+   },
+   {
+    "file": "portale.html",
+    "line": 2615,
+    "symbol": "CASES (derived from D.CASES)",
+    "snippet": "const cs0 = CASES.find(c => c.id === s.caseId) || CASES[1];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The Opportunity Detail entity. Today a radar card opens a D.CASES row. The fallback `|| CASES[1]` silently renders demo case IT-OPP-002 when the id is unknown, so a bad deep link shows a fabricated case as if it were real.",
+    "replacement": "const cs0 = CASES.find(c => c.id === s.caseId) || (s.showScenarios ? DEMO_CASES.find(c => c.id === s.caseId) : null) || CASES[0] || null; and wrap the whole isCase block in an sc-if on a new prop hasCase so nothing renders when null."
+   },
+   {
+    "file": "portale.html",
+    "line": 2617,
+    "symbol": "cs0.actions / cs0.departments",
+    "snippet": "deptChips: cs0.actions.filter(a => cs0.departments.includes(a.dept)).map(a => ({ dept: a.dept, deptLabel: a.dept, color: a.color, soft: a.soft })),",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "actions[] is built in italy-demo-data.js:313 from a static ACTIONS[c.cat] table with {crop}/{product} string substitution; departments[] is the subset whose `when` is NOW/48H. It is an internal-org recommendation, i.e. exactly the kind of private-workflow content §1 keeps out of the external core, and it has no upstream field.",
+    "replacement": "DELETE_COMPONENT — remove deptChips, cs.actions, the Action map panel and the whole Brief flow's dependence on it. INTERPRETATIONS[] (3/3 real, 2 entries each) is the honest replacement content for 'what this means'."
+   },
+   {
+    "file": "portale.html",
+    "line": 2618,
+    "symbol": "cs0.evidence",
+    "snippet": "evChips: Object.entries(cs0.evidence).map(([k, v]) => ({ k: L(k.toUpperCase()), v, go: () => this.archiveWith({ aCase: cs0.id }) })),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "cs0.evidence is a hand-typed object {field,science,official,people,market} on every one of the 29 cases (e.g. IT-OPP-001 {field:4,science:6,official:4,people:3,market:2}). It is an invented source-convergence count, forbidden by §2 ('source count', 'evidence').",
+    "replacement": "SHOW_UNKNOWN or DELETE_COMPONENT. Real opportunities have no per-channel evidence counts. The only real convergence numbers are per-record and heterogeneous: SCIENCE_CONTEXT.GRAPEVINE_PHYTOPLASMA_WORKS 135 / SCAPHOIDEUS_TITANUS_WORKS 66 (opp 001), OSTRINIA_WORKS 30 / DIABROTICA_WORKS 11 / MAIZE_MYCOTOXIN_WORKS 208 with BRIDGE_TESTED='THIN_EVIDENCE' (opp 002), STATE='NOT_APPLICABLE' (opp 003). Render those as named labelled numbers, not as five uniform bars."
+   },
+   {
+    "file": "portale.html",
+    "line": 2619,
+    "symbol": "cs0.evidence",
+    "snippet": "evBars: Object.entries(cs0.evidence).map(([k, v]) => ({ k, v, pct: Math.min(100, v * 14) + '%', color: {...}[k], go: ... })),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Same invented object rendered as a five-row bar chart at portale.html:420-422, with the demo string cs.source printed underneath as the attribution.",
+    "replacement": "DELETE_COMPONENT. Replace the panel body with SOURCE_IDS (3/3 real) resolved against AM.collections.sources."
+   },
+   {
+    "file": "portale.html",
+    "line": 2620,
+    "symbol": "cs0.windowOpen / cs0.we / cs0.ws",
+    "snippet": "bigNumber: cs0.windowOpen ? cs0.we : cs0.ws > 0 ? cs0.ws : '—', bigLabel: ...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "cs0.we and cs0.ws are demo day-offsets from the fixture seed (e.g. ws:-10, we:20 on IT-OPP-001) and are NOT the canonical window dates — the canonical dates land in windowStart/windowEnd. So the 44px hero number is a fixture integer.",
+    "replacement": "Compute from the canonical window only: bigNumber = w ? (w.status === 'WINDOW_OPEN' ? w.daysToEnd : w.daysToStart > 0 ? w.daysToStart : null) : null, with bigLabel falling back to t.notObservable when null. §7: never invent the state — take w.status verbatim."
+   },
+   {
+    "file": "portale.html",
+    "line": 2625,
+    "symbol": "D.REGION_STATS",
+    "snippet": "miniMap: D.REGION_STATS.map(r => ({ name: r.name, gc: r.col + 1, gr: r.row + 1, fill: r.name === cs0.region ? cs0.category.color : cs0.adjacent.includes(r.name) ? cs0.category.color + '55' : '...', ... }))",
+    "classification": "VISUAL_ONLY",
+    "reason": "The grid geometry (name/col/row) is pure layout and carries no fact — it does not read r.cases or r.signals. BUT the fill logic reads cs0.adjacent, a hand-authored 'validate next' region list on every demo case (§2 forbids region and interpretation from a fixture). So the tile positions are VISUAL_ONLY; the adjacency shading is not.",
+    "replacement": "miniMap: APP.ui.regionGrid.map(r => ({ name: r.name, gc: r.gc, gr: r.gr, fill: cs0.regionKeys.includes(r.name) ? '#00783F' : 'rgba(255,255,255,0.05)', stroke: cs0.regionKeys.includes(r.name) ? '#00783F' : 'rgba(255,255,255,0.08)', go: () => this.radarWith({ fRegion: r.name }) })) — highlight ONLY regions parsed out of the real REGION string; drop the adjacency tint."
+   },
+   {
+    "file": "portale.html",
+    "line": 2627,
+    "symbol": "D.SOURCES + cs0.region/cs0.crop",
+    "snippet": "sourceRows: D.SOURCES.filter(x => (x.cov === 'Italy' || x.cov.includes(cs0.region)) && (x.topics.includes('All crops') || x.topics.includes(cs0.crop))).slice(0, 5)...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Reads the demo source registry and matches on demo cov/topics scope fields (italy-app-model.js:202 already warns these are factual scope fields that must not be inherited from a fixture). AM.collections.sources has 31 real rows.",
+    "replacement": "sourceRows: cs0.sourceIds.map(id => AM.collections.sources.records.find(s => s.sourceId === id)).filter(Boolean).map(x => ({ ...x, go: () => this.openSource(x.id) })) — measured: all 9 SOURCE_IDS across the 3 opportunities resolve against IG.SOURCES.ID. Caveat to surface: all three opportunities carry the IDENTICAL triple [IT-SRC-MINISTERO, IT-SRC-PIEMONTE, IT-SRC-OPENALEX], so this panel will show the same 3 rows on all 3 cases. The sharper per-record pointer WHAT_IS_HAPPENING.SOURCE_ID does NOT resolve (measured: 'IT-T3-002', 'IT-T3-006 (ERSA FVG)', 'IT-T4-001' — 0 of 3 present in IG.SOURCES) so render it as free text, never as a link."
+   },
+   {
+    "file": "portale.html",
+    "line": 2632,
+    "symbol": "cs0.competitors",
+    "snippet": "competitors: cs0.competitors.map(k => Object.assign({}, k, { go: () => this.openCompany(k.company) })),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Built in italy-demo-data.js:317 as `[0,1,2].map(k => { const co = COMPANIES[(i + k*3) % COMPANIES.length]; const items = 1 + Math.floor(seed(i*7+k)*4); ... days: 1 + Math.floor(seed(i*11+k)*12), type: pick([...]) })`. Company, item count, recency and activity type are all seeded-PRNG output rendered as observed competitor activity — the most severe fabrication in the domain.",
+    "replacement": "DELETE the fixture and derive from the 503 real records: AM.collections.competitorActivities.records.filter(a => cropMatches(a.crops, cs0.cropKeys)), grouped by company. WARNING (measured): the crop vocabularies do not overlap. COMP_ACTIVITIES.crops uses Latin/Italian ('Vitis vinifera' 42, 'Zea mays' 67, 'Olea europaea' 24, 'colture' 59, 'cereali' 24) while the opportunity CROP is Portuguese ('Videira', 'Milho grao'). This requires an explicit synonym table in italy-app-model.js. If that table is not built, SHOW_UNKNOWN rather than an empty list that reads as 'no competitor activity'."
+   },
+   {
+    "file": "portale.html",
+    "line": 2637,
+    "symbol": "cs0.realObs",
+    "snippet": "hasRealObs: !!cs0.realObs, realObsText: cs0.realObs ? cs0.realObs.text : '', realObsSource: cs0.realObs ? cs0.realObs.source : ''",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "REAL_OBS is a 9-entry lookup literal in italy-demo-data.js:235 keyed by demo case id and stamped provenance:'REAL_FACT'. The strings are plausible real observations but they live in the demo fixture, are not in ITALY_INGEST, and italy-demo-data.js:237 also does `c.evidence.official += 1` — a fixture incrementing a fact counter. It is also the ONLY thing labelled 'Real observation' on the screen.",
+    "replacement": "Replace with the real WHAT_IS_HAPPENING object (3/3 populated): realObsText = o.WHAT_IS_HAPPENING.CONTENT, realObsSource = o.WHAT_IS_HAPPENING.DOCUMENT, plus observationDate = OBSERVATION_DATE and freshnessDays = FRESHNESS_DAYS. Delete the REAL_OBS literal and its evidence.official mutation."
+   },
+   {
+    "file": "portale.html",
+    "line": 2938,
+    "symbol": "D.WINDOWS / winFor",
+    "snippet": "const winFor = (caseId) => D.WINDOWS.find(w => w.caseId === caseId); cs.goWindow = () => this.openWindow(winFor(cs0.id).id);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Unguarded — winFor() returns undefined for any id that is not one of the 29 demo cases, so this throws the moment a real opportunity id (IT-OPP-001 as an upstream record, or any future id) reaches it.",
+    "replacement": "cs.goWindow = () => { const w = cs0.canonicalWindow; if (w) this.openWindow(w.windowId); }; cs.hasWindow = !!cs0.canonicalWindow; and wrap the ORIGIN/VIEW WINDOW tile (portale.html:315) in sc-if hasWindow."
+   },
+   {
+    "file": "portale.html",
+    "line": 2396,
+    "symbol": "D.CASES",
+    "snippet": "const hit = D.CASES.map(c => ({ c, score: (t.includes(c.issue.toLowerCase().split(' ')[0]) ? 3 : 0) + (t.includes(c.crop.toLowerCase()) ? 2 : 0) + (t.includes(c.region.toLowerCase()) ? 2 : 0) + (c.latin.toLowerCase()...) })).sort(...)[0];",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "parseField() is the Field Sales inbound-message demo. §5 permits it as a labelled demo mode, and it never feeds a real count. It reads c.issue/c.crop/c.region/c.latin as a keyword dictionary only.",
+    "replacement": "KEEP, but re-point at the demo collection so it does not break: `const CANDIDATES = (this.M() && this.M().collections.demoOpportunityScenarios.records) || [];`. Its `caseObj` result must open a scenario, never a real opportunity."
+   },
+   {
+    "file": "portale.html",
+    "line": 2580,
+    "symbol": "D.CASES",
+    "snippet": "const kase = D.CASES.find(c => c.id === a.caseId); const prods = kase ? (kase.products || []) : []; ... adamaResponse: prods.length ? 'VERIFIED PORTFOLIO RESPONSE' : 'NO CONFIRMED DIRECT RESPONSE'",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Inside actDeco (competitor domain, but a D.CASES read). It converts the demo case's product array into the string 'VERIFIED PORTFOLIO RESPONSE' on a competitor activity card — a portfolio-match claim (§2) built from a fixture, and it violates §10 by printing 'NO CONFIRMED DIRECT RESPONSE' whenever the fixture list is empty.",
+    "replacement": "Route through the label audit instead: const verdicts = (a.crops||[]).flatMap(cr => (a.issues||[]).map(is => LV.verdict(mapCrop(cr), mapIssue(is), null))); if nothing resolves, render t.PSTATE.LABEL_CHECK_NEEDED — never 'NO CONFIRMED DIRECT RESPONSE'. Coordinate with the competitor-domain owner."
+   },
+   {
+    "file": "portale.html",
+    "line": 2665,
+    "symbol": "D.CASES (x2)",
+    "snippet": "const kase = D.CASES.find(c => c.crop === cropName && c.region === region && c.issue === calObj.issue) || D.CASES.find(c => c.crop === cropName && c.region === region);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "coreFor() in the Crop Windows calendar. `kase` is carried into the row and later used at portale.html:2861 (deptPlan brief link), :2863 (genBrief) and :2860 (sources: dw0.kase.source — a demo attribution string printed as a source). A demo case is supplying the source line of a calendar row.",
+    "replacement": "kase: null. Bind the calendar row to the canonical window instead: AM.collections.windows.records.find(w => w.crop === cropName && w.region === region && w.issue === calObj.issue). Delete the `dw0.kase.source` entry from the sources array at :2860 and the two brief callbacks."
+   },
+   {
+    "file": "portale.html",
+    "line": 2687,
+    "symbol": "D.CASES (x2)",
+    "snippet": "const calCatColor = D.CASES.find(c => c.issue === cal.issue) ? D.CASES.find(c => c.issue === cal.issue).category.color : '#9D1D96';",
+    "classification": "VISUAL_ONLY",
+    "reason": "Only reads .category.color — a hex string used to tint the calendar header. Carries no fact: no crop, date, status or evidence flows from it, and the fallback '#9D1D96' proves the screen works without it. Allowed under §4.",
+    "replacement": "KEEP as-is, or move the issue->colour map to APP.ui.issueColor to remove the last D.CASES import from this line. No behaviour change either way."
+   },
+   {
+    "file": "portale.html",
+    "line": 2818,
+    "symbol": "D.CASES (x2)",
+    "snippet": "const kase = D.CASES.find(c => c.crop === k && c.issue === cfg.issue) || D.CASES.find(c => c.crop === k); const cat = kase ? kase.category : D.CAT.disease;",
+    "classification": "VISUAL_ONLY",
+    "reason": "Result is used only as `cat` -> accent/ink colours for the crop selector buttons (the surrounding lines compute LIFT/accent/ink). The window state and day counts on the same button come from `best`, which is coreFor()/canonical, not from kase. No fact crosses.",
+    "replacement": "KEEP. Optional cleanup: const cat = APP.ui.cropCategory[k] || D.CAT.disease."
+   },
+   {
+    "file": "portale.html",
+    "line": 2946,
+    "symbol": "D.CASES",
+    "snippet": "const mCases = D.CASES.filter(c => c.crop === mc.crop); const mProducts = [...new Set(mCases.map(c => c.products).reduce((a,b)=>a.concat(b),[]))].slice(0, 8).map(n => ({ name: n, targets: D.PRODUCTS[n] ? ... }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "On the Market screen this prints an ADAMA product list 'for this crop' assembled from demo case product arrays, and the target text from D.PRODUCTS. That is a product-crop relationship claim (§2, §8) sourced from a fixture.",
+    "replacement": "mProducts = AM.products.filter(p => p.regulatory && (p.regulatory.crops||[]).some(cr => cropMatches(cr, mc.crop))).slice(0, 8).map(p => ({ name: p.name, targets: (p.targets||[]).slice(0,2).join(' · '), go: () => this.openProduct(p.name) })) — IG.PRODUCTS[163] carries real `crops` and `targets`."
+   },
+   {
+    "file": "portale.html",
+    "line": 3169,
+    "symbol": "D.CASES",
+    "snippet": "const kase = D.CASES.find(c => c.crop === cr); const prods = kase ? (kase.products || []) : [];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "compMoments on the Competitor screen. Same fixture-sourced portfolio claim as line 2580. Strictly the competitor owner's line, flagged here because it is a D.CASES read.",
+    "replacement": "Same as line 2580 — derive from AM.products + ITALY_LABEL_VERDICTS, or omit the ADAMA-response line on that card."
+   },
+   {
+    "file": "portale.html",
+    "line": 3130,
+    "symbol": "CASES (derived)",
+    "snippet": "const fieldCases = CASES.filter(c => allMessages.some(m => m.caseId === c.id)).map(c => Object.assign({}, c, { fieldCount: ..., evChips: Object.entries(c.evidence)... }))",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "The Field Sales screen is a permitted labelled demo (§5). It pairs D.FIELD_MESSAGES (18 demo rows) with demo cases and re-renders the invented evidence chips.",
+    "replacement": "KEEP, but point it at demoOpportunityScenarios so the demo stays self-contained and cannot mix a demo message into a real opportunity: CASES -> APP.collections.demoOpportunityScenarios.records. Also remove the `fieldMessages` / `fieldCount` / `noField` block from the REAL opportunity detail (portale.html:402-408) — a demo inbox must not appear on a real record."
+   },
+   {
+    "file": "portale.html",
+    "line": 3183,
+    "symbol": "CASES (derived)",
+    "snippet": "cases: CASES.filter(c => evd0.crops.includes(c.crop) || evd0.region === c.region).slice(0, 4)",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Evidence-detail 'related cases' panel — presents demo cases as connected evidence.",
+    "replacement": "CASES (the new real feed). With 3 records this will usually be empty; render the empty state as 'NON OSSERVABILE DA FONTI ESTERNE' rather than hiding the panel silently."
+   },
+   {
+    "file": "portale.html",
+    "line": 3369,
+    "symbol": "CASES (derived)",
+    "snippet": "cases: CASES.filter(c => (sr0.cov === 'Italy' || sr0.cov === 'EU' || sr0.cov.includes(c.region)) && (sr0.topics.includes('All crops') || sr0.topics.includes(c.crop))).slice(0, 6)",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Source-detail 'cases this source feeds'. Matches demo cases on demo cov/topics — a source-coverage claim built entirely from the fixture.",
+    "replacement": "cases: CASES.filter(c => c.sourceIds.includes(sr0.sourceId)) — an exact, traceable reverse index over the real SOURCE_IDS."
+   },
+   {
+    "file": "portale.html",
+    "line": 3377,
+    "symbol": "CASES (derived)",
+    "snippet": "sgp('OPPORTUNITY CASES', '#009845', CASES.filter(c => match(c.issue + ' ' + c.crop + ' ' + c.region + ' ' + c.latin + ' ' + c.products.join(' '))).map(...))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Global search returns 29 demo cases under a heading that reads as real. AM.searchIndex (309 entries) has the same problem at italy-app-model.js:300, which indexes opportunities.records.",
+    "replacement": "Point at the real feed and drop c.latin (no real field). italy-app-model.js:300 becomes: opportunities.records.forEach(c => idx('case', c.id, c.title, [c.title, c.issue, c.crop, c.region, c.id], 'case')); measured effect: searchIndex drops from 309 to 283 entries."
+   },
+   {
+    "file": "portale.html",
+    "line": 2425,
+    "symbol": "decorate(c)",
+    "snippet": "decorate(c) { const col = c.category.color; ... return Object.assign(c, { wsLabel, weLabel, cropL, statusL, ..., bg: c.category.dark, borderCol: `${col}66`, catLabel: ..., hasField: c.fieldCount > 0, progressPct: c.progress + '%', primaryLabel: c.primary || ..., productLinksL: (c.productLinks||[]).map(...) }); }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Two defects, not one. (a) It hard-requires demo-only fields: c.category (throws on line 1 for any record without it), c.st, c.progress, c.fieldCount, c.windowLine, c.productLinks, c.primaryAi, c.portfolioState, c.cat. A real opportunity has none of them. (b) `Object.assign(c, ...)` MUTATES the input record in place rather than returning a copy — with a shared AM.collections array that writes presentation labels back into the model on every render, and the comment at portale.html:2516 confirms this is called per render.",
+    "replacement": "Add a SECOND method decorateOpportunity(o) that returns a NEW object (never Object.assign onto o), reads only real fields, and defaults every visual to APP.ui: { ...o, ui: o.ui || APP.ui.defaultCard, statusLabel: wst(o.status), catLabel: issueTypeLabel(o.issueType), open: () => this.openCase(o.id) }. Keep decorate() unchanged for demoOpportunityScenarios, but change its first line to `const cat = (c.category) || D.CAT.disease;` so it cannot throw."
+   },
+   {
+    "file": "portale.html",
+    "line": 2526,
+    "symbol": "D.ACTIVITIES / D.ARCHIVE / ITALY_CANONICAL.total (Data-State panel)",
+    "snippet": "const dataState = [ { layer: 'Crop windows', real: 0, derived: (window.ITALY_CANONICAL ? window.ITALY_CANONICAL.total : 0), demo: 0, ... }, { layer: 'Competitor', real: cnt(D.ACTIVITIES, a => !a.isDemo), derived: 0, demo: cnt(D.ACTIVITIES, a => a.isDemo) }, { layer: 'Archive', real: cnt(D.ARCHIVE, ...) }, ... ]",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The Data-State panel is the honesty instrument and it is itself hand-written and wrong. It has SIX hard-coded rows while AM.provenanceSummary already computes real/demo per collection for all 20 collections. Measured discrepancies: Competitor reads D.ACTIVITIES (72 demo rows) instead of the 503 real COMP_ACTIVITIES; Archive reads D.ARCHIVE instead of the 740-row real archive index; and there is NO ROW AT ALL for opportunities — the panel never discloses that the radar's 29 cards are demo. Any migration that does not fix this panel leaves the user with a green audit over a demo screen.",
+    "replacement": "const dataState = AM.provenanceSummary.filter(r => DISPLAY_LAYERS[r.layer]).map(r => ({ layer: T['ds_' + r.layer] || r.layer, real: r.real, derived: 0, demo: r.demo, note: r.note, total: r.total })); — and make sure `opportunities` and `demoOpportunityScenarios` are both in DISPLAY_LAYERS so the 3-vs-29 split is visible."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "opportunities (REDEFINED — becomes the real feed)",
+    "why": "The default radar feed must be the 3 upstream records, fully normalized so the view is dumb. Every field below is measured present in all 3 records unless a count is given.",
+    "fields": [
+     "id  <- o.ID  (3/3: IT-OPP-001..003)",
+     "legacyCaseId <- o.LEGACY_CASE_ID (3/3: IT-HERO-001..003; matches nothing in the app today — do not join on it)",
+     "title <- o.TITLE (3/3)",
+     "crop <- o.CROP (3/3, free text, Portuguese)",
+     "cropKeys <- explicit synonym map from CROP to the SCIENCE/VOICES vocabulary (VINE|MAIZE|DURUM_WHEAT) and the canonical English (Grapevine|Maize); opp 003 CROP is 'Portfolio ADAMA Italia (transversal, nao e uma cultura)' and maps to NO crop — must resolve to []",
+     "issue <- o.ISSUE (3/3)",
+     "issueType <- o.ISSUE_TYPE (3/3: 'FITOPLASMA', 'PEST', 'NAO SEI' — the literal string 'NAO SEI' must render as t.notKnown, never as a category)",
+     "region <- o.REGION (3/3, compound free text: 'Veneto (principal) + Lombardia', 'Friuli-Venezia Giulia (sinal) · vale do Po (escala)', 'Italia (nacional)')",
+     "regionKeys <- regions parsed out of REGION against the 20 canonical names, with the qualifier preserved separately; measured yields ['Veneto','Lombardia'], ['Friuli-Venezia Giulia'], [] (national)",
+     "caseLabel <- o.CASE_LABEL (3/3, all 'CONVERGENCIA QUE MERECE INVESTIGACAO')",
+     "forbiddenLabel <- o.FORBIDDEN_LABEL (3/3) — must be rendered, it is the record telling the UI not to call it an opportunity",
+     "happening <- o.WHAT_IS_HAPPENING.CONTENT (3/3)",
+     "happeningDocument <- o.WHAT_IS_HAPPENING.DOCUMENT (3/3)",
+     "happeningState <- o.WHAT_IS_HAPPENING.STATE (3/3, all 'CURRENT_SIGNAL')",
+     "observationDate <- o.WHAT_IS_HAPPENING.OBSERVATION_DATE (3/3: 2026-08-13, 2026-08-12, 2026-08-24)",
+     "freshnessDays <- o.WHAT_IS_HAPPENING.FRESHNESS_DAYS (3/3: 17, 18, 6) — the only honest replacement for the invented `updated`",
+     "observedStage <- o.WHAT_IS_HAPPENING.OBSERVED_STAGE (1/3 — only opp 002, 'maturazione lattea a fisiologica — BBCH 65-75')",
+     "whyMandatory <- o.WHY_IT_MATTERS.MANDATORY (3/3 boolean: true, false, false)",
+     "whyNote <- o.WHY_IT_MATTERS.NOTE (2/3) plus the per-region regulatory strings LOMBARDIA/VENETO/BASIS (opp 001 only)",
+     "currentEvidence <- o.CURRENT_EVIDENCE (3/3, string arrays of 4/4/3) — NOTE: measured byte-identical to WHAT_WE_KNOW on all 3 records, so render ONE of them, not both",
+     "whatWeDoNotKnow <- o.WHAT_WE_DO_NOT_KNOW (3/3, 5/3/3 entries)",
+     "interpretations <- o.INTERPRETATIONS (3/3, 2 entries each)",
+     "adamaProducts <- o.ADAMA_PRODUCTS (1/3 non-empty: 6 names on opp 001, [] on 002 and 003 — all 6 resolve in AM.productByKey)",
+     "adamaActiveSubstance <- o.ADAMA_ACTIVE_SUBSTANCE (1/3: 'TAU-FLUVALINATE')",
+     "productLinks <- adamaProducts.map(p => ({ name: p, strength: LV.verdict(cropEN, issueEN, p) })) — REQUIRES the crop/issue synonym map; with the raw Portuguese values all 6 return LABEL_CHECK_NEEDED, with the mapped English ('Grapevine','Flavescenza Dorata') it returns 2 VERIFIED (EVURE PRO, MAVRIK SMART) + 4 LABEL_CHECK_NEEDED",
+     "windowApplication <- o.WINDOW.APPLICATION (3/3: CLOSED_FOR_2026, OPEN_BUT_NARROW, NOT_APPLICABLE)",
+     "windowMonitoring <- o.WINDOW.MONITORING (3/3, all OPEN)",
+     "windowNextCycle <- o.WINDOW.NEXT_CYCLE (3/3: TO_BE_CONFIRMED, ANCHORED_BY_SOURCE, NOT_APPLICABLE)",
+     "status <- windowApplication mapped to the canonical bucket vocabulary; §7 forbids inventing it, so map only where the mapping is 1:1 and emit DATE_UNKNOWN otherwise",
+     "canonicalWindow <- best-effort match on (cropKeys, regionKeys, issue) against AM.collections.windows; measured 1 plausible hit (opp 001 -> IT-WIN-0001) and 0 for opp 003; MUST be nullable and MUST NOT be forced",
+     "scienceContext <- o.SCIENCE_CONTEXT (3/3) as {state, counts:[{label,value}]} — heterogeneous keys per record, so keep it as a label/value list, not fixed fields",
+     "sourceIds <- o.SOURCE_IDS (3/3, all resolve in IG.SOURCES; all three records carry the identical triple)",
+     "happeningSourceId <- o.WHAT_IS_HAPPENING.SOURCE_ID (3/3 present, 0/3 resolvable — render as text, never as a link)",
+     "provenance <- o.PROVENANCE (3/3 'REAL_DERIVED')",
+     "ui <- APP.ui.opportunityCard[issueType] (icon/colour/order only, §4)"
+    ]
+   },
+   {
+    "collection": "demoOpportunityScenarios (NEW)",
+    "why": "The 29 D.CASES survive only here: an explicit, default-OFF mode. state.showScenarios already exists at portale.html:2384 and defaults to false. This collection must never be summed into a real count, and italy-app-model.js:313 counts must keep it in a separate key so the Data-State panel shows 3 real vs 29 demo.",
+    "fields": [
+     "everything currently on a D.CASES record, untouched",
+     "provenance forced to DEMO_SCENARIO",
+     "isDemoScenario: true",
+     "canonicalWindow: the ITALY_CANONICAL window matched by LEGACY_CASE_ID — keep it, because the window itself IS audited; just never let it upgrade the case's provenance"
+    ]
+   },
+   {
+    "collection": "products (CHANGED — links now come from the label audit)",
+    "why": "italy-app-model.js currently does not read window.ITALY_LABEL_VERDICTS at all; the strength classes reach it laundered through D.CASES[i].productLinks. Reading LV directly removes the last data-bearing D.CASES dependency from the model.",
+    "fields": [
+     "links[].strength <- LV.VERIFIED (12) / LV.NOT_FOUND (7) / default LABEL_CHECK_NEEDED",
+     "links[].source <- 'LABEL_AUDIT' | 'UPSTREAM_OPPORTUNITY'",
+     "links[].caseId <- null for audit-derived links (the audit is keyed crop|issue|product, it has no case)",
+     "labelAuditDate <- LV.AUDIT_DATE ('2026-09-02'), labelAuditScopeNote <- LV.SCOPE_NOTE, absenceRule <- LV.ABSENCE_RULE — the §10 sentence must be available to the view"
+    ]
+   },
+   {
+    "collection": "ui.regionGrid (NEW, VISUAL_ONLY)",
+    "why": "Separates the allowed layout (§4) from the forbidden numbers. Today both live in one D.REGION_STATS row and the engineer cannot keep one without the other.",
+    "fields": [
+     "name (20 canonical Italian region names)",
+     "short (VD, TAA, FVG, ...)",
+     "gc <- col + 1",
+     "gr <- row + 1",
+     "NOTHING ELSE. cases, signals, color, border, textColor and active are all deleted from the fixture and recomputed from real counts at render time."
+    ]
+   },
+   {
+    "collection": "windowsByRegion (NEW, REAL_DERIVED)",
+    "why": "The only defensible per-region number in the product. Measured from AM.collections.windows and it exactly reproduces the D.REGION_STATS `cases` column, which proves the demo number was a copy of the window count all along — but the label 'cases' was wrong.",
+    "fields": [
+     "region -> count. Measured: Veneto 6, Puglia 6, Emilia-Romagna 4, Lombardia 3, Piemonte 3, Sicilia 3, Toscana 2, Friuli-Venezia Giulia 1, Trentino-Alto Adige 1, total 29 over 9 of 20 regions.",
+     "Label it 'finestre canoniche' / 'canonical windows', NOT 'cases' and NOT 'opportunities'."
+    ]
+   }
+  ],
+  "markupImpact": [
+   "portale.html:122-134 — Data-State panel sc-for over {{ dataState }}: keep the markup, but the six hard-coded rows behind it become AM.provenanceSummary. The panel currently has NO row for opportunities, so it never discloses that the radar is demo. Add opportunities (3 real) and demoOpportunityScenarios (29 demo) rows.",
+   "portale.html:189 — the sort <select>: remove <option value=\"relevant\"> and <option value=\"newest\"> (both sort on invented fields: evidenceTotal and `updated`). Keep closing/region/crop, add a freshness option backed by FRESHNESS_DAYS.",
+   "portale.html:191 — {{ hasFilters }} clear-all chip: unchanged, but the fDept filter it clears must go with the department control.",
+   "portale.html:196-206 — sc-for {{ kpis }}: markup unchanged (8 tiles preserved per §12), values re-sourced. Tile 1 shows 3, not 29. Tiles 2-5 keep 6/2/5/16 but the sub-label must say the number counts canonical windows.",
+   "portale.html:210 — '{{ t.lblCases }} · {{ visibleCount }} {{ t.lblOf }} {{ filteredCount }}' will read '3 of 3'. The i18n key lblCases must stop saying 'opportunities' and adopt the record's own CASE_LABEL wording ('convergenze che meritano indagine'), because FORBIDDEN_LABEL explicitly bans calling these opportunities.",
+   "portale.html:217-247 — sc-for {{ visibleCases }}, the card. Card structure is preserved; four bindings change or die. {{ c.category.color/dark/ink/body/muted/soft/icon/label }} -> c.ui.* (no `category` on a real record; leaving it throws in decorate() at line 2426). {{ c.wsLabel }} — {{ c.weLabel }} and the {{ c.progressPct }} bar -> render only when canonicalWindow is non-null, otherwise show t.dateToConfirm. {{ c.updatedLabel }} -> freshnessDays. {{ c.hasField }} / {{ c.fieldCount }} demo-inbox badge -> DELETE from the real card.",
+   "portale.html:222 — {{ c.issueL }} is the 19px card headline. On a real record ISSUE is 'Flavescência dourada, via o vetor Scaphoideus titanus' (Portuguese, 52 chars) and on opp 003 it is 'Calendário de vencimento das autorizações'. text-wrap:balance is already set; verify the 250px min-height card still holds. §11 forbids truncating a taxonomic name at '(' — 'Diabrotica virgifera virgifera' in opp 002's ISSUE must survive intact.",
+   "portale.html:249-250 — {{ t.lblAttention }} / {{ t.lblRegionalPrecision }} headings sit above the region map; the sub-heading claims regional precision that the numbers no longer support. Re-word to name the denominator.",
+   "portale.html:254-256 — sc-for {{ regionTiles }}: markup keeps grid-column/grid-row/short. {{ r.color }}, {{ r.border }}, {{ r.textColor }} must now be computed from the real window count, not read from the fixture.",
+   "portale.html:259-266 — sc-for {{ regionRank }}: DELETE the span '+{{ r.signals }} signals' (line 265). It has no real backing at any level. {{ r.cases }} (line 264) survives as the window count with a corrected label.",
+   "portale.html:299 — sc-if {{ isCase }}: add an inner guard on a new hasCase prop so an unknown caseId renders an empty state instead of silently falling back to demo case CASES[1].",
+   "portale.html:301-308 — hero block: {{ cs.category.* }} -> cs.ui.*; {{ cs.latin }} (line 307) DIES, no real field — replace with cs.issueType, or drop the line; {{ cs.regionLabel }} shows the compound real REGION string verbatim.",
+   "portale.html:305 — add the FORBIDDEN_LABEL / CASE_LABEL chip here. It is a real 3/3 field and it is the record instructing the UI how it may be named.",
+   "portale.html:312 — APPLICATION WINDOW tile: {{ cs.wsLabel }} — {{ cs.weLabel }} + {{ cs.windowLine }} -> only when canonicalWindow exists; otherwise render WINDOW.APPLICATION / WINDOW.MONITORING / WINDOW.NEXT_CYCLE, which is what the real record actually carries.",
+   "portale.html:313 — PRIMARY MATCH tile: {{ cs.primaryLabel }} / {{ cs.primaryAi }} -> adamaProducts[0] + adamaActiveSubstance; empty on 2 of 3 records, so the tile must render t.PSTATE.LABEL_CHECK_NEEDED (never 'no product', §10).",
+   "portale.html:314 — EVIDENCE tile: {{ cs.evidenceLabel }} ('Strong'/'Good'/'Building') and {{ cs.evidenceTotal }} both DIE. Replace with currentEvidence.length + the word 'fatti elencati', or remove the tile.",
+   "portale.html:315 — ORIGIN tile: hard-codes the English string 'Future Radar · {{ cs.origin }}d ago'. `origin` is a demo integer. DELETE the tile, or replace with observationDate. Its onClick {{ cs.goWindow }} also throws today (portale.html:2939).",
+   "portale.html:320 — sc-for {{ cs.deptChips }}: DELETE (no real department field).",
+   "portale.html:323 — sc-for {{ cs.evChips }}: DELETE (invented evidence object).",
+   "portale.html:346 — {{ cs.happening }} -> WHAT_IS_HAPPENING.CONTENT; the nested sc-if {{ cs.hasRealObs }} block -> DOCUMENT + OBSERVATION_DATE + FRESHNESS_DAYS. This block becomes the strongest real content on the page.",
+   "portale.html:347 — {{ cs.why }} -> WHY_IT_MATTERS.NOTE plus, on opp 001, the LOMBARDIA / VENETO / BASIS regulatory strings and the MANDATORY flag.",
+   "portale.html:352 — the masked window progress bar reading {{ cs.wsLabel }} / {{ cs.progressPct }} / {{ cs.weLabel }}: renders only with a canonicalWindow; hide the component otherwise rather than drawing a 0% bar.",
+   "portale.html:355-357 — CROP STAGE {{ cs.stageL }} / SIGNAL {{ cs.signalL }} / LABEL TIMING {{ cs.label }}. Stage and signal come from the canonical window and are measured 'NOT_OBSERVED' on all 29 windows (CROP_STAGE and ISSUE_STAGE are null in all 29). {{ cs.label }} is a demo string and DIES; opp 002 has a real OBSERVED_STAGE ('BBCH 65-75') for 1 of 3.",
+   "portale.html:361-362 — {{ cs.bigNumber }} / {{ cs.bigLabel }}: demo ws/we integers. Recompute from canonicalWindow.daysToStart/daysToEnd or render '—'.",
+   "portale.html:366 — '{{ cs.matchCount }} portfolio matches': 6 on opp 001, 0 on the other two.",
+   "portale.html:367-395 — the primary-product block and sc-for {{ cs.alternatives }}: {{ cs.primaryTargets }}, {{ cs.primaryUse }}, {{ cs.primaryMoa }} come from D.PRODUCTS via cs0.primaryObj. Re-point at AM.findProduct(name) — IG.PRODUCTS[163] has real targets/crops/form/moa via LINKS. {{ cs.label }} on line 378 ('Label context · ...') dies.",
+   "portale.html:396-398 — sc-if {{ cs.noPrimary }}: this branch now fires on 2 of 3 real records. Its hard-coded English body says 'No confirmed ADAMA label position matched' — acceptable under §10 only if it also carries LV.ABSENCE_RULE. Add it.",
+   "portale.html:402-408 — FIELD SIGNALS panel ({{ cs.fieldCount }}, sc-for {{ cs.fieldMessages }}, sc-if {{ cs.noField }}): a demo inbox on a real record. DELETE from the real detail; it stays on the Field Sales screen where §5 permits it.",
+   "portale.html:411-413 — sc-for {{ cs.know }} -> WHAT_WE_KNOW (3/3 real, 4/4/3 entries). This one survives intact and is the cleanest swap in the domain.",
+   "portale.html:415-417 — sc-for {{ cs.watch }} -> WHAT_WE_DO_NOT_KNOW (3/3 real, 5/3/3 entries). Re-label the heading from 'what to watch' to 'what we do not know' — the real field is an admission, not a watchlist.",
+   "portale.html:419-423 — sc-for {{ cs.evBars }} + {{ cs.source }}: DELETE the whole panel. Replace its body with the SCIENCE_CONTEXT label/value list and INTERPRETATIONS.",
+   "portale.html:425-437 — REGIONAL CONTEXT panel: the sc-for {{ cs.miniMap }} grid (line 429) is layout and survives. Line 433's hard-coded 'Major {{ cs.cropL }} area · ISTAT regional scale' is an unsourced claim template and DIES. Line 434 'Validate next' {{ cs.adjacentLabel }} DIES (cs0.adjacent is a fixture array).",
+   "portale.html:441-452 — Competitor activity panel, sc-for {{ cs.competitors }} showing {{ k.company }}, {{ k.items }} recent items, {{ k.type }}, {{ k.days }}d ago: every one of those four values is seeded-PRNG output (italy-demo-data.js:317). Either re-derive from the 503 real COMP_ACTIVITIES via a crop synonym map, or DELETE the panel.",
+   "portale.html:454-465 — Action map, sc-for {{ cs.actions }}: DELETE. No real field, and it is internal-workflow content that §1 keeps out of the external core. The GENERATE BRIEF entry point at line 462 goes with it.",
+   "portale.html:470-477 — Executive timeline, sc-for {{ cs.tl }}: DELETE. Built by arithmetic on the demo `origin` integer (italy-demo-data.js:229-231). The only real dated point per record is OBSERVATION_DATE; a one-point timeline is not a timeline.",
+   "portale.html:479-487 — SOURCES BEHIND panel, sc-for {{ cs.sourceRows }}: re-point at SOURCE_IDS -> AM.collections.sources. sc-for {{ cs.relatedThemes }} (line 485) reads D.SCI_THEMES[].cases and DIES with the demo case ids.",
+   "portale.html:488 — the footer already prints {{ t.lblDemoNote }}. Once the page is real that note must change, and the demo wording must move to the scenario mode instead."
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "D.REGION_STATS[].signals (the '+N signals' number on the region ranking)",
+    "usedAt": "portale.html:2565 regionRank sort; markup line 265 '+{{ r.signals }} signals'",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Measured: the 20 values sum to 56, which is exactly D.SIGNALS, the DEMO_SCENARIO future-scenario feed. The real futureSignals collection has 3 records and their REGION values measure as 'NAO SEI' (x2) and 'UE' (x1) — there is zero regional attribution anywhere in the real signal data. There is no derivation. Delete the number and the span."
+   },
+   {
+    "field": "case.evidence {field, science, official, people, market} and the derived evidenceTotal / evidenceLabel ('Strong'/'Good'/'Building')",
+    "usedAt": "portale.html:2618 evChips, 2619 evBars, 2546 the 'relevant' sorter; markup lines 314, 323, 419-422",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Hand-typed on each of the 29 cases in italy-demo-data.js (e.g. {field:4,science:6,official:4,people:3,market:2}) and then incremented by the REAL_OBS literal at line 237. It is invented source convergence — §2's 'source count' and 'evidence'. The real records have nothing comparable: SCIENCE_CONTEXT carries different keys per record and is 'NOT_APPLICABLE' on one of three. No five-bar chart can be honestly rebuilt. The word 'Strong' must not appear."
+   },
+   {
+    "field": "case.competitors[] {company, items, topic, days, type}",
+    "usedAt": "portale.html:2632; markup lines 443-451",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "italy-demo-data.js:317 builds it as `[0,1,2].map(k => { const co = COMPANIES[(i + k*3) % COMPANIES.length]; const items = 1 + Math.floor(seed(i*7+k)*4); days: 1 + Math.floor(seed(i*11+k)*12); type: pick([...]) })`. A seeded pseudo-random generator producing company names, item counts, recency and activity type, rendered as observed competitor communication. The 503 real COMP_ACTIVITIES could in principle refill this, but only behind a crop synonym table that does not exist (COMP_ACTIVITIES.crops measures as 'Vitis vinifera' 42 / 'Zea mays' 67 / 'colture' 59 against an opportunity CROP of 'Videira' / 'Milho grao'). Until that table is built and reviewed: remove."
+   },
+   {
+    "field": "case.actions[] and case.departments[] (the Action map and every GENERATE BRIEF button)",
+    "usedAt": "portale.html:2617 deptChips, 2634 actions, 2544 the fDept filter, 3085-3092 the whole brief view; markup lines 320, 454-465",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Generated in italy-demo-data.js:313-314 from a static ACTIONS[c.cat] table with {crop}/{product} substitution. It tells six internal ADAMA departments what to do and when — private workflow, not external intelligence (§1). No upstream field exists. Its removal also removes the fDept radar filter and the ITALY_BRIEFS entry point from the opportunity path. INTERPRETATIONS[] (3/3 real, 2 entries each) is what the real records offer instead, and it is analysis, not instruction."
+   },
+   {
+    "field": "case.timeline[] / case.tl (Executive timeline)",
+    "usedAt": "portale.html decorate consumes c.tl; markup lines 470-476",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "italy-demo-data.js:229-231 builds it as fmt(addDays(TODAY, -origin)), fmt(addDays(b, 8)), fmt(addDays(b, origin-6)), fmt(addDays(TODAY, -updated)) with the labels 'Entered Future Radar', 'Regional bulletin', ... Dates AND events are arithmetic on two invented integers. A real record has exactly one date: WHAT_IS_HAPPENING.OBSERVATION_DATE. One point is not a timeline."
+   },
+   {
+    "field": "case.origin and the 'Originated from Future Radar · N days ago' tile",
+    "usedAt": "portale.html:2634 originLabel; markup line 315",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "A fixture integer (0 to 120) claiming provenance history the system does not have. Nothing in ITALY_INGEST records when a candidate entered any radar."
+   },
+   {
+    "field": "case.updated / updatedLabel ('1d ago')",
+    "usedAt": "portale.html decorate; markup lines 244 and 305; the 'newest' sorter at 2546",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "The demo integer dies, but WHAT_IS_HAPPENING.FRESHNESS_DAYS is present 3/3 (17, 18, 6) and is a real, source-published freshness. Relabel: it is the age of the underlying document, not the age of an internal edit."
+   },
+   {
+    "field": "case.latin (the scientific name under the hero title)",
+    "usedAt": "portale.html:2396 parseField scoring, 3377 search matching; markup line 307",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "No real equivalent field. The Latin names do exist inside the real ISSUE strings ('via o vetor Scaphoideus titanus', 'Piralide (Ostrinia nubilalis) e Diabrotica virgifera virgifera') but parsing them out would mean the presentation layer inventing a taxonomy, and §11 forbids truncating a taxonomic name at '('. Drop the line rather than parse."
+   },
+   {
+    "field": "case.adjacent[] and adjacentLabel ('Validate next')",
+    "usedAt": "portale.html:2625 miniMap adjacency tint, 2626 adjacentLabel; markup line 434",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "A hand-authored 2-4 region list per case that is simultaneously a region claim and a recommendation. §2 forbids both from a fixture. The real REGION string already names its own secondary areas in its own words ('Veneto (principal) + Lombardia') — show that instead and stop shading neighbours."
+   },
+   {
+    "field": "case.source (the attribution line under the evidence bars)",
+    "usedAt": "portale.html markup line 423; also read at 2860 as a Crop-Windows source",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "A free-text demo string ('Regional phytosanitary bulletin · compulsory control decree'). SOURCE_IDS is the real, resolvable replacement, but note it is identical across all 3 records so it cannot differentiate them."
+   },
+   {
+    "field": "case.stage / case.signal ('BBCH 67-73', 'Adult captures above threshold')",
+    "usedAt": "portale.html markup lines 355-356",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "The demo authored these, but italy-demo-data.js:270-271 already overrides them from the canonical window and measured all 29 canonical windows have CROP_STAGE = null and ISSUE_STAGE = null, so both render 'NOT_OBSERVED' today. Real data adds one value: opp 002's WHAT_IS_HAPPENING.OBSERVED_STAGE = 'maturazione lattea a fisiologica — BBCH 65-75'. 1 of 3."
+   },
+   {
+    "field": "case.label ('Apply at flowering (BBCH 61-65)', 'Vector control per regional decree calendar')",
+    "usedAt": "portale.html markup lines 357 and 378",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "A label-timing instruction authored in the fixture. Measured: all 29 canonical windows have LABEL_TRIGGER = null and LABEL_SOURCE = null. Rendering a spray timing that no label record supports is the highest-consequence fabrication on the page. Must read NON OSSERVABILE / da verificare in etichetta."
+   },
+   {
+    "field": "case.cat / case.category (pest | disease | weed, and every colour, icon and CAT LABEL derived from it)",
+    "usedAt": "portale.html:2426 (decorate's first line, throws without it), 2687, 2818, and ~15 markup bindings",
+    "verdict": "KEEP_AS_LABELLED_DEMO",
+    "note": "The colour/icon half is legitimate presentation metadata under §4 and must move to record.ui. The classification itself is a fact claim, and the real field ISSUE_TYPE does not map onto it: measured values are 'FITOPLASMA', 'PEST' and the literal string 'NAO SEI'. Two of three real records cannot be coloured by category without a guess. Use a neutral default for those, and never print 'NAO SEI' as a category name."
+   },
+   {
+    "field": "case.hero, case.primary as a fixture choice, case.products[]",
+    "usedAt": "portale.html:2544 fProduct filter, 2621 primaryGo, decorate primaryLabel/moreLabel",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "ADAMA_PRODUCTS exists but only on 1 of 3 records (6 names, all resolving in AM.productByKey). Opp 002's CURRENT_EVIDENCE says in prose 'seis produtos ADAMA nomeiam Piralide e/ou Diabrotica no rotulo' while its ADAMA_PRODUCTS array is empty — do NOT parse the prose to refill the array. The 'primary' concept has no upstream field at all: pick the strongest LV verdict deterministically, or show the list without a primary."
+   },
+   {
+    "field": "case.realObs (the green 'Real observation' quote)",
+    "usedAt": "portale.html:2637; markup line 346",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Currently a 9-entry literal inside italy-demo-data.js:235 stamped provenance:'REAL_FACT' — a demo file asserting a fact class about itself, and it also mutates c.evidence.official. The real WHAT_IS_HAPPENING object is strictly better and covers 3/3. Delete the literal AND its counter mutation."
+   },
+   {
+    "field": "D.KPI.total = 29 (the headline radar number and the nav badge)",
+    "usedAt": "portale.html:2559 kpiDef[0], 2607 navDef radar count",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Becomes 3. This is the single most visible consequence of the migration and the client will ask about it. The honest framing: 29 was never a count of anything real — it was the length of a fixture array."
+   },
+   {
+    "field": "D.KPI.matches = 13 and D.KPI.links = 80",
+    "usedAt": "portale.html:2564 kpiDef[5] and [6]",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Both come from the demo productLinks. The audited numbers are LV.verifiedCount = 12 and LV.notFoundCount = 7. 80 has no real counterpart until every candidate relationship is enumerated through the audit."
+   },
+   {
+    "field": "the Data-State panel's six hard-coded rows",
+    "usedAt": "portale.html:2526-2534; markup 122-134",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "The honesty instrument is itself inaccurate and incomplete. It reads D.ACTIVITIES (72 demo) for the Competitor row while 503 real records exist, reads D.ARCHIVE while the real archive index has 740, and has NO ROW for opportunities — so today the panel can be opened on a fully demo radar and will not say so. AM.provenanceSummary already computes real/demo for all 20 collections. Fixing this panel is not optional cleanup; without it the migration is unverifiable from inside the product."
+   }
+  ],
+  "plan": [
+   "STEP 0 — freeze a baseline. Run the node recipe and record AM.counts and AM.provenanceSummary to a scratch file. Every later step is checked against it. Current baseline: opportunities 29 (3 flagged upstream-real, one of them wrongly), windows 29, products 166, searchIndex 309.",
+   "STEP 1 — italy-app-model.js: kill the id-collision. Delete the upstreamOppIds map (lines 252-253) and the `upstream` lookup at 256. Nothing may join IG.OPPORTUNITIES.ID to D.CASES.id; they are different id spaces that collide on three values, and the collision currently mislabels the Fusarium demo case as real.",
+   "STEP 2 — italy-app-model.js: add mapUpstreamOpportunity(o) producing the normalized opportunity record listed in modelChanges. Include the region parser (REGION string -> regionKeys against the 20 canonical names; measured results ['Veneto','Lombardia'] / ['Friuli-Venezia Giulia'] / []) and the crop/issue synonym table (Videira->Grapevine/VINE, Milho grao->Maize/MAIZE, and NO mapping for the transversal portfolio record). Keep the table as one explicit literal with a comment naming every source vocabulary, so the next data load can extend it in one place.",
+   "STEP 3 — italy-app-model.js: rename the D.CASES collection to demoOpportunityScenarios (provenance DEMO_SCENARIO) and define `opportunities` as the mapped IG.OPPORTUNITIES. Both go into `collections`, so provenanceSummary and counts expose 3 real and 29 demo separately. Verify AM.counts.opportunities === 3.",
+   "STEP 4 — italy-app-model.js: read window.ITALY_LABEL_VERDICTS directly. Replace the D.CASES productLinks loop at line 102 with the LV.VERIFIED / LV.NOT_FOUND loops, plus a LABEL_CHECK_NEEDED link for every name in ADAMA_PRODUCTS not covered by the audit. Expose LV.AUDIT_DATE, LV.SCOPE_NOTE and LV.ABSENCE_RULE on the model. Verify: AM.strengthFor('EVURE PRO','Grapevine','Flavescenza Dorata') === 'VERIFIED_LABEL_MATCH'.",
+   "STEP 5 — italy-app-model.js: fix the search index at line 300 (index the real feed, drop c.latin) and add APP.ui.regionGrid (name/short/gc/gr only) plus windowsByRegion derived from collections.windows. Verify windowsByRegion reproduces {Veneto:6, Puglia:6, Emilia-Romagna:4, Lombardia:3, Piemonte:3, Sicilia:3, Toscana:2, 'Friuli-Venezia Giulia':1, 'Trentino-Alto Adige':1}.",
+   "STEP 6 — portale.html: add decorateOpportunity(o) next to decorate() at line 2425. It must return a NEW object (decorate's Object.assign(c, ...) mutates the shared model record — do not repeat that on real data) and must not touch category, st, progress, fieldCount, productLinks, primaryAi or cat. In the same edit, make decorate()'s first line defensive: `const cat = c.category || D.CAT.disease;`.",
+   "STEP 7 — portale.html:2515: swap the root. CASES from APP.collections.opportunities; DEMO_CASES from demoOpportunityScenarios, gated on the existing state.showScenarios (already defaults to false at line 2384). Add a labelled SCENARI DIMOSTRATIVI toggle in the radar toolbar near line 191.",
+   "STEP 8 — portale.html:2544-2547: rewrite filtering. Drop the fDept clause and the department filter control; fProduct reads adamaProducts; fRegion reads regionKeys. Remove the 12-card slice. At 2546 delete the 'relevant' and 'newest' sorters and the matching <option> tags at markup line 189.",
+   "STEP 9 — portale.html:2557-2563: re-source the 8 KPI tiles per the occurrences entry. Preserve all eight tiles and their layout (§12); change only values and sub-labels. Every sub-label must name its denominator (opportunities vs canonical windows vs label-audit verdicts).",
+   "STEP 10 — portale.html:2564-2565: split layout from facts. regionTiles = APP.ui.regionGrid + windowsByRegion; regionRank sorts on the window count. Delete r.signals here and delete the '+{{ r.signals }} signals' span at markup line 265.",
+   "STEP 11 — portale.html:2615-2639: rebuild the cs object against the real record. Remove deptChips, evChips, evBars, competitors, actions, adjacentLabel, relatedThemes, fieldMessages/fieldCount/noField. Re-point sourceRows at sourceIds. Replace realObs with WHAT_IS_HAPPENING. Add caseLabel, forbiddenLabel, currentEvidence, whatWeDoNotKnow, interpretations, scienceContext, windowApplication/Monitoring/NextCycle. Guard the CASES[1] fallback at 2615.",
+   "STEP 12 — portale.html:2938-2939: make winFor/goWindow null-safe (it throws today for any non-demo case id) and gate the ORIGIN tile on hasWindow.",
+   "STEP 13 — portale.html markup 299-488: apply the deletions and re-bindings in markupImpact, one panel at a time, checking the rendered page after each. Preserve every surviving panel's geometry, radius, spacing and ADAMA colours (§12). Where a panel loses its content entirely, remove the whole card rather than leaving an empty shell.",
+   "STEP 14 — portale.html:2526-2534: rebuild dataState from AM.provenanceSummary and make sure opportunities (3 real) and demoOpportunityScenarios (29 demo) both appear. This is the acceptance instrument for the whole migration.",
+   "STEP 15 — sweep the remaining D.CASES reads. Fix 2580 and 3169 (portfolio-claim strings) via the label audit; fix 2665 (drop kase, bind the calendar row to the canonical window, and delete dw0.kase.source at 2860 plus the two brief callbacks at 2861/2863); fix 2946 (mProducts from IG.PRODUCTS.crops); re-point 3130/3183/3369/3377 per their entries. Leave 2687 and 2818 alone — measured VISUAL_ONLY.",
+   "STEP 16 — i18n. Add it/en strings for every new label: caseLabel, forbiddenLabel, whatWeDoNotKnow, freshnessDays, windowApplication states (CLOSED_FOR_2026, OPEN_BUT_NARROW, NOT_APPLICABLE, ANCHORED_BY_SOURCE, TO_BE_CONFIRMED), NON OSSERVABILE DA FONTI ESTERNE, and LV.ABSENCE_RULE. Also replace the five hard-coded English strings still sitting in the markup at lines 391, 397, 425, 433, 443 and 454.",
+   "STEP 17 — acceptance. Confirm: (a) grep -n 'D\\\\.CASES' portale.html returns only lines 2396, 2687, 2818 (demo-mode and visual-only); (b) grep -n 'D\\\\.CASES' italy-app-model.js returns nothing; (c) grep -n 'REGION_STATS' returns only the ui.regionGrid construction; (d) AM.counts.opportunities === 3 and AM.counts.demoOpportunityScenarios === 29; (e) with showScenarios false, no string from italy-demo-data.js reaches the radar or the detail page; (f) opening every one of the 3 real opportunities and one bad deep link throws no console error."
+  ],
+  "risks": [
+   "The screen loses roughly 70% of its content. Measured honestly: the radar goes from 29 cards to 3, and the detail page loses the evidence bars, the competitor panel, the action map, the executive timeline, the field inbox, the adjacency map shading, the latin name, the origin tile and the label-timing line. What remains — title, what is happening with a named document and date, why it matters, what we know, what we do not know, interpretations, sources — is genuinely strong content, but it is one column where there were three. The client must be told BEFORE the edit, not after, and §3 forbids redesigning the screen to fill the hole.",
+   "The three real records are written in PORTUGUESE, and §11 makes Italian the default language. TITLE, CROP, ISSUE, CURRENT_EVIDENCE, WHAT_WE_KNOW, WHAT_WE_DO_NOT_KNOW and INTERPRETATIONS are all pt-BR ('Videira', 'Milho grao', 'a obrigacao de tratar o vetor e norma, nao recomendacao'). The regulatory quotes inside them are Italian. This is not a translation the engineer may perform — translating a source record is exactly the fact-mutation the product law forbids, and product/company/Latin names must not be touched at all. Either upstream reissues the records in Italian, or the portal ships with visibly Portuguese body text on its three real cards. Flag to the data owner before STEP 2.",
+   "ISSUE_TYPE on opp 003 is the literal string 'NAO SEI' ('I do not know'). The same literal appears across the real data: VOICES.REGION is 'NAO SEI' 17/17, NEWS.REGION 8/8, FUTURE_SIGNALS.REGION 2/3. Any code path that renders a raw field will print 'NAO SEI' to an Italian user. Every new binding needs an explicit guard mapping it to t.notKnown.",
+   "Four incompatible crop vocabularies coexist in the real data and the synonym table is load-bearing. Measured: OPPORTUNITIES.CROP is Portuguese; CANONICAL.CROP_NAME and D.CASES.crop are English; COMP_ACTIVITIES.crops is Latin/Italian ('Vitis vinifera' 42, 'Zea mays' 67, 'colture' 59, 'cereali' 24); VOICES.CROP and SCIENCE.CROP are SCREAMING_SNAKE ('VINE' 45, 'MAIZE' 8, 'DURUM_WHEAT' 40). If the table is wrong the detail page will show competitor and science cross-links belonging to the wrong crop — a silent wrong answer, worse than an empty panel. Build it as one reviewed literal and default to empty, never to a fuzzy match.",
+   "There is a FIFTH id space for cases. VOICES.CASE_ID measures as IT-VINE-FLAVESCENCE (8 voices), IT-MAIZE-WEED (8) and IT-DURUM_WHEAT-FUSARIUM (1). Only the first corresponds to a real opportunity. So if the detail page adds a field-voices panel, opp 001 gets 8 voices and opp 002 and 003 get zero — and the 8 MAIZE voices are about WEEDS, not the piralide that opp 002 is about. Do not join maize to maize.",
+   "All 29 canonical windows measure PROVENANCE = 'EXPECTED_NORM', SOURCE_IDS = [] and PRODUCT_MATCHES = []. They are audited agronomic norms, not observations, and they carry no traceable source. Treating them as the radar's real feed instead of the 3 opportunities would produce a denser and more comfortable screen that still cannot answer 'who published this'. That temptation will present itself around STEP 9 when the KPI numbers look thin. Windows already have their own screen; leave them there.",
+   "MARKET_CONTEXT, COMPETITOR_CONTEXT and FIELD_VOICES are present on 3/3 records but their values are folder paths ('ver 01-DESIGN-READY/MARKET-PULSE/'). They look like fields and are not data. Any engineer scanning the schema will try to render them. They must be dropped in the mapper, not passed through.",
+   "WHAT_IS_HAPPENING.SOURCE_ID is present 3/3 and resolvable 0/3 ('IT-T3-002', 'IT-T3-006 (ERSA FVG)', 'IT-T4-001' against an IG.SOURCES id set that only contains IT-SRC-* ids). Rendering it as a clickable source would produce dead links on every real card. Text only.",
+   "CURRENT_EVIDENCE and WHAT_WE_KNOW are byte-identical on all 3 records. Rendering both fills two panels with the same list and manufactures an appearance of corroboration. Render one.",
+   "decorate() at portale.html:2425 does `Object.assign(c, ...)` — it mutates its input. Because it is called per render (see the comment at 2516) it currently writes presentation labels back into the demo records. Reusing that pattern on AM.collections.opportunities.records would corrupt the shared model across views. decorateOpportunity must return a new object; this is easy to miss when copying the existing method.",
+   "Cross-domain edits. Lines 2580, 2665, 2860-2863, 2946 and 3169 sit in the Competitor, Crop Windows and Market domains and are owned by other specs. Their D.CASES reads must be removed for this domain to be clean, so the serial engineer has to sequence these with the other domain owners or the same lines will be edited twice.",
+   "state.showScenarios already exists and is already false by default, but grep it before wiring: if another screen already uses it for a different purpose, the new radar toggle would silently change that screen too."
+  ],
+  "openQuestions": [
+   "Will upstream reissue the 3 OPPORTUNITIES records in Italian, or does the portal ship with Portuguese body text on its three real cards? This blocks nothing technically but it is the single most visible quality issue after the count drop, and it is not the engineer's call to translate.",
+   "All three records carry the identical SOURCE_IDS triple [IT-SRC-MINISTERO, IT-SRC-PIEMONTE, IT-SRC-OPENALEX], so the 'sources behind this case' panel shows the same 3 rows on every case. Is that the real provenance, or is it a placeholder that upstream intends to make per-record? If placeholder, the panel should show the WHAT_IS_HAPPENING.DOCUMENT string alone until it is fixed.",
+   "Opp 003 ('Portfolio ADAMA Italia — authorisation expiry calendar') is not a crop x issue case at all: no crop, no region beyond 'Italia (nacional)', no agronomic window, ISSUE_TYPE 'NAO SEI'. Should it appear on the crop-oriented Opportunity Radar, or does it belong on the Portfolio screen? Rendering it as a radar card forces every crop/region/window binding to degrade at once.",
+   "Opp 002's CURRENT_EVIDENCE states in prose that six ADAMA products name Piralide/Diabrotica on the maize label, while its ADAMA_PRODUCTS array is empty. Is the array simply unfilled upstream? Confirm before shipping a card that says LABEL_CHECK_NEEDED next to a sentence claiming six labelled products.",
+   "Should the radar keep the word 'opportunity' at all? FORBIDDEN_LABEL is present 3/3 and reads 'nao chamar de \"oportunidade Italia\" nem de \"oportunidade comercial\"', and CASE_LABEL says 'CONVERGENCIA QUE MERECE INVESTIGACAO'. That affects the nav item, the i18n keys, the KPI tile and the page title — a naming decision, not an engineering one.",
+   "Is a canonical window allowed to be bound to a real opportunity by content match (crop + region + issue), given that LEGACY_CASE_ID does not connect the two id spaces? A content match is a judgement, and §7 says presentation may not invent an agronomic state. Recommendation: bind only opp 001 -> IT-WIN-0001 if a human confirms it, and leave the other two unbound.",
+   "Does the '29 canonical windows' number get to keep the word 'cases' anywhere in the UI, or must every occurrence be relabelled? The region map, the KPI status tiles and the windows nav badge all currently count windows while saying or implying cases."
+  ]
+ }
+]

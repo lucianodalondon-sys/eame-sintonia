@@ -1,0 +1,520 @@
+[
+ {
+  "domain": "SCIENTIFIC INTELLIGENCE (themes, research records, institutions, researchers, resistance)",
+  "summary": "Today the Science screen shows 13 \"classified themes\" (10 from D.SCI_THEMES + 3 from ITALY_SCIENCE.EXTRA_THEMES), a 36-row \"RECENT RESEARCH\" table, a 14-name \"RESEARCHERS\" panel, a 12-row \"INSTITUTIONS · 12\" panel, a GIRE resistance block, and a per-theme detail view (isTheme, markup 2157-2184). Only two of those blocks stand on real ingested data: the GIRE resistance block (portale.html 3244-3300 reads window.ITALY_INGEST.RESISTANCE directly, 34 cases, every field 34/34 populated) and 12 of the 36 research rows (which come from window.ITALY_REAL.SCIENCE, an older hand-curated fixture, not from IG). The other 24 research rows are procedurally generated in italy-demo-data.js:385-389 with seed() — fabricated year, institution, study type, descriptor, \"why\" prose and study location. The 12 institutions are a hardcoded name array (italy-demo-data.js:370) whose record counts are counted over those fabricated rows. The real backing is IG.THEMES (5), IG.SCIENCE (88), IG.RESEARCHERS (60) and IG.RESISTANCE (34); italy-app-model.js already exposes scienceRecords/researchers/resistance but three of its science field mappings are dead (measured 0/88 and 0/60) because it reads demo-era key names that the real schema does not have.",
+  "realSource": "APP.collections.scienceRecords (88, from IG.SCIENCE) + APP.collections.researchers (60, from IG.RESEARCHERS) + APP.collections.resistance (34, from IG.RESISTANCE) + a NEW APP.collections.scienceThemes projected from IG.THEMES (5). Institutions must be DERIVED, and there are two distinct and non-interchangeable derivations: (a) IG.SCIENCE[].INSTITUTION — 6 distinct values, the FIRST AUTHOR's affiliation on each of the 88 records: University of Verona 27, University of Turin 25, University of Milan 16, Institute of Sciences of Food Production 15, INRAE 3, Instituto de Agricultura Sostenible 2 (the last two are French and Spanish, not Italian); (b) IG.THEMES[].INSTITUTIONS_TOP — 37 distinct institutions with a per-theme WORKS count (11-12 per theme). (a) counts records in this corpus; (b) counts works in the upstream OpenAlex theme query. They must never be summed or shown under one label. window.ITALY_SCIENCE stays as an explicitly-labelled interpretation layer, but only for the 5 theme keys that have a real counterpart.",
+  "occurrences": [
+   {
+    "file": "portale.html",
+    "line": 3233,
+    "symbol": "D.SCI_THEMES",
+    "snippet": "const sciAll = SB ? D.SCI_THEMES.filter(t => SB.B[t.id]).map(t => buildTheme(t, SB.B[t.id], false))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is the spine of the whole screen. Each demo theme carries crop, issue, works count and trend — all facts. Measured: 10 demo themes vs 5 real IG.THEMES. Only ONE demo works count matches reality (grapevine-phytoplasma 135 = VINE_FLAVESCENCE 135). durum-fusarium says 78, real DURUM_FUSARIUM is 70; maize-borer says 30, real is 27; olive-bactrocera says 70, real is 71. scaphoideus(66), cercospora-dss(18), maize-mycotoxins(41), xylella(52), ipm(19), resistance(24) have NO real theme at all — six themes and six publication volumes exist only in the fixture.",
+    "replacement": "const sciAll = (AM.collections.scienceThemes.records).map(t => buildTheme(t, (SB && SB.B[t.legacyKey]) || null, false))  — 5 themes, driven by IG.THEMES via the model; SB.B is looked up by an explicit legacyKey map (VINE_FLAVESCENCE->grapevine-phytoplasma, DURUM_FUSARIUM->durum-fusarium, OLIVE_BACTROCERA->olive-bactrocera, MAIZE_BORER_DIABROTICA->maize-borer, WEED_HERBICIDE_RESISTANCE->weed-resistance) and is null-safe."
+   },
+   {
+    "file": "portale.html",
+    "line": 3234,
+    "symbol": "SB.EXTRA_THEMES (window.ITALY_SCIENCE)",
+    "snippet": ".concat(SB.EXTRA_THEMES.map(t => buildTheme(t, t, true)))",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "The three EXTRA_THEMES self-declare works:null and sourceTrend:'not ingested' and say so on screen — they are honest. But they are concatenated into sciAll, so they inflate sciTotal, sciCounts and sciThemeCount, and the header at line 1952 then reads '13 classified themes · counts reconcile'. A labelled demo is allowed; feeding a real count is not.",
+    "replacement": "KEEP the three themes but move them out of sciAll into a separate `sciDeclaredNotIngested` prop rendered under its own labelled heading. sciTotal/sciCounts/sciThemeCount must count sciAll only."
+   },
+   {
+    "file": "portale.html",
+    "line": 3197,
+    "symbol": "D.WINDOWS",
+    "snippet": "const cands = D.WINDOWS.filter(x => cropName.indexOf(x.crop) >= 0 && keys.some(k => x.issue.toLowerCase().indexOf(k) >= 0));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "winFor2() picks the theme's 'NEXT RELEVANT WINDOW' out of the demo window fixture, and the result is rendered at markup 1992 and 2131 as an agronomic state ('WINDOW OPEN · N days remaining'). That is a date, a status and an agronomic state supplied by a fixture — three forbidden classes at once, and it also violates the rule that presentation may not invent WINDOW OPEN.",
+    "replacement": "const cands = APP.collections.windows.records.filter(...) and use w.status / w.statusReason / w.daysToStart / w.daysToEnd verbatim from CANONICAL. Never recompute the state string."
+   },
+   {
+    "file": "portale.html",
+    "line": 3228,
+    "symbol": "D.RECORDS",
+    "snippet": "records: extra ? [] : D.RECORDS.filter(r => r.themeId === t.id).slice(0, 5),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Feeds 'KEY RECORDS' in the impact drawer (markup 2136), showing year, institution and study type. 24 of the 36 D.RECORDS are seed()-generated in italy-demo-data.js:385-389 — the year, institution, study type and descriptor are invented.",
+    "replacement": "records: AM.collections.scienceRecords.records.filter(r => r.themeKey === t.key).sort((a,b)=>String(b.publishedAt).localeCompare(String(a.publishedAt))).slice(0,5)  — requires the model to add themeKey and publishedAt (see modelChanges)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3207,
+    "symbol": "D.CAT[t.cat] || D.CAT.disease",
+    "snippet": "category: t.category || D.CAT[t.cat] || D.CAT.disease,",
+    "classification": "VISUAL_ONLY",
+    "reason": "D.CAT (italy-demo-data.js:22-26) is only {key,label,color,dark,soft,ink,body,muted,icon,aShape} — the ADAMA pest/disease/weed brand palette and icon paths. It carries no crop, issue, date, status or evidence. Rule 4 explicitly allows this.",
+    "replacement": "KEEP — but move it under record.ui: theme.ui.category = D.CAT[uiCatOf(t)] where uiCatOf maps the REAL issue token (FLAVESCENCE/BACTROCERA/BORER->pest, FUSARIUM/REPILO/DOWNY_MILDEW/SEPTORIA->disease, HERBICIDE_RESISTANCE->weed)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3305,
+    "symbol": "D.SCI_THEMES",
+    "snippet": "const sciDetailThemes = D.SCI_THEMES.map(t => Object.assign({}, t, { go: () => this.openTheme(t.id), trendUpper: t.trend.toUpperCase(), caseCount: t.caseObjs.length, caseObjs: t.caseObjs.map(c => this.decorate(c)) }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Backs the whole THEME DETAIL view (markup 2157-2184): th.works, th.trend ('Publication movement'), th.caseCount ('connected opportunities'), th.records, th.institutions. trend has no real equivalent anywhere in IG; caseObjs is a theme->opportunity link that exists only in the fixture's t.cases array.",
+    "replacement": "const sciDetailThemes = AM.collections.scienceThemes.records.map(t => Object.assign({}, t, { go: () => this.openTheme(t.key) })); DELETE trendUpper/trend, DELETE caseCount/caseObjs."
+   },
+   {
+    "file": "portale.html",
+    "line": 3309,
+    "symbol": "D.RECORDS",
+    "snippet": "const records = D.RECORDS.map(r => { const rk = SB && SB.RECORD_REL[r.themeId] ? SB.RECORD_REL[r.themeId] : 'SCIENCE WATCH'; ... locationShort: r.location.startsWith('Study') ? 'Not stated' : r.location, ... openCase: () => this.openCase(r.related.id) ...});",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is the 'RECENT RESEARCH · 36 RECORDS' table (markup 2063-2073). Two-thirds of its rows are fabricated. It also renders r.why (invented prose 'Connected because it informs X timing or pressure for Y in Italy'), r.locationShort (an invented study region) and r.related (an invented link to an opportunity case). None of those three exist in IG.SCIENCE.",
+    "replacement": "const records = AM.collections.scienceRecords.records.slice().sort((a,b)=>String(b.publishedAt).localeCompare(String(a.publishedAt))).map(r => ({ id:r.id, year:String(r.publishedAt).slice(0,4), title:r.title, author:r.author, institution:r.institution, venue:r.venue, materialType:r.materialType, materialRole:r.materialRole, url:r.url, ui:{color:catColorOf(r.issue)} }));  DELETE why, locationShort, related, openCase."
+   },
+   {
+    "file": "portale.html",
+    "line": 3310,
+    "symbol": "D.PEOPLE",
+    "snippet": "const people = D.PEOPLE.map(p => Object.assign({}, p, { go: () => this.openPerson(p.id), related: p.related.map(c => this.decorate(c)), ... identityLabel: p.real ? 'real identity' : 'demo profile', ... }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Source of both the science RESEARCHERS panel (3311) and th.people 'KEY RESEARCHERS' (3314). D.PEOPLE is 14 real-fixture researchers + 18 seed()-generated profiles with invented org, region, crops, issues, recentTopic and lastDays. IG.RESEARCHERS has 60 real identities with a declared THEME (12 per theme, all five themes) — a strictly better source that is currently unused by this screen.",
+    "replacement": "For the science domain only: const sciResearchers = AM.collections.researchers.records (60). Leave D.PEOPLE to the People/Sources domain to resolve."
+   },
+   {
+    "file": "portale.html",
+    "line": 3311,
+    "symbol": "D.PEOPLE (via people)",
+    "snippet": "const researchers = people.filter(p => p.role === 'Researcher').slice(0, 8).map(p => Object.assign({}, p, { bizUse: 'POTENTIAL EXPERT TO WATCH', bizWhy: 'Relevant to ' + (p.crops[0] || 'Italian crops') + ' · ' + (p.issues[0] || 'monitored issue') + ' · technical watch and possible expert engagement', bizNote: 'No ADAMA relationship is implied.' }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Renders at markup 2078-2080. Beyond the fixture identities, bizUse and bizWhy are a business judgement about a named real person, manufactured by the view from fixture crop/issue fields. Nothing external says these people are 'experts to watch'.",
+    "replacement": "const researchers = AM.collections.researchers.records.filter(r => !s.sciFilter || r.themeKey === themeKeyOfFilter).slice(0,8).map(r => ({ id:r.id, name:r.name, initials:initialsOf(r.name), orgLabel:(r.institutions||[]).slice(0,2).join(' · '), worksInScope:r.worksInScope, lastActivity:r.lastActivity, identityState:r.identityState, orcidUrl:r.orcid, themeLabel:themeLabel(r.themeKey) }));  DELETE bizUse, bizWhy, bizNote."
+   },
+   {
+    "file": "portale.html",
+    "line": 3312,
+    "symbol": "D.INSTITUTIONS",
+    "snippet": "const institutions = D.INSTITUTIONS.map(i => Object.assign({}, i, { themeLabel: i.themes.slice(0, 2).join(' · ') }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Renders 'INSTITUTIONS · 12' (markup 2082-2087) with i.name, i.type and i.records. The 12 names are a hardcoded array (italy-demo-data.js:370), i.records counts the 24 fabricated rows, and i.type ('University' / 'National research body' / 'Research foundation') is a string-prefix guess. Measured real distinct institutions in the ingested corpus: 6.",
+    "replacement": "const institutions = AM.collections.scienceInstitutions.records (derived — see modelChanges). Header becomes INSTITUTIONS · {{ institutions.length }} = 6, with the explicit caption that this is the first author's affiliation on each record, not the location of the study. DELETE i.type."
+   },
+   {
+    "file": "portale.html",
+    "line": 3313,
+    "symbol": "D.SCI_THEMES (via sciDetailThemes)",
+    "snippet": "const th0 = sciDetailThemes.find(t => t.id === s.themeId) || sciDetailThemes[0];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Silent fallback to sciDetailThemes[0] means an unknown/stale themeId renders a different theme's facts under whatever the URL asked for. With 10 keys shrinking to 5 this will fire for every bookmarked demo theme id.",
+    "replacement": "const th0 = sciDetailThemes.find(t => t.key === s.themeId) || null;  and gate markup 2157 on a new prop hasTheme, with a 'topic not in the current reading' empty state."
+   },
+   {
+    "file": "portale.html",
+    "line": 3314,
+    "symbol": "D.INSTITUTIONS / D.RECORDS (via th0)",
+    "snippet": "const th = Object.assign({}, th0, { people: people.filter(p => p.theme && p.theme.id === th0.id).slice(0, 4), instCount: th0.institutions.length, records: th0.records.map(r => Object.assign({}, r, { openCase: () => this.openCase(r.related.id) })) });",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "th.institutions comes from italy-demo-data.js:390 (distinct institutions of the fabricated records), th.records from the same fabricated set, th.people from D.PEOPLE. instCount is then printed in the MONITOR NEXT sentence at markup 2179.",
+    "replacement": "th.records = AM.collections.scienceRecords.records.filter(r=>r.themeKey===th0.key); th.institutions = Object.keys(th0.institutionsTop); th.instCount = th.institutions.length; th.people = AM.collections.researchers.records.filter(r=>r.themeKey===th0.key).slice(0,4). Drop r.openCase."
+   },
+   {
+    "file": "portale.html",
+    "line": 2628,
+    "symbol": "D.SCI_THEMES",
+    "snippet": "relatedThemes: D.SCI_THEMES.filter(t => t.cases.includes(cs0.id)).map(t => ({ title: t.title, go: () => this.openTheme(t.id) })),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Opportunity-case detail (markup 485) asserts 'this research topic relates to this opportunity'. The relation lives only in the fixture's hand-written t.cases array. IG.SCIENCE has no case/opportunity key and IG.THEMES has none either — measured: zero fields linking a theme to an opportunity.",
+    "replacement": "DELETE_COMPONENT for the fact-bearing link. If a browse affordance is wanted, replace with a NAVIGATION-only chip matched on crop+issue token and label it as navigation: relatedThemes: AM.collections.scienceThemes.records.filter(t => t.cropToken === cropTokenOf(cs0.crop) && t.issueToken === issueTokenOf(cs0.issue))."
+   },
+   {
+    "file": "portale.html",
+    "line": 2893,
+    "symbol": "D.SCI_THEMES[0].id",
+    "snippet": "... : this.openTheme((sg0 || {}).science || D.SCI_THEMES[0].id);",
+    "classification": "VISUAL_ONLY",
+    "reason": "Route fallback only — decides which page a click lands on, renders no fact by itself. It will however dead-end once the demo ids disappear.",
+    "replacement": "KEEP the pattern, repoint the fallback: this.openTheme((sg0||{}).science || (AM.collections.scienceThemes.records[0]||{}).key)"
+   },
+   {
+    "file": "portale.html",
+    "line": 2898,
+    "symbol": "D.SCI_THEMES[0].id",
+    "snippet": "goTheme: () => this.openTheme((sg0 || {}).science || D.SCI_THEMES[0].id),",
+    "classification": "VISUAL_ONLY",
+    "reason": "Same as 2893 — navigation fallback for the future-signal 'SCIENCE SIGNAL' link (markup 1593).",
+    "replacement": "goTheme: () => this.openTheme((sg0||{}).science || (AM.collections.scienceThemes.records[0]||{}).key)"
+   },
+   {
+    "file": "portale.html",
+    "line": 3340,
+    "symbol": "D.SCI_THEMES",
+    "snippet": "dr0.caseObj && D.SCI_THEMES.find(t => t.cases.includes(dr0.caseObj.id)) && { kind: 'RESEARCH TOPIC', label: ..., go: () => this.openTheme(...) }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Archive record detail publishes a 'RESEARCH TOPIC' relationship for an archive row, built from the same fixture-only t.cases array. Same defect as 2628, in a second place.",
+    "replacement": "DELETE_COMPONENT — drop the RESEARCH TOPIC link row from the archive detail until an upstream record carries a theme key."
+   },
+   {
+    "file": "portale.html",
+    "line": 3371,
+    "symbol": "D.PEOPLE -> p.theme -> theme.records",
+    "snippet": "theme: pr0.theme || null, themeTitle: pr0.theme ? pr0.theme.title.toUpperCase() : '', themeRecords: pr0.theme ? pr0.theme.records.slice(0, 4) : [],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Person detail (markup 2340) prints 'PUBLICATIONS · TOPIC X' for a named person using the theme's fabricated record list — it attributes publications to a real person that the source never attributed to them. Measured: IG.SCIENCE.AUTHOR has only 7 distinct values and only ONE of them (Massimo Blandino) appears in IG.RESEARCHERS.PERSON, so a person->publication join is possible for 1 of 60 researchers.",
+    "replacement": "themeRecords: AM.collections.scienceRecords.records.filter(r => r.author === pr0.name).slice(0,4)  — will be empty for 59 of 60 researchers; render 'nessuna pubblicazione di questa persona in questa lettura' rather than the theme's records."
+   },
+   {
+    "file": "portale.html",
+    "line": 3380,
+    "symbol": "D.SCI_THEMES + D.RECORDS",
+    "snippet": "sgp('SCIENCE', '#978B87', D.SCI_THEMES.filter(t => match(...)).map(t => ({ label: t.title, meta: t.works + ' works', ... })).concat(D.RECORDS.filter(...).map(r => ({ label: r.descriptor, meta: r.institution, ... }))))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Search results surface fabricated record titles and fabricated institutions as if they were findings, and print the stale works counts as meta.",
+    "replacement": "Use AM.searchIndex (the model already indexes resistance at italy-app-model.js:304). Add science-record and science-theme idx() entries there and have the view read AM.searchIndex, so search never touches the fixture."
+   },
+   {
+    "file": "portale.html",
+    "line": 2063,
+    "symbol": "D.KPI.records (markup binding {{ kpi.records }})",
+    "snippet": "RECENT RESEARCH · {{ kpi.records }} RECORDS",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Measured D.KPI.records = 36 (italy-demo-data.js:777, RECORDS.length), of which 24 are fabricated. The screen states a real-sounding evidence volume that is 2/3 invented.",
+    "replacement": "RECENT RESEARCH · {{ scienceRecordCount }} RECORDS, with scienceRecordCount = AM.counts.scienceRecords (88)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2077,
+    "symbol": "D.KPI.researchers (markup binding {{ kpi.researchers }})",
+    "snippet": "RESEARCHERS · {{ kpi.researchers }}",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Measured D.KPI.researchers = 14 — the count of D.PEOPLE whose role is 'Researcher', i.e. the old ITALY_REAL fixture. The real ingested universe is 60.",
+    "replacement": "RESEARCHERS · {{ researcherCount }}, with researcherCount = AM.counts.researchers (60)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3258,
+    "symbol": "window.ITALY_INGEST.RESISTANCE",
+    "snippet": "const gireAll = ING ? ING.RESISTANCE.map(r => { ... spFull = String(r.SPECIES || '').split('—')[0].trim(); ... })",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Already migrated and correct. Measured all 11 used fields at 34/34. The guards at 3259-3288 are load-bearing: they refuse to truncate a binomial at '(' (which had destroyed 'Schoenoplectus (Scirpus) mucronatus'), and they void FIRST_CASE_YEAR unless the field is exactly four digits — necessary because the real value is '1994 — literal: \"Primo caso accertato nel 1994.\"', a researcher's Portuguese/Italian note.",
+    "replacement": "KEEP unchanged. Do not refactor the NOTE regex, the MOA table or the year guard."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 181,
+    "symbol": "scienceRecords date/year mapping",
+    "snippet": "date: S(r.DATE || r.date), year: S(r.YEAR || r.year),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "MEASURED DEAD: AM.collections.scienceRecords.records where date != null = 0/88; year != null = 0/88. IG.SCIENCE has no DATE and no YEAR — the field is PUBLISHED_AT (88/88, range 2019-01-01 to 2026-08-14). This also poisons the archive index at italy-app-model.js:269, which pushes r.date || r.year as the archive row date for all 88 science rows.",
+    "replacement": "publishedAt: S(r.PUBLISHED_AT), year: S(r.PUBLISHED_AT) ? String(r.PUBLISHED_AT).slice(0,4) : null,  and change line 269 to push(..., r.publishedAt, ...)."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 183,
+    "symbol": "scienceRecords studyArea/affiliation mapping",
+    "snippet": "studyArea: S(r.STUDY_AREA || r.studyArea), affiliation: S(r.AFFILIATION || r.affiliation),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "MEASURED DEAD: 0/88 each. Neither key exists in IG.SCIENCE. Keeping them invites a view to render an empty 'study area' and then to backfill it from the fixture, which is exactly what markup 2168 does today ('study area: {{ r.location }}').",
+    "replacement": "DELETE both. Add instead: author, orcid, doi, venue, materialType, materialRole, countryOfFact — all 88/88 in the source and all currently invisible to every screen."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 189,
+    "symbol": "researchers org/url mapping",
+    "snippet": "id: r.ID || r.id, name: S(r.NAME || r.name || r.PERSON), org: S(r.ORGANIZATION || r.org || r.INSTITUTION), role: S(r.ROLE || r.role), crops: r.CROPS || r.crops || [], issues: r.ISSUES || r.issues || [], url: S(r.SOURCE_URL || r.url),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "MEASURED: org = 0/60 (the real field is INSTITUTIONS, a plural array), url = 0/60 (the real identifiers are ORCID and OPENALEX_ID), crops = 0/60 and issues = 0/60 (no such fields). role = 60/60 but every single value is the researcher's own Portuguese working note, verbatim: 'NÃO SEI — o índice não declara papel'. If any view binds AM researcher role, that Portuguese note ships to an Italian user as a job title.",
+    "replacement": "institutions: r.INSTITUTIONS || [], orcid: S(r.ORCID), openalexId: S(r.OPENALEX_ID), themeKey: S(r.THEME), worksInScope: N(r.WORKS_IN_SCOPE), lastActivity: S(r.LAST_ACTIVITY), identityState: S(r.IDENTITY_STATUS), role: NOT_OBSERVABLE_IF_NOTE(r.ROLE), factRegion: NOT_OBSERVABLE_IF_NOTE(r.FACT_REGION) — where NOT_OBSERVABLE_IF_NOTE returns null when the value matches /NÃO SEI|NAO SEI/i, so the note can never reach a screen."
+   },
+   {
+    "file": "italy-demo-data.js",
+    "line": 385,
+    "symbol": "RECORDS (24 generated rows)",
+    "snippet": "const RECORDS = REAL_RECORDS.concat(Array.from({ length: 24 }, (_, i) => { const t = SCI_THEMES[i % SCI_THEMES.length]; const year = 2022 + (i % 5); ... institution: INSTITUTIONS[(i * 5) % INSTITUTIONS.length], study: STUDY[i % STUDY.length], ... location: seed(i * 9) > 0.55 && t.caseObjs.length ? t.caseObjs[i % t.caseObjs.length].region : 'Study location not stated' ...})",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Explicitly generated, and honest in its own note field ('Anonymised topic record'), but it is not labelled as demo on screen and it is counted in kpi.records. Rule 2 forbids a fixture supplying year, institution and region; this supplies all three.",
+    "replacement": "Stop reading it from the science screen. No science prop may reference D.RECORDS after this migration. The array itself may stay in the fixture for other demo modes."
+   },
+   {
+    "file": "italy-demo-data.js",
+    "line": 370,
+    "symbol": "INSTITUTIONS",
+    "snippet": "const INSTITUTIONS = ['CREA – Difesa e Certificazione', 'CNR – IPSP', 'CNR-ISPA', 'Università Cattolica del Sacro Cuore · Piacenza', ... ];",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "A hardcoded list of 16 plausible Italian institution names, of which 12 are exported as D.INSTITUTIONS. None of them is read from any source. Note that they LOOK more Italian and more credible than the real data does (real: 6 institutions, two of them foreign) — which is exactly why keeping them would be the most damaging single choice on this screen.",
+    "replacement": "DELETE_COMPONENT from the science domain. Derive from IG."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "scienceThemes (NEW)",
+    "why": "The screen's spine is a theme list. Today it is invented in the view from a fixture. IG.THEMES is real, small (5) and carries its own institution profile — the view must not have to know any of that.",
+    "fields": [
+     "key (IG.THEMES.ID, e.g. IT-THEME-001)",
+     "theme (THEME token, e.g. VINE_FLAVESCENCE)",
+     "title (a controlled display label per token — NOT a translation of the token, and NOT the demo t.title)",
+     "query (QUERY verbatim — this is the honest definition of what 'works' counts)",
+     "works (WORKS: 135/70/71/27/17)",
+     "authorsIt (AUTHORS_IT: 334/235/223/62/22)",
+     "authorsWithOrcid (AUTHORS_WITH_ORCID: 213/195/188/50/17)",
+     "authorsActiveSince2024 (AUTHORS_ACTIVE_SINCE_2024: 195/92/106/17/11)",
+     "institutionsTop (INSTITUTIONS_TOP object, 11-12 entries per theme)",
+     "recordCount (count of scienceRecords joined by cropToken+issueToken: 43, 40, 0, 0, 0)",
+     "researcherCount (count of IG.RESEARCHERS with THEME === token: 12 each)",
+     "cropToken / issueToken (derived from THEME for joining and for the ui category)",
+     "sourceId, provenance"
+    ],
+    "derivation": "1:1 from IG.THEMES[5]. works/authors* copied verbatim from OpenAlex counts. recordCount computed by matching IG.SCIENCE CROP+ISSUE to the theme's tokens — MEASURED: VINE_FLAVESCENCE 43, DURUM_FUSARIUM 40, OLIVE_BACTROCERA 0, MAIZE_BORER_DIABROTICA 0, WEED_HERBICIDE_RESISTANCE 0; and 5 of the 88 records (IT-SCI-001/002 OLIVE/REPILO, IT-SCI-086/087 VINE/DOWNY_MILDEW, IT-SCI-088 CEREAL/SEPTORIA) match NO theme and must be reachable outside the theme grouping. There is NO trend field and none can be derived — AUTHORS_ACTIVE_SINCE_2024 is a headcount, not a movement."
+   },
+   {
+    "collection": "scienceRecords (FIX + EXTEND)",
+    "why": "Three of its eleven current fields are measured dead (0/88) and seven real fields the source does supply are invisible to every screen, which is why the view fell back to the fixture.",
+    "fields": [
+     "publishedAt (PUBLISHED_AT, 88/88) replacing the dead date",
+     "year (first 4 chars of PUBLISHED_AT) replacing the dead year",
+     "author (AUTHOR, 88/88 — only 7 distinct values)",
+     "orcid (ORCID, 88/88 — 7 distinct)",
+     "doi (DOI, 86/88)",
+     "venue (VENUE, 88/88 — 52 distinct)",
+     "materialType (MATERIAL_TYPE: PEER_REVIEWED_PAPER 80, PREPRINT 6, OTHER_TECHNICAL_PUBLICATION 2)",
+     "materialRole (MATERIAL_ROLE: DISEASE_PEST_MONITORING 26, METHOD_MECHANISM 21, NEW_SCIENTIFIC_EVIDENCE 21, MANAGEMENT_GUIDANCE 13, REVIEW_SYNTHESIS 4, EXPERIMENT_RESULT 3)",
+     "countryOfFact (COUNTRY_OF_FACT — 88/88 all 'IT'; this is the ONLY geography the source gives, there is no region and no study area)",
+     "themeKey (derived join on CROP+ISSUE; null for the 5 unmatched records)",
+     "REMOVE studyArea and affiliation (0/88 each)"
+    ],
+    "derivation": "All fields copied verbatim from IG.SCIENCE. themeKey is the only derived one and is null where no theme matches. Do not synthesize a region: COUNTRY_OF_FACT is 'IT' for all 88 and is a country, not a study location."
+   },
+   {
+    "collection": "scienceInstitutions (NEW, derived)",
+    "why": "The screen has an INSTITUTIONS panel and a per-theme INSTITUTIONS chip row. Both must be derived, and they are derived from two DIFFERENT real sources with two different meanings that must not be blended.",
+    "fields": [
+     "name",
+     "recordCount (how many of the 88 records carry this as first-author affiliation)",
+     "source: 'FIRST_AUTHOR_AFFILIATION'",
+     "(separately) themeWorks map from IG.THEMES[].INSTITUTIONS_TOP"
+    ],
+    "derivation": "Panel A (the INSTITUTIONS card, markup 2082-2087): group IG.SCIENCE by INSTITUTION. MEASURED, exactly 6: University of Verona 27, University of Turin 25, University of Milan 16, Institute of Sciences of Food Production 15, Institut National de Recherche pour l'Agriculture l'Alimentation et l'Environnement 3, Instituto de Agricultura Sostenible 2. Panel B (the per-theme chips, markup 2175): Object.keys(theme.institutionsTop), 11-12 per theme, 37 distinct across all five. There is NO institution 'type' field in either source — the demo's 'University / National research body / Research foundation' is a string-prefix guess and must not be reproduced."
+   },
+   {
+    "collection": "researchers (FIX)",
+    "why": "org and url are measured 0/60 and role leaks a Portuguese research note to an Italian screen.",
+    "fields": [
+     "institutions (INSTITUTIONS array, 60/60; 36 distinct across the 60)",
+     "orcid (60/60), openalexId (60/60)",
+     "themeKey (THEME, 60/60 — exactly 12 researchers per theme, all five themes covered)",
+     "worksInScope (WORKS_IN_SCOPE, 60/60, range 1-30)",
+     "lastActivity (LAST_ACTIVITY, 60/60, range 2019-01-02 to 2026-07-30)",
+     "identityState (IDENTITY_STATUS: ORCID_PRESENT_NOT_RESOLVED_HERE 54, NO_ORCID_IN_SOURCE 6)",
+     "role -> null when the value matches /NÃO SEI/i (currently 60/60 do)",
+     "factRegion -> null when the value matches /NÃO SEI/i (currently 60/60 do)"
+    ],
+    "derivation": "Verbatim from IG.RESEARCHERS with a single NOT_OBSERVABLE guard on ROLE and FACT_REGION. daysSinceLastActivity, if a screen wants it, is computed by the existing AM.daysFrom against REF 2026-09-02 — no new clock."
+   },
+   {
+    "collection": "searchIndex (EXTEND)",
+    "why": "Search at portale.html:3380 reads the fixture directly. The model already indexes resistance (line 304) but not science records or themes.",
+    "fields": [
+     "idx('science', r.id, r.title, [r.title, r.author, r.institution, r.venue, r.crop, r.issue], 'science')",
+     "idx('theme', t.key, t.title, [t.title, t.theme, t.cropToken, t.issueToken], 'theme')"
+    ],
+    "derivation": "Straight from the two collections above; the view then reads AM.searchIndex only."
+   }
+  ],
+  "markupImpact": [
+   "1952 — '{{ sciTotal }} classified themes · counts reconcile'. sciTotal goes 13 -> 5 once EXTRA_THEMES leave sciAll. The phrase 'counts reconcile' only stays true if sciCounts, sciThemeCount and sciTotal all count the same 5.",
+   "1980 — 'TOPICS TO WATCH · {{ sciThemeCount }}' goes 13 -> 5 (or fewer under a filter).",
+   "1992 — 'NEXT RELEVANT WINDOW' block: {{ TH.nextMoment }} / {{ TH.nextMomentMeta }} / {{ TH.nextMomentColor }} currently come from winFor2() over D.WINDOWS. Repoint to APP.collections.windows and print w.status verbatim; never re-derive 'WINDOW OPEN'.",
+   "1991 — {{ TH.portfolioState }} / {{ TH.portfolioColor }}: today 'VERIFIED PORTFOLIO MATCH' is printed whenever the demo cases attached any product name. Must read AM.strengthFor / the label-verdict strength classes, and 'NO CONFIRMED DIRECT MATCH' must render as NO_CONFIRMED_MATCH_CURRENT_READING wording (Rule 10).",
+   "1994 — {{ TH.worksLabel }}: correct for the 5 real themes (135/70/71/27/17); the 8 other themes that produced this label had no real works count at all.",
+   "1996 — {{ TH.opportunityLine }} ('N connected opportunities'): DELETE. No theme->opportunity link exists in any real source.",
+   "2054 — 'CURRENT COMMERCIAL OPPORTUNITY · {{ TH.opportunityLine }}': same, DELETE the line, keep the STRATEGIC SCIENCE card.",
+   "2063 — 'RECENT RESEARCH · {{ kpi.records }} RECORDS' -> {{ scienceRecordCount }} (88). Also: with the real corpus spanning 2019-2026 the table must be sorted by publishedAt descending for the word RECENT to be true.",
+   "2064 + 2066-2072 — the records table columns. YEAR keeps working once publishedAt is mapped. RECORD keeps title. INSTITUTION keeps working (6 distinct). 'BUSINESS RELEVANCE' ({{ r.bizRel }}) is an interpretation keyed on the demo themeId via SB.RECORD_REL — it survives only for the 2 themes that actually have records. 'RELATED CASE' ({{ r.related.issueL }} · {{ r.related.region }}) must be DELETED — the column, its header and its click handler.",
+   "2068 — the sub-line '{{ r.why }} · {{ r.locationShort }}' must be DELETED: why is generated prose, locationShort is an invented study region. Replace with '{{ r.author }} · {{ r.venue }} · {{ r.materialRoleL }}', all 88/88 real.",
+   "2077 — 'RESEARCHERS · {{ kpi.researchers }}' 14 -> 60.",
+   "2079 — the researcher row prints {{ p.label }} · {{ p.org }}, {{ p.bizWhy }}, {{ p.bizUse }} and {{ p.last }}. org becomes institutions.join(' · '); last becomes lastActivity (real, 60/60); bizWhy and bizUse must be DELETED and can be replaced by '{{ p.worksInScope }} lavori nel tema · {{ p.identityStateL }}'.",
+   "2083 — 'INSTITUTIONS · {{ instCount }}' 12 -> 6, and the card needs a one-line caption saying these are first-author affiliations on the 88 records, not the locations of the studies (two of the six are not Italian).",
+   "2085 — the institution row prints {{ i.type }}: DELETE, no such field exists. {{ i.themeLabel }} can stay, derived from which themes the institution's records fall in. {{ i.records }} keeps its meaning under the new derivation.",
+   "2136 — 'KEY RECORDS' in the impact drawer: '{{ r.year }} · {{ r.institution }} · {{ r.study }}'. study becomes materialType/materialRole; year works once publishedAt is mapped.",
+   "2161 — theme detail '{{ th.works }} / Topic-linked works': real for the 5 themes.",
+   "2162 — '{{ th.trend }} / Publication movement' with {{ th.trendColor }}: DELETE the whole tile. No trend exists anywhere in IG.THEMES.",
+   "2163 — '{{ th.caseCount }} / {{ t.lblConnOpps }}': DELETE the tile.",
+   "2167-2168 — 'PUBLICATION ACTIVITY · REPRESENTATIVE RECORDS'. The row's 'study area: {{ r.location }}' must go (0/88 real). The trailing green '{{ r.related.issueL }} · {{ r.related.region }}' link must go. For OLIVE_BACTROCERA, MAIZE_BORER_DIABROTICA and WEED_HERBICIDE_RESISTANCE this list is now EMPTY (measured 0 records each) — the card needs an empty state saying the theme has publication volume but no record in this reading.",
+   "2169 — the existing caveat 'Author affiliation is not treated as field location' is correct and becomes more important, not less. Keep it and mirror it onto the INSTITUTIONS card at 2082.",
+   "2172-2173 — 'KEY RESEARCHERS': repoint to the 12 real researchers per theme. {{ p.label }} was 'Demo profile · Researcher' for the generated half of D.PEOPLE; it becomes the real PERSON name.",
+   "2175 — the per-theme INSTITUTIONS chips: repoint to Object.keys(theme.institutionsTop) — 11 or 12 chips per theme, and consider printing the works count on each chip since INSTITUTIONS_TOP carries it.",
+   "2176-2177 — 'CONNECTED OPPORTUNITY CASES' card: DELETE_COMPONENT.",
+   "2179 — 'MONITOR NEXT' sentence embeds {{ th.instCount }} and {{ th.cropL }} and promises 'movement into Future Radar signals'. Rewrite without the movement promise; instCount now means institutions in the OpenAlex theme profile, a different denominator from the 6 on the science home.",
+   "2093-2094 — the '{{ t.lblScienceConnected }}' strip re-renders sciThemes; shrinks 13 -> 5 with it.",
+   "2110/2120 — {{ sciImpact.rel }} and relDef: keep, they are already labelled as an interpretation layer, but only 5 theme keys will resolve; the drawer must handle a null biz block.",
+   "2020-2045 — the GIRE block: NO CHANGE. It is already real."
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "theme.trend / trendColor / trendUpper",
+    "usedAt": "portale.html 3305 (trendUpper), 3209 (sourceTrend), markup 2162 'Publication movement'",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "There is no trend, movement, growth or direction field anywhere in IG.THEMES. The five fields it does have (WORKS, AUTHORS_IT, AUTHORS_WITH_ORCID, AUTHORS_ACTIVE_SINCE_2024, INSTITUTIONS_TOP) are all point-in-time counts from a single query — no time-window comparison exists, so no movement can be computed. The demo's 'Rising / Stable / Emerging' was authored by hand. Delete the tile; do not substitute AUTHORS_ACTIVE_SINCE_2024, which is a headcount and would be read as growth."
+   },
+   {
+    "field": "theme.cases / caseObjs / caseCount / opportunityLine",
+    "usedAt": "portale.html 3220-3221, 3305, 3314; markup 1996, 2054, 2133, 2163, 2176-2177; and the same link re-derived at 2628 and 3340",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "The theme-to-opportunity relationship exists in exactly one place: the hand-written `cases: ['IT-OPP-001', ...]` arrays in italy-demo-data.js:372-381. IG.SCIENCE has no case field, IG.THEMES has no case field, IG.OPPORTUNITIES (3 records) has SOURCE_IDS but no theme key. This kills five separate UI blocks: the connected-opportunities counter, the CONNECTED OPPORTUNITY CASES card, the opportunityLine on every theme tile, the RELATED CASE column of the records table, and the RESEARCH TOPIC row in archive detail. It is the single largest deletion in this domain and there is no honest substitute."
+   },
+   {
+    "field": "record.related / record.openCase",
+    "usedAt": "portale.html 3309, 3314; markup 2071, 2168",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "A per-record link to an opportunity case. In the fixture it is assigned by `t.caseObjs[i % length]` — literally a modulo. Nothing in IG.SCIENCE points at an opportunity."
+   },
+   {
+    "field": "record.why",
+    "usedAt": "portale.html markup 2068",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Generated sentence: 'Connected because it informs <issue> timing or pressure for <crop> in Italy.' It asserts timing and pressure relevance — a scientific/agronomic conclusion invented by a template. Delete."
+   },
+   {
+    "field": "record.location / locationShort ('study area')",
+    "usedAt": "portale.html 3309, markup 2068 and 2168",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "IG.SCIENCE's only geography is COUNTRY_OF_FACT, which is 'IT' for all 88 records. There is no region, province or study area. The fixture generated one from the related case's region 45% of the time. Show 'Italia · area di studio non dichiarata' or omit the line — and keep the existing caveat at markup 2169 that author affiliation is not a field location."
+   },
+   {
+    "field": "record.study (the STUDY vocabulary)",
+    "usedAt": "portale.html 3309 via D.RECORDS; markup 2136 '{{ r.study }}'",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "The demo's six-value list (Field trial / Population model / Review / Regional survey / Laboratory study / Decision-support evaluation) is invented, but the real corpus has a comparable pair: MATERIAL_TYPE (88/88) and MATERIAL_ROLE (88/88, six values). Use the real vocabulary as-is, do not map it onto the demo's words — 'Field trial' is a claim the source never made."
+   },
+   {
+    "field": "institution.type",
+    "usedAt": "italy-demo-data.js 391; portale.html 3312; markup 2085",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "'National research body' / 'Research foundation' / 'University' is decided in the fixture by `name.startsWith('CREA')`. No such classification exists in IG. Drop the second line of the row."
+   },
+   {
+    "field": "institutions list itself (12 names)",
+    "usedAt": "italy-demo-data.js 370 and 391; portale.html 3312; markup 2083-2087",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Derivable, but the honest result is much smaller and less Italian than the fixture: 6 institutions, not 12, and two of the six (INRAE, France; Instituto de Agricultura Sostenible, Spain) are not Italian at all. The panel must also stop implying these are the institutions doing Italian field research — INSTITUTION is the first author's affiliation on the record."
+   },
+   {
+    "field": "the size of the research corpus itself",
+    "usedAt": "markup 2063 '{{ kpi.records }} RECORDS'",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "This is the most important honesty item on the screen and it is not a missing field, it is a misleading true one. The count 88 is real, but IG.SCIENCE has only 7 distinct AUTHOR values (Nicola Mori 27, Massimo Blandino 25, F. Quaglino 16, Antonio Logrieco 15, Blanca B. Landa 2, François Delmotte 2, Frédéric Suffert 1) and 6 distinct institutions. It is the publication list of seven researchers, not a survey of Italian science. Printing '88 RECORDS' without that sentence next to it overstates coverage by roughly an order of magnitude, and it is exactly the kind of number that later gets quoted as if it measured the field."
+   },
+   {
+    "field": "per-theme records for 3 of the 5 real themes",
+    "usedAt": "markup 2167-2168 'PUBLICATION ACTIVITY · REPRESENTATIVE RECORDS'; portale.html 3228, 3314",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "MEASURED by joining CROP+ISSUE: VINE_FLAVESCENCE 43 records, DURUM_FUSARIUM 40, OLIVE_BACTROCERA 0, MAIZE_BORER_DIABROTICA 0, WEED_HERBICIDE_RESISTANCE 0. Three of the five theme detail pages will have an EMPTY publication list while still showing a works count of 71, 27 and 17. That contrast is the truth (the works count comes from the OpenAlex query, the records come from a much narrower harvest) and the empty state must say so rather than borrow rows from a neighbouring theme."
+   },
+   {
+    "field": "researcher.bizUse / bizWhy / bizNote",
+    "usedAt": "portale.html 3311; markup 2079",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "'POTENTIAL EXPERT TO WATCH' and 'Relevant to X · Y · technical watch and possible expert engagement' are a business judgement attached to a named real person, composed by the view from fixture crop/issue fields. Nothing external supports it. Delete both lines from the row."
+   },
+   {
+    "field": "researcher.role",
+    "usedAt": "italy-app-model.js 190 (role: S(r.ROLE)); portale.html 3311 filter p.role === 'Researcher'",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "MEASURED 60/60 = 'NÃO SEI — o índice não declara papel'. That is the analyst's own Portuguese note meaning 'I don't know — the index does not declare a role'. It is currently carried through the app model unfiltered. It must be nulled at the model boundary and rendered as 'ruolo non dichiarato dalla fonte'."
+   },
+   {
+    "field": "researcher.region / factRegion",
+    "usedAt": "IG.RESEARCHERS.FACT_REGION; demo equivalent at italy-demo-data.js 398 ('Affiliation · not a field location')",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "MEASURED 60/60 = 'NÃO SEI — a afiliação é do AUTOR, não do estudo'. Same leak as role. There is no researcher region."
+   },
+   {
+    "field": "researcher.crops / researcher.issues",
+    "usedAt": "italy-app-model.js 190; portale.html 3311 (p.crops[0], p.issues[0] feed bizWhy)",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "MEASURED 0/60 in the model. The real link is THEME (60/60, exactly 12 per theme), from which a crop and issue token follow. Usable as a NAVIGATION label only — a researcher being in the VINE_FLAVESCENCE query is not a statement that they work on vines in the field."
+   },
+   {
+    "field": "researcher.contentCount / lastDays / 'ago' relative dates",
+    "usedAt": "italy-demo-data.js 398-403; markup 2079 '{{ p.last }}'",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "The fixture's `20 + i * 3` days is invented. IG.RESEARCHERS.LAST_ACTIVITY is real and complete (60/60, 2019-01-02 to 2026-07-30). Compute any 'N giorni fa' with the existing AM.daysFrom against referenceDate 2026-09-02 — no new Date()."
+   },
+   {
+    "field": "person -> publications join",
+    "usedAt": "portale.html 3371 themeRecords; markup 2340 'PUBLICATIONS · TOPIC X'",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "MEASURED: of the 7 distinct AUTHOR values in IG.SCIENCE, exactly ONE (Massimo Blandino) also appears in IG.RESEARCHERS.PERSON. So a truthful person->publications panel is empty for 59 of 60 researchers. The current screen fills it with the theme's records instead, which attributes publications to people the source never linked to them."
+   },
+   {
+    "field": "theme.note",
+    "usedAt": "italy-demo-data.js 372-381; markup 2160",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Hand-written descriptive prose per theme ('Mycotoxin risk, flowering timing, fungicide efficacy'). IG.THEMES has QUERY instead, which is strictly better: it states exactly what was counted. Show the query, drop the prose."
+   },
+   {
+    "field": "theme.works for the 8 themes with no real counterpart",
+    "usedAt": "markup 1994 and 2161",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "scaphoideus 66, xylella 52, maize-mycotoxins 41, resistance 24, ipm 19, cercospora-dss 18 — six publication volumes with no upstream theme. Plus durum-fusarium 78 (real: 70) and maize-borer 30 (real: 27), two numbers that are close enough to look verified and are simply wrong. The themes go with them."
+   },
+   {
+    "field": "ITALY_SCIENCE.B entries for the 5 themes with no real counterpart",
+    "usedAt": "italy-science-business.js 20-175 keyed by demo theme id; portale.html 3233",
+    "verdict": "KEEP_AS_LABELLED_DEMO",
+    "note": "Of the 10 SB.B keys, 5 map to a real IG theme (grapevine-phytoplasma, durum-fusarium, olive-bactrocera, maize-borer, and weed-resistance via EXTRA_THEMES). The other 5 (scaphoideus, cercospora-dss, maize-mycotoxins, xylella, ipm) describe themes that do not exist upstream; their short/why/shows/notShows prose must not render. The three EXTRA_THEMES are already self-labelled 'not ingested' and may stay under a separate, clearly-labelled heading — but out of sciTotal and sciCounts."
+   },
+   {
+    "field": "sciWeed",
+    "usedAt": "portale.html 3302, exported at 3447",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Computed and exported but bound nowhere in the 51-2374 markup. Dead prop; delete while you are in there."
+   },
+   {
+    "field": "i18n labels for the real crop/issue tokens",
+    "usedAt": "portale.html 2480 cl(), 2487 il(); markup 1985, 2104, 2160",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "Not a data gap but it will look like one. T.CROPS and T.ISSUES are keyed on the demo's English labels ('Grapevine', 'Fusarium Head Blight'). The real tokens are VINE, DURUM_WHEAT, OLIVE, CEREAL and FLAVESCENCE, FUSARIUM, REPILO, DOWNY_MILDEW, SEPTORIA — none of which has a dictionary entry, so cl()/il() would pass the raw uppercase token through to an Italian screen. A token->label map is required as part of this migration, in both it and en."
+   }
+  ],
+  "plan": [
+   "STEP 1 — italy-app-model.js, scienceRecords (lines 179-186). Replace the dead `date: S(r.DATE || r.date)` and `year: S(r.YEAR || r.year)` with `publishedAt: S(r.PUBLISHED_AT)` and `year: r.PUBLISHED_AT ? String(r.PUBLISHED_AT).slice(0,4) : null`. Delete `studyArea` and `affiliation` (both measured 0/88). Add author, orcid, doi, venue, materialType, materialRole, countryOfFact. Verify with the node recipe that publishedAt is 88/88 before moving on.",
+   "STEP 2 — italy-app-model.js line 269. The archive index pushes `r.date || r.year` as the date for every science row; both are null today. Change to `r.publishedAt`. This silently fixes 88 archive rows in another domain — mention it to the archive owner rather than letting them rediscover it.",
+   "STEP 3 — italy-app-model.js, researchers (lines 188-192). Add a `noteGuard = (v) => /N[ÃA]O SEI/i.test(String(v||'')) ? null : S(v)` helper and apply it to ROLE and FACT_REGION. Replace `org` with `institutions: r.INSTITUTIONS || []`. Replace `url` with `orcid: S(r.ORCID)` and `openalexId: S(r.OPENALEX_ID)`. Add themeKey, worksInScope, lastActivity, identityState. Delete the dead crops/issues.",
+   "STEP 4 — italy-app-model.js, new `scienceThemes` collection from IG.THEMES (5). Include key, theme, title (from a controlled token->label map you author here, not in the view), query, works, authorsIt, authorsWithOrcid, authorsActiveSince2024, institutionsTop, cropToken, issueToken. Then backfill `themeKey` onto scienceRecords and compute recordCount / researcherCount per theme. Assert in a scratch node run that recordCount comes out 43/40/0/0/0 and researcherCount 12/12/12/12/12 — if it does not, the join is wrong.",
+   "STEP 5 — italy-app-model.js, new derived `scienceInstitutions` (group IG.SCIENCE by INSTITUTION). Assert 6 entries with counts 27/25/16/15/3/2. Register both new collections in the `collections` object at line 282 so counts and provenanceSummary pick them up.",
+   "STEP 6 — italy-app-model.js searchIndex (around line 298-304): add idx() entries for science records and science themes so the view can stop reading the fixture.",
+   "STEP 7 — a token->label dictionary for it and en covering VINE, DURUM_WHEAT, OLIVE, CEREAL, MAIZE and FLAVESCENCE, FUSARIUM, REPILO, DOWNY_MILDEW, SEPTORIA, BACTROCERA, BORER, HERBICIDE_RESISTANCE. Without this the screen renders raw uppercase tokens.",
+   "STEP 8 — portale.html 3200-3239, buildTheme() and sciAll. Drive sciAll from AM.collections.scienceThemes. Look SB.B up through an explicit legacyKey map and make every SB read null-safe. Move SB.EXTRA_THEMES out of sciAll into a separate `sciDeclaredNotIngested` prop. Delete works/trend fallbacks. Keep D.CAT but only under theme.ui.category.",
+   "STEP 9 — portale.html 3197, winFor2(). Repoint from D.WINDOWS to APP.collections.windows and stop composing the state string: print w.status / w.statusReason verbatim, use w.daysToStart / w.daysToEnd only for the numeral.",
+   "STEP 10 — portale.html 3216-3221. Replace the products/portfolioState/portfolioColor derivation (which reads the demo cases' product lists) with AM.strengthFor and the label-verdict strength classes; make the negative read NO_CONFIRMED_MATCH_CURRENT_READING. Delete opportunityLine, caseCount and caseObjs entirely.",
+   "STEP 11 — portale.html 3309, `records`. Rebuild from AM.collections.scienceRecords sorted by publishedAt descending. Drop why, locationShort, related and openCase. Keep bizRel/bizColor only where a themeKey resolves to an SB.RECORD_REL entry, otherwise omit the cell.",
+   "STEP 12 — portale.html 3311-3312. `researchers` from AM.collections.researchers (delete bizUse/bizWhy/bizNote); `institutions` from AM.collections.scienceInstitutions (delete i.type).",
+   "STEP 13 — portale.html 3313-3314. Look th0 up by key with NO fallback to [0]; add a `hasTheme` prop and an empty state. Rebuild th.records, th.institutions (from institutionsTop), th.instCount and th.people from the model. Delete trendUpper, caseCount, caseObjs.",
+   "STEP 14 — portale.html 2628 and 3340. Delete both fixture-driven theme<->case links. At 2628, either delete relatedThemes or rebuild it as a crop+issue navigation chip explicitly labelled as navigation.",
+   "STEP 15 — portale.html 2893, 2898 and 3371. Repoint the two navigation fallbacks to the first real theme key. At 3371 make themeRecords an author-name match (it will be empty for 59 of 60 people) with an explicit empty state.",
+   "STEP 16 — portale.html 3380. Replace the two fixture reads in search with AM.searchIndex.",
+   "STEP 17 — portale.html 3446-3447 export line. Add scienceRecordCount, researcherCount and sciDeclaredNotIngested; delete sciWeed and sciHasWeed (bound nowhere).",
+   "STEP 18 — markup 51-2374, apply every edit listed in markupImpact. Do not relayout: delete the tiles and columns named there and let the existing grid close up; do not add new cards to fill the space (Rule 3 and Rule 12).",
+   "STEP 19 — verify nothing regressed in the GIRE block (portale.html 3244-3300, markup 2020-2045). It is already real and correct; the species-truncation guard and the four-digit year guard must be byte-identical after the change.",
+   "STEP 20 — final check with the node recipe: sciTotal === 5, scienceRecordCount === 88, researcherCount === 60, institutions.length === 6, and grep portale.html for `D.SCI_THEMES`, `D.RECORDS` and `D.INSTITUTIONS` — the only remaining hits should be none."
+  ],
+  "risks": [
+   "The screen gets visibly emptier and the numbers get visibly smaller: 13 themes -> 5, 12 institutions -> 6, 36 'records' -> 88 (this one grows), 14 researchers -> 60. Three of the five theme detail pages will have an empty publications list. Someone will read that as a regression. It is not; it is the first honest version of this screen.",
+   "The 88-record corpus is 7 authors deep. If the count ships without that caption next to it, it will be quoted as 'Sintonia monitors 88 Italian studies' and there is no way to walk that back later. This is the highest-consequence item in the whole domain.",
+   "Two of the six real institutions are not Italian (INRAE, France; Instituto de Agricultura Sostenible, Spain). Any header wording like 'Italian institutions' becomes false the moment the panel is repointed.",
+   "IG.SCIENCE has no theme key. The record<->theme join is inferred from CROP+ISSUE and it leaves 5 of 88 records (IT-SCI-001, 002, 086, 087, 088) belonging to no theme. Those records must stay reachable in the flat table, or 5 real records silently vanish from the product.",
+   "INSTITUTION on a record is the FIRST author's affiliation, and INSTITUTIONS_TOP on a theme is a works count from a different query. The two panels sit within 20 lines of each other in the markup (2082 and 2175) and mixing their denominators is the easiest mistake available here.",
+   "IG.RESEARCHERS.ROLE and FACT_REGION are 60/60 Portuguese analyst notes ('NÃO SEI — ...'). They already flow through the app model unfiltered. Any view that binds AM researcher role today ships that note to the user; the guard must land in the model, not in one view.",
+   "The theme<->opportunity link is deleted in three places (case detail 2628, archive detail 3340, theme detail 2176). If any of the three is missed, a fixture-only relationship keeps rendering while the other two disappear, which is worse than either state alone.",
+   "T.CROPS / T.ISSUES do not have entries for a single real token. Repointing the view without the token->label map first will put VINE, DURUM_WHEAT and FLAVESCENCE on an Italian screen in raw uppercase.",
+   "th0 falls back to sciDetailThemes[0]. Every existing link and bookmark to a demo theme id (8 of 10 ids disappear) will silently render a different theme's facts under the requested id unless STEP 13 lands with STEP 8.",
+   "winFor2() (line 3197) reads D.WINDOWS and turns it into 'WINDOW OPEN · N days remaining'. It belongs to the windows domain but is invoked from buildTheme, so it can be missed by both owners. Coordinate this one line explicitly.",
+   "ITALY_SCIENCE.B is authored interpretation, not a fixture, and the UI already labels it honestly. Deleting it wholesale would remove the one thing on the screen that connects science to business. Deleting only the 5 orphan keys is the right cut, and it is a judgement call worth confirming with the product owner."
+  ],
+  "openQuestions": [
+   "ITALY_SCIENCE.B is Sintonia's own business interpretation, already labelled on screen as 'an interpretation layer over the science, not a scientific conclusion'. Does Rule 2 (a demo fixture may never supply a fact) apply to it? My reading: the rel/short/why/shows/notShows prose is interpretation, allowed, but ONLY over a theme that really exists upstream — so keep the 5 mapped keys, drop the 5 orphans. Confirm before deleting authored copy.",
+   "The three EXTRA_THEMES (herbicide resistance, weed management, biocontrol) declare works:null and 'not ingested' in their own text. Should they stay visible under a separate labelled heading (my recommendation, since they document a known gap), or be removed until data exists?",
+   "IG.THEMES.WORKS (135/70/71/27/17) counts works matching an OpenAlex QUERY. IG.SCIENCE holds 88 harvested records. These are two different universes and the theme detail page will show both at once (works 71, records 0 for OLIVE_BACTROCERA). What exact wording distinguishes them on screen?",
+   "Is there an upstream plan to add a THEME key to IG.SCIENCE? If yes, the CROP+ISSUE join in STEP 4 is temporary scaffolding and should be marked as such in a comment.",
+   "The 'BUSINESS RELEVANCE' column of the records table (SB.RECORD_REL, keyed by demo themeId) can only resolve for the two themes that have records. Keep the column with blanks, or drop the column?",
+   "Does any other domain already bind AM.collections.researchers[].role or .org? If so the Portuguese note may already be on screen somewhere I did not look, and the model-side guard becomes urgent rather than tidy.",
+   "window.ITALY_REAL.SCIENCE (12) and .RESEARCHERS (14) are an earlier hand-curated real fixture with fields IG does not have (kind, what, region, focus, note). Is it superseded by IG entirely, or is it a second real source that should be merged? I assumed superseded; it is the one assumption in this spec I could not settle from the data alone."
+  ],
+  "confidence": "high"
+ }
+]

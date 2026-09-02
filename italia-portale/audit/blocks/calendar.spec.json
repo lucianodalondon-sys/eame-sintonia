@@ -1,0 +1,553 @@
+[
+ {
+  "domain": "CROP WINDOWS + CROP CALENDAR + PREPARATION CLOCK",
+  "summary": "Two screens live here. (A) view 'windows' (markup 535-751) is NOT a window list at all — it is the CROP CALENDAR: a rolling month timeline whose rows, dates, phenology bands, hectares, per-region date offsets and observed-stage dots ALL come from the demo fixtures D.CROP_CAL (8 crops, 40 crop x region rows) and D.OBSERVED (10 rows). The canonical contract is never consulted on this screen. (B) view 'window' (markup 752-810) is the window detail, fed by D.WINDOWS[29], a fixture that wraps each canonical window in ~20 decorated fields (prep, bucket, early, why, readiness, ladder, scale, kind) that have no upstream equivalent. Measured reality: CANONICAL supplies 29 windows with crop/issue/region/windowType/status/statusReason/dateState/dateConfidence 29/29, START_DATE and END_DATE 24/29, and NOTHING else — CROP_STAGE 0/29, ISSUE_STAGE 0/29, GENERATION_OR_STAGE 0/29, LABEL_TRIGGER 0/29, REGULATORY_TIMING 0/29, PRODUCT_MATCHES empty 29/29, SOURCE_IDS empty 29/29. IG.CROP_WINDOWS[7] carries the only real regulatory acts (5 grapevine Flavescenza rows) and the only two real observed stages (both Modena province). ITALY_LABEL_VERDICTS supplies 12 VERIFIED crop x issue x product tuples covering 11 of 29 windows. Everything else on both screens is fixture.",
+  "realSource": "Primary: APP.collections.windows (29 records, provenance CANONICAL, from window.ITALY_CANONICAL.windows). Secondary, currently NOT exposed by the model and must be added: window.ITALY_INGEST.CROP_WINDOWS (7 records — 5 grapevine Flavescenza rows with REGULATORY_ACT / REGULATORY_WINDOW / MONITORING_WINDOW / APPLICATION_WINDOW_2026 / PREPARATION_WINDOW / COVERAGE_STATE, plus 2 Modena field-observation rows that are the only OBSERVED_STAGE values in the whole pack) and window.ITALY_LABEL_VERDICTS (12 VERIFIED tuples, the only real product-to-window relationship). IG.CROPS[17] has NO region and NO area fields and therefore backs nothing on these screens. Coverage after migration: 29 rows over 10 crops x 9 regions (vs 40 fixture rows over 8 crops); 24/29 rows have real dates; 11/29 have a verified ADAMA product; 2/29 (Veneto, Piemonte Flavescenza) gain a real regulatory act; 0/29 have an observed crop stage.",
+  "confidence": "high",
+  "occurrences": [
+   {
+    "file": "italy-app-model.js",
+    "line": 69,
+    "symbol": "D.WINDOWS",
+    "snippet": "(D.WINDOWS || []).forEach(w => { dwByCase[w.caseId || w.id] = w; });",
+    "classification": "VISUAL_ONLY",
+    "reason": "Builds a lookup used only by uiOf() on the next line, which extracts category.icon / category.color / n. Measured: ui.color resolves for 29/29, ui.order for 0/29 (D.WINDOWS entries have no .n). Icon and colour are presentation metadata explicitly allowed under record.ui by rule 4. No fact crosses.",
+    "replacement": "KEEP, but drop the dead order field: uiOf = (r) => r ? { icon: r.category && r.category.icon, color: r.category && r.category.color } : {}"
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 73,
+    "symbol": "D.WINDOWS",
+    "snippet": "id: (dwByCase[w.LEGACY_CASE_ID] || {}).id || w.WINDOW_ID,",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The record IDENTITY is taken from the fixture, not from the contract: measured 29/29 windows get id 'WIN-001' style from the demo instead of 'IT-WIN-0001'. Every route, deep link and cross-screen join in the app therefore keys on a demo-issued identifier. That is an identity fact supplied by a fixture.",
+    "replacement": "id: w.WINDOW_ID  (and add legacyId: (dwByCase[w.LEGACY_CASE_ID] || {}).id || null purely so old routes can be redirected)"
+   },
+   {
+    "file": "portale.html",
+    "line": 2573,
+    "symbol": "D.WINDOWS",
+    "snippet": "const winMatch = (crop, issue) => { ... return D.WINDOWS.find(w => (w.crop === crop || (crop === 'Wheat' && w.crop === 'Durum Wheat')) && keys.some(k => w.issue.toLowerCase().indexOf(k) >= 0)) || null; };",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Resolves 'does this crop x issue have a window' — a factual timing claim consumed elsewhere on the radar. Reads crop/issue off the fixture wrapper.",
+    "replacement": "AM.collections.windows.records.find(w => (w.crop === crop || (crop === 'Wheat' && w.crop === 'Durum Wheat')) && keys.some(k => w.issue.toLowerCase().indexOf(k) >= 0)) || null"
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "D.WINDOW_KPI",
+    "snippet": "['windows', T.navWindows, D.WINDOW_KPI.total]",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The navigation badge count. Currently 29 by coincidence — D.WINDOWS is derived 1:1 from D.CASES which is 29 — but it is a real count rendered to the user and it must come from the contract.",
+    "replacement": "AM ? AM.counts.windows : 0"
+   },
+   {
+    "file": "portale.html",
+    "line": 2646,
+    "symbol": "D.PREP_LEAD",
+    "snippet": "const PREP = D.PREP_LEAD;",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Value 90. Feeds the green BUSINESS PREPARATION bar on every calendar row, the 'prepare from' date on every moment card, the drawer line 'Commercial lead time 90 days', and calSeason's PRE-SEASON card. A channel purchase lead time is not externally observable — no source in IG, CANONICAL or CATALOG contains it. Presented today as fact with no label.",
+    "replacement": "AM.preparation.leadDays, a new SINTONIA_INTERPRETATION block (see modelChanges). Keep the feature, render it only inside a block headed with the interpretation label and never as a date fact."
+   },
+   {
+    "file": "portale.html",
+    "line": 2666,
+    "symbol": "D.OBSERVED",
+    "snippet": "const obs = D.OBSERVED.find(o => o.crop === cropName && o.region === region);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Supplies the white 'observed' dot, r.current, r.coverage CURRENT/PARTIAL/EXPECTED ONLY, the calStrip 'observed' count, the calKpi coverage-gap count and the drawer OBSERVED STAGE box. This is a crop-phenology observation with a date and a named source — the single most fact-bearing thing on the screen — and it lives in italy-demo-data.js. Measured upstream truth: CANONICAL CROP_STAGE is null 29/29 and CROP_STAGE_CLASS is NOT_OBSERVED 29/29; the only real observed stages in the whole pack are IG.CROP_WINDOWS IT-WIN-006 and IT-WIN-007, both for 'provincia di Modena', a region that does not exist in D.CROP_CAL. So 10 fixture observations replace 0 matchable real ones.",
+    "replacement": "AM.collections.windows.records[i].observedStage — null for 29/29 today. Render 'NON OSSERVATO' and drop the dot. Expose the 2 Modena rows separately via the new cropWindowsUpstream collection; do not force them onto calendar rows."
+   },
+   {
+    "file": "portale.html",
+    "line": 2671,
+    "symbol": "D.CROP_CAL",
+    "snippet": "const ALL_CORES = Object.keys(D.CROP_CAL).map(k => D.CROP_CAL[k].regions.map(rg => coreFor(k, D.CROP_CAL[k], rg))).reduce((a, b) => a.concat(b), []);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "3 reads on this line. This is THE row universe of the whole screen. Measured: 40 crop x region rows over 8 crops, of which only 20 have a canonical window; the other 20 are pure invention. Two real canonical windows (IT-WIN-0027 Rice/Piemonte, IT-WIN-0028 Soybean/Veneto) are invisible because their crops are absent from the fixture. Every KPI on the screen is a count over these 40 rows.",
+    "replacement": "AM.collections.windowCalendarRows (new projection, one row per canonical window = 29 rows). All calKpi / calStrip counts recount over that."
+   },
+   {
+    "file": "portale.html",
+    "line": 2676,
+    "symbol": "D.CROP_CAL",
+    "snippet": "const calKpiNote = 'The first five buckets are disjoint and sum to ' + ALL_CORES.length + ' crop × region rows across ' + Object.keys(D.CROP_CAL).length + ' crops. ...'",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "An explicit sentence asserting the row and crop counts (40 rows, 8 crops) as scope of coverage. Verified DEAD in the markup — calKpiNote has 0 bindings in lines 51-2374; the screen renders t.cwBucketNote instead. Still must not be left computing a false scope claim.",
+    "replacement": "DELETE_COMPONENT (unbound). If a scope note is wanted, derive it from AM.counts.windows and the distinct crop count of the canonical set."
+   },
+   {
+    "file": "portale.html",
+    "line": 2686,
+    "symbol": "D.CROP_CAL",
+    "snippet": "const cal = D.CROP_CAL[s.calCrop] || D.CROP_CAL['Durum Wheat'];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "2 reads. cal supplies issueWin (the drawn window dates), stages (phenology bands), weed (weed-control bands), monitor (monitoring band), mandatory (regulatory band) and issue (one issue per crop). Measured contradictions against canonical on the 20 rows that do match: 5 rows draw the WRONG ISSUE (Durum Wheat/Sicilia canonical is Wheat Rusts, calendar draws Fusarium Head Blight; Maize/Lombardia canonical Diabrotica Adults vs calendar European Corn Borer; Maize/Piemonte canonical Diabrotica Larvae vs ECB; Grapevine/Puglia canonical Powdery Mildew vs Flavescenza; Grapevine/Sicilia canonical Grapevine Moth vs Flavescenza), and the per-region offsets shift drawn dates up to 14 days off the canonical START_DATE. This is a second window source contradicting the contract.",
+    "replacement": "Drive bars from the row's own canonical dates: row.startDate / row.endDate / row.status. The stages / weed / monitor lanes have no upstream source and are deleted (see fieldsThatDie)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2701,
+    "symbol": "D.DEPT",
+    "snippet": "const deptB = s.calDetail ? DEPTS.map(dp => ({ ... color: D.DEPT[dp[0]].color, bars: ys.map(y => { const sp = spanFor(cal.issueWin[0], cal.issueWin[1], y, off); return clipB(addD(sp[0], dp[1]), addD(sp[0], dp[2])); }) ... }))",
+    "classification": "VISUAL_ONLY",
+    "reason": "The D.DEPT read itself is only .color, and every department in the fixture is the same neutral #978B87 — pure palette. The department LEAD OFFSETS (-210..-10 days) come from the DEPTS array in portale.html line 2652, not from D.DEPT; those are the non-observable part and are handled separately.",
+    "replacement": "KEEP the colour read (allowed under rule 4), or move the six colours to AM.preparation.departments[].color. The bar span must be rebased on row.startDate instead of cal.issueWin, and the lane label must carry the interpretation caption."
+   },
+   {
+    "file": "portale.html",
+    "line": 2740,
+    "symbol": "D.WINDOWS",
+    "snippet": "const win = c.kase ? D.WINDOWS.find(w => w.caseId === c.kase.id) : null;",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Attaches a window object to the calendar row; used for dw.early (early market signal state) and the openWindowD navigation target. The join goes through c.kase, itself a D.CASES lookup.",
+    "replacement": "The calendar row IS a canonical window under the new projection, so this lookup disappears: openWindowD: () => this.openWindow(r.windowId). dw.early is deleted (see fieldsThatDie)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2812,
+    "symbol": "D.CROP_CAL",
+    "snippet": "const calCropBtns = Object.keys(D.CROP_CAL).map(k => {",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The crop selector rail. Enumerates 8 fixture crops; the canonical set has 10 (Rice and Soybean missing, and every crop's region list differs). Each button also carries sub (a days-to-window claim) and cover ('n/m observed'), both factual.",
+    "replacement": "Build from the distinct crops of AM.collections.windowCalendarRows. cover becomes 'n regioni' only; the observed fraction is 0/n for all crops today and the observed wording must go."
+   },
+   {
+    "file": "portale.html",
+    "line": 2813,
+    "symbol": "D.CROP_CAL",
+    "snippet": "const cfg = D.CROP_CAL[k];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Feeds coreFor() per region for the button's best-window state and the observed count. Same fixture universe as line 2671.",
+    "replacement": "const rows = AM.collections.windowCalendarRows.records.filter(r => r.crop === k)"
+   },
+   {
+    "file": "portale.html",
+    "line": 2861,
+    "symbol": "D.DEPT",
+    "snippet": "deptPlan: DEPTS.map(dp => ({ dept: deptName(dp[0]), ..., color: D.DEPT[dp[0]].color, range: dw0.occ ? D.fmt(addD(dw0.occ.a, dp[1])) + ' → ' + D.fmt(addD(dw0.occ.a, dp[2])) : '—' ... }))",
+    "classification": "VISUAL_ONLY",
+    "reason": "The D.DEPT read is .color only. The dated RANGE is the problem, and it comes from DEPTS offsets applied to dw0.occ (the fixture occurrence, not the canonical date). The markup already prints 'Sintonia business recommendations, not agronomic facts' beneath it, so the framing exists; the base date does not.",
+    "replacement": "KEEP the colour. Rebase the range on the canonical start: addD(new Date(r.startDate), dp[1]) and render '—' when r.startDate is null (5/29 rows)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2868,
+    "symbol": "D.WINDOWS",
+    "snippet": "const winFor = (caseId) => D.WINDOWS.find(w => w.caseId === caseId);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Case-detail 'go to window' resolution. Depends on the demo id shape.",
+    "replacement": "(caseId) => AM.collections.windows.records.find(w => w.legacyCaseId === caseId)"
+   },
+   {
+    "file": "portale.html",
+    "line": 2871,
+    "symbol": "D.WINDOWS",
+    "snippet": "const wins = D.WINDOWS.filter(w => (!s.wCrop || w.crop === s.wCrop) && (!s.wBucket || w.bucket === s.wBucket)).map(wDeco);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Produces the visibleWindows prop. VERIFIED UNBOUND: visibleWindows and windowCount have 0 bindings in the markup range 51-2374. The window list view does not exist; the 'windows' route renders the calendar. It filters on w.bucket, an invented field.",
+    "replacement": "DELETE_COMPONENT — remove wins, wDeco's list use, visibleWindows and windowCount. If the list is later restored, filter on AM window status, never on a bucket."
+   },
+   {
+    "file": "portale.html",
+    "line": 2872,
+    "symbol": "D.WINDOWS",
+    "snippet": "const wCrops = uniq(D.WINDOWS.map(w => w.crop));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Feeds windowCropChips, also verified unbound in the markup.",
+    "replacement": "DELETE_COMPONENT"
+   },
+   {
+    "file": "portale.html",
+    "line": 2873,
+    "symbol": "D.WINDOWS",
+    "snippet": "count: o.v ? D.WINDOWS.filter(w => w.crop === o.v).length : D.WINDOWS.length",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "2 reads. Per-crop window counts on the unbound windowCropChips prop.",
+    "replacement": "DELETE_COMPONENT"
+   },
+   {
+    "file": "portale.html",
+    "line": 2874,
+    "symbol": "D.WINDOW_KPI",
+    "snippet": "const WK = D.WINDOW_KPI;",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Feeds the unbound windowKpi and windowBuckets props. Worth recording why it must never come back as written: measured D.WINDOW_KPI = {open:6, d30:21, d60:1, d90:0, d180:0, cycle:1}. The 21 is wrong by construction — D.WINDOWS sets days = Math.max(0, daysToOpen), so all 16 WINDOW_CLOSED plus all 5 DATE_UNKNOWN windows collapse to days 0 and are counted as 'NEXT 30 DAYS'. The same clamp gives 21 windows prep 'ACT NOW'.",
+    "replacement": "DELETE_COMPONENT. Any future KPI counts over AM.collections.windows grouped by w.status (measured WINDOW_CLOSED 16, WINDOW_OPEN 6, DATE_UNKNOWN 5, NEXT_CYCLE 2)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2876,
+    "symbol": "D.WINDOWS",
+    "snippet": "const wd0 = D.WINDOWS.find(w => w.id === s.windowId) || D.WINDOWS[0];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "2 reads. This one IS rendered — it is the entire window-detail screen (markup 752-810). Every fact on that screen (kind, scale, windowLabel, calLabel, prep, why, readiness, early, ladder, signals, products) comes off this fixture object.",
+    "replacement": "const wd0 = AM.collections.windows.records.find(w => w.windowId === s.windowId) || AM.collections.windows.records[0]"
+   },
+   {
+    "file": "portale.html",
+    "line": 2883,
+    "symbol": "D.DEPT",
+    "snippet": "briefs: [...].map(b => ({ label: b[1], color: D.DEPT[b[0]].color, soft: D.DEPT[b[0]].soft, go: () => this.openBrief(wd0.caseId, b[0]) }))",
+    "classification": "VISUAL_ONLY",
+    "reason": "2 reads, both palette. The six departments are a fixed organisational list, not observed data; only the colours come from D.DEPT and all six are identical neutrals.",
+    "replacement": "KEEP the colour read. Change the brief target to wd0.legacyCaseId and hide the brief chips when that is null."
+   },
+   {
+    "file": "portale.html",
+    "line": 2887,
+    "symbol": "D.WINDOWS",
+    "snippet": "const earlyWindows = D.WINDOWS.filter(w => w.early.state !== 'NOT OBSERVED').slice(0, 5).map(wDeco);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Measured: 9 of 29 windows carry early.state 'FIELD REPORTED', sourced entirely from the 18 demo FIELD_MESSAGES. That is a field-observation claim from a fixture. Verified unbound in the markup, so it renders nowhere today.",
+    "replacement": "DELETE_COMPONENT"
+   },
+   {
+    "file": "portale.html",
+    "line": 2945,
+    "symbol": "D.WINDOWS",
+    "snippet": "const mWins = D.WINDOWS.filter(w => w.crop === mc.crop).slice(0, 4).map(w => ({ issue: w.issue, region: w.region, go: () => this.openWindow(w.id), daysLabel: w.open ? w.remaining + ' days left' : 'in ' + w.days + ' days' ... }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Market Pulse cross-link. Renders a days-remaining claim. Because of the days clamp, every closed window here reads 'in 0 days'.",
+    "replacement": "AM.collections.windows.records.filter(w => w.crop === mc.crop).slice(0,4).map(w => ({ issue: w.issue, region: w.region, go: () => this.openWindow(w.windowId), daysLabel: w.status === 'WINDOW_OPEN' ? w.daysToEnd + 'g rimasti' : w.daysToStart > 0 ? 'tra ' + w.daysToStart + 'g' : wst(w.status) }))"
+   },
+   {
+    "file": "portale.html",
+    "line": 2949,
+    "symbol": "D.WINDOWS",
+    "snippet": "const nextW = D.WINDOWS.filter(w => w.crop === mc.crop).sort((a, b) => (a.open ? -1 : a.days) - (b.open ? -1 : b.days))[0];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Picks the 'next' window for a crop. The sort key is the clamped days field, so among 16 closed windows the choice is arbitrary.",
+    "replacement": "AM.collections.windows.records.filter(w => w.crop === mc.crop).sort((a,b) => (a.status === 'WINDOW_OPEN' ? -1 : (a.daysToStart == null ? 1e6 : a.daysToStart)) - (b.status === 'WINDOW_OPEN' ? -1 : (b.daysToStart == null ? 1e6 : b.daysToStart)))[0]"
+   },
+   {
+    "file": "portale.html",
+    "line": 3003,
+    "symbol": "D.WINDOWS",
+    "snippet": "const wins = D.WINDOWS.filter(w => e.links.some(l => l.crop === w.crop && l.issue === w.issue)).slice(0, 4).map(w => ({ label: il(w.issue) + ' · ' + w.region, state: wst(w.canonicalStatus || 'DATE_UNKNOWN'), ... }))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Product-detail window strip. Live defect: D.WINDOWS entries have no canonicalStatus property at all, so wst() always receives 'DATE_UNKNOWN' and every window on every product page reads 'DATA DA CONFERMARE' regardless of its true status.",
+    "replacement": "AM.collections.windows.records.filter(...).map(w => ({ label: il(w.issue) + ' · ' + w.region, state: wst(w.status), color: w.status === 'WINDOW_OPEN' ? '#00B152' : '#B1A9A7', go: () => this.openWindow(w.windowId) }))"
+   },
+   {
+    "file": "portale.html",
+    "line": 3086,
+    "symbol": "D.DEPT",
+    "snippet": "const acc = D.DEPT[s.briefDept].color;",
+    "classification": "VISUAL_ONLY",
+    "reason": "Accent colour of the action-brief panel. Palette only.",
+    "replacement": "KEEP"
+   },
+   {
+    "file": "portale.html",
+    "line": 3107,
+    "symbol": "D.WINDOWS",
+    "snippet": "const w = D.WINDOWS.find(x => x.crop === m.crop); if (w) out.push({ label: 'CROP WINDOWS', go: () => this.openWindow(w.id) });",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Inside wentFor(), the routing chip row of the Field Sales inbound demonstration — an explicitly labelled demo mode that rule 5 permits. It carries no fact; it only picks a navigation target.",
+    "replacement": "KEEP as demo, but retarget so the demo does not deep-link to a fixture id: AM.collections.windows.records.find(x => x.crop === m.crop) and this.openWindow(w.windowId)"
+   },
+   {
+    "file": "portale.html",
+    "line": 3149,
+    "symbol": "D.WINDOWS",
+    "snippet": "const wm = D.WINDOWS.find(w => w.crop === x.crop && w.region === x.region && w.issue.toLowerCase().includes(...)) || D.WINDOWS.find(w => w.crop === x.crop && ...); ... hasWindow: !!wm, windowDays: wm ? (wm.days <= 0 ? 'open now' : wm.days + ' days') : ''",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "2 reads. Future Radar cards print 'open now' whenever the clamped days field is <= 0 — which is true for all 21 closed and date-unknown windows. Presentation deciding an agronomic state, forbidden by rule 7.",
+    "replacement": "const wm = AM.collections.windows.records.find(...) ; windowDays: wm ? (wm.status === 'WINDOW_OPEN' ? wst('WINDOW_OPEN') : wm.daysToStart > 0 ? wm.daysToStart + 'g' : wst(wm.status)) : ''"
+   },
+   {
+    "file": "portale.html",
+    "line": 3169,
+    "symbol": "D.WINDOWS",
+    "snippet": "const compMoments = D.CROP_COLS.map(cr => { const w = D.WINDOWS.filter(x => x.crop === cr || (cr === 'Wheat' && x.crop === 'Durum Wheat')).sort((a, b) => (a.open ? -1 : a.days) - (b.open ? -1 : b.days))[0]; ...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Competitor screen 'moments' cards, printing days and issue per crop off the fixture, and colouring by w.open / w.days <= 60.",
+    "replacement": "Same substitution as line 2949 over AM.collections.windows.records; colour from w.status, not from a computed threshold."
+   },
+   {
+    "file": "portale.html",
+    "line": 3177,
+    "symbol": "D.WINDOWS",
+    "snippet": "const leadWin = D.WINDOWS.find(w => w.crop === leadCrop && !w.open) || D.WINDOWS.find(w => w.crop === leadCrop);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "2 reads. leadWin.days is then added to a competitor's oldest activity age to produce 'Nd before' lead-time bars. Two problems: the base is a fixture window, and the clamped days makes every closed window contribute 0, so the bar becomes just the activity age.",
+    "replacement": "AM.collections.windows.records.find(w => w.crop === leadCrop && w.status !== 'WINDOW_OPEN' && w.daysToStart > 0) || AM.collections.windows.records.find(w => w.crop === leadCrop); and skip the whole lead-time block when daysToStart is null"
+   },
+   {
+    "file": "portale.html",
+    "line": 3197,
+    "symbol": "D.WINDOWS",
+    "snippet": "const cands = D.WINDOWS.filter(x => cropName.indexOf(x.crop) >= 0 && keys.some(k => x.issue.toLowerCase().indexOf(k) >= 0));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Science-to-business winFor2(): decides whether a research theme has a timing window. A factual timing link.",
+    "replacement": "AM.collections.windows.records.filter(x => cropName.indexOf(x.crop) >= 0 && keys.some(k => x.issue.toLowerCase().indexOf(k) >= 0))"
+   },
+   {
+    "file": "portale.html",
+    "line": 3403,
+    "symbol": "D.LADDER",
+    "snippet": "ladder: D.LADDER.map(l => ({ days: l[0], dept: l[1] === 'SALES / RTV' ? 'FIELD SALES' : l[1], text: l[2], soft: D.DEPT[l[1]].soft }))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "1 D.LADDER read + 1 D.DEPT read. The five rungs (90/60/45/30/14 days) are an internal go-to-market rhythm, not an external observation. Verified UNBOUND at top level — the markup only binds wd.ladder — so this prop renders nowhere.",
+    "replacement": "DELETE_COMPONENT for the top-level prop. The rungs themselves survive inside AM.preparation.ladder as labelled interpretation, consumed only by wd.ladder."
+   },
+   {
+    "file": "portale.html",
+    "line": 3419,
+    "symbol": "D.DEPT",
+    "snippet": "options: [{ v: '', l: T.allDepartments }].concat(Object.keys(D.DEPT).map(v => ({ v, l: L(v) })))",
+    "classification": "VISUAL_ONLY",
+    "reason": "Department filter dropdown. Object.keys only — a fixed six-item organisational vocabulary, no measured quantity, no observation.",
+    "replacement": "KEEP, or move the six names to AM.preparation.departments so the fixture import can eventually be dropped from this file."
+   },
+   {
+    "file": "portale.html",
+    "line": 3426,
+    "symbol": "D.DEPT",
+    "snippet": "deptOptions: opts('All departments', Object.keys(D.DEPT))",
+    "classification": "VISUAL_ONLY",
+    "reason": "Same six-name vocabulary in a second filter. No fact.",
+    "replacement": "KEEP, same note as 3419."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "collections.windows (extend existing 29 records)",
+    "why": "The view must stop deriving status, dates and product links itself. Every field here is a direct copy or a rule-7-legal date arithmetic, so the calendar and the detail screen become dumb renderers.",
+    "fields": [
+     "canonicalStatus — alias of status; exists purely to kill the portale.html:3004 defect where w.canonicalStatus is undefined and every product-page window reads DATE TO CONFIRM. Derivation: w.CURRENT_STATUS, 29/29 present.",
+     "open — status === 'WINDOW_OPEN'. Upstream decision only, never a date comparison. Measured 6/29 true.",
+     "hasDates — !!(START_DATE && END_DATE). Measured 24/29 true; the 5 false rows must render DATA DA CONFERMARE everywhere instead of a bar.",
+     "windowLabel — hasDates ? fmt(startDate) + ' -> ' + fmt(endDate) : null. Pure formatting of CANONICAL START_DATE/END_DATE.",
+     "observedStage / observedStageSource — from the joined IG.CROP_WINDOWS row's OBSERVED_STAGE, but ONLY when the string does not begin with 'NAO SEI' and does not contain 'nenhum boletim'. Measured: 5 of the 7 IG rows are explicit NAO SEI, and neither of the 2 real ones (Modena) matches a canonical region, so this is null 29/29 today. It exists so that the next data load lights the field up without a view change.",
+     "verifiedProducts — array of product names from ITALY_LABEL_VERDICTS.VERIFIED where tuple[0] === crop and normalizeIssue(tuple[1]) === normalizeIssue(issue). normalizeIssue must fold ' / ' and ' · ' to a single separator, otherwise IT-WIN-0016 'Cereal Aphids · BYDV Risk' misses the verdict 'Cereal Aphids / BYDV Risk'. Measured with folding: 12 tuples covering 11 of 29 windows; without folding, 10 windows.",
+     "labelVerdictState — 'VERIFIED_LABEL_MATCH' when verifiedProducts.length, else 'NO_CONFIRMED_MATCH_CURRENT_READING'. Rule 10: the UI string for the second value must be 'nessuna corrispondenza confermata nella lettura attuale', never 'ADAMA has no product'.",
+     "regulatory — the joined IG.CROP_WINDOWS record, matched on normalized crop (VITE->Grapevine, OLIVO->Olive) plus exact REGION. Measured join: 2 of 29 canonical windows (IT-WIN-0001 Veneto and IT-WIN-0008 Piemonte, both Flavescenza Dorata). Fields carried through: act (REGULATORY_ACT), actState (REGULATORY_ACT_STATE), regulatoryWindow, monitoringWindow, applicationWindow2026, nextImportantWindow, preparationWindow, coverageState, sourceId. null for the other 27.",
+     "sourceIds — w.SOURCE_IDS. Measured empty 29/29. Keep the field so the view can render 'nessuna fonte collegata' instead of inventing one."
+    ],
+    "derivation": "All from window.ITALY_CANONICAL.windows plus two joins: window.ITALY_LABEL_VERDICTS.VERIFIED (crop + issue) and window.ITALY_INGEST.CROP_WINDOWS (crop + region). No demo read except record.ui."
+   },
+   {
+    "collection": "collections.windowCalendarRows (NEW projection, 29 records)",
+    "why": "The calendar screen currently builds its own 40-row universe from D.CROP_CAL. This projection makes the canonical set the row universe so the screen stops being a second source of timing truth. It is deliberately a thin re-shape of collections.windows, not a new fact store.",
+    "fields": [
+     "windowId, crop, region, issue, issueType — copied.",
+     "startDate, endDate, hasDates, status, statusReason, dateState, dateConfidence — copied. dateState is the honest replacement for the fixture's 'CONFIRMED WINDOW / SEASONAL WINDOW / EXPECTED WINDOW' kind label: measured EXPECTED_NORM 24, DATE_TO_CONFIRM 5.",
+     "daysToStart, daysToEnd — already computed by daysFrom() against the single reference date 2026-09-02. Rule 6 satisfied; the calendar's own TODAY_DT already reads AM.REF.",
+     "verifiedProducts, labelVerdictState, regulatory, observedStage — copied from the extended windows record.",
+     "coverageState — three honest values derived only from what is present: 'FIELD_OBSERVED' when observedStage is non-null (0/29 today), 'REGULATORY_READ' when regulatory is non-null (2/29), else 'EXPECTED_NORM_ONLY' (27/29). This replaces the fixture's CURRENT / PARTIAL / EXPECTED ONLY which was computed from D.OBSERVED and D.SOURCES.",
+     "area / areaState — NOT PROVIDED. There is no hectare field anywhere in ITALY_INGEST (measured: 0 occurrences of any hectare key; IG.CROPS carries only product-mention counts). The '~350k ha' figures and the HIGH/MEDIUM scale label they drive must be removed, not re-derived."
+    ],
+    "derivation": "One row per record in collections.windows. No fixture read except ui.icon / ui.color."
+   },
+   {
+    "collection": "collections.cropWindowsUpstream (NEW, 7 records from IG.CROP_WINDOWS)",
+    "why": "Five real regional regulatory acts and the only two real field observations in the whole pack are currently invisible to the app because the model never reads IG.CROP_WINDOWS. Three of the five regulatory rows (Lombardia, Trentino, Emilia-Romagna) have no canonical window at all, so they can only be shown from their own collection.",
+    "fields": [
+     "id, crop (normalized: VITE -> Grapevine, OLIVO -> Olive), region, issue",
+     "expectedCycle, observedStage, fieldReportedStage — each passed through an unknownGuard() that returns null when the value starts with 'NAO SEI' or 'NÃO SEI'. Measured: expectedCycle real 5/7, observedStage real 2/7, fieldReportedStage real 2/7.",
+     "regulatoryAct, regulatoryActState, regulatoryWindow, monitoringWindow, applicationWindow2026, nextImportantWindow, preparationWindow — measured 5/7 present (all grapevine Flavescenza).",
+     "coverageState (REGULATORY_READ_FIELD_NOT_READ 5, FIELD_READ_ONE_PROVINCE_ONLY 2), notProves (WHAT_IT_DOES_NOT_PROVE, 2/7), sourceId, provenance.",
+     "languageState — 'PT_ANALYST_SOURCE'. Every free-text field in these 7 records is written in Portuguese, the analyst working language, not Italian. Rule 11 makes Italian the default UI language, so these strings must NOT be dropped straight into the Italian screen. Either the next ingest translates them or the view renders them inside an explicitly marked verbatim-note block."
+    ],
+    "derivation": "Direct normalization of window.ITALY_INGEST.CROP_WINDOWS. provenance REAL_SOURCE / REAL_FACT as carried by the record."
+   },
+   {
+    "collection": "preparation (NEW top-level block, provenance SINTONIA_INTERPRETATION)",
+    "why": "D.PREP_LEAD (90) and the six DEPTS offsets are the BUSINESS PREPARATION CLOCK. They are the feature the screen is built around and they must survive — but a channel purchase lead time is not externally observable and today it is printed as a bare date ('preparation from 12 Mar', 'Commercial lead time 90 days') with no label. Putting it in the model under its own provenance class lets the view render it inside a fenced, captioned block without deleting anything.",
+    "fields": [
+     "provenance: 'SINTONIA_INTERPRETATION'",
+     "observable: false",
+     "basis: 'Regola di pianificazione Sintonia. Non è un fatto osservato e non deriva da alcuna fonte esterna.'",
+     "leadDays: 90",
+     "ladder: [{days:90,dept:'MARKET DEVELOPMENT'},{days:60,dept:'MARKETING'},{days:45,dept:'SALES / RTV'},{days:30,dept:'SUPPLY'},{days:14,dept:'SALES / RTV'}] — the five rungs moved out of D.LADDER unchanged.",
+     "departments: the six names with their colour, moved out of D.DEPT, plus fromDays/toDays taken from the DEPTS array now hardcoded at portale.html:2652.",
+     "anchorRule: 'offsets apply to windowCalendarRows.startDate; when startDate is null the whole preparation block is omitted for that row' — measured 5/29 rows omitted."
+    ],
+    "derivation": "Constants lifted verbatim from the fixture and from portale.html:2652, re-labelled. Nothing is computed from data; the only data input is the canonical startDate the offsets anchor to."
+   }
+  ],
+  "markupImpact": [
+   "535-751 — the whole 'windows' view. It is the crop calendar, not a window list. It keeps its layout (header strip, crop rail, month scroller, KPI row, moments row, timeline, season cards, right drawer) but every row now comes from windowCalendarRows.",
+   "544 — calStrip: five counters. 'monitored' becomes 29 (was 40). 'observed' becomes 0 and its chip must read a not-observed label, or be dropped. 'window <=120d' recounts on daysToStart. 'ADAMA products' recounts on verifiedProducts (11 windows, 6 distinct product names). 'coverage gaps' becomes 27/29.",
+   "549-563 — calCropBtns: 8 fixture crops become 10 canonical crops (Rice and Soybean appear for the first time). b.sub must print wst(status) plus daysToStart, never a bState() label. b.cover loses the 'n/m observed' form (0/n for every crop) and becomes a plain region count.",
+   "584-590 — calKpis: the five buckets ACT NOW / ACTIVATE / PREPARE / PLAN / NEXT CYCLE are computed by bState() from days. They must be replaced by the four canonical statuses (WINDOW_OPEN 6, WINDOW_CLOSED 16, NEXT_CYCLE 2, DATE_UNKNOWN 5) plus the two context counters. Rule 7: presentation may not name an agronomic state.",
+   "591 — t.cwBucketNote: the note explains the five disjoint buckets over 40 rows. Must be rewritten for the new statuses and the 29-row scope, in both it and en (italy-i18n.js).",
+   "596-605 — calMoments cards: m.days must come from daysToStart/daysToEnd, m.state from wst(status). The line 'prepare from {{ m.prepFrom }}' at 601 moves under the interpretation caption or is removed from the card.",
+   "611-624 — the timeline legend. The FIELD CLOCK legend lists CYCLE, OBSERVED dot, WEED, ISSUE, MONITORING, APPLICATION, REGULATORY. After migration only ISSUE (canonical dates), REGULATORY and MONITORING (2/29 rows) survive; CYCLE, WEED and the OBSERVED dot have no source and their legend entries must go.",
+   "645-682 — the calRows timeline row. r.ha and r.scale (line 649) are deleted. r.current / r.coverage (650) become the not-observed state. r.lanes (656) drop the cycle, weed and dept-derived-from-issueWin bars; the issue bar is re-anchored on r.startDate/r.endDate. r.hasObs / r.obsMark (668) is deleted. r.state / r.daysLabel (674-675) come from status. Line 627 'lead {{ r.leadDays }}d from {{ r.prepFrom }}' moves inside the interpretation fence. r.matchLabel (678) becomes verifiedProducts joined, or the rule-10 wording when empty (18/29 rows).",
+   "649 — '~{{ r.ha }}k ha · {{ r.scale }}': delete outright. No hectare data exists in any real source.",
+   "668 — the white observed dot: delete. 0/29 canonical windows have an observed stage.",
+   "693-698 — calSeason cards: built entirely from cal.stages, cal.weed and cal.issueWin. The phenology and weed phases have no upstream source and the section must be removed, OR reduced to the canonical window itself plus the PRE-SEASON interpretation card. This is the single biggest visual loss on the screen.",
+   "701-707 — the season-mode row cards: same field deletions as 645-682 (ha, scale, current, prepFrom).",
+   "716-750 — the right drawer. 719 '~{{ dw.ha }}k ha · {{ dw.scale }}' deleted. 730 OBSERVED STAGE box becomes NON OSSERVATO with dw.obsMeta removed. 731 EXPECTED CYCLE TODAY is computed from cal.stages and must be deleted. 733 EARLY SIGNAL (dw.early) deleted. 735 WHY NOW: the six-item why list is rebuilt from statusReason + dateState + dateConfidence + labelVerdictState + coverageState. 736 ADAMA PRODUCTS becomes verifiedProducts. 737 WHO SHOULD PREPARE gains the interpretation caption it partly has and its ranges re-anchor on startDate. 738-740 know / unknown / sources: dw.sources currently lists dw0.obs.source and dw0.kase.source, both fixture — replace with regulatory.sourceId when present, else 'nessuna fonte collegata a questa finestra' (27/29).",
+   "723 — 'COMMERCIAL STATE {{ dw.state }}': this is bState() output. It must become the canonical status label.",
+   "726 — 'Commercial lead time {{ dw.leadDays }} days · preparation from {{ dw.prepFrom }}': keep the line, move it under an explicit INTERPRETAZIONE SINTONIA heading.",
+   "752-810 — the window detail view. Reachable only through the calendar drawer and the cross-screen openWindow calls; every one of those passes a fixture id today and must pass windowId.",
+   "756 — 'wd.kind · CROP SCALE wd.scale': kind ('CONFIRMED WINDOW' / 'SEASONAL WINDOW · UNCONFIRMED' / 'EXPECTED WINDOW') becomes dateState; CROP SCALE is deleted (no hectare source).",
+   "757 — AGRONOMIC CLOCK: wd.daysLabel/windowLabel keep working from daysToStart/daysToEnd/startDate/endDate (rule 7 allows this). wd.calLabel is demo prose and must be dropped or replaced by statusReason.",
+   "758 — PORTFOLIO CLOCK reads wd.c.primaryLabel and wd.c.matchCount off the demo case. Replace with verifiedProducts[0] and verifiedProducts.length; 18/29 windows show the rule-10 no-confirmed-match wording.",
+   "759 — BUSINESS PREPARATION CLOCK: wd.prepLabel is PREP_RULES output and is 'ACT NOW' for 21 of 29 windows including every already-closed one. The whole tile must be driven by AM.preparation and captioned as interpretation. Its current caption 'Business rule (demo configuration), not an agricultural fact' is the right idea but the value it labels is still wrong.",
+   "764 — wd.why (6 rows): rebuilt from upstream fields only.",
+   "768-771 — EARLY MARKET SIGNAL block (wd.early, wd.fieldMessages): sourced from the 18 demo field messages. Remove from the real screen; it may return only inside the labelled Field Sales demo, off by default.",
+   "776 — wd.readiness (8 rows): only the three NOT_EXTERNALLY_OBSERVABLE rows survive.",
+   "783 — wd.products: replace with verifiedProducts; the per-product ai / use / moa / 'Label · registered' line must come from AM.findProduct, not from D.PRODUCTS.",
+   "790 — wd.ladder: keep the component, drive it from AM.preparation.ladder, and change l.state from 'REACHED / IN Nd' (computed off the clamped days) to an anchor on daysToStart, omitted entirely when startDate is null.",
+   "798 — wd.signals: sourced from D.SIGNALS (56 presentation scenarios). Must read AM.collections.futureSignals only — measured 3 real signals in total, so this block will be empty for nearly every window and wd.noSignals will be true.",
+   "805-806 — wd.expectedLine / wd.unknownLine both branch on wd0.confirmed, which is false for 29/29 because CROP_STAGE_CLASS is NOT_OBSERVED everywhere. The 'confirmed' branch is dead code; simplify to the single honest wording.",
+   "3403 — the props object: remove visibleWindows, windowCount, windowKpi, windowBuckets, windowCropChips, earlyWindows, ladder and calKpiNote. All eight are computed and none has a binding anywhere in the markup range 51-2374."
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "row hectares (D.CROP_CAL[crop].regions[n][1], rendered as '~350k ha') and the HIGH/MEDIUM/LOW crop-scale label derived from it",
+    "usedAt": "portale.html 2665 (rg[1] -> c.ha), 2745 (scale), 2744 (why 'regional scale (ISTAT order of magnitude)'); markup 649, 703, 719, 756 (wd.scale)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "There is no area field in any real source. Measured: zero hectare-like keys in ITALY_INGEST; IG.CROPS[17] carries only PRODUCTS_MENTIONING_CROP, PRODUCTS_WITH_USE_ROW_READ and DISTANCE. The 40 fixture numbers are attributed in the UI to ISTAT but no ISTAT area series is in the pack. Every '~Nk ha' string, the scale chip, and the why-row that reasons from scale must go. This removes one of the three columns of information from each calendar row."
+   },
+   {
+    "field": "per-region phenology offset (D.CROP_CAL[crop].regions[n][2], values -14 to +7 days)",
+    "usedAt": "portale.html 2664-2670 (off), 2688-2699 (every inst()/spanFor call), 2708 (prepB), 2717 (obsMark)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Shifts every drawn bar per region. Measured effect on the 20 rows that do have a canonical window: Grapevine/Sicilia -14d, Durum Wheat/Sicilia -12d, Durum Wheat/Puglia and Grapevine/Puglia -10d. A canonical window has ONE pair of dates for its region; a presentation offset applied on top is an invented agronomic claim."
+   },
+   {
+    "field": "crop phenology stages (D.CROP_CAL[crop].stages — Sowing, Tillering, Stem elongation, Flowering, Grain fill, Harvest, etc.)",
+    "usedAt": "portale.html 2689 (cycle lane), 2827-2830 (calSeason phases), 2856 (dw.expectedNow); markup 656 lane 'cycle', 693-698, 731",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "The grey crop-cycle band is the visual spine of the timeline and it has no upstream source at all. CANONICAL CROP_STAGE is null 29/29 and CROP_STAGE_SOURCE is null 29/29. IG.CROP_WINDOWS.EXPECTED_CYCLE exists for only 5 of 7 rows and covers exactly one crop x issue (grapevine Flavescenza vector biology), not a six-stage annual calendar for eight crops. The cycle lane, the season-view phase cards and the drawer's EXPECTED CYCLE TODAY box all die. Do not redesign the timeline to compensate — a two-lane timeline is the truthful one."
+   },
+   {
+    "field": "weed-control windows (D.CROP_CAL[crop].weed)",
+    "usedAt": "portale.html 2690 (weed lane), 2831 (calSeason), markup 656 lane 'weed', 617 legend",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Same as stages: an unsourced agronomic norm. Note the canonical set does contain four herbicide windows as first-class records (IT-WIN-0024 Maize grass weed complex, IT-WIN-0025 Durum Wheat resistant grass weeds, IT-WIN-0026 Sugar Beet weed programme, IT-WIN-0028 Soybean grass weeds) — so weed timing survives as ROWS, not as a decorative lane on someone else's row."
+   },
+   {
+    "field": "monitoring window (D.CROP_CAL[crop].monitor)",
+    "usedAt": "portale.html 2691 (monB), 2726 (monBars2), markup 656 lane 'mon', 620 legend",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Survives, but for 2 of 29 rows only. IG.CROP_WINDOWS.MONITORING_WINDOW is real prose for the 5 grapevine Flavescenza regions, of which Veneto and Piemonte join a canonical window. The other 27 rows must show no monitoring band. The dashed band therefore goes from 'on every row' to 'on two rows'."
+   },
+   {
+    "field": "mandatory treatment window (D.CROP_CAL['Grapevine'].mandatory) and its 'DATE TO CONFIRM' future-year label",
+    "usedAt": "portale.html 2692, 2727, markup 662-664, 621 legend",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "This one gets STRONGER, not weaker. IG.CROP_WINDOWS carries named regional acts: DDR n. 13645 (Veneto, 2026-05-14), Determinazione Dirigenziale n. 280 (Piemonte, 2026-03-16), Comunicato Giunta n. 39 (Lombardia), Bollettino speciale n. 1 (Trentino), Determinazione 9818/2026 (Emilia-Romagna), each with an ACT_STATE of PRIMARY_SOURCE_READ / JA_NO_ACERVO / CITADO_EM_FONTE_SECUNDARIA. Only 2 of those 5 regions have a canonical window, so the band renders on 2 rows and the other 3 acts need the new cropWindowsUpstream collection to be visible anywhere."
+   },
+   {
+    "field": "observed crop stage — the white dot, r.current, dw.current, dw.obsMeta, the calStrip 'observed' counter and the CURRENT/PARTIAL coverage classes (D.OBSERVED, 10 rows)",
+    "usedAt": "portale.html 2666, 2717 (obsMark), 2721 (coverage), 2748-2749, 2855 (obsMeta); markup 650, 668, 692, 703, 730",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "This is the most valuable-looking thing on the screen and it is the least supported. The 10 fixture rows cite real-sounding sources (Consorzio Brunello, ERSA FVG, Regione Veneto) but they are not in the ingested pack, and the pack's own answer is explicit: CANONICAL CROP_STAGE null 29/29, CROP_STAGE_CLASS 'NOT_OBSERVED' 29/29, and 5 of the 7 IG.CROP_WINDOWS rows literally say 'NAO SEI — nenhum boletim de fenologia lido para 2026-09'. The two real observations that do exist (Modena grapevine mealybug, Modena olive fly) are for a province that is not a calendar region and both carry WHAT_IT_DOES_NOT_PROVE warnings. Render 'NON OSSERVATO' on all 29 rows and delete the dot. Do not backfill from the fixture."
+   },
+   {
+    "field": "window bucket and the bucket filter (D.WINDOWS[].bucket: OPEN NOW / NEXT 30 DAYS / 31-60 / 61-90 / 3-6 MONTHS / NEXT CYCLE) and the parallel calendar bState() ladder (WINDOW OPEN / ACT NOW / ACTIVATE / PREPARE / PLAN / NEXT CYCLE)",
+    "usedAt": "portale.html 2650 (bState), 2673-2675 (calKpis), 2762 (r.state), 2820 (b.sub), 2871 (wBucket filter), 2875 (windowBuckets); markup 584-590, 674, 703, 723",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Both are presentation deciding an agronomic state, which rule 7 forbids outright. They are also arithmetically broken: D.WINDOWS sets days = Math.max(0, daysToOpen), so all 16 WINDOW_CLOSED and all 5 DATE_UNKNOWN windows land on days 0 and are reported as 'NEXT 30 DAYS' (measured d30 = 21) and prep 'ACT NOW' (measured 21). Replace with the four upstream statuses. The count of visible buckets drops from six to four and three of those four are unflattering (16 closed, 5 date-unknown, 2 next-cycle against 6 open) — that is the true picture on 2026-09-02."
+   },
+   {
+    "field": "window kind label (D.WINDOWS[].kind: CONFIRMED WINDOW / SEASONAL WINDOW · UNCONFIRMED / EXPECTED WINDOW) and D.WINDOWS[].confirmed",
+    "usedAt": "portale.html 2649 (currentEvidence), 2669 (kind); markup 756, 805, 806",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "confirmed requires CROP_STAGE_CLASS or ISSUE_STAGE_CLASS to be OFFICIAL_OBSERVED_CURRENT or FIELD_REPORTED_CURRENT. Measured: both classes are NOT_OBSERVED for 29/29. So 'CONFIRMED WINDOW' can never appear and the confirmed branches at markup 805-806 are dead code. Replace kind with DATE_STATE (EXPECTED_NORM 24, DATE_TO_CONFIRM 5) plus DATE_CONFIDENCE (MEDIUM 24, NONE 5)."
+   },
+   {
+    "field": "calendar window occurrence dates (nextOcc / spanFor over D.CROP_CAL[crop].issueWin), including the roll-forward into 2027",
+    "usedAt": "portale.html 2655 (nextOcc), 2664 (occ), 2691, 2708, 2764-2765 (windowFrom/windowTo), 2857 (dw.nextWindow)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "A second window source that contradicts the contract. Measured on the 20 matched rows: 5 draw a different ISSUE than the canonical window for that crop x region, and offsets move dates by up to 14 days. Worse, nextOcc() invents a 2027 occurrence whenever the 2026 one has passed — upstream issues exactly ONE next-cycle window (IT-WIN-0029, Durum Wheat/Toscana, real 2027-05-01 dates). Every other 2027 bar on the screen is manufactured. All bars must be anchored on the row's own START_DATE/END_DATE, and rows with DATE_TO_CONFIRM (5/29) get no bar at all."
+   },
+   {
+    "field": "early market signal (D.WINDOWS[].early {state,color,text}, compCount, fieldMessages)",
+    "usedAt": "portale.html 2657 (early), 2741 (fms), 2769; markup 733 (dw.early), 768-771 (wd.early, wd.fieldMessages), 776",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Measured 9 of 29 windows read 'FIELD REPORTED', every one of them sourced from the 18 synthetic FIELD_MESSAGES. That is a field observation supplied by a fixture — the flattest violation of rule 2 in the domain. The competitor fallback ('N competitor communications on X · 30d') is re-derivable from the 503 real activities, but only by crop, never by region, and it would be communication density, not pressure (rule 8). Delete the block from the real screen; it may live on inside the labelled Field Sales demo."
+   },
+   {
+    "field": "WHY PREPARE NOW / WHY NOW reason lists (D.WINDOWS[].why, 6 rows, and the calendar's own why at portale.html 2742-2747)",
+    "usedAt": "portale.html 2658-2665, 2742-2747; markup 735 (dw.why), 764 (wd.why)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Every one of the twelve assertions is fixture-derived: 'High maize relevance in Lombardia' (hectares that do not exist), 'Current-year pressure signal present' (an observation class that is NOT_OBSERVED 29/29), 'N early field questions reported' (demo messages), 'Market Pulse reads supportive' (context presented as a reason to act). Keep the component shell — a reason list instead of a score is the right design — and rebuild it from four real fields: statusReason (29/29, e.g. 'Reference date 2026-09-02 falls after END_DATE'), dateState, dateConfidence and labelVerdictState. That yields three or four honest rows instead of six confident ones."
+   },
+   {
+    "field": "portfolio readiness matrix (D.WINDOWS[].readiness, 8 rows)",
+    "usedAt": "portale.html 2666; markup 776",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Rows include 'Italy authorization: CONFIRMED · demo pack', 'Label window: CONFIRMED', 'Current crop timing: CURRENT/EXPECTED' and 'Field signal: REPORTED/WAITING' — four fabricated regulatory and agronomic verdicts. Only the three honest rows survive, and they survive as constants: Internal stock, Marketing material and Sales readiness all resolve to NOT_EXTERNALLY_OBSERVABLE. An eight-row matrix becomes a three-row 'what Sintonia cannot see' note. 'Target fit' can be rebuilt from the label audit as VERIFIED_LABEL_MATCH for 11 of 29 windows."
+   },
+   {
+    "field": "case prose carried onto the window (D.WINDOWS[].calLabel from c.label, and c.know / c.source used by the drawer)",
+    "usedAt": "portale.html 2669 (calLabel), 2859 (dw.know), 2861 (dw.sources); markup 757, 744, 746",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Sentences such as 'Vector treatments · mid-June -> late July' and the drawer's know/sources bullets come from D.CASES. CANONICAL SOURCE_IDS is empty 29/29, so a window genuinely has no source to cite; the drawer must say so rather than borrow the case's. dw.know's 'ISTAT regional crop statistics' bullet is doubly wrong — it credits a source for the hectare numbers that are themselves invented."
+   },
+   {
+    "field": "Future Radar signals attached to a window (D.WINDOWS[].signals from D.SIGNALS)",
+    "usedAt": "portale.html 2656; markup 798-799",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "D.SIGNALS is the 56-record presentation-scenario set that the model already fences off as DEMO_SCENARIO (futureScenarios). Real upstream supply is 3 futureSignals for the entire country. After the switch this panel is empty for essentially every window and wd.noSignals is true — that is the honest state and the existing empty-state copy already handles it."
+   },
+   {
+    "field": "business preparation lead time (D.PREP_LEAD = 90) and the six department lead offsets (DEPTS at portale.html 2652, -210 to -10 days) and the five-rung advance-warning ladder (D.LADDER 90/60/45/30/14)",
+    "usedAt": "portale.html 2646, 2652, 2701, 2708, 2762-2766 (prepFrom, leadDays, prepStarted, leadLabel), 2861 (deptPlan), 3403 (ladder); markup 601, 627, 657, 676, 687, 726, 759, 790",
+    "verdict": "KEEP_AS_LABELLED_DEMO",
+    "note": "This is the BUSINESS PREPARATION CLOCK and it must NOT be deleted — it is the product's reason for existing next to the agronomic clock. But nothing external can observe when a channel actually buys, and today the screen prints exact dates ('prepare from 12 Mar', 'preparation window already open', 'REGULATORY / PORTFOLIO 15 Nov -> 13 Jan') with no qualifier at all; only the detail-view tile carries a caption. Reframe, do not remove: move the constants into AM.preparation with provenance SINTONIA_INTERPRETATION and observable:false; render every consumer inside a visually fenced block headed 'INTERPRETAZIONE SINTONIA — regola di pianificazione, non un fatto osservato'; anchor all offsets on the canonical START_DATE and omit the whole block for the 5 windows with no start date; and drop the word 'Commercial lead time' in favour of wording that does not assert a market behaviour. The lane keeps its green bar and its position in the timeline — only its claim changes."
+   },
+   {
+    "field": "the entire unrendered window-list layer: visibleWindows, windowCount, windowKpi, windowBuckets, windowCropChips, earlyWindows, top-level ladder, calKpiNote",
+    "usedAt": "portale.html 2871-2875, 2887, 3403 (props object); markup: none",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Verified: none of these eight props has a single binding in the markup template range 51-2374. They compute nine D.WINDOWS reads, two D.WINDOW_KPI reads and one D.LADDER read on every render and display nothing. Deleting them removes a third of the domain's fixture coupling at zero visual cost — do this first, it makes the rest of the migration much smaller."
+   },
+   {
+    "field": "window record identity (id 'WIN-001' taken from the fixture instead of WINDOW_ID 'IT-WIN-0001')",
+    "usedAt": "italy-app-model.js 73; every openWindow() call site: portale.html 2869, 2945, 3003, 3107, 3149, 3169, 3197, 2867 (openWindowD)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Measured 29/29 records take the demo id. This is not cosmetic: the canonical contract's own identifier is discarded, so a window cannot be traced back to the audit that produced it, and any deep link the user saves points at a fixture key. Switch to WINDOW_ID and keep legacyId only long enough to redirect old routes."
+   },
+   {
+    "field": "calendar rows that have no canonical window at all",
+    "usedAt": "portale.html 2671 (ALL_CORES), 2686, 2812",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Measured: 20 of the 40 crop x region rows on the screen do not correspond to any canonical window — Durum Wheat in Basilicata / Marche / Emilia-Romagna, all five Wheat rows, Grapevine in Toscana / Trentino / Lombardia, Olive in Calabria / Lazio / Liguria, Sugar Beet in Lombardia, three Apple rows, two Tomato rows. They vanish. In exchange two genuinely new rows appear (Rice/Piemonte and Soybean/Veneto, both herbicide windows). Net: 40 rows become 29, and the busiest crop rails (Wheat loses all five regions, Durum Wheat keeps 3 of 6) get visibly thinner."
+   }
+  ],
+  "plan": [
+   "STEP 0 — delete the dead layer first, before touching anything visible. In portale.html remove lines 2871-2875 (wins, wCrops, windowCropChips, WK, windowBuckets), 2887 (earlyWindows) and 2676 (calKpiNote), and remove the keys visibleWindows, windowCount, windowKpi, windowBuckets, windowCropChips, earlyWindows, ladder and calKpiNote from the props object at 3403. Confirm with a grep over lines 51-2374 that none of those eight names appears in the markup — it does not today. This alone removes 9 D.WINDOWS reads, both D.WINDOW_KPI reads and the D.LADDER read, with zero pixels changed.",
+   "STEP 1 — italy-app-model.js: extend the windows mapper (lines 70-82). Add canonicalStatus, open, hasDates, windowLabel, sourceIds, and switch id to w.WINDOW_ID while keeping legacyId. Trim uiOf to icon+color only (order resolves for 0/29). Do not add any new demo read.",
+   "STEP 2 — italy-app-model.js: read window.ITALY_LABEL_VERDICTS for the first time. Add a normalizeIssue() that folds ' / ' and ' · ' to one separator, then attach verifiedProducts and labelVerdictState to each window. Assert in a one-off node check that 11 of 29 windows resolve at least one verified product and that IT-WIN-0016 now matches MAVRIK EW; without the fold it matches nothing.",
+   "STEP 3 — italy-app-model.js: add collections.cropWindowsUpstream from IG.CROP_WINDOWS[7], with an unknownGuard() that nulls any value starting with 'NAO SEI' or 'NÃO SEI'. Normalize CROP VITE->Grapevine and OLIVO->Olive. Tag languageState 'PT_ANALYST_SOURCE' on the free-text fields. Expect 5 records with a regulatory act, 2 with a real observed stage.",
+   "STEP 4 — italy-app-model.js: join cropWindowsUpstream onto windows by normalized crop + exact region, producing window.regulatory and window.observedStage. Expect exactly 2 joins (IT-WIN-0001 Veneto, IT-WIN-0008 Piemonte) and 0 observedStage. Record those two numbers in the commit message so the next engineer can tell drift from a data change.",
+   "STEP 5 — italy-app-model.js: add the preparation block (provenance SINTONIA_INTERPRETATION, observable false, leadDays 90, the five ladder rungs lifted from D.LADDER, the six departments with their offsets lifted from portale.html:2652 and their colours from D.DEPT). Nothing here is computed from data; this is a relocation plus a label.",
+   "STEP 6 — italy-app-model.js: add collections.windowCalendarRows as a thin projection over collections.windows (29 rows), including coverageState derived only from what is present. Do NOT add area — there is no source for it.",
+   "STEP 7 — portale.html, the calendar engine (2660-2810). Replace ALL_CORES/coreFor with a map over AM.collections.windowCalendarRows.records. Delete nextOcc, spanFor's use for issueWin, the off offset, bState, PREP_RULES-style bucketing and the cal.stages / cal.weed / cal.monitor lanes. Anchor the issue bar and the preparation bar on row.startDate/row.endDate. Keep clipB, posOf, the month header, the drag/scroll nav and the today line untouched — those are pure geometry and rule 7 explicitly allows them.",
+   "STEP 8 — portale.html, the calendar chrome. Rebuild calKpis on the four canonical statuses, calCropBtns on the 10 canonical crops, calStrip on the new counts, calMoments on daysToStart/daysToEnd and wst(status). Delete calSeason's phase and weed cards; keep the PRE-SEASON card only if it sits inside the interpretation fence.",
+   "STEP 9 — portale.html, the drawer (2853-2866) and its markup (716-750). Delete ha, scale, obsMeta, expectedNow and early. Rebuild why from statusReason + dateState + dateConfidence + labelVerdictState + coverageState. Point prods at verifiedProducts and use the rule-10 wording for the 18 windows with none. Re-anchor deptPlan on startDate and render '—' for the 5 rows without one. Replace dw.sources with regulatory.sourceId or an explicit 'nessuna fonte collegata'.",
+   "STEP 10 — portale.html, window detail (2876-2886 and markup 752-810). Point wd0 at AM.collections.windows by windowId. Replace kind with dateState, delete CROP SCALE, drive the PORTFOLIO CLOCK from verifiedProducts, drive the BUSINESS PREPARATION CLOCK from AM.preparation inside the interpretation fence, rebuild why, cut readiness to the three NOT_EXTERNALLY_OBSERVABLE rows, point products at verifiedProducts via AM.findProduct, point signals at AM.collections.futureSignals, and delete the dead confirmed branches at 805-806.",
+   "STEP 11 — the seven cross-screen reads: 2573 (radar winMatch), 2740 (calendar row win), 2868 (winFor), 2945 and 2949 (market), 3003 (product detail, and fix the always-DATE_UNKNOWN defect by reading w.status), 3107 (field demo, keep as demo but retarget), 3149 (future radar, stop printing 'open now' from a clamped number), 3169 and 3177 (competitors), 3197 (science winFor2). All ten become AM.collections.windows reads with openWindow(w.windowId).",
+   "STEP 12 — italy-i18n.js: rewrite cwBucketNote, cwFootNote, subWindows and the legend keys cwLegCycle / cwLegWeed / cwLegObs for the lanes that no longer exist, in both it and en. Add the interpretation caption string. Do not translate product names, company names or Latin names (rule 11).",
+   "STEP 13 — verification pass, all numbers measured, not assumed: nav badge 29; calendar rows 29 over 10 crops and 9 regions; status counts 6 open / 16 closed / 5 date-unknown / 2 next-cycle; rows with a drawn bar 24; rows with a verified ADAMA product 11; rows with a regulatory act 2; rows with an observed stage 0; occurrences of the string 'ACT NOW' produced by presentation code 0; occurrences of new Date() outside the AM.REF anchor 0; remaining D.WINDOWS / D.CROP_CAL / D.WINDOW_KPI / D.OBSERVED / D.PREP_LEAD / D.LADDER reads 0, remaining D.DEPT reads colour-and-name only."
+  ],
+  "risks": [
+   "The screen gets visibly emptier and there is no way around it. The timeline loses the crop-cycle band, the weed band and the observed dot on every row; the region column loses its hectare line and its scale chip; the row count drops 40 -> 29; the season view loses its phase cards. What remains per row is: the canonical window bar, the preparation bar (labelled interpretation), a status chip, a date range and a product line. Rule 3 says a smaller truthful screen beats a dense fake one and rule 12 says do not redesign to compensate — the serial engineer must be told this is expected, not a bug, or the instinct will be to backfill.",
+   "Whole crops disappear from the crop rail. Wheat loses all five of its regions (no canonical Septoria window exists for Veneto, Piemonte, Lombardia, Toscana or Umbria) and Durum Wheat keeps 3 of 6. Anyone who has demoed the Wheat calendar will read this as a regression.",
+   "IG.CROP_WINDOWS free text is in Portuguese, not Italian — 'aberta — inicio de agosto a fim de setembro', 'FECHADA — as janelas obrigatorias terminaram em junho'. Piping it straight into an Italian-default UI (rule 11) would be worse than showing nothing. Either fence it as a verbatim analyst note or hold it back until the next ingest translates it.",
+   "The label-verdict join is separator-sensitive. IT-WIN-0016 'Cereal Aphids · BYDV Risk' versus the audit's 'Cereal Aphids / BYDV Risk' is the only case today, but the same class of mismatch will silently drop future matches. Normalize once in the model and never in a view.",
+   "strengthFor() and productByKey links in italy-app-model.js still route through D.CASES.productLinks (line 102). This domain does not own that path, but the window screens consume its output through wd.c.productObjs. If the products domain migrates on a different schedule, the window detail will briefly read verified products from one source and the case-derived list from another. Coordinate step 10 with whoever owns the products domain.",
+   "The upstream OPPORTUNITIES use LEGACY_CASE_ID 'IT-HERO-001..003' while canonical windows use LEGACY_CASE_ID 'IT-OPP-001..029'. There is no overlap, so the three real opportunities cannot currently be joined to a window by legacy id. Do not invent a join.",
+   "Deleting the fixture id (WIN-001 -> IT-WIN-0001) breaks any saved deep link and any hardcoded id in briefs, notifications or tests. The legacyId field plus a redirect in openWindow() is the cheap mitigation; skipping it will look like a routing bug.",
+   "D.WINDOW_KPI feeds the nav badge at line 2608 and today returns 29 by coincidence. If someone fixes the badge without fixing the badge's source, the number stays right for the wrong reason and the coupling survives the migration unnoticed."
+  ],
+  "openQuestions": [
+   "Are the 10 D.OBSERVED rows (Consorzio Brunello harvest start, ERSA FVG BBCH 65-75, the Veneto and Umbria bulletin series) real observations from an earlier collection that simply never made it into ITALY_INGEST? If they are, the right fix is to promote them upstream into CROP_WINDOWS with dates and source ids, not to delete them — that would restore the observed dot on roughly 8 of 29 rows and is the single highest-value data question in this domain.",
+   "Is the empty PRODUCT_MATCHES array on all 29 canonical windows intentional (the audit deliberately keeps product linkage in ITALY_LABEL_VERDICTS) or is it an unfilled field? If it is meant to be filled, the model should prefer it over the verdicts join and the join becomes a fallback.",
+   "SOURCE_IDS is empty on all 29 windows. Should a window inherit the source ids of the regional regulatory act it joins (IT-SRC-REGIONAL, IT-SRC-PIEMONTE), or must a window's provenance stay strictly EXPECTED_NORM until the audit attaches its own sources?",
+   "WINDOW_TYPE is 'APPLICATION' for 29/29. Are MONITORING and REGULATORY window types planned as separate canonical records? If so, the calendar's monitoring and regulatory lanes should be built as row types now rather than as joined attributes of an application window.",
+   "D.PREP_LEAD is a single global 90 days for every crop, region and department. Is 90 a Sintonia planning convention that should be stated as such once, or a placeholder that the business owner intends to vary by crop? The interpretation label should name whichever it is.",
+   "Should the three regulatory acts whose region has no canonical window (Lombardia, Trentino, Emilia-Romagna Flavescenza) appear on the calendar as regulatory-only rows with no application window, or only in a separate list? They are real, dated, primary-source-backed facts and hiding them because the window audit has not caught up would be its own kind of loss."
+  ]
+ }
+]

@@ -2571,7 +2571,7 @@ class Component extends DCLogic {
     };
     const TIMING = { 'IN WINDOW': '#00B152', 'APPROACHING WINDOW': '#F5B317', 'EARLY': '#00A0DF', 'POST WINDOW': '#978B87', 'NO TIMING MATCH': '#8F8886' };
     const winMatch = (crop, issue) => { const keys = String(issue || '').toLowerCase().split(/[^a-z]+/).filter(w => w.length > 4); if (!keys.length) return null; return D.WINDOWS.find(w => (w.crop === crop || (crop === 'Wheat' && w.crop === 'Durum Wheat')) && keys.some(k => w.issue.toLowerCase().indexOf(k) >= 0)) || null; };
-    const mkCropTemp = (crop) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => c.crop === crop || (crop === 'Wheat' && c.crop === 'Wheat')); return e && !e.thin && e.temp ? e : null; };
+    const mkCropTemp = (crop) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => c.crop === crop || (crop === 'Wheat' && c.crop === 'Wheat')); return e && !e.thin ? e : null; };
     const actDeco = (a) => Object.assign({}, a, { cropL: cl(a.crop), issueL: il(a.issue) }, (() => {
       const ch = CH[a.type] || CH['PAID'];
       const w = winMatch(a.crop, a.issue);
@@ -2600,17 +2600,49 @@ class Component extends DCLogic {
     const recentActivity = D.ACTIVITIES.slice().sort((a, b) => a.days - b.days).slice(0, 6).map(actDeco).map(x => Object.assign({}, x, { when: LAGO(x.when) }));
 
     // ---- nav
-    const allMessages = s.extraMessages.concat(D.FIELD_MESSAGES);
-    /* Core = external intelligence. Field Sales moves to a separate optional-integration
-    group, because Sintonia core does not require private ADAMA data. Counts derive from
-    the application model so the nav grows with the next load. */
+    /* §1 · Core = external intelligence, so Field Sales inbound stays OUT of the INTELLIGENCE
+    group. §5 · it lives in the amber INTEGRAZIONI · DEMO group and its 18 records are read
+    from the model's own SYNTHETIC_DEMO collection (provenance 'SYNTHETIC_DEMO', real 0,
+    demo 18) instead of the raw fixture — measured field-by-field identical to
+    D.FIELD_MESSAGES on all 31 keys, including the 10 caseObj and 2 signalObj joins the case
+    and field screens read, so nothing downstream changes shape. */
+    const navDemoInbound = (AM && AM.collections.fieldMessages) ? AM.collections.fieldMessages.records : [];
+    const allMessages = s.extraMessages.concat(navDemoInbound);
 
-    const navDef = [['radar', T.navRadar, K.total], ['future', T.navFuture, AM ? AM.counts.futureSignals : 0], ['windows', T.navWindows, D.WINDOW_KPI.total], ['market', T.navMarket, window.ITALY_MARKET ? window.ITALY_MARKET.CROPS.length : 0], ['voices', T.navVoices, AM ? AM.counts.voices : 0], ['competitors', T.navCompetitors, K.activities], ['science', T.navScience, K.records], ['portfolio', T.navPortfolio, AM ? AM.counts.products : 0], ['archive', T.navArchive, K.archive], ['sources', T.navSources, K.orgs + K.people]];
+    /* §2 · Every badge in the INTELLIGENCE group is now a count of normalized records.
+    Before this block the badges were fixture recounts and four of them were wrong by a wide
+    margin: competitors 72 vs 503 real activities, science 36 vs 88, archive 448 vs the
+    773-row real index, sources 53 orgs + 39 people = 92 vs a 31-source registry. Three were
+    right only by luck — the 29 demo CASES are a 1:1 shadow of the 29 canonical windows, so
+    radar and windows keep reading 29, but from the contract instead of the shadow. */
+    const navN = (k) => (AM && AM.counts && typeof AM.counts[k] === 'number') ? AM.counts[k] : 0;
+
+    /* §8 · 'sources' counts monitored public routes only (31). The old badge summed 53 demo
+    organizations with 39 demo people — and 7 of those people were invented ADAMA Technical
+    Sales Representatives, i.e. internal staff, which §1 forbids from the core. People are a
+    separate real collection (15 with documented role evidence, 60 OpenAlex researchers) and
+    are counted on the Sources screen itself, never folded into this badge.
+    §3 · 'market' can no longer read window.ITALY_MARKET.CROPS.length (8 hand-authored crop
+    tabs, none of which carries a SOURCE_ID). The only real backing is the 76 EU Commission
+    Agri-food weekly price observations, so the badge counts those; the fixture's 8 tabs
+    included Tomato, Sugar Beet and Apple, for which the real corpus holds zero rows. */
+    const navDef = [
+      ['radar', T.navRadar, navN('windows')],
+      ['future', T.navFuture, navN('futureSignals')],
+      ['windows', T.navWindows, navN('windows')],
+      ['market', T.navMarket, navN('marketObservations')],
+      ['voices', T.navVoices, navN('voices')],
+      ['competitors', T.navCompetitors, navN('competitorActivities')],
+      ['science', T.navScience, navN('scienceRecords')],
+      ['portfolio', T.navPortfolio, navN('products')],
+      ['archive', T.navArchive, navN('archive')],
+      ['sources', T.navSources, navN('sources')]
+    ];
     const navIntegrations = [['field', T.navField, allMessages.length]];
     const activeOf = { radar: 'radar', case: 'radar', brief: 'radar', field: 'field', windows: 'windows', window: 'windows', market: 'market', signal: 'future', future: 'future', competitors: 'competitors', company: 'competitors', event: 'competitors', cproduct: 'competitors', science: 'science', theme: 'science', archive: 'archive', portfolio: 'portfolio', product: 'portfolio', voices: 'voices', sources: 'sources', source: 'sources', person: 'sources', search: '' };
+    /* §4 · The green/amber accents, the dot and the active tint are presentation only and stay. */
     const nav = navDef.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => n[0] === 'competitors' ? this.compWith({}) : n[0] === 'radar' ? this.radarWith({ showAll: false }) : this.go({ view: n[0] }), bg: on ? 'rgba(0,152,69,0.13)' : 'transparent', border: on ? 'rgba(0,152,69,0.40)' : 'transparent', dot: on ? '#009845' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
     const navIntegrationItems = navIntegrations.map(n => { const on = activeOf[s.view] === n[0]; return { label: n[1], count: n[2], go: () => this.go({ view: n[0] }), bg: on ? 'rgba(245,179,23,0.13)' : 'transparent', border: on ? 'rgba(245,179,23,0.40)' : 'transparent', dot: on ? '#F5B317' : 'rgba(151,139,135,0.35)', color: on ? '#fff' : '#9A9391', weight: on ? 600 : 400 }; });
-
     // ---- case
     const cs0 = CASES.find(c => c.id === s.caseId) || CASES[1];
     const cs = Object.assign({}, cs0, {
@@ -2887,24 +2919,65 @@ class Component extends DCLogic {
     const earlyWindows = D.WINDOWS.filter(w => w.early.state !== 'NOT OBSERVED').slice(0, 5).map(wDeco);
 
     // ---- signal detail
+    /* §18 · A real Future card opens the SAME real entity. The pool the detail
+       resolves from is exactly the pool the feed showed, so an unresolved id
+       reports itself as missing instead of quietly opening a neighbour. */
     const sgPool = (APP0 ? APP0.futureSignals.records : []).concat(s.showScenarios && APP0 && APP0.futureScenarios ? APP0.futureScenarios.records : []);
     const sg0 = sgPool.find(x => x.id === s.signalId) || null;
     const sgMissing = !!s.signalId && !sg0;
-    const srcGo = (src) => () => src.kind === 'source' ? this.openSource(src.id) : src.kind === 'person' ? this.openPerson(src.id) : src.kind === 'news' ? this.go({ view: 'sources', sourceGroup: 'NEWS & TRADE MEDIA' }) : src.kind === 'company' ? this.openCompany(src.id) : src.kind === 'field' ? this.go({ view: 'field' }) : this.openTheme((sg0 || {}).science || D.SCI_THEMES[0].id);
-    const sgSources = ((sg0 || {}).sources || []).filter(src => !s.sigGroup || src.group === s.sigGroup);
-    const ev = s.evidenceIdx != null ? (sg0 || {}).trail[s.evidenceIdx].ev : null;
+    /* Upstream signals and presentation scenarios have different shapes. The
+       scenario keeps its rich demo structure; the real record has far less, and
+       renders far less. Nothing is ever borrowed across that line. */
+    const sgIsScenario = !!(sg0 && AM && AM.isDemo(sg0, 'REAL_SOURCE'));
+    /* A narrative field is only shown when upstream approved a localized
+       version. Otherwise the state is shown, never the raw research note. */
+    const nar = (n) => (n && n.state === 'CLEAR') ? (s.lang === 'en' ? (n.en || n.it) : (n.it || n.en)) : null;
+    const narState = (n) => !n ? null : n.state === 'CLEAR' ? null
+      : n.state === 'NOT_ESTABLISHED' ? (T.notEstablished || 'non ancora stabilito')
+      : (T.notApprovedForDisplay || 'lettura interna, non pubblicabile');
+    const SRC_TINT = { OFFICIAL: '#00B152', SCIENCE: '#00A0DF', MARKET: '#F5B317', MEDIA: '#9D1D96', FIELD: '#7DB41E', COMPETITOR: '#F89E18' };
+    const srcTint = (x) => SRC_TINT[String((x && (x.group || x.type)) || '').toUpperCase().split(/[^A-Z]/)[0]] || '#978B87';
+    const srcGo = (src) => () => src.kind === 'source' ? this.openSource(src.id) : src.kind === 'person' ? this.openPerson(src.id) : src.kind === 'news' ? this.go({ view: 'sources', sourceGroup: 'NEWS & TRADE MEDIA' }) : src.kind === 'company' ? this.openCompany(src.id) : src.kind === 'field' ? this.go({ view: 'field' }) : this.openSource(src.id);
+    /* Real signals cite SOURCE_IDS. Those resolve against the registry, so the
+       source list on a real card is traceable rather than described. */
+    const sgSourceRecords = sgIsScenario ? ((sg0 || {}).sources || [])
+      : ((sg0 || {}).sourceIds || []).map(id => (APP0 ? APP0.sources.records.find(x => x.sourceId === id || x.id === id) : null)
+        || { id, name: id, group: null, unresolved: true });
+    const sgSources = sgSourceRecords.filter(src => !s.sigGroup || src.group === s.sigGroup);
+    const sgTrail = sgIsScenario ? ((sg0 || {}).trail || []) : [];
+    const ev = (s.evidenceIdx != null && sgTrail[s.evidenceIdx]) ? sgTrail[s.evidenceIdx].ev : null;
     const sg = Object.assign({}, sg0, {
-      sourceTypeUpper: ((sg0 || {}).sourceType || '').toUpperCase(), hasProduct: !!(sg0 || {}).product, noProduct: !(sg0 || {}).product, p: (sg0 || {}).product ? Object.assign({}, D.PRODUCTS[(sg0 || {}).product], { crops: D.PRODUCTS[(sg0 || {}).product].crops.join(', '), targets: D.PRODUCTS[(sg0 || {}).product].targets.join(' / ') }) : {},
-      goProduct: () => (sg0 || {}).product ? this.openProduct((sg0 || {}).product) : this.radarWith({ fStatus: 'VALIDATE' }), goWindow: () => (sg0 || {}).window && this.openWindow((sg0 || {}).window.id), goTheme: () => this.openTheme((sg0 || {}).science || D.SCI_THEMES[0].id), goCase: () => (sg0 || {}).matchCase && this.openCase((sg0 || {}).matchCase.id),
-      who: ((sg0 || {}).who || []).map(g => Object.assign({}, g, { bg: s.sigGroup === g.group ? g.color : '#161312', go: () => this.setState({ sigGroup: s.sigGroup === g.group ? '' : g.group }) })),
-      whyWatch: ((sg0 || {}).whyWatch || []).map(y => ({ t: y.t, mark: y.warn ? '△' : y.ok ? '✓' : '○', color: y.warn ? '#978B87' : y.ok ? '#009845' : '#8F8886' })),
-      trail: ((sg0 || {}).trail || []).map((t, i) => Object.assign({}, t, { view: () => this.setState({ evidenceIdx: i }), border: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color : s.evidenceIdx === i ? '#009845' : 'rgba(203,197,195,0.14)', bg: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color + '22' : 'rgba(255,255,255,0.03)', numColor: i === ((sg0 || {}).trail || []).length - 1 ? (sg0 || {}).color : '#8F8886' })),
-      promotion: ((sg0 || {}).promotion || []).map(p => ({ t: p.t, mark: p.ok ? '✓' : '□', color: p.ok ? '#009845' : '#8F8886' })), promoColor: (sg0 || {}).promoted ? '#009845' : '#978B87',
-      factLoc: ((sg0 || {}).sources || []).find(x => x.group === 'OFFICIAL' || x.group === 'FIELD SALES') ? (sg0 || {}).region : 'Not yet established',
-      sourceCount: sgSources.length, sourceCards: sgSources.map(src => Object.assign({}, src, { color: D.GROUP_COLOR[src.group], go: srcGo(src) })),
-      groupChips: [{ group: 'ALL', count: ((sg0 || {}).sources || []).length }].concat((sg0 || {}).who || []).map(g => { const on = (s.sigGroup || 'ALL') === g.group; return { group: g.group, count: g.count, border: on ? '#009845' : 'rgba(203,197,195,0.2)', bg: on ? 'rgba(0,152,69,0.25)' : 'transparent', textColor: on ? '#fff' : '#B1A9A7', go: () => this.setState({ sigGroup: g.group === 'ALL' ? '' : g.group }) }; })
+      isScenario: sgIsScenario, isReal: !!sg0 && !sgIsScenario,
+      /* the six narrative panels: text when approved, state when not, nothing when absent */
+      whyWatchText: nar((sg0 || {}).whyWatch), whyWatchState: narState((sg0 || {}).whyWatch),
+      whoIsTalkingText: nar((sg0 || {}).whoIsTalking), whatChangedText: nar((sg0 || {}).whatChanged),
+      observedFactsText: nar((sg0 || {}).observedFacts), interpretationText: nar((sg0 || {}).interpretation),
+      unknownText: nar((sg0 || {}).unknown), nextWindowText: nar((sg0 || {}).nextWindow),
+      portfolioConnectionText: nar((sg0 || {}).portfolioConnection),
+      promoteConditionText: nar((sg0 || {}).whatWouldPromoteIt),
+      sourceTypeUpper: ((sg0 || {}).sourceType || '').toUpperCase(),
+      /* A product panel needs a product entity that really exists in the model. */
+      hasProduct: !!(sg0 && sg0.product && AM && AM.findProduct(sg0.product)),
+      noProduct: !(sg0 && sg0.product && AM && AM.findProduct(sg0.product)),
+      p: (() => { const e = sg0 && sg0.product && AM ? AM.findProduct(sg0.product) : null; return e ? Object.assign({}, e, { crops: (e.crops || []).join(', '), targets: (e.targets || []).join(' / ') }) : {}; })(),
+      goProduct: () => (sg0 || {}).product ? this.openProduct((sg0 || {}).product) : this.radarWith({ fStatus: 'VALIDATE' }),
+      goWindow: () => (sg0 || {}).window && this.openWindow((sg0 || {}).window.id),
+      goTheme: () => (sg0 || {}).science ? this.openTheme((sg0 || {}).science) : this.go({ view: 'science' }),
+      goCase: () => (sg0 || {}).matchCase && this.openCase((sg0 || {}).matchCase.id),
+      /* who / trail / promotion exist only in the presentation scenario. On a
+         real signal they stay empty and the markup hides the panel. */
+      who: (sgIsScenario ? ((sg0 || {}).who || []) : []).map(g => Object.assign({}, g, { bg: s.sigGroup === g.group ? g.color : '#161312', go: () => this.setState({ sigGroup: s.sigGroup === g.group ? '' : g.group }) })),
+      whyWatch: (sgIsScenario ? ((sg0 || {}).whyWatch || []) : []).map(y => ({ t: y.t, mark: y.warn ? '△' : y.ok ? '✓' : '○', color: y.warn ? '#978B87' : y.ok ? '#009845' : '#8F8886' })),
+      trail: sgTrail.map((t, i) => Object.assign({}, t, { view: () => this.setState({ evidenceIdx: i }), border: i === sgTrail.length - 1 ? (sg0 || {}).color : s.evidenceIdx === i ? '#009845' : 'rgba(203,197,195,0.14)', bg: i === sgTrail.length - 1 ? ((sg0 || {}).color || '#978B87') + '22' : 'rgba(255,255,255,0.03)', numColor: i === sgTrail.length - 1 ? (sg0 || {}).color : '#8F8886' })),
+      promotion: (sgIsScenario ? ((sg0 || {}).promotion || []) : []).map(p => ({ t: p.t, mark: p.ok ? '✓' : '□', color: p.ok ? '#009845' : '#8F8886' })),
+      promoColor: (sg0 || {}).promoted ? '#009845' : '#978B87',
+      /* Where the fact sits is only claimed when a source supports it. */
+      factLoc: sgSourceRecords.some(x => !x.unresolved) ? ((sg0 || {}).region || (T.notEstablished || 'non ancora stabilito')) : (T.notEstablished || 'non ancora stabilito'),
+      sourceCount: sgSources.length,
+      sourceCards: sgSources.map(src => Object.assign({}, src, { color: srcTint(src), go: srcGo(src) })),
+      unresolvedSources: sgSourceRecords.filter(x => x.unresolved).length,
+      groupChips: [{ group: 'ALL', count: sgSourceRecords.length }].concat(sgIsScenario ? ((sg0 || {}).who || []) : []).map(g => { const on = (s.sigGroup || 'ALL') === g.group; return { group: g.group, count: g.count, border: on ? '#009845' : 'rgba(203,197,195,0.2)', bg: on ? 'rgba(0,152,69,0.25)' : 'transparent', textColor: on ? '#fff' : '#B1A9A7', go: () => this.setState({ sigGroup: g.group === 'ALL' ? '' : g.group }) }; })
     });
-
     // ---- market pulse
     const MK = window.ITALY_MARKET;
     let mp = null, mpCropOptions = [], mpTabs = [], mpButtons = [], csMarket = null;
@@ -3188,7 +3261,7 @@ class Component extends DCLogic {
     // ---- science → business
     const SB = window.ITALY_SCIENCE;
     const relOf = (k) => (SB && SB.REL[k]) || { color: '#978B87', bright: '#B1A9A7', tint: 'transparent', border: 'rgba(151,139,135,0.30)', def: '' };
-    const mkTempFor = (cropName) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => cropName.indexOf(c.crop) >= 0); return e && !e.thin && e.temp ? e : null; };
+    const mkTempFor = (cropName) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => cropName.indexOf(c.crop) >= 0); return e && !e.thin ? e : null; };
     // A window only counts for a theme when the TARGET matches, not just the crop.
     const winFor2 = (cropName, issueName) => {
       if (!issueName) return null;
@@ -3223,7 +3296,7 @@ class Component extends DCLogic {
         nextMomentMeta: w ? w.issue + ' \u00b7 ' + w.region : 'the theme has no application window of its own \u2014 no countdown is borrowed from another target',
         nextMomentColor: w ? (w.open ? '#00B152' : w.days <= 120 ? '#00A0DF' : '#978B87') : '#978B87',
         hasWindow: !!w, goWindow: () => w && this.openWindow(w.id),
-        market: mk2 ? mk2.temp : 'NOT ENOUGH DATA', marketColor: mk2 && window.ITALY_MARKET ? ((window.ITALY_MARKET.SEM || {})[(window.ITALY_MARKET.TEMP_SEM || {})[mk2.temp] || 'UNKNOWN'] || {}).color : '#B1A9A7',
+        market: mk2 ? mk2.temp : 'NOT ENOUGH DATA', marketColor: mk2 && window.ITALY_MARKET ? window.ITALY_MARKET.SEM[window.ITALY_MARKET.TEMP_SEM[mk2.temp] || 'UNKNOWN'].color : '#B1A9A7',
         goMarket: () => mk2 ? this.go({ view: 'market', mCrop: mk2.key, mTab: 'crop' }) : this.go({ view: 'market' }),
         records: extra ? [] : D.RECORDS.filter(r => r.themeId === t.id).slice(0, 5),
         people: [], impact: () => this.setState({ sciImpactId: t.id }), goTheme: () => !extra && this.openTheme(t.id),

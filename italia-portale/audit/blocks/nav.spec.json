@@ -1,0 +1,593 @@
+[
+ {
+  "domain": "NAV COUNTERS + DATA STATE / PROVENANCE PANEL + NOTIFICATIONS",
+  "summary": "Today the chrome of the portal — left nav counts, the sidebar \"today\" box, the 8 radar KPI cards, the 20-tile region map, the 7 source tiles, the transparency (\"DEMO ENVIRONMENT\") panel and the notification bell — is almost entirely fed by one object, `D.KPI` (aliased `K` at portale.html:2549), plus `D.WINDOW_KPI`, `D.FIELD_KPI`, `D.REGION_STATS`, `D.WHAT_CHANGED` and `D.NOTIFICATIONS`. Those are computed inside italy-demo-data.js from the demo fixtures (29 demo CASES, 72 demo ACTIVITIES, 56 demo SIGNALS, 53 demo SOURCES, 448-row demo ARCHIVE, 36 demo RECORDS, 39 demo PEOPLE), so every badge is a fixture number even when a real one exists. Measured, the gap is large and always in the same direction: competitors nav says 72, real is 503; science says 36, real is 88; archive says 448, real is 740; sources says 92, real is 31; \"competitor movements · 30d\" says 43, real is 11; the transparency panel claims 244 real / 491 demo when the real application model holds 1038 real / 100 demo records. Four numbers are honest by luck (29 windows, 6 window-open, 2 next-cycle, 5 date-unknown) because the demo CASES are a 1:1 shadow of the 29 canonical windows. The transparency panel itself is the worst offender in principle: it is the screen that promises to tell the truth about the data, and it reads the fixture (`D.ACTIVITIES`, `D.ARCHIVE`, `D.FIELD_MESSAGES`) to do it. `D.NOTIFICATIONS` is six hand-written alerts asserting field messages, window countdowns and a BASF movement that exist nowhere in the ingested data.",
+  "realSource": "APP = window.ITALY_APP_MODEL. Nav and KPI counts come from APP.counts / APP.collections (windows 29 · competitorActivities 503 · scienceRecords 88 · archive 740 · sources 31 · researchers 60 · voices 17 · products 166 · marketObservations 77 · resistance 34 · channels 30 · events 18 · news 8 · futureSignals 3 · upstreamOpportunities 3). Window status buckets come from APP.collections.windows.records[].status (upstream CURRENT_STATUS). Verified portfolio matches come from window.ITALY_LABEL_VERDICTS (VERIFIED 12 / NOT_FOUND 7) — which italy-app-model.js does NOT read yet. Regulatory use rows come from IG.LINKS (219). Source-group tiles come from IG.SOURCES[].TYPE (31 records). The transparency panel comes from APP.provenanceSummary. Field Sales KPIs stay on D.FIELD_MESSAGES as an explicitly labelled optional-integration demo (§5).",
+  "confidence": "high",
+  "occurrences": [
+   {
+    "file": "portale.html",
+    "line": 2549,
+    "symbol": "D.KPI",
+    "snippet": "const K = D.KPI;",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "D.KPI is computed in italy-demo-data.js:764-781 from demo CASES / ACTIVITIES / SOURCES / PEOPLE / ARCHIVE / RECORDS. Every downstream badge is therefore a fixture fact: totals, status buckets, movement counts, source counts, archive size.",
+    "replacement": "const AMC = AM.counts; const AW = AM.collections.windows.records; const LV = window.ITALY_LABEL_VERDICTS || {}; const wCount = (st) => AW.filter(w => w.status === st).length; const K = { total: AMC.windows, windowOpen: wCount('WINDOW_OPEN'), windowClosed: wCount('WINDOW_CLOSED'), nextCycle: wCount('NEXT_CYCLE'), dateUnknown: wCount('DATE_UNKNOWN'), verified: (LV.VERIFIED||[]).length, notFound: (LV.NOT_FOUND||[]).length, useRows: AMC.regulatoryLinks, movements30: AM.collections.competitorActivities.records.filter(a => a.daysFromRef !== null && a.daysFromRef <= 0 && a.daysFromRef >= -30).length, activities: AMC.competitorActivities, records: AMC.scienceRecords, archive: AMC.archive, orgs: AMC.sources, researchers: AMC.researchers, people: AMC.people };"
+   },
+   {
+    "file": "portale.html",
+    "line": 2552,
+    "symbol": "D.KPI.total (K.total)",
+    "snippet": "[K.total, T.kpiTotal, '#009845', '#00B152', 'farm-management', T.kpiTotalSub],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Reads D.CASES.length. Value 29 happens to equal the 29 canonical windows because the demo cases shadow them 1:1, but the source is a fixture; the next data load would freeze this at 29.",
+    "replacement": "AM.counts.windows  /* 29, unchanged value, honest source */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2554,
+    "symbol": "D.KPI.windowOpen",
+    "snippet": "[K.windowOpen, wst('WINDOW_OPEN'), '#00B152', '#00B152', 'rain', T.kpiOpenSub],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Agronomic state is a fact (§7); it must come from upstream CURRENT_STATUS, not from a fixture recount. Measured demo 6 == measured canonical 6 today, coincidence of the 1:1 shadow.",
+    "replacement": "AM.collections.windows.records.filter(w => w.status === 'WINDOW_OPEN').length  /* 6 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2555,
+    "symbol": "D.KPI.nextCycle",
+    "snippet": "[K.nextCycle, wst('NEXT_CYCLE'), '#00A0DF', '#00A0DF', 'sun', T.kpiNextSub],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Same as windowOpen: a status bucket counted off demo CASES instead of canonical windows.",
+    "replacement": "AM.collections.windows.records.filter(w => w.status === 'NEXT_CYCLE').length  /* 2 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2556,
+    "symbol": "D.KPI.dateUnknown",
+    "snippet": "[K.dateUnknown, wst('DATE_UNKNOWN'), '#F5B317', '#F5B317', 'heat-sensitive', T.kpiUnknownSub],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Same as above. Cross-check: 5 canonical windows carry DATE_STATE = DATE_TO_CONFIRM, matching the 5 DATE_UNKNOWN statuses.",
+    "replacement": "AM.collections.windows.records.filter(w => w.status === 'DATE_UNKNOWN').length  /* 5 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2557,
+    "symbol": "D.KPI.windowClosed",
+    "snippet": "[K.windowClosed, wst('WINDOW_CLOSED'), '#978B87', '#B1A9A7', 'connect', T.kpiClosedSub],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Same as above.",
+    "replacement": "AM.collections.windows.records.filter(w => w.status === 'WINDOW_CLOSED').length  /* 16 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2558,
+    "symbol": "D.KPI.matches",
+    "snippet": "[K.matches, T.kpiVerified, '#00B152', '#00B152', 'recycle-label', T.kpiVerifiedSub],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Currently 13: the sum of demo-case productLinks whose strength string equals VERIFIED_LABEL_MATCH. The upstream label audit (window.ITALY_LABEL_VERDICTS) contains 12 verified [crop, issue, product] triples. The screen is over-reporting verified portfolio matches by one, from a fixture, on the single number the product is most exposed on (§10).",
+    "replacement": "(window.ITALY_LABEL_VERDICTS.VERIFIED || []).length  /* 12, was 13 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2559,
+    "symbol": "D.KPI.links",
+    "snippet": "[K.links, T.kpiLinks, '#9D1D96', '#C46ABE', 'sell', T.kpiLinksSub],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "80 = every productLink on the 29 demo CASES (13 verified + 53 check-needed + 14 no-match). Nothing upstream produces 80: canonical windows carry PRODUCT_MATCHES = [] on all 29 records (measured), and the label audit assesses only 19 positions (12 verified + 7 not-found). The card is a fixture artefact.",
+    "replacement": "AM.counts.regulatoryLinks  /* 219 real label use rows from IG.LINKS — DIFFERENT MEANING, must be relabelled 'righe d'uso da etichetta'. If the card must keep the 'portfolio position' meaning, use 12+7=19 assessed positions, or DELETE_COMPONENT. Do not keep 80. */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2560,
+    "symbol": "D.KPI.movements",
+    "snippet": "[K.movements, T.kpiMovements, '#978B87', '#B1A9A7', 'cloud', T.kpiMovementsSub]",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "43 = D.ACTIVITIES with days<=30 out of 72 demo activities. The real corpus has 503 competitor activities, of which only 11 have a start date inside 30 days of the reference date 2026-09-02 (measured; most recent real start is -7 days). The screen overstates recent competitor motion by ~4x.",
+    "replacement": "AM.collections.competitorActivities.records.filter(a => a.daysFromRef !== null && a.daysFromRef <= 0 && a.daysFromRef >= -30).length  /* 11, was 43 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2564,
+    "symbol": "D.REGION_STATS",
+    "snippet": "const regionTiles = D.REGION_STATS.map(r => Object.assign({}, r, { gc: r.col + 1, gr: r.row + 1, go: () => this.radarWith({ fRegion: r.name }) }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Mixed. The grid geometry (name, col, row, short) is VISUAL_ONLY. But r.cases and r.signals are facts rendered on screen: r.cases counts demo CASES per region (measured 9 active regions, and it happens to equal the canonical window distribution exactly), and r.signals counts D.SIGNALS — the 56 DEMO_SCENARIO records. The colour/border are also derived from a demo case status rank.",
+    "replacement": "const REGION_GRID = D.REGIONS.map(r => ({ name: r.name, col: r.col, row: r.row, short: r.short })); /* VISUAL_ONLY geometry, may stay on the fixture */\nconst winByRegion = AM.collections.windows.records.reduce((m, w) => { if (w.region) m[w.region] = (m[w.region] || 0) + 1; return m; }, {});\nconst regionTiles = REGION_GRID.map(r => ({ name: r.name, short: r.short, gc: r.col + 1, gr: r.row + 1, windows: winByRegion[r.name] || 0, active: !!winByRegion[r.name], color: winByRegion[r.name] ? 'rgba(0,152,69,0.35)' : 'rgba(255,255,255,0.05)', border: winByRegion[r.name] ? '#009845' : 'rgba(255,255,255,0.10)', textColor: winByRegion[r.name] ? '#fff' : '#B1A9A7', go: () => this.radarWith({ fRegion: r.name }) }));  /* signals field DELETED */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2565,
+    "symbol": "D.REGION_STATS (via regionTiles)",
+    "snippet": "const regionRank = regionTiles.filter(r => r.cases > 0).sort((a, b) => b.cases - a.cases || b.signals - a.signals).slice(0, 7);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Ranks regions by demo case count and breaks ties on the 56 demo scenarios. Rendered at markup 259-264 including the literal '+{{ r.signals }} signals'.",
+    "replacement": "const regionRank = regionTiles.filter(r => r.windows > 0).sort((a, b) => b.windows - a.windows || a.name.localeCompare(b.name)).slice(0, 7);  /* Veneto 6, Puglia 6, Emilia-Romagna 4, Lombardia 3, Piemonte 3, Sicilia 3, Toscana 2 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "D.KPI.total (navDef radar)",
+    "snippet": "const navDef = [['radar', T.navRadar, K.total], ...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Nav badge for the radar reads D.CASES.length.",
+    "replacement": "AM.counts.windows  /* 29 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "D.WINDOW_KPI.total (navDef windows)",
+    "snippet": "['windows', T.navWindows, D.WINDOW_KPI.total],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Reads the demo WINDOWS array length (italy-demo-data.js:671), which is itself built by mapping demo CASES.",
+    "replacement": "AM.counts.windows  /* 29, unchanged value, honest source */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "D.KPI.activities (navDef competitors)",
+    "snippet": "['competitors', T.navCompetitors, K.activities],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "72 demo activities; the real ingested corpus is 503 (414 PAID reaching Italy + 89 ORGANIC_VIDEO multi-country). The nav badge under-reports the largest real collection in the product by 7x.",
+    "replacement": "AM.counts.competitorActivities  /* 503, was 72 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "D.KPI.records (navDef science)",
+    "snippet": "['science', T.navScience, K.records],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "36 demo RECORDS vs 88 real SCIENCE records.",
+    "replacement": "AM.counts.scienceRecords  /* 88, was 36 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "D.KPI.archive (navDef archive)",
+    "snippet": "['archive', T.navArchive, K.archive],",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "448 demo archive rows (420 of them flagged isDemo) vs the model's 740-row index built purely over normalized real records.",
+    "replacement": "AM.counts.archive  /* 740, was 448 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "D.KPI.orgs + D.KPI.people (navDef sources)",
+    "snippet": "['sources', T.navSources, K.orgs + K.people]",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "53 demo SOURCES + 39 demo PEOPLE = 92. The real registry is 31 sources. People are a separate real collection (60 researchers, 15 people with documented role/identity evidence, 66 distinct names in the union) and must not be silently summed into a 'sources' badge.",
+    "replacement": "AM.counts.sources  /* 31, was 92. People get their own tiles on the sources screen; do not add them into the nav badge. */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2625,
+    "symbol": "D.REGION_STATS (case mini-map)",
+    "snippet": "miniMap: D.REGION_STATS.map(r => ({ name: r.name, gc: r.col + 1, gr: r.row + 1, fill: ..., stroke: ..., go: ... })),",
+    "classification": "VISUAL_ONLY",
+    "reason": "Reads only name / col / row for the 20-cell grid geometry; the fill and stroke come from the CURRENT case's own category colour and its adjacent-region list, not from any per-region count. No count, date, status or evidence is rendered from the fixture here. §4 allows layout metadata on the fixture.",
+    "replacement": "KEEP — but repoint at the same REGION_GRID constant introduced at line 2564 so there is a single geometry source: REGION_GRID.map(r => ({ ... }))"
+   },
+   {
+    "file": "portale.html",
+    "line": 2874,
+    "symbol": "D.WINDOW_KPI",
+    "snippet": "const WK = D.WINDOW_KPI;",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "DEAD CODE that is also wrong. WK feeds only windowBuckets (line 2875) and the windowKpi export (line 3403). Grep proves neither prop is consumed anywhere in the markup template (lines 51-2374): 'windowBuckets' appears exactly twice in the file, both in the script; 'windowKpi' and 'whatChanged' appear once each, in the export. Its numbers are also fabricated: WK.d30 = 21 windows 'in the next 30 days' comes from a demo day-count, while 16 of the 29 canonical windows are WINDOW_CLOSED.",
+    "replacement": "DELETE_COMPONENT — delete line 2874, delete windowBuckets (2875), and drop 'windowBuckets' and 'windowKpi: WK' from the export at line 3403."
+   },
+   {
+    "file": "portale.html",
+    "line": 2875,
+    "symbol": "D.WINDOW_KPI.open/d30/d60/d90/d180/cycle",
+    "snippet": "const windowBuckets = [['OPEN NOW', WK.open, ...], ['NEXT 30 DAYS', WK.d30, ...], ...]",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Six agronomic-timing buckets computed from the demo window day-counts (measured open 6, d30 21, d60 1, d90 0, d180 0, cycle 1). Not rendered anywhere. §7 forbids presentation inventing an agronomic state; these buckets do exactly that, and are dead besides.",
+    "replacement": "DELETE_COMPONENT"
+   },
+   {
+    "file": "portale.html",
+    "line": 3123,
+    "symbol": "D.FIELD_KPI",
+    "snippet": "const FK = D.FIELD_KPI; const extraConnected = s.extraMessages.filter(m => m.state === 'CONNECTED').length;",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Field Sales is the sanctioned optional-integration demonstration (§5, §9). Every FIELD_MESSAGE carries provenance SYNTHETIC_DEMO, the model isolates them in collections.fieldMessages (18, real 0), the nav puts them in a separate amber INTEGRATIONS group, and none of these numbers feed any core count. Measured: messages 18, connected 8, newSignals 4, regions 7, products 7, validation 3.",
+    "replacement": "KEEP as demo. Two conditions: (a) the Field Sales screen must carry a visible 'DIMOSTRAZIONE — dati simulati' banner above the KPI row at markup line 850, and (b) these values must never appear in dataState's real/derived column nor in any nav core badge. Both already hold today; do not regress them."
+   },
+   {
+    "file": "portale.html",
+    "line": 3363,
+    "symbol": "D.KPI.orgs",
+    "snippet": "{ count: K.orgs, label: 'Organizations monitored', color: '#fff', go: () => this.setState({ sourceGroup: 'ALL' }) },",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "53 demo SOURCES vs a real registry of 31 (measured IG.SOURCES.length; access status GREEN 26, PARTIAL 1, BLOCKED 3, NOT_REACHED 1).",
+    "replacement": "AM.counts.sources  /* 31, was 53 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 3363,
+    "symbol": "D.KPI.people",
+    "snippet": "{ count: K.people, label: 'People monitored', color: '#009845', go: () => this.setState({ sourceGroup: 'PEOPLE' }) },",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "39 = 32 demo PEOPLE + 7 demo TSR (fictional Technical Sales Reps). Real people: IG.PEOPLE 15 (each with IDENTITY_EVIDENCE and ROLE_EVIDENCE) and IG.RESEARCHERS 60 (54 of which are ORCID_PRESENT_NOT_RESOLVED_HERE); 8 names overlap, 66 distinct names in the union. The 30 CHANNELS are all IDENTITY_STATE = NOT_PROVED and must not be counted as people.",
+    "replacement": "SPLIT INTO TWO TILES: { count: AM.counts.people, label: 'Persone con ruolo documentato' } /* 15 */ and { count: AM.counts.researchers, label: 'Ricercatori nel perimetro' } /* 60 */. Requires the new AM.collections.people. Never render 39."
+   },
+   {
+    "file": "portale.html",
+    "line": 3364,
+    "symbol": "D.KPI.official",
+    "snippet": "{ count: K.official, label: 'Official / government routes', ... }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "16 demo sources in group 'GOVERNMENT & OFFICIAL'. Measured real: IG.SOURCES with TYPE = 'OFFICIAL' is 5.",
+    "replacement": "AM.collections.sources.records.filter(x => x.group === 'OFFICIAL').length  /* 5, was 16 — needs the derived group field, see modelChanges */"
+   },
+   {
+    "file": "portale.html",
+    "line": 3364,
+    "symbol": "D.KPI.research",
+    "snippet": "{ count: K.research, label: 'Research institutions & databases', ... }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "10 demo. Measured real: TYPE 'RESEARCH' 2 + 'RESEARCH_INSTITUTION' 2 = 4.",
+    "replacement": "AM.collections.sources.records.filter(x => x.group === 'RESEARCH').length  /* 4, was 10 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 3365,
+    "symbol": "D.KPI.field",
+    "snippet": "{ count: K.field, label: 'Field & producer organizations', ... }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "8 demo. Measured real: TYPE 'FIELD' 6 + 'COOPERATIVE' 3 + 'PRODUCER_ORG' 1 = 10. This is the one tile that goes UP.",
+    "replacement": "AM.collections.sources.records.filter(x => x.group === 'FIELD').length  /* 10, was 8 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 3365,
+    "symbol": "D.KPI.media",
+    "snippet": "{ count: K.media, label: 'News & trade media · ' + D.NEWS.length + ' real items', ... }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "8 demo sources in 'NEWS & TRADE MEDIA'. Measured real: TYPE 'TECHNICAL_MEDIA' = 4.",
+    "replacement": "AM.collections.sources.records.filter(x => x.group === 'TECHNICAL_MEDIA').length  /* 4, was 8 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 3365,
+    "symbol": "D.NEWS.length",
+    "snippet": "label: 'News & trade media · ' + D.NEWS.length + ' real items'",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "D.NEWS is window.ITALY_REAL.NEWS (9 items, a hand-curated real-fact list inside the demo bundle). The ingested registry IG.NEWS has 8 records. Two different news corpora are live at once and the label asserts the larger one is 'real items'. Note also that 3 of the 8 ingested items are outside 2026 (2021-02-24, 2022-05-03) and one has DATE = 'NAO SEI'.",
+    "replacement": "AM.counts.news  /* 8, was 9 */ — and add the honest qualifier: 8 records, of which 5 dated in 2026, 1 with an unresolved date."
+   },
+   {
+    "file": "portale.html",
+    "line": 3365,
+    "symbol": "D.KPI.market",
+    "snippet": "{ count: K.market, label: 'Market / competitor channels', ... }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "5 demo. Measured real: TYPE 'MARKET' 1 + 'COMPANY' 1 + 'COMPETITOR' 4 = 6. Two real source types have no tile at all (PEOPLE 1, ADAMA 1); with them the seven tiles reconcile to 31.",
+    "replacement": "AM.collections.sources.records.filter(x => x.group === 'MARKET').length  /* 6, was 5 */ — and add an 8th tile 'Altre rotte (persone, canale proprio)' = 2 so the tiles sum to the 31 in the 'Organizations monitored' tile."
+   },
+   {
+    "file": "portale.html",
+    "line": 3391,
+    "symbol": "D.KPI (export as kpi) + D.TODAY",
+    "snippet": "nav, kpi: K, todayLabel: D.fmt(D.TODAY).toUpperCase(), pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Exports the whole fixture KPI object to the sidebar box (markup 85-88: kpi.windowOpen 6, kpi.windows 6, kpi.movements 43). kpi.windows is a duplicate of windowOpen (both count windowOpen cases) so the box shows the same 6 twice under two different labels. D.TODAY itself is benign — italy-demo-data.js:5-6 derives it from ITALY_CANONICAL.referenceDate, so it already resolves to 2026-09-02 — but §6 wants one reference date read from one place.",
+    "replacement": "kpi: K (the rebuilt object), todayLabel: D.fmt(AM.REF).toUpperCase()  /* D.fmt kept as a pure formatter; the date value comes from the model */"
+   },
+   {
+    "file": "portale.html",
+    "line": 3407,
+    "symbol": "D.NOTIFICATIONS",
+    "snippet": "notifs: D.NOTIFICATIONS.map(n => Object.assign({}, n, { go: () => n.target.startsWith('IT-') ? this.go({ view: 'case', caseId: n.target, showNotifs: false }) : this.go({ view: n.target, showNotifs: false }) })),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Six hand-written alerts (italy-demo-data.js:621-628), each asserting a fact that does not exist upstream, with an invented recency stamp: 'Friuli-Venezia Giulia · Maize · European Corn Borer / 2 min ago'; 'dealer questions added context / 38 min ago'; 'European Corn Borer · FVG · 14 days remaining / 2h ago'; 'BASF · technical communication · maize / 1d ago'; 'Diabrotica · Maize · FVG · from field channel / 4h ago'. These break §2 (a fixture supplying crop, region, issue, date, window countdown, company activity), §6 (a live clock outside the reference date) and §7 (an invented agronomic countdown). Nothing in the real data supports them: the most recent real competitor activity started 7 days before the reference date, and the whole 30-day window holds 11 records. The permanent green unread dot at markup line 147 makes the portal look live when it is not.",
+    "replacement": "DELETE_COMPONENT — remove D.NOTIFICATIONS from the export, delete the bell, the unread dot and the panel (markup 144-157), and delete showNotifs from state. If the bell must survive for layout reasons, keep it inert with a single row reading 'NESSUN SERVIZIO DI NOTIFICA COLLEGATO — NON OSSERVABILE DA FONTI ESTERNE' and remove the green dot."
+   },
+   {
+    "file": "portale.html",
+    "line": 3441,
+    "symbol": "D.WHAT_CHANGED",
+    "snippet": "... clearCompany: () => this.setState({ fCompany: '', compShown: 12 }), whatChanged: D.WHAT_CHANGED, matrix, ...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "DEAD PROP: 'whatChanged' appears exactly once in the whole file — this export. No markup consumes it. Its content is also false: it claims 18 competitor items observed in the last 7 days (PAID 10, ORGANIC 3, VIDEO 3, PEOPLE 1, EVENT 1, PRODUCT 0) computed off the 72 demo activities. Measured against the real 503-record corpus, exactly 1 activity has a start date inside 7 days of the reference date.",
+    "replacement": "DELETE_COMPONENT — remove 'whatChanged: D.WHAT_CHANGED' from the export. If a 'what changed' strip is ever revived, it must read AM.collections.competitorActivities filtered on daysFromRef and will show 1 item at 7 days, 11 at 30 days."
+   },
+   {
+    "file": "portale.html",
+    "line": 2524,
+    "symbol": "window.ITALY_INGEST (raw, inside the panel)",
+    "snippet": "const IG = window.ITALY_INGEST;\n    const cnt = (arr, f2) => (arr || []).filter(f2).length;",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The transparency panel reaches around the application model into the raw ingest blob and into the fixture, so it reports neither. It must describe the model the screens actually consume (AM.provenanceSummary).",
+    "replacement": "Delete both lines; the panel is rebuilt from AM.provenanceSummary (see modelChanges)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2527,
+    "symbol": "ITALY_CANONICAL.total (dataState windows row)",
+    "snippet": "{ layer: T.dsWindows || 'Crop windows', real: 0, derived: (window.ITALY_CANONICAL ? window.ITALY_CANONICAL.total : 0), demo: 0, note: T.dsNormNote || 'expected agronomic norms' },",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The only row that is already honest (29 canonical windows, placed in 'derived' with the note 'expected agronomic norms' — defensible: 24 of 29 carry DATE_STATE = EXPECTED_NORM, 5 DATE_TO_CONFIRM). But it bypasses the model.",
+    "replacement": "Row driven by AM.provenanceSummary.find(r => r.layer === 'windows'), classified derived; note becomes '24 date attese da norma · 5 da confermare' (measured)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2528,
+    "symbol": "IG.PRODUCTS.length (dataState products row)",
+    "snippet": "{ layer: T.dsProducts || 'Products', real: IG ? IG.PRODUCTS.length : 0, derived: 0, demo: 0, note: T.dsLabelNote || 'official label registry' },",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Reports 163 raw registry rows while the screens consume the 166-entry joined product model (163 regulatory + 44 commercial, joined by name). The panel therefore does not describe what the portal shows.",
+    "replacement": "AM.provenanceSummary rows for 'products' (166), with 'regulatory' 163 and 'commercial' 44 as sub-notes."
+   },
+   {
+    "file": "portale.html",
+    "line": 2529,
+    "symbol": "D.ACTIVITIES (dataState competitor row)",
+    "snippet": "{ layer: T.dsCompetitor || 'Competitor', real: cnt(D.ACTIVITIES, a => !a.isDemo), derived: 0, demo: cnt(D.ACTIVITIES, a => a.isDemo), note: '' },",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Counts the 72-item fixture: reports 19 real / 53 demo. The real model holds 503 competitor activities, none demo. The transparency panel is under-reporting the real corpus by 26x and inventing 53 demo records that no screen should be using.",
+    "replacement": "AM.provenanceSummary.find(r => r.layer === 'competitorActivities')  /* real 503, demo 0 */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2530,
+    "symbol": "D.ARCHIVE (dataState archive row)",
+    "snippet": "{ layer: T.dsArchive || 'Archive', real: cnt(D.ARCHIVE, a => !a.isDemo), derived: 0, demo: cnt(D.ARCHIVE, a => a.isDemo), note: '' },",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Counts the 448-row fixture archive: 28 real / 420 demo. The model's archive is a 740-row INDEX over already-counted normalized records, provenance REAL_DERIVED, zero demo.",
+    "replacement": "AM.provenanceSummary.find(r => r.layer === 'archive') placed in the DERIVED column /* 740 */, with an explicit note 'indice sui record già contati — non sono record nuovi' so the total is not read as 740 extra facts."
+   },
+   {
+    "file": "portale.html",
+    "line": 2531,
+    "symbol": "IG.RESISTANCE.length (dataState resistance row)",
+    "snippet": "{ layer: T.dsResistance || 'Resistance', real: IG ? IG.RESISTANCE.length : 0, derived: 0, demo: 0, note: 'GIRE' },",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Value 34 is correct but read from the raw blob rather than the model.",
+    "replacement": "AM.provenanceSummary.find(r => r.layer === 'resistance')  /* 34, unchanged value */"
+   },
+   {
+    "file": "portale.html",
+    "line": 2532,
+    "symbol": "D.FIELD_MESSAGES (dataState field row)",
+    "snippet": "{ layer: T.dsField || 'Field Sales', real: 0, derived: 0, demo: (s.extraMessages || []).length + D.FIELD_MESSAGES.length, note: T.dsSimNote || 'simulated' }",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Correct behaviour already: 18 (+ any simulated inbound) counted purely in the demo column, real 0, labelled 'simulated'. This is the model for how every demo layer should be reported.",
+    "replacement": "KEEP — but source the 18 from AM.provenanceSummary.find(r => r.layer === 'fieldMessages').demo and keep adding s.extraMessages.length for the live simulator."
+   },
+   {
+    "file": "portale.html",
+    "line": 2534,
+    "symbol": "dataStateTotals",
+    "snippet": "const dataStateTotals = dataState.reduce((a, r) => ({ real: a.real + r.real, derived: a.derived + r.derived, demo: a.demo + r.demo }), { real: 0, derived: 0, demo: 0 });",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Today it sums to real 244 / derived 29 / demo 491 — i.e. the portal's own honesty panel tells the user that two thirds of the product is fake. Rebuilt from the model the same panel reads real 1038 / derived 29 / demo 100 (archive index shown separately).",
+    "replacement": "Same reduce, over the model-derived rows, EXCLUDING the archive index row from the totals (it double-counts) — add a footnote line instead: '+ 740 righe di indice sull'archivio'."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "provenanceSummary",
+    "why": "The transparency panel must be able to render itself from the model with no fixture reads and no per-row hand-maintenance. Today the summary has total/real/demo but no 'derived' split, so a REAL_DERIVED collection (archive) is counted as 'real', and there is no label or index flag for the view to use.",
+    "fields": [
+     "layer (existing)",
+     "provenance (existing)",
+     "total (existing)",
+     "real (existing) — redefine as records whose provOf is CANONICAL or REAL_SOURCE",
+     "derived — NEW: records whose provOf === 'REAL_DERIVED'. Derivation: collections[k].records.filter(r => provOf(r, collections[k].provenance) === P.REAL_DERIVED).length. Measured result today: archive 740, every other layer 0.",
+     "demo (existing) — records whose provOf is SYNTHETIC_DEMO or DEMO_SCENARIO. Measured: opportunities 26, futureScenarios 56, fieldMessages 18, all others 0.",
+     "isIndex — NEW boolean, true only for 'archive', because its rows re-index records already counted in other layers. Derivation: hard flag set where the archive collection is built (italy-app-model.js:276).",
+     "label — NEW display label per layer so the view stops carrying its own layer names (source: a static IT/EN map in italy-i18n.js keyed by layer)."
+    ],
+    "derivation": "All fields derive from the existing collections map at italy-app-model.js:282-289 using the existing provOf/isDemo classifiers (lines 45-52). No new external data. Add a top-level provenanceTotals = { real, derived, demo, indexRows } computed over provenanceSummary.filter(r => !r.isIndex), plus indexRows summed over the isIndex rows. Measured today: real 1038 · derived 29 · demo 100 · indexRows 740."
+   },
+   {
+    "collection": "sources",
+    "why": "The seven source-group tiles (portale.html:3363-3365) and the group chips (3346) filter on a 'group' name, but IG.SOURCES has no GROUP field — it has TYPE. The model already maps s.GROUP || s.group, which is null for all 31 records, so any group filter on real sources returns 0. Without this the tiles cannot leave the fixture.",
+    "fields": [
+     "group — derive from IG.SOURCES.TYPE with an explicit, auditable map: OFFICIAL→OFFICIAL (5); RESEARCH, RESEARCH_INSTITUTION→RESEARCH (4); FIELD, COOPERATIVE, PRODUCER_ORG→FIELD (10); TECHNICAL_MEDIA→TECHNICAL_MEDIA (4); MARKET, COMPANY, COMPETITOR→MARKET (6); PEOPLE→PEOPLE (1); ADAMA→OWN (1). Total reconciles to 31.",
+     "accessStatus — S(s.ACCESS_STATUS). Measured: GREEN 26, PARTIAL 1, BLOCKED 3, NOT_REACHED 1. Needed so the panel can say how many monitored routes actually open.",
+     "latestObservation — S(s.LATEST_OBSERVATION)",
+     "limitations — S(s.LIMITATIONS)",
+     "country — S(s.COUNTRY). Measured: IT 24, EU 2, EU/IT 1, GLOBAL 2, Emilia-Romagna 1, Piemonte 1."
+    ],
+    "derivation": "Pure rename/mapping over the existing IG.SOURCES read at italy-app-model.js:204-209. The TYPE→group map must be written literally in the model file so an auditor can check it against the 31 records; no fuzzy matching."
+   },
+   {
+    "collection": "people",
+    "why": "There is no people collection at all, so the 'People monitored' tile (3363) has nowhere to go but the fixture's 39. IG.PEOPLE[15] is a real, evidence-bearing list (each record carries IDENTITY_EVIDENCE and ROLE_EVIDENCE) and is currently unused by the model.",
+    "fields": [
+     "id (ID)",
+     "person (PERSON) — never translated",
+     "category (CATEGORY). Measured: RESEARCHER 11, INSTITUTIONAL_EXPERT 2, COMPANY_PERSON 1, CREATOR 1.",
+     "organization (ORGANIZATION)",
+     "role (ROLE)",
+     "identityEvidence (IDENTITY_EVIDENCE)",
+     "roleEvidence (ROLE_EVIDENCE)",
+     "country (COUNTRY)",
+     "provenance: provOf(p, REAL_SOURCE)"
+    ],
+    "derivation": "coll(IG.PEOPLE.map(...), P.REAL_SOURCE, 'people with documented public identity and role'). Count 15. Do NOT merge with researchers: 8 of the 60 researcher names also appear here, so a naive sum would double count; the union of names is 66. If a combined figure is ever needed, expose it as a separate distinctPeople = 66 with the dedupe rule stated."
+   },
+   {
+    "collection": "labelVerdicts",
+    "why": "italy-app-model.js does not read window.ITALY_LABEL_VERDICTS at all, so the 'verified portfolio matches' KPI (portale.html:2558) has no honest source and currently reads 13 off the demo cases instead of the audit's 12. This is the number the product is most exposed on (§10).",
+    "fields": [
+     "verified — array of { crop, issue, product } from LV.VERIFIED. Count 12.",
+     "notFound — array of { crop, issue, product } from LV.NOT_FOUND. Count 7.",
+     "verifiedCount 12 · notFoundCount 7 · assessedCount 19",
+     "strength — LV.STRENGTH map (VERIFIED_LABEL_MATCH / RELATED_PORTFOLIO / LABEL_CHECK_NEEDED / NO_CONFIRMED_MATCH_CURRENT_READING with colour and rank), so the views stop hardcoding strength colours",
+     "auditDate (LV.AUDIT_DATE) · auditSource (LV.AUDIT_SOURCE) · absenceRule (LV.ABSENCE_RULE = 'Absence in this reading is not absence in the world.')"
+    ],
+    "derivation": "Direct read of window.ITALY_LABEL_VERDICTS, provenance CANONICAL. The absenceRule string must be surfaced next to any 'not found' figure so the screen never reads as 'ADAMA has no product' (§10)."
+   },
+   {
+    "collection": "competitorActivities",
+    "why": "Two recency counters are rendered (the 'movements · 30d' KPI card and, if ever revived, the 7-day strip). Each view currently re-derives its own window off the fixture. One projection, computed once against the single reference date, prevents a second clock (§6).",
+    "fields": [
+     "recent30 — NEW top-level number on APP: records with daysFromRef !== null && daysFromRef <= 0 && daysFromRef >= -30. Measured 11.",
+     "recent7 — same at 7 days. Measured 1.",
+     "undatedCount — records with no startDate. Measured 89 (all ORGANIC_VIDEO), i.e. 17.7% of the corpus can never enter a recency count and the screen must say so.",
+     "italyReachCount — records with geoClass REACHED_IN_ITALY. Measured 414 of 503 (§9: the other 89 are MULTI_COUNTRY_OR_UNRESOLVED and must never be called observed in Italy)."
+    ],
+    "derivation": "Filters over the existing competitorActivities.records built at italy-app-model.js:132-148, using the existing daysFrom() against REF = 2026-09-02. No new source."
+   },
+   {
+    "collection": "windows",
+    "why": "The four radar status cards and the nav/sidebar window counts all need the same status tally; each screen recomputing it off a different array is exactly how the 11 cross-screen conflicts happened before.",
+    "fields": [
+     "statusCounts — NEW map on APP: { WINDOW_CLOSED: 16, WINDOW_OPEN: 6, DATE_UNKNOWN: 5, NEXT_CYCLE: 2 }",
+     "dateStateCounts — { EXPECTED_NORM: 24, DATE_TO_CONFIRM: 5 }",
+     "regionCounts — { Veneto: 6, Puglia: 6, 'Emilia-Romagna': 4, Lombardia: 3, Piemonte: 3, Sicilia: 3, Toscana: 2, 'Friuli-Venezia Giulia': 1, 'Trentino-Alto Adige': 1 } — 9 regions, sums to 29"
+    ],
+    "derivation": "Tallies over windows.records[].status / .dateState / .region, which come straight from canonical CURRENT_STATUS / DATE_STATE / REGION. Nothing computed, nothing inferred."
+   },
+   {
+    "collection": "regulatoryLinks",
+    "why": "The 'links' KPI card (2559) shows 80 fixture links. The only real relationship table is IG.LINKS (219 label use rows), which the model never exposes, so the card has no honest replacement today.",
+    "fields": [
+     "count 219",
+     "byCrop / byProduct tallies",
+     "evidence, labelUrl, prov passed through per row so any drill-down stays traceable"
+    ],
+    "derivation": "coll(IG.LINKS.map(...), P.REAL_SOURCE, 'righe d'uso lette dalle etichette autorizzate'). This is a DIFFERENT fact from 'portfolio positions assessed' (19) and from 'verified matches' (12); whichever the card keeps, its label must change to match."
+   }
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "Notification feed (6 alerts)",
+    "usedAt": "portale.html markup 144-157 (bell, green unread dot, dropdown, sc-for notifs); script 3407 (notifs prop); italy-demo-data.js:621-628",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Every one of the six asserts a fact the real data does not contain — a field message from Friuli 2 minutes ago, a dealer conversation adding context to Flavescenza Dorata, '14 days remaining' on a corn borer window, a BASF technical communication on maize. There is no notification service, no event stream and no ingest timestamp anywhere in the model, so there is no honest derivation, not even a thin one: the whole real corpus produced 1 competitor record in the 7 days before the reference date and the next real event is 69 days out. The permanent green dot is the worst part — it signals unread live activity on a static dataset. Remove the bell, the dot, the panel and the showNotifs state."
+   },
+   {
+    "field": "Region tile / region rank 'signals' count (+N signals)",
+    "usedAt": "portale.html markup 264 ('+{{ r.signals }} signals'); script 2564-2565; italy-demo-data.js:779 (REGION_STATS from SIGNALS)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Counts D.SIGNALS, the 56 DEMO_SCENARIO records, per region — Piemonte 9, Emilia-Romagna 8, Veneto 7. There are exactly 3 real future signals and not one of them has an Italian region: their REGION values are 'NAO SEI — o recorte cientifico e por afiliacao nacional, nao por regiao de estudo', 'NAO SEI' and 'UE'. A per-region real signal count is therefore 0 everywhere. Delete the '+N signals' span and the signals tiebreak in the sort; keep the region tiles with the window count, which is real."
+   },
+   {
+    "field": "'Competitor movements · 30 days' = 43",
+    "usedAt": "portale.html 2560 (KPI card 8), 3391→markup 88 (sidebar kpi.movements)",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Derivable but the value collapses: 43 → 11. Two honesty conditions travel with it. First, 89 of the 503 real activities (17.7%) have no start date at all — every ORGANIC_VIDEO record — so they can never enter a recency count; the card needs a sub-line saying '89 record senza data di inizio, esclusi'. Second, the count mixes 414 PAID records that reached Italy with organic records that did not (§9), so the 30-day figure should be stated as Italy-reach only."
+   },
+   {
+    "field": "'Product links' = 80",
+    "usedAt": "portale.html 2559 (KPI card 7)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "There is no real 80. The number is the total of productLinks hung on the 29 demo CASES. Upstream, all 29 canonical windows carry PRODUCT_MATCHES = [] (measured — the array is empty on every record), and the label audit assesses only 19 positions. The three candidate real numbers all mean something else: 219 label use rows (IG.LINKS), 19 assessed positions, 12 verified. Either delete the card or repoint it at 219 with the label rewritten to 'righe d'uso lette dalle etichette'. Do not keep the word 'links' pointing at 80."
+   },
+   {
+    "field": "'Verified label matches' = 13",
+    "usedAt": "portale.html 2558 (KPI card 6)",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "13 → 12. Small in absolute terms, large in kind: this is the headline claim about ADAMA's portfolio fit, and it is currently one higher than the audit supports because it counts demo case-links rather than the audit's 12 verified [crop, issue, product] triples. The audit's own sentence — 'Absence in this reading is not absence in the world.' — must be rendered wherever the 7 not-found positions appear (§10)."
+   },
+   {
+    "field": "'People monitored' = 39",
+    "usedAt": "portale.html 3363 (source tile 2); also folded into the sources nav badge at 2608",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "39 = 32 demo people + 7 invented Technical Sales Representatives. The TSRs are fictional ADAMA staff — internal, not externally observable, and forbidden from the core by §1. Real people split into two non-equivalent sets that must not be summed on screen: 15 with documented identity and role evidence, and 60 OpenAlex researchers of whom 54 are ORCID_PRESENT_NOT_RESOLVED_HERE (i.e. the ORCID exists in the source but was not resolved in this reading). 8 names appear in both lists; the union is 66 distinct names. The 30 monitored channels are all IDENTITY_STATE = NOT_PROVED and may not be counted as people at all."
+   },
+   {
+    "field": "Six agronomic timing buckets (OPEN NOW / NEXT 30 / 31-60 / 61-90 / 3-6 MONTHS / NEXT CYCLE)",
+    "usedAt": "portale.html 2874-2875 (WK, windowBuckets), exported at 3403 as windowBuckets and windowKpi",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Dead and false. Grep proves no markup consumes windowBuckets or windowKpi anywhere in lines 51-2374. The numbers are invented besides: 21 windows 'in the next 30 days' from a demo day-count, against a canonical reality of 16 WINDOW_CLOSED, 6 WINDOW_OPEN, 2 NEXT_CYCLE, 5 DATE_UNKNOWN. §7 forbids presentation from inventing an agronomic state; this code does it and then nobody renders it. Delete."
+   },
+   {
+    "field": "'What changed · last 7 days' strip (18 items)",
+    "usedAt": "portale.html 3441 (whatChanged export); italy-demo-data.js:470",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Also dead — 'whatChanged' appears exactly once in the entire file, in the export, with no markup binding. Its claim of 18 competitor items in 7 days is contradicted by the real corpus, which yields exactly 1. If a recency strip is ever wanted, it must be built at 30 days (11 items) and carry the 89-undated caveat; at 7 days there is nothing to show."
+   },
+   {
+    "field": "Sidebar 'windows' counter (second row of the today box)",
+    "usedAt": "portale.html markup 87 ({{ kpi.windows }}), fed by italy-demo-data.js:770 (CASES.filter(c => c.windowOpen))",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "It is the same number as the row above it. D.KPI.windows and D.KPI.windowOpen are both 'cases whose window is open' and both measure 6, shown under two different labels so the box looks fuller than it is. Either delete the row or repoint it at APP.counts.windows (29 = all monitored windows), which is a genuinely different fact."
+   },
+   {
+    "field": "Source-group tiles: official 16, research 10, media 8",
+    "usedAt": "portale.html 3364-3365",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Derivable, and every one shrinks: official 16→5, research 10→4, media 8→4, organizations 53→31. Only field & producer goes up, 8→10. Two real source types (PEOPLE 1, ADAMA/own channel 1) have no tile, so the seven tiles will not sum to 31 unless an eighth is added. Worth stating plainly on the screen: of the 31 monitored routes, 26 are open (GREEN), 3 are BLOCKED, 1 PARTIAL, 1 NOT_REACHED — the portal currently never admits that 4 of its routes do not open."
+   },
+   {
+    "field": "Transparency panel totals: 244 real / 491 demo",
+    "usedAt": "portale.html 2526-2534, markup 122-137",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "The single most misleading number in this domain, and it is misleading in the product's favour once fixed: rebuilt from APP.provenanceSummary the same panel reads 1038 real / 29 derived / 100 demo, plus a 740-row archive index. The panel must also stop claiming records the screens do not use — it currently shows 163 raw registry rows while the portal renders the 166-entry joined product model. One caution: the layers overlap (products 166 already contains regulatory 163 and commercial 44; the archive 740 re-indexes everything), so either the panel shows a curated non-overlapping row set, or every overlapping row carries an explicit 'compreso in' note. Do not publish a total that silently double counts."
+   },
+   {
+    "field": "'News & trade media · N real items' = 9",
+    "usedAt": "portale.html 3365 (D.NEWS.length inside the tile label)",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "9 → 8, and the word 'real' needs qualifying. D.NEWS is ITALY_REAL.NEWS (9 curated items living inside the demo bundle); the ingested registry IG.NEWS has 8. Of those 8: 5 are dated in 2026, 2 are from 2021 and 2022, and 1 has DATE = 'NAO SEI'. Separately, the news period chips at line 3348 filter on a .days field that exists only on the demo objects — the real news records have no .days at all, so those chips will read 0 the moment they are repointed at the model unless a daysFrom(DATE) projection is added first."
+   }
+  ],
+  "markupImpact": [
+   "Lines 66-73 (sc-for nav): no structural change; the rendered counts change — competitors 72→503, science 36→88, archive 448→740, sources 92→31, radar 29, windows 29, future 3, voices 17, portfolio 166, market 8. Keep hint-placeholder-count=6 or raise to 10 to match the real item count.",
+   "Lines 76-83 (sc-for navIntegrationItems): unchanged. This amber INTEGRATIONS group is the correct §5 labelling for the Field Sales demo (18) — do not merge it back into the core nav.",
+   "Line 85 ({{ todayLabel }}): unchanged value (02 Set) but repoint the source at APP.REF so there is one reference date.",
+   "Line 86 ({{ kpi.windowOpen }}): 6, unchanged value, honest source.",
+   "Line 87 ({{ kpi.windows }}): DELETE the row, or change the label and bind APP.counts.windows (29). Today it duplicates line 86's 6.",
+   "Line 88 ({{ kpi.movements }}): 43 → 11. Consider adding a one-line caveat span under it: 89 activities have no start date and are excluded.",
+   "Lines 122-131 (sc-for dataState): rows grow from 6 to ~15-16 (windows, products, competitor, market, science, researchers, resistance, voices, channels, sources, events, news, opportunities, future signals, field sales, + an archive-index row). Raise hint-placeholder-count from 6 to 16. Each row keeps its existing 4-column grid; only the note span may need to wrap for the 'compreso in' / 'indice' qualifiers.",
+   "Lines 131-135 (dataStateTotals row): values 244/29/491 → 1038/29/100. Add one footnote span below line 135 for the archive index (740) so it is visible but outside the total.",
+   "Line 136 ({{ t.dsNote }}): the i18n string must be rewritten — it currently explains a panel that reported mostly demo data; it now explains a mostly real model with an overlap caveat. Keys dsWindows/dsProducts/dsCompetitor/dsArchive/dsResistance/dsField exist; ~9 new layer-label keys are needed in italy-i18n.js.",
+   "Lines 144-157 (notification bell, green unread dot at 147, dropdown, sc-for notifs at 152): DELETE the whole <span style=\"position:relative\"> block. The header keeps search, data-state pill, language toggle, logout, help and profile — proportions barely move because the bell is a 30px circle in a row of 30px circles.",
+   "Line 196 (sc-for kpis): still 8 cards, but card 6 reads 12 (was 13), card 7 must be relabelled or dropped (was 80), card 8 reads 11 (was 43). If card 7 is dropped, lower hint-placeholder-count to 7; the grid is repeat(auto-fit, minmax(132px,1fr)) so it reflows without layout work.",
+   "Lines 254-257 (sc-for regionTiles): geometry unchanged (20 tiles, 4x5 grid); tile colour now keyed on 'has canonical windows' instead of a demo case status rank. 9 of 20 regions stay lit — the same 9 as today.",
+   "Lines 259-265 (sc-for regionRank): DELETE the '+{{ r.signals }} signals' span at line 264 and rebind {{ r.cases }} at line 263 to r.windows. Same 7 rows, same order (Veneto 6, Puglia 6, Emilia-Romagna 4, Lombardia 3, Piemonte 3, Sicilia 3, Toscana 2).",
+   "Line 850 (sc-for fieldKpis): values unchanged (18/8/4/7/7/3) — this is the sanctioned demo. Add a 'DIMOSTRAZIONE · dati simulati' banner span immediately above the KPI grid if one is not already visible on that screen.",
+   "Line 2239 (sc-for sourceKpis): 7 tiles → 8 (adding 'altre rotte' = 2) or 9 if People is split into two tiles. Values: 53→31, 39→15+60, 16→5, 10→4, 8→10, 8→4 (label suffix 9→8), 5→6. Raise hint-placeholder-count accordingly. Same tile component, same proportions."
+  ],
+  "plan": [
+   "1. italy-app-model.js — add the labelVerdicts collection: read window.ITALY_LABEL_VERDICTS (currently never read) into collections.labelVerdicts with verified 12 / notFound 7 / assessed 19, the STRENGTH map, and the ABSENCE_RULE string. Provenance CANONICAL.",
+   "2. italy-app-model.js — add the people collection from IG.PEOPLE (15 records: id, person, category, organization, role, identityEvidence, roleEvidence, country). Do not merge with researchers; if a combined figure is needed expose distinctPeople = 66 with the dedupe rule written in a comment.",
+   "3. italy-app-model.js — add the derived source group. Extend the sources mapping (currently lines 204-209) with a literal TYPE→group map: OFFICIAL→OFFICIAL, RESEARCH|RESEARCH_INSTITUTION→RESEARCH, FIELD|COOPERATIVE|PRODUCER_ORG→FIELD, TECHNICAL_MEDIA→TECHNICAL_MEDIA, MARKET|COMPANY|COMPETITOR→MARKET, PEOPLE→PEOPLE, ADAMA→OWN. Also pass through accessStatus, latestObservation, limitations, country. Assert in a comment that the groups sum to 31.",
+   "4. italy-app-model.js — add regulatoryLinks = coll(IG.LINKS, REAL_SOURCE) (219 rows) so the 'links' KPI has a real target if it is kept.",
+   "5. italy-app-model.js — add the tallies: windows.statusCounts, windows.dateStateCounts, windows.regionCounts; competitorActivities recent30 (11), recent7 (1), undatedCount (89), italyReachCount (414). All computed once, against the single REF.",
+   "6. italy-app-model.js — extend provenanceSummary with derived, isIndex and label per layer, and add provenanceTotals { real: 1038, derived: 29, demo: 100, indexRows: 740 } computed over the non-index rows. Update APP.counts to include the new collections.",
+   "7. portale.html:2549 — replace 'const K = D.KPI' with the model-backed K object (see the replacement expression in occurrences). Do not delete D.KPI from italy-demo-data.js yet; other domains still read it.",
+   "8. portale.html:2552-2560 — repoint the 8 KPI cards. Cards 1-5 keep their values (29 / 6 / 2 / 5 / 16) with honest sources; card 6 becomes 12; card 8 becomes 11. Decide card 7: delete it, or rebind to regulatoryLinks 219 AND rewrite T.kpiLinks / T.kpiLinksSub in italy-i18n.js so the label matches the new meaning.",
+   "9. portale.html:2564-2565 — introduce REGION_GRID (geometry only, from D.REGIONS) and rebuild regionTiles/regionRank on windows.regionCounts. Drop the signals field entirely.",
+   "10. portale.html markup 259-265 — delete the '+N signals' span (line 264) and rebind r.cases → r.windows (line 263).",
+   "11. portale.html:2608 — repoint navDef: radar APP.counts.windows, windows APP.counts.windows, competitors APP.counts.competitorActivities, science APP.counts.scienceRecords, archive APP.counts.archive, sources APP.counts.sources. Leave future/voices/portfolio as they already are.",
+   "12. portale.html:2625 — repoint the case mini-map at REGION_GRID (no visible change; single geometry source).",
+   "13. portale.html:2874-2875 and 3403 — delete WK, windowBuckets, and the windowBuckets / windowKpi entries in the export. Verify with grep that neither name survives.",
+   "14. portale.html:2524-2535 — rebuild the transparency panel from APP.provenanceSummary and APP.provenanceTotals. Render ~15 layer rows plus a separate archive-index footnote; exclude the index row from the totals; add the overlap note for products/regulatory/commercial. Delete the local IG and cnt helpers.",
+   "15. italy-i18n.js — add IT/EN labels for the new dataState layers and rewrite t.dsNote to describe a mostly-real model with the overlap caveat. If KPI card 7 changed meaning, rewrite kpiLinks/kpiLinksSub too.",
+   "16. portale.html:3363-3365 — rebuild sourceKpis on the derived source groups (31 / 5 / 4 / 10 / 4 / 6), split People into 'ruolo documentato 15' and 'ricercatori 60', add the 'altre rotte 2' tile so the tiles reconcile to 31, and change the media label suffix to APP.counts.news (8).",
+   "17. portale.html:3391 — export the rebuilt K and change todayLabel to D.fmt(AM.REF).",
+   "18. portale.html:3407 and markup 144-157 — delete the notifications feed: the notifs prop, the showNotifs state, the bell, the green unread dot and the dropdown.",
+   "19. portale.html:3441 — delete 'whatChanged: D.WHAT_CHANGED' from the export.",
+   "20. portale.html:3123-3124 — leave the Field Sales KPIs on the fixture, but confirm the screen carries a visible 'dati simulati' label and that none of these numbers reaches dataState's real column or any core nav badge.",
+   "21. Verification pass — grep portale.html for 'D.KPI', 'D.WINDOW_KPI', 'D.REGION_STATS', 'D.NOTIFICATIONS', 'D.WHAT_CHANGED': the only survivors should be D.REGION_STATS/D.REGIONS used purely as grid geometry and D.FIELD_KPI in the labelled demo. Then load the page and read off every badge against the expected-value table in this spec."
+  ],
+  "risks": [
+   "The transparency panel's layers overlap. products (166) already contains regulatory (163) and commercial (44); archive (740) re-indexes science, market, competitor, voices, events, news and windows. A naive sum of all 20 model layers reads ~1800 and would be a new, larger lie than the one being fixed. The panel must either use a curated non-overlapping row set or mark every contained row explicitly. This is the single highest-risk item in the domain.",
+   "Four radar numbers do not move (29 / 6 / 2 / 5 / 16) because the 29 demo CASES are a 1:1 shadow of the 29 canonical windows. It will look as though nothing was fixed. It was: the source changed from a fixture to the canonical contract, so the next data load moves them. Say this explicitly in the handoff or someone will 'revert the no-op'.",
+   "Nav badges move in both directions and one is a 7x jump (competitors 72→503). Anyone who has memorised the demo numbers will read the change as a bug. Publish the before/after table with the change.",
+   "Repointing the source group chips (portale.html:3346) at the model will empty the source LIST unless the derived group field lands first — AM sources currently have group: null for all 31 records, so every group filter returns zero. Order matters: model change first, view change second.",
+   "The news period chips (portale.html:3348) filter on a .days field that exists only on the demo news objects. The real IG.NEWS records have DATE strings only — including one literal 'NAO SEI' and two items from 2021/2022. Repointing news at the model without adding a daysFrom(DATE) projection makes those chips read 0.",
+   "Deleting the notification bell removes the only 'live' affordance in the header. Expect pushback that the portal now looks static. It is static: one reference date, no stream. The honest answer is that the bell was simulating a service that does not exist.",
+   "89 of 503 competitor activities (17.7%) have no start date, all of them ORGANIC_VIDEO. Any recency counter silently drops them. If the caveat is not rendered, the 30-day figure of 11 quietly implies the other 492 were older, which is not what the data says.",
+   "AM.products[].links — the source of the current 13 verified matches — are themselves built from D.CASES inside italy-app-model.js (lines 102-105). Fixing the KPI to read ITALY_LABEL_VERDICTS does not fix the underlying link graph, which is still fixture-fed. That belongs to the portfolio domain but will contradict this domain's 12 if it is not aligned.",
+   "APP.counts.news is 8 while D.NEWS is 9 (ITALY_REAL.NEWS). Two news corpora are live simultaneously. Whichever the sources screen ends up rendering, the tile label and the list must come from the same one.",
+   "italy-i18n.js needs roughly nine new layer-label keys plus a rewritten t.dsNote. Missing keys fall back to the English literal in the || expressions, which will silently ship English strings into the Italian default (§11)."
+  ],
+  "openQuestions": [
+   "KPI card 7 ('links', currently 80): delete it, or keep the slot and rebind to the 219 real label use rows with a new label? These are different facts and the card cannot straddle them. Product decision, not an engineering one.",
+   "Should the notification bell be deleted outright, or kept inert with a single 'NESSUN SERVIZIO DI NOTIFICA COLLEGATO' row? Deleting is the honest minimum; keeping it inert preserves the header rhythm at the cost of a control that does nothing.",
+   "Does the transparency panel show all ~15 model layers, or a curated subset? All 15 is more complete but forces overlap notes on 4 rows; a subset is cleaner but is itself an editorial choice the panel should disclose.",
+   "'People monitored': one tile (66 distinct names, dedupe rule stated) or two (15 with documented role · 60 researchers in scope)? Two is more truthful — the sets are not the same kind of evidence — but adds a tile to a row already at 7.",
+   "The sources nav badge: 31 (sources only) or 31 + people? The screen shows both sources and people behind that one nav item, so 31 slightly under-describes it. Recommend 31 with the people tiles carrying their own numbers.",
+   "Canonical windows are placed in the 'derived' column with the note 'expected agronomic norms'. Measured, 24 of 29 carry DATE_STATE = EXPECTED_NORM and 5 DATE_TO_CONFIRM, so 'derived' is defensible — but they are the CANONICAL layer, the highest precedence in the contract. Real, derived, or split 5/24? Needs an upstream ruling.",
+   "Should the 740-row archive index appear in the panel at all? It is real work and real traceability, but as a number in a real/derived/demo table it invites double counting."
+  ]
+ }
+]

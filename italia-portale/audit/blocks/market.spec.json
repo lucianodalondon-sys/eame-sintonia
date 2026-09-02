@@ -1,0 +1,542 @@
+[
+ {
+  "domain": "MARKET PULSE",
+  "summary": "Today the Market Pulse screen is driven end-to-end by window.ITALY_MARKET (italy-market-pulse.js, 596 lines), which is NOT ingested data: it is a hand-authored editorial fixture. It carries no record id, no SOURCE_ID and no PROVENANCE on any of its 8 crop objects, and it attributes its numbers to ISMEA, CUN Grano Duro, BMTI/Unioncamere, ICQRF, Agrofarma-Federchimica, Baltic Exchange, JRC MARS and Veneto Agricoltura — measured: NONE of those appear in IG.SOURCES (31 registered sources), and 20 of its 23 chart values do not exist anywhere in the 77 real market observations (the 3 that coincide numerically — 245, 4.55, 250 — share no id and sit on unrelated products). From that fixture the screen renders a market temperature verdict (PRESSURED / BALANCED / MIXED SIGNALS), a Sintonia \"reading\", drivers, a PAST-TODAY-OUTLOOK trajectory, a 3-6 month outlook, ISMEA farmer confidence (-1.4), a Baltic Dry input-cost card, production/stocks/trade, per-piazza tables, \"what changed\", commentary, and an industry tab of Agrofarma sector figures. The only real backing is APP.collections.marketObservations: 77 EU Commission Agri-food Data Portal weekly price rows (IT-SRC-AGRIFOOD, GEOGRAPHY uniformly \"IT — praca nomeada\"), covering Wheat 13, Maize 11, Durum 8, Barley 8, Olive 36, Grapevine 1 — and ZERO for Tomato, Sugar Beet and Apple, which are three of the eight crop tabs. Five legacy D.* reads (lines 2945-2949) additionally pull crop windows, opportunity cases, portfolio product lists and signal colours out of the demo fixture into the green \"WHAT THIS MEANS FOR ADAMA\" panel.",
+  "realSource": "APP.collections.marketObservations (77 records, all provenance REAL_SOURCE, all sourceId IT-SRC-AGRIFOOD = \"European Commission — Agri-food Data Portal\", FREQUENCY weekly, LATEST_OBSERVATION 2026-08-23) is the only real backing for prices. Coverage measured by crop: Wheat 13 obs / 13 piazze / all current / latest period end 2026-08-23; Maize 11 / 11 / all current / 2026-08-23; Durum Wheat 8 / 8 / 7 current / 2026-08-09; Barley 8 / 8 / all current / 2026-08-09 (no crop tab exists for it); Olive 36 / 13 piazze / 26 current + 10 dead series / 2026-08-02; Grapevine 1 record, series stopped in 2025, PRICE_RAW EUR61.75 / HL; Tomato 0; Sugar Beet 0; Apple 0. Units are NOT interchangeable: CEREAL 40 rows in TONNES, OLIVE_OIL 36 rows in EUR/100kg, WINE 1 row in Euro/HL. Secondary real backings the screen must use instead of the fixture: APP.collections.windows (canonical CURRENT_STATUS, daysToStart/daysToEnd) for the agronomic-window box; IG.LINKS (219 regulatory label rows with crop + product + labelUrl, evidence REGULATORY_FACT) for \"portfolio relevant to this crop\"; APP.collections.sources for the source map. IG.MARKET_SUMMARIES (5 rows: MAIS, FRUMENTO DURO, OLIVO/OLIO DI OLIVA, VITE/VINO, RISO) is only a file manifest (CROP, FILE, CHARS) — the .md bodies are not in the client bundle, so it can back a \"written analysis exists upstream\" pointer and nothing more.",
+  "confidence": "high",
+  "occurrences": [
+   {
+    "file": "portale.html",
+    "line": 2945,
+    "symbol": "D.WINDOWS",
+    "snippet": "const mWins = D.WINDOWS.filter(w => w.crop === mc.crop).slice(0, 4).map(w => ({ issue: w.issue, region: w.region, go: () => this.openWindow(w.id), daysLabel: w.open ? w.remaining + ' days left' : ...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Supplies crop, issue, region, open/closed state and a days-remaining number for the 'RELATED CROP WINDOWS' list in the green ADAMA panel. Window state and dates are explicitly forbidden fixture facts (rules 2 and 7). Real equivalent exists: APP.collections.windows has 29 canonical windows with CURRENT_STATUS, daysToStart and daysToEnd computed from the single reference date.",
+    "replacement": "const mWins = AM.collections.windows.records.filter(w => w.crop === mc.crop).slice(0,4).map(w => ({ issue: w.issue, issueL: il(w.issue), region: w.region, status: w.status, daysToStart: w.daysToStart, daysToEnd: w.daysToEnd, go: () => this.openWindow(w.id) }))  — note the markup at line 1224 already reads w.issueL, which mWins never produced, so that label renders empty today."
+   },
+   {
+    "file": "portale.html",
+    "line": 2946,
+    "symbol": "D.CASES",
+    "snippet": "const mCases = D.CASES.filter(c => c.crop === mc.crop);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "mCases.length becomes mp.caseCount, printed at markup line 1241 as 'VIEW {n} OPPORTUNITIES'. D.CASES holds 29 presentation cases of which only 3 have upstream evidence (AM.counts.upstreamOpportunities = 3). Printing 29 as a real count in a market screen is a manufactured convergence number.",
+    "replacement": "const mCases = AM.collections.opportunities.records.filter(c => c.crop === mc.crop && c.isUpstreamReal);  // and label the button with that honest count, or drop the button when the count is 0"
+   },
+   {
+    "file": "portale.html",
+    "line": 2947,
+    "symbol": "D.PRODUCTS / D.CASES[].products",
+    "snippet": "const mProducts = [...new Set(mCases.map(c => c.products).reduce((a,b)=>a.concat(b),[]))].slice(0,8).map(n => ({ name: n, targets: D.PRODUCTS[n] ? D.PRODUCTS[n].targets.slice(0,2).join(' · ') : '', go: ...",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is a product-to-crop relationship claim built entirely from the demo fixture, and its count is rendered at markup line 1212 under the caption 'registered products relevant to this crop'. Measured divergence from the real regulatory record: Grapevine demo 8 products vs 1 distinct product in IG.LINKS; Tomato demo 1 vs 7 real; Apple demo 1 vs 2 real; Maize demo 11 vs 3 real. Rules 2 and 8 forbid a fixture supplying a product relationship.",
+    "replacement": "const CROP_LINK_KEY = { 'Maize':['MAIZE'], 'Durum Wheat':['DURUM_WHEAT','WHEAT_GENERIC'], 'Wheat':['COMMON_WHEAT','WHEAT_GENERIC'], 'Olive':['OLIVE'], 'Grapevine':['GRAPEVINE'], 'Tomato':['TOMATO'], 'Sugar Beet':['SUGARBEET'], 'Apple':['APPLE'] }; const mProducts = [...new Set(IG.LINKS.filter(l => (CROP_LINK_KEY[mc.crop]||[]).includes(l.crop)).map(l => l.product))].map(n => ({ name: n, go: () => this.openProduct(n) }));  — better: expose this as AM.collections.portfolioLinksByCrop so the view stays dumb."
+   },
+   {
+    "file": "portale.html",
+    "line": 2948,
+    "symbol": "D.F_COLOR",
+    "snippet": "const mSignals = A_SIGREAL.filter(x => x.crop === mc.crop).slice(0,4).map(x => ({ issue: x.issue, region: x.region, status: x.status, color: D.F_COLOR[x.status] || '#978B87', go: () => this.openSignal(x.id) }));",
+    "classification": "VISUAL_ONLY",
+    "reason": "D.F_COLOR is a status-to-hex map only (7 keys, all '#B1A9A7' or '#00B152') and carries no fact. It is however DEAD here twice over: A_SIGREAL is APP0.futureSignals.records whose 3 real crop values are 'MAIS', 'TRIGO e TRIGO DURO' and 'TRANSVERSAL', which never equal mc.crop ('Maize','Durum Wheat',...), so mSignals is always []; and all 3 real signals have status null, so the lookup would always fall through to the default anyway.",
+    "replacement": "KEEP the colour map if the block survives, but the block does not survive as written. Either delete mSignals and the markup at 1234-1236, or fix the join first (map crop tokens MAIS->Maize, TRIGO e TRIGO DURO->Wheat+Durum Wheat) and render status as 'STATO NON DICHIARATO' since futureSignals.status is null on all 3 records."
+   },
+   {
+    "file": "portale.html",
+    "line": 2949,
+    "symbol": "D.WINDOWS",
+    "snippet": "const nextW = D.WINDOWS.filter(w => w.crop === mc.crop).sort((a,b) => (a.open ? -1 : a.days) - (b.open ? -1 : b.days))[0];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "nextW drives three rendered facts: mp.nextWindowLabel, mp.adamaDays (the big number at markup line 1211) and mp.adamaStance (line 1213). All three are agronomic-state claims sourced from the demo fixture.",
+    "replacement": "const nextW = AM.collections.windows.records.filter(w => w.crop === mc.crop && w.daysToEnd !== null).sort((a,b) => (a.daysToEnd >= 0 ? -1 : 1) - (b.daysToEnd >= 0 ? -1 : 1) || a.daysToStart - b.daysToStart)[0] || null;"
+   },
+   {
+    "file": "portale.html",
+    "line": 2986,
+    "symbol": "derived from D.WINDOWS (adamaStance)",
+    "snippet": "adamaStance: (() => { if (!nextW) return 'NO WINDOW MAPPED'; if (nextW.open) return 'WINDOW OPEN · ACT'; if (nextW.days <= 30) return 'ACTIVATE'; if (nextW.days <= 60) return 'PREPARE'; ... })(),",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Presentation is inventing an agronomic/commercial state (ACT / ACTIVATE / PREPARE / PLAN) from day arithmetic on a demo window. Rule 7 forbids exactly this: those states must come from upstream CURRENT_STATUS.",
+    "replacement": "adamaStance: nextW ? nextW.status : 'NESSUNA FINESTRA CANONICA'  // canonical values measured: WINDOW_OPEN, WINDOW_CLOSED, NEXT_CYCLE, DATE_UNKNOWN"
+   },
+   {
+    "file": "portale.html",
+    "line": 2909,
+    "symbol": "window.ITALY_MARKET (MK)",
+    "snippet": "const MK = window.ITALY_MARKET;",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Root handle for the whole fixture. Not labelled as demo anywhere in the UI — it is presented as observed market intelligence, which is the core violation. It must be reduced to presentation metadata only (crop key, label, Italian label, colour) or deleted.",
+    "replacement": "const MK = window.ITALY_MARKET;  // keep ONLY as ui: {key,label,it,color,icon paths}. All facts must come from AM.collections.marketObservations."
+   },
+   {
+    "file": "portale.html",
+    "line": 2916,
+    "symbol": "MK.CROPS",
+    "snippet": "const mc = MK.CROPS.find(c => c.key === s.mCrop) || MK.CROPS[0];",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Defines the 8-crop tab set. Measured: 3 of those 8 tabs (tomato, sugarbeet, apple) have ZERO real market observations, and one crop that DOES have 8 real observations (Barley) has no tab. The tab set is therefore a fixture decision, not a data fact.",
+    "replacement": "Build the tab list from the real data: AM.collections.marketByCrop.records (new projection) filtered to hasData === true, joined to MK.CROPS purely for label/colour/order. Crops with 0 observations must not get a tab, or must get a tab that says only 'NESSUNA OSSERVAZIONE DI MERCATO INGERITA'."
+   },
+   {
+    "file": "portale.html",
+    "line": 2917,
+    "symbol": "MK.TEMP_SEM / MK.TEMP / mc.temp",
+    "snippet": "const semTemp = SEMR[MK.TEMP_SEM[mc.temp] || 'UNKNOWN'];",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "mc.temp is the market-temperature verdict (PRESSURED / BALANCED / MIXED SIGNALS). It is an interpretation with no ingested record behind it, and it is rendered as the single largest element on the screen (markup line 962, 40px type) plus repeated on 5 other screens. Rule 2 lists trend and interpretation as forbidden fixture facts.",
+    "replacement": "DELETE_COMPONENT. There is no real replacement — the 77 records give per-piazza week-on-week and year-on-year percentages, not a market verdict. Replace the hero number with a measured coverage line, e.g. mp.obsCount + ' osservazioni · ' + mp.piazzaCount + ' piazze · ultima settimana di riferimento ' + mp.latestPeriodEnd."
+   },
+   {
+    "file": "portale.html",
+    "line": 2925,
+    "symbol": "MK.EXTRA[mc.key]",
+    "snippet": "const X = MK.EXTRA[mc.key];",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "EXTRA supplies X.fresh (freshness verdicts CURRENT/AGING/HISTORICAL), X.forces (the 'WHAT IS DRIVING THE MARKET' cards, pure prose with invented source lines like 'Baltic Exchange, 3 Aug 2026'), X.traj (PAST/TODAY/OUTLOOK) and X.adamaWhy (a commercial interpretation). None is backed by a record.",
+    "replacement": "DELETE_COMPONENT for forces, traj and adamaWhy. X.fresh is DERIVABLE_FROM_REAL: compute per crop from seriesState ('CORRENTE' vs 'PARADA_EM_YYYY') and the parsed end of REFERENCE_PERIOD against AM.referenceDate."
+   },
+   {
+    "file": "portale.html",
+    "line": 2927,
+    "symbol": "mc.price.points / mc.price.series",
+    "snippet": "const chart = (() => { const p = mc.price; if (!p) return null; const max = Math.max.apply(null, p.points.map(x => x.v)); return { rows: p.points.map(...), legend: p.series.map(...), note: p.chartNote ... } })();",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "23 hand-typed price points across 5 crops. Measured: 20 of the 23 values appear nowhere in the 77 real observations; the 3 that match (durum 245, olive 4.55, wine 250) are numeric coincidences on unrelated products with no shared id. This is a chart of fictional values — the brief says such a chart must not survive.",
+    "replacement": "Rebuild from real rows only: for the selected crop, one bar per market (piazza) using record.price, coloured by seriesState, labelled with record.market + record.stage, with the unit printed once from record.unit and NEVER converted. Measured bar counts: Wheat 13, Maize 11, Durum 8, Olive 36 (13 piazze x 6 oil grades — split by product), Grapevine 1."
+   },
+   {
+    "file": "portale.html",
+    "line": 2932,
+    "symbol": "mc.price.timeSeries (spark)",
+    "snippet": "const spark = (() => { const p = mc.price; if (!p || !p.timeSeries) return null; ... if (!best || best.length < 3) return null; ...",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Draws a sparkline trend line from the fixture points. In the real data there is exactly ONE ingested observation per piazza per product, so no series of 3+ points exists for any crop — the sparkline cannot be rebuilt at all. (OBSERVATIONS_IN_SERIES says 364 / 190 etc. exist upstream at the source, but only the latest row was ingested.)",
+    "replacement": "DELETE_COMPONENT (markup 1025-1034). Do not synthesise a line from one point per piazza — that would fabricate a trend."
+   },
+   {
+    "file": "portale.html",
+    "line": 2959,
+    "symbol": "mc.production / mc.trade",
+    "snippet": "production: mc.production.map(p => Object.assign({ d: '' }, p)), hasTrade: mc.trade.state !== 'NOT AVAILABLE', trade: Object.assign({ note: 'No ingested import, export, stock or supply-balance observation...' }, mc.trade),",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Production tonnages (5.5 Mt maize, ~3.6 Mt durum, ~153,000 t olive stocks, 44 M hl wine), areas, yields and trade prose. There is NO production, area, yield, stock or trade collection anywhere in ITALY_INGEST — the only market array is the 77 price rows.",
+    "replacement": "DELETE_COMPONENT for the PRODUCTION · YIELD · STOCKS card (markup 1042-1058) and the SUPPLY & TRADE flow bars (1060-1077). Neither can be rebuilt."
+   },
+   {
+    "file": "portale.html",
+    "line": 2960,
+    "symbol": "mc.confidence (CONFIDENCE_IT)",
+    "snippet": "confidence: mc.confidence, confSplits: mc.confidence.splits,",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "ISMEA Indice del Clima di Fiducia, overall -1.4, Q1 2025, with under-40 / over-40 splits. ISMEA is not a registered source and no confidence record exists in ITALY_INGEST.",
+    "replacement": "DELETE_COMPONENT — remove the FARMER SENTIMENT card entirely (markup 1079-1095)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2961,
+    "symbol": "MK.INPUT_ROUTES",
+    "snippet": "inputs: MK.INPUT_ROUTES.map(x => Object.assign({ route: '', src: '', value: '', delta: '', note: '', cadence: '', geo: '' }, x, { color: x.state === 'OBSERVED' ? '#F89E18' : '#B1A9A7', isObs: x.state === 'OBSERVED' })),",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Four input-cost rows, one of which is flagged state:'OBSERVED' and renders a hard number (Baltic Dry Index 2,843, +4.1% w/w, 3 August 2026) as if it were an ingested observation. There is no Baltic Exchange source and no input-cost record anywhere.",
+    "replacement": "DELETE_COMPONENT — remove the INPUT COST PRESSURE card (markup 1097-1110). The three 'ROUTE MAPPED · NOT INGESTED' rows could survive only if the whole screen keeps an explicitly separated 'routes not yet connected' block; the 'OBSERVED' row must go regardless."
+   },
+   {
+    "file": "portale.html",
+    "line": 2962,
+    "symbol": "MK.CONTEXT_IT / mc.weather / mc.commentary",
+    "snippet": "contextIt: MK.CONTEXT_IT, weather: Object.assign({ note: '' }, mc.weather), commentary: mc.commentary,",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "CONTEXT_IT gives four Italy-level macro figures (agricultural value added +0.6%, agri-food exports +3%, imports +6.6%, consumer confidence 92.6) attributed to ISMEA and ISTAT with no record; weather and commentary are narrative interpretation.",
+    "replacement": "DELETE_COMPONENT (markup 1138-1142 weather card, 1258-1262 commentary block, 1270-1273 economic context list)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2963,
+    "symbol": "mc.changed / mc.gaps",
+    "snippet": "changed: mc.changed, hasChanged: mc.changed.length > 0, gaps: mc.gaps,",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "'WHAT CHANGED' is a hand-written dated event log (MASAF decree 16 Jan 2026, CUN sessions, ISMEA weekly surveys). No change-log collection exists. 'gaps' is a coverage statement rather than a fact claim, so it is salvageable, but its current content names ISMEA/CUN routes we never connected.",
+    "replacement": "changed: DELETE_COMPONENT (markup 1250-1257). gaps: DERIVABLE_FROM_REAL — regenerate as the measured coverage truth per crop: stopped series count, records missing STAGE (37/77 null), records missing PUBLICATION_DATE (37/77 null), and crops with zero observations."
+   },
+   {
+    "file": "portale.html",
+    "line": 2973,
+    "symbol": "X.fresh (latestPeriod)",
+    "snippet": "latestPeriod: (() => { const rank = { 'CURRENT':0,'RECENT':1,'AGING':2,'HISTORICAL':3,'NOT INGESTED':4 }; const best = X.fresh.filter(...).sort(...)[0]; return best && best.state !== 'NOT INGESTED' ? best.period : ...",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Renders as 'LAST CONFIRMED OBSERVATION' in the hero (markup 968-969) and again inside the trajectory box (1121). It is a fixture string ('Sep 2025', '24-30 Aug 2026'), not a read of any record date.",
+    "replacement": "latestPeriod: mp.latestPeriodEnd  // from the new projection: max parsed end of REFERENCE_PERIOD across CURRENT-series records for this crop. Measured: Wheat 2026-08-23, Maize 2026-08-23, Durum 2026-08-09, Olive 2026-08-02, Grapevine none (only series is stopped)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2992,
+    "symbol": "MK.CROPS (csMarket)",
+    "snippet": "const cm = MK.CROPS.find(c => c.crop === cs0.crop); if (cm) csMarket = { label: cm.label, temp: cm.temp, tempColor: ..., reading: cm.reading, rows: cm.current.map(...), go: ... };",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Leaks the fixture temperature, the narrative 'reading' and the four current-market verdict rows out of Market Pulse and onto the Opportunity case screen (markup 329-336). Same violation, second screen.",
+    "replacement": "DELETE_COMPONENT, or replace with a factual strip: number of ingested price observations for that crop, number of piazze, latest reference week, and the source name — no verdict, no reading."
+   },
+   {
+    "file": "portale.html",
+    "line": 2995,
+    "symbol": "MK.CP_MARKET / MK.FEASIBILITY / MK.INTERNAL / MK.SOURCES",
+    "snippet": "const cpMarketObj = MK ? Object.assign({}, MK.CP_MARKET, { feasibility: MK.FEASIBILITY.map(r => ({...})), internal: MK.INTERNAL, sources: MK.SOURCES }) : {};",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "CP_MARKET.metrics are 9 Agrofarma-Federchimica industry figures (sector turnover ~EUR1bn, +2% value/+1% volume, R&D >EUR30m, ~2,000 employees, 3rd largest market in Europe, illegal market ~10%) with no ingested record and no registered source. MK.SOURCES lists 10 organisations of which only one (loosely) corresponds to a registered source. MK.INTERNAL is a list of 8 PRIVATE data fields (SELL-IN, SELL-OUT, CRM/PIPELINE, ORDERS, DISTRIBUTOR INVENTORY, WAREHOUSE STOCK, PRICE REALIZATION, SALES BY REGION) each with a 'why' clause framing it as something Sintonia would do if given the data — verified it is passed as cpm.internal but bound NOWHERE in the markup, so it is dead code AND a private-data invitation.",
+    "replacement": "cpm.metrics: DELETE_COMPONENT (markup 1290-1299). cpm.sources: replace with AM.collections.sources.records.filter(s => s.type === 'MARKET') — measured, that is exactly 1 row: IT-SRC-AGRIFOOD, European Commission Agri-food Data Portal, weekly, EU/IT, ACCESS_STATUS GREEN. MK.INTERNAL: delete the constant from italy-market-pulse.js and drop 'internal:' from cpMarketObj. cpm.caution and cpm.intro carry no facts and may stay."
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "window.ITALY_MARKET.CROPS.length",
+    "snippet": "['market', T.navMarket, window.ITALY_MARKET ? window.ITALY_MARKET.CROPS.length : 0]",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "The sidebar badge prints 8 — the fixture's crop count — implying 8 crops are covered by market intelligence. Measured reality: 5 crops have at least one price observation and only 4 have a current (non-stopped) one.",
+    "replacement": "AM.collections.marketByCrop.records.filter(c => c.hasCurrentObservation).length  // measured today: 4 (Wheat, Maize, Durum Wheat, Olive) — or use AM.counts.marketObservations (77) if the badge should count observations like the other nav rows do."
+   },
+   {
+    "file": "portale.html",
+    "line": 2574,
+    "symbol": "window.ITALY_MARKET.CROPS / SEM / TEMP_SEM",
+    "snippet": "const mkCropTemp = (crop) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => c.crop === crop || (crop === 'Wheat' && c.crop === 'Wheat')); return e && !e.thin ? e : null; };",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Injects the fixture temperature verdict into the Opportunity Radar card list (rendered at markup line 679 as 'MARKET <temp>'). Cross-domain bleed of the same invented fact.",
+    "replacement": "DELETE_COMPONENT — remove marketTemp/marketColor from the radar row props and the markup span at 679, keeping only the goMarket navigation."
+   },
+   {
+    "file": "portale.html",
+    "line": 2653,
+    "symbol": "window.ITALY_MARKET.CROPS / TEMP",
+    "snippet": "const mkTemp = (cropName) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => c.crop === cropName); return e && !e.thin ? { temp: e.temp, color: M2.TEMP[e.temp] || '#978B87', key: e.key } : null; };",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Feeds calMarketTemp / calMarketColor into the Crop Windows screen (markup 732: 'MARKET PULSE <temp> — context, not proof of demand') and the count chip at line 2674. Same invented verdict, third screen.",
+    "replacement": "DELETE_COMPONENT for the temp text; keep the navigation chip but label it with a real count, e.g. the number of ingested price observations for that crop."
+   },
+   {
+    "file": "portale.html",
+    "line": 3169,
+    "symbol": "mkCropTemp (compMoments)",
+    "snippet": "const mk = mkCropTemp(cr); ... market: mk ? mk.temp : 'NOT ENOUGH DATA', marketColor: mk && window.ITALY_MARKET ? window.ITALY_MARKET.SEM[...].color : '#B1A9A7',",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Renders 'market <temp>' inside the Competitor Watch communication-density rows (markup 1693), placing an invented market verdict next to a communication-density count — exactly the confusion rule 8 warns about.",
+    "replacement": "DELETE_COMPONENT — drop market/marketColor from compMoments and from the markup span at 1693."
+   },
+   {
+    "file": "portale.html",
+    "line": 3191,
+    "symbol": "mkTempFor (science impact)",
+    "snippet": "const mkTempFor = (cropName) => { const M2 = window.ITALY_MARKET; ... const e = M2.CROPS.find(c => cropName.indexOf(c.crop) >= 0); return e && !e.thin ? e : null; };",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Used at 3204/3226-3227 to put the fixture temperature on the Science & Business screen (markup 2132, the 'MARKET PULSE' tile). Note the substring match cropName.indexOf(c.crop) also mis-joins: 'Durum Wheat'.indexOf('Wheat') >= 0, so a durum row can pick up the soft-wheat entry depending on array order.",
+    "replacement": "DELETE_COMPONENT — the tile keeps its navigation but shows the crop's ingested observation count instead of a verdict."
+   },
+   {
+    "file": "portale.html",
+    "line": 3402,
+    "symbol": "MK.LAST_REVIEW (mpReview)",
+    "snippet": "cpm: cpMarketObj, mpReview: MK ? MK.LAST_REVIEW : '',",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Renders at markup 1279 as 'Last source review 1 September 2026'. It is a hardcoded string in the fixture and it is a second clock in the app, competing with the one reference date required by rule 6.",
+    "replacement": "mpReview: AM.referenceDate  // 2026-09-02; or the source's own LATEST_OBSERVATION, 2026-08-23, if the sentence is meant to describe the data rather than the review."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "marketObservations (extend the existing 77-record projection in italy-app-model.js, lines 151-160)",
+    "why": "The view currently has to parse Italian/EU date strings and guess which crop a product code means. Push that into the model so the screen only reads fields. Also, 12 of 77 records are dead series carrying an explicit warning that the last quote is NOT a current price — the model must flag that so no view can render them as today's price.",
+    "fields": [
+     "cropKey — mapped from GROUP + PRODUCT with an explicit, declared lookup: GROUP 'OLIVE_OIL' -> 'Olive'; GROUP 'WINE' -> 'Grapevine'; PRODUCT 'MAI|FEED' or 'Feed maize' -> 'Maize'; 'BLTPAN|PAN' or 'Breadmaking common wheat' -> 'Wheat'; 'DUR|UNKNOWN' or 'Durum wheat' -> 'Durum Wheat'; 'ORGFOUR|FEED' or 'Feed barley' -> 'Barley'. One record has PRODUCT null (IT-MKT-077, the wine row) and must resolve by GROUP only. Anything unmatched stays null and is never silently attached to a crop.",
+     "periodStart / periodEnd — ISO dates parsed from REFERENCE_PERIOD, which is always 'dd/mm/yyyy..dd/mm/yyyy' (present on 77/77)",
+     "daysSinceObservation — AM.daysFrom(periodEnd), so no view calls new Date()",
+     "isCurrentSeries — seriesState === 'CORRENTE' (measured 65/77 true, 12/77 false)",
+     "stoppedYear — parsed from 'PARADA_EM_YYYY' (2010 x4, 2011, 2015, 2017 x3, 2020, 2022, 2025)",
+     "hasStage — STAGE non-null on only 40/77; the four observed values are 'Price at farm gate' (11), 'Deliver to first customer - silo or processing plant - on truck or other transport means' (13), 'Departure from farm or from production area - on truck or other transport means' (12), 'National Average - Not Specified' (4). Rows with different stages must never be averaged.",
+     "hasPublicationDate — PUBLICATION_DATE non-null on only 40/77"
+    ]
+   },
+   {
+    "collection": "marketByCrop (NEW projection, one row per crop key)",
+    "why": "So the screen can stop asking a fixture 'what is the state of this market' and start asking the model 'what did we actually observe for this crop'. This is the object that replaces mc.temp, mc.reading, X.fresh, X.traj, mc.production, mc.trade and mc.confidence.",
+    "fields": [
+     "cropKey and cropName",
+     "hasData — false for Tomato, Sugar Beet and Apple (0 records each), which is the single most important field on this screen",
+     "observationCount — measured: Wheat 13, Maize 11, Durum Wheat 8, Barley 8, Olive 36, Grapevine 1",
+     "currentCount / stoppedCount — Wheat 13/0, Maize 11/0, Durum 7/1, Barley 8/0, Olive 26/10, Grapevine 0/1",
+     "piazzaCount — distinct MARKET values: Wheat 13, Maize 11, Durum 8, Barley 8, Olive 13, Grapevine 1",
+     "units — array of distinct UNIT values, never collapsed to one (TONNES for cereals, EUR/100kg for olive oil, Euro/HL for wine)",
+     "productDefinitions — distinct PRODUCT values, so the olive tab shows six separate oil grades instead of one 'olive oil price'",
+     "latestPeriodEnd — max periodEnd over current-series rows: Wheat 2026-08-23, Maize 2026-08-23, Durum 2026-08-09, Barley 2026-08-09, Olive 2026-08-02, Grapevine null",
+     "changeCoverage — count with changeVsPrev non-null (72/77 overall) and with changeVsYearAgo non-null (67/77)",
+     "sourceName / sourceUrl / sourceFrequency — resolved through sourceId against AM.collections.sources: all 77 resolve to IT-SRC-AGRIFOOD, 'European Commission — Agri-food Data Portal', weekly",
+     "provenance — P.REAL_DERIVED, note 'counts and coverage derived from ingested price observations; no market verdict is derived'"
+    ]
+   },
+   {
+    "collection": "portfolioLinksByCrop (NEW projection over IG.LINKS, 219 records)",
+    "why": "The green ADAMA panel currently gets its product list from D.CASES[].products. Give it a regulatory-fact source instead so the view can stop touching the demo fixture. Every IG.LINKS row carries evidence 'REGULATORY_FACT' and a labelUrl to the Ministero label.",
+    "fields": [
+     "cropKey — mapped from IG.LINKS.crop tokens (MAIZE, DURUM_WHEAT, COMMON_WHEAT, WHEAT_GENERIC, OLIVE, GRAPEVINE, TOMATO, SUGARBEET, APPLE, BARLEY, RICE, SORGHUM, SOYBEAN, POTATO, TRITICALE)",
+     "products — distinct product names. Measured distinct counts: Maize 3, Durum Wheat 3 (incl. WHEAT_GENERIC), Wheat 5, Olive 4, Grapevine 1, Tomato 7, Sugar Beet 3, Apple 2",
+     "linkCount — row counts: Maize 8, Durum Wheat 9, Wheat 23, Olive 16, Grapevine 1, Tomato 33, Sugar Beet 10, Apple 14",
+     "labelUrl per product — so the count on screen is clickable to the actual label",
+     "note — WHEAT_GENERIC rows are counted for both Wheat and Durum Wheat; that overlap must be declared on screen, not hidden"
+    ]
+   },
+   {
+    "collection": "marketSummaries (NEW, thin projection over IG.MARKET_SUMMARIES, 5 rows)",
+    "why": "There is upstream written market analysis for MAIS, FRUMENTO DURO, OLIVO/OLIO DI OLIVA, VITE/VINO and RISO, but only the file manifest (CROP, FILE, CHARS) is in the client bundle — the .md bodies are not. The screen should say the analysis exists and is not loaded, rather than let the fixture stand in for it.",
+    "fields": [
+     "crop, file, chars, loaded:false, note 'analisi scritta esistente a monte, non caricata in questo pacchetto'"
+    ]
+   }
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "temp — the market temperature verdict (SUPPORTIVE / BALANCED / PRESSURED / MIXED SIGNALS / COOLING / TIGHTENING / VOLATILE)",
+    "usedAt": "italy-market-pulse.js per crop; portale.html 2917, 2920, 2951, 2955, 2972, 2979, 2993; markup 962 (40px hero number), 1121, 1210; plus 679, 732, 1693, 2132, 2762 on four other screens",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "There is no derivation from 77 weekly price rows to a market verdict, and inventing one would be a Sintonia interpretation presented as an observation. The hero must carry a coverage line instead. This is the single biggest visible loss and it cascades to the Radar, Crop Windows, Competitor Watch, Science and Opportunity-case screens."
+   },
+   {
+    "field": "reading — the 3-5 sentence narrative per crop",
+    "usedAt": "italy-market-pulse.js 49, 101, 178, 217, 290, 360, 385, 410; consumed via mp (spread of mc) and csMarket at 2993",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Contains hard facts with no record: '+6.1% EUR238.56/t Sep-2025', 'CUN range of EUR231-236/t', '~153,000 t stocks +33%'. Not salvageable."
+   },
+   {
+    "field": "drivers[] — the 'WHY SINTONIA READS IT THIS WAY' tiles",
+    "usedAt": "markup 980-988; built at 2952",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "6 tiles per crop of arrow + claim + value, all fixture. Nothing in the real data produces a driver."
+   },
+   {
+    "field": "current[] — PRICE MOMENTUM / PRODUCTION / SUPPLY / STOCKS / IMPORT COMPETITION / GROWER ECONOMICS / FARMER CONFIDENCE",
+    "usedAt": "built at 2953, 2980-2983; rendered at markup 1020, 1045 and again in csMarket at markup 336",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Verdict strings ('FIRM vs LAST YEAR', 'BELOW STATED COST OF PRODUCTION'). changeVsPrev and changeVsYearAgo exist per record (72/77 and 67/77) but they are per-piazza percentages, not a crop-level momentum state."
+   },
+   {
+    "field": "outlook[] and outlookNote — the 'NEXT 3-6 MONTHS' cards",
+    "usedAt": "markup 1131-1144; built at 2954",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Forward-looking claims (JRC MARS routes, 'NORTH-AMERICA DEPENDENT', 'REBALANCING PHASE'). No forward-looking source is ingested at all."
+   },
+   {
+    "field": "traj — PAST / TODAY / OUTLOOK trajectory strip",
+    "usedAt": "markup 1116-1125; built at 2972 from MK.EXTRA[key].traj",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Three invented states per crop plus a nowLine map ('WEAK MOMENTUM', 'SIGNALS POINT BOTH WAYS'). Nothing in the record set supports past-present-future framing."
+   },
+   {
+    "field": "forces[] — 'WHAT IS DRIVING THE MARKET'",
+    "usedAt": "markup 1148-1165; built at 2970-2971 from MK.EXTRA[key].forces",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Up to 5 cards per crop, each with an explanatory sentence and a source line ('Baltic Exchange, 3 Aug 2026', 'ICQRF Frantoio Italia', 'MASAF decree, 16 Jan 2026'). None of those sources is registered."
+   },
+   {
+    "field": "price.headline / product / geo / period / published / cadence",
+    "usedAt": "markup 1023-1024, 1039; mp.price at 2956",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Replace with a real record, not a repair: pick the most recent current-series observation for the crop and print its priceRaw, unit, market, product and referencePeriod. Note the real GEOGRAPHY field is the same literal string on all 77 rows ('IT — praca nomeada'), so the 'BARI (PUGLIA)' / 'ITALY' geography line the screen shows today has no equivalent — print the market (piazza) name instead."
+   },
+   {
+    "field": "price.points / price.series / chartNote — the multi-series price chart",
+    "usedAt": "markup 1169-1186; built at 2927-2931",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Measured: 20 of 23 values do not exist in the real data. Rebuild as a per-piazza bar comparison inside ONE product definition and ONE unit, or drop the card for crops where that leaves fewer than 2 bars (Grapevine leaves 1, and that 1 is a stopped series)."
+   },
+   {
+    "field": "spark — the sparkline trend",
+    "usedAt": "markup 1025-1034; built at 2932-2944",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Requires 3+ points in one series. Real data has exactly one ingested observation per piazza per product, so zero crops qualify. It cannot be rebuilt without a new ingestion."
+   },
+   {
+    "field": "production[] — Production / Area / Yield / Stocks tonnages",
+    "usedAt": "markup 1042-1058; built at 2959, 2981",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "No production, area, yield or stock array exists in ITALY_INGEST. The 'PRODUCTION · YIELD · STOCKS' card has no real content and the whole card must go."
+   },
+   {
+    "field": "trade + flow — SUPPLY & TRADE card with PRODUCTION/IMPORTS/EXPORTS/STOCKS bars",
+    "usedAt": "markup 1060-1077; built at 2959, 2974-2978",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "The flow bars are already 0% for imports and exports on every crop; with production and stocks also gone, the card is four empty bars. Remove it."
+   },
+   {
+    "field": "confidence — ISMEA Indice del Clima di Fiducia (-1.4, Q1 2025, under-40 +2.7 / over-40 -2.2)",
+    "usedAt": "italy-market-pulse.js 13-26; markup 1079-1095; built at 2960",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "ISMEA is not among the 31 registered sources and no confidence record exists. The entire FARMER SENTIMENT card dies."
+   },
+   {
+    "field": "inputs — INPUT COST PRESSURE incl. the Baltic Dry Index 2,843 'OBSERVED' value",
+    "usedAt": "italy-market-pulse.js 35-40; markup 1097-1110; built at 2961",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Most dangerous single item on the screen: it is explicitly flagged state:'OBSERVED' and renders a precise number and date, so a reader cannot tell it apart from a real observation."
+   },
+   {
+    "field": "weather",
+    "usedAt": "markup 1138-1142; built at 2962",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "JRC MARS is not a registered source; no crop-condition record exists."
+   },
+   {
+    "field": "commentary",
+    "usedAt": "markup 1258-1262; built at 2962",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Explicitly a 'Sintonia reading' of sources we never ingested."
+   },
+   {
+    "field": "changed[] — the WHAT CHANGED dated log",
+    "usedAt": "markup 1250-1257; built at 2963",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Dates and events with no record ids. There is no ingested change log for market data."
+   },
+   {
+    "field": "contextIt — Italy macro strip (value added +0.6%, exports +3%, imports +6.6%, consumer confidence 92.6)",
+    "usedAt": "italy-market-pulse.js 28-33; markup 1270-1273; built at 2962",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "ISMEA and ISTAT attributions with no records. ISTAT IS a registered source (IT-SRC-ISTAT) but contributes 0 of the 77 market rows."
+   },
+   {
+    "field": "CP_MARKET.metrics — 9 Agrofarma-Federchimica industry figures",
+    "usedAt": "italy-market-pulse.js 436-446; markup 1290-1299; built at 2995",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Sector turnover ~EUR1bn, +2% value / +1% volume, R&D >EUR30m, ~2,000 employees, 3rd largest market in Europe, illegal market ~10%. No Agrofarma source is registered and no industry record exists. The CROP PROTECTION MARKET tab loses its whole first card; the intro paragraph and the READ WITH CARE cautions carry no facts and may stay."
+   },
+   {
+    "field": "INTERNAL[] — SELL-IN, SELL-OUT, CRM/PIPELINE, ORDERS, DISTRIBUTOR INVENTORY, WAREHOUSE STOCK, PRICE REALIZATION, SALES BY REGION",
+    "usedAt": "italy-market-pulse.js 455-464; passed as cpm.internal at portale.html 2995 — verified NOT bound anywhere in the markup",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "This is the private-data hunt result inside the Market Pulse layer. Each entry pairs a private field with a 'why' clause arguing what Sintonia could do with it ('would connect market timing to real commercial conversations', 'would make supply readiness a real answer, not a request'). It is dead code today, but it is exactly the placeholder inviting private data that the model header forbids. Delete the constant, not just the prop."
+   },
+   {
+    "field": "SOURCES[] — the 10-row MARKET SOURCE MAP",
+    "usedAt": "italy-market-pulse.js 491-502; markup 1321-1331",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Lists ISMEA Mercati, CUN Grano Duro, BMTI/Unioncamere, ISTAT, Eurostat, EC DG AGRI, JRC MARS, ICQRF, Agrofarma, Veneto Agricoltura. Replace with AM.collections.sources.records.filter(s => s.type === 'MARKET') — measured, exactly one row survives: IT-SRC-AGRIFOOD."
+   },
+   {
+    "field": "tomato / sugarbeet / apple crop tabs",
+    "usedAt": "italy-market-pulse.js 357-430; portale.html 2916, 2918, 2920-2924",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Measured 0 market observations each. They are already marked thin:true and their prose is honest about the absence, but they still render a temperature chip, a FARMER CONFIDENCE row and a trajectory. Either drop the tabs or reduce each to a single line: 'NESSUNA OSSERVAZIONE DI PREZZO INGERITA PER QUESTA COLTURA'. Conversely Barley has 8 real current observations and no tab at all."
+   },
+   {
+    "field": "LAST_REVIEW — 'Last source review 1 September 2026'",
+    "usedAt": "italy-market-pulse.js 594; portale.html 3402; markup 1279",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "A second clock, which rule 6 forbids. Replace with AM.referenceDate (2026-09-02) or the source's LATEST_OBSERVATION (2026-08-23)."
+   },
+   {
+    "field": "fresh[] — the DATA FRESHNESS rail",
+    "usedAt": "italy-market-pulse.js 520-580 (EXTRA[key].fresh); markup 1001-1010; built at 2969, 2973",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "The only fixture element on this screen that survives, because freshness IS computable: seriesState ('CORRENTE' vs 'PARADA_EM_YYYY'), the parsed end of REFERENCE_PERIOD, and daysFrom(AM.referenceDate). But it must stop labelling components that no longer exist (CONFIDENCE, TRADE, EU OUTLOOK) and instead show the real per-crop picture, including the 10 dead olive series and the 12 rows overall whose own SERIES_WARNING says the last quote is not a current price."
+   },
+   {
+    "field": "gaps[] — WHAT WE STILL DO NOT KNOW",
+    "usedAt": "markup 1266-1268; built at 2963",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Keep the component, regenerate the content from measured coverage: 3 crops with zero observations; 12 of 77 rows on stopped series; STAGE missing on 37 of 77; PUBLICATION_DATE missing on 37 of 77; no production, trade, stock, input-cost or sentiment collection ingested at all; only the latest row of each series ingested although OBSERVATIONS_IN_SERIES reports 190-364 points exist upstream."
+   },
+   {
+    "field": "adamaDays / adamaStance / nextWindowLabel",
+    "usedAt": "markup 1211, 1213; built at 2949, 2986-2988",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Derivable from AM.collections.windows, but the STATE must be the canonical CURRENT_STATUS, not a days-threshold ladder invented in the view. Measured statuses available: WINDOW_OPEN, WINDOW_CLOSED, NEXT_CYCLE, DATE_UNKNOWN. Note 4 canonical windows have null dates, so the days number must be able to read 'DATA NON DEFINITA'."
+   },
+   {
+    "field": "productCount / products — 'registered products relevant to this crop'",
+    "usedAt": "markup 1212, 1231; built at 2947, 2989",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Derivable from IG.LINKS, but the number changes materially and the engineer must expect that: Maize 11 -> 3, Grapevine 8 -> 1, Wheat 6 -> 5, Olive 3 -> 4, Tomato 1 -> 7, Apple 1 -> 2, Sugar Beet 5 -> 3, Durum Wheat 9 -> 3."
+   },
+   {
+    "field": "caseCount — 'VIEW n OPPORTUNITIES'",
+    "usedAt": "markup 1241; built at 2946, 2967",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Today it counts demo cases. The honest count is upstream-real opportunities only — measured 3 in total across the whole application (IT-OPP-001 Grapevine, IT-OPP-002 Maize, IT-OPP-003 portfolio-transversal), so most crops will show 0 and the button should disappear."
+   },
+   {
+    "field": "mSignals — PORTFOLIO & RELATED SIGNALS bullets",
+    "usedAt": "markup 1234-1236; built at 2948",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Already dead: the crop join can never match (real futureSignals crops are 'MAIS', 'TRIGO e TRIGO DURO', 'TRANSVERSAL' against mc.crop 'Maize' / 'Durum Wheat'), and status is null on all 3 records. The markup also reads x.issueL, which the builder never produces."
+   },
+   {
+    "field": "w.issueL in RELATED CROP WINDOWS",
+    "usedAt": "markup 1224; builder at 2945 produces only 'issue'",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "Live rendering bug independent of the migration: the window label is blank today. The rebuild must emit issueL (through the existing il() translator) or the markup must read w.issue."
+   }
+  ],
+  "markupImpact": [
+   "928-1335 — the whole MARKET PULSE sc-if block is in scope.",
+   "941-949 — mpButtons crop rail: the per-crop arrow (b.arrow) and rail colour come from the temperature verdict; both must be removed or re-sourced. The 8-button set must shrink to crops with data (or mark the empty ones explicitly).",
+   "956-972 — HERO: mp.sem.tint/border/line/mark/label (962 the 40px {{ mp.temp }}, 964-965 {{ mp.traj.nowArrow }} and {{ mp.traj.nowLine }}) all die. 968-969 'LAST CONFIRMED OBSERVATION' survives with a real value. 971 the 'SINTONIA INTERPRETATION' pill becomes meaningless once there is no interpretation left and should go with it.",
+   "974-997 — 'WHY SINTONIA READS IT THIS WAY' panel including the sc-for over mp.drivers (980-988): delete. The MARKET EFFECT legend at 990-996 loses its subject.",
+   "1001-1010 — DATA FRESHNESS rail: keep the component, re-source mp.fresh from seriesState + referencePeriod.",
+   "1017-1040 — PRICE MOMENTUM card: 1020 {{ mp.priceState }} dies; 1023-1024 headline/unit/product re-source to a real record; 1025-1034 the sparkline block deletes entirely; 1036 priceChanges re-source to changeVsPrev / changeVsYearAgo (measured present on 72/77 and 67/77); 1039 the source footer must name the piazza and the real referencePeriod and link to IT-SRC-AGRIFOOD.",
+   "1042-1058 — PRODUCTION · YIELD · STOCKS card: delete entirely (no production/yield/stock records exist).",
+   "1060-1077 — SUPPLY & TRADE card with the mp.flow bars: delete entirely.",
+   "1079-1095 — FARMER SENTIMENT card (ISMEA ICF): delete entirely.",
+   "1097-1110 — INPUT COST PRESSURE card incl. the sc-if i.isObs branch that prints the Baltic Dry number: delete entirely.",
+   "1112-1113 — the CURRENT MARKET grid closes with 5 cards today and 1 after the cut; the grid is repeat(auto-fit,minmax(250px,1fr)) so it reflows without a redesign, but the section heading at 1014 should be re-labelled to what remains.",
+   "1116-1125 — MARKET TRAJECTORY strip: delete entirely.",
+   "1128-1145 — MARKET OUTLOOK section incl. the sc-for over mp.outlook and the weather card at 1138-1142: delete entirely.",
+   "1148-1165 — WHAT IS DRIVING THE MARKET (mp.forces, guarded by mp.hasForces): delete entirely.",
+   "1169-1186 — PRICE OBSERVATIONS chart: rebuild from real per-piazza rows or drop; the legend at 1181-1183 and the chartNote at 1184 must be regenerated from the real product definitions and units.",
+   "1188-1203 — REGIONAL MARKETS · PIAZZA: this is the one card that gets BIGGER and more truthful. mp.regional.state -> a real coverage state; mp.regionRows -> one row per ingested observation (r.p = market, r.v = priceRaw + unit, r.d = changeVsPrev%), plus a visible badge on the 12 stopped-series rows carrying SERIES_WARNING; 1202 the source line resolves to the EC Agri-food Data Portal URL.",
+   "1206-1244 — WHAT THIS MEANS FOR ADAMA: 1210 the MARKET ENVIRONMENT tile dies with mp.temp; 1211 adamaDays re-sources to canonical windows; 1212 productCount re-sources to IG.LINKS; 1213 adamaStance becomes the canonical CURRENT_STATUS string; 1224 fix the empty {{ w.issueL }}; 1231 products re-source; 1234-1236 mSignals block deletes; 1241 the opportunities button count becomes the upstream-real count and hides at 0.",
+   "1246-1263 — WHAT CHANGED card: the sc-for over mp.changed (1251-1256) and the commentary block (1258-1262) both delete; the card as a whole goes.",
+   "1264-1274 — WHAT WE STILL DO NOT KNOW: keep, regenerate mp.gaps from measured coverage; delete the ITALY ECONOMIC CONTEXT list at 1270-1273.",
+   "1277-1280 — the 'WHAT PUBLIC MARKET DATA CANNOT PROVE' footer stays (it is i18n text, t.cannotProveList, and it is correct); only {{ mpReview }} needs re-sourcing to the one reference date.",
+   "1285-1332 — CROP PROTECTION MARKET tab: delete the metrics grid at 1290-1299 (Agrofarma figures); keep cpm.intro and cpm.caution; the FEASIBILITY table at 1306-1319 may stay as a declared route map but its rows currently claim ISMEA/CUN/BMTI routes and must be rewritten to reflect the one connected route; replace cpm.sources at 1321-1331 with the registered MARKET sources (measured: 1 row).",
+   "2608 — sidebar nav badge for 'market' prints ITALY_MARKET.CROPS.length (8); re-source.",
+   "679 — radar card 'MARKET {{ r.marketTemp }}': delete the market span.",
+   "732 and 743 — Crop Windows drawer 'MARKET PULSE {{ dw.marketTemp }}': delete the temp, keep the VIEW MARKET PULSE link.",
+   "329-336 — Opportunity case screen csMarket strip ({{ csMarket.temp }}, {{ csMarket.reading }}, csMarket.rows): delete or replace with a coverage line.",
+   "1693 — Competitor Watch row 'market {{ m.market }}': delete the market fragment.",
+   "2132 — Science & Business MARKET PULSE tile ({{ sciImpact.market }}): delete the verdict, keep the navigation."
+  ],
+  "plan": [
+   "1. Freeze the contract first. In italy-app-model.js, extend the marketObservations map (lines 151-160) with cropKey, periodStart, periodEnd, daysSinceObservation, isCurrentSeries and stoppedYear. Declare the GROUP+PRODUCT -> crop lookup as a named constant in the model with a comment saying it is an interpretation of EC product codes, not an upstream field.",
+   "2. Add the marketByCrop projection to collections (counts, piazze, units, productDefinitions, latestPeriodEnd, changeCoverage, hasData, hasCurrentObservation, resolved source). Verify at runtime that hasData is false for Tomato, Sugar Beet and Apple and that Barley appears with 8 records.",
+   "3. Add portfolioLinksByCrop over IG.LINKS, and marketSummaries over IG.MARKET_SUMMARIES (manifest only, loaded:false).",
+   "4. In portale.html, replace the five D.* reads at 2945-2949 with the AM equivalents given above. Fix the mWins builder to emit issueL so the markup at 1224 stops rendering blank. Delete mSignals and its markup at 1234-1236, or repair the crop join first — do not leave it half-dead.",
+   "5. Rewrite the mp object (2950-2991) so it spreads marketByCrop plus a rows array of real observations, and stops spreading mc. Keep from MK only key, label, it and color, and only through an explicit ui sub-object.",
+   "6. Delete, in this order, so the grid never renders a half-empty section: the trajectory strip (markup 1116-1125), the outlook section (1128-1145), the forces section (1148-1165), the sparkline (1025-1034), the production card (1042-1058), the trade card (1060-1077), the confidence card (1079-1095), the input-cost card (1097-1110), the what-changed card (1246-1263), the economic-context list (1270-1273).",
+   "7. Rebuild the two cards that survive with real content: PRICE MOMENTUM (one real latest observation: priceRaw, unit, market, product, referencePeriod, changeVsPrev, changeVsYearAgo) and REGIONAL MARKETS · PIAZZA (every ingested observation for the crop, with a stopped-series badge wherever seriesWarning is set).",
+   "8. Rebuild the PRICE OBSERVATIONS chart as a per-piazza bar comparison scoped to one product definition and one unit, or drop the card when fewer than 2 bars remain. Never convert EUR/100kg to EUR/kg and never mix STAGE classes in one comparison.",
+   "9. Regenerate the DATA FRESHNESS rail and the WHAT WE STILL DO NOT KNOW list from measured coverage.",
+   "10. Rewrite the hero: replace mp.temp with a coverage line, keep LAST CONFIRMED OBSERVATION now fed by latestPeriodEnd, remove the SINTONIA INTERPRETATION pill.",
+   "11. Handle the crop tabs: hide or explicitly empty Tomato, Sugar Beet and Apple; decide with the product owner whether to add Barley. Re-source the nav badge at 2608.",
+   "12. Clean the industry tab: delete the Agrofarma metrics grid, replace cpm.sources with the registered MARKET sources, rewrite the feasibility rows so they describe the one connected route, and remove MK.INTERNAL from both cpMarketObj (2995) and italy-market-pulse.js (455-464).",
+   "13. Remove the cross-screen temperature bleed: mkCropTemp (2574 -> markup 679), mkTemp (2653 -> markup 732, 2762), compMoments market (3169 -> markup 1693), mkTempFor (3191/3204/3226 -> markup 2132), csMarket (2992-2993 -> markup 329-336). Coordinate with the owners of those four domains before deleting their props.",
+   "14. Re-source mpReview (3402) to AM.referenceDate and confirm no new Date() was introduced anywhere in the rewritten block.",
+   "15. Last: reduce italy-market-pulse.js to presentation metadata only (ICON, SEM, TONE_SEM, FRESH_COLOR, and a crop ui list of key/label/it/color) and delete CROPS[].temp, reading, drivers, current, outlook, price, regional, production, trade, confidence, weather, commentary, changed, gaps, plus CONFIDENCE_IT, CONTEXT_IT, INPUT_ROUTES, EXTRA, CP_MARKET.metrics, INTERNAL, SOURCES and LAST_REVIEW. Leaving the file intact but unread invites a future re-wiring.",
+   "16. Report the residual private-data phrases found outside this domain to the Crop Windows owner: portale.html 806 renders the literals 'Customer purchase timing' and 'Internal stock and readiness' in the window drawer's UNKNOWN column, and portale.html 2859 builds ['Pressure in adjacent regions','Customer purchase timing','Distributor stock position'] / [...,'Customer purchase timing']. Also portale.html 3128 seeds the Field Sales composer with dealer/customer prose, which is inside the labelled demo and may stay if that mode stays off by default."
+  ],
+  "risks": [
+   "The screen shrinks hard. Of roughly 14 rendered components on the crop tab, 9 disappear outright and 2 more lose their headline number. Rule 3 says a smaller truthful screen wins and rule 12 says do not redesign, so the engineer must resist the instinct to backfill the empty grid space.",
+   "Blast radius outside the domain. The temperature verdict is read on five other screens (Radar 679, Crop Windows 732/2762, Competitor Watch 1693, Science 2132, Opportunity case 329-336). Removing it silently changes four other people's screens. This must be sequenced with them, not done unilaterally.",
+   "The crop mapping is an interpretation, not a field. 'MAI|FEED', 'BLTPAN|PAN', 'DUR|UNKNOWN', 'ORGFOUR|FEED' are EC product codes; nothing upstream says MAI = Maize. It is a safe reading, but it must be declared in the model and visible on screen, and 'DUR|UNKNOWN' carries an explicit unknown quality class that must not be presented as 'durum fino'.",
+   "Stale data can be read as current. 12 of 77 rows are on stopped series and their own SERIES_WARNING says the last quotation is NOT a current price — including the only Grapevine row (stopped 2025) and 10 of the 36 olive rows (some last quoted in 2010). If the piazza table renders them plainly, the screen becomes less trustworthy than the fixture it replaced.",
+   "Unit and stage collisions. Olive is EUR/100kg, cereals EUR/t, wine Euro/HL; and 40 of 77 rows carry a STAGE (farm gate vs delivery to first customer vs departure from farm) while 37 carry none. Any averaging, ranking or single 'the price' headline across those is methodologically wrong.",
+   "One source, one point in time. All 77 rows come from a single provider (EC Agri-food Data Portal) and only the latest observation of each series was ingested, though the source holds 190-364 points per series. The screen must not imply a monitored multi-source market picture.",
+   "Numbers the business already saw will change downward. The ADAMA panel's product count drops for 5 of 8 crops (Maize 11->3, Durum 9->3, Grapevine 8->1) and the opportunities count drops from 29 to 3 application-wide. Someone will read that as a regression rather than a correction; it needs to be announced, not just shipped.",
+   "Three crop tabs go empty and one uncovered crop (Barley, 8 real observations) has no home. Whatever is decided, the nav badge, the crop rail and the sc-for placeholder hints must be updated together or the rail will render ghosts.",
+   "MK.INTERNAL is currently unreachable, so deleting it is invisible in QA. If only the cpMarketObj prop is removed and the constant is left in italy-market-pulse.js, the next person to build an 'internal data' card will find it sitting there ready to use."
+  ],
+  "openQuestions": [
+   "IG.MARKET_SUMMARIES points at five written analyses (MAIS, FRUMENTO DURO, OLIVO/OLIO DI OLIVA, VITE/VINO, RISO — 22k to 33k characters each) whose .md bodies are not in the client bundle. Is that upstream prose the intended replacement for the fixture reading/commentary, and should it be ingested? If yes, most of what I marked REMOVE could come back with provenance.",
+   "Rice has an upstream market summary and a canonical window but zero price observations and no crop tab. Barley has 8 current price observations and no tab, no window, no summary. What decides which crops get a Market Pulse tab — portfolio relevance, window coverage, or data coverage?",
+   "Should the FEASIBILITY audit table survive? It is methodology rather than fact, which makes it legal, but every row currently names a route (ISMEA, CUN, BMTI, Eurostat, JRC MARS) that was never connected, so as printed it overstates what the product can do today.",
+   "The EC records give week-on-week and year-on-year percentages per piazza (72/77 and 67/77 present). Is showing those percentages acceptable, or does a per-piazza percentage read as a market trend and therefore fall under the rule against presentation inventing a state?",
+   "Who owns the removal of the market temperature from the four other screens, and does the Crop Windows drawer keep its 'MARKET PULSE ... context, not proof of demand' box at all once there is no verdict to put in it?",
+   "The i18n key t.cannotProveList and t.notObservableNote are correct and should stay, but t.subMarket still promises 'condizioni, dinamica, offerta, fiducia e prospettive' — dynamics, supply, confidence and outlook all die in this migration. Who rewrites that subtitle in both languages?"
+  ]
+ }
+]

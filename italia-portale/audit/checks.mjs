@@ -11,6 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';
 import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';
+import { isPortuguese, isEnglish, collectStrings, cropKeyOf } from './lang.mjs';
 
 const REFERENCE_DATE = '2026-09-02';
 
@@ -378,6 +379,53 @@ check('I1', 'Italian is the default language and the switch does not reload', ()
   const defaultIt = /lang:\s*\(\(\)\s*=>\s*\{[^}]*'en'\s*\?\s*'en'\s*:\s*'it'/.test(code) || /=== 'en' \? 'en' : 'it'/.test(code);
   const reloads = /location\.reload|window\.location\s*=/.test(code);
   return { pass: defaultIt && !reloads, expected: 'it default, no reload', measured: `default=${defaultIt ? 'it' : 'UNKNOWN'} reload=${reloads}` };
+});
+
+check('PT1', 'No Portuguese research prose reaches any rendered screen', () => {
+  const m = mount();
+  const hits = [];
+  for (const sc of SCREENS) {
+    for (const lang of ['it', 'en']) {
+      const patch = Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+      const r = m.tryVals(patch);
+      if (!r.ok) continue;
+      for (const { path, value } of collectStrings(r.vals)) {
+        if (isPortuguese(value)) hits.push(`${sc.label}/${lang} ${path}: ${value.slice(0, 110)}`);
+      }
+    }
+  }
+  const uniqueHits = [...new Set(hits)];
+  return { pass: uniqueHits.length === 0, expected: 0, measured: uniqueHits.length, detail: uniqueHits.slice(0, 14) };
+});
+
+check('PT2', 'Every crop token that reaches a screen resolves to the canonical vocabulary', () => {
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL;
+  const C = AM.collections;
+  const tokens = [];
+  const take = (label, recs, field) => (recs || []).forEach((r) => {
+    const v = r[field];
+    (Array.isArray(v) ? v : [v]).filter(Boolean).forEach((x) => tokens.push({ label, x }));
+  });
+  take('cropWindows', C.cropWindows.records, 'crop');
+  take('opportunities', C.opportunities.records, 'crop');
+  take('futureSignals', C.futureSignals.records, 'crop');
+  take('publicVoices', C.publicVoices.records, 'crop');
+  take('scienceRecords', C.scienceRecords.records, 'crop');
+  take('news', C.news.records, 'crop');
+  take('resistance', C.resistance.records, 'crop');
+  take('competitorActivities', C.competitorActivities.records, 'crops');
+  const bad = [];
+  const scopes = {};
+  for (const { label, x } of tokens) {
+    const r = cropKeyOf(x);
+    scopes[r.scope] = (scopes[r.scope] || 0) + 1;
+    if (r.scope === 'UNMAPPED') bad.push(`${label}: ${String(x).slice(0, 70)}`);
+    if (isPortuguese(x)) bad.push(`${label}: PORTUGUESE crop token "${String(x).slice(0, 70)}"`);
+  }
+  const uniqueBad = [...new Set(bad)];
+  return { pass: uniqueBad.length === 0, expected: 0, measured: uniqueBad.length,
+    detail: { scopes, bad: uniqueBad.slice(0, 12) } };
 });
 
 check('I2', 'Italian mode shows no accidental English in Future', () => {

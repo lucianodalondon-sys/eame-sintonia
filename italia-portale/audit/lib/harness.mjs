@@ -105,6 +105,12 @@ export function readPortal(dir = CLIENT) {
   return fs.readFileSync(path.join(dir, 'portale.html'), 'utf8');
 }
 
+/* When set, mount() takes the markup+logic from this file instead of
+   client/portale.html. Lets an agent validate a candidate rewrite of one block
+   without touching the file every other agent is reading. */
+export let PORTAL_OVERRIDE = null;
+export function usePortal(file) { PORTAL_OVERRIDE = file || null; }
+
 /** The <script data-dc-script> body, plus the 1-indexed line it starts on. */
 export function extractLogic(html) {
   const open = html.indexOf('<script type="text/x-dc" data-dc-script');
@@ -130,9 +136,12 @@ export function extractMarkup(html) {
  * Returns { ctx, instance, vals(state) } where vals() runs renderVals() for a
  * given state patch and returns the props object the markup would consume.
  */
-export function mount({ dir = CLIENT, state = {} } = {}) {
+export function mount({ dir = CLIENT, state = {}, portalPath = null } = {}) {
   const ctx = loadData({ dir });
-  const { code } = extractLogic(readPortal(dir));
+  const src = portalPath || PORTAL_OVERRIDE
+    ? fs.readFileSync(portalPath || PORTAL_OVERRIDE, 'utf8')
+    : readPortal(dir);
+  const { code } = extractLogic(src);
 
   /* Minimal stand-in for the dc-runtime base class. The portal only uses
      this.state / this.setState / lifecycle-free rendering. */

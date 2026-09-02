@@ -2571,7 +2571,7 @@ class Component extends DCLogic {
     };
     const TIMING = { 'IN WINDOW': '#00B152', 'APPROACHING WINDOW': '#F5B317', 'EARLY': '#00A0DF', 'POST WINDOW': '#978B87', 'NO TIMING MATCH': '#8F8886' };
     const winMatch = (crop, issue) => { const keys = String(issue || '').toLowerCase().split(/[^a-z]+/).filter(w => w.length > 4); if (!keys.length) return null; return D.WINDOWS.find(w => (w.crop === crop || (crop === 'Wheat' && w.crop === 'Durum Wheat')) && keys.some(k => w.issue.toLowerCase().indexOf(k) >= 0)) || null; };
-    const mkCropTemp = (crop) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => c.crop === crop || (crop === 'Wheat' && c.crop === 'Wheat')); return e && !e.thin && e.temp ? e : null; };
+    const mkCropTemp = (crop) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => c.crop === crop || (crop === 'Wheat' && c.crop === 'Wheat')); return e && !e.thin ? e : null; };
     const actDeco = (a) => Object.assign({}, a, { cropL: cl(a.crop), issueL: il(a.issue) }, (() => {
       const ch = CH[a.type] || CH['PAID'];
       const w = winMatch(a.crop, a.issue);
@@ -2593,7 +2593,7 @@ class Component extends DCLogic {
         adamaColor: prods.length ? '#00B152' : '#F89E18',
         adamaProducts: prods.slice(0, 2).join(' + ') || 'portfolio review needed',
         marketTemp: mk ? mk.temp : 'NOT ENOUGH DATA',
-        marketColor: mk && window.ITALY_MARKET ? ((window.ITALY_MARKET.SEM || {})[(window.ITALY_MARKET.TEMP_SEM || {})[mk.temp] || 'UNKNOWN'] || {}).color : '#B1A9A7',
+        marketColor: mk && window.ITALY_MARKET ? window.ITALY_MARKET.SEM[window.ITALY_MARKET.TEMP_SEM[mk.temp] || 'UNKNOWN'].color : '#B1A9A7',
         goMarket: () => mk ? this.go({ view: 'market', mCrop: mk.key, mTab: 'crop' }) : this.go({ view: 'market' })
       };
     })(), { openCompany: () => this.openCompany(a.company), openCase: () => this.openCase(a.caseId), openProduct: () => a.product && this.openCProduct(a.product), openPerson: () => a.personId && this.openPerson(a.personId), openEvent: () => a.eventId && this.openEvent(a.eventId), initials: initials(a.company), isPaid: a.type === 'PAID', isVideo: a.type === 'VIDEO', isOrganic: a.type === 'ORGANIC', isPeople: a.type === 'PEOPLE', isEvent: a.type === 'EVENT', hasProduct: !!a.product, hasNewly: !!a.newly, transcriptLabel: a.transcript ? 'transcript available' : 'no transcript', personInitials: a.person ? initials(a.person.replace('Demo profile · ', '')) : '', eventDates: a.eventId ? (D.EVENTS.find(e => e.id === a.eventId) || {}).dates : '', eventCity: a.eventId ? (D.EVENTS.find(e => e.id === a.eventId) || {}).city : '', partColor: a.participation && a.participation.startsWith('CONFIRMED') ? '#00B152' : '#B1A9A7', cta: a.type === 'PAID' ? 'VIEW AD →' : a.type === 'VIDEO' ? 'WATCH →' : a.type === 'PEOPLE' ? 'VIEW MENTION →' : a.type === 'EVENT' ? 'VIEW EVENT →' : a.type === 'ORGANIC' ? 'VIEW POST →' : 'VIEW RECORD →', platformShort: a.platform.split(' · ').pop(), productOrHeadline: a.product || a.headline, galleryH: (150 + (a.days * 37) % 90) + 'px' });
@@ -2650,7 +2650,7 @@ class Component extends DCLogic {
     const bState = (open, days) => open ? 'WINDOW OPEN' : days <= 30 ? 'ACT NOW' : days <= 60 ? 'ACTIVATE' : days <= 120 ? 'PREPARE' : days <= 180 ? 'PLAN' : 'NEXT CYCLE';
     const deptName = (k) => L(k === 'SALES / RTV' ? 'FIELD SALES' : k);
     const DEPTS = [['REGULATORY / PORTFOLIO', -210, -150], ['SUPPLY', -150, -60], ['MARKET DEVELOPMENT', -180, -120], ['MARKETING', -120, -75], ['TECHNICAL / SCIENCE', -60, -10], ['SALES / RTV', -75, -25]];
-    const mkTemp = (cropName) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => c.crop === cropName); return e && !e.thin && e.temp ? { temp: e.temp, color: (M2.TEMP || {})[e.temp] || '#978B87', key: e.key } : null; };
+    const mkTemp = (cropName) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => c.crop === cropName); return e && !e.thin ? { temp: e.temp, color: M2.TEMP[e.temp] || '#978B87', key: e.key } : null; };
 
     const ys = (() => { const out = []; const y0 = 2026 + Math.floor((Math.floor(START) - 13) / 12), y1 = 2026 + Math.floor(Math.ceil(START + HZ) / 12); for (let y = y0; y <= y1; y++) out.push(y); return out; })();
 
@@ -2908,16 +2908,16 @@ class Component extends DCLogic {
     // ---- market pulse
     const MK = window.ITALY_MARKET;
     let mp = null, mpCropOptions = [], mpTabs = [], mpButtons = [], csMarket = null;
-    if (MK && MK.EXTRA) {
+    if (MK) {
       const SEMR = MK.SEM, TS = MK.TONE_SEM;
       const semOf = (tone) => SEMR[TS[tone] || 'UNKNOWN'];
       const toneCol = { up: '#00B152', down: '#F89E18', flat: '#F5B317', na: '#B1A9A7' };
       const num = (v) => v.toLocaleString('en-GB', { maximumFractionDigits: 2 });
       const mc = MK.CROPS.find(c => c.key === s.mCrop) || MK.CROPS[0];
-      const semTemp = (SEMR[(MK.TEMP_SEM || {})[mc.temp] || 'UNKNOWN'] || {});
+      const semTemp = SEMR[MK.TEMP_SEM[mc.temp] || 'UNKNOWN'];
       mpCropOptions = MK.CROPS.map(c => ({ v: c.key, l: c.label.toUpperCase() + (c.thin ? '  ·  LIMITED DATA' : '') }));
       const ARROW = { 'SUPPORTIVE': '↑', 'TIGHTENING': '↑', 'BALANCED': '↔', 'MIXED SIGNALS': '↔', 'PRESSURED': '↓', 'COOLING': '↓', 'VOLATILE': '↕' };
-      mpButtons = MK.CROPS.map(c => { const on = c.key === mc.key; const col = (SEMR[(MK.TEMP_SEM || {})[c.temp] || 'UNKNOWN'] || {}).color;
+      mpButtons = MK.CROPS.map(c => { const on = c.key === mc.key; const col = SEMR[MK.TEMP_SEM[c.temp] || 'UNKNOWN'].color;
         return { label: c.label.toUpperCase(), arrow: c.thin ? '·' : (ARROW[c.temp] || '·'), arrowColor: c.thin ? '#8F8886' : (on ? '#fff' : col),
           bg: on ? '#00783F' : '#1C1817', border: on ? '#009845' : 'rgba(203,197,195,0.16)', color: on ? '#fff' : (c.thin ? '#8F8886' : '#D6D2D0'),
           rail: on ? '#fff' : (c.thin ? 'transparent' : col), weight: on ? 700 : 600,
@@ -2990,7 +2990,7 @@ class Component extends DCLogic {
         goWindowsAll: () => this.go({ view: 'windows' })
       });
       const cm = MK.CROPS.find(c => c.crop === cs0.crop);
-      if (cm) csMarket = { label: cm.label, temp: cm.temp, tempColor: (SEMR[(MK.TEMP_SEM || {})[cm.temp] || 'UNKNOWN'] || {}).color, reading: cm.reading, rows: cm.current.map(x => ({ k: x.k, v: x.v, color: semOf(x.tone).color })), go: () => this.go({ view: 'market', mCrop: cm.key, mTab: 'crop' }) };
+      if (cm) csMarket = { label: cm.label, temp: cm.temp, tempColor: SEMR[MK.TEMP_SEM[cm.temp] || 'UNKNOWN'].color, reading: cm.reading, rows: cm.current.map(x => ({ k: x.k, v: x.v, color: semOf(x.tone).color })), go: () => this.go({ view: 'market', mCrop: cm.key, mTab: 'crop' }) };
     }
     const cpMarketObj = MK ? Object.assign({}, MK.CP_MARKET, { feasibility: MK.FEASIBILITY.map(r => ({ field: r[0], status: r[1], statusColor: r[1] === 'YES' ? '#00B152' : r[1] === 'PARTIAL' ? '#F89E18' : '#8F8886', source: r[2], cadence: r[3], geo: r[4], limit: r[5] })), internal: MK.INTERNAL, sources: MK.SOURCES }) : {};
 
@@ -3167,7 +3167,7 @@ class Component extends DCLogic {
     const topMoves = (() => { const seen = {}; const out = []; D.ACTIVITIES.filter(a => a.days <= 7).sort((a, b) => a.days - b.days).forEach(a => { const k = a.company + '|' + a.type; if (seen[k] || out.length >= 3) return; seen[k] = 1; out.push(a); }); return out.map((a, i) => { const d = actDeco(a); return { rank: '0' + (i + 1), company: d.companyLabel, product: d.product || d.headline, chName: d.chName, chColor: d.chColor, chText: d.chText, crop: d.crop, when: d.when, go: () => this.openCompany(a.company) }; }); })();
     const cropDensity = D.CROP_COLS.map(cr => { const acts = D.ACTIVITIES.filter(a => a.crop === cr || (cr === 'Wheat' && a.crop === 'Durum Wheat')); const cos = [...new Set(acts.map(a => a.company))]; const lvl = acts.length >= 14 ? 'HIGH' : acts.length >= 8 ? 'MEDIUM' : 'LOW'; return { crop: cr, cropL: cl(cr), n: acts.length, cos: cos.length, level: lvl === 'HIGH' ? T.lblHigh : lvl === 'MEDIUM' ? T.lblMedium : T.lblLow, color: lvl === 'HIGH' ? '#F89E18' : lvl === 'MEDIUM' ? '#F5B317' : '#978B87', pct: Math.min(100, Math.round(acts.length / 20 * 100)) + '%', go: () => this.setState({ fCrop: cr, compView: 'feed', compShown: 12 }) }; }).sort((a, b) => b.n - a.n);
     const compMoments = D.CROP_COLS.map(cr => { const w = D.WINDOWS.filter(x => x.crop === cr || (cr === 'Wheat' && x.crop === 'Durum Wheat')).sort((a, b) => (a.open ? -1 : a.days) - (b.open ? -1 : b.days))[0]; if (!w) return null; const acts = D.ACTIVITIES.filter(a => (a.crop === cr || (cr === 'Wheat' && a.crop === 'Durum Wheat')) && a.days <= 30); const cos = [...new Set(acts.map(a => a.company))]; const mk = mkCropTemp(cr); const kase = D.CASES.find(c => c.crop === cr); const prods = kase ? (kase.products || []) : [];
-      return { crop: cr, cropL: cl(cr), days: w.open ? T.cwOpen : w.days + ' ' + T.cwDays, issue: w.issue, issueL: il(w.issue), region: w.region, cos: cos.length, acts: acts.length, market: mk ? mk.temp : 'NOT ENOUGH DATA', marketColor: mk && window.ITALY_MARKET ? ((window.ITALY_MARKET.SEM || {})[(window.ITALY_MARKET.TEMP_SEM || {})[mk.temp] || 'UNKNOWN'] || {}).color : '#B1A9A7', prods: prods.length, color: w.open ? '#00B152' : w.days <= 60 ? '#F5B317' : '#00A0DF', go: () => this.openWindow(w.id) }; }).filter(Boolean).sort((a, b) => a.days === 'OPEN' ? -1 : parseInt(a.days) - parseInt(b.days)).slice(0, 4);
+      return { crop: cr, cropL: cl(cr), days: w.open ? T.cwOpen : w.days + ' ' + T.cwDays, issue: w.issue, issueL: il(w.issue), region: w.region, cos: cos.length, acts: acts.length, market: mk ? mk.temp : 'NOT ENOUGH DATA', marketColor: mk && window.ITALY_MARKET ? window.ITALY_MARKET.SEM[window.ITALY_MARKET.TEMP_SEM[mk.temp] || 'UNKNOWN'].color : '#B1A9A7', prods: prods.length, color: w.open ? '#00B152' : w.days <= 60 ? '#F5B317' : '#00A0DF', go: () => this.openWindow(w.id) }; }).filter(Boolean).sort((a, b) => a.days === 'OPEN' ? -1 : parseInt(a.days) - parseInt(b.days)).slice(0, 4);
     const co = companies.find(c => c.name === s.companyId) || companies[0];
     const matrix = D.MATRIX.map(r => ({ company: r.company, cells: r.cells.map(c => ({ n: c.n, dots: c.n === 0 ? '·' : c.n >= 5 ? '●●●' : c.n >= 3 ? '●●' : '●', bg: c.n === 0 ? 'rgba(255,255,255,0.03)' : c.n >= 5 ? 'rgba(151,139,135,0.55)' : c.n >= 3 ? 'rgba(151,139,135,0.35)' : 'rgba(151,139,135,0.18)', go: () => this.compWith({ fCompany: r.company, fCrop: c.crop }) })) }));
     const evDeco = (e) => Object.assign({}, e, { go: () => this.openEvent(e.id), confirmedLabel: e.confirmed.length ? e.confirmed.length + ' confirmed' : e.historical.length ? e.historical.length + ' historical' : 'monitoring', statusLabel: e.confirmed.length ? 'CONFIRMED EXHIBITORS' : e.historical.length ? 'HISTORICAL PARTICIPANTS' : e.exhibitorStatus.startsWith('EXHIBITOR LIST NOT') ? 'LIST NOT YET PUBLISHED' : 'MONITORING', statusColor: e.confirmed.length ? '#00B152' : '#B1A9A7', partSummary: e.confirmed.length ? e.confirmed.join(', ') + ' confirmed' : e.historical.length ? e.historical.join(', ') + ' (historical)' : 'not yet known' });
@@ -3184,11 +3184,10 @@ class Component extends DCLogic {
       story: [['BEFORE EVENT', evActs.filter(a => a.days > -evd0.startDays), 'No pre-event communication observed yet'], ['DURING EVENT', evActs.filter(a => a.type === 'EVENT'), 'Event not yet held — nothing to observe'], ['AFTER EVENT', evd0.startDays < 0 ? evActs.filter(a => a.type !== 'EVENT' && a.days < -evd0.startDays) : [], evd0.startDays < 0 ? 'No follow-up content observed' : 'Event not yet held']].map(p => ({ phase: p[0], items: p[1].slice(0, 3).map(actDeco), empty: p[1].length === 0, emptyText: p[2] })) });
     const cp0 = D.CPRODUCTS.find(p => p.name === s.cproductId) || D.CPRODUCTS[0];
     const cp = Object.assign({}, cp0, { openCompany: () => this.openCompany(cp0.company), cropLabel: cp0.crops.join(', ') || '—', issueLabel: cp0.issues.join(', ') || '—', activities: cp0.activities.map(actDeco), cases: cp0.cases.filter(Boolean).map(c => this.decorate(c)) });
-
     // ---- science → business
     const SB = window.ITALY_SCIENCE;
     const relOf = (k) => (SB && SB.REL[k]) || { color: '#978B87', bright: '#B1A9A7', tint: 'transparent', border: 'rgba(151,139,135,0.30)', def: '' };
-    const mkTempFor = (cropName) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => cropName.indexOf(c.crop) >= 0); return e && !e.thin && e.temp ? e : null; };
+    const mkTempFor = (cropName) => { const M2 = window.ITALY_MARKET; if (!M2) return null; const e = M2.CROPS.find(c => cropName.indexOf(c.crop) >= 0); return e && !e.thin ? e : null; };
     // A window only counts for a theme when the TARGET matches, not just the crop.
     const winFor2 = (cropName, issueName) => {
       if (!issueName) return null;
@@ -3223,7 +3222,7 @@ class Component extends DCLogic {
         nextMomentMeta: w ? w.issue + ' \u00b7 ' + w.region : 'the theme has no application window of its own \u2014 no countdown is borrowed from another target',
         nextMomentColor: w ? (w.open ? '#00B152' : w.days <= 120 ? '#00A0DF' : '#978B87') : '#978B87',
         hasWindow: !!w, goWindow: () => w && this.openWindow(w.id),
-        market: mk2 ? mk2.temp : 'NOT ENOUGH DATA', marketColor: mk2 && window.ITALY_MARKET ? ((window.ITALY_MARKET.SEM || {})[(window.ITALY_MARKET.TEMP_SEM || {})[mk2.temp] || 'UNKNOWN'] || {}).color : '#B1A9A7',
+        market: mk2 ? mk2.temp : 'NOT ENOUGH DATA', marketColor: mk2 && window.ITALY_MARKET ? window.ITALY_MARKET.SEM[window.ITALY_MARKET.TEMP_SEM[mk2.temp] || 'UNKNOWN'].color : '#B1A9A7',
         goMarket: () => mk2 ? this.go({ view: 'market', mCrop: mk2.key, mTab: 'crop' }) : this.go({ view: 'market' }),
         records: extra ? [] : D.RECORDS.filter(r => r.themeId === t.id).slice(0, 5),
         people: [], impact: () => this.setState({ sciImpactId: t.id }), goTheme: () => !extra && this.openTheme(t.id),

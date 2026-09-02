@@ -1,0 +1,510 @@
+[
+ {
+  "domain": "GLOBAL SEARCH (top-bar query → view 'search' results screen)",
+  "summary": "Today the visible global search is 100% legacy demo. `AM.searchIndex` (309 entries) exists in italy-app-model.js but the string \"searchIndex\" appears ZERO times in portale.html — it is dead code. portale.html lines 3374-3385 build eight hardcoded groups by manually scanning D.CASES(29 decorated), A_SIGREAL(3, the only real source), D.PRODUCT_LIST(33), D.SCI_THEMES(10)+D.RECORDS(36), D.PEOPLE(39), D.COMPANIES(6), D.ARCHIVE(448) and D.SOURCES(53); each group caps display at 6 items while printing the full count. The markup (2355-2369) renders those groups and calls `i.go`, so every route target is decided inside the group builder. Facts come from the demo fixture even where a real equivalent exists: real portfolio is 166 products (163 regulatory + 3 catalog-only), not 33; real sources are 31, not 53; the real archive index is 740 rows across 7 kinds, not 448 manufactured rows. The searchTotal line also prints a hardcoded English sentence enumerating the eight groups, in an Italian-default product.",
+  "realSource": "AM.searchIndex, rebuilt in italy-app-model.js over AM.collections: products(166) · windows(29, CANONICAL) · opportunities filtered to isUpstreamReal(3 of 29) · futureSignals(3) · voices(17) · researchers(60) · resistance(34) · scienceRecords(88) · themes(5, new) · sources(31) · channels(30) · events(18) · news(8) · marketObservations(77) · competitorActivities(503) · competitorCompanies(11 normalized, new) · competitorProducts(36, new). Measured target size 1114 entries vs 309 today, with ZERO cross-kind id collisions (verified). AM.archive is NOT indexed separately — it is already a derived index over science/market/competitor/voice/event/news/window, so indexing those kinds directly makes the ARCHIVE search group pure duplication.",
+  "occurrences": [
+   {
+    "file": "portale.html",
+    "line": 3374,
+    "symbol": "// ---- search",
+    "snippet": "// ---- search",
+    "classification": "VISUAL_ONLY",
+    "reason": "Section marker for the whole block to be replaced.",
+    "replacement": "KEEP (comment); rewrite the block below it."
+   },
+   {
+    "file": "portale.html",
+    "line": 3375,
+    "symbol": "sgp()",
+    "snippet": "const sgp = (label, color, items) => ({ label, color, count: items.length, items: items.slice(0, 6), empty: items.length === 0 });",
+    "classification": "VISUAL_ONLY",
+    "reason": "Pure presentation shaper (label/color/cap-at-6). Carries no fact. But it prints the FULL count while showing only 6 rows, with no way to see the rest — that gets worse at 503 competitor activities.",
+    "replacement": "Replace with a group shaper over AM.searchIndex: ({key,label,color,count,items:list.slice(0,6).map(...),more:Math.max(0,list.length-6),hasMore:list.length>6,goAll,empty:false})"
+   },
+   {
+    "file": "portale.html",
+    "line": 3376,
+    "symbol": "searchGroups gate",
+    "snippet": "const searchGroups = q ? [",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Opens the manual per-kind scan array. The entire array is the defect: eight hand-written scans, eight hand-written route decisions.",
+    "replacement": "const hits = q ? (AM ? AM.searchIndex : []).filter(e => e.terms.some(t => t.indexOf(q) >= 0)) : []; const byGroup = hits.reduce((a,e)=>{(a[e.group]=a[e.group]||[]).push(e);return a;},{}); const searchGroups = SGROUP_DEF.filter(g=>byGroup[g[0]]).map(([key,label,color])=>sgp(key,label,color,byGroup[key]));"
+   },
+   {
+    "file": "portale.html",
+    "line": 3377,
+    "symbol": "CASES (= D.CASES.map(this.decorate), line 2515)",
+    "snippet": "sgp('OPPORTUNITY CASES', '#009845', CASES.filter(c => match(c.issue + ' ' + c.crop + ' ' + c.region + ' ' + c.latin + ' ' + c.products.join(' '))).map(c => ({ label: c.issue + ' · ' + c.crop + ' · ' + c.region, meta: c.status, go: c.open })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "crop, issue, region, latin name, product list and status are all facts, supplied by the demo fixture. Measured: only 3 of 29 opportunities (IT-OPP-001/002/003) are upstream-real; the other 26 are provenance DEMO_SCENARIO. They currently feed searchTotal, which the screen presents as a real count of 'connected items' — a §5 violation.",
+    "replacement": "DELETE_COMPONENT (as a manual scan). Supplied by AM.searchIndex group 'OPPORTUNITY', built in italy-app-model.js from opportunities.records.filter(c => c.isUpstreamReal) — 3 entries. Route this.openCase(e.id); the 3 ids exist in D.CASES so the case view resolves."
+   },
+   {
+    "file": "portale.html",
+    "line": 3378,
+    "symbol": "A_SIGREAL (AM.futureSignals)",
+    "snippet": "sgp('FUTURE SIGNALS', '#978B87', A_SIGREAL.filter(x => match(x.issue + ' ' + x.crop + ' ' + x.region + ' ' + (x.product || ''))).map(x => ({ label: x.issue + ' · ' + x.region, meta: x.status, go: () => this.go({ view: 'future' }) })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Already real data, but wrong on two counts. (a) The route drops the identity: it goes to the Future list, not openSignal(x.id) — and openSignal DOES work (sgPool is AM.futureSignals, ids IT-FUT-001..003). (b) The label is issue + ' · ' + region, and region is a Portuguese research note in 2 of 3 records: 'NAO SEI — o recorte cientifico e por afiliacao nacional, nao por regiao de estudo'. That 90-char sentence is the visible search result label today.",
+    "replacement": "AM.searchIndex group 'SIGNAL', label = issue only when region is a NOT-KNOWN note, else issue + ' · ' + region. Route this.openSignal(e.id)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3379,
+    "symbol": "D.PRODUCT_LIST",
+    "snippet": "sgp('ADAMA PRODUCTS', '#978B87', D.PRODUCT_LIST.filter(p => match(p.name + ' ' + p.ai + ' ' + p.crops.join(' ') + ' ' + p.targets.join(' '))).map(p => ({ label: p.name + ' · ' + p.ai, meta: p.crops.join(', '), go: () => this.openProduct(p.name) })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Product name, active ingredient, crop list and target list are facts. D.PRODUCT_LIST holds 33 products; the real registry-plus-catalog join holds 166 (163 in the Ministero registry, 44 in the commercial catalog, 3 catalog-only). 133 real ADAMA products are unfindable today.",
+    "replacement": "AM.searchIndex group 'PRODUCT' (166 entries, already correct in the model at line 299 apart from provenance/meta). Route this.openProduct(e.id) — e.id is the uppercase product key, which is exactly what openProduct expects."
+   },
+   {
+    "file": "portale.html",
+    "line": 3380,
+    "symbol": "D.SCI_THEMES + D.RECORDS",
+    "snippet": "sgp('SCIENCE', '#978B87', D.SCI_THEMES.filter(t => match(t.title + ' ' + t.crop + ' ' + t.issue)).map(t => ({ label: t.title, meta: t.works + ' works', go: () => this.openTheme(t.id) })).concat(D.RECORDS.filter(r => match(r.descriptor + ' ' + r.institution + ' ' + r.location)).map(r => ({ label: r.descriptor, meta: r.institution, go: () => this.openTheme(r.themeId) }))))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Both halves are demo facts. D.SCI_THEMES has 10 themes with slug ids (grapevine-phytoplasma, xylella, ipm…); the real IG.THEMES has 5 with ids IT-THEME-001..005 and no overlap. 't.works' (works count) is a fact from the fixture. D.RECORDS(36) supplies descriptor / institution / study-area location; real SCIENCE(88) has TITLE, INSTITUTION, AUTHOR, VENUE, PUBLISHED_AT, CROP, ISSUE, SOURCE_URL (all 88/88) and NO descriptor and NO study-area field.",
+    "replacement": "Two real groups. 'SCIENCE' from scienceRecords(88) — label TITLE, meta INSTITUTION, route view 'science' with sciFocusId (never openTheme on a demo slug). Plus theme entries from a NEW themes collection (5) once the Science view renders real themes. Until the Science domain lands, do not route a real science record into openTheme."
+   },
+   {
+    "file": "portale.html",
+    "line": 3381,
+    "symbol": "people (= D.PEOPLE.map, line 3310)",
+    "snippet": "sgp('PEOPLE', '#978B87', people.filter(p => match(p.label + ' ' + p.org + ' ' + p.crops.join(' ') + ' ' + p.issues.join(' ') + ' ' + p.region)).map(p => ({ label: p.label + ' · ' + p.org, meta: p.last, go: p.go })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Person name, organisation, crops, issues, region and last-activity are facts, from D.PEOPLE(39) whose ids are RR-01..TSR-7. The real researcher set is 60 with ids IT-PER-001... AND — measured — the current AM.searchIndex line 303 already emits 60 researcher entries with route 'person', which resolves via `pr0 = people.find(p => p.id === s.personId) || people[0]`. Because no IT-PER-### id exists in D.PEOPLE, all 60 real researchers would silently open the SAME first demo person. This is the exact 'no search result may open a legacy demo entity' violation.",
+    "replacement": "AM.searchIndex group 'PEOPLE' from researchers(60). Route MUST NOT be 'person' until the Sources/People view reads AM.researchers. Phase 1: omit the group via the route-ready gate. Phase 2: this.go({view:'sources', sourceGroup:'PEOPLE', peopleCat:'RESEARCHERS', personId:e.id}) AND fix line 3370 to a not-found state instead of `|| people[0]`."
+   },
+   {
+    "file": "portale.html",
+    "line": 3382,
+    "symbol": "companies (= D.COMPANIES.map, line 3157)",
+    "snippet": "sgp('COMPETITORS', '#978B87', companies.filter(c => match(c.name + ' ' + c.crops.join(' ') + ' ' + c.issues.join(' '))).map(c => ({ label: c.name, meta: c.count + ' items', go: c.go })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Company crop coverage, issue coverage and activity count are facts from D.COMPANIES(6: BASF, Bayer, Corteva, FMC, Syngenta, UPL). Real observed companies are 11 (adds Sipcam 6, Certis 4, Sumitomo 2, Nufarm 1, Gowan 2 activities). openCompany falls back `|| companies[0]`, so a real Sipcam hit would open the BASF demo entity.",
+    "replacement": "AM.searchIndex groups 'COMPETITOR' from a NEW competitorCompanies collection (11, deduped on UPPER(company)) + competitorProducts(36) + competitorActivities(503). Route this.openCompany / this.openCProduct / this.compWith({fCompany}) — all blocked until the Competitor domain reads AM; gate off in phase 1."
+   },
+   {
+    "file": "portale.html",
+    "line": 3383,
+    "symbol": "D.ARCHIVE",
+    "snippet": "sgp('ARCHIVE', '#009845', D.ARCHIVE.filter(a => match(a.title + ' ' + a.crop + ' ' + a.region + ' ' + (a.product || '') + ' ' + a.source)).map(a => ({ label: a.title, meta: a.date, go: () => this.archiveWith({ archiveQuery: s.committedQuery, archiveId: a.id }) })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Title, crop, region, product and source are facts from D.ARCHIVE(448). AM.archive(740) is a derived index over the same seven normalized kinds already reached by the other groups, and it carries no region and no product field at all.",
+    "replacement": "DELETE_COMPONENT. The ARCHIVE search group is removed entirely; its rows are duplicates of the SCIENCE / MARKET / COMPETITOR / FIELD_VOICE / EVENT / NEWS / WINDOW groups, which route to the record's own screen instead of a demo archive row."
+   },
+   {
+    "file": "portale.html",
+    "line": 3384,
+    "symbol": "D.SOURCES",
+    "snippet": "sgp('SOURCES', '#978B87', D.SOURCES.filter(x => match(x.name + ' ' + x.type + ' ' + x.cov + ' ' + x.topics.join(' '))).map(x => ({ label: x.name, meta: x.type, go: () => this.openSource(x.id) })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Source name, type, coverage geography and topic list are facts, from D.SOURCES(53). Real registry is 31. Measured: only 6 of the 31 real source ids (SRC-12, SRC-13, SRC-15, SRC-22, SRC-25, SRC-36) exist in D.SOURCES; the other 25 are IT-SRC-*, and `sr0 = D.SOURCES.find(...) || D.SOURCES[0]` opens the first demo source for all of them.",
+    "replacement": "AM.searchIndex group 'SOURCE' from sources(31). Route this.openSource(e.id), blocked until the Sources view resolves ids from AM.sources with a not-found state; gate off in phase 1."
+   },
+   {
+    "file": "portale.html",
+    "line": 3385,
+    "symbol": "] : [];",
+    "snippet": "] : [];",
+    "classification": "VISUAL_ONLY",
+    "reason": "Closes the array.",
+    "replacement": "DELETE_COMPONENT with the array."
+   },
+   {
+    "file": "portale.html",
+    "line": 2540,
+    "symbol": "q",
+    "snippet": "const q = s.committedQuery.trim().toLowerCase();",
+    "classification": "VISUAL_ONLY",
+    "reason": "Query normalisation only; no fact.",
+    "replacement": "KEEP. Add diacritic folding so 'Marzachi' finds 'Cristina Marzachì' and 'Erysiphe' style accents behave: q.normalize('NFD').replace(/[̀-ͯ]/g,'')."
+   },
+   {
+    "file": "portale.html",
+    "line": 2541,
+    "symbol": "match",
+    "snippet": "const match = (txt) => txt.toLowerCase().includes(q);",
+    "classification": "VISUAL_ONLY",
+    "reason": "Substring test only; no fact. Still used by nothing else once the search block is replaced — verified it is referenced only at 3377-3384.",
+    "replacement": "DELETE_COMPONENT after the rewrite; matching moves to e.terms.some(t => t.indexOf(q) >= 0)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3456,
+    "symbol": "searchTotal",
+    "snippet": "searchGroups, searchTotal: searchGroups.reduce((n, g) => n + g.count, 0)",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This number is presented as a real count of 'connected items'. Today it sums 29 opportunity cases of which 26 are DEMO_SCENARIO, plus 448 demo archive rows and 53 demo sources.",
+    "replacement": "searchGroups, searchTotal: hits.length — where hits are route-ready, non-demo AM.searchIndex entries only."
+   },
+   {
+    "file": "portale.html",
+    "line": 2358,
+    "symbol": "markup copy",
+    "snippet": "<h1 …>Results for “{{ query }}”</h1><div …>{{ searchTotal }} connected items across opportunities, signals, products, science, people, archive and sources.</div>",
+    "classification": "VISUAL_ONLY",
+    "reason": "Copy, not a fact — but it hardcodes the eight-group enumeration (including 'archive', which dies) and it is untranslated English in an Italian-default product. Measured: SINTONIA_I18N has 371 keys in both it and en, and none for this string.",
+    "replacement": "{{ t.searchResultsFor }} “{{ query }}” / {{ searchTotal }} {{ t.searchTotalNote }} — add searchResultsFor and searchTotalNote to italy-i18n.js it+en, with generic wording that does not enumerate groups."
+   },
+   {
+    "file": "portale.html",
+    "line": 2364,
+    "symbol": "g.empty",
+    "snippet": "<sc-if value=\"{{ g.empty }}\"…><div …>No match in this layer.</div></sc-if>",
+    "classification": "VISUAL_ONLY",
+    "reason": "Hardcoded English fallback. With grouping-by-hits, a group with zero hits is simply not emitted, so this branch never fires.",
+    "replacement": "Reuse the node for the overflow row: <sc-if value=\"{{ g.hasMore }}\"><div onClick=\"{{ g.goAll }}\">+ {{ g.more }} {{ t.searchMore }}</div></sc-if>. Feed empty:false."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 298,
+    "symbol": "idx()",
+    "snippet": "const idx = (kind, id, label, terms, route) => searchIndex.push({ kind, id, label, route: route || kind, terms: terms.filter(Boolean).map(t => String(t).toLowerCase()) });",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The entry shape has no group, no meta, no routeArgs and no provenance, so the view cannot group or gate without a per-kind manual scan — which is exactly what portale.html does today. It also lowercases raw source values only: no Italian/English expansion, and no filter for 'NAO SEI' research notes, which are measured at 17/17 on voices.role, 17/17 voices.organization, 17/17 voices.region, 60/60 researchers.role and 2/3 futureSignals.region.",
+    "replacement": "const idx = (kind, group, id, label, meta, terms, route, routeArgs, provenance) => searchIndex.push({ kind, group, id, label, meta: meta || '', route, routeArgs: routeArgs || {}, provenance, terms: TERMS(terms) }); where TERMS drops null/'', drops any value matching /n[ãa]o sei|non so|^unknown|^not stated/i, drops values over 80 chars, expands crops/issues bilingually, dedupes and lowercases."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 299,
+    "symbol": "products idx",
+    "snippet": "products.forEach(p => idx('product', p.name, p.name, [p.name, p.ai, p.categoryLabel, p.line], 'product'));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Correct source (166 real, measured 0 demo-only) but terms omit crops and targets, which is how a user actually searches ('what do I have for Amaranthus'). Coverage is honest but partial: crops empty for 46/166 and targets empty for 67/166.",
+    "replacement": "idx('product','PRODUCT',p.key,p.name,p.ai||'',[p.name,p.ai,p.categoryLabel,p.line,...(p.crops||[]),...(p.targets||[]),p.regulatory&&p.regulatory.reg],'product',{},p.provenance) — and guard with !AM.isDemo(p,'REAL_SOURCE')."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 300,
+    "symbol": "opportunities idx",
+    "snippet": "opportunities.records.forEach(c => idx('case', c.id, c.issue + ' · ' + c.region, [c.issue, c.crop, c.region, c.latin, c.id], 'case'));",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Indexes all 29 opportunities. Measured: 26 carry provenance DEMO_SCENARIO; only IT-OPP-001/002/003 are upstream-real. c.latin comes from the D.CASES fixture. Feeding these into a real global search and a real total breaks §5 (demo must never feed a real count).",
+    "replacement": "opportunities.records.filter(c => c.isUpstreamReal).forEach(c => idx('case','OPPORTUNITY',c.id,…,[c.issue,c.crop,c.region,c.id],'case',{},'REAL_SOURCE')) — 3 entries. Take crop/issue/region from c.upstream (IG.OPPORTUNITIES), not from the fixture."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 301,
+    "symbol": "voices idx",
+    "snippet": "voices.records.forEach(v => idx('voice', v.id, v.person || v.channel, [v.person, v.channel, v.crop, v.issue, v.title], 'voice'));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Route 'voice' does not exist. Verified: activeOf (line 2610) has 'voices' but no 'voice', and there is no per-voice detail view — the Voci screen (markup 1426-1495) is a flat featured/latest list with no id anchor. All 17 voice hits currently dead-end.",
+    "replacement": "idx('voice','FIELD_VOICE',v.id,v.person||v.channel,v.platform||'',[v.person,v.channel,v.title,v.crop,v.issue,v.platform],'voices',{voiceId:v.id},v.provenance). Do NOT index v.role/v.organization/v.region — all 17/17 are 'NAO SEI' notes."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 302,
+    "symbol": "futureSignals idx",
+    "snippet": "futureSignals.records.forEach(f => idx('signal', f.id, f.issue + ' · ' + f.region, [f.issue, f.crop, f.region], 'signal'));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Real source, but region is a Portuguese not-known note in 2 of 3 records, and it is concatenated straight into the visible label.",
+    "replacement": "label = KNOWN(f.region) ? f.issue+' · '+f.region : f.issue; terms exclude the note; route 'signal' → this.openSignal(f.id) (verified working: sgPool is AM.futureSignals)."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 303,
+    "symbol": "researchers idx",
+    "snippet": "researchers.forEach(r => idx('researcher', r.id, r.name, [r.name, r.org], 'person'));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Two defects. (a) Route 'person' resolves against D.PEOPLE (ids RR-01..TSR-7); researcher ids are IT-PER-001.., so all 60 open the first DEMO person. (b) r.org is null for 60/60 because the model reads ORGANIZATION||org||INSTITUTION while IG.RESEARCHERS supplies INSTITUTIONS (array, 60/60 non-empty) — so every researcher is searchable by name only.",
+    "replacement": "Fix the researchers collection first (org from INSTITUTIONS.join(' · '), theme from THEME, orcid from ORCID, lastActivity from LAST_ACTIVITY 60/60). Then idx('researcher','PEOPLE',r.id,r.name,r.org,[r.name,...r.institutions,r.theme],'person',{personId:r.id},r.provenance) — and keep the route gated off until the People view reads AM.researchers. Do NOT index r.role: 60/60 are 'NÃO SEI — o índice não declara papel'."
+   },
+   {
+    "file": "italy-app-model.js",
+    "line": 304,
+    "symbol": "resistance idx",
+    "snippet": "resistance.records.forEach(r => idx('resistance', r.id, r.species, [r.species, r.speciesIt, r.crop], 'science'));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Route 'science' lands on the section, not the record — acceptable, but the GIRE list is collapsed to 8 of 34 by default (s.gireAll), so 26 of 34 hits land on a page that does not visibly contain the match. Terms also carry raw prose: r.crop is Portuguese research text over 60 chars in 7/34 records, and r.species carries parenthetical synonym notes ('Amaranthus hybridus (sinonimi na ficha: A. patulus, …)').",
+    "replacement": "Lift the GIRE normalizer that already exists at portale.html 3247-3287 (NOTE regex, spFull/spIt split on '—', genus extraction) into the model, then idx('resistance','SCIENCE',r.id,species,mech,[speciesFull,speciesIt,genus,cropClean],'gire',{gireAll:true,gireFocusId:r.id},r.provenance). §11: split on '—' only, never on '(' — 'Schoenoplectus (Scirpus) mucronatus' must survive."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "searchIndex (rebuilt)",
+    "why": "The view must group and route with one reduce and one dispatcher, never a per-kind scan. Entry shape today lacks group, meta, routeArgs and provenance, which is precisely why portale.html hand-writes eight scans.",
+    "fields": [
+     "kind — record type, e.g. 'product','window','voice','science','market'",
+     "group — UI group key the view buckets on: OPPORTUNITY | WINDOW | PRODUCT | SIGNAL | FIELD_VOICE | SCIENCE | PEOPLE | COMPETITOR | MARKET | SOURCE | NEWS | EVENT",
+     "id — the record's own id, in the namespace its destination view resolves",
+     "label — visible row text; never a concatenation containing a not-known note",
+     "meta — right-hand secondary text (ai, institution, platform, price unit, date)",
+     "route — one of product|case|window|signal|voices|science|gire|market|source|company|competitor|event|news|person",
+     "routeArgs — extra state the dispatcher spreads (voiceId, sciFocusId, gireFocusId, mCrop, fCompany)",
+     "terms — lowercased, diacritic-folded, deduped, note-free, bilingually expanded",
+     "provenance — REAL_SOURCE | CANONICAL | REAL_DERIVED; DEMO_SCENARIO and SYNTHETIC_DEMO records are never pushed"
+    ],
+    "derivation": "One idx() call per collection over AM.collections. Sizes measured: product 166, window 29, opportunity 3 (isUpstreamReal only), signal 3, voice 17, researcher 60, resistance 34, science 88, theme 5, source 31, channel 30, event 18, news 8, market 77, competitorActivity 503, company 11, competitorProduct 36 = 1114 entries. Verified: no id collides across kinds."
+   },
+   {
+    "collection": "terms helper (new, exported as AM.terms)",
+    "why": "Search terms are the one place where a research note becomes a visible fact. Measured note contamination: voices.role 17/17, voices.organization 17/17, voices.region 17/17, researchers.role 60/60, futureSignals.region 2/3, resistance.speciesIt 1/34 and resistance.crop 1/34 plus 7/34 over 60 chars of prose.",
+    "fields": [
+     "NOT_KNOWN(v) — /n[ãa]o sei|non so|^unknown$|^not stated$/i",
+     "TERMS(list) — filter null/''/NOT_KNOWN/length>80, fold diacritics, lowercase, dedupe",
+     "cropTerms(raw) — raw + canonical i18n key + Italian label",
+     "issueTerms(raw) — raw + canonical i18n key + Italian label"
+    ],
+    "derivation": "cropTerms uses a measured alias table over the FIVE crop vocabularies actually present: canonical i18n keys in windows (Grapevine, Maize, Olive, Sugar Beet, Apple, Wheat, Durum Wheat, Tomato, Rice, Soybean); SCREAMING_SNAKE in voices/science (DURUM_WHEAT, VINE, MAIZE, OLIVE, CEREAL); Italian/Portuguese in news (MAIS, VITE, FRUMENTO, SOIA, ORTICOLE, CEREAIS); Latin binomials in competitor activities (Zea mays, Triticum aestivum, Vitis vinifera, Olea europaea, Solanum lycopersicum, Beta vulgaris, Malus domestica, Oryza sativa, Helianthus annuus, Citrus, Prunus persica) plus Italian generics (cereali, colture, frutta, ortaggi); and product crop codes (WHEAT_GENERIC, BARLEY, TRITICALE). Map ONLY the unambiguous pairs to an i18n key. CEREAL/CEREAIS/cereali/colture/frutta/ortaggi/ORTICOLE/Citrus/Prunus persica/WHEAT_GENERIC/BARLEY/TRITICALE have no unambiguous key and are indexed verbatim, never guessed. Italian labels come from SINTONIA_I18N.it.CROPS / .ISSUES, which is an EN-key → IT-label map (en.CROPS is empty, measured)."
+   },
+   {
+    "collection": "researchers (fix)",
+    "why": "org null 60/60 and url null 60/60 because the model reads the wrong keys; that alone makes 60 real researchers searchable by surname only.",
+    "fields": [
+     "org ← INSTITUTIONS.join(' · ') (60/60 non-empty)",
+     "institutions ← INSTITUTIONS (array)",
+     "theme ← THEME (60/60, one of the 5 IT-THEME values)",
+     "orcid ← ORCID (60/60)",
+     "lastActivity ← LAST_ACTIVITY (60/60 real dates)",
+     "identityStatus ← IDENTITY_STATUS",
+     "role — must render UNKNOWN: 60/60 are 'NÃO SEI — o índice não declara papel'",
+     "crops/issues — REMOVE, no such field exists upstream"
+    ],
+    "derivation": "Direct rename against the measured IG.RESEARCHERS schema."
+   },
+   {
+    "collection": "scienceRecords (fix)",
+    "why": "date and year are null 88/88 because the model reads DATE/YEAR while IG.SCIENCE supplies PUBLISHED_AT (88/88). A search result with no date is a search result the user cannot judge.",
+    "fields": [
+     "date ← PUBLISHED_AT (88/88)",
+     "author ← AUTHOR (88/88)",
+     "venue ← VENUE (88/88)",
+     "doi ← DOI",
+     "materialType ← MATERIAL_TYPE, materialRole ← MATERIAL_ROLE",
+     "countryOfFact ← COUNTRY_OF_FACT",
+     "studyArea — REMOVE, no such field upstream"
+    ],
+    "derivation": "Direct rename against the measured IG.SCIENCE schema."
+   },
+   {
+    "collection": "themes (new)",
+    "why": "The search SCIENCE group currently offers 10 demo themes with slug ids. Five real themes exist and 60/60 researchers link to them by THEME, giving a real researcher↔theme join the demo one only pretended to have.",
+    "fields": [
+     "id ← ID (IT-THEME-001..005)",
+     "theme ← THEME",
+     "query ← QUERY",
+     "works ← WORKS (135/70/71/27/17)",
+     "authorsIt ← AUTHORS_IT, authorsWithOrcid ← AUTHORS_WITH_ORCID, authorsActiveSince2024 ← AUTHORS_ACTIVE_SINCE_2024",
+     "institutionsTop ← INSTITUTIONS_TOP"
+    ],
+    "derivation": "coll(IG.THEMES.map(...), REAL_SOURCE). Note the ids do not overlap D.SCI_THEMES slugs, so openTheme must not be the route until the Science view migrates."
+   },
+   {
+    "collection": "events (fix)",
+    "why": "name is null 18/18 — the model reads NAME||name while IG.EVENTS supplies EVENT. Consequence beyond search: all 18 EVENT rows in AM.archive have title: null (measured).",
+    "fields": [
+     "name ← EVENT (18/18)",
+     "url ← OFFICIAL_URL",
+     "organizer ← ORGANIZER",
+     "sector ← SECTOR, cropRelevance ← CROP_RELEVANCE",
+     "timeState ← TIME_STATE"
+    ],
+    "derivation": "Direct rename against the measured IG.EVENTS schema."
+   },
+   {
+    "collection": "news (fix)",
+    "why": "outlet null 8/8 (reads OUTLET/SOURCE, upstream is PUBLISHER) and url null 8/8 (reads URL, upstream is SOURCE_URL 8/8).",
+    "fields": [
+     "outlet ← PUBLISHER (8/8)",
+     "url ← SOURCE_URL (8/8)",
+     "author ← AUTHOR",
+     "contentKind ← CONTENT_KIND",
+     "summary ← SINTONIA_SUMMARY, caveat ← CAVEAT"
+    ],
+    "derivation": "Direct rename against the measured IG.NEWS schema."
+   },
+   {
+    "collection": "channels (fix)",
+    "why": "platform null 30/30 and url null 30/30. IG.CHANNELS has no PLATFORM field at all and the link is CHANNEL_URL.",
+    "fields": [
+     "url ← CHANNEL_URL (30/30)",
+     "exampleTitle ← EXAMPLE_TITLE, exampleUrl ← EXAMPLE_URL",
+     "contentTypeExample ← CONTENT_TYPE_EXAMPLE",
+     "identityState ← IDENTITY_STATE",
+     "caseId ← CASE_ID",
+     "views ← VIEWS",
+     "platform — REMOVE, not observable from this source"
+    ],
+    "derivation": "Direct rename against the measured IG.CHANNELS schema."
+   },
+   {
+    "collection": "sources (fix)",
+    "why": "group is null 31/31; the model reads GROUP but IG.SOURCES has no such field. The demo grouping taxonomy (GOVERNMENT & OFFICIAL, RESEARCH & SCIENCE, …) is a fixture invention.",
+    "fields": [
+     "role ← ROLE",
+     "country ← COUNTRY",
+     "frequency ← FREQUENCY",
+     "accessStatus ← ACCESS_STATUS",
+     "limitations ← LIMITATIONS",
+     "latestObservation ← LATEST_OBSERVATION",
+     "group — REMOVE or derive strictly from TYPE"
+    ],
+    "derivation": "Direct rename against the measured IG.SOURCES schema."
+   },
+   {
+    "collection": "competitorCompanies (new) + competitorProducts (new)",
+    "why": "Search must reach the 11 real observed companies, not the 6 in the fixture. IG.COMP_COMPANIES has 14 rows for 11 companies because of case duplication (SYNGENTA vs Syngenta, BAYER vs Bayer, CORTEVA vs Corteva).",
+    "fields": [
+     "company — deduped on UPPER(COMPANY); measured activity counts BASF 138, FMC 102, CORTEVA 94, BAYER 86, SYNGENTA 55, UPL 13, SIPCAM 6, CERTIS 4, SUMITOMO 2, GOWAN 2, NUFARM 1",
+     "paidAdsReachingIt ← PAID_ADS_REACHING_IT",
+     "organicVideosInCorpus ← ORGANIC_VIDEOS_IN_CORPUS",
+     "pages ← PAGES, productsProved ← PRODUCTS_PROVED",
+     "competitorProducts: product ← PRODUCT, company ← COMPANY, adsReachingIt ← ADS_REACHING_IT, proof ← PROOF"
+    ],
+    "derivation": "Merge the case-duplicated COMP_COMPANIES rows on UPPER(COMPANY) and sum. §8/§9: adsReachingIt is communication density reaching Italy, never market share and never targeting."
+   },
+   {
+    "collection": "marketObservations (routing metadata only)",
+    "why": "The Market Pulse view is addressed by MK.CROPS key (maize|durum|soft|olive|wine|tomato|sugarbeet|apple), while market records carry GROUP (CEREAL|OLIVE_OIL|WINE) and a raw product code.",
+    "fields": [
+     "ui.marketCropKey — only where the mapping is unambiguous"
+    ],
+    "derivation": "Measured group|product pairs: 'MAI|FEED'(10) and 'Feed maize'(1) → maize; 'DUR|UNKNOWN'(7) and 'Durum wheat'(1) → durum; 'BLTPAN|PAN'(12) and 'Breadmaking common wheat'(1) → soft; OLIVE_OIL (36 across 6 grades) → olive; WINE(1) → wine. 'Feed barley'(1) and 'ORGFOUR|FEED'(7) map to NOTHING — barley is not a MK crop and ORGFOUR is unresolved; those route to view 'market' without changing mCrop rather than being forced into a bucket."
+   }
+  ],
+  "markupImpact": [
+   "portale.html:2358 — replace the hardcoded English 'Results for “{{query}}”' and '{{searchTotal}} connected items across opportunities, signals, products, science, people, archive and sources.' with i18n keys ({{t.searchResultsFor}}, {{t.searchTotalNote}}). The enumeration is wrong after migration (archive group is removed, windows/market/voices groups are added) and it is untranslated English in an Italian-default product. Add both keys to italy-i18n.js it and en.",
+   "portale.html:2360 — <sc-for list=\"{{ searchGroups }}\" as=\"g\" hint-placeholder-count=\"6\"> : bump hint-placeholder-count to 8; up to 12 groups can now appear, and only groups with hits are emitted.",
+   "portale.html:2362 — group header {{ g.label }} / {{ g.count }} stays structurally identical; g.label now comes from SINTONIA_I18N (t.navRadar, t.navWindows, t.navPortfolio, t.navFuture, t.navVoices, t.navScience, t.lblPeople, t.navCompetitors, t.navMarket, t.navSources, t.lblEventWatch) instead of a hardcoded English constant.",
+   "portale.html:2363 — item row: {{ i.label }} / {{ i.meta }} / onClick={{ i.go }} unchanged in shape; i.go now calls the single openSearchHit(e) dispatcher instead of a per-group closure.",
+   "portale.html:2364 — repurpose the g.empty node as the overflow row: <sc-if value=\"{{ g.hasMore }}\"><div onClick=\"{{ g.goAll }}\" …>+ {{ g.more }} {{ t.searchMore }}</div></sc-if>. Today the card prints the full count (e.g. 503) but renders only 6 rows with no way to reach the rest. Add t.searchMore to italy-i18n.js. Card geometry, border-top accent, dotted separators and grid unchanged.",
+   "portale.html:105 — search input placeholder {{ t.searchPh }} ('Cerca coltura o prodotto…' / 'Search crop or product…'): no code change, but the copy is now understated — the index also covers windows, science, market, sources and competitors. Optional copy refresh only; do NOT restructure the header.",
+   "No other markup changes. Grid, card, typography, colors and the ADAMA accent (#009845 / #978B87) are preserved exactly."
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "ARCHIVE search group (448 demo rows)",
+    "usedAt": "portale.html:3383 sgp('ARCHIVE', …, D.ARCHIVE.filter(…))",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "AM.archive(740) is a derived index over science/market/competitor/voice/event/news/window — the same records the per-kind groups now reach directly and route to their own screen. Keeping an ARCHIVE group would double-count every hit in searchTotal. It also has no region and no product field, so two of the five things this group searches on do not exist in reality."
+   },
+   {
+    "field": "archive row .region and .product",
+    "usedAt": "portale.html:3383 match(a.title + ' ' + a.crop + ' ' + a.region + ' ' + (a.product || '') + ' ' + a.source)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "AM.archive rows carry only kind, id, title, date, source, url, crop, issue. Searching the archive by region or by product simply stops existing. Measured archive field coverage: title 722/740, date 521/740, crop 401/740, issue 240/740 — and all 18 EVENT titles are null until the events collection is fixed."
+   },
+   {
+    "field": "opportunity search results 29 → 3",
+    "usedAt": "portale.html:3377; italy-app-model.js:300",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Measured: 26 of 29 opportunities are provenance DEMO_SCENARIO. Only IT-OPP-001, IT-OPP-002 and IT-OPP-003 have an upstream record. A search for 'Septoria' or 'Cercospora' will return zero opportunity cases after this change. That is the honest number; do not backfill it from D.CASES."
+   },
+   {
+    "field": "opportunity .latin (scientific name of the pest/pathogen)",
+    "usedAt": "portale.html:3377 c.latin",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "IG.OPPORTUNITIES has no Latin-name field. Today 'Scaphoideus titanus' finds IT-OPP-001 through the fixture. After migration, only the ISSUE string is searchable for opportunities — Latin names remain reachable through the resistance kind (34 binomials) and competitor issues (Plasmopara viticola, Erysiphe necator, Botrytis cinerea, Zymoseptoria tritici, Ceratitis capitata, Diaporthe neoviticola, Phyllosticta ampelicida)."
+   },
+   {
+    "field": "science theme .works count and theme ids",
+    "usedAt": "portale.html:3380 D.SCI_THEMES … meta: t.works + ' works'",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "10 demo themes with slug ids (grapevine-phytoplasma, scaphoideus, maize-borer, olive-bactrocera, durum-fusarium, cercospora-dss, maize-mycotoxins, xylella, ipm, resistance) become 5 real ones (VINE_FLAVESCENCE 135 works, DURUM_FUSARIUM 70, OLIVE_BACTROCERA 71, MAIZE_BORER_DIABROTICA 27, WEED_HERBICIDE_RESISTANCE 17). Five themes lose their entry entirely — notably Xylella, IPM and cercospora-dss, which have no real counterpart."
+   },
+   {
+    "field": "science record .descriptor and .location (study area)",
+    "usedAt": "portale.html:3380 D.RECORDS.filter(r => match(r.descriptor + ' ' + r.institution + ' ' + r.location))",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Real SCIENCE records have TITLE, AUTHOR, VENUE, INSTITUTION, COUNTRY_OF_FACT — no descriptor and no study area. This is the field the screen itself already warns about at line 2063 ('affiliation ≠ field location'). Searching science by study region dies; the honest replacement is title + author + institution + crop + issue."
+   },
+   {
+    "field": "researcher .crops, .issues, .region and .role",
+    "usedAt": "portale.html:3381 people.filter(p => match(p.label + ' ' + p.org + ' ' + p.crops.join(' ') + ' ' + p.issues.join(' ') + ' ' + p.region))",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "Measured on IG.RESEARCHERS(60): no crops field, no issues field, FACT_REGION is 'NÃO SEI — a afiliação é do AUTOR, não do estudo' for all 60, and ROLE is 'NÃO SEI — o índice não declara papel' for all 60. You cannot search researchers by crop or by region any more. What is real and usable: PERSON, INSTITUTIONS (60/60), THEME (60/60), ORCID (60/60), LAST_ACTIVITY (60/60), WORKS_IN_SCOPE."
+   },
+   {
+    "field": "researcher search results routing to a person page",
+    "usedAt": "italy-app-model.js:303 route 'person'; portale.html:3370 pr0 = people.find(p => p.id === s.personId) || people[0]",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Hard block, not a soft one. Researcher ids are IT-PER-001..060 and D.PEOPLE ids are RR-01..RR-14, P-13..P-30, TSR-1..TSR-7. Zero overlap. Every one of the 60 would open the same demo person. Until the Sources/People view reads AM.researchers, the PEOPLE search group must be OFF — a missing group is correct, a group that lies is not."
+   },
+   {
+    "field": "company .crops and .issues",
+    "usedAt": "portale.html:3382 companies.filter(c => match(c.name + ' ' + c.crops.join(' ') + ' ' + c.issues.join(' ')))",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "IG.COMP_COMPANIES has COMPANY, PAID_ADS_REACHING_IT, ORGANIC_VIDEOS_IN_CORPUS, PAGES, PRODUCTS_PROVED — no crop coverage and no issue coverage at company level. Searching 'which competitor talks about maize' at the company level stops working; crops and issues exist only per activity (503 records), so the answer moves to the activity group and becomes 'these observed communications mention Zea mays', which is a weaker and more truthful claim (§8)."
+   },
+   {
+    "field": "source .cov (coverage) and .topics",
+    "usedAt": "portale.html:3384 D.SOURCES.filter(x => match(x.name + ' ' + x.type + ' ' + x.cov + ' ' + x.topics.join(' ')))",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "IG.SOURCES has GEOGRAPHY (31/31, values like 'IT') and ROLE/LIMITATIONS, but no topic list. Searching a source by the crop it covers dies. Source count also drops 53 → 31, and 25 of the 31 real ids (IT-SRC-*) currently cannot be opened at all — they silently open the first demo source."
+   },
+   {
+    "field": "voice .role, .organization, .region",
+    "usedAt": "italy-app-model.js:301 (proposed terms); portale.html:3058-3061 roleLine / region",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "Measured 17/17 for all three: the upstream value is the Portuguese note 'NAO SEI …'. These must never become search terms, and the Voci view's `v.region || T.vociRegionNotStated` fallback does not fire because the note string is truthy — it prints the Portuguese sentence today. Searching voices by region or by employer is impossible; searchable reality is person handle, channel, content title, crop, issue, platform."
+   },
+   {
+    "field": "product .use, .moa, .cat",
+    "usedAt": "portale.html:3379 D.PRODUCT_LIST (fields use/moa/cat)",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Real registry supplies hrac/frac/irac and line/regCat instead. But the honest coverage cost is elsewhere: of the 166 real products, 46 have an empty crops list and 67 have an empty targets list. So 'which product for Amaranthus' silently misses 67 of 166 products (40%). The search result row must not imply the absent 67 have no use — §10: absence in this reading is not absence in the world."
+   },
+   {
+    "field": "future signal label region",
+    "usedAt": "italy-app-model.js:302 label f.issue + ' · ' + f.region",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "2 of 3 signals have REGION = 'NAO SEI — o recorte cientifico e por afiliacao nacional, nao por regiao de estudo'. Today that whole sentence is the search result label. After the fix the label is the issue alone, and the region reads as not established."
+   },
+   {
+    "field": "resistance .crop as a searchable crop",
+    "usedAt": "italy-app-model.js:304 terms include r.crop",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "CROP_DECLARED is the GIRE researcher's own Portuguese prose: 7 of 34 exceed 60 characters, e.g. 'soia, pomodoro e melone (soja, tomate e melao) — literal: \"Sistemi colturali: soia, pomodoro e melone.\" ATENCAO: a ficha lista os tres sistemas culturais em bloco…'. One record is outright 'NAO SEI'. Only the pre-'—', pre-note fragment is a crop; anything with a note voids it, exactly as the existing view-side normalizer already does."
+   },
+   {
+    "field": "searchTotal as a count of real connected items",
+    "usedAt": "portale.html:3456 and markup 2358",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "Today this number sums 26 demo opportunity cases, 448 demo archive rows and 53 demo sources into a figure the screen calls 'connected items'. After migration it counts route-ready real entries only. Expect the visible number to move sharply for common queries — that movement is the fix, not a regression."
+   },
+   {
+    "field": "cross-language search (Italian query against English-only terms)",
+    "usedAt": "portale.html:2541 match(); italy-app-model.js:298 terms",
+    "verdict": "SHOW_UNKNOWN",
+    "note": "Measured: SINTONIA_I18N is a one-way EN-key → IT-label map and en.CROPS is an EMPTY object. Terms today are raw source values only. So an Italian user who sees 'Frumento duro' on screen must type 'Durum Wheat' to find it, and 'Vite' finds nothing while 'Grapevine' works. Worse, the source vocabularies are themselves inconsistent — 'Durum Wheat' (windows), 'DURUM_WHEAT' (voices, science), 'FRUMENTO' (news), 'Triticum aestivum' (competitor), 'WHEAT_GENERIC' (product labels) — so no single query reaches all layers. The alias table fixes the unambiguous pairs; CEREAL, CEREAIS, cereali, colture, frutta, ortaggi, ORTICOLE, Citrus, Prunus persica, BARLEY and TRITICALE stay verbatim-only because mapping them would be a guess."
+   }
+  ],
+  "plan": [
+   "1. italy-app-model.js — add the term hygiene helpers above the search section: NOT_KNOWN(v) = /n[ãa]o sei|non so|^unknown$|^not stated$/i, FOLD(v) = String(v).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(), and TERMS(list) = list.flat().filter(v => v && !NOT_KNOWN(v) && String(v).length <= 80).map(FOLD) deduped. Nothing else in the file changes yet.",
+   "2. italy-app-model.js — add CROP_ALIAS and ISSUE_ALIAS tables mapping ONLY the unambiguous measured vocabularies to a SINTONIA_I18N.it.CROPS / .ISSUES key, plus cropTerms(raw) and issueTerms(raw) that emit [raw, key, italianLabel]. Leave CEREAL, CEREAIS, cereali, colture, frutta, ortaggi, ORTICOLE, Citrus, Prunus persica, WHEAT_GENERIC, BARLEY, TRITICALE unmapped and verbatim.",
+   "3. italy-app-model.js — fix the five collections whose search terms are currently null because the model reads the wrong upstream keys: researchers (org ← INSTITUTIONS.join(' · '), theme ← THEME, orcid ← ORCID, lastActivity ← LAST_ACTIVITY, drop crops/issues, role renders UNKNOWN), scienceRecords (date ← PUBLISHED_AT, author ← AUTHOR, venue ← VENUE, doi ← DOI, drop studyArea), events (name ← EVENT, url ← OFFICIAL_URL, organizer ← ORGANIZER), news (outlet ← PUBLISHER, url ← SOURCE_URL, author ← AUTHOR), channels (url ← CHANNEL_URL, exampleTitle ← EXAMPLE_TITLE, caseId ← CASE_ID, drop platform). Re-run the node coverage probe and confirm each field goes from 0/N to N/N. Fixing events.name also repairs the 18 null EVENT titles in AM.archive.",
+   "4. italy-app-model.js — add the three new collections: themes(5 from IG.THEMES), competitorCompanies(11, deduped on UPPER(COMPANY) from the 14 case-duplicated COMP_COMPANIES rows, counts summed), competitorProducts(36 from IG.COMP_PRODUCTS). Register them in the `collections` object so provenanceSummary and counts pick them up.",
+   "5. italy-app-model.js — lift the GIRE species/mechanism/crop normalizer that lives in portale.html lines 3247-3287 (NOTE regex, split on '—' never on '(', genus extraction, MOA table, year-only-if-bare-year) into the model as resistance record fields (species, speciesFull, speciesIt, genus, mech, cropClean, year). The view then reads them instead of re-deriving, and the search index and the science screen finally agree. §11: never truncate at '(' — 'Schoenoplectus (Scirpus) mucronatus' and 'Oryza sativa (L.) var. sylvatica' must survive.",
+   "6. italy-app-model.js — replace lines 297-304 with the new idx(kind, group, id, label, meta, terms, route, routeArgs, provenance) and one call per collection: PRODUCT(166), WINDOW(29), OPPORTUNITY(3, isUpstreamReal only), SIGNAL(3), FIELD_VOICE(17), SCIENCE(88 records + 5 themes + 34 resistance), PEOPLE(60), SOURCE(31 + 30 channels), EVENT(18), NEWS(8), MARKET(77), COMPETITOR(503 + 11 companies + 36 products). Guard every push with !isDemo(record, collectionProvenance). Verify the total lands near 1114 and that no entry has an empty terms array.",
+   "7. portale.html — add the routing dispatcher as a class method next to openSource (around line 2420): openSearchHit(e) switching on e.route → openProduct(e.id) | openCase(e.id) | openWindow(e.id) | openSignal(e.id) | go({view:'voices', voiceId:e.id}) | go({view:'science', sciFocusId:e.id}) | go({view:'science', gireAll:true, gireFocusId:e.id}) | go(Object.assign({view:'market', mTab:'crop'}, e.routeArgs)) | openSource(e.id) | openCompany(e.id) | compWith({fCompany:e.routeArgs.company}) | openEvent(e.id) | openPerson(e.id). One method, no per-kind logic in the group builder.",
+   "8. portale.html — add the readiness gate immediately above it as a single constant: const SEARCH_ROUTE_READY = { product:1, case:1, window:1, signal:1, voices:1, science:1, gire:1, market:1 }. Routes source, company, competitor, event, news and person stay OFF until their own domain reads AM, because each currently resolves with a `|| collection[0]` fallback into a demo entity (verified at lines 3171 companies[0], 3181 D.EVENTS[0], 3185 D.CPRODUCTS[0], 3367 D.SOURCES[0], 3370 people[0]). Flipping one flag per landed domain is the whole integration cost.",
+   "9. portale.html — add state keys voiceId:null, sciFocusId:null, gireFocusId:null to the state initialiser at line 2375-2386. They are presentation focus only: the Voci row and the GIRE row gain a `focused` boolean used for a border colour. No ordering change, no new screen.",
+   "10. portale.html — replace lines 3374-3385 with: SGROUP_DEF (12 group keys with their i18n label and colour, order fixed), hits = AM.searchIndex.filter(e => SEARCH_ROUTE_READY[e.route] && e.terms.some(t => t.indexOf(q) >= 0)), byGroup = hits.reduce(...), searchGroups = SGROUP_DEF.filter(g => byGroup[g[0]]).map(sgp). Delete the `match` helper at line 2541 once confirmed it has no other caller (verified: it does not).",
+   "11. portale.html:2540 — fold diacritics in q the same way TERMS folds them, so 'Marzachi' finds 'Cristina Marzachì'. Both sides of the comparison must use the identical fold, or the index and the query drift.",
+   "12. portale.html:3456 — searchTotal: hits.length (not the sum of capped group counts).",
+   "13. portale.html markup 2358 and 2364 — swap the two hardcoded English strings for new i18n keys (searchResultsFor, searchTotalNote, searchMore) and repurpose the g.empty node into the g.hasMore overflow row. Bump hint-placeholder-count at 2360 from 6 to 8. Nothing else in the card changes.",
+   "14. italy-i18n.js — add searchResultsFor, searchTotalNote and searchMore to both it and en (the file is currently symmetric: 371 keys each, zero missing). Keep the total-note wording generic so it does not enumerate groups.",
+   "15. Verify by query, in the browser, in Italian and in English: 'Frumento duro' and 'Durum Wheat' return the same window and market rows; 'flavescenza' returns opportunity IT-OPP-001, 8 voices, 43 science records and the VINE_FLAVESCENCE theme; 'Sipcam' returns nothing until the competitor gate opens (and never opens BASF); 'Marzachì' returns the researcher only when the people gate is open. Confirm no result opens a screen whose header shows a different entity than the row clicked."
+  ],
+  "risks": [
+   "Six of the twelve search groups (SOURCE, PEOPLE, COMPETITOR, EVENT, NEWS, and any science route through openTheme) land on screens that still resolve ids against the demo fixture with a `|| collection[0]` fallback. If the engineer wires them before those domains migrate, search becomes the fastest way in the whole product to reach a demo entity while believing it is real. The readiness gate is not optional polish — it is the safety mechanism for this change.",
+   "Search visibly gets emptier for some queries. Opportunity hits drop from 29 to 3; source hits from 53 to 31; researcher, source, company, event and news groups disappear entirely in phase 1. A reviewer who does not know the measurements will read this as a regression. Publish the before/after counts alongside the change.",
+   "The crop alias table is the one place in this spec where judgement enters the data path. Every entry must be a 1:1 lexical identity ('Zea mays' = 'Maize' = 'Mais'), never a semantic inference. 'CEREAL' → wheat, or 'cereali' → 'Frumento tenero', would be inventing a fact inside a lookup table, and it would be invisible in review because it lives in a synonym list rather than in a record.",
+   "Indexing all 503 competitor activities makes COMPETITOR the loudest group for almost any crop word (BASF alone has 138). With a 6-row cap and an honest '+497 more', the screen stays truthful, but the group ordering in SGROUP_DEF now decides what the user sees first. Put OPPORTUNITY, WINDOW and PRODUCT before COMPETITOR.",
+   "italy-app-model.js line 98 still admits D.PRODUCTS keys into `products` as SYNTHETIC_DEMO when they are absent from the registry and the catalog. Measured today: 0 such products, so nothing leaks. That is luck about the current data load, not a guarantee — the index push must still be guarded by !isDemo, or the next intelligence package silently puts demo product names into global search.",
+   "Fixing events.name, news.outlet, news.url, science.date, researchers.org and channels.url changes fields that other domains are reading right now as empty. Anything currently rendering a fallback dash for those will start rendering content, and anything that branched on the null (a `hasX` flag) will flip. Coordinate with the Archive, Sources and Science domains before landing step 3.",
+   "The Voci and GIRE focus highlight adds two new state keys and a border colour. Kept to that, it preserves the visual product. If it grows into a per-voice detail page it becomes a redesign, which §12 forbids in this pass."
+  ],
+  "openQuestions": [
+   "Is there any appetite for a real per-voice detail screen? Today the Voci view is a flat list with no id anchor, so a voice search result can only scroll-and-highlight. That is honest but thin for 17 records that each carry a quote, a WHAT_IT_PROVES and a WHAT_IT_DOES_NOT_PROVE.",
+   "Which domain owns fixing the `|| collection[0]` fallbacks at portale.html 3171, 3181, 3185, 3367 and 3370? The signal view already has the correct pattern (sgMissing at 2892). Search cannot be made safe alone if those five keep silently substituting the first demo record.",
+   "Should channels (30) be their own search kind routed to Sources, or folded into the voice entries as extra terms? 17 voices carry a channel name; the other 13 channels have no voice. Folding loses 13 records, a separate kind needs a screen that lists real channels.",
+   "Market records CEREAL|'Feed barley' and CEREAL|'ORGFOUR|FEED' (8 observations) have no MK.CROPS bucket. Route them to Market Pulse with no crop preselected, or omit them from search until the market crop list covers barley?",
+   "italy-app-model.js never reads window.ITALY_LABEL_VERDICTS, so product link strengths still come from D.CASES[].productLinks (portale.html:102-105 in the model). That is outside this domain, but it means the PRODUCT search group's relationship classes are fixture-derived. Worth confirming whoever owns Product Intelligence is on it.",
+   "The search input placeholder says 'Cerca coltura o prodotto…'. Once the index covers windows, science, market and sources, should the copy widen — and does that need brand sign-off?"
+  ],
+  "confidence": "high"
+ }
+]
