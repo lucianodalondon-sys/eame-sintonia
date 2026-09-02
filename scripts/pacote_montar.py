@@ -199,8 +199,18 @@ def validar(idx):
                 if isinstance(it, dict) and it.get('ID'):
                     dup[it['ID']].append(rel(p))
     dups = {k: v for k, v in dup.items() if len(v) > 1}
-    padrao = re.compile(r'\bIT-(?:OPP|FUT|WIN|MKT|COMP-ACT|COMP-PRD|COMP|VOICE|SCI|PER|'
-                        r'NEWS|EVT|SRC|PRD|CPP|CROP|CHAN|RES|THEME|ARC)-\d{3}\b')
+    # ⚠️ O PADRAO E UMA LISTA FECHADA, E ISSO E UMA ARMADILHA SILENCIOSA.
+    # Uma familia de ID que nao esteja aqui nao e checada, e a validacao
+    # devolve «0 orfaos» sem ter olhado para ela. Quando a camada de
+    # convergencia nasceu com IT-LBL, IT-CONV, IT-NOREAD e IT-NOTALK, o verde
+    # continuou verde -- medindo as familias antigas, nao a nova.
+    #
+    #     LUZ VERDE SO VALE PARA O QUE ELA OLHA.
+    #
+    # Toda familia de ID nova entra aqui no mesmo commit em que nasce.
+    padrao = re.compile(r'\bIT-(?:OPP|FUT|WIN|MKT|MKTCAP|COMP-ACT|COMP-PRD|COMP|'
+                        r'VOICE|SCI|PER|NEWS|EVT|SRC|PRD|CPP|CROP|CHAN|RES|THEME|'
+                        r'ARC|PHEN|LBL|CONV|NOREAD|NOTALK)-\d{3}\b')
     for p in jsons():
         if rel(p).endswith('ID-INDEX.json'):
             continue
@@ -281,6 +291,10 @@ def main():
     print('PROSA')
     copiar_prosa()
     print('RELACOES')
+    # As ligacoes da convergencia nascem ANTES do indice de IDs, senao os IDs
+    # delas ficariam de fora e a validacao de orfaos nao as veria.
+    import pacote_relacoes_convergencia
+    pacote_relacoes_convergencia.main()
     idx, links = relacoes()
     print('VALIDACAO')
     erros, dups, orfas = validar(idx)
