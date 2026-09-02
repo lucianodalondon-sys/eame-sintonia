@@ -260,6 +260,47 @@ def copiar_prosa():
     if not os.path.isdir(origem):
         print('  (sem prosa em research/italy-demo-reality/handoff)')
         return 0
+    # ⚠️ COPIAR SEM LIMPAR DEIXA O DOCUMENTO VELHO NA ENTREGA
+    # `AS-QUATRO-HISTORIAS.md` foi renomeado para `AS-CINCO-HISTORIAS.md` na
+    # origem, e o pacote saiu com OS DOIS. Um Design que abrisse o errado leria
+    # numeros de uma versao anterior e nao teria como saber.
+    #
+    #     RENOMEAR NA ORIGEM NAO APAGA NA COPIA.
+    #
+    # ⚠️⚠️ E a PRIMEIRA tentativa de consertar isto quebrou outra coisa: varrer a
+    # pasta de destino apagando todo `.md` inesperado comeu o `REALITY-COUNTS.md`,
+    # que nao vem daqui -- vem do `pacote_docs.py`, que roda antes. Uma limpeza
+    # que olha para a PASTA nao sabe de quem e cada arquivo.
+    #
+    #     SO SE APAGA O QUE SE CRIOU, E ISSO EXIGE TER ANOTADO.
+    #
+    # Por isso a lista do que esta funcao escreveu fica gravada no pacote, e a
+    # limpeza remove apenas o que ESTA nessa lista e nao esta mais na origem.
+    manifesto = os.path.join(PKG, '06-HANDOFF-MANIFEST', 'PROSA-COPIADA.json')
+    escritos_antes = []
+    if os.path.exists(manifesto):
+        try:
+            escritos_antes = json.load(open(manifesto, encoding='utf-8'))['ARQUIVOS']
+        except (ValueError, KeyError):
+            escritos_antes = []
+
+    esperados = set()
+    for f in sorted(os.listdir(origem)):
+        if '_' in f and f.endswith('.md'):
+            pasta, nome = f.split('_', 1)
+            esperados.add('%s/%s' % (pasta, nome))
+
+    apagados = []
+    for antigo in escritos_antes:
+        if antigo in esperados:
+            continue
+        alvo = os.path.join(PKG, antigo.replace('/', os.sep))
+        if os.path.exists(alvo):
+            os.remove(alvo)
+            apagados.append(antigo)
+    if apagados:
+        print('  prosa obsoleta removida do pacote:', ', '.join(apagados))
+
     n = 0
     for f in sorted(os.listdir(origem)):
         if '_' not in f or not f.endswith('.md'):
@@ -269,6 +310,13 @@ def copiar_prosa():
         os.makedirs(d, exist_ok=True)
         shutil.copy2(os.path.join(origem, f), os.path.join(d, nome))
         n += 1
+    os.makedirs(os.path.dirname(manifesto), exist_ok=True)
+    json.dump({'O_QUE_E': 'o que copiar_prosa() escreveu nesta execucao. A limpeza da '
+                          'proxima execucao so pode apagar o que esta aqui.',
+               'LEI': 'SO SE APAGA O QUE SE CRIOU, E ISSO EXIGE TER ANOTADO.',
+               'ARQUIVOS': sorted(esperados)},
+              open(manifesto, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+
     # e o acervo de pesquisa
     arq = os.path.join(ROOT, 'research', 'italy-demo-reality')
     d2 = os.path.join(PKG, '02-RESEARCH-ARCHIVE')
