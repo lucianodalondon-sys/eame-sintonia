@@ -76,6 +76,11 @@ echo "── 5c · R3 · a rota medida, ligada as fontes que ela mede ───�
 "$PY" scripts/v21_contrato_do_pacote.py --rota
 
 echo
+echo "── 5d · R5 · sobre o mundo, ou sobre o nosso encanamento? ──────────────"
+# Antes da traducao (mexe em texto) e antes do fechamento (mexe em CLIENT_SAFE).
+"$PY" scripts/v21_dominio_da_alegacao.py
+
+echo
 echo "── 6 · a tradução, conferida antes de entrar ───────────────────────────"
 # a trava recusa gravar se alguma tradução falhar. É de propósito.
 "$PY" scripts/v21_traducao_trava.py --aplicar

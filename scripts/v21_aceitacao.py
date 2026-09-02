@@ -86,9 +86,31 @@ def main():
                 quebras.append({'ARQUIVO': a, 'ID': x['ID'], 'QA': q,
                                 'ERRO': 'CLIENT_SAFE=true com QA inseguro'})
             if (not s) and q in SAFE_OK:
+                # ── R5 · O PORTAO GANHA UMA SEGUNDA CONDICAO, E SO APERTA ─────
+                # Ate aqui CLIENT_SAFE era funcao PURA do QA_STATUS: «a evidencia
+                # aguenta?». Faltava a outra pergunta: «a alegacao e sobre o
+                # mundo?». Um registro pode ser verdadeiro, documentado e
+                # verificavel — e ainda assim nao sustentar afirmacao nenhuma ao
+                # cliente, porque nao fala do mercado italiano: fala de como o
+                # coletor chegou la.
+                #
+                #     CLIENT_SAFE = a evidencia aguenta E a alegacao e sobre o mundo.
+                #
+                # Repare no sentido da mudanca: a condicao nova faz MENOS coisa
+                # passar, nunca mais. Portao que se reabre para deixar passar e
+                # outra coisa, e essa continua proibida.
+                if x.get('CLAIM_DOMAIN') == 'SOURCE_ACCESS' and x.get('CLIENT_SAFE_WHY_NOT'):
+                    continue
                 quebras.append({'ARQUIVO': a, 'ID': x['ID'], 'QA': q,
                                 'ERRO': 'CLIENT_SAFE=false com QA seguro'})
     r['QA_GATE'] = {
+        'LEI': ('CLIENT_SAFE = a evidencia aguenta (QA_STATUS) E a alegacao e '
+                'sobre o mundo (CLAIM_DOMAIN). A segunda condicao entrou em R5 e '
+                'so aperta: um registro sobre a rota de coleta nao sustenta '
+                'afirmacao ao cliente nem com a melhor evidencia.'),
+        'REBAIXADOS_POR_DOMINIO': [
+            x['ID'] for _a, _d in colecoes() for x in _d['RECORDS']
+            if isinstance(x, dict) and x.get('CLAIM_DOMAIN') == 'SOURCE_ACCESS'],
         'VIOLACOES': len(quebras),
         'DETALHE': quebras[:40],
         'SEM_QA_STATUS': sem_carimbo,
@@ -219,6 +241,11 @@ def main():
         b + suf for b in BASES
         for suf in ('', '_IT', '_EN', '_ORIGINAL_RESEARCH_TEXT'))
     dentro = []
+    ix_dom = {}
+    for a, d in colecoes():
+        for x in d['RECORDS']:
+            if isinstance(x, dict) and x.get('ID'):
+                ix_dom[x['ID']] = x
     for a, d in colecoes():
         if a == 'SOURCES.json':      # §18 · a casa declarada do metadado de rota
             continue
@@ -228,11 +255,25 @@ def main():
             alvo = ' '.join(str(x.get(c) or '') for c in CAMPOS_DE_TELA)
             if ROTA.search(alvo):
                 dentro.append('%s:%s' % (a, x.get('ID')))
+    # Um numero que nao distingue «ainda por olhar» de «olhado e mantido de
+    # proposito» faz o leitor seguinte reabrir a mesma decisao. O contador diz
+    # as duas coisas, e a segunda vem com o motivo escrito no registro.
+    #
+    #     PENDENCIA E DECISAO NAO PODEM SOMAR NO MESMO NUMERO.
+    revistos = [i for i in dentro
+                if (ix_dom.get(i.split(':', 1)[1], {}).get('CLAIM_DOMAIN_REVIEWED')
+                    or ix_dom.get(i.split(':', 1)[1], {}).get('ROUTE_NOTE_MOVED_OUT_OF_CLAIM'))]
     r['SEPARACAO'] = {
         'ARQUIVOS_EM_DESIGN_INGEST': len(os.listdir(ING)),
         'PAPEL_DE_TRABALHO_EM_DESIGN_INGEST':
             [f for f in os.listdir(ING) if SUJO.search(f)],
         'METADADO_DE_ROTA_EM_REGISTRO_CLIENT_SAFE': dentro,
+        'DESSES_LIDOS_E_MANTIDOS_DE_PROPOSITO': revistos,
+        'DESSES_AINDA_POR_OLHAR': [i for i in dentro if i not in revistos],
+        'POR_QUE_ALGUNS_FICAM':
+            'a mencao a rota esta na RESSALVA e protege quem for reler a fonte — '
+            'apagá-la removeria a advertencia junto com o suposto defeito. Cada '
+            'um traz CLAIM_DOMAIN_REVIEWED com o motivo.',
         'METADADO_DE_ROTA_NOTA':
             'medido no CONTEUDO dos campos de tela, nao no nome do arquivo. '
             'SOURCES.json fica fora: e a casa declarada do metadado de rota (§18).',
@@ -313,8 +354,11 @@ def main():
     print('separacao     : %d arquivos no ingest · %d papel de trabalho dentro'
           % (r['SEPARACAO']['ARQUIVOS_EM_DESIGN_INGEST'],
              len(r['SEPARACAO']['PAPEL_DE_TRABALHO_EM_DESIGN_INGEST'])))
-    print('              · %d registro client-safe com metadado de rota no texto'
-          % len(r['SEPARACAO']['METADADO_DE_ROTA_EM_REGISTRO_CLIENT_SAFE']))
+    print('              · %d client-safe com rota no texto (%d lidos e mantidos, '
+          '%d por olhar)'
+          % (len(r['SEPARACAO']['METADADO_DE_ROTA_EM_REGISTRO_CLIENT_SAFE']),
+             len(r['SEPARACAO']['DESSES_LIDOS_E_MANTIDOS_DE_PROPOSITO']),
+             len(r['SEPARACAO']['DESSES_AINDA_POR_OLHAR'])))
     print('mercado       : %s · %d processado com CROP_IDS · %d cruzamento em processado'
           % (r['MERCADO']['POR_ESTAGIO'], r['MERCADO']['PROCESSADO_COM_CROP_IDS'],
              len(r['MERCADO']['CRUZAMENTO_APOIADO_EM_PROCESSADO'])))
