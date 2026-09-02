@@ -50,9 +50,20 @@ de aceitação estão limpos. O que falta está descrito no §5 e no §12.
 |---|---|
 | repositório | `C:\eame-sintonia` |
 | remoto | `https://github.com/lucianodalondon-sys/eame-sintonia.git` |
-| branch | `claude/eame-competitor-public-communication` |
-| HEAD **antes** deste checkpoint | `21c8ec705d9ceb140299e8351a889b2984fe2188` |
-| relação com o remoto antes do checkpoint | **0 atrás, 4 à frente** |
+| **branch desta missão** | **`claude/italy-v2-handoff`** ← use esta |
+| criada a partir de | `claude/eame-competitor-public-communication` @ `21c8ec7` |
+| HEAD do checkpoint de documentação | `00914816162f013566944b281079a28415bbc687` |
+| HEAD final da branch | rode `git rev-parse origin/claude/italy-v2-handoff` |
+| estado | empurrada para o remoto; local == remoto verificado |
+
+### Por que uma branch dedicada
+
+A branch de origem é usada **ao mesmo tempo** por outra sessão do Claude, que
+cuida do **PORTAL/SITE**. Empurrar o V2 nela misturaria duas missões que precisam
+ser integradas com calma, e não por acidente.
+
+> **A branch do site não foi tocada.** Nada de merge, nada de reset, nada de push
+> por cima.
 
 ### ⚠️ ESTA PASTA É COMPARTILHADA COM OUTRA SESSÃO
 

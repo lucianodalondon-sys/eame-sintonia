@@ -7,7 +7,7 @@
  "branch": "claude/italy-v2-handoff",
  "branch_created_from": "claude/eame-competitor-public-communication @ 21c8ec705d9ceb140299e8351a889b2984fe2188",
  "branch_why_dedicated": "a branch de origem e usada AO MESMO TEMPO por outra sessao Claude que trabalha no PORTAL/SITE. Empurrar o V2 nela misturaria duas missoes.",
- "head": "PREENCHIDO_NO_COMMIT_FINAL",
+ "head": "00914816162f013566944b281079a28415bbc687",
  "site_branch_touched": false,
  "safe_to_resume": true,
  "completed": [
@@ -298,5 +298,7 @@
  "known_blockers": [
   "a pasta C:/eame-sintonia e um worktree COMPARTILHADO com outra sessao Claude (missao do PORTAL/SITE). Ha arquivos modificados que NAO sao desta missao: italia-portale/, scripts/instagram_*, tests/test_adama_es_gate.py, act.json, b.json, st*.json, tmp_ce/. Nunca inclui-los num commit desta missao."
  ],
- "next_step": "Reverificar os 35 achados BLOQUEIA_ENTREGA de handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json, um a um, contra o DESIGN-INGEST atual — e so entao corrigir o que sobreviver. Comecar por: (1) PROVINCIAL virou REGIONAL em 24 registros client-safe; (2) 11 de 14 cruzamentos de rotulo casam a cultura certa com o problema errado; (3) um boletim do Friuli carimbado tambem como Toscana; (4) 2.222 registros citam 'fonte nao declarada' como unica fonte."
+ "next_step": "Reverificar os 35 achados BLOQUEIA_ENTREGA de handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json, um a um, contra o DESIGN-INGEST atual — e so entao corrigir o que sobreviver. Comecar por: (1) PROVINCIAL virou REGIONAL em 24 registros client-safe; (2) 11 de 14 cruzamentos de rotulo casam a cultura certa com o problema errado; (3) um boletim do Friuli carimbado tambem como Toscana; (4) 2.222 registros citam 'fonte nao declarada' como unica fonte.",
+ "head_note": "este e o SHA do commit de documentacao. O commit de metadado que gravou este proprio SHA vem logo depois — o HEAD final da branch esta em head_final.",
+ "head_final": "ver git rev-parse origin/claude/italy-v2-handoff"
 }
