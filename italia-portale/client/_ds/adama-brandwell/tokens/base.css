@@ -1,0 +1,61 @@
+/* ADAMA Brasil — Base / Reset Styles */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font: var(--type-body);
+  color: var(--color-text-body);
+  background: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-heading);
+  text-wrap: balance;
+}
+
+h1 { font: var(--type-h1); }
+h2 { font: var(--type-h2); }
+h3 { font: var(--type-h3); }
+h4 { font: var(--type-h4); }
+
+p {
+  font: var(--type-body);
+  color: var(--color-text-body);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--color-corporate-green);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-corporate-green-secondary);
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: var(--font-primary);
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font-family: var(--font-primary);
+}
