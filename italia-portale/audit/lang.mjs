@@ -30,11 +30,11 @@ export const PT_MARKERS = [
   'apenas', 'nenhum', 'nenhuma', 'porque', 'dados', 'leitura', 'rótulo', 'rotulo',
   'também', 'tambem', 'uma', 'dos', 'das', 'muito', 'depois', 'agora', 'aqui',
   'antes', 'encontrado', 'encontrada', 'revogada', 'verificado',
-  'coluna', 'epoca', 'época', 'registros', 'milho', 'trigo', 'arroz', 'soja',
+  'coluna', 'registros', 'milho', 'trigo', 'arroz', 'soja',
   'videira', 'oliveira', 'tomate', 'melao', 'melão', 'cereais', 'ficha', 'atencao',
   'atenção', 'vencimento',
   'transversal', 'convergencia', 'convergência', 'olival', 'alfafa',
-  'afiliacao', 'afiliação', 'estudo', 'rotulo autorizado', 'sistema colturale',
+  'afiliacao', 'afiliação', 'estudo', 'rotulo autorizado',
   /* Found by opening the portal in a real browser, not by the headless suite:
      the REGION and ISSUE fact fields carry Portuguese annotation too —
      "Veneto (principal) + Lombardia", "vale do Pó (escala)",
@@ -45,7 +45,10 @@ export const PT_MARKERS = [
 ];
 /* Deliberately NOT markers, because they are ordinary Italian too and produced
    false positives when measured against this package's own Italian strings:
-   prova · cultura · calendario · mais (Italian for maize) · e · per */
+   prova · cultura · calendario · mais (Italian for maize) · e · per
+   'sistema colturale' — Italian, not Portuguese; it was flagging correct copy
+   epoca — ordinary Italian ('la colonna dell''epoca di applicazione'), and it
+   fired on the V2.1-approved Italian translation of a source limitation */
 const PT_RE = new RegExp('(^|[^\\p{L}])(' + PT_MARKERS.join('|') + ')([^\\p{L}]|$)', 'iu');
 
 /* English that must not appear when the interface is Italian. Product names,

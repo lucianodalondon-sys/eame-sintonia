@@ -1323,10 +1323,16 @@ check('V4', 'The three opportunity candidates are never called opportunities', (
   const coll = AM.collections && AM.collections.opportunities;
   if (!coll) bad.push('collections.opportunities is absent');
   else {
-    const safe = coll.clientSafe !== undefined
-      ? coll.clientSafe
-      : (coll.records || []).filter((r) => r.CLIENT_SAFE === true).length;
-    if (safe !== 0) bad.push(`the model reports ${safe} client-safe opportunities; the package says 0`);
+    /* null is not zero. A transparency panel cannot render "null client-safe",
+       and a screen reading it as falsy would be right by accident. The count
+       has to be stated. */
+    if (typeof coll.clientSafe !== 'number') {
+      bad.push(`the model states clientSafe as ${JSON.stringify(coll.clientSafe)}; it must be the number 0`);
+    } else if (coll.clientSafe !== 0) {
+      bad.push(`the model reports ${coll.clientSafe} client-safe opportunities; the package says 0`);
+    }
+    const fromRecords = (coll.records || []).filter((r) => r.CLIENT_SAFE === true).length;
+    if (fromRecords !== 0) bad.push(`${fromRecords} record(s) carry CLIENT_SAFE=true; the package says none do`);
   }
   const m = mount();
   const v = m.tryVals({ view: 'radar', lang: 'it', showScenarios: false });
