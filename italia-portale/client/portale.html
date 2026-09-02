@@ -1628,13 +1628,13 @@
       <div style="border-radius:16px;border:1px solid rgba(203,197,195,0.14);background:#1C1817;padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:16px;align-items:center">
         <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">EVENT · {{ evd.sector }}</span><h1 style="margin:0;font-size:28px;font-weight:700;color:#fff">{{ evd.name }}</h1><div style="font-size:11.5px;color:#B1A9A7">{{ evd.city }} · {{ evd.region }} · {{ evd.dates }} · {{ evd.site }}</div></div>
         <div style="display:flex;flex-direction:column"><span style="font-size:24px;font-weight:300;color:#fff;font-variant-numeric:tabular-nums">{{ evd.countdown }}</span><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">Countdown</span></div>
-        <div style="display:flex;flex-direction:column"><span style="font-size:24px;font-weight:300;color:#fff">{{ evd.confirmedCount }}</span><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">Competitors confirmed</span></div>
-        <div style="display:flex;flex-direction:column"><span style="font-size:13px;font-weight:700;color:#B1A9A7;line-height:1.3">{{ evd.exhibitorStatus }}</span><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">Exhibitor list</span></div>
+        <div style="display:flex;flex-direction:column"><span style="font-size:24px;font-weight:300;color:#fff">{{ evd.confirmedDisplay }}</span><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.evConfirmedTile }}</span><span style="font-size:9px;color:#8F8886;line-height:1.35;padding-top:3px">{{ evd.confirmedNote }}</span></div>
+        <div style="display:flex;flex-direction:column"><span style="font-size:13px;font-weight:700;color:#B1A9A7;line-height:1.3">{{ evd.exhibitorStatus }}</span><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.evExhibitorTile }}</span></div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:10px">
         <div style="grid-column:span 12;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;align-items:start">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.evPartTitle }}</div><sc-for list="{{ evd.partRows }}" as="p" hint-placeholder-count="6"><div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;padding:5px 0;border-bottom:1px dotted rgba(151,139,135,0.35)"><span style="font-weight:700;color:#fff">{{ p.company }}</span><span style="font-size:8.5px;font-weight:700;color:{{ p.color }};text-align:right">{{ p.state }}</span></div></sc-for><div style="font-size:9.5px;color:#8F8886;padding-top:4px">{{ t.evPartNote }}</div></div>
-          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">EVENT PROFILE</div><div style="font-size:11px;color:#EDEAE9;line-height:1.5">{{ evd.program }}</div><div style="display:flex;flex-wrap:wrap;gap:4px;padding-top:4px"><sc-for list="{{ evd.crops }}" as="c" hint-placeholder-count="2"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:9.5px;color:#C9C3C1">{{ c }}</span></sc-for></div></div>
+          <sc-if value="{{ evd.hasProfile }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.evProfileTitle }}</div><sc-if value="{{ evd.hasProgram }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#EDEAE9;line-height:1.5">{{ evd.program }}</div></sc-if><div style="display:flex;flex-wrap:wrap;gap:4px;padding-top:4px"><sc-for list="{{ evd.crops }}" as="c" hint-placeholder-count="2"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:9.5px;color:#C9C3C1">{{ c }}</span></sc-for></div></div></sc-if>
         </div>
       </div>
     </div>
@@ -2014,7 +2014,7 @@
       </div>
       <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:10px">
         <div style="grid-column:span 5;display:flex;flex-direction:column;gap:10px">
-          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.prTopicTitle }}</div><div style="font-size:12.5px;color:#EDEAE9;line-height:1.5">{{ pr.recentTopic }}</div><div style="display:flex;flex-wrap:wrap;gap:5px;padding-top:4px"><sc-for list="{{ pr.crops }}" as="c" hint-placeholder-count="1"><span style="padding:3px 8px;border-radius:9999px;background:rgba(255,255,255,0.06);font-size:10px;color:#EDEAE9">{{ c }}</span></sc-for><sc-for list="{{ pr.issues }}" as="c" hint-placeholder-count="1"><span style="padding:3px 8px;border-radius:9999px;background:rgba(255,255,255,0.06);font-size:10px;color:#EDEAE9">{{ c }}</span></sc-for></div></div>
+          <sc-if value="{{ pr.hasTopic }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.prTopicTitle }}</div><div style="font-size:12.5px;color:#EDEAE9;line-height:1.5">{{ pr.recentTopic }}</div><div style="display:flex;flex-wrap:wrap;gap:5px;padding-top:4px"><sc-for list="{{ pr.crops }}" as="c" hint-placeholder-count="1"><span style="padding:3px 8px;border-radius:9999px;background:rgba(255,255,255,0.06);font-size:10px;color:#EDEAE9">{{ c }}</span></sc-for></div></div></sc-if>
         </div>
         <div style="grid-column:span 7;display:flex;flex-direction:column;gap:10px">
           <sc-if value="{{ pr.isResearcher }}" hint-placeholder-val="{{ false }}">
@@ -4122,6 +4122,45 @@ class Component extends DCLogic {
       portfolioConnectionText: sgNar((sg0 || {}).portfolioConnection),
       promoteConditionText: sgNar((sg0 || {}).whatWouldPromoteIt),
       sourceTypeUpper: ((sg0 || {}).sourceType || '').toUpperCase(),
+      /* §3 · MAJOR 7 · This screen was written against the presentation scenario's shape
+         (who / trail / promotion / whyWatch as arrays, plus observations, changes, observed,
+         waiting, windowLine, timingKind, trend, whyRadar, earlyMarket, scienceLine,
+         promotionStatus). Measured over every id the detail can resolve — 3, all real,
+         0 scenarios — those are empty or absent 3/3, because every narrative field arrives
+         as {state:'NOT_APPROVED_FOR_DISPLAY', it:null, en:null}. Fourteen titled frames were
+         standing over nothing. Each one now carries a has* boolean and the markup guards on
+         it; the count of withheld readings is published once, in narNote, so the reader
+         learns WHY the screen is short instead of reading blank panels. */
+      cropL: cl((sg0 || {}).crop || ''), issueL: il((sg0 || {}).issue || ''),
+      category: ((sg0 || {}).ui) || (AM && AM.CATEGORY_UI ? AM.CATEGORY_UI.unknown : { color: '#8F8886', dark: '#241F1E', soft: '#B1A9A7' }),
+      hasStatus: !!((sg0 || {}).status),
+      kicker: ((T.navFuture || 'FUTURE RADAR').toUpperCase()) + ((((sg0 || {}).sourceType) || '') ? ' · ' + String(sg0.sourceType).toUpperCase() : ''),
+      hasWho: (sgIsScenario ? ((sg0 || {}).who || []) : []).length > 0,
+      hasWhyWatch: (sgIsScenario ? ((sg0 || {}).whyWatch || []) : []).length > 0,
+      hasTrail: sgTrail.length > 0,
+      hasPromotion: (sgIsScenario ? ((sg0 || {}).promotion || []) : []).length > 0,
+      /* Every one of these is a scenario-only field; on a real record it does not exist
+         at all, so the honest test is "did the builder ever produce a value". */
+      hasChanges: !!((sg0 || {}).changes || []).length,
+      hasObserved: !!((sg0 || {}).observed || []).length,
+      hasInterpretationList: !!(Array.isArray((sg0 || {}).interpretation) && sg0.interpretation.length),
+      hasUnknownList: !!(Array.isArray((sg0 || {}).unknown) && sg0.unknown.length),
+      hasWaiting: !!((sg0 || {}).waiting || []).length,
+      hasTiming: !!((sg0 || {}).windowLine),
+      hasTrend: !!((sg0 || {}).trend),
+      hasWhyRadar: !!((sg0 || {}).whyRadar),
+      hasEarlyMarket: !!((sg0 || {}).earlyMarket),
+      hasScienceLine: !!((sg0 || {}).scienceLine),
+      hasPromotionStatus: !!((sg0 || {}).promotionStatus),
+      hasObservations: !!((sg0 || {}).observations),
+      hasIndependenceNote: !!((sg0 || {}).independenceNote),
+      /* §8 · publish the denominator of what is being withheld rather than hiding it. */
+      narNote: (() => {
+        if (!sg0) return '';
+        const F = ['whoIsTalking', 'whatChanged', 'howWeGotHere', 'observedFacts', 'interpretation', 'unknown', 'nextWindow', 'portfolioConnection', 'whatWouldPromoteIt'];
+        const held = F.filter(k => sg0[k] && sg0[k].state && sg0[k].state !== 'CLEAR').length;
+        return held ? held + '/' + F.length + ' ' + (T.sgNarHeld || 'narrative readings are internal and not approved for display in this reading') : '';
+      })(),
       /* A product panel needs a product entity that really exists in the model. */
       hasProduct: !!(sg0 && sg0.product && AM && AM.findProduct(sg0.product)),
       noProduct: !(sg0 && sg0.product && AM && AM.findProduct(sg0.product)),
@@ -5613,7 +5652,7 @@ class Component extends DCLogic {
         /* The number is a count of a list nobody read. It is withheld, not zeroed. */
         confirmedDisplay: exhConsulted ? String(confirmed.length) : '—',
         confirmedNote: exhConsulted ? '' : TX('Elenco espositori non consultato: l’assenza di un concorrente qui non è un’osservazione.', 'Exhibitor list not consulted: a competitor missing here is not an observation.'),
-        hasProfile: !!(evProgram || e2.cropRelevance),
+        hasProfile: !!(evProgram || e2.cropRelevance), hasProgram: !!evProgram,
         confirmed, confirmedCount: confirmed.length,
         confirmedLabel: confirmed.length ? confirmed.length + TX(' confermati', ' confirmed') : TX('partecipazione non nota', 'participation not known'),
         statusLabel: confirmed.length ? TX('ESPOSITORI CONFERMATI', 'CONFIRMED EXHIBITORS') : TX('PARTECIPAZIONE NON NOTA', 'PARTICIPATION NOT KNOWN'),
@@ -5632,7 +5671,7 @@ class Component extends DCLogic {
     const evMissing = !!s.eventId && !evHit;
     const evd0 = evHit;
     const evd = evd0 ? Object.assign(evDeco(evd0), { cases: [], actCount: 0, activities: [], story: [] })
-      : { id: '', name: '', go: () => {}, city: '', region: '', site: '', dates: NODATE, startDays: null, countdown: NODATE, bucket: '', sector: '', crops: [], exhibitorStatus: '', confirmed: [], confirmedCount: 0, confirmedLabel: '', statusLabel: '', statusColor: '#B1A9A7', partSummary: '', partRows: [], program: '', cases: [], actCount: 0, activities: [], story: [] };
+      : { id: '', name: '', go: () => {}, city: '', region: '', site: '', dates: NODATE, startDays: null, countdown: NODATE, bucket: '', sector: '', crops: [], exhibitorStatus: '', exhibitorConsulted: false, confirmedDisplay: '—', confirmedNote: '', hasProfile: false, hasProgram: false, confirmed: [], confirmedCount: 0, confirmedLabel: '', statusLabel: '', statusColor: '#B1A9A7', partSummary: '', partRows: [], program: '', cases: [], actCount: 0, activities: [], story: [] };
     /* COMMUNICATION LEAD TIME is not measurable from this corpus. The earliest
        observation per company is set by the Meta Ad Library retention horizon, not by
        the company — UPL 2019-12-05, BASF 2023-03-08, Corteva 2024-11-26, Syngenta
@@ -6105,7 +6144,7 @@ class Component extends DCLogic {
          from the theme query they happen to sit in. */
       role: null, region: sciL('affiliazione, non luogo dello studio', 'affiliation, not a study location'),
       crops: [], issues: [], cropLabel: '—', issueLabel: '—', regionShort: '—',
-      messages: [], signals: [], related: [], relatedCount: 0, signalCount: 0, contentCount: 0, recentTopic: '',
+      messages: [], signals: [], related: [], relatedCount: 0, signalCount: 0, contentCount: 0, recentTopic: '', hasTopic: false,
       isResearcher: p.isResearcher !== false, alsoIds: p.alsoIds || [],
       real: true,
       go: () => this.openPerson(p.id),
@@ -6556,6 +6595,10 @@ class Component extends DCLogic {
          crops [] and issues [] are measured empty on 60/60. */
       cropLabel: '—', issueLabel: '—',
       recentTopic: p.themeLabel ? (ARL('tema monitorato: ', 'monitored theme: ') + p.themeLabel + (p.worksInScope != null ? ' · ' + p.worksInScope + ARL(' opere nel recorte', ' works in scope') : '')) : '',
+      /* 6 of the 66 people carry no monitored theme at all; without this the panel was a
+         title over nothing on those 6. issues[] is empty on 66/66 upstream and its chip
+         loop is gone from the markup rather than left as a permanently silent binding. */
+      hasTopic: !!p.themeLabel,
       /* Person→opportunity and person→signal edges do not exist anywhere upstream; the demo
          built them with CASES.filter(x => x.crop === r.crop). '—', not 0 — the absence of an
          edge in this package is not a measured zero. */

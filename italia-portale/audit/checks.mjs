@@ -988,16 +988,25 @@ check('A3', 'A cross-link never rests on a shared crop name alone', () => {
   if (!v.ok) return { pass: false, expected: 'field renders', measured: v.error };
   const wins = AM.collections.cropWindows.records;
   const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim();
+  /* The label prints the LOCALIZED issue ("Cercosporiosi"), not the canonical
+     one ("Cercospora Leaf Spot"), so resolving the window by scanning the label
+     needs the same translation table the view used. Falling back to the region
+     instead — the first version of this check did — picks an unrelated window
+     in the same region and reports a defect that is not there. */
+  const ISSUES = (v.vals.t && v.vals.t.ISSUES) || {};
+  const localized = (w) => ISSUES[w.issue] || w.issue;
   const bad = [];
   for (const msg of v.vals.fieldMessages || []) {
     const target = msg.targetLabel || msg.windowLabel || '';
     if (!/finestre|window/i.test(target)) continue;
-    const w = wins.find((x) => target.includes(x.issue) || target.includes(x.region));
-    if (!w) continue;
+    const w = wins.find((x) => target.includes(localized(x)) && (!msg.crop || x.crop === msg.crop))
+      || wins.find((x) => target.includes(localized(x)));
+    if (!w) { bad.push(`"${msg.issue}" routes to "${target}" — no window matches that label`); continue; }
     const mi = norm(msg.issue), wi = norm(w.issue);
     if (!mi || !wi) continue;
     const shares = mi.split(' ').some((tok) => tok.length > 4 && wi.includes(tok)) ||
-      wi.split(' ').some((tok) => tok.length > 4 && mi.includes(tok));
+      wi.split(' ').some((tok) => tok.length > 4 && mi.includes(tok)) ||
+      norm(ISSUES[msg.issue] || '') === norm(localized(w));
     if (!shares) bad.push(`"${msg.issue}" routed to window "${w.issue}" — only the crop matches`);
   }
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };

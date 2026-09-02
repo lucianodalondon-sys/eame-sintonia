@@ -90,7 +90,34 @@
   const NOTCONF = () => TX('NON CONFERMATO — nessuna fonte esterna lo conferma in questa lettura', 'NON CONFERMATO — not confirmed by an external source in this reading');
   const NOT_OBS = 'NON OSSERVABILE DA FONTI ESTERNE';
   const INTERP = () => TX(' — INTERPRETAZIONE SINTONIA', ' — SINTONIA INTERPRETATION');
-  const ABSENCE = () => { const m = M(); return (m && m.ABSENCE_RULE) || TX('L\'assenza in questa lettura non è assenza nel mondo.', 'Absence in this reading is not absence in the world.'); };
+  /* Model prose that the model publishes in ONE language only. Translating it
+     here is drift-unsafe if the upstream wording ever changes, so the Italian
+     rendering is keyed on the EXACT English the model publishes today: any
+     other value is printed verbatim rather than mistranslated.
+     REQUESTED UPSTREAM: publish ABSENCE_RULE and link.evidence bilingually. */
+  const IT_OF = {
+    'Absence in this reading is not absence in the world.': 'L\'assenza in questa lettura non è assenza nel mondo.',
+    'Read on the official label': 'Letto sull\'etichetta ufficiale',
+    'Not found in this label reading': 'Non trovato in questa lettura dell\'etichetta',
+    'The audit verified the main visible claims, not every portfolio connection in the interface. Anything not explicitly verified resolves to LABEL_CHECK_NEEDED.':
+      'L\'audit ha verificato le principali affermazioni visibili, non ogni connessione di portafoglio presente nell\'interfaccia. Tutto ciò che non è stato verificato esplicitamente risulta LABEL_CHECK_NEEDED.',
+    /* The 5 distinct STATUS_REASON shapes measured on the 29 canonical windows.
+       The first is parametrised by the reference date and is handled by the
+       regex below; a shape not listed here prints verbatim. */
+    'Reference date falls inside the expected window · NOT an observation': 'La data di riferimento cade dentro la finestra attesa · NON è un\'osservazione',
+    'Reference date falls before START_DATE': 'La data di riferimento è precedente a START_DATE',
+    'No biological calendar entry for this issue': 'Nessuna voce di calendario biologico per questo problema',
+    'The 2026 flowering window has passed; next relevant window is the 2027 campaign':
+      'La finestra di fioritura 2026 è passata; la prossima finestra rilevante è la campagna 2027'
+  };
+  const REF_AFTER = /^Reference date (\d{4}-\d{2}-\d{2}) falls after END_DATE$/;
+  const modelProse = (s) => {
+    if (LG !== 'it' || !s) return s;
+    if (IT_OF[s]) return IT_OF[s];
+    const r = REF_AFTER.exec(String(s));
+    return r ? `La data di riferimento ${r[1]} è successiva a END_DATE` : s;
+  };
+  const ABSENCE = () => { const m = M(); return modelProse((m && m.ABSENCE_RULE) || 'Absence in this reading is not absence in the world.'); };
 
   const listOf = (arr, cap) => {
     const a = (arr || []).filter(Boolean);
@@ -139,7 +166,7 @@
       issue: (W && issueName(W.issue)) || UNK(),
       issueType: (W && W.issueType) || UNK(),
       status: (W && W.status) || 'NOT_ESTABLISHED',
-      statusReason: (W && W.statusReason) || null,
+      statusReason: (W && modelProse(W.statusReason)) || null,
       from: (W && fmtISO(W.startDate)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
       to: (W && fmtISO(W.endDate)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
       dateState: (W && W.dateState) || UNK(),
@@ -239,7 +266,7 @@
   const gradedLine = (g) => {
     const head = g.strength ? pstate(g.strength) : TX('GRADO NON RICHIEDIBILE — nessuna finestra canonica risolta', 'GRADE NOT ASKABLE — no canonical window resolved');
     const ev = g.link && g.link.evidence
-      ? ` · ${TX('evidenza', 'evidence')}: ${g.link.evidence}${g.link.source ? ` · ${TX('fonte', 'source')}: ${g.link.source}` : ''}`
+      ? ` · ${TX('evidenza', 'evidence')}: ${modelProse(g.link.evidence)}${g.link.source ? ` · ${TX('fonte', 'source')}: ${g.link.source}` : ''}`
       : '';
     return `${head} — ${prodLine(g)}${ev}`;
   };
@@ -266,7 +293,7 @@
         pairLabel ? TX(`${headVerified} · corrispondenza verificata su etichetta per ${pairLabel}`, `${headVerified} · verified label match for ${pairLabel}`) : headVerified,
         f.verified.map(g => {
           const ev = g.link && g.link.evidence
-            ? ` · ${TX('evidenza', 'evidence')}: ${g.link.evidence}${g.link.source ? ` · ${TX('fonte', 'source')}: ${g.link.source}` : ''}${g.P && g.P.labelAuditDate ? ` · ${TX('audit di etichetta del', 'label audit of')} ${fmtISO(g.P.labelAuditDate)}` : ''}`
+            ? ` · ${TX('evidenza', 'evidence')}: ${modelProse(g.link.evidence)}${g.link.source ? ` · ${TX('fonte', 'source')}: ${g.link.source}` : ''}${g.P && g.P.labelAuditDate ? ` · ${TX('audit di etichetta del', 'label audit of')} ${fmtISO(g.P.labelAuditDate)}` : ''}`
             : '';
           return prodLine(g) + ev;
         }),
@@ -287,7 +314,7 @@
       lines.push(TX(`${ABSENCE()} Questi prodotti non sono dichiarati assenti dal portafoglio: risultano non confermati per ${pairLabel || TX('questa coltura × problema', 'this crop × issue')} in questa lettura, e vanno verificati sulla scheda di etichetta nazionale prima di essere nominati.`,
         `${ABSENCE()} These products are not declared absent from the portfolio: they are unconfirmed for ${pairLabel || 'this crop × issue'} in this reading, and must be checked on the national label record before being named.`));
       const scope = f.unverified.map(g => g.P && g.P.labelAuditScopeNote).filter(Boolean)[0];
-      if (scope) lines.push(TX(`Portata dell'audit: ${scope}`, `Audit scope: ${scope}`));
+      if (scope) lines.push(TX(`Portata dell'audit: ${modelProse(scope)}`, `Audit scope: ${scope}`));
       out.push(S(
         pairLabel
           ? TX(`Da verificare · nessuna corrispondenza confermata per ${pairLabel} in questa lettura`, `To be verified · no confirmed match for ${pairLabel} in this reading`)
@@ -398,7 +425,7 @@
         S(TX('9 · Domande da fare al cliente', '9 · Questions to ask the customer') + INTERP(), [
           TX('A che fase colturale siete?', 'What crop stage are you seeing?'),
           TX('Avete osservato sintomi o catture?', 'Have you observed symptoms or captures?'),
-          TX(`${f.issue} è già stata confermata nella vostra azienda?`, `Has ${f.lowIssue} already been confirmed on your farm?`),
+          TX(`Nella vostra azienda è già stata confermata la presenza di ${f.issue}?`, `Has ${f.lowIssue} already been confirmed on your farm?`),
           TX('Qual è stato il trattamento precedente?', 'What was the previous treatment?'),
           TX('Che condizioni state vedendo in campo?', 'What field conditions are you seeing?'),
           TX('State già valutando una decisione di trattamento?', 'Are you already evaluating a treatment decision?')
@@ -462,8 +489,8 @@
             `${f.verified.map(g => g.name).join(' · ')} — verified label match for ${f.crop} × ${f.issue}, read in the model's audit of the official Italian labels.`),
           ...f.verified.map(g => TX(`${g.name} è registrato in Italia — autorizzazione ${(g.P && g.P.status) || NOTCONF()}, scadenza ${(g.P && fmtISO(g.P.expiry)) || UNK()}.`,
             `${g.name} is registered in Italy — authorisation ${(g.P && g.P.status) || NOTCONF()}, expiry ${(g.P && fmtISO(g.P.expiry)) || UNK()}.`)),
-          TX('Le sue colture e i suoi bersagli di etichetta sono quelli stampati nella sezione di portafoglio qui sopra.',
-            'Its label crops and targets are as printed in the portfolio section above.'),
+          TX('Le colture e i bersagli di etichetta di ciascuno sono quelli stampati nella sezione di portafoglio qui sopra.',
+            'The label crops and targets of each are as printed in the portfolio section above.'),
           TX(`Esiste una finestra canonica per ${f.crop} × ${f.issue} in ${f.region}.`, `A canonical window exists for ${f.crop} × ${f.issue} in ${f.region}.`),
           f.unverified.length
             ? TX(`La comunicazione non deve nominare i ${f.unverified.length} prodotti elencati sotto "Da verificare": per questa coltura × problema non hanno corrispondenza confermata in questa lettura.`,
@@ -678,7 +705,16 @@
     /* PRODUCT LAW §11 and finding 4 · the crop is named with the label the rest
        of the portal shows ('Vite'), so the brief and the case screen cannot
        name the same crop differently. */
-    b.title = `${f.issue} · ${f.crop} · ${f.region}`;
+    b.title = f.W
+      ? `${f.issue} · ${f.crop} · ${f.region}`
+      /* Presentation only. With no canonical window all three axes are the same
+         absence, and printing it three times in a 22pt headline made the
+         document unreadable without making it any truer. MEASURED: 0 of 3 real
+         opportunities and 0 of 29 scenarios hit this today — IT-OPP-003 is the
+         one case with no window, and its own record carries no crop, issue or
+         region either, so there is nothing to fall back to. */
+      : TX('Caso senza finestra canonica risolta — coltura, problema e regione NON NOTI',
+        'Case with no canonical window resolved — crop, issue and region NON NOTI');
     b.priority = f.status;
     b.accentColor = f.color;
     b.windowFrom = f.from; b.windowTo = f.to; b.windowState = f.windowState;

@@ -1669,15 +1669,53 @@
     return coll(rows, P.REAL_DERIVED, 'first-author affiliation on the ingested records; affiliation means author, not study, and there is no institution type upstream', { source: 'derived · scienceRecords' });
   })();
 
-  /* Papers actually written by a person, joined on ORCID. MEASURED: 88/88
-     science records carry an ORCID but only 1 of 60 researchers matches any of
-     them, so this returns [] for 59 researchers. A panel that would be empty
-     must be omitted, never filled from the theme the person happens to sit in —
-     that would list papers the person did not write. */
+  /* ---- PUBLICATIONS FOR A PERSON · the join, measured ---------------------
+     WHAT IDENTIFIERS ARE ACTUALLY AVAILABLE. The researchers index carries
+     ORCID (54 of 60) and an OpenAlex AUTHOR id (60 of 60). The science records
+     carry AUTHOR, ORCID and a DOI — and NO OpenAlex author id at all: measured,
+     there is no such key anywhere in ITALY_INGEST.SCIENCE. So an OpenAlex-keyed
+     join is not available in this package, however much one would want it, and
+     an id-keyed join does not exist either: the two tables have no shared row
+     id. ORCID is the only identifier both sides publish.
+
+     WHAT THE JOIN ACTUALLY RETURNS, measured on this package:
+       88 science records · 88 carry an ORCID · 7 DISTINCT ORCIDs · 7 distinct
+       authors (the records carry the FIRST author only)
+       60 researchers · 54 carry an ORCID
+       1 researcher is one of those 7 authors: IT-PER-013 Massimo Blandino, 25
+       records. A folded-name join finds the same one person and nobody else.
+     So this returns [] for 59 of 60 researchers because the package holds no
+     publication of theirs — not because a flag is broken. The empty panel must
+     be omitted for THAT person; it must never be filled from the theme the
+     person happens to sit in, which would list papers they did not write.
+
+     The ORCID is normalized on BOTH sides. It used to be stripped of its
+     https://orcid.org/ prefix on the person side only and then compared with
+     === against the raw record field: one science record published as a URL, or
+     one written without hyphens, and this join would have silently gone to zero
+     with nothing on any screen to show it. The normalized value must look like
+     an ORCID (15 digits and a check character) or it is not a key at all, so
+     the analyst's unknown sentence can never collapse into a match. */
+  const orcidKey = (v) => {
+    const k = String(v === null || v === undefined ? '' : v).trim()
+      .replace(/^https?:\/\/(?:www\.)?orcid\.org\//i, '').replace(/[^0-9Xx]/g, '').toUpperCase();
+    return /^[0-9]{15}[0-9X]$/.test(k) ? k : null;
+  };
+  const worksByOrcid = {};
+  scienceRecords.records.forEach((r) => {
+    const k = orcidKey(r.orcid);
+    if (k) (worksByOrcid[k] = worksByOrcid[k] || []).push(r);
+  });
+  /* Accepts a person record OR a person id, so a screen that only has the id
+     from the route does not have to find the record first and does not have to
+     rebuild its own ORCID index to do it. */
   const publicationsForPerson = (person) => {
-    const orcid = String((person && (person.orcid || person.ORCID)) || '').replace(/^https?:\/\/orcid\.org\//i, '');
-    if (!orcid) return [];
-    return scienceRecords.records.filter((r) => String(r.orcid || '') === orcid);
+    const rec = person && typeof person === 'object' ? person
+      : (people.records.filter((p) => U(p.id) === U(person))[0]
+        || researchers.records.filter((r) => U(r.id) === U(person))[0] || null);
+    if (!rec) return [];
+    const k = orcidKey(rec.orcid || rec.ORCID);
+    return k ? (worksByOrcid[k] || []).slice() : [];
   };
 
   const resistance = build('resistance', [
@@ -1731,7 +1769,11 @@
         platform: S(v.PLATFORM), channel: S(v.CHANNEL), title: S(v.CONTENT_TITLE),
         date: UNK(v.DATE), dateISO: isoOf(v.DATE), dateState: dateStateOf(v.DATE),
         dateRelative: S(v.DATE_RELATIVE), dateNote: S(v.DATE_NOTE),
-        crop: S(v.CROP), cropCanonical: CROP_BY_TOKEN[U(v.CROP)] || null,
+        /* through the resolver, not through CROP_BY_TOKEN alone: VOICES happens
+           to write tokens today (VINE, MAIZE, DURUM_WHEAT — 17/17 resolve either
+           way), but naming one vocabulary is what left the News crop null on
+           records that spell the same crop in Italian. */
+        crop: S(v.CROP), cropCanonical: cropResolve(v.CROP).key,
         issue: S(v.ISSUE), caseId: S(v.CASE_ID),
         region: UNK(v.REGION), countryOfFact: S(v.COUNTRY_OF_FACT),
         /* The original public quote is never translated and never parsed for
@@ -1832,11 +1874,22 @@
      would silently drop a theme membership. That is why 66 records carry 65
      distinct names, and the difference is published rather than smoothed. */
   const nameKey = (v) => fold(String(v || '')).toLowerCase().trim();
+  /* Membership of the bibliometric index, by the researcher's own record id.
+     isResearcher answers ONE question — "is this row a row of
+     collections.researchers?" — and it is derived from that collection, not
+     from any other field and above all not from whether the person happens to
+     have a publication in this package. Those are two different facts and a
+     screen that conflates them tells the reader that 59 of the 60 people in the
+     bibliometric index are not researchers. hasPublications is the second fact,
+     published separately, and it is the one a publications panel must be
+     guarded on. */
+  const researcherIds = {};
+  researchers.records.forEach((r) => { if (r.id) researcherIds[U(r.id)] = r; });
   const people = (() => {
     const rows = researchers.records.map((r) => Object.assign({}, r, {
       alsoIds: [], roleCat: PERSON_CATEGORY_LABEL[U(r.category)] || r.category,
       identityEvidence: null, roleEvidence: null,
-      isResearcher: true, isEvidenceRecord: false,
+      isResearcher: !!researcherIds[U(r.id)], researcherId: r.id, isEvidenceRecord: false,
     }));
     const byNorm = {};
     rows.forEach((r) => { (byNorm[nameKey(r.name)] = byNorm[nameKey(r.name)] || []).push(r); });
@@ -1863,12 +1916,32 @@
         worksInScope: null, lastActivity: null, daysFromRef: null,
         identityState: null, factRegion: null,
         affiliationCaveat: null,
-        isResearcher: false, isEvidenceRecord: true,
+        isResearcher: !!researcherIds[U(p.id)], researcherId: null, isEvidenceRecord: true,
         provenance: P.REAL_SOURCE,
       }));
     });
+    /* The publication join, attached once, so no screen has to rebuild its own
+       ORCID index and no screen can disagree with this one about who has a
+       paper here. hasPublications is NOT isResearcher: measured 60 researchers,
+       1 of them with a publication resolvable in this package. */
+    rows.forEach((r) => {
+      const pubs = publicationsForPerson(r);
+      r.publications = pubs;
+      r.publicationCount = pubs.length;
+      r.hasPublications = pubs.length > 0;
+      r.publicationJoin = r.hasPublications ? 'ORCID' : (orcidKey(r.orcid) ? 'ORCID_PRESENT_NO_WORK_IN_THIS_PACKAGE' : 'NO_ORCID');
+    });
     const c = coll(rows, P.REAL_DERIVED, 'one people directory: the bibliometric index merged with the evidence-bearing public list, keyed on the diacritic-folded name', { source: 'derived · ITALY_INGEST.RESEARCHERS + .PEOPLE' });
     return Object.assign(c, {
+      /* Published so a reader can see the shape of the join instead of guessing
+         it from an absent panel. */
+      researcherCount: rows.filter((r) => r.isResearcher).length,
+      withOrcid: rows.filter((r) => orcidKey(r.orcid)).length,
+      withPublications: rows.filter((r) => r.hasPublications).length,
+      publicationCount: rows.reduce((n, r) => n + r.publicationCount, 0),
+      distinctPublicationAuthors: Object.keys(worksByOrcid).length,
+      publicationJoinNote: 'joined on ORCID, the only identifier both tables publish; the science records carry no OpenAlex author id and share no row id with the researcher index',
+      publicationAbsenceNote: 'a researcher with no publication here has none IN THIS READING; the 88 ingested records name a first author only, and 7 distinct authors among them',
       categories: (() => {
         const t = tallyBy(rows, (r) => r.roleCat);
         return byCountDesc(t).map((k) => ({ key: k, label: k, count: t[k] }));
@@ -1985,7 +2058,17 @@
         id: n.ID, title: S(n.TITLE), publisher: S(n.PUBLISHER), outlet: S(n.PUBLISHER),
         author: S(n.AUTHOR), date: UNK(n.DATE),
         dateISO: isoOf(n.DATE), dateState: dateStateOf(n.DATE),
-        crop: S(n.CROP), cropCanonical: CROP_BY_TOKEN[U(n.CROP)] || null,
+        /* MEASURED: NEWS.CROP is not written in the token vocabulary this field
+           used to be keyed on. The 8 items say MAIS, VITE, FRUMENTO x2, SOIA,
+           ORTICOLE, CEREAIS — Italian and Portuguese. CROP_BY_TOKEN knows MAIS
+           and VITE and nothing else here, so 3 of the 8 lost their canonical
+           crop to the wrong table, not to missing data: FRUMENTO is Wheat and
+           SOIA is Soybean in CROP_BY_IT, in this same model, one table over.
+           Through the resolver they resolve. ORTICOLE and CEREAIS stay null and
+           must: they are umbrella words, and cropResolve reports GENERIC_TERM
+           rather than promoting them to a crop. */
+        crop: S(n.CROP), cropCanonical: cropResolve(n.CROP).key,
+        cropScope: cropResolve(n.CROP).scope,
         issue: S(n.ISSUE),
         /* REGION is the unknown sentence on 8/8. Null, so the region filter is
            not populated with a note. */
@@ -2701,6 +2784,64 @@
     { real: 0, derived: 0, demo: 0, indexRows: provenanceSummary.filter((r) => r.isIndex).reduce((s, r) => s + r.total, 0) }
   );
 
+  /* ── JOIN HEALTH · every vocabulary join, measured, not asserted ─────────
+     A join in this model is a lookup from one table's wording to another's. The
+     failure that matters is SILENT: the wording changes on one side, the lookup
+     misses, and a screen prints an absence over a fact it can prove. Nothing
+     crashes and no count goes red, so the suite stays green while the sentence
+     on screen inverts (§10).
+
+     This is the state of every one of them as a number a check can assert on,
+     so the next such drift is caught by arithmetic and not by an auditor
+     reading a render. Nothing here is displayed and nothing here is a fact
+     about Italian agriculture — it is the model reporting on itself. */
+  const joinHealth = (() => {
+    const rate = (n, filled) => ({ n, filled, missPct: n ? Math.round(((n - filled) / n) * 1000) / 10 : 0 });
+    const oppResolved = opportunities.records.filter((o) => o.cropKeys.length && o.issueKey).length;
+    return {
+      /* the label audit <-> canonical window join, both sides keyed through
+         issueResolve; the crop side stays on the canonical English vocabulary */
+      labelAuditToWindow: Object.assign(rate(cropWindows.count, cropWindows.records.filter((w) => w.verifiedProducts.length || w.notFoundProducts.length).length),
+        { verified: cropWindows.records.filter((w) => w.verifiedProducts.length).length,
+          note: 'a window with no verdict was not audited; it is not a window with no product' }),
+      /* the regional regulatory act <-> canonical window join, crop through
+         cropResolve and issue through issueResolve on both sides */
+      fieldSignalToWindow: Object.assign(rate(cropWindows.count, cropWindows.records.filter((w) => w.regulatory).length),
+        { note: 'only 7 regional acts exist upstream and 3 have no canonical window at all' }),
+      /* the opportunity -> label audit question, crop through cropResolve and
+         issue through the resolver-generated OPP_ISSUE keys */
+      opportunityToLabelAudit: Object.assign(rate(opportunities.count, oppResolved),
+        { note: 'IT-OPP-003 is portfolio-wide and correctly resolves to no crop and no issue' }),
+      /* crop vocabulary resolution per source family */
+      cropVocabulary: {
+        news: rate(news.count, news.records.filter((r) => r.cropCanonical).length),
+        voices: rate(publicVoices.count, publicVoices.records.filter((r) => r.cropCanonical).length),
+        fieldSignals: rate(currentFieldSignals.count, currentFieldSignals.records.filter((r) => r.cropCanonical).length),
+        marketSeries: rate(marketObservations.count, marketObservations.records.filter((r) => r.cropKey).length),
+        competitorActivities: rate(competitorActivities.count, competitorActivities.records.filter((r) => r.crops.length).length),
+        note: 'a null here is only a fault when the source named a crop; an umbrella word (colture, cereali, orticole) must stay null',
+      },
+      /* enum-keyed presentation and grouping tables */
+      enums: {
+        sourceGroup: rate(sources.count, sources.records.filter((r) => r.group).length),
+        personCategory: rate(people.records.length, people.records.filter((r) => PERSON_CATEGORY_LABEL[U(r.category)]).length),
+        themeUi: rate(researchers.count, researchers.records.filter((r) => r.themeLabel).length),
+        windowStatus: rate(cropWindows.count, cropWindows.records.filter((r) => STATUS_UI[U(r.status)]).length),
+        archivePlatform: rate(archive.records.length, archive.records.filter((r) => !r.platform || ARCHIVE_PLATFORM_SOURCE[U(r.platform)]).length),
+      },
+      /* the ORCID join behind the publications panel */
+      publications: {
+        people: people.records.length,
+        researchers: people.researcherCount,
+        withOrcid: people.withOrcid,
+        withPublications: people.withPublications,
+        scienceRecords: scienceRecords.count,
+        distinctAuthorsInScience: Object.keys(worksByOrcid).length,
+        note: people.publicationAbsenceNote,
+      },
+    };
+  })();
+
   /* narrative debt, measured rather than assumed */
   const NARRATIVE_FIELDS = [
     ['publicVoices', publicVoices.records, ['proves', 'notProves']],
@@ -2884,10 +3025,18 @@
 
     /* the declared joins, exported so an auditor can read them without reading
        the code that uses them */
+    /* THE RESOLVERS THEMSELVES, exported on purpose. Any caller that reaches
+       for a raw table below and keys it on a source string is one translation
+       away from a silent miss; these three answer the same question in every
+       vocabulary the package publishes and report the scope of the answer
+       (RESOLVED / MULTI / GENERIC_TERM / NOT_OBSERVED / UNMAPPED) instead of
+       returning a bare null a caller can mistake for "not published". */
+    cropResolve, issueResolve, regionResolve, cropsFromCode, orcidKey,
+
     lookups: {
-      CROP_KEY, CROP_BY_CODE, CROP_BY_LATIN, CROP_BY_TOKEN, CROP_BY_IT,
+      CROP_KEY, CROP_BY_CODE, CROP_BY_CANON, CROP_BY_LATIN, CROP_BY_TOKEN, CROP_BY_IT, CROP_BY_PT,
       GENERIC_CROP_TERMS, MARKET_CROP, MARKET_VIEW_KEY, THEME_UI,
-      SOURCE_GROUP, SOURCE_GROUP_LABEL, OPP_CROP, OPP_ISSUE,
+      SOURCE_GROUP, SOURCE_GROUP_LABEL, OPP_CROP, OPP_ISSUE, OPP_ISSUE_DECLARED,
       ARCHIVE_PLATFORM_SOURCE, PERSON_CATEGORY_LABEL, LAYER_LABEL,
       /* NOT PROVIDED, deliberately. An ISSUE_TARGET table would map each
          canonical window issue ('Septoria Leaf Blotch') onto the Latin targets
@@ -2909,7 +3058,7 @@
     NOT_OBSERVABLE: P.NOT_OBSERVABLE,
 
     /* data */
-    collections, counts, totals, provenanceSummary, provenanceTotals,
+    collections, counts, totals, provenanceSummary, provenanceTotals, joinHealth,
     searchIndex, search, searchGrouped, TERMS, cropTerms, issueTerms,
     products, productByKey, findProduct, strengthFor,
     productRelationships,
