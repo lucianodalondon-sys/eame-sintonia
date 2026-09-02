@@ -1,0 +1,430 @@
+{
+ "SOURCE_ID": "ES-M11-DERIVACOES",
+ "source": "MISSAO 11-ES — derivacoes offline. NENHUMA COLETA NOVA foi feita.",
+ "SOURCE_LOCATION": "derivado do proprio repositorio",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "RUN_ID": null,
+ "PORQUE_NAO_HOUVE_COLETA": {
+  "ESTADO": "NETWORK_POLICY_BLOCKED",
+  "MEDIDO": "a politica de rede deste ambiente recusa CONNECT para todo host externo. Medido com curl: api.openalex.org, pub.orcid.org, api.ror.org, api.crossref.org, www.mapa.gob.es, www.youtube.com e api.apify.com todos devolvem 000 no cliente e \"gateway answered 403 to CONNECT (policy denial)\" no log do proxy. Apenas GitHub responde 200.",
+  "CONSEQUENCIA": "nem rota gratuita nem rota paga sao executaveis. Nao e falta de chave Apify: a propria api.apify.com esta bloqueada.",
+  "LEI": "SOURCE FAILURE != ZERO. Nao coletar nao e nao existir.",
+  "APIFY_REQUIRED": [
+   "VIDEO/TRANSCRIPT de pesquisadores",
+   "VIDEO/TRANSCRIPT de vozes tecnicas",
+   "LinkedIn de pesquisadores",
+   "LinkedIn de vozes tecnicas",
+   "conteudo de cooperativas",
+   "comunicacao de concorrente"
+  ],
+  "NETWORK_REQUIRED_SEM_APIFY": [
+   "OpenAlex (ciencia)",
+   "ORCID (identidade cruzada)",
+   "ROR (localizacao de instituicao)",
+   "RSS de midia tecnica",
+   "sitemaps de concorrente"
+  ]
+ },
+ "FASE_1_FILAS": {
+  "RESEARCHER_PUBLIC_VOICE_QUEUE_ES": {
+   "QUEUE_SIZE": 20,
+   "ELIGIBLE_UNIVERSE": 139,
+   "PANEL": 152,
+   "CURRENT_PUBLIC_STATUS": {
+    "PUBLIC_LINKEDIN_STATUS": "NOT_TESTED x20",
+    "PUBLIC_YOUTUBE_STATUS": "NOT_TESTED x20"
+   },
+   "SELECTION_CRITERIA": "relevancia CROP x ISSUE, atividade 2023+, instituicao declarada, ORCID presente, nao conflacionado"
+  },
+  "PUBLIC_TECHNICAL_VOICE_QUEUE_ES": {
+   "QUEUE_SIZE": 20,
+   "ELIGIBLE_UNIVERSE": 67,
+   "CURRENT_PUBLIC_STATUS": {
+    "PUBLIC_CONTENT_STATUS": "NOT_TESTED x20"
+   },
+   "SELECTION_CRITERIA": "papel verificavel em campo estruturado declarado; alcance NAO entra"
+  },
+  "NAO_MUDARAM_NESTA_MISSAO": "nenhum status saiu de NOT_TESTED, porque nenhuma busca publica foi executavel"
+ },
+ "FASE_2_IDENTIDADE_OFFLINE": {
+  "O_QUE_FOI_POSSIVEL_SEM_REDE": "validar a identidade JA REGISTRADA: digito verificador do ORCID, contagem de organizacoes contra a mediana do quadro, coerencia da instituicao, e homonimos dentro do proprio corpus.",
+  "ORCID_CHECKSUM": {
+   "REGRA": "ISO 7064 MOD 11-2 — o digito verificador do proprio ORCID",
+   "VALIDOS": 20,
+   "INVALIDOS": 0,
+   "NOTA": "checagem nova: ninguem tinha conferido o digito. 20/20 passam."
+  },
+  "IDENTITY_VERIFIED": 18,
+  "IDENTITY_CAUTION": 2,
+  "CAUTION_DETALHE": [
+   {
+    "PERSON_ID": "https://openalex.org/A5048261289",
+    "NAME": "Antonio Trapero Casas",
+    "ORCID": "https://orcid.org/0000-0003-3089-8301",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 2,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [
+     "2 ids OpenAlex para o mesmo nome"
+    ],
+    "IDENTITY": "IDENTITY_CAUTION"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5032245944",
+    "NAME": "Juan Moral",
+    "ORCID": "https://orcid.org/0000-0002-1153-2809",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 2,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [
+     "2 ids OpenAlex para o mesmo nome"
+    ],
+    "IDENTITY": "IDENTITY_CAUTION"
+   }
+  ],
+  "RESULTADO_POR_PESSOA": [
+   {
+    "PERSON_ID": "https://openalex.org/A5076239639",
+    "NAME": "Jesús Mercado‐Blanco",
+    "ORCID": "https://orcid.org/0000-0003-1895-5895",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 3,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5054958811",
+    "NAME": "Angjelina Belaj",
+    "ORCID": "https://orcid.org/0000-0002-4526-0979",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5009441623",
+    "NAME": "Antonio Valverde‐Corredor",
+    "ORCID": "https://orcid.org/0000-0001-5983-2045",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 2,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5051828142",
+    "NAME": "Carmen Gómez‐Lama Cabanás",
+    "ORCID": "https://orcid.org/0000-0001-8312-9253",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 2,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5016721006",
+    "NAME": "Manuel Fernández‐López",
+    "ORCID": "https://orcid.org/0000-0003-2366-6908",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 2,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5014353733",
+    "NAME": "Antonio J. Fernández‐González",
+    "ORCID": "https://orcid.org/0000-0002-8781-8133",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 2,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5074016226",
+    "NAME": "Jorge Poveda",
+    "ORCID": "https://orcid.org/0000-0002-1415-3580",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 5,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5078119151",
+    "NAME": "Martina Cardoni",
+    "ORCID": "https://orcid.org/0000-0002-3466-1697",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 3,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5057403201",
+    "NAME": "Pablo J. Villadas",
+    "ORCID": "https://orcid.org/0000-0001-8662-8883",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 2,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5046191184",
+    "NAME": "Blanca B. Landa",
+    "ORCID": "https://orcid.org/0000-0002-9511-3731",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 3,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5048261289",
+    "NAME": "Antonio Trapero Casas",
+    "ORCID": "https://orcid.org/0000-0003-3089-8301",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 2,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [
+     "2 ids OpenAlex para o mesmo nome"
+    ],
+    "IDENTITY": "IDENTITY_CAUTION"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5101778005",
+    "NAME": "Francisco Luque",
+    "ORCID": "https://orcid.org/0000-0003-1354-3533",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5082737009",
+    "NAME": "Jorge A. Ramírez‐Tejero",
+    "ORCID": "https://orcid.org/0000-0002-6551-1712",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5054929330",
+    "NAME": "Carlos Agustí‐Brisach",
+    "ORCID": "https://orcid.org/0000-0003-1709-1140",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5037674413",
+    "NAME": "Francisco Javier López‐Escudero",
+    "ORCID": "https://orcid.org/0000-0002-3085-0992",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5060585084",
+    "NAME": "Raúl de la Rosa",
+    "ORCID": "https://orcid.org/0000-0002-0752-9607",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 3,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5032245944",
+    "NAME": "Juan Moral",
+    "ORCID": "https://orcid.org/0000-0002-1153-2809",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 2,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [
+     "2 ids OpenAlex para o mesmo nome"
+    ],
+    "IDENTITY": "IDENTITY_CAUTION"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5008500325",
+    "NAME": "Lorenzo León",
+    "ORCID": "https://orcid.org/0000-0002-5664-3393",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5057772274",
+    "NAME": "Emilio Montesinos",
+    "ORCID": "https://orcid.org/0000-0003-4455-8332",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   },
+   {
+    "PERSON_ID": "https://openalex.org/A5084951013",
+    "NAME": "Concepción M. Díez",
+    "ORCID": "https://orcid.org/0000-0002-1888-3628",
+    "ORCID_CHECKSUM": "VALID",
+    "ALL_INSTITUTIONS_COUNT": 1,
+    "HOMONYM_IDS_IN_CORPUS": 1,
+    "INSTITUTION_COHERENT": true,
+    "PROBLEMS": [],
+    "IDENTITY": "IDENTITY_VERIFIED"
+   }
+  ]
+ },
+ "ACHADO_NOVO_FRAGMENTACAO_DE_IDENTIDADE": {
+  "O_QUE_E": "o espelho da conflacao. A conta anterior mediu CONFLACAO — muitas pessoas colapsadas num id (58 organizacoes contra mediana 2). Esta missao mediu o inverso: UMA pessoa espalhada em VARIOS ids.",
+  "ASSINATURA": "mesmo NOME + mesma instituicao principal + um id COM ORCID e outro SEM, o secundario com poucos trabalhos e apenas recentes.",
+  "CASOS_VERIFICADOS_A_MAO": [
+   {
+    "NAME": "Antonio Trapero Casas",
+    "ID_PRINCIPAL": "A5048261289 (21 trabalhos, 2019-2025, ORCID presente)",
+    "ID_SECUNDARIO": "A5124543816 (2 trabalhos, 2025, ORCID nulo)",
+    "INSTITUICAO_COMUM": "University of Cordoba",
+    "LEITURA": "fragmentacao provavel, nao homonimia"
+   },
+   {
+    "NAME": "Juan Moral",
+    "ID_PRINCIPAL": "A5032245944 (14 trabalhos, 2019-2025, ORCID presente)",
+    "ID_SECUNDARIO": "A5124083713 (2 trabalhos, 2026, ORCID nulo)",
+    "INSTITUICAO_COMUM": "University of Cordoba",
+    "LEITURA": "fragmentacao provavel, nao homonimia"
+   }
+  ],
+  "TAMANHO_MEDIDO": {
+   "NOMES_COM_MAIS_DE_UM_ID_NO_CORPUS": 109,
+   "COM_ASSINATURA_DE_FRAGMENTACAO": 23,
+   "DESTES_NO_QUADRO_DOS_152": 3,
+   "TRABALHOS_DO_QUADRO_INVISIVEIS": 5,
+   "HONESTIDADE": "os 23 sao LIMITE SUPERIOR com ruido: a heuristica \"mesma instituicao principal\" pega epidemiologistas de nutricao que entraram no corpus por artigos de azeite e saude. So os 3 do quadro foram verificados, e 2 a mao."
+  },
+  "EFEITO_REAL": "pequeno e declarado: 5 trabalhos em 3 pesquisadores. NAO muda quem esta no quadro. Pode mexer levemente na ORDENACAO da fila, que usa contagem de trabalhos.",
+  "LEI_NOVA": "UM ID != UMA PESSOA, NAS DUAS DIRECOES. `CONTAGEM ALTA NAO VALIDA IDENTIDADE` ja existia para conflacao; falta o par: `CONTAGEM BAIXA NAO PROVA IDENTIDADE COMPLETA`. Um pesquisador pode parecer menor do que e porque o registro o partiu, e a fila ordenada por contagem herda esse vies.",
+  "COMO_FECHAR": "ORCID resolve — o mesmo ORCID em dois ids prova fragmentacao. Rota bloqueada por rede."
+ },
+ "FASE_17_CONFUNDIDOR_DE_CORDOBA": {
+  "PERGUNTA": "a concordancia geografica entre voz e exposicao e sinal agronomico ou artefato de densidade institucional?",
+  "METODO": "construir a variavel rival — producao cientifica por provincia — e correlacionar com a mesma serie de voz, na mesma janela, com os mesmos n.",
+  "MAPEAMENTO": {
+   "REGRA": "instituicao -> provincia SOMENTE quando o NOME declara a provincia. Isso nao e \"nome e endereco\": e o nome declarando a propria sede. O resto fica NAO SEI.",
+   "INSTITUICOES_ES_NO_CORPUS": 380,
+   "COM_PROVINCIA_DECLARADA_NO_NOME": 17,
+   "COBERTURA_PCT": 4.5
+  },
+  "DOCUMENTOS_POR_PROVINCIA": {
+   "Córdoba": 205,
+   "Sevilla": 87,
+   "Jaén": 54,
+   "Granada": 71,
+   "Málaga": 83,
+   "Almería": 20,
+   "Cádiz": 29,
+   "Huelva": 21
+  },
+  "CORRELACOES_n6": {
+   "rho_voz_x_EXPOSICAO": 0.926,
+   "rho_voz_x_AREA": 0.741,
+   "rho_voz_x_INCIDENCIA": 0.247,
+   "rho_voz_x_PRODUCAO_CIENTIFICA": 0.679,
+   "CRITICO_5PCT_n6": 0.829,
+   "NOTA_METODOLOGICA": "Cordoba e Sevilla EMPATAM em 12 mencoes. Empate exige RANK MEDIO; sem isso o coeficiente sai 0,886 em vez de 0,926."
+  },
+  "LEITURA": "a exposicao agronomica e a UNICA das quatro que passa do critico. A explicacao rival (producao cientifica) fica em 0,679 e NAO passa. Isso ENFRAQUECE o confundidor.",
+  "ESTADO": "CONFOUNDER_OPEN",
+  "PORQUE_NAO_FECHADO": "a variavel rival esta mal medida: so 17 de 380 instituicoes (4,5%) declaram provincia no nome, e as NAO mapeadas incluem IAS-CSIC e IFAPA — exatamente as instituicoes de Cordoba que o confundidor nomeia. Medir densidade institucional de verdade exige a localizacao declarada pelo ROR, que este ambiente bloqueia.",
+  "COMO_FECHAR": "duas coisas, nenhuma disponivel nesta sessao: (1) ROR para medir densidade institucional de verdade, em vez de 4,5% de cobertura por nome; (2) mais provincias ou granularidade menor que provincia, porque n=6 com um empate nao sustenta separacao de explicacoes rivais.",
+  "ESTADO_ANTERIOR_NESTA_MISSAO": "CONFOUNDER_NARROWED — REBAIXADO por auto-refutacao na FASE 26",
+  "REFUTACAO_DA_PROPRIA_CONCLUSAO": {
+   "O_QUE_EU_IA_PUBLICAR": "\"a exposicao agronomica passa do critico (0,926) e a explicacao rival nao (0,679), logo o confundidor esta enfraquecido\". O numero e bonito e a significancia e real com n=6.",
+   "O_ATAQUE": "sensibilidade leave-one-out: tirar UMA provincia e refazer, com critico de n=5 (0,900).",
+   "RESULTADO": {
+    "n6_completo": {
+     "exposicao": 0.926,
+     "ciencia": 0.679,
+     "critico": 0.829,
+     "exposicao_passa": true
+    },
+    "sem_Cordoba": {
+     "exposicao": 0.894,
+     "ciencia": 0.447,
+     "critico": 0.9,
+     "exposicao_passa": false
+    },
+    "sem_Jaen": {
+     "exposicao": 0.866,
+     "ciencia": 0.866,
+     "critico": 0.9,
+     "exposicao_passa": false
+    },
+    "sem_Sevilla": {
+     "exposicao": 0.894,
+     "ciencia": 0.447,
+     "critico": 0.9,
+     "exposicao_passa": false
+    },
+    "sem_Granada": {
+     "exposicao": 0.949,
+     "ciencia": 0.791,
+     "critico": 0.9,
+     "exposicao_passa": true
+    },
+    "sem_Huelva": {
+     "exposicao": 0.949,
+     "ciencia": 0.632,
+     "critico": 0.9,
+     "exposicao_passa": true
+    },
+    "sem_Malaga": {
+     "exposicao": 0.949,
+     "ciencia": 0.791,
+     "critico": 0.9,
+     "exposicao_passa": true
+    }
+   },
+   "LEITURA": "a significancia CAI em 3 das 6 remocoes. O resultado depende de Cordoba, Jaen ou Sevilla individualmente — nao e propriedade da serie, e propriedade de tres pontos. E ao remover Jaen as duas explicacoes EMPATAM exatamente em 0,866: nesse recorte a agronomia e a densidade institucional sao indistinguiveis.",
+   "VEREDITO": "CONFOUNDER_OPEN. A medicao foi feita pela primeira vez e vale como metodo; o RESULTADO nao e robusto o suficiente para separar as duas explicacoes.",
+   "A_MESMA_ARMADILHA_DE_ANTES": "e a classe de erro que esta casa ja matou uma vez: o rho 0,442 de \"a voz antecipa o campo\" tambem era o coeficiente mais alto da tabela e tambem era publicavel. Coeficiente bonito que nao sobrevive ao proprio teste de robustez nao e achado — e ruido com casas decimais."
+  }
+ }
+}

@@ -1,0 +1,496 @@
+{
+ "SOURCE_ID": "PUBLIC-COMM-FIRST-BATCH-EAME",
+ "DATASET_OWNER": "COMPETITOR_PUBLIC_COMMUNICATION_EAME",
+ "VERSION": "V1",
+ "FROZEN_AT": "2026-08-30",
+ "FROZEN_RULE": "esta lista NÃO muda depois da primeira coleta paga. Critério novo produz uma V2 explícita, com a V1 preservada — senão o rendimento fica medido contra um denominador que se mexeu.",
+ "ENTRY_RULE": "ACCOUNT_IDENTITY_STATE = PROVED E COUNTRY_SCOPE = LOCAL_COUNTRY_PROVED E PAGE_ROLE = COMPANY",
+ "source": "derivado de CONTAS-V1 — nenhuma coleta, nenhum custo",
+ "EVIDENCE_CLASS": "DERIVED_SCOPE",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "ACCOUNTS_IN_BATCH": 22,
+ "BY_COUNTRY": {
+  "ES": 10,
+  "FR": 4,
+  "IT": 8
+ },
+ "BY_COMPANY": {
+  "BAYER": 7,
+  "NUFARM": 3,
+  "SYNGENTA": 8,
+  "BASF": 3,
+  "CORTEVA": 1
+ },
+ "BY_PLATFORM": {
+  "YOUTUBE": 7,
+  "INSTAGRAM": 5,
+  "FACEBOOK": 10
+ },
+ "EXECUTION_ORDER": [
+  {
+   "STEP": "A",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNTS": 7,
+   "GATE": "rodar `contratos` antes — GET no ator, custo zero"
+  },
+  {
+   "STEP": "B",
+   "PLATFORM": "INSTAGRAM",
+   "ACCOUNTS": 5,
+   "GATE": "só se o rendimento do passo anterior justificar"
+  },
+  {
+   "STEP": "C",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNTS": 10,
+   "GATE": "só se o rendimento do passo anterior justificar"
+  },
+  {
+   "STEP": "D",
+   "PLATFORM": "LINKEDIN",
+   "ACCOUNTS": 0,
+   "GATE": "bloqueado: nenhuma conta local provada nesta plataforma"
+  }
+ ],
+ "WINDOW_FIRST": "LAST_30D",
+ "WINDOW_WIDEN_TO": "LAST_90D",
+ "WINDOW_WIDEN_RULE": "só onde o corpus vier baixo. Nunca histórico profundo na primeira execução.",
+ "ACCOUNTS": [
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "BAYER",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_HANDLE": "BayerCropScienceEspaña",
+   "ACCOUNT_URL": "https://www.youtube.com/c/BayerCropScienceEspa%C3%B1a",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em ES (https://www.cropscience.bayer.es/, título \"Inicio | Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceEspaña\" carrega marca de país explícita (españa) para ES",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "NUFARM",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_HANDLE": "nufarmespana",
+   "ACCOUNT_URL": "https://www.youtube.com/user/nufarmespana",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de NUFARM em ES (https://nufarm.com/es/, título \"Nufarm Spain\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"nufarmespana\" termina com o nome do país por extenso (\"espana\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "SYNGENTA",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_HANDLE": "SyngentaES",
+   "ACCOUNT_URL": "https://www.youtube.com/user/SyngentaES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em ES (https://www.syngenta.es/, título \"Syngenta | Tecnología al servicio del agricultor\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"SyngentaES\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "FR",
+   "COMPANY": "BAYER",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_HANDLE": "BayerAgri",
+   "ACCOUNT_URL": "https://www.youtube.com/@BayerAgri",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em FR (https://agro.bayer.fr/, título \"Protection des cultures, conseils et outils agronomiques | Agro Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "a descrição do PRÓPRIO canal declara o país: \"En France, à vos côtés, pour trouver des solutions adaptées à l'agriculture française\". Não é a língua do vídeo nem a língua da interface — é o canal dizendo a quem serve.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.youtube.com/@BayerAgri"
+   ]
+  },
+  {
+   "COUNTRY": "FR",
+   "COMPANY": "SYNGENTA",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_HANDLE": "SyngentaFrance",
+   "ACCOUNT_URL": "https://youtube.com/user/SyngentaFrance/",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em FR (https://www.syngenta.fr/, título \"Semences et produits phytosanitaires pour les cultures - Syngenta\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"SyngentaFrance\" carrega marca de país explícita (france) para FR",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "BAYER",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_HANDLE": "BayerCropScienceIT",
+   "ACCOUNT_URL": "https://www.youtube.com/user/BayerCropScienceIT",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em IT (https://www.cropscience.bayer.it/, título \"Bayer Crop Science Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceIT\" carrega marca de país explícita (it) para IT",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "SYNGENTA",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_HANDLE": "Syngentaitaly",
+   "ACCOUNT_URL": "https://www.youtube.com/Syngentaitaly",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em IT (https://www.syngenta.it/, título \"Syngenta Italia | Soluzioni innovative per l'agricoltura\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"Syngentaitaly\" termina com o nome do país por extenso (\"italy\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "BASF",
+   "PLATFORM": "INSTAGRAM",
+   "ACCOUNT_HANDLE": "basf_agroes",
+   "ACCOUNT_URL": "https://www.instagram.com/basf_agroes/",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BASF em ES (https://www.agro.basf.es/es/, título \"Bienvenidos a BASF Agro España\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "ida e volta fechada. O site espanhol declara a conta, e a conta declara de volta o site espanhol: a bio do Instagram aponta para linktr.ee/basf_agroes, e essa página lista quatro endereços em agro.basf.es — incluindo a raiz /es/, que é exatamente o âncora. Não é a LÍNGUA da bio que decide (isso o §6 proíbe); é o endereço declarado.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.instagram.com/basf_agroes/",
+    "https://linktr.ee/basf_agroes",
+    "https://www.agro.basf.es/es/"
+   ]
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "BAYER",
+   "PLATFORM": "INSTAGRAM",
+   "ACCOUNT_HANDLE": "bayer4cropses",
+   "ACCOUNT_URL": "https://www.instagram.com/bayer4cropses/",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em ES (https://www.cropscience.bayer.es/, título \"Inicio | Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o mesmo identificador (\"bayer4cropses\") aparece no FACEBOOK da mesma empresa e país, onde ele carrega marca de país explícita. Mesma conta, caixa diferente porque a plataforma escreve a URL do seu jeito.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "SYNGENTA",
+   "PLATFORM": "INSTAGRAM",
+   "ACCOUNT_HANDLE": "syngenta.es",
+   "ACCOUNT_URL": "https://instagram.com/syngenta.es",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em ES (https://www.syngenta.es/, título \"Syngenta | Tecnología al servicio del agricultor\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"syngenta.es\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "BAYER",
+   "PLATFORM": "INSTAGRAM",
+   "ACCOUNT_HANDLE": "bayer_italia",
+   "ACCOUNT_URL": "https://www.instagram.com/bayer_italia",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em IT (https://www.cropscience.bayer.it/, título \"Bayer Crop Science Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"bayer_italia\" carrega marca de país explícita (italia) para IT",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "SYNGENTA",
+   "PLATFORM": "INSTAGRAM",
+   "ACCOUNT_HANDLE": "syngentaitalia",
+   "ACCOUNT_URL": "https://www.instagram.com/syngentaitalia/",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em IT (https://www.syngenta.it/, título \"Syngenta Italia | Soluzioni innovative per l'agricoltura\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"syngentaitalia\" termina com o nome do país por extenso (\"italia\"), sem separador. Só nome por extenso vale grudado — \"es\"/\"it\"/\"fr\" no fim de palavra colidem à toa.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "BASF",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "BASF.Agro.Espana",
+   "ACCOUNT_URL": "https://es-la.facebook.com/BASF.Agro.Espana/",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BASF em ES (https://www.agro.basf.es/es/, título \"Bienvenidos a BASF Agro España\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"BASF.Agro.Espana\" carrega marca de país explícita (espana) para ES",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "BAYER",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "Bayer4CropsES",
+   "ACCOUNT_URL": "https://www.facebook.com/Bayer4CropsES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em ES (https://www.cropscience.bayer.es/, título \"Inicio | Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"Bayer4CropsES\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "CORTEVA",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "CortevaES",
+   "ACCOUNT_URL": "https://www.facebook.com/CortevaES",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de CORTEVA em ES (https://www.corteva.com/es/, título \"El futuro de la agricultura | Corteva Agriscience\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"CortevaES\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "SYNGENTA",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "SyngentaES",
+   "ACCOUNT_URL": "https://www.facebook.com/SyngentaES/",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em ES (https://www.syngenta.es/, título \"Syngenta | Tecnología al servicio del agricultor\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"SyngentaES\" carrega marca de país explícita (es) para ES",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "FR",
+   "COMPANY": "NUFARM",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "Nufarm-France",
+   "ACCOUNT_URL": "https://www.facebook.com/people/Nufarm-France/100088697208474/",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de NUFARM em FR (https://nufarm.com/fr/, título \"Nufarm France\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"Nufarm-France\" carrega marca de país explícita (france) para FR",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "FR",
+   "COMPANY": "SYNGENTA",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "SyngentaFrance",
+   "ACCOUNT_URL": "https://www.facebook.com/SyngentaFrance",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em FR (https://www.syngenta.fr/, título \"Semences et produits phytosanitaires pour les cultures - Syngenta\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"SyngentaFrance\" carrega marca de país explícita (france) para FR",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "BASF",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "BASF-Agricultural-Solutions-1741459832625091",
+   "ACCOUNT_URL": "https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091/",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BASF em IT (https://www.agro.basf.it/it/, título \"Benvenuti in BASF Agricultural Solutions Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "a página declara ENDEREÇO FÍSICO na Itália (Via Marconato 8, Cesano Maderno, Italy), telefone +39, e-mail info.agroitalia@basf.com e o site agro.basf.it/it, que é o âncora italiano. Quatro declarações de país independentes na mesma página. POSTAL_ADDRESS_IN_COUNTRY = STRONG_COUNTRY_EVIDENCE — sem ordenar contra as outras formas de prova, que esta missão não mediu.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.facebook.com/BASF-Agricultural-Solutions-1741459832625091/",
+    "https://www.agro.basf.it/it"
+   ]
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "BAYER",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "BayerCropScienceItalia",
+   "ACCOUNT_URL": "https://www.facebook.com/BayerCropScienceItalia",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em IT (https://www.cropscience.bayer.it/, título \"Bayer Crop Science Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"BayerCropScienceItalia\" carrega marca de país explícita (italia) para IT",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "NUFARM",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "Nufarm-Italia-2312073685546312",
+   "ACCOUNT_URL": "https://www.facebook.com/Nufarm-Italia-2312073685546312",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de NUFARM em IT (https://nufarm.com/it/, título \"Nufarm Italy\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"Nufarm-Italia-2312073685546312\" carrega marca de país explícita (italia) para IT",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "SYNGENTA",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "Syngenta-2007689772789481",
+   "ACCOUNT_URL": "https://www.facebook.com/Syngenta-2007689772789481",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de SYNGENTA em IT (https://www.syngenta.it/, título \"Syngenta Italia | Soluzioni innovative per l'agricoltura\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "ida e volta fechada. O identificador é um número de página e não dizia nada; a própria página declara o nome de usuário \"syngentaitalia\" e o site \"syngenta.it\", que é exatamente o âncora italiano.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.facebook.com/Syngenta-2007689772789481",
+    "https://www.syngenta.it/"
+   ]
+  }
+ ],
+ "EXCLUDED_ACCOUNTS": [
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "BAYER",
+   "PLATFORM": "LINKEDIN",
+   "ACCOUNT_HANDLE": "bayer-cropscience",
+   "ACCOUNT_URL": "https://it.linkedin.com/company/bayer-cropscience",
+   "COUNTRY_SCOPE": "GLOBAL",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em IT (https://www.cropscience.bayer.it/, título \"Bayer Crop Science Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "a página se chama \"Bayer | Crop Science\" e se descreve como \"a responsible, GLOBAL team\", sem país. E a prova de que o subdomínio é interface veio sozinha: pedir `it.linkedin.com` entregou a página em `de.linkedin.com`. Se `it.` fosse a Itália, `de.` seria a Alemanha — e é a MESMA conta.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://it.linkedin.com/company/bayer-cropscience"
+   ]
+  },
+  {
+   "COUNTRY": "FR",
+   "COMPANY": "BAYER",
+   "PLATFORM": "FACEBOOK",
+   "ACCOUNT_HANDLE": "dekalbfr",
+   "ACCOUNT_URL": "https://www.facebook.com/dekalbfr",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "PAGE_ROLE": "PRODUCT_BRAND",
+   "IDENTITY_EVIDENCE": "o site oficial local de BAYER em FR (https://agro.bayer.fr/, título \"Protection des cultures, conseils et outils agronomiques | Agro Bayer\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o país está PROVADO: a página se chama \"DEKALB France\" e declara o site bayer-agri.fr, domínio agrícola francês da Bayer.",
+   "PAGE_ROLE_EVIDENCE": "a própria página se classifica como \"Produto/serviço\", e DEKALB é marca de SEMENTE da Bayer, não a conta da Bayer na França. Papel de marca não apaga a prova de país — as duas coisas são verdade ao mesmo tempo.",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.facebook.com/dekalbfr"
+   ]
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "BASF",
+   "PLATFORM": "LINKEDIN",
+   "ACCOUNT_HANDLE": "basf",
+   "ACCOUNT_URL": "https://www.linkedin.com/company/basf",
+   "COUNTRY_SCOPE": "GLOBAL",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BASF em ES (https://www.agro.basf.es/es/, título \"Bienvenidos a BASF Agro España\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "a própria página declara sede em Ludwigshafen, site basf.com e \"mais de 111.000 funcionários (...) em quase todos os países do mundo\". É a conta do grupo, não a da Espanha.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.linkedin.com/company/basf/"
+   ]
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "BASF",
+   "PLATFORM": "LINKEDIN",
+   "ACCOUNT_HANDLE": "basf",
+   "ACCOUNT_URL": "https://www.linkedin.com/company/basf/?originalSubdomain=it",
+   "COUNTRY_SCOPE": "GLOBAL",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BASF em IT (https://www.agro.basf.it/it/, título \"Benvenuti in BASF Agricultural Solutions Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "mesma conta do caso espanhol — sede Ludwigshafen, site basf.com, alcance mundial declarado. O `?originalSubdomain=it` da URL é preferência de exibição, não outra conta.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.linkedin.com/company/basf/"
+   ]
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "BASF",
+   "PLATFORM": "INSTAGRAM",
+   "ACCOUNT_HANDLE": "basf_global",
+   "ACCOUNT_URL": "https://www.instagram.com/basf_global/?hl=it",
+   "COUNTRY_SCOPE": "GLOBAL",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de BASF em IT (https://www.agro.basf.it/it/, título \"Benvenuti in BASF Agricultural Solutions Italia\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o próprio identificador \"basf_global\" declara \"global\"",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "FR",
+   "COMPANY": "CORTEVA",
+   "PLATFORM": "YOUTUBE",
+   "ACCOUNT_HANDLE": "CortevaBiologicals",
+   "ACCOUNT_URL": "https://www.youtube.com/@CortevaBiologicals",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "PAGE_ROLE": "PRODUCT_BRAND",
+   "IDENTITY_EVIDENCE": "o site oficial local de CORTEVA em FR (https://www.corteva.com/fr/, título \"Bienvenue chez Corteva Agriscience\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "a descrição não nomeia país nenhum: \"Stoller and Symborg became part of Corteva Biologicals\". O site francês da Corteva lista o canal, mas o site onde o link aparece não prova o país da conta.",
+   "PAGE_ROLE_EVIDENCE": "o nome declarado é uma linha de negócio — Corteva Biologicals — e não a Corteva na França.",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.youtube.com/@CortevaBiologicals"
+   ]
+  },
+  {
+   "COUNTRY": "FR",
+   "COMPANY": "CORTEVA",
+   "PLATFORM": "INSTAGRAM",
+   "ACCOUNT_HANDLE": "cortevabiologicals",
+   "ACCOUNT_URL": "https://www.instagram.com/cortevabiologicals/",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "PAGE_ROLE": "PRODUCT_BRAND",
+   "IDENTITY_EVIDENCE": "o site oficial local de CORTEVA em FR (https://www.corteva.com/fr/, título \"Bienvenue chez Corteva Agriscience\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "nome \"Corteva Biologicals\", bio \"Growing Together\" — nenhuma menção à França. Mesmo caso do canal de YouTube.",
+   "PAGE_ROLE_EVIDENCE": "linha de produto, não a empresa no país.",
+   "COUNTRY_SCOPE_CHAIN": [
+    "https://www.instagram.com/cortevabiologicals/"
+   ]
+  },
+  {
+   "COUNTRY": "ES",
+   "COMPANY": "NUFARM",
+   "PLATFORM": "LINKEDIN",
+   "ACCOUNT_HANDLE": "nufarm",
+   "ACCOUNT_URL": "https://www.linkedin.com/company/nufarm/",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de NUFARM em ES (https://nufarm.com/es/, título \"Nufarm Spain\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "IT",
+   "COMPANY": "NUFARM",
+   "PLATFORM": "LINKEDIN",
+   "ACCOUNT_HANDLE": "nufarm",
+   "ACCOUNT_URL": "https://au.linkedin.com/company/nufarm",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de NUFARM em IT (https://nufarm.com/it/, título \"Nufarm Italy\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  },
+  {
+   "COUNTRY": "FR",
+   "COMPANY": "NUFARM",
+   "PLATFORM": "LINKEDIN",
+   "ACCOUNT_HANDLE": "nufarm",
+   "ACCOUNT_URL": "https://www.linkedin.com/company/nufarm/",
+   "COUNTRY_SCOPE": "NOT_KNOWN",
+   "PAGE_ROLE": "COMPANY",
+   "IDENTITY_EVIDENCE": "o site oficial local de NUFARM em FR (https://nufarm.com/fr/, título \"Nufarm France\") declara este link. Primeira parte falando de si própria — não é busca por nome.",
+   "COUNTRY_SCOPE_EVIDENCE": "o identificador \"nufarm\" não carrega marca de país. Pode ser conta global, regional ou de produto — o link sozinho não decide, e assumir LOCAL aqui é exatamente o erro que o §1 proíbe.",
+   "PAGE_ROLE_EVIDENCE": "nada na leitura indicou página de marca ou de produto; o padrão é a conta da própria empresa"
+  }
+ ],
+ "EXCLUDED_BY_PRIMARY_REASON": {
+  "GLOBAL": 4,
+  "PRODUCT_BRAND_ROLE": 3,
+  "COUNTRY_NOT_KNOWN": 3
+ },
+ "EXCLUDED_MEANS": "conta OFICIAL que não entra no lote COMPANY x COUNTRY. O motivo pode ser o PAÍS (global, ou não provado) OU o PAPEL (página de marca/produto). PRODUCT_BRAND_ROLE não quer dizer que o país seja desconhecido: a DEKALB France tem o país PROVADO e fica fora pelo papel. Nenhum destes casos é conta errada, e nenhum é empresa que não comunica.",
+ "IDENTITY_STAGE": "FREEZE_READY",
+ "MANIFEST_STAGE": "FREEZE_READY",
+ "CONTENT_COLLECTION_STAGE": "NOT_STARTED",
+ "MISSION_STATE": "READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE",
+ "MISSION_IS_NOT_FINISHED_BECAUSE": "falta conteúdo real. Identidade congelada não responde \"sobre o que a empresa está falando\" nem \"o que mudou\".",
+ "ZERO_MEANS_NOW": "NO_CONTENT_COLLECTION_EXECUTED — nenhuma coleta rodou. Nenhum zero desta missão fala sobre o mundo ainda.",
+ "ZERO_WILL_MEAN_AFTER_A_VALID_RUN": "NO_ITEMS_OBSERVED nesta conta provada, nesta plataforma, nesta janela, nesta execução bem-sucedida. NUNCA COMPANY_NOT_COMMUNICATING.",
+ "OPTIONAL_REFRESH_INPUT": "NOT_READY",
+ "STATE": "READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE"
+}

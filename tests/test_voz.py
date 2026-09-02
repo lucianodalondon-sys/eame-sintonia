@@ -224,3 +224,125 @@ class TestChaveNuncaNoRepositorio(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestMissao11Derivacoes(unittest.TestCase):
+    """MISSAO 11 — o que foi possivel derivar sem rede, e o que ficou honestamente por fazer."""
+
+    @classmethod
+    def setUpClass(cls):
+        with open(os.path.join(SAMPLES, 'ES-M11-DERIVACOES.json'), encoding='utf-8') as f:
+            cls.d = json.load(f)
+
+    def test_declara_que_nao_houve_coleta_e_por_que(self):
+        b = self.d['PORQUE_NAO_HOUVE_COLETA']
+        self.assertEqual('NETWORK_POLICY_BLOCKED', b['ESTADO'])
+        self.assertIn('403', b['MEDIDO'])
+        self.assertIn('SOURCE FAILURE != ZERO', b['LEI'])
+        self.assertIsNone(self.d['RUN_ID'], 'sem coleta nao pode haver RUN_ID')
+
+    def test_as_filas_continuam_not_tested(self):
+        f = self.d['FASE_1_FILAS']
+        self.assertEqual(20, f['RESEARCHER_PUBLIC_VOICE_QUEUE_ES']['QUEUE_SIZE'])
+        self.assertEqual(139, f['RESEARCHER_PUBLIC_VOICE_QUEUE_ES']['ELIGIBLE_UNIVERSE'])
+        self.assertEqual(20, f['PUBLIC_TECHNICAL_VOICE_QUEUE_ES']['QUEUE_SIZE'])
+        self.assertEqual(67, f['PUBLIC_TECHNICAL_VOICE_QUEUE_ES']['ELIGIBLE_UNIVERSE'])
+        for arq in ('RESEARCHER-PUBLIC-VOICE-QUEUE-ES.json',
+                    'PUBLIC-TECHNICAL-VOICE-QUEUE-ES.json'):
+            with open(os.path.join(SAMPLES, arq), encoding='utf-8') as fh:
+                fila = json.load(fh)['QUEUE']
+            for e in fila:
+                for c in e:
+                    if c.endswith('_STATUS'):
+                        self.assertEqual('NOT_TESTED', e[c],
+                                         'status mudou sem coleta ter acontecido')
+
+    def test_o_digito_verificador_do_orcid_foi_conferido(self):
+        """ISO 7064 MOD 11-2 — validacao nova, offline, dos 20 da fila."""
+        o = self.d['FASE_2_IDENTIDADE_OFFLINE']['ORCID_CHECKSUM']
+        self.assertEqual(20, o['VALIDOS'])
+        self.assertEqual(0, o['INVALIDOS'])
+
+    def test_a_fragmentacao_e_o_espelho_da_conflacao(self):
+        """UM ID != UMA PESSOA, nas duas direcoes."""
+        f = self.d['ACHADO_NOVO_FRAGMENTACAO_DE_IDENTIDADE']
+        self.assertEqual(3, f['TAMANHO_MEDIDO']['DESTES_NO_QUADRO_DOS_152'])
+        self.assertEqual(5, f['TAMANHO_MEDIDO']['TRABALHOS_DO_QUADRO_INVISIVEIS'])
+        self.assertIn('NAS DUAS DIRECOES', f['LEI_NOVA'])
+        self.assertIn('LIMITE SUPERIOR', f['TAMANHO_MEDIDO']['HONESTIDADE'],
+                      'o numero maior tem de vir com a ressalva de ruido')
+
+    def test_o_confundidor_de_cordoba_continua_aberto(self):
+        """A conclusao bonita foi REBAIXADA pela propria refutacao."""
+        c = self.d['FASE_17_CONFUNDIDOR_DE_CORDOBA']
+        self.assertEqual('CONFOUNDER_OPEN', c['ESTADO'],
+                         'o confundidor nao pode ser dado por fechado nem por enfraquecido')
+        self.assertLess(c['MAPEAMENTO']['COBERTURA_PCT'], 10.0)
+        self.assertIn('IAS-CSIC', c['PORQUE_NAO_FECHADO'])
+
+    def test_a_conclusao_nao_sobrevive_ao_leave_one_out(self):
+        """3 das 6 remocoes derrubam a significancia — o resultado e de tres pontos."""
+        r = self.d['FASE_17_CONFUNDIDOR_DE_CORDOBA']['REFUTACAO_DA_PROPRIA_CONCLUSAO']
+        quedas = [k for k, v in r['RESULTADO'].items()
+                  if k != 'n6_completo' and not v['exposicao_passa']]
+        self.assertEqual(3, len(quedas), 'a fragilidade medida mudou de tamanho')
+        self.assertEqual(r['RESULTADO']['sem_Jaen']['exposicao'],
+                         r['RESULTADO']['sem_Jaen']['ciencia'],
+                         'sem Jaen as duas explicacoes empatam — e isso e o achado')
+        self.assertIn('ruido com casas decimais', r['A_MESMA_ARMADILHA_DE_ANTES'])
+
+    def test_o_empate_exige_rank_medio(self):
+        """Cordoba e Sevilla empatam em 12: sem rank medio o coeficiente sai errado."""
+        self.assertIn('RANK MEDIO',
+                      self.d['FASE_17_CONFUNDIDOR_DE_CORDOBA']['CORRELACOES_n6']['NOTA_METODOLOGICA'])
+
+
+class TestCropNaoDesempataEmSilencio(unittest.TestCase):
+    """A cultura nao pode ser eleita por ordem de insercao de dicionario.
+
+    Ate 2026-08-29 `marcar_assunto` fazia `for nome, rx in VOCAB_CROP.items(): break` —
+    a primeira que casasse vencia, sem criterio declarado. O defeito era INVISIVEL porque
+    VOCAB_CROP tinha uma chave so, e empate e impossivel com um item. Ele nasceria vivo
+    na segunda cultura — e o mapa nacional espanhol existe justamente para acrescentar
+    culturas.
+
+    O teste nao depende do tamanho do vocabulario atual: ele injeta um segundo padrao.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        import sys
+        sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+        import voz as _voz
+        cls.voz = _voz
+
+    def test_duas_culturas_no_mesmo_texto_viram_AMBIGUOUS(self):
+        original = dict(self.voz.VOCAB_CROP)
+        try:
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update({'OLIVE': r'\bolivar\b', 'CEREAL': r'\btrigo\b'})
+            r = self.voz.marcar_assunto({'TITLE': 'ensayo en olivar y trigo', 'DESCRIPTION': ''})
+            self.assertEqual('AMBIGUOUS:CEREAL+OLIVE', r['CROP'])
+        finally:
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update(original)
+
+    def test_a_ordem_do_vocabulario_nao_muda_o_resultado(self):
+        """Se inverter a ordem do dicionario mudar a saida, o desempate voltou."""
+        original = dict(self.voz.VOCAB_CROP)
+        try:
+            texto = {'TITLE': 'ensayo en olivar y trigo', 'DESCRIPTION': ''}
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update({'OLIVE': r'\bolivar\b', 'CEREAL': r'\btrigo\b'})
+            a = self.voz.marcar_assunto(dict(texto))['CROP']
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update({'CEREAL': r'\btrigo\b', 'OLIVE': r'\bolivar\b'})
+            b = self.voz.marcar_assunto(dict(texto))['CROP']
+            self.assertEqual(a, b, 'a ordem do vocabulario ainda decide a cultura')
+        finally:
+            self.voz.VOCAB_CROP.clear()
+            self.voz.VOCAB_CROP.update(original)
+
+    def test_uma_cultura_so_continua_sendo_o_nome_simples(self):
+        r = self.voz.marcar_assunto({'TITLE': 'poda del olivar en Jaen', 'DESCRIPTION': ''})
+        self.assertEqual('OLIVE', r['CROP'])

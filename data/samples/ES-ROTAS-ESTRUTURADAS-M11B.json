@@ -1,0 +1,85 @@
+{
+ "SOURCE_ID": "ES-ROTAS-ESTRUTURADAS-M11B",
+ "source": "medicao direta das rotas estruturadas do SOURCE PACK ESPANHA, uma pergunta real por rota",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a — descreve rotas, nao fatos espanhois",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "REGRA": "API > scraping quando a API resolve. Rota que exige credencial nao e rota morta: e rota nao testada.",
+ "ROTAS": [
+  {
+   "CAMADA": "SCIENCE",
+   "ROTA": "OpenAlex API",
+   "HTTP": "429",
+   "ESTADO": "ORCAMENTO_DIARIO_ESGOTADO",
+   "MEDIDO": "retry-after 3966s; x-ratelimit-limit-usd 0.1; dailyRemainingUsd 0",
+   "CORPO": "Insufficient budget. This request costs $0.0001 but you only have $0 remaining. Resets at midnight UTC.",
+   "O_QUE_ISTO_NAO_E": "nao e bloqueio de rede, nao e IP compartilhado, nao e chave errada. A OpenAlex passou a cobrar por credito e o teto diario gratuito ja foi consumido.",
+   "DESBLOQUEIA": "esperar o reset em midnight UTC, ou adicionar fundos em openalex.org/pricing"
+  },
+  {
+   "CAMADA": "SCIENCE",
+   "ROTA": "Crossref REST API",
+   "HTTP": "200",
+   "ESTADO": "ALCANCAVEL",
+   "MEDIDO": "query 'olive repilo Spain' devolveu total-results 251889",
+   "RESSALVA": "o parametro query e busca difusa OR — 251.889 nao e o tamanho do corpus relevante, e o tamanho do ruido. Exige filtro por DOI, data ou afiliacao antes de virar denominador."
+  },
+  {
+   "CAMADA": "SCIENCE",
+   "ROTA": "ORCID Public API",
+   "HTTP": "200",
+   "ESTADO": "ALCANCAVEL",
+   "MEDIDO": "expanded-search por affiliation-org-name='Instituto de Agricultura Sostenible' devolveu num-found 94",
+   "VALOR": "e a rota que resolve IDENTIDADE por instituicao sem passar por rede social — exatamente o passo 4 do source pack"
+  },
+  {
+   "CAMADA": "SCIENCE",
+   "ROTA": "OpenAIRE Graph API v3",
+   "HTTP": "200",
+   "ESTADO": "ALCANCAVEL",
+   "MEDIDO": "keywords='olive Verticillium' country=ES devolveu total 263",
+   "VALOR": "segunda fonte de ciencia com filtro de pais nativo; util quando a OpenAlex estiver sem credito"
+  },
+  {
+   "CAMADA": "PUBLIC_DATA",
+   "ROTA": "datos.gob.es API",
+   "HTTP": "200",
+   "ESTADO": "ALCANCAVEL"
+  },
+  {
+   "CAMADA": "PUBLIC_DATA",
+   "ROTA": "Eurostat statistics API",
+   "HTTP": "200",
+   "ESTADO": "ALCANCAVEL",
+   "MEDIDO": "apro_cpshr geo=ES61 time=2024 respondeu"
+  },
+  {
+   "CAMADA": "CLIMATE",
+   "ROTA": "AEMET OpenData",
+   "HTTP": "200",
+   "ESTADO": "EXIGE_API_KEY",
+   "MEDIDO": "corpo vazio sem api_key; a chave e gratuita mediante cadastro"
+  },
+  {
+   "CAMADA": "SOCIAL",
+   "ROTA": "YouTube Data API v3",
+   "HTTP": "403",
+   "ESTADO": "EXIGE_API_KEY",
+   "MEDIDO": "Method doesn't allow unregistered callers",
+   "NOTA": "chave gratuita com cota diaria. E a rota preferida para search/channels/videos/comments antes de qualquer ator pago."
+  },
+  {
+   "CAMADA": "FIELD",
+   "ROTA": "RAIF Andalucia",
+   "HTTP": "307",
+   "ESTADO": "ALCANCAVEL_COM_REDIRECT",
+   "NOTA": "download estruturado ZIP/XML, NAO e API. Chamar de API seria descrever errado a rota."
+  }
+ ],
+ "CREDENCIAIS_QUE_FALTAM": [
+  "AEMET api_key (gratuita)",
+  "YouTube Data API key (gratuita, com cota)"
+ ],
+ "O_QUE_ISTO_NAO_PROVA": "HTTP 200 nao e fonte viva nem dado util. Mede que a rota responde, nao que ela sustenta a pergunta."
+}

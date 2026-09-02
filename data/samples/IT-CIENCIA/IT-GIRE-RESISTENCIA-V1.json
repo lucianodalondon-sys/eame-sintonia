@@ -1,0 +1,98 @@
+{
+ "DATASET": "IT-GIRE-RESISTENCIA-V1",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-GIRE",
+ "SOURCE_NAME": "GIRE — Gruppo Italiano di lavoro sulla Resistenza agli Erbicidi, hospedado pelo CNR",
+ "source": "http://gire.mlib.cnr.it — lido em navegador, 2026-09-02",
+ "SOURCE_LOCATION": "ITALY",
+ "FACT_LOCATION": "ITALY",
+ "ORIGINAL_LANGUAGE": "it",
+ "EVIDENCE_CLASS": "TECHNICAL_AUTHORITY_DECLARATION",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "ROTA": {
+  "TENTATIVA_1": "https://gire.ipsp.cnr.it — RECUSADA. Certificado expirado; curl e WebFetch se recusam a seguir.",
+  "TENTATIVA_2": "http://gire.mlib.cnr.it — ABRE. Mesmo conteúdo, host espelho, sem TLS.",
+  "LEI": "FONTE INALCANÇÁVEL POR UMA PORTA NÃO É FONTE INALCANÇÁVEL. Estava declarada como lacuna desde a primeira rodada; era porta errada, não fonte morta."
+ },
+ "O_QUE_ISTO_E": "a lista oficial italiana de espécies com resistência a herbicida CONFIRMADA, com o mecanismo e a cultura de cada mapa nacional publicado.",
+ "O_QUE_ISTO_NAO_E": [
+  "não é mapa de incidência: o GIRE publica onde a resistência foi CONFIRMADA, não quanta área tem",
+  "não é lista de daninhas importantes — é lista de daninhas RESISTENTES",
+  "não diz nada sobre produto de nenhum fabricante",
+  "não foi baixado ficha a ficha: só o índice de espécies e a bibliografia foram lidos"
+ ],
+ "ESPECIES_TOTAL": 22,
+ "ESPECIES": [
+  {"ESPECIE": "Alisma plantago-aquatica", "MAPAS": [{"CULTURA": "riso", "MECANISMO": ["ALS"]}]},
+  {"ESPECIE": "Amaranthus hybridus", "MAPAS": [], "NOTA": "ficha sem mapa publicado"},
+  {"ESPECIE": "Amaranthus palmeri", "MAPAS": [], "NOTA": "ficha sem mapa publicado"},
+  {"ESPECIE": "Amaranthus retroflexus", "MAPAS": [{"CULTURA": "dicotiledoni estive", "MECANISMO": ["ALS"]}]},
+  {"ESPECIE": "Amaranthus tuberculatus", "MAPAS": [], "NOTA": "ficha sem mapa publicado"},
+  {"ESPECIE": "Ammania coccinea", "MAPAS": []},
+  {"ESPECIE": "Avena sterilis", "MAPAS": [{"CULTURA": "frumento", "MECANISMO": ["ACCasi", "ALS"]}]},
+  {"ESPECIE": "Chenopodium album", "MAPAS": []},
+  {"ESPECIE": "Conyza canadensis", "MAPAS": [{"CULTURA": "colture arboree", "MECANISMO": ["EPSP"]}]},
+  {"ESPECIE": "Cyperus difformis", "MAPAS": [{"CULTURA": "riso", "MECANISMO": ["ALS"]}]},
+  {"ESPECIE": "Cyperus esculentus", "MAPAS": []},
+  {"ESPECIE": "Digitaria sanguinalis", "MAPAS": [{"CULTURA": "dicotiledoni estive", "MECANISMO": ["ACCasi"]}]},
+  {"ESPECIE": "Echinochloa crus-galli", "MAPAS": [{"CULTURA": "mais", "MECANISMO": ["ALS"]}, {"CULTURA": "riso", "MECANISMO": ["ACCasi", "ALS", "propanile"]}]},
+  {"ESPECIE": "Eleusine indica", "MAPAS": []},
+  {"ESPECIE": "Lolium spp.", "MAPAS": [{"CULTURA": "frumento", "MECANISMO": ["ACCasi", "ALS"]}, {"CULTURA": "medica", "MECANISMO": ["ACCasi"]}, {"CULTURA": "colture arboree", "MECANISMO": ["EPSP"]}]},
+  {"ESPECIE": "Oryza sativa (riso crodo)", "MAPAS": [{"CULTURA": "riso", "MECANISMO": ["ALS"]}]},
+  {"ESPECIE": "Panicum dichotomiflorum", "MAPAS": []},
+  {"ESPECIE": "Papaver rhoeas", "MAPAS": [{"CULTURA": "frumento", "MECANISMO": ["ALS", "2,4-D"]}]},
+  {"ESPECIE": "Phalaris paradoxa", "MAPAS": [{"CULTURA": "frumento", "MECANISMO": ["ACCasi"]}]},
+  {"ESPECIE": "Schoenoplectus mucronatus", "MAPAS": [{"CULTURA": "riso", "MECANISMO": ["ALS"]}]},
+  {"ESPECIE": "Sinapis arvensis", "MAPAS": [{"CULTURA": "frumento", "MECANISMO": ["ALS"]}]},
+  {"ESPECIE": "Solanum nigrum", "MAPAS": []},
+  {"ESPECIE": "Sorghum halepense", "MAPAS": [{"CULTURA": "dicotiledoni estive", "MECANISMO": ["ACCasi"]}]}
+ ],
+ "DECLARACAO_MAIS_RECENTE": {
+  "TEXTO_ORIGINAL": "Il GIRE conferma la presenza di popolazioni di riso crodo e di giavoni resistenti a tutti gli inibitori dell'ACCasi utilizzati in riso.",
+  "FONTE": "Il Risicoltore, 2025, LXVII (6), junho de 2025",
+  "POR_QUE_IMPORTA": "«resistentes a TODOS os inibidores da ACCase usados em arroz» é a afirmação mais forte da lista, e é da autoridade nacional do assunto.",
+  "O_QUE_NAO_DIZ": "não diz em que proporção da área, nem em que províncias."
+ },
+ "BIBLIOGRAFIA_LIDA": [
+  {"ANO": 2025, "VEICULO": "Il Risicoltore LXVII (6)", "TEMA": "riso crodo e giavoni resistentes a todos os inibidores da ACCase em arroz", "AUTOR": "GIRE"},
+  {"ANO": 2024, "VEICULO": "Il Risicoltore, março", "TEMA": "Alisma difícil de controlar; resistências confirmadas", "AUTOR": "GIRE"},
+  {"ANO": 2024, "VEICULO": "Journal of the Science of Food and Agriculture 104(9) 5522-5532", "TEMA": "ensaio rápido LAMP para resistência a inibidores da ALS em três espécies de Amaranthus", "AUTOR": "Milani A., Panozzo S., Tommasini M.G., Scarabel L."},
+  {"ANO": 2022, "VEICULO": "Il Risicoltore, abril", "TEMA": "aumento de gramíneas altamente resistentes a ACCase; primeiras populações confirmadas de Digitaria sanguinalis e Panicum dichotomiflorum", "AUTOR": "GIRE"},
+  {"ANO": 2019, "VEICULO": "Il Risicoltore 3 (fevereiro)", "TEMA": "Ammania coccinea nas risaie italianas, resistente a inibidores da ALS", "AUTOR": "Scarabel L., Sattin M., Loddo D. et al."},
+  {"ANO": 2019, "VEICULO": "L'Informatore Agrario 21, 57-59", "TEMA": "Soia, come gestire gli amaranti resistenti agli erbicidi", "AUTOR": "Sattin M., Scarabel L., Loddo D. et al."},
+  {"ANO": 2018, "VEICULO": "Il Risicoltore LXI n.3", "TEMA": "Cyperus esculentus resistente às sulfonilureias nas risaie italianas", "AUTOR": "GIRE"},
+  {"ANO": 2018, "VEICULO": "L'Informatore Agrario 17, 62-63", "TEMA": "primeiros casos de Cyperus esculentus resistentes às sulfonilureias", "AUTOR": "GIRE"},
+  {"ANO": 2013, "VEICULO": "Atti XIX Convegno S.I.R.F.I., Bologna", "TEMA": "diversidade nos sistemas de cultivo para gestão de malerbe resistentes de difícil controle", "AUTOR": "Sattin M., Collavo A., Panozzo S., Scarabel L."},
+  {"ANO": 2009, "VEICULO": "brochura GIRE", "TEMA": "Linee guida per la gestione della resistenza agli erbicidi", "AUTOR": "GIRE"}
+ ],
+ "PESSOAS_RECORRENTES": [
+  {"PESSOA": "Maurizio Sattin", "INSTITUICAO": "CNR-IPSP", "PAPEL_DECLARADO": "coordenador do GIRE", "CORROBORADO_POR": ["vídeo L'Informatore Agrario 2022-05-03", "vídeo Agronotizie 2021-02-24", "vídeo Giornate Fitopatologiche GF2020", "OpenAlex WEED_HERBICIDE_RESISTANCE, 4 obras"]},
+  {"PESSOA": "Laura Scarabel", "INSTITUICAO": "CNR-IPSP", "CORROBORADO_POR": ["OpenAlex WEED_HERBICIDE_RESISTANCE, 6 obras — a maior do recorte"]},
+  {"PESSOA": "Silvia Panozzo", "INSTITUICAO": "CNR-IPSP", "CORROBORADO_POR": ["OpenAlex WEED_HERBICIDE_RESISTANCE, 5 obras"]},
+  {"PESSOA": "Donato Loddo", "INSTITUICAO": "CNR", "PAPEL_DECLARADO": "membro do GIRE", "CORROBORADO_POR": ["vídeo Bayer Crop Science Italia 2022-10-12, 36.412 visualizações"]}
+ ],
+ "CRUZAMENTO_COM_PORTFOLIO_ADAMA_IT": {
+  "LEI": "isto é CRUZAMENTO DE TEMA. Nenhuma linha aqui prova autorização, eficácia nem oportunidade.",
+  "OBSERVACOES": [
+   {"ESPECIE": "Conyza canadensis", "RESISTENCIA": "EPSP (glifosato) em culturas arbóreas", "PORTFOLIO_ADAMA_IT": "11 registros vigentes com GLYPHOSATE; TAIFUN MK CL é posicionado no site para frutícolas, vite e olivo", "LEITURA": "a espécie resistente ao mecanismo está na MESMA cultura que o produto declara servir. Isso é contexto para um técnico, não é diagnóstico."},
+   {"ESPECIE": "Lolium spp.", "RESISTENCIA": "EPSP em arbóreas; ACCasi e ALS em frumento", "PORTFOLIO_ADAMA_IT": "glifosato (11) e graminicidas ACCase — CLODINAFOP (10), QUIZALOFOP-P-ETHYL (9), PROPAQUIZAFOP (5), CLETHODIM (1)", "LEITURA": "a maior parte do arsenal graminicida da ADAMA na Itália é HRAC 1(A) — 20 registros declaram esse grupo. É o mesmo mecanismo com resistência confirmada em Lolium e Avena no trigo."},
+   {"ESPECIE": "Echinochloa crus-galli", "RESISTENCIA": "ALS em milho; ACCasi, ALS e propanile em arroz", "PORTFOLIO_ADAMA_IT": "15 registros citam RICE; sistemas FullPage e Max-Ace são de arroz", "LEITURA": "os sistemas de arroz da ADAMA são baseados em IMAZAMOX, que é ALS. A resistência confirmada é ao mesmo grupo."},
+   {"ESPECIE": "Amaranthus (3 espécies)", "RESISTENCIA": "ALS", "PORTFOLIO_ADAMA_IT": "BIFENOX (7 registros — SONAVIO, VALLEY, FOX, FOXPRO, BIFENIX, ANTARKTIS) é HRAC 14/E, mecanismo diferente do ALS", "LEITURA": "mecanismo diferente do que tem resistência confirmada. É um FATO de rótulo e de classificação, e nada além disso."}
+  ]
+ },
+ "AFIRMACOES_PROIBIDAS": [
+  "há oportunidade comercial nesta resistência",
+  "o produto X resolve a resistência Y",
+  "a resistência está aumentando",
+  "esta área tem resistência",
+  "o produto do concorrente falhou"
+ ],
+ "O_QUE_FALTA": [
+  "as 22 fichas descritivas, uma a uma — não baixadas",
+  "os mapas nacionais em si (imagem/PDF) — só o rótulo do mapa foi lido",
+  "as linhas-guia específicas por cultura — a página existe e não foi aberta",
+  "a data da última atualização de cada ficha — não declarada no índice"
+ ]
+}

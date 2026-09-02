@@ -1,0 +1,70 @@
+{
+ "SOURCE_ID": "PORTAO-DE-REDE-ES-CURRENT",
+ "source": "medicao do ambiente de coleta corrente — nao das fontes",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a — descreve o ambiente de execucao",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-29",
+ "ESTADO_DO_REGISTRO": "CURRENT",
+ "AMBIENTE": "CURRENT_COLLECTION_ENVIRONMENT",
+ "CAPTURE_DATE": "2026-08-29",
+ "HEAD": "b998968f077b271edaf6dd28014fd33a99fa4b4d",
+ "MEDIDO_POR": "scripts/rede.py --snapshot",
+ "PROXY_STATE": {
+  "PROXY_CONFIGURADO": true,
+  "STATUS_LEGIVEL": true,
+  "ENABLED": true,
+  "SELECTIVE": false,
+  "RECENT_RELAY_FAILURES": 0
+ },
+ "HOSTS": [
+  {
+   "HOST": "api.openalex.org",
+   "HTTP_STATUS": "429",
+   "RESULT": "ALCANCAVEL",
+   "PARA_QUE_SERVE": "ciência e pesquisadores (ES-T5-002) — rota gratuita, sem chave"
+  },
+  {
+   "HOST": "pub.orcid.org",
+   "HTTP_STATUS": "200",
+   "RESULT": "ALCANCAVEL",
+   "PARA_QUE_SERVE": "identidade que atravessa camadas; fecha FRAGMENTAÇÃO e é o que falta em SCIENCE→VOICE"
+  },
+  {
+   "HOST": "api.ror.org",
+   "HTTP_STATUS": "200",
+   "RESULT": "ALCANCAVEL",
+   "PARA_QUE_SERVE": "localização declarada de instituição — é o que fecha o confundidor de Córdoba"
+  },
+  {
+   "HOST": "www.youtube.com",
+   "HTTP_STATUS": "200",
+   "RESULT": "ALCANCAVEL",
+   "PARA_QUE_SERVE": "camada de vídeo (ES-T8-001) — VIDEO FIRST depende disto"
+  },
+  {
+   "HOST": "api.apify.com",
+   "HTTP_STATUS": "401",
+   "RESULT": "ALCANCAVEL",
+   "PARA_QUE_SERVE": "rota paga de vídeo, transcrição e LinkedIn"
+  },
+  {
+   "HOST": "api.crossref.org",
+   "HTTP_STATUS": "200",
+   "RESULT": "ALCANCAVEL",
+   "PARA_QUE_SERVE": "complemento bibliográfico"
+  },
+  {
+   "HOST": "www.mapa.gob.es",
+   "HTTP_STATUS": "301",
+   "RESULT": "ALCANCAVEL",
+   "PARA_QUE_SERVE": "registro espanhol e denominações (ES-T4-00x)"
+  }
+ ],
+ "STATUS": "READY",
+ "ESSENCIAIS_RECUSADOS": [],
+ "NETWORK_COLLECTION_READY": "YES",
+ "LEI": "recusa de gateway NÃO é ausência de fonte. NETWORK_COLLECTION_READY = NO descreve ESTE ambiente, nunca a fonte.",
+ "O_QUE_ISTO_NAO_SIGNIFICA": "NAO significa que as fontes estao saudaveis, nem que a coleta vai dar certo. READY descreve o AMBIENTE: o tunel abre e a requisicao chega. SOURCE FAILURE != ZERO continua valendo na direcao contraria.",
+ "QUEM_MANDA": "o estado vivo e derivado por scripts/rede.py a cada execucao. Este arquivo e REGISTRO da medicao, nunca a fonte da verdade."
+}

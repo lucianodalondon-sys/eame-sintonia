@@ -52,6 +52,7 @@ PRESERVADO**. Fazer uma execução paga estourar no meio por causa de uma regra 
 perderia o dado que acabou de ser comprado. Um portão vermelho custa uma linha de
 correção; uma execução perdida custa a coleta inteira.
 """
+import datetime
 import json
 import os
 import re
@@ -144,8 +145,28 @@ def checar_token(run):
     return True
 
 
-def carregar(owner=None):
-    """Runs do manifesto global. `owner` filtra por dono — e é isso que separa missões."""
+def runs_duplicados(manifesto=None):
+    """RUN_IDs repetidos no manifesto.
+
+    `carregar()` indexa por RUN_ID. Com um id repetido, o segundo registro SOBRESCREVIA o
+    primeiro e uma execução inteira desaparecia sem nada reprovar — medido na MISSÃO 10C:
+    11 execuções na lista, 10 carregadas. Perda silenciosa de proveniência.
+    """
+    caminho = manifesto or MANIFESTO
+    if not os.path.exists(caminho):
+        return []
+    with open(caminho, encoding='utf-8') as f:
+        d = json.load(f)
+    vistos, dup = set(), []
+    for r in d.get('RUNS', []):
+        rid = r.get('RUN_ID')
+        if rid in vistos:
+            dup.append(rid)
+        vistos.add(rid)
+    return sorted(set(dup))
+
+
+def carregar():
     if not os.path.exists(MANIFESTO):
         return {}
     with open(MANIFESTO, encoding='utf-8') as f:
@@ -330,32 +351,222 @@ def _por_dono(runs):
 
 
 # ---------------------------------------------------------------- ordem entre camadas
-def pode_afirmar_ordem(run_a, run_b):
-    """`X BEFORE Y` só é dizível quando as duas execuções têm hora medida.
+def instante(v):
+    """Converte um carimbo em datetime COM FUSO, ou devolve None.
 
-    A auditoria de 2026-08-29 derrubou a afirmação "o YouTube veio antes do LinkedIn":
-    as duas rotas saíram do mesmo orçamento sem carimbo que as separasse, e o horário de
-    commit do git NÃO mede hora de coleta — mede hora de escrita.
+    Por que existe: até a MISSÃO 10C a ordem era decidida comparando STRINGS. Isso produz
+    resposta CONFIANTE e ERRADA em dois casos reais e reproduzíveis:
+
+      · fuso — `2026-08-29T09:00:00+02:00` (07:00 UTC) contra `2026-08-29T08:00:00Z`
+        (08:00 UTC). A verdade é BEFORE; a comparação lexicográfica devolvia AFTER.
+        O repositório JÁ mistura os dois formatos: o export do ROPF traz `+02:00` e as
+        execuções do coletor trazem `Z`.
+      · zero à esquerda — `2026-8-29` ordena depois de `2026-08-29` como texto.
+
+    E a guarda antiga era uma lista de quatro valores proibidos, não uma validação: um
+    `STARTED_AT` com o texto `desconhecido` passava e sustentava um BEFORE.
+    Agora só sustenta ordem o que se converte em instante. Falha fechada.
     """
+    if not isinstance(v, str):
+        return None
+    v = v.strip()
+    if not v or v in (NOT_PRESERVED, NAO_SEI):
+        return None
+    try:
+        d = datetime.datetime.fromisoformat(v.replace('Z', '+00:00'))
+    except ValueError:
+        return None
+    # Data sem hora não mede execução: '2026-08-29' viraria meia-noite inventada.
+    if len(v) <= 10:
+        return None
+    if d.tzinfo is None:
+        return None          # sem fuso não é instante, é hora local de lugar nenhum
+    return d
+
+
+def pode_afirmar_ordem(run_a, run_b):
+    """`X BEFORE Y` só é dizível quando as duas execuções têm hora MEDIDA e comparável."""
     for r in (run_a, run_b):
         if not r:
             return False, 'execução sem manifesto'
         for c in ('STARTED_AT', 'FINISHED_AT'):
-            if r.get(c) in (NOT_PRESERVED, NAO_SEI, None, ''):
-                return False, '%s sem %s medido' % (r.get('RUN_ID'), c)
+            if instante(r.get(c)) is None:
+                return False, '%s sem %s medido em instante comparável (valor: %r)' % (
+                    r.get('RUN_ID'), c, r.get(c))
     return True, ''
 
 
 def ordem(run_a, run_b):
-    """Devolve BEFORE / AFTER / OVERLAPS, ou NAO_DIZIVEL com o motivo."""
+    """Devolve BEFORE / AFTER / OVERLAPS, ou NAO_DIZIVEL com o motivo.
+
+    Compara INSTANTES, nunca strings.
+    """
     ok, motivo = pode_afirmar_ordem(run_a, run_b)
     if not ok:
         return 'NAO_DIZIVEL', motivo
-    if run_a['FINISHED_AT'] <= run_b['STARTED_AT']:
+    a_ini, a_fim = instante(run_a['STARTED_AT']), instante(run_a['FINISHED_AT'])
+    b_ini, b_fim = instante(run_b['STARTED_AT']), instante(run_b['FINISHED_AT'])
+    if a_fim <= b_ini:
         return 'BEFORE', ''
-    if run_b['FINISHED_AT'] <= run_a['STARTED_AT']:
+    if b_fim <= a_ini:
         return 'AFTER', ''
     return 'OVERLAPS', ''
+
+
+
+# ------------------------------------------------- inventário do bruto de rota paga
+# Por que este bloco existe: até 2026-08-29 duas coisas inventariavam o MESMO diretório —
+# `POLITICA-RAW-ROTA-PAGA.json` (lista digitada) e o DATA CLOCK (lista derivada). Elas
+# divergiram em silêncio: um bruto novo entrou, o relógio o pegou, a política não. Um
+# inventário digitado de uma população que muda é o mesmo defeito de sempre, agora em JSON.
+#
+# A partir daqui o DONO da população é este módulo, e o inventário é DERIVADO do diretório.
+
+RAW_PAID_REL = 'data/samples/raw-paid'
+
+# Duas populações vivem no mesmo diretório e NÃO têm a mesma obrigação. Sem distinguir,
+# um bruto operacional órfão se esconde atrás de um artefato de teste — e foi assim que
+# GATE-TEST-...-b passou despercebido.
+PRODUCTION_RAW = 'PRODUCTION_RAW'
+GATE_TEST_RAW = 'GATE_TEST_RAW'
+CLASSES_RAW = [PRODUCTION_RAW, GATE_TEST_RAW]
+
+# Convenção de nome aplicada pelo coletor nas execuções de verificação do portão.
+# Não é heurística sobre conteúdo: é declaração, e este módulo é o dono de interpretá-la.
+PREFIXO_GATE_TEST = 'GATE-TEST-'
+
+MOTIVO_GATE_TEST = (
+    'artefato de verificação do portão do coletor, não coleta. Não produz registro '
+    'analítico publicado, por isso não há execução de produção que o cite. '
+    'EXCLUDED_WITH_REASON — nunca ausência silenciosa.')
+
+
+def classificar_raw(caminho):
+    """PRODUCTION_RAW ou GATE_TEST_RAW."""
+    base = os.path.basename(str(caminho))
+    return GATE_TEST_RAW if base.startswith(PREFIXO_GATE_TEST) else PRODUCTION_RAW
+
+
+def arquivos_raw_pagos(root=ROOT):
+    """O conjunto REAL em disco. O denominador nunca é uma lista digitada."""
+    d = os.path.join(root, RAW_PAID_REL)
+    if not os.path.isdir(d):
+        return []
+    return sorted('%s/%s' % (RAW_PAID_REL, n)
+                  for n in os.listdir(d) if not n.startswith('.'))
+
+
+def _caminhos_declarados(run):
+    """RAW_EVIDENCE_PATH normalizado: aceita string ou lista, ignora NOT_PRESERVED."""
+    p = run.get('RAW_EVIDENCE_PATH')
+    for c in (p if isinstance(p, list) else [p]):
+        c = str(c).split(' (')[0].strip()
+        if c and c != NOT_PRESERVED:
+            yield c
+
+
+def runs_por_bruto(runs=None):
+    """A direção INVERSA da cadeia: ARQUIVO BRUTO -> execuções que o declaram.
+
+    `CONTENT -> RUN_ID -> MANIFEST` já existia. Faltava esta: um arquivo bruto que
+    nenhuma execução reivindica é evidência sem procedência, e não pode ficar em silêncio.
+    """
+    runs = carregar() if runs is None else runs
+    idx = {}
+    for rid, r in sorted(runs.items()):
+        for c in _caminhos_declarados(r):
+            idx.setdefault(c, []).append(rid)
+    return idx
+
+
+def _itens(path):
+    """Quantos itens o bruto carrega. Derivado do arquivo, não declarado."""
+    import gzip
+    try:
+        with gzip.open(path, 'rt', encoding='utf-8') as f:
+            o = json.load(f)
+        return len(o) if isinstance(o, (list, dict)) else NAO_SEI
+    except (OSError, ValueError):
+        return NAO_SEI
+
+
+def inventario_raw_pago(root=ROOT, runs=None):
+    """Reconciliação executável entre DISCO, MANIFESTO e CLASSE.
+
+    Cada arquivo do diretório sai daqui com tamanho e contagem DERIVADOS, a classe
+    declarada, e as execuções que o citam — ou o motivo explícito de não ter nenhuma.
+    """
+    idx = runs_por_bruto(runs)
+    inv = []
+    for rel in arquivos_raw_pagos(root):
+        classe = classificar_raw(rel)
+        citado = sorted(idx.get(rel, []))
+        item = {'FILE': rel, 'CLASS': classe,
+                'GZ_BYTES': os.path.getsize(os.path.join(root, rel)),
+                'ITEMS': _itens(os.path.join(root, rel)),
+                'RUNS': citado}
+        if not citado:
+            item['EXCLUDED_WITH_REASON'] = (
+                MOTIVO_GATE_TEST if classe == GATE_TEST_RAW else None)
+        inv.append(item)
+    return inv
+
+
+def brutos_orfaos(root=ROOT, runs=None):
+    """PRODUCTION_RAW que nenhuma execução reivindica. Tem de ser sempre vazio."""
+    return [i['FILE'] for i in inventario_raw_pago(root, runs)
+            if i['CLASS'] == PRODUCTION_RAW and not i['RUNS']]
+
+
+def brutos_declarados_e_ausentes(root=ROOT, runs=None):
+    """O inverso: execução que diz PRESERVED apontando para arquivo que não existe."""
+    runs = carregar() if runs is None else runs
+    faltando = []
+    for rid, r in sorted(runs.items()):
+        if r.get('RAW_EVIDENCE_STATE') != 'PRESERVED':
+            continue
+        for c in _caminhos_declarados(r):
+            if not os.path.exists(os.path.join(root, c)):
+                faltando.append((rid, c))
+    return faltando
+
+
+POLITICA = os.path.join(ROOT, 'data', 'samples', 'POLITICA-RAW-ROTA-PAGA.json')
+
+# As chaves que a política NÃO digita mais: saem do diretório real a cada sincronização.
+CHAVES_DERIVADAS = ('ARQUIVOS', 'TAMANHO_ATUAL_BYTES', 'TOTAL_POR_CLASSE',
+                    'BRUTOS_ORFAOS', 'DERIVADO_POR')
+
+
+def politica_derivada(root=ROOT, runs=None):
+    """O bloco derivado da política. É esta função que a política publica."""
+    inv = inventario_raw_pago(root, runs)
+    por_classe = {}
+    for i in inv:
+        c = por_classe.setdefault(i['CLASS'], {'ARQUIVOS': 0, 'GZ_BYTES': 0})
+        c['ARQUIVOS'] += 1
+        c['GZ_BYTES'] += i['GZ_BYTES']
+    return {
+        'ARQUIVOS': inv,
+        'TAMANHO_ATUAL_BYTES': sum(i['GZ_BYTES'] for i in inv),
+        'TOTAL_POR_CLASSE': por_classe,
+        'BRUTOS_ORFAOS': brutos_orfaos(root, runs),
+        'DERIVADO_POR': (
+            'scripts/proveniencia.py --sync-politica. O inventário e os tamanhos são '
+            'DERIVADOS do diretório real; nenhum é digitado. Há teste que reprova se a '
+            'política divergir do disco.'),
+    }
+
+
+def sincronizar_politica(root=ROOT):
+    """Reescreve só o bloco derivado, preservando a prosa da política."""
+    with open(POLITICA, encoding='utf-8') as f:
+        d = json.load(f)
+    antes = {k: d.get(k) for k in CHAVES_DERIVADAS}
+    d.update(politica_derivada(root))
+    with open(POLITICA, 'w', encoding='utf-8') as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+    return [k for k in CHAVES_DERIVADAS if antes.get(k) != d.get(k)]
 
 
 if __name__ == '__main__':
@@ -368,3 +579,13 @@ if __name__ == '__main__':
     if '--campos' in sys.argv:
         for c in CAMPOS_RUN:
             print(' ', c)
+    if '--raw' in sys.argv:
+        print()
+        for i in inventario_raw_pago():
+            print('  %-52s %-15s %9s bytes  itens=%-5s %s'
+                  % (i['FILE'].split('/')[-1], i['CLASS'], format(i['GZ_BYTES'], ','),
+                     i['ITEMS'], ','.join(i['RUNS']) or 'EXCLUDED_WITH_REASON'))
+        print('\n  orfaos de producao:', brutos_orfaos() or 'nenhum')
+    if '--sync-politica' in sys.argv:
+        mud = sincronizar_politica()
+        print('politica sincronizada; chaves alteradas:', mud or 'nenhuma')

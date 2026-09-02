@@ -1,0 +1,162 @@
+{
+ "SOURCE_ID": "ES-HERO-001-MILHO-AMARANTHUS-MAPA-DE-ACAO",
+ "source": "derivado — ES-CASO-MILHO-AMARANTHUS + ES-CIENCIA-PARES-AUTORES + ES-CIENCIA-PARA-VOZ + ES-VOZ-x-MATRIZ-DE-PRIORIDADE",
+ "SOURCE_LOCATION": "derivado — nenhuma coleta nova",
+ "FACT_LOCATION": "SPAIN (Huesca/Aragon, Lleida/Cataluna)",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-30",
+ "CASO": "MAIZE x Amaranthus palmeri, eixo Huesca-Lleida",
+ "STATUS_DO_CASO": "FUTURE_CYCLE_OPPORTUNITY",
+ "PORQUE_NAO_E_URGENCIA": "o sinal e atual e a lacuna de portfolio e real, mas a janela agronomica de 2026 ja fechou. Apresentar isto como urgencia seria criar urgencia artificial.",
+ "REGRA_DESTE_MAPA": "cada acao aponta para um fato ja no repositorio. Onde a funcao nao pode agir, o arquivo diz o que FALTA em vez de inventar uma acao. Nenhuma acao supoe disponibilidade comercial, venda, participacao de mercado ou eficacia de produto.",
+ "A_PONTE_QUE_ABRIU": {
+  "O_QUE": "o caso deixou de ser so registro e area: agora tem gente com nome, ORCID e instituicao, e uma delas esta dentro do proprio territorio do caso.",
+  "JOEL_TORRA": {
+   "NOME": "Joel Torra",
+   "ORCID": "0000-0002-8666-6780",
+   "OBRAS_NO_PAR": 10,
+   "IDENTIDADE": "CONFIRMADA — busca ORCID por nome devolveu num-found=1",
+   "VINCULO_DECLARADO": [
+    {
+     "org": "Universitat de Lleida",
+     "pais": "ES",
+     "papel": "Professor",
+     "inicio": "2025",
+     "fim": null
+    }
+   ],
+   "CANAL_AUTODECLARADO": [
+    {
+     "nome": "Weed Science and Plant Ecology Research Group",
+     "url": "http://www.weedresearch.udl.cat/english.htm",
+     "NATUREZA": "PAGINA_INSTITUCIONAL_OU_DE_GRUPO — canal da organizacao, nao da pessoa"
+    }
+   ],
+   "CANAL_SOCIAL": "NENHUM declarado no ORCID",
+   "POR_QUE_IMPORTA": "Universitat de Lleida e a 4a provincia de milho grao da Espanha e uma das duas do caso. Grupo declarado: Weed Science and Plant Ecology Research Group."
+  },
+  "NAVARRA": {
+   "MERCEDES_ROYUELA": {
+    "NOME": "Mercedes Royuela",
+    "ORCID": "0000-0002-1085-2229",
+    "OBRAS_NO_PAR": 15,
+    "IDENTIDADE": "CONFIRMADA — busca ORCID por nome devolveu num-found=1",
+    "VINCULO_DECLARADO": [
+     {
+      "org": "Universidad Publica de Navarra",
+      "pais": "ES",
+      "papel": null,
+      "inicio": null,
+      "fim": null
+     }
+    ],
+    "CANAL_AUTODECLARADO": "nenhum",
+    "CANAL_SOCIAL": "NENHUM declarado no ORCID"
+   },
+   "MIKEL_VICENTE_ECEIZA": {
+    "NOME": "Mikel Vicente Eceiza",
+    "ORCID": "0000-0002-1684-270X",
+    "OBRAS_NO_PAR": 8,
+    "IDENTIDADE": "CONFIRMADA — busca ORCID por nome devolveu num-found=1",
+    "VINCULO_DECLARADO": [
+     {
+      "org": "Public University of Navarre",
+      "pais": "ES",
+      "papel": null,
+      "inicio": "2019",
+      "fim": null
+     }
+    ],
+    "CANAL_AUTODECLARADO": "nenhum",
+    "CANAL_SOCIAL": "NENHUM declarado no ORCID"
+   },
+   "POR_QUE_IMPORTA": "Universidad Publica de Navarra concentra 3 dos 5 autores mais frequentes do par. Navarra nao esta no caso; a competencia esta."
+  },
+  "O_QUE_ISTO_NAO_PROVA": [
+   "nao prova que as 10 obras de Joel Torra no par sejam sobre Amaranthus palmeri na Espanha. O par foi consultado como maize AND Amaranthus, sem filtro de pais nem de especie. Verificar exige nova consulta ao OpenAlex e o orcamento esta zerado.",
+   "nao prova disposicao de falar. Nenhum dos tres declara canal publico proprio. Ciencia prova papel; voz e outra camada e ela esta vazia aqui."
+  ],
+  "O_UNICO_CANAL_AUTODECLARADO_ESTA_MORTO_NO_CAMINHO": {
+   "URL_NO_ORCID": "http://www.weedresearch.udl.cat/english.htm",
+   "MEDIDO": "o host responde (HTTP 404, pagina \"Pagina no trobada\" do proprio site do grupo). O caminho /english.htm nao existe mais. O site em http redireciona para grem.udl.cat, ou seja o grupo mudou de endereco e o ORCID nao acompanhou.",
+   "GREM_UDL_CAT": "NAO LIDO — connect_rejected pelo proxy de egresso desta sessao (EGRESS_PROXY_POLICY_BLOCK), 3 tentativas. Isso e limite MEU, nao do site.",
+   "A_DISTINCAO": "404 no caminho antigo e fato da fonte. Bloqueio no endereco novo e limite da minha rede. Sao coisas diferentes e nenhuma das duas autoriza dizer o que o grupo pesquisa.",
+   "CONSEQUENCIA": "nada foi lido sobre as linhas de pesquisa do grupo. A afirmacao de que Joel Torra trabalha daninhas de campo vem do NOME do grupo declarado no ORCID e do par bibliografico, nao do site.",
+   "LICAO": "canal autodeclarado no ORCID nao e canal verificado. Ele precisa ser resolvido como qualquer outra URL, e o unico do acervo que testei ja estava quebrado.",
+   "CONTEXTO_DAS_OUTRAS": "depois testei as 6 URLs autodeclaradas do conjunto: 4 vivas, 1 morta (esta), 1 que nem e canal. A de Joel Torra e a excecao, nao a regra. Ver ES-CIENCIA-PARA-VOZ, ACHADO_4."
+  }
+ },
+ "MAPA_DE_ACAO": {
+  "SCIENCE": {
+   "PODE_AGIR": "SIM — e a unica funcao com material verificado agora.",
+   "ACOES": [
+    "ler as obras de Joel Torra no par antes de qualquer contato, para saber se ele trabalha palmeri espanhol ou Amaranthus em geral. Isso muda a conversa inteira e ainda nao foi lido.",
+    "a pergunta que o registro nao responde e cientifica, nao comercial: os herbicidas de folha larga registrados em milho controlam palmeri com resistencia a ALS e a glifosato? Existe grupo espanhol que estuda exatamente modo de acao de herbicida (UPNA) e outro que estuda daninhas em campo (UdL)."
+   ],
+   "ANCORA": "3 identidades CONFIRMADAS por ORCID num-found=1, com vinculo ES declarado."
+  },
+  "MARKET_DEVELOPMENT": {
+   "PODE_AGIR": "PARCIALMENTE",
+   "ACOES": [
+    "o caso ja nomeia territorio (Huesca 39.945 ha, Lleida 12.360 ha) e janela (sementeira a partir de abril/2027). Um ensaio ou demonstracao de campo se planeja com ~7 meses, nao com 7 dias."
+   ],
+   "O_QUE_FALTA": "estagio observado da safra e presenca atual de palmeri por parcela. O aviso de Aragon diz que existe; nao diz onde nem quanto em 2026.",
+   "GRANULARIDADE_2026_08_30": {
+    "O_QUE_FALTAVA": "\"estagio observado da safra e presenca atual de palmeri por parcela\". A segunda parte continua faltando; a primeira mudou de escala.",
+    "O_QUE_ENTROU": "declaracao PAC 2025 de Aragon, parcela a parcela: 37.236 ha de milho em Huesca, distribuidos em 81 municipios, com 10 deles concentrando 47,7% da area e 20 concentrando 68,4%.",
+    "CONSEQUENCIA": "este caso nao pede acao provincial. Metade do milho de Huesca cabe em 10 municipios — escala de ensaio, de ADV e de visita.",
+    "LIMITE": "os nomes dos municipios nao foram resolvidos: o CSV traz codigo catastral e a tabela de nomes do portal so sai por exportacao Oracle que exige sessao. Nao chutei — nomear a cidade errada num mapa de acao e pior do que nao nomear.",
+    "CORROBORACAO": "37.236 ha da PAC contra 39.945 ha do MAPA (SCOT): 6,8% de diferenca entre dois instrumentos independentes.",
+    "REF": "ES-T2-002-pac-maiz-aragon"
+   }
+  },
+  "REGULATORY": {
+   "PODE_AGIR": "SIM, e e a acao mais barata do mapa.",
+   "ACOES": [
+    "UM unico registro em toda a Espanha declara AMARANTHUS SPP. como alvo em milho, e nenhum e da ADAMA. Isso e um fato do ROPF, datavel e reconsultavel. A pergunta para regulatory e se ha caminho de extensao de alvo — e uma pergunta interna, nao uma afirmacao sobre o mercado."
+   ],
+   "ANCORA": "ROPF 2026-08-30T01:42:43+02:00"
+  },
+  "MARKETING": {
+   "PODE_AGIR": "NAO AINDA",
+   "POR_QUE": "nao ha voz publica no territorio. O acervo de voz espanhol e de olivar andaluz: no pedaco de busca cego a cultura e a regiao, todo o eixo Aragon+Catalunya+Navarra soma 5 de 54. Nenhuma origem do eixo declara milho.",
+   "O_QUE_FALTA": "coleta de voz desenhada por CULTURA E REGIAO. As 3 origens ja existentes em Huesca ou Lleida sao candidatas a verificacao de conteudo, nao vozes de milho.",
+   "CANDIDATAS_JA_NO_ACERVO": [
+    "Jose Ramon VIDAL CRUELLAS",
+    "Agro Mòdol, S.A.",
+    "Agrostock Group"
+   ],
+   "ARMADILHA": "a janela agronomica de 2026 fechou. Qualquer campanha agora seria urgencia fabricada.",
+   "CORRECAO_2026_08_30": {
+    "O_QUE_EU_DISSE": "\"nao ha voz publica no territorio\", e por isso MARKETING nao podia agir.",
+    "O_QUE_FALTAVA": "a frase era sobre LinkedIn e YouTube e eu a escrevi como se fosse sobre o territorio. Uma chamada ao registro oficial da Generalitat devolveu 50 Agrupacions de Defensa Vegetal registradas na plana de Lleida, em 39 municipios, todas com contato declarado. Ver ES-T6-001-adv-catalunya.",
+    "O_QUE_CONTINUA_VERDADE": "nenhuma delas declara milho, e o registro nao tem campo de cultura alem de vinha. Sao interlocutores localizados, nao vozes de milho.",
+    "EFEITO": "MARKETING e MARKET_DEVELOPMENT deixam de estar bloqueados por \"nao ha ninguem\" e passam a estar limitados por \"nao sabemos de que cultura cada um fala\" — que e uma pergunta respondivel."
+   }
+  },
+  "COMMERCIAL": {
+   "PODE_AGIR": "NAO — e nao por falta de esforco",
+   "POR_QUE": "COMMERCIAL_CLOCK = NAO SEI. Nada neste repositorio informa venda, disponibilidade em canal, preco ou participacao. O ROPF informa REGISTRO, que e outra coisa.",
+   "O_QUE_FALTA": "dado interno ADAMA. Ha uma janela paralela cuidando de inteligencia comercial ADAMA e o handoff dela nao chegou.",
+   "NAO_FAZER": "nao derivar disponibilidade comercial de registro. Registro nao e venda."
+  },
+  "SUPPLY": {
+   "PODE_AGIR": "NAO",
+   "POR_QUE": "depende de decisao de portfolio que ainda nao existe, e de dado interno que este repositorio nao tem. NAO SEI e a resposta correta aqui."
+  }
+ },
+ "O_RELOGIO_QUE_MANDA": {
+  "AGRONOMIC": "JANELA FECHADA para a safra 2026. O controle de daninha em milho e pre e pos-emergencia, e em Huesca a sementeira comeca em abril com colheita a partir de julho (MAPA). Em 30/08 o milho esta em enchimento de grao ou colheita: nao ha aplicacao de herbicida a fazer.",
+  "CONFIANCA": "TYPICAL, nao OBSERVED. O calendario oficial do MAPA para Aragon existe em PDF mas o mapeamento de fonte do arquivo esta quebrado e nao foi extraivel; a janela vem de descricao textual do proprio MAPA, nao de tabela lida.",
+  "PROXIMA_JANELA": "sementeira de milho 2027 em Huesca/Lleida, a partir de abril de 2027 — cerca de 7 meses da data de captura",
+  "LEITURA": "a acao deste caso nao e vender: e chegar preparado em abril de 2027. Ciencia e regulatory tem 7 meses. Marketing tem 7 meses para construir o que hoje nao existe, que e cobertura de voz no Ebro."
+ },
+ "O_QUE_AINDA_NAO_SABEMOS": [
+  "se os 185 campos de 2020 cresceram, estabilizaram ou recuaram — nao ha medicao 2026 publica localizada",
+  "se os herbicidas de folha larga da ADAMA controlam palmeri resistente — o registro nao responde eficacia",
+  "qual o estagio observado da safra 2026 em Huesca — so temos calendario tipico",
+  "se a ADAMA tem resposta comercial nao refletida no registro — depende do handoff da janela paralela",
+  "se as obras de Joel Torra no par tratam de palmeri espanhol — nao lidas, orcamento OpenAlex zerado",
+  "se os tres pesquisadores confirmados tem canal publico fora do ORCID — a rota gratuita nao responde isso"
+ ]
+}

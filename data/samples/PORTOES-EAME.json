@@ -1,0 +1,181 @@
+{
+ "SOURCE_ID": "PORTOES-EAME",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "O_QUE_ISTO_E": "o estado de cada portão do EAME, DERIVADO das cicatrizes de que ele depende. Nenhum estado aqui foi digitado por alguém.",
+ "O_QUE_ISTO_NAO_E": "não é medição do mundo. É a leitura da nossa própria matriz de cicatrizes e do estado externo do bucket raw. Um portão READY diz que as leis que ele guarda têm testemunha executável — não que a coleta já aconteceu.",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "EAME",
+ "ORIGINAL_LANGUAGE": "pt",
+ "DERIVADO_DE": [
+  "scripts/cicatrizes_brasil.py",
+  "data/samples/RAW-GATE-ES.json"
+ ],
+ "PORQUE_EXISTE": "um nome estava fazendo dois trabalhos, e por isso o mesmo relatório publicou LOCATION_CONTRACT_COMPLETE = NO e um portão de COLETA em READY. Separar os dois portões desfaz a contradição sem mover a régua: nenhuma cicatriz mudou de estado para isto acontecer.",
+ "REGRA": "READY exige TODA cicatriz das famílias do portão em PROVED. Uma única PARTIAL ou ABSENT o deixa em PARTIAL.",
+ "LOCATION_IS_PART_OF_COLLECTION_ENTRY_GATE": "YES",
+ "PORQUE_LOCATION_E_PARTE": "toda coleta que produz documento produz documento com lugar de fato. O portão se chama entrada da COLETA, e o contrato de localização está em NO. Dizer que localização não é parte dele seria escolher o escopo depois de ver o resultado.",
+ "PRONTIDAO_DA_ENTREGA": {
+  "ES_REGULATORY_IMPORT_GATE": {
+   "ESTADO": "READY",
+   "FALTANDO": []
+  },
+  "RECONCILED_IMPORT_PACKAGE_READY": {
+   "ESTADO": "YES",
+   "FALTANDO": []
+  },
+  "PRODUCTION_MIGRATION_PATH": {
+   "ESTADO": "READY",
+   "FALTANDO": []
+  }
+ },
+ "CONTRATOS": {
+  "LOCATION_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "LOCALIZACAO",
+    "LOCALIZACAO_CONFERENCIA"
+   ],
+   "ABERTAS": []
+  },
+  "RELEVANCE_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "RELEVANCIA"
+   ],
+   "ABERTAS": []
+  },
+  "PROVENANCE_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "PROVENIENCIA"
+   ],
+   "ABERTAS": []
+  },
+  "IDENTITY_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "IDENTIDADE"
+   ],
+   "ABERTAS": []
+  },
+  "TEMPORAL_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "TEMPO"
+   ],
+   "ABERTAS": []
+  },
+  "UNKNOWN_STATE_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "AUSENCIA"
+   ],
+   "ABERTAS": []
+  },
+  "COUNTRY_ISOLATION_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "ISOLAMENTO"
+   ],
+   "ABERTAS": []
+  },
+  "ANALYTICAL_UNIT_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "UNIDADE_ANALITICA"
+   ],
+   "ABERTAS": []
+  },
+  "RESILIENCE_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "RESILIENCIA"
+   ],
+   "ABERTAS": []
+  },
+  "METHOD_CONTRACT_COMPLETE": {
+   "COMPLETO": "YES",
+   "FAMILIAS": [
+    "METODO"
+   ],
+   "ABERTAS": []
+  }
+ },
+ "PORTOES": {
+  "CATALOG_IMPORT_ENGINEERING_GATE": {
+   "PERGUNTA": "a engenharia de importar o catálogo regulatório espanhol está pronta?",
+   "O_QUE_ELE_COBRE": "escrever registro_regulatorio e registro_uso a partir de uma fonte oficial, de forma idempotente sobre chave natural, sem gastar rota paga e sem coletar rede social.",
+   "O_QUE_ELE_NAO_COBRE": "qualquer coleta que produza documento com LUGAR DE FATO. Um registro regulatório não tem lugar de fato: o país dele é o Estado que registrou, e isso é lado da FONTE. Por isso as lacunas de localização não o tocam.",
+   "FAMILIAS": [
+    "IDENTIDADE",
+    "PROVENIENCIA",
+    "TEMPO",
+    "AUSENCIA",
+    "ISOLAMENTO",
+    "METODO",
+    "LOCALIZACAO"
+   ],
+   "CICATRIZES_COBERTAS": 16,
+   "CICATRIZES_PROVED": 16,
+   "ESTADO": "READY",
+   "BLOQUEADORES": []
+  },
+  "EAME_COLLECTION_ENTRY_GATE": {
+   "PERGUNTA": "o EAME pode abrir coleta em geral?",
+   "O_QUE_ELE_COBRE": "TODA coleta — inclusive a que produz conteúdo com lugar de fato, e a que gasta rota paga.",
+   "O_QUE_ELE_NAO_COBRE": "nada da lista. É o portão mais abrangente que existe aqui, e é por isso que READY nele significa mesmo \"o EAME pode coletar\".",
+   "FAMILIAS": [
+    "IDENTIDADE",
+    "PROVENIENCIA",
+    "TEMPO",
+    "AUSENCIA",
+    "ISOLAMENTO",
+    "METODO",
+    "LOCALIZACAO",
+    "LOCALIZACAO_CONFERENCIA",
+    "RELEVANCIA",
+    "UNIDADE_ANALITICA",
+    "RESILIENCIA"
+   ],
+   "CICATRIZES_COBERTAS": 35,
+   "CICATRIZES_PROVED": 35,
+   "ESTADO": "READY",
+   "BLOQUEADORES": []
+  }
+ },
+ "RAW_PRESERVATION_GATE": {
+  "ESTADO": "CLOSED",
+  "ESTADO_DECLARADO_NO_ARTEFATO": "CLOSED",
+  "ESTADO_DERIVADO_DOS_NUMEROS": "CLOSED",
+  "DIVERGENCIA": null,
+  "PROVA": "EXTERNA",
+  "VERIFICADO_DAQUI": "NO",
+  "ESTA_BRANCH_EXECUTOU_O_UPLOAD": "NO",
+  "DO_PLANO_AUSENTES": 0,
+  "EXPECTED": 196,
+  "VERIFIED": 196,
+  "FAILED": 0,
+  "HASH_MISMATCH": 0,
+  "CONFLICT": 0,
+  "FECHADO": "YES",
+  "RAW_CONTENT_INTEGRITY_GATE": "CLOSED",
+  "SHA_VERIFIED": 196,
+  "BYTES_VERIFICADOS_REMOTAMENTE": 304482907,
+  "A_LEI_QUE_FICA": "PRESENTE_NO_INVENTARIO != BYTES_CONFERIDOS. É o HTTP 200 != LIVE_CONTENT aplicado ao nosso próprio bucket: o objeto existir não prova que os bytes certos chegaram.",
+  "A_RESSALVA_DA_PROVA": "o artefato daquela execução gravou CONTAGENS, não a lista de quais objetos passaram. Com esperados = verificados = 196 e as duas listas de problema vazias, o conjunto está provado POR DEDUÇÃO — e prova por asset é melhor. As execuções seguintes guardam nome, tamanho e sha de cada um.",
+  "ORFAOS_NO_BUCKET": 0,
+  "DIAGNOSTICO": {
+   "HTTP": 400,
+   "ERROR": "InvalidKey",
+   "CAUSA": "object key contendo caractere não-ASCII",
+   "PROVADO_EM": "ao menos um object key, isolado na máquina espanhola",
+   "PORQUE_IMPORTA": "a falha tem nome e causa. Deixa de ser \"12 falharam\" e passa a ser um defeito de nomeação de chave — que é reparável, e cuja correção é verificável."
+  },
+  "EXTERNAL_DIAGNOSIS_IN_PROGRESS": "NO",
+  "NUNCA_ZERO_SENT": "a rodada anterior publicou 'zero enviado dos 196'. Era falso: 184 já estavam no bucket e verificados. ZERO ENVIADO != PRESERVADO continua valendo na outra direção — e AFIRMAR ZERO quando não se mediu é o mesmo defeito, virado do avesso. Este arquivo existe para que ZERO_SENT não volte a ser escrito por falta de dado."
+ },
+ "IMPORT_CAN_BE_NEXT_MISSION": "YES",
+ "PORQUE_NAO_IMPORTAR": null,
+ "O_QUE_YES_SIGNIFICA": "que a PRÓXIMA missão pode ser a importação. Não que esta rodada deva importar, e não que a importação já tenha sido feita."
+}

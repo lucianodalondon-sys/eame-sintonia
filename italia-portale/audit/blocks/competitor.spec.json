@@ -1,0 +1,635 @@
+[
+ {
+  "domain": "COMPETITOR WATCH + COMPETITOR x WINDOW (feed, filters, tabs, company profile, gallery, crop density, changed-this-week, company x crop MATRIX, ISSUE_ROWS, competitor products, event cross-links, lead-time)",
+  "summary": "Today the whole Competitor Watch screen is fed by window.ITALY_DEMO: 72 fabricated activities across 6 companies and 6 activity types (PAID 23, ORGANIC 16, VIDEO 10, PEOPLE 8, EVENT 9, PRODUCT/PORTFOLIO 6), plus 4 pre-baked demo aggregates (D.MATRIX, D.CROP_COLS, D.ISSUE_ROWS, D.WHAT_CHANGED) and 14 fabricated competitor products (D.CPRODUCTS). Every visible fact on the screen — headline, crop, issue, region, timing state (\"IN WINDOW\"/\"EARLY\"), \"ADAMA RESPONSE: VERIFIED PORTFOLIO RESPONSE\", \"NEWLY OBSERVED\", lead-time bars, video durations, transcripts, people mentions, event participation, creative thumbnails — is invented by the fixture or by actDeco() decorating the fixture. The real backing exists and is bigger: IG.COMP_ACTIVITIES has 503 records (414 PAID from META_ADS_LIBRARY reaching IT, 89 ORGANIC_VIDEO from YOUTUBE), 11 distinct companies, 36 proven competitor products. But the real records are much thinner per row: 320/503 carry no crop at all, 405/503 carry no issue, 401/503 carry no product, 89/503 carry no date, no url, no text and no country. The screen must therefore keep its layout but show far fewer decorated facts, drop four of its six activity types entirely, and stop claiming a portfolio verdict, a timing verdict or a lead time on each card.",
+  "realSource": "APP.collections.competitorActivities (503 records, already normalized in italy-app-model.js lines 132-148 with a correct geoClass: 414 REACHED_IN_ITALY, 89 MULTI_COUNTRY_OR_UNRESOLVED, 0 REACH_NOT_RESOLVED) + IG.COMP_COMPANIES (14 rows that are really 11 companies — the paid rows are title-case \"Bayer\" and the organic rows are upper-case \"BAYER\"; they must be merged on upper-case name) + IG.COMP_PRODUCTS (36) + APP.collections.windows (29 canonical windows) for the WINDOW cross-link + window.ITALY_LABEL_VERDICTS (12 VERIFIED crop/issue/product triples, 7 NOT_FOUND) for any ADAMA-portfolio statement. Note: all 29 canonical windows have PRODUCT_MATCHES = [] (measured), so the portfolio side of every competitor x window cross-link can only come from ITALY_LABEL_VERDICTS, which italy-app-model.js does not read today.",
+  "confidence": "high",
+  "occurrences": [
+   {
+    "file": "portale.html",
+    "line": 2397,
+    "symbol": "D.COMPANIES",
+    "snippet": "const comp = D.COMPANIES.filter(co => t.includes(co.name.toLowerCase())).map(co => co.name);",
+    "classification": "EXPLICIT_DEMO",
+    "reason": "Inside parseField(), which only runs for the Field Sales inbound demonstration (PRODUCT LAW §5, allowed labelled demo). It produces a demo string, never a count or a card on a core screen.",
+    "replacement": "KEEP as demo, but swap the name list so the demo recognises the real competitor set: AM.collections.competitorCompanies.records.map(c => c.company)"
+   },
+   {
+    "file": "portale.html",
+    "line": 2529,
+    "symbol": "D.ACTIVITIES (x2)",
+    "snippet": "{ layer: T.dsCompetitor || 'Competitor', real: cnt(D.ACTIVITIES, a => !a.isDemo), derived: 0, demo: cnt(D.ACTIVITIES, a => a.isDemo), note: '' }",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is the Data-State panel: it publishes how many competitor records are REAL. It currently counts a 72-row fixture and calls part of it real. That is the single most misleading number on the screen.",
+    "replacement": "{ layer: T.dsCompetitor || 'Competitor', real: AM.collections.competitorActivities.real, derived: 0, demo: AM.collections.competitorActivities.demo, note: AM.collections.competitorActivities.note }  // measured: real 503, demo 0"
+   },
+   {
+    "file": "portale.html",
+    "line": 2573,
+    "symbol": "D.WINDOWS",
+    "snippet": "const winMatch = (crop, issue) => { ... return D.WINDOWS.find(w => (w.crop === crop || (crop === 'Wheat' && w.crop === 'Durum Wheat')) && keys.some(k => w.issue.toLowerCase().indexOf(k) >= 0)) || null; };",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Feeds a.timing / a.leadLabel on every activity card, i.e. an agronomic state (IN WINDOW / APPROACHING / EARLY). PRODUCT LAW §7 forbids presentation from inventing an agronomic state, and the keyword-substring match invents the crop-to-window relation on top of a demo window list.",
+    "replacement": "Move the crop->window relation into the model as AM.collections.competitorActivities.records[i].relatedWindows (see modelChanges). In the view, read a.relatedWindows only; the card shows the window's own upstream w.status (CURRENT_STATUS) under the label RELATED CROP WINDOW, never a computed timing verdict. Where relatedWindows is empty (measured: 371/503 activities have no mappable crop+issue pair) omit the tile."
+   },
+   {
+    "file": "portale.html",
+    "line": 2580,
+    "symbol": "D.CASES",
+    "snippet": "const kase = D.CASES.find(c => c.id === a.caseId); const prods = kase ? (kase.products || []) : [];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Produces a.adamaResponse ('VERIFIED PORTFOLIO RESPONSE' / 'NO CONFIRMED DIRECT RESPONSE') and a.adamaProducts on every card. It is a portfolio-match claim built from a demo case list, and a.caseId does not exist on any of the 503 real records (measured: field absent).",
+    "replacement": "DELETE_COMPONENT — remove the ADAMA RESPONSE tile from the activity card. If it is kept it may only read AM.labelVerdicts.verifiedFor(crop, issue) for an activity that has BOTH a resolved canonical crop and a canonical issue (measured: 30/503 activities carry a species-level issue at all), and the negative case must read 'NESSUNA CORRISPONDENZA CONFERMATA NELLA LETTURA ATTUALE' per PRODUCT LAW §10, never 'no product'."
+   },
+   {
+    "file": "portale.html",
+    "line": 2599,
+    "symbol": "D.EVENTS (x2)",
+    "snippet": "eventDates: a.eventId ? (D.EVENTS.find(e => e.id === a.eventId) || {}).dates : '', eventCity: a.eventId ? (D.EVENTS.find(e => e.id === a.eventId) || {}).city : ''",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Decorates the EVENT activity card. There is no EVENT activity type in the real data (measured type distribution: PAID 414, ORGANIC_VIDEO 89 — nothing else), and no eventId field on any real record.",
+    "replacement": "DELETE_COMPONENT — remove eventDates/eventCity from actDeco and remove the a.isEvent card block (markup line 1729)."
+   },
+   {
+    "file": "portale.html",
+    "line": 2600,
+    "symbol": "D.ACTIVITIES",
+    "snippet": "const recentActivity = D.ACTIVITIES.slice().sort((a, b) => a.days - b.days).slice(0, 6).map(actDeco).map(x => Object.assign({}, x, { when: LAGO(x.when) }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The radar dashboard 'LATEST MOVES' list. Six fabricated competitor moves on the landing screen.",
+    "replacement": "AM.collections.competitorActivities.records.filter(a => a.startDate).sort((a,b) => b.startDate.localeCompare(a.startDate)).slice(0,6)  // 414 of 503 are datable; the 89 undated ORGANIC_VIDEO rows must be excluded from any 'latest' list, not given a fake date"
+   },
+   {
+    "file": "portale.html",
+    "line": 3157,
+    "symbol": "D.COMPANIES",
+    "snippet": "const companies = D.COMPANIES.map(co => Object.assign({}, co, { go: ..., initials: initials(co.name), cases: co.cases.map(...), activities: co.activities.map(actDeco), ... }))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The whole company profile: 6 fabricated companies with fabricated counts, crops, themes, confidence and case links. Reality has 11 companies with a different shape.",
+    "replacement": "AM.collections.competitorCompanies.records.map(co => ({ ...co, go, filter, initials: initials(co.company), storyBorder, activities: co.activities.map(actDeco) }))  // co.cases, co.themes, co.confidence, co.brands are removed (see fieldsThatDie)"
+   },
+   {
+    "file": "portale.html",
+    "line": 3157,
+    "symbol": "D.ACTIVITIES (productObjs count)",
+    "snippet": "productObjs: co.products.map(p => ({ name: p, count: D.ACTIVITIES.filter(a => a.product === p).length, go: () => this.openCProduct(p) }))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Counts how many activities mention each competitor product. Real records have products as an ARRAY (products[], 102/503 non-empty), never a scalar a.product, so this filter would silently return 0 for every product.",
+    "replacement": "productObjs: co.products.map(p => ({ name: p.product, count: p.adsReachingIt, proof: p.proof, go: () => this.openCProduct(p.product) }))  // from AM.collections.competitorProducts, which carries the upstream-counted ADS_REACHING_IT"
+   },
+   {
+    "file": "portale.html",
+    "line": 3157,
+    "symbol": "D.EVENTS (eventRows)",
+    "snippet": "eventRows: D.EVENTS.map(e => ({ name: e.name, state: e.participation[co.name], color: e.participation[co.name].startsWith('CONFIRMED') ? '#00B152' : '#B1A9A7', go: ... }))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Asserts a participation state for every competitor at every event. Measured in IG.EVENTS: 16 of 18 events have CONFIRMED_PARTICIPATION = {} and the only two populated entries name ADAMA and SYNGENTA. IG.EVENTS.PARTICIPATION_LAW states explicitly that a company without a line means NOT KNOWN. The current code would also throw on undefined.startsWith.",
+    "replacement": "eventRows: AM.collections.events.records.map(e => { const st = (e.raw.CONFIRMED_PARTICIPATION || {})[co.company.toUpperCase()] || null; return { name: e.name, state: st || 'NON NOTO', color: st ? '#00B152' : '#8F8886', go: () => this.openEvent(e.id) }; })  // 'NON NOTO' is the default, never 'monitoring'"
+   },
+   {
+    "file": "portale.html",
+    "line": 3158,
+    "symbol": "D.ACTIVITIES",
+    "snippet": "const actsAll = D.ACTIVITIES.filter(a => (!s.fCompany || a.company === s.fCompany) && (!s.fType || a.type === s.fType) && (!s.fCrop || a.crop === s.fCrop || (s.fCrop === 'Wheat' && a.crop === 'Durum Wheat')) && (!s.fIssue || a.issue === s.fIssue) && (!s.fPeriod || a.days <= Number(s.fPeriod))).sort((a, b) => a.days - b.days);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The main feed and every count derived from it. a.crop, a.issue and a.days do not exist on real records (they are crops[], issues[] and startDate).",
+    "replacement": "AM.collections.competitorActivities.records.filter(a => (!s.fCompany || a.company === s.fCompany) && (!s.fType || a.type === s.fType) && (!s.fCrop || (a.cropsCanonical||[]).includes(s.fCrop)) && (!s.fIssue || (a.issues||[]).includes(s.fIssue)) && (!s.fPeriod || (a.daysFromRef !== null && a.daysFromRef >= -Number(s.fPeriod)))).sort((a,b) => (b.daysFromRef===null?-1e9:b.daysFromRef) - (a.daysFromRef===null?-1e9:a.daysFromRef))  // note the sign: daysFromRef is negative for past starts"
+   },
+   {
+    "file": "portale.html",
+    "line": 3159,
+    "symbol": "D.ACTIVITIES",
+    "snippet": "const compTabs = [['', 'ALL'], ['PAID','PAID'], ['ORGANIC','ORGANIC'], ['VIDEO','VIDEO'], ['PEOPLE','PEOPLE'], ['EVENT','EVENTS'], ['PRODUCT / PORTFOLIO','PRODUCT / PORTFOLIO']].map(t => ... count: D.ACTIVITIES.filter(...).length ...)",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Seven tabs, five of which have no real counterpart. Measured real types: PAID 414, ORGANIC_VIDEO 89. VIDEO, PEOPLE, EVENT and PRODUCT/PORTFOLIO do not exist as activity types.",
+    "replacement": "const compTabs = [['', T.cwAll || 'TUTTE'], ['PAID','PAID'], ['ORGANIC_VIDEO','VIDEO ORGANICI']].map(t => ({ ..., count: AM.collections.competitorActivities.records.filter(a => (!t[0] || a.type === t[0]) && (!s.fCompany || a.company === s.fCompany)).length }))"
+   },
+   {
+    "file": "portale.html",
+    "line": 3163,
+    "symbol": "D.ACTIVITIES (x2)",
+    "snippet": "const compStrip = [{ name: 'ALL', label: T.cwAllCompetitors, neu: D.ACTIVITIES.filter(a => a.days <= 7).length, obs: D.ACTIVITIES.length, ... }]",
+    "discussion": "",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "'new' means observed in the last 7 days. Measured on real data: exactly 1 activity has a start date within 7 days of the reference date 2026-09-02 (latest start is 2026-08-26). The 89 organic rows have no date at all and can never be 'new'.",
+    "replacement": "neu: recs.filter(a => a.daysFromRef !== null && a.daysFromRef >= -30).length with the label changed to '30g', obs: AM.counts.competitorActivities (503). Do NOT keep a 7-day counter: measured 7d = 1, 30d = 11, 60d = 40, 90d = 89, 365d = 371."
+   },
+   {
+    "file": "portale.html",
+    "line": 3164,
+    "symbol": "D.COMPANIES + D.ACTIVITIES (x2)",
+    "snippet": ".concat(D.COMPANIES.map(c => ({ name: c.name, label: c.name.toUpperCase(), neu: D.ACTIVITIES.filter(a => a.company === c.name && a.days <= 7).length, obs: D.ACTIVITIES.filter(a => a.company === c.name).length, ... })))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Per-company chips. Real distribution measured: BASF 138, FMC 102, Corteva 94, Bayer 86, Syngenta 55, UPL 13, Sipcam 6, Certis 4, Sumitomo 2, Gowan 2, Nufarm 1. The strip grows from 6 chips to 11 — that is correct and expected.",
+    "replacement": "AM.collections.competitorCompanies.records.map(c => ({ name: c.company, label: c.company.toUpperCase(), neu: c.observedLast30, obs: c.observedTotal, ... }))"
+   },
+   {
+    "file": "portale.html",
+    "line": 3166,
+    "symbol": "D.ACTIVITIES",
+    "snippet": "const changed7 = Object.keys(CH).map(t => ({ type: t, label: CH[t].n, ..., n: D.ACTIVITIES.filter(a => a.type === t && a.days <= 7).length, go: ... }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The 'WHAT CHANGED' six-tile strip. On real data it collapses to +1 PAID and +0 everywhere else, and four of the six tiles have no real type behind them.",
+    "replacement": "const changedWindow = 30; const changed = [['PAID', CH.PAID], ['ORGANIC_VIDEO', CH.ORGANIC]].map(([t, ch]) => ({ type: t, label: ch.n, color: ch.t || ch.c, icon: ..., n: recs.filter(a => a.type === t && a.daysFromRef !== null && a.daysFromRef >= -changedWindow).length, go: ... }))  // 2 tiles, 30-day window, header text must say 'OSSERVATO NEGLI ULTIMI 30 GIORNI'; ORGANIC_VIDEO will read +0 because no organic record carries a date, and that must be shown as 'DATA NON OSSERVATA' rather than as a zero"
+   },
+   {
+    "file": "portale.html",
+    "line": 3167,
+    "symbol": "D.ACTIVITIES",
+    "snippet": "const topMoves = (() => { const seen = {}; const out = []; D.ACTIVITIES.filter(a => a.days <= 7).sort(...).forEach(...); return out.map((a, i) => ({ rank, company: d.companyLabel, product: d.product || d.headline, ... })); })();",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Top 3 moves of the week. Only 1 real record falls in 7 days, and d.product / d.headline do not exist on real records.",
+    "replacement": "Same generator over the 30-day window, product replaced by (a.products[0] || null) and headline removed; if fewer than 3 survive, render only what exists and never pad. Ranked list is presentation over a supplied date, which §7 allows."
+   },
+   {
+    "file": "portale.html",
+    "line": 3168,
+    "symbol": "D.CROP_COLS + D.ACTIVITIES",
+    "snippet": "const cropDensity = D.CROP_COLS.map(cr => { const acts = D.ACTIVITIES.filter(a => a.crop === cr || ...); ... const lvl = acts.length >= 14 ? 'HIGH' : acts.length >= 8 ? 'MEDIUM' : 'LOW'; ... pct: Math.min(100, Math.round(acts.length / 20 * 100)) + '%' ... })",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "D.CROP_COLS asserts WHICH crops are monitored (a scope fact), and the 14/8 thresholds and /20 scale are tuned to a 72-row fixture. Real per-crop counts measured: Maize 67, Grapevine 42, Olive 24, Citrus 15, Tomato 12, Sunflower 9, Apple 5, Sugar Beet 4, Rice 3, Peach 2, Wheat 1. Citrus, Sunflower and Peach are NOT canonical-window crops; Wheat has 1 item.",
+    "replacement": "AM.collections.competitorCropDensity.records (already sorted desc) — crop, items, companies, sharePct (items / maxItems, so the bar is relative to the observed maximum instead of an invented /20). The HIGH/MEDIUM/LOW verdict is DELETED: it is an invented threshold. Keep the existing caption 'Observed communication density in the monitored universe. Not market competition level, not share.' and add that 320 of 503 records carry no crop term at all."
+   },
+   {
+    "file": "portale.html",
+    "line": 3169,
+    "symbol": "D.CROP_COLS + D.WINDOWS + D.ACTIVITIES + D.CASES",
+    "snippet": "const compMoments = D.CROP_COLS.map(cr => { const w = D.WINDOWS.filter(...)[0]; ... const acts = D.ACTIVITIES.filter(... && a.days <= 30); ... const kase = D.CASES.find(c => c.crop === cr); const prods = kase ? (kase.products || []) : []; return { ..., days: w.open ? T.cwOpen : w.days + ' ' + T.cwDays, cos, acts, prods: prods.length, ... } })",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "This is the COMPETITOR x WINDOW widget and every one of its four numbers is fabricated: the window comes from D.WINDOWS, the 30-day activity count from the fixture, and 'ADAMA {n} matches' from a demo case's product list. Measured: all 29 canonical windows have PRODUCT_MATCHES = [], and only 11 real activities fall in a 30-day span.",
+    "replacement": "AM.collections.competitorWindowMoments.records — built from AM.collections.windows (crop, issue, region, status, daysToStart from CANONICAL only), joined to competitorActivities by canonical crop. Fields: crop, issue, region, status (verbatim CURRENT_STATUS: measured 16 WINDOW_CLOSED, 6 WINDOW_OPEN, 2 NEXT_CYCLE, 5 DATE_UNKNOWN), companiesObserved, itemsObserved (whole corpus, not 30d), portfolioVerified from ITALY_LABEL_VERDICTS. The header must read RELATED CROP WINDOW, never OPPORTUNITY or THREAT."
+   },
+   {
+    "file": "portale.html",
+    "line": 3172,
+    "symbol": "D.MATRIX",
+    "snippet": "const matrix = D.MATRIX.map(r => ({ company: r.company, cells: r.cells.map(c => ({ n: c.n, dots: c.n === 0 ? '·' : c.n >= 5 ? '●●●' : c.n >= 3 ? '●●' : '●', ... })) }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "A hand-written 6x6 grid of invented counts. The dot thresholds (5/3/1) are also tuned to the fixture.",
+    "replacement": "AM.collections.competitorMatrix.records. Measured real grid (rows = companies, cols = Maize, Grapevine, Olive, Citrus, Tomato, Sunflower, Apple, Sugar Beet, Rice, Peach, Wheat): BASF 22/16/2/3/4/3/3/1/3/0/1 · FMC 13/14/20/12/4/0/2/0/0/2/0 · Corteva 20/0/0/0/2/3/0/0/0/0/0 · Bayer 9/12/2/0/2/0/0/0/0/0/0 · UPL 3/0/0/0/0/3/0/3/0/0/0 · Syngenta, Sipcam, Certis, Sumitomo, Nufarm, Gowan are all-zero rows. Keep the dot ramp but recompute the breakpoints from the observed max (20) instead of hard-coding 3/5, and keep the header 'observed communication, not share'."
+   },
+   {
+    "file": "portale.html",
+    "line": 3177,
+    "symbol": "D.WINDOWS",
+    "snippet": "const leadWin = D.WINDOWS.find(w => w.crop === leadCrop && !w.open) || D.WINDOWS.find(w => w.crop === leadCrop);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Feeds the lead-time widget only. Reads the demo window list.",
+    "replacement": "DELETE_COMPONENT (with line 3178)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3178,
+    "symbol": "D.COMPANIES + D.ACTIVITIES",
+    "snippet": "const leadTimes = leadWin ? D.COMPANIES.map(c => { const acts = D.ACTIVITIES.filter(...); const first = Math.max(...acts.map(a => a.days)); const lead = leadWin.days + first; return { company: c.name, lead, label: lead + 'd before', pct: Math.min(100, Math.round(lead / 3)) + '%' }; }) ... : [];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "'Days before the window that a competitor started talking' cannot be measured on this corpus. The earliest observation per company is a property of the COLLECTION HORIZON, not of the company: measured first-observed dates are BASF 2023-03-08, Corteva 2024-11-26, Syngenta 2025-07-29, Bayer 2025-08-28, FMC 2025-10-21, UPL 2019-12-05, and five companies (Sipcam, Certis, Sumitomo, Nufarm, Gowan) have no dated record at all. Computing 'lead' from these produces numbers in the thousands of days that describe Meta's ad retention, not competitor behaviour.",
+    "replacement": "DELETE_COMPONENT — remove the COMMUNICATION LEAD TIME card (markup lines 1753-1759, including the 'ADAMA · Internal review · not connected' row and the caption at 1758)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3179,
+    "symbol": "D.ACTIVITIES",
+    "snippet": "const galleryItems = D.ACTIVITIES.filter(a => (a.type === 'PAID' || a.type === 'ORGANIC' || a.type === 'VIDEO') && ...).map(actDeco);",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The CREATIVE GALLERY renders a.creativeBg (an invented colour block standing in for a creative asset), a.galleryH (a height derived from a.days), a.productOrHeadline and a.when. No creative asset exists in the real data — only media = 'VIDEO'|'IMAGE' (414/503) with no file and no thumbnail.",
+    "replacement": "Either DELETE_COMPONENT (drop the CREATIVE GALLERY tab from compViews, line 3160) or keep it as a text-only wall: AM.collections.competitorActivities.records.filter(a => a.type === 'PAID' && a.url) mapped to { company, page, media, startDate, url, textExcerpt }. If kept, the tile must carry the label 'ASSET CREATIVO NON CATTURATO — RECORD STRUTTURATO' and a fixed height; galleryH and creativeBg are removed because they encode a fake variety."
+   },
+   {
+    "file": "portale.html",
+    "line": 3180,
+    "symbol": "D.ISSUE_ROWS",
+    "snippet": "const issueRows = D.ISSUE_ROWS.map(r => Object.assign({}, r, { companiesLabel: r.companies.join(', '), adamaLabel: r.adama.length ? r.adama.join(' · ') : 'Portfolio check needed', go: () => r.caseId && this.openCase(r.caseId) }));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "A hand-written table pairing canonical ADAMA issue names with invented item counts and an invented ADAMA product list. Real issue terms are different in kind: they are the advertiser's own words, either an Italian generic category or a Latin binomial.",
+    "replacement": "AM.collections.competitorIssueDensity.records. Measured real rows (issue | items | companies): insetti 37 Bayer,BASF,FMC · infestanti 26 Bayer,BASF,Corteva · malattie 23 Bayer,BASF · Plasmopara viticola 16 Bayer,Syngenta,BASF · parassiti 12 Syngenta,BASF,FMC · funghi 6 Bayer,BASF · Fusarium 5 BASF · Amaranthus 4 BASF,FMC · Erysiphe necator 3 Bayer,BASF · Botrytis cinerea 3 Bayer,BASF · Phyllosticta ampelicida 2 BASF · Diaporthe neoviticola 2 BASF · Ceratitis capitata 2 FMC · Zymoseptoria tritici 1 Corteva. The PAID column is deleted (measured: all 98 issue-bearing records are PAID, so PAID always equals ITEMS). The ADAMA portfolio column is deleted (see fieldsThatDie). The CONTEXT link is deleted (no caseId exists)."
+   },
+   {
+    "file": "portale.html",
+    "line": 3182,
+    "symbol": "D.ACTIVITIES",
+    "snippet": "const evActs = D.ACTIVITIES.filter(a => a.eventId === evd0.id || (a.type !== 'EVENT' && evd0.crops.some(c => a.crop === c) && Math.abs(a.days + evd0.startDays) <= 20));",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Builds the event detail's BEFORE / DURING / AFTER competitor story. It needs a.eventId, a.crop and a.days; none of the first two exist on real records, and the +/-20 day proximity rule invents a causal link between an ad and an event.",
+    "replacement": "DELETE_COMPONENT — remove evActs, evd.actCount, evd.activities and the three-phase story block (line 3184). An ad running near an event date is not evidence about the event. If a cross-link is wanted later it must be labelled ATTIVITA PUBBLICA CORRELATA and carry no timing claim."
+   },
+   {
+    "file": "portale.html",
+    "line": 3185,
+    "symbol": "D.CPRODUCTS (x2)",
+    "snippet": "const cp0 = D.CPRODUCTS.find(p => p.name === s.cproductId) || D.CPRODUCTS[0];",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "14 invented competitor products with invented first/last dates, people mentions, crops, issues and ADAMA case links. Reality has 36 proven products with only PRODUCT, COMPANY, ADS_REACHING_IT and PROOF ('MARCA_REGISTRADA_NO_TEXTO do anuncio'), across 5 companies (FMC, BASF, UPL, Corteva, Syngenta) — Bayer has 0 proven products.",
+    "replacement": "AM.collections.competitorProducts.records (36). cp fields become: name (PRODUCT, never translated), company, adsReachingIt (upstream count), proof, plus REAL_DERIVED activities/firstSeen/lastSeen/crops/issues computed from competitorActivities where products[] contains the name. Measured top mentions: Exirel 36, Arc 26, Spectrum 13, Cyazypyr 13, Efficon 12, Dagonis 10, Enervin 9, Coragen 8, EliteSea 7."
+   },
+   {
+    "file": "portale.html",
+    "line": 3441,
+    "symbol": "D.ACTIVITIES (compTotal)",
+    "snippet": "compEmpty: actsAll.length === 0, compTotal: D.ACTIVITIES.length",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Headline total for the screen. 72 today, 503 in reality.",
+    "replacement": "compTotal: AM.counts.competitorActivities"
+   },
+   {
+    "file": "portale.html",
+    "line": 3441,
+    "symbol": "D.WHAT_CHANGED",
+    "snippet": "whatChanged: D.WHAT_CHANGED",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "A frozen six-row list of 'new paid creatives observed: 10', 'organic posts observed: 3' etc. Pure fixture, and four of its six types do not exist.",
+    "replacement": "whatChanged: AM.collections.competitorChanged.records (the same 2-type, 30-day projection that feeds changed7); or drop the prop if the changed7 strip is the only consumer."
+   },
+   {
+    "file": "portale.html",
+    "line": 3441,
+    "symbol": "D.CROP_COLS (matrixCols)",
+    "snippet": "matrix, matrixCols: D.CROP_COLS",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Declares the matrix column set (a scope fact about which crops are monitored), and it is wrong: it lists Wheat (1 real item) and omits Citrus (15) and Sunflower (9).",
+    "replacement": "matrixCols: AM.collections.competitorMatrix.columns  // ordered by observed volume, computed once in the model. The markup grid-template-columns must become dynamic or the column list must be capped to the top 6 with an explicit '+N altre colture' note."
+   },
+   {
+    "file": "portale.html",
+    "line": 3443,
+    "symbol": "D.CROP_COLS (compCropOptions)",
+    "snippet": "compCropOptions: opts('All crops', D.CROP_COLS)",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The crop filter offers crops that cannot be selected on real data and hides crops that can.",
+    "replacement": "compCropOptions: opts(T.cwAllCrops || 'Tutte le colture', AM.collections.competitorMatrix.columns, cl)"
+   },
+   {
+    "file": "portale.html",
+    "line": 3443,
+    "symbol": "D.ACTIVITIES (compIssueOptions)",
+    "snippet": "compIssueOptions: opts('All issues', uniq(D.ACTIVITIES.filter(a => a.type !== 'EVENT').map(a => a.issue)))",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "Reads the scalar a.issue, which does not exist on real records (issues is an array, non-empty on 98/503).",
+    "replacement": "compIssueOptions: opts(T.cwAllIssues || 'Tutti i problemi', AM.collections.competitorIssueDensity.records.map(r => r.issue))  // 14 real terms; do NOT translate the Latin binomials (PRODUCT LAW §11)"
+   },
+   {
+    "file": "portale.html",
+    "line": 2608,
+    "symbol": "D.KPI.activities (via K)",
+    "snippet": "['competitors', T.navCompetitors, K.activities]",
+    "classification": "DATA_BEARING_CORE",
+    "reason": "The navigation badge says 72. It is the first number a user sees for this domain and it is a fixture count.",
+    "replacement": "['competitors', T.navCompetitors, AM ? AM.counts.competitorActivities : 0]  // 503"
+   },
+   {
+    "file": "portale.html",
+    "line": 2567,
+    "symbol": "CH map (D-adjacent, ITALY_DEMO colour/icon vocabulary)",
+    "snippet": "const CH = { 'PAID': { c:'#00A0DF', i:'sell', n:T.chPaid }, 'ORGANIC': {...}, 'VIDEO': {...}, 'PEOPLE': {...}, 'EVENT': {...}, 'PRODUCT / PORTFOLIO': {...} };",
+    "classification": "VISUAL_ONLY",
+    "reason": "Carries only colour, icon and a translated label per activity type. No crop, date, region, count or evidence passes through it. PRODUCT LAW §4 allows this as presentation metadata.",
+    "replacement": "KEEP, but add an 'ORGANIC_VIDEO' key (aliasing the ORGANIC/VIDEO styling) and stop iterating Object.keys(CH) to build counts — iterate the real type list instead, otherwise the four dead keys reappear as zero tiles."
+   },
+   {
+    "file": "portale.html",
+    "line": 2571,
+    "symbol": "TIMING colour map",
+    "snippet": "const TIMING = { 'IN WINDOW': '#00B152', 'APPROACHING WINDOW': '#F5B317', 'EARLY': '#00A0DF', 'POST WINDOW': '#978B87', 'NO TIMING MATCH': '#8F8886' };",
+    "classification": "VISUAL_ONLY",
+    "reason": "A colour lookup only. It becomes harmless once the states it colours stop being invented by the view.",
+    "replacement": "KEEP the map but re-key it to the upstream window vocabulary (WINDOW_OPEN, WINDOW_CLOSED, NEXT_CYCLE, DATE_UNKNOWN) so it colours a supplied status instead of a computed verdict."
+   },
+   {
+    "file": "portale.html",
+    "line": 2599,
+    "symbol": "a.creativeBg / a.galleryH (decorated visuals)",
+    "snippet": "galleryH: (150 + (a.days * 37) % 90) + 'px'",
+    "classification": "VISUAL_ONLY",
+    "reason": "Height and background colour only. But it is computed from a.days, which is null for the 89 undated records, and it exists to make an empty card look like a captured creative.",
+    "replacement": "Remove galleryH (fixed height instead); keep creativeBg only as a neutral constant, not a per-record colour, so no card implies a captured asset."
+   }
+  ],
+  "modelChanges": [
+   {
+    "collection": "competitorActivities (extend the existing projection, italy-app-model.js lines 132-148)",
+    "why": "The view currently reads scalar a.crop / a.issue / a.product / a.days that do not exist, and re-derives crop names by string equality against demo crop labels. Normalizing once in the model keeps the view dumb and stops each widget inventing its own crop match.",
+    "fields": [
+     "cropsCanonical: string[] — resolved ONLY through an explicit botanical/common-name identity table (Vitis vinifera->Grapevine, Zea mays->Maize, Olea europaea->Olive, Solanum lycopersicum->Tomato, Malus domestica->Apple, Triticum aestivum->Wheat, Oryza sativa->Rice, Beta vulgaris->Sugar Beet, Helianthus annuus->Sunflower, Prunus persica->Peach, Citrus->Citrus). This is a taxonomic identity, not an interpretation. Measured: 132/503 activities resolve to at least one canonical crop.",
+     "cropScope: 'RESOLVED' | 'GENERIC_TERM' | 'NOT_OBSERVED' — GENERIC_TERM for the advertiser's own umbrella words (colture 59, cereali 24, frutta 8, ortaggi 5; 51 activities carry only such a term), NOT_OBSERVED for the 320 activities with an empty crops array. A generic term is never promoted to a crop.",
+     "issuesObserved: string[] = a.issues verbatim (98/503 non-empty; 14 distinct terms, mixed Italian generic and Latin binomial). Never translated, never truncated at '(' per §11.",
+     "issueScope: 'SPECIES' | 'GENERIC_TERM' | 'NOT_OBSERVED' — SPECIES only when the term is a capitalised binomial. Measured: 30/503 activities carry a species-level issue.",
+     "hasDate: boolean (414 true / 89 false) and dateState: 'OBSERVED' | 'NOT_OBSERVED'. Every widget that sorts or buckets by time must read hasDate and put the 89 undated records in an explicit 'DATA NON OSSERVATA' bucket rather than at day 0.",
+     "displayName: string = page || company — the observed Facebook page name ('Bayer Crop Science Italia', 414/503) is a real field and replaces the fabricated companyLabel. When page is null the card shows the company name plus 'CANALE NON RISOLTO'.",
+     "textExcerpt: string|null = text verbatim (392/503, average 239 characters). It is the advertiser's own public copy and replaces the fabricated headline. It is displayed as a quoted excerpt and is NEVER parsed to extract a crop, issue, product or claim.",
+     "relatedWindows: {windowId, crop, issue, region, status, startDate}[] — populated only when cropsCanonical intersects a canonical window's CROP_NAME AND the activity carries a SPECIES-level issue that equals the window's ISSUE_NAME under an upstream-supplied synonym table. Empty otherwise; the model must not fall back to crop-only matching, because a shared crop name is not a relationship.",
+     "geoLabel: 'RAGGIUNTO IN ITALIA' for the 414 REACHED_IN_ITALY, 'MULTIPAESE / NON RISOLTO' for the 89. geoCaveat: the verbatim countrySem string 'AD_REACHED_COUNTRY != AD_TARGETED_COUNTRY' must be shown on the paid card so reach is never read as targeting."
+    ]
+   },
+   {
+    "collection": "competitorCompanies (NEW, REAL_DERIVED)",
+    "why": "The view builds companies from a 6-row fixture with invented counts, themes and confidence. IG.COMP_COMPANIES cannot be used raw because it has 14 rows for 11 companies — the paid rows are title-case (Bayer, IT-COMP-004, 69 paid) and the organic rows are upper-case (BAYER, IT-COMP-010, 17 organic). Merging must happen once, in the model.",
+    "fields": [
+     "company: string — canonical title-case name taken from COMP_ACTIVITIES.company (11 distinct: BASF, FMC, Corteva, Bayer, Syngenta, UPL, Sipcam, Certis, Sumitomo, Gowan, Nufarm)",
+     "paidAdsReachingIt: number (sum of PAID_ADS_REACHING_IT across the merged rows)",
+     "organicVideosInCorpus: number (sum of ORGANIC_VIDEOS_IN_CORPUS)",
+     "observedTotal: number — verified to equal paid+organic per company (BASF 138, FMC 102, Corteva 94, Bayer 86, Syngenta 55, UPL 13, Sipcam 6, Certis 4, Sumitomo 2, Gowan 2, Nufarm 1; total 503)",
+     "pages: string[] (union of PAGES; empty for the 5 organic-only companies)",
+     "products: reference into competitorProducts (measured: Bayer has 0 proven products despite 86 activities — that must render as 'NESSUN PRODOTTO PROVATO NELLA LETTURA ATTUALE', never as an empty list with no note)",
+     "firstObserved / lastObserved: ISO date|null — null for Sipcam, Certis, Sumitomo, Nufarm, Gowan (no dated record). Must render 'DATA NON OSSERVATA'.",
+     "observedLast30: number — feeds the 'new' counter on the company strip; the 7-day counter is not viable (measured 1 record in 7 days)",
+     "activeAds: number — count of active === 'ACTIVE' (measured: FMC 17, Corteva 5, Bayer 5, all others 0; 27 total, plus 2 NOT_KNOWN)"
+    ]
+   },
+   {
+    "collection": "competitorProducts (NEW, REAL_SOURCE + REAL_DERIVED)",
+    "why": "D.CPRODUCTS is 14 invented products; IG.COMP_PRODUCTS has 36 with an upstream proof string. The per-product context the detail screen wants (crops, issues, first/last seen) must be derived from competitorActivities, in the model, so the count on the company card and the count on the product page cannot diverge.",
+    "fields": [
+     "product: string verbatim, never translated",
+     "company: string",
+     "adsReachingIt: number (upstream ADS_REACHING_IT)",
+     "proof: string verbatim ('MARCA_REGISTRADA_NO_TEXTO do anuncio') — shown as the evidence line",
+     "activityIds: string[] — activities whose products[] contains this name",
+     "cropsObserved / issuesObserved: string[] derived from those activities only",
+     "firstSeen / lastSeen: ISO|null from those activities' start dates"
+    ]
+   },
+   {
+    "collection": "competitorCropDensity (NEW, REAL_DERIVED)",
+    "why": "Replaces D.CROP_COLS + the hand-tuned HIGH/MEDIUM/LOW thresholds. The scale must be relative to what was actually observed, and the level verdict must go.",
+    "fields": [
+     "crop: canonical crop name",
+     "items: number (Maize 67, Grapevine 42, Olive 24, Citrus 15, Tomato 12, Sunflower 9, Apple 5, Sugar Beet 4, Rice 3, Peach 2, Wheat 1)",
+     "companies: number of distinct companies with at least one item on that crop",
+     "sharePct: items / max(items) — a bar length, not a market share",
+     "unresolvedItems: 320 (no crop term) and genericItems: 51 (umbrella term only), exposed as a footer so the density panel states its own denominator"
+    ]
+   },
+   {
+    "collection": "competitorIssueDensity (NEW, REAL_DERIVED)",
+    "why": "Replaces the hand-written D.ISSUE_ROWS. Real issue terms are the advertiser's own words and there are only 14 of them, covering 98 of 503 records.",
+    "fields": [
+     "issue: verbatim term",
+     "issueScope: 'SPECIES' | 'GENERIC_TERM'",
+     "items: number",
+     "companies: string[]",
+     "NOTE: no paid column (all 98 are PAID), no ADAMA product column, no caseId link"
+    ]
+   },
+   {
+    "collection": "competitorMatrix (NEW, REAL_DERIVED)",
+    "why": "Replaces D.MATRIX, a hand-written 6x6 grid. Also needs to publish its own column order so matrixCols stops being a fixture.",
+    "fields": [
+     "columns: canonical crop names ordered by observed volume",
+     "records: [{ company, cells: [{ crop, n }] }] for all 11 companies",
+     "maxCell: number (measured 20, FMC x Olive) so the dot ramp is computed from the data instead of hard-coded at 3/5",
+     "allZeroCompanies: ['Syngenta','Sipcam','Certis','Sumitomo','Nufarm','Gowan'] — 6 of 11 companies have no crop-resolved activity at all and the matrix must say so rather than render six silent empty rows"
+    ]
+   },
+   {
+    "collection": "competitorWindowMoments (NEW, REAL_DERIVED over CANONICAL)",
+    "why": "Replaces compMoments. The window side must come from AM.collections.windows verbatim (status is upstream, §7) and the ADAMA side from ITALY_LABEL_VERDICTS, which the model does not read today.",
+    "fields": [
+     "windowId, crop, issue, region",
+     "status: verbatim CURRENT_STATUS (16 WINDOW_CLOSED, 6 WINDOW_OPEN, 2 NEXT_CYCLE, 5 DATE_UNKNOWN) and daysToStart from the model's daysFrom()",
+     "companiesObserved / itemsObserved on that crop (whole corpus; there is no honest 30-day slice — measured 11 records in 30 days across all crops)",
+     "portfolioVerified: products from ITALY_LABEL_VERDICTS.VERIFIED matching [crop, issue] (12 triples exist, over 10 distinct issues); when there is no match the label is 'NESSUNA CORRISPONDENZA CONFERMATA NELLA LETTURA ATTUALE' (§10)",
+     "linkLabel: constant 'FINESTRA COLTURALE CORRELATA' — never OPPORTUNITY, THREAT or STRATEGY"
+    ]
+   },
+   {
+    "collection": "labelVerdicts (NEW top-level accessor on ITALY_APP_MODEL)",
+    "why": "italy-app-model.js does not read window.ITALY_LABEL_VERDICTS at all (verified: the file never references it). Product link strengths today come from D.CASES[].productLinks — a demo fixture — at lines 102-105. Every ADAMA-portfolio statement my domain makes therefore rests on demo data. This is a cross-domain blocker: the Competitor x Window cross-link cannot be made truthful until the model exposes the real audit.",
+    "fields": [
+     "verified: [crop, issue, product][] (12)",
+     "notFound: [crop, issue, product][] (7)",
+     "strengthFor(crop, issue, product) -> VERIFIED_LABEL_MATCH | NO_CONFIRMED_MATCH_CURRENT_READING",
+     "auditDate, scopeNote, absenceRule verbatim, so any negative statement can quote the upstream absence rule instead of asserting absence"
+    ]
+   }
+  ],
+  "fieldsThatDie": [
+   {
+    "field": "a.headline / a.observed",
+    "usedAt": "portale.html markup 1732 ({{ a.headline }}), 277 ({{ a.observed }}); produced at 3157/3158 via the fixture",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "No real record has a Sintonia-written headline. The nearest real thing is `text` — the advertiser's own Italian ad copy, present on 392/503 records, average 239 characters. Show it verbatim as a quoted excerpt under a label like TESTO PUBBLICO ORIGINALE. It must never be re-written into a headline and never parsed for a crop, issue or claim. The 111 records with no text show nothing."
+   },
+   {
+    "field": "a.crop / a.issue / a.product (scalars)",
+    "usedAt": "2573 winMatch(a.crop, a.issue), 3158 filters, 3168/3169 density, 3157 productObjs, markup 1734 chips",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Real records carry ARRAYS. Measured: crops non-empty on 183/503 (of which only 132 resolve to a real crop and 51 are umbrella words like colture/cereali), issues non-empty on 98/503, products non-empty on 102/503. 320 of 503 activities have no crop at all. Every card must render 0..n chips and show nothing (not '—', not a guess) when the array is empty."
+   },
+   {
+    "field": "a.region",
+    "usedAt": "markup binding {{ a.region }}; fixture value 'DEMO'",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "There is no region field on any of the 503 records and there cannot be: Meta Ad Library reach is country-level. Delete the region chip from the activity card."
+   },
+   {
+    "field": "a.days / a.when / a.dayLabel",
+    "usedAt": "3158 sort and fPeriod filter, 3162 feedGroups, 3163/3166/3167 the 7-day widgets, 2600 recentActivity, 2599 galleryH",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Derivable from `start` for the 414 paid records only. The 89 ORGANIC_VIDEO records have start = null, end = null, country = null, url = null, text = null — they are literally id/type/platform/company/companyRaw/prov and nothing else. They cannot be placed on a timeline and must live in an explicit DATA NON OSSERVATA group. Also: the real corpus spans 2019-12-05 to 2026-08-26; only 1 record is within 7 days of the reference date, 11 within 30, 40 within 60, 89 within 90."
+   },
+   {
+    "field": "a.newly / 'NEWLY OBSERVED' badge",
+    "usedAt": "markup 1734 ({{ a.hasNewly }} / {{ a.newly }})",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "'Newly observed' needs a previous snapshot to diff against. The corpus is a single load with no first-seen-by-Sintonia timestamp. A start date is when the advertiser started, not when we first saw it. Delete the badge."
+   },
+   {
+    "field": "a.transcript / a.transcriptLabel / a.duration",
+    "usedAt": "2599 transcriptLabel, markup 1727 (video overlay: {{ a.duration }}, 'YouTube · {{ a.transcriptLabel }}')",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "No transcript, duration, view count or title exists on any ORGANIC_VIDEO record. (IG.CHANNELS[30] does carry EXAMPLE_TITLE/EXAMPLE_URL/VIEWS, but those are channel exemplars, a different collection and a different domain — they must not be borrowed to dress a competitor activity card.) The video overlay block dies; an organic record renders as company + YOUTUBE + 'DATA NON OSSERVATA'."
+   },
+   {
+    "field": "a.topics / a.kind / a.color / a.companyColor / a.brand",
+    "usedAt": "fixture fields consumed by actDeco and the radar list ({{ a.color }} at markup 276)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "topics, kind and brand ('Brand captured') do not exist and carry no real equivalent. color/companyColor are VISUAL_ONLY and may keep coming from the static CH map under record.ui per §4."
+   },
+   {
+    "field": "a.companyLabel",
+    "usedAt": "3167 topMoves, markup 1719 (card header)",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Replace with the observed page name `page` (414/503, e.g. 'Bayer Crop Science Italia', 'BASF Agricultural Solutions'). For the 89 organic records page is null — show the bare company name; do not invent a legal entity name."
+   },
+   {
+    "field": "a.person / a.personId / a.personRole / a.relationship / a.personInitials — the entire PEOPLE activity type",
+    "usedAt": "2599 actDeco, markup 1728 (a.isPeople block), 3159 PEOPLE tab, 3157 countRows 'PEOPLE MENTIONS'",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "There is no PEOPLE activity type in reality. Measured type distribution across all 503 records: PAID 414, ORGANIC_VIDEO 89. The demo has 8 PEOPLE records; reality has 0. Delete the tab, the card block and the company-profile count tile."
+   },
+   {
+    "field": "a.event / a.eventId / a.participation / a.partColor / a.eventDates / a.eventCity — the entire EVENT activity type",
+    "usedAt": "2599 actDeco, markup 1729 (a.isEvent block), 3159 EVENT tab, 3182 evActs, 3184 the BEFORE/DURING/AFTER story",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "No EVENT activity type and no eventId. Separately, competitor participation itself is almost entirely unknown: of 18 real events, 16 have CONFIRMED_PARTICIPATION = {}, and the two populated ones name only ADAMA and SYNGENTA. IG.EVENTS.PARTICIPATION_LAW states that a company without a line means NOT KNOWN and that future participation is never inferred from past participation. The company-profile eventRows must default to NON NOTO, and the event story panel is deleted."
+   },
+   {
+    "field": "'PRODUCT / PORTFOLIO' and 'VIDEO' activity types",
+    "usedAt": "3159 compTabs, 3166 changed7, 3157 countRows",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Neither exists. VIDEO is not a type; it is media = 'VIDEO' on 180 of the 414 paid records. PRODUCT / PORTFOLIO has no real counterpart at all. Two tabs remain: PAID and ORGANIC_VIDEO. The company-profile count grid drops from 6 tiles to 2."
+   },
+   {
+    "field": "a.timing / a.timingColor / a.leadLabel / a.windowLabel ('IN WINDOW', 'EARLY', 'X days before the expected window')",
+    "usedAt": "2573-2591 actDeco, markup 1735 (COMMUNICATION TIMING tile)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "This is presentation inventing an agronomic state, which §7 forbids, on top of a demo window list and a substring match between an issue name and a window name. Replace with a RELATED CROP WINDOW tile that prints the canonical window's own CURRENT_STATUS verbatim, and only for the small subset with a resolved crop AND a species-level issue. Where there is no match, omit the tile — do not print 'NO TIMING MATCH', which reads as a finding."
+   },
+   {
+    "field": "a.adamaResponse / a.adamaColor / a.adamaProducts ('VERIFIED PORTFOLIO RESPONSE')",
+    "usedAt": "2580-2594 actDeco, markup 1736 (ADAMA RESPONSE tile)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "The strongest false claim on the screen. It is built from D.CASES[].productLinks — demo. Measured: all 29 canonical windows have PRODUCT_MATCHES = [], and ITALY_LABEL_VERDICTS has only 12 VERIFIED crop/issue/product triples in total. There is no basis for a per-ad portfolio verdict. Delete the tile from the activity card; keep a portfolio statement only at the window level, sourced from the label audit, using the NO_CONFIRMED_MATCH_CURRENT_READING wording (§10)."
+   },
+   {
+    "field": "a.caseId / a.caseTitle / a.ctaL ('VIEW RELATED CASE →') / a.openCase",
+    "usedAt": "2580, 2599, markup 1737",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "No real activity links to a case. The CTA becomes 'VEDI ANNUNCIO →' for the 414 paid records that have a url, and nothing at all for the 89 organic records (url null on every one)."
+   },
+   {
+    "field": "a.marketTemp / a.marketColor / a.goMarket (MARKET PULSE line on every card)",
+    "usedAt": "2595-2597 actDeco, markup 1737",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Keying a market temperature off a.crop when 320/503 records have no crop means most cards would print a market state for a crop they never named. Cross-domain: this belongs to the Market domain and should be reached from the crop chip, not stamped on every activity."
+   },
+   {
+    "field": "D.CROP_COLS as the monitored-crop set",
+    "usedAt": "3168, 3169, 3441 matrixCols, 3443 compCropOptions, markup 1747 (grid-template-columns:70px repeat(6,1fr))",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "The fixture declares 6 crops (Grapevine, Maize, Wheat, Olive, Tomato, Apple). Reality gives 11, in a different order, with Wheat at 1 item and two crops the fixture never mentions: Citrus (15) and Sunflower (9). The markup's hard-coded repeat(6,1fr) must become dynamic or the model must publish an explicit top-N column list with an '+N altre colture' footnote."
+   },
+   {
+    "field": "cropDensity level (HIGH / MEDIUM / LOW) and pct (acts/20)",
+    "usedAt": "3168",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "The 14/8 thresholds and the /20 denominator were fitted to a 72-record fixture. On 503 records they would label almost everything HIGH. A three-level verdict on communication volume also drifts toward reading as commercial importance, which §8 forbids. Keep the bar (relative to the observed maximum) and the raw counts; delete the level word."
+   },
+   {
+    "field": "leadTimes (COMMUNICATION LEAD TIME card)",
+    "usedAt": "3177-3178, markup 1753-1759",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Not measurable. The earliest observation per company is set by the Meta Ad Library retention horizon, not by the company: BASF 2023-03-08, Corteva 2024-11-26, Syngenta 2025-07-29, Bayer 2025-08-28, FMC 2025-10-21, UPL 2019-12-05, and 5 companies have no dated record whatsoever. Any 'X days before the window' number computed from these describes the archive, not the competitor. Delete the whole card, including the 'ADAMA · Internal review · not connected' row, which also implies a private-data gap that §1 says should not be there."
+   },
+   {
+    "field": "galleryItems creative wall (a.creativeBg, a.galleryH, a.productOrHeadline)",
+    "usedAt": "3179, markup 1766",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "No creative asset is captured for any record. The real data says only media = 'VIDEO' (180) or 'IMAGE' (234) with no file, thumbnail or dimension. The varying tile heights are computed from a.days purely to look like a real creative wall. Either drop the CREATIVE GALLERY view or rebuild it as a uniform text-record wall explicitly labelled ASSET CREATIVO NON CATTURATO."
+   },
+   {
+    "field": "ISSUE_ROWS.paid column",
+    "usedAt": "3180, markup 1787 header, 1788 ({{ r.paid }})",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Measured: every one of the 98 issue-bearing activities is PAID (organic records have empty issues arrays). The PAID column would equal the ITEMS column on every row, which invites the reader to believe it is telling them something."
+   },
+   {
+    "field": "ISSUE_ROWS.adama / adamaLabel ('Portfolio check needed')",
+    "usedAt": "3180, markup 1788",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "The demo pairs canonical ADAMA issue names with product lists. Real observed issue terms are the advertiser's own words and do not line up: 'Plasmopara viticola' vs the canonical 'Downy Mildew', 'Zymoseptoria tritici' vs 'Septoria Leaf Blotch', plus five untranslatable umbrella words (insetti 37, infestanti 26, malattie 23, parassiti 12, funghi 6) that name no organism at all. Building the pathogen-to-canonical-issue map inside the view would be the view inventing a relationship. Delete the column until upstream supplies the synonym table (open question)."
+   },
+   {
+    "field": "ISSUE_ROWS.caseId / 'CONTEXT →' link",
+    "usedAt": "3180, markup 1788",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "No real issue term carries a case id."
+   },
+   {
+    "field": "co.cases (competitor company -> ADAMA cases)",
+    "usedAt": "3157, markup {{ co.cases }}",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "There is no field linking a company to a case or an opportunity. A shared crop is not a relationship."
+   },
+   {
+    "field": "co.themes / co.confidence / co.brands",
+    "usedAt": "3157, markup {{ co.themes }}, {{ co.confidence }}",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Communication 'themes' and a 'confidence' score are pure fixture inventions with no counterpart in COMP_COMPANIES (which has exactly ID, COMPANY, PAID_ADS_REACHING_IT, ORGANIC_VIDEOS_IN_CORPUS, PAGES, PRODUCTS_PROVED, PROVENANCE)."
+   },
+   {
+    "field": "co.crops / co.count / co.recent30 / co.last",
+    "usedAt": "3157, markup {{ co.crops }}, {{ co.count }}, {{ co.recent30 }}, {{ co.last }}",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "All four are derivable from the real activities, but with honest holes: co.last and co.recent30 are null for the 5 organic-only companies (Sipcam, Certis, Sumitomo, Nufarm, Gowan), which must read DATA NON OSSERVATA, not 0."
+   },
+   {
+    "field": "cp.people / cp.cases / cp.first / cp.last (competitor product detail)",
+    "usedAt": "3185-3186, markup {{ cp.people }}, {{ cp.cases }}, {{ cp.first }}, {{ cp.last }}",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "IG.COMP_PRODUCTS has only PRODUCT, COMPANY, ADS_REACHING_IT, PROOF. cp.people (people mentions) and cp.cases (ADAMA case links) have no real counterpart and die outright. cp.first/cp.last are derivable from the mentioning activities' start dates, but only for products mentioned by paid ads."
+   },
+   {
+    "field": "D.WHAT_CHANGED",
+    "usedAt": "3441 (whatChanged prop)",
+    "verdict": "REMOVE_SUBCOMPONENT",
+    "note": "Six frozen rows ('new paid creatives observed: 10', etc.) that are not computed from anything. Replace with the live 30-day, 2-type projection or drop the prop."
+   },
+   {
+    "field": "Data-State panel 'Competitor real / demo' split",
+    "usedAt": "2529",
+    "verdict": "DERIVABLE_FROM_REAL",
+    "note": "Today it reports the real/demo split of a 72-row fixture on the one panel whose entire purpose is to tell the user what is real. After migration it reads real 503 / demo 0 from AM.collections.competitorActivities."
+   }
+  ],
+  "markupImpact": [
+   "1631 — compCropOptions select: crop list must come from the real observed-crop set (11 crops incl. Citrus and Sunflower), not D.CROP_COLS.",
+   "1632 — compIssueOptions select: 14 real terms, Latin binomials never translated.",
+   "1633 — fPeriod select offers 7 / 30 / 60 days. On real data 7d = 1 record. Change the options to 30 / 90 / 365 / any, or the filter reads as an empty screen.",
+   "1638-1646 — compStrip: grows from 7 chips to 12 (ALL + 11 companies). The 'new' sub-label must move off 7 days; five companies will show DATA NON OSSERVATA instead of a number.",
+   "1650 — 'WHAT CHANGED' section header and the t.cwNewlyObs caption must state the real window (30 days) instead of implying a week.",
+   "1652-1661 — changed7 tile grid: 6 tiles become 2 (PAID, VIDEO ORGANICI). The ORGANIC tile will read +0 because no organic record is dated; it must say DATA NON OSSERVATA, not 0.",
+   "1663-1671 — topMoves cards: bind m.product to the first entry of products[] and delete the m.product-or-headline fallback; the block may render fewer than 3 cards and must not be padded.",
+   "1677-1685 — cropDensity rows: delete the {{ c.level }} span (HIGH/MEDIUM/LOW); keep {{ c.n }} items · {{ c.cos }} companies; add a footer stating that 320 of 503 records name no crop.",
+   "1689-1698 — compMoments rows: replace {{ m.days }} with the canonical window status + daysToStart, delete 'ADAMA {{ m.prods }} matches' unless it is sourced from the label audit, delete the market temperature, and change the caption's implicit claim from a 30-day count to a whole-corpus count.",
+   "1700 — compTabs row: 7 pills become 3 (ALL, PAID, VIDEO ORGANICI).",
+   "1708-1712 — feedGroups: add an explicit final group for the 89 undated ORGANIC_VIDEO records labelled DATA NON OSSERVATA.",
+   "1715-1740 — the activity card, the biggest single edit: 1719 bind companyLabel->page; 1721 keep platform and the reach caveat, add the geoLabel; 1723 paid creative block loses {{ a.product }} as a headline and gains the verbatim text excerpt; 1727 DELETE the a.isVideo overlay (duration + transcriptLabel); 1728 DELETE the a.isPeople block; 1729 DELETE the a.isEvent block; 1732 {{ a.headline }} -> verbatim text excerpt, quoted and labelled; 1734 product/crop/issue chips become 0..n loops and the NEWLY OBSERVED badge is deleted; 1735-1736 DELETE the two-tile grid (COMMUNICATION TIMING and ADAMA RESPONSE) and replace with an optional single RELATED CROP WINDOW row; 1737 DELETE the MARKET PULSE line and change the CTA to VEDI ANNUNCIO for paid-with-url only.",
+   "1741 — 'LOAD MORE · N REMAINING' now starts from 503 instead of 72; the initial compShown of 12 is fine but the remaining count changes an order of magnitude.",
+   "1747-1748 — the matrix grid is hard-coded as 'grid-template-columns:70px repeat(6,1fr)' in two places and the row loop repeats it. It must become dynamic or the model must cap the column list at 6 with an explicit footnote naming the crops left out.",
+   "1746 — matrix caption already says 'observed communication, not share'. Keep it verbatim; add that 6 of 11 companies have no crop-resolved activity.",
+   "1753-1759 — DELETE the entire COMMUNICATION LEAD TIME card, including the ADAMA 'Internal review · not connected' row and the caption at 1758.",
+   "1766 — galleryItems tile: delete {{ a.galleryH }} and the per-record {{ a.creativeBg }}; if the view survives, add the ASSET CREATIVO NON CATTURATO label.",
+   "1787 — ISSUE table header: delete the PAID column and the {{ t.lblPortfolio }} column; the grid-template-columns must be rewritten from 6 columns to 3 (ISSUE, ITEMS, COMPANIES OBSERVED).",
+   "1788 — ISSUE table row: same 3-column rewrite; delete {{ r.paid }}, {{ r.adamaLabel }} and the CONTEXT link; {{ r.issueL }} must NOT translate Latin binomials.",
+   "1805-1812 — company profile header: co.countRows drops from 6 tiles to 2 (PAID, VIDEO ORGANICI); {{ co.confidence }} and {{ co.themes }} bindings are removed; {{ co.last }} must be able to render DATA NON OSSERVATA.",
+   "co.eventRows block — the participation state must default to NON NOTO and the colour logic must stop calling .startsWith on an undefined value (it currently throws for any company not present in the participation map).",
+   "273-280 — radar 'LATEST MOVES': {{ a.observed }} becomes company + type + date, {{ a.color }} stays VISUAL_ONLY, and the list must draw only from dated records."
+  ],
+  "plan": [
+   "1. In italy-app-model.js, add the botanical/common-name identity table and extend the existing competitorActivities projection (lines 132-148) with cropsCanonical, cropScope, issuesObserved, issueScope, hasDate/dateState, displayName, textExcerpt, geoLabel, geoCaveat. Do not add relatedWindows yet. Verify counts in node: 132 crop-resolved, 51 generic-only, 320 crop-absent, 414 dated, 89 undated.",
+   "2. Add competitorCompanies to the model, merging IG.COMP_COMPANIES's 14 rows into 11 on upper-case name and cross-checking each merged total against the per-company activity count (BASF 138, FMC 102, Corteva 94, Bayer 86, Syngenta 55, UPL 13, Sipcam 6, Certis 4, Sumitomo 2, Gowan 2, Nufarm 1 = 503). If any company fails the cross-check, stop and report rather than papering over it.",
+   "3. Add competitorProducts (36 from IG.COMP_PRODUCTS) plus the derived activityIds / cropsObserved / issuesObserved / firstSeen / lastSeen.",
+   "4. Add the three REAL_DERIVED aggregates — competitorCropDensity, competitorIssueDensity, competitorMatrix (with columns, maxCell, allZeroCompanies) — and register all of them in the `collections` object so AM.counts and the provenance summary pick them up automatically.",
+   "5. Add the labelVerdicts accessor to ITALY_APP_MODEL (reading window.ITALY_LABEL_VERDICTS, which the file does not read today) and only then add relatedWindows / competitorWindowMoments. Nothing that makes an ADAMA-portfolio statement may land before this step.",
+   "6. portale.html line 2529: point the Data-State competitor row at AM.collections.competitorActivities. This is the smallest edit and the one that most changes what the user believes; do it early so the rest of the migration is visible while it is in progress.",
+   "7. portale.html line 2608: nav badge -> AM.counts.competitorActivities.",
+   "8. Rewrite actDeco (2575-2599) as competitorActivity presentation only: keep the CH colour/icon lookup and the initials helper; delete winMatch's use inside it, the D.CASES portfolio block, the D.EVENTS lookups, duration, transcriptLabel, personInitials, galleryH and the per-record creativeBg. Delete winMatch (2573) entirely once nothing calls it.",
+   "9. Rewrite the competitor block 3157-3186 top to bottom against the new collections, in this order: companies -> actsAll -> compTabs -> feedGroups -> compStrip -> changed -> topMoves -> cropDensity -> compMoments -> matrix -> issueRows -> cproduct. Delete leadCrop/leadWin/leadTimes (3176-3178) and evActs/evd.story (3182, 3184) outright.",
+   "10. Update the renderVals tail (3441, 3443, 3444): compTotal, whatChanged, matrixCols, compCropOptions, compIssueOptions, and drop leadTimes/leadCrop from the returned props.",
+   "11. Apply the markup edits listed in markupImpact, deleting dead blocks (a.isVideo overlay, a.isPeople, a.isEvent, ADAMA RESPONSE tile, COMMUNICATION TIMING tile, MARKET PULSE line, lead-time card, PAID and PORTFOLIO columns of the issue table) before rewiring the surviving ones, so no binding is briefly pointed at a missing field.",
+   "12. Fix the two hard-coded 'repeat(6,1fr)' matrix grids (1747, 1748) and the 6-column issue-table grids (1787, 1788) to match their new column counts.",
+   "13. Update the Italian and English strings in italy-i18n.js for the labels that change meaning: the what-changed window (7 -> 30 days), RELATED CROP WINDOW, DATA NON OSSERVATA, NON NOTO, ASSET CREATIVO NON CATTURATO, RAGGIUNTO IN ITALIA vs MULTIPAESE / NON RISOLTO. T.PROV already has REACHED_IN_ITALY = 'RAGGIUNTO IN ITALIA'.",
+   "14. Verify in node that AM.counts.competitorActivities is 503, that geoClass splits 414/89, and that no surviving competitor prop reads window.ITALY_DEMO except the CH/TIMING colour maps and parseField's demo company list. A grep for 'D.ACTIVITIES', 'D.COMPANIES', 'D.MATRIX', 'D.ISSUE_ROWS', 'D.CPRODUCTS' and 'D.CROP_COLS' should return only line 2397."
+  ],
+  "risks": [
+   "The screen gets visibly emptier per card while the totals get much bigger (72 -> 503). A reader who only looks at the header will think the product improved; a reader who opens a card will think it regressed. The what-changed strip in particular goes from six confident tiles to essentially one number, because only 1 real record falls inside 7 days.",
+   "320 of 503 activities carry no crop and 405 carry no issue. Any widget that groups by crop or issue silently describes a minority of the corpus. Every such panel must publish its own denominator or it will be read as covering everything.",
+   "The botanical-to-common-name mapping (Vitis vinifera -> Grapevine) is safe, but the temptation to extend it to the umbrella words (colture, cereali, frutta, ortaggi — 96 activities) is not. 'cereali' is the advertiser's word for an unspecified set; turning it into Wheat would manufacture a fact.",
+   "Latin binomials are both crop names and issue names in this corpus, and §11 forbids translating them or truncating at '('. A generic il()/cl() translation pass over the issue filter would corrupt 'Plasmopara viticola' into a Sintonia label.",
+   "The 89 ORGANIC_VIDEO records are near-empty (no date, url, text, country, crop, issue). They are real and must be counted, but any list that sorts or filters by time will drop them without saying so. If they are quietly excluded, the company totals on two different panels will disagree (e.g. Syngenta 55 total but 30 in any dated view).",
+   "REACHED_IN_ITALY is already correct in the model, but the countrySem string literally says AD_REACHED_COUNTRY != AD_TARGETED_COUNTRY. If the card shows only the flag and drops the caveat, 414 reach observations silently become 414 Italian targeting claims.",
+   "IG.COMP_COMPANIES' case-duplicate rows (Bayer/BAYER, Corteva/CORTEVA, Syngenta/SYNGENTA) will double-count company totals if merged naively by exact string. Bayer would show 69 paid on one panel and 86 total on another.",
+   "The ADAMA-portfolio side of this domain currently rests entirely on D.CASES[].productLinks, which italy-app-model.js reads at lines 102-105 while never reading ITALY_LABEL_VERDICTS. Until step 5 lands, any 'portfolio' wording anywhere in Competitor Watch is demo-backed. This is a cross-domain dependency and the serial engineer should not let a competitor-side edit ship a portfolio claim ahead of it.",
+   "The matrix and issue-table markup hard-code their column counts in grid-template-columns strings that appear twice each (header row and data row). Changing one and not the other misaligns the table without any error."
+  ],
+  "openQuestions": [
+   "Can upstream supply a synonym table mapping observed advertiser issue terms to canonical ISSUE_NAMEs (Plasmopara viticola -> Downy Mildew, Erysiphe necator -> Powdery Mildew, Zymoseptoria tritici -> Septoria Leaf Blotch, Ceratitis capitata -> Mediterranean Fruit Fly)? Without it the COMPETITOR x ISSUE table can show no portfolio column and the Competitor x Window cross-link resolves for almost nothing (only 30 of 503 activities carry a species-level issue at all).",
+   "Should Citrus, Sunflower and Peach appear in the crop density and matrix even though they have no canonical crop window? They are real observed communication (15, 9 and 2 items) but they cannot cross-link to anything. My recommendation is yes, with no window column.",
+   "What is the actual collection horizon of the Meta Ad Library pull? The corpus spans 2019-12-05 to 2026-08-26 but per-company first dates differ wildly (BASF 2023-03, FMC 2025-10). If the horizon is per-page rather than global, even the per-company 'first observed' date is not comparable across companies and should be suppressed, not just the lead-time card.",
+   "The reference date is 2026-09-02 and the latest observation is 2026-08-26. Is the corpus a one-off load or will it refresh? If it will not refresh, every 'last 30 days' widget on this screen will decay into an empty box and should be reframed as a fixed observation period with explicit start and end dates.",
+   "Do the 89 ORGANIC_VIDEO records have any recoverable metadata upstream (title, publish date, url, view count)? IG.CHANNELS carries EXAMPLE_TITLE / EXAMPLE_URL / VIEWS / EXAMPLE_PUBLISHED_AT for 30 channels — if those channels are the same YouTube sources, upstream may be able to attach dates and titles, which would restore the organic half of the feed. Until then the organic records are countable but not displayable as feed items.",
+   "Is the CREATIVE GALLERY worth keeping at all with no captured assets, or should the tab be removed so the remaining views (feed, by issue) are not diluted? This is a product decision, not an engineering one."
+  ]
+ }
+]

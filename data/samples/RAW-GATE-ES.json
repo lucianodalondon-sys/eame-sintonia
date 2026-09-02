@@ -1,0 +1,139 @@
+{
+ "SOURCE_ID": "RAW-GATE-ES",
+ "VERSION": "V6",
+ "captured_at": "2026-08-30",
+ "O_QUE_ISTO_E": "o estado do bucket raw da Espanha, MEDIDO NA MÁQUINA LOCAL espanhola e recebido aqui por relato da coordenação.",
+ "O_QUE_ISTO_NAO_E": "não é medição feita deste ambiente. Este ambiente não tem credencial de Supabase e não conseguiria contar um único asset.",
+ "MEDIDO_POR": "máquina local espanhola",
+ "VERIFICADO_DAQUI": "NO",
+ "PORQUE_NAO_VERIFICADO_DAQUI": "SUPABASE_AUTH_AVAILABLE = NO neste ambiente. Quem enviou e quem conferiu foi a máquina do operador. Esta branch NÃO executou o upload e não pode dizer que executou — CLOSED aqui significa \"recebido como prova externa\", não \"medido daqui\".",
+ "PROVA": "EXTERNA",
+ "EXPECTED": 196,
+ "ALREADY_PRESENT_VERIFIED": 196,
+ "FAILED_WITH_REASON": 0,
+ "HASH_MISMATCH": 0,
+ "CONFLICT": 0,
+ "SOMA_FECHA": "196 + 0 = 196",
+ "OS_12_FALHOS": {
+  "QUANTOS_AGORA": 0,
+  "HISTORICO": "12 (contagem de envio) → 11 (inventário do bucket) → 0 (após o reenvio)",
+  "PORQUE_O_HISTORICO_FICA": "os três números não se corrigem: 12 e 11 vinham de medições diferentes — contagem de envio e inventário do bucket — e 0 é o resultado de um reparo. Apagar o caminho deixaria o fechamento parecendo que sempre esteve fechado.",
+  "CAUSAS_MEDIDAS": [
+   "HTTP 400 InvalidKey por caractere não-ASCII na object key",
+   "Global file size limit de 50 MB, para o asset de maior tamanho"
+  ]
+ },
+ "DUAS_TENTATIVAS": [
+  {
+   "quando": "1a · contagem de envio",
+   "VERIFIED": 185,
+   "FAILED": 11
+  },
+  {
+   "quando": "2a · contagem de envio",
+   "VERIFIED": 184,
+   "FAILED": 12
+  },
+  {
+   "quando": "3a · INVENTÁRIO do bucket",
+   "VERIFIED": 185,
+   "FAILED": 11,
+   "ORFAOS": 0
+  },
+  {
+   "quando": "4a · reenvio só dos ausentes",
+   "VERIFIED": 196,
+   "FAILED": 0,
+   "ORFAOS": 0
+  },
+  {
+   "quando": "5a · --verificar-tudo, download de volta dos 196",
+   "VERIFIED": 196,
+   "FAILED": 0,
+   "HASH_MISMATCH": 0
+  }
+ ],
+ "PORQUE_AS_DUAS_ESTAO_AQUI": "a segunda tentativa mediu UM a menos, não um a mais. Guardar só a melhor das duas seria escolher o número que agrada. A diferença de 1 entre as tentativas é parte do diagnóstico e está em aberto.",
+ "EXTERNAL_DIAGNOSIS_IN_PROGRESS": "NO",
+ "ONDE": "máquina local espanhola",
+ "NAO_TENTAR_REPARAR_DAQUI": "YES",
+ "ESTADO": "CLOSED",
+ "PORQUE_NUNCA_ZERO_SENT": "a rodada anterior publicou 'zero enviado dos 196'. Era falso: 184 já estavam no bucket e verificados. ZERO ENVIADO != PRESERVADO continua valendo na outra direção — e AFIRMAR ZERO quando não se mediu é o mesmo defeito, virado do avesso. Este arquivo existe para que ZERO_SENT não volte a ser escrito por falta de dado.",
+ "SOURCE_LOCATION": "máquina local espanhola",
+ "FACT_LOCATION": "bucket raw do Supabase do projeto",
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_MUDOU_DA_V2": "a máquina espanhola passou a INVENTARIAR o bucket em vez de só contar envios. O inventário é uma medição diferente e melhor: ele olha o que ESTÁ LÁ, e não o que foi reportado como enviado. Por isso os números da V2 (184/12) e os da V3 (185/11) não se corrigem: eles respondem perguntas diferentes, e as duas ficam registradas.",
+ "INVENTARIO_REMOTO_OBJETOS": 196,
+ "DO_PLANO_PRESENTES": 196,
+ "DO_PLANO_AUSENTES": 0,
+ "ORFAOS_NO_BUCKET": 0,
+ "PORQUE_ZERO_ORFAOS_IMPORTA": "nenhum objeto no bucket está fora do plano. Sem essa conta, \"185 presentes\" poderia incluir arquivo que ninguém pediu, e a cobertura pareceria melhor do que é.",
+ "DIAGNOSTICO_ISOLADO": {
+  "HTTP": 400,
+  "ERROR": "InvalidKey",
+  "CAUSA": "object key contendo caractere não-ASCII",
+  "PROVADO_EM": "ao menos um object key, isolado na máquina espanhola",
+  "PORQUE_IMPORTA": "a falha tem nome e causa. Deixa de ser \"12 falharam\" e passa a ser um defeito de nomeação de chave — que é reparável, e cuja correção é verificável."
+ },
+ "O_QUE_MUDOU_DA_V3": "o operador executou `py scripts/storage_preservar.py --enviar --so-ausentes` na máquina espanhola e o portão FECHOU. O último asset ausente entrou depois de o Global file size limit do Supabase subir de 50 MB para 200 MB — ou seja, a causa dos 11 nem toda era a object key não-ASCII: parte era limite de tamanho, e as duas só ficaram distinguíveis depois que a primeira foi corrigida.",
+ "SEM_ESTADO_CONHECIDO": 0,
+ "A_EXECUCAO_QUE_FECHOU": {
+  "COMANDO": "py scripts/storage_preservar.py --enviar --so-ausentes",
+  "ONDE": "máquina local do operador, na Espanha",
+  "REMOTE_BEFORE": 195,
+  "DO_PLANO_PRESENTES_BEFORE": 195,
+  "ALVOS_AUSENTES": 1,
+  "REMOTE_AFTER": 196,
+  "DO_PLANO_AFTER": "196/196",
+  "POR_ESTADO": {
+   "ALREADY_PRESENT_VERIFIED": 195,
+   "VERIFIED": 1
+  },
+  "O_ULTIMO_ASSET": "media 4466 — Folleto AVASTEL fungicida para cereal.pdf",
+  "O_QUE_DESTRAVOU": "o Global file size limit do Supabase subiu de 50 MB para 200 MB. O arquivo existia, tinha bytes e tinha SHA256 desde o começo: o que faltava era espaço permitido, não o arquivo."
+ },
+ "QUEM_EXECUTOU": "o operador, na máquina local espanhola",
+ "ESTA_BRANCH_EXECUTOU_O_UPLOAD": "NO",
+ "O_QUE_MUDOU_DA_V4": "nada foi remedido. O que mudou é que eu li o artefato do handoff em vez da mensagem que o resumia, e ele separa duas coisas que eu tinha juntado: PRESENÇA NO INVENTÁRIO e BYTES CONFERIDOS. Os 196 estão presentes; o conteúdo de quase todos não foi re-conferido por download+hash nesta cadeia de execuções.",
+ "PRESENCA_NAO_E_CONTEUDO": {
+  "LEI": "PRESENTE_NO_INVENTARIO != BYTES_CONFERIDOS. É o HTTP 200 != LIVE_CONTENT aplicado ao nosso próprio bucket: o objeto existir não prova que os bytes certos chegaram.",
+  "MEDIDO_NO_ARTEFATO_VIVO_DO_HANDOFF": {
+   "PRESENTE_NO_INVENTARIO_REMOTO": 195,
+   "SHA256_DEPOIS_DE_BAIXAR_DE_VOLTA": 1
+  },
+  "DECLARADO_NO_RELATORIO_DO_HANDOFF": {
+   "com_sha256_reconferido_e_prova_em_artefato": 11,
+   "com_prova_apenas_de_presenca": 185,
+   "que_NUNCA_tiveram_conteudo_conferido": 1
+  },
+  "O_UNICO_NUNCA_CONFERIDO": "media 2981 — TOPIC Folleto Diptico.pdf",
+  "PORQUE_ELE_E_O_QUE_MAIS_IMPORTA": "é justamente o que recebeu HTTP 520, e 520 é quando gravação parcial é plausível. Objeto presente com bytes truncados passaria por preservado.",
+  "PORQUE_OS_184_DA_PRIMEIRA_EXECUCAO_NAO_CONTAM": "eles foram conferidos por download+hash, e aquele relatório foi sobrescrito antes de o histórico ser consertado. A prova existiu e se perdeu. Citá-la seria citar documento que não existe mais — palavras do próprio handoff.",
+  "O_REMEDIO_EXISTE_E_TEM_NOME": "py scripts/storage_preservar.py --diagnosticar --verificar-tudo",
+  "ONDE": "máquina local do operador — só leitura, baixa os 196 e reconfere numa medição única",
+  "CUSTO": "zero em Apify; um download de 304 MB",
+  "ESTADO_AGORA": "a LEI fica: PRESENTE_NO_INVENTARIO != BYTES_CONFERIDOS. O que caiu foi a PENDÊNCIA neste conjunto — os dois gates fecharam, e por medições diferentes."
+ },
+ "RAW_PRESENCE_GATE": "CLOSED",
+ "RAW_CONTENT_VERIFIED_GATE": "CLOSED",
+ "PORQUE_DOIS_GATES": "a rodada anterior tinha UM gate e ele respondia à pergunta da presença enquanto o nome sugeria conteúdo. Separar não rebaixa nada: os 196 continuam presentes, e o que passa a ser dizível é que o conteúdo de 185 deles ainda não foi reconferido.",
+ "O_QUE_MUDOU_DA_V5": "a medição integral rodou na máquina do operador: cada um dos 196 objetos foi BAIXADO DE VOLTA do bucket e teve o sha256 recalculado contra o local. Uma medição só, em vez de uma cadeia de três relatórios com um elo destruído no meio.",
+ "RAW_CONTENT_HASH_CHECKED": 196,
+ "RAW_SHA_VERIFIED": 196,
+ "FAILED_TO_DOWNLOAD": 0,
+ "BYTES_VERIFICADOS_REMOTAMENTE": 304482907,
+ "RAW_CONTENT_INTEGRITY_GATE": "CLOSED",
+ "A_MEDICAO_INTEGRAL": {
+  "ARTEFATO": "ADAMA-ES-PRESERVACAO-VERIFICACAO.json (handoff @ fec5ead)",
+  "METODO": "baixou cada objeto e recalculou sha256 — conteúdo conferido, não presença",
+  "ASSETS_ESPERADOS": 196,
+  "SHA_VERIFIED": 196,
+  "HASH_MISMATCH": 0,
+  "NAO_BAIXARAM": 0,
+  "DIVERGENTES": 0,
+  "BYTES": 304482907,
+  "O_QUE_RESOLVEU": "o media 2981. Ele recebeu 520 no upload, e 520 é a resposta que se perde — quando gravação parcial é plausível. Estava presente desde o começo, e presença não é conteúdo. Agora está medido: os bytes que aquele 520 deixou são os bytes certos. O 520 foi perda de RESPOSTA, não de gravação, e isso deixou de ser inferência.",
+  "A_RESSALVA_QUE_O_PROPRIO_HANDOFF_NAO_ARREDONDA": "o artefato daquela execução gravou CONTAGENS, não a lista de quais objetos passaram. Com esperados = verificados = 196 e as duas listas de problema vazias, o conjunto está provado POR DEDUÇÃO — e prova por asset é melhor. As execuções seguintes guardam nome, tamanho e sha de cada um."
+ },
+ "ESTA_BRANCH_EXECUTOU_A_VERIFICACAO": "NO"
+}

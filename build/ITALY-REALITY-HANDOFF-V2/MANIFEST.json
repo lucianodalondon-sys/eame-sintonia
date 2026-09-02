@@ -1,0 +1,86 @@
+{
+ "PACKAGE": "ITALY-REALITY-HANDOFF-V2",
+ "BUILT_AT": "2026-09-02",
+ "O_QUE_E": "o pacote anterior PRESERVADO INTEIRO mais a camada last-mile passada por um portao de QA registro a registro",
+ "QA_GATE": {
+  "QA_PASS": "sobreviveu a conferencia independente, sem mudanca",
+  "QA_CORRECTED": "a conferencia achou defeito e o registro foi RECONSTRUIDO",
+  "QA_UNREVIEWED": "fonte externa real, sem segunda passada. NAO gera conclusao ao cliente sozinho.",
+  "QA_REJECTED": "nao chega ao feed. Esta em QUARANTINED-RECORDS.json."
+ },
+ "CLIENT_SAFE": "so QA_PASS e QA_CORRECTED",
+ "SYNTHETIC": 0,
+ "ARQUIVOS": [
+  {
+   "ARQUIVO": "AGROMET-CONDITIONS.json",
+   "KB": 119.0
+  },
+  {
+   "ARQUIVO": "CANONICAL-INTELLIGENCE.json",
+   "KB": 843.1
+  },
+  {
+   "ARQUIVO": "COMMERCIAL-CATALOG.json",
+   "KB": 30.7
+  },
+  {
+   "ARQUIVO": "COMPETITOR-PUBLIC-SIGNALS.json",
+   "KB": 47.2
+  },
+  {
+   "ARQUIVO": "CONFLICT-RESOLUTION.json",
+   "KB": 5.3
+  },
+  {
+   "ARQUIVO": "CROP-ECONOMIC-WEIGHT.json",
+   "KB": 102.4
+  },
+  {
+   "ARQUIVO": "CURRENT-FIELD-SIGNALS.json",
+   "KB": 133.1
+  },
+  {
+   "ARQUIVO": "FUTURE-EVENTS.json",
+   "KB": 52.4
+  },
+  {
+   "ARQUIVO": "HERBICIDE-CURRENT-CONTEXT.json",
+   "KB": 57.8
+  },
+  {
+   "ARQUIVO": "MARKET-OBSERVATIONS.json",
+   "KB": 172.0
+  },
+  {
+   "ARQUIVO": "PUBLIC-VOICES.json",
+   "KB": 55.2
+  },
+  {
+   "ARQUIVO": "QUARANTINED-RECORDS.json",
+   "KB": 85.0
+  },
+  {
+   "ARQUIVO": "REGULATORY-FUTURE.json",
+   "KB": 76.2
+  },
+  {
+   "ARQUIVO": "RELATIONSHIPS.json",
+   "KB": 8.0
+  },
+  {
+   "ARQUIVO": "SOURCES.json",
+   "KB": 159.7
+  },
+  {
+   "ARQUIVO": "TOP-CROSSINGS.json",
+   "KB": 14.8
+  },
+  {
+   "ARQUIVO": "VALIDATION-MANIFEST.json",
+   "KB": 1.0
+  }
+ ],
+ "PASTA_PRESERVADA": {
+  "PREVIOUS-HANDOFF/": "7740 objetos, intocados"
+ }
+}

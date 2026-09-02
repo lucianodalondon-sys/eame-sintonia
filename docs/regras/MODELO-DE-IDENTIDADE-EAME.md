@@ -228,3 +228,51 @@ Argentina e LatAm. Todas escrevem em espanhol.
 britânica de gestão de avaliações online.
 
 **O nome de uma doença também pode ser uma marca.**
+
+---
+
+## FRAGMENTAÇÃO — o espelho da conflação (MISSÃO 11)
+
+A conflação já era lei: **muitas pessoas colapsadas num id**. O caso medido foi um autor do
+OpenAlex com **58 organizações declaradas contra mediana 2**, e o guarda
+`VOICE_ES_RESEARCHER_MAX_ORGS` nasceu dele.
+
+Falta o par. A MISSÃO 11 mediu o inverso: **uma pessoa espalhada em vários ids**.
+
+```
+Antonio Trapero Casas
+  A5048261289 — 21 trabalhos · 2019–2025 · ORCID presente · Universidad de Córdoba
+  A5124543816 —  2 trabalhos · 2025      · ORCID NULO     · Universidad de Córdoba
+
+Juan Moral
+  A5032245944 — 14 trabalhos · 2019–2025 · ORCID presente · Universidad de Córdoba
+  A5124083713 —  2 trabalhos · 2026      · ORCID NULO     · Universidad de Córdoba
+```
+
+**Assinatura:** mesmo nome · mesma instituição principal · um id **com** ORCID e outro
+**sem** · o secundário com poucos trabalhos e apenas recentes.
+
+> ### `UM ID ≠ UMA PESSOA — NAS DUAS DIREÇÕES.`
+>
+> `CONTAGEM ALTA NÃO VALIDA IDENTIDADE` protege contra conflação.
+> Falta o par: **`CONTAGEM BAIXA NÃO PROVA IDENTIDADE COMPLETA`.**
+> Um pesquisador pode parecer **menor do que é** porque o registro o partiu — e uma fila
+> ordenada por contagem de trabalhos **herda esse viés**.
+
+**Tamanho medido, e ele é pequeno:** 109 nomes têm mais de um id no corpus; **23** têm a
+assinatura de fragmentação; **3** estão no quadro dos 152; **5 trabalhos** do quadro ficam
+invisíveis. Não muda quem está no quadro.
+
+**Honestidade sobre o 23:** é limite superior com ruído — a heurística "mesma instituição
+principal" pega epidemiologistas de nutrição que entraram no corpus por artigos de azeite e
+saúde. Só os 3 do quadro foram verificados, e 2 à mão.
+
+**Como fechar:** o **ORCID** resolve — o mesmo ORCID em dois ids prova fragmentação, e ids
+distintos com ORCIDs distintos provam homonímia. A rota é gratuita e estava **bloqueada pela
+política de rede** desta sessão.
+
+### E uma validação que ninguém tinha feito
+
+O ORCID tem **dígito verificador** (ISO 7064 MOD 11-2). Ele nunca havia sido conferido —
+o repositório checava **presença**, não **validade**. Os 20 da fila foram conferidos:
+**20 válidos, 0 inválidos.** Presença de identificador não é validade de identificador.

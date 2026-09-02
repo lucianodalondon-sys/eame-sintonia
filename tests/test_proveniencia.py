@@ -207,6 +207,118 @@ class TestRawEvidence(unittest.TestCase):
                          'rota replicavel nao precisa versionar bruto, e nao deve fingir que versionou')
 
 
+
+class TestInventarioDoBrutoPago(unittest.TestCase):
+    """MISSAO 10C — dois inventarios da mesma populacao precisam de dono e reconciliacao.
+
+    O defeito medido: `POLITICA-RAW-ROTA-PAGA.json` era uma lista DIGITADA do diretorio
+    `raw-paid/`. Um bruto novo entrou no commit de handoff, o DATA CLOCK (derivado) o
+    pegou, a politica (digitada) nao — e ficou publicando 10 arquivos e 2.121.837 bytes
+    onde havia 11 e 2.182.917. Nenhum teste lia a politica, entao a divergencia era muda.
+    """
+
+    def setUp(self):
+        self.pol = amostra('POLITICA-RAW-ROTA-PAGA.json')
+        self.der = pv.politica_derivada()
+
+    # -------------------------------------------------- POLICY vs DISCO
+    def test_a_politica_lista_exatamente_o_diretorio_real(self):
+        POLICY_RAW_FILES = {a['FILE'] for a in self.pol['ARQUIVOS']}
+        RAW_PAID_FILES_IN_SCOPE = set(pv.arquivos_raw_pagos())
+        self.assertEqual(RAW_PAID_FILES_IN_SCOPE, POLICY_RAW_FILES,
+                         'a politica do bruto pago divergiu do diretorio real — '
+                         'rode: python3 scripts/proveniencia.py --sync-politica')
+
+    def test_o_tamanho_publicado_e_derivado_e_nao_digitado(self):
+        real = sum(os.path.getsize(os.path.join(ROOT, f))
+                   for f in pv.arquivos_raw_pagos())
+        self.assertEqual(real, self.pol['TAMANHO_ATUAL_BYTES'],
+                         'TAMANHO_ATUAL_BYTES nao e a soma real do diretorio')
+        self.assertEqual(self.der['TAMANHO_ATUAL_BYTES'], self.pol['TAMANHO_ATUAL_BYTES'])
+
+    def test_cada_arquivo_publica_bytes_e_itens_derivados(self):
+        derivado = {a['FILE']: a for a in self.der['ARQUIVOS']}
+        for a in self.pol['ARQUIVOS']:
+            with self.subTest(arquivo=a['FILE']):
+                d = derivado[a['FILE']]
+                self.assertEqual(d['GZ_BYTES'], a['GZ_BYTES'])
+                self.assertEqual(d['ITEMS'], a['ITEMS'])
+
+    def test_toda_entrada_declara_classe_do_contrato(self):
+        for a in self.pol['ARQUIVOS']:
+            with self.subTest(arquivo=a['FILE']):
+                self.assertIn(a['CLASS'], pv.CLASSES_RAW)
+
+    # -------------------------------------------------- direcao INVERSA da cadeia
+    def test_nenhum_bruto_de_producao_fica_orfao(self):
+        """RAW_FILE -> RUN_MANIFEST. A direcao que faltava."""
+        self.assertEqual([], pv.brutos_orfaos(),
+                         'bruto de producao sem execucao que o reivindique')
+        self.assertEqual([], self.pol['BRUTOS_ORFAOS'])
+
+    def test_bruto_sem_execucao_so_e_aceito_com_motivo_explicito(self):
+        for a in self.pol['ARQUIVOS']:
+            if a['RUNS']:
+                continue
+            with self.subTest(arquivo=a['FILE']):
+                self.assertEqual(pv.GATE_TEST_RAW, a['CLASS'],
+                                 'so artefato de teste pode ficar sem execucao')
+                self.assertTrue((a.get('EXCLUDED_WITH_REASON') or '').strip(),
+                                'ausencia de execucao sem motivo declarado e silencio')
+
+    def test_quem_diz_preservado_tem_o_arquivo(self):
+        self.assertEqual([], pv.brutos_declarados_e_ausentes(),
+                         'execucao declara PRESERVED e o arquivo nao existe')
+
+    # -------------------------------------------------- o teste tem de PODER reprovar
+    def test_a_reconciliacao_reprova_quando_um_bruto_novo_aparece(self):
+        """Prova adversarial: um dedupe que nao faz nada passaria num zero.
+
+        O mesmo vale aqui — uma reconciliacao que nunca reprova nao prova nada. Este
+        teste EXERCE a falha: monta um diretorio com um arquivo a mais e exige que a
+        derivacao o veja. E exatamente o caso que passou batido em 2026-08-29.
+        """
+        import tempfile, gzip
+        with tempfile.TemporaryDirectory() as tmp:
+            d = os.path.join(tmp, 'data', 'samples', 'raw-paid')
+            os.makedirs(d)
+            for nome in ('ES-T9-999-novo.raw.json.gz',
+                         'GATE-TEST-RUNMANIFEST-9999-z.raw.json.gz'):
+                with gzip.open(os.path.join(d, nome), 'wt', encoding='utf-8') as f:
+                    json.dump([{'x': 1}], f)
+            inv = pv.inventario_raw_pago(root=tmp, runs={})
+            self.assertEqual(2, len(inv), 'a derivacao nao enxergou o diretorio real')
+
+            # o de producao fica ORFAO e tem de aparecer
+            orfaos = pv.brutos_orfaos(root=tmp, runs={})
+            self.assertEqual(['data/samples/raw-paid/ES-T9-999-novo.raw.json.gz'], orfaos)
+
+            # o artefato de teste NAO e orfao, mas carrega o motivo
+            gate = next(i for i in inv if i['CLASS'] == pv.GATE_TEST_RAW)
+            self.assertNotIn(gate['FILE'], orfaos)
+            self.assertTrue(gate['EXCLUDED_WITH_REASON'])
+
+            # e a politica de verdade nao lista nenhum dos dois: por isso reprovaria
+            reais = {a['FILE'] for a in self.pol['ARQUIVOS']}
+            self.assertNotIn('data/samples/raw-paid/ES-T9-999-novo.raw.json.gz', reais)
+
+    def test_a_classificacao_separa_as_duas_populacoes(self):
+        self.assertEqual(pv.GATE_TEST_RAW, pv.classificar_raw(
+            'data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-b.raw.json.gz'))
+        self.assertEqual(pv.PRODUCTION_RAW, pv.classificar_raw(
+            'data/samples/raw-paid/ES-T8-001-youtube-search.raw.json.gz'))
+
+    def test_o_relogio_de_dados_vigia_a_producao_e_declara_o_escopo(self):
+        """Os dois inventarios cobrem escopos diferentes, e ambos declarados."""
+        vigiados = {f['FILE'] for f in amostra('DATA-CLOCK-manifest.json')['files']}
+        producao = {i['FILE'] for i in pv.inventario_raw_pago()
+                    if i['CLASS'] == pv.PRODUCTION_RAW}
+        self.assertEqual(set(), producao - vigiados,
+                         'bruto de producao fora do relogio de dados')
+        self.assertIn('DOIS_INVENTARIOS_DA_MESMA_POPULACAO', self.pol,
+                      'a politica nao declara por que ha dois inventarios')
+
+
 class TestAuditoriaContraAlvoCongelado(unittest.TestCase):
     """P0 — impedir a recorrencia do defeito de metodo."""
 

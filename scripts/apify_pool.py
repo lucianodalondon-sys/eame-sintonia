@@ -57,6 +57,14 @@ SEGREDO NUNCA SAI
 existe para passar QUALQUER texto que vá para log, exceção ou artefato: ela
 apaga qualquer coisa com cara de token, inclusive dentro de URL. Um traceback
 de `urllib` carrega a URL inteira, e a URL pode carregar o token.
+
+PROVENIÊNCIA
+------------
+infraestrutura COMUM, portada sem alteração do piloto italiano
+(claude/sintonia-italy-pilot-b1l401). A aba principal passa a ser o dono
+canônico; o piloto continua consumindo. Regra desta casa: uma
+implementação só — reimplementar aqui criaria duas verdades sobre
+rotação de chave, e a segunda divergiria na primeira pressa.
 """
 import os
 import re

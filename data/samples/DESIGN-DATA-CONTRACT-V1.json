@@ -1,0 +1,394 @@
+{
+ "SOURCE_ID": "DESIGN-DATA-CONTRACT-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "source": "contrato de dados para o Claude Design. Nao define pixel, layout, tipografia nem cor hex.",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a",
+ "ORIGINAL_LANGUAGE": "pt",
+ "DIVISAO_DE_RESPONSABILIDADE": {
+  "ESTA_BRANCH_ENTREGA": [
+   "inteligencia",
+   "contratos de dado",
+   "contratos de exibicao",
+   "regras",
+   "testes",
+   "pacotes de conteudo",
+   "evidencia"
+  ],
+  "CLAUDE_DESIGN_ENTREGA": [
+   "casco visual",
+   "componentes",
+   "navegacao",
+   "ADAMA Design System",
+   "design de interacao"
+  ],
+  "NAO_DUPLICAR": "o prototipo da madrugada foi instrumento de descoberta e NAO e o portal. Ele nao deve ser editado nem tomado como referencia de layout."
+ },
+ "NAVIGATION_MODEL": {
+  "NIVEL_1": [
+   {
+    "ID": "COUNTRY",
+    "ESTADOS": [
+     "ES",
+     "IT",
+     "FR"
+    ],
+    "SEMANTICA": "cada pais e um produto completo. Nao ha dado de um pais completando outro."
+   },
+   {
+    "ID": "EAME",
+    "SEMANTICA": "camada acima dos paises. Existe hoje com zero relacoes e precisa aparecer assim."
+   }
+  ],
+  "NIVEL_2_FERRAMENTAS": [
+   {
+    "ID": "RADAR_DO_FUTURO",
+    "ORDEM": 1,
+    "PERGUNTA": "o que pode importar depois?",
+    "ENTIDADE": "FUTURE_THEME",
+    "FONTE": "SPAIN-RADAR-DO-FUTURO-V1, ITALY-RADAR-DO-FUTURO-V1"
+   },
+   {
+    "ID": "RADAR",
+    "ORDEM": 2,
+    "PERGUNTA": "o que esta acontecendo ou se formando?",
+    "ENTIDADE": "CASE",
+    "FONTE": "SPAIN-HERO-CASES-V1, ITALY-HERO-CASES-V1"
+   },
+   {
+    "ID": "ACERVO",
+    "ORDEM": 3,
+    "PERGUNTA": "o que ja preservamos?",
+    "ENTIDADE": "ASSET",
+    "NOTA": "96 fichas ES, 163 rotulos IT"
+   },
+   {
+    "ID": "FONTES",
+    "ORDEM": 4,
+    "PERGUNTA": "de onde vem cada coisa?",
+    "ENTIDADE": "SOURCE",
+    "NOTA": "inclui as fontes BLOQUEADAS, com motivo"
+   },
+   {
+    "ID": "ANALISES",
+    "ORDEM": 5,
+    "PERGUNTA": "o que foi derivado?",
+    "ENTIDADE": "DERIVATION"
+   },
+   {
+    "ID": "RELATORIOS",
+    "ORDEM": 6,
+    "PERGUNTA": "o que foi entregue e quando?",
+    "ENTIDADE": "REPORT"
+   },
+   {
+    "ID": "ASK_SINTONIA",
+    "ORDEM": 7,
+    "PERGUNTA": "perguntar em linguagem natural",
+    "ENTIDADE": "QUESTION",
+    "NOTA": "tres estados de resposta: ANSWERABLE, PARTIAL, REFUSE"
+   }
+  ],
+  "A_ORDEM_IMPORTA": "RADAR DO FUTURO vem ANTES do RADAR. E a ordem do produto: antecipacao antes de caso corrente."
+ },
+ "PAGE_TYPES": [
+  {
+   "TYPE": "COUNTRY_HOME",
+   "MOSTRA": "estado das camadas do pais, com as lacunas visiveis",
+   "ESTADOS_ESPECIAIS": [
+    "READY",
+    "READY_WITH_NAMED_GAP",
+    "NOT_READY"
+   ]
+  },
+  {
+   "TYPE": "FUTURE_THEME_LIST",
+   "MOSTRA": "temas ordenados por maturidade",
+   "REGRA": "a ordem e por estado da regua, nunca por volume de evidencia"
+  },
+  {
+   "TYPE": "FUTURE_THEME_DETAIL",
+   "MOSTRA": "as 7 camadas de sinal, a regua, o que promove",
+   "REGRA": "as 7 camadas aparecem SEMPRE, inclusive as AUSENTE_MEDIDO e NAO_TESTADO"
+  },
+  {
+   "TYPE": "CASE_LIST",
+   "MOSTRA": "casos por tipo de acao"
+  },
+  {
+   "TYPE": "CASE_DETAIL",
+   "MOSTRA": "a ficha completa",
+   "REGRA": "ordem fixa; nenhum bloco omitido por estar vazio"
+  },
+  {
+   "TYPE": "RESEARCHER_OUTLOOK",
+   "MOSTRA": "pessoas por tema",
+   "REGRA": "NAO e ranking. Sem score, sem seguidores, sem ordem de importancia."
+  },
+  {
+   "TYPE": "EAME_RELATIONS",
+   "MOSTRA": "relacoes cross-market",
+   "ESTADO_ATUAL": "vazio, com o motivo"
+  },
+  {
+   "TYPE": "SOURCE_LIST",
+   "MOSTRA": "fontes com estado",
+   "ESTADOS": [
+    "GREEN",
+    "PARTIAL",
+    "BLOCKED"
+   ]
+  }
+ ],
+ "COMPONENT_DATA_CONTRACTS": [
+  {
+   "COMPONENT": "MeasurementTriple",
+   "CAMPOS": [
+    "VALUE",
+    "SAMPLE_SUPPORT",
+    "DATA_AGE"
+   ],
+   "REGRA_DURA": "os tres campos sao inseparaveis. Nenhum pode ser omitido, colapsado ou mostrado em hover. Juntar os tres num numero so foi o erro que este projeto cometeu duas vezes."
+  },
+  {
+   "COMPONENT": "AuthorizationBand",
+   "CAMPOS": [
+    "ACTION_NOW",
+    "CURRENT_FIELD_NEED"
+   ],
+   "REGRA_DURA": "CURRENT_FIELD_NEED aparece no mesmo bloco de ACTION_NOW, nunca em outra secao."
+  },
+  {
+   "COMPONENT": "WindowBlock",
+   "CAMPOS": [
+    "APPLICATION_WINDOW",
+    "MONITORING_WINDOW",
+    "WINDOW_STATUS",
+    "TIME_TO_WINDOW"
+   ],
+   "REGRA_DURA": "janela de aplicacao e de monitoramento sao campos distintos. A Italia mede as duas e elas nao coincidem."
+  },
+  {
+   "COMPONENT": "MaturityRuler",
+   "CAMPOS": [
+    "MATURITY_STATE",
+    "WHAT_WOULD_PROMOTE_TO_RADAR"
+   ],
+   "REGRA_DURA": "o estado nunca aparece sem o que falta para subir."
+  },
+  {
+   "COMPONENT": "SignalLayers",
+   "CAMPOS": [
+    "SCIENCE",
+    "RESEARCHER",
+    "TECHNICAL",
+    "FIELD",
+    "REGULATORY",
+    "PORTFOLIO",
+    "PUBLIC_VOICE"
+   ],
+   "REGRA_DURA": "sete linhas sempre. PRESENTE, AUSENTE_MEDIDO e NAO_TESTADO sao tres estados visualmente distintos — os dois ultimos nao podem parecer o mesmo."
+  },
+  {
+   "COMPONENT": "ResponseCard",
+   "CAMPOS": [
+    "EXPLICIT_SPECIES",
+    "GENERIC_CATEGORY",
+    "PUBLIC_CATALOGUE"
+   ],
+   "REGRA_DURA": "especie explicita e categoria generica sempre juntas. Uma sozinha mente."
+  },
+  {
+   "COMPONENT": "ClockRow",
+   "CAMPOS": [
+    "AGRONOMIC",
+    "OBSERVATION",
+    "COMMERCIAL"
+   ],
+   "REGRA_DURA": "COMMERCIAL = NAO SEI renderiza com o mesmo peso dos outros dois."
+  },
+  {
+   "COMPONENT": "UnknownList",
+   "REGRA_DURA": "nunca colapsada por padrao, nunca em cinza mais claro que o texto normal."
+  },
+  {
+   "COMPONENT": "EvidenceLink",
+   "CAMPOS": [
+    "PATH",
+    "SOURCE",
+    "SOURCE_VERSION",
+    "CAPTURED_AT"
+   ],
+   "REGRA_DURA": "todo numero exibido tem um."
+  },
+  {
+   "COMPONENT": "ActionMatrix",
+   "CAMPOS": [
+    "FUNCTION",
+    "ACTION_TYPE",
+    "ACTION",
+    "WHY",
+    "WHEN",
+    "UNTIL_WHEN",
+    "EVIDENCE",
+    "MISSING"
+   ],
+   "REGRA_DURA": "ACT_NOW sem EVIDENCE nao renderiza."
+  }
+ ],
+ "STATUS_SEMANTICS": {
+  "ACTION_TYPE": [
+   "ACT_NOW",
+   "VERIFY_NOW",
+   "PREPARE",
+   "PLAN",
+   "WAIT_FOR_INTERNAL_DATA",
+   "NO_ACTION"
+  ],
+  "MATURITY_STATE": [
+   "OBSERVED_TOPIC",
+   "SCIENTIFIC_SIGNAL",
+   "EMERGING_THEME",
+   "WATCHLIST_PRIORITY",
+   "ALMOST_RADAR_CASE",
+   "PROMOTED_TO_RADAR"
+  ],
+  "MOMENTUM_STATE": [
+   "NOT_KNOWN",
+   "BASELINE_ESTABLISHED",
+   "GAINING_MOMENTUM",
+   "STABLE",
+   "DECLINING"
+  ],
+  "SIGNAL_STATE": [
+   "PRESENTE",
+   "AUSENTE_MEDIDO",
+   "NAO_TESTADO"
+  ],
+  "SOURCE_STATE": [
+   "GREEN",
+   "PARTIAL",
+   "BLOCKED"
+  ],
+  "COUNTRY_STATE": [
+   "READY",
+   "READY_WITH_NAMED_GAP",
+   "NOT_READY"
+  ],
+  "NAO_E_SEMAFORO": "nenhuma dessas escalas e boa-ruim. ACT_NOW nao e alarme: ha UM em dezoito linhas na Espanha e ele e regulatorio interno."
+ },
+ "PRODUCT_LINE_SEMANTICS": {
+  "REGRA": "esta branch entrega o mapeamento semantico. A cor pertence ao ADAMA Design System e nao e codificada aqui.",
+  "MAPA": [
+   {
+    "ISSUE_CATEGORY": "DISEASE",
+    "PRODUCT_LINE": "DISEASE_CONTROL"
+   },
+   {
+    "ISSUE_CATEGORY": "WEED",
+    "PRODUCT_LINE": "WEED_CONTROL"
+   },
+   {
+    "ISSUE_CATEGORY": "PEST",
+    "PRODUCT_LINE": "PEST_CONTROL"
+   },
+   {
+    "ISSUE_CATEGORY": "CROP_ENHANCEMENT",
+    "PRODUCT_LINE": "CROP_ENHANCEMENT"
+   }
+  ],
+  "CLASSIFICACAO_DOS_CASOS_ATUAIS": [
+   {
+    "CASE": "ES-CASE-001",
+    "ISSUE_CATEGORY": "DISEASE",
+    "PRODUCT_LINE": "DISEASE_CONTROL"
+   },
+   {
+    "CASE": "ES-CASE-002",
+    "ISSUE_CATEGORY": "WEED",
+    "PRODUCT_LINE": "WEED_CONTROL"
+   },
+   {
+    "CASE": "ES-CASE-003",
+    "ISSUE_CATEGORY": "WEED",
+    "PRODUCT_LINE": "WEED_CONTROL"
+   }
+  ],
+  "AVISO": "a linha de produto descreve a CATEGORIA DO PROBLEMA, nao a disponibilidade de um produto ADAMA para ele."
+ },
+ "COUNTRY_SELECTOR_STATES": [
+  {
+   "COUNTRY": "ES",
+   "STATE": "READY",
+   "CAMADAS": "11/11",
+   "CASOS": 3,
+   "TEMAS_FUTUROS": 5
+  },
+  {
+   "COUNTRY": "IT",
+   "STATE": "READY_WITH_NAMED_GAP",
+   "CAMADAS": "9/11",
+   "LACUNA": "identidade de pessoa resolvida e camada de voz",
+   "CASOS": 3,
+   "TEMAS_FUTUROS": 2
+  },
+  {
+   "COUNTRY": "FR",
+   "STATE": "NOT_READY",
+   "CAMADAS": "6/11",
+   "LACUNA": "campo, timing, acoes, pessoas e ciencia executada",
+   "CASOS": 0,
+   "TEMAS_FUTUROS": 0
+  }
+ ],
+ "EAME_STATES": {
+  "RELACOES": 0,
+  "ESTADO": "CONTRATO_PRONTO_SEM_REGISTROS",
+  "COMO_EXIBIR": "a secao existe e mostra zero com o motivo. Esconder que esta vazia e a mesma mentira que esconder um NAO SEI."
+ },
+ "EMPTY_STATES": [
+  {
+   "CASO": "pais sem casos",
+   "TEXTO_CHAVE": "nenhum caso fechado ainda",
+   "NUNCA": "nao mostrar como erro nem como \"em breve\""
+  },
+  {
+   "CASO": "EAME sem relacoes",
+   "TEXTO_CHAVE": "0 relacoes, com o motivo",
+   "NUNCA": "nao esconder a secao"
+  },
+  {
+   "CASO": "tema sem momentum",
+   "TEXTO_CHAVE": "dinamica nao medida — primeira captura",
+   "NUNCA": "nao exibir como estavel"
+  }
+ ],
+ "BLOCKED_STATES": [
+  {
+   "FONTE": "catalogo publico ADAMA (ES, IT, FR)",
+   "MOTIVO": "403 de borda para este bloco de IP",
+   "EXIBIR": "nao lido, com o motivo",
+   "NUNCA": "0 nem vazio"
+  },
+  {
+   "FONTE": "BSV frances",
+   "MOTIVO": "timeout nos 17 subdominios draaf.*",
+   "EXIBIR": "nao lido, com o motivo"
+  },
+  {
+   "FONTE": "OpenAlex",
+   "MOTIVO": "orcamento diario zerado",
+   "EXIBIR": "nao consultado nesta captura"
+  }
+ ],
+ "NOT_KNOWN_STATES": {
+  "REGRA": "NAO SEI, NOT_COLLECTED, NOT_KNOWN, AUSENTE_MEDIDO e NAO_TESTADO sao CINCO coisas diferentes e precisam de cinco tratamentos distinguiveis.",
+  "O_PIOR_ERRO_POSSIVEL": "colapsar AUSENTE_MEDIDO (\"procurei e nao ha\") com NAO_TESTADO (\"nao procurei\"). Sao o oposto um do outro em termos de esforco e de confianca."
+ },
+ "REFERENCIAS": [
+  "DISPLAY-LAYER-V1 para o texto de cada estado nas tres linguas",
+  "docs/design/CONTRATO-DE-DESIGN-SINTONIA.md para as quatro distincoes que a tela pode matar",
+  "docs/design/TESTE-ADVERSARIAL-DO-PROTOTIPO.md para as oito perguntas de reprovacao"
+ ]
+}

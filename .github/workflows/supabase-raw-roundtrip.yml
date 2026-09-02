@@ -1,0 +1,83 @@
+name: supabase-raw-roundtrip
+on:
+  workflow_dispatch:
+  push: { paths: ['.github/workflows/supabase-raw-roundtrip.yml'] }
+permissions: { contents: read }
+jobs:
+  roundtrip:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL:        ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+      SUPABASE_DB_URL:     ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: prova RAW · Git -> Storage -> Postgres -> download -> hash
+        run: |
+          python3 - <<'PY'
+          import os, json, hashlib, subprocess, urllib.request, urllib.error, glob
+          URL, KEY = os.environ['SUPABASE_URL'].rstrip('/'), os.environ['SUPABASE_SECRET_KEY']
+          DB = os.environ['SUPABASE_DB_URL']
+          H = {'apikey': KEY, 'Authorization': 'Bearer ' + KEY}
+
+          def psql(sql):
+              r = subprocess.run(['psql', DB, '-tAc', sql], capture_output=True, text=True)
+              if r.returncode: raise SystemExit('psql: ' + r.stderr[:200].replace(DB, '<OMITIDO>'))
+              return r.stdout.strip()
+
+          def http(method, path, data=None, ctype=None):
+              rq = urllib.request.Request(URL + path, data=data, method=method,
+                                          headers={**H, **({'Content-Type': ctype} if ctype else {})})
+              try:
+                  with urllib.request.urlopen(rq, timeout=120) as r: return r.status, r.read()
+              except urllib.error.HTTPError as e: return e.code, e.read()
+
+          # O RUN da propria migracao: os runs antigos nao tem hora medida e started_at e
+          # NOT NULL. Inventar timestamp seria fabricar proveniencia; entao a carga declara
+          # que e ela mesma quem leu o artefato ja versionado, com hora de verdade.
+          MIG = 'MIGRACAO-RAW-ROUNDTRIP-2026-08-29-a'
+          psql("""insert into collection_run(run_id,platform,actor,input,query,mission,source_country,
+                  started_at,finished_at,item_count_raw,status,capture_method,rule_version)
+                  values ('%s','INTERNO','scripts/roundtrip','{"origem":"data/samples/raw-paid"}'::jsonb,
+                  'prova de cadeia RAW','11B-ES','ES',now(),now(),0,'concluida',
+                  'leitura de artefato ja versionado','M11B-2026-08-29')
+                  on conflict (run_id) do nothing""" % MIG)
+
+          arqs = sorted(glob.glob('data/samples/raw-paid/*.gz'))
+          up = down = ptr = 0; falhas = []
+          for f in arqs:
+              b = open(f, 'rb').read(); sha = hashlib.sha256(b).hexdigest()
+              rid = os.path.basename(f).replace('.raw.json.gz', '')
+              rota = 'youtube' if 'T8-001' in rid else ('linkedin' if 'T8-002' in rid else
+                     ('instagram' if 'T8-003' in rid else 'gate-test'))
+              path = 'ES/%s/%s/%s' % (rota, rid, os.path.basename(f))
+              st, body = http('POST', '/storage/v1/object/raw/' + path, b, 'application/gzip')
+              if st in (200, 201): up += 1
+              elif b'already exists' in body or b'Duplicate' in body: up += 1   # idempotente
+              else: falhas.append('upload %s -> %s %s' % (path, st, body[:80])); continue
+              psql("""insert into raw_asset(run_id,storage_path,media_type,bytes,sha256,captured_at)
+                      values ('%s','%s','application/gzip',%d,'%s',now())
+                      on conflict (storage_path) do nothing""" % (MIG, path, len(b), sha))
+              # o ponteiro: o Postgres sabe o caminho, e o caminho tem o arquivo certo?
+              guardado = psql("select sha256||'|'||bytes from raw_asset where storage_path='%s'" % path)
+              st2, back = http('GET', '/storage/v1/object/raw/' + path)
+              if st2 != 200: falhas.append('download %s -> %s' % (path, st2)); continue
+              down += 1
+              if hashlib.sha256(back).hexdigest() == sha and back == b and \
+                 guardado == '%s|%d' % (sha, len(b)):
+                  ptr += 1
+              else:
+                  falhas.append('HASH DIVERGE em ' + path)
+
+          print('RAW_TEST_COUNT=%d' % len(arqs))
+          print('UPLOAD_PASS=%d' % up)
+          print('DOWNLOAD_PASS=%d' % down)
+          print('HASH_ROUNDTRIP=%s' % ('PASS' if ptr == len(arqs) else 'FAIL'))
+          print('DB_STORAGE_POINTER_PASS=%d/%d' % (ptr, len(arqs)))
+          print('IDEMPOTENCY=%s' % ('PASS (on conflict do nothing nos dois lados)' if not falhas else 'NAO_SEI'))
+          print('ORFAOS=' + psql("select count(*) from raw_asset ra left join collection_run r "
+                                 "on r.run_id=ra.run_id where r.run_id is null"))
+          print('ROWS_RAW_ASSET=' + psql("select count(*) from raw_asset"))
+          for x in falhas[:6]: print('FALHA:', x)
+          raise SystemExit(1 if falhas else 0)
+          PY

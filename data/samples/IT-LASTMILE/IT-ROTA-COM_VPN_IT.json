@@ -1,0 +1,190 @@
+{
+ "DATASET": "IT-TESTE-DE-ROTA",
+ "RODADA": "COM_VPN_IT",
+ "QUANDO": "2026-09-02T12:07:41",
+ "LEI": "FONTE BLOQUEADA POR IP NAO E FONTE INEXISTENTE. E PROBLEMA DE ROTA.",
+ "O_QUE_A_VPN_NAO_MUDA": [
+  "deteccao de robo (Akamai/bm-verify) — le o navegador, nao o IP",
+  "TLS fraco do servidor (DH_KEY_TOO_SMALL)",
+  "qualquer coisa que exija login, licenca ou chave paga",
+  "os termos de uso da fonte"
+ ],
+ "ITENS": [
+  {
+   "FONTE": "ISMEA Mercati",
+   "URL": "https://www.ismeamercati.it/",
+   "FAMILIA_DA_MISSAO": "2 · MERCADO",
+   "O_QUE_TRAZ_SE_ABRIR": "precos por praca e por cultura, a autoridade italiana do setor",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 2.8,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "ISMEA portal",
+   "URL": "https://www.ismea.it/istituzionale",
+   "FAMILIA_DA_MISSAO": "2 · MERCADO",
+   "O_QUE_TRAZ_SE_ABRIR": "publicacoes e series",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 2.4,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "ISTAT esploradati",
+   "URL": "https://esploradati.istat.it/",
+   "FAMILIA_DA_MISSAO": "3 · PESO ECONOMICO",
+   "O_QUE_TRAZ_SE_ABRIR": "area e producao por cultura e por regiao — o REAL_GAP inteiro",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 2.3,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "ISTAT dati (legado)",
+   "URL": "https://dati.istat.it/",
+   "FAMILIA_DA_MISSAO": "3 · PESO ECONOMICO",
+   "O_QUE_TRAZ_SE_ABRIR": "mesma coisa, interface antiga",
+   "ESTADO": "URLError",
+   "DETALHE": "<urlopen error [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1010)>",
+   "SEGUNDOS": 2.0,
+   "CAUSA": "TLS_OU_WAF",
+   "VPN_RESOLVE": "TALVEZ — pode ser servidor velho, nao geografia"
+  },
+  {
+   "FONTE": "ARPAV Veneto",
+   "URL": "https://www.arpa.veneto.it/",
+   "FAMILIA_DA_MISSAO": "6 · CLIMA",
+   "O_QUE_TRAZ_SE_ABRIR": "clima e agrometeorologia do Veneto — o outro REAL_GAP",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 1.3,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "ARPA Lombardia",
+   "URL": "https://www.arpalombardia.it/",
+   "FAMILIA_DA_MISSAO": "6 · CLIMA",
+   "O_QUE_TRAZ_SE_ABRIR": "clima",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 1.7,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "ARPAE Emilia-Romagna",
+   "URL": "https://www.arpae.it/",
+   "FAMILIA_DA_MISSAO": "6 · CLIMA",
+   "O_QUE_TRAZ_SE_ABRIR": "clima",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 2.2,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "Regione Veneto · fitosanitario",
+   "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+   "FAMILIA_DA_MISSAO": "1 · FENOLOGIA",
+   "O_QUE_TRAZ_SE_ABRIR": "boletins do Veneto — 3 casos do demo estao la e nao ha nenhum boletim",
+   "ESTADO": "URLError",
+   "DETALHE": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get issuer certificate (_",
+   "SEGUNDOS": 0.7,
+   "CAUSA": "NAO_SEI",
+   "VPN_RESOLVE": "NAO SEI"
+  },
+  {
+   "FONTE": "Regione Sicilia · agricoltura",
+   "URL": "https://www.regione.sicilia.it/",
+   "FAMILIA_DA_MISSAO": "1 · FENOLOGIA",
+   "O_QUE_TRAZ_SE_ABRIR": "boletins da Sicilia — o caso da mosca da oliveira",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 1.6,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "Prov. Aut. Bolzano · agricoltura",
+   "URL": "https://www.provinz.bz.it/agricoltura-foreste/",
+   "FAMILIA_DA_MISSAO": "1 · FENOLOGIA",
+   "O_QUE_TRAZ_SE_ABRIR": "maca do Trentino-Alto Adige",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "2423 bytes",
+   "SEGUNDOS": 3.2,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "Ente Nazionale Risi",
+   "URL": "https://www.enterisi.it/",
+   "FAMILIA_DA_MISSAO": "9 · HERBICIDA / ARROZ",
+   "O_QUE_TRAZ_SE_ABRIR": "diserbo do arroz — ⚠️ falha por DH fraco, nao por geografia",
+   "ESTADO": "URLError",
+   "DETALHE": "<urlopen error [SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1010)>",
+   "SEGUNDOS": 0.7,
+   "CAUSA": "TLS_DO_SERVIDOR",
+   "VPN_RESOLVE": "NAO — chave fraca do servidor, igual em qualquer pais"
+  },
+  {
+   "FONTE": "BMTI borse merci",
+   "URL": "https://www.bmti.it/",
+   "FAMILIA_DA_MISSAO": "2 · MERCADO",
+   "O_QUE_TRAZ_SE_ABRIR": "ja funciona",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 1.7,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "Eurostat API",
+   "URL": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpshr?format=JSON&geo=IT",
+   "FAMILIA_DA_MISSAO": "3 · PESO ECONOMICO",
+   "O_QUE_TRAZ_SE_ABRIR": "ja funciona",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 1.0,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "EC Agri-food Data Portal",
+   "URL": "https://agridata.ec.europa.eu/",
+   "FAMILIA_DA_MISSAO": "2 · MERCADO",
+   "O_QUE_TRAZ_SE_ABRIR": "ja funciona",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "1987 bytes",
+   "SEGUNDOS": 2.4,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "Copernicus EDO (seca)",
+   "URL": "https://edo.jrc.ec.europa.eu/",
+   "FAMILIA_DA_MISSAO": "6 · CLIMA",
+   "O_QUE_TRAZ_SE_ABRIR": "indice de seca por regiao",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 3.3,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  },
+  {
+   "FONTE": "JRC MARS",
+   "URL": "https://joint-research-centre.ec.europa.eu/monitoring-agricultural-resources-mars_en",
+   "FAMILIA_DA_MISSAO": "6 · CLIMA",
+   "O_QUE_TRAZ_SE_ABRIR": "boletim agrometeorologico da UE",
+   "ESTADO": "HTTP 200",
+   "DETALHE": "4000 bytes",
+   "SEGUNDOS": 1.1,
+   "CAUSA": "ABERTO",
+   "VPN_RESOLVE": "desnecessario"
+  }
+ ]
+}

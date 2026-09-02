@@ -555,6 +555,36 @@ datado. Comunicação é **intenção**, e mesmo obtida seria matéria mais frá
 pediu para não fazer clipping genérico; o dado disponível empurra exatamente para lá.
 
 
+### X-012 · COMPETITOR + META ADS LIBRARY + CROP + ISSUE + TIME — **POSSÍVEL NÃO TESTADO**
+
+```
+CROSSING_ID:        X-012
+COMPONENTS:         concorrente + peça publicitária paga observada + cultura + problema + tempo
+SOURCES:            EU-T9-002 (Meta Ads Library, NÃO TESTADO)
+                    + FR/ES/IT-T4-001 (titular de registro, PROVADO)
+KEY CANDIDATA:      nome do anunciante × titular de autorização
+CLASS:              POSSÍVEL NÃO TESTADO
+```
+
+**Por que entra na matriz agora:** é a primeira rota candidata à perna COMMUNICATION do
+`X-003`, que está `NÃO COMPÕE` desde a MISSÃO 02, e a única identificada que **não** exige
+varrer site com proteção anti-robô.
+
+**Por que não foi testada:** esta rodada é de contrato, e medir uma fonte é coleta. O que
+já foi medido neste repositório é a Meta **Graph API** (`EU-T8-001`, 400 sem token) — outra
+API, para outro fim. A Ads Library nunca foi aberta aqui: `NÃO TESTADO`, não `AUSENTE_MEDIDO`.
+
+**O risco que decide se ela compõe:** se o anunciante aparecer como agência em vez da
+empresa, a chave de casamento com o titular muda inteira — o mesmo problema de nome próprio
+que trava o `X-011`. Isso precisa ser medido antes de qualquer afirmação.
+
+**O que ela nunca vai compor:** venda, *share*, sucesso de campanha, estoque,
+disponibilidade. `META AD` prova `ATIVAÇÃO PUBLICITÁRIA OBSERVADA`.
+
+**Prioridade:** alta em valor, baixa em custo — um par já escolhido, um anunciante, uma
+consulta. Mas continua **não executada**.
+
+
 ### X-011 · EVENT + COMPETITOR + RESEARCHER — **POSSÍVEL NÃO TESTADO**
 
 ```
@@ -584,6 +614,6 @@ entre as investigadas.
 |---|---|
 | COMPROVADO | 3 |
 | PARCIAL | 4 |
-| POSSÍVEL MAS NÃO TESTADO | 1 |
+| POSSÍVEL MAS NÃO TESTADO | 2 |
 | NÃO COMPÕE | 3 |
 | NÃO SEI | 0 |

@@ -1,0 +1,33 @@
+{
+ "SOURCE_ID": "ADAMA-ES-PRESERVACAO-DIAGNOSTICO",
+ "SOURCE_LOCATION": "SPAIN",
+ "FACT_LOCATION": "SPAIN",
+ "captured_at": "2026-08-30T03:19:24.988Z",
+ "INVENTARIO_REMOTO_OBJETOS": 195,
+ "DO_PLANO_PRESENTES": 195,
+ "DO_PLANO_AUSENTES": [
+  "ES/adama-website/ADAMA-ES-ba6e08cc853d/99e45d7ac0ec301e-Folleto AVASTEL fungicida para cereal.pdf"
+ ],
+ "ORFAOS_NO_BUCKET": [],
+ "ERROS_DE_LISTAGEM": [],
+ "TENTATIVA": {
+  "PROVA_LOCAL": {
+   "ARQUIVO_LOCAL": "data/raw/ES/adama-website/documentos/4466__Folleto AVASTEL fungicida para cereal.pdf",
+   "EXISTE_NO_DISCO": true,
+   "BYTES_MEDIDOS": 158083718,
+   "BYTES_ESPERADOS": 158083718,
+   "SHA256_MEDIDO": "99e45d7ac0ec301efdb1db47a0a9275583c94b083535f447e27cf83fd68abb86",
+   "SHA256_ESPERADO": "99e45d7ac0ec301efdb1db47a0a9275583c94b083535f447e27cf83fd68abb86",
+   "SHA_CONFERE": true
+  },
+  "OBJETO": "ES/adama-website/ADAMA-ES-ba6e08cc853d/99e45d7ac0ec301e-Folleto AVASTEL fungicida para cereal.pdf",
+  "OBJETO_URL_ENCODED": "ES/adama-website/ADAMA-ES-ba6e08cc853d/99e45d7ac0ec301e-Folleto%20AVASTEL%20fungicida%20para%20cereal.pdf",
+  "CARACTERES_NAO_ASCII": [],
+  "RESPOSTA": {
+   "HTTP_STATUS": 400,
+   "RESPONSE_CONTENT_TYPE": "application/json; charset=utf-8",
+   "RESPONSE_BODY_SANITIZED": "{\"statusCode\":\"413\",\"error\":\"Payload too large\",\"message\":\"The object exceeded the maximum allowed size\",\"code\":\"EntityTooLarge\"}",
+   "REQUEST_OBJECT_PATH": "/storage/v1/object/raw/ES/adama-website/ADAMA-ES-ba6e08cc853d/99e45d7ac0ec301e-Folleto%20AVASTEL%20fungicida%20para%20cereal.pdf"
+  }
+ }
+}

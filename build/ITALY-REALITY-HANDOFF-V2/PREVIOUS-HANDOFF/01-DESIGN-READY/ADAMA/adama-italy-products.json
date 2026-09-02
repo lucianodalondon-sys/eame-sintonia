@@ -1,0 +1,6754 @@
+{
+ "LAYER": "ADAMA_PRODUCTS",
+ "COUNTRY": "IT",
+ "BUILT_AT": "2026-09-02",
+ "SOURCE_ARTIFACTS": [
+  "data/samples/IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json",
+  "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS.json"
+ ],
+ "PROVENANCE_DEFAULT": "REAL_FACT",
+ "NOTE": "Registro do Ministero della Salute, versao PROD_FTS_6_20260824, capturado em 2026-08-30. 163 vigentes. IN_PUBLIC_CATALOG=false NAO significa fora de mercado — significa que a pagina publica nao o lista.",
+ "CRITICAL_COVERAGE_WARNING": {
+  "LABELS_DOWNLOADED": "163/163 (100%)",
+  "PRODUCTS_WITH_AT_LEAST_ONE_USE_ROW_READ": "19/163 (11,7%)",
+  "PRODUCTS_WITH_ZERO_USE_ROW": "144/163 (88,3%)",
+  "WHY_THIS_MATTERS": "o 100% conta ROTULO BAIXADO, nao USO LIDO. Sao numeros de coisas diferentes e o primeiro engana.",
+  "FORBIDDEN_SENTENCE": "a ADAMA nao tem produto para <alvo> em <cultura>",
+  "ALLOWED_SENTENCE": "nesta leitura do rotulo nao encontramos linha ligando cultura e alvo para este produto. NAO SEI se o registro contem."
+ },
+ "COUNT": 163,
+ "PRODUCTS": [
+  {
+   "ID": "IT-PRD-001",
+   "PRODUCT": "GOLTIX",
+   "REGISTRATION_ID": "002732",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "5"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "SUGARBEET"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp",
+    "Capsella bursapastoris",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Poligonum aviculare",
+    "Solanum nigrum",
+    "Poligono convolvolo",
+    "Chenopodium album",
+    "Papaver rhoeas",
+    "Poligono persicaria",
+    "Fallopia convolvulus",
+    "Persicaria maculosa",
+    "Erba morella",
+    "Veronica persica",
+    "Veronica comune",
+    "Viola arvensis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42873",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/goltix",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-002",
+   "PRODUCT": "NIMROD",
+   "REGISTRATION_ID": "002983",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "BUPIRIMATE"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "8"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42690",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-003",
+   "PRODUCT": "PIRIMOR 50",
+   "REGISTRATION_ID": "004701",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PIRIMICARB"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=34291",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/pirimor-50",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-004",
+   "PRODUCT": "KLARTAN 20 EW",
+   "REGISTRATION_ID": "007555",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "SUGARBEET",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro afidi",
+    "Aphis fabae",
+    "Cavariella aegopodii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Aphis gossypii",
+    "Contro dorifora",
+    "Aphis gossypii",
+    "Aphis gossypii",
+    "Leptinotarsa decemlineata",
+    "Aphis spp.",
+    "Dysaphis plantaginea",
+    "Hyalopterus amygdali",
+    "Myzus spp.",
+    "Aphis gossypii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Sitobion avenae",
+    "Empoasca vitis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45051",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-005",
+   "PRODUCT": "NORTIM",
+   "REGISTRATION_ID": "007603",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "FORMULATION": "POLVERE BAGNABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "SUGARBEET"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp",
+    "Capsella bursapastoris",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Poligonum aviculare",
+    "Solanum nigrum",
+    "Poligono convolvolo",
+    "Chenopodium album",
+    "Papaver rhoeas",
+    "Poligono persicaria",
+    "Fallopia convolvulus",
+    "Persicaria maculosa",
+    "Erba morella",
+    "Veronica persica",
+    "Veronica comune",
+    "Viola arvensis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40724",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-006",
+   "PRODUCT": "TAU AL 240 EW",
+   "REGISTRATION_ID": "007864",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "FORMULATION": "POLVERE BAGNABILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "SUGARBEET",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro afidi",
+    "Aphis fabae",
+    "Cavariella aegopodii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Aphis gossypii",
+    "Contro dorifora",
+    "Aphis gossypii",
+    "Aphis gossypii",
+    "Leptinotarsa decemlineata",
+    "Aphis spp.",
+    "Dysaphis plantaginea",
+    "Hyalopterus amygdali",
+    "Myzus spp.",
+    "Aphis gossypii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Sitobion avenae",
+    "Empoasca vitis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45417",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-007",
+   "PRODUCT": "PIRIMOR 17,5",
+   "REGISTRATION_ID": "007876",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PIRIMICARB"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "MAIZE",
+    "POTATO",
+    "SORGHUM",
+    "SUNFLOWER",
+    "TOMATO",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38505",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-008",
+   "PRODUCT": "MERPAN 80 WDG",
+   "REGISTRATION_ID": "008102",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CAPTAN"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "APPLE"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46737",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/merpan-80-wdg",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-009",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "FORMULATION": "MICROGRANULARE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE",
+    "POTATO",
+    "SORGHUM",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 6,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-010",
+   "PRODUCT": "LAMDEX EXTRA",
+   "REGISTRATION_ID": "008259",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-08-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/lamdex-extra",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-011",
+   "PRODUCT": "FINESSOX",
+   "REGISTRATION_ID": "008401",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Muffa grigia",
+    "Botrytis cinerea",
+    "Alternaria solani",
+    "Fulvia fulva",
+    "Marciume bianco",
+    "Phomopsis viticola",
+    "Marciume nero",
+    "Coniella diplodiella",
+    "Guignardia bidwellii",
+    "Aspergillus spp.",
+    "Erysiphe necator",
+    "Plasmopara viticola",
+    "Phytophthora infestans",
+    "Septoria lycopersici"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-012",
+   "PRODUCT": "GOLD-BEET",
+   "REGISTRATION_ID": "008599",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "FORMULATION": "GRANULARE SOLUBILE IN ACQUA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "SUGARBEET"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp",
+    "Capsella bursapastoris",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Poligonum aviculare",
+    "Solanum nigrum",
+    "Poligono convolvolo",
+    "Chenopodium album",
+    "Papaver rhoeas",
+    "Poligono persicaria",
+    "Fallopia convolvulus",
+    "Persicaria maculosa",
+    "Erba morella",
+    "Veronica persica",
+    "Veronica comune",
+    "Viola arvensis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40723",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-013",
+   "PRODUCT": "FOLPAN 80 WDG",
+   "REGISTRATION_ID": "008601",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Muffa grigia",
+    "Botrytis cinerea",
+    "Alternaria solani",
+    "Fulvia fulva",
+    "Marciume bianco",
+    "Phomopsis viticola",
+    "Marciume nero",
+    "Coniella diplodiella",
+    "Guignardia bidwellii",
+    "Aspergillus spp.",
+    "Erysipha necator",
+    "Plasmopara viticola",
+    "Phytophthora infestans",
+    "Septoria lycopersici"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/folpan-80-wdg",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-014",
+   "PRODUCT": "TOPIK 240 EC",
+   "REGISTRATION_ID": "008929",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Avena spp.",
+    "Phalaris spp.",
+    "Lolium rigidum"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40823",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-015",
+   "PRODUCT": "AGIL",
+   "REGISTRATION_ID": "009005",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROPAQUIZAFOP"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Setaria spp.",
+    "Avena spp.",
+    "Alopecurus myosuroides",
+    "Phalaris spp.",
+    "Agropyron repens",
+    "Bromus sterilis",
+    "Triticum spp.",
+    "Panicum dichotomiflorum",
+    "Cynodon dactylon",
+    "Lolium spp.",
+    "Panicum miliaceum",
+    "Hordeum vulgare",
+    "Oryza rufipogon",
+    "Digitaria sanguinalis",
+    "Sorghum halepense"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45625",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/agil",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-016",
+   "PRODUCT": "SPYRALE",
+   "REGISTRATION_ID": "009757",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "DIFENOCONAZOLE",
+    "FENPROPIDIN"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2028-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "3",
+     "5"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "SUGARBEET"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Cercospora beticola",
+    "Erysiphe betae"
+   ],
+   "AUTHORIZED_USE_ROWS": 1,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43138",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-017",
+   "PRODUCT": "MAGNATE 500 EC",
+   "REGISTRATION_ID": "009783",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "IMAZALIL (AKA ENILCONAZOLE)"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato (Air 1 Fase 1)",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=29317",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-018",
+   "PRODUCT": "CONTATTO 320",
+   "REGISTRATION_ID": "009790",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "PHENMEDIPHAM"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-09-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "SUGARBEET"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranto comune",
+    "Amaranthus retroflexus",
+    "Daucus carota",
+    "Stellaria media",
+    "Farinaccio comune",
+    "Polygonum aviculare",
+    "Carota selvatica",
+    "Giavona comune",
+    "Lamium amplexicaule",
+    "Chenopodium album",
+    "Fumaria officinalis",
+    "Falsa ortica",
+    "Lolium multiflorum",
+    "Loglio italico",
+    "Mercurialis annua",
+    "Mercorella comune",
+    "Urtica dioica",
+    "Setaria verticillata",
+    "Papavero comune",
+    "Polygonum convolvolus",
+    "Polygonum lapathifolium",
+    "Poligono convolvolo",
+    "Poligono nodoso",
+    "Rapistrum rugosum",
+    "Rapistro peloso",
+    "Erba calderina",
+    "Pabbio verticillato",
+    "Ortica minore",
+    "Veronica hederaefolia",
+    "Veronica comune"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41707",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/contatto-320",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-019",
+   "PRODUCT": "MAVRIK SMART",
+   "REGISTRATION_ID": "009800",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "INSETTICIDA-ACARICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "SUGARBEET",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Aphis gossypii",
+    "Contro afidi",
+    "Aphis fabae",
+    "Cavariella aegopodii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Aphis gossypii",
+    "Contro dorifora",
+    "Aphis gossypii",
+    "Drosophila suzukii",
+    "Leptinotarsa decemlineata",
+    "Aphis spp.",
+    "Dysaphis plantaginea",
+    "Hyalopterus amygdali",
+    "Myzus spp.",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Sitobion avenae",
+    "Empoasca vitis",
+    "Tetranicus urticae"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45052",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/mavrik-smart",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-020",
+   "PRODUCT": "TOPIK 80 EC",
+   "REGISTRATION_ID": "010063",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39822",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-021",
+   "PRODUCT": "GOLTIX 700 SC",
+   "REGISTRATION_ID": "010569",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "SUGARBEET"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp",
+    "Anagallis arvensis",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Polygonum aviculare",
+    "Ruchetta violacea",
+    "Solanum nigrum",
+    "Chenopodium album",
+    "Papaver rhoeas",
+    "Polygonum lapathifolium",
+    "Polygonum persicaria",
+    "Poligono nodoso",
+    "Poligono persicaria",
+    "Diplotaxis erucoides",
+    "Erba morella",
+    "Stregona annuale",
+    "Stachys annua"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43606",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-022",
+   "PRODUCT": "SULCOTREK",
+   "REGISTRATION_ID": "010585",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "TERBUTHYLAZINE",
+    "SULCOTRIONE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "27 (F2)",
+     "5 (C1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Cencio molle",
+    "Amaranthus spp.",
+    "Farinello comune",
+    "Solanum nigrum",
+    "Chenopodium album",
+    "Erba morella",
+    "Datura stramonium",
+    "Capsella bursa",
+    "Echinochloa crus",
+    "Xantium strumarium",
+    "Mercurialis annua",
+    "Mercorella comune",
+    "Polygonum persicaria",
+    "Portulaca oleracea",
+    "Porcellana comune",
+    "Digitaria sanguinalis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41356",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/sulcotrek",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-023",
+   "PRODUCT": "FOLPAN SC",
+   "REGISTRATION_ID": "010587",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Muffa grigia",
+    "Botrytis cinerea",
+    "Alternaria solani",
+    "Fulvia fulva",
+    "Marciume bianco",
+    "Phomopsis viticola",
+    "Marciume nero",
+    "Coniella diplodiella",
+    "Guignardia bidwellii",
+    "Aspergillus spp.",
+    "Erysiphe necator",
+    "Plasmopara viticola",
+    "Phytophthora infestans",
+    "Septoria lycopersici"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-024",
+   "PRODUCT": "LEOPARD 5 EC",
+   "REGISTRATION_ID": "011243",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "GRAPEVINE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Agropyron repens",
+    "Agropiro comune",
+    "Avena spp.",
+    "Alopecurus spp.",
+    "Echinochloa spp",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Digitaria spp.",
+    "Phalaris spp.",
+    "Sorghum halepense",
+    "Cynodon dactylon"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41376",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/leopard-5-ec",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-025",
+   "PRODUCT": "CAPTHENE 80 WDG",
+   "REGISTRATION_ID": "011500",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "CAPTAN"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "APPLE"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46372",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-026",
+   "PRODUCT": "PARIFOL",
+   "REGISTRATION_ID": "011501",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Muffa grigia",
+    "Botrytis cinerea",
+    "Alternaria solani",
+    "Fulvia fulva",
+    "Marciume bianco",
+    "Phomopsis viticola",
+    "Marciume nero",
+    "Coniella diplodiella",
+    "Guignardia bidwellii",
+    "Aspergillus spp.",
+    "Erysipha necator",
+    "Plasmopara viticola",
+    "Phytophthora infestans"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-027",
+   "PRODUCT": "SULTAN",
+   "REGISTRATION_ID": "011526",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "METAZACHLOR"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=34297",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/sultan",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-028",
+   "PRODUCT": "SHOGUN",
+   "REGISTRATION_ID": "011660",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROPAQUIZAFOP"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Setaria spp.",
+    "Avena spp.",
+    "Alopecurus myosuroides",
+    "Phalaris spp.",
+    "Agropyron repens",
+    "Bromus sterilis",
+    "Triticum spp.",
+    "Panicum dichotomiflorum",
+    "Cynodon dactylon",
+    "Lolium spp.",
+    "Panicum miliaceum",
+    "Hordeum vulgare",
+    "Oryza rufipogon",
+    "Digitaria sanguinalis",
+    "Sorghum halepense"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45628",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-029",
+   "PRODUCT": "CONTATTO DOUBLE SC",
+   "REGISTRATION_ID": "011734",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "PHENMEDIPHAM"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-09-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "SUGARBEET"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranto comune",
+    "Amaranthus retroflexus",
+    "Daucus carota",
+    "Stellaria media",
+    "Farinaccio comune",
+    "Polygonum aviculare",
+    "Carota selvatica",
+    "Giavona comune",
+    "Lamium amplexicaule",
+    "Chenopodium album",
+    "Fumaria officinalis",
+    "Falsa ortica",
+    "Lolium multiflorum",
+    "Loglio italico",
+    "Mercurialis annua",
+    "Mercorella comune",
+    "Urtica dioica",
+    "Setaria verticillata",
+    "Papavero comune",
+    "Polygonum convolvolus",
+    "Polygonum lapathifolium",
+    "Poligono convolvolo",
+    "Poligono nodoso",
+    "Rapistrum rugosum",
+    "Rapistro peloso",
+    "Erba calderina",
+    "Pabbio verticillato",
+    "Ortica minore",
+    "Veronica hederaefolia",
+    "Veronica comune"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41708",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-030",
+   "PRODUCT": "MANAGER",
+   "REGISTRATION_ID": "011789",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "GRAPEVINE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Agropyron repens",
+    "Agropiro comune",
+    "Avena spp.",
+    "Alopecurus spp.",
+    "Echinochloa spp",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Digitaria spp.",
+    "Phalaris spp.",
+    "Sorghum halepense",
+    "Cynodon dactylon"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41382",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-031",
+   "PRODUCT": "PRESSING 500",
+   "REGISTRATION_ID": "011794",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "DIFLUFENICAN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-08-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Galium aparine",
+    "Capsella bursa",
+    "Matricaria cha",
+    "Anthemis spp.",
+    "Stellaria spp.",
+    "Lamium spp.",
+    "Fumaria officinalis",
+    "Geranium spp.",
+    "Papaver spp.",
+    "Cerastium spp.",
+    "Poligono aviculare",
+    "Polygonum per",
+    "Poligono persicaria",
+    "Raphanus raphanistrum",
+    "Senecio spp.",
+    "Viola spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38108",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-032",
+   "PRODUCT": "KLARTAN SMART",
+   "REGISTRATION_ID": "012023",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA-ACARICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "SUGARBEET",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro afidi",
+    "Aphis fabae",
+    "Cavariella aegopodii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Aphis gossypii",
+    "Contro dorifora",
+    "Aphis gossypii",
+    "Aphis gossypii",
+    "Drosophila suzukii",
+    "Leptinotarsa decemlineata",
+    "Aphis spp.",
+    "Dysaphis plantaginea",
+    "Hyalopterus amygdali",
+    "Myzus spp.",
+    "Aphis gossypii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Sitobion avenae",
+    "Empoasca vitis",
+    "Tetranicus urticae"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45054",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-033",
+   "PRODUCT": "FOX",
+   "REGISTRATION_ID": "012060",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "BIFENOX"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-03-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35578",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-034",
+   "PRODUCT": "MAKE UP 80 WDG",
+   "REGISTRATION_ID": "012156",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CAPTAN"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "APPLE"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46738",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-035",
+   "PRODUCT": "ERBY 5 EC",
+   "REGISTRATION_ID": "012279",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "GRAPEVINE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Agropyron repens",
+    "Agropiro comune",
+    "Avena spp.",
+    "Alopecurus spp.",
+    "Echinochloa spp",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Digitaria spp.",
+    "Phalaris spp.",
+    "Sorghum halepense",
+    "Cynodon dactylon"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41378",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-036",
+   "PRODUCT": "EKO OIL SPRAY",
+   "REGISTRATION_ID": "012573",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PARAFFIN OIL/(CAS 97862-82-3)"
+   ],
+   "FORMULATION": "OLIO DISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-03-10",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=27726",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-037",
+   "PRODUCT": "FOLPAN GOLD",
+   "REGISTRATION_ID": "012878",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET",
+    "METALAXYL-M"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46374",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/folpan-gold",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-038",
+   "PRODUCT": "FOLVIT 80 WDG",
+   "REGISTRATION_ID": "013012",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Muffa grigia",
+    "Botrytis cinerea",
+    "Alternaria solani",
+    "Fulvia fulva",
+    "Marciume bianco",
+    "Phomopsis viticola",
+    "Marciume nero",
+    "Coniella diplodiella",
+    "Guignardia bidwellii",
+    "Aspergillus spp.",
+    "Erysipha necator",
+    "Plasmopara viticola",
+    "Phytophthora infestans",
+    "Septoria lycopersici"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-039",
+   "PRODUCT": "NICOGAN V.O.",
+   "REGISTRATION_ID": "013242",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "NICOSULFURON"
+   ],
+   "FORMULATION": "OLIO DISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-03-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "B"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Alopecurus myosuroides",
+    "Giavone comune",
+    "Solanum nigrum",
+    "Fumaria officinalis",
+    "Galinsoga parviflora",
+    "Mercurialis annua",
+    "Setaria spp.",
+    "Panicum spp.",
+    "Polygonum persicaria",
+    "Polygonum lapathifolium",
+    "Persicaria maggiore",
+    "Giurgiu district",
+    "Digitaria sanguinalis",
+    "Sinapis arvensis",
+    "Senape selvatica",
+    "Erba morella",
+    "Datura stramonium"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46066",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/nicogan-vo",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-040",
+   "PRODUCT": "MAGIO'",
+   "REGISTRATION_ID": "013299",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "GRAPEVINE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Agropyron repens",
+    "Agropiro comune",
+    "Avena spp.",
+    "Alopecurus spp.",
+    "Echinochloa spp",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Digitaria spp.",
+    "Phalaris spp.",
+    "Sorghum halepense",
+    "Cynodon dactylon"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41381",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-041",
+   "PRODUCT": "VIP",
+   "REGISTRATION_ID": "013332",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Avena spp.",
+    "Phalaris spp.",
+    "Lolium rigidum"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40827",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-042",
+   "PRODUCT": "LUMA-KL",
+   "REGISTRATION_ID": "013402",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "METALDEHYDE"
+   ],
+   "FORMULATION": "ESCA GRANULARE",
+   "REGULATORY_CATEGORY": "MOLLUSCHICIDA",
+   "LINE": "OUTRA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-08-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "MAIZE",
+    "SORGHUM",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=37560",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-043",
+   "PRODUCT": "VERBUM EW",
+   "REGISTRATION_ID": "013405",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "BUPIRIMATE"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "8"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42691",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-044",
+   "PRODUCT": "FORZA",
+   "REGISTRATION_ID": "013560",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-08-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "SORGHUM",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Nottue defogliatrici"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43588",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-045",
+   "PRODUCT": "SOLOFOL",
+   "REGISTRATION_ID": "013585",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Muffa grigia"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46741",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-046",
+   "PRODUCT": "NINJA",
+   "REGISTRATION_ID": "013590",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "FORMULATION": "GRANULARE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-08-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "SORGHUM",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Nottue defogliatrici"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43587",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-047",
+   "PRODUCT": "QUIZA 5 EC",
+   "REGISTRATION_ID": "013711",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "GRAPEVINE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Agropyron repens",
+    "Agropiro comune",
+    "Avena spp.",
+    "Alopecurus spp.",
+    "Echinochloa spp",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Digitaria spp.",
+    "Phalaris spp.",
+    "Sorghum halepense",
+    "Cynodon dactylon"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41383",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-048",
+   "PRODUCT": "TRACE",
+   "REGISTRATION_ID": "013736",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Phalaris spp.",
+    "Avena spp.",
+    "Alopecurus myosuroides",
+    "Lolium rigidum"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39820",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-049",
+   "PRODUCT": "NIMROD 250 EW",
+   "REGISTRATION_ID": "013771",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "BUPIRIMATE"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "8"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42688",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-050",
+   "PRODUCT": "RAVENAS",
+   "REGISTRATION_ID": "013807",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Avena spp.",
+    "Spettrrus myosuroides",
+    "Phalaris spp.",
+    "Lolium rigidum"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40826",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-051",
+   "PRODUCT": "APACHE",
+   "REGISTRATION_ID": "013876",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "GRAPEVINE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Agropyron repens",
+    "Agropiro comune",
+    "Avena spp.",
+    "Alopecurus spp.",
+    "Echinochloa spp",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Digitaria spp.",
+    "Phalaris spp.",
+    "Sorghum halepense",
+    "Cynodon dactylon"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41377",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-052",
+   "PRODUCT": "DAUPHIN 45",
+   "REGISTRATION_ID": "013899",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CYMOXANIL"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-08-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36263",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-053",
+   "PRODUCT": "BANJO",
+   "REGISTRATION_ID": "013905",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FLUAZINAM"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38821",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/banjo",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-054",
+   "PRODUCT": "TRINEX 250 EW",
+   "REGISTRATION_ID": "014074",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "BUPIRIMATE"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "8"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42689",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-055",
+   "PRODUCT": "APHOX",
+   "REGISTRATION_ID": "014091",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PIRIMICARB"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "AFICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "MAIZE",
+    "POTATO",
+    "SORGHUM",
+    "SUNFLOWER",
+    "TOMATO",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38507",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-056",
+   "PRODUCT": "ANTARKTIS",
+   "REGISTRATION_ID": "014093",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "BIFENOX",
+    "FLORASULAM"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2031-12-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39494",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-057",
+   "PRODUCT": "MAVRIK EW",
+   "REGISTRATION_ID": "014190",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "INSETTICIDA-ACARICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "SUGARBEET",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro afidi",
+    "Aphis fabae",
+    "Cavariella aegopodii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Aphis gossypii",
+    "Contro dorifora",
+    "Aphis gossypii",
+    "Aphis gossypii",
+    "Leptinotarsa decemlineata",
+    "Aphis spp.",
+    "Dysaphis plantaginea",
+    "Hyalopterus amygdali",
+    "Myzus spp.",
+    "Aphis gossypii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Sitobion avenae",
+    "Empoasca vitis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45055",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-058",
+   "PRODUCT": "EVURE PRO",
+   "REGISTRATION_ID": "014210",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA-ACARICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "SUGARBEET",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro afidi",
+    "Aphis fabae",
+    "Cavariella aegopodii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Aphis gossypii",
+    "Contro dorifora",
+    "Aphis gossypii",
+    "Aphis gossypii",
+    "Drosophila suzukii",
+    "Leptinotarsa decemlineata",
+    "Aphis spp.",
+    "Dysaphis plantaginea",
+    "Hyalopterus amygdali",
+    "Myzus spp.",
+    "Aphis gossypii",
+    "Brevicoryne brassicae",
+    "Acyrthosiphon pisum",
+    "Sitobion avenae",
+    "Empoasca vitis",
+    "Tetranicus urticae"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45056",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-059",
+   "PRODUCT": "LION 5 EC",
+   "REGISTRATION_ID": "014375",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "GRAPEVINE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Agropyron repens",
+    "Agropiro comune",
+    "Avena spp.",
+    "Alopecurus spp.",
+    "Echinochloa spp",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Digitaria spp.",
+    "Phalaris spp.",
+    "Sorghum halepense",
+    "Cynodon dactylon"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41380",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-060",
+   "PRODUCT": "CLORMET",
+   "REGISTRATION_ID": "014380",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "METAZACHLOR"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [
+    "Amaranto comune",
+    "Amaranthus retroflexus",
+    "Capsella bursa",
+    "Matricaria spp.",
+    "Anthemis spp.",
+    "Apera sp",
+    "Stellaria spp.",
+    "Alopecurus spp.",
+    "Sanguinella comune",
+    "Lamium spp.",
+    "Chenopodium spp.",
+    "Echinochloa spp.",
+    "Sonchus spp.",
+    "Lolium spp.",
+    "Mercurialis annua",
+    "Mercorella comune",
+    "Solanum spp.",
+    "Myosotis spp.",
+    "Urtica urens",
+    "Setaria spp.",
+    "Papaver spp.",
+    "Polygonum persicaria",
+    "Poligono persicaria",
+    "Ranunculus spp.",
+    "Digitaria sanguinalis",
+    "Ortica minore"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=30797",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-061",
+   "PRODUCT": "OLIONET",
+   "REGISTRATION_ID": "014386",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PARAFFIN OIL/(CAS 97862-82-3)"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "INSETTICIDA-DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-03-10",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=27729",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-062",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "FORMULATION": "GRANULARE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE",
+    "POTATO",
+    "SORGHUM",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 6,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/schermo-0-5-g",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-063",
+   "PRODUCT": "VIP 80 EC",
+   "REGISTRATION_ID": "014693",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39824",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-064",
+   "PRODUCT": "CELIO 80 EC",
+   "REGISTRATION_ID": "014694",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39823",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-065",
+   "PRODUCT": "CELIO",
+   "REGISTRATION_ID": "014728",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Avena spp.",
+    "Phalaris spp.",
+    "Lolium rigidum"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40824",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-066",
+   "PRODUCT": "SOLOFOL AP",
+   "REGISTRATION_ID": "014862",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42926",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-067",
+   "PRODUCT": "GLIPHOGAN TOP CL",
+   "REGISTRATION_ID": "015096",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Acer sp.",
+    "Alium sp.",
+    "Amaranthus sp.",
+    "Visnaga maggiore",
+    "Aristolochia sp.",
+    "Asfodelus sp.",
+    "Leersia oryzoidea",
+    "Artemisia sp.",
+    "Avena sp.",
+    "Calluna sp.",
+    "Calendula sp.",
+    "Arundo sp.",
+    "Phragmines sp.",
+    "Agrostis sp.",
+    "Lonicera sp.",
+    "Cirsium sp",
+    "Carex sp.",
+    "Stellaria sp.",
+    "Cyperus sp.",
+    "Cardo campestre",
+    "Cistus sp.",
+    "Clematis sp.",
+    "Alopecurus sp.",
+    "Sparganium sp.",
+    "Glechoma sp.",
+    "Erica sp.",
+    "Euphorbia sp.",
+    "Phalaris sp.",
+    "Chenopodium sp.",
+    "Pteridium sp.",
+    "Ferula sp.",
+    "Fraxinus sp.",
+    "Genista sp.",
+    "Juncus sp.",
+    "Butomus sp.",
+    "Agropyron repens",
+    "Cynodon sp.",
+    "Glyceria sp.",
+    "Sonchus sp.",
+    "Hipericum sp.",
+    "Lolium sp.",
+    "Mercurialis sp",
+    "Vaccinum sp.",
+    "Nardus sp.",
+    "Urtica sp.",
+    "Oxalis sp.",
+    "Eracleum sp.",
+    "Alisma sp.",
+    "Portulaca sp.",
+    "Raphanus sp.",
+    "Ranunculus sp.",
+    "Rubia peregrina",
+    "Rumex sp.",
+    "Rubus sp.",
+    "Salix sp.",
+    "Sambucus sp.",
+    "Scirpus sp.",
+    "Sinapis sp.",
+    "Senecio sp.",
+    "Sorghum halepense",
+    "Tipha sp.",
+    "Tussilago sp.",
+    "Veronica sp.",
+    "Convolvolus sp.",
+    "Ammi majus"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40140",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-068",
+   "PRODUCT": "NICAMACK V.O.",
+   "REGISTRATION_ID": "015182",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "NICOSULFURON"
+   ],
+   "FORMULATION": "OLIO DISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-03-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "B"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Alopecurus myosuroides",
+    "Sonchus oleraceus",
+    "Giavone comune",
+    "Solanum nigrum",
+    "Fumaria officinalis",
+    "Galinsoga parviflora",
+    "Mercurialis annua",
+    "Setaria spp.",
+    "Panicum spp.",
+    "Polygonum persicaria",
+    "Polygonum lapathifolium",
+    "Persicaria maggiore",
+    "Giurgiu district",
+    "Digitaria sanguinalis",
+    "Sinapis arvensis",
+    "Senape selvatica",
+    "Erba morella",
+    "Datura stramonium"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46072",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-069",
+   "PRODUCT": "RENDER V.O.",
+   "REGISTRATION_ID": "015183",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "NICOSULFURON"
+   ],
+   "FORMULATION": "OLIO DISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-03-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "B"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Alopecurus myosuroides",
+    "Giavone comune",
+    "Solanum nigrum",
+    "Fumaria officinalis",
+    "Galinsoga parviflora",
+    "Mercurialis annua",
+    "Setaria spp.",
+    "Panicum spp.",
+    "Polygonum persicaria",
+    "Polygonum lapathifolium",
+    "Persicaria maggiore",
+    "Giurgiu district",
+    "Digitaria sanguinalis",
+    "Sinapis arvensis",
+    "Senape selvatica",
+    "Erba morella",
+    "Datura stramonium"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46068",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-070",
+   "PRODUCT": "STOPPER P",
+   "REGISTRATION_ID": "015229",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN",
+    "DIFLUFENICAN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-08-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "12 (F1)",
+     "3 (K1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Calepina spp.",
+    "Matricaria spp.",
+    "Stellaria media",
+    "Alopecurus myosuroides",
+    "Polygonum aviculare",
+    "Lamium purpureum",
+    "Chenopidium album",
+    "Fumaria officinalis",
+    "Falsa ortica",
+    "Lolium spp.",
+    "Papaver rhoeas",
+    "Polygonum persicaria",
+    "Poligono persicaria",
+    "Sinapis arvensis",
+    "Senecio vulgaris",
+    "Sonchus spp.",
+    "Veronica spp.",
+    "Viola spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45876",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/stopper-p",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-071",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-08-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "GRAPEVINE",
+    "TOMATO",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Puccinia spp.",
+    "Erysiphe spp.",
+    "Leveillula taurica",
+    "Pyrenophora spp.",
+    "Sphaerotheca spp.",
+    "Uncicola necator",
+    "Erysiphe spp.",
+    "Rhynchosporium spp.",
+    "Septoria spp.",
+    "Fusarium spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 3,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-072",
+   "PRODUCT": "MOMENTUM",
+   "REGISTRATION_ID": "015235",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOSETYL-ALUMINIUM"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40151",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-073",
+   "PRODUCT": "FALCON MK",
+   "REGISTRATION_ID": "015253",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROPAQUIZAFOP"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Setaria spp.",
+    "Avena spp.",
+    "Alopecurus myosuroides",
+    "Phalaris spp.",
+    "Agropyron repens",
+    "Bromus sterilis",
+    "Triticum spp.",
+    "Panicum dichotomiflorum",
+    "Cynodon dactylon",
+    "Lolium spp.",
+    "Panicum miliaceum",
+    "Hordeum vulgare",
+    "Oryza rufipogon",
+    "Digitaria sanguinalis",
+    "Sorghum halepense"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45626",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-074",
+   "PRODUCT": "DURAVIS",
+   "REGISTRATION_ID": "015275",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-08-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "SORGHUM",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Nottue defogliatrici"
+   ],
+   "AUTHORIZED_USE_ROWS": 1,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43526",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-075",
+   "PRODUCT": "EMBRACE",
+   "REGISTRATION_ID": "015315",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FLUAZINAM"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38822",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-076",
+   "PRODUCT": "HAWK",
+   "REGISTRATION_ID": "015316",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Avena spp.",
+    "Phalaris spp.",
+    "Lolium rigidum"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40825",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-077",
+   "PRODUCT": "SESTO GOLD",
+   "REGISTRATION_ID": "015317",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET",
+    "METALAXYL-M"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 1,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46359",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-078",
+   "PRODUCT": "TAIFUN MK CL",
+   "REGISTRATION_ID": "015401",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Acer sp.",
+    "Alium sp.",
+    "Amaranthus sp.",
+    "Visnaga maggiore",
+    "Aristolochia sp.",
+    "Asfodelus sp.",
+    "Leersia oryzoidea",
+    "Artemisia sp.",
+    "Avena sp.",
+    "Calluna sp.",
+    "Calendula sp.",
+    "Arundo sp.",
+    "Phragmines sp.",
+    "Agrostis sp.",
+    "Lonicera sp.",
+    "Cirsium sp",
+    "Carex sp.",
+    "Stellaria sp.",
+    "Cyperus sp.",
+    "Cardo campestre",
+    "Cistus sp.",
+    "Clematis sp.",
+    "Alopecurus sp.",
+    "Sparganium sp.",
+    "Glechoma sp.",
+    "Erica sp.",
+    "Euphorbia sp.",
+    "Phalaris sp.",
+    "Chenopodium sp.",
+    "Pteridium sp.",
+    "Ferula sp.",
+    "Fraxinus sp.",
+    "Genista sp.",
+    "Juncus sp.",
+    "Butomus sp.",
+    "Agropyron repens",
+    "Cynodon sp.",
+    "Glyceria sp.",
+    "Sonchus sp.",
+    "Hipericum sp.",
+    "Lolium sp.",
+    "Mercurialis sp",
+    "Vaccinum sp.",
+    "Nardus sp.",
+    "Urtica sp.",
+    "Oxalis sp.",
+    "Eracleum sp.",
+    "Alisma sp.",
+    "Portulaca sp.",
+    "Raphanus sp.",
+    "Ranunculus sp.",
+    "Rubia peregrina",
+    "Rumex sp.",
+    "Rubus sp.",
+    "Salix sp.",
+    "Sambucus sp.",
+    "Scirpus sp.",
+    "Sinapis sp.",
+    "Senecio sp.",
+    "Sorghum halepense",
+    "Tipha sp.",
+    "Tussilago sp.",
+    "Veronica sp.",
+    "Convolvolus sp.",
+    "Ammi majus"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42904",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/taifun-mk-cl",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-079",
+   "PRODUCT": "SHAMAL MK PLUS CL",
+   "REGISTRATION_ID": "015405",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40170",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-080",
+   "PRODUCT": "TAIFUN JARDIN",
+   "REGISTRATION_ID": "015592",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35656",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-081",
+   "PRODUCT": "BADGER 45% WG",
+   "REGISTRATION_ID": "015629",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CYMOXANIL"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-08-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36264",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-082",
+   "PRODUCT": "CARSON 45% WG",
+   "REGISTRATION_ID": "015630",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CYMOXANIL"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2026-08-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36265",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-083",
+   "PRODUCT": "VINETO",
+   "REGISTRATION_ID": "015740",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "BUPIRIMATE",
+    "TEBUCONAZOLE"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "3",
+     "8"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39825",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-084",
+   "PRODUCT": "MAKURI",
+   "REGISTRATION_ID": "015847",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLODINAFOP",
+    "CLOQUINTOCET MEXYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-07-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Phalaris spp.",
+    "Avena spp.",
+    "Alopecurus myosuroides",
+    "Lolium rigidum"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39821",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-085",
+   "PRODUCT": "PYXIDES WG",
+   "REGISTRATION_ID": "015909",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "DICAMBA",
+    "NICOSULFURON",
+    "MESOTRIONE"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Rinnovato Art. 43 Reg. 1107/2009",
+   "EXPIRY": "2033-05-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2 (B)",
+     "27 (F2)",
+     "4 (O)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Cencio molle",
+    "Amaranthus spp",
+    "Camomilla bicolore",
+    "Atriplex hortensis",
+    "Erba corregiola",
+    "Forbicina comune",
+    "Anthemis mixta",
+    "Cirsium arvense",
+    "Abutilon theophrasti",
+    "Cardo campestre",
+    "Polygonum aviculare",
+    "Zigolo infestante",
+    "Digitaria sanguinalis",
+    "Giavone comune",
+    "Atriplex patula",
+    "Solanum nigrum",
+    "Portulaca oleracea",
+    "Chenopodium album",
+    "Bidens tripartita",
+    "Galinsoga parviflora",
+    "Echinochloa crus",
+    "Sonchus arvensis",
+    "Ibisco vescicoso",
+    "Hibiscus trionum",
+    "Mercurialis annua",
+    "Mercorella comune",
+    "Panicum miliaceum",
+    "Xanthium strumarium",
+    "Xanthium sp",
+    "Setaria viridis",
+    "Setaria pumila",
+    "Polygonum persicaria",
+    "Erba porcellana",
+    "Rumex crispus",
+    "Pabbio rossastro",
+    "Pabbio comune",
+    "Erba morella",
+    "Sorghum halepense",
+    "Stregona annuale",
+    "Cirsium arvense",
+    "Datura stramonium",
+    "Stachys annua",
+    "Convolvulus arvensis",
+    "Calystegia sepium",
+    "Nappola minore",
+    "Nappola comune",
+    "Cyperus rotundus"
+   ],
+   "AUTHORIZED_USE_ROWS": 1,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45941",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-086",
+   "PRODUCT": "BREVIS",
+   "REGISTRATION_ID": "016084",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "FORMULATION": "GRANULARE SOLUBILE IN ACQUA",
+   "REGULATORY_CATEGORY": "DIRADANTE",
+   "LINE": "OUTRA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "APPLE"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45875",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/brevis",
+   "CATALOG_CATEGORY": "SPECIALI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-087",
+   "PRODUCT": "SEEDRON",
+   "REGISTRATION_ID": "016152",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FLUDIOXONIL",
+    "TEBUCONAZOLE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA PER CONCIA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2026-09-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Fusarium spp.",
+    "Ustilago nuda",
+    "Ustilago avenae",
+    "Urocystis occulta",
+    "Tilletia caries",
+    "Pyrenophora spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39273",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/seedron",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-088",
+   "PRODUCT": "DICURAN PLUS",
+   "REGISTRATION_ID": "016218",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CHLOROTOLURON",
+    "DIFLUFENICAN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato in regime di Riconoscimento Reciproco",
+   "EXPIRY": "2027-08-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "DURUM_WHEAT",
+    "OLIVE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Galium spp.",
+    "Avena sterilis",
+    "Erodium spp.",
+    "Matricaria spp.",
+    "Carduus sp.",
+    "Stellaria media",
+    "Anagallis arvensis",
+    "Peverina dei",
+    "Saeppola canadese",
+    "Poligonum aviculare",
+    "Fumaria officinalis",
+    "Fumaria officinale",
+    "Falsa ortica",
+    "Fedia cornucopiae",
+    "Lolium spp.",
+    "Malva spp.",
+    "Papaver rhoeas",
+    "Cerastium glomeratum",
+    "Fienarola annuale",
+    "Diplotaxis spp.",
+    "Conyza canadensis",
+    "Sinapsis spp.",
+    "Centocchio comune",
+    "Veronica spp.",
+    "Silybum marianum",
+    "Calendula arvensis",
+    "Sonchus spp.",
+    "Lactuca serriola",
+    "Mercurialis annua"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36530",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-089",
+   "PRODUCT": "TOMIGAN",
+   "REGISTRATION_ID": "016312",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FLUROXYPYR"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-02-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "COMMON_WHEAT",
+    "MAIZE",
+    "OLIVE",
+    "SUGARBEET",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Oxalis corniculata",
+    "Galium aparine"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44959",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/tomigan",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-090",
+   "PRODUCT": "HERBITOTAL CL",
+   "REGISTRATION_ID": "016387",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Acer sp.",
+    "Alium sp.",
+    "Amaranthus sp.",
+    "Visnaga maggiore",
+    "Aristolochia sp.",
+    "Asfodelus sp.",
+    "Leersia oryzoidea",
+    "Artemisia sp.",
+    "Avena sp.",
+    "Calluna sp.",
+    "Calendula sp.",
+    "Arundo sp.",
+    "Phragmines sp.",
+    "Agrostis sp.",
+    "Lonicera sp.",
+    "Cirsium sp",
+    "Carex sp.",
+    "Stellaria sp.",
+    "Cyperus sp.",
+    "Cardo campestre",
+    "Cistus sp.",
+    "Clematis sp.",
+    "Alopecurus sp.",
+    "Sparganium sp.",
+    "Glechoma sp.",
+    "Erica sp.",
+    "Euphorbia sp.",
+    "Phalaris sp.",
+    "Chenopodium sp.",
+    "Pteridium sp.",
+    "Ferula sp.",
+    "Fraxinus sp.",
+    "Genista sp.",
+    "Juncus sp.",
+    "Butomus sp.",
+    "Agropyron repens",
+    "Cynodon sp.",
+    "Glyceria sp.",
+    "Sonchus sp.",
+    "Hipericum sp.",
+    "Lolium sp.",
+    "Mercurialis sp",
+    "Vaccinum sp.",
+    "Nardus sp.",
+    "Urtica sp.",
+    "Oxalis sp.",
+    "Eracleum sp.",
+    "Alisma sp.",
+    "Portulaca sp.",
+    "Raphanus sp.",
+    "Ranunculus sp.",
+    "Rubia peregrina",
+    "Rumex sp.",
+    "Rubus sp.",
+    "Salix sp.",
+    "Sambucus sp.",
+    "Scirpus sp.",
+    "Sinapis sp.",
+    "Senecio sp.",
+    "Sorghum halepense",
+    "Tipha sp.",
+    "Tussilago sp.",
+    "Veronica sp.",
+    "Convolvolus sp.",
+    "Ammi majus"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=40142",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-091",
+   "PRODUCT": "CLEAVE",
+   "REGISTRATION_ID": "016475",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FLUROXYPYR",
+    "FLORASULAM"
+   ],
+   "FORMULATION": "SOSPENSIONE-EMULSIONE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-02-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2 (B)",
+     "4 (O)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "GRAPEVINE",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Camomilla bastarda",
+    "Ventaglina dei",
+    "Erba correggiola",
+    "Galium aparine",
+    "Colza selvatica",
+    "Matricaria spp.",
+    "Anthemis arvensis",
+    "Daucus carota",
+    "Stellaria media",
+    "Peverina dei",
+    "Farinello comune",
+    "Crisantemo campestre",
+    "Brassica napus",
+    "Hypecoum spp.",
+    "Chrysanthemum segetum",
+    "Atriplex patula",
+    "Lamium purpureum",
+    "Chenopodium album",
+    "Cyanus segetum",
+    "Geranium dissectum",
+    "Geranio selvatico",
+    "Falsa ortica",
+    "Mercurialis annua",
+    "Marcorella comune",
+    "Vaniglia selvatica",
+    "Papavero comune",
+    "Papaver rhoeas",
+    "Cerastium glomeratum",
+    "Polygonum spp.",
+    "Ranunculus spp.",
+    "Sinapis arvensis",
+    "Senape selvatica",
+    "Spergula spp.",
+    "Vite puntura",
+    "Myosotis arvensis",
+    "Aphanes arvensis",
+    "Tribulus terrestris",
+    "Arabidopsis thaliana",
+    "Sonchus oleraceus",
+    "Lapsana communis",
+    "Viola arvensis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41520",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-092",
+   "PRODUCT": "ELEGANT 2FD",
+   "REGISTRATION_ID": "016553",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FLORASULAM",
+    "2,4-D"
+   ],
+   "FORMULATION": "SOSPENSIONE-EMULSIONE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2031-12-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38762",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/elegant-2fd",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-093",
+   "PRODUCT": "TRIMMER 50 WG",
+   "REGISTRATION_ID": "016575",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TRIBENURON"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2035-01-30",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "B"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Camomilla bastarda",
+    "Capsella bursa",
+    "Matricaria chamomilla",
+    "Anthemis arvensis",
+    "Cirsium arvense",
+    "Stellaria media",
+    "Cardo campestre",
+    "Fallopia convolvulus",
+    "Convolvolo nero",
+    "Fumaria officinalis",
+    "Papaver rhoeas",
+    "Sinapis arvensis",
+    "Senape selvatica",
+    "Veronica spp.",
+    "Viola arvensis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46679",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/trimmer-50-wg",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-094",
+   "PRODUCT": "VALLEY",
+   "REGISTRATION_ID": "016616",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "BIFENOX"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-03-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35580",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/valley",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-095",
+   "PRODUCT": "CINDER",
+   "REGISTRATION_ID": "016697",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "CONCENTRATO FLUIDO MISCIBILE IN OLI",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45928",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-096",
+   "PRODUCT": "FOLPAN ENERGY",
+   "REGISTRATION_ID": "016749",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET",
+    "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46740",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/folpan-energy",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-097",
+   "PRODUCT": "ACTIVUS 40 SC",
+   "REGISTRATION_ID": "016823",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato in regime di Riconoscimento Reciproco",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "3 (K1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "SOYBEAN",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Anagallis arvensis",
+    "Picris echioides",
+    "Matricaria spp.",
+    "Chrysanthemum segetum",
+    "Solanum nigrum",
+    "Phalaris spp.",
+    "Chenopodium spp.",
+    "Fumaria officinalis",
+    "Sonchus spp.",
+    "Lactuca serriola",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Papaver rhoeas",
+    "Polygonum spp.",
+    "Portulaca oleracea",
+    "Diplotaxis erucoides",
+    "Digitaria sanguinalis",
+    "Sinapis spp.",
+    "Veronica spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45878",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-098",
+   "PRODUCT": "ANTHEM EKO",
+   "REGISTRATION_ID": "017094",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "3 (K1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "SOYBEAN",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Anagallis arvensis",
+    "Picris echioides",
+    "Matricaria spp.",
+    "Chrysanthemum segetum",
+    "Solanum nigrum",
+    "Phalaris spp.",
+    "Chenopodium spp.",
+    "Fumaria officinalis",
+    "Sonchus spp.",
+    "Lactuca serriola",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Papaver rhoeas",
+    "Polygonum spp.",
+    "Portulaca oleracea",
+    "Diplotaxis erucoides",
+    "Digitaria sanguinalis",
+    "Sinapis spp.",
+    "Veronica spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45880",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-099",
+   "PRODUCT": "FLOVINE",
+   "REGISTRATION_ID": "017111",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Muffa grigia",
+    "Botrytis cinerea",
+    "Alternaria solani",
+    "Fulvia fulva",
+    "Marciume bianco",
+    "Phomopsis viticola",
+    "Marciume nero",
+    "Coniella diplodiella",
+    "Guignardia bidwellii",
+    "Aspergillus spp.",
+    "Erysipha necator",
+    "Plasmopara viticola",
+    "Phytophthora infestans",
+    "Septoria lycopersici"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46425",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-100",
+   "PRODUCT": "ZETROLA",
+   "REGISTRATION_ID": "017115",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROPAQUIZAFOP"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Ri-registrato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Setaria spp.",
+    "Avena spp.",
+    "Alopecurus myosuroides",
+    "Phalaris spp.",
+    "Agropyron repens",
+    "Bromus sterilis",
+    "Triticum spp.",
+    "Panicum dichotomiflorum",
+    "Cynodon dactylon",
+    "Lolium spp.",
+    "Panicum miliaceum",
+    "Hordeum vulgare",
+    "Oryza rufipogon",
+    "Digitaria sanguinalis",
+    "Sorghum halepense"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45629",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-101",
+   "PRODUCT": "ACTIVUS ME",
+   "REGISTRATION_ID": "017116",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "SOSPENSIONE DI CAPSULE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45930",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/activus-me",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-102",
+   "PRODUCT": "AVANA",
+   "REGISTRATION_ID": "017123",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "3 (K1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Anagallis arvensis",
+    "Picris echioides",
+    "Matricaria spp.",
+    "Chrysanthemum segetum",
+    "Solanum nigrum",
+    "Phalaris spp.",
+    "Chenopodium spp.",
+    "Fumaria officinalis",
+    "Sonchus spp.",
+    "Lactuca serriola",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Papaver rhoeas",
+    "Polygonum spp.",
+    "Portulaca oleracea",
+    "Diplotaxis erucoides",
+    "Digitaria sanguinalis",
+    "Sinapis spp.",
+    "Veronica spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45892",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-103",
+   "PRODUCT": "LIGA",
+   "REGISTRATION_ID": "017206",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROPAQUIZAFOP"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "POTATO",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Setaria spp.",
+    "Avena spp.",
+    "Alopecurus myosuroides",
+    "Phalaris spp.",
+    "Agropyron repens",
+    "Bromus sterilis",
+    "Triticum spp.",
+    "Panicum dichotomiflorum",
+    "Cynodon dactylon",
+    "Lolium spp.",
+    "Panicum miliaceum",
+    "Hordeum vulgare",
+    "Oryza rufipogon",
+    "Digitaria sanguinalis",
+    "Sorghum halepense"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45627",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-104",
+   "PRODUCT": "DAVAI",
+   "REGISTRATION_ID": "017209",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "IMAZAMOX"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-06-30",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "B"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus blitoides",
+    "Ambrosia artemisiifolia",
+    "Abutilon theophrasti",
+    "Salsola kali",
+    "Solanum nigrum",
+    "Chenopodium album",
+    "Mercurialis annua",
+    "Polygonum spp.",
+    "Sorghum halepense",
+    "Datura stramonium"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46389",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/davai",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-105",
+   "PRODUCT": "VINIFOL WDG",
+   "REGISTRATION_ID": "017311",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Muffa grigia",
+    "Botrytis cinerea",
+    "Alternaria solani",
+    "Fulvia fulva",
+    "Marciume bianco",
+    "Phomopsis viticola",
+    "Marciume nero",
+    "Coniella diplodiella",
+    "Guignardia bidwellii",
+    "Aspergillus spp.",
+    "Erysipha necator",
+    "Plasmopara viticola",
+    "Phytophthora infestans",
+    "Septoria lycopersici"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46429",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-106",
+   "PRODUCT": "CHASER-S",
+   "REGISTRATION_ID": "017318",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "TERBUTHYLAZINE",
+    "SULCOTRIONE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "27 (F2)",
+     "5 (C1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Cencio molle",
+    "Amaranthus spp.",
+    "Farinello comune",
+    "Solanum nigrum",
+    "Chenopodium album",
+    "Erba morella",
+    "Datura stramonium",
+    "Capsella bursa",
+    "Echinochloa crus",
+    "Xantium strumarium",
+    "Mercurialis annua",
+    "Mercorella comune",
+    "Polygonum persicaria",
+    "Portulaca oleracea",
+    "Porcellana comune",
+    "Digitaria sanguinalis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41357",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-107",
+   "PRODUCT": "FOXPRO",
+   "REGISTRATION_ID": "017319",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "BIFENOX"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-03-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35579",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-108",
+   "PRODUCT": "HANUKYS",
+   "REGISTRATION_ID": "017332",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "GRAPEVINE",
+    "POTATO",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Agropyron repens",
+    "Agropiro comune",
+    "Avena spp.",
+    "Alopecurus spp.",
+    "Echinochloa spp",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Digitaria spp.",
+    "Phalaris spp.",
+    "Sorghum halepense",
+    "Cynodon dactylon"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41379",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-109",
+   "PRODUCT": "MOVER",
+   "REGISTRATION_ID": "017335",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOSETYL-ALUMINIUM"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=32085",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-110",
+   "PRODUCT": "VANGUARD",
+   "REGISTRATION_ID": "017337",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOSETYL-ALUMINIUM"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=32078",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-111",
+   "PRODUCT": "APHOX 50",
+   "REGISTRATION_ID": "017340",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PIRIMICARB"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "AFICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=34292",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-112",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-08-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "GRAPEVINE",
+    "TOMATO",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Puccinia spp.",
+    "Erysiphe spp.",
+    "Leveillula taurica",
+    "Pyrenophora spp.",
+    "Sphaerotheca spp.",
+    "Uncicola necator",
+    "Erysiphe spp.",
+    "Rhynchosporium spp.",
+    "Septoria spp.",
+    "Fusarium spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 3,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-113",
+   "PRODUCT": "DOMITREL 400 CS",
+   "REGISTRATION_ID": "017398",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "SOSPENSIONE DI CAPSULE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45931",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-114",
+   "PRODUCT": "XINTECH 50",
+   "REGISTRATION_ID": "017409",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PIRIMICARB"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "AFICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=34293",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-115",
+   "PRODUCT": "AGHARTA",
+   "REGISTRATION_ID": "017432",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FLUAZINAM"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38823",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-116",
+   "PRODUCT": "GOLTIX SUPER",
+   "REGISTRATION_ID": "017580",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "ETHOFUMESATE",
+    "METAMITRON"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato in regime di Riconoscimento Reciproco",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39337",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-117",
+   "PRODUCT": "POSTSCRIPT 80",
+   "REGISTRATION_ID": "017585",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "IMAZAMOX"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-06-30",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE",
+    "RICE",
+    "SUGARBEET",
+    "SUNFLOWER"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Ammannia coccinea",
+    "Ammannia arrossata",
+    "Sanguinella comune",
+    "Giavone rosso",
+    "Heteranthera reniformis",
+    "Heteranthera spp.",
+    "Echinochloa crus",
+    "Riso crodo",
+    "Poligono persicaria",
+    "Persicaria maculosa",
+    "Oryza sativa",
+    "Digitaria sanguinalis",
+    "Lindernia dubia"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46391",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-118",
+   "PRODUCT": "EARLEX",
+   "REGISTRATION_ID": "017655",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "IMAZAMOX"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-06-30",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "B"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus blitoides",
+    "Ambrosia artemisiifolia",
+    "Abutilon theophrasti",
+    "Salsola kali",
+    "Solanum nigrum",
+    "Chenopodium album",
+    "Mercurialis annua",
+    "Polygonum spp.",
+    "Sorghum halepense",
+    "Datura stramonium"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46390",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-119",
+   "PRODUCT": "PRESTIGAN ME",
+   "REGISTRATION_ID": "017658",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "CONCENTRATO FLUIDO MISCIBILE IN OLI",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45932",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-120",
+   "PRODUCT": "ACTIGAN ME",
+   "REGISTRATION_ID": "017659",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "CONCENTRATO FLUIDO MISCIBILE IN OLI",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45929",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-121",
+   "PRODUCT": "ACTIGAN EKO",
+   "REGISTRATION_ID": "017660",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "3 (K1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "SOYBEAN",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Anagallis arvensis",
+    "Picris echioides",
+    "Matricaria spp.",
+    "Chrysanthemum segetum",
+    "Solanum nigrum",
+    "Phalaris spp.",
+    "Chenopodium spp.",
+    "Fumaria officinalis",
+    "Sonchus spp.",
+    "Lactuca serriola",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Papaver rhoeas",
+    "Polygonum spp.",
+    "Portulaca oleracea",
+    "Diplotaxis erucoides",
+    "Digitaria sanguinalis",
+    "Sinapis spp.",
+    "Veronica spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45879",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-122",
+   "PRODUCT": "PRESTIGAN EKO",
+   "REGISTRATION_ID": "017661",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-01-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "3 (K1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "SOYBEAN",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Anagallis arvensis",
+    "Picris echioides",
+    "Matricaria spp.",
+    "Chrysanthemum segetum",
+    "Solanum nigrum",
+    "Phalaris spp.",
+    "Chenopodium spp.",
+    "Fumaria officinalis",
+    "Sonchus spp.",
+    "Lactuca serriola",
+    "Lolium spp.",
+    "Setaria spp.",
+    "Papaver rhoeas",
+    "Polygonum spp.",
+    "Portulaca oleracea",
+    "Diplotaxis erucoides",
+    "Digitaria sanguinalis",
+    "Sinapis spp.",
+    "Veronica spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45882",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-123",
+   "PRODUCT": "BIFENIX",
+   "REGISTRATION_ID": "017662",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "BIFENOX"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-03-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=35626",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-124",
+   "PRODUCT": "KORAL 50 WG",
+   "REGISTRATION_ID": "017663",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TRIBENURON"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2035-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "B"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Camomilla bastarda",
+    "Capsella bursa",
+    "Matricaria chamomilla",
+    "Anthemis arvensis",
+    "Cirsium arvense",
+    "Stellaria media",
+    "Cardo campestre",
+    "Fallopia convolvulus",
+    "Convolvolo nero",
+    "Fumaria officinalis",
+    "Papaver rhoeas",
+    "Sinapis arvensis",
+    "Senape selvatica",
+    "Veronica spp.",
+    "Viola arvensis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46682",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-125",
+   "PRODUCT": "KIKKO 50 WG",
+   "REGISTRATION_ID": "017664",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TRIBENURON"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2035-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "B"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Camomilla bastarda",
+    "Capsella bursa",
+    "Matricaria chamomilla",
+    "Anthemis arvensis",
+    "Cirsium arvense",
+    "Stellaria media",
+    "Cardo campestre",
+    "Fallopia convolvulus",
+    "Convolvolo nero",
+    "Fumaria officinalis",
+    "Papaver rhoeas",
+    "Sinapis arvensis",
+    "Senape selvatica",
+    "Veronica spp.",
+    "Viola arvensis"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46681",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-126",
+   "PRODUCT": "ELTIRA",
+   "REGISTRATION_ID": "017687",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-08-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "SORGHUM",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Nottue defogliatrici"
+   ],
+   "AUTHORIZED_USE_ROWS": 1,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43525",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-127",
+   "PRODUCT": "ANTERLEX",
+   "REGISTRATION_ID": "017688",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CYMOXANIL"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-08-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "POTATO",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro peronospora",
+    "Phytophtora infestans",
+    "Contro peronospora",
+    "Plasmopara viticola",
+    "Phytophtora infestans"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38106",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-128",
+   "PRODUCT": "MOXYL MK",
+   "REGISTRATION_ID": "017689",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CYMOXANIL"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-08-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "POTATO",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro peronospora",
+    "Phytophtora infestans",
+    "Contro peronospora",
+    "Plasmopara viticola",
+    "Phytophtora infestans"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=37221",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-129",
+   "PRODUCT": "VANTEX",
+   "REGISTRATION_ID": "017690",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CYMOXANIL"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-08-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "POTATO",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro peronospora",
+    "Phytophtora infestans",
+    "Contro peronospora",
+    "Plasmopara viticola",
+    "Phytophtora infestans"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41673",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-130",
+   "PRODUCT": "ACTIGAN DFF",
+   "REGISTRATION_ID": "017703",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "PENDIMETHALIN",
+    "DIFLUFENICAN"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-08-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "12 (F1)",
+     "3 (K1)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Calepina spp.",
+    "Matricaria spp.",
+    "Stellaria media",
+    "Alopecurus myosuroides",
+    "Polygonum aviculare",
+    "Lamium purpureum",
+    "Chenopidium album",
+    "Fumaria officinalis",
+    "Falsa ortica",
+    "Lolium spp.",
+    "Papaver rhoeas",
+    "Polygonum persicaria",
+    "Poligono persicaria",
+    "Sinapis arvensis",
+    "Senecio vulgaris",
+    "Sonchus spp.",
+    "Veronica spp.",
+    "Viola spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45877",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-131",
+   "PRODUCT": "STAVENTO",
+   "REGISTRATION_ID": "017752",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato in regime di Riconoscimento Reciproco",
+   "EXPIRY": "2040-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Septoria tritici"
+   ],
+   "AUTHORIZED_USE_ROWS": 1,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46354",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/stavento",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-132",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "GRAPEVINE",
+    "TOMATO",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Puccinia spp.",
+    "Erysiphe spp.",
+    "Leveillula taurica",
+    "Pyrenophora spp.",
+    "Sphaerotheca spp.",
+    "Uncicola necator",
+    "Erysiphe spp.",
+    "Rhynchosporium spp.",
+    "Septoria spp.",
+    "Fusarium spp."
+   ],
+   "AUTHORIZED_USE_ROWS": 3,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-133",
+   "PRODUCT": "POWERFILM",
+   "REGISTRATION_ID": "017852",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PLANT OILS / RAPE SEED OIL"
+   ],
+   "FORMULATION": "LIQUIDO (SENZA DILUIZIONE)",
+   "REGULATORY_CATEGORY": "COADIUVANTE",
+   "LINE": "OUTRA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2041-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41358",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-134",
+   "PRODUCT": "POSTSCRIPT 80 XL",
+   "REGISTRATION_ID": "017868",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "IMAZAMOX"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-06-30",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE",
+    "RICE",
+    "SUGARBEET",
+    "SUNFLOWER"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Ammannia coccinea",
+    "Ammannia arrossata",
+    "Sanguinella comune",
+    "Giavone rosso",
+    "Heteranthera reniformis",
+    "Heteranthera sp.",
+    "Echinochloa crus",
+    "Riso crodo",
+    "Poligono persicaria",
+    "Persicaria maculosa",
+    "Oryza sativa",
+    "Digitaria sanguinalis",
+    "Lindernia dubia"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46392",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/fullpager-rice-cropping-solution",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-135",
+   "PRODUCT": "RIMENSIS",
+   "REGISTRATION_ID": "017898",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOSETYL-ALUMINIUM"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=37677",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-136",
+   "PRODUCT": "KORAVERT",
+   "REGISTRATION_ID": "017929",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38128",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-137",
+   "PRODUCT": "AKTIVIR",
+   "REGISTRATION_ID": "017930",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38126",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-138",
+   "PRODUCT": "MAGANIC",
+   "REGISTRATION_ID": "017955",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "DIFENOCONAZOLE",
+    "PROTHIOCONAZOLE"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2028-01-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42959",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/maganicr",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-139",
+   "PRODUCT": "MAVRIK JET",
+   "REGISTRATION_ID": "017968",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "TAU-FLUVALINATE",
+    "PIRIMICARB"
+   ],
+   "FORMULATION": "EMULSIONE OLIO/ACQUA",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato in regime di Riconoscimento Reciproco",
+   "EXPIRY": "2027-01-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "1A"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "POTATO",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Contro afidi",
+    "Contro afidi",
+    "Aphis fabae",
+    "Contro afidi",
+    "Brevicoryne brassicae",
+    "Aphis fabae",
+    "Cavariella aegopodii",
+    "Brevicoryne brassicae",
+    "Brachycaudus helichrysi",
+    "Aphis gossypii",
+    "Acyrthosiphon pisum",
+    "Contro afidi",
+    "Dysaphis plantaginea",
+    "Sitobion avenae",
+    "Acyrthosiphon pisum",
+    "Aphis gossypii"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39503",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-140",
+   "PRODUCT": "GOLDBEET SUPER",
+   "REGISTRATION_ID": "017983",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "ETHOFUMESATE",
+    "METAMITRON"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39338",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-141",
+   "PRODUCT": "HIGHCARD",
+   "REGISTRATION_ID": "017995",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "ISOXADIFEN ETHYL",
+    "QUIZALOFOP-P-ETHYL"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2028-02-28",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "RICE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "SUNFLOWER",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Echinochloa spp.",
+    "Isoxadifen etile"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42387",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/max-acer-rice-cropping-solution",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-142",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Blumeria graminis",
+    "Helminthosporium gramineum",
+    "Fusarium spp.",
+    "Ruggine bruna",
+    "Ramularia collo",
+    "Rhyncosporium secalis",
+    "Puccinia recondita",
+    "Puccinia recondita",
+    "Puccinia striiformis",
+    "Puccinia sp.",
+    "Rhyncosporium secalis",
+    "Zymoseptoria tritici",
+    "Zymoseptoria tritici"
+   ],
+   "AUTHORIZED_USE_ROWS": 3,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/maxentisr",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-143",
+   "PRODUCT": "SONAVIO",
+   "REGISTRATION_ID": "018072",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "BIFENOX"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2028-03-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Solanum nigrum",
+    "Chenopodium spp.",
+    "Portulaca oleracea",
+    "Erba morella"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46665",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/sonavior",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-144",
+   "PRODUCT": "AVASTEL",
+   "REGISTRATION_ID": "018089",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROTHIOCONAZOLE",
+    "FLUXAPYROXAD"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2028-03-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44907",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/avastelr",
+   "CATALOG_CATEGORY": "FUNGICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-145",
+   "PRODUCT": "MORAINE",
+   "REGISTRATION_ID": "018101",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FLUROXYPYR"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2027-02-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "O"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "ALFALFA",
+    "APPLE",
+    "BARLEY",
+    "COMMON_WHEAT",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "SUGARBEET",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Oxalis corniculata",
+    "Galium aparine"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44958",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-146",
+   "PRODUCT": "ARRODIM",
+   "REGISTRATION_ID": "018111",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CLETHODIM"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato Art. 34 Reg. 1107/2009",
+   "EXPIRY": "2026-08-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1 (A)"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "MAIZE",
+    "SOYBEAN",
+    "SUGARBEET",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Avena sp.",
+    "Phalaris sp.",
+    "Panicum sp.",
+    "Echinochloa sp.",
+    "Lolium sp.",
+    "Digitaria sp.",
+    "Setaria sp.",
+    "Sorghum halepense"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41618",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/arrodimr",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-147",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato Art. 34 Reg. 1107/2009",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 4,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/insetticidi/apyzar-wg",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-148",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato Art. 34 Reg. 1107/2009",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 4,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-149",
+   "PRODUCT": "SORATEL",
+   "REGISTRATION_ID": "018175",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "PROTHIOCONAZOLE"
+   ],
+   "FORMULATION": "CONCENTRATO EMULSIONABILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2027-03-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42989",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-150",
+   "PRODUCT": "EDAPTIS",
+   "REGISTRATION_ID": "018176",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "MEFENPYR DIETHYL",
+    "MESOSULFURON-METHYL",
+    "PINOXADEN"
+   ],
+   "FORMULATION": "OLIO DISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2029-12-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1",
+     "2"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "DURUM_WHEAT",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Ridolfia segetum",
+    "Avena spp.",
+    "Anagallis arvensis",
+    "Alopecurus myosuroides",
+    "Phalaris spp.",
+    "Lolium spp.",
+    "Milium vernale",
+    "Miglio annuale",
+    "Fienarola annuale",
+    "Fienarola comune",
+    "Ravanello selvatico",
+    "Raphanus raphanistrum",
+    "Aneto puzzolente",
+    "Diplotaxis virgata",
+    "Sinapis alba",
+    "Sinapis arvensis",
+    "Senape bianca",
+    "Senape selvatica"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45957",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/edaptisr",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-151",
+   "PRODUCT": "ETHOSAT SC",
+   "REGISTRATION_ID": "018202",
+   "HOLDER": "ADAMA AGAN LTD",
+   "ACTIVE_INGREDIENTS": [
+    "ETHOFUMESATE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2032-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46263",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-152",
+   "PRODUCT": "MOMENTUM PFNPE",
+   "REGISTRATION_ID": "018244",
+   "HOLDER": "ADAMA MAKHTESHIM LTD",
+   "ACTIVE_INGREDIENTS": [
+    "FOSETYL-ALUMINIUM"
+   ],
+   "FORMULATION": "GRANULARE IDRODISPERSIBILE",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2026-10-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Phytophtora spp.",
+    "Pseudominas syringae",
+    "Gemme nere",
+    "Plasmopora viticola"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42645",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-153",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Acer sp.",
+    "Alium sp.",
+    "Amaranthus sp.",
+    "Visnaga maggiore",
+    "Aristolochia sp.",
+    "Asfodelus sp.",
+    "Leersia oryzoidea",
+    "Artemisia sp.",
+    "Avena sp.",
+    "Calluna sp.",
+    "Calendula sp.",
+    "Arundo sp.",
+    "Phragmines sp.",
+    "Agrostis sp.",
+    "Lonicera sp.",
+    "Cirsium sp",
+    "Carex sp.",
+    "Stellaria sp.",
+    "Cyperus sp.",
+    "Cardo campestre",
+    "Cistus sp.",
+    "Clematis sp.",
+    "Alopecurus sp.",
+    "Sparganium sp.",
+    "Glechoma sp.",
+    "Erica sp.",
+    "Euphorbia sp.",
+    "Phalaris sp.",
+    "Chenopodium sp.",
+    "Pteridium sp.",
+    "Ferula sp.",
+    "Fraxinus sp.",
+    "Genista sp.",
+    "Juncus sp.",
+    "Butomus sp.",
+    "Agropyron repens",
+    "Cynodon sp.",
+    "Glyceria sp.",
+    "Sonchus sp.",
+    "Hipericum sp.",
+    "Lolium sp.",
+    "Mercurialis sp",
+    "Vaccinum sp.",
+    "Nardus sp.",
+    "Urtica sp.",
+    "Oxalis sp.",
+    "Eracleum sp.",
+    "Portulaca sp.",
+    "Raphanus sp.",
+    "Ranunculus sp.",
+    "Rubia peregrina",
+    "Rumex sp.",
+    "Rubus sp.",
+    "Salix sp.",
+    "Sambucus sp.",
+    "Scirpus sp.",
+    "Sinapis sp.",
+    "Senecio sp.",
+    "Sorghum halepense",
+    "Tipha sp.",
+    "Veronica sp.",
+    "Convolvolus sp.",
+    "Ammi majus"
+   ],
+   "AUTHORIZED_USE_ROWS": 2,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-154",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "RICE"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Acer sp.",
+    "Alium sp.",
+    "Amaranthus sp.",
+    "Visnaga maggiore",
+    "Aristolochia sp.",
+    "Asfodelus sp.",
+    "Leersia oryzoidea",
+    "Artemisia sp.",
+    "Avena sp.",
+    "Calluna sp.",
+    "Calendula sp.",
+    "Arundo sp.",
+    "Phragmines sp.",
+    "Agrostis sp.",
+    "Lonicera sp.",
+    "Cirsium sp",
+    "Carex sp.",
+    "Stellaria sp.",
+    "Cyperus sp.",
+    "Cardo campestre",
+    "Cistus sp.",
+    "Clematis sp.",
+    "Alopecurus sp.",
+    "Sparganium sp.",
+    "Glechoma sp.",
+    "Erica sp.",
+    "Euphorbia sp.",
+    "Phalaris sp.",
+    "Chenopodium sp.",
+    "Pteridium sp.",
+    "Ferula sp.",
+    "Fraxinus sp.",
+    "Genista sp.",
+    "Juncus sp.",
+    "Butomus sp.",
+    "Agropyron repens",
+    "Cynodon sp.",
+    "Glyceria sp.",
+    "Sonchus sp.",
+    "Hipericum sp.",
+    "Lolium sp.",
+    "Mercurialis sp",
+    "Vaccinum sp.",
+    "Nardus sp.",
+    "Urtica sp.",
+    "Oxalis sp.",
+    "Eracleum sp.",
+    "Portulaca sp.",
+    "Raphanus sp.",
+    "Ranunculus sp.",
+    "Rubia peregrina",
+    "Rumex sp.",
+    "Rubus sp.",
+    "Salix sp.",
+    "Sambucus sp.",
+    "Scirpus sp.",
+    "Sinapis sp.",
+    "Senecio sp.",
+    "Sorghum halepense",
+    "Tipha sp.",
+    "Veronica sp.",
+    "Convolvolus sp.",
+    "Ammi majus"
+   ],
+   "AUTHORIZED_USE_ROWS": 2,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-155",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Acer sp.",
+    "Alium sp.",
+    "Amaranthus sp.",
+    "Visnaga maggiore",
+    "Aristolochia sp.",
+    "Asfodelus sp.",
+    "Leersia oryzoidea",
+    "Artemisia sp.",
+    "Avena sp.",
+    "Calluna sp.",
+    "Calendula sp.",
+    "Arundo sp.",
+    "Phragmines sp.",
+    "Agrostis sp.",
+    "Lonicera sp.",
+    "Cirsium sp",
+    "Carex sp.",
+    "Stellaria sp.",
+    "Cyperus sp.",
+    "Cardo campestre",
+    "Cistus sp.",
+    "Clematis sp.",
+    "Alopecurus sp.",
+    "Sparganium sp.",
+    "Glechoma sp.",
+    "Erica sp.",
+    "Euphorbia sp.",
+    "Phalaris sp.",
+    "Chenopodium sp.",
+    "Pteridium sp.",
+    "Ferula sp.",
+    "Fraxinus sp.",
+    "Genista sp.",
+    "Juncus sp.",
+    "Butomus sp.",
+    "Agropyron repens",
+    "Cynodon sp.",
+    "Glyceria sp.",
+    "Sonchus sp.",
+    "Hipericum sp.",
+    "Lolium sp.",
+    "Mercurialis sp",
+    "Vaccinum sp.",
+    "Nardus sp.",
+    "Urtica sp.",
+    "Oxalis sp.",
+    "Eracleum sp.",
+    "Portulaca sp.",
+    "Raphanus sp.",
+    "Ranunculus sp.",
+    "Rubia peregrina",
+    "Rumex sp.",
+    "Rubus sp.",
+    "Salix sp.",
+    "Sambucus sp.",
+    "Scirpus sp.",
+    "Sinapis sp.",
+    "Senecio sp.",
+    "Sorghum halepense",
+    "Tipha sp.",
+    "Veronica sp.",
+    "Convolvolus sp.",
+    "Ammi majus"
+   ],
+   "AUTHORIZED_USE_ROWS": 2,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-156",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "HOLDER": "ADAMA DEUTSCHLAND GMBH",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "FORMULATION": "CONCENTRATO SOLUBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato",
+   "EXPIRY": "2034-12-15",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "BARLEY",
+    "GRAPEVINE",
+    "MAIZE",
+    "OLIVE",
+    "POTATO",
+    "RICE",
+    "TOMATO",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Acer sp.",
+    "Alium sp.",
+    "Amaranthus sp.",
+    "Visnaga maggiore",
+    "Aristolochia sp.",
+    "Asfodelus sp.",
+    "Leersia oryzoidea",
+    "Artemisia sp.",
+    "Avena sp.",
+    "Calluna sp.",
+    "Calendula sp.",
+    "Arundo sp.",
+    "Phragmines sp.",
+    "Agrostis sp.",
+    "Lonicera sp.",
+    "Cirsium sp",
+    "Carex sp.",
+    "Stellaria sp.",
+    "Cyperus sp.",
+    "Cardo campestre",
+    "Cistus sp.",
+    "Clematis sp.",
+    "Alopecurus sp.",
+    "Sparganium sp.",
+    "Glechoma sp.",
+    "Erica sp.",
+    "Euphorbia sp.",
+    "Phalaris sp.",
+    "Chenopodium sp.",
+    "Pteridium sp.",
+    "Ferula sp.",
+    "Fraxinus sp.",
+    "Genista sp.",
+    "Juncus sp.",
+    "Butomus sp.",
+    "Agropyron repens",
+    "Cynodon sp.",
+    "Glyceria sp.",
+    "Sonchus sp.",
+    "Hipericum sp.",
+    "Lolium sp.",
+    "Mercurialis sp",
+    "Vaccinum sp.",
+    "Nardus sp.",
+    "Urtica sp.",
+    "Oxalis sp.",
+    "Eracleum sp.",
+    "Portulaca sp.",
+    "Raphanus sp.",
+    "Ranunculus sp.",
+    "Rubia peregrina",
+    "Rumex sp.",
+    "Rubus sp.",
+    "Salix sp.",
+    "Sambucus sp.",
+    "Scirpus sp.",
+    "Sinapis sp.",
+    "Senecio sp.",
+    "Sorghum halepense",
+    "Tipha sp.",
+    "Veronica sp.",
+    "Convolvolus sp.",
+    "Ammi majus"
+   ],
+   "AUTHORIZED_USE_ROWS": 2,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/taifun-mk-cl-pfnpe",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-157",
+   "PRODUCT": "NERASTAL",
+   "REGISTRATION_ID": "018545",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "BIFENOX"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato con procedura zonale",
+   "EXPIRY": "2028-03-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp.",
+    "Solanum nigrum",
+    "Chenopodium spp.",
+    "Portulaca oleracea",
+    "Erba morella"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46666",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-158",
+   "PRODUCT": "COSAYR 200 SC",
+   "REGISTRATION_ID": "018561",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "CHLORANTRANILIPROLE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "LINE": "INSETICIDA",
+   "STATUS": "Autorizzato Art. 34 Reg. 1107/2009",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "28"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "APPLE",
+    "GRAPEVINE",
+    "MAIZE",
+    "POTATO",
+    "TOMATO"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Anarsia lineatella",
+    "Curculio elephas",
+    "Adoxophyes orana",
+    "Cydia pomonella",
+    "Leucoptera scitella",
+    "Operophtera brumata",
+    "Leptinotarsa decemlineata",
+    "Argyrotaenia pulchellana",
+    "Phyllonorychter corylifoliella",
+    "Phyllonorychter blancardella",
+    "Phyllocnistis vitegenella",
+    "Phyllocnistis citrella",
+    "Helicoverpa armigera",
+    "Spodoptera littoralis",
+    "Ostrinia nubilialis",
+    "Sesamia spp.",
+    "Cydia funebrana",
+    "Phthorimaea operculella",
+    "Eupoecilia ambiguella",
+    "Cydia molesta",
+    "Lobesia botrana",
+    "Pandemis cerasana",
+    "Cydia fagiglandana",
+    "Pandemis heparana"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46065",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/insetticidi/cosayrr-200-sc",
+   "CATALOG_CATEGORY": "INSETTICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-159",
+   "PRODUCT": "MEZAYO",
+   "REGISTRATION_ID": "018644",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "MESOSULFURON-METHYL",
+    "PINOXADEN"
+   ],
+   "FORMULATION": "OLIO DISPERSIBILE",
+   "REGULATORY_CATEGORY": "DISERBANTE-ANTIDOTO AGRONOMICO",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato Art. 10 D.P.R. 290/2001",
+   "EXPIRY": "2029-12-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "1",
+     "2"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "DURUM_WHEAT",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Ridolfia segetum",
+    "Avena spp.",
+    "Anagallis arvensis",
+    "Alopecurus myosuroides",
+    "Phalaris spp.",
+    "Lolium spp.",
+    "Milium vernale",
+    "Miglio annuale",
+    "Fienarola annuale",
+    "Fienarola comune",
+    "Ravanello selvatico",
+    "Raphanus raphanistrum",
+    "Aneto puzzolente",
+    "Diplotaxis virgata",
+    "Sinapis alba",
+    "Sinapis arvensis",
+    "Senape bianca",
+    "Senape selvatica"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45958",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-160",
+   "PRODUCT": "DIODE",
+   "REGISTRATION_ID": "018694",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "MESOTRIONE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato Art. 34 Reg. 1107/2009",
+   "EXPIRY": "2032-05-31",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44334",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/dioder",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-161",
+   "PRODUCT": "GOLTIX BETA",
+   "REGISTRATION_ID": "018813",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato Art. 10 D.P.R. 290/2001",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [
+    "SUGARBEET"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp",
+    "Anagallis arvensis",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Polygonum aviculare",
+    "Ruchetta violacea",
+    "Solanum nigrum",
+    "Chenopodium album",
+    "Papaver rhoeas",
+    "Polygonum lapathifolium",
+    "Polygonum persicaria",
+    "Poligono nodoso",
+    "Poligono persicaria",
+    "Diplotaxis erucoides",
+    "Erba morella",
+    "Stregona annuale",
+    "Stachys annua"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44025",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-162",
+   "PRODUCT": "GOLTIX TOP",
+   "REGISTRATION_ID": "018814",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "METAMITRON"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "LINE": "HERBICIDA",
+   "STATUS": "Autorizzato Art. 10 D.P.R. 290/2001",
+   "EXPIRY": "2026-11-30",
+   "MODE_OF_ACTION_DECLARED": {},
+   "CROP_TERMS_PRESENT": [],
+   "TARGETS_FROM_LABEL": [
+    "Amaranthus spp",
+    "Anagallis arvensis",
+    "Matricaria chamomilla",
+    "Stellaria media",
+    "Polygonum aviculare",
+    "Ruchetta violacea",
+    "Solanum nigrum",
+    "Chenopodium album",
+    "Papaver rhoeas",
+    "Polygonum lapathifolium",
+    "Polygonum persicaria",
+    "Poligono nodoso",
+    "Poligono persicaria",
+    "Diplotaxis erucoides",
+    "Erba morella",
+    "Stregona annuale",
+    "Stachys annua"
+   ],
+   "AUTHORIZED_USE_ROWS": 0,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43953",
+   "IN_PUBLIC_CATALOG": true,
+   "CATALOG_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/goltixr-top-0",
+   "CATALOG_CATEGORY": "ERBICIDI",
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-PRD-163",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "HOLDER": "ADAMA ITALIA S.R.L.",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "FORMULATION": "SOSPENSIONE CONCENTRATA",
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "LINE": "FUNGICIDA",
+   "STATUS": "Autorizzato Art. 10 D.P.R. 290/2001",
+   "EXPIRY": "2027-05-31",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "CROP_TERMS_PRESENT": [
+    "BARLEY",
+    "COMMON_WHEAT",
+    "TRITICALE",
+    "WHEAT_GENERIC"
+   ],
+   "TARGETS_FROM_LABEL": [
+    "Blumeria graminis",
+    "Helminthosporium gramineum",
+    "Fusarium spp.",
+    "Ruggine bruna",
+    "Ramularia collo",
+    "Rhyncosporium secalis",
+    "Puccinia recondita",
+    "Puccinia recondita",
+    "Puccinia striiformis",
+    "Puccinia sp.",
+    "Rhyncosporium secalis",
+    "Zymoseptoria tritici",
+    "Zymoseptoria tritici"
+   ],
+   "AUTHORIZED_USE_ROWS": 3,
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "IN_PUBLIC_CATALOG": false,
+   "CATALOG_URL": null,
+   "CATALOG_CATEGORY": null,
+   "SOURCE_ID": "IT-SRC-MINISTERO",
+   "PROVENANCE": "REAL_FACT"
+  }
+ ]
+}

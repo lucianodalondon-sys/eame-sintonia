@@ -1,0 +1,121 @@
+{
+ "SOURCE_ID": "CAPTURE-VS-REGISTRATION-CONTRACT-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "source": "contrato escrito ANTES da implementacao, como a missao exige. Nenhuma linha importada, nada aplicado em producao.",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "ES · FR · IT",
+ "ORIGINAL_LANGUAGE": "pt",
+ "A_LEI": "CAPTURE != REGISTRATION",
+ "O_DEFEITO_QUE_ELE_FECHA": "registro_regulatorio e um LOG versionado por captura — e isso e legitimo e deve continuar. O defeito era outro: v_product_registered_windows lia esse log como se cada linha fosse um registro independente. Com uma captura so, invisivel. Com a segunda captura do MESMO registro, o NEPTUNE aparecia 3 vezes no mesmo caso.",
+ "OS_DOIS_PAPEIS": {
+  "REGISTRATION": {
+   "O_QUE_E": "a entidade regulatoria. Uma autorizacao concedida por um Estado.",
+   "QUANTAS_EXISTEM": "uma por (pais, numero de registro), para sempre",
+   "QUEM_A_CRIA": "a autoridade nacional, nao nos"
+  },
+  "CAPTURE": {
+   "O_QUE_E": "uma OBSERVACAO dessa entidade, numa fonte, num instante.",
+   "QUANTAS_EXISTEM": "quantas vezes olharmos. Duas leituras do ROPF no mesmo dia sao duas capturas do mesmo registro.",
+   "QUEM_A_CRIA": "nos, ao coletar"
+  }
+ },
+ "IDENTITY_KEY": {
+  "CHAVE": [
+   "pais",
+   "registration_id"
+  ],
+  "PORQUE": "e a chave que a autoridade emite. Nome comercial nao entra: NOME IGUAL != MESMO REGISTRO, e o CUPROXI FLO prova isso nesta mesma rodada.",
+  "O_QUE_ELA_NAO_INCLUI": [
+   "fonte",
+   "fonte_versao",
+   "capturado_em",
+   "nome_comercial"
+  ]
+ },
+ "CAPTURE_KEY": {
+  "CHAVE": [
+   "pais",
+   "registration_id",
+   "fonte",
+   "fonte_versao"
+  ],
+  "A_CHAVE_ATUAL_NO_BANCO": [
+   "pais",
+   "registration_id",
+   "fonte_versao"
+  ],
+  "A_DIFERENCA_IMPORTA": "a chave atual omite `fonte`. Duas fontes diferentes que escrevessem a mesma string de versao colidiriam e uma sobrescreveria a outra em silencio. Nenhuma captura de hoje cai nesse caso — todas vem de MAPA ROPF — mas a trava e sobre o que pode entrar amanha, nao sobre o que ja entrou.",
+  "ESTADO": "CORRIGIDA na 013"
+ },
+ "OS_DOIS_INSTANTES": {
+  "SOURCE_INSTANT": {
+   "COLUNA": "fonte_versao",
+   "O_QUE_E": "quando a FONTE gerou o dado — o timestamp do servidor do MAPA",
+   "TIPO_NO_BANCO": "text, por convencao um timestamp ISO",
+   "PORQUE_TEXT": "a coluna nasceu text em 006 e ha fontes que versionam sem timestamp. Converter a forca inventaria precisao."
+  },
+  "CAPTURE_INSTANT": {
+   "COLUNA": "capturado_em",
+   "O_QUE_E": "quando NOS observamos",
+   "TIPO_NO_BANCO": "timestamptz not null"
+  },
+  "SOURCE_DATE_!=_CAPTURE_DATE": "sao dois fatos diferentes e a regra de selecao usa os dois para coisas diferentes: capturado_em decide o que ESTAVA DISPONIVEL, fonte_versao decide o que e MAIS RECENTE entre o que estava disponivel."
+ },
+ "CURRENT_AS_OF_SELECTION_RULE": {
+  "PERGUNTA_QUE_ELA_RESPONDE": "qual e o estado regulatorio observavel mais recente para este registro, considerando so a evidencia que estava disponivel ate AS_OF_DATE?",
+  "PASSO_1_ELEGIBILIDADE": "capturado_em <= as_of. Nao se responde uma pergunta de abril com evidencia de agosto. FUTURE_CAPTURE_CANNOT_REWRITE_PAST_STATE.",
+  "PASSO_2_ORDEM": "entre as elegiveis, a de maior SOURCE_INSTANT — o que o registro disse por ultimo. Quando fonte_versao nao e um timestamp valido, ela nao ordena: cai para o desempate, em vez de ser adivinhada.",
+  "PASSO_3_TIE_BREAK_1": "maior capturado_em",
+  "PASSO_4_TIE_BREAK_2": "maior id. Existe para que a resposta seja SEMPRE deterministica — duas execucoes da mesma pergunta nunca podem devolver linhas diferentes.",
+  "O_QUE_ELA_NAO_FAZ": [
+   "nao apaga captura",
+   "nao altera registro_regulatorio",
+   "nao transforma o log em tabela de estado corrente",
+   "nao usa max(captured_at) sozinho — isso responderia outra pergunta"
+  ]
+ },
+ "TIE_BREAK_RULE": "SOURCE_INSTANT desc nulls last, depois capturado_em desc, depois id desc. Os tres juntos sao totais: nao existe empate possivel, porque id e unico.",
+ "SOURCE_PRIORITY": {
+  "EXISTE": false,
+  "PORQUE_NAO": "hoje toda captura vem de MAPA ROPF. Inventar uma ordem entre fontes que ainda nao convivem seria decidir no escuro uma questao que ninguem colocou.",
+  "O_QUE_ACONTECE_SE_DUAS_FONTES_DISCORDAREM": "a selecao continua deterministica pelos tres criterios acima, E o resultado marca CONFLITO_DE_FONTE = true com as fontes nomeadas. A ambiguidade fica visivel em vez de resolvida em silencio.",
+  "QUEM_DECIDE_DEPOIS": "quem tiver evidencia de qual fonte manda. Nao este contrato."
+ },
+ "ONDE_A_REGRA_MORA": {
+  "CAMADA": "consulta, nunca dado",
+  "OBJETOS": [
+   {
+    "NOME": "public.instante_da_fonte(text, timestamptz)",
+    "PAPEL": "le fonte_versao como timestamp quando ela e um, e devolve NULL quando nao e. Nunca levanta erro e nunca chuta."
+   },
+   {
+    "NOME": "public.f_registro_corrente(pais, as_of)",
+    "PAPEL": "UMA linha por registro elegivel, aplicando a regra de selecao. Expoe capturas_ate_as_of e conflito_de_fonte."
+   },
+   {
+    "NOME": "public.f_product_registered_windows(pais, as_of)",
+    "PAPEL": "as janelas do relogio C, passando pelo registro corrente. E daqui que f_case_temporal_context passa a ler."
+   },
+   {
+    "NOME": "public.v_product_registered_windows",
+    "PAPEL": "CONTINUA existindo e CONTINUA devolvendo todas as capturas. E o log, e ele nao mente: quem quer historico le esta view."
+   }
+  ]
+ },
+ "O_QUE_TEM_DE_VALER_AO_MESMO_TEMPO": {
+  "HISTORY_ROWS": "> 1 — as capturas continuam todas la",
+  "CURRENT_STATE_ROWS": "= 1 por registro, para um dado as_of",
+  "PORQUE_AS_DUAS_JUNTAS": "resolver a duplicacao apagando captura seria trocar um defeito por um pior: o portal pararia de poder responder 'o que o registro dizia em abril'."
+ },
+ "REGRESSOES_QUE_ESTA_REGRA_EXIGE": [
+  "duas capturas do mesmo registro devolvem UMA linha corrente",
+  "as duas capturas continuam existindo no log",
+  "consulta com as_of ANTERIOR a segunda captura devolve a PRIMEIRA",
+  "consulta com as_of POSTERIOR devolve a SEGUNDA",
+  "a resposta de uma data passada nao muda quando chega captura nova",
+  "duas execucoes da mesma pergunta devolvem exatamente a mesma linha",
+  "fonte_versao invalida nao derruba a consulta nem vira palpite",
+  "duas fontes elegiveis marcam CONFLITO_DE_FONTE"
+ ]
+}

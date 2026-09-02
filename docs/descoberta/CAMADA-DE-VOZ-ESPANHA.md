@@ -372,3 +372,75 @@ com nome** — precisa de identificador declarado (ORCID, ROR), que as plataform
 
 A Espanha está fechada no estado descrito acima. O próximo país começa quando este for
 aceito — não antes.
+
+---
+
+## Z2 · MISSÃO 11 — a coleta não foi executável, e o que sobrou foi derivação
+
+**Nenhuma coleta nova. `RUN_ID = None`. Custo = US$ 0,00.**
+
+A política de rede deste ambiente **recusa CONNECT para todo host externo**. Medido:
+`api.openalex.org` · `pub.orcid.org` · `api.ror.org` · `api.crossref.org` · `www.mapa.gob.es` ·
+`www.youtube.com` · **`api.apify.com`** — todos `403` no gateway. Só o GitHub responde.
+
+**Não é falta de chave Apify: a própria API da Apify está bloqueada.** As duas filas de 20
+continuam `NOT_TESTED` em 20/20, e `SCIENCE → PUBLIC VOICE` continua `NOT_REACHED`.
+
+`SOURCE FAILURE ≠ ZERO.` Não alcançar não é não existir.
+
+### O que foi possível derivar sem rede
+
+| frente | resultado |
+|---|---|
+| **identidade dos 20** | dígito verificador do ORCID conferido pela primeira vez: **20/20 válidos**. 18 `IDENTITY_VERIFIED`, 2 `IDENTITY_CAUTION` |
+| **fragmentação de identidade** | achado novo — ver `docs/regras/MODELO-DE-IDENTIDADE-EAME.md`. 3 casos no quadro, 5 trabalhos invisíveis |
+| **confundidor de Córdoba** | **`CONFOUNDER_NARROWED`** — a explicação rival foi construída e medida |
+
+### O confundidor de Córdoba, medido pela primeira vez
+
+A pergunta mais importante em aberto era: *a concordância geográfica entre voz e exposição é
+sinal agronômico ou artefato de densidade institucional?* Ela nunca havia sido **medida** —
+só declarada. Agora a variável rival existe.
+
+| variável correlacionada com a voz (n=6) | ρ | passa do crítico (0,829)? |
+|---|---:|---|
+| **exposição agronômica** (ha × incidência) | **+0,926** | **SIM** |
+| área de olivar isolada | +0,741 | não |
+| produção científica por província | **+0,679** | **não** |
+| incidência isolada | +0,247 | não |
+
+**A explicação rival não passa do crítico; a agronômica passa.** Parecia enfraquecer o
+confundidor. **Não sobreviveu ao próprio teste de robustez.**
+
+### A auto-refutação — e ela derruba a conclusão, não o método
+
+Sensibilidade *leave-one-out*, tirando uma província e refazendo (crítico de n=5: 0,900):
+
+| removida | ρ exposição | passa? | ρ ciência |
+|---|---:|---|---:|
+| — | 0,926 | **SIM** | 0,679 |
+| **Córdoba** | 0,894 | **NÃO** | 0,447 |
+| **Jaén** | 0,866 | **NÃO** | **0,866** |
+| **Sevilla** | 0,894 | **NÃO** | 0,447 |
+| Granada · Huelva · Málaga | 0,949 | SIM | 0,632–0,791 |
+
+**A significância cai em 3 das 6 remoções.** O resultado não é propriedade da série — é
+propriedade de **três pontos**. E ao remover Jaén as duas explicações **empatam exatamente
+em 0,866**: naquele recorte, agronomia e densidade institucional são indistinguíveis.
+
+> **`CONFOUNDER_OPEN.`** A medição foi feita pela primeira vez e o **método** fica. O
+> **resultado** não separa as explicações.
+>
+> É a mesma armadilha que esta casa já matou uma vez: o ρ 0,442 de *"a voz antecipa o
+> campo"* também era o coeficiente mais alto da tabela e também era publicável.
+> **Coeficiente bonito que não sobrevive ao próprio teste de robustez não é achado — é
+> ruído com casas decimais.**
+
+**Por que não fecha, e isto é o essencial:** a variável rival está **mal medida**. Só
+**17 de 380** instituições espanholas (**4,5 %**) declaram província no próprio nome, e as
+não mapeadas incluem **IAS-CSIC** e **IFAPA** — exatamente as instituições de Córdoba que o
+confundidor nomeia. Medir densidade institucional de verdade exige a localização declarada
+pelo **ROR**, e o ROR estava bloqueado.
+
+**Nota metodológica que muda o número:** Córdoba e Sevilla **empatam** em 12 menções.
+Empate exige **rank médio**; sem isso o coeficiente sai 0,886 em vez de 0,926.

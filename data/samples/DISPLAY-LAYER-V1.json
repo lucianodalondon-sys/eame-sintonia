@@ -1,0 +1,987 @@
+{
+ "SOURCE_ID": "DISPLAY-LAYER-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "source": "contrato de exibicao. Fecha a lacuna DISPLAY_LAYER = MISSING que o prototipo revelou.",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "n/a",
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_ISTO_E": "a camada entre o freeze e a tela. Sem HTML e sem layout.",
+ "POR_QUE_EXISTE": "o pacote congelado e de maquina: enums em maiuscula, portugues sem acento por seguranca de codificacao. O prototipo renderizou isso literalmente e mostrou \"Cadiz\", \"visivel\", \"Nao aplicar\". Fiel a fonte e errado para um cliente.",
+ "A_REGRA_QUE_GOVERNA_TUDO": "nenhuma traducao pode mudar o que o campo afirma. Uma frase de exibicao so pode ser MAIS explicita que o enum, nunca menos.",
+ "O_TESTE_DE_DERIVA_SEMANTICA": "para cada regra, a pergunta e: um leitor que so viu a frase de exibicao chegaria a uma conclusao que o campo nao sustenta? Se sim, a regra esta errada.",
+ "ACENTUACAO": "os textos de exibicao levam acento; os valores de origem nao. A conversao acontece AQUI e em nenhum outro lugar.",
+ "REGRAS_COUNT": 103,
+ "IDIOMAS": [
+  "PT",
+  "EN",
+  "ES"
+ ],
+ "REGRAS": [
+  {
+   "SOURCE_FIELD": "CASE_TYPE",
+   "SOURCE_VALUE": "VERIFY_FIELD_NOW",
+   "DISPLAY_KEY": "case_type.verify_field_now",
+   "DISPLAY_TEXT_PT": "Verificar o campo agora",
+   "DISPLAY_TEXT_EN": "Verify the field now",
+   "DISPLAY_TEXT_ES": "Verificar el campo ahora",
+   "SEMANTIC_RULE": "a acao e verificar, nunca aplicar. Nenhuma traducao pode omitir o objeto do verbo."
+  },
+  {
+   "SOURCE_FIELD": "CASE_TYPE",
+   "SOURCE_VALUE": "PREPARAR",
+   "DISPLAY_KEY": "case_type.preparar",
+   "DISPLAY_TEXT_PT": "Preparar para a proxima janela",
+   "DISPLAY_TEXT_EN": "Prepare for the next window",
+   "DISPLAY_TEXT_ES": "Preparar para la proxima ventana",
+   "SEMANTIC_RULE": "preparar nao e agir. Nao traduzir como \"act now\"."
+  },
+  {
+   "SOURCE_FIELD": "CASE_TYPE",
+   "SOURCE_VALUE": "PLANEJAR PROXIMO CICLO",
+   "DISPLAY_KEY": "case_type.planejar_proximo_ciclo",
+   "DISPLAY_TEXT_PT": "Planejar o proximo ciclo",
+   "DISPLAY_TEXT_EN": "Plan for the next cycle",
+   "DISPLAY_TEXT_ES": "Planificar el proximo ciclo",
+   "SEMANTIC_RULE": "a janela deste ciclo esta fechada. A traducao nao pode sugerir acao corrente."
+  },
+  {
+   "SOURCE_FIELD": "CURRENT_FIELD_NEED",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "current_field_need.not_known",
+   "DISPLAY_TEXT_PT": "Necessidade atual de tratamento nao confirmada",
+   "DISPLAY_TEXT_EN": "Current treatment need not confirmed",
+   "DISPLAY_TEXT_ES": "Necesidad actual de tratamiento no confirmada",
+   "SEMANTIC_RULE": "NAO_CONFIRMADA, nunca \"sem necessidade\". Ausencia de confirmacao nao e ausencia de necessidade."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATUS",
+   "SOURCE_VALUE": "ABERTA",
+   "DISPLAY_KEY": "window_status.aberta",
+   "DISPLAY_TEXT_PT": "Janela registrada ainda aberta",
+   "DISPLAY_TEXT_EN": "Registered window still open",
+   "DISPLAY_TEXT_ES": "Ventana registrada aun abierta",
+   "SEMANTIC_RULE": "a palavra REGISTRADA e obrigatoria nas tres linguas. Janela aberta e permissao de rotulo, nao necessidade."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATUS",
+   "SOURCE_VALUE": "FECHADA",
+   "DISPLAY_KEY": "window_status.fechada",
+   "DISPLAY_TEXT_PT": "Janela registrada fechada para este ciclo",
+   "DISPLAY_TEXT_EN": "Registered window closed for this cycle",
+   "DISPLAY_TEXT_ES": "Ventana registrada cerrada para este ciclo",
+   "SEMANTIC_RULE": "fechada para o CICLO, nao para sempre."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATUS",
+   "SOURCE_VALUE": "UPCOMING",
+   "DISPLAY_KEY": "window_status.upcoming",
+   "DISPLAY_TEXT_PT": "Janela registrada ainda por abrir",
+   "DISPLAY_TEXT_EN": "Registered window not yet open",
+   "DISPLAY_TEXT_ES": "Ventana registrada aun por abrir",
+   "SEMANTIC_RULE": "por abrir, nao \"em breve\" — em breve e promessa de data que nao temos."
+  },
+  {
+   "SOURCE_FIELD": "EXPLICIT_SPECIES_RESPONSE",
+   "SOURCE_VALUE": "NONE",
+   "DISPLAY_KEY": "explicit_species_response.none",
+   "DISPLAY_TEXT_PT": "Nenhuma resposta ADAMA com esta especie explicitamente declarada no registro consultado",
+   "DISPLAY_TEXT_EN": "No ADAMA registration declares this species explicitly in the register consulted",
+   "DISPLAY_TEXT_ES": "Ninguna autorizacion ADAMA declara esta especie explicitamente en el registro consultado",
+   "SEMANTIC_RULE": "PROIBIDO traduzir como \"a ADAMA nao tem solucao\", \"no product\" ou \"sin producto\". A frase precisa nomear O REGISTRO como o lugar da ausencia."
+  },
+  {
+   "SOURCE_FIELD": "GENERIC_WEED_RESPONSE",
+   "SOURCE_VALUE": "N",
+   "DISPLAY_KEY": "generic_weed_response.n",
+   "DISPLAY_TEXT_PT": "N produtos ADAMA registrados contra a categoria generica",
+   "DISPLAY_TEXT_EN": "N ADAMA products registered against the generic category",
+   "DISPLAY_TEXT_ES": "N productos ADAMA registrados contra la categoria generica",
+   "SEMANTIC_RULE": "sempre aparece JUNTO com a linha de especie explicita. Nunca sozinha."
+  },
+  {
+   "SOURCE_FIELD": "COMMERCIAL_CLOCK",
+   "SOURCE_VALUE": "NAO SEI",
+   "DISPLAY_KEY": "commercial_clock.nao_sei",
+   "DISPLAY_TEXT_PT": "Nao sabemos — nao ha dado comercial neste acervo",
+   "DISPLAY_TEXT_EN": "Not known — no commercial data in this repository",
+   "DISPLAY_TEXT_ES": "No lo sabemos — no hay dato comercial en este acervo",
+   "SEMANTIC_RULE": "a primeira pessoa do plural e proposital: quem nao sabe e o sistema, nao o leitor."
+  },
+  {
+   "SOURCE_FIELD": "ADAMA_PUBLIC_RESPONSE",
+   "SOURCE_VALUE": "NOT_COLLECTED",
+   "DISPLAY_KEY": "adama_public_response.not_collected",
+   "DISPLAY_TEXT_PT": "Catalogo publico nao lido — o site recusou o acesso desta rede",
+   "DISPLAY_TEXT_EN": "Public catalogue not read — the site refused access from this network",
+   "DISPLAY_TEXT_ES": "Catalogo publico no leido — el sitio rechazo el acceso desde esta red",
+   "SEMANTIC_RULE": "NAO LIDO, nunca \"sem produtos\" nem 0. E preciso dizer POR QUE nao foi lido."
+  },
+  {
+   "SOURCE_FIELD": "SIGNAL_FRESHNESS_CLASS",
+   "SOURCE_VALUE": "SEASON_2026_SPRING_READING",
+   "DISPLAY_KEY": "signal_freshness_class.season_2026_spring_reading",
+   "DISPLAY_TEXT_PT": "Leitura da primavera de 2026 — a ultima observacao tem {dias} dias",
+   "DISPLAY_TEXT_EN": "2026 spring reading — last observation is {dias} days old",
+   "DISPLAY_TEXT_ES": "Lectura de la primavera de 2026 — la ultima observacion tiene {dias} dias",
+   "SEMANTIC_RULE": "a idade em dias e obrigatoria e vem de OBSERVED_AT, nunca de FILE_DATE."
+  },
+  {
+   "SOURCE_FIELD": "POSSIBLE_ECONOMIC_CONSEQUENCE",
+   "SOURCE_VALUE": "NAO QUANTIFICADO",
+   "DISPLAY_KEY": "possible_economic_consequence.nao_quantificado",
+   "DISPLAY_TEXT_PT": "Efeito economico nao quantificado",
+   "DISPLAY_TEXT_EN": "Economic effect not quantified",
+   "DISPLAY_TEXT_ES": "Efecto economico no cuantificado",
+   "SEMANTIC_RULE": "nenhuma variante pode conter numero, moeda ou faixa."
+  },
+  {
+   "SOURCE_FIELD": "MATURITY_STATE",
+   "SOURCE_VALUE": "OBSERVED_TOPIC",
+   "DISPLAY_KEY": "maturity_state.observed_topic",
+   "DISPLAY_TEXT_PT": "Assunto observado",
+   "DISPLAY_TEXT_EN": "Observed topic",
+   "DISPLAY_TEXT_ES": "Asunto observado",
+   "SEMANTIC_RULE": "o assunto existe numa fonte. Nada mais foi medido."
+  },
+  {
+   "SOURCE_FIELD": "MATURITY_STATE",
+   "SOURCE_VALUE": "SCIENTIFIC_SIGNAL",
+   "DISPLAY_KEY": "maturity_state.scientific_signal",
+   "DISPLAY_TEXT_PT": "Sinal cientifico, sem confirmacao de campo",
+   "DISPLAY_TEXT_EN": "Scientific signal, no field confirmation",
+   "DISPLAY_TEXT_ES": "Senal cientifica, sin confirmacion de campo",
+   "SEMANTIC_RULE": "a segunda metade da frase e obrigatoria. Sinal cientifico sozinho ja foi confundido com sinal de campo."
+  },
+  {
+   "SOURCE_FIELD": "MATURITY_STATE",
+   "SOURCE_VALUE": "EMERGING_THEME",
+   "DISPLAY_KEY": "maturity_state.emerging_theme",
+   "DISPLAY_TEXT_PT": "Tema em formacao — aparece em mais de uma camada",
+   "DISPLAY_TEXT_EN": "Theme taking shape — appears in more than one layer",
+   "DISPLAY_TEXT_ES": "Tema en formacion — aparece en mas de una capa",
+   "SEMANTIC_RULE": "EM FORMACAO, nunca \"emergente\" sozinho em portugues comercial, que se le como tendencia."
+  },
+  {
+   "SOURCE_FIELD": "MATURITY_STATE",
+   "SOURCE_VALUE": "WATCHLIST_PRIORITY",
+   "DISPLAY_KEY": "maturity_state.watchlist_priority",
+   "DISPLAY_TEXT_PT": "Em observacao, com prazo",
+   "DISPLAY_TEXT_EN": "On watch, with a deadline",
+   "DISPLAY_TEXT_ES": "En observacion, con plazo",
+   "SEMANTIC_RULE": "o prazo tem que aparecer ao lado, ou a frase nao pode ser usada."
+  },
+  {
+   "SOURCE_FIELD": "MATURITY_STATE",
+   "SOURCE_VALUE": "ALMOST_RADAR_CASE",
+   "DISPLAY_KEY": "maturity_state.almost_radar_case",
+   "DISPLAY_TEXT_PT": "Quase um caso — falta confirmacao de campo",
+   "DISPLAY_TEXT_EN": "Almost a case — field confirmation missing",
+   "DISPLAY_TEXT_ES": "Casi un caso — falta confirmacion de campo",
+   "SEMANTIC_RULE": "o que falta e sempre nomeado. E sempre a mesma coisa: campo."
+  },
+  {
+   "SOURCE_FIELD": "MATURITY_STATE",
+   "SOURCE_VALUE": "PROMOTED_TO_RADAR",
+   "DISPLAY_KEY": "maturity_state.promoted_to_radar",
+   "DISPLAY_TEXT_PT": "Promovido a caso",
+   "DISPLAY_TEXT_EN": "Promoted to case",
+   "DISPLAY_TEXT_ES": "Promovido a caso",
+   "SEMANTIC_RULE": "so aparece com CURRENT_FIELD_CONFIRMATION = SIM."
+  },
+  {
+   "SOURCE_FIELD": "MOMENTUM_STATE",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "momentum_state.not_known",
+   "DISPLAY_TEXT_PT": "Dinamica nao medida — esta e a primeira captura",
+   "DISPLAY_TEXT_EN": "Dynamics not measured — this is the first capture",
+   "DISPLAY_TEXT_ES": "Dinamica no medida — esta es la primera captura",
+   "SEMANTIC_RULE": "PROIBIDO exibir como \"estavel\". Nao medido e nao estavel."
+  },
+  {
+   "SOURCE_FIELD": "MOMENTUM_STATE",
+   "SOURCE_VALUE": "BASELINE_ESTABLISHED",
+   "DISPLAY_KEY": "momentum_state.baseline_established",
+   "DISPLAY_TEXT_PT": "Marco inicial estabelecido",
+   "DISPLAY_TEXT_EN": "Baseline established",
+   "DISPLAY_TEXT_ES": "Linea base establecida",
+   "SEMANTIC_RULE": "nunca traduzir como crescimento."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_TYPE",
+   "SOURCE_VALUE": "ACT_NOW",
+   "DISPLAY_KEY": "action_type.act_now",
+   "DISPLAY_TEXT_PT": "Agir agora",
+   "DISPLAY_TEXT_EN": "Act now",
+   "DISPLAY_TEXT_ES": "Actuar ahora",
+   "SEMANTIC_RULE": "so pode ser exibido com a acao concreta ao lado. Agir agora sem objeto direto e proibido."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_TYPE",
+   "SOURCE_VALUE": "VERIFY_NOW",
+   "DISPLAY_KEY": "action_type.verify_now",
+   "DISPLAY_TEXT_PT": "Verificar agora",
+   "DISPLAY_TEXT_EN": "Verify now",
+   "DISPLAY_TEXT_ES": "Verificar ahora",
+   "SEMANTIC_RULE": "idem — com o objeto."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_TYPE",
+   "SOURCE_VALUE": "PREPARE",
+   "DISPLAY_KEY": "action_type.prepare",
+   "DISPLAY_TEXT_PT": "Preparar",
+   "DISPLAY_TEXT_EN": "Prepare",
+   "DISPLAY_TEXT_ES": "Preparar",
+   "SEMANTIC_RULE": "nao e agir."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_TYPE",
+   "SOURCE_VALUE": "PLAN",
+   "DISPLAY_KEY": "action_type.plan",
+   "DISPLAY_TEXT_PT": "Planejar",
+   "DISPLAY_TEXT_EN": "Plan",
+   "DISPLAY_TEXT_ES": "Planificar",
+   "SEMANTIC_RULE": "horizonte de proximo ciclo."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_TYPE",
+   "SOURCE_VALUE": "WAIT_FOR_INTERNAL_DATA",
+   "DISPLAY_KEY": "action_type.wait_for_internal_data",
+   "DISPLAY_TEXT_PT": "Aguardar dado interno",
+   "DISPLAY_TEXT_EN": "Waiting on internal data",
+   "DISPLAY_TEXT_ES": "Esperar dato interno",
+   "SEMANTIC_RULE": "a linha comercial nunca recebe instrucao de venda enquanto COMMERCIAL_CLOCK for NAO SEI."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_TYPE",
+   "SOURCE_VALUE": "NO_ACTION",
+   "DISPLAY_KEY": "action_type.no_action",
+   "DISPLAY_TEXT_PT": "Nada a fazer neste caso",
+   "DISPLAY_TEXT_EN": "Nothing to do on this case",
+   "DISPLAY_TEXT_ES": "Nada que hacer en este caso",
+   "SEMANTIC_RULE": "com o motivo ao lado, sempre."
+  },
+  {
+   "SOURCE_FIELD": "SIGNAL",
+   "SOURCE_VALUE": "AUSENTE_MEDIDO",
+   "DISPLAY_KEY": "signal.ausente_medido",
+   "DISPLAY_TEXT_PT": "Procurado e nao encontrado na fonte",
+   "DISPLAY_TEXT_EN": "Searched and not found in the source",
+   "DISPLAY_TEXT_ES": "Buscado y no encontrado en la fuente",
+   "SEMANTIC_RULE": "diferente de NAO_TESTADO. A distincao entre \"procurei e nao ha\" e \"nao procurei\" nao pode sumir na traducao."
+  },
+  {
+   "SOURCE_FIELD": "SIGNAL",
+   "SOURCE_VALUE": "NAO_TESTADO",
+   "DISPLAY_KEY": "signal.nao_testado",
+   "DISPLAY_TEXT_PT": "Nao verificado",
+   "DISPLAY_TEXT_EN": "Not checked",
+   "DISPLAY_TEXT_ES": "No verificado",
+   "SEMANTIC_RULE": "idem."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATE",
+   "SOURCE_VALUE": "ACTIVE",
+   "DISPLAY_KEY": "window_state.active",
+   "DISPLAY_TEXT_PT": "Janela aberta",
+   "DISPLAY_TEXT_EN": "Window open",
+   "DISPLAY_TEXT_ES": "Ventana abierta",
+   "SEMANTIC_RULE": "aberta e uma condicao de calendario, nao um convite. Nenhuma traducao pode virar \"aplicar agora\"."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATE",
+   "SOURCE_VALUE": "UPCOMING",
+   "DISPLAY_KEY": "window_state.upcoming",
+   "DISPLAY_TEXT_PT": "Janela ainda por abrir",
+   "DISPLAY_TEXT_EN": "Window not yet open",
+   "DISPLAY_TEXT_ES": "Ventana aun no abierta",
+   "SEMANTIC_RULE": "o inicio e futuro. Nao traduzir como \"em breve\": a fonte pode nao dizer quando."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATE",
+   "SOURCE_VALUE": "CLOSED",
+   "DISPLAY_KEY": "window_state.closed",
+   "DISPLAY_TEXT_PT": "Janela fechada neste ciclo",
+   "DISPLAY_TEXT_EN": "Window closed for this cycle",
+   "DISPLAY_TEXT_ES": "Ventana cerrada en este ciclo",
+   "SEMANTIC_RULE": "o ciclo precisa aparecer. \"Fechada\" sozinho sugere que o assunto acabou, e nao acabou."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATE",
+   "SOURCE_VALUE": "OUTSIDE_MONTH_RANGE",
+   "DISPLAY_KEY": "window_state.outside_month_range",
+   "DISPLAY_TEXT_PT": "Fora dos meses declarados",
+   "DISPLAY_TEXT_EN": "Outside the stated months",
+   "DISPLAY_TEXT_ES": "Fuera de los meses declarados",
+   "SEMANTIC_RULE": "e diferente de fechada: uma janela mensal recorrente volta. Nao traduzir como CLOSED."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATE",
+   "SOURCE_VALUE": "OBSERVED",
+   "DISPLAY_KEY": "window_state.observed",
+   "DISPLAY_TEXT_PT": "Estabelecido por fenologia observada",
+   "DISPLAY_TEXT_EN": "Established from observed phenology",
+   "DISPLAY_TEXT_ES": "Establecido por fenologia observada",
+   "SEMANTIC_RULE": "foi medido, nao previsto. Nao traduzir como \"estimado\" nem como \"previsto\"."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATE",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "window_state.not_known",
+   "DISPLAY_TEXT_PT": "Estado da janela nao determinavel com o que a fonte diz",
+   "DISPLAY_TEXT_EN": "Window state cannot be determined from what the source states",
+   "DISPLAY_TEXT_ES": "Estado de la ventana no determinable con lo que dice la fuente",
+   "SEMANTIC_RULE": "o pior erro possivel deste contrato e exibir isto como fechada. Falta precisao, nao falta janela."
+  },
+  {
+   "SOURCE_FIELD": "WINDOW_STATE",
+   "SOURCE_VALUE": "NO_DATA",
+   "DISPLAY_KEY": "window_state.no_data",
+   "DISPLAY_TEXT_PT": "Sem janela registrada para este par",
+   "DISPLAY_TEXT_EN": "No window recorded for this pair",
+   "DISPLAY_TEXT_ES": "Sin ventana registrada para este par",
+   "SEMANTIC_RULE": "ausencia de linha no acervo. Nao afirmar que a janela nao existe no campo."
+  },
+  {
+   "SOURCE_FIELD": "TEMPORAL_RESOLUTION",
+   "SOURCE_VALUE": "DATE_EXACT",
+   "DISPLAY_KEY": "temporal_resolution.date_exact",
+   "DISPLAY_TEXT_PT": "Datas exatas",
+   "DISPLAY_TEXT_EN": "Exact dates",
+   "DISPLAY_TEXT_ES": "Fechas exactas",
+   "SEMANTIC_RULE": "so aqui e legitimo mostrar dia. Em qualquer outra resolucao, dia e invencao."
+  },
+  {
+   "SOURCE_FIELD": "TEMPORAL_RESOLUTION",
+   "SOURCE_VALUE": "WEEK",
+   "DISPLAY_KEY": "temporal_resolution.week",
+   "DISPLAY_TEXT_PT": "Precisao de semana",
+   "DISPLAY_TEXT_EN": "Week-level precision",
+   "DISPLAY_TEXT_ES": "Precision de semana",
+   "SEMANTIC_RULE": "a semana e o menor intervalo que a fonte sustenta."
+  },
+  {
+   "SOURCE_FIELD": "TEMPORAL_RESOLUTION",
+   "SOURCE_VALUE": "MONTH",
+   "DISPLAY_KEY": "temporal_resolution.month",
+   "DISPLAY_TEXT_PT": "Precisao de mes",
+   "DISPLAY_TEXT_EN": "Month-level precision",
+   "DISPLAY_TEXT_ES": "Precision de mes",
+   "SEMANTIC_RULE": "nunca escolher um dia dentro do mes para caber num eixo de tempo."
+  },
+  {
+   "SOURCE_FIELD": "TEMPORAL_RESOLUTION",
+   "SOURCE_VALUE": "PHENOLOGY_STAGE",
+   "DISPLAY_KEY": "temporal_resolution.phenology_stage",
+   "DISPLAY_TEXT_PT": "Definido por estadio da cultura (BBCH)",
+   "DISPLAY_TEXT_EN": "Defined by crop stage (BBCH)",
+   "DISPLAY_TEXT_ES": "Definido por estadio del cultivo (BBCH)",
+   "SEMANTIC_RULE": "BBCH nao se converte em data. Sem fenologia observada, o estado e NOT_KNOWN."
+  },
+  {
+   "SOURCE_FIELD": "TEMPORAL_RESOLUTION",
+   "SOURCE_VALUE": "SEASON",
+   "DISPLAY_KEY": "temporal_resolution.season",
+   "DISPLAY_TEXT_PT": "Precisao de estacao",
+   "DISPLAY_TEXT_EN": "Season-level precision",
+   "DISPLAY_TEXT_ES": "Precision de estacion",
+   "SEMANTIC_RULE": "\"primavera\" continua sendo primavera. Nao datar."
+  },
+  {
+   "SOURCE_FIELD": "TEMPORAL_RESOLUTION",
+   "SOURCE_VALUE": "APPROXIMATE",
+   "DISPLAY_KEY": "temporal_resolution.approximate",
+   "DISPLAY_TEXT_PT": "Descricao aproximada da fonte",
+   "DISPLAY_TEXT_EN": "Source states it approximately",
+   "DISPLAY_TEXT_ES": "Descripcion aproximada de la fuente",
+   "SEMANTIC_RULE": "exibir a frase literal da fonte junto. Sem ela, o leitor supoe precisao que nao existe."
+  },
+  {
+   "SOURCE_FIELD": "TEMPORAL_RESOLUTION",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "temporal_resolution.not_known",
+   "DISPLAY_TEXT_PT": "Sem precisao temporal registrada",
+   "DISPLAY_TEXT_EN": "No temporal precision recorded",
+   "DISPLAY_TEXT_ES": "Sin precision temporal registrada",
+   "SEMANTIC_RULE": "a ausencia e declarada, nao inferida."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "PREPARATION",
+   "DISPLAY_KEY": "crop_phase.preparation",
+   "DISPLAY_TEXT_PT": "Preparacao",
+   "DISPLAY_TEXT_EN": "Preparation",
+   "DISPLAY_TEXT_ES": "Preparacion",
+   "SEMANTIC_RULE": "fase da cultura, nunca fase de campanha comercial."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "SOWING",
+   "DISPLAY_KEY": "crop_phase.sowing",
+   "DISPLAY_TEXT_PT": "Semeadura",
+   "DISPLAY_TEXT_EN": "Sowing",
+   "DISPLAY_TEXT_ES": "Siembra",
+   "SEMANTIC_RULE": "em oliveira e outras perenes esta fase simplesmente nao se aplica, e isso nao e lacuna."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "EMERGENCE",
+   "DISPLAY_KEY": "crop_phase.emergence",
+   "DISPLAY_TEXT_PT": "Emergencia",
+   "DISPLAY_TEXT_EN": "Emergence",
+   "DISPLAY_TEXT_ES": "Emergencia",
+   "SEMANTIC_RULE": "nao confundir com emergencia no sentido de urgencia."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "VEGETATIVE_DEVELOPMENT",
+   "DISPLAY_KEY": "crop_phase.vegetative_development",
+   "DISPLAY_TEXT_PT": "Desenvolvimento vegetativo",
+   "DISPLAY_TEXT_EN": "Vegetative development",
+   "DISPLAY_TEXT_ES": "Desarrollo vegetativo",
+   "SEMANTIC_RULE": "descreve a planta, nao a janela de produto."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "REPRODUCTIVE_DEVELOPMENT",
+   "DISPLAY_KEY": "crop_phase.reproductive_development",
+   "DISPLAY_TEXT_PT": "Desenvolvimento reprodutivo",
+   "DISPLAY_TEXT_EN": "Reproductive development",
+   "DISPLAY_TEXT_ES": "Desarrollo reproductivo",
+   "SEMANTIC_RULE": "floracao e frutificacao entram aqui quando a fonte nao separa."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "MATURATION",
+   "DISPLAY_KEY": "crop_phase.maturation",
+   "DISPLAY_TEXT_PT": "Maturacao",
+   "DISPLAY_TEXT_EN": "Maturation",
+   "DISPLAY_TEXT_ES": "Maduracion",
+   "SEMANTIC_RULE": "fase medida quando vier de fenologia observada. Nao suavizar para \"quase colheita\"."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "HARVEST",
+   "DISPLAY_KEY": "crop_phase.harvest",
+   "DISPLAY_TEXT_PT": "Colheita",
+   "DISPLAY_TEXT_EN": "Harvest",
+   "DISPLAY_TEXT_ES": "Cosecha",
+   "SEMANTIC_RULE": "colheita nao implica que a janela de produto fechou: sao relogios diferentes."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "DORMANCY",
+   "DISPLAY_KEY": "crop_phase.dormancy",
+   "DISPLAY_TEXT_PT": "Dormencia",
+   "DISPLAY_TEXT_EN": "Dormancy",
+   "DISPLAY_TEXT_ES": "Latencia",
+   "SEMANTIC_RULE": "em espanhol \"latencia\", nao \"dormancia\"."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "OFF_SEASON",
+   "DISPLAY_KEY": "crop_phase.off_season",
+   "DISPLAY_TEXT_PT": "Entressafra",
+   "DISPLAY_TEXT_EN": "Off-season",
+   "DISPLAY_TEXT_ES": "Intercampana",
+   "SEMANTIC_RULE": "nao traduzir como \"sem atividade\": preparacao e planejamento acontecem aqui."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "OTHER",
+   "DISPLAY_KEY": "crop_phase.other",
+   "DISPLAY_TEXT_PT": "Outra fase declarada pela fonte",
+   "DISPLAY_TEXT_EN": "Other phase stated by the source",
+   "DISPLAY_TEXT_ES": "Otra fase declarada por la fuente",
+   "SEMANTIC_RULE": "OTHER e o que a fonte disse e o vocabulario nao cobre. Nao forcar numa fase vizinha."
+  },
+  {
+   "SOURCE_FIELD": "CROP_PHASE",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "crop_phase.not_known",
+   "DISPLAY_TEXT_PT": "Fase da cultura nao determinada",
+   "DISPLAY_TEXT_EN": "Crop phase not determined",
+   "DISPLAY_TEXT_ES": "Fase del cultivo no determinada",
+   "SEMANTIC_RULE": "nao ha calendario com precisao suficiente para dizer onde a cultura esta hoje."
+  },
+  {
+   "SOURCE_FIELD": "PHASE_KNOWN_BY",
+   "SOURCE_VALUE": "BY_OBSERVED_PHENOLOGY",
+   "DISPLAY_KEY": "phase_known_by.by_observed_phenology",
+   "DISPLAY_TEXT_PT": "A partir de fenologia medida em campo",
+   "DISPLAY_TEXT_EN": "From phenology measured in the field",
+   "DISPLAY_TEXT_ES": "A partir de fenologia medida en campo",
+   "SEMANTIC_RULE": "medicao. Nao pode ter a mesma aparencia de uma fase esperada por calendario."
+  },
+  {
+   "SOURCE_FIELD": "PHASE_KNOWN_BY",
+   "SOURCE_VALUE": "BY_DATE",
+   "DISPLAY_KEY": "phase_known_by.by_date",
+   "DISPLAY_TEXT_PT": "A partir do calendario, pela data",
+   "DISPLAY_TEXT_EN": "From the calendar, by date",
+   "DISPLAY_TEXT_ES": "A partir del calendario, por fecha",
+   "SEMANTIC_RULE": "expectativa. Nao traduzir como \"observado\"."
+  },
+  {
+   "SOURCE_FIELD": "CALENDAR_TYPE",
+   "SOURCE_VALUE": "TYPICAL_CALENDAR",
+   "DISPLAY_KEY": "calendar_type.typical_calendar",
+   "DISPLAY_TEXT_PT": "Calendario tipico",
+   "DISPLAY_TEXT_EN": "Typical calendar",
+   "DISPLAY_TEXT_ES": "Calendario tipico",
+   "SEMANTIC_RULE": "o que costuma acontecer. Pode se repetir, e por isso pode alimentar proxima janela."
+  },
+  {
+   "SOURCE_FIELD": "CALENDAR_TYPE",
+   "SOURCE_VALUE": "OFFICIAL_RECOMMENDED_CALENDAR",
+   "DISPLAY_KEY": "calendar_type.official_recommended_calendar",
+   "DISPLAY_TEXT_PT": "Calendario recomendado por autoridade",
+   "DISPLAY_TEXT_EN": "Calendar recommended by the authority",
+   "DISPLAY_TEXT_ES": "Calendario recomendado por la autoridad",
+   "SEMANTIC_RULE": "recomendacao oficial nao e obrigacao legal nem janela de rotulo."
+  },
+  {
+   "SOURCE_FIELD": "CALENDAR_TYPE",
+   "SOURCE_VALUE": "OBSERVED_CAMPAIGN",
+   "DISPLAY_KEY": "calendar_type.observed_campaign",
+   "DISPLAY_TEXT_PT": "Campanha observada, ano declarado",
+   "DISPLAY_TEXT_EN": "Observed campaign, stated year",
+   "DISPLAY_TEXT_ES": "Campana observada, ano declarado",
+   "SEMANTIC_RULE": "o ano precisa aparecer. Sem ele o leitor projeta para o ciclo seguinte, e a fonte nao autoriza."
+  },
+  {
+   "SOURCE_FIELD": "CALENDAR_TYPE",
+   "SOURCE_VALUE": "DERIVED_FROM_MULTIYEAR_DATA",
+   "DISPLAY_KEY": "calendar_type.derived_from_multiyear_data",
+   "DISPLAY_TEXT_PT": "Derivado de serie de varios anos",
+   "DISPLAY_TEXT_EN": "Derived from a multi-year series",
+   "DISPLAY_TEXT_ES": "Derivado de serie de varios anos",
+   "SEMANTIC_RULE": "derivado e sempre dito. Nao exibir como se fosse leitura direta da fonte."
+  },
+  {
+   "SOURCE_FIELD": "ISSUE_WINDOW_TYPE",
+   "SOURCE_VALUE": "EXPECTED_RELEVANCE",
+   "DISPLAY_KEY": "issue_window_type.expected_relevance",
+   "DISPLAY_TEXT_PT": "Periodo em que o problema costuma importar",
+   "DISPLAY_TEXT_EN": "Period when the issue usually matters",
+   "DISPLAY_TEXT_ES": "Periodo en que el problema suele importar",
+   "SEMANTIC_RULE": "costuma. Nao traduzir como \"vai acontecer\"."
+  },
+  {
+   "SOURCE_FIELD": "ISSUE_WINDOW_TYPE",
+   "SOURCE_VALUE": "OBSERVED_ACTIVITY",
+   "DISPLAY_KEY": "issue_window_type.observed_activity",
+   "DISPLAY_TEXT_PT": "Atividade observada e datada",
+   "DISPLAY_TEXT_EN": "Observed and dated activity",
+   "DISPLAY_TEXT_ES": "Actividad observada y fechada",
+   "SEMANTIC_RULE": "houve aviso ou leitura naquelas datas. Nao e previsao para o proximo ciclo."
+  },
+  {
+   "SOURCE_FIELD": "ISSUE_WINDOW_TYPE",
+   "SOURCE_VALUE": "MONITORING_WINDOW",
+   "DISPLAY_KEY": "issue_window_type.monitoring_window",
+   "DISPLAY_TEXT_PT": "Periodo de monitoramento",
+   "DISPLAY_TEXT_EN": "Monitoring period",
+   "DISPLAY_TEXT_ES": "Periodo de seguimiento",
+   "SEMANTIC_RULE": "monitorar nao e tratar. Nenhuma traducao pode sugerir aplicacao."
+  },
+  {
+   "SOURCE_FIELD": "ISSUE_WINDOW_TYPE",
+   "SOURCE_VALUE": "RISK_WINDOW",
+   "DISPLAY_KEY": "issue_window_type.risk_window",
+   "DISPLAY_TEXT_PT": "Periodo de risco declarado pela fonte",
+   "DISPLAY_TEXT_EN": "Risk period stated by the source",
+   "DISPLAY_TEXT_ES": "Periodo de riesgo declarado por la fuente",
+   "SEMANTIC_RULE": "risco declarado, nao risco calculado por nos. Nao existe score aqui."
+  },
+  {
+   "SOURCE_FIELD": "ISSUE_WINDOW_TYPE",
+   "SOURCE_VALUE": "CONTROL_DECISION_WINDOW",
+   "DISPLAY_KEY": "issue_window_type.control_decision_window",
+   "DISPLAY_TEXT_PT": "Periodo em que a decisao de controle e tomada",
+   "DISPLAY_TEXT_EN": "Period when the control decision is made",
+   "DISPLAY_TEXT_ES": "Periodo en que se toma la decision de control",
+   "SEMANTIC_RULE": "a decisao e do agronomo. O portal informa o periodo, nao a decisao."
+  },
+  {
+   "SOURCE_FIELD": "ISSUE_WINDOW_TYPE",
+   "SOURCE_VALUE": "OTHER",
+   "DISPLAY_KEY": "issue_window_type.other",
+   "DISPLAY_TEXT_PT": "Outro tipo de periodo declarado pela fonte",
+   "DISPLAY_TEXT_EN": "Other period type stated by the source",
+   "DISPLAY_TEXT_ES": "Otro tipo de periodo declarado por la fuente",
+   "SEMANTIC_RULE": "OTHER preserva o que a fonte disse quando o vocabulario nao cobre."
+  },
+  {
+   "SOURCE_FIELD": "PRODUCT_TARGET_SCOPE",
+   "SOURCE_VALUE": "ISSUE_LEVEL",
+   "DISPLAY_KEY": "product_target_scope.issue_level",
+   "DISPLAY_TEXT_PT": "Registro nomeia este alvo",
+   "DISPLAY_TEXT_EN": "Registration names this target",
+   "DISPLAY_TEXT_ES": "El registro nombra este objetivo",
+   "SEMANTIC_RULE": "o rotulo cita o alvo. Nao inferir eficacia a partir disso."
+  },
+  {
+   "SOURCE_FIELD": "PRODUCT_TARGET_SCOPE",
+   "SOURCE_VALUE": "CROP_LEVEL",
+   "DISPLAY_KEY": "product_target_scope.crop_level",
+   "DISPLAY_TEXT_PT": "Registro e para a cultura, sem nomear este alvo",
+   "DISPLAY_TEXT_EN": "Registration covers the crop, without naming this target",
+   "DISPLAY_TEXT_ES": "El registro es para el cultivo, sin nombrar este objetivo",
+   "SEMANTIC_RULE": "exibir sempre com a ressalva. Omitir a linha viraria \"nao ha produto\", que e outra afirmacao."
+  },
+  {
+   "SOURCE_FIELD": "REGISTRATION_EXPIRY_STATE",
+   "SOURCE_VALUE": "WITHIN_EXPIRY_DATE",
+   "DISPLAY_KEY": "registration_expiry_state.within_expiry_date",
+   "DISPLAY_TEXT_PT": "Dentro da data de caducidade registrada",
+   "DISPLAY_TEXT_EN": "Within the recorded expiry date",
+   "DISPLAY_TEXT_ES": "Dentro de la fecha de caducidad registrada",
+   "SEMANTIC_RULE": "a data e do registro, nao do lote nem do estoque."
+  },
+  {
+   "SOURCE_FIELD": "REGISTRATION_EXPIRY_STATE",
+   "SOURCE_VALUE": "EXPIRY_DATE_PASSED",
+   "DISPLAY_KEY": "registration_expiry_state.expiry_date_passed",
+   "DISPLAY_TEXT_PT": "Data de caducidade do registro ja passou",
+   "DISPLAY_TEXT_EN": "The registration expiry date has passed",
+   "DISPLAY_TEXT_ES": "La fecha de caducidad del registro ya paso",
+   "SEMANTIC_RULE": "EXPIRY nao e WITHDRAWAL. Proibido traduzir como retirado, cancelado ou proibido."
+  },
+  {
+   "SOURCE_FIELD": "REGISTRATION_EXPIRY_STATE",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "registration_expiry_state.not_known",
+   "DISPLAY_TEXT_PT": "Registro sem data de caducidade declarada",
+   "DISPLAY_TEXT_EN": "Registration states no expiry date",
+   "DISPLAY_TEXT_ES": "Registro sin fecha de caducidad declarada",
+   "SEMANTIC_RULE": "sem data nao e sem prazo. E ausencia de informacao."
+  },
+  {
+   "SOURCE_FIELD": "EVIDENCE_FRESHNESS",
+   "SOURCE_VALUE": "CURRENT",
+   "DISPLAY_KEY": "evidence_freshness.current",
+   "DISPLAY_TEXT_PT": "Evidencia corrente para este proposito",
+   "DISPLAY_TEXT_EN": "Current evidence for this purpose",
+   "DISPLAY_TEXT_ES": "Evidencia vigente para este proposito",
+   "SEMANTIC_RULE": "o proposito precisa aparecer junto. Frescor sem proposito nao significa nada."
+  },
+  {
+   "SOURCE_FIELD": "EVIDENCE_FRESHNESS",
+   "SOURCE_VALUE": "RECENT",
+   "DISPLAY_KEY": "evidence_freshness.recent",
+   "DISPLAY_TEXT_PT": "Evidencia recente para este proposito",
+   "DISPLAY_TEXT_EN": "Recent evidence for this purpose",
+   "DISPLAY_TEXT_ES": "Evidencia reciente para este proposito",
+   "SEMANTIC_RULE": "recente e relativo a regua cadastrada, nao a intuicao do leitor."
+  },
+  {
+   "SOURCE_FIELD": "EVIDENCE_FRESHNESS",
+   "SOURCE_VALUE": "SEASONAL",
+   "DISPLAY_KEY": "evidence_freshness.seasonal",
+   "DISPLAY_TEXT_PT": "Mesma campanha, ja nao descreve o campo de hoje",
+   "DISPLAY_TEXT_EN": "Same campaign, no longer describes the field today",
+   "DISPLAY_TEXT_ES": "Misma campana, ya no describe el campo de hoy",
+   "SEMANTIC_RULE": "a segunda metade da frase e obrigatoria. Sem ela, \"sazonal\" soa como aprovacao."
+  },
+  {
+   "SOURCE_FIELD": "EVIDENCE_FRESHNESS",
+   "SOURCE_VALUE": "STALE_FOR_PURPOSE",
+   "DISPLAY_KEY": "evidence_freshness.stale_for_purpose",
+   "DISPLAY_TEXT_PT": "Idade acima da regua deste proposito",
+   "DISPLAY_TEXT_EN": "Age beyond the rule for this purpose",
+   "DISPLAY_TEXT_ES": "Edad por encima de la regla de este proposito",
+   "SEMANTIC_RULE": "velha PARA ESTE PROPOSITO. O mesmo dado pode ser corrente para outro."
+  },
+  {
+   "SOURCE_FIELD": "EVIDENCE_FRESHNESS",
+   "SOURCE_VALUE": "NO_RULE_FOR_PURPOSE",
+   "DISPLAY_KEY": "evidence_freshness.no_rule_for_purpose",
+   "DISPLAY_TEXT_PT": "Sem regua cadastrada para este proposito",
+   "DISPLAY_TEXT_EN": "No rule recorded for this purpose",
+   "DISPLAY_TEXT_ES": "Sin regla registrada para este proposito",
+   "SEMANTIC_RULE": "nao ha limiar acordado, entao nao ha como julgar a idade. Proibido exibir como velha."
+  },
+  {
+   "SOURCE_FIELD": "EVIDENCE_FRESHNESS",
+   "SOURCE_VALUE": "AGE_NOT_KNOWN",
+   "DISPLAY_KEY": "evidence_freshness.age_not_known",
+   "DISPLAY_TEXT_PT": "Sem data de observacao para calcular idade",
+   "DISPLAY_TEXT_EN": "No observation date, so no age can be computed",
+   "DISPLAY_TEXT_ES": "Sin fecha de observacion para calcular la edad",
+   "SEMANTIC_RULE": "ausencia de data, nao ausencia de evidencia."
+  },
+  {
+   "SOURCE_FIELD": "FIELD_EVIDENCE_AGE",
+   "SOURCE_VALUE": "TRIPLE",
+   "DISPLAY_KEY": "field_evidence_age.triple",
+   "DISPLAY_TEXT_PT": "Valor, denominador e idade aparecem sempre juntos",
+   "DISPLAY_TEXT_EN": "Value, denominator and age always appear together",
+   "DISPLAY_TEXT_ES": "Valor, denominador y edad aparecen siempre juntos",
+   "SEMANTIC_RULE": "os tres sao inseparaveis. Colapsar num numero so foi o erro que este projeto ja cometeu duas vezes."
+  },
+  {
+   "SOURCE_FIELD": "NEXT_WINDOW",
+   "SOURCE_VALUE": "EMPTY",
+   "DISPLAY_KEY": "next_window.empty",
+   "DISPLAY_TEXT_PT": "Nada recorrente declarado para esta cultura",
+   "DISPLAY_TEXT_EN": "Nothing recurring stated for this crop",
+   "DISPLAY_TEXT_ES": "Nada recurrente declarado para este cultivo",
+   "SEMANTIC_RULE": "lista vazia e resposta, nao erro de carregamento. Nao exibir spinner nem \"sem dados\"."
+  },
+  {
+   "SOURCE_FIELD": "NEXT_WINDOW",
+   "SOURCE_VALUE": "PRESENT",
+   "DISPLAY_KEY": "next_window.present",
+   "DISPLAY_TEXT_PT": "Proxima janela, no texto da fonte",
+   "DISPLAY_TEXT_EN": "Next window, in the source wording",
+   "DISPLAY_TEXT_ES": "Proxima ventana, en el texto de la fuente",
+   "SEMANTIC_RULE": "o campo \"quando\" e texto. Se a fonte diz \"a partir de abril\", e isso que aparece."
+  },
+  {
+   "SOURCE_FIELD": "PARTIAL_TEMPORAL_EVIDENCE",
+   "SOURCE_VALUE": "PRESENT",
+   "DISPLAY_KEY": "partial_temporal_evidence.present",
+   "DISPLAY_TEXT_PT": "Parte dos relogios sem resposta",
+   "DISPLAY_TEXT_EN": "Some clocks have no answer",
+   "DISPLAY_TEXT_ES": "Parte de los relojes sin respuesta",
+   "SEMANTIC_RULE": "mostrar o que se sabe e nomear o que falta. Nao esconder o caso e nao preencher o buraco."
+  },
+  {
+   "SOURCE_FIELD": "TEMPORAL_UNKNOWN_COUNT",
+   "SOURCE_VALUE": "ANY",
+   "DISPLAY_KEY": "temporal_unknown_count.any",
+   "DISPLAY_TEXT_PT": "Relogios sem resposta neste caso",
+   "DISPLAY_TEXT_EN": "Clocks with no answer in this case",
+   "DISPLAY_TEXT_ES": "Relojes sin respuesta en este caso",
+   "SEMANTIC_RULE": "o numero e informacao de primeira classe. Nao esconder quando for alto."
+  },
+  {
+   "SOURCE_FIELD": "AS_OF_DATE",
+   "SOURCE_VALUE": "ANY",
+   "DISPLAY_KEY": "as_of_date.any",
+   "DISPLAY_TEXT_PT": "Estado calculado para esta data",
+   "DISPLAY_TEXT_EN": "State computed for this date",
+   "DISPLAY_TEXT_ES": "Estado calculado para esta fecha",
+   "SEMANTIC_RULE": "a data da pergunta viaja com a resposta. Sem ela, o payload vira um fato sem validade."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "COMPETITOR_REGISTERED_RESPONSE",
+   "DISPLAY_KEY": "competitor_state.registered_response",
+   "DISPLAY_TEXT_PT": "Tem resposta registrada neste pais",
+   "DISPLAY_TEXT_EN": "Has a registered response in this country",
+   "DISPLAY_TEXT_ES": "Tiene respuesta registrada en este pais",
+   "SEMANTIC_RULE": "o pais precisa aparecer. PORTFOLIO GLOBAL != PORTFOLIO LOCAL, e a frase sem pais sugere o contrario."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "COMPETITOR_PAID_META_ACTIVITY",
+   "DISPLAY_KEY": "competitor_state.paid_meta_activity",
+   "DISPLAY_TEXT_PT": "Peca publicitaria paga observada",
+   "DISPLAY_TEXT_EN": "Paid advertising piece observed",
+   "DISPLAY_TEXT_ES": "Pieza publicitaria pagada observada",
+   "SEMANTIC_RULE": "observada, nao contada como campanha. META AD != CAMPAIGN SUCCESS e != SALES."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "COMPETITOR_PUBLIC_COMMUNICATION",
+   "DISPLAY_KEY": "competitor_state.public_communication",
+   "DISPLAY_TEXT_PT": "Comunicacao publica observada",
+   "DISPLAY_TEXT_EN": "Public communication observed",
+   "DISPLAY_TEXT_ES": "Comunicacion publica observada",
+   "SEMANTIC_RULE": "comunicacao nao paga. Nao traduzir como campanha nem como anuncio."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "COMPETITOR_TECHNICAL_ACTIVITY",
+   "DISPLAY_KEY": "competitor_state.technical_activity",
+   "DISPLAY_TEXT_PT": "Atividade tecnica publicamente observavel",
+   "DISPLAY_TEXT_EN": "Publicly observable technical activity",
+   "DISPLAY_TEXT_ES": "Actividad tecnica publicamente observable",
+   "SEMANTIC_RULE": "ensaio, palestra, publicacao ou presenca em evento. Nao e lancamento e nao e registro."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_STATE",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "competitor_state.not_known",
+   "DISPLAY_TEXT_PT": "Sem informacao sobre este concorrente neste par",
+   "DISPLAY_TEXT_EN": "No information about this competitor for this pair",
+   "DISPLAY_TEXT_ES": "Sin informacion sobre este competidor en este par",
+   "SEMANTIC_RULE": "ausencia de informacao, nunca ausencia de atividade. Proibido traduzir como inativo."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_RESPONSE",
+   "SOURCE_VALUE": "YES",
+   "DISPLAY_KEY": "competitor_response.yes",
+   "DISPLAY_TEXT_PT": "Resposta registrada: sim, neste pais",
+   "DISPLAY_TEXT_EN": "Registered response: yes, in this country",
+   "DISPLAY_TEXT_ES": "Respuesta registrada: si, en este pais",
+   "SEMANTIC_RULE": "registro autoriza uso. REGISTRATION != SALES != STOCK != COMMERCIAL AVAILABILITY."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_RESPONSE",
+   "SOURCE_VALUE": "NOT_PROVED",
+   "DISPLAY_KEY": "competitor_response.not_proved",
+   "DISPLAY_TEXT_PT": "Resposta registrada nao comprovada neste pais",
+   "DISPLAY_TEXT_EN": "Registered response not proven in this country",
+   "DISPLAY_TEXT_ES": "Respuesta registrada no comprobada en este pais",
+   "SEMANTIC_RULE": "nao comprovada e diferente de nao existe. Proibido traduzir como \"nao tem registro\"."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_RESPONSE",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "competitor_response.not_known",
+   "DISPLAY_TEXT_PT": "Situacao de registro nao consultada",
+   "DISPLAY_TEXT_EN": "Registration status not checked",
+   "DISPLAY_TEXT_ES": "Situacion de registro no consultada",
+   "SEMANTIC_RULE": "a rota nao foi executada. NAO_TESTADO != AUSENTE_MEDIDO."
+  },
+  {
+   "SOURCE_FIELD": "META_ACTIVITY",
+   "SOURCE_VALUE": "OBSERVED",
+   "DISPLAY_KEY": "meta_activity.observed",
+   "DISPLAY_TEXT_PT": "Anuncio pago observado na Meta Ads Library",
+   "DISPLAY_TEXT_EN": "Paid ad observed in the Meta Ads Library",
+   "DISPLAY_TEXT_ES": "Anuncio pagado observado en la Meta Ads Library",
+   "SEMANTIC_RULE": "a fonte tem de ser nomeada. \"Observado nas redes\" apagaria que e peca PAGA e registrada."
+  },
+  {
+   "SOURCE_FIELD": "META_ACTIVITY",
+   "SOURCE_VALUE": "NOT_OBSERVED",
+   "DISPLAY_KEY": "meta_activity.not_observed",
+   "DISPLAY_TEXT_PT": "Nenhum anuncio encontrado nas fontes consultadas",
+   "DISPLAY_TEXT_EN": "No ad found in the sources searched",
+   "DISPLAY_TEXT_ES": "Ningun anuncio encontrado en las fuentes consultadas",
+   "SEMANTIC_RULE": "a frase tem de dizer \"nas fontes consultadas\". SILENCIO != AUSENCIA, e sem o denominador isto vira uma afirmacao que a fonte nao sustenta."
+  },
+  {
+   "SOURCE_FIELD": "META_ACTIVITY",
+   "SOURCE_VALUE": "NOT_SEARCHED",
+   "DISPLAY_KEY": "meta_activity.not_searched",
+   "DISPLAY_TEXT_PT": "A fonte de anuncios nao foi consultada",
+   "DISPLAY_TEXT_EN": "The ad source was not searched",
+   "DISPLAY_TEXT_ES": "La fuente de anuncios no fue consultada",
+   "SEMANTIC_RULE": "este e o estado de hoje para os tres paises. Proibido exibir como \"nenhum anuncio\"."
+  },
+  {
+   "SOURCE_FIELD": "CONVERGENCE_CASE",
+   "SOURCE_VALUE": "COMPETITIVE_CONVERGENCE_WORTH_INVESTIGATING",
+   "DISPLAY_KEY": "convergence_case.worth_investigating",
+   "DISPLAY_TEXT_PT": "Convergencia competitiva que merece investigacao",
+   "DISPLAY_TEXT_EN": "Competitive convergence worth investigating",
+   "DISPLAY_TEXT_ES": "Convergencia competitiva que merece investigacion",
+   "SEMANTIC_RULE": "investigar, nunca agir. A saida e PRIORITY TO INVESTIGATE e quem decide e o Market Development."
+  },
+  {
+   "SOURCE_FIELD": "CONVERGENCE_CASE",
+   "SOURCE_VALUE": "POSSIBLE_EARLY_WINDOW",
+   "DISPLAY_KEY": "convergence_case.possible_early_window",
+   "DISPLAY_TEXT_PT": "O sinal pode estar surgindo antes de forte ativacao publica competitiva",
+   "DISPLAY_TEXT_EN": "The signal may be emerging before strong competitive public activation",
+   "DISPLAY_TEXT_ES": "La senal puede estar surgiendo antes de una fuerte activacion publica competitiva",
+   "SEMANTIC_RULE": "frase inteira, sem encurtar. Proibido virar white space, vantagem competitiva ou oportunidade de venda."
+  },
+  {
+   "SOURCE_FIELD": "CONVERGENCE_CASE",
+   "SOURCE_VALUE": "POSSIBLE_PRE_POSITIONING_SIGNAL",
+   "DISPLAY_KEY": "convergence_case.possible_pre_positioning",
+   "DISPLAY_TEXT_PT": "Possivel sinal de pre-posicionamento",
+   "DISPLAY_TEXT_EN": "Possible pre-positioning signal",
+   "DISPLAY_TEXT_ES": "Posible senal de preposicionamiento",
+   "SEMANTIC_RULE": "e uma pergunta, nao um diagnostico: antecipacao ou calendario normal? A resposta padrao e NAO SEI."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_OBSERVATION_CLOCK",
+   "SOURCE_VALUE": "FIRST_OBSERVED",
+   "DISPLAY_KEY": "competitor_clock.first_observed",
+   "DISPLAY_TEXT_PT": "Primeira vez que NOS observamos",
+   "DISPLAY_TEXT_EN": "First time WE observed it",
+   "DISPLAY_TEXT_ES": "Primera vez que NOSOTROS lo observamos",
+   "SEMANTIC_RULE": "quando nos observamos, nao quando o concorrente comecou. OBSERVATION_START != ACTIVITY_START."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_OBSERVATION_CLOCK",
+   "SOURCE_VALUE": "LAST_OBSERVED",
+   "DISPLAY_KEY": "competitor_clock.last_observed",
+   "DISPLAY_TEXT_PT": "Ultima vez observada",
+   "DISPLAY_TEXT_EN": "Last time observed",
+   "DISPLAY_TEXT_ES": "Ultima vez observada",
+   "SEMANTIC_RULE": "nao significa que parou. Significa que a ultima consulta viu ate aqui."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_OBSERVATION_CLOCK",
+   "SOURCE_VALUE": "CHANGE_OBSERVED",
+   "DISPLAY_KEY": "competitor_clock.change_observed",
+   "DISPLAY_TEXT_PT": "Mudanca de mensagem observada entre duas consultas",
+   "DISPLAY_TEXT_EN": "Message change observed between two checks",
+   "DISPLAY_TEXT_ES": "Cambio de mensaje observado entre dos consultas",
+   "SEMANTIC_RULE": "mudanca so existe da SEGUNDA observacao em diante. FIRST SNAPSHOT != NO CHANGE."
+  },
+  {
+   "SOURCE_FIELD": "COMPETITOR_OBSERVATION_CLOCK",
+   "SOURCE_VALUE": "NOT_KNOWN",
+   "DISPLAY_KEY": "competitor_clock.not_known",
+   "DISPLAY_TEXT_PT": "Sem serie de observacao para este concorrente",
+   "DISPLAY_TEXT_EN": "No observation series for this competitor",
+   "DISPLAY_TEXT_ES": "Sin serie de observacion para este competidor",
+   "SEMANTIC_RULE": "sem serie nao ha como separar antecipacao de rotina, e o caso 3 diz isso na cara."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_AUDIENCE",
+   "SOURCE_VALUE": "CAN_INVESTIGATE_NOW",
+   "DISPLAY_KEY": "action_audience.can_investigate_now",
+   "DISPLAY_TEXT_PT": "Quem pode investigar agora",
+   "DISPLAY_TEXT_EN": "Who can investigate now",
+   "DISPLAY_TEXT_ES": "Quien puede investigar ahora",
+   "SEMANTIC_RULE": "investigar nao e agir. WHO CAN INVESTIGATE NOW != WHO SHOULD ACT NOW."
+  },
+  {
+   "SOURCE_FIELD": "ACTION_AUDIENCE",
+   "SOURCE_VALUE": "DECISION_IS_NOT_OURS",
+   "DISPLAY_KEY": "action_audience.decision_is_not_ours",
+   "DISPLAY_TEXT_PT": "O Sintonia prioriza; a decisao e da ADAMA",
+   "DISPLAY_TEXT_EN": "Sintonia prioritises; the decision is ADAMA’s",
+   "DISPLAY_TEXT_ES": "Sintonia prioriza; la decision es de ADAMA",
+   "SEMANTIC_RULE": "nenhuma traducao pode sugerir que o sistema recomenda uma acao comercial."
+  }
+ ],
+ "PROIBICOES_DE_TRADUCAO": [
+  "\"a ADAMA nao tem solucao\" — para EXPLICIT_SPECIES_RESPONSE = NONE",
+  "\"sem necessidade de tratamento\" — para CURRENT_FIELD_NEED = NOT_KNOWN",
+  "\"aplique agora\" — para qualquer WINDOW_STATUS",
+  "\"estavel\" — para MOMENTUM_STATE = NOT_KNOWN",
+  "\"tendencia\" — para qualquer MATURITY_STATE",
+  "\"0 produtos\" ou \"sem catalogo\" — para NOT_COLLECTED",
+  "qualquer numero em POSSIBLE_ECONOMIC_CONSEQUENCE"
+ ],
+ "SEMANTIC_DRIFT_ERRORS": 0,
+ "COMO_ESSE_ZERO_FOI_MEDIDO": "as 28 regras foram lidas uma a uma contra o campo de origem, perguntando se a frase de exibicao autoriza uma conclusao que o campo nao sustenta. Nenhuma autoriza. E medicao por leitura, nao por teste automatico — o teste automatico so verifica que as frases proibidas nao aparecem.",
+ "CAMPOS_TEMPORAIS_ADICIONADOS": [
+  "AS_OF_DATE",
+  "CALENDAR_TYPE",
+  "CROP_PHASE",
+  "EVIDENCE_FRESHNESS",
+  "FIELD_EVIDENCE_AGE",
+  "ISSUE_WINDOW_TYPE",
+  "NEXT_WINDOW",
+  "PARTIAL_TEMPORAL_EVIDENCE",
+  "PHASE_KNOWN_BY",
+  "PRODUCT_TARGET_SCOPE",
+  "REGISTRATION_EXPIRY_STATE",
+  "TEMPORAL_RESOLUTION",
+  "TEMPORAL_UNKNOWN_COUNT",
+  "WINDOW_STATE"
+ ],
+ "DE_ONDE_VEM_O_TEMPORAL": "as regras temporais correspondem 1:1 aos valores que public.f_case_temporal_context devolve. Fonte: supabase/migrations/010-012.",
+ "DEFEITO_CONHECIDO_ACENTUACAO": "ACENTUACAO diz que os textos de exibicao levam acento, e 29 das 29 regras anteriores a esta rodada nao levam. As regras temporais seguiram a convencao REAL do arquivo (sem acento) para nao criar um arquivo meio acentuado. Corrigir os dois lados numa passada unica e trabalho do dono do DISPLAY-LAYER, nao desta missao.",
+ "CAMPOS_COMPETITIVOS_ADICIONADOS": [
+  "ACTION_AUDIENCE",
+  "COMPETITOR_OBSERVATION_CLOCK",
+  "COMPETITOR_RESPONSE",
+  "COMPETITOR_STATE",
+  "CONVERGENCE_CASE",
+  "META_ACTIVITY"
+ ],
+ "DE_ONDE_VEM_O_COMPETITIVO": "as regras competitivas correspondem 1:1 aos estados de data/samples/EAME-COMPETITOR-CONTRACT-V1.json. Nenhum dado competitivo foi coletado; estas sao regras de exibicao para capacidade declarada."
+}

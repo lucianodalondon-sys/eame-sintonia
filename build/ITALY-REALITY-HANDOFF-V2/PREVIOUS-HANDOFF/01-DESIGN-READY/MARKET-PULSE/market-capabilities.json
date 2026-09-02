@@ -1,0 +1,1988 @@
+{
+ "LAYER": "MARKET_CAPABILITIES",
+ "COUNTRY": "IT",
+ "BUILT_AT": "2026-09-02",
+ "SOURCE_ARTIFACTS": [
+  "leque de mercado 2026-09-02"
+ ],
+ "PROVENANCE_DEFAULT": "REAL_SOURCE",
+ "NOTE": "o que CADA fonte publica, com cadencia, geografia e ultimo periodo. E a base da auditoria de viabilidade.",
+ "COUNT": 111,
+ "BY_AVAILABLE": {
+  "PARTIAL": 32,
+  "YES": 58,
+  "NOT_MEASURED": 4,
+  "NO": 17
+ },
+ "CAPABILITIES": [
+  {
+   "ID": "IT-MKTCAP-001",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "ICF — Indice ISMEA del clima di fiducia, setor AGRICOLTURA (congiuntura)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "IV trimestre 2025 — relatorio 'La congiuntura Agricola - IV trimestre 2025' publicado em 29/01/2026 (calendario lido no snapshot de 23/04/2026). Se ISMEA manteve o ritmo, I trim 2026 e II trim 2026 ja sairam ate hoje (02/09/2026), mas isso eu NAO SEI: nao ha snapshot posterior a abril/2026 dessa lista.",
+   "CROPS": [
+    "Agroalimentare (agregado)",
+    "Ortaggi",
+    "Frutta",
+    "Agrumi",
+    "Olio d'oliva",
+    "Vino",
+    "Cereali",
+    "Latte e derivati bovini",
+    "Latte e deriv. ovicaprini",
+    "Carne bovina",
+    "Carne suina",
+    "Avicoli",
+    "Ovicaprini",
+    "Conigli"
+   ],
+   "ACCESS_ROUTE": "HTML com grafico FusionCharts + botao 'Scarica i dati in formato excel'; alem disso relatorio trimestral em PDF na secao 'Clima fiducia Agricoltura'",
+   "LIMITATION": "NAO CONSEGUI LER NENHUM VALOR CORRENTE. O numero nao esta no HTML: mora em 6 arquivos XML de grafico em /flex/tmp/FlexFCharts/... e todos os 6 dao HTTP 404 no Internet Archive. Duas armadilhas de leitura: (a) a escala e de -100 a +100 e NAO e percentual — a imprensa italiana ja publicou 'indice Ismea a -1,4%' com sinal de porcentagem indevido; (b) LEI 4: 'Cereali' e um setor, nao e trigo duro; confianca de CEREAIS nao vale como confianca de TRIGO DURO nem de MILHO.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-002",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "ICF — Indice ISMEA del clima di fiducia, setor INDUSTRIA ALIMENTARE",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI (a lista de relatorios que li e a da Agricoltura; a de Industria existe como secao 'Clima fiducia Industria' mas nao foi arquivada)",
+   "CROPS": [
+    "industria alimentar (nao e por cultura)"
+   ],
+   "ACCESS_ROUTE": "HTML + FusionCharts + Excel; relatorio PDF",
+   "LIMITATION": "Mede outra coisa que o ICF Agricoltura: 'giudizi degli operatori sul livello generale degli ordini, sul livello delle giacenze di prodotti finiti e le loro aspettative circa la tendenza della produzione nell'immediato futuro'. Nenhum valor lido.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-003",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Componentes do ICF (condicoes correntes vs expectativas)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [
+    "mesmos setores do ICF"
+   ],
+   "ACCESS_ROUTE": "apenas o relatorio trimestral em PDF (a pagina de dados so mostra o indice sintetico)",
+   "LIMITATION": "A fonte declara que o indice SINTETIZA duas coisas — 'l'andamento corrente degli affari della loro azienda' e 'le attese sull'evoluzione economica della stessa nei prossimi 2-3 anni' — mas a pagina de dados publica so o valor unico. Nao consegui ver as duas componentes separadas, nem a variacao vs trimestre anterior. NAO SEI se o PDF trimestral as abre.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-004",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Indice ISMEA dei prezzi alla produzione / all'origine (base 2010=100)",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "Luglio 2025 (tabela lida no snapshot de 15/09/2025). O valor de hoje NAO SEI.",
+   "CROPS": [
+    "Tot. agricoltura",
+    "Tot. coltivazioni agricole",
+    "Cereali",
+    "Frutta",
+    "Olio d'oliva",
+    "Ortaggi",
+    "Semi oleosi",
+    "Tabacco",
+    "Vino",
+    "Tot. allevamenti",
+    "Latte e derivati bovini",
+    "Conigli",
+    "Bovini da macello",
+    "Ovini e caprini",
+    "Suini",
+    "Uova",
+    "Avicoli"
+   ],
+   "ACCESS_ROUTE": "tabela HTML legivel direto + 'Scarica i dati in formato excel'; e a 'Banca dati indici' com drilldown por ano/mes/semana e por macrocategoria>categoria>gruppo>prodotto>varieta, com export declarado 'nei principali formati (xls, csv, pdf)'",
+   "LIMITATION": "Na pagina publica o corte e por CATEGORIA (Cereali, Ortaggi...), nao por cultura individual — para descer a produto/variedade e preciso o banco interativo, que exige navegador e esta bloqueado. A propria fonte diz que a coleta 'e compresa nel Piano Statistico Nazionale'. LEI 6: indice de preco ao produtor NAO e lucro do produtor.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-005",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Indice dei prezzi dei mezzi correnti di produzione (custo de insumos)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "Anos 2010-2024 na serie baixavel (texto lido no snapshot de 21/04/2026)",
+   "CROPS": [
+    "nao e por cultura: e por produto e por voce di spesa (rubrica de gasto)"
+   ],
+   "ACCESS_ROUTE": "download de serie historica na 'Banca dati indici': 'Serie storica mensile per prodotto' e 'Serie storica mensile per voce di spesa'",
+   "LIMITATION": "Duas coisas travam: a pagina dedicada /dati-agroalimentare/indice-costi aparecia como 'Pagina non piu disponibile' no snapshot de 18/11/2025, e a serie baixavel parava em 2024 no snapshot de abril/2026 — ou seja, defasagem de mais de um ano contra o indice de precos, que e mensal. NAO SEI se existe uma rubrica separada para 'prodotti fitosanitari' dentro das 'voci di spesa'; nao consegui abrir o arquivo.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-006",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Prezzi alla produzione por PIAZZA (praca de mercado) — origem",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "PIAZZA",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [
+    "Olio d'oliva",
+    "Vino",
+    "DOP e IGP",
+    "Biologico (mensili per piazza)",
+    "Fiori e piante",
+    "alem das secoes de Ortaggi/Frutta/Agrumi/Cereali/Semi oleosi que tem 'Prezzi'"
+   ],
+   "ACCESS_ROUTE": "so navegador — banco de dados interativo 'BD prezzi origine' com painel de selecao; export xls/csv/pdf",
+   "LIMITATION": "Provei que a capacidade EXISTE (o menu do portal lista 'Prezzi per piazza', 'Prezzi medi', 'Prezzi medi settimanali', 'Prezzi medi mensili', 'Mensili per piazza'), mas NAO LI NENHUM PRECO POR PRACA: essas paginas nao estao no Internet Archive. Parte do portal fica atras de 'Area partner / Login / Registrazione' — nao sei quais series exigem cadastro.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-007",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Prezzi all'ingrosso por piazza (atacado)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "PIAZZA",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [
+    "ortofrutta e demais setores listados no menu 'Ingrosso'"
+   ],
+   "ACCESS_ROUTE": "banco interativo 'BD prezzi ingrosso', so navegador",
+   "LIMITATION": "Mesma situacao do de origem: menu prova a existencia, nenhum dado lido. LEI 6 reforcada: preco de atacado nao e preco recebido pelo produtor nem margem dele.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-008",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Commercio estero agroalimentare (import/export com reclassificacao ISMEA)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI para o banco de dados. Os numeros de comercio que consegui ler vem do comunicado AgriMercati e cobrem janeiro-novembro de 2025.",
+   "CROPS": [
+    "todos os setores agroalimentares, por setor/produto e por area/pais/regiao"
+   ],
+   "ACCESS_ROUTE": "banco interativo (navegador) com selecao de periodo anual/trimestral/mensal-cumulado, indicador (valore, quantita, quantita coefficientata), fluxo import/export; export 'xls, csv, pdf'; mais relatorios prontos",
+   "LIMITATION": "A propria fonte avisa: 'Il totale Agroalimentare e ottenuto dalla aggregazione di voci doganali a 8 digit (NC8) e non comprende i dati soggetti a segreto statistico'. LEI 5: importacao subindo NAO e demanda subindo — pode ser quebra de safra local, arbitragem de preco, reexportacao ou estoque da industria.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-009",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Bilanci di approvvigionamento (balanco de abastecimento e grau de autoabastecimento)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "'ultimo aggiornamento: gennaio 2026', com serie dos ultimos 5 anos (lido no snapshot de 10/05/2026)",
+   "CROPS": [
+    "Ortaggi",
+    "Frutta",
+    "Agrumi",
+    "Frutta in guscio",
+    "Olio d'oliva",
+    "Vino",
+    "Cereali",
+    "Semi oleosi",
+    "Carne bovina",
+    "Carne suina",
+    "Avicoli",
+    "Ovicaprini",
+    "Latte bovino"
+   ],
+   "ACCESS_ROUTE": "HTML + 'Scarica il file Excel con i dati (204.14 KB)'",
+   "LIMITATION": "Nao baixei o Excel (host bloqueado), entao tenho a estrutura e o escopo, nao os numeros. A formula publicada e 'Autoapprovvigionamento = produzione / consumo (autosufficienza se >100)' — mede oferta contra consumo do pais, NAO mede area tratada, nem pressao de praga, nem demanda de defensivo.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-010",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Schede di settore e Report TENDENZE (analise conjuntural por comparto)",
+   "AVAILABLE": "YES",
+   "CADENCE": "campanha",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "Tendenze Ortaggi n.1/2026 — Marzo 2026 (li o relatorio inteiro). Pela lista viva do espelho Assocarni, a publicacao ISMEA mais recente que consegui datar e de 23-07-2026 ('ISMEA. SCHEDA DI SETTORE | FILIERA SUINICOLA. AGGIORNAMENTO DATI AL 06.07.2026').",
+   "CROPS": [
+    "Ortaggi (com foco em pomodoro da industria)",
+    "Frutta",
+    "Agrumi",
+    "Frutta in guscio",
+    "Cereali",
+    "Semi oleosi",
+    "Vino",
+    "Olio d'oliva",
+    "Biologico",
+    "DOP/IGP",
+    "Api e miele",
+    "Fiori e piante",
+    "alem de carnes e lacteos"
+   ],
+   "ACCESS_ROUTE": "HTML com o texto integral na propria pagina + PDF ('Scarica il report (1.38 MB)')",
+   "LIMITATION": "A cadencia NAO e regular. A propria lista do Tendenze Ortaggi mostra buracos: 21/12/2021, 21/12/2022, 10/01/2024, 19/02/2025, marco/2026 — nenhum numero 1 em 2023. Um comparto pode ficar mais de um ano sem relatorio; a ferramenta nao pode prometer atualizacao trimestral por cultura.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-011",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "AgriMercati — analise conjuntural do agroalimentar (relatorio trimestral + comunicado)",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "AgriMercati 1/2026, dedicado a 'LA CONGIUNTURA AGROALIMENTARE DEL 3 TRIMESTRE 2025', comunicado datado 'Roma, 22 gennaio 2026'",
+   "CROPS": [
+    "Cereali (frumento duro, frumento tenero, mais)",
+    "Vino",
+    "Olio EVO",
+    "Ortofrutta",
+    "Pomodoro da industria",
+    "carnes bovina/avicola/suina",
+    "lattiero caseari",
+    "ovicaprino"
+   ],
+   "ACCESS_ROUTE": "HTML (comunicado com os numeros no corpo) + PDF do relatorio",
+   "LIMITATION": "Defasagem grande: o relatorio do 3o trimestre de 2025 saiu em 22/01/2026, quase 4 meses depois. E o texto MISTURA cadencias dentro do mesmo relatorio 'trimestral' — cita 'primi undici mesi del 2025', 'primi nove mesi', 'a dicembre 2025' e 'terzo trimestre 2025' lado a lado. LEI 2: nao achatar isso para um unico carimbo de data.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-012",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Produzione — superficies e producoes",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [
+    "Ortaggi",
+    "Frutta",
+    "Agrumi",
+    "Frutta in guscio",
+    "Cereali",
+    "Semi oleosi",
+    "+ producoes animais"
+   ],
+   "ACCESS_ROUTE": "navegador — 'BD indicatori di competitivita'",
+   "LIMITATION": "NAO E MEDICAO PROPRIA DA ISMEA. A pagina diz literalmente: 'In questa sezione pubblichiamo i dati di fonte Istat (http://dati.istat.it/) o di altra fonte ufficiale'. Para superficie e producao, a fonte primaria e o ISTAT — a ISMEA e reempacotadora.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-013",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Acquisti domestici (compras alimentares das familias)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "pagina 'Biologico: nel 2025 gli acquisti delle famiglie volano a 4,4 miliardi di euro' criada por volta de junho/2026; relatorios semestrais 'Acquisti domestici 1/2025' e '2/2025'",
+   "CROPS": [
+    "cesta alimentar no varejo, nao cultura de campo"
+   ],
+   "ACCESS_ROUTE": "HTML + PDF",
+   "LIMITATION": "A cadencia real da PUBLICACAO e semestral/anual, embora o painel de consumo seja continuo — declarei 'semanal' porque a lista de opcoes nao tem 'semestral'; leia como: coleta continua, publicacao 2 a 3 vezes por ano. Mede consumo no varejo, nunca demanda de insumo agricola.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-014",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Indice di redditivita agricola",
+   "AVAILABLE": "NOT_MEASURED",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [],
+   "ACCESS_ROUTE": "HTML com FusionCharts",
+   "LIMITATION": "A pagina existe e foi arquivada em 08/06/2026, mas o conteudo util e so 'Indice Ismea di redditivita FusionCharts FusionCharts FusionCharts FusionCharts' — zero numero no HTML. Nao consegui nem o valor nem a periodicidade.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-015",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "Indicatori di competitivita regionali / indicatori territoriali",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "REGIAO",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [
+    "por setor, com quebra regional"
+   ],
+   "ACCESS_ROUTE": "navegador",
+   "LIMITATION": "Unica capacidade sub-nacional clara que achei alem do preco por praca. Nenhum dado lido — as paginas nao estao arquivadas.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-016",
+   "SOURCE_REF": "IT-MKTSRC-001",
+   "SOURCE": "ISMEA",
+   "METRIC": "API publica / open data programatico",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "nao se aplica",
+   "CROPS": [],
+   "ACCESS_ROUTE": "nenhuma encontrada",
+   "LIMITATION": "Nao achei nenhum endpoint aberto. O catalogo nacional italiano de dados abertos respondeu HTTP 200 com resultado vazio para 'ismea': {\"success\": true, \"result\": {\"count\": 0, ... \"results\": []}}. Todo acesso passa por navegador, download de Excel/CSV/PDF ou pagina HTML — e o portal ainda usa FusionCharts com XML temporario, o que quebra raspagem simples. Para a ferramenta MARKET PULSE isso significa: coleta ISMEA exige janela grafica a partir de um IP que a ISMEA aceite.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-017",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Analise mensal do mercado de cereais (newsletter «I prezzi dei Cereali», BMTI em colaboracao com REF Ricerche): direcao do mercado + variacao % mensal e anual + perspectivas de curto prazo",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA (com blocos sobre UE, Mar Negro, Canada, EUA)",
+   "LATEST_PERIOD": "Luglio 2026 (dados de julho), publicado 2026-08-24 / 2026-08-25",
+   "CROPS": [
+    "grano duro (trigo duro)",
+    "grano tenero (trigo mole)",
+    "mais (milho)",
+    "orzo (cevada)"
+   ],
+   "ACCESS_ROUTE": "HTML (post) + API REST WordPress /wp-json/wp/v2/posts?categories=30 sem chave + PDF anexo; arquivo completo em https://www.bmti.it/archivio-analisi-cereali/",
+   "LIMITATION": "O post traz so 4 paragrafos; o numero fino esta no PDF, e o extrator devolve o PDF com espaco entre cada letra (precisa de limpeza). NAO existe serie historica em CSV/Excel: para montar serie mensal e preciso baixar e raspar um PDF por mes. Arquivo com 95 PDFs desde jan/2017, MAS com buracos declarados: nada entre jun/2023 e ago/2024. A edicao de agosto/2026 ainda nao existe em 02/09/2026 (a de julho saiu em 24/08) — a defasagem tipica e de ~3 a 4 semanas.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-018",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "FINC — Fixing Indicativo Nazionale Camerale: indice sintetico nacional de preco franco partenza, com banda de oscilacao",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA (media nacional de um nucleo selecionado de Camaras de Comercio e Borse Merci)",
+   "LATEST_PERIOD": "Luglio 2026, publicado 2026-08-24",
+   "CROPS": [
+    "grano tenero",
+    "mais",
+    "orzo"
+   ],
+   "ACCESS_ROUTE": "PDF (dentro da newsletter mensal de cereais)",
+   "LIMITATION": "So sai a variacao % (vs mes anterior e vs mesmo mes do ano anterior) e o nivel em texto corrido. A serie e a banda de oscilacao existem SO como grafico dentro do PDF — nao ha tabela numerica extraivel. CUIDADO DE LEITURA: o FINC e uma media nacional de um nucleo escolhido de pracas; NAO e o preco de uma praca (Bologna, Foggia, Milano) e nao serve para dizer o que um produtor de uma regiao especifica recebeu.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-019",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Listino CUN Grano duro — precos indicativos e tendencia de mercado negociados entre 10 comissarios vendedores e 10 compradores",
+   "AVAILABLE": "YES",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "ITALIA em 4 macro-areas: Nord Italia, Centro Italia, Sud Italia, Isole",
+   "LATEST_PERIOD": "Riunione de 31/08/2026 (a mais fresca de toda a fonte; anterior 24/08/2026, antes 03/08/2026)",
+   "CROPS": [
+    "grano duro / frumento duro, em 4 qualidades por praca: Fino alto proteico, Fino proteico, Fino, Convenzionale — cada uma com especificacao tecnica (proteina %, peso specifico kg/hl, vitrei %, umidade)"
+   ],
+   "ACCESS_ROUTE": "PDF direto e sem login em http://www.listinicun.it/listini//11/AAAA-MM-DD_Listino CUN Grano Duro DD.MM.AAAA.pdf (padrao de URL previsivel); a pagina de indice e /pages/Home?cod=11. Existe download automatico em XML, mas so para utilizador registado e mediante pedido por e-mail a develop@bmti.it.",
+   "LIMITATION": "A rota XML (a unica legivel por maquina) exige registo + pedido manual — nao da para automatizar hoje. Ha semanas SEM reuniao (nao houve em 10 e 17 de agosto de 2026): a serie e semanal mas com buracos, sobretudo no verao. Varias celulas saem «Non Formulato» (ex.: Isole nas qualidades 4.1 e 4.2 em 31/08/2026) — ausencia de acordo, nao ausencia de mercado. O arquivo historico completo exige login. ARMADILHA DE MAPA: a pagina institucional https://www.bmti.it/cun/ lista as CUN ativas e NAO inclui a CUN Grano duro — esta desatualizada; a CUN Grano duro foi instituida por decreto publicado no site do Masaf em 16/01/2026 e esta ativa. Quem confiar na pagina /cun/ conclui, errado, que nao ha listino semanal de trigo duro.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-020",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Tendenza di mercato CUN Grano duro (rotulo qualitativo: In Rialzo / Stabile / In Ribasso)",
+   "AVAILABLE": "YES",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "ITALIA (nacional, um unico rotulo por reuniao)",
+   "LATEST_PERIOD": "31/08/2026 = «In Rialzo»; 24/08/2026 = «Stabile»; 03/08/2026 = «Stabile»",
+   "CROPS": [
+    "grano duro"
+   ],
+   "ACCESS_ROUTE": "PDF do listino CUN (mesmo ficheiro)",
+   "LIMITATION": "E um rotulo, nao um numero — nao tem intensidade. E acordado por um colegio paritario de vendedores e compradores; se nao houver acordo, quem formula e um Comitato dei garanti. Portanto e um preco/tendencia INDICATIVO negociado institucionalmente, nao a media de transacoes efetivamente realizadas.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-021",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Comunicazione Prezzi semanal — precos e QUANTIDADES efetivamente transacionadas na bolsa telematica, media ponderada pela quantidade, por produto, praca e modalidade de entrega",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "PIAZZA (provincia) e REGIAO — dois ficheiros separados",
+   "LATEST_PERIOD": "20/08/2026 - 26/08/2026, publicado 2026-08-28",
+   "CROPS": [
+    "cereali e coltivazioni industriali (na semana lida: risone Baldo, CL 26, S.Andrea, praca de Vercelli)",
+    "demais comparti agroalimentares conforme houver contrato"
+   ],
+   "ACCESS_ROUTE": "PDF em https://www.bmti.it/wp-content/uploads/AAAA/MM/ComunicazionePrezziProv AAAAMMDD.pdf e ...Reg AAAAMMDD.pdf; indice em /comunicazione-prezzi/ (arquivo semanal desde 2025 e antes)",
+   "LIMITATION": "LIMITACAO GRAVE, VERIFICADA: a bolsa telematica e fina e muitas semanas fecham com ZERO negocio. Nas semanas 23-29/07/2026 e 20-26/08/2026 os dois ficheiros dizem literalmente «Nessun contratto concluso a livello provinciale» e «...a livello regionale». Ou seja: NAO da para montar uma serie semanal continua de preco a partir das transacoes da BMTI. Quando ha dado, ele e otimo (preco real + tonelada real + modalidade franco partenza), mas e episodico. Alem disso o PDF nao tem versao CSV.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-022",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Indice dei prezzi all'ingrosso agroalimentare (indice mensal de precos oficiais por atacado, com nota descritiva por comparto)",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "Luglio 2026, publicado 2026-08-28",
+   "CROPS": [
+    "riso e cereali (farinhas, semolas, arroz)",
+    "vinhos a granel (comuns brancos/tintos, DOP-IGP)",
+    "frutas e hortalicas",
+    "carnes e ovos",
+    "leite, queijos, manteiga, nata",
+    "oleos e gorduras (azeite)",
+    "pescado"
+   ],
+   "ACCESS_ROUTE": "HTML (post) + API REST + PDF da nota; arquivo em https://www.bmti.it/archivio-indice-prezzi-ingrosso/ (99 ficheiros)",
+   "LIMITATION": "A NOTA e texto; as TABELAS COM OS NUMEROS DO INDICE sao imagens .png (tabella-1..4-scaled.png) — os niveis do indice nao sao legiveis por maquina, so as variacoes % citadas no corpo do texto. Existe uma «Nota Metodologica Indice Prezzi Ingrosso» em PDF (2022) que eu NAO li nesta passagem: nao sei qual e o ano-base nem os pesos.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-023",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Analisi trimestrale sui prezzi e sul mercato del risone (preco, giacenze, transferencias, comercio exterior, custo de meios tecnicos)",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA por praca (Vercelli, Pavia, Mortara, Novara) + UE-27 + mundo",
+   "LATEST_PERIOD": "Giugno 2026 (campanha 2025/26), publicado 2026-07-06",
+   "CROPS": [
+    "risone / arroz, por grupo e variedade: Tondi (Araldo, Centauro, Selenio), Medi (Vialone Nano), Lunghi A (Baldo, S.Andrea, Carnaroli, Arborio, Gloria), Lungo B, e variedades tailandesas no bloco internacional"
+   ],
+   "ACCESS_ROUTE": "PDF; arquivo em https://www.bmti.it/archivio-analisi-riso/ (42 ficheiros)",
+   "LIMITATION": "TRIMESTRAL — nao converter em leitura mensal nem diaria. Cadencia irregular na pratica (as edicoes recentes sao jun/2026, jul/2025, out/2024, jul/2024, jun/2023, fev/2023): nao sao 4 por ano. PDF pesado (2,6 MB) e maioritariamente grafico: o texto extrai, as tabelas nao. AUTORIA: o documento e realizado pela Camera di Commercio di Cremona, Mantova e Pavia «con la collaborazione tecnico scientifica di BMTI» — creditar so a BMTI e impreciso.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-024",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Analisi annuale dei prezzi delle uve da vino rilevati dalle Camere di Commercio (preco por denominacao e por praca, serie de 6 anos + comparacao com media do quinquenio)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "PIAZZA — praca por praca / provincia por provincia (Cuneo, Asti-Alessandria, Brescia, Mantova, Pavia, Verona, Padova, Treviso, Udine, Reggio Emilia, Piacenza, Siena, Firenze, Arezzo, Livorno-Grosseto, Perugia, Pescara, Bari), agregadas em 9 regioes",
+   "LATEST_PERIOD": "Vendemmia 2025, publicado 2026-05-21 (dados dos listini camerais atualizados a 28 de fevereiro de 2026)",
+   "CROPS": [
+    "uva de vinho por denominacao: Nebbiolo (Barolo, Barbaresco, Langhe, Terre Alfieri), Moscato, Barbera, Franciacorta, Lugana, Chardonnay, Pinot Bianco/Grigio/Nero, Riesling, Bonarda, Sangue di Giuda, Amarone e Recioto, Soave, Glera (Conegliano-Valdobbiadene Prosecco Superiore), Colli Euganei, Cabernet, Merlot, Sauvignon, Malvasia, Ribolla Gialla, Lambrusco, Gutturnio, Chianti e Chianti Classico, Brunello di Montalcino, Nobile di Montepulciano, Bolgheri Rosso, Morellino di Scansano, Sagrantino/Montefalco, Pecorino, Trebbiano, Montepulciano d'Abruzzo, Primitivo IGT"
+   ],
+   "ACCESS_ROUTE": "PDF; arquivo em https://www.bmti.it/archivio-report-uve-vino/ (8 edicoes, de 2018/2019 ate vendemmia 2025)",
+   "LIMITATION": "ANUAL E MUITO DEFASADA — este e o ponto que mais pesa para uma ferramenta de pulso. A vendimia 2025 (setembro/outubro de 2025) so foi publicada em 21/05/2026: ~7-8 meses de atraso. Em 02/09/2026 o dado mais recente disponivel continua a ser a vendemmia 2025; a vendemmia 2026, que esta a acontecer agora, so deve ser publicada por volta de meados de 2027. Entre publicacoes NAO ha nenhum sinal de preco de uva nesta fonte — o unico proxy intra-anual e o indice mensal dos VINHOS a granel, que e outra coisa (vinho, nao uva). UNIDADE NAO CONFIRMADA: as tabelas trazem valores como 256,50 ou 104,00 sem que a unidade apareca no texto extraido (o cabecalho da tabela deve estar em imagem). Pelo facto de o relatorio medir a producao em «milioni di quintali», o mais provavel e euro por quintal (100 kg), mas eu NAO comprovei — nao usar como se estivesse confirmado. Cobertura desigual: Pavia compara 25/23 (nao 25/24), sinal de que faltou o dado de 2024.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-025",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Analisi mensile dei prezzi dell'olio di oliva",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "Giugno 2026, publicado 2026-08-25",
+   "CROPS": [
+    "olivicultura: extra vergine nazionale, lampante, sansa di oliva raffinato"
+   ],
+   "ACCESS_ROUTE": "HTML (post, so o resumo) + PDF; arquivo em https://www.bmti.it/archivio-analisi-olio/ (70 ficheiros)",
+   "LIMITATION": "O PDF E UM PDF DE IMAGEM: 840.936 bytes que nao devolvem texto util (so lixo de fonte). Sem OCR nao ha um unico numero de azeite legivel por maquina nesta rota. Sobra apenas a frase de resumo do post. Alem disso a defasagem e de ~2 meses (dado de junho publicado a 25 de agosto), o dobro da defasagem dos cereais.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-026",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Prezzi olio d'oliva DOP e IGP",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "Annata 2019/2020, publicado 2021-01-21 — nada ha mais de 5 anos",
+   "CROPS": [
+    "azeite DOP/IGP (ex.: Terra di Bari DOP)"
+   ],
+   "ACCESS_ROUTE": "HTML/PDF em https://www.bmti.it/archivio-olio-dop-igp/ (categoria id 238, apenas 2 posts)",
+   "LIMITATION": "A categoria existe e esta viva no site, mas nao publica desde janeiro de 2021. NAO SEI se foi descontinuada, se migrou para outro produto ou se e uma pausa — a fonte nao diz. Tratar como «nao ha dado corrente», jamais como «este preco nao existe».",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-027",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Cotacoes internacionais de futuros reportadas (MATIF Paris trigo mole; CBOT milho), media mensal + variacao mensal e anual",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "UE (MATIF) e MUNDO/EUA (CBOT)",
+   "LATEST_PERIOD": "Luglio 2026, publicado 2026-08-24",
+   "CROPS": [
+    "grano tenero",
+    "mais"
+   ],
+   "ACCESS_ROUTE": "PDF (bloco «MERCATI ESTERI E FERTILIZZANTI» da newsletter de cereais)",
+   "LIMITATION": "E media MENSAL de um futuro que negoceia todos os dias — nao transformar em serie diaria. E dado de segunda mao (a BMTI reporta MATIF/CBOT); para serie diaria a fonte primaria e a bolsa, nao a BMTI.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-028",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Preco de fertilizantes a base de ureia no mercado italiano (custo de insumo)",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA — praca de Torino (Borsa Merci di Torino)",
+   "LATEST_PERIOD": "Fim de julho de 2026, publicado 2026-08-24",
+   "CROPS": [
+    "insumo transversal a cereais e a toda a lavoura"
+   ],
+   "ACCESS_ROUTE": "PDF (newsletter de cereais)",
+   "LIMITATION": "So ureia — nao cobre fosfatados, potassicos nem defensivos. Uma praca so (Torino). Aparece como paragrafo no texto, sem tabela: para serie e preciso raspar cada PDF mensal. IMPORTANTE PARA NAO ERRAR A LEITURA: este numero e o contrapeso obrigatorio do preco da cultura — ver LEI 6 no bloco de numeros.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-029",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Preco do gasoleo agricola (custo de insumo) reportado no trimestral do arroz",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "Meados de junho de 2026, publicado 2026-07-06",
+   "CROPS": [
+    "insumo transversal; aparece no contexto do arroz"
+   ],
+   "ACCESS_ROUTE": "PDF (trimestral do risone)",
+   "LIMITATION": "Aparece so quando o relatorio trimestral do arroz decide comentar; nao e uma serie propria da BMTI. Trimestral.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-030",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Conteudo editorial completo (posts, categorias, datas, ligacoes para os PDFs) por API legivel por maquina",
+   "AVAILABLE": "YES",
+   "CADENCE": "continua",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026-08-28 (post mais recente na data desta leitura)",
+   "CROPS": [
+    "todas as cobertas pela BMTI — serve de indice, nao de dado de preco"
+   ],
+   "ACCESS_ROUTE": "API REST WordPress: /wp-json/wp/v2/posts, /categories, /pages — sem chave, sem limite visivel, paginacao via cabecalhos X-WP-Total (1773 posts) e X-WP-TotalPages (178)",
+   "LIMITATION": "PONTO CRITICO: esta API serve TEXTO EDITORIAL, nao PRECOS. Nao existe nenhum endpoint de dados, nenhum CSV, nenhum open-data de cotacoes em todo o dominio (robots.txt e sitemap_index.xml verificados, nada de portal de dados). A API e a maneira certa de descobrir e datar o material novo automaticamente; os numeros continuam a exigir descarregar e raspar PDF.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-031",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Prezzi ortofrutta all'ingrosso (frutas e hortalicas)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI — a categoria prezzi-ortofrutta (id 77) tem apenas 7 posts; nao verifiquei as datas nesta passagem",
+   "CROPS": [
+    "frutas e hortalicas (mencionadas no indice mensal: drupacee, uva de mesa, meloes, melancias, tomate)"
+   ],
+   "ACCESS_ROUTE": "HTML/API + app movel dedicada («App prezzi ortofrutta ingrosso»)",
+   "LIMITATION": "Nao aprofundei. O sinal semanal de hortifruti parece viver sobretudo na «Borsa della Spesa» (categoria id 46, 348 posts) e numa app movel — e a app pode conter dado que nao esta na web. Marco como NAO SEI, nao como inexistente.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-032",
+   "SOURCE_REF": "IT-MKTSRC-002",
+   "SOURCE": "BMTI - Borsa Merci Telematica Italiana S.C.p.A. (sociedade publica do sistema das Camaras de Comercio italianas; gere a bolsa telematica de mercadorias instituida por lei, DM 174/2006, e a Secretaria Tecnica das Commissioni Uniche Nazionali)",
+   "METRIC": "Portal internacional em ingles/frances/espanhol (international.bmti.it)",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "UE / internacional",
+   "LATEST_PERIOD": "01/06/2023 (ultima noticia visivel)",
+   "CROPS": [],
+   "ACCESS_ROUTE": "HTML, https://international.bmti.it (HTTP 200, 79.638 bytes)",
+   "LIMITATION": "Existe e responde, mas e institucional (cooperacao tecnica, projeto TAIEX com o Equador) e esta parado desde 2023. NAO publica preco nenhum. Quem procurar a BMTI em ingles nao encontra dado de mercado: tudo o que interessa esta em italiano no dominio principal.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-033",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Superfície total das culturas (superficie totale - ettari, cód. DATA_TYPE=ART)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026 para culturas já colhidas ou de inverno (frumento duro, frumento tenero, mais, uva da vino); 2025 para culturas cuja safra 2026 ainda não fechou (olive da olio, riso). NÃO é um ano único para toda a base.",
+   "CROPS": [
+    "frumento duro (WHEATD)",
+    "frumento tenero (COMMEAT)",
+    "mais (MAIZE)",
+    "riso (RICE)",
+    "uva da vino (WINEES)",
+    "olive da olio (OLIVO)",
+    "pomodoro da industria (INDULTOMAT)",
+    "248 códigos de cultura vieram com dado no puxão nacional de última observação; a codelist CL_AGRI_MADRE tem 872 códigos no total"
+   ],
+   "ACCESS_ROUTE": "API SDMX 2.1 REST. Dataflow IT1,101_1015_DF_DCSP_COLTIVAZIONI_1,1.0. Chave = FREQ.REF_AREA.DATA_TYPE.TYPE_OF_CROP.DESTINATION_WINEGRAPES. Saída CSV com header Accept: application/vnd.sdmx.data+csv;version=1.0.0; também XML e JSON. Sem chave de API, sem login.",
+   "LIMITATION": "O 'último ano' varia por série: no puxão de última observação apareceram séries paradas em 2009, 2014, 2016, 2018, 2019, 2021, 2022, 2023 e 2024 — séries descontinuadas convivem com as vivas sem aviso. Quem ler 'lastNObservations=1' e assumir que tudo é do mesmo ano erra. UNIT_MEAS veio VAZIO em todas as linhas de coltivazioni; a unidade só se sabe decodificando DATA_TYPE na codelist CL_TIPO_DATO5. Eu consultei apenas REF_AREA=IT.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-034",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Superfície em produção (superficie in produzione - ettari, PA_EXT)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026 (uva da vino); 2025 (olive da olio)",
+   "CROPS": [
+    "uva da vino",
+    "olive da olio",
+    "culturas permanentes em geral"
+   ],
+   "ACCESS_ROUTE": "API SDMX, mesmo dataflow 101_1015_DF_DCSP_COLTIVAZIONI_1, DATA_TYPE=PA_EXT",
+   "LIMITATION": "Só faz sentido para culturas permanentes (vinha, olival, fruteiras): é a área que já entrou em produção, diferente da área plantada. Não existe para culturas anuais.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-035",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Produção total (produzione totale - quintali, TP_QUIN_EXT) e produção colhida (produzione raccolta - quintali, HP_Q_EXT)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026 (frumento duro, frumento tenero, mais, uva da vino); 2025 (olive da olio, riso)",
+   "CROPS": [
+    "frumento duro",
+    "frumento tenero",
+    "mais",
+    "riso",
+    "uva da vino",
+    "olive da olio",
+    "e o resto dos 248 códigos com dado"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow 101_1015_DF_DCSP_COLTIVAZIONI_1",
+   "LIMITATION": "Duas medidas parecidas e diferentes: produção TOTAL e produção COLHIDA não são a mesma coisa (ex.: frumento duro 2026 = 39.513.628 total vs 39.020.884 colhida). Trocar uma pela outra infla o número. A unidade é QUINTAL (100 kg), não tonelada — errar isso multiplica por 10. Para vinho existe ainda TP_HECT_EXT em hectolitros.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-036",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Superfície e produção por PROVÍNCIA",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "PIAZZA",
+   "LATEST_PERIOD": "NAO SEI — não cheguei a puxar dados deste dataflow; só li a anotação LAST_UPDATE = 2026-07-28T09:03:38.324Z (mesma do nacional)",
+   "CROPS": [
+    "NAO SEI"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow IT1,101_1015_DF_DCSP_COLTIVAZIONI_2,1.0 — título literal 'Superfici e produzione - dati in complesso - prov' / 'Areas and production - overall data - provinces'",
+   "LIMITATION": "Existência comprovada pelo catálogo e pela data de atualização; conteúdo NÃO verificado por mim (o host caiu antes). Marcar como NÃO SEI, não como vazio.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-037",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Intenções de semeadura (superficie investita a coltivazioni, variazione % su annata precedente)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026 (publicado 2026-07-28)",
+   "CROPS": [
+    "frumento duro",
+    "frumento tenero",
+    "orzo",
+    "mais",
+    "riso",
+    "soia",
+    "girasole",
+    "colza e ravizzone",
+    "barbabietola da zucchero",
+    "tabacco",
+    "patata",
+    "ortive",
+    "43 rubricas com dado para REF_AREA=IT"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow IT1,101_1015_DF_DCSP_COLTIVAZIONI_10,1.0, DATA_TYPE=SOWCROP",
+   "LIMITATION": "É a ÚNICA série desta fonte que olha para frente, e é o insumo mais direto para a pergunta 'próximos meses'. Mas: (a) o valor é VARIAÇÃO PERCENTUAL sobre a safra anterior, nunca hectare absoluto — a codelist define literalmente 'superficie investita a coltivazioni (variazione % su annata precedente)'; (b) a geografia para de nível: só IT e as macro-áreas ITC (Nord-ovest), ITD (Nord-est), ITE (Centro), ITFG (Mezzogiorno) — não há região nem província; (c) várias rubricas estão congeladas em 2014, 2015, 2016 e 2023 (ex.: pomodoro parou em 2015, sorgo em 2015, colza em 2014) e mesmo assim voltam num 'lastNObservations=1'.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-038",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Conti economici dell'agricoltura — valore della produzione (P1_C_W2_S1)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2025 (edição EDITION=2026M6, publicada 2026-06-12)",
+   "CROPS": [
+    "não é por cultura: é por ramo NACE — A (agricoltura, silvicoltura e pesca), A01 (produzioni vegetali e animali), A02 (silvicoltura), A03 (pesca)"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow IT1,93_48_DF_DCCN_VAAGSIPET_1,1.0. Chave = FREQ.REF_AREA.DATA_TYPE_AGGR.BRKDW_INDUSTRY_NACE_REV2.GROUP_AND_MAIN_PRODUCTS.VALUATION.ADJUSTMENT.EDITION",
+   "LIMITATION": "ARMADILHA DE EDIÇÃO: a dimensão EDITION guarda as revisões lado a lado. A edição 2025M7 termina em 2024; só a 2026M6 chega a 2025. Query sem filtrar EDITION traz as duas e parece série duplicada. ARMADILHA DE UNIDADE: na edição nova 2026M6 os atributos UNIT_MEAS e UNIT_MULT vieram VAZIOS (são 'Conditional' no DSD); a mesma série na edição 2025M7 traz UNIT_MEAS=EURO e UNIT_MULT=3, ou seja MILHARES DE EURO — e o comunicado confirma (80.087.919,5 mil euros = 'i 80,1 miliardi'). Quem ler a edição nova sozinha fica sem unidade.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-039",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Conti economici — consumi intermedi ai prezzi d'acquisto (P2_D_W2_S1) e valore aggiunto (B1G_B_W2_S1)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2025 (edição 2026M6, publicada 2026-06-12)",
+   "CROPS": [
+    "por ramo NACE A / A01 / A02 / A03, não por cultura"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow 93_48_DF_DCCN_VAAGSIPET_1. VALUATION: V = prezzi correnti, Y = prezzi dell'anno precedente, L_2020 = valori concatenati com anno di riferimento 2020",
+   "LIMITATION": "Três avaliações diferentes na mesma série (V, Y, L_2020) dão três números distintos para o mesmo ano — misturar preço corrente com volume encadeado inventa crescimento. É esta linha que sustenta a LEI 6: o valore della produzione é RECEITA BRUTA do ramo; o custo do insumo está no consumi intermedi e precisa ser lido junto.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-040",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Consumi intermedi abertos por voz de custo — inclui a linha FITOSANITARI (BS400)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2025 (edição 2026M6, publicada 2026-06-12)",
+   "CROPS": [
+    "não é por cultura: é por rubrica de custo. BS100 sementi e piantine, BS200 mangimi e spese varie per il bestiame, BS300 concimi, BS400 fitosanitari, BS500 energia motrice, BS700 altri beni e servizi"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow IT1,93_48_DF_DCCN_VAAGSIPET_2,1.0, DATA_TYPE_AGGR=P2_D_W2_S1, GROUP_AND_MAIN_PRODUCTS=BS400",
+   "LIMITATION": "É o achado mais relevante da fonte para a ADAMA: dá o GASTO NACIONAL ANUAL em fitossanitários como custo da agricultura italiana. Mas é um agregado de contas nacionais — não é mercado de defensivos a preço de venda, não abre por cultura, nem por princípio ativo, nem por empresa, nem por região (só puxei IT). E o próprio comunicado do ISTAT NÃO cita fitossanitários entre as principais despesas: lista literalmente 'i mangimi (8,2 miliardi di euro), l'energia (4,7 miliardi), le sementi (2,3 miliardi) e i concimi (2,1 miliardi)' — fitossanitário fica abaixo desse corte.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-041",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Valor da produção por produto agrícola (P1_C_W2_S1_BS), incluindo culturas individuais",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2025 (edição 2026M6)",
+   "CROPS": [
+    "frumento tenero (BS111010)",
+    "frumento duro (BS111020)",
+    "orzo (BS111030)",
+    "granoturco ibrido (BS111040)",
+    "riso/risone (BS111050)",
+    "patate",
+    "pomodori (BS1130125)",
+    "barbabietola da zucchero",
+    "girasole",
+    "soia",
+    "uva da tavola",
+    "uva da vino venduta",
+    "vino",
+    "olio",
+    "arance",
+    "mandarini",
+    "79 rubricas no total no puxão de última observação"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow 93_48_DF_DCCN_VAAGSIPET_2, DATA_TYPE_AGGR=P1_C_W2_S1_BS",
+   "LIMITATION": "Confirmei que os códigos por cultura EXISTEM e que o dataflow tem 240 linhas para 2025, mas NÃO cheguei a ler os valores por cultura antes de o host cair. Marcar como NÃO SEI o valor, não como inexistente. Aqui o número é valor em euros, não quantidade — é a ponte entre a produção física (coltivazioni) e o dinheiro.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-042",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Índice mensal de preços na produção recebidos pelos agricultores (base 2020=100)",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026-06 (junho de 2026), publicado 2026-08-31 — defasagem de cerca de 2 meses",
+   "CROPS": [
+    "são 22 agrupamentos, não culturas isoladas: TOTAGRICOUT (total), CEREA (cereali), WHEATSPEL (frumento e spelta), WINE, OLIVE, FRUIT, VEGETSAND, POTAT, INDUSLCRO (industriais), FORAGANTS, PLANTDFLO, CATTL, PIGS, POULT, SHEEPGOAT, ANIMA e derivados"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow IT1,101_12_DF_DCSP_PREZZIAGR_10,1.0. Chave = FREQ.REF_AREA.DATA_TYPE.PURCHASE_PRODUCTS.SOLD_PRODUCTS, FREQ=M",
+   "LIMITATION": "É a série de cadência mais rápida da fonte — a única mensal — e por isso a mais útil para 'como está o mercado hoje'. MAS: (a) é ÍNDICE, não preço em euros por tonelada; (b) o agrupamento é SETORIAL: 'WHEATSPEL' é frumento e spelta junto, ou seja mistura trigo duro com trigo mole — NÃO é índice do trigo duro (mesma armadilha da LEI 4); 'CEREA' é cereais em bloco; (c) BASE_PER veio vazio no CSV — a base 2020 vem do TÍTULO do dataflow, não do atributo; (d) há três DATA_TYPE (76, 81, 82) e eu NÃO decodifiquei a codelist deles: 76 traz níveis (104,3 a 180,6) e 81 e 82 trazem variações percentuais, mas qual é conjuntural e qual é tendencial eu NÃO SEI.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-043",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Índice mensal de preços dos bens e serviços COMPRADOS pelos agricultores (insumos)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI — dataflow existe e a anotação LAST_UPDATE é 2026-08-31T09:43:34.022Z (mesma do índice de venda, o que sugere 2026-06 também), mas NÃO li os valores",
+   "CROPS": [
+    "não é por cultura: é por insumo comprado"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow IT1,101_12_DF_DCSP_PREZZIAGR_9,1.0 — título literal 'Indice dei prezzi dei prodotti acquistati dagli agricoltori, mensile (base 2020)'",
+   "LIMITATION": "É o par obrigatório do índice de venda para não quebrar a LEI 6 (preço alto de cultura não é lucro). Existência e data de atualização comprovadas; valores NÃO lidos — host caiu. NÃO SEI, não vazio.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-044",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Fitosanitari — produtos distribuídos, princípios ativos, uso por tipo de cultura, classe de tratamentos",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "PIAZZA",
+   "LATEST_PERIOD": "NAO SEI — não li dados; a anotação LAST_UPDATE dos dataflows 101_22_DF_DCSP_FITOSANITARI_3 e _4 é 2026-03-17T11:32:27.340Z",
+   "CROPS": [
+    "por tipo de cultura, segundo o título do dataflow _3; detalhe NÃO verificado"
+   ],
+   "ACCESS_ROUTE": "API SDMX, família IT1,101_22_*: _1 'Prodotti distribuiti - prov.', _2 'Principi attivi contenuti - prov.', _3 'Utilizzo per tipo di coltura - Principali dati', _4 'Utilizzo - dettaglio di principio attivo', _5 'Classe di trattamenti effettuati'",
+   "LIMITATION": "Potencialmente a família mais importante desta fonte para a ADAMA — quantidade distribuída de defensivo por província e por princípio ativo, e uso por cultura. Descoberta e datada, mas NÃO lida: o host caiu antes. Fica como próximo passo obrigatório, e como NÃO SEI, jamais como 'não existe'.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-045",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Risultati economici delle aziende agricole (resultado econômico ao nível da fazenda)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI — LAST_UPDATE = 2025-07-07T12:48:32.084Z, ou seja não é atualizado há mais de um ano",
+   "CROPS": [
+    "NAO SEI"
+   ],
+   "ACCESS_ROUTE": "API SDMX, dataflow IT1,101_148_DF_DCSP_RICAREA_1,1.0 — 'Risultati economici delle aziende agricole - Principali dati'",
+   "LIMITATION": "É a única família que se aproxima de margem por fazenda (e não por ramo), mas está claramente mais atrasada que as outras e não foi lida.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-046",
+   "SOURCE_REF": "IT-MKTSRC-003",
+   "SOURCE": "ISTAT",
+   "METRIC": "Catálogo completo de dataflows do ISTAT (descoberta de fontes)",
+   "AVAILABLE": "YES",
+   "CADENCE": "campanha",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "lido em 2026-09-02",
+   "CROPS": [
+    "não aplicável"
+   ],
+   "ACCESS_ROUTE": "GET https://esploradati.istat.it/SDMXWS/rest/dataflow (13.625.431 bytes, 4.897 dataflows) e .../datastructure/IT1/<DSD>?references=children para as codelists",
+   "LIMITATION": "O download é de 13 MB e o de codelists da COLTIVAZIONI é de 10 MB — pesado para rodar a cada coleta; convém cachear. A data de publicação de cada dataflow SÓ aparece na anotação LAST_UPDATE (references=none já basta), nunca no header dos dados.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-047",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Indice de preco de OUTPUT agricola (precos recebidos pelo produtor) — apri_pi_outq",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026-Q1",
+   "CROPS": [
+    "Cereais (agregado)",
+    "Trigo mole",
+    "Trigo duro",
+    "Cevada",
+    "Aveia",
+    "Milho grao",
+    "Arroz",
+    "Culturas industriais",
+    "Oleaginosas",
+    "Girassol",
+    "Soja",
+    "Proteaginosas",
+    "Tabaco",
+    "Beterraba acucareira",
+    "Forrageiras",
+    "Feno",
+    "Palha",
+    "Hortalicas e horticultura",
+    "Couve-flor",
+    "Tomate",
+    "Alface",
+    "Espinafre",
+    "Pepino",
+    "Cenoura",
+    "Cebola",
+    "Plantas e flores",
+    "Batata",
+    "Frutas",
+    "Maca",
+    "Pera",
+    "Pessego",
+    "Cereja",
+    "Ameixa",
+    "Morango",
+    "Frutos secos",
+    "Citricos",
+    "Laranja",
+    "Tangerina",
+    "Limao",
+    "Uva",
+    "Uva de mesa",
+    "Azeitona",
+    "Vinho",
+    "Vinho DOP/IGP",
+    "Azeite de oliva",
+    "Animais e produtos animais"
+   ],
+   "ACCESS_ROUTE": "API REST JSON-stat 2.0 aberta, sem chave. GET .../data/apri_pi_outq?format=JSON&geo=IT&unit=I20&p_adj=NI&lastTimePeriod=1. Tambem SDMX-CSV e TSV trocando format=. HTTP 200, 10.588 bytes, 81 observacoes para IT em 2026-Q1.",
+   "LIMITATION": "So nivel de PAIS. Nao existe recorte regional (Emilia-Romagna, Puglia) nem por praca. E indice, nao preco em euro: 136,8 significa +36,8% sobre a media de 2020, nao euros por tonelada. O ESMS avisa que cada trimestre tem peso proprio por sazonalidade, entao a comparacao valida e trimestre contra o MESMO trimestre do ano anterior (PCH_SM_I20), NAO contra o trimestre imediatamente anterior. O dataset NAO carrega a variacao trimestre-a-trimestre: pedir unit=PCH_PRE_I20 na serie trimestral devolve 0 valores. Defasagem acordada de 45 dias apos o fim do trimestre, mas na pratica hoje (02/09/2026) o ultimo publicado ainda e 2026-Q1 — ou seja, cerca de 5 meses de atraso real, nao 45 dias.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-048",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Indice de preco de OUTPUT agricola — serie anual (apri_pi_outa)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2025",
+   "CROPS": [
+    "mesma lista de 118 itens agro-monetarios da serie trimestral, com mais desagregacao (ex.: azeitona de mesa vs. outras azeitonas, vinho DOP vs. IGP vs. de mesa)"
+   ],
+   "ACCESS_ROUTE": "API REST JSON-stat. GET .../data/apri_pi_outa?format=JSON&geo=IT&unit=I20&p_adj=NI&lastTimePeriod=1 — HTTP 200, 10.070 bytes, 91 observacoes para IT em 2025. Serie comeca em 1994.",
+   "LIMITATION": "So pais. Publicado em tres ondas (estimativa antecipada, provisorio, definitivo), entao o valor de 2025 lido hoje pode ainda ser revisto. Aqui a variacao ano-a-ano EXISTE (unit=PCH_PRE_I20), ao contrario da serie trimestral.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-049",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Indice de preco de INPUT agricola — total dos meios de producao (apri_pi_inq / apri_pi_ina, item AM220000 e AM200000)",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026-Q1",
+   "CROPS": [
+    "nao se aplica — o indice de input e por INSUMO, nao por cultura: sementes, energia, fertilizantes, defensivos, veterinaria, racao, manutencao, maquinas, tratores, edificios"
+   ],
+   "ACCESS_ROUTE": "API REST JSON-stat. GET .../data/apri_pi_inq?format=JSON&geo=IT&unit=I20&p_adj=NI&lastTimePeriod=1 — HTTP 200, 8.039 bytes, 52 observacoes para IT em 2026-Q1. Anual em apri_pi_ina (HTTP 200, 7.510 bytes, serie desde 1995).",
+   "LIMITATION": "So pais. Nao ha cruzamento insumo x cultura: nao da para saber quanto do gasto com fungicida foi em videira e quanto em trigo duro. Mesma regra de comparacao ano-a-ano da serie de output.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-050",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Indice de preco de FERTILIZANTE (AM203000 Fertilisers and soil improvers), com sub-indices por tipo",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026-Q1",
+   "CROPS": [
+    "nao se aplica — e insumo. Sub-itens: adubos simples, nitrogenados, fosfatados, potassicos, compostos, NP, NPK, outros corretivos"
+   ],
+   "ACCESS_ROUTE": "Mesmo endpoint apri_pi_inq, filtrando am_item=AM203000 (ou AM203110 nitrogenados etc.). Tambem em apri_pi_ina para a serie anual.",
+   "LIMITATION": "Indice (2020=100), nao preco em euro por tonelada. Para euro/tonelada e preciso ir ao apri_aip_ft, que so tem cadencia ANUAL e ultimo periodo 2025.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-051",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Indice de preco de DEFENSIVO / PLANT PROTECTION PRODUCTS (AM204000), com sub-indices de fungicida, inseticida e herbicida",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026-Q1",
+   "CROPS": [
+    "nao se aplica — e insumo, sem quebra por cultura. Sub-itens: AM204100 fungicidas e bactericidas, AM204200 inseticidas e acaricidas, AM204300 herbicidas, dessecantes e anti-musgo"
+   ],
+   "ACCESS_ROUTE": "GET .../data/apri_pi_inq?format=JSON&geo=IT&am_item=AM204000&lastTimePeriod=1 — HTTP 200. Disponivel em indice nominal (p_adj=NI) e REAL/deflacionado (p_adj=RI), e em variacao ano-a-ano (unit=PCH_SM_I20). Comparavel entre 27 paises + agregado EU27_2020 no mesmo endpoint.",
+   "LIMITATION": "ESTA E A CAPACIDADE MAIS RELEVANTE PARA A ADAMA E A MENOS OBVIA — mas mede PRECO PAGO PELO AGRICULTOR, nao volume, nao mercado, nao share. E preco medio nacional de uma cesta fixa de 2020: mudanca de mix (produtor trocando molecula cara por generico barato) aparece como queda de preco sem que preco nenhum tenha caido. Nao separa marca de generico, nao separa cultura, nao separa canal.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-052",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Indice de preco de ENERGIA e lubrificantes (AM202000), com eletricidade, combustivel de aquecimento e combustivel de motor",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026-Q1",
+   "CROPS": [
+    "nao se aplica — insumo"
+   ],
+   "ACCESS_ROUTE": "apri_pi_inq / apri_pi_ina, am_item=AM202000 (e AM202100 eletricidade, AM202200 aquecimento, AM202300 motor).",
+   "LIMITATION": "So como INDICE. O preco absoluto de energia agricola para a Italia NAO EXISTE nesta fonte (ver linha seguinte).",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-053",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "PRECO ABSOLUTO de energia agricola em euro (apri_aip_en)",
+   "AVAILABLE": "NO",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "sem dado para a Italia em nenhum periodo",
+   "CROPS": [],
+   "ACCESS_ROUTE": "GET .../data/apri_aip_en?format=JSON&geo=IT — HTTP 200, 3.119 bytes, mas a dimensao geo volta com tamanho 0 e zero observacoes, tanto com lastTimePeriod=1 quanto sem filtro de tempo.",
+   "LIMITATION": "NAO E FONTE VAZIA, E AUSENCIA DA ITALIA: a mesma consulta sem filtro de pais devolve 25 paises com dado em 2025 (BE, BG, CZ, DK, DE, EE, IE, EL, ES, FR, HR, CY, LV, LT, LU, HU, MT, NL, PL, PT, RO, SI, SK, FI, SE). Italia e Austria nao aparecem. Ou a Italia nao transmite, ou transmite como confidencial. NAO SEI qual dos dois.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-054",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "PRECO ABSOLUTO de fertilizante em euro por tonelada (apri_aip_ft)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2025",
+   "CROPS": [
+    "nao se aplica — insumo. Italia reporta 7 dos 13 produtos do catalogo: sulfato de amonio granulado e cristalizado, nitrato de amonio 28-38% granulado, nitrato de amonio AN-24S, ureia 46% granulada, ureia 46% prilled, sulfato de potassio 45-55%"
+   ],
+   "ACCESS_ROUTE": "GET .../data/apri_aip_ft?format=JSON&geo=IT&lastTimePeriod=1 — HTTP 200, 3.975 bytes, 14 observacoes (7 produtos x 2 unidades: EUR_T e NAC_T).",
+   "LIMITATION": "DUAS LIMITACOES SERIAS. (1) A Italia NAO reporta 6 dos 13 produtos, entre eles nitrato de calcio e amonio (CAN), superfosfato simples, UAN e cloreto de potassio — justo os mais usados em varias regioes. (2) A UNIDADE E AMBIGUA E A COMPARACAO ENTRE PAISES NAO E CONFIAVEL: o campo unit diz 'Euro per tonne' mas o metadado ESMS diz que o preco se refere a 100 kg de conteudo nutritivo. Na pratica, para o MESMO produto (ureia 46% granulada, 2025) os valores vao de 99,24 EUR/t na Croacia e 112,07 nos Paises Baixos a 1.616,77 no Chipre e 1.164,23 em Portugal, com a Italia em 455,50. Uma dispersao de 16x para uma commodity global nao e mercado, e base de medida diferente entre os reportantes. USE O NUMERO ITALIANO NA SERIE DELE MESMO, NUNCA CONTRA OUTRO PAIS.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-055",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "AREA SEMEADA por cultura (apro_cpsh1, strucpro=AR_THS_HA)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026",
+   "CROPS": [
+    "214 codigos de cultura. Com dado para IT em 2026: trigo e espelta, trigo mole, trigo duro, cevada (inverno e primavera), aveia, milho grao, triticale, sorgo, arroz, milho verde, colza, girassol, soja, e mais"
+   ],
+   "ACCESS_ROUTE": "GET .../data/apro_cpsh1?format=JSON&geo=IT&strucpro=AR_THS_HA&lastTimePeriod=1 — HTTP 200, 15.174 bytes.",
+   "LIMITATION": "E O UNICO INDICADOR ANTECEDENTE DE 2026 NESTA FONTE. Mas area semeada e hectare no chao, NAO e hectare tratado, NAO e numero de aplicacoes, NAO e caixa vendida. Uma area estavel com pressao de doenca alta gera mais aplicacoes; uma area estavel com ano seco gera menos. A fonte nao sabe qual dos dois.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-056",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "PRODUCAO COLHIDA e RENDIMENTO por cultura (apro_cpsh1, strucpro=HPRD_HUMD_EU_THS_T e YLD_HUMD_EU_T_HA)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2025",
+   "CROPS": [
+    "trigo e espelta, trigo mole, trigo duro, cevada, milho grao, arroz, girassol, soja, batata, hortalicas frescas, e demais culturas do catalogo"
+   ],
+   "ACCESS_ROUTE": "GET .../data/apro_cpsh1?format=JSON&geo=IT&time=2025&strucpro=HPRD_HUMD_EU_THS_T — HTTP 200, 15.400 bytes.",
+   "LIMITATION": "PARTIAL porque o ano corrente NAO TEM COLHEITA. Para IT em 2026 o dataset devolve apenas area (AR_THS_HA) e umidade padrao (HUMD_EU_PC) — ZERO observacoes de producao colhida ou rendimento (contagem verificada = 0). Producao so aparece com um ano de defasagem. Ou seja: para 'como esta o mercado hoje', producao serve de retrovisor, area serve de para-brisa.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-057",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "PRODUCAO por REGIAO NUTS 2 (apro_cpshr)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "REGIAO",
+   "LATEST_PERIOD": "2024 (fim da serie declarado no catalogo)",
+   "CROPS": [
+    "mesmo catalogo de culturas, quebrado por regiao NUTS 2 italiana"
+   ],
+   "ACCESS_ROUTE": "API REST JSON-stat, dataset apro_cpshr. Nao testei chamada com geo italiano nesta sessao — o que confirmei foi a linha do catalogo: apro_cpshr, dataset, ultima atualizacao 28.05.2026, serie 2000 a 2024, 1.530.216 valores.",
+   "LIMITATION": "NAO VERIFIQUEI A COBERTURA ITALIANA REGIAO A REGIAO. Sei do catalogo que a serie termina em 2024, ou seja, dois anos atras do trimestre de preco. E a UNICA porta regional util desta fonte, mas nao serve para leitura corrente.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-058",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "PRECO e ARRENDAMENTO de terra agricola por regiao (apri_lprc, apri_lrnt)",
+   "AVAILABLE": "NO",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "REGIAO",
+   "LATEST_PERIOD": "2020 para a Italia (o dataset vai ate 2024 para outros paises)",
+   "CROPS": [],
+   "ACCESS_ROUTE": "GET .../data/apri_lprc?format=JSON&geo=IT — HTTP 200, 320 observacoes, mas a ultima com valor para geo=IT e 2020. A consulta filtrada em lastTimePeriod=1 (2024) devolve ZERO observacoes para IT, ITC, ITF, ITG, ITH e ITI.",
+   "LIMITATION": "Os 25 codigos NUTS italianos EXISTEM na dimensao geo (IT, ITC1..ITI4), o que faz parecer que ha dado regional — nao ha valor. Para a Italia a serie parou em 2020: 6 anos parada. Nao usar como sinal corrente.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-059",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "COMPARACAO ENTRE PAISES do indice de defensivo e demais insumos (mesmo endpoint, sem filtro de geo)",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "2026-Q1",
+   "CROPS": [
+    "nao se aplica — insumo"
+   ],
+   "ACCESS_ROUTE": "GET .../data/apri_pi_inq?format=JSON&am_item=AM204000&unit=I20&p_adj=NI&lastTimePeriod=1 — HTTP 200, devolve 27 paises + EU27_2020 na mesma chamada.",
+   "LIMITATION": "Comparabilidade entre paises so vale para os INDICES (metodologia comum acordada, base 2020=100 igual para todos), NAO para os precos absolutos do apri_aip_ft. E indice comparavel nao e nivel de preco comparavel: Italia 125,5 e Franca 102,13 significa que o preco de defensivo subiu mais na Italia desde 2020, NAO que defensivo e mais caro na Italia.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-060",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Indice REAL / deflacionado (p_adj=RI), input e output",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2026-Q1",
+   "CROPS": [
+    "mesma cobertura das series nominais"
+   ],
+   "ACCESS_ROUTE": "Mesmos endpoints, trocando p_adj=NI por p_adj=RI.",
+   "LIMITATION": "Poucos usuarios sabem que existe, e e o numero honesto: separa o que subiu de verdade do que so acompanhou a inflacao. Nao ha documentacao no proprio JSON sobre qual deflator foi usado — nao verifiquei.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-061",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Preco absoluto de VENDA de produtos vegetais em euro (apri_ap_crpouta) e de compra de meios de producao (apri_ap_ina)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2024 (fim de serie declarado no catalogo, atualizado em 15.05.2025)",
+   "CROPS": [
+    "catalogo amplo de produtos vegetais — nao inventariei item a item para a Italia"
+   ],
+   "ACCESS_ROUTE": "API REST JSON-stat, datasets apri_ap_crpouta (52.664 valores) e apri_ap_ina (30.319 valores). NAO EXECUTEI chamada filtrada para a Italia nesta sessao — a evidencia aqui e a linha do catalogo, nao a leitura do dado.",
+   "LIMITATION": "NAO SEI a cobertura italiana. Marquei PARTIAL por prudencia, nao por medicao. Serie termina em 2024 e nao foi atualizada desde maio de 2025 — dois anos atras do indice trimestral.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-062",
+   "SOURCE_REF": "IT-MKTSRC-004",
+   "SOURCE": "EUROSTAT",
+   "METRIC": "Cadencia MENSAL de qualquer indice de preco agricola",
+   "AVAILABLE": "NO",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2005-12 (datasets historicos apri_pi00_inm e apri_pi00_outm)",
+   "CROPS": [],
+   "ACCESS_ROUTE": "So os datasets historicos congelados apri_pi00_inm e apri_pi00_outm, catalogo com ultima atualizacao 27.03.2009.",
+   "LIMITATION": "NAO EXISTE indice de preco agricola mensal corrente no Eurostat. A coleta mensal foi interrompida em 2005. Se o MARKET PULSE precisar de mes, tem que vir de outra fonte (ISMEA, Borsa Merci, CE agri-food) — daqui nao vem.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-063",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Producao de cereais na UE — previsao de campanha (agregado, e por cultura: trigo mole, milho, cevada)",
+   "AVAILABLE": "YES",
+   "CADENCE": "campanha",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "marketing year 2026/27 (previsao); 2025/26 como estimativa",
+   "CROPS": [
+    "cereais (agregado)",
+    "trigo mole / soft wheat",
+    "milho / maize",
+    "cevada / barley"
+   ],
+   "ACCESS_ROUTE": "PDF (link em /document/download/... a partir da nota de imprensa; NAO esta linkado na pagina Short-term, que so oferece ZIPs de 2011-19)",
+   "LIMITATION": "So UE-27. ZERO numero de Italia no capitulo de cereais. TRIGO DURO NAO APARECE NENHUMA VEZ no relatorio inteiro (grep 'durum' = 0) — justamente a cultura-bandeira italiana. O corte de dados e anterior a publicacao: 'using market information and data available until mid-June 2026'. E o proprio EC avisa que o relatorio nao considera as ondas de calor em curso.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-064",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Producao de oleaginosas, farelos, oleos vegetais, proteaginosas e acucar na UE",
+   "AVAILABLE": "YES",
+   "CADENCE": "campanha",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "marketing year 2026/27 (previsao)",
+   "CROPS": [
+    "colza / rapeseed",
+    "soja / soya bean",
+    "girassol / sunflower seed",
+    "ervilha, fava e tremoco (protein crops)",
+    "beterraba acucareira / sugar beet"
+   ],
+   "ACCESS_ROUTE": "PDF",
+   "LIMITATION": "So UE-27, sem abertura por Estado-membro no texto.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-065",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Producao, consumo, exportacao, importacao e estoque final de azeite na UE",
+   "AVAILABLE": "YES",
+   "CADENCE": "campanha",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "2025/26 estimado, com perspectiva para 2026/27",
+   "CROPS": [
+    "azeite / olive oil",
+    "azeitona para oleo (area)"
+   ],
+   "ACCESS_ROUTE": "PDF",
+   "LIMITATION": "Balanco so UE. A campanha do azeite comeca na colheita (outubro/setembro), entao 2025/26 ainda e estimativa, nao fechamento.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-066",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Variacao anual de producao de azeite por pais produtor — inclui ITALIA",
+   "AVAILABLE": "YES",
+   "CADENCE": "campanha",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2025/26 estimado vs 2024/25",
+   "CROPS": [
+    "azeite / olive oil"
+   ],
+   "ACCESS_ROUTE": "PDF (frase no corpo do cap. 3 + GRAPH 3.3 e GRAPH 3.4, que trazem Italia, Espanha, Grecia, Portugal e resto-UE)",
+   "LIMITATION": "ESTA E A UNICA CIFRA DE ITALIA DO RELATORIO INTEIRO, e vem so como variacao percentual (+31% a/a), NAO como volume absoluto em toneladas. Os graficos 3.3/3.4/3.5/3.6 tem Italia mas o valor esta na barra, nao no texto — nao consegui ler o numero, so o eixo. 'Italy' aparece 5 vezes no PDF: 1 na tabela de siglas, 3 em rotulo de grafico, 1 na metodologia.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-067",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "VINHO — producao, comercio, estoque (balanco setorial)",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "ausente desta edicao",
+   "CROPS": [],
+   "ACCESS_ROUTE": "—",
+   "LIMITATION": "CAPITULO DE VINHO NAO EXISTE na edicao summer 2026. Busca literal por 'wine|vineyard|grape' no texto extraido = 0 ocorrencias reais (o unico acerto foi a sigla ASF numa tabela). O indice tem so 5 capitulos e nenhum e vinho. Alem disso o proprio portal declara o balanco parado: ver citacao no bloco de numeros. ATENCAO A LEI 3: isto NAO significa que a CE nao tenha dado de vinho — o dashboard 'STO Wine (External)' existe no mapa de apps e a API wine/prices responde. Significa que o Short-Term Outlook summer 2026 nao projeta vinho.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-068",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Custo de insumos do agricultor por rubrica — INCLUI PRODUTOS FITOSSANITARIOS (plant protection products)",
+   "AVAILABLE": "YES",
+   "CADENCE": "trimestral",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "2026Q1 comparado a 2025Q4 (e Q1 26 vs periodo anterior para energia/fertilizante)",
+   "CROPS": [
+    "transversal — nao e por cultura"
+   ],
+   "ACCESS_ROUTE": "PDF (cap. 1 MARKET FUNDAMENTALS)",
+   "LIMITATION": "E A METRICA MAIS PROXIMA DO NEGOCIO DA ADAMA, e ela e TRIMESTRAL e da UE INTEIRA. Nao ha recorte italiano, nao ha recorte por cultura, nao ha recorte por molecula ou por categoria (herbicida/fungicida/inseticida). E indice de CUSTO pago pelo agricultor, NAO e mercado de defensivo, NAO e volume vendido, NAO e preco de produto ADAMA. Nao repetir este numero como se fosse mensal ou semanal.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-069",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Preco e acessibilidade (affordability) de fertilizante N, P, K",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "meados de junho de 2026 (pontos citados: abril, maio, junho 2026)",
+   "CROPS": [
+    "transversal; impacto discutido para trigo, cevada, colza, milho"
+   ],
+   "ACCESS_ROUTE": "PDF (Spotlight on Fertilisers, GRAPH 1.7 serie EUR/t de jun-21 a jun-26e)",
+   "LIMITATION": "Serie da UE, sem Italia. O grafico traz a serie mensal mas os valores estao nas barras — li os pontos citados no texto, nao a serie completa. Fonte de base e privada (Argus Media / S&P Global), logo nao ha rota aberta para reproduzir a serie.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-070",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Macro: PIB real, inflacao geral, cambio EUR/USD, confianca do consumidor",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "2026 e 2027 (previsao, base Spring 2026 Economic Forecast do DG ECFIN)",
+   "CROPS": [
+    "transversal"
+   ],
+   "ACCESS_ROUTE": "PDF (cap. 1)",
+   "LIMITATION": "UE agregada. Nao ha PIB nem inflacao da Italia neste relatorio.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-071",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Balance sheets setoriais completos (producao, comercio, consumo, estoque) — todos os anos disponiveis",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "campanha",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "NAO SEI — nao consegui ler o conteudo",
+   "CROPS": [
+    "cereais (trigo mole, TRIGO DURO, cevada, milho, centeio, sorgo, aveia, triticale, outros)",
+    "oleaginosas",
+    "proteaginosas",
+    "acucar",
+    "azeite",
+    "vinho",
+    "macas",
+    "laranjas",
+    "tomates",
+    "pessegos e nectarinas",
+    "biocombustiveis",
+    "carnes",
+    "leite e laticinios"
+   ],
+   "ACCESS_ROUTE": "SO NAVEGADOR na pratica — a casca HTML abre com curl (HTTP 200, ~3,5 KB) mas e um iframe de Qlik Sense; o dado vive dentro do app Qlik",
+   "LIMITATION": "AQUI ESTA O TRIGO DURO que falta no relatorio: a descricao do portal lista 'EU soft wheat, durum wheat, barley, grain maize, rye, sorghum, oats, triticale and other cereals balance sheets'. Mas eu NAO EXTRAI NENHUM VALOR. Consegui os 14 app-ids Qlik (app-id-mapping.json, HTTP 200) — isto prova que existe rota de engine Qlik possivel, mas eu NAO a provei. O anexo do relatorio promete 'downloadable tables'; nao provei o download fora do navegador. Marcar como NAO SEI, nao como vazio.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-072",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Balance sheets por ESTADO-MEMBRO (Italia) baseados em dados do short-term outlook",
+   "AVAILABLE": "NOT_MEASURED",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [
+    "produtos selecionados — nao verifiquei quais"
+   ],
+   "ACCESS_ROUTE": "dataM (JRC) — https://datam.jrc.ec.europa.eu/datam/mashup/PROD_TRADE_USE/ ; exige sessao com cookie, depois cai noutro mashup Qlik (EU_ESTIMATED_AGRICULTURAL_BALANCE_SHEETS)",
+   "LIMITATION": "ARMADILHA MEDIDA: sem cookie devolve HTTP=499 com pagina 'An error occurred' de 53.806 bytes — nao e erro obvio nem resposta vazia, parece coleta que nao achou nada. COM cookie jar devolve HTTP=200. Cheguei na casca e parei: NAO li nenhum numero italiano. Esta e a rota mais promissora para balanco italiano e continua NAO MEDIDA.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-073",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Preco semanal de cereais na ITALIA por praca (piazza)",
+   "AVAILABLE": "YES",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "PIAZZA",
+   "LATEST_PERIOD": "semana 17-23/08/2026 (milho e trigo panificavel); semana encerrada 09/08/2026 (TRIGO DURO e cevada forrageira)",
+   "CROPS": [
+    "trigo duro / durum wheat",
+    "trigo mole panificavel / BLTPAN",
+    "milho forrageiro / MAI FEED",
+    "cevada forrageira / ORGFOUR"
+   ],
+   "ACCESS_ROUTE": "API JSON aberta, sem chave: https://www.ec.europa.eu/agrifood/api/cereal/prices?memberStateCodes=IT (16.193 registros, 22/11/2015 a 23/08/2026)",
+   "LIMITATION": "TRES ARMADILHAS. (1) O parametro years NAO FILTRA: pedi years=2026 e vieram registros desde 2015 — quem confiar no filtro conta periodo errado. (2) O preco vem como TEXTO com virgula decimal e simbolo ('€255,50'), somar sem converter da zero em silencio. (3) Ha DUAS familias de nome de produto no mesmo endpoint ('DUR|UNKNOWN' com 2.445 registros e 'Durum wheat' com 515) — misturar as duas duplica. Alem disso o trigo duro esta duas semanas mais atrasado que o milho.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-074",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Preco semanal de azeite na ITALIA por praca, por categoria, com media nacional",
+   "AVAILABLE": "YES",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "PIAZZA",
+   "LATEST_PERIOD": "semana 27/07 a 02/08/2026 (marketing year 2025/2026)",
+   "CROPS": [
+    "azeite extra virgem (ate 0,8%)",
+    "azeite virgem (ate 2%)",
+    "azeite lampante (2%)",
+    "azeite refinado (ate 0,3%)",
+    "oleo de bagaco refinado (ate 0,3%)"
+   ],
+   "ACCESS_ROUTE": "API JSON aberta: https://www.ec.europa.eu/agrifood/api/oliveOil/prices?memberStateCodes=IT (23.387 registros, 07/06/1992 a 02/08/2026)",
+   "LIMITATION": "Aqui o preco vem com PONTO decimal ('€343.00'), ao contrario do endpoint de cereais que vem com virgula ('€255,50') — o mesmo portal usa dois formatos e um parser unico erra. O filtro years tambem nao filtra. Ha registro 'Average national price' junto com as pracas: somar tudo conta a media nacional duas vezes.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-075",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Producao, area e rendimento de cereais por Estado-membro — INCLUI ITALIA E TRIGO DURO",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "ano 2026",
+   "CROPS": [
+    "trigo duro",
+    "trigo mole",
+    "cevada",
+    "milho",
+    "aveia",
+    "centeio",
+    "sorgo",
+    "triticale",
+    "outros cereais"
+   ],
+   "ACCESS_ROUTE": "API JSON aberta: https://www.ec.europa.eu/agrifood/api/cereal/production?memberStateCodes=IT&years=2026 (e sem filtro de pais: 27 Estados-membros, 243 registros para 2026)",
+   "LIMITATION": "O REGISTRO NAO TRAZ CAMPO DE UNIDADE. Os campos sao apenas memberStateCode, memberStateName, year, crop, grossProduction, area, yield. As unidades (1000 t, 1000 ha, t/ha) sao INFERENCIA MINHA por conferencia de ordem de grandeza, NAO estao declaradas pela fonte. Alem disso este numero NAO fecha com o relatorio: somando os 27 Estados-membros para 2026 dou 265,0 milhoes de t, enquanto o relatorio diz 273,7 milhoes de t para 2026/27 — sao coisas diferentes (ano de colheita vs marketing year, e conjuntos de culturas diferentes). NAO MISTURAR OS DOIS.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-076",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Preco semanal de vinho na ITALIA",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "semanal",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "semana encerrada 06/07/2025 — mais de um ano parado em relacao a hoje (02/09/2026)",
+   "CROPS": [
+    "vinho branco sem DOP/IGP",
+    "outras descricoes por praca italiana"
+   ],
+   "ACCESS_ROUTE": "API JSON aberta: https://www.ec.europa.eu/agrifood/api/wine/prices?memberStateCodes=IT&years=2024,2025",
+   "LIMITATION": "SERIE ITALIANA DESATUALIZADA. Com years=2026 a API devolve HTTP=404 com a mensagem 'No results found for the selected parameter(s)' — isso e NAO ACHEI COM ESSES PARAMETROS, nao e 'nao existe'. Com years=2024,2025 vem HTTP=200 e 190 registros italianos, o ultimo da semana 30/06-06/07/2025. Sem filtro de pais, a serie de toda a UE tem 4.384 registros e vai ate 02/11/2025 (o mais recente e da Franca). Ou seja: o vinho italiano esta ~14 meses atrasado e o vinho da UE ~10 meses.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-077",
+   "SOURCE_REF": "IT-MKTSRC-005",
+   "SOURCE": "CE_OUTLOOK",
+   "METRIC": "Producao e estoque de azeite / producao de vinho via API",
+   "AVAILABLE": "NOT_MEASURED",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "NAO SEI",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [
+    "azeite",
+    "vinho"
+   ],
+   "ACCESS_ROUTE": "endpoints oliveOil/productionAndStock e wine/production listados como ja provados no acervo (scripts/agrifood_ue.py --lista)",
+   "LIMITATION": "Ambos devolveram HTTP=404 (128 bytes) com memberStateCodes=IT&years=2026. NAO TESTEI outras combinacoes de parametro. Pela Lei 3 isto e NAO SEI: pode ser o filtro, pode ser o endpoint ter mudado. FONTE NAO ALCANCADA NESTE RECORTE, nao fonte vazia.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-078",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Previsao de RENDIMENTO da safra corrente para a Italia, por cultura, em t/ha (coluna 'latest forecast')",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal — mas atencao: sao ~10 edicoes por ano, de marco a novembro. O calendario impresso na pagina 39/41 lista exatamente 10 datas em 2026 (2 MAR, 23 MAR, 27 APR, 18 MAY, 22 JUN, 27 JUL, 24 AUG, 28 SEP, 26 OCT, 23 NOV). NAO ha edicao em dezembro, janeiro nem fevereiro. O VALOR em si e ANUAL (rendimento da campanha 2026 inteira); o que e mensal e a REVISAO desse valor anual.",
+   "GEOGRAPHY": "ITALIA — nivel de pais (codigo IT nas tabelas). O boletim cobre os 27 Estados-Membros da UE mais Turquia e Ucrania em tabela separada.",
+   "LATEST_PERIOD": "Safra/campanha 2026; previsao emitida em 24/08/2026 (Vol. 34 No. 7)",
+   "CROPS": [
+    "Total wheat (trigo total) — IT com valor",
+    "Soft wheat (trigo mole) — IT com valor",
+    "Durum wheat (trigo duro) — IT com valor",
+    "Total barley (cevada total) — IT com valor",
+    "Winter barley (cevada de inverno) — IT com valor",
+    "Spring barley (cevada de primavera) — IT marcado '--' (nao coberto)",
+    "Grain maize (milho grao) — IT com valor",
+    "Green maize (milho silagem) — IT com valor",
+    "Rye (centeio) — IT marcado '--' (nao coberto)",
+    "Triticale — IT com valor",
+    "Rapeseed (colza) — IT com valor",
+    "Sugar beet (beterraba acucareira) — IT com valor",
+    "Potatoes (batata) — IT com valor",
+    "Sunflower (girassol) — IT com valor",
+    "Soybeans (soja) — IT com valor",
+    "Field beans (fava) — IT com valor",
+    "Field peas (ervilha) — IT com valor"
+   ],
+   "ACCESS_ROUTE": "PDF. Caminho comprovado: pagina do boletim -> item de noticia da edicao -> link para publications.jrc.ec.europa.eu/repository/handle/JRC<numero> -> bitstream /JRC<numero>/JRC<numero>_01.pdf. Extracao com pdftotext -table (o modo -layout entrega colunas trocadas nas tabelas de rendimento).",
+   "LIMITATION": "Nao existe API nem CSV oficial para estes numeros: eles so aparecem como tabela desenhada dentro de um PDF de 37 MB e 41 paginas. Nao ha recorte sub-nacional: zero ocorrencias de 'NUTS', 'Lombardia', 'Veneto', 'Emilia', 'Piemonte', 'Puglia' ou 'Sicilia' no documento inteiro. Nao ha arroz nesta edicao (o calendario da pagina 39/41 coloca 'rice analysis' apenas nas edicoes de 27 JUL e 23 NOV) — e nao verifiquei se a analise de arroz traz tabela de rendimento por pais para a Italia: NAO SEI.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-079",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Diferenca percentual da previsao contra a MEDIA DE 5 ANOS (coluna '% diff 5yrs avg')",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal (mesmas ~10 edicoes/ano, marco a novembro)",
+   "GEOGRAPHY": "ITALIA — nivel de pais",
+   "LATEST_PERIOD": "Safra 2026 vs media das 5 safras anteriores; emitida em 24/08/2026",
+   "CROPS": [
+    "as mesmas 15 culturas com valor para IT listadas acima"
+   ],
+   "ACCESS_ROUTE": "PDF (mesma rota)",
+   "LIMITATION": "O boletim publica a media de 5 anos como numero pronto (coluna 'last 5yrs avg yield') mas NAO diz quais 5 anos entram na conta nem se ha exclusao de ano atipico. A nota tecnica da pagina 41/41 define apenas as medias de CLIMA — 'The long-term average (LTA) used within this Bulletin as a reference is calculated based on weather data from 1991-2025' e 'The medium-term average (MTA) ... 2016-2025' —, nao a media de 5 anos de rendimento. Qual periodo exato compoe o 'last 5yrs avg yield': NAO SEI.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-080",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Diferenca percentual contra o ano anterior (coluna '% diff 2025')",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal (marco a novembro)",
+   "GEOGRAPHY": "ITALIA — nivel de pais",
+   "LATEST_PERIOD": "Safra 2026 vs safra 2025; emitida em 24/08/2026",
+   "CROPS": [
+    "as mesmas 15 culturas com valor para IT"
+   ],
+   "ACCESS_ROUTE": "PDF (mesma rota)",
+   "LIMITATION": "A coluna '2025 yield' e o rendimento realizado de 2025 segundo a base do proprio JRC; o boletim nao informa se e numero oficial do Eurostat/ISTAT ou estimativa propria. NAO SEI.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-081",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "REVISAO do proprio prognostico — diferenca contra a previsao do mes anterior (coluna '% diff prev. month')",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal (marco a novembro)",
+   "GEOGRAPHY": "ITALIA — nivel de pais",
+   "LATEST_PERIOD": "Previsao de 24/08/2026 comparada a de 27/07/2026",
+   "CROPS": [
+    "as mesmas 15 culturas com valor para IT"
+   ],
+   "ACCESS_ROUTE": "PDF (mesma rota)",
+   "LIMITATION": "E o unico sinal de DIRECAO que a fonte oferece de forma numerica, e ele olha para tras (o que mudou desde o mes passado), nao para a frente. A fonte nao publica intervalo de confianca, banda de erro nem probabilidade. Nao da para dizer 'ha X% de chance de o rendimento ficar abaixo de Y'.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-082",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Rendimento medio das ultimas 5 safras e rendimento de 2025, em t/ha (colunas 'last 5yrs avg yield' e '2025 yield')",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal (repetido em cada edicao; o valor em si e anual)",
+   "GEOGRAPHY": "ITALIA — nivel de pais",
+   "LATEST_PERIOD": "Publicado em 24/08/2026",
+   "CROPS": [
+    "as mesmas 15 culturas com valor para IT"
+   ],
+   "ACCESS_ROUTE": "PDF (mesma rota)",
+   "LIMITATION": "Serve de linha de base, nao de serie historica. Para montar serie longa seria preciso baixar edicao por edicao (37 MB cada) ou recorrer ao arquivo do AGRI4CAST, que e so navegador.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-083",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Leitura narrativa da CONDICAO DA SAFRA italiana (secao 4, 'Country analysis' — a Italia tem verbete proprio na pagina 15/41)",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal, nas edicoes que trazem 'country analysis' — segundo o calendario da pagina 39/41 isso ocorre de abril a novembro (a edicao de 2 MAR traz apenas agro-meteorologia)",
+   "GEOGRAPHY": "ITALIA — nivel de pais, com mencao a macro-regioes em texto ('north-west', 'north', 'south'), sem tabela regional",
+   "LATEST_PERIOD": "Janela de observacao 1 de julho a 15 de agosto de 2026; publicado em 24/08/2026",
+   "CROPS": [
+    "culturas de verao em bloco (milho, girassol, soja, beterraba)",
+    "cereais de inverno em bloco"
+   ],
+   "ACCESS_ROUTE": "PDF (mesma rota). Aqui o pdftotext em modo normal ja devolve o texto na ordem de leitura correta.",
+   "LIMITATION": "E texto qualitativo, nao numero. Mistura culturas ('all summer crops') sem separar cultura a cultura, e o proprio texto entra em CONFLITO com a tabela num ponto (girassol — ver o item de numeros correntes sobre isso).",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-084",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Indicadores agro-meteorologicos (anomalia de temperatura media, deficit/superavit de precipitacao contra a LTA, balanco hidrico climatico, contagem de dias quentes acima de 35 C, contagem de dias secos)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "mensal (todas as ~10 edicoes trazem 'Agro-meteo')",
+   "GEOGRAPHY": "Mapas europeus com legenda continua; no texto, descricao por regiao/pais — a Italia aparece citada dentro de blocos maiores ('southern areas of central Europe, Italy and much of western North Africa')",
+   "LATEST_PERIOD": "Periodo de reporte encerrado em meados de agosto/2026; publicado em 24/08/2026",
+   "CROPS": [
+    "nao se aplica — e clima, nao cultura"
+   ],
+   "ACCESS_ROUTE": "PDF para os mapas e o texto. O dado numerico em grade por tras dos mapas fica no AGRI4CAST Toolbox, que e aplicacao de navegador (invólucro Angular de 61.275 bytes identico em todos os caminhos; curl nao le).",
+   "LIMITATION": "O PDF NAO traz o valor numerico da anomalia da Italia numa tabela — traz mapa colorido e frase. Para virar numero seria preciso ler a grade no AGRI4CAST, o que exige navegador com janela; nao testei essa rota nesta apuracao: NAO SEI se ela entrega download por pais.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-085",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Analise de sensoriamento remoto — anomalia de fAPAR (indicador de biomassa/atividade fotossintetica)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "mensal, nas edicoes marcadas 'remote sensing & grassland update' — segundo o calendario da pagina 39/41 isso vale para MAI, JUN, JUL, AGO, SET e OUT de 2026 (nao para marco, abril nem novembro)",
+   "GEOGRAPHY": "Mapa europeu; no texto a Italia aparece dividida entre 'northern Italy' e 'southern Italy'",
+   "LATEST_PERIOD": "Perfis ate fim de julho/2026, com comentario de agosto; publicado em 24/08/2026",
+   "CROPS": [
+    "culturas de verao em bloco"
+   ],
+   "ACCESS_ROUTE": "PDF (mapa + texto). Dado subjacente no AGRI4CAST, so navegador.",
+   "LIMITATION": "Sem numero para a Italia no PDF — apenas classificacao verbal ('below-average biomass accumulation', 'close to average').",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-086",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Condicao de PASTAGEM / produtividade de forragem",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal, nas edicoes com 'grassland update' (MAI a OUT/2026 pelo calendario da pagina 39/41)",
+   "GEOGRAPHY": "ITALIA, separada em 'non-irrigated lowland grasslands in the north' e 'grasslands in the south'",
+   "LATEST_PERIOD": "Periodo de reporte encerrado em meados de agosto/2026; publicado em 24/08/2026",
+   "CROPS": [
+    "pastagem natural / forragem"
+   ],
+   "ACCESS_ROUTE": "PDF (secao propria, pagina 11/41)",
+   "LIMITATION": "Qualitativo. Nao ha numero de t/ha de materia seca para a Italia.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-087",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Previsao de rendimento para paises NAO-UE vizinhos (Turquia e Ucrania)",
+   "AVAILABLE": "YES",
+   "CADENCE": "mensal, dentro da mesma edicao (pagina 29/41), com colunas reduzidas (sem '% diff prev. month' em algumas tabelas)",
+   "GEOGRAPHY": "TR e UA — nivel de pais",
+   "LATEST_PERIOD": "Safra 2026; publicado em 24/08/2026",
+   "CROPS": [
+    "Total wheat",
+    "Total barley",
+    "Soft wheat",
+    "Durum wheat"
+   ],
+   "ACCESS_ROUTE": "PDF (mesma rota)",
+   "LIMITATION": "Nao e Italia. Entra aqui so para registrar o alcance da fonte.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-088",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Indice das edicoes legivel por maquina (titulo, data, resumo e link de cada boletim)",
+   "AVAILABLE": "YES",
+   "CADENCE": "atualizado a cada edicao",
+   "GEOGRAPHY": "UE (a serie inteira)",
+   "LATEST_PERIOD": "Item mais recente com <pubDate>Mon, 24 Aug 2026 13:27:38 +0200</pubDate>",
+   "CROPS": [
+    "nao se aplica — e indice, nao dado de cultura"
+   ],
+   "ACCESS_ROUTE": "RSS/XML: https://joint-research-centre.ec.europa.eu/node/9084/rss_en — HTTP 200, 39.956 bytes, application/rss+xml, 30 itens",
+   "LIMITATION": "O RSS traz SO manchete, data e resumo. Nenhum numero de rendimento passa por ele. Serve para saber QUANDO saiu edicao nova, nao O QUE ela diz.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-089",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Arquivo historico de boletins desde 2007",
+   "AVAILABLE": "NOT_MEASURED",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "UE",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [],
+   "ACCESS_ROUTE": "So navegador. A pagina do boletim afirma que 'The Agri4Cast Toolbox also provides an archive of all bulletins published since 2007', mas https://agri4cast.jrc.ec.europa.eu/BulletinsArchive devolve HTTP 200 com 61.275 bytes de invólucro Angular e 9 caracteres de texto limpo. Todos os caminhos testados devolvem exatamente os mesmos 61.275 bytes.",
+   "LIMITATION": "FONTE NAO ALCANCADA por esta rota — nao e fonte vazia. Nao consegui verificar o que o arquivo contem, em que formato, nem se ha download em lote. Para saber, e preciso abrir com navegador de janela grafica.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-090",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Preco de cultura, cotacao, mercado",
+   "AVAILABLE": "NO",
+   "CADENCE": "nao se aplica",
+   "GEOGRAPHY": "nao se aplica",
+   "LATEST_PERIOD": "nao se aplica",
+   "CROPS": [],
+   "ACCESS_ROUTE": "nao existe nesta fonte",
+   "LIMITATION": "Contei as palavras no texto integral das 41 paginas: 'price' 0 ocorrencias, 'prices' 0, 'market' 0, 'export' 0, 'EUR/t' 0, 'supply and demand' 0. O boletim NAO fala de preco em nenhum momento. Tratar rendimento MARS como sinal de preco seria inventar.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-091",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Producao total (toneladas) e area colhida (hectares)",
+   "AVAILABLE": "NO",
+   "CADENCE": "nao se aplica",
+   "GEOGRAPHY": "nao se aplica",
+   "LATEST_PERIOD": null,
+   "CROPS": [],
+   "ACCESS_ROUTE": "nao existe nesta fonte",
+   "LIMITATION": "Contagem no texto integral: 'harvested area' 0 ocorrencias, 'hectares' 0, \"'000 t\" 0. Todas as tabelas sao em t/ha. Rendimento por hectare NAO e producao: para chegar a producao seria preciso multiplicar por area colhida, que vem de outra fonte (Eurostat/ISTAT). Essa multiplicacao nao esta feita aqui e nao pode ser presumida.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-092",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Recorte sub-nacional italiano (regiao, provincia, NUTS2)",
+   "AVAILABLE": "NO",
+   "CADENCE": "nao se aplica",
+   "GEOGRAPHY": "nao se aplica",
+   "LATEST_PERIOD": null,
+   "CROPS": [],
+   "ACCESS_ROUTE": "nao existe no boletim",
+   "LIMITATION": "Zero ocorrencias de 'NUTS', 'Lombardia', 'Veneto', 'Emilia', 'Piemonte', 'Puglia', 'Sicilia' nas 41 paginas. O texto narra 'north-west', 'north', 'central', 'south' sem tabela por tras. Se o MARKET PULSE precisar de recorte regional italiano, esta fonte nao entrega: NAO SEI se o AGRI4CAST tem (nao alcancado por curl).",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-093",
+   "SOURCE_REF": "IT-MKTSRC-006",
+   "SOURCE": "JRC MARS Bulletin",
+   "METRIC": "Intervalo de confianca, margem de erro ou probabilidade da previsao",
+   "AVAILABLE": "NO",
+   "CADENCE": "nao se aplica",
+   "GEOGRAPHY": "nao se aplica",
+   "LATEST_PERIOD": null,
+   "CROPS": [],
+   "ACCESS_ROUTE": "nao existe nesta fonte",
+   "LIMITATION": "A tabela entrega um numero unico por cultura. Nao ha banda, nao ha cenario alto/baixo. O unico indicio de incerteza e a coluna de revisao mensal, que mostra o quanto o proprio JRC mexeu no numero desde o mes passado — util, mas nao e margem de erro.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-094",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Fatturato das empresas ASSOCIADAS a Agrofarma",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "31/12/2024",
+   "CROPS": [
+    "NENHUMA - numero unico de industria, sem quebra por cultura"
+   ],
+   "ACCESS_ROUTE": "PDF (organizzazione_e_servizi.pdf da Federchimica; texto extraivel)",
+   "LIMITATION": "E o faturamento das 32 socias, nao o tamanho do mercado italiano de agrofarmaci. Nao diz quanto o agricultor gastou, nem quanto o distribuidor vendeu. Nao tem quebra por cultura, por regiao nem por categoria de produto.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-095",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Numero de empresas associadas",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "31/12/2024",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "PDF",
+   "LIMITATION": "Contagem de socias, nao de empresas ativas no mercado. Empresa que atua na Italia e nao se associa nao aparece.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-096",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Numero de addetti (empregados) das associadas",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "31/12/2024",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "PDF",
+   "LIMITATION": "Emprego industrial. Nao se move junto com demanda de campo: a fabrica nao demite porque choveu.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-097",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Representatividade declarada da associacao (% do comparto que ela cobre)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "31/12/2024",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "PDF",
+   "LIMITATION": "E a propria associacao declarando a propria cobertura (95% do faturamento, 98% dos addetti). Nao ha auditoria externa publicada, nem lista nominal para conferir.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-098",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Valor da producao vendida na Italia, por categoria de produto (inseticida, herbicida, fungicida, desinfetante, roditicida)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2024 (provisorio; o total de 2024 NAO vem impresso no grafico, so os de 2019-2023)",
+   "CROPS": [
+    "NENHUMA - a quebra e por TIPO DE PRODUTO, jamais por cultura"
+   ],
+   "ACCESS_ROUTE": "so imagem PNG (slide-vi-wave/slide-56.png); nao ha CSV, API nem tabela em HTML",
+   "LIMITATION": "TRES buracos serios. (1) Uma fatia enorme e 'coperti da segreto statistico' e ela OSCILA de forma violenta: 468 em 2019, 297 em 2020, 343 em 2021, 583 em 2022, 474 em 2023 e apenas 8 em 2024. Comparar o total de 2024 com o de 2022 e comparar duas coisas com grau de sigilo diferente. (2) O site NAO declara de qual estatistica esses numeros saem - nao ha a palavra ISTAT nem 'fonte' em lugar algum da pagina. (3) E 'valore della produzione venduta', ou seja, producao vendida - nao e venda ao agricultor nem consumo de campo.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-099",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Estrutura produtiva do setor: n. de empresas, pessoas empregadas e empregados por empresa, serie 2019-2024",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "2024 (marcado '*2024 dato provvisorio' na propria imagem)",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "so imagem PNG (slide-vi-wave/slide-67-copy.png) - e uma TABELA de verdade, com os seis anos, mas dentro de figura",
+   "LIMITATION": "Nao da para baixar como dado. Cada leitura exige ler a imagem com os olhos. E o universo estatistico aqui nao bate com o da ficha oficial: esta tabela da 2.000 empregados em 2024, a ficha da Federchimica da 1.899 na mesma data - sao recortes diferentes e a fonte nao explica a diferenca.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-100",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Autorizacao/renovacao de SOSTANZE ATTIVE por ano (total UE e das quais empregadas na Italia)",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "UE (com recorte Italia dentro da mesma barra)",
+   "LATEST_PERIOD": "2025",
+   "CROPS": [
+    "NENHUMA - contagem de moleculas, nao ligada a cultura"
+   ],
+   "ACCESS_ROUTE": "so imagem PNG (slide-v-wave---novembre-2025/nuovi-agrofarmaci---slide-2.png)",
+   "LIMITATION": "CUIDADO GRANDE: isto e FLUXO, nao ESTOQUE. Conta quantas substancias foram autorizadas OU RENOVADAS naquele ano - nao quantas estao validas. Como autorizacao e renovacao entram no mesmo balde, um ano alto pode ser so um lote de renovacoes vencendo junto (foi o que aconteceu em 2009, com 59). E a safra e da 5a onda, novembro/2025, mais velha que as paginas de mercado.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-101",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Estoque de agrofarmaci autorizados na Italia (e quantos servem para organico)",
+   "AVAILABLE": "YES",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "'ad oggi' - a fonte NAO diz a data",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "HTML (texto corrido, extraivel)",
+   "LIMITATION": "O numero vem sem data. 'Ad oggi' num site sem data de publicacao nao permite fixar REFERENCE_PERIOD. Para uso no Market Pulse, este numero precisa ser reconferido na fonte regulatoria (registro do Ministero della Salute), nao aqui.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-102",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Volume de vendas de produtos fitossanitarios (queda por categoria)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "trienio contra trienio (NAO anual)",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "trienio 2021-2023, comparado com o trienio 2012-2014",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "so imagem PNG (default-album/utilizzo-agrofarmaci.png)",
+   "LIMITATION": "So ha VARIACAO PERCENTUAL. Nao ha tonelada absoluta em lugar nenhum da camada publica atual. E a cadencia e de media de tres anos: transformar isto em leitura de mes ou de safra seria inventar. Uma media de 2021-2023 nao enxerga 2024 nem 2025.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-103",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Volume de vendas dos princiPI ATTIVI correspondentes (queda por categoria)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "trienio contra trienio",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "trienio 2021-2023 vs 2012-2014",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "so imagem PNG",
+   "LIMITATION": "Mesma coisa: so percentual, sem valor absoluto, e em media trienal.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-104",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Investimento em Pesquisa e Desenvolvimento do comparto",
+   "AVAILABLE": "YES",
+   "CADENCE": "anual",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI - a pagina nao carimba ano",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "HTML",
+   "LIMITATION": "A propria fonte declara a metodologia e ela e AUTODECLARADA: 'sviluppata sulla base di un questionario sottoposto alle imprese associate Agrofarma'. E questionario respondido pelas socias, nao estatistica oficial. A fonte ainda avisa que a pesquisa de base feita fora da Italia NAO entra na conta.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-105",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Fatturato GLOBAL do setor (variacao)",
+   "AVAILABLE": "PARTIAL",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "MUNDO",
+   "LATEST_PERIOD": "NAO SEI - a imagem traz '+18,5% Fatturato globale' sem nenhum ano",
+   "CROPS": [
+    "NENHUMA"
+   ],
+   "ACCESS_ROUTE": "so imagem JPG (slide-vi-wave/slide-68.jpg)",
+   "LIMITATION": "Percentual solto, sem periodo e sem base. Inutilizavel sob a Lei 1 enquanto nao se souber o periodo de referencia.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-106",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "IMPORT / EXPORT de agrofarmaci",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "NAO SEI",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [],
+   "ACCESS_ROUTE": "nenhuma rota publica encontrada",
+   "LIMITATION": "NAO ACHEI - e isso NAO quer dizer que nao exista. Procurei por 'import', 'export', 'commercio estero' e 'bilancia' nas cinco paginas setoriais e na home: zero ocorrencia real. Nao ha secao de comercio exterior no menu. Pode estar dentro do relatorio integral, que esta atras do formulario e eu nao abri. FONTE NAO ALCANCADA NESTE PONTO, nao fonte vazia. Se o dado for necessario, a rota provavel e outra publicacao (a 'L'industria chimica in cifre', da Federchimica, ou o comercio exterior do ISTAT/Eurostat) - e essas eu NAO verifiquei nesta rodada.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-107",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Preco de agrofarmaci (indice, media, evolucao)",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "NAO SEI",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [],
+   "ACCESS_ROUTE": "nenhuma",
+   "LIMITATION": "NAO ACHEI nenhuma serie de preco. A fonte trabalha com valor de producao e com volume, nunca com preco unitario.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-108",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Qualquer dado por CULTURA (trigo duro, milho, videira, oliveira, tomate...)",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "NAO SEI",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [],
+   "ACCESS_ROUTE": "nenhuma",
+   "LIMITATION": "ESTE E O FURO CENTRAL PARA O MARKET PULSE. A ferramenta pergunta 'como esta o mercado em torno DESTA cultura'. A Agrofarma nunca quebra por cultura - so por TIPO DE PRODUTO (fungicida, herbicida, inseticida). A unica pagina que fala de cultura, 'Colture minori', so CONTA quantas culturas cada pais da UE tem; nao traz mercado, nem valor, nem volume por cultura.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-109",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Qualquer dado por REGIAO ou PIAZZA italiana",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "NAO SEI",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [],
+   "ACCESS_ROUTE": "nenhuma",
+   "LIMITATION": "Tudo e Italia inteira. Nao ha Emilia-Romagna, nao ha Puglia, nao ha praca.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-110",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Lista nominal das empresas associadas",
+   "AVAILABLE": "NO",
+   "CADENCE": "NAO SEI",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "NAO SEI",
+   "CROPS": [],
+   "ACCESS_ROUTE": "pagina existe (HTTP 200) mas volta vazia",
+   "LIMITATION": "A pagina ImpreseAssociate.aspx responde 200 com 34.981 bytes, porem so 414 caracteres de texto: o titulo 'Imprese Agrofarma' e nada abaixo. Sem a lista, nao da para verificar quem sao as 32, nem confirmar se a ADAMA esta entre elas. NAO SEI.",
+   "PROVENANCE": "REAL_SOURCE"
+  },
+  {
+   "ID": "IT-MKTCAP-111",
+   "SOURCE_REF": "IT-MKTSRC-007",
+   "SOURCE": "AGROFARMA",
+   "METRIC": "Relatorio integral do Osservatorio (onde provavelmente estao metodologia e fontes)",
+   "AVAILABLE": "NO",
+   "CADENCE": "semestral (a fonte se descreve como onda; ha 5a onda de nov/2025 e 6a onda posterior)",
+   "GEOGRAPHY": "ITALIA",
+   "LATEST_PERIOD": "6a onda",
+   "CROPS": [],
+   "ACCESS_ROUTE": "PDF atras de FORMULARIO com dados pessoais (lead capture, com aviso de GDPR)",
+   "LIMITATION": "Nao abri e nao vou abrir sem autorizacao explicita: exige entregar dado pessoal a Federchimica. Consequencia pratica: a metodologia e a fonte estatistica dos graficos ficam invisiveis na camada aberta. Tudo o que esta acima foi lido do que a fonte expoe sem pedagio.",
+   "PROVENANCE": "REAL_SOURCE"
+  }
+ ]
+}

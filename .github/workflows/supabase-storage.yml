@@ -1,0 +1,96 @@
+# ═══════════════════════════════════════════════════════════════════════
+# Cria o bucket privado `raw` no Storage do projeto EAME. E para.
+#
+# UM bucket para o EAME inteiro — nao um por pais. O pais vive no PATH do
+# objeto (ES/<route>/<run_id>/<asset>), e o path e ENDERECO, nunca identidade:
+# a identidade continua sendo run_id + sha256 + metadata na tabela raw_asset.
+#
+# Nenhum arquivo e enviado nesta rodada.
+# ═══════════════════════════════════════════════════════════════════════
+name: supabase-storage
+
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/supabase-storage.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  bucket:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL:        ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+      SUPABASE_DB_URL:     ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - name: 1 · pre-voo
+        run: |
+          set -e
+          api=$(curl -sS -o /dev/null -w '%{http_code}' -m 40 \
+                -H "apikey: $SUPABASE_SECRET_KEY" -H "Authorization: Bearer $SUPABASE_SECRET_KEY" \
+                "$SUPABASE_URL/rest/v1/")
+          echo "SUPABASE_API_CONNECTION=$([ "$api" = 200 ] && echo PASS || echo FAIL)"
+          st=$(curl -sS -o /tmp/b.json -w '%{http_code}' -m 40 \
+               -H "apikey: $SUPABASE_SECRET_KEY" -H "Authorization: Bearer $SUPABASE_SECRET_KEY" \
+               "$SUPABASE_URL/storage/v1/bucket")
+          echo "SUPABASE_STORAGE_CONNECTION=$([ "$st" = 200 ] && echo PASS || echo FAIL)"
+          [ "$api" = 200 ] && [ "$st" = 200 ] || exit 1
+          python3 -c "import json;d=json.load(open('/tmp/b.json'));print('BUCKETS_ANTES=',[b['name'] for b in d] or 'nenhum')"
+          python3 - <<'PY'
+          import os, re, urllib.parse as U
+          a = U.urlparse(os.environ['SUPABASE_URL']).hostname or ''
+          ra = a.split('.')[0] if a.endswith('supabase.co') else ''
+          d = U.urlparse(os.environ['SUPABASE_DB_URL'])
+          h, u = (d.hostname or ''), (d.username or '')
+          m = re.match(r'db\.([a-z0-9]+)\.supabase\.', h)
+          rd = m.group(1) if m else (u.split('.', 1)[1] if '.' in u else '')
+          print('SAME_PROJECT_CONFIRMED=' + ('YES' if ra and rd and ra == rd else 'NO'))
+          raise SystemExit(0 if (ra and rd and ra == rd) else 1)
+          PY
+
+      - name: 2 · criar `raw` privado (idempotente — nao recria se existir)
+        run: |
+          if python3 -c "import json,sys;sys.exit(0 if any(b['name']=='raw' for b in json.load(open('/tmp/b.json'))) else 1)"; then
+            echo "JA_EXISTIA=YES — nao recriado"
+          else
+            echo "JA_EXISTIA=NO"
+            code=$(curl -sS -o /tmp/c.json -w '%{http_code}' -m 40 -X POST \
+                   -H "apikey: $SUPABASE_SECRET_KEY" -H "Authorization: Bearer $SUPABASE_SECRET_KEY" \
+                   -H "Content-Type: application/json" \
+                   -d '{"name":"raw","public":false}' \
+                   "$SUPABASE_URL/storage/v1/bucket")
+            echo "CREATE_HTTP_STATUS=$code"
+            [ "$code" = "200" ] || { python3 -c "import json;print('CAUSA=',str(json.load(open('/tmp/c.json')).get('message'))[:160])" 2>/dev/null; exit 1; }
+          fi
+
+      - name: 3 · verificacao — o bucket existe e NAO e publico?
+        run: |
+          curl -sS -o /tmp/b2.json -m 40 \
+            -H "apikey: $SUPABASE_SECRET_KEY" -H "Authorization: Bearer $SUPABASE_SECRET_KEY" \
+            "$SUPABASE_URL/storage/v1/bucket"
+          python3 - <<'PY'
+          import json
+          bs = json.load(open('/tmp/b2.json'))
+          print('BUCKETS_DEPOIS=', [b['name'] for b in bs] or 'nenhum')
+          raw = next((b for b in bs if b['name'] == 'raw'), None)
+          print('RAW_BUCKET_EXISTS=' + ('YES' if raw else 'NO'))
+          if raw:
+              # `public: false` e o que impede leitura anonima. Se vier true, isto e FALHA.
+              print('RAW_BUCKET_PUBLIC=' + ('YES' if raw.get('public') else 'NO'))
+              print('DETALHE= id=%s file_size_limit=%s allowed_mime=%s' % (
+                  raw.get('id'), raw.get('file_size_limit'), raw.get('allowed_mime_types')))
+              raise SystemExit(1 if raw.get('public') else 0)
+          raise SystemExit(1)
+          PY
+
+      - name: 4 · nada foi enviado
+        run: |
+          n=$(curl -sS -m 40 -X POST \
+              -H "apikey: $SUPABASE_SECRET_KEY" -H "Authorization: Bearer $SUPABASE_SECRET_KEY" \
+              -H "Content-Type: application/json" -d '{"prefix":"","limit":100}' \
+              "$SUPABASE_URL/storage/v1/object/list/raw" \
+              | python3 -c "import json,sys;print(len(json.load(sys.stdin)))")
+          echo "FILES_IN_BUCKET=$n"
+          echo "FILES_UPLOADED=0"

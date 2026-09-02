@@ -1,0 +1,213 @@
+{
+ "SOURCE_ID": "ITALY-RADAR-DO-FUTURO-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "COUNTRY": "IT",
+ "source": "derivado, SOMENTE de leitura da branch claude/sintonia-italy-pilot-b1l401 via git show. Nenhuma coleta italiana nova, nenhum merge.",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "IT",
+ "ORIGINAL_LANGUAGE": "pt",
+ "CONTRATO": "RADAR-DO-FUTURO-CONTRACT-V1",
+ "REGRA_DE_NAO_DUPLICACAO": "a missao italiana esta trabalhando em voz e rede tecnica em paralelo. Aqui so classifiquei o que ela ja publicou.",
+ "THEMES_COUNT": 2,
+ "POR_MATURIDADE": {
+  "EMERGING_THEME": 1,
+  "SCIENTIFIC_SIGNAL": 1
+ },
+ "MOMENTUM_MEDIDO_EM": 0,
+ "PROMOTED_TO_RADAR": 0,
+ "O_QUE_NAO_ENTROU_E_POR_QUE": [
+  {
+   "CANDIDATO": "videira x flavescencia, ciclo 2027",
+   "POR_QUE_NAO": "ja e caso corrente (IT-HERO-001), com janela de monitoramento aberta. Um caso com horizonte de proximo ciclo continua sendo caso, nao tema futuro."
+  },
+  {
+   "CANDIDATO": "agrupamentos de vencimento regulatorio",
+   "POR_QUE_NAO": "ja e caso corrente (IT-HERO-003) e tem AGIR AGORA proprio."
+  },
+  {
+   "CANDIDATO": "Cercospora beticola",
+   "POR_QUE_NAO": "5 trabalhos no recorte. Abaixo do que sustenta ate o estado 1."
+  }
+ ],
+ "THEMES": [
+  {
+   "THEME_ID": "FT-IT-001",
+   "COUNTRY": "IT",
+   "CROP": "MAIS",
+   "ISSUE": "micotoxina / Fusarium",
+   "REGION": "NAO SEI — o recorte cientifico e por afiliacao nacional, nao por regiao de estudo",
+   "THEME_TYPE": "LARGE_SCIENCE_CLUSTER_x_PORTFOLIO_ABSENCE",
+   "FIRST_OBSERVED_AT": "2019 (limite inferior do proprio filtro)",
+   "LAST_OBSERVED_AT": "2026-08-30",
+   "CAPTURED_AT": "2026-08-30",
+   "SCIENCE_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "IT-T5-001, OpenAlex com institutions.country_code:it e from_publication_date:2019-01-01. MAIZE_MYCOTOXIN = 208 trabalhos, contra MAIZE_WEED 79, MAIZE_BORER 30 e MAIZE_DIABROTICA 11. E o recorte mais denso do milho italiano."
+   },
+   "RESEARCHER_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "452 pesquisadores com afiliacao italiana no recorte; 25 persistidos com ORCID. O primeiro e Antonio Logrieco (ORCID 0000-0002-8606-451X), Institute of Sciences of Food Production / CNR."
+   },
+   "TECHNICAL_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "a Italia nao tem rede tecnica mapeada — declarado NO no proprio handoff italiano."
+   },
+   "FIELD_SIGNAL": {
+    "ESTADO": "AUSENTE_MEDIDO",
+    "EVIDENCIA": "as tres maiores regioes de milho — Veneto, Lombardia e Piemonte, 71,6% da area — nao tem boletim de milho medido. O Piemonte publica boletim de milho (10 numeros em 2026, ultimo de 12/08) mas ele e a 5a regiao, com 6,7% da area. E nenhuma regiao medida publicou sinal corrente de micotoxina."
+   },
+   "REGULATORY_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao consultei o registro italiano para alvos de Fusarium em milho nesta rodada."
+   },
+   "PORTFOLIO_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "dos 163 registros vigentes do grupo ADAMA na Italia, 36 citam milho: 24 herbicidas, 9 inseticidas e ZERO fungicidas. Metade dos 46 fungicidas do portfolio cita videira; nenhum cita milho."
+   },
+   "PUBLIC_VOICE_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "a Italia declarou voz publica nao coletada por ordem de prioridade."
+   },
+   "CURRENT_FIELD_CONFIRMATION": "NAO.",
+   "EVIDENCE_COUNT": 4,
+   "INDEPENDENT_LAYERS": 3,
+   "CAMADAS": [
+    "ciencia",
+    "pesquisador identificado",
+    "portfolio"
+   ],
+   "MOMENTUM_STATE": "NOT_KNOWN",
+   "CLASSIFICACAO_DE_VOLUME": "NAO CLASSIFICADO entre LARGE_ESTABLISHED_TOPIC e GROWING_TOPIC. O recorte italiano e uma janela unica de 2019 em diante, sem quebra por ano. 208 trabalhos dizem que o tema e GRANDE; nao dizem se esta crescendo.",
+   "MATURITY_STATE": "EMERGING_THEME",
+   "HORIZON": "NAO SEI — nenhuma ancora de tempo propria",
+   "WHAT_WE_KNOW": [
+    "a ciencia italiana do milho olha 2,6 vezes mais para micotoxina do que para daninhas",
+    "a ADAMA tem zero fungicidas citando milho na Italia",
+    "as tres maiores regioes de milho nao tem boletim de milho medido"
+   ],
+   "WHAT_WE_DONT_KNOW": [
+    "se 208 e muito ou pouco para o tema — nao ha serie por ano",
+    "se a distancia entre a ciencia e o portfolio e lacuna ou escolha: manejo de micotoxina em milho e largamente agronomico, e daninhas e mercado legitimo e grande",
+    "se ha pressao de campo"
+   ],
+   "WHAT_WOULD_PROMOTE_TO_RADAR": "um boletim regional que reporte micotoxina ou Fusarium em milho, com data de observacao, numa das regioes com area.",
+   "A_TENTACAO_QUE_A_PROPRIA_BRANCH_ITALIANA_JA_RECUSOU": "ligar o produto novo de piralide ao cluster de micotoxina pela porta de entrada do Fusarium. A branch mediu: milho x Ostrinia x micotoxina = 5 trabalhos italianos. Cinco e pouco demais. A ligacao e plausivel e nao esta provada.",
+   "POTENTIAL_ADAMA_AREAS": [
+    "SCIENCE — o cluster tem 452 pesquisadores com afiliacao italiana e atividade recente",
+    "REGULATORY / PORTFOLIO — a ausencia de fungicida citando milho e um fato de estrutura, e e avaliavel internamente"
+   ],
+   "TOP_PESQUISADORES": [
+    {
+     "PERSON": "Antonio Logrieco",
+     "ORCID": "https://orcid.org/0000-0002-8606-451X",
+     "INSTITUICAO": [
+      "Institute of Sciences of Food Production",
+      "National Research Council"
+     ],
+     "PUBLICACOES_NO_RECORTE": 27
+    },
+    {
+     "PERSON": "Paola Battilani",
+     "ORCID": "https://orcid.org/0000-0003-1287-1711",
+     "INSTITUICAO": [
+      "Università Cattolica del Sacro Cuore"
+     ],
+     "PUBLICACOES_NO_RECORTE": 24
+    },
+    {
+     "PERSON": "Antonio Gallo",
+     "ORCID": "https://orcid.org/0000-0002-4700-4450",
+     "INSTITUICAO": [
+      "Università Cattolica del Sacro Cuore"
+     ],
+     "PUBLICACOES_NO_RECORTE": 18
+    },
+    {
+     "PERSON": "Alessandra Lanubile",
+     "ORCID": "https://orcid.org/0000-0002-1868-4469",
+     "INSTITUICAO": [
+      "Università Cattolica del Sacro Cuore"
+     ],
+     "PUBLICACOES_NO_RECORTE": 16
+    },
+    {
+     "PERSON": "Antonio Moretti",
+     "ORCID": "https://orcid.org/0000-0002-5232-6972",
+     "INSTITUICAO": [
+      "Institute of Sciences of Food Production",
+      "National Research Council"
+     ],
+     "PUBLICACOES_NO_RECORTE": 15
+    }
+   ],
+   "EVIDENCE_PATHS": [
+    "branch claude/sintonia-italy-pilot-b1l401, data/samples/IT-T5-001/IT-T5-001-ciencia-milho.json",
+    "docs/piloto/HANDOFF-ITALIA-PARA-EAME.md",
+    "docs/piloto/SINTONIA-ITALIA-PILOTO.md"
+   ]
+  },
+  {
+   "THEME_ID": "FT-IT-002",
+   "COUNTRY": "IT",
+   "CROP": "TRIGO e TRIGO DURO",
+   "ISSUE": "Fusarium / desoxinivalenol",
+   "REGION": "NAO SEI",
+   "THEME_TYPE": "LARGE_SCIENCE_CLUSTER",
+   "FIRST_OBSERVED_AT": "2019",
+   "LAST_OBSERVED_AT": "2026-08-30",
+   "CAPTURED_AT": "2026-08-30",
+   "SCIENCE_SIGNAL": {
+    "ESTADO": "PRESENTE",
+    "EVIDENCIA": "WHEAT_FUSARIUM = 243 trabalhos e DURUM_FUSARIUM = 78 no mesmo recorte. E o MAIOR agrupamento cientifico italiano medido, acima do milho x micotoxina (208)."
+   },
+   "RESEARCHER_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "os 25 pesquisadores persistidos sao do recorte do milho. O quadro do trigo nao foi aberto."
+   },
+   "TECHNICAL_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao mapeado."
+   },
+   "FIELD_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao procurado para trigo."
+   },
+   "REGULATORY_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao consultado."
+   },
+   "PORTFOLIO_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao medido para o par."
+   },
+   "PUBLIC_VOICE_SIGNAL": {
+    "ESTADO": "NAO_TESTADO",
+    "EVIDENCIA": "nao coletada."
+   },
+   "CURRENT_FIELD_CONFIRMATION": "NAO.",
+   "EVIDENCE_COUNT": 1,
+   "INDEPENDENT_LAYERS": 1,
+   "CAMADAS": [
+    "ciencia"
+   ],
+   "MOMENTUM_STATE": "NOT_KNOWN",
+   "MATURITY_STATE": "SCIENTIFIC_SIGNAL",
+   "HORIZON": "NAO SEI",
+   "WHAT_WE_KNOW": [
+    "e o maior volume cientifico medido do recorte italiano: 243 mais 78"
+   ],
+   "WHAT_WE_DONT_KNOW": [
+    "todas as outras camadas. Nenhuma foi consultada."
+   ],
+   "WHAT_WOULD_PROMOTE_TO_RADAR": "subir para EMERGING_THEME exige UMA segunda camada. A consulta do registro italiano para Fusarium em trigo e barata e nao foi feita.",
+   "POR_QUE_ELE_FICA_ABAIXO_DO_MILHO": "tem MAIS ciencia e MENOS camadas. Volume nao compra estado, e este par mostra isso melhor que o do milho.",
+   "POTENTIAL_ADAMA_AREAS": [
+    "NAO SEI"
+   ],
+   "EVIDENCE_PATHS": [
+    "branch italiana, IT-T5-001-ciencia-milho.json — campo VOLUME_BY_SCOPE"
+   ]
+  }
+ ]
+}

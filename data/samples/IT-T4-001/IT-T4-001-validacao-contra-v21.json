@@ -1,0 +1,168 @@
+{
+ "REFERENCIA": "2026-09-02",
+ "ARQUIVO_ORIGEM": "PROD_FTS_6_20260831.csv",
+ "VERSAO_DO_DADO": "20260831",
+ "SEMANTICA_DE_VIVO": {
+  "DEFINICAO_NO_CODIGO": "stato_amministrativo.startswith((\"Autorizzato\",\"Ri-registrato\",\"Rinnovato\"))",
+  "LE_A_DATA_DE_VALIDADE": false,
+  "VIVOS": 163,
+  "VIVOS_COM_VALIDADE_VENCIDA": 15,
+  "ESTADO_SCADUTO_EXISTE_NO_REGISTRO": 14,
+  "SCADUTO_VALIDADE_MAIS_RECENTE": "2011-06-12",
+  "VIVO_VALIDADE_MAIS_ANTIGA": "2026-08-15",
+  "HA_SOBREPOSICAO": false,
+  "VENCIDOS_COM_DECRETO_DE_REVOGACAO": 0,
+  "REVOCATO_COM_DECRETO": 424,
+  "CONCLUSAO": "ESTADO ADMINISTRATIVO PUBLICADO, COM ATRASO. Nao e validade formal: o registro so move para Scaduto casos antigos, e os vencidos recentes seguem Autorizzato sem decreto de revogacao. Nao e carencia: nenhum dos vencidos tem decreto. A extracao e fiel; o rotulo \"vivo hoje\" e que nao se sustenta."
+ },
+ "VIVOS_VENCIDOS": [
+  {
+   "num_registrazione": "017688",
+   "produto": "ANTERLEX",
+   "estado_administrativo": "Autorizzato",
+   "data_scadenza": "15/08/2026"
+  },
+  {
+   "num_registrazione": "015629",
+   "produto": "BADGER 45% WG",
+   "estado_administrativo": "Ri-registrato",
+   "data_scadenza": "15/08/2026"
+  },
+  {
+   "num_registrazione": "017358",
+   "produto": "BLAISE ULTRA",
+   "estado_administrativo": "Autorizzato",
+   "data_scadenza": "15/08/2026"
+  },
+  {
+   "num_registrazione": "015630",
+   "produto": "CARSON 45% WG",
+   "estado_administrativo": "Ri-registrato",
+   "data_scadenza": "15/08/2026"
+  },
+  {
+   "num_registrazione": "015232",
+   "produto": "CUSTODIA ULTRA",
+   "estado_administrativo": "Autorizzato",
+   "data_scadenza": "15/08/2026"
+  },
+  {
+   "num_registrazione": "013899",
+   "produto": "DAUPHIN 45",
+   "estado_administrativo": "Ri-registrato",
+   "data_scadenza": "15/08/2026"
+  },
+  {
+   "num_registrazione": "017689",
+   "produto": "MOXYL MK",
+   "estado_administrativo": "Autorizzato",
+   "data_scadenza": "15/08/2026"
+  },
+  {
+   "num_registrazione": "017690",
+   "produto": "VANTEX",
+   "estado_administrativo": "Autorizzato",
+   "data_scadenza": "15/08/2026"
+  },
+  {
+   "num_registrazione": "018111",
+   "produto": "ARRODIM",
+   "estado_administrativo": "Autorizzato Art. 34 Reg. 1107/2009",
+   "data_scadenza": "31/08/2026"
+  },
+  {
+   "num_registrazione": "015275",
+   "produto": "DURAVIS",
+   "estado_administrativo": "Autorizzato",
+   "data_scadenza": "31/08/2026"
+  },
+  {
+   "num_registrazione": "017687",
+   "produto": "ELTIRA",
+   "estado_administrativo": "Autorizzato",
+   "data_scadenza": "31/08/2026"
+  },
+  {
+   "num_registrazione": "013560",
+   "produto": "FORZA",
+   "estado_administrativo": "Ri-registrato",
+   "data_scadenza": "31/08/2026"
+  },
+  {
+   "num_registrazione": "008259",
+   "produto": "LAMDEX EXTRA",
+   "estado_administrativo": "Ri-registrato",
+   "data_scadenza": "31/08/2026"
+  },
+  {
+   "num_registrazione": "013402",
+   "produto": "LUMA-KL",
+   "estado_administrativo": "Ri-registrato",
+   "data_scadenza": "31/08/2026"
+  },
+  {
+   "num_registrazione": "013590",
+   "produto": "NINJA",
+   "estado_administrativo": "Ri-registrato",
+   "data_scadenza": "31/08/2026"
+  }
+ ],
+ "SEPARADOR_DE_ATIVAS": {
+  "COLETOR_USA": "split('+')",
+  "CSV_SEPARA_COM": "|",
+  "VIVOS_COM_ATIVAS_COLADAS": 38,
+  "ENTRADAS_PUBLICADAS_PELO_COLETOR": 55,
+  "DESSAS_QUE_SAO_COMBINACAO_COLADA": 22,
+  "SUBSTANCIAS_DISTINTAS_REAIS": 53,
+  "SUBSTANCIAS_DISTINTAS_NO_V21": 53,
+  "V21_TEM_ATIVA_COLADA": 0,
+  "CONCLUSAO": "o V2.1 separou certo e o coletor novo nao. NAO sobrescrever ACTIVE_INGREDIENTS do V2.1 com este campo."
+ },
+ "CRUZAMENTO": {
+  "CHAVE": "num_registrazione / REGISTRATION_NUMBER, normalizado (nunca por nome)",
+  "V21_TOTAL": 163,
+  "V21_CHAVES_DISTINTAS": 163,
+  "NOVO_TOTAL": 602,
+  "NOVO_CHAVES_DISTINTAS": 602,
+  "MATCHED_EXISTING_PRODUCTS": 163,
+  "MATCHED_CONTRA_OS_VIVOS": 163,
+  "NEW_REGULATORY_ENTITIES": 439,
+  "NEW_QUE_SAO_VIVOS": 0,
+  "SO_NO_V21": 0,
+  "DUPLICATES_V21": 0,
+  "DUPLICATES_NOVO": 0,
+  "CONFLICTS_STATUS": 0,
+  "CONFLICTS_EXPIRY": 0,
+  "CONFLICTS_HOLDER": 0,
+  "CONFLICTS_ATIVAS_APARENTES": 0,
+  "CONFLICTS_ATIVAS_REAIS": 0
+ },
+ "UNIVERSO_HISTORICO": {
+  "Revocato": 425,
+  "Scaduto": 14
+ },
+ "DEFEITO_HERDADO_PELO_V21": {
+  "PRODUCTS_REGULATORY_COM_EXPIRY_VENCIDA": 15,
+  "DESSES_CLIENT_SAFE": 15,
+  "DESSES_NO_CATALOGO_PUBLICO": 2,
+  "CAMPO_QUE_AVISA_VENCIMENTO": null,
+  "POR_QUE_IMPORTA": "uma tela que filtra CLIENT_SAFE=true mostra estes registros como autorizados, e a validade declarada por eles mesmos ja passou. LEI: ESTADO ADMINISTRATIVO != VALIDADE FORMAL.",
+  "IDS": [
+   "IT-PRD-010",
+   "IT-PRD-042",
+   "IT-PRD-044",
+   "IT-PRD-046",
+   "IT-PRD-052",
+   "IT-PRD-071",
+   "IT-PRD-074",
+   "IT-PRD-081",
+   "IT-PRD-082",
+   "IT-PRD-112",
+   "IT-PRD-126",
+   "IT-PRD-127",
+   "IT-PRD-128",
+   "IT-PRD-129",
+   "IT-PRD-146"
+  ]
+ }
+}

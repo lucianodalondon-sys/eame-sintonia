@@ -1,0 +1,5471 @@
+{
+ "LAYER": "ADAMA_CROP_TARGET_PRODUCT",
+ "COUNTRY": "IT",
+ "BUILT_AT": "2026-09-02",
+ "SOURCE_ARTIFACTS": [
+  "data/samples/IT-T4-001/ITALY-ADAMA-REGULATORY-INTELLIGENCE.json"
+ ],
+ "PROVENANCE_DEFAULT": "REAL_FACT",
+ "NOTE": "linha de uso autorizado = cultura, alvo e (quando presente) dose na MESMA linha da tabela do rotulo. E a UNICA classe que liga cultura a alvo.",
+ "COUNT": 219,
+ "SOURCE_ROWS": 49,
+ "ROWS_WITH_DOSE": 13,
+ "CLASS_DEFINITION_CONFLICT": "a definicao da classe exige dose; so 13 das 49 linhas tem. 36 (73,5%) nao cumprem a propria definicao — registrado, nao corrigido.",
+ "PAIR_INTEGRITY_WARNING": "alvos como `Avena sp`, `Sorghum halepense`, `Raphanus sp` e `Lolium sp` sao generos que TAMBEM nomeiam cultura. O par pode estar certo; a auditoria os marcou como suspeitos de colisao, nao como erro.",
+ "LINKS": [
+  {
+   "ID": "IT-CPP-001",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-002",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Atomaria linearis",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-003",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Chaetocnema tibialis",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-004",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Scutigerella immaculata",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-005",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Bibio hortulanus",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-006",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Scutigerella immaculata",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-007",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-008",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Melolontha melolontha",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-009",
+   "CROP": "SORGHUM",
+   "CROP_TERM_MATCHED": "Sorgo",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-010",
+   "CROP": "SORGHUM",
+   "CROP_TERM_MATCHED": "Sorgo",
+   "TARGET": "Agrotis sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-011",
+   "CROP": "SORGHUM",
+   "CROP_TERM_MATCHED": "Sorgo",
+   "TARGET": "Diabrotica sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-012",
+   "CROP": "SORGHUM",
+   "CROP_TERM_MATCHED": "Sorgo",
+   "TARGET": "Scutigerella immaculata",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-013",
+   "CROP": "SOYBEAN",
+   "CROP_TERM_MATCHED": "Soia",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-014",
+   "CROP": "SOYBEAN",
+   "CROP_TERM_MATCHED": "Soia",
+   "TARGET": "Agrotis sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-015",
+   "CROP": "SOYBEAN",
+   "CROP_TERM_MATCHED": "Soia",
+   "TARGET": "Chaetocnema tibialis",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-016",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-017",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Agrotis sp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-018",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Ceutorhynchus pleurostigma",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-019",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Blaniulus guttulatus",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-020",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Chaetocnema tibialis",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-021",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Chamaepsila rosae",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-022",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Melolontha melolontha",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-023",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Delia radicum",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-024",
+   "CROP": "POTATO",
+   "CROP_TERM_MATCHED": "Patata",
+   "TARGET": "Agriotes spp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-025",
+   "CROP": "POTATO",
+   "CROP_TERM_MATCHED": "Patata",
+   "TARGET": "Agrotis spp",
+   "PRODUCT": "LEBRON 0.5 G",
+   "REGISTRATION_ID": "008189",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42876",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-026",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Cercospora beticola",
+   "PRODUCT": "SPYRALE",
+   "REGISTRATION_ID": "009757",
+   "ACTIVE_INGREDIENTS": [
+    "DIFENOCONAZOLE",
+    "FENPROPIDIN"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [
+    "500 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "21",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "3",
+     "5"
+    ]
+   },
+   "EXPIRY": "2028-01-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43138",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-027",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Erysiphe betae",
+   "PRODUCT": "SPYRALE",
+   "REGISTRATION_ID": "009757",
+   "ACTIVE_INGREDIENTS": [
+    "DIFENOCONAZOLE",
+    "FENPROPIDIN"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [
+    "500 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "21",
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "3",
+     "5"
+    ]
+   },
+   "EXPIRY": "2028-01-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43138",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-028",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-029",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Atomaria linearis",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-030",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Chaetocnema tibialis",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-031",
+   "CROP": "SUGARBEET",
+   "CROP_TERM_MATCHED": "Barbabietola",
+   "TARGET": "Scutigerella immaculata",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-032",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Bibio hortulanus",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-033",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Scutigerella immaculata",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-034",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-035",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Melolontha melolontha",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-036",
+   "CROP": "SORGHUM",
+   "CROP_TERM_MATCHED": "Sorgo",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-037",
+   "CROP": "SORGHUM",
+   "CROP_TERM_MATCHED": "Sorgo",
+   "TARGET": "Agrotis sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-038",
+   "CROP": "SORGHUM",
+   "CROP_TERM_MATCHED": "Sorgo",
+   "TARGET": "Diabrotica sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-039",
+   "CROP": "SORGHUM",
+   "CROP_TERM_MATCHED": "Sorgo",
+   "TARGET": "Scutigerella immaculata",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-040",
+   "CROP": "SOYBEAN",
+   "CROP_TERM_MATCHED": "Soia",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-041",
+   "CROP": "SOYBEAN",
+   "CROP_TERM_MATCHED": "Soia",
+   "TARGET": "Agrotis sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-042",
+   "CROP": "SOYBEAN",
+   "CROP_TERM_MATCHED": "Soia",
+   "TARGET": "Chaetocnema tibialis",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-043",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Agriotes sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-044",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Agrotis sp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-045",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Ceutorhynchus pleurostigma",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-046",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Blaniulus guttulatus",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-047",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Chaetocnema tibialis",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-048",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Chamaepsila rosae",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-049",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Melolontha melolontha",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-050",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Delia radicum",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-051",
+   "CROP": "POTATO",
+   "CROP_TERM_MATCHED": "Patata",
+   "TARGET": "Agriotes spp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-052",
+   "CROP": "POTATO",
+   "CROP_TERM_MATCHED": "Patata",
+   "TARGET": "Agrotis spp",
+   "PRODUCT": "SCHERMO 0.5 G",
+   "REGISTRATION_ID": "014479",
+   "ACTIVE_INGREDIENTS": [
+    "TEFLUTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "IRAC": [
+     "3A"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42877",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-053",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Fusarium spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-054",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-055",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-056",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Septoria spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-057",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-058",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-059",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Rhynchosporium spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-060",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Pyrenophora spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-061",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Leveillula taurica",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-062",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-063",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "CUSTODIA ULTRA",
+   "REGISTRATION_ID": "015232",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-064",
+   "CROP": "MAIZE",
+   "CROP_TERM_MATCHED": "Mais",
+   "TARGET": "Diabrotica virgifera",
+   "PRODUCT": "DURAVIS",
+   "REGISTRATION_ID": "015275",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43526",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-065",
+   "CROP": "GRAPEVINE",
+   "CROP_TERM_MATCHED": "vite",
+   "TARGET": "Botrytis cinerea",
+   "PRODUCT": "SESTO GOLD",
+   "REGISTRATION_ID": "015317",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET",
+    "METALAXYL-M"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2040-10-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46359",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-066",
+   "CROP": "MAIZE",
+   "CROP_TERM_MATCHED": "mais",
+   "TARGET": "Digitaria sanguinalis",
+   "PRODUCT": "PYXIDES WG",
+   "REGISTRATION_ID": "015909",
+   "ACTIVE_INGREDIENTS": [
+    "DICAMBA",
+    "NICOSULFURON",
+    "MESOTRIONE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [
+    "80-400 l/ha",
+    "200-400 l/ha",
+    "1-2 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2 (B)",
+     "27 (F2)",
+     "4 (O)"
+    ]
+   },
+   "EXPIRY": "2033-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45941",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-067",
+   "CROP": "MAIZE",
+   "CROP_TERM_MATCHED": "mais",
+   "TARGET": "Echinochloa crus",
+   "PRODUCT": "PYXIDES WG",
+   "REGISTRATION_ID": "015909",
+   "ACTIVE_INGREDIENTS": [
+    "DICAMBA",
+    "NICOSULFURON",
+    "MESOTRIONE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [
+    "80-400 l/ha",
+    "200-400 l/ha",
+    "1-2 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2 (B)",
+     "27 (F2)",
+     "4 (O)"
+    ]
+   },
+   "EXPIRY": "2033-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45941",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-068",
+   "CROP": "MAIZE",
+   "CROP_TERM_MATCHED": "mais",
+   "TARGET": "Calystegia sepium",
+   "PRODUCT": "PYXIDES WG",
+   "REGISTRATION_ID": "015909",
+   "ACTIVE_INGREDIENTS": [
+    "DICAMBA",
+    "NICOSULFURON",
+    "MESOTRIONE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [
+    "80-400 l/ha",
+    "200-400 l/ha",
+    "1-2 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2 (B)",
+     "27 (F2)",
+     "4 (O)"
+    ]
+   },
+   "EXPIRY": "2033-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45941",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-069",
+   "CROP": "MAIZE",
+   "CROP_TERM_MATCHED": "mais",
+   "TARGET": "Cyperus rotundus",
+   "PRODUCT": "PYXIDES WG",
+   "REGISTRATION_ID": "015909",
+   "ACTIVE_INGREDIENTS": [
+    "DICAMBA",
+    "NICOSULFURON",
+    "MESOTRIONE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [
+    "80-400 l/ha",
+    "200-400 l/ha",
+    "1-2 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2 (B)",
+     "27 (F2)",
+     "4 (O)"
+    ]
+   },
+   "EXPIRY": "2033-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45941",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-070",
+   "CROP": "MAIZE",
+   "CROP_TERM_MATCHED": "mais",
+   "TARGET": "Sorghum halepense",
+   "PRODUCT": "PYXIDES WG",
+   "REGISTRATION_ID": "015909",
+   "ACTIVE_INGREDIENTS": [
+    "DICAMBA",
+    "NICOSULFURON",
+    "MESOTRIONE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [
+    "80-400 l/ha",
+    "200-400 l/ha",
+    "1-2 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2 (B)",
+     "27 (F2)",
+     "4 (O)"
+    ]
+   },
+   "EXPIRY": "2033-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45941",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-071",
+   "CROP": "MAIZE",
+   "CROP_TERM_MATCHED": "mais",
+   "TARGET": "Abutilon theophras",
+   "PRODUCT": "PYXIDES WG",
+   "REGISTRATION_ID": "015909",
+   "ACTIVE_INGREDIENTS": [
+    "DICAMBA",
+    "NICOSULFURON",
+    "MESOTRIONE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [
+    "80-400 l/ha",
+    "200-400 l/ha",
+    "1-2 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "2 (B)",
+     "27 (F2)",
+     "4 (O)"
+    ]
+   },
+   "EXPIRY": "2033-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45941",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-072",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Fusarium spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-073",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-074",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-075",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Septoria spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-076",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-077",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-078",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Rhynchosporium spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-079",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Pyrenophora spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-080",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Leveillula taurica",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-081",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-082",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "BLAISE ULTRA",
+   "REGISTRATION_ID": "017358",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38655",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-083",
+   "CROP": "MAIZE",
+   "CROP_TERM_MATCHED": "Mais",
+   "TARGET": "Diabrotica virgifera",
+   "PRODUCT": "ELTIRA",
+   "REGISTRATION_ID": "017687",
+   "ACTIVE_INGREDIENTS": [
+    "LAMBDA-CYHALOTHRIN"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-08-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43525",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-084",
+   "CROP": "WHEAT_GENERIC",
+   "CROP_TERM_MATCHED": "Frumento",
+   "TARGET": "Septoria tritici",
+   "PRODUCT": "STAVENTO",
+   "REGISTRATION_ID": "017752",
+   "ACTIVE_INGREDIENTS": [
+    "FOLPET"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [
+    "1,0–1,2 l/ha",
+    "400 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2040-10-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46354",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-085",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Fusarium spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-086",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-087",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-088",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Septoria spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-089",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-090",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-091",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Rhynchosporium spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-092",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Pyrenophora spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-093",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Leveillula taurica",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-094",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Erysiphe spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-095",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Puccinia spp",
+   "PRODUCT": "MIRADOR TURBO",
+   "REGISTRATION_ID": "017824",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "TEBUCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-096",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Zymoseptoria tritici",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-097",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Septoria nodorum",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-098",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Blumeria graminis",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-099",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Puccinia striiformis",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-100",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Puccinia recondita",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-101",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Fusarium spp",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-102",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Microdochium spp",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-103",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Helminthosporium gramineum",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-104",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Pyrenophora teres",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-105",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Ramularia collo",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-106",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Puccinia sp",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-107",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Blumeria graminis",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-108",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Puccinia recondita",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-109",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Zymoseptoria tritici",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [
+    "100-400 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-110",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Puccinia recondita",
+   "PRODUCT": "MAXENTIS",
+   "REGISTRATION_ID": "018067",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [
+    "100-400 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45674",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-111",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "Melo",
+   "TARGET": "Dysaphis plantaginea",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha",
+    "0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-112",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "Melo",
+   "TARGET": "Aphis pomi",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha",
+    "0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-113",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "Melo",
+   "TARGET": "Dysaphis pyri",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha",
+    "0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-114",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "melo",
+   "TARGET": "Dysaphis plantaginea",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-115",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "melo",
+   "TARGET": "Myzus persicae",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-116",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "melo",
+   "TARGET": "Brachycaudus helichrysi",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-117",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "melo",
+   "TARGET": "Hyalopterus pruni",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-118",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Myzus persicae",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,10-0,12 kg/ha",
+    "0,10 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "7",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-119",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Aphis gossypii",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,10-0,12 kg/ha",
+    "0,10 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "7",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-120",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "pomodoro",
+   "TARGET": "Trialeurodes vaporariorum",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,20 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-121",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "pomodoro",
+   "TARGET": "Bemisia tabaci",
+   "PRODUCT": "APYZA WG",
+   "REGISTRATION_ID": "018156",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,20 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46198",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-122",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "Melo",
+   "TARGET": "Dysaphis plantaginea",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha",
+    "0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-123",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "Melo",
+   "TARGET": "Aphis pomi",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha",
+    "0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-124",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "Melo",
+   "TARGET": "Dysaphis pyri",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha",
+    "0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-125",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "melo",
+   "TARGET": "Dysaphis plantaginea",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-126",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "melo",
+   "TARGET": "Myzus persicae",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-127",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "melo",
+   "TARGET": "Brachycaudus helichrysi",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-128",
+   "CROP": "APPLE",
+   "CROP_TERM_MATCHED": "melo",
+   "TARGET": "Hyalopterus pruni",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,12-0,14 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "14",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-129",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Myzus persicae",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,10-0,12 kg/ha",
+    "0,10 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "7",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-130",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "Pomodoro",
+   "TARGET": "Aphis gossypii",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,10-0,12 kg/ha",
+    "0,10 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": "7",
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-131",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "pomodoro",
+   "TARGET": "Trialeurodes vaporariorum",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,20 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-132",
+   "CROP": "TOMATO",
+   "CROP_TERM_MATCHED": "pomodoro",
+   "TARGET": "Bemisia tabaci",
+   "PRODUCT": "APYZA 500 WG",
+   "REGISTRATION_ID": "018165",
+   "ACTIVE_INGREDIENTS": [
+    "FLONICAMID (IKI-220)"
+   ],
+   "REGULATORY_CATEGORY": "INSETTICIDA",
+   "DOSES": [
+    "0,20 kg/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {},
+   "EXPIRY": "2026-11-30",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46178",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-133",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Alopecurus sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-134",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Avena sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-135",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Lolium sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-136",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Mercurialis sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-137",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Ammi majus",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-138",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Amaranthus sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-139",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Calendula sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-140",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Chenopodium sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-141",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Portulaca sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-142",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Raphanus sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-143",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Senecio sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-144",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Sinapis sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-145",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Stellaria sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-146",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Veronica sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-147",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Cirsium sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-148",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Euphorbia sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-149",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Glyceria sp",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-150",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Leersia oryzoidea",
+   "PRODUCT": "GLIPHOGAN TOP CL PFNPE",
+   "REGISTRATION_ID": "018270",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45591",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-151",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Alopecurus sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-152",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Avena sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-153",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Lolium sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-154",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Mercurialis sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-155",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Ammi majus",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-156",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Amaranthus sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-157",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Calendula sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-158",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Chenopodium sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-159",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Portulaca sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-160",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Raphanus sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-161",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Senecio sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-162",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Sinapis sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-163",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Stellaria sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-164",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Veronica sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-165",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Cirsium sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-166",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Euphorbia sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-167",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Glyceria sp",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-168",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Leersia oryzoidea",
+   "PRODUCT": "HERBITOTAL CL PFNPE",
+   "REGISTRATION_ID": "018271",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39975",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-169",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Alopecurus sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-170",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Avena sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-171",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Lolium sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-172",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Mercurialis sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-173",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Ammi majus",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-174",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Amaranthus sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-175",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Calendula sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-176",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Chenopodium sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-177",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Portulaca sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-178",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Raphanus sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-179",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Senecio sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-180",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Sinapis sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-181",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Stellaria sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-182",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Veronica sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-183",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Cirsium sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-184",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Euphorbia sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-185",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Glyceria sp",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-186",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Leersia oryzoidea",
+   "PRODUCT": "SHAMAL MK PLUS CL PFNPE",
+   "REGISTRATION_ID": "018277",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=39976",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-187",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Alopecurus sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-188",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Avena sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-189",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Lolium sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-190",
+   "CROP": "OLIVE",
+   "CROP_TERM_MATCHED": "olivo",
+   "TARGET": "Mercurialis sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-191",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Ammi majus",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-192",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Amaranthus sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-193",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Calendula sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-194",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Chenopodium sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-195",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Portulaca sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-196",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Raphanus sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-197",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Senecio sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-198",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Sinapis sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-199",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Stellaria sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-200",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Veronica sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-201",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Cirsium sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-202",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Euphorbia sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-203",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Glyceria sp",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-204",
+   "CROP": "RICE",
+   "CROP_TERM_MATCHED": "Riso",
+   "TARGET": "Leersia oryzoidea",
+   "PRODUCT": "TAIFUN  MK CL PFNPE",
+   "REGISTRATION_ID": "018279",
+   "ACTIVE_INGREDIENTS": [
+    "GLYPHOSATE"
+   ],
+   "REGULATORY_CATEGORY": "DISERBANTE",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "HRAC": [
+     "G"
+    ]
+   },
+   "EXPIRY": "2034-12-15",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42905",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-205",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Zymoseptoria tritici",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-206",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Septoria nodorum",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-207",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Blumeria graminis",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-208",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Puccinia striiformis",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-209",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Puccinia recondita",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-210",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Fusarium spp",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-211",
+   "CROP": "COMMON_WHEAT",
+   "CROP_TERM_MATCHED": "Frumento tenero",
+   "TARGET": "Microdochium spp",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-212",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Helminthosporium gramineum",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-213",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Pyrenophora teres",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-214",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Ramularia collo",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-215",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Puccinia sp",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-216",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Blumeria graminis",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-217",
+   "CROP": "BARLEY",
+   "CROP_TERM_MATCHED": "Orzo",
+   "TARGET": "Puccinia recondita",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-218",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Zymoseptoria tritici",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [
+    "100-400 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CPP-219",
+   "CROP": "TRITICALE",
+   "CROP_TERM_MATCHED": "Triticale",
+   "TARGET": "Puccinia recondita",
+   "PRODUCT": "KOJAMI",
+   "REGISTRATION_ID": "019095",
+   "ACTIVE_INGREDIENTS": [
+    "AZOXYSTROBIN",
+    "PROTHIOCONAZOLE"
+   ],
+   "REGULATORY_CATEGORY": "FUNGICIDA",
+   "DOSES": [
+    "100-400 l/ha"
+   ],
+   "MAX_APPLICATIONS": null,
+   "INTERVAL_DAYS": null,
+   "MODE_OF_ACTION_DECLARED": {
+    "FRAC": [
+     "11",
+     "3"
+    ]
+   },
+   "EXPIRY": "2027-05-31",
+   "APPLICATION_TIMING": "NAO SEI — a coluna de epoca do rotulo nao foi extraida",
+   "LABEL_URL": "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45673",
+   "EVIDENCE_CLASS": "REGULATORY_FACT",
+   "PROVENANCE": "REAL_FACT"
+  }
+ ]
+}

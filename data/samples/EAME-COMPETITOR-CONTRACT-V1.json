@@ -1,0 +1,538 @@
+{
+ "SOURCE_ID": "EAME-COMPETITOR-CONTRACT-V1",
+ "VERSION": "V1",
+ "captured_at": "2026-08-30",
+ "source": "contrato de arquitetura. Nenhuma coleta competitiva foi executada nesta rodada.",
+ "SOURCE_LOCATION": "interno",
+ "FACT_LOCATION": "EAME (ES · IT · FR)",
+ "ORIGINAL_LANGUAGE": "pt",
+ "O_QUE_E": "a camada COMPETITOR como parte ESTRUTURAL da convergencia do SINTONIA EAME. Ela nao e um monitor de concorrentes pendurado ao lado do produto: e uma das sete camadas que um caso de convergencia cruza.",
+ "O_QUE_NAO_E": "nao e um painel de concorrencia, nao e um ranking, nao e um score de ameaca, nao e uma ferramenta isolada. Nao existe tela nem numero unico saindo daqui.",
+ "AS_SETE_CAMADAS_DA_CONVERGENCIA": [
+  "CAMPO",
+  "CIENCIA",
+  "CLIMA",
+  "REGULATORIO",
+  "PORTFOLIO ADAMA LOCAL",
+  "CONCORRENCIA",
+  "TEMPO"
+ ],
+ "AS_DUAS_PERGUNTAS_QUE_A_CAMADA_RESPONDE": {
+  "1_QUEM_TEM_RESPOSTA": "para um mesmo COUNTRY x CROP x ISSUE, quais concorrentes tem resposta REGISTRADA LOCALMENTE. Fato administrativo, datado e verificavel.",
+  "2_QUEM_ESTA_SE_MOVIMENTANDO_AGORA": "quem esta anunciando, comunicando, produzindo conteudo tecnico ou fazendo atividade publicamente observavel. Observacao de atividade, nunca de venda.",
+  "POR_QUE_SAO_DUAS": "ter direito de uso e estar se mexendo sao afirmacoes independentes. Um concorrente pode ter registro e nenhuma atividade publica; outro pode anunciar sem ter resposta registrada para aquele par. Fundir as duas produziria a frase mais cara possivel: 'o concorrente esta atacando este problema', que nao esta em nenhuma das duas fontes."
+ },
+ "ESTADOS": [
+  {
+   "ESTADO": "COMPETITOR_REGISTERED_RESPONSE",
+   "PERGUNTA": "tem resposta registrada localmente para este par?",
+   "FONTE": "registro oficial nacional (ROPF ES · E-Phy FR · Banca Dati IT)",
+   "PROVA": "ato administrativo: numero de registro, titular, cultura, alvo, estado",
+   "NAO_PROVA": [
+    "venda",
+    "estoque",
+    "disponibilidade comercial",
+    "adocao",
+    "share"
+   ],
+   "CAPABILITY": "DEMONSTRABLE",
+   "ONDE_JA_FOI_PROVADO": "X-005 COMPROVADO na Franca (Vigne x Mildiou: ADAMA 17, NUFARM 11, BAYER 8, UPL 7, SYNGENTA 5, CORTEVA/DOW 3, BASF 2 usos autorizados) e a mesma rota esta provada em ES pelo ROPF."
+  },
+  {
+   "ESTADO": "COMPETITOR_PAID_META_ACTIVITY",
+   "PERGUNTA": "ha peca publicitaria paga OBSERVADA na Meta Ads Library?",
+   "FONTE": "META ADS LIBRARY",
+   "PROVA": "ativacao publicitaria observada, com anunciante, pais e datas",
+   "NAO_PROVA": [
+    "venda",
+    "share",
+    "sucesso de campanha",
+    "estoque",
+    "disponibilidade do produto",
+    "necessidade de campo"
+   ],
+   "CAPABILITY": "PLANNED",
+   "ONDE_JA_FOI_PROVADO": "em lugar nenhum. A fonte nunca foi testada neste repo."
+  },
+  {
+   "ESTADO": "COMPETITOR_PUBLIC_COMMUNICATION",
+   "PERGUNTA": "ha comunicacao publica nao paga sobre o par?",
+   "FONTE": "site institucional, sala de imprensa, redes proprias do concorrente",
+   "PROVA": "mensagem publicada, com data",
+   "NAO_PROVA": [
+    "venda",
+    "share",
+    "intencao interna",
+    "prioridade da empresa"
+   ],
+   "CAPABILITY": "PLANNED",
+   "ONDE_JA_FOI_PROVADO": "rota provada para UM dos cinco majors (sitemap da Bayer ES, 265 URLs com lastmod). Syngenta, BASF e Corteva devolveram 403/502/404. X-003 segue NAO COMPOE. 403 nao e ausencia de comunicacao."
+  },
+  {
+   "ESTADO": "COMPETITOR_TECHNICAL_ACTIVITY",
+   "PERGUNTA": "ha atividade tecnica publicamente observavel — ensaio, palestra, publicacao, presenca em evento?",
+   "FONTE": "programa de evento, catalogo de expositor, coautoria em publicacao",
+   "PROVA": "participacao observada, com data e local",
+   "NAO_PROVA": [
+    "venda",
+    "share",
+    "lancamento",
+    "registro"
+   ],
+   "CAPABILITY": "PLANNED",
+   "ONDE_JA_FOI_PROVADO": "X-011 (EVENT + COMPETITOR + RESEARCHER) esta POSSIVEL NAO TESTADO. Casar nome de empresa entre catalogo de feira e registro oficial e sujo e a taxa de acerto teria de ser medida antes de qualquer afirmacao."
+  },
+  {
+   "ESTADO": "NOT_KNOWN",
+   "PERGUNTA": "nenhuma das quatro respostas pode ser sustentada",
+   "FONTE": null,
+   "PROVA": "nenhuma",
+   "NAO_PROVA": [
+    "ausencia de resposta registrada",
+    "ausencia de atividade",
+    "silencio do concorrente"
+   ],
+   "CAPABILITY": "SEMPRE_DISPONIVEL",
+   "ONDE_JA_FOI_PROVADO": "NOT_KNOWN e uma resposta valida do produto desde a primeira missao."
+  }
+ ],
+ "OS_QUATRO_ESTADOS_NUNCA_SE_FUNDEM": "registro, anuncio pago, comunicacao nao paga e atividade tecnica sao quatro observacoes de naturezas diferentes, com fontes, datas e limites diferentes. Somar as quatro num indicador unico destruiria exatamente a informacao que torna a camada util: QUAL delas esta acontecendo.",
+ "CINCO_IGNORANCIAS_APLICADAS_A_ESTA_CAMADA": {
+  "NAO_SEI": "nao sei",
+  "NOT_COLLECTED": "a fonte existe e nao foi coletada nesta rodada",
+  "NOT_KNOWN": "o dado guardado nao sustenta a resposta",
+  "AUSENTE_MEDIDO": "procurei na fonte e o concorrente nao esta la",
+  "NAO_TESTADO": "nao procurei — a rota nunca foi executada",
+  "O_ERRO_MAIS_CARO_AQUI": "confundir AUSENTE_MEDIDO com NAO_TESTADO num concorrente. 'Procurei na Meta Ads Library e a Syngenta nao anuncia' e uma afirmacao; 'nunca abri a Meta Ads Library' e outra. Hoje, para toda atividade paga, a resposta e NAO_TESTADO."
+ },
+ "COMPETITOR_RESPONSE": {
+  "O_QUE_E": "quem tem resposta registrada para COUNTRY x CROP x ISSUE",
+  "UNIDADE": "uma linha por (pais, titular, registro, cultura, alvo)",
+  "CAMPOS_MINIMOS": [
+   {
+    "CAMPO": "COUNTRY",
+    "OBRIGATORIO": true,
+    "PORQUE": "PORTFOLIO GLOBAL != PORTFOLIO LOCAL"
+   },
+   {
+    "CAMPO": "COMPETITOR_ENTITY",
+    "OBRIGATORIO": true,
+    "PORQUE": "razao social do titular, como o registro escreve"
+   },
+   {
+    "CAMPO": "COMPETITOR_GROUP",
+    "OBRIGATORIO": false,
+    "PORQUE": "agrupar razao social em grupo economico ainda NAO foi medido neste repo (DECK-015). Enquanto nao for, o campo fica NAO_SEI."
+   },
+   {
+    "CAMPO": "PRODUCT",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "REGISTRATION_ID",
+    "OBRIGATORIO": true,
+    "PORQUE": "a chave e o numero do registro, nunca o nome comercial"
+   },
+   {
+    "CAMPO": "ACTIVE_INGREDIENT",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "AUTHORIZED_CROP",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "AUTHORIZED_TARGET",
+    "OBRIGATORIO": false,
+    "PORQUE": "quando o registro nomeia o alvo. Quando nao, a linha e de nivel cultura e diz isso — nao some da resposta."
+   },
+   {
+    "CAMPO": "AUTHORIZED_WINDOW",
+    "OBRIGATORIO": false,
+    "PORQUE": "com TEMPORAL_RESOLUTION junto, pelas regras do calendario agronomico"
+   },
+   {
+    "CAMPO": "REGULATORY_STATUS",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "EXPIRY_DATE",
+    "OBRIGATORIO": false,
+    "PORQUE": "EXPIRY != WITHDRAWAL. Data vencida entra como data, nunca como retirada."
+   },
+   {
+    "CAMPO": "OFFICIAL_SOURCE",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "SOURCE_DATE",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "EVIDENCE",
+    "OBRIGATORIO": true,
+    "PORQUE": "localizador suficiente para auditoria: documento, linha, ancora"
+   }
+  ],
+  "LEIS": [
+   "REGISTRATION != SALES",
+   "REGISTRATION != STOCK",
+   "REGISTRATION != COMMERCIAL AVAILABILITY",
+   "PORTFOLIO GLOBAL != PORTFOLIO LOCAL",
+   "CONTAGEM DE REGISTROS != PARTICIPACAO DE MERCADO"
+  ],
+  "A_REGRA_DE_ADMISSAO": "nenhum concorrente tem 'resposta em ES/IT/FR' porque existe globalmente ou porque tem o mesmo produto em outro pais. Precisa de evidencia do registro daquele pais. Sem ela o estado e COMPETITOR_REGISTERED_RESPONSE = NOT_PROVED, que e diferente de NAO TEM."
+ },
+ "COMPETITOR_ACTIVATION": {
+  "O_QUE_E": "quem esta se movimentando publicamente, e desde quando",
+  "UNIDADE": "uma linha por (pais, anunciante/emissor, peca/publicacao observada)",
+  "CAMPOS_MINIMOS": [
+   {
+    "CAMPO": "COUNTRY",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "COMPETITOR_ENTITY",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "ACTIVATION_STATE",
+    "OBRIGATORIO": true,
+    "PORQUE": "qual dos quatro estados, nunca 'ativo' generico"
+   },
+   {
+    "CAMPO": "CHANNEL",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "PRODUCT",
+    "OBRIGATORIO": false,
+    "PORQUE": "so quando identificavel na propria peca. Deduzir o produto pela cultura seria inventar."
+   },
+   {
+    "CAMPO": "CROP",
+    "OBRIGATORIO": false
+   },
+   {
+    "CAMPO": "ISSUE",
+    "OBRIGATORIO": false
+   },
+   {
+    "CAMPO": "CLAIM_TEXT_ORIGINAL",
+    "OBRIGATORIO": true,
+    "PORQUE": "o texto literal, no idioma original. Traducao nunca substitui."
+   },
+   {
+    "CAMPO": "FIRST_OBSERVED",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "LAST_OBSERVED",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "CHANGE_OBSERVED",
+    "OBRIGATORIO": false,
+    "PORQUE": "mudanca de mensagem so existe a partir da SEGUNDA observacao. FIRST SNAPSHOT != NO CHANGE."
+   },
+   {
+    "CAMPO": "PIECES_OBSERVED",
+    "OBRIGATORIO": true,
+    "PORQUE": "quantidade OBSERVADA, com o denominador do que foi consultado. Nunca 'quantidade de anuncios do concorrente'."
+   },
+   {
+    "CAMPO": "SOURCE_DATE",
+    "OBRIGATORIO": true
+   },
+   {
+    "CAMPO": "EVIDENCE",
+    "OBRIGATORIO": true
+   }
+  ],
+  "LEIS": [
+   "ATIVIDADE OBSERVADA != DEMANDA",
+   "PUBLICIDADE != NECESSIDADE DE CAMPO",
+   "SILENCIO != AUSENCIA — o correto e NO PUBLIC ACTIVITY FOUND IN SEARCHED SOURCES",
+   "FIRST SNAPSHOT != NO CHANGE",
+   "REPETICAO DE MENSAGEM != CONVICCAO"
+  ]
+ },
+ "META_ADS_LIBRARY": {
+  "POR_QUE_NOMINAL": "esconder a Meta Ads Library dentro de 'social media' apagaria a unica coisa que a torna diferente: ela e um registro publico de PECA PUBLICITARIA PAGA, com anunciante identificado e datas. Isso e outra natureza de dado, nao um canal a mais numa lista.",
+  "O_QUE_ELA_PODE_OBSERVAR": [
+   "anunciante",
+   "pais",
+   "pagina",
+   "produto quando identificavel na peca",
+   "cultura",
+   "problema",
+   "claim",
+   "criativo",
+   "first observed",
+   "last observed",
+   "ativo/inativo quando a fonte permitir",
+   "repeticao de mensagem",
+   "mudanca de comunicacao",
+   "quantidade de pecas OBSERVADAS"
+  ],
+  "O_QUE_ELA_PROVA": "ATIVACAO PUBLICITARIA OBSERVADA. So isso, e ja e muito.",
+  "O_QUE_ELA_NAO_PROVA": [
+   "META AD != SALES",
+   "META AD != MARKET SHARE",
+   "META AD != CAMPAIGN SUCCESS",
+   "META AD != STOCK",
+   "META AD != PRODUCT AVAILABILITY",
+   "META AD != INVESTIMENTO",
+   "META AD != ALCANCE REAL"
+  ],
+  "DENOMINADOR_OBRIGATORIO": "toda contagem de pecas viaja com o que foi consultado: quais anunciantes, qual pais, qual periodo, qual termo. 'A Syngenta tem 14 anuncios' sem isso e um numero sem denominador.",
+  "ESTADO_NESTA_RODADA": "NAO_TESTADO",
+  "PORQUE_NAO_TESTADO": "esta e rodada de contrato. O que ja foi medido neste repo e a Meta GRAPH API (400 sem token, EU-T8-001) — que e outra API, para outro fim. A Ads Library nunca foi aberta aqui, e por isso a resposta sobre ela e NAO_TESTADO e nao AUSENTE_MEDIDO.",
+  "ONDE_ELA_ENTRA_NO_ATLAS": "T9 · COMPETITORS, ficha EU-T9-002",
+  "O_QUE_ELA_FECHARIA": "X-003 (COMPETITOR + PRODUCT + CROP + COMMUNICATION) esta NAO COMPOE desde a MISSAO 02 porque a perna COMMUNICATION nao existe. A Ads Library e a primeira rota candidata a essa perna que nao depende de varrer site com protecao anti-robo."
+ },
+ "RELOGIO_COMPETITIVO": {
+  "NOME": "COMPETITOR OBSERVATION CLOCK",
+  "E_O_QUINTO_RELOGIO": "os quatro relogios do calendario agronomico continuam sendo quatro: CROP_STAGE, ISSUE_RELEVANCE_WINDOW, REGISTERED_PRODUCT_WINDOW e EVIDENCE_FRESHNESS. Este e um QUINTO, e nao pode ser fundido com nenhum deles — em particular nao com o REGISTERED_PRODUCT_WINDOW, que fala do que o rotulo autoriza, e nao com o EVIDENCE_FRESHNESS, que fala da idade da evidencia de campo.",
+  "CAMPOS_MINIMOS": [
+   "FIRST_OBSERVED",
+   "LAST_OBSERVED",
+   "CHANGE_OBSERVED",
+   "SOURCE_DATE",
+   "AS_OF_DATE"
+  ],
+  "FRESCOR_NAO_SE_PERSISTE": "a idade de uma observacao competitiva e derivada de AS_OF_DATE na hora da pergunta, como no relogio D. Gravar 'ha 12 dias' seria gravar um fato que muda sozinho.",
+  "O_QUE_ELE_PERMITE_COMPARAR": [
+   "SCIENCE FIRST SIGNAL",
+   "FIELD FIRST SIGNAL",
+   "COMPETITOR FIRST SIGNAL",
+   "META ACTIVATION",
+   "AGRONOMIC WINDOW",
+   "COMMERCIAL WINDOW quando conhecida"
+  ],
+  "A_PERGUNTA_QUE_ELE_ABRE": "quem viu primeiro? E a ordem entre esses marcos e informacao, nao enfeite: ativacao ANTES do sinal de campo e uma historia; DEPOIS e outra.",
+  "O_LIMITE_DURO": "FIRST_OBSERVED e quando NOS observamos, nao quando o concorrente comecou. Sem serie historica da propria fonte, a diferenca entre as duas coisas e exatamente o tamanho do erro. OBSERVATION_START != ACTIVITY_START."
+ },
+ "PALAVRAS_PROIBIDAS": [
+  "WHITE SPACE",
+  "COMPETITIVE ADVANTAGE",
+  "SALES OPPORTUNITY",
+  "THREAT SCORE",
+  "SHARE OF VOICE",
+  "MARKET SHARE",
+  "COMPETITOR RANKING",
+  "BUZZ"
+ ],
+ "POR_QUE_SEM_SCORE": "um score competitivo somaria registro com anuncio, e as duas coisas nao tem unidade comum. O numero pareceria comparavel entre paises e concorrentes, e escondentaria justamente qual das quatro observacoes esta acontecendo.",
+ "CONVERGENCIA": {
+  "O_QUE_MUDA": "um caso de convergencia passa a cruzar sete camadas, e a camada COMPETITOR entra com DUAS colunas independentes: resposta registrada e ativacao observada.",
+  "AS_CINCO_PERGUNTAS_QUE_TODO_CASO_FUTURO_FAZ": [
+   "quem tem resposta?",
+   "quem esta anunciando?",
+   "quem comecou primeiro?",
+   "isso coincide com campo, ciencia ou janela agronomica?",
+   "ainda existe tempo para agir?"
+  ],
+  "A_QUINTA_E_A_MAIS_DIFICIL": "'ainda existe tempo' so tem resposta quando a janela agronomica esta conhecida com resolucao suficiente. Com resolucao APPROXIMATE ou sem fenologia observada, a resposta e NOT_KNOWN — e continua sendo util, porque diz o que falta medir.",
+  "O_QUE_A_CONVERGENCIA_NUNCA_CONCLUI": "oportunidade comercial. A saida e sempre PRIORITY TO INVESTIGATE, e quem decide e o Market Development."
+ },
+ "EXEMPLOS_CONCEITUAIS": [
+  {
+   "CASO": 1,
+   "NOME": "COMPETITIVE CONVERGENCE WORTH INVESTIGATING",
+   "COMPOSICAO": [
+    "FIELD SIGNAL",
+    "CROP WINDOW",
+    "ADAMA LOCAL REGISTERED RESPONSE",
+    "COMPETITORS WITH REGISTERED RESPONSE",
+    "COMPETITOR META ACTIVITY"
+   ],
+   "PERGUNTAS": [
+    "os concorrentes perceberam o mesmo movimento?",
+    "e ativacao sazonal normal?",
+    "comecou antes ou depois do sinal de campo?",
+    "Marketing e Market Development precisam investigar?"
+   ],
+   "SAIDA": "PRIORITY TO INVESTIGATE",
+   "NUNCA_CONCLUI": "oportunidade comercial",
+   "DATA": "NOT_YET_COLLECTED",
+   "O_QUE_FALTA": "a perna META ACTIVITY. As outras quatro ja tem rota provada."
+  },
+  {
+   "CASO": 2,
+   "NOME": "POSSIBLE EARLY WINDOW",
+   "COMPOSICAO": [
+    "FIELD SIGNAL comecando",
+    "ADAMA com resposta registrada",
+    "concorrentes tambem com resposta registrada",
+    "nenhuma ativacao competitiva publica relevante ainda observada"
+   ],
+   "COMO_SE_DIZ": "o sinal pode estar surgindo antes de forte ativacao publica competitiva",
+   "COMO_NAO_SE_DIZ": [
+    "WHITE SPACE",
+    "COMPETITIVE ADVANTAGE",
+    "SALES OPPORTUNITY"
+   ],
+   "A_RESSALVA_OBRIGATORIA": "'nenhuma ativacao observada' so vale com o denominador do que foi consultado. Sem ele, isto e NAO_TESTADO disfarcado de descoberta.",
+   "DATA": "NOT_YET_COLLECTED",
+   "O_QUE_FALTA": "a linha de base de ativacao — nao existe hoje em nenhum pais."
+  },
+  {
+   "CASO": 3,
+   "NOME": "POSSIBLE PRE-POSITIONING SIGNAL",
+   "COMPOSICAO": [
+    "CONCORRENTE comeca a anunciar ou comunicar",
+    "ciencia aponta o problema",
+    "campo ainda silencioso"
+   ],
+   "PERGUNTA": "o concorrente esta antecipando um movimento ou apenas executando calendario normal?",
+   "RESPOSTA_PADRAO": "NAO SEI",
+   "O_QUE_MUDARIA_A_RESPOSTA": "serie historica de ativacao do mesmo anunciante nos anos anteriores. Sem ela, nao ha como separar antecipacao de rotina — e a primeira captura NUNCA sustenta essa separacao.",
+   "DATA": "NOT_YET_COLLECTED",
+   "O_QUE_FALTA": "profundidade historica na fonte de ativacao."
+  }
+ ],
+ "MAPA_DE_ACOES": {
+  "A_DISTINCAO_QUE_MANDA": "WHO CAN INVESTIGATE NOW != WHO SHOULD ACT NOW",
+  "PUBLICOS": [
+   {
+    "PUBLICO": "MARKET DEVELOPMENT",
+    "PAPEL": "usuario e decisor central",
+    "RECEBE": "investigar mudanca competitiva e convergencia",
+    "QUANDO": "sempre que a camada muda de estado"
+   },
+   {
+    "PUBLICO": "MARKETING",
+    "RECEBE": "comparar claims, mensagens, canais e timing",
+    "QUANDO": "quando ha ativacao observada com texto original preservado"
+   },
+   {
+    "PUBLICO": "REGULATORY / PORTFOLIO",
+    "RECEBE": "comparar respostas autorizadas",
+    "QUANDO": "sempre — e a perna ja provada"
+   },
+   {
+    "PUBLICO": "SCIENCE / TECHNICAL",
+    "RECEBE": "avaliar diferencas tecnicas entre respostas",
+    "QUANDO": "quando ha ingrediente ativo e modo de acao dos dois lados"
+   },
+   {
+    "PUBLICO": "COMMERCIAL",
+    "RECEBE": "nada por padrao",
+    "QUANDO": "somente quando a janela comercial puder ser sustentada, e ela hoje e NOT_KNOWN por contrato"
+   },
+   {
+    "PUBLICO": "SUPPLY",
+    "RECEBE": "nada",
+    "QUANDO": "somente com informacao interna apropriada, que este produto nao tem"
+   }
+  ],
+  "O_SINTONIA_PRIORIZA_O_MD_DECIDE": "o Sintonia diz onde olhar primeiro, com evidencia. Nao diz o que fazer."
+ },
+ "LEIS": [
+  "REGISTRATION != SALES",
+  "REGISTRATION != STOCK",
+  "REGISTRATION != COMMERCIAL AVAILABILITY",
+  "PORTFOLIO GLOBAL != PORTFOLIO LOCAL",
+  "META AD != SALES",
+  "META AD != MARKET SHARE",
+  "META AD != CAMPAIGN SUCCESS",
+  "PUBLICIDADE != DEMANDA",
+  "SILENCIO != AUSENCIA",
+  "OBSERVATION_START != ACTIVITY_START",
+  "FIRST SNAPSHOT != NO CHANGE",
+  "PROVED ROUTE != MARKET-WIDE BASELINE",
+  "AUSENTE_MEDIDO != NAO_TESTADO",
+  "WHO CAN INVESTIGATE NOW != WHO SHOULD ACT NOW"
+ ],
+ "ESTADO_DA_CAPACIDADE": {
+  "COMPETITOR_LAYER_IN_ARCHITECTURE": "YES",
+  "META_EXPLICIT_SOURCE": "YES",
+  "CAPABILITY_POR_ESTADO": {
+   "COMPETITOR_REGISTERED_RESPONSE": "DEMONSTRABLE",
+   "COMPETITOR_PAID_META_ACTIVITY": "PLANNED",
+   "COMPETITOR_PUBLIC_COMMUNICATION": "PLANNED",
+   "COMPETITOR_TECHNICAL_ACTIVITY": "PLANNED"
+  },
+  "DATA_COVERAGE": "NOT_YET_COMPLETE",
+  "O_QUE_ISSO_QUER_DIZER": "a arquitetura aceita a camada e os casos sabem perguntar por ela. O dado competitivo de ativacao nao existe em nenhum pais, e nada nesta rodada fingiu que existe."
+ },
+ "NOT_YET_COLLECTED": [
+  {
+   "O_QUE": "qualquer peca da Meta Ads Library",
+   "ESTADO": "NAO_TESTADO",
+   "PAISES": [
+    "ES",
+    "IT",
+    "FR"
+   ]
+  },
+  {
+   "O_QUE": "comunicacao publica de Syngenta, BASF e Corteva — as tres devolveram 403 / 502 / 404 quando a rota foi medida",
+   "ESTADO": "BLOQUEADO_MEDIDO",
+   "PAISES": [
+    "ES",
+    "IT",
+    "FR"
+   ],
+   "O_QUE_ISTO_NAO_E": "403 nao e ausencia de comunicacao. A rota esta bloqueada, e o concorrente pode estar comunicando normalmente onde nao conseguimos ler."
+  },
+  {
+   "O_QUE": "linha de base de ativacao competitiva",
+   "ESTADO": "NOT_COLLECTED",
+   "PAISES": [
+    "ES",
+    "IT",
+    "FR"
+   ]
+  },
+  {
+   "O_QUE": "agrupamento de razao social em grupo economico",
+   "ESTADO": "NAO_MEDIDO (DECK-015)",
+   "PAISES": [
+    "ES",
+    "IT",
+    "FR"
+   ]
+  },
+  {
+   "O_QUE": "serie historica de ativacao para separar antecipacao de rotina",
+   "ESTADO": "NOT_COLLECTED",
+   "PAISES": [
+    "ES",
+    "IT",
+    "FR"
+   ]
+  }
+ ],
+ "PROXIMO_PASSO_FUTURO_NAO_EXECUTADO": {
+  "QUAL": "abrir a Meta Ads Library UMA vez, para UM par ja escolhido (ES x olivar x repilo), com UM anunciante, so para medir o que a fonte devolve.",
+  "POR_QUE_ESSE": "e o par onde as outras seis camadas ja tem dado real, entao a setima pode ser avaliada sem construir nada em volta.",
+  "O_QUE_ELE_RESPONDERIA": [
+   "a rota funciona sem credencial paga?",
+   "o anunciante e identificavel como o concorrente, e nao como uma agencia?",
+   "ha data de primeira e ultima veiculacao?",
+   "o produto e identificavel na peca, ou so a marca institucional?"
+  ],
+  "O_QUE_ELE_NAO_FARIA": [
+   "coleta em massa",
+   "cron",
+   "base de concorrentes",
+   "painel",
+   "score"
+  ],
+  "NAO_EXECUTADO_NESTA_RODADA": true,
+  "PORQUE": "a missao proibe coleta, e medir uma fonte e coleta."
+ },
+ "O_QUE_ESTA_RODADA_NAO_FEZ": [
+  "nao coletou nenhum concorrente",
+  "nao abriu Apify",
+  "nao criou cron",
+  "nao construiu portal nem dashboard",
+  "nao criou score",
+  "nao criou ferramenta isolada de concorrencia",
+  "nao alterou o foco operacional de Espanha e Italia",
+  "nao inventou dado competitivo",
+  "nao criou migration"
+ ]
+}

@@ -59,7 +59,7 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 329 testes, OK, 0 falhas, 0 erros.
+Esperado: 649 testes, OK, 0 falhas, 0 erros.
 Se divergir, reporte o número real e o teste que falhou. NÃO conserte ainda.
 
 Nota: pytest NÃO está instalado. Use unittest. Só biblioteca padrão do Python 3.11.
@@ -74,8 +74,8 @@ python3 scripts/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
-  TEST_COUNT_CURRENT              = 280
-  SOURCE_ID_COUNT                 = 36
+  TEST_COUNT_CURRENT              = 649
+  SOURCE_ID_COUNT                 = 37
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964
   ES_EXPIRING_6M                  = 486     (ADAMA 36)
@@ -88,7 +88,11 @@ Confira estas sentinelas contra o que o handoff afirma:
   QUEUE_RESEARCHERS_ES            = 20
   ASK_WRONG                       = 0
 
-E o portão deve imprimir READY_FOR_NEXT_ES_COLLECTION = YES com os seis PROVED.
+E o portão deve imprimir READY_FOR_NEXT_ES_COLLECTION = ADVERSARIALLY_VERIFIED
+com os seis PROVED. YES e ADVERSARIALLY_VERIFIED são estados DIFERENTES: o primeiro
+é o portão dizendo que ele mesmo passa; o segundo exige que alguém tenha tentado
+REFUTAR cada portão e falhado, e que a implementação não tenha mudado desde então.
+Se aparecer VERIFICATION_STALE, a verificação precisa ser refeita.
 
 Qualquer divergência é ACHADO, não erro seu. Registre.
 
@@ -185,4 +189,7 @@ Não comece trabalho nenhum antes de entregar o acceptance report.
 - Se o `HEAD` tiver avançado depois do handoff, o **passo 1 detecta** e manda parar.
 - As sentinelas do passo 4 são deliberadamente **verificáveis em um comando**. Se o ledger
   divergir do handoff, o ledger vence e a divergência é o primeiro achado da nova conta.
+- Este arquivo é **copiado e colado**, por isso não leva marcador `<!--M:-->` dentro do
+  bloco. O dono dos seus números é `tests/test_handoff.py`, que os compara com
+  `scripts/metricas_canonicas.py` e **reprova** quando a suíte cresce e o número aqui não.
 - O relatório de aceite é o **filtro de qualidade**: se ele vier vago, a nova conta não leu.

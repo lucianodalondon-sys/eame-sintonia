@@ -1,0 +1,462 @@
+{
+ "CASE_ID": "ES-CASE-001-OLIVO-REPILO-ANDALUCIA-OCCIDENTAL",
+ "COUNTRY": "ES",
+ "CROP": "OLIVO",
+ "ISSUE": "Repilo (Venturia oleaginea)",
+ "REGION": "Andalucia occidental — Huelva e Cadiz. NAO e \"Huelva\" sozinha, e a correcao esta em CONTRAPROVA.",
+ "source": "RAIF Andalucia (dataset CKAN raif_olivar_andalucia_2006_2026) + MAPA ROPF (export por par idCultivo x idPlaga e GetProductoById) + fichas PDF oficiais preservadas",
+ "SOURCE_LOCATION": "ANDALUCIA (RAIF) e SPAIN (MAPA ROPF)",
+ "FACT_LOCATION": "SPAIN — parcelas de Huelva, Cadiz, Sevilla, Cordoba, Jaen, Granada e Malaga; registros de ambito nacional",
+ "ORIGINAL_LANGUAGE": "ES",
+ "captured_at": "2026-08-30",
+ "CASE_TYPE": "AGIR AGORA — mas por um motivo diferente do que eu tinha escrito",
+ "SIGNAL": {
+  "O_QUE_E": "nivel de repilo visivel (campo 1702, % de folhas) na campanha 2026, por provincia.",
+  "HUELVA_2026": "media 8,83% — a maior das 21 campanhas com leitura na serie (2006-2026).",
+  "CADIZ_2026": "media 8,01% — a 2a maior da serie, atras so de 2013 (9,71%).",
+  "CONVERGENCIA": "as duas provincias vizinhas do oeste sobem juntas, e ja vinham subindo: Huelva 1,19 (2023) -> 3,26 -> 6,45 -> 8,83; Cadiz 4,64 -> 3,89 -> 5,60 -> 8,01. Jaen (0,77), Granada (0,61) e Malaga (1,08) seguem baixas.",
+  "SERIE_HUELVA": {
+   "2006": {
+    "parcelas": 34,
+    "leituras": 305,
+    "media": 0.89,
+    "max": 22.5
+   },
+   "2007": {
+    "parcelas": 34,
+    "leituras": 195,
+    "media": 2.14,
+    "max": 13.0
+   },
+   "2008": {
+    "parcelas": 33,
+    "leituras": 227,
+    "media": 1.37,
+    "max": 28.0
+   },
+   "2009": {
+    "parcelas": 22,
+    "leituras": 297,
+    "media": 1.66,
+    "max": 27.75
+   },
+   "2010": {
+    "parcelas": 13,
+    "leituras": 127,
+    "media": 1.19,
+    "max": 12.0
+   },
+   "2011": {
+    "parcelas": 12,
+    "leituras": 197,
+    "media": 2.65,
+    "max": 17.0
+   },
+   "2012": {
+    "parcelas": 20,
+    "leituras": 258,
+    "media": 4.86,
+    "max": 30.0
+   },
+   "2013": {
+    "parcelas": 21,
+    "leituras": 294,
+    "media": 6.04,
+    "max": 35.0
+   },
+   "2014": {
+    "parcelas": 18,
+    "leituras": 273,
+    "media": 2.11,
+    "max": 11.25
+   },
+   "2015": {
+    "parcelas": 21,
+    "leituras": 153,
+    "media": 3.82,
+    "max": 34.0
+   },
+   "2016": {
+    "parcelas": 9,
+    "leituras": 61,
+    "media": 1.81,
+    "max": 9.0
+   },
+   "2017": {
+    "parcelas": 12,
+    "leituras": 48,
+    "media": 4.2,
+    "max": 30.0
+   },
+   "2018": {
+    "parcelas": 14,
+    "leituras": 64,
+    "media": 5.36,
+    "max": 32.0
+   },
+   "2019": {
+    "parcelas": 14,
+    "leituras": 62,
+    "media": 3.68,
+    "max": 14.0
+   },
+   "2020": {
+    "parcelas": 12,
+    "leituras": 61,
+    "media": 3.73,
+    "max": 15.0
+   },
+   "2021": {
+    "parcelas": 11,
+    "leituras": 55,
+    "media": 3.05,
+    "max": 22.0
+   },
+   "2022": {
+    "parcelas": 11,
+    "leituras": 48,
+    "media": 1.45,
+    "max": 6.25
+   },
+   "2023": {
+    "parcelas": 11,
+    "leituras": 58,
+    "media": 1.19,
+    "max": 4.0
+   },
+   "2024": {
+    "parcelas": 11,
+    "leituras": 38,
+    "media": 3.26,
+    "max": 12.0
+   },
+   "2025": {
+    "parcelas": 10,
+    "leituras": 51,
+    "media": 6.45,
+    "max": 19.0
+   },
+   "2026": {
+    "parcelas": 7,
+    "leituras": 18,
+    "media": 8.83,
+    "max": 32.0
+   }
+  },
+  "SERIE_CADIZ": {
+   "2006": {
+    "parcelas": 59,
+    "leituras": 926,
+    "media": 4.65,
+    "max": 27.0
+   },
+   "2007": {
+    "parcelas": 56,
+    "leituras": 252,
+    "media": 3.74,
+    "max": 30.0
+   },
+   "2008": {
+    "parcelas": 56,
+    "leituras": 154,
+    "media": 5.76,
+    "max": 60.0
+   },
+   "2009": {
+    "parcelas": 59,
+    "leituras": 220,
+    "media": 7.95,
+    "max": 60.0
+   },
+   "2010": {
+    "parcelas": 54,
+    "leituras": 240,
+    "media": 8.4,
+    "max": 60.0
+   },
+   "2011": {
+    "parcelas": 57,
+    "leituras": 280,
+    "media": 4.24,
+    "max": 40.0
+   },
+   "2012": {
+    "parcelas": 42,
+    "leituras": 196,
+    "media": 6.63,
+    "max": 60.0
+   },
+   "2013": {
+    "parcelas": 41,
+    "leituras": 177,
+    "media": 9.71,
+    "max": 54.0
+   },
+   "2014": {
+    "parcelas": 40,
+    "leituras": 145,
+    "media": 6.1,
+    "max": 28.0
+   },
+   "2015": {
+    "parcelas": 42,
+    "leituras": 169,
+    "media": 5.82,
+    "max": 42.5
+   },
+   "2016": {
+    "parcelas": 44,
+    "leituras": 174,
+    "media": 4.8,
+    "max": 27.0
+   },
+   "2017": {
+    "parcelas": 45,
+    "leituras": 145,
+    "media": 5.08,
+    "max": 21.0
+   },
+   "2018": {
+    "parcelas": 43,
+    "leituras": 168,
+    "media": 4.85,
+    "max": 21.0
+   },
+   "2019": {
+    "parcelas": 50,
+    "leituras": 213,
+    "media": 3.31,
+    "max": 21.0
+   },
+   "2020": {
+    "parcelas": 58,
+    "leituras": 231,
+    "media": 2.08,
+    "max": 30.0
+   },
+   "2021": {
+    "parcelas": 55,
+    "leituras": 165,
+    "media": 3.86,
+    "max": 22.0
+   },
+   "2022": {
+    "parcelas": 54,
+    "leituras": 185,
+    "media": 2.83,
+    "max": 64.0
+   },
+   "2023": {
+    "parcelas": 48,
+    "leituras": 201,
+    "media": 4.64,
+    "max": 28.0
+   },
+   "2024": {
+    "parcelas": 39,
+    "leituras": 271,
+    "media": 3.89,
+    "max": 29.0
+   },
+   "2025": {
+    "parcelas": 40,
+    "leituras": 109,
+    "media": 5.6,
+    "max": 80.0
+   },
+   "2026": {
+    "parcelas": 39,
+    "leituras": 141,
+    "media": 8.01,
+    "max": 38.0
+   }
+  }
+ },
+ "SIGNAL_DATE": {
+  "ARQUIVO_GERADO": "2026-08-24",
+  "ULTIMA_LEITURA_DE_REPILO_EM_HUELVA": "2026-06-14",
+  "ULTIMA_LEITURA_DE_REPILO_EM_CADIZ": "2026-05-27",
+  "SIGNAL_FRESHNESS": "77 dias (Huelva) e 95 dias (Cadiz) na data de captura. NAO 6 dias."
+ },
+ "CONTRAPROVA": {
+  "PEDIDA_POR": "secao 3.1 e 17 — \"esse maximo pode ser artefato de cobertura?\"",
+  "TESTE_1_REPRODUCAO": "PASSOU. Baixei o dataset RAIF olivar inteiro e recalculei do zero: Huelva 8,83% sobre 18 leituras em 7 parcelas; Cadiz 8,01% sobre 141 leituras em 39 parcelas; 20.970 muestreos em 2026. Bate com o que ja estava no repositorio.",
+  "TESTE_2_DENOMINADOR": "ATENCAO. A rede de Huelva encolheu de 34 parcelas (2006) para 7 (2026), e 2026 tem o MENOR numero de leituras de toda a serie: 18. O anterior mais baixo era 38. Cadiz nao tem esse problema: 39-59 parcelas o tempo todo.",
+  "TESTE_3_SOBREVIVENCIA_DE_PARCELA": "PASSOU, e este era o teste que podia matar o caso. Se as 7 parcelas que sobraram fossem as historicamente mais doentes, a alta seria artefato. Medido ano a ano, 2017-2025, a media SO dessas 7 contra a media de todas as parcelas de Huelva: 5,04/4,20 · 4,88/5,36 · 2,98/3,68 · 3,76/3,73 · 2,47/3,05 · 1,57/1,45 · 1,17/1,19 · 3,00/3,26 · 6,26/6,45. Elas acompanham a provincia e na maioria dos anos ficam ABAIXO dela. A alta de 2026 nao vem de quem sobrou.",
+  "TESTE_4_O_QUE_NAO_PASSOU": "a frase \"sinal de 6 dias\". Era a data de GERACAO DO ARQUIVO, nao a data de OBSERVACAO. As leituras de repilo de Huelva e Cadiz em 2026 sao de fevereiro a junho; nenhuma das duas tem leitura desde 01/07. OBSERVATION_CLOCK != FILE_CLOCK, e eu tinha confundido os dois.",
+  "DISCREPANCIA_A_RECONCILIAR": "o repositorio fala em \"23 safras (2003-2026)\". O dataset oficial se chama \"RAIF 2006\" e a minha reproducao ve 21 campanhas com leitura de repilo em Huelva (2006-2026). Nao resolvido: pode ser outra fonte, outro campo, ou numero errado. Fica declarado.",
+  "VEREDITO": "o maximo de Huelva sobrevive a contraprova de cobertura, mas repousa sobre 18 leituras. Cadiz sustenta a mesma leitura com 141. O caso e do OESTE, com Cadiz como perna forte e Huelva como perna fraca — nao de Huelva sozinha."
+ },
+ "AGRONOMIC_CLOCK": {
+  "FENOLOGIA_OBSERVADA_EM_AGOSTO_2026": "1.726 registros em \"H endurecimiento hueso\" (~BBCH 75-79), 57 em \"I1 envero\" (~BBCH 81), 25 em G2. Fonte: proprios muestreos RAIF de agosto/2026.",
+  "CONFIANCA": "OBSERVED, nao TYPICAL. E leitura de campo datada, nao calendario.",
+  "JANELA_AGRONOMICA_DO_REPILO": "o controle se concentra no outono, que esta comecando."
+ },
+ "APPLICATION_WINDOW": {
+  "REGRA": "janela do PRODUTO, lida na propria ficha do MAPA. Nao inferida.",
+  "CUPROXI_FLO_ES-00979": {
+   "JANELA_NA_ETIQUETA": "BBCH 10-85",
+   "APLICACOES": "1-4",
+   "PLAZO_DE_SEGURIDAD": "7 dias",
+   "DOSE": "0,15-0,3%, 500-1000 l/ha",
+   "MAX_ANO": "4 l p.f./ha/ano",
+   "ESTADO_EM_30-08-2026": "ABERTA. A fenologia observada (BBCH 75-81) esta dentro de 10-85, e o prazo de seguranca de 7 dias nao bloqueia a colheita de outono."
+  },
+  "NEPTUNE_ES-00211": {
+   "JANELA_NA_ETIQUETA": "\"Se dara la primera aplicacion antes de la floracion\"",
+   "APLICACOES": "2",
+   "PLAZO_DE_SEGURIDAD": "120 dias",
+   "DOSE": "0,15-0,25%, 500-1000 l/ha",
+   "ESTADO_EM_30-08-2026": "FECHADA para a safra 2026 por DOIS motivos independentes: a primeira aplicacao devia ser antes da floracao (que ocorreu na primavera) e o prazo de seguranca de 120 dias nao cabe antes da colheita de outono."
+  },
+  "A_CONSEQUENCIA": "o produto com problema regulatorio e justamente o que ja estava fora de janela. O produto em janela nao tem problema regulatorio. Isso separa a acao comercial da acao regulatoria — sao duas conversas, nao uma."
+ },
+ "REGULATORY_RESPONSE": {
+  "CONSULTA": "MAPA ROPF, export por idCultivo=1972 x idPlaga=6200, respondido em 2026-08-30T05:01:51+02:00.",
+  "TOTAL_REGISTROS": 180,
+  "TODOS_VIGENTES": true,
+  "ADAMA": 2,
+  "ADAMA_DETALHE": [
+   {
+    "REG": "ES-00979",
+    "NOME": "CUPROXI FLO",
+    "ESTADO": "Vigente",
+    "CADUCIDAD": "30-06-2029",
+    "FORMULADO": "OXICLORURO DE COBRE 52%",
+    "ULTIMO_TRAMITE": "PRORROGA DE AUTORIZACION terminada em 19-12-2025"
+   },
+   {
+    "REG": "ES-00211",
+    "NOME": "NEPTUNE",
+    "ESTADO": "Vigente",
+    "CADUCIDAD": "15-08-2026",
+    "FORMULADO": "TEBUCONAZOL 3,6% + OXICLORURO DE COBRE 36%",
+    "ULTIMO_TRAMITE": "PRORROGA DE AUTORIZACION terminada em 30-08-2023"
+   }
+  ],
+  "OUTROS_PARES_TESTADOS": "OLIVO DE ALMAZARA x repilo = 7 registros, 0 ADAMA. OLIVO DE VERDEO x repilo = 7, 0 ADAMA. OLIVO x repilo plomizo (Pseudocercospora) = 2, 0 ADAMA."
+ },
+ "REGULATORY_STATUS_CONFLICT": {
+  "ESTADO": "INVESTIGATE — nao resolvido, e nao deve ser resolvido por interpretacao.",
+  "O_FATO": "NEPTUNE ES-00211 consta estado=Vigente com caducidad 15-08-2026, data ja passada ha 15 dias. strFechaLimiteVenta vazio, strFechaAutorizacion vazio.",
+  "A_continua_VIGENTE_HOJE": "SIM — consultado em 30/08/2026 as 05:00.",
+  "B_A_DATA_CONTINUA": "SIM — 15-08-2026.",
+  "C_HOUVE_ATUALIZACAO_POSTERIOR": "NAO. Ultimo tramite e fechaModificacion sao ambos de 30-08-2023.",
+  "D_OUTRO_ATO_OU_DOCUMENTO": "nenhum no registro. Os dois campos que declarariam prazo de venda ou nova autorizacao estao vazios.",
+  "E_OUTROS_REGISTROS_ADAMA_PARA_REPILO": "so CUPROXI FLO. Sao 2 de 180.",
+  "HIPOTESE_QUE_EU_LEVANTEI_E_MINHA_PROPRIA_MEDICAO_DERRUBOU": {
+   "HIPOTESE": "a data 15-08-2026 seria um vencimento de SUBSTANCIA (tebuconazol), nao um evento do produto — porque o outro registro vencido dos 180, STARPRO 250 EW da Albaugh, tambem e tebuconazol e tem exatamente a mesma data.",
+   "TESTE": "contei todos os registros com tebuconazol no par olivo x repilo: sao 16.",
+   "RESULTADO": "13 deles vao ate 31-07-2028 e um ate 15-08-2027. So DOIS param em 15-08-2026 — Neptune e Starpro. A hipotese de vencimento de substancia esta REFUTADA: se fosse a substancia, os 16 cairiam juntos.",
+   "O_QUE_SOBRA": "dois registros, de duas empresas diferentes, presos numa data que os 14 irmaos de mesma substancia e mesmo uso ja deixaram para tras. Ambos tiveram sua ultima modificacao em agosto de 2023. Isso e assimetria, nao erro provado — e e exatamente o que \"INVESTIGATE\" quer dizer."
+  },
+  "O_QUE_NAO_DIZER": [
+   "nao dizer produto retirado",
+   "nao dizer produto ilegal",
+   "nao dizer produto disponivel",
+   "nao dizer erro do MAPA — nao ha prova disso",
+   "nao dizer que a ADAMA perdeu o registro"
+  ]
+ },
+ "FACTS": [
+  "180 registros vigentes para olivo x repilo; 2 sao da ADAMA.",
+  "Huelva 8,83% e o maior valor das 21 campanhas com leitura; sobre 18 leituras em 7 parcelas.",
+  "Cadiz 8,01% e o 2o maior da serie; sobre 141 leituras em 39 parcelas, com rede estavel.",
+  "As leituras de repilo de 2026 em Huelva e Cadiz vao ate 14/06 e 27/05.",
+  "A fenologia observada em agosto/2026 esta em BBCH ~75-81.",
+  "CUPROXI FLO tem janela BBCH 10-85 e PS de 7 dias na etiqueta.",
+  "NEPTUNE tem \"primeira aplicacao antes da floracion\" e PS de 120 dias na etiqueta.",
+  "NEPTUNE esta Vigente com caducidad vencida; 13 dos 16 tebuconazois do mesmo par vao ate 2028."
+ ],
+ "INTERPRETATIONS": [
+  "a alta simultanea em duas provincias vizinhas, com Cadiz sustentando estatisticamente, e mais provavel de ser fenomeno regional do que ruido de amostragem.",
+  "primavera alta costuma preceder outono com pressao — mas o proprio backtest do repositorio mostra que a regra de disparo da so UMA safra de antecedencia no melhor caso e ZERO em dois dos tres casos de 2026, com 11 falsos positivos em 14 disparos. Nao vender isso como previsao."
+ ],
+ "UNKNOWNS": [
+  "nao ha leitura de repilo em Huelva/Cadiz depois de junho — nao sabemos o estado de agosto NESSAS provincias.",
+  "repilo incubado (campo 1703), que por definicao antecede o sintoma visivel, tem n=5 em Huelva e n=1 em Cadiz em 2026. Medido e insuficiente; nao sustenta nada.",
+  "por que Neptune e Starpro nao acompanharam a data dos outros 14 tebuconazois.",
+  "COMMERCIAL_CLOCK = NAO SEI. Registro nao e venda."
+ ],
+ "EVIDENCE_PATHS": [
+  "RAIF olivar, dataset CKAN da Junta de Andalucia, arquivos 2006_2016_*_Muestreos.xml, 2017_2024_*, 2025_*, 2026_* — campo \"1702 Repilo: % Hojas con Repilo Visible\".",
+  "MAPA ROPF Exportaciones/ExportJsonProductos com idCultivo=1972 e idPlaga=6200.",
+  "MAPA ROPF Productos/GetProductoById para ES-00211, ES-00979, 25139.",
+  "fichas PDF preservadas ES-00211 e ES-00979, secao Usos y Dosis.",
+  "data/samples/BACKTEST-REPILO-LEAD-TIME.json para o poder preditivo da serie."
+ ],
+ "RELOGIOS_FORMALIZADOS": {
+  "OBSERVED_AT": {
+   "HUELVA": "2026-06-14 (ultima leitura de repilo)",
+   "CADIZ": "2026-05-27",
+   "JAEN": "2026-08-19",
+   "CORDOBA": "2026-08-18",
+   "GRANADA": "2026-08-19",
+   "SEVILLA": "2026-08-17",
+   "MALAGA": "2026-07-01"
+  },
+  "SAMPLE_PERIOD": {
+   "HUELVA": "2026-03-03 a 2026-06-14, n=18",
+   "CADIZ": "2026-02-10 a 2026-05-27, n=141"
+  },
+  "FILE_DATE": "2026-08-24 (generated= no proprio XML)",
+  "PUBLICATION_DATE": "2026-08-26T09:13:40 (last_modified do recurso no CKAN da Junta de Andalucia, verificado em 30/08)",
+  "CAPTURED_AT": "2026-08-29 (primeira captura) e 2026-08-30 (reproducao integral)",
+  "SIGNAL_FRESHNESS_CLASS": "SEASON_2026_SPRING_READING — nao CURRENT_SIGNAL",
+  "POR_QUE_ESSA_CLASSE": "as quatro datas sao diferentes e so uma delas e a observacao. Huelva e Cadiz nao tem leitura de repilo depois de junho e maio. Chamar isso de sinal corrente seria repetir o erro que ja foi pego uma vez.",
+  "O_QUE_ISSO_NAO_INVALIDA": "as provincias do leste TEM leitura de agosto (Jaen 19/08, Granada 19/08, Cordoba 18/08, Sevilla 17/08) e elas estao baixas. Entao a ausencia de leitura no oeste e da fonte, nao da campanha: o RAIF continuou amostrando em agosto, so nao no oeste."
+ },
+ "MAGNITUDE_x_SAMPLE_SUPPORT": {
+  "REGRA": "magnitude e suporte amostral ficam em campos separados e nao se compensam.",
+  "HUELVA": {
+   "MAGNITUDE": "8,83% — maior das 21 campanhas com leitura",
+   "SAMPLE_SUPPORT": "FRACO: 18 leituras, 7 parcelas. E o menor n de toda a serie; o segundo menor foi 38 leituras em 2024.",
+   "REDE": "encolheu de 34 parcelas (2006) para 7 (2026)"
+  },
+  "CADIZ": {
+   "MAGNITUDE": "8,01% — 2a maior da serie, atras de 2013 (9,71%)",
+   "SAMPLE_SUPPORT": "FORTE: 141 leituras, 39 parcelas",
+   "REDE": "estavel, 39-59 parcelas em todas as 21 campanhas"
+  },
+  "VEREDITO": "a magnitude de Huelva e real e reproduzida, e sobreviveu ao teste de sobrevivencia de parcela. O suporte amostral dela nao e equivalente ao de Cadiz e o caso nao deve ser apresentado como se fosse."
+ },
+ "STATUS_REAVALIADO": {
+  "ANTES": "AGIR AGORA",
+  "DEPOIS": "VERIFY_FIELD_NOW",
+  "POR_QUE_MUDOU": "AGIR AGORA sem objeto direto e ambiguo, e a leitura mais provavel de quem le rapido e \"aplicar produto agora\". A evidencia sustenta verificar o campo, nao aplicar.",
+  "O_QUE_NAO_MUDOU": "a janela da etiqueta continua aberta e continua verificada contra fenologia observada. Se o campo confirmar pressao, a aplicacao e possivel — e esse condicional agora esta escrito.",
+  "ESTADO_CONDICIONAL": "APPLICATION_POSSIBLE_IF_FIELD_CONFIRMS"
+ },
+ "CLASSIFICACAO_DE_EVIDENCIA": {
+  "REGULATORY_FACT": [
+   "estado, caducidad, titular, tramite e datas dos registros ES-00211, ES-00979 e 25139, lidos do ROPF",
+   "as linhas de Usos y Dosis das fichas oficiais: BBCH 10-85, 1-4 aplicacoes, PS 7 dias (CUPROXI FLO); primeira aplicacao antes da floracion, PS 120 dias (NEPTUNE)"
+  ],
+  "MANUFACTURER_INFORMATION": [
+   "NENHUMA. O catalogo publico da ADAMA nao foi coletado — o host esta negado na borda para este ambiente. Ver ES-REVIEW-HANDOFFS."
+  ],
+  "DERIVED_WINDOW": [
+   "\"a janela do CUPROXI FLO esta aberta em 30/08/2026\" e DERIVADA: cruza o BBCH da etiqueta (fato regulatorio) com a fenologia observada no RAIF em agosto (fato de campo). Nenhuma das duas fontes afirma a janela; a juncao e minha."
+  ]
+ },
+ "CORRECAO_SEMANTICA_CRITICA": {
+  "O_ERRO_QUE_ESTAVA_PRESTES_A_ACONTECER": "eu mantive AGIR AGORA porque a janela do CUPROXI FLO esta aberta. Janela aberta prova que o produto PODERIA ser usado neste estagio; nao prova que ha necessidade de aplicar. Transformar capacidade de agir em necessidade de agir e o erro mais caro que este caso podia cometer.",
+  "FIELD_SIGNAL_STATUS": "SEASON_2026_SPRING_READING — Huelva ate 14/06, Cadiz ate 27/05",
+  "APPLICATION_WINDOW_STATUS": "OPEN para CUPROXI FLO (BBCH 10-85 na etiqueta contra fenologia observada BBCH 75-81 em agosto). CLOSED para NEPTUNE.",
+  "MONITORING_NEED": "HIGH — a primavera fechou alta nas duas provincias do oeste, o outono e a janela do repilo, e nao ha leitura de campo la desde junho e maio.",
+  "PRODUCT_ACTION_NEED": "NOT_KNOWN. Nada na evidencia estabelece necessidade de aplicacao hoje no oeste.",
+  "BUSINESS_ACTION": "VERIFY_FIELD_NOW e PREPARE.",
+  "CASE_STATUS_CORRIGIDO": "VERIFY_FIELD_NOW",
+  "AGIR_AGORA_EM_QUE": "em VERIFICAR O ESTADO ATUAL DO CAMPO no oeste andaluz. Nao em aplicar CUPROXI FLO.",
+  "A_FRASE_QUE_O_CASO_AUTORIZA": "\"o historico da safra 2026 fechou forte no oeste, a janela regulatoria e agronomica ainda permite acao, MAS a ultima leitura do oeste tem 77 a 95 dias. Antes de recomendar ativacao, o campo precisa ser atualizado.\"",
+  "A_FRASE_QUE_O_CASO_NAO_AUTORIZA": "\"aplicar CUPROXI FLO agora no oeste andaluz.\"",
+  "POR_QUE_ISSO_MELHORA_O_CASO": "a demonstracao deixa de ser um alerta e passa a ser um raciocinio: evidencia, mais tempo, mais recusa de exagerar. Um alerta simplista qualquer sistema produz; a recusa e o que distingue."
+ },
+ "BUSCA_DIRIGIDA_POS_JUNHO": {
+  "O_QUE_FOI_TENTADO": "reconsulta ao package RAIF no CKAN da Junta de Andalucia em 30/08/2026.",
+  "RESULTADO": "o recurso \"Olivar Andalucia\" continua com last_modified 2026-08-26T09:13:40 e 57.117.103 bytes — identico ao que ja foi baixado e processado. Nao ha publicacao nova.",
+  "FIELD_CURRENTNESS_GAP": "CONFIRMED_ON_TESTED_SOURCE",
+  "O_QUE_TORNA_A_LACUNA_LEGIVEL": "o RAIF CONTINUOU amostrando repilo em agosto — Jaen 19/08 (n=137 no mes), Granada 19/08, Cordoba 18/08, Sevilla 17/08. A ausencia e de HUELVA e CADIZ especificamente, nao da campanha. Isso e ausencia de amostragem provincial na fonte, nao fonte parada.",
+  "NAO_FOI_FEITO": "nao busquei em rede social para preencher isso, e nao vou. Leitura de campo se substitui por leitura de campo."
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "SOURCE_LOCATION": "derivado — nenhuma coleta nova",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-30",
+ "REGRA_DESTE_MAPA": "cada acao aponta para um fato ja no repositorio. Onde a funcao nao pode agir, o arquivo diz o que FALTA. Nenhuma acao supoe disponibilidade comercial, venda, participacao de mercado ou eficacia de produto.",
+ "SOURCE_ID": "ES-HERO-002-OLIVAR-REPILO-ACAO",
+ "source": "derivado — ES-COMPARACAO-TRES-TERRITORIOS + ES-T3-001 (RAIF) + ES-ADAMA-PORTFOLIO-ROPF + ES-CIENCIA-PARES-AUTORES + ES-VOICE-YOUTUBE/LINKEDIN",
+ "FACT_LOCATION": "SPAIN (Andalucia: Jaen, Cordoba, Sevilla, Huelva, Cadiz)",
+ "CASO": "OLIVE x Repilo (Venturia oleaginea), Andaluzia",
+ "STATUS_DO_CASO": "ACTIONABLE_NOW — e este e o unico dos tres onde a palavra cabe",
+ "PORQUE_A_URGENCIA_AQUI_NAO_E_FABRICADA": "o XML do RAIF foi gerado em 24/08/2026, seis dias antes da captura, e a janela de controle do repilo e o outono, que esta comecando. A urgencia vem das datas da fonte, nao de linguagem.",
+ "ESCALA": "Jaen 589.047 ha, Cordoba 376.967, Sevilla 253.293 (area de olivar, ES-PRESSAO)",
+ "SINAL": "CURRENT — RAIF Andalucia, XML gerado em 24/08/2026, seis dias antes da captura. 20.970 amostragens em 2026; serie de 23 safras e 148.964 leituras.",
+ "ACHADO_MATERIAL": "Huelva 8,83% de folhas com repilo visivel em 2026 e o MAXIMO de toda a serie de 23 safras, contra 1,17% na coorte de 2023 — salto de 7,5x. Cadiz 8,01 e alto mas NAO e maximo (teve 9,71 em 2013).",
+ "RESSALVA_DO_N": "Huelva tem 7 parcelas na coorte de 2026. A media viaja com o n — 8,83% sobre 7 parcelas nao tem o mesmo peso que 0,77% sobre 211 em Jaen.",
+ "MAPA_DE_ACAO": {
+  "REGULATORY": {
+   "PODE_AGIR": "SIM, E E O ITEM MAIS DATADO DO REPOSITORIO INTEIRO",
+   "ACAO": "NEPTUNE ES-00211 consta Estado=Vigente com caducidad 15-08-2026 — data ja vencida ha 15 dias, sem fechaLimiteVenta declarada. Isso precisa de resposta interna esta semana, porque e uma contradicao entre dois campos do proprio registro oficial.",
+   "O_QUE_NAO_DIZER": "EXPIRY != WITHDRAWAL. Nao afirmar que o produto saiu do mercado: o ROPF esta se contradizendo, e a contradicao e o achado. Ha 34 registros do ROPF nessa condicao e 3 sao da ADAMA — nao e anomalia isolada da ADAMA.",
+   "O_QUE_SEGUE": "CUPROXI FLO ES-00979 segue com caducidad 30-06-2029."
+  },
+  "MARKETING": {
+   "PODE_AGIR": "SIM — e o unico dos tres territorios onde ha voz publica medida",
+   "BASE": "252 videos de 157 canais e 179 origens LinkedIn espanholas, com mencao provincial contada.",
+   "O_QUE_A_VOZ_JA_DIZ": "a conversa tecnica publica sobre olivar e dominada por COBRE (141 mencoes) e fala MAIS de mosca do olivo (58) do que de repilo (32).",
+   "A_TENSAO_QUE_IMPORTA": "Huelva e Cadiz lideram em incidencia medida e sao das menos mencionadas na voz publica (Huelva 7, Cadiz 4, contra Cordoba 58). A ordem da voz acompanha o indice de exposicao (rho 0,96) e nao a incidencia (rho 0,21).",
+   "CONFOUND_DECLARADO": "Cordoba concentra a Universidad de Cordoba e o IAS-CSIC. As mencoes podem refletir onde estao as INSTITUICOES e nao onde esta o problema. rho sobre n=8 nao decide sozinho.",
+   "ARMADILHA": "85% dos canais de video (134 de 157) sao NOT_DECLARED de papel. A maior parte do corpus de voz nao tem papel verificavel e nao serve para atribuir autoridade."
+  },
+  "SCIENCE": {
+   "PODE_AGIR": "PARCIALMENTE",
+   "BASE": "o par OLIVE x REPILO devolveu 10 papers e 49 autores distintos. Dos 12 persistidos, 4 ja estavam na fila de 152 — inclusive Juan Moral, Antonio Trapero e Concepcion Munoz Diez, os tres com vinculo aberto na Universidad de Cordoba.",
+   "LIMITE": "nenhuma identidade do par do azeite ficou CONFIRMADA por busca ORCID (num-found=1). O que ancora esses tres e o ORCID declarado no proprio registro de autor do OpenAlex, que e ancora mais forte mas so existe para quem ja estava na fila antiga.",
+   "SO_10_PAPERS": "o par repilo tem apenas 10 papers e 3 desde 2023. E o par cientificamente mais magro dos tres."
+  },
+  "MARKET_DEVELOPMENT": {
+   "PODE_AGIR": "SIM",
+   "ACAO": "a serie do RAIF e provincial e tem 23 safras. Huelva com 8,83% em 2026 e maximo historico da propria serie. Onde demonstrar esta escrito no dado.",
+   "RESSALVA": "Huelva tem 7 parcelas na coorte de 2026. Escolher Huelva por causa da media e escolher por um n de 7."
+  },
+  "COMMERCIAL": {
+   "PODE_AGIR": "NAO",
+   "POR_QUE": "COMMERCIAL_CLOCK = NAO SEI, como nos outros dois. Registro nao e venda."
+  },
+  "SUPPLY": {
+   "PODE_AGIR": "NAO",
+   "POR_QUE": "NAO SEI — depende de dado interno que este repositorio nao tem."
+  }
+ }
+}

@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-08-29 — **<!--M:SOURCE_ID_COUNT-->36<!--/M--> fontes registradas** (16 GREEN, 4 YELLOW, 16 NÃO SEI).
+**Estado:** atualizado em 2026-08-30 — **<!--M:SOURCE_ID_COUNT-->37<!--/M--> fontes registradas** (16 GREEN, 4 YELLOW, 17 NÃO SEI).
 **Última atualização:** 2026-08-29
 
 ---
@@ -50,7 +50,7 @@ Para cada território (T1–T12), a exploração inicial vai até:
 | **T6** | RESEARCHERS | pesquisadores por cultura, problema, instituição, território, especialidade |
 | **T7** | TECHNICAL NETWORK | agrônomos, advisors, crop specialists, consultores, extensão, institutos técnicos, cooperativas, associações |
 | **T8** | FARMERS & INFLUENCERS | agricultores, creators, YouTube, Instagram, TikTok, LinkedIn, podcasts, newsletters |
-| **T9** | COMPETITORS | BASF, Bayer, Syngenta, Corteva, FMC, UPL, Nufarm + outros descobertos como relevantes |
+| **T9** | COMPETITORS | BASF, Bayer, Syngenta, Corteva, FMC, UPL, Nufarm + outros descobertos como relevantes. **Duas camadas separadas: RESPOSTA REGISTRADA (registro oficial) e ATIVAÇÃO OBSERVADA (comunicação e Meta Ads Library)** — nunca fundidas |
 | **T10** | MARKET / TRADE / INDUSTRY | commodities, produção, preços confiáveis, importações, exportações, indústria, ingredientes ativos, movimentos de mercado |
 | **T11** | EVENTS | feiras, congressos, field days, webinars, eventos científicos, pesquisadores participantes, temas, empresas presentes |
 | **T12** | POLICY / AGRICULTURAL ENVIRONMENT | CAP, políticas agrícolas, sustentabilidade, redução de insumos, agricultura regenerativa, restrições, mudanças que afetam produtor/mercado/portfólio |
@@ -70,6 +70,19 @@ Quatro eixos independentes, medidos separadamente — nunca somados num único "
 - **FIELD AUTHORITY** — autoridade de quem está no campo, produzindo.
 - **TECHNICAL AUTHORITY** — autoridade técnica/agronômica reconhecida.
 - **COMMERCIAL INFLUENCE** — influência sobre decisão de compra.
+
+### Separação obrigatória em T9
+
+**RESPOSTA REGISTRADA** e **ATIVAÇÃO OBSERVADA** são camadas distintas e não podem ser
+misturadas. Registro é ato administrativo, datado e verificável; ativação é observação de
+atividade pública. Um concorrente pode ter registro e nenhuma atividade observada, e o
+inverso também acontece. A ficha declara em qual camada está, e a camada de ativação
+declara qual dos quatro estados:
+
+`COMPETITOR_REGISTERED_RESPONSE` · `COMPETITOR_PAID_META_ACTIVITY` ·
+`COMPETITOR_PUBLIC_COMMUNICATION` · `COMPETITOR_TECHNICAL_ACTIVITY` · `NOT_KNOWN`
+
+Contrato completo: `data/samples/EAME-COMPETITOR-CONTRACT-V1.json`.
 
 ### Restrição em T6
 
@@ -1041,6 +1054,55 @@ competitiva defensável sobre os concorrentes na EAME hoje vem do **registro ofi
 e **não** de clipping de comunicação. O caminho difícil é justamente o que a missão
 mandava não fazer; o caminho fácil já está provado.
 
+#### EU-T9-002 · META ADS LIBRARY — fonte estratégica nomeada, **não testada**
+
+```
+SOURCE_ID:                    EU-T9-002 (uma ficha, quatro recortes: EU · ES · IT · FR)
+SOURCE_NAME:                  Meta Ads Library
+SOURCE_OWNER:                 Meta Platforms
+COUNTRY:                      EUROPE · SPAIN · ITALY · FRANCE
+TERRITORY:                    T9 (alimenta a camada COMPETITOR ACTIVATION)
+SOURCE_TYPE:                  registro público de peça publicitária paga
+ACCESS_METHOD:                NÃO SEI — rota não executada nesta rodada
+REAL_EXAMPLE:                 nenhum
+EVIDENCE:                     data/samples/EAME-COMPETITOR-CONTRACT-V1.json
+VERDICT:                      NÃO SEI · **NÃO TESTADO**
+```
+
+**Por que ela ganha ficha própria em vez de virar mais uma linha em "social media":**
+ela é a única fonte identificada até aqui que registra **peça publicitária paga com
+anunciante identificado e datas**. Isso é outra natureza de dado — não é um canal a mais.
+
+**Ela não é a Meta Graph API.** O que este repositório já mediu é a Graph API
+(`EU-T8-001`, **400 sem token**), que serve para conteúdo orgânico de perfis e exige App
+Review. A Ads Library é outra rota, para outro fim, e **nunca foi aberta aqui**. Por isso
+o veredito é `NÃO TESTADO` e **não** `RED` — e muito menos `AUSENTE_MEDIDO`.
+
+**O que ela poderia observar:** anunciante · país · página · produto quando identificável
+na peça · cultura · problema · claim · criativo · first observed · last observed ·
+ativo/inativo quando a fonte permitir · repetição de mensagem · mudança de comunicação ·
+**quantidade de peças OBSERVADAS**.
+
+**O que ela prova:** `ATIVAÇÃO PUBLICITÁRIA OBSERVADA`. Só isso.
+
+| não prova | |
+|---|---|
+| `META AD ≠ SALES` | `META AD ≠ MARKET SHARE` |
+| `META AD ≠ CAMPAIGN SUCCESS` | `META AD ≠ STOCK` |
+| `META AD ≠ PRODUCT AVAILABILITY` | `META AD ≠ INVESTIMENTO` |
+
+**Denominador obrigatório:** toda contagem de peças viaja com o que foi consultado —
+quais anunciantes, qual país, qual período, qual termo. *"A Syngenta tem 14 anúncios"*
+sem isso é um número sem denominador.
+
+**O que ela fecharia:** `X-003` (COMPETITOR + PRODUCT + CROP + COMMUNICATION) está
+`NÃO COMPÕE` desde a MISSÃO 02 porque a perna COMMUNICATION não existe. Esta é a primeira
+rota candidata a essa perna que **não** depende de varrer site com proteção anti-robô.
+
+**Risco a medir antes de qualquer uso:** se o anunciante aparece como a empresa ou como
+uma agência, a chave de casamento com o titular de registro muda inteira — e casar nome
+de empresa entre bases diferentes já é o problema conhecido do `X-011`.
+
 ---
 
 ### T8 · FARMERS & INFLUENCERS
@@ -1261,7 +1323,7 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->36<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
@@ -1273,11 +1335,11 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 
 | Recorte | GREEN | YELLOW | RED | NÃO SEI | Total |
 |---|---|---|---|---|---|
-| EUROPE | 8 | 0 | 0 | 6 | 14 |
+| EUROPE | 8 | 0 | 0 | 7 | 15 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
 | ITALY | 1 | 2 | 0 | 3 | 6 |
-| **Total** | **16** | **4** | **0** | **16** | **36** |
+| **Total** | **16** | **4** | **0** | **17** | **37** |
 
 ### Cobertura por território
 

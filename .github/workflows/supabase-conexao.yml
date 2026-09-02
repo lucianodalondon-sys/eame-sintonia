@@ -1,0 +1,135 @@
+# ═══════════════════════════════════════════════════════════════════════
+# TESTE DE CONEXÃO — Supabase EAME
+#
+# Só LÊ. Não aplica migration, não cria tabela, não cria bucket, não escreve.
+#
+# Os secrets vivem apenas na memória do runner: nenhum passo os imprime, e as
+# saídas são booleanas ou sanitizadas. O GitHub também mascara valores de
+# secret no log, mas a regra aqui é não depender disso.
+# ═══════════════════════════════════════════════════════════════════════
+name: supabase-conexao
+
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/supabase-conexao.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  conexao:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL:        ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+      SUPABASE_DB_URL:     ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - name: 1 · presenca (booleano, nunca valor)
+        run: |
+          for v in SUPABASE_URL SUPABASE_SECRET_KEY SUPABASE_DB_URL; do
+            eval "val=\${$v}"
+            printf '%-22s PRESENT=%s\n' "$v" "$([ -n "$val" ] && echo YES || echo NO)"
+          done
+
+      - name: 2 · API REST (leitura, sem alterar dado)
+        run: |
+          code=$(curl -sS -o /tmp/api.out -w '%{http_code}' -m 40 \
+                 -H "apikey: $SUPABASE_SECRET_KEY" \
+                 -H "Authorization: Bearer $SUPABASE_SECRET_KEY" \
+                 "$SUPABASE_URL/rest/v1/" || echo 000)
+          echo "HTTP_STATUS=$code"
+          # 200 e 404 provam que o PostgREST respondeu autenticado; 401/403 seriam chave ruim.
+          if [ "$code" = "200" ] || [ "$code" = "404" ]; then
+            echo "SUPABASE_API_CONNECTION=PASS"
+          else
+            echo "SUPABASE_API_CONNECTION=FAIL"
+            # corpo sanitizado: so o campo message, nunca cabecalho nem chave
+            python3 -c "import json,sys;d=json.load(open('/tmp/api.out'));print('CAUSA=',str(d.get('message') or d.get('msg'))[:160])" 2>/dev/null || true
+          fi
+
+      - name: 3 · Postgres (somente SELECT)
+        run: |
+          if psql "$SUPABASE_DB_URL" -tAc \
+              "select version()||'|'||current_database()||'|'||current_user||'|'||current_timestamp" \
+              > /tmp/pg.out 2>/tmp/pg.err; then
+            echo "SUPABASE_DB_CONNECTION=PASS"
+            IFS='|' read -r ver db usr ts < /tmp/pg.out
+            echo "POSTGRES_VERSION=$(echo "$ver" | cut -d, -f1)"
+            echo "DATABASE_NAME=$db"
+            echo "DATABASE_USER=$usr"
+            echo "SERVER_TIME=$ts"
+            echo "-- contagem de tabelas em public (deve ser 0 antes das migrations) --"
+            psql "$SUPABASE_DB_URL" -tAc \
+              "select 'TABLES_IN_PUBLIC='||count(*) from information_schema.tables where table_schema='public'"
+          else
+            echo "SUPABASE_DB_CONNECTION=FAIL"
+            # sanitiza: a mensagem do libpq pode ecoar host/usuario da URL
+            # O libpq escreve: connection to server at "HOST" (IP), port N failed: ...
+            # A versao anterior deste sed nao pegava esse formato e o host vazou no log da
+            # execucao 1. Agora o host, o IP e qualquer URL saem antes de imprimir.
+            sed -E 's#postgres(ql)?://[^ ]*#<URL_OMITIDA>#g;
+                     s#at "[^"]*"#at "<HOST_OMITIDO>"#g;
+                     s#\(([0-9a-fA-F:.]+)\)#(<IP_OMITIDO>)#g;
+                     s#(host|user|password)=[^ ]*#\1=<OMITIDO>#g' /tmp/pg.err | head -3
+            # Diagnostico sem expor: a conexao direta db.<ref>.supabase.co e IPv6-only, e o
+            # runner do GitHub Actions e IPv4-only. Se for esse o caso, a saida abaixo diz
+            # qual familia de endereco existe, sem imprimir endereco nenhum.
+            python3 - <<'PY'
+          import os, socket, urllib.parse as U
+          h = U.urlparse(os.environ['SUPABASE_DB_URL']).hostname or ''
+          fams = set()
+          try:
+              for r in socket.getaddrinfo(h, None):
+                  fams.add('IPv6' if r[0] == socket.AF_INET6 else 'IPv4')
+          except Exception as e:
+              print('DNS=falhou (%s)' % type(e).__name__)
+          print('FAMILIAS_DE_ENDERECO_DO_HOST_DB=' + (','.join(sorted(fams)) or 'nenhuma'))
+          print('RUNNER_TEM_IPv6=' + ('SIM' if socket.has_ipv6 else 'NAO'))
+          PY
+          fi
+
+      - name: 4 · Storage (listar buckets, sem criar)
+        run: |
+          # A chave nova (sb_secret_...) NAO e um JWT. Mandar so `Authorization: Bearer`
+          # faz o Storage tentar decodificar como JWS e devolver 400 Invalid Compact JWS.
+          # O par apikey + Authorization e o mesmo que o REST aceitou com 200.
+          code=$(curl -sS -o /tmp/st.out -w '%{http_code}' -m 40 \
+                 -H "apikey: $SUPABASE_SECRET_KEY" \
+                 -H "Authorization: Bearer $SUPABASE_SECRET_KEY" \
+                 "$SUPABASE_URL/storage/v1/bucket" || echo 000)
+          echo "HTTP_STATUS=$code"
+          if [ "$code" = "200" ]; then
+            echo "SUPABASE_STORAGE_CONNECTION=PASS"
+            python3 -c "import json;d=json.load(open('/tmp/st.out'));print('BUCKETS_VISIBLE=',[b.get('name') for b in d] or 'nenhum')"
+          else
+            echo "SUPABASE_STORAGE_CONNECTION=FAIL"
+            python3 -c "import json;d=json.load(open('/tmp/st.out'));print('CAUSA=',str(d.get('message'))[:160])" 2>/dev/null || true
+          fi
+
+      - name: 5 · API e Postgres apontam para o MESMO projeto?
+        run: |
+          # A referencia do projeto aparece no host da URL da API e, no Postgres, no host
+          # (db.<ref>.supabase.co) ou no usuario do pooler (postgres.<ref>). Comparo as duas
+          # SEM imprimir nenhuma delas: so o veredito.
+          python3 - <<'PY'
+          import os, re, urllib.parse as U
+          api = U.urlparse(os.environ['SUPABASE_URL']).hostname or ''
+          ref_api = api.split('.')[0] if api.endswith('supabase.co') else ''
+          db = U.urlparse(os.environ['SUPABASE_DB_URL'])
+          host, user = (db.hostname or ''), (db.username or '')
+          ref_db = ''
+          m = re.match(r'db\.([a-z0-9]+)\.supabase\.', host)
+          if m: ref_db, via = m.group(1), 'host do Postgres'
+          elif '.' in user: ref_db, via = user.split('.', 1)[1], 'usuario do pooler'
+          else: via = 'nao localizavel'
+          if ref_api and ref_db:
+              print('SAME_PROJECT_CONFIRMED=' + ('YES' if ref_api == ref_db else 'NO'))
+              print('METODO=comparacao de project ref (API x %s), sem expor valores' % via)
+          else:
+              print('SAME_PROJECT_CONFIRMED=NÃO SEI')
+              print('METODO=nao foi possivel extrair project ref das duas pontas (%s)' % via)
+          PY
+
+      - name: 6 · nada foi alterado
+        run: echo "ESCRITAS=0 · nenhuma migration aplicada, nenhum bucket criado, nenhuma tabela criada"

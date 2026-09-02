@@ -16,3 +16,29 @@ __pycache__/
 venv/
 node_modules/
 .ipynb_checkpoints/
+
+# ── RAW pesado de rota paga NÃO entra mais no Git ────────────────────────────
+# Medido em 2026-08-29: gzip tem ratio 1,00 no pack e ZERO delta base. Cada versão
+# nova entra pelo tamanho integral, PARA SEMPRE. Um dos 12 blobs .gz existentes é
+# 17% do pack inteiro. Backfill do universo expandido = +4,5 MB permanentes.
+# Os 12 já versionados FICAM — reescrever histórico custa mais do que resolve.
+# Daqui para frente o bruto pesado vai para Storage; o Git guarda hash e manifesto.
+data/samples/**/*.gz
+data/samples/**/*.raw.json
+
+# area de rascunho da sessao: nunca versionada
+.tmp/
+
+# area de trabalho do splice: nunca versionada
+italia-portale/audit/.scratch/
+
+# ── O PACOTE RECONSTRUIDO NAO ENTRA NO GIT ───────────────────────────────────
+# build/ITALY-REALITY-HANDOFF-V2.1/ e SAIDA: a cadeia o reconstroi, e ele ja vive
+# versionado como build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip (2,0 MB).
+# Solto, sao ~25 MB de JSON que entram pelo tamanho integral a cada versao nova,
+# PARA SEMPRE — a mesma conta que tirou o bruto pesado daqui em 2026-08-29.
+# Provado reprodutivel em 2026-09-02: extrair o ZIP e recontar com
+# scripts/v21_aceitacao.py devolve o ACCEPTANCE-REPORT.json identico ao do ZIP.
+#
+#     O ARTEFATO QUE SE RECONSTROI SOZINHO NAO PRECISA DE DUAS CASAS.
+build/ITALY-REALITY-HANDOFF-V2.1/

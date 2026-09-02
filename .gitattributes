@@ -1,0 +1,6 @@
+# A testemunha congelada do ZIP 8 tem de bater byte a byte com o original, e o
+# pacote do cliente tem de sair do Git igual ao que entrou. core.autocrlf esta
+# ligado neste ambiente: sem estas linhas o Git trocaria LF por CRLF no checkout,
+# o SHA-256 em disco deixaria de bater e o diff BASELINE x client viraria ruido.
+italia-portale/BASELINE/** -text -diff
+italia-portale/client/**   -text

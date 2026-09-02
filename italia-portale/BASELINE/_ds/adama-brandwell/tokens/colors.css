@@ -1,0 +1,117 @@
+/* ADAMA — Color Tokens
+   Full brand palette: Corporate, Primary (Product), Secondary, Utility
+   Source: ADAMA BrandWell — Guidelines → Visual Guidelines → Colors
+*/
+
+:root {
+
+  /* ── Corporate Palette ─────────────────────────────── */
+  --color-corporate-green:           #009845;
+  --color-corporate-green-secondary: #00783f;
+  --color-adama-earth:               #978b87;
+
+  /* ADAMA Earth tints (any tint permitted) */
+  --color-earth-10: #f4f2f2;
+  --color-earth-20: #e5e1e0;
+  --color-earth-40: #cbc5c3;
+  --color-earth-60: #b1a9a7;
+  --color-earth-80: #a39d9a;
+
+  /* ── Primary Palette (Product Categories) ──────────── */
+  --color-crop-enhancement: #f89e18;  /* Orange  — Crop Enhancement  */
+  --color-weed-control:     #7db41e;  /* Green   — Weed Control      */
+  --color-disease-control:  #00a0df;  /* Blue    — Disease Control   */
+  --color-pest-control:     #9d1d96;  /* Purple  — Pest Control      */
+
+  /* ── Secondary Palette (paired with Primary) ───────── */
+  --color-secondary-yellow: #f5b317;  /* pairs with Crop Enhancement */
+  --color-secondary-green:  #93cc23;  /* pairs with Weed Control     */
+  --color-secondary-blue:   #00698f;  /* pairs with Disease Control  */
+  --color-secondary-purple: #752157;  /* pairs with Pest Control     */
+
+  /* ── Utility Palette ───────────────────────────────── */
+  --color-text-grey: #5f504d;
+  --color-white:     #ffffff;
+  --color-black:     #000000;
+
+  /* ── Semantic Aliases ──────────────────────────────── */
+  --color-text-body:      var(--color-text-grey);
+  --color-text-heading:   var(--color-text-grey);
+  --color-text-on-dark:   var(--color-white);
+  --color-text-on-color:  var(--color-white);
+
+  --color-brand:          var(--color-corporate-green);
+  --color-brand-dark:     var(--color-corporate-green-secondary);
+  --color-surface:        var(--color-white);
+  --color-surface-muted:  var(--color-earth-10);
+  --color-border:         var(--color-earth-40);
+  --color-border-subtle:  var(--color-earth-20);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   COLOR LINES — the official ADAMA combination rule
+   Every combination has three slots: a primary, a supporting secondary and
+   a contrast colour. NEVER mix across lines. Contrast is for emphasis only.
+   Source: BrandWell → Guidelines → Visual Guidelines → Colors → Color Usage
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+
+  /* ── Contrast colours (emphasis only — do not overuse) ─────────────── */
+  --color-contrast-corporate:        var(--color-adama-earth);      /* 408 C  */
+  --color-contrast-crop-enhancement: var(--color-secondary-purple); /* 7650 C */
+  --color-contrast-weed-control:     var(--color-secondary-blue);   /* 7706 C */
+  --color-contrast-disease-control:  var(--color-secondary-green);  /* 375 C  */
+  --color-contrast-pest-control:     var(--color-secondary-yellow); /* 7408 C */
+
+  /* ── Line aliases ───────────────────────────────────────────────────
+     Pick ONE line per piece and use only its three slots.               */
+
+  /* Corporate line */
+  --line-corporate-primary:   var(--color-corporate-green);           /* 347 C  */
+  --line-corporate-secondary: var(--color-corporate-green-secondary); /* 7732 C */
+  --line-corporate-contrast:  var(--color-adama-earth);               /* 408 C  */
+
+  /* Crop Enhancement line */
+  --line-crop-primary:   var(--color-crop-enhancement);  /* 1375 C */
+  --line-crop-secondary: var(--color-secondary-yellow);  /* 7408 C */
+  --line-crop-contrast:  var(--color-secondary-purple);  /* 7650 C */
+
+  /* Weed Control line */
+  --line-weed-primary:   var(--color-weed-control);      /* 368 C  */
+  --line-weed-secondary: var(--color-secondary-green);   /* 375 C  */
+  --line-weed-contrast:  var(--color-secondary-blue);    /* 7706 C */
+
+  /* Disease Control line */
+  --line-disease-primary:   var(--color-disease-control); /* 299 C  */
+  --line-disease-secondary: var(--color-secondary-blue);  /* 7706 C */
+  --line-disease-contrast:  var(--color-secondary-green); /* 375 C  */
+
+  /* Pest Control line */
+  --line-pest-primary:   var(--color-pest-control);       /* 254 C  */
+  --line-pest-secondary: var(--color-secondary-purple);   /* 7650 C */
+  --line-pest-contrast:  var(--color-secondary-yellow);   /* 7408 C */
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   PRINT REFERENCE — CMYK and Pantone for every brand colour.
+   Screen work uses the HEX above; anything going to print uses these.
+
+   ADAMA Green               #009845  RGB 0,152,69     CMYK 95,10,100,0   PMS 347 C
+   Secondary Corporate Green #00783F  RGB 0,120,63     CMYK 93,27,99,16   PMS 7732 C
+   ADAMA Earth               #978B87  RGB 151,139,135  CMYK 42,40,42,4    PMS 408 C
+   Crop Enhancement          #F89E18  RGB 248,158,24   CMYK 0,45,100,0    PMS 1375 C
+   Weed Control              #7DB41E  RGB 125,180,30   CMYK 60,0,100,0    PMS 368 C
+   Disease Control           #00A0DF  RGB 0,160,223    CMYK 80,18,0,0     PMS 299 C
+   Pest Control              #9D1D96  RGB 157,29,150   CMYK 45,100,0,0    PMS 254 C
+   Secondary Yellow          #F5B317  RGB 245,179,23   CMYK 3,25,100,0    PMS 7408 C
+   Secondary Green           #93CC23  RGB 147,204,35   CMYK 47,0,100,0    PMS 375 C
+   Secondary Blue            #00698F  RGB 0,105,143    CMYK 100,50,28,5   PMS 7706 C
+   Secondary Purple          #752157  RGB 117,33,87    CMYK 50,100,35,25  PMS 7650 C
+   Text Grey                 #5F504D  RGB 95,80,77     CMYK 55,60,60,35   PMS 411 C
+   White                     #FFFFFF  RGB 255,255,255  CMYK 0,0,0,0
+   Black                     #000000  RGB 0,0,0        CMYK 0,0,0,100
+
+   RULE: tints are permitted ONLY on ADAMA Earth.
+   Never on the Primary, Secondary or Utility palettes.
+   Swatch downloads (.ASE): BrandWell → Assets → Color Palettes.
+   ══════════════════════════════════════════════════════════════════════ */

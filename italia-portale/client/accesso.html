@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sintonia · ADAMA Italy Intelligence</title>
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="_ds/adama-brandwell/tokens/colors.css">
+<link rel="stylesheet" href="_ds/adama-brandwell/tokens/typography.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:#0E0C0B;color:#fff;
+    font-family:'BrownLL',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    display:flex;overflow:hidden;
+  }
+  a{color:#00B152;text-decoration:none}
+  a:hover{color:#00783F}
+
+  /* ── left: access ─────────────────────────────── */
+  .panel{
+    width:456px;flex:0 0 456px;background:#161312;
+    border-right:1px solid rgba(203,197,195,0.10);
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:34px 40px 28px;position:relative;z-index:2;
+  }
+  .mark{display:flex;align-items:center;gap:11px}
+  .mark-a{
+    width:38px;height:38px;border-radius:9px;background:#009845;
+    display:flex;align-items:center;justify-content:center;flex:0 0 38px;
+  }
+  .wordmark{display:flex;flex-direction:column;gap:2px;line-height:1}
+  .wordmark b{font-size:19px;font-weight:700;letter-spacing:0.14em}
+  .wordmark span{font-size:8.5px;font-weight:600;letter-spacing:0.20em;color:#8F8886}
+
+  h1{margin:0;font-size:39px;font-weight:300;line-height:1.02;letter-spacing:-0.025em}
+  h1 b{font-weight:700;color:#00B152}
+  .lede{
+    margin:0;font-family:'Aleo',Georgia,serif;
+    font-size:14.5px;line-height:1.55;color:#C9C3C1;max-width:340px;text-wrap:pretty;
+  }
+  .rule{height:2px;width:46px;background:#009845;border-radius:2px}
+
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:9px;font-weight:700;letter-spacing:0.13em;color:#8F8886}
+  .field input{
+    height:44px;padding:0 15px;border-radius:9999px;
+    background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.18);
+    color:#fff;font-family:inherit;font-size:13.5px;outline:0;transition:border-color 180ms ease,background 180ms ease;
+  }
+  .field input::placeholder{color:#6E6663}
+  .field input:hover{border-color:rgba(203,197,195,0.34)}
+  .field input:focus{border-color:#00B152;background:rgba(0,152,69,0.07);box-shadow:0 0 0 3px rgba(0,152,69,0.20)}
+
+  .cta{
+    height:46px;border-radius:9999px;border:0;cursor:pointer;
+    background:#009845;color:#fff;font-family:inherit;
+    font-size:12.5px;font-weight:700;letter-spacing:0.12em;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    transition:background 180ms ease,transform 180ms ease,box-shadow 180ms ease;
+  }
+  .cta:hover{background:#00783F;transform:translateY(-1px);box-shadow:0 10px 26px rgba(0,120,63,0.45)}
+  .cta:focus-visible{outline:0;box-shadow:0 0 0 3px rgba(0,177,82,0.45)}
+
+  .hint{font-size:10.5px;line-height:1.5;color:#6E6663}
+
+  .lang{display:inline-flex;border-radius:9999px;border:1px solid rgba(203,197,195,0.20);overflow:hidden}
+  .lang button{
+    background:transparent;border:0;cursor:pointer;font-family:inherit;
+    padding:6px 15px;font-size:10px;font-weight:700;letter-spacing:0.12em;color:#B1A9A7;
+    transition:background 180ms ease,color 180ms ease;
+  }
+  .lang button:hover{color:#fff}
+  .lang button[aria-pressed="true"]{background:#009845;color:#fff}
+
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .env{
+    display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:9999px;
+    border:1px solid rgba(151,139,135,0.34);font-size:9px;font-weight:700;letter-spacing:0.12em;color:#A79F9C;white-space:nowrap;
+  }
+  .env i{width:6px;height:6px;border-radius:50%;background:#F5B317;display:block}
+
+  /* ── right: map stage ─────────────────────────── */
+  .stage{flex:1;position:relative;overflow:hidden;background:#0E0C0B}
+  .stage svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .country{fill:#181514;stroke:#2E2826;stroke-width:0.7;vector-effect:non-scaling-stroke}
+  .country.eu{fill:#221D1C;stroke:#38312E}
+  .italy{fill:rgba(0,152,69,0.26);stroke:#00B152;stroke-width:1.6;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 22px rgba(0,177,82,0.35))}
+  .grat{fill:none;stroke:rgba(203,197,195,0.07);stroke-width:0.5;vector-effect:non-scaling-stroke}
+
+  .sweep{transform-box:fill-box;transform-origin:center;animation:spin 7s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ring{fill:none;stroke:#00B152;opacity:0}
+  .ring.r1{animation:ping 7s cubic-bezier(.22,.61,.36,1) infinite}
+  .ring.r2{animation:ping 7s cubic-bezier(.22,.61,.36,1) infinite 2.33s}
+  .ring.r3{animation:ping 7s cubic-bezier(.22,.61,.36,1) infinite 4.66s}
+  @keyframes ping{
+    0%{r:8px;opacity:.55;stroke-width:1.6}
+    100%{r:520px;opacity:0;stroke-width:.4}
+  }
+  .node{opacity:.42}
+  .node circle{fill:#00B152}
+  .node text{
+    fill:#EDEAE9;font-size:9.5px;font-weight:700;letter-spacing:0.09em;
+    font-family:'BrownLL',system-ui,sans-serif;
+  }
+  .node .halo{fill:none;stroke:#00B152;stroke-width:1}
+  @keyframes reveal{
+    0%{opacity:.42}
+    6%{opacity:1}
+    26%{opacity:1}
+    46%{opacity:.42}
+    100%{opacity:.42}
+  }
+
+  .legend{
+    position:absolute;left:34px;bottom:28px;display:flex;flex-direction:column;gap:7px;
+    z-index:2;pointer-events:none;
+  }
+  .legend .cap{font-size:8.5px;font-weight:700;letter-spacing:0.16em;color:#6E6663}
+  .legend .row{display:flex;align-items:center;gap:8px;font-size:10.5px;color:#9A9391}
+  .legend .dot{width:7px;height:7px;border-radius:50%;background:#00B152;display:block}
+
+  .stats{
+    position:absolute;right:34px;top:30px;display:flex;gap:9px;z-index:2;pointer-events:none;
+  }
+  .stat{
+    min-width:104px;border-radius:11px;background:rgba(28,24,23,0.86);
+    border:1px solid rgba(203,197,195,0.12);border-top:2px solid #009845;
+    padding:9px 12px;display:flex;flex-direction:column;gap:2px;backdrop-filter:blur(6px);
+  }
+  .stat b{font-size:21px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+  .stat span{font-size:8.5px;font-weight:700;letter-spacing:0.09em;color:#8F8886;line-height:1.25}
+
+  @media (max-width:1080px){
+    .panel{width:400px;flex:0 0 400px;padding:26px 30px}
+    h1{font-size:33px}
+    .stats{display:none}
+  }
+</style>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#0E0C0B"/><rect x="58" y="58" width="84" height="84" rx="18" fill="#009845"/><path d="M78 128 100 74l22 54" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M88 112h24" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg>
+</template>
+</head>
+<body>
+
+<section class="panel">
+  <header class="mark">
+    <span class="mark-a" aria-hidden="true">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 12 4l8 16"></path><path d="M7.6 13.6h8.8"></path></svg>
+    </span>
+    <span class="wordmark"><b>SINTONIA</b><span data-i18n="brandline">ADAMA ITALIA · INTELLIGENCE</span></span>
+  </header>
+
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span class="rule"></span>
+      <h1 data-i18n-html="title">L'intelligenza agricola<br>che <b>anticipa</b> il campo</h1>
+      <p class="lede" data-i18n="lede">Pressione fitosanitaria, finestre colturali, mercato e concorrenza — un solo quadro per capire dove ADAMA può agire o prepararsi in Italia.</p>
+    </div>
+
+    <form id="access" style="display:flex;flex-direction:column;gap:11px">
+      <button class="cta" type="submit">
+        <span data-i18n="cta">ENTRA NELLA DEMO</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </button>
+      <p class="hint" data-i18n="hint">Ambiente dimostrativo — nessuna autenticazione. Il pilota è autonomo e non contiene dati riservati.</p>
+    </form>
+  </div>
+
+  <footer class="foot">
+    <span class="env"><i></i><span data-i18n="env">AMBIENTE DIMOSTRATIVO</span></span>
+    <span class="lang" role="group" aria-label="Lingua">
+      <button type="button" data-lang="it" aria-pressed="true">IT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </span>
+  </footer>
+</section>
+
+<section class="stage" aria-hidden="true">
+  <svg id="map" role="presentation"></svg>
+  <div class="stats">
+    <div class="stat"><b>7</b><span data-i18n="statRegions">AREE NELLA RETE</span></div>
+    <div class="stat"><b>8</b><span data-i18n="statCrops">COLTURE</span></div>
+    <div class="stat"><b>72</b><span data-i18n="statSignals">SEGNALI OSSERVATI</span></div>
+  </div>
+  <div class="legend">
+    <span class="cap" data-i18n="legendCap">RETE DI MONITORAGGIO · ITALIA</span>
+    <span class="row"><span class="dot"></span><span data-i18n="legendRow">Aree con osservazione agronomica attiva</span></span>
+  </div>
+</section>
+
+<script>
+(function () {
+  var I18N = {
+    it: {
+      brandline: 'ADAMA ITALIA · INTELLIGENCE',
+      title: "L'intelligenza agricola<br>che <b>anticipa</b> il campo",
+      lede: 'Pressione fitosanitaria, finestre colturali, mercato e concorrenza — un solo quadro per capire dove ADAMA può agire o prepararsi in Italia.',
+      userLabel: 'UTENTE', passLabel: 'CODICE DI ACCESSO',
+      userPh: 'nome.cognome@adama.com', passPh: 'Codice di accesso',
+      cta: 'ENTRA NELLA DEMO',
+      hint: 'Ambiente dimostrativo — nessuna autenticazione. Il pilota è autonomo e non contiene dati riservati.',
+      env: 'AMBIENTE DIMOSTRATIVO',
+      statRegions: 'AREE NELLA RETE', statCrops: 'COLTURE', statSignals: 'SEGNALI OSSERVATI',
+      legendCap: 'RETE DI MONITORAGGIO · ITALIA',
+      legendRow: 'Aree con osservazione agronomica attiva'
+    },
+    en: {
+      brandline: 'ADAMA ITALIA · INTELLIGENCE',
+      title: 'The agricultural intelligence<br>that <b>anticipates</b> the field',
+      lede: 'Disease pressure, crop windows, market and competition — one view of where ADAMA can act or prepare in Italy.',
+      userLabel: 'USER', passLabel: 'ACCESS CODE',
+      userPh: 'name.surname@adama.com', passPh: 'Access code',
+      cta: 'ENTER DEMO',
+      hint: 'Demonstration environment — no authentication. The pilot is self-contained and holds no confidential data.',
+      env: 'DEMONSTRATION ENVIRONMENT',
+      statRegions: 'AREAS IN THE NETWORK', statCrops: 'CROPS', statSignals: 'OBSERVED SIGNALS',
+      legendCap: 'MONITORING NETWORK · ITALY',
+      legendRow: 'Areas with active agronomic observation'
+    }
+  };
+
+  function readLang() {
+    try { return localStorage.getItem('sintonia_lang') === 'en' ? 'en' : 'it'; } catch (e) { return 'it'; }
+  }
+  function applyLang(l) {
+    var d = I18N[l] || I18N.it;
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-i18n]').forEach(function (n) {
+      var k = n.getAttribute('data-i18n'); if (d[k]) n.textContent = d[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (n) {
+      var k = n.getAttribute('data-i18n-html'); if (d[k]) n.innerHTML = d[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function (n) {
+      var k = n.getAttribute('data-i18n-ph'); if (d[k]) n.placeholder = d[k];
+    });
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === l));
+    });
+    try { localStorage.setItem('sintonia_lang', l); } catch (e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang')); });
+  });
+  applyLang(readLang());
+
+  document.getElementById('access').addEventListener('submit', function (e) {
+    e.preventDefault();
+    window.location.href = 'portale.html';
+  });
+
+  /* ── Europe map · Natural Earth geometry via world-atlas ── */
+  var EU = ['Italy', 'France', 'Spain', 'Portugal', 'Germany', 'Austria', 'Switzerland', 'Belgium',
+    'Netherlands', 'Luxembourg', 'Denmark', 'Poland', 'Czechia', 'Slovakia', 'Hungary', 'Slovenia',
+    'Croatia', 'Bosnia and Herz.', 'Serbia', 'Montenegro', 'Kosovo', 'Albania', 'North Macedonia',
+    'Greece', 'Bulgaria', 'Romania', 'Ireland', 'Sweden', 'Finland', 'Estonia', 'Latvia', 'Lithuania', 'Cyprus', 'Malta'];
+
+  /* dx / anchor are set per site so the labels never collide in the dense north */
+  var SITES = [
+    { n: 'PIEMONTE', lon: 8.0, lat: 44.75, d: 0.0, dx: -11, dy: 3.4, a: 'end' },
+    { n: 'LOMBARDIA', lon: 9.6, lat: 45.5, d: 0.9, dx: -11, dy: -6, a: 'end' },
+    { n: 'VENETO', lon: 11.9, lat: 45.5, d: 1.8, dx: 11, dy: -4, a: 'start' },
+    { n: 'EMILIA-ROMAGNA', lon: 11.3, lat: 44.5, d: 2.7, dx: 11, dy: 10, a: 'start' },
+    { n: 'TOSCANA', lon: 11.2, lat: 43.3, d: 3.6, dx: 11, dy: 3.4, a: 'start' },
+    { n: 'PUGLIA', lon: 16.9, lat: 41.1, d: 4.5, dx: -11, dy: -6, a: 'end' },
+    { n: 'SICILIA', lon: 15.0, lat: 37.5, d: 5.4, dx: 11, dy: 3.4, a: 'start' }
+  ];
+
+  var stage = document.querySelector('.stage');
+  var svg = d3.select('#map');
+
+  function draw(world) {
+    var all = topojson.feature(world, world.objects.countries).features;
+    var w = stage.clientWidth, h = stage.clientHeight;
+    svg.attr('viewBox', '0 0 ' + w + ' ' + h).selectAll('*').remove();
+
+    var frame = { type: 'MultiPoint', coordinates: [[-2.5, 34.6], [26.5, 34.6], [26.5, 53.4], [-2.5, 53.4]] };
+    var proj = d3.geoMercator().fitExtent([[-w * 0.06, -h * 0.05], [w * 1.06, h * 1.05]], frame);
+    var path = d3.geoPath(proj);
+
+    var g = svg.append('g');
+    g.append('path').attr('class', 'grat').attr('d', path(d3.geoGraticule().step([10, 10])()));
+
+    g.selectAll('path.c').data(all).enter().append('path')
+      .attr('class', function (f) { return 'country c' + (EU.indexOf(f.properties.name) >= 0 ? ' eu' : ''); })
+      .attr('d', path);
+
+    var it = all.filter(function (f) { return f.properties.name === 'Italy'; });
+    g.selectAll('path.it').data(it).enter().append('path').attr('class', 'italy').attr('d', path);
+
+    var c = proj([12.6, 42.2]);
+    var rad = g.append('g').attr('transform', 'translate(' + c[0] + ',' + c[1] + ')');
+
+    var defs = svg.append('defs');
+    var grad = defs.append('radialGradient').attr('id', 'sweepG');
+    grad.append('stop').attr('offset', '0%').attr('stop-color', '#00B152').attr('stop-opacity', 0.42);
+    grad.append('stop').attr('offset', '100%').attr('stop-color', '#00B152').attr('stop-opacity', 0);
+
+    var R = Math.max(w, h) * 0.62;
+    rad.append('path')
+      .attr('class', 'sweep')
+      .attr('d', 'M0 0 L' + R + ' ' + (-R * 0.36) + ' A' + R + ' ' + R + ' 0 0 1 ' + R + ' ' + (R * 0.10) + ' Z')
+      .attr('fill', 'url(#sweepG)');
+
+    [1, 2, 3].forEach(function (i) { rad.append('circle').attr('class', 'ring r' + i); });
+    rad.append('circle').attr('r', 3).attr('fill', '#00B152');
+
+    var nodes = g.selectAll('g.node').data(SITES).enter().append('g')
+      .attr('class', 'node')
+      .attr('transform', function (d) { var p = proj([d.lon, d.lat]); return 'translate(' + p[0] + ',' + p[1] + ')'; })
+      .style('animation', function (d) { return 'reveal 7s linear infinite ' + d.d + 's'; });
+    nodes.append('circle').attr('class', 'halo').attr('r', 7.5);
+    nodes.append('circle').attr('r', 3);
+    nodes.append('text')
+      .attr('x', function (d) { return d.dx; })
+      .attr('y', function (d) { return d.dy; })
+      .attr('text-anchor', function (d) { return d.a; })
+      .text(function (d) { return d.n; });
+  }
+
+  var cache = null;
+  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json')
+    .then(function (world) { cache = world; draw(world); })
+    .catch(function () { document.querySelector('.stage').style.background = '#0E0C0B'; });
+
+  var t;
+  window.addEventListener('resize', function () {
+    clearTimeout(t); t = setTimeout(function () { if (cache) draw(cache); }, 180);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+{
+ "SOURCE_ID": "SPAIN-DEMO-CONTENT-V1",
+ "VERSION": "V1",
+ "FROZEN_AT": "2026-08-30",
+ "source": "pacote canonico de entrada para o design. Agrega, sem recontar, SPAIN-HERO-CASES-V1, ES-ACTION-MAP-V2 e ASK-SINTONIA-ACCEPTANCE-ES.",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "ES",
+ "ORIGINAL_LANGUAGE": "pt",
+ "captured_at": "2026-08-30",
+ "O_QUE_ISTO_E": "conteudo. Nao ha interface aqui e nenhuma foi construida.",
+ "AS_QUATRO_LEIS_QUE_A_DEMO_PRECISA_MOSTRAR": [
+  "janela aberta != necessidade de aplicar",
+  "sinal de safra != sinal de campo corrente",
+  "adjacencia geografica != cobertura de rede",
+  "resposta regulatoria != disponibilidade comercial"
+ ],
+ "CASE_CARDS": {
+  "REF": "SPAIN-HERO-CASES-V1.json",
+  "N": 3,
+  "RESUMO": [
+   {
+    "CASE_ID": "ES-CASE-001",
+    "CROP": "OLIVO",
+    "ISSUE": "Repilo (Venturia oleaginea)",
+    "REGION": "Andalucia occidental — Cadiz (perna forte) e Huelva (perna fraca)",
+    "CASE_TYPE": "VERIFY_FIELD_NOW",
+    "WINDOW_STATUS": "ABERTA para CUPROXI FLO · FECHADA para NEPTUNE. ABERTA significa que a aplicacao E PERMITIDA neste estagio, NAO que ha necessidade de aplicar.",
+    "ACTION_NOW": "VERIFICAR O CAMPO no oeste andaluz. Nao aplicar produto."
+   },
+   {
+    "CASE_ID": "ES-CASE-003",
+    "CROP": "TRIGO e CEBADA",
+    "ISSUE": "gramineas de folha estreita, com Lolium rigidum (vallico) no topo da dose declarada",
+    "REGION": "nacional; Castilla y Leon concentra ~1,91 M ha",
+    "CASE_TYPE": "PREPARAR",
+    "WINDOW_STATUS": "UPCOMING",
+    "ACTION_NOW": "antes da sementeira de outubro/novembro"
+   },
+   {
+    "CASE_ID": "ES-CASE-002",
+    "CROP": "MAIZ",
+    "ISSUE": "Amaranthus palmeri",
+    "REGION": "Huesca (Aragon) e Lleida (Cataluna) — bloco continuo Monegros-Cinca-Litera-Segria",
+    "CASE_TYPE": "PLANEJAR PROXIMO CICLO",
+    "WINDOW_STATUS": "FECHADA para 2026",
+    "ACTION_NOW": "abril/2027"
+   }
+  ]
+ },
+ "ACTION_MAP": {
+  "REF": "ES-ACTION-MAP-V2.json",
+  "CONTAGEM_POR_TIPO": {
+   "ACT_NOW": 1,
+   "NO_ACTION": 3,
+   "PLAN": 4,
+   "PREPARE": 4,
+   "VERIFY_NOW": 3,
+   "WAIT_FOR_INTERNAL_DATA": 3
+  },
+  "O_QUE_A_CONTAGEM_DIZ": "ha exatamente UM ACT_NOW em dezoito linhas, e ele e regulatorio e interno — nao depende do campo nem do mercado. Um sistema que gritasse teria varios."
+ },
+ "ASK_ACCEPTANCE": {
+  "REF": "ASK-SINTONIA-ACCEPTANCE-ES.json",
+  "QUESTIONS": 13,
+  "ANSWERABLE": 8,
+  "PARTIAL": 3,
+  "REFUSED": 2,
+  "FROZEN": true
+ },
+ "EVIDENCE_MAP": {
+  "ES-CASE-001": [
+   "RAIF olivar, dataset CKAN da Junta de Andalucia, arquivos 2006_2016_*_Muestreos.xml, 2017_2024_*, 2025_*, 2026_* — campo \"1702 Repilo: % Hojas con Repilo Visible\".",
+   "MAPA ROPF Exportaciones/ExportJsonProductos com idCultivo=1972 e idPlaga=6200.",
+   "MAPA ROPF Productos/GetProductoById para ES-00211, ES-00979, 25139.",
+   "fichas PDF preservadas ES-00211 e ES-00979, secao Usos y Dosis.",
+   "data/samples/BACKTEST-REPILO-LEAD-TIME.json para o poder preditivo da serie."
+  ],
+  "ES-CASE-003": [
+   "MAPA ROPF pares: trigo/cebada x 2062, 2017, 2010, 2046, 2030",
+   "fichas 19549 e 19548 baixadas do MAPA e lidas na secao Usos y Dosis",
+   "data/samples/ES-CEREAIS-PARES-ROPF.json",
+   "data/samples/ES-T3-002-raif-cereales-invierno.json para o descarte da septoriose"
+  ],
+  "ES-CASE-002": [
+   "MAPA ROPF export idCultivo x idPlaga=2067 para as 4 variantes de milho",
+   "fichas PDF preservadas dos 7 produtos ADAMA, secao Usos y Dosis",
+   "varredura de especie nas 96 fichas ADAMA preservadas",
+   "opendata_sga_parcelas_her_2025.csv, Gobierno de Aragon",
+   "ES-CIENCIA-PARES-AUTORES.json e ES-CIENCIA-PARA-VOZ.json",
+   "ES-T6-001-adv-catalunya.json"
+  ]
+ },
+ "UNKNOWN_MAP": {
+  "ES-CASE-001": [
+   "nao ha leitura de repilo em Huelva/Cadiz depois de junho — nao sabemos o estado de agosto NESSAS provincias.",
+   "repilo incubado (campo 1703), que por definicao antecede o sintoma visivel, tem n=5 em Huelva e n=1 em Cadiz em 2026. Medido e insuficiente; nao sustenta nada.",
+   "por que Neptune e Starpro nao acompanharam a data dos outros 14 tebuconazois.",
+   "COMMERCIAL_CLOCK = NAO SEI. Registro nao e venda."
+  ],
+  "ES-CASE-003": [
+   "a distribuicao regional do vallico: nenhuma fonte de campo consultada tem o campo de daninha. O RAIF de cereais mede pragas e doencas, nao daninhas.",
+   "COMMERCIAL_CLOCK = NAO SEI",
+   "a distribuicao REGIONAL da resistencia dentro da Espanha: o resumo diz \"widespread\" e nao diz onde. As tres populacoes do estudo de 2021 sao espanholas e a regiao nao foi lida.",
+   "se os produtos de pre-emergencia da ADAMA controlam populacoes resistentes: nao medido, e o registro nao responde eficacia."
+  ],
+  "ES-CASE-002": [
+   "se os herbicidas ADAMA controlam palmeri resistente — o registro nao responde eficacia e nada aqui responde",
+   "quanto palmeri ha em 2026 e onde: os avisos dizem que existe, nao dizem quanto nem em que parcela",
+   "os nomes dos 10 municipios",
+   "COMMERCIAL_CLOCK = NAO SEI"
+  ]
+ },
+ "O_QUE_A_DEMO_NAO_PODE_AFIRMAR": [
+  "disponibilidade comercial de qualquer produto — COMMERCIAL_CLOCK e NAO SEI nos tres casos",
+  "eficacia de qualquer produto contra qualquer alvo — registro nao declara eficacia e nada aqui a mediu",
+  "que o NEPTUNE saiu do mercado — EXPIRY != WITHDRAWAL, e o conflito segue INVESTIGATE",
+  "que a ADAMA nao controla A. palmeri — a lacuna e de alvo declarado, nao de eficacia",
+  "que ha necessidade de aplicar no olivar hoje — a ultima leitura do oeste tem 77 a 95 dias",
+  "que ha resistencia medida em Huesca — a unica populacao de Huesca do artigo e a suscetivel",
+  "nenhum numero economico"
+ ],
+ "CATALOGO_PUBLICO_ADAMA": "NOT_COLLECTED nos tres casos — o host esta negado na borda para este ambiente. Nao e 0, nao e vazio: e recusa medida.",
+ "CONTENT_FREEZE_GATE": {
+  "AVALIADO_EM": "2026-08-30",
+  "SPAIN_CONTENT_FREEZE_READY": "YES",
+  "CRITERIOS": {
+   "CASE_CARDS_STABLE": "SIM — contrato identico, congelados, com teste que reprova campo vazio",
+   "TIMING_SEMANTIC_STABLE": "SIM — os cinco estados do olivo separados (FIELD_SIGNAL, APPLICATION_WINDOW, MONITORING_NEED, PRODUCT_ACTION_NEED, BUSINESS_ACTION), com teste",
+   "FIELD_FRESHNESS_EXPLICIT": "SIM — OBSERVED_AT por provincia, e FIELD_CURRENTNESS_GAP confirmado na fonte testada",
+   "ACTION_TYPE_EXPLICIT": "SIM — seis tipos na V2, com exatamente um ACT_NOW em dezoito linhas",
+   "NO_KNOWN_FALSE_CONFIDENCE_REGRESSION": "SIM — 7 regressoes escritas, 386 testes, 0 falhas",
+   "ASK_ACCEPTANCE_FROZEN": "SIM — 13 perguntas, congelado",
+   "EVIDENCE_PATHS_COMPLETE": "SIM — por caso, todas reproduziveis",
+   "UNKNOWNS_VISIBLE": "SIM — UNKNOWN_MAP por caso"
+  },
+  "NEXT_PHASE": "DESIGN / PORTAL PROTOTYPE",
+  "CONSTRUIDO_NESTA_RODADA": "NADA. Portal e UI seguem proibidos e nenhuma interface foi criada."
+ },
+ "FREEZE": {
+  "FREEZE_AT": "2026-08-30",
+  "HEAD_QUE_SUSTENTA": "8fcf4f5ae99746f13adff9a8cdcd371da49606ee",
+  "HEAD_CURTO": "8fcf4f5",
+  "PERGUNTA_QUE_O_FREEZE_RESPONDE": "com qual conjunto exato de evidencias esta demo foi construida?",
+  "ARTEFATOS_CANONICOS": {
+   "SPAIN-HERO-CASES-V1.json": {
+    "sha256": "d12dc30c64ae6821eda6aa2c6bdeb1c8fb91907beb676132ebd0d6f5241a1753",
+    "bytes": 29242,
+    "ultimo_commit": "7c50518",
+    "data_do_commit": "2026-08-30T04:14:23+00:00"
+   },
+   "ES-CASE-001-OLIVO-REPILO.json": {
+    "sha256": "2035c4b609db13dbbc945fed395c09c26edf1aa5842f9ff48f9db2de5452996b",
+    "bytes": 19699,
+    "ultimo_commit": "41f287c",
+    "data_do_commit": "2026-08-30T04:00:32+00:00"
+   },
+   "ES-CASE-003-CEREAL-GRAMINEAS.json": {
+    "sha256": "a4b866d2ce23c2b1a064bdf8112d22231343f1c4d6feb7113bc2c271e247ec76",
+    "bytes": 29960,
+    "ultimo_commit": "7c50518",
+    "data_do_commit": "2026-08-30T04:14:23+00:00"
+   },
+   "ES-CASE-002-MAIZ-AMARANTHUS.json": {
+    "sha256": "bc0fe53f1521bc4a628ec48c5f4007e23cdc152a4e725240e549b6308adbf315",
+    "bytes": 13437,
+    "ultimo_commit": "e9ecc77",
+    "data_do_commit": "2026-08-30T03:37:39+00:00"
+   },
+   "ES-ACTION-MAP-V2.json": {
+    "sha256": "3ecfdc4f829418013699125e7a7e1c5760b52d290f31e0bbb21b793245dd920a",
+    "bytes": 12914,
+    "ultimo_commit": "afcadd8",
+    "data_do_commit": "2026-08-30T04:04:15+00:00"
+   },
+   "ASK-SINTONIA-ACCEPTANCE-ES.json": {
+    "sha256": "5a906485d63dc08695f6526b37a683d9781dc8c1ad912ea92204f1d38f8dd582",
+    "bytes": 13066,
+    "ultimo_commit": "afcadd8",
+    "data_do_commit": "2026-08-30T04:04:15+00:00"
+   },
+   "ES-T2-003-crosswalk-municipio-aragon.json": {
+    "sha256": "b47c31f3b86ec1dcca0837553a36e1c224a88d4930bfa46f5fa4295a1b3dc8c1",
+    "bytes": 8149,
+    "ultimo_commit": "173dc7a",
+    "data_do_commit": "2026-08-30T03:31:31+00:00"
+   },
+   "ES-CIENCIA-PARES-AUTORES.json": {
+    "sha256": "3701e2930c3aa726be56b1a385af3c2931de20bf9340a567ed18b44fb68255e3",
+    "bytes": 26544,
+    "ultimo_commit": "437ef4e",
+    "data_do_commit": "2026-08-30T00:49:15+00:00"
+   },
+   "ES-CIENCIA-PARA-VOZ.json": {
+    "sha256": "5a781e75c39d70c639d1eba9dcde141a1bcb57372b74f37bb225051586462793",
+    "bytes": 19881,
+    "ultimo_commit": "888e4ea",
+    "data_do_commit": "2026-08-30T00:58:56+00:00"
+   },
+   "ES-T6-001-adv-catalunya.json": {
+    "sha256": "e58c987a380cbfa08b7656e58e9f866896f4eb7d7d3ea423a1baa4db1e8c8e81",
+    "bytes": 13753,
+    "ultimo_commit": "00b9ddf",
+    "data_do_commit": "2026-08-30T01:06:56+00:00"
+   },
+   "ES-T2-002-pac-maiz-aragon.json": {
+    "sha256": "376cc51cd52890c622cae06e66416a5ad91857f8087b431dcdf63cb5d4f27b0e",
+    "bytes": 5070,
+    "ultimo_commit": "6733640",
+    "data_do_commit": "2026-08-30T01:13:41+00:00"
+   },
+   "ES-T3-002-raif-cereales-invierno.json": {
+    "sha256": "64726449f6e89b92a12a01a38399ef36caae63bae5529e486b1c814e8ec2e0c1",
+    "bytes": 8940,
+    "ultimo_commit": "0cfd078",
+    "data_do_commit": "2026-08-30T01:04:58+00:00"
+   },
+   "ES-VOZ-x-MATRIZ-DE-PRIORIDADE.json": {
+    "sha256": "8ed48c833c53aa6960fc5f4a95afb9bac9f12f7b85a91d0b69d7cb48eb6afe41",
+    "bytes": 12091,
+    "ultimo_commit": "495c979",
+    "data_do_commit": "2026-08-30T00:55:29+00:00"
+   },
+   "SPAIN-RADAR-DO-FUTURO-V1.json": {
+    "sha256": "6ed5fefbcf63fffec6ff7ac96f3e798f11ea04e7f8742e5d99a4438b8117b20b",
+    "bytes": 17385,
+    "ultimo_commit": "5e65516",
+    "data_do_commit": "2026-08-30T12:16:17+00:00"
+   },
+   "RADAR-DO-FUTURO-CONTRACT-V1.json": {
+    "sha256": "59ff728aeaea9da7df10b0aa87006114e7bb6a28f93601dba40ade31090532a3",
+    "bytes": 6981,
+    "ultimo_commit": "5e65516",
+    "data_do_commit": "2026-08-30T12:16:17+00:00"
+   },
+   "DISPLAY-LAYER-V1.json": {
+    "sha256": "7a742bb882a3a14ee9b7d183807260332b4f379edd283bedd2e4aaf119b351fe",
+    "bytes": 45105,
+    "ultimo_commit": "8fcf4f5",
+    "data_do_commit": "2026-08-30T14:20:09+00:00"
+   },
+   "DESIGN-DATA-CONTRACT-V1.json": {
+    "sha256": "d291146a3769e8287699c15ccb4067807c792d05af6cb5831f0978596a44ad09",
+    "bytes": 9922,
+    "ultimo_commit": "625a259",
+    "data_do_commit": "2026-08-30T12:22:12+00:00"
+   },
+   "RESEARCHER-OUTLOOK-V1.json": {
+    "sha256": "fd6cca398a111315244358f7ccfca370276f443398bb53f332fa8e179842a5e0",
+    "bytes": 7606,
+    "ultimo_commit": "625a259",
+    "data_do_commit": "2026-08-30T12:22:12+00:00"
+   },
+   "AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json": {
+    "sha256": "871b6e973e4cf25d2f0ed4dd9911d4b2cd1836fc30cc32d0ccbd858977b937b2",
+    "bytes": 16506,
+    "ultimo_commit": "3894122",
+    "data_do_commit": "2026-08-30T13:30:01+00:00"
+   },
+   "EAME-COMPETITOR-CONTRACT-V1.json": {
+    "sha256": "0f6f0241a77d1b68287ff6ec3eccfdde63fc93448bdad4c1237084e519486528",
+    "bytes": 20615,
+    "ultimo_commit": "8fcf4f5",
+    "data_do_commit": "2026-08-30T14:20:09+00:00"
+   }
+  },
+  "COMO_REPRODUZIR": "git checkout 8fcf4f5 && python3 -m unittest discover -s tests && python3 scripts/freeze_es.py --verificar",
+  "REGRA": "os hashes sao do conteudo NO MOMENTO do freeze. Se um artefato mudar, o hash muda e o script de verificacao reprova — o freeze nao e um adjetivo.",
+  "DONOS_NAO_DUPLICADOS": "este pacote NAO copia numero de ninguem. Cada bloco aponta para o arquivo dono via REF, e os hashes servem para provar que o dono nao mudou depois.",
+  "FORA_DO_FREEZE": {
+   "ES-REVIEW-HANDOFFS.json": "e artefato de REVISAO das branches paralelas, nao conteudo da demo. Ele muda a cada checkpoint das paralelas e nao deve travar o freeze da Espanha.",
+   "ADAMA-ES-HANDOFF-GATE-V1.json": "e artefato de PORTAO da branch paralela adama-es-local-browser, nao conteudo da demo. Ele muda toda vez que aquele handoff muda, e travar o freeze da Espanha nele faria o freeze reprovar por trabalho de outra branch."
+  },
+  "VERSAO_DO_FREEZE": "V1.4",
+  "HISTORICO": [
+   {
+    "DE": "V1 (HEAD afcadd8)",
+    "PARA": "V1.1",
+    "QUANDO": "2026-08-30",
+    "ARTEFATOS_QUE_MUDARAM": [
+     "SPAIN-HERO-CASES-V1.json",
+     "ES-CASE-003-CEREAL-GRAMINEAS.json"
+    ],
+    "POR_QUE": "a geografia da resistencia do Lolium foi resolvida por levantamento regional (Crop Protection 2010 e 2017, resumos obtidos no DIGITAL.CSIC). O caso do cereal ganhou regiao nomeada e uma correcao do que eu tinha escrito.",
+    "O_QUE_ISSO_PROVA": "o teste do freeze reprovou sozinho quando o artefato mudou. O re-freeze e deliberado e datado, nao silencioso."
+   },
+   {
+    "DE": "V1.1",
+    "PARA": "V1.2",
+    "QUANDO": "2026-08-30",
+    "ARTEFATOS_ADICIONADOS": [
+     "SPAIN-RADAR-DO-FUTURO-V1.json",
+     "RADAR-DO-FUTURO-CONTRACT-V1.json",
+     "DISPLAY-LAYER-V1.json",
+     "DESIGN-DATA-CONTRACT-V1.json",
+     "RESEARCHER-OUTLOOK-V1.json"
+    ],
+    "POR_QUE": "o pacote de conteudo ganhou tres camadas novas: o Radar do Futuro (contrato + temas da Espanha), a camada de exibicao e o contrato de dados para o Design.",
+    "NADA_FOI_REMOVIDO": true
+   },
+   {
+    "DE": "V1.2 (HEAD 459c348)",
+    "PARA": "V1.3",
+    "QUANDO": "2026-08-30",
+    "ARTEFATOS_QUE_MUDARAM": [
+     "DISPLAY-LAYER-V1.json"
+    ],
+    "ARTEFATOS_QUE_ENTRARAM": [
+     "AGRONOMIC-CALENDAR-DESIGN-DATA-CONTRACT-V1.json"
+    ],
+    "POR_QUE": "o calendario agronomico acrescentou a dimensao temporal. DISPLAY-LAYER-V1 ganhou 54 regras em PT/EN/ES cobrindo todo valor que o motor temporal emite - window state, resolucao temporal, fase da cultura, tipo de calendario, escopo do registro, caducidade e frescor. E entrou o contrato de dado que o Claude Design consome, com o exemplo lido do banco e nao escrito a mao. Re-freeze deliberado: o freeze reprovou sozinho quando o DISPLAY-LAYER mudou, que e exatamente para isso que ele existe."
+   },
+   {
+    "DE": "V1.3 (HEAD 3894122)",
+    "PARA": "V1.4",
+    "QUANDO": "2026-08-30",
+    "ARTEFATOS_QUE_MUDARAM": [
+     "DISPLAY-LAYER-V1.json"
+    ],
+    "ARTEFATOS_QUE_ENTRARAM": [
+     "EAME-COMPETITOR-CONTRACT-V1.json"
+    ],
+    "POR_QUE": "a concorrencia virou camada estrutural da convergencia. DISPLAY-LAYER-V1 ganhou 20 regras em PT/EN/ES para os estados competitivos — silencio nunca exibido como ausencia, nao-consultado nunca exibido como \"nenhum anuncio\". E entrou o contrato da camada COMPETITOR, com META ADS LIBRARY nomeada e DATA_COVERAGE = NOT_YET_COMPLETE: capacidade declarada, zero dado coletado."
+   }
+  ]
+ },
+ "RADAR_DO_FUTURO": {
+  "REF": "SPAIN-RADAR-DO-FUTURO-V1.json",
+  "THEMES": 5,
+  "PROMOTED_TO_RADAR": 0,
+  "ORDEM_NO_PRODUTO": "vem ANTES do Radar de casos",
+  "MOMENTUM_MEDIDO_EM": 0,
+  "POR_QUE_ZERO_MOMENTUM": "nao ha serie temporal — primeira captura. Ver RADAR-DO-FUTURO-CONTRACT-V1."
+ },
+ "DISPLAY_LAYER": {
+  "REF": "DISPLAY-LAYER-V1.json",
+  "REGRAS": 29,
+  "IDIOMAS": [
+   "PT",
+   "EN",
+   "ES"
+  ],
+  "FECHA": "a lacuna DISPLAY_LAYER = MISSING que o prototipo revelou"
+ },
+ "DESIGN_HANDOFF": {
+  "REF": "DESIGN-DATA-CONTRACT-V1.json",
+  "ENTREGUE_A": "Claude Design",
+  "ESTA_BRANCH_NAO_CONSTROI_MAIS_UI": true
+ }
+}
