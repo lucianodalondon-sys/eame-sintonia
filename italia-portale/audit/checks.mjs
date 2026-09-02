@@ -1244,6 +1244,138 @@ check('E1', 'The entry page counts, it does not assert', () => {
     detail: { willShow: expect, bad } };
 });
 
+/* ── 15 · the canonical V2.1 package ──────────────────────────────────────
+   The package is not "more data". It carries a per-record CLIENT_SAFE flag and
+   its own laws about what may be said out loud. These checks hold the site to
+   them. */
+
+const V21_BUILD_ID = 'V21-843baf4229d93598';
+
+check('V1', 'The declared V2.1 build is the one that is loaded', () => {
+  const ctx = loadData();
+  const V = ctx.ITALY_HANDOFF_V21;
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const got = V && V.BUILD_ID;
+  return {
+    pass: got === V21_BUILD_ID,
+    expected: V21_BUILD_ID,
+    measured: got || 'ABSENT',
+    detail: {
+      families: V ? Object.keys(V.collections || {}).length : 0,
+      modelSeesIt: !!(AM.ingest && AM.ingest.handoffV21Present),
+    },
+  };
+});
+
+check('V2', 'Every family reproduces the package manifest, from the files', () => {
+  const ctx = loadData();
+  const V = ctx.ITALY_HANDOFF_V21;
+  if (!V) return { pass: false, expected: 'package loaded', measured: 'ABSENT' };
+  const bad = [];
+  for (const m of V.MANIFEST || []) {
+    const rows = (V.collections || {})[m.family];
+    if (!rows) { bad.push(`${m.family}: not transported`); continue; }
+    if (rows.length !== m.total) bad.push(`${m.family}: ${rows.length} rows, manifest says ${m.total}`);
+    const safe = rows.filter((r) => r && r.CLIENT_SAFE === true).length;
+    if (safe !== m.clientSafe) bad.push(`${m.family}: ${safe} client-safe, transport recorded ${m.clientSafe}`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: { families: (V.MANIFEST || []).length, bad: bad.slice(0, 10) } };
+});
+
+check('V3', 'No unreviewed research prose was transported to the browser', () => {
+  /* The package's own language rule: RESEARCH holds Portuguese working notes
+     the Design never reads. A CLIENT_SAFE=false record travels as identity
+     only, so an unreviewed reading cannot sit in a public file waiting for
+     some future component to render it. */
+  const ctx = loadData();
+  const V = ctx.ITALY_HANDOFF_V21;
+  const bad = [];
+  /* Read the payload, not the file: LANGUAGE_RULE.RESEARCH is the rule TEXT
+     saying research notes are not transported, and a grep over the whole file
+     scores that sentence as the very thing it forbids. */
+  const payload = JSON.stringify((V && V.collections) || {});
+  if (/"RESEARCH":/.test(payload)) bad.push('a RESEARCH field reached a record');
+  if (/_ORIGINAL_RESEARCH_TEXT":/.test(payload)) bad.push('an *_ORIGINAL_RESEARCH_TEXT field reached a record');
+  const ALLOWED = /^(ID|ENTITY_TYPE|QA_STATUS|CLIENT_SAFE|PROVENANCE|ORIGIN_LAYER|CLAIM_DOMAIN)$/;
+  if (V) {
+    for (const [fam, rows] of Object.entries(V.collections || {})) {
+      const leaky = (rows || []).filter((r) => r && r.CLIENT_SAFE !== true && Object.keys(r).some((k) => !ALLOWED.test(k)));
+      if (leaky.length) bad.push(`${fam}: ${leaky.length} non-client-safe record(s) carry payload`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 8) };
+});
+
+check('V4', 'The three opportunity candidates are never called opportunities', () => {
+  /* Measured on the package: all three are ENTITY_TYPE OPPORTUNITY_CANDIDATE,
+     QA_STATUS EVIDENCE_DERIVED, CLIENT_SAFE false, and each carries a
+     FORBIDDEN_LABEL that forbids the words "opportunity" and "commercial
+     opportunity". So the client-safe opportunity count is 0, and nothing in the
+     model or on a screen may round it up. */
+  const ctx = loadData();
+  const V = ctx.ITALY_HANDOFF_V21;
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const bad = [];
+  const pkg = (V && V.collections && V.collections.opportunities) || [];
+  const pkgSafe = pkg.filter((o) => o.CLIENT_SAFE === true).length;
+  if (pkgSafe !== 0) bad.push(`the package itself now has ${pkgSafe} client-safe opportunities — re-read it before trusting this check`);
+  const coll = AM.collections && AM.collections.opportunities;
+  if (!coll) bad.push('collections.opportunities is absent');
+  else {
+    const safe = coll.clientSafe !== undefined
+      ? coll.clientSafe
+      : (coll.records || []).filter((r) => r.CLIENT_SAFE === true).length;
+    if (safe !== 0) bad.push(`the model reports ${safe} client-safe opportunities; the package says 0`);
+  }
+  const m = mount();
+  const v = m.tryVals({ view: 'radar', lang: 'it', showScenarios: false });
+  if (v.ok) {
+    const asserted = (v.vals.visibleCases || []).filter((c) => c && c.clientSafe === true);
+    if (asserted.length) bad.push(`${asserted.length} radar card(s) claim to be client-safe`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: { packageTotal: pkg.length, packageClientSafe: pkgSafe, bad } };
+});
+
+check('V5', 'A future regulatory fact never becomes an opportunity', () => {
+  /* EU APPROVAL EXPIRY is not NON-RENEWAL, is not COMMERCIAL RISK, is not
+     ITALIAN MARKETABILITY, and is not an OPPORTUNITY. 47 facts are 47 facts. */
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const C = AM.collections || {};
+  const facts = C.regulatoryFutureFacts || C.regulatoryFuture;
+  const bad = [];
+  if (!facts) bad.push('no regulatory-future collection is exposed');
+  else {
+    const opp = (C.opportunities && C.opportunities.count) || 0;
+    if (facts.count > 3 && opp >= facts.count) bad.push(`opportunities (${opp}) grew to the size of the fact table (${facts.count})`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: { regulatoryFutureFacts: facts ? facts.count : 0, opportunities: (C.opportunities && C.opportunities.count) || 0, bad } };
+});
+
+check('V6', 'The commercial catalogue and the regulatory universe are never summed', () => {
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const C = AM.collections || {};
+  const com = C.productsCommercial && C.productsCommercial.count;
+  const reg = C.productsRegulatory && C.productsRegulatory.count;
+  const bad = [];
+  if (com !== 51) bad.push(`commercial catalogue is ${com}, the package says 51`);
+  if (reg !== 163) bad.push(`regulatory universe is ${reg}, the package says 163`);
+  /* 214 is the two universes added together and must appear nowhere */
+  const m = mount();
+  for (const view of ['portfolio', 'product', 'radar']) {
+    const r = m.tryVals({ view, lang: 'it' });
+    if (!r.ok) continue;
+    for (const { path: p, value } of collectStrings(r.vals)) {
+      if (/\b214\b/.test(value)) bad.push(`${view} ${p}: renders 214 — the two universes added together`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: { commercial: com, regulatory: reg, bad } };
+});
+
 export function runAll(only) {
   const list = only ? CHECKS.filter((c) => only.includes(c.id)) : CHECKS;
   return list.map((c) => {

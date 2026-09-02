@@ -32,6 +32,7 @@ export const DATA_FILES = [
   'italy-i18n.js',
   'italy-catalog.js',
   'italy-ingested.js',
+  'italy-v21.js',
   'italy-app-model.js',
 ];
 
