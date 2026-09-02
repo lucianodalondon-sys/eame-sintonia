@@ -63,6 +63,44 @@ function markerBefore(line, col) {
   return null;
 }
 
+/**
+ * Mark every character of a source as code, comment or string.
+ *
+ * Without this the count is nonsense in exactly the wrong direction: a good
+ * migration leaves comments like "this used to read D.ARCHIVE (448 rows)", and
+ * a regex over raw lines scores each of those as a surviving fixture read. The
+ * headline number has to mean what it says, so the scanner tokenizes first.
+ */
+export function codeMask(src) {
+  const mask = new Uint8Array(src.length); // 0 code · 1 comment · 2 string
+  let i = 0;
+  const n = src.length;
+  let state = 0; // 0 code, 1 line comment, 2 block comment, 3 ' 4 " 5 ` 6 html comment
+  while (i < n) {
+    const c = src[i], d = src[i + 1];
+    if (state === 0) {
+      if (c === '/' && d === '/') { state = 1; mask[i] = mask[i + 1] = 1; i += 2; continue; }
+      if (c === '/' && d === '*') { state = 2; mask[i] = mask[i + 1] = 1; i += 2; continue; }
+      if (c === '<' && src.startsWith('<!--', i)) { state = 6; for (let k = 0; k < 4; k++) mask[i + k] = 1; i += 4; continue; }
+      if (c === "'") { state = 3; mask[i] = 2; i++; continue; }
+      if (c === '"') { state = 4; mask[i] = 2; i++; continue; }
+      if (c === '`') { state = 5; mask[i] = 2; i++; continue; }
+      i++; continue;
+    }
+    if (state === 1) { mask[i] = 1; if (c === '\n') state = 0; i++; continue; }
+    if (state === 2) { mask[i] = 1; if (c === '*' && d === '/') { mask[i + 1] = 1; i += 2; state = 0; continue; } i++; continue; }
+    if (state === 6) { mask[i] = 1; if (src.startsWith('-->', i)) { mask[i + 1] = mask[i + 2] = 1; i += 3; state = 0; continue; } i++; continue; }
+    /* strings: honour the escape, and let a newline end a quoted string so an
+       apostrophe in a comment cannot swallow the rest of the file */
+    mask[i] = 2;
+    if (c === '\\') { if (i + 1 < n) mask[i + 1] = 2; i += 2; continue; }
+    if ((state === 3 && c === "'") || (state === 4 && c === '"') || (state === 5 && c === '`')) { state = 0; i++; continue; }
+    if (c === '\n' && state !== 5) { state = 0; i++; continue; }
+    i++;
+  }
+  return mask;
+}
+
 /** Every read `<alias>.SYMBOL` with its line, column, marker and snippet. */
 export function scanFile(file, dir = CLIENT) {
   const p = path.join(dir, file);
@@ -72,24 +110,33 @@ export function scanFile(file, dir = CLIENT) {
   if (!aliases.size) return { file, reads: [], aliases: [] };
 
   const reads = [];
+  const mask = codeMask(src);
   const aliasAlt = [...aliases].map((a) => a.replace(/\$/g, '\\$')).join('|');
   const re = new RegExp(`\\b(${aliasAlt})\\s*(?:\\.\\s*([A-Za-z_$][\\w$]*)|\\[)`, 'g');
 
-  src.split('\n').forEach((line, i) => {
-    let m;
-    re.lastIndex = 0;
-    while ((m = re.exec(line))) {
-      const symbol = m[2] || '[computed]';
-      const mk = markerBefore(line, m.index);
-      reads.push({
-        file, line: i + 1, col: m.index, symbol, alias: m[1],
-        klass: mk ? mk.klass : 'DATA_BEARING_CORE',
-        reason: mk ? mk.reason : null,
-        isHelper: /^(fmt|ago|inkOn|setMonths)$/.test(symbol),
-        snippet: line.slice(Math.max(0, m.index - 70), m.index + 150).trim(),
-      });
-    }
-  });
+  /* line start offsets, so a match's file position gives its line and column */
+  const starts = [0];
+  for (let i = 0; i < src.length; i++) if (src[i] === '\n') starts.push(i + 1);
+  const lineOf = (pos) => { let lo = 0, hi = starts.length - 1; while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (starts[mid] <= pos) lo = mid; else hi = mid - 1; } return lo; };
+
+  let m;
+  re.lastIndex = 0;
+  while ((m = re.exec(src))) {
+    /* a mention inside a comment or a string is documentation, not a read */
+    if (mask[m.index] !== 0) continue;
+    const li = lineOf(m.index);
+    const line = src.slice(starts[li], starts[li + 1] !== undefined ? starts[li + 1] - 1 : src.length);
+    const col = m.index - starts[li];
+    const symbol = m[2] || '[computed]';
+    const mk = markerBefore(line, col);
+    reads.push({
+      file, line: li + 1, col, symbol, alias: m[1],
+      klass: mk ? mk.klass : 'DATA_BEARING_CORE',
+      reason: mk ? mk.reason : null,
+      isHelper: /^(fmt|ago|inkOn|setMonths)$/.test(symbol),
+      snippet: line.slice(Math.max(0, col - 70), col + 150).trim(),
+    });
+  }
   return { file, reads, aliases: [...aliases] };
 }
 

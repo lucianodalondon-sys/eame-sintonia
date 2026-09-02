@@ -59,6 +59,20 @@ function renderReport(portalPath) {
   return { ok: SCREENS.length * 2 - fails.length, total: SCREENS.length * 2, fails };
 }
 
+/* The block line map is frozen while the agents work. Once assemble writes for
+   real the map is stale, and a later splice would cut the file in the wrong
+   place — so refuse rather than corrupt. */
+const FROZEN_LINES = 3463;
+function assertFrozen() {
+  const n = readPortal().split('\n').length;
+  if (n !== FROZEN_LINES) {
+    console.error(`\n  portale.html is ${n} lines, the frozen block map expects ${FROZEN_LINES}.`);
+    console.error('  The block phase is over — edit client/portale.html directly, or');
+    console.error('  re-derive the ranges in audit/blocks.mjs first.\n');
+    process.exit(3);
+  }
+}
+
 const cmd = process.argv[2];
 const key = process.argv[3];
 
@@ -74,6 +88,7 @@ if (cmd === 'list' || !cmd) {
 }
 
 if (cmd === 'show') {
+  assertFrozen();
   const b = byKey[key];
   if (!b) { console.error('unknown block:', key); process.exit(2); }
   const lines = readPortal().split('\n');
@@ -82,6 +97,7 @@ if (cmd === 'show') {
 }
 
 if (cmd === 'try') {
+  assertFrozen();
   const b = byKey[key];
   if (!b) { console.error('unknown block:', key, '\nknown:', BLOCKS.map((x) => x.key).join(', ')); process.exit(2); }
   if (!fs.existsSync(blockFile(b.key))) { console.error('no candidate written yet at', blockFile(b.key)); process.exit(2); }
@@ -106,6 +122,7 @@ if (cmd === 'try') {
 }
 
 if (cmd === 'assemble') {
+  assertFrozen();
   const dry = process.argv.includes('--dry');
   const present = presentBlocks();
   if (!present.length) { console.error('no block candidates written'); process.exit(2); }
@@ -116,6 +133,25 @@ if (cmd === 'assemble') {
       console.error(`OVERLAP: ${sorted[i - 1].key} (${sorted[i - 1].a}-${sorted[i - 1].b}) and ${sorted[i].key} (${sorted[i].a}-${sorted[i].b})`);
       process.exit(2);
     }
+  }
+  /* Seventeen agents in one function scope will eventually pick the same helper
+     name. A duplicate top-level const is a syntax error that only shows up as a
+     mount failure, so name it here instead. The helpers block is excluded: it
+     holds class methods, each with its own scope. */
+  const decl = {};
+  for (const b of present) {
+    if (b.key === 'helpers') continue;
+    b.text.split('\n').forEach((l) => {
+      const m = l.match(/^ {4}(?:const|let|function)\s+([A-Za-z_$][\w$]*)/);
+      if (m) (decl[m[1]] = decl[m[1]] || []).push(b.key);
+    });
+  }
+  const dupes = Object.entries(decl).filter(([, v]) => new Set(v).size > 1);
+  if (dupes.length) {
+    console.error('\n  DUPLICATE TOP-LEVEL DECLARATIONS (would be a syntax error):');
+    dupes.forEach(([k, v]) => console.error(`    ${k}  declared in ${[...new Set(v)].join(', ')}`));
+    console.error('');
+    process.exit(2);
   }
   const out = spliceInto(readPortal(), present.map((b) => ({ a: b.a, b: b.b, text: b.text })));
   const scratch = path.join(SCRATCH, 'portale.assembled.html');

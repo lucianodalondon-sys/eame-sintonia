@@ -2,9 +2,9 @@
        Identity comes from the registry joined to the public catalog (166 products:
        163 registrations + 3 catalog-only). Connections come ONLY from
        AM.collections.productRelationships — the 163-label audit plus the 219
-       registry label-use rows. The demo case fixture is not a source here, and
-       D.WINDOWS is no longer read: the windows card is a real join against the 29
-       canonical crop windows. */
+       registry label-use rows. The demo case fixture is not a source here, and the
+       demo window list is no longer read: the windows card is a real join against
+       the 29 canonical crop windows. */
     let pd = null;
     if (AM && s.productId) {
       const e = AM.findProduct(s.productId);
@@ -57,7 +57,9 @@
           wins.push({
             label: il(x.issue) + ' · ' + x.region,
             state: wst(x.canonicalStatus || x.status || 'DATE_UNKNOWN'),
-            color: (x.ui && x.ui.status && x.ui.status.color) || '#B1A9A7',
+            /* ui.status.text, not ui.status.color: the markup paints a text span, and
+               .color is the chip fill (#6E6663 on a #1C1817 card is unreadable). */
+            color: (x.ui && x.ui.status && (x.ui.status.text || x.ui.status.color)) || '#B1A9A7',
             go: () => this.openWindow(x.id),
           });
         }));
@@ -76,23 +78,41 @@
         const RES = (AM.collections.resistance && AM.collections.resistance.records) || [];
         const resIdx = {};
         RES.forEach((r) => { const k = taxon(r.species); if (k) (resIdx[k] = resIdx[k] || []).push(r); });
-        const seenR = {};
+        /* GIRE files one record per resistance mechanism, so Lolium spp. alone holds 5
+           records. With MECHANISM undisplayable those 5 rows are visually identical;
+           merge by species and union the regions instead of printing the same name
+           three times. */
+        const resBySp = {};
         const res = [];
         (e.targets || []).forEach((tg) => (resIdx[taxon(tg)] || []).forEach((r) => {
-          if (seenR[r.id]) return; seenR[r.id] = 1;
           /* The species string carries a Portuguese research tail after an em dash on
              the Lolium rows; cut the tail, never the taxon — parentheses stay. */
           const sp = String(r.species || '').split(' — ')[0].trim();
-          const reg = (r.regions || []).join(', ');
-          res.push({ label: sp, mech: [r.authority, reg].filter(Boolean).join(' · ') });
+          let row = resBySp[sp];
+          if (!row) { row = resBySp[sp] = { label: sp, mech: '', _auth: {}, _reg: {} }; res.push(row); }
+          if (r.authority) row._auth[r.authority] = 1;
+          /* GIRE region strings are not a clean enum: of 37 distinct values, 6 carry a
+             Portuguese research tail after an em dash ('— mesma frase literal acima'),
+             5 carry a Portuguese parenthetical ('(casos esporadicos)'), and one is the
+             NAO SEI marker itself. Cut the tail and the parenthesis, then drop the
+             marker — 19 real Italian region names survive. */
+          (r.regions || []).forEach((g) => {
+            const nm = String(g).split('—')[0].replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').trim();
+            if (nm && !/^NAO SEI/i.test(nm)) row._reg[nm] = 1;
+          });
         }));
+        /* Middot, not comma: one surviving GIRE value is itself a compound name
+           ('Piemonte, nella provincia di Cuneo') and a comma list would split it. */
+        res.forEach((r) => { r.mech = Object.keys(r._auth).concat(Object.keys(r._reg)).join(' · '); delete r._auth; delete r._reg; });
         const resTop = res.slice(0, 3);
 
         pd = {
           name: e.name,
-          /* ai is an array on 163/166 (the 3 catalog-only items carry none); the
-             markup prints it raw, so join it here. */
-          ai: (Array.isArray(e.ai) && e.ai.length) ? e.ai.join(' + ') : T.prodNotObservable,
+          /* ai is an array on 163/166 (BUDGE, EXELGROW and PARLEAF are catalog-only
+             and carry none); the markup prints it raw, so join it here. The 3 gaps
+             read "non noto", NOT "non osservabile" — an active ingredient IS public,
+             this catalog reading simply did not carry it. */
+          ai: (Array.isArray(e.ai) && e.ai.length) ? e.ai.join(' + ') : (T.ksNotKnown || '—'),
           category: e.categoryLabel || '—',
           inCommercial: e.inCommercial, commercialL: e.inCommercial ? T.prodInCatalog : T.prodNotInCatalog,
           commercialColor: e.inCommercial ? '#00B152' : '#B1A9A7',

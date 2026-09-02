@@ -11,7 +11,7 @@
     const sgIsScenario = !!(sg0 && AM && AM.isDemo(sg0, 'REAL_SOURCE'));
     /* A narrative field is only shown when upstream approved a localized
        version. Otherwise the state is shown, never the raw research note. */
-    const nar = (n) => (n && n.state === 'CLEAR') ? (s.lang === 'en' ? (n.en || n.it) : (n.it || n.en)) : null;
+    const sgNar = (n) => (n && n.state === 'CLEAR') ? (s.lang === 'en' ? (n.en || n.it) : (n.it || n.en)) : null;
     const narState = (n) => !n ? null : n.state === 'CLEAR' ? null
       : n.state === 'NOT_ESTABLISHED' ? (T.notEstablished || 'non ancora stabilito')
       : (T.notApprovedForDisplay || 'lettura interna, non pubblicabile');
@@ -29,12 +29,12 @@
     const sg = Object.assign({}, sg0, {
       isScenario: sgIsScenario, isReal: !!sg0 && !sgIsScenario,
       /* the six narrative panels: text when approved, state when not, nothing when absent */
-      whyWatchText: nar((sg0 || {}).whyWatch), whyWatchState: narState((sg0 || {}).whyWatch),
-      whoIsTalkingText: nar((sg0 || {}).whoIsTalking), whatChangedText: nar((sg0 || {}).whatChanged),
-      observedFactsText: nar((sg0 || {}).observedFacts), interpretationText: nar((sg0 || {}).interpretation),
-      unknownText: nar((sg0 || {}).unknown), nextWindowText: nar((sg0 || {}).nextWindow),
-      portfolioConnectionText: nar((sg0 || {}).portfolioConnection),
-      promoteConditionText: nar((sg0 || {}).whatWouldPromoteIt),
+      whyWatchText: sgNar((sg0 || {}).whyWatch), whyWatchState: narState((sg0 || {}).whyWatch),
+      whoIsTalkingText: sgNar((sg0 || {}).whoIsTalking), whatChangedText: sgNar((sg0 || {}).whatChanged),
+      observedFactsText: sgNar((sg0 || {}).observedFacts), interpretationText: sgNar((sg0 || {}).interpretation),
+      unknownText: sgNar((sg0 || {}).unknown), nextWindowText: sgNar((sg0 || {}).nextWindow),
+      portfolioConnectionText: sgNar((sg0 || {}).portfolioConnection),
+      promoteConditionText: sgNar((sg0 || {}).whatWouldPromoteIt),
       sourceTypeUpper: ((sg0 || {}).sourceType || '').toUpperCase(),
       /* A product panel needs a product entity that really exists in the model. */
       hasProduct: !!(sg0 && sg0.product && AM && AM.findProduct(sg0.product)),

@@ -351,6 +351,10 @@
     RESISTANCE: { color: '#752157', order: 7 },
     DEFAULT: { color: NEUTRAL, order: 9 },
   };
+  /* Competitor activities carry no SOURCE_ID, but the platform they were read
+     from IS a registered source. Mapping the two observed platforms onto their
+     registry ids is a fact about where the row came from, not a guess. */
+  const ARCHIVE_PLATFORM_SOURCE = { META_ADS_LIBRARY: 'IT-SRC-META', YOUTUBE: 'IT-SRC-YOUTUBE' };
   /* 'DD Mmm' with the month names the caller supplies. The month array is a
      parameter and not a module global on purpose: a mutable global is how a
      language switch used to silently rewrite dates already rendered. */
@@ -403,7 +407,7 @@
     /* Peach and Citrus are real crops with no canonical window in this package.
        They resolve here because the identity is taxonomic; they simply have no
        CROP_KEY row, which is a gap in the window contract, not in the name. */
-    'PRUNUS PERSICA': 'Peach', CITRUS: 'Citrus',
+    'PRUNUS PERSICA': 'Peach', CITRUS: 'Citrus', 'HELIANTHUS ANNUUS': 'Sunflower',
   };
   /* The advertiser's own umbrella words. A generic term is never promoted to a
      crop; it is only recognised so it can be reported as generic. */
@@ -437,6 +441,23 @@
      unambiguous ones are mapped; Barley has no key and must route without
      changing the selected crop rather than being forced into a bucket. */
   const MARKET_VIEW_KEY = { Maize: 'maize', 'Durum Wheat': 'durum', Wheat: 'soft', Olive: 'olive', Grapevine: 'wine', Tomato: 'tomato', 'Sugar Beet': 'sugarbeet', Apple: 'apple' };
+
+  /* The three upstream opportunities are written in the analyst's language, so
+     asking the label audit about them needs a translation of the QUESTION, not
+     of the answer. These two tables are the only hand-authored joins in the
+     model besides CROP_KEY; they are tiny, they are exhaustive (3 records), and
+     every link they produce records which row produced it in resolvedThrough.
+     Opportunity 003 is deliberately absent: its CROP is 'Portfólio ADAMA Italia
+     (transversal, não é uma cultura)', which is a portfolio, not a crop. */
+  const oppKey = (v) => fold(String(v || '')).toUpperCase().replace(/\s+/g, ' ').trim();
+  const OPP_CROP = {
+    VIDEIRA: ['Grapevine'],
+    'MILHO GRAO': ['Maize'],
+  };
+  const OPP_ISSUE = {
+    'FLAVESCENCIA DOURADA, VIA O VETOR SCAPHOIDEUS TITANUS': 'Flavescenza Dorata',
+    'PIRALIDE (OSTRINIA NUBILALIS) E DIABROTICA VIRGIFERA VIRGIFERA': 'European Corn Borer',
+  };
 
   /* Bibliometric theme token -> a controlled display title. NOT a translation of
      the token and NOT a scientific conclusion: it is a label for a query. The
@@ -863,7 +884,12 @@
   ], "authorised use rows read from official labels; MAX_APP is empty on every row and is not carried");
 
   Object.assign(regulatoryLinks, {
-    byCrop: tallyBy(regulatoryLinks.records, (r) => r.cropKey || r.crop),
+    /* tallied over cropKeys, not cropKey: a generic Frumento row is authorised
+       evidence for both wheat keys and must appear under both. The sum is
+       therefore larger than 219 by exactly the number of generic rows, which is
+       published as genericRows below rather than left to be discovered. */
+    byCrop: tallyBy(regulatoryLinks.records, (r) => (r.cropKeys.length ? r.cropKeys : [r.crop])),
+    genericRows: regulatoryLinks.records.filter((r) => r.cropKeys.length > 1).length,
     byProduct: tallyBy(regulatoryLinks.records, (r) => r.product),
     byTarget: tallyBy(regulatoryLinks.records, (r) => r.target),
     timingKnownCount: regulatoryLinks.records.filter((r) => r.timing).length,
@@ -901,21 +927,29 @@
   const addProduct = (name, patch) => {
     const k = U(name);
     if (!k) return;
-    byName[k] = Object.assign({ name: String(name).trim(), key: k, regulatory: null, commercial: null, links: [] }, byName[k], patch);
+    byName[k] = Object.assign({ name: String(name).trim(), key: k, regulatory: null, commercial: null, links: [], relationships: [] }, byName[k], patch);
   };
   productsRegulatory.records.forEach((p) => addProduct(p.name, {
     regulatory: p, line: p.line, ai: p.ai, targets: p.targets, crops: p.crops,
-    labelUrl: p.labelUrl, status: p.status, expiry: p.expiry, provenance: P.REAL_SOURCE,
+    labelUrl: p.labelUrl, status: p.status, expiry: p.expiry,
+    holder: p.holder, reg: p.reg, regCat: p.regCat, form: p.form,
+    hrac: p.hrac, frac: p.frac, irac: p.irac,
+    expiresInDays: p.expiresInDays, provenance: P.REAL_SOURCE,
   }));
   productsCommercial.records.forEach((p) => addProduct(p.name, {
     commercial: p, category: p.category, catalogUrl: p.catalogUrl,
     matchState: p.matchState, provenance: P.REAL_SOURCE,
   }));
   /* Relationships attach to the product entity from the relationship
-     collection — never from a case fixture. */
+     collection — never from a case fixture. The full record is kept beside the
+     short link so a product page can show the window and the evidence without
+     a second lookup. */
   productRelationships.records.forEach((r) => {
     const e = byName[U(r.product)];
-    if (e) e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source });
+    if (e) {
+      e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source, windowId: r.windowId, region: r.region, evidenceKind: r.evidenceKind, labelUrl: r.labelUrl, caseId: null });
+      e.relationships.push(r);
+    }
   });
   const CATEGORY_OF = (e) => {
     const c = U(e.category);
@@ -928,14 +962,33 @@
   };
   const products = Object.keys(byName).sort().map((k) => {
     const e = byName[k];
+    /* MoA is real for 70 of the 163 registry products. Reading it out of the
+       three resistance-code lists turns a field that printed NON OSSERVABILE on
+       every product into a real value on the ones that have one — and leaves it
+       honestly empty on the rest. */
+    const moa = [
+      A(e.hrac).length ? 'HRAC ' + A(e.hrac).join('/') : null,
+      A(e.frac).length ? 'FRAC ' + A(e.frac).join('/') : null,
+      A(e.irac).length ? 'IRAC ' + A(e.irac).join('/') : null,
+    ].filter(Boolean);
+    const uses = regulatoryLinks.records.filter((r) => r.productKey === k);
     return Object.assign(e, {
       categoryLabel: CATEGORY_OF(e),
       inRegulatory: !!e.regulatory,
       inCommercial: !!e.commercial,
+      /* In the catalog but with no registry match: a real state the catalog
+         itself declares, not a missing record. */
+      catalogOnly: !e.regulatory && !!e.commercial,
+      aiList: A(e.ai), aiLabel: A(e.ai).join(' + ') || null,
+      moaList: moa, moaLabel: moa.length ? moa.join(' + ') : null,
+      registeredUses: uses, registeredUseCount: uses.length,
       verifiedLinks: e.links.filter((l) => l.strength === 'VERIFIED_LABEL_MATCH'),
       relatedLinks: e.links.filter((l) => l.strength === 'RELATED_PORTFOLIO'),
       checkNeededLinks: e.links.filter((l) => l.strength === 'LABEL_CHECK_NEEDED'),
       rejectedLinks: e.links.filter((l) => l.strength === 'NO_CONFIRMED_MATCH_CURRENT_READING'),
+      labelAuditDate: S(RAW.LABEL_AUDIT.AUDIT_DATE),
+      labelAuditScopeNote: S(RAW.LABEL_AUDIT.SCOPE_NOTE),
+      absenceRule: ABSENCE_RULE_TEXT,
       /* Sales, stock and share are not observable from outside. Saying so is
          the honest answer, not a gap to be filled later by private data. */
       commercialPerformance: P.NOT_OBSERVABLE,
@@ -1018,6 +1071,18 @@
           text: S(a.text), textExcerpt: S(a.text), url: S(a.url),
           hasDate,
           dateState: hasDate ? 'OBSERVED' : 'NOT_OBSERVED',
+          /* STRUCTURALLY EMPTY, and that is the finding.
+             A window link would need the advertiser's issue term to equal the
+             canonical window's ISSUE_NAME. The advertiser writes Latin
+             binomials ('Plasmopara viticola') and the window writes English
+             issue names ('Downy Mildew'); nothing upstream bridges the two, and
+             a shared crop name is not a relationship. Falling back to crop-only
+             matching would manufacture 132 links that no evidence supports, so
+             this stays empty until an upstream synonym table exists. The
+             window-side view of the same question is competitorWindowMoments,
+             which counts activities per crop and says so in its label. */
+          relatedWindows: [],
+          relatedWindowsState: 'NO_ISSUE_SYNONYM_TABLE_UPSTREAM',
           daysFromRef: daysFrom(a.start),
           provenance: provOf(a, P.REAL_SOURCE), raw: a,
         };
@@ -1219,8 +1284,8 @@
       rows: RAW.IG.MARKET,
       adapt: (m) => {
         /* REFERENCE_PERIOD is 'dd/mm/yyyy..dd/mm/yyyy' on 77/77 rows. Parsing
-           it here means no screen ever calls new Date() to know how old a
-           quote is (§6). */
+           it here means no screen ever has to open a second clock to know how
+           old a quote is (§6). */
         const per = String(m.REFERENCE_PERIOD || '').split('..');
         const periodStart = dmyToIso(per[0]);
         const periodEnd = dmyToIso(per[1] || per[0]);
@@ -1286,6 +1351,12 @@
     },
   ], 'real scientific records with a resolvable source');
 
+  /* AFFILIATION_CAVEAT is the source registry's own limitation, restated as a
+     value so it can travel with every institution the portal shows. An
+     affiliation belongs to the AUTHOR, not to the study: reading it as
+     "research done in this region" is the single easiest error on this screen. */
+  const AFFILIATION_CAVEAT = 'The affiliation belongs to the author, not to the study.';
+
   const researchers = build('researchers', [
     V21('researchers'),
     {
@@ -1294,20 +1365,34 @@
       rows: RAW.IG.RESEARCHERS,
       adapt: (r) => ({
         id: r.ID, name: S(r.PERSON), category: S(r.CATEGORY),
-        orcid: S(r.ORCID), openAlexId: S(r.OPENALEX_ID),
-        org: S(A(r.INSTITUTIONS)[0]) || S(r.INSTITUTIONS),
+        /* ORCID is a link only when it is one: 6 of 60 carry the unknown
+           sentence in this field instead of a URL. */
+        orcid: /^https?:\/\/orcid\.org\//i.test(S(r.ORCID) || '') ? S(r.ORCID) : null,
+        openAlexId: S(r.OPENALEX_ID), openalexId: S(r.OPENALEX_ID),
         institutions: A(r.INSTITUTIONS),
-        theme: S(r.THEME), worksInScope: N(r.WORKS_IN_SCOPE),
+        org: A(r.INSTITUTIONS).join(' · ') || null,
+        orgLabel: A(r.INSTITUTIONS).join(' · ') || null,
+        affiliationCaveat: AFFILIATION_CAVEAT,
+        theme: S(r.THEME), themeKey: S(r.THEME),
+        themeLabel: (THEME_UI[U(r.THEME)] || {}).title || null,
+        /* WORKS_IN_SCOPE counts works INSIDE the monitored query, not a career
+           total. The field name says scope so no label can drop it. */
+        worksInScope: N(r.WORKS_IN_SCOPE),
         lastActivity: S(r.LAST_ACTIVITY),
-        /* Identity is stated by the source and never upgraded by the portal. */
-        identityStatus: S(r.IDENTITY_STATUS),
-        role: S(r.ROLE), factRegion: S(r.FACT_REGION),
+        daysFromRef: daysFrom(r.LAST_ACTIVITY),
+        /* Identity is stated by the source and never upgraded by the portal.
+           ORCID_PRESENT_NOT_RESOLVED_HERE is not a confirmed identity. */
+        identityStatus: S(r.IDENTITY_STATUS), identityState: S(r.IDENTITY_STATUS),
+        /* ROLE and FACT_REGION are the analyst's unknown sentence on 60/60.
+           They resolve to null so the screen renders its own "non noto" and no
+           filter is populated with a Portuguese note. */
+        role: UNK(r.ROLE), factRegion: UNK(r.FACT_REGION),
         sourceId: S(r.SOURCE_ID),
         provenance: provOf(r, P.REAL_SOURCE), raw: r,
       }),
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no person' : null),
     },
-  ], 'real researcher identities; identity status is never promoted');
+  ], 'real researcher identities; identity status is never promoted and the unknown role never leaks');
 
   const scienceThemes = build('scienceThemes', [
     V21('scienceThemes'),
@@ -1315,16 +1400,81 @@
       source: 'ITALY_INGEST.THEMES',
       precedence: P.REAL_SOURCE,
       rows: RAW.IG.THEMES,
-      adapt: (t) => ({
-        id: t.ID, title: S(t.THEME), query: S(t.QUERY),
-        works: N(t.WORKS), authorsIt: N(t.AUTHORS_IT),
-        authorsWithOrcid: N(t.AUTHORS_WITH_ORCID), authorsActiveSince2024: N(t.AUTHORS_ACTIVE_SINCE_2024),
-        topInstitutions: A(t.INSTITUTIONS_TOP), sourceId: S(t.SOURCE_ID),
-        provenance: provOf(t, P.REAL_SOURCE), raw: t,
-      }),
+      adapt: (t) => {
+        const ui = THEME_UI[U(t.THEME)] || {};
+        const top = t.INSTITUTIONS_TOP && typeof t.INSTITUTIONS_TOP === 'object' ? t.INSTITUTIONS_TOP : {};
+        return {
+          id: t.ID, key: t.ID, theme: S(t.THEME),
+          /* A controlled display title per token — NOT a translation of the
+             token and NOT a scientific claim. The QUERY below is the honest
+             definition of what WORKS actually counted. */
+          title: ui.title || S(t.THEME),
+          query: S(t.QUERY),
+          cropToken: ui.cropToken || null, issueToken: ui.issueToken || null,
+          cropCanonical: ui.cropToken ? CROP_BY_TOKEN[ui.cropToken] || null : null,
+          works: N(t.WORKS), authorsIt: N(t.AUTHORS_IT),
+          authorsWithOrcid: N(t.AUTHORS_WITH_ORCID),
+          /* A headcount of authors active since 2024. It is not a movement and
+             no trend can be derived from it — there is no earlier headcount. */
+          authorsActiveSince2024: N(t.AUTHORS_ACTIVE_SINCE_2024),
+          institutionsTop: top,
+          topInstitutions: Object.keys(top).map((k) => ({ name: k, works: top[k] })),
+          affiliationCaveat: AFFILIATION_CAVEAT,
+          sourceId: S(t.SOURCE_ID),
+          ui: categoryOf(ui.issueType),
+          provenance: provOf(t, P.REAL_SOURCE), raw: t,
+        };
+      },
       validate: (r) => (!r.id ? 'no ID' : null),
     },
   ], 'bibliometric themes; a grouping for navigation, not a scientific conclusion');
+
+  /* Join the two directions of the theme relation. Both are counts over real
+     records; neither can create a theme and neither can create a record. */
+  scienceThemes.records.forEach((t) => {
+    t.recordCount = scienceRecords.records.filter((r) => U(r.crop) === U(t.cropToken) && U(r.issue) === U(t.issueToken)).length;
+    t.researcherCount = researchers.records.filter((r) => U(r.theme) === U(t.theme)).length;
+  });
+  scienceRecords.records.forEach((r) => {
+    const t = scienceThemes.records.find((x) => U(x.cropToken) === U(r.crop) && U(x.issueToken) === U(r.issue));
+    /* null on the records that match no theme — they must stay reachable
+       outside the theme grouping rather than be filed under the nearest one. */
+    r.themeKey = t ? t.id : null;
+    r.themeTitle = t ? t.title : null;
+  });
+
+  /* ---- SCIENCE INSTITUTIONS · derived ----------------------------------
+     Two different real sources say "institution" and they do NOT mean the same
+     thing, so they are never blended:
+       · this collection = the FIRST-AUTHOR affiliation on the 88 ingested
+         records (6 distinct);
+       · scienceThemes[].institutionsTop = OpenAlex work counts for the whole
+         theme query (37 distinct across five themes).
+     There is no institution TYPE field in either source, so none is published:
+     "University / National research body / Research foundation" was a guess
+     made from the first word of a name. */
+  const scienceInstitutions = (() => {
+    const t = tallyBy(scienceRecords.records, (r) => r.institution);
+    const rows = byCountDesc(t).map((name) => ({
+      id: 'SCI-INST-' + U(name).replace(/[^A-Z0-9]+/g, '-').slice(0, 40),
+      name, recordCount: t[name],
+      source: 'FIRST_AUTHOR_AFFILIATION',
+      affiliationCaveat: AFFILIATION_CAVEAT,
+      provenance: P.REAL_DERIVED,
+    }));
+    return coll(rows, P.REAL_DERIVED, 'first-author affiliation on the ingested records; affiliation means author, not study, and there is no institution type upstream', { source: 'derived · scienceRecords' });
+  })();
+
+  /* Papers actually written by a person, joined on ORCID. MEASURED: 88/88
+     science records carry an ORCID but only 1 of 60 researchers matches any of
+     them, so this returns [] for 59 researchers. A panel that would be empty
+     must be omitted, never filled from the theme the person happens to sit in —
+     that would list papers the person did not write. */
+  const publicationsForPerson = (person) => {
+    const orcid = String((person && (person.orcid || person.ORCID)) || '').replace(/^https?:\/\/orcid\.org\//i, '');
+    if (!orcid) return [];
+    return scienceRecords.records.filter((r) => String(r.orcid || '') === orcid);
+  };
 
   const resistance = build('resistance', [
     V21('resistance'),
@@ -1339,7 +1489,13 @@
         species: S(r.SPECIES), speciesIt: S(r.SPECIES_IT), family: S(r.FAMILY),
         mechanism: narrative(r, 'MECHANISM'),
         mechanismStated: !!S(r.MECHANISM) && !UNKNOWN_SENTINEL.test(S(r.MECHANISM)),
-        crop: S(r.CROP_DECLARED), firstCaseYear: S(r.FIRST_CASE_YEAR),
+        /* CROP_DECLARED is the source's own free sentence, sometimes several
+           lines long and once the unknown sentence. It is a quotation of the
+           record sheet, not a crop key, so it is exposed as prose with a flag
+           and never fed to a crop filter. */
+        crop: UNK(r.CROP_DECLARED), cropDeclared: UNK(r.CROP_DECLARED),
+        cropIsProse: (S(r.CROP_DECLARED) || '').length > 60,
+        firstCaseYear: S(r.FIRST_CASE_YEAR),
         regions: A(r.REGIONS), multiple: !!r.MULTIPLE_RESISTANCE,
         citation: S(r.CITATION), authority: S(r.AUTHORITY),
         url: S(r.SOURCE_URL), sourceId: S(r.SOURCE_ID),
@@ -1359,18 +1515,23 @@
       adapt: (v) => ({
         id: v.ID, kind: S(v.KIND),
         person: S(v.PERSON), identityState: S(v.PERSON_IDENTITY_STATE),
-        role: S(v.ROLE), organization: S(v.ORGANIZATION),
+        /* ROLE, ORGANIZATION, REGION and DATE are the analyst's unknown
+           sentence on 17/17. Passing them through would put the same Portuguese
+           note in four different columns and in four different filters. */
+        role: UNK(v.ROLE), organization: UNK(v.ORGANIZATION),
         platform: S(v.PLATFORM), channel: S(v.CHANNEL), title: S(v.CONTENT_TITLE),
-        date: S(v.DATE), dateRelative: S(v.DATE_RELATIVE),
-        crop: S(v.CROP), issue: S(v.ISSUE), caseId: S(v.CASE_ID),
-        region: S(v.REGION), countryOfFact: S(v.COUNTRY_OF_FACT),
+        date: UNK(v.DATE), dateISO: isoOf(v.DATE), dateState: dateStateOf(v.DATE),
+        dateRelative: S(v.DATE_RELATIVE), dateNote: S(v.DATE_NOTE),
+        crop: S(v.CROP), cropCanonical: CROP_BY_TOKEN[U(v.CROP)] || null,
+        issue: S(v.ISSUE), caseId: S(v.CASE_ID),
+        region: UNK(v.REGION), countryOfFact: S(v.COUNTRY_OF_FACT),
         /* The original public quote is never translated and never parsed for
            facts. It is evidence, shown as published. */
         textOriginal: S(v.TEXT_ORIGINAL),
         proves: narrative(v, 'WHAT_IT_PROVES'),
         notProves: narrative(v, 'WHAT_IT_DOES_NOT_PROVE'),
         sourceUrl: S(v.SOURCE_URL), sourceId: S(v.SOURCE_ID),
-        daysFromRef: daysFrom(v.DATE),
+        daysFromRef: daysFrom(isoOf(v.DATE)),
         provenance: provOf(v, P.REAL_SOURCE), raw: v,
       }),
       validate: (r) => (!r.id ? 'no ID' : null),
@@ -1383,16 +1544,32 @@
       source: 'ITALY_INGEST.CHANNELS',
       precedence: P.REAL_SOURCE,
       rows: RAW.IG.CHANNELS,
-      adapt: (c) => ({
-        id: c.ID, name: S(c.CHANNEL), url: S(c.CHANNEL_URL),
-        identityState: S(c.IDENTITY_STATE), contentTypeExample: S(c.CONTENT_TYPE_EXAMPLE),
-        exampleTitle: S(c.EXAMPLE_TITLE), exampleUrl: S(c.EXAMPLE_URL),
-        examplePublishedAt: S(c.EXAMPLE_PUBLISHED_AT), views: N(c.VIEWS),
-        caseId: S(c.CASE_ID), provenance: provOf(c, P.REAL_SOURCE), raw: c,
-      }),
+      adapt: (c) => {
+        /* There is no PLATFORM field upstream. The host of the real channel URL
+           is evidence, so reading it is a derivation, not an assumption —
+           measured: 30/30 are youtube.com. A URL with any other host resolves
+           to null rather than to a guess. */
+        const host = (String(S(c.CHANNEL_URL) || '').match(/^https?:\/\/([^/]+)/i) || [])[1] || '';
+        return {
+          id: c.ID, name: S(c.CHANNEL), channel: S(c.CHANNEL), url: S(c.CHANNEL_URL),
+          host: host || null,
+          platform: /youtube\.com$/i.test(host.replace(/^www\./, '')) ? 'YouTube' : null,
+          /* NOT_PROVED on 30/30: no channel is a proven identity, and no screen
+             may present one as a named person. */
+          identityState: S(c.IDENTITY_STATE),
+          contentTypeExample: S(c.CONTENT_TYPE_EXAMPLE),
+          /* These four describe ONE example video, not the channel. The names
+             say example so a card cannot label them as channel statistics. */
+          exampleTitle: S(c.EXAMPLE_TITLE), exampleUrl: S(c.EXAMPLE_URL),
+          examplePublishedAt: S(c.EXAMPLE_PUBLISHED_AT),
+          examplePublishedISO: isoOf(c.EXAMPLE_PUBLISHED_AT),
+          exampleViews: N(c.VIEWS), views: N(c.VIEWS),
+          caseId: S(c.CASE_ID), provenance: provOf(c, P.REAL_SOURCE), raw: c,
+        };
+      },
       validate: (r) => (!r.id ? 'no ID' : null),
     },
-  ], 'real Italian public channels');
+  ], 'real Italian public channels; the example video is labelled as an example, never as the channel');
 
   const publicPeople = build('publicPeople', [
     V21('publicPeople'),
@@ -1401,15 +1578,104 @@
       precedence: P.REAL_SOURCE,
       rows: RAW.IG.PEOPLE,
       adapt: (p) => ({
-        id: p.ID, name: S(p.PERSON), category: S(p.CATEGORY),
-        org: S(p.ORGANIZATION), role: S(p.ROLE),
+        id: p.ID, name: S(p.PERSON), person: S(p.PERSON), category: S(p.CATEGORY),
+        org: S(p.ORGANIZATION), organization: S(p.ORGANIZATION),
+        institutions: S(p.ORGANIZATION) ? [S(p.ORGANIZATION)] : [],
+        role: UNK(p.ROLE),
+        /* Knowing WHO someone is and knowing WHAT they do are different facts
+           with different evidence. The source states both separately and the
+           portal must never merge them into one claim. */
         identityEvidence: S(p.IDENTITY_EVIDENCE), roleEvidence: S(p.ROLE_EVIDENCE),
         law: narrative(p, 'LAW'), country: S(p.COUNTRY),
         provenance: provOf(p, P.REAL_SOURCE), raw: p,
       }),
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no person' : null),
     },
-  ], 'public people with stated identity evidence');
+  ], 'public people with stated identity evidence; identity evidence and role evidence stay separate');
+
+  /* Presentation labels per CATEGORY. Only categories with at least one record
+     are emitted, so an empty chip can never appear. */
+  const PERSON_CATEGORY_LABEL = {
+    RESEARCHER: 'RESEARCHERS', INSTITUTIONAL_EXPERT: 'INSTITUTIONAL EXPERTS',
+    CREATOR: 'INFLUENCERS / CREATORS', COMPANY_PERSON: 'COMPANY PEOPLE',
+  };
+  const categoryIndex = (records) => {
+    const t = tallyBy(records, (r) => r.category);
+    return byCountDesc(t).map((k) => ({ key: k, label: PERSON_CATEGORY_LABEL[U(k)] || k, count: t[k] }));
+  };
+  Object.assign(publicPeople, {
+    categories: categoryIndex(publicPeople.records),
+    institutions: (() => {
+      const t = tallyBy(publicPeople.records, (r) => r.institutions);
+      return byCountDesc(t).map((name) => ({ name, people: t[name] }));
+    })(),
+  });
+
+  /* ---- PEOPLE · the one directory --------------------------------------
+     The two upstream lists overlap: 9 of the 15 evidence-bearing PEOPLE records
+     are the same human as a RESEARCHERS record under a differently-accented
+     spelling. Summing them would publish 75 monitored people where 66 records
+     exist. The merge is keyed on the diacritic-folded name and happens once,
+     here, so no screen has to know about it.
+
+     One name ('Alberto Alma') legitimately appears twice inside RESEARCHERS
+     under two themes and two ids; both rows are kept, because collapsing them
+     would silently drop a theme membership. That is why 66 records carry 65
+     distinct names, and the difference is published rather than smoothed. */
+  const nameKey = (v) => fold(String(v || '')).toLowerCase().trim();
+  const people = (() => {
+    const rows = researchers.records.map((r) => Object.assign({}, r, {
+      alsoIds: [], roleCat: PERSON_CATEGORY_LABEL[U(r.category)] || r.category,
+      identityEvidence: null, roleEvidence: null,
+      isResearcher: true, isEvidenceRecord: false,
+    }));
+    const byNorm = {};
+    rows.forEach((r) => { (byNorm[nameKey(r.name)] = byNorm[nameKey(r.name)] || []).push(r); });
+    publicPeople.records.forEach((p) => {
+      const hits = byNorm[nameKey(p.name)];
+      if (hits && hits.length) {
+        /* Same human: the researcher row keeps its id (so old links resolve)
+           and gains the evidence the people table carries. */
+        hits.forEach((h) => {
+          h.alsoIds = uniq(h.alsoIds.concat([p.id]));
+          h.identityEvidence = p.identityEvidence;
+          h.roleEvidence = p.roleEvidence;
+          h.role = h.role || p.role;
+          h.law = p.law;
+          h.isEvidenceRecord = true;
+          if (!h.institutions.length && p.institutions.length) { h.institutions = p.institutions.slice(); h.orgLabel = h.institutions.join(' · '); h.org = h.orgLabel; }
+        });
+        return;
+      }
+      rows.push(Object.assign({}, p, {
+        alsoIds: [], roleCat: PERSON_CATEGORY_LABEL[U(p.category)] || p.category,
+        orgLabel: p.institutions.join(' · ') || null,
+        orcid: null, openalexId: null, theme: null, themeKey: null, themeLabel: null,
+        worksInScope: null, lastActivity: null, daysFromRef: null,
+        identityState: null, factRegion: null,
+        affiliationCaveat: null,
+        isResearcher: false, isEvidenceRecord: true,
+        provenance: P.REAL_SOURCE,
+      }));
+    });
+    const c = coll(rows, P.REAL_DERIVED, 'one people directory: the bibliometric index merged with the evidence-bearing public list, keyed on the diacritic-folded name', { source: 'derived · ITALY_INGEST.RESEARCHERS + .PEOPLE' });
+    return Object.assign(c, {
+      categories: (() => {
+        const t = tallyBy(rows, (r) => r.roleCat);
+        return byCountDesc(t).map((k) => ({ key: k, label: k, count: t[k] }));
+      })(),
+      institutions: (() => {
+        const t = tallyBy(rows, (r) => r.institutions);
+        return byCountDesc(t).map((name) => ({ name, researchers: t[name] }));
+      })(),
+      distinctNames: uniq(rows.map((r) => nameKey(r.name))).length,
+      mergedPairs: rows.filter((r) => r.alsoIds.length).length,
+      affiliationCaveat: AFFILIATION_CAVEAT,
+      /* The theme queries returned non-Italian affiliations too, so this list is
+         "people in the monitored themes", not "Italian researchers". */
+      scopeNote: 'people in the monitored themes, not a list of Italian researchers',
+    });
+  })();
 
   /* ---- SOURCES · EVENTS · NEWS ------------------------------------------ */
   const sources = build('sources', [
@@ -1418,18 +1684,43 @@
       source: 'ITALY_INGEST.SOURCES',
       precedence: P.REAL_SOURCE,
       rows: RAW.IG.SOURCES,
-      adapt: (s) => ({
-        id: s.ID || s.SOURCE_ID, sourceId: s.SOURCE_ID || s.ID,
-        name: S(s.NAME), type: S(s.TYPE), role: narrative(s, 'ROLE'),
-        roleCode: S(s.TYPE),
-        country: S(s.COUNTRY), geography: S(s.GEOGRAPHY), url: S(s.URL),
-        frequency: S(s.FREQUENCY), latestObservation: S(s.LATEST_OBSERVATION),
-        accessStatus: S(s.ACCESS_STATUS), limitations: narrative(s, 'LIMITATIONS'),
-        provenance: provOf(s, P.REAL_SOURCE), raw: s,
-      }),
+      adapt: (s) => {
+        const type = S(s.TYPE);
+        const group = SOURCE_GROUP[U(type)] || null;
+        const freq = S(s.FREQUENCY);
+        return {
+          id: s.ID || s.SOURCE_ID, sourceId: s.SOURCE_ID || s.ID,
+          name: S(s.NAME), type, role: narrative(s, 'ROLE'),
+          /* The upstream ROLE is a short factual descriptor, not a Sintonia
+             research note, so the plain value is kept beside the narrative
+             wrapper — with the unknown guard, because one of the 31 rows is the
+             analyst's unknown sentence. */
+          roleText: UNK(s.ROLE),
+          roleCode: type,
+          /* IG.SOURCES has no GROUP field. The group is derived from TYPE with
+             a table written out in full above, so an auditor can reconcile it
+             against the 31 records instead of trusting a fuzzy match. */
+          group, groupLabel: group ? SOURCE_GROUP_LABEL[group] : null,
+          uiGroup: group ? SOURCE_GROUP_LABEL[group] : null,
+          country: S(s.COUNTRY), geography: S(s.GEOGRAPHY), url: S(s.URL),
+          frequency: freq,
+          /* DATED and NO_DATE_FOUND are crawler tokens, not a cadence. The flag
+             lets a view print 'non dichiarata' without sniffing strings. */
+          frequencyKnown: !!(freq && !FREQ_NOT_DECLARED[U(freq)]),
+          latestObservation: S(s.LATEST_OBSERVATION),
+          /* Several LATEST_OBSERVATION values are raw python list literals or
+             are truncated mid-string. The clean variant is null unless the
+             value begins with a real date. */
+          latestObservationISO: isoOf(String(S(s.LATEST_OBSERVATION) || '').slice(0, 10)),
+          accessStatus: S(s.ACCESS_STATUS), limitations: narrative(s, 'LIMITATIONS'),
+          limitationsText: UNK(s.LIMITATIONS),
+          ui: { color: SOURCE_TYPE_COLOR[U(type)] || NEUTRAL, order: null },
+          provenance: provOf(s, P.REAL_SOURCE), raw: s,
+        };
+      },
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no name' : null),
     },
-  ], 'traceable source registry');
+  ], 'traceable source registry; the group is derived from TYPE through a table written out in full');
 
   const futureEvents = build('futureEvents', [
     V21('futureEvents'),
@@ -1437,21 +1728,41 @@
       source: 'ITALY_INGEST.EVENTS',
       precedence: P.REAL_SOURCE,
       rows: RAW.IG.EVENTS,
-      adapt: (e) => ({
-        id: e.ID, name: S(e.EVENT), date: S(e.DATE), location: S(e.LOCATION),
-        sector: S(e.SECTOR), cropRelevance: A(e.CROP_RELEVANCE),
-        organizer: S(e.ORGANIZER), url: S(e.OFFICIAL_URL),
-        exhibitorListState: S(e.EXHIBITOR_LIST_STATE), timeState: S(e.TIME_STATE),
-        /* Future participation is never inferred from past participation. */
-        confirmedParticipation: A(e.CONFIRMED_PARTICIPATION),
-        participationLaw: narrative(e, 'PARTICIPATION_LAW'),
-        note: narrative(e, 'NOTE'),
-        daysFromRef: daysFrom(e.DATE),
-        provenance: provOf(e, P.REAL_SOURCE), raw: e,
-      }),
+      adapt: (e) => {
+        /* DATE is either a single ISO date or 'YYYY-MM-DD a YYYY-MM-DD'. A
+           single-day event gets endDate === startDate rather than null, so a
+           calendar never has to special-case it. */
+        const [startDate, endDate] = isoRange(e.DATE);
+        const part = e.CONFIRMED_PARTICIPATION && typeof e.CONFIRMED_PARTICIPATION === 'object' && !Array.isArray(e.CONFIRMED_PARTICIPATION)
+          ? e.CONFIRMED_PARTICIPATION : {};
+        return {
+          id: e.ID, name: S(e.EVENT), date: S(e.DATE),
+          startDate, endDate, dateEnd: endDate,
+          dateState: dateStateOf(e.DATE),
+          location: S(e.LOCATION),
+          sector: S(e.SECTOR),
+          /* CROP_RELEVANCE is one token, not an array; 5 of 18 are the unknown
+             sentence and resolve to null. */
+          cropRelevance: UNK(e.CROP_RELEVANCE),
+          cropRelevanceList: A(e.CROP_RELEVANCE),
+          organizer: S(e.ORGANIZER), url: S(e.OFFICIAL_URL),
+          exhibitorListState: S(e.EXHIBITOR_LIST_STATE), timeState: S(e.TIME_STATE),
+          /* Future participation is never inferred from past participation.
+             PARTICIPATION_LAW is the sentence that says so and it travels with
+             the record so no card can render the list without it. */
+          confirmedParticipation: part,
+          confirmedParticipationList: Object.keys(part),
+          participationLaw: narrative(e, 'PARTICIPATION_LAW'),
+          participationLawText: UNK(e.PARTICIPATION_LAW),
+          note: narrative(e, 'NOTE'),
+          daysFromRef: daysFrom(startDate),
+          daysToStart: daysFrom(startDate),
+          provenance: provOf(e, P.REAL_SOURCE), raw: e,
+        };
+      },
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null),
     },
-  ], 'real sector events');
+  ], 'real sector events; a date range is split, never flattened');
 
   const news = build('news', [
     V21('news'),
@@ -1461,18 +1772,168 @@
       rows: RAW.IG.NEWS,
       adapt: (n) => ({
         id: n.ID, title: S(n.TITLE), publisher: S(n.PUBLISHER), outlet: S(n.PUBLISHER),
-        author: S(n.AUTHOR), date: S(n.DATE),
-        crop: S(n.CROP), issue: S(n.ISSUE), region: S(n.REGION),
+        author: S(n.AUTHOR), date: UNK(n.DATE),
+        dateISO: isoOf(n.DATE), dateState: dateStateOf(n.DATE),
+        crop: S(n.CROP), cropCanonical: CROP_BY_TOKEN[U(n.CROP)] || null,
+        issue: S(n.ISSUE),
+        /* REGION is the unknown sentence on 8/8. Null, so the region filter is
+           not populated with a note. */
+        region: UNK(n.REGION),
+        /* Three of the eight items are company-provided and one is branded
+           content. Publishing those beside editorial pieces without the badge
+           would be the single most misleading thing on this screen. */
         contentKind: S(n.CONTENT_KIND),
         contentKindMeaning: narrative(n, 'CONTENT_KIND_MEANING'),
+        isEditorial: U(n.CONTENT_KIND) === 'EDITORIAL',
         summary: narrative(n, 'SINTONIA_SUMMARY'),
         caveat: narrative(n, 'CAVEAT'),
-        url: S(n.SOURCE_URL), daysFromRef: daysFrom(n.DATE),
+        url: S(n.SOURCE_URL), daysFromRef: daysFrom(isoOf(n.DATE)),
         provenance: provOf(n, P.REAL_SOURCE), raw: n,
       }),
       validate: (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null),
     },
-  ], 'real news and trade-media records');
+  ], 'real news and trade-media records; the content-kind badge is not optional');
+
+  /* ---- SOURCE RESOLUTION · one join key for the whole model -------------
+     Every record that names a source names it by ID. The only exception is
+     news, which names a PUBLISHER string; that is resolved by EXACT
+     case-insensitive name match and left null when it does not match.
+     MEASURED: 6 of 8 news items resolve. The two that do not are 'Agronotizie'
+     (a casing variant of 'AgroNotizie (Image Line)') and 'Consorzio
+     Fitosanitario di Modena' (the registry says 'Provinciale'). Fuzzy-matching
+     them would create a link the evidence does not support. */
+  const sourceById = {};
+  sources.records.forEach((s) => { sourceById[U(s.id)] = s; if (s.sourceId) sourceById[U(s.sourceId)] = s; });
+  const sourceByName = {};
+  sources.records.forEach((s) => { if (s.name) sourceByName[U(s.name)] = s; });
+  const sourceNameOf = (id) => { const s = sourceById[U(id)]; return s ? s.name : null; };
+
+  news.records.forEach((n) => {
+    const s = sourceByName[U(n.publisher)] || null;
+    n.publisherSourceId = s ? s.id : null;
+    n.publisherSourceName = s ? s.name : null;
+  });
+
+  /* How many ingested records actually name each source. MEASURED: 4 of the 31
+     registered sources are cited at all; the other 27 score zero. That zero is
+     a fact about the reading, and hiding it would make the registry look like
+     coverage it does not have. */
+  const backedTally = tallyBy(
+    [].concat(
+      scienceRecords.records, marketObservations.records, publicVoices.records,
+      resistance.records, scienceThemes.records, currentFieldSignals.records, researchers.records
+    ),
+    (r) => r.sourceId
+  );
+  sources.records.forEach((s) => {
+    s.backedRecords = (backedTally[s.id] || 0) + (s.sourceId && s.sourceId !== s.id ? backedTally[s.sourceId] || 0 : 0);
+    s.linkedRecordCount = s.backedRecords;
+  });
+  Object.assign(sources, {
+    groups: (() => {
+      const t = tallyBy(sources.records, (r) => r.group);
+      return byCountDesc(t).map((k) => ({ key: k, label: SOURCE_GROUP_LABEL[k] || k, count: t[k] }));
+    })(),
+    accessCounts: tallyBy(sources.records, (r) => r.accessStatus),
+    typeCounts: tallyBy(sources.records, (r) => r.type),
+    citedCount: sources.records.filter((s) => s.backedRecords > 0).length,
+  });
+
+  /* ---- MARKET BY CROP · derived ----------------------------------------
+     One row per crop key, so a screen can stop asking "what is the state of
+     this market" and start asking "what did we actually observe".
+
+     What is DELIBERATELY absent: there is no verdict, no temperature, no
+     trajectory and no confidence. None of them is derivable from a price list
+     with four different trade stages and twelve dead series, and inventing one
+     is exactly the failure this rebuild exists to remove. hasData=false is the
+     most important field on the row. */
+  const marketByCrop = (() => {
+    const crops = uniq(CROP_KEY.map((r) => r.crop).concat(marketObservations.records.map((m) => m.cropKey)));
+    const rows = crops.map((crop) => {
+      const recs = marketObservations.records.filter((m) => m.cropKey === crop);
+      const current = recs.filter((m) => m.isCurrentSeries);
+      const src = recs.length ? sourceById[U(recs[0].sourceId)] : null;
+      return {
+        id: 'MBC-' + U(crop).replace(/\s+/g, '-'),
+        cropKey: crop, cropName: crop,
+        marketViewKey: MARKET_VIEW_KEY[crop] || null,
+        hasData: recs.length > 0,
+        observationCount: recs.length,
+        currentCount: current.length,
+        stoppedCount: recs.filter((m) => !m.isCurrentSeries).length,
+        stoppedYears: uniq(recs.map((m) => m.stoppedYear).filter(Boolean)).sort(),
+        /* distinct named trading places, not a coverage claim */
+        piazzaCount: uniq(recs.map((m) => m.market)).length,
+        piazze: uniq(recs.map((m) => m.market)),
+        /* Units are never collapsed: tonnes and €/100kg are not comparable. */
+        units: uniq(recs.map((m) => m.unit)),
+        stages: uniq(recs.map((m) => m.stage)),
+        /* Six olive oil grades are six product definitions of one crop. */
+        productDefinitions: uniq(recs.map((m) => m.product)),
+        latestPeriodEnd: maxIso(current.map((m) => m.periodEnd)),
+        daysSinceLatest: maxIso(current.map((m) => m.periodEnd)) ? daysFrom(maxIso(current.map((m) => m.periodEnd))) : null,
+        changeCoverage: {
+          vsPrev: recs.filter((m) => m.changeVsPrev !== null).length,
+          vsYearAgo: recs.filter((m) => m.changeVsYearAgo !== null).length,
+          total: recs.length,
+        },
+        sourceId: recs.length ? recs[0].sourceId : null,
+        sourceName: src ? src.name : null,
+        sourceUrl: src ? src.url : null,
+        sourceFrequency: src ? src.frequency : null,
+        provenance: P.REAL_DERIVED,
+      };
+    }).sort((a, b) => b.observationCount - a.observationCount || (a.cropKey < b.cropKey ? -1 : 1));
+    return coll(rows, P.REAL_DERIVED, 'counts and coverage derived from ingested price observations; no market verdict, temperature or trajectory is derived, because none is derivable', { source: 'derived · marketObservations' });
+  })();
+
+  /* ---- MARKET SUMMARIES · a manifest, not the analysis ------------------
+     Written market analysis exists upstream for five crops, but only the file
+     manifest travels in this package — the bodies do not. Saying "the analysis
+     exists and is not loaded" is the honest answer; letting a fixture stand in
+     for it is not. */
+  const marketSummaries = build('marketSummaries', [
+    V21('marketSummaries'),
+    {
+      source: 'ITALY_INGEST.MARKET_SUMMARIES',
+      precedence: P.REAL_SOURCE,
+      rows: RAW.IG.MARKET_SUMMARIES,
+      adapt: (m, i) => ({
+        id: 'MSUM-' + U(m.CROP).replace(/[^A-Z0-9]+/g, '-'),
+        crop: S(m.CROP), file: S(m.FILE), chars: N(m.CHARS),
+        loaded: false,
+        note: 'analisi scritta esistente a monte, non caricata in questo pacchetto',
+        provenance: P.REAL_SOURCE,
+      }),
+      validate: (r) => (!r.crop ? 'no crop' : null),
+    },
+  ], 'manifest of upstream written market analysis; the bodies are not in this package');
+
+  /* ---- REGULATORY FUTURE · the authorisation expiry calendar ------------
+     EXPIRY is present on 163/163 registry records and nothing read it. It is
+     the only forward-looking regulatory fact the package actually contains, so
+     the slot that used to be empty is now filled from real data rather than
+     left waiting for a table that already existed. */
+  const regulatoryFuture = build('regulatoryFuture', [
+    V21('regulatoryFuture'),
+    {
+      source: 'ITALY_INGEST.PRODUCTS · expiry',
+      precedence: P.REAL_SOURCE,
+      rows: A(RAW.IG.PRODUCTS).filter((p) => S(p.expiry)),
+      adapt: (p) => ({
+        id: 'REGF-' + U(p.id || p.name),
+        product: S(p.name), productKey: U(p.name),
+        reg: S(p.reg), holder: S(p.holder), status: S(p.status),
+        expiry: S(p.expiry), expiryISO: isoOf(p.expiry),
+        daysToExpiry: daysFrom(isoOf(p.expiry)),
+        expired: daysFrom(isoOf(p.expiry)) !== null && daysFrom(isoOf(p.expiry)) < 0,
+        regCat: S(p.regCat), line: S(p.line), labelUrl: S(p.labelUrl),
+        provenance: provOf(p, P.REAL_SOURCE), raw: p,
+      }),
+      validate: (r) => (!r.product ? 'no product' : !r.expiryISO ? 'unparseable expiry' : null),
+    },
+  ], 'authorisation expiry dates published by the national registry; a date the registry states, not a forecast');
 
   /* ---- FUTURE ----------------------------------------------------------- */
   const futureSignals = build('futureSignals', [
@@ -1483,7 +1944,11 @@
       rows: RAW.IG.FUTURE_SIGNALS,
       adapt: (f) => ({
         id: f.ID || f.SIGNAL_ID, legacyId: S(f.LEGACY_ID),
-        crop: S(f.CROP), issue: S(f.ISSUE), region: S(f.REGION),
+        crop: S(f.CROP), issue: S(f.ISSUE),
+        /* 2 of the 3 REGION values are the analyst's unknown sentence; leaking
+           them would put a Portuguese explanation into a region filter. */
+        region: UNK(f.REGION),
+        regionKeys: REGION_NAMES.filter((n) => fold(String(UNK(f.REGION) || '')).toLowerCase().indexOf(fold(n).toLowerCase()) >= 0),
         status: S(f.STATUS),
         whoIsTalking: narrative(f, 'WHO_IS_TALKING'),
         whatChanged: narrative(f, 'WHAT_CHANGED'),
@@ -1525,36 +1990,111 @@
       rows: RAW.IG.OPPORTUNITIES,
       adapt: (o) => {
         const w = windowByLegacyCase[U(o.LEGACY_CASE_ID)] || null;
+        const wih = o.WHAT_IS_HAPPENING && typeof o.WHAT_IS_HAPPENING === 'object' ? o.WHAT_IS_HAPPENING : {};
+        const wim = o.WHY_IT_MATTERS && typeof o.WHY_IT_MATTERS === 'object' ? o.WHY_IT_MATTERS : {};
+        const sci = o.SCIENCE_CONTEXT && typeof o.SCIENCE_CONTEXT === 'object' ? o.SCIENCE_CONTEXT : {};
+        const win = o.WINDOW && typeof o.WINDOW === 'object' ? o.WINDOW : {};
+        /* The upstream writes crops in the analyst's language. OPP_CROP is a
+           declared synonym table, and opportunity 003 is deliberately absent
+           from it: its CROP is 'Portfólio ADAMA Italia (transversal, não é uma
+           cultura)', which is not a crop and must resolve to an empty list. */
+        const cropKeys = OPP_CROP[oppKey(o.CROP)] || [];
+        const regionText = S(o.REGION);
         return {
           id: o.ID, legacyCaseId: S(o.LEGACY_CASE_ID),
-          title: S(o.TITLE), crop: S(o.CROP), region: S(o.REGION),
-          issue: S(o.ISSUE), issueType: S(o.ISSUE_TYPE),
-          caseLabel: S(o.CASE_LABEL), forbiddenLabel: S(o.FORBIDDEN_LABEL),
+          title: S(o.TITLE), crop: S(o.CROP), region: regionText,
+          cropKeys,
+          /* Regions parsed out of a compound free-text string against the 20
+             canonical names; the qualifiers ('principal', 'sinal', 'escala')
+             stay in region and are never turned into a fact. */
+          regionKeys: REGION_NAMES.filter((n) => fold(String(regionText || '')).toLowerCase().indexOf(fold(n).toLowerCase()) >= 0),
+          issue: S(o.ISSUE),
+          /* ISSUE_TYPE is the analyst's unknown sentence on one of the three
+             records; it must render as not-known, never as a category. */
+          issueType: UNK(o.ISSUE_TYPE),
+          caseLabel: S(o.CASE_LABEL),
+          /* FORBIDDEN_LABEL is the record telling the interface what it is NOT
+             allowed to call this. It is rendered, not filtered out. */
+          forbiddenLabel: S(o.FORBIDDEN_LABEL),
           whatIsHappening: narrative(o, 'WHAT_IS_HAPPENING'),
+          /* WHAT_IS_HAPPENING is a structured object upstream, not prose: its
+             document name, dates and freshness are facts and are exposed as
+             such. Only CONTENT is analyst prose. */
+          happeningState: S(wih.STATE),
+          happeningDocument: S(wih.DOCUMENT),
+          happeningContent: S(wih.CONTENT),
+          observationDate: isoOf(wih.OBSERVATION_DATE),
+          happeningPublicationDate: isoOf(wih.PUBLICATION_DATE),
+          /* freshnessDays is upstream's own number. It is NOT recomputed here:
+             recomputing it would be a second clock disagreeing with the source. */
+          freshnessDays: N(wih.FRESHNESS_DAYS),
+          observedStage: S(wih.OBSERVED_STAGE),
+          happeningSourceId: S(wih.SOURCE_ID),
+          happeningSourceResolves: !!sourceById[U(wih.SOURCE_ID)],
           whyItMatters: narrative(o, 'WHY_IT_MATTERS'),
+          whyMandatory: typeof wim.MANDATORY === 'boolean' ? wim.MANDATORY : null,
+          whyNote: S(wim.NOTE),
+          whyRegional: Object.keys(wim).filter((k) => k !== 'MANDATORY' && k !== 'NOTE').map((k) => ({ key: k, text: S(wim[k]) })),
           currentEvidence: narrative(o, 'CURRENT_EVIDENCE'),
+          currentEvidenceList: A(o.CURRENT_EVIDENCE),
           marketContext: narrative(o, 'MARKET_CONTEXT'),
           competitorContext: narrative(o, 'COMPETITOR_CONTEXT'),
           scienceContext: narrative(o, 'SCIENCE_CONTEXT'),
+          /* SCIENCE_CONTEXT has different keys on every record, so it stays a
+             label/value list instead of being forced into fixed fields. */
+          scienceContextState: S(sci.STATE),
+          scienceContextCounts: Object.keys(sci).filter((k) => k !== 'STATE' && k !== 'SOURCE_ID').map((k) => ({ label: k, value: sci[k] })),
           fieldVoices: narrative(o, 'FIELD_VOICES'),
           whatWeKnow: narrative(o, 'WHAT_WE_KNOW'),
+          whatWeKnowList: A(o.WHAT_WE_KNOW),
           whatWeDoNotKnow: narrative(o, 'WHAT_WE_DO_NOT_KNOW'),
+          whatWeDoNotKnowList: A(o.WHAT_WE_DO_NOT_KNOW),
           interpretations: narrative(o, 'INTERPRETATIONS'),
+          interpretationsList: A(o.INTERPRETATIONS),
           adamaProducts: A(o.ADAMA_PRODUCTS),
           adamaActiveSubstance: A(o.ADAMA_ACTIVE_SUBSTANCE),
           windowText: S(o.WINDOW),
+          windowApplication: S(win.APPLICATION),
+          windowMonitoring: S(win.MONITORING),
+          windowNextCycle: S(win.NEXT_CYCLE),
           /* The canonical window is a RELATION, not a promotion: it does not
-             make anything else about the opportunity canonical. */
+             make anything else about the opportunity canonical. §7 forbids
+             inventing an agronomic state, so status comes from the joined
+             canonical window or stays null. */
           canonicalWindow: w, windowId: w ? w.windowId : null,
           status: w ? w.status : null,
           sourceIds: A(o.SOURCE_IDS),
-          ui: categoryOf(o.ISSUE_TYPE),
+          sourceIdsResolve: A(o.SOURCE_IDS).every((s) => !!sourceById[U(s)]),
+          ui: categoryOf(UNK(o.ISSUE_TYPE)),
           provenance: provOf(o, P.REAL_SOURCE), raw: o,
         };
       },
       validate: (r) => (!r.id ? 'no ID' : !r.crop ? 'no crop' : null),
     },
   ], 'upstream opportunity intelligence; the real radar feed');
+
+  /* The product links an opportunity asserts, graded by the label audit rather
+     than believed. MEASURED: with the raw Portuguese crop and issue all six
+     products on opportunity 001 return LABEL_CHECK_NEEDED; through the declared
+     crop map they return 2 VERIFIED (EVURE PRO, MAVRIK SMART) and 4 still
+     needing a label check. Neither number is invented — the second is simply
+     the audit being asked the question in the vocabulary it was written in. */
+  opportunities.records.forEach((o) => {
+    const cropEN = o.cropKeys[0] || null;
+    const issueEN = OPP_ISSUE[oppKey(o.issue)] || null;
+    o.issueKey = issueEN;
+    o.productLinks = o.adamaProducts.map((name) => {
+      const strength = cropEN && issueEN ? labelVerdicts.verdictFor(cropEN, issueEN, name) : 'LABEL_CHECK_NEEDED';
+      return {
+        name, product: name, strength,
+        strengthRank: STRENGTH[strength].rank,
+        resolvedThrough: cropEN && issueEN ? 'OPP_CROP/OPP_ISSUE:' + oppKey(o.crop) : 'QUESTION_NOT_RESOLVED',
+        inRegistry: !!productByKey[U(name)],
+        absenceRule: ABSENCE_RULE_TEXT,
+      };
+    });
+    o.verifiedProductCount = o.productLinks.filter((l) => l.strength === 'VERIFIED_LABEL_MATCH').length;
+  });
 
   /* The 29 legacy presentation cases. Kept ONLY as a labelled scenario mode,
      default off. A canonical window overlapping a case does not make the case
@@ -1572,10 +2112,9 @@
     { source: 'ITALY_DEMO.CASES' }
   );
 
-  /* ---- REGULATORY FUTURE · AGROMET · CROSSINGS -------------------------
+  /* ---- AGROMET · CROSSINGS ---------------------------------------------
      No upstream table yet. An empty collection is a valid answer and is
      reported as empty rather than filled with invented rows. */
-  const regulatoryFuture = build('regulatoryFuture', [V21('regulatoryFuture')], 'upcoming regulatory change; awaiting an upstream table');
   const agrometConditions = build('agrometConditions', [V21('agrometConditions')], 'agrometeorological conditions; awaiting an upstream table');
   const clientSafeCrossings = build('clientSafeCrossings', [V21('clientSafeCrossings')], 'audited cross-domain crossings; awaiting an upstream table');
 
@@ -1600,20 +2139,78 @@
   ], 'declared relationships only; a shared crop name is never a relationship');
 
   /* ---- ARCHIVE · an index over the normalized model --------------------- */
+  /* Three rules this index has to obey and did not before.
+
+     1 · SOURCE IS A JOIN KEY, NOT A LABEL. The old `source` column mixed four
+         vocabularies — institution names, registry codes, platform names and
+         event venues — so no filter and no source cross-link could work against
+         it. sourceId is now derived only from a real per-record source field
+         (or from the platform, for the two platforms that ARE registered
+         sources) and is null where nothing resolves. sourceName is the
+         registry's name for that id.
+     2 · A CROP COLUMN MUST CONTAIN CROPS. The market rows used to publish the
+         price-series code as a crop, injecting twelve non-crop values into the
+         crop filter. The code now lives in `series`, and crop is null.
+     3 · THE CROP VOCABULARIES ARE NOT ONE VOCABULARY. cropVocab says which of
+         the four a value belongs to, so the filter cannot present canonical
+         English, screaming-snake tokens, Latin binomials and the advertiser's
+         umbrella Italian words as one list of crop keys. Mapping them onto each
+         other is upstream normalization work, not a view fix. */
   const arch = [];
-  const push = (kind, id, title, date, source, url, crop, issue, prov) => {
+  const push = (kind, id, title, rawDate, url, crop, cropVocab, issue, prov, extra) => {
     if (!id) return;
-    arch.push({ id: kind + ':' + id, recordId: id, kind, type: kind, title: S(title), date: S(date), source: S(source), url: S(url), crop: S(crop), issue: S(issue), daysFromRef: daysFrom(date), provenance: prov });
+    const iso = isoOf(rawDate);
+    const sid = (extra && extra.sourceId) || null;
+    arch.push(Object.assign({
+      id: kind + ':' + id, recordKey: kind + ':' + id, recordId: id,
+      kind, type: kind,
+      title: S(title),
+      /* the raw upstream string stays for display; dateISO is the parsed value */
+      date: S(rawDate), dateISO: iso, dateState: dateStateOf(rawDate),
+      daysFromRef: daysFrom(iso),
+      url: S(url), crop: S(crop), cropVocab: crop ? cropVocab : null, issue: S(issue),
+      sourceId: sid, sourceName: sid ? sourceNameOf(sid) : null,
+      /* Explicit relation keys, so the drawer link list and the company/case
+         filters stop needing an object graph. Null on every kind that has no
+         such relation — no other collection carries a case link. */
+      company: null, legacyCaseId: null, competitorProducts: [], series: null, location: null,
+      ui: ARCHIVE_UI[kind] || ARCHIVE_UI.DEFAULT,
+      /* The ROW is derived — it is an index entry, not an observation. The
+         provenance of the record it points at is kept beside it, so a reader
+         can still see whether the underlying evidence is canonical or ingested
+         without the index inflating the real count. */
+      provenance: P.REAL_DERIVED,
+      sourceProvenance: prov,
+    }, extra || {}));
   };
-  scienceRecords.records.forEach((r) => push('SCIENCE', r.id, r.title, r.date, r.institution, r.url, r.crop, r.issue, r.provenance));
-  marketObservations.records.forEach((m) => push('MARKET', m.id, [m.product, m.market].filter(Boolean).join(' · '), m.publicationDate, m.sourceId, null, m.product, null, m.provenance));
-  competitorActivities.records.forEach((a) => push('COMPETITOR', a.id, [a.company, a.type].filter(Boolean).join(' · '), a.startDate, a.platform, a.url, a.crops[0], a.issues[0], a.provenance));
-  publicVoices.records.forEach((v) => push('VOICE', v.id, v.title || v.person, v.date, v.platform, v.sourceUrl, v.crop, v.issue, v.provenance));
-  futureEvents.records.forEach((e) => push('EVENT', e.id, e.name, e.date, e.location, e.url, null, null, e.provenance));
-  news.records.forEach((n) => push('NEWS', n.id, n.title, n.date, n.publisher, n.url, n.crop, n.issue, n.provenance));
-  cropWindows.records.forEach((w) => push('WINDOW', w.windowId, [w.issue, w.region].filter(Boolean).join(' · '), w.startDate, 'CANONICAL', null, w.crop, w.issue, w.provenance));
-  resistance.records.forEach((r) => push('RESISTANCE', r.id, r.species, r.firstCaseYear, r.authority, r.url, r.crop, null, r.provenance));
-  const archive = coll(arch, P.REAL_DERIVED, 'index over the normalized model; no manufactured rows', { source: 'derived' });
+  scienceRecords.records.forEach((r) => push('SCIENCE', r.id, r.title, r.publishedAt, r.url, r.crop, 'UPPER_CODE', r.issue, r.provenance,
+    { sourceId: r.sourceId, institution: r.institution, venue: r.venue }));
+  marketObservations.records.forEach((m) => push('MARKET', m.id, [m.product, m.market].filter(Boolean).join(' · '), m.publicationDate, null, null, null, null, m.provenance,
+    { sourceId: m.sourceId, series: m.product, market: m.market, cropKey: m.cropKey }));
+  competitorActivities.records.forEach((a) => push('COMPETITOR', a.id, [a.displayName, a.type].filter(Boolean).join(' · '), a.startDate, a.url, a.crops[0], CROP_BY_LATIN[U(a.crops[0])] ? 'LATIN' : GENERIC_CROP_TERMS[U(a.crops[0])] ? 'GENERIC_IT' : 'UNMAPPED', a.issues[0], a.provenance,
+    { sourceId: ARCHIVE_PLATFORM_SOURCE[U(a.platform)] || null, company: a.company, competitorProducts: a.products, platform: a.platform }));
+  publicVoices.records.forEach((v) => push('VOICE', v.id, v.title || v.person, v.date, v.sourceUrl, v.crop, 'UPPER_CODE', v.issue, v.provenance,
+    { sourceId: v.sourceId, platform: v.platform }));
+  futureEvents.records.forEach((e) => push('EVENT', e.id, e.name, e.date, e.url, null, null, null, e.provenance,
+    { sourceId: null, location: e.location, organizer: e.organizer }));
+  news.records.forEach((n) => push('NEWS', n.id, n.title, n.date, n.url, n.crop, 'UPPER_CODE', n.issue, n.provenance,
+    { sourceId: n.publisherSourceId, publisher: n.publisher }));
+  cropWindows.records.forEach((w) => push('WINDOW', w.windowId, [w.issue, w.region].filter(Boolean).join(' · '), w.startDate, null, w.crop, 'CANONICAL', w.issue, w.provenance,
+    { sourceId: A(w.sourceIds)[0] || null, legacyCaseId: w.legacyCaseId, region: w.region }));
+  resistance.records.forEach((r) => push('RESISTANCE', r.id, r.species, r.firstCaseYear, r.url, r.crop, 'UPPER_CODE', null, r.provenance,
+    { sourceId: r.sourceId, authority: r.authority }));
+
+  const archive = coll(arch, P.REAL_DERIVED, 'index over the normalized model; no manufactured rows, and every id is a real record id', { source: 'derived' });
+  Object.assign(archive, {
+    /* This layer re-indexes records already counted elsewhere. Saying so is
+       what stops the provenance panel double-counting the whole package. */
+    isIndex: true,
+    kinds: tallyBy(arch, (r) => r.kind),
+    sourceResolved: arch.filter((r) => r.sourceId).length,
+    dateResolved: arch.filter((r) => r.dateISO).length,
+    cropResolved: arch.filter((r) => r.crop).length,
+    duplicateIds: (() => { const seen = {}; const dup = []; arch.forEach((r) => { if (seen[r.id]) dup.push(r.id); seen[r.id] = 1; }); return dup; })(),
+  });
 
   /* ---- FIELD SALES · optional integration demonstration ----------------
      Outside the external-intelligence core. These records never mutate a core
@@ -1625,22 +2222,153 @@
     { source: 'ITALY_DEMO.FIELD_MESSAGES' }
   );
 
+  /* ---- WINDOW PROJECTIONS ----------------------------------------------
+     The tallies live on the collection so the four radar status cards, the nav
+     counter and the sidebar all read the SAME array. Each screen recomputing
+     its own tally off a different source is precisely how eleven cross-screen
+     conflicts happened. Nothing here is computed or inferred: these are counts
+     of upstream's own CURRENT_STATUS, DATE_STATE and REGION. */
+  Object.assign(cropWindows, {
+    statusCounts: tallyBy(cropWindows.records, (w) => w.status),
+    dateStateCounts: tallyBy(cropWindows.records, (w) => w.dateState),
+    regionCounts: tallyBy(cropWindows.records, (w) => w.region),
+    cropCounts: tallyBy(cropWindows.records, (w) => w.crop),
+    issueTypeCounts: tallyBy(cropWindows.records, (w) => w.issueType),
+    withDatesCount: cropWindows.records.filter((w) => w.hasDates).length,
+    withVerifiedProductCount: cropWindows.records.filter((w) => w.verifiedProducts.length).length,
+    coverageCounts: tallyBy(cropWindows.records, (w) => w.coverageState),
+  });
+
+  /* The calendar's row universe. Deliberately a thin re-shape of the canonical
+     windows and NOT a second fact store: the moment the calendar owns its own
+     rows, it becomes a second source of timing truth.
+
+     What is NOT here: area / hectares. There is no hectare field anywhere in
+     the package, so the '~350k ha' figures and the HIGH/MEDIUM scale label they
+     drove are removed, not re-derived. */
+  const windowCalendarRows = coll(
+    cropWindows.records.map((w) => ({
+      id: w.windowId, windowId: w.windowId, legacyCaseId: w.legacyCaseId,
+      crop: w.crop, region: w.region, issue: w.issue, issueType: w.issueType,
+      startDate: w.startDate, endDate: w.endDate, hasDates: w.hasDates,
+      windowLabel: w.hasDates ? w.startDate + ' → ' + w.endDate : null,
+      status: w.status, canonicalStatus: w.canonicalStatus, statusReason: w.statusReason,
+      open: w.open,
+      dateState: w.dateState, dateConfidence: w.dateConfidence,
+      daysToStart: w.daysToStart, daysToEnd: w.daysToEnd,
+      verifiedProducts: w.verifiedProducts, labelVerdictState: w.labelVerdictState,
+      absenceRule: w.absenceRule,
+      regulatory: w.regulatory, observedStage: w.observedStage,
+      coverageState: w.coverageState,
+      area: null, areaState: P.NOT_OBSERVABLE,
+      ui: w.ui, provenance: P.REAL_DERIVED,
+    })),
+    P.REAL_DERIVED,
+    'one calendar row per canonical window; no hectare figure exists upstream and none is derived',
+    { source: 'derived · cropWindows' }
+  );
+
+  /* The only defensible per-region number in the product. It is labelled
+     "canonical windows" and never "cases" or "opportunities": the legacy fixture
+     published exactly these counts under the word "cases", which is how a
+     window count came to be read as a pipeline. */
+  const windowsByRegion = (() => {
+    const t = tallyBy(cropWindows.records, (w) => w.region);
+    const rows = REGION_GRID.map((g) => ({
+      id: 'WBR-' + U(g.name).replace(/[^A-Z]+/g, '-'),
+      region: g.name, name: g.name, short: g.short,
+      windows: t[g.name] || 0,
+      hasWindows: !!t[g.name],
+      ui: { gc: g.gc, gr: g.gr, col: g.col, row: g.row },
+      provenance: P.REAL_DERIVED,
+    }));
+    const c = coll(rows, P.REAL_DERIVED, 'canonical windows per region — NOT cases and NOT opportunities', { source: 'derived · cropWindows' });
+    return Object.assign(c, { regionsWithWindows: rows.filter((r) => r.hasWindows).length, totalWindows: cropWindows.count, label: 'finestre canoniche' });
+  })();
+
+  /* ---- COMPETITOR x WINDOW ---------------------------------------------
+     The window side is canonical and verbatim; the ADAMA side is the label
+     audit. The competitor side is the WHOLE corpus for that crop, because there
+     is no honest 30-day slice — measured 11 dated records in 30 days across all
+     crops. The link is called a correlated crop window and nothing else: not an
+     opportunity, not a threat, not a strategy. */
+  const competitorWindowMoments = coll(
+    cropWindows.records.map((w) => {
+      const acts = competitorActivities.records.filter((a) => a.cropsCanonical.indexOf(w.crop) >= 0);
+      return {
+        id: 'CWM-' + w.windowId, windowId: w.windowId,
+        crop: w.crop, issue: w.issue, region: w.region, issueType: w.issueType,
+        status: w.status, daysToStart: w.daysToStart, hasDates: w.hasDates,
+        itemsObserved: acts.length,
+        companiesObserved: uniq(acts.map((a) => a.company)).length,
+        companies: uniq(acts.map((a) => a.company)),
+        activityIds: acts.map((a) => a.id),
+        portfolioVerified: w.verifiedProducts,
+        labelVerdictState: w.labelVerdictState,
+        absenceRule: w.absenceRule,
+        linkLabel: 'FINESTRA COLTURALE CORRELATA',
+        ui: w.ui, provenance: P.REAL_DERIVED,
+      };
+    }),
+    P.REAL_DERIVED,
+    'canonical window beside the observed competitor corpus for the same crop; a correlated window, never an opportunity',
+    { source: 'derived · cropWindows + competitorActivities' }
+  );
+
+  /* ---- THE BUSINESS PREPARATION CLOCK ----------------------------------
+     A channel purchase lead time is NOT externally observable. These offsets
+     are a Sintonia planning rule, and until now the screen printed them as bare
+     dates with no label — a reader had no way to tell them apart from an
+     agronomic date. They survive here, whole, under their own provenance class,
+     so the view can fence and caption them instead of deleting them.
+
+     observable:false is the load-bearing field. */
+  const preparation = {
+    provenance: 'SINTONIA_INTERPRETATION',
+    observable: false,
+    basis: 'Regola di pianificazione Sintonia. Non è un fatto osservato e non deriva da alcuna fonte esterna.',
+    leadDays: 90,
+    ladder: [
+      { days: 90, dept: 'MARKET DEVELOPMENT', text: 'Start regional validation' },
+      { days: 60, dept: 'MARKETING', text: 'Prepare communication assets' },
+      { days: 45, dept: 'SALES / RTV', text: 'Prepare customer conversations' },
+      { days: 30, dept: 'SUPPLY', text: 'Review internal readiness' },
+      { days: 14, dept: 'SALES / RTV', text: 'Activate field execution' },
+    ],
+    departments: [
+      { dept: 'REGULATORY / PORTFOLIO', fromDays: -210, toDays: -150 },
+      { dept: 'SUPPLY', fromDays: -150, toDays: -60 },
+      { dept: 'MARKET DEVELOPMENT', fromDays: -180, toDays: -120 },
+      { dept: 'MARKETING', fromDays: -120, toDays: -75 },
+      { dept: 'TECHNICAL / SCIENCE', fromDays: -60, toDays: -10 },
+      { dept: 'SALES / RTV', fromDays: -75, toDays: -25 },
+    ].map((d) => Object.assign({}, d, DEPARTMENT_UI[d.dept] || DEPARTMENT_UI.DEFAULT)),
+    /* The offsets anchor on a canonical start date. Where there is none there is
+       nothing to anchor to, so the block is omitted for that row rather than
+       anchored on the reference date. Measured: 5 of 29 windows are omitted. */
+    anchorRule: 'offsets apply to windowCalendarRows.startDate; when startDate is null the whole preparation block is omitted for that row',
+    omittedWindows: cropWindows.records.filter((w) => !w.startDate).map((w) => w.windowId),
+  };
+
   /* ── 8 · THE COLLECTION SET ─────────────────────────────────────────────
      Every family the receiver is prepared to accept. An empty one is valid. */
   const collections = {
     /* products */
     productsRegulatory, productsCommercial, productRelationships,
-    products: productsColl,
+    products: productsColl, labelVerdicts, regulatoryLinks, portfolioLinksByCrop,
     /* agronomy */
     cropWindows, currentFieldSignals, cropEconomicWeight,
+    windowCalendarRows, windowsByRegion,
     /* market */
-    marketObservations,
+    marketObservations, marketByCrop, marketSummaries,
     /* competitor */
     competitorActivities, competitorCompanies, competitorProducts,
+    competitorCropDensity, competitorIssueDensity, competitorMatrix,
+    competitorWindowMoments, communicationAxis,
     /* science */
-    scienceRecords, researchers, scienceThemes, resistance,
-    /* voices */
-    publicVoices, publicChannels, publicPeople,
+    scienceRecords, researchers, scienceThemes, resistance, scienceInstitutions,
+    /* voices and people */
+    publicVoices, publicChannels, publicPeople, people,
     /* future */
     regulatoryFuture, agrometConditions, futureEvents,
     opportunities, futureSignals,
@@ -1662,20 +2390,68 @@
   const ALIASES = { windows: 1, voices: 1, channels: 1, regulatory: 1, commercial: 1, upstreamOpportunities: 1, events: 1 };
   const primaryKeys = Object.keys(collections).filter((k) => !ALIASES[k]);
 
-  const provenanceSummary = primaryKeys.map((k) => ({
-    layer: k,
-    provenance: collections[k].provenance,
-    source: collections[k].source,
-    total: collections[k].count,
-    real: collections[k].real,
-    demo: collections[k].demo,
-    note: collections[k].note,
-  }));
+  /* Display label per layer. The panel stops carrying its own layer names, which
+     is what let a screen call the archive "records" and the window table
+     "cases" in the same column. */
+  const LAYER_LABEL = {
+    productsRegulatory: 'Prodotti · registro', productsCommercial: 'Prodotti · catalogo',
+    productRelationships: 'Relazioni prodotto', products: 'Portafoglio',
+    labelVerdicts: 'Audit etichette', regulatoryLinks: "Righe d'uso autorizzate",
+    portfolioLinksByCrop: "Righe d'uso per coltura",
+    cropWindows: 'Finestre colturali canoniche', currentFieldSignals: 'Letture di campo e atti regionali',
+    cropEconomicWeight: 'Portata delle etichette per coltura',
+    windowCalendarRows: 'Calendario finestre', windowsByRegion: 'Finestre per regione',
+    marketObservations: 'Osservazioni di prezzo', marketByCrop: 'Mercato per coltura',
+    marketSummaries: 'Analisi di mercato (manifesto)',
+    competitorActivities: 'Comunicazione pubblica osservata', competitorCompanies: 'Aziende osservate',
+    competitorProducts: 'Prodotti concorrenti citati', competitorCropDensity: 'Densità per coltura',
+    competitorIssueDensity: 'Densità per avversità', competitorMatrix: 'Matrice azienda × coltura',
+    competitorWindowMoments: 'Finestra × concorrenza', communicationAxis: 'Vocabolario pubblicato',
+    scienceRecords: 'Record scientifici', researchers: 'Ricercatori', scienceThemes: 'Temi bibliometrici',
+    resistance: 'Casi di resistenza confermati', scienceInstitutions: 'Istituzioni (affiliazione autore)',
+    publicVoices: 'Voci pubbliche', publicChannels: 'Canali pubblici', publicPeople: 'Persone con evidenza pubblica',
+    people: 'Persone / Ricercatori',
+    regulatoryFuture: 'Scadenze di autorizzazione', agrometConditions: 'Condizioni agrometeo',
+    futureEvents: 'Eventi di settore', opportunities: 'Convergenze a monte', futureSignals: 'Segnali futuri',
+    sources: 'Registro delle fonti', news: 'Stampa tecnica',
+    relationships: 'Relazioni dichiarate', clientSafeCrossings: 'Incroci verificati',
+    archive: 'Archivio (indice)',
+    futureScenarios: 'Scenari di presentazione', opportunityScenarios: 'Casi di presentazione',
+    fieldMessages: 'Integrazione Field Sales (dimostrativa)',
+  };
+
+  /* real / derived / demo are now three different things, not two.
+     REAL_DERIVED is honest work done ON real records — it is neither a raw
+     observation nor a demo row, and counting it as "real" inflated the package.
+     isIndex marks a layer whose rows re-index records already counted in
+     another layer, so a total can be published without double counting. */
+  const provenanceSummary = primaryKeys.map((k) => {
+    const c = collections[k];
+    const cls = (r) => provOf(r, c.provenance);
+    const derived = c.records.filter((r) => cls(r) === P.REAL_DERIVED).length;
+    const demo = c.records.filter((r) => !!DEMO_CLASSES[cls(r)]).length;
+    return {
+      layer: k,
+      label: LAYER_LABEL[k] || k,
+      provenance: c.provenance,
+      source: c.source,
+      total: c.count,
+      real: c.count - derived - demo,
+      derived,
+      demo,
+      isIndex: !!c.isIndex,
+      note: c.note,
+    };
+  });
 
   const counts = Object.keys(collections).reduce((a, k) => { a[k] = collections[k].count; return a; }, {});
   const totals = provenanceSummary.reduce(
-    (a, r) => ({ total: a.total + r.total, real: a.real + r.real, demo: a.demo + r.demo }),
-    { total: 0, real: 0, demo: 0 }
+    (a, r) => ({ total: a.total + r.total, real: a.real + r.real, derived: a.derived + r.derived, demo: a.demo + r.demo }),
+    { total: 0, real: 0, derived: 0, demo: 0 }
+  );
+  const provenanceTotals = provenanceSummary.filter((r) => !r.isIndex).reduce(
+    (a, r) => ({ real: a.real + r.real, derived: a.derived + r.derived, demo: a.demo + r.demo, indexRows: a.indexRows }),
+    { real: 0, derived: 0, demo: 0, indexRows: provenanceSummary.filter((r) => r.isIndex).reduce((s, r) => s + r.total, 0) }
   );
 
   /* narrative debt, measured rather than assumed */
@@ -1696,43 +2472,139 @@
      One index over the normalized model, in both languages. A search result
      opens the real entity it names — never a look-alike. */
   const searchIndex = [];
-  const idx = (kind, id, label, terms, route, meta) =>
+  /* Search terms are the one place where a research note becomes a visible
+     fact: a note in the term list makes the record match a word nobody wrote
+     about it, and the note text then appears in an autocomplete. TERMS()
+     therefore drops the unknown sentence, drops anything longer than a term
+     could plausibly be, folds diacritics and lowercases. */
+  const TERM_MAX = 80;
+  const TERMS = (list) => uniq(
+    A(list).flatMap((t) => A(t))
+      .map((t) => S(t))
+      .filter((t) => t && !UNKNOWN_SENTINEL.test(t) && t.length <= TERM_MAX)
+      .map((t) => fold(t).toLowerCase())
+  );
+  /* A crop is searchable in every vocabulary it is actually published in. Only
+     unambiguous pairs are expanded; a group word ('cereali', 'colture',
+     'CEREAL') has no unambiguous canonical partner and is indexed verbatim. */
+  const cropTerms = (raw) => {
+    const out = A(raw).slice();
+    A(raw).forEach((c) => {
+      const canon = CROP_BY_TOKEN[U(c)] || CROP_BY_LATIN[U(c)] || CROP_BY_IT[U(c)] || null;
+      if (canon) out.push(canon);
+    });
+    return out;
+  };
+  const issueTerms = (raw) => A(raw).slice();
+
+  /* Every entry carries the group the results screen buckets on and the extra
+     state its destination view needs, so the view is one reduce and one
+     dispatcher instead of eight per-kind scans. */
+  const idx = (kind, group, id, label, terms, route, meta, routeArgs, provenance) =>
     id && searchIndex.push({
-      kind, id, label: String(label || id), route: route || kind,
-      terms: uniq(terms.flatMap((t) => A(t)).filter(Boolean).map((t) => String(t).toLowerCase())),
-      meta: meta || null,
+      kind, group, id, label: String(label || id), route: route || kind,
+      terms: TERMS(terms),
+      meta: meta === undefined ? null : meta,
+      routeArgs: routeArgs || null,
+      provenance: provenance || P.REAL_SOURCE,
     });
 
-  products.forEach((p) => idx('product', p.name, p.name, [p.name, p.ai, p.categoryLabel, p.line, p.crops], 'product', p.categoryLabel));
-  opportunities.records.forEach((o) => idx('case', o.id, [o.issue, o.region].filter(Boolean).join(' · '), [o.title, o.issue, o.crop, o.region, o.id, o.legacyCaseId], 'case', o.crop));
-  publicVoices.records.forEach((v) => idx('voice', v.id, v.person || v.channel || v.title, [v.person, v.channel, v.crop, v.issue, v.title, v.organization], 'voice', v.platform));
-  futureSignals.records.forEach((f) => idx('signal', f.id, [f.issue, f.region].filter(Boolean).join(' · '), [f.issue, f.crop, f.region, f.id], 'signal', f.crop));
-  researchers.records.forEach((r) => idx('researcher', r.id, r.name, [r.name, r.org, r.institutions, r.theme], 'person', r.org));
-  resistance.records.forEach((r) => idx('resistance', r.id, r.species, [r.species, r.speciesIt, r.crop, r.family], 'science', r.crop));
-  cropWindows.records.forEach((w) => idx('window', w.id, [w.issue, w.region].filter(Boolean).join(' · '), [w.crop, w.issue, w.region, w.id], 'window', w.crop));
-  sources.records.forEach((s) => idx('source', s.id, s.name, [s.name, s.type, s.geography, s.country], 'source', s.type));
-  futureEvents.records.forEach((e) => idx('event', e.id, e.name, [e.name, e.location, e.sector, e.cropRelevance], 'event', e.location));
-  news.records.forEach((n) => idx('news', n.id, n.title, [n.title, n.publisher, n.crop, n.issue, n.region], 'news', n.publisher));
-  scienceRecords.records.forEach((r) => idx('science', r.id, r.title, [r.title, r.institution, r.crop, r.issue, r.author], 'science', r.institution));
-  competitorCompanies.records.forEach((c) => idx('company', c.name, c.name, [c.name, c.productsProved], 'company', null));
-  competitorProducts.records.forEach((p) => idx('competitor', p.id, p.name, [p.name, p.company], 'cproduct', p.company));
-  marketObservations.records.forEach((m) => idx('market', m.id, [m.product, m.market].filter(Boolean).join(' · '), [m.product, m.market, m.geography, m.group], 'market', m.geography));
-  publicChannels.records.forEach((c) => idx('channel', c.id, c.name, [c.name, c.contentTypeExample], 'voice', c.name));
+  products.forEach((p) => idx('product', 'PRODUCT', p.name, p.name, [p.name, p.ai, p.categoryLabel, p.line, cropTerms(p.crops)], 'product', p.aiLabel || p.categoryLabel, { productName: p.name }, P.REAL_SOURCE));
+  opportunities.records.forEach((o) => idx('case', 'OPPORTUNITY', o.id, o.title || [o.issue, o.region].filter(Boolean).join(' · '), [o.title, o.issue, o.crop, cropTerms(o.cropKeys), o.regionKeys, o.id, o.legacyCaseId], 'case', o.crop, { caseId: o.id }, o.provenance));
+  publicVoices.records.forEach((v) => idx('voice', 'FIELD_VOICE', v.id, v.person || v.channel || v.title, [v.person, v.channel, cropTerms([v.crop]), v.issue, v.title, v.organization], 'voices', v.platform, { voiceId: v.id }, v.provenance));
+  futureSignals.records.forEach((f) => idx('signal', 'SIGNAL', f.id, [f.issue, f.region].filter(Boolean).join(' · ') || f.id, [f.issue, f.crop, f.region, f.id], 'signal', f.crop, { signalId: f.id }, f.provenance));
+  researchers.records.forEach((r) => idx('researcher', 'PEOPLE', r.id, r.name, [r.name, r.institutions, r.theme, r.themeLabel], 'person', r.orgLabel, { personId: r.id }, r.provenance));
+  resistance.records.forEach((r) => idx('resistance', 'SCIENCE', r.id, r.species, [r.species, r.speciesIt, cropTerms([r.crop]), r.family], 'gire', r.crop, { gireFocusId: r.id }, r.provenance));
+  cropWindows.records.forEach((w) => idx('window', 'WINDOW', w.id, [w.issue, w.region].filter(Boolean).join(' · '), [w.crop, w.issue, w.region, w.id, w.legacyCaseId], 'window', w.crop, { windowId: w.windowId }, w.provenance));
+  sources.records.forEach((s) => idx('source', 'SOURCE', s.id, s.name, [s.name, s.type, s.geography, s.country, s.groupLabel], 'source', s.type, { sourceId: s.id }, s.provenance));
+  futureEvents.records.forEach((e) => idx('event', 'EVENT', e.id, e.name, [e.name, e.location, e.sector, e.cropRelevance, e.organizer], 'event', e.location, { eventId: e.id }, e.provenance));
+  news.records.forEach((n) => idx('news', 'NEWS', n.id, n.title, [n.title, n.publisher, cropTerms([n.crop]), n.issue, n.author], 'news', n.publisher, { newsId: n.id }, n.provenance));
+  scienceRecords.records.forEach((r) => idx('science', 'SCIENCE', r.id, r.title, [r.title, r.institution, cropTerms([r.crop]), issueTerms([r.issue]), r.author, r.venue], 'science', r.institution, { sciFocusId: r.id }, r.provenance));
+  competitorCompanies.records.forEach((c) => idx('company', 'COMPETITOR', c.name, c.name, [c.name, c.productsProved, c.pages], 'company', null, { fCompany: c.name }, c.provenance));
+  competitorActivities.records.forEach((a) => idx('competitor', 'COMPETITOR', a.id, a.displayName, [a.company, a.page, a.products, cropTerms(a.crops), issueTerms(a.issues)], 'cproduct', a.company, { activityId: a.id }, a.provenance));
+  marketObservations.records.forEach((m) => idx('market', 'MARKET', m.id, [m.product, m.market].filter(Boolean).join(' · '), [m.product, m.market, m.geography, m.group, m.cropKey], 'market', m.unit, { mCrop: m.ui.marketCropKey }, m.provenance));
+  publicChannels.records.forEach((c) => idx('channel', 'FIELD_VOICE', c.id, c.name, [c.name, c.contentTypeExample, c.platform], 'voices', c.platform, { channelId: c.id }, c.provenance));
+
+  /* Demo rows are never pushed: a search result must open a real entity. */
 
   const search = (query, limit) => {
-    const q = String(query || '').trim().toLowerCase();
+    const q = fold(String(query || '')).trim().toLowerCase();
     if (q.length < 2) return [];
-    const out = searchIndex.filter((e) => e.label.toLowerCase().includes(q) || e.terms.some((t) => t.includes(q)));
+    const out = searchIndex.filter((e) => fold(e.label).toLowerCase().includes(q) || e.terms.some((t) => t.includes(q)));
     return limit ? out.slice(0, limit) : out;
   };
+  /* Group the hits the way the results screen renders them, in one pass. */
+  const searchGrouped = (query, limit) => {
+    const hits = search(query, limit);
+    const order = ['OPPORTUNITY', 'WINDOW', 'PRODUCT', 'SIGNAL', 'FIELD_VOICE', 'SCIENCE', 'PEOPLE', 'COMPETITOR', 'MARKET', 'SOURCE', 'NEWS', 'EVENT'];
+    const by = {};
+    hits.forEach((h) => { (by[h.group] = by[h.group] || []).push(h); });
+    return order.filter((g) => by[g]).map((g) => ({ group: g, count: by[g].length, entries: by[g] }));
+  };
 
-  /* ── 10 · PUBLIC CONTRACT ───────────────────────────────────────────── */
+  /* ── 10 · VALIDATION REPORT ─────────────────────────────────────────────
+     None of the wrong-key bugs this rebuild fixed would have survived a build
+     that had to publish what it accepted, what it rejected, and how full each
+     contract field actually is. fieldCoverage is measured, not asserted: it is
+     produced by counting the built records, so it cannot drift from them. */
+  const COVERAGE_FIELDS = {
+    cropWindows: ['startDate', 'endDate', 'status', 'dateState', 'region', 'verifiedProducts', 'regulatory', 'sourceIds'],
+    currentFieldSignals: ['cropCanonical', 'region', 'regulatoryAct', 'coverageState'],
+    marketObservations: ['cropKey', 'periodStart', 'periodEnd', 'stage', 'publicationDate', 'changeVsPrev', 'changeVsYearAgo'],
+    competitorActivities: ['startDate', 'page', 'text', 'cropsCanonical', 'issuesObserved'],
+    competitorCompanies: ['firstObserved', 'lastObserved', 'pages'],
+    competitorProducts: ['activityIds', 'firstSeen'],
+    scienceRecords: ['publishedAt', 'doi', 'author', 'orcid', 'institution', 'venue', 'themeKey'],
+    researchers: ['orcid', 'openalexId', 'institutions', 'theme', 'lastActivity', 'role', 'factRegion'],
+    publicPeople: ['role', 'identityEvidence', 'roleEvidence'],
+    sources: ['role', 'group', 'frequency', 'accessStatus', 'limitations', 'latestObservationISO'],
+    futureEvents: ['name', 'url', 'startDate', 'organizer', 'cropRelevance'],
+    news: ['publisher', 'url', 'dateISO', 'region', 'publisherSourceId'],
+    publicChannels: ['url', 'platform', 'exampleTitle'],
+    regulatoryLinks: ['cropKey', 'target', 'labelUrl', 'timing'],
+    regulatoryFuture: ['expiryISO', 'holder', 'status'],
+    archive: ['dateISO', 'sourceId', 'crop', 'url'],
+    opportunities: ['cropKeys', 'issueKey', 'observationDate', 'freshnessDays', 'windowId'],
+  };
+  const nonEmpty = (v) => !(v === null || v === undefined || v === '' || (Array.isArray(v) && !v.length));
+  const validationReport = {
+    referenceDate: REFERENCE_DATE,
+    families: primaryKeys.map((k) => {
+      const c = collections[k];
+      const fields = COVERAGE_FIELDS[k] || [];
+      const cov = {};
+      fields.forEach((f) => { cov[f] = c.records.filter((r) => nonEmpty(r[f])).length; });
+      const fam = ingestReport.families.filter((x) => x.family === k)[0] || null;
+      return {
+        name: k, sourceKey: c.source, received: fam ? (fam.tried || []).reduce((s, t) => s + (t.in || 0), 0) : c.count,
+        accepted: c.count, rejected: (c.rejected || []).length, rejections: c.rejected || [],
+        fieldCoverage: cov, emptyValid: c.count === 0,
+      };
+    }),
+    /* An id that means two different records is the one failure this index
+       cannot recover from, so it is checked rather than assumed. */
+    idCollisions: (() => {
+      const out = [];
+      primaryKeys.forEach((k) => {
+        const seen = {};
+        collections[k].records.forEach((r) => { if (r && r.id !== undefined) { if (seen[r.id]) out.push({ family: k, id: r.id }); seen[r.id] = 1; } });
+      });
+      return out;
+    })(),
+    /* A REAL_* collection must not contain a demo-class record. Empty is the
+       only acceptable value here. */
+    demoLeaks: primaryKeys.filter((k) => !DEMO_CLASSES[collections[k].provenance])
+      .flatMap((k) => collections[k].records.filter((r) => isDemo(r, collections[k].provenance)).map((r) => ({ family: k, id: r && r.id }))),
+    narrativeDebt,
+  };
+
+  /* ── 11 · PUBLIC CONTRACT ───────────────────────────────────────────── */
   window.ITALY_APP_MODEL = {
-    version: '3.0',
+    version: '3.1',
     compiled: REFERENCE_DATE,
 
     /* one clock */
-    referenceDate: REFERENCE_DATE, REF, daysFrom, asDate,
+    referenceDate: REFERENCE_DATE, REF, daysFrom, asDate, isoOf, fmtDate,
 
     /* provenance vocabulary */
     PROVENANCE: P, PRECEDENCE, provOf, isDemo,
@@ -1740,16 +2612,65 @@
     KNOWLEDGE, narrative,
     CATEGORY_UI, categoryOf,
 
+    /* presentation tokens — icon, colour, order, grid. No facts live here. */
+    UI: {
+      CATEGORY: CATEGORY_UI,
+      INK, inkOn, NEUTRAL,
+      STATUS: STATUS_UI,
+      DEPARTMENT: DEPARTMENT_UI,
+      SOURCE_TYPE_COLOR,
+      ARCHIVE: ARCHIVE_UI,
+      REGION_GRID,
+      fmtDate,
+    },
+
+    /* the declared joins, exported so an auditor can read them without reading
+       the code that uses them */
+    lookups: {
+      CROP_KEY, CROP_BY_CODE, CROP_BY_LATIN, CROP_BY_TOKEN, CROP_BY_IT,
+      GENERIC_CROP_TERMS, MARKET_CROP, MARKET_VIEW_KEY, THEME_UI,
+      SOURCE_GROUP, SOURCE_GROUP_LABEL, OPP_CROP, OPP_ISSUE,
+      ARCHIVE_PLATFORM_SOURCE, PERSON_CATEGORY_LABEL, LAYER_LABEL,
+      /* NOT PROVIDED, deliberately. An ISSUE_TARGET table would map each
+         canonical window issue ('Septoria Leaf Blotch') onto the Latin targets
+         used by the registry use rows ('Zymoseptoria tritici'). Measured: only
+         6 of the 22 window issues have ANY matching target among the 219 use
+         rows; the other 16 — including Flavescenza Dorata, European Corn Borer,
+         Olive Fruit Fly, Codling Moth, Downy Mildew and every wheat rust — have
+         zero. Authoring the table would therefore be authoring most of it, and
+         the resulting rows would look like registry evidence while being a
+         Sintonia guess. Registry use rows are instead exposed as themselves, in
+         collections.regulatoryLinks, keyed by their own Latin target. */
+      ISSUE_TARGET: null,
+      ISSUE_TARGET_STATE: 'NOT_AUTHORED · 16 of 22 window issues have no matching target in the 219 use rows',
+    },
+
     /* the product law, stated in the contract itself */
     productDefinition: 'EXTERNAL_INTELLIGENCE_CORE',
     coreRequiresPrivateData: false,
     NOT_OBSERVABLE: P.NOT_OBSERVABLE,
 
     /* data */
-    collections, counts, totals, provenanceSummary,
-    searchIndex, search,
+    collections, counts, totals, provenanceSummary, provenanceTotals,
+    searchIndex, search, searchGrouped, TERMS, cropTerms, issueTerms,
     products, productByKey, findProduct, strengthFor,
     productRelationships,
+    labelVerdicts,
+    people,
+    preparation,
+    publicationsForPerson,
+    sourceById: (id) => sourceById[U(id)] || null,
+    sourceNameOf,
+
+    /* Explicitly-labelled demo configuration (§5). These are invented ADAMA
+       business rules, not observations and not colours, so they carry a
+       provenance stamp instead of being hardcoded inside a caption. */
+    DEMO: {
+      provenance: P.SYNTHETIC_DEMO,
+      PREP_LEAD_DAYS: preparation.leadDays,
+      PLANNING_LADDER: preparation.ladder,
+      PLANNING_LEAD_RULE: preparation.departments,
+    },
 
     /* the ingestion boundary, so the receiver can be audited */
     ingest: {
@@ -1758,6 +2679,8 @@
       registeredSources: Object.keys(RAW).filter((k) => RAW[k] && (Array.isArray(RAW[k]) ? RAW[k].length : Object.keys(RAW[k]).length)),
       handoffV21Present: !!RAW.HANDOFF_V21,
       families: primaryKeys,
+      validationReport,
     },
+    validationReport,
   };
 })();

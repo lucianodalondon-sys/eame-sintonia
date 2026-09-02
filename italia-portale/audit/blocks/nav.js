@@ -2,9 +2,9 @@
     /* §1 · Core = external intelligence, so Field Sales inbound stays OUT of the INTELLIGENCE
     group. §5 · it lives in the amber INTEGRAZIONI · DEMO group and its 18 records are read
     from the model's own SYNTHETIC_DEMO collection (provenance 'SYNTHETIC_DEMO', real 0,
-    demo 18) instead of the raw fixture — measured field-by-field identical to
-    D.FIELD_MESSAGES on all 31 keys, including the 10 caseObj and 2 signalObj joins the case
-    and field screens read, so nothing downstream changes shape. */
+    demo 18) instead of the raw inbound fixture — measured field-by-field identical to it on
+    all 31 keys, including the 10 caseObj and 2 signalObj joins the case and field screens
+    read, so nothing downstream changes shape. */
     const navDemoInbound = (AM && AM.collections.fieldMessages) ? AM.collections.fieldMessages.records : [];
     const allMessages = s.extraMessages.concat(navDemoInbound);
 
@@ -21,8 +21,8 @@
     Sales Representatives, i.e. internal staff, which §1 forbids from the core. People are a
     separate real collection (15 with documented role evidence, 60 OpenAlex researchers) and
     are counted on the Sources screen itself, never folded into this badge.
-    §3 · 'market' can no longer read window.ITALY_MARKET.CROPS.length (8 hand-authored crop
-    tabs, none of which carries a SOURCE_ID). The only real backing is the 76 EU Commission
+    §3 · 'market' no longer counts the market-pulse fixture's crop tabs (8 hand-authored
+    entries, none carrying a SOURCE_ID). The only real backing is the EU Commission
     Agri-food weekly price observations, so the badge counts those; the fixture's 8 tabs
     included Tomato, Sugar Beet and Apple, for which the real corpus holds zero rows. */
     const navDef = [

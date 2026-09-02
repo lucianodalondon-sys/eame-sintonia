@@ -384,18 +384,29 @@ check('I1', 'Italian is the default language and the switch does not reload', ()
 check('PT1', 'No Portuguese research prose reaches any rendered screen', () => {
   const m = mount();
   const hits = [];
+  let rendered = 0;
+  const want = SCREENS.length * 2;
   for (const sc of SCREENS) {
     for (const lang of ['it', 'en']) {
       const patch = Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
       const r = m.tryVals(patch);
       if (!r.ok) continue;
+      rendered++;
       for (const { path, value } of collectStrings(r.vals)) {
         if (isPortuguese(value)) hits.push(`${sc.label}/${lang} ${path}: ${value.slice(0, 110)}`);
       }
     }
   }
   const uniqueHits = [...new Set(hits)];
-  return { pass: uniqueHits.length === 0, expected: 0, measured: uniqueHits.length, detail: uniqueHits.slice(0, 14) };
+  /* A language check that passes because nothing rendered is a false green —
+     exactly the kind of empty pass this suite exists to prevent. */
+  const vacuous = rendered < want;
+  return {
+    pass: uniqueHits.length === 0 && !vacuous,
+    expected: `0 hits over ${want} renders`,
+    measured: vacuous ? `${uniqueHits.length} hits but only ${rendered}/${want} rendered — INCONCLUSIVE` : `${uniqueHits.length} hits over ${rendered} renders`,
+    detail: uniqueHits.slice(0, 14),
+  };
 });
 
 check('PT2', 'Every crop token that reaches a screen resolves to the canonical vocabulary', () => {
@@ -539,15 +550,21 @@ check('RT3', 'No screen renders the string "undefined" or "[object Object]"', ()
     seen.add(v);
     for (const k of Object.keys(v)) { if (k === 'raw') continue; walk(v[k], seen, out, p ? `${p}.${k}` : k); }
   };
+  let rendered = 0;
   for (const sc of SCREENS) {
     const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
     const r = m.tryVals(patch);
     if (!r.ok) continue;
+    rendered++;
     const out = [];
     walk(r.vals, new Set(), out, '');
     if (out.length) bad.push(`${sc.label}: ${out.slice(0, 3).join(' · ')}`);
   }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 12) };
+  /* A pass that comes from nothing rendering is a false green. */
+  const vacuous = rendered < SCREENS.length;
+  return { pass: bad.length === 0 && !vacuous, expected: `0 over ${SCREENS.length} screens`,
+    measured: vacuous ? `${bad.length} but only ${rendered}/${SCREENS.length} rendered — INCONCLUSIVE` : `${bad.length} over ${rendered} screens`,
+    detail: bad.slice(0, 12) };
 });
 
 check('RT4', 'Back returns to the previous portal state', () => {
@@ -567,6 +584,66 @@ check('H1', 'Handoff V2.1 has NOT been ingested', () => {
   const files = fs.readdirSync(CLIENT);
   const forbidden = files.filter((f) => /NEW-REAL-DATA|handoff-v2|HANDOFF-V2/i.test(f));
   return { pass: forbidden.length === 0, expected: 0, measured: forbidden.length, detail: forbidden };
+});
+
+
+/* ── 14 · the template contract ───────────────────────────────────────────
+   renderVals() is only half the render. The markup binds ~1200 expressions by
+   name, and the runtime degrades a missing sc-for list to an empty array with
+   a console warning — so a prop that quietly disappears does not crash, it just
+   stops showing. That is exactly the failure this migration could ship without
+   noticing, so the binding contract is checked explicitly. */
+
+function markupBindings() {
+  const mk = extractMarkup(readPortal());
+  /* every {{ ... }} expression, plus the loop variables sc-for introduces */
+  const roots = new Set();
+  const loopVars = new Set();
+  let m;
+  const asRe = /sc-for\b[^>]*\bas="([^"]+)"/g;
+  while ((m = asRe.exec(mk))) loopVars.add(m[1]);
+  const exprRe = /\{\{\s*([A-Za-z_$][\w$]*)/g;
+  while ((m = exprRe.exec(mk))) roots.add(m[1]);
+  const forRe = /sc-for\s+list="\{\{\s*([A-Za-z_$][\w$]*)\s*\}\}"/g;
+  const lists = new Set();
+  while ((m = forRe.exec(mk))) lists.add(m[1]);
+  return { roots, loopVars, lists };
+}
+
+check('MK1', 'Every prop the markup binds is still returned by the render', () => {
+  const { roots, loopVars } = markupBindings();
+  const m = mount();
+  const provided = new Set();
+  for (const sc of SCREENS) {
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const r = m.tryVals(patch);
+    if (!r.ok) continue;
+    Object.keys(r.vals).forEach((k) => provided.add(k));
+  }
+  const LITERAL = new Set(['true', 'false', 'null', 'undefined']);
+  const missing = [...roots].filter((k) => !loopVars.has(k) && !provided.has(k) && !LITERAL.has(k)).sort();
+  return { pass: missing.length === 0, expected: 0, measured: missing.length,
+    detail: { bound: roots.size, loopVars: loopVars.size, provided: provided.size, missing: missing.slice(0, 25) } };
+});
+
+check('MK2', 'Every sc-for list resolves to an array on the screen that owns it', () => {
+  const { lists, loopVars } = markupBindings();
+  const m = mount();
+  const seen = {};
+  for (const sc of SCREENS) {
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const r = m.tryVals(patch);
+    if (!r.ok) continue;
+    for (const name of lists) {
+      if (loopVars.has(name)) continue;
+      const v = r.vals[name];
+      if (Array.isArray(v)) seen[name] = 'array';
+      else if (seen[name] !== 'array') seen[name] = v === undefined ? 'undefined' : typeof v;
+    }
+  }
+  const bad = Object.entries(seen).filter(([, t]) => t !== 'array').map(([k, t]) => `${k}: ${t}`);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: { checked: Object.keys(seen).length, bad: bad.slice(0, 25) } };
 });
 
 export function runAll(only) {
