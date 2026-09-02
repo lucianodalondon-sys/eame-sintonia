@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';
 import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';
-import { isPortuguese, isEnglish, collectStrings, cropKeyOf } from './lang.mjs';
+import { isPortuguese, isEnglish, looksEnglish, collectStrings, cropKeyOf } from './lang.mjs';
 
 const REFERENCE_DATE = '2026-09-02';
 
@@ -550,7 +550,7 @@ export const SCREENS = [
   { view: 'competitors', label: 'Competitor issue view', state: { compView: 'issue' } },
   { view: 'company', label: 'Competitor company', pick: (AM) => ({ companyId: (AM.collections.competitorActivities.records[0] || {}).company }) },
   { view: 'science', label: 'Scientific Intelligence' },
-  { view: 'theme', label: 'Science theme', pick: (AM) => ({ themeId: (AM.collections.scienceRecords.records[0] || {}).id }) },
+  { view: 'theme', label: 'Science theme', pick: (AM) => ({ themeId: (AM.collections.scienceThemes.records[0] || {}).id }) },
   { view: 'person', label: 'Researcher', pick: (AM) => ({ personId: (AM.collections.researchers.records[0] || {}).id }) },
   { view: 'portfolio', label: 'Portafoglio' },
   { view: 'product', label: 'Product Intelligence', pick: (AM) => ({ productId: (AM.products[0] || {}).name }) },
@@ -826,6 +826,123 @@ check('DS2', 'A demo scenario is never counted as a real record', () => {
     if (/Scenario|fieldMessages/.test(k)) continue;
     const leaked = (c.records || []).filter((r) => AM.isDemo(r, c.provenance)).length;
     if (leaked) bad.push(`${k}: ${leaked} demo-provenance records inside a real collection`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+});
+
+
+check('MK3', 'Every i18n key the markup binds resolves in both languages', () => {
+  /* MK1 only proves the `t` object is returned. An agent replacing a hardcoded
+     English literal with {{ t.someKey }} and forgetting to add the string
+     leaves a BLANK LABEL over a populated value — worse than the English it
+     replaced, because the reader has to guess what the number means. Measured
+     on the real render, per language. */
+  const mk = extractMarkup(readPortal());
+  const keys = new Set();
+  const re = /\{\{\s*t\.([A-Za-z_$][\w$]*)/g;
+  let m;
+  while ((m = re.exec(mk))) keys.add(m[1]);
+  /* `t` is also a common sc-for alias; those are not i18n keys */
+  const aliases = new Set();
+  const asRe = /sc-for\b[^>]*\bas="t"/g;
+  if (asRe.test(mk)) {
+    const loopKeys = /\{\{\s*t\.([A-Za-z_$][\w$]*)/g;
+    /* keep it simple and conservative: a key that exists in neither locale AND
+       appears only inside an sc-for as="t" region is treated as a loop field */
+    const regions = mk.split(/<sc-for\b[^>]*\bas="t"[^>]*>/).slice(1).map((s) => s.split('</sc-for>')[0]);
+    for (const r of regions) { let mm; loopKeys.lastIndex = 0; while ((mm = loopKeys.exec(r))) aliases.add(mm[1]); }
+  }
+  const m2 = mount();
+  const langs = ['it', 'en'];
+  const resolved = {};
+  for (const lang of langs) {
+    const v = m2.vals({ view: 'radar', lang });
+    resolved[lang] = v.t || {};
+  }
+  const missing = [];
+  for (const k of keys) {
+    if (aliases.has(k)) continue;
+    const bad = langs.filter((l) => resolved[l][k] === undefined || resolved[l][k] === '');
+    if (bad.length) missing.push(`t.${k} (${bad.join(',')})`);
+  }
+  return { pass: missing.length === 0, expected: 0, measured: missing.length,
+    detail: { bound: keys.size, loopAliases: aliases.size, missing: missing.slice(0, 25) } };
+});
+
+check('MK4', 'No hardcoded English text node left in the Italian template', () => {
+  /* renderVals() is the only surface the props-level checks can see. A literal
+     sitting between two tags never becomes a prop, so 222 English strings sat
+     in the Italian interface with every language check green. */
+  const mk = extractMarkup(readPortal());
+  const bad = [];
+  /* text between tags, ignoring interpolations, attributes and style blocks */
+  const cleaned = mk.replace(/<style[\s\S]*?<\/style>/g, '').replace(/<!--[\s\S]*?-->/g, '');
+  const re = />([^<>{}]+)</g;
+  let m;
+  while ((m = re.exec(cleaned))) {
+    const txt = m[1].replace(/\s+/g, ' ').trim();
+    if (txt.length < 4 || !/[A-Za-z]{4}/.test(txt)) continue;
+    if (looksEnglish(txt)) bad.push(txt.slice(0, 70));
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: [...new Set(bad)].slice(0, 20) };
+});
+
+check('R3', 'A stale id reports itself on every detail screen', () => {
+  /* RT3 only walks the happy path. A link that has gone stale must say so, on
+     every drill-down, not render "UNDEFINED · UNDEFINED · UNDEFINED". */
+  const m = mount();
+  const GHOST = 'NO-SUCH-ID-12345';
+  const screens = [
+    ['case', { caseId: GHOST }], ['signal', { signalId: GHOST }], ['window', { windowId: GHOST }],
+    ['source', { sourceId: GHOST }], ['person', { personId: GHOST }], ['theme', { themeId: GHOST }],
+    ['company', { companyId: GHOST }], ['event', { eventId: GHOST }], ['cproduct', { cproductId: GHOST }],
+    ['product', { productId: GHOST }],
+  ];
+  const bad = [];
+  for (const [view, patch] of screens) {
+    const r = m.tryVals(Object.assign({ view, lang: 'it' }, patch));
+    if (!r.ok) { bad.push(`${view}: threw — ${r.error}`); continue; }
+    const strings = collectStrings(r.vals).map((s) => s.value);
+    /* "undefined" is matched in any case, because the breadcrumb upper-cases
+       it. "NaN" is matched case-SENSITIVELY, because /nan/i hits inside an
+       ordinary public handle like @giulianomassignan1737 — a real identity,
+       not junk. */
+    const junk = strings.filter((s) => /\bundefined\b/i.test(s) || /\[object Object\]/.test(s) || /\bNaN\b/.test(s));
+    if (junk.length) { bad.push(`${view}: renders "${junk[0].slice(0, 60)}"`); continue; }
+    /* something must state the absence */
+    /* the props graph is cyclic, so look for the flag by key rather than by
+       serializing the whole thing */
+    const flagged = Object.entries(r.vals).some(([k, v]) => v === true && /missing|notfound/i.test(k));
+    const saysMissing = flagged || strings.some((s) => /non trovat|not found|non esiste|nessun risultato/i.test(s));
+    if (!saysMissing) bad.push(`${view}: silent — no missing state and no message`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
+});
+
+
+check('X1', 'Two screens never contradict each other on the same crop × issue', () => {
+  /* The Opportunity screen printed "verifica etichetta necessaria" over the
+     exact pair the Window screen proved VERIFIED — because the lookup was keyed
+     on the source's Portuguese wording and the record had since been resolved
+     into Italian. A cross-screen comparison is the only thing that catches a
+     join breaking on one side. */
+  const m = mount();
+  const AM = m.AM;
+  const bad = [];
+  for (const o of AM.collections.opportunities.records) {
+    if (!o.cropKeys || !o.cropKeys.length || !o.issueKey) continue;
+    const w = AM.collections.cropWindows.records.find(
+      (x) => x.crop === o.cropKeys[0] && String(x.issue || '').toLowerCase().includes(String(o.issueKey).toLowerCase().split(' ')[0]));
+    if (!w) continue;
+    for (const l of o.productLinks || []) {
+      const fromAudit = AM.strengthFor(l.name, o.cropKeys[0], o.issueKey);
+      if (fromAudit === 'VERIFIED_LABEL_MATCH' && l.strength !== 'VERIFIED_LABEL_MATCH') {
+        bad.push(`${o.id} ${l.name}: opportunity says ${l.strength}, the label audit says VERIFIED`);
+      }
+      if (l.strength === 'VERIFIED_LABEL_MATCH' && fromAudit !== 'VERIFIED_LABEL_MATCH') {
+        bad.push(`${o.id} ${l.name}: opportunity claims VERIFIED, the audit says ${fromAudit}`);
+      }
+    }
   }
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
 });

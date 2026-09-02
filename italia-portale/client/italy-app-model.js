@@ -587,6 +587,16 @@
   const OPP_ISSUE = {
     'FLAVESCENCIA DOURADA, VIA O VETOR SCAPHOIDEUS TITANUS': 'Flavescenza Dorata',
     'PIRALIDE (OSTRINIA NUBILALIS) E DIABROTICA VIRGIFERA VIRGIFERA': 'European Corn Borer',
+    /* The record's ISSUE is now resolved into Italian before it reaches a
+       screen, so the Portuguese key alone stopped matching and the Opportunity
+       screen printed "verifica etichetta necessaria" over two matches the
+       Window screen proved on the same crop and issue — the audited claim
+       inverted, on the one mandatory-control case in the package. Both the
+       published and the resolved wording are keys, so translating a record can
+       never break this join again. */
+    'FLAVESCENZA DORATA, TRAMITE IL VETTORE SCAPHOIDEUS TITANUS': 'Flavescenza Dorata',
+    'FLAVESCENCE DOREE, THROUGH THE VECTOR SCAPHOIDEUS TITANUS': 'Flavescenza Dorata',
+    'EUROPEAN CORN BORER (OSTRINIA NUBILALIS) AND DIABROTICA VIRGIFERA VIRGIFERA': 'European Corn Borer',
   };
 
   /* Bibliometric theme token -> a controlled display title. NOT a translation of
@@ -2242,7 +2252,8 @@
      the audit being asked the question in the vocabulary it was written in. */
   opportunities.records.forEach((o) => {
     const cropEN = o.cropKeys[0] || null;
-    const issueEN = OPP_ISSUE[oppKey(o.issue)] || null;
+    /* try the resolved wording, then the wording the source published */
+    const issueEN = OPP_ISSUE[oppKey(o.issue)] || OPP_ISSUE[oppKey(o.issueRaw)] || null;
     o.issueKey = issueEN;
     o.productLinks = o.adamaProducts.map((name) => {
       const strength = cropEN && issueEN ? labelVerdicts.verdictFor(cropEN, issueEN, name) : 'LABEL_CHECK_NEEDED';
