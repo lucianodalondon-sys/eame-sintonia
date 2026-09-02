@@ -1376,6 +1376,48 @@ check('V6', 'The commercial catalogue and the regulatory universe are never summ
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: { commercial: com, regulatory: reg, bad } };
 });
 
+check('V7', 'The audited window contract survives the V2.1 ingestion', () => {
+  /* A trap with a very quiet failure mode. The V2.1 package ships
+     CROP-WINDOWS.json under the key APP.windows — 7 rows, sourced from regional
+     lotta obbligatoria decrees. The site's crop-window contract is a DIFFERENT
+     table: window.ITALY_CANONICAL, 29 audited windows carrying START_DATE,
+     END_DATE, CURRENT_STATUS and DATE_STATE.
+
+     Measured: the id spaces do not overlap — IT-WIN-001..007 against
+     IT-WIN-0001..0029 — and the package's REPLACES_OLD_FILES for that family
+     names a previous-handoff file, not the canonical contract. So the 7 are
+     field readings, not a replacement.
+
+     If an adapter lets them win by name, the Crop Windows screen silently drops
+     from 29 windows to 7 and every date, stage and agronomic status disappears
+     with them. Nothing throws. This check is the only thing that would notice. */
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const C = AM.collections || {};
+  const canon = (ctx.ITALY_CANONICAL && ctx.ITALY_CANONICAL.windows) || [];
+  const bad = [];
+  const w = C.cropWindows;
+  if (!w) bad.push('collections.cropWindows is absent');
+  else {
+    if (w.count < canon.length) bad.push(`cropWindows is ${w.count}; the audited contract has ${canon.length}`);
+    const withStatus = (w.records || []).filter((r) => r.status).length;
+    const withDates = (w.records || []).filter((r) => r.startDate || r.endDate).length;
+    if (withStatus < canon.length) bad.push(`only ${withStatus} of ${w.count} windows carry an agronomic status`);
+    if (withDates < 20) bad.push(`only ${withDates} windows carry a date; the contract supplies 24`);
+  }
+  /* the 7 decree readings must still be reachable, just not as the contract */
+  const V = ctx.ITALY_HANDOFF_V21;
+  const decree = (V && V.collections && V.collections.windows) || [];
+  const fs2 = C.currentFieldSignals;
+  if (decree.length && (!fs2 || fs2.count === 0)) bad.push('the 7 decree-backed readings are not exposed anywhere');
+  return {
+    pass: bad.length === 0,
+    expected: `>= ${canon.length} canonical windows`,
+    measured: w ? `${w.count} windows` : 'ABSENT',
+    detail: { canonical: canon.length, decreeReadings: decree.length, fieldSignals: fs2 ? fs2.count : 0, bad },
+  };
+});
+
 export function runAll(only) {
   const list = only ? CHECKS.filter((c) => only.includes(c.id)) : CHECKS;
   return list.map((c) => {
