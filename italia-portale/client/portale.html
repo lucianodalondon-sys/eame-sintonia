@@ -253,7 +253,7 @@
           <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start">
             <div style="display:grid;grid-template-columns:repeat(4,34px);grid-auto-rows:26px;gap:3px">
               <sc-for list="{{ regionTiles }}" as="r" hint-placeholder-count="20">
-                <div onClick="{{ r.go }}" title="{{ r.name }}" style="grid-column:{{ r.gc }};grid-row:{{ r.gr }};border-radius:6px;background:{{ r.color }};border:1px solid {{ r.border }};display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:{{ r.textColor }};cursor:pointer;letter-spacing:0.04em" style-hover="filter:brightness(1.25)">{{ r.short }}</div>
+                <div onClick="{{ r.go }}" title="{{ r.name }}" style="grid-column:{{ r.gc }};grid-row:{{ r.gr }};border-radius:6px;background:{{ r.color }};border:1px solid {{ r.border }};display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:{{ r.textColor }};cursor:{{ r.cursor }};letter-spacing:0.04em" style-hover="filter:brightness(1.25)">{{ r.short }}</div>
               </sc-for>
             </div>
             <div style="flex:1;display:flex;flex-direction:column;gap:5px">
@@ -261,9 +261,10 @@
                 <div onClick="{{ r.go }}" style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:11px" style-hover="color:#fff">
                   <span style="width:7px;height:7px;border-radius:50%;background:{{ r.color }};flex:0 0 7px"></span>
                   <span style="flex:1;color:#E4E0DE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
-                  <span style="font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ r.cases }}</span>
+                  <span style="font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ r.opportunities }}</span>
                 </div>
               </sc-for>
+              <span style="font-size:9.5px;color:#8F8886;line-height:1.4;padding-top:2px">{{ regionRankNote }}</span>
             </div>
           </div>
         </div>
@@ -2929,27 +2930,39 @@ class Component extends DCLogic {
       ? AM.UI.REGION_GRID.map(r => ({ name: r.name, col: r.col, row: r.row, short: r.short }))
       : /*@VISUAL_ONLY 4x5 grid geometry and the 2-3 letter tile labels for Italy's 20 administrative regions; every NUMBER on this map comes from AM.collections.cropWindows[].region*/ D.REGION_STATS.map(r => ({ name: r.name, col: r.col, row: r.row, short: r.short }));
     /* Two real numbers per region, kept separate because they are different facts:
-       `windows` is the canonical crop-window count (29 across 9 regions) and `cases`
+       `windows` is the canonical crop-window count (29 across 9 regions) and `opportunities`
        is how many of the 3 radar records resolve to that region through regionKeys
        (Veneto 1 · Lombardia 1 · Friuli-Venezia Giulia 1, and 0 everywhere else).
-       The tile is lit by windows, because a map lit by 3 records would be a blank map. */
+       The panel used to LIGHT and RANK by `windows` while its heading asked where ADAMA
+       attention is concentrated and its click filtered the OPPORTUNITY radar: measured,
+       5 of the 7 ranked rows opened an empty radar (Puglia 6→0, Emilia-Romagna 4→0,
+       Piemonte 3→0, Sicilia 3→0, Toscana 2→0). The heading and the click both name
+       opportunities, so the number is now the opportunity count and nothing lights that
+       filters to nothing. `windows` stays on the object as the other, differently-named
+       fact; it is not bound by this panel. */
     const oppByRegion = CASES.reduce((a, c) => { (c.regionKeys && c.regionKeys.length ? c.regionKeys : [c.region]).forEach((r) => { if (r) a[r] = (a[r] || 0) + 1; }); return a; }, {});
     const regionTiles = REGION_GRID.map(r => {
       const n = WIN_REGION[r.name] || 0;
       const o = oppByRegion[r.name] || 0;
       return {
         name: r.name, short: r.short, gc: r.col + 1, gr: r.row + 1,
-        windows: n, cases: n, opportunities: o, active: n > 0,
+        windows: n, opportunities: o, active: o > 0,
         /* the '+N signals' span this feeds must be deleted from the markup: there is
            no per-region signal count to derive — all 3 real future signals carry
            REGION 'NAO SEI' x2 and 'UE' x1, so the honest value is 0 everywhere. */
         signals: 0,
-        color: n > 0 ? '#6E6663' : 'rgba(255,255,255,0.05)', border: n > 0 ? '#6E6663' : 'rgba(255,255,255,0.10)',
-        textColor: n > 0 ? '#fff' : '#B1A9A7',
-        go: () => this.radarWith({ fRegion: r.name })
+        color: o > 0 ? '#6E6663' : 'rgba(255,255,255,0.05)', border: o > 0 ? '#6E6663' : 'rgba(255,255,255,0.10)',
+        textColor: o > 0 ? '#fff' : '#B1A9A7',
+        cursor: o > 0 ? 'pointer' : 'default',
+        go: () => { if (o > 0) this.radarWith({ fRegion: r.name }); }
       };
     });
-    const regionRank = regionTiles.filter(r => r.windows > 0).sort((a, b) => b.windows - a.windows || a.name.localeCompare(b.name)).slice(0, 7);
+    const regionRank = regionTiles.filter(r => r.opportunities > 0).sort((a, b) => b.opportunities - a.opportunities || a.name.localeCompare(b.name)).slice(0, 7);
+    /* §8 · the panel publishes its own denominator, so a three-tile map explains itself
+       instead of reading as a broken map. */
+    const regionRankNote = regionRank.length
+      ? regionRank.reduce((a, r) => a + r.opportunities, 0) + ' ' + (T.rrNoteOpps || 'opportunities') + ' · ' + regionRank.length + ' ' + (T.rrNoteRegions || 'regions with at least one · of') + ' ' + regionTiles.length
+      : (T.rrNoteNone || 'No opportunity in this reading resolves to a region');
     const initials = (n) => String(n || '').split(' ').map(w => w[0]).filter(Boolean).join('').slice(0, 3).toUpperCase();
 
     /* ════════ §5 · COMPETITOR COMMUNICATION ═════════════════════════════════
@@ -3998,7 +4011,10 @@ class Component extends DCLogic {
       /* four honest reasons instead of six confident ones; every row is an upstream
          value or an explicit absence, and the regulatory row exists for 2 of 29 */
       why: [
-        { ok: wdR.status === 'WINDOW_OPEN', warn: wdR.status === 'DATE_UNKNOWN', t: wst(wdR.status) + (wdR.statusReason ? ' · ' + wdR.statusReason : '') },
+        /* The calendar builder localises STATUS_REASON through reasonL(); this row used to
+           concatenate the raw English string, so 29/29 window details printed the reason
+           untranslated under an Italian status. Same call, same map. */
+        { ok: wdR.status === 'WINDOW_OPEN', warn: wdR.status === 'DATE_UNKNOWN', t: wst(wdR.status) + (wdR.statusReason ? ' · ' + reasonL(wdR.statusReason) : '') },
         { ok: wdR.dateState === 'EXPECTED_NORM', warn: wdR.dateState !== 'EXPECTED_NORM', t: ((T.DSTATE && T.DSTATE[wdR.dateState]) || wdR.dateState || wUNK) + ' · ' + (wIT ? 'affidabilità della data' : 'date confidence') + ' ' + (wdR.dateConfidence || 'NONE') },
         { ok: wdVer.length > 0, warn: !wdVer.length, t: wdVer.length ? (pstate('VERIFIED_LABEL_MATCH') + ' · ' + wdVer.join(', ')) : (pstate(wdVerdict) + ' · ' + (T.absenceRule || wdR.absenceRule || 'Absence in this reading is not absence in the world.')) },
         { warn: true, t: (wIT ? 'Stadio della coltura e stadio dell’avversità' : 'Crop stage and issue stage') + ' · ' + ((T.OBSCLASS && T.OBSCLASS[wdR.cropStageClass]) || wdR.cropStageClass) },
@@ -5026,7 +5042,21 @@ class Component extends DCLogic {
        0 of 18 resolve to a real Future Radar signal, because the three real signals are
        Fusarium/mycotoxin on maize, Fusarium/DON on wheat and one regulatory record. */
     const oppOf = (m) => (m.caseId && APP0) ? (APP0.opportunities.records.find(o => o.id === m.caseId || o.legacyCaseId === m.caseId) || null) : null;
-    const winOf = (m) => (m.crop && APP0) ? (APP0.cropWindows.records.find(x => x.crop === m.crop) || null) : null;
+    /* §13 · A shared CROP NAME is not a relationship. This used to match on crop alone and
+       return the first window with that crop, so `targetLabel` asserted a window whose
+       issue was unrelated to the message: measured 10 of 18 messages routed to a window
+       carrying a different issue — Maize/"Weed control" and Maize/"Competitor mention"
+       both landed on the European Corn Borer window, Grapevine/"Downy Mildew" and
+       Grapevine/"Crop stage" on Flavescenza Dorata, Olive/"Application timing" on Olive
+       Fruit Fly, Sugar Beet/"Weed control" on Cercosporiosi. Crop AND issue must both
+       match; when they do not, the message falls back to the no-window state the code
+       already has (T.fsFlowValidate). After: 8 of 18 keep a window, 10 read DA VALIDARE.
+       Maize/"Diabrotica" is deliberately among the 10 — the model holds "Diabrotica
+       Adults" and "Diabrotica Larvae" and choosing between them would be a guess. */
+    const fmFold = (v) => String(v === null || v === undefined ? '' : v).normalize('NFD').replace(/[̀-ͯ]/g, '').trim().toUpperCase();
+    const winOf = (m) => (m.crop && m.issue && APP0)
+      ? (APP0.cropWindows.records.find(x => fmFold(x.crop) === fmFold(m.crop) && fmFold(x.issue) === fmFold(m.issue)) || null)
+      : null;
     const coOf = (m) => (m.competitors || []).find(n => APP0 && APP0.competitorCompanies.records.some(x => x.name === n)) || null;
     const relatedFor = (m) => {
       const out = [];
@@ -5549,10 +5579,24 @@ class Component extends DCLogic {
        vocabulary; a closed 6-value enum is mapped for display and free Portuguese
        prose is suppressed rather than shown to an Italian reader. */
     const SECTORL = { 'maquinas agricolas e de jardinagem': TX('macchine agricole e da giardinaggio', 'agricultural and garden machinery'), 'viticultura': TX('viticoltura', 'viticulture'), 'agricultura geral': TX('agricoltura generale', 'general agriculture'), 'hortifruti': TX('ortofrutta', 'fruit and vegetables'), 'vinho e destilados': TX('vino e distillati', 'wine and spirits'), 'demonstracao de campo do fabricante': TX('dimostrazione di campo del produttore', 'manufacturer field demonstration') };
-    const EXHL = { 'NAO CONSULTADA': TX('ELENCO ESPOSITORI NON CONSULTATO', 'EXHIBITOR LIST NOT CONSULTED'), 'NAO APLICAVEL': '' };
+    /* EXHIBITOR_LIST_STATE measured over the 18 rows: 'NAO CONSULTADA' 4 · 'NAO APLICAVEL' 13 ·
+       free Portuguese prose 1. NOT ONE row says the list was consulted. The tile used to
+       render '' on 14 of 18 (a heading over nothing) and a 24px 0 beside it, which reads as
+       "no competitor is exhibiting" when the evidence only says nobody read the list. Every
+       state now has a face, the prose one included, and the count is withheld until a state
+       actually says CONSULTATO. */
+    const EXHL = {
+      'NAO CONSULTADA': TX('ELENCO ESPOSITORI NON CONSULTATO', 'EXHIBITOR LIST NOT CONSULTED'),
+      'NAO APLICAVEL': TX('NON APPLICABILE A QUESTO EVENTO', 'NOT APPLICABLE TO THIS EVENT'),
+      'CONSULTADA': TX('ELENCO ESPOSITORI CONSULTATO', 'EXHIBITOR LIST CONSULTED')
+    };
+    const EXH_CONSULTED = { 'CONSULTADA': 1, 'CONSULTATO': 1, 'CONSULTED': 1 };
     const evDeco = (e2) => {
       const confirmed = companies.filter(c2 => (e2.confirmedParticipationList || []).some(k2 => UPC(k2) === UPC(c2.name))).map(c2 => c2.name);
       const future = e2.daysToStart !== null && e2.daysToStart > 0;
+      const exhKey = UPC(e2.exhibitorListState);
+      const exhConsulted = !!EXH_CONSULTED[exhKey];
+      const evProgram = cNar(e2.note) || '';
       return {
         id: e2.id, name: e2.name, go: () => this.openEvent(e2.id),
         city: e2.location || '', region: 'Italia', site: e2.url || '',
@@ -5564,7 +5608,12 @@ class Component extends DCLogic {
         /* CROP_RELEVANCE is the unknown sentence on 5 of 18 rows; the model already
            nulls those, so nothing here has to filter a Portuguese sentinel. */
         crops: e2.cropRelevance ? [e2.cropRelevance] : [],
-        exhibitorStatus: EXHL[UPC(e2.exhibitorListState)] !== undefined ? EXHL[UPC(e2.exhibitorListState)] : '',
+        exhibitorStatus: EXHL[exhKey] || TX('STATO DELL’ELENCO NON MAPPATO IN QUESTA LETTURA', 'LIST STATE NOT MAPPED IN THIS READING'),
+        exhibitorConsulted: exhConsulted,
+        /* The number is a count of a list nobody read. It is withheld, not zeroed. */
+        confirmedDisplay: exhConsulted ? String(confirmed.length) : '—',
+        confirmedNote: exhConsulted ? '' : TX('Elenco espositori non consultato: l’assenza di un concorrente qui non è un’osservazione.', 'Exhibitor list not consulted: a competitor missing here is not an observation.'),
+        hasProfile: !!(evProgram || e2.cropRelevance),
         confirmed, confirmedCount: confirmed.length,
         confirmedLabel: confirmed.length ? confirmed.length + TX(' confermati', ' confirmed') : TX('partecipazione non nota', 'participation not known'),
         statusLabel: confirmed.length ? TX('ESPOSITORI CONFERMATI', 'CONFIRMED EXHIBITORS') : TX('PARTECIPAZIONE NON NOTA', 'PARTICIPATION NOT KNOWN'),
@@ -6867,9 +6916,17 @@ class Component extends DCLogic {
       radarFilters: [
         { key: 'fCrop', icon: ICO('farm-management'), accent: '#7DB41E', value: s.fCrop, set: this.sel('fCrop'), options: opts(T.allCrops, uniq(CASES.map(c => c.crop)), cl) },
         { key: 'fIssue', icon: ICO('heat-sensitive'), accent: '#9D1D96', value: s.fIssue, set: this.sel('fIssue'), options: opts(T.allIssues, uniq(CASES.map(c => c.issue)), il) },
-        { key: 'fRegion', icon: ICO('cloud'), accent: '#00A0DF', value: s.fRegion, set: this.sel('fRegion'), options: opts(T.allRegions, uniq(CASES.map(c => c.region))) },
+        { key: 'fRegion', icon: ICO('cloud'), accent: '#00A0DF', value: s.fRegion, set: this.sel('fRegion'), options: opts(T.allRegions, uniq([].concat.apply([], CASES.map(c => [c.region].concat(c.regionKeys || []))).filter(Boolean))) },
         { key: 'fStatus', icon: ICO('sun'), accent: '#F5B317', value: s.fStatus, set: this.sel('fStatus'), options: [{ v: '', l: T.allStatuses }].concat(['WINDOW_OPEN', 'NEXT_CYCLE', 'DATE_UNKNOWN', 'WINDOW_CLOSED'].map(v => ({ v, l: wst(v) }))) },
-        { key: 'fProduct', icon: ICO('recycle-label'), accent: '#00698F', value: s.fProduct, set: this.sel('fProduct'), options: opts(T.allProducts, uniq([].concat.apply([], CASES.map(c => c.products || [])))) },
+        /* This selector filters OPPORTUNITIES, so it can only offer the products
+           the opportunity records are actually linked to — six today, not the
+           166-product ADAMA universe. It used to be labelled "tutti i prodotti
+           ADAMA", a promise it could not keep; the universe belongs to
+           PORTAFOGLIO · CATALOGO COMMERCIALE. The options read productLinks
+           first, because that is the graded relationship collection the next
+           canonical package expands — the list grows on its own, with no name
+           written here. */
+        { key: 'fProduct', icon: ICO('recycle-label'), accent: '#00698F', value: s.fProduct, set: this.sel('fProduct'), options: opts(T.linkedProducts || T.allProducts, uniq([].concat.apply([], CASES.map(c => (c.productLinks && c.productLinks.length ? c.productLinks.map(l => l.name || l.product) : (c.products || [])))))) },
         { key: 'fDept', icon: ICO('connect'), accent: '#978B87', value: s.fDept, set: this.sel('fDept'), options: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))), L) }
       ].map(f => ({ icon: f.icon, value: f.value, set: f.set, options: f.options, on: !!f.value,
         /* the chip prints the label of the option currently selected; no selection is the
@@ -6880,10 +6937,10 @@ class Component extends DCLogic {
         rail: f.accent, color: f.value ? '#fff' : '#D6D2D0', weight: f.value ? 700 : 500 })),
       sortIcon: ICO('sell'),
       sortLabel: ({ relevant: T.sortRelevant, closing: T.sortClosing, newest: T.sortNewest, region: T.sortRegion, crop: T.sortCrop })[s.sort] || T.sortRelevant,
-      cropOptions: opts(T.fltCrops || 'All crops', uniq(CASES.map(c => c.crop)), cl), issueOptions: opts(T.fltIssues || 'All issues', uniq(CASES.map(c => c.issue)), il), regionOptions: opts(T.allRegions || 'All regions', uniq(CASES.map(c => c.region))), statusOptions: opts(T.allStatuses || 'All statuses', ['WINDOW_OPEN', 'NEXT_CYCLE', 'DATE_UNKNOWN', 'WINDOW_CLOSED'], wst), productOptions: opts(T.allProducts, uniq([].concat.apply([], CASES.map(c => c.products || [])))), deptOptions: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))), L),
+      cropOptions: opts(T.fltCrops || 'All crops', uniq(CASES.map(c => c.crop)), cl), issueOptions: opts(T.fltIssues || 'All issues', uniq(CASES.map(c => c.issue)), il), regionOptions: opts(T.allRegions || 'All regions', uniq([].concat.apply([], CASES.map(c => [c.region].concat(c.regionKeys || []))).filter(Boolean))), statusOptions: opts(T.allStatuses || 'All statuses', ['WINDOW_OPEN', 'NEXT_CYCLE', 'DATE_UNKNOWN', 'WINDOW_CLOSED'], wst), productOptions: opts(T.linkedProducts || T.allProducts, uniq([].concat.apply([], CASES.map(c => (c.productLinks && c.productLinks.length ? c.productLinks.map(l => l.name || l.product) : (c.products || [])))))), deptOptions: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))), L),
       hasFilters, clearFilters: () => this.setState({ fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '' }),
       kpis, visibleCases, visibleCount: visibleCases.length, filteredCount: filtered.length, canShowAll: filtered.length > 12, showAllLabel: s.showAll ? (T.lblShowFirst || 'SHOW FIRST 12') : (T.lblViewAllShort || 'VIEW ALL') + ' ' + filtered.length + ' ' + (T.lblOpportunities || 'OPPORTUNITIES'), toggleAll: () => this.setState({ showAll: !s.showAll }), noResults: filtered.length === 0,
-      regionTiles, regionRank, recentActivity, /* Routed through sigWL so the label fields exist; the global rename to .issueL /
+      regionTiles, regionRank, regionRankNote, recentActivity, /* Routed through sigWL so the label fields exist; the global rename to .issueL /
       // .statusL had left this loop rendering blanks. */
       topSignals: A_SIGREAL.slice().sort((a, b) => a.lastDays - b.lastDays).slice(0, 6).map(sigWL).map(x => Object.assign({}, x, { when: LAGO(x.when) })),
       // case

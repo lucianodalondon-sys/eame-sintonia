@@ -40,6 +40,11 @@
     allRegions: 'Tutte le regioni',
     allStatuses: 'Tutti gli stati',
     allProducts: 'Tutti i prodotti ADAMA',
+    /* The Opportunity filter offers only the products the real opportunity
+       records are linked to — not the ADAMA universe. Saying "tutti" over a
+       list of six was a promise the selector could not keep. The full
+       commercial universe lives in PORTAFOGLIO · CATALOGO COMMERCIALE. */
+    linkedProducts: 'Prodotti collegati',
     allDepartments: 'Tutti i reparti',
     anyPeriod: 'Qualsiasi periodo',
     clearAll: 'CANCELLA TUTTO',
@@ -93,7 +98,7 @@
     gireFound: 'etichette erbicide ADAMA nominano questo genere', gireNotFound: 'Non trovato tra le etichette erbicide di questa lettura', gireCases: 'casi', gireOverlap: 'con sovrapposizione al portafoglio ADAMA', gireHerb: 'erbicidi caricati',
     PROV: { 'REACHED_IN_ITALY': 'RAGGIUNTO IN ITALIA', 'DEMO_RECORD': 'DATO DIMOSTRATIVO', 'REAL_OBSERVATION': 'OSSERVAZIONE REALE', 'SYNTHETIC_DEMO': 'ESEMPIO DIMOSTRATIVO · NON OSSERVATO' },
     fsDemoBadge: 'PERSONE E MESSAGGI SIMULATI · NESSUN DIPENDENTE ADAMA REALE', fsOutbound: 'Sintonia non scrive ai rappresentanti e non chiede alla rete di campo di inviare nulla. Questo modulo riceve soltanto.',
-    lblRegionalPrecision: 'Precisione regionale · clicca una regione per filtrare', lblNoMatches: 'Nessuna opportunità corrisponde a questi filtri', lblClearFilters: 'Azzera i filtri', lblSingleMatch: 'Corrispondenza unica registrata',
+    lblRegionalPrecision: 'Opportunità per regione · clicca una regione accesa per filtrare', rrNoteOpps: 'opportunità', rrNoteRegions: 'regioni con almeno una · su', rrNoteNone: 'Nessuna opportunità di questa lettura si risolve in una regione', lblNoMatches: 'Nessuna opportunità corrisponde a questi filtri', lblClearFilters: 'Azzera i filtri', lblSingleMatch: 'Corrispondenza unica registrata',
     lblDemoOnly: 'Solo dimostrativo.', kpiOpenShort: 'Finestre aperte', kpiOpenSub: 'finestra agronomica aperta ora', kpiNextSub: 'la prossima finestra rilevante', kpiUnknownSub: 'nessuna data difendibile in questa lettura', kpiClosedSub: 'finestra della stagione conclusa',
     kpiVerified: 'Corrispondenze verificate', kpiVerifiedSub: 'confermate nella lettura delle etichette',
     kpiLinks: 'Collegamenti di portafoglio', kpiLinksSub: 'tutte le relazioni, verifica compresa',
@@ -457,6 +462,7 @@
     allRegions: 'All regions',
     allStatuses: 'All statuses',
     allProducts: 'All ADAMA products',
+    linkedProducts: 'Linked products',
     allDepartments: 'All departments',
     anyPeriod: 'Any period',
     clearAll: 'CLEAR ALL',
@@ -504,7 +510,7 @@
     gireFound: 'ADAMA herbicide labels name this genus', gireNotFound: 'Not found among the herbicide labels in this reading', gireCases: 'cases', gireOverlap: 'overlap the ADAMA range', gireHerb: 'herbicides loaded',
     PROV: { 'REACHED_IN_ITALY': 'REACHED IN ITALY', 'DEMO_RECORD': 'DEMONSTRATION RECORD', 'REAL_OBSERVATION': 'REAL OBSERVATION', 'SYNTHETIC_DEMO': 'DEMONSTRATION EXAMPLE · NOT OBSERVED' },
     fsDemoBadge: 'SIMULATED PEOPLE AND MESSAGES · NO REAL ADAMA EMPLOYEE', fsOutbound: 'Sintonia does not message representatives and never asks the field network to send anything. This module only receives.',
-    lblRegionalPrecision: 'Regional precision · click a region to filter', lblNoMatches: 'No opportunity matches these filters', lblClearFilters: 'Clear filters', lblSingleMatch: 'Single registered match',
+    lblRegionalPrecision: 'Opportunities by region · click a lit region to filter', rrNoteOpps: 'opportunities', rrNoteRegions: 'regions with at least one · of', rrNoteNone: 'No opportunity in this reading resolves to a region', lblNoMatches: 'No opportunity matches these filters', lblClearFilters: 'Clear filters', lblSingleMatch: 'Single registered match',
     lblDemoOnly: 'Demonstration only.', kpiOpenShort: 'Windows open', kpiOpenSub: 'agronomic window open now', kpiNextSub: 'the next relevant window', kpiUnknownSub: 'no defensible date in this reading', kpiClosedSub: 'season window has closed',
     kpiVerified: 'Verified matches', kpiVerifiedSub: 'confirmed in the label reading',
     kpiLinks: 'Portfolio links', kpiLinksSub: 'all relationships, verification included',

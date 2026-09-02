@@ -8,22 +8,70 @@
    ONE clock: window.ITALY_APP_MODEL.referenceDate / .REF (PRODUCT LAW §6).
    This file constructs no Date object at all — dates are formatted from the
    model's ISO strings, and every day count is the model's own.
+
+   PORTFOLIO GRADE (PRODUCT LAW §10/§13). A product is never printed under a
+   heading that asserts relevance to this crop × issue unless the model's own
+   label audit graded that exact pair VERIFIED_LABEL_MATCH. Everything else is
+   printed too — never dropped, never called absent — under a separate
+   "da verificare" heading carrying its measured state and AM.ABSENCE_RULE.
+   The single source of that grade is AM.strengthFor(name, crop, issue).
+
+   LANGUAGE (PRODUCT LAW §11). The brief renders in the interface language.
+   Product names, company names, active substances, Latin binomials, label
+   target wording and official source titles stay exactly as published.
    --------------------------------------------------------------------------- */
 (function () {
-  const S = (h, lines, bullets) => ({ h, lines: lines.filter(Boolean), bullets: !!bullets });
+  const S = (h, lines, bullets) => ({ h, lines: (lines || []).filter(Boolean), bullets: !!bullets });
 
   /* ── model access ───────────────────────────────────────────────────────── */
   const M = () => (typeof window !== 'undefined' && window.ITALY_APP_MODEL) || null;
-  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  /* ── interface language ─────────────────────────────────────────────────────
+     The portal keeps <html lang> in step with state.lang on EVERY render
+     (portale.html §27), and the render that builds this brief runs after that
+     sync — so the attribute is a live read of the interface language, not a
+     stale one. localStorage is the fallback for a call made outside a render.
+     A caller may still pass the language explicitly; that always wins.
+     REQUESTED OF THE PORTAL: pass this.state.lang as build()'s 3rd argument, so
+     the brief stops inferring what the caller already knows. */
+  let LG = 'it';
+  const detectLang = () => {
+    try {
+      const d = typeof document !== 'undefined' && document.documentElement && document.documentElement.lang;
+      if (d === 'en' || d === 'it') return d;
+    } catch (e) { /* no document */ }
+    try {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('sintonia_lang') === 'en') return 'en';
+    } catch (e) { /* storage blocked */ }
+    return 'it';
+  };
+  const TX = (it, en) => (LG === 'en' ? en : it);
+  /* The shared interface dictionary, used ONLY for vocabulary tables the rest of
+     the portal already keys on (crop names, issue names, portfolio-state
+     labels) so two screens cannot name the same thing differently. */
+  const DICT = (k) => {
+    const I = (typeof window !== 'undefined' && window.SINTONIA_I18N) || null;
+    const L = I && (I[LG] || I.it);
+    return (L && L[k]) || {};
+  };
+
+  /* ── dates ──────────────────────────────────────────────────────────────────
+     Same month abbreviations the model's own fmtDate() defaults to, so a date
+     printed here reads like a date printed anywhere else in the pilot. */
+  const MON = {
+    it: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+    en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  };
   /* ISO string in, human string out. Deliberately string-only: constructing a
      Date here would be a second truth clock. */
   const fmtISO = (iso) => {
     if (!iso) return null;
     const p = String(iso).split('-');
-    return (p.length === 3 && MON[+p[1] - 1]) ? `${p[2]} ${MON[+p[1] - 1]} ${p[0]}` : String(iso);
+    const T = MON[LG] || MON.it;
+    return (p.length === 3 && T[+p[1] - 1]) ? `${p[2]} ${T[+p[1] - 1]} ${p[0]}` : String(iso);
   };
   const refISO = () => { const m = M(); return (m && m.referenceDate) || null; };
-  const refStamp = () => fmtISO(refISO()) || 'REFERENCE DATE NOT AVAILABLE';
+  const refStamp = () => fmtISO(refISO()) || TX('DATA DI RIFERIMENTO NON DISPONIBILE', 'REFERENCE DATE NOT AVAILABLE');
 
   /* The canonical window record for a case. 29/29 legacy cases resolve by
      legacyCaseId; windowId is kept as a second key. */
@@ -38,17 +86,45 @@
   const coll = (k) => { const m = M(); return (m && m.collections && m.collections[k]) || null; };
 
   /* ── honest states (PRODUCT LAW §1/§3) ──────────────────────────────────── */
-  const UNK = 'NON NOTO — not established in the Sintonia model';
-  const NOTCONF = 'NON CONFERMATO — not confirmed by an external source in this reading';
+  const UNK = () => TX('NON NOTO — non stabilito nel modello Sintonia', 'NON NOTO — not established in the Sintonia model');
+  const NOTCONF = () => TX('NON CONFERMATO — nessuna fonte esterna lo conferma in questa lettura', 'NON CONFERMATO — not confirmed by an external source in this reading');
   const NOT_OBS = 'NON OSSERVABILE DA FONTI ESTERNE';
-  const INTERP = ' — SINTONIA INTERPRETATION';
+  const INTERP = () => TX(' — INTERPRETAZIONE SINTONIA', ' — SINTONIA INTERPRETATION');
+  const ABSENCE = () => { const m = M(); return (m && m.ABSENCE_RULE) || TX('L\'assenza in questa lettura non è assenza nel mondo.', 'Absence in this reading is not absence in the world.'); };
 
   const listOf = (arr, cap) => {
     const a = (arr || []).filter(Boolean);
     if (!a.length) return null;
     const n = cap || 8;
-    return a.length > n ? `${a.slice(0, n).join(', ')} (+${a.length - n} more on the label record)` : a.join(', ');
+    return a.length > n
+      ? `${a.slice(0, n).join(', ')} ${TX(`(+${a.length - n} altre sulla scheda di etichetta)`, `(+${a.length - n} more on the label record)`)}`
+      : a.join(', ');
   };
+
+  /* ── crop vocabulary (PRODUCT LAW §4/§11, finding 4 and 5) ──────────────────
+     Two different jobs, both of which used to print a raw token:
+       cropName()  a CANONICAL crop name ('Grapevine') -> the label the rest of
+                   the portal shows ('Vite'), from the shared CROPS table.
+       cropCode()  a LABEL ENUM ('WHEAT_GENERIC') -> that same display label,
+                   through the model's own declared CROP_BY_CODE join.
+     WHEAT_GENERIC legitimately resolves to two crops; the model declares that
+     overlap and so does this line, rather than picking one. A code the model
+     does not join is printed unchanged — silently renaming it would invent a
+     fact. SUNFLOWER and ALFALFA are the only two of the 17 codes measured on
+     the products that CROP_BY_CODE does not carry; their canonical partner is
+     stated here and requested upstream (see report). */
+  const CODE_LOCAL = { SUNFLOWER: 'Sunflower', ALFALFA: 'Alfalfa' };
+  const cropName = (canon) => (canon ? (DICT('CROPS')[canon] || canon) : canon);
+  const issueName = (issue) => (issue ? (DICT('ISSUES')[issue] || issue) : issue);
+  const cropCode = (code) => {
+    const m = M();
+    const J = (m && m.lookups && m.lookups.CROP_BY_CODE) || {};
+    const hit = J[code] || (CODE_LOCAL[code] ? [CODE_LOCAL[code]] : null);
+    return hit ? hit.map(cropName).join(' / ') : String(code);
+  };
+  const cropCodes = (arr, cap) => listOf((arr || []).map(cropCode), cap);
+  /* The four portfolio grades, in the wording the rest of the portal uses. */
+  const pstate = (k) => (DICT('PSTATE')[k] || k);
 
   /* ── fact readers ───────────────────────────────────────────────────────── */
   const F = (c) => {
@@ -56,271 +132,573 @@
     const m = M();
     const f = {
       W,
-      crop: (W && W.crop) || UNK,
-      region: (W && W.region) || UNK,
-      issue: (W && W.issue) || UNK,
-      issueType: (W && W.issueType) || UNK,
+      cropKey: (W && W.crop) || null,
+      issueKey: (W && W.issue) || null,
+      crop: (W && cropName(W.crop)) || UNK(),
+      region: (W && W.region) || UNK(),
+      issue: (W && issueName(W.issue)) || UNK(),
+      issueType: (W && W.issueType) || UNK(),
       status: (W && W.status) || 'NOT_ESTABLISHED',
       statusReason: (W && W.statusReason) || null,
-      from: (W && fmtISO(W.startDate)) || 'DATE NOT ESTABLISHED',
-      to: (W && fmtISO(W.endDate)) || 'DATE NOT ESTABLISHED',
-      dateState: (W && W.dateState) || UNK,
-      dateConfidence: (W && W.dateConfidence) || UNK,
-      lastValidated: (W && fmtISO(W.lastValidated)) || UNK,
-      windowType: (W && W.windowType) || UNK,
+      from: (W && fmtISO(W.startDate)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
+      to: (W && fmtISO(W.endDate)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
+      dateState: (W && W.dateState) || UNK(),
+      dateConfidence: (W && W.dateConfidence) || UNK(),
+      lastValidated: (W && fmtISO(W.lastValidated)) || UNK(),
+      windowType: (W && W.windowType) || UNK(),
       /* CROP_STAGE / ISSUE_STAGE are null on 29/29 canonical windows: the class
          is the only observed value, and NOT_OBSERVED is a real answer. */
       cropStage: (W && (W.cropStage || W.cropStageClass)) || 'NOT_OBSERVED',
       issueStage: (W && (W.issueStage || W.issueStageClass)) || 'NOT_OBSERVED',
       labelTrigger: (W && W.labelTrigger) || null,
       labelSource: (W && W.labelSource) || null,
-      color: (W && W.ui && W.ui.color) || (c && c.category && c.category.color) || '#009845',
-      lowIssue: String((W && W.issue) || 'this issue').toLowerCase(),
-      lowCrop: String((W && W.crop) || 'this crop').toLowerCase()
+      color: (W && W.ui && W.ui.color) || (c && c.category && c.category.color) || '#009845'
     };
+    f.lowIssue = String(f.issueKey ? f.issue : TX('questo problema', 'this issue')).toLowerCase();
+    f.lowCrop = String(f.cropKey ? f.crop : TX('questa coltura', 'this crop')).toLowerCase();
     f.windowState = (() => {
-      if (!W) return 'WINDOW NOT ESTABLISHED';
-      if (W.status === 'WINDOW_CLOSED') return `window closed · ${Math.abs(W.daysToEnd)} days past END_DATE`;
-      if (typeof W.daysToStart === 'number' && W.daysToStart > 0) return `${W.daysToStart} days to open`;
-      if (typeof W.daysToEnd === 'number') return `${W.daysToEnd} days remaining`;
-      return String(W.status || 'WINDOW NOT ESTABLISHED');
+      if (!W) return TX('finestra non stabilita', 'WINDOW NOT ESTABLISHED');
+      if (W.status === 'WINDOW_CLOSED') return TX(`finestra chiusa · ${Math.abs(W.daysToEnd)} giorni oltre END_DATE`, `window closed · ${Math.abs(W.daysToEnd)} days past END_DATE`);
+      if (typeof W.daysToStart === 'number' && W.daysToStart > 0) return TX(`${W.daysToStart} giorni all'apertura`, `${W.daysToStart} days to open`);
+      if (typeof W.daysToEnd === 'number') return TX(`${W.daysToEnd} giorni rimanenti`, `${W.daysToEnd} days remaining`);
+      return String(W.status || TX('finestra non stabilita', 'WINDOW NOT ESTABLISHED'));
     })();
     f.windowOpen = !!(W && W.status !== 'WINDOW_CLOSED' && typeof W.daysToStart === 'number' && W.daysToStart <= 0);
     /* Product names route into the model; the fixture's ai / crops / targets /
        use / moa are never read. */
     const names = (c && (c.products || (c.productObjs || []).map(p => p && p.name))) || [];
     f.products = names.filter(Boolean).map(n => ({ name: n, P: prod(n) }));
-    f.primaryName = (c && c.primary) || null;
+
+    /* ── the grade, asked once, for THIS crop × issue ────────────────────────
+       AM.strengthFor() is the model's own label-audit answer. With no canonical
+       window there is no crop × issue to ask about, so nothing may be graded
+       relevant — that is an absence of a question, not a negative answer. */
+    const pair = !!(f.cropKey && f.issueKey);
+    f.gradePair = pair;
+    f.graded = f.products.map((x) => {
+      const strength = (pair && m && m.strengthFor) ? m.strengthFor(x.name, f.cropKey, f.issueKey) : null;
+      const link = pair && x.P && Array.isArray(x.P.links)
+        ? x.P.links.find(l => String(l.crop || '').toUpperCase() === String(f.cropKey).toUpperCase()
+          && String(l.issue || '').toUpperCase() === String(f.issueKey).toUpperCase()) || null
+        : null;
+      return { name: x.name, P: x.P, strength, link };
+    });
+    f.verified = f.graded.filter(g => g.strength === 'VERIFIED_LABEL_MATCH');
+    f.unverified = f.graded.filter(g => g.strength !== 'VERIFIED_LABEL_MATCH');
+    f.verifiedNames = f.verified.map(g => g.name);
+    /* PRODUCT LAW §10 · the model ranks no product above another, so no
+       "primary" is asserted. The routing key's own `primary` is read only as a
+       fallback for the legacy scenario shape, and only if the grade agrees. */
+    f.primaryName = f.verifiedNames[0]
+      || ((c && c.primary && f.verifiedNames.indexOf(c.primary) >= 0) ? c.primary : null);
     f.primary = f.primaryName ? prod(f.primaryName) : null;
-    f.moreMatches = Math.max(0, f.products.length - 1);
+    f.moreMatches = Math.max(0, f.verified.length - 1);
     f.model = !!m;
     return f;
   };
 
   const window_ = (f) => [
-    `${f.from} → ${f.to} · ${f.windowState} · window type ${f.windowType}`,
-    `Date state ${f.dateState} · confidence ${f.dateConfidence} · last validated ${f.lastValidated}`,
-    `Crop stage: ${f.cropStage} · issue stage: ${f.issueStage}` + (f.cropStage === 'NOT_OBSERVED' ? ' (no observed stage is recorded for this window — do not assert one)' : ''),
+    TX(`${f.from} → ${f.to} · ${f.windowState} · tipo di finestra ${f.windowType}`,
+      `${f.from} → ${f.to} · ${f.windowState} · window type ${f.windowType}`),
+    TX(`Stato della data ${f.dateState} · confidenza ${f.dateConfidence} · ultima validazione ${f.lastValidated}`,
+      `Date state ${f.dateState} · confidence ${f.dateConfidence} · last validated ${f.lastValidated}`),
+    TX(`Fase colturale: ${f.cropStage} · fase del problema: ${f.issueStage}`, `Crop stage: ${f.cropStage} · issue stage: ${f.issueStage}`)
+      + (f.cropStage === 'NOT_OBSERVED' ? TX(' (per questa finestra non è registrata alcuna fase osservata — non affermarne una)', ' (no observed stage is recorded for this window — do not assert one)') : ''),
     f.labelTrigger
-      ? `Label trigger: ${f.labelTrigger}${f.labelSource ? ` · source ${f.labelSource}` : ''}`
-      : 'Label trigger: NON NOTO — no LABEL_TRIGGER is recorded on this window. Read the application timing from the product label record, never from this brief.'
+      ? TX(`Trigger di etichetta: ${f.labelTrigger}${f.labelSource ? ` · fonte ${f.labelSource}` : ''}`, `Label trigger: ${f.labelTrigger}${f.labelSource ? ` · source ${f.labelSource}` : ''}`)
+      : TX('Trigger di etichetta: NON NOTO — su questa finestra non è registrato alcun LABEL_TRIGGER. Il momento di applicazione si legge sulla scheda di etichetta del prodotto, mai da questo brief.',
+        'Label trigger: NON NOTO — no LABEL_TRIGGER is recorded on this window. Read the application timing from the product label record, never from this brief.')
   ];
 
+  /* One product, registry facts only. Crop enums print through cropCode(); the
+     active substance, the label target wording and the label URL stay exactly
+     as the source publishes them (PRODUCT LAW §11). */
   const prodLine = (x) => {
     const P = x.P;
-    if (!P) return `${x.name} — not present in the Sintonia product model · confirm against the national label record before any use`;
+    if (!P) return TX(`${x.name} — non presente nel modello prodotti Sintonia · verificare sulla banca dati nazionale prima di qualsiasi impiego`,
+      `${x.name} — not present in the Sintonia product model · confirm against the national label record before any use`);
     const ai = (Array.isArray(P.ai) ? P.ai : [P.ai]).filter(Boolean);
     const R = P.regulatory || {};
     /* irac / frac / hrac are arrays in the model and an empty array is truthy,
        so they are normalized before they can print an empty "IRAC ·" group. */
-    const code = (v, tag) => { const a = (Array.isArray(v) ? v : [v]).filter(x => x !== null && x !== undefined && String(x).trim() !== ''); return a.length ? `${tag} ${a.join(' + ')}` : null; };
+    const code = (v, tag) => { const a = (Array.isArray(v) ? v : [v]).filter(y => y !== null && y !== undefined && String(y).trim() !== ''); return a.length ? `${tag} ${a.join(' + ')}` : null; };
     const moa = [code(R.irac, 'IRAC'), code(R.frac, 'FRAC'), code(R.hrac, 'HRAC')].filter(Boolean).join(' · ');
     return [
-      `${P.name} — active substance: ${ai.length ? ai.join(' + ') : UNK}`,
-      `label crops: ${listOf(P.crops) || UNK}`,
-      `label targets: ${listOf(P.targets, 6) || UNK}`,
-      `mode of action: ${moa || UNK}`,
-      `authorisation: ${P.status || NOTCONF}`,
-      `expiry: ${fmtISO(P.expiry) || UNK}`,
-      P.labelUrl ? `label record: ${P.labelUrl}` : `label record: ${UNK}`
+      TX(`${P.name} — sostanza attiva: ${ai.length ? ai.join(' + ') : UNK()}`, `${P.name} — active substance: ${ai.length ? ai.join(' + ') : UNK()}`),
+      TX(`colture di etichetta: ${cropCodes(P.crops) || UNK()}`, `label crops: ${cropCodes(P.crops) || UNK()}`),
+      TX(`bersagli di etichetta: ${listOf(P.targets, 6) || UNK()}`, `label targets: ${listOf(P.targets, 6) || UNK()}`),
+      TX(`meccanismo d'azione: ${moa || UNK()}`, `mode of action: ${moa || UNK()}`),
+      TX(`autorizzazione: ${P.status || NOTCONF()}`, `authorisation: ${P.status || NOTCONF()}`),
+      TX(`scadenza: ${fmtISO(P.expiry) || UNK()}`, `expiry: ${fmtISO(P.expiry) || UNK()}`),
+      P.labelUrl ? TX(`scheda di etichetta: ${P.labelUrl}`, `label record: ${P.labelUrl}`) : TX(`scheda di etichetta: ${UNK()}`, `label record: ${UNK()}`)
     ].join(' · ');
   };
-  const prodLines = (f) => f.products.length
-    ? f.products.map(prodLine)
-    : ['No product is linked to this window in the model — do not name a product until Regulatory / Portfolio confirms one.'];
+
+  /* A graded line always carries its own verdict, so it is safe under any
+     heading. Used where one list is the honest shape (label timing, supply). */
+  const gradedLine = (g) => {
+    const head = g.strength ? pstate(g.strength) : TX('GRADO NON RICHIEDIBILE — nessuna finestra canonica risolta', 'GRADE NOT ASKABLE — no canonical window resolved');
+    const ev = g.link && g.link.evidence
+      ? ` · ${TX('evidenza', 'evidence')}: ${g.link.evidence}${g.link.source ? ` · ${TX('fonte', 'source')}: ${g.link.source}` : ''}`
+      : '';
+    return `${head} — ${prodLine(g)}${ev}`;
+  };
+  const gradedLines = (f) => (f.graded.length
+    ? f.graded.map(gradedLine)
+    : [TX('Nessun prodotto è collegato a questa finestra nel modello — non nominare un prodotto finché Regolatorio / Portafoglio non ne conferma uno.',
+      'No product is linked to this window in the model — do not name a product until Regulatory / Portfolio confirms one.')]);
+
+  /* ── the split (finding: BLOCKER 3, PRODUCT LAW §10 and §13) ────────────────
+     Returns 1–2 sections. A verified product is one the model's label audit
+     graded VERIFIED_LABEL_MATCH for THIS crop × THIS issue — not one that
+     shares an active substance, and not one whose label crop list happens to
+     contain the crop name. Everything else is printed with its measured state
+     and the absence rule; nothing is dropped and nothing is called absent. */
+  const portfolioSections = (f, headVerified) => {
+    const out = [];
+    const pairLabel = (f.cropKey && f.issueKey) ? `${f.crop} × ${f.issue}` : null;
+    if (!f.graded.length) {
+      return [S(headVerified, [TX('Nessun prodotto è collegato a questa finestra nel modello — non nominare un prodotto finché Regolatorio / Portafoglio non ne conferma uno.',
+        'No product is linked to this window in the model — do not name a product until Regulatory / Portfolio confirms one.')])];
+    }
+    if (f.verified.length) {
+      out.push(S(
+        pairLabel ? TX(`${headVerified} · corrispondenza verificata su etichetta per ${pairLabel}`, `${headVerified} · verified label match for ${pairLabel}`) : headVerified,
+        f.verified.map(g => {
+          const ev = g.link && g.link.evidence
+            ? ` · ${TX('evidenza', 'evidence')}: ${g.link.evidence}${g.link.source ? ` · ${TX('fonte', 'source')}: ${g.link.source}` : ''}${g.P && g.P.labelAuditDate ? ` · ${TX('audit di etichetta del', 'label audit of')} ${fmtISO(g.P.labelAuditDate)}` : ''}`
+            : '';
+          return prodLine(g) + ev;
+        }),
+        true
+      ));
+    }
+    if (f.unverified.length) {
+      const lines = f.unverified.map((g) => {
+        const head = g.strength ? pstate(g.strength) : TX('GRADO NON RICHIEDIBILE', 'GRADE NOT ASKABLE');
+        /* Say what the label audit DID see for this product, so the reader can
+           tell "read and not found" from "never asked" (PRODUCT LAW §10). */
+        const seen = (g.P && Array.isArray(g.P.links) && g.P.links.length)
+          ? TX(`in questa lettura l'audit di etichetta registra per questo prodotto: ${g.P.links.map(l => `${cropName(l.crop)} / ${issueName(l.issue)} — ${pstate(l.strength)}`).join(' · ')}`,
+            `what the label audit records for this product in this reading: ${g.P.links.map(l => `${cropName(l.crop)} / ${issueName(l.issue)} — ${pstate(l.strength)}`).join(' · ')}`)
+          : TX('l\'audit di etichetta non registra alcun collegamento coltura × problema per questo prodotto in questa lettura', 'the label audit records no crop × issue link at all for this product in this reading');
+        return `${head} — ${prodLine(g)} · ${seen}`;
+      });
+      lines.push(TX(`${ABSENCE()} Questi prodotti non sono dichiarati assenti dal portafoglio: risultano non confermati per ${pairLabel || TX('questa coltura × problema', 'this crop × issue')} in questa lettura, e vanno verificati sulla scheda di etichetta nazionale prima di essere nominati.`,
+        `${ABSENCE()} These products are not declared absent from the portfolio: they are unconfirmed for ${pairLabel || 'this crop × issue'} in this reading, and must be checked on the national label record before being named.`));
+      const scope = f.unverified.map(g => g.P && g.P.labelAuditScopeNote).filter(Boolean)[0];
+      if (scope) lines.push(TX(`Portata dell'audit: ${scope}`, `Audit scope: ${scope}`));
+      out.push(S(
+        pairLabel
+          ? TX(`Da verificare · nessuna corrispondenza confermata per ${pairLabel} in questa lettura`, `To be verified · no confirmed match for ${pairLabel} in this reading`)
+          : TX('Da verificare · nessuna finestra canonica risolta, quindi nessun grado di etichetta è richiedibile', 'To be verified · no canonical window resolved, so no label grade can be asked'),
+        lines, true
+      ));
+    }
+    return out;
+  };
 
   /* Every field-message record in this package is SYNTHETIC_DEMO (0 real of 18
      in the model). A demo record may never supply a field observation. */
   const realField = (c) => ((c && c.fieldMessages) || []).filter(m => m && m.demo !== true && m.provenance !== 'SYNTHETIC_DEMO');
-  const FIELD_NONE = 'No verified field observation on this case. Every field-message record in this package carries provenance SYNTHETIC_DEMO, so none is printed as intelligence.';
+  const FIELD_NONE = () => TX('Nessuna osservazione di campo verificata su questo caso. Ogni record di messaggio di campo in questo pacchetto porta provenienza SYNTHETIC_DEMO, quindi nessuno viene stampato come intelligence.',
+    'No verified field observation on this case. Every field-message record in this package carries provenance SYNTHETIC_DEMO, so none is printed as intelligence.');
   const fieldLines = (c) => {
     const ms = realField(c);
-    return ms.length ? ms.map(m => `${m.person} · ${m.when}: “${m.text}” → ${m.signal}`) : [FIELD_NONE];
+    return ms.length ? ms.map(m => `${m.person} · ${m.when}: “${m.text}” → ${m.signal}`) : [FIELD_NONE()];
   };
 
   /* Competitor communication is real (REAL_SOURCE corpus) but the model does not
      attribute it to a case, so no per-case count is printed. */
   const compLines = () => {
     const C = coll('competitorActivities');
-    if (!C || !C.count) return ['No competitor communication corpus is loaded in this reading.'];
+    if (!C || !C.count) return [TX('In questa lettura non è caricato alcun corpus di comunicazione dei concorrenti.', 'No competitor communication corpus is loaded in this reading.')];
     return [
-      `${C.count} competitor communication items observed in the monitored public sources (provenance ${C.provenance}).`,
-      'Attribution of those items to this crop × region is NOT established in the model — no per-case competitor count is printed here. Open Competitor Watch to read the corpus.',
-      'Observed communication only. REACHED_IN_ITALY is not TARGETED_ITALY, and no strategy, spend or share is inferred.'
+      TX(`${C.count} elementi di comunicazione dei concorrenti osservati nelle fonti pubbliche monitorate (provenienza ${C.provenance}).`,
+        `${C.count} competitor communication items observed in the monitored public sources (provenance ${C.provenance}).`),
+      TX('L\'attribuzione di quegli elementi a questa coltura × regione NON è stabilita nel modello — qui non viene stampato alcun conteggio per caso. Aprire Concorrenza per leggere il corpus.',
+        'Attribution of those items to this crop × region is NOT established in the model — no per-case competitor count is printed here. Open Competitor Watch to read the corpus.'),
+      TX('Solo comunicazione osservata. REACHED_IN_ITALY non è TARGETED_ITALY, e non si deduce alcuna strategia, spesa o quota.',
+        'Observed communication only. REACHED_IN_ITALY is not TARGETED_ITALY, and no strategy, spend or share is inferred.')
     ];
   };
 
   const sourcesLines = (f) => {
     const W = f.W; const SR = coll('sources'); const out = [];
     out.push(W
-      ? `Canonical window ${W.windowId} · provenance ${W.provenance} · date state ${W.dateState} · confidence ${W.dateConfidence} · last validated ${f.lastValidated}.`
-      : `No canonical window resolved for this case — every window fact above reads ${NOTCONF}.`);
+      ? TX(`Finestra canonica ${W.windowId} · provenienza ${W.provenance} · stato della data ${W.dateState} · confidenza ${W.dateConfidence} · ultima validazione ${f.lastValidated}.`,
+        `Canonical window ${W.windowId} · provenance ${W.provenance} · date state ${W.dateState} · confidence ${W.dateConfidence} · last validated ${f.lastValidated}.`)
+      : TX(`Nessuna finestra canonica risolta per questo caso — ogni fatto di finestra qui sopra vale ${NOTCONF()}.`,
+        `No canonical window resolved for this case — every window fact above reads ${NOTCONF()}.`));
     out.push((W && (W.sourceIds || []).length)
-      ? `Declared sources: ${W.sourceIds.join(', ')}.`
-      : 'This window declares no SOURCE_IDS — the per-case source list is NON CONFERMATO.');
-    if (SR) out.push(`Source register: ${SR.count} registered public sources (provenance ${SR.provenance}). Per-case connected-observation counts are not established in the model and are not printed.`);
-    out.push(`Sintonia reference date ${refStamp()}. All day counts above are measured from that date.`);
+      ? TX(`Fonti dichiarate: ${W.sourceIds.join(', ')}.`, `Declared sources: ${W.sourceIds.join(', ')}.`)
+      : TX('Questa finestra non dichiara alcun SOURCE_IDS — l\'elenco delle fonti per questo caso è NON CONFERMATO.',
+        'This window declares no SOURCE_IDS — the per-case source list is NON CONFERMATO.'));
+    if (SR) out.push(TX(`Registro delle fonti: ${SR.count} fonti pubbliche registrate (provenienza ${SR.provenance}). I conteggi di osservazioni collegate per caso non sono stabiliti nel modello e non vengono stampati.`,
+      `Source register: ${SR.count} registered public sources (provenance ${SR.provenance}). Per-case connected-observation counts are not established in the model and are not printed.`));
+    out.push(TX(`Data di riferimento Sintonia ${refStamp()}. Tutti i conteggi di giorni qui sopra sono misurati da quella data.`,
+      `Sintonia reference date ${refStamp()}. All day counts above are measured from that date.`));
     return out;
   };
 
-  const NOT_ESTABLISHED = (what) => `${what}: NON NOTO — no approved Sintonia narrative exists for this case in the model, so nothing is asserted here.`;
+  const NOT_ESTABLISHED = (whatIt, whatEn) => TX(
+    `${whatIt}: NON NOTO — nel modello non esiste alcuna narrativa Sintonia approvata per questo caso, quindi qui non si afferma nulla.`,
+    `${whatEn}: NON NOTO — no approved Sintonia narrative exists for this case in the model, so nothing is asserted here.`);
+  const WHYNOW = () => NOT_ESTABLISHED('Perché ora', 'Why-now');
 
   const GEN = {
     'SALES / RTV': (c, f) => ({
-      doc: 'FIELD SALES ACTION BRIEF', role: 'Technical Sales Representative', pages: '1–2 pages',
-      purpose: 'Help the representative enter customer conversations with the confirmed window and portfolio facts, and with an explicit list of what is not confirmed.',
+      doc: TX('BRIEF OPERATIVO · VENDITE DI CAMPO', 'FIELD SALES ACTION BRIEF'),
+      role: TX('Rappresentante tecnico di vendita', 'Technical Sales Representative'),
+      pages: TX('1–2 pagine', '1–2 pages'),
+      purpose: TX('Mettere il rappresentante in condizione di aprire la conversazione con il cliente sui fatti confermati della finestra e del portafoglio, e con l\'elenco esplicito di ciò che non è confermato.',
+        'Help the representative enter customer conversations with the confirmed window and portfolio facts, and with an explicit list of what is not confirmed.'),
       sections: [
-        S('1 · What is happening', [NOT_ESTABLISHED('Situation narrative'), `Confirmed: ${f.issue} (${f.issueType}) is the issue this ${f.crop} window is registered against, in ${f.region}. Current status ${f.status}${f.statusReason ? ` — ${f.statusReason}` : ''}.`]),
-        S('2 · Where', [`${f.region} · ${f.crop}.`, `Adjacent-area guidance: ${UNK}. The model records no adjacent-region list for this window.`]),
-        S('3 · Why this matters now' + INTERP, [NOT_ESTABLISHED('Why-now'), `What can be said from the record: the window runs ${f.from} → ${f.to} and is ${f.windowState}.`]),
-        S('4 · Current crop / application window', window_(f)),
-        S('5 · What ADAMA can offer', prodLines(f), true),
-        S('6 · What we know', [
-          `Canonical window on file: ${f.W ? f.W.windowId : 'none'} · provenance ${f.W ? f.W.provenance : NOTCONF}.`,
-          `Registered ADAMA products linked to this window: ${f.products.length}.`,
-          `Observed crop stage: ${f.cropStage}. Observed issue stage: ${f.issueStage}.`
+        S(TX('1 · Che cosa sta succedendo', '1 · What is happening'), [NOT_ESTABLISHED('Narrativa della situazione', 'Situation narrative'),
+          TX(`Confermato: ${f.issue} (${f.issueType}) è il problema per cui questa finestra su ${f.crop} è registrata, in ${f.region}. Stato attuale ${f.status}${f.statusReason ? ` — ${f.statusReason}` : ''}.`,
+            `Confirmed: ${f.issue} (${f.issueType}) is the issue this ${f.crop} window is registered against, in ${f.region}. Current status ${f.status}${f.statusReason ? ` — ${f.statusReason}` : ''}.`)]),
+        S(TX('2 · Dove', '2 · Where'), [`${f.region} · ${f.crop}.`,
+          TX(`Indicazioni sulle aree limitrofe: ${UNK()}. Il modello non registra alcun elenco di regioni limitrofe per questa finestra.`,
+            `Adjacent-area guidance: ${UNK()}. The model records no adjacent-region list for this window.`)]),
+        S(TX('3 · Perché conta adesso', '3 · Why this matters now') + INTERP(), [WHYNOW(),
+          TX(`Ciò che si può dire dal record: la finestra va da ${f.from} a ${f.to} ed è ${f.windowState}.`,
+            `What can be said from the record: the window runs ${f.from} → ${f.to} and is ${f.windowState}.`)]),
+        S(TX('4 · Finestra colturale / di applicazione attuale', '4 · Current crop / application window'), window_(f)),
+        ...portfolioSections(f, TX('5 · Che cosa ADAMA può offrire', '5 · What ADAMA can offer')),
+        S(TX('6 · Che cosa sappiamo', '6 · What we know'), [
+          TX(`Finestra canonica in archivio: ${f.W ? f.W.windowId : TX('nessuna', 'none')} · provenienza ${f.W ? f.W.provenance : NOTCONF()}.`,
+            `Canonical window on file: ${f.W ? f.W.windowId : 'none'} · provenance ${f.W ? f.W.provenance : NOTCONF()}.`),
+          TX(`Prodotti ADAMA registrati collegati a questa finestra: ${f.products.length}, di cui ${f.verified.length} con corrispondenza verificata su etichetta per questa coltura × problema.`,
+            `Registered ADAMA products linked to this window: ${f.products.length}, of which ${f.verified.length} carry a verified label match for this crop × issue.`),
+          TX(`Fase colturale osservata: ${f.cropStage}. Fase del problema osservata: ${f.issueStage}.`,
+            `Observed crop stage: ${f.cropStage}. Observed issue stage: ${f.issueStage}.`)
         ], true),
-        S('7 · What still needs validation', [
-          'Current field pressure — no observed stage is recorded on this window.',
-          'Label trigger and application timing — read the label record, not this brief.',
-          'Whether the signal extends into adjacent areas — no adjacent-area record exists.',
-          'Competitor activity attributable to this crop × region.'
+        S(TX('7 · Che cosa resta da validare', '7 · What still needs validation'), [
+          TX('Pressione attuale in campo — su questa finestra non è registrata alcuna fase osservata.', 'Current field pressure — no observed stage is recorded on this window.'),
+          TX('Trigger di etichetta e momento di applicazione — si leggono sulla scheda di etichetta, non su questo brief.', 'Label trigger and application timing — read the label record, not this brief.'),
+          TX('Se il segnale si estenda alle aree limitrofe — non esiste alcun record di area limitrofa.', 'Whether the signal extends into adjacent areas — no adjacent-area record exists.'),
+          TX('Attività dei concorrenti attribuibile a questa coltura × regione.', 'Competitor activity attributable to this crop × region.'),
+          f.unverified.length ? TX(`La posizione di etichetta dei ${f.unverified.length} prodotti elencati sotto "Da verificare".`, `The label position of the ${f.unverified.length} products listed under "To be verified".`) : null
         ], true),
-        S('8 · Customer conversation guide' + INTERP, [
-          `OPEN — “We are following ${f.lowIssue} on ${f.lowCrop} in ${f.region} and the registered window makes it worth reviewing protection.”`,
-          'UNDERSTAND — listen first; do not assert incidence, stage or pressure the customer has not reported. Sintonia has not observed any.',
-          f.primary
-            ? 'CONNECT — “ADAMA has registered portfolio options that may fit this crop and target. Let us confirm the exact label position and timing for your situation.”'
-            : 'CONNECT — “We are checking our portfolio position for this situation and will come back with a confirmed label answer.”',
-          f.primary ? `PRODUCT — ${prodLine({ name: f.primaryName, P: f.primary })}. Only verified label facts; never a claim outside the approved label; never an invented efficacy.` : null
+        S(TX('8 · Guida alla conversazione con il cliente', '8 · Customer conversation guide') + INTERP(), [
+          TX(`APRIRE — «Stiamo seguendo ${f.lowIssue} su ${f.lowCrop} in ${f.region} e la finestra registrata rende utile rivedere la protezione.»`,
+            `OPEN — “We are following ${f.lowIssue} on ${f.lowCrop} in ${f.region} and the registered window makes it worth reviewing protection.”`),
+          TX('ASCOLTARE — prima ascoltare; non affermare incidenza, fase o pressione che il cliente non abbia riportato. Sintonia non ne ha osservata alcuna.',
+            'UNDERSTAND — listen first; do not assert incidence, stage or pressure the customer has not reported. Sintonia has not observed any.'),
+          f.verified.length
+            ? TX('COLLEGARE — «ADAMA ha opzioni di portafoglio registrate con corrispondenza verificata su etichetta per questa coltura e questo bersaglio. Confermiamo insieme posizione di etichetta e tempistica esatte per la sua situazione.»',
+              'CONNECT — “ADAMA has registered portfolio options with a verified label match for this crop and target. Let us confirm the exact label position and timing for your situation.”')
+            : TX('COLLEGARE — «Stiamo verificando la nostra posizione di portafoglio per questa situazione e torneremo con una risposta confermata su etichetta.»',
+              'CONNECT — “We are checking our portfolio position for this situation and will come back with a confirmed label answer.”'),
+          f.verified.length
+            ? TX(`PRODOTTO — ${f.verified.map(g => g.name).join(' · ')}. Solo fatti verificati di etichetta; mai un'affermazione fuori dall'etichetta approvata; mai un'efficacia inventata. Non nominare i prodotti elencati sotto "Da verificare".`,
+              `PRODUCT — ${f.verified.map(g => g.name).join(' · ')}. Only verified label facts; never a claim outside the approved label; never an invented efficacy. Do not name the products listed under "To be verified".`)
+            : null
         ], true),
-        S('9 · Questions to ask the customer' + INTERP, ['What crop stage are you seeing?', 'Have you observed symptoms or captures?', `Has ${f.lowIssue} already been confirmed on your farm?`, 'What was the previous treatment?', 'What field conditions are you seeing?', 'Are you already evaluating a treatment decision?'], true),
-        S('10 · Why talk about this now' + INTERP, [
-          `The registered window is ${f.windowState}`,
-          `A canonical window record exists for this crop × issue × region (${f.W ? f.W.windowId : 'none'})`,
-          f.primary ? 'A registered ADAMA portfolio match exists' : 'No portfolio position is confirmed yet',
-          `Field pressure: ${f.issueStage} — this is not a pressure claim`
+        S(TX('9 · Domande da fare al cliente', '9 · Questions to ask the customer') + INTERP(), [
+          TX('A che fase colturale siete?', 'What crop stage are you seeing?'),
+          TX('Avete osservato sintomi o catture?', 'Have you observed symptoms or captures?'),
+          TX(`${f.issue} è già stata confermata nella vostra azienda?`, `Has ${f.lowIssue} already been confirmed on your farm?`),
+          TX('Qual è stato il trattamento precedente?', 'What was the previous treatment?'),
+          TX('Che condizioni state vedendo in campo?', 'What field conditions are you seeing?'),
+          TX('State già valutando una decisione di trattamento?', 'Are you already evaluating a treatment decision?')
         ], true),
-        S('Your objective' + INTERP, ['Open the conversation.', 'Validate what the customer is seeing.', f.primary ? 'Position the relevant ADAMA portfolio strictly within the label.' : 'Do not position a product until Regulatory / Portfolio confirms one.', 'Record what was observed.'], true),
-        S('11 · What to report back to Sintonia', ['What did the customer report?', 'Was the issue confirmed?', 'What crop stage?', 'What product are they considering?', 'What competitor was mentioned?', 'Should Sintonia continue monitoring this case?'], true),
-        S('12 · Sources / date', sourcesLines(f))
+        S(TX('10 · Perché parlarne adesso', '10 · Why talk about this now') + INTERP(), [
+          TX(`La finestra registrata è ${f.windowState}`, `The registered window is ${f.windowState}`),
+          TX(`Esiste un record di finestra canonica per questa coltura × problema × regione (${f.W ? f.W.windowId : TX('nessuno', 'none')})`,
+            `A canonical window record exists for this crop × issue × region (${f.W ? f.W.windowId : 'none'})`),
+          f.verified.length
+            ? TX(`Esistono ${f.verified.length} corrispondenze ADAMA verificate su etichetta`, `${f.verified.length} verified ADAMA label match(es) exist`)
+            : TX('Nessuna posizione di portafoglio è ancora confermata', 'No portfolio position is confirmed yet'),
+          TX(`Pressione in campo: ${f.issueStage} — questa non è un'affermazione di pressione`, `Field pressure: ${f.issueStage} — this is not a pressure claim`)
+        ], true),
+        S(TX('Il tuo obiettivo', 'Your objective') + INTERP(), [
+          TX('Aprire la conversazione.', 'Open the conversation.'),
+          TX('Validare che cosa sta vedendo il cliente.', 'Validate what the customer is seeing.'),
+          f.verified.length
+            ? TX('Posizionare il portafoglio verificato rigorosamente entro l\'etichetta.', 'Position the verified portfolio strictly within the label.')
+            : TX('Non posizionare alcun prodotto finché Regolatorio / Portafoglio non ne conferma uno.', 'Do not position a product until Regulatory / Portfolio confirms one.'),
+          TX('Registrare che cosa è stato osservato.', 'Record what was observed.')
+        ], true),
+        S(TX('11 · Che cosa riportare a Sintonia', '11 · What to report back to Sintonia'), [
+          TX('Che cosa ha riportato il cliente?', 'What did the customer report?'),
+          TX('Il problema è stato confermato?', 'Was the issue confirmed?'),
+          TX('Che fase colturale?', 'What crop stage?'),
+          TX('Che prodotto sta valutando?', 'What product are they considering?'),
+          TX('Quale concorrente è stato citato?', 'What competitor was mentioned?'),
+          TX('Sintonia deve continuare a monitorare questo caso?', 'Should Sintonia continue monitoring this case?')
+        ], true),
+        S(TX('12 · Fonti / data', '12 · Sources / date'), sourcesLines(f))
       ]
     }),
     'MARKETING': (c, f) => ({
-      doc: 'MARKETING ACTION BRIEF', role: 'Marketing · regional communication', pages: '2 pages',
-      purpose: 'Give Marketing the confirmed context, the supportable message territory and the boundaries needed to prepare regional support material.',
+      doc: TX('BRIEF OPERATIVO · MARKETING', 'MARKETING ACTION BRIEF'),
+      role: TX('Marketing · comunicazione regionale', 'Marketing · regional communication'),
+      pages: TX('2 pagine', '2 pages'),
+      purpose: TX('Dare al Marketing il contesto confermato, il territorio di messaggio sostenibile e i limiti necessari per preparare materiale di supporto regionale.',
+        'Give Marketing the confirmed context, the supportable message territory and the boundaries needed to prepare regional support material.'),
       sections: [
-        S('Case', [`${f.issue} · ${f.crop} · ${f.region} · status ${f.status}`]),
-        S('Audience' + INTERP, [`Growers and dealers in ${f.region} ${f.lowCrop} districts; ADAMA field sales as first relay.`]),
-        S('Why now' + INTERP, [NOT_ESTABLISHED('Why-now'), ...window_(f)]),
-        S('What the field is saying', fieldLines(c), true),
-        S('What official / technical sources are saying', [NOT_ESTABLISHED('Source summary'), ...sourcesLines(f)]),
-        S('ADAMA portfolio relevance', prodLines(f), true),
-        S('Competitor communication observed', compLines(), true),
-        S('Communication opportunity' + INTERP, [`Regional, timing-led technical communication on ${f.lowIssue} in ${f.lowCrop} while the window is ${f.windowState}.`]),
-        S('Key message territory' + INTERP, ['Timing and monitoring awareness', 'Label-compliant portfolio fit for the crop × target', 'Regional monitoring as the trigger for attention'], true),
-        S('Claims we can support', f.primary
-          ? [`${f.primary.name} is registered in Italy — authorisation ${f.primary.status || NOTCONF}, expiry ${fmtISO(f.primary.expiry) || UNK}`, `Its label crops and targets are as printed in the portfolio section above`, `A canonical window exists for ${f.crop} × ${f.issue} in ${f.region}`]
-          : ['No confirmed label match — communication must not name a product.'], true),
-        S('Claims we must not make', ['Incidence, pressure or “spreading across the region” — no observed stage exists on this window', 'Efficacy, yield or revenue outcomes', 'Anything outside the approved label', 'Competitor strategy, spend or share', 'Any application timing not read from the label record'], true),
-        S('Suggested assets' + INTERP, ['Regional sales support card', 'Dealer messaging asset', 'Technical post', 'Dealer support material', 'Field-sales presentation slide', 'Short agronomic video'], true),
-        S('Urgency', [`${f.status} · ${f.windowState}`])
+        S(TX('Caso', 'Case'), [TX(`${f.issue} · ${f.crop} · ${f.region} · stato ${f.status}`, `${f.issue} · ${f.crop} · ${f.region} · status ${f.status}`)]),
+        S(TX('Pubblico', 'Audience') + INTERP(), [TX(`Agricoltori e rivenditori nei distretti di ${f.lowCrop} in ${f.region}; la rete commerciale ADAMA come primo relè.`,
+          `Growers and dealers in ${f.region} ${f.lowCrop} districts; ADAMA field sales as first relay.`)]),
+        S(TX('Perché ora', 'Why now') + INTERP(), [WHYNOW(), ...window_(f)]),
+        S(TX('Che cosa dice il campo', 'What the field is saying'), fieldLines(c), true),
+        S(TX('Che cosa dicono le fonti ufficiali / tecniche', 'What official / technical sources are saying'), [NOT_ESTABLISHED('Sintesi delle fonti', 'Source summary'), ...sourcesLines(f)]),
+        ...portfolioSections(f, TX('Rilevanza di portafoglio ADAMA', 'ADAMA portfolio relevance')),
+        S(TX('Comunicazione dei concorrenti osservata', 'Competitor communication observed'), compLines(), true),
+        S(TX('Opportunità di comunicazione', 'Communication opportunity') + INTERP(), [
+          TX(`Comunicazione tecnica regionale, guidata dalla tempistica, su ${f.lowIssue} in ${f.lowCrop} mentre la finestra è ${f.windowState}.`,
+            `Regional, timing-led technical communication on ${f.lowIssue} in ${f.lowCrop} while the window is ${f.windowState}.`)]),
+        S(TX('Territorio di messaggio chiave', 'Key message territory') + INTERP(), [
+          TX('Consapevolezza di tempistica e monitoraggio', 'Timing and monitoring awareness'),
+          TX('Coerenza di portafoglio conforme all\'etichetta per la coppia coltura × bersaglio', 'Label-compliant portfolio fit for the crop × target'),
+          TX('Il monitoraggio regionale come innesco dell\'attenzione', 'Regional monitoring as the trigger for attention')
+        ], true),
+        /* PRODUCT LAW §10 and finding BLOCKER 3 · this list is derived from the
+           SAME grade the portfolio sections are derived from, so the two cannot
+           contradict each other on the same page. */
+        S(TX('Affermazioni che possiamo sostenere', 'Claims we can support'), f.verified.length ? [
+          TX(`${f.verified.map(g => g.name).join(' · ')} — corrispondenza verificata su etichetta per ${f.crop} × ${f.issue}, letta nell'audit delle etichette ufficiali italiane del modello.`,
+            `${f.verified.map(g => g.name).join(' · ')} — verified label match for ${f.crop} × ${f.issue}, read in the model's audit of the official Italian labels.`),
+          ...f.verified.map(g => TX(`${g.name} è registrato in Italia — autorizzazione ${(g.P && g.P.status) || NOTCONF()}, scadenza ${(g.P && fmtISO(g.P.expiry)) || UNK()}.`,
+            `${g.name} is registered in Italy — authorisation ${(g.P && g.P.status) || NOTCONF()}, expiry ${(g.P && fmtISO(g.P.expiry)) || UNK()}.`)),
+          TX('Le sue colture e i suoi bersagli di etichetta sono quelli stampati nella sezione di portafoglio qui sopra.',
+            'Its label crops and targets are as printed in the portfolio section above.'),
+          TX(`Esiste una finestra canonica per ${f.crop} × ${f.issue} in ${f.region}.`, `A canonical window exists for ${f.crop} × ${f.issue} in ${f.region}.`),
+          f.unverified.length
+            ? TX(`La comunicazione non deve nominare i ${f.unverified.length} prodotti elencati sotto "Da verificare": per questa coltura × problema non hanno corrispondenza confermata in questa lettura.`,
+              `Communication must not name the ${f.unverified.length} products listed under "To be verified": they have no confirmed match for this crop × issue in this reading.`)
+            : null
+        ] : [
+          TX(`Nessuna corrispondenza di etichetta confermata per ${f.crop} × ${f.issue} in questa lettura — la comunicazione non deve nominare un prodotto.`,
+            `No confirmed label match for ${f.crop} × ${f.issue} in this reading — communication must not name a product.`),
+          TX(`${ABSENCE()} I prodotti elencati sopra restano nel portafoglio; qui non sono confermati per questa coppia coltura × problema.`,
+            `${ABSENCE()} The products listed above remain in the portfolio; they are simply not confirmed here for this crop × issue pair.`)
+        ], true),
+        S(TX('Affermazioni che non possiamo fare', 'Claims we must not make'), [
+          TX('Incidenza, pressione o «si sta diffondendo nella regione» — su questa finestra non esiste alcuna fase osservata',
+            'Incidence, pressure or “spreading across the region” — no observed stage exists on this window'),
+          TX('Efficacia, resa o risultati economici', 'Efficacy, yield or revenue outcomes'),
+          TX('Qualsiasi cosa fuori dall\'etichetta approvata', 'Anything outside the approved label'),
+          TX('Strategia, spesa o quota dei concorrenti', 'Competitor strategy, spend or share'),
+          TX('Qualsiasi tempistica di applicazione non letta sulla scheda di etichetta', 'Any application timing not read from the label record'),
+          TX('Rilevanza di prodotto dedotta da una sostanza attiva condivisa o dalla sola presenza della coltura nell\'elenco di etichetta',
+            'Product relevance inferred from a shared active substance, or from the crop merely appearing in the label crop list')
+        ], true),
+        S(TX('Materiali suggeriti', 'Suggested assets') + INTERP(), [
+          TX('Scheda di supporto vendite regionale', 'Regional sales support card'),
+          TX('Materiale di messaggio per il rivenditore', 'Dealer messaging asset'),
+          TX('Contenuto tecnico', 'Technical post'),
+          TX('Materiale di supporto per il rivenditore', 'Dealer support material'),
+          TX('Slide di presentazione per la rete commerciale', 'Field-sales presentation slide'),
+          TX('Video agronomico breve', 'Short agronomic video')
+        ], true),
+        S(TX('Urgenza', 'Urgency'), [`${f.status} · ${f.windowState}`])
       ]
     }),
     'MARKET DEVELOPMENT': (c, f) => ({
-      doc: 'MARKET DEVELOPMENT ACTION BRIEF', role: 'Market Development', pages: '1–2 pages',
-      purpose: 'Validate the signal, judge regional relevance and decide where to look next.',
+      doc: TX('BRIEF OPERATIVO · SVILUPPO MERCATO', 'MARKET DEVELOPMENT ACTION BRIEF'),
+      role: TX('Sviluppo Mercato', 'Market Development'),
+      pages: TX('1–2 pagine', '1–2 pages'),
+      purpose: TX('Validare il segnale, giudicare la rilevanza regionale e decidere dove guardare dopo.',
+        'Validate the signal, judge regional relevance and decide where to look next.'),
       sections: [
-        S('What changed', [NOT_ESTABLISHED('Change narrative'), `On the record: window ${f.W ? f.W.windowId : 'none'} last validated ${f.lastValidated}, status ${f.status}${f.statusReason ? ` — ${f.statusReason}` : ''}.`]),
-        S('Why this deserves attention' + INTERP, [NOT_ESTABLISHED('Why-now')]),
-        S('Regional context', [`${f.region} — ${f.crop}. Regional precision only; no local coordinates.`, `Adjacent-area list: ${UNK}. Regional crop-area weight for this case: ${UNK} in this reading.`]),
-        S('Portfolio connection', f.primary
-          ? [`Primary: ${prodLine({ name: f.primaryName, P: f.primary })}`, `${f.moreMatches} further product(s) linked to this window.`]
-          : ['No confirmed portfolio position — Regulatory / Portfolio check requested.']),
-        S('Field voice', fieldLines(c), true),
-        S('What needs validation', ['Current pressure and crop stage — both read NOT_OBSERVED on this window', 'Label trigger — not recorded; read the label record', 'Adjacent-area movement — no adjacent-area record exists', 'Competitor activity attributable to this crop × region'], true),
-        S('Where to validate next' + INTERP, ['The regional bulletin series that publishes for this crop and region', 'Field colleagues covering the region', 'The national label record for every product listed above'], true),
-        S('Who to contact / listen to' + INTERP, ['Regional phytosanitary / advisory service for the region', 'Field sales representatives in the region', 'Producer organisations and technical networks covering the crop'], true),
-        S('Competitor context', compLines(), true),
-        S('Next 48h / 7 days' + INTERP, ['48h — confirm the signal with the next regional update and one field colleague', '7 days — decide expand / hold; brief Sales and Marketing if confirmed'], true)
+        S(TX('Che cosa è cambiato', 'What changed'), [NOT_ESTABLISHED('Narrativa del cambiamento', 'Change narrative'),
+          TX(`Sul record: finestra ${f.W ? f.W.windowId : TX('nessuna', 'none')}, ultima validazione ${f.lastValidated}, stato ${f.status}${f.statusReason ? ` — ${f.statusReason}` : ''}.`,
+            `On the record: window ${f.W ? f.W.windowId : 'none'} last validated ${f.lastValidated}, status ${f.status}${f.statusReason ? ` — ${f.statusReason}` : ''}.`)]),
+        S(TX('Perché merita attenzione', 'Why this deserves attention') + INTERP(), [WHYNOW()]),
+        S(TX('Contesto regionale', 'Regional context'), [
+          TX(`${f.region} — ${f.crop}. Solo precisione regionale; nessuna coordinata locale.`, `${f.region} — ${f.crop}. Regional precision only; no local coordinates.`),
+          TX(`Elenco delle aree limitrofe: ${UNK()}. Peso della superficie colturale regionale per questo caso: ${UNK()} in questa lettura.`,
+            `Adjacent-area list: ${UNK()}. Regional crop-area weight for this case: ${UNK()} in this reading.`)]),
+        ...portfolioSections(f, TX('Connessione di portafoglio', 'Portfolio connection')),
+        S(TX('Voce del campo', 'Field voice'), fieldLines(c), true),
+        S(TX('Che cosa va validato', 'What needs validation'), [
+          TX('Pressione attuale e fase colturale — su questa finestra entrambe risultano NOT_OBSERVED', 'Current pressure and crop stage — both read NOT_OBSERVED on this window'),
+          TX('Trigger di etichetta — non registrato; leggere la scheda di etichetta', 'Label trigger — not recorded; read the label record'),
+          TX('Movimento nelle aree limitrofe — non esiste alcun record di area limitrofa', 'Adjacent-area movement — no adjacent-area record exists'),
+          TX('Attività dei concorrenti attribuibile a questa coltura × regione', 'Competitor activity attributable to this crop × region')
+        ], true),
+        S(TX('Dove validare dopo', 'Where to validate next') + INTERP(), [
+          TX('La serie di bollettini regionali che pubblica per questa coltura e questa regione', 'The regional bulletin series that publishes for this crop and region'),
+          TX('I colleghi di campo che coprono la regione', 'Field colleagues covering the region'),
+          TX('La scheda di etichetta nazionale di ogni prodotto elencato qui sopra', 'The national label record for every product listed above')
+        ], true),
+        S(TX('Chi contattare / ascoltare', 'Who to contact / listen to') + INTERP(), [
+          TX('Servizio fitosanitario / di consulenza regionale per la regione', 'Regional phytosanitary / advisory service for the region'),
+          TX('Rappresentanti di vendita nella regione', 'Field sales representatives in the region'),
+          TX('Organizzazioni di produttori e reti tecniche che coprono la coltura', 'Producer organisations and technical networks covering the crop')
+        ], true),
+        S(TX('Contesto concorrenza', 'Competitor context'), compLines(), true),
+        S(TX('Prossime 48 ore / 7 giorni', 'Next 48h / 7 days') + INTERP(), [
+          TX('48 ore — confermare il segnale con il prossimo aggiornamento regionale e un collega di campo', '48h — confirm the signal with the next regional update and one field colleague'),
+          TX('7 giorni — decidere se estendere o attendere; informare Vendite e Marketing se confermato', '7 days — decide expand / hold; brief Sales and Marketing if confirmed')
+        ], true)
       ]
     }),
     'TECHNICAL / SCIENCE': (c, f) => ({
-      doc: 'TECHNICAL VALIDATION BRIEF', role: 'Technical / Science', pages: '2–3 pages',
-      purpose: 'Validate agronomic pressure and application timing. This is not a sales document.',
+      doc: TX('BRIEF DI VALIDAZIONE TECNICA', 'TECHNICAL VALIDATION BRIEF'),
+      role: TX('Tecnico / Scienza', 'Technical / Science'),
+      pages: TX('2–3 pagine', '2–3 pages'),
+      purpose: TX('Validare la pressione agronomica e il momento di applicazione. Questo non è un documento di vendita.',
+        'Validate agronomic pressure and application timing. This is not a sales document.'),
       sections: [
-        S('Signal under review', [`${f.issue} (${f.issueType}) on ${f.crop} · ${f.region}`, `Scientific / taxonomic name for this issue: ${UNK} on the canonical window record.`]),
-        S('Agronomic evidence available', [NOT_ESTABLISHED('Evidence narrative'), ...sourcesLines(f)]),
-        S('Crop stage', [`${f.cropStage}${f.cropStage === 'NOT_OBSERVED' ? ' — CROP_STAGE is not recorded on this window; no stage may be asserted downstream.' : ''}`]),
-        S('Disease / pest signal', [`${f.issueStage}${f.issueStage === 'NOT_OBSERVED' ? ' — ISSUE_STAGE is not recorded on this window; this is not a low-pressure claim, it is an absence of observation.' : ''}`]),
-        S('Official monitoring', ['Per-case official-observation counts are not established in the model and are not printed.', ...sourcesLines(f).slice(0, 2)]),
-        S('Scientific context', (() => { const SC = coll('scienceRecords'); const RS = coll('resistance'); return [
-          SC ? `Science corpus: ${SC.count} records (provenance ${SC.provenance}). Case-level linkage is not established, so no per-case count is printed. Author affiliation is never treated as field location.` : `Science corpus: ${UNK}.`,
-          RS ? `Resistance corpus: ${RS.count} documented mechanisms (provenance ${RS.provenance}) available for the resistance-management argument.` : null
+        S(TX('Segnale in esame', 'Signal under review'), [
+          `${f.issue} (${f.issueType}) · ${f.crop} · ${f.region}`,
+          TX(`Nome scientifico / tassonomico di questo problema: ${UNK()} sul record di finestra canonica.`,
+            `Scientific / taxonomic name for this issue: ${UNK()} on the canonical window record.`)]),
+        S(TX('Evidenza agronomica disponibile', 'Agronomic evidence available'), [NOT_ESTABLISHED('Narrativa dell\'evidenza', 'Evidence narrative'), ...sourcesLines(f)]),
+        S(TX('Fase colturale', 'Crop stage'), [`${f.cropStage}${f.cropStage === 'NOT_OBSERVED'
+          ? TX(' — CROP_STAGE non è registrato su questa finestra; nessuna fase può essere affermata a valle.', ' — CROP_STAGE is not recorded on this window; no stage may be asserted downstream.') : ''}`]),
+        S(TX('Segnale di malattia / parassita', 'Disease / pest signal'), [`${f.issueStage}${f.issueStage === 'NOT_OBSERVED'
+          ? TX(' — ISSUE_STAGE non è registrato su questa finestra; questa non è un\'affermazione di bassa pressione, è un\'assenza di osservazione.', ' — ISSUE_STAGE is not recorded on this window; this is not a low-pressure claim, it is an absence of observation.') : ''}`]),
+        S(TX('Monitoraggio ufficiale', 'Official monitoring'), [
+          TX('I conteggi di osservazioni ufficiali per caso non sono stabiliti nel modello e non vengono stampati.',
+            'Per-case official-observation counts are not established in the model and are not printed.'),
+          ...sourcesLines(f).slice(0, 2)]),
+        S(TX('Contesto scientifico', 'Scientific context'), (() => { const SC = coll('scienceRecords'); const RS = coll('resistance'); return [
+          SC ? TX(`Corpus scientifico: ${SC.count} record (provenienza ${SC.provenance}). Il collegamento a livello di caso non è stabilito, quindi non viene stampato alcun conteggio per caso. L'affiliazione dell'autore non è mai trattata come luogo di campo.`,
+            `Science corpus: ${SC.count} records (provenance ${SC.provenance}). Case-level linkage is not established, so no per-case count is printed. Author affiliation is never treated as field location.`)
+            : TX(`Corpus scientifico: ${UNK()}.`, `Science corpus: ${UNK()}.`),
+          RS ? TX(`Corpus di resistenza: ${RS.count} meccanismi documentati (provenienza ${RS.provenance}) disponibili per l'argomento di gestione della resistenza.`,
+            `Resistance corpus: ${RS.count} documented mechanisms (provenance ${RS.provenance}) available for the resistance-management argument.`) : null
         ]; })()),
-        S('Label timing', window_(f).slice(3).concat(prodLines(f)), true),
-        S('Field voice', fieldLines(c), true),
-        S('What is still unknown', ['Current-season phenology for this region', 'Current pest / disease pressure', 'Label trigger and dose — held only in the label record', 'Whether the signal extends into adjacent areas'], true),
-        S('Questions to validate' + INTERP, ['Is the reported stage consistent with the phenology model for the region?', 'Does the signal meet the regional intervention threshold?', 'Does the label window overlap the current stage?', 'Any weather driver that changes timing this week?', 'Is there resistance-management guidance to attach?'], true),
-        S('Recommendation format', ['Return: CONFIRMED / NOT CONFIRMED / NEEDS MORE DATA, with date and source.'])
+        /* One list, every line carrying its own grade — a technical reader needs
+           to see the unconfirmed ones beside the confirmed ones, not on another
+           page, and no heading here asserts relevance. */
+        S(TX('Tempistica di etichetta · ogni prodotto con il proprio grado di audit', 'Label timing · every product with its own audit grade'),
+          window_(f).slice(3).concat(gradedLines(f)), true),
+        S(TX('Voce del campo', 'Field voice'), fieldLines(c), true),
+        S(TX('Che cosa resta ignoto', 'What is still unknown'), [
+          TX('Fenologia della stagione corrente per questa regione', 'Current-season phenology for this region'),
+          TX('Pressione attuale di parassita / malattia', 'Current pest / disease pressure'),
+          TX('Trigger di etichetta e dose — custoditi solo sulla scheda di etichetta', 'Label trigger and dose — held only in the label record'),
+          TX('Se il segnale si estenda alle aree limitrofe', 'Whether the signal extends into adjacent areas')
+        ], true),
+        S(TX('Domande da validare', 'Questions to validate') + INTERP(), [
+          TX('La fase riportata è coerente con il modello fenologico della regione?', 'Is the reported stage consistent with the phenology model for the region?'),
+          TX('Il segnale raggiunge la soglia di intervento regionale?', 'Does the signal meet the regional intervention threshold?'),
+          TX('La finestra di etichetta si sovrappone alla fase attuale?', 'Does the label window overlap the current stage?'),
+          TX('C\'è un fattore meteorologico che cambia la tempistica questa settimana?', 'Any weather driver that changes timing this week?'),
+          TX('C\'è una guida di gestione della resistenza da allegare?', 'Is there resistance-management guidance to attach?')
+        ], true),
+        S(TX('Formato della risposta', 'Recommendation format'), [
+          TX('Restituire: CONFERMATO / NON CONFERMATO / SERVONO ALTRI DATI, con data e fonte.',
+            'Return: CONFIRMED / NOT CONFIRMED / NEEDS MORE DATA, with date and source.')])
       ]
     }),
     'REGULATORY / PORTFOLIO': (c, f) => ({
-      doc: 'REGULATORY & PORTFOLIO CHECK', role: 'Regulatory / Portfolio', pages: '1–2 pages',
-      purpose: 'Confirm authorisation and label positioning for the products linked to this case before any field or marketing message.',
+      doc: TX('VERIFICA REGOLATORIA E DI PORTAFOGLIO', 'REGULATORY & PORTFOLIO CHECK'),
+      role: TX('Regolatorio / Portafoglio', 'Regulatory / Portfolio'),
+      pages: TX('1–2 pagine', '1–2 pages'),
+      purpose: TX('Confermare autorizzazione e posizionamento di etichetta dei prodotti collegati a questo caso prima di qualsiasi messaggio di campo o di marketing.',
+        'Confirm authorisation and label positioning for the products linked to this case before any field or marketing message.'),
       sections: [
-        S('Case', [`${f.issue} · ${f.crop} · ${f.region}`]),
-        S('Products linked', prodLines(f), true),
-        S('Italy authorisation', ['Authorisation status and expiry above are read from the Sintonia product model. Re-confirm current status in the national database (Banca Dati Fitosanitari) via the label record URL for each product before release.']),
-        S('Dose · application interval · maximum applications', [`${NOT_OBS.replace('OSSERVABILE DA FONTI ESTERNE', 'DERIVABILE DA SINTONIA')} — read from the current label record. Sintonia never derives dose.`]),
-        S('Expiry / regulatory context', ['Confirm authorisation expiry and any pending renewal, restriction or buffer-zone condition.', ...(() => {
-          const soon = f.products.filter(x => x.P && x.P.expiry).map(x => `${x.P.name} · expiry ${fmtISO(x.P.expiry)}`);
-          return soon.length ? [`Expiries on file: ${soon.join(' · ')}.`] : [`Expiries on file: ${UNK}.`];
-        })()]),
-        S('Uncertainties', [
-          ...(() => { const noAi = f.products.filter(x => !x.P || !(Array.isArray(x.P.ai) ? x.P.ai.filter(Boolean).length : x.P.ai)).map(x => x.name);
-            return noAi.length ? [`Active substance not established in the model for: ${noAi.join(', ')}.`] : ['Active substance is established in the model for every product linked to this window.']; })(),
-          f.primary ? null : 'No primary product matched — confirm whether any ADAMA position exists for this crop × target.',
-          'No LABEL_TRIGGER is recorded on this window, so the application timing shown anywhere downstream must come from the label record only.'
+        S(TX('Caso', 'Case'), [`${f.issue} · ${f.crop} · ${f.region}`]),
+        ...portfolioSections(f, TX('Prodotti collegati', 'Products linked')),
+        S(TX('Autorizzazione Italia', 'Italy authorisation'), [
+          TX('Lo stato di autorizzazione e la scadenza qui sopra sono letti dal modello prodotti Sintonia. Riconfermare lo stato attuale nella banca dati nazionale (Banca Dati Fitosanitari) tramite l\'URL della scheda di etichetta di ogni prodotto prima del rilascio.',
+            'Authorisation status and expiry above are read from the Sintonia product model. Re-confirm current status in the national database (Banca Dati Fitosanitari) via the label record URL for each product before release.')]),
+        S(TX('Dose · intervallo di applicazione · numero massimo di applicazioni', 'Dose · application interval · maximum applications'), [
+          TX(`${NOT_OBS.replace('OSSERVABILE DA FONTI ESTERNE', 'DERIVABILE DA SINTONIA')} — si legge sulla scheda di etichetta corrente. Sintonia non deriva mai la dose.`,
+            `${NOT_OBS.replace('OSSERVABILE DA FONTI ESTERNE', 'DERIVABILE DA SINTONIA')} — read from the current label record. Sintonia never derives dose.`)]),
+        S(TX('Scadenza / contesto regolatorio', 'Expiry / regulatory context'), [
+          TX('Confermare la scadenza dell\'autorizzazione e qualsiasi rinnovo, restrizione o condizione di fascia di rispetto in corso.',
+            'Confirm authorisation expiry and any pending renewal, restriction or buffer-zone condition.'),
+          ...(() => {
+            const soon = f.products.filter(x => x.P && x.P.expiry).map(x => TX(`${x.P.name} · scadenza ${fmtISO(x.P.expiry)}`, `${x.P.name} · expiry ${fmtISO(x.P.expiry)}`));
+            return soon.length
+              ? [TX(`Scadenze in archivio: ${soon.join(' · ')}.`, `Expiries on file: ${soon.join(' · ')}.`)]
+              : [TX(`Scadenze in archivio: ${UNK()}.`, `Expiries on file: ${UNK()}.`)];
+          })()]),
+        S(TX('Incertezze', 'Uncertainties'), [
+          ...(() => {
+            const noAi = f.products.filter(x => !x.P || !(Array.isArray(x.P.ai) ? x.P.ai.filter(Boolean).length : x.P.ai)).map(x => x.name);
+            return noAi.length
+              ? [TX(`Sostanza attiva non stabilita nel modello per: ${noAi.join(', ')}.`, `Active substance not established in the model for: ${noAi.join(', ')}.`)]
+              : [TX('La sostanza attiva è stabilita nel modello per ogni prodotto collegato a questa finestra.', 'Active substance is established in the model for every product linked to this window.')];
+          })(),
+          f.unverified.length
+            ? TX(`${f.unverified.length} prodotti su ${f.graded.length} non hanno corrispondenza confermata per ${f.crop} × ${f.issue} in questa lettura — confermare manualmente sulla scheda di etichetta se una posizione esista. ${ABSENCE()}`,
+              `${f.unverified.length} of ${f.graded.length} products carry no confirmed match for ${f.crop} × ${f.issue} in this reading — confirm manually on the label record whether a position exists. ${ABSENCE()}`)
+            : null,
+          f.verified.length ? null
+            : TX('Nessun prodotto è stato verificato su etichetta per questa coppia coltura × problema — confermare se esista una posizione ADAMA.',
+              'No product is verified on the label for this crop × target pair — confirm whether any ADAMA position exists.'),
+          TX('Su questa finestra non è registrato alcun LABEL_TRIGGER, quindi la tempistica di applicazione mostrata a valle deve provenire unicamente dalla scheda di etichetta.',
+            'No LABEL_TRIGGER is recorded on this window, so the application timing shown anywhere downstream must come from the label record only.')
         ], true),
-        S('Requires manual confirmation', ['Label target wording vs. observed pest/disease', 'Crop listing (including crop group)', 'Regional or seasonal restrictions', 'Status change alerts subscribed'], true),
-        S('Return to', ['Sales, Marketing and Market Development are blocked on this check for product naming.'])
+        S(TX('Richiede conferma manuale', 'Requires manual confirmation'), [
+          TX('Dicitura del bersaglio di etichetta rispetto al parassita / malattia osservato', 'Label target wording vs. observed pest/disease'),
+          TX('Elenco delle colture (incluso il gruppo colturale)', 'Crop listing (including crop group)'),
+          TX('Restrizioni regionali o stagionali', 'Regional or seasonal restrictions'),
+          TX('Avvisi di cambio di stato sottoscritti', 'Status change alerts subscribed')
+        ], true),
+        S(TX('Restituire a', 'Return to'), [
+          TX('Vendite, Marketing e Sviluppo Mercato sono in attesa di questa verifica per poter nominare un prodotto.',
+            'Sales, Marketing and Market Development are blocked on this check for product naming.')])
       ]
     }),
     'SUPPLY': (c, f) => ({
-      doc: 'SUPPLY READINESS REQUEST', role: 'Supply', pages: '1 page',
-      purpose: 'Handoff request — external intelligence cannot know availability. This is not an availability claim.',
+      doc: TX('RICHIESTA DI PRONTEZZA · SUPPLY', 'SUPPLY READINESS REQUEST'),
+      role: 'Supply',
+      pages: TX('1 pagina', '1 page'),
+      purpose: TX('Richiesta di passaggio di consegne — l\'intelligence esterna non può conoscere la disponibilità. Questa non è un\'affermazione di disponibilità.',
+        'Handoff request — external intelligence cannot know availability. This is not an availability claim.'),
       sections: [
-        S('Case', [`${f.issue} · ${f.crop} · ${f.region} · ${f.status}`]),
-        S('Portfolio products', f.products.length ? f.products.map(x => x.name) : ['No product linked to this window'], true),
-        S('Timing', window_(f)),
-        S('Why readiness should be reviewed', [
-          `The registered window runs ${f.from} → ${f.to} and is ${f.windowState}.`,
-          (() => { const n = realField(c).length; return n ? `${n} verified field observation(s) on this case.` : 'No verified field observation supports a demand read on this case, and no demand is implied.'; })(),
-          `Demand, orders and grower purchase timing are ${NOT_OBS}.`
+        S(TX('Caso', 'Case'), [`${f.issue} · ${f.crop} · ${f.region} · ${f.status}`]),
+        S(TX('Prodotti di portafoglio · ognuno con il proprio grado di audit di etichetta', 'Portfolio products · each with its own label audit grade'),
+          f.graded.length
+            ? f.graded.map(g => `${g.name} — ${g.strength ? pstate(g.strength) : TX('GRADO NON RICHIEDIBILE', 'GRADE NOT ASKABLE')}`)
+            : [TX('Nessun prodotto collegato a questa finestra', 'No product linked to this window')], true),
+        S(TX('Tempistica', 'Timing'), window_(f)),
+        S(TX('Perché rivedere la prontezza', 'Why readiness should be reviewed'), [
+          TX(`La finestra registrata va da ${f.from} a ${f.to} ed è ${f.windowState}.`, `The registered window runs ${f.from} → ${f.to} and is ${f.windowState}.`),
+          (() => { const n = realField(c).length; return n
+            ? TX(`${n} osservazioni di campo verificate su questo caso.`, `${n} verified field observation(s) on this case.`)
+            : TX('Nessuna osservazione di campo verificata sostiene una lettura di domanda su questo caso, e nessuna domanda è implicata.',
+              'No verified field observation supports a demand read on this case, and no demand is implied.'); })(),
+          TX(`Domanda, ordini e tempistica di acquisto dell'agricoltore sono ${NOT_OBS}.`, `Demand, orders and grower purchase timing are ${NOT_OBS}.`)
         ]),
-        S('Request', ['Please review readiness for the region and window above. Sintonia has no view of availability, orders or forecast and makes no claim about any of them.'])
+        S(TX('Richiesta', 'Request'), [
+          TX('Rivedere la prontezza per la regione e la finestra qui sopra. Sintonia non ha alcuna visione di disponibilità, ordini o previsioni e non formula alcuna affermazione su nessuno dei tre.',
+            'Please review readiness for the region and window above. Sintonia has no view of availability, orders or forecast and makes no claim about any of them.')])
       ]
     })
   };
 
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-  function build(dept, c) {
+  function build(dept, c, lang) {
     const g = GEN[dept]; if (!g) return null;
+    LG = (lang === 'it' || lang === 'en') ? lang : detectLang();
     const f = F(c || {});
     const b = g(c || {}, f);
     b.dept = dept; b.case = c; b.facts = f;
+    /* PRODUCT LAW §11 and finding 4 · the crop is named with the label the rest
+       of the portal shows ('Vite'), so the brief and the case screen cannot
+       name the same crop differently. */
     b.title = `${f.issue} · ${f.crop} · ${f.region}`;
     b.priority = f.status;
     b.accentColor = f.color;
     b.windowFrom = f.from; b.windowTo = f.to; b.windowState = f.windowState;
-    b.primary = f.primaryName && f.primary ? f.primary.name : null;
+    /* PRODUCT LAW §10 · no product is promoted above another; this is the list
+       of verified matches, or null when there is none. */
+    b.primary = f.verifiedNames.length === 1 ? f.verifiedNames[0] : null;
+    b.verifiedNames = f.verifiedNames.slice();
+    b.unverifiedCount = f.unverified.length;
+    /* The language the document was BUILT in. printHtml() reuses it rather than
+       re-detecting, so a switch between screen and print cannot produce a
+       half-translated PDF. */
+    b.lang = LG;
     /* ONE clock (PRODUCT LAW §6). This is the model's reference date, not a
        wall clock, and it is labelled as such wherever it is printed. */
     b.referenceDate = refISO();
-    b.generated = `${refStamp()} · Sintonia reference date (not a print timestamp)`;
-    b.summary = `${b.doc} — ${b.title}\nFor: ${b.role} · Priority: ${b.priority} · ${b.generated} · Sintonia ADAMA Italy · Demonstration environment\n\n`
+    b.generated = TX(`${refStamp()} · data di riferimento Sintonia (non un timestamp di stampa)`,
+      `${refStamp()} · Sintonia reference date (not a print timestamp)`);
+    b.summary = `${b.doc} — ${b.title}\n`
+      + TX(`Per: ${b.role} · Priorità: ${b.priority} · ${b.generated} · Sintonia ADAMA Italia · Ambiente dimostrativo\n\n`,
+        `For: ${b.role} · Priority: ${b.priority} · ${b.generated} · Sintonia ADAMA Italy · Demonstration environment\n\n`)
       + b.sections.map(s => s.h.toUpperCase() + '\n' + s.lines.map(l => (s.bullets ? '• ' : '') + l).join('\n')).join('\n\n');
     return b;
   }
@@ -328,10 +706,12 @@
   function printHtml(b) {
     /* The brief's CSS comes from the local _ds/adama-brandwell package that ships
        with the client folder — no CDN, no network. */
+    LG = (b && (b.lang === 'it' || b.lang === 'en')) ? b.lang : detectLang();
     const base = (typeof document !== 'undefined' && document.baseURI) ? document.baseURI.replace(/[^/]*$/, '') : '';
     const col = b.accentColor || '#009845';
     const showLoop = b.dept === 'SALES / RTV';
-    return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(b.doc)} · ${esc(b.title)}</title>
+    const verified = (b.verifiedNames || []);
+    return `<!doctype html><html lang="${LG}"><head><meta charset="utf-8"><title>${esc(b.doc)} · ${esc(b.title)}</title>
 <link rel="stylesheet" href="${base}_ds/adama-brandwell/tokens/typography.css">
 <style>@page{size:A4;margin:16mm 16mm 18mm}body{margin:0;font-family:'LL Brown','BrownLL',Arial,sans-serif;color:#231F20;font-size:10.5pt;line-height:1.45}
 .top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #009845;padding-bottom:8px;margin-bottom:12px}.brand{font-size:9pt;letter-spacing:.18em;font-weight:700;color:#009845}.brand small{display:block;letter-spacing:.12em;color:#978B87;font-weight:600;margin-top:2px}
@@ -341,13 +721,13 @@ h1{font-size:22pt;line-height:1.05;margin:0 0 6px;letter-spacing:-.01em}.meta{di
 h2{font-size:9pt;letter-spacing:.14em;color:${col};margin:12px 0 4px;text-transform:uppercase;page-break-after:avoid}p,li{margin:0 0 3px}ul{margin:0;padding-left:16px}
 .loop{margin-top:14px;border:2px solid #009845;border-radius:12px;padding:10px 12px;page-break-inside:avoid}.loop b{color:#009845;letter-spacing:.12em;font-size:9pt}
 .foot{margin-top:16px;padding-top:8px;border-top:1px solid #CBC5C3;font-size:8pt;color:#978B87;display:flex;justify-content:space-between}</style></head><body>
-<div class="top"><div class="brand">SINTONIA<small>ADAMA ITALY · ACTION BRIEF</small></div><div class="doc">${esc(b.doc)}<b>${esc(b.generated)}</b>Demonstration Environment</div></div>
+<div class="top"><div class="brand">SINTONIA<small>${esc(TX('ADAMA ITALIA · BRIEF OPERATIVO', 'ADAMA ITALY · ACTION BRIEF'))}</small></div><div class="doc">${esc(b.doc)}<b>${esc(b.generated)}</b>${esc(TX('AMBIENTE DIMOSTRATIVO', 'DEMONSTRATION ENVIRONMENT'))}</div></div>
 <h1>${esc(b.title)}</h1>
-<div class="meta"><span>FOR: <b>${esc(b.role)}</b></span><span>PRIORITY: <span class="pri">${esc(b.priority)}</span></span><span>Window: <b>${esc(b.windowFrom)} → ${esc(b.windowTo)}</b> · ${esc(b.windowState)}</span>${b.primary ? `<span>Primary portfolio match: <b>${esc(b.primary)}</b></span>` : ''}</div>
-<div class="purpose"><b>Purpose · </b>${esc(b.purpose)}</div>
+<div class="meta"><span>${esc(TX('PER:', 'FOR:'))} <b>${esc(b.role)}</b></span><span>${esc(TX('PRIORITÀ:', 'PRIORITY:'))} <span class="pri">${esc(b.priority)}</span></span><span>${esc(TX('Finestra:', 'Window:'))} <b>${esc(b.windowFrom)} → ${esc(b.windowTo)}</b> · ${esc(b.windowState)}</span>${verified.length ? `<span>${esc(TX('Corrispondenze verificate su etichetta:', 'Verified label matches:'))} <b>${esc(verified.join(' · '))}</b></span>` : ''}</div>
+<div class="purpose"><b>${esc(TX('Scopo · ', 'Purpose · '))}</b>${esc(b.purpose)}</div>
 ${b.sections.map(s => `<h2>${esc(s.h)}</h2>${s.bullets ? '<ul>' + s.lines.map(l => `<li>${esc(l)}</li>`).join('') + '</ul>' : s.lines.map(l => `<p>${esc(l)}</p>`).join('')}`).join('')}
-${showLoop ? `<div class="loop"><b>OSSERVAZIONI DI CAMPO</b><p>Le osservazioni raccolte in campo possono rientrare in Sintonia attraverso l'integrazione opzionale della rete commerciale. Sintonia riceve e classifica; non richiede l'invio di messaggi.</p></div>` : ''}
-<div class="foot"><span>Facts read from the Sintonia model at reference date ${esc(b.generated)}. Demonstration only. No availability, order, share or ROI data is implied.</span><span>Listen &gt; Learn &gt; Deliver</span></div>
+${showLoop ? `<div class="loop"><b>${esc(TX('OSSERVAZIONI DI CAMPO', 'FIELD OBSERVATIONS'))}</b><p>${esc(TX('Le osservazioni raccolte in campo possono rientrare in Sintonia attraverso l\'integrazione opzionale della rete commerciale. Sintonia riceve e classifica; non richiede l\'invio di messaggi.', 'Observations collected in the field can return into Sintonia through the optional field-sales integration. Sintonia receives and classifies; it requests no message to be sent.'))}</p></div>` : ''}
+<div class="foot"><span>${esc(TX(`Fatti letti dal modello Sintonia alla data di riferimento ${b.generated}. Solo dimostrativo. Non è implicato alcun dato di disponibilità, ordini, quota o ROI.`, `Facts read from the Sintonia model at reference date ${b.generated}. Demonstration only. No availability, order, share or ROI data is implied.`))}</span><span>Listen &gt; Learn &gt; Deliver</span></div>
 <script>window.onload=function(){setTimeout(function(){window.print()},400)}</script></body></html>`;
   }
 

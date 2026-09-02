@@ -947,6 +947,151 @@ check('X1', 'Two screens never contradict each other on the same crop × issue',
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
 });
 
+
+check('A1', 'No filter affordance leads to an empty result', () => {
+  /* The Radar's region panel invited a click on seven regions and five of them
+     opened an empty radar, because the tile counted canonical crop windows
+     while the filter matched opportunities. A control that promises records
+     must deliver at least one, or it must not be lit. */
+  const m = mount();
+  const bad = [];
+  const v = m.vals({ view: 'radar', lang: 'it' });
+  const countFor = (patch) => {
+    const r = m.tryVals(Object.assign({ view: 'radar', showAll: true, lang: 'it' }, patch));
+    return r.ok ? (r.vals.visibleCases || []).length : -1;
+  };
+  /* region tiles that show a number and offer a filter */
+  for (const t of v.regionRank || []) {
+    if (!t || !t.name) continue;
+    const n = countFor({ fRegion: t.name, fCrop: '', fIssue: '', fStatus: '' });
+    if (n === 0) bad.push(`region "${t.name}" shows ${t.cases} and filters to 0`);
+  }
+  /* every option the crop / issue / region dropdowns offer must match something */
+  for (const [key, list] of [['fCrop', v.cropOptions], ['fIssue', v.issueOptions], ['fRegion', v.regionOptions]]) {
+    for (const o of list || []) {
+      if (!o || !o.v) continue;
+      const n = countFor({ [key]: o.v, fCrop: '', fIssue: '', fRegion: '', fStatus: '' });
+      if (n === 0) bad.push(`${key}="${o.v}" filters to 0`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 12) };
+});
+
+check('A3', 'A cross-link never rests on a shared crop name alone', () => {
+  /* Two records sharing a crop name is not a relationship (rule 13). The Field
+     Sales router matched the first window with the same crop and ignored the
+     issue, so a herbicide question was routed to an insect window and the label
+     stated that window's issue as the message's target. */
+  const m = mount();
+  const AM = m.AM;
+  const v = m.tryVals({ view: 'field', lang: 'it' });
+  if (!v.ok) return { pass: false, expected: 'field renders', measured: v.error };
+  const wins = AM.collections.cropWindows.records;
+  const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z]+/g, ' ').trim();
+  const bad = [];
+  for (const msg of v.vals.fieldMessages || []) {
+    const target = msg.targetLabel || msg.windowLabel || '';
+    if (!/finestre|window/i.test(target)) continue;
+    const w = wins.find((x) => target.includes(x.issue) || target.includes(x.region));
+    if (!w) continue;
+    const mi = norm(msg.issue), wi = norm(w.issue);
+    if (!mi || !wi) continue;
+    const shares = mi.split(' ').some((tok) => tok.length > 4 && wi.includes(tok)) ||
+      wi.split(' ').some((tok) => tok.length > 4 && mi.includes(tok));
+    if (!shares) bad.push(`"${msg.issue}" routed to window "${w.issue}" — only the crop matches`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+});
+
+check('A4', 'The person directory agrees with the researcher collection', () => {
+  /* isResearcher was true on 1 of 66 while the model held 60 researchers, so
+     the publications panel was suppressed on 59 people who have publications. */
+  const m = mount();
+  const AM = m.AM;
+  const ids = new Set(AM.collections.researchers.records.map((r) => r.id));
+  const v = m.tryVals({ view: 'sources', sourceGroup: 'ALL', peopleCat: 'ALL', lang: 'it' });
+  if (!v.ok) return { pass: false, expected: 'sources renders', measured: v.error };
+  const people = v.vals.visiblePeople || [];
+  if (!people.length) return { pass: false, expected: 'a people list', measured: 'empty' };
+  const flagged = people.filter((p) => p.isResearcher).length;
+  const shouldBe = people.filter((p) => ids.has(p.id)).length;
+  return { pass: flagged === shouldBe, expected: shouldBe, measured: flagged,
+    detail: { listed: people.length, inResearcherCollection: shouldBe, flagged } };
+});
+
+
+check('A5', 'A permanently empty panel is guarded or gone, never a label over nothing', () => {
+  /* The adversarial audit measured these props empty on 100% of the records of
+     their own collection, while their section heading still rendered. Each one
+     must now either disappear (the prop is gone) or be knowable as empty (a
+     companion boolean the template can guard on). A heading over nothing is
+     worse than showing less: the reader assumes the data is missing, not that
+     it was never claimed. */
+  const m = mount();
+  const HOLLOW = [
+    ['signal', { signalId: (AM) => (AM.collections.futureSignals.records[0] || {}).id }, 'sg', ['who', 'whyWatch', 'trail', 'promotion']],
+    ['person', { personId: (AM) => (AM.collections.researchers.records[0] || {}).id }, 'pr', ['issues', 'related', 'signals', 'history', 'messages']],
+    ['source', { sourceId: (AM) => (AM.collections.sources.records[0] || {}).id }, 'sr', ['topics', 'cases']],
+    ['event', { eventId: (AM) => (AM.collections.futureEvents.records[0] || {}).id }, 'evd', ['program']],
+    ['theme', { themeId: (AM) => (AM.collections.scienceThemes.records[0] || {}).id }, 'th', ['caseObjs']],
+  ];
+  const mk = extractMarkup(readPortal());
+  const bad = [];
+  for (const [view, pickers, root, props] of HOLLOW) {
+    const patch = { view, lang: 'it' };
+    for (const [k, fn] of Object.entries(pickers)) patch[k] = fn(m.AM);
+    const r = m.tryVals(patch);
+    if (!r.ok) { bad.push(`${view}: ${r.error}`); continue; }
+    const obj = r.vals[root];
+    if (!obj) continue;
+    for (const p of props) {
+      const v = obj[p];
+      const empty = v === undefined || v === null || (Array.isArray(v) && v.length === 0) || v === '';
+      if (!empty) continue;
+      /* it may simply be gone from the template */
+      const bound = new RegExp(`\{\{\s*${root}\.${p}\b`).test(mk);
+      if (!bound) continue;
+      /* otherwise the code must know it is empty */
+      const cap = p.charAt(0).toUpperCase() + p.slice(1);
+      const knows = obj[`has${cap}`] === false || obj[`no${cap}`] === true ||
+        obj[`has${cap}`] === 0 || Object.keys(obj).some((k) => new RegExp(`^(has|no)${cap}$`, 'i').test(k));
+      if (!knows) bad.push(`${view}.${root}.${p}: empty, still bound, and no has${cap}/no${cap} to guard on`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 12) };
+});
+
+
+check('A6', 'The Opportunity product filter offers only linked products, and says so', () => {
+  /* The selector filters opportunities, so it can only offer the products the
+     opportunity records are linked to. It was labelled "tutti i prodotti ADAMA"
+     over a list of six, which reads as the whole portfolio being present and
+     mostly irrelevant. The universe belongs to PORTAFOGLIO · CATALOGO
+     COMMERCIALE (44 catalogue entries, 166 joined). This check fails both ways:
+     if the label over-promises, and if the list ever grows into the universe. */
+  const m = mount();
+  const AM = m.AM;
+  const bad = [];
+  const linked = new Set();
+  for (const o of AM.collections.opportunities.records.concat(AM.collections.opportunityScenarios.records)) {
+    for (const l of o.productLinks || []) if (l && (l.name || l.product)) linked.add(String(l.name || l.product).toUpperCase());
+    for (const p of o.adamaProducts || []) linked.add(String(p).toUpperCase());
+  }
+  for (const lang of ['it', 'en']) {
+    const v = m.vals({ view: 'radar', lang });
+    for (const [where, list] of [['productOptions', v.productOptions], ['radarFilters', ((v.radarFilters || [])[4] || {}).options]]) {
+      if (!Array.isArray(list) || !list.length) { bad.push(`${where}/${lang}: absent`); continue; }
+      const label = String((list[0] || {}).l || '');
+      if (/tutti i prodotti|all adama products/i.test(label)) bad.push(`${where}/${lang}: label still promises the whole portfolio — "${label}"`);
+      const offered = list.slice(1).map((o) => String(o.v || '').toUpperCase()).filter(Boolean);
+      const stray = offered.filter((p) => !linked.has(p));
+      if (stray.length) bad.push(`${where}/${lang}: offers ${stray.length} product(s) no opportunity links, e.g. ${stray[0]}`);
+      if (offered.length >= AM.collections.products.count) bad.push(`${where}/${lang}: the filter has become the product universe`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 8) };
+});
+
 export function runAll(only) {
   const list = only ? CHECKS.filter((c) => only.includes(c.id)) : CHECKS;
   return list.map((c) => {
