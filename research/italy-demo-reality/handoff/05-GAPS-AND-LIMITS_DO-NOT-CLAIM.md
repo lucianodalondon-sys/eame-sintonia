@@ -10,9 +10,18 @@ diferença entre o que os dados sustentam e o que eles não sustentam.
 > ⛔ **«A ADAMA não tem produto para *alvo* em *cultura*.»**
 > ⛔ «Não há registro» · «não existe» · «não consta»
 
-**Por quê:** a cobertura de uso lido é **19 de 163 produtos (11,7%)**. Os outros 144 não
-têm linha ligando cultura e alvo porque **não foi lida**, não porque não exista. O número
-de capa `LABEL_COVERAGE: 163/163 (100%)` conta **rótulo baixado**, não uso lido.
+**Por quê:** a cobertura de uso lido é **102 de 163 produtos (62,6%)** — era 11,7% até
+01/09, e subiu quando os 163 rótulos foram lidos por dentro. Os **61 restantes** não têm
+linha ligando cultura e alvo porque **não foi lida**, não porque não exista.
+
+⚠️ E há dois números de capa que medem coisas diferentes:
+
+| número | o que conta |
+|---|---|
+| `LABEL_COVERAGE: 163/163 (100%)` | **rótulo baixado** |
+| `USE_COVERAGE: 102/163 (62,6%)` | **par cultura × alvo lido dentro do rótulo** |
+
+Confundir os dois é o caminho mais curto para a frase proibida.
 
 ✅ **Diga:** *«nesta leitura do rótulo publicado pelo Ministero, capturada em 30/08/2026,
 não encontramos linha que ligue cultura e alvo para este produto. Isso é o que a nossa
@@ -143,3 +152,46 @@ Campo 2026, Stand Área B, número B2.»* — e `NÃO SEI` para o resto.
 > **`NOT_OBTAINED` ≠ `DOES_NOT_EXIST`.** Cobertura é sempre um piso.
 > **Porta ausente ≠ rendeu zero.** Nunca abrimos o Instagram italiano — «0 menções no
 > Instagram» seria mentira, não medição.
+
+---
+
+## 11 · As duas leituras do cruzamento — ⭐ acrescentado em 02/09
+
+> ⛔ «a ADAMA não tem produto para este alvo» — a partir de `TALKED_ABOUT_BUT_NOT_READ`
+> ⛔ «ninguém fala disso na Itália» — a partir de `AUTHORIZED_BUT_NOT_IN_OUR_CORPUS`
+> ⛔ somar as três listas do `convergence.json`
+
+**Por quê:** as duas listas de ausência medem **a nossa leitura**, não o mundo. A primeira
+diz que não lemos linha de rótulo (61 produtos seguem sem par lido). A segunda diz que o
+**nosso corpus** não fala — e o corpus é amostra dos **17 recortes que abrimos**, não do
+país.
+
+✅ **Diga:** *«nesta leitura dos rótulos publicados pelo Ministero, capturada em
+02/09/2026, não encontramos linha que ligue esta cultura a este alvo. NÃO SEI.»*
+
+✅ **Diga:** *«este par não aparece nos 17 recortes de vídeo que abrimos.»*
+
+---
+
+## 12 · A força da ligação do rótulo
+
+> ⛔ apresentar `DECLARACAO_DE_PRODUTO` com o mesmo peso de `LINHA_DA_TABELA`
+
+**Por quê:** no rótulo de herbicida as duas listas — daninhas e culturas — vêm
+**separadas**. Aproximá-las é ato nosso.
+
+> **ESPECTRO DE PRODUTO NÃO É ESPECTRO NA CULTURA.**
+
+✅ **Diga:** *«o rótulo declara que o produto atua sobre esta daninha e que é usado nesta
+cultura. Não afirma que a controla nesta cultura.»*
+
+---
+
+## 13 · A plateia da convergência
+
+> ⛔ apresentar uma convergência de horta doméstica como sinal de lavoura
+
+**Por quê:** `POMODORO × PERONOSPORA` tem 29 documentos e 15 fontes — e **15 das
+evidências vêm de canal de horta contra 1 de canal profissional**. É tomate de vaso.
+
+✅ **Diga:** a convergência **com o `AUDIENCE_VERDICT` ao lado**, sempre.

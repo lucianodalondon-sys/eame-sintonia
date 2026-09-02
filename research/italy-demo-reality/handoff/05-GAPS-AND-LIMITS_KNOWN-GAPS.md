@@ -82,7 +82,8 @@ lista sai `NÃO SEI`, jamais "profissional por omissão". As duas classes **não
 
 ## ⚠️ 4 · Cobertura de rótulo — continua aberta, e é a mais cara
 
-- **19 de 163 produtos (11,7%)** têm ao menos uma linha de uso lida
+- **102 de 163 produtos (62,6%)** têm ao menos um par cultura × alvo lido — era
+  19 (11,7%) até 01/09. Restam **61 sem par lido**.
 - **144 (88,3%)** têm zero — desses, **82 têm cultura E alvo no rótulo, sem ligação lida**
 - **36 das 49 linhas (73,5%)** não cumprem a definição da própria classe (que exige dose)
 - **GRAPEVINE: 61 produtos mencionam, 1 tem linha de uso** — distância de 60

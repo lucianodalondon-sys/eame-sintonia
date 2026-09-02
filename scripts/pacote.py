@@ -31,6 +31,7 @@ from pacote_camadas3 import (camada_noticias, camada_eventos,        # noqa: E40
                              camada_pessoas, camada_acervo)
 from pacote_fenologia import camada_fenologia                    # noqa: E402
 from pacote_mercado import camada_mercado                        # noqa: E402
+from pacote_convergencia import camada_convergencia              # noqa: E402
 
 TMP = os.path.join(os.path.dirname(HERE), '.tmp')
 
@@ -54,6 +55,9 @@ ORDEM = [
     ('FENOLOGIA CORRENTE', lambda: camada_fenologia(
         os.path.join(TMP, 'madrugada.json'))),
     ('MARKET PULSE', lambda: camada_mercado(os.path.join(TMP, 'mkt.json'))),
+    # A convergencia vem POR ULTIMO: ela le o rotulo e a conversa, e as duas
+    # precisam ja ter passado pelo contador de ID.
+    ('CONVERGENCIA', camada_convergencia),
 ]
 
 

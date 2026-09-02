@@ -26,8 +26,13 @@ recortes de melo, olivo e pomodoro**. O corpus é amostra das nossas consultas.
 
 Catálogo público: **51 produtos**, 141 documentos, 7 páginas de cultura.
 
-⚠️ **A ressalva que muda tudo:** só **19 dos 163 (11,7%)** têm uma linha ligando cultura e
-alvo lida. Ver `05-GAPS-AND-LIMITS/DO-NOT-CLAIM.md` §1.
+✅ **A maior limitação do pacote encolheu na madrugada de 02/09.** Os 163 rótulos foram
+baixados do Ministero e lidos por dentro: **102 dos 163 (62,6%)** agora têm ao menos um par
+cultura × alvo lido, contra 19 (11,7%) antes. São **2.030 pares** de uso autorizado.
+
+⚠️ **Mas ela não desapareceu:** 61 produtos seguem sem par lido, e para eles a frase
+permitida continua sendo *«não encontramos NESTA LEITURA»* — nunca *«a ADAMA não tem»*.
+Ver `05-GAPS-AND-LIMITS/DO-NOT-CLAIM.md` §1.
 
 ---
 
@@ -80,6 +85,58 @@ foi finalizada*. Idem bupirimate (5 produtos).
 > **Registro nacional não sobrevive a aprovação europeia vencida.**
 
 15 atos europeus lidos na íntegra, cada um relido por um refutador — **4 leituras caíram**.
+
+---
+
+## 5-bis · ⭐ O achado de 02/09 — onde as quatro camadas caem no mesmo ponto
+
+Depois de ler os 163 rótulos por dentro, um par ficou de pé sozinho:
+
+### `VITE × SCAFOIDEO` — e a concentração que ele revela
+
+| camada | o que ela diz |
+|---|---|
+| conversa pública | nível corroborado: 12 documentos, 8 fontes, 2 portas |
+| plateia | `SUSTENTADO_POR_CANAL_PROFISSIONAL` — 7 profissionais, **0 de horta** |
+| lei | *lotta obbligatoria* contra flavescência dourada em **5 regiões** |
+| rótulo | **6 produtos ADAMA** nomeiam *Scaphoideus titanus* |
+
+E os 6 são:
+
+| produto | registro | substância | vence |
+|---|---|---|---|
+| KLARTAN 20 EW | 007555 | tau-fluvalinate | **31/01/2027** |
+| TAU AL 240 EW | 007864 | tau-fluvalinate | **31/01/2027** |
+| MAVRIK SMART | 009800 | tau-fluvalinate | **31/01/2027** |
+| KLARTAN SMART | 012023 | tau-fluvalinate | **31/01/2027** |
+| MAVRIK EW | 014190 | tau-fluvalinate | **31/01/2027** |
+| EVURE PRO | 014210 | tau-fluvalinate | **31/01/2027** |
+
+> **Os seis são a mesma substância, e os seis vencem no mesmo dia — que é a data em que
+> expira a aprovação europeia do tau-fluvalinate.** O ato que a estendeu, Reg. (UE)
+> 2024/1206, registra que *a avaliação de risco não foi finalizada*.
+
+Ou seja: o único alvo do acervo onde conversa profissional, obrigação legal e portfólio
+autorizado se encontram é atendido por **uma substância só**, e essa substância está na
+fronteira europeia.
+
+### O que isto sustenta, e o que não sustenta
+
+✅ **Pode dizer:** *«dos 163 produtos ADAMA registrados na Itália, 6 nomeiam Scaphoideus
+titanus no rótulo. Os 6 têm tau-fluvalinate e os 6 vencem em 31/01/2027, mesma data da
+aprovação europeia da substância.»*
+
+O «6 de 163» é firme: a palavra foi buscada no **texto cru dos 163 rótulos**, não só nos
+que o leitor conseguiu estruturar. Isso é censo, não amostra — diferente da cobertura de
+pares (62,6%), que é leitura estruturada.
+
+⛔ **Não pode dizer:** *«a ADAMA vai perder a linha»* · *«o produto sai do mercado»* ·
+*«haverá desabastecimento»*. Os atos europeus lidos **estendem** prazo; nenhum decide
+renovação, e nenhum ato posterior nomeando a substância foi publicado até 02/09/2026.
+
+⚠️ E a ressalva que o acervo brasileiro pagou caro: **`EXPIRY ≠ WITHDRAWAL`.** Re-registro
+é rotina. O que não é rotina é o registro nacional sobreviver a uma aprovação europeia
+vencida — e é por isso que esta linha merece um olho, não um alarme.
 
 ---
 
@@ -163,7 +220,7 @@ B2**, confirmado pela própria), mais 13 «ADAMA in campo» com data, local e cu
 
 ## 11 · As limitações que mais pesam
 
-1. **11,7% de cobertura** de uso lido no rótulo — a mais cara de todas
+1. **37,4% dos produtos sem par de uso lido** (61 de 163) — foi 88,3% até 01/09
 2. **ISMEA e ISTAT bloqueadas** pelo IP de saída (não pela fonte)
 3. **Sem porta** para Instagram italiano, Facebook orgânico, X, TikTok e podcast
 4. **Nível 2 do sinal bloqueado** — uma janela só, sem série

@@ -12,6 +12,7 @@ afirmar** sobre cada objeto.
 | Produto ADAMA com registro, ativo, categoria e vencimento | `ADAMA/adama-italy-products.json` | 163 |
 | Rótulo autorizado (URL do PDF oficial) | idem, `LABEL_URL` | 163 |
 | Linha de uso: cultura + alvo + dose na mesma linha | `ADAMA/adama-crop-problem-product.json` | 219 |
+| Par cultura × alvo lido no rótulo autorizado | `LABEL-USE/label-use-pairs.json` | 2.030 |
 | **Boletim fitossanitário corrente, com fase fenológica** | `CROP-WINDOWS/current-phenology.json` | **73** |
 | Ato regional de lotta obbligatoria, com número e data | `CROP-WINDOWS/crop-windows.json` | 5 regiões |
 | Ato europeu de aprovação de substância, lido na íntegra | `FUTURE-RADAR/future-signals.json` | 15 atos |
@@ -67,7 +68,7 @@ real**.
 
 | o quê | por quê |
 |---|---|
-| «a ADAMA não tem produto para X» | cobertura de uso lido é 11,7% |
+| «a ADAMA não tem produto para X» | cobertura de uso lido é 62,6%; 61 produtos sem par |
 | relação produto × cultura não verificada | `CROP_TERM_PRESENT` ≠ `AUTHORIZED_ON_CROP` |
 | «o produtor italiano relatou» | comentário é plateia; 32 de 58 são de horta doméstica |
 | «o anúncio foi dirigido à Itália» | a fonte diz **alcançou** |
@@ -76,6 +77,54 @@ real**.
 | venda, share, estoque, demanda | exige dado interno |
 | preço de praça com série parada | ex.: azeite Salerno €630, de **2015** |
 | «a ISMEA não tem dado» | ela responde para outros — o bloqueio é do nosso IP |
+
+---
+
+## ⭐ A GAVETA NOVA — o encontro das duas leituras
+
+`CONVERGENCE/convergence.json` junta **o que a Itália fala** com **o que a ADAMA pode**.
+São três listas dentro de um arquivo, e elas **nunca viram uma só**:
+
+| lista | quantos | o que significa | o que NÃO significa |
+|---|---:|---|---|
+| `CONVERGENCE` | **38** | a conversa fala **e** o rótulo autoriza | não é demanda, venda nem prioridade |
+| `TALKED_ABOUT_BUT_NOT_READ` | 78 | falam disso e **não lemos** linha de rótulo | ⛔ **não** é «a ADAMA não tem produto» |
+| `AUTHORIZED_BUT_NOT_IN_OUR_CORPUS` | 282 | o rótulo autoriza e **nosso corpus** não fala | ⛔ **não** é «ninguém fala disso na Itália» |
+
+> **AUSÊNCIA EM UMA GAVETA É AUSÊNCIA NA NOSSA LEITURA, NUNCA NO MUNDO.**
+
+### O objeto mais forte do piloto
+
+**`VITE × SCAFOIDEO`** é o único ponto onde as quatro camadas se encontram:
+
+| camada | o que ela diz |
+|---|---|
+| conversa pública | nível corroborado — 12 documentos, 8 fontes, 2 portas |
+| plateia | `SUSTENTADO_POR_CANAL_PROFISSIONAL` — 7 profissionais, **0 de horta** |
+| lei | *lotta obbligatoria* contra flavescência em **5 regiões** |
+| rótulo | **6 produtos ADAMA** nomeiam *Scaphoideus titanus* — EVURE PRO, KLARTAN 20 EW, KLARTAN SMART, MAVRIK EW, MAVRIK SMART, TAU AL 240 EW |
+
+⚠️ E o mesmo arquivo traz o **contrapeso obrigatório**: `MELO × AFIDI` tem **17 produtos**
+ADAMA e conversa **100% de horta doméstica**. Os dois não podem aparecer com o mesmo peso
+na tela. Cada objeto traz `AUDIENCE_VERDICT` justamente para isso.
+
+### Três forças de ligação, que não se somam
+
+| força | quantos | quem uniu cultura e alvo |
+|---|---:|---|
+| `LINHA_DA_TABELA` | 886 | **o documento** — mesma linha da tabela de uso |
+| `BLOCO_DA_CULTURA` | 626 | **o documento** — a cultura encabeça o bloco, o alvo está dentro |
+| `DECLARACAO_DE_PRODUTO` | 518 | **nós** — o rótulo de herbicida declarou as duas listas separadas |
+
+> **ESPECTRO DE PRODUTO NÃO É ESPECTRO NA CULTURA.** Um herbicida que lista 18 daninhas e
+> 3 culturas não controla as 18 nas 3.
+
+### O vocabulário foi reconciliado por nós
+
+As duas réguas batizavam as mesmas coisas de jeitos diferentes — o corpus diz `GIAVONE`,
+o rótulo diz `ECHINOCHLOA`. As **15 equivalências** estão escritas em
+`VOCABULARY_RECONCILIATION`, cada uma com o motivo. **Duas** vêm marcadas `APROXIMADA` e a
+convergência que nasce delas sai com `CONVERGENCE_STRENGTH: POR_EQUIVALENCIA_APROXIMADA`.
 
 ---
 

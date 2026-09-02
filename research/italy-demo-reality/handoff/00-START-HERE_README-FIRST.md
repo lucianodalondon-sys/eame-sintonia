@@ -64,7 +64,8 @@ ser sintético é trabalho do Design, e vai nascer marcado como tal.
 
 ```
 ⛔ «a ADAMA não tem produto para <alvo> em <cultura>»
-     A cobertura de uso lido é 19 de 163 (11,7%). Falta LEITURA, não registro.
+     A cobertura de uso lido é 102 de 163 (62,6%), depois da leitura dos rótulos
+     na madrugada de 02/09. Para os 61 restantes falta LEITURA, não registro.
      É a frase mais perigosa do sistema inteiro.
 
 ⛔ «o produtor italiano relatou»
