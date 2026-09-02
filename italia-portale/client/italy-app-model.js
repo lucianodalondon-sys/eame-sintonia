@@ -2225,7 +2225,12 @@
           provenance: provOf(o, P.REAL_SOURCE), raw: o,
         };
       },
-      validate: (r) => (!r.id ? 'no ID' : !r.crop ? 'no crop' : null),
+      /* An opportunity does NOT have to name a crop. IT-OPP-003 is the
+         authorisation-expiry case, which the source itself describes as
+         "transversal, não é uma cultura" — portfolio-wide. Requiring a crop
+         silently rejected a real record and the radar showed 2 where upstream
+         supplied 3. Only the identity is mandatory. */
+      validate: (r) => (!r.id ? 'no ID' : null),
     },
   ], 'upstream opportunity intelligence; the real radar feed');
 

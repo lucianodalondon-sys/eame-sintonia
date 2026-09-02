@@ -3002,6 +3002,14 @@ class Component extends DCLogic {
       if (document && document.documentElement) document.documentElement.lang = l;
       this.setState({ lang: l });
     };
+    /* §27 · The switch set <html lang>, but a RETURNING visitor never switches —
+       the stored preference is read straight into state, so the document was
+       served as lang="it" while the whole interface rendered in English.
+       Screen readers and translation tools believe the attribute. Keep it in
+       step with the state on every render, not only on the click. */
+    if (document && document.documentElement && document.documentElement.lang !== s.lang) {
+      document.documentElement.lang = s.lang;
+    }
 
     /* ════════ §2 · THE TRANSPARENCY PANEL ════════════════════════════════════
        Was: six hand-written rows counting the fixture — ITALY_DEMO.ACTIVITIES (72) while 503
@@ -3386,7 +3394,10 @@ class Component extends DCLogic {
     Agri-food weekly price observations, so the badge counts those; the fixture's 8 tabs
     included Tomato, Sugar Beet and Apple, for which the real corpus holds zero rows. */
     const navDef = [
-      ['radar', T.navRadar, navN('windows')],
+      /* The opportunity badge read the WINDOW count — 29 canonical windows
+         standing in for the real opportunity feed, which is the exact
+         substitution this migration exists to remove. */
+      ['radar', T.navRadar, navN('opportunities')],
       ['future', T.navFuture, navN('futureSignals')],
       ['windows', T.navWindows, navN('windows')],
       ['market', T.navMarket, navN('marketObservations')],

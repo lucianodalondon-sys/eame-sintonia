@@ -270,15 +270,29 @@ check('N1', 'Nav counts match the active normalized collections', () => {
   const AM = m.AM;
   const v = m.vals({ view: 'radar' });
   const nav = v.nav || [];
-  const byKey = Object.fromEntries(nav.map((n) => [n.key || n.view || n.id, n.count]));
-  const expect = {
-    future: AM.collections.futureSignals.count,
-    windows: AM.collections.windows.count,
-    voices: AM.collections.voices.count,
-  };
-  const bad = Object.entries(expect).filter(([k, want]) => byKey[k] !== undefined && byKey[k] !== want)
-    .map(([k, want]) => `${k}: shows ${byKey[k]}, model says ${want}`);
-  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: { nav: byKey, bad } };
+  /* Checking three badges let a real one through: the opportunity badge showed
+     29 — the canonical WINDOW count — standing in for a feed of 3. Every badge
+     is checked by position now, because a badge nobody checks is one that
+     drifts back to whatever number looks fuller. */
+  const expect = [
+    AM.collections.opportunities.count,
+    AM.collections.futureSignals.count,
+    AM.collections.cropWindows.count,
+    AM.collections.marketObservations.count,
+    AM.collections.publicVoices.count,
+    AM.collections.competitorActivities.count,
+    AM.collections.scienceRecords.count,
+    AM.collections.products.count,
+    AM.collections.archive.count,
+    AM.collections.sources.count,
+  ];
+  const bad = [];
+  if (nav.length !== expect.length) bad.push(`nav has ${nav.length} entries, expected ${expect.length}`);
+  nav.forEach((n, i) => {
+    if (expect[i] !== undefined && n.count !== expect[i]) bad.push(`${n.label || i}: shows ${n.count}, model says ${expect[i]}`);
+  });
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: { nav: nav.map((n) => `${n.label}=${n.count}`), bad } };
 });
 
 check('N2', 'Data State panel reports APP provenance, not the fixture', () => {
@@ -689,6 +703,76 @@ check('PT3', 'No *Raw traceability field is ever bound by the markup', () => {
   let m;
   while ((m = re.exec(mk))) if (/Raw$/.test(m[1]) || /Raw\./.test(m[1])) bad.push(m[1]);
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: [...new Set(bad)] };
+});
+
+
+check('I3', 'document lang follows the interface language, including on reload', () => {
+  /* A returning visitor never clicks the switch: their stored preference goes
+     straight into state. The attribute has to follow the state, not the click,
+     or the page is served as Italian while rendering English. */
+  const m = mount();
+  const doc = m.ctx.document;
+  m.vals({ view: 'radar', lang: 'en' });
+  const afterEn = doc.documentElement.lang;
+  m.vals({ view: 'radar', lang: 'it' });
+  const afterIt = doc.documentElement.lang;
+  const ok = afterEn === 'en' && afterIt === 'it';
+  return { pass: ok, expected: 'en then it', measured: `${afterEn} then ${afterIt}` };
+});
+
+check('I4', 'No hard-coded English left in the Italian interface chrome', () => {
+  /* The markup carries literals the i18n layer never sees — a placeholder, a
+     badge, a button. Measured by reading the template, not the props. */
+  const mk = extractMarkup(readPortal());
+  const bad = [];
+  const re = /(?:placeholder|title|aria-label)="([^"{}]{3,60})"/g;
+  let m2;
+  while ((m2 = re.exec(mk))) if (isEnglish(m2[1]) || /^[A-Z][a-z]+ [a-z]+/.test(m2[1])) bad.push(m2[1]);
+  /* bare English words sitting as element text between tags */
+  const txt = /> *([A-Z][a-z]+(?: [a-z]+){1,4}) *</g;
+  while ((m2 = txt.exec(mk))) if (isEnglish(m2[1])) bad.push(m2[1]);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: [...new Set(bad)].slice(0, 15) };
+});
+
+
+check('I5', 'Italian interface strings are actually Italian', () => {
+  /* Two failure shapes the props-level check cannot see, both measured in this
+     package: an Italian value that is really English ("Intelligence
+     Scientifica"), and an entry where it and en are the same string because the
+     translation was never written. Codes, proper nouns and Latin names are
+     legitimately identical, so those are excluded by shape. */
+  const ctx = loadData();
+  const I18N = ctx.SINTONIA_I18N || {};
+  const it = I18N.it || {}, en = I18N.en || {};
+  const flat = (o, p = '', out = {}) => {
+    for (const k of Object.keys(o || {})) {
+      const v = o[k];
+      if (typeof v === 'string') out[p ? `${p}.${k}` : k] = v;
+      else if (v && typeof v === 'object' && !Array.isArray(v)) flat(v, p ? `${p}.${k}` : k, out);
+    }
+    return out;
+  };
+  const fit = flat(it), fen = flat(en);
+  const PROPER = /^[A-Z0-9 ·§+\-/&.]+$/;            /* a code or an all-caps token */
+  const SHORT = (s) => s.trim().split(/\s+/).length < 2;
+  const bad = [];
+  for (const [k, v] of Object.entries(fit)) {
+    if (!v || PROPER.test(v) || SHORT(v)) continue;
+    if (isEnglish(v)) bad.push(`it.${k} reads English: "${v.slice(0, 60)}"`);
+    else if (fen[k] && fen[k] === v && v.length > 12) bad.push(`it.${k} === en.${k}: "${v.slice(0, 60)}"`);
+  }
+  /* CROPS / ISSUES / WSTATUS and friends are translation MAPS keyed by the
+     canonical English term. They exist only on the Italian side by design: in
+     English the key is already the answer. */
+  const MAP_NS = /^(CROPS|ISSUES|WSTATUS|DSTATE|OBSCLASS|PSTATE|ARCHTYPES|SRCTYPES|FSTATUS|EVCHIP|WSTATE|months|REGIONS)./;
+  const missing = Object.keys(fen).filter((k) => !(k in fit) && !MAP_NS.test(k));
+  const extra = Object.keys(fit).filter((k) => !(k in fen) && !MAP_NS.test(k));
+  return {
+    pass: bad.length === 0 && missing.length === 0 && extra.length === 0,
+    expected: '0 English-in-Italian, 0 key gaps',
+    measured: `${bad.length} suspect · ${missing.length} missing in it · ${extra.length} missing in en`,
+    detail: [...bad.slice(0, 10), ...missing.slice(0, 6).map((k) => `only in en: ${k}`), ...extra.slice(0, 6).map((k) => `only in it: ${k}`)],
+  };
 });
 
 export function runAll(only) {

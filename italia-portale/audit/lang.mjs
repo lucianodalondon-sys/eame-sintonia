@@ -59,6 +59,11 @@ export const EN_MARKERS = [
   'loading', 'more', 'single match', 'no confirmed match', 'not yet known',
   'monitoring', 'confirmed exhibitors', 'historical participants', 'no timing match',
   'approaching window', 'in window', 'post window', 'early', 'observed', 'not observed',
+  /* 'intelligence' is NOT a marker: it is an ordinary Italian loanword for the
+     discipline ('intelligence militare'), and gating on it would fail correct
+     Italian copy. */
+  'overview', 'insights',
+  'monitoring season', 'season start', 'crop or product', 'type like you',
 ];
 const EN_RE = new RegExp('(^|[^\\p{L}])(' + EN_MARKERS.map((m) => m.replace(/ /g, '\\s+')).join('|') + ')([^\\p{L}]|$)', 'iu');
 
