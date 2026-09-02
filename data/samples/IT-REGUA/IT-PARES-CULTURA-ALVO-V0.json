@@ -1,0 +1,3392 @@
+{
+ "DATASET": "IT-REGUA-FITOSSANITARIA-V0",
+ "CONTRATO": "docs/regras/REGUA-ITALIA-FITOSSANITARIA.md",
+ "HERDADO_DE": "portal-sintonia/REGUA-MISSAO-5-FITOSSANITARIO.md (Brasil, 23/08/2026)",
+ "SOURCE_ID": "DERIVED/IT-REGUA",
+ "source": "derivado do acervo SENSOR-PILOT — nenhuma coleta, nenhum custo",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "NAO_SEI — coocorrencia no texto nao e lugar do fato",
+ "ORIGINAL_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_INTERPRETATION",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "UNIDADE": "o PAR cultura x alvo. NUNCA o documento, NUNCA a fonte.",
+ "DOCUMENTOS_LIDOS": 1929,
+ "DESCARTES": {
+  "TEXTO_CURTO": 397,
+  "SEM_PAR_NO_MESMO_TEXTO": 270,
+  "PAR_EM_LINGUA_NAO_ITALIANA": 14
+ },
+ "LINGUA_DOS_DOCUMENTOS": {
+  "it": 339,
+  "es": 158,
+  "NAO_SEI": 653,
+  "en": 149,
+  "fr": 233
+ },
+ "QUARENTENA_BARROU": {
+  "CULTURA:VITE": 124,
+  "CULTURA:MAIS": 68,
+  "CULTURA:PERO": 29,
+  "CULTURA:GRANO_GEN": 14,
+  "ALVO:CICALINA_GEN": 4,
+  "CULTURA:RISO": 2
+ },
+ "PARES_TOTAL": 46,
+ "PARES_POR_NIVEL": {
+  "3": 3,
+  "1": 8,
+  "NAO_SEI": 35
+ },
+ "PARES_POR_CATEGORIA": {
+  "FITOPLASMA": 2,
+  "INSETICIDA": 9,
+  "FUNGICIDA": 12,
+  "HERBICIDA": 21,
+  "ACARICIDA": 2
+ },
+ "ASSUNTOS": {
+  "ASSUNTO_RESISTENZA": {
+   "N": 23,
+   "PORTAS": [
+    "youtube+comentario",
+    "youtube+video_metadata"
+   ],
+   "N_FONTES": 15
+  },
+  "ASSUNTO_MICOTOSSINA": {
+   "N": 18,
+   "PORTAS": [
+    "youtube+comentario",
+    "youtube+video_metadata"
+   ],
+   "N_FONTES": 16
+  },
+  "ASSUNTO_DISERBO": {
+   "N": 78,
+   "PORTAS": [
+    "youtube+comentario",
+    "youtube+video_metadata"
+   ],
+   "N_FONTES": 28
+  }
+ },
+ "PORTAS_SEM_DADO": [
+  "instagram+post",
+  "instagram+comentario",
+  "facebook+post_organico",
+  "x+post",
+  "tiktok+post",
+  "podcast+episodio",
+  "linkedin+post"
+ ],
+ "PORTAS_SEM_DADO_LEI": "PORTA AUSENTE NAO E RENDEU ZERO. Nenhuma linha deste artefato pode ser lida como \"nao se fala disso la\".",
+ "AFIRMACOES_PROIBIDAS": [
+  "o produtor relatou",
+  "ha falha de produto",
+  "ha resistencia",
+  "ha oportunidade comercial",
+  "a praga esta ocorrendo em X",
+  "o problema esta aumentando na Italia",
+  "X% dos produtores",
+  "duas fontes confirmam",
+  "a praga e desta cultura"
+ ],
+ "PARES": [
+  {
+   "PAR": "VITE x FLAVESCENZA",
+   "CULTURA": "VITE",
+   "ALVO": "FLAVESCENZA",
+   "CATEGORIA_DE_PRODUTO": "FITOPLASMA",
+   "ESTADO": "PASSA",
+   "NIVEL": 3,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 37,
+   "N_FONTES_DISTINTAS": 19,
+   "PORTAS_NATIVAS": [
+    "youtube+comentario",
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 28,
+    "PLATEIA": 9
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "37 documentos, em 2 portas nativas, de 19 fontes distintas, tratam de VITE x FLAVESCENZA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-C4gwsNd1JDg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Vinophila Wine Expo",
+     "URL": "https://www.youtube.com/watch?v=C4gwsNd1JDg",
+     "DATA_EVIDENCIA": "2022-10-17T09:04:38.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vigneto",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "Webinar \"Emergenza Flavescenza Dorata\" 2 settembre 2022 Emergenza Flascenza Dorata: situazione, cause, soluzioni. Webinar dove si affronta e…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-O0cfE-Gdu0M",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Cavit Vini Trentini",
+     "URL": "https://www.youtube.com/watch?v=O0cfE-Gdu0M",
+     "DATA_EVIDENCIA": "2021-08-04T07:06:26.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "giallumi",
+     "TRECHO": "Giallumi della vite: come riconoscerli e monitorarli Vediamo come effettuare il monitoraggio in campo e riconoscere le…",
+     "LINGUA_EVIDENCIA": "5 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-HXCOCzOVOQ0",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Provincia di Asti",
+     "URL": "https://www.youtube.com/watch?v=HXCOCzOVOQ0",
+     "DATA_EVIDENCIA": "2010-06-11T11:20:44.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "Flavescenza dorata della vite.avi In data 3 giugno 2010 si é svolto presso la sala conferenze del Servizio Agricoltura de…",
+     "LINGUA_EVIDENCIA": "8 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-b3PFmGOlW3Q",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "TROPICSAFE Project",
+     "URL": "https://www.youtube.com/watch?v=b3PFmGOlW3Q",
+     "DATA_EVIDENCIA": "2021-07-23T11:58:02.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "giallumi",
+     "TRECHO": "Intervista online: I giallumi della vite Nell’ambito del progetto TROPICSAFE, finanziato dal programma europeo HORIZON 2020, organizziamo u…",
+     "LINGUA_EVIDENCIA": "8 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-VhsPDVjpZqw",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Veneto Agricoltura",
+     "URL": "https://www.youtube.com/watch?v=VhsPDVjpZqw",
+     "DATA_EVIDENCIA": "2025-04-15T10:43:49.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "Flavescenza dorata – Diffusione della malattia nel territorio veneto La Flavescenza dorata, responsabile del deperimento…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-8ToHtaJNb0Y",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Agralia studio di agronomia",
+     "URL": "https://www.youtube.com/watch?v=8ToHtaJNb0Y",
+     "DATA_EVIDENCIA": "2023-08-11T07:00:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "giallumi",
+     "TRECHO": "Cosa sono i giallumi della vite Cosa sono i giallumi della vite? Qual è la loro caratteristica principale? Quale la diffusione di…",
+     "LINGUA_EVIDENCIA": "4 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-GOvy94foO5c",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Comizio Agrario di Mondovì",
+     "URL": "https://www.youtube.com/watch?v=GOvy94foO5c",
+     "DATA_EVIDENCIA": "2022-11-15T10:42:19.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "Aggiornamenti su flavescenza dorata della vite. Esperienze di difesa sostenibile in vigneto La Flavescenza dorata è una malattia epidemica…",
+     "LINGUA_EVIDENCIA": "17 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-07BgCiEawLc",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Noi Tv Lucca 2",
+     "URL": "https://www.youtube.com/watch?v=07BgCiEawLc",
+     "DATA_EVIDENCIA": "2025-01-18T16:37:12.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "Flavescenza dorata, i viticoltori montecarlesi pronti a combattere l'insetto (se si presenterà) In questi giorni è stato…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-TuOdFL3Kiyg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Veneto Agricoltura",
+     "URL": "https://www.youtube.com/watch?v=TuOdFL3Kiyg",
+     "DATA_EVIDENCIA": "2025-05-13T12:37:46.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "Flavescenza dorata – Il principale vettore Lo Scaphoideus titanus è la cicalina responsabile della diffusione della Flave…",
+     "LINGUA_EVIDENCIA": "9 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-ZCejyo3RkB0",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Maurizio Gily",
+     "URL": "https://www.youtube.com/watch?v=ZCejyo3RkB0",
+     "DATA_EVIDENCIA": "2016-06-08T19:49:04.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "Flavescenza dorata: gestione degli incolti e della vite americana Le viti americane da portinnesto, tornate allo stato se…",
+     "LINGUA_EVIDENCIA": "4 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-Ywzl_NFSrIU",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=Ywzl_NFSrIU",
+     "DATA_EVIDENCIA": "2021-05-03T07:02:49.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "Parte II - Flavescenza dorata: Sivanto Prime la soluzione innovativa La flavescenza dorata è una malattia della vite causata da un f…",
+     "LINGUA_EVIDENCIA": "18 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-iHwTFGr_xWo",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "winetv",
+     "URL": "https://www.youtube.com/watch?v=iHwTFGr_xWo",
+     "DATA_EVIDENCIA": "2023-03-17T14:28:28.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "L’invasione della Flavescenza Dorata: la viticoltura chiede aiuto alla ricerca e alle Istituzioni. A WineNews, dal focus di Confagricoltura…",
+     "LINGUA_EVIDENCIA": "8 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "VITE x SCAFOIDEO",
+   "CULTURA": "VITE",
+   "ALVO": "SCAFOIDEO",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 3,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 12,
+   "N_FONTES_DISTINTAS": 8,
+   "PORTAS_NATIVAS": [
+    "youtube+comentario",
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 11,
+    "PLATEIA": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "12 documentos, em 2 portas nativas, de 8 fontes distintas, tratam de VITE x SCAFOIDEO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-GOvy94foO5c",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Comizio Agrario di Mondovì",
+     "URL": "https://www.youtube.com/watch?v=GOvy94foO5c",
+     "DATA_EVIDENCIA": "2022-11-15T10:42:19.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "scaphoideus",
+     "TRECHO": "…a un batterio, che vive nei vasi floematici della pianta ospite, oppure all'interno dell'insetto vettore, lo Scaphoideus titanus Ball. È una malattia estremamente pericolosa per i vigneti.  Come contrastarla? Se ne è parlato vener…",
+     "LINGUA_EVIDENCIA": "17 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-TuOdFL3Kiyg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Veneto Agricoltura",
+     "URL": "https://www.youtube.com/watch?v=TuOdFL3Kiyg",
+     "DATA_EVIDENCIA": "2025-05-13T12:37:46.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "scaphoideus",
+     "TRECHO": "Flavescenza dorata – Il principale vettore Lo Scaphoideus titanus è la cicalina responsabile della diffusione della Flavescenza dorata, malattia che, anche in tempi re…",
+     "LINGUA_EVIDENCIA": "9 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-Ywzl_NFSrIU",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=Ywzl_NFSrIU",
+     "DATA_EVIDENCIA": "2021-05-03T07:02:49.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "scaphoideus",
+     "TRECHO": "…la soluzione innovativa La flavescenza dorata è una malattia della vite causata da un fitoplasma trasmesso da Scaphoideus titanus, una cicalina di origine nordamericana che compie un solo ciclo all’anno e sverna sulla vite come uov…",
+     "LINGUA_EVIDENCIA": "18 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-VkBQHcJnNqQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Condifesa TVB",
+     "URL": "https://www.youtube.com/watch?v=VkBQHcJnNqQ",
+     "DATA_EVIDENCIA": "2025-05-23T18:00:33.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "scaphoideus",
+     "TRECHO": "…ndamentale per interrompere la diffusione della malattia.  🦟 Trattamenti obbligatori contro l’insetto vettore Scaphoideus titanus:  2 interventi nei vigneti a gestione integrata (obbligatoria e volontaria); 3 interventi nei vigneti…",
+     "LINGUA_EVIDENCIA": "10 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-OUygm32bMmA",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Portocork Italia",
+     "URL": "https://www.youtube.com/watch?v=OUygm32bMmA",
+     "DATA_EVIDENCIA": "2024-04-19T05:00:11.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "scaphoideus",
+     "TRECHO": "…la flavescenza dorata della vite, una grave malattia causata da un fitoplasma, trasmesso dall’insetto vettore Scaphoideus titanus.   Riconoscerla tempestivamente è fondamentale per evitare danni al vigneto. I sintomi includono ingi…",
+     "LINGUA_EVIDENCIA": "31 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-zaEk8LE6SOQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Agronotizie - Notizie per l'agricoltura",
+     "URL": "https://www.youtube.com/watch?v=zaEk8LE6SOQ",
+     "DATA_EVIDENCIA": "2024-05-28T14:58:29.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "scaphoideus",
+     "TRECHO": "…i sta diffondendo velocemente in tutto il Nord e Centro Italia. Responsabile dell'allargamento del contagio è Scaphoideus titanus, la cicalina della vite, che deve essere il target di una attenta difesa insetticida Leggi l'articolo…",
+     "LINGUA_EVIDENCIA": "37 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-aOrEpWC6uZU",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Viticoltura Riccardo Castaldi",
+     "URL": "https://www.youtube.com/watch?v=aOrEpWC6uZU",
+     "DATA_EVIDENCIA": "2022-06-29T11:01:29.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "scafoideo",
+     "TRECHO": "…nei confronti della malattia. La flavescenza dorata è causata da un fitoplasma trasmesso da una cicalina, lo scafoideo, che al momento è l’unico vettore conosciuto. Nei confronti della flavescenza dorata non esistono al momento…",
+     "LINGUA_EVIDENCIA": "35 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-aw0UyKLczEM",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Agronotizie - Notizie per l'agricoltura",
+     "URL": "https://www.youtube.com/watch?v=aw0UyKLczEM",
+     "DATA_EVIDENCIA": "2024-05-30T10:29:15.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vigneto",
+     "TERMO_ALVO": "scaphoideus",
+     "TRECHO": "…è avuta quando dalla regione dei grandi laghi, in Nord America, è arrivata in Europa la #cicalina della vite (Scaphoideus titanus), un vettore estremamente efficace nel trasportare il #fitoplasma della flavescenza dorata da una pia…",
+     "LINGUA_EVIDENCIA": "26 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-gVdzI2hhyz8",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Condifesa TVB",
+     "URL": "https://www.youtube.com/watch?v=gVdzI2hhyz8",
+     "DATA_EVIDENCIA": "2020-06-19T11:11:13.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "scaphoideus",
+     "TRECHO": "…a flavescenza dorata della vite è una grave malattia causata da un fitoplasma, trasmesso dall’insetto vettore Scaphoideus titanus. Riconoscerla tempestivamente è fondamentale per evitare danni al vigneto. I sintomi includono ingial…",
+     "LINGUA_EVIDENCIA": "20 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-nUu8Ak45AH0",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Matej vignaiuolo in Oslavia",
+     "URL": "https://www.youtube.com/watch?v=nUu8Ak45AH0",
+     "DATA_EVIDENCIA": "2023-06-16T18:00:08.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "scafoideo",
+     "TRECHO": "Monitoraggio dello Scafoideo sui polloni della vite Il monitoraggio dello Scafoideo è fondamentale, per capire quando intervenire con il t…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-Y-sCNBc9gjQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Viticoltura Riccardo Castaldi",
+     "URL": "https://www.youtube.com/watch?v=Y-sCNBc9gjQ",
+     "DATA_EVIDENCIA": "2023-04-21T11:30:34.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "scafoideo",
+     "TRECHO": "…ssere eseguita anche nei confronti degli insetti vettori di giallumi, in modo particolare nei confronti dello scafoideo, responsabile della trasmissione della flavescenza dorata. Nelle annate particolarmente siccitose può essere…",
+     "LINGUA_EVIDENCIA": "28 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-COM-Ugz7L0KzQuUl6KnyWi54AaABAg.9r1PMGDGGFU9r1a0u0r-4r",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Matej vignaiuolo in Oslavia",
+     "URL": "https://www.youtube.com/watch?v=nUu8Ak45AH0",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "scafoideo",
+     "TRECHO": "…tura più fosfito o fosetil alluminio oppure ogni 9/10 gg è stai sicuro che la peronospora non la vedi. Per lo scafoideo il discorso è diverso perché si fa veramente fatica a contenere anche con 3 4 trattamenti all anno. Il vero f…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "VITE x PERONOSPORA",
+   "CULTURA": "VITE",
+   "ALVO": "PERONOSPORA",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 3,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 6,
+   "N_FONTES_DISTINTAS": 3,
+   "PORTAS_NATIVAS": [
+    "youtube+comentario",
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2,
+    "PLATEIA": 4
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "6 documentos, em 2 portas nativas, de 3 fontes distintas, tratam de VITE x PERONOSPORA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-sxCKX7oigwk",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Viticoltura Riccardo Castaldi",
+     "URL": "https://www.youtube.com/watch?v=sxCKX7oigwk",
+     "DATA_EVIDENCIA": "2021-05-09T09:59:59.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "peronospora",
+     "TRECHO": "…mogli della chioma. Non per ultimo si deve considerare che sui polloni si sviluppano le infezioni primarie di peronospora, che come noto sverna nel terreno, inoltre rappresenta la porzione della vite su cui solitamente troviamo le…",
+     "LINGUA_EVIDENCIA": "29 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-Y-sCNBc9gjQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Viticoltura Riccardo Castaldi",
+     "URL": "https://www.youtube.com/watch?v=Y-sCNBc9gjQ",
+     "DATA_EVIDENCIA": "2023-04-21T11:30:34.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "peronospora",
+     "TRECHO": "…i eriofidi e tripidi, in grado di bloccare lo sviluppo dei germogli. Si deve considerare inoltre la difesa da peronospora e oidio in quanto in grado di compromettere l’apparato fogliari delle giovani viti, e quindi la loro capacità…",
+     "LINGUA_EVIDENCIA": "28 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-COM-Ugz7L0KzQuUl6KnyWi54AaABAg.9r1PMGDGGFU9r1a0u0r-4r",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Matej vignaiuolo in Oslavia",
+     "URL": "https://www.youtube.com/watch?v=nUu8Ak45AH0",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "peronospora",
+     "TRECHO": "Per la peronospora basta partire presto quando o germogli sono fra i 5 e i 10 cm... E in caso di stagione piovosa come quest ann…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-COM-UgxKxB-tuhqPofjQ35x4AaABAg",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Portocork Italia",
+     "URL": "https://www.youtube.com/watch?v=OUygm32bMmA",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "peronospora",
+     "TRECHO": "…arto anno, tutte di merlot khorus e tutta roba proveniente da un famoso vivaio di Rauscedo, sono strapiene di peronospora ed altre pesti, e stimo una perdita di oltre il 60 per cento. Le viti PIWI sono molto più infette delle viti…",
+     "LINGUA_EVIDENCIA": "16 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-COM-UgzNjfW5oIDhg2qhjNJ4AaABAg.9r9hejg4kST9rEtA8KI0Mp",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Matej vignaiuolo in Oslavia",
+     "URL": "https://www.youtube.com/watch?v=nUu8Ak45AH0",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "uva",
+     "TERMO_ALVO": "peronospora",
+     "TRECHO": "…..pian piano si secca la pianta. non avevo mai dato insetticidi prima d'ora,solo rame e zolfo e sistemico per peronospora.",
+     "LINGUA_EVIDENCIA": "3 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-COM-UgxKxB-tuhqPofjQ35x4AaABAg.A6oP2AiwS1UA9-_SuYqcGJ",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Portocork Italia",
+     "URL": "https://www.youtube.com/watch?v=OUygm32bMmA",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "uva",
+     "TERMO_ALVO": "peronospora",
+     "TRECHO": "La stagione vegetativa 2024, specialmente i primi mesi, è stata molto favorevole per lo sviluppo della peronospora. L'uva fragola, e forse anche la Sua uva da tavola, è un ibrido produttore diretto, che ha ereditato la piena…",
+     "LINGUA_EVIDENCIA": "13 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "FRUMENTO x FUSARIOSI",
+   "CULTURA": "FRUMENTO",
+   "ALVO": "FUSARIOSI",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 1,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 12,
+   "N_FONTES_DISTINTAS": 8,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 12
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "12 documentos, em 1 portas nativas, de 8 fontes distintas, tratam de FRUMENTO x FUSARIOSI.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-mwT2ORbioRI",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "sumitomo chemical - Italy",
+     "URL": "https://www.youtube.com/watch?v=mwT2ORbioRI",
+     "DATA_EVIDENCIA": "2022-05-26T11:42:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "Wasan®: il fungicida efficace, versatile, unico – SPECIALE FUSARIOSI Wasan®, il prodotto di Sumitomo a base di bromuconazolo per frumento tenero e duro, in campo presso l’Aziend…",
+     "LINGUA_EVIDENCIA": "31 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-ddVjxRtCUBg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=ddVjxRtCUBg",
+     "DATA_EVIDENCIA": "2021-09-01T05:00:29.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano duro",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…à di frumento duro, grazie a tutte queste caratteristiche e in particolare grazie alla grande resistenza alla fusariosi, è ideale anche in agricoltura biologica.  In sintesi, Marakas è un frumento duro ai primi posti del catalog…",
+     "LINGUA_EVIDENCIA": "10 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-ekDSEL_4s4c",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=ekDSEL_4s4c",
+     "DATA_EVIDENCIA": "2021-09-06T15:30:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano duro",
+     "TERMO_ALVO": "fusarium",
+     "TRECHO": "…semi per ettaro.  Ottima capacità sotto il profilo sanitario, in modo particolare nei confronti di septoria e fusarium della spiga; buon indice di glutine e con un importante livello proteico, sopra i 13 punti percentuali.   Con…",
+     "LINGUA_EVIDENCIA": "23 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-NIljr6ShUOM",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=NIljr6ShUOM",
+     "DATA_EVIDENCIA": "2021-09-03T05:30:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano duro",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…onto che è sempre importantissimo il trattamento di fine levata contro le septoriosi e in spigatura contro le fusariosi della spiga. Queste sono operazioni che in generale, su tutte le varietà, non vanno mai trascurate.    In si…",
+     "LINGUA_EVIDENCIA": "30 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-xUH2jDU13-o",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Consorzio Agrario dell'Umbria",
+     "URL": "https://www.youtube.com/watch?v=xUH2jDU13-o",
+     "DATA_EVIDENCIA": "2021-04-28T15:30:42.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "SmartAgri servizio TG3 Pixel  del  17 04 2021 L'uso dei droni per diagnosticare la fusariosi nella spiga del frumento.",
+     "LINGUA_EVIDENCIA": "3 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-_ekMpCEkYO4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=_ekMpCEkYO4",
+     "DATA_EVIDENCIA": "2018-09-24T07:53:12.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano tenero",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…tà invernale con epoca di spigatura medio-tardiva, di taglia media con spiga aristata. Ottima tolleranza alla fusariosi, buona all'oidio e alla ruggine gialla, grande resistenza all'allettamento.  Le riprese sono state effettuat…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-t2icjnVZss4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "sumitomo chemical - Italy",
+     "URL": "https://www.youtube.com/watch?v=t2icjnVZss4",
+     "DATA_EVIDENCIA": "2022-05-27T08:37:38.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…. 17165 del 24/04/2020) è un fungicida per frumento tenero e duro con un'eccellente attività nel controllo di fusariosi e septoriosi, attivo anche nei confronti di oidio e ruggini, che consente di ottenere migliori produzioni. E…",
+     "LINGUA_EVIDENCIA": "31 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-JnvZGa0Cm6U",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Rovigo IN Diretta",
+     "URL": "https://www.youtube.com/watch?v=JnvZGa0Cm6U",
+     "DATA_EVIDENCIA": "2023-06-12T15:56:42.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…padrone.  DOPO LE PIOGGE ARRIVA IL FUNGO KILLER DEL GRANO ll nuovo “terrore” per le spighe di grano si chiama fusariosi. Nella prima decade di maggio a causa dell’elevata piovosità si sono registrati danni ai seminativi come fru…",
+     "LINGUA_EVIDENCIA": "42 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-bvN-XLDtbCc",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Certis Europe Italia",
+     "URL": "https://www.youtube.com/watch?v=bvN-XLDtbCc",
+     "DATA_EVIDENCIA": "2022-02-17T13:46:15.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "cerealicol",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…zione multisito, di tipo preventivo e curativo, con un’elevata e rapida efficacia fungicida nei confronti della fusariosi della spiga ✔️ Formulazione HI-TECH in granuli solubili che assicura un’eccellente bagnatura, migliore res…",
+     "LINGUA_EVIDENCIA": "14 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-fbs47XkcF-Y",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=fbs47XkcF-Y",
+     "DATA_EVIDENCIA": "2025-04-28T08:39:50.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…ttamenti del grano in spigatura. Le malattie principali che possono colpire la coltura in questa fase sono la Fusariosi e la Microdochiosi, che causano danni importanti alla granella. Prosaro Plus e Proline Plus sono due fungici…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-G3cyyLU0ERo",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Agronotizie - Notizie per l'agricoltura",
+     "URL": "https://www.youtube.com/watch?v=G3cyyLU0ERo",
+     "DATA_EVIDENCIA": "2014-05-30T15:37:08.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano duro",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…onotizie.imagelinenetwork.c... - Il duro su misura per gli areali del centro-nord con elevata tolleranza alla fusariosi della spiga ed elevata qualità pastificatoria. La varietà di frumento duro OBELIX si caratterizza per un'ott…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-jl35cGZyLIk",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Tecnozoo",
+     "URL": "https://www.youtube.com/watch?v=jl35cGZyLIk",
+     "DATA_EVIDENCIA": "2022-08-23T09:04:47.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "fusarium",
+     "TRECHO": "…olarmente resistente all’oidio e tollerante alle malattie fungine come la ruggine bruna e attacchi causati da Fusarium spp. Si presta all’uso foraggero ed alla produzione di granella, Può essere utilizzato in purezza o in consoc…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x FUSARIOSI",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "FUSARIOSI",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 1,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 7,
+   "N_FONTES_DISTINTAS": 4,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 7
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "7 documentos, em 1 portas nativas, de 4 fontes distintas, tratam de GRANO_GEN x FUSARIOSI.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-ddVjxRtCUBg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=ddVjxRtCUBg",
+     "DATA_EVIDENCIA": "2021-09-01T05:00:29.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…à di frumento duro, grazie a tutte queste caratteristiche e in particolare grazie alla grande resistenza alla fusariosi, è ideale anche in agricoltura biologica.  In sintesi, Marakas è un frumento duro ai primi posti del catalog…",
+     "LINGUA_EVIDENCIA": "10 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-ekDSEL_4s4c",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=ekDSEL_4s4c",
+     "DATA_EVIDENCIA": "2021-09-06T15:30:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "fusarium",
+     "TRECHO": "…semi per ettaro.  Ottima capacità sotto il profilo sanitario, in modo particolare nei confronti di septoria e fusarium della spiga; buon indice di glutine e con un importante livello proteico, sopra i 13 punti percentuali.   Con…",
+     "LINGUA_EVIDENCIA": "23 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-NIljr6ShUOM",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=NIljr6ShUOM",
+     "DATA_EVIDENCIA": "2021-09-03T05:30:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…onto che è sempre importantissimo il trattamento di fine levata contro le septoriosi e in spigatura contro le fusariosi della spiga. Queste sono operazioni che in generale, su tutte le varietà, non vanno mai trascurate.    In si…",
+     "LINGUA_EVIDENCIA": "30 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-_ekMpCEkYO4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=_ekMpCEkYO4",
+     "DATA_EVIDENCIA": "2018-09-24T07:53:12.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…tà invernale con epoca di spigatura medio-tardiva, di taglia media con spiga aristata. Ottima tolleranza alla fusariosi, buona all'oidio e alla ruggine gialla, grande resistenza all'allettamento.  Le riprese sono state effettuat…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-JnvZGa0Cm6U",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Rovigo IN Diretta",
+     "URL": "https://www.youtube.com/watch?v=JnvZGa0Cm6U",
+     "DATA_EVIDENCIA": "2023-06-12T15:56:42.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…padrone.  DOPO LE PIOGGE ARRIVA IL FUNGO KILLER DEL GRANO ll nuovo “terrore” per le spighe di grano si chiama fusariosi. Nella prima decade di maggio a causa dell’elevata piovosità si sono registrati danni ai seminativi come fru…",
+     "LINGUA_EVIDENCIA": "42 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-fbs47XkcF-Y",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=fbs47XkcF-Y",
+     "DATA_EVIDENCIA": "2025-04-28T08:39:50.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…ttamenti del grano in spigatura. Le malattie principali che possono colpire la coltura in questa fase sono la Fusariosi e la Microdochiosi, che causano danni importanti alla granella. Prosaro Plus e Proline Plus sono due fungici…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-G3cyyLU0ERo",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Agronotizie - Notizie per l'agricoltura",
+     "URL": "https://www.youtube.com/watch?v=G3cyyLU0ERo",
+     "DATA_EVIDENCIA": "2014-05-30T15:37:08.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…onotizie.imagelinenetwork.c... - Il duro su misura per gli areali del centro-nord con elevata tolleranza alla fusariosi della spiga ed elevata qualità pastificatoria. La varietà di frumento duro OBELIX si caratterizza per un'ott…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "VITE x CICALINA_GEN",
+   "CULTURA": "VITE",
+   "ALVO": "CICALINA_GEN",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 1,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 6,
+   "N_FONTES_DISTINTAS": 4,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 6
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "6 documentos, em 1 portas nativas, de 4 fontes distintas, tratam de VITE x CICALINA_GEN.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-TuOdFL3Kiyg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Veneto Agricoltura",
+     "URL": "https://www.youtube.com/watch?v=TuOdFL3Kiyg",
+     "DATA_EVIDENCIA": "2025-05-13T12:37:46.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "viti",
+     "TERMO_ALVO": "cicalin",
+     "TRECHO": "Flavescenza dorata – Il principale vettore Lo Scaphoideus titanus è la cicalina responsabile della diffusione della Flavescenza dorata, malattia che, anche in tempi recenti, ha contagiato…",
+     "LINGUA_EVIDENCIA": "9 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-Ywzl_NFSrIU",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=Ywzl_NFSrIU",
+     "DATA_EVIDENCIA": "2021-05-03T07:02:49.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "cicalin",
+     "TRECHO": "…a flavescenza dorata è una malattia della vite causata da un fitoplasma trasmesso da Scaphoideus titanus, una cicalina di origine nordamericana che compie un solo ciclo all’anno e sverna sulla vite come uovo durevole.  Il fitop…",
+     "LINGUA_EVIDENCIA": "18 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-zaEk8LE6SOQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Agronotizie - Notizie per l'agricoltura",
+     "URL": "https://www.youtube.com/watch?v=zaEk8LE6SOQ",
+     "DATA_EVIDENCIA": "2024-05-28T14:58:29.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "cicalin",
+     "TRECHO": "Flavescenza dorata, la lotta alla cicalina della vite La flavescenza dorata è una malattia causata da un fitoplasma che si sta diffondendo velocemente…",
+     "LINGUA_EVIDENCIA": "37 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-aOrEpWC6uZU",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Viticoltura Riccardo Castaldi",
+     "URL": "https://www.youtube.com/watch?v=aOrEpWC6uZU",
+     "DATA_EVIDENCIA": "2022-06-29T11:01:29.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "cicalin",
+     "TRECHO": "…e sensibilità nei confronti della malattia. La flavescenza dorata è causata da un fitoplasma trasmesso da una cicalina, lo scafoideo, che al momento è l’unico vettore conosciuto. Nei confronti della flavescenza dorata non esist…",
+     "LINGUA_EVIDENCIA": "35 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-sxCKX7oigwk",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Viticoltura Riccardo Castaldi",
+     "URL": "https://www.youtube.com/watch?v=sxCKX7oigwk",
+     "DATA_EVIDENCIA": "2021-05-09T09:59:59.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "cicalin",
+     "TRECHO": "…, che come noto sverna nel terreno, inoltre rappresenta la porzione della vite su cui solitamente troviamo le cicaline vettrici dei giallumi della vite, ovvero di legno nero e flavescenza dorata. La spollonatura può essere anch…",
+     "LINGUA_EVIDENCIA": "29 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-aw0UyKLczEM",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Agronotizie - Notizie per l'agricoltura",
+     "URL": "https://www.youtube.com/watch?v=aw0UyKLczEM",
+     "DATA_EVIDENCIA": "2024-05-30T10:29:15.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vigneto",
+     "TERMO_ALVO": "cicalin",
+     "TRECHO": "…ogno di un approccio integrato che punti all'eliminazione delle piante infette e al controllo del vettore, la cicalina della vite. Ecco come gestire il problema in tre mosse Leggi l'articolo completo: https://bit.ly/3KoOmLW  Co…",
+     "LINGUA_EVIDENCIA": "26 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "FRUMENTO x OIDIO",
+   "CULTURA": "FRUMENTO",
+   "ALVO": "OIDIO",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 1,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 5,
+   "N_FONTES_DISTINTAS": 4,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 5
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "5 documentos, em 1 portas nativas, de 4 fontes distintas, tratam de FRUMENTO x OIDIO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-mwT2ORbioRI",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "sumitomo chemical - Italy",
+     "URL": "https://www.youtube.com/watch?v=mwT2ORbioRI",
+     "DATA_EVIDENCIA": "2022-05-26T11:42:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "oidio",
+     "TRECHO": "…nero e duro con un'eccellente attività nel controllo di fusariosi e septoriosi, attivo anche nei confronti di oidio e ruggini, che consente di ottenere migliori produzioni. EFFICACE: nella pluriannuale sperimentazione condott…",
+     "LINGUA_EVIDENCIA": "31 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-_ekMpCEkYO4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=_ekMpCEkYO4",
+     "DATA_EVIDENCIA": "2018-09-24T07:53:12.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano tenero",
+     "TERMO_ALVO": "oidio",
+     "TRECHO": "…a di spigatura medio-tardiva, di taglia media con spiga aristata. Ottima tolleranza alla fusariosi, buona all'oidio e alla ruggine gialla, grande resistenza all'allettamento.  Le riprese sono state effettuate a maggio 2018 ne…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-t2icjnVZss4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "sumitomo chemical - Italy",
+     "URL": "https://www.youtube.com/watch?v=t2icjnVZss4",
+     "DATA_EVIDENCIA": "2022-05-27T08:37:38.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "oidio",
+     "TRECHO": "…nero e duro con un'eccellente attività nel controllo di fusariosi e septoriosi, attivo anche nei confronti di oidio e ruggini, che consente di ottenere migliori produzioni. EFFICACE: nella pluriannuale sperimentazione condott…",
+     "LINGUA_EVIDENCIA": "31 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-fbs47XkcF-Y",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=fbs47XkcF-Y",
+     "DATA_EVIDENCIA": "2025-04-28T08:39:50.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "oidio",
+     "TRECHO": "…piroxamina e protioconazolo che proteggono la spiga del frumento e difendono le foglie da attacchi tardivi di oidio, septoria e ruggini. Partecipa a Xprogram per diventare anche tu Cerealicoltori Xpro.  Scopri di più: https:/…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-jl35cGZyLIk",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Tecnozoo",
+     "URL": "https://www.youtube.com/watch?v=jl35cGZyLIk",
+     "DATA_EVIDENCIA": "2022-08-23T09:04:47.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "oidio",
+     "TRECHO": "…ienti aridi grazie ad un apparato radicale particolarmente sviluppato. Risulta particolarmente resistente all’oidio e tollerante alle malattie fungine come la ruggine bruna e attacchi causati da Fusarium spp. Si presta all’us…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "FRUMENTO x SEPTORIOSI",
+   "CULTURA": "FRUMENTO",
+   "ALVO": "SEPTORIOSI",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 1,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 5,
+   "N_FONTES_DISTINTAS": 3,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 5
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "5 documentos, em 1 portas nativas, de 3 fontes distintas, tratam de FRUMENTO x SEPTORIOSI.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-mwT2ORbioRI",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "sumitomo chemical - Italy",
+     "URL": "https://www.youtube.com/watch?v=mwT2ORbioRI",
+     "DATA_EVIDENCIA": "2022-05-26T11:42:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "septorios",
+     "TRECHO": "…24/04/2020) è un fungicida per frumento tenero e duro con un'eccellente attività nel controllo di fusariosi e septoriosi, attivo anche nei confronti di oidio e ruggini, che consente di ottenere migliori produzioni. EFFICACE: nell…",
+     "LINGUA_EVIDENCIA": "31 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-ekDSEL_4s4c",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=ekDSEL_4s4c",
+     "DATA_EVIDENCIA": "2021-09-06T15:30:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano duro",
+     "TERMO_ALVO": "septoria",
+     "TRECHO": "…200 kg di semi per ettaro.  Ottima capacità sotto il profilo sanitario, in modo particolare nei confronti di septoria e fusarium della spiga; buon indice di glutine e con un importante livello proteico, sopra i 13 punti percent…",
+     "LINGUA_EVIDENCIA": "23 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-NIljr6ShUOM",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=NIljr6ShUOM",
+     "DATA_EVIDENCIA": "2021-09-03T05:30:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano duro",
+     "TERMO_ALVO": "septorios",
+     "TRECHO": "…e del grano duro, tenendo comunque conto che è sempre importantissimo il trattamento di fine levata contro le septoriosi e in spigatura contro le fusariosi della spiga. Queste sono operazioni che in generale, su tutte le varietà,…",
+     "LINGUA_EVIDENCIA": "30 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-t2icjnVZss4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "sumitomo chemical - Italy",
+     "URL": "https://www.youtube.com/watch?v=t2icjnVZss4",
+     "DATA_EVIDENCIA": "2022-05-27T08:37:38.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "septorios",
+     "TRECHO": "Wasan®: il fungicida efficace, versatile, unico – SPECIALE SEPTORIOSI Wasan®, il prodotto di Sumitomo a base di bromuconazolo per frumento tenero e duro, in campo presso l’Aziend…",
+     "LINGUA_EVIDENCIA": "31 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-fbs47XkcF-Y",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=fbs47XkcF-Y",
+     "DATA_EVIDENCIA": "2025-04-28T08:39:50.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "septoria",
+     "TRECHO": "…ina e protioconazolo che proteggono la spiga del frumento e difendono le foglie da attacchi tardivi di oidio, septoria e ruggini. Partecipa a Xprogram per diventare anche tu Cerealicoltori Xpro.  Scopri di più: https://www.crops…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "MAIS x SORGHETTA",
+   "CULTURA": "MAIS",
+   "ALVO": "SORGHETTA",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 1,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 4,
+   "N_FONTES_DISTINTAS": 2,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 4
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "4 documentos, em 1 portas nativas, de 2 fontes distintas, tratam de MAIS x SORGHETTA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-jo7lNMKJoVE",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=jo7lNMKJoVE",
+     "DATA_EVIDENCIA": "2022-07-05T07:26:18.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "…6 OD (nicosulfuron 60 g/L), graminicida di efficacia confermata in grado di controllare in modo efficiente la sorghetta da rizoma. Infine, per limitare la deriva e migliorare le performance degli erbicidi, i trattamenti nelle par…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-Ea-AcNeRDMU",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=Ea-AcNeRDMU",
+     "DATA_EVIDENCIA": "2026-04-09T07:33:07.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "…ve in campo Approfondimenti: 👉 Prove in Campo: https://www.cropscience.bayer.it/magazine/articoli/campi-prova/sorghetta-mais 👉 Contatti: https://www.cropscience.bayer.it/dove-acquistare  Iscriviti al canale per non perdere i pros…",
+     "LINGUA_EVIDENCIA": "20 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-w87w51fSWAw",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=w87w51fSWAw",
+     "DATA_EVIDENCIA": "2021-06-17T07:56:17.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "…DUAL GOLD®. Questa soluzione consente il controllo efficace delle infestanti graminacee, in particolare della sorghetta da rizoma, e delle dicotiledoni annuali più diffuse. L’azione residuale della sostanza attiva S-Metolachlor c…",
+     "LINGUA_EVIDENCIA": "23 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-LrqbSZpE0gs",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=LrqbSZpE0gs",
+     "DATA_EVIDENCIA": "2021-06-14T09:00:48.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "…6 OD (nicosulfuron 60 g/L), graminicida di efficacia confermata in grado di controllare in modo efficiente la sorghetta da rizoma.  Infine, per limitare la deriva e migliorare le performance degli erbicidi, i trattamenti nelle pa…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x SEPTORIOSI",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "SEPTORIOSI",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 1,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 3,
+   "N_FONTES_DISTINTAS": 2,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 3
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "3 documentos, em 1 portas nativas, de 2 fontes distintas, tratam de GRANO_GEN x SEPTORIOSI.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-ekDSEL_4s4c",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=ekDSEL_4s4c",
+     "DATA_EVIDENCIA": "2021-09-06T15:30:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "septoria",
+     "TRECHO": "…200 kg di semi per ettaro.  Ottima capacità sotto il profilo sanitario, in modo particolare nei confronti di septoria e fusarium della spiga; buon indice di glutine e con un importante livello proteico, sopra i 13 punti percent…",
+     "LINGUA_EVIDENCIA": "23 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-NIljr6ShUOM",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=NIljr6ShUOM",
+     "DATA_EVIDENCIA": "2021-09-03T05:30:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "septorios",
+     "TRECHO": "…e del grano duro, tenendo comunque conto che è sempre importantissimo il trattamento di fine levata contro le septoriosi e in spigatura contro le fusariosi della spiga. Queste sono operazioni che in generale, su tutte le varietà,…",
+     "LINGUA_EVIDENCIA": "30 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-fbs47XkcF-Y",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=fbs47XkcF-Y",
+     "DATA_EVIDENCIA": "2025-04-28T08:39:50.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "septoria",
+     "TRECHO": "…ina e protioconazolo che proteggono la spiga del frumento e difendono le foglie da attacchi tardivi di oidio, septoria e ruggini. Partecipa a Xprogram per diventare anche tu Cerealicoltori Xpro.  Scopri di più: https://www.crops…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "FRUMENTO x LOIETTO",
+   "CULTURA": "FRUMENTO",
+   "ALVO": "LOIETTO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "PASSA",
+   "NIVEL": 1,
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 3,
+   "N_FONTES_DISTINTAS": 2,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 3
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "3 documentos, em 1 portas nativas, de 2 fontes distintas, tratam de FRUMENTO x LOIETTO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-ZMSQWBxmSNY",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "GowanItalia",
+     "URL": "https://www.youtube.com/watch?v=ZMSQWBxmSNY",
+     "DATA_EVIDENCIA": "2022-08-19T14:18:49.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "loietto",
+     "TRECHO": "…owan Italia, che si propone come la soluzione ideale contro le principali infestanti a foglia stretta (Avena, Loietto, Alopecuro, Poa, ecc. comprese le popolazioni resistenti ad altri erbicidi) che minacciano le colture di Frum…",
+     "LINGUA_EVIDENCIA": "17 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-BTaNcVorws8",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=BTaNcVorws8",
+     "DATA_EVIDENCIA": "2025-02-11T09:08:04.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "cerealicol",
+     "TERMO_ALVO": "loietto",
+     "TRECHO": "…i del Team Bayer spiega come trattare il frumento in post-emergenza. Erbe infestanti del grano come falaride, loietto, avena, papavero, crucifere e galium possono essere tenute sotto controllo con il diserbo Atlantis Activ in m…",
+     "LINGUA_EVIDENCIA": "13 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-U27LIKOAKxI",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "GowanItalia",
+     "URL": "https://www.youtube.com/watch?v=U27LIKOAKxI",
+     "DATA_EVIDENCIA": "2017-09-29T08:48:04.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "loietto",
+     "TRECHO": "…owan Italia, che si propone come la soluzione ideale contro le principali infestanti a foglia stretta (Avena, Loietto, Alopecuro, Poa, ecc. comprese le popolazioni resistenti ad altri erbicidi) che minacciano le colture di Frum…",
+     "LINGUA_EVIDENCIA": "19 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "OLIVO x CIMICE",
+   "CULTURA": "OLIVO",
+   "ALVO": "CIMICE",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 2,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 2 fontes distintas, tratam de OLIVO x CIMICE.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-w_D7NYYI3b0",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Accademia dei Georgofili",
+     "URL": "https://www.youtube.com/watch?v=w_D7NYYI3b0",
+     "DATA_EVIDENCIA": "2023-09-21T13:36:46.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "olivi",
+     "TERMO_ALVO": "halyomorpha",
+     "TRECHO": "…omica (come Dasineura oleae e Palpita vitrealis), sia da specie esotiche polifaghe e altamente invasive (come Halyomorpha halys). Comuni difficoltà di gestione, per diversi problemi fitosanitari olivicoli, sono dipendenti: dai camb…",
+     "LINGUA_EVIDENCIA": "25 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-RisRARQSFAg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "AIPO verona",
+     "URL": "https://www.youtube.com/watch?v=RisRARQSFAg",
+     "DATA_EVIDENCIA": "2026-05-01T06:24:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "olivo",
+     "TERMO_ALVO": "cimice asiatica",
+     "TRECHO": "…ario. Cotonello dell’olivo (Euphyllura olivina): presenza limitata e localizzata su germogli e infiorescenze. Cimice asiatica (Halyomorpha halys): si registra un incremento degli adulti appartenenti alla generazione svernante. Coccinig…",
+     "LINGUA_EVIDENCIA": "55 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "OLIVO x MOSCA_OLIVO",
+   "CULTURA": "OLIVO",
+   "ALVO": "MOSCA_OLIVO",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 2,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 2 fontes distintas, tratam de OLIVO x MOSCA_OLIVO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-w_D7NYYI3b0",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Accademia dei Georgofili",
+     "URL": "https://www.youtube.com/watch?v=w_D7NYYI3b0",
+     "DATA_EVIDENCIA": "2023-09-21T13:36:46.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "olivi",
+     "TERMO_ALVO": "bactrocera oleae",
+     "TRECHO": "…e ancora sono distinguibili tra quelle dovute a insetti da sempreritenuti “fitofagi chiave” (come i carpofagi Bactrocera oleae e  Prays oleae) e quelle causate sia da specie indigene, significativamente ascesedi recente per dannosità e…",
+     "LINGUA_EVIDENCIA": "25 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-RisRARQSFAg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "AIPO verona",
+     "URL": "https://www.youtube.com/watch?v=RisRARQSFAg",
+     "DATA_EVIDENCIA": "2026-05-01T06:24:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "olivo",
+     "TERMO_ALVO": "mosca dell’olivo",
+     "TRECHO": "…ego di bioinsetticidi a base di Bacillus thuringiensis, attenendosi alle indicazioni tecniche dell’etichetta. Mosca dell’olivo (Bactrocera oleae): i controlli mostrano un aumento delle catture di adulti maschi, segno di un’attività molt…",
+     "LINGUA_EVIDENCIA": "55 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "FRUMENTO x RUGGINE",
+   "CULTURA": "FRUMENTO",
+   "ALVO": "RUGGINE",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 2,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 2 fontes distintas, tratam de FRUMENTO x RUGGINE.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-_ekMpCEkYO4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=_ekMpCEkYO4",
+     "DATA_EVIDENCIA": "2018-09-24T07:53:12.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano tenero",
+     "TERMO_ALVO": "ruggine",
+     "TRECHO": "…a medio-tardiva, di taglia media con spiga aristata. Ottima tolleranza alla fusariosi, buona all'oidio e alla ruggine gialla, grande resistenza all'allettamento.  Le riprese sono state effettuate a maggio 2018 nel campo sperime…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-jl35cGZyLIk",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Tecnozoo",
+     "URL": "https://www.youtube.com/watch?v=jl35cGZyLIk",
+     "DATA_EVIDENCIA": "2022-08-23T09:04:47.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "frumento",
+     "TERMO_ALVO": "ruggine",
+     "TRECHO": "…olarmente sviluppato. Risulta particolarmente resistente all’oidio e tollerante alle malattie fungine come la ruggine bruna e attacchi causati da Fusarium spp. Si presta all’uso foraggero ed alla produzione di granella, Può ess…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x OIDIO",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "OIDIO",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 2,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 2 fontes distintas, tratam de GRANO_GEN x OIDIO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-_ekMpCEkYO4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=_ekMpCEkYO4",
+     "DATA_EVIDENCIA": "2018-09-24T07:53:12.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "oidio",
+     "TRECHO": "…a di spigatura medio-tardiva, di taglia media con spiga aristata. Ottima tolleranza alla fusariosi, buona all'oidio e alla ruggine gialla, grande resistenza all'allettamento.  Le riprese sono state effettuate a maggio 2018 ne…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-fbs47XkcF-Y",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=fbs47XkcF-Y",
+     "DATA_EVIDENCIA": "2025-04-28T08:39:50.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "oidio",
+     "TRECHO": "…piroxamina e protioconazolo che proteggono la spiga del frumento e difendono le foglie da attacchi tardivi di oidio, septoria e ruggini. Partecipa a Xprogram per diventare anche tu Cerealicoltori Xpro.  Scopri di più: https:/…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "SOIA x AMARANTO",
+   "CULTURA": "SOIA",
+   "ALVO": "AMARANTO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 2,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 2 fontes distintas, tratam de SOIA x AMARANTO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-6qXTJhz7iJY",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=6qXTJhz7iJY",
+     "DATA_EVIDENCIA": "2022-05-03T10:32:05.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "amaranthus",
+     "TRECHO": "…ordinatore del Gruppo Italiano Resistenza Erbicidi (GIRE) fa il punto sulle infestanti resistenti della soia (Amaranthus hybridus, A. tuberculatus, A. palmeri) e sulle migliori strategie per il loro controllo. Martina Mazzasette,…",
+     "LINGUA_EVIDENCIA": "4 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-aG4E656JjFQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Corteva Agriscience",
+     "URL": "https://www.youtube.com/watch?v=aG4E656JjFQ",
+     "DATA_EVIDENCIA": "2020-05-13T13:22:30.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "amaranto",
+     "TRECHO": "…icacia, più velocità e potenza nel controllo delle principali foglie larghe (ad es. cencio molle, chenopodio, amaranto sensibile, poligonacee, stramonio e nappola) e graminacee (avena, loietto, falaride, bromo e coda di volpe) p…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "MAIS x GIAVONE",
+   "CULTURA": "MAIS",
+   "ALVO": "GIAVONE",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de MAIS x GIAVONE.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-jo7lNMKJoVE",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=jo7lNMKJoVE",
+     "DATA_EVIDENCIA": "2022-07-05T07:26:18.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "giavone",
+     "TRECHO": "…in formulazione Od (dispersione oleosa), controlla le infestanti dicotiledoni, importanti graminacee come il giavone e il cipero.  Botiga è stato distribuito nella parcella assieme a Nisshin Extra 6 OD (nicosulfuron 60 g/L), g…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-LrqbSZpE0gs",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=LrqbSZpE0gs",
+     "DATA_EVIDENCIA": "2021-06-14T09:00:48.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "giavone",
+     "TRECHO": "…in formulazione OD (dispersione oleosa), controlla le infestanti dicotiledoni, importanti graminacee come il giavone e il cipero.  Botiga è stato distribuito nella parcella assiema a Nisshin Extra 6 OD (nicosulfuron 60 g/L), g…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "MAIS x CIPERO",
+   "CULTURA": "MAIS",
+   "ALVO": "CIPERO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de MAIS x CIPERO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-jo7lNMKJoVE",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=jo7lNMKJoVE",
+     "DATA_EVIDENCIA": "2022-07-05T07:26:18.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "cipero",
+     "TRECHO": "…one Od (dispersione oleosa), controlla le infestanti dicotiledoni, importanti graminacee come il giavone e il cipero.  Botiga è stato distribuito nella parcella assieme a Nisshin Extra 6 OD (nicosulfuron 60 g/L), graminicida d…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-LrqbSZpE0gs",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=LrqbSZpE0gs",
+     "DATA_EVIDENCIA": "2021-06-14T09:00:48.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "cipero",
+     "TRECHO": "…one OD (dispersione oleosa), controlla le infestanti dicotiledoni, importanti graminacee come il giavone e il cipero.  Botiga è stato distribuito nella parcella assiema a Nisshin Extra 6 OD (nicosulfuron 60 g/L), graminicida d…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "SOIA x GIAVONE",
+   "CULTURA": "SOIA",
+   "ALVO": "GIAVONE",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de SOIA x GIAVONE.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-jo7lNMKJoVE",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=jo7lNMKJoVE",
+     "DATA_EVIDENCIA": "2022-07-05T07:26:18.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "giavone",
+     "TRECHO": "…in formulazione Od (dispersione oleosa), controlla le infestanti dicotiledoni, importanti graminacee come il giavone e il cipero.  Botiga è stato distribuito nella parcella assieme a Nisshin Extra 6 OD (nicosulfuron 60 g/L), g…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-LrqbSZpE0gs",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=LrqbSZpE0gs",
+     "DATA_EVIDENCIA": "2021-06-14T09:00:48.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "giavone",
+     "TRECHO": "…in formulazione OD (dispersione oleosa), controlla le infestanti dicotiledoni, importanti graminacee come il giavone e il cipero.  Botiga è stato distribuito nella parcella assiema a Nisshin Extra 6 OD (nicosulfuron 60 g/L), g…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "SOIA x SORGHETTA",
+   "CULTURA": "SOIA",
+   "ALVO": "SORGHETTA",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de SOIA x SORGHETTA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-jo7lNMKJoVE",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=jo7lNMKJoVE",
+     "DATA_EVIDENCIA": "2022-07-05T07:26:18.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "…6 OD (nicosulfuron 60 g/L), graminicida di efficacia confermata in grado di controllare in modo efficiente la sorghetta da rizoma. Infine, per limitare la deriva e migliorare le performance degli erbicidi, i trattamenti nelle par…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-LrqbSZpE0gs",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=LrqbSZpE0gs",
+     "DATA_EVIDENCIA": "2021-06-14T09:00:48.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "…6 OD (nicosulfuron 60 g/L), graminicida di efficacia confermata in grado di controllare in modo efficiente la sorghetta da rizoma.  Infine, per limitare la deriva e migliorare le performance degli erbicidi, i trattamenti nelle pa…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "SOIA x CIPERO",
+   "CULTURA": "SOIA",
+   "ALVO": "CIPERO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de SOIA x CIPERO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-jo7lNMKJoVE",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=jo7lNMKJoVE",
+     "DATA_EVIDENCIA": "2022-07-05T07:26:18.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "cipero",
+     "TRECHO": "…one Od (dispersione oleosa), controlla le infestanti dicotiledoni, importanti graminacee come il giavone e il cipero.  Botiga è stato distribuito nella parcella assieme a Nisshin Extra 6 OD (nicosulfuron 60 g/L), graminicida d…",
+     "LINGUA_EVIDENCIA": "6 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-LrqbSZpE0gs",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=LrqbSZpE0gs",
+     "DATA_EVIDENCIA": "2021-06-14T09:00:48.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "cipero",
+     "TRECHO": "…one OD (dispersione oleosa), controlla le infestanti dicotiledoni, importanti graminacee come il giavone e il cipero.  Botiga è stato distribuito nella parcella assiema a Nisshin Extra 6 OD (nicosulfuron 60 g/L), graminicida d…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "MAIS x DIABROTICA",
+   "CULTURA": "MAIS",
+   "ALVO": "DIABROTICA",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de MAIS x DIABROTICA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-UzXyp1x2fKc",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=UzXyp1x2fKc",
+     "DATA_EVIDENCIA": "2023-07-25T13:40:07.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "diabrotica",
+     "TRECHO": "…da Coragen® e Audace® SC per il contemporaneo controllo della piralide (Ostrinia nubilalis) e degli adulti di diabrotica (Diabrotica virgifera). Coragen® Mais unisce la potenza e l’affidabilità di Rynaxypyr® all’innovazione formul…",
+     "LINGUA_EVIDENCIA": "28 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID--UNK9LpTlAI",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=-UNK9LpTlAI",
+     "DATA_EVIDENCIA": "2021-06-21T13:03:31.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "diabrotica",
+     "TRECHO": "…i; il suo formulato permette la migliore selettività del clomazone su mais.  Per la protezione da elateridi e diabrotica Sipcam ha proposto Ercole GR, a cui si può aggiungere all’efficacia insetticida un forte effetto «early vigou…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "ORZO x LOIETTO",
+   "CULTURA": "ORZO",
+   "ALVO": "LOIETTO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 2,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 2
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "2 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de ORZO x LOIETTO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-ZMSQWBxmSNY",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "GowanItalia",
+     "URL": "https://www.youtube.com/watch?v=ZMSQWBxmSNY",
+     "DATA_EVIDENCIA": "2022-08-19T14:18:49.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "orzo",
+     "TERMO_ALVO": "loietto",
+     "TRECHO": "…owan Italia, che si propone come la soluzione ideale contro le principali infestanti a foglia stretta (Avena, Loietto, Alopecuro, Poa, ecc. comprese le popolazioni resistenti ad altri erbicidi) che minacciano le colture di Frum…",
+     "LINGUA_EVIDENCIA": "17 marcadores de it"
+    },
+    {
+     "DOC_ID": "YT-VID-U27LIKOAKxI",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "GowanItalia",
+     "URL": "https://www.youtube.com/watch?v=U27LIKOAKxI",
+     "DATA_EVIDENCIA": "2017-09-29T08:48:04.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "orzo",
+     "TERMO_ALVO": "loietto",
+     "TRECHO": "…owan Italia, che si propone come la soluzione ideale contro le principali infestanti a foglia stretta (Avena, Loietto, Alopecuro, Poa, ecc. comprese le popolazioni resistenti ad altri erbicidi) che minacciano le colture di Frum…",
+     "LINGUA_EVIDENCIA": "19 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x CIMICE",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "CIMICE",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de GRANO_GEN x CIMICE.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-RisRARQSFAg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "AIPO verona",
+     "URL": "https://www.youtube.com/watch?v=RisRARQSFAg",
+     "DATA_EVIDENCIA": "2026-05-01T06:24:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "cimice asiatica",
+     "TRECHO": "…ario. Cotonello dell’olivo (Euphyllura olivina): presenza limitata e localizzata su germogli e infiorescenze. Cimice asiatica (Halyomorpha halys): si registra un incremento degli adulti appartenenti alla generazione svernante. Coccinig…",
+     "LINGUA_EVIDENCIA": "55 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x MOSCA_OLIVO",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "MOSCA_OLIVO",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de GRANO_GEN x MOSCA_OLIVO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-RisRARQSFAg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "AIPO verona",
+     "URL": "https://www.youtube.com/watch?v=RisRARQSFAg",
+     "DATA_EVIDENCIA": "2026-05-01T06:24:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "mosca dell’olivo",
+     "TRECHO": "…ego di bioinsetticidi a base di Bacillus thuringiensis, attenendosi alle indicazioni tecniche dell’etichetta. Mosca dell’olivo (Bactrocera oleae): i controlli mostrano un aumento delle catture di adulti maschi, segno di un’attività molt…",
+     "LINGUA_EVIDENCIA": "55 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x ACARO_GEN",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "ACARO_GEN",
+   "CATEGORIA_DE_PRODUTO": "ACARICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de GRANO_GEN x ACARO_GEN.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-RisRARQSFAg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "AIPO verona",
+     "URL": "https://www.youtube.com/watch?v=RisRARQSFAg",
+     "DATA_EVIDENCIA": "2026-05-01T06:24:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "acari",
+     "TRECHO": "…attività nei confronti delle principali malattie fungine dell’olivo. Perruzzetto Luca – Gambin Enzo Tripidi o acari? Guida pratica al riconoscimento dei sintomi sull'olivo. La comparsa di foglie con puntinature chiare, opacit…",
+     "LINGUA_EVIDENCIA": "55 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "OLIVO x ACARO_GEN",
+   "CULTURA": "OLIVO",
+   "ALVO": "ACARO_GEN",
+   "CATEGORIA_DE_PRODUTO": "ACARICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de OLIVO x ACARO_GEN.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-RisRARQSFAg",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "AIPO verona",
+     "URL": "https://www.youtube.com/watch?v=RisRARQSFAg",
+     "DATA_EVIDENCIA": "2026-05-01T06:24:20.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "olivo",
+     "TERMO_ALVO": "acari",
+     "TRECHO": "…attività nei confronti delle principali malattie fungine dell’olivo. Perruzzetto Luca – Gambin Enzo Tripidi o acari? Guida pratica al riconoscimento dei sintomi sull'olivo. La comparsa di foglie con puntinature chiare, opacit…",
+     "LINGUA_EVIDENCIA": "55 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "OLIVO x CERCOSPORA",
+   "CULTURA": "OLIVO",
+   "ALVO": "CERCOSPORA",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de OLIVO x CERCOSPORA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-DKgh6ZKAkYE",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "TeleVeneto",
+     "URL": "https://www.youtube.com/watch?v=DKgh6ZKAkYE",
+     "DATA_EVIDENCIA": "2024-03-22T08:21:14.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "olivo",
+     "TERMO_ALVO": "cercospor",
+     "TRECHO": "…emperature hanno in media raggiunto e superato i 10°C. e alla base delle chiome gli 11°C.  Occhio di pavone e Cercosporiosi  Nell’autunno del 2023 l’andamento meteorologico è stato caratterizzato da elevati periodi umidi e temper…",
+     "LINGUA_EVIDENCIA": "76 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x RUGGINE",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "RUGGINE",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de GRANO_GEN x RUGGINE.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-_ekMpCEkYO4",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "CONSORZIO AGRARIO DEL NORDEST",
+     "URL": "https://www.youtube.com/watch?v=_ekMpCEkYO4",
+     "DATA_EVIDENCIA": "2018-09-24T07:53:12.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "ruggine",
+     "TRECHO": "…a medio-tardiva, di taglia media con spiga aristata. Ottima tolleranza alla fusariosi, buona all'oidio e alla ruggine gialla, grande resistenza all'allettamento.  Le riprese sono state effettuate a maggio 2018 nel campo sperime…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "ORZO x FUSARIOSI",
+   "CULTURA": "ORZO",
+   "ALVO": "FUSARIOSI",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de ORZO x FUSARIOSI.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-JnvZGa0Cm6U",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Rovigo IN Diretta",
+     "URL": "https://www.youtube.com/watch?v=JnvZGa0Cm6U",
+     "DATA_EVIDENCIA": "2023-06-12T15:56:42.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "orzo",
+     "TERMO_ALVO": "fusarios",
+     "TRECHO": "…padrone.  DOPO LE PIOGGE ARRIVA IL FUNGO KILLER DEL GRANO ll nuovo “terrore” per le spighe di grano si chiama fusariosi. Nella prima decade di maggio a causa dell’elevata piovosità si sono registrati danni ai seminativi come fru…",
+     "LINGUA_EVIDENCIA": "42 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "VITE x OIDIO",
+   "CULTURA": "VITE",
+   "ALVO": "OIDIO",
+   "CATEGORIA_DE_PRODUTO": "FUNGICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de VITE x OIDIO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-Y-sCNBc9gjQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Viticoltura Riccardo Castaldi",
+     "URL": "https://www.youtube.com/watch?v=Y-sCNBc9gjQ",
+     "DATA_EVIDENCIA": "2023-04-21T11:30:34.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "vite",
+     "TERMO_ALVO": "oidio",
+     "TRECHO": "…ripidi, in grado di bloccare lo sviluppo dei germogli. Si deve considerare inoltre la difesa da peronospora e oidio in quanto in grado di compromettere l’apparato fogliari delle giovani viti, e quindi la loro capacità di fare…",
+     "LINGUA_EVIDENCIA": "28 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "MAIS x ABUTILON",
+   "CULTURA": "MAIS",
+   "ALVO": "ABUTILON",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de MAIS x ABUTILON.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-w87w51fSWAw",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=w87w51fSWAw",
+     "DATA_EVIDENCIA": "2021-06-17T07:56:17.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "abutilon",
+     "TRECHO": "…TO® per il controllo di graminacee, compresa la sorghetta da rizoma, e dicotiledoni sia annuali (Chenopodium, Abutilon, Acalifa, ecc) sia perenni (Convolvulus arvensis e Cirsium arvense).   Scopri di più su: https://maisdomani.i…",
+     "LINGUA_EVIDENCIA": "23 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "MAIS x CHENOPODIO",
+   "CULTURA": "MAIS",
+   "ALVO": "CHENOPODIO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de MAIS x CHENOPODIO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-w87w51fSWAw",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=w87w51fSWAw",
+     "DATA_EVIDENCIA": "2021-06-17T07:56:17.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "chenopodium",
+     "TRECHO": "…PLUS + CALLISTO® per il controllo di graminacee, compresa la sorghetta da rizoma, e dicotiledoni sia annuali (Chenopodium, Abutilon, Acalifa, ecc) sia perenni (Convolvulus arvensis e Cirsium arvense).   Scopri di più su: https://ma…",
+     "LINGUA_EVIDENCIA": "23 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "MAIS x PIRALIDE",
+   "CULTURA": "MAIS",
+   "ALVO": "PIRALIDE",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de MAIS x PIRALIDE.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-UzXyp1x2fKc",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=UzXyp1x2fKc",
+     "DATA_EVIDENCIA": "2023-07-25T13:40:07.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "piralide",
+     "TRECHO": "….  Nell’Isola dedicata all’efficienza irrigua è in svolgimento una sperimentazione relativa alla difesa dalla piralide in cui sarà utilizzato Coragen® Mais, una soluzione insetticida in confezione twin pack composta da Coragen®…",
+     "LINGUA_EVIDENCIA": "28 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "MAIS x ELATERIDI",
+   "CULTURA": "MAIS",
+   "ALVO": "ELATERIDI",
+   "CATEGORIA_DE_PRODUTO": "INSETICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de MAIS x ELATERIDI.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID--UNK9LpTlAI",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "L'Informatore Agrario",
+     "URL": "https://www.youtube.com/watch?v=-UNK9LpTlAI",
+     "DATA_EVIDENCIA": "2021-06-21T13:03:31.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "mais",
+     "TERMO_ALVO": "elateridi",
+     "TRECHO": "…territoriali; il suo formulato permette la migliore selettività del clomazone su mais.  Per la protezione da elateridi e diabrotica Sipcam ha proposto Ercole GR, a cui si può aggiungere all’efficacia insetticida un forte effetto…",
+     "LINGUA_EVIDENCIA": "11 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "ORTICOLE x LOIETTO",
+   "CULTURA": "ORTICOLE",
+   "ALVO": "LOIETTO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de ORTICOLE x LOIETTO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-N3tqOoaszxE",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Migliore3",
+     "URL": "https://www.youtube.com/watch?v=N3tqOoaszxE",
+     "DATA_EVIDENCIA": "2022-11-20T14:45:00.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "ortaggi",
+     "TERMO_ALVO": "loietto",
+     "TRECHO": "…. Sementi prato di prima qualità, per ottenere il massimo da 1kg di mix di semi. 80% Festuca arundinacea, 10% Loietto perenne, 10% Poa pratense. Puoi trovare il miglior prezzo direttamente sotto la descrizione del video.  L'alt…",
+     "LINGUA_EVIDENCIA": "30 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "FRUMENTO x PAPAVERO",
+   "CULTURA": "FRUMENTO",
+   "ALVO": "PAPAVERO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de FRUMENTO x PAPAVERO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-BTaNcVorws8",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=BTaNcVorws8",
+     "DATA_EVIDENCIA": "2025-02-11T09:08:04.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "cerealicol",
+     "TERMO_ALVO": "papavero",
+     "TRECHO": "…spiega come trattare il frumento in post-emergenza. Erbe infestanti del grano come falaride, loietto, avena, papavero, crucifere e galium possono essere tenute sotto controllo con il diserbo Atlantis Activ in miscela con il bag…",
+     "LINGUA_EVIDENCIA": "13 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x LOIETTO",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "LOIETTO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de GRANO_GEN x LOIETTO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-BTaNcVorws8",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=BTaNcVorws8",
+     "DATA_EVIDENCIA": "2025-02-11T09:08:04.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "loietto",
+     "TRECHO": "…i del Team Bayer spiega come trattare il frumento in post-emergenza. Erbe infestanti del grano come falaride, loietto, avena, papavero, crucifere e galium possono essere tenute sotto controllo con il diserbo Atlantis Activ in m…",
+     "LINGUA_EVIDENCIA": "13 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x PAPAVERO",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "PAPAVERO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de GRANO_GEN x PAPAVERO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-BTaNcVorws8",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Bayer Crop Science Italia",
+     "URL": "https://www.youtube.com/watch?v=BTaNcVorws8",
+     "DATA_EVIDENCIA": "2025-02-11T09:08:04.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "papavero",
+     "TRECHO": "…spiega come trattare il frumento in post-emergenza. Erbe infestanti del grano come falaride, loietto, avena, papavero, crucifere e galium possono essere tenute sotto controllo con il diserbo Atlantis Activ in miscela con il bag…",
+     "LINGUA_EVIDENCIA": "13 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "SOIA x LOIETTO",
+   "CULTURA": "SOIA",
+   "ALVO": "LOIETTO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de SOIA x LOIETTO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-aG4E656JjFQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Corteva Agriscience",
+     "URL": "https://www.youtube.com/watch?v=aG4E656JjFQ",
+     "DATA_EVIDENCIA": "2020-05-13T13:22:30.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "loietto",
+     "TRECHO": "…(ad es. cencio molle, chenopodio, amaranto sensibile, poligonacee, stramonio e nappola) e graminacee (avena, loietto, falaride, bromo e coda di volpe) per il diserbo della soia.   Tuareg New si contraddistingue per la grande s…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "SOIA x ABUTILON",
+   "CULTURA": "SOIA",
+   "ALVO": "ABUTILON",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de SOIA x ABUTILON.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-aG4E656JjFQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Corteva Agriscience",
+     "URL": "https://www.youtube.com/watch?v=aG4E656JjFQ",
+     "DATA_EVIDENCIA": "2020-05-13T13:22:30.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "cencio molle",
+     "TRECHO": "…nte che conferisce più efficacia, più velocità e potenza nel controllo delle principali foglie larghe (ad es. cencio molle, chenopodio, amaranto sensibile, poligonacee, stramonio e nappola) e graminacee (avena, loietto, falaride, br…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "SOIA x CHENOPODIO",
+   "CULTURA": "SOIA",
+   "ALVO": "CHENOPODIO",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+video_metadata"
+   ],
+   "CAMADAS": {
+    "FONTE": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de SOIA x CHENOPODIO.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-VID-aG4E656JjFQ",
+     "PORTA": "youtube+video_metadata",
+     "CANAL": "Corteva Agriscience",
+     "URL": "https://www.youtube.com/watch?v=aG4E656JjFQ",
+     "DATA_EVIDENCIA": "2020-05-13T13:22:30.000Z",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "FONTE",
+     "TERMO_CULTURA": "soia",
+     "TERMO_ALVO": "chenopodio",
+     "TRECHO": "…isce più efficacia, più velocità e potenza nel controllo delle principali foglie larghe (ad es. cencio molle, chenopodio, amaranto sensibile, poligonacee, stramonio e nappola) e graminacee (avena, loietto, falaride, bromo e coda d…",
+     "LINGUA_EVIDENCIA": "12 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "ERBA_MEDICA x FLAVESCENZA",
+   "CULTURA": "ERBA_MEDICA",
+   "ALVO": "FLAVESCENZA",
+   "CATEGORIA_DE_PRODUTO": "FITOPLASMA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+comentario"
+   ],
+   "CAMADAS": {
+    "PLATEIA": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de ERBA_MEDICA x FLAVESCENZA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-COM-Ugw8y6MT3EeHfX4sbMJ4AaABAg",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Viticoltura Riccardo Castaldi",
+     "URL": "https://www.youtube.com/watch?v=D73ccvnC6XU",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "erba medica",
+     "TERMO_ALVO": "flavescenza",
+     "TRECHO": "…istilus festinus\" dell'erba medica. Ci sono poche o nulla informazione su youtube. Assomiglia tantissimo alla flavescenza e legno nero.Grazie",
+     "LINGUA_EVIDENCIA": "3 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "GRANO_GEN x SORGHETTA",
+   "CULTURA": "GRANO_GEN",
+   "ALVO": "SORGHETTA",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+comentario"
+   ],
+   "CAMADAS": {
+    "PLATEIA": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de GRANO_GEN x SORGHETTA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-COM-Ugw4u1cLTpGp8FwmhN94AaABAg",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Agricoltura Innovativa",
+     "URL": "https://www.youtube.com/watch?v=ujhKqwGU50Y",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "grano",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "Ciao a tutti... Con lumax in pre-emergenza e forte infestazioni da sorghetta  cosa mi consigliate per debellare sta maledetta...? Oltre a un post emergenza fare una rotazione per un paio…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "PERO x SORGHETTA",
+   "CULTURA": "PERO",
+   "ALVO": "SORGHETTA",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+comentario"
+   ],
+   "CAMADAS": {
+    "PLATEIA": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de PERO x SORGHETTA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-COM-Ugw4u1cLTpGp8FwmhN94AaABAg",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Agricoltura Innovativa",
+     "URL": "https://www.youtube.com/watch?v=ujhKqwGU50Y",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "pero",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "Ciao a tutti... Con lumax in pre-emergenza e forte infestazioni da sorghetta  cosa mi consigliate per debellare sta maledetta...? Oltre a un post emergenza fare una rotazione per un paio…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  },
+  {
+   "PAR": "SORGO x SORGHETTA",
+   "CULTURA": "SORGO",
+   "ALVO": "SORGHETTA",
+   "CATEGORIA_DE_PRODUTO": "HERBICIDA",
+   "ESTADO": "AMOSTRA_INSUFICIENTE",
+   "NIVEL": "NAO_SEI",
+   "NIVEL_2_ESTADO": "NAO_MEDIDO — uma janela só, sem série comparável",
+   "N_DOCUMENTOS": 1,
+   "N_FONTES_DISTINTAS": 1,
+   "PORTAS_NATIVAS": [
+    "youtube+comentario"
+   ],
+   "CAMADAS": {
+    "PLATEIA": 1
+   },
+   "CERTEZA": {
+    "CULTURA": "OBSERVADO_NO_DOCUMENTO",
+    "ALVO": "OBSERVADO_NO_DOCUMENTO",
+    "PAR": "INFERIDO_PELO_SISTEMA",
+    "CATEGORIA_DE_PRODUTO": "INFERIDO_PELO_SISTEMA",
+    "PORTA": "DECLARADO_PELA_FONTE",
+    "DATA_EVIDENCIA": "DECLARADO_PELA_FONTE"
+   },
+   "POR_QUE_ENTROU": "1 documentos, em 1 portas nativas, de 1 fontes distintas, tratam de SORGO x SORGHETTA.",
+   "NAO_SEI": [
+    "LOCAL_DO_FATO",
+    "TEMPO_DO_FATO",
+    "OCORRENCIA",
+    "SEVERIDADE",
+    "FALHA_DE_CONTROLE",
+    "RESISTENCIA",
+    "QUEM_FALA_NO_COMENTARIO"
+   ],
+   "EVIDENCIAS": [
+    {
+     "DOC_ID": "YT-COM-Ugw4u1cLTpGp8FwmhN94AaABAg",
+     "PORTA": "youtube+comentario",
+     "CANAL": "Agricoltura Innovativa",
+     "URL": "https://www.youtube.com/watch?v=ujhKqwGU50Y",
+     "DATA_EVIDENCIA": "NAO_SEI",
+     "ATRIBUIBILIDADE": "NAO_ATRIBUIVEL",
+     "CAMADA": "PLATEIA",
+     "TERMO_CULTURA": "sorgo",
+     "TERMO_ALVO": "sorghetta",
+     "TRECHO": "Ciao a tutti... Con lumax in pre-emergenza e forte infestazioni da sorghetta  cosa mi consigliate per debellare sta maledetta...? Oltre a un post emergenza fare una rotazione per un paio…",
+     "LINGUA_EVIDENCIA": "7 marcadores de it"
+    }
+   ]
+  }
+ ]
+}

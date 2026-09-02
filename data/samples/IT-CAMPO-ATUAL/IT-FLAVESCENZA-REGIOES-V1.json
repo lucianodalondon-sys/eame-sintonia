@@ -1,0 +1,95 @@
+{
+ "DATASET": "IT-FLAVESCENZA-REGIOES-V1",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-T3-LOTTA-B",
+ "source": "sites oficiais regionais e nacionais, lidos em navegador",
+ "SOURCE_LOCATION": "ITALY",
+ "FACT_LOCATION": "ITALY",
+ "ORIGINAL_LANGUAGE": "it",
+ "EVIDENCE_CLASS": "REGULATORY_FACT",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "AMPLIA": "IT-T3-LOTTA/IT-lotta-obbligatoria-flavescenza-2026.json, que cobria 2 regiões",
+ "REGIOES_ANTES": 2,
+ "REGIOES_AGORA": 5,
+ "CAMADA_NACIONAL": {
+  "ATO": "Ordinanza Ministeriale 22/06/2023 n. 4 — «Misure fitosanitarie d'emergenza per il contrasto di Grapevine flavescence dorée phytoplasma»",
+  "PUBLICACAO": "Gazzetta Ufficiale 12/08/2023, n. 188",
+  "REVOGOU": "DM 31 maggio 2000 (lotta obbligatoria), abrogado pelo DM de 06/06/2023",
+  "OBRIGA": "os Serviços Fitossanitários regionais a apurar ANUALMENTE a presença de flavescência e de Scaphoideus titanus, por sítios de observação, tanto em área de maior risco quanto em área indene",
+  "DOCUMENTO_TECNICO": "Servizio Fitosanitario Nazionale — «Linee guida per i viticoltori ai fini del contrasto della flavescenza dorata sul territorio nazionale»",
+  "ESTADO": "PRIMARY_SOURCE_READ",
+  "SOURCE_URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan/lotte-obbligatorie-flavescenza-dorata"
+ },
+ "REGIOES": [
+  {
+   "REGIAO": "Veneto",
+   "ATO": "DDR n. 13645",
+   "DATA": "2026-05-14",
+   "JANELAS_2026": "2 tratamentos com ativos de síntese (1ª janela 08–19/06, 2ª a 10–15 dias) ou 3 em biológico",
+   "REFERENTI_SCIENTIFICI": ["Dafnae-UniPD", "DB-UniVR", "CREA-VE"],
+   "ESTADO": "JA_NO_ACERVO",
+   "NOVO_NESTA_RODADA": "Bollettino fitosanitario vite n. 9 de 2026-06-03 definiu as janelas; primeiro tratamento só após a floração; o boletim registra chegada contínua de sinalizações de sintomas em videiras já infectadas no ano anterior",
+   "AREA_VITE_THS_HA": 101.0,
+   "RANK_NACIONAL_AREA": 2
+  },
+  {
+   "REGIAO": "Lombardia",
+   "ATO": "Comunicato Giunta n. 39",
+   "DATA": "2026-05-25",
+   "JANELAS_2026": "2 tratamentos (02–14/06 e 17–29/06) ou 3 em biológico",
+   "CRITERIO_DE_PRODUTO": "admite EXCLUSIVAMENTE produto cujo rótulo traga como alvo «cicaline della vite» ou «Scaphoideus titanus»",
+   "ESTADO": "JA_NO_ACERVO",
+   "AREA_VITE_THS_HA": 18.2,
+   "RANK_NACIONAL_AREA": 7
+  },
+  {
+   "REGIAO": "Piemonte",
+   "ATO": "Determinazione Dirigenziale n. 280",
+   "DATA": "2026-03-16",
+   "CONTEUDO": "atualiza as medidas fitossanitárias de emergência e define o Piano operativo 2026",
+   "ALCANCE_DECLARADO": "obrigatório também para viticultores hobbistas e para proprietários de terrenos incultos com videiras assilvestradas",
+   "RESTRICAO_PROPRIA": "L.R. 1/2019 proíbe uso de fitossanitários durante a floração",
+   "HISTORICO": "flavescência apareceu no Piemonte em 1998; o Settore Fitosanitario intensificou vigilância desde então",
+   "ALERTA_PUBLICO_2026": "«Campagna 2026: massima attenzione!» — texto da própria página regional",
+   "ANEXOS_PUBLICOS": ["Sintesi disposizioni 2026 (PDF, 450 KB)", "Piano operativo 2026 (PDF, 204 KB)"],
+   "MONITORAMENTO": "Progetti Pilota com síntese de resultados de 2025 publicada",
+   "ESTADO": "PRIMARY_SOURCE_READ",
+   "NOVO_NESTA_RODADA": true,
+   "ANEXOS_BAIXADOS": false
+  },
+  {
+   "REGIAO": "Trentino",
+   "ATO": "Bollettino speciale Flavescenza dorata n. 1",
+   "DATA": "2026-05-29",
+   "CONTEUDO": "lotta obbligatoria ao vetor Scaphoideus titanus",
+   "ESTADO": "CITADO_EM_FONTE_SECUNDARIA",
+   "NOVO_NESTA_RODADA": true
+  },
+  {
+   "REGIAO": "Emilia-Romagna",
+   "ATO": "Determinazione 9818/2026",
+   "DATA": "2026",
+   "CONTEUDO": "lotta obbligatoria alla Flavescenza dorata",
+   "CAMADA_TECNICA_ADICIONAL": "Settore Fitosanitario e Difesa delle Produzioni conduz plano trienal desde 2023, combinando estratégia agronômica e vigilância; responsável Stefano Boncompagni",
+   "ESTADO": "CITADO_EM_FONTE_SECUNDARIA",
+   "NOVO_NESTA_RODADA": true
+  }
+ ],
+ "O_QUE_ISTO_MUDA_NO_CASO_IT_HERO_001": {
+  "ANTES": "caso de 2 regiões, ancorado no Vêneto pela área medida",
+  "AGORA": "obrigação ativa em 5 regiões, com camada nacional lida na fonte primária",
+  "O_QUE_NAO_MUDA": "as janelas de 2026 fecharam em junho. A janela ABERTA continua sendo a de MONITORAMENTO (agosto a setembro), e a próxima janela de aplicação é 2027, com datas a definir",
+  "O_QUE_CONTINUA_NAO_SEI": [
+   "as datas de 2027 — fixadas a cada ano pelo monitoramento",
+   "o estado de renovação das autorizações ADAMA elegíveis",
+   "a incidência real por região — nenhum número de área afetada foi lido"
+  ]
+ },
+ "ESTADOS_USADOS": {
+  "PRIMARY_SOURCE_READ": "a página oficial foi aberta e lida",
+  "CITADO_EM_FONTE_SECUNDARIA": "o ato foi citado por outra fonte; o ato em si NÃO foi aberto",
+  "LEI": "CITADO != LIDO. As duas coisas não se somam num mesmo número."
+ }
+}

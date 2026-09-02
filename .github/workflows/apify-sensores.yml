@@ -1,0 +1,174 @@
+# ═══════════════════════════════════════════════════════════════════════
+# PILOTO DE SENSORES TÉCNICOS — coleta por fases, no runner local.
+#
+# Uma fase por execução, escolhida na mão. Não existe fase "tudo": cada uma
+# grava o resultado no repositório e a seguinte lê o que a anterior deixou.
+# Isso é o que permite PARAR no meio quando a rota estiver ruim, em vez de
+# descobrir o problema depois de gastar tudo.
+#
+#     contratos    GRÁTIS — lê o schema de entrada dos atores. Zero run.
+#     canais       procura canal público das 12 identidades provadas
+#     videos       vídeos dos 6 recortes, por termo técnico
+#     transcricao  transcrição dos vídeos achados
+#     comentarios  comentários dos conteúdos ligados aos 6 recortes
+#
+# `contratos` roda primeiro porque entrada errada é o erro mais caro já medido
+# nesta casa: o piloto italiano queimou 8 execuções e os 8 runs devolveram o
+# mesmo consultor de cibersegurança, porque o Actor descartou em silêncio o
+# campo que não reconhecia.
+#
+# O SEGREDO
+# ---------
+# `APIFY_TOKEN_POOL` entra por secret e vive só no cabeçalho `Authorization`
+# das chamadas. `apify_pool.redigir()` limpa qualquer texto de erro antes do
+# log, porque um traceback de urllib carrega a URL e a URL pode carregar o
+# token. Nada é gravado em arquivo, artefato ou cache.
+# ═══════════════════════════════════════════════════════════════════════
+name: apify-sensores
+
+on:
+  workflow_dispatch:
+    inputs:
+      fase:
+        description: 'qual fase rodar'
+        required: true
+        default: contratos
+        type: choice
+        options:
+          - contratos
+          - canais
+          - videos
+          - transcricao
+          - comentarios
+      lote:
+        description: 'A vai para o runner 1, B para o runner 2'
+        required: true
+        default: A
+        type: choice
+        options: [A, B]
+
+permissions:
+  contents: write          # a fase grava o resultado de volta no repositório
+
+jobs:
+  coleta:
+    # O lote escolhe a máquina. Os dois runners rodam ESTE MESMO arquivo com a MESMA
+    # régua — só o universo atribuído muda. Paralelismo compra tempo, não permissividade.
+    runs-on: ${{ inputs.lote == 'A'
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
+    defaults:
+      run:
+        shell: bash
+    env:
+      APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      # BASE LIMPA. O runner e persistente: o que a execucao anterior deixou continua na
+      # pasta. Quando a rodada passada morreu no meio de um rebase, o commit preso ficou
+      # no branch local — e as DUAS tentativas seguintes tentaram replicar aquele commit
+      # velho e conflitaram de novo, com dado novo ja coletado e pago esperando.
+      #
+      #     RUNNER PERSISTENTE != ARVORE LIMPA.
+      #
+      # `actions/checkout` limpa arquivo nao rastreado, nao desfaz commit local.
+      - name: 0a · base limpa antes de qualquer coleta
+        run: |
+          git rebase --abort 2>/dev/null || true
+          git merge --abort 2>/dev/null || true
+          git fetch --quiet origin "${{ github.ref_name }}"
+          git reset --hard --quiet "origin/${{ github.ref_name }}"
+          git clean -fdq data/samples 2>/dev/null || true
+          echo "BASE=$(git log --oneline -1)"
+
+      # `python3` nesta máquina é o atalho da Microsoft Store e falha. O `py` funciona.
+      - name: 0 · interpretador
+        run: |
+          for c in py python3 python; do
+            if $c --version >/dev/null 2>&1; then
+              echo "PY=$c" >> "$GITHUB_ENV"; echo "INTERPRETADOR=$c"; exit 0
+            fi
+          done
+          echo "INTERPRETADOR=NENHUM"; exit 1
+
+      - name: 1 · censo do pool (nunca valor)
+        run: PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+
+      - name: 2 · rodar a fase
+        env:
+          RUNNER_NAME: ${{ runner.name }}
+        run: |
+          echo "FASE=${{ inputs.fase }} · LOTE=${{ inputs.lote }} · RUNNER=${{ runner.name }}"
+          PYTHONIOENCODING=utf-8 $PY scripts/sensor_coleta.py \
+            "${{ inputs.fase }}" "${{ inputs.lote }}"
+
+      - name: 3 · devolver o resultado ao repositório
+        run: |
+          set -e
+          git config user.name  "sintonia-eame-runner"
+          git config user.email "runner@eame-sintonia.local"
+          # SÓ os arquivos DESTE lote. O RUN-MANIFEST canônico nao entra: dois runners
+          # reescrevendo o mesmo arquivo deram CONFLICT e o rebase parou no meio, com 29
+          # candidatos ja pagos presos na maquina. Cada lote agora escreve RUNS-{lote}.
+          git add -A "data/samples/SENSOR-PILOT" "data/samples/raw-paid" || true
+          if git diff --cached --quiet; then
+            echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"; exit 0
+          fi
+          echo "--- o que volta ---"; git diff --cached --stat
+          git commit -q -m "piloto de sensores: fase ${{ inputs.fase }} lote ${{ inputs.lote }} (run ${{ github.run_id }})"
+          # Outra sessao pode ter empurrado enquanto a fase rodava. Tenta rebase; se
+          # conflitar, ABORTA e falha ALTO. A versao anterior terminava com `|| true` e
+          # imprimia RESULTADO_COMMITADO=YES depois de um rebase quebrado — o relatorio
+          # dizia sucesso e o dado nao estava la.
+          for tentativa in 1 2 3; do
+            git fetch --quiet origin "${{ github.ref_name }}"
+            if git rebase --quiet "origin/${{ github.ref_name }}"; then
+              if git push --quiet origin HEAD:"${{ github.ref_name }}"; then
+                echo "RESULTADO_COMMITADO=YES (tentativa $tentativa)"; exit 0
+              fi
+              echo "push recusado, outra sessao chegou antes — tentando de novo"
+            else
+              echo "CONFLITO no rebase, abortando (tentativa $tentativa)"
+              git rebase --abort || true
+              git status --short | head -10
+            fi
+            sleep $((tentativa * 5))
+          done
+          echo "RESULTADO_COMMITADO=NO · nao consegui devolver o resultado"
+          exit 1
+
+      - name: 4 · o que a fase gastou
+        if: always()
+        run: |
+          PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
+          import glob, json
+          # Le os FRAGMENTOS por lote, nunca o RUN-MANIFEST canonico: e ele que os dois
+          # runners nao podem tocar em paralelo.
+          runs = {}
+          for caminho in sorted(glob.glob('data/samples/SENSOR-PILOT/RUNS-*.json')):
+              try:
+                  with open(caminho, encoding='utf-8') as f:
+                      for r in (json.load(f).get('RUNS') or []):
+                          runs[r['RUN_ID']] = r
+              except (OSError, ValueError) as e:
+                  print('  fragmento ilegivel %s: %s' % (caminho, type(e).__name__))
+          custo = sum(v['COST_USD'] for v in runs.values()
+                      if isinstance(v.get('COST_USD'), (int, float)))
+          itens = sum(v['ITEM_COUNT_RAW'] for v in runs.values()
+                      if isinstance(v.get('ITEM_COUNT_RAW'), (int, float)))
+          estados = {}
+          for v in runs.values():
+              estados[v['STATUS']] = estados.get(v['STATUS'], 0) + 1
+          print('APIFY_RUNS_DA_MISSAO=%d' % len(runs))
+          print('ITEMS_DA_MISSAO=%d' % itens)
+          print('COST_USD_DA_MISSAO=%.6f' % custo)
+          print('POR_ESTADO=%s' % estados)
+          for k, v in sorted(runs.items()):
+              print('  %-46s %-8s pos=%-3s itens=%-5s usd=%s'
+                    % (k[:46], v['STATUS'], v.get('TOKEN_POSITION_USED', '?'),
+                       v['ITEM_COUNT_RAW'], v['COST_USD']))
+          PYEOF

@@ -1,0 +1,1111 @@
+{
+ "DATASET": "IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "EU-T4-001-B",
+ "source": "EU Publications Office / CELLAR — endpoint SPARQL público, sem chave",
+ "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+ "reproduce": "bash scripts/cellar.sh substances <ano>",
+ "SOURCE_LOCATION": "EUROPEAN UNION",
+ "FACT_LOCATION": "EUROPEAN UNION",
+ "ORIGINAL_LANGUAGE": "EN",
+ "REGULATORY_LAYER": "EU ACTIVE SUBSTANCE",
+ "EVIDENCE_CLASS": "REGULATORY_FACT",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "JANELA": "2024-01-01 a 2026-12-31, atos 3YYYYR* com \"active substance\" no título",
+ "POR_QUE_ISTO_IMPORTA": "todo o regulatório italiano do acervo é de REGISTRO NACIONAL DO PRODUTO. Nenhum registro nacional sobrevive à APROVAÇÃO EUROPEIA da substância. São duas camadas, e o acervo só tinha uma.",
+ "CONTRATO_DE_LEITURA": {
+  "MATCH_E_LEXICAL": "o casamento é sobre o TÍTULO do ato, não sobre o texto",
+  "TITULO_CASADO_NAO_E_ATO_LIDO": "o título diz que EXISTE ato sobre a substância. Não diz o resultado, não diz a data de fim da aprovação, e não diz se atinge o uso italiano.",
+  "NO_ACT_NAO_E_APROVACAO_ESTAVEL": "ausência de ato na janela lida NÃO é prova de aprovação estável. A aprovação pode ter sido decidida antes de 2024.",
+  "LIMITE_DA_CONSULTA": "a consulta traz LIMIT 200 por ano e só atos com \"active substance\" no título em inglês. Ato que use outra formulação de título fica de fora."
+ },
+ "SUBSTANCIAS_TOTAL": 53,
+ "SUBSTANCIAS_COM_ATO": 31,
+ "SUBSTANCIAS_SEM_ATO_NA_JANELA": 22,
+ "ATOS_UE_LIDOS": 89,
+ "AFIRMACOES_PROIBIDAS": [
+  "a substância vai ser proibida",
+  "o produto vai sair do mercado",
+  "a aprovação foi renovada",
+  "não há risco regulatório nesta substância"
+ ],
+ "SUBSTANCIAS": [
+  {
+   "ACTIVE_SUBSTANCE": "FOLPET",
+   "ADAMA_IT_PRODUCTS": 13,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "FINESSOX",
+    "FLOVINE",
+    "FOLPAN 80 WDG",
+    "FOLPAN ENERGY",
+    "FOLPAN GOLD",
+    "FOLPAN SC",
+    "FOLVIT 80 WDG",
+    "PARIFOL",
+    "SESTO GOLD",
+    "SOLOFOL",
+    "SOLOFOL AP",
+    "STAVENTO",
+    "VINIFOL WDG"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2198",
+     "DATE": "2024-09-04",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2198 of 4 September 2024 renewing the approval of the active substance folpet in accordance with Regulation (EC) No 1107/2009 of the European Parliament and of the Council, and amending Commission Implementing Regulation (EU) No 540/2011",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "PENDIMETHALIN",
+   "ADAMA_IT_PRODUCTS": 12,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "ACTIGAN DFF",
+    "ACTIGAN EKO",
+    "ACTIGAN ME",
+    "ACTIVUS 40 SC",
+    "ACTIVUS ME",
+    "ANTHEM EKO",
+    "AVANA",
+    "CINDER",
+    "DOMITREL 400 CS",
+    "PRESTIGAN EKO",
+    "PRESTIGAN ME",
+    "STOPPER P"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2221",
+     "DATE": "2024-09-06",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2221 of 6 September 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances acequinocyl, aluminium silicate, emamectin, fatty acids C7 to C20, pendimethalin, plant oils / rape seed oil and triclopyr",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "GLYPHOSATE",
+   "ADAMA_IT_PRODUCTS": 11,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "AKTIVIR",
+    "GLIPHOGAN TOP CL",
+    "GLIPHOGAN TOP CL PFNPE",
+    "HERBITOTAL CL",
+    "HERBITOTAL CL PFNPE",
+    "KORAVERT",
+    "SHAMAL MK PLUS CL",
+    "SHAMAL MK PLUS CL PFNPE",
+    "TAIFUN  MK CL PFNPE",
+    "TAIFUN JARDIN",
+    "TAIFUN MK CL"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "CLODINAFOP",
+   "ADAMA_IT_PRODUCTS": 10,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "CELIO",
+    "CELIO 80 EC",
+    "HAWK",
+    "MAKURI",
+    "RAVENAS",
+    "TOPIK 240 EC",
+    "TOPIK 80 EC",
+    "TRACE",
+    "VIP",
+    "VIP 80 EC"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32025R1489",
+     "DATE": "2025-07-24",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/1489 of 24 July 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances ametoctradin, Beauveria bassiana strains ATCC 74040 and GHA, buprofezin, clodinafop, copper compounds, cyflumetofen, daminozide, flupyradifurone, Helicoverpa armigera nucleopolyhedrovirus, mandestrobin, mandipropamid, metam, pyraclostrobin, rescalure, Spodoptera littoralis nucleopolyhedrovirus, Streptomyces lydicus strain WYEC 108, Trichoderma asperellum strain T34 and Trichoderma atroviride strain I-1237",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "CLOQUINTOCET MEXYL",
+   "ADAMA_IT_PRODUCTS": 10,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "CELIO",
+    "CELIO 80 EC",
+    "HAWK",
+    "MAKURI",
+    "RAVENAS",
+    "TOPIK 240 EC",
+    "TOPIK 80 EC",
+    "TRACE",
+    "VIP",
+    "VIP 80 EC"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "METAMITRON",
+   "ADAMA_IT_PRODUCTS": 9,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "BREVIS",
+    "GOLD-BEET",
+    "GOLDBEET SUPER",
+    "GOLTIX",
+    "GOLTIX 700 SC",
+    "GOLTIX BETA",
+    "GOLTIX SUPER",
+    "GOLTIX TOP",
+    "NORTIM"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "QUIZALOFOP-P-ETHYL",
+   "ADAMA_IT_PRODUCTS": 9,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "APACHE",
+    "ERBY 5 EC",
+    "HANUKYS",
+    "HIGHCARD",
+    "LEOPARD 5 EC",
+    "LION 5 EC",
+    "MAGIO'",
+    "MANAGER",
+    "QUIZA 5 EC"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "TAU-FLUVALINATE",
+   "ADAMA_IT_PRODUCTS": 7,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "EVURE PRO",
+    "KLARTAN 20 EW",
+    "KLARTAN SMART",
+    "MAVRIK EW",
+    "MAVRIK JET",
+    "MAVRIK SMART",
+    "TAU AL 240 EW"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R1206",
+     "DATE": "2024-04-29",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/1206 of 29 April 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1-decanol, 6-benzyladenine, aluminium sulfate, azadirachtin, bupirimate, dithianon, dodine, fluometuron, hexythiazox, isoxaben, lime sulphur, orange oil, prosulfuron, quinmerac, sintofen, sodium silver thiosulfate, tau-fluvalinate, tebufenozide, tembotrione and zinc phosphide",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "BIFENOX",
+   "ADAMA_IT_PRODUCTS": 7,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "ANTARKTIS",
+    "BIFENIX",
+    "FOX",
+    "FOXPRO",
+    "NERASTAL",
+    "SONAVIO",
+    "VALLEY"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "PIRIMICARB",
+   "ADAMA_IT_PRODUCTS": 6,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "APHOX",
+    "APHOX 50",
+    "MAVRIK JET",
+    "PIRIMOR 17,5",
+    "PIRIMOR 50",
+    "XINTECH 50"
+   ],
+   "EU_ACTS_MATCHED": 2,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1826",
+     "DATE": "2026-07-28",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1826 of 28 July 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances aclonifen, amisulbrom, Bacillus amyloliquefaciens strain MBI 600, beflubutamid, clomazone, cyantraniliprole, cyprodinil, daminozide, dichlorprop-P, dimethachlor, fludioxonil, formetanate, fosetyl, isofetamid, metalaxyl, metazachlor, penconazole, phenmedipham, pirimicarb, pyraclostrobin and S-abscisic acid",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    },
+    {
+     "CELEX": "32025R0099",
+     "DATE": "2025-01-21",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/99 of 21 January 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances Aureobasidium pullulans (strains DSM 14940 and DSM 14941), Bacillus amyloliquefaciens subsp. plantarum D747, benalaxyl-M, cyprodinil, dichlorprop-P, formetanate, fosetyl, halosulfuron-methyl, imazamox, milbemectin, phenmedipham, pirimicarb, Pseudomonas sp. strain DSMZ 13134, pyrimethanil, pyriofenone, pyroxsulam, spinosad, sulphur, Trichoderma harzianum Rifai strains T-22 and ITEM 908, Trichoderma asperellum (formerly T. harzianum) strains ICC012, T-25 and TV-1, Trichoderma atroviride (formerly T. harzianum) strain T11, Trichoderma gamsii (formerly T. viride) strain ICC080, triticonazole and ziram",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "CYMOXANIL",
+   "ADAMA_IT_PRODUCTS": 6,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "ANTERLEX",
+    "BADGER 45% WG",
+    "CARSON 45% WG",
+    "DAUPHIN 45",
+    "MOXYL MK",
+    "VANTEX"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1421",
+     "DATE": "2026-06-30",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1421 of 30 June 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances bensulfuron, benzovindiflupyr, chlorotoluron, clethodim, cycloxydim, cymoxanil, dazomet, deltamethrin, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "BUPIRIMATE",
+   "ADAMA_IT_PRODUCTS": 5,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "NIMROD",
+    "NIMROD 250 EW",
+    "TRINEX 250 EW",
+    "VERBUM EW",
+    "VINETO"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R1206",
+     "DATE": "2024-04-29",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/1206 of 29 April 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1-decanol, 6-benzyladenine, aluminium sulfate, azadirachtin, bupirimate, dithianon, dodine, fluometuron, hexythiazox, isoxaben, lime sulphur, orange oil, prosulfuron, quinmerac, sintofen, sodium silver thiosulfate, tau-fluvalinate, tebufenozide, tembotrione and zinc phosphide",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "LAMBDA-CYHALOTHRIN",
+   "ADAMA_IT_PRODUCTS": 5,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "DURAVIS",
+    "ELTIRA",
+    "FORZA",
+    "LAMDEX EXTRA",
+    "NINJA"
+   ],
+   "EU_ACTS_MATCHED": 2,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1421",
+     "DATE": "2026-06-30",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1421 of 30 June 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances bensulfuron, benzovindiflupyr, chlorotoluron, clethodim, cycloxydim, cymoxanil, dazomet, deltamethrin, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    },
+    {
+     "CELEX": "32024R0324",
+     "DATE": "2024-01-19",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/324 of 19 January 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances benzovindiflupyr, bromuconazole, buprofezin, cyflufenamid, fluazinam, fluopyram, flutolanil, lambda-cyhalothrin, mecoprop-P, mepiquat, metsulfuron-methyl, phosphane and pyraclostrobin",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "PROPAQUIZAFOP",
+   "ADAMA_IT_PRODUCTS": 5,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "AGIL",
+    "FALCON MK",
+    "LIGA",
+    "SHOGUN",
+    "ZETROLA"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "AZOXYSTROBIN",
+   "ADAMA_IT_PRODUCTS": 5,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "BLAISE ULTRA",
+    "CUSTODIA ULTRA",
+    "KOJAMI",
+    "MAXENTIS",
+    "MIRADOR TURBO"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2781",
+     "DATE": "2024-10-31",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2781 of 31 October 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 8-hydroxyquinoline, aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, fluroxypyr, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "TEBUCONAZOLE",
+   "ADAMA_IT_PRODUCTS": 5,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "BLAISE ULTRA",
+    "CUSTODIA ULTRA",
+    "MIRADOR TURBO",
+    "SEEDRON",
+    "VINETO"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1421",
+     "DATE": "2026-06-30",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1421 of 30 June 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances bensulfuron, benzovindiflupyr, chlorotoluron, clethodim, cycloxydim, cymoxanil, dazomet, deltamethrin, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "FOSETYL-ALUMINIUM",
+   "ADAMA_IT_PRODUCTS": 5,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "MOMENTUM",
+    "MOMENTUM PFNPE",
+    "MOVER",
+    "RIMENSIS",
+    "VANGUARD"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "PROTHIOCONAZOLE",
+   "ADAMA_IT_PRODUCTS": 5,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "AVASTEL",
+    "KOJAMI",
+    "MAGANIC",
+    "MAXENTIS",
+    "SORATEL"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32025R0787",
+     "DATE": "2025-04-24",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/787 of 24 April 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1,4-dimethylnaphthalene, amidosulfuron, bentazone, bixafen, clomazone, fenoxaprop-P, fludioxonil, fluoxastrobin, flutolanil, fluxapyroxad, gibberellic acid, gibberellins, halauxifen-methyl, mecoprop-P, paraffin oil, penthiopyrad, pirimiphos-methyl, propamocarb, propyzamide, prothioconazole, rimsulfuron, sedaxane and sulfoxaflor",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "DIFLUFENICAN",
+   "ADAMA_IT_PRODUCTS": 4,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "ACTIGAN DFF",
+    "DICURAN PLUS",
+    "PRESSING 500",
+    "STOPPER P"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32025R2316",
+     "DATE": "2025-11-17",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/2316 of 17 November 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances aluminium silicate, difenoconazole, diflufenican, disodium phosphonate, extract from tea tree, flurochloridone, indolylbutyric acid, maltodextrin, phosphane, plant oils/clove oil, plant oils/spear mint oil, potassium phosphonates and triclopyr",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "NICOSULFURON",
+   "ADAMA_IT_PRODUCTS": 4,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "NICAMACK V.O.",
+    "NICOGAN V.O.",
+    "PYXIDES WG",
+    "RENDER V.O."
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "IMAZAMOX",
+   "ADAMA_IT_PRODUCTS": 4,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "DAVAI",
+    "EARLEX",
+    "POSTSCRIPT 80",
+    "POSTSCRIPT 80 XL"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32025R0099",
+     "DATE": "2025-01-21",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/99 of 21 January 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances Aureobasidium pullulans (strains DSM 14940 and DSM 14941), Bacillus amyloliquefaciens subsp. plantarum D747, benalaxyl-M, cyprodinil, dichlorprop-P, formetanate, fosetyl, halosulfuron-methyl, imazamox, milbemectin, phenmedipham, pirimicarb, Pseudomonas sp. strain DSMZ 13134, pyrimethanil, pyriofenone, pyroxsulam, spinosad, sulphur, Trichoderma harzianum Rifai strains T-22 and ITEM 908, Trichoderma asperellum (formerly T. harzianum) strains ICC012, T-25 and TV-1, Trichoderma atroviride (formerly T. harzianum) strain T11, Trichoderma gamsii (formerly T. viride) strain ICC080, triticonazole and ziram",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "CAPTAN",
+   "ADAMA_IT_PRODUCTS": 3,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "CAPTHENE 80 WDG",
+    "MAKE UP 80 WDG",
+    "MERPAN 80 WDG"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2186",
+     "DATE": "2024-09-03",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2186 of 3 September 2024 renewing the approval of the active substance captan in accordance with Regulation (EC) No 1107/2009 of the European Parliament and of the Council, and amending Commission Implementing Regulation (EU) No 540/2011",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "FLUAZINAM",
+   "ADAMA_IT_PRODUCTS": 3,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "AGHARTA",
+    "BANJO",
+    "EMBRACE"
+   ],
+   "EU_ACTS_MATCHED": 2,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R0372",
+     "DATE": "2026-02-20",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/372 of 20 February 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1-decanol, 1-naphthylacetamide, 1-naphthylacetic acid, 6-benzyladenine, aluminium sulfate, boscalid, dodine, esfenvalerate, eugenol, fenpyroximate, fluazifop-P, fluazinam, fluometuron, fluopyram, flutolanil, geraniol, malathion, penoxsulam, pinoxaden, prohexadione, proquinazid, prosulfuron, pyrethrins, pyridaben, pyrimethanil, sintofen, spiroxamine, sulphur and thymol",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    },
+    {
+     "CELEX": "32024R0324",
+     "DATE": "2024-01-19",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/324 of 19 January 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances benzovindiflupyr, bromuconazole, buprofezin, cyflufenamid, fluazinam, fluopyram, flutolanil, lambda-cyhalothrin, mecoprop-P, mepiquat, metsulfuron-methyl, phosphane and pyraclostrobin",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "FLORASULAM",
+   "ADAMA_IT_PRODUCTS": 3,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "ANTARKTIS",
+    "CLEAVE",
+    "ELEGANT 2FD"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "FLUROXYPYR",
+   "ADAMA_IT_PRODUCTS": 3,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "CLEAVE",
+    "MORAINE",
+    "TOMIGAN"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2781",
+     "DATE": "2024-10-31",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2781 of 31 October 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 8-hydroxyquinoline, aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, fluroxypyr, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "TRIBENURON",
+   "ADAMA_IT_PRODUCTS": 3,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "KIKKO 50 WG",
+    "KORAL 50 WG",
+    "TRIMMER 50 WG"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "ETHOFUMESATE",
+   "ADAMA_IT_PRODUCTS": 3,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "ETHOSAT SC",
+    "GOLDBEET SUPER",
+    "GOLTIX SUPER"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "TEFLUTHRIN",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "LEBRON 0.5 G",
+    "SCHERMO 0.5 G"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2781",
+     "DATE": "2024-10-31",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2781 of 31 October 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 8-hydroxyquinoline, aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, fluroxypyr, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "DIFENOCONAZOLE",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "MAGANIC",
+    "SPYRALE"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32025R2316",
+     "DATE": "2025-11-17",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/2316 of 17 November 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances aluminium silicate, difenoconazole, diflufenican, disodium phosphonate, extract from tea tree, flurochloridone, indolylbutyric acid, maltodextrin, phosphane, plant oils/clove oil, plant oils/spear mint oil, potassium phosphonates and triclopyr",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "PHENMEDIPHAM",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "CONTATTO 320",
+    "CONTATTO DOUBLE SC"
+   ],
+   "EU_ACTS_MATCHED": 2,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1826",
+     "DATE": "2026-07-28",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1826 of 28 July 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances aclonifen, amisulbrom, Bacillus amyloliquefaciens strain MBI 600, beflubutamid, clomazone, cyantraniliprole, cyprodinil, daminozide, dichlorprop-P, dimethachlor, fludioxonil, formetanate, fosetyl, isofetamid, metalaxyl, metazachlor, penconazole, phenmedipham, pirimicarb, pyraclostrobin and S-abscisic acid",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    },
+    {
+     "CELEX": "32025R0099",
+     "DATE": "2025-01-21",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/99 of 21 January 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances Aureobasidium pullulans (strains DSM 14940 and DSM 14941), Bacillus amyloliquefaciens subsp. plantarum D747, benalaxyl-M, cyprodinil, dichlorprop-P, formetanate, fosetyl, halosulfuron-methyl, imazamox, milbemectin, phenmedipham, pirimicarb, Pseudomonas sp. strain DSMZ 13134, pyrimethanil, pyriofenone, pyroxsulam, spinosad, sulphur, Trichoderma harzianum Rifai strains T-22 and ITEM 908, Trichoderma asperellum (formerly T. harzianum) strains ICC012, T-25 and TV-1, Trichoderma atroviride (formerly T. harzianum) strain T11, Trichoderma gamsii (formerly T. viride) strain ICC080, triticonazole and ziram",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "TERBUTHYLAZINE",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "CHASER-S",
+    "SULCOTREK"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2781",
+     "DATE": "2024-10-31",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2781 of 31 October 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 8-hydroxyquinoline, aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, fluroxypyr, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "SULCOTRIONE",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "CHASER-S",
+    "SULCOTREK"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "METAZACHLOR",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "CLORMET",
+    "SULTAN"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1826",
+     "DATE": "2026-07-28",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1826 of 28 July 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances aclonifen, amisulbrom, Bacillus amyloliquefaciens strain MBI 600, beflubutamid, clomazone, cyantraniliprole, cyprodinil, daminozide, dichlorprop-P, dimethachlor, fludioxonil, formetanate, fosetyl, isofetamid, metalaxyl, metazachlor, penconazole, phenmedipham, pirimicarb, pyraclostrobin and S-abscisic acid",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "PARAFFIN OIL/(CAS 97862-82-3)",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "EKO OIL SPRAY",
+    "OLIONET"
+   ],
+   "EU_ACTS_MATCHED": 2,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R0870",
+     "DATE": "2026-04-21",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/870 of 21 April 2026 renewing the approval of the active substance paraffin oil (CAS 8042-47-5) in accordance with Regulation (EC) No 1107/2009 of the European Parliament and of the Council, and amending Commission Implementing Regulation (EU) No 540/2011",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    },
+    {
+     "CELEX": "32025R0787",
+     "DATE": "2025-04-24",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/787 of 24 April 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1,4-dimethylnaphthalene, amidosulfuron, bentazone, bixafen, clomazone, fenoxaprop-P, fludioxonil, fluoxastrobin, flutolanil, fluxapyroxad, gibberellic acid, gibberellins, halauxifen-methyl, mecoprop-P, paraffin oil, penthiopyrad, pirimiphos-methyl, propamocarb, propyzamide, prothioconazole, rimsulfuron, sedaxane and sulfoxaflor",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "METALAXYL-M",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "FOLPAN GOLD",
+    "SESTO GOLD"
+   ],
+   "EU_ACTS_MATCHED": 2,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1353",
+     "DATE": "2026-06-15",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1353 of 15 June 2026 amending Implementing Regulations (EU) 2020/617 and (EU) No 540/2011 as regards the conditions of approval of the active substance metalaxyl-M",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    },
+    {
+     "CELEX": "32024R1718",
+     "DATE": "2024-06-19",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/1718 of 19 June 2024 amending Implementing Regulations (EU) 2020/617 and (EU) No 540/2011 as regards the conditions of approval of the active substance metalaxyl-M",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "MESOTRIONE",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "DIODE",
+    "PYXIDES WG"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "FLONICAMID (IKI-220)",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "APYZA 500 WG",
+    "APYZA WG"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "MESOSULFURON-METHYL",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "EDAPTIS",
+    "MEZAYO"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "PINOXADEN",
+   "ADAMA_IT_PRODUCTS": 2,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "EDAPTIS",
+    "MEZAYO"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R0372",
+     "DATE": "2026-02-20",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/372 of 20 February 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1-decanol, 1-naphthylacetamide, 1-naphthylacetic acid, 6-benzyladenine, aluminium sulfate, boscalid, dodine, esfenvalerate, eugenol, fenpyroximate, fluazifop-P, fluazinam, fluometuron, fluopyram, flutolanil, geraniol, malathion, penoxsulam, pinoxaden, prohexadione, proquinazid, prosulfuron, pyrethrins, pyridaben, pyrimethanil, sintofen, spiroxamine, sulphur and thymol",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "FENPROPIDIN",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "SPYRALE"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "IMAZALIL (AKA ENILCONAZOLE)",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "MAGNATE 500 EC"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "METALDEHYDE",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "LUMA-KL"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1421",
+     "DATE": "2026-06-30",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1421 of 30 June 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances bensulfuron, benzovindiflupyr, chlorotoluron, clethodim, cycloxydim, cymoxanil, dazomet, deltamethrin, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "DICAMBA",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "PYXIDES WG"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "FLUDIOXONIL",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "SEEDRON"
+   ],
+   "EU_ACTS_MATCHED": 2,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1826",
+     "DATE": "2026-07-28",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1826 of 28 July 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances aclonifen, amisulbrom, Bacillus amyloliquefaciens strain MBI 600, beflubutamid, clomazone, cyantraniliprole, cyprodinil, daminozide, dichlorprop-P, dimethachlor, fludioxonil, formetanate, fosetyl, isofetamid, metalaxyl, metazachlor, penconazole, phenmedipham, pirimicarb, pyraclostrobin and S-abscisic acid",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    },
+    {
+     "CELEX": "32025R0787",
+     "DATE": "2025-04-24",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/787 of 24 April 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1,4-dimethylnaphthalene, amidosulfuron, bentazone, bixafen, clomazone, fenoxaprop-P, fludioxonil, fluoxastrobin, flutolanil, fluxapyroxad, gibberellic acid, gibberellins, halauxifen-methyl, mecoprop-P, paraffin oil, penthiopyrad, pirimiphos-methyl, propamocarb, propyzamide, prothioconazole, rimsulfuron, sedaxane and sulfoxaflor",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "CHLOROTOLURON",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "DICURAN PLUS"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1421",
+     "DATE": "2026-06-30",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1421 of 30 June 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances bensulfuron, benzovindiflupyr, chlorotoluron, clethodim, cycloxydim, cymoxanil, dazomet, deltamethrin, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "2,4-D",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "ELEGANT 2FD"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "FOLPAN ENERGY"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "PLANT OILS / RAPE SEED OIL",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "POWERFILM"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2221",
+     "DATE": "2024-09-06",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2221 of 6 September 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances acequinocyl, aluminium silicate, emamectin, fatty acids C7 to C20, pendimethalin, plant oils / rape seed oil and triclopyr",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "ISOXADIFEN ETHYL",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "HIGHCARD"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "FLUXAPYROXAD",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "AVASTEL"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32025R0787",
+     "DATE": "2025-04-24",
+     "TITLE": "Commission Implementing Regulation (EU) 2025/787 of 24 April 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1,4-dimethylnaphthalene, amidosulfuron, bentazone, bixafen, clomazone, fenoxaprop-P, fludioxonil, fluoxastrobin, flutolanil, fluxapyroxad, gibberellic acid, gibberellins, halauxifen-methyl, mecoprop-P, paraffin oil, penthiopyrad, pirimiphos-methyl, propamocarb, propyzamide, prothioconazole, rimsulfuron, sedaxane and sulfoxaflor",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "CLETHODIM",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "ARRODIM"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32026R1421",
+     "DATE": "2026-06-30",
+     "TITLE": "Commission Implementing Regulation (EU) 2026/1421 of 30 June 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances bensulfuron, benzovindiflupyr, chlorotoluron, clethodim, cycloxydim, cymoxanil, dazomet, deltamethrin, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  },
+  {
+   "ACTIVE_SUBSTANCE": "MEFENPYR DIETHYL",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "EDAPTIS"
+   ],
+   "EU_ACTS_MATCHED": 0,
+   "EU_ACTS": [],
+   "STATE": "NO_ACT_IN_THIS_WINDOW",
+   "STATE_MEANING": "nenhum ato 2024-2026 com esta substância no título. NÃO significa aprovação estável — significa que a janela lida não tem ato."
+  },
+  {
+   "ACTIVE_SUBSTANCE": "CHLORANTRANILIPROLE",
+   "ADAMA_IT_PRODUCTS": 1,
+   "ADAMA_IT_PRODUCT_NAMES": [
+    "COSAYR 200 SC"
+   ],
+   "EU_ACTS_MATCHED": 1,
+   "EU_ACTS": [
+    {
+     "CELEX": "32024R2781",
+     "DATE": "2024-10-31",
+     "TITLE": "Commission Implementing Regulation (EU) 2024/2781 of 31 October 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 8-hydroxyquinoline, aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, fluroxypyr, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine",
+     "ACT_READ": false,
+     "ACT_OUTCOME": "NÃO SEI — só o título foi casado"
+    }
+   ],
+   "STATE": "ACT_FOUND_NOT_READ",
+   "STATE_MEANING": "existe ato da UE 2024-2026 cujo TÍTULO nomeia esta substância"
+  }
+ ],
+ "ATOS_LIDOS_NA_INTEGRA": [
+  {
+   "CELEX": "32024R1206",
+   "DATE": "2024-04-29",
+   "ACT_READ": true,
+   "TITLE": "Commission Implementing Regulation (EU) 2024/1206 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances ... tau-fluvalinate ...",
+   "O_QUE_O_ATO_DIZ": [
+    "tau-fluvalinate e bupirimate estao na Parte A do Anexo do Reg. 540/2011 (substancia antiga, aprovada sob a Diretiva 91/414)",
+    "a aprovacao ja tinha sido estendida ate 2024-08-31 pelo Reg. 2020/2007",
+    "pedido e dossie de renovacao foram apresentados",
+    "CITACAO LITERAL: \"the risk assessment pursuant to Article 11 of Implementing Regulation (EU) No 844/2012 has not yet been finalised by the respective rapporteur Member States\" — tau-fluvalinate esta nomeado nessa lista",
+    "ANEXO, linha 328: a data de expiracao da aprovacao de tau-fluvalinate passa a ser 31 January 2027",
+    "ANEXO, linha 330: bupirimate passa a ser 31 January 2027"
+   ],
+   "CHECAGEM_DE_ATO_MAIS_NOVO": {
+    "METODO": "consulta SPARQL dirigida a TODOS os atos cujo titulo em ingles contem \"fluvalinate\", sem filtro de ano",
+    "RESULTADO": "10 atos; o mais recente e este, de 2024-04-29",
+    "CONCLUSAO": "nenhuma renovacao, nao-renovacao ou nova extensao publicada ate 2026-09-02",
+    "LIMITE": "ato que decida sobre a substancia SEM nomea-la no titulo nao seria encontrado. Conclusao da EFSA e voto de comite nao sao atos e nao estao no EUR-Lex."
+   }
+  }
+ ],
+ "O_QUE_ISTO_MUDA_NO_CASO_IT_HERO_001": {
+  "O_QUE_O_ACERVO_DIZIA": "os 6 produtos ADAMA que nomeiam Scaphoideus titanus no rotulo (KLARTAN 20 EW, KLARTAN SMART, TAU AL 240 EW, MAVRIK EW, MAVRIK SMART, EVURE PRO) tem EXPIRY nacional 2027-01-31, com a ressalva \"EXPIRY != WITHDRAWAL: re-registro e rotina e RENEWAL_STATUS = NAO SEI\"",
+  "O_QUE_ESTA_CAMADA_ACRESCENTA": "a aprovacao EUROPEIA do tau-fluvalinate expira na MESMA data, 2027-01-31, fixada pelo Reg. 2024/1206",
+  "LEITURA": "a data nacional dos 6 produtos nao e um prazo administrativo italiano — ela COINCIDE com a fronteira europeia da substancia. Registro nacional nao sobrevive a aprovacao EU vencida.",
+  "A_RESSALVA_QUE_MUDA": "\"re-registro e rotina\" vale para registro nacional sob aprovacao EU estavel. Aqui a aprovacao EU esta em renovacao com avaliacao de risco NAO finalizada, segundo o proprio ato.",
+  "O_QUE_CONTINUA_NAO_SEI": [
+   "o RESULTADO da renovacao — o ato nao decide, so estende",
+   "se havera nova extensao antes de 2027-01-31 (ja houve pelo menos duas: 2020 e 2024)",
+   "se a decisao, qualquer que seja, mantem o uso em vite contra cicaline",
+   "o mesmo vale para bupirimate (NIMROD, 5 produtos ADAMA IT), com a mesma data"
+  ],
+  "PROIBIDO_DIZER": [
+   "o produto vai sair do mercado",
+   "a ADAMA vai perder o registro",
+   "a substancia sera proibida",
+   "ha risco de desabastecimento"
+  ],
+  "PERMITIDO_DIZER": "a aprovacao europeia de tau-fluvalinate expira em 2027-01-31, foi estendida por ato de 2024 que registra avaliacao de risco nao finalizada, e nenhum ato posterior nomeando a substancia foi publicado ate 2026-09-02."
+ },
+ "SUBSTANCIAS_COM_MESMA_DATA_2027_01_31": [
+  "TAU-FLUVALINATE (7 produtos ADAMA IT)",
+  "BUPIRIMATE (5 produtos ADAMA IT)"
+ ]
+}

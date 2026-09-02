@@ -1,0 +1,177 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CANÁRIO DE CONEXÃO — Apify (piloto de sensores técnicos)
+#
+# Só LÊ a conta. NÃO roda Actor, NÃO cria dataset, NÃO coleta item, NÃO busca
+# perfil, NÃO busca post, NÃO busca vídeo, NÃO gasta crédito de coleta. É o
+# análogo exato de `supabase-conexao.yml`: provar que a credencial existe e
+# funciona ANTES de qualquer execução que custe.
+#
+# POR QUE ELE RODA NO RUNNER LOCAL, E NÃO NO ubuntu-latest
+# ---------------------------------------------------------
+# Duas medições desta casa mandam nisso:
+#   · o piloto italiano levou HTTP 429 do OpenAlex no IP do contêiner por mais
+#     de oito horas, e o handoff registrou que a rota realista é "máquina
+#     residencial";
+#   · o catálogo ADAMA só abriu por navegador local — curl e urllib recebem 403
+#     da borda Akamai.
+# O runner SINTONIA-EAME-LOCAL é essa máquina.
+#
+# O SEGREDO NÃO SAI DAQUI
+# ------------------------
+# `scripts/apify_pool.py` já é o dono desta regra: `censo()` devolve presença,
+# tamanho e formato — nunca valor — e `redigir()` apaga qualquer coisa com cara
+# de token, inclusive dentro de URL, porque um traceback de urllib carrega a URL
+# inteira. Todo texto de erro passa por ela antes de ir para o log. O GitHub
+# também mascara secret no log, mas a regra aqui é NÃO depender disso.
+#
+# O token existe apenas em memória, dentro do cabeçalho `Authorization` da
+# chamada. Nenhum passo o escreve em arquivo, em variável de saída, em artefato
+# ou em cache.
+# ═══════════════════════════════════════════════════════════════════════
+name: apify-conexao
+
+# Só manual. Sem gatilho de push: um workflow que toca credencial não deve
+# disparar sozinho a cada commit.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  canario:
+    runs-on: [self-hosted, Windows, X64, eame-sintonia-local-2]
+    defaults:
+      run:
+        shell: bash
+    env:
+      APIFY_TOKEN_POOL: ${{ secrets.APIFY_TOKEN_POOL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # `python3` nesta máquina é o atalho da Microsoft Store e FALHA com
+      # "Python nao foi encontrado". O launcher `py` é o que funciona. Resolver
+      # aqui, uma vez, evita que cada passo descubra isso sozinho.
+      - name: 0 · qual interpretador existe nesta máquina
+        run: |
+          for c in py python3 python; do
+            if $c --version >/dev/null 2>&1; then
+              echo "PY=$c" >> "$GITHUB_ENV"
+              echo "INTERPRETADOR=$c ($($c --version 2>&1))"
+              exit 0
+            fi
+          done
+          echo "INTERPRETADOR=NENHUM"; exit 1
+
+      - name: A/B · censo do pool (presença e quantidade — nunca valor)
+        run: |
+          PYTHONIOENCODING=utf-8 $PY scripts/apify_pool.py
+
+      - name: C · cada posição autentica? (GET /users/me — READ ONLY)
+        run: |
+          PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
+          import json, sys, urllib.error, urllib.request
+          sys.path.insert(0, 'scripts')
+          import apify_pool as ap
+
+          chaves = ap.pool()
+          print('POOL_POSITIONS=%d' % len(chaves))
+          if not chaves:
+              print('AUTH_PASS=0'); print('AUTH_FAIL=0')
+              print('APIFY_CONNECTION=FAIL  causa=POOL_EMPTY')
+              raise SystemExit(1)
+
+          passou = falhou = 0
+          for i, k in enumerate(chaves, 1):
+              req = urllib.request.Request(
+                  'https://api.apify.com/v2/users/me',
+                  headers={'Authorization': 'Bearer %s' % k})
+              try:
+                  with urllib.request.urlopen(req, timeout=45) as r:
+                      d = (json.loads(r.read().decode('utf-8')) or {}).get('data') or {}
+                  passou += 1
+                  # Só o que não reconstrói credencial. Nem id, nem e-mail, nem
+                  # username: presença basta. `plan` pode vir nulo — por isso o
+                  # `or {}` antes do .get, senão o passo inteiro cai aqui.
+                  print('  posicao %d  ESTADO=%s  PLANO=%s  USERNAME_PRESENTE=%s'
+                        % (i, ap.classificar(http=200, status='SUCCEEDED'),
+                           (d.get('plan') or {}).get('id') or 'NÃO SEI',
+                           'YES' if d.get('username') else 'NO'))
+              except urllib.error.HTTPError as e:
+                  falhou += 1
+                  print('  posicao %d  ESTADO=%s  HTTP=%d'
+                        % (i, ap.classificar(http=e.code), e.code))
+              except Exception as e:                       # noqa: BLE001
+                  falhou += 1
+                  # A mensagem pode carregar a URL, e a URL pode carregar o token.
+                  print('  posicao %d  ESTADO=%s  %s'
+                        % (i, ap.UNKNOWN_FAILURE,
+                           ap.redigir('%s: %s' % (type(e).__name__, e))[:160]))
+          print('AUTH_PASS=%d' % passou)
+          print('AUTH_FAIL=%d' % falhou)
+          print('APIFY_CONNECTION=%s' % ('PASS' if passou else 'FAIL'))
+          PYEOF
+
+      - name: D · limite, uso e saldo (só o que a API realmente devolve)
+        run: |
+          PYTHONIOENCODING=utf-8 $PY - <<'PYEOF'
+          import json, sys, urllib.error, urllib.request
+          sys.path.insert(0, 'scripts')
+          import apify_pool as ap
+
+          # Os três são coisas DIFERENTES e não podem virar um número só:
+          #   PLAN_LIMIT  o teto do plano
+          #   USAGE       o que já foi gasto no ciclo
+          #   REMAINING   a diferença — e SÓ existe se os dois de cima existirem
+          # Se a API não devolver algum, REMAINING sai NOT_KNOWN. Inferir saldo é
+          # como olhar o extrato de um mês e afirmar o saldo da conta.
+          NAO_SEI = 'NOT_KNOWN'
+
+          def num(v):
+              return v if isinstance(v, (int, float)) else None
+
+          for i, k in enumerate(ap.pool(), 1):
+              req = urllib.request.Request(
+                  'https://api.apify.com/v2/users/me/limits',
+                  headers={'Authorization': 'Bearer %s' % k})
+              try:
+                  with urllib.request.urlopen(req, timeout=45) as r:
+                      d = (json.loads(r.read().decode('utf-8')) or {}).get('data') or {}
+              except urllib.error.HTTPError as e:
+                  print('  posicao %d  PLAN_LIMIT=%s USAGE=%s REMAINING=%s (HTTP %d)'
+                        % (i, NAO_SEI, NAO_SEI, NAO_SEI, e.code))
+                  continue
+              except Exception as e:                       # noqa: BLE001
+                  print('  posicao %d  PLAN_LIMIT=%s USAGE=%s REMAINING=%s (%s)'
+                        % (i, NAO_SEI, NAO_SEI, NAO_SEI,
+                           ap.redigir(type(e).__name__)))
+                  continue
+
+              limites = d.get('limits') or {}
+              atual = d.get('current') or {}
+              teto = num(limites.get('maxMonthlyUsageUsd'))
+              uso = num(atual.get('monthlyUsageUsd'))
+              resto = round(teto - uso, 4) if (teto is not None and uso is not None) else None
+              print('  posicao %d  PLAN_LIMIT=%s  USAGE=%s  REMAINING=%s'
+                    % (i,
+                       ('%.4f USD' % teto) if teto is not None else NAO_SEI,
+                       ('%.4f USD' % uso) if uso is not None else NAO_SEI,
+                       ('%.4f USD' % resto) if resto is not None else NAO_SEI))
+              # O que mais existir vira contexto, sem virar saldo.
+              extras = {c: limites.get(c) for c in
+                        ('maxActorMemoryGbytes', 'maxConcurrentActorRuns',
+                         'maxMonthlyActorComputeUnits') if limites.get(c) is not None}
+              if extras:
+                  print('      contexto do plano: %s' % json.dumps(extras))
+          PYEOF
+
+      - name: E · nada foi executado, nada foi coletado
+        run: |
+          echo "ACTOR_RUNS=0"
+          echo "ITEMS=0"
+          echo "DATASETS_CREATED=0"
+          echo "PROFILE_SEARCHES=0"
+          echo "POST_SEARCHES=0"
+          echo "VIDEO_SEARCHES=0"
+          echo "COLLECTION_COST=0 USD"
+          echo "Este workflow prova credencial e mede saldo. A coleta e outro workflow."

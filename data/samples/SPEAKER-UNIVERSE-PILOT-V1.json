@@ -1,0 +1,741 @@
+{
+ "SOURCE_ID": "SPEAKER-UNIVERSE-PILOT-V1",
+ "source": "derivado: fila espanhola já publicada + OpenAlex (rota gratuita) para IT e FR, com cada ORCID conferido contra pub.orcid.org",
+ "SOURCE_LOCATION": "derivado",
+ "FACT_LOCATION": "NÃO SEI — afiliação de autor não é geografia de estudo",
+ "ORIGINAL_LANGUAGE": "pt",
+ "EVIDENCE_CLASS": "DERIVED_IDENTITY",
+ "captured_at": "2026-08-30",
+ "O_QUE_ISTO_E": "o universo de PESSOAS do piloto EARLY SIGNAL, por RECORTE congelado, com identidade resolvida antes de qualquer execução paga. Não é coleta de voz.",
+ "O_QUE_ISTO_NAO_E": [
+  "não é ranking — não há score, não há seguidores, não há autoridade",
+  "não é prova de que estas pessoas falam publicamente: canal está NOT_TESTED",
+  "não é geografia de fato: a afiliação é do autor, não do experimento",
+  "não é o censo de pesquisadores dos três países — é um recorte declarado",
+  "não é ainda TECHNICAL_SPEAKER_SENSOR: identidade provada é o PRIMEIRO estado"
+ ],
+ "FROZEN_CASES": [
+  "ES-OLIVE-REPILO",
+  "ES-CEREAL-SEPTORIA",
+  "IT-VINE-FLAVESCENCE",
+  "IT-DURUM_WHEAT-FUSARIUM",
+  "FR-VINE-DOWNY_MILDEW",
+  "FR-CEREAL-SEPTORIA"
+ ],
+ "FROZEN_BY": "aba ÁRBITRA, 2026-08-30, ANTES da coleta",
+ "ORDER_ENFORCED": "RECORTE -> IDENTIDADE -> CANAL PÚBLICO -> CONTEÚDO",
+ "CHECKPOINT": {
+  "RULE": "parar em ~10 identidades PROVADAS, distribuídas entre os 6",
+  "ATTEMPTS_PER_CASE": 2
+ },
+ "CRITERIA": {
+  "ORCID": "presente no registro de autor E resolvido em pub.orcid.org",
+  "INSTITUTION": "declarada, nunca NÃO SEI",
+  "RECENCY": "obra em 2024 ou depois",
+  "NOT_CONFLATED": "organizações <= teto derivado da mediana do quadro (10x)",
+  "SCOPE": "a pessoa herda CROP e ISSUE da CONSULTA que a trouxe, nunca do título",
+  "REACH": "seguidores NÃO entram em nenhum critério — FOLLOWERS != AUTHORITY"
+ },
+ "BY_CASE": {
+  "ES-OLIVE-REPILO": {
+   "COUNTRY": "ES",
+   "CROP": "OLIVE",
+   "ISSUE": "REPILO",
+   "CANDIDATES": 28,
+   "ELIGIBLE": 23,
+   "ATTEMPTED": 2,
+   "PROVED": 2,
+   "CONFLATION_CAP_DERIVED": 10,
+   "REFUSALS_BY_REASON": {
+    "sem obra desde 2024": 2,
+    "sem ORCID": 3
+   },
+   "COVERAGE_STATE": "IDENTITY_PROVED"
+  },
+  "ES-CEREAL-SEPTORIA": {
+   "COUNTRY": "ES",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "CANDIDATES": 62,
+   "ELIGIBLE": 41,
+   "ATTEMPTED": 3,
+   "PROVED": 2,
+   "CONFLATION_CAP_DERIVED": 10,
+   "REFUSALS_BY_REASON": {
+    "sem ORCID": 16,
+    "sem obra desde 2024": 9
+   },
+   "COVERAGE_STATE": "IDENTITY_PROVED"
+  },
+  "IT-VINE-FLAVESCENCE": {
+   "COUNTRY": "IT",
+   "CROP": "VINE",
+   "ISSUE": "FLAVESCENCE",
+   "CANDIDATES": 216,
+   "ELIGIBLE": 103,
+   "ATTEMPTED": 2,
+   "PROVED": 2,
+   "CONFLATION_CAP_DERIVED": 10,
+   "REFUSALS_BY_REASON": {
+    "sem obra desde 2024": 68,
+    "sem ORCID": 64
+   },
+   "COVERAGE_STATE": "IDENTITY_PROVED"
+  },
+  "IT-DURUM_WHEAT-FUSARIUM": {
+   "COUNTRY": "IT",
+   "CROP": "DURUM_WHEAT",
+   "ISSUE": "FUSARIUM",
+   "CANDIDATES": 135,
+   "ELIGIBLE": 80,
+   "ATTEMPTED": 2,
+   "PROVED": 2,
+   "CONFLATION_CAP_DERIVED": 10,
+   "REFUSALS_BY_REASON": {
+    "sem obra desde 2024": 41,
+    "sem ORCID": 25
+   },
+   "COVERAGE_STATE": "IDENTITY_PROVED"
+  },
+  "FR-VINE-DOWNY_MILDEW": {
+   "COUNTRY": "FR",
+   "CROP": "VINE",
+   "ISSUE": "DOWNY_MILDEW",
+   "CANDIDATES": 278,
+   "ELIGIBLE": 104,
+   "ATTEMPTED": 2,
+   "PROVED": 2,
+   "CONFLATION_CAP_DERIVED": 30,
+   "REFUSALS_BY_REASON": {
+    "sem ORCID": 141,
+    "sem obra desde 2024": 58
+   },
+   "COVERAGE_STATE": "IDENTITY_PROVED"
+  },
+  "FR-CEREAL-SEPTORIA": {
+   "COUNTRY": "FR",
+   "CROP": "CEREAL",
+   "ISSUE": "SEPTORIA",
+   "CANDIDATES": 326,
+   "ELIGIBLE": 125,
+   "ATTEMPTED": 2,
+   "PROVED": 2,
+   "CONFLATION_CAP_DERIVED": 30,
+   "REFUSALS_BY_REASON": {
+    "sem ORCID": 141,
+    "sem obra desde 2024": 115
+   },
+   "COVERAGE_STATE": "IDENTITY_PROVED"
+  }
+ },
+ "IDENTITY_STATE_DISTRIBUTION": {
+  "IDENTITY_PROVED": 8,
+  "IDENTITY_PARTIAL_COUNTRY_PAST": 1,
+  "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE": 4
+ },
+ "INSTITUTION_AGREEMENT_DISTRIBUTION": {
+  "DIVERGES": 6,
+  "AGREES": 3,
+  "ORCID_DECLARES_NO_EMPLOYER": 4
+ },
+ "PEOPLE_COUNT": 13,
+ "PEOPLE": [
+  {
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "ES",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "SOURCE_ENTITY": "Instituto de Agricultura Sostenible",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "REPILO"
+   ],
+   "CROPS": [
+    "OLIVE"
+   ],
+   "ISSUES": [
+    "REPILO"
+   ],
+   "WORKS_IN_SCOPE": 42,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "ORIGIN_OF_CANDIDATE": "RESEARCHER-PUBLIC-VOICE-QUEUE-ES (derivada por scripts/filas.py)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED",
+   "ORCID": "0000-0002-9511-3731",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "BLANCA B. LANDA",
+   "ORCID_EMPLOYER": "Spanish National Research Council",
+   "ORCID_EMPLOYER_CURRENT": "Spanish National Research Council",
+   "ORCID_EMPLOYER_COUNTRY": "ES",
+   "ORCID_DECLARED_ROLE": "Research Scientist",
+   "ORCID_ORG_ID": "GRID:grid.4711.3",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "DIVERGES",
+   "COUNTRY_AGREEMENT": "AGREES",
+   "IDENTITY_STATE": "IDENTITY_PROVED",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0002-9511-3731 resolvido em pub.orcid.org; sobrenome do ORCID (\"BLANCA B. LANDA\") bate com o do OpenAlex (\"Blanca B. Landa\"); empregador declarado no ORCID: Spanish National Research Council (ES), papel declarado \"Research Scientist\", id de organização GRID:grid.4711.3. Duas fontes independentes, não uma afirmação."
+  },
+  {
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "PERSON_ID": "https://openalex.org/A5076239639",
+   "NAME": "Jesús Mercado‐Blanco",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "ES",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "SOURCE_ENTITY": "Instituto de Agricultura Sostenible",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "REPILO"
+   ],
+   "CROPS": [
+    "OLIVE"
+   ],
+   "ISSUES": [
+    "REPILO"
+   ],
+   "WORKS_IN_SCOPE": 27,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "ORIGIN_OF_CANDIDATE": "RESEARCHER-PUBLIC-VOICE-QUEUE-ES (derivada por scripts/filas.py)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED",
+    "INSTITUTIONAL_OR_PERSONAL": [
+     "https://grupos.eez.csic.es/mae/jesus-mercado-blanco/",
+     "https://iobc-wprs.org/people/jesus-mercado-blanco/"
+    ]
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 2,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED",
+   "ORCID": "0000-0003-1895-5895",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Jesús Mercado-Blanco",
+   "ORCID_EMPLOYER": "Estación Experimental del Zaidín",
+   "ORCID_EMPLOYER_CURRENT": "Estación Experimental del Zaidín",
+   "ORCID_EMPLOYER_COUNTRY": "ES",
+   "ORCID_DECLARED_ROLE": "NÃO SEI",
+   "ORCID_ORG_ID": "ROR:https://ror.org/00drcz023",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "DIVERGES",
+   "COUNTRY_AGREEMENT": "AGREES",
+   "IDENTITY_STATE": "IDENTITY_PROVED",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0003-1895-5895 resolvido em pub.orcid.org; sobrenome do ORCID (\"Jesús Mercado-Blanco\") bate com o do OpenAlex (\"Jesús Mercado‐Blanco\"); empregador declarado no ORCID: Estación Experimental del Zaidín (ES), papel declarado \"NÃO SEI\", id de organização ROR:https://ror.org/00drcz023. Duas fontes independentes, não uma afirmação."
+  },
+  {
+   "CASE_ID": "ES-CEREAL-SEPTORIA",
+   "PERSON_ID": "https://openalex.org/A5004215689",
+   "NAME": "Andrea Sánchez‐Vallet",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "ES",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Centre for Plant Biotechnology and Genomics",
+   "SOURCE_ENTITY": "Centre for Plant Biotechnology and Genomics",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "SEPTORIA"
+   ],
+   "CROPS": [
+    "CEREAL"
+   ],
+   "ISSUES": [
+    "SEPTORIA"
+   ],
+   "WORKS_IN_SCOPE": 15,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-ES (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED",
+   "ORCID": "0000-0002-3668-9503",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Andrea Sanchez Vallet",
+   "ORCID_EMPLOYER": "Consejo Superior de Investigaciones Científicas",
+   "ORCID_EMPLOYER_CURRENT": "Consejo Superior de Investigaciones Científicas",
+   "ORCID_EMPLOYER_COUNTRY": "ES",
+   "ORCID_DECLARED_ROLE": "NÃO SEI",
+   "ORCID_ORG_ID": "ROR:https://ror.org/02gfc7t72",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "DIVERGES",
+   "COUNTRY_AGREEMENT": "AGREES",
+   "IDENTITY_STATE": "IDENTITY_PROVED",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0002-3668-9503 resolvido em pub.orcid.org; sobrenome do ORCID (\"Andrea Sanchez Vallet\") bate com o do OpenAlex (\"Andrea Sánchez‐Vallet\"); empregador declarado no ORCID: Consejo Superior de Investigaciones Científicas (ES), papel declarado \"NÃO SEI\", id de organização ROR:https://ror.org/02gfc7t72. Duas fontes independentes, não uma afirmação."
+  },
+  {
+   "CASE_ID": "ES-CEREAL-SEPTORIA",
+   "PERSON_ID": "https://openalex.org/A5018016326",
+   "NAME": "Lukas Meile",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "ES",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Centre for Plant Biotechnology and Genomics",
+   "SOURCE_ENTITY": "Centre for Plant Biotechnology and Genomics",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "SEPTORIA"
+   ],
+   "CROPS": [
+    "CEREAL"
+   ],
+   "ISSUES": [
+    "SEPTORIA"
+   ],
+   "WORKS_IN_SCOPE": 8,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-ES (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PARTIAL_COUNTRY_PAST",
+   "ORCID": "0000-0002-2680-3309",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Lukas Meile",
+   "ORCID_EMPLOYER": "ETH Zurich",
+   "ORCID_EMPLOYER_CURRENT": "ETH Zurich",
+   "ORCID_EMPLOYER_COUNTRY": "CH",
+   "ORCID_DECLARED_ROLE": "Postdoc",
+   "ORCID_ORG_ID": "ROR:https://ror.org/05a28rw58",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "DIVERGES",
+   "COUNTRY_AGREEMENT": "AGREES_IN_PAST_ONLY",
+   "IDENTITY_STATE": "IDENTITY_PARTIAL_COUNTRY_PAST",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0002-2680-3309 resolve e o sobrenome bate. O vínculo com ES existiu e ESTÁ ENCERRADO no próprio ORCID (end-date preenchido); o emprego atual declarado é ETH Zurich (CH). A pessoa é real e o par técnico é o certo — o país é que não é mais este."
+  },
+  {
+   "CASE_ID": "ES-CEREAL-SEPTORIA",
+   "PERSON_ID": "https://openalex.org/A5002506151",
+   "NAME": "Cristian Carrasco‐López",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "ES",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Centre for Plant Biotechnology and Genomics",
+   "SOURCE_ENTITY": "Centre for Plant Biotechnology and Genomics",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "SEPTORIA"
+   ],
+   "CROPS": [
+    "CEREAL"
+   ],
+   "ISSUES": [
+    "SEPTORIA"
+   ],
+   "WORKS_IN_SCOPE": 6,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-ES (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED",
+   "ORCID": "0000-0001-5652-6595",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Cristian Carrasco-López",
+   "ORCID_EMPLOYER": "Universidad Politécnica de Madrid",
+   "ORCID_EMPLOYER_CURRENT": "Universidad Politécnica de Madrid",
+   "ORCID_EMPLOYER_COUNTRY": "ES",
+   "ORCID_DECLARED_ROLE": "NÃO SEI",
+   "ORCID_ORG_ID": "ROR:https://ror.org/03n6nwv02",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "DIVERGES",
+   "COUNTRY_AGREEMENT": "AGREES",
+   "IDENTITY_STATE": "IDENTITY_PROVED",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0001-5652-6595 resolvido em pub.orcid.org; sobrenome do ORCID (\"Cristian Carrasco-López\") bate com o do OpenAlex (\"Cristian Carrasco‐López\"); empregador declarado no ORCID: Universidad Politécnica de Madrid (ES), papel declarado \"NÃO SEI\", id de organização ROR:https://ror.org/03n6nwv02. Duas fontes independentes, não uma afirmação."
+  },
+  {
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "PERSON_ID": "https://openalex.org/A5057322051",
+   "NAME": "F. Quaglino",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "IT",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "University of Milan",
+   "SOURCE_ENTITY": "University of Milan",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "FLAVESCENCE"
+   ],
+   "CROPS": [
+    "VINE"
+   ],
+   "ISSUES": [
+    "FLAVESCENCE"
+   ],
+   "WORKS_IN_SCOPE": 15,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-IT (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED",
+   "ORCID": "0000-0001-8866-0633",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "FABIO QUAGLINO",
+   "ORCID_EMPLOYER": "University of Milan",
+   "ORCID_EMPLOYER_CURRENT": "University of Milan",
+   "ORCID_EMPLOYER_COUNTRY": "IT",
+   "ORCID_DECLARED_ROLE": "Associate Professor",
+   "ORCID_ORG_ID": "ROR:https://ror.org/00wjc7c48",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "AGREES",
+   "COUNTRY_AGREEMENT": "AGREES",
+   "IDENTITY_STATE": "IDENTITY_PROVED",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0001-8866-0633 resolvido em pub.orcid.org; sobrenome do ORCID (\"FABIO QUAGLINO\") bate com o do OpenAlex (\"F. Quaglino\"); empregador declarado no ORCID: University of Milan (IT), papel declarado \"Associate Professor\", id de organização ROR:https://ror.org/00wjc7c48. Duas fontes independentes, não uma afirmação."
+  },
+  {
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "IT",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "University of Verona",
+   "SOURCE_ENTITY": "University of Verona",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "FLAVESCENCE"
+   ],
+   "CROPS": [
+    "VINE"
+   ],
+   "ISSUES": [
+    "FLAVESCENCE"
+   ],
+   "WORKS_IN_SCOPE": 10,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-IT (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE",
+   "ORCID": "0000-0002-5736-9584",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Nicola Mori",
+   "ORCID_EMPLOYER": "NÃO SEI",
+   "ORCID_EMPLOYER_CURRENT": "NÃO SEI",
+   "ORCID_EMPLOYER_COUNTRY": "NÃO SEI",
+   "ORCID_DECLARED_ROLE": "NÃO SEI",
+   "ORCID_ORG_ID": "NÃO SEI",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "ORCID_DECLARES_NO_EMPLOYER",
+   "COUNTRY_AGREEMENT": "ORCID_DECLARES_NO_COUNTRY",
+   "IDENTITY_STATE": "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0002-5736-9584 resolvido e sobrenome batendo (\"Nicola Mori\" x \"Nicola Mori\"), mas o registro ORCID não declara empregador. O país IT vem SÓ da afiliação do OpenAlex — fonte única, não duas fontes concordando."
+  },
+  {
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "PERSON_ID": "https://openalex.org/A5061913370",
+   "NAME": "Massimo Blandino",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "IT",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "University of Turin",
+   "SOURCE_ENTITY": "University of Turin",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "FUSARIUM"
+   ],
+   "CROPS": [
+    "DURUM_WHEAT"
+   ],
+   "ISSUES": [
+    "FUSARIUM"
+   ],
+   "WORKS_IN_SCOPE": 7,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-IT (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED",
+   "ORCID": "0000-0003-3719-2520",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Massimo Blandino",
+   "ORCID_EMPLOYER": "University of Turin",
+   "ORCID_EMPLOYER_CURRENT": "University of Turin",
+   "ORCID_EMPLOYER_COUNTRY": "IT",
+   "ORCID_DECLARED_ROLE": "Associate Professor",
+   "ORCID_ORG_ID": "NÃO SEI",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "AGREES",
+   "COUNTRY_AGREEMENT": "AGREES",
+   "IDENTITY_STATE": "IDENTITY_PROVED",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0003-3719-2520 resolvido em pub.orcid.org; sobrenome do ORCID (\"Massimo Blandino\") bate com o do OpenAlex (\"Massimo Blandino\"); empregador declarado no ORCID: University of Turin (IT), papel declarado \"Associate Professor\", id de organização NÃO SEI. Duas fontes independentes, não uma afirmação."
+  },
+  {
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "PERSON_ID": "https://openalex.org/A5030669619",
+   "NAME": "Antonio Logrieco",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "IT",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Institute of Sciences of Food Production",
+   "SOURCE_ENTITY": "Institute of Sciences of Food Production",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "FUSARIUM"
+   ],
+   "CROPS": [
+    "DURUM_WHEAT"
+   ],
+   "ISSUES": [
+    "FUSARIUM"
+   ],
+   "WORKS_IN_SCOPE": 6,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-IT (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE",
+   "ORCID": "0000-0002-8606-451X",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Antonio Francesco Logrieco",
+   "ORCID_EMPLOYER": "NÃO SEI",
+   "ORCID_EMPLOYER_CURRENT": "NÃO SEI",
+   "ORCID_EMPLOYER_COUNTRY": "NÃO SEI",
+   "ORCID_DECLARED_ROLE": "NÃO SEI",
+   "ORCID_ORG_ID": "NÃO SEI",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "ORCID_DECLARES_NO_EMPLOYER",
+   "COUNTRY_AGREEMENT": "ORCID_DECLARES_NO_COUNTRY",
+   "IDENTITY_STATE": "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0002-8606-451X resolvido e sobrenome batendo (\"Antonio Francesco Logrieco\" x \"Antonio Logrieco\"), mas o registro ORCID não declara empregador. O país IT vem SÓ da afiliação do OpenAlex — fonte única, não duas fontes concordando."
+  },
+  {
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "FR",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "SOURCE_ENTITY": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "DOWNY_MILDEW"
+   ],
+   "CROPS": [
+    "VINE"
+   ],
+   "ISSUES": [
+    "DOWNY_MILDEW"
+   ],
+   "WORKS_IN_SCOPE": 15,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-FR (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED",
+   "ORCID": "0000-0002-7601-5685",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "françois delmotte",
+   "ORCID_EMPLOYER": "Université d'Artois",
+   "ORCID_EMPLOYER_CURRENT": "Université d'Artois",
+   "ORCID_EMPLOYER_COUNTRY": "FR",
+   "ORCID_DECLARED_ROLE": "NÃO SEI",
+   "ORCID_ORG_ID": "RINGGOLD:26997",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "DIVERGES",
+   "COUNTRY_AGREEMENT": "AGREES",
+   "IDENTITY_STATE": "IDENTITY_PROVED",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0002-7601-5685 resolvido em pub.orcid.org; sobrenome do ORCID (\"françois delmotte\") bate com o do OpenAlex (\"François Delmotte\"); empregador declarado no ORCID: Université d'Artois (FR), papel declarado \"NÃO SEI\", id de organização RINGGOLD:26997. Duas fontes independentes, não uma afirmação."
+  },
+  {
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "PERSON_ID": "https://openalex.org/A5004224162",
+   "NAME": "Isabelle D. Mazet",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "FR",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "SOURCE_ENTITY": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "DOWNY_MILDEW"
+   ],
+   "CROPS": [
+    "VINE"
+   ],
+   "ISSUES": [
+    "DOWNY_MILDEW"
+   ],
+   "WORKS_IN_SCOPE": 14,
+   "LAST_KNOWN_ACTIVITY": 2026,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-FR (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE",
+   "ORCID": "0009-0007-3897-2808",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Isabelle Mazet",
+   "ORCID_EMPLOYER": "NÃO SEI",
+   "ORCID_EMPLOYER_CURRENT": "NÃO SEI",
+   "ORCID_EMPLOYER_COUNTRY": "NÃO SEI",
+   "ORCID_DECLARED_ROLE": "NÃO SEI",
+   "ORCID_ORG_ID": "NÃO SEI",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "ORCID_DECLARES_NO_EMPLOYER",
+   "COUNTRY_AGREEMENT": "ORCID_DECLARES_NO_COUNTRY",
+   "IDENTITY_STATE": "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE",
+   "IDENTITY_EVIDENCE": "ORCID 0009-0007-3897-2808 resolvido e sobrenome batendo (\"Isabelle Mazet\" x \"Isabelle D. Mazet\"), mas o registro ORCID não declara empregador. O país FR vem SÓ da afiliação do OpenAlex — fonte única, não duas fontes concordando."
+  },
+  {
+   "CASE_ID": "FR-CEREAL-SEPTORIA",
+   "PERSON_ID": "https://openalex.org/A5056275737",
+   "NAME": "Frédéric Suffert",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "FR",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "SOURCE_ENTITY": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "SEPTORIA"
+   ],
+   "CROPS": [
+    "CEREAL"
+   ],
+   "ISSUES": [
+    "SEPTORIA"
+   ],
+   "WORKS_IN_SCOPE": 32,
+   "LAST_KNOWN_ACTIVITY": 2025,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-FR (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED",
+    "INSTITUTIONAL_OR_PERSONAL": [
+     "http://www6.versailles-grignon.inra.fr/bioger/page-perso/Suffert-Frederic",
+     "https://www6.versailles-grignon.inrae.fr/bioger/pages-perso/Suffert-Frederic/CAW"
+    ],
+    "TWITTER_X": [
+     "https://twitter.com/wheatpath"
+    ]
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 3,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED",
+   "ORCID": "0000-0001-6969-3878",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Frédéric Suffert",
+   "ORCID_EMPLOYER": "Institut National de Recherche pour l'Agriculture l'Alimentation et l'Environnement Centre Île-de-France-Versailles-Grignon",
+   "ORCID_EMPLOYER_CURRENT": "Institut National de Recherche pour l'Agriculture l'Alimentation et l'Environnement Centre Île-de-France-Versailles-Grignon",
+   "ORCID_EMPLOYER_COUNTRY": "FR",
+   "ORCID_DECLARED_ROLE": "Researcher",
+   "ORCID_ORG_ID": "RINGGOLD:54988",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "AGREES",
+   "COUNTRY_AGREEMENT": "AGREES",
+   "IDENTITY_STATE": "IDENTITY_PROVED",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0001-6969-3878 resolvido em pub.orcid.org; sobrenome do ORCID (\"Frédéric Suffert\") bate com o do OpenAlex (\"Frédéric Suffert\"); empregador declarado no ORCID: Institut National de Recherche pour l'Agriculture l'Alimentation et l'Environnement Centre Île-de-France-Versailles-Grignon (FR), papel declarado \"Researcher\", id de organização RINGGOLD:54988. Duas fontes independentes, não uma afirmação."
+  },
+  {
+   "CASE_ID": "FR-CEREAL-SEPTORIA",
+   "PERSON_ID": "https://openalex.org/A5002633327",
+   "NAME": "Thierry C. Marcel",
+   "ENTITY_KIND": "PERSON",
+   "COUNTRY": "FR",
+   "COUNTRY_BASIS": "afiliação institucional declarada — NÃO é nacionalidade e NÃO foi inferida por idioma",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "SOURCE_ENTITY": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "ROLE": "RESEARCHER",
+   "ROLE_BASIS": "afiliação institucional declarada em campo estruturado do OpenAlex; nunca de prosa livre",
+   "TECHNICAL_DOMAIN": [
+    "SEPTORIA"
+   ],
+   "CROPS": [
+    "CEREAL"
+   ],
+   "ISSUES": [
+    "SEPTORIA"
+   ],
+   "WORKS_IN_SCOPE": 22,
+   "LAST_KNOWN_ACTIVITY": 2024,
+   "ORIGIN_OF_CANDIDATE": "SPEAKER-UNIVERSO-FR (OpenAlex, rota gratuita)",
+   "PUBLIC_CHANNELS": {
+    "LINKEDIN": "NOT_TESTED",
+    "YOUTUBE": "NOT_TESTED",
+    "INSTAGRAM": "NOT_TESTED"
+   },
+   "PUBLIC_CHANNELS_SOURCE": "ORCID researcher-urls (declarado pela pessoa)",
+   "PUBLIC_CHANNELS_DECLARED_COUNT": 0,
+   "TECHNICAL_SPEAKER_SENSOR_STATE": "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE",
+   "ORCID": "0000-0002-7452-4013",
+   "ORCID_STATE": "ORCID_RESOLVED",
+   "ORCID_NAME": "Thierry C. MARCEL",
+   "ORCID_EMPLOYER": "NÃO SEI",
+   "ORCID_EMPLOYER_CURRENT": "NÃO SEI",
+   "ORCID_EMPLOYER_COUNTRY": "NÃO SEI",
+   "ORCID_DECLARED_ROLE": "NÃO SEI",
+   "ORCID_ORG_ID": "NÃO SEI",
+   "NAME_AGREEMENT": "FAMILY_NAME_MATCH",
+   "INSTITUTION_AGREEMENT": "ORCID_DECLARES_NO_EMPLOYER",
+   "COUNTRY_AGREEMENT": "ORCID_DECLARES_NO_COUNTRY",
+   "IDENTITY_STATE": "IDENTITY_PROVED_COUNTRY_SINGLE_SOURCE",
+   "IDENTITY_EVIDENCE": "ORCID 0000-0002-7452-4013 resolvido e sobrenome batendo (\"Thierry C. MARCEL\" x \"Thierry C. Marcel\"), mas o registro ORCID não declara empregador. O país FR vem SÓ da afiliação do OpenAlex — fonte única, não duas fontes concordando."
+  }
+ ],
+ "CAPTURED_AT": "2026-08-30"
+}

@@ -1,0 +1,1092 @@
+{
+ "DATASET": "IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2",
+ "SUBSTITUI": "V1, que tinha 1 ato lido de 16 e um casamento léxico não verificado",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "EU-T4-001-B",
+ "source": "EU Publications Office / CELLAR — SPARQL e texto integral, rota pública sem chave",
+ "SOURCE_LOCATION": "EUROPEAN UNION",
+ "FACT_LOCATION": "EUROPEAN UNION",
+ "ORIGINAL_LANGUAGE": "EN",
+ "REGULATORY_LAYER": "EU ACTIVE SUBSTANCE",
+ "EVIDENCE_CLASS": "REGULATORY_FACT",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "METODO": "um agente leu cada ato na íntegra; um SEGUNDO agente independente releu a mesma fonte tentando REFUTAR a leitura. Só o que sobreviveu entra.",
+ "ATOS_LIDOS": 15,
+ "ATOS_REFUTADOS": 4,
+ "O_QUE_A_REFUTACAO_PEGOU": [
+  "32026R1421 — risk_assessment_state errado em 5 de 6 substâncias: a fórmula do Art. 11 aparece no ato para benzovindiflupyr, cycloxydim, dazomet e metsulfuron-methyl, e NÃO para as seis lidas. As datas estavam certas.",
+  "32026R1353 — data ANTIGA lida como NOVA: 31 May 2035 foi fixada pelo Reg. 2020/617, e este ato (AMENDMENT_OF_CONDITIONS, Art. 13(2)(c)) não altera data.",
+  "32025R0099 — candidate_for_substitution errado em 2 de 3. Datas corretas.",
+  "32024R1718 — um campo errado. Data correta."
+ ],
+ "LEI": "refutação que corrige um campo e confirma a data NÃO invalida o ato — invalida o campo. Guardar as duas coisas separadas é o que permite usar o resto.",
+ "CASAMENTO_DO_VEREDITO": {
+  "METODO": "o par (ato, veredito) e o que o proprio pipeline montou; lido do arquivo .output da tarefa, nao reconstruido.",
+  "TENTATIVA_ANTERIOR_DESCARTADA": "casar pelo CELEX citado no texto do refutador. Errou nos dois atos mais importantes (32026R1421 e 32026R1353) — ficaram sem veredito.",
+  "CASADOS": 15
+ },
+ "ATOS": [
+  {
+   "CELEX": "32024R0324",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Lambda-cyhalothrin",
+     "new_expiry_date": "31 August 2026",
+     "annex_part": "E",
+     "annex_row": "5",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": true
+    },
+    {
+     "name": "Fluazinam",
+     "new_expiry_date": "15 April 2026",
+     "annex_part": "A",
+     "annex_row": "189",
+     "risk_assessment_state": "NAO_SEI",
+     "candidate_for_substitution": false
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2024/324 of 19 January 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances benzovindiflupyr, bromuconazole, buprofezin, cyflufenamid, fluazinam, fluopyram, flutolanil, lambda-cyhalothrin, mecoprop-P, mepiquat, metsulfuron-methyl, phosphane and pyraclostrobin",
+    "in the sixth column, expiration of approval, of row 5, Lambda-cyhalothrin, the date is replaced by ‘31 August 2026’.",
+    "in the sixth column, expiration of approval, of row 189, Fluazinam, the date is replaced by ‘15 April 2026’;",
+    "Part E is amended as follows:",
+    "Part A is amended as follows:",
+    "The active substances bromuconazole, buprofezin, cyflufenamid, fluazinam, flutolanil, mecoprop-P, mepiquat and pyraclostrobin are listed in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The active substances fluopyram and phosphane are listed in Part B of that Annex and the active substances benzovindiflupyr, lambda-cyhalothrin and metsulfuron-methyl are listed in Part E of that Annex.",
+    "Active substances approved under Regulation (EC) No 1107/2009 are listed in Part B of the Annex to Implementing Regulation (EU) No 540/2011, and active substances approved under Regulation (EC) No 1107/2009 as candidates for substitution are listed in Part E of that Annex.",
+    "For the active substances benzovindiflupyr, bromuconazole, cyflufenamid, fluopyram, lambda-cyhalothrin and metsulfuron-methyl, the risk assessment pursuant to Article 11 of Implementing Regulation (EU) No 844/2012 has not yet been finalised by the respective rapporteur Member States.",
+    "As the risk assessment has not yet been finalised by the rapporteur Member States, and in light of the time required to complete the remaining steps in each renewal procedure, the duration of the extension of the approval periods for the active substances bromuconazole and cyflufenamid should be set at 39 months and for the active substances benzovindiflupyr, fluopyram, lambda-cyhalothrin and metsulfuron-methyl should be set at 29 months.",
+    "For the active substance fluazinam, the Authority requested the submission of additional information for the purposes of assessment of the approval criteria set out in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009, pursuant to Article 13(3a), first subparagraph, of Implementing Regulation (EU) No 844/2012, with a deadline of 17 December 2023.",
+    "As the Authority requested additional information for the purposes of assessment of the approval criteria set out in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009 for the active substance fluazinam, and in light of the time required to complete the remaining steps in the renewal procedure, the duration of the extension of the approval period for this active substance should be set at 25 months and 2 weeks.",
+    "Commission Implementing Regulation (EU) 2023/114 ( 4 ) extended the approval period of the active substances buprofezin, mecoprop-P and pyraclostrobin until 31 January 2024, of the active substances fluazinam, flutolanil and mepiquat until 29 February 2024, of the active substance benzovindiflupyr until 2 March 2024 and of the active substances cyflufenamid, lambda-cyhalothrin, metsulfuron-methyl and phosphane until 31 March 2024.",
+    "Applications and supplementary dossiers for the renewal of the approval of each of those active substances were submitted in accordance with Commission Implementing Regulation (EU) No 844/2012 ( 7 ) . All of these applications were declared admissible by the respective rapporteur Member States.",
+    "Given that it is likely that no decision on the renewal of the approval of these active substances can be taken before the expiry of their respective approval periods on 31 January 2024, 29 February 2024, 2 March 2024 and 31 March 2024, and that the reasons for the delays in the renewal procedures are beyond the control of the respective applicants, the approval periods of these active substances should be extended in order to enable the completion of the assessments required and finalise the regulatory decision-making procedures on the respective applications for renewal of approval.",
+    "In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed, the Commission will set the expiry date at the same date as it stood before the adoption of this Regulation or at the date of the entry into force of the Regulation providing that the approval of the active substance is not renewed, whichever date is later.",
+    "The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.",
+    "This Regulation shall enter into force on the third day following that of its publication in the Official Journal of the European Union ."
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO renova e NAO deixa de renovar nenhuma das duas substancias. Ele so troca a data de expiracao na coluna 6 do Anexo do Reg. 540/2011. O proprio texto trata a decisao de renovacao como algo futuro: 'no decision on the renewal of the approval of these active substances can be taken before the expiry of their respective approval periods'.",
+    "O ato NAO diz se lambda-cyhalothrin ou fluazinam atendem ou deixam de atender os criterios de aprovacao. Para fluazinam ele apenas registra que a EFSA pediu informacao adicional 'for the purposes of assessment of the approval criteria'.",
+    "FLUAZINAM — estado da avaliacao de risco: NAO SEI. O ato NAO coloca fluazinam na lista de substancias cuja avaliacao 'has not yet been finalised' (considerando 7 lista benzovindiflupyr, bromuconazole, cyflufenamid, fluopyram, lambda-cyhalothrin e metsulfuron-methyl — fluazinam nao esta la), e tambem NAO diz que a EFSA precisa de mais tempo para fluazinam (essa frase existe para phosphane no considerando 8 e para buprofezin/mepiquat/pyraclostrobin no considerando 10, nao para fluazinam). O unico fato literal sobre fluazinam e o pedido de informacao adicional com prazo de 17 December 2023. Nao afirmo estado de finalizacao que o ato nao declara.",
+    "O ato NAO diz literalmente a frase 'lambda-cyhalothrin is a candidate for substitution'. A marcacao true vem de duas frases do proprio ato encadeadas: Parte E e onde ficam 'active substances approved ... as candidates for substitution', e lambda-cyhalothrin 'is listed in Part E of that Annex'. Nao ha uma frase unica no ato que use o rotulo diretamente sobre a substancia.",
+    "Do mesmo modo, o ato NAO afirma que fluazinam nao e candidata a substituicao. A marcacao false vem de fluazinam estar declarada em 'Part A', e nao em Part E. Se essa condicao mudou em outro ato posterior, este ato nao informa.",
+    "O ato NAO diz se a EFSA recebeu, ou nao, a informacao adicional pedida a fluazinam ate o prazo de 17 December 2023 — diferente de buprofezin/mepiquat/pyraclostrobin, onde o texto diz que a informacao 'was submitted by the applicants within the period set by the Authority'.",
+    "O ato NAO fala de Italia, NAO fala de nenhum Estado-Membro em particular como pais de uso, e NAO fala de registro nacional de produto. Ele nao menciona autorizacoes de produtos fitossanitarios, periodos de escoamento (grace period), nem prazos de venda ou de uso de estoques.",
+    "O ato NAO menciona nenhuma empresa. Os nomes ADAMA, o requerente (applicant) de cada substancia e o Estado-Membro relator (rapporteur Member State) de cada dossie nao aparecem identificados no texto.",
+    "O ato NAO informa o numero da linha nem a Parte do Anexo de nenhuma substancia alem das que ele mesmo altera, e NAO reproduz o conteudo das outras colunas do Anexo (pureza, data de aprovacao, disposicoes especificas).",
+    "O ato NAO define data para a decisao de renovacao, NAO garante que a decisao sairá antes da nova data de expiracao, e NAO promete nova prorrogacao.",
+    "O ato NAO afirma que a nova data e definitiva: o considerando 19 preve expressamente que, se vier um Regulamento de nao renovacao, a Comissao repoe a data de expiracao anterior ou a data de entrada em vigor daquele Regulamento, o que for mais tarde. Isso e uma regra condicional escrita no ato — nao uma previsao minha sobre o que vai acontecer.",
+    "Nao verifiquei em outra fonte se estas datas continuam valendo hoje (02/09/2026). Atos posteriores podem ter alterado as mesmas linhas do Anexo. Este relatorio afirma apenas o que ESTE ato decide."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Tentei quebrar a leitura nos quatro erros caros e nao consegui. Reli a fonte com `py scripts/texto_fonte.py eu 32024R0324` e conferi o anexo inteiro.\n\n1) DATA NA SUBSTANCIA ERRADA — nao ha. O anexo completo diz: Parte A linha 189 Fluazinam = 15 April 2026; Parte E linha 3 Metsulfuron-methyl = 31 August 2026; Parte E linha 4 Benzovindiflupyr = 2 August 2026; Parte E linha 5 Lambda-cyhalothrin = 31 August 2026. A leitura acertou as duas. A linha vizinha perigosa (Benzovindiflupyr, 2 August 2026, colada na linha 5) NAO foi usada; as vizinhas da linha 189 (Flutolanil 15 June 2025 e Mepiquat 15 October 2025) tambem nao. Metsulfuron-methyl repete 31 August 2026 de verdade no ato — e duplicata real, nao copia errada. A conta bate sozinha: 31 March 2024 + 29 meses = 31 August 2026 (considerando 3 e 13); 29 February 2024 + 25 meses e 2 semanas = 15 April 2026 (considerando 3 e 15).\n\n2) DATA ANTIGA CONFUNDIDA COM A NOVA — nao ha. As antigas eram 31 March 2024 (lambda-cyhalothrin) e 29 February 2024 (fluazinam), pelo considerando 3. A leitura devolveu as de 2026, que sao as novas.\n\n3) EXTENSAO CONFUNDIDA COM RENOVACAO — nao ha. O act_type EXTENSION_OF_APPROVAL_PERIOD esta certo. O titulo diz \"extension of the approval periods\" e o Artigo 1 so altera o Anexo do 540/2011. A palavra \"renewal\" aparece apenas como o processo ainda pendente, e o considerando 12 diz expressamente que nenhuma decisao de renovacao consegue sair antes do vencimento. A leitura nao fez a afirmacao forte.\n\n4) \"RISK ASSESSMENT NOT FINALISED\" EM SUBSTANCIA FORA DA LISTA — nao ha, e aqui a leitura acertou justamente na armadilha. O considerando 7 lista seis substancias: benzovindiflupyr, bromuconazole, cyflufenamid, fluopyram, lambda-cyhalothrin e metsulfuron-methyl. Lambda-cyhalothrin esta la, entao NOT_FINALISED procede. Fluazinam NAO esta — ele pertence ao considerando 9 (a EFSA pediu informacao adicional, prazo 17 December 2023) — e a leitura marcou NAO_SEI em vez de colar o status do vizinho.\n\nTambem confirmei o resto: annex_part E e annex_row 5 para lambda-cyhalothrin e annex_part A e annex_row 189 para fluazinam batem com o anexo; candidate_for_substitution true/false bate com o considerando 1, que define Parte E como candidatos a substituicao (lambda-cyhalothrin esta na Parte E, fluazinam na Parte A). As 13 citacoes literais conferem caractere por caractere com a fonte apos normalizar espacos, inclusive a pontuacao final (\";\" na de fluazinam, \".\" na de lambda-cyhalothrin, que e o ultimo item da Parte E).\n\nRessalvas que encontrei, mas que nao derrubam a leitura: o campo risk_assessment_state mistura idiomas (NOT_FINALISED e NAO_SEI no mesmo esquema), e o NAO_SEI do fluazinam informa menos do que o ato permite, ja que o considerando 9 descreve a situacao dele. Isso e omissao prudente e inconsistencia de formato, nao afirmacao falsa sobre o ato — por isso nao refuto.",
+    "CORRECTED": null,
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32024R1718",
+   "ACT_TYPE": "AMENDMENT_OF_CONDITIONS",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Metalaxyl-M",
+     "new_expiry_date": "31 May 2035",
+     "annex_part": "B",
+     "annex_row": "140",
+     "risk_assessment_state": "NOT_FINALISED"
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2024/1718 of 19 June 2024 amending Implementing Regulations (EU) 2020/617 and (EU) No 540/2011 as regards the conditions of approval of the active substance metalaxyl-M",
+    "Article 2 Amendment to Implementing Regulation (EU) No 540/2011 — The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with Annex II to this Regulation.",
+    "ANNEX II — Row 140, metalaxyl-M, in Part B of the Annex to Implementing Regulation (EU) No 540/2011 is replaced by the following:",
+    "No. | Common Name, Identification Numbers | IUPAC Name | Purity | Date of approval | Expiration of approval | Specific provisions — '140 Metalaxyl-M CAS No 70630-17-0 (R) CIPAC No 580",
+    "1 June 2020 / 31 May 2035 / When used for seed treatment, only the treatment of seeds intended to be sown in greenhouses may be authorised.",
+    "ANNEX I — Annex I to Implementing Regulation (EU) 2020/617 is replaced by the following: ... Date of approval / Expiration of approval ... 1 June 2020 / 31 May 2035",
+    "(10) Concerning the restriction concerning the sowing of seeds, following the outcome of the application for amendment of conditions of approval, the Commission has requested the Authority to further review certain issues and to update the risk assessment. Therefore, currently that restriction is maintained.",
+    "(11) Furthermore, it is necessary that the applicant submits to the Commission, the Member States and the Authority further confirmatory information on the effect of water treatment processes on the nature of residues of the active substance or its metabolites in water abstracted for the production of drinking water.",
+    "(6) On 14 August 2023, the Authority communicated to the Commission its conclusion on whether the amended conditions of approval of the active substance metalaxyl-M can be expected to meet the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009.",
+    "(9) It has been established that, with a maximum level of less than 10 g/kg for impurity CGA226048 (2-[(2,6-dimethyl-phenyl)-(2-methoxyacetyl)-amino]-propionic acid 1-methoxycarbonyl-ethyl ester), the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009 are satisfied. It is therefore appropriate to update the maximum level of that impurity and to amend the conditions of approval.",
+    "(2) The approval of the active substance metalaxyl-M, as set out in Part B of the Annex to Commission Implementing Regulation (EU) No 540/2011, included a maximum level of 0,18 g/kg for the impurity CGA226048 ... as well as a restriction as regards the treatment of seeds, i.e. the use of metalaxyl-M is limited to the treatment of seeds intended to be sown in greenhouses.",
+    "(3) ... on 17 June 2020, Syngenta Crop Protection AG submitted an application to the designated rapporteur Member State, Belgium, seeking an amendment of the conditions of approval of metalaxyl-M, in order to remove the restriction concerning the sowing of seeds and to update the maximum level of the impurity CGA226048 contained therein.",
+    "The applicant shall submit to the Commission, the Member States and the Authority confirmatory information as regards the effect of water treatment processes on the nature of residues present in drinking water, by 10 July 2026.",
+    "Article 3 Entry into force — This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union.",
+    "Done at Brussels, 19 June 2024. ... ELI: http://data.europa.eu/eli/reg_impl/2024/1718/oj"
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO diz que esta prorrogando, adiando ou encurtando a data de expiracao. Ele substitui a linha 140 inteira, e na linha substituida a coluna 'Expiration of approval' traz '31 May 2035'. Se essa data e igual ou diferente da que estava em vigor antes, este ato nao afirma — NAO SEI (nao conferi em segunda fonte).",
+    "A expressao 'candidate for substitution' NAO aparece em nenhum ponto do texto. O ato nao classifica nem desclassifica metalaxyl-M como candidata a substituicao — NAO SEI.",
+    "O ato NAO remove a restricao de tratamento de sementes. O requerente pediu a remocao (considerando 3) e o ato diz literalmente que 'currently that restriction is maintained' (considerando 10).",
+    "O ato NAO diz que a avaliacao de risco inteira esta inacabada. Ele diz que a EFSA entregou sua conclusao em 14 de agosto de 2023 (considerando 6) e que os criterios de aprovacao estao satisfeitos quanto ao limite da impureza (considerando 9); o que fica em aberto e a revisao adicional pedida pela Comissao sobre a semeadura de sementes (considerando 10). Codifiquei como NOT_FINALISED por causa dessa parte em aberto — a leitura completa esta nas frases literais.",
+    "O ato NAO usa a formula 'EFSA precisa de mais tempo' nem fixa prazo para a revisao adicional pedida a Autoridade no considerando 10.",
+    "O ato NAO menciona a Italia, nem autorizacao nacional, nem produto formulado, nem a ADAMA. O unico requerente citado e a Syngenta Crop Protection AG.",
+    "O ato NAO cita as Partes A, D ou E do Anexo do Reg. 540/2011. Toca so a Parte B, linha 140, e o Anexo I do Reg. (UE) 2020/617.",
+    "O ato NAO diz nada sobre proibicao, retirada, cancelamento de registro, periodo de escoamento (grace period) ou saida de mercado.",
+    "O ato NAO informa se a informacao confirmatoria sobre disruptores endocrinos, com prazo de 26 de maio de 2022, foi entregue ou aceita — o texto apenas repete a obrigacao na linha substituida."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": true,
+    "REASON": "A DATA ESTA CERTA, MAS UM CAMPO ESTA ERRADO.\n\nO que conferi e passou:\n- Os 15 trechos citados existem, palavra por palavra, no texto da fonte. Nenhum foi inventado.\n- act_type AMENDMENT_OF_CONDITIONS esta certo. O titulo diz \"as regards the conditions of approval\". Nao e \"extension\", nem \"renewal\" (a renovacao foi a 2020/617, de 5 de maio de 2020). A leitura nao confundiu as duas coisas.\n- So existe UMA substancia no ato inteiro (metalaxyl-M). Nao ha linha vizinha de onde colar data errada.\n- Part B e row 140 conferem nos dois atos.\n- 31 May 2035 confere. Fui ate a 2020/617 (o ato que este altera) e la ja estava \"1 June 2020 / 31 May 2035\", tanto no Annex I quanto no Annex II, row 140. A 2024/1718 repete o mesmo par. Ou seja: a data antiga e a data nova sao a mesma. A ressalva da propria leitura (\"o ato NAO diz que esta prorrogando, adiando ou encurtando\") esta correta. Unica reserva: o campo se chama \"new_expiry_date\", o que pode fazer alguem ler que este ato criou a data 2035. Nao criou. Quem criou foi a 2020/617.\n\nO QUE REFUTA A LEITURA: risk_assessment_state = NOT_FINALISED.\n\nO ato nunca diz isso, e dois recitais dizem o contrario para a avaliacao que sustenta este ato:\n- Recital (6): em 14 de agosto de 2023 a EFSA JA COMUNICOU sua conclusao sobre se as condicoes alteradas atendem ao Artigo 4. A avaliacao foi entregue.\n- Recital (9): \"It has been established that, with a maximum level of less than 10 g/kg for impurity CGA226048 ... the approval criteria provided for in Article 4 ... ARE SATISFIED.\" A Comissao concluiu positivamente e concedeu a alteracao com base nisso. Isso e avaliacao fechada, nao pendente.\n\nO que de fato esta em aberto e mais estreito do que \"risk assessment not finalised\":\n- Recital (10): so sobre a restricao de semeadura, a Comissao pediu a EFSA para revisar \"certain issues\" e atualizar a avaliacao. E uma atualizacao pedida DEPOIS da conclusao, sobre um ponto especifico, e por isso a restricao de estufa foi mantida.\n- Recital (11): informacao confirmatoria sobre tratamento de agua potavel, com prazo 10 de julho de 2026. Isso e obrigacao de dado confirmatorio, que e outra coisa.\n\nAlem disso, este ato nao e do tipo que traz lista de substancias com avaliacao nao finalizada (as prorrogacoes do Artigo 17). Aqui nao existe essa lista. Marcar a substancia inteira como NOT_FINALISED e uma inferencia do leitor, e ela contradiz o recital (9). Numa regua ou tabela isso vira sinal falso: alguem leria que metalaxyl-M esta com avaliacao travada, quando na verdade a avaliacao foi concluida, o pedido foi parcialmente atendido (impureza atualizada) e parcialmente negado (restricao de estufa mantida enquanto uma revisao complementar corre).\n\nCorrecao sugerida para o campo: em vez de risk_assessment_state NOT_FINALISED, usar algo como \"conclusao da EFSA entregue em 14/08/2023; restricao de semeadura mantida por revisao complementar pedida pela Comissao; dado confirmatorio de agua potavel devido ate 10/07/2026\".\n\nA data em si nao precisa de correcao — devolvo abaixo o valor confirmado na fonte para que o acerto nao se perca junto com a refutacao.",
+    "CORRECTED": [
+     "Metalaxyl-M = 31 May 2035 (confirmada na fonte; nao foi alterada por este ato — ja vinha da Implementing Regulation (EU) 2020/617, Annex I e row 140 da Part B, com aprovacao em 1 June 2020)"
+    ],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32024R2186",
+   "ACT_TYPE": "RENEWAL",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Captan (CAS No 133-06-2, CIPAC No 40)",
+     "new_expiry_date": "31 October 2039",
+     "annex_part": "B",
+     "annex_row": "170",
+     "risk_assessment_state": "FINALISED"
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2024/2186 of 3 September 2024 renewing the approval of the active substance captan in accordance with Regulation (EC) No 1107/2009 of the European Parliament and of the Council, and amending Commission Implementing Regulation (EU) No 540/2011",
+    "The approval of the active substance captan, as specified in Annex I to this Regulation, is renewed subject to the conditions laid down in that Annex.",
+    "The approval of the active substance captan, as set out in Part A of the Annex to Implementing Regulation (EU) No 540/2011, expires on 15 November 2024.",
+    "Date of approval\nExpiration of approval\nSpecific provisions",
+    "1 November 2024\n31 October 2039",
+    "in Part A, entry 145 on captan is deleted;",
+    "in Part B, the following entry is added:",
+    "‘170\nCaptan\nCAS No 133-06-2\nCIPAC No 40",
+    "It has been established with respect to one or more representative uses of at least one plant protection product containing the active substance captan that the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009 are satisfied. It is therefore appropriate to renew the approval of captan.",
+    "On 24 July 2020, the Authority communicated to the Commission its conclusion ( 6 ) on whether captan can be expected to meet the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009.",
+    "The Authority concluded that captan does not meet the criteria for the determination of endocrine disrupting properties set in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009.",
+    "In the absence of agreed harmonised values for regulatory purposes, in 2024 the Authority did not consider the information available as sufficienty robust to demonstrate a significant variation of the level of risk to those non-target species compared to the one identified in the EFSA Conclusion ( 7 ) .",
+    "the Standing Committee considered that the risk mitigation measures leading to the refined risk assessment could be considered appropriate and achieving the reduction of exposure necessary to protect wild mammals, bees, and the aquatic environment.",
+    "Commission Implementing Regulation (EU) 2023/918 ( 10 ) extended the approval period of captan to 15 November 2024 in order to allow the renewal process to be completed before the expiry of the approval period of that active substance. However, given that a decision on the renewal has been taken ahead of that extended expiry date, this Regulation should start to apply earlier than that date.",
+    "This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union .",
+    "It shall apply from 1 November 2024.",
+    "only uses outside flowering of the crop and when no flowering weeds are present in the rows of the treated crops may be authorised,",
+    "Member States shall require that applications in orchards (e.g. apples, cherries) are only done with application equipment that increases the precision and accuracy of the application (e.g. emission shields, shielded sprayers, hooded sprayers, tunnel sprayers, sensor-controlled sprayers), and, while maintaining the application rate on the target surfaces, achieves an average reduction of at least 61 % of the applied plant protection product (per hectare) and a minimum of 20 % reduction of plant protection product loss to the ground compared to applications via conventional application equipment and practice.",
+    "Within two years from 24 September 2024, the applicant shall submit to the Commission, the Member States and the Authority confirmatory information as regards:",
+    "Furthermore, within 18 months from 24 September 2024 , the applicant shall submit to the Commission, the Member States and the Authority:",
+    "Taking into account the Opinion of the Risk Assessment Committee of the European Chemicals Agency of 14 September 2023 ( 9 ) , which proposed to classify captan as toxic to reproduction Category 2 and as STOT-RE Category 1, it is also appropriate to require further confirmatory information concerning the relevance of metabolites THPI and THPAM that may occur in groundwater."
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "CANDIDATE FOR SUBSTITUTION = NAO SEI. A expressao 'candidate for substitution' NAO aparece uma unica vez no corpo do ato (grep confirmado sobre o texto integral). O ato tambem nao menciona a Parte E do Anexo do Reg. 540/2011 (a parte onde ficam os candidatos a substituicao) nem a Parte D. Ele so manda apagar a linha 145 da Parte A e criar a linha 170 na Parte B. Deduzir 'nao e candidato' a partir do destino Parte B seria inferencia minha, nao leitura do ato — por isso o campo saiu vazio, como NAO SEI, e nao como 'nao ha'.",
+    "O ato NAO diz que a avaliacao de risco ficou por finalizar, e NAO diz que a EFSA precisa de mais tempo. Nenhuma dessas duas frases existe no texto. O que existe e o oposto: a EFSA entregou a conclusao em 24 July 2020, entregou uma Statement adicional em 2024, e a Comissao afirma que os criterios do Artigo 4 'are satisfied'. Por isso marquei FINALISED — mas com a ressalva do item seguinte.",
+    "RESSALVA sobre FINALISED: mesmo tendo renovado, o ato ainda exige quatro pacotes de 'confirmatory information' (agua de consumo/metabolitos THPI e THPAM, relevancia dos metabolitos, estabilidade em matriz acida, e dados de exposicao do equipamento de pulverizacao). Ou seja: a renovacao foi decidida, mas o ato NAO declara que todo o dossie esta encerrado. Ele nao diz o que acontece se essa informacao confirmatoria nao for entregue nos prazos de 2 anos / 18 meses contados de 24 September 2024.",
+    "O ato NAO menciona a ADAMA, nem qualquer empresa pelo nome. Fala sempre em 'the applicants' / 'the applicant'. Nao da para amarrar o ato a um titular de registro so lendo o ato.",
+    "O ato NAO menciona a Italia, nem qualquer Estado-Membro pelo nome. Fala em 'Member States' no plural e generico. Qualquer efeito especifico na Italia nao esta escrito aqui.",
+    "O ato NAO cita nenhum produto comercial, marca, numero de registro nacional nem formulacao. Ele decide sobre a substancia ativa captan, nao sobre produtos.",
+    "O ato NAO tem artigo de medidas transitorias nem de periodo de carencia ('grace period'). Sao so tres artigos: Artigo 1 (renovacao), Artigo 2 (altera o Anexo do 540/2011) e Artigo 3 (entrada em vigor e aplicacao desde 1 November 2024). Nao ha prazo escrito para os Estados-Membros reavaliarem ou alterarem autorizacoes de produtos ja existentes.",
+    "O ato NAO classifica o captan. Ele apenas registra que o Comite de Avaliacao de Risco da ECHA, em opiniao de 14 September 2023, 'proposed to classify' captan como toxico para reproducao Categoria 2 e STOT-RE Categoria 1. Proposta de terceiro citada, nao decisao deste ato.",
+    "O ato NAO revoga nem substitui o Reg. (UE) 2023/918. So explica que aquele regulamento tinha esticado a aprovacao ate 15 November 2024 e que, como a decisao de renovacao saiu antes, este entra a valer em 1 November 2024.",
+    "O ato NAO fala em proibicao, retirada de mercado, cancelamento de registro ou qualquer consequencia comercial. Ele renova por 15 anos (1 November 2024 a 31 October 2039) com condicoes de uso restritivas escritas no Anexo.",
+    "O ato NAO altera nenhuma outra substancia. Folpet aparece apenas como limite de impureza na especificacao do captan ('folpet: ≤ 10 g/kg'), nao como substancia decidida aqui.",
+    "FONTE UNICA: tudo acima vem de uma leitura so — o texto EN do CELEX 32024R2186 via publications.europa.eu (63.325 bytes brutos / 21.630 caracteres limpos). Nao cruzei com o EUR-Lex em outra lingua nem com a versao consolidada do Reg. 540/2011. Se o numero da linha 170 na Parte B ou a exclusao da linha 145 na Parte A precisarem virar decisao, confirmar na consolidada do 540/2011."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Tentei derrubar a leitura pelos quatro erros caros e nenhum se sustentou contra a fonte (lida via scripts/texto_fonte.py eu 32024R2186).\n\n1) DATA NA SUBSTANCIA ERRADA - impossivel aqui. O 32024R2186 e um ato de substancia unica (so captan). Nao ha linhas vizinhas de onde colar data. O par \"1 November 2024 / 31 October 2039\" aparece duas vezes, sempre na linha do captan: na tabela do ANNEX I e na entrada 170 da Parte B no ANNEX II. Prazo de 15 anos, coerente com renovacao padrao.\n\n2) DATA ANTIGA x NOVA - separadas corretamente. A antiga e 15 November 2024 (considerando 3: \"expires on 15 November 2024\"; considerando 20: fixada pelo Reg. 2023/918). A leitura poe new_expiry_date = 31 October 2039 e cita 15 November 2024 apenas como quote literal sobre a aprovacao anterior. Sentido certo.\n\n3) EXTENSION x RENEWAL - e renovacao mesmo. Titulo: \"renewing the approval of the active substance captan\". Artigo 1, epigrafe: \"Renewal of the approval of the active substance\". Considerando 13: \"It is therefore appropriate to renew the approval of captan.\" A palavra \"extension\" aparece uma unica vez no documento inteiro, na nota de rodape 10, citando o ato ANTERIOR (2023/918), que foi a prorrogacao. A leitura nao mistura os dois - inclusive cita o considerando 20 que distingue um do outro.\n\n4) RISK ASSESSMENT - busquei \"finalis\", \"finaliz\", \"could not be\" no texto: zero ocorrencias. Nada no ato diz que a avaliacao nao foi concluida. A conclusao da EFSA foi comunicada em 24/07/2020, houve statement de 2024, o Standing Committee aceitou as medidas de mitigacao (considerando 11) e o considerando 13 afirma que os criterios do Artigo 4 estao satisfeitos. As exigencias de informacao confirmatoria (2 anos / 18 meses a contar de 24 September 2024) sao condicoes normais do Artigo 6(f) e nao tornam a avaliacao inacabada. FINALISED se sustenta - e note que o erro cacado seria na direcao oposta (atribuir NOT FINALISED indevidamente), que aqui nem ocorre.\n\nCAMPOS ESTRUTURAIS conferidos: ANNEX II diz \"in Part A, entry 145 on captan is deleted\" e \"in Part B, the following entry is added: '170 Captan CAS No 133-06-2 CIPAC No 40\" - logo annex_part=B e annex_row=170 estao certos. Identificadores CAS 133-06-2 e CIPAC 40 batem.\n\nQUOTES: as amostras que verifiquei sao literais, incluindo o erro de digitacao da propria fonte (\"sufficienty robust\", considerando 10) e a grafia \"high acid content matrices\" no anexo. Isso indica copia, nao parafrase.\n\nUnica observacao sem impacto na leitura: o texto oscila entre \"the applicants\" (considerandos) e \"the applicant\" (anexo); a leitura reproduz a forma do anexo, que e a correta para o campo citado.\n\nNao ha data a corrigir.",
+    "CORRECTED": [],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32024R2198",
+   "ACT_TYPE": "RENEWAL",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Folpet (CAS No: 133-07-3; CIPAC No: 75)",
+     "new_expiry_date": "31 October 2039",
+     "annex_part": "B — o ato acrescenta a entrada de folpet na Parte B do Anexo do Reg. 540/2011 e, no mesmo ato, suprime a entrada 146 da Parte A. Antes do ato a substancia estava na Parte A.",
+     "annex_row": "172 (nova entrada na Parte B). A linha suprimida na Parte A e a 146.",
+     "risk_assessment_state": "FINALISED",
+     "candidate_for_substitution": false
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2024/2198 of 4 September 2024 renewing the approval of the active substance folpet in accordance with Regulation (EC) No 1107/2009 of the European Parliament and of the Council, and amending Commission Implementing Regulation (EU) No 540/2011",
+    "The approval of the active substance folpet, as set out in Part A of the Annex to Implementing Regulation (EU) No 540/2011 expires on 15 February 2025.",
+    "The approval of the active substance folpet, as specified in Annex I to this Regulation, is renewed, subject to the conditions laid down in that Annex.",
+    "The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with Annex II to this Regulation.",
+    "in Part A, entry 146 on folpet is deleted;",
+    "in Part B, the following entry is added:",
+    "‘172 Folpet CAS No: 133-07-3 CIPAC No: 75",
+    "1 November 2024",
+    "31 October 2039",
+    "On 12 July 2023, the Authority communicated to the Commission its conclusion ( 7 ) on whether folpet can be expected to meet the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009.",
+    "It has been established with respect to one or more representative uses of at least one plant protection product containing the active substance folpet that the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009 are satisfied.",
+    "It is therefore appropriate to renew the approval of folpet.",
+    "Although the risk assessment for the renewal of the approval of the active substance folpet is based on a limited number of representative uses, this does not restrict the uses for which plant protection products containing folpet may be authorised. It is therefore appropriate not to maintain the restriction to use folpet as a fungicide.",
+    "Furthermore, to finalise the consumer exposure assessment, it is in particular appropriate to request confirmatory information to determine the levels of phthalic acid deriving from the use of folpet taking into account the background levels of phthalic acid present in wheat and barley during residue field trials for the uses listed in Appendix II of the renewal report only.",
+    "The applicant shall submit to the Commission, the Member States and the Authority this information by 25 March 2025.",
+    "Considering the high acute risk to fish and aquatic invertebrates identified in the risk assessment, it is appropriate to require minimum risk mitigation measures to protect those aquatic organisms from exposure to folpet unless the outcome of the risk assessment undertaken for specific plant protection product uses indicates that such risk mitigation measures are not needed or can be lowered.",
+    "the protection of aquatic organisms, ensuring a minimum of 95 % spray drift reduction next to water bodies such as that provided by a 20 m no spray buffer zone unless the outcome of the risk assessment undertaken for the specific plant protection product use indicates that such risk mitigation measures are not needed or can be lowered because there are no unacceptable risks caused by spray drift;",
+    "An application for the renewal of the approval of the active substance folpet was submitted to Austria, the rapporteur Member State, and Italy, the co-rapporteur Member State, in accordance with Article 1 of Commission Implementing Regulation (EU) No 844/2012 ( 5 ) within the time period provided for in that Article.",
+    "Commission Implementing Regulation (EU) 2023/918 ( 8 ) extended the approval period of folpet to 15 February 2025 in order to allow the renewal process to be completed before the expiry of the approval period of that active substance. However, given that a decision on the renewal has been taken ahead of that extended expiry date, this Regulation should start to apply earlier than that date.",
+    "This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union .",
+    "It shall apply from 1 November 2024.",
+    "≥ 940 g/kg"
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "A expressao \"candidate for substitution\" NAO aparece nenhuma vez no texto integral do ato (busca literal por \"substitut\": zero ocorrencias). O ato tambem nao menciona a Parte E do Anexo do Reg. 540/2011, que e onde a legislacao coloca esse rotulo. Marquei candidate_for_substitution como false porque o ato coloca a substancia na Parte B (entrada 172) e nao na Parte E, mas ATENCAO: isso e leitura da colocacao, nao uma frase do ato. O ato nao afirma nem nega o rotulo. Se a exigencia for so-o-que-esta-escrito, o valor honesto e NAO SEI.",
+    "O ato NAO diz que a avaliacao de risco nao foi finalizada. Nao existe no texto nenhuma das formulas tipicas de prorrogacao: \"beyond the control of the applicant\", \"more time\", \"could not be completed\" (busca literal: zero ocorrencias). Ao contrario, a EFSA entregou a conclusao em 12 July 2023 e o ato declara os criterios do Artigo 4 satisfeitos.",
+    "O ato NAO diz que a EFSA precisa de mais tempo.",
+    "Ressalva sobre o estado da avaliacao: embora o ato conclua a renovacao, ele registra que uma parte da avaliacao segue aberta — pede informacao confirmatoria \"to finalise the consumer exposure assessment\" sobre niveis de acido ftalico em trigo e cevada, com prazo de entrega ate 25 March 2025. Portanto FINALISED vale para a decisao de renovacao; a avaliacao de exposicao do consumidor, pela letra do ato, ainda nao estava finalizada.",
+    "O ato NAO cita a ADAMA nem qualquer empresa pelo nome. Fala apenas em \"the applicant\". Nao da para ligar o ato a um titular de registro so com este documento.",
+    "O ato NAO trata de registros nacionais de produtos na Italia. A Italia aparece uma unica vez, como \"co-rapporteur Member State\" da avaliacao — nao como pais de comercializacao.",
+    "O ato NAO fixa prazo de retirada, de escoamento (grace period) nem de reavaliacao de autorizacoes nacionais de produtos que contenham folpet. Nao ha artigo sobre isso neste ato.",
+    "O ato NAO mexe na data de expiracao de nenhuma outra substancia. Folpet e a unica substancia cuja aprovacao e decidida aqui. Captan aparece so como limite de impureza (3 g/kg) no material tecnico, e a lista longa de substancias no rodape ( 8 ) e apenas a citacao do titulo do Reg. 2023/918, nao uma decisao deste ato.",
+    "O ato NAO menciona as Partes D nem E do Anexo do Reg. 540/2011. So Parte A (de onde a entrada 146 sai) e Parte B (para onde a entrada 172 entra).",
+    "O ato NAO fala em proibicao, saida de mercado, perda de registro ou qualquer consequencia comercial. Ele renova a aprovacao por 15 anos (1 November 2024 a 31 October 2039) e impoe condicoes de uso.",
+    "Leitura feita em UMA versao linguistica (EN), obtida por duas rotas (scripts/texto_fonte.py e scripts/cellar.sh) que devolveram o mesmo conteudo. Nao conferi outras versoes linguisticas nem eventuais correcoes (corrigenda) posteriores — se houver retificacao, eu nao sei."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Reli a fonte oficial (publications.europa.eu/resource/celex/32024R2198) e nao consegui derrubar a leitura. (1) DATA: o ato trata de UMA unica substancia (folpet), entao nao ha linha vizinha de onde colar data errada. \"31 October 2039\" aparece duas vezes, sempre na linha do folpet (Anexo I e nova entrada 172 da Parte B), sempre em par com \"Date of approval: 1 November 2024\" — coerente (15 anos). (2) ANTIGA x NOVA: a data antiga \"15 February 2025\" aparece no considerando 3 (\"expires on 15 February 2025\") e no 18 (prorrogada ate la pelo Reg. 2023/918); a leitura a mantem corretamente rotulada como a vigente ANTES do ato e nao a apresenta como nova. (3) RENEWAL x EXTENSION: o titulo diz \"renewing the approval\", o Artigo 1 se chama \"Renewal of the approval of the active substance\" e o considerando 15 diz \"It is therefore appropriate to renew the approval of folpet\" — e renovacao mesmo; a prorrogacao pelo Reg. 2023/918 aparece so como historico no considerando 18, e a leitura a trata assim. (4) ANEXO: \"in Part A, entry 146 on folpet is deleted\" e \"in Part B, the following entry is added: 172 Folpet\" — bate exatamente com annex_part e annex_row, inclusive o sentido (estava na Parte A, passa para a Parte B). (5) CITACOES: conferi as 15 citacoes literais uma a uma; todas existem no texto (titulo e linha do anexo se leem quebrados em varias linhas no XML, o que e normal). Nenhuma citacao inventada. (6) RISK ASSESSMENT: a EFSA entregou a conclusao em 12/07/2023 (considerando 10) e o considerando 13 diz que os criterios do Artigo 4 estao satisfeitos; nao existe em nenhum ponto do ato a formula \"could not be finalised\". FINALISED esta certo. Unica ressalva (nao derruba a leitura): o considerando 16 pede informacao confirmatoria \"to finalise the consumer exposure assessment\" (acido ftalico em trigo e cevada, prazo 25/03/2025) — e condicao confirmatoria padrao do Art. 6(f) anexada a uma renovacao concluida, nao uma avaliacao inacabada. (7) CANDIDATE FOR SUBSTITUTION: a expressao nao ocorre no ato; \"false\" esta correto.",
+    "CORRECTED": [],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32024R2221",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "pendimethalin",
+     "new_expiry_date": "15 January 2027",
+     "annex_part": "E",
+     "annex_row": "7",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME",
+     "candidate_for_substitution": true
+    },
+    {
+     "name": "plant oils / rape seed oil",
+     "new_expiry_date": "31 March 2026",
+     "annex_part": "A",
+     "annex_row": "242",
+     "risk_assessment_state": "FINALISED",
+     "candidate_for_substitution": false
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances acequinocyl, aluminium silicate, emamectin, fatty acids C7 to C20, pendimethalin, plant oils / rape seed oil and triclopyr",
+    "(3) ... Commission Implementing Regulation (EU) 2017/1114 renewed the approval of the active substance pendimethalin until 31 August 2024.",
+    "(4) The approvals of the active substances aluminium silicate, fatty acids, plant oils / rape seed oil and triclopyr, respectively, are listed in Part A of the Annex to Implementing Regulation (EU) No 540/2011.",
+    "(4) ... The approval of the active substance pendimethalin is listed in Part E of the Annex of Implementing Regulation (EU) No 540/2011.",
+    "(5) Commission Implementing Regulation (EU) 2020/2007 extends the respective approval periods of the active substances acequinocyl, emamectin and pendimethalin until 30 November 2024.",
+    "(6) Commission Implementing Regulation (EU) 2023/1446 extends the respective approval periods of the active substances aluminium silicate, fatty acids, plant oils / rape seed oil until 15 December 2024.",
+    "(9) With regard to the renewal of the approvals of the active substances acequinocyl, emamectin, fatty acids C7 to C20 and pendimethalin, respectively, the Authority needs additional time to conclude the risk assessment carried out for these substances, including, where appropriate, a public consultation and a consultation of experts. Additional time is necessary for the Commission to adopt the ensuing risk management decision.",
+    "(10) For the active substances aluminium silicate, plant oils / rape seed oil and triclopyr, the Authority has submitted its conclusion to the applicant, the Member States and the Commission. The Commission has presented a renewal report and a draft Regulation on the renewal of these active substances’ approvals to the Standing Committee on Plants, Animals, Food and Feed.",
+    "(11) Given that it is therefore likely that no decision on the renewal of the approval of those active substances can be taken before the expiry of their respective approval periods on 15 November 2024, 30 November 2024 and 15 December 2024, and that the reasons for the delays in the renewal procedures are beyond the control of the respective applicants, the approval periods of those active substances should be extended in order to enable the completion of the assessments required and to finalise the respective procedures on renewal of approval.",
+    "(12) ... For the active substance pendimethalin, 2 additional months are necessary to finalise the public consultation pursuant to Article 12 of Implementing Regulation (EU) 2020/1740, therefore the extension of the approval period for this active substance should be set at 25 months and 2 weeks.",
+    "(13) As for the active substances aluminium silicate, plant oils / rape seed oil and triclopyr, the delivery of an opinion of the Standing Committee on Plants, Animals, Food and Feed is pending, and in light of the time required to accomplish each renewal procedure, the duration of the extension of the approval periods for those active substances should be set at 15 months and 2 weeks and Implementing Regulation (EU) No 540/2011 should therefore be amended accordingly.",
+    "(14) In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed, the Commission will set the expiry date at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later. In case the Commission adopts a Regulation providing for the renewal of the approval of an active substance referred to in the Annex to this Regulation, the Commission will set the earliest possible application date, as appropriate under the circumstances.",
+    "Article 1 — The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.",
+    "Article 2 — This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union.",
+    "ANNEX 1. Part A is amended as follows: ... (3) in the sixth column, expiration of approval, of row 242, plant oils / rape seed oil, the date is replaced by ‘31 March 2026’;",
+    "ANNEX 3. Part E, in the sixth column, expiration of approval, of row 7, pendimethalin, the date is replaced by ‘15 January 2027’.",
+    "footnote (7): Commission Implementing Regulation (EU) 2017/1114 of 22 June 2017 renewing the approval of the active substance pendimethalin, as a candidate for substitution, in accordance with Regulation (EC) No 1107/2009 ... and amending the Annex to Commission Implementing Regulation (EU) No 540/2011",
+    "Done at Brussels, 6 September 2024. For the Commission The President Ursula VON DER LEYEN",
+    "Official Journal of the European Union — L series — 2024/2221 — 9.9.2024"
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO renova a aprovacao de nenhuma das duas substancias. Ele so troca a data de expiracao na tabela do Reg. 540/2011. A decisao de renovar ou nao renovar continua pendente — recital (14) descreve os dois cenarios futuros sem decidir nenhum.",
+    "O ato NAO diz, no seu proprio texto operativo nem nos considerandos, que pendimethalin e 'candidate for substitution'. A expressao aparece UMA vez, dentro da nota de rodape (7), que reproduz o titulo do Reg. (UE) 2017/1114 ('renewing the approval of the active substance pendimethalin, as a candidate for substitution'). O ato tambem diz, no recital (4), que pendimethalin esta na Parte E do Anexo do Reg. 540/2011. Marquei candidate_for_substitution=true com base nesses dois trechos lidos no corpo do texto, mas o ato de 2024 nao reafirma esse status por conta propria — quem quiser certeza tem de ler o Reg. 2017/1114 e a Parte E do Reg. 540/2011.",
+    "Sobre plant oils / rape seed oil o ato NAO diz nada a respeito de 'candidate for substitution'. O campo saiu false porque o schema so aceita sim/nao — leia isso como NAO SEI pela leitura deste ato, nao como 'nao e candidata'.",
+    "O ato NAO diz que a avaliacao de risco de plant oils / rape seed oil esta 'finalised' com essa palavra. O que ele diz (recital 10) e que a EFSA ja entregou sua conclusao e que a Comissao ja apresentou relatorio de renovacao e projeto de Regulamento ao Comite Permanente. Marquei FINALISED com base nisso. O que continua pendente, pela letra do recital (13), e o parecer do Comite Permanente — nao a avaliacao da EFSA.",
+    "O ato NAO diz que a avaliacao de risco de pendimethalin foi concluida. Diz o contrario: a EFSA 'needs additional time' (recital 9) e faltam 2 meses para terminar a consulta publica (recital 12). Mas o ato tambem NAO diz qual e o resultado dessa avaliacao, nem antecipa conclusao nenhuma.",
+    "O ato NAO menciona a Italia, nem qualquer Estado-Membro em particular, nem produtos comerciais, nem titulares de registro, nem a ADAMA. A ligacao entre estas substancias e produtos ADAMA registrados na Italia nao esta neste ato.",
+    "O ato NAO revoga, suspende, restringe nem proibe uso algum das duas substancias, e NAO altera as 'specific provisions' (setima coluna) de nenhuma das duas linhas. Para pendimethalin (Parte E, linha 7) e para plant oils / rape seed oil (Parte A, linha 242) so a SEXTA coluna, 'expiration of approval', e trocada.",
+    "O ato NAO altera periodos de tolerancia (grace period) para escoamento ou uso de estoques. Nada sobre estoque aparece no texto.",
+    "O ato NAO nomeia o Estado-Membro relator de cada substancia. O recital (8) lista nove datas de admissibilidade para sete substancias, sem dizer qual data pertence a qual substancia — a correspondencia 'respectively' nao fecha, e eu NAO SEI qual data e a do pendimethalin nem a do plant oils / rape seed oil.",
+    "Ha uma inconsistencia interna que o ato NAO explica: o recital (11) fala em vencimentos 'on 15 November 2024, 30 November 2024 and 15 December 2024', mas os recitais (5), (6) e (7) so citaram 30 November 2024 e 15 December 2024. A data 15 November 2024 nao tem origem declarada no texto.",
+    "O ato NAO informa a data exata de entrada em vigor em numero. Diz apenas 'the twentieth day following that of its publication' (Art. 2), e o cabecalho traz a publicacao em 9.9.2024. A soma e minha, nao do ato.",
+    "O ato NAO diz nada sobre efeito comercial, disponibilidade de produto, decisao de compra ou risco de mercado. Qualquer leitura nesse sentido nao vem daqui."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Nao consegui refutar. Reli o texto integral EN via CELLAR (scripts/texto_fonte.py eu 32024R2221) e conferi os quatro erros caros, um a um.\n\n1) DATA NA SUBSTANCIA ERRADA — nao ocorre. O Anexo altera 7 linhas: Parte A linha 136 triclopyr = 31 March 2026; linha 220 aluminium silicate = 31 March 2026; linha 242 plant oils / rape seed oil = 31 March 2026; linha 230 fatty acids C7 to C20 = 1 December 2026 (linha substituida por inteiro); Parte B linha 49 emamectin = 15 November 2026 e linha 72 acequinocyl = 15 November 2026; Parte E linha 7 pendimethalin = 15 January 2027. A leitura escolheu Parte E linha 7 -> 15 January 2027 e Parte A linha 242 -> 31 March 2026. Parte, numero de linha e data batem literalmente.\n\n2) DATA ANTIGA CONFUNDIDA COM A NOVA — nao ocorre. As datas vigentes antes eram 30 November 2024 para pendimethalin (recital 5, via 2020/2007) e 15 December 2024 para plant oils / rape seed oil (recital 6, via 2023/1446). Nenhuma das duas aparece como new_expiry_date; ambas aparecem nas citacoes, corretamente rotuladas como extensoes anteriores.\n\n3) EXTENSION vs RENEWAL — correto. act_type = EXTENSION_OF_APPROVAL_PERIOD bate com o titulo (\"as regards the extension of the approval periods\"). A leitura nao afirma em nenhum ponto que houve renovacao. Para plant oils / rape seed oil ela afirma apenas que a AVALIACAO DE RISCO esta finalizada, que e exatamente o recital (10) (a EFSA entregou sua conclusion ao requerente, aos Estados-Membros e a Comissao); o recital (13) confirma que o parecer do Standing Committee ainda esta pendente, ou seja, a renovacao NAO foi concedida. A leitura fez a afirmacao fraca correta, nao a forte.\n\n4) \"RISK ASSESSMENT NOT FINALISED\" ATRIBUIDO A QUEM NAO ESTA NA LISTA — nao ocorre. O recital (9) nomeia acequinocyl, emamectin, fatty acids C7 to C20 e pendimethalin como as substancias em que a Authority \"needs additional time\". Pendimethalin esta nessa lista, logo EFSA_NEEDS_MORE_TIME procede. Plant oils / rape seed oil esta na lista OPOSTA, a do recital (10), logo FINALISED procede. Nao houve troca entre as duas listas.\n\nCANDIDATE FOR SUBSTITUTION — sustentado por duas evidencias no proprio ato: a nota de rodape (7) descreve o Regulamento 2017/1114 como \"renewing the approval of the active substance pendimethalin, as a candidate for substitution\", e o recital (4) coloca pendimethalin na Parte E do Anexo do 540/2011 (a parte dos candidatos a substituicao), enquanto plant oils / rape seed oil esta na Parte A. Logo true e false, respectivamente, estao certos.\n\nCITACOES — as 12 citacoes literais conferem palavra por palavra com o texto EN do CELLAR, sem substancia acrescentada nem removida de nenhuma lista.\n\nDUAS RESSALVAS QUE NAO DERRUBAM A LEITURA (registradas por honestidade, nao como refutacao): (a) o recital (11) menciona um vencimento em \"15 November 2024\" que nenhum recital anterior atribui a qualquer das sete substancias deste ato — e um defeito de redacao do proprio ato, nao da leitura; (b) a aritmetica do recital (12) para pendimethalin (30 November 2024 + 25 meses e 2 semanas da aproximadamente 13 January 2027) fica dois dias aquem do 15 January 2027 promulgado no Anexo. O Anexo e o texto dispositivo e a leitura seguiu o Anexo, que e o procedimento correto.",
+    "CORRECTED": null,
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32024R2781",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Azoxystrobin",
+     "new_expiry_date": "31 May 2027",
+     "annex_row": "4",
+     "annex_part": "B",
+     "risk_assessment_state": "NOT_FINALISED"
+    },
+    {
+     "name": "Fluroxypyr",
+     "new_expiry_date": "15 February 2027",
+     "annex_row": "9",
+     "annex_part": "B",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME"
+    },
+    {
+     "name": "Tefluthrin",
+     "new_expiry_date": "31 May 2027",
+     "annex_row": "10",
+     "annex_part": "B",
+     "risk_assessment_state": "NOT_FINALISED"
+    },
+    {
+     "name": "Terbuthylazine",
+     "new_expiry_date": "31 May 2027",
+     "annex_row": "16",
+     "annex_part": "B",
+     "risk_assessment_state": "NOT_FINALISED"
+    },
+    {
+     "name": "Chlorantraniliprole",
+     "new_expiry_date": "31 May 2027",
+     "annex_row": "62",
+     "annex_part": "B",
+     "risk_assessment_state": "NOT_FINALISED"
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2024/2781 of 31 October 2024 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 8-hydroxyquinoline, aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, fluroxypyr, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine",
+    "The respective approvals of the active substances 8-hydroxyquinoline, aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, fluroxypyr, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine are included in Part B of the Annex to Commission Implementing Regulation (EU) No 540/2011",
+    "Part B of the Annex to Implementing Regulation (EU) No 540/2011 is amended as follows:",
+    "in the sixth column, expiration of approval, of row 4, Azoxystrobin, the date is replaced by ‘31 May 2027’;",
+    "in the sixth column, expiration of approval, of row 9, Fluroxypyr, the date is replaced by ‘15 February 2027’;",
+    "in the sixth column, expiration of approval, of row 10, Tefluthrin, the date is replaced by ‘31 May 2027’;",
+    "in the sixth column, expiration of approval, of row 16, Terbuthylazine, the date is replaced by ‘31 May 2027’;",
+    "in the sixth column, expiration of approval, of row 62, Chlorantraniliprole, the date is replaced by ‘31 May 2027’;",
+    "For the active substances aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine, the risk assessment pursuant to Article 11 of Implementing Regulation (EU) 2020/1740 has not yet been finalised by the respective rapporteur Member States and additional time is required to complete the remaining steps in each renewal procedure.",
+    "For the active substance fluroxypyr, the Authority needs additional time to conclude the risk assessment carried out for the substance, including, where appropriate, a public consultation and a consultation of experts. Additional time is also necessary for the Commission to adopt the ensuing risk management decision.",
+    "For the active substances aminopyralid, azoxystrobin, Candida oleophila strain O, chlorantraniliprole, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen, Paecilomyces fumosoroseus strain FE 9901, tefluthrin and terbuthylazine, as the risk assessment has not yet been finalised by the respective rapporteur Member States and in light of the time required to complete the remaining steps in each renewal procedure, the duration of the extension of the approval periods should be set at 29 months.",
+    "For the active substance fluroxypyr, as the Authority needs additional time to reach a conclusion on the risk assessment after the two additional months necessary to finalise the public consultation pursuant to Article 12 of Implementing Regulation (EU) 2020/1740, and in light of the time required to complete the remaining steps in the renewal procedure, the extension of the approval period for this active substance should be set at 25 months and 2 weeks.",
+    "It is therefore likely that no decision on the renewal of the approvals of those active substances can be taken before the expiry of their respective approval periods on 31 December 2024, and the reasons for the delays in the renewal procedures are beyond the control of the respective applicants. Therefore, the approval periods of those active substances should be extended in order to enable the completion of the assessments required and to finalise the respective procedures on renewal of approval.",
+    "Commission Implementing Regulation (EU) 2019/291 extended the respective approval periods of the active substances azoxystrobin, fluroxypyr, imazalil, kresoxim-methyl, oxyfluorfen, tefluthrin and terbuthylazine until 31 December 2024.",
+    "Commission Implementing Regulation (EU) 2020/2007 extended the respective approval periods of the active substances Candida oleophila strain O, chlorantraniliprole and Paecilomyces fumosoroseus strain FE 9901 until 31 December 2024.",
+    "The supplementary dossiers for the renewal of the approval of imazalil and tefluthrin were submitted via the central submission system on 16 December 2021 and 17 February 2022, respectively and the rapporteur Member States are assessing the admissibility of the applications",
+    "In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed, the Commission will set the expiry date at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later. In case the Commission adopts a Regulation providing for the renewal of the approval of an active substance referred to in the Annex to this Regulation, the Commission will set the earliest possible application date, as appropriate under the circumstances.",
+    "The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.",
+    "This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union ."
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "NAO diz se alguma dessas substancias e 'candidate for substitution'. A expressao 'candidate for substitution' (e a palavra 'substitution') NAO aparece em nenhum ponto do texto do ato. Portanto: NAO SEI a partir desta fonte.",
+    "NAO renova nem deixa de renovar nenhuma aprovacao. Apenas estende o prazo de aprovacao para permitir concluir o procedimento: 'the approval periods of those active substances should be extended in order to enable the completion of the assessments required and to finalise the respective procedures on renewal of approval.'",
+    "NAO menciona a Italia, nem qualquer Estado-Membro pelo nome, nem qualquer registro/autorizacao nacional de produto formulado.",
+    "NAO menciona a ADAMA nem qualquer empresa. Os requerentes aparecem apenas como 'the respective applicants'.",
+    "NAO altera as Partes A, D ou E do Anexo do Reg. 540/2011. O ato so diz: 'Part B of the Annex to Implementing Regulation (EU) No 540/2011 is amended as follows'. Se as substancias tambem constam de outras Partes, este ato nao diz.",
+    "NAO altera condicoes de uso, restricoes, culturas autorizadas ou 'specific provisions' de nenhuma substancia. So troca a data na sexta coluna ('expiration of approval').",
+    "NAO fixa periodo de carencia (grace period), data de retirada de autorizacoes nem prazo de escoamento de estoques.",
+    "NAO diz que a aprovacao termina nas novas datas. Diz apenas que a data de expiracao passa a ser aquela, e que a decisao de renovacao ainda esta pendente.",
+    "Para azoxystrobin, tefluthrin, terbuthylazine e chlorantraniliprole o ato NAO diz que a EFSA precisa de mais tempo. Diz que a avaliacao de risco nao foi finalizada pelos Estados-Membros relatores ('rapporteur Member States'). O pedido de mais tempo da Autoridade (EFSA) e dito apenas para fluroxypyr.",
+    "NAO nomeia qual e o Estado-Membro relator (rapporteur Member State) de nenhuma das substancias.",
+    "NAO informa a data exata de entrada em vigor em formato de calendario. Diz 'the twentieth day following that of its publication'; a publicacao no Jornal Oficial esta datada de 4.11.2024, mas o ato nao escreve a data resultante.",
+    "Para chlorantraniliprole o ato NAO explica a diferenca entre a aprovacao original 'until 30 April 2024' (Reg. 1199/2013) e a expiracao de '31 December 2024' citada no considerando 10; ele apenas registra a extensao anterior feita pelo Reg. 2020/2007 ate 31 December 2024.",
+    "NAO ha no ato qualquer previsao de proibicao, saida de mercado ou impacto comercial. Nada foi inferido alem do texto."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Reli a fonte inteira (py scripts/texto_fonte.py eu 32024R2781) e conferi item por item. Nao consegui derrubar nada. As 12 citacoes literais existem palavra por palavra no texto oficial, e os 5 pares substancia/linha/data batem com o Anexo.\n\nARMADILHA 1 - data colada na substancia errada: NAO ocorreu. O ato troca 13 datas de uma vez, e so tres datas diferentes aparecem: 31 May 2027 (11 linhas), 15 February 2027 (so fluroxypyr) e 31 December 2025 (so 8-hydroxyquinoline). O fluroxypyr e justamente o caso perigoso, porque a linha de cima (8, Kresoxim-methyl) e a de baixo (10, Tefluthrin) sao ambas 31 May 2027 - era so colar a data do vizinho. A leitura nao colou: deu 15 February 2027 ao fluroxypyr e 31 May 2027 ao tefluthrin, exatamente como o Anexo manda. A leitura tambem nunca encostou no 31 December 2025.\nConferencia contra o Anexo: linha 4 Azoxystrobin = 31 May 2027; linha 9 Fluroxypyr = 15 February 2027; linha 10 Tefluthrin = 31 May 2027; linha 16 Terbuthylazine = 31 May 2027; linha 62 Chlorantraniliprole = 31 May 2027. Cinco de cinco corretos.\n\nARMADILHA 2 - data velha no lugar da nova: NAO ocorreu. Pelos considerandos 4 e 5, as cinco substancias vinham vencendo em 31 December 2024. Nenhuma data da leitura e essa. E a conta fecha com a duracao declarada no ato: 31 Dec 2024 + 29 meses = 31 May 2027 (considerando 11), e 31 Dec 2024 + 25 meses e 2 semanas = meados de fevereiro de 2027 (considerando 12), que e o 15 February 2027 do Anexo.\n\nARMADILHA 3 - confundir \"extension\" com \"renewal\": NAO ocorreu. O act_type esta como EXTENSION_OF_APPROVAL_PERIOD, e e isso mesmo. O titulo diz \"extension of the approval periods\", o Anexo so troca a coluna de data de vencimento, e nao ha nenhuma renovacao concedida no texto. O considerando 15 e explicito em deixar a renovacao para um regulamento futuro (\"In case the Commission adopts a Regulation providing for the renewal...\"). A leitura nao fez a afirmacao forte.\n\nARMADILHA 4 - \"risk assessment not finalised\" em substancia fora da lista: NAO ocorreu. O considerando 7 nomeia quem esta nesse estado, e azoxystrobin, chlorantraniliprole, tefluthrin e terbuthylazine estao todos la - as quatro marcadas NOT_FINALISED. O fluroxypyr NAO esta nessa lista, e a leitura acertou em separa-lo: marcou EFSA_NEEDS_MORE_TIME, que e o considerando 8 (\"the Authority needs additional time to conclude the risk assessment\"). A discriminacao esta perfeita, inclusive no caso que mais tenta o erro.\n\nTambem confirmei \"Part B\": o considerando 2 diz que as 13 substancias estao na Parte B, e o Anexo abre com \"Part B of the Annex ... is amended as follows\". Correto para as cinco.\n\nDUAS RESSALVAS HONESTAS, que examinei e concluí que nao invalidam a leitura:\n1) Cobertura parcial. A leitura traz 5 das 13 substancias alteradas. Ficaram de fora 8-hydroxyquinoline, aminopyralid, Candida oleophila strain O, imazalil, kresoxim-methyl, metobromuron, oxyfluorfen e Paecilomyces fumosoroseus strain FE 9901. Isso e recorte de escopo, nao erro de fato - nenhuma afirmacao feita e falsa, e o campo nao declara ser exaustivo. Mas quem for usar isso como inventario completo do ato precisa saber que nao e.\n2) Tefluthrin tem uma nuance na propria fonte: o considerando 6 diz que, para imazalil e tefluthrin, os Estados-Membros relatores ainda estao avaliando a ADMISSIBILIDADE do pedido (etapa anterior). Mesmo assim, o considerando 7 lista o tefluthrin nominalmente entre os de \"risk assessment ... has not yet been finalised\". Ou seja, a tensao esta no texto do proprio regulamento, nao na leitura - que reproduziu a frase literal e correta.\n\nConclusao: a leitura resiste. Nao ha data trocada, nao ha data antiga disfarçada de nova, nao ha \"renewal\" indevido e nao ha atribuicao de risk assessment fora da lista. refuted=false, e por isso corrected_dates vai vazio.",
+    "CORRECTED": [],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32025R0099",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Pirimicarb",
+     "new_expiry_date": "31 October 2026",
+     "annex_row": "124",
+     "annex_part": "A",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Imazamox",
+     "new_expiry_date": "30 June 2027",
+     "annex_row": "8",
+     "annex_part": "E",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Phenmedipham",
+     "new_expiry_date": "30 September 2026",
+     "annex_row": "88",
+     "annex_part": "A",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME",
+     "candidate_for_substitution": false
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "TITULO/OBJETO DO ATO: \"COMMISSION IMPLEMENTING REGULATION (EU) 2025/99 of 21 January 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances [...] imazamox, milbemectin, phenmedipham, pirimicarb, [...]\"",
+    "ARTIGO 1 (unico dispositivo operativo): \"The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.\"",
+    "ENTRADA EM VIGOR (Artigo 2): \"This Regulation shall enter into force on the third day following that of its publication in the Official Journal of the European Union.\"",
+    "PIRIMICARB - DATA (Anexo, ponto 1, item (4), Parte A): \"in the sixth column, expiration of approval, of row 124, Pirimicarb, the date is replaced by '31 October 2026';\"",
+    "PHENMEDIPHAM - DATA (Anexo, ponto 1, item (2), Parte A): \"in the sixth column, expiration of approval, of row 88, Phenmedipham, the date is replaced by '30 September 2026';\"",
+    "IMAZAMOX - DATA (Anexo, ponto 3): \"In Part E of the Annex to Implementing Regulation (EU) No 540/2011, in the sixth column, expiration of approval, of row 8, Imazamox, the date is replaced by '30 June 2027'.\"",
+    "PARTE DO ANEXO 540/2011 (considerando 19): \"The active substances cyprodinil, dichlorprop-P, formetanate, fosetyl, milbemectin, phenmedipham, pirimicarb, pyrimethanil, spinosad, sulphur, [...] were included in Part A of the Annex to Commission Implementing Regulation (EU) No 540/2011. [...] and the active substance imazamox was included in Part E of the Annex to that Implementing Regulation.\"",
+    "PIRIMICARB - ESTADO DA AVALIACAO (considerando 30): \"For the active substances cyprodinil, formetanate, halosulfuron-methyl, pirimicarb, triticonazole and ziram, additional information for the purposes of assessment of the approval criteria set out in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009 as amended by Regulation (EU) 2018/605, was requested by the Authority pursuant Article 13(3a) of Implementing Regulation (EU) No 844/2012 and was submitted by the applicants within the deadline given. However, additional time is needed for the evaluation of the Authority and for the issuance of the related conclusion by risk assessors, as well as for the Commission to adopt the ensuing risk management decisions.\"",
+    "PHENMEDIPHAM - ESTADO DA AVALIACAO (considerando 29): \"For the active substances fosetyl, phenmedipham and spinosad, for the purposes of assessment of the approval criteria set out in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009 as amended by Commission Regulation (EU) 2018/605, and in accordance with Article 14(1a) of Commission Implementing Regulation (EU) No 844/2012, the Authority needs additional time to issue the conclusion related to those approval criteria. Additional time is also necessary for the Commission to adopt the ensuing risk management decisions.\"",
+    "PIRIMICARB E PHENMEDIPHAM - DURACAO E MOTIVO DA PRORROGACAO (considerando 35): \"For the active substances cyprodinil, formetanate, fosetyl, halosulfuron-methyl, phenmedipham, pirimicarb, spinosad, [...] as the Authority needs additional time to reach a conclusion on the risk assessment, and in light of the remaining steps to be completed in each renewal procedure, the extension of the approval period for each of these active substances should be set at 19 months and 2 weeks.\"",
+    "IMAZAMOX - ESTADO DA AVALIACAO (considerando 27): \"The supplementary dossiers for the renewal of the approval of the active substances [...] imazamox [...] were submitted via the central submission system on [...] 31 January 2022 [...] and the rapporteur Member States are still in the process of assessing the admissibility of the applications for the renewal of the approval of each of those active substances. As a consequence, the risk assessment pursuant to Article 11 of Implementing Regulation (EU) 2020/1740 has not yet been finalised by the respective rapporteur Member States and additional time is required to complete the remaining steps in each renewal procedure.\"",
+    "IMAZAMOX - DURACAO E MOTIVO DA PRORROGACAO (considerando 34): \"For the active substances Aureobasidium pullulans (strains DSM 14940 and DSM 14941), Bacillus amyloliquefaciens subsp. plantarum D747, benalaxyl-M, imazamox, Pseudomonas sp. strain DSMZ 13134, pyriofenone and pyroxsulam, as the risk assessment has not yet been finalised by the respective rapporteur Member States and in light of the remaining steps to be completed in each renewal procedure, the duration of the extension of the approval periods should be set at 29 months.\"",
+    "MOTIVO GERAL DA PRORROGACAO (considerando 33): \"It is therefore likely that no decision on the renewal of the approvals of all the active substances covered by this Regulation can be taken before the expiry of their respective approval periods, between 31 January and 30 April 2025. Furthermore, the reasons for the delays in these renewal procedures are beyond the control of the respective applicants. Therefore, the approval periods of those active substances should be extended in order to enable the completion of the assessments required and to finalise the respective procedures on the renewal of the approvals.\"",
+    "DATAS ANTERIORES CITADAS PELO PROPRIO ATO (considerandos 21 e 22): \"Commission Implementing Regulation (EU) 2023/689 extended the approval periods of the active substances cyprodinil, dichlorprop-P, fosetyl, pirimicarb, pyrimethanil, spinosad, triticonazole and ziram until 15 March 2025\" / \"Commission Implementing Regulation (EU) 2023/918 extended the approval periods of the active substances formetanate, milbemectin and phenmedipham until 15 February 2025.\" / (considerando 20) \"Commission Implementing Regulation (EU) 2020/2007 extended the approval periods of the active substances Aureobasidium pullulans (strains DSM 14940 and DSM 14941), Pseudomonas sp. strain DSMZ 13134, pyriofenone and imazamox until 31 January 2025\"",
+    "CLAUSULA CONDICIONAL SOBRE O FUTURO, QUE NAO DECIDE NADA AGORA (considerando 39): \"In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed, the Commission will set the expiry date at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later.\""
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO renova a aprovacao de nenhuma das tres substancias. Ele so troca a data de expiracao na coluna 6 do Anexo do Reg. 540/2011. O proprio considerando 33 diz que 'no decision on the renewal of the approvals [...] can be taken before the expiry of their respective approval periods'.",
+    "O ato NAO diz, em lugar nenhum, que qualquer substancia e 'candidate for substitution'. As palavras 'substitution' e 'candidate' NAO aparecem no texto (verificado por busca no corpo integral). Portanto, para Pirimicarb, Imazamox e Phenmedipham, o estado de 'candidate for substitution' e NAO SEI POR ESTE ATO — o campo booleano foi preenchido como false apenas porque o esquema exige booleano, e isso significa 'este ato nao afirma isso', NAO significa 'nao e candidata'. Essa informacao teria de vir de outra fonte (ex.: Reg. de aprovacao especifico ou lista da Comissao).",
+    "O ato NAO diz que a avaliacao de risco terminou, nem antecipa qual sera o resultado dela, para nenhuma das tres substancias.",
+    "O ato NAO proibe, NAO retira do mercado e NAO restringe usos de nenhuma das tres substancias. Nao ha periodo de graca, nao ha revogacao de autorizacao de produto, nao ha mudanca de condicoes de aprovacao neste texto.",
+    "O ato NAO fala de produtos comerciais, marcas, titulares de registro nem de nenhuma empresa (ADAMA nao e citada). Ele so trata das substancias ativas.",
+    "O ato NAO trata da Italia nem de qualquer Estado-Membro em particular. Ele e diretamente aplicavel em todos: 'This Regulation shall be binding in its entirety and directly applicable in all Member States.'",
+    "O ato NAO altera a Parte D do Anexo do Reg. 540/2011. Ele altera apenas as Partes A (16 linhas), B (7 linhas) e E (1 linha).",
+    "O ato NAO informa a data exata de entrada em vigor em numero — diz apenas 'the third day following that of its publication'. A publicacao consta como 22.1.2025 no cabecalho do Jornal Oficial (L series, 2025/99), mas a data resultante NAO esta escrita no ato; calcula-la seria inferencia minha, nao leitura.",
+    "O ato NAO diz quem e o Estado-Membro relator (rapporteur) de cada uma das tres substancias, nem para qual delas cada data da lista do considerando 26 corresponde.",
+    "Para Imazamox, o ato NAO diz que a EFSA precisa de mais tempo — diz que os Estados-Membros relatores ainda nao finalizaram a avaliacao de risco e ainda estao avaliando a admissibilidade. A responsabilidade nomeada e do relator, nao da Autoridade.",
+    "O ato NAO menciona nenhuma data futura de decisao, audiencia publica ou consulta especifica para Pirimicarb, Imazamox ou Phenmedipham."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": true,
+    "REASON": "REFUTADA — mas nao pelas datas. As datas estao TODAS CORRETAS. O erro esta no campo \"candidate_for_substitution\", que esta falso para duas das tres substancias.\n\nO QUE PASSOU NA CONFERENCIA (nao mexer):\n- act_type = EXTENSION_OF_APPROVAL_PERIOD: correto. O titulo diz \"as regards the extension of the approval periods\", e o Artigo 1 so manda alterar o anexo do 540/2011. Nao e renovacao. O considerando 33 confirma: \"no decision on the renewal ... can be taken before the expiry\" — ou seja, prorroga justamente porque a renovacao ainda nao saiu.\n- Datas, linhas e partes, conferidas uma a uma no Anexo: Pirimicarb Parte A linha 124 = 31 October 2026 (ponto 1, item (4)); Phenmedipham Parte A linha 88 = 30 September 2026 (ponto 1, item (2)); Imazamox Parte E linha 8 = 30 June 2027 (ponto 3). Nenhuma data pegou carona da linha vizinha (linha 110 Milbemectin = 31 May 2026, linha 127 Triticonazole = 31 January 2027, linha 130 Cyprodinil = 31 October 2026, linha 74 Ziram = 31 January 2027).\n- Nao houve troca de data velha por nova. As velhas eram: pirimicarb 15 March 2025 (cons. 21), phenmedipham 15 February 2025 (cons. 22), imazamox 31 January 2025 (cons. 20). A conta bate com os prazos declarados: 15/03/2025 + 19 meses e 2 semanas = 31 October 2026; 15/02/2025 + 19 meses e 2 semanas = 30 September 2026; 31/01/2025 + 29 meses = 30 June 2027.\n- risk_assessment_state: os tres corretos. Pirimicarb esta no considerando 30 e no 35 (EFSA precisa de mais tempo). Phenmedipham esta no considerando 29 e no 35 (idem). Imazamox esta MESMO na lista do considerando 27 (\"the risk assessment ... has not yet been finalised by the respective rapporteur Member States\") e no 34 — entao NOT_FINALISED nao foi colado numa substancia de fora da lista.\n\nO ERRO (dois campos):\n1) IMAZAMOX — candidate_for_substitution deveria ser TRUE, nao false. A propria leitura se contradiz: ela registra annex_part \"E\", e a Parte E do anexo do 540/2011 E a parte dos candidatos a substituicao. Conferido na fonte primaria: o Regulamento (UE) 2017/1531 se intitula \"renewing the approval of the active substance imazamox, as a candidate for substitution\", diz no considerando \"The Commission ... considers that imazamox is a candidate for substitution pursuant to Article 24 of Regulation (EC) No 1107/2009\" (persistente e toxica), e no anexo manda \"in Part A, entry 41 on imazamox is deleted\" e \"in Part E, the following entry is added\". Foi por ser candidata a substituicao que ela foi parar na Parte E.\n2) PIRIMICARB — candidate_for_substitution tambem deveria ser TRUE. O pirimicarb consta da lista de candidatos a substituicao do Regulamento (UE) 2015/408 (criterio de substancia persistente e toxica), e continua la na versao consolidada atual (01/07/2025) — nao foi suprimido por nenhuma alteracao, ao contrario de dezenas de outras substancias da lista original.\n\nPHENMEDIPHAM — aqui o false esta certo: nao consta da lista do 2015/408 nem da Parte E.\n\nObservacao de metodo: o ato 32025R0099 nao fala em \"candidate for substitution\" em lugar nenhum. Entao esse campo nao podia ter sido preenchido com \"false\" a partir da leitura deste ato — ou se marca \"desconhecido\", ou se vai buscar na fonte que decide (2015/408 e Parte E do 540/2011). Preencher \"false\" por ausencia de mencao gerou dois erros de status regulatorio, e um deles contradiz o proprio annex_part que a leitura registrou. Isso e caro: candidata a substituicao muda a regra de autorizacao do produto no Estado-Membro (avaliacao comparativa, Artigo 50 do 1107/2009) e o prazo maximo de aprovacao (7 anos em vez de 15).",
+    "CORRECTED": [
+     "Pirimicarb = 31 October 2026",
+     "Phenmedipham = 30 September 2026",
+     "Imazamox = 30 June 2027"
+    ],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32025R0787",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Prothioconazole",
+     "new_expiry_date": "31 March 2027",
+     "annex_part": "A",
+     "annex_row": "168",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME"
+    },
+    {
+     "name": "Paraffin oil",
+     "new_expiry_date": "30 November 2026",
+     "annex_part": "A",
+     "annex_row": "295",
+     "risk_assessment_state": "FINALISED"
+    },
+    {
+     "name": "Fludioxonil",
+     "new_expiry_date": "30 September 2026",
+     "annex_part": "A",
+     "annex_row": "161",
+     "risk_assessment_state": "FINALISED"
+    },
+    {
+     "name": "Fluxapyroxad",
+     "new_expiry_date": "31 October 2027",
+     "annex_part": "B",
+     "annex_row": "24",
+     "risk_assessment_state": "NOT_FINALISED"
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2025/787 of 24 April 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1,4-dimethylnaphthalene, amidosulfuron, bentazone, bixafen, clomazone, fenoxaprop-P, fludioxonil, fluoxastrobin, flutolanil, fluxapyroxad, gibberellic acid, gibberellins, halauxifen-methyl, mecoprop-P, paraffin oil, penthiopyrad, pirimiphos-methyl, propamocarb, propyzamide, prothioconazole, rimsulfuron, sedaxane and sulfoxaflor",
+    "The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.",
+    "Part A of the Annex to Implementing Regulation (EU) No 540/2011 is amended as follows:",
+    "in the sixth column, expiration of approval, of row 161, Fludioxonil, the date is replaced by ‘30 September 2026’;",
+    "in the sixth column, expiration of approval, of row 168, Prothioconazole, the date is replaced by ‘31 March 2027’;",
+    "in the sixth column, expiration of approval, of row 295, Paraffin oil, the date is replaced by ‘30 November 2026’.",
+    "Part B of the Annex to Implementing Regulation (EU) No 540/2011 is amended as follows:",
+    "in the sixth column, expiration of approval, of row 24, Fluxapyroxad, the date is replaced by ‘31 October 2027’;",
+    "The active substances amidosulfuron, clomazone, fenoxaprop-P, fludioxonil, fluoxastrobin, flutolanil, gibberellic acid, gibberellins, mecoprop-P, paraffin oil, pirimiphos-methyl, propamocarb, prothioconazole and rimsulfuron were included in Part A of the Annex to Commission Implementing Regulation (EU) No 540/2011 ( 27 ) . The active substances 1,4-dimethylnaphthalene, bentazone, bixafen, fluxapyroxad, halauxifen-methyl, penthiopyrad, sedaxane and sulfoxaflor were included in Part B, and the active substance propyzamide was included in Part E of the Annex to that Regulation.",
+    "For the active substances fluoxastrobin, pirimiphos-methyl, propamocarb and prothioconazole, for the purposes of assessment of the approval criteria set out in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009, additional information was requested by the Authority pursuant Article 13(3a) of Commission Implementing Regulation (EU) No 844/2012 ( 36 ) and was submitted by the applicants within the deadline given. However, additional time is needed for the evaluation of this information by the Authority and for the issuance of the related conclusion by risk assessors, as well as for the Commission to adopt the ensuing risk management decisions.",
+    "For the active substances fluoxastrobin, pirimiphos-methyl, propamocarb and prothioconazole, as the Authority needs additional time to reach a conclusion on the risk, and in light of the remaining steps to be completed in each renewal procedure, the extension of the approval period for each of these active substances should be set at 19 months and 2 weeks.",
+    "The applications for the renewal of the approval of the active substances bentazone, bixafen, fluxapyroxad, and sedaxane have been made public by the Authority pursuant to Article 10 of Implementing Regulation (EU) 2020/1740. For all those active substances, the risk assessment pursuant to Article 11 of Implementing Regulation (EU) 2020/1740 has, therefore, not yet been finalised by the respective rapporteur Member States and additional time is needed to complete the remaining steps in each renewal procedure.",
+    "For the active substances 1,4-dimethylnaphthalene, bentazone, bixafen, fluxapyroxad, halauxifen-methyl, mecoprop-P, penthiopyrad, propyzamide, sedaxane and sulfoxaflor, as the risk assessment has not yet been finalised by the respective rapporteur Member States and in light of the remaining steps to be completed in each renewal procedure, the duration of the extension of the approval periods should be set at 29 months.",
+    "For the active substances amidosulfuron, clomazone, fenoxaprop-P, fludioxonil, flutolanil, gibberellic acid, gibberellins and paraffin oil, the Authority has communicated its conclusions to the applicant, the Member States and the Commission. The Commission has presented a renewal report and a draft Regulation on the renewal of the approvals of those active substances to the Standing Committee on Plants, Animals, Food and Feed. Additional time is needed for the delivery of the opinion of that Committee and for the Commission to adopt the ensuing risk management decisions.",
+    "For the active substances amidosulfuron, clomazone, fenoxaprop-P, fludioxonil, flutolanil, gibberellic acid, gibberellins and paraffin oil, the delivery of an opinion of the Standing Committee on Plants, Animals, Food and Feed is pending. In light of the remaining steps to be completed in thoese renewal procedures, the duration of the extension of the approval periods should be set at 12 months for flutolanil, and at 15 months and 2 weeks for the active substances amidosulfuron, clomazone, fenoxaprop-P, fludioxonil, gibberellic acid, gibberellins and paraffin oil.",
+    "It is therefore likely for all of the active substances that no decision on the renewal of their approvals can be taken before the expiry of their respective approval periods, between 15 May and 18 August 2025. Furthermore, the reasons for the delays in those renewal procedures are beyond the control of the respective applicants. Therefore, the approval periods of those active substances should be extended to enable the completion of the assessments required and to finalise the respective procedures on the renewal of the approvals.",
+    "In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed, the Commission will set the expiry date at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later. In case the Commission adopts a Regulation providing for the renewal of the approval of an active substance referred to in the Annex to this Regulation, the Commission will set the earliest possible application date, as appropriate under the circumstances.",
+    "Commission Implementing Regulation (EU) 2023/918 ( 31 ) extended the approval periods of the active substances fluoxastrobin, pirimiphos-methyl and propamocarb until 15 June 2025, and the approval period of the active substance prothioconazole until 15 August 2025.",
+    "Commission Implementing Regulation (EU) 2023/1757 ( 30 ) extended the approval periods of the active substances clomazone and fludioxonil until 15 June 2025.",
+    "Commission Implementing Regulation (EU) 2023/2592 ( 29 ) extended the approval periods of the active substances amidosulfuron, fenoxaprop-P and paraffin oil until 15 August 2025.",
+    "Commission Implementing Regulation (EU) 2020/2007 ( 28 ) extended the approval period of the active substance 1,4-dimethylnaphthalene until 30 June 2025, and the approval periods of the active substances bixafen, fluxapyroxad, penthiopyrad and sedaxane until 31 May 2025.",
+    "This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union .",
+    "Commission Implementing Regulation (EU) 2018/755 of 23 May 2018 renewing the approval of the active substance propyzamide, as a candidate for substitution, in accordance with Regulation (EC) No 1107/2009 of the European Parliament and of the Council concerning the placing of plant protection products on the market, and amending the Annex to Commission Implementing Regulation (EU) No 540/2011"
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "CANDIDATE FOR SUBSTITUTION = NAO SEI para as 4 substancias. A expressao 'candidate for substitution' aparece UMA unica vez no ato inteiro, e e dentro da nota de rodape (22), citando o TITULO do Reg. (UE) 2018/755, que trata de PROPYZAMIDE. O ato nao diz nada sobre prothioconazole, paraffin oil, fludioxonil ou fluxapyroxad serem ou nao candidatos a substituicao. Nao achei = NAO SEI, nao 'nao e'. Por isso o campo candidate_for_substitution foi deixado VAZIO nas 4 substancias, e nao marcado como false.",
+    "PARAFFIN OIL / FLUDIOXONIL: o ato NAO usa a palavra 'finalised' para essas duas. O que ele diz literalmente e que 'the Authority has communicated its conclusions to the applicant, the Member States and the Commission' e que o passo pendente e a opiniao do Standing Committee. Marquei FINALISED como leitura de que a etapa de avaliacao da EFSA ja produziu conclusao, mas a palavra literal do ato e 'communicated its conclusions', nao 'finalised'. Se a regra do projeto exigir a palavra literal, esse campo deve virar NAO SEI.",
+    "O ato NAO diz que qualquer aprovacao foi retirada, cancelada, nao renovada ou proibida. Ele so troca a data na sexta coluna ('expiration of approval') do Anexo do Reg. 540/2011.",
+    "O ato NAO decide a renovacao em si. O considerando (46) explicita que a decisao de renovar ou nao renovar vira num Regulamento futuro, e so entao a Comissao fixa a data.",
+    "PARAFFIN OIL: o ato altera UMA SO linha, a linha 295 da Parte A. Ele nao diz nada sobre outras linhas de oleo parafinico do Anexo. A nota de rodape (29) mostra que existem entradas distintas chamadas 'paraffin oils' (plural) e 'paraffin oil' (singular) no Reg. 2023/2592 - o ato nao esclarece qual CAS a linha 295 cobre. O unico CAS citado no documento e 8042-47-5, e aparece na nota (17), descrevendo a Diretiva 2009/117/CE, nao a linha 295. Amarrar a linha 295 a um CAS especifico = NAO SEI por este ato.",
+    "O ato NAO menciona Italia, nem ADAMA, nem nenhum produto comercial, nem nenhum registro nacional. Ele opera no nivel da substancia ativa da Uniao. Qualquer efeito sobre registro italiano de produto NAO esta escrito aqui.",
+    "O ato NAO nomeia qual Estado-Membro e relator (rapporteur) de cada substancia individualmente. O considerando (33) lista 13 datas em sequencia para 14 substancias, sem dizer o pais de cada uma.",
+    "O ato NAO da a data exata de entrada em vigor. Diz apenas 'the twentieth day following that of its publication'; a publicacao no Jornal Oficial e datada 25.4.2025 no cabecalho, mas o calculo da data nao esta escrito no texto.",
+    "PROTHIOCONAZOLE: o ato NAO diz que a avaliacao de risco 'nao foi finalizada'. Essa frase (considerandos 34 e 41) e dirigida a outro grupo de substancias, que inclui fluxapyroxad mas NAO inclui prothioconazole. Para prothioconazole o ato diz que a EFSA precisa de mais tempo para avaliar informacao adicional ja entregue pelos requerentes dentro do prazo.",
+    "O ato NAO diz por que o pedido de informacao adicional sobre prothioconazole (criterios 3.6.5 e 3.8.2 do Anexo II do Reg. 1107/2009) foi feito, nem qual foi o resultado. So diz que a informacao foi pedida, foi entregue no prazo, e falta a EFSA avaliar."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Nao consegui refutar. Reli a fonte inteira (publications.europa.eu, mais um segundo fetch no EUR-Lex porque o primeiro cortou o anexo no meio da Parte B) e testei os quatro erros caros, um por um.\n\n1) DATA NA SUBSTANCIA ERRADA — nao ocorre. O anexo completo da Parte A e: 57 Mecoprop-P 15/10/2027; 125 Rimsulfuron 15/08/2028; 154 Propamocarb 31/01/2027; 156 Pirimiphos-methyl 31/01/2027; 161 Fludioxonil 30/09/2026; 162 Clomazone 30/09/2026; 166 Fluoxastrobin 31/01/2027; 168 Prothioconazole 31/03/2027; 169 Amidosulfuron 30/11/2026; 182 Fenoxaprop-P 30/11/2026; 187 Flutolanil 15/06/2026; 232 Gibberellic acid 31/10/2026; 233 Gibberellins 31/10/2026; 295 Paraffin oil 30/11/2026. Parte B (a) linha 24 Fluxapyroxad 31/10/2027. Os quatro pares batem exatamente (linha, parte e data). Cada uma das quatro substancias aparece UMA unica vez em todo o anexo (Partes A, B e E), entao nao ha segunda entrada que pudesse ter sido colada.\n\n2) DATA ANTIGA CONFUNDIDA COM A NOVA — nao ocorre. As datas antigas estao nos considerandos (25)-(28): paraffin oil e prothioconazole venciam 15/08/2025, fludioxonil 15/06/2025, fluxapyroxad 31/05/2025. Nenhuma delas aparece na leitura. A aritmetica tambem fecha: fludioxonil e paraffin oil recebem \"15 months and 2 weeks\" (cons. 44) sobre 15/06 e 15/08/2025; prothioconazole recebe \"19 months and 2 weeks\" (cons. 42) sobre 15/08/2025 (= 29/03/2027, arredondado para 31/03/2027); fluxapyroxad recebe 29 meses (cons. 41) sobre 31/05/2025 = 31/10/2027.\n\n3) EXTENSION vs RENEWAL — a leitura marca EXTENSION_OF_APPROVAL_PERIOD, que e o que o titulo e o Artigo 1 dizem (emenda ao 540/2011 estendendo periodos). Em nenhum ponto a leitura afirma renovacao; o considerando (40) diz o contrario e a leitura nao o contradiz.\n\n4) \"RISK ASSESSMENT NOT FINALISED\" atribuido a quem nao esta na lista — nao ocorre. Fluxapyroxad esta nominalmente nas duas listas de nao-finalizado, cons. (34) e (41). Prothioconazole esta nominalmente em (37) e (42), que dizem \"the Authority needs additional time to reach a conclusion on the risk\" — exatamente EFSA_NEEDS_MORE_TIME. Fludioxonil e paraffin oil estao nominalmente em (39), onde a EFSA ja comunicou suas conclusoes; o que falta para eles e o parecer do Comite Permanente, nao a avaliacao de risco — entao FINALISED se sustenta.\n\nAs doze citacoes literais conferem palavra por palavra com a fonte, inclusive as duas que atravessam quebras de linha no XML (o titulo e o Artigo 1). Nenhuma parafrase foi passada como citacao.",
+    "CORRECTED": null,
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32025R1489",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Clodinafop",
+     "new_expiry_date": "31 July 2027",
+     "annex_part": "A",
+     "annex_row": "123",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME",
+     "candidate_for_substitution": false
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2025/1489 of 24 July 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances ametoctradin, Beauveria bassiana strains ATCC 74040 and GHA, buprofezin, clodinafop, copper compounds, ...",
+    "Commission Directive 2006/39/EC ( 6 ) included clodinafop as an active substance in Annex I to Directive 91/414/EEC until 31 January 2017.",
+    "The active substances Beauveria bassiana strains ATCC 74040 and GHA, buprofezin, clodinafop, daminozide and pyraclostrobin were included in Part A of the Annex to Commission Implementing Regulation (EU) No 540/2011 ( 22 ) .",
+    "Commission Implementing Regulation (EU) 2023/689 ( 24 ) extended the approval period of the active substance Beauveria bassiana strains ATCC 74040 and GHA until 30 September 2025, and the approval period of the active substance clodinafop until 15 December 2025.",
+    "For the active substance clodinafop, additional information for the purposes of assessment of the approval criteria set out in point 3.6.5 and point 3.8.2 of Annex II to Regulation (EC) No 1107/2009 as amended by Regulation (EU) 2018/605, was requested by the Authority in consultation with the Member States pursuant to Article 14(1a) of Implementing Regulation (EU) No 844/2012.",
+    "The additional information was submitted by the applicants within the deadline given. The revised draft renewal assessment report has been received from the rapporteur Member State and the public consultation on it has been finalised on 3 November 2024. However, additional time is needed for the Authority to complete the evaluation and to finalise its conclusion, as well as for the Commission to adopt the ensuing risk management decision.",
+    "For the active substances Beauveria bassiana strains ATCC 74040 and GHA, clodinafop, cyflumetofen, Helicoverpa armigera nucleopolyhedrovirus , metam, rescalure, Spodoptera littoralis nucleopolyhedrovirus , Trichoderma asperellum strain T34 and Trichoderma atroviride strain I-1237, the Authority needs additional time to reach a conclusion on the risk.",
+    "Taking into account the subsequent steps to be completed in each renewal procedure, the duration of the extension of the approval periods of these active substances should be set at 19 and a half months for clodinafop, ...",
+    "It is therefore likely for all of the active substances that no decision on the renewal of the approval can be taken before the expiry of their respective approval periods, between 15 September and 31 December 2025. Furthermore, the reasons for the delays in these renewal procedures are beyond the control of the respective applicants. Therefore, the approval periods of those active substances should be extended to enable the completion of the assessments required and to finalise the respective procedures on the renewal of the approvals.",
+    "Article 1 The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.",
+    "ANNEX 1. Part A of the Annex to Implementing Regulation (EU) No 540/2011 is amended as follows: ... (3) in the sixth column, expiration of approval, of row 123, Clodinafop, the date is replaced by '31 July 2027';",
+    "Article 2 This Regulation shall enter into force on the third day following that of its publication in the Official Journal of the European Union .",
+    "In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed, the Commission will set the expiry date at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later.",
+    "On 9 November 2023, 18 July 2024, 9 September 2021, 20 June 2017, 26 June 2023, 31 October 2018, 9 March 2020, 10 August 2021, 19 February 2018, 9 March 2022, 31 January 2024 and 2 September 2024, the rapporteur Member States for the active substances Beauveria bassiana strains ATCC 74040 and GHA, buprofezin, clodinafop, cyflumetofen, daminozide, ... submitted the draft renewal assessment report to the Authority."
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "ATENCAO ao campo candidate_for_substitution: o esquema so aceita true/false, e a resposta correta seria NAO SEI. Marquei false apenas porque nao existe valor 'NAO SEI' nesse campo. O ato NAO diz, em lugar nenhum, que clodinafop e ou nao e 'candidate for substitution'. A expressao 'candidate for substitution' aparece uma unica vez no corpo do ato, e e sobre outra substancia: 'Commission Implementing Regulation (EU) 2018/1981 renewed the approval of the active substance as candidate for substitution until 31 December 2025' (copper compounds). Nao trate esse false como fato lido.",
+    "O ato NAO renova nem deixa de renovar a aprovacao do clodinafop. Ele so troca uma data. O texto diz que a decisao ainda vai vir: 'additional time is needed for the Authority to complete the evaluation and to finalise its conclusion, as well as for the Commission to adopt the ensuing risk management decision'.",
+    "O ato NAO altera nenhuma condicao de aprovacao, restricao de uso ou disposicao especifica do clodinafop. A alteracao e cirurgica e limitada: 'in the sixth column, expiration of approval, of row 123'. As outras colunas da linha 123 nao sao tocadas pelo ato.",
+    "O ato NAO diz qual foi o resultado da avaliacao de risco do clodinafop. Ele diz que informacao adicional sobre os criterios dos pontos 3.6.5 e 3.8.2 do Anexo II do Reg. 1107/2009 (na redacao do Reg. 2018/605) foi pedida e entregue, mas NAO diz se os criterios sao ou nao cumpridos.",
+    "O ato NAO diz que a EFSA ja adotou sua conclusao sobre clodinafop. Ao contrario: para buprofezin, daminozide e pyraclostrobin o ato registra datas de adocao de conclusao ('the Authority has adopted its conclusions on 1 April 2025, 18 December 2024, and 28 January 2025 respectively'); clodinafop NAO esta nessa lista.",
+    "O ato NAO da prazo para a EFSA concluir, nem data de decisao da Comissao. Da apenas a duracao da prorrogacao: '19 and a half months for clodinafop'.",
+    "O ato NAO diz que a avaliacao de risco do Estado-Membro relator do clodinafop esta pendente. Clodinafop NAO aparece na lista do considerando (38) ('For the active substances ametoctradin, copper compounds, flupyradifurone, mandestrobin, mandipropamid and Streptomyces lydicus strain WYEC 108, the risk assessment has not been finalised yet by the rapporteur Member States'). O que o ato diz sobre clodinafop e que o relatorio revisado ja chegou e a consulta publica terminou em 3 November 2024, e que quem precisa de mais tempo e a Autoridade (EFSA).",
+    "O ato NAO nomeia qual e o Estado-Membro relator do clodinafop.",
+    "O ato NAO permite fixar com seguranca a data em que o relatorio de avaliacao do clodinafop foi entregue a EFSA. O considerando (28) lista 12 datas para 11 substancias — a contagem nao fecha, entao NAO SEI qual data corresponde ao clodinafop.",
+    "O ato NAO diz sob qual regulamento de procedimento o pedido de renovacao do clodinafop foi apresentado. Clodinafop esta ausente tanto da lista do considerando (25) (pedidos sob o Reg. 844/2012) quanto da do considerando (33) (pedidos sob o Reg. 2020/1740). A unica pista e indireta: o considerando (31) invoca o 'Article 14(1a) of Implementing Regulation (EU) No 844/2012' para o clodinafop.",
+    "O ato NAO menciona a Italia, nem qualquer Estado-Membro por nome, nem qualquer autorizacao nacional de produto.",
+    "O ato NAO menciona a ADAMA nem qualquer empresa, marca ou produto formulado. Fala apenas em 'the applicants', sem nomear.",
+    "O ato NAO cria periodo de escoamento (grace period), prazo de venda ou prazo de uso de estoques. Nao ha nenhuma disposicao transitoria no texto.",
+    "O ato NAO diz a data exata de entrada em vigor: diz 'the third day following that of its publication'. A publicacao consta como 25.7.2025 no cabecalho do Jornal Oficial, mas a data resultante nao esta escrita no ato.",
+    "O ato NAO altera as Partes B, D nem qualquer outra parte do Anexo do Reg. 540/2011 no que toca ao clodinafop. Clodinafop e alterado somente na Parte A. (O ato altera tambem Parte B e Parte E, mas para outras substancias.)"
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Tentei derrubar a leitura pelos quatro erros caros e ela resistiu em todos. (1) Data da linha vizinha: extrai os 18 pares linha/data do Anexo; a linha 123, Clodinafop, Parte A, recebe mesmo '31 July 2027'. As vizinhas sao Daminozide (linha 104, 15 September 2026) e Beauveria bassiana (linha 197, 15 September 2027) — diferentes. E '31 July 2027' aparece UMA unica vez no ato inteiro, entao nao pode ter sido copiada de outra substancia. (2) Data antiga x nova: o clodinafop tem tres datas no texto — 31 January 2017 (inclusao original, Diretiva 2006/39/CE), 15 December 2025 (a que vigorava antes, posta pelo Reg. 2023/689) e 31 July 2027 (a nova). A leitura poe a terceira como new_expiry_date e cita as outras duas so como historico. A conta bate sozinha: 15 Dec 2025 + 19,5 meses = 31 July 2027, e o considerando 39 diz literalmente '19 and a half months for clodinafop'. (3) Extensao x renovacao: o titulo diz 'extension of the approval periods' e o Artigo 1 so altera o Anexo do Reg. 540/2011 — nao ha renovacao de aprovacao de clodinafop. act_type=EXTENSION_OF_APPROVAL_PERIOD esta certo. (4) Estado da avaliacao de risco: o ato tem duas listas distintas. Os considerandos 27 e 38 sao 'o Estado-Membro relator nao finalizou a avaliacao de risco' — o clodinafop NAO esta em nenhuma das duas. O considerando 39 e 'a Autoridade (EFSA) precisa de tempo adicional para concluir sobre o risco' — o clodinafop ESTA nessa, e o considerando 31 repete isso especificamente para ele. A leitura marcou EFSA_NEEDS_MORE_TIME, que e exatamente essa lista. Verifiquei tambem que as 15 citacoes literais batem palavra por palavra com a fonte (normalizando espaco e aspas curvas), que annex_part=A e confirmado pelo considerando 19 e pela estrutura do Anexo, e que candidate_for_substitution=false esta certo — a unica substancia chamada de 'candidate for substitution' no ato e copper compounds. Observacao que NAO refuta: o considerando 28 lista 12 datas para 11 substancias nomeadas, uma assimetria do proprio texto-fonte; a ultima citacao da leitura esta truncada antes de qualquer mapeamento data-substancia, entao nao faz afirmacao ali e nao herda o erro. Fonte relida por mim em https://publications.europa.eu/resource/celex/32025R1489 via py scripts/texto_fonte.py eu 32025R1489.",
+    "CORRECTED": null,
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32025R2316",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Diflufenican",
+     "new_expiry_date": "31 August 2027",
+     "annex_part": "A",
+     "annex_row": "181",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME"
+    },
+    {
+     "name": "Difenoconazole",
+     "new_expiry_date": "31 January 2028",
+     "annex_part": "A",
+     "annex_row": "173",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME"
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2025/2316 of 17 November 2025 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances aluminium silicate, difenoconazole, diflufenican, disodium phosphonate, extract from tea tree, flurochloridone, indolylbutyric acid, maltodextrin, phosphane, plant oils/clove oil, plant oils/spear mint oil, potassium phosphonates and triclopyr",
+    "The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.",
+    "1. Part A of the Annex to Implementing Regulation (EU) No 540/2011 is amended as follows:",
+    "(3) in the sixth column, expiration of approval, of row 181, Diflufenican, the date is replaced by ‘31 August 2027’;",
+    "(2) in the sixth column, expiration of approval, of row 173, Difenoconazole, the date is replaced by ‘31 January 2028’;",
+    "The active substances aluminium silicate, difenoconazole, diflufenican, extract from tea tree, flurochloridone, indolylbutyric acid, plant oils/clove oil, plant oils/spear mint oil and triclopyr were included in Part A of the Annex to Commission Implementing Regulation (EU) No 540/2011 ( 13 ) .",
+    "Commission Implementing Regulation (EU) 2023/2592 ( 17 ) extended the approval period of the active substance difenoconazole until 15 March 2026, and the approval period of the active substance diflufenican until 15 January 2026.",
+    "However, additional time is needed for the Authority to complete the evaluation and to finalise its conclusion for difenoconazole, diflufenican, extract from tea tree, flurochloridone and indolylbutyric acid, as well as for the Commission to adopt the ensuing risk management decision.",
+    "For the active substances difenoconazole, diflufenican, extract from tea tree, flurochloridone, indolylbutyric acid, plant oils/clove oil and plant oils/spear mint oil, the Authority needs additional time to reach a conclusion on the risk assessment.",
+    "Taking into account the subsequent steps to be completed in each renewal procedure, the duration of the extension of the approval periods of these active substances should be set at 19 months and 15 days for diflufenican and flurochloridone, at 22 months and 15 days for difenoconazole, extract from tea tree and indolylbutyric acid, at 23 months and 15 days for plant oils/spear mint oil, and at 29 months for plant oils/clove oil.",
+    "For the active substances difenoconazole, diflufenican, extract from tea tree, flurochloridone and indolylbutyric acid, on 22 July 2021, 5 May 2021, 20 June 2024, 28 October 2024 and 3 April 2024, respectively, additional information for the purposes of assessment of the approval criteria concerning endocrine disrupting properties set out in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009, as amended by Commission Regulation (EU) 2018/605 ( 21 ) , was requested by the Authority in consultation with the Member States pursuant to Article 13(3a) of Implementing Regulation (EU) No 844/2012.",
+    "The additional information for difenoconazole, diflufenican and flurochloridone was submitted by the applicants within the deadline given, and for extract from tea tree and indolylbutyric acid the submission is pending.",
+    "The rapporteur Member States submitted the revised draft renewal assessment reports for diflufenican and flurochloridone to the Authority and the public consultations on them finished on 18 June 2024 and 3 June 2025, respectively.",
+    "It is therefore likely for all of the active substances covered by this Regulation that no decision on the renewal of the approval can be taken before the expiry of their respective approval periods, between 15 January and 31 March 2026.",
+    "Furthermore, the reasons for the delays in these renewal procedures are beyond the control of the respective applicants. Therefore, the approval periods of those active substances should be extended to enable the completion of the assessments required and to finalise the respective procedures on the renewal of the approvals.",
+    "Applications for the respective renewals of the approval of the active substances aluminium silicate, difenoconazole, diflufenican, extract from tea tree, flurochloridone, indolylbutyric acid, maltodextrin, phosphane, plant oils/clove oil, plant oils/spear mint oil and triclopyr were submitted in accordance with Commission Implementing Regulation (EU) No 844/2012 ( 20 ) .",
+    "In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed, the Commission will set the expiry date for the approval of this active substance at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later.",
+    "This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union .",
+    "Commission Directive 2008/66/EC ( 4 ) included diflufenican as an active substance in Annex I to Directive 91/414/EEC until 31 December 2018.",
+    "Commission Directive 2008/69/EC ( 5 ) included difenoconazole as an active substance in Annex I to Directive 91/414/EEC until 31 December 2018."
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO decide a renovacao nem a nao-renovacao da aprovacao de difenoconazole ou diflufenican. Ele so troca a data da sexta coluna do Anexo do Reg. 540/2011. O proprio texto trata a nao-renovacao como hipotese futura e condicional: 'In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed...'.",
+    "As palavras 'candidate' e 'substitution' NAO aparecem em nenhum ponto do texto do ato (verificado por busca no texto integral: 0 ocorrencias). Portanto, se difenoconazole ou diflufenican sao 'candidate for substitution' e NAO SEI a partir desta fonte. Nao afirmo nem nego, e este ato nao serve de prova em nenhuma das duas direcoes.",
+    "O ato NAO diz qual foi o resultado da avaliacao dos criterios de desreguladores endocrinos. Ele so registra que a informacao adicional foi pedida pela EFSA e que, para difenoconazole e diflufenican, os requerentes a entregaram no prazo. Nenhuma conclusao cientifica e enunciada.",
+    "O ato NAO usa a formula 'risk assessment has not been finalised' para difenoconazole e diflufenican. Essa formula aparece no ato, mas aplicada a OUTRAS substancias (disodium phosphonate e potassium phosphonates, considerando 26 e 28). Para as nossas duas, a linguagem literal e 'the Authority needs additional time to reach a conclusion on the risk assessment' e 'additional time is needed for the Authority to complete the evaluation and to finalise its conclusion'.",
+    "O ato NAO menciona a Italia nem qualquer Estado-Membro pelo nome (0 ocorrencias de 'Ital' no texto). Nao ha nada sobre autorizacoes nacionais de produtos, registros nacionais, periodo de escoamento ('grace period') ou prazos de venda e uso de estoque. As palavras 'authorisation', 'grace period' e 'withdraw' tem 0 ocorrencias.",
+    "O ato NAO menciona a ADAMA nem qualquer empresa pelo nome (0 ocorrencias de 'ADAMA'). Os requerentes sao citados apenas como 'the applicants', sem identificacao.",
+    "O ato NAO altera condicoes de aprovacao, restricoes de uso, doses, culturas ou classificacao das substancias. A unica alteracao e na sexta coluna, 'expiration of approval'. Nao ha mencao a 'conditions of approval', 'low-risk' ou 'basic substance'.",
+    "O ato NAO proibe, nao suspende e nao revoga nada ('prohibit' e 'revoke': 0 ocorrencias). Nao ha nele qualquer base para prever proibicao, saida de mercado ou risco comercial.",
+    "O ato NAO informa a data-calendario exata de entrada em vigor: da apenas a formula 'the twentieth day following that of its publication', a partir da publicacao no Jornal Oficial em 18.11.2025. A data resultante nao esta escrita no texto e portanto NAO SEI a data literal.",
+    "O ato NAO diz quais produtos comerciais contem essas substancias, nem quantos, nem em que paises estao registrados."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Tentei refutar pelos quatro erros caros e a leitura resistiu a todos.\n\n1) DATA NA SUBSTANCIA ERRADA — nao houve troca. O Anexo, Parte A, diz literalmente: item (2) \"row 173, Difenoconazole, the date is replaced by '31 January 2028'\" e item (3) \"row 181, Diflufenican, the date is replaced by '31 August 2027'\". Bate linha por linha. As linhas vizinhas que poderiam contaminar sao row 326 Indolylbutyric acid (tambem 31 January 2028) e row 354 Flurochloridone (31 October 2027) — nenhuma delas vazou para a leitura.\n\nConferencia independente pela aritmetica do recital (29): diflufenican ganha \"19 months and 15 days\" sobre a data antiga de 15 January 2026 (recital 15) = fim de agosto de 2027 -> 31 August 2027. Difenoconazole ganha \"22 months and 15 days\" sobre 15 March 2026 = fim de janeiro de 2028 -> 31 January 2028. As duas contas fecham com o Anexo. Se as datas estivessem trocadas, as duas contas quebrariam.\n\n2) DATA ANTIGA CONFUNDIDA COM A NOVA — nao houve. As datas antigas (15 January 2026 para diflufenican, 15 March 2026 para difenoconazole, do Reg. 2023/2592) aparecem so dentro de uma citacao de contexto, nunca nos campos new_expiry_date.\n\n3) EXTENSION vs RENEWAL — o act_type EXTENSION_OF_APPROVAL_PERIOD esta certo. O titulo do ato e \"as regards the extension of the approval periods\", e o recital (27) diz o oposto de renovacao: \"no decision on the renewal of the approval can be taken before the expiry of their respective approval periods\". Ninguem foi renovado; so ganharam mais prazo.\n\n4) ESTADO DE AVALIACAO DE RISCO ATRIBUIDO ERRADO — nao houve. O recital (29) nomeia explicitamente as duas: \"For the active substances difenoconazole, diflufenican, [...] the Authority needs additional time to reach a conclusion on the risk assessment\". O rotulo EFSA_NEEDS_MORE_TIME e exatamente esse grupo. A leitura tambem NAO caiu na armadilha vizinha: o recital (28), com a formula parecida \"the risk assessment has not been finalised yet by the rapporteur Member State\", vale so para disodium phosphonate e potassium phosphonates (Estado-membro relator, nao EFSA), e nenhuma dessas foi atribuida as duas substancias.\n\nOutros campos verificados: celex 32025R2316 confere com o ELI do proprio ato (data.europa.eu/eli/reg_impl/2025/2316/oj); annex_part \"A\" confere (recital 11 coloca as duas em Part A do Anexo do Reg. 540/2011); as citacoes literais batem palavra por palavra com a fonte, sem alteracao.\n\nRESSALVA (nao e refutacao): a leitura cobre so 2 das 13 substancias do ato. Nao afirma ser exaustiva, entao nao ha afirmacao falsa — mas quem usar isso como \"o que o 2316 fez\" perde 11 substancias, inclusive as 4 de Part B.",
+    "CORRECTED": null,
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32026R0372",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Fluazinam",
+     "new_expiry_date": "30 November 2027",
+     "annex_part": "A",
+     "annex_row": "189",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Pinoxaden",
+     "new_expiry_date": "31 December 2029",
+     "annex_part": "B",
+     "annex_row": "97",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": false
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2026/372 of 20 February 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances 1-decanol, 1-naphthylacetamide, 1-naphthylacetic acid, 6-benzyladenine, aluminium sulfate, boscalid, dodine, esfenvalerate, eugenol, fenpyroximate, fluazifop-P, fluazinam, fluometuron, fluopyram, flutolanil, geraniol, malathion, penoxsulam, pinoxaden, prohexadione, proquinazid, prosulfuron, pyrethrins, pyridaben, pyrimethanil, sintofen, spiroxamine, sulphur and thymol",
+    "Part A of the Annex to Implementing Regulation (EU) No 540/2011 is amended as follows:",
+    "in the sixth column, expiration of approval, of row 189, Fluazinam, the date is replaced by ‘30 November 2027’;",
+    "Part B of the Annex to Implementing Regulation (EU) No 540/2011 is amended as follows:",
+    "in the sixth column, expiration of approval, of row 97, Pinoxaden, the date is replaced by ‘31 December 2029’.",
+    "The active substances 1-decanol, 6-benzyladenine, aluminium sulfate, boscalid, dodine, fenpyroximate, fluazinam, fluometuron, flutolanil, malathion, penoxsulam, proquinazid, pyrethrins, pyridaben, pyrimethanil, sintofen and sulphur were included in Part A of the Annex to Commission Implementing Regulation (EU) No 540/2011 ( 34 ) . The active substances 1-naphthylacetamide, 1-naphthylacetic acid, eugenol, fluazifop-P, fluopyram, geraniol, pinoxaden, prohexadione, spiroxamine and thymol were included in Part B, and the active substances esfenvalerate and prosulfuron were included in Part E of the Annex to that Regulation.",
+    "Commission Directive 2008/108/EC ( 14 ) included fluazinam and flutolanil as active substances in Annex I to Directive 91/414/EEC until 28 February 2019.",
+    "Commission Implementing Regulation (EU) 2024/324 ( 40 ) extended the approval period of the active substance fluazinam until 15 April 2026, and the approval period of the active substance fluopyram until 30 June 2026.",
+    "Commission Implementing Regulation (EU) 2016/370 ( 33 ) approved the active substance pinoxaden until 30 June 2026.",
+    "However, additional time is needed for the Authority to complete the evaluation and to finalise its conclusions for fenpyroximate, fluazinam and proquinazid, as well as for the Commission to adopt the ensuing risk management decision.",
+    "For the active substances 1-decanol, boscalid, dodine, eugenol, fenpyroximate, fluazinam, fluopyram, geraniol, malathion, prohexadione, proquinazid, pyrethrins and thymol, the Authority needs additional time to reach a conclusion on the risk assessment. Taking into account the subsequent steps to be completed in each renewal procedure, the duration of the extension of the approval periods of these active substances should be set at 19 months and 15 days for fenpyroximate, fluazinam and proquinazid, at 22 months and 15 days for pyrethrins, and at 23 months and 15 days for 1-decanol, boscalid, dodine, eugenol, fluopyram, geraniol, malathion, prohexadione and thymol.",
+    "For the active substances fenpyroximate, fluazinam, flutolanil, proquinazid, pyrethrins and pyrimethanil, on 4 November 2021, 17 June 2021, 12 July 2019, 12 April 2024, 28 August 2023 and 16 December 2019, respectively, additional information for the purposes of assessment of the approval criteria concerning endocrine disrupting properties set out in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009, as amended by Commission Regulation (EU) 2018/605 ( 45 ) , was requested by the Authority in consultation with the Member States pursuant to Article 13(3a) of Implementing Regulation (EU) No 844/2012.",
+    "The risk assessments pursuant to Article 11 of Implementing Regulation (EU) 2020/1740 for 6-benzyladenine, aluminium sulfate, fluometuron, pinoxaden, prosulfuron and sintofen have not yet been finalised by the rapporteur Member States and additional time is required to complete the remaining steps in each renewal procedure.",
+    "For the active substances 1-naphthylacetamide, 1-naphthylacetic acid, 6-benzyladenine, aluminium sulfate, esfenvalerate, fluazifop-P, fluometuron, pinoxaden, prosulfuron, pyridaben, sintofen and spiroxamine, the risk assessment has not been finalised yet by the rapporteur Member State. Taking into account the subsequent steps to be completed in each renewal procedure, the duration of the extension of the approval periods of these active substances should be set at 42 months.",
+    "Applications for the respective renewal of the approvals of the active substances pinoxaden and prosulfuron were submitted in accordance with Implementing Regulation (EU) 2020/1740.",
+    "It is therefore likely for all of the active substances covered by this Regulation that no decision on the renewal of the approval can be taken before the expiry of their respective approval periods, between 15 April and 31 July 2026.",
+    "Furthermore, on the basis of the information available at the moment of adoption of this Regulation, including that provided by the rapporteur Member States and the Authority, the Commission considers that the reasons for the delays in each of these renewal procedures are beyond the control of the respective applicants.",
+    "Therefore, taking into account the temporary and exceptional nature of the mechanism for the extension of approvals, the approval periods of those active substances should be extended for the period assessed as necessary, in each specific case and on the basis of the information available at the moment of adoption of this Regulation, to finalise the respective procedures on the renewal of the approvals.",
+    "In case the Commission adopts a Regulation providing that the approval of an active substance referred to in the Annex to this Regulation is not renewed, the Commission will set the expiry date for the approval of this active substance at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later. In case the Commission adopts a Regulation providing for the renewal of the approval of an active substance referred to in the Annex to this Regulation, the Commission will set, as appropriate under the circumstances, the earliest possible application date.",
+    "The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.",
+    "This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union .",
+    "Commission Directive 2000/67/EC ( 7 ) included esfenvalerate in Annex I to Directive 91/414/EEC as an active substance until 31 July 2011 and Commission Implementing Regulation (EU) 2015/2047 ( 8 ) renewed the approval of the active substance as a candidate for substitution until 31 December 2022."
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO renova nem deixa de renovar a aprovacao de fluazinam ou pinoxaden. Ele so troca a data da sexta coluna do Anexo do Reg. 540/2011 (Artigo 1: 'The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.'). O procedimento de renovacao continua aberto para as duas substancias.",
+    "CANDIDATE FOR SUBSTITUTION: o ato NAO diz, em nenhum ponto do corpo do texto, que fluazinam ou pinoxaden sejam 'candidate for substitution'. A expressao aparece so quatro vezes, sempre sobre esfenvalerate e prosulfuron (recitais 3 e 4 e as notas de rodape 8 e 10), que estao na Parte E. Marquei false porque o ato coloca fluazinam na Parte A e pinoxaden na Parte B, e nao usa a expressao para elas — mas isso e leitura da estrutura, nao frase literal. Se o parent precisar de certeza, o estado honesto e NAO SEI e a fonte tem de ser o ato de aprovacao de cada substancia (Reg. 2016/370 para pinoxaden; Diretiva 2008/108/CE para fluazinam), que eu nao li aqui.",
+    "O ato NAO fixa data para a EFSA concluir a avaliacao, nem para a Comissao tomar a decisao de gestao de risco. Ele so diz que 'additional time is needed'.",
+    "O ato NAO diz qual sera o resultado da renovacao. O recital 57 preve expressamente os dois caminhos possiveis (renovacao e nao renovacao) sem indicar qual ocorrera.",
+    "O ato NAO altera nenhuma condicao de aprovacao (usos autorizados, restricoes, provisoes especificas). A instrucao do Anexo mexe apenas na 'sixth column, expiration of approval'.",
+    "O ato NAO trata de autorizacoes nacionais de produtos, nem da Italia, nem de prazo de escoamento de estoque (grace period / sell-out). Ele opera no nivel da substancia ativa na UE.",
+    "O ato NAO cita nenhuma empresa, titular de registro ou ADAMA. Os requerentes aparecem so como 'the applicants'.",
+    "Para fluazinam o ato NAO diz que a avaliacao do Estado-Membro relator esteja pendente — ao contrario, o recital 41 registra que o dRAR foi entregue (21 June 2019) e o recital 43 que o relatorio revisto foi entregue e a consulta publica terminou em 28 September 2024. O atraso declarado esta na EFSA.",
+    "Para pinoxaden o ato NAO menciona nenhum draft renewal assessment report entregue nem qualquer envolvimento da EFSA na avaliacao; so registra a admissibilidade do pedido (6 May 2024) e que a avaliacao de risco do relator 'has not been finalised yet'.",
+    "A data exata de entrada em vigor NAO e escrita no ato. Ele diz 'the twentieth day following that of its publication', e a publicacao no JO consta como 23.2.2026 no cabecalho — a soma e minha, nao do texto.",
+    "OBSERVACAO DE LEITURA: no recital 43 o texto lista 'fenpyroximate, fluazinam, flutolanil, proquinazid, pyrimethanil and flurochloridone' (seis substancias) para cinco datas de consulta publica, e flurochloridone nao esta no titulo nem no Anexo deste ato. Parece erro de redacao do proprio ato; nao muda nada para fluazinam, cuja consulta publica e datada de 28 September 2024 na ordem da lista."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Nao consegui refutar. Reli a fonte completa (publications.europa.eu/resource/celex/32026R0372) e testei os quatro erros caros, um por um.\n\n1) DATA NA SUBSTANCIA ERRADA — nao ocorre. O anexo e explicito: \"row 189, Fluazinam, the date is replaced by '30 November 2027'\" e \"row 97, Pinoxaden, the date is replaced by '31 December 2029'\". Nenhum dos dois valores aparece em qualquer outra linha do anexo, entao colagem de linha vizinha e impossivel. Vizinhas tem valores distintos: row 187 Flutolanil = 15 June 2027; row 213 Fenpyroximate = 31 January 2028; row 51 Fluopyram = 15 June 2028.\n\n2) DATA ANTIGA CONFUNDIDA COM A NOVA — nao ocorre. As antigas estao nos considerandos e sao outras: fluazinam vigia ate 15 April 2026 (cons. 34, Reg. 2024/324) e pinoxaden ate 30 June 2026 (cons. 27, Reg. 2016/370). A leitura cita as duas como historico e nunca as apresenta como new_expiry_date.\n\n3) CHECAGEM ARITMETICA INDEPENDENTE — confirma. Fluazinam esta no grupo do cons. 54 com extensao de \"19 months and 15 days\": 15/04/2026 + 19m + 15d = 30/11/2027. Bate exatamente. Pinoxaden esta no grupo do cons. 53 com 42 meses: 30/06/2026 + 42m = fim de dezembro/2029, e o anexo operativo fixa 31 December 2029 (a Comissao arredonda para fim de mes; a mesma regra de 42 meses reproduz exatamente as demais datas do grupo — prosulfuron 15/06/2026 -> 15/12/2029, pyridaben 31/07/2026 -> 31/01/2030, 6-benzyladenine 15/07/2026 -> 15/01/2030).\n\n4) EXTENSION vs RENEWAL — correto. Titulo, Artigo 1 e todos os considerandos dizem \"extension of the approval periods\", com base no Artigo 17 do Reg. 1107/2009. O cons. 50 afirma que nenhuma decisao de renovacao pode ser tomada antes do vencimento. act_type=EXTENSION_OF_APPROVAL_PERIOD esta certo; a leitura NAO faz a afirmacao mais forte.\n\n5) RISK ASSESSMENT STATE (a armadilha mais sutil) — o ato tem duas trilhas distintas e a leitura as separa corretamente. Cons. 54: \"the Authority needs additional time to reach a conclusion on the risk assessment\" — essa lista contem fluazinam (e nao contem pinoxaden) -> EFSA_NEEDS_MORE_TIME esta certo, reforcado pelo cons. 43 (\"additional time is needed for the Authority to complete the evaluation and to finalise its conclusions for fenpyroximate, fluazinam and proquinazid\"). Cons. 48 e 53: \"the risk assessment has not been finalised yet by the rapporteur Member State\" — essa lista contem pinoxaden (e nao contem fluazinam) -> NOT_FINALISED esta certo. Nao ha troca cruzada.\n\n6) CANDIDATE FOR SUBSTITUTION — false esta certo para ambos. Apenas esfenvalerate (Reg. 2015/2047) e prosulfuron (Reg. 2017/375) sao descritos como \"candidate for substitution\", e ambos estao na Parte E.\n\n7) ANNEX PART — confirmado de forma independente pelo cons. 28: fluazinam foi incluido na Parte A; pinoxaden na Parte B. Bate com as linhas do anexo.\n\n8) CITACOES LITERAIS — comparei as doze contra o texto obtido. Todas sao verbatim, inclusive as aspas curvas em volta das datas. Nada parafraseado nem costurado a partir de frases separadas.\n\nRessalva que nao e defeito: a leitura extrai apenas 2 das 29 substancias que o ato altera. Isso e recorte (as duas sao relevantes para ADAMA), nao erro factual — nada do que ela afirma sobre as outras 27 esta errado, porque ela nada afirma sobre elas.",
+    "CORRECTED": null,
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32026R0870",
+   "ACT_TYPE": "RENEWAL",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Paraffin oil CAS 97862-82-3 — SUBSTANCIA PEDIDA NA TAREFA: NAO APARECE NESTE ATO. Li o ato na integra (13.230 caracteres limpos / 42.185 bytes brutos, do titulo ate o ELI final) e a string '97862' aparece 0 (zero) vezes. O unico CAS citado no ato e 8042-47-5, que aparece 17 vezes. Sao dois oleos de parafina diferentes, com numeros CAS diferentes. Este ato NAO decide nada sobre o CAS 97862-82-3 — o que o CAS 97862-82-3 tem hoje de data de expiracao, de Parte do Anexo e de linha do Anexo eu NAO SEI por este ato, e nao afirmo que ele nao exista em outro lugar: precisa ser lido no proprio Reg. 540/2011 consolidado ou no ato especifico dele.",
+     "new_expiry_date": "NAO_SEI",
+     "annex_part": "NAO_SEI",
+     "annex_row": "NAO_SEI",
+     "risk_assessment_state": "NAO_SEI"
+    },
+    {
+     "name": "Paraffin oil (Not ISO) — 'Paraffin, light liquid ''Paraffinum Perliquidum'' (European Pharmacopoeia, EurPharm)' — CAS No: 8042-47-5, CIPAC No: 898 — ESTA e a substancia que o ato efetivamente decide (NAO e a pedida na tarefa)",
+     "new_expiry_date": "30 June 2041",
+     "annex_part": "B",
+     "annex_row": "180",
+     "risk_assessment_state": "FINALISED"
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "TITULO — 'COMMISSION IMPLEMENTING REGULATION (EU) 2026/870 of 21 April 2026 renewing the approval of the active substance paraffin oil (CAS 8042-47-5) in accordance with Regulation (EC) No 1107/2009 of the European Parliament and of the Council, and amending Commission Implementing Regulation (EU) No 540/2011'",
+    "ARTIGO 1 (sustenta act_type = RENEWAL) — 'The approval of the active substance paraffin oil (CAS 8042-47-5), as specified in Annex I to this Regulation, is renewed, subject to the conditions laid down in that Annex.'",
+    "ARTIGO 2 — 'The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with Annex II to this Regulation.'",
+    "ANEXO II, ponto (1) (sustenta a saida da Parte A) — 'in Part A, entry 295 on paraffin oil (CAS 8042-47-5) is deleted;'",
+    "ANEXO II, ponto (2) (sustenta annex_part = B) — 'in Part B, the following entry is added:'",
+    "ANEXO II, Parte B — numero da linha (sustenta annex_row = 180) — a entrada aberta por aspas simples comeca com \"'180\", seguida de 'Paraffin oil (Not ISO)' e 'CAS No: 8042-47-5 CIPAC No: 898'.",
+    "ANEXO II, Parte B, linha 180, sob os cabecalhos 'Date of approval' e 'Expiration of approval' (sustenta new_expiry_date) — os dois valores da linha sao '1 July 2026' e '30 June 2041'. A mesma dupla de datas aparece identica no ANEXO I do ato.",
+    "RECITAL 3 (data ANTIGA, substituida) — 'The approval of the active substance paraffin oil (CAS 8042-47-5), as set out in Part A of the Annex to Implementing Regulation (EU) No 540/2011, expires on 30 November 2026.'",
+    "RECITAL 8 (sustenta risk_assessment_state = FINALISED) — 'On 1 July 2024, the Authority communicated to the Commission its conclusion. An updated version of this conclusion was communicated on 17 June 2025 ( 6 ) . The Authority indicated that, taking into account the approval criteria laid down in Annex II to Regulation (EC) No 1107/2009, plant protection products containing paraffin oil (CAS 8042-47-5) can be expected to meet the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009.'",
+    "RECITAL 11 (sustenta FINALISED) — 'It has been established with respect to one or more representative uses of at least one plant protection product containing the active substance paraffin oil (CAS 8042-47-5) that the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009 are satisfied.'",
+    "RECITAL 12 (RESSALVA — a avaliacao e limitada, e a restricao de uso cai) — 'Although the risk assessment for the renewal of the approval of the active substance paraffin oil (CAS 8042-47-5) is based on a limited number of representative uses, this does not restrict the uses for which plant protection products containing paraffin oil (CAS 8042-47-5) may be authorised. It is therefore appropriate not to maintain its restriction for use as insecticide and acaricide.'",
+    "RECITAL 13 (RESSALVA — informacao confirmatoria ainda e exigida) — 'It is, in particular, appropriate to require further confirmatory information on the contents of the impurity polycyclic aromatic hydrocarbons (PAHs), in order to address the new technical developments regarding the limit for PAHs in the European Pharmacopoeia and to increase confidence in the conclusion that the potential exposure from PAH is low and that there is no indication of consumer concern.'",
+    "ANEXO I e ANEXO II, ponto confirmatorio (2) (RESSALVA IMPORTANTE — parte da avaliacao de consumidor ainda sera completada) — 'complete the consumer risk assessment, where exposure to PAH residues shall be estimated using an approach based on application rate and yield rate for the representative uses as proposed by the applicant. This risk assessment shall be carried out based on that estimated exposure.'",
+    "ANEXO I e ANEXO II (prazo da informacao confirmatoria) — 'The applicant shall submit to the Commission, the Member States and the Authority the information referred to in points 1 and 2 by 12 May 2027.'",
+    "ANEXO I / ANEXO II (pureza e impureza) — 'The impurity Polycyclic Aromatic Hydrocarbons (PAHs) shall not exceed 0,3 mg/kg in the technical material in accordance with the European Pharmacopoeia.' e '1 000 g/kg'",
+    "ANEXO I / ANEXO II (o que os Estados-Membros devem observar) — 'In this overall assessment Member States shall pay particular attention to: — the consumer risk assessment, in particular to ensure compliance with maximum levels that are set in Union law for total mineral oil aromatic hydrocarbon (MOAH); — the protection of aquatic organisms, non-target arthropods in off field area and bees.'",
+    "RECITAL 15 (relacao com a prorrogacao anterior) — 'Commission Implementing Regulation (EU) 2025/787 ( 7 ) extended the approval period of paraffin oil (CAS 8042-47-5) to 30 November 2026 in order to allow the renewal process to be completed before the expiry of the approval period of that active substance. However, given that a decision on renewal has been taken ahead of that extended expiry date, this Regulation should apply earlier than that date.'",
+    "ARTIGO 3 (vigencia) — 'This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union . It shall apply from 1 July 2026.'"
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO menciona o CAS 97862-82-3 em nenhum lugar. Procurei a string '97862' nas duas fontes (texto limpo pelo scripts/texto_fonte.py e XML bruto pelo scripts/cellar.sh) e o resultado foi 0 em ambas. Logo: sobre a substancia pedida na tarefa (paraffin oil CAS 97862-82-3), este ato NAO decide data de expiracao, NAO decide Parte do Anexo, NAO decide linha do Anexo e NAO diz nada sobre avaliacao de risco. Isso e NAO SEI por esta fonte — nao e 'nao existe'. RESSALVA DE FONTE: as duas leituras vieram do mesmo repositorio da UE (Cellar), entao sao duas extracoes do mesmo documento, nao duas fontes independentes.",
+    "O ato NAO usa a expressao 'candidate for substitution' em nenhum ponto, nem para o CAS 8042-47-5 nem para qualquer outra substancia. Por isso deixei o campo candidate_for_substitution FORA das duas entradas, em vez de marcar 'false': marcar false seria afirmar que a substancia nao e candidata a substituicao, e o ato nao afirma isso. O estado correto e NAO SEI por esta fonte.",
+    "O ato NAO diz que a avaliacao de risco nao foi finalizada, e NAO diz que a EFSA precisa de mais tempo. Nao ha no texto nenhuma frase do tipo 'the risk assessment has not been finalised' nem 'needs more time' — que e a linguagem tipica dos atos de PRORROGACAO. Aqui e o contrario: a EFSA entregou conclusao em 01/07/2024, com versao atualizada em 17/06/2025. RESSALVA: mesmo assim, o ato exige informacao confirmatoria ate 12 de maio de 2027, e um dos dois pontos e literalmente 'complete the consumer risk assessment' — ou seja, a avaliacao de risco ao consumidor sera COMPLETADA depois. Marquei FINALISED porque a revisao por pares foi concluida e a renovacao foi decidida, mas essa pendencia confirmatoria nao pode ser escondida.",
+    "O ato NAO cita as Partes D nem E do Anexo do Reg. 540/2011. Ele so mexe na Parte A (suprime a entrada 295) e na Parte B (acrescenta a entrada 180).",
+    "O ato NAO nomeia o requerente ('the applicant'), NAO nomeia nenhuma empresa e NAO menciona a ADAMA.",
+    "O ato NAO menciona a Italia, nem qualquer registro nacional, nem qualquer produto comercial. Ele NAO diz nada sobre autorizacoes ja concedidas em Estados-Membros: nao ha neste texto prazo de reavaliacao de autorizacoes nacionais, nem periodo de escoamento (grace period), nem disposicoes transitorias.",
+    "O ato NAO proibe, NAO retira do mercado e NAO restringe usos. Ao contrario, o recital 12 remove a restricao anterior a inseticida e acaricida. Nao ha aqui nenhuma base para prever proibicao, saida de mercado ou risco comercial — e eu nao faco nenhuma dessas previsoes.",
+    "O ato NAO fixa limites maximos de residuos (LMR) e NAO altera o Reg. (CE) 396/2005. A unica referencia a limite legal e indireta, remetendo aos niveis maximos de MOAH ja fixados no direito da Uniao.",
+    "O ato NAO diz o que acontece com o CAS 8042-47-5 entre 22/04/2026 (publicacao) e 01/07/2026 (data de aplicacao) alem de constatar, no recital 15, que a prorrogacao ate 30/11/2026 dada pelo Reg. 2025/787 fica antecipada por esta decisao."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Nao consegui refutar. Reli a fonte inteira e conferi um por um. (1) A substancia pedida na tarefa, CAS 97862-82-3, realmente nao esta no ato: procurei a sequencia '97862' e ela aparece 0 vezes. O unico CAS do ato e o 8042-47-5, e nenhum outro numero em formato de CAS aparece no texto. Entao dizer NAO_SEI para data, Parte e linha do 97862-82-3 esta certo — esse numero e outra entrada, que precisa ser lida no 540/2011 consolidado. (2) Nao ha troca de data entre substancias vizinhas, porque o ato decide UMA substancia so; nao existe linha vizinha de onde colar data. (3) Nao ha troca de data velha por nova: '30 June 2041' aparece exatamente 2 vezes, sempre na coluna 'Expiration of approval' (Anexo I e Anexo II linha 180), sempre ao lado de '1 July 2026' na coluna 'Date of approval' — as duas colunas nao estao invertidas na leitura. A data velha, '30 November 2026', aparece 2 vezes (recitais 3 e 15) e a leitura a rotula corretamente como substituida. (4) Nao ha confusao entre prorrogacao e renovacao: o titulo diz 'renewing the approval' e o Artigo 1 diz 'is renewed'. A unica prorrogacao citada e a antiga, do Reg. 2025/787 (recital 15), e a leitura nao a usou como se fosse este ato. (5) FINALISED esta certo: a EFSA entregou conclusao em 1/7/2024, atualizada em 17/6/2025 (recital 8), e o recital 11 diz que os criterios do Artigo 4 estao satisfeitos; a formula 'could not be finalised' nao aparece no texto. A exigencia de informacao confirmatoria sobre PAH (recital 13 e Anexo I, prazo 12/5/2027) e condicao da aprovacao, nao avaliacao inacabada. (6) Parte B e linha 180 conferem: Anexo II ponto (1) apaga a entrada 295 da Parte A e ponto (2) adiciona na Parte B uma entrada que abre com '180. Todas as citacoes literais batem palavra por palavra com as linhas da fonte. UNICO erro encontrado, e ele nao muda nenhuma decisao: a leitura diz que o CAS 8042-47-5 'aparece 17 vezes'; a contagem real e 18 (15 como '(CAS 8042-47-5', 1 como 'CAS No 8042-47-5' na nota de rodape 2, e 2 como 'CAS No: 8042-47-5' nas duas tabelas de anexo). E erro de contagem de citacao, nao erro de substancia, de data, de tipo de ato nem de estado de avaliacao — por isso nao refuto.",
+    "CORRECTED": [],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32026R1353",
+   "ACT_TYPE": "AMENDMENT_OF_CONDITIONS",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Metalaxyl-M (CAS No 70630-17-0 (R), CIPAC No 580) — o ato escreve sempre \"metalaxyl-M\"/\"Metalaxyl-M\"; a notacao \"METALAXYL-M(2)\" do pedido NAO aparece no ato",
+     "new_expiry_date": "31 May 2035",
+     "annex_part": "B",
+     "annex_row": "140",
+     "risk_assessment_state": "FINALISED"
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "COMMISSION IMPLEMENTING REGULATION (EU) 2026/1353 of 15 June 2026 amending Implementing Regulations (EU) 2020/617 and (EU) No 540/2011 as regards the conditions of approval of the active substance metalaxyl-M",
+    "ANNEX II — Row 140, metalaxyl-M, in Part B of the Annex to Implementing Regulation (EU) No 540/2011 is replaced by the following:",
+    "[Anexo II, linha 140, colunas 'Date of approval' / 'Expiration of approval'] 1 June 2020 / 31 May 2035",
+    "ANNEX I — Annex I to Implementing Regulation (EU) 2020/617 is replaced by the following:",
+    "[Anexo I, entrada 'Metalaxyl-M', colunas 'Date of approval' / 'Expiration of approval'] 1 June 2020 / 31 May 2035",
+    "(11) On 4 July 2025, the Authority communicated to the Commission its updated conclusion ( 7 ) on whether the proposed new use of the active substance metalaxyl-M can be expected to meet the approval criteria provided for in Article 4 of Regulation (EC) No 1107/2009.",
+    "(12) The Authority established in its updated conclusion that the sowing of seeds treated with plant protection products containing metalaxyl-M outside greenhouses does not pose a risk to birds and wild mammals with the application of refined good agricultural practices (GAPs), in particular by limiting the seed sowing rate and by using precision drilling equipment.",
+    "(15) Based on the outcome of the risk assessment, it is considered appropriate to set a maximum sowing rate that should apply unless the outcome of a risk assessment for sowing of seeds carried out as part of the authorisation for the placing on the market of plant protection products for such use indicates that a higher rate does not lead to any unacceptable effects on birds and mammals. It is also considered appropriate to require the use of precision drilling equipment. It is therefore appropriate to remove the restriction limiting the use of plant protection products containing metalaxyl-M for the treatment of seeds intended to be sown in greenhouses only.",
+    "(10) With regard to the restriction concerning to the sowing of treated seeds, the Authority identified a critical area of concern. A high acute and long-term risk was identified for birds and wild mammals. However, in the conclusion and its background documents it was indicated that a safe use for treatment and sowing of treated spinach seeds may be possible, when considering precision drilling of seeds. The Commission, in accordance with Article 31 of Regulation (EC) No 178/2002 of the European Parliament and of the Council ( 6 ) , read in conjunction with Regulation (EC) No 1107/2009, requested that the Authority provide an updated risk assessment for birds and mammals.",
+    "[Specific provisions, identico no Anexo I e no Anexo II] When used for seed treatment where treated seeds are to be sown outdoors, Member States shall, impose appropriate restrictions concerning the sowing density and require the use of precision drilling equipment. A sowing density above 2 000 000 seeds/ha shall not be exceeded unless the outcome of the risk assessment undertaken for the specific uses for which authorisation is applied for demonstrates that a higher rate does not lead to any unacceptable effects on birds and mammals.",
+    "[Specific provisions] The applicant shall submit to the Commission, the Member States and the Authority confirmatory information as regards the effect of water treatment processes on the nature of residues present in drinking water, by 10 July 2026.",
+    "(3) In accordance with Article 7(1) of Regulation (EC) No 1107/2009, on 17 June 2020, Syngenta Crop Protection AG submitted an application to the rapporteur Member State, Belgium, seeking an amendment to the conditions of approval of metalaxyl-M in order to remove the restriction concerning the sowing of seeds and to update the maximum level of the impurity CGA226048.",
+    "[Anexo II, linha 140, coluna 'Purity'] 920 g/kg — 2-[(2,6-dimethyl-phenyl)-(2-methoxyacetyl)-amino]-propionic acid 1-methoxycarbonyl-ethyl ester): max. content 10 g/kg",
+    "[Anexo I, coluna 'Purity ( 1 )'] ≥ 920 g/kg — 2-[(2,6-dimethyl-phenyl)-(2-methoxyacetyl)-amino]-propionic acid 1-methoxycarbonyl-ethyl ester: max. content < 10 g/kg",
+    "Article 3 — Entry into force — This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union .",
+    "[Cabecalho] Official Journal of the European Union — L series — 2026/1353 — 16.6.2026"
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO diz que esta mudando a data de expiracao. Nenhum considerando fala em prorrogar, encurtar ou renovar prazo. A data '31 May 2035' aparece porque a linha inteira foi reescrita, e ela sai igual nas duas versoes (Anexo I do Reg. 2020/617 e linha 140 da Parte B do Reg. 540/2011). Este ato NAO e um EXTENSION_OF_APPROVAL_PERIOD.",
+    "O ato NAO usa em nenhum lugar a expressao 'candidate for substitution'. Nao confirma nem nega esse estatuto para o metalaxyl-M — por isso o campo saiu como NAO SEI (omitido). Verificado por busca no texto integral: zero ocorrencias de 'substitution'.",
+    "O ato NAO diz que a avaliacao de risco ficou por finalizar, nem que a EFSA precisa de mais tempo. Diz o contrario: a EFSA entregou conclusao atualizada em 4 de julho de 2025 e a Comissao decidiu com base nela. O 'critical area of concern' do considerando 10 e descrito como fase ANTERIOR, resolvida pela conclusao atualizada do considerando 12.",
+    "O ato NAO menciona a Italia, nem a ADAMA, nem nenhum produto comercial, nem nenhum titular de registro nacional. O unico requerente citado e a Syngenta Crop Protection AG.",
+    "O ato NAO retira, NAO proibe e NAO restringe a comercializacao de produtos existentes. Ao contrario: retira uma restricao que existia (o tratamento de sementes deixava de estar limitado a sementes semeadas em estufa).",
+    "O ato NAO estabelece periodo de tolerancia / escoamento de estoques ('period of grace'). Busca no texto integral: zero ocorrencias de 'grace' e de 'withdraw'.",
+    "O ato NAO altera nem menciona limites maximos de residuos (LMR/MRL) em alimentos.",
+    "O ato NAO concede nem revoga autorizacoes nacionais de produto. Ele manda os Estados-Membros imporem as restricoes de densidade de semeadura e o uso de semeadora de precisao no momento da autorizacao.",
+    "O ato NAO diz o que acontece se a informacao confirmatoria sobre tratamento de agua (prazo 10 July 2026) nao for entregue.",
+    "O ato NAO diz que o metalaxyl-M aparece nas Partes A, D ou E do Anexo do Reg. 540/2011. So a Parte B, linha 140, e tocada. Se ha ou nao entrada noutra Parte: NAO SEI a partir deste ato.",
+    "O ato NAO indica se ha versao consolidada posterior nem se outro ato ja alterou a mesma linha depois de 15/06/2026. Fonte unica lida: CELEX 32026R1353 (publications.europa.eu/resource/celex/32026R1353).",
+    "Ha uma divergencia literal de redacao entre os dois anexos, que o ato nao explica: no Anexo I a impureza CGA226048 e 'max. content < 10 g/kg' (com sinal de menor) e a pureza '≥ 920 g/kg'; na linha 140 da Parte B e 'max. content 10 g/kg' e '920 g/kg', sem sinais. Nao afirmo qual prevalece."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": true,
+    "REASON": "ERRO CARO CONFIRMADO: a data ANTIGA foi lida como NOVA. O campo \"new_expiry_date\":\"31 May 2035\" apresenta como nova uma data que ja estava em vigor desde 2020 e que este ato NAO altera.\n\nRASTREIO DA COLUNA \"Expiration of approval\" (li as tres fontes):\n- 32020R0617 (de 5 May 2020, RENOVACAO, base Art. 20(1) do 1107/2009), linhas 91-92 e 134-135: \"1 June 2020\" / \"31 May 2035\". Foi este ato que FIXOU 31 May 2035 (15 anos).\n- 32024R1718 (amendment of conditions), linhas 85-86 e 125-126: \"1 June 2020\" / \"31 May 2035\" — INALTERADA.\n- 32026R1353 (o ato em analise), linhas 96-97 (Anexo I) e 135-136 (Anexo II): \"1 June 2020\" / \"31 May 2035\" — INALTERADA de novo.\n\nA data reaparece so porque o ato substitui a linha inteira (\"is replaced by the following\"), nao porque a tenha alterado. O proprio act_type da leitura confirma isso e se contradiz: AMENDMENT_OF_CONDITIONS, base \"Article 13(2)(c)\" (linha 16) — um ato 13(2)(c) muda condicoes de aprovacao, nao mexe em prazo. Nao ha nenhum considerando sobre periodo de aprovacao, nem \"extension of the approval period\", nem \"renewal\". O unico \"renewed\" no texto e retrospectivo (considerando (1): \"Implementing Regulation (EU) 2020/617 renewed the approval\").\n\nO QUE O ATO REALMENTE MUDOU (diff contra 32024R1718):\n1. Removeu \"When used for seed treatment, only the treatment of seeds intended to be sown in greenhouses may be authorised.\" e pos no lugar semeadura ao ar livre permitida com teto de densidade de 2 000 000 seeds/ha e exigencia de precision drilling equipment.\n2. Retirou do Anexo I a linha de informacao confirmatoria sobre desregulacao endocrina (prazo 26 May 2022, ja vencido).\n3. NAO mudou pureza nem o limite < 10 g/kg de CGA226048 — isso veio de 32024R1718 (considerando (9)).\n4. NAO mudou data nenhuma.\n\nO QUE RESISTIU A REFUTACAO (verifiquei tudo):\n- As 12 literal_quotes batem palavra por palavra com a fonte (linhas 10-12, 23, 37, 39, 41, 47, 75-76, 96-98, 110, 112-113, 135-137, 149).\n- annex_part \"B\" e annex_row \"140\" corretos (linha 113: \"Row 140, metalaxyl-M, in Part B\").\n- act_type AMENDMENT_OF_CONDITIONS correto; NAO ha confusao entre extension e renewal.\n- Observacao sobre o nome correta: o ato escreve so \"metalaxyl-M\"/\"Metalaxyl-M\"; \"METALAXYL-M(2)\" nao aparece.\n- Sem contaminacao de linha vizinha: metalaxyl-M e a UNICA substancia do ato.\n- risk_assessment_state FINALISED e defensavel (EFSA entregou conclusao atualizada em 4 July 2025, considerando (11); nao ha no ato a formula \"risk assessment not finalised\"). RESSALVA: a leitura omite que a \"critical area of concern\" do considerando (10) so foi superada por essa conclusao posterior, e que segue ABERTA uma obrigacao de informacao confirmatoria sobre residuos em agua potavel com prazo 10 July 2026.\n\nCORRECAO: o campo new_expiry_date deve ser nulo/ausente para este ato. A vigencia ate 31 May 2035 e verdadeira, mas a fonte dela e 32020R0617, nao 32026R1353.",
+    "CORRECTED": [
+     "Metalaxyl-M = SEM DATA NOVA neste ato (32026R1353 nao altera data alguma; e AMENDMENT_OF_CONDITIONS sob Art. 13(2)(c))",
+     "Metalaxyl-M = 31 May 2035 (data ANTIGA, ja vigente, fixada por Implementing Regulation (EU) 2020/617 de 5 May 2020 e repetida sem alteracao por 2024/1718 e por 2026/1353)",
+     "Metalaxyl-M = 1 June 2020 (Date of approval, tambem inalterada, fixada por 2020/617)"
+    ],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32026R1421",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Cymoxanil",
+     "new_expiry_date": "30 November 2027",
+     "annex_part": "A",
+     "annex_row": "263",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Lambda-Cyhalothrin",
+     "new_expiry_date": "31 January 2029",
+     "annex_part": "E",
+     "annex_row": "5",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": true
+    },
+    {
+     "name": "Tebuconazole",
+     "new_expiry_date": "31 July 2028",
+     "annex_part": "A",
+     "annex_row": "268",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Metaldehyde",
+     "new_expiry_date": "15 October 2028",
+     "annex_part": "A",
+     "annex_row": "340",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Chlorotoluron",
+     "new_expiry_date": "30 June 2028",
+     "annex_part": "A",
+     "annex_row": "102",
+     "risk_assessment_state": "EFSA_NEEDS_MORE_TIME",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Clethodim",
+     "new_expiry_date": "15 December 2027",
+     "annex_part": "A",
+     "annex_row": "329",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": false
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "TITULO: amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances bensulfuron, benzovindiflupyr, chlorotoluron, clethodim, cycloxydim, cymoxanil, dazomet, deltamethrin, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole",
+    "ARTIGO 1: The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.",
+    "ARTIGO 2: This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the European Union .",
+    "ANEXO, cabecalho 1.: Part A is amended as follows:",
+    "ANEXO Parte A (2): in the sixth column, expiration of approval, of row 102, Chlorotoluron, the date is replaced by ‘30 June 2028’;",
+    "ANEXO Parte A (5): in the sixth column, expiration of approval, of row 263, Cymoxanil, the date is replaced by ‘30 November 2027’;",
+    "ANEXO Parte A (6): in the sixth column, expiration of approval, of row 268, Tebuconazole, the date is replaced by ‘31 July 2028’;",
+    "ANEXO Parte A (11): in the sixth column, expiration of approval, of row 329, Clethodim, the date is replaced by ‘15 December 2027’;",
+    "ANEXO Parte A (13): in the sixth column, expiration of approval, of row 340, Metaldehyde, the date is replaced by ‘15 October 2028’;",
+    "ANEXO, cabecalho 2.: Part E is amended as follows:",
+    "ANEXO Parte E (3): in the sixth column, expiration of approval, of row 5, Lambda-Cyhalothrin, the date is replaced by ‘31 January 2029’;",
+    "CONSIDERANDO (1): The active substances bensulfuron, benzovindiflupyr, chlorotoluron, clethodim, cycloxydim, cymoxanil, dazomet, deltamethrin, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole were approved as active substances for use in plant protection products for a limited period of time and the applications for the renewal of their approvals are currently being evaluated pursuant to Article 14 of Regulation (EC) No 1107/2009.",
+    "CONSIDERANDO (3) [lambda-cyhalothrin, Parte E e candidate for substitution]: Commission Implementing Regulation (EU) 2016/146 renewed the approval of that active substance as a candidate for substitution until 31 March 2023 and included it in Part E of the Annex to Implementing Regulation (EU) No 540/2011. The approval of lambda-cyhalothrin was extended twice, most recently by Implementing Regulation (EU) 2024/324 until 31 August 2026.",
+    "CONSIDERANDO (5) [chlorotoluron, Parte A]: Commission Directive 2005/53/EC included chlorotoluron in Annex I to Directive 91/414/EEC as an active substance until 28 February 2016 and it was subsequently included in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The approval of chlorotoluron was extended eight times, most recently by Implementing Regulation (EU) 2023/1757 until 15 August 2026.",
+    "CONSIDERANDO (7) [cymoxanil e tebuconazole, Parte A]: Commission Directive 2008/125/EC included cymoxanil and tebuconazole in Annex I to Directive 91/414/EEC as active substances until 31 August 2019 and they were subsequently included in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The approvals of cymoxanil and tebuconazole were extended four and five times, respectively, most recently by Commission Implementing Regulation (EU) 2023/1446 until 15 August 2026.",
+    "CONSIDERANDO (12) [clethodim, Parte A]: Commission Directive 2011/21/EU included clethodim in Annex I to Directive 91/414/EEC as an active substance until 31 May 2021 and it was subsequently included in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The approval of clethodim was extended twice, most recently by Implementing Regulation (EU) 2023/918 until 31 August 2026.",
+    "CONSIDERANDO (16) [metaldehyde, Parte A]: Commission Implementing Directive 2011/54/EU included metaldehyde in Annex I to Directive 91/414/EEC as an active substance until 31 May 2021 and it was subsequently included in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The approval of metaldehyde was extended twice, most recently by Implementing Regulation (EU) 2023/918 until 31 August 2026.",
+    "CONSIDERANDO (19): As the approvals of these active substances are likely to expire before decisions have been taken on their renewal as part of the ongoing renewal procedures, the Commission inquired with the rapporteur Member States concerned and the European Food Safety Authority (the ‘Authority’) on the reasons for the delays in the renewal procedures of these active substances.",
+    "CONSIDERANDO (20): On the basis of the information available at the moment of adoption of this Regulation, including that provided by the rapporteur Member States and the Authority, the Commission considers that the reasons for the delays in each of these renewal procedures are beyond the control of the applicants.",
+    "CONSIDERANDO (21): Therefore, taking into account the temporary and exceptional nature of the mechanism for the extension of approvals, the approval periods of those active substances should be extended for the period assessed as necessary, in each specific case and on the basis of the information available at the moment of adoption of this Regulation, to finalise the respective procedures on the renewal of the approvals. Given that the case-by-case assessment of the time needed to complete each renewal procedure is based on estimates at a particular moment in time, account should be taken of this degree of uncertainty.",
+    "CONSIDERANDO (25) [chlorotoluron – EFSA precisa de mais tempo]: On 17 June 2024, the Authority requested additional information for the purposes of assessment of the approval criteria concerning endocrine disrupting properties set out in points 3.6.5 and 3.8.2 of Annex II to Regulation (EC) No 1107/2009, as amended by Commission Regulation (EU) 2018/605, pursuant to Article 13(3a) of Implementing Regulation (EU) No 844/2012 to be submitted by the applicant by 18 December 2026 and the submission is pending. As the Authority estimates that it will need 120 days after receiving the revised draft renewal assessment report to complete the evaluation and to finalise its conclusion for chlorotoluron, and as the Commission will need time to adopt the ensuing risk management decisions, the duration of the extension of the approval period should be set at 22 months and 15 days, until 30 June 2028.",
+    "CONSIDERANDO (26) [clethodim – conclusao da EFSA ainda esperada]: The Authority expects to complete the evaluation and to finalise its conclusion for clethodim by 30 June 2026, and as the Commission will need time to adopt the ensuing risk management decisions, the duration of the extension of the approval period should be set at 15 months and 15 days, until 15 December 2027.",
+    "CONSIDERANDO (28) [cymoxanil – conclusao da EFSA ainda esperada]: The Authority expects to complete the evaluation and to finalise its conclusion for cymoxanil by 31 May 2026, and as the Commission will need time to adopt the ensuing risk management decisions, the duration of the extension of the approval period should be set at 15 months and 15 days, until 30 November 2027.",
+    "CONSIDERANDO (35) [lambda-cyhalothrin – relatorio revisto pendente]: On 31 July 2025, the rapporteur Member State submitted the draft renewal assessment report to the Authority, which on 24 November 2025 requested revisions to be made in the report. The submission of the revised draft renewal assessment report by the rapporteur Member State is pending. As additional time is necessary to complete the remaining steps in the renewal procedure, the duration of the extension of the approval period should be set at 29 months, until 31 January 2029.",
+    "CONSIDERANDO (38) [metaldehyde – consulta publica ainda nem comecou]: On 4 July 2024, the rapporteur Member State submitted the draft renewal assessment report to the Authority. The rapporteur Member State and the Authority estimate that the public consultation on the draft renewal assessment report will start in May 2026. As additional time is necessary to complete the remaining steps in the renewal procedure, the duration of the extension of the approval period should be set at 25 months and 15 days, until 15 October 2028.",
+    "CONSIDERANDO (41) [tebuconazole – tabela de comentarios pendente]: The Authority conducted a public consultation on it between 27 February and 28 April 2025. The submission of the completed reporting table of the collated comments from the public consultation by the rapporteur Member State is pending. As additional time is necessary to complete the remaining steps in the renewal procedure, the duration of the extension of the approval period should be set at 23 months and 15 days, until 31 July 2028.",
+    "CONSIDERANDO (42) [lambda-cyhalothrin, metaldehyde e tebuconazole podem ainda receber pedido de mais dados]: For the active substances benzovindiflupyr, cycloxydim, dazomet, diclofop, fenazaquin, fluopicolide, hymexazol, lambda-cyhalothrin, MCPA, MCPB, metaldehyde, metsulfuron-methyl, paclobutrazol and tebuconazole, the Authority, in consultation with the Member States, may still request additional information from the applicants pursuant to Article 13(3a) of Implementing Regulation (EU) No 844/2012. The extension periods proposed for these active substances do not include any additional time that might be necessary to provide and evaluate that information.",
+    "CONSIDERANDO (44): In case the Commission adopts a Regulation providing that the approval of an active substance listed in the Annex to this Regulation is not renewed, the Commission should set the expiry date for the approval of this active substance at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later. In case the Commission adopts a Regulation providing for the renewal of the approval of an active substance referred to in the Annex to this Regulation, the Commission should set, as appropriate under the circumstances, the earliest possible application date."
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "O ato NAO renova, NAO retira e NAO proibe nenhuma das 6 substancias. Ele so troca a data na sexta coluna do Anexo do Reg. 540/2011. O proprio ato diz (considerando 1) que os pedidos de renovacao 'are currently being evaluated' — a decisao de renovar ou nao renovar ainda nao foi tomada.",
+    "O ato NAO fala de produtos, marcas, registros nacionais nem de autorizacoes de produtos fitofarmaceuticos. Nao menciona a Italia nem qualquer outro Estado-Membro pelo nome. O que acontece com um registro italiano depois dessas datas: NAO SEI a partir deste ato.",
+    "O ato NAO nomeia a ADAMA nem qualquer empresa requerente. Fala apenas em 'the applicant(s)' e 'rapporteur Member State'. A ligacao entre estas substancias e produtos ADAMA nao vem deste ato.",
+    "O ato NAO diz que Cymoxanil, Tebuconazole, Metaldehyde, Chlorotoluron ou Clethodim sejam 'candidate for substitution'. A expressao 'as a candidate for substitution' aparece no texto APENAS para metsulfuron-methyl (considerando 2), lambda-cyhalothrin (considerando 3) e benzovindiflupyr (considerando 18) — as tres da Parte E. Marquei as cinco da Parte A como false porque o ato as coloca na Parte A e nunca usa a expressao para elas; mas o ato nao afirma literalmente 'nao e candidate for substitution'. Se a pergunta for sobre o status vigente hoje, isto e NAO SEI a partir desta fonte sozinha.",
+    "O ato NAO diz que a conclusao da EFSA ja saiu para cymoxanil nem para clethodim. Ele registra apenas expectativa ('The Authority expects to complete... by 31 May 2026' / 'by 30 June 2026'). Como o ato foi adotado em 30 de junho de 2026, essas duas datas ja estavam no passado ou no limite quando o texto foi assinado, e mesmo assim o ato mantem a redacao de expectativa. Se essas conclusoes sairam de fato: NAO SEI a partir deste ato.",
+    "Chlorotoluron e Clethodim NAO estao na lista do considerando (42). O ato nao diz que a EFSA ainda pode pedir dados adicionais para essas duas — e tambem nao diz o contrario. NAO SEI.",
+    "O ato NAO escreve a data de entrada em vigor. Diz apenas 'the twentieth day following that of its publication'. O cabecalho do Jornal Oficial traz 1.7.2026, mas o corpo do ato nao repete essa data como data de vigencia.",
+    "O ato NAO diz o que acontece depois das novas datas de expiracao. O considerando (44) apenas antecipa duas hipoteses futuras (regulamento de nao-renovacao ou de renovacao) sem decidir nenhuma delas para estas substancias.",
+    "O ato NAO afirma risco a saude, risco ambiental nem conclusao cientifica desfavoravel para nenhuma das 6 substancias. Ao contrario, o considerando (20) atribui o atraso a razoes 'beyond the control of the applicants'.",
+    "O ato NAO garante que as novas datas sejam definitivas. O considerando (21) avisa que a conta de tempo se baseia em estimativas de um momento especifico e que ha 'degree of uncertainty'."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": true,
+    "REASON": "REFUTADO — mas NAO pelas datas. As datas, as linhas do anexo e as partes (A/E) estao todas certas; o erro esta no campo \"risk_assessment_state\".\n\nO QUE ESTA CERTO (conferi linha por linha no anexo da fonte):\n- act_type = EXTENSION_OF_APPROVAL_PERIOD: certo. O titulo e o considerando (21) falam de \"extension of the approval periods\". Nao ha renovacao (renewal) sendo concedida aqui — o ato so estica o prazo enquanto a renovacao ainda esta sendo avaliada. A leitura NAO cometeu a confusao extension/renewal.\n- Nenhuma data antiga foi confundida com nova. As datas antigas eram 15/31 August 2026 e 2 August 2026 (considerandos 2 a 18); as 6 datas da leitura sao todas as NOVAS, do anexo.\n- Nenhuma data colou na substancia vizinha. Confirmei cada par no anexo: Parte A (2) linha 102 Chlorotoluron = 30 June 2028; (5) linha 263 Cymoxanil = 30 November 2027; (6) linha 268 Tebuconazole = 31 July 2028; (11) linha 329 Clethodim = 15 December 2027; (13) linha 340 Metaldehyde = 15 October 2028; Parte E (3) linha 5 Lambda-Cyhalothrin = 31 January 2029.\n- candidate_for_substitution = true so para lambda-cyhalothrin: certo, o considerando (3) diz \"renewed the approval of that active substance as a candidate for substitution\" e a poe na Parte E. Os outros cinco estao na Parte A e nao recebem esse rotulo.\n- Todas as 13 literal_quotes batem com o texto da fonte.\n\nO QUE ESTA ERRADO — o erro caro, exatamente o quarto da lista:\nA frase \"the rapporteur Member State has not finalised the risk assessment pursuant to Article 11 of Implementing Regulation (EU) No 844/2012\" aparece 4 vezes no ato, e SO para estas quatro substancias: benzovindiflupyr (considerando 24), cycloxydim (27), dazomet (29) e metsulfuron-methyl (39).\n\nNenhuma das seis substancias da leitura esta nessa lista. Mesmo assim, a leitura marcou \"risk_assessment_state\": \"NOT_FINALISED\" para CINCO delas (cymoxanil, lambda-cyhalothrin, tebuconazole, metaldehyde, clethodim). Isso e afirmacao forte e falsa — em varios casos o dossie ja avancou bem alem disso:\n- Cymoxanil (28): o Estado-relator ja entregou o draft RAR em 28/02/2020 e o RAR revisto em 10/09/2024, e a consulta publica ja terminou (18/02/2025). O texto diz que a EFSA \"expects to complete the evaluation and to finalise its conclusion for cymoxanil by 31 May 2026\". Ou seja: avaliacao de risco entregue, falta a conclusao da EFSA.\n- Clethodim (26): draft RAR entregue em 28/03/2023, consulta publica encerrada em 09/02/2024, EFSA espera fechar a conclusao ate 30/06/2026.\n- Tebuconazole (41): draft RAR de 08/04/2019, revisto em 19/11/2021, consulta publica entre 27/02 e 28/04/2025; falta so a tabela de comentarios.\n- Metaldehyde (38): draft RAR entregue em 04/07/2024; falta comecar a consulta publica.\n- Lambda-cyhalothrin (35): draft RAR entregue em 31/07/2025; a EFSA pediu revisoes em 24/11/2025 e o RAR revisto esta pendente.\nChlorotoluron e o unico dos seis cujo estado (\"EFSA_NEEDS_MORE_TIME\") e defensavel: o considerando (25) diz que a EFSA precisa de 120 dias apos receber o RAR revisto — mas mesmo ai o ato nao usa a formula \"risk assessment not finalised\".\n\nCONCLUSAO: quem ler esse JSON vai dizer que a UE declarou a avaliacao de risco do cymoxanil, do tebuconazole e do lambda-cyhalothrin nao finalizada. O ato diz o contrario para tres deles. As datas em corrected_dates abaixo sao as mesmas da leitura — porque nesse ponto ela acertou; devolvo confirmadas contra a fonte.",
+    "CORRECTED": [
+     "Cymoxanil = 30 November 2027",
+     "Lambda-Cyhalothrin = 31 January 2029",
+     "Tebuconazole = 31 July 2028",
+     "Metaldehyde = 15 October 2028",
+     "Chlorotoluron = 30 June 2028",
+     "Clethodim = 15 December 2027"
+    ],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  },
+  {
+   "CELEX": "32026R1826",
+   "ACT_TYPE": "EXTENSION_OF_APPROVAL_PERIOD",
+   "ACT_READ": true,
+   "SUBSTANCES": [
+    {
+     "name": "Pirimicarb",
+     "new_expiry_date": "31 July 2027",
+     "annex_part": "A",
+     "annex_row": "124",
+     "risk_assessment_state": "FINALISED",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Phenmedipham",
+     "new_expiry_date": "30 September 2027",
+     "annex_part": "A",
+     "annex_row": "88",
+     "risk_assessment_state": "FINALISED",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Metazachlor",
+     "new_expiry_date": "31 May 2029",
+     "annex_part": "A",
+     "annex_row": "217",
+     "risk_assessment_state": "NOT_FINALISED",
+     "candidate_for_substitution": false
+    },
+    {
+     "name": "Fludioxonil",
+     "new_expiry_date": "30 September 2027",
+     "annex_part": "A",
+     "annex_row": "161",
+     "risk_assessment_state": "FINALISED",
+     "candidate_for_substitution": false
+    }
+   ],
+   "LITERAL_QUOTES": [
+    "TITULO DO ATO: \"COMMISSION IMPLEMENTING REGULATION (EU) 2026/1826 of 28 July 2026 amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances aclonifen, amisulbrom, Bacillus amyloliquefaciens strain MBI 600, beflubutamid, clomazone, cyantraniliprole, cyprodinil, daminozide, dichlorprop-P, dimethachlor, fludioxonil, formetanate, fosetyl, isofetamid, metalaxyl, metazachlor, penconazole, phenmedipham, pirimicarb, pyraclostrobin and S-abscisic acid\"",
+    "ANEXO, cabecalho da Parte A: \"Part A is amended as follows:\"",
+    "ANEXO, Parte A, item (4) [PIRIMICARB]: \"in the sixth column, expiration of approval, of row 124, Pirimicarb, the date is replaced by ‘ 31 July 2027 ’;\"",
+    "ANEXO, Parte A, item (2) [PHENMEDIPHAM]: \"in the sixth column, expiration of approval, of row 88, Phenmedipham, the date is replaced by ‘ 30 September 2027 ’;\"",
+    "ANEXO, Parte A, item (13) [METAZACHLOR]: \"in the sixth column, expiration of approval, of row 217, Metazachlor, the date is replaced by ‘ 31 May 2029 ’;\"",
+    "ANEXO, Parte A, item (10) [FLUDIOXONIL]: \"in the sixth column, expiration of approval, of row 161, Fludioxonil, the date is replaced by ‘ 30 September 2027 ’;\"",
+    "Considerando (5) [PIRIMICARB esta na Parte A; data anterior]: \"Commission Directive 2006/39/EC included pirimicarb in Annex I to Directive 91/414/EEC as an active substance until 31 January 2017 and it was subsequently included in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The approval of pirimicarb was extended nine times, most recently by Implementing Regulation (EU) 2025/99 until 31 October 2026.\"",
+    "Considerando (3) [PHENMEDIPHAM esta na Parte A; data anterior]: \"Commission Directive 2004/58/EC included phenmedipham in Annex I to Directive 91/414/EEC as an active substance until 28 February 2015 and it was subsequently included in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The approval of phenmedipham was extended nine times, most recently by Commission Implementing Regulation (EU) 2025/99 until 30 September 2026.\"",
+    "Considerando (11) [METAZACHLOR esta na Parte A; data anterior]: \"Commission Directive 2008/116/EC included aclonifen and metazachlor in Annex I to Directive 91/414/EEC as active substances until 31 July 2019 and they were subsequently included in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The approvals of aclonifen and metazachlor were extended three and four times, respectively, most recently by Implementing Regulation (EU) 2023/918, both until 31 October 2026.\"",
+    "Considerando (10) [FLUDIOXONIL esta na Parte A; data anterior]: \"Commission Directive 2007/76/EC included fludioxonil and clomazone in Annex I to Directive 91/414/EEC as active substances until 31 October 2018 and they were subsequently included in Part A of the Annex to Implementing Regulation (EU) No 540/2011. The approvals of fludioxonil and clomazone were extended seven times each, most recently by Commission Implementing Regulation (EU) 2025/787, both until 30 September 2026.\"",
+    "Considerando (37) [PIRIMICARB — conclusao da EFSA JA adotada]: \"On 25 September 2024, the Authority adopted its conclusion and communicated it to the applicant, the Member States and the Commission. The Commission initiated preliminary discussions on the renewal of the approval of the active substance pirimicarb in the Standing Committee on Plants, Animals, Food and Feed on 4 December 2024. The draft renewal report and the draft implementing regulation concerning the renewal of the approval of pirimicarb were discussed in the Standing Committee on 10 March 2026.\"",
+    "Considerando (37) [PIRIMICARB — motivo e duracao da extensao]: \"As additional time is necessary to deliver the opinion of that Committee and for the Commission to adopt the ensuing risk management decisions, the duration of the extension of the approval period should be set at 9 months, until 31 July 2027.\"",
+    "Considerando (36) [PHENMEDIPHAM — conclusao atualizada da EFSA JA adotada]: \"On 30 September 2025, the Authority adopted its updated conclusion and communicated it to the applicant, the Member States and the Commission. The Commission initiated preliminary discussions on the renewal of the approval of the active substance phenmedipham in the Standing Committee on Plants, Animals, Food and Feed on 10 December 2025. The Commission is preparing a draft implementing regulation and a draft review report on the renewal of the approval of this active substance, to be submitted to the Standing Committee.\"",
+    "Considerando (36) [PHENMEDIPHAM — motivo e duracao da extensao]: \"As additional time is necessary to deliver the opinion of that Committee and for the Commission to adopt the ensuing risk management decisions, the duration of the extension of the approval period should be set at 12 months, until 30 September 2027.\"",
+    "Considerando (34) [METAZACHLOR — avaliacao de risco NAO finalizada]: \"The rapporteur Member State has not finalised the risk assessments pursuant to Article 11 of Implementing Regulation (EU) No 844/2012 and estimates that it will be able to submit the draft renewal assessment report to the Authority by the end of December 2026. As additional time is necessary to complete the remaining steps in the renewal procedure, the duration of the extension of the approval period should be set at 31 months, until 31 May 2029.\"",
+    "Considerando (39) [METAZACHLOR — a EFSA ainda pode pedir mais informacao e o prazo NAO cobre isso]: \"For the active substances aclonifen, beflubutamid, metalaxyl and metazachlor, the Authority, in consultation with the Member States, may still request additional information from the applicants pursuant to Article 13(3a) of Implementing Regulation (EU) No 844/2012, if it considers this necessary to assess the endocrine disrupting properties of these active substances. The extension periods proposed for these active substances do not include any additional time that might be necessary to provide and evaluate that information.\"",
+    "Considerando (30) [FLUDIOXONIL — conclusao da EFSA JA adotada]: \"On 25 September 2024, the Authority adopted its conclusion and communicated it to the applicant, the Member States and the Commission. The Commission initiated preliminary discussions on the renewal of the approval of the active substance fludioxonil in the Standing Committee on Plants, Animals, Food and Feed on 4 December 2024. The Commission is preparing a draft implementing regulation and a draft review report on the renewal of the approval of this active substance, to be submitted to the Standing Committee.\"",
+    "Considerando (30) [FLUDIOXONIL — motivo e duracao da extensao]: \"As additional time is necessary for the delivery of the opinion of that Committee and for the Commission to adopt the ensuing risk management decisions, the duration of the extension of the approval period should be set at 12 months, until 30 September 2027.\"",
+    "Considerando (1) [as 4 substancias estao em procedimento de renovacao em curso]: \"The active substances aclonifen, amisulbrom, Bacillus amyloliquefaciens strain MBI 600, beflubutamid, clomazone, cyantraniliprole, cyprodinil, daminozide, dichlorprop-P, dimethachlor, fludioxonil, formetanate, fosetyl, isofetamid, metalaxyl, metazachlor, penconazole, phenmedipham, pirimicarb, pyraclostrobin and S-abscisic acid were approved as active substances for use in plant protection products for a limited period of time and the applications for the renewal of their approvals are currently being evaluated pursuant to Article 14 of Regulation (EC) No 1107/2009.\"",
+    "Considerando (20) [a culpa do atraso NAO e do requerente]: \"The information available, including that provided by the rapporteur Member States and the Authority, shows that the reasons for the delays in each of these renewal procedures are beyond the control of the applicants.\"",
+    "Considerando (21) [as datas sao estimativas, com incerteza declarada]: \"Therefore, taking into account the temporary and exceptional nature of the mechanism for the extension of approvals, the approval periods of those active substances should be extended for the period assessed as necessary, in each specific case and on the basis of the information available at the moment of adoption of this Regulation, to finalise the respective procedures on the renewal of the approvals. Given that the case-by-case assessment of the time needed to complete each renewal procedure is based on estimates, account should be taken of this degree of uncertainty.\"",
+    "Considerando (47) [o ato NAO decide renovacao nem nao-renovacao; isso vira depois, em outro regulamento]: \"In case the Commission adopts a Regulation providing that the approval of an active substance listed in the Annex to this Regulation is not renewed, the Commission should set the expiry date for the approval of this active substance at the date of entry into force of that Regulation or at the same date as it stood before the adoption of this Regulation, whichever date is later. In case the Commission adopts a Regulation providing for the renewal of the approval of an active substance referred to in the Annex to this Regulation, the Commission should set, as appropriate under the circumstances, the earliest possible application date.\"",
+    "Artigo 1: \"The Annex to Implementing Regulation (EU) No 540/2011 is amended in accordance with the Annex to this Regulation.\"",
+    "Artigo 2 [entrada em vigor]: \"This Regulation shall enter into force on the third day following that of its publication in the Official Journal of the European Union.\"",
+    "Publicacao / assinatura: \"L series / 2026/1826 / 29.7.2026\" e \"Done at Brussels, 28 July 2026. For the Commission The President Ursula VON DER LEYEN\""
+   ],
+   "WHAT_THE_ACT_DOES_NOT_SAY": [
+    "CANDIDATE FOR SUBSTITUTION = NAO SEI. A expressao \"candidate for substitution\" (nem \"substitution\") NAO aparece uma unica vez no corpo do ato, para nenhuma das 21 substancias. O campo candidate_for_substitution foi preenchido como false apenas porque o schema exige booleano — leia-o como NAO SEI POR ESTA FONTE, nao como \"nao e candidata\". Para responder isso e preciso outra fonte (Reg. 2015/408 e o Anexo E do Reg. 540/2011).",
+    "O ato NAO altera a Parte D nem a Parte E do Anexo do Reg. (UE) 540/2011. So ha dois blocos de alteracao: \"Part A is amended as follows\" (16 linhas) e \"Part B is amended as follows\" (4 linhas: 65 S-abscisic acid, 69 Amisulbrom, 99 Cyantraniliprole, 100 Isofetamid). As 4 substancias de interesse estao todas na Parte A.",
+    "O ato NAO renova e NAO deixa de renovar nenhuma aprovacao. Ele so troca a data da sexta coluna do Anexo. O proprio considerando (47) trata renovacao e nao-renovacao como decisoes de um regulamento FUTURO e separado.",
+    "O ato NAO diz qual foi o CONTEUDO da conclusao da EFSA para pirimicarb, phenmedipham ou fludioxonil. Ele registra apenas que a conclusao foi adotada e comunicada, em 25/09/2024, 30/09/2025 e 25/09/2024 respectivamente. Se a conclusao foi favoravel ou desfavoravel: NAO SEI por esta fonte.",
+    "Para PIRIMICARB, PHENMEDIPHAM e FLUDIOXONIL o ato NAO diz que a EFSA precisa de mais tempo. O motivo declarado do prazo extra e outro: o parecer do Comite Permanente (Standing Committee) e as decisoes de gestao de risco da Comissao. \"EFSA precisa de mais tempo\" so aparece, entre as 4, no caso de METAZACHLOR — e ali de forma indireta: o Estado-Membro relator ainda nao finalizou a avaliacao, e o considerando (39) avisa que a EFSA ainda pode pedir informacao adicional sobre desregulacao endocrina e que o prazo concedido NAO inclui esse tempo.",
+    "O ato NAO nomeia o Estado-Membro relator (rapporteur Member State) de nenhuma das 4 substancias.",
+    "O ato NAO cita nenhuma empresa, nenhum titular de registro, nenhum requerente pelo nome. ADAMA nao aparece no texto. Ele opera no nivel da substancia ativa, nao no nivel do produto.",
+    "O ato NAO cita a Italia, nem qualquer Estado-Membro em particular, nem autorizacoes nacionais de produtos. A ligacao entre esta prorrogacao e os 11 produtos ADAMA registrados na Italia NAO esta escrita aqui — e inferencia externa, e precisa de outra fonte.",
+    "O ato NAO estabelece periodo de escoamento, de venda ou de uso (grace period / sell-out / use-up) para produtos formulados.",
+    "O ato NAO da a data-calendario de entrada em vigor. Diz apenas \"terceiro dia seguinte ao da publicacao\", e a publicacao esta marcada como 29.7.2026 — a conta nao esta feita no texto.",
+    "O ato NAO afirma que qualquer uma das 4 substancias sera proibida, retirada do mercado ou perdera aprovacao. Nada no texto sustenta previsao de proibicao ou de risco comercial.",
+    "O ato NAO informa o texto integral das linhas 88, 124, 161 e 217 do Anexo — so a sexta coluna (expiration of approval) e tocada. Denominacao, pureza, data de aprovacao e disposicoes especificas dessas linhas: NAO SEI por esta fonte."
+   ],
+   "ADVERSARIAL_VERDICT": {
+    "REFUTED": false,
+    "REASON": "Nao consegui refutar. Reli a fonte integral (CELEX 32026R1826) e testei os quatro erros caros, um a um.\\n\\n1) TIPO DO ATO — correto. O titulo diz \\\"as regards the extension of the approval periods\\\" e o Artigo 1 so altera o Anexo do Reg. 540/2011 (coluna \\\"expiration of approval\\\"). A palavra \\\"renewal\\\" aparece apenas descrevendo o procedimento de renovacao AINDA EM CURSO que justifica a extensao. Nao ha renovacao de aprovacao neste ato.\\n\\n2) DATA COLADA DA LINHA VIZINHA — nao ocorreu. Conferi as quatro contra o texto literal do ANEXO, Parte A: item (4) row 124 Pirimicarb = 31 July 2027; item (2) row 88 Phenmedipham = 30 September 2027; item (10) row 161 Fludioxonil = 30 September 2027; item (13) row 217 Metazachlor = 31 May 2029. As linhas vizinhas eram row 130 Cyprodinil (31 July 2027), row 147 Formetanate (30 September 2027) e row 215 Aclonifen (31 March 2029) — duas delas coincidem em data com as substancias lidas, mas nenhuma linha foi trocada: numero da linha, nome e data batem em todas.\\n\\n3) DATA ANTIGA CONFUNDIDA COM A NOVA — nao ocorreu. As datas antigas citadas nos considerandos (31 October 2026 para pirimicarb e metazachlor; 30 September 2026 para phenmedipham e fludioxonil) aparecem na leitura corretamente rotuladas como anteriores, e nunca no campo new_expiry_date. A aritmetica dos considerandos fecha: pirimicarb 31/10/2026 + 9 meses = 31 July 2027 (cons. 37); phenmedipham 30/09/2026 + 12 meses = 30 September 2027 (cons. 36); fludioxonil 30/09/2026 + 12 meses = 30 September 2027 (cons. 30); metazachlor 31/10/2026 + 31 meses = 31 May 2029 (cons. 34).\\n\\n4) \\\"RISK ASSESSMENT NOT FINALISED\\\" ATRIBUIDO ERRADO — nao ocorreu. A formula \\\"The rapporteur Member State has not finalised the risk assessments\\\" aparece no ato para exatamente 8 substancias: aclonifen (cons. 23), metalaxyl (33), metazachlor (34), amisulbrom (41), Bacillus amyloliquefaciens MBI 600 (42), cyantraniliprole (43), isofetamid (44) e S-abscisic acid (45). Metazachlor esta nessa lista, e a leitura marca NOT_FINALISED — correto. Pirimicarb (conclusao da EFSA adotada em 25/09/2024, cons. 37), Phenmedipham (conclusao atualizada adotada em 30/09/2025, cons. 36) e Fludioxonil (conclusao adotada em 25/09/2024, cons. 30) NAO estao nessa lista, e a leitura marca FINALISED — correto.\\n\\n5) PARTE DO ANEXO — correto. As quatro estao na Parte A, confirmado pelos considerandos (3), (5), (10) e (11) (\\\"subsequently included in Part A of the Annex\\\") e pela propria estrutura do ANEXO, cuja Parte B so contem S-abscisic acid (row 65), amisulbrom (69), cyantraniliprole (99) e isofetamid (100).\\n\\nRESSALVA QUE NAO DERRUBA A LEITURA: a palavra \\\"substitution\\\" nao aparece nenhuma vez no ato. O campo candidate_for_substitution=false nao e afirmado nem negado pela fonte — e um valor default do extrator, nao um fato extraido. Este ato nao serve para confirmar nem para refutar esse campo; se ele for usado como fato juridico, precisa de outra fonte (Reg. (UE) 2015/408).\\n\\nDIFERENCA COSMETICA: as citacoes literais da leitura trazem espaco interno nas aspas tipograficas (\\\"' 31 July 2027 '\\\") onde a fonte traz \\\"'31 July 2027'\\\". E artefato de renderizacao do XML da Publications Office, sem efeito sobre o conteudo.",
+    "CORRECTED": [],
+    "MATCH_METHOD": "par montado pelo proprio pipeline, lido do .output da tarefa",
+    "MATCH_CONFIDENCE": {
+     "ESTADO": "EXATO"
+    }
+   }
+  }
+ ]
+}

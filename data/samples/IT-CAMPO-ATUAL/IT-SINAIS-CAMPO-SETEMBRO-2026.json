@@ -1,0 +1,110 @@
+{
+ "DATASET": "IT-SINAIS-CAMPO-SETEMBRO-2026",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-T3-ER-MODENA",
+ "source": "Consorzio Fitosanitario Provinciale di Modena — site público, lido em navegador com janela",
+ "SOURCE_LOCATION": "Emilia-Romagna, provincia di Modena",
+ "FACT_LOCATION": "ITALY — provincia di Modena (o texto nomeia o território)",
+ "ORIGINAL_LANGUAGE": "it",
+ "EVIDENCE_CLASS": "PRIMARY_SOURCE_RAW",
+ "CAPTURED_AT": "2026-09-02",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "ROTA": "HTTP público, sem chave, sem custo",
+ "POR_QUE_ISTO_IMPORTA": "o acervo italiano de campo parava em 2026-05-15. Estes sinais são de agosto/setembro de 2026 — a janela em que o demo vai ser mostrado.",
+ "FRESCOR": {
+  "BOLETIM_MAIS_RECENTE_NO_ACERVO_ANTES": "2026-05-15 (Collio, vite n.06)",
+  "BOLETIM_MAIS_RECENTE_AGORA": "2026-08-18 (Modena, produzione integrata n.27)",
+  "GANHO_EM_DIAS": 95
+ },
+ "SINAIS": [
+  {
+   "SINAL_ID": "IT-SIG-2026-09-COCCINIGLIA-VITE",
+   "CROP": "VITE",
+   "ALVO": "Cocciniglie farinose (Planococcus spp.)",
+   "ESTADO": "AUMENTO_OBSERVADO_PELA_FONTE",
+   "REGIAO": "provincia di Modena, Emilia-Romagna",
+   "DATA_DA_EVIDENCIA": "2026-08/09 — a fonte diz «da qualche giorno», sem data exata",
+   "DATA_DO_FATO": "NÃO SEI — «da qualche giorno» é intervalo declarado, não data",
+   "O_QUE_A_FONTE_DIZ": [
+    "aumento evidente das cocciniglie farinose nos vinhedos da província",
+    "a temporada foi boa até aqui: populações amplamente sob controle",
+    "a piora vem de duas causas declaradas: prolificidade da espécie (gerações exponenciais, fêmeas com 300-400 descendentes) e esgotamento do efeito dos inseticidas anteriores",
+    "há uma condição física que protege a praga: cobertura cerosa e o inseto se enfia no cacho, onde o produto não chega",
+    "molécula sistêmica não transloca para fruto em maturação — no máximo age na folha, onde a cocciniglia já é ocasional",
+    "dias ensolarados e medo constante de granizo freiam a desfolha que descobriria os cachos"
+   ],
+   "O_QUE_ISTO_PROVA": "que o serviço fitossanitário provincial declarou aumento e explicou a mecânica",
+   "O_QUE_ISTO_NAO_PROVA": [
+    "não prova incidência regional nem nacional — é UMA província",
+    "não prova falha de produto: a fonte descreve barreira física e janela fenológica, não perda de eficácia",
+    "não prova demanda comercial"
+   ],
+   "CONVERGENCIA_NO_ACERVO": {
+    "REGULATORIO": "Emilia-Romagna concedeu deroga art.51 para EFFICON (dimpropyridaz) contra Planococcus ficus na vite, janela 2026-03-01 a 2026-06-28 — JÁ FECHADA quando este sinal aparece",
+    "CONCORRENTE": "EFFICON aparece com 12 cartões de anúncio Meta que alcançaram a Itália, no dataset congelado META-ADS-ENTITIES-EAME-V1",
+    "LEITURA_HONESTA": "a deroga fechou em junho e o aumento é de agosto/setembro. A convergência é de TEMA, não de janela — e dizer o contrário inverteria o calendário."
+   },
+   "SOURCE_URL": "https://www.fitosanitario.mo.it/fito3/news/cocciniglie-della-vite-aumento/"
+  },
+  {
+   "SINAL_ID": "IT-SIG-2026-09-BACTROCERA-OLIVO",
+   "CROP": "OLIVO",
+   "ALVO": "Mosca delle olive (Bactrocera oleae)",
+   "ESTADO": "AUMENTO_DE_CAPTURAS_OBSERVADO_PELA_FONTE",
+   "REGIAO": "comprensorio olivicolo di Modena; a fonte diz estar «in linea con quanto rilevato in Emilia-Romagna»",
+   "DATA_DA_EVIDENCIA": "2026-09-01 (a página traz «Modena, 1 ...»)",
+   "DATA_DO_FATO": "NÃO SEI — «da questa settimana» é intervalo, não data",
+   "O_QUE_A_FONTE_DIZ": [
+    "monitoramento da mosca das olivas iniciado também nesta safra no território provincial",
+    "desta semana, incremento das capturas em todo o comprensório olivícola",
+    "em linha com o observado no restante da Emilia-Romagna",
+    "recomenda intervenção preventiva com pós de rocha, iscas ativadas com inseticida e captura massal / attract&kill",
+    "remete ao boletim ARPO Emilia-Romagna para atualização semanal"
+   ],
+   "O_QUE_ISTO_PROVA": "que a captura em armadilha subiu no comprensório, segundo o serviço provincial",
+   "O_QUE_ISTO_NAO_PROVA": [
+    "captura em armadilha NÃO é dano no fruto",
+    "não prova infestação, não prova perda"
+   ],
+   "CONVERGENCIA_NO_ACERVO": {
+    "CIENCIA": "o recorte OLIVE_BACTROCERA foi construído em 2026-09-02: 71 obras, 223 autores com afiliação italiana, 188 com ORCID",
+    "PORTFOLIO": "12 dos 163 registros ADAMA vigentes na Itália citam OLIVE no rótulo",
+    "LEITURA_HONESTA": "citar OLIVE no rótulo NÃO é estar autorizado contra Bactrocera. A linha cultura↔alvo desses 12 não foi lida."
+   },
+   "SOURCE_URL": "https://www.fitosanitario.mo.it/fito3/news/monitoraggio-mosca-delle-olive/",
+   "FONTE_SEMANAL_APONTADA": "https://www.arpoemiliaromagna.it/index.php/component/content/category/183-notiziario-agrofenologico"
+  }
+ ],
+ "OUTRAS_NOTICIAS_LISTADAS_NAO_LIDAS": [
+  "allerta-colpo-di-fuoco",
+  "controlli-anomalie-pomodoro",
+  "glomerella-non-abbassare-la-guardia",
+  "comunicato-d-suzukii (3 comunicados: 1, 9 e 16 de junho)",
+  "comunicato-cavallette (n2 e n3)"
+ ],
+ "OUTRAS_NOTICIAS_LEI": "listadas e NÃO lidas. NOT_READ != NÃO EXISTE.",
+ "FATOS_REGULATORIOS_NOVOS_ENCONTRADOS": [
+  {
+   "FATO": "Determinazione 9818/2026 — lotta obbligatoria alla Flavescenza dorata, Emilia-Romagna",
+   "POR_QUE_IMPORTA": "o acervo tinha Lombardia e Vêneto. Piemonte (D.D. 280 de 2026-03-16), Trentino (bollettino speciale n.1 de 2026-05-29) e agora Emilia-Romagna ampliam o caso IT-HERO-001 para 5 regiões.",
+   "ESTADO": "CITADO_EM_FONTE_SECUNDARIA — o ato não foi aberto"
+  },
+  {
+   "FATO": "Determina 3130 de 2026-02-16 — textos dos Disciplinari di Produzione Integrata 2026 da Emilia-Romagna",
+   "ESTADO": "CITADO_EM_FONTE_SECUNDARIA"
+  },
+  {
+   "FATO": "deroga contra Calliptamus italicus (cavallette), 120 dias, 2026-05-07 a 2026-09-03",
+   "POR_QUE_IMPORTA": "vence AMANHÃ em relação à data desta captura",
+   "ESTADO": "CITADO_EM_FONTE_SECUNDARIA"
+  }
+ ],
+ "AFIRMACOES_PROIBIDAS": [
+  "a praga está aumentando na Itália",
+  "há falha de produto",
+  "os produtores estão relatando",
+  "há oportunidade comercial",
+  "captura em armadilha é dano"
+ ]
+}
