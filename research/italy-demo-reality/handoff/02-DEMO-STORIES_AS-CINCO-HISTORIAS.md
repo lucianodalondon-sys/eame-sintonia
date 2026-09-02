@@ -1,9 +1,9 @@
-# AS QUATRO HISTÓRIAS DO DEMO — e por que são estas
+# AS CINCO HISTÓRIAS DO DEMO — e por que são estas
 
 **02/09/2026** · construídas a partir de `CONVERGENCE/convergence.json` e
 `RELATIONSHIPS/convergence-links.json`
 
-O pacote tem **38 convergências**. Um demo não cabe 38. Estas quatro foram escolhidas por
+O pacote tem **38 convergências**. Um demo não cabe 38. Estas foram escolhidas por
 um critério só: **são as que têm as quatro camadas de pé ao mesmo tempo** — conversa
 profissional, obrigação ou pressão externa, portfólio autorizado, e uma tensão real.
 
@@ -155,7 +155,72 @@ descreve jardim, não lavoura.»*
 
 ---
 
-## O que estas quatro têm em comum
+## 5 · OLIVO — a ausência que o censo torna afirmável
+
+Esta não é uma convergência. É o contrário: um lugar onde a conversa existe e o portfólio,
+**na nossa leitura do texto dos 163 rótulos**, não responde.
+
+`OLIVO × MOSCA_OLIVO` é par de **nível corroborado** no corpus — 23 documentos, 16 fontes.
+E o cruzamento devolveu **zero produtos**.
+
+### Por que desta vez a ausência pode ir à tela
+
+Toda ausência deste projeto é «não lemos», nunca «não existe». Esta é diferente, e a
+diferença tem nome: **censo**.
+
+| pergunta | método | cobertura |
+|---|---|---|
+| «que pares cultura × alvo o rótulo autoriza?» | leitura estruturada | 102 de 163 — **amostra** |
+| «a palavra está no texto do rótulo?» | busca no texto cru | 163 de 163 — **censo** |
+
+O censo (`LABEL-USE/label-term-census.json`) foi rodado depois de confirmar que **nenhum
+dos 163 PDFs é imagem sem OCR** — todos devolvem texto. Se um fosse, o denominador seria
+falso e o zero, mentira.
+
+| termo | rótulos que citam |
+|---|---:|
+| `olivo` / `oliveto` / `olivicol` | **15 de 163** |
+| **`Bactrocera oleae` / mosca dell'oliva** | **0 de 163** |
+| **`occhio di pavone` / `Spilocaea` / `cicloconio`** | **0 de 163** |
+
+Os 15 rótulos que citam oliveira o fazem para **cocciniglie, tignole e tripidi**, e um
+deles é herbicida para uso sob o olival.
+
+⚠️ E uma pegadinha que quase virou erro: três rótulos citam *Bactrocera* — mas é
+**_Bactrocera dorsalis_ em drupáceas**, não *Bactrocera oleae* em oliveira. Espécie
+diferente, cultura diferente. O leitor estava certo em não gerar o par.
+
+### O que a tela pode dizer
+
+✅ *«Buscamos "Bactrocera oleae" e "mosca dell'oliva" no texto publicado dos 163 rótulos
+ADAMA vigentes na Itália, em 02/09/2026. Nenhum cita. 15 citam oliveira, para cochonilha,
+traça e tripes.»*
+
+### O que a tela não pode dizer
+
+⛔ «a ADAMA não tem produto para a mosca da oliveira».
+
+> **NÃO ESTÁ NO TEXTO DO RÓTULO ≠ NÃO ESTÁ AUTORIZADO.**
+
+O rótulo é o documento publicado. O registro pode conter uso que o rótulo escreve de outro
+jeito, ou com sinonímia que não previmos — por isso o censo declara **quais grafias foram
+testadas**. E o portfólio da ADAMA na Itália é o que o Ministero publica; a decisão de
+negócio por trás dele é dado interno, não conectado.
+
+### Outros três zeros do mesmo censo
+
+| termo | rótulos | por que importa |
+|---|---:|---|
+| `flavescenza` | **0** | ✅ **esperado** — trata-se o vetor, não o fitoplasma. O rótulo nomeia *Scaphoideus* |
+| `Popillia japonica` | **0** | praga de quarentena em expansão no norte |
+| `Xylella` | **0** | ✅ **esperado** — não há bactericida; o controle é do vetor e por erradicação |
+
+Dois dos quatro zeros são **o comportamento correto**, não lacuna. Um painel que
+apresentasse os quatro juntos como «lacunas de portfólio» estaria errado em metade deles.
+
+---
+
+## O que estas histórias têm em comum
 
 Nenhuma delas é uma resposta. Todas são **um encontro entre leituras**, com o método à
 vista:

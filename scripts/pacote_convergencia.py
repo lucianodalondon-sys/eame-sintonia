@@ -97,6 +97,39 @@ def camada_convergencia():
             'PAIRS': pares,
         }))
 
+    # ── 1-bis · o censo de termos: o que sustenta um «N de 163» ────────────────
+    cen = local_json(os.path.join('IT-ROTULOS', 'IT-CENSO-DE-TERMOS.json'))
+    if cen:
+        termos = []
+        for t in cen['TERMOS']:
+            termos.append({
+                'ID': novo_id('IT-CENSUS'),
+                'TERM': t['TERMO'],
+                'WHAT_IT_IS': t['O_QUE_E'],
+                'SPELLINGS_TESTED': t['GRAFIAS_TESTADAS'],
+                'LABELS_CITING': t['ROTULOS_QUE_CITAM'],
+                'OUT_OF': t['DE_UM_TOTAL_DE'],
+                'ALLOWED_SENTENCE': t['FRASE_PERMITIDA'],
+                'PRODUCTS': [i['PRODUCT'] for i in t['ITENS']][:20],
+                'REGISTRATION_IDS': [i['REGISTRATION_ID'] for i in t['ITENS']][:20],
+                'PROVENANCE': 'REAL_FACT',
+            })
+        grava('LABEL-USE', 'label-term-census.json', dict(
+            env('LABEL_TERM_CENSUS',
+                'data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json',
+                'MINISTERO_LABEL_PDF',
+                'presenca de termo no texto de TODOS os 163 rotulos'),
+            **{
+                'COUNT': len(termos),
+                'WHY_THIS_IS_A_CENSUS_NOT_A_SAMPLE':
+                    cen['POR_QUE_CENSO_E_NAO_AMOSTRA'],
+                'WHAT_A_ZERO_DOES_NOT_MEAN': cen['O_QUE_O_CENSO_NAO_DIZ'],
+                'LABELS_WITH_TEXT': cen['ROTULOS_COM_TEXTO'],
+                'DENOMINATOR_IS_TRUSTWORTHY': cen['DENOMINADOR_CONFIAVEL'],
+                'DENOMINATOR_WHY_IT_MATTERS': cen['DENOMINADOR_POR_QUE_IMPORTA'],
+                'TERMS': termos,
+            }))
+
     # ── 2 · o encontro ─────────────────────────────────────────────────────────
     conv = []
     for c in cru['CONVERGENCIA']:

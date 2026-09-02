@@ -210,7 +210,7 @@ def validar(idx):
     # Toda familia de ID nova entra aqui no mesmo commit em que nasce.
     padrao = re.compile(r'\bIT-(?:OPP|FUT|WIN|MKT|MKTCAP|COMP-ACT|COMP-PRD|COMP|'
                         r'VOICE|SCI|PER|NEWS|EVT|SRC|PRD|CPP|CROP|CHAN|RES|THEME|'
-                        r'ARC|PHEN|LBL|CONV|NOREAD|NOTALK)-\d{3}\b')
+                        r'ARC|PHEN|LBL|CONV|NOREAD|NOTALK|CENSUS)-\d{3}\b')
     for p in jsons():
         if rel(p).endswith('ID-INDEX.json'):
             continue

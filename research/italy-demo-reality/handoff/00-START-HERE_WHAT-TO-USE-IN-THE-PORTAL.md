@@ -13,6 +13,7 @@ afirmar** sobre cada objeto.
 | Rótulo autorizado (URL do PDF oficial) | idem, `LABEL_URL` | 163 |
 | Linha de uso: cultura + alvo + dose na mesma linha | `ADAMA/adama-crop-problem-product.json` | 219 |
 | Par cultura × alvo lido no rótulo autorizado | `LABEL-USE/label-use-pairs.json` | 2.030 |
+| ⭐ **Censo de termo nos 163 rótulos** — o que sustenta um «N de 163» | `LABEL-USE/label-term-census.json` | 17 termos |
 | **Boletim fitossanitário corrente, com fase fenológica** | `CROP-WINDOWS/current-phenology.json` | **73** |
 | Ato regional de lotta obbligatoria, com número e data | `CROP-WINDOWS/crop-windows.json` | 5 regiões |
 | Ato europeu de aprovação de substância, lido na íntegra | `FUTURE-RADAR/future-signals.json` | 15 atos |

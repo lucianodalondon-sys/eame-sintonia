@@ -195,3 +195,29 @@ cultura. Não afirma que a controla nesta cultura.»*
 evidências vêm de canal de horta contra 1 de canal profissional**. É tomate de vaso.
 
 ✅ **Diga:** a convergência **com o `AUDIENCE_VERDICT` ao lado**, sempre.
+
+---
+
+## 14 · ⭐ Censo e amostra não são a mesma ausência
+
+O pacote tem **dois** jeitos de olhar o rótulo, e eles autorizam frases diferentes:
+
+| pergunta | método | cobertura | um zero aqui é |
+|---|---|---|---|
+| que pares o rótulo autoriza? | leitura estruturada | 102/163 | **não sabemos** |
+| a palavra está no texto? | busca no texto cru | **163/163** | **afirmável, com ressalva** |
+
+✅ **Pode dizer:** *«buscamos estas grafias no texto publicado dos 163 rótulos, em
+02/09/2026, e nenhum cita»* — com as grafias à vista.
+
+⛔ **Não pode dizer:** *«a ADAMA não tem produto para X»*, nem com o censo.
+
+> **NÃO ESTÁ NO TEXTO DO RÓTULO ≠ NÃO ESTÁ AUTORIZADO.**
+
+⚠️ E o zero só vale porque o denominador foi medido: **nenhum dos 163 PDFs é imagem sem
+OCR**. O campo `DENOMINATOR_IS_TRUSTWORTHY` diz isso a cada execução. Se um dia vier
+`false`, todo «N de 163» do pacote perde o chão.
+
+⚠️ E nem todo zero é lacuna: `flavescenza` e `Xylella` dão zero porque **é assim que
+deveria ser** — a primeira se combate no vetor, a segunda não tem bactericida. Apresentar
+os zeros em bloco como «lacunas de portfólio» erraria em metade deles.
