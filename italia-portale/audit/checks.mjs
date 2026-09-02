@@ -775,6 +775,61 @@ check('I5', 'Italian interface strings are actually Italian', () => {
   };
 });
 
+
+check('DS1', 'Turning demo scenarios ON changes no real count', () => {
+  /* §17 · The 56 future scenarios and the 29 presentation cases may be shown
+     behind an explicit, default-off mode. What they may never do is move a real
+     number. Measured by diffing every nav badge, every KPI and every Data State
+     row with the mode off and on. */
+  const m = mount();
+  const snap = (on) => {
+    const v = m.vals({ view: 'radar', showScenarios: on, lang: 'it' });
+    return {
+      nav: (v.nav || []).map((n) => n.count),
+      kpi: (v.kpis || []).map((k) => k.value),
+      state: (v.dataState || []).map((r) => [r.layer, r.real, r.derived]),
+      counts: JSON.stringify(m.AM.counts),
+      prov: JSON.stringify(m.AM.provenanceSummary.map((p) => [p.layer, p.real, p.derived])),
+    };
+  };
+  const off = snap(false);
+  const on = snap(true);
+  const bad = [];
+  off.nav.forEach((n, i) => { if (n !== on.nav[i]) bad.push(`nav[${i}]: ${n} -> ${on.nav[i]}`); });
+  off.kpi.forEach((n, i) => { if (n !== on.kpi[i]) bad.push(`kpi[${i}]: ${n} -> ${on.kpi[i]}`); });
+  if (off.counts !== on.counts) bad.push('AM.counts changed');
+  if (off.prov !== on.prov) bad.push('provenance real/derived changed');
+  if (JSON.stringify(off.state) !== JSON.stringify(on.state)) bad.push('Data State real/derived changed');
+  /* and the mode must actually do something, or the check is vacuous */
+  const vOff = m.vals({ view: 'radar', showScenarios: false });
+  const vOn = m.vals({ view: 'radar', showScenarios: true });
+  const shownOff = (vOff.filtered || vOff.visibleCases || []).length;
+  const shownOn = (vOn.filtered || vOn.visibleCases || []).length;
+  if (shownOn <= shownOff) bad.push(`the toggle shows nothing extra (${shownOff} -> ${shownOn}) — check is vacuous`);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: { casesOff: shownOff, casesOn: shownOn, bad } };
+});
+
+check('DS2', 'A demo scenario is never counted as a real record', () => {
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL;
+  const C = AM.collections;
+  const bad = [];
+  for (const k of ['futureScenarios', 'opportunityScenarios', 'fieldMessages']) {
+    const c = C[k];
+    if (!c) { bad.push(`${k} missing`); continue; }
+    if (c.real > 0) bad.push(`${k}: ${c.real} records counted as real`);
+    if (!/DEMO/.test(String(c.provenance))) bad.push(`${k}: provenance is ${c.provenance}`);
+  }
+  /* and no real collection may contain a record whose provenance is a demo class */
+  for (const [k, c] of Object.entries(C)) {
+    if (/Scenario|fieldMessages/.test(k)) continue;
+    const leaked = (c.records || []).filter((r) => AM.isDemo(r, c.provenance)).length;
+    if (leaked) bad.push(`${k}: ${leaked} demo-provenance records inside a real collection`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+});
+
 export function runAll(only) {
   const list = only ? CHECKS.filter((c) => only.includes(c.id)) : CHECKS;
   return list.map((c) => {

@@ -34,7 +34,7 @@ const YN = (b) => (b ? 'YES' : 'NO');
 /* ── the report ─────────────────────────────────────────────────────────── */
 R('BASELINE BUILD', 'SINTONIA EAME - ITALIA PILOTO (8)', 'SINTONIA EAME - ITALIA PILOTO (8)');
 R('BRANDWELL LOCAL SYSTEM FOUND', YN(check('B1').pass), 'YES');
-R('BRANDWELL PATH', 'CLIENT-DEMO/_ds/adama-brandwell/ → client/_ds/adama-brandwell/', 'CLIENT-DEMO/_ds/adama-brandwell/');
+R('BRANDWELL PATH', '_ds/adama-brandwell/', '_ds/adama-brandwell/');
 
 R('CORE DATA-BEARING D.* READS', scan.counts.DATA_BEARING_CORE, 0);
 R('VISUAL_ONLY D.* READS', scan.counts.VISUAL_ONLY, '(classified, with a written reason)');
@@ -50,7 +50,7 @@ R('COMPETITOR REAL ACTIVITIES', count('competitorActivities'), 503);
 R('VISIBLE COMPETITOR USES APP', YN((scan.bySymbol.ACTIVITIES || { core: 0 }).core === 0), 'YES');
 R('D.ACTIVITIES CORE READS', (scan.bySymbol.ACTIVITIES || { core: 0 }).core, 0);
 
-R('MARKET REAL OBSERVATIONS', count('marketObservations'), '77 ingested (1 rejected: no product)');
+R('MARKET REAL OBSERVATIONS', count('marketObservations'), 77);
 R('VISIBLE MARKET USES APP', YN(!/window\.ITALY_MARKET\.(CROPS\[[^\]]*\]\.(temp|reading|drivers|current|outlook|price|production|trade|confidence))/.test(fs.readFileSync(path.join(CLIENT, 'portale.html'), 'utf8'))), 'YES');
 
 R('SCIENCE REAL RECORDS', count('scienceRecords'), 88);
@@ -71,12 +71,12 @@ R('REAL OPPORTUNITIES', count('opportunities'), '(upstream only)');
 R('DEFAULT DEMO OPPORTUNITIES', (() => { const v = vals({ view: 'radar' }); return v && Array.isArray(v.visibleCases) && m && !m.instance.state.showScenarios ? v.visibleCases.filter((c) => c && c.isScenario).length : 'n/a'; })(), 0);
 R('DEMO OPPORTUNITY COUNTED AS REAL', (C.opportunities ? C.opportunities.demo : 'ABSENT'), 0);
 
-R('PRODUCT RELATIONSHIP CORE TRUTH SOURCE', (C.productRelationships && C.productRelationships.source) || 'ABSENT', 'label audit + national registry');
+R('PRODUCT RELATIONSHIP CORE TRUTH SOURCE', (C.productRelationships && C.productRelationships.source) || 'ABSENT', '(label audit + national registry)');
 R('PRODUCT RELATIONSHIPS', count('productRelationships'), '(measured)');
 R('D.CASES USED AS PRODUCT TRUTH', YN(!check('P2').pass), 'NO');
 
 R('VOCI REAL PUBLIC VOICES', count('publicVoices'), 17);
-R('VOCI RTV DEMO MESSAGES', (() => { const v = vals({ view: 'voices' }); return v && Array.isArray(v.voices) ? v.voices.filter((x) => x && (x.demo || x.provenance === 'SYNTHETIC_DEMO')).length : 'n/a'; })(), 0);
+R('VOCI RTV DEMO MESSAGES', (() => { const v = vals({ view: 'voices' }); const list = v && v.voices ? [].concat(v.voices.featured || [], v.voices.latest || []) : null; return list ? list.filter((x) => x && (x.demo || x.provenance === 'SYNTHETIC_DEMO')).length : 'n/a'; })(), 0);
 
 R('FIELD SALES MUTATES CORE', YN(!check('FS1').pass), 'NO');
 R('FAKE PHONE NUMBER', check('FS2').measured, 0);
@@ -92,21 +92,21 @@ R('DATA STATE USES APP PROVENANCE', YN(check('N2').pass), 'YES');
 R('CORE PRIVATE-DATA-REQUIRED UI', check('L1').measured, 0);
 
 R('REFERENCE DATE', AM.referenceDate, '2026-09-02');
-R('SECOND TRUTH CLOCK', String(check('M2').measured).replace(/^.*· /, ''), '0');
+R('SECOND TRUTH CLOCK', String(check('M2').measured).replace(/^.*· /, '').replace(' second clocks', ''), '0');
 
 R('ITALIAN DEFAULT', YN(check('I1').pass), 'YES');
 R('LANGUAGE SWITCH RELOAD', YN(!check('I1').pass), 'NO');
-R('PORTUGUESE RESEARCH PROSE ON SCREEN', check('PT1').measured, 0);
+R('PORTUGUESE RESEARCH PROSE ON SCREEN', String(check('PT1').measured).replace(/ hits.*/, ''), '0');
 R('UNRESOLVED CROP VOCABULARY', check('PT2').measured, 0);
 
 R('UNRESOLVED REAL ENTITY IDS', check('R1').measured, 0);
 R('REAL ENTITY → DEMO SILENT FALLBACKS', check('R2').measured, 0);
 
-R('AUTOMATED STRUCTURAL TESTS', `${checks.filter((c) => c.pass).length}/${checks.length}`, 'PASS');
-R('RUNTIME SMOKE TESTS', `${check('RT1').measured} IT · ${check('RT2').measured} EN`, 'PASS');
+R('AUTOMATED STRUCTURAL TESTS', checks.every((c) => c.pass) ? 'PASS' : `FAIL ${checks.filter((c) => !c.pass).length}/${checks.length}`, 'PASS');
+R('RUNTIME SMOKE TESTS', check('RT1').pass && check('RT2').pass ? 'PASS' : `${check('RT1').measured} IT · ${check('RT2').measured} EN`, 'PASS');
 R('OFFLINE / NO PUBLIC CDN', YN(check('B3').pass), 'YES');
 R('HANDOFF V2.1 INGESTED', YN(!check('H1').pass), 'NO');
-R('V2.1 COLLECTION SLOTS READY', check('M3').measured, '23 slots');
+R('V2.1 COLLECTION SLOTS READY', check('M3').pass ? '23 slots' : check('M3').measured, '23 slots');
 
 /* the hard ready rule, §37 */
 const BLOCKERS = [

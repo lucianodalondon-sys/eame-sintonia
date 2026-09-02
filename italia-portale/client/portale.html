@@ -63,7 +63,7 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:2px">
       <div style="font-size:9px;font-weight:700;letter-spacing:0.16em;color:#8F8886;padding:0 8px 6px">INTELLIGENCE</div>
-      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="10">
         <div onClick="{{ n.go }}" style="display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:9px;cursor:pointer;background:{{ n.bg }};border:1px solid {{ n.border }}" style-hover="background:rgba(255,255,255,0.05)">
           <span style="width:6px;height:6px;border-radius:50%;background:{{ n.dot }};flex:0 0 6px"></span>
           <span style="font-size:12.5px;font-weight:{{ n.weight }};color:{{ n.color }};flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="{{ n.label }}">{{ n.label }}</span>
@@ -96,6 +96,7 @@
 
   <main style="flex:1;min-width:0;display:flex;flex-direction:column">
     <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:0 22px;height:48px;background:rgba(14,17,17,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(203,197,195,0.10)">
+      <sc-if value="{{ hasBack }}" hint-placeholder-val="{{ false }}"><span onClick="{{ goBack }}" title="{{ t.navBack }}" style="display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.14);cursor:pointer" style-hover="border-color:rgba(203,197,195,0.5)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9C3C1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></span></sc-if>
       <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:0.10em;color:#8F8886;flex:1;min-width:0;white-space:nowrap;overflow:hidden">
         <span style="color:#fff;font-weight:700">{{ pageTitle }}</span>
         <sc-if value="{{ hasCrumb }}" hint-placeholder-val="{{ false }}"><span style="color:#8F8886">/</span><span style="overflow:hidden;text-overflow:ellipsis">{{ crumb }}</span></sc-if>
@@ -119,7 +120,7 @@
               <span style="font-size:8px;letter-spacing:0.10em;color:#5CC3EE;text-align:right">{{ t.dsDerived }}</span>
               <span style="font-size:8px;letter-spacing:0.10em;color:#F5B317;text-align:right">{{ t.dsDemo }}</span>
             </span>
-            <sc-for list="{{ dataState }}" as="r" hint-placeholder-count="6">
+            <sc-for list="{{ dataState }}" as="r" hint-placeholder-count="45">
               <span style="display:grid;grid-template-columns:minmax(80px,1.4fr) minmax(38px,0.6fr) minmax(38px,0.6fr) minmax(38px,0.6fr);gap:6px;align-items:baseline">
                 <span style="display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-size:10.5px;color:#EDEAE9;line-height:1.3">{{ r.layer }}</span><span style="font-size:8.5px;color:#8F8886;line-height:1.3">{{ r.note }}</span></span>
                 <span style="font-size:11px;font-weight:700;color:#00B152;text-align:right;font-variant-numeric:tabular-nums">{{ r.real }}</span>
@@ -133,6 +134,7 @@
               <span style="font-size:11.5px;font-weight:700;color:#5CC3EE;text-align:right">{{ dataStateTotals.derived }}</span>
               <span style="font-size:11.5px;font-weight:700;color:#F5B317;text-align:right">{{ dataStateTotals.demo }}</span>
             </span>
+            <span style="font-size:9px;color:#8F8886;line-height:1.5">{{ dataStateTotals.note }}</span>
             <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ t.dsNote }}</span>
           </span>
         </sc-if>
@@ -144,7 +146,6 @@
       <span style="position:relative">
         <span onClick="{{ toggleNotifs }}" style="position:relative;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.14);cursor:pointer" title="Notifications">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9C3C1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"></path></svg>
-          <span style="position:absolute;top:5px;right:6px;width:7px;height:7px;border-radius:50%;background:#009845;border:2px solid #161312"></span>
         </span>
         <sc-if value="{{ showNotifs }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;right:0;top:38px;width:330px;border-radius:14px;border:1px solid rgba(203,197,195,0.16);background:#1C1817;box-shadow:0 18px 40px rgba(0,0,0,0.5);padding:10px 12px;display:flex;flex-direction:column;gap:4px;z-index:40">
@@ -216,10 +217,10 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:10px">
         <sc-for list="{{ visibleCases }}" as="c" hint-placeholder-count="12">
           <div onClick="{{ c.open }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.category.dark }};background:{{ c.category.dark }};padding:0 14px 12px;display:flex;flex-direction:column;gap:9px;min-height:250px;transition:transform .15s ease" style-hover="transform:translateY(-2px)">
-            <span style="position:relative;display:inline-flex;align-items:center;height:20px;padding:0 22px 0 14px;margin-left:-14px;background:{{ c.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:{{ c.category.ink }};width:max-content;white-space:nowrap">{{ c.catLabel }}</span>
+            <sc-if value="{{ c.hasCategory }}" hint-placeholder-val="{{ true }}"><span style="position:relative;display:inline-flex;align-items:center;height:20px;padding:0 22px 0 14px;margin-left:-14px;background:{{ c.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:{{ c.category.ink }};width:max-content;white-space:nowrap">{{ c.catLabel }}</span></sc-if>
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-              <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:{{ c.category.color }}"><span role="img" aria-label="{{ c.category.label }}" style="display:inline-block;flex:0 0 auto;width:24px;height:24px;background:url({{ c.category.icon }}) center/contain no-repeat"></span></div>
-              <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:9999px;background:{{ c.st.color }};color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ c.statusLabel }}</span>
+              <sc-if value="{{ c.hasCategory }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:{{ c.category.color }}"><span role="img" aria-label="{{ c.category.label }}" style="display:inline-block;flex:0 0 auto;width:24px;height:24px;background:url({{ c.category.icon }}) center/contain no-repeat"></span></div></sc-if>
+              <span style="display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding:4px 9px;border-radius:9999px;background:{{ c.st.color }};color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ c.statusLabel }}</span>
             </div>
             <div style="display:flex;flex-direction:column;gap:3px">
               <div style="font-size:19px;font-weight:700;line-height:1.05;letter-spacing:-0.015em;color:#fff;text-wrap:balance">{{ c.issueL }}</div>
@@ -235,7 +236,7 @@
               <div style="font-size:10px;color:{{ c.category.muted }}">{{ c.primaryAiL }}</div>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:2px">
-              <span style="display:inline-flex;align-items:center;gap:8px;font-size:10px;color:{{ c.category.muted }}"><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#009845"></span>{{ c.updatedLabel }}</span><sc-if value="{{ c.hasField }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:4px;padding:1px 6px;border-radius:5px;background:rgba(255,255,255,0.12);color:#fff;font-weight:700;font-size:8.5px;letter-spacing:0.06em">{{ t.lblField }} {{ c.fieldCount }}</span></sc-if></span>
+              <span style="display:inline-flex;align-items:center;gap:8px;font-size:10px;color:{{ c.category.muted }}"><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#009845"></span>{{ c.updatedLabel }}</span></span>
               <span style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#fff">{{ t.lblExplore }}</span>
             </div>
           </div>
@@ -244,7 +245,7 @@
       <sc-if value="{{ canShowAll }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;justify-content:center"><span onClick="{{ toggleAll }}" style="cursor:pointer;padding:8px 18px;border-radius:9999px;border:1px solid rgba(0,152,69,0.5);color:#00B152;font-size:10.5px;font-weight:700;letter-spacing:0.10em" style-hover="background:rgba(0,152,69,0.12)">{{ showAllLabel }}</span></div>
       </sc-if>
-      <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}"><div style="padding:24px;text-align:center;color:#8F8886;font-size:12px">No opportunity matches these filters. <span onClick="{{ clearFilters }}" style="color:#00B152;cursor:pointer;font-weight:700">{{ t.lblClearFilters }}</span></div></sc-if>
+      <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}"><div style="padding:24px;text-align:center;color:#8F8886;font-size:12px">{{ t.noResultsFilters }} <span onClick="{{ clearFilters }}" style="color:#00B152;cursor:pointer;font-weight:700">{{ t.lblClearFilters }}</span></div></sc-if>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;padding-top:6px;align-items:start">
         <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
@@ -261,7 +262,6 @@
                   <span style="width:7px;height:7px;border-radius:50%;background:{{ r.color }};flex:0 0 7px"></span>
                   <span style="flex:1;color:#E4E0DE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
                   <span style="font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ r.cases }}</span>
-                  <span style="color:#8F8886;font-size:10px;font-variant-numeric:tabular-nums">+{{ r.signals }} signals</span>
                 </div>
               </sc-for>
             </div>
@@ -298,11 +298,15 @@
     <!-- ================= CASE DETAIL ================= -->
     <sc-if value="{{ isCase }}" hint-placeholder-val="{{ false }}">
     <div style="padding:14px 22px 40px;display:flex;flex-direction:column;gap:10px">
-      <div style="position:relative;overflow:hidden;border-radius:16px;border:1px solid {{ cs.category.dark }};background:{{ cs.category.dark }};padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,0.9fr);gap:18px;align-items:center">
+      <sc-if value="{{ cs.missingId }}" hint-placeholder-val="{{ false }}">
+        <div style="border-radius:16px;border:1px dashed rgba(203,197,195,0.30);background:#1C1817;padding:22px 20px;display:flex;flex-direction:column;gap:5px"><span style="font-size:14px;font-weight:700;color:#fff">{{ t.caseNotFound }}</span><span style="font-size:11px;color:#8F8886;font-variant-numeric:tabular-nums">{{ cs.missingId }}</span></div>
+      </sc-if>
+      <sc-if value="{{ cs.hasCase }}" hint-placeholder-val="{{ true }}">
+      <div style="position:relative;overflow:hidden;border-radius:16px;border:1px solid {{ cs.category.dark }};background:{{ cs.category.dark }};padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:center">
         <div style="display:flex;align-items:center;gap:16px;min-width:0">
           <div style="display:flex;align-items:center;justify-content:center;width:70px;height:70px;border-radius:50%;background:{{ cs.category.color }};flex:0 0 70px"><span role="img" aria-label="{{ cs.category.label }}" style="display:inline-block;flex:0 0 auto;width:42px;height:42px;background:url({{ cs.category.icon }}) center/contain no-repeat"></span></div>
           <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;height:20px;padding:0 20px 0 12px;background:{{ cs.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ cs.catLabel }}</span><span style="display:inline-flex;align-items:center;height:22px;padding:0 16px;background:{{ cs.st.color }};clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em">{{ cs.statusLabel }}</span><span style="font-size:10px;color:#E4E0DE">{{ t.lblUpdated }} {{ cs.updatedLabel }}</span></div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;height:20px;padding:0 20px 0 12px;background:{{ cs.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ cs.catLabel }}</span><span style="display:inline-flex;align-items:center;height:22px;padding:0 16px;background:{{ cs.st.color }};clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em">{{ cs.statusLabel }}</span><sc-if value="{{ cs.isScenario }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;background:rgba(245,179,23,0.16);border:1px solid #F5B317;color:#F5B317;font-size:8.5px;font-weight:700;letter-spacing:0.10em">{{ t.lblDemoScenario }}</span></sc-if><span style="font-size:10px;color:#E4E0DE">{{ t.lblUpdated }} {{ cs.updatedLabel }}</span></div>
             <h1 style="margin:0;font-size:34px;font-weight:300;line-height:0.98;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;color:#fff">{{ cs.issueL }}</h1>
             <div style="font-size:11.5px;color:#E4E0DE">{{ cs.latin }}</div>
             <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-size:17px;font-weight:600;color:#fff">{{ cs.cropL }}</span><span style="width:4px;height:4px;border-radius:50%;background:#6E6663"></span><span style="font-size:17px;color:#E4E0DE">{{ cs.regionLabel }}</span></div>
@@ -312,16 +316,6 @@
           <div style="border-radius:10px;background:#161312;border:1px solid rgba(255,255,255,0.08);padding:9px 11px;display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblAppWindow }}</span><span style="font-size:13px;font-weight:700;color:#fff">{{ cs.wsLabel }} — {{ cs.weLabel }}</span><span style="font-size:10px;color:{{ cs.st.text }};font-weight:600">{{ cs.windowLine }}</span></div>
           <div style="border-radius:10px;background:#161312;border:1px solid rgba(255,255,255,0.08);padding:9px 11px;display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblPrimaryMatch }}</span><span style="font-size:13px;font-weight:700;color:#fff">{{ cs.primaryLabel }}</span><span style="font-size:10px;color:#B1A9A7">{{ cs.primaryAi }}</span></div>
           <div style="border-radius:10px;background:#161312;border:1px solid rgba(255,255,255,0.08);padding:9px 11px;display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblEvidence }}</span><span style="font-size:13px;font-weight:700;color:#fff">{{ cs.evidenceLabel }}</span><span style="font-size:10px;color:#B1A9A7">{{ cs.evidenceTotal }} {{ t.lblConnObs }}</span></div>
-          <div onClick="{{ cs.goWindow }}" style="border-radius:10px;background:#161312;border:1px solid rgba(255,255,255,0.08);padding:9px 11px;display:flex;flex-direction:column;gap:2px;cursor:pointer" style-hover="border-color:rgba(255,255,255,0.3)"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblOrigin }}</span><span style="font-size:13px;font-weight:700;color:#fff">Future Radar · {{ cs.origin }}d ago</span><span style="font-size:10px;color:#00B152;font-weight:600">{{ t.lblViewWindow }}</span></div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblWhoLooks }}</span>
-          <div style="display:flex;flex-wrap:wrap;gap:5px">
-            <sc-for list="{{ cs.deptChips }}" as="d" hint-placeholder-count="3"><span style="padding:4px 9px;border-radius:9999px;background:#161312;color:#fff;font-size:9px;font-weight:700;letter-spacing:0.08em">{{ d.deptLabel }}</span></sc-for>
-          </div>
-          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding-top:4px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblSupported }}</span>
-            <sc-for list="{{ cs.evChips }}" as="e" hint-placeholder-count="5"><span onClick="{{ e.go }}" style="font-size:9px;color:#C9C3C1;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.06);cursor:pointer"><span style="color:#8F8886">{{ e.k }}</span> <b style="color:#fff">{{ e.v }}</b></span></sc-for>
-          </div>
         </div>
       </div>
 
@@ -363,7 +357,7 @@
             </div>
           </div>
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:14px;font-weight:700;color:#fff">{{ t.lblWhatOffer }}</span><span style="font-size:10.5px;color:#8F8886">{{ cs.matchCount }} portfolio matches</span></div><span style="font-size:9px;letter-spacing:0.08em;color:#8F8886">{{ t.lblLabelMatch }}</span></div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:14px;font-weight:700;color:#fff">{{ t.lblWhatOffer }}</span><span style="font-size:10.5px;color:#8F8886">{{ cs.matchCount }} {{ t.lblPortfolioMatches }}</span></div><span style="font-size:9px;letter-spacing:0.08em;color:#8F8886">{{ t.lblLabelMatch }}</span></div>
             <sc-if value="{{ cs.hasPrimary }}" hint-placeholder-val="{{ true }}">
             <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr);gap:10px">
               <div onClick="{{ cs.primaryGo }}" style="position:relative;overflow:hidden;border-radius:12px;background:{{ cs.category.dark }};padding:14px 16px;display:flex;flex-direction:column;gap:8px;cursor:pointer"><div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.14em;color:{{ cs.category.soft }}">{{ t.lblPrimaryMatch }}</span><x-import component-from-global-scope="ADAMADesignSystem.Badge" variant="{{ cs.badgeVariant }}" size="sm" hint-size="auto,18px">{{ t.lblRegisteredIt }}</x-import></div>
@@ -375,7 +369,7 @@
                   <div style="min-width:0;overflow-wrap:anywhere"><span style="color:#8F8886">{{ t.lblApplication }}</span><br><span style="color:#EDEAE9">{{ cs.primaryUse }}</span></div>
                   <div style="min-width:0;overflow-wrap:anywhere"><span style="color:#8F8886">{{ t.lblMoa }}</span><br><span style="color:#EDEAE9">{{ cs.primaryMoa }}</span></div>
                 </div>
-                <div style="font-size:10px;color:#8F8886;padding-top:2px">Label context · {{ cs.label }} · dose and interval per label record</div>
+                <div style="font-size:10px;color:#8F8886;padding-top:2px">{{ t.lblLabelContext }} · {{ cs.label }} · {{ t.lblLabelDoseNote }}</div>
               </div>
               <div style="display:flex;flex-direction:column;gap:6px">
                 <div style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblAltMatches }}</div>
@@ -385,28 +379,21 @@
                       <span style="font-size:13px;font-weight:700;color:#fff">{{ p.name }}</span>
                       <span style="font-size:10px;color:#B1A9A7">{{ p.ai }}</span>
                       <span style="font-size:9.5px;color:#8F8886">{{ p.use }}</span>
-                      <span style="font-size:9px;color:#00B152;font-weight:700;padding-top:2px">Registered · {{ p.moa }}</span>
+                      <span style="font-size:9px;color:#00B152;font-weight:700;padding-top:2px">{{ t.lblRegisteredShort }} · {{ p.moa }}</span>
                     </div>
                   </sc-for>
-                  <sc-if value="{{ cs.noAlternatives }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#8F8886;padding:10px 0">Single registered match for this crop × target.</div></sc-if>
+                  <sc-if value="{{ cs.noAlternatives }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#8F8886;padding:10px 0">{{ t.lblSingleMatch }}</div></sc-if>
                 </div>
               </div>
             </div>
             </sc-if>
             <sc-if value="{{ cs.noPrimary }}" hint-placeholder-val="{{ false }}">
-              <div style="border-radius:12px;border:1px dashed rgba(0,105,143,0.6);background:rgba(151,139,135,0.10);padding:14px 16px;display:flex;align-items:center;gap:14px"><span style="font-size:18px;font-weight:700;color:#B1A9A7">{{ t.PSTATE.LABEL_CHECK_NEEDED }}</span><span style="font-size:11.5px;color:#C9C3C1">No confirmed ADAMA label position matched for {{ cs.cropL }} × {{ cs.issueL }}. Regulatory / Portfolio confirms before this becomes a commercial case.</span></div>
+              <div style="border-radius:12px;border:1px dashed rgba(0,105,143,0.6);background:rgba(151,139,135,0.10);padding:14px 16px;display:flex;align-items:center;gap:14px"><span style="font-size:18px;font-weight:700;color:#B1A9A7">{{ t.PSTATE.LABEL_CHECK_NEEDED }}</span><span style="font-size:11.5px;color:#C9C3C1">{{ t.lblNoConfirmedFor }} {{ cs.cropL }} × {{ cs.issueL }}. {{ cs.absenceRule }}</span></div>
             </sc-if>
           </div>
         </div>
 
         <div style="grid-column:span 4;display:flex;flex-direction:column;gap:10px">
-          <div style="border-radius:14px;border:1px solid rgba(151,139,135,0.4);background:linear-gradient(160deg,rgba(151,139,135,0.18),#1C1817 70%);padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-            <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:9.5px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ t.lblFieldSignals }} · {{ cs.fieldCount }}</div><span onClick="{{ goField }}" style="font-size:9.5px;font-weight:700;color:#00B152;cursor:pointer">{{ t.lblViewAll }}</span></div>
-            <sc-for list="{{ cs.fieldMessages }}" as="m" hint-placeholder-count="2">
-              <div style="display:flex;flex-direction:column;gap:3px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)"><div style="display:flex;justify-content:space-between;font-size:9.5px;color:#B1A9A7"><span style="font-weight:700;color:#E4E0DE">{{ m.region }} · {{ m.sub }}</span><span>{{ m.when }}</span></div><div style="font-size:11px;color:#EDEAE9;line-height:1.4;font-style:italic">“{{ m.text }}”</div><div style="font-size:9.5px;color:#00B152;font-weight:600">{{ m.signal }} · field validation needed</div></div>
-            </sc-for>
-            <sc-if value="{{ cs.noField }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#8F8886">No field message yet — the Field Sales brief requests one.</div></sc-if>
-          </div>
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
             <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblKnow }}</div>
             <sc-for list="{{ cs.know }}" as="k" hint-placeholder-count="3"><div style="display:flex;gap:8px;font-size:12px;color:#EDEAE9;line-height:1.4"><span style="color:#009845;font-weight:700">✓</span>{{ k }}</div></sc-for>
@@ -417,21 +404,16 @@
           </div>
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
             <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblEvidence }}</div>
-            <sc-for list="{{ cs.evBars }}" as="e" hint-placeholder-count="5">
-              <div onClick="{{ e.go }}" style="display:grid;grid-template-columns:56px 1fr 18px;gap:8px;align-items:center;font-size:10.5px;cursor:pointer"><span style="color:#B1A9A7">{{ e.k }}</span><div style="height:5px;border-radius:9999px;background:rgba(255,255,255,0.08);overflow:hidden"><div style="width:{{ e.pct }};height:100%;background:{{ e.color }}"></div></div><span style="color:#fff;font-weight:700;text-align:right;font-variant-numeric:tabular-nums">{{ e.v }}</span></div>
-            </sc-for>
             <div style="font-size:10px;color:#8F8886;padding-top:2px">{{ cs.source }}</div>
           </div>
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-            <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">REGIONAL CONTEXT</div><span style="font-size:9px;color:#8F8886">NUTS-2 precision</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblRegionalContext }}</div><span style="font-size:9px;color:#8F8886">{{ t.lblNuts2 }}</span></div>
             <div style="display:flex;gap:12px;align-items:flex-start">
               <div style="display:grid;grid-template-columns:repeat(4,22px);grid-auto-rows:17px;gap:2px">
                 <sc-for list="{{ cs.miniMap }}" as="r" hint-placeholder-count="20"><div onClick="{{ r.go }}" title="{{ r.name }}" style="grid-column:{{ r.gc }};grid-row:{{ r.gr }};border-radius:4px;background:{{ r.fill }};border:1px solid {{ r.stroke }};cursor:pointer"></div></sc-for>
               </div>
               <div style="flex:1;display:flex;flex-direction:column;gap:6px;font-size:11px">
-                <div><span style="color:#8F8886">Region</span><br><span style="color:#fff;font-weight:700">{{ cs.regionLabel }}</span></div>
-                <div><span style="color:#8F8886">Crop relevance</span><br><span style="color:#EDEAE9">Major {{ cs.cropL }} area · ISTAT regional scale</span></div>
-                <div><span style="color:#8F8886">Validate next</span><br><span style="color:#EDEAE9">{{ cs.adjacentLabel }}</span></div>
+                <div><span style="color:#8F8886">{{ t.lblRegion }}</span><br><span style="color:#fff;font-weight:700">{{ cs.regionLabel }}</span></div>
               </div>
             </div>
           </div>
@@ -439,54 +421,15 @@
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:10px">
-        <div style="grid-column:span 5;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;align-items:baseline;justify-content:space-between"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:14px;font-weight:700;color:#fff">Competitor activity</span><span style="font-size:10.5px;color:#8F8886">What are competitors doing?</span></div><span onClick="{{ cs.goCompetitors }}" style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#00B152;cursor:pointer">{{ t.lblViewAllCompActivity }} →</span></div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <sc-for list="{{ cs.competitors }}" as="k" hint-placeholder-count="3">
-              <div onClick="{{ k.go }}" style="display:grid;grid-template-columns:90px 1fr auto;gap:10px;align-items:center;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);cursor:pointer" style-hover="border-color:rgba(255,255,255,0.25)">
-                <span style="font-size:14px;font-weight:700;color:#fff">{{ k.company }}</span>
-                <div style="display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-size:11px;color:#EDEAE9">{{ k.items }} recent items · {{ k.type }}</span><span style="font-size:10px;color:#8F8886;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ k.topic }}</span></div>
-                <span style="font-size:10px;color:#8F8886;white-space:nowrap">{{ k.days }}d ago</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-        <div style="grid-column:span 7;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;align-items:baseline;justify-content:space-between"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-size:14px;font-weight:700;color:#fff">Action map</span><span style="font-size:10.5px;color:#8F8886">Who should look now? Click a department to generate its action brief.</span></div><span style="font-size:9px;letter-spacing:0.08em;color:#8F8886">{{ t.lblFlowDetect }}</span></div>
-          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
-            <sc-for list="{{ cs.actions }}" as="a" hint-placeholder-count="6">
-              <div onClick="{{ a.brief }}" style="border-radius:11px;border:1px solid rgba(203,197,195,0.14);background:#231E1D;padding:11px 12px;display:flex;flex-direction:column;gap:7px;cursor:pointer;transition:transform .15s ease" style-hover="transform:translateY(-2px);border-color:rgba(203,197,195,0.4)">
-                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.09em;color:{{ a.soft }}">{{ a.deptLabel }}</span><span style="padding:3px 8px;border-radius:9999px;background:{{ a.color }};color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ a.when }}</span></div>
-                <div style="font-size:11.5px;line-height:1.4;color:#EDEAE9">{{ a.what }}</div>
-                <div style="font-size:10px;line-height:1.35;color:#8F8886"><span style="color:{{ a.soft }};font-weight:700">Why now · </span>{{ a.why }}</div>
-                <div style="margin-top:auto;display:inline-flex;align-items:center;gap:6px;padding-top:4px;font-size:9px;font-weight:700;letter-spacing:0.08em;color:#fff"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path></svg>{{ a.briefLabel }}</div>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:10px">
-        <div style="grid-column:span 7;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 18px 16px;display:flex;flex-direction:column;gap:14px">
-          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblExecTimeline }}</div>
-          <div style="position:relative;display:flex;align-items:flex-start">
-            <div style="position:absolute;left:8%;right:8%;top:5px;height:2px;background:rgba(255,255,255,0.10)"></div>
-            <sc-for list="{{ cs.tl }}" as="t" hint-placeholder-count="5">
-              <div style="position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center"><span style="width:11px;height:11px;border-radius:50%;background:{{ t.color }};border:2px solid #1C1817"></span><span style="font-size:10.5px;font-weight:700;letter-spacing:0.06em;color:{{ t.color }}">{{ t.date }}</span><span style="font-size:10.5px;color:#C9C3C1;max-width:110px;line-height:1.3">{{ t.label }}</span></div>
-            </sc-for>
-          </div>
-        </div>
-        <div style="grid-column:span 5;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblSourcesBehind }}</div><span onClick="{{ cs.goArchive }}" style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#00B152;cursor:pointer">VIEW IN ARCHIVE →</span></div>
+        <div style="grid-column:span 12;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblSourcesBehind }}</div><span onClick="{{ cs.goArchive }}" style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#00B152;cursor:pointer">{{ t.lblViewArchiveRow }} →</span></div>
           <sc-for list="{{ cs.sourceRows }}" as="s" hint-placeholder-count="4">
             <div onClick="{{ s.go }}" style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;font-size:11px;padding:5px 0;border-bottom:1px dotted rgba(151,139,135,0.45);cursor:pointer" style-hover="color:#fff"><span style="color:#E4E0DE;display:flex;align-items:center;gap:7px"><span style="width:6px;height:6px;border-radius:2px;background:{{ s.groupColor }}"></span>{{ s.name }}</span><span style="font-size:10px;color:#8F8886">{{ s.type }}</span></div>
           </sc-for>
-          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding-top:4px;font-size:10px;color:#8F8886"><span>Also connected:</span>
-            <sc-for list="{{ cs.relatedThemes }}" as="t" hint-placeholder-count="1"><span onClick="{{ t.go }}" style="color:#B1A9A7;cursor:pointer;font-weight:600">{{ t.title }}</span></sc-for>
-          </div>
         </div>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:4px"><span style="font-size:10px;color:#8F8886">{{ t.lblDemoNote }}</span><span onClick="{{ goRadar }}" style="cursor:pointer;font-size:10px;font-weight:700;letter-spacing:0.10em;color:#009845">← {{ t.lblBackRadar }}</span></div>
+      </sc-if>
     </div>
     </sc-if>
 
@@ -588,7 +531,7 @@
           </div>
         </sc-for>
       </div>
-      <span style="font-size:9.5px;color:#8F8886;line-height:1.5;margin-top:-4px">{{ t.cwBucketNote }}</span>
+      <span style="font-size:9.5px;color:#8F8886;line-height:1.5;margin-top:-4px">{{ calKpiNote }}</span>
 
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="display:flex;align-items:center;gap:12px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#00783F;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ t.cwMoments }}</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,152,69,0.45),rgba(0,152,69,0))"></span><span style="font-size:9.5px;color:#8F8886">{{ t.cwMomentsNote }}</span></div>
@@ -609,13 +552,8 @@
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:9px;color:#B1A9A7;align-items:center">
           <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.cwFieldClock }}</span>
-          <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:18px;height:6px;background:rgba(151,139,135,0.32)"></span>{{ t.cwLegCycle }}</span>
-          <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:#fff"></span>{{ t.cwLegObs }}</span>
-          <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:18px;height:6px;background:#7DB41E"></span>{{ t.cwLegWeed }}</span>
           <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:18px;height:6px;background:{{ calIssueColor }}"></span>{{ t.cwLegIssue }}</span>
-          <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:18px;height:6px;background:repeating-linear-gradient(90deg,#978B87 0 3px,transparent 3px 6px)"></span>{{ t.cwLegMon }}</span>
           <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:18px;height:6px;background:#fff"></span>{{ t.cwLegApp }}</span>
-          <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:18px;height:6px;border:1px solid #F5B317;box-sizing:border-box"></span>{{ t.cwLegReg }}</span>
           <span style="width:1px;height:14px;background:rgba(151,139,135,0.3)"></span>
           <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#00B152">{{ t.cwBizClock }}</span>
           <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:18px;height:6px;background:#009845"></span>{{ t.cwLegBiz }}</span>
@@ -646,7 +584,7 @@
             <div onClick="{{ r.open }}" style="display:grid;grid-template-columns:minmax(104px,150px) minmax(240px,1fr) minmax(150px,182px);border-bottom:1px solid rgba(151,139,135,0.16);cursor:pointer;background:{{ r.bg }}" style-hover="background:rgba(255,255,255,0.03)">
               <div style="padding:6px 11px;display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(151,139,135,0.14);justify-content:center">
                 <span style="font-size:14.5px;font-weight:700;color:#fff;line-height:1.15">{{ r.region }}</span>
-                <span style="font-size:11px;color:#8F8886">~{{ r.ha }}k ha · {{ r.scale }}</span>
+                <span style="font-size:11px;color:#8F8886">{{ r.issueL }}</span>
                 <span style="display:flex;align-items:center;gap:6px;padding-top:1px"><span style="width:7px;height:7px;border-radius:50%;background:{{ r.covColor }};flex:0 0 7px"></span><span style="font-size:11px;color:{{ r.currentColor }};line-height:1.3">{{ r.current }} · {{ r.coverage }}</span></span>
               </div>
 
@@ -676,7 +614,7 @@
                 </div>
                 <span style="font-size:10.5px;color:#9A9391;line-height:1.3">{{ r.windowFrom }} → {{ r.windowTo }} · lead {{ r.leadDays }}d from {{ r.prepFrom }}</span>
                 <span style="font-size:11px;font-weight:700;color:#fff;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.matchLabel }}</span>
-                <span style="font-size:10px;color:#8F8886;line-height:1.3">MARKET <b style="color:{{ r.marketColor }}">{{ r.marketTemp }}</b> · FIELD {{ r.fieldCount }}</span>
+                <span style="font-size:10px;color:#8F8886;line-height:1.3">{{ r.sourceLine }}</span>
               </div>
             </div>
           </sc-for>
@@ -701,7 +639,7 @@
           <sc-for list="{{ calRows }}" as="r" hint-placeholder-count="6">
             <div onClick="{{ r.open }}" style="border-radius:12px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);border-top:3px solid {{ r.stateColor }};padding:11px 13px;display:flex;flex-direction:column;gap:4px;cursor:pointer" style-hover="border-color:rgba(203,197,195,0.35)">
               <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:13px;font-weight:700;color:#fff">{{ r.region }}</span><span style="font-size:8.5px;font-weight:700;letter-spacing:0.09em;color:{{ r.stateColor }}">{{ r.state }}</span></div>
-              <span style="font-size:10.5px;color:#9A9391">~{{ r.ha }}k ha · {{ r.scale }} · {{ r.coverage }}</span>
+              <span style="font-size:10.5px;color:#9A9391">{{ r.issueL }} · {{ r.coverage }}</span>
               <span style="font-size:11px;color:#EDEAE9;line-height:1.4">{{ r.current }}</span>
               <span style="font-size:10.5px;color:#C9C3C1">Window {{ r.windowFrom }} → {{ r.windowTo }} · {{ r.daysLabel }}</span>
               <span style="font-size:10px;color:#00B152;font-weight:700">Prepare from {{ r.prepFrom }} · {{ r.leadDays }}d lead</span>
@@ -711,29 +649,29 @@
       </div>
       </sc-if>
 
-      <div style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ t.cwFootNote }}</div>
+      <div style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ calFootNote }}</div>
 
       <sc-if value="{{ hasCalDrawer }}" hint-placeholder-val="{{ false }}">
         <div style="position:fixed;top:48px;right:0;bottom:0;width:420px;background:#161312;border-left:1px solid rgba(203,197,195,0.16);box-shadow:-20px 0 50px rgba(0,0,0,0.5);padding:16px 18px;display:flex;flex-direction:column;gap:11px;overflow-y:auto;z-index:30">
           <div style="display:flex;justify-content:space-between;align-items:flex-start">
-            <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ calCrop }} · {{ dw.issueL }}</span><span style="font-size:21px;font-weight:700;color:#fff">{{ dw.region }}</span><span style="font-size:10.5px;color:#B1A9A7">~{{ dw.ha }}k ha · {{ dw.scale }} crop relevance</span></div>
+            <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ calCrop }} · {{ dw.issueL }}</span><span style="font-size:21px;font-weight:700;color:#fff">{{ dw.region }}</span><span style="font-size:10.5px;color:#B1A9A7">{{ dw.dateStateL }} · {{ dw.coverage }}</span></div>
             <span onClick="{{ closeCalDrawer }}" style="cursor:pointer;color:#8F8886;font-size:16px">×</span>
           </div>
-          <div style="border-radius:12px;background:#009845;padding:12px 14px;display:flex;flex-direction:column;gap:4px">
-            <span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">COMMERCIAL STATE</span>
+          <div style="border-radius:12px;background:{{ dw.stateBg }};padding:12px 14px;display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">{{ dw.stateCap }}</span>
             <span style="font-size:24px;font-weight:700;color:#fff;line-height:1">{{ dw.state }}</span>
             <span style="font-size:11px;color:#DFF3E7">{{ dw.daysLabel }} · window {{ dw.windowFrom }} → {{ dw.windowTo }}</span>
-            <span style="font-size:11px;color:#fff;font-weight:700;padding-top:3px">Commercial lead time {{ dw.leadDays }} days · preparation from {{ dw.prepFrom }}</span>
+            <span style="font-size:11px;color:#fff;font-weight:700;padding-top:3px">{{ dw.prepLine }}</span>
             <span style="font-size:9.5px;color:#E3F4EA">OWNER · {{ dw.owner }}</span>
           </div>
           <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;font-size:10.5px">
             <div style="padding:8px 10px;border-radius:9px;background:#1C1817"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">OBSERVED STAGE</span><br><b style="color:{{ dw.currentColor }}">{{ dw.current }}</b><br><span style="color:#8F8886;font-size:9.5px">{{ dw.obsMeta }}</span></div>
-            <div style="padding:8px 10px;border-radius:9px;background:#1C1817"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">EXPECTED CYCLE TODAY</span><br><b style="color:#fff">{{ dw.expectedNow }}</b><br><span style="color:#8F8886;font-size:9.5px">agronomic norm</span></div>
-            <div style="padding:8px 10px;border-radius:9px;background:#1C1817"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">MARKET PULSE</span><br><b style="color:{{ dw.marketColor }}">{{ dw.marketTemp }}</b><br><span style="color:#8F8886;font-size:9.5px">context, not proof of demand</span></div>
+            <div style="padding:8px 10px;border-radius:9px;background:#1C1817"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.cwDateStateCap }}</span><br><b style="color:#fff">{{ dw.dateStateL }}</b><br><span style="color:#8F8886;font-size:9.5px">{{ dw.dateConfidenceL }}</span></div>
+            <div style="padding:8px 10px;border-radius:9px;background:#1C1817"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblPortfolio }}</span><br><b style="color:#fff">{{ dw.matchLabel }}</b><br><span style="color:#8F8886;font-size:9.5px">{{ t.absenceRule }}</span></div>
             <div style="padding:8px 10px;border-radius:9px;background:#1C1817"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblFieldSignals }}</span><br><b style="color:#fff">{{ dw.fieldCount }}</b> <span style="color:#8F8886">messages</span><br><span style="color:#8F8886;font-size:9.5px">EARLY SIGNAL · {{ dw.early }}</span></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">WHY NOW</span><sc-for list="{{ dw.why }}" as="y" hint-placeholder-count="5"><div style="display:flex;gap:8px;font-size:11px;line-height:1.45;color:#EDEAE9"><span style="font-weight:700;color:{{ y.color }}">{{ y.mark }}</span>{{ y.t }}</div></sc-for><span style="font-size:9.5px;color:#8F8886">Transparent reasons instead of a score.</span></div>
-          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">ADAMA PRODUCTS</span><sc-for list="{{ dw.prods }}" as="p" hint-placeholder-count="1"><div style="font-size:11px;font-weight:700;color:#fff;padding:4px 0;border-bottom:1px dotted rgba(151,139,135,0.45)">{{ p.name }}</div></sc-for><sc-if value="{{ dw.noProducts }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#B1A9A7">Portfolio check needed — no confirmed ADAMA position for this crop × issue.</div></sc-if></div>
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">ADAMA PRODUCTS</span><sc-for list="{{ dw.prods }}" as="p" hint-placeholder-count="1"><div style="font-size:11px;font-weight:700;color:#fff;padding:4px 0;border-bottom:1px dotted rgba(151,139,135,0.45)">{{ p.name }}</div></sc-for><sc-if value="{{ dw.noProducts }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#B1A9A7">{{ dw.noProductsText }}</div></sc-if></div>
           <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">WHO SHOULD PREPARE · WHEN</span><sc-for list="{{ dw.deptPlan }}" as="d" hint-placeholder-count="6"><div onClick="{{ d.brief }}" style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:10.5px;font-weight:700;color:{{ d.color }}">{{ d.deptLabel }}</span><span style="font-size:10px;color:#C9C3C1">{{ d.range }}</span></div></sc-for><span style="font-size:9.5px;color:#8F8886">Sintonia business recommendations, not agronomic facts.</span></div>
           <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblKnow }}</span><sc-for list="{{ dw.know }}" as="k" hint-placeholder-count="2"><div style="display:flex;gap:6px;font-size:10.5px;color:#EDEAE9"><span style="color:#009845">✓</span>{{ k }}</div></sc-for></div>
           <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">WHAT WE DO NOT KNOW</span><sc-for list="{{ dw.unknown }}" as="k" hint-placeholder-count="2"><div style="display:flex;gap:6px;font-size:10.5px;color:#C9C3C1"><span style="color:#978B87">?</span>{{ k }}</div></sc-for></div>
@@ -753,25 +691,18 @@
     <div style="padding:14px 22px 40px;display:flex;flex-direction:column;gap:10px">
       <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.08em;color:#8F8886"><span onClick="{{ goWindows }}" style="cursor:pointer;color:#009845;font-weight:700">← CROP WINDOWS</span><span style="color:#8F8886">/</span><span style="color:#fff">{{ wd.issueL }} · {{ wd.cropL }} · {{ wd.region }}</span></div>
       <div style="border-radius:16px;border:1px solid {{ wd.category.dark }};background:{{ wd.category.dark }};padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:14px;align-items:stretch">
-        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px;min-width:0"><div style="display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;background:{{ wd.category.color }};flex:0 0 60px"><span role="img" aria-label="" style="display:inline-block;flex:0 0 auto;width:36px;height:36px;background:url({{ wd.category.icon }}) center/contain no-repeat"></span></div><div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:9px;font-weight:700;letter-spacing:0.14em;color:{{ wd.category.soft }}">{{ wd.kind }} · CROP SCALE {{ wd.scale }}</span><h1 style="margin:0;font-size:30px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;color:#fff">{{ wd.issueL }}</h1><span style="font-size:15px;color:#B1A9A7"><b style="color:#fff">{{ wd.cropL }}</b> · {{ wd.region }}</span><sc-if value="{{ wd.nowRelevant }}" hint-placeholder-val="{{ false }}"><span onClick="{{ wd.openCase }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:#009845;color:#fff;font-size:9px;font-weight:700;letter-spacing:0.08em;width:max-content">WINDOW NOW RELEVANT · VIEW OPPORTUNITY →</span></sc-if></div></div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px;min-width:0"><div style="display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;background:{{ wd.category.color }};flex:0 0 60px"><span role="img" aria-label="" style="display:inline-block;flex:0 0 auto;width:36px;height:36px;background:url({{ wd.category.icon }}) center/contain no-repeat"></span></div><div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:9px;font-weight:700;letter-spacing:0.14em;color:{{ wd.category.soft }}">{{ wd.kind }}</span><h1 style="margin:0;font-size:30px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;color:#fff">{{ wd.issueL }}</h1><span style="font-size:15px;color:#B1A9A7"><b style="color:#fff">{{ wd.cropL }}</b> · {{ wd.region }}</span><sc-if value="{{ wd.nowRelevant }}" hint-placeholder-val="{{ false }}"><span onClick="{{ wd.openCase }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;background:#009845;color:#fff;font-size:9px;font-weight:700;letter-spacing:0.08em;width:max-content">WINDOW NOW RELEVANT · VIEW OPPORTUNITY →</span></sc-if></div></div>
         <div style="border-radius:12px;background:#161312;border:1px solid rgba(255,255,255,0.08);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">AGRONOMIC CLOCK</span><span style="font-size:28px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;color:{{ wd.daysColor }}">{{ wd.daysLabel }}</span><span style="font-size:10.5px;color:#EDEAE9">{{ wd.windowLabel }}</span><span style="font-size:9.5px;color:#8F8886">{{ wd.calLabel }}</span></div>
-        <div style="border-radius:12px;background:#161312;border:1px solid rgba(255,255,255,0.08);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">PORTFOLIO CLOCK</span><span style="font-size:16px;font-weight:700;line-height:1.1;color:#fff;padding-top:6px">{{ wd.c.primaryLabel }}</span><span style="font-size:10.5px;color:#EDEAE9">{{ wd.c.label }}</span><span style="font-size:9.5px;color:#8F8886">Known from label · {{ wd.c.matchCount }} registered matches</span></div>
-        <div style="border-radius:12px;background:#161312;border:1px solid {{ wd.prepColor }};padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">BUSINESS PREPARATION CLOCK</span><span style="display:inline-flex;width:max-content;padding:6px 12px;border-radius:9999px;background:{{ wd.prepColor }};color:#fff;font-size:12px;font-weight:700;letter-spacing:0.06em;margin-top:4px">{{ wd.prepLabel }}</span><span style="font-size:9.5px;color:#8F8886;padding-top:2px">Business rule (demo configuration), not an agricultural fact</span></div>
+        <div style="border-radius:12px;background:#161312;border:1px solid rgba(255,255,255,0.08);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">PORTFOLIO CLOCK</span><span style="font-size:16px;font-weight:700;line-height:1.1;color:#fff;padding-top:6px">{{ wd.c.primaryLabel }}</span><span style="font-size:10.5px;color:#EDEAE9">{{ wd.c.label }}</span><span style="font-size:9.5px;color:#8F8886">{{ t.wdFromLabel }}</span></div>
+        <div style="border-radius:12px;background:#161312;border:1px solid {{ wd.prepColor }};padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">BUSINESS PREPARATION CLOCK</span><span style="display:inline-flex;width:max-content;padding:6px 12px;border-radius:9999px;background:{{ wd.prepColor }};color:#fff;font-size:12px;font-weight:700;letter-spacing:0.06em;margin-top:4px">{{ wd.prepLabel }}</span><span style="font-size:9.5px;color:#8F8886;padding-top:2px">{{ t.wdBizRuleNote }}</span></div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:10px">
-        <div style="grid-column:span 4;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+        <div style="grid-column:span 5;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
           <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">WHY PREPARE NOW?</div>
           <sc-for list="{{ wd.why }}" as="y" hint-placeholder-count="6"><div style="display:flex;gap:8px;font-size:11.5px;line-height:1.4;color:#EDEAE9"><span style="font-weight:700;color:{{ y.color }}">{{ y.mark }}</span>{{ y.t }}</div></sc-for>
           <div style="font-size:9.5px;color:#8F8886;padding-top:4px">Transparent reasons instead of a score.</div>
         </div>
-        <div style="grid-column:span 4;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">EARLY MARKET SIGNAL</div><span style="font-size:8.5px;font-weight:700;color:{{ wd.early.color }}">{{ wd.early.state }}</span></div>
-          <div style="font-size:11.5px;color:#EDEAE9;line-height:1.45">{{ wd.early.text }}</div>
-          <sc-for list="{{ wd.fieldMessages }}" as="m" hint-placeholder-count="1"><div style="border-radius:9px;background:rgba(151,139,135,0.12);border:1px solid rgba(151,139,135,0.4);padding:7px 9px;display:flex;flex-direction:column;gap:2px"><span style="font-size:9.5px;color:#00B152;font-weight:700">{{ m.person }} · {{ m.when }}</span><span style="font-size:10.5px;color:#EDEAE9;font-style:italic">“{{ m.text }}”</span></div></sc-for>
-          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;font-size:10.5px;padding-top:2px"><div style="padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">PREPARATION RECOMMENDATION</span><br><b style="color:{{ wd.prepColor }}">{{ wd.prepLabel }}</b></div><div style="padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">EARLY MARKET SIGNAL</span><br><b style="color:{{ wd.early.color }}">{{ wd.early.state }}</b></div></div>
-          <div style="font-size:9.5px;color:#8F8886;line-height:1.4">An approaching window is not evidence of early buying. Field reports are not evidence of demand increasing.</div>
-        </div>
-        <div style="grid-column:span 4;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
+        <div style="grid-column:span 7;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
           <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">PORTFOLIO READINESS · {{ wd.c.primaryLabel }}</div>
           <sc-for list="{{ wd.readiness }}" as="r" hint-placeholder-count="8"><div style="display:flex;justify-content:space-between;gap:8px;font-size:10.5px;padding:4px 0;border-bottom:1px dotted rgba(151,139,135,0.45)"><span style="color:#B1A9A7">{{ r.k }}</span><span style="font-weight:700;color:{{ r.color }};text-align:right">{{ r.v }}</span></div></sc-for>
         </div>
@@ -781,7 +712,7 @@
           <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">PRODUCTS TO PREPARE · real Italy portfolio relationships only</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px">
             <sc-for list="{{ wd.products }}" as="p" hint-placeholder-count="4"><div onClick="{{ p.go }}" style="border-radius:10px;border:1px solid {{ p.border }};background:rgba(255,255,255,0.03);padding:9px 11px;display:flex;flex-direction:column;gap:3px;cursor:pointer"><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:12.5px;font-weight:700;color:#fff">{{ p.name }}</span><span style="font-size:8px;font-weight:700;letter-spacing:0.08em;color:{{ p.roleColor }}">{{ p.role }}</span></div><span style="font-size:9.5px;color:#B1A9A7">{{ p.ai }}</span><span style="font-size:9.5px;color:#8F8886">Target fit · {{ p.targetFit }}</span><span style="font-size:9.5px;color:#8F8886">Stage · {{ p.use }}</span><span style="font-size:9px;color:#00B152;font-weight:700">Label · registered · {{ p.moa }}</span></div></sc-for>
-            <sc-if value="{{ wd.noProducts }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#B1A9A7;padding:8px 0">Portfolio check needed — no confirmed ADAMA label position for this crop × issue.</div></sc-if>
+            <sc-if value="{{ wd.noProducts }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#B1A9A7;padding:8px 0">{{ t.wdNoProducts }}</div></sc-if>
           </div>
           <div style="font-size:9.5px;color:#8F8886">{{ t.noVolumeNote }}</div>
         </div>
@@ -796,14 +727,14 @@
         <div style="grid-column:span 6;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
           <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">FUTURE RADAR SIGNALS FEEDING THIS WINDOW</div><span onClick="{{ goFuture }}" style="font-size:9.5px;font-weight:700;color:#00B152;cursor:pointer">{{ t.navFuture }} →</span></div>
           <sc-for list="{{ wd.signals }}" as="s" hint-placeholder-count="2"><div style="display:flex;align-items:center;gap:8px;font-size:11px;padding:5px 0;border-bottom:1px dotted rgba(151,139,135,0.45)"><span style="width:6px;height:6px;border-radius:50%;background:{{ s.color }}"></span><span style="flex:1;color:#E4E0DE">{{ s.issueL }} · {{ s.sourceType }} · {{ s.movement }}</span><span style="font-size:8.5px;font-weight:700;color:{{ s.color }}">{{ s.statusL }}</span></div></sc-for>
-          <sc-if value="{{ wd.noSignals }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#8F8886">No Future Radar signal yet for this crop × region — window driven by the annual cycle and the case record.</div></sc-if>
+          <sc-if value="{{ wd.noSignals }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#8F8886">{{ t.wdNoSignals }}</div></sc-if>
         </div>
         <div style="grid-column:span 6;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
           <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">WHAT IS FACTUAL · EXPECTED · UNKNOWN</div>
           <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:10.5px">
-            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#00B152">FACTUAL</span><span style="color:#EDEAE9">Crop × region relevance</span><span style="color:#EDEAE9">Portfolio label relationship</span><span style="color:#EDEAE9">Annual issue cycle</span></div>
-            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#B1A9A7">EXPECTED</span><span style="color:#EDEAE9">{{ wd.expectedLine }}</span><span style="color:#EDEAE9">Monitoring season start</span></div>
-            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#978B87">UNKNOWN</span><span style="color:#EDEAE9">{{ wd.unknownLine }}</span><span style="color:#8F8886">{{ wd.notObservable }}</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#00B152">{{ t.wdFactual }}</span><span style="color:#EDEAE9">{{ t.wdFactLabel }}</span><span style="color:#EDEAE9">{{ t.wdFactCycle }}</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#B1A9A7">{{ t.wdExpected }}</span><span style="color:#EDEAE9">{{ wd.expectedLine }}</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#978B87">{{ t.wdUnknown }}</span><span style="color:#EDEAE9">{{ wd.unknownLine }}</span><span style="color:#8F8886">{{ wd.notObservable }}</span></div>
           </div>
         </div>
       </div>
@@ -814,7 +745,7 @@
     <sc-if value="{{ isField }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:12px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
-        <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:nowrap"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navField }}</h1><span style="font-size:11px;color:#8F8886">Technical Sales Representatives</span></div><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">Human intelligence arriving <b style="color:#fff">from</b> ADAMA's field network. Representatives send in what they see and hear; Sintonia classifies it and routes it. This channel is inbound only.</div></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:nowrap"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navField }}</h1><span style="font-size:11px;color:#8F8886">{{ t.fsTsrLabel }}</span></div><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.fsIntro }}</div></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ fieldStateChips }}" as="f" hint-placeholder-count="5"><span onClick="{{ f.go }}" style="cursor:pointer;padding:5px 10px;border-radius:9999px;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};font-size:9.5px;font-weight:700;letter-spacing:0.08em">{{ f.label }} <span style="opacity:0.7">{{ f.count }}</span></span></sc-for></div>
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:0;border-radius:12px;overflow:hidden;border:1px solid rgba(203,197,195,0.12);background:#161312">
@@ -852,7 +783,7 @@
       <sc-if value="{{ showComposer }}" hint-placeholder-val="{{ false }}">
         <div style="border-radius:14px;border:1px solid rgba(0,152,69,0.4);background:#1C1817;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px">
           <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">WHATSAPP · FIELD MESSAGE (SIMULATED)</div>
+            <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.fsWhatsapp }}</div>
             <div style="border-radius:12px;background:#161312;padding:10px;display:flex;flex-direction:column;gap:6px">
               <textarea value="{{ composerText }}" onChange="{{ setComposer }}" rows="4" placeholder="Type like you just left a customer… e.g. Two olive growers in Bari asking about fruit fly pressure before the next treatment." style="background:transparent;border:0;outline:0;color:#fff;font-size:12px;font-family:inherit;resize:none;line-height:1.45"></textarea>
               <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:9.5px;color:#8F8886">{{ t.fsFromDemo }}</span><span onClick="{{ sendComposer }}" style="cursor:pointer;padding:6px 14px;border-radius:9999px;background:#00783F;color:#fff;font-size:10px;font-weight:700;letter-spacing:0.08em">{{ t.fsReceive }}</span></div>
@@ -860,16 +791,16 @@
             <div style="display:flex;gap:5px;flex-wrap:wrap"><sc-for list="{{ composerExamples }}" as="e" hint-placeholder-count="3"><span onClick="{{ e.go }}" style="cursor:pointer;padding:3px 8px;border-radius:9999px;border:1px solid rgba(203,197,195,0.2);font-size:9.5px;color:#B1A9A7" style-hover="color:#fff">{{ e.label }}</span></sc-for></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">SINTONIA STRUCTURES IT AS</div>
+            <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.fsStructures }}</div>
             <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;font-size:11px">
-              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">ISSUE</span><br><b style="color:#fff">{{ parsed.issueL }}</b></div>
-              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">CROP</span><br><b style="color:#fff">{{ parsed.cropL }}</b></div>
-              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">REGION</span><br><b style="color:#fff">{{ parsed.region }}</b></div>
-              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">FIELD SIGNAL</span><br><b style="color:#00B152">{{ parsed.signal }}</b></div>
-              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">PORTFOLIO CONNECTION</span><br><b style="color:#fff">{{ parsed.product }}</b></div>
-              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">RESULT</span><br><b style="color:{{ parsed.color }}">{{ parsed.state }}</b></div>
+              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ t.fsCompIssue }}</span><br><b style="color:#fff">{{ parsed.issueL }}</b></div>
+              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ t.fsCompCrop }}</span><br><b style="color:#fff">{{ parsed.cropL }}</b></div>
+              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ t.fsCompRegion }}</span><br><b style="color:#fff">{{ parsed.region }}</b></div>
+              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ t.fsCompFieldSignal }}</span><br><b style="color:#00B152">{{ parsed.signalL }}</b></div>
+              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ t.fsCompPortfolio }}</span><br><b style="color:#fff">{{ parsed.product }}</b></div>
+              <div style="padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ t.fsCompResult }}</span><br><b style="color:{{ parsed.color }}">{{ parsed.stateL }}</b></div>
             </div>
-            <div style="font-size:10px;color:#8F8886">Source: Technical Sales Representative · Confidence: field voice observed · Needs validation: yes. A field message strengthens or opens a signal; it never proves incidence on its own.</div>
+            <div style="font-size:10px;color:#8F8886">{{ t.fsComposerCaveat }}</div>
           </div>
         </div>
       </sc-if>
@@ -878,35 +809,37 @@
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:12px 14px;display:flex;flex-direction:column;gap:8px;border-left:3px solid {{ m.color }}">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="width:26px;height:26px;border-radius:50%;background:rgba(151,139,135,0.2);border:1px solid rgba(151,139,135,0.5);display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:#00B152">{{ m.tsr.initials }}</span><div style="display:flex;flex-direction:column"><span style="font-size:11px;font-weight:700;color:#fff">{{ m.person }}</span><span style="font-size:9.5px;color:#8F8886">{{ m.region }} · {{ m.sub }} · {{ m.when }}</span></div></div><span style="font-size:8px;font-weight:700;letter-spacing:0.08em;color:{{ m.color }};white-space:nowrap">{{ m.state }}</span></div>
             <div style="display:flex;flex-direction:column;gap:3px">
-              <span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">ORIGINAL FIELD MESSAGE</span>
+              <span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.fsOriginalMessage }}</span>
               <div style="border-radius:10px;background:rgba(0,152,69,0.10);border:1px solid rgba(0,152,69,0.2);padding:8px 10px;font-size:11.5px;line-height:1.45;color:#EDEAE9">{{ m.text }}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px;padding-top:2px;border-top:1px solid rgba(255,255,255,0.07)">
-              <span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">SINTONIA CLASSIFICATION</span>
+              <span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.fsClassification }}</span>
               <div style="display:flex;flex-wrap:wrap;gap:4px">
                 <span style="padding:3px 8px;border-radius:6px;background:{{ m.mtypeColor }}26;border:1px solid {{ m.mtypeColor }}66;font-size:8.5px;font-weight:700;letter-spacing:0.07em;color:{{ m.mtypeText }}">{{ m.mtype }}</span>
                 <span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:8.5px;font-weight:700;letter-spacing:0.07em;color:#B1A9A7">{{ m.cropL }}</span>
                 <span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:8.5px;font-weight:700;letter-spacing:0.07em;color:#B1A9A7">{{ m.issueL }}</span>
                 <span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:8.5px;font-weight:700;letter-spacing:0.07em;color:#B1A9A7">{{ m.region }}</span>
-                <span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:8.5px;font-weight:700;letter-spacing:0.07em;color:#C9C3C1">HEARD FROM · {{ m.channel }}</span>
+                <span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:8.5px;font-weight:700;letter-spacing:0.07em;color:#C9C3C1">{{ t.fsHeardFrom }} · {{ m.channel }}</span>
               </div>
               <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px 10px;font-size:10px">
-                <div><span style="color:#8F8886">Safe reading</span><br><span style="color:#00B152;font-weight:600;line-height:1.35">{{ m.signal }}</span></div>
-                <div><span style="color:#8F8886">Timing context</span><br><span style="color:#C9C3C1;line-height:1.35">{{ m.timing }}</span></div>
+                <div><span style="color:#8F8886">{{ t.fsSafeReading }}</span><br><span style="color:#00B152;font-weight:600;line-height:1.35">{{ m.signal }}</span></div>
+                <div><span style="color:#8F8886">{{ t.fsTimingContext }}</span><br><span style="color:#C9C3C1;line-height:1.35">{{ m.timing }}</span></div>
                 <div><span style="color:#8F8886">{{ t.frPortfolio }}</span><br><span style="color:#C9C3C1;line-height:1.35">{{ m.productLabel }}</span></div>
-                <div><span style="color:#8F8886">Proves</span><br><span style="color:#8F8886;line-height:1.35">{{ m.proves }}</span></div>
+                <div><span style="color:#8F8886">{{ t.lblProves }}</span><br><span style="color:#8F8886;line-height:1.35">{{ m.proves }}</span></div>
               </div>
               <sc-if value="{{ m.hasValidation }}" hint-placeholder-val="{{ false }}">
                 <span style="display:flex;gap:6px;font-size:9.5px;color:#F5B317;line-height:1.4"><span style="font-weight:700">△</span>{{ m.validation }}</span>
               </sc-if>
             </div>
+            <sc-if value="{{ m.hasRelated }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex;flex-direction:column;gap:4px">
-              <span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">WHERE THIS SIGNAL WENT</span>
+              <span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.fsRelatedContext }}</span>
               <div style="display:flex;flex-wrap:wrap;gap:4px">
                 <sc-for list="{{ m.went }}" as="w" hint-placeholder-count="3"><span onClick="{{ w.go }}" style="padding:3px 9px;border-radius:9999px;border:1px solid rgba(0,152,69,0.42);background:rgba(0,152,69,0.10);font-size:8.5px;font-weight:700;letter-spacing:0.06em;color:#00B152;cursor:pointer" style-hover="background:rgba(0,152,69,0.22)">{{ w.label }} →</span></sc-for>
               </div>
             </div>
-            <div onClick="{{ m.go }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);cursor:pointer"><span style="font-size:10px;color:#8F8886;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.targetLabel }}</span><span style="font-size:9.5px;font-weight:700;color:#00B152;white-space:nowrap">VIEW INTELLIGENCE →</span></div>
+            </sc-if>
+            <div onClick="{{ m.go }}" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);cursor:pointer"><span style="font-size:10px;color:#8F8886;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.targetLabel }}</span><span style="font-size:9.5px;font-weight:700;color:#00B152;white-space:nowrap">{{ t.fsViewIntelligence }} →</span></div>
           </div>
         </sc-for>
       </div>
@@ -918,8 +851,8 @@
           </sc-for>
         </div>
         <div style="grid-column:span 5;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">FIELD SALES REPRESENTATIVES · {{ tsrCount }}</div><span onClick="{{ goTsr }}" style="font-size:9.5px;font-weight:700;color:#00B152;cursor:pointer">IN SOURCES → PEOPLE</span></div>
-          <sc-for list="{{ tsrs }}" as="t" hint-placeholder-count="7"><div onClick="{{ t.go }}" style="display:flex;align-items:center;gap:9px;font-size:11px;padding:5px 0;border-bottom:1px dotted rgba(151,139,135,0.45);cursor:pointer"><span style="width:22px;height:22px;border-radius:50%;background:rgba(151,139,135,0.2);border:1px solid rgba(151,139,135,0.5);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#00B152">{{ t.initials }}</span><span style="flex:1;color:#E4E0DE">{{ t.label }}</span><span style="font-size:9.5px;color:#8F8886">{{ t.contentCount }} msgs · {{ t.last }}</span></div></sc-for>
+          <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">FIELD SALES REPRESENTATIVES · {{ tsrCount }}</div></div>
+          <sc-for list="{{ tsrs }}" as="t" hint-placeholder-count="7"><div style="display:flex;align-items:center;gap:9px;font-size:11px;padding:5px 0;border-bottom:1px dotted rgba(151,139,135,0.45)"><span style="width:22px;height:22px;border-radius:50%;background:rgba(151,139,135,0.2);border:1px solid rgba(151,139,135,0.5);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#00B152">{{ t.initials }}</span><span style="flex:1;color:#E4E0DE">{{ t.label }}</span><span style="font-size:9.5px;color:#8F8886">{{ t.contentCount }} msgs · {{ t.last }}</span></div></sc-for>
         </div>
       </div>
     </div>
@@ -968,13 +901,12 @@
               <span style="font-size:9px;letter-spacing:0.12em;color:#8F8886">LAST CONFIRMED OBSERVATION</span>
               <span style="font-size:15px;font-weight:700;color:#fff">{{ mp.latestPeriod }}</span>
             </div>
-            <span style="display:inline-flex;align-self:flex-start;align-items:center;gap:6px;margin-top:4px;padding:4px 10px;border-radius:9999px;background:rgba(255,255,255,0.05);font-size:8.5px;font-weight:700;letter-spacing:0.12em;color:#9A9391">&#9671; SINTONIA INTERPRETATION · NOT AN OBSERVED FACT</span>
           </div>
 
           <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);border-top:3px solid #978B87;padding:14px 16px;display:flex;flex-direction:column;gap:9px;gap:8px">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-              <span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#978B87;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">WHY SINTONIA READS IT THIS WAY</span>
-              <span style="font-size:9.5px;color:#8F8886">no score is calculated · transparent reasoning only</span>
+              <span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#978B87;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">{{ t.mpWhatObserved }}</span>
+              <span style="font-size:9.5px;color:#8F8886">{{ t.mpObservedNote }}</span>
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:7px">
               <sc-for list="{{ mp.drivers }}" as="d" hint-placeholder-count="6">
@@ -986,13 +918,6 @@
                   </span>
                 </div>
               </sc-for>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:10px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07);align-items:center">
-              <span style="font-size:8.5px;letter-spacing:0.12em;color:#8F8886">MARKET EFFECT</span>
-              <sc-for list="{{ mp.semLegend }}" as="l" hint-placeholder-count="4"><span style="display:inline-flex;align-items:center;gap:5px;font-size:9px;color:#9A9391"><span style="width:14px;height:4px;border-radius:2px;background:{{ l.line }}"></span>{{ l.label }}</span></sc-for>
-              <span style="width:1px;height:12px;background:rgba(151,139,135,0.3)"></span>
-              <span style="font-size:9px;color:#8F8886">&#9671; interpretation · &#9675; forecast · — no data</span>
-              <span style="font-size:9px;color:#8F8886">colour follows market effect, never direction alone — a falling cost reads positive</span>
             </div>
           </div>
         </div>
@@ -1039,110 +964,10 @@
               <span onClick="{{ goSources }}" style="margin-top:auto;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);font-size:9.5px;color:#8F8886;cursor:pointer" style-hover="color:#00A0DF">&#9679; {{ mp.price.geo }} · {{ mp.price.period }} · {{ mp.price.cadence }} · SOURCE →</span>
             </div>
 
-            <div style="border-radius:14px;background:{{ mp.prodSem.tint }};border:1px solid {{ mp.prodSem.border }};border-top:3px solid {{ mp.prodSem.line }};padding:14px 16px;display:flex;flex-direction:column;gap:9px">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#7DB41E22;border:1px solid #7DB41E55;flex:0 0 26px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7DB41E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"></path><path d="M12 21c-4-1-6-4-6-8 3 0 6 2 6 5"></path><path d="M12 18c4-1 6-4 6-8-3 0-6 2-6 5"></path></svg></span>
-                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">PRODUCTION · YIELD · STOCKS</span><span style="font-size:13px;font-weight:700;color:{{ mp.prodStateColor }};line-height:1.2">{{ mp.prodState }}</span></span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:28px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.prodHead.v }}</span><span style="font-size:13px;font-weight:700;color:#7DB41E">{{ mp.prodHead.d }}</span></div>
-              <div style="display:flex;flex-direction:column;gap:5px">
-                <sc-for list="{{ mp.production }}" as="p" hint-placeholder-count="3">
-                  <div style="display:grid;grid-template-columns:minmax(70px,1.2fr) minmax(50px,0.9fr) minmax(40px,0.6fr);gap:8px;align-items:baseline;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
-                    <span style="font-size:11px;color:#C9C3C1;line-height:1.3">{{ p.k }}</span>
-                    <span style="font-size:12px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums">{{ p.v }}</span>
-                    <span style="font-size:11px;font-weight:700;color:#7DB41E;text-align:right">{{ p.d }}</span>
-                  </div>
-                </sc-for>
-              </div>
-              <span style="margin-top:auto;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);font-size:9.5px;color:#8F8886">&#9679; {{ mp.prodHead.period }} · {{ mp.prodHead.geo }} · {{ mp.prodHead.src }}</span>
-            </div>
-
-            <div style="border-radius:14px;background:{{ mp.tradeSem.tint }};border:1px solid {{ mp.tradeSem.border }};border-top:3px solid {{ mp.tradeSem.line }};padding:14px 16px;display:flex;flex-direction:column;gap:9px">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#978B8722;border:1px solid #978B8755;flex:0 0 26px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B1A9A7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h13"></path><path d="m13 5 3 3-3 3"></path><path d="M21 16H8"></path><path d="m11 19-3-3 3-3"></path></svg></span>
-                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">SUPPLY &amp; TRADE</span><span style="font-size:13px;font-weight:700;color:#B1A9A7;line-height:1.2">{{ mp.trade.state }}</span></span>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:4px">
-                <span style="font-size:9px;letter-spacing:0.09em;color:#8F8886">FILLED BAR = OBSERVATION INGESTED</span>
-                <sc-for list="{{ mp.flow }}" as="f" hint-placeholder-count="4">
-                  <div style="display:grid;grid-template-columns:minmax(64px,0.9fr) minmax(60px,1.6fr) minmax(44px,0.6fr);gap:8px;align-items:center">
-                    <span style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#8F8886">{{ f.k }}</span>
-                    <span style="height:12px;border-radius:3px;background:rgba(255,255,255,0.05);display:block;position:relative"><span style="position:absolute;left:0;top:0;bottom:0;width:{{ f.pct }};border-radius:3px;background:{{ f.color }}"></span></span>
-                    <span style="font-size:10.5px;font-weight:700;color:#EDEAE9;text-align:right">{{ f.v }}</span>
-                  </div>
-                </sc-for>
-              </div>
-              <p style="margin:0;font-size:10.5px;line-height:1.5;color:#9A9391;text-wrap:pretty">{{ mp.trade.note }}</p>
-              <span style="margin-top:auto;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);font-size:9.5px;color:#8F8886">Rising imports do not by themselves mean rising demand.</span>
-            </div>
-
-            <div style="border-radius:14px;background:{{ mp.confSem.tint }};border:1px solid {{ mp.confSem.border }};border-top:3px solid {{ mp.confSem.line }};padding:14px 16px;display:flex;flex-direction:column;gap:9px">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#9D1D9622;border:1px solid #9D1D9655;flex:0 0 26px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C46ABE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0-6.9-4L4 20l4-1.1A8 8 0 0 0 12 20z"></path><path d="M9 11h6M9 14h3"></path></svg></span>
-                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">FARMER SENTIMENT</span><span style="font-size:13px;font-weight:700;color:#C46ABE;line-height:1.2">SECTOR LEVEL ONLY</span></span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:9px"><span style="font-size:28px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.confidence.overall }}</span><span style="font-size:10.5px;color:#B1A9A7">{{ mp.confidence.scale }}</span></div>
-              <div style="display:flex;flex-wrap:wrap;gap:6px">
-                <sc-for list="{{ mp.confSplits }}" as="x" hint-placeholder-count="2"><span style="display:flex;flex-direction:column;gap:1px;padding:5px 10px;border-radius:7px;background:rgba(157,29,150,0.14)"><span style="font-size:8.5px;color:#8F8886">{{ x.k }}</span><span style="font-size:12px;font-weight:700;color:#fff">{{ x.v }}</span></span></sc-for>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:3px">
-                <span style="display:flex;justify-content:space-between;gap:8px;font-size:10px;color:#9A9391"><span>CURRENT BUSINESS CONDITIONS</span><b style="color:#B1A9A7">{{ mp.confidence.current }}</b></span>
-                <span style="display:flex;justify-content:space-between;gap:8px;font-size:10px;color:#9A9391"><span>FUTURE EXPECTATIONS</span><b style="color:#B1A9A7">{{ mp.confidence.expectations }}</b></span>
-                <span style="display:flex;justify-content:space-between;gap:8px;font-size:10px;color:#9A9391"><span>CHANGE vs PRIOR QUARTER</span><b style="color:#B1A9A7">{{ mp.confidence.change }}</b></span>
-              </div>
-              <span style="font-size:10px;color:#C46ABE;line-height:1.5">{{ mp.confidence.caution }}</span>
-              <span style="margin-top:auto;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);font-size:9.5px;color:#8F8886">&#9679; {{ mp.confidence.period }} · {{ mp.confidence.cadence }} · {{ mp.confidence.geo }} · {{ mp.confidence.source }}</span>
-            </div>
-
-            <div style="border-radius:14px;background:{{ mp.inputSem.tint }};border:1px solid {{ mp.inputSem.border }};border-top:3px solid {{ mp.inputSem.line }};padding:14px 16px;display:flex;flex-direction:column;gap:9px">
-              <div style="display:flex;align-items:center;gap:10px">
-                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#F89E1822;border:1px solid #F89E1855;flex:0 0 26px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F89E18" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 8a4 4 0 1 0 0 8"></path><path d="M4 10h7M4 14h7"></path></svg></span>
-                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">INPUT COST PRESSURE</span><span style="font-size:13px;font-weight:700;color:#F89E18;line-height:1.2">PARTIAL COVERAGE</span></span>
-              </div>
-              <sc-for list="{{ mp.inputs }}" as="i" hint-placeholder-count="4">
-                <div style="display:flex;flex-direction:column;gap:2px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
-                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:9px"><span style="font-size:10.5px;font-weight:700;color:#EDEAE9;line-height:1.3">{{ i.k }}</span><span style="font-size:9px;font-weight:700;letter-spacing:0.07em;color:{{ i.color }};white-space:nowrap">{{ i.state }}</span></div>
-                  <sc-if value="{{ i.isObs }}" hint-placeholder-val="{{ false }}"><span style="font-size:15px;font-weight:700;color:#fff">{{ i.value }} <span style="font-size:11px;color:#F89E18">{{ i.delta }}</span></span><span style="font-size:10px;color:#9A9391;line-height:1.45">{{ i.note }}</span></sc-if>
-                  <span style="font-size:9.5px;color:#8F8886;line-height:1.4">{{ i.route }}{{ i.src }} · {{ i.cadence }}</span>
-                </div>
-              </sc-for>
-              <span style="margin-top:auto;padding-top:6px;font-size:10px;color:#F89E18;line-height:1.5">A high crop price with a high input cost can still mean pressured farm economics. Crop price is never read as profitability.</span>
-            </div>
-
           </div>
         </div>
 
-        <!-- TRAJECTORY -->
-        <div style="border-radius:14px;background:#161312;border:1px solid rgba(203,197,195,0.10);padding:14px 18px;display:grid;grid-template-columns:minmax(140px,auto) minmax(240px,1fr);gap:20px;align-items:center">
-          <span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#00A0DF;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">MARKET TRAJECTORY</span>
-          <div style="display:grid;grid-template-columns:1fr 22px 1fr 22px 1fr;gap:8px;align-items:center">
-            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#8F8886">PAST</span><span style="font-size:14px;font-weight:700;color:#8F8886">{{ mp.traj.past }}</span><span style="font-size:9.5px;color:#8F8886">{{ mp.traj.pastNote }}</span></span>
-            <span style="font-size:15px;color:#8F8886;text-align:center">→</span>
-            <span style="display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:9px;background:rgba(0,152,69,0.10);border:1px solid rgba(0,152,69,0.35)"><span style="font-size:8.5px;letter-spacing:0.12em;color:#00B152">{{ t.lblToday }}</span><span style="font-size:16px;font-weight:700;color:{{ mp.trajNowColor }}">{{ mp.traj.now }}</span><span style="font-size:9.5px;color:#8F8886">{{ mp.latestPeriod }}</span></span>
-            <span style="font-size:15px;color:#8F8886;text-align:center">→</span>
-            <span style="display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:9px;border:1px dashed rgba(151,139,135,0.45)"><span style="font-size:8.5px;letter-spacing:0.12em;color:#8F8886">OUTLOOK &#9675;</span><span style="font-size:14px;font-weight:700;color:#B1A9A7">{{ mp.traj.next }}</span><span style="font-size:9.5px;color:#8F8886;line-height:1.35">{{ mp.traj.nextNote }}</span></span>
-          </div>
-        </div>
 
-        <!-- OUTLOOK -->
-        <div style="display:flex;flex-direction:column;gap:9px">
-          <div style="display:flex;align-items:center;gap:12px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#978B87;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">MARKET OUTLOOK · NEXT 3–6 MONTHS</span><span style="flex:1;height:1px;background:repeating-linear-gradient(90deg,rgba(151,139,135,0.5) 0 5px,transparent 5px 10px)"></span><span style="font-size:9.5px;color:#8F8886">&#9675; forward-looking · published sources only</span></div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px">
-            <sc-for list="{{ mp.outlook }}" as="c" hint-placeholder-count="3">
-              <div style="border-radius:14px;background:{{ c.sem.tint }};border:1px dashed {{ c.sem.border }};border-left:3px solid {{ c.sem.line }};padding:13px 15px;display:flex;flex-direction:column;gap:5px">
-                <span style="display:flex;align-items:center;gap:7px"><span style="font-size:12px;color:{{ c.sem.color }}">&#9675;</span><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">{{ c.k }}</span><span style="margin-left:auto;font-size:8px;font-weight:700;letter-spacing:0.08em;color:{{ c.sem.color }}">{{ c.sem.label }}</span></span>
-                <span style="font-size:17px;font-weight:700;color:{{ c.color }};line-height:1.2">{{ c.v }}</span>
-                <span style="font-size:10.5px;color:#9A9391;line-height:1.45">{{ c.meta }}</span>
-              </div>
-            </sc-for>
-            <div style="border-radius:14px;background:rgba(151,139,135,0.07);border:1px dashed rgba(151,139,135,0.40);padding:13px 15px;display:flex;flex-direction:column;gap:5px">
-              <span style="display:flex;align-items:center;gap:7px"><span style="font-size:12px;color:#8F8886">&#9675;</span><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">WEATHER / PRODUCTION RISK</span></span>
-              <span style="font-size:17px;font-weight:700;color:#B1A9A7;line-height:1.2">{{ mp.weather.state }}</span>
-              <span style="font-size:10.5px;color:#9A9391;line-height:1.45">{{ mp.weather.note }}</span>
-            </div>
-          </div>
-          <span style="font-size:10px;color:#8F8886;line-height:1.5">{{ mp.outlookNote }}</span>
-        </div>
 
         <!-- DRIVERS -->
         <sc-if value="{{ mp.hasForces }}" hint-placeholder-val="{{ true }}">
@@ -1207,7 +1032,6 @@
         <div style="position:relative;overflow:hidden;border-radius:16px;background:#00783F;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
           <div style="display:flex;align-items:center;gap:12px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.16em;color:#fff">WHAT THIS MEANS FOR ADAMA</span><span style="flex:1;height:1px;background:rgba(255,255,255,0.25)"></span></div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px">
-            <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">MARKET ENVIRONMENT</span><span style="font-size:19px;font-weight:700;color:{{ mp.sem.color }};line-height:1.15">{{ mp.temp }}</span><span style="font-size:9px;font-weight:700;letter-spacing:0.09em;color:#DFF3E7">{{ mp.sem.mark }} {{ mp.sem.label }} FOR THE GROWER</span></div>
             <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">NEXT AGRONOMIC WINDOW</span><span style="font-size:26px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.adamaDays }}</span><span style="font-size:9.5px;color:#DFF3E7">{{ mp.adamaDaysLabel }}</span></div>
             <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">{{ t.lblPortfolio }}</span><span style="font-size:26px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.productCount }}</span><span style="font-size:9.5px;color:#DFF3E7">registered products relevant to this crop</span></div>
             <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">COMMERCIAL PREPARATION</span><span style="font-size:19px;font-weight:700;color:#fff;line-height:1.15">{{ mp.adamaStance }}</span></div>
@@ -1238,45 +1062,25 @@
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:2px">
             <span onClick="{{ mp.goWindowsAll }}" style="padding:8px 16px;border-radius:9999px;background:#fff;color:#00783F;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer">VIEW CROP WINDOWS →</span>
-            <span onClick="{{ mp.goCases }}" style="padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,0.6);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">{{ t.lblView }} {{ mp.caseCount }} {{ t.lblOpportunities }} →</span>
+            <span onClick="{{ mp.goCases }}" style="padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,0.6);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">{{ t.lblView }} {{ mp.caseCount }} {{ t.mpConvergences }} →</span>
             <span onClick="{{ goFuture }}" style="padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,0.6);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">VIEW FUTURE RADAR →</span>
           </div>
         </div>
 
         <!-- WHAT CHANGED + GAPS -->
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px">
-          <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);border-top:3px solid #00B152;padding:14px 16px;display:flex;flex-direction:column;gap:9px">
-            <span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#00B152;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">WHAT CHANGED</span>
-            <sc-if value="{{ mp.hasChanged }}" hint-placeholder-val="{{ true }}">
-              <sc-for list="{{ mp.changed }}" as="c" hint-placeholder-count="3">
-                <div style="display:grid;grid-template-columns:minmax(72px,auto) minmax(140px,1fr);gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
-                  <span style="font-size:10px;font-weight:700;color:#00B152;white-space:nowrap">{{ c.when }}</span>
-                  <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:11.5px;color:#EDEAE9;line-height:1.5">{{ c.t }}</span><span style="font-size:9.5px;color:#8F8886">{{ c.src }}</span></span>
-                </div>
-              </sc-for>
-            </sc-if>
-            <div style="padding-top:6px;display:flex;flex-direction:column;gap:3px">
-              <span style="font-size:8.5px;letter-spacing:0.11em;color:#8F8886">ITALY MARKET COMMENTARY · &#9671; INTERPRETATION</span>
-              <p style="margin:0;font-size:11.5px;line-height:1.55;color:#C9C3C1;text-wrap:pretty">{{ mp.commentary.text }}</p>
-              <span style="font-size:9.5px;color:#8F8886">{{ mp.commentary.src }}</span>
-            </div>
-          </div>
           <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);border-top:3px solid #978B87;padding:14px 16px;display:flex;flex-direction:column;gap:9px">
             <span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#978B87;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">WHAT WE STILL DO NOT KNOW</span>
             <div style="display:flex;flex-direction:column;gap:4px">
               <sc-for list="{{ mp.gaps }}" as="g" hint-placeholder-count="4"><span style="display:flex;gap:9px;align-items:baseline;font-size:11.5px;color:#C9C3C1;line-height:1.45"><span style="color:#8F8886">—</span>{{ g }}</span></sc-for>
             </div>
             <div style="margin-top:8px;padding:10px 12px;border-radius:10px;border:1px dashed rgba(151,139,135,0.35);display:flex;flex-direction:column;gap:4px"><span style="font-size:9px;font-weight:700;letter-spacing:0.11em;color:#978B87">{{ t.notObservable }}</span><span style="font-size:9.5px;color:#6E6663;line-height:1.5">{{ t.notObservableNote }}</span></div>
-            <div style="display:flex;flex-direction:column;gap:2px;padding-top:4px">
-              <span style="font-size:8.5px;letter-spacing:0.11em;color:#8F8886">ITALY ECONOMIC CONTEXT · NOT CROP-SPECIFIC</span>
-              <sc-for list="{{ mp.contextIt }}" as="x" hint-placeholder-count="4"><span style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:10.5px;color:#9A9391;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04)"><span>{{ x.k }} <span style="color:#8F8886">· {{ x.note }}</span></span><b style="color:#EDEAE9;white-space:nowrap">{{ x.v }}</b></span></sc-for>
-            </div>
           </div>
         </div>
 
         <div style="border-radius:12px;border-left:3px solid #978B87;background:#161312;padding:13px 16px;display:flex;flex-direction:column;gap:5px">
           <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#978B87">WHAT PUBLIC MARKET DATA CANNOT PROVE</span>
-          <span style="font-size:11px;color:#8F8886;line-height:1.6">{{ t.cannotProveList }} Last source review {{ mpReview }}.</span>
+          <span style="font-size:11px;color:#8F8886;line-height:1.6">{{ t.cannotProveList }}</span>
         </div>
 
       </div>
@@ -1287,16 +1091,6 @@
         <div style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:15px 17px;display:flex;flex-direction:column;gap:11px">
           <span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">CROP PROTECTION MARKET · ITALY · THE INDUSTRY</span>
           <p style="margin:0;font-size:12px;line-height:1.55;color:#C9C3C1;max-width:900px;text-wrap:pretty">{{ cpm.intro }}</p>
-          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
-            <sc-for list="{{ cpm.metrics }}" as="m" hint-placeholder-count="9">
-              <div style="border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);padding:11px 13px;display:flex;flex-direction:column;gap:3px">
-                <span style="font-size:8.5px;letter-spacing:0.10em;color:#8F8886">{{ m.k }}</span>
-                <span style="font-size:17px;font-weight:700;color:#fff;line-height:1.15">{{ m.v }}</span>
-                <span style="font-size:9px;color:#8F8886">{{ m.period }} · {{ m.geo }} · {{ m.src }}</span>
-                <span style="font-size:10px;color:#9A9391;line-height:1.45">{{ m.note }}</span>
-              </div>
-            </sc-for>
-          </div>
           <div style="display:flex;flex-direction:column;gap:3px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.06)">
             <span style="font-size:8.5px;letter-spacing:0.10em;color:#8F8886">READ WITH CARE</span>
             <sc-for list="{{ cpm.caution }}" as="c" hint-placeholder-count="4"><span style="font-size:10.5px;color:#8F8886;line-height:1.5">· {{ c }}</span></sc-for>
@@ -1357,19 +1151,25 @@
           <sc-if value="{{ pd.hasVerified }}" hint-placeholder-val="{{ true }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #00B152">
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#00B152">{{ t.prodVerifiedRel }}</span>
-            <sc-for list="{{ pd.verified }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.region }}</span></span></sc-for>
+            <sc-for list="{{ pd.verified }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
           </div>
           </sc-if>
           <sc-if value="{{ pd.hasCheckNeeded }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #F5B317">
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#F5B317">{{ t.prodCheckRel }}</span>
-            <sc-for list="{{ pd.checkNeeded }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.region }}</span></span></sc-for>
+            <sc-for list="{{ pd.checkNeeded }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+          </div>
+          </sc-if>
+          <sc-if value="{{ pd.hasRelated }}" hint-placeholder-val="{{ false }}">
+          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #5CC3EE">
+            <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#5CC3EE">{{ t.prodRelatedRel }}</span>
+            <sc-for list="{{ pd.related }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
           </div>
           </sc-if>
           <sc-if value="{{ pd.hasRejected }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #978B87">
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#B1A9A7">{{ t.prodRejectedRel }}</span>
-            <sc-for list="{{ pd.rejected }}" as="r" hint-placeholder-count="1"><span style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:11.5px;font-weight:600;color:#C9C3C1">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.region }}</span></span></sc-for>
+            <sc-for list="{{ pd.rejected }}" as="r" hint-placeholder-count="1"><span style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:11.5px;font-weight:600;color:#C9C3C1">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
             <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ t.absenceRule }}</span>
           </div>
           </sc-if>
@@ -1414,7 +1214,7 @@
             <span style="font-size:13px;font-weight:700;color:#fff;line-height:1.2">{{ p.name }}</span>
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:{{ p.catColor }}">{{ p.cat }}</span>
             <span style="font-size:10px;color:#9A9391;line-height:1.4">{{ p.ai }}</span>
-            <span style="font-size:9.5px;color:#6E6663;padding-top:2px">{{ p.verified }} ✓ · {{ p.check }} △</span>
+            <span style="font-size:9.5px;color:#6E6663;padding-top:2px">{{ p.verified }} ✓ · {{ p.related }} ○</span>
           </div>
         </sc-for>
       </div>
@@ -1427,7 +1227,7 @@
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:13px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:4px">
-          <div style="display:flex;align-items:baseline;gap:10px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navVoices }}</h1><span style="padding:3px 9px;border-radius:9999px;background:#7DB41E;color:#1C1817;font-size:9px;font-weight:700;letter-spacing:0.14em">ITALIA</span></div>
+          <div style="display:flex;align-items:baseline;gap:10px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navVoices }}</h1><span style="padding:3px 9px;border-radius:9999px;background:rgba(125,180,30,0.16);border:1px solid rgba(125,180,30,0.45);color:#93CC23;font-size:9px;font-weight:700;letter-spacing:0.14em">{{ t.vociChannelBadge }}</span></div>
           <div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.subVoices }}</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px">
@@ -1450,7 +1250,7 @@
               <div style="display:flex;flex-wrap:wrap;gap:5px">
                 <sc-if value="{{ v.hasCrop }}" hint-placeholder-val="{{ true }}"><span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:9px;color:#B1A9A7">{{ v.crop }}</span></sc-if>
                 <sc-if value="{{ v.hasIssue }}" hint-placeholder-val="{{ true }}"><span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:9px;color:#B1A9A7">{{ v.issue }}</span></sc-if>
-                <span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:9px;color:#B1A9A7">{{ v.region }}</span>
+                <sc-if value="{{ v.hasRegion }}" hint-placeholder-val="{{ false }}"><span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:9px;color:#B1A9A7">{{ v.region }}</span></sc-if>
               </div>
               <div style="display:flex;flex-direction:column;gap:3px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07)">
                 <span style="font-size:9px;letter-spacing:0.10em;color:#00B152">{{ t.lblProves }}</span>
@@ -1500,7 +1300,7 @@
     <sc-if value="{{ isFuture }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
-        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navFuture }}</h1><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.frSubA }} {{ kpi.signals }} monitored signals across Italy.</div></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navFuture }}</h1><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.frSubA }} {{ kpi.signals }} {{ t.frSubB }}</div></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           <span onClick="{{ scenarioToggle.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 13px;border-radius:9999px;background:{{ scenarioToggle.bg }};border:1px dashed {{ scenarioToggle.border }};color:{{ scenarioToggle.color }};font-size:9.5px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ scenarioToggle.label }} · {{ sigCountScenario }}</span>
           <sc-for list="{{ futureStatusChips }}" as="f" hint-placeholder-count="8">
@@ -1527,12 +1327,12 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:10px">
         <sc-for list="{{ visibleSignals }}" as="s" hint-placeholder-count="16">
           <div style="border-radius:13px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:12px 13px;display:flex;flex-direction:column;gap:8px;border-top:3px solid {{ s.category.color }}">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span role="img" aria-label="" style="display:inline-block;flex:0 0 auto;width:18px;height:18px;opacity:0.9;background:url({{ s.category.icon }}) center/contain no-repeat"></span><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ s.sourceTypeUpperL }}</span><sc-if value="{{ s.fromField }}" hint-placeholder-val="{{ false }}"><span style="padding:1px 6px;border-radius:5px;background:rgba(151,139,135,0.18);color:#00B152;font-size:8px;font-weight:700;letter-spacing:0.06em">{{ t.frNewFieldSignal }}</span></sc-if></div><span style="font-size:8px;font-weight:700;letter-spacing:0.08em;color:{{ s.color }};white-space:nowrap">{{ s.statusL }}</span></div>
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div style="display:flex;align-items:center;gap:8px"><sc-if value="{{ s.hasCategory }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="" style="display:inline-block;flex:0 0 auto;width:18px;height:18px;opacity:0.9;background:url({{ s.category.icon }}) center/contain no-repeat"></span></sc-if><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ s.sourceTypeUpperL }}</span><sc-if value="{{ s.fromField }}" hint-placeholder-val="{{ false }}"><span style="padding:1px 6px;border-radius:5px;background:rgba(151,139,135,0.18);color:#00B152;font-size:8px;font-weight:700;letter-spacing:0.06em">{{ t.frNewFieldSignal }}</span></sc-if></div><span style="font-size:8px;font-weight:700;letter-spacing:0.08em;color:{{ s.color }};white-space:nowrap">{{ s.statusL }}</span></div>
             <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:15px;font-weight:700;line-height:1.1;color:#fff">{{ s.issueL }}</div><div style="font-size:11px;color:#B1A9A7">{{ s.cropL }} · {{ s.region }}</div></div>
-            <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhyWatch }}</span><span style="font-size:10.5px;line-height:1.35;color:#EDEAE9">{{ s.whyShort }}</span></div>
-            <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhoTalking }}</span><div style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{ s.who }}" as="g" hint-placeholder-count="3"><span onClick="{{ g.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.05);border:1px solid {{ g.color }}55;font-size:8.5px;color:#C9C3C1;white-space:nowrap"><b style="color:#fff">{{ g.count }}</b> {{ g.group }}</span></sc-for></div></div>
+            <sc-if value="{{ s.hasWhy }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhyWatch }}</span><span style="font-size:10.5px;line-height:1.35;color:#EDEAE9">{{ s.whyShort }}</span></div></sc-if>
+            <sc-if value="{{ s.hasWho }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhoTalking }}</span><div style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{ s.who }}" as="g" hint-placeholder-count="3"><span onClick="{{ g.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.05);border:1px solid {{ g.color }}55;font-size:8.5px;color:#C9C3C1;white-space:nowrap"><b style="color:#fff">{{ g.count }}</b> {{ g.group }}</span></sc-for></div></div></sc-if>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9.5px"><div><span style="color:#8F8886">{{ t.frNextWindow }}</span><br><b onClick="{{ s.goWindow }}" style="color:#fff;cursor:pointer">{{ s.windowLine }}</b></div><div><span style="color:#8F8886">{{ t.frPortfolio }}</span><br><b onClick="{{ s.goProduct }}" style="color:{{ s.portfolioColor }};cursor:pointer">{{ s.productLabel }}</b></div></div>
-            <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;padding-top:5px;border-top:1px solid rgba(255,255,255,0.06)"><span style="font-size:9.5px;color:#8F8886">Updated {{ s.lastObserved }}</span><span onClick="{{ s.open }}" style="cursor:pointer;font-size:9.5px;font-weight:700;letter-spacing:0.06em;color:#00B152">{{ t.frExplore }}</span></div>
+            <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;padding-top:5px;border-top:1px solid rgba(255,255,255,0.06)"><sc-if value="{{ s.hasLastObserved }}" hint-placeholder-val="{{ true }}"><span style="font-size:9.5px;color:#8F8886">{{ t.frUpdated }} {{ s.lastObserved }}</span></sc-if><span onClick="{{ s.open }}" style="cursor:pointer;font-size:9.5px;font-weight:700;letter-spacing:0.06em;color:#00B152">{{ t.frExplore }}</span></div>
           </div>
         </sc-for>
       </div>
