@@ -204,15 +204,26 @@ def fila(mostrar=True):
 
 
 # ══════════════════════════════════════════════════════════════ FASE 2 · A PASSADA
-def rodar(so_conta=None):
-    """A passada do dia: perfil, os 12 recentes, e comentário dos posts ainda maduros."""
+def rodar(so_conta=None, forcar=False):
+    """A passada do dia: perfil, os 12 recentes, e comentário dos posts ainda maduros.
+
+    `forcar=True` ignora a cadência — o operador pode querer reler antes da hora, e isso
+    é decisão dele. Mas fica GRAVADO no artefato: uma passada forçada não é uma passada
+    da cadência, e comparar as duas como se fossem iguais seria mudar o método no meio.
+    """
     est = _estado()
-    devidas = [f for f in fila(mostrar=False) if f['VENCE_HOJE'] == 'SIM'
+    todas = fila(mostrar=False)
+    devidas = [f for f in todas
+               if (forcar or f['VENCE_HOJE'] == 'SIM')
                and (not so_conta or f['ACCOUNT_HANDLE'] == so_conta)]
     if not devidas:
         print('nenhuma conta vence hoje. Isto NÃO é "nada aconteceu" — é a cadência '
-              'dizendo que ainda não é hora. Custo: 0,00 USD.')
+              'dizendo que ainda não é hora. Para reler assim mesmo: `rodar --forcar`. '
+              'Custo: 0,00 USD.')
         return 0
+    if forcar:
+        print('⚠️  PASSADA FORÇADA: a cadência não pedia esta leitura. Fica marcada como '
+              'tal no artefato.')
 
     rede = ij.saida_de_rede()
     print('saída de rede: %s / %s' % (rede.get('NETWORK_EXIT_COUNTRY'),
@@ -310,8 +321,16 @@ def rodar(so_conta=None):
         contas_lidas.append(handle)
 
     _gravar_estado(est)
-    caminho = _gravar('PASSADA-%s.json' % hoje(), {
-        'SOURCE_ID': 'INSTAGRAM-DIARIO/PASSADA-%s' % hoje(),
+    nome_arq = ('PASSADA-%s%s.json'
+                % (hoje(), '-FORCADA-' + agora()[11:16].replace(':', '')
+                   if forcar else ''))
+    caminho = _gravar(nome_arq, {
+        'SOURCE_ID': 'INSTAGRAM-DIARIO/' + nome_arq.replace('.json', ''),
+        'PASSADA_FORCADA': 'YES' if forcar else 'NO',
+        'PASSADA_FORCADA_SIGNIFICA': (
+            'a cadência não pedia esta leitura; o operador pediu. Duas passadas '
+            'no mesmo dia NÃO são comparáveis com uma sequência de passadas '
+            'diárias — comparar as duas seria mudar o método no meio.'),
         'source': 'passada diária pela rota pública, em Chrome com janela, deslogado',
         'SOURCE_LOCATION': 'Instagram',
         'FACT_LOCATION': 'NOT_KNOWN — sai do conteúdo, nunca da conta',
@@ -448,18 +467,23 @@ def noticia():
             'CURTIDAS': p.get('LIKE_COUNT_EMBED'),
             'VISUALIZACOES': p.get('VIDEO_VIEW_COUNT'),
             'URL': p.get('SOURCE_URL'),
-            'POR_QUE_E_NOTICIA': 'não estava na grade na visita anterior',
+            'POR_QUE_E_NOTICIA': ('não estava na grade na visita anterior'
+                                 if p.get('ACCOUNT_HANDLE') not in contas_de_primeira
+                                 else 'PRIMEIRA VISITA a esta conta — isto é o '
+                                      'retrato inicial, NÃO uma publicação de hoje'),
         })
     for c in passada.get('COMMENTS') or []:
         linhas.append({
-            'TIPO_DE_NOTICIA': 'COMENTARIO_NOVO',
+            'TIPO_DE_NOTICIA': _rotulo(c.get('ACCOUNT_HANDLE'), 'COMENTARIO_NOVO'),
             'ACCOUNT_HANDLE': c.get('ACCOUNT_HANDLE'), 'COMPANY': c.get('COMPANY'),
             'COUNTRY_SCOPE': c.get('COUNTRY_SCOPE'),
             'QUANDO': c.get('PUBLICADO_RELATIVO', NAO_SEI),
             'O_QUE': (c.get('TEXTO') or '')[:240],
             'AUTOR': c.get('AUTOR_PSEUDONIMO'),
             'URL': 'https://www.instagram.com/p/%s/' % c.get('MIDIA_ID'),
-            'POR_QUE_E_NOTICIA': 'texto inédito neste post',
+            'POR_QUE_E_NOTICIA': ('texto inédito neste post'
+                                 if c.get('ACCOUNT_HANDLE') not in contas_de_primeira
+                                 else 'PRIMEIRA VISITA — linha de base, não novidade'),
             'PERSONAL_DATA': 'YES',
         })
     # mudança de perfil: seguidores e bio
@@ -491,6 +515,10 @@ def noticia():
         'SILENCIO_SIGNIFICA': ('zero linhas é "nada mudou nas contas visitadas hoje" — '
                                'NUNCA "o concorrente parou". Conta que não venceu a '
                                'cadência não foi visitada, e isso está na fila.'),
+        'BASELINE_ACCOUNTS': sorted(contas_de_primeira),
+        'BASELINE_SIGNIFICA': ('conta visitada pela PRIMEIRA vez: tudo o que ela '
+                               'trouxe é retrato inicial, nunca "publicou hoje". '
+                               'A notícia de verdade começa na segunda passada.'),
         'ITEM_COUNT': len(linhas), 'ITEMS': linhas})
 
     from collections import Counter
@@ -518,8 +546,9 @@ if __name__ == '__main__':
         fila()
         raise SystemExit(0)
     if cmd == 'rodar':
-        raise SystemExit(rodar(sys.argv[2] if len(sys.argv) > 2 else None))
+        alvo = next((a for a in sys.argv[2:] if not a.startswith('--')), None)
+        raise SystemExit(rodar(alvo, forcar='--forcar' in sys.argv))
     if cmd == 'noticia':
         raise SystemExit(noticia())
-    print('uso: instagram_diario.py {fila|rodar [conta]|noticia}')
+    print('uso: instagram_diario.py {fila|rodar [conta] [--forcar]|noticia}')
     raise SystemExit(2)
