@@ -36,6 +36,31 @@ sanitiza() {
 
 case "$ETAPA" in
   migrations)
+
+    # ── TRAVA DE NUMERO REPETIDO ──────────────────────────────────────
+    # A chave do livro-razao sao os TRES PRIMEIROS CARACTERES do nome. Dois
+    # arquivos com o mesmo numero viram UM: o segundo e pulado com SKIP,
+    # que no log parece normal. Aconteceu em 02/09/2026 -- uma migration
+    # nova nasceu 017 ao lado de uma 017 de 30/08, e a antiga teria sumido
+    # em silencio, com a 018 dependendo dela.
+    #
+    #     DUAS MIGRATIONS COM O MESMO NUMERO NAO SAO DUAS. SAO UMA.
+    #
+    # Falhar aqui e barato. Descobrir em producao que uma migration nunca
+    # rodou, nao.
+    dup=$(for f in "$RAIZ"/supabase/migrations/*.sql; do
+            basename "$f" | cut -c1-3; done | sort | uniq -d)
+    if [ -n "$dup" ]; then
+      echo "MIGRATION_NUMERO_REPETIDO=$(echo $dup | tr '
+' ' ')"
+      for n in $dup; do
+        echo "  os arquivos com o numero $n:"
+        ls "$RAIZ"/supabase/migrations/${n}_*.sql | sed 's#.*/#    #'
+      done
+      echo "  renumere um deles. O aplicador aplicaria so o primeiro."
+      exit 1
+    fi
+
     # ── O LIVRO-RAZÃO ─────────────────────────────────────────────────
     # A produção parou aqui, e o diagnóstico foi mais fundo do que a
     # primeira causa. A cadeia reaplicava TODAS as migrations desde a 001 a
@@ -69,7 +94,6 @@ case "$ETAPA" in
         'Existe para que a cadeia NÃO reaplique o que já foi aplicado — '
         'reaplicar pode ressuscitar coluna que uma migration posterior '
         'aposentou, e foi por isso que ele nasceu.';" >/dev/null
-
     for f in $(ls "$RAIZ"/supabase/migrations/*.sql | grep -v '/008_' | sort); do
       num=$(basename "$f" | cut -c1-3)
       sha=$(sha256sum "$f" | cut -d' ' -f1)
@@ -95,8 +119,26 @@ case "$ETAPA" in
     ;;
   importacoes)
     # A ordem É a lei. Regulatório primeiro.
+    #
+    # A IT-LASTMILE entra POR ULTIMO, e nao e preferencia: ela referencia
+    # `substancia_ativa` (migration 019) e cria as proprias `fonte_externa`
+    # antes de cada fato. Roda-la antes do catalogo espanhol nao quebraria --
+    # mas a regra da casa e uma ordem so, escrita num lugar so, e quem chega
+    # depois entra no fim.
     for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \
-             supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql; do
+             supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql \
+             supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do
+      # ── CONFERENCIA DE SINTAXE, ANTES DE TOCAR O BANCO ──────────────
+      # O arquivo da last-mile tem 2,8 MB e 3.798 inserts gerados por
+      # script. Uma apostrofe nao escapada num texto italiano («dell'olivo»)
+      # transforma o resto do arquivo em lixo, e o erro do psql aponta para
+      # uma linha centenas de statements adiante. Conferir custa 2 segundos
+      # e nao precisa de banco.
+      if command -v python3 >/dev/null 2>&1; then
+        if ! python3 "$RAIZ/scripts/sql_conferir.py" "$RAIZ/$f"; then
+          echo "IMPORT_$(basename "${f%%.sql}")=FAIL_NA_CONFERENCIA"; exit 1
+        fi
+      fi
       nome=$(basename "$f")
       if psql "$URL" -v ON_ERROR_STOP=1 -q -f "$RAIZ/$f" >/tmp/cc.out 2>/tmp/cc.err; then
         echo "IMPORT_${nome%%.sql}=PASS"

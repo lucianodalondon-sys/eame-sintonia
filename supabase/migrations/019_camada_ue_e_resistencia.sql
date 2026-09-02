@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════════
--- EAME SINTONIA — MIGRATION 017
+-- EAME SINTONIA — MIGRATION 019
 -- A CAMADA EUROPEIA DA SUBSTÂNCIA, E A RESISTÊNCIA CONFIRMADA.
 --
 -- Duas camadas que o esquema NÃO tinha, e que a rodada italiana de
@@ -35,6 +35,27 @@
 -- derivação, mora na `derivacao`, e carrega as proibições de sempre.
 --
 -- NÃO EXECUTADA.
+-- ⚠️ ESTA MIGRATION NASCEU COM O NUMERO 017 E FOI RENUMERADA PARA 019.
+--
+-- O aplicador (`scripts/cadeia_canonica.sh`) usa os TRES PRIMEIROS
+-- CARACTERES do nome do arquivo como chave do livro-razao:
+--
+--     num=$(basename "$f" | cut -c1-3)
+--
+-- Ja existia uma `017_o_que_a_conferencia_de_localizacao_achou.sql`, de
+-- 30/08. Em ordem alfabetica «017_c» vem antes de «017_o», entao esta aqui
+-- rodaria primeiro, gravaria versao='017' no livro, e a ORIGINAL seria
+-- pulada para sempre -- em silencio, com o log dizendo SKIP como se fosse
+-- normal. E a 018 declara, no proprio cabecalho, depender do que a 017 mediu.
+--
+--     DUAS MIGRATIONS COM O MESMO NUMERO NAO SAO DUAS. SAO UMA, E A OUTRA
+--     NUNCA EXISTIU PARA O APLICADOR.
+--
+-- Renumerar e seguro aqui porque toda criacao desta migration e
+-- `if not exists`: se ela ja tiver rodado como 017 em algum banco, rodar
+-- como 019 devolve «already exists» e o livro anota JA_EXISTIA.
+--
+
 -- ═══════════════════════════════════════════════════════════════════════
 
 -- ── 1 · SUBSTÂNCIA ATIVA, a entidade que faltava ───────────────────────
