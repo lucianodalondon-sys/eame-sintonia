@@ -1140,12 +1140,18 @@
   }
 
   // src/cdn.ts
-  var REACT_URL = "https://unpkg.com/react@18.3.1/umd/react.production.min.js";
-  var REACT_SRI = "sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z";
-  var REACT_DOM_URL = "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js";
-  var REACT_DOM_SRI = "sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1";
-  var BABEL_URL = "https://unpkg.com/@babel/standalone@7.29.0/babel.min.js";
-  var BABEL_SRI = "sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y";
+  // Vendored locally so the portal boots with the network disabled. Each file was
+  // downloaded from its upstream registry and its bytes verified against the SRI
+  // hash the CDN <script> tag carried; see client/vendor/LEGGIMI-VENDOR.md.
+  // The SRI constants are intentionally empty: these are same-origin package files,
+  // and an integrity attribute would force crossOrigin="anonymous", which breaks
+  // under the file:// protocol used for an offline demo.
+  var REACT_URL = "vendor/react-18.3.1.production.min.js";
+  var REACT_SRI = "";
+  var REACT_DOM_URL = "vendor/react-dom-18.3.1.production.min.js";
+  var REACT_DOM_SRI = "";
+  var BABEL_URL = "vendor/babel-standalone-7.29.0.min.js";
+  var BABEL_SRI = "";
   function cdnScriptFor(url, sri) {
     const res = window.__resources;
     const v = res ? res[url] : void 0;

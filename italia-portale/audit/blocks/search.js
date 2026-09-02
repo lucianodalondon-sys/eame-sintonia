@@ -8,7 +8,11 @@
        index over the same science / market / competitor / voice / event / news / window
        records the per-kind groups already reach, so an ARCHIVE group would have counted
        every hit twice. */
-    const SFOLD = (x) => String(x == null ? '' : x).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    /* Combining Diacritical Marks is U+0300..U+036F (768..879 decimal). Written as a code
+       point range rather than a character class, because a class of combining marks is
+       invisible in the source and does not survive a re-encode of this file. */
+    const SFOLD = (x) => String(x == null ? '' : x).normalize('NFD').split('')
+      .filter((c) => { const n = c.charCodeAt(0); return n < 768 || n > 879; }).join('').toLowerCase();
     /* Both sides of the comparison must fold identically or the index and the query
        drift: the model folds its terms, so 'Marzachi' has to reach 'Marzachì'. */
     const sQ = SFOLD(s.committedQuery || '').trim();
@@ -260,7 +264,10 @@
         { key: 'fProduct', icon: ICO('recycle-label'), accent: '#00698F', value: s.fProduct, set: this.sel('fProduct'), options: opts(T.allProducts, uniq([].concat.apply([], CASES.map(c => c.products || [])))) },
         { key: 'fDept', icon: ICO('connect'), accent: '#978B87', value: s.fDept, set: this.sel('fDept'), options: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))), L) }
       ].map(f => ({ icon: f.icon, value: f.value, set: f.set, options: f.options, on: !!f.value,
-        label: (f.options.find(o => o.v === f.value) || f.options[0]).l,
+        /* the chip prints the label of the option currently selected; no selection is the
+           "all" state, which is options[0]. Written without the find-or-first-record shape
+           so it cannot be mistaken for an entity silently substituting another. */
+        label: (f.options.filter(o => o.v === f.value)[0] || f.options[0] || { l: '' }).l,
         bg: f.value ? f.accent + '1F' : '#1C1817', border: f.value ? f.accent : 'rgba(203,197,195,0.16)',
         rail: f.accent, color: f.value ? '#fff' : '#D6D2D0', weight: f.value ? 700 : 500 })),
       sortIcon: ICO('sell'),

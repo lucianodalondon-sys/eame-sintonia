@@ -182,18 +182,27 @@ export function walkPackage(dir = CLIENT, exts = ['.html', '.js', '.md', '.json'
   return out;
 }
 
-export function grepPackage(pattern, { dir = CLIENT, exts, files } = {}) {
+/**
+ * Grep the package. With codeOnly, matches inside comments are skipped — a
+ * migration that documents what it removed would otherwise be scored as still
+ * containing it.
+ */
+export function grepPackage(pattern, { dir = CLIENT, exts, files, codeOnly = false } = {}) {
   const hits = [];
   for (const p of files || walkPackage(dir, exts)) {
     const src = fs.readFileSync(p, 'utf8');
-    src.split('\n').forEach((line, i) => {
-      const re = new RegExp(pattern.source, pattern.flags.replace('g', '') + 'g');
-      let m;
-      while ((m = re.exec(line))) {
-        hits.push({ file: path.relative(dir, p), line: i + 1, match: m[0], text: line.trim().slice(0, 220) });
-        if (!re.global) break;
-      }
-    });
+    const mask = codeOnly ? codeMask(src) : null;
+    const starts = [0];
+    for (let i = 0; i < src.length; i++) if (src[i] === '\n') starts.push(i + 1);
+    const re = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g');
+    let m;
+    while ((m = re.exec(src))) {
+      if (mask && mask[m.index] === 1) continue;
+      let lo = 0, hi = starts.length - 1;
+      while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (starts[mid] <= m.index) lo = mid; else hi = mid - 1; }
+      const line = src.slice(starts[lo], starts[lo + 1] !== undefined ? starts[lo + 1] - 1 : src.length);
+      hits.push({ file: path.relative(dir, p), line: lo + 1, match: m[0], text: line.trim().slice(0, 220) });
+    }
   }
   return hits;
 }

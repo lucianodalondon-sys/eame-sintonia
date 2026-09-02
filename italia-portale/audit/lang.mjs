@@ -29,12 +29,16 @@ export const PT_MARKERS = [
   'nao', 'não', 'são', 'foi', 'pelo', 'pela', 'pelos', 'pelas', 'então', 'entao',
   'apenas', 'nenhum', 'nenhuma', 'porque', 'dados', 'leitura', 'rótulo', 'rotulo',
   'também', 'tambem', 'uma', 'dos', 'das', 'muito', 'depois', 'agora', 'aqui',
-  'antes', 'prova', 'provam', 'encontrado', 'encontrada', 'revogada', 'verificado',
+  'antes', 'encontrado', 'encontrada', 'revogada', 'verificado',
   'coluna', 'epoca', 'época', 'registros', 'milho', 'trigo', 'arroz', 'soja',
   'videira', 'oliveira', 'tomate', 'melao', 'melão', 'cereais', 'ficha', 'atencao',
-  'atenção', 'cultura', 'culturas', 'vencimento', 'calendário', 'calendario',
-  'transversal', 'convergencia', 'convergência', 'olival', 'alfafa', 'noccioleti',
+  'atenção', 'vencimento',
+  'transversal', 'convergencia', 'convergência', 'olival', 'alfafa',
+  'afiliacao', 'afiliação', 'estudo', 'rotulo autorizado', 'sistema colturale',
 ];
+/* Deliberately NOT markers, because they are ordinary Italian too and produced
+   false positives when measured against this package's own Italian strings:
+   prova · cultura · calendario · mais (Italian for maize) · e · per */
 const PT_RE = new RegExp('(^|[^\\p{L}])(' + PT_MARKERS.join('|') + ')([^\\p{L}]|$)', 'iu');
 
 /* English that must not appear when the interface is Italian. Product names,

@@ -69,7 +69,7 @@ check('M2', 'ONE canonical reference date (2026-09-02)', () => {
   const AM = ctx.ITALY_APP_MODEL;
   /* A second clock is any Date built from a literal, or a bare new Date(), in
      application code. Deriving a Date from AM.REF / referenceDate is fine. */
-  const hits = grepPackage(/new Date\(\s*(?:\)|\d|['"]\d)/, { files: ['portale.html', 'italy-app-model.js', 'italy-briefs.js', 'italy-demo-data.js'].map((f) => path.join(CLIENT, f)) })
+  const hits = grepPackage(/new Date\(\s*(?:\)|\d|['"]\d)/, { codeOnly: true, files: ['portale.html', 'italy-app-model.js', 'italy-briefs.js', 'italy-demo-data.js'].map((f) => path.join(CLIENT, f)) })
     .filter((h) => !/REFERENCE_DATE|referenceDate|AM\.REF|M\(\)\.REF|\.REF\b/.test(h.text));
   return {
     pass: AM && AM.referenceDate === REFERENCE_DATE && hits.length === 0,
@@ -171,7 +171,7 @@ check('FS2', 'Fake phone number occurrences = 0 (whole package)', () => {
 });
 
 check('FS3', 'Outbound Field Sales request = 0', () => {
-  const hits = grepPackage(/Send your observations back|SEND FIELD INTELLIGENCE|Invia le tue osservazioni|send observations|Reply prompts/i);
+  const hits = grepPackage(/Send your observations back|SEND FIELD INTELLIGENCE|Invia le tue osservazioni|send observations|Reply prompts/i, { codeOnly: true });
   return { pass: hits.length === 0, expected: 0, measured: hits.length, detail: hits.slice(0, 5) };
 });
 
@@ -344,6 +344,7 @@ check('R2', 'A real entity never silently falls back to another entity', () => {
 
 check('L1', 'No core UI requires private ADAMA data', () => {
   const hits = grepPackage(/sell-in|sell-out|sell in\b|CRM\b|internal stock|scorte interne|Customer purchase timing|order book|portafoglio ordini|INTERNAL ADAMA DATA|dati interni ADAMA/i, {
+    codeOnly: true,
     files: ['portale.html', 'italy-briefs.js', 'italy-i18n.js', 'accesso.html', 'italy-market-pulse.js'].map((f) => path.join(CLIENT, f)),
   });
   return { pass: hits.length === 0, expected: 0, measured: hits.length,
@@ -361,14 +362,41 @@ check('L2', 'Italy reach is never promoted to Italy targeting', () => {
     detail: { total: acts.length, REACHED_IN_ITALY: reached, notResolved: unresolved } };
 });
 
-check('L3', 'Taxonomic names are never truncated at "("', () => {
-  const src = readPortal();
-  const { code } = extractLogic(src);
+check('L3', 'Taxonomic names reach the screen complete', () => {
+  /* A grep for .split('(') cannot judge this: the parenthesis is often PART of
+     the name. "Sorghum halepense (L.) Pers." carries its describing authority,
+     and "Schoenoplectus (Scirpus) mucronatus" carries a synonym genus inside
+     the binomial. Only a parenthetical that is prose — the upstream's own
+     "(sinonimi na ficha: ...)" research note — may be dropped. So compare what
+     renders against what the source published. */
+  const m = mount();
+  const ctx = loadData();
+  const src = (ctx.ITALY_INGEST && ctx.ITALY_INGEST.RESISTANCE) || [];
+  const bySpecies = {};
+  src.forEach((r) => { if (r.ID) bySpecies[r.ID] = String(r.SPECIES || ''); });
+  const strip = (s) => s.replace(/\s*\((?:sinonimi|sin[oó]nimos)\b[^)]*\)\s*/gi, ' ').replace(/\s+/g, ' ').trim();
   const bad = [];
-  code.split('\n').forEach((line, i) => {
-    if (/\.split\(\s*['"]\s*\(\s*['"]\s*\)/.test(line) && /latin|species|specie|scientif/i.test(line)) bad.push(i + 1);
-  });
-  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
+  const seen = new Set();
+  for (const sc of SCREENS) {
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const r = m.tryVals(patch);
+    if (!r.ok) continue;
+    for (const { path, value } of collectStrings(r.vals)) {
+      if (!/speci|latin|scientific|gire/i.test(path)) continue;
+      for (const [id, full] of Object.entries(bySpecies)) {
+        if (seen.has(id + path)) continue;
+        const want = strip(full);
+        if (!want || want.length < 8) continue;
+        /* a rendered value that is a PREFIX of the real name, cut at a
+           parenthesis or an authority, is a truncation */
+        if (value !== want && want.startsWith(value) && value.length >= 8 && want.length - value.length > 3) {
+          seen.add(id + path);
+          bad.push(`${sc.label} ${path}: "${value}" is a prefix of "${want}"`);
+        }
+      }
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
 });
 
 /* ── 10 · localization ────────────────────────────────────────────────────── */

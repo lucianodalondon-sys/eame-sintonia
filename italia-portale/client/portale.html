@@ -803,7 +803,7 @@
           <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:10.5px">
             <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#00B152">FACTUAL</span><span style="color:#EDEAE9">Crop × region relevance</span><span style="color:#EDEAE9">Portfolio label relationship</span><span style="color:#EDEAE9">Annual issue cycle</span></div>
             <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#B1A9A7">EXPECTED</span><span style="color:#EDEAE9">{{ wd.expectedLine }}</span><span style="color:#EDEAE9">Monitoring season start</span></div>
-            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#978B87">UNKNOWN</span><span style="color:#EDEAE9">{{ wd.unknownLine }}</span><span style="color:#EDEAE9">Customer purchase timing</span><span style="color:#EDEAE9">Internal stock and readiness</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#978B87">UNKNOWN</span><span style="color:#EDEAE9">{{ wd.unknownLine }}</span><span style="color:#8F8886">{{ wd.notObservable }}</span></div>
           </div>
         </div>
       </div>
@@ -4327,12 +4327,17 @@ class Component extends DCLogic {
          window: CONFIRMED", "Current crop timing" and "Field signal: REPORTED" were
          four fabricated verdicts; the three internal rows were always unknowable and
          now say so instead of "NOT CONNECTED", which implied a missing plug. */
+      /* Three of those four rows named a private ADAMA system — stock, marketing
+         material, sales readiness — and marking each "not observable" still framed
+         them as three missing plugs Sintonia is waiting for. Sintonia is external
+         intelligence; those are not its gaps. One row states the boundary once,
+         instead of three rows implying a dependency. */
       readiness: [
         { k: wIT ? 'Corrispondenza etichetta' : 'Label match', v: pstate(wdVerdict), color: (wSTR[wdVerdict] || {}).color || '#B1A9A7' },
-        { k: wIT ? 'Scorte interne' : 'Internal stock', v: wNOBS, color: '#6E6663' },
-        { k: wIT ? 'Materiale marketing' : 'Marketing material', v: wNOBS, color: '#6E6663' },
-        { k: wIT ? 'Prontezza commerciale' : 'Sales readiness', v: wNOBS, color: '#6E6663' },
       ],
+      notObservable: wIT
+        ? 'Il comportamento d’acquisto del canale non è osservabile da fonti pubbliche. Sintonia lavora su ciò che il mondo esterno rivela.'
+        : 'Channel purchasing behaviour is not observable from public sources. Sintonia works on what the external world reveals.',
       /* Only VERIFIED_LABEL_MATCH products are shown. The old list came from the case
          fixture's productObjs and ranked its first entry "PRIMARY MATCH" with no
          verdict behind the word; the role is now the audited strength itself. */
@@ -5824,7 +5829,13 @@ class Component extends DCLogic {
         color: STCOLOR(m.status),
         go: () => this.openWindow(m.windowId)
       }));
-    const co0 = companies.find(c2 => c2.name === s.companyId) || companies[0] || null;
+    /* §18 · An id that does not resolve must SAY so. Falling through to the
+       first record opens a different company/event/product without telling
+       anyone — the failure mode this migration exists to remove. With no id at
+       all the first record is a landing default, not a fallback. */
+    const coHit = s.companyId ? (companies.find(c2 => c2.name === s.companyId) || null) : (companies[0] || null);
+    const coMissing = !!s.companyId && !coHit;
+    const co0 = coHit;
     const co = co0 ? Object.assign({}, co0, { activities: actsOfKey(co0.key).slice().sort((a, b) => (b.hasDate ? b.daysFromRef : -1e9) - (a.hasDate ? a.daysFromRef : -1e9)).map(cAct) })
       : { name: '', label: '', id: '', key: '', initials: '', count: 0, paid: 0, organic: 0, pages: [], crops: [], confidence: '', last: NODATE, first: NODATE, recent30: '—', countRows: [], productObjs: [], productsNote: '', themes: [], cases: [], eventRows: [], activities: [], storyBorder: 'rgba(151,139,135,0.45)', go: () => {}, filter: () => {} };
     /* COMPETITOR × CROP · the model publishes 10 columns and a measured maxCell (22);
@@ -5875,7 +5886,9 @@ class Component extends DCLogic {
     /* No activity carries an eventId and no real record links to a case, so the
        BEFORE / DURING / AFTER story and the related-activity wall have nothing to
        show and are emptied rather than filled from a name match. */
-    const evd0 = CEVENTS.find(e2 => e2.id === s.eventId) || CEVENTS[0] || null;
+    const evHit = s.eventId ? (CEVENTS.find(e2 => e2.id === s.eventId) || null) : (CEVENTS[0] || null);
+    const evMissing = !!s.eventId && !evHit;
+    const evd0 = evHit;
     const evd = evd0 ? Object.assign(evDeco(evd0), { cases: [], actCount: 0, activities: [], story: [] })
       : { id: '', name: '', go: () => {}, city: '', region: '', site: '', dates: NODATE, startDays: null, countdown: NODATE, bucket: '', sector: '', crops: [], exhibitorStatus: '', confirmed: [], confirmedCount: 0, confirmedLabel: '', statusLabel: '', statusColor: '#B1A9A7', partSummary: '', partRows: [], program: '', cases: [], actCount: 0, activities: [], story: [] };
     /* COMMUNICATION LEAD TIME is not measurable from this corpus. The earliest
@@ -5900,7 +5913,9 @@ class Component extends DCLogic {
        and last come from the paid records that actually name the product. */
     const actById = {};
     CACTS.forEach(a => { actById[a.id] = a; });
-    const cp0 = CPRODUCTS.find(p2 => p2.name === s.cproductId) || CPRODUCTS[0] || null;
+    const cpHit = s.cproductId ? (CPRODUCTS.find(p2 => p2.name === s.cproductId) || null) : (CPRODUCTS[0] || null);
+    const cpMissing = !!s.cproductId && !cpHit;
+    const cp0 = cpHit;
     const cpActs = cp0 ? (cp0.activityIds || []).map(i2 => actById[i2]).filter(Boolean) : [];
     const cp = cp0 ? {
       name: cp0.name, company: cp0.company, proof: cp0.proof,
@@ -6899,7 +6914,11 @@ class Component extends DCLogic {
        index over the same science / market / competitor / voice / event / news / window
        records the per-kind groups already reach, so an ARCHIVE group would have counted
        every hit twice. */
-    const SFOLD = (x) => String(x == null ? '' : x).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    /* Combining Diacritical Marks is U+0300..U+036F (768..879 decimal). Written as a code
+       point range rather than a character class, because a class of combining marks is
+       invisible in the source and does not survive a re-encode of this file. */
+    const SFOLD = (x) => String(x == null ? '' : x).normalize('NFD').split('')
+      .filter((c) => { const n = c.charCodeAt(0); return n < 768 || n > 879; }).join('').toLowerCase();
     /* Both sides of the comparison must fold identically or the index and the query
        drift: the model folds its terms, so 'Marzachi' has to reach 'Marzachì'. */
     const sQ = SFOLD(s.committedQuery || '').trim();
@@ -7093,7 +7112,9 @@ class Component extends DCLogic {
     return {
       nav, kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
       query: s.query, onQuery: (e) => this.setState({ query: e.target.value }), onQueryKey: (e) => { if (e.key === 'Enter' && s.query.trim()) this.go({ view: 'search', committedQuery: s.query }); },
-      isSignal: s.view === 'signal', sg, hasEvidence: !!ev, ev: ev || {}, closeEvidence: () => this.setState({ evidenceIdx: null }),
+      /* §18 · sgMissing is the whole guarantee that a card cannot silently open
+         a different record: when an id does not resolve, the detail says so. */
+      isSignal: s.view === 'signal', sg, sgMissing, sgFound: !sgMissing && !!sg0, hasEvidence: !!ev, ev: ev || {}, closeEvidence: () => this.setState({ evidenceIdx: null }),
       isProduct: s.view === 'product', pd: pd || {}, hasPd: !!pd,
       isPortfolio: s.view === 'portfolio', port: port || {}, hasPort: !!port,
       isVoices: s.view === 'voices', voices: voices || {}, hasVoices: !!voices,
@@ -7151,7 +7172,10 @@ class Component extends DCLogic {
         { key: 'fProduct', icon: ICO('recycle-label'), accent: '#00698F', value: s.fProduct, set: this.sel('fProduct'), options: opts(T.allProducts, uniq([].concat.apply([], CASES.map(c => c.products || [])))) },
         { key: 'fDept', icon: ICO('connect'), accent: '#978B87', value: s.fDept, set: this.sel('fDept'), options: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))), L) }
       ].map(f => ({ icon: f.icon, value: f.value, set: f.set, options: f.options, on: !!f.value,
-        label: (f.options.find(o => o.v === f.value) || f.options[0]).l,
+        /* the chip prints the label of the option currently selected; no selection is the
+           "all" state, which is options[0]. Written without the find-or-first-record shape
+           so it cannot be mistaken for an entity silently substituting another. */
+        label: (f.options.filter(o => o.v === f.value)[0] || f.options[0] || { l: '' }).l,
         bg: f.value ? f.accent + '1F' : '#1C1817', border: f.value ? f.accent : 'rgba(203,197,195,0.16)',
         rail: f.accent, color: f.value ? '#fff' : '#D6D2D0', weight: f.value ? 700 : 500 })),
       sortIcon: ICO('sell'),

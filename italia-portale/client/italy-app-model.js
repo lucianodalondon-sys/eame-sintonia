@@ -129,6 +129,9 @@
    * render its own "non noto".
    */
   const UNK = (v) => { const s = S(v); return s && UNKNOWN_SENTINEL.test(s) ? null : s; };
+  /* Plain-text form of a narrative field: the approved localized text, or
+     nothing. Never the raw research note. */
+  const narText = (rec, base) => { const n = narrative(rec, base); return n.state === KNOWLEDGE.CLEAR ? (n.it || n.en) : null; };
 
   /* ── 3b · DATE SHAPES ────────────────────────────────────────────────────
      Four incompatible date shapes are measured in this package: ISO
@@ -424,6 +427,55 @@
 
   /* ITALY_INGEST.CROP_WINDOWS writes crops in Italian. */
   const CROP_BY_IT = { VITE: 'Grapevine', OLIVO: 'Olive', MAIS: 'Maize', 'FRUMENTO DURO': 'Durum Wheat', FRUMENTO: 'Wheat', POMODORO: 'Tomato', RISO: 'Rice', MELO: 'Apple', BARBABIETOLA: 'Sugar Beet', ORZO: 'Barley', SOIA: 'Soybean' };
+
+  /* The upstream intelligence was researched in Portuguese, and the language
+     did not stay inside the research notes: OPPORTUNITIES.CROP is "Videira",
+     FUTURE_SIGNALS.CROP is "TRIGO e TRIGO DURO", RESISTANCE.CROP_DECLARED is a
+     Portuguese sentence. Those are FACT fields that reach the screen, so the
+     crop name has to be resolved rather than printed. */
+  const CROP_BY_PT = {
+    VIDEIRA: 'Grapevine', MILHO: 'Maize', 'MILHO GRÃO': 'Maize', 'MILHO GRAO': 'Maize',
+    TRIGO: 'Wheat', 'TRIGO DURO': 'Durum Wheat', ARROZ: 'Rice', SOJA: 'Soybean',
+    TOMATE: 'Tomato', OLIVEIRA: 'Olive', OLIVAL: 'Olive', CEVADA: 'Barley',
+    BATATA: 'Potato', BETERRABA: 'Sugar Beet', 'MAÇÃ': 'Apple', MACA: 'Apple',
+  };
+
+  /**
+   * Resolve any crop token, in any of the six vocabularies this package
+   * publishes, to the canonical crop the window contract uses.
+   *
+   *   scope RESOLVED      one canonical crop
+   *   scope MULTI         the source really named several ("grano duro e tenero")
+   *   scope GENERIC_TERM  a group word; NEVER promoted to a specific crop,
+   *                       because "cereali" is not "Wheat" and saying so
+   *                       would invent a fact
+   *   scope NOT_OBSERVED  nothing was published
+   *   scope UNMAPPED      published, but this package has no rule for it
+   *
+   * The raw token is always carried alongside, so nothing becomes untraceable.
+   */
+  const CROP_TABLES = [CROP_BY_TOKEN, CROP_BY_IT, CROP_BY_LATIN, CROP_BY_PT];
+  const cropResolve = (raw) => {
+    const t = S(raw);
+    if (!t || UNKNOWN_SENTINEL.test(t)) return { key: null, keys: [], label: null, scope: 'NOT_OBSERVED', raw: t };
+    const u = U(t).replace(/[«»"'()]/g, ' ').replace(/\s+/g, ' ').trim();
+    for (const tab of CROP_TABLES) if (tab[u]) return { key: tab[u], keys: [tab[u]], label: tab[u], scope: 'RESOLVED', raw: t };
+    if (GENERIC_CROP_TERMS[u] || /^(CEREAL|CEREAIS|CEREALI|COLTURE|TRANSVERSAL|TRASVERSALE|ORTICOLE|ORTAGGI|FRUTTA)\b/.test(u)) {
+      return { key: null, keys: [], label: null, scope: 'GENERIC_TERM', raw: t };
+    }
+    /* substring pass, deduplicated by canonical crop, so "grano duro e tenero
+       (trigo duro e trigo comum)" comes back as two crops rather than one
+       arbitrary winner */
+    const hits = new Set();
+    for (const tab of CROP_TABLES) {
+      for (const k of Object.keys(tab)) if (k.length >= 4 && u.indexOf(k) >= 0) hits.add(tab[k]);
+    }
+    const keys = [...hits];
+    if (keys.length === 1) return { key: keys[0], keys, label: keys[0], scope: 'RESOLVED', raw: t };
+    if (keys.length > 1) return { key: null, keys, label: keys.join(' · '), scope: 'MULTI', raw: t };
+    if (/\b(TRANSVERSAL|PORTFOLIO|PORTFÓLIO|PORTAFOGLIO)\b/.test(u)) return { key: null, keys: [], label: null, scope: 'GENERIC_TERM', raw: t };
+    return { key: null, keys: [], label: null, scope: 'UNMAPPED', raw: t };
+  };
 
   /* Market series -> crop. The market portal publishes a series code, not a
      crop, so this table is what makes the olive tab six oil grades of one crop
@@ -1493,7 +1545,12 @@
            lines long and once the unknown sentence. It is a quotation of the
            record sheet, not a crop key, so it is exposed as prose with a flag
            and never fed to a crop filter. */
-        crop: UNK(r.CROP_DECLARED), cropDeclared: UNK(r.CROP_DECLARED),
+        /* CROP_DECLARED is the source's own Portuguese sentence. The crop is
+           resolved for display and filtering; the sentence itself is a research
+           note and never reaches the screen. */
+        crop: cropResolve(r.CROP_DECLARED).label, cropRaw: UNK(r.CROP_DECLARED),
+        cropKey: cropResolve(r.CROP_DECLARED).key, cropKeys: cropResolve(r.CROP_DECLARED).keys,
+        cropScope: cropResolve(r.CROP_DECLARED).scope, cropDeclared: null,
         cropIsProse: (S(r.CROP_DECLARED) || '').length > 60,
         firstCaseYear: S(r.FIRST_CASE_YEAR),
         regions: A(r.REGIONS), multiple: !!r.MULTIPLE_RESISTANCE,
@@ -1691,11 +1748,13 @@
         return {
           id: s.ID || s.SOURCE_ID, sourceId: s.SOURCE_ID || s.ID,
           name: S(s.NAME), type, role: narrative(s, 'ROLE'),
-          /* The upstream ROLE is a short factual descriptor, not a Sintonia
-             research note, so the plain value is kept beside the narrative
-             wrapper — with the unknown guard, because one of the 31 rows is the
-             analyst's unknown sentence. */
-          roleText: UNK(s.ROLE),
+          /* ROLE reads like a short factual descriptor, and it was briefly
+             exposed as plain text on that reasoning. Measured, it is Portuguese
+             on 23 of 31 rows ("registro nacional de produto e rotulo
+             autorizado"), and a short descriptor in the wrong language is still
+             the wrong language in front of an Italian client. It goes through
+             the same gate as every other narrative field. */
+          roleText: narText(s, 'ROLE'),
           roleCode: type,
           /* IG.SOURCES has no GROUP field. The group is derived from TYPE with
              a table written out in full above, so an auditor can reconcile it
@@ -1713,7 +1772,7 @@
              value begins with a real date. */
           latestObservationISO: isoOf(String(S(s.LATEST_OBSERVATION) || '').slice(0, 10)),
           accessStatus: S(s.ACCESS_STATUS), limitations: narrative(s, 'LIMITATIONS'),
-          limitationsText: UNK(s.LIMITATIONS),
+          limitationsText: narText(s, 'LIMITATIONS'),
           ui: { color: SOURCE_TYPE_COLOR[U(type)] || NEUTRAL, order: null },
           provenance: provOf(s, P.REAL_SOURCE), raw: s,
         };
@@ -1753,7 +1812,7 @@
           confirmedParticipation: part,
           confirmedParticipationList: Object.keys(part),
           participationLaw: narrative(e, 'PARTICIPATION_LAW'),
-          participationLawText: UNK(e.PARTICIPATION_LAW),
+          participationLawText: narText(e, 'PARTICIPATION_LAW'),
           note: narrative(e, 'NOTE'),
           daysFromRef: daysFrom(startDate),
           daysToStart: daysFrom(startDate),
@@ -1944,7 +2003,11 @@
       rows: RAW.IG.FUTURE_SIGNALS,
       adapt: (f) => ({
         id: f.ID || f.SIGNAL_ID, legacyId: S(f.LEGACY_ID),
-        crop: S(f.CROP), issue: S(f.ISSUE),
+        /* CROP arrives Portuguese ('MAIS', 'TRIGO e TRIGO DURO'). Resolve it; the
+           published token stays as cropRaw so nothing becomes untraceable. */
+        crop: (cropResolve(f.CROP).label), cropRaw: S(f.CROP), cropKey: cropResolve(f.CROP).key,
+        cropKeys: cropResolve(f.CROP).keys, cropScope: cropResolve(f.CROP).scope,
+        issue: S(f.ISSUE),
         /* 2 of the 3 REGION values are the analyst's unknown sentence; leaking
            them would put a Portuguese explanation into a region filter. */
         region: UNK(f.REGION),
@@ -2002,7 +2065,13 @@
         const regionText = S(o.REGION);
         return {
           id: o.ID, legacyCaseId: S(o.LEGACY_CASE_ID),
-          title: S(o.TITLE), crop: S(o.CROP), region: regionText,
+          title: S(o.TITLE),
+          /* CROP arrives Portuguese ("Videira", "Milho grão", and for the
+             portfolio-wide case a whole sentence saying it is not a crop at
+             all). Resolve it for display; keep the published token as cropRaw. */
+          crop: cropResolve(o.CROP).label, cropRaw: S(o.CROP),
+          cropScope: cropResolve(o.CROP).scope,
+          region: regionText,
           cropKeys,
           /* Regions parsed out of a compound free-text string against the 20
              canonical names; the qualifiers ('principal', 'sinal', 'escala')
@@ -2053,7 +2122,11 @@
           interpretationsList: A(o.INTERPRETATIONS),
           adamaProducts: A(o.ADAMA_PRODUCTS),
           adamaActiveSubstance: A(o.ADAMA_ACTIVE_SUBSTANCE),
-          windowText: S(o.WINDOW),
+          /* WINDOW is an object {APPLICATION, MONITORING, NEXT_CYCLE}, already
+             split into the three fields below. Stringifying it produced the
+             literal "[object Object]" on every screen that showed a field
+             case — kept as null so nothing renders rather than nonsense. */
+          windowText: null,
           windowApplication: S(win.APPLICATION),
           windowMonitoring: S(win.MONITORING),
           windowNextCycle: S(win.NEXT_CYCLE),
