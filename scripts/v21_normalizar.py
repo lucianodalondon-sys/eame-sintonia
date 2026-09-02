@@ -206,6 +206,203 @@ def region_ids(*campos):
     return achadas
 
 
+# ── PROVÍNCIA ────────────────────────────────────────────────────────────────
+# A província existe aqui porque a região sozinha MENTE sobre um boletim
+# provincial. Um bollettino de Grosseto não fala pela Toscana; quatro boletins
+# das províncias marchigianas não são «as Marche».
+#
+#     PROVINCIAL != REGIONAL.
+#
+# A tabela é curta de propósito: só entra província que aparece na evidência.
+# Província que não estiver aqui NÃO é adivinhada — o registro sai
+# GEOGRAPHY_UNKNOWN, que se vê, em vez de virar região, que engana.
+PROVINCIA_DE = {
+    # Emilia-Romagna
+    'modena': 'REGION_EMILIA_ROMAGNA', 'parma': 'REGION_EMILIA_ROMAGNA',
+    'piacenza': 'REGION_EMILIA_ROMAGNA', 'reggio emilia': 'REGION_EMILIA_ROMAGNA',
+    'bologna': 'REGION_EMILIA_ROMAGNA', 'ferrara': 'REGION_EMILIA_ROMAGNA',
+    'forli cesena': 'REGION_EMILIA_ROMAGNA', 'forli': 'REGION_EMILIA_ROMAGNA',
+    'ravenna': 'REGION_EMILIA_ROMAGNA', 'rimini': 'REGION_EMILIA_ROMAGNA',
+    # Marche
+    'ancona': 'REGION_MARCHE',
+    'macerata': 'REGION_MARCHE', 'ascoli piceno': 'REGION_MARCHE',
+    'fermo': 'REGION_MARCHE',
+    # Toscana
+    'grosseto': 'REGION_TOSCANA', 'siena': 'REGION_TOSCANA',
+    'firenze': 'REGION_TOSCANA', 'arezzo': 'REGION_TOSCANA',
+    'pisa': 'REGION_TOSCANA', 'livorno': 'REGION_TOSCANA',
+    # Umbria
+    'perugia': 'REGION_UMBRIA', 'terni': 'REGION_UMBRIA',
+    # Trentino-Alto Adige — as duas províncias autônomas, a razão de B25
+    'trento': 'REGION_TRENTINO_ALTO_ADIGE', 'bolzano': 'REGION_TRENTINO_ALTO_ADIGE',
+    # Puglia
+    'foggia': 'REGION_PUGLIA', 'bari': 'REGION_PUGLIA', 'lecce': 'REGION_PUGLIA',
+    'brindisi': 'REGION_PUGLIA', 'taranto': 'REGION_PUGLIA',
+    # Piemonte · Lombardia · Veneto · FVG (as que aparecem)
+    'cuneo': 'REGION_PIEMONTE', 'asti': 'REGION_PIEMONTE',
+    'alessandria': 'REGION_PIEMONTE', 'torino': 'REGION_PIEMONTE',
+    'brescia': 'REGION_LOMBARDIA', 'mantova': 'REGION_LOMBARDIA',
+    'pavia': 'REGION_LOMBARDIA', 'cremona': 'REGION_LOMBARDIA',
+    'verona': 'REGION_VENETO', 'treviso': 'REGION_VENETO',
+    'udine': 'REGION_FRIULI_VENEZIA_GIULIA', 'pordenone': 'REGION_FRIULI_VENEZIA_GIULIA',
+    'gorizia': 'REGION_FRIULI_VENEZIA_GIULIA', 'trieste': 'REGION_FRIULI_VENEZIA_GIULIA',
+}
+# Nomes distintos que sao a MESMA provincia. Sem isto, «Pesaro», «Urbino» e
+# «Pesaro e Urbino» viram tres provincias e a cobertura de um cruzamento conta a
+# mesma provincia tres vezes — o mesmo erro de somar a mesma coisa duas vezes que
+# a lei das vistas ja proibia noutro lugar.
+#
+#     TRES NOMES DA MESMA COISA SAO UM ID, OU A CONTAGEM MENTE.
+PROVINCIA_SINONIMO = {
+    'pesaro e urbino': 'PROV_PESARO_E_URBINO',
+    'pesaro': 'PROV_PESARO_E_URBINO',
+    'urbino': 'PROV_PESARO_E_URBINO',
+    'forli cesena': 'PROV_FORLI_CESENA',
+    'forli': 'PROV_FORLI_CESENA',
+}
+for _n2, _r2 in (('pesaro e urbino', 'REGION_MARCHE'), ('pesaro', 'REGION_MARCHE'),
+                 ('urbino', 'REGION_MARCHE')):
+    PROVINCIA_DE[_n2] = _r2
+
+PROVINCIA_ALIAS = {}
+for _nome, _reg in PROVINCIA_DE.items():
+    _pid = PROVINCIA_SINONIMO.get(
+        _nome, 'PROV_' + re.sub(r'[^A-Z]+', '_', _nome.upper()).strip('_'))
+    PROVINCIA_ALIAS.setdefault(_pid, {'nomes': [], 'regiao': _reg})['nomes'].append(_nome)
+
+# Áreas nomeadas que não são província nem região — um recorte dentro da região.
+AREAL_ALIAS = {'AREA_GARGANO': ['gargano'], 'AREA_METAPONTINO': ['metapontino']}
+
+# Estados possíveis da geografia de um registro. Não há um quinto.
+GEO_PROVINCE = 'PROVINCE_CONFIRMED'
+GEO_REGION = 'REGION_CONFIRMED'
+GEO_MULTI = 'MULTI_REGION_CONFIRMED'
+GEO_UNKNOWN = 'GEOGRAPHY_UNKNOWN'
+
+
+# Host → geografia. Um HOST é identificador discreto, não prosa: mapeá-lo é um
+# fato declarado, não um casamento por substring. Só entra host cuja geografia o
+# próprio host prova — o painel de um fornecedor privado NÃO entra, mesmo quando
+# o coletor sabia de que região era. Saber de cabeça não é evidência no arquivo.
+HOST_GEO = {
+    'agrometeopuglia.it': ('REGIAO', 'REGION_PUGLIA'),
+    'fitosanitario.regione.lombardia.it': ('REGIAO', 'REGION_LOMBARDIA'),
+    'agricoltura.regione.emilia-romagna.it': ('REGIAO', 'REGION_EMILIA_ROMAGNA'),
+    'difesafitosanitaria.ersa.fvg.it': ('REGIAO', 'REGION_FRIULI_VENEZIA_GIULIA'),
+    'agroambiente.info.regione.toscana.it': ('REGIAO', 'REGION_TOSCANA'),
+    'meteo.regione.marche.it': ('REGIAO', 'REGION_MARCHE'),
+    'regione.umbria.it': ('REGIAO', 'REGION_UMBRIA'),
+    'fitosanitario.re.it': ('PROVINCIA', 'PROV_REGGIO_EMILIA'),
+    'fitosanitario.mo.it': ('PROVINCIA', 'PROV_MODENA'),
+    # dashboard01.green-planet.it — painel de fornecedor. NAO mapeado de proposito:
+    # nem o host, nem o titulo, nem o corpo do boletim dizem a regiao. O rotulo de
+    # lote dizia PIEMONTE, e rotulo de lote nao e evidencia.
+}
+
+
+def _host(u):
+    m = re.match(r'https?://([^/]+)', str(u or ''))
+    return m.group(1).lower().replace('www.', '') if m else None
+
+
+def geo_do_host(*campos):
+    """→ (province_ids, region_ids) provados pelo host, ou ([], [])."""
+    provs, regs = [], []
+    for c in campos:
+        g = HOST_GEO.get(_host(c) or '')
+        if not g:
+            continue
+        tipo, gid = g
+        if tipo == 'PROVINCIA' and gid not in provs:
+            provs.append(gid)
+        elif tipo == 'REGIAO' and gid not in regs:
+            regs.append(gid)
+    return provs, regs
+
+
+def province_ids(*campos):
+    """→ [PROV_*] achadas por palavra inteira. Nunca por substring solta."""
+    achadas = []
+    for c in campos:
+        t = ' %s ' % _n(c)
+        if not t.strip():
+            continue
+        for pid, meta in PROVINCIA_ALIAS.items():
+            if pid in achadas:
+                continue
+            if any(' %s ' % _n(a) in t for a in meta['nomes']):
+                achadas.append(pid)
+    return achadas
+
+
+def _areal_ids(*campos):
+    out = []
+    for c in campos:
+        t = ' %s ' % _n(c)
+        for aid, apel in AREAL_ALIAS.items():
+            if aid not in out and any(' %s ' % _n(a) in t for a in apel):
+                out.append(aid)
+    return out
+
+
+def geografia(*campos, rotulo_de_lote=None):
+    """O CONTRATO DE GEOGRAFIA. Lê o que o DOCUMENTO diz sobre si mesmo.
+
+    `campos` são a voz do próprio documento — título, URL. `rotulo_de_lote` é o
+    campo de organização da coleta («TOSCANA-FVG», «MARCHE-UMBRIA»,
+    «PUGLIA-SUD»), que diz em que pasta o coletor guardou o achado e NÃO diz onde
+    o boletim vale. Ele entra só como nota, nunca como geografia.
+
+        O RÓTULO DA PASTA NÃO É A GEOGRAFIA DO DOCUMENTO.
+        Foi assim que um boletim do Friuli virou Toscana em 12 registros.
+
+    Devolve sempre os cinco campos, e um deles é o estado — que pode ser
+    GEOGRAPHY_UNKNOWN. Não saber é uma resposta; inventar não é.
+    """
+    hp, hr = geo_do_host(*campos)
+    provs = province_ids(*campos)
+    for p in hp:
+        if p not in provs:
+            provs.append(p)
+    regs = region_ids(*campos)
+    for r in hr:
+        if r not in regs:
+            regs.append(r)
+    areais = _areal_ids(*campos)
+    pais_regs = sorted({PROVINCIA_ALIAS[p]['regiao'] for p in provs
+                        if p in PROVINCIA_ALIAS})
+
+    if provs:
+        # A província manda. A região entra só como CONTINENTE, e o registro
+        # declara por escrito que não fala pela região.
+        estado, escopo_ = GEO_PROVINCE, 'PROVINCIAL'
+        regioes, representa = sorted(set(pais_regs) | set(regs) & set(pais_regs)), False
+        if not regioes:
+            regioes = pais_regs
+    elif len(regs) > 1:
+        estado, escopo_, regioes, representa = GEO_MULTI, 'REGIONAL', sorted(regs), True
+    elif len(regs) == 1:
+        estado, representa = GEO_REGION, True
+        escopo_ = 'AREALE' if areais else 'REGIONAL'
+        regioes = list(regs)
+        if areais:
+            representa = False       # um recorte da região não é a região
+    else:
+        estado, escopo_, regioes, representa = GEO_UNKNOWN, 'NAO_SEI', [], False
+
+    return {
+        'PROVINCE_IDS': provs,
+        'AREAL_IDS': areais,
+        'REGION_IDS': regioes,
+        'GEOGRAPHIC_SCOPE': escopo_,
+        'GEOGRAPHY_STATE': estado,
+        # ⚠️ O campo que impede a promoção: diz se o registro fala PELA região.
+        'REGION_REPRESENTS': representa,
+        'GEOGRAPHY_EVIDENCE': next((str(c)[:200] for c in campos if _n(c)), None),
+        'GEOGRAPHY_BATCH_LABEL': rotulo_de_lote,
+    }
+
+
 def escopo(texto, nivel_declarado=None):
     """§7 · o escopo NUNCA sobe. Provincial não vira regional."""
     if nivel_declarado:

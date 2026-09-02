@@ -19,43 +19,59 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 export PYTHONIOENCODING=utf-8:replace
 
+# O INTERPRETADOR SE DESCOBRE, NAO SE FIXA.
+# Esta cadeia nasceu no Windows, onde o Python chama-se `py`. Ao ser retomada em
+# Linux, `py` nao existia e a cadeia inteira ficava inexecutavel — ou seja, o
+# pacote deixava de ser reconstruivel por quem herdasse o repositorio.
+#
+#     CADEIA QUE SO RODA NA MAQUINA DE QUEM A ESCREVEU NAO E CADEIA: E LEMBRANCA.
+#
+# Ordem de preferencia; a primeira que existir manda. Pode-se forcar com PY=...
+if [ -z "${PY:-}" ]; then
+  for c in py python3 python; do
+    if command -v "$c" >/dev/null 2>&1; then PY="$c"; break; fi
+  done
+fi
+[ -n "${PY:-}" ] || { echo "nenhum interpretador Python encontrado (py/python3/python)" >&2; exit 1; }
+echo "interpretador: $PY ($($PY --version 2>&1))"
+
 echo "── 1 · as coleções, do handoff anterior e da last-mile ─────────────────"
 # ⚠️ ESTES DOIS REESCREVEM TUDO. Tudo que vier depois tem de rodar de novo.
-py scripts/v21_ingest.py
-py scripts/v21_ingest_b.py
+"$PY" scripts/v21_ingest.py
+"$PY" scripts/v21_ingest_b.py
 
 echo
 echo "── 2 · os cruzamentos, sobre identificadores normalizados ──────────────"
 # depois do ingest, porque lê os IDs que ele acabou de escrever
-py scripts/v21_crossings.py
+"$PY" scripts/v21_crossings.py
 
 echo
 echo "── 3 · §13 · a reconciliação das vozes ─────────────────────────────────"
-py scripts/v21_vozes_reconciliar.py
+"$PY" scripts/v21_vozes_reconciliar.py
 
 echo
 echo "── 4 · a camada de origem, sem default silencioso ──────────────────────"
 # antes do fechamento: o registro central não inventa origem para quem chega
 # sem carimbo — ele mostra SEM_CARIMBO, e aí a falha aparece.
-py scripts/v21_carimbar_origem.py
+"$PY" scripts/v21_carimbar_origem.py
 
 echo
 echo "── 5 · as fontes, rechaveadas para a chave que o pacote já cita ────────"
-py scripts/v21_fontes_rechavear.py
+"$PY" scripts/v21_fontes_rechavear.py
 # e cadastra a fonte que ja era citada mas nao tinha linha — a URL ja estava no
 # pacote, dentro do registro que a cita. Sem isto, 174 citacoes de SRC_DOI_ORG
 # viram link que nao abre.
-py scripts/v21_fontes_faltantes.py
+"$PY" scripts/v21_fontes_faltantes.py
 
 echo
 echo "── 6 · a tradução, conferida antes de entrar ───────────────────────────"
 # a trava recusa gravar se alguma tradução falhar. É de propósito.
-py scripts/v21_traducao_trava.py --aplicar
+"$PY" scripts/v21_traducao_trava.py --aplicar
 
 echo
 echo "── 7 · o fechamento: registro central, manifesto, arquivo interno ──────"
-py scripts/v21_fechar.py
+"$PY" scripts/v21_fechar.py
 
 echo
 echo "── 8 · §19 · a aceitação, com todo número recontado ────────────────────"
-py scripts/v21_aceitacao.py
+"$PY" scripts/v21_aceitacao.py

@@ -103,17 +103,75 @@ def main():
                     f.append('A · %s: %s nao tem cultura declarada'
                              % (papel, x['ID']))
                 # C · escopo nunca promovido
+                #
+                # ⚠️ ESTA GUARDA JA FOI VAZIA. Ela comparava GEOGRAPHIC_CLAIM com
+                # ('REGIONAL','NACIONAL'), mas o campo nascia sempre com a string
+                # "NENHUMA — o cruzamento nao afirma geografia". A condicao era
+                # estruturalmente inalcancavel, e mesmo assim 'C' ia para
+                # INVARIANTS_PROVEN como literal fixo.
+                #
+                #     GUARDA QUE NUNCA DISPARA NAO PROTEGE: DA ALIBI.
+                #
+                # Agora C compara com o escopo EFETIVO que o cruzamento afirma —
+                # calculado dos apoios em `escopo_do_cruzamento` — e um apoio que
+                # declara REGION_REPRESENTS=False nunca pode sustentar alegacao
+                # regional.
+                alegado = cruz.get('GEOGRAPHIC_CLAIM_SCOPE')
                 if x.get('GEOGRAPHIC_SCOPE') in ('PROVINCIAL', 'AREALE', 'ESTACAO',
                                                  'PIAZZA', 'GRADE_DE_MODELO') \
-                        and cruz.get('GEOGRAPHIC_CLAIM') in ('REGIONAL', 'NACIONAL'):
+                        and alegado in ('REGIONAL', 'NACIONAL'):
                     f.append('C · %s: escopo %s promovido a %s'
-                             % (papel, x['GEOGRAPHIC_SCOPE'],
-                                cruz['GEOGRAPHIC_CLAIM']))
+                             % (papel, x['GEOGRAPHIC_SCOPE'], alegado))
+                if x.get('REGION_REPRESENTS') is False and alegado in ('REGIONAL', 'NACIONAL'):
+                    f.append('C · %s: %s declara REGION_REPRESENTS=false e nao '
+                             'sustenta alegacao %s' % (papel, x['ID'], alegado))
         return (not f), f
+
+    # ── o escopo que o cruzamento pode afirmar sai dos apoios, nao do desejo ──
+    FRACO = ['ESTACAO', 'GRADE_DE_MODELO', 'PIAZZA', 'AREALE', 'PROVINCIAL',
+             'REGIONAL', 'MACROAREA', 'NACIONAL', 'EUROPEU']
+
+    def escopo_do_cruzamento(apoios):
+        """O elo mais fraco manda.
+
+        Um cruzamento apoiado em cinco boletins regionais e um provincial NAO e
+        regional: e provincial com companhia. A cadeia vale o elo mais fraco, e
+        em geografia o elo mais fraco e o mais especifico.
+        """
+        vistos, provs, regs, repr_falso = [], [], [], 0
+        for itens in apoios.values():
+            for x in itens:
+                e = x.get('GEOGRAPHIC_SCOPE') or 'NAO_SEI'
+                if e not in vistos:
+                    vistos.append(e)
+                for pid in (x.get('PROVINCE_IDS') or []):
+                    if pid not in provs:
+                        provs.append(pid)
+                for rid in (x.get('REGION_IDS') or []):
+                    if rid not in regs:
+                        regs.append(rid)
+                if x.get('REGION_REPRESENTS') is False:
+                    repr_falso += 1
+        conhecidos = [e for e in vistos if e in FRACO]
+        if not conhecidos:
+            escopo = 'NAO_SEI'
+        else:
+            escopo = min(conhecidos, key=FRACO.index)
+        return {
+            'GEOGRAPHIC_CLAIM_SCOPE': escopo,
+            'GEOGRAPHIC_COVERAGE_PROVINCES': sorted(provs),
+            'GEOGRAPHIC_COVERAGE_REGIONS': sorted(regs),
+            'SUPPORTS_THAT_DO_NOT_REPRESENT_REGION': repr_falso,
+            'GEOGRAPHIC_CLAIM_LAW': (
+                'o escopo alegado e o do apoio mais especifico, nunca o do mais '
+                'amplo. PROVINCIAL != REGIONAL, e a cobertura lista as provincias '
+                'e regioes que os apoios de fato tocam — nao o que o mapa sugere.'),
+        }
 
     def monta(tipo, crop, apoios, pergunta, nao_prova, extra=None):
         cruz = {'CROSSING_TYPE': tipo, 'CROP_ID': crop,
                 'GEOGRAPHIC_CLAIM': 'NENHUMA — o cruzamento nao afirma geografia'}
+        cruz.update(escopo_do_cruzamento(apoios))
         ok, falhas = prova(cruz, apoios, crop)
         if not ok:
             recusados.append({'CROSSING_TYPE': tipo, 'CROP_ID': crop,
@@ -152,11 +210,26 @@ def main():
                 'sao todos client-safe (invariante D); a juncao nao e.',
             'WHAT_IT_LETS_YOU_ASK': pergunta,
             'WHAT_IT_DOES_NOT_PROVE': nao_prova,
-            'INVARIANTS_PROVEN': ['A', 'C', 'D', 'E'] +
+            # 'C' entra so quando ha o que promover — ou seja, quando algum apoio
+            # e mais especifico que o alegado. Sem isso, C nao foi provada: foi
+            # NAO APLICAVEL, e dizer "provada" e dizer que se mediu o que nao se
+            # mediu.
+            'INVARIANTS_PROVEN': ['A', 'D', 'E'] +
+                                 (['C'] if cruz.get('SUPPORTS_THAT_DO_NOT_REPRESENT_REGION')
+                                  or cruz.get('GEOGRAPHIC_CLAIM_SCOPE') in
+                                  ('PROVINCIAL', 'AREALE', 'ESTACAO', 'PIAZZA',
+                                   'GRADE_DE_MODELO') else []) +
                                  (['G'] if 'MARKET' in apoios else []) +
                                  (['H'] if 'FIELD' in apoios else []) +
                                  (['F'] if 'LABEL' in apoios else []),
         })
+        cruz['INVARIANTS_NOT_APPLICABLE'] = [
+            i for i in ('C',) if i not in cruz['INVARIANTS_PROVEN']]
+        if cruz['INVARIANTS_NOT_APPLICABLE']:
+            cruz['INVARIANTS_NOT_APPLICABLE_WHY'] = (
+                'C nao foi avaliada porque nenhum apoio e mais especifico que o '
+                'escopo alegado — nao havia o que promover. NAO APLICAVEL nao e '
+                'PROVADA.')
         if extra:
             cruz.update(extra)
         # RESEARCH_LEADS: o inseguro entra AQUI, nunca no apoio

@@ -82,11 +82,30 @@ def main():
     cf = []
     for x in ant('CROP-WINDOWS/current-phenology.json', 'PHENOLOGY'):
         crops = [N.crop_id(c) for c in (x.get('CROPS') or [])]
+        # §7 · A GEOGRAFIA VEM DO DOCUMENTO, NAO DA PASTA DO COLETOR.
+        # O campo REGION desta fonte e rotulo de LOTE ("TOSCANA-FVG",
+        # "MARCHE-UMBRIA", "PUGLIA-SUD"): diz onde o coletor guardou, nao onde o
+        # boletim vale. Lendo-o como geografia, 12 boletins do Friuli sairam
+        # carimbados Toscana e 4 boletins provinciais das Marche sairam como
+        # Umbria. A propria fonte declara, nos 73 registros:
+        #   "boletim provincial NAO representa a regiao"
+        # e o codigo ignorava a declaracao.
+        g = N.geografia(x.get('BULLETIN_TITLE'), x.get('URL'),
+                        rotulo_de_lote=x.get('REGION'))
         cf.append(do_anterior(
             x, 'FIELD_SIGNAL', [x.get('URL')], x.get('PUBLICATION_DATE'),
             crops, [N.issue_id(*(x.get('PESTS_AND_DISEASES_CITED') or []))],
-            N.region_ids(x.get('REGION')), N.escopo(x.get('REGION')),
+            g['REGION_IDS'], g['GEOGRAPHIC_SCOPE'],
             extra={
+                'PROVINCE_IDS': g['PROVINCE_IDS'],
+                'AREAL_IDS': g['AREAL_IDS'],
+                'GEOGRAPHY_STATE': g['GEOGRAPHY_STATE'],
+                'REGION_REPRESENTS': g['REGION_REPRESENTS'],
+                'GEOGRAPHY_EVIDENCE': g['GEOGRAPHY_EVIDENCE'],
+                'GEOGRAPHY_BATCH_LABEL': g['GEOGRAPHY_BATCH_LABEL'],
+                'GEOGRAPHY_LAW': ('PROVINCIAL != REGIONAL. REGION_IDS aqui diz '
+                                  'que regiao CONTEM o documento; REGION_REPRESENTS '
+                                  'diz se o documento fala PELA regiao.'),
                 'BULLETIN_TITLE': x.get('BULLETIN_TITLE'),
                 'BULLETIN_NUMBER': x.get('BULLETIN_NUMBER'),
                 'PHENOLOGICAL_STAGE_DECLARED': x.get('PHENOLOGICAL_STAGE_DECLARED'),
