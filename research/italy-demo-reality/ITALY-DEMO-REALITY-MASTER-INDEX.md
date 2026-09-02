@@ -30,6 +30,23 @@
 | [FAKE_TO_REAL_REPLACEMENT_PLAN.md](FAKE_TO_REAL_REPLACEMENT_PLAN.md) | o que conectar em cada tela |
 | ⭐ [ITALY-REGUA-RESULTADO-V0.md](ITALY-REGUA-RESULTADO-V0.md) | a coleta paga de 02/09 e o que a régua herdada do Brasil filtrou |
 | ⭐ [`docs/regras/REGUA-ITALIA-FITOSSANITARIA.md`](../../docs/regras/REGUA-ITALIA-FITOSSANITARIA.md) | o contrato da régua, escrito antes do código |
+| ⭐ [ITALY-FONTES-PRIMARIAS-RELATORIO.md](ITALY-FONTES-PRIMARIAS-RELATORIO.md) | 15 atos da UE lidos na íntegra e verificados por refutador; tabela de vencimento por substância |
+| ⭐ [ITALY-AUDITORIA-DO-PAR.md](ITALY-AUDITORIA-DO-PAR.md) | **a cobertura real é 19/163, não 100%** — e onde mora o erro do Nimitz |
+| ⭐ [ITALY-PIEMONTE-FLAVESCENZA-2026.md](ITALY-PIEMONTE-FLAVESCENZA-2026.md) | janelas, zonas e **substâncias admitidas** de 2026, dos atos oficiais |
+
+### Onde o dado ficou guardado
+
+| Camada | Artefato | Supabase |
+|---|---|---|
+| Aprovação UE da substância | `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json` | `substancia_aprovacao_ue` (migration 017) |
+| Resistência confirmada | `data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json` | `resistencia_confirmada` (017) |
+| Par cultura × alvo do corpus | `data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json` | `crop_issue` + `derivacao` |
+| Sinal de campo corrente | `data/samples/IT-CAMPO-ATUAL/` | `observacao` |
+| Vídeo, transcrição, comentário | `data/samples/SENSOR-PILOT/` | `conteudo` · `transcricao` · `comentario` |
+| PDFs oficiais do Piemonte | manifesto em `data/samples/PIEMONTE-FD/`, binário em `data/raw/IT/PIEMONTE-FD/` | `raw_asset` |
+
+Importação pronta: `supabase/importacoes/IT-CAMADAS-2026-09-02.sql` — **não executada**,
+porque as credenciais são secrets do GitHub Actions e não existem na sessão.
 
 ---
 
