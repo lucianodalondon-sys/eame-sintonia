@@ -527,6 +527,122 @@ def alvos_da_linha(texto):
     return achados
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# A TERCEIRA PORTA: O BLOCO DE CULTURA EM PROSA
+# ══════════════════════════════════════════════════════════════════════════════
+# Doze rótulos saíam com ZERO pares — e eram justamente os mais valiosos do
+# acervo: os quatro do tau-fluvalinate (KLARTAN, MAVRIK, TAU AL, EVURE), que
+# nomeiam `Scaphoideus titanus`, o vetor da flavescência dourada, e os três de
+# captan (MERPAN, CAPTHENE, MAKE UP), que nomeiam `ticchiolatura (Venturia)`.
+# A palavra estava lá; o leitor não a alcançava.
+#
+# Eles não usam tabela nem as duas listas do herbicida. Usam um TERCEIRO desenho:
+#
+#     Vite (da vino e da tavola)
+#     Contro cicaline (Empoasca vitis, Scaphoideus titanus) e tripidi
+#     (Frankliniella occidentalis) impiegare a 30-300 ml/hl
+#
+#     Melo, Cotogno, Pero, Nashi: 150-160 g/hl
+#     per la protezione da ticchiolatura (Venturia spp.), Gloeosporium
+#
+# A cultura encabeça o BLOCO e os alvos vivem dentro dele. A ligação é tão forte
+# quanto a da tabela — é o documento que une, não nós — mas o nome tem de ser
+# honesto: `BLOCO_DA_CULTURA`, não `LINHA_DA_TABELA`.
+#
+# O cabeçalho da seção é outro, e é por isso que `CABECALHO` não o alcançava:
+# ele fala de DOSE e IMPIEGO, nunca de «parassiti».
+CABECALHO_IMPIEGO = re.compile(
+    r'^\s*(DOSI[,\s]+MODALITA|DOSI\s+E\s+MODALITA|MODALITA.{0,3}\s+E\s+DOSI|'
+    r'CAMPI\s+E\s+DOSI|DOSI\s+D.IMPIEGO|CAMPI\s+D.IMPIEGO|EPOCHE\s+E\s+DOSI|'
+    r'DOSI\s+E\s+EPOCHE|MODALITA.{0,3}\s+D.IMPIEGO\s+E\s+DOSI|'
+    r'DOSI[,\s]+MODALITA.{0,3}\s+E\s+CAMPI)', re.I | re.M)
+
+# Dentro do bloco, a frase que apresenta os alvos.
+ABRE_ALVOS_NO_BLOCO = re.compile(
+    r'(contro|per\s+la\s+protezione\s+da|per\s+il\s+controllo\s+d|'
+    r'nei\s+confronti\s+d|efficace\s+(contro|su)|attivo\s+(contro|su))', re.I)
+
+
+def regiao_de_impiego(texto):
+    """→ blocos da seção «DOSI E MODALITÀ D'IMPIEGO». Vazio = não existe."""
+    blocos = []
+    for m in CABECALHO_IMPIEGO.finditer(texto):
+        corpo = []
+        for ln in texto[m.end():].split('\n')[1:]:
+            if FIM_TABELA.match(ln):
+                break
+            corpo.append(ln)
+            if len(corpo) > 400:
+                break
+        if corpo:
+            blocos.append('\n'.join(corpo))
+    return blocos
+
+
+def pares_do_bloco_de_cultura(bloco):
+    """→ [(cultura, literal, canonico, citacao)].
+
+    Só nasce par quando a cultura encabeça o bloco E o bloco tem uma frase que
+    apresenta alvos. Um bloco de cultura sem `Contro`/`per la protezione da` é
+    texto de dose, e dele não sai par nenhum.
+    """
+    saida = []
+    for ln in linhas_da_tabela(bloco):
+        txt = re.sub(r'\s+', ' ', ' '.join(ln['TEXTO'])).strip()
+        if not ABRE_ALVOS_NO_BLOCO.search(txt):
+            continue
+        if len(txt) > 900:
+            txt = txt[:900]
+        for lit, canon in alvos_da_linha(txt):
+            saida.append((ln['CULTURA_CANONICA'], lit, canon, txt))
+    return saida
+
+
+def blocos_sem_cabecalho(texto):
+    """Bloco de cultura quando a seção NÃO TEM cabeçalho no texto extraído.
+
+    Os quatro rótulos de tau-fluvalinate (KLARTAN, MAVRIK, TAU AL, EVURE) — os
+    únicos do acervo que nomeiam `Scaphoideus titanus`, vetor da flavescência
+    dourada — não têm NENHUM cabeçalho de seção de uso no texto extraído. O
+    desenho está lá; o rótulo do desenho, não:
+
+        Vite (da vino e da tavola)
+        Contro cicaline (Empoasca vitis, Scaphoideus titanus) e tripidi
+
+    Varrer o documento inteiro atrás de cultura e alvo soltos seria exatamente o
+    erro que a lei do par existe para impedir. Então a trava é estreita, e são
+    DUAS condições ao mesmo tempo:
+
+        1. a linha da cultura tem cara de TÍTULO — curta, até 90 caracteres
+        2. a frase que apresenta o alvo começa nas 2 linhas seguintes
+
+    Um bloco que não cumpre as duas não vira par. Perder par é aceitável; criar
+    autorização que o rótulo não dá, não é.
+    """
+    linhas = texto.split('\n')
+    saida = []
+    for i, ln in enumerate(linhas):
+        crua = ln.strip()
+        if not crua or len(crua) > 90:
+            continue
+        if EH_ESPECIE_NAO_CULTURA.match(crua):
+            continue
+        cult = None
+        for k, rx in INICIO_CULTURA:
+            if rx.search(crua):
+                cult = k
+                break
+        if not cult:
+            continue
+        seguintes = [x.strip() for x in linhas[i + 1:i + 3] if x.strip()]
+        if not seguintes or not ABRE_ALVOS_NO_BLOCO.match(seguintes[0]):
+            continue
+        corpo = ' '.join(x.strip() for x in linhas[i:i + 8])
+        corpo = re.sub(r'\s+', ' ', corpo)[:700]
+        saida.append({'CULTURA_CANONICA': cult, 'TEXTO': corpo})
+    return saida
+
+
 def main():
     import pypdf
     man = json.load(open(os.path.join(CRUS, '_MANIFESTO.json'), encoding='utf-8'))
@@ -556,7 +672,50 @@ def main():
 
         blocos = regiao_da_tabela(texto)
         if not blocos:
-            # A tabela nao existe neste rotulo. Antes de desistir, a porta em prosa.
+            # A tabela nao existe. Antes do herbicida, o bloco de cultura em prosa.
+            achados = []
+            for b in regiao_de_impiego(texto):
+                achados.extend(pares_do_bloco_de_cultura(b))
+            if not achados:
+                for bl in blocos_sem_cabecalho(texto):
+                    for lit, canon in alvos_da_linha(bl['TEXTO']):
+                        achados.append((bl['CULTURA_CANONICA'], lit, canon,
+                                        bl['TEXTO']))
+            if achados:
+                n0 = len(pares)
+                for cult, lit, canon, cit in achados:
+                    grupo = None
+                    if canon == 'NAO_MAPEADO':
+                        canon_d, g = canonizar_daninha(lit)
+                        if canon_d != 'NAO_MAPEADO':
+                            canon, grupo = canon_d, g
+                    pares.append({
+                        'REGISTRATION_ID': it['REGISTRATION_ID'],
+                        'PRODUCT': it.get('PRODUCT'),
+                        'PRODUCT_ID': it.get('PRODUCT_ID'),
+                        'CULTURA_CANONICA': cult,
+                        'ALVO_LITERAL': lit,
+                        'ALVO_CANONICO': canon,
+                        'ALVO_GRUPO': grupo,
+                        'ALVO_E': 'PLANTA_INFESTANTE' if grupo else 'PRAGA_OU_DOENCA',
+                        'CITACAO_DA_LINHA': cit,
+                        'LIGACAO_NIVEL': 'BLOCO_DA_CULTURA',
+                        'LIGACAO_O_QUE_SIGNIFICA':
+                            'a cultura encabeca o bloco e o alvo esta DENTRO desse bloco, '
+                            'apresentado por «contro» ou «per la protezione da». E o '
+                            'documento que os une, nao nos.',
+                        'ORIGEM': 'bloco de cultura da secao DOSI E MODALITA D IMPIEGO',
+                        'EVIDENCE_CLASS': 'DOCUMENTO_OFICIAL',
+                        'O_QUE_NAO_PROVA': 'nao prova eficacia, recomendacao nem '
+                                           'prioridade. O rotulo autoriza.',
+                    })
+                estados['LIDO_POR_BLOCO'] += 1
+                por_produto.append({'REGISTRATION_ID': it['REGISTRATION_ID'],
+                                    'PRODUCT': it.get('PRODUCT'),
+                                    'ESTADO_DA_LEITURA': 'LIDO_POR_BLOCO',
+                                    'PARES': len(pares) - n0})
+                continue
+            # Nem tabela nem bloco. Antes de desistir, a porta do herbicida.
             culturas, daninhas, evid = ler_herbicida(texto)
             if culturas and daninhas:
                 n0 = len(pares)
@@ -641,6 +800,48 @@ def main():
                                            'prioridade. O rotulo autoriza.',
                     })
         n = len(pares) - n0
+        if not n:
+            # Cabeçalho achado, tabela vazia. As outras duas portas ainda valem.
+            achados = []
+            for b in regiao_de_impiego(texto):
+                achados.extend(pares_do_bloco_de_cultura(b))
+            if not achados:
+                for bl in blocos_sem_cabecalho(texto):
+                    for lit, canon in alvos_da_linha(bl['TEXTO']):
+                        achados.append((bl['CULTURA_CANONICA'], lit, canon,
+                                        bl['TEXTO']))
+            for cult, lit, canon, cit in achados:
+                grupo = None
+                if canon == 'NAO_MAPEADO':
+                    canon_d, g = canonizar_daninha(lit)
+                    if canon_d != 'NAO_MAPEADO':
+                        canon, grupo = canon_d, g
+                pares.append({
+                    'REGISTRATION_ID': it['REGISTRATION_ID'],
+                    'PRODUCT': it.get('PRODUCT'),
+                    'PRODUCT_ID': it.get('PRODUCT_ID'),
+                    'CULTURA_CANONICA': cult,
+                    'ALVO_LITERAL': lit,
+                    'ALVO_CANONICO': canon,
+                    'ALVO_GRUPO': grupo,
+                    'ALVO_E': 'PLANTA_INFESTANTE' if grupo else 'PRAGA_OU_DOENCA',
+                    'CITACAO_DA_LINHA': cit,
+                    'LIGACAO_NIVEL': 'BLOCO_DA_CULTURA',
+                    'LIGACAO_O_QUE_SIGNIFICA':
+                        'a cultura encabeca o bloco e o alvo esta DENTRO desse bloco. '
+                        'E o documento que os une, nao nos.',
+                    'ORIGEM': 'bloco de cultura (cabecalho de tabela sem linhas)',
+                    'EVIDENCE_CLASS': 'DOCUMENTO_OFICIAL',
+                    'O_QUE_NAO_PROVA': 'nao prova eficacia, recomendacao nem prioridade.',
+                })
+            n = len(pares) - n0
+            if n:
+                estados['LIDO_POR_BLOCO'] += 1
+                por_produto.append({'REGISTRATION_ID': it['REGISTRATION_ID'],
+                                    'PRODUCT': it.get('PRODUCT'),
+                                    'ESTADO_DA_LEITURA': 'LIDO_POR_BLOCO',
+                                    'PARES': n})
+                continue
         estados['LIDO' if n else 'TABELA_SEM_PAR'] += 1
         por_produto.append({'REGISTRATION_ID': it['REGISTRATION_ID'],
                             'PRODUCT': it.get('PRODUCT'),
@@ -658,7 +859,8 @@ def main():
         unicos.append(p)
 
     com = sum(1 for x in por_produto
-              if x['ESTADO_DA_LEITURA'] in ('LIDO', 'LIDO_COMO_HERBICIDA'))
+              if x['ESTADO_DA_LEITURA'] in ('LIDO', 'LIDO_COMO_HERBICIDA',
+                                            'LIDO_POR_BLOCO'))
     saida = {
         'DATASET': 'IT-ROTULOS-PARES',
         'UNIDADE': 'PAR produto x cultura x alvo, lido DENTRO de uma linha da tabela',
