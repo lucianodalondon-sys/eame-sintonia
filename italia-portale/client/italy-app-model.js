@@ -2418,7 +2418,11 @@
       return {
         name, product: name, strength,
         strengthRank: STRENGTH[strength].rank,
-        resolvedThrough: cropEN && issueEN ? 'OPP_CROP/OPP_ISSUE:' + oppKey(o.crop) : 'QUESTION_NOT_RESOLVED',
+        /* Names the route the question actually took, so a reader can re-run
+           it. The crop now comes from cropResolve and the issue from the
+           resolver-generated OPP_ISSUE keys; saying 'OPP_CROP' here would send
+           an auditor to a table that is only the fallback. */
+        resolvedThrough: cropEN && issueEN ? 'cropResolve:' + cropEN + '/OPP_ISSUE:' + issueEN : 'QUESTION_NOT_RESOLVED',
         inRegistry: !!productByKey[U(name)],
         absenceRule: ABSENCE_RULE_TEXT,
       };

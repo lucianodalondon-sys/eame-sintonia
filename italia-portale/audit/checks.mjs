@@ -1101,6 +1101,85 @@ check('A6', 'The Opportunity product filter offers only linked products, and say
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 8) };
 });
 
+check('VJ1', 'No vocabulary join has silently come unhooked', () => {
+  /* The failure this catches is the one nothing else catches: a lookup keyed on
+     a raw source string, a resolver that rewrites that string somewhere else,
+     and a join that stops matching. Nothing crashes, no count goes red, and a
+     screen prints an absence over a fact the package can prove — which is
+     exactly how the Opportunity screen came to deny two label matches the
+     Window screen proved on the same crop and issue.
+
+     So the joins are asserted as numbers instead of read off a render.
+     AM.joinHealth is the model reporting on itself; these floors are what the
+     package measured on 2026-09-02, and a drop below one of them means a
+     wording changed on one side of a join and not the other. Raising a floor
+     when real data arrives is correct; lowering one needs a reason on the line. */
+  const AM = mount().AM;
+  const J = AM.joinHealth;
+  if (!J) return { pass: false, expected: 'AM.joinHealth', measured: 'absent' };
+  const bad = [];
+  const atLeast = (label, got, floor) => { if (!(got >= floor)) bad.push(`${label}: ${got}, floor ${floor}`); };
+  atLeast('labelAudit -> window (windows with a verdict)', J.labelAuditToWindow.filled, 19);
+  atLeast('labelAudit -> window (verified)', J.labelAuditToWindow.verified, 12);
+  atLeast('regional act -> window', J.fieldSignalToWindow.filled, 2);
+  atLeast('opportunity -> label audit', J.opportunityToLabelAudit.filled, 2);
+  atLeast('crop vocabulary · news', J.cropVocabulary.news.filled, 6);
+  atLeast('crop vocabulary · voices', J.cropVocabulary.voices.filled, 17);
+  atLeast('crop vocabulary · field signals', J.cropVocabulary.fieldSignals.filled, 7);
+  atLeast('crop vocabulary · market series', J.cropVocabulary.marketSeries.filled, 77);
+  /* the enum-keyed tables reconcile exactly, so any miss at all is a fault */
+  for (const [k, r] of Object.entries(J.enums)) {
+    if (r.filled !== r.n) bad.push(`enum ${k}: ${r.filled} of ${r.n} resolve`);
+  }
+  /* IT-OPP-001 is the mandatory-control case: it must keep proving its two
+     verified products through the resolver, in both directions. */
+  const opp = AM.collections.opportunities.records.find((o) => o.id === 'IT-OPP-001');
+  if (!opp) bad.push('IT-OPP-001 absent');
+  else if (opp.verifiedProductCount !== 2) bad.push(`IT-OPP-001 verified products: ${opp.verifiedProductCount}, expected 2`);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+});
+
+check('VJ2', 'isResearcher means membership, not "has a paper here"', () => {
+  /* Two different facts. isResearcher answers "is this row a row of
+     collections.researchers?"; hasPublications answers "does this package hold
+     a paper joined to this person by ORCID?". Conflating them told the reader
+     that 59 of the 60 people in the bibliometric index were not researchers,
+     and suppressed the publications panel by the wrong reason. A4 checks the
+     directory LIST; this checks the person DETAIL, where the flag was being
+     recomputed, and it checks the model's own numbers behind it. */
+  const m = mount();
+  const AM = m.AM;
+  const P = AM.collections.people;
+  const bad = [];
+  const ids = new Set(AM.collections.researchers.records.map((r) => r.id));
+  const collFlagged = P.records.filter((p) => p.isResearcher).length;
+  if (collFlagged !== ids.size) bad.push(`collection: isResearcher on ${collFlagged}, researchers ${ids.size}`);
+  /* the join itself, so a broken ORCID normalization cannot pass quietly */
+  const joined = P.records.filter((p) => p.hasPublications).length;
+  if (joined < 1) bad.push('publications join returns nothing for anybody — ORCID normalization is broken');
+  if (P.records.some((p) => p.hasPublications && p.publicationCount === 0)) bad.push('hasPublications true with 0 publications');
+  if (P.records.some((p) => !p.hasPublications && p.publicationCount > 0)) bad.push('hasPublications false with publications');
+  /* every person detail must agree with the model on both facts */
+  for (const id of ['IT-PER-001', 'IT-PER-013']) {
+    const rec = P.records.find((p) => p.id === id);
+    if (!rec) continue;
+    const v = m.tryVals({ view: 'person', personId: id, lang: 'it' });
+    if (!v.ok) { bad.push(`${id}: ${v.error}`); continue; }
+    const pr = v.vals.pr || {};
+    if (pr.isResearcher !== undefined && pr.isResearcher !== rec.isResearcher) {
+      bad.push(`${id} "${rec.name}": the person detail says isResearcher ${pr.isResearcher}, the researcher collection says ${rec.isResearcher}. `
+        + 'The detail recomputes the flag from the publication join instead of reading membership. '
+        + 'Fix in client/portale.html (§12 person detail): isResearcher must come from the people record '
+        + '(pr0.isResearcher / AM.collections.researchers membership); the PUBLICATIONS panel must be guarded '
+        + 'on pr0.hasPublications, which the model now publishes per person.');
+    }
+    /* the panel may only be hidden for a person who really has no publication */
+    const shown = Array.isArray(pr.themeRecords) ? pr.themeRecords.length : 0;
+    if (shown > rec.publicationCount) bad.push(`${id}: detail lists ${shown} publications, the ORCID join finds ${rec.publicationCount}`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+});
+
 export function runAll(only) {
   const list = only ? CHECKS.filter((c) => only.includes(c.id)) : CHECKS;
   return list.map((c) => {
