@@ -63,6 +63,12 @@ REBAIXAR = {
         'sobre o campo". Estava em CURRENT-FIELD-SIGNALS como FIELD_SIGNAL '
         'client-safe, e o que ele prova e que uma pagina de indice tem duas '
         'series e que uma delas nao foi lida.'),
+    'IT-CAN-8588D2D9B8': (
+        'descreve a ESTRUTURA do cubo SDMX do ISTAT — dataflow 101_1015, chave de '
+        'consulta FREQ.REF_AREA.DATA_TYPE... — e nao o que ha no campo. Subiu a '
+        'tela quando a leitura foi promovida de RESEARCH, e ai ficou visivel que '
+        'era instrucao de consulta. O proprio registro diz: "nao prova nada sobre '
+        'praga, doenca, uso de defensivo ou mercado".'),
     'IT-CAN-4167324DBA': (
         'e um aviso de qualidade sobre a FONTE — a serie de preco de vinho da '
         'Comissao parou em 06/07/2025 —, nao uma observacao de mercado. Como '
@@ -92,6 +98,103 @@ MANTER = {
 }
 
 
+# ── B17 · A VOZ DO PESQUISADOR NÃO VAI À TELA ───────────────────────────────
+# 12 campos _IT/_EN client-safe traziam o pesquisador em primeira pessoa: «non
+# sono riuscito», «I was not able», «da me confermata». O fato e a ressalva estão
+# certos; quem fala é que está errado — o cliente lê o pacote, não o diário de
+# quem coletou. O `_ORIGINAL_RESEARCH_TEXT` continua guardando a voz original,
+# que é exatamente para o que ele existe.
+#
+#     O QUE FOI LIDO IMPORTA AO CLIENTE. QUEM LEU, NÃO.
+#
+# Nenhuma troca acrescenta fato, fortalece alegação, muda escopo, muda confiança
+# nem remove incerteza — a negação e a ressalva ficam inteiras.
+IMPESSOAL = [
+    ('Non sono riuscito a', 'Non è stato possibile'),
+    ('non sono riuscito a', 'non è stato possibile'),
+    ('sono riuscito a leggere', 'è stato possibile leggere'),
+    ('che sono riuscito a', 'che è stato possibile'),
+    ('I was not able to', 'It was not possible to'),
+    ('i was not able to', 'it was not possible to'),
+    ('that I was able to', 'that it was possible to'),
+    ('I was able to', 'it was possible to'),
+    ('I could not', 'it was not possible to'),
+    ('da me confermata', 'confermata nella lettura'),
+    ('da me confermato', 'confermato nella lettura'),
+    ('confirmed by me', 'confirmed on reading'),
+    ('come ho letto', 'come risulta dalla lettura'),
+    ('ho letto', 'risulta dalla lettura'),
+    ('my reading', 'this reading'),
+]
+
+
+def despersonalizar(r):
+    """Troca a voz nos campos de TELA. O original fica intocado."""
+    n = 0
+    for k in list(r):
+        if not (k.endswith('_IT') or k.endswith('_EN')):
+            continue
+        v = r.get(k)
+        if not isinstance(v, str):
+            continue
+        novo_v = v
+        for a, b in IMPESSOAL:
+            novo_v = novo_v.replace(a, b)
+        if novo_v != v:
+            r[k] = novo_v
+            r['RESEARCHER_VOICE_REMOVED_FROM_SCREEN'] = (
+                'a leitura foi reescrita em voz impessoal para a tela. O texto '
+                'original do pesquisador continua em _ORIGINAL_RESEARCH_TEXT.')
+            n += 1
+    return n
+
+
+def promover_research(r):
+    """B24 · registro client-safe cuja leitura só existe dentro de RESEARCH.
+
+    A tela não abre o bloco RESEARCH: o que estiver só lá não chega ao cliente —
+    inclusive a ressalva de lei, que é justamente o que não pode faltar.
+    """
+    TELA = ('WHAT_IT_IS', 'WHAT_IT_PROVES', 'WHAT_IT_DOES_NOT_PROVE',
+            'INTERPRETATION', 'SO_WHAT', 'NOTE', 'CAVEAT', 'PERMANENT_CAVEAT',
+            'INTERVENTION_GUIDANCE', 'LINK_MEANS', 'ROLE_EVIDENCE')
+    if not r.get('CLIENT_SAFE') or any(r.get(c) for c in TELA):
+        return 0
+    res = r.get('RESEARCH')
+    if not isinstance(res, dict):
+        return 0
+    mapa = {'o_que': 'WHAT_IT_IS', 'o_que_prova': 'WHAT_IT_PROVES',
+            'o_que_nao_prova': 'WHAT_IT_DOES_NOT_PROVE'}
+    n = 0
+    for origem, destino in mapa.items():
+        if res.get(origem) and not r.get(destino):
+            r[destino] = res[origem]
+            r[destino + '_PROMOVIDO_DE'] = 'RESEARCH.' + origem
+            n += 1
+    return n
+
+
+def evidencia_do_bloqueio(r):
+    """B10 · fonte client-safe declarada BLOQUEADA sem dizer o que aconteceu.
+
+        FONTE BLOQUEADA != FONTE INEXISTENTE — mas o registro tem de dizer
+        qual das duas, e com o que mediu.
+    """
+    if not r.get('CLIENT_SAFE'):
+        return 0
+    if r.get('ACCESS_STATUS') not in ('BLOCKED', 'NOT_REACHED'):
+        return 0
+    if r.get('ACCESS_EVIDENCE') or r.get('ROUTE_EVIDENCE_NOTE'):
+        return 0
+    if str(r.get('LATEST_OBSERVATION')) == 'None':
+        r['LATEST_OBSERVATION'] = None
+    r['ROUTE_EVIDENCE_NOTE'] = (
+        'estado de acesso herdado do handoff anterior, sem medicao de rota nesta '
+        'rodada. Fonte bloqueada nao e fonte inexistente: o que falta e a prova '
+        'do bloqueio, nao a fonte.')
+    return 1
+
+
 def colecoes():
     for a in sorted(os.listdir(ING)):
         if not a.endswith('.json') or a in ('APP-MANIFEST.json',
@@ -104,12 +207,18 @@ def colecoes():
 
 
 def main():
+    # A voz so pode ser trocada DEPOIS da traducao: antes dela os campos _IT/_EN
+    # ainda nao existem, e trocar antes nao troca nada.
+    pos = len(sys.argv) > 1 and sys.argv[1] == '--pos-traducao'
     vistos, reb, apa, man = set(), 0, 0, 0
+    desp = prom = blo = 0
     for arq, caminho, d in colecoes():
         mudou = False
         for r in d['RECORDS']:
             rid = r.get('ID')
-            if rid in REBAIXAR:
+            if pos:
+                pass
+            elif rid in REBAIXAR:
                 vistos.add(rid)
                 r['CLAIM_DOMAIN'] = SOBRE_A_ROTA
                 r['CLAIM_DOMAIN_WHY'] = REBAIXAR[rid]
@@ -152,16 +261,28 @@ def main():
             elif r.get('CLIENT_SAFE') and not r.get('CLAIM_DOMAIN'):
                 r['CLAIM_DOMAIN'] = SOBRE_O_MUNDO
                 mudou = True
+            if pos and despersonalizar(r):
+                desp += 1
+                mudou = True
+            if (not pos) and promover_research(r):
+                prom += 1
+                mudou = True
+            if (not pos) and evidencia_do_bloqueio(r):
+                blo += 1
+                mudou = True
         if mudou:
             json.dump(d, open(caminho, 'w', encoding='utf-8'),
                       ensure_ascii=False, indent=1)
 
-    esperados = set(REBAIXAR) | set(APARAR) | set(MANTER)
+    esperados = set() if pos else (set(REBAIXAR) | set(APARAR) | set(MANTER))
     sumiram = sorted(esperados - vistos)
     print('== R5 · DOMINIO DA ALEGACAO ==')
     print('  rebaixados (rota, nao mundo) : %d' % reb)
     print('  aparados (rota dentro da frase): %d' % apa)
     print('  lidos e mantidos             : %d' % man)
+    print('  voz do pesquisador tirada da tela: %d' % desp)
+    print('  leitura promovida de RESEARCH    : %d' % prom)
+    print('  bloqueio que passou a dizer o que sabe: %d' % blo)
     if sumiram:
         print('  !! DECISAO SEM REGISTRO: %s' % ', '.join(sumiram))
         print('     decisao que nao encontra o seu registro envelheceu sem avisar.')

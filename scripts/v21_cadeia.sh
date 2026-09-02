@@ -86,6 +86,10 @@ echo "── 6 · a tradução, conferida antes de entrar ───────�
 "$PY" scripts/v21_traducao_trava.py --aplicar
 
 echo
+echo "── 6b · a voz do pesquisador sai da tela (o original fica) ─────────────"
+"$PY" scripts/v21_dominio_da_alegacao.py --pos-traducao
+
+echo
 echo "── 7 · o fechamento: registro central, manifesto, arquivo interno ──────"
 "$PY" scripts/v21_fechar.py
 
@@ -97,3 +101,11 @@ echo "── 7b · R3 · toda quebra declarada recontada do corpo ────�
 echo
 echo "── 8 · §19 · a aceitação, com todo número recontado ────────────────────"
 "$PY" scripts/v21_aceitacao.py
+
+echo
+echo "── 9 · os contratos: cada lei vira contador, e o zero e medido ─────────"
+# Rodam DEPOIS da aceitacao porque leem o pacote pronto — e ficam DENTRO da
+# cadeia porque o passo 1 apaga a pasta: contrato que mora fora da cadeia
+# desaparece no rebuild seguinte e ninguem nota.
+"$PY" scripts/v21_geografia_contrato.py
+"$PY" scripts/v21_procedencia_contrato.py
