@@ -87,6 +87,12 @@ echo "── 5d · R5 · sobre o mundo, ou sobre o nosso encanamento? ───�
 "$PY" scripts/v21_dominio_da_alegacao.py
 
 echo
+echo "── 5e · o motor de oportunidades, sobre o proprio V2.1 ─────────────────"
+# Depois de 5d porque le CLIENT_SAFE ja final; antes da traducao porque o texto
+# de tela dele tem de passar pela trava como qualquer outro.
+"$PY" scripts/v21_oportunidades.py
+
+echo
 echo "── 6 · a tradução, conferida antes de entrar ───────────────────────────"
 # a trava recusa gravar se alguma tradução falhar. É de propósito.
 "$PY" scripts/v21_traducao_trava.py --aplicar
