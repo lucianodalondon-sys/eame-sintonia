@@ -17,8 +17,12 @@
 | Outras | 3 |
 
 > **Herbicida é 56% do portfólio italiano.** O demo estava pesado em doença; o registro diz
-> o contrário. E o corpus de vídeo confirmou por rota independente: das ligações
-> cultura × alvo achadas na conversa pública, **herbicida é a maior categoria**.
+> o contrário. Isso vem do **registro**, que é censo do portfólio.
+
+⚠️ **Correção de 02/09:** a versão anterior dizia que «o corpus de vídeo confirmou por rota
+independente». Não confirmava. Quando o acervo dobrou, herbicida caiu de 1º (21 de 46
+pares) para 3º (26 de 116) — não porque a Itália mudou de assunto, mas porque **abrimos
+recortes de melo, olivo e pomodoro**. O corpus é amostra das nossas consultas.
 
 Catálogo público: **51 produtos**, 141 documentos, 7 páginas de cultura.
 
@@ -132,6 +136,11 @@ Nomes confirmados por **duas rotas independentes** — vídeo público e índice
 | `NOT_KNOWN` | 2 |
 
 As 32 falam de roseira, limoeiro e aveleira de quintal.
+
+⭐ **E a mesma divisão foi aplicada aos 116 pares cultura × alvo:** 54 deles são
+`SUSTENTADO_SO_POR_HORTA_DOMESTICA`. O caso que provou a necessidade foi
+`POMODORO × PERONOSPORA` — 29 documentos e 15 fontes, dos quais **15 de horta e 1
+profissional**. Tomate de vaso, não tomate industrial.
 
 > **Relato em primeira pessoa sobre um vaso não é voz de lavoura.**
 

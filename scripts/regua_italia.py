@@ -53,6 +53,47 @@ MIN_FONTES_SOBE = 2       # abaixo disto o par nunca sai do NÍVEL 1
 MIN_TEXTO = 40            # texto curto demais não sustenta par
 
 
+try:
+    from sensor_medir import plateia_do_canal as _pdc
+except Exception:
+    _pdc = None
+
+
+def _plateia(canal):
+    """A plateia do canal viaja com o VÍDEO, não só com o comentário.
+
+    Um vídeo de canal de horta doméstica é conversa de jardim tanto quanto o
+    comentário embaixo dele. Medir a plateia só na plateia era medir metade."""
+    if _pdc is None:
+        return 'NOT_KNOWN'
+    return _pdc(canal)[0]
+
+
+def _veredito_plateia(c):
+    """Em UMA palavra: de que mundo vem a evidência deste par.
+
+    Nasceu de um erro que quase passou: POMODORO x PERONOSPORA tinha 29
+    documentos e 15 fontes — parecia o terceiro par mais forte do corpus. Ao
+    separar a plateia, 15 evidências vinham de canal de horta doméstica e 1 de
+    canal profissional. É tomate de vaso, não tomate industrial.
+
+        SOMAR AS DUAS PLATEIAS PRODUZ UM NÚMERO QUE NÃO DESCREVE NENHUM MUNDO.
+    """
+    pr = c.get('PROFESSIONAL_FIELD_AUDIENCE', 0)
+    ho = c.get('HOBBY_GARDEN_AUDIENCE', 0)
+    if pr == 0 and ho == 0:
+        return 'NAO_SEI'
+    if ho == 0:
+        return 'SUSTENTADO_POR_CANAL_PROFISSIONAL'
+    if pr == 0:
+        return 'SUSTENTADO_SO_POR_HORTA_DOMESTICA'
+    if pr >= ho * 2:
+        return 'PREDOMINANTEMENTE_PROFISSIONAL'
+    if ho >= pr * 2:
+        return 'PREDOMINANTEMENTE_HORTA_DOMESTICA'
+    return 'MISTO'
+
+
 def _n(t):
     """Sem acento, minúsculo. A borda de palavra vem depois, no regex."""
     return ''.join(c for c in unicodedata.normalize('NFD', t or '')
@@ -210,6 +251,7 @@ def _docs():
     for v in med['VIDEOS_ITEMS']:
         texto = ' '.join(str(v.get(k) or '') for k in ('TITLE', 'DESCRIPTION'))
         yield {
+            'AUDIENCE': _plateia(v.get('CHANNEL')),
             'DOC_ID': 'YT-VID-%s' % v.get('EXTERNAL_ID'),
             'PORTA': 'youtube+video_metadata',
             'TEXTO': texto,
@@ -225,6 +267,7 @@ def _docs():
         }
         if v.get('TRANSCRIPT'):
             yield {
+                'AUDIENCE': _plateia(v.get('CHANNEL')),
                 'DOC_ID': 'YT-TRA-%s' % v.get('EXTERNAL_ID'),
                 'PORTA': 'youtube+transcricao',
                 'TEXTO': v['TRANSCRIPT'],
@@ -240,6 +283,7 @@ def _docs():
             }
     for c in med['COMMENTS_ITEMS']:
         yield {
+            'AUDIENCE': c.get('CHANNEL_AUDIENCE_KIND') or 'NOT_KNOWN',
             'DOC_ID': 'YT-COM-%s' % c.get('COMMENT_ID'),
             'PORTA': 'youtube+comentario',
             'TEXTO': c.get('COMMENT_TEXT_RAW') or '',
@@ -256,7 +300,8 @@ def _docs():
 
 def medir():
     pares = defaultdict(lambda: {'EVIDENCIAS': [], 'PORTAS': set(), 'FONTES': set(),
-                                 'CAMADAS': Counter(), 'CATEGORIAS': set()})
+                                 'CAMADAS': Counter(), 'CATEGORIAS': set(),
+                                 'PLATEIAS': Counter(), 'RECORTES': Counter()})
     assuntos = defaultdict(lambda: {'N': 0, 'PORTAS': set(), 'FONTES': set()})
     total = barrados = curtos = sem_lingua = 0
     quarentena_barrou = Counter()
@@ -306,6 +351,8 @@ def medir():
                 p['PORTAS'].add(d['PORTA'])
                 p['FONTES'].add(d['CANAL'])
                 p['CAMADAS'][d['CAMADA']] += 1
+                p['PLATEIAS'][d.get('AUDIENCE') or 'NOT_APPLICABLE'] += 1
+                p['RECORTES'][d.get('CASE_ID') or 'NAO_SEI'] += 1
                 if len(p['EVIDENCIAS']) < 12:
                     p['EVIDENCIAS'].append({
                         'DOC_ID': d['DOC_ID'], 'PORTA': d['PORTA'],
@@ -343,6 +390,14 @@ def medir():
             'N_FONTES_DISTINTAS': nf,
             'PORTAS_NATIVAS': sorted(p['PORTAS']),
             'CAMADAS': dict(p['CAMADAS']),
+            'PLATEIA_DA_EVIDENCIA': dict(p['PLATEIAS']),
+            'PLATEIA_VEREDITO': _veredito_plateia(p['PLATEIAS']),
+            'PLATEIA_LEI': 'PROFESSIONAL_FIELD_AUDIENCE e HOBBY_GARDEN_AUDIENCE nao se somam. '
+                           'Par sustentado so por canal de horta descreve conversa de jardim, '
+                           'nao de lavoura.',
+            'RECORTES_DE_ORIGEM': dict(p['RECORTES']),
+            'RECORTE_LEI': 'o par aparece porque ABRIMOS este recorte. Nao aparecer em outro '
+                           'recorte nao e ausencia no mundo.',
             'CERTEZA': {
                 'CULTURA': 'OBSERVADO_NO_DOCUMENTO',
                 'ALVO': 'OBSERVADO_NO_DOCUMENTO',
@@ -385,6 +440,17 @@ def medir():
         'QUARENTENA_BARROU': dict(quarentena_barrou.most_common()),
         'PARES_TOTAL': len(fora),
         'PARES_POR_NIVEL': dict(Counter(str(r['NIVEL']) for r in fora)),
+        'CORPUS_NAO_E_AMOSTRA_DA_CONVERSA': {
+            'AVISO': 'a distribuicao por categoria abaixo segue OS RECORTES QUE ABRIMOS, '
+                     'nao a conversa italiana. Em 01/09 herbicida era a maior categoria; '
+                     'em 02/09 inseticida passou na frente — porque eu abri recortes de '
+                     'melo, olivo e pomodoro, nao porque a Italia mudou de assunto.',
+            'LEI': 'CORPUS E AMOSTRA DAS MINHAS CONSULTAS. Ler a distribuicao dele como '
+                   'distribuicao do mundo e o erro mais facil desta camada.',
+            'O_QUE_A_DISTRIBUICAO_MEDE': 'quanto de cada categoria EU procurei e achei',
+            'O_QUE_ELA_NAO_MEDE': 'o que a Italia fala mais; nenhuma proporcao de mercado; '
+                                  'nenhuma prevalencia de problema no campo',
+        },
         'PARES_POR_CATEGORIA': dict(Counter(
             r['CATEGORIA_DE_PRODUTO'] if isinstance(r['CATEGORIA_DE_PRODUTO'], str)
             else '+'.join(r['CATEGORIA_DE_PRODUTO']) for r in fora)),

@@ -251,3 +251,63 @@ por_que_entrou (derivado, nunca escrito à mão) · nao_sei (lista explícita)
                           acervo realmente nomeia. Recall baixo provaria que ESTA lista
                           não alcança — não que a Itália não fala do assunto.
 ```
+
+---
+
+## LEI 8 · A PLATEIA DO PAR — acrescentada em 02/09/2026
+
+Quando o acervo dobrou (1.929 → 4.759 documentos), o número de pares foi de 46 para 116.
+Antes de comemorar, medimos **de que mundo vem a evidência de cada par**. O resultado
+mudou a leitura:
+
+| veredito | pares |
+|---|---:|
+| `SUSTENTADO_SO_POR_HORTA_DOMESTICA` | **54** |
+| `SUSTENTADO_POR_CANAL_PROFISSIONAL` | 36 |
+| `NAO_SEI` | 19 |
+| misto ou predominante | 7 |
+
+**Quase metade dos pares descreve conversa de jardim, não de lavoura.**
+
+### O caso que provou a necessidade
+
+`POMODORO x PERONOSPORA` chegou com **29 documentos e 15 fontes** — o terceiro par mais
+forte do corpus, à primeira vista. Separada a plateia:
+
+    canal profissional ....  1
+    canal de horta ........ 15
+
+É tomate de vaso com míldio. Não é tomate industrial da Emília-Romanha. Um painel que
+somasse os dois mostraria um sinal forte para uma cultura que, naquele corpus, quase não
+tem voz profissional.
+
+Quatro pares de NÍVEL 3 têm **zero** evidência profissional: `PERO x TICCHIOLATURA`,
+`MELO x CARPOCAPSA`, `MELO x AFIDI`, `POMODORO x AFIDI`.
+
+E o contraste que valida a medida: `VITE x FLAVESCENZA` tem **18 profissionais e 0 de
+horta**; `VITE x PERONOSPORA`, 9 e 1.
+
+> **SOMAR AS DUAS PLATEIAS PRODUZ UM NÚMERO QUE NÃO DESCREVE NENHUM MUNDO.**
+
+### Onde a plateia é medida
+
+No canal, nunca no autor do comentário — e agora **também no vídeo**, não só no comentário.
+Medir a plateia só nos comentários era medir metade: um vídeo de canal de horta é conversa
+de jardim tanto quanto o comentário embaixo dele. Canal fora das duas listas sai `NAO_SEI`.
+
+---
+
+## LEI 9 · O CORPUS É AMOSTRA DAS NOSSAS CONSULTAS
+
+Em 01/09 a maior categoria de par era **herbicida** (21 de 46). Em 02/09 passou a ser
+**inseticida** (42 de 116). A Itália não mudou de assunto — **nós abrimos recortes de melo,
+olivo e pomodoro**, e os pares vieram atrás.
+
+> **A distribuição por categoria mede o que EU procurei e achei. Não mede o que a Itália
+> fala mais, nem prevalência de problema no campo, nem proporção de mercado.**
+
+⚠️ Esta lei vale contra a nossa própria leitura de 01/09: o resumo executivo dizia que a
+conversa pública «confirmava por rota independente» que herbicida era a maior categoria.
+**Não confirmava.** Confirmava que abrimos mais recortes de daninha naquele lote. O peso de
+herbicida no portfólio (91 de 163, 56%) continua verdadeiro — mas vem do **registro**, que
+é censo, e não do corpus, que é amostra de consulta.
