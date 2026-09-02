@@ -170,13 +170,50 @@ def construir_identidade(linhas_adama, catalogo, estados, todas_linhas):
         seq += 1
         return "IT-PRODUCT-%04d" % seq
 
+    def _composicao_bate(pagina, linha):
+        """A pagina escreve o ativo em italiano; o registro, em ingles. Nao da para
+        comparar palavra a palavra — da para exigir que ao menos um componente do
+        registro apareca na pagina, ou o contrario, pelo radical."""
+        pag = re.sub(r"[^A-Z]", " ", (pagina.get("ACTIVE_INGREDIENT") or "").upper())
+        toks = {t for t in pag.split() if len(t) >= 6}
+        for comp in _componentes(linha["sostanze_attive"]):
+            base_comp = re.sub(r"[^A-Z]", "", comp.upper())
+            if not base_comp:
+                continue
+            if any(t[:7] in base_comp or base_comp[:7] in t for t in toks):
+                return True
+        return False
+
     for p in catalogo:
         claim = _norm_reg(p.get("MANUFACTURER_CLAIM_REGISTRATION_ID"))
         alvo = por_reg.get(claim) if claim else None
         reg = alvo[0] if alvo else None
-        if reg:
+        metodo = conf = None
+        # O numero publicado e a chave mais forte — mas nao e infalivel, porque quem
+        # o digitou foi a area de marketing. O Powerfilm publica 17052, que no
+        # registro e o COCTEL GOLD da LAINCO, glifosato + MCPA, enquanto a propria
+        # pagina declara oleo de colza. Um digito trocado (17852 -> 17052) tinha
+        # criado do nada um "produto de outro titular". Quando nome E composicao
+        # discordam ao mesmo tempo, e o numero que cede, nunca os dois fatos.
+        if reg and _norm_nome(reg["denominazione_prodotto"]) != _norm_nome(p["PRODUCT_NAME"]) \
+                and not _composicao_bate(p, reg):
+            # O desempate e o NOME EXATO unico no registro inteiro, nao a composicao:
+            # a pagina escreve "olio di colza metilestere" e o registro escreve
+            # "RAPE SEED OIL". Sao a mesma coisa em dois idiomas, e exigir que as
+            # strings se toquem reprovaria um casamento correto por diferenca de
+            # lingua. A composicao serve para DERRUBAR o numero publicado, que e o
+            # que ela acabou de fazer; nao serve para confirmar o substituto.
+            homonimos = [r for r in todas_linhas
+                         if _norm_nome(r["denominazione_prodotto"]) == _norm_nome(p["PRODUCT_NAME"])]
+            if len(homonimos) == 1:
+                reg = homonimos[0]
+                metodo, conf = "EXACT_NAME_UNIQUE__PUBLISHED_NUMBER_CONTRADICTED", "HIGH"
+            else:
+                reg = None
+                metodo, conf = "UNRESOLVED__PUBLISHED_NUMBER_CONTRADICTED_BY_NAME_AND_COMPOSITION", "NONE"
+        if reg and metodo is None:
             metodo, conf = "REGISTRATION_NUMBER", "HIGH"
-        else:
+        elif metodo is None:
             # segunda chave: nome exato normalizado contra o registro
             cand = [r for r in todas_linhas
                     if _norm_nome(r["denominazione_prodotto"]) == _norm_nome(p["PRODUCT_NAME"])]
@@ -193,6 +230,7 @@ def construir_identidade(linhas_adama, catalogo, estados, todas_linhas):
             "ALIASES": sorted({p["PRODUCT_NAME"]} | ({reg["denominazione_prodotto"]} if reg else set())),
             "REGISTRATION_NUMBER": reg["num_registrazione"] if reg else None,
             "REGISTRATION_NUMBER_AS_CLAIMED": p.get("MANUFACTURER_CLAIM_REGISTRATION_ID"),
+            "PUBLISHED_NUMBER_CONTRADICTED": "CONTRADICTED" in (metodo or ""),
             "ENTITY_CLASS": ("COMMERCIAL_AND_REGULATORY" if reg else "COMMERCIAL_ONLY"),
             "HOLDER_IS_ADAMA": ("ADAMA" in reg["ragione_sociale"].upper()) if reg else None,
             "NAME_DIVERGES_FROM_REGISTRY": (

@@ -48,6 +48,12 @@ DE_PROCEDENCIA = {
     'REAL_DERIVED': 'LAST_MILE',
     'REAL_SOURCE': 'PREVIOUS_HANDOFF',
     'REAL_SOURCE_PREVIOUS_HANDOFF': 'PREVIOUS_HANDOFF',
+    # A camada de substancia ativa entrou por uma terceira porta: o pacote
+    # research/adama-italy-product-intelligence-deep, que nao e a last-mile nem o
+    # handoff anterior. Enfia-la em LAST_MILE deixaria o numero certo e a
+    # procedencia errada — e e a procedencia que responde de onde o dado veio.
+    'EVIDENCE_SOURCED': 'PRODUCT_INTELLIGENCE_DEEP',
+    'EVIDENCE_DOCUMENTED': 'PRODUCT_INTELLIGENCE_DEEP',
 }
 
 # ⚠️ Estes dois NASCERAM aqui. Não há fonte que os publique — são leitura minha

@@ -30,7 +30,7 @@
   "FRAC_CLASSIFIED": 29,
   "FRAC_WHY_ZERO": null,
   "IRAC_CLASSIFIED": 22,
-  "COMMERCIAL_PRODUCTS_WITH_OTHER_HOLDER": 7,
+  "COMMERCIAL_PRODUCTS_WITH_OTHER_HOLDER": 6,
   "COMMERCIAL_PRODUCTS_WITH_OTHER_HOLDER_WHICH": [
     "Mirador® SC -> SYNGENTA CROP PROTECTION AG",
     "Mavita® 250 EC -> SYNGENTA CROP PROTECTION AG",
@@ -46,9 +46,9 @@
   "EXPIRY_STATE_CONFLICTS": 8,
   "EU_REGULATORY_FUTURE_SIGNALS": 60,
   "EU_WHY_ZERO": null,
-  "QA_SAMPLE_SIZE": 48,
+  "QA_SAMPLE_SIZE": 49,
   "QA_PASS": 46,
-  "QA_CORRECTED": 1,
+  "QA_CORRECTED": 2,
   "QA_REJECTED": 0,
   "QA_UNREVIEWED": 1,
   "MEASURED_ERROR_RATE": 0.0,
@@ -132,7 +132,7 @@
     "SPECIALI-DEEP.json",
     "TARGET-PRODUCT-COVERAGE.json"
   ],
-  "MISSION": "CLOSE THE THREE REMAINING GAPS",
+  "MISSION": "INGEST REGULATORY + MoA INTO V2.1",
   "LABEL_DOCUMENTS_RECOVERED": 0,
   "CURRENT_LABELS_VERIFIED": 0,
   "ACTIVE_INGREDIENTS_NOTE": "122, nao 169: o baseline colava as misturas num MoA artificial. Corrigido nesta rodada.",
@@ -173,5 +173,31 @@
       "UNBLOCK": "nada a fazer: HRAC e IRAC ja cobrem o que e deles"
     }
   ],
-  "READY_FOR_V2_1_INGEST": "YES_FOR_REGULATORY_AND_MOA_LAYERS / NO_FOR_LABEL_USE_LAYER"
+  "READY_FOR_V2_1_INGEST": "DONE_FOR_REGULATORY_AND_MOA / STILL_OPEN_FOR_ADAMA_LABEL_PDFS",
+  "ROUND": 3,
+  "COMMERCIAL_PRODUCTS_WITH_OTHER_HOLDER_CORRECTION": "eram 7 na rodada 2 e sao 6. O Powerfilm publica um numero de registro que no registro e outro produto, de outra empresa, com outra composicao. O V2.1 ja tinha 6; quem estava errado era este pacote.",
+  "INGESTED_INTO_V2_1": {
+    "PIPELINE_STEP": "scripts/v21_ingest_c.py, na cadeia scripts/v21_cadeia.sh entre B e os cruzamentos",
+    "COLLECTIONS_ADDED": [
+      "ACTIVE_INGREDIENTS",
+      "PRODUCT_ACTIVE_INGREDIENTS",
+      "REGULATORY_FUTURE_FACTS"
+    ],
+    "ACTIVE_INGREDIENTS": 53,
+    "PRODUCT_ACTIVE_INGREDIENT_RELATIONSHIPS": 203,
+    "MIXTURE_COMPONENT_RELATIONSHIPS": 78,
+    "REGULATORY_FUTURE_FACTS": 47,
+    "DROPPED_AS_ORPHAN": 69,
+    "DROPPED_WHY": "substancia sem nenhum produto regulatorio ingerido nesta versao",
+    "ORIGIN_LAYER": "PRODUCT_INTELLIGENCE_DEEP",
+    "MASTER_TOTAL": null
+  },
+  "LABEL_USE_LAYER_IN_V2_1": {
+    "PAIRS": 2030,
+    "CLIENT_SAFE": 1512,
+    "CROPS_ON_LABEL": 35,
+    "TARGETS_ON_LABEL": 78,
+    "SOURCE": "rotulos autorizados do Ministero, lidos por dentro, no handoff anterior",
+    "NOTE": "o zero deste pacote e do MEU ambiente, nunca do V2.1. Nada foi rebaixado, nada foi fabricado, e nenhum par novo foi criado."
+  }
 }

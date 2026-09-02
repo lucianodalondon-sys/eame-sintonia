@@ -234,6 +234,27 @@ def main():
         ],
     })
 
+    contagem["QA_CORRECTED"] += 1
+    resultados.append({
+        "STRATUM": "CORRECAO_DO_BASELINE", "PRODUCT_ID": None,
+        "NAME": "Powerfilm — numero de registro publicado contradito",
+        "VERDICT": "QA_CORRECTED",
+        "FINDINGS": [
+            "a pagina da ADAMA publica 'Numero di registrazione n° 17052', que no "
+            "registro e o COCTEL GOLD da LAINCO S.A., glifosato + MCPA",
+            "a mesma pagina declara oleo de colza metilestere — nome E composicao "
+            "discordam do registro apontado ao mesmo tempo",
+            "existe POWERFILM registrado 017852 em nome da ADAMA ITALIA com "
+            "PLANT OILS / RAPE SEED OIL: um digito trocado, 17852 -> 17052",
+            "a rodada anterior aceitou o numero publicado sem conferir e criou do "
+            "nada um setimo 'produto de outro titular'. Sao SEIS, e o V2.1 ja "
+            "tinha seis — quem estava errado era eu",
+            "corrigido com regra, nao a mao: quando nome e composicao discordam "
+            "juntos do registro apontado, o numero publicado cede e o desempate e "
+            "o nome exato unico no registro inteiro",
+        ],
+    })
+
     # Um QA que nunca reprova nao esta medindo. Antes de publicar taxa de erro zero,
     # o detector prova que reprova: quatro defeitos plantados de tipos diferentes,
     # e a conferencia de que os que caem dentro da amostra sao pegos. Medido em

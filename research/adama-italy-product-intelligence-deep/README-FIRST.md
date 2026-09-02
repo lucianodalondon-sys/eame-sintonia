@@ -1,20 +1,23 @@
 # README-FIRST — ADAMA ITALY PRODUCT INTELLIGENCE (DEEP)
 
-> **RODADA 2 · 2026-09-02 — dos três gaps medidos, dois fecharam e um não.**
+> **RODADA 3 · 2026-09-02 — ingerido no V2.1, e uma correção contra mim.**
 >
-> | Gap | Antes | Agora |
-> |---|---:|---|
-> | `FRAC_CLASSIFIED` | 0 | **29** — FRAC Code List 2026, lido por geometria da tabela |
-> | `EU_REGULATORY_FUTURE` | 0 | **60** substâncias com estado EU, do Reg. 540/2011 consolidado em 2026-07-21 |
-> | `LABEL_USE_PAIRS` | 0 | **0** — 7 rotas de recuperação tentadas, 0 documentos recuperados |
+> As camadas regulatória e de MoA entraram no pipeline canônico por um passo novo da
+> cadeia: `scripts/v21_ingest_c.py`. Três coleções novas — 53 substâncias ativas como
+> **entidade** (não mais campo de texto), 203 relações produto × substância (78 delas de
+> mistura, uma linha por componente) e 47 fatos de futuro regulatório. Aceitação: **0
+> violações de QA, 0 relações órfãs, 0 IDs duplicados, 0 campos sem tradução.**
 >
-> **E uma correção que vale mais que os dois gaps:** o baseline separava mistura por `+`, mas o
-> registro italiano separa por `|` e nunca por `+`. Nenhuma mistura tinha sido separada — cada uma
-> virava um MoA artificial, o oposto da regra. As 169 "substâncias ativas" eram **122 reais** mais
-> 47 strings coladas. Corrigido, e o QA agora checa isso.
+> **A correção:** a rodada 2 afirmou 7 produtos do catálogo com autorização de outra
+> empresa. São **6**. O Powerfilm publica na própria página o registro 17052, que no
+> registro italiano é o COCTEL GOLD da LAINCO — glifosato + MCPA —, enquanto a mesma
+> página declara óleo de colza. Existe POWERFILM registrado **017852** para a ADAMA
+> ITALIA, com óleo de colza: um dígito trocado. O V2.1 já dizia 6. Quem estava errado
+> era este pacote, e a regra que pega isso agora está no código, não na revisão humana.
 >
-> Detalhes em `HANDOFF-TO-V2.1.md` e `QA-REPORT.md`. O texto abaixo é da rodada 1 e segue válido,
-> exceto pelos números de substância ativa, que a correção acima substitui.
+> **E os rótulos:** o V2.1 tem **2.030 pares de uso de rótulo** lidos dos rótulos
+> ministeriais. O zero deste pacote sempre foi do meu ambiente, nunca do V2.1. Nada foi
+> rebaixado e nenhum par novo foi inventado.
 
 ---
 

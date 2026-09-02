@@ -1,4 +1,4 @@
-# QA REPORT — ADAMA ITALY PRODUCT INTELLIGENCE (rodada 2)
+# QA REPORT — ADAMA ITALY PRODUCT INTELLIGENCE (rodada 3)
 
 **Data:** 2026-09-02 · **Semente:** 20260902 (reproduzível)
 
@@ -10,14 +10,15 @@ a tabela FRAC e o Anexo do 540/2011 — e tenta derrubar o registro publicado.
 
 | | |
 |---|---:|
-| QA_SAMPLE_SIZE | 48 |
+| QA_SAMPLE_SIZE | 49 |
 | QA_PASS | 46 |
-| QA_CORRECTED | 1 |
+| QA_CORRECTED | 2 |
 | QA_REJECTED | 0 |
 | QA_UNREVIEWED | 1 |
 | **MEASURED_ERROR_RATE** | **0.0** |
 
 ## Estratos
+
 | Estrato | Registros | Reprovados |
 |---|---:|---:|
 | HERBICIDAS | 5 | 0 |
@@ -31,19 +32,27 @@ a tabela FRAC e o Anexo do 540/2011 — e tenta derrubar o registro publicado.
 | FRAC | 5 | 0 |
 | EU | 5 | 0 |
 | MISTURAS | 1 | 0 |
-| CORRECAO_DO_BASELINE | 1 | 0 |
+| CORRECAO_DO_BASELINE | 2 | 0 |
 
 ---
-## A correção registrada
+## As duas correções registradas
 
-**separador de mistura em sostanze_attive**
+Reportar `QA_CORRECTED = 0` tendo corrigido defeito de substância seria esconder a falha.
+
+### separador de mistura em sostanze_attive
 
 - a missao anterior dividia a mistura por '+', mas o registro separa por '|' e nunca por '+' — 148 dos 602 registros ADAMA tem mistura
 - consequencia: NENHUMA mistura foi separada, e cada uma virou um MoA artificial, o oposto da regra declarada
 - corrigido em scripts/adama_it_intelligence.py (_componentes); as substancias ativas cairam de 169 falsas para 122 reais
 - o defeito passou pelo QA anterior porque nenhuma checagem olhava separacao de mistura; a checagem agora existe e faz parte da amostra
 
-Reportar `QA_CORRECTED = 0` tendo corrigido um defeito de substância seria esconder a falha.
+### Powerfilm — numero de registro publicado contradito
+
+- a pagina da ADAMA publica 'Numero di registrazione n° 17052', que no registro e o COCTEL GOLD da LAINCO S.A., glifosato + MCPA
+- a mesma pagina declara oleo de colza metilestere — nome E composicao discordam do registro apontado ao mesmo tempo
+- existe POWERFILM registrado 017852 em nome da ADAMA ITALIA com PLANT OILS / RAPE SEED OIL: um digito trocado, 17852 -> 17052
+- a rodada anterior aceitou o numero publicado sem conferir e criou do nada um setimo 'produto de outro titular'. Sao SEIS, e o V2.1 ja tinha seis — quem estava errado era eu
+- corrigido com regra, nao a mao: quando nome e composicao discordam juntos do registro apontado, o numero publicado cede e o desempate e o nome exato unico no registro inteiro
 
 ---
 ## O detector prova que reprova
@@ -60,8 +69,6 @@ Recall sobre o que a amostra alcançou: **1.0**.
 
 > um dos defeitos plantados foi o proprio 'M 0' — o digito perdido que derrubou a leitura anterior do FRAC. O detector reprovou.
 
-Tipos de defeito provados: `HOLDER_MISMATCH`, `REGISTRATION_NOT_IN_SOURCE`, `INFERENCE_STRONGER_THAN_SOURCE__MARKETABLE`, `FRAC_CODE_DIFFERS_FROM_TABLE`, `FRAC_MATCH_METHOD_NOT_DECLARED`, `EU_EXPIRY_DIFFERS_FROM_ANNEX`, `EU_APPROVAL_DATE_DIFFERS_FROM_ANNEX`, `RENEWAL_STATE_STRONGER_THAN_SOURCE`, `MISTURA_COLADA`.
-
 ---
 ## Sem revisão, e por quê
 
@@ -69,6 +76,7 @@ Tipos de defeito provados: `HOLDER_MISMATCH`, `REGISTRATION_NOT_IN_SOURCE`, `INF
 
 ## Portão de segurança (§21)
 
-- **47** registros são `QA_PASS` ou `QA_CORRECTED` e podem sustentar sozinhos afirmação forte ao cliente.
-- **0** pares de uso de rótulo são client-safe: não existem.
+- **48** registros são `QA_PASS` ou `QA_CORRECTED`.
+- **0** pares de uso de rótulo novos foram criados neste pacote. Os 2.030 que o V2.1 já tinha,
+  lidos dos rótulos ministeriais, seguem intactos e não foram rebaixados.
 - `QUARANTINE.json` está vazio.

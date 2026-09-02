@@ -1,7 +1,7 @@
 {
-  "QA_SAMPLE_SIZE": 48,
+  "QA_SAMPLE_SIZE": 49,
   "QA_PASS": 46,
-  "QA_CORRECTED": 1,
+  "QA_CORRECTED": 2,
   "QA_REJECTED": 0,
   "QA_UNREVIEWED": 1,
   "MEASURED_ERROR_RATE": 0.0,
@@ -386,6 +386,19 @@
         "consequencia: NENHUMA mistura foi separada, e cada uma virou um MoA artificial, o oposto da regra declarada",
         "corrigido em scripts/adama_it_intelligence.py (_componentes); as substancias ativas cairam de 169 falsas para 122 reais",
         "o defeito passou pelo QA anterior porque nenhuma checagem olhava separacao de mistura; a checagem agora existe e faz parte da amostra"
+      ]
+    },
+    {
+      "STRATUM": "CORRECAO_DO_BASELINE",
+      "PRODUCT_ID": null,
+      "NAME": "Powerfilm — numero de registro publicado contradito",
+      "VERDICT": "QA_CORRECTED",
+      "FINDINGS": [
+        "a pagina da ADAMA publica 'Numero di registrazione n° 17052', que no registro e o COCTEL GOLD da LAINCO S.A., glifosato + MCPA",
+        "a mesma pagina declara oleo de colza metilestere — nome E composicao discordam do registro apontado ao mesmo tempo",
+        "existe POWERFILM registrado 017852 em nome da ADAMA ITALIA com PLANT OILS / RAPE SEED OIL: um digito trocado, 17852 -> 17052",
+        "a rodada anterior aceitou o numero publicado sem conferir e criou do nada um setimo 'produto de outro titular'. Sao SEIS, e o V2.1 ja tinha seis — quem estava errado era eu",
+        "corrigido com regra, nao a mao: quando nome e composicao discordam juntos do registro apontado, o numero publicado cede e o desempate e o nome exato unico no registro inteiro"
       ]
     }
   ]
