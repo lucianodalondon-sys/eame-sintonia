@@ -45,6 +45,16 @@
        list of six was a promise the selector could not keep. The full
        commercial universe lives in PORTAFOGLIO · CATALOGO COMMERCIALE. */
     linkedProducts: 'Prodotti collegati',
+    cwAllCrops: 'TUTTE LE COLTURE',
+    /* The six department briefs were an English literal array in the window
+       block; the department names themselves are ADAMA's own and stay. */
+    wdBriefSales: 'BRIEF PRE-STAGIONE · RETE DI CAMPO',
+    wdBriefMarketing: 'BRIEF DI PREPARAZIONE MARKETING',
+    wdBriefMktDev: 'PIANO DI SVILUPPO MERCATO',
+    wdBriefTech: 'BRIEF DI MONITORAGGIO TECNICO',
+    wdBriefReg: 'VERIFICA REGOLATORIA',
+    wdBriefSupply: 'RICHIESTA DI PRONTEZZA SUPPLY',
+    cpItemsObserved: 'Elementi osservati',
     allDepartments: 'Tutti i reparti',
     anyPeriod: 'Qualsiasi periodo',
     clearAll: 'CANCELLA TUTTO',
@@ -469,6 +479,14 @@
     allStatuses: 'All statuses',
     allProducts: 'All ADAMA products',
     linkedProducts: 'Linked products',
+    cwAllCrops: 'ALL CROPS',
+    wdBriefSales: 'PRE-SEASON FIELD SALES BRIEF',
+    wdBriefMarketing: 'MARKETING PREPARATION BRIEF',
+    wdBriefMktDev: 'MARKET DEVELOPMENT PLAN',
+    wdBriefTech: 'TECHNICAL MONITORING BRIEF',
+    wdBriefReg: 'REGULATORY CHECK',
+    wdBriefSupply: 'SUPPLY READINESS REQUEST',
+    cpItemsObserved: 'Items observed',
     allDepartments: 'All departments',
     anyPeriod: 'Any period',
     clearAll: 'CLEAR ALL',

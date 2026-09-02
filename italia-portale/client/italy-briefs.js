@@ -87,6 +87,16 @@
 
   /* ── honest states (PRODUCT LAW §1/§3) ──────────────────────────────────── */
   const UNK = () => TX('NON NOTO — non stabilito nel modello Sintonia', 'NON NOTO — not established in the Sintonia model');
+  /* Canonical stage codes, in the interface language, with the code kept in
+     brackets. The code is what makes the line traceable; printing it bare
+     inside an Italian sentence made the document read as unfinished. */
+  const STAGE_L = {
+    NOT_OBSERVED: ['non osservata (NOT_OBSERVED)', 'not observed (NOT_OBSERVED)'],
+    OBSERVED: ['osservata (OBSERVED)', 'observed (OBSERVED)'],
+    EXPECTED: ['attesa (EXPECTED)', 'expected (EXPECTED)'],
+    REPORTED: ['segnalata (REPORTED)', 'reported (REPORTED)'],
+  };
+  const stageL = (code) => { const e = STAGE_L[String(code || '').toUpperCase()]; return e ? TX(e[0], e[1]) : String(code || ''); };
   const NOTCONF = () => TX('NON CONFERMATO — nessuna fonte esterna lo conferma in questa lettura', 'NON CONFERMATO — not confirmed by an external source in this reading');
   const NOT_OBS = 'NON OSSERVABILE DA FONTI ESTERNE';
   const INTERP = () => TX(' — INTERPRETAZIONE SINTONIA', ' — SINTONIA INTERPRETATION');
@@ -174,9 +184,20 @@
       lastValidated: (W && fmtISO(W.lastValidated)) || UNK(),
       windowType: (W && W.windowType) || UNK(),
       /* CROP_STAGE / ISSUE_STAGE are null on 29/29 canonical windows: the class
-         is the only observed value, and NOT_OBSERVED is a real answer. */
+         is the only observed value, and NOT_OBSERVED is a real answer. It is
+         shown in the interface language with the canonical code beside it —
+         printing the bare enum inside an Italian sentence read as unfinished,
+         and the code still has to travel so the reader can trace it. */
+      /* Measured: CROP_STAGE and ISSUE_STAGE are null on 29/29 canonical
+         windows and the CLASS carries the literal string NOT_OBSERVED on all
+         29. So the code arrives from the DATA, not from a fallback — a label
+         that only localized the fallback never fired. stageL() maps the code
+         wherever it comes from, and keeps it in brackets so the reader can
+         still trace it. */
       cropStage: (W && (W.cropStage || W.cropStageClass)) || 'NOT_OBSERVED',
+      cropStageLabel: stageL((W && (W.cropStage || W.cropStageClass)) || 'NOT_OBSERVED'),
       issueStage: (W && (W.issueStage || W.issueStageClass)) || 'NOT_OBSERVED',
+      issueStageLabel: stageL((W && (W.issueStage || W.issueStageClass)) || 'NOT_OBSERVED'),
       labelTrigger: (W && W.labelTrigger) || null,
       labelSource: (W && W.labelSource) || null,
       color: (W && W.ui && W.ui.color) || (c && c.category && c.category.color) || '#009845'
@@ -229,7 +250,7 @@
       `${f.from} → ${f.to} · ${f.windowState} · window type ${f.windowType}`),
     TX(`Stato della data ${f.dateState} · confidenza ${f.dateConfidence} · ultima validazione ${f.lastValidated}`,
       `Date state ${f.dateState} · confidence ${f.dateConfidence} · last validated ${f.lastValidated}`),
-    TX(`Fase colturale: ${f.cropStage} · fase del problema: ${f.issueStage}`, `Crop stage: ${f.cropStage} · issue stage: ${f.issueStage}`)
+    TX(`Fase colturale: ${f.cropStageLabel} · fase del problema: ${f.issueStageLabel}`, `Crop stage: ${f.cropStageLabel} · issue stage: ${f.issueStageLabel}`)
       + (f.cropStage === 'NOT_OBSERVED' ? TX(' (per questa finestra non è registrata alcuna fase osservata — non affermarne una)', ' (no observed stage is recorded for this window — do not assert one)') : ''),
     f.labelTrigger
       ? TX(`Trigger di etichetta: ${f.labelTrigger}${f.labelSource ? ` · fonte ${f.labelSource}` : ''}`, `Label trigger: ${f.labelTrigger}${f.labelSource ? ` · source ${f.labelSource}` : ''}`)
@@ -397,8 +418,8 @@
             `Canonical window on file: ${f.W ? f.W.windowId : 'none'} · provenance ${f.W ? f.W.provenance : NOTCONF()}.`),
           TX(`Prodotti ADAMA registrati collegati a questa finestra: ${f.products.length}, di cui ${f.verified.length} con corrispondenza verificata su etichetta per questa coltura × problema.`,
             `Registered ADAMA products linked to this window: ${f.products.length}, of which ${f.verified.length} carry a verified label match for this crop × issue.`),
-          TX(`Fase colturale osservata: ${f.cropStage}. Fase del problema osservata: ${f.issueStage}.`,
-            `Observed crop stage: ${f.cropStage}. Observed issue stage: ${f.issueStage}.`)
+          TX(`Fase colturale osservata: ${f.cropStageLabel}. Fase del problema osservata: ${f.issueStageLabel}.`,
+            `Observed crop stage: ${f.cropStageLabel}. Observed issue stage: ${f.issueStageLabel}.`)
         ], true),
         S(TX('7 · Che cosa resta da validare', '7 · What still needs validation'), [
           TX('Pressione attuale in campo — su questa finestra non è registrata alcuna fase osservata.', 'Current field pressure — no observed stage is recorded on this window.'),
@@ -541,7 +562,7 @@
         ...portfolioSections(f, TX('Connessione di portafoglio', 'Portfolio connection')),
         S(TX('Voce del campo', 'Field voice'), fieldLines(c), true),
         S(TX('Che cosa va validato', 'What needs validation'), [
-          TX('Pressione attuale e fase colturale — su questa finestra entrambe risultano NOT_OBSERVED', 'Current pressure and crop stage — both read NOT_OBSERVED on this window'),
+          TX('Pressione attuale e fase colturale — su questa finestra entrambe risultano non osservate (NOT_OBSERVED)', 'Current pressure and crop stage — both read not observed (NOT_OBSERVED) on this window'),
           TX('Trigger di etichetta — non registrato; leggere la scheda di etichetta', 'Label trigger — not recorded; read the label record'),
           TX('Movimento nelle aree limitrofe — non esiste alcun record di area limitrofa', 'Adjacent-area movement — no adjacent-area record exists'),
           TX('Attività dei concorrenti attribuibile a questa coltura × regione', 'Competitor activity attributable to this crop × region')
@@ -575,9 +596,9 @@
           TX(`Nome scientifico / tassonomico di questo problema: ${UNK()} sul record di finestra canonica.`,
             `Scientific / taxonomic name for this issue: ${UNK()} on the canonical window record.`)]),
         S(TX('Evidenza agronomica disponibile', 'Agronomic evidence available'), [NOT_ESTABLISHED('Narrativa dell\'evidenza', 'Evidence narrative'), ...sourcesLines(f)]),
-        S(TX('Fase colturale', 'Crop stage'), [`${f.cropStage}${f.cropStage === 'NOT_OBSERVED'
+        S(TX('Fase colturale', 'Crop stage'), [`${f.cropStageLabel}${f.cropStage === 'NOT_OBSERVED'
           ? TX(' — CROP_STAGE non è registrato su questa finestra; nessuna fase può essere affermata a valle.', ' — CROP_STAGE is not recorded on this window; no stage may be asserted downstream.') : ''}`]),
-        S(TX('Segnale di malattia / parassita', 'Disease / pest signal'), [`${f.issueStage}${f.issueStage === 'NOT_OBSERVED'
+        S(TX('Segnale di malattia / parassita', 'Disease / pest signal'), [`${f.issueStageLabel}${f.issueStage === 'NOT_OBSERVED'
           ? TX(' — ISSUE_STAGE non è registrato su questa finestra; questa non è un\'affermazione di bassa pressione, è un\'assenza di osservazione.', ' — ISSUE_STAGE is not recorded on this window; this is not a low-pressure claim, it is an absence of observation.') : ''}`]),
         S(TX('Monitoraggio ufficiale', 'Official monitoring'), [
           TX('I conteggi di osservazioni ufficiali per caso non sono stabiliti nel modello e non vengono stampati.',

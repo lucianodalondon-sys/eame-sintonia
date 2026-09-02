@@ -1180,6 +1180,44 @@ check('VJ2', 'isResearcher means membership, not "has a paper here"', () => {
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
 });
 
+
+check('I6', 'Italian mode shows no accidental English on any screen', () => {
+  /* I2 only walked the Future screen. The Market breadcrumb read
+     "MAIS · CROP MARKET" for months with every language check green, because
+     the tab strip was localized and the crumb above it was built separately.
+     This walks every rendered prop of every screen.
+
+     Proper nouns are exempt BY PATH, not by guesswork: a product name, a company
+     name, a Latin binomial, an original public quote, a source title and a URL
+     are correctly untranslated (rule 11). */
+  const m = mount();
+  const EXEMPT_PATH = /(^|\.)(product|products|productName|company|companyLabel|name|species|latin|title|textOriginal|quote|url|sourceUrl|labelUrl|catalogUrl|author|institution|venue|doi|orcid|channel|person|platform|raw|ui|id|sourceId|crumbId|key|state|status|kind|type|code|vocab|scope|provenance|strength)(\[|\.|$)/i;
+  /* The Field Sales fixture and the presentation scenarios are English BY
+     DESIGN — they are labelled demonstration payloads, not interface copy.
+     Walking into them measures the fixture's language, not the portal's. */
+  const DEMO_PATH = /(^|\.)(fieldMessages|extraMessages|futureScenarios|opportunityScenarios|scenarios|tsr|tsrs|allMessages|composerExamples)(\[|\.|$)/i;
+  const hits = [];
+  let rendered = 0;
+  for (const sc of SCREENS) {
+    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+    const r = m.tryVals(patch);
+    if (!r.ok) continue;
+    rendered++;
+    for (const { path, value } of collectStrings(r.vals)) {
+      if (EXEMPT_PATH.test(path) || DEMO_PATH.test(path)) continue;
+      if (isEnglish(value)) hits.push(`${sc.label} ${path}: ${value.slice(0, 70)}`);
+    }
+  }
+  const uniq = [...new Set(hits)];
+  const vacuous = rendered < SCREENS.length;
+  return {
+    pass: uniq.length === 0 && !vacuous,
+    expected: `0 over ${SCREENS.length} screens`,
+    measured: vacuous ? `${uniq.length} but only ${rendered}/${SCREENS.length} rendered — INCONCLUSIVE` : `${uniq.length} over ${rendered} screens`,
+    detail: uniq.slice(0, 15),
+  };
+});
+
 export function runAll(only) {
   const list = only ? CHECKS.filter((c) => only.includes(c.id)) : CHECKS;
   return list.map((c) => {

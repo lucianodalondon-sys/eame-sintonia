@@ -90,7 +90,8 @@ export function looksEnglish(v) {
   const t = v.trim();
   if (t.length < 8 || EXEMPT.test(t) || CODEY.test(t)) return false;
   if (!/[A-Za-z]{4}/.test(t)) return false;
-  return EN_RE.test(t) || EN_FN_RE.test(t);
+  const s = stripCodes(t);
+  return EN_RE.test(s) || EN_FN_RE.test(s);
 }
 
 /* Strings we must never flag: URLs, ids, Latin binomials, pure numbers, and the
@@ -98,15 +99,26 @@ export function looksEnglish(v) {
 const EXEMPT = /^(https?:|IT-|EV-|FM-|CAT-|[A-Z]{2,}-\d)|^\d|^[A-Z_]+$|^[A-Z][a-z]+ [a-z]+$/;
 const CODEY = /^[A-Z0-9_ ·\/+-]+$/;
 
+/* A SCREAMING_SNAKE token is a canonical code, not prose. The portal shows some
+   of them on purpose — "non osservata (NOT_OBSERVED)" is Italian with the code
+   kept so the line stays traceable — and matching the English word inside the
+   code would fail correct copy. Strip codes before judging the language. */
+const stripCodes = (s) => String(s).replace(/\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g, ' ');
+
 export function isPortuguese(v) {
   if (typeof v !== 'string' || v.length < 12) return false;
   if (EXEMPT.test(v)) return false;
-  return PT_RE.test(v);
+  return PT_RE.test(stripCodes(v));
 }
 export function isEnglish(v) {
   if (typeof v !== 'string' || v.length < 3) return false;
+  const s = stripCodes(v);
+  /* A curated marker beats the exemptions. The binomial exemption
+     (Capitalized lowercase) was silently swallowing "Window closed" and
+     "Label check needed" — measured: recall 2 of 3 on known-English phrases. */
+  if (EN_RE.test(s)) return true;
   if (EXEMPT.test(v) || CODEY.test(v)) return false;
-  return EN_RE.test(v);
+  return false;
 }
 
 /** Walk a props object and collect every string, with its path. */
