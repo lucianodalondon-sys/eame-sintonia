@@ -298,6 +298,38 @@ def main():
                      len({x.get('SOURCE_DOCUMENT_ID') for x in vs[:6]})})
 
     # ── 3 · mercado × peso × sinal de campo ──────────────────────────────────
+    # ⚠️ A AUSENCIA TEM DE SE VER. Quando uma cultura tem sinal de campo e SO tem
+    # preco de produto processado (azeite, vinho), o cruzamento nao se forma — e
+    # some sem deixar rastro, que e o mesmo mal do default silencioso: o vazio se
+    # ve, mas o que sumiu em silencio nao.
+    #
+    #     CRUZAMENTO QUE DESAPARECE SEM DIZER POR QUE E DEFEITO DISFARCADO DE LIMPEZA.
+    #
+    # Entao a nao-emissao por estagio da mercadoria e registrada, com os IDs do
+    # preco que existe e a razao de ele nao servir.
+    por_estagio = []
+    for crop in sorted(set(idx['FIELD'])):
+        if crop in idx['MARKET']:
+            continue
+        derivados = [x for x in todos.values()
+                     if x.get('DERIVED_FROM_CROP_ID') == crop
+                     and x.get('COMMODITY_STAGE') == 'PROCESSED_PRODUCT']
+        if derivados:
+            por_estagio.append({
+                'CROP_ID': crop,
+                'CROSSING_TYPE': 'MARKET_X_FIELD_SIGNAL',
+                'POR_QUE_NAO_FOI_EMITIDO':
+                    'ha sinal de campo para esta cultura, mas o unico preco '
+                    'disponivel e de PRODUTO PROCESSADO, nao da cultura. '
+                    'PRECO DE AZEITE NAO E PRECO DA AZEITONA.',
+                'PRECOS_QUE_EXISTEM_MAS_NAO_SERVEM':
+                    [x['ID'] for x in derivados][:12],
+                'QUANTOS': len(derivados),
+                'O_QUE_ELES_SUSTENTAM':
+                    'contexto economico do produto processado — e so isso. Nao '
+                    'sustentam movimento de mercado da cultura, economia do '
+                    'produtor, oportunidade comercial nem demanda.',
+            })
     for crop in sorted(set(idx['MARKET']) & set(idx['FIELD'])):
         monta('MARKET_X_FIELD_SIGNAL', crop,
               {'MARKET': idx['MARKET'][crop][:6], 'FIELD': idx['FIELD'][crop][:6]},
@@ -351,6 +383,13 @@ def main():
             'passou no portao; a juncao e leitura nossa e vai a tela com a '
             'ressalva colada (RENDER_RULE em cada registro).',
         'REFUSED': len(recusados),
+        'NAO_EMITIDOS_POR_ESTAGIO_DA_MERCADORIA': por_estagio,
+        'NAO_EMITIDOS_POR_ESTAGIO_LEI': (
+            'PRECO DE AZEITE != PRECO DA AZEITONA != OPORTUNIDADE NA OLIVEIRA. '
+            'Entre a materia-prima e o produto processado ha rendimento, safra '
+            'estocada, industria e cambio: os dois precos nao andam juntos por '
+            'construcao. O cruzamento que dependia dessa confusao nao foi '
+            'preservado so porque existia antes.'),
         'INVARIANTS': {
             'A': 'toda evidencia de cultura resolve no MESMO CROP_ID',
             'C': 'geografia nunca promovida',

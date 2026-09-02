@@ -152,6 +152,46 @@ def _e_prosa(v):
     return len(t) > MAX_ROTULO or bool(re.search(r'[.;:!?]\s', t))
 
 
+# ── ESTÁGIO DA MERCADORIA ────────────────────────────────────────────────────
+# «Extra virgin olive oil» casa o apelido `oliv` e virava CROP_OLIVE — e assim o
+# preço do AZEITE passava a sustentar o cruzamento de mercado da OLIVEIRA. As 42
+# observações de mercado da oliveira eram, todas, azeite: nenhuma era azeitona.
+#
+#     PREÇO DE AZEITE != PREÇO DA AZEITONA != OPORTUNIDADE NA OLIVEIRA.
+#
+# O azeite é lavrado, lotado, armazenado e exportado por gente que muitas vezes
+# não é o produtor. Entre a azeitona e o azeite há rendimento, safra estocada,
+# indústria e câmbio. O preço de um não anda com o preço do outro por construção.
+PROCESSADO = [
+    'olive oil', 'olio', 'oleo de oliva', 'azeite', 'pomace', 'sansa',
+    'wine', 'vino', 'vinho', 'must', 'mosto',
+    'flour', 'farina', 'farinha', 'semolina', 'semola',
+    'juice', 'succo', 'sumo', 'puree', 'passata', 'concentrate', 'concentrato',
+    'oil', 'meal', 'cake', 'bran', 'malt', 'starch', 'sugar refined',
+]
+RAW_CROP = 'RAW_CROP'
+PROCESSED_PRODUCT = 'PROCESSED_PRODUCT'
+
+
+def estagio_da_mercadoria(*campos):
+    """→ RAW_CROP · PROCESSED_PRODUCT · None (não declarado).
+
+    Não adivinha: só responde quando o nome do produto diz. `Feed barley` é
+    cevada; `Extra virgin olive oil` não é azeitona.
+    """
+    for c in campos:
+        t = ' %s ' % _n(c)
+        if not t.strip():
+            continue
+        for termo in PROCESSADO:
+            if ' %s ' % _n(termo) in t:
+                return PROCESSED_PRODUCT
+    for c in campos:
+        if _n(c).strip():
+            return RAW_CROP
+    return None
+
+
 def crop_id(*campos):
     """→ CROP_* ou None. ⚠️ SÓ CAMPO DECLARADO, NUNCA PROSA.
 

@@ -191,14 +191,40 @@ def main():
                  'SUMMARY_CLAIMS': sum(1 for x in ec if x.get('IS_SUMMARY_CLAIM'))})
 
     # ══ MERCADO ══════════════════════════════════════════════════════════════
-    mk = [do_anterior(x, 'MARKET_OBSERVATION', [x.get('SOURCE_URL')],
-                      x.get('PERIOD_END') or x.get('PERIOD'),
-                      [N.crop_id(x.get('CROP') or x.get('PRODUCT'))], [],
-                      N.region_ids(x.get('PLACE') or x.get('GEOGRAPHY')),
-                      N.escopo(x.get('PLACE') or x.get('GEOGRAPHY')),
-                      extra={k: v for k, v in x.items() if k != 'ID'})
+    # §7 · PRECO DE AZEITE NAO E PRECO DE AZEITONA.
+    # A cultura vinha de N.crop_id(CROP or PRODUCT), e «Extra virgin olive oil»
+    # casava o apelido `oliv`: as 42 observacoes de mercado da oliveira eram
+    # todas azeite, nenhuma era azeitona, e sustentavam o cruzamento de mercado
+    # da OLIVEIRA como se fossem preco da cultura.
+    #
+    # Produto processado NAO recebe CROP_IDS. Recebe DERIVED_FROM_CROP_ID, que
+    # diz de que cultura ele vem sem afirmar que e o preco dela.
+    def _mercado(r, produto):
+        est = N.estagio_da_mercadoria(produto)
+        r['COMMODITY_STAGE'] = est or 'NAO_SEI'
+        if est == N.PROCESSED_PRODUCT and r.get('CROP_IDS'):
+            r['DERIVED_FROM_CROP_ID'] = r['CROP_IDS'][0]
+            r['CROP_IDS'] = []
+            r['COMMODITY_STAGE_LAW'] = (
+                'preco de produto processado nao e preco da cultura. Entre a '
+                'materia-prima e o produto ha rendimento, safra estocada, '
+                'industria e cambio — os dois precos nao andam juntos por '
+                'construcao. Isto sustenta contexto economico do produto; NAO '
+                'prova movimento de mercado da cultura, economia do produtor, '
+                'oportunidade nem demanda comercial.')
+        return r
+
+    mk = [_mercado(do_anterior(x, 'MARKET_OBSERVATION', [x.get('SOURCE_URL')],
+                               x.get('PERIOD_END') or x.get('PERIOD'),
+                               [N.crop_id(x.get('CROP') or x.get('PRODUCT'))], [],
+                               N.region_ids(x.get('PLACE') or x.get('GEOGRAPHY')),
+                               N.escopo(x.get('PLACE') or x.get('GEOGRAPHY')),
+                               extra={k: v for k, v in x.items() if k != 'ID'}),
+                   x.get('PRODUCT') or x.get('CROP'))
           for x in ant('MARKET-PULSE/market-pulse.json', 'PRICES')]
-    mk += [do_lastmile(x, 'MARKET_OBSERVATION') for x in fam['MARKET_OBSERVATIONS']]
+    mk += [_mercado(do_lastmile(x, 'MARKET_OBSERVATION'),
+                    x.get('produto') or x.get('product') or x.get('crop'))
+           for x in fam['MARKET_OBSERVATIONS']]
     grava('MARKET-OBSERVATIONS.json', 'MARKET', mk, 'ID',
           'ISMEA Mercati · EC Agri-food Data Portal · Eurostat · BMTI',
           ['PREVIOUS-HANDOFF/.../MARKET-PULSE/market-pulse.json',

@@ -259,6 +259,36 @@ def main():
                 'prova participacao de mercado. Cada uma precisa de leitura.',
     }
 
+    # ── 8 · R4 · o preço que sustenta tem de ser da cultura ──────────────────
+    ix = {}
+    for a, d in colecoes():
+        for x in d['RECORDS']:
+            if x.get('ID'):
+                ix[x['ID']] = x
+    cx = os.path.join(ING, 'CLIENT-SAFE-CROSSINGS.json')
+    apoio_processado = []
+    nao_emitidos = []
+    if os.path.exists(cx):
+        X = json.load(open(cx, encoding='utf-8'))
+        nao_emitidos = X.get('NAO_EMITIDOS_POR_ESTAGIO_DA_MERCADORIA') or []
+        for x in X['RECORDS']:
+            for i in (x.get('SUPPORTING_IDS', {}).get('MARKET') or []):
+                if ix.get(i, {}).get('COMMODITY_STAGE') == 'PROCESSED_PRODUCT':
+                    apoio_processado.append('%s <- %s' % (x['ID'], i))
+    mk = [x for x in ix.values() if x.get('ENTITY_TYPE') == 'MARKET_OBSERVATION']
+    r['MERCADO'] = {
+        'OBSERVACOES': len(mk),
+        'POR_ESTAGIO': dict(Counter(x.get('COMMODITY_STAGE') for x in mk)),
+        'PROCESSADO_COM_CROP_IDS': sum(
+            1 for x in mk if x.get('COMMODITY_STAGE') == 'PROCESSED_PRODUCT'
+            and x.get('CROP_IDS')),
+        'CRUZAMENTO_APOIADO_EM_PROCESSADO': apoio_processado,
+        'NAO_EMITIDOS_POR_ESTAGIO': [n['CROP_ID'] for n in nao_emitidos],
+        'LEI': 'PRECO DE AZEITE NAO E PRECO DA AZEITONA NAO E OPORTUNIDADE NA '
+               'OLIVEIRA. Produto processado nao recebe CROP_IDS: recebe '
+               'DERIVED_FROM_CROP_ID.',
+    }
+
     p = os.path.join(V21, 'ACCEPTANCE-REPORT.json')
     json.dump(r, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
@@ -285,6 +315,9 @@ def main():
              len(r['SEPARACAO']['PAPEL_DE_TRABALHO_EM_DESIGN_INGEST'])))
     print('              · %d registro client-safe com metadado de rota no texto'
           % len(r['SEPARACAO']['METADADO_DE_ROTA_EM_REGISTRO_CLIENT_SAFE']))
+    print('mercado       : %s · %d processado com CROP_IDS · %d cruzamento em processado'
+          % (r['MERCADO']['POR_ESTAGIO'], r['MERCADO']['PROCESSADO_COM_CROP_IDS'],
+             len(r['MERCADO']['CRUZAMENTO_APOIADO_EM_PROCESSADO'])))
     print('\ngravado em %s' % p)
     return 0
 
