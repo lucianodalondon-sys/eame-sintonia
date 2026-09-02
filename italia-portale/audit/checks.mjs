@@ -1218,6 +1218,32 @@ check('I6', 'Italian mode shows no accidental English on any screen', () => {
   };
 });
 
+
+check('E1', 'The entry page counts, it does not assert', () => {
+  /* accesso.html is the first screen the client sees and it is a static page
+     outside the model. It carried three hardcoded figures — 7 regions, 8 crops
+     and "72 SEGNALI OSSERVATI". The 72 was the demo fixture's activity count:
+     a fabricated number, in the largest type on the page, on the one screen
+     that is guaranteed to be read. */
+  const src = fs.readFileSync(path.join(CLIENT, 'accesso.html'), 'utf8');
+  const bad = [];
+  /* a bare number in a stat slot is an assertion */
+  const re = /<b[^>]*>\s*(\d[\d.,]*)\s*<\/b>/g;
+  let m;
+  while ((m = re.exec(src))) bad.push(`hardcoded figure <b>${m[1]}</b>`);
+  if (!/italy-canonical-windows\.js/.test(src)) bad.push('the canonical contract is not loaded, so nothing can be counted');
+  /* and the numbers it shows must match the contract */
+  const ctx = loadData();
+  const C = (ctx.ITALY_CANONICAL && ctx.ITALY_CANONICAL.windows) || [];
+  const uniq = (a) => new Set(a.filter(Boolean)).size;
+  const expect = { regions: uniq(C.map((w) => w.REGION)), crops: uniq(C.map((w) => w.CROP_NAME)), windows: C.length };
+  for (const id of ['statRegionsN', 'statCropsN', 'statWindowsN']) {
+    if (!src.includes(id)) bad.push(`${id} slot is missing`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: { willShow: expect, bad } };
+});
+
 export function runAll(only) {
   const list = only ? CHECKS.filter((c) => only.includes(c.id)) : CHECKS;
   return list.map((c) => {

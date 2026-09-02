@@ -1,0 +1,17 @@
+# What must never leave this folder for a public URL.
+#
+# `vercel link` writes .env.local with a live VERCEL_OIDC_TOKEN into this very
+# directory, so the credential sits beside the files being uploaded. The CLI
+# already honours .gitignore, but a deployment is public and irreversible —
+# this file states the exclusion instead of relying on that.
+.env
+.env.*
+.vercel
+
+# Package documentation, not site content. Nothing in the portal links to a
+# .md file; serving them adds nothing and widens what is public.
+*.md
+**/*.md
+
+# Linting configuration that travelled with the design-system package.
+_ds/adama-brandwell/_adherence.oxlintrc.json

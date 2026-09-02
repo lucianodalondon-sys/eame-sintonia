@@ -6,6 +6,11 @@
 <title>Sintonia · ADAMA Italy Intelligence</title>
 <script src="vendor/d3-7.9.0.min.js"></script>
 <script src="vendor/topojson-client-3.1.0.min.js"></script>
+<!-- The entry page asserted 7 regions, 8 crops and 72 observed signals. The 72
+     was the demo fixture's activity count: a fabricated number on the first
+     screen the client sees. The canonical window contract is 23 KB and answers
+     all three honestly, so the page counts instead of claiming. -->
+<script src="italy-canonical-windows.js"></script>
 <link rel="stylesheet" href="_ds/adama-brandwell/tokens/colors.css">
 <link rel="stylesheet" href="_ds/adama-brandwell/tokens/typography.css">
 <style>
@@ -183,9 +188,9 @@
 <section class="stage" aria-hidden="true">
   <svg id="map" role="presentation"></svg>
   <div class="stats">
-    <div class="stat"><b>7</b><span data-i18n="statRegions">AREE NELLA RETE</span></div>
-    <div class="stat"><b>8</b><span data-i18n="statCrops">COLTURE</span></div>
-    <div class="stat"><b>72</b><span data-i18n="statSignals">SEGNALI OSSERVATI</span></div>
+    <div class="stat"><b id="statRegionsN">—</b><span data-i18n="statRegions">AREE NELLA RETE</span></div>
+    <div class="stat"><b id="statCropsN">—</b><span data-i18n="statCrops">COLTURE</span></div>
+    <div class="stat"><b id="statWindowsN">—</b><span data-i18n="statSignals">FINESTRE COLTURALI</span></div>
   </div>
   <div class="legend">
     <span class="cap" data-i18n="legendCap">RETE DI MONITORAGGIO · ITALIA</span>
@@ -194,6 +199,18 @@
 </section>
 
 <script>
+  /* Counted from the canonical window contract, not asserted. If the contract
+     is ever absent the figures stay as an em dash rather than inventing one. */
+  (function () {
+    var C = window.ITALY_CANONICAL && window.ITALY_CANONICAL.windows;
+    var set = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v; };
+    if (!C || !C.length) return;
+    var uniq = function (a) { var s = {}; a.forEach(function (x) { if (x) s[x] = 1; }); return Object.keys(s).length; };
+    set('statRegionsN', uniq(C.map(function (w) { return w.REGION; })));
+    set('statCropsN', uniq(C.map(function (w) { return w.CROP_NAME; })));
+    set('statWindowsN', C.length);
+  })();
+
 (function () {
   var I18N = {
     it: {
@@ -205,7 +222,7 @@
       cta: 'ENTRA NELLA DEMO',
       hint: 'Ambiente dimostrativo — nessuna autenticazione. Il pilota è autonomo e non contiene dati riservati.',
       env: 'AMBIENTE DIMOSTRATIVO',
-      statRegions: 'AREE NELLA RETE', statCrops: 'COLTURE', statSignals: 'SEGNALI OSSERVATI',
+      statRegions: 'AREE NELLA RETE', statCrops: 'COLTURE', statSignals: 'FINESTRE COLTURALI',
       legendCap: 'RETE DI MONITORAGGIO · ITALIA',
       legendRow: 'Aree con osservazione agronomica attiva'
     },
@@ -218,7 +235,7 @@
       cta: 'ENTER DEMO',
       hint: 'Demonstration environment — no authentication. The pilot is self-contained and holds no confidential data.',
       env: 'DEMONSTRATION ENVIRONMENT',
-      statRegions: 'AREAS IN THE NETWORK', statCrops: 'CROPS', statSignals: 'OBSERVED SIGNALS',
+      statRegions: 'AREAS IN THE NETWORK', statCrops: 'CROPS', statSignals: 'CROP WINDOWS',
       legendCap: 'MONITORING NETWORK · ITALY',
       legendRow: 'Areas with active agronomic observation'
     }
