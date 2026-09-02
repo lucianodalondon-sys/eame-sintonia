@@ -15,7 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { CLIENT, readPortal, mount, usePortal } from './lib/harness.mjs';
-import { BLOCKS } from './blocks.mjs';
+import { BLOCKS, markupBlocks } from './blocks.mjs';
 import { SCREENS } from './checks.mjs';
 
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
@@ -24,8 +24,12 @@ const SCRATCH = path.join(HERE, '.scratch');
 fs.mkdirSync(BLOCKDIR, { recursive: true });
 fs.mkdirSync(SCRATCH, { recursive: true });
 
-const blockFile = (key) => path.join(BLOCKDIR, key + '.js');
-const byKey = Object.fromEntries(BLOCKS.map((b) => [b.key, b]));
+/* Logic blocks live in <key>.js; markup blocks in markup-<screen>.html. Both
+   are line ranges in portale.html, so the splicer treats them identically —
+   only the file extension differs. */
+const ALL = () => [...BLOCKS, ...markupBlocks()];
+const blockFile = (key) => path.join(BLOCKDIR, key + (key.startsWith('markup-') ? '.html' : '.js'));
+const byKey = () => Object.fromEntries(ALL().map((b) => [b.key, b]));
 
 /** Replace the given blocks' line ranges, highest line first so earlier ranges stay valid. */
 export function spliceInto(html, patches) {
@@ -38,8 +42,38 @@ export function spliceInto(html, patches) {
   return lines.join('\n');
 }
 
+/* A block file written against an OLDER map is not merely stale, it is actively
+   dangerous: the key still matches, so it splices — but into a line range that
+   has since moved. Measured once: a head.js of 556 lines, written when `head`
+   opened at renderVals(), survived a map rebuild after which `head` was a
+   50-line slice starting mid-function. Assembling it replaced 50 lines with 556
+   and the result would not even parse. --dry caught it; a real assemble would
+   have written it to portale.html.
+   The authoritative protection is downstream and already exists: assemble
+   writes a scratch copy, mounts it, renders all 26 screens, and exits before
+   touching portale.html if anything fails to parse. That is what caught the
+   556-line head.js. This guard is the cheap backstop in front of it, for the
+   stale block that still PARSES and silently drops or duplicates code — which
+   the render gate cannot see. It is a heuristic on size, not a proof: a file
+   wildly larger than the slot it claims was written for a different slot.
+   File mtime is deliberately NOT used; copying a stale file refreshes it. */
+function suspectBlocks() {
+  const all = readPortal().split('\n');
+  return ALL().filter((b) => fs.existsSync(blockFile(b.key))).map((b) => {
+    const want = b.b - b.a + 1;
+    const got = fs.readFileSync(blockFile(b.key), 'utf8').split('\n').length;
+    return { key: b.key, want, got };
+  }).filter((x) => x.got > Math.max(40, x.want * 5));
+}
+
 function presentBlocks() {
-  return BLOCKS.filter((b) => fs.existsSync(blockFile(b.key)))
+  const odd = suspectBlocks();
+  if (odd.length) {
+    throw new Error('block file(s) are far larger than the range they replace, which is what a file written against an older map looks like:\n  '
+      + odd.map((x) => `${x.key}: file has ${x.got} lines, the slot is ${x.want}`).join('\n  ')
+      + '\n  Rewrite them against the CURRENT range: node audit/splice.mjs show <key>');
+  }
+  return ALL().filter((b) => fs.existsSync(blockFile(b.key)))
     .map((b) => ({ ...b, text: fs.readFileSync(blockFile(b.key), 'utf8') }));
 }
 
@@ -62,7 +96,7 @@ function renderReport(portalPath) {
 /* The block line map is frozen while the agents work. Once assemble writes for
    real the map is stale, and a later splice would cut the file in the wrong
    place — so refuse rather than corrupt. */
-const FROZEN_LINES = 3463;
+const FROZEN_LINES = 7073;
 function assertFrozen() {
   const n = readPortal().split('\n').length;
   if (n !== FROZEN_LINES) {
@@ -89,7 +123,7 @@ if (cmd === 'list' || !cmd) {
 
 if (cmd === 'show') {
   assertFrozen();
-  const b = byKey[key];
+  const b = byKey()[key];
   if (!b) { console.error('unknown block:', key); process.exit(2); }
   const lines = readPortal().split('\n');
   console.log(lines.slice(b.a - 1, b.b).join('\n'));
@@ -98,7 +132,7 @@ if (cmd === 'show') {
 
 if (cmd === 'try') {
   assertFrozen();
-  const b = byKey[key];
+  const b = byKey()[key];
   if (!b) { console.error('unknown block:', key, '\nknown:', BLOCKS.map((x) => x.key).join(', ')); process.exit(2); }
   if (!fs.existsSync(blockFile(b.key))) { console.error('no candidate written yet at', blockFile(b.key)); process.exit(2); }
   /* Splice EVERY block written so far, not just yours. client/portale.html is

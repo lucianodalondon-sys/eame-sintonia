@@ -106,7 +106,22 @@ const CODEY = /^[A-Z0-9_ ·\/+-]+$/;
    of them on purpose — "non osservata (NOT_OBSERVED)" is Italian with the code
    kept so the line stays traceable — and matching the English word inside the
    code would fail correct copy. Strip codes before judging the language. */
-const stripCodes = (s) => String(s).replace(/\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g, ' ');
+/* SCREAMING_SNAKE codes are never prose in any language, so they are removed
+   before a string is judged.
+
+   A bare ALL-CAPS word is harder. The archive crop filter prints the upstream
+   token verbatim beside an Italian vocabulary label — "CEREAIS · codice di
+   pacchetto" — and CEREAIS is a package code from a Portuguese-language source,
+   deliberately not normalized, which made PT1 report the Italian filter as
+   Portuguese prose. But stripping EVERY all-caps word would blind the detector
+   to the shouted Portuguese the package actually writes, e.g. "ESTADO EUROPEU
+   NAO E COMERCIALIZABILIDADE ITALIANA" — the exact sentences that must never
+   ship. So only a code in CODE-then-label position is dropped: one leading
+   all-caps token immediately followed by the " · " separator this codebase uses
+   for value-then-label. Anything further into the string stays visible. */
+const stripCodes = (s) => String(s)
+  .replace(/^[A-Z][A-Z0-9_]{2,}\s·\s/, '')
+  .replace(/\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g, ' ');
 
 export function isPortuguese(v) {
   if (typeof v !== 'string' || v.length < 12) return false;
@@ -124,12 +139,24 @@ export function isEnglish(v) {
   return false;
 }
 
-/** Walk a props object and collect every string, with its path. */
-export function collectStrings(root, { skipKeys = ['raw', 'ui', 'textOriginal', 'quote', 'url', 'sourceUrl', 'labelUrl', 'catalogUrl', 'href', 'icon', 'color', 'bg', 'border', 'rail', 'tint'], limit = 4000 } = {}) {
+/**
+ * Walk a props object and collect every string, with its path.
+ *
+ * The limit is a safety valve, not a budget — and it silently defeated the
+ * language guards once already. When V2.1 landed, the radar's props grew past
+ * 4000 strings, the walk stopped before reaching visibleCases, and PT1 reported
+ * "0 hits" over a screen that was rendering "CONVERGENCIA QUE MERECE
+ * INVESTIGACAO" in Portuguese. A guard that stops looking must SAY it stopped,
+ * so callers can fail as inconclusive instead of passing on silence.
+ * collectStrings.truncated is set on the returned array.
+ */
+export function collectStrings(root, { skipKeys = ['raw', 'ui', 'textOriginal', 'quote', 'url', 'sourceUrl', 'labelUrl', 'catalogUrl', 'href', 'icon', 'color', 'bg', 'border', 'rail', 'tint'], limit = 200000 } = {}) {
   const out = [];
+  out.truncated = false;
   const seen = new Set();
   const walk = (v, p) => {
-    if (out.length >= limit || v === null || v === undefined) return;
+    if (out.length >= limit) { out.truncated = true; return; }
+    if (v === null || v === undefined) return;
     if (typeof v === 'string') { out.push({ path: p, value: v }); return; }
     if (typeof v !== 'object' || seen.has(v)) return;
     seen.add(v);

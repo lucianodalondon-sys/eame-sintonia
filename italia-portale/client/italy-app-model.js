@@ -26,6 +26,17 @@
    reveal resolves to NOT_EXTERNALLY_OBSERVABLE — never a placeholder that
    invites private data.
 
+   THE CLIENT-SAFE GATE — the law the V2.1 package exists to enforce
+   Only CLIENT_SAFE=true may sustain a claim visible to the client. A
+   CLIENT_SAFE=false record still belongs to the CORPUS, because a
+   transparency panel that cannot say how large the reading is has stopped
+   being transparent — so it is counted and never rendered. Every collection
+   therefore publishes THREE numbers, not one:
+       count · clientSafe · corpus
+   and exposes `safeRecords` so no screen has to filter by hand and get it
+   wrong somewhere. clientSafe === null means the SOURCE does not declare the
+   flag at all (every pre-V2.1 table); that is "not declared", not zero.
+
    THE NARRATIVE RULE — why free prose is suppressed
    Measured on this package: 219/219 label-use rows, 17/17 voices, 8/8 news
    items, 16 crop-window fields and 6 resistance mechanisms carry SINTONIA
@@ -68,7 +79,10 @@
   /* ── 1 · ONE CLOCK ───────────────────────────────────────────────────────
      Every relative date in the application traces to this value. */
   const REFERENCE_DATE =
-    (RAW.HANDOFF_V21 && RAW.HANDOFF_V21.referenceDate) ||
+    /* the package's own REFERENCE_DATE, read first. It is 2026-09-02 and it is
+       the ONLY clock: nothing below derives a second one, and every record's
+       own REFERENCE_DATE is parsed as data, never promoted to the clock. */
+    (RAW.HANDOFF_V21 && (RAW.HANDOFF_V21.REFERENCE_DATE || RAW.HANDOFF_V21.referenceDate)) ||
     (RAW.CANON.meta && RAW.CANON.meta.referenceDate) ||
     RAW.CANON.referenceDate ||
     '2026-09-02';
@@ -201,11 +215,38 @@
 
   const coll = (records, provenance, note, meta) => {
     const rec = (records || []).filter(Boolean);
+    /* ── THE CLIENT-SAFE GATE, published on EVERY collection ───────────────
+       V2.1 law 1: only CLIENT_SAFE=true may sustain a claim visible to the
+       client; CLIENT_SAFE=false lives in the corpus and never closes an
+       assertion alone.
+
+       So `records` is the CORPUS — a non-safe record is never silently
+       dropped, because dropping it is what stops the transparency panel from
+       saying how large the reading actually is — and `safeRecords` is the
+       array a view must read. Every screen filtering by hand is how one
+       screen eventually forgets.
+
+       clientSafe === null means the SOURCE DOES NOT DECLARE THE FLAG (every
+       pre-V2.1 table). That is "not declared", which is a different fact from
+       "zero", and a panel must print it as such rather than as a 0. */
+    const declares = rec.some((r) => r && typeof r.clientSafe === 'boolean');
+    const safeRecords = declares ? rec.filter((r) => r.clientSafe === true) : rec;
+    const corpusOnly = declares ? rec.filter((r) => r.clientSafe !== true) : [];
     const c = {
       records: rec,
+      safeRecords,
+      corpusOnly,
       provenance,
       note: note || '',
       count: rec.length,
+      /* count · clientSafe · corpus — the three numbers the panel needs */
+      corpus: rec.length,
+      clientSafe: declares ? safeRecords.length : null,
+      corpusOnlyCount: corpusOnly.length,
+      clientSafeState: declares ? 'DECLARED' : 'NOT_DECLARED_BY_SOURCE',
+      /* Corpus rows: they keep their facts and lose their prose, so they can
+         be counted and cross-referenced and never rendered as a statement. */
+      identityOnlyCount: rec.filter((r) => r && r.payloadState === 'CORPUS_FACTS_ONLY').length,
       demo: rec.filter((r) => isDemo(r, provenance)).length,
       real: rec.filter((r) => !isDemo(r, provenance)).length,
       source: (meta && meta.source) || null,
@@ -249,9 +290,130 @@
     return coll([], P.REAL_SOURCE, note, { source: null });
   };
 
-  const V21 = (family) => {
-    const d = RAW.HANDOFF_V21 && RAW.HANDOFF_V21[family];
-    return d ? { source: 'HANDOFF_V21', precedence: P.CANONICAL, rows: A(d), adapt: (r) => r } : null;
+  /* ═══════════════════════════════════════════════════════════════════════
+     5b · THE V2.1 PACKAGE, READ AS THE CANONICAL SOURCE
+     ═══════════════════════════════════════════════════════════════════════
+     ITALY_HANDOFF_V21 publishes 26 families under collections[APP_KEY minus
+     the "APP." prefix], plus a MANIFEST that states, per family, its LAW, its
+     source of truth, its primary key and the counts it must reproduce. The
+     manifest is data, so the law travels onto the built collection instead of
+     being restated in a comment a view cannot read.
+
+     TWO THINGS THE TRANSPORT ALREADY DID, both on the package's own order:
+       · RESEARCH and every *_ORIGINAL_RESEARCH_TEXT are NOT in the browser.
+         The approved *_IT / *_EN fields are, which is what makes the narrative
+         rule return CLEAR instead of NOT_APPROVED_FOR_DISPLAY on this package.
+       · A CLIENT_SAFE=false record travels as identity + QA state ONLY.
+         MEASURED here: that holds on 26/26 families — no non-safe record in
+         the package carries a single field outside the seven-field stub. So a
+         non-safe record can be COUNTED and can never be RENDERED, which is
+         exactly the gate, enforced by the transport rather than by a screen.
+
+     WHAT THAT COSTS, stated rather than hidden: where a whole family is
+     CLIENT_SAFE=false (opportunities 3/3, relationships 19/19, crossings
+     19/19) the package delivers no payload at all. For those, and only for
+     those, the adapter merges the SAME RECORD from the lower-precedence
+     ITALY_INGEST by primary key — provable identity, not a guess: the ids are
+     identical and V2.1's own ORIGIN_LAYER says PREVIOUS_HANDOFF. V2.1 still
+     wins every key it carries; the merge only fills what it did not transport. */
+  const V21H = RAW.HANDOFF_V21 || null;
+  const V21C = (V21H && V21H.collections) || {};
+  const V21_MANIFEST = {};
+  A(V21H && V21H.MANIFEST).forEach((m) => { if (m && m.family) V21_MANIFEST[m.family] = m; });
+
+  /** The gate itself, as a predicate on a raw V2.1 record. */
+  const CS = (r) => !!(r && (r.CLIENT_SAFE === true || r.CLIENT_SAFE === 'true'));
+  /** A row the package itself derived is REAL_DERIVED, never CANONICAL fact. */
+  const v21prov = (r) => (U(r && r.ORIGIN_LAYER) === 'DERIVED_V2_1' || U(r && r.QA_STATUS) === 'EVIDENCE_DERIVED')
+    ? P.REAL_DERIVED : P.CANONICAL;
+
+  /**
+   * The spine every V2.1 record shares, normalized once.
+   * Adapters spread this and then add their family fields, so the 14 shared
+   * columns cannot be spelled three different ways across 26 adapters.
+   */
+  const v21spine = (r) => ({
+    id: S(r.ID),
+    entityType: S(r.ENTITY_TYPE),
+    qaStatus: S(r.QA_STATUS),
+    clientSafe: CS(r),
+    /* CLIENT_SAFE / CORPUS_FACTS_ONLY. The transport's rule is that a
+       CLIENT_SAFE=false record KEEPS ITS FACTS AND LOSES ITS PROSE, so a
+       corpus row can be counted, filtered and cross-referenced by id — and
+       has no reviewed sentence to render. Views read safeRecords. */
+    payloadState: CS(r) ? 'CLIENT_SAFE' : 'CORPUS_FACTS_ONLY',
+    originLayer: S(r.ORIGIN_LAYER),
+    claimDomain: S(r.CLAIM_DOMAIN),
+    provenanceState: S(r.PROVENANCE_STATE),
+    provenanceStrength: S(r.PROVENANCE_STRENGTH),
+    provenanceRecoveredVia: S(r.PROVENANCE_RECOVERED_VIA),
+    provenanceRecoveredFrom: S(r.PROVENANCE_RECOVERED_FROM),
+    sourceIds: A(r.SOURCE_IDS), sourceUrls: A(r.SOURCE_URLS),
+    /* One clock: REFERENCE_DATE is parsed, never re-derived. Several rows
+       write it as a range or annotate it ('2026-09-03 (campo referencePeriod
+       da propria API)'); isoOf takes the head and refuses anything else. */
+    recordReferenceDate: isoOf(r.REFERENCE_DATE),
+    cropIds: A(r.CROP_IDS), issueIds: A(r.ISSUE_IDS), regionIds: A(r.REGION_IDS),
+    geographicScope: S(r.GEOGRAPHIC_SCOPE),
+    observationClass: S(r.OBSERVATION_CLASS),
+    confidence: S(r.CONFIDENCE),
+    evidenceStatus: S(r.EVIDENCE_STATUS),
+    evidenceStatusWhy: narrative(r, 'EVIDENCE_STATUS_WHY'),
+    /* The three permanent caveats the package attaches to a claim row. They
+       are the reason a fact may be shown at all, so they travel with it. */
+    whatItIs: narrative(r, 'WHAT_IT_IS'),
+    proves: narrative(r, 'WHAT_IT_PROVES'),
+    notProves: narrative(r, 'WHAT_IT_DOES_NOT_PROVE'),
+    permanentCaveat: narrative(r, 'PERMANENT_CAVEAT'),
+    sourceScope: narrative(r, 'SOURCE_SCOPE'),
+    provenance: v21prov(r),
+    raw: r,
+  });
+
+  /**
+   * One V2.1 family as a build() candidate.
+   *   key        the collections[] key, e.g. 'products.relationships'
+   *   adapt      the family adapter
+   *   opts.enrichFrom  a lower-precedence table whose rows share the primary
+   *                    key; used ONLY to fill what the transport did not carry
+   *   opts.validate    defaults to "must have an id"
+   */
+  const V21 = (key, adapt, opts) => {
+    const rows = A(V21C[key]);
+    if (!rows.length || typeof adapt !== 'function') return null;
+    const o = opts || {};
+    let input = rows;
+    if (o.enrichFrom) {
+      const ix = {};
+      A(o.enrichFrom).forEach((r) => { const k = U(r && (r.ID || r.id || r.SIGNAL_ID)); if (k) ix[k] = r; });
+      input = rows.map((r) => { const l = ix[U(r.ID)]; return l ? Object.assign({}, l, r) : r; });
+    }
+    return {
+      source: 'HANDOFF_V21 · ' + key,
+      precedence: P.CANONICAL,
+      rows: input,
+      adapt,
+      validate: o.validate || ((x) => (!x.id ? 'no ID' : null)),
+    };
+  };
+
+  /** Put the manifest's own law and declared counts on the collection that won. */
+  const v21law = (c, key) => {
+    const m = V21_MANIFEST[key];
+    if (!m || !c || c.source !== 'HANDOFF_V21 · ' + key) return c;
+    return Object.assign(c, {
+      v21Family: key,
+      law: S(m.law) || null,
+      sourceOfTruth: S(m.sourceOfTruth) || null,
+      primaryKey: S(m.primaryKey) || null,
+      replaces: A(m.replaces),
+      declaredTotal: N(m.declaredTotal),
+      declaredClientSafe: N(m.declaredSafe),
+      /* The files win over the manifest. Where they disagree the collection
+         says so instead of publishing the manifest's number. */
+      countReconciles: N(m.declaredTotal) === c.count,
+      clientSafeReconciles: N(m.declaredSafe) === c.clientSafe,
+    });
   };
 
   /* ── 6 · PRESENTATION TOKENS ─────────────────────────────────────────────
@@ -571,6 +733,47 @@
     return { key: null, keys: [], label: null, scope: 'UNMAPPED', raw: t };
   };
 
+  /* ── 6c-bis · THE V2.1 IDENTIFIER VOCABULARIES ───────────────────────────
+     V2.1 gives every record CROP_IDS / ISSUE_IDS / REGION_IDS — controlled
+     keys, which is the first time this package has had any. They are a SEVENTH
+     crop vocabulary, so they are declared here in full rather than matched by
+     stripping a prefix: CROP_SOFT_WHEAT is 'Wheat', not 'Soft Wheat', and
+     CROP_WHEAT_GENERIC legitimately names two canonical crops.
+
+     Four ids are deliberately absent from the crop table:
+       CROP_VEGETABLES  · a group word, like 'orticole'. Never promoted.
+       CROP_STONE_FRUIT · a group ('drupacee'), not a species.
+       CROP_KIWI · CROP_PEAR — real crops with no canonical window, resolved to
+         their own English names exactly as Peach and Citrus already are. */
+  const CROP_BY_V21_ID = {
+    CROP_APPLE: ['Apple'], CROP_BARLEY: ['Barley'], CROP_CITRUS: ['Citrus'],
+    CROP_DURUM_WHEAT: ['Durum Wheat'], CROP_GRAPEVINE: ['Grapevine'],
+    CROP_KIWI: ['Kiwi'], CROP_MAIZE: ['Maize'], CROP_OLIVE: ['Olive'],
+    CROP_PEACH: ['Peach'], CROP_PEAR: ['Pear'], CROP_POTATO: ['Potato'],
+    CROP_RICE: ['Rice'], CROP_SOFT_WHEAT: ['Wheat'], CROP_SOYBEAN: ['Soybean'],
+    CROP_SUGAR_BEET: ['Sugar Beet'], CROP_SUNFLOWER: ['Sunflower'],
+    CROP_TOMATO: ['Tomato'],
+    /* the generic Frumento label again, under its V2.1 key: one row is
+       evidence for both wheat crops and the overlap is declared, not hidden */
+    CROP_WHEAT_GENERIC: ['Wheat', 'Durum Wheat'],
+  };
+  const V21_GENERIC_CROP_IDS = { CROP_VEGETABLES: 1, CROP_STONE_FRUIT: 1 };
+  const cropsFromV21Ids = (ids) => uniq(A(ids).flatMap((k) => CROP_BY_V21_ID[U(k)] || []));
+
+  /* REGION_IDS. GEO_ITALY and GEO_EU are scopes, not regions, and are kept out
+     of the region list so a national fact cannot be filed under a region. */
+  const REGION_BY_V21_ID = {};
+  IT_REGIONS.forEach((n) => { REGION_BY_V21_ID['REGION_' + fold(n).toUpperCase().replace(/[^A-Z]+/g, '_')] = n; });
+  const V21_SCOPE_ID = { GEO_ITALY: 'NATIONAL', GEO_EU: 'EUROPEAN' };
+  const regionsFromV21Ids = (ids) => uniq(A(ids).map((k) => REGION_BY_V21_ID[U(k)] || null));
+  const scopeFromV21Ids = (ids) => A(ids).map((k) => V21_SCOPE_ID[U(k)]).filter(Boolean)[0] || null;
+
+  /* ISSUE_IDS are deliberately NOT mapped onto the canonical window issue
+     names. Only 23 ids exist and several (ISSUE_WEEDS_GENERIC, ISSUE_RUST)
+     have no unambiguous canonical partner; authoring the table would be
+     authoring most of it, which is the same reason ISSUE_TARGET stays null.
+     The ids travel verbatim so a later upstream table can key on them. */
+
   /* Market series -> crop. The market portal publishes a series code, not a
      crop, so this table is what makes the olive tab six oil grades of one crop
      instead of six crops. Anything unmatched stays null: ORGFOUR|FEED (barley)
@@ -714,8 +917,40 @@
      five regional regulatory acts and the only two real field observations in
      the whole package live here, and three of the five have no canonical window
      at all — they are reachable only from their own collection. */
+  /* The V2.1 family that holds these seven rows is called `windows`
+     (CROP-WINDOWS.json) — the same seven records ITALY_INGEST.CROP_WINDOWS
+     carries, under the same field names and the same seven ids. It is NOT the
+     29-row canonical window contract, which V2.1 does not supply at all; that
+     one keeps its own source below. The 122-row CURRENT-FIELD-SIGNALS.json is
+     a THIRD thing (regional phytosanitary bulletins) and gets its own
+     collection rather than being poured into this one. */
   const currentFieldSignals = build('currentFieldSignals', [
-    V21('currentFieldSignals'),
+    V21('windows', (c) => Object.assign(v21spine(c), {
+      crop: S(c.CROP),
+      cropCanonical: cropResolve(c.CROP).key || cropsFromV21Ids(c.CROP_IDS)[0] || null,
+      cropKeys: uniq(cropResolve(c.CROP).keys.concat(cropsFromV21Ids(c.CROP_IDS))),
+      region: S(c.REGION),
+      regionKeys: regionsFromV21Ids(c.REGION_IDS),
+      issue: issueResolve(c.ISSUE).it, issueEn: issueResolve(c.ISSUE).en, issueRaw: S(c.ISSUE),
+      expectedCycle: narrative(c, 'EXPECTED_CYCLE'),
+      observedStage: narrative(c, 'OBSERVED_STAGE'),
+      fieldReportedStage: narrative(c, 'FIELD_REPORTED_STAGE'),
+      regulatoryWindow: narrative(c, 'REGULATORY_WINDOW'),
+      regulatoryAct: S(c.REGULATORY_ACT),
+      regulatoryActState: S(c.REGULATORY_ACT_STATE),
+      monitoringWindow: narrative(c, 'MONITORING_WINDOW'),
+      applicationWindow2026: narrative(c, 'APPLICATION_WINDOW_2026'),
+      nextImportantWindow: narrative(c, 'NEXT_IMPORTANT_WINDOW'),
+      preparationWindow: narrative(c, 'PREPARATION_WINDOW'),
+      adamaProductsNote: narrative(c, 'ADAMA_PRODUCTS_NOTE'),
+      coverageState: S(c.COVERAGE_STATE),
+      /* V2.1 supplies the two dates the old table had no slot for. */
+      observationDate: isoOf(c.OBSERVATION_DATE), factDate: isoOf(c.FACT_DATE),
+      /* Still declared: the free prose is authored in the analyst's language
+         and only the approved *_IT / *_EN variants ever leave this model. */
+      languageState: 'PT_ANALYST_SOURCE',
+      sourceId: S(c.SOURCE_ID),
+    })),
     {
       source: 'ITALY_INGEST.CROP_WINDOWS',
       precedence: P.REAL_SOURCE,
@@ -759,6 +994,46 @@
       validate: (r) => (!r.id ? 'no ID' : null),
     },
   ], 'observed field readings per crop and issue; the analyst working language is declared, not hidden');
+  v21law(currentFieldSignals, 'windows');
+
+  /* ---- FIELD BULLETINS · the 122 regional phytosanitary bulletins --------
+     New in V2.1 and new to this model: CURRENT-FIELD-SIGNALS.json, the
+     provincial and regional bulletin corpus. 86 of the 122 are client-safe;
+     the other 36 travel as identity only.
+
+     LAW, carried per record because it is the one that inverts a reading:
+     GEOGRAPHIC_SCOPE NEVER RISES. A PROVINCIAL or AREALE bulletin does not
+     represent its region — five provincial documents from Campania are not
+     "la Campania" — so regionKeys is published beside the scope and a view
+     that wants a regional statement has to read REGION_REPRESENTS first. */
+  const fieldBulletins = build('fieldBulletins', [
+    V21('fieldSignals', (b) => Object.assign(v21spine(b), {
+      title: S(b.BULLETIN_TITLE),
+      bulletinNumber: S(b.BULLETIN_NUMBER),
+      phenologicalStage: S(b.PHENOLOGICAL_STAGE_DECLARED),
+      pestsCited: A(b.PESTS_AND_DISEASES_CITED),
+      cropState: S(b.CROP_STATE),
+      cropsDeclared: A(b.CROPS_DECLARED),
+      cropKeys: cropsFromV21Ids(b.CROP_IDS),
+      interventionGuidance: narrative(b, 'INTERVENTION_GUIDANCE'),
+      citation: S(b.CITATION),
+      /* the four geography fields that say what this document does and does
+         not represent; none of them may be summarised away */
+      geographyState: S(b.GEOGRAPHY_STATE),
+      regionRepresents: S(b.REGION_REPRESENTS),
+      geographyEvidence: S(b.GEOGRAPHY_EVIDENCE),
+      geographyBatchLabel: S(b.GEOGRAPHY_BATCH_LABEL),
+      geographyLaw: S(b.GEOGRAPHY_LAW),
+      provinceIds: A(b.PROVINCE_IDS), arealIds: A(b.AREAL_IDS),
+      regionKeys: regionsFromV21Ids(b.REGION_IDS),
+      geoScopeRises: false,
+    })),
+  ], 'regional and provincial phytosanitary bulletins; a provincial document never represents its region');
+  v21law(fieldBulletins, 'fieldSignals');
+  Object.assign(fieldBulletins, {
+    scopeCounts: tallyBy(fieldBulletins.safeRecords, (r) => r.geographicScope),
+    withGuidance: fieldBulletins.safeRecords.filter((r) => r.interventionGuidance.state === KNOWLEDGE.CLEAR).length,
+  });
 
   /* Canonical crop + exact region + the same issue is the only join the two
      tables share. The issue check is not optional: crop+region alone attaches
@@ -776,8 +1051,12 @@
 
   /* ---- CROP WINDOWS · canonical ---------------------------------------- */
   let windowOrder = 0;
+  /* NO V2.1 CANDIDATE, and that is a measured statement about the package,
+     not an oversight: V2.1 supplies CROP-WINDOWS.json, which is the 7-row
+     field-reading table above, and nothing that carries WINDOW_ID, START_DATE,
+     END_DATE or CURRENT_STATUS for the 29 audited windows. The canonical
+     contract therefore stays the highest-precedence source for this family. */
   const cropWindows = build('cropWindows', [
-    V21('cropWindows'),
     {
       source: 'ITALY_CANONICAL.windows',
       precedence: P.CANONICAL,
@@ -844,11 +1123,29 @@
     /* The upstream regulatory reading for this exact crop and region, or null.
        Measured: 2 of 29 windows join (both Flavescenza Dorata). */
     const fs = fieldSignalByCropRegion[U(w.crop) + '@' + U(w.region) + '@' + issueHead(w.issue)] || null;
+    /* WHY THIS PROJECTION CARRIES TEXT AND NOT THE NARRATIVE OBJECT.
+       A view spreads the whole window record into its props, so anything
+       nested under `regulatory` travels with it. A narrative object carries
+       BOTH approved languages by design, which was harmless while every one
+       of these five fields was NOT_APPROVED_FOR_DISPLAY — measured 5/5 before
+       V2.1 — and stopped being harmless the moment V2.1 supplied
+       NEXT_IMPORTANT_WINDOW_IT and _EN: the English variant then rode into the
+       props of an Italian screen.
+
+       So the projection carries the approved text (Italian first, exactly as
+       sources.limitationsText and futureEvents.participationLawText already
+       do) plus the knowledge state, and the two-language object stays where it
+       belongs — on the field-signal record itself, reachable through
+       signalId. Nothing is lost and nothing untranslated can ride along. */
+    const nState = (n) => (n && n.state) || KNOWLEDGE.NOT_ESTABLISHED;
     w.regulatory = fs ? {
-      id: fs.id, act: fs.regulatoryAct, actState: fs.regulatoryActState,
-      regulatoryWindow: fs.regulatoryWindow, monitoringWindow: fs.monitoringWindow,
-      applicationWindow2026: fs.applicationWindow2026, nextImportantWindow: fs.nextImportantWindow,
-      preparationWindow: fs.preparationWindow, coverageState: fs.coverageState,
+      id: fs.id, signalId: fs.id, act: fs.regulatoryAct, actState: fs.regulatoryActState,
+      regulatoryWindowText: fs.regulatoryWindow.it, regulatoryWindowState: nState(fs.regulatoryWindow),
+      monitoringWindowText: fs.monitoringWindow.it, monitoringWindowState: nState(fs.monitoringWindow),
+      applicationWindow2026Text: fs.applicationWindow2026.it, applicationWindow2026State: nState(fs.applicationWindow2026),
+      nextImportantWindowText: fs.nextImportantWindow.it, nextImportantWindowState: nState(fs.nextImportantWindow),
+      preparationWindowText: fs.preparationWindow.it, preparationWindowState: nState(fs.preparationWindow),
+      coverageState: fs.coverageState,
       languageState: fs.languageState, sourceId: fs.sourceId,
     } : null;
     /* OBSERVED_STAGE is a narrative field upstream and is measured
@@ -860,9 +1157,61 @@
     w.coverageState = w.observedStage ? 'FIELD_OBSERVED' : w.regulatory ? 'REGULATORY_READ' : 'EXPECTED_NORM_ONLY';
   });
 
-  /* ---- CROP ECONOMIC WEIGHT --------------------------------------------- */
+  /* ---- CROP ECONOMIC WEIGHT ---------------------------------------------
+     TWO DIFFERENT FACTS WERE SHARING ONE SLOT, and only one of them is crop
+     economic weight.
+
+     ITALY_INGEST.CROPS (17 rows) counts how many LABELS mention a crop. That
+     is label-corpus reach and it is explicitly "not a market size" — it now
+     lives in its own collection, cropLabelReach, so it is not silently
+     overwritten by a table that measures something else.
+
+     V2.1 CROP-ECONOMIC-WEIGHT.json (2978 rows, 13 client-safe) is the real
+     economic-weight family: published area and production statistics plus the
+     rows Sintonia derived from them. Its LAW is that the two never mix, which
+     is why IS_SUMMARY_CLAIM travels per row: a sentence about a set is not the
+     set, and the 13 safe rows are summary claims over 2965 atomic rows that
+     are not client-safe. */
   const cropEconomicWeight = build('cropEconomicWeight', [
-    V21('cropEconomicWeight'),
+    V21('cropEconomicWeight', (c) => Object.assign(v21spine(c), {
+      cropKeys: cropsFromV21Ids(c.CROP_IDS),
+      crop: cropsFromV21Ids(c.CROP_IDS)[0] || cropResolve(c.CROP_CODE).key || null,
+      cropLiteral: S(c.CROP_LITERAL), cropCode: S(c.CROP_CODE),
+      regionKeys: regionsFromV21Ids(c.REGION_IDS),
+      geography: S(c.GEOGRAPHY), geographyCode: S(c.GEOGRAPHY_CODE),
+      geographyLevel: S(c.GEOGRAPHY_LEVEL),
+      year: N(c.YEAR),
+      indicator: S(c.INDICATOR),
+      value: N(c.VALUE), unit: S(c.UNIT),
+      dataset: S(c.DATASET),
+      /* THE LAW OF THIS FAMILY, per row: a PUBLISHED value and a value
+         DERIVED BY SINTONIA are never mixed. The flag and the formula are the
+         row's own; nothing here infers one from the other, and a yield is
+         ours, not the statistics office's. */
+      isDerivedBySintonia: c.IS_DERIVED_BY_SINTONIA === true,
+      derivationFormula: S(c.DERIVATION_FORMULA),
+      valueClass: c.IS_DERIVED_BY_SINTONIA === true ? 'DERIVED_BY_SINTONIA' : 'PUBLISHED_BY_SOURCE',
+      caveat: narrative(c, 'CAVEAT'),
+      /* a sentence about a set is not the set */
+      isSummaryClaim: c.IS_SUMMARY_CLAIM === true,
+      summaryClaimNote: narrative(c, 'SUMMARY_CLAIM_NOTE'),
+      claimDomainReviewed: S(c.CLAIM_DOMAIN_REVIEWED),
+    })),
+  ], 'published and derived crop economic weight; a summary claim over a set is never the set');
+  v21law(cropEconomicWeight, 'cropEconomicWeight');
+  Object.assign(cropEconomicWeight, {
+    /* the two value classes, counted apart, because the whole law of this
+       family is that they never mix */
+    publishedRows: cropEconomicWeight.records.filter((r) => r.valueClass === 'PUBLISHED_BY_SOURCE').length,
+    derivedRows: cropEconomicWeight.records.filter((r) => r.valueClass === 'DERIVED_BY_SINTONIA').length,
+    summaryClaims: cropEconomicWeight.records.filter((r) => r.isSummaryClaim).length,
+    indicators: tallyBy(cropEconomicWeight.records, (r) => r.indicator),
+    years: uniq(cropEconomicWeight.records.map((r) => r.year)).filter((y) => y !== null).sort(),
+    doNotMixNote: 'IS_DERIVED_BY_SINTONIA marks each row; a derived yield is ours, not the statistics office’s',
+  });
+
+  /* ---- CROP LABEL REACH · the table the slot above used to hold ---------- */
+  const cropLabelReach = build('cropLabelReach', [
     {
       source: 'ITALY_INGEST.CROPS',
       precedence: P.REAL_SOURCE,
@@ -870,6 +1219,7 @@
       adapt: (c) => ({
         id: c.ID,
         crop: S(c.CROP_TERM),
+        cropKey: cropResolve(c.CROP_TERM).key,
         productsMentioning: N(c.PRODUCTS_MENTIONING_CROP),
         productsWithUseRow: N(c.PRODUCTS_WITH_USE_ROW_READ),
         distance: S(c.DISTANCE),
@@ -879,11 +1229,55 @@
       }),
       validate: (r) => (!r.crop ? 'no crop term' : null),
     },
-  ], 'label-corpus reach per crop; not a market size');
+  ], 'label-corpus reach per crop; not a market size and not an economic weight');
 
-  /* ---- PRODUCTS · regulatory + commercial ------------------------------- */
+  /* ---- PRODUCTS · regulatory + commercial -------------------------------
+     THE MANIFEST'S LAW, and it is the one number in this package most likely
+     to be added up wrongly: 163 REGULATORY products and 51 COMMERCIAL catalog
+     products ARE NOT 214. They are two universes over the same market.
+
+       · REGULATORY = the Ministero registry, authorisation holder ADAMA.
+       · COMMERCIAL = the public adama.com/italia catalogue.
+       · Six catalogue products have their authorisation in ANOTHER company's
+         name (HOLDER_IS_ADAMA false on 8, of which 2 are not plant protection
+         products at all: BUDGE and EXELGROW).
+       · Two are systems, not products (IS_SYSTEM_NOT_PRODUCT).
+       · Holder is not seller. COMMERCIAL_CONTRACT is UNKNOWN on 51/51 and the
+         model never derives it from catalogue presence.
+
+     The two collections stay separate; `products` below is their declared
+     JOIN and publishes inRegulatory / inCommercial per entity so the join can
+     never be read as a sum. */
   const productsRegulatory = build('productsRegulatory', [
-    V21('productsRegulatory'),
+    V21('products.regulatory', (p) => {
+      const moa = p.MODE_OF_ACTION_DECLARED && typeof p.MODE_OF_ACTION_DECLARED === 'object' ? p.MODE_OF_ACTION_DECLARED : {};
+      return Object.assign(v21spine(p), {
+        name: S(p.NAME),
+        reg: S(p.REGISTRATION_NUMBER),
+        holder: S(p.AUTHORIZATION_HOLDER),
+        holderIsAdama: /(^|\s)ADAMA(\s|$)/i.test(S(p.AUTHORIZATION_HOLDER) || ''),
+        ai: A(p.ACTIVE_INGREDIENTS),
+        form: S(p.FORMULATION),
+        regCat: S(p.REGULATORY_CATEGORY),
+        line: S(p.LINE),
+        status: S(p.STATUS),
+        expiry: S(p.EXPIRY),
+        expiryISO: isoOf(p.EXPIRY),
+        /* the three resistance-code lists, read from the declared MoA object */
+        hrac: A(moa.HRAC), frac: A(moa.FRAC), irac: A(moa.IRAC),
+        modeOfActionDeclared: Object.keys(moa).length ? moa : null,
+        /* CROP_IDS is the registry's own controlled crop key, filled on 112 of
+           163. `crops` and `targets` are attached AFTER the label-use rows are
+           built, from those rows — a real join, never a guess. */
+        crops: cropsFromV21Ids(p.CROP_IDS),
+        cropIdCount: A(p.CROP_IDS).length,
+        targets: [],
+        labelUrl: S(p.LABEL_URL),
+        catalogUrl: null, catalogCat: null,
+        inPublicCatalogFlag: p.IN_PUBLIC_CATALOG_FLAG === true,
+        expiresInDays: daysFrom(isoOf(p.EXPIRY)),
+      });
+    }, { validate: (r) => (!r.name ? 'no product name' : null) }),
     {
       source: 'ITALY_INGEST.PRODUCTS',
       precedence: P.REAL_SOURCE,
@@ -901,9 +1295,48 @@
       validate: (r) => (!r.name ? 'no product name' : null),
     },
   ], 'official Italian phytosanitary registration records');
+  v21law(productsRegulatory, 'products.regulatory');
 
   const productsCommercial = build('productsCommercial', [
-    V21('productsCommercial'),
+    V21('products.commercial', (p) => Object.assign(v21spine(p), {
+      name: S(p.NAME),
+      category: S(p.CATEGORY),
+      categorySource: S(p.CATEGORY_SOURCE),
+      /* MATCHED_REGULATORY_ID is the catalogue's own link to the registry,
+         present on 37 of 51. Absence is "no registry match in this reading",
+         which the catalogue itself says is not a claim that the product is
+         unregistered. */
+      regId: S(p.MATCHED_REGULATORY_ID),
+      reg: S(p.MATCHED_REGULATORY_ID) || S(p.REGISTRATION_NUMBER_ON_PAGE),
+      registrationNumberOnPage: S(p.REGISTRATION_NUMBER_ON_PAGE),
+      matchState: S(p.NOT_A_PLANT_PROTECTION_PRODUCT) ? 'OTHER_REGULATORY_REGIME'
+        : S(p.MATCHED_REGULATORY_ID) ? 'REGULATORY_MATCH_CONFIRMED'
+          : 'REGULATORY_MATCH_NOT_FOUND',
+      holder: S(p.AUTHORIZATION_HOLDER),
+      /* HOLDER IS NOT SELLER. Both of these are facts the catalogue publishes;
+         neither of them is a commercial relationship, and the model never
+         turns one into the other. */
+      holderIsAdama: p.HOLDER_IS_ADAMA === true,
+      holderIsAdamaState: typeof p.HOLDER_IS_ADAMA === 'boolean' ? 'DECLARED' : 'NOT_DECLARED',
+      commercialContract: S(p.COMMERCIAL_CONTRACT),
+      commercialContractWhy: narrative(p, 'COMMERCIAL_CONTRACT_WHY'),
+      /* NOT_A_PLANT_PROTECTION_PRODUCT is not a boolean upstream: when it is
+         filled it holds the OTHER registration the product actually sits under
+         ("n° 0037584/22 (registro de fertilizante)"). Reading it as a flag
+         with === true silently scored both fertilisers as plant protection
+         products, so the presence is the flag and the value is published. */
+      notAPlantProtectionProduct: !!S(p.NOT_A_PLANT_PROTECTION_PRODUCT),
+      otherRegulatoryRegime: S(p.NOT_A_PLANT_PROTECTION_PRODUCT),
+      isSystemNotProduct: p.IS_SYSTEM_NOT_PRODUCT === true,
+      ai: A(p.ACTIVE_INGREDIENTS),
+      line: null, status: null, expiry: null,
+      catalogUrl: S(p.PUBLIC_CATALOG_URL),
+      catalogStatus: S(p.CATALOG_STATUS),
+      catalogEvidence: A(p.CATALOG_EVIDENCE),
+      cropsDeclaredOnSite: A(p.CROPS_DECLARED_ON_SITE),
+      crops: cropsFromV21Ids(p.CROP_IDS),
+      note: null,
+    }), { validate: (r) => (!r.name ? 'no product name' : null) }),
     {
       source: 'ITALY_CATALOG.ITEMS',
       precedence: P.REAL_SOURCE,
@@ -917,7 +1350,21 @@
       }),
       validate: (r) => (!r.name ? 'no product name' : null),
     },
-  ], 'reconstructed public commercial catalog');
+  ], 'public commercial catalog; a catalog product is not a registry product and the two never sum');
+  v21law(productsCommercial, 'products.commercial');
+  /* The manifest's own arithmetic, measured here so a screen can state it
+     instead of re-deriving it: 8 catalogue products have no ADAMA holder, and
+     2 of those are not plant protection products at all (both are registered
+     fertilisers). 8 − 2 = the manifest's "six have their authorisation in
+     another company's name". Two more are systems, not products. */
+  Object.assign(productsCommercial, {
+    holderNotAdamaCount: productsCommercial.records.filter((p) => p.holderIsAdamaState === 'DECLARED' && !p.holderIsAdama).length,
+    notPlantProtectionCount: productsCommercial.records.filter((p) => p.notAPlantProtectionProduct).length,
+    systemNotProductCount: productsCommercial.records.filter((p) => p.isSystemNotProduct).length,
+    heldByAnotherCompanyCount: productsCommercial.records.filter((p) => p.holderIsAdamaState === 'DECLARED' && !p.holderIsAdama && !p.notAPlantProtectionProduct).length,
+    contractStates: tallyBy(productsCommercial.records, (p) => p.commercialContract),
+    doNotSumNote: 'catalog products and registry products are two universes over the same market; they are never added together',
+  });
 
   /* ---- PRODUCT RELATIONSHIPS · §19 -------------------------------------
      ONE truth contract, with a declared precedence:
@@ -1017,6 +1464,15 @@
       auditSource: S(RAW.LABEL_AUDIT.AUDIT_SOURCE),
       absenceRule: ABSENCE_RULE_TEXT,
       target: null, reg: null, labelUrl: null, moaLabel: null, mappingRule: null,
+      /* THE QA STATE A RELATIONSHIP INHERITS. A row that calls itself
+         client-safe has to be able to say from what, or nobody can tell an
+         audited verdict from an unreviewed pairing. The default here is the
+         label audit itself; a row built from a V2.1 label-use row overwrites
+         both fields with that record's own QA_STATUS. */
+      clientSafe: true,
+      qaStatus: 'CANONICAL_LABEL_AUDIT',
+      qaFrom: 'ITALY_LABEL_VERDICTS',
+      linkStrength: null, linkMeans: null, quoteFromLabel: null,
       provenance: P.CANONICAL,
     }, extra || {});
     if (prev) { relRows[relRows.indexOf(prev)] = row; } else { relRows.push(row); }
@@ -1035,31 +1491,68 @@
     const parts = Object.keys(moa).map((k) => (A(moa[k]).length ? k + ' ' + A(moa[k]).join('/') : null)).filter(Boolean);
     return parts.length ? parts.join(' + ') : null;
   };
-  A(RAW.IG.LINKS).forEach((l) => {
-    const crop = cropFromCode(l.crop) || S(l.cropTerm) || S(l.crop);
-    pushRel(crop, l.target, l.product, 'RELATED_PORTFOLIO', 'Authorised use row in the national registry', l.labelUrl, {
-      evidenceKind: 'REGULATORY_USE_ROW',
-      target: S(l.target), reg: S(l.reg), labelUrl: S(l.labelUrl),
-      moaLabel: moaLabelOf(l.moa),
-      mappingRule: 'CROP_KEY:' + U(l.crop),
-      provenance: P.REAL_SOURCE,
-    });
-  });
-  const productRelationships = coll(relRows, P.CANONICAL,
-    'product relationships from the label audit and the national registry; the demo case fixture is not a source',
-    { source: 'ITALY_LABEL_VERDICTS + ITALY_INGEST.LINKS' });
+  /* The label-use rows are pushed AFTER regulatoryLinks is built, a few lines
+     below, so this join reads the normalized collection rather than one
+     particular upstream table. That is what lets V2.1 replace the source
+     without a second edit here. */
 
-  /* ---- REGULATORY LINKS · the 219 authorised use rows -------------------
-     The only fully-populated relationship table in the package, and the model
-     never exposed it. It is a DIFFERENT fact from 'positions assessed by the
-     audit' (19) and from 'verified matches' (12); a screen that shows this
-     count must say 'righe d'uso lette dalle etichette', not 'links'.
+  /* ---- REGULATORY LINKS · the authorised use rows ------------------------
+     The only fully-populated relationship table in the package. It is a
+     DIFFERENT fact from 'positions assessed by the audit' (19) and from
+     'verified matches' (12); a screen that shows this count must say
+     'righe d'uso lette dalle etichette', not 'links'. */
+  /* V2.1 PRODUCT-RELATIONSHIPS.json replaces this table: 2030 rows against
+     219, read INSIDE the authorised label rather than off its header.
 
-     Its timing column is the analyst's unknown sentence on 219/219 rows, so it
-     is routed through the same guard as any other prose: an unread label column
-     must render as unknown, never as an application window. */
+     THE THREE LINK STRENGTHS DO NOT SUM, so they are carried per row and
+     never totalled into one "matches" number:
+       LINHA_DA_TABELA      886 · the label's own use table joins crop and target
+       BLOCO_DA_CULTURA     626 · the crop heads a block and the target is inside it
+       DECLARACAO_DE_PRODUTO 518 · two separate lists on the product put side by side
+     The first two are THE DOCUMENT joining crop and target. The third is US
+     doing the joining, which is why the package marks all 518 CLIENT_SAFE=false.
+
+     THE GATE DOES NOT SHRINK THE LAYER. All 2030 rows are carried, 35 label
+     crops and 78 label targets reproduce, and the 518 unreviewed rows are
+     counted, marked and kept out of every tally that could sustain a claim —
+     which is why byCrop, byTarget and byProduct run over safeRecords while
+     labelCrops and labelTargets are published for both. */
   const regulatoryLinks = build('regulatoryLinks', [
-    V21('regulatoryLinks'),
+    V21('products.relationships', (l) => {
+      const cropR = cropResolve(l.CROP_ON_LABEL);
+      return Object.assign(v21spine(l), {
+        crop: S(l.CROP_ON_LABEL),
+        cropOnLabel: S(l.CROP_ON_LABEL),
+        cropCode: U(l.CROP_ON_LABEL),
+        cropKey: cropR.key || cropsFromV21Ids(l.CROP_IDS)[0] || null,
+        cropKeys: uniq(cropR.keys.concat(cropsFromV21Ids(l.CROP_IDS))),
+        cropScope: cropR.scope,
+        /* target keeps the Latin binomial, which is the vocabulary the old
+           219-row table used and the one the registry actually writes.
+           targetOnLabel is the label's Italian common name beside it. */
+        target: S(l.TARGET_AS_WRITTEN) || S(l.TARGET_ON_LABEL),
+        targetOnLabel: S(l.TARGET_ON_LABEL),
+        targetAsWritten: S(l.TARGET_AS_WRITTEN),
+        targetKind: S(l.TARGET_KIND),
+        weedGroup: UNK(l.WEED_GROUP),
+        product: S(l.PRODUCT_NAME), productKey: U(l.PRODUCT_NAME),
+        reg: S(l.REGISTRATION_NUMBER),
+        /* THE STRENGTH, PER ROW. Never summed, never averaged, never
+           collapsed into a single count of "matches". */
+        linkStrength: S(l.LINK_STRENGTH),
+        linkStrengthState: S(l.LINK_STRENGTH) ? 'DECLARED' : 'NOT_TRANSPORTED_NOT_CLIENT_SAFE',
+        linkIsDocumentJoin: U(l.LINK_STRENGTH) === 'LINHA_DA_TABELA' || U(l.LINK_STRENGTH) === 'BLOCO_DA_CULTURA',
+        linkMeans: narrative(l, 'LINK_MEANS'),
+        /* the label's own words, quoted, never parsed for a further fact */
+        quoteFromLabel: S(l.QUOTE_FROM_LABEL),
+        notProves: narrative(l, 'WHAT_IT_DOES_NOT_PROVE'),
+        labelUrl: A(l.SOURCE_URLS)[0] || null,
+        evidence: S(l.EVIDENCE_STATUS),
+        /* absent in V2.1; the old table carried them and they are not invented */
+        ai: [], moa: null, moaLabel: null, doses: [], interval: null,
+        timing: null, timingState: KNOWLEDGE.NOT_ESTABLISHED,
+      });
+    }),
     {
       source: 'ITALY_INGEST.LINKS',
       precedence: P.REAL_SOURCE,
@@ -1087,16 +1580,106 @@
     },
   ], "authorised use rows read from official labels; MAX_APP is empty on every row and is not carried");
 
+  v21law(regulatoryLinks, 'products.relationships');
+  /* Every tally below runs over safeRecords, never over the corpus: an
+     identity-only row has no crop, no target and no product, and counting it
+     would publish a link nobody read. */
+  const REL_SAFE = regulatoryLinks.safeRecords;
   Object.assign(regulatoryLinks, {
     /* tallied over cropKeys, not cropKey: a generic Frumento row is authorised
        evidence for both wheat keys and must appear under both. The sum is
-       therefore larger than 219 by exactly the number of generic rows, which is
-       published as genericRows below rather than left to be discovered. */
-    byCrop: tallyBy(regulatoryLinks.records, (r) => (r.cropKeys.length ? r.cropKeys : [r.crop])),
-    genericRows: regulatoryLinks.records.filter((r) => r.cropKeys.length > 1).length,
-    byProduct: tallyBy(regulatoryLinks.records, (r) => r.product),
-    byTarget: tallyBy(regulatoryLinks.records, (r) => r.target),
-    timingKnownCount: regulatoryLinks.records.filter((r) => r.timing).length,
+       therefore larger than the row count by exactly the number of generic
+       rows, published as genericRows rather than left to be discovered. */
+    byCrop: tallyBy(REL_SAFE, (r) => (r.cropKeys.length ? r.cropKeys : [r.crop])),
+    genericRows: REL_SAFE.filter((r) => r.cropKeys.length > 1).length,
+    byProduct: tallyBy(REL_SAFE, (r) => r.product),
+    byTarget: tallyBy(REL_SAFE, (r) => r.target),
+    timingKnownCount: REL_SAFE.filter((r) => r.timing).length,
+    /* THE THREE STRENGTHS, SIDE BY SIDE AND NEVER ADDED. A view showing this
+       must show three numbers; there is no total to show. */
+    byLinkStrength: tallyBy(regulatoryLinks.records, (r) => r.linkStrength),
+    linkStrengthsDoNotSum: true,
+    documentJoinCount: REL_SAFE.filter((r) => r.linkIsDocumentJoin).length,
+    /* The two figures the mission names, measured from the rows rather than
+       asserted — over the WHOLE layer, because they describe the label corpus,
+       and again over the client-safe part, because that is what may sustain a
+       claim. They are two different numbers and both are published. */
+    labelCrops: uniq(regulatoryLinks.records.map((r) => r.cropOnLabel)).length,
+    labelTargets: uniq(regulatoryLinks.records.map((r) => r.targetOnLabel)).length,
+    labelCropsClientSafe: uniq(REL_SAFE.map((r) => r.cropOnLabel)).length,
+    labelTargetsClientSafe: uniq(REL_SAFE.map((r) => r.targetOnLabel)).length,
+    distinctPairs: uniq(regulatoryLinks.records.map((r) => [r.productKey, r.cropOnLabel, r.targetOnLabel].join('|'))).length,
+    productsNamed: uniq(REL_SAFE.map((r) => r.product)).length,
+  });
+
+  /* 2 · EVERY label-use row the package carries, one row each.
+     A row proves the product is authorised on the crop against that target — a
+     real relationship, weaker than a read verdict because the issue
+     vocabularies are not the same list: the label names a Latin target, the
+     canonical window names an English issue. The row therefore keeps the Latin
+     target as its issue and never pretends to be an issue match.
+
+     TWO LAYERS, TWO QUESTIONS, AND THEY ARE NOT THE SAME COUNT.
+       regulatoryLinks       every LINE of the document — 2030 rows, because
+                             the same crop x target x product is legitimately
+                             proved by a row of the use table AND by a block of
+                             the crop, and both lines are evidence.
+       productRelationships  the DISTINCT relationship — one row per
+                             crop x target x product at its strongest. The
+                             package's own law is that the three LINK_STRENGTH
+                             values do not sum, so a pair proved twice is one
+                             relationship, not two.
+     Publishing the second as 2030 would be publishing a double count.
+
+     THE GATE, APPLIED WITHOUT DELETING ANYTHING. The 518 CLIENT_SAFE=false
+     rows are the DECLARACAO_DE_PRODUTO family: two separate lists on the
+     product put side by side by us, not the document joining them. They enter
+     this layer only where they are the ONLY thing said about a pair, they are
+     marked clientSafe false, their strength is LABEL_CHECK_NEEDED because that
+     is exactly what they are, and they can never overwrite an audited verdict
+     or answer strengthFor(). */
+  const labelRowExtra = (l, safe) => ({
+    evidenceKind: 'REGULATORY_USE_ROW',
+    target: l.target, targetOnLabel: l.targetOnLabel, targetKind: l.targetKind,
+    reg: l.reg, labelUrl: l.labelUrl, moaLabel: null,
+    /* the document's own strength for this row, carried and never summed */
+    linkStrength: l.linkStrength, linkMeans: l.linkMeans,
+    quoteFromLabel: l.quoteFromLabel, notProves: l.notProves,
+    labelRowId: l.id,
+    clientSafe: safe,
+    /* the QA state this relationship inherits, from the record it rests on */
+    qaStatus: l.qaStatus, qaFrom: l.id,
+    mappingRule: 'CROP_ON_LABEL:' + U(l.cropOnLabel),
+    provenance: P.CANONICAL,
+  });
+  /* client-safe rows first, so an unreviewed pairing can never take a slot a
+     read line would have filled */
+  regulatoryLinks.records.forEach((l) => {
+    if (!l.clientSafe || !l.product || !l.target) return;
+    pushRel(l.cropKey || l.crop, l.target, l.product, 'RELATED_PORTFOLIO',
+      'Authorised use row read inside the official label', l.labelUrl, labelRowExtra(l, true));
+  });
+  regulatoryLinks.records.forEach((l) => {
+    if (l.clientSafe || !l.product || !l.target) return;
+    const crop = l.cropKey || l.crop;
+    if (seenRel[relKey(crop, l.target, l.product)]) return;
+    pushRel(crop, l.target, l.product, 'LABEL_CHECK_NEEDED',
+      'Two lists on the product put side by side; the document does not join them', l.labelUrl,
+      labelRowExtra(l, false));
+  });
+
+  const productRelationships = coll(relRows, P.CANONICAL,
+    'the distinct relationship per crop x target x product, at its strongest: the label audit over the authorised label-use rows; the demo case fixture is not a source',
+    { source: 'ITALY_LABEL_VERDICTS + ' + (regulatoryLinks.source || 'ITALY_INGEST.LINKS') });
+  Object.assign(productRelationships, {
+    auditRows: LV_VERIFIED.length + LV_NOT_FOUND.length,
+    labelRows: relRows.length - (LV_VERIFIED.length + LV_NOT_FOUND.length),
+    strengthCounts: tallyBy(relRows, (r) => r.strength),
+    byLinkStrength: tallyBy(relRows, (r) => r.linkStrength),
+    linkStrengthsDoNotSum: true,
+    lineLayer: 'regulatoryLinks',
+    lineRows: regulatoryLinks.count,
+    distinctNote: 'one row per crop x target x product; the line-by-line evidence is collections.regulatoryLinks and the two are never summed',
   });
 
   /* One row per crop key, for the panel that wants "what is authorised here".
@@ -1104,8 +1687,8 @@
      the overlap is declared on the row rather than resolved silently. */
   const portfolioLinksByCrop = (() => {
     const acc = {};
-    regulatoryLinks.records.forEach((r) => {
-      const keys = r.cropKeys.length ? r.cropKeys : [r.crop];
+    regulatoryLinks.safeRecords.forEach((r) => {
+      const keys = (r.cropKeys.length ? r.cropKeys : [r.crop]).filter(Boolean);
       keys.forEach((k) => {
         const e = acc[k] = acc[k] || { id: 'PLC-' + U(k), cropKey: k, linkCount: 0, products: [], targets: [], labels: {}, sharedGenericRows: 0, provenance: P.REAL_DERIVED };
         e.linkCount++;
@@ -1124,6 +1707,37 @@
       return e;
     });
     return coll(rows, P.REAL_DERIVED, 'authorised use rows grouped by crop key; the generic-wheat overlap is declared, not hidden', { source: 'derived · regulatoryLinks' });
+  })();
+
+  /* ---- what the label rows say about each registry product --------------
+     The old registry table carried `crops` and `targets` inline. V2.1 does
+     not: it carries CROP_IDS on 112 of 163 and moves every crop x target
+     statement into PRODUCT-RELATIONSHIPS, where each one has its own row, its
+     own quote and its own strength.
+
+     So the two fields are rebuilt from those rows, keyed on REGISTRATION_NUMBER
+     — a join on the registry's own primary key, not a name match — and the
+     crop-id list is merged in beside them. Nothing is inferred: a product with
+     no client-safe label row keeps an empty targets list, which is the honest
+     answer and the one the absence rule already covers. */
+  (() => {
+    const byReg = {};
+    regulatoryLinks.safeRecords.forEach((l) => {
+      if (!l.reg) return;
+      const e = byReg[U(l.reg)] = byReg[U(l.reg)] || { crops: [], cropKeys: [], targets: [], rows: 0 };
+      e.rows++;
+      if (l.cropOnLabel) e.crops.push(l.cropOnLabel);
+      l.cropKeys.forEach((k) => e.cropKeys.push(k));
+      if (l.target) e.targets.push(l.target);
+    });
+    productsRegulatory.records.forEach((p) => {
+      const e = byReg[U(p.reg)];
+      if (!e) return;
+      p.labelCrops = uniq(e.crops);
+      p.targets = uniq(e.targets);
+      p.crops = uniq(p.crops.concat(e.cropKeys));
+      p.labelRowCount = e.rows;
+    });
   })();
 
   /* ---- the joined product entity --------------------------------------- */
@@ -1151,7 +1765,7 @@
   productRelationships.records.forEach((r) => {
     const e = byName[U(r.product)];
     if (e) {
-      e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source, windowId: r.windowId, region: r.region, evidenceKind: r.evidenceKind, labelUrl: r.labelUrl, caseId: null });
+      e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source, windowId: r.windowId, region: r.region, evidenceKind: r.evidenceKind, labelUrl: r.labelUrl, clientSafe: r.clientSafe !== false, caseId: null });
       e.relationships.push(r);
     }
   });
@@ -1211,8 +1825,70 @@
   };
 
   /* ---- COMPETITOR ------------------------------------------------------- */
+  /* V2.1 COMPETITOR-ACTIVITIES.json: 577 rows against 503, and the two feeds
+     that used to be separate arrive as one family — 414 paid ads with
+     COUNTRY_REACHED and 147 organic videos with CHANNEL / VIEWS / PUBLISHED_AT.
+     LAW: AD_REACHED_COUNTRY is not AD_TARGETED_COUNTRY, and communication is
+     not market share. Both statements travel per record. */
   const competitorActivities = build('competitorActivities', [
-    V21('competitorActivities'),
+    V21('competitors', (a) => {
+      const type = S(a.ACTIVITY_TYPE);
+      const paid = U(type) === 'PAID' || U(type) === 'PAID_AD';
+      const sem = U(a.COUNTRY_SEMANTICS);
+      const country = U(a.COUNTRY_REACHED);
+      const italyReach = paid && (sem.indexOf('IT') >= 0 || country.indexOf('IT') >= 0);
+      const crops = A(a.CROP_TERMS);
+      const cropsCanonical = uniq(crops.map((c) => CROP_BY_LATIN[U(c)] || null).filter(Boolean)
+        .concat(cropsFromV21Ids(a.CROP_IDS)));
+      const generic = crops.filter((c) => GENERIC_CROP_TERMS[U(c)]);
+      const issues = A(a.ISSUE_TERMS).filter(Boolean);
+      const speciesIssues = issues.filter((i) => /^[A-Z][a-z]/.test(String(i).trim()));
+      /* an organic video's own date field is PUBLISHED_AT, an ad's is
+         START_DATE; neither is invented from the other */
+      const start = isoOf(a.START_DATE) || isoOf(a.PUBLISHED_AT);
+      const page = S(a.PAGE) || S(a.CHANNEL);
+      return Object.assign(v21spine(a), {
+        type, platform: S(a.PLATFORM),
+        company: S(a.COMPANY), companyRaw: S(a.COMPANY), companyKey: U(a.COMPANY),
+        page, pageId: S(a.PAGE_ID),
+        displayName: page || S(a.COMPANY) || S(a.TITLE),
+        channelResolved: !!page,
+        country: S(a.COUNTRY_REACHED), countrySem: S(a.COUNTRY_SEMANTICS),
+        geoClass: italyReach ? 'REACHED_IN_ITALY' : paid ? 'REACH_NOT_RESOLVED' : 'MULTI_COUNTRY_OR_UNRESOLVED',
+        italyReach,
+        /* §9 · reach is not targeting. The platform's own sentence travels
+           with the record so no card can drop it. */
+        geoCaveat: S(a.COUNTRY_SEMANTICS),
+        startDate: start, endDate: isoOf(a.END_DATE),
+        active: S(a.ACTIVE_STATUS), isActive: U(a.ACTIVE_STATUS) === 'ACTIVE',
+        media: S(a.MEDIA_TYPE),
+        products: A(a.PRODUCTS_PROVED),
+        crops, cropsCanonical,
+        cropScope: cropsCanonical.length ? 'RESOLVED' : generic.length ? 'GENERIC_TERM' : 'NOT_OBSERVED',
+        genericCropTerms: generic,
+        issues, issuesObserved: issues,
+        issueScope: speciesIssues.length ? 'SPECIES' : issues.length ? 'GENERIC_TERM' : 'NOT_OBSERVED',
+        speciesIssues,
+        /* the advertiser's own public copy, quoted and never parsed */
+        text: S(a.CREATIVE_TEXT) || S(a.DESCRIPTION),
+        textExcerpt: S(a.CREATIVE_TEXT) || S(a.DESCRIPTION),
+        url: S(a.AD_URL) || S(a.URL),
+        /* the organic side of the corpus, which the old table had no slot for */
+        channel: S(a.CHANNEL), title: S(a.TITLE),
+        views: N(a.VIEWS), commentsCount: N(a.COMMENTS_COUNT),
+        caseId: S(a.CASE_ID),
+        sourceId: S(a.SOURCE_ID),
+        hasDate: !!start,
+        dateState: start ? 'OBSERVED' : 'NOT_OBSERVED',
+        /* still structurally empty: nothing upstream bridges the advertiser's
+           Latin binomial to the canonical window's English issue name */
+        relatedWindows: [],
+        relatedWindowsState: 'NO_ISSUE_SYNONYM_TABLE_UPSTREAM',
+        daysFromRef: daysFrom(start),
+        reachIsNotTargeting: true,
+        communicationIsNotMarketShare: true,
+      });
+    }),
     {
       source: 'ITALY_INGEST.COMP_ACTIVITIES',
       precedence: P.REAL_SOURCE,
@@ -1294,6 +1970,7 @@
       validate: (r) => (!r.id ? 'no id' : !r.company ? 'no company' : null),
     },
   ], 'observed public competitor communication; Italy reach only where the evidence supports it');
+  v21law(competitorActivities, 'competitors');
 
   /* Recency, computed ONCE against the single reference date. Each screen
      re-deriving its own window is exactly how two screens ended up disagreeing
@@ -1317,10 +1994,16 @@
      raw table counts three companies twice. The merge happens once, here, so
      the company strip and the company page cannot disagree. */
   const compActByCompany = {};
-  competitorActivities.records.forEach((a) => { (compActByCompany[a.companyKey] = compActByCompany[a.companyKey] || []).push(a); });
+  /* A record with no COMPANY is not filed under an empty company: 16 of the
+     577 rows are corpus stubs or claim rows that name no advertiser, and an
+     '' bucket would publish a seventeenth company that does not exist. */
+  competitorActivities.records.forEach((a) => { if (a.companyKey) (compActByCompany[a.companyKey] = compActByCompany[a.companyKey] || []).push(a); });
 
+  /* NO V2.1 CANDIDATE: the package has no companies table. The counter table
+     stays ITALY_INGEST's, and the observed totals beside it are recomputed
+     from the V2.1 activity corpus, so a divergence between the two is visible
+     rather than averaged away. */
   const competitorCompanies = build('competitorCompanies', [
-    V21('competitorCompanies'),
     {
       source: 'ITALY_INGEST.COMP_COMPANIES · merged on upper-case name',
       precedence: P.REAL_SOURCE,
@@ -1370,8 +2053,10 @@
     },
   ], 'companies observed in the monitored public communication corpus, merged on upper-case name');
 
+  /* NO V2.1 CANDIDATE either: PRODUCTS_PROVED lives on the activity row in
+     V2.1, so the per-product table stays ITALY_INGEST's and its context is
+     recomputed from the activities that actually name the product. */
   const competitorProducts = build('competitorProducts', [
-    V21('competitorProducts'),
     {
       source: 'ITALY_INGEST.COMP_PRODUCTS',
       precedence: P.REAL_SOURCE,
@@ -1480,8 +2165,48 @@
   })();
 
   /* ---- MARKET ----------------------------------------------------------- */
+  /* V2.1 MARKET-OBSERVATIONS.json, 157 rows: the 77 price quotes the old table
+     had, 13 written market claims over them, and 67 corpus stubs. LAW: a
+     PIAZZA price is not a NATIONAL price, and a stopped series keeps its last
+     value and looks current. Both are carried per row. */
   const marketObservations = build('marketObservations', [
-    V21('marketObservations'),
+    V21('market', (m) => {
+      const per = String(m.REFERENCE_PERIOD || '').split('..');
+      const periodStart = dmyToIso(per[0]);
+      const periodEnd = dmyToIso(per[1] || per[0]);
+      const seriesKey = U(m.GROUP) + '|' + (m.PRODUCT === null || m.PRODUCT === undefined ? '' : String(m.PRODUCT));
+      const cropKey = MARKET_CROP[seriesKey] || MARKET_CROP[U(m.GROUP) + '|*'] || cropsFromV21Ids(m.CROP_IDS)[0] || null;
+      const stopped = /^PARADA_EM_(\d{4})$/.exec(U(m.SERIES_STATE));
+      return Object.assign(v21spine(m), {
+        group: S(m.GROUP), product: S(m.PRODUCT), market: S(m.MARKET),
+        priceRaw: S(m.PRICE_RAW), price: N(m.PRICE_NUM), unit: S(m.UNIT), stage: S(m.STAGE),
+        referencePeriod: S(m.REFERENCE_PERIOD), publicationDate: S(m.PUBLICATION_DATE),
+        publicationDateISO: isoOf(m.PUBLICATION_DATE),
+        geography: S(m.GEOGRAPHY),
+        cropKey, cropKeys: cropsFromV21Ids(m.CROP_IDS), seriesKey,
+        periodStart, periodEnd,
+        daysSinceObservation: periodEnd ? daysFrom(periodEnd) : null,
+        isCurrentSeries: U(m.SERIES_STATE) === 'CORRENTE',
+        stoppedYear: stopped ? Number(stopped[1]) : null,
+        hasStage: !!S(m.STAGE),
+        hasPublicationDate: !!S(m.PUBLICATION_DATE),
+        prevPrice: N(m.PREV_PRICE_NUM), changeVsPrev: N(m.CHANGE_VS_PREV_PCT),
+        yearAgoPrice: N(m.YEAR_AGO_PRICE_NUM), changeVsYearAgo: N(m.CHANGE_VS_YEAR_AGO_PCT),
+        seriesState: S(m.SERIES_STATE),
+        seriesWarning: S(m.SERIES_WARNING),
+        /* the warning now has an approved Italian and English variant */
+        seriesWarningText: narrative(m, 'SERIES_WARNING'),
+        observations: N(m.OBSERVATIONS_IN_SERIES), sourceId: S(m.SOURCE_ID),
+        publishedDaysAgo: daysFrom(isoOf(m.PUBLICATION_DATE)),
+        /* new in V2.1: which point of the chain the price belongs to, and
+           whether the crop behind it was derived rather than published */
+        commodityStage: S(m.COMMODITY_STAGE),
+        commodityStageLaw: S(m.COMMODITY_STAGE_LAW),
+        derivedFromCropId: S(m.DERIVED_FROM_CROP_ID),
+        piazzaIsNotNational: true,
+        ui: { marketCropKey: cropKey ? MARKET_VIEW_KEY[cropKey] || null : null },
+      });
+    }),
     {
       source: 'ITALY_INGEST.MARKET',
       precedence: P.REAL_SOURCE,
@@ -1533,10 +2258,20 @@
       validate: (r) => (!r.id ? 'no ID' : null),
     },
   ], 'real market price observations, each with its own series state; the wine row has no PRODUCT and resolves by GROUP alone');
+  v21law(marketObservations, 'market');
 
   /* ---- SCIENCE ---------------------------------------------------------- */
   const scienceRecords = build('scienceRecords', [
-    V21('scienceRecords'),
+    V21('science', (r) => Object.assign(v21spine(r), {
+      title: S(r.TITLE), doi: S(r.DOI),
+      author: S(r.AUTHOR), orcid: S(r.ORCID), institution: S(r.INSTITUTION),
+      publishedAt: S(r.PUBLISHED_AT), date: S(r.PUBLISHED_AT),
+      year: S(r.PUBLISHED_AT) ? String(r.PUBLISHED_AT).slice(0, 4) : null,
+      venue: S(r.VENUE), materialType: S(r.MATERIAL_TYPE), materialRole: S(r.MATERIAL_ROLE),
+      crop: S(r.CROP), cropKeys: cropsFromV21Ids(r.CROP_IDS),
+      issue: S(r.ISSUE), countryOfFact: S(r.COUNTRY_OF_FACT),
+      url: S(r.SOURCE_URL), sourceId: S(r.SOURCE_ID),
+    }), { validate: (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null) }),
     {
       source: 'ITALY_INGEST.SCIENCE',
       precedence: P.REAL_SOURCE,
@@ -1554,6 +2289,7 @@
       validate: (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null),
     },
   ], 'real scientific records with a resolvable source');
+  v21law(scienceRecords, 'science');
 
   /* AFFILIATION_CAVEAT is the source registry's own limitation, restated as a
      value so it can travel with every institution the portal shows. An
@@ -1562,7 +2298,25 @@
   const AFFILIATION_CAVEAT = 'The affiliation belongs to the author, not to the study.';
 
   const researchers = build('researchers', [
-    V21('researchers'),
+    V21('researchers', (r) => Object.assign(v21spine(r), {
+      name: S(r.PERSON), category: S(r.CATEGORY),
+      orcid: /^https?:\/\/orcid\.org\//i.test(S(r.ORCID) || '') ? S(r.ORCID) : null,
+      openAlexId: S(r.OPENALEX_ID), openalexId: S(r.OPENALEX_ID),
+      institutions: A(r.INSTITUTIONS),
+      org: A(r.INSTITUTIONS).join(' · ') || null,
+      orgLabel: A(r.INSTITUTIONS).join(' · ') || null,
+      affiliationCaveat: AFFILIATION_CAVEAT,
+      theme: S(r.THEME), themeKey: S(r.THEME),
+      themeLabel: (THEME_UI[U(r.THEME)] || {}).title || null,
+      worksInScope: N(r.WORKS_IN_SCOPE),
+      lastActivity: S(r.LAST_ACTIVITY),
+      daysFromRef: daysFrom(r.LAST_ACTIVITY),
+      identityStatus: S(r.IDENTITY_STATUS), identityState: S(r.IDENTITY_STATUS),
+      /* ROLE and FACT_REGION are still the analyst's unknown sentence on 60/60
+         in V2.1; UNK keeps them out of a filter and out of a column. */
+      role: UNK(r.ROLE), factRegion: UNK(r.FACT_REGION),
+      sourceId: S(r.SOURCE_ID),
+    }), { validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no person' : null) }),
     {
       source: 'ITALY_INGEST.RESEARCHERS',
       precedence: P.REAL_SOURCE,
@@ -1597,9 +2351,10 @@
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no person' : null),
     },
   ], 'real researcher identities; identity status is never promoted and the unknown role never leaks');
+  v21law(researchers, 'researchers');
 
+  /* NO V2.1 CANDIDATE: the package carries no bibliometric-theme table. */
   const scienceThemes = build('scienceThemes', [
-    V21('scienceThemes'),
     {
       source: 'ITALY_INGEST.THEMES',
       precedence: P.REAL_SOURCE,
@@ -1718,8 +2473,50 @@
     return k ? (worksByOrcid[k] || []).slice() : [];
   };
 
+  /* A localized COMMON NAME is a name, not a sentence.
+     Two of the 34 GIRE records answer SPECIES_IT with a research note in
+     Portuguese instead of an Italian name, because the source card does not
+     carry one: IT-RES-019 opens "NAO SEI — a ficha nao traz nome comum
+     italiano...", and IT-RES-028 opens with the genus and only then explains
+     "...NAO SEI se existe um nome vulgar italiano distinto". The sentinel alone
+     catches only the first, since the second begins with a real word.
+     So the gate is structural rather than linguistic: a common name is short
+     and carries no explanatory clause. When it fails, the field is dropped and
+     the view falls back to the botanical name, which is a fact and is never
+     translated anyway. Dropping is right — the note is TRUE and useful to a
+     researcher, but it is an admission that the Italian name is unknown, and
+     printing it would put a Portuguese apology where a species name belongs. */
+  const displayName = (v) => {
+    const t = S(v);
+    if (!t) return '';
+    if (UNKNOWN_SENTINEL.test(t)) return '';
+    if (t.length > 40) return '';
+    if (/\s[—–]\s/.test(t)) return '';
+    return t;
+  };
+
   const resistance = build('resistance', [
-    V21('resistance'),
+    V21('resistance', (r) => {
+      const cr = cropResolve(r.CROP_DECLARED);
+      return Object.assign(v21spine(r), {
+        species: S(r.SPECIES), speciesIt: displayName(r.SPECIES_IT), family: S(r.FAMILY),
+        mechanism: narrative(r, 'MECHANISM'),
+        mechanismStated: !!S(r.MECHANISM) && !UNKNOWN_SENTINEL.test(S(r.MECHANISM)),
+        /* CROP_DECLARED is still the source's own sentence; the crop is
+           resolved for display and filtering and the sentence never lands on
+           a screen unless the package approved a localized variant. */
+        crop: cr.label, cropRaw: UNK(r.CROP_DECLARED),
+        cropKey: cr.key || cropsFromV21Ids(r.CROP_IDS)[0] || null,
+        cropKeys: uniq(cr.keys.concat(cropsFromV21Ids(r.CROP_IDS))),
+        cropScope: cr.scope, cropDeclared: narrative(r, 'CROP_DECLARED'),
+        cropIsProse: (S(r.CROP_DECLARED) || '').length > 60,
+        firstCaseYear: S(r.FIRST_CASE_YEAR),
+        regions: A(r.REGIONS), multiple: !!r.MULTIPLE_RESISTANCE,
+        multipleResistance: narrative(r, 'MULTIPLE_RESISTANCE'),
+        citation: S(r.CITATION), authority: S(r.AUTHORITY),
+        url: S(r.SOURCE_URL), sourceId: S(r.SOURCE_ID),
+      });
+    }, { validate: (r) => (!r.id ? 'no ID' : !r.species ? 'no species' : null) }),
     {
       source: 'ITALY_INGEST.RESISTANCE',
       precedence: P.REAL_SOURCE,
@@ -1728,7 +2525,7 @@
         id: r.ID,
         /* A taxonomic name is never truncated, including a parenthetical
            synonym: the synonym is part of the identification. */
-        species: S(r.SPECIES), speciesIt: S(r.SPECIES_IT), family: S(r.FAMILY),
+        species: S(r.SPECIES), speciesIt: displayName(r.SPECIES_IT), family: S(r.FAMILY),
         mechanism: narrative(r, 'MECHANISM'),
         mechanismStated: !!S(r.MECHANISM) && !UNKNOWN_SENTINEL.test(S(r.MECHANISM)),
         /* CROP_DECLARED is the source's own free sentence, sometimes several
@@ -1751,10 +2548,38 @@
       validate: (r) => (!r.id ? 'no ID' : !r.species ? 'no species' : null),
     },
   ], 'confirmed Italian resistance cases');
+  v21law(resistance, 'resistance');
 
-  /* ---- PUBLIC VOICES ---------------------------------------------------- */
+  /* ---- PUBLIC VOICES ----------------------------------------------------
+     V2.1 PUBLIC-VOICES.json, 79 rows: 58 identified voices and 21 audience
+     comments, 65 client-safe. LAW: A VOICE IS NOT AN INDEPENDENT SOURCE. Four
+     people quoted in one article are four voices and ONE document, so
+     SOURCE_DOCUMENT_ID travels per row and convergence is counted on it,
+     never on the number of people. */
   const publicVoices = build('publicVoices', [
-    V21('publicVoices'),
+    V21('voices', (v) => Object.assign(v21spine(v), {
+      kind: S(v.KIND), voiceKind: S(v.VOICE_KIND),
+      voiceId: S(v.VOICE_ID), personId: S(v.PERSON_ID),
+      /* the join key for convergence, and the only one that is honest */
+      sourceDocumentId: S(v.SOURCE_DOCUMENT_ID),
+      person: S(v.PERSON), identityState: S(v.PERSON_IDENTITY_STATE),
+      role: UNK(v.ROLE), organization: UNK(v.ORGANIZATION),
+      roleEvidence: narrative(v, 'ROLE_EVIDENCE'),
+      audienceKind: S(v.AUDIENCE_KIND) || S(v.CHANNEL_AUDIENCE_KIND),
+      audienceEvidence: S(v.CHANNEL_AUDIENCE_EVIDENCE),
+      platform: S(v.PLATFORM), channel: S(v.CHANNEL), title: S(v.CONTENT_TITLE),
+      date: UNK(v.DATE), dateISO: isoOf(v.DATE), dateState: dateStateOf(v.DATE),
+      dateRelative: S(v.DATE_RELATIVE), dateNote: S(v.DATE_NOTE),
+      crop: S(v.CROP), cropCanonical: cropResolve(v.CROP).key || cropsFromV21Ids(v.CROP_IDS)[0] || null,
+      cropKeys: cropsFromV21Ids(v.CROP_IDS),
+      issue: S(v.ISSUE), caseId: S(v.CASE_ID),
+      region: UNK(v.REGION), countryOfFact: S(v.COUNTRY_OF_FACT),
+      /* the original public quote: never translated, never parsed for facts */
+      textOriginal: S(v.TEXT_ORIGINAL),
+      sourceUrl: S(v.SOURCE_URL), sourceId: S(v.SOURCE_ID),
+      daysFromRef: daysFrom(isoOf(v.DATE)),
+      voiceIsNotAnIndependentSource: true,
+    })),
     {
       source: 'ITALY_INGEST.VOICES',
       precedence: P.REAL_SOURCE,
@@ -1788,9 +2613,31 @@
       validate: (r) => (!r.id ? 'no ID' : null),
     },
   ], 'real public field voices; identity is never upgraded, the quote is never translated');
+  v21law(publicVoices, 'voices');
+  Object.assign(publicVoices, {
+    /* the only convergence denominator the law allows */
+    distinctSourceDocuments: uniq(publicVoices.safeRecords.map((v) => v.sourceDocumentId)).length,
+    convergenceCountsDocumentsNotPeople: true,
+    kindCounts: tallyBy(publicVoices.safeRecords, (v) => v.entityType),
+  });
 
   const publicChannels = build('publicChannels', [
-    V21('publicChannels'),
+    V21('channels', (c) => {
+      const host = (String(S(c.CHANNEL_URL) || '').match(/^https?:\/\/([^/]+)/i) || [])[1] || '';
+      return Object.assign(v21spine(c), {
+        name: S(c.CHANNEL), channel: S(c.CHANNEL), url: S(c.CHANNEL_URL),
+        host: host || null,
+        platform: /youtube\.com$/i.test(host.replace(/^www\./, '')) ? 'YouTube' : null,
+        identityState: S(c.IDENTITY_STATE),
+        contentTypeExample: S(c.CONTENT_TYPE_EXAMPLE),
+        /* these four describe ONE example video, never the channel */
+        exampleTitle: S(c.EXAMPLE_TITLE), exampleUrl: S(c.EXAMPLE_URL),
+        examplePublishedAt: S(c.EXAMPLE_PUBLISHED_AT),
+        examplePublishedISO: isoOf(c.EXAMPLE_PUBLISHED_AT),
+        exampleViews: N(c.VIEWS), views: N(c.VIEWS),
+        caseId: S(c.CASE_ID),
+      });
+    }),
     {
       source: 'ITALY_INGEST.CHANNELS',
       precedence: P.REAL_SOURCE,
@@ -1821,9 +2668,11 @@
       validate: (r) => (!r.id ? 'no ID' : null),
     },
   ], 'real Italian public channels; the example video is labelled as an example, never as the channel');
+  v21law(publicChannels, 'channels');
 
+  /* NO V2.1 CANDIDATE: the package has no PEOPLE table; identity and role
+     evidence live on the voice record instead. This list stays ITALY_INGEST's. */
   const publicPeople = build('publicPeople', [
-    V21('publicPeople'),
     {
       source: 'ITALY_INGEST.PEOPLE',
       precedence: P.REAL_SOURCE,
@@ -1960,8 +2809,55 @@
   })();
 
   /* ---- SOURCES · EVENTS · NEWS ------------------------------------------ */
+  /* V2.1 SOURCES.json, 189 rows: 187 sources and 2 sentinels, 31 of them
+     client-safe — the same 31 the registry screen has always shown. The other
+     156 are the rest of the reading, counted and never rendered.
+
+     THE RE-KEY IS THE DANGEROUS PART. V2.1 changed the primary key from
+     IT-SRC-* to SRC_<HOST>, and 23 collections still cite the old id
+     (SCIENCE.SOURCE_ID is 'IT-SRC-OPENALEX' on 88/88). The package says so
+     itself in ID_REKEY_NOTE and ships ID_ANTERIOR and ID_ALIASES for exactly
+     this. Both are indexed below, so no existing join goes quietly to zero. */
   const sources = build('sources', [
-    V21('sources'),
+    V21('sources', (s) => {
+      const type = S(s.TYPE);
+      const group = SOURCE_GROUP[U(type)] || null;
+      const freq = S(s.FREQUENCY);
+      return Object.assign(v21spine(s), {
+        sourceId: S(s.SOURCE_ID) || S(s.ID),
+        idAnterior: S(s.ID_ANTERIOR), idAliases: A(s.ID_ALIASES),
+        idRekeyNote: S(s.ID_REKEY_NOTE),
+        name: S(s.NAME), type,
+        role: narrative(s, 'ROLE'), roleText: narText(s, 'ROLE'), roleCode: type,
+        group, groupLabel: group ? SOURCE_GROUP_LABEL[group] : null,
+        uiGroup: group ? SOURCE_GROUP_LABEL[group] : null,
+        country: S(s.COUNTRY), geography: S(s.GEOGRAPHY), url: S(s.URL),
+        frequency: freq,
+        frequencyKnown: !!(freq && !FREQ_NOT_DECLARED[U(freq)]),
+        latestObservation: S(s.LATEST_OBSERVATION),
+        latestObservationISO: isoOf(String(S(s.LATEST_OBSERVATION) || '').slice(0, 10)),
+        accessStatus: S(s.ACCESS_STATUS),
+        limitations: narrative(s, 'LIMITATIONS'), limitationsText: narText(s, 'LIMITATIONS'),
+        /* §18 · route metadata is COLLECTION INFRASTRUCTURE. The portal reads
+           stored data and never needs the Italian route to render, so these
+           are exposed as facts about the reading, never as a runtime
+           dependency of the interface. */
+        runtimeDependency: S(s.RUNTIME_DEPENDENCY),
+        requiresItalianRoute: s.REQUIRES_ITALIAN_ROUTE === true,
+        accessEvidence: narrative(s, 'ACCESS_EVIDENCE'),
+        accessEvidenceMeasured: S(s.ACCESS_EVIDENCE_MEASURED),
+        accessState: S(s.ACCESS_STATE),
+        routeEvidenceNote: narrative(s, 'ROUTE_EVIDENCE_NOTE'),
+        whatItPublishes: S(s.WHAT_IT_PUBLISHES),
+        /* how many records in this reading actually cite the source, as the
+           package counted it. The model recounts it below from its own
+           collections; publishing both is what makes a divergence visible. */
+        citedTimesDeclared: N(s.CITADO_VEZES),
+        citedInDeclared: A(s.CITADO_EM),
+        isSentinel: U(s.ENTITY_TYPE) === 'SOURCE_SENTINEL',
+        ui: { color: SOURCE_TYPE_COLOR[U(type)] || NEUTRAL, order: null },
+      });
+    }, { validate: (r) => (!r.id ? 'no ID' : null) }),
     {
       source: 'ITALY_INGEST.SOURCES',
       precedence: P.REAL_SOURCE,
@@ -2005,9 +2901,59 @@
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no name' : null),
     },
   ], 'traceable source registry; the group is derived from TYPE through a table written out in full');
+  v21law(sources, 'sources');
+
+  /* ---- EVENTS · and the double count the manifest warns about ------------
+     DECISION, stated once here so no screen has to make it again:
+     EVENTS.json (40 rows) IS THE COUNTABLE COLLECTION. FUTURE-EVENTS.json (14
+     rows) is a CUT of it — the manifest says loading both counts the same
+     event twice — so it is NOT a second collection. It is applied as a
+     PROPERTY of these rows: `inFutureCut` per record, `futureCut` as an array,
+     and the parsed START_DATE / END_DATE / DATE_PRECISION the cut file adds to
+     the 7 client-safe rows it covers. A property cannot be summed into a
+     total; a collection can, and that is the whole reason for the choice.
+
+     The model keeps the collection NAME `futureEvents` because every screen
+     already reads it, with `events` as the alias it always had. The name is
+     legacy; the contents are all 40 events. */
+  const V21_FUTURE_CUT = {};
+  A(V21C.futureEvents).forEach((e) => { if (e && e.ID) V21_FUTURE_CUT[U(e.ID)] = e; });
 
   const futureEvents = build('futureEvents', [
-    V21('futureEvents'),
+    V21('events', (e) => {
+      const cut = V21_FUTURE_CUT[U(e.ID)] || null;
+      /* the cut file is the only place the dates are parsed out; where it
+         does not cover a row the range is split here, never flattened */
+      const [rs, re] = isoRange(e.DATE);
+      const startDate = (cut && isoOf(cut.START_DATE)) || rs;
+      const endDate = (cut && isoOf(cut.END_DATE)) || re;
+      const part = e.CONFIRMED_PARTICIPATION && typeof e.CONFIRMED_PARTICIPATION === 'object' && !Array.isArray(e.CONFIRMED_PARTICIPATION)
+        ? e.CONFIRMED_PARTICIPATION : {};
+      return Object.assign(v21spine(e), {
+        name: S(e.EVENT), date: S(e.DATE),
+        startDate, endDate, dateEnd: endDate,
+        dateState: dateStateOf(e.DATE),
+        datePrecision: cut ? S(cut.DATE_PRECISION) : null,
+        dateParseState: cut ? S(cut.DATE_PARSE_STATE) : null,
+        location: S(e.LOCATION), sector: S(e.SECTOR),
+        cropRelevance: UNK(e.CROP_RELEVANCE),
+        cropRelevanceList: A(e.CROP_RELEVANCE),
+        cropKeys: cropsFromV21Ids(e.CROP_IDS),
+        organizer: S(e.ORGANIZER), url: S(e.OFFICIAL_URL),
+        exhibitorListState: S(e.EXHIBITOR_LIST_STATE), timeState: S(e.TIME_STATE),
+        /* future participation is never inferred from past participation */
+        confirmedParticipation: part,
+        confirmedParticipationList: Object.keys(part),
+        participationLaw: narrative(e, 'PARTICIPATION_LAW'),
+        participationLawText: narText(e, 'PARTICIPATION_LAW'),
+        note: narrative(e, 'NOTE'),
+        /* the cut, as a flag on the row it belongs to */
+        inFutureCut: !!cut,
+        futureCutSource: cut ? 'FUTURE-EVENTS.json' : null,
+        daysFromRef: daysFrom(startDate),
+        daysToStart: daysFrom(startDate),
+      });
+    }),
     {
       source: 'ITALY_INGEST.EVENTS',
       precedence: P.REAL_SOURCE,
@@ -2047,9 +2993,37 @@
       validate: (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null),
     },
   ], 'real sector events; a date range is split, never flattened');
+  v21law(futureEvents, 'events');
+  Object.assign(futureEvents, {
+    /* THE DERIVED VIEW, not a second collection: same objects, no copies, and
+       nothing here is ever added to the events total. */
+    futureCut: futureEvents.records.filter((e) => e.inFutureCut),
+    futureCutCount: futureEvents.records.filter((e) => e.inFutureCut).length,
+    futureCutSafeCount: futureEvents.safeRecords.filter((e) => e.inFutureCut).length,
+    doubleCountWarning: S(V21H && V21H.DOUBLE_COUNT_WARNING),
+    countableCollection: 'events',
+  });
 
   const news = build('news', [
-    V21('news'),
+    V21('news', (n) => Object.assign(v21spine(n), {
+      title: S(n.TITLE), publisher: S(n.PUBLISHER), outlet: S(n.PUBLISHER),
+      author: S(n.AUTHOR), date: UNK(n.DATE),
+      dateISO: isoOf(n.DATE), dateState: dateStateOf(n.DATE),
+      crop: S(n.CROP),
+      cropCanonical: cropResolve(n.CROP).key || cropsFromV21Ids(n.CROP_IDS)[0] || null,
+      cropScope: cropResolve(n.CROP).scope,
+      cropKeys: cropsFromV21Ids(n.CROP_IDS),
+      issue: S(n.ISSUE),
+      region: UNK(n.REGION),
+      /* the badge that separates editorial from company-provided content is
+         not optional and is never derived from the publisher's name */
+      contentKind: S(n.CONTENT_KIND),
+      contentKindMeaning: narrative(n, 'CONTENT_KIND_MEANING'),
+      isEditorial: U(n.CONTENT_KIND) === 'EDITORIAL',
+      summary: narrative(n, 'SINTONIA_SUMMARY'),
+      caveat: narrative(n, 'CAVEAT'),
+      url: S(n.SOURCE_URL), daysFromRef: daysFrom(isoOf(n.DATE)),
+    }), { validate: (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null) }),
     {
       source: 'ITALY_INGEST.NEWS',
       precedence: P.REAL_SOURCE,
@@ -2087,6 +3061,7 @@
       validate: (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null),
     },
   ], 'real news and trade-media records; the content-kind badge is not optional');
+  v21law(news, 'news');
 
   /* ---- SOURCE RESOLUTION · one join key for the whole model -------------
      Every record that names a source names it by ID. The only exception is
@@ -2096,8 +3071,17 @@
      (a casing variant of 'AgroNotizie (Image Line)') and 'Consorzio
      Fitosanitario di Modena' (the registry says 'Provinciale'). Fuzzy-matching
      them would create a link the evidence does not support. */
+  /* Every key the registry itself publishes is indexed: the V2.1 primary key,
+     the SOURCE_ID the other 23 collections cite, the previous primary key and
+     every declared alias. The re-key is therefore invisible to every join in
+     this model — which is the point of the package shipping ID_ALIASES. */
   const sourceById = {};
-  sources.records.forEach((s) => { sourceById[U(s.id)] = s; if (s.sourceId) sourceById[U(s.sourceId)] = s; });
+  sources.records.forEach((s) => {
+    [s.id, s.sourceId, s.idAnterior].concat(A(s.idAliases)).forEach((k) => {
+      const key = U(k);
+      if (key && !sourceById[key]) sourceById[key] = s;
+    });
+  });
   const sourceByName = {};
   sources.records.forEach((s) => { if (s.name) sourceByName[U(s.name)] = s; });
   const sourceNameOf = (id) => { const s = sourceById[U(id)]; return s ? s.name : null; };
@@ -2187,8 +3171,9 @@
      manifest travels in this package — the bodies do not. Saying "the analysis
      exists and is not loaded" is the honest answer; letting a fixture stand in
      for it is not. */
+  /* NO V2.1 CANDIDATE: the package carries no manifest of the written
+     analyses, and their bodies still do not travel. */
   const marketSummaries = build('marketSummaries', [
-    V21('marketSummaries'),
     {
       source: 'ITALY_INGEST.MARKET_SUMMARIES',
       precedence: P.REAL_SOURCE,
@@ -2204,13 +3189,53 @@
     },
   ], 'manifest of upstream written market analysis; the bodies are not in this package');
 
-  /* ---- REGULATORY FUTURE · the authorisation expiry calendar ------------
-     EXPIRY is present on 163/163 registry records and nothing read it. It is
-     the only forward-looking regulatory fact the package actually contains, so
-     the slot that used to be empty is now filled from real data rather than
-     left waiting for a table that already existed. */
+  /* ═══════════════════════════════════════════════════════════════════════
+     THE REGULATORY FUTURE IS THREE DIFFERENT THINGS, AND THEY ARE NOT
+     INTERCHANGEABLE. The package is explicit and the model keeps them apart
+     in three collections rather than one:
+
+       regulatoryFuture        the ITALIAN AUTHORISATION EXPIRY calendar —
+                               EXPIRY on the 163 registry records. A date the
+                               Ministero states about ONE Italian
+                               authorisation.
+       regulatoryFutureFacts   REGULATORY-FUTURE-FACTS.json, 47 rows, all
+                               client-safe — the EUROPEAN approval expiry per
+                               ACTIVE SUBSTANCE, read from EUR-Lex.
+       regulatoryFutureSignals REGULATORY-FUTURE.json, 28 rows, 6 client-safe —
+                               written readings of the European renewal
+                               procedure. Draft, discussion and meeting are not
+                               a decision.
+
+     FOUR PERMANENT SEMANTICS, encoded as fields so a view cannot get them
+     wrong by omission:
+       EU APPROVAL EXPIRY  !=  NON-RENEWAL         (isNonRenewal false)
+       EU APPROVAL EXPIRY  !=  COMMERCIAL RISK     (isRisk from the record)
+       EU FACT             !=  ITALIAN MARKETABILITY (geographyLaw travels)
+       FUTURE FACT         !=  OPPORTUNITY         (isOpportunity from the record)
+     A date may be presented as a fact with its caveat. It may never become
+     ACT NOW: nothing in this section derives a status, a rank or an action. */
   const regulatoryFuture = build('regulatoryFuture', [
-    V21('regulatoryFuture'),
+    {
+      source: 'HANDOFF_V21 · products.regulatory · EXPIRY',
+      precedence: P.CANONICAL,
+      rows: productsRegulatory.records.filter((p) => p.expiryISO),
+      adapt: (p) => ({
+        id: 'REGF-' + U(p.id || p.name),
+        product: S(p.name), productKey: U(p.name),
+        reg: S(p.reg), holder: S(p.holder), status: S(p.status),
+        expiry: S(p.expiry), expiryISO: p.expiryISO,
+        daysToExpiry: daysFrom(p.expiryISO),
+        expired: daysFrom(p.expiryISO) !== null && daysFrom(p.expiryISO) < 0,
+        regCat: S(p.regCat), line: S(p.line), labelUrl: S(p.labelUrl),
+        clientSafe: p.clientSafe,
+        /* an Italian authorisation date is not a European one and says
+           nothing about the substance's EU approval */
+        scope: 'ITALIAN_AUTHORISATION',
+        isOpportunity: false, isRisk: false, isNonRenewal: false,
+        provenance: P.CANONICAL, raw: p.raw || p,
+      }),
+      validate: (r) => (!r.product ? 'no product' : !r.expiryISO ? 'unparseable expiry' : null),
+    },
     {
       source: 'ITALY_INGEST.PRODUCTS · expiry',
       precedence: P.REAL_SOURCE,
@@ -2223,15 +3248,146 @@
         daysToExpiry: daysFrom(isoOf(p.expiry)),
         expired: daysFrom(isoOf(p.expiry)) !== null && daysFrom(isoOf(p.expiry)) < 0,
         regCat: S(p.regCat), line: S(p.line), labelUrl: S(p.labelUrl),
+        scope: 'ITALIAN_AUTHORISATION',
+        isOpportunity: false, isRisk: false, isNonRenewal: false,
         provenance: provOf(p, P.REAL_SOURCE), raw: p,
       }),
       validate: (r) => (!r.product ? 'no product' : !r.expiryISO ? 'unparseable expiry' : null),
     },
-  ], 'authorisation expiry dates published by the national registry; a date the registry states, not a forecast');
+  ], 'Italian authorisation expiry dates published by the national registry; a date the registry states, never a forecast and never an action');
+
+  /* ---- REGULATORY FUTURE FACTS · 47 dates, all client-safe --------------- */
+  const regulatoryFutureFacts = build('regulatoryFutureFacts', [
+    V21('regulatoryFutureFacts', (f) => Object.assign(v21spine(f), {
+      activeIngredient: S(f.ACTIVE_INGREDIENT),
+      activeIngredientId: S(f.ACTIVE_INGREDIENT_ID),
+      euState: S(f.EU_STATE),
+      euExpirationOfApproval: isoOf(f.EU_EXPIRATION_OF_APPROVAL),
+      euExpirationRaw: S(f.EU_EXPIRATION_OF_APPROVAL),
+      daysToEuExpiration: daysFrom(isoOf(f.EU_EXPIRATION_OF_APPROVAL)),
+      euCelex: S(f.EU_CELEX),
+      /* THE FOUR SEMANTICS, from the record, never from a rule here. */
+      isOpportunity: f.IS_OPPORTUNITY === true,
+      isRisk: f.IS_RISK === true,
+      isNonRenewal: false,
+      /* NOT_A_CLAIM and GEOGRAPHY_LAW are the package's own interpretation
+         rules, and the package wrote them in Portuguese with no _IT variant.
+         The SAME two rules are also carried by WHAT_IT_DOES_NOT_PROVE, which
+         the package DID approve in Italian and which measures CLEAR on 47/47:
+         "LA SCADENZA DELL'APPROVAZIONE NON È UN MANCATO RINNOVO ... NON è
+         rischio regolatorio, NON è rischio commerciale, NON è opportunità. E LO
+         STATO EUROPEO NON È LA COMMERCIABILITÀ ITALIANA."
+         So notProves is the field a card renders, and these two keep the
+         Portuguese original for traceability under the *Raw suffix, which
+         check PT3 forbids the markup from ever binding. Same law, one language,
+         no chance of a Portuguese sentence reaching an Italian screen. */
+      notAClaimRaw: S(f.NOT_A_CLAIM),
+      geographyLawRaw: S(f.GEOGRAPHY_LAW),
+      italianRegistrations: A(f.ITALIAN_REGISTRATIONS),
+      italianRegistrationCount: N(f.ITALIAN_REGISTRATION_COUNT),
+      commercialCatalogProducts: A(f.COMMERCIAL_CATALOG_PRODUCTS),
+      verifiedLabelCrops: A(f.VERIFIED_LABEL_CROPS),
+      verifiedLabelCropsState: S(f.VERIFIED_LABEL_CROPS_STATE),
+      scope: 'EUROPEAN_APPROVAL',
+      /* a fact may be shown with its caveat; it may never be an ACT NOW */
+      mayBecomeAnAction: false,
+      mayBecomeAnOpportunity: false,
+    })),
+  ], 'European approval expiry per active substance: a published date with its caveat, never a risk, never a non-renewal and never an opportunity');
+  v21law(regulatoryFutureFacts, 'regulatoryFutureFacts');
+  Object.assign(regulatoryFutureFacts, {
+    opportunityCount: regulatoryFutureFacts.records.filter((f) => f.isOpportunity).length,
+    riskCount: regulatoryFutureFacts.records.filter((f) => f.isRisk).length,
+    factsAreNotOpportunities: '47 facts are 47 facts; none of them becomes an opportunity by being counted',
+  });
+
+  /* ---- REGULATORY FUTURE SIGNALS · 28 written readings, 6 client-safe ---- */
+  const regulatoryFutureSignals = build('regulatoryFutureSignals', [
+    V21('regulatoryFuture', (r) => Object.assign(v21spine(r), {
+      regionKeys: regionsFromV21Ids(r.REGION_IDS),
+      scope: 'EUROPEAN_PROCEDURE',
+      isOpportunity: false, isRisk: false, isNonRenewal: false,
+      extensionIsNotRenewal: 'PRORROGAZIONE NON È RINNOVO: draft, discussion and meeting are not a final decision',
+    })),
+  ], 'written readings of the European renewal procedure; an extension is not a renewal and a draft is not a decision');
+  v21law(regulatoryFutureSignals, 'regulatoryFuture');
+
+  /* ---- ACTIVE INGREDIENTS · the substance as an ENTITY ------------------
+     LAW: an active substance is an ENTITY, not a text field on a product.
+     Every component of a mixture is its own entity, so a mixture NEVER
+     collapses into one mode of action, and an absent FRAC code means the
+     substance has no FRAC listing — not that nobody looked. */
+  const activeIngredients = build('activeIngredients', [
+    V21('activeIngredients', (a) => Object.assign(v21spine(a), {
+      name: S(a.NAME), normalizedName: S(a.NORMALIZED_NAME),
+      italianRegistrationCount: N(a.ITALIAN_REGISTRATION_COUNT),
+      hrac: A(a.HRAC), hracWssa: A(a.HRAC_WSSA), chemicalFamily: S(a.CHEMICAL_FAMILY),
+      irac: A(a.IRAC), iracSubgroup: A(a.IRAC_SUBGROUP),
+      frac: A(a.FRAC), fracSourceVersion: S(a.FRAC_SOURCE_VERSION),
+      fracDocumentSha256: S(a.FRAC_DOCUMENT_SHA256),
+      moaState: S(a.MOA_STATE),
+      euState: S(a.EU_STATE),
+      euDateOfApproval: isoOf(a.EU_DATE_OF_APPROVAL),
+      euExpirationOfApproval: isoOf(a.EU_EXPIRATION_OF_APPROVAL),
+      euRenewalState: S(a.EU_RENEWAL_STATE),
+      euCelex: S(a.EU_CELEX),
+      cas: S(a.CAS), cipac: S(a.CIPAC),
+      isOpportunity: false, isRisk: false, isNonRenewal: false,
+    })),
+  ], 'active substances as entities; a mixture never becomes one mode of action and an absent FRAC code is an absent listing');
+  v21law(activeIngredients, 'activeIngredients');
+
+  /* ---- PRODUCT x ACTIVE INGREDIENT · one row per COMPONENT --------------
+     LAW: a product with two actives makes two rows. Summing rows does not
+     count products, so the distinct product count is published beside the
+     row count rather than left to be derived by whoever reads it. */
+  const productActiveIngredients = build('productActiveIngredients', [
+    V21('products.activeIngredients', (r) => Object.assign(v21spine(r), {
+      productId: S(r.PRODUCT_ID), product: S(r.PRODUCT_NAME), productKey: U(r.PRODUCT_NAME),
+      reg: S(r.REGISTRATION_NUMBER),
+      activeIngredientId: S(r.ACTIVE_INGREDIENT_ID),
+      activeIngredient: S(r.ACTIVE_INGREDIENT),
+      isMixtureComponent: r.IS_MIXTURE_COMPONENT === true,
+      componentsInProduct: N(r.COMPONENTS_IN_PRODUCT),
+      commercialCatalogProducts: A(r.COMMERCIAL_CATALOG_PRODUCTS),
+    })),
+  ], 'one row per product component; rows are components, never products');
+  v21law(productActiveIngredients, 'products.activeIngredients');
+  Object.assign(productActiveIngredients, {
+    distinctProducts: uniq(productActiveIngredients.safeRecords.map((r) => r.productKey)).length,
+    distinctIngredients: uniq(productActiveIngredients.safeRecords.map((r) => r.activeIngredientId)).length,
+    rowsAreNotProducts: 'summing these rows counts components, not products',
+  });
 
   /* ---- FUTURE ----------------------------------------------------------- */
+  /* 2 of the 3 rows are CLIENT_SAFE=false and therefore travel as identity
+     only. They are the SAME records ITALY_INGEST carries (IT-FUT-001..003,
+     ORIGIN_LAYER PREVIOUS_HANDOFF), so the previous handoff fills what the
+     transport did not carry and V2.1 still wins every key it does carry. */
   const futureSignals = build('futureSignals', [
-    V21('futureSignals'),
+    V21('futureSignals', (f) => Object.assign(v21spine(f), {
+      id: S(f.ID) || S(f.SIGNAL_ID),
+      legacyId: S(f.LEGACY_ID),
+      crop: cropResolve(f.CROP).label, cropRaw: S(f.CROP), cropKey: cropResolve(f.CROP).key,
+      cropKeys: cropResolve(f.CROP).keys, cropScope: cropResolve(f.CROP).scope,
+      issue: issueResolve(f.ISSUE).it, issueEn: issueResolve(f.ISSUE).en, issueRaw: S(f.ISSUE),
+      /* REGION is still the analyst's unknown sentence on 2 of 3 */
+      region: UNK(f.REGION), regionScope: regionResolve(f.REGION).scope,
+      regionKeys: REGION_NAMES.filter((n) => fold(String(UNK(f.REGION) || '')).toLowerCase().indexOf(fold(n).toLowerCase()) >= 0),
+      status: S(f.STATUS),
+      whoIsTalking: narrative(f, 'WHO_IS_TALKING'),
+      whatChanged: narrative(f, 'WHAT_CHANGED'),
+      whyWatch: narrative(f, 'WHY_WATCH'),
+      howWeGotHere: narrative(f, 'HOW_SINTONIA_GOT_HERE'),
+      observedFacts: narrative(f, 'OBSERVED_FACTS'),
+      interpretation: narrative(f, 'SINTONIA_INTERPRETATION'),
+      unknown: narrative(f, 'UNKNOWN'),
+      nextWindow: narrative(f, 'NEXT_WINDOW'),
+      portfolioConnection: narrative(f, 'PORTFOLIO_CONNECTION'),
+      whatWouldPromoteIt: narrative(f, 'WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY'),
+      promotedToRadar: S(f.PROMOTED_TO_RADAR),
+      evidenceIds: A(f.EVIDENCE_RECORD_IDS),
+    }), { enrichFrom: RAW.IG.FUTURE_SIGNALS }),
     {
       source: 'ITALY_INGEST.FUTURE_SIGNALS',
       precedence: P.REAL_SOURCE,
@@ -2267,6 +3423,7 @@
       validate: (r) => (!r.id ? 'no ID' : null),
     },
   ], 'upstream future signals with traceable evidence links');
+  v21law(futureSignals, 'futureSignals');
 
   /* Generated presentation scenarios live OUTSIDE the real feed. They never
      count in real totals, source convergence or emerging-topic metrics. */
@@ -2281,13 +3438,29 @@
   const windowByLegacyCase = {};
   cropWindows.records.forEach((w) => { if (w.legacyCaseId) windowByLegacyCase[U(w.legacyCaseId)] = w; });
 
-  const opportunities = build('opportunities', [
-    V21('opportunities'),
-    {
-      source: 'ITALY_INGEST.OPPORTUNITIES',
-      precedence: P.REAL_SOURCE,
-      rows: RAW.IG.OPPORTUNITIES,
-      adapt: (o) => {
+  /* ═══════════════════════════════════════════════════════════════════════
+     THESE ARE NOT OPPORTUNITIES, AND THE PACKAGE FORBIDS CALLING THEM THAT.
+     Measured on all three records, and none of it is a judgement made here:
+         ENTITY_TYPE      OPPORTUNITY_CANDIDATE
+         QA_STATUS        EVIDENCE_DERIVED
+         CLIENT_SAFE      false          → collections.opportunities.clientSafe = 0
+         CASE_LABEL       «CONVERGENCIA QUE MERECE INVESTIGACAO»
+         FORBIDDEN_LABEL  the record telling the interface what it may NOT say
+     Nothing rounds that zero up. A regulatory future fact never becomes one of
+     these either: 47 facts are 47 facts, and they live in their own collection
+     with isOpportunity false on every row.
+
+     All three are CLIENT_SAFE=false, so V2.1 transported identity and QA state
+     only — CASE_LABEL, FORBIDDEN_LABEL and the method statement are not in the
+     browser copy of the package. They are the SAME records the previous
+     handoff carries (identical ids, and V2.1's own ORIGIN_LAYER says
+     PREVIOUS_HANDOFF), so the previous handoff fills exactly what the
+     transport left out and V2.1 wins every key it does carry. Without that
+     merge the radar would show three empty shells and the mandatory label
+     would disappear — which would be worse than the leak the transport
+     prevents, because the label is the thing that stops the word
+     "opportunity" being used. */
+  const adaptOpportunity = (o) => {
         const w = windowByLegacyCase[U(o.LEGACY_CASE_ID)] || null;
         const wih = o.WHAT_IS_HAPPENING && typeof o.WHAT_IS_HAPPENING === 'object' ? o.WHAT_IS_HAPPENING : {};
         const wim = o.WHY_IT_MATTERS && typeof o.WHY_IT_MATTERS === 'object' ? o.WHY_IT_MATTERS : {};
@@ -2361,12 +3534,23 @@
           scienceContextState: S(sci.STATE),
           scienceContextCounts: Object.keys(sci).filter((k) => k !== 'STATE' && k !== 'SOURCE_ID').map((k) => ({ label: k, value: sci[k] })),
           fieldVoices: narrative(o, 'FIELD_VOICES'),
+          /* WHAT_WE_KNOW, WHAT_WE_DO_NOT_KNOW and INTERPRETATIONS are
+             Portuguese ARRAYS with no localized variant anywhere in the
+             package. They go through the same gate as any other prose: the
+             narrative field reports NOT_APPROVED_FOR_DISPLAY, and the list
+             keeps its LENGTH — which is a real fact, "there are three things
+             we do not know" — while every item is replaced by its knowledge
+             state. The count survives; the untranslated sentence cannot reach
+             a screen even if a view binds the array by accident. */
           whatWeKnow: narrative(o, 'WHAT_WE_KNOW'),
-          whatWeKnowList: A(o.WHAT_WE_KNOW),
+          whatWeKnowCount: A(o.WHAT_WE_KNOW).length,
+          whatWeKnowList: A(o.WHAT_WE_KNOW).map(() => KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY),
           whatWeDoNotKnow: narrative(o, 'WHAT_WE_DO_NOT_KNOW'),
-          whatWeDoNotKnowList: A(o.WHAT_WE_DO_NOT_KNOW),
+          whatWeDoNotKnowCount: A(o.WHAT_WE_DO_NOT_KNOW).length,
+          whatWeDoNotKnowList: A(o.WHAT_WE_DO_NOT_KNOW).map(() => KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY),
           interpretations: narrative(o, 'INTERPRETATIONS'),
-          interpretationsList: A(o.INTERPRETATIONS),
+          interpretationsCount: A(o.INTERPRETATIONS).length,
+          interpretationsList: A(o.INTERPRETATIONS).map(() => KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY),
           adamaProducts: A(o.ADAMA_PRODUCTS),
           adamaActiveSubstance: A(o.ADAMA_ACTIVE_SUBSTANCE),
           /* WINDOW is an object {APPLICATION, MONITORING, NEXT_CYCLE}, already
@@ -2387,16 +3571,48 @@
           sourceIdsResolve: A(o.SOURCE_IDS).every((s) => !!sourceById[U(s)]),
           ui: categoryOf(UNK(o.ISSUE_TYPE)),
           provenance: provOf(o, P.REAL_SOURCE), raw: o,
+          /* THE MANDATORY LABEL AND WHAT IT FORBIDS, restated as state so a
+             view cannot render the card without them. */
+          isCandidate: true,
+          candidateState: 'DA_VALIDARE',
+          mayBeCalledAnOpportunity: false,
+          forbiddenLabelReason: 'the record itself names what this may not be called',
         };
-      },
-      /* An opportunity does NOT have to name a crop. IT-OPP-003 is the
-         authorisation-expiry case, which the source itself describes as
-         "transversal, não é uma cultura" — portfolio-wide. Requiring a crop
-         silently rejected a real record and the radar showed 2 where upstream
-         supplied 3. Only the identity is mandatory. */
+  };
+
+  /* An opportunity candidate does NOT have to name a crop. IT-OPP-003 is the
+     authorisation-expiry case, which the source itself describes as
+     "transversal, não é uma cultura" — portfolio-wide. Requiring a crop
+     silently rejected a real record and the radar showed 2 where upstream
+     supplied 3. Only the identity is mandatory. */
+  const opportunities = build('opportunities', [
+    V21('opportunities', (o) => Object.assign(v21spine(o), adaptOpportunity(o), {
+      /* the V2.1 spine wins on identity and QA state, which is what makes the
+         gate readable: entityType OPPORTUNITY_CANDIDATE, clientSafe false */
+      entityType: S(o.ENTITY_TYPE), qaStatus: S(o.QA_STATUS), clientSafe: CS(o),
+      payloadState: CS(o) ? 'FULL' : 'IDENTITY_ONLY',
+      /* the payload below did not travel in the V2.1 copy and is filled from
+         the same record in the previous handoff — declared, not inferred */
+      payloadFilledFrom: CS(o) ? null : 'ITALY_INGEST.OPPORTUNITIES · same ID',
+      provenance: v21prov(o),
+    }), { enrichFrom: RAW.IG.OPPORTUNITIES }),
+    {
+      source: 'ITALY_INGEST.OPPORTUNITIES',
+      precedence: P.REAL_SOURCE,
+      rows: RAW.IG.OPPORTUNITIES,
+      adapt: adaptOpportunity,
       validate: (r) => (!r.id ? 'no ID' : null),
     },
-  ], 'upstream opportunity intelligence; the real radar feed');
+  ], 'convergences that merit investigation — CANDIDATES, never opportunities; client-safe is 0 by the package’s own rule and nothing rounds it up');
+  v21law(opportunities, 'opportunities');
+  Object.assign(opportunities, {
+    /* published so a transparency panel can state the rule rather than infer
+       it from an absence */
+    candidateLabel: uniq(opportunities.records.map((o) => o.caseLabel))[0] || null,
+    forbiddenLabel: uniq(opportunities.records.map((o) => o.forbiddenLabel))[0] || null,
+    mayBeCalledOpportunities: false,
+    clientSafeIsZeroByRule: opportunities.clientSafe === 0,
+  });
 
   /* The product links an opportunity asserts, graded by the label audit rather
      than believed. MEASURED: with the raw Portuguese crop and issue all six
@@ -2446,18 +3662,93 @@
     { source: 'ITALY_DEMO.CASES' }
   );
 
-  /* ---- AGROMET · CROSSINGS ---------------------------------------------
-     No upstream table yet. An empty collection is a valid answer and is
-     reported as empty rather than filled with invented rows. */
-  const agrometConditions = build('agrometConditions', [V21('agrometConditions')], 'agrometeorological conditions; awaiting an upstream table');
-  const clientSafeCrossings = build('clientSafeCrossings', [V21('clientSafeCrossings')], 'audited cross-domain crossings; awaiting an upstream table');
+  /* ---- AGROMET ----------------------------------------------------------
+     Was empty; V2.1 supplies 44 rows, 14 client-safe. LAW: CLIMATE IS A
+     CONDITION. It is not the presence of a disease, not pest incidence and not
+     a loss, and any climate x crop x disease crossing is Sintonia's own
+     interpretation, never the source's. The caveat travels per row. */
+  const agrometConditions = build('agrometConditions', [
+    V21('agromet', (a) => Object.assign(v21spine(a), {
+      regionKeys: regionsFromV21Ids(a.REGION_IDS),
+      cropKeys: cropsFromV21Ids(a.CROP_IDS),
+      conditionIsNotIncidence: true,
+      crossingWouldBeInterpretation: true,
+    })),
+  ], 'agrometeorological conditions; a condition is never an incidence, a presence or a loss');
+  v21law(agrometConditions, 'agromet');
+
+  /* ---- CLIENT-SAFE CROSSINGS -------------------------------------------
+     19 rows, 0 client-safe, and the package is emphatic about why: a crossing
+     is the observation that two layers speak about the same CROP_ID, and
+     A CROSSING IS NOT AN OPPORTUNITY — a person decides whether it is worth
+     anything. All 19 travel as identity only, so the model can count them and
+     has nothing to render; RENDERABLE_WITH_METHOD, the supporting id lists and
+     the method statement did not cross the transport. That is stated here
+     rather than filled in from somewhere else. */
+  const clientSafeCrossings = build('clientSafeCrossings', [
+    V21('crossings', (c) => Object.assign(v21spine(c), {
+      crossingType: S(c.CROSSING_TYPE),
+      cropId: S(c.CROP_ID),
+      cropKeys: cropsFromV21Ids([c.CROP_ID]),
+      /* THE RELATION CARRIES IDS ONLY. Copying the crossed objects in would
+         create two owners of one fact, so the supporting records are named and
+         never embedded. */
+      supportingIds: (c.SUPPORTING_IDS && typeof c.SUPPORTING_IDS === 'object') ? c.SUPPORTING_IDS : null,
+      supportingQa: A(c.SUPPORTING_QA),
+      allSupportClientSafe: c.ALL_SUPPORT_CLIENT_SAFE === true,
+      distinctSourceDocuments: N(c.DISTINCT_SOURCE_DOCUMENTS),
+      /* the geography law of a crossing: the crossing claims no geography,
+         and provincial supports never stand for their region */
+      geographicClaim: S(c.GEOGRAPHIC_CLAIM),
+      geographicClaimScope: S(c.GEOGRAPHIC_CLAIM_SCOPE),
+      geographicClaimLaw: S(c.GEOGRAPHIC_CLAIM_LAW),
+      coverageProvinces: A(c.GEOGRAPHIC_COVERAGE_PROVINCES),
+      coverageRegions: A(c.GEOGRAPHIC_COVERAGE_REGIONS),
+      supportsThatDoNotRepresentRegion: A(c.SUPPORTS_THAT_DO_NOT_REPRESENT_REGION),
+      /* the three lead lists, each with the law that keeps it a lead */
+      labelLinkStrengths: (c.LABEL_LINK_STRENGTHS && typeof c.LABEL_LINK_STRENGTHS === 'object') ? c.LABEL_LINK_STRENGTHS : null,
+      economicWeightLeads: A(c.ECONOMIC_WEIGHT_LEADS),
+      economicWeightLeadsLaw: narrative(c, 'ECONOMIC_WEIGHT_LEADS_LAW'),
+      researchLeads: A(c.RESEARCH_LEADS),
+      researchLeadsLaw: S(c.RESEARCH_LEADS_LAW),
+      invariantsProven: A(c.INVARIANTS_PROVEN),
+      invariantsNotApplicable: A(c.INVARIANTS_NOT_APPLICABLE),
+      /* the record's own rendering rule: it may appear on screen, but only
+         with what it does not prove beside it — never behind a "read more" */
+      renderableWithMethod: c.RENDERABLE_WITH_METHOD === true,
+      renderRule: S(c.RENDER_RULE),
+      whyNotClientSafe: S(c.WHY_NOT_CLIENT_SAFE),
+      letsYouAsk: narrative(c, 'WHAT_IT_LETS_YOU_ASK'),
+      isOpportunity: false,
+      crossingIsNotOpportunity: 'two layers speaking about the same crop is an observation; whether it is worth anything is a person’s decision',
+    })),
+  ], 'crossings between layers over the same crop; never an opportunity, and none of the 19 is client-safe');
+  v21law(clientSafeCrossings, 'crossings');
 
   /* ---- RELATIONSHIPS · the generic graph -------------------------------
      A crossing exists only when a normalized relationship supports it. Sharing
      a crop name is not a relationship, so nothing is generated here from a
      name match. */
+  /* V2.1 RELATIONSHIPS.json is the same 19 crossing ids under a second file
+     name, and it is subject to the same law: THE RELATIONS CARRY IDS ONLY.
+     Copying the object into the relation would create two owners of one fact,
+     so nothing is embedded here. All 19 are CLIENT_SAFE=false, so the LINKS
+     map did not travel and the edge lists are empty — counted, not invented. */
   const relationships = build('relationships', [
-    V21('relationships'),
+    V21('relationships', (r) => Object.assign(v21spine(r), {
+      crossingType: S(r.CROSSING_TYPE),
+      cropId: S(r.CROP_ID),
+      from: S(r.ID), fromKind: 'crossing',
+      to: S(r.CROP_ID), toKind: 'crop',
+      kind: S(r.CROSSING_TYPE) || 'CROSSING',
+      evidence: 'declared V2.1 crossing',
+      links: r.LINKS && typeof r.LINKS === 'object' ? r.LINKS : null,
+      linksState: r.LINKS ? 'DECLARED' : 'NOT_DECLARED',
+      linkedIds: r.LINKS && typeof r.LINKS === 'object'
+        ? uniq(Object.keys(r.LINKS).flatMap((k) => A(r.LINKS[k]))) : [],
+      renderableWithMethod: r.RENDERABLE_WITH_METHOD === true,
+      idsOnly: true,
+    })),
     {
       source: 'derived · window ↔ opportunity ↔ source',
       precedence: P.REAL_DERIVED,
@@ -2471,6 +3762,7 @@
       validate: (r) => (!r.from || !r.to ? 'incomplete edge' : null),
     },
   ], 'declared relationships only; a shared crop name is never a relationship');
+  v21law(relationships, 'relationships');
 
   /* ---- ARCHIVE · an index over the normalized model --------------------- */
   /* Three rules this index has to obey and did not before.
@@ -2690,8 +3982,10 @@
     /* products */
     productsRegulatory, productsCommercial, productRelationships,
     products: productsColl, labelVerdicts, regulatoryLinks, portfolioLinksByCrop,
+    activeIngredients, productActiveIngredients,
     /* agronomy */
-    cropWindows, currentFieldSignals, cropEconomicWeight,
+    cropWindows, currentFieldSignals, fieldBulletins,
+    cropEconomicWeight, cropLabelReach,
     windowCalendarRows, windowsByRegion,
     /* market */
     marketObservations, marketByCrop, marketSummaries,
@@ -2703,8 +3997,9 @@
     scienceRecords, researchers, scienceThemes, resistance, scienceInstitutions,
     /* voices and people */
     publicVoices, publicChannels, publicPeople, people,
-    /* future */
-    regulatoryFuture, agrometConditions, futureEvents,
+    /* future — three different regulatory clocks, never one */
+    regulatoryFuture, regulatoryFutureFacts, regulatoryFutureSignals,
+    agrometConditions, futureEvents,
     opportunities, futureSignals,
     /* registry */
     sources, events: futureEvents, news,
@@ -2732,8 +4027,11 @@
     productRelationships: 'Relazioni prodotto', products: 'Portafoglio',
     labelVerdicts: 'Audit etichette', regulatoryLinks: "Righe d'uso autorizzate",
     portfolioLinksByCrop: "Righe d'uso per coltura",
+    activeIngredients: 'Sostanze attive', productActiveIngredients: 'Prodotto × sostanza attiva',
     cropWindows: 'Finestre colturali canoniche', currentFieldSignals: 'Letture di campo e atti regionali',
-    cropEconomicWeight: 'Portata delle etichette per coltura',
+    fieldBulletins: 'Bollettini fitosanitari',
+    cropEconomicWeight: 'Peso economico delle colture',
+    cropLabelReach: 'Portata delle etichette per coltura',
     windowCalendarRows: 'Calendario finestre', windowsByRegion: 'Finestre per regione',
     marketObservations: 'Osservazioni di prezzo', marketByCrop: 'Mercato per coltura',
     marketSummaries: 'Analisi di mercato (manifesto)',
@@ -2745,8 +4043,11 @@
     resistance: 'Casi di resistenza confermati', scienceInstitutions: 'Istituzioni (affiliazione autore)',
     publicVoices: 'Voci pubbliche', publicChannels: 'Canali pubblici', publicPeople: 'Persone con evidenza pubblica',
     people: 'Persone / Ricercatori',
-    regulatoryFuture: 'Scadenze di autorizzazione', agrometConditions: 'Condizioni agrometeo',
-    futureEvents: 'Eventi di settore', opportunities: 'Convergenze a monte', futureSignals: 'Segnali futuri',
+    regulatoryFuture: 'Scadenze di autorizzazione italiane',
+    regulatoryFutureFacts: 'Scadenze di approvazione europee (fatti)',
+    regulatoryFutureSignals: 'Letture sul rinnovo europeo',
+    agrometConditions: 'Condizioni agrometeo',
+    futureEvents: 'Eventi di settore', opportunities: 'Convergenze da validare', futureSignals: 'Segnali futuri',
     sources: 'Registro delle fonti', news: 'Stampa tecnica',
     relationships: 'Relazioni dichiarate', clientSafeCrossings: 'Incroci verificati',
     archive: 'Archivio (indice)',
@@ -2779,6 +4080,37 @@
   });
 
   const counts = Object.keys(collections).reduce((a, k) => { a[k] = collections[k].count; return a; }, {});
+  /* THE GATE, AS A TABLE THE TRANSPARENCY PANEL CAN PRINT.
+     Three numbers per layer, never one: how many records the layer holds, how
+     many of them may sustain a client-visible claim, and how large the corpus
+     behind them is. `clientSafe: null` means the source predates the flag and
+     must be printed as "non dichiarato", never as 0. */
+  const clientSafeSummary = primaryKeys.map((k) => {
+    const c = collections[k];
+    return {
+      layer: k,
+      label: LAYER_LABEL[k] || k,
+      count: c.count,
+      clientSafe: c.clientSafe,
+      corpusOnly: c.corpusOnlyCount || 0,
+      corpus: c.corpus,
+      state: c.clientSafeState,
+      identityOnly: c.identityOnlyCount || 0,
+      law: c.law || null,
+      v21Family: c.v21Family || null,
+      declaredTotal: c.declaredTotal === undefined ? null : c.declaredTotal,
+      declaredClientSafe: c.declaredClientSafe === undefined ? null : c.declaredClientSafe,
+      countReconciles: c.countReconciles === undefined ? null : c.countReconciles,
+      clientSafeReconciles: c.clientSafeReconciles === undefined ? null : c.clientSafeReconciles,
+    };
+  });
+  const clientSafeTotals = clientSafeSummary.reduce((a, r) => ({
+    records: a.records + r.count,
+    clientSafe: a.clientSafe + (typeof r.clientSafe === 'number' ? r.clientSafe : 0),
+    corpusOnly: a.corpusOnly + r.corpusOnly,
+    declaredLayers: a.declaredLayers + (r.state === 'DECLARED' ? 1 : 0),
+    undeclaredLayers: a.undeclaredLayers + (r.state === 'DECLARED' ? 0 : 1),
+  }), { records: 0, clientSafe: 0, corpusOnly: 0, declaredLayers: 0, undeclaredLayers: 0 });
   const totals = provenanceSummary.reduce(
     (a, r) => ({ total: a.total + r.total, real: a.real + r.real, derived: a.derived + r.derived, demo: a.demo + r.demo }),
     { total: 0, real: 0, derived: 0, demo: 0 }
@@ -2827,7 +4159,14 @@
       },
       /* enum-keyed presentation and grouping tables */
       enums: {
-        sourceGroup: rate(sources.count, sources.records.filter((r) => r.group).length),
+        /* Measured over the sources that DECLARE A TYPE, which after V2.1 is
+           the 31 client-safe registry rows: the other 158 are corpus stubs
+           that carry an id and a QA state and nothing else, so they have no
+           TYPE to group and their absence is not a join coming unhooked. The
+           guarantee is unchanged and still exact — every source that names a
+           type resolves to a group — only the denominator now says which
+           rows were actually asked the question. */
+        sourceGroup: rate(sources.records.filter((r) => r.type).length, sources.records.filter((r) => r.group).length),
         personCategory: rate(people.records.length, people.records.filter((r) => PERSON_CATEGORY_LABEL[U(r.category)]).length),
         themeUi: rate(researchers.count, researchers.records.filter((r) => r.themeLabel).length),
         windowStatus: rate(cropWindows.count, cropWindows.records.filter((r) => STATUS_UI[U(r.status)]).length),
@@ -2855,10 +4194,49 @@
     ['currentFieldSignals', currentFieldSignals.records, ['expectedCycle', 'observedStage', 'regulatoryWindow', 'preparationWindow', 'adamaProductsNote']],
     ['resistance', resistance.records, ['mechanism']],
     ['futureEvents', futureEvents.records, ['note', 'participationLaw']],
-    ['sources', sources.records, ['role', 'limitations']],
+    ['sources', sources.records, ['role', 'limitations', 'accessEvidence', 'routeEvidenceNote']],
+    /* the families V2.1 added or rewrote */
+    ['currentFieldSignals·v21', currentFieldSignals.records, ['nextImportantWindow', 'fieldReportedStage', 'evidenceStatusWhy']],
+    ['fieldBulletins', fieldBulletins.records, ['interventionGuidance', 'evidenceStatusWhy']],
+    ['regulatoryLinks', regulatoryLinks.records, ['linkMeans', 'notProves', 'evidenceStatusWhy']],
+    ['productsRegulatory', productsRegulatory.records, ['evidenceStatusWhy']],
+    ['productsCommercial', productsCommercial.records, ['commercialContractWhy']],
+    ['activeIngredients', activeIngredients.records, ['notProves']],
+    ['productActiveIngredients', productActiveIngredients.records, ['notProves', 'evidenceStatusWhy']],
+    ['regulatoryFutureFacts', regulatoryFutureFacts.records, ['proves', 'notProves']],
+    ['regulatoryFutureSignals', regulatoryFutureSignals.records, ['whatItIs', 'proves', 'notProves']],
+    ['agrometConditions', agrometConditions.records, ['whatItIs', 'proves', 'notProves']],
+    ['cropEconomicWeight', cropEconomicWeight.records, ['whatItIs', 'proves', 'notProves', 'summaryClaimNote']],
+    ['marketObservations', marketObservations.records, ['evidenceStatusWhy', 'seriesWarningText']],
+    ['competitorActivities', competitorActivities.records, ['evidenceStatusWhy']],
+    ['publicVoices·v21', publicVoices.records, ['notProves', 'roleEvidence']],
+    ['resistance·v21', resistance.records, ['multipleResistance']],
+    ['scienceRecords', scienceRecords.records, ['evidenceStatusWhy']],
+    ['researchers', researchers.records, ['evidenceStatusWhy']],
+    ['publicChannels', publicChannels.records, ['evidenceStatusWhy']],
   ];
   NARRATIVE_FIELDS.forEach(([family, recs, fields]) =>
     fields.forEach((f) => noteNarrative(family, f, recs.filter((r) => r[f] && r[f].state === KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY).length)));
+
+  /* THE OTHER HALF OF THE SAME MEASUREMENT, and the point of the V2.1
+     package: how many narrative fields the upstream HAS now localized. Debt
+     alone reads like a verdict on the model; published beside the credit it
+     reads like what it is — a state of the upstream reading. */
+  const narrativeCredit = [];
+  NARRATIVE_FIELDS.forEach(([family, recs, fields]) =>
+    fields.forEach((f) => {
+      const n = recs.filter((r) => r[f] && r[f].state === KNOWLEDGE.CLEAR).length;
+      if (n) narrativeCredit.push({ family, field: f, records: n });
+    }));
+  const narrativeState = {
+    clearRecords: narrativeCredit.reduce((a, r) => a + r.records, 0),
+    notApprovedRecords: narrativeDebt.reduce((a, r) => a + r.records, 0),
+    clearFields: narrativeCredit.length,
+    notApprovedFields: narrativeDebt.length,
+    credit: narrativeCredit,
+    debt: narrativeDebt,
+    rule: 'a prose field is shown only when the upstream supplies an approved *_IT / *_EN variant',
+  };
 
   /* ── 9 · SEARCH INDEX ───────────────────────────────────────────────────
      One index over the normalized model, in both languages. A search result
@@ -2964,8 +4342,19 @@
     futureEvents: ['name', 'url', 'startDate', 'organizer', 'cropRelevance'],
     news: ['publisher', 'url', 'dateISO', 'region', 'publisherSourceId'],
     publicChannels: ['url', 'platform', 'exampleTitle'],
-    regulatoryLinks: ['cropKey', 'target', 'labelUrl', 'timing'],
+    regulatoryLinks: ['cropKey', 'target', 'targetOnLabel', 'linkStrength', 'quoteFromLabel', 'labelUrl', 'timing'],
     regulatoryFuture: ['expiryISO', 'holder', 'status'],
+    regulatoryFutureFacts: ['activeIngredient', 'euExpirationOfApproval', 'euCelex', 'italianRegistrations', 'geographyLaw'],
+    regulatoryFutureSignals: ['whatItIs', 'proves', 'notProves'],
+    activeIngredients: ['normalizedName', 'moaState', 'euState', 'euExpirationOfApproval', 'cas', 'frac', 'hrac', 'irac'],
+    productActiveIngredients: ['productKey', 'activeIngredientId', 'componentsInProduct'],
+    fieldBulletins: ['title', 'geographyState', 'regionRepresents', 'interventionGuidance', 'citation'],
+    cropEconomicWeight: ['cropKeys', 'isSummaryClaim', 'whatItIs', 'observationClass'],
+    cropLabelReach: ['crop', 'productsMentioning', 'productsWithUseRow'],
+    agrometConditions: ['whatItIs', 'regionKeys', 'observationClass'],
+    clientSafeCrossings: ['crossingType', 'cropId'],
+    productsCommercial: ['category', 'catalogUrl', 'regId', 'holder', 'commercialContract'],
+    productsRegulatory: ['reg', 'holder', 'ai', 'expiryISO', 'labelUrl', 'crops', 'targets'],
     archive: ['dateISO', 'sourceId', 'crop', 'url'],
     opportunities: ['cropKeys', 'issueKey', 'observationDate', 'freshnessDays', 'windowId'],
   };
@@ -3003,7 +4392,7 @@
 
   /* ── 11 · PUBLIC CONTRACT ───────────────────────────────────────────── */
   window.ITALY_APP_MODEL = {
-    version: '3.1',
+    version: '3.2',
     compiled: REFERENCE_DATE,
 
     /* one clock */
@@ -3061,6 +4450,73 @@
     coreRequiresPrivateData: false,
     NOT_OBSERVABLE: P.NOT_OBSERVABLE,
 
+    /* ── THE V2.1 PACKAGE, AS THE MODEL RECEIVED IT ─────────────────────
+       The build id, the three rules the package states about itself, and the
+       per-family manifest. Published so a screen can show WHICH reading it is
+       rendering, and so an auditor can check the model against the package
+       without opening either. */
+    V21: {
+      present: !!V21H,
+      buildId: S(V21H && V21H.BUILD_ID),
+      schemaVersion: S(V21H && V21H.SCHEMA_VERSION),
+      builtAt: S(V21H && V21H.BUILT_AT),
+      referenceDate: S(V21H && V21H.REFERENCE_DATE),
+      clientSafeRule: (V21H && V21H.CLIENT_SAFE_RULE) || null,
+      languageRule: (V21H && V21H.LANGUAGE_RULE) || null,
+      transportLaw: S(V21H && V21H.TRANSPORT_LAW),
+      doubleCountWarning: S(V21H && V21H.DOUBLE_COUNT_WARNING),
+      manifest: A(V21H && V21H.MANIFEST),
+      families: Object.keys(V21C),
+      /* which model collection each V2.1 family became. Two names collide
+         with an older meaning and the mapping says so out loud. */
+      familyToCollection: {
+        'products.regulatory': 'productsRegulatory',
+        'products.commercial': 'productsCommercial',
+        'products.relationships': 'regulatoryLinks',
+        'products.activeIngredients': 'productActiveIngredients',
+        activeIngredients: 'activeIngredients',
+        regulatoryFutureFacts: 'regulatoryFutureFacts',
+        /* NAME COLLISION 1 · V2.1 CROP-WINDOWS.json is the 7-row field
+           reading, not the 29-row audited window contract. */
+        windows: 'currentFieldSignals',
+        fieldSignals: 'fieldBulletins',
+        cropEconomicWeight: 'cropEconomicWeight',
+        market: 'marketObservations',
+        competitors: 'competitorActivities',
+        science: 'scienceRecords',
+        researchers: 'researchers',
+        resistance: 'resistance',
+        voices: 'publicVoices',
+        channels: 'publicChannels',
+        /* NAME COLLISION 2 · V2.1 REGULATORY-FUTURE.json is a set of written
+           readings of the European renewal procedure. The model's
+           `regulatoryFuture` is the ITALIAN authorisation expiry calendar and
+           keeps that name because every screen already reads it. */
+        regulatoryFuture: 'regulatoryFutureSignals',
+        agromet: 'agrometConditions',
+        /* DOUBLE COUNT · EVENTS is the countable collection; FUTURE-EVENTS is
+           applied to it as futureEvents.futureCut, never as a second layer. */
+        events: 'futureEvents',
+        futureEvents: 'futureEvents.futureCut (a view, not a collection)',
+        opportunities: 'opportunities',
+        futureSignals: 'futureSignals',
+        sources: 'sources',
+        news: 'news',
+        relationships: 'relationships',
+        crossings: 'clientSafeCrossings',
+      },
+      /* V2.1 supplies NO canonical 29-window contract, no companies table, no
+         competitor-product table, no bibliometric themes, no people table and
+         no market-summary manifest. Those five families keep their existing
+         source and are listed here so the absence is a statement, not a gap. */
+      notSuppliedByV21: ['cropWindows', 'competitorCompanies', 'competitorProducts',
+        'scienceThemes', 'publicPeople', 'marketSummaries', 'cropLabelReach'],
+    },
+
+    /* the client-safe gate, as numbers a panel can print */
+    clientSafeSummary, clientSafeTotals,
+    narrativeState,
+
     /* data */
     collections, counts, totals, provenanceSummary, provenanceTotals, joinHealth,
     searchIndex, search, searchGrouped, TERMS, cropTerms, issueTerms,
@@ -3087,6 +4543,9 @@
     ingest: {
       report: ingestReport,
       narrativeDebt,
+      narrativeState,
+      v21BuildId: S(V21H && V21H.BUILD_ID),
+      v21Families: Object.keys(V21C).length,
       registeredSources: Object.keys(RAW).filter((k) => RAW[k] && (Array.isArray(RAW[k]) ? RAW[k].length : Object.keys(RAW[k]).length)),
       handoffV21Present: !!RAW.HANDOFF_V21,
       families: primaryKeys,

@@ -105,8 +105,32 @@ R('REAL ENTITY → DEMO SILENT FALLBACKS', check('R2').measured, 0);
 R('AUTOMATED STRUCTURAL TESTS', checks.every((c) => c.pass) ? 'PASS' : `FAIL ${checks.filter((c) => !c.pass).length}/${checks.length}`, 'PASS');
 R('RUNTIME SMOKE TESTS', check('RT1').pass && check('RT2').pass ? 'PASS' : `${check('RT1').measured} IT · ${check('RT2').measured} EN`, 'PASS');
 R('OFFLINE / NO PUBLIC CDN', YN(check('B3').pass), 'YES');
-R('HANDOFF V2.1 INGESTED', YN(!check('H1').pass), 'NO');
-R('V2.1 COLLECTION SLOTS READY', check('M3').pass ? '23 slots' : check('M3').measured, '23 slots');
+/* This report was written BEFORE the canonical package arrived, when the
+   honest answer to "is V2.1 ingested" was NO and the goal was to be READY for
+   it. The package has since landed, so the line now states what was ingested,
+   and the ready rule below is about the ingested build rather than about
+   preparing for one. Leaving the old expectation in place would have printed a
+   green "NO — as expected" over a portal that had in fact ingested V2.1. */
+const V21 = (() => {
+  const ctx = loadData();
+  const V = ctx.ITALY_HANDOFF_V21;
+  const AM = ctx.ITALY_APP_MODEL || {};
+  if (!V) return null;
+  const C = AM.collections || {};
+  const n = (k) => (C[k] ? C[k].count : 0);
+  const safe = (k) => (C[k] ? C[k].clientSafe : null);
+  return { V, AM, C, n, safe };
+})();
+
+R('HANDOFF V2.1 INGESTED', V21 ? 'YES · ' + V21.V.BUILD_ID : 'NO', 'YES');
+R('V2.1 FAMILIES IN THE MODEL', V21 ? String((V21.V.MANIFEST || []).length) + ' families' : '0', '26 families');
+R('OPPORTUNITIES · CLIENT-SAFE', V21 ? V21.n('opportunities') + ' · ' + V21.safe('opportunities') : '—', '3 · 0');
+R('COMMERCIAL vs REGULATORY', V21 ? V21.n('productsCommercial') + ' vs ' + V21.n('productsRegulatory') : '—', '51 vs 163');
+R('LABEL-USE ROWS PRESERVED', V21 ? String(V21.n('regulatoryLinks')) : '—', '2030');
+R('REGULATORY FUTURE FACTS', V21 ? V21.n('regulatoryFutureFacts') + ' · ' + V21.safe('regulatoryFutureFacts') : '—', '47 · 47');
+R('CROP WINDOWS PRESERVED', V21 ? String(V21.n('cropWindows')) : '—', '29');
+R('PORTUGUESE BOUND BY MARKUP', check('PT1').pass ? '0' : check('PT1').measured, '0');
+R('PUBLIC UPLOAD CLEAN', YN(check('X2').pass), 'YES');
 
 /* the hard ready rule, §37 */
 const BLOCKERS = [
@@ -146,7 +170,12 @@ if (md) {
   console.log('\n  SINTONIA ITALY · FINAL ACCEPTANCE');
   console.log('  ' + '─'.repeat(94));
   rows.forEach((r) => {
-    const ok = String(r.measured) === String(r.expected) || String(r.expected).startsWith('(');
+    /* A measured value may carry its evidence alongside the answer, e.g.
+       "YES · V21-843baf4229d93598" against an expectation of "YES". That is the
+       same answer with the build id attached, not a mismatch. */
+    const ok = String(r.measured) === String(r.expected)
+      || String(r.expected).startsWith('(')
+      || String(r.measured).startsWith(String(r.expected) + ' · ');
     console.log(`  ${String(r.item).padEnd(44)} ${(ok ? G : RD)}${String(r.measured).padEnd(22)}${X}${DIM}exp ${r.expected}${X}`);
   });
   console.log('  ' + '─'.repeat(94));

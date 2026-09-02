@@ -27,7 +27,10 @@
     navSources: 'Fonti',
 
     // ── page subtitles ───────────────────────────────────
-    subRadar: 'Dove ADAMA può agire o prepararsi ora — pressione fitosanitaria, tempistica colturale, coerenza di portafoglio e movimento di mercato.',
+    /* Was: 'Dove ADAMA può agire o prepararsi ora'. Nothing on this screen may be
+       acted on yet — 0 of the 3 records is client-safe — so the subtitle says what
+       the screen holds instead of what ADAMA may do with it. */
+    subRadar: 'Convergenze candidate, da validare prima di qualsiasi lettura commerciale — pressione fitosanitaria, tempistica colturale, coerenza di portafoglio e movimento di mercato.',
     subWindows: 'Orologio del campo e orologio commerciale su un\'unica linea temporale — quando la coltura ha bisogno di protezione e quando deve iniziare il lavoro commerciale.',
     subMarket: 'Il contesto economico attorno alle opportunità agronomiche di ADAMA — condizioni, dinamica, offerta, fiducia e prospettive. Non è una previsione di vendita.',
     subScience: 'Cosa la scienza può cambiare per ADAMA Italia — rischio di portafoglio, lacuna di portafoglio, posizionamento e preparazione del ciclo successivo. Non un conteggio di pubblicazioni.',
@@ -65,7 +68,13 @@
     sortCrop: 'Coltura',
 
     // ── Opportunity Radar KPIs ───────────────────────────
+    /* kpiTotal is kept for the day the package declares these records may be
+       called opportunities. Today it does not: the collection carries
+       mayBeCalledOpportunities=false and every record carries FORBIDDEN_LABEL,
+       so the radar prints kpiConvergences over the same count of 3. */
     kpiTotal: 'Opportunità attive', kpiTotalSub: 'l\'insieme monitorato',
+    kpiConvergences: 'Convergenze da validare', kpiConvergencesSub: 'candidati da validare',
+    kpiClientSafeOf: 'utilizzabili con il cliente', kpiClientSafeUndeclared: 'quota utilizzabile con il cliente non dichiarata',
     kpiActNow: 'Agire ora', kpiActNowSub: 'finestra aperta ed evidenza disponibile',
     kpiOpening: 'Finestra in apertura', kpiOpeningSub: 'finestra prossima all\'apertura',
     kpiPrepare: 'Preparare', kpiPrepareSub: 'tempo di preparazione commerciale',
@@ -103,12 +112,20 @@
     WSTATUS: { 'WINDOW_OPEN': 'FINESTRA APERTA', 'WINDOW_CLOSED': 'FINESTRA CHIUSA', 'NEXT_CYCLE': 'PROSSIMO CICLO', 'DATE_UNKNOWN': 'DATA DA CONFERMARE', 'ACT_NOW': 'AGIRE ORA', 'ACT NOW': 'AGIRE ORA', 'ACTION WINDOW OPENING': 'FINESTRA IN APERTURA', 'PREPARE': 'PREPARARE', 'WATCH': 'OSSERVARE', 'VALIDATE': 'VALIDARE', 'NEXT CYCLE': 'PROSSIMO CICLO' },
     DSTATE: { 'CONFIRMED': 'CONFERMATA', 'EXPECTED_NORM': 'NORMA AGRONOMICA ATTESA', 'DATE_TO_CONFIRM': 'DATA DA CONFERMARE', 'NOT_APPLICABLE': 'NON APPLICABILE' },
     OBSCLASS: { 'OFFICIAL_OBSERVED_CURRENT': 'OSSERVATO UFFICIALE · CORRENTE', 'FIELD_REPORTED_CURRENT': 'RIPORTATO DAL CAMPO · CORRENTE', 'EXPECTED_CURRENT': 'ATTESO · CORRENTE', 'EXPECTED_NORM': 'NORMA ATTESA', 'HISTORICAL': 'STORICO', 'DEMO_SCENARIO': 'SCENARIO DIMOSTRATIVO', 'NOT_OBSERVED': 'NON OSSERVATO', 'UNKNOWN': 'SCONOSCIUTO' },
+    /* CANDIDATE_STATE is an upstream code like WSTATUS: the code is
+       language-independent and only the label is localized. DA_VALIDARE is the
+       state all 3 opportunity-candidate records carry today. */
+    CANDSTATE: { 'DA_VALIDARE': 'DA VALIDARE', 'VALIDATED': 'VALIDATO', 'DISCARDED': 'SCARTATO' },
+    candNotOpportunity: 'Candidato da validare — non un’opportunità commerciale confermata.',
+    candWhyNotStated: 'La fonte non dichiara il motivo per cui non è utilizzabile con il cliente.',
     wDaysRemaining: 'giorni rimanenti', wDaysToOpen: 'giorni all\'apertura', wDateToConfirm: 'DATA DA CONFERMARE',
     PSTATE: { 'VERIFIED_LABEL_MATCH': 'CORRISPONDENZA VERIFICATA SU ETICHETTA', 'RELATED_PORTFOLIO': 'PORTAFOGLIO CORRELATO', 'LABEL_CHECK_NEEDED': 'VERIFICA ETICHETTA NECESSARIA', 'NO_CONFIRMED_MATCH_CURRENT_READING': 'NESSUNA CORRISPONDENZA CONFERMATA NELLA LETTURA ATTUALE' },
     gireFound: 'etichette erbicide ADAMA nominano questo genere', gireNotFound: 'Non trovato tra le etichette erbicide di questa lettura', gireCases: 'casi', gireOverlap: 'con sovrapposizione al portafoglio ADAMA', gireHerbNote: 'Denominatore del confronto, insieme distinto dai casi:', gireHerb: 'etichette erbicide ADAMA caricate', gireShowAll: 'MOSTRA TUTTI I', gireCasesUpper: 'CASI',
     PROV: { 'REACHED_IN_ITALY': 'RAGGIUNTO IN ITALIA', 'DEMO_RECORD': 'DATO DIMOSTRATIVO', 'REAL_OBSERVATION': 'OSSERVAZIONE REALE', 'SYNTHETIC_DEMO': 'ESEMPIO DIMOSTRATIVO · NON OSSERVATO' },
     fsDemoBadge: 'PERSONE E MESSAGGI SIMULATI · NESSUN DIPENDENTE ADAMA REALE', fsOutbound: 'Sintonia non scrive ai rappresentanti e non chiede alla rete di campo di inviare nulla. Questo modulo riceve soltanto.',
-    lblRegionalPrecision: 'Opportunità per regione · clicca una regione accesa per filtrare', rrNoteOpps: 'opportunità', rrNoteRegions: 'regioni con almeno una · su', rrNoteNone: 'Nessuna opportunità di questa lettura si risolve in una regione', lblNoMatches: 'Nessuna opportunità corrisponde a questi filtri', lblClearFilters: 'Azzera i filtri', lblSingleMatch: 'Corrispondenza unica registrata',
+    /* The map counts the same 3 records the radar counts, so it may not call them
+       opportunities either: the count is unchanged, the noun is not. */
+    lblRegionalPrecision: 'Candidati per regione · clicca una regione accesa per filtrare', rrNoteOpps: 'candidati', rrNoteRegions: 'regioni con almeno uno · su', rrNoteNone: 'Nessun candidato di questa lettura si risolve in una regione', lblNoMatches: 'Nessun candidato corrisponde a questi filtri', lblClearFilters: 'Azzera i filtri', lblSingleMatch: 'Corrispondenza unica registrata',
     lblDemoOnly: 'Solo dimostrativo.', kpiOpenShort: 'Finestre aperte', kpiOpenSub: 'finestra agronomica aperta ora', kpiNextSub: 'la prossima finestra rilevante', kpiUnknownSub: 'nessuna data difendibile in questa lettura', kpiClosedSub: 'finestra della stagione conclusa',
     kpiVerified: 'Corrispondenze verificate', kpiVerifiedSub: 'confermate nella lettura delle etichette',
     kpiLinks: 'Collegamenti di portafoglio', kpiLinksSub: 'tutte le relazioni, verifica compresa',
@@ -156,7 +173,10 @@
     cwDeptOn: 'DETTAGLIO REPARTI · ON', cwDeptOff: 'DETTAGLIO REPARTI · OFF',
 
     // ── case cards & detail ──────────────────────────────
-    lblCases: 'CASI DI OPPORTUNITÀ',
+    /* The list under the KPI counts the same records the KPI counts. 0 of 3 are
+       client-safe and none may be called an opportunity, so the heading names
+       what the number actually counts. */
+    lblCases: 'CANDIDATI DA VALIDARE',
     lblOf: 'di',
     catPest: 'Controllo Insetti',
     catDisease: 'Controllo Malattie',
@@ -466,7 +486,7 @@
     navArchive: 'Archive',
     navSources: 'Sources',
 
-    subRadar: 'Where ADAMA can act or prepare now — disease pressure, crop timing, portfolio fit and market movement.',
+    subRadar: 'Candidate convergences, to be validated before any commercial reading — disease pressure, crop timing, portfolio fit and market movement.',
     subWindows: 'Field clock and business clock on one rolling timeline — when the crop needs protection, and when the commercial work has to start.',
     subMarket: 'The economic environment around ADAMA\'s agronomic opportunities — conditions, momentum, supply, sentiment and outlook. Not a sales forecast.',
     subScience: 'What science may change for ADAMA Italy — portfolio risk, portfolio gap, positioning and next-cycle preparation. Not a paper count.',
@@ -497,6 +517,8 @@
     sortCrop: 'Crop',
 
     kpiTotal: 'Active opportunities', kpiTotalSub: 'the whole monitored set',
+    kpiConvergences: 'Convergences to validate', kpiConvergencesSub: 'candidates to validate',
+    kpiClientSafeOf: 'client-safe', kpiClientSafeUndeclared: 'client-safe share not declared',
     kpiActNow: 'Act now', kpiActNowSub: 'window open and evidence in place',
     kpiOpening: 'Window opening', kpiOpeningSub: 'window about to open',
     kpiPrepare: 'Prepare', kpiPrepareSub: 'commercial preparation time',
@@ -529,12 +551,15 @@
     WSTATUS: { 'WINDOW_OPEN': 'WINDOW OPEN', 'WINDOW_CLOSED': 'WINDOW CLOSED', 'NEXT_CYCLE': 'NEXT CYCLE', 'DATE_UNKNOWN': 'DATE TO CONFIRM', 'ACT_NOW': 'ACT NOW', 'ACT NOW': 'ACT NOW', 'ACTION WINDOW OPENING': 'WINDOW OPENING', 'PREPARE': 'PREPARE', 'WATCH': 'WATCH', 'VALIDATE': 'VALIDATE', 'NEXT CYCLE': 'NEXT CYCLE' },
     DSTATE: { 'CONFIRMED': 'CONFIRMED', 'EXPECTED_NORM': 'EXPECTED AGRONOMIC NORM', 'DATE_TO_CONFIRM': 'DATE TO CONFIRM', 'NOT_APPLICABLE': 'NOT APPLICABLE' },
     OBSCLASS: { 'OFFICIAL_OBSERVED_CURRENT': 'OFFICIALLY OBSERVED · CURRENT', 'FIELD_REPORTED_CURRENT': 'FIELD REPORTED · CURRENT', 'EXPECTED_CURRENT': 'EXPECTED · CURRENT', 'EXPECTED_NORM': 'EXPECTED NORM', 'HISTORICAL': 'HISTORICAL', 'DEMO_SCENARIO': 'DEMO SCENARIO', 'NOT_OBSERVED': 'NOT OBSERVED', 'UNKNOWN': 'UNKNOWN' },
+    CANDSTATE: { 'DA_VALIDARE': 'TO VALIDATE', 'VALIDATED': 'VALIDATED', 'DISCARDED': 'DISCARDED' },
+    candNotOpportunity: 'Candidate to validate — not a confirmed commercial opportunity.',
+    candWhyNotStated: 'The source does not state why it is not client-safe.',
     wDaysRemaining: 'days remaining', wDaysToOpen: 'days to open', wDateToConfirm: 'DATE TO CONFIRM',
     PSTATE: { 'VERIFIED_LABEL_MATCH': 'VERIFIED LABEL MATCH', 'RELATED_PORTFOLIO': 'RELATED PORTFOLIO', 'LABEL_CHECK_NEEDED': 'LABEL CHECK NEEDED', 'NO_CONFIRMED_MATCH_CURRENT_READING': 'NO CONFIRMED MATCH IN THE CURRENT READING' },
     gireFound: 'ADAMA herbicide labels name this genus', gireNotFound: 'Not found among the herbicide labels in this reading', gireCases: 'cases', gireOverlap: 'overlap the ADAMA range', gireHerbNote: 'Comparison denominator, a separate set from the cases:', gireHerb: 'ADAMA herbicide labels loaded', gireShowAll: 'SHOW ALL', gireCasesUpper: 'CASES',
     PROV: { 'REACHED_IN_ITALY': 'REACHED IN ITALY', 'DEMO_RECORD': 'DEMONSTRATION RECORD', 'REAL_OBSERVATION': 'REAL OBSERVATION', 'SYNTHETIC_DEMO': 'DEMONSTRATION EXAMPLE · NOT OBSERVED' },
     fsDemoBadge: 'SIMULATED PEOPLE AND MESSAGES · NO REAL ADAMA EMPLOYEE', fsOutbound: 'Sintonia does not message representatives and never asks the field network to send anything. This module only receives.',
-    lblRegionalPrecision: 'Opportunities by region · click a lit region to filter', rrNoteOpps: 'opportunities', rrNoteRegions: 'regions with at least one · of', rrNoteNone: 'No opportunity in this reading resolves to a region', lblNoMatches: 'No opportunity matches these filters', lblClearFilters: 'Clear filters', lblSingleMatch: 'Single registered match',
+    lblRegionalPrecision: 'Candidates by region · click a lit region to filter', rrNoteOpps: 'candidates', rrNoteRegions: 'regions with at least one · of', rrNoteNone: 'No candidate in this reading resolves to a region', lblNoMatches: 'No candidate matches these filters', lblClearFilters: 'Clear filters', lblSingleMatch: 'Single registered match',
     lblDemoOnly: 'Demonstration only.', kpiOpenShort: 'Windows open', kpiOpenSub: 'agronomic window open now', kpiNextSub: 'the next relevant window', kpiUnknownSub: 'no defensible date in this reading', kpiClosedSub: 'season window has closed',
     kpiVerified: 'Verified matches', kpiVerifiedSub: 'confirmed in the label reading',
     kpiLinks: 'Portfolio links', kpiLinksSub: 'all relationships, verification included',
@@ -581,7 +606,7 @@
     lblIntakeNum: 'Inbound channel · demonstration identifier',
     cwDeptOn: 'DEPARTMENT DETAIL · ON', cwDeptOff: 'DEPARTMENT DETAIL · OFF',
 
-    lblCases: 'OPPORTUNITY CASES',
+    lblCases: 'CANDIDATES TO VALIDATE',
     lblOf: 'of',
     catPest: 'Pest Control',
     catDisease: 'Disease Control',

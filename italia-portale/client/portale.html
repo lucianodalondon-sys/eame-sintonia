@@ -224,24 +224,55 @@
             <sc-if value="{{ c.hasCategory }}" hint-placeholder-val="{{ true }}"><span style="position:relative;display:inline-flex;align-items:center;height:20px;padding:0 22px 0 14px;margin-left:-14px;background:{{ c.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:{{ c.category.ink }};width:max-content;white-space:nowrap">{{ c.catLabel }}</span></sc-if>
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
               <sc-if value="{{ c.hasCategory }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:{{ c.category.color }}"><span role="img" aria-label="{{ c.category.label }}" style="display:inline-block;flex:0 0 auto;width:24px;height:24px;background:url({{ c.category.icon }}) center/contain no-repeat"></span></div></sc-if>
-              <span style="display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding:4px 9px;border-radius:9999px;background:{{ c.st.color }};color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ c.statusLabel }}</span>
+              <!-- §3 · Three records exist and not one of them may be called an opportunity.
+                   The upstream declares it per record (isCandidate · candidateState
+                   DA_VALIDARE · mayBeCalledAnOpportunity false) and the chip prints that
+                   declared state, localized like any other upstream code. The status pill
+                   it replaces was rendering EMPTY on 3/3, because status is null on all
+                   three, so a grey blank stood where a state was expected. -->
+              <span style="display:flex;align-items:center;justify-content:flex-end;gap:5px;margin-left:auto;flex-wrap:wrap">
+                <sc-if value="{{ c.isCandidate }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;padding:4px 9px;border-radius:9999px;background:rgba(245,179,23,0.16);border:1px solid #F5B317;color:#F5B317;font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ c.candidateStateL }}</span></sc-if>
+                <sc-if value="{{ c.isScenario }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;padding:4px 9px;border-radius:9999px;background:rgba(245,179,23,0.16);border:1px solid #F5B317;color:#F5B317;font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ t.lblDemoScenario }}</span></sc-if>
+                <sc-if value="{{ c.hasStatus }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:9999px;background:{{ c.st.color }};color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ c.statusLabel }}</span></sc-if>
+              </span>
             </div>
             <div style="display:flex;flex-direction:column;gap:3px">
               <div style="font-size:19px;font-weight:700;line-height:1.05;letter-spacing:-0.015em;color:#fff;text-wrap:balance">{{ c.issueL }}</div>
               <div style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;padding-top:2px"><span style="font-size:13px;font-weight:600;color:#fff">{{ c.cropL }}</span><span style="width:3px;height:3px;border-radius:50%;background:#6E6663"></span><span style="font-size:13px;color:{{ c.category.body }}">{{ c.regionLabel }}</span></div>
+              <!-- EVIDENCE_STATUS_WHY · upstream is the only author of this sentence.
+                   It reads NOT_ESTABLISHED on 3/3 today, so narOf() returns null and
+                   this line does not render; it is here so an approved Italian text
+                   reaches the card the day one exists, and the Portuguese never does. -->
+              <sc-if value="{{ c.hasCandidateWhy }}" hint-placeholder-val="{{ false }}"><div style="font-size:10px;line-height:1.4;color:{{ c.category.muted }}">{{ c.candidateWhy }}</div></sc-if>
             </div>
+            <!-- §7 · A bar may be drawn from dates somebody supplied, never where nobody
+                 did. None of the 3 real records joins a canonical window (windowId null
+                 3/3), so this row was printing "DATA DA CONFERMARE — DATA DA CONFERMARE"
+                 over a bar of zero width. What the records DO declare is their own
+                 application window, real 3/3, and that is what the card shows instead. -->
             <div style="display:flex;flex-direction:column;gap:5px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px"><span style="font-size:11px;font-weight:600;color:{{ c.category.body }};white-space:nowrap">{{ c.wsLabel }} — {{ c.weLabel }}</span><span style="font-size:10px;font-weight:700;color:{{ c.category.body }}">{{ c.windowLineL }}</span></div>
-              <div style="height:3px;background:rgba(255,255,255,0.14);overflow:hidden"><div style="width:{{ c.progressPct }};height:100%;background:#fff"></div></div>
+              <sc-if value="{{ c.hasDates }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px"><span style="font-size:11px;font-weight:600;color:{{ c.category.body }};white-space:nowrap">{{ c.wsLabel }} — {{ c.weLabel }}</span><span style="font-size:10px;font-weight:700;color:{{ c.category.body }}">{{ c.windowLineL }}</span></div>
+                <div style="height:3px;background:rgba(255,255,255,0.14);overflow:hidden"><div style="width:{{ c.progressPct }};height:100%;background:#fff"></div></div>
+              </sc-if>
+              <sc-if value="{{ c.showAppWindow }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11px;font-weight:600;color:{{ c.category.body }};line-height:1.3">{{ c.applicationWindowL }}</span>
+              </sc-if>
             </div>
             <div style="position:relative;margin-top:auto;border-radius:10px;background:#161312;border:1px solid rgba(255,255,255,0.07);padding:8px 10px;display:flex;flex-direction:column;gap:2px">
               <div style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:{{ c.category.muted }}">{{ t.lblPortfolio }}</div>
               <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px"><span style="font-size:13px;font-weight:700;color:#fff">{{ c.primaryLabel }}</span><span style="font-size:9.5px;color:{{ c.category.soft }};font-weight:600;white-space:nowrap">{{ c.moreLabel }}</span></div>
               <div style="font-size:10px;color:{{ c.category.muted }}">{{ c.primaryAiL }}</div>
+              <!-- §10 · A product this label reading did not find is NOT "ADAMA has no
+                   product". The card was printing NESSUNA CORRISPONDENZA CONFERMATA on
+                   2 of 3 cards with the absence rule nowhere on the screen. -->
+              <sc-if value="{{ c.hasPortfolioNote }}" hint-placeholder-val="{{ false }}"><div style="font-size:9px;line-height:1.35;color:{{ c.category.muted }}">{{ c.portfolioNote }}</div></sc-if>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:2px">
-              <span style="display:inline-flex;align-items:center;gap:8px;font-size:10px;color:{{ c.category.muted }}"><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#009845"></span>{{ c.updatedLabel }}</span></span>
-              <span style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#fff">{{ t.lblExplore }}</span>
+              <!-- FRESHNESS_DAYS is not approved for display on the real records, so
+                   updatedLabel is empty 3/3 and the green dot marked nothing. -->
+              <sc-if value="{{ c.hasUpdated }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:8px;font-size:10px;color:{{ c.category.muted }}"><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:#009845"></span>{{ c.updatedLabel }}</span></span></sc-if>
+              <span style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:#fff;margin-left:auto">{{ t.lblExplore }}</span>
             </div>
           </div>
         </sc-for>
@@ -311,10 +342,22 @@
         <div style="display:flex;align-items:center;gap:16px;min-width:0">
           <div style="display:flex;align-items:center;justify-content:center;width:70px;height:70px;border-radius:50%;background:{{ cs.category.color }};flex:0 0 70px"><span role="img" aria-label="{{ cs.category.label }}" style="display:inline-block;flex:0 0 auto;width:42px;height:42px;background:url({{ cs.category.icon }}) center/contain no-repeat"></span></div>
           <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;height:20px;padding:0 20px 0 12px;background:{{ cs.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ cs.catLabel }}</span><span style="display:inline-flex;align-items:center;height:22px;padding:0 16px;background:{{ cs.st.color }};clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em">{{ cs.statusLabel }}</span><sc-if value="{{ cs.isScenario }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;background:rgba(245,179,23,0.16);border:1px solid #F5B317;color:#F5B317;font-size:8.5px;font-weight:700;letter-spacing:0.10em">{{ t.lblDemoScenario }}</span></sc-if><span style="font-size:10px;color:#E4E0DE">{{ t.lblUpdated }} {{ cs.updatedLabel }}</span></div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;height:20px;padding:0 20px 0 12px;background:{{ cs.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ cs.catLabel }}</span><sc-if value="{{ kpi.caseIsCandidate }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 12px;border-radius:9999px;background:rgba(245,179,23,0.16);border:1px solid #F5B317;color:#F5B317;font-size:8.5px;font-weight:700;letter-spacing:0.10em">{{ kpi.caseCandidateStateL }}</span></sc-if><span style="display:inline-flex;align-items:center;height:22px;padding:0 16px;background:{{ cs.st.color }};clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em">{{ cs.statusLabel }}</span><sc-if value="{{ cs.isScenario }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;background:rgba(245,179,23,0.16);border:1px solid #F5B317;color:#F5B317;font-size:8.5px;font-weight:700;letter-spacing:0.10em">{{ t.lblDemoScenario }}</span></sc-if><span style="font-size:10px;color:#E4E0DE">{{ t.lblUpdated }} {{ cs.updatedLabel }}</span></div>
             <h1 style="margin:0;font-size:34px;font-weight:300;line-height:0.98;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;color:#fff">{{ cs.issueL }}</h1>
             <div style="font-size:11.5px;color:#E4E0DE">{{ cs.latin }}</div>
             <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-size:17px;font-weight:600;color:#fff">{{ cs.cropL }}</span><span style="width:4px;height:4px;border-radius:50%;background:#6E6663"></span><span style="font-size:17px;color:#E4E0DE">{{ cs.regionLabel }}</span></div>
+            <!-- §3 · The record that opens here declares, in its own fields, that it may
+                 NOT be called an opportunity (isCandidate true · candidateState
+                 DA_VALIDARE · mayBeCalledAnOpportunity false), and the detail screen is
+                 where a reader decides whether to act. The state and the caveat are read
+                 from the model through kpi.case*; nothing here is authored per record.
+                 EVIDENCE_STATUS_WHY is upstream's own explanation of why a record is not
+                 client-safe. Measured 3/3 it is NOT_ESTABLISHED with it=null and en=null,
+                 so the approved-text line never renders today and the screen says the
+                 reason is not stated rather than borrowing the Portuguese CASE_LABEL. -->
+            <sc-if value="{{ kpi.caseIsCandidate }}" hint-placeholder-val="{{ true }}"><div style="font-size:11.5px;line-height:1.45;color:#F5B317">{{ t.candNotOpportunity }}</div></sc-if>
+            <sc-if value="{{ kpi.caseHasCandidateWhy }}" hint-placeholder-val="{{ false }}"><div style="font-size:11.5px;line-height:1.45;color:#C9C3C1">{{ kpi.caseCandidateWhy }}</div></sc-if>
+            <sc-if value="{{ kpi.caseCandidateWhyMissing }}" hint-placeholder-val="{{ true }}"><div style="font-size:10.5px;line-height:1.45;color:#8F8886">{{ t.candWhyNotStated }}</div></sc-if>
           </div>
         </div>
         <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
@@ -1143,12 +1186,70 @@
         <h1 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-0.01em;color:#fff;line-height:1.05">{{ pd.name }}</h1>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;padding-top:4px">
           <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ t.prodCategory }}</span><span style="font-size:12.5px;font-weight:700;color:#EDEAE9">{{ pd.category }}</span></span>
-          <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ t.prodAi }}</span><span style="font-size:12.5px;font-weight:700;color:#EDEAE9;line-height:1.3">{{ pd.ai }}</span></span>
+          <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ t.prodAi }}</span><span style="font-size:12.5px;font-weight:700;color:#EDEAE9;line-height:1.3">{{ pd.ai }}</span><sc-if value="{{ pd.aiFromCatalog }}" hint-placeholder-val="{{ false }}"><span style="font-size:8.5px;color:#8F8886;line-height:1.4">{{ pd.aiFromCatalogL }}</span></sc-if></span>
+          <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ pd.regNoL }}</span><span style="font-size:12.5px;font-weight:700;color:#EDEAE9;line-height:1.3">{{ pd.regNo }}</span><span style="font-size:8.5px;color:#8F8886">{{ pd.regNoSrc }}</span></span>
+          <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ pd.holderL }}</span><span style="font-size:12.5px;font-weight:700;color:#EDEAE9;line-height:1.3">{{ pd.holderTxt }}</span></span>
           <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ t.prodCommercial }}</span><span style="font-size:12.5px;font-weight:700;color:{{ pd.commercialColor }};line-height:1.3">{{ pd.commercialL }}</span></span>
           <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ t.prodRegulatory }}</span><span style="font-size:12.5px;font-weight:700;color:{{ pd.regulatoryColor }};line-height:1.3">{{ pd.regulatoryL }}</span></span>
         </div>
         <span onClick="{{ pd.goOpps }}" style="align-self:flex-start;margin-top:4px;padding:7px 14px;border-radius:9999px;background:#00783F;color:#fff;font-size:10px;font-weight:700;letter-spacing:0.08em;cursor:pointer">{{ t.prodRelatedOpps }}</span>
       </div>
+
+      <!-- §4 · TWO UNIVERSES. The commercial catalogue and the regulatory
+           universe are two different claims about the same name. Each card
+           carries its own denominator, and the law line under them says out
+           loud that the two counts are never added. -->
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;gap:12px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#009845;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ pd.uniL }}</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,152,69,0.45),rgba(0,152,69,0))"></span></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px">
+          <sc-for list="{{ pd.universes }}" as="u" hint-placeholder-count="2">
+          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px;border-top:3px solid {{ u.color }}">
+            <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#EDEAE9">{{ u.title }}</span>
+            <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ u.sub }}</span>
+            <span style="font-size:12px;font-weight:700;color:{{ u.color }};line-height:1.35">{{ u.stateText }}</span>
+            <sc-if value="{{ u.hasRows }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:0">
+              <sc-for list="{{ u.rows }}" as="r" hint-placeholder-count="4"><span style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ r.l }}</span><span style="font-size:11.5px;font-weight:600;color:#fff;line-height:1.35">{{ r.v }}</span><sc-if value="{{ r.why }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ r.why }}</span></sc-if></span></sc-for>
+            </div>
+            </sc-if>
+            <sc-if value="{{ u.hasFlags }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:5px;padding-top:2px">
+              <sc-for list="{{ u.flags }}" as="f" hint-placeholder-count="1"><span style="display:flex;gap:7px;font-size:10px;color:#F89E18;line-height:1.5"><span>▲</span><span>{{ f }}</span></span></sc-for>
+            </div>
+            </sc-if>
+            <sc-if value="{{ u.absence }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ u.absence }}</span></sc-if>
+          </div>
+          </sc-for>
+        </div>
+        <span style="font-size:9.5px;color:#B1A9A7;line-height:1.55">{{ pd.uniLaw }}</span>
+        <sc-if value="{{ pd.hasCatalogFacts }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:13px 16px;display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:9px;font-weight:700;letter-spacing:0.13em;color:#8F8886">{{ pd.catalogFactsL }}</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px">
+            <sc-for list="{{ pd.catalogFacts }}" as="c" hint-placeholder-count="5"><span style="display:flex;flex-direction:column;gap:2px"><span style="display:flex;align-items:baseline"><span style="font-size:17px;font-weight:700;color:#EDEAE9;line-height:1">{{ c.n }}</span><span style="font-size:11px;font-weight:600;color:#6E6663">/{{ c.of }}</span></span><span style="font-size:9.5px;color:#8F8886;line-height:1.45">{{ c.l }}</span></span></sc-for>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+
+      <!-- §4 · the evidence base. Every count is printed over the universe it
+           was counted in; the two layers are shown apart and never summed. -->
+      <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:13px 16px;display:flex;flex-direction:column;gap:9px">
+        <span style="font-size:9px;font-weight:700;letter-spacing:0.13em;color:#8F8886">{{ pd.evidenceL }}</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px">
+          <sc-for list="{{ pd.evidence }}" as="v" hint-placeholder-count="3"><span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#6E6663">{{ v.l }}</span><span style="font-size:15px;font-weight:700;color:#EDEAE9;line-height:1.1">{{ v.v }}</span><span style="font-size:9.5px;color:#8F8886;line-height:1.45">{{ v.note }}</span></span></sc-for>
+        </div>
+      </div>
+
+      <sc-if value="{{ pd.hasMoa }}" hint-placeholder-val="{{ false }}">
+      <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:13px 16px;display:flex;flex-direction:column;gap:8px;border-top:3px solid #F89E18">
+        <span style="font-size:9px;font-weight:700;letter-spacing:0.13em;color:#8F8886">{{ pd.moaL }}</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px">
+          <sc-for list="{{ pd.moa }}" as="a" hint-placeholder-count="2"><span style="display:flex;flex-direction:column;gap:1px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:11.5px;font-weight:700;color:#fff;line-height:1.3">{{ a.ai }}</span><span style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:#F89E18">{{ a.v }}</span></span></sc-for>
+        </div>
+        <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ pd.moaNote }}</span>
+      </div>
+      </sc-if>
 
       <div style="display:flex;flex-direction:column;gap:9px">
         <div style="display:flex;align-items:center;gap:12px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#009845;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ t.prodConnections }}</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,152,69,0.45),rgba(0,152,69,0))"></span></div>
@@ -1157,28 +1258,33 @@
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #00B152">
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#00B152">{{ t.prodVerifiedRel }}</span>
             <sc-for list="{{ pd.verified }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+            <sc-if value="{{ pd.verifiedNote }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;color:#8F8886">{{ pd.verifiedNote }}</span></sc-if>
           </div>
           </sc-if>
           <sc-if value="{{ pd.hasCheckNeeded }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #F5B317">
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#F5B317">{{ t.prodCheckRel }}</span>
             <sc-for list="{{ pd.checkNeeded }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+            <sc-if value="{{ pd.checkNote }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;color:#8F8886">{{ pd.checkNote }}</span></sc-if>
+            <span style="font-size:9.5px;color:#F5B317;line-height:1.5">{{ pd.checkCaveat }}</span>
           </div>
           </sc-if>
           <sc-if value="{{ pd.hasRelated }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #5CC3EE">
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#5CC3EE">{{ t.prodRelatedRel }}</span>
             <sc-for list="{{ pd.related }}" as="r" hint-placeholder-count="2"><span onClick="{{ r.go }}" style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+            <sc-if value="{{ pd.relatedNote }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;color:#8F8886">{{ pd.relatedNote }}</span></sc-if>
           </div>
           </sc-if>
           <sc-if value="{{ pd.hasRejected }}" hint-placeholder-val="{{ false }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #978B87">
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#B1A9A7">{{ t.prodRejectedRel }}</span>
             <sc-for list="{{ pd.rejected }}" as="r" hint-placeholder-count="1"><span style="display:flex;flex-direction:column;gap:1px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:11.5px;font-weight:600;color:#C9C3C1">{{ r.crop }} · {{ r.issue }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.evidence }}</span></span></sc-for>
+            <sc-if value="{{ pd.rejectedNote }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;color:#8F8886">{{ pd.rejectedNote }}</span></sc-if>
             <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ t.absenceRule }}</span>
           </div>
           </sc-if>
-          <sc-if value="{{ pd.noRel }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px"><span style="font-size:11px;color:#B1A9A7">{{ t.prodNoRel }}</span></div></sc-if>
+          <sc-if value="{{ pd.noRel }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px"><span style="font-size:11px;color:#B1A9A7">{{ t.prodNoRel }}</span><span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ t.absenceRule }}</span></div></sc-if>
         </div>
       </div>
 
@@ -1186,11 +1292,13 @@
         <sc-if value="{{ pd.hasWins }}" hint-placeholder-val="{{ false }}">
         <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #00A0DF"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">{{ t.navWindows }}</span>
           <sc-for list="{{ pd.wins }}" as="w" hint-placeholder-count="2"><span onClick="{{ w.go }}" style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:11px;color:#EDEAE9">{{ w.label }}</span><span style="font-size:9.5px;font-weight:700;color:{{ w.color }};white-space:nowrap">{{ w.state }}</span></span></sc-for>
+          <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ pd.winsNote }}</span>
         </div>
         </sc-if>
         <sc-if value="{{ pd.hasRes }}" hint-placeholder-val="{{ false }}">
         <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #F89E18"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">{{ t.dsResistance }}</span>
           <sc-for list="{{ pd.res }}" as="r" hint-placeholder-count="2"><span style="display:flex;flex-direction:column;gap:1px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:11px;font-weight:600;color:#fff">{{ r.label }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.mech }}</span></span></sc-for>
+          <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ pd.resNote }}</span>
         </div>
         </sc-if>
         <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px;border-top:3px solid #978B87"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#B1A9A7">{{ t.prodNotObservable }}</span><span style="font-size:11px;color:#8F8886;line-height:1.55">{{ t.prodNoSales }}</span></div>
@@ -1212,14 +1320,34 @@
           <select value="{{ port.cat }}" onChange="{{ port.setCat }}" style="height:30px;padding:0 12px;border-radius:9999px;background:#1C1817;border:1px solid rgba(203,197,195,0.18);color:#EDEAE9;font-size:11px;font-family:inherit;outline:0;cursor:pointer"><sc-for list="{{ port.cats }}" as="o" hint-placeholder-count="1"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
         </div>
       </div>
-      <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ port.note }} · {{ port.count }}/{{ port.total }}</span>
+      <!-- §4 · what the ACTIVE tab counts, where it was counted, and the law
+           that keeps 51 and 163 from blurring into one "portfolio" number. -->
+      <div style="border-radius:14px;border:1px solid rgba(0,152,69,0.28);background:rgba(0,152,69,0.05);border-left:3px solid #009845;padding:12px 15px;display:flex;flex-direction:column;gap:5px">
+        <span style="font-size:12px;font-weight:700;color:#EDEAE9;line-height:1.35">{{ port.uniLine }}</span>
+        <span style="font-size:10px;color:#B1A9A7;line-height:1.55">{{ port.uniLaw }}</span>
+        <sc-if value="{{ port.hasReconcileNote }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:#F89E18;line-height:1.55">{{ port.reconcileNote }}</span></sc-if>
+      </div>
+      <sc-if value="{{ port.hasFacts }}" hint-placeholder-val="{{ true }}">
+      <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:13px 16px;display:flex;flex-direction:column;gap:9px">
+        <span style="font-size:9px;font-weight:700;letter-spacing:0.13em;color:#8F8886">{{ port.factsL }}</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px">
+          <sc-for list="{{ port.facts }}" as="f" hint-placeholder-count="6"><span style="display:flex;flex-direction:column;gap:2px"><span style="display:flex;align-items:baseline"><span style="font-size:17px;font-weight:700;color:#EDEAE9;line-height:1">{{ f.n }}</span><sc-if value="{{ f.hasOf }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;font-weight:600;color:#6E6663">/{{ f.of }}</span></sc-if></span><span style="font-size:9.5px;color:#8F8886;line-height:1.45">{{ f.l }}</span></span></sc-for>
+        </div>
+        <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ port.factsWhy }}</span>
+        <sc-if value="{{ port.hasNoContract }}" hint-placeholder-val="{{ true }}"><span style="font-size:9.5px;color:#F89E18;line-height:1.5">{{ port.noContract }}</span></sc-if>
+      </div>
+      </sc-if>
+      <span style="font-size:9.5px;color:#8F8886;line-height:1.5">{{ port.note }} · {{ port.countL }}</span>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px">
         <sc-for list="{{ port.items }}" as="p" hint-placeholder-count="12">
           <div onClick="{{ p.go }}" style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;border-left:3px solid {{ p.catColor }};padding:11px 13px;display:flex;flex-direction:column;gap:4px;cursor:pointer" style-hover="border-color:{{ p.catColor }}">
             <span style="font-size:13px;font-weight:700;color:#fff;line-height:1.2">{{ p.name }}</span>
             <span style="font-size:9.5px;font-weight:700;letter-spacing:0.08em;color:{{ p.catColor }}">{{ p.cat }}</span>
             <span style="font-size:10px;color:#9A9391;line-height:1.4">{{ p.ai }}</span>
-            <span style="font-size:9.5px;color:#6E6663;padding-top:2px">{{ p.verified }} ✓ · {{ p.related }} ○</span>
+            <sc-if value="{{ p.hasReg }}" hint-placeholder-val="{{ true }}"><span style="font-size:9.5px;color:#8F8886;line-height:1.4">{{ p.reg }}</span></sc-if>
+            <span style="font-size:9.5px;color:#6E6663;line-height:1.4">{{ p.cross }}</span>
+            <sc-if value="{{ p.hasFlag }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;padding:2px 7px;border-radius:9999px;border:1px solid rgba(248,158,24,0.45);color:#F89E18;font-size:8.5px;font-weight:700;letter-spacing:0.08em">{{ p.flag }}</span></sc-if>
+            <sc-if value="{{ p.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;color:#6E6663;padding-top:2px">{{ p.badge }}</span></sc-if>
           </div>
         </sc-for>
       </div>
@@ -1305,7 +1433,152 @@
     <sc-if value="{{ isFuture }}" hint-placeholder-val="{{ false }}">
     <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
-        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navFuture }}</h1><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ t.frSubA }} {{ kpi.signals }} {{ t.frSubB }}</div></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ t.navFuture }}</h1><div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1">{{ visibleSignals.reg.headerLine }}</div></div>
+      </div>
+
+      <!-- ============ §6 · EUROPEAN REGULATORY CALENDAR ============
+           47 dated facts from AM.collections.regulatoryFutureFacts. No status
+           chip, no accent ramp, no click target: they are not signals, they are
+           not opportunities, and nothing on this panel may promote one. -->
+      <sc-if value="{{ visibleSignals.reg.on }}" hint-placeholder-val="{{ true }}">
+      <div style="border-radius:16px;border:1px solid rgba(203,197,195,0.14);background:#1C1817;border-top:3px solid #00A0DF;padding:16px 18px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.14em;color:#00A0DF">{{ visibleSignals.reg.kicker }}</span>
+            <span style="font-size:19px;font-weight:700;letter-spacing:-0.01em;color:#fff">{{ visibleSignals.reg.title }}</span>
+            <span style="font-size:11px;color:#C9C3C1">{{ visibleSignals.reg.countLine }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px;text-align:right">
+            <span style="font-size:9.5px;color:#8F8886">{{ visibleSignals.reg.sourceLine }}</span>
+            <span style="font-size:9.5px;color:#8F8886">{{ visibleSignals.reg.refLine }}</span>
+          </div>
+        </div>
+
+        <!-- the three refusals, stated before any date is read -->
+        <div style="border-radius:12px;border:1px dashed rgba(0,160,223,0.55);background:rgba(0,160,223,0.06);padding:12px 14px;display:flex;flex-direction:column;gap:7px">
+          <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.14em;color:#5CC3EE">{{ visibleSignals.reg.lawTitle }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ visibleSignals.reg.law }}" as="w" hint-placeholder-count="3">
+              <span style="padding:4px 10px;border-radius:9999px;background:#161312;border:1px solid rgba(92,195,238,0.5);color:#EDEAE9;font-size:9px;font-weight:700;letter-spacing:0.07em">{{ w.t }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ visibleSignals.reg.notProvesTitle }} · {{ visibleSignals.reg.notProvesNote }}</span>
+            <sc-for list="{{ visibleSignals.reg.notProves }}" as="w" hint-placeholder-count="1">
+              <span style="font-size:11px;line-height:1.5;color:#EDEAE9;text-wrap:pretty">{{ w.t }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ visibleSignals.reg.provesTitle }}</span>
+            <sc-for list="{{ visibleSignals.reg.proves }}" as="w" hint-placeholder-count="1">
+              <span style="font-size:11px;line-height:1.5;color:#C9C3C1;text-wrap:pretty">{{ w.t }}</span>
+            </sc-for>
+          </div>
+          <span style="font-size:10px;line-height:1.45;color:#B1A9A7">{{ visibleSignals.reg.noActionLine }}</span>
+        </div>
+
+        <!-- horizon tiles: time distance only, same colour on every tile -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px">
+          <sc-for list="{{ visibleSignals.reg.buckets }}" as="k" hint-placeholder-count="4">
+            <div style="border-radius:12px;border:1px solid rgba(203,197,195,0.12);background:#161312;border-top:3px solid #8F8886;padding:11px 13px;display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;align-items:baseline;gap:4px"><span style="font-size:26px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;color:#EDEAE9">{{ k.count }}</span><span style="font-size:12px;color:#8F8886;font-variant-numeric:tabular-nums">{{ k.denom }}</span></div>
+              <div style="font-size:11px;font-weight:600;color:#C9C3C1;line-height:1.3">{{ k.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <span style="font-size:9.5px;color:#8F8886">{{ visibleSignals.reg.colourNote }}</span>
+          <span style="font-size:9.5px;color:#8F8886">{{ visibleSignals.reg.groupSumLine }}</span>
+        </div>
+
+        <!-- the calendar itself, grouped by distance in time -->
+        <sc-for list="{{ visibleSignals.reg.groups }}" as="g" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.07)">
+              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.13em;color:#B1A9A7">{{ g.label }}</span>
+              <span style="font-size:10px;font-weight:700;color:#8F8886;font-variant-numeric:tabular-nums">{{ g.count }}{{ g.denom }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:8px">
+              <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="8">
+                <div style="border-radius:11px;border:1px solid rgba(203,197,195,0.10);background:#161312;border-left:3px solid #8F8886;padding:10px 12px;display:flex;flex-direction:column;gap:5px">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                    <span style="font-size:13px;font-weight:700;color:#fff;line-height:1.15;overflow-wrap:anywhere">{{ r.ai }}</span>
+                    <span style="font-size:8px;font-weight:700;letter-spacing:0.10em;color:#8F8886;white-space:nowrap">{{ visibleSignals.reg.colState }} · {{ r.euStateTok }}</span>
+                  </div>
+                  <sc-if value="{{ r.hasDate }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+                      <span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ visibleSignals.reg.colDate }}</span>
+                      <span style="font-size:14px;font-weight:700;color:#EDEAE9;font-variant-numeric:tabular-nums">{{ r.date }}</span>
+                      <span style="font-size:10px;color:#B1A9A7">{{ r.days }}</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ r.hasRegs }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;flex-direction:column;gap:1px">
+                      <span style="font-size:10px;color:#C9C3C1">{{ r.regLine }}</span>
+                      <span style="font-size:9.5px;color:#8F8886;overflow-wrap:anywhere;font-variant-numeric:tabular-nums">{{ r.regs }}</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ r.hasCatalog }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;flex-direction:column;gap:1px">
+                      <span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ visibleSignals.reg.catalogLabel }}</span>
+                      <span style="font-size:10.5px;color:#EDEAE9;overflow-wrap:anywhere">{{ r.catalog }}</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ r.hasLabelCrops }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;color:#C9C3C1">{{ r.labelCrops }}</span></sc-if>
+                  <span style="font-size:9px;color:#6E6663">{{ r.labelState }}</span>
+                  <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:auto;padding-top:5px;border-top:1px solid rgba(255,255,255,0.06)">
+                    <sc-for list="{{ r.notChips }}" as="c" hint-placeholder-count="3">
+                      <span style="padding:2px 7px;border-radius:5px;background:rgba(151,139,135,0.16);border:1px solid rgba(203,197,195,0.20);color:#B1A9A7;font-size:8px;font-weight:700;letter-spacing:0.06em">{{ c.t }}</span>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ r.hasCelex }}" hint-placeholder-val="{{ true }}"><span style="font-size:8.5px;color:#6E6663;overflow-wrap:anywhere">CELEX {{ r.celex }}</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+        <span style="font-size:9.5px;line-height:1.45;color:#8F8886">{{ visibleSignals.reg.colItaly }} — {{ visibleSignals.reg.italyCaveat }}</span>
+      </div>
+      </sc-if>
+
+      <!-- ============ §6 · WRITTEN READINGS OF THE EU RENEWAL PROCEDURE ======
+           A different collection with a different denominator: 6 client-safe of
+           28. Every line here is an upstream approved IT/EN field; a reading
+           whose text was not approved for display simply has no text slot. -->
+      <sc-if value="{{ visibleSignals.reg.sig.on }}" hint-placeholder-val="{{ true }}">
+      <div style="border-radius:16px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;border-top:3px solid #00698F;padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap">
+          <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.14em;color:#5CC3EE">{{ visibleSignals.reg.sig.kicker }}</span>
+          <span style="font-size:10px;color:#C9C3C1">{{ visibleSignals.reg.sig.countLine }}</span>
+        </div>
+        <span style="font-size:9.5px;color:#8F8886;line-height:1.45">{{ visibleSignals.reg.sig.corpusNote }}</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:9px">
+          <sc-for list="{{ visibleSignals.reg.sig.items }}" as="w" hint-placeholder-count="6">
+            <div style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#161312;padding:11px 13px;display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:#5CC3EE">{{ w.n }} · {{ w.id }}</span>
+                <sc-if value="{{ w.hasDate }}" hint-placeholder-val="{{ true }}"><span style="font-size:9px;color:#8F8886">{{ w.date }}</span></sc-if>
+              </div>
+              <sc-if value="{{ w.hasWhat }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;line-height:1.5;color:#EDEAE9;text-wrap:pretty">{{ w.what }}</span></sc-if>
+              <sc-if value="{{ w.hasProves }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ visibleSignals.reg.sig.provesTitle }}</span><span style="font-size:10.5px;line-height:1.45;color:#C9C3C1">{{ w.proves }}</span></div></sc-if>
+              <sc-if value="{{ w.hasNotProves }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ visibleSignals.reg.sig.notProvesTitle }}</span><span style="font-size:10.5px;line-height:1.45;color:#C9C3C1">{{ w.notProves }}</span></div></sc-if>
+              <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;padding-top:5px;border-top:1px solid rgba(255,255,255,0.06)">
+                <span style="font-size:8.5px;color:#6E6663">{{ visibleSignals.reg.sig.srcTitle }} · {{ w.src }}</span>
+                <sc-if value="{{ w.hasExt }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(151,139,135,0.16);border:1px solid rgba(203,197,195,0.20);color:#B1A9A7;font-size:8px;font-weight:700;letter-spacing:0.06em">{{ w.ext }}</span></sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ UPSTREAM SIGNAL FEED — the third, separate thing ====== -->
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:4px;border-top:1px solid rgba(255,255,255,0.08)">
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <span style="font-family:var(--font-secondary);font-size:9px;font-weight:700;letter-spacing:0.14em;color:#00B152">{{ visibleSignals.reg.feed.kicker }}</span>
+          <span style="font-family:var(--font-secondary);font-size:12px;color:#C9C3C1">{{ t.frSubA }} {{ kpi.signals }} {{ t.frSubB }}</span>
+          <span style="font-size:9.5px;color:#8F8886;line-height:1.45">{{ visibleSignals.reg.feed.distinctNote }}</span>
+        </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           <span onClick="{{ scenarioToggle.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 13px;border-radius:9999px;background:{{ scenarioToggle.bg }};border:1px dashed {{ scenarioToggle.border }};color:{{ scenarioToggle.color }};font-size:9.5px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ scenarioToggle.label }} · {{ sigCountScenario }}</span>
           <sc-for list="{{ futureStatusChips }}" as="f" hint-placeholder-count="8">
@@ -1344,11 +1617,9 @@
       <sc-if value="{{ moreSignals }}" hint-placeholder-val="{{ true }}"><div style="display:flex;justify-content:center"><span onClick="{{ loadMoreSignals }}" style="cursor:pointer;padding:8px 18px;border-radius:9999px;border:1px solid rgba(0,152,69,0.5);color:#00B152;font-size:10.5px;font-weight:700;letter-spacing:0.10em">LOAD MORE · {{ remainingSignals }} REMAINING</span></div></sc-if>
     </div>
     </sc-if>
-
-    <!-- ================= SIGNAL DETAIL ================= -->
     <sc-if value="{{ isSignal }}" hint-placeholder-val="{{ false }}">
     <div style="padding:14px 22px 40px;display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.08em;color:#8F8886"><span onClick="{{ goFuture }}" style="cursor:pointer;color:#009845;font-weight:700">← FUTURE RADAR</span><span style="color:#8F8886">/</span><span style="color:#fff">{{ sg.crumb }}</span></div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:0.08em;color:#8F8886"><span onClick="{{ goFuture }}" style="cursor:pointer;color:#009845;font-weight:700">← {{ t.navFuture }}</span><span style="color:#8F8886">/</span><span style="color:#fff">{{ sg.crumb }}</span></div>
       <div style="border-radius:16px;border:1px solid {{ sg.category.dark }};background:{{ sg.category.dark }};padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start">
         <div style="display:flex;flex-direction:column;gap:8px">
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:9px;font-weight:700;letter-spacing:0.14em;color:{{ sg.category.soft }}">{{ sg.kicker }}</span><sc-if value="{{ sg.hasStatus }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:9999px;background:#161312;border:1px solid {{ sg.category.color }};color:{{ sg.category.color }};font-size:8.5px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ sg.status }}</span></sc-if></div>
@@ -1376,11 +1647,11 @@
           <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.sgTrailTitle }}</div><span style="font-size:9px;color:#8F8886">{{ t.sgTrailNote }}</span></div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:6px">
             <sc-for list="{{ sg.trail }}" as="t" hint-placeholder-count="6">
-              <div style="position:relative;min-width:0;overflow-wrap:anywhere;border-radius:10px;border:1px solid {{ t.border }};background:{{ t.bg }};padding:9px 10px;display:flex;flex-direction:column;gap:4px;min-height:120px"><span style="font-size:8px;font-weight:700;letter-spacing:0.12em;color:{{ t.numColor }}">{{ t.n }} · {{ t.h }}</span><span style="font-size:10.5px;font-weight:700;color:#fff;line-height:1.2">{{ t.who }}</span><span style="font-size:9.5px;color:#C9C3C1;line-height:1.35">{{ t.text }}</span><sc-if value="{{ t.hasEv }}" hint-placeholder-val="{{ false }}"><span onClick="{{ t.view }}" style="margin-top:auto;cursor:pointer;font-size:8.5px;font-weight:700;color:#00B152;letter-spacing:0.06em">VIEW EVIDENCE →</span></sc-if></div>
+              <div style="position:relative;min-width:0;overflow-wrap:anywhere;border-radius:10px;border:1px solid {{ t.border }};background:{{ t.bg }};padding:9px 10px;display:flex;flex-direction:column;gap:4px;min-height:120px"><span style="font-size:8px;font-weight:700;letter-spacing:0.12em;color:{{ t.numColor }}">{{ t.n }} · {{ t.h }}</span><span style="font-size:10.5px;font-weight:700;color:#fff;line-height:1.2">{{ t.who }}</span><span style="font-size:9.5px;color:#C9C3C1;line-height:1.35">{{ t.text }}</span><sc-if value="{{ t.hasEv }}" hint-placeholder-val="{{ false }}"><span onClick="{{ t.view }}" style="margin-top:auto;cursor:pointer;font-size:8.5px;font-weight:700;color:#00B152;letter-spacing:0.06em">{{ visibleSignals.reg.sgl.viewEvidence }}</span></sc-if></div>
             </sc-for>
           </div>
           <sc-if value="{{ hasEvidence }}" hint-placeholder-val="{{ false }}">
-            <div style="border-radius:11px;border:1px solid rgba(0,152,69,0.4);background:rgba(0,152,69,0.08);padding:11px 13px;display:grid;grid-template-columns:1fr 1fr 2fr auto;gap:12px;font-size:10.5px"><div><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ t.arcSource }}</span><br><b style="color:#fff">{{ ev.name }}</b><br><span style="color:#B1A9A7">{{ ev.role }}</span></div><div><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">DATE · LOCATIONS</span><br><b style="color:#fff">{{ ev.date }}</b><br><span style="color:#B1A9A7">Source: {{ ev.srcLoc }} · Fact: {{ ev.factLoc }}</span></div><div><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">WHAT WAS OBSERVED</span><br><span style="color:#EDEAE9">{{ ev.observed }}</span><br><span style="color:#8F8886;font-size:9.5px">Original link · available in source registry (demo)</span></div><span onClick="{{ closeEvidence }}" style="cursor:pointer;color:#8F8886">×</span></div>
+            <div style="border-radius:11px;border:1px solid rgba(0,152,69,0.4);background:rgba(0,152,69,0.08);padding:11px 13px;display:grid;grid-template-columns:1fr 1fr 2fr auto;gap:12px;font-size:10.5px"><div><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ t.arcSource }}</span><br><b style="color:#fff">{{ ev.name }}</b><br><span style="color:#B1A9A7">{{ ev.role }}</span></div><div><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ visibleSignals.reg.sgl.dateLoc }}</span><br><b style="color:#fff">{{ ev.date }}</b><br><span style="color:#B1A9A7">{{ visibleSignals.reg.sgl.srcWord }}: {{ ev.srcLoc }} · {{ visibleSignals.reg.sgl.factWord }}: {{ ev.factLoc }}</span></div><div><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ visibleSignals.reg.sgl.observedTitle }}</span><br><span style="color:#EDEAE9">{{ ev.observed }}</span><br><span style="color:#8F8886;font-size:9.5px">{{ visibleSignals.reg.sgl.origLink }}</span></div><span onClick="{{ closeEvidence }}" style="cursor:pointer;color:#8F8886">×</span></div>
           </sc-if>
         </div></sc-if>
         <sc-if value="{{ sg.hasChanges }}" hint-placeholder-val="{{ false }}"><div style="grid-column:span 4;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
@@ -1391,8 +1662,8 @@
 
       <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:10px">
         <div style="grid-column:span 4;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
-          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">ADAMA PORTFOLIO CONNECTION</div>
-          <sc-if value="{{ sg.hasProduct }}" hint-placeholder-val="{{ true }}"><div onClick="{{ sg.goProduct }}" style="border-radius:10px;border:1px solid {{ sg.category.color }}66;background:rgba(255,255,255,0.03);padding:10px 12px;display:flex;flex-direction:column;gap:3px;cursor:pointer"><span style="font-size:8px;font-weight:700;letter-spacing:0.12em;color:{{ sg.category.soft }}">PRIMARY MATCH</span><span style="font-size:16px;font-weight:700;color:#fff">{{ sg.p.name }}</span><span style="font-size:10.5px;color:#C9C3C1">{{ sg.p.ai }}</span><span style="font-size:10px;color:#8F8886">Crop / target fit · {{ sg.p.crops }} · {{ sg.p.targets }}</span><span style="font-size:10px;color:#8F8886">Label timing · {{ sg.p.use }}</span><span style="font-size:9.5px;color:#00B152;font-weight:700">{{ t.lblRegisteredIt }} (demo pack) · {{ sg.p.moa }}</span></div></sc-if>
+          <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ visibleSignals.reg.sgl.portfolio }}</div>
+          <sc-if value="{{ sg.hasProduct }}" hint-placeholder-val="{{ true }}"><div onClick="{{ sg.goProduct }}" style="border-radius:10px;border:1px solid {{ sg.category.color }}66;background:rgba(255,255,255,0.03);padding:10px 12px;display:flex;flex-direction:column;gap:3px;cursor:pointer"><span style="font-size:8px;font-weight:700;letter-spacing:0.12em;color:{{ sg.category.soft }}">{{ visibleSignals.reg.sgl.primaryMatch }}</span><span style="font-size:16px;font-weight:700;color:#fff">{{ sg.p.name }}</span><span style="font-size:10.5px;color:#C9C3C1">{{ sg.p.ai }}</span><span style="font-size:10px;color:#8F8886">{{ visibleSignals.reg.sgl.cropFit }} · {{ sg.p.crops }} · {{ sg.p.targets }}</span><span style="font-size:10px;color:#8F8886">{{ visibleSignals.reg.sgl.labelTiming }} · {{ sg.p.use }}</span><span style="font-size:9.5px;color:#00B152;font-weight:700">{{ t.lblRegisteredIt }} {{ visibleSignals.reg.sgl.demoPack }} · {{ sg.p.moa }}</span></div></sc-if>
           <sc-if value="{{ sg.noProduct }}" hint-placeholder-val="{{ false }}"><div style="border-radius:10px;border:1px dashed rgba(0,105,143,0.6);padding:10px 12px;font-size:11px;color:#B1A9A7">{{ t.sgNoProduct }}</div></sc-if>
           <sc-if value="{{ sg.hasEarlyMarket }}" hint-placeholder-val="{{ false }}"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886;padding-top:6px">{{ t.sgEarlyMarketTitle }}</div><div style="font-size:10.5px;color:#C9C3C1;line-height:1.45">{{ sg.earlyMarket }}</div></sc-if>
           <sc-if value="{{ sg.hasScienceLine }}" hint-placeholder-val="{{ false }}"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886;padding-top:6px">{{ t.sgScienceTitle }}</div><div onClick="{{ sg.goTheme }}" style="font-size:10.5px;color:#C9C3C1;line-height:1.45;cursor:pointer">{{ sg.scienceLine }}</div></sc-if>
@@ -1407,19 +1678,25 @@
         <div style="grid-column:span 4;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
           <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.sgCropRegionTitle }}</div>
           <div style="font-size:11px;color:#EDEAE9;line-height:1.5">{{ sg.crumb }} — {{ t.sgSrcNotFact }}</div>
-          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;font-size:10px;padding-top:4px"><div style="padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">FACT LOCATION</span><br><b style="color:#fff">{{ sg.factLoc }}</b></div><div style="padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">GEOGRAPHIC RELEVANCE BEYOND</span><br><b style="color:#B1A9A7">{{ t.sgNotEstablished }}</b></div></div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;font-size:10px;padding-top:4px"><div style="padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ visibleSignals.reg.sgl.factLoc }}</span><br><b style="color:#fff">{{ sg.factLoc }}</b></div><div style="padding:7px 9px;border-radius:8px;background:rgba(255,255,255,0.04)"><span style="font-size:8px;color:#8F8886;letter-spacing:0.12em">{{ visibleSignals.reg.sgl.beyond }}</span><br><b style="color:#B1A9A7">{{ t.sgNotEstablished }}</b></div></div>
         </div>
       </div>
 
       <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">SOURCES BEHIND THIS SIGNAL · {{ sg.sourceCount }}</div><div style="display:flex;gap:4px;flex-wrap:wrap"><sc-for list="{{ sg.groupChips }}" as="g" hint-placeholder-count="5"><span onClick="{{ g.go }}" style="cursor:pointer;padding:3px 9px;border-radius:9999px;border:1px solid {{ g.border }};background:{{ g.bg }};color:{{ g.textColor }};font-size:8.5px;font-weight:700;letter-spacing:0.06em">{{ g.group }} {{ g.count }}</span></sc-for></div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ visibleSignals.reg.sgl.sources }} · {{ sg.sourceCount }}</div><div style="display:flex;gap:4px;flex-wrap:wrap"><sc-for list="{{ sg.groupChips }}" as="g" hint-placeholder-count="5"><span onClick="{{ g.go }}" style="cursor:pointer;padding:3px 9px;border-radius:9999px;border:1px solid {{ g.border }};background:{{ g.bg }};color:{{ g.textColor }};font-size:8.5px;font-weight:700;letter-spacing:0.06em">{{ g.group }} {{ g.count }}</span></sc-for></div></div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px">
           <sc-for list="{{ sg.sourceCards }}" as="s" hint-placeholder-count="6">
             <div onClick="{{ s.go }}" style="border-radius:11px;border:1px solid rgba(203,197,195,0.12);background:rgba(255,255,255,0.03);padding:10px 12px;display:flex;flex-direction:column;gap:4px;cursor:pointer;border-left:3px solid {{ s.color }}" style-hover="border-color:rgba(255,255,255,0.3)">
-              <div style="display:flex;justify-content:space-between;gap:6px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:{{ s.color }}">{{ s.group }}</span><span style="font-size:9px;color:#8F8886">{{ s.date }}</span></div>
-              <span style="font-size:12px;font-weight:700;color:#fff">{{ s.name }}</span><span style="font-size:9.5px;color:#B1A9A7">{{ s.role }}</span>
-              <span style="font-size:10px;color:#EDEAE9;line-height:1.4">{{ s.observed }}</span>
-              <div style="display:flex;justify-content:space-between;gap:6px;font-size:9px;color:#8F8886;padding-top:3px;border-top:1px solid rgba(255,255,255,0.06)"><span>Source · {{ s.srcLoc }}</span><span>Fact · {{ s.factLoc }}</span></div>
+              <!-- A real source record carries name, registry class and an
+                   approved role text; it carries no per-signal date, no
+                   "observed" sentence and no source/fact location. Those four
+                   slots existed only on the demo scenario fixture, so on a real
+                   signal they rendered as blanks and s.role — an object on the
+                   real record — printed "[object Object]". The subcomponents are
+                   omitted rather than filled: s.roleText is the approved text
+                   and prints nothing when upstream did not approve one. -->
+              <div style="display:flex;justify-content:space-between;gap:6px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:{{ s.color }}">{{ s.group }}</span></div>
+              <span style="font-size:12px;font-weight:700;color:#fff">{{ s.name }}</span><span style="font-size:9.5px;color:#B1A9A7">{{ s.roleText }}</span>
             </div>
           </sc-for>
         </div>
@@ -2859,9 +3136,36 @@ class Component extends DCLogic {
     const recentN = (d) => (d === 30 && typeof CA.recent30 === 'number') ? CA.recent30
       : (d === 7 && typeof CA.recent7 === 'number') ? CA.recent7
         : ACTS_DATED.filter((a) => actAge(a) <= d).length;
+    /* ════════ §3 · THREE RECORDS EXIST · NOT ONE IS AN OPPORTUNITY ══════════
+       The package says so twice and this block reads it rather than deciding it.
+       The collection declares mayBeCalledOpportunities=false, candidateLabel and
+       clientSafeIsZeroByRule=true; each of the 3 records repeats it as
+       isCandidate=true, mayBeCalledAnOpportunity=false and candidateState
+       'DA_VALIDARE'. Measured now: count 3 · clientSafe 0 · safeRecords 0 ·
+       clientSafeState DECLARED.
+       clientSafe 0 here is a RULE, not a reading that came up empty, so it is
+       printed as a number beside its denominator (0/3). If that state were ever
+       anything but DECLARED the value would be null — NOT DECLARED — and the law
+       forbids printing that as 0, which is why oppSafeN is allowed to be null. */
+    const OPPC = (APP0 && APP0.opportunities) || {};
+    /* A declared boolean is READ, never inferred: the day the package says these
+       may be called opportunities, the old label and the green rail come back on
+       their own and nobody has to edit this file. */
+    const oppMayBeCalled = OPPC.mayBeCalledOpportunities === true;
+    const oppSafeDeclared = OPPC.clientSafeState === 'DECLARED' && typeof OPPC.clientSafe === 'number';
+    const oppSafeN = oppSafeDeclared ? OPPC.clientSafe : null;
+    /* CANDIDATE_STATE is an upstream code, so it is language-independent and only
+       its label is localized — the same rule T.WSTATUS already applies. */
+    const candL = (k) => !k ? '' : ((T.CANDSTATE && T.CANDSTATE[k]) || String(k).replace(/_/g, ' '));
     const K = {
-      /* the radar's own subject */
+      /* The radar's own subject. 3 records exist; `total` counts RECORDS, and the
+         label printed beside it may not call them opportunities.
+         candidatesClientSafe is the same collection's DECLARED client-safe count
+         (0 of 3) and stays null — never 0 — when nothing is declared. */
       total: cnt('opportunities'),
+      candidates: cnt('opportunities'),
+      candidatesClientSafe: oppSafeN,
+      candidatesSafeDeclared: oppSafeDeclared,
       scenarios: cnt('opportunityScenarios'),
       /* canonical crop-window status — upstream CURRENT_STATUS, tallied once */
       windows: cnt('cropWindows'),
@@ -2898,17 +3202,32 @@ class Component extends DCLogic {
       routesOpen: SRC_ACCESS.GREEN || 0, routesBlocked: (SRC_ACCESS.BLOCKED || 0) + (SRC_ACCESS.NOT_REACHED || 0) + (SRC_ACCESS.PARTIAL || 0)
     };
     const ICO = (n) => 'assets/icons/' + n + '-white.png';
-    /* Card 1 may not be called an "opportunity": all 3 records carry
-       FORBIDDEN_LABEL = do not call this an Italian or a commercial opportunity.
-       T.kpiConvergences is the key italy-i18n.js still owes us; until it lands the
-       old label is the fallback. */
-    const kpiTotalLab = T.kpiConvergences || T.kpiTotal;
-    const kpiTotalSub = T.kpiConvergencesSub || EITHER('convergenze che meritano indagine', 'convergences that merit investigation');
+    /* Card 1 may not be called an "opportunity". Every one of the 3 records carries
+       FORBIDDEN_LABEL — do not call this an Italian or a commercial opportunity —
+       and the collection carries mayBeCalledOpportunities=false. So the label is
+       chosen FROM that declaration: the candidate wording while it is false, the
+       old wording the day it turns true. The number stays 3, because 3 records
+       really do exist; what changes is what the 3 is called. The sub-line then
+       carries the denominator the headline cannot: 0 of 3 are client-safe. */
+    const kpiTotalLab = oppMayBeCalled
+      ? (T.kpiTotal || 'Active opportunities')
+      : (T.kpiConvergences || EITHER('Convergenze da validare', 'Convergences to validate'));
+    const kpiCandWords = T.kpiConvergencesSub || EITHER('candidati da validare', 'candidates to validate');
+    const kpiTotalSub = oppMayBeCalled ? (T.kpiTotalSub || '')
+      : oppSafeDeclared
+        ? kpiCandWords + ' · ' + oppSafeN + '/' + K.total + ' ' + (T.kpiClientSafeOf || EITHER('utilizzabili con il cliente', 'client-safe'))
+        : kpiCandWords + ' · ' + (T.kpiClientSafeUndeclared || EITHER('quota utilizzabile con il cliente non dichiarata', 'client-safe share not declared'));
+    /* Green is this portal's "act on this" rail. Three records nobody may call an
+       opportunity may not wear it, so the tile takes the amber the rest of the
+       interface already uses for DA VALIDARE and DATA DA CONFERMARE. Both are
+       existing palette tokens; the tile, its icon and its click are unchanged. */
+    const kpiTotalRail = oppMayBeCalled ? '#009845' : '#F5B317';
+    const kpiTotalInk = oppMayBeCalled ? '#00B152' : '#F5B317';
     const movSub = EITHER(
       ACT_UNDATED + ' record senza data di inizio, esclusi · solo attività con data',
       ACT_UNDATED + ' records have no start date and are excluded · dated activity only');
     const kpiDef = [
-      [K.total, kpiTotalLab, '#009845', '#00B152', 'farm-management', kpiTotalSub],
+      [K.total, kpiTotalLab, kpiTotalRail, kpiTotalInk, 'farm-management', kpiTotalSub],
       /* Canonical buckets. These four describe the 29 CROP WINDOWS, which is what
          their own i18n sub-lines already say ("finestra agronomica aperta ora").
          They are not radar filters any more: 0 of 3 real records join a canonical
@@ -2924,6 +3243,51 @@ class Component extends DCLogic {
     const goWindows = () => this.go({ view: 'windows' });
     const kpiGo = [() => this.radarWith({}), goWindows, goWindows, goWindows, goWindows, () => this.go({ view: 'portfolio' }), () => this.go({ view: 'portfolio' }), () => this.compWith({})];
     const kpis = kpiDef.map((k, i) => ({ value: k[0], label: k[1], color: k[3], rail: k[2], tint: k[2] + '1A', icon: ICO(k[4]), sub: k[5], go: kpiGo[i] }));
+
+    /* ════════ §3 · THE SAME RULE, ON THE CARD ════════════════════════════════
+       A KPI that stops asserting opportunities is worth nothing if the cards under
+       it still read as deals. The declaration has to travel with the record, so
+       this pass writes the upstream's OWN candidate fields onto the same decorated
+       objects the radar already holds: nothing is recomputed, no count moves and
+       no card is hidden.
+       It computes no state. isCandidate is upstream's isCandidate AND its
+       mayBeCalledAnOpportunity; candidateState is upstream's own string; and a
+       record the model does not declare a candidate — the 26 legacy presentation
+       cases, default off — is stamped false and keeps the badge it already had.
+       EVIDENCE_STATUS_WHY is where upstream would explain why a record is not
+       client-safe. Measured 3/3 it reads state NOT_ESTABLISHED with it=null and
+       en=null, so there is NO approved localized reason and nothing is printed.
+       narOf() is the same gate the rest of the file uses and it is the only door:
+       CASE_LABEL ('CONVERGENCIA QUE MERECE INVESTIGACAO') and FORBIDDEN_LABEL are
+       the upstream's Portuguese working notes and may never stand in for it. */
+    const OPP_DECL = ((OPPC && OPPC.records) || []).reduce((a, o) => { a[o.id] = o; return a; }, {});
+    CASES.forEach((c) => {
+      const o = OPP_DECL[c.id];
+      const cand = !!(o && o.isCandidate === true && o.mayBeCalledAnOpportunity === false);
+      c.isCandidate = cand;
+      c.candidateState = cand ? (o.candidateState || null) : null;
+      c.candidateStateL = cand ? candL(o.candidateState) : '';
+      c.candidateWhy = cand ? narOf(o.evidenceStatusWhy) : null;
+      c.hasCandidateWhy = !!c.candidateWhy;
+      /* Presentation may draw a bar from dates somebody supplied; it may not draw
+         one where nobody did. hasDates is the flag the feed already sets (false on
+         3/3 real records, whose windowId is null), so the card shows the record's
+         OWN declared application window instead — real 3/3 — rather than
+         "DATA DA CONFERMARE — DATA DA CONFERMARE" over a bar of zero width. */
+      c.hasDates = c.hasDates === true;
+      c.showAppWindow = !c.hasDates && !!c.applicationWindowL;
+      /* status is null on 3/3, so statusLabel is '' and the pill was rendering as
+         a grey blank. An empty pill is noise; the candidate chip takes its slot. */
+      c.hasStatus = !!c.statusLabel;
+      /* FRESHNESS_DAYS is not approved for display on the real records, so
+         updatedLabel is '' and the green dot beside it had nothing to mark. */
+      c.hasUpdated = !!c.updatedLabel;
+      /* §10 · a product the label audit did not find is NOT "ADAMA has none".
+         decorate() already carries the absence rule; the card never showed it. */
+      c.hasPortfolioNote = !!c.portfolioNote;
+    });
+    /* Measured after this pass: 3 of 3 real records stamped isCandidate, 3 of 3
+       candidateState DA_VALIDARE, 0 of 3 carrying an approved localized reason. */
 
     /* ════════ §4 · THE REGION MAP ════════════════════════════════════════════
        Was: ITALY_DEMO.REGION_STATS, 20 rows carrying an invented per-region `cases` count
@@ -3077,12 +3441,43 @@ class Component extends DCLogic {
     const navDemoInbound = (AM && AM.collections.fieldMessages) ? AM.collections.fieldMessages.records : [];
     const allMessages = s.extraMessages.concat(navDemoInbound);
 
-    /* §2 · Every badge in the INTELLIGENCE group is now a count of normalized records.
-    Before this block the badges were fixture recounts and four of them were wrong by a wide
-    margin: competitors 72 vs 503 real activities, science 36 vs 88, archive 448 vs the
-    773-row real index, sources 53 orgs + 39 people = 92 vs a 31-source registry. Three were
-    right only by luck — the 29 demo CASES are a 1:1 shadow of the 29 canonical windows, so
-    radar and windows keep reading 29, but from the contract instead of the shadow. */
+    /* §7 · THE TEN INTELLIGENCE BADGES, walked one at a time against the V2.1 model
+    on build V21-843baf4229d93598, reference date 2026-09-02. No badge number is typed:
+    each is navN(key) in the next block = AM.counts[key] = AM.collections[key].count.
+    Read as  badge · collection · count / clientSafe / clientSafeState:
+      radar       · opportunities        ·    3 /   0 · DECLARED
+      future      · futureSignals        ·    3 /   1 · DECLARED
+      windows     · windows              ·   29 /  -- · NOT_DECLARED_BY_SOURCE
+      market      · marketObservations   ·  157 /  90 · DECLARED
+      voices      · voices               ·   79 /  65 · DECLARED
+      competitors · competitorActivities ·  577 / 569 · DECLARED
+      science     · scienceRecords       ·   88 /  88 · DECLARED
+      portfolio   · products             ·  188 /  -- · NOT_DECLARED_BY_SOURCE
+      archive     · archive              · 1012 /  -- · NOT_DECLARED_BY_SOURCE
+      sources     · sources              ·  189 /  31 · DECLARED
+    Every badge reads the family it names — the copy-paste that made the opportunity
+    badge print the 29 canonical windows is gone. `--` is NOT_DECLARED_BY_SOURCE and is
+    NOT zero: windows, products and archive predate the flag, per-record clientSafe is
+    undefined 29/29, 188/188 and 1012/1012, so the count is the honest badge for them.
+
+    Two badges still print a number their collection cannot sustain. Neither is fixable
+    from inside this block — navDef is declared in the NEXT block and the labels are
+    strings in italy-i18n.js — so both are reported here, not patched.
+    · radar prints 3 against clientSafe 0. All three records are EVIDENCE_DERIVED and
+      IDENTITY_ONLY, and each carries an upstream FORBIDDEN_LABEL against the words
+      "oportunidade Italia" / "oportunidade comercial"; upstream's own CASE_LABEL is
+      CONVERGENCIA QUE MERECE INVESTIGACAO. Three rows really do open on that screen, so
+      3 is the right count and "Opportunita" is the wrong name for it. Rename what the
+      badge counts; never invent a different number.
+    · sources prints 189 while 31 are EVIDENCE_SOURCED and 158 QA_UNREVIEWED — two of
+      those, SRC_NAO_DECLARADA and SRC_DESCONHECIDA, are sentinels meaning "no source
+      was declared". The next block's comment already claims this badge counts 31
+      monitored public routes; the code counts 189. 189 is the corpus, 31 is showable.
+
+    The eleventh badge is outside the core. allMessages feeds the amber INTEGRAZIONI ·
+    DEMO badge: 18 fieldMessages, provenance SYNTHETIC_DEMO 18/18, clientSafe
+    NOT_DECLARED_BY_SOURCE, plus whatever the composer adds through s.extraMessages,
+    which starts empty — the badge opens at 18 and only the user moves it. */
     const navN = (k) => (AM && AM.counts && typeof AM.counts[k] === 'number') ? AM.counts[k] : 0;
 
     /* §8 · 'sources' counts monitored public routes only (31). The old badge summed 53 demo
@@ -3128,6 +3523,30 @@ class Component extends DCLogic {
     const csRec = csReal || csScen;
     const csLK = (AM && AM.lookups) || {};
     const csUIK = (AM && AM.UI) || {};
+
+    /* ════════ §3 · WHAT THIS SCREEN IS ALLOWED TO CALL THE RECORD ════════════
+       The radar counts 3 of these and none of them is an opportunity; the detail
+       screen is where a reader decides whether to act on one, so the same
+       declaration has to arrive here too. It is READ, never derived: isCandidate,
+       mayBeCalledAnOpportunity and candidateState are upstream's own fields, and
+       csRec is the record the screen actually opened (real first, and a legacy
+       presentation case only when the reader switched scenarios on — a scenario
+       carries none of these fields and is stamped false).
+       EVIDENCE_STATUS_WHY is upstream's own explanation of why a record is not
+       client-safe. Measured 3/3: state NOT_ESTABLISHED, it null, en null. So
+       there is NO approved localized reason today, narOf() returns null and the
+       screen says the reason is not stated. The record's Portuguese CASE_LABEL
+       ('CONVERGENCIA QUE MERECE INVESTIGACAO') and FORBIDDEN_LABEL are working
+       notes, not an approved localization, and may never stand in for it.
+       These five values ride on K — the counters object the markup reads as
+       `kpi` — because `cs`, the case view-model, is assembled in a later block
+       that this one does not own, and K is the only bag here the template can
+       reach. They are named case* so nothing mistakes them for counts. */
+    K.caseIsCandidate = !!(csRec && csRec.isCandidate === true && csRec.mayBeCalledAnOpportunity === false);
+    K.caseCandidateStateL = K.caseIsCandidate ? candL(csRec.candidateState) : '';
+    K.caseCandidateWhy = K.caseIsCandidate ? narOf(csRec.evidenceStatusWhy) : null;
+    K.caseHasCandidateWhy = !!K.caseCandidateWhy;
+    K.caseCandidateWhyMissing = K.caseIsCandidate && !K.caseCandidateWhy;
 
     /* §11 · The upstream opportunity feed was researched in Portuguese and the
        Portuguese is not confined to prose. Measured on the 3 real records:
@@ -4581,32 +5000,50 @@ class Component extends DCLogic {
           role: mkIT ? n + ' osservazioni di prezzo ingerite · ultima osservazione dichiarata dalla fonte ' + (x.latestObservation || '—') : n + ' price observations ingested · source-declared latest observation ' + (x.latestObservation || '—') })),
       };
     })();
-    /* §7 · ADAMA Product Intelligence — the product as an entity.
-       Identity comes from the registry joined to the public catalog (166 products:
-       163 registrations + 3 catalog-only). Connections come ONLY from
-       AM.collections.productRelationships — the 163-label audit plus the 219
-       registry label-use rows. The demo case fixture is not a source here, and the
-       demo window list is no longer read: the windows card is a real join against
-       the 29 canonical crop windows. */
+    /* §4 · ADAMA Product Intelligence — TWO UNIVERSES OVER ONE NAME.
+       The commercial catalogue is 51 public product pages. The regulatory
+       universe is 163 Italian phytosanitary registrations. They are two
+       different claims about the same market and they are NEVER added:
+       163 is not "ADAMA products sold in Italy". Every count below therefore
+       names the collection it was counted in and carries its denominator.
+
+       The catalogue arithmetic is NOT recomputed here. The model publishes
+       holderNotAdamaCount, notPlantProtectionCount, heldByAnotherCompanyCount,
+       systemNotProductCount and contractStates on
+       AM.collections.productsCommercial; this block reads them.
+
+       Three upstream strings are deliberately never rendered: the collection
+       `law` texts, CATEGORY_SOURCE and NOT_A_PLANT_PROTECTION_PRODUCT are
+       Portuguese research prose ("registro de fertilizante"). Only the FLAG is
+       shown, in the interface language. */
     let pd = null;
     if (AM && s.productId) {
       const e = AM.findProduct(s.productId);
       if (e) {
-        /* A label authorisation is NATIONAL. The old row printed the demo case's
-           region under every relationship, which invented a regional claim the
-           label never makes. Measured: only 15 of 236 relationship rows join to a
-           canonical window at all, and 6 crop x issue keys carry more than one
-           window in different regions — so no single region is derivable either.
-           The line now carries the row's EVIDENCE, localized from the model's own
-           English evidence string. Nothing here is a new fact. */
+        const PIT = s.lang !== 'en';
+        const COMMC = AM.collections.productsCommercial;
+        const REGC = AM.collections.productsRegulatory;
+        const RELC = AM.collections.productRelationships;
+        const LNKC = AM.collections.regulatoryLinks;
+        const AIC = AM.collections.activeIngredients;
+        const UNK = T.ksNotKnown || 'UNKNOWN';
+        const U0 = (x) => String(x || '').trim().toUpperCase();
+        const val = (x) => { const v = String(x === null || x === undefined ? '' : x).trim(); return v || UNK; };
+        /* AM.fmtDate is 'DD Mmm' by design; an authorisation that runs to 2040
+           is unreadable without the year, so the year is appended here. This is
+           formatting, not a fact. */
+        const dLong = (v) => { const iso = AM.isoOf ? AM.isoOf(v) : null; return iso ? AM.fmtDate(iso, T.months) + ' ' + iso.slice(0, 4) : UNK; };
+        const cm = e.commercial || null;
+
+        /* A label authorisation is NATIONAL. The row carries its EVIDENCE, not a
+           region: a label never names one, and printing one would invent it. */
         const EV = {
           VERIFIED_LABEL_MATCH: { it: 'Letto sull\'etichetta ufficiale', en: 'Read on the official label' },
           RELATED_PORTFOLIO: { it: 'Riga d\'uso autorizzata nel registro nazionale', en: 'Authorised use row in the national registry' },
-          LABEL_CHECK_NEEDED: { it: 'Etichetta da verificare per questa combinazione', en: 'Label still to be read for this combination' },
-          NO_CONFIRMED_MATCH_CURRENT_READING: { it: 'Non trovato in questa lettura delle etichette', en: 'Not found in this label reading' },
+          LABEL_CHECK_NEEDED: { it: 'Etichetta ancora da leggere per questa combinazione', en: 'Label still to be read for this combination' },
+          NO_CONFIRMED_MATCH_CURRENT_READING: { it: 'Non presente in questa lettura delle etichette', en: 'Not found in this label reading' },
         };
-        const evLine = (st) => { const x = EV[st]; return x ? (s.lang === 'en' ? x.en : x.it) : ((T.PSTATE && T.PSTATE[st]) || ''); };
-        const U0 = (x) => String(x || '').trim().toUpperCase();
+        const evLine = (st) => { const x = EV[st]; return x ? (PIT ? x.it : x.en) : ((T.PSTATE && T.PSTATE[st]) || ''); };
 
         /* Canonical windows indexed by crop x issue. Exact join only — a product
            whose label names Cercospora beticola is NOT evidence about a window on
@@ -4617,26 +5054,33 @@ class Component extends DCLogic {
 
         const relRow = (l) => {
           const hit = winIdx[U0(l.crop) + '|' + U0(l.issue)] || [];
-          /* One window -> a real destination. Several windows (same crop x issue in
-             different regions) or none -> no destination; a relationship must never
-             pick a region for the reader. */
+          /* One window -> a real destination. Several windows (same crop x issue
+             in different regions) or none -> no destination; a relationship must
+             never pick a region for the reader. */
           const dest = hit.length === 1 ? hit[0].id : null;
-          /* Named `evidence` because that is what it holds: a label authorisation has
-             no region, and the old name told the markup otherwise. `region` is kept as a
-             deprecated alias only so nothing outside this file breaks. */
           const ev = evLine(l.strength);
           return { crop: cl(l.crop), issue: il(l.issue), evidence: ev, region: ev, go: () => dest && this.openWindow(dest) };
         };
         const byCropIssue = (a, b) => String(a.crop).localeCompare(String(b.crop)) || String(a.issue).localeCompare(String(b.issue));
-        const verified = e.verifiedLinks.map(relRow).sort(byCropIssue);
-        const related = e.relatedLinks.map(relRow).sort(byCropIssue);
-        const checkNeeded = e.checkNeededLinks.map(relRow).sort(byCropIssue);
-        const rejected = e.rejectedLinks.map(relRow).sort(byCropIssue);
+        /* One product carries up to 93 relationship rows. The card shows the
+           first ten and SAYS how many exist, instead of scrolling forever or
+           silently truncating. */
+        const CAP = 10;
+        const capNote = (n) => (n > CAP
+          ? (PIT ? CAP + ' righe mostrate su ' + n : CAP + ' rows shown of ' + n)
+          : '');
+        const verifiedAll = e.verifiedLinks.map(relRow).sort(byCropIssue);
+        const relatedAll = e.relatedLinks.map(relRow).sort(byCropIssue);
+        const checkAll = e.checkNeededLinks.map(relRow).sort(byCropIssue);
+        const rejectedAll = e.rejectedLinks.map(relRow).sort(byCropIssue);
+        const verified = verifiedAll.slice(0, CAP);
+        const related = relatedAll.slice(0, CAP);
+        const checkNeeded = checkAll.slice(0, CAP);
+        const rejected = rejectedAll.slice(0, CAP);
 
         /* Windows the product is actually connected to, via its own relationship
-           rows. Measured: 9 of 166 products reach a canonical window this way,
-           28 window links in total. Status text and colour come from the canonical
-           status and the record's presentation block, never from a date guess. */
+           rows. Status text and colour come from the canonical status and the
+           record's presentation block, never from a date guess. */
         const seenW = {};
         const wins = [];
         e.links.forEach((l) => (winIdx[U0(l.crop) + '|' + U0(l.issue)] || []).forEach((x) => {
@@ -4644,8 +5088,8 @@ class Component extends DCLogic {
           wins.push({
             label: il(x.issue) + ' · ' + x.region,
             state: wst(x.canonicalStatus || x.status || 'DATE_UNKNOWN'),
-            /* ui.status.text, not ui.status.color: the markup paints a text span, and
-               .color is the chip fill (#6E6663 on a #1C1817 card is unreadable). */
+            /* ui.status.text, not ui.status.color: the markup paints a text span,
+               and .color is the chip fill (#6E6663 on a #1C1817 card is unreadable). */
             color: (x.ui && x.ui.status && (x.ui.status.text || x.ui.status.color)) || '#B1A9A7',
             go: () => this.openWindow(x.id),
           });
@@ -4653,36 +5097,32 @@ class Component extends DCLogic {
         const winsTop = wins.slice(0, 4);
 
         /* Resistance documented in Italy for a species this product's label names
-           as a target. The old code matched on GENUS only, which would have tied a
-           product targeting Amaranthus retroflexus to Amaranthus palmeri resistance
-           — a fabricated claim. Genus + species now: 49 of 166 products match,
-           against 65 under the genus-only rule. It also read r.SPECIES / r.MECHANISM,
-           keys the model no longer exposes, so the card rendered for 0 products.
-           MECHANISM is NOT_APPROVED_FOR_DISPLAY on 34/34 records (internal Portuguese
-           working notes), so the second line carries the authority and the regions
-           where resistance is documented — both plain facts, 34/34 filled. */
+           as a target. Genus AND species — matching on genus alone would tie a
+           product targeting Amaranthus retroflexus to Amaranthus palmeri
+           resistance, which is a fabricated claim. MECHANISM is
+           NOT_APPROVED_FOR_DISPLAY on every record (Portuguese working notes), so
+           the second line carries the authority and the regions instead. */
         const taxon = (x) => String(x || '').split('—')[0].replace(/\([^)]*\)/g, ' ').replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).slice(0, 2).join(' ').toUpperCase();
         const RES = (AM.collections.resistance && AM.collections.resistance.records) || [];
         const resIdx = {};
         RES.forEach((r) => { const k = taxon(r.species); if (k) (resIdx[k] = resIdx[k] || []).push(r); });
-        /* GIRE files one record per resistance mechanism, so Lolium spp. alone holds 5
-           records. With MECHANISM undisplayable those 5 rows are visually identical;
-           merge by species and union the regions instead of printing the same name
-           three times. */
+        /* GIRE files one record per mechanism, so Lolium spp. alone holds 5
+           records. With MECHANISM undisplayable those rows are visually
+           identical; merge by species and union the regions. */
         const resBySp = {};
         const res = [];
         (e.targets || []).forEach((tg) => (resIdx[taxon(tg)] || []).forEach((r) => {
-          /* The species string carries a Portuguese research tail after an em dash on
-             the Lolium rows; cut the tail, never the taxon — parentheses stay. */
+          /* The species string carries a Portuguese research tail after an em
+             dash on the Lolium rows; cut the tail, never the taxon —
+             parentheses stay. */
           const sp = String(r.species || '').split(' — ')[0].trim();
           let row = resBySp[sp];
           if (!row) { row = resBySp[sp] = { label: sp, mech: '', _auth: {}, _reg: {} }; res.push(row); }
           if (r.authority) row._auth[r.authority] = 1;
-          /* GIRE region strings are not a clean enum: of 37 distinct values, 6 carry a
-             Portuguese research tail after an em dash ('— mesma frase literal acima'),
-             5 carry a Portuguese parenthetical ('(casos esporadicos)'), and one is the
-             NAO SEI marker itself. Cut the tail and the parenthesis, then drop the
-             marker — 19 real Italian region names survive. */
+          /* GIRE region strings are not a clean enum: some carry a Portuguese
+             research tail after an em dash, some a Portuguese parenthetical, and
+             one is the NAO SEI marker itself. Cut the tail and the parenthesis,
+             then drop the marker. */
           (r.regions || []).forEach((g) => {
             const nm = String(g).split('—')[0].replace(/\([^)]*\)/g, '').replace(/\s+/g, ' ').trim();
             if (nm && !/^NAO SEI/i.test(nm)) row._reg[nm] = 1;
@@ -4693,70 +5133,277 @@ class Component extends DCLogic {
         res.forEach((r) => { r.mech = Object.keys(r._auth).concat(Object.keys(r._reg)).join(' · '); delete r._auth; delete r._reg; });
         const resTop = res.slice(0, 3);
 
+        /* ── §4 · UNIVERSE ONE · the commercial catalogue ────────────────────
+           51 public product pages. Presence here is presence in a catalogue, and
+           nothing more: the authorisation holder is not the seller, and the
+           model declares the commercial contract UNKNOWN on every one of the 51. */
+        const MS = {
+          REGULATORY_MATCH_CONFIRMED: { it: 'registrazione dichiarata dalla scheda e ritrovata nel registro', en: 'registration declared by the catalogue page and found in the registry' },
+          REGULATORY_MATCH_NOT_FOUND: { it: 'nessuna registrazione corrispondente in questa lettura del registro', en: 'no matching registration in this reading of the registry' },
+          OTHER_REGULATORY_REGIME: { it: 'altro regime regolatorio: la scheda non descrive un fitosanitario', en: 'another regulatory regime: this page does not describe a plant protection product' },
+        };
+        const msTok = cm ? String(cm.matchState || '') : '';
+        const commRows = [];
+        const commFlags = [];
+        if (cm) {
+          commRows.push({ l: PIT ? 'NUMERO DI REGISTRAZIONE SULLA SCHEDA' : 'REGISTRATION NUMBER ON THE PAGE', v: val(cm.reg) });
+          commRows.push({ l: PIT ? 'TITOLARE DELL\'AUTORIZZAZIONE' : 'AUTHORISATION HOLDER', v: val(cm.holder) });
+          if (MS[msTok]) commRows.push({ l: PIT ? 'CORRISPONDENZA CON IL REGISTRO' : 'MATCH WITH THE REGISTRY', v: PIT ? MS[msTok].it : MS[msTok].en, code: msTok });
+          /* "Say UNKNOWN" — the declared enum is kept verbatim in front of the
+             interface word, which is this codebase's code-then-label form. */
+          commRows.push({
+            l: PIT ? 'CONTRATTO COMMERCIALE' : 'COMMERCIAL CONTRACT',
+            v: val(cm.commercialContract) + ' · ' + UNK,
+            code: String(cm.commercialContract || ''),
+            why: (cm.commercialContractWhy && cm.commercialContractWhy.state === 'CLEAR')
+              ? (PIT ? cm.commercialContractWhy.it : cm.commercialContractWhy.en) : '',
+          });
+          if (cm.isSystemNotProduct) commFlags.push(PIT ? 'La scheda descrive un sistema colturale, non un prodotto.' : 'This page describes a cropping system, not a product.');
+          if (cm.notAPlantProtectionProduct) commFlags.push(PIT ? 'Non è un prodotto fitosanitario: rientra in un altro regime regolatorio.' : 'Not a plant protection product: it falls under another regulatory regime.');
+          if (cm.holderIsAdamaState === 'DECLARED' && !cm.holderIsAdama) commFlags.push(PIT ? 'Il catalogo dichiara che il titolare dell\'autorizzazione non è ADAMA.' : 'The catalogue declares that the authorisation holder is not ADAMA.');
+          else if (cm.holderIsAdamaState !== 'DECLARED') commFlags.push(PIT ? 'Il catalogo non dichiara se il titolare sia ADAMA.' : 'The catalogue does not declare whether the holder is ADAMA.');
+        }
+        /* One shape for every row. The markup asks `r.why`, and a key that
+           exists on one row and not the next is how a template starts reading
+           undefined. */
+        const normRows = (rs) => rs.map((r) => Object.assign({ why: '', code: '' }, r));
+        /* §10 · absence in a reading is not absence in the world, and the two
+           universes each need their own sentence for it. */
+        const commAbsence = PIT ? 'Assenza da questa lettura del catalogo: non prova che il prodotto non esista.'
+                                : 'Absent from this reading of the catalogue: that is not evidence that the product does not exist.';
+        const regAbsence = PIT ? 'Assenza da questa lettura del registro: non prova che il prodotto non sia registrato.'
+                               : 'Absent from this reading of the registry: that is not evidence that the product is not registered.';
+        const commCard = {
+          title: T.portCommercialTab,
+          sub: PIT ? 'catalogo pubblico ADAMA Italia · ' + COMMC.count + ' schede lette'
+                   : 'ADAMA Italy public catalogue · ' + COMMC.count + ' pages read',
+          stateText: e.inCommercial ? T.prodInCatalog : T.prodNotInCatalog,
+          color: e.inCommercial ? '#00B152' : '#B1A9A7',
+          rows: normRows(commRows), hasRows: commRows.length > 0,
+          flags: commFlags, hasFlags: commFlags.length > 0,
+          absence: e.inCommercial ? '' : commAbsence,
+        };
+
+        /* ── §4 · UNIVERSE TWO · the regulatory universe ─────────────────────
+           163 Italian phytosanitary registrations. A registration is an
+           authorisation, not a sale and not a catalogue entry. */
+        const regDeclaredOnly = !e.inRegulatory && msTok === 'REGULATORY_MATCH_CONFIRMED';
+        const regRows = [];
+        if (e.inRegulatory) {
+          regRows.push({ l: PIT ? 'NUMERO DI REGISTRAZIONE' : 'REGISTRATION NUMBER', v: val(e.reg) });
+          regRows.push({ l: PIT ? 'TITOLARE DELL\'AUTORIZZAZIONE' : 'AUTHORISATION HOLDER', v: val(e.holder) });
+          regRows.push({ l: PIT ? 'FORMULAZIONE' : 'FORMULATION', v: val(e.form) });
+          regRows.push({ l: PIT ? 'STATO DELLA REGISTRAZIONE' : 'REGISTRATION STATUS', v: val(e.status) });
+          regRows.push({ l: PIT ? 'SCADENZA DICHIARATA' : 'DECLARED EXPIRY', v: dLong(e.expiry) });
+        } else if (regDeclaredOnly && cm) {
+          regRows.push({ l: PIT ? 'NUMERO DI REGISTRAZIONE SULLA SCHEDA' : 'REGISTRATION NUMBER ON THE PAGE', v: val(cm.reg) });
+          regRows.push({ l: PIT ? 'TITOLARE DELL\'AUTORIZZAZIONE' : 'AUTHORISATION HOLDER', v: val(cm.holder) });
+        }
+        /* A fertiliser is not "missing from the registry" — it is registered
+           under a different regime, and the catalogue says so. Printing
+           T.prodNotRegistered over it would state an absence that is not true. */
+        const otherRegime = msTok === 'OTHER_REGULATORY_REGIME';
+        const regCard = {
+          title: T.portRegulatoryTab,
+          sub: PIT ? 'registro fitosanitario italiano · ' + REGC.count + ' registrazioni'
+                   : 'Italian phytosanitary registry · ' + REGC.count + ' registrations',
+          stateText: e.inRegulatory ? T.prodRegistered
+            : regDeclaredOnly ? (PIT ? 'Registrazione dichiarata dalla scheda, non collegata per nome in questa lettura'
+                                     : 'Registration declared by the catalogue page, not joined by name in this reading')
+            : otherRegime ? (PIT ? 'Fuori dal registro fitosanitario: altro regime regolatorio'
+                                 : 'Outside the phytosanitary registry: another regulatory regime')
+            : T.prodNotRegistered,
+          color: e.inRegulatory ? '#00B152' : regDeclaredOnly ? '#F89E18' : '#B1A9A7',
+          rows: normRows(regRows), hasRows: regRows.length > 0,
+          flags: [], hasFlags: false,
+          absence: (e.inRegulatory || regDeclaredOnly || otherRegime) ? '' : regAbsence,
+        };
+
+        /* The one line that stops the two universes from blurring. */
+        const uniLaw = PIT
+          ? COMMC.count + ' schede di catalogo e ' + REGC.count + ' registrazioni sono due insiemi distinti: non si sommano e non si sostituiscono.'
+          : COMMC.count + ' catalogue pages and ' + REGC.count + ' registrations are two distinct sets: they are never added together and neither stands in for the other.';
+
+        /* Published catalogue arithmetic. Read from the collection, not counted
+           here — the enum token lives under `code`, the reading under `l`. */
+        const cs51 = (COMMC.contractStates && COMMC.contractStates.UNKNOWN) || 0;
+        const catalogFacts = [
+          { n: COMMC.holderNotAdamaCount, of: COMMC.count, l: PIT ? 'schede senza titolare ADAMA' : 'pages with no ADAMA holder' },
+          { n: COMMC.notPlantProtectionCount, of: COMMC.count, l: PIT ? 'di quelle, non fitosanitari (fertilizzanti)' : 'of those, not plant protection products (fertilisers)' },
+          { n: COMMC.heldByAnotherCompanyCount, of: COMMC.count, l: PIT ? 'prodotti con autorizzazione di un\'altra azienda' : 'products authorised to another company' },
+          { n: COMMC.systemNotProductCount, of: COMMC.count, l: PIT ? 'sistemi colturali, non prodotti' : 'cropping systems, not products' },
+          { n: cs51, of: COMMC.count, l: PIT ? 'contratto commerciale non noto' : 'commercial contract not known', code: 'UNKNOWN' },
+        ].filter((x) => typeof x.n === 'number');
+
+        /* ── Mode of action, read at the ACTIVE SUBSTANCE layer ──────────────
+           The registration record carries a resistance code on only part of the
+           universe, but the substance itself is classified: FOLPET is FRAC M 04.
+           This is a lookup of a published classification by substance name — it
+           is not an agronomic judgement, and it is labelled as belonging to the
+           substance, not to the product. */
+        const aiIdx = {};
+        ((AIC && AIC.records) || []).forEach((a) => { const k = U0(a.normalizedName || a.name); if (k) aiIdx[k] = a; });
+        const moaRows = (e.aiList || []).map((nm) => {
+          const a = aiIdx[U0(nm)];
+          const parts = [];
+          if (a && (a.hrac || []).length) parts.push('HRAC ' + a.hrac.join('/'));
+          if (a && (a.frac || []).length) parts.push('FRAC ' + a.frac.join('/'));
+          if (a && (a.irac || []).length) parts.push('IRAC ' + a.irac.join('/'));
+          return { ai: nm, code: parts.join(' · '), v: parts.join(' · ') || UNK, known: parts.length > 0 };
+        });
+        const moaKnown = moaRows.filter((x) => x.known).length;
+        const moaOne = moaRows.length === 1;
+        const moaNote = moaRows.length
+          ? (PIT ? moaKnown + ' su ' + moaRows.length + (moaOne ? ' principio attivo ha' : ' principi attivi hanno') + ' un codice di resistenza pubblicato · classificazione della sostanza, non del prodotto'
+                 : moaKnown + ' of ' + moaRows.length + (moaOne ? ' active substance carries' : ' active substances carry') + ' a published resistance code · a classification of the substance, not of the product')
+          : '';
+
+        /* ── The evidence layer, always with its denominator ─────────────────
+           regulatoryLinks is the line-by-line label reading; productRelationships
+           is one row per crop x target x product. The two are never summed. */
+        const relN = (e.links || []).length;
+        const relSafeN = (e.links || []).filter((l) => l.clientSafe !== false).length;
+        const useN = e.registeredUseCount || 0;
+        const evidence = [
+          {
+            l: PIT ? 'RELAZIONI DI QUESTO PRODOTTO' : 'RELATIONSHIPS ON THIS PRODUCT',
+            v: relN + ' / ' + RELC.count,
+            note: PIT ? relSafeN + ' sostengono un\'affermazione al cliente · ' + RELC.clientSafe + ' su ' + RELC.count + ' nell\'intero pacchetto'
+                      : relSafeN + ' may sustain a client claim · ' + RELC.clientSafe + ' of ' + RELC.count + ' across the whole package',
+          },
+          {
+            l: PIT ? 'RIGHE D\'USO LETTE SULL\'ETICHETTA' : 'LABEL USE ROWS READ',
+            v: useN + ' / ' + LNKC.count,
+            note: PIT ? LNKC.clientSafe + ' righe su ' + LNKC.count + ' sostengono un\'affermazione al cliente'
+                      : LNKC.clientSafe + ' rows of ' + LNKC.count + ' may sustain a client claim',
+          },
+          {
+            l: PIT ? 'VOCABOLARIO DELLE ETICHETTE' : 'LABEL VOCABULARY',
+            v: LNKC.labelCrops + ' · ' + LNKC.labelTargets,
+            note: PIT ? LNKC.labelCrops + ' colture e ' + LNKC.labelTargets + ' avversità distinte nelle ' + LNKC.count + ' righe lette'
+                      : LNKC.labelCrops + ' distinct crops and ' + LNKC.labelTargets + ' distinct targets across the ' + LNKC.count + ' rows read',
+          },
+        ];
+
+        /* Active substance: the registry list when there is one. The 25
+           catalogue-only names have no registry record, so the catalogue's own
+           declared composition is used and SAID to be the catalogue's. */
+        const aiTxt = (e.aiList && e.aiList.length) ? e.aiList.join(' + ')
+          : (cm && (cm.ai || []).length) ? cm.ai.join(' + ')
+          : UNK;
+
         pd = {
           name: e.name,
-          /* ai is an array on 163/166 (BUDGE, EXELGROW and PARLEAF are catalog-only
-             and carry none); the markup prints it raw, so join it here. The 3 gaps
-             read "non noto", NOT "non osservabile" — an active ingredient IS public,
-             this catalog reading simply did not carry it. */
-          ai: (Array.isArray(e.ai) && e.ai.length) ? e.ai.join(' + ') : (T.ksNotKnown || '—'),
-          category: e.categoryLabel || '—',
+          ai: aiTxt,
+          aiFromCatalog: !(e.aiList && e.aiList.length) && !!(cm && (cm.ai || []).length),
+          aiFromCatalogL: PIT ? 'composizione dichiarata dalla scheda di catalogo' : 'composition declared by the catalogue page',
+          category: e.categoryLabel || UNK,
           inCommercial: e.inCommercial, commercialL: e.inCommercial ? T.prodInCatalog : T.prodNotInCatalog,
           commercialColor: e.inCommercial ? '#00B152' : '#B1A9A7',
-          inRegulatory: e.inRegulatory, regulatoryL: e.inRegulatory ? T.prodRegistered : T.prodNotRegistered,
-          regulatoryColor: e.inRegulatory ? '#00B152' : '#B1A9A7',
-          verified, hasVerified: verified.length > 0,
-          /* RELATED_PORTFOLIO is 217 of 236 rows and is the only class 16 of the 26
-             connected products have. It has no card in the markup yet — see the
-             report; until that card lands these rows are computed and not shown. */
-          related, hasRelated: related.length > 0, relatedCount: related.length,
-          checkNeeded, hasCheckNeeded: checkNeeded.length > 0,
-          rejected, hasRejected: rejected.length > 0,
-          /* Absence of a row is not absence of a product: noRel now means no tier
-             produced a row (140 of 166 products), and the rejected card keeps
-             t.absenceRule under it. */
-          noRel: e.links.length === 0,
+          inRegulatory: e.inRegulatory, regulatoryL: regCard.stateText,
+          regulatoryColor: regCard.color,
+          /* The identity line. POWERFILM resolves to registration 017852 held by
+             ADAMA ITALIA, and that pair is the first thing the screen says about
+             a product — read from the registry when there is one, otherwise from
+             the catalogue page, and labelled with which of the two it came from. */
+          regNo: e.inRegulatory ? val(e.reg) : (cm ? val(cm.reg) : UNK),
+          regNoL: PIT ? 'N. DI REGISTRAZIONE' : 'REGISTRATION No.',
+          regNoSrc: e.inRegulatory ? (PIT ? 'registro' : 'registry') : cm ? (PIT ? 'scheda di catalogo' : 'catalogue page') : '',
+          holderTxt: e.inRegulatory ? val(e.holder) : (cm ? val(cm.holder) : UNK),
+          holderL: PIT ? 'TITOLARE DELL\'AUTORIZZAZIONE' : 'AUTHORISATION HOLDER',
+          /* §4 · the two universes, side by side, each labelled with what it
+             counts and where it was counted. */
+          universes: [commCard, regCard],
+          uniL: PIT ? 'DUE UNIVERSI DISTINTI' : 'TWO DISTINCT UNIVERSES',
+          uniLaw,
+          /* The catalogue arithmetic describes the CATALOGUE, so it belongs on a
+             page the catalogue actually contains. On a registry-only product it
+             would be context-free noise; the Portafoglio screen carries it for
+             the whole set. */
+          catalogFacts, hasCatalogFacts: e.inCommercial && catalogFacts.length > 0,
+          catalogFactsL: PIT ? 'CATALOGO COMMERCIALE · ARITMETICA PUBBLICATA DAL MODELLO' : 'COMMERCIAL CATALOGUE · ARITHMETIC PUBLISHED BY THE MODEL',
+          moa: moaRows, hasMoa: moaRows.length > 0, moaNote,
+          moaL: PIT ? 'MECCANISMO D\'AZIONE DEL PRINCIPIO ATTIVO' : 'ACTIVE SUBSTANCE MODE OF ACTION',
+          evidence, evidenceL: PIT ? 'BASE DI EVIDENZA · OGNI NUMERO CON IL SUO DENOMINATORE' : 'EVIDENCE BASE · EVERY COUNT WITH ITS DENOMINATOR',
+          verified, hasVerified: verified.length > 0, verifiedNote: capNote(verifiedAll.length),
+          related, hasRelated: related.length > 0, relatedCount: relatedAll.length, relatedNote: capNote(relatedAll.length),
+          checkNeeded, hasCheckNeeded: checkNeeded.length > 0, checkNote: capNote(checkAll.length),
+          /* LABEL_CHECK_NEEDED is exactly the CLIENT_SAFE=false half of the
+             relationship layer. The row may exist; it may not sustain a claim.
+             The card says so instead of leaving the reader to assume. */
+          checkCaveat: PIT ? 'Queste righe esistono nel corpus ma non sostengono un\'affermazione al cliente finché l\'etichetta non è letta.'
+                           : 'These rows exist in the corpus but may not sustain a client claim until the label has been read.',
+          rejected, hasRejected: rejected.length > 0, rejectedNote: capNote(rejectedAll.length),
+          /* Absence of a row is not absence of a product. */
+          noRel: relN === 0,
+          /* A capped list must say it is capped, or the reader counts the cards
+             and gets a different number from the one the model holds. */
           wins: winsTop, hasWins: winsTop.length > 0,
+          winsNote: (PIT ? wins.length + ' finestre canoniche raggiunte su ' + CWR.length : wins.length + ' canonical windows reached of ' + CWR.length)
+            + (wins.length > winsTop.length ? (PIT ? ' · ' + winsTop.length + ' mostrate' : ' · ' + winsTop.length + ' shown') : ''),
           res: resTop, hasRes: resTop.length > 0,
+          resNote: (PIT ? res.length + ' specie con resistenza documentata su ' + RES.length + ' casi nel pacchetto'
+                        : res.length + ' species with documented resistance of ' + RES.length + ' cases in the package')
+            + (res.length > resTop.length ? (PIT ? ' · ' + resTop.length + ' mostrate' : ' · ' + resTop.length + ' shown') : ''),
           goOpps: () => this.radarWith({ fProduct: e.name }),
         };
       }
     }
-    /* §10 · Portafoglio — the commercial catalog and the regulatory universe are
-       two DIFFERENT claims about the same name and are never merged into one
-       "ADAMA has this product". Measured on this package: 44 catalog items, 163
-       registrations, 41 joined by name, 3 catalog-only (BUDGE, EXELGROW,
-       PARLEAF — all SPECIALI, matchState REGULATORY_MATCH_NOT_FOUND) and 122
-       registry-only. The authorisation holder never contradicts the catalog
-       seller here — measured 41/41 identical holders — so nothing is invented to
-       reconcile them; only the LINK STATE is published. */
+    /* §4 · Portafoglio — TWO UNIVERSES, ONE SCREEN, NEVER ONE NUMBER.
+       AM.collections.productsCommercial holds 51 public catalogue pages.
+       AM.collections.productsRegulatory holds 163 Italian phytosanitary
+       registrations. Presenting 163 as "ADAMA products sold in Italy" is the
+       worst error available on this screen, so every count here names the
+       collection it came from, the tab labels carry their own count, and one
+       line under the tabs says the two are never added.
+
+       Nothing is hardcoded and the catalogue arithmetic is not recomputed: the
+       model publishes holderNotAdamaCount, notPlantProtectionCount,
+       heldByAnotherCompanyCount, systemNotProductCount and contractStates on
+       the collection, and they are read from there.
+
+       The collections' own `law`, `sourceOfTruth` and CATEGORY_SOURCE strings
+       are Portuguese research prose and are never rendered. */
     let port = null;
     if (AM) {
+      const PIT = s.lang !== 'en';
+      const COMM = AM.collections.productsCommercial;
+      const REG = AM.collections.productsRegulatory;
+      const LNK = AM.collections.regulatoryLinks;
+      const REL = AM.collections.productRelationships;
       const isComm = s.portTab === 'commercial';
-      const universe = AM.products.filter(p => isComm ? p.inCommercial : p.inRegulatory);
+      const universe = AM.products.filter((p) => (isComm ? p.inCommercial : p.inRegulatory));
+      /* The collection declares its own total. If the rendered universe ever
+         stopped matching it the screen would be quietly lying, so the declared
+         figure is what is published and the two are compared out loud. */
+      const declared = isComm ? COMM.count : REG.count;
+      const reconciles = declared === universe.length;
+
       /* The link between the two tabs is the whole point of having two tabs, so
-         it is stated as a number instead of being left to the reader: 41 of 44
-         catalog items carry a matched registration, and those same 41 are the
-         only registrations proved to be publicly sold. */
-      const linked = universe.filter(p => p.inCommercial && p.inRegulatory).length;
-      const cats = [...new Set(universe.map(p => p.categoryLabel).filter(Boolean))].sort();
-      const shown = universe.filter(p => !s.portCat || p.categoryLabel === s.portCat);
-      /* The card badge line is two bare glyphs with no legend anywhere on this
-         screen, so the legend is stated in the four audited strength names rather
-         than left to be guessed. △ reads 0 on 166/166 products: the rebuilt
-         relationship contract produces 12 VERIFIED_LABEL_MATCH rows (6 products),
-         217 RELATED_PORTFOLIO rows (19 products), 7 NO_CONFIRMED rows (6 products)
-         and zero LABEL_CHECK_NEEDED rows — the amber class only ever existed
-         because a demo case named a product. */
-      const PS = T.PSTATE || {};
-      const legend = '✓ ' + (PS.VERIFIED_LABEL_MATCH || 'VERIFIED_LABEL_MATCH')
-        + ' · ○ ' + (PS.RELATED_PORTFOLIO || 'RELATED_PORTFOLIO');
+         it is stated as a number instead of left to the reader. TWO different
+         numbers exist and they answer different questions:
+           · linked — the catalogue name resolves to a registry record in this
+             reading. This is the join the portal can actually walk.
+           · declaredMatch — the catalogue page itself declares a registration
+             number that the registry confirms. Higher, because a catalogue name
+             carries a ® or a spelling the registry does not use. */
+      const linked = universe.filter((p) => p.inCommercial && p.inRegulatory).length;
+      const declaredMatch = COMM.records.filter((r) => r.matchState === 'REGULATORY_MATCH_CONFIRMED').length;
+
+      const cats = [...new Set(universe.map((p) => p.categoryLabel).filter(Boolean))].sort();
+      const shown = universe.filter((p) => !s.portCat || p.categoryLabel === s.portCat);
+
+      /* The card badge line is two bare glyphs, so the legend is spelled out in
+         the audited strength names rather than left to be guessed. */
+      const PSL = T.PSTATE || {};
+      const legend = '✓ ' + (PSL.VERIFIED_LABEL_MATCH || 'VERIFIED_LABEL_MATCH')
+        + ' · ○ ' + (PSL.RELATED_PORTFOLIO || 'RELATED_PORTFOLIO');
+
       /* Category tint only. The pest / disease / weed class is a canonical fact
          and already carries its colour in the model, so the hex is read from
-         there instead of being re-typed here. SPECIALI is a catalog grouping with
-         no canonical issue class, so it keeps the ADAMA accent it has always had,
-         and an unclassified product falls to the model's neutral grey rather than
-         borrowing the SPECIALI accent as it did before. */
+         there instead of being re-typed here. SPECIALI is a catalogue grouping
+         with no canonical issue class, so it keeps the ADAMA accent, and an
+         unclassified product falls to the model's neutral grey. */
       const CU = AM.CATEGORY_UI || {};
       const TINT = {
         ERBICIDI: (CU.weed || {}).color || '#7DB41E',
@@ -4764,39 +5411,121 @@ class Component extends DCLogic {
         INSETTICIDI: (CU.pest || {}).color || '#9D1D96',
         SPECIALI: '#F89E18',
       };
-      /* The old cap was 60 while port.count reported the unsliced length, so the
-         Universo regolatorio tab printed "163/163" over 60 rendered cards. The cap
-         now sits above the 166 products the model holds and count reports what is
-         actually on screen, so the ratio can no longer be wrong. */
+
+      /* What this tab counts, where it was counted, and the one law that keeps
+         51 and 163 from blurring into a single "portfolio" number. */
+      const uniWhat = isComm
+        ? (PIT ? 'schede del catalogo pubblico ADAMA Italia' : 'pages of the ADAMA Italy public catalogue')
+        : (PIT ? 'registrazioni fitosanitarie italiane' : 'Italian phytosanitary registrations');
+      const uniSource = isComm
+        ? (PIT ? 'catalogo pubblico adama.com/italia' : 'public catalogue adama.com/italia')
+        : (PIT ? 'registro del Ministero della Salute' : 'Ministero della Salute register');
+      const uniLine = declared + ' ' + uniWhat + ' · ' + uniSource;
+      const uniLaw = PIT
+        ? COMM.count + ' schede di catalogo e ' + REG.count + ' registrazioni sono due insiemi distinti: non si sommano, e ' + REG.count + ' non è il numero dei prodotti ADAMA venduti in Italia.'
+        : COMM.count + ' catalogue pages and ' + REG.count + ' registrations are two distinct sets: they are never added together, and ' + REG.count + ' is not the number of ADAMA products sold in Italy.';
+      const reconcileNote = reconciles ? ''
+        : (PIT ? 'La collezione dichiara ' + declared + ' record, questa vista ne mostra ' + universe.length + '.'
+               : 'The collection declares ' + declared + ' records, this view holds ' + universe.length + '.');
+
+      /* Facts, each with the denominator it was counted over. On the catalogue
+         tab the four holder/regime figures are READ from the collection. */
+      const facts = isComm ? [
+        { n: linked, of: COMM.count, l: PIT ? 'nomi di catalogo risolti su un record del registro in questa lettura' : 'catalogue names resolved onto a registry record in this reading' },
+        { n: declaredMatch, of: COMM.count, l: PIT ? 'schede che dichiarano un numero di registrazione confermato dal registro' : 'pages declaring a registration number the registry confirms' },
+        { n: COMM.holderNotAdamaCount, of: COMM.count, l: PIT ? 'schede senza titolare ADAMA' : 'pages with no ADAMA holder' },
+        { n: COMM.notPlantProtectionCount, of: COMM.count, l: PIT ? 'di quelle, non fitosanitari (fertilizzanti)' : 'of those, not plant protection products (fertilisers)' },
+        { n: COMM.heldByAnotherCompanyCount, of: COMM.count, l: PIT ? 'prodotti con autorizzazione di un\'altra azienda' : 'products authorised to another company' },
+        { n: COMM.systemNotProductCount, of: COMM.count, l: PIT ? 'sistemi colturali, non prodotti' : 'cropping systems, not products' },
+        { n: (COMM.contractStates && COMM.contractStates.UNKNOWN) || 0, of: COMM.count, l: PIT ? 'contratto commerciale non noto' : 'commercial contract not known', code: 'UNKNOWN' },
+      ] : [
+        { n: linked, of: REG.count, l: PIT ? 'registrazioni che compaiono anche nel catalogo pubblico' : 'registrations that also appear in the public catalogue' },
+        { n: LNK.productsNamed, of: REG.count, l: PIT ? 'registrazioni nominate da almeno una riga d\'uso letta sull\'etichetta' : 'registrations named by at least one use row read from a label' },
+        { n: LNK.clientSafe, of: LNK.count, l: PIT ? 'righe d\'uso che sostengono un\'affermazione al cliente' : 'use rows that may sustain a client claim' },
+        { n: REL.clientSafe, of: REL.count, l: PIT ? 'relazioni distinte coltura × avversità × prodotto che sostengono un\'affermazione' : 'distinct crop × target × product relationships that may sustain a claim' },
+        /* A distinct-value count has no ratio: 35 crops "out of 2030 rows" would
+           read as a proportion and mean nothing. The universe it was counted
+           over goes in the label instead. */
+        { n: LNK.labelCrops, l: PIT ? 'colture distinte nominate nelle ' + LNK.count + ' righe d\'uso' : 'distinct crops named across the ' + LNK.count + ' use rows' },
+        { n: LNK.labelTargets, l: PIT ? 'avversità distinte nominate nelle ' + LNK.count + ' righe d\'uso' : 'distinct targets named across the ' + LNK.count + ' use rows' },
+      ];
+      /* A fact with no denominator prints the number alone; the markup asks
+         `hasOf` rather than guessing from a falsy zero. */
+      facts.forEach((f) => { f.hasOf = typeof f.of === 'number'; });
+      const factsL = isComm
+        ? (PIT ? 'CATALOGO COMMERCIALE · CIÒ CHE LE 51 SCHEDE DICHIARANO' : 'COMMERCIAL CATALOGUE · WHAT THE 51 PAGES DECLARE')
+        : (PIT ? 'UNIVERSO REGOLATORIO · REGISTRO E STRATO DELLE ETICHETTE' : 'REGULATORY UNIVERSE · REGISTRY AND LABEL LAYER');
+      /* The two link numbers differ, and a reader who sees both without the
+         reason will read one of them as an error. */
+      const factsWhy = isComm
+        ? (PIT ? 'I due numeri di collegamento rispondono a domande diverse: il primo è il nome che si risolve nel registro, il secondo è il numero di registrazione che la scheda stessa dichiara. Non si sommano.'
+               : 'The two link figures answer different questions: the first is the name resolving into the registry, the second is the registration number the page itself declares. They are not added.')
+        : (PIT ? 'Le righe d\'uso e le relazioni distinte sono due strati della stessa lettura delle etichette: non si sommano.'
+               : 'Use rows and distinct relationships are two layers of the same label reading: they are never added.');
+
+      /* A registration is an authorisation. It is not a sale, and the model
+         declares the commercial contract not known on every catalogue page. */
+      const noContract = PIT
+        ? 'Il titolare dell\'autorizzazione non è il venditore, e nessuna fonte pubblica rivela il contratto commerciale: resta non noto su tutte le ' + COMM.count + ' schede.'
+        : 'An authorisation holder is not a seller, and no public source reveals the commercial contract: it stays not known on all ' + COMM.count + ' pages.';
+
+      /* The cap sits above the largest universe so the ratio below the tabs can
+         never report more than is rendered. */
       const items = shown.slice(0, 240);
+      const MSHORT = {
+        REGULATORY_MATCH_CONFIRMED: { it: 'registrazione dichiarata', en: 'registration declared' },
+        REGULATORY_MATCH_NOT_FOUND: { it: 'nessuna registrazione in questa lettura', en: 'no registration in this reading' },
+        OTHER_REGULATORY_REGIME: { it: 'altro regime regolatorio', en: 'another regulatory regime' },
+      };
       port = {
-        tabs: [['commercial', T.portCommercialTab], ['regulatory', T.portRegulatoryTab]].map(t => { const on = s.portTab === t[0];
-          return { label: t[1], color: on ? '#fff' : '#B1A9A7', bg: on ? 'rgba(0,152,69,0.20)' : 'transparent', border: on ? '#009845' : 'rgba(203,197,195,0.20)', go: () => this.setState({ portTab: t[0], portCat: '' }) }; }),
-        note: [
-          isComm ? T.portCommercialNote : T.portRegulatoryNote,
-          linked + '/' + universe.length + ' → ' + (isComm ? T.prodRegistered : T.prodInCatalog),
-          legend,
-        ].filter(Boolean).join(' · '),
-        cats: [{ v: '', l: T.portAllCats }].concat(cats.map(c => ({ v: c, l: c }))),
+        tabs: [['commercial', T.portCommercialTab, COMM.count], ['regulatory', T.portRegulatoryTab, REG.count]].map((t) => { const on = s.portTab === t[0];
+          return { label: t[1] + ' · ' + t[2], color: on ? '#fff' : '#B1A9A7', bg: on ? 'rgba(0,152,69,0.20)' : 'transparent', border: on ? '#009845' : 'rgba(203,197,195,0.20)', go: () => this.setState({ portTab: t[0], portCat: '' }) }; }),
+        uniLine, uniLaw, reconcileNote, hasReconcileNote: !!reconcileNote,
+        facts, factsL, factsWhy, hasFacts: facts.length > 0,
+        noContract, hasNoContract: isComm,
+        note: [isComm ? T.portCommercialNote : T.portRegulatoryNote, legend].filter(Boolean).join(' · '),
+        cats: [{ v: '', l: T.portAllCats }].concat(cats.map((c) => ({ v: c, l: c }))),
         cat: s.portCat, setCat: (ev) => this.setState({ portCat: ev.target.value }),
         count: items.length, total: universe.length,
-        items: items.map(p => ({
-          name: p.name,
+        countL: PIT
+          ? items.length + (isComm ? ' schede mostrate su ' : ' registrazioni mostrate su ') + universe.length
+          : items.length + ' of ' + universe.length + (isComm ? ' catalogue pages shown' : ' registrations shown'),
+        items: items.map((p) => {
+          const cmr = p.commercial || null;
+          const ms = cmr ? MSHORT[String(cmr.matchState || '')] : null;
           /* Active substances arrive as an array and were handed to the template
-             raw, which printed them comma-jammed. The three catalog-only items
-             have no substance list at all because no registration was matched —
-             that reason is said out loud instead of leaving the line blank. */
-          ai: (p.ai && p.ai.length) ? p.ai.join(' + ')
-            : (p.inCommercial && !p.inRegulatory) ? T.prodNotRegistered
-            : '—',
-          cat: p.categoryLabel || '—',
-          verified: p.verifiedLinks.length, check: p.checkNeededLinks.length,
-          /* Exposed for the badge line the markup still has to grow: 19 products
-             carry a RELATED_PORTFOLIO row and today the card shows them as 0 ✓ · 0 △. */
-          related: p.relatedLinks.length, rejected: p.rejectedLinks.length,
-          catColor: TINT[p.categoryLabel] || (CU.unknown || {}).color || '#8F8886',
-          go: () => this.openProduct(p.name)
-        })),
+             raw, which printed them comma-jammed. A catalogue-only name has no
+             registry record, so the catalogue's own declared composition is used
+             and the fall-back is a state, not a blank. */
+          const aiTxt = (p.aiList && p.aiList.length) ? p.aiList.join(' + ')
+            : (cmr && (cmr.ai || []).length) ? cmr.ai.join(' + ')
+            : (T.ksNotKnown || '—');
+          /* The cross-universe line: on either tab it says where this same name
+             stands in the OTHER universe, which is the only thing that keeps the
+             51 and the 163 legible side by side. */
+          const cross = isComm
+            ? (p.inRegulatory ? (PIT ? 'anche nel registro' : 'also in the registry')
+               : ms ? (PIT ? ms.it : ms.en) : '')
+            : (p.inCommercial ? (PIT ? 'anche nel catalogo pubblico' : 'also in the public catalogue')
+               : (PIT ? 'non in questa lettura del catalogo' : 'not in this reading of the catalogue'));
+          const flag = cmr && cmr.isSystemNotProduct ? (PIT ? 'sistema colturale' : 'cropping system')
+            : cmr && cmr.notAPlantProtectionProduct ? (PIT ? 'non fitosanitario' : 'not a plant protection product')
+            : '';
+          const vN = p.verifiedLinks.length, rN = p.relatedLinks.length;
+          return {
+            name: p.name,
+            ai: aiTxt,
+            cat: p.categoryLabel || '—',
+            reg: p.reg ? 'n. ' + p.reg : (cmr && cmr.reg) ? 'n. ' + cmr.reg : '',
+            hasReg: !!(p.reg || (cmr && cmr.reg)),
+            cross, flag, hasFlag: !!flag,
+            verified: vN, related: rN,
+            badge: (vN + rN) > 0 ? vN + ' ✓ · ' + rN + ' ○' : '',
+            hasBadge: (vN + rN) > 0,
+            catColor: TINT[p.categoryLabel] || (CU.unknown || {}).color || '#8F8886',
+            go: () => this.openProduct(p.name),
+          };
+        }),
         none: shown.length === 0
       };
     }
@@ -5253,8 +5982,17 @@ class Component extends DCLogic {
     /* The markup paints the row icon with url(...), so the token's asset path is what it
        needs; the model's `icon` is a name. The unknown token has no asset on purpose. */
     const catFor = (o) => { const c = o.ui || (AM ? AM.categoryOf(o.issueType) : null) || {}; return Object.assign({}, c, { icon: c.iconAsset || '' }); };
+    /* The row is BUILT, not spread. Object.assign({}, o, …) used to copy the
+       whole opportunity record onto the prop, so title / issue / crop — the
+       analyst's Portuguese working text on 3/3 real opportunities — travelled to
+       the client inside a prop nothing on this screen renders. A prop the
+       template does not read today is still one binding away from the screen,
+       and PT1 counts a Portuguese leaf whose NAME is bound anywhere in the
+       markup. Only the seven fields the Field Sales row actually binds are
+       emitted; `id` is a code, not prose, and keeps the row traceable. */
     const fieldCases = (APP0 ? APP0.opportunities.records : []).filter(o => demoMessages.some(m => oppOf(m) === o))
-      .map(o => Object.assign({}, o, {
+      .map(o => ({
+        id: o.id,
         category: catFor(o),
         issueL: o.issueKey ? il(o.issueKey) : o.id,
         cropL: (o.cropKeys || []).length ? (o.cropKeys || []).map(cl).join(' · ') : unk(),
@@ -5285,10 +6023,11 @@ class Component extends DCLogic {
     const fSrcTypeL = (k) => (T.SRCTYPES && T.SRCTYPES[k]) || (T.EVCHIP && T.EVCHIP[k]) || k;
     const fUnknownL = T.ksNotKnown || 'non noto';
     /* §7 · A narrative field is rendered only when upstream approved a localized text.
-       Measured on this package: whyWatch / whoIsTalking / whatChanged / observedFacts /
+       Measured on this package: whoIsTalking / whatChanged / observedFacts /
        interpretation / unknown / portfolioConnection are NOT_APPROVED_FOR_DISPLAY on 3/3
-       real signals, and nextWindow is NOT_ESTABLISHED on 2/3 — so today this returns null
-       every time and the prose slots stay empty instead of leaking research notes. */
+       real signals; whyWatch is CLEAR on 1 of 3 (IT-FUT-003) and unapproved on the other
+       two; nextWindow is NOT_ESTABLISHED on 2/3 and unapproved on the third. So one
+       prose slot fills and the rest stay empty rather than leaking research notes. */
     const fNar = (n) => (n && n.state === 'CLEAR') ? (s.lang === 'en' ? (n.en || n.it) : (n.it || n.en)) : null;
     /* The pest/disease/weed class is a FACT and comes from the canonical ISSUE_TYPE.
        FUTURE_SIGNALS has no ISSUE_TYPE field at all, so every real card resolves to the
@@ -5341,6 +6080,225 @@ class Component extends DCLogic {
        TRANSVERSAL — against canonical Maize / Wheat / Durum Wheat, so even the old name
        join matched 0 of 3. A shared crop name is not a relation; an id is. */
     const fWinOf = (x) => { if (x.isScenario) return x.window || null; const ref = x.windowId || x.cropWindowId || (Array.isArray(x.windowIds) ? x.windowIds[0] : null); return ref ? (fWinReg.find(w => w.windowId === ref || w.id === ref) || null) : null; };
+    /* ═══ §6 · THE EUROPEAN REGULATORY CALENDAR ══════════════════════════════
+       AM.collections.regulatoryFutureFacts holds 47 dated facts, client-safe
+       47/47: one published expiry date per active substance, read from one
+       EUR-Lex act. They are NOT signals and NOT opportunities, so they never
+       enter sigPool, they carry no status token, the signal chips never filter
+       them, and they are NOT clickable — openSignal() resolves against
+       futureSignals, and a regulatory fact has no detail record to open. The
+       model already refuses the conversion (isOpportunity / isRisk /
+       isNonRenewal / mayBecomeAnAction false on 47/47); this block only has to
+       avoid re-inventing it in the presentation, which is why every row is
+       drawn in the SAME neutral colour: a colour ramp toward the near dates
+       would be a risk reading that no record supports.
+
+       WHY THE PANEL TRAVELS ON visibleSignals: renderVals()'s return object is
+       in another edit block, so this block cannot add a top-level prop to it.
+       This array is the only value this block owns that reaches the template,
+       so the panel rides on it as `.reg` and the markup reads
+       {{ visibleSignals.reg.… }}. One consequence must be said out loud: the
+       PT1 language sweep walks an array by index only, so it does NOT inspect
+       this payload. Every string below is therefore either an authored IT/EN
+       pair or an upstream approved *_IT / *_EN field — the Portuguese
+       NOT_A_CLAIM and GEOGRAPHY_LAW fields are read for their MEANING and
+       never printed, and WHAT_IT_IS is NOT_APPROVED_FOR_DISPLAY on 47/47 so
+       the "what it is" slot does not exist on these cards at all. */
+    const rfL = (it, en) => IT ? it : en;
+    const rfMON = (T.months && T.months.length === 12) ? T.months : ['GEN', 'FEB', 'MAR', 'APR', 'MAG', 'GIU', 'LUG', 'AGO', 'SET', 'OTT', 'NOV', 'DIC'];
+    const rfDate = (iso) => { const dd = iso && AM ? AM.asDate(iso) : null; return dd ? (String(dd.getDate()).padStart(2, '0') + ' ' + rfMON[dd.getMonth()] + ' ' + dd.getFullYear()) : fUnknownL; };
+    /* Presentation may compute days and ordering against the one reference date.
+       It may not compute a regulatory state, so nothing here reads the date and
+       decides anything about it. */
+    const rfDaysOf = (r) => (typeof r.daysToEuExpiration === 'number' ? r.daysToEuExpiration
+      : (AM && r.euExpirationOfApproval ? AM.daysFrom(r.euExpirationOfApproval) : null));
+    const rfNar = (n) => (n && n.state === 'CLEAR') ? (s.lang === 'en' ? (n.en || n.it) : (n.it || n.en)) : null;
+    /* clientSafe === null is NOT_DECLARED, never 0 — say so instead of printing a number. */
+    const rfSafeLine = (c) => (!c ? fUnknownL
+      : (c.clientSafeState === 'DECLARED' && typeof c.clientSafe === 'number'
+        ? c.clientSafe + '/' + c.count + ' client-safe'
+        : rfL('client-safe non dichiarato · ' + c.count + ' record', 'client-safe not declared · ' + c.count + ' records')));
+    const rfCol = APP0 ? APP0.regulatoryFutureFacts : null;
+    const rfSigCol = APP0 ? APP0.regulatoryFutureSignals : null;
+    const rfFeedCol = APP0 ? APP0.futureSignals : null;
+    const rfSafe = rfCol ? (rfCol.safeRecords || []) : [];
+    /* Horizon is a TIME bucket and nothing else: the labels say only how far
+       away the date is. No bucket is called urgent, at risk or actionable. */
+    const RF_H = [
+      { key: 'D90', max: 90, l: rfL('entro 90 giorni', 'within 90 days') },
+      { key: 'Y1', max: 365, l: rfL('da 91 giorni a 12 mesi', '91 days to 12 months') },
+      { key: 'Y3', max: 1095, l: rfL('da 1 a 3 anni', '1 to 3 years') },
+      { key: 'FAR', max: Infinity, l: rfL('oltre 3 anni', 'beyond 3 years') }
+    ];
+    const rfHorizonOf = (d) => (d === null ? null : (RF_H.filter(h => d <= h.max)[0] || RF_H[RF_H.length - 1]));
+    const rfSorted = rfSafe.slice().sort((a, b) =>
+      String(a.euExpirationOfApproval || '').localeCompare(String(b.euExpirationOfApproval || ''))
+      || String(a.activeIngredient || '').localeCompare(String(b.activeIngredient || '')));
+    const rfRows = rfSorted.map(r => {
+      const d = rfDaysOf(r), h = rfHorizonOf(d);
+      const regs = (r.italianRegistrations || []).filter(Boolean);
+      const cat = (r.commercialCatalogProducts || []).filter(Boolean);
+      const lab = (r.verifiedLabelCrops || []).filter(Boolean);
+      return {
+        /* an active substance name is never translated */
+        ai: r.activeIngredient || fUnknownL,
+        hasDate: !!r.euExpirationOfApproval,
+        date: rfDate(r.euExpirationOfApproval),
+        days: d === null ? fUnknownL : (d === 1 ? rfL('tra 1 giorno', 'in 1 day') : rfL('tra ' + d + ' giorni', 'in ' + d + ' days')),
+        hKey: h ? h.key : '',
+        horizon: h ? h.l : fUnknownL,
+        /* EU_STATE is a register token, kept as the register writes it */
+        euStateTok: r.euState || fUnknownL,
+        celex: r.euCelex || fUnknownL,
+        hasCelex: !!r.euCelex,
+        hasRegs: regs.length > 0,
+        regLine: regs.length === 1
+          ? rfL('1 registrazione italiana cita questa sostanza', '1 Italian registration cites this substance')
+          : rfL(regs.length + ' registrazioni italiane citano questa sostanza', regs.length + ' Italian registrations cite this substance'),
+        regs: regs.join(' · '),
+        hasCatalog: cat.length > 0,
+        catalog: cat.join(' · '),
+        hasLabelCrops: lab.length > 0,
+        labelCrops: lab.join(' · '),
+        /* LABEL_CHECK_NEEDED is a declared state, not an absence */
+        labelState: r.verifiedLabelCropsState === 'LABEL_CHECK_NEEDED'
+          ? rfL('colture da etichetta · da verificare', 'label crops · check needed')
+          : (r.verifiedLabelCropsState || fUnknownL),
+        /* the three refusals are read off the record's own booleans, so a
+           package that ever flipped one would flip the chip, not the wording */
+        notChips: [
+          r.isNonRenewal === false ? rfL('NON È UN MANCATO RINNOVO', 'NOT A NON-RENEWAL') : null,
+          r.isRisk === false ? rfL('NON È UN RISCHIO', 'NOT A RISK') : null,
+          r.isOpportunity === false ? rfL('NON È UN’OPPORTUNITÀ', 'NOT AN OPPORTUNITY') : null
+        ].filter(Boolean).map(t => ({ t }))
+      };
+    });
+    /* WHAT_IT_DOES_NOT_PROVE is one text repeated on every record (measured
+       below, not assumed), so it is published ONCE with its denominator instead
+       of 47 identical paragraphs. If a future package ever carries more than one
+       wording, the loop prints all of them. */
+    /* The calendar is grouped by horizon and each group publishes its own
+       denominator, so the four group counts must add back to the collection —
+       there is no "other" bucket and no row can fall out of the list. */
+    const rfGroups = RF_H.map(h => ({
+      key: h.key, label: h.l,
+      rows: rfRows.filter(r => r.hKey === h.key)
+    })).filter(g => g.rows.length > 0)
+      .map(g => ({ key: g.key, label: g.label, rows: g.rows, count: g.rows.length, denom: '/' + rfRows.length }));
+    const rfNotProves = [...new Set(rfSafe.map(r => rfNar(r.notProves)).filter(Boolean))].map(t => ({ t }));
+    const rfProves = [...new Set(rfSafe.map(r => rfNar(r.proves)).filter(Boolean))].map(t => ({ t }));
+    const rfNoAction = rfSafe.filter(r => r.mayBecomeAnAction === false).length;
+    const rfNoOpp = rfSafe.filter(r => r.isOpportunity === false).length;
+    const rfSrcIds = [...new Set(rfSafe.flatMap(r => r.sourceIds || []))];
+    const rfCelexIds = [...new Set(rfSafe.map(r => r.euCelex).filter(Boolean))];
+    const rfSigSafe = rfSigCol ? (rfSigCol.safeRecords || []) : [];
+    const rfSigItems = rfSigSafe.map((r, i) => {
+      const w = rfNar(r.whatItIs), p = rfNar(r.proves), np = rfNar(r.notProves);
+      return {
+        n: i + 1, id: r.id || fUnknownL,
+        hasWhat: !!w, what: w,
+        hasProves: !!p, proves: p,
+        hasNotProves: !!np, notProves: np,
+        hasDate: !!r.recordReferenceDate, date: rfDate(r.recordReferenceDate),
+        src: (r.sourceIds || []).join(' · ') || fUnknownL,
+        /* EXTENSION_IS_NOT_RENEWAL arrives as a mixed-language constant, so the
+           badge is authored here in IT/EN and the constant is only a gate. */
+        hasExt: !!r.extensionIsNotRenewal,
+        ext: rfL('UNA PROROGA NON È UN RINNOVO', 'AN EXTENSION IS NOT A RENEWAL')
+      };
+    });
+    const rfPanel = {
+      on: rfRows.length > 0,
+      /* the page subtitle names the three collections and keeps their
+         denominators apart, so nothing on this screen adds up to one total */
+      headerLine: rfL(
+        'Tre cose diverse, contate separatamente — ' + rfSafe.length + ' fatti regolatori datati · '
+        + rfSigItems.length + ' letture del rinnovo UE (su ' + (rfSigCol ? rfSigCol.count : '?') + ') · '
+        + (rfFeedCol ? rfFeedCol.count : '?') + ' segnali upstream.',
+        'Three different things, counted separately — ' + rfSafe.length + ' dated regulatory facts · '
+        + rfSigItems.length + ' EU-renewal readings (of ' + (rfSigCol ? rfSigCol.count : '?') + ') · '
+        + (rfFeedCol ? rfFeedCol.count : '?') + ' upstream signals.'),
+      kicker: rfL('FATTI REGOLATORI DATATI', 'DATED REGULATORY FACTS'),
+      title: rfL('Calendario europeo delle approvazioni', 'European approval calendar'),
+      countLine: rfRows.length + ' ' + rfL('sostanze attive', 'active substances') + ' · ' + rfSafeLine(rfCol),
+      sourceLine: rfL('Fonte', 'Source') + ' · ' + (rfSrcIds.join(' · ') || fUnknownL)
+        + ' · CELEX ' + (rfCelexIds.join(' · ') || fUnknownL),
+      refLine: rfL('Giorni contati sulla data di riferimento', 'Days counted against the reference date')
+        + ' · ' + (AM && AM.referenceDate ? AM.referenceDate : fUnknownL),
+      lawTitle: rfL('COSA QUESTE ' + rfRows.length + ' DATE NON PROVANO', 'WHAT THESE ' + rfRows.length + ' DATES DO NOT PROVE'),
+      law: [
+        { t: rfL('LA SCADENZA DELL’APPROVAZIONE UE NON È UN MANCATO RINNOVO', 'EU APPROVAL EXPIRY IS NOT NON-RENEWAL') },
+        { t: rfL('UN FATTO UE NON È COMMERCIABILITÀ ITALIANA', 'AN EU FACT IS NOT ITALIAN MARKETABILITY') },
+        { t: rfL('UN FATTO FUTURO NON È UN’OPPORTUNITÀ', 'A FUTURE FACT IS NOT AN OPPORTUNITY') }
+      ],
+      notProvesTitle: T.lblNotProves || rfL('COSA NON PROVA', 'WHAT IT DOES NOT PROVE'),
+      notProves: rfNotProves,
+      notProvesNote: rfNotProves.length === 1
+        ? rfL('un solo testo, identico su ' + rfSafe.length + ' record su ' + rfSafe.length, 'one single text, identical on ' + rfSafe.length + ' of ' + rfSafe.length + ' records')
+        : rfL(rfNotProves.length + ' testi distinti su ' + rfSafe.length + ' record', rfNotProves.length + ' distinct texts over ' + rfSafe.length + ' records'),
+      provesTitle: T.lblProves || rfL('COSA PROVA', 'WHAT IT PROVES'),
+      proves: rfProves,
+      noActionLine: rfL(
+        'Nessuno di questi fatti diventa da solo un’azione: il pacchetto li marca "può diventare un’azione = no" su ' + rfNoAction + ' record su ' + rfSafe.length + ', e "è un’opportunità = no" su ' + rfNoOpp + ' su ' + rfSafe.length + '.',
+        'None of these facts becomes an action on its own: the package marks "may become an action = no" on ' + rfNoAction + ' of ' + rfSafe.length + ' records, and "is an opportunity = no" on ' + rfNoOpp + ' of ' + rfSafe.length + '.'),
+      colourNote: rfL('Tutte le righe hanno lo stesso colore: una data più vicina non è un rischio più grande.',
+        'Every row carries the same colour: a nearer date is not a bigger risk.'),
+      /* the summary strip and the list read the SAME grouping, so the tiles can
+         never disagree with the rows underneath them */
+      buckets: rfGroups.map(g => ({ label: g.label, count: g.count, denom: g.denom })),
+      groups: rfGroups,
+      groupSumLine: rfGroups.reduce((a, g) => a + g.count, 0) + '/' + rfRows.length + ' '
+        + rfL('righe elencate', 'rows listed'),
+      colAi: rfL('SOSTANZA ATTIVA', 'ACTIVE SUBSTANCE'),
+      colDate: rfL('SCADENZA APPROVAZIONE UE', 'EU APPROVAL EXPIRY'),
+      colState: rfL('STATO UE', 'EU STATE'),
+      colItaly: rfL('CITATA DA REGISTRAZIONI ITALIANE', 'CITED BY ITALIAN REGISTRATIONS'),
+      italyCaveat: rfL('L’elenco dice solo quali registrazioni citano la sostanza. Cosa accade a ciascuna autorizzazione italiana è decisione del Ministero e non si deduce da questa data.',
+        'The list says only which registrations cite the substance. What happens to each Italian authorisation is the Ministero’s decision and is not deduced from this date.'),
+      catalogLabel: rfL('CATALOGO COMMERCIALE', 'COMMERCIAL CATALOGUE'),
+      /* the readings are a separate collection with a separate denominator */
+      sig: {
+        on: rfSigItems.length > 0,
+        kicker: rfL('LETTURE SCRITTE DELLA PROCEDURA DI RINNOVO UE', 'WRITTEN READINGS OF THE EU RENEWAL PROCEDURE'),
+        countLine: rfSigItems.length + ' ' + rfL('letture', 'readings') + ' · ' + rfSafeLine(rfSigCol),
+        corpusNote: !rfSigCol ? fUnknownL : rfL(
+          (rfSigCol.count - rfSigItems.length) + ' letture su ' + rfSigCol.count + ' restano solo nel corpus: esistono, ma non sostengono un’affermazione.',
+          (rfSigCol.count - rfSigItems.length) + ' of ' + rfSigCol.count + ' readings stay corpus-only: they exist, but they may not sustain a claim.'),
+        items: rfSigItems,
+        provesTitle: T.lblProves || rfL('COSA PROVA', 'WHAT IT PROVES'),
+        notProvesTitle: T.lblNotProves || rfL('COSA NON PROVA', 'WHAT IT DOES NOT PROVE'),
+        srcTitle: T.lblSourcesCap || rfL('FONTI', 'SOURCES')
+      },
+      /* Authored labels for the SIGNAL DETAIL screen. They live here because
+         renderVals() computes this panel for every view, and because the detail
+         markup carried these captions as hard-coded English inside an
+         Italian-default portal. No new i18n key was invented in
+         client/italy-i18n.js — that file is outside this block. */
+      sgl: {
+        portfolio: rfL('CONNESSIONE CON IL PORTAFOGLIO ADAMA', 'ADAMA PORTFOLIO CONNECTION'),
+        primaryMatch: T.lblPrimaryMatch || rfL('CORRISPONDENZA PRINCIPALE', 'PRIMARY PORTFOLIO MATCH'),
+        cropFit: rfL('Coltura / bersaglio', 'Crop / target fit'),
+        labelTiming: rfL('Tempistica da etichetta', 'Label timing'),
+        demoPack: rfL('(pacchetto dimostrativo)', '(demo pack)'),
+        factLoc: rfL('POSIZIONE DEL FATTO', 'FACT LOCATION'),
+        beyond: rfL('RILEVANZA GEOGRAFICA OLTRE QUESTA', 'GEOGRAPHIC RELEVANCE BEYOND'),
+        sources: rfL('FONTI DIETRO QUESTO SEGNALE', 'SOURCES BEHIND THIS SIGNAL'),
+        viewEvidence: rfL('VEDI EVIDENZA →', 'VIEW EVIDENCE →'),
+        dateLoc: rfL('DATA · POSIZIONI', 'DATE · LOCATIONS'),
+        observedTitle: rfL('COSA È STATO OSSERVATO', 'WHAT WAS OBSERVED'),
+        srcWord: T.arcSource || rfL('FONTE', 'SOURCE'),
+        factWord: rfL('Fatto', 'Fact'),
+        origLink: rfL('Link originale · disponibile nel registro delle fonti (demo)',
+          'Original link · available in the source registry (demo)')
+      },
+      /* the upstream signal feed is a THIRD thing; it says so out loud */
+      feed: {
+        kicker: rfL('SEGNALI UPSTREAM', 'UPSTREAM SIGNALS'),
+        countLine: !rfFeedCol ? fUnknownL : (rfFeedCol.count + ' ' + rfL('segnali', 'signals') + ' · ' + rfSafeLine(rfFeedCol)),
+        distinctNote: rfL('Altra origine e altro tipo di prova rispetto al calendario qui sopra: questi non sono fatti regolatori e non vanno sommati ai ' + rfSafe.length + '.',
+          'A different origin and a different kind of evidence from the calendar above: these are not regulatory facts and must not be added to the ' + rfSafe.length + '.')
+      }
+    };
     const visibleSignals = sigAll.slice(0, s.futureShown).map(x => {
       const wm = fWinOf(x);
       const why = x.isScenario ? (x.whyShort || null) : fNar(x.whyWatch);
@@ -5375,6 +6333,12 @@ class Component extends DCLogic {
         accent: x.status ? (F_ACCENT[x.status] || x.color || F_MUTED) : F_MUTED,
         statusIcon: x.status ? 'assets/icons/' + (F_ICON[x.status] || 'cloud') + '-white.png' : ''
       });
+    });
+    /* The panel is attached, not merged: visibleSignals keeps its length (the
+       F2 check counts it) and gains one property the Future markup reads. The
+       statement is deliberately left open — the next block closes it. */
+    Object.assign(visibleSignals, {
+      reg: rfPanel
     });
     /* Empty vocabulary -> empty array -> the sc-for renders nothing, including the ALL
        chip, because a lone "ALL · 3" filter that filters nothing is noise. */

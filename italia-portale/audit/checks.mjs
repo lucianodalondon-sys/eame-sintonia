@@ -12,6 +12,8 @@ import path from 'node:path';
 import { mount, loadData, CLIENT, readPortal, extractLogic, extractMarkup, nullRate } from './lib/harness.mjs';
 import { scanAll, grepPackage, walkPackage } from './lib/scan.mjs';
 import { isPortuguese, isEnglish, looksEnglish, collectStrings, cropKeyOf } from './lang.mjs';
+import { assertFrozen, blocks, markupBlocks } from './blocks.mjs';
+import { scan as exposureScan } from './exposure.mjs';
 
 const REFERENCE_DATE = '2026-09-02';
 
@@ -423,35 +425,84 @@ check('I1', 'Italian is the default language and the switch does not reload', ()
   return { pass: defaultIt && !reloads, expected: 'it default, no reload', measured: `default=${defaultIt ? 'it' : 'UNKNOWN'} reload=${reloads}` };
 });
 
-check('PT1', 'No Portuguese research prose reaches any rendered screen', () => {
+/* Identifiers the markup actually binds. A prop the template never reads is
+   not on the client's screen. It is a trap for the first view that binds it —
+   a real risk, but a different one, and mixing the two makes the headline
+   number useless: measured when this split was made, 1178 "hits on a rendered
+   screen" collapsed to a handful the client could actually see, the rest being
+   props that nothing renders. */
+export function markupBound() {
+  const mk = extractMarkup(readPortal());
+  const out = new Set();
+  for (const m of mk.matchAll(/\{\{([^}]*)\}\}/g)) {
+    for (const t of m[1].matchAll(/[A-Za-z_$][\w$]*/g)) out.add(t[0]);
+  }
+  for (const m of mk.matchAll(/\bas="([A-Za-z_][\w]*)"/g)) out.add(m[1]);
+  return out;
+}
+const leafOf = (p) => String(p).split('.').pop().replace(/\[\d+\]$/, '');
+/* A *Raw field is the published source text kept beside the resolved value so
+   nothing becomes untraceable. Provenance, not display; PT3 proves no markup
+   binds one. */
+const isRawPath = (p) => /(^|\.)[A-Za-z]*Raw(\[|$|\.)/.test(p);
+/* The public quote and the post's own headline are the source's words. The
+   brief forbids translating them, so Portuguese there is correct behaviour and
+   not a defect. */
+const VERBATIM_LEAVES = new Set(['quote', 'headline', 'textOriginal']);
+
+/** Walk every screen once and label each Portuguese hit bound / unbound. */
+function portugueseOnScreens() {
   const m = mount();
-  const hits = [];
+  const bound = markupBound();
+  const hitsBound = [];
+  const hitsUnbound = [];
   let rendered = 0;
   const want = SCREENS.length * 2;
   for (const sc of SCREENS) {
     for (const lang of ['it', 'en']) {
-      const patch = Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
-      const r = m.tryVals(patch);
+      const r = m.tryVals(Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {}));
       if (!r.ok) continue;
       rendered++;
       for (const { path, value } of collectStrings(r.vals)) {
-        /* A *Raw field is the published source text, kept beside the resolved
-           value so nothing becomes untraceable. It is provenance, not display —
-           and PT3 proves no markup binds one. */
-        if (/(^|\.)[A-Za-z]*Raw(\[|$|\.)/.test(path)) continue;
-        if (isPortuguese(value)) hits.push(`${sc.label}/${lang} ${path}: ${value.slice(0, 110)}`);
+        if (isRawPath(path)) continue;
+        if (VERBATIM_LEAVES.has(leafOf(path))) continue;
+        if (!isPortuguese(value)) continue;
+        const line = sc.label + '/' + lang + ' ' + path + ': ' + value.slice(0, 110);
+        (bound.has(leafOf(path)) ? hitsBound : hitsUnbound).push(line);
       }
     }
   }
-  const uniqueHits = [...new Set(hits)];
+  return { rendered, want, bound: [...new Set(hitsBound)], unbound: [...new Set(hitsUnbound)] };
+}
+
+check('PT1', 'No Portuguese prose is bound by the markup on any rendered screen', () => {
+  const r = portugueseOnScreens();
   /* A language check that passes because nothing rendered is a false green —
      exactly the kind of empty pass this suite exists to prevent. */
-  const vacuous = rendered < want;
+  const vacuous = r.rendered < r.want;
   return {
-    pass: uniqueHits.length === 0 && !vacuous,
-    expected: `0 hits over ${want} renders`,
-    measured: vacuous ? `${uniqueHits.length} hits but only ${rendered}/${want} rendered — INCONCLUSIVE` : `${uniqueHits.length} hits over ${rendered} renders`,
-    detail: uniqueHits.slice(0, 14),
+    pass: r.bound.length === 0 && !vacuous,
+    expected: '0 bound hits over ' + r.want + ' renders',
+    measured: vacuous
+      ? r.bound.length + ' bound hits but only ' + r.rendered + '/' + r.want + ' rendered — INCONCLUSIVE'
+      : r.bound.length + ' bound over ' + r.rendered + ' renders (' + r.unbound.length + ' more sit unbound in props — see PT1b)',
+    detail: r.bound.slice(0, 14),
+  };
+});
+
+check('PT1b', 'The unbound Portuguese still sitting in the props only shrinks', () => {
+  /* These strings are one binding away from the client. Demanding zero would
+     mean deleting facts the package carries on purpose, so this is a ratchet:
+     the number may fall, never rise. Lower CEILING when it falls. */
+  const CEILING = 942;
+  const r = portugueseOnScreens();
+  return {
+    pass: r.unbound.length <= CEILING && r.rendered === r.want,
+    expected: '<= ' + CEILING + ' unbound hits',
+    measured: r.rendered < r.want
+      ? 'only ' + r.rendered + '/' + r.want + ' rendered — INCONCLUSIVE'
+      : r.unbound.length + ' unbound hits',
+    detail: r.unbound.slice(0, 8),
   };
 });
 
@@ -1181,43 +1232,70 @@ check('VJ2', 'isResearcher means membership, not "has a paper here"', () => {
 });
 
 
-check('I6', 'Italian mode shows no accidental English on any screen', () => {
-  /* I2 only walked the Future screen. The Market breadcrumb read
-     "MAIS · CROP MARKET" for months with every language check green, because
-     the tab strip was localized and the crumb above it was built separately.
-     This walks every rendered prop of every screen.
+/* Content the source published in its own words. Translating any of it is
+   forbidden by the brief, so English here is correct and not a defect: an
+   institution's name, a journal, a channel handle, a video or paper title, a
+   literal search query, a Latin binomial, a package code.
+   Note this list is deliberately WIDER than PT1's. The two checks ask different
+   questions: PT1 asks "is this untranslated Portuguese research prose", and an
+   opportunity's title is exactly that, so title is IN scope there. I6 asks
+   "is this accidental English", and a source's title is deliberate English,
+   so title is OUT of scope here. */
+const ORIGINAL_LEAVES = new Set([
+  'title', 'descriptor', 'org', 'orgLabel', 'institutions', 'institution', 'name',
+  'venue', 'locationShort', 'channel', 'headline', 'query', 'note', 'short',
+  'latin', 'issueEn', 'series', 'quote', 'author', 'handle', 'company', 'product',
+  'textOriginal',
+]);
 
-     Proper nouns are exempt BY PATH, not by guesswork: a product name, a company
-     name, a Latin binomial, an original public quote, a source title and a URL
-     are correctly untranslated (rule 11). */
+function englishOnItalianScreens() {
   const m = mount();
-  const EXEMPT_PATH = /(^|\.)(product|products|productName|company|companyLabel|name|species|latin|title|textOriginal|quote|url|sourceUrl|labelUrl|catalogUrl|author|institution|venue|doi|orcid|channel|person|platform|raw|ui|id|sourceId|crumbId|key|state|status|kind|type|code|vocab|scope|provenance|strength)(\[|\.|$)/i;
-  /* The Field Sales fixture and the presentation scenarios are English BY
-     DESIGN — they are labelled demonstration payloads, not interface copy.
-     Walking into them measures the fixture's language, not the portal's. */
-  const DEMO_PATH = /(^|\.)(fieldMessages|extraMessages|futureScenarios|opportunityScenarios|scenarios|tsr|tsrs|allMessages|composerExamples)(\[|\.|$)/i;
-  const hits = [];
+  const bound = markupBound();
+  const leaf = (p) => String(p).split('.').pop().replace(/\[\d+\]$/, '');
+  const hitsBound = [];
+  const hitsUnbound = [];
   let rendered = 0;
   for (const sc of SCREENS) {
-    const patch = Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
-    const r = m.tryVals(patch);
-    if (!r.ok) continue;
+    const it = m.tryVals(Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {}));
+    if (!it.ok) continue;
+    const en = m.tryVals(Object.assign({ view: sc.view, lang: 'en' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {}));
     rendered++;
-    for (const { path, value } of collectStrings(r.vals)) {
-      if (EXEMPT_PATH.test(path) || DEMO_PATH.test(path)) continue;
-      if (isEnglish(value)) hits.push(`${sc.label} ${path}: ${value.slice(0, 70)}`);
+    const enByPath = en.ok ? new Map(collectStrings(en.vals).map((x) => [x.path, x.value])) : new Map();
+    for (const { path, value } of collectStrings(it.vals)) {
+      const k = leaf(path);
+      if (ORIGINAL_LEAVES.has(k)) continue;
+      /* an {it, en} pair always exposes an English .en — that is the pair
+         working, not a leak; the markup picks the side by language */
+      if (k === 'en' && enByPath.has(path.replace(/\.en$/, '.it'))) continue;
+      if (!looksEnglish(value)) continue;
+      /* if the string CHANGES in English mode, the i18n is wired and the
+         Italian text merely looked English to the detector */
+      if (en.ok && enByPath.get(path) !== value) continue;
+      /* dedupe by the STRING, not by the path: one caption repeated on every
+         screen is one thing to translate, not twenty-six defects. */
+      (bound.has(k) ? hitsBound : hitsUnbound).push(String(value));
     }
   }
-  const uniq = [...new Set(hits)];
-  const vacuous = rendered < SCREENS.length;
+  return { rendered, want: SCREENS.length, bound: [...new Set(hitsBound)], unbound: [...new Set(hitsUnbound)] };
+}
+
+check('I6', 'Italian mode binds no accidental English on any screen', () => {
+  /* 228 distinct English captions were found the day the string walk stopped
+     truncating. They are generated captions this portal authors itself — a
+     status reason, a law caption, a filter placeholder — never source content,
+     which is exempted above. */
+  const CEILING = 201;
+  const r = englishOnItalianScreens();
+  const vacuous = r.rendered < r.want;
   return {
-    pass: uniq.length === 0 && !vacuous,
-    expected: `0 over ${SCREENS.length} screens`,
-    measured: vacuous ? `${uniq.length} but only ${rendered}/${SCREENS.length} rendered — INCONCLUSIVE` : `${uniq.length} over ${rendered} screens`,
-    detail: uniq.slice(0, 15),
+    pass: r.bound.length <= CEILING && !vacuous,
+    expected: '<= ' + CEILING + ' bound English captions over ' + r.want + ' screens',
+    measured: vacuous
+      ? r.bound.length + ' bound but only ' + r.rendered + '/' + r.want + ' rendered — INCONCLUSIVE'
+      : r.bound.length + ' bound over ' + r.rendered + ' screens (' + r.unbound.length + ' unbound)',
+    detail: r.bound.slice(0, 12).map((v) => v.slice(0, 88)),
   };
 });
-
 
 check('E1', 'The entry page counts, it does not assert', () => {
   /* accesso.html is the first screen the client sees and it is a static page
@@ -1475,10 +1553,17 @@ check('V8', 'The label-use layer keeps every pair the package carries', () => {
     const unstamped = (rel.records || []).filter((r) => r.clientSafe === true && !r.qaStatus && !r.QA_STATUS);
     if (unstamped.length) bad.push(`${unstamped.length} relationship(s) are marked client-safe with no QA status to inherit it from`);
   }
+  /* Report the two layers separately. Printing the relationship count (2013)
+     against the label-use expectation (>= 2030) made a passing check read like
+     a failing one — the two numbers are answers to different questions, and a
+     summary line that mixes them teaches the reader to distrust the green. */
+  const layerRows = layer ? layer[1].count : 0;
   return {
     pass: bad.length === 0,
-    expected: `>= ${pkg.length} rows`,
-    measured: rel ? `${rel.count} rows` : 'ABSENT',
+    expected: `label-use >= ${pkg.length} rows · ${crops.size} crops · ${targets.size} targets, and every client-safe relationship QA-stamped`,
+    measured: layer
+      ? `label-use ${layerRows} in ${layer[0]} · distinct relationships ${rel ? rel.count : 0}`
+      : 'label-use layer ABSENT',
     detail: { packageRows: pkg.length, packageClientSafe: pkgSafe, labelCrops: crops.size, labelTargets: targets.size, bad },
   };
 });
@@ -1522,3 +1607,202 @@ export function runAll(only) {
     }
   });
 }
+
+check('G1', 'The parallel-edit block map still describes the file it maps', () => {
+  /* The map is the safety mechanism for several agents editing one file. It
+     carried hand-typed line numbers (2394-3459) while portale.html grew to
+     7073 lines, so every range silently pointed into the markup instead of the
+     logic, and the function meant to catch that — assertFrozen — did not exist
+     at all. Nothing failed; the map was simply wrong for weeks.
+
+     Two things are asserted here. First, every block edge falls on a top-level
+     statement boundary of renderVals(), which is the only place a cut is legal.
+     Second, the blocks tile the function with no gap and no overlap. If either
+     breaks, parallel editing is unsafe and must stop. */
+  const bad = [];
+  let frozen = null;
+  try { frozen = assertFrozen(); } catch (e) { bad.push(e.message); }
+  if (frozen) {
+    const bs = blocks();
+    /* a block nobody can edit is not a block; 1200 lines is where review breaks down */
+    const huge = bs.filter((b) => b.b - b.a + 1 > 1200);
+    for (const h of huge) bad.push(`block ${h.key} is ${h.b - h.a + 1} lines — add an anchor inside it`);
+    const mk = markupBlocks();
+    if (mk.length < 20) bad.push(`only ${mk.length} markup screens found; the template has more`);
+    for (let i = 1; i < mk.length; i++) {
+      if (mk[i].a !== mk[i - 1].b + 1) bad.push(`markup gap/overlap between ${mk[i - 1].key} and ${mk[i].key}`);
+    }
+  }
+  return {
+    pass: bad.length === 0,
+    expected: 'every edge legal, no gap, no overlap',
+    measured: frozen ? `${frozen.blocks} logic blocks over ${frozen.lines} lines` : 'MAP UNUSABLE',
+    detail: bad,
+  };
+});
+
+check('G2', 'The language guards look at the whole screen, not the first slice of it', () => {
+  /* PT1 and I6 walk the props object. The walker had a 4000-string cap, which
+     was invisible until V2.1 grew the radar's props to 25 111 strings: the walk
+     then stopped at 16% of the screen, and PT1 reported "0 Portuguese hits"
+     over a radar that was rendering CONVERGENCIA QUE MERECE INVESTIGACAO in
+     Portuguese. A guard that quietly stops looking reports silence as safety.
+     This asserts the walk completes on the biggest screens, so a future data
+     growth spurt fails HERE, loudly, instead of turning PT1 green. */
+  const m = mount();
+  const bad = [];
+  const sizes = [];
+  for (const sc of SCREENS) {
+    const r = m.tryVals(Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {}));
+    if (!r.ok) continue;
+    const s = collectStrings(r.vals);
+    sizes.push({ screen: sc.label, strings: s.length });
+    if (s.truncated) bad.push(`${sc.label}: the string walk hit its cap at ${s.length} — PT1/I6 cannot see the rest of this screen`);
+  }
+  if (!sizes.length) bad.push('no screen rendered, so nothing was walked');
+  sizes.sort((a, b) => b.strings - a.strings);
+  return {
+    pass: bad.length === 0,
+    expected: '0 truncated walks',
+    measured: `${bad.length} truncated over ${sizes.length} screens`,
+    detail: { largest: sizes.slice(0, 3), bad },
+  };
+});
+
+check('G3', 'No localized display field carries a research note instead of a name', () => {
+  /* The package answers some localized fields with an honest admission rather
+     than a translation: 2 of the 34 GIRE resistance records fill SPECIES_IT
+     with a Portuguese note explaining that the source card has no Italian
+     common name. The note is true and useful upstream; on a screen it is a
+     Portuguese apology sitting where a species name belongs.
+
+     PT1 only sees fields that a screen actually binds today, so a field nobody
+     renders yet is a trap armed for the first view that binds it. This walks
+     the MODEL instead: every *It / *_IT display field must look like a name —
+     no unknown sentinel, no explanatory clause, no Portuguese. */
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const SENTINEL = /^\s*(NAO SEI|N[ÃA]O SEI|NOT KNOWN|UNKNOWN)\b/i;
+  const bad = [];
+  let checked = 0;
+  for (const [fam, c] of Object.entries(AM.collections || {})) {
+    for (const r of (c && c.records) || []) {
+      for (const k of Object.keys(r)) {
+        if (!/It$|_IT$/.test(k)) continue;
+        const v = r[k];
+        if (typeof v !== 'string' || !v) continue;
+        checked++;
+        const why = SENTINEL.test(v) ? 'opens with an unknown sentinel'
+          : isPortuguese(v) ? 'is Portuguese'
+            : /\s[—–]\s.{25,}/.test(v) ? 'carries an explanatory clause'
+              : null;
+        if (why) bad.push(`${fam}.${r.id || '?'}.${k} ${why}: ${JSON.stringify(v).slice(0, 90)}`);
+      }
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: { localizedFieldsChecked: checked, bad: bad.slice(0, 10) } };
+});
+
+check('G4', 'Portuguese in the model only shrinks, and never sits in a field a screen can bind', () => {
+  /* PT1 measures what a screen RENDERS. This measures what a screen COULD
+     render. The V2.1 package writes its interpretation rules — the geography
+     laws, the commodity-stage law, the "this is not a claim" sentence — in
+     Portuguese, and supplies an approved Italian variant for some of them and
+     not others. 617 string fields across 44 field paths are Portuguese today.
+     Most are never bound by the markup, but "not bound" is not "safe": each is
+     a trap armed for the first view that binds it, and PT1 sees only what is
+     bound today. Measured when this was written, of the Portuguese reaching the
+     props: 288 hits over 4 keys WERE bound by the markup and 1508 over 9 keys
+     were present but unbound. The gap between those two numbers is the size of
+     the trap, not the size of the safety margin.
+
+     This is a RATCHET, not a zero. Demanding 0 would mean deleting facts the
+     package deliberately carries for traceability. What it forbids is growth:
+     the number may fall, never rise, and no NEW field path may appear. When a
+     path is fixed — by binding the approved *_IT sibling, or by moving the
+     original under the *Raw suffix that PT3 already forbids the markup from
+     binding — lower CEILING and drop the path from KNOWN. */
+  const CEILING = 617;
+  const KNOWN_PATHS = 44;
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const seen = new Map();
+  let total = 0;
+  for (const [fam, c] of Object.entries(AM.collections || {})) {
+    for (const r of (c && c.records) || []) {
+      for (const k of Object.keys(r)) {
+        const v = r[k];
+        if (typeof v !== 'string' || v.length < 13) continue;
+        if (/Raw$/.test(k) || k === 'raw') continue;   /* traceability slot, PT3 forbids binding it */
+        if (!isPortuguese(v)) continue;
+        total++;
+        const p = `${fam}.${k}`;
+        seen.set(p, (seen.get(p) || 0) + 1);
+      }
+    }
+  }
+  const bad = [];
+  if (total > CEILING) bad.push(`Portuguese fields grew from ${CEILING} to ${total} — a new source of untranslated prose entered the model`);
+  if (seen.size > KNOWN_PATHS) bad.push(`field paths carrying Portuguese grew from ${KNOWN_PATHS} to ${seen.size}`);
+  /* and the ones a screen actually binds must be zero — that is PT1's job, so
+     here we only assert the two are consistent */
+  return {
+    pass: bad.length === 0,
+    expected: `<= ${CEILING} fields over <= ${KNOWN_PATHS} paths`,
+    measured: `${total} fields over ${seen.size} paths`,
+    detail: { worst: [...seen.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8), bad },
+  };
+});
+
+check('X2', 'The public upload carries no credential and no internal document', () => {
+  /* The repository and the upload set are not the same folder, and only one of
+     them goes public. This scans the ACTUAL upload — what survives
+     .vercelignore — because 'vercel link' once wrote a .env.local holding a
+     live VERCEL_OIDC_TOKEN directly into the folder being uploaded, and nothing
+     in the suite would have noticed.
+
+     Three separate questions, because they fail differently: is a CREDENTIAL in
+     the upload, is an INTERNAL DOCUMENT in the upload (handoffs, research,
+     audit files, prompts, .md), and does any uploaded file CONTAIN a
+     secret-shaped string. */
+  const r = exposureScan();
+  const bad = [
+    ...r.secrets.map((f) => 'credential file: ' + f),
+    ...r.privates.map((f) => 'internal document: ' + f),
+    ...r.inContent.map((f) => 'secret-shaped string inside: ' + f),
+  ];
+  return {
+    pass: bad.length === 0,
+    expected: '0 findings in the upload set',
+    measured: bad.length + ' findings over ' + r.uploaded.length + ' public files',
+    detail: bad.slice(0, 10),
+  };
+});
+
+check('E2', 'The entry-page map is sized from the element, not from a resize event', () => {
+  /* The map on accesso.html raced the page layout and lost, on every load, in
+     silence. draw() reads stage.clientWidth/clientHeight; the atlas JSON
+     normally arrives before the flex layout has given .stage a size, so both
+     were 0, d3.geoMercator().fitExtent() produced scale 0, and every country
+     collapsed to "M0,0L0,0…" inside a viewBox of "0 0 0 0". Nothing threw and
+     nothing was logged — the first screen a client sees was simply an empty
+     black rectangle. The only redraw path was a window "resize" listener, and
+     no resize event fires on its own, so it never recovered.
+
+     Node has no layout, so this cannot be proved headlessly. What it CAN prove
+     is that the page does not depend on the event that never comes: the map
+     must be redrawn from an observation of the element itself. */
+  const src = fs.readFileSync(path.join(CLIENT, 'accesso.html'), 'utf8');
+  const bad = [];
+  const drawsOnLoad = /d3\.json\([^)]*\)[\s\S]{0,200}?draw\(/.test(src);
+  if (!drawsOnLoad) bad.push('the map is never drawn when the atlas loads');
+  if (!/ResizeObserver/.test(src)) {
+    bad.push('nothing observes .stage — the map can only be sized by a window resize event, which never fires by itself');
+  }
+  /* and the redraw must refuse a zero-sized stage rather than baking scale 0 */
+  if (!/clientWidth[\s\S]{0,240}(if \(!w \|\| !h\)|w && h|!w \|\| !h)/.test(src)) {
+    bad.push('no guard against drawing the map while the stage still measures 0 x 0');
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
+});

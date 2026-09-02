@@ -40,3 +40,12 @@ italia-portale/tmp_*/
 # extracao de trabalho do pacote V2.1: o zip canonico ja esta versionado na
 # branch de intelligence; esta pasta e so a descompactacao para o transporte
 build/V21-INGEST/
+
+# Scratch for the parallel-edit mechanism (italia-portale/audit/splice.mjs).
+# Each file here is ONE block of portale.html, written against ONE version of
+# the block map. Committing them stores a snapshot that keeps its key while the
+# map moves underneath it — a 556-line block file for a 50-line slot is exactly
+# what nearly overwrote portale.html once. The committed truth is portale.html;
+# regenerate any block with: node audit/splice.mjs show <key>
+italia-portale/audit/blocks/
+italia-portale/audit/.scratch/

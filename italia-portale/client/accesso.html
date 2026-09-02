@@ -9,7 +9,16 @@
 <!-- The entry page asserted 7 regions, 8 crops and 72 observed signals. The 72
      was the demo fixture's activity count: a fabricated number on the first
      screen the client sees. The canonical window contract is 23 KB and answers
-     all three honestly, so the page counts instead of claiming. -->
+     all three honestly, so the page counts instead of claiming.
+     §7 · The three stat tiles were rewired first; the MAP was not, and it kept
+     its own hand-typed list of seven regions while the tile above it counted
+     nine from the same file — the first screen the client sees disagreed with
+     itself. Every figure and every dot on this page now comes from
+     ITALY_CANONICAL.windows, the one file loaded here. That file stays the
+     source even after the V2.1 ingestion: cropWindows is listed in
+     ITALY_APP_MODEL.V21.notSuppliedByV21, and AM.collections.cropWindows is
+     built from this same contract — 29 windows, 9 REGION values, 10 CROP_NAME
+     values, identical on both routes. -->
 <script src="italy-canonical-windows.js"></script>
 <link rel="stylesheet" href="_ds/adama-brandwell/tokens/colors.css">
 <link rel="stylesheet" href="_ds/adama-brandwell/tokens/typography.css">
@@ -188,13 +197,18 @@
 <section class="stage" aria-hidden="true">
   <svg id="map" role="presentation"></svg>
   <div class="stats">
-    <div class="stat"><b id="statRegionsN">—</b><span data-i18n="statRegions">AREE NELLA RETE</span></div>
+    <div class="stat"><b id="statRegionsN">—</b><span data-i18n="statRegions">REGIONI</span></div>
     <div class="stat"><b id="statCropsN">—</b><span data-i18n="statCrops">COLTURE</span></div>
     <div class="stat"><b id="statWindowsN">—</b><span data-i18n="statSignals">FINESTRE COLTURALI</span></div>
   </div>
   <div class="legend">
-    <span class="cap" data-i18n="legendCap">RETE DI MONITORAGGIO · ITALIA</span>
-    <span class="row"><span class="dot"></span><span data-i18n="legendRow">Aree con osservazione agronomica attiva</span></span>
+    <span class="cap" data-i18n="legendCap">FINESTRE COLTURALI · ITALIA</span>
+    <span class="row"><span class="dot"></span><span data-i18n="legendRow">Regioni con almeno una finestra colturale nel pilota</span></span>
+    <!-- Shown only when the contract names a region this page cannot place on
+         the map. A region that cannot be drawn is never dropped in silence. -->
+    <span class="row" id="legendUnplaced" style="display:none">
+      <span class="dot" style="background:#6E6663"></span><span id="legendUnplacedTxt"></span>
+    </span>
   </div>
 </section>
 
@@ -222,9 +236,17 @@
       cta: 'ENTRA NELLA DEMO',
       hint: 'Ambiente dimostrativo — nessuna autenticazione. Il pilota è autonomo e non contiene dati riservati.',
       env: 'AMBIENTE DIMOSTRATIVO',
-      statRegions: 'AREE NELLA RETE', statCrops: 'COLTURE', statSignals: 'FINESTRE COLTURALI',
-      legendCap: 'RETE DI MONITORAGGIO · ITALIA',
-      legendRow: 'Aree con osservazione agronomica attiva'
+      /* Each label names exactly what the figure beside it counts, in the crop
+         window contract's own terms: distinct REGION, distinct CROP_NAME, and
+         the rows themselves. "AREE NELLA RETE" and "osservazione agronomica
+         attiva" claimed an active monitoring network — the contract records
+         crop windows, and says of itself that not one of them has a confirmed
+         current-season calendar range. */
+      statRegions: 'REGIONI', statCrops: 'COLTURE', statSignals: 'FINESTRE COLTURALI',
+      legendCap: 'FINESTRE COLTURALI · ITALIA',
+      legendRow: 'Regioni con almeno una finestra colturale nel pilota',
+      legendUnplaced: 'regioni senza posizione sulla mappa',
+      legendUnplaced1: 'regione senza posizione sulla mappa'
     },
     en: {
       brandline: 'ADAMA ITALIA · INTELLIGENCE',
@@ -235,11 +257,73 @@
       cta: 'ENTER DEMO',
       hint: 'Demonstration environment — no authentication. The pilot is self-contained and holds no confidential data.',
       env: 'DEMONSTRATION ENVIRONMENT',
-      statRegions: 'AREAS IN THE NETWORK', statCrops: 'CROPS', statSignals: 'CROP WINDOWS',
-      legendCap: 'MONITORING NETWORK · ITALY',
-      legendRow: 'Areas with active agronomic observation'
+      statRegions: 'REGIONS', statCrops: 'CROPS', statSignals: 'CROP WINDOWS',
+      legendCap: 'CROP WINDOWS · ITALY',
+      legendRow: 'Regions with at least one crop window in the pilot',
+      legendUnplaced: 'regions with no position on the map',
+      legendUnplaced1: 'region with no position on the map'
     }
   };
+
+  /* §7 · WHICH regions the map claims is a data question. It used to be seven
+     names typed here by hand — PIEMONTE, LOMBARDIA, VENETO, EMILIA-ROMAGNA,
+     TOSCANA, PUGLIA, SICILIA — while the tile above counted nine from the same
+     contract; Friuli-Venezia Giulia (1 window) and Trentino-Alto Adige (1) were
+     on the counter and off the map. The dots are now the contract's own distinct
+     REGION values. The only thing still authored here is WHERE a region sits: a
+     centroid is geography and label placement is layout, neither is an agronomic
+     or a commercial state. All twenty Italian regions are listed so the map can
+     follow the data without another edit, and a region the contract names but
+     this table cannot place is counted in the legend instead of disappearing.
+     dx / dy / anchor are tuned per region so labels do not collide in the north. */
+  var REGION_XY = {
+    valledaosta:         { lon: 7.40,  lat: 45.73, dx: -11, dy: -4,   a: 'end' },
+    piemonte:            { lon: 8.00,  lat: 44.75, dx: -11, dy: 3.4,  a: 'end' },
+    liguria:             { lon: 8.70,  lat: 44.40, dx: -11, dy: 9,    a: 'end' },
+    lombardia:           { lon: 9.60,  lat: 45.50, dx: -11, dy: -6,   a: 'end' },
+    trentinoaltoadige:   { lon: 11.35, lat: 46.40, dx: 0,   dy: -11,  a: 'middle' },
+    veneto:              { lon: 11.90, lat: 45.50, dx: 11,  dy: -4,   a: 'start' },
+    friuliveneziagiulia: { lon: 13.10, lat: 46.15, dx: 11,  dy: -5,   a: 'start' },
+    emiliaromagna:       { lon: 11.30, lat: 44.50, dx: 11,  dy: 10,   a: 'start' },
+    toscana:             { lon: 11.20, lat: 43.30, dx: 11,  dy: 3.4,  a: 'start' },
+    umbria:              { lon: 12.50, lat: 42.90, dx: -11, dy: 3.4,  a: 'end' },
+    marche:              { lon: 13.20, lat: 43.40, dx: 11,  dy: 3.4,  a: 'start' },
+    lazio:               { lon: 12.50, lat: 41.90, dx: -11, dy: 3.4,  a: 'end' },
+    abruzzo:             { lon: 13.90, lat: 42.25, dx: 11,  dy: 3.4,  a: 'start' },
+    molise:              { lon: 14.60, lat: 41.65, dx: 11,  dy: 8,    a: 'start' },
+    campania:            { lon: 14.90, lat: 40.85, dx: -11, dy: 6,    a: 'end' },
+    puglia:              { lon: 16.90, lat: 41.10, dx: -11, dy: -6,   a: 'end' },
+    basilicata:          { lon: 16.10, lat: 40.50, dx: 11,  dy: 9,    a: 'start' },
+    calabria:            { lon: 16.40, lat: 39.00, dx: 11,  dy: 3.4,  a: 'start' },
+    sicilia:             { lon: 15.00, lat: 37.50, dx: 11,  dy: 3.4,  a: 'start' },
+    sardegna:            { lon: 9.10,  lat: 40.10, dx: -11, dy: 3.4,  a: 'end' }
+  };
+  /* Upstream writes Italian region names; these are the spellings a future
+     source could plausibly use for the same place. The region NAME drawn on the
+     map is always the contract's own, never one of these. */
+  var REGION_ALIAS = {
+    aostavalley: 'valledaosta', piedmont: 'piemonte', lombardy: 'lombardia',
+    southtyrol: 'trentinoaltoadige', trentinosudtirol: 'trentinoaltoadige',
+    trentinoaltoadigesudtirol: 'trentinoaltoadige', friuliveneziagiuliafvg: 'friuliveneziagiulia',
+    tuscany: 'toscana', latium: 'lazio', apulia: 'puglia', sicily: 'sicilia',
+    sardinia: 'sardegna'
+  };
+  var xyKey = function (s) { return String(s == null ? '' : s).toLowerCase().replace(/[^a-z]/g, ''); };
+  var xyOf = function (s) { var k = xyKey(s); return REGION_XY[k] || REGION_XY[REGION_ALIAS[k]] || null; };
+
+  var CWIN = (window.ITALY_CANONICAL && window.ITALY_CANONICAL.windows) || [];
+  var CREGIONS = (function () {
+    var seen = {}, out = [];
+    CWIN.forEach(function (w) { var r = w && w.REGION; if (r && !seen[r]) { seen[r] = 1; out.push(r); } });
+    return out;
+  })();
+  var UNPLACED = CREGIONS.filter(function (r) { return !xyOf(r); });
+  var SITES = CREGIONS.filter(xyOf).map(function (r) {
+    var p = xyOf(r);
+    return { n: String(r).toUpperCase(), lon: p.lon, lat: p.lat, dx: p.dx, dy: p.dy, a: p.a };
+  }).sort(function (a, b) { return b.lat - a.lat || a.lon - b.lon; });
+  /* the reveal stagger spreads the sites over the 7s radar loop — presentation */
+  SITES.forEach(function (site, i) { site.d = Math.round((i * 7 / SITES.length) * 100) / 100; });
 
   function readLang() {
     try { return localStorage.getItem('sintonia_lang') === 'en' ? 'en' : 'it'; } catch (e) { return 'it'; }
@@ -260,6 +344,20 @@
       b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === l));
     });
     try { localStorage.setItem('sintonia_lang', l); } catch (e) {}
+    paintLegend(l);
+  }
+  /* A region the contract names and the map cannot place is stated, not hidden:
+     the count plus the region's own name, so the map may be short of the tile
+     but never quietly disagrees with it. Silent today — all 9 are placeable. */
+  function paintLegend(l) {
+    var d = I18N[l] || I18N.it;
+    var row = document.getElementById('legendUnplaced');
+    var txt = document.getElementById('legendUnplacedTxt');
+    if (!row || !txt) return;
+    if (!UNPLACED.length) { row.style.display = 'none'; return; }
+    row.style.display = '';
+    var word = UNPLACED.length === 1 ? d.legendUnplaced1 : d.legendUnplaced;
+    txt.textContent = UNPLACED.length + ' ' + word + ' — ' + UNPLACED.join(' · ');
   }
   document.querySelectorAll('.lang button').forEach(function (b) {
     b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang')); });
@@ -276,17 +374,6 @@
     'Netherlands', 'Luxembourg', 'Denmark', 'Poland', 'Czechia', 'Slovakia', 'Hungary', 'Slovenia',
     'Croatia', 'Bosnia and Herz.', 'Serbia', 'Montenegro', 'Kosovo', 'Albania', 'North Macedonia',
     'Greece', 'Bulgaria', 'Romania', 'Ireland', 'Sweden', 'Finland', 'Estonia', 'Latvia', 'Lithuania', 'Cyprus', 'Malta'];
-
-  /* dx / anchor are set per site so the labels never collide in the dense north */
-  var SITES = [
-    { n: 'PIEMONTE', lon: 8.0, lat: 44.75, d: 0.0, dx: -11, dy: 3.4, a: 'end' },
-    { n: 'LOMBARDIA', lon: 9.6, lat: 45.5, d: 0.9, dx: -11, dy: -6, a: 'end' },
-    { n: 'VENETO', lon: 11.9, lat: 45.5, d: 1.8, dx: 11, dy: -4, a: 'start' },
-    { n: 'EMILIA-ROMAGNA', lon: 11.3, lat: 44.5, d: 2.7, dx: 11, dy: 10, a: 'start' },
-    { n: 'TOSCANA', lon: 11.2, lat: 43.3, d: 3.6, dx: 11, dy: 3.4, a: 'start' },
-    { n: 'PUGLIA', lon: 16.9, lat: 41.1, d: 4.5, dx: -11, dy: -6, a: 'end' },
-    { n: 'SICILIA', lon: 15.0, lat: 37.5, d: 5.4, dx: 11, dy: 3.4, a: 'start' }
-  ];
 
   var stage = document.querySelector('.stage');
   var svg = d3.select('#map');
@@ -349,6 +436,36 @@
   window.addEventListener('resize', function () {
     clearTimeout(t); t = setTimeout(function () { if (cache) draw(cache); }, 180);
   });
+
+  /* The map raced the layout and lost, silently, on every load.
+     draw() sizes the projection from stage.clientWidth/clientHeight. The atlas
+     JSON usually arrives before the flex layout has given .stage a size, so
+     those were 0, d3.geoMercator().fitExtent() produced scale 0, and every
+     country collapsed to "M0,0L0,0…" inside a viewBox of "0 0 0 0". Nothing
+     threw and nothing logged: the panel just showed empty black, on the first
+     screen a client ever sees. The only redraw was on window resize, an event
+     that never fires by itself — so the map stayed broken for the whole visit.
+     Watching the element instead of the window fixes the cause: the first time
+     .stage actually has a size, the map is drawn against it. */
+  var lastW = 0, lastH = 0;
+  function redrawIfResized() {
+    var st = document.querySelector('.stage');
+    if (!st || !cache) return;
+    var w = st.clientWidth, h = st.clientHeight;
+    if (!w || !h) return;                       /* still no layout: wait */
+    if (w === lastW && h === lastH) return;     /* nothing moved */
+    lastW = w; lastH = h;
+    draw(cache);
+  }
+  if (typeof ResizeObserver === 'function') {
+    new ResizeObserver(redrawIfResized).observe(document.querySelector('.stage'));
+  } else {
+    /* older browser: poll briefly rather than ship a blank map */
+    var tries = 0, iv = setInterval(function () {
+      redrawIfResized();
+      if (++tries > 40 || lastW) clearInterval(iv);
+    }, 100);
+  }
 })();
 </script>
 </body>
