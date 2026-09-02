@@ -297,7 +297,7 @@ até a reverificação apanhá-la. Uma região continua sem boletim corrente. Is
 
 Sobre o teste de rota, o número exato, porque o anterior prometia demais:
 `SOURCES.json` guarda **o que aconteceu** (`ACCESS_EVIDENCE`) e **por onde a
-requisição saiu** (`REQUIRES_ITALIAN_ROUTE`) em **128 das 185 fontes**. As **185**
+requisição saiu** (`REQUIRES_ITALIAN_ROUTE`) em **128 das 189 fontes**. As **189**
 trazem `ACCESS_STATE` ou `ACCESS_STATUS`, que responde "a rota abriu?" — e só
 isso. Nas **31 fontes client-safe**, herdadas do handoff anterior, existe apenas
 `ACCESS_STATUS`: elas nunca passaram pela medição de rota, que é artefato da

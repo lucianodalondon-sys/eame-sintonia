@@ -45,6 +45,13 @@ CONTRATO = [
     ('products.regulatory', 'PRODUCTS-REGULATORY.json'),
     ('products.commercial', 'PRODUCTS-COMMERCIAL.json'),
     ('products.relationships', 'PRODUCT-RELATIONSHIPS.json'),
+    # A camada de substancia ativa. `activeIngredients` e ENTIDADE e entra no
+    # mestre; `products.activeIngredients` e LIGACAO produto-substancia e NAO
+    # entra, pela mesma lei que ja mantinha RELATIONSHIPS fora: ligacao aponta
+    # para o registro, nao e o registro.
+    ('activeIngredients', 'ACTIVE-INGREDIENTS.json'),
+    ('products.activeIngredients', 'PRODUCT-ACTIVE-INGREDIENTS.json'),
+    ('regulatoryFutureFacts', 'REGULATORY-FUTURE-FACTS.json'),
     ('windows', 'CROP-WINDOWS.json'),
     ('fieldSignals', 'CURRENT-FIELD-SIGNALS.json'),
     ('cropEconomicWeight', 'CROP-ECONOMIC-WEIGHT.json'),
@@ -81,7 +88,8 @@ def main():
     # existe para acabar.
     #
     #     UM ID, UM LUGAR. Vista e ligacao apontam para o registro; nao sao ele.
-    NAO_ENTRA_NO_MESTRE = {'FUTURE-EVENTS.json', 'RELATIONSHIPS.json'}
+    NAO_ENTRA_NO_MESTRE = {'FUTURE-EVENTS.json', 'RELATIONSHIPS.json',
+                           'PRODUCT-ACTIVE-INGREDIENTS.json'}
 
     mestre, por_col = [], {}
     for chave, arq in CONTRATO:

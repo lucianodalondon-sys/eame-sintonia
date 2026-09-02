@@ -40,6 +40,12 @@ echo "── 1 · as coleções, do handoff anterior e da last-mile ────
 "$PY" scripts/v21_ingest.py
 "$PY" scripts/v21_ingest_b.py
 
+# Parte C: a camada de SUBSTANCIA ATIVA — entidade propria, MoA e estado europeu.
+# Vem depois de B porque ancora nos produtos que A e B acabaram de escrever: uma
+# substancia que nao encosta em produto ingerido nao entra, para nao criar relacao
+# orfa. Le do disco, nao da memoria da parte B.
+"$PY" scripts/v21_ingest_c.py
+
 echo
 echo "── 2 · os cruzamentos, sobre identificadores normalizados ──────────────"
 # depois do ingest, porque lê os IDs que ele acabou de escrever
