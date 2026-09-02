@@ -21,6 +21,7 @@ Aqui toda quebra declarada é RECONTADA do corpo, em todos os arquivos, no fim d
 cadeia. E a evidência de rota que existe medida é ligada às fontes que ela mede —
 sem inventar evidência para as que não foram medidas.
 """
+import hashlib
 import json
 import os
 import re
@@ -94,6 +95,119 @@ def conferir_readme():
     if 'teste de rota de cada fonte' in txt:
         falhas.append('o README voltou a prometer teste de rota "de cada fonte"')
     return falhas
+
+
+# Os quatro papeis que um campo pode ter. So os dois ultimos pedem irmao _IT/_EN.
+RAW_ORIGINAL = 'RAW_ORIGINAL'          # citacao, trecho apos "literal:" — nao se traduz
+CANONICAL = 'CANONICAL'                # valor controlado: ALTA, NAO SEI, codigo
+CLIENT_NARRATIVE = 'CLIENT_NARRATIVE'   # leitura nossa em prosa — traduz
+CLIENT_LABEL = 'CLIENT_LABEL'           # rotulo curto que vai a tela — traduz
+
+_CANONICO = {'ALTA', 'MEDIA', 'BAIXA', 'NAO SEI', 'NAO_SEI', 'IDEM', 'SIM', 'NAO',
+             'CORRENTE', 'ARQUIVO', 'UNKNOWN', 'NENHUMA'}
+
+
+def _papel(valor):
+    t = str(valor or '').strip()
+    if not t:
+        return None
+    if t.upper() in _CANONICO:
+        return CANONICAL
+    if 'literal:' in t or re.match(r'^\d{4}\b', t):
+        return RAW_ORIGINAL
+    return CLIENT_NARRATIVE if len(t) > 60 else CLIENT_LABEL
+
+
+def contrato_de_lingua():
+    """O cabecalho so pode declarar localizado o campo que de fato se localiza.
+
+    314 valores client-safe viviam em campos que o proprio cabecalho listava em
+    LOCALIZED_FIELDS e que nao tinham irmao _IT. Nenhum deles era portugues: eram
+    valor canonico (ALTA, NAO SEI), codigo, ou citacao italiana. Nao era lacuna de
+    traducao — era o CABECALHO PROMETENDO O QUE O CAMPO NAO PRECISA.
+
+        NAO SE TRADUZ FATO CRU PARA CUMPRIR UMA PROMESSA DE ESQUEMA.
+        CORRIGE-SE A PROMESSA.
+    """
+    achados = []
+    for arq in sorted(os.listdir(ING)):
+        if not arq.endswith('.json') or arq == 'APP-MANIFEST.json':
+            continue
+        p = os.path.join(ING, arq)
+        d = json.load(open(p, encoding='utf-8'))
+        if not (isinstance(d, dict) and isinstance(d.get('RECORDS'), list)):
+            continue
+        decl = list(d.get('LOCALIZED_FIELDS') or [])
+        if not decl:
+            continue
+        papeis, cumpre = {}, {}
+        for campo in decl:
+            vistos, tem_ir = [], False
+            for r in d['RECORDS']:
+                if r.get(campo) is None:
+                    continue
+                pp = _papel(r[campo])
+                if pp:
+                    vistos.append(pp)
+                if r.get(campo + '_IT'):
+                    tem_ir = True
+            if not vistos:
+                continue
+            papeis[campo] = max(set(vistos), key=vistos.count)
+            cumpre[campo] = tem_ir
+        novos = [c for c in decl if papeis.get(c) in (CLIENT_NARRATIVE, CLIENT_LABEL)
+                 or cumpre.get(c)]
+        fora = [c for c in decl if c not in novos]
+        if fora:
+            achados.append('%s: %s' % (arq, ', '.join(fora)))
+        d['LOCALIZED_FIELDS'] = novos
+        d['FIELD_ROLES'] = papeis
+        d['LOCALIZATION_CONTRACT'] = (
+            'so CLIENT_NARRATIVE e CLIENT_LABEL pedem irmao _IT/_EN. '
+            'RAW_ORIGINAL e citacao e fica na lingua publicada; CANONICAL e valor '
+            'controlado e nao tem lingua. Campo tirado desta lista NAO foi '
+            'traduzido: foi reclassificado, e FIELD_ROLES diz em que papel.')
+        json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    return achados
+
+
+def carimbar_build_id():
+    """Uma identidade que muda quando o conteudo muda, e so entao.
+
+    Os 25 arquivos traziam BUILT_AT "2026-09-02" — so data, sem hora — e nenhum
+    BUILD_ID. Duas pastas com conteudo diferente diziam, as duas, a mesma coisa.
+
+        DATA DO CALENDARIO NAO E IDENTIDADE: E O DIA EM QUE SE RODOU.
+    """
+    h = hashlib.sha256()
+    for arq in sorted(os.listdir(ING)):
+        if not arq.endswith('.json'):
+            continue
+        d = json.load(open(os.path.join(ING, arq), encoding='utf-8'))
+        if isinstance(d, dict):
+            d.pop('BUILD_ID', None)
+        h.update(arq.encode())
+        h.update(json.dumps(d, sort_keys=True, ensure_ascii=False).encode())
+    bid = 'V21-' + h.hexdigest()[:16]
+    for arq in sorted(os.listdir(ING)):
+        if not arq.endswith('.json'):
+            continue
+        p = os.path.join(ING, arq)
+        d = json.load(open(p, encoding='utf-8'))
+        if isinstance(d, dict):
+            d['BUILD_ID'] = bid
+            d['BUILD_ID_LAW'] = ('deterministico: sai do conteudo dos 25 arquivos. '
+                                 'Mesmo conteudo, mesmo BUILD_ID; conteudo diferente, '
+                                 'BUILD_ID diferente. A data do calendario nao serve '
+                                 'de identidade.')
+            json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    acc = os.path.join(os.path.dirname(ING), 'ACCEPTANCE-REPORT.json')
+    if os.path.exists(acc):
+        a = json.load(open(acc, encoding='utf-8'))
+        a['BUILD_ID'] = bid
+        json.dump(a, open(acc, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    print('  BUILD_ID: %s' % bid)
+    return bid
 
 
 def main():
@@ -221,6 +335,14 @@ def main():
     #     A UNICA DUVIDA E QUANDO.
     if not so_rota:
         v['README_AFIRMA_O_QUE_O_PACOTE_NAO_SUSTENTA'] = conferir_readme()
+
+    # ── 4 · o contrato de localizacao: o cabecalho promete o que se cumpre ──
+    if not so_rota:
+        v['LOCALIZACAO_PROMETIDA_E_NAO_CUMPRIDA'] = contrato_de_lingua()
+
+    # ── 5 · uma identidade de build, deterministica ─────────────────────────
+    if not so_rota:
+        carimbar_build_id()
 
     print('== R3 · CONTRATO DO PACOTE ==')
     print('  rota medida ligada a fontes : %d' % ligadas)

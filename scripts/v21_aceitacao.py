@@ -54,6 +54,12 @@ def colecoes():
 
 def main():
     r = {}
+    # A identidade de build vem do pacote, nao deste script: o carimbo e feito no
+    # passo 7b e este relatorio so o REPETE. Assim o relatorio nunca declara um
+    # build diferente do que esta nos arquivos.
+    _m = os.path.join(ING, 'APP-MANIFEST.json')
+    if os.path.exists(_m):
+        r['BUILD_ID'] = json.load(open(_m, encoding='utf-8')).get('BUILD_ID')
 
     # ── 1 · o registro central ───────────────────────────────────────────────
     m = json.load(open(os.path.join(ING, 'CANONICAL-INTELLIGENCE-MASTER.json'),

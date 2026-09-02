@@ -31,7 +31,9 @@ import sys
 from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import v21_normalizar as N            # noqa: E402
+from datetime import date
+import v21_normalizar as N
+import v21_datas as DT            # noqa: E402
 from v21_ingest import (ANT, ING, ISTAT_CSV, LM, V2, ant, base, do_anterior,  # noqa: E402
                         do_lastmile, le, sid)
 
@@ -58,6 +60,9 @@ def grava(nome, colecao, itens, chave, verdade, substitui=None, lei=None, extra=
               ensure_ascii=False, indent=1)
     MAP[colecao] = corpo
     return corpo
+
+
+CORTE_FUTURO = date(2026, 9, 2)   # a data de referencia do pacote, pinada
 
 
 def main():
@@ -343,7 +348,22 @@ def main():
           'sitios de organizador, feira e sociedade cientifica',
           ['PREVIOUS-HANDOFF/.../EVENTS/events.json', 'V2/FUTURE-EVENTS.json'],
           'participacao futura NUNCA se infere de participacao passada.')
-    fut = [x for x in ev if str(x.get('REFERENCE_DATE') or '') >= '2026-09-02']
+    # §7 · R6 · DATA E DATA, NAO TEXTO QUE PARECE DATA.
+    # O filtro era `str(REFERENCE_DATE) >= '2026-09-02'`: comparacao de STRING
+    # sobre campo de procedencia em prosa livre. Qualquer valor comecando por
+    # letra — "NAO_SEI — pagina sem data de publicacao visivel" — e
+    # lexicograficamente maior que "2026-09-02" e entrava como evento futuro.
+    # Por isso 21 dos 23 "eventos futuros" nao tinham data nenhuma.
+    #
+    #     'N' > '2' EM ORDEM DE TEXTO, E ISSO NAO E UMA DATA NO FUTURO.
+    #
+    # Agora a data e analisada, e o que nao se analisa fica UNKNOWN — que nunca
+    # entra em "proximos".
+    for x in ev:
+        x.update(DT.analisar(('DATE', x.get('DATE')),
+                             ('REFERENCE_DATE', x.get('REFERENCE_DATE')),
+                             ('PERIOD', x.get('PERIOD'))))
+    fut = [x for x in ev if DT.e_futuro(x, CORTE_FUTURO)]
     grava('FUTURE-EVENTS.json', 'FUTURE_EVENTS', fut, 'ID',
           'subconjunto de EVENTS.json com data a partir de 02/09/2026',
           None,
