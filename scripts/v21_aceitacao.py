@@ -197,10 +197,45 @@ def main():
     # ── 6 · a separação das pastas ───────────────────────────────────────────
     SUJO = re.compile(r'audit|relatorio|report|plano|plan|demo|quarentena|'
                       r'rascunho|draft|historia|story|fake', re.I)
+    # ⚠️ ESTE CONTADOR JA SE DEU UM ATESTADO LIMPO SOBRE O DEFEITO QUE CONTINUAVA
+    # ABERTO. Ele media SUJO contra o NOME DO ARQUIVO e nunca contra o conteudo
+    # dos RECORDS — entao um registro que e receita de raspagem, carimbado
+    # client-safe dentro de REGULATORY-FUTURE.json, passava limpo porque o
+    # arquivo se chama REGULATORY-FUTURE.
+    #
+    #     MEDIR O NOME DA PASTA NAO E MEDIR O QUE ESTA DENTRO DELA.
+    ROTA = re.compile(
+        r'HTTP \d{3}|curl |urllib|WebFetch|User-Agent|bundle JS|chunk d[ao] rota|'
+        r'endpoint|SDMX|dataflow|env-json-config|_ssl\.c|ECONNRESET|'
+        r'getaddrinfo|nslookup|raspa|scrape', re.I)
+    # ⚠️ E ESTE CONTADOR JA NASCEU CEGO UMA VEZ: olhava 'WHAT_IT_IS', chave que
+    # nao existe no registro. O que existe e 'WHAT_IT_IS_IT', 'WHAT_IT_IS_EN' e
+    # 'WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT'. Media zero e parecia limpo.
+    #
+    #     CONTADOR QUE OLHA A CHAVE ERRADA DA SEMPRE ZERO, E ZERO PARECE BOM.
+    BASES = ('WHAT_IT_IS', 'WHAT_IT_PROVES', 'WHAT_IT_DOES_NOT_PROVE',
+             'INTERPRETATION', 'SO_WHAT', 'NOTE', 'CAVEAT', 'PERMANENT_CAVEAT')
+    CAMPOS_DE_TELA = tuple(
+        b + suf for b in BASES
+        for suf in ('', '_IT', '_EN', '_ORIGINAL_RESEARCH_TEXT'))
+    dentro = []
+    for a, d in colecoes():
+        if a == 'SOURCES.json':      # §18 · a casa declarada do metadado de rota
+            continue
+        for x in d['RECORDS']:
+            if not x.get('CLIENT_SAFE'):
+                continue
+            alvo = ' '.join(str(x.get(c) or '') for c in CAMPOS_DE_TELA)
+            if ROTA.search(alvo):
+                dentro.append('%s:%s' % (a, x.get('ID')))
     r['SEPARACAO'] = {
         'ARQUIVOS_EM_DESIGN_INGEST': len(os.listdir(ING)),
         'PAPEL_DE_TRABALHO_EM_DESIGN_INGEST':
             [f for f in os.listdir(ING) if SUJO.search(f)],
+        'METADADO_DE_ROTA_EM_REGISTRO_CLIENT_SAFE': dentro,
+        'METADADO_DE_ROTA_NOTA':
+            'medido no CONTEUDO dos campos de tela, nao no nome do arquivo. '
+            'SOURCES.json fica fora: e a casa declarada do metadado de rota (§18).',
         'ITENS_EM_INTERNAL_ARCHIVE':
             len(os.listdir(ARQ)) if os.path.isdir(ARQ) else 0,
     }
@@ -248,6 +283,8 @@ def main():
     print('separacao     : %d arquivos no ingest · %d papel de trabalho dentro'
           % (r['SEPARACAO']['ARQUIVOS_EM_DESIGN_INGEST'],
              len(r['SEPARACAO']['PAPEL_DE_TRABALHO_EM_DESIGN_INGEST'])))
+    print('              · %d registro client-safe com metadado de rota no texto'
+          % len(r['SEPARACAO']['METADADO_DE_ROTA_EM_REGISTRO_CLIENT_SAFE']))
     print('\ngravado em %s' % p)
     return 0
 

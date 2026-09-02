@@ -71,6 +71,11 @@ echo "── 5b · R2 · a procedencia que ja estava dentro do pacote ───�
 "$PY" scripts/v21_procedencia_religar.py
 
 echo
+echo "── 5c · R3 · a rota medida, ligada as fontes que ela mede ──────────────"
+# CONTEUDO: entra antes da traducao, porque ACCESS_EVIDENCE vai a tela.
+"$PY" scripts/v21_contrato_do_pacote.py --rota
+
+echo
 echo "── 6 · a tradução, conferida antes de entrar ───────────────────────────"
 # a trava recusa gravar se alguma tradução falhar. É de propósito.
 "$PY" scripts/v21_traducao_trava.py --aplicar
@@ -78,6 +83,11 @@ echo "── 6 · a tradução, conferida antes de entrar ───────�
 echo
 echo "── 7 · o fechamento: registro central, manifesto, arquivo interno ──────"
 "$PY" scripts/v21_fechar.py
+
+echo
+echo "── 7b · R3 · toda quebra declarada recontada do corpo ──────────────────"
+# ARITMETICA: entra depois do fechamento, quando o corpo parou de mudar.
+"$PY" scripts/v21_contrato_do_pacote.py --contagens
 
 echo
 echo "── 8 · §19 · a aceitação, com todo número recontado ────────────────────"

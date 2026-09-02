@@ -290,10 +290,26 @@ em `VIEWS_NOT_INDEXED`.
 
 Antes de pedir mais coleta, olhe se a ausência não é o resultado.
 
-Sete das dez culturas do piloto **não têm dado de mercado**. Uma região não tem
-boletim corrente. Isso não é buraco de coleta: é censo. Foi procurado, e não
-existe fonte pública. `SOURCES.json` guarda o teste de rota de cada fonte, com o
-que aconteceu e por onde a requisição saiu.
+Antes, sete das dez culturas do piloto não tinham dado de mercado. **Hoje as dez
+têm** — a rodada *last-mile* fechou essa lacuna, e esta frase ficou desatualizada
+até a reverificação apanhá-la. Uma região continua sem boletim corrente. Isso não
+é buraco de coleta: é censo. Foi procurado, e não existe fonte pública.
+
+Sobre o teste de rota, o número exato, porque o anterior prometia demais:
+`SOURCES.json` guarda **o que aconteceu** (`ACCESS_EVIDENCE`) e **por onde a
+requisição saiu** (`REQUIRES_ITALIAN_ROUTE`) em **128 das 185 fontes**. As **185**
+trazem `ACCESS_STATE` ou `ACCESS_STATUS`, que responde "a rota abriu?" — e só
+isso. Nas **31 fontes client-safe**, herdadas do handoff anterior, existe apenas
+`ACCESS_STATUS`: elas nunca passaram pela medição de rota, que é artefato da
+rodada *last-mile*.
+
+> **O TESTE DE ROTA NÃO COBRE "CADA FONTE". COBRE AS QUE FORAM MEDIDAS.**
+> Dizer "cada" numa página que o Design lê é prometer uma checagem que não
+> existe para a fonte que ele estiver olhando.
+
+E uma rodada só não responde "por onde saiu": um coletor já concluiu que o ISMEA
+nunca fora bloqueado porque recebeu HTTP 200 — com a VPN ligada, sem saber. Por
+isso `ROUTE_EVIDENCE_NOTE` diz, em cada fonte medida, se houve uma rodada ou duas.
 
 Há também duas fontes que **não são fontes**: `SRC_NAO_DECLARADA` e
 `SRC_DESCONHECIDA` aparecem como sentinelas, com `IS_SOURCE: false`. Elas marcam
