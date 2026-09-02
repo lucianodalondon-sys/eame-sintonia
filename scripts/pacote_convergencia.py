@@ -166,6 +166,33 @@ def camada_convergencia():
             'THE_THREE_DRAWERS_DO_NOT_ADD_UP': cru['AS_TRES_GAVETAS_NAO_SE_SOMAM'],
             'VOCABULARY_RECONCILIATION': cru['EQUIVALENCIAS_DECLARADAS'],
             'CONVERGENCE_COUNT': len(conv),
+            # ⚠️ A ORDEM CRUA DO ARRAY E UMA ARMADILHA DE TELA
+            # O array vem ordenado por nivel e numero de documentos -- e por isso
+            # o PRIMEIRO item e POMODORO x PERONOSPORA, que tem 29 documentos e
+            # plateia de HORTA DOMESTICA. Quem pegar «os tres primeiros» para o
+            # demo pega uma conversa de quintal em primeiro lugar.
+            #
+            # Nao reordenamos o array: os IDs ja sao estaveis e reordenar quebraria
+            # tudo que os referencia. Em vez disso a recomendacao vai AO LADO, e
+            # ela poe a plateia antes da contagem.
+            'RECOMMENDED_DEMO_ORDER': [
+                x['ID'] for x in sorted(
+                    conv,
+                    key=lambda y: (
+                        0 if y.get('AUDIENCE_VERDICT') in (
+                            'SUSTENTADO_POR_CANAL_PROFISSIONAL',
+                            'PREDOMINANTEMENTE_PROFISSIONAL') else 1,
+                        0 if y.get('PUBLIC_CONVERSATION_LEVEL') == 3 else 1,
+                        -(y.get('PUBLIC_CONVERSATION_DOCS') or 0),
+                        -(y.get('ADAMA_PRODUCT_COUNT') or 0)))],
+            'RECOMMENDED_DEMO_ORDER_WHY':
+                'plateia PRIMEIRO, depois nivel, depois documentos, depois produtos. '
+                'A ordem crua do array poe POMODORO x PERONOSPORA em primeiro lugar '
+                '-- 29 documentos, 15 deles de canal de horta domestica. Contagem '
+                'grande sem plateia nao e forca de sinal.',
+            'ARRAY_ORDER_IS_NOT_A_RANKING':
+                'a ordem do array PARES segue nivel e contagem, nada mais. Nao usar '
+                'como ranking de demo.',
             'CONVERGENCE_WITH_PROFESSIONAL_AUDIENCE':
                 cru['CONVERGENCIA_COM_PLATEIA_PROFISSIONAL'],
             'AUDIENCE_WARNING':
