@@ -1,12 +1,43 @@
 {
   "BUILT_AT": "2026-09-02",
-  "REGISTRY_FILE": "PROD_FTS_6_20260831.csv",
-  "REGISTRY_SNAPSHOT_DATE": "2026-08-31",
-  "CATALOG_CAPTURED_AT": "2026-08-30",
-  "SYNTHETIC_RECORDS": 0,
   "RECORDS": [],
   "COUNT": 0,
   "STATE": "REAL_GAP",
-  "WHY": "as 51 etichette foram baixadas e conferidas por sha256 em 2026-08-30, mas os PDF vivem em data/raw (fora do Git) e no bucket Supabase, sem credencial neste ambiente; adama.com devolve 403 aqui",
-  "WHAT_WOULD_UNBLOCK": "rodar a extracao na maquina local, ou expor SUPABASE_URL/SUPABASE_SECRET_KEY"
+  "WHY": "nenhuma etichetta foi lida. 7 rotas de recuperacao tentadas, 0 documentos recuperados.",
+  "RECOVERY_ROUTES_TRIED": [
+    {
+      "ROUTE": "ADAMA_MEDIA_DOWNLOAD",
+      "RESULT": "403 143"
+    },
+    {
+      "ROUTE": "ADAMA_MEDIA_DOWNLOAD",
+      "RESULT": "403 144"
+    },
+    {
+      "ROUTE": "ADAMA_MEDIA_DOWNLOAD",
+      "RESULT": "403 144"
+    },
+    {
+      "ROUTE": "MINISTERO_BANCA_DATI_ETICHETTE",
+      "RESULT": "000 0 curl: (60) SSL certificate problem: unable to get local issuer certificate\nMore "
+    },
+    {
+      "ROUTE": "SUPABASE_BUCKET",
+      "RESULT": "NO_CREDENTIALS_IN_THIS_ENVIRONMENT — SUPABASE_URL e SUPABASE_SECRET_KEY nao estao definidos, e nao devem ser commitados"
+    },
+    {
+      "ROUTE": "GIT_HISTORY",
+      "RESULT": "NOT_PRESENT — data/raw e ignorado por politica do repositorio (D-003); nenhum PDF entrou no Git"
+    },
+    {
+      "ROUTE": "LOCAL_DISK",
+      "RESULT": "NOT_PRESENT — nenhum arquivo"
+    }
+  ],
+  "WHAT_IS_INVENTORIED_INSTEAD": "51 etichette com URL, tipo, bytes e sha256 em LABEL-MANIFEST.json",
+  "WHAT_WOULD_UNBLOCK": [
+    "rodar na maquina com janela grafica e o acervo em C:\\eame-sintonia-it",
+    "expor SUPABASE_URL e SUPABASE_SECRET_KEY como secrets de execucao (nunca no Git)"
+  ],
+  "RULE": "sem rotulo lido nao ha par cultura x alvo defensavel. Zero e o numero honesto."
 }

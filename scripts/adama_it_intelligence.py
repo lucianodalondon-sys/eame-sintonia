@@ -72,6 +72,20 @@ def _norm_ai(s):
     return re.sub(r"[^A-Z0-9-]+", "-", (s or "").upper()).strip("-")
 
 
+def _componentes(s):
+    """Separa a mistura em componentes.
+
+    O campo `sostanze_attive` separa por '|' — em 148 dos 602 registros ADAMA — e
+    NUNCA por '+'. A primeira versao deste codigo dividia so por '+', o que quer
+    dizer que nenhuma mistura foi dividida e cada uma virou um MoA artificial,
+    exatamente o que a regra proibia. Os dois separadores ficam aceitos aqui para
+    o codigo nao depender de qual deles a fonte resolve usar amanha."""
+    for comp in re.split(r"[|+]", s or ""):
+        comp = comp.strip()
+        if comp and comp != "-":
+            yield comp
+
+
 def carregar_registro():
     arqs = sorted(f for f in os.listdir(RAW) if f.startswith("PROD_FTS_6_"))
     if not arqs:
@@ -240,10 +254,8 @@ def construir_ai(linhas_adama, hrac, irac):
     """
     por_ai = defaultdict(set)
     for r in linhas_adama:
-        for comp in r["sostanze_attive"].split("+"):
-            comp = comp.strip()
-            if comp and comp != "-":
-                por_ai[comp].add(r["num_registrazione"])
+        for comp in _componentes(r["sostanze_attive"]):
+            por_ai[comp].add(r["num_registrazione"])
     saida = []
     for nome, regs in sorted(por_ai.items()):
         chave = _norm_ai(nome)
@@ -320,10 +332,8 @@ def construir_clusters(linhas_adama, estados, mapa):
         if not e["ADMIN_ACTIVE"]:
             continue
         venc = r["data_scadenza_autorizzazione"]
-        for comp in r["sostanze_attive"].split("+"):
-            comp = comp.strip()
-            if comp and comp != "-":
-                grupos[(venc, comp)].append(r["num_registrazione"])
+        for comp in _componentes(r["sostanze_attive"]):
+            grupos[(venc, comp)].append(r["num_registrazione"])
     saida = []
     for (venc, ai), regs in sorted(grupos.items(), key=lambda kv: (_d(kv[0][0]) or date.max, kv[0][1])):
         saida.append({

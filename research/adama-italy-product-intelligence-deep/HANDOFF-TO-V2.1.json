@@ -25,10 +25,10 @@
   "CROPS_COVERED": 0,
   "TARGETS_COVERED": 0,
   "CROPS_TARGETS_WHY_ZERO": "nenhum PDF de etichetta e alcancavel deste ambiente; sem rotulo lido nao ha par cultura x alvo defensavel",
-  "ACTIVE_INGREDIENTS": 169,
+  "ACTIVE_INGREDIENTS": 122,
   "HRAC_CLASSIFIED": 35,
-  "FRAC_CLASSIFIED": 0,
-  "FRAC_WHY_ZERO": "PDF oficial baixado mas a extracao perde digitos ('M 04' -> 'M 0'); nao se publica o defeito do extrator como fonte",
+  "FRAC_CLASSIFIED": 29,
+  "FRAC_WHY_ZERO": null,
   "IRAC_CLASSIFIED": 22,
   "COMMERCIAL_PRODUCTS_WITH_OTHER_HOLDER": 7,
   "COMMERCIAL_PRODUCTS_WITH_OTHER_HOLDER_WHICH": [
@@ -44,28 +44,52 @@
   "LICENSE_NOTE": "presenca no catalogo e titular sao provados; contrato entre as partes e UNKNOWN",
   "EXPIRIES_WITHIN_180_DAYS": 64,
   "EXPIRY_STATE_CONFLICTS": 8,
-  "EU_REGULATORY_FUTURE_SIGNALS": 0,
-  "EU_WHY_ZERO": "EU Pesticides Database: 307 -> sorry.ec.europa.eu em toda rota de dados",
-  "QA_SAMPLE_SIZE": 36,
-  "QA_PASS": 35,
-  "QA_CORRECTED": 0,
+  "EU_REGULATORY_FUTURE_SIGNALS": 60,
+  "EU_WHY_ZERO": null,
+  "QA_SAMPLE_SIZE": 48,
+  "QA_PASS": 46,
+  "QA_CORRECTED": 1,
   "QA_REJECTED": 0,
   "QA_UNREVIEWED": 1,
   "MEASURED_ERROR_RATE": 0.0,
   "QA_DETECTOR_SELF_TEST": {
-    "METHOD": "fault injection nos registros publicados, QA reexecutado, arquivo restaurado",
-    "FAULTS_INJECTED": 4,
-    "FAULTS_INSIDE_SAMPLE": 3,
-    "FAULTS_CAUGHT": 3,
-    "DETECTOR_RECALL_ON_SAMPLED_FAULTS": 1.0,
-    "TYPES_PROVEN": [
-      "HOLDER_MISMATCH",
-      "REGISTRATION_NOT_IN_SOURCE",
-      "INFERENCE_STRONGER_THAN_SOURCE__MARKETABLE"
+    "METHOD": "fault injection DENTRO das linhas efetivamente sorteadas — corromper linha que a amostra nao alcanca nao testa detector nenhum. Rodado em 2026-09-02, arquivos restaurados depois.",
+    "ROUNDS": [
+      {
+        "ROUND": 1,
+        "LAYER": "identidade e estado",
+        "FAULTS_INJECTED": 4,
+        "FAULTS_INSIDE_SAMPLE": 3,
+        "FAULTS_CAUGHT": 3,
+        "TYPES_PROVEN": [
+          "HOLDER_MISMATCH",
+          "REGISTRATION_NOT_IN_SOURCE",
+          "INFERENCE_STRONGER_THAN_SOURCE__MARKETABLE"
+        ]
+      },
+      {
+        "ROUND": 2,
+        "LAYER": "FRAC, EU e misturas",
+        "FAULTS_INJECTED": 7,
+        "FAULTS_INSIDE_SAMPLE": 7,
+        "FAULTS_CAUGHT": 7,
+        "TYPES_PROVEN": [
+          "FRAC_CODE_DIFFERS_FROM_TABLE",
+          "FRAC_MATCH_METHOD_NOT_DECLARED",
+          "EU_EXPIRY_DIFFERS_FROM_ANNEX",
+          "EU_APPROVAL_DATE_DIFFERS_FROM_ANNEX",
+          "RENEWAL_STATE_STRONGER_THAN_SOURCE",
+          "MISTURA_COLADA"
+        ],
+        "NOTE": "um dos defeitos plantados foi o proprio 'M 0' — o digito perdido que derrubou a leitura anterior do FRAC. O detector reprovou."
+      }
     ],
-    "TYPE_NOT_EXERCISED_BY_LUCK": "CATEGORY_NOT_THE_PRINTED_ONE — o produto adulterado nao foi sorteado"
+    "FAULTS_INJECTED": 11,
+    "FAULTS_INSIDE_SAMPLE": 10,
+    "FAULTS_CAUGHT": 10,
+    "DETECTOR_RECALL_ON_SAMPLED_FAULTS": 1.0
   },
-  "CLIENT_SAFE_PRODUCT_RECORDS": 35,
+  "CLIENT_SAFE_PRODUCT_RECORDS": 47,
   "CLIENT_SAFE_PRODUCT_RECORDS_NOTE": "so os registros efetivamente revisados. Os outros 576 do mapa sao QA_UNREVIEWED: pesquisa valida, mas nao sustentam sozinhos afirmacao forte ao cliente",
   "CLIENT_SAFE_LABEL_RELATIONSHIPS": 0,
   "SYNTHETIC_RECORDS": 0,
@@ -74,26 +98,80 @@
   "OPPORTUNITY_NOTE": "proibido por design nesta missao: quem decide se um cruzamento vira oportunidade e o V2.1",
   "FILES": [
     "ACTIVE-INGREDIENTS.json",
+    "ADAMA-ITALY-PRODUCT-INTELLIGENCE-INVENTORY.md",
     "ADAMA-PRODUCT-SOURCES.json",
     "BUILD-SUMMARY.json",
     "CATEGORY-CENSUS.json",
     "COMMERCIAL-REGULATORY-RECONCILIATION.json",
+    "EU-ACTIVE-SUBSTANCE-STATUS.json",
+    "EU-SOURCE-540-2011.json",
     "EXPIRY-CLUSTERS.json",
+    "FRAC-CLASSIFICATIONS.json",
     "FUNGICIDE-LABEL-USES.json",
+    "HANDOFF-TO-V2.1.json",
+    "HANDOFF-TO-V2.1.md",
     "HERBICIDE-LABEL-USES.json",
     "INSECTICIDE-LABEL-USES.json",
+    "INVENTORY.md",
     "LABEL-MANIFEST.json",
     "LABEL-USES.json",
     "MOA-CLASSIFICATIONS.json",
+    "MOA-SOURCE-FRAC.json",
+    "MOA-SOURCE-HRAC.json",
+    "MOA-SOURCE-IRAC.json",
     "PRODUCT-CROP-COVERAGE.json",
     "PRODUCT-IDENTITY-MAP.json",
     "PRODUCTS-COMMERCIAL.json",
     "PRODUCTS-REGULATORY.json",
     "QA-REPORT.json",
+    "QA-REPORT.md",
     "QUARANTINE.json",
+    "README-FIRST.md",
     "REGULATORY-FUTURE-DEEP.json",
     "REGULATORY-LINEAGE.json",
     "SPECIALI-DEEP.json",
     "TARGET-PRODUCT-COVERAGE.json"
-  ]
+  ],
+  "MISSION": "CLOSE THE THREE REMAINING GAPS",
+  "LABEL_DOCUMENTS_RECOVERED": 0,
+  "CURRENT_LABELS_VERIFIED": 0,
+  "ACTIVE_INGREDIENTS_NOTE": "122, nao 169: o baseline colava as misturas num MoA artificial. Corrigido nesta rodada.",
+  "FRAC_UNKNOWN": 93,
+  "FRAC_SOURCE": "https://www.frac.info/media/s1zfrjqa/frac-code-list-2026.pdf",
+  "FRAC_DOCUMENT_SHA256": "18147746e0da078c5e0047a4820cdc00faa09772d7002b84135ee159e589987e",
+  "EU_ACTIVE_INGREDIENTS_CHECKED": 122,
+  "EU_STATES_RESOLVED": 60,
+  "EU_STATES_UNKNOWN": 59,
+  "EU_SAFENERS_NOT_ACTIVE_SUBSTANCES": 3,
+  "EU_SOURCE": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02011R0540-20260721",
+  "EU_CELEX": "02011R0540-20260721",
+  "EU_CONSOLIDATION_DATE": "2026-07-21",
+  "EU_STATES_STILL_UNOBTAINABLE": [
+    "APPROVAL_EXTENDED",
+    "RENEWAL_UNDER_REVIEW",
+    "DRAFT_NON_RENEWAL",
+    "ARTICLE_21_REVIEW",
+    "NON_RENEWED"
+  ],
+  "PRODUCT_EU_RELATIONSHIPS": 60,
+  "PRODUCT_EU_RELATIONSHIPS_TOUCHING_CATALOG": 39,
+  "CLIENT_SAFE_LABEL_USE_PAIRS": 0,
+  "BLOCKERS_REMAINING": [
+    {
+      "BLOCKER": "conteudo das etichette",
+      "EVIDENCE": "adama.com/media 403; fitosanitari.salute.gov.it gateway 502 no CONNECT; sem credencial do bucket; nada no Git nem no disco",
+      "UNBLOCK": "maquina com janela grafica, ou credencial de execucao do bucket"
+    },
+    {
+      "BLOCKER": "RENEWAL_UNDER_REVIEW, DRAFT_NON_RENEWAL, ARTICLE_21_REVIEW, SCoPAFF, EFSA",
+      "EVIDENCE": "EU Pesticides Database: 307 -> sorry.ec.europa.eu com e sem cabecalho de navegador",
+      "UNBLOCK": "navegador com janela"
+    },
+    {
+      "BLOCKER": "FRAC de 93 substancias",
+      "EVIDENCE": "nao tem linha na tabela FRAC 2026 — em boa parte herbicida e inseticida, que nao pertencem a ela",
+      "UNBLOCK": "nada a fazer: HRAC e IRAC ja cobrem o que e deles"
+    }
+  ],
+  "READY_FOR_V2_1_INGEST": "YES_FOR_REGULATORY_AND_MOA_LAYERS / NO_FOR_LABEL_USE_LAYER"
 }

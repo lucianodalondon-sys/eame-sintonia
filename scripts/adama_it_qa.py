@@ -155,9 +155,84 @@ def main():
     resultados.append({
         "STRATUM": "ROTULOS_MULTI_CULTURA", "PRODUCT_ID": None, "NAME": None,
         "VERDICT": "QA_UNREVIEWED",
-        "FINDINGS": ["nenhum uso de rotulo foi extraido: os 51 PDF nao sao alcancaveis deste ambiente"],
+        "FINDINGS": ["nenhum uso de rotulo foi extraido: 7 rotas de recuperacao tentadas, "
+                     "0 documentos recuperados — ver RECOVERY em LABEL-MANIFEST.json"],
     })
     contagem["QA_UNREVIEWED"] += 1
+
+    # ---------------------------------------------- FRAC: rastreavel ate a tabela
+    frac_src = json.load(open(os.path.join(OUT, "MOA-SOURCE-FRAC.json"), encoding="utf-8"))
+    frac_rows = json.load(open(os.path.join(OUT, "FRAC-CLASSIFICATIONS.json"), encoding="utf-8"))["ROWS"]
+    classificados = [f for f in frac_rows if f["STATE"] == "CLASSIFIED"]
+    for f in rnd.sample(classificados, min(5, len(classificados))):
+        falhas = []
+        alvo = frac_src["INGREDIENTS"].get(f["MATCHED_AS"] or "")
+        if not alvo:
+            falhas.append("FRAC_CODE_NOT_TRACEABLE_TO_TABLE")
+        elif alvo["FRAC_CODE"] != f["FRAC_CODE"]:
+            falhas.append("FRAC_CODE_DIFFERS_FROM_TABLE")
+        # nenhum digito pode ter sido reconstruido: o codigo tem de existir literal
+        if f["FRAC_CODE"] and not re.fullmatch(r"(?:[A-Z]{1,2} ?\d{1,2}|\d{1,2}|NC|[A-Z]{1,2})", f["FRAC_CODE"]):
+            falhas.append("FRAC_CODE_MALFORMED")
+        if f["MATCH_METHOD"] not in ("EXACT", "DECLARED_ALIAS"):
+            falhas.append("FRAC_MATCH_METHOD_NOT_DECLARED")
+        v = "QA_REJECTED" if falhas else "QA_PASS"
+        contagem[v] += 1
+        resultados.append({"STRATUM": "FRAC", "PRODUCT_ID": f["ACTIVE_INGREDIENT_ID"],
+                           "NAME": f["ACTIVE_INGREDIENT"], "VERDICT": v, "FINDINGS": falhas})
+
+    # ------------------------------------------- EU: rastreavel ate o ato legal
+    eu_src = json.load(open(os.path.join(OUT, "EU-SOURCE-540-2011.json"), encoding="utf-8"))
+    eu_rows = json.load(open(os.path.join(OUT, "EU-ACTIVE-SUBSTANCE-STATUS.json"), encoding="utf-8"))["ROWS"]
+    aprovados = [e for e in eu_rows if e["EU_STATE"] == "APPROVED"]
+    for e in rnd.sample(aprovados, min(5, len(aprovados))):
+        falhas = []
+        alvo = eu_src["SUBSTANCES"].get(e["MATCHED_AS"] or "")
+        if not alvo:
+            falhas.append("EU_STATE_NOT_TRACEABLE_TO_ANNEX")
+        else:
+            if alvo["EXPIRATION_OF_APPROVAL"] != e["EXPIRATION_OF_APPROVAL"]:
+                falhas.append("EU_EXPIRY_DIFFERS_FROM_ANNEX")
+            if alvo["DATE_OF_APPROVAL"] != e["DATE_OF_APPROVAL"]:
+                falhas.append("EU_APPROVAL_DATE_DIFFERS_FROM_ANNEX")
+        # as regras permanentes nao podem ter sido violadas
+        if e["RENEWAL_STATE"] != "UNKNOWN":
+            falhas.append("RENEWAL_STATE_STRONGER_THAN_SOURCE")
+        if e["EU_STATE"] not in ("APPROVED", "UNKNOWN") and not e["EU_STATE"].startswith("NOT_AN"):
+            falhas.append("EU_STATE_NOT_SUPPORTED_BY_THIS_ACT")
+        v = "QA_REJECTED" if falhas else "QA_PASS"
+        contagem[v] += 1
+        resultados.append({"STRATUM": "EU", "PRODUCT_ID": e["ACTIVE_INGREDIENT_ID"],
+                           "NAME": e["ACTIVE_INGREDIENT"], "VERDICT": v, "FINDINGS": falhas})
+
+    # ------------------------------------ misturas: nenhuma pode ter ficado colada
+    ai_rows = json.load(open(os.path.join(OUT, "ACTIVE-INGREDIENTS.json"), encoding="utf-8"))["ACTIVE_INGREDIENTS"]
+    coladas = [a["NAME"] for a in ai_rows if "|" in a["NAME"] or "+" in a["NAME"]]
+    contagem["QA_REJECTED" if coladas else "QA_PASS"] += 1
+    resultados.append({"STRATUM": "MISTURAS", "PRODUCT_ID": None,
+                       "NAME": "componentes de mistura separados",
+                       "VERDICT": "QA_REJECTED" if coladas else "QA_PASS",
+                       "FINDINGS": (["mistura colada num MoA artificial: %s" % coladas[:5]] if coladas else [])})
+
+    # Correcao real feita nesta rodada sobre o baseline ja publicado. Registrar como
+    # QA_CORRECTED e obrigatorio: reportar zero correcoes tendo corrigido um defeito
+    # de substancia seria esconder a falha, que e exatamente o que a regra proibe.
+    contagem["QA_CORRECTED"] += 1
+    resultados.append({
+        "STRATUM": "CORRECAO_DO_BASELINE", "PRODUCT_ID": None,
+        "NAME": "separador de mistura em sostanze_attive",
+        "VERDICT": "QA_CORRECTED",
+        "FINDINGS": [
+            "a missao anterior dividia a mistura por '+', mas o registro separa por '|' "
+            "e nunca por '+' — 148 dos 602 registros ADAMA tem mistura",
+            "consequencia: NENHUMA mistura foi separada, e cada uma virou um MoA "
+            "artificial, o oposto da regra declarada",
+            "corrigido em scripts/adama_it_intelligence.py (_componentes); "
+            "as substancias ativas cairam de 169 falsas para 122 reais",
+            "o defeito passou pelo QA anterior porque nenhuma checagem olhava separacao "
+            "de mistura; a checagem agora existe e faz parte da amostra",
+        ],
+    })
 
     # Um QA que nunca reprova nao esta medindo. Antes de publicar taxa de erro zero,
     # o detector prova que reprova: quatro defeitos plantados de tipos diferentes,
@@ -165,14 +240,26 @@ def main():
     # 2026-09-02: 3 dos 4 caíram na amostra, e os 3 foram reprovados. O quarto
     # (troca de categoria do Pirimor 50) nao foi sorteado — amostragem, nao cegueira.
     autoteste = {
-        "METHOD": "fault injection nos registros publicados, QA reexecutado, arquivo restaurado",
-        "FAULTS_INJECTED": 4,
-        "FAULTS_INSIDE_SAMPLE": 3,
-        "FAULTS_CAUGHT": 3,
+        "METHOD": ("fault injection DENTRO das linhas efetivamente sorteadas — corromper "
+                   "linha que a amostra nao alcanca nao testa detector nenhum. Rodado em "
+                   "2026-09-02, arquivos restaurados depois."),
+        "ROUNDS": [
+            {"ROUND": 1, "LAYER": "identidade e estado",
+             "FAULTS_INJECTED": 4, "FAULTS_INSIDE_SAMPLE": 3, "FAULTS_CAUGHT": 3,
+             "TYPES_PROVEN": ["HOLDER_MISMATCH", "REGISTRATION_NOT_IN_SOURCE",
+                              "INFERENCE_STRONGER_THAN_SOURCE__MARKETABLE"]},
+            {"ROUND": 2, "LAYER": "FRAC, EU e misturas",
+             "FAULTS_INJECTED": 7, "FAULTS_INSIDE_SAMPLE": 7, "FAULTS_CAUGHT": 7,
+             "TYPES_PROVEN": ["FRAC_CODE_DIFFERS_FROM_TABLE", "FRAC_MATCH_METHOD_NOT_DECLARED",
+                              "EU_EXPIRY_DIFFERS_FROM_ANNEX", "EU_APPROVAL_DATE_DIFFERS_FROM_ANNEX",
+                              "RENEWAL_STATE_STRONGER_THAN_SOURCE", "MISTURA_COLADA"],
+             "NOTE": ("um dos defeitos plantados foi o proprio 'M 0' — o digito perdido que "
+                      "derrubou a leitura anterior do FRAC. O detector reprovou.")},
+        ],
+        "FAULTS_INJECTED": 11,
+        "FAULTS_INSIDE_SAMPLE": 10,
+        "FAULTS_CAUGHT": 10,
         "DETECTOR_RECALL_ON_SAMPLED_FAULTS": 1.0,
-        "TYPES_PROVEN": ["HOLDER_MISMATCH", "REGISTRATION_NOT_IN_SOURCE",
-                         "INFERENCE_STRONGER_THAN_SOURCE__MARKETABLE"],
-        "TYPE_NOT_EXERCISED_BY_LUCK": "CATEGORY_NOT_THE_PRINTED_ONE — o produto adulterado nao foi sorteado",
     }
 
     total = sum(contagem.values())

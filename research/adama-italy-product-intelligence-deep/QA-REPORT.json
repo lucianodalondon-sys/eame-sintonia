@@ -1,23 +1,47 @@
 {
-  "QA_SAMPLE_SIZE": 36,
-  "QA_PASS": 35,
-  "QA_CORRECTED": 0,
+  "QA_SAMPLE_SIZE": 48,
+  "QA_PASS": 46,
+  "QA_CORRECTED": 1,
   "QA_REJECTED": 0,
   "QA_UNREVIEWED": 1,
   "MEASURED_ERROR_RATE": 0.0,
   "SAMPLE_SEED": 20260902,
   "DETECTOR_SELF_TEST": {
-    "METHOD": "fault injection nos registros publicados, QA reexecutado, arquivo restaurado",
-    "FAULTS_INJECTED": 4,
-    "FAULTS_INSIDE_SAMPLE": 3,
-    "FAULTS_CAUGHT": 3,
-    "DETECTOR_RECALL_ON_SAMPLED_FAULTS": 1.0,
-    "TYPES_PROVEN": [
-      "HOLDER_MISMATCH",
-      "REGISTRATION_NOT_IN_SOURCE",
-      "INFERENCE_STRONGER_THAN_SOURCE__MARKETABLE"
+    "METHOD": "fault injection DENTRO das linhas efetivamente sorteadas — corromper linha que a amostra nao alcanca nao testa detector nenhum. Rodado em 2026-09-02, arquivos restaurados depois.",
+    "ROUNDS": [
+      {
+        "ROUND": 1,
+        "LAYER": "identidade e estado",
+        "FAULTS_INJECTED": 4,
+        "FAULTS_INSIDE_SAMPLE": 3,
+        "FAULTS_CAUGHT": 3,
+        "TYPES_PROVEN": [
+          "HOLDER_MISMATCH",
+          "REGISTRATION_NOT_IN_SOURCE",
+          "INFERENCE_STRONGER_THAN_SOURCE__MARKETABLE"
+        ]
+      },
+      {
+        "ROUND": 2,
+        "LAYER": "FRAC, EU e misturas",
+        "FAULTS_INJECTED": 7,
+        "FAULTS_INSIDE_SAMPLE": 7,
+        "FAULTS_CAUGHT": 7,
+        "TYPES_PROVEN": [
+          "FRAC_CODE_DIFFERS_FROM_TABLE",
+          "FRAC_MATCH_METHOD_NOT_DECLARED",
+          "EU_EXPIRY_DIFFERS_FROM_ANNEX",
+          "EU_APPROVAL_DATE_DIFFERS_FROM_ANNEX",
+          "RENEWAL_STATE_STRONGER_THAN_SOURCE",
+          "MISTURA_COLADA"
+        ],
+        "NOTE": "um dos defeitos plantados foi o proprio 'M 0' — o digito perdido que derrubou a leitura anterior do FRAC. O detector reprovou."
+      }
     ],
-    "TYPE_NOT_EXERCISED_BY_LUCK": "CATEGORY_NOT_THE_PRINTED_ONE — o produto adulterado nao foi sorteado"
+    "FAULTS_INJECTED": 11,
+    "FAULTS_INSIDE_SAMPLE": 10,
+    "FAULTS_CAUGHT": 10,
+    "DETECTOR_RECALL_ON_SAMPLED_FAULTS": 1.0
   },
   "METHOD": "cada checagem reabre o CSV do Ministero e o censo do catalogo e tenta derrubar o registro",
   "RESULTS": [
@@ -233,36 +257,36 @@
     },
     {
       "STRATUM": "MOA",
-      "PRODUCT_ID": "IT-AI-METAMITRON",
-      "NAME": "METAMITRON",
-      "VERDICT": "QA_PASS",
-      "FINDINGS": []
-    },
-    {
-      "STRATUM": "MOA",
-      "PRODUCT_ID": "IT-AI-CHLOROTOLURON",
-      "NAME": "CHLOROTOLURON",
-      "VERDICT": "QA_PASS",
-      "FINDINGS": []
-    },
-    {
-      "STRATUM": "MOA",
-      "PRODUCT_ID": "IT-AI-CARBOFURAN",
-      "NAME": "CARBOFURAN",
-      "VERDICT": "QA_PASS",
-      "FINDINGS": []
-    },
-    {
-      "STRATUM": "MOA",
-      "PRODUCT_ID": "IT-AI-BIFENOX",
-      "NAME": "BIFENOX",
-      "VERDICT": "QA_PASS",
-      "FINDINGS": []
-    },
-    {
-      "STRATUM": "MOA",
       "PRODUCT_ID": "IT-AI-DELTAMETHRIN",
       "NAME": "DELTAMETHRIN",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-CHLORPYRIFOS-METHYL",
+      "NAME": "CHLORPYRIFOS-METHYL",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-BROMOXYNIL",
+      "NAME": "BROMOXYNIL",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-FLUROXYPYR",
+      "NAME": "FLUROXYPYR",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MOA",
+      "PRODUCT_ID": "IT-AI-PENDIMETHALIN",
+      "NAME": "PENDIMETHALIN",
       "VERDICT": "QA_PASS",
       "FINDINGS": []
     },
@@ -272,7 +296,96 @@
       "NAME": null,
       "VERDICT": "QA_UNREVIEWED",
       "FINDINGS": [
-        "nenhum uso de rotulo foi extraido: os 51 PDF nao sao alcancaveis deste ambiente"
+        "nenhum uso de rotulo foi extraido: 7 rotas de recuperacao tentadas, 0 documentos recuperados — ver RECOVERY em LABEL-MANIFEST.json"
+      ]
+    },
+    {
+      "STRATUM": "FRAC",
+      "PRODUCT_ID": "IT-AI-FENPROPIDIN",
+      "NAME": "FENPROPIDIN",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FRAC",
+      "PRODUCT_ID": "IT-AI-FLUDIOXONIL",
+      "NAME": "FLUDIOXONIL",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FRAC",
+      "PRODUCT_ID": "IT-AI-PROPICONAZOLE",
+      "NAME": "PROPICONAZOLE",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FRAC",
+      "PRODUCT_ID": "IT-AI-FOSETYL-ALUMINIUM",
+      "NAME": "FOSETYL-ALUMINIUM",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "FRAC",
+      "PRODUCT_ID": "IT-AI-METALAXYL",
+      "NAME": "METALAXYL",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "EU",
+      "PRODUCT_ID": "IT-AI-METAMITRON",
+      "NAME": "METAMITRON",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "EU",
+      "PRODUCT_ID": "IT-AI-PENDIMETHALIN",
+      "NAME": "PENDIMETHALIN",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "EU",
+      "PRODUCT_ID": "IT-AI-PICLORAM",
+      "NAME": "PICLORAM",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "EU",
+      "PRODUCT_ID": "IT-AI-DELTAMETHRIN",
+      "NAME": "DELTAMETHRIN",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "EU",
+      "PRODUCT_ID": "IT-AI-FLONICAMID-IKI-220",
+      "NAME": "FLONICAMID (IKI-220)",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "MISTURAS",
+      "PRODUCT_ID": null,
+      "NAME": "componentes de mistura separados",
+      "VERDICT": "QA_PASS",
+      "FINDINGS": []
+    },
+    {
+      "STRATUM": "CORRECAO_DO_BASELINE",
+      "PRODUCT_ID": null,
+      "NAME": "separador de mistura em sostanze_attive",
+      "VERDICT": "QA_CORRECTED",
+      "FINDINGS": [
+        "a missao anterior dividia a mistura por '+', mas o registro separa por '|' e nunca por '+' — 148 dos 602 registros ADAMA tem mistura",
+        "consequencia: NENHUMA mistura foi separada, e cada uma virou um MoA artificial, o oposto da regra declarada",
+        "corrigido em scripts/adama_it_intelligence.py (_componentes); as substancias ativas cairam de 169 falsas para 122 reais",
+        "o defeito passou pelo QA anterior porque nenhuma checagem olhava separacao de mistura; a checagem agora existe e faz parte da amostra"
       ]
     }
   ]

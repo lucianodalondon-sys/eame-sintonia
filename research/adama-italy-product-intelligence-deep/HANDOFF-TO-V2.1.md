@@ -1,66 +1,105 @@
 # HANDOFF PARA O V2.1 — ADAMA ITALY PRODUCT INTELLIGENCE
 
-**Data:** 2026-09-02 · **Pacote:** `research/adama-italy-product-intelligence-deep/`
+**Rodada 2 · 2026-09-02** — fechar os três gaps medidos. Dois fecharam, um não.
 
-Este pacote **não** entra no portal e **não** cria oportunidade. Ele entrega camadas factuais e
-relações candidatas. Quem decide se um cruzamento vira oportunidade é o V2.1.
+Este pacote **não** entra no portal e **não** cria oportunidade.
 
 ---
 ## Contagem exigida
 ```
-NEW_COMMERCIAL_PRODUCT_ENTITIES        = 0
-NEW_REGULATORY_PRODUCT_ENTITIES        = 602
-IDENTITY_MATCHES                       = 49
-IDENTITY_CONFLICTS                     = 2
-OFFICIAL_LABELS_READ                   = 0
+LABEL_DOCUMENTS_INVENTORIED            = 141
+LABEL_DOCUMENTS_RECOVERED              = 0
+CURRENT_LABELS_VERIFIED                = 0
 LABEL_USE_PAIRS                        = 0
 HERBICIDE_USE_PAIRS                    = 0
 FUNGICIDE_USE_PAIRS                    = 0
 INSECTICIDE_USE_PAIRS                  = 0
 CROPS_COVERED                          = 0
 TARGETS_COVERED                        = 0
-ACTIVE_INGREDIENTS                     = 169
-HRAC_CLASSIFIED                        = 35
-FRAC_CLASSIFIED                        = 0
-IRAC_CLASSIFIED                        = 22
-COMMERCIAL_PRODUCTS_WITH_OTHER_HOLDER  = 7
-EXPIRIES_WITHIN_180_DAYS               = 64
-EXPIRY_STATE_CONFLICTS                 = 8
-EU_REGULATORY_FUTURE_SIGNALS           = 0
-QA_SAMPLE_SIZE                         = 36
-QA_PASS                                = 35
-QA_CORRECTED                           = 0
+FRAC_CLASSIFIED                        = 29
+FRAC_UNKNOWN                           = 93
+EU_ACTIVE_INGREDIENTS_CHECKED          = 122
+EU_STATES_RESOLVED                     = 60
+EU_STATES_UNKNOWN                      = 59
+PRODUCT_EU_RELATIONSHIPS               = 60
+QA_SAMPLE_SIZE                         = 48
+QA_PASS                                = 46
+QA_CORRECTED                           = 1
 QA_REJECTED                            = 0
 MEASURED_ERROR_RATE                    = 0.0
-CLIENT_SAFE_PRODUCT_RECORDS            = 35
-CLIENT_SAFE_LABEL_RELATIONSHIPS        = 0
+CLIENT_SAFE_LABEL_USE_PAIRS            = 0
 SYNTHETIC_RECORDS                      = 0
-EXPECTED (SYNTHETIC_RECORDS)           = 0
+BLOCKERS_REMAINING                     = 3
+READY_FOR_V2.1_INGEST                  = YES_FOR_REGULATORY_AND_MOA_LAYERS / NO_FOR_LABEL_USE_LAYER
 ```
 
-## Os zeros são medidos, não esquecidos
+---
+## O que mudou desde a rodada 1
 
-| Zero | Motivo exato |
-|---|---|
-| `OFFICIAL_LABELS_READ = 0` | nenhum PDF de etichetta e alcancavel deste ambiente; sem rotulo lido nao ha par cultura x alvo defensavel — mas **51 etichette estão inventariadas** com URL e sha256 |
-| `LABEL_USE_PAIRS = 0` | idem: sem rótulo lido não há par defensável |
-| `FRAC_CLASSIFIED = 0` | PDF oficial baixado mas a extracao perde digitos ('M 04' -> 'M 0'); nao se publica o defeito do extrator como fonte |
-| `EU_REGULATORY_FUTURE_SIGNALS = 0` | EU Pesticides Database: 307 -> sorry.ec.europa.eu em toda rota de dados |
-| `CLIENT_SAFE_LABEL_RELATIONSHIPS = 0` | consequência dos anteriores |
-| `NEW_COMMERCIAL_PRODUCT_ENTITIES = 0` | os 51 ja existiam no censo de 2026-08-30; esta missao nao recoletou, reconciliou |
+| Camada | Antes | Agora |
+|---|---:|---:|
+| FRAC classificados | 0 | **29** |
+| Estados EU resolvidos | 0 | **60** |
+| Relações substância → produto IT → catálogo | 0 | **60** |
+| Substâncias ativas reais | 169 (falsas) | **122** |
+| Pares de uso de rótulo | 0 | 0 |
 
-## O que o V2.1 pode usar imediatamente
+### A correção que importa mais que os gaps
 
-- **`PRODUCT-IDENTITY-MAP.json`** — 612 entidades com `PRODUCT_ID` estável, aliases separados, `JOIN_METHOD` e `JOIN_CONFIDENCE` em cada linha.
-- **`PRODUCTS-REGULATORY.json`** — os três estados separados: administrativo, validade formal e comercializável (`UNKNOWN`).
-- **`EXPIRY-CLUSTERS.json`** — 58 agrupamentos data × substância ativa, com sobreposição de catálogo, **sem chamar vencimento de risco**.
-- **`ACTIVE-INGREDIENTS.json`** — 169 ingredientes, cada componente de mistura separado, com HRAC/IRAC e URL de origem.
-- **`LABEL-MANIFEST.json`** — 141 documentos com URL, tipo e sha256: a lista de compras exata para a próxima captura local.
+O baseline separava mistura por `+`. O registro italiano separa por `|` e **nunca** por `+` —
+em 148 dos 602 registros. Resultado: **nenhuma mistura tinha sido separada**, e cada uma virava um
+MoA artificial — o oposto exato da regra declarada. Corrigido. As 169 "substâncias" eram 122 reais
+mais 47 strings de mistura coladas. O QA anterior não pegou porque não olhava isso; agora olha.
 
-## O que desbloqueia a próxima camada
+---
+## Aprovações EU expirando até 2028, com produto no catálogo comercial
 
-1. **Rodar a extração de etichetta na máquina local** (a que tem janela gráfica e o acervo em `C:\eame-sintonia-it`) — ou expor `SUPABASE_URL`/`SUPABASE_SECRET_KEY`, já que os 195 brutos estão preservados e com hash conferido no bucket.
-2. **Ler a EU Pesticides Database de navegador com janela**, do mesmo jeito que o catálogo ADAMA foi lido.
-3. **Reler o FRAC Code List com extrator que preserve dígitos** — o PDF já está identificado e a URL registrada.
+Fato, não risco. Expiração de aprovação **não é** retirada, restrição nem perda comercial,
+e estado EU **não é** comercialização na Itália.
 
-As três são a mesma classe de bloqueio: **fonte existe, rota daqui não**. Nenhuma é fonte inexistente.
+| Expira | Substância ativa | Registros IT | Produtos no catálogo |
+|---|---|---:|---|
+| 2026-09-30 | FLUDIOXONIL | 1 | Seedron® |
+| 2026-09-30 | PHENMEDIPHAM | 12 | Contatto® 320 |
+| 2026-10-31 | METAZACHLOR | 2 | Sultan® |
+| 2026-10-31 | PIRIMICARB | 8 | Pirimor® 50 |
+| 2026-11-30 | METAMITRON | 18 | Brevis®, Goltix®, Goltix® TOP |
+| 2026-11-30 | FLONICAMID (IKI-220) | 2 | Apyza® WG |
+| 2026-11-30 | SULCOTRIONE | 3 | Sulcotrek® |
+| 2027-01-15 | PENDIMETHALIN | 18 | Activus® ME, Stopper P |
+| 2027-01-31 | BUPIRIMATE | 6 | Nimrod® 250 EW |
+| 2027-01-31 | TAU-FLUVALINATE | 12 | Mavrik® Smart |
+| 2027-02-15 | FLUROXYPYR | 3 | Tomigan |
+| 2027-02-28 | QUIZALOFOP-P-ETHYL | 9 | Highcard®, Leopard® 5 EC, Max-Ace® Rice Cropping Solution |
+| 2027-02-28 | PROPAQUIZAFOP | 5 | Agil® |
+| 2027-03-31 | PROTHIOCONAZOLE | 5 | Avastel®, Maganic®, Maxentis® |
+| 2027-03-31 | BIFENOX | 11 | Sonavio®, Valley |
+| 2027-03-31 | NICOSULFURON | 8 | Nicogan® V.O. |
+| 2027-05-31 | AZOXYSTROBIN | 7 | Maxentis® |
+| 2027-05-31 | CHLORANTRANILIPROLE | 1 | Cosayr® 200 SC |
+| 2027-05-31 | TEFLUTHRIN | 2 | Schermo® 0.5 G |
+| 2027-05-31 | TERBUTHYLAZINE | 19 | Sulcotrek® |
+| 2027-06-30 | IMAZAMOX | 4 | Davai®, FullPage® Rice Cropping Solution |
+| 2027-08-31 | DIFLUFENICAN | 8 | Stopper P |
+| 2027-10-31 | FLUXAPYROXAD | 1 | Avastel® |
+| 2027-11-30 | FLUAZINAM | 3 | Banjo® |
+| 2027-12-15 | CLETHODIM | 1 | Arrodim® |
+
+---
+## Bloqueios que restam
+
+| Bloqueio | Evidência | O que desbloqueia |
+|---|---|---|
+| conteudo das etichette | adama.com/media 403; fitosanitari.salute.gov.it gateway 502 no CONNECT; sem credencial do bucket; nada no Git nem no disco | maquina com janela grafica, ou credencial de execucao do bucket |
+| RENEWAL_UNDER_REVIEW, DRAFT_NON_RENEWAL, ARTICLE_21_REVIEW, SCoPAFF, EFSA | EU Pesticides Database: 307 -> sorry.ec.europa.eu com e sem cabecalho de navegador | navegador com janela |
+| FRAC de 93 substancias | nao tem linha na tabela FRAC 2026 — em boa parte herbicida e inseticida, que nao pertencem a ela | nada a fazer: HRAC e IRAC ja cobrem o que e deles |
+
+---
+## Pronto para ingestão?
+
+**`YES` para as camadas regulatória e de MoA.** `PRODUCT-IDENTITY-MAP`, `PRODUCTS-REGULATORY`,
+`ACTIVE-INGREDIENTS`, `FRAC-CLASSIFICATIONS`, `EU-ACTIVE-SUBSTANCE-STATUS`, `REGULATORY-FUTURE-DEEP`
+e `EXPIRY-CLUSTERS` têm origem, método e confiança em cada linha.
+
+**`NO` para a camada de uso de rótulo.** Ela não existe, e não deve ser simulada. Sete rotas de
+recuperação foram tentadas e registradas com o HTTP de cada uma em `LABEL-MANIFEST.json`.

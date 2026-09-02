@@ -1,24 +1,1314 @@
 {
   "BUILT_AT": "2026-09-02",
-  "STATE": "REAL_GAP",
-  "RECORDS": [],
-  "COUNT": 0,
-  "WHY": "a EU Pesticides Database devolve 307 -> sorry.ec.europa.eu em toda rota de dados a partir deste ambiente; o shell HTML responde 200 mas nao carrega dado nenhum",
-  "RULE_PRESERVED_FOR_WHEN_IT_IS_BUILT": {
-    "STATES": [
-      "APPROVED",
-      "APPROVAL_EXTENDED",
-      "RENEWAL_UNDER_REVIEW",
-      "DRAFT_NON_RENEWAL",
-      "ARTICLE_21_REVIEW",
-      "NON_RENEWED",
-      "UNKNOWN"
-    ],
-    "NEVER": [
-      "EXTENSION = RENEWAL",
-      "DRAFT = DECISION"
-    ]
-  },
-  "INPUT_READY": "as 169 substancias ativas ja estao normalizadas em ACTIVE-INGREDIENTS.json com os registros italianos ligados a cada uma; falta so o estado EU",
-  "WHAT_WOULD_UNBLOCK": "ler a EU Pesticides Database de navegador com janela, como foi feito com o catalogo ADAMA"
+  "STATE": "PARTIAL",
+  "SOURCE": "Regulamento de Execucao (UE) n. 540/2011 — Anexo, texto consolidado",
+  "SOURCE_URL": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02011R0540-20260721",
+  "CELEX": "02011R0540-20260721",
+  "WHAT_IS_CLOSED": "APPROVED e data de expiracao da aprovacao, por substancia, ligados aos produtos italianos e ao catalogo",
+  "WHAT_IS_STILL_OPEN": [
+    "RENEWAL_UNDER_REVIEW",
+    "DRAFT_NON_RENEWAL",
+    "ARTICLE_21_REVIEW",
+    "APPROVAL_EXTENDED",
+    "SCoPAFF",
+    "EFSA"
+  ],
+  "WHY_STILL_OPEN": "EU Pesticides Database: 307 -> sorry.ec.europa.eu em toda rota de dados, com e sem cabecalho de navegador",
+  "RULES": [
+    "EXTENSION != RENEWAL",
+    "DRAFT != DECISION",
+    "REVIEW != RESTRICTION",
+    "EU STATUS != ITALIAN MARKETABILITY"
+  ],
+  "COUNT": 60,
+  "RELATIONSHIPS": [
+    {
+      "ACTIVE_INGREDIENT": "AMISULBROM",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-09-15",
+      "ITALIAN_REGISTRATIONS": [
+        "015127"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "FLUDIOXONIL",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-09-30",
+      "ITALIAN_REGISTRATIONS": [
+        "016152"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Seedron®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PHENMEDIPHAM",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-09-30",
+      "ITALIAN_REGISTRATIONS": [
+        "008042",
+        "008482",
+        "008484",
+        "008620",
+        "008778",
+        "009632",
+        "009790",
+        "009793",
+        "011050",
+        "011734",
+        "011797",
+        "015193"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 12,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Contatto® 320"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "METALAXYL",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-09-30",
+      "ITALIAN_REGISTRATIONS": [
+        "012730"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "METAZACHLOR",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-10-31",
+      "ITALIAN_REGISTRATIONS": [
+        "011526",
+        "014380"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Sultan®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PIRIMICARB",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-10-31",
+      "ITALIAN_REGISTRATIONS": [
+        "004701",
+        "007876",
+        "008750",
+        "011372",
+        "014091",
+        "017340",
+        "017409",
+        "017968"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 8,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Pirimor® 50"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "METAMITRON",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-11-30",
+      "ITALIAN_REGISTRATIONS": [
+        "002732",
+        "007603",
+        "008599",
+        "008638",
+        "009322",
+        "009632",
+        "010013",
+        "010156",
+        "010165",
+        "010569",
+        "010997",
+        "013128",
+        "013494",
+        "016084",
+        "017580",
+        "017983",
+        "018813",
+        "018814"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 18,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Brevis®",
+        "Goltix®",
+        "Goltix® TOP"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 3,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "FLONICAMID (IKI-220)",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-11-30",
+      "ITALIAN_REGISTRATIONS": [
+        "018156",
+        "018165"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Apyza® WG"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "SULCOTRIONE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2026-11-30",
+      "ITALIAN_REGISTRATIONS": [
+        "010312",
+        "010585",
+        "017318"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 3,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Sulcotrek®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PENDIMETHALIN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-01-15",
+      "ITALIAN_REGISTRATIONS": [
+        "008845",
+        "009195",
+        "009262",
+        "009832",
+        "010312",
+        "012463",
+        "015229",
+        "016697",
+        "016823",
+        "017094",
+        "017116",
+        "017123",
+        "017398",
+        "017658",
+        "017659",
+        "017660",
+        "017661",
+        "017703"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 18,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Activus® ME",
+        "Stopper P"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 2,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "BUPIRIMATE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-01-31",
+      "ITALIAN_REGISTRATIONS": [
+        "002983",
+        "013405",
+        "013771",
+        "013879",
+        "014074",
+        "015740"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 6,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Nimrod® 250 EW"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "TAU-FLUVALINATE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-01-31",
+      "ITALIAN_REGISTRATIONS": [
+        "007555",
+        "007864",
+        "009800",
+        "011723",
+        "011840",
+        "011997",
+        "012023",
+        "013350",
+        "014190",
+        "014210",
+        "015922",
+        "017968"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 12,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Mavrik® Smart"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PROPAMOCARB",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-01-31",
+      "ITALIAN_REGISTRATIONS": [
+        "011351"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "FLUROXYPYR",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-02-15",
+      "ITALIAN_REGISTRATIONS": [
+        "016312",
+        "016475",
+        "018101"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 3,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Tomigan"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "QUIZALOFOP-P-ETHYL",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-02-28",
+      "ITALIAN_REGISTRATIONS": [
+        "011243",
+        "011789",
+        "012279",
+        "013299",
+        "013711",
+        "013876",
+        "014375",
+        "017332",
+        "017995"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 9,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Highcard®",
+        "Leopard® 5 EC",
+        "Max-Ace® Rice Cropping Solution"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 3,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PROPAQUIZAFOP",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-02-28",
+      "ITALIAN_REGISTRATIONS": [
+        "009005",
+        "011660",
+        "015253",
+        "017115",
+        "017206"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 5,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Agil®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PROTHIOCONAZOLE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-03-31",
+      "ITALIAN_REGISTRATIONS": [
+        "017955",
+        "018067",
+        "018089",
+        "018175",
+        "019095"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 5,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Avastel®",
+        "Maganic®",
+        "Maxentis®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 3,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "BIFENOX",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-03-31",
+      "ITALIAN_REGISTRATIONS": [
+        "008075",
+        "008077",
+        "008078",
+        "011882",
+        "012060",
+        "014093",
+        "016616",
+        "017319",
+        "017662",
+        "018072",
+        "018545"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 11,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Sonavio®",
+        "Valley"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 2,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "NICOSULFURON",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-03-31",
+      "ITALIAN_REGISTRATIONS": [
+        "013199",
+        "013242",
+        "013563",
+        "013850",
+        "013851",
+        "015182",
+        "015183",
+        "015909"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 8,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Nicogan® V.O."
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "DICAMBA",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-03-31",
+      "ITALIAN_REGISTRATIONS": [
+        "015406",
+        "015909"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "FENPROPIDIN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-05-15",
+      "ITALIAN_REGISTRATIONS": [
+        "009757",
+        "014347",
+        "017412",
+        "017560"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 4,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "AZOXYSTROBIN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-05-31",
+      "ITALIAN_REGISTRATIONS": [
+        "012813",
+        "015232",
+        "016139",
+        "017358",
+        "017824",
+        "018067",
+        "019095"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 7,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Maxentis®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "CHLORANTRANILIPROLE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-05-31",
+      "ITALIAN_REGISTRATIONS": [
+        "018561"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Cosayr® 200 SC"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "TEFLUTHRIN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-05-31",
+      "ITALIAN_REGISTRATIONS": [
+        "008189",
+        "014479"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Schermo® 0.5 G"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "TERBUTHYLAZINE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-05-31",
+      "ITALIAN_REGISTRATIONS": [
+        "008003",
+        "008621",
+        "008644",
+        "009176",
+        "009195",
+        "009381",
+        "009484",
+        "009485",
+        "009526",
+        "009527",
+        "009832",
+        "010312",
+        "010464",
+        "010530",
+        "010531",
+        "010585",
+        "010709",
+        "012214",
+        "017318"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 19,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Sulcotrek®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "IMAZALIL (AKA ENILCONAZOLE)",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-05-31",
+      "ITALIAN_REGISTRATIONS": [
+        "009783",
+        "009784",
+        "013164"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 3,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "OXYFLUORFEN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-05-31",
+      "ITALIAN_REGISTRATIONS": [
+        "009496",
+        "010568",
+        "010655",
+        "011223",
+        "011293",
+        "011659",
+        "011796",
+        "011954",
+        "013011",
+        "013071",
+        "013072",
+        "013075",
+        "013364",
+        "013403",
+        "013731"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 15,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "IMAZAMOX",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-06-30",
+      "ITALIAN_REGISTRATIONS": [
+        "017209",
+        "017585",
+        "017655",
+        "017868"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 4,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Davai®",
+        "FullPage® Rice Cropping Solution"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 2,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "CLODINAFOP",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-07-31",
+      "ITALIAN_REGISTRATIONS": [
+        "008929",
+        "010063",
+        "013332",
+        "013736",
+        "013807",
+        "014693",
+        "014694",
+        "014728",
+        "015316",
+        "015847"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 10,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "DIFLUFENICAN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-08-31",
+      "ITALIAN_REGISTRATIONS": [
+        "011794",
+        "015229",
+        "016051",
+        "016117",
+        "016159",
+        "016189",
+        "016218",
+        "017703"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 8,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Stopper P"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "FLUXAPYROXAD",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-10-31",
+      "ITALIAN_REGISTRATIONS": [
+        "018089"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Avastel®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "BENTAZONE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-10-31",
+      "ITALIAN_REGISTRATIONS": [
+        "007914"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "FLUAZINAM",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-11-30",
+      "ITALIAN_REGISTRATIONS": [
+        "013905",
+        "015315",
+        "017432"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 3,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Banjo®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "CYMOXANIL",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-11-30",
+      "ITALIAN_REGISTRATIONS": [
+        "008637",
+        "008662",
+        "008744",
+        "009396",
+        "010579",
+        "013899",
+        "014725",
+        "014726",
+        "014727",
+        "014732",
+        "015233",
+        "015629",
+        "015630",
+        "017688",
+        "017689",
+        "017690",
+        "017780"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 17,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PROPYZAMIDE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-11-30",
+      "ITALIAN_REGISTRATIONS": [
+        "010541"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "CLETHODIM",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2027-12-15",
+      "ITALIAN_REGISTRATIONS": [
+        "018111"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Arrodim®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "DIFENOCONAZOLE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2028-01-31",
+      "ITALIAN_REGISTRATIONS": [
+        "009757",
+        "015377",
+        "017955"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 3,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Maganic®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PICLORAM",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2028-02-15",
+      "ITALIAN_REGISTRATIONS": [
+        "008647"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "CHLOROTOLURON",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2028-06-30",
+      "ITALIAN_REGISTRATIONS": [
+        "005604",
+        "007260",
+        "007584",
+        "009365",
+        "016218"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 5,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "DELTAMETHRIN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2028-06-30",
+      "ITALIAN_REGISTRATIONS": [
+        "008507",
+        "009486",
+        "009939",
+        "010162",
+        "010537",
+        "011097",
+        "011117",
+        "011280",
+        "011527",
+        "011685",
+        "011686",
+        "011724",
+        "011800",
+        "013720",
+        "013721",
+        "014176",
+        "014248",
+        "014376",
+        "014717"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 19,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "TEBUCONAZOLE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2028-07-31",
+      "ITALIAN_REGISTRATIONS": [
+        "012330",
+        "012947",
+        "013591",
+        "013922",
+        "014110",
+        "014113",
+        "014173",
+        "014459",
+        "014833",
+        "014834",
+        "014835",
+        "015042",
+        "015232",
+        "015740",
+        "016152",
+        "017358",
+        "017412",
+        "017560",
+        "017824"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 19,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Seedron®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "MCPA",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2028-07-31",
+      "ITALIAN_REGISTRATIONS": [
+        "008288",
+        "009543"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "METALDEHYDE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2028-10-15",
+      "ITALIAN_REGISTRATIONS": [
+        "013402"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "LAMBDA-CYHALOTHRIN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2029-01-31",
+      "ITALIAN_REGISTRATIONS": [
+        "008259",
+        "013560",
+        "013590",
+        "015275",
+        "017687"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 5,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Lamdex® Extra"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2029-07-31",
+      "ITALIAN_REGISTRATIONS": [
+        "016749",
+        "016753"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Folpan® Energy"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PINOXADEN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2029-12-31",
+      "ITALIAN_REGISTRATIONS": [
+        "018176",
+        "018644"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Edaptis®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "2,4-D",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2030-12-31",
+      "ITALIAN_REGISTRATIONS": [
+        "016553"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Elegant® 2fd"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "FLORASULAM",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2030-12-31",
+      "ITALIAN_REGISTRATIONS": [
+        "014093",
+        "015749",
+        "016475",
+        "016553"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 4,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Elegant® 2fd"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "PYRAFLUFEN-ETHYL",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2031-03-31",
+      "ITALIAN_REGISTRATIONS": [
+        "011882"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 1,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "ETHOFUMESATE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2031-10-31",
+      "ITALIAN_REGISTRATIONS": [
+        "008483",
+        "008484",
+        "008620",
+        "009632",
+        "009793",
+        "010156",
+        "010165",
+        "010608",
+        "010997",
+        "011050",
+        "011797",
+        "015193",
+        "017580",
+        "017983",
+        "018202"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 15,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "MESOTRIONE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2032-05-31",
+      "ITALIAN_REGISTRATIONS": [
+        "015909",
+        "018694"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Diode®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "MESOSULFURON-METHYL",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2032-06-30",
+      "ITALIAN_REGISTRATIONS": [
+        "018176",
+        "018644"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Edaptis®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "GLYPHOSATE",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2033-12-15",
+      "ITALIAN_REGISTRATIONS": [
+        "008003",
+        "008085",
+        "008288",
+        "008508",
+        "008984",
+        "009172",
+        "009335",
+        "009400",
+        "009484",
+        "009485",
+        "009526",
+        "009527",
+        "009543",
+        "009865",
+        "009866",
+        "010392",
+        "010494",
+        "010568",
+        "010584",
+        "011293",
+        "011659",
+        "011796",
+        "011954",
+        "013403",
+        "013822",
+        "014373",
+        "014465",
+        "014698",
+        "015096",
+        "015401",
+        "015405",
+        "015506",
+        "015592",
+        "015619",
+        "015649",
+        "016051",
+        "016117",
+        "016189",
+        "016387",
+        "017929",
+        "017930",
+        "018270",
+        "018271",
+        "018277",
+        "018279"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 45,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Taifun® MK CL",
+        "Taifun® MK CL PFNPE"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 2,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "TRIBENURON",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2034-01-30",
+      "ITALIAN_REGISTRATIONS": [
+        "016575",
+        "017663",
+        "017664"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 3,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Trimmer® 50 WG"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "METALAXYL-M",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2035-05-31",
+      "ITALIAN_REGISTRATIONS": [
+        "012878",
+        "015317"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Folpan® Gold"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "CLOPYRALID",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2036-09-30",
+      "ITALIAN_REGISTRATIONS": [
+        "009232",
+        "010314"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "ABAMECTIN (AKA AVERMECTIN)",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2038-03-31",
+      "ITALIAN_REGISTRATIONS": [
+        "016464",
+        "017117"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 2,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "FOLPET",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2039-10-31",
+      "ITALIAN_REGISTRATIONS": [
+        "002836",
+        "007906",
+        "008401",
+        "008601",
+        "009470",
+        "010587",
+        "010631",
+        "010708",
+        "011145",
+        "011354",
+        "011501",
+        "011948",
+        "012567",
+        "012730",
+        "012878",
+        "013012",
+        "013298",
+        "013585",
+        "014727",
+        "014862",
+        "015127",
+        "015233",
+        "015234",
+        "015317",
+        "016258",
+        "016749",
+        "017111",
+        "017311",
+        "017486",
+        "017752",
+        "017780"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 31,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Folpan® 80 WDG",
+        "Folpan® Energy",
+        "Folpan® Gold",
+        "Stavento®"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 4,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "CAPTAN",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2039-10-31",
+      "ITALIAN_REGISTRATIONS": [
+        "003819",
+        "008102",
+        "008400",
+        "009066",
+        "009067",
+        "011103",
+        "011231",
+        "011359",
+        "011500",
+        "011802",
+        "012156",
+        "013348",
+        "013507",
+        "014057",
+        "014216",
+        "014379",
+        "014463",
+        "016753",
+        "017029"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 19,
+      "COMMERCIAL_CATALOG_PRODUCTS": [
+        "Merpan® 80 WDG"
+      ],
+      "COMMERCIAL_CATALOG_COUNT": 1,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    },
+    {
+      "ACTIVE_INGREDIENT": "LENACIL",
+      "EU_STATE": "APPROVED",
+      "EU_EXPIRATION_OF_APPROVAL": "2040-06-30",
+      "ITALIAN_REGISTRATIONS": [
+        "009322",
+        "010553",
+        "011200",
+        "011797"
+      ],
+      "ITALIAN_REGISTRATION_COUNT": 4,
+      "COMMERCIAL_CATALOG_PRODUCTS": [],
+      "COMMERCIAL_CATALOG_COUNT": 0,
+      "VERIFIED_LABEL_CROPS": [],
+      "VERIFIED_LABEL_CROPS_WHY": "nenhuma etichetta foi lida; ver LABEL-MANIFEST.json",
+      "NOT_A_CLAIM": "relacao candidata factual. Estado EU nao e comercializacao na Italia, e expiracao de aprovacao nao e risco, retirada nem perda"
+    }
+  ]
 }

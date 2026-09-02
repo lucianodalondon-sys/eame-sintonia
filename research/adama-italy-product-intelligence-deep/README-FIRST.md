@@ -1,5 +1,23 @@
 # README-FIRST — ADAMA ITALY PRODUCT INTELLIGENCE (DEEP)
 
+> **RODADA 2 · 2026-09-02 — dos três gaps medidos, dois fecharam e um não.**
+>
+> | Gap | Antes | Agora |
+> |---|---:|---|
+> | `FRAC_CLASSIFIED` | 0 | **29** — FRAC Code List 2026, lido por geometria da tabela |
+> | `EU_REGULATORY_FUTURE` | 0 | **60** substâncias com estado EU, do Reg. 540/2011 consolidado em 2026-07-21 |
+> | `LABEL_USE_PAIRS` | 0 | **0** — 7 rotas de recuperação tentadas, 0 documentos recuperados |
+>
+> **E uma correção que vale mais que os dois gaps:** o baseline separava mistura por `+`, mas o
+> registro italiano separa por `|` e nunca por `+`. Nenhuma mistura tinha sido separada — cada uma
+> virava um MoA artificial, o oposto da regra. As 169 "substâncias ativas" eram **122 reais** mais
+> 47 strings coladas. Corrigido, e o QA agora checa isso.
+>
+> Detalhes em `HANDOFF-TO-V2.1.md` e `QA-REPORT.md`. O texto abaixo é da rodada 1 e segue válido,
+> exceto pelos números de substância ativa, que a correção acima substitui.
+
+---
+
 **Data:** 2026-09-02 · **Branch:** `claude/adama-italia-product-intelligence-deep`
 **Não é trabalho de portal.** Nada aqui entra no site. Nenhum card de oportunidade foi criado — isso é do V2.1.
 
