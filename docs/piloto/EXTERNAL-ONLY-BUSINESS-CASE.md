@@ -6,7 +6,7 @@ PREMISSA        o SINTONIA não terá dados internos da ADAMA. Não é limitaç�
 PERGUNTA        que inteligência EXTERNA indica, com antecedência e evidência, onde a
                 ADAMA deveria investigar, vender, comunicar, posicionar ou preparar
                 portfólio?
-TESTES_REAIS = <!--M:TEST_COUNT_CURRENT-->649<!--/M-->
+TESTES_REAIS = <!--M:TEST_COUNT_CURRENT-->713<!--/M-->
 ```
 
 **Data:** 2026-08-29 · **MISSÃO 09**

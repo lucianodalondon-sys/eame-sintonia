@@ -265,6 +265,287 @@ Regras do diário:
 
 ---
 
+### D-015 — A amostra de concorrentes sai do registro, não da lista de nomes
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** o COMPETITOR FORESIGHT PILOT nomeou oito concorrentes e pediu 4–6
+  bem feitos. Aceitar os seis primeiros da lista teria escolhido a amostra por
+  reputação.
+- **Decisão:** contar os titulares do ROPF espanhol (3.084 registros, 262 titulares)
+  e escolher os seis maiores por registros com `Estado = Vigente`. O agrupamento de
+  razões sociais é **declarado por prefixo**, string por string, e cada razão social
+  somada fica visível no artefato.
+- **Motivo:** um número que ninguém consegue reabrir não é evidência. E agrupar por
+  parecença junta o que a lei separa — o inverso do falso positivo de `HOLDER_CHANGE`
+  que a `REGUA-DE-CHANGE-EVENT-EAME §6` já mediu.
+- **Consequência:** amostra = NUFARM, SYNGENTA, BAYER, CORTEVA, BASF, UPL. FMC e
+  CERTIS BELCHIM ficaram de fora por medida, não por opinião. Conferência que dá
+  confiança na contagem: a ADAMA deu 96 vigentes, exatamente os 96 da fundação
+  `ES-REGULATORIO-ROPF-2026-08-29`, importada por outro caminho.
+- **Quem decidiu:** Luciano, na abertura da missão.
+
+### D-016 — TMview é a rota de marca; os quatro portais nacionais recusam robô
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** OEPM (403), INPI (403) e UIBM (não conecta) recusam acesso
+  programático. O TMview, agregador oficial da EUIPO, responde 200 e cobre os
+  quatro escritórios numa rota só.
+- **Decisão:** coletar marca **exclusivamente** pelo TMview, preservando o
+  `tmOfficeURL` de cada resultado — o link de volta para a ficha no portal de origem.
+- **Motivo:** a evidência continua rastreável até a fonte primária mesmo quando ela
+  recusa o robô.
+- **Consequência:** ausência no TMview é `NOT_OBSERVED_IN_TMVIEW`, nunca "a marca
+  não existe". **O atraso de sincronização entre escritório nacional e TMview não
+  foi medido nesta rodada** — fica como limitação declarada.
+- **Quem decidiu:** decisão técnica do COMPETITOR FORESIGHT PILOT.
+
+### D-017 — Parâmetro ignorado em silêncio vira portão obrigatório
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a API do TMview **ignora sem erro** parâmetro cujo nome ela não
+  conhece. Pedir `applicantName` devolveu **HTTP 200 e 1.068.402 resultados** — a
+  Espanha inteira — com cara de busca bem-sucedida. O piloto quase publicou
+  "1.068.402 marcas da Syngenta".
+- **Decisão:** toda busca roda uma consulta de CONTROLE **sem filtro** e é RECUSADA
+  quando o total filtrado é igual ao total sem filtro (`FiltroIgnorado`).
+- **Motivo:** HTTP 200 não é prova de que o pedido foi entendido. `SEM FILTRO ≠ SEM
+  RESULTADO` é o par que faltava a `NÃO COLETADO ≠ NÃO EXISTE`.
+- **Consequência:** uma requisição a mais por escritório; `CONTROLE_SEM_FILTRO`
+  gravado no artefato e verificado em `tests/test_concorrente.py`.
+- **Quem decidiu:** decisão técnica do COMPETITOR FORESIGHT PILOT.
+
+### D-018 — Classe 5 de Nice não é sinal agro, e a régua tem três estados
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a primeira régua tratou classe 5 como sinal agroquímico. A classe 5
+  cobre `farmacêuticos, veterinários, higiênicos **e** pesticidas` na mesma classe, e
+  carimbou `GINECANES` e `BEPANTHENSENSICALMSOS`, da Bayer, como defensivo. São remédio.
+- **Decisão:** três estados em vez de dois — `CLASSE_1_E_5`, `SO_CLASSE_1` (as duas
+  são sinal forte), `SO_CLASSE_5` (**AMBÍGUO**, nunca sinal agro sozinho).
+- **Motivo:** medido nas 9.661 marcas: **4.496 são `SO_CLASSE_5`**, e **2.551 delas
+  são da Bayer**, que tem divisão farmacêutica. Somar as duas forças diria que a
+  Bayer é quem mais se movimenta em marca agroquímica na EAME — o que é efeito da
+  classe compartilhada, não do dado.
+- **Consequência:** reclassificação sobre o dado já coletado (derivação, não segunda
+  captura): 8.028 marcas mudaram de estado. E um achado que **enfraquece a própria
+  régua**: o `VERDALIS` da Corteva foi depositado na classe 1 na Itália e na França e
+  na classe 5 na Espanha — mesma marca, mesmo titular, classe diferente por país. A
+  classe **marca**, e nunca **descarta**.
+- **Quem decidiu:** decisão técnica do COMPETITOR FORESIGHT PILOT.
+
+### D-019 — Patente: DEMOTED, porque a porta abre e a chave não existe
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** `curl` e a API OPS da EPO devolvem 403. O Espacenet abre por
+  navegador com janela gráfica e a busca por titular devolve 6.333 resultados só
+  para a Syngenta — o volume existe.
+- **Decisão:** rebaixar a camada de patente. Ela não entra na timeline nem no
+  Supabase desta rodada.
+- **Motivo:** teste com o nome exato de 5 marcas do piloto em texto completo:
+  **0 de 5** recuperaram patente do titular correto. `LIBERATOR` devolve coldre de
+  bolso; `DUAL GOLD`, um implante hospitalar chinês; `VERDALIS`, zero. Patente nomeia
+  MOLÉCULA; marca e registro nomeiam PRODUTO COMERCIAL, e nenhum campo os une.
+- **Consequência:** `data/samples/COMPETITOR-PATENT-DEMOTE.json`. A porta fica
+  documentada e reabre sem trabalho perdido quando houver chave de OPS. Cinco casos
+  não são amostra estatística — são cinco casos, todos negativos, apresentados assim.
+- **Quem decidiu:** Luciano escolheu tentar pelo navegador; a medida decidiu o resto.
+
+### D-020 — Antecedência só sobre identidade provada, e a trava desce para o banco
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a missão manda medir `LEAD_DAYS` "somente quando a relação for
+  defensável". Medido nos 209 pares provados, a amplitude bruta vai de **-15.700 a
+  +11.033 dias** — 43 anos para trás e 30 para frente. Redepósito de marca, reuso de
+  nome comercial e colisão de nome genérico produzem esses extremos.
+- **Decisão:** `lead_days` só existe sobre link `PROVED` (constraint
+  `lead_days_exige_identidade_provada`), e `lead_days_defensavel` exige ordem
+  marca→registro **e** que o depósito seja o mais antigo daquela marca no grupo
+  (constraint `defensavel_exige_ordem_e_valor`). **Sem corte de tempo arbitrário.**
+- **Motivo:** a regra não pode ficar só no script — um dia alguém carrega a tabela
+  por outro caminho. E um limiar de dias escolhido a dedo produziria a antecedência
+  que se quisesse.
+- **Consequência:** 155 pares defensáveis de 209, mediana 2.179 dias. Os **51 pares
+  em que o registro precede a marca REFUTAM a hipótese do piloto e continuam na
+  base** — apagá-los produziria 100% de confirmação.
+- **Quem decidiu:** decisão técnica do COMPETITOR FORESIGHT PILOT.
+
+### D-021 — A camada de concorrente é derivada e não vira dona de nada
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** seria confortável escrever `competidor text`, `registro text`,
+  `anuncio text` e ter tudo num lugar só. Isso criaria uma **segunda verdade** sobre
+  empresa, registro e anúncio, ao lado das que já existem — o defeito que a 016
+  cometeu com um índice e a 018 corrigiu aposentando uma coluna.
+- **Decisão:** `evento_concorrente` só APONTA: `organizacao`, `registro_regulatorio`,
+  `catalogo_produto`, `canal`, `crop`, `issue`, `raw_asset`. Marca é **texto num
+  evento**, não tabela. `META` e `CREATOR` só podem existir apontando para
+  `canal_id`, por constraint.
+- **Motivo:** §6 da missão — META continua dona dos anúncios, CREATOR MAP dos
+  creators, FOUNDATIONS do registro local.
+- **Consequência:** o registro espanhol é apontado por **texto**
+  (`registration_id_texto`), porque a fundação importou só os 96 da ADAMA e os
+  registros dos concorrentes não estão no banco. O texto **espera** o dono em vez de
+  criar um segundo. E o portão verifica que os 96 sobrevivem ao import.
+- **Quem decidiu:** decisão técnica do COMPETITOR FORESIGHT PILOT.
+
+### D-022 — Link que não pode existir é declarado, não engolido pelo SQL
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** um `insert ... select` cujo evento não existe **não dá erro: produz
+  zero linhas, em silêncio**. Medido: 33 dos 242 pares do crosswalk caíam assim. O
+  piloto teria afirmado 242 links e gravado 209.
+- **Decisão:** a viabilidade de cada link é decidida **antes** de gerar o SQL, e a
+  perda vai escrita no cabeçalho do arquivo, com o motivo de cada lado.
+- **Motivo:** a diferença entre o que se afirma e o que existe é exatamente o que
+  este repositório existe para não produzir.
+- **Consequência:** `PARES_QUE_NAO_VIRAM_LINK` no relatório do gerador; o portão
+  verifica 209 e não 242. E, no caminho, foi encontrado um erro real: 15 `CHAIN_ID`
+  colidiam quando a chave era `grupo:nome:registro` — a marca nacional e a da UE, com
+  o mesmo nome e o mesmo registro. O importador colava a antecedência de uma marca na
+  outra. O `ST13` entrou na chave.
+- **Quem decidiu:** decisão técnica do COMPETITOR FORESIGHT PILOT.
+
+---
+
+### D-023 — Paridade EAME: os três países, a MESMA régua, e nenhum matcher novo
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a rodada 1 mediu `TRADEMARK ↔ LOCAL REGISTRATION` só na Espanha,
+  numa missão que é EAME. Antes de recoletar qualquer coisa, as foundations
+  foram lidas: a Itália publica o registro inteiro em CSV aberto (CC BY 4.0,
+  17.695 produtos) e a França publica o E-Phy pelo data.gouv.fr (Licence
+  Ouverte, 15.140 produtos). **As duas portas já existiam.**
+- **Decisão:** criar `scripts/registro_local.py`, que põe os três registros na
+  MESMA forma, e `scripts/concorrente_paridade.py`, que **importa** `normalizar`,
+  `cruzar` e `contrafactual_frouxo` de `concorrente_crosswalk.py`.
+- **Motivo:** três matchers produziriam três resultados que ninguém consegue
+  comparar. Um teste em Python guarda a identidade das funções (`assertIs`) para
+  que a divergência não volte em silêncio.
+- **Consequência:** **1.683 cadeias ligadas** — 209 ES, 334 IT, 1.140 FR — com
+  126 falsos links recusados. A Espanha saiu com os números **idênticos** aos da
+  rodada 1 (209/24/9/5.335, 158/51), e essa igualdade é o teste que prova que a
+  refatoração não mexeu no que já estava medido.
+- **Quem decidiu:** Luciano, na rodada final.
+
+### D-024 — Titular antecessor não é agrupado, mas é CONTADO
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** os registros de IT e FR carregam décadas de razões sociais que
+  hoje se associam a outros grupos: `AVENTIS CROPSCIENCE ITALIA` (771 IT),
+  `DU PONT DE NEMOURS ITALIANA` (467), `DOW AGROSCIENCES` (267 FR),
+  `RHONE POULENC` (257), `CIBA GEIGY` (222), `MONSANTO` (182).
+- **Decisão:** **não agrupar**. Elas ficam listadas em
+  `ANTECESSORES_NAO_AGRUPADOS` e são contadas — 1.351 registros na Itália e
+  1.458 na França.
+- **Motivo:** dobrar uma razão social antecessora no grupo de hoje é uma
+  afirmação **societária** que este piloto não tem. É a mesma recusa que separa
+  `SHARDA CROPCHEM ESPAÑA` de `SHARDA EUROPE`.
+- **Consequência:** o agrupamento por titular **SUBCONTA** o concorrente em IT e
+  FR, e a subcontagem tem tamanho publicado em vez de virar nota de rodapé.
+- **Quem decidiu:** decisão técnica da rodada final.
+
+### D-025 — Quatro pares semânticos: a frase verdadeira a um passo da falsa
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO
+- **Contexto:** a rodada 1 produziu cinco afirmações que estavam a um passo de
+  virar falsas por generalização.
+- **Decisão:** cada uma vira um PAR de estados, e nenhum lado pode ser publicado
+  sem o outro:
+
+  | observado | e o que continua NÃO PROVADO |
+  |---|---|
+  | `HISTORICAL_PRECEDENCE_OBSERVED` = 1.087/1.652 | `OPERATIONAL_EARLY_WARNING_VALUE = NOT_PROVED` |
+  | `RECENT_TRADEMARK_ACTIVITY_EXISTS = YES` | `DAILY_VALUE = NOT_PROVED` |
+  | `REGULATORY_CHANGE_IN_THIS_INTERVAL = 0 OBSERVED` | `REGULATORY_CHANGE_CADENCE = NOT_PROVED` |
+  | `PATENT_BRAND_LINKAGE_ROUTE = REFUTED_FOR_PILOT` | `PATENT_WATCH = NOT_TESTED` |
+
+- **Motivo:** mediana de antecedência de ~4 anos pode significar **cedo demais**,
+  e não aviso prévio útil. Uma fotografia não mede cadência. Dois dias são dois
+  dias. E refutar uma camada com o teste de UMA rota é o erro que este piloto
+  passou a rodada inteira evitando.
+- **Consequência:** `COMPETITOR-EAME-VEREDITOS.json`, quatro testes em
+  `tests/test_concorrente.py` (`OsQuatroParesSemanticos`) e um veredicto POR
+  CAPACIDADE — `A PROMISING · B PROVED · C PARTIAL · D DEMOTED/NOT_USED` —
+  porque um veredicto único apagaria três resultados diferentes.
+- **Quem decidiu:** Luciano, na rodada final.
+
+### D-026 — `NOT_JOINED_IN_THIS_MISSION` substitui `NOT_AVAILABLE`
+- **Data:** 2026-08-30
+- **Estado:** DECIDIDO · **REVOGA** a redação da rodada 1
+- **Contexto:** a rodada 1 escreveu que META e CREATOR "não existem no
+  repositório". **Estava errado**, e do jeito mais caro: era uma afirmação
+  GLOBAL feita a partir de um SNAPSHOT. Medido: o Creator Map está **congelado
+  com handoff canônico** em `claude/eame-agro-creators-map-77c4ld`, e a missão
+  Meta corre em paralelo com **1.111 anúncios** dos mesmos seis concorrentes.
+- **Decisão:** o vocabulário passa a ser
+  `<CAMADA>_DATA_AVAILABLE_IN_THIS_SNAPSHOT = NO` +
+  `ESTADO = NOT_JOINED_IN_THIS_MISSION` + o lugar onde a outra missão vive.
+- **Motivo:** uma branch só pode declarar o que ELA juntou. O refresh final
+  junta os **HANDOFFS**, não os branches.
+- **Consequência:** medida a prontidão da junção em vez de esperá-la — leitura
+  somente-leitura da branch da Meta, casando nome de produto com a MESMA
+  `normalizar()` do crosswalk: **145 produtos provados na Meta, 70 com marca
+  correspondente no TMview, e 36 destes com registro local também `PROVED`**.
+  São **36 cadeias de três camadas** prontas para o refresh. Nenhum merge foi
+  feito. E um teste proíbe que a frase de ausência global volte.
+- **Quem decidiu:** Luciano, na rodada final.
+
+---
+
+## D-2026-09-02 · A MADRUGADA DOS RÓTULOS
+
+**O que se decidiu:** ler os 163 rótulos autorizados por dentro, em vez de seguir
+declarando 11,7% de cobertura como limitação permanente.
+
+**Por que agora:** a cobertura de uso lido era a limitação mais cara do projeto — ela
+alimenta o pior erro possível do sistema, que é dizer que o cliente não tem produto para
+um alvo quando ele tem. A lição foi paga pelo Brasil: o Nimitz EC tinha 3 culturas no
+catálogo e 19 no registro.
+
+### As seis leis que nasceram nesta noite
+
+| lei | onde doeu |
+|---|---|
+| **FERRAMENTA QUE RECUSA NÃO É PORTA FECHADA** | o `curl` devolvia 0 bytes com HTTP 200; o `urllib` devolveu 222 KB |
+| **O CORPUS É AMOSTRA DAS NOSSAS CONSULTAS** | herbicida «caiu» de 1º para 3º porque *nós* abrimos outros recortes |
+| **SOMAR AS DUAS PLATEIAS NÃO DESCREVE NENHUM MUNDO** | 54 dos 116 pares eram horta doméstica |
+| **ESPECTRO DE PRODUTO NÃO É ESPECTRO NA CULTURA** | o herbicida declara duas listas separadas; juntá-las é ato nosso |
+| **LUZ VERDE SÓ VALE PARA O QUE ELA OLHA** | a validação de órfãos usava lista fechada e ignorava as famílias novas |
+| **CENSO E AMOSTRA NÃO SÃO A MESMA AUSÊNCIA** | «0 de 163» é afirmável; «não achamos em 102 de 163» não é |
+
+### Os números
+
+| | antes | depois |
+|---|---|---|
+| cobertura de uso lido | 19/163 (11,7%) | **102/163 (62,6%)** |
+| pares do rótulo | 219 | **2.030** |
+| pares da conversa | 46 | **116** |
+| objetos no pacote | 1.688 | **3.756** |
+
+### O erro operacional da noite, e o que ele ensinou
+
+`rm -rf /c/eame-sintonia/Scripts` apagou os **75 arquivos de `scripts/`**, porque no
+Windows `Scripts` e `scripts` são a mesma pasta. Nada se perdeu — tudo estava commitado —
+mas se houvesse trabalho não-commitado teria ido embora. O `pip` sem `--target` é a causa
+raiz: ele instalou dentro do repositório.
+
+> **UM NOME QUE DIFERE SÓ NA CAIXA NÃO É UM NOME DIFERENTE.**
+
+### Uma afirmação nossa foi ao chão
+
+O resumo executivo dizia que o corpus de vídeo «confirmava por rota independente» que
+herbicida era a maior categoria. Não confirmava — confirmava que tínhamos aberto mais
+recortes de daninha. A frase foi corrigida no lugar onde estava, com a data e o motivo, em
+vez de apagada.
+
+**Quem decidiu:** Luciano autorizou a missão da madrugada («continuar até as 10 da manhã,
+sempre organizando material para um piloto»). As escolhas técnicas de cada bloco foram
+tomadas na execução e estão em `docs/regras/REGUA-ITALIA-FITOSSANITARIA.md` (leis 8 e 9) e
+nos cabeçalhos de `scripts/rotulos_ler.py`, `scripts/rotulos_censo.py` e
+`scripts/cruzar_regua_rotulo.py`.
+
+---
+
 ## PERGUNTAS PENDENTES
 
 | # | Pergunta | Bloqueia | Aberta em |
