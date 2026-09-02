@@ -64,6 +64,13 @@ echo "── 5 · as fontes, rechaveadas para a chave que o pacote já cita ─�
 "$PY" scripts/v21_fontes_faltantes.py
 
 echo
+echo "── 5b · R2 · a procedencia que ja estava dentro do pacote ──────────────"
+# Depois do rechaveamento, porque religa contra o indice de fontes que ele monta.
+# ANTES da traducao, porque troca o texto de carimbo que vai a tela — e texto que
+# muda depois de traduzido volta a ser portugues na tela.
+"$PY" scripts/v21_procedencia_religar.py
+
+echo
 echo "── 6 · a tradução, conferida antes de entrar ───────────────────────────"
 # a trava recusa gravar se alguma tradução falhar. É de propósito.
 "$PY" scripts/v21_traducao_trava.py --aplicar
