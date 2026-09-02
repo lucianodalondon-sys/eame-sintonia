@@ -454,6 +454,84 @@
    *
    * The raw token is always carried alongside, so nothing becomes untraceable.
    */
+  /* The 20 Italian regions, plus the two autonomous provinces the sources name.
+     REGION arrives as free text with Portuguese annotation — "Veneto
+     (principal) + Lombardia", "Friuli-Venezia Giulia (sinal) · vale do Pó
+     (escala)". The regions are facts; the annotation is a research note. So the
+     region names are extracted and the rest is dropped, rather than printing
+     the sentence or throwing the fact away with it. */
+  const IT_REGIONS = ['Abruzzo', 'Basilicata', 'Calabria', 'Campania', 'Emilia-Romagna', 'Friuli-Venezia Giulia',
+    'Lazio', 'Liguria', 'Lombardia', 'Marche', 'Molise', 'Piemonte', 'Puglia', 'Sardegna', 'Sicilia',
+    'Toscana', 'Trentino-Alto Adige', 'Trentino', 'Alto Adige', 'Umbria', "Valle d'Aosta", 'Veneto',
+    'Bolzano', 'Trento'];
+  const regionResolve = (raw) => {
+    const t = S(raw);
+    if (!t || UNKNOWN_SENTINEL.test(t)) return { names: [], label: null, scope: 'NOT_OBSERVED', raw: t };
+    const u = t.toLowerCase();
+    const names = IT_REGIONS.filter((r) => u.indexOf(r.toLowerCase()) >= 0);
+    /* keep the longer name when one contains another (Trentino-Alto Adige vs Trentino) */
+    const kept = names.filter((r) => !names.some((o) => o !== r && o.toLowerCase().indexOf(r.toLowerCase()) >= 0));
+    if (kept.length) return { names: kept, label: kept.join(' · '), scope: 'RESOLVED', raw: t };
+    if (/\b(itali[ae]|nazionale|nacional)\b/i.test(t)) return { names: [], label: 'Italia', scope: 'NATIONAL', raw: t };
+    return { names: [], label: null, scope: 'UNMAPPED', raw: t };
+  };
+
+  /* The issue vocabulary leaks Portuguese the same way: "micotoxina /
+     Fusarium", "REGULATORIO". A Latin genus is never translated — Fusarium
+     stays Fusarium — but a Portuguese common noun in front of it is not a name,
+     it is the wrong language. Only declared, unambiguous pairs are mapped. */
+  const ISSUE_TERM_IT = {
+    micotoxina: 'micotossina', micotoxinas: 'micotossine',
+    desoxinivalenol: 'deossinivalenolo', regulatorio: 'REGOLATORIO', 'regulatório': 'REGOLATORIO',
+    praga: 'avversità', pragas: 'avversità', 'flavescência dourada': 'Flavescenza dorata',
+    piralide: 'Piralide', 'milho': 'mais',
+  };
+  const ISSUE_TERM_EN = {
+    micotoxina: 'mycotoxin', micotoxinas: 'mycotoxins',
+    desoxinivalenol: 'deoxynivalenol', regulatorio: 'REGULATORY', 'regulatório': 'REGULATORY',
+    praga: 'pest', pragas: 'pests', 'flavescência dourada': 'Flavescence dorée',
+  };
+  /* Measured: 33 distinct issue strings reach the model, in three vocabularies —
+     the canonical window names in English (translated by the interface through
+     T.ISSUES), SCREAMING_SNAKE tokens, and six strings the upstream research
+     left in Portuguese. Those six are listed here by their exact source text
+     rather than guessed at by a rule, so the mapping is auditable line by line.
+     Every Latin binomial inside them is carried through untouched. */
+  const ISSUE_PHRASE = {
+    'Flavescência dourada, via o vetor Scaphoideus titanus': {
+      it: 'Flavescenza dorata, tramite il vettore Scaphoideus titanus',
+      en: 'Flavescence dorée, through the vector Scaphoideus titanus',
+    },
+    'Flavescenza dorata (vetor Scaphoideus titanus)': {
+      it: 'Flavescenza dorata (vettore Scaphoideus titanus)',
+      en: 'Flavescence dorée (vector Scaphoideus titanus)',
+    },
+    'Piralide (Ostrinia nubilalis) e Diabrotica virgifera virgifera': {
+      it: 'Piralide (Ostrinia nubilalis) e Diabrotica virgifera virgifera',
+      en: 'European corn borer (Ostrinia nubilalis) and Diabrotica virgifera virgifera',
+    },
+    'Calendário de vencimento das autorizações': {
+      it: 'Calendario di scadenza delle autorizzazioni',
+      en: 'Authorisation expiry calendar',
+    },
+    'micotoxina / Fusarium': { it: 'micotossina / Fusarium', en: 'mycotoxin / Fusarium' },
+    'Fusarium / desoxinivalenol': { it: 'Fusarium / deossinivalenolo', en: 'Fusarium / deoxynivalenol' },
+    REGULATORIO: { it: 'REGOLATORIO', en: 'REGULATORY' },
+  };
+  const issueResolve = (raw) => {
+    const t = S(raw);
+    if (!t || UNKNOWN_SENTINEL.test(t)) return { it: null, en: null, scope: 'NOT_OBSERVED', raw: t };
+    const exact = ISSUE_PHRASE[t];
+    if (exact) return { it: exact.it, en: exact.en, scope: 'RESOLVED', raw: t };
+    const one = (map) => t.split(/\s*([\/·|])\s*/).map((part) => {
+      if (/^[\/·|]$/.test(part)) return part;
+      const k = part.trim().toLowerCase();
+      return map[k] || part.trim();
+    }).join(' ').replace(/\s+([\/·|])\s+/g, ' $1 ').replace(/\s+/g, ' ').trim();
+    const it = one(ISSUE_TERM_IT), en = one(ISSUE_TERM_EN);
+    return { it, en, scope: 'RESOLVED', raw: t };
+  };
+
   const CROP_TABLES = [CROP_BY_TOKEN, CROP_BY_IT, CROP_BY_LATIN, CROP_BY_PT];
   const cropResolve = (raw) => {
     const t = S(raw);
@@ -584,7 +662,7 @@
            canonical contract. The join is a declared table, not a guess. */
         cropCanonical: CROP_BY_IT[U(c.CROP)] || null,
         region: S(c.REGION),
-        issue: S(c.ISSUE),
+        issue: issueResolve(c.ISSUE).it, issueEn: issueResolve(c.ISSUE).en, issueRaw: S(c.ISSUE),
         /* Free prose fields below are Sintonia research notes upstream. They
            are exposed as knowledge STATES, never as their Portuguese text. */
         expectedCycle: narrative(c, 'EXPECTED_CYCLE'),
@@ -639,7 +717,7 @@
         windowId: w.WINDOW_ID,
         legacyCaseId: w.LEGACY_CASE_ID || null,
         crop: S(w.CROP_NAME),
-        issue: S(w.ISSUE_NAME),
+        issue: issueResolve(w.ISSUE_NAME).it, issueEn: issueResolve(w.ISSUE_NAME).en, issueRaw: S(w.ISSUE_NAME),
         issueType: S(w.ISSUE_TYPE),
         region: S(w.REGION),
         generationOrStage: S(w.GENERATION_OR_STAGE),
@@ -2007,7 +2085,8 @@
            published token stays as cropRaw so nothing becomes untraceable. */
         crop: (cropResolve(f.CROP).label), cropRaw: S(f.CROP), cropKey: cropResolve(f.CROP).key,
         cropKeys: cropResolve(f.CROP).keys, cropScope: cropResolve(f.CROP).scope,
-        issue: S(f.ISSUE),
+        issue: issueResolve(f.ISSUE).it, issueEn: issueResolve(f.ISSUE).en, issueRaw: S(f.ISSUE),
+        region: regionResolve(f.REGION).label, regionRaw: S(f.REGION), regionScope: regionResolve(f.REGION).scope,
         /* 2 of the 3 REGION values are the analyst's unknown sentence; leaking
            them would put a Portuguese explanation into a region filter. */
         region: UNK(f.REGION),
@@ -2062,7 +2141,10 @@
            from it: its CROP is 'Portfólio ADAMA Italia (transversal, não é uma
            cultura)', which is not a crop and must resolve to an empty list. */
         const cropKeys = OPP_CROP[oppKey(o.CROP)] || [];
-        const regionText = S(o.REGION);
+        /* REGION is free text with Portuguese annotation. Extract the region
+           names, keep the published sentence as regionRaw. */
+        const regionR = regionResolve(o.REGION);
+        const regionText = regionR.label;
         return {
           id: o.ID, legacyCaseId: S(o.LEGACY_CASE_ID),
           title: S(o.TITLE),
@@ -2077,7 +2159,8 @@
              canonical names; the qualifiers ('principal', 'sinal', 'escala')
              stay in region and are never turned into a fact. */
           regionKeys: REGION_NAMES.filter((n) => fold(String(regionText || '')).toLowerCase().indexOf(fold(n).toLowerCase()) >= 0),
-          issue: S(o.ISSUE),
+          issue: issueResolve(o.ISSUE).it, issueEn: issueResolve(o.ISSUE).en, issueRaw: S(o.ISSUE),
+          regionRaw: regionR.raw, regionNames: regionR.names, regionScope: regionR.scope,
           /* ISSUE_TYPE is the analyst's unknown sentence on one of the three
              records; it must render as not-known, never as a category. */
           issueType: UNK(o.ISSUE_TYPE),

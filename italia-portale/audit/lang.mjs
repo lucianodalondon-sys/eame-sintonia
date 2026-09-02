@@ -35,6 +35,13 @@ export const PT_MARKERS = [
   'atenção', 'vencimento',
   'transversal', 'convergencia', 'convergência', 'olival', 'alfafa',
   'afiliacao', 'afiliação', 'estudo', 'rotulo autorizado', 'sistema colturale',
+  /* Found by opening the portal in a real browser, not by the headless suite:
+     the REGION and ISSUE fact fields carry Portuguese annotation too —
+     "Veneto (principal) + Lombardia", "vale do Pó (escala)",
+     "micotoxina / Fusarium", "REGULATORIO · UE". */
+  'principal', 'sinal', 'escala', 'vale do', 'micotoxina', 'micotoxinas',
+  'desoxinivalenol', 'regulatorio', 'regulatório', 'praga', 'pragas',
+  'colheita', 'lavoura', 'plantio', 'safra',
 ];
 /* Deliberately NOT markers, because they are ordinary Italian too and produced
    false positives when measured against this package's own Italian strings:

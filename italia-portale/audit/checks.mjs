@@ -421,6 +421,10 @@ check('PT1', 'No Portuguese research prose reaches any rendered screen', () => {
       if (!r.ok) continue;
       rendered++;
       for (const { path, value } of collectStrings(r.vals)) {
+        /* A *Raw field is the published source text, kept beside the resolved
+           value so nothing becomes untraceable. It is provenance, not display —
+           and PT3 proves no markup binds one. */
+        if (/(^|\.)[A-Za-z]*Raw(\[|$|\.)/.test(path)) continue;
         if (isPortuguese(value)) hits.push(`${sc.label}/${lang} ${path}: ${value.slice(0, 110)}`);
       }
     }
@@ -672,6 +676,19 @@ check('MK2', 'Every sc-for list resolves to an array on the screen that owns it'
   const bad = Object.entries(seen).filter(([, t]) => t !== 'array').map(([k, t]) => `${k}: ${t}`);
   return { pass: bad.length === 0, expected: 0, measured: bad.length,
     detail: { checked: Object.keys(seen).length, bad: bad.slice(0, 25) } };
+});
+
+
+check('PT3', 'No *Raw traceability field is ever bound by the markup', () => {
+  /* PT1 exempts *Raw props because they carry the published source text for
+     traceability. That exemption is only safe while nothing renders them, so
+     the exemption is itself checked. */
+  const mk = extractMarkup(readPortal());
+  const bad = [];
+  const re = /\{\{\s*([A-Za-z_$][\w$.]*)\s*\}\}/g;
+  let m;
+  while ((m = re.exec(mk))) if (/Raw$/.test(m[1]) || /Raw\./.test(m[1])) bad.push(m[1]);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: [...new Set(bad)] };
 });
 
 export function runAll(only) {
