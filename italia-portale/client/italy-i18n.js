@@ -358,6 +358,10 @@
     subVoices: 'Voci pubbliche esterne: commenti su canali YouTube italiani e dichiarazioni riprese dalla stampa di settore. Dove la fonte non dichiara il ruolo di chi parla, la scheda lo dice.',
     navProduct: 'Prodotto ADAMA', navIntegrations: 'INTEGRAZIONI · DEMO',
     prodCommercial: 'STATO CATALOGO COMMERCIALE', prodRegulatory: 'STATO REGOLATORIO', prodCategory: 'CATEGORIA', prodAi: 'PRINCIPIO ATTIVO',
+    /* la fascetta sopra il nome: cio che si osserva, non cio che si possiede */
+    prodKindAdama: 'Prodotto ADAMA',
+    prodKindInCatalog: 'Pubblicato sul catalogo ADAMA Italia',
+    prodHolderExternal: 'Titolare dell\'autorizzazione',
     prodInCatalog: 'Presente nel catalogo pubblico', prodNotInCatalog: 'Non presente in questa lettura del catalogo',
     prodRegistered: 'Registrato in Italia', prodNotRegistered: 'Non presente in questa lettura del registro',
     /* presenza nel registro non e validita formale */
@@ -856,6 +860,9 @@
     navVoices: 'Field Voices', subVoices: 'External public voices: comments on Italian YouTube channels and statements reported by the trade press. Where the source does not declare the speaker\'s role, the card says so.',
     navProduct: 'ADAMA product', navIntegrations: 'INTEGRATIONS · DEMO',
     prodCommercial: 'COMMERCIAL CATALOG STATUS', prodRegulatory: 'REGULATORY STATUS', prodCategory: 'CATEGORY', prodAi: 'ACTIVE INGREDIENT',
+    prodKindAdama: 'ADAMA product',
+    prodKindInCatalog: 'Published on the ADAMA Italia catalogue',
+    prodHolderExternal: 'Authorisation holder',
     prodInCatalog: 'Present in the public catalog', prodNotInCatalog: 'Not present in this catalog reading',
     prodRegistered: 'Registered in Italy', prodNotRegistered: 'Not present in this registry reading',
     prodExpired: 'Registration expired in this reading',

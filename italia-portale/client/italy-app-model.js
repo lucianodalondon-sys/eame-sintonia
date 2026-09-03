@@ -1674,10 +1674,20 @@
     hrac: p.hrac, frac: p.frac, irac: p.irac,
     expiresInDays: p.expiresInDays, provenance: P.REAL_SOURCE,
   }));
-  productsCommercial.records.forEach((p) => addProduct(p.name, {
-    commercial: p, category: p.category, catalogUrl: p.catalogUrl,
-    matchState: p.matchState, provenance: P.REAL_SOURCE,
-  }));
+  productsCommercial.records.forEach((p) => {
+    /* IL TITOLARE DELL'AUTORIZZAZIONE VIAGGIA ANCHE PER I SOLI-CATALOGO.
+       Veniva copiato unicamente dal ramo regolatorio, quindi i prodotti che
+       esistono solo nel catalogo arrivavano SENZA titolare — e fra questi ci
+       sono i sei cui titolare e SYNGENTA, ALBAUGH o MICROCIDE. Senza quel
+       campo la schermata non aveva modo di sapere che non erano di ADAMA.
+       Non sovrascrive mai il titolare del registro: quello e la fonte piu
+       forte, e vince quando c'e. */
+    const prev = byName[U(p.name)];
+    addProduct(p.name, Object.assign({
+      commercial: p, category: p.category, catalogUrl: p.catalogUrl,
+      matchState: p.matchState, provenance: P.REAL_SOURCE,
+    }, (prev && prev.holder) ? {} : { holder: p.holder }));
+  });
   /* Relationships attach to the product entity from the relationship
      collection — never from a case fixture. The full record is kept beside the
      short link so a product page can show the window and the evidence without
@@ -1717,6 +1727,27 @@
       /* In the catalog but with no registry match: a real state the catalog
          itself declares, not a missing record. */
       catalogOnly: !e.regulatory && !!e.commercial,
+      /* CHI E IL TITOLARE, E COSA IL PORTALE PUO DIRNE.
+         Il pacchetto e esplicito su questo punto e va citato per intero:
+         «il titolare dell'autorizzazione NON e il venditore. La presenza nel
+         catalogo non rivela il contratto, e il contratto non si deduce.»
+         COMMERCIAL_CONTRACT e NOT_ESTABLISHED su tutti e 51 i prodotti del
+         catalogo — nessuno escluso.
+
+         Quindi l'unico fatto osservabile e: questo prodotto e pubblicato sul
+         catalogo pubblico di ADAMA Italia. Su sei di essi il titolare
+         dell'autorizzazione e SYNGENTA, ALBAUGH o MICROCIDE, e il portale li
+         mostrava sotto «Prodotto ADAMA» — nello stesso sito che elenca
+         SYNGENTA fra i concorrenti.
+
+         HOLDER_IS_ADAMA non serve a niente qui: e `undefined` esattamente sui
+         sei con titolare esterno e `false` su otto che non hanno titolare
+         affatto. La sola lettura affidabile e la stringa del titolare. */
+      holderIsExternal: !!(e.holder && !/\bADAMA\b/i.test(String(e.holder))),
+      holderIsAdama: e.holder ? /\bADAMA\b/i.test(String(e.holder)) : null,
+      /* UN TITOLARE ESTERNO DA SOLO NON PUO FARE UN PRODOTTO ADAMA.
+         Il catalogo prova la pubblicazione, non la proprieta. */
+      displayAsAdamaProduct: !!e.commercial && !(e.holder && !/\bADAMA\b/i.test(String(e.holder))),
       aiList: A(e.ai), aiLabel: A(e.ai).join(' + ') || null,
       moaList: moa, moaLabel: moa.length ? moa.join(' + ') : null,
       registeredUses: uses, registeredUseCount: uses.length,
