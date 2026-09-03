@@ -120,11 +120,16 @@ const snap = async (name) => {
   shots.push(f);
 };
 
-const text = () => page.evaluate(() => document.body.innerText || '');
+/* Una pagina che non si e caricata non ha body. Leggerlo esplodeva a meta
+   della passeggiata; restituire '' in silenzio sarebbe stato peggio, perche
+   scan() lo avrebbe letto come «schermata vuota» invece che come «schermata
+   mai arrivata». Qui torna null, e chi chiama deve dirlo. */
+const text = () => page.evaluate(() => (document.body ? (document.body.innerText || '') : null));
 
 const scan = async (label, lang) => {
   const txt = await text();
   const at = (w) => `${lang.toUpperCase()} · ${label}: ${w}`;
+  if (txt === null) { findings.empty.push(at('the page never loaded — nothing was measured')); return; }
   if (txt.length < 200) findings.empty.push(at(`only ${txt.length} chars`));
   for (const line of txt.split('\n').map((l) => l.trim()).filter(Boolean)) {
     if (/\bundefined\b/.test(line)) findings.undef.push(at(line.slice(0, 100)));
@@ -275,12 +280,16 @@ const inspectCase = async (lang, idx, expectKind) => {
 };
 
 /* ── ACCESSO ─────────────────────────────────────────────────────────────── */
-await page.goto(`${origin}/accesso.html`, { waitUntil: 'networkidle' }).catch(() => {});
+/* Ingoiare l'errore di navigazione rendeva ACCESSO un controllo che non
+   poteva mai fallire: se la pagina non arrivava, la passeggiata proseguiva
+   come se l'avesse letta. */
+await page.goto(`${origin}/accesso.html`, { waitUntil: 'networkidle', timeout: 120000 })
+  .catch((e) => { findings.empty.push(`IT · ACCESSO: navigation failed — ${String(e.message).split('\n')[0]}`); });
 await page.waitForTimeout(600);
 await scan('ACCESSO', 'it');
 await snap('it-ACCESSO');
 
-await page.goto(`${origin}/portale.html`, { waitUntil: 'networkidle' });
+await page.goto(`${origin}/portale.html`, { waitUntil: 'networkidle', timeout: 120000 });
 await page.waitForTimeout(800);
 
 const tour = async (lang) => {
