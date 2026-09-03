@@ -18,7 +18,7 @@ a reportar, não um erro a ignorar.
 | **HEAD** | ver `git rev-parse HEAD` — o commit de handoff é o último |
 | **REMOTE_HEAD** | idêntico ao local no momento do push |
 | **WORKING_TREE** | limpo |
-| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->746<!--/M--> testes descobertos, 730 executados, 6 falhas, 1 erro, 16 pulados** — as falhas sao anteriores a missao da trilha universal e estao classificadas em `docs/design/TRILHA-UNIVERSAL-E-CONTRATO-COMERCIAL.md` |
+| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->748<!--/M--> testes descobertos, 730 executados, 6 falhas, 1 erro, 16 pulados** — as falhas sao anteriores a missao da trilha universal e estao classificadas em `docs/design/TRILHA-UNIVERSAL-E-CONTRATO-COMERCIAL.md` |
 | **LAST_MAJOR_MISSION** | 10B-ES — fechar os portões estruturais antes de coletar mais |
 | **CURRENT_COUNTRY_SCOPE** | **ESPANHA**. França e Itália **não** foram abertas na camada de voz. |
 

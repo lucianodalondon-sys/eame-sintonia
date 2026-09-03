@@ -394,6 +394,37 @@ class PortaoETestemunha(unittest.TestCase):
         # diferentes, não só pela do boletim.
         self.assertGreaterEqual(len(d['OPORTUNIDADES_QUE_MUDARAM']), 2)
 
+    def test_U27_a_catraca_roda_depois_da_traducao(self):
+        """A etapa LOCALIZATION só é mensurável depois de a tradução entrar.
+
+        Este teste existe porque o erro aconteceu: a catraca nasceu no passo 5f,
+        antes do passo 6, e mediu 5.638 registros como incompletos por uma
+        tradução que a própria cadeia ia aplicar três linhas adiante. O número
+        certo, no lugar certo, é 42.
+
+            MEDIR UMA ETAPA ANTES DE ELA RODAR NÃO MEDE O PACOTE: MEDE A ORDEM.
+        """
+        cad = open(os.path.join(ROOT, 'scripts', 'v21_cadeia.sh'),
+                   encoding='utf-8').read()
+        i_trad = cad.index('v21_traducao_trava.py --aplicar')
+        i_cat = cad.index('scripts/v21_catraca.py')
+        i_brf = cad.index('scripts/v21_briefing.py')
+        i_fim = cad.index('scripts/v21_fechar.py')
+        self.assertLess(i_trad, i_cat, 'a catraca voltou para antes da traducao')
+        self.assertLess(i_cat, i_brf, 'o briefing roda antes da catraca')
+        self.assertLess(i_brf, i_fim, 'o fechamento roda antes do briefing')
+        # E um chamador so, para cada um.
+        self.assertEqual(1, cad.count('scripts/v21_catraca.py'))
+        self.assertEqual(1, cad.count('scripts/v21_briefing.py'))
+
+    def test_U28_a_lacuna_de_traducao_nao_e_o_estado_normal(self):
+        """Se o número voltar a subir, a ordem quebrou de novo."""
+        d = _pacote('PUBLICATION-GATE.json')
+        n = d['BY_REASON_CODE'].get('READING_ONLY_IN_PORTUGUESE', 0)
+        self.assertLess(n, 100,
+                        'READING_ONLY_IN_PORTUGUESE=%d — a catraca esta medindo '
+                        'a traducao antes de ela entrar' % n)
+
     def test_U26_o_ci_nao_commita_por_cima_de_inteligencia_falhada(self):
         """`classificar || true` + `medir || true` + commit era o padrão proibido."""
         wf = open(os.path.join(ROOT, '.github', 'workflows',

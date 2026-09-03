@@ -30,7 +30,7 @@ Antes desta missão isso não estava errado no papel: estava **invisível**.
 | branch de trabalho | `claude/trilha-universal-inteligencia-a5rx9d` |
 | base canônica da inteligência | `claude/opportunity-commercial-priority-v1` · `0ddf52d` |
 | BUILD_ID de partida | `V21-5c847ef25e17f680` · 43 oportunidades · 6.882 no mestre |
-| BUILD_ID de chegada | `V21-820e8142099c4af2` · 43 oportunidades · 6.882 no mestre |
+| BUILD_ID de chegada | `V21-45dc1a181224bbf7` · 43 oportunidades · 6.882 no mestre |
 
 ⚠️ **A branch designada estava na linhagem errada.** Ela apontava para
 `claude/sintonia-eame-repo-setup-xccfob` — a linha de *setup* do repositório,
@@ -74,9 +74,10 @@ PORTA D5  build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/
 5d  v21_dominio_da_alegacao   domínio da alegação
 5e  v21_oportunidades.py      régua da missão · janela · portfólio · Opportunity Engine
                               + v21_necessidade (direção) + v21_comercial (Commercial Priority)
-5f  v21_catraca.py       ←NOVO  a catraca: estados de publicação
-5g  v21_briefing.py      ←NOVO  o contrato de inteligência comercial
 6   v21_traducao_trava.py     tradução
+6b  v21_dominio_da_alegacao   pós-tradução
+6c  v21_catraca.py       ←NOVO  a catraca: estados de publicação
+6d  v21_briefing.py      ←NOVO  o contrato de inteligência comercial
 7   v21_fechar.py             fechamento
 8   v21_aceitacao.py          aceitação  ←AGORA É PORTÃO
 9   contratos de geografia e procedência
@@ -104,9 +105,9 @@ Onze fixtures, **uma por família**, injetadas nas portas **reais** e versionada
 Nenhum script especial: a cadeia real, do começo ao fim.
 
 ```
-BASELINE          V21-820e8142099c4af2 · 43 oportunidades · 43 fichas
+BASELINE          V21-45dc1a181224bbf7 · 43 oportunidades · 43 fichas
 COM AS FIXTURES   V21-...              · 4 oportunidades mudaram
-RESTAURADO        V21-820e8142099c4af2 · IGUAL — sem resíduo
+RESTAURADO        V21-45dc1a181224bbf7 · IGUAL — sem resíduo
 ```
 
 | família (origem) | entrou | catraca deu estado | mexeu em oportunidade |
@@ -226,7 +227,7 @@ Herdado e já documentado em `V112-AUTOMACAO-DA-INGESTAO.md` (ABERTO 1):
 `RELATION_EXTRACTION = UNKNOWN` com o código do motivo, e o teste `U6` quebra se
 voltarem a sumir em silêncio. O comportamento **não** mudou; o silêncio, sim.
 
-### B5 · o que eu quase quebrei, e a medição impediu
+### B5 · dois erros meus que a medição pegou antes de virarem lei
 
 A primeira versão do portão de aceitação pôs `LINGUA.AINDA_SO_EM_PORTUGUES` na
 lista fatal. A testemunha universal mostrou o efeito imediatamente: um boletim
@@ -239,6 +240,16 @@ por traduzir.
 
 A consequência passou a ser **do registro**, na catraca, etapa `LOCALIZATION`,
 estado `UNKNOWN`. O contador continua no relatório de aceitação.
+
+E o segundo, do mesmo tipo: a catraca nasceu no passo **5f**, *antes* da
+tradução — e mediu **5.638** registros como incompletos por causa de uma
+tradução que a própria cadeia ia aplicar três linhas adiante.
+
+    MEDIR UMA ETAPA ANTES DE ELA RODAR NÃO MEDE O PACOTE: MEDE A ORDEM.
+
+Movida para **6c**, depois da tradução e antes do fechamento, o número certo é
+**42**. Os testes `U27` e `U28` fixam a ordem e o número, para que o erro não
+possa voltar em silêncio.
 
 ---
 
@@ -631,7 +642,7 @@ escrita ao lado em vez de sumir na contagem de «14 apoios».
 
 | | baseline `0ddf52d` | depois |
 |---|---:|---:|
-| testes descobertos | 720 | **746** (+26) |
+| testes descobertos | 720 | **748** (+28) |
 | falhas | 7 | **6** |
 | erros | 1 | **1** |
 | pulados | 16 | 16 |
@@ -650,8 +661,8 @@ Uma falha do baseline **sumiu**: `test_branch_vivo_nao_e_alvo_congelado`. Não f
 consertada por mim — ela depende do estado git do checkout, e falha em worktree
 com `HEAD` destacado. Passa na árvore de trabalho normal, antes e depois.
 
-Números de sentinela atualizados com a ferramenta que o próprio teste manda
-rodar (`scripts/metricas_canonicas.py --sync`), mais o prompt de bootstrap e o
+Números de sentinela (`TEST_COUNT_CURRENT` 720 → 748) atualizados com a
+ferramenta que o próprio teste manda rodar (`scripts/metricas_canonicas.py --sync`), mais o prompt de bootstrap e o
 handoff, cujos números o `test_handoff` cobra.
 
 ### O que a regressão prova, item a item

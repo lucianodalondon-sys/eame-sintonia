@@ -59,7 +59,7 @@ PASSO 3 — RODAR A SUÍTE
 
 python3 -m unittest discover -s tests
 
-Esperado: 746 testes descobertos — 730 executados, 16 pulados.
+Esperado: 748 testes descobertos — 732 executados, 16 pulados.
 A suíte NÃO fecha verde hoje: 7 falhas e 1 erro, todos anteriores à missão da
 trilha universal e classificados um a um em
 docs/design/TRILHA-UNIVERSAL-E-CONTRATO-COMERCIAL.md, secao «regressoes»
@@ -80,7 +80,7 @@ python3 scripts/proveniencia.py
 
 Confira estas sentinelas contra o que o handoff afirma:
 
-  TEST_COUNT_CURRENT              = 746
+  TEST_COUNT_CURRENT              = 748
   SOURCE_ID_COUNT                 = 37
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964
