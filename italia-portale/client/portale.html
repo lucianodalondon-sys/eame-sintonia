@@ -7106,8 +7106,20 @@ class Component extends DCLogic {
        the head block's K, which reads AM.collections. The first tile also carries the
        access state, because 5 of the 31 routes are not fully open and 3 of those 5 are
        competitor or ADAMA sites. */
+    /* quante fonti hanno davvero un accesso misurato: e su queste che lo
+       stato di rotta e stato raccolto. */
+    const srcVerified = ((APP0 && APP0.sources && APP0.sources.records) || []).filter((x) => x.publishable).length;
     const sourceKpis = [
-      { count: K.orgs, label: ARL('Fonti monitorate · ' + K.routesOpen + ' rotte aperte, ' + K.routesBlocked + ' limitate', 'Sources monitored · ' + K.routesOpen + ' open routes, ' + K.routesBlocked + ' restricted'), color: '#fff', go: () => this.setState({ sourceGroup: 'ALL' }) },
+      /* IL NUMERO GRANDE E IL CORPUS; LO STATO DI ROTTA E MISURATO SU MENO.
+         La riga diceva «187 fonti monitorate · 26 rotte aperte, 5 limitate»,
+         e 26 + 5 fa 31: lo stato di accesso esiste solo sulle 31 con evidenza
+         raccolta. Le altre 156 sono nel corpus e nessuno ha ancora verificato
+         la rotta. Attribuire la misura di 31 al totale di 187 e un
+         denominatore falso, anche quando ogni numero preso da solo e vero. */
+      { count: K.orgs, label: ARL(
+          'Fonti nel corpus · ' + srcVerified + ' con accesso verificato (' + K.routesOpen + ' aperte, ' + K.routesBlocked + ' limitate)',
+          'Sources in the corpus · ' + srcVerified + ' with verified access (' + K.routesOpen + ' open, ' + K.routesBlocked + ' restricted)'),
+        color: '#fff', go: () => this.setState({ sourceGroup: 'ALL' }) },
       { count: arcPeople.length, label: ARL('Persone identificate pubblicamente', 'Publicly identified people'), color: '#009845', go: () => this.setState({ sourceGroup: 'PEOPLE' }) },
       { count: K.official, label: ARL('Rotte pubbliche e ufficiali', 'Official / government routes'), color: '#978B87', go: () => this.setState({ sourceGroup: 'OFFICIAL' }) },
       { count: K.research, label: ARL('Ricerca e basi dati scientifiche', 'Research institutions & databases'), color: '#978B87', go: () => this.setState({ sourceGroup: 'RESEARCH' }) },
