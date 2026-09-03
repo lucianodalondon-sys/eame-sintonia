@@ -105,6 +105,22 @@ const st = load();
        UN RITORNO CHE FALLISCE IN SILENZIO SPOSTA TUTTO CIO CHE VIENE DOPO.
 
    Si verifica il ritorno, e se non riesce si ricarica la pagina. */
+/* Riporta la pagina alla schermata, riprendendosi da un avvio andato male:
+   due ricaricamenti e, se serve, riaprire l'indirizzo da zero. */
+const reach = async (label) => {
+  const sel = `[title="${label.replace(/"/g, '\\"')}"]`;
+  for (let k = 0; k < 3; k++) {
+    try {
+      if (k < 2) await page.reload({ waitUntil: 'domcontentloaded' });
+      else await page.goto(`http://localhost:${PORT}/portale.html`, { waitUntil: 'domcontentloaded' });
+      await page.waitForSelector(sel, { timeout: 30000 });
+      await page.waitForTimeout(350);
+      if (await clickTitle(page, label, 700)) return true;
+    } catch { /* si riprova */ }
+  }
+  return false;
+};
+
 const backTo = async (label, hard) => {
   /* UN CLIC VIVO LASCIA UNO STATO, E LO STATO RESTA.
      Tornare alla schermata con un clic sulla barra laterale non annulla un
@@ -129,7 +145,7 @@ const backTo = async (label, hard) => {
 };
 
 for (const label of targets) {
-  await backTo(label);
+  await reach(label);
   const base = await fingerprint();
   const list = await snapshot();
   const rec = { found: list.length, controls: [] };
@@ -165,13 +181,15 @@ for (const label of targets) {
 
        E `networkidle` dice che la rete tace, non che l'applicazione e in piedi:
        si aspetta la voce di navigazione, non un numero di millisecondi. */
-    if (needsFresh) {
-      await page.reload({ waitUntil: 'networkidle' });
-      try { await page.waitForSelector(`[title="${label.replace(/"/g, '\\"')}"]`, { timeout: 25000 }); }
-      catch { /* il verdetto lo dara il clic qui sotto */ }
-      needsFresh = false;
-    }
-    if (!await clickTitle(page, label, 800)) { rec.controls.push({ screen: label, i, tag: c.tag, text: c.text, title: c.title, verdict: 'UNREACHABLE', note: 'screen not reachable' }); continue; }
+    /* IL RITORNO DEVE POTER FALLIRE E RIPRENDERSI.
+       Un ricaricamento che non finisce di avviarsi lascia la schermata
+       irraggiungibile, e da li in poi OGNI controllo restante viene archiviato
+       «irraggiungibile»: sessantasette di seguito, e nessuno lo era.
+
+           UN PORTONE CHE NON SI RIPRENDE MISURA IL PROPRIO INCIDENTE. */
+    const lost = () => { rec.controls.push({ screen: label, i, tag: c.tag, text: c.text, title: c.title, verdict: 'UNREACHABLE', note: 'screen unreachable after 3 recoveries' }); st.screens[label] = rec; save(st); };
+    if (needsFresh) { if (!await reach(label)) { lost(); continue; } needsFresh = false; }
+    else if (!await clickTitle(page, label, 500)) { if (!await reach(label)) { lost(); continue; } }
     const before = await fingerprint();
     let threw = null, clicked = false, why = '', hitText = '';
     try {
