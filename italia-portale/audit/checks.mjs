@@ -183,8 +183,17 @@ check('P1', 'Product entity click opens Product Intelligence, not a radar filter
   const name = AM.products[0] && AM.products[0].name;
   m.instance.openProduct(name);
   const st = m.instance.state;
-  return { pass: st.view === 'product' && st.productId === name, expected: `view=product productId=${name}`,
-    measured: `view=${st.view} productId=${st.productId}` };
+  /* L'identita del prodotto non e la sua ortografia. La chiave di unione ora
+     ignora ®, punti e spazi — perche il registro scrive NIMROD 250 EW dove il
+     catalogo scrive NIMRODR 250 EW — quindi confrontare productId con il nome
+     lettera per lettera misurava il formato della chiave, non la navigazione.
+     Cio che questo controllo deve tenere e che il clic apra la scheda DI QUEL
+     prodotto: si verifica risolvendola all'indietro. */
+  const back = AM.findProduct(st.productId);
+  const same = !!back && back.key === (AM.findProduct(name) || {}).key;
+  return { pass: st.view === 'product' && same,
+    expected: `view=product resolving back to ${name}`,
+    measured: `view=${st.view} productId=${st.productId} resolves=${back ? back.name : 'NOTHING'}` };
 });
 
 check('P2', 'Product relationships do not come from the demo case fixture', () => {

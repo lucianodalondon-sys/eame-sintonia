@@ -90,6 +90,56 @@
   const U = (v) => String(v || '').trim().toUpperCase();
   const uniq = (a) => [...new Set(a.filter(Boolean))];
 
+  /* L'IDENTITA DI UN PRODOTTO NON E LA SUA ORTOGRAFIA.
+     Il registro scrive NIMROD 250 EW; il catalogo, per lo stesso prodotto,
+     scrive NIMRODR 250 EW — il simbolo ® e arrivato a monte trasformato in una
+     lettera R. Altrove il catalogo tiene il simbolo vero (Folpan® Energy), o
+     un punto in piu (NICOGAN V.O. contro NICOGAN VO), o due spazi (TAIFUN  MK).
+     La chiave di unione era U(nome) — trim e maiuscole — quindi quindici
+     prodotti del catalogo non trovavano il proprio numero di registrazione e la
+     schermata diceva loro «Non presente in questa lettura del registro»,
+     inventando un'assenza che il pacchetto non dichiara.
+
+         IL NOME SI MOSTRA. LA CHIAVE SI UNISCE.
+         NON SONO LO STESSO OGGETTO E NON DEVONO ESSERLO.
+
+     PKEY tiene solo lettere e cifre: e stabile davanti a ®, punti e spazi.
+     PKEY_ALT aggiunge la sola variante che il difetto misurato richiede — la R
+     di troppo dopo il marchio — e nulla di piu, perche ogni variante in piu e
+     una fusione possibile fra due prodotti diversi. Misurato sul pacchetto:
+     zero collisioni da entrambi i lati, quattordici prodotti ricongiunti. */
+  const PKEY = (v) => String(v || '').toUpperCase().replace(/[®™©]/g, '').replace(/[^A-Z0-9]/g, '');
+  const PKEY_ALTS = (v) => {
+    const out = [];
+    const push = (k) => { if (k && out.indexOf(k) < 0) out.push(k); };
+    const bases = [PKEY(v)];
+    /* un solo record del catalogo finisce con « 0» appeso — GOLTIXR TOP 0 —
+       e nel registro non esiste nessun altro nome che quello zero renderebbe
+       ambiguo. La variante e ammessa solo per quella forma esatta. */
+    if (/\s0$/.test(String(v || ''))) bases.push(PKEY(String(v).replace(/\s0$/, '')));
+    for (const b of bases) {
+      push(b);
+      const m = /^([A-Z]{4,})R([A-Z0-9]*)$/.exec(b);
+      if (m) push(m[1] + m[2]);
+    }
+    return out.slice(1);
+  };
+  const PKEY_ALT = (v) => PKEY_ALTS(v)[0] || null;
+  /* Il nome resta quello commerciale; si ripara solo il segno diventato
+     lettera, e soltanto dove il marchio senza la R esiste davvero altrove —
+     cosi «NIMRODR» torna «NIMROD®» e nessun nome viene riscritto a intuito. */
+  const PNAME_FIX = (name, known) => {
+    /* Un solo nome del catalogo finisce con uno zero staccato — «GOLTIXR TOP 0»
+       contro «GOLTIX TOP» nel registro. Nessun prodotto si chiama davvero cosi:
+       e residuo di lettura, e va tolto prima che il cliente lo legga. */
+    const raw = String(name || '').trim().replace(/\s+0$/, '');
+    const m = /^([A-Za-z]{4,})R(\b|\s|$)/.exec(raw);
+    if (!m) return raw;
+    const brand = m[1];
+    if (!known || !known.has(PKEY(brand))) return raw;
+    return brand + '\u00AE' + raw.slice(m[1].length + 1);
+  };
+
   /* ── 3 · THE NARRATIVE RULE ──────────────────────────────────────────────
      UNKNOWN_SENTINEL is the upstream's own way of saying "not established".
      It is a fact about the state of knowledge, so it survives — as a state,
@@ -1486,7 +1536,7 @@
      the Latin target as its issue and never pretends to be an issue match. */
   A(RAW.IG.LINKS).forEach((l) => {
     const crop = cropFromCode(l.crop) || S(l.cropTerm) || S(l.crop);
-    pushRel(crop, l.target, l.product, 'RELATED_PORTFOLIO', 'Authorised use row in the national registry', l.labelUrl, {
+    pushRel(crop, l.target, l.product, 'RELATED_PORTFOLIO', 'Separate declarations on the label, brought together by us', l.labelUrl, {
       evidenceKind: 'REGULATORY_USE_ROW',
       target: S(l.target), reg: S(l.reg), labelUrl: S(l.labelUrl),
       moaLabel: moaLabelOf(l.moa),
@@ -1569,6 +1619,28 @@
      Its timing column is the analyst's unknown sentence on 219/219 rows, so it
      is routed through the same guard as any other prose: an unread label column
      must render as unknown, never as an application window. */
+  /* LA LETTURA PIU PROFONDA DEVE POTER RISPONDERE.
+     seenRel — la tabella che strengthFor interroga — veniva riempita soltanto
+     dai 19 verdetti dell'audit storico e dai 236 collegamenti del registro. Le
+     2.030 duplate d'uso lette dal V2.1 non ci entravano mai, quindi
+     strengthFor rispondeva «l'audit ha guardato e non ha trovato» su righe che
+     la lettura piu completa aveva trovato: il caso OPP_3F736F0A9467 dichiara
+     BADGER su Grapevine x Downy mildew, e la riga Grapevine x Peronospora
+     esiste, con la stessa avversita scritta nell'altra lingua.
+
+     pushRel rispetta gia la precedenza, quindi un verdetto piu forte resta al
+     suo posto: qui non si allenta niente, si smette solo di rispondere con la
+     tabella piu piccola. */
+  productRelationships.records.forEach((r) => {
+    if (!r.product || !r.crop) return;
+    const iss = (r.issue && r.issue.it) || r.issue || r.target || null;
+    if (!iss) return;
+    pushRel(r.crop, iss, r.product, r.strength, r.evidence, r.source, {
+      evidenceKind: r.evidenceKind || 'V21_LABEL_USE_PAIR',
+      labelUrl: r.labelUrl, provenance: P.CANONICAL,
+    });
+  });
+
   const regulatoryLinks = build('regulatoryLinks', [
     /* The authorised use rows. Same 2.030 pairs, read as the registry's use
        table rather than as a portfolio relationship — a DIFFERENT fact from
@@ -1684,9 +1756,20 @@
 
   /* ---- the joined product entity --------------------------------------- */
   const byName = {};
+  /* i marchi che il registro conosce: servono a PNAME_FIX per non riparare
+     un nome a intuito. */
+  const KNOWN_BRANDS = new Set();
+  productsRegulatory.records.forEach((p) => {
+    KNOWN_BRANDS.add(PKEY(p.name));
+    const first = String(p.name || '').trim().split(/\s+/)[0];
+    if (first) KNOWN_BRANDS.add(PKEY(first));
+  });
   const addProduct = (name, patch) => {
-    const k = U(name);
-    if (!k) return;
+    const k0 = PKEY(name);
+    if (!k0) return;
+    /* Se il prodotto e gia entrato con l'ortografia dell'altra fonte, si unisce
+       li: e lo stesso prodotto, scritto due volte in modo diverso. */
+    const k = byName[k0] ? k0 : (PKEY_ALTS(name).find((a) => byName[a]) || k0);
     byName[k] = Object.assign({ name: String(name).trim(), key: k, regulatory: null, commercial: null, links: [], relationships: [] }, byName[k], patch);
   };
   productsRegulatory.records.forEach((p) => addProduct(p.name, {
@@ -1704,10 +1787,14 @@
        campo la schermata non aveva modo di sapere che non erano di ADAMA.
        Non sovrascrive mai il titolare del registro: quello e la fonte piu
        forte, e vince quando c'e. */
-    const prev = byName[U(p.name)];
+    const prev = byName[PKEY(p.name)] || PKEY_ALTS(p.name).map((a) => byName[a]).find(Boolean);
     addProduct(p.name, Object.assign({
       commercial: p, category: p.category, catalogUrl: p.catalogUrl,
       matchState: p.matchState, provenance: P.REAL_SOURCE,
+      /* Il nome mostrato resta quello COMMERCIALE — e come il prodotto si
+         chiama sul mercato — con il solo segno diventato lettera rimesso a
+         posto: NIMRODR torna NIMROD(R). */
+      name: PNAME_FIX(p.name, KNOWN_BRANDS),
     }, (prev && prev.holder) ? {} : { holder: p.holder }));
   });
   /* Relationships attach to the product entity from the relationship
@@ -1788,14 +1875,42 @@
   const productByKey = {};
   products.forEach((p) => { productByKey[p.key] = p; });
   const productsColl = coll(products, P.REAL_SOURCE, 'regulatory registry joined to the public commercial catalog');
-  const findProduct = (name) => productByKey[U(name)] || null;
+  /* La ricerca segue la stessa chiave dell'unione, altrimenti un nome scritto
+     con ® non troverebbe il prodotto che quel ® identifica. */
+  const findProduct = (name) => productByKey[U(name)] || productByKey[PKEY(name)]
+    || PKEY_ALTS(name).map((a) => productByKey[a]).find(Boolean) || null;
+  /* LA CHIAVE E INGLESE DA UN LATO E ITALIANA DALL'ALTRO.
+     Le righe d'uso portano «Peronospora»; l'opportunita porta «Downy mildew».
+     Sono la stessa avversita, e il vocabolario canonico lo dice gia — ma
+     strengthFor cercava la riga con la stringa ricevuta e basta, quindi
+     rispondeva NO_CONFIRMED_MATCH davanti a una riga che esiste. Non e
+     «l'audit ha guardato e non ha trovato»: e non aver guardato nel posto
+     giusto, ed e la stessa classe di difetto che teneva vuota la lista
+     prodotti sul dettaglio del caso.
+
+         DIRE «NON TROVATO» PERCHE SI E CERCATO NELLA LINGUA SBAGLIATA
+         E UN'ASSENZA FABBRICATA, NON MISURATA. */
+  const ISSUE_SYNONYMS = (() => {
+    const out = {};
+    for (const id of Object.keys(ISSUE_BY_ID)) {
+      const v = ISSUE_BY_ID[id];
+      const forms = uniq([v.it, v.en, id]);
+      for (const f of forms) out[U(f)] = forms;
+    }
+    return out;
+  })();
   const strengthFor = (name, crop, issue) => {
-    const row = seenRel[relKey(crop, issue, name)];
-    if (row) return row.strength;
-    const e = productByKey[U(name)];
+    const forms = ISSUE_SYNONYMS[U(issue)] || [issue];
+    for (const f of forms) {
+      const row = seenRel[relKey(crop, f, name)];
+      if (row) return row.strength;
+    }
+    const e = productByKey[U(name)] || findProductKeyed(name);
     if (e && e.links.some((l) => U(l.crop) === U(crop))) return 'LABEL_CHECK_NEEDED';
     return 'NO_CONFIRMED_MATCH_CURRENT_READING';
   };
+  const findProductKeyed = (name) => productByKey[PKEY(name)]
+    || PKEY_ALTS(name).map((a) => productByKey[a]).find(Boolean) || null;
 
   /* ---- COMPETITOR ------------------------------------------------------- */
   const competitorActivities = build('competitorActivities', [
