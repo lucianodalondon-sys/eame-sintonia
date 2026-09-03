@@ -185,11 +185,13 @@ const harvest = (p) => p.evaluate(() => { const n = window.__m || 0; if (window.
 const wipe = () => page.evaluate(() => { try { localStorage.clear(); sessionStorage.clear(); } catch (e) { /* origine opaca */ } }).catch(() => {});
 
 async function reboot() {
+  /* Si svuota la memoria PRIMA di riaprire: stessa origine, quindi il wipe vale
+     per il caricamento successivo. Una sola apertura basta — la seconda che
+     questo blocco faceva raddoppiava il costo del ripristino senza ripulire
+     niente in piu. */
   await wipe();
   await page.goto(PORTAL, { waitUntil: 'networkidle' }).catch(() => {});
-  await wipe();
-  await page.reload({ waitUntil: 'networkidle' }).catch(() => {});
-  await page.waitForTimeout(600);
+  await page.waitForTimeout(550);
 }
 
 let rebase = 0;
@@ -207,9 +209,14 @@ const freshSnap = async (label) => {
 async function restore(label, sc) {
   for (let k = 0; k < 3; k++) {
     if (k > 0) await reboot();
-    const ok = await clickTitle(page, label, 340).catch(() => false);
+    const ok = await clickTitle(page, label, 420).catch(() => false);
     if (!ok) continue;
-    const s = await snap(page).catch(() => null);
+    let s = await snap(page).catch(() => null);
+    if (s && s.th === sc.th) return s;
+    /* un respiro in piu prima di pagare un riavvio: buona parte dei ripristini
+       «falliti» era solo misurata mentre la schermata finiva di disegnarsi */
+    await page.waitForTimeout(360);
+    s = await snap(page).catch(() => null);
     if (s && s.th === sc.th) return s;
   }
   const a = await freshSnap(label);
@@ -250,20 +257,46 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
     if (FORM.has(c.tag)) { formCtl++; sc.forms++; continue; }
     if ((meta[i] || {}).nt === label) { selfNav++; sc.selfNav++; continue; }
 
-    const t0 = tabs, d0 = downloads, g0 = dialogs, e0 = errors.length;
-    const hit = await clickSig(page, sigs[i], ord[i]);
-    if (!hit) { sc.skipped++; drift++; await harvest(page); const r = await restore(label, sc); cur = r || cur; continue; }
-    await page.waitForTimeout(SETTLE);
-    const mut = await harvest(page);
-    const post = await snap(page).catch(() => null);
-    /* Un errore di console va ATTRIBUITO alla pressione che lo ha prodotto,
-       altrimenti il portone dice «sei errori» e nessuno sa dove premere. */
-    if (errors.length > e0) blew.push({ screen: label, tag: c.tag, text: (c.text || c.title || '').replace(/\s+/g, ' ').slice(0, 46), msg: errors[e0] });
-    const moved = differs(cur, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
+    /* Una pressione misurata: impronta prima · click · respiro · impronta dopo.
+       `pre` e sempre lo stato REALE del momento, mai quello di partenza — ed e
+       per questo che il ritorno fra un click e l'altro puo essere leggero. */
+    const attempt = async (pre) => {
+      const t0 = tabs, d0 = downloads, g0 = dialogs, e0 = errors.length;
+      const hit = await clickSig(page, sigs[i], ord[i]);
+      if (!hit) { await harvest(page); return null; }
+      await page.waitForTimeout(SETTLE);
+      const mut = await harvest(page);
+      const post = await snap(page).catch(() => null);
+      /* Un errore di console va ATTRIBUITO alla pressione che lo ha prodotto,
+         altrimenti il portone dice «sei errori» e nessuno sa dove premere. */
+      if (errors.length > e0) blew.push({ screen: label, tag: c.tag, text: (c.text || c.title || '').replace(/\s+/g, ' ').slice(0, 46), msg: errors[e0] });
+      return { moved: differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0, post };
+    };
+
+    let out = await attempt(cur);
+    if (!out) {
+      /* la firma non risponde: lo stato e scivolato sotto i piedi. Qui si paga
+         il ripristino pesante — con riavvio, se serve — e si ritenta UNA volta. */
+      const r = await restore(label, sc);
+      if (!r) { sc.skipped++; drift++; continue; }
+      cur = r;
+      out = await attempt(cur);
+      /* dopo un ripristino vero la firma ancora non c'e: quell'elemento non si
+         presenta piu su questa schermata. Non e un bottone morto, e un elemento
+         che non e tornato — si conta, non si accusa. */
+      if (!out) { sc.skipped++; continue; }
+    }
 
     sc.judged++; judged++;
-    if (moved) { alive++; sc.alive++; sc.aliveIdx.push(i); const r = await restore(label, sc); if (r) cur = r; else { drift++; cur = await snap(page).catch(() => cur); } }
-    else { cur = post || cur; suspects.push({ label, i, sig: sigs[i], ord: ord[i], g: (meta[i] || {}).g, c }); }
+    if (out.moved) {
+      alive++; sc.alive++; sc.aliveIdx.push(i);
+      /* RITORNO LEGGERO: basta essere di nuovo sulla schermata; non serve
+         essere tornati all'istante esatto, perche il confronto successivo usa
+         l'impronta appena misurata. Il riavvio si paga solo quando serve. */
+      const back = await clickTitle(page, label, 400).catch(() => false);
+      cur = back ? await snap(page).catch(() => null) : null;
+      if (!cur) { const r = await restore(label, sc); if (r) cur = r; else { drift++; cur = await snap(page).catch(() => null); } }
+    } else { cur = out.post || cur; suspects.push({ label, i, sig: sigs[i], ord: ord[i], g: (meta[i] || {}).g, c }); }
   }
   screens.push(sc);
   process.stderr.write(`  · ${label.padEnd(28)} clickables ${String(cl.length).padStart(4)}  giudicati ${String(sc.judged).padStart(4)}  vivi ${String(sc.alive).padStart(4)}  sospetti ${sc.judged - sc.alive}\n`);
@@ -478,7 +511,7 @@ console.log(`  SCHERMATE = ${screens.length} di ${SIDEBAR.length} nella barra ($
 console.log(`  CLICCABILI TROVATI = ${totalClickables} · PREMUTI E GIUDICATI = ${judged} · VIVI = ${alive} · MORTI = ${dead.length}`);
 console.log(`  non giudicati: ${formCtl} controlli di modulo (semantica change) · ${selfNav} voce della schermata corrente · ${notJudged} senza cursore proprio (host delegato, celle inerti della mappa)`);
 console.log(`  rumore del DOM a riposo = ${NOISE} mutazioni/600ms — con zero, UNA mutazione dopo il click e prova di vita`);
-console.log(`  impronte rimisurate da pulito = ${rebase} · schermate non ripristinabili = ${drift}`);
+console.log(`  impronte rimisurate da pulito = ${rebase} · schermate non ripristinabili = ${drift} · firme non ripresentatesi = ${screens.reduce((a, x) => a + x.skipped, 0)}`);
 console.log(`  idempotenti (fermi qui, vivi altrove) = ${idempotent.length} — un comando gia soddisfatto non e un comando morto`);
 console.log(`  schede nuove = ${tabs} · download = ${downloads} · dialog nativi = ${dialogs}`);
 console.log(`  console error = ${errors.length} · richieste fallite = ${failed.length}`);
@@ -528,7 +561,7 @@ if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({
   noHandler, blew, navRows, collisions, unreached, emptyScreens,
   back: { ok: backOk, label: backLabel, screen: backScreen, tried: backTried, detailOpened },
   reload: { ok: reloadOk, chars: afterReload.chars, clickables: reloadClicks },
-  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, drift, rebase, tabs, downloads, dialogs },
+  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
   errors, failed,
 }, null, 1));
 
