@@ -12,6 +12,7 @@ import path from 'node:path';
 import { loadData, mount, CLIENT } from './lib/harness.mjs';
 import { scanAll, grepPackage } from './lib/scan.mjs';
 import { runAll } from './checks.mjs';
+import { contractRows } from './contract-numbers.mjs';
 
 const md = process.argv.includes('--md');
 
@@ -118,6 +119,8 @@ R('UNRESOLVED REAL ENTITY IDS', check('R1').measured, 0);
 R('REAL ENTITY → DEMO SILENT FALLBACKS', check('R2').measured, 0);
 
 R('AUTOMATED STRUCTURAL TESTS', checks.every((c) => c.pass) ? 'PASS' : `FAIL ${checks.filter((c) => !c.pass).length}/${checks.length}`, 'PASS');
+const cn = contractRows().rows;
+R('SHIPPED DOC MATCHES THE PACKAGE', cn.every((r) => r.pass) ? 'PASS' : `FAIL ${cn.filter((r) => !r.pass).length}/${cn.length}`, 'PASS');
 R('RUNTIME SMOKE TESTS', check('RT1').pass && check('RT2').pass ? 'PASS' : `${check('RT1').measured} IT · ${check('RT2').measured} EN`, 'PASS');
 R('OFFLINE / NO PUBLIC CDN', YN(check('B3').pass), 'YES');
 /* This line used to read NO, and its expected value was NO. It was the report
@@ -157,6 +160,10 @@ const BLOCKERS = [
      the universe counted, the engine rendered, and none of its bookkeeping
      reaching a reader. A partial ingest is the failure this report exists to
      refuse, and it is the one that looks fine from the outside. */
+  /* Il documento spedito e una promessa numerica: se il pacchetto non la
+     conferma, il portale puo essere giusto e il cliente essere stato
+     informato male. Vale un blocco quanto una schermata che non renderizza. */
+  ['the shipped document no longer matches the package', !cn.every((r) => r.pass)],
   ['the V2.1 package is not ingested', !check('H1').pass],
   ['a V2.1 universe count does not measure', !check('H2').pass],
   ['the opportunity engine does not reach the screen', !check('H3').pass],

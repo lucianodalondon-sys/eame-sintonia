@@ -58,10 +58,10 @@ contra o outro.
 | `regulatoryFutureFacts` | **47** | — |
 | `clientSafeCrossings` | **19** | 0 |
 | `agrometConditions` | **44** | 0 |
-| `competitorActivities` | **561** | 503 |
+| `competitorActivities` | **577** | 503 |
 | `marketObservations` | **157** | 77 |
 | `publicVoices` | **79** | 17 |
-| `sources` | **188** | 31 |
+| `sources` · linhas entregues | **189** | 31 |
 | `cropWindows` · canônicas | 29 | 29 |
 
 `cropWindows` não muda: as 7 linhas que o pacote chama `CROP-WINDOWS.json` são
@@ -73,6 +73,20 @@ cara possível.
 `cropEconomicWeight` (35 culturas) deixou de vir da fixture: é recontado das
 2.030 duplas. **CULTURAS = 35** e **ALVOS = 78** são o vocabulário do próprio
 corpus de rótulos, medido, não uma lista digitada.
+
+`competitorActivities` traz **577** registros, e não os 561 que a tela mostrava:
+os 16 que faltavam não eram duplicados, eram uma SEGUNDA FORMA da mesma família
+— NOTAS DE OBSERVAÇÃO, sem anunciante nem plataforma, carregando no lugar um par
+já traduzido de «o que prova» e «o que não prova». A lista de campos admitidos
+conhecia só a primeira forma. Dos 577, **569 são publicáveis** e **8 continuam
+`QA_UNREVIEWED`**: vivem no corpus, não sustentam uma afirmação. A tela mostra
+569 e diz por que o denominador é 569, porque um número certo dentro de uma
+frase errada continua sendo uma frase errada.
+
+`sources` entrega **189** linhas, que são **187 fontes reais** mais **2
+`SOURCE_SENTINEL`** (`SRC_NAO_DECLARADA` e `SRC_DESCONHECIDA`). Sentinela é a
+marca de que a fonte não foi declarada — contá-la como fonte seria transformar
+uma ausência em acervo. O portal conta 187.
 
 ## As oportunidades, e como se dizem
 
