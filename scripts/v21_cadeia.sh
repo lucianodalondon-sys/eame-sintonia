@@ -93,6 +93,21 @@ echo "── 5e · o motor de oportunidades, sobre o proprio V2.1 ────�
 "$PY" scripts/v21_oportunidades.py
 
 echo
+echo "── 5f · a catraca: o material que nao passou nao sustenta publicavel ───"
+# Depois do motor porque le EXTERNAL_MATERIAL_READY, que e decisao da regua
+# comercial. Antes da traducao porque grava campo novo em OPPORTUNITIES.json.
+# Ela SO SEGURA: nao promove ninguem, e para a cadeia se alguem promover.
+"$PY" scripts/v21_catraca.py
+
+echo
+echo "── 5g · o contrato de inteligencia comercial ───────────────────────────"
+# Le a catraca e as reguas ja aplicadas e compoe a conclusao estruturada:
+# o consumidor nao precisa abrir evidencia bruta para descobrir a oportunidade.
+# Nenhum registro dele tem prosa — so codigo, ID e numero — e por isso ele entra
+# antes da traducao sem nada a traduzir.
+"$PY" scripts/v21_briefing.py
+
+echo
 echo "── 6 · a tradução, conferida antes de entrar ───────────────────────────"
 # a trava recusa gravar se alguma tradução falhar. É de propósito.
 "$PY" scripts/v21_traducao_trava.py --aplicar

@@ -369,6 +369,60 @@ def main():
           % (r['MERCADO']['POR_ESTAGIO'], r['MERCADO']['PROCESSADO_COM_CROP_IDS'],
              len(r['MERCADO']['CRUZAMENTO_APOIADO_EM_PROCESSADO'])))
     print('\ngravado em %s' % p)
+
+    # ── A ACEITACAO PASSA A SER PORTAO, E NAO SO RELATORIO ───────────────────
+    #
+    # ⚠️ ATE AQUI ESTA FUNCAO MEDIA VIOLACOES E DEVOLVIA 0 SEMPRE. A cadeia roda
+    # com `set -euo pipefail`, ou seja: quem falha, para tudo. Este passo nunca
+    # falhava — entao um pacote com registro sem carimbo de QA, com contagem
+    # declarada divergindo do corpo ou com cruzamento apoiado em registro que
+    # nao passou no portao saia com EXIT 0 e parecia aceito.
+    #
+    #     ETAPA OBRIGATORIA QUE NAO PODE REPROVAR NAO E ETAPA: E RELATORIO.
+    #
+    # Nenhum limiar novo entrou. Cada contador abaixo JA se chamava violacao no
+    # proprio relatorio, e cada um JA media zero antes desta mudanca: a trava
+    # nasce verde, e e de proposito — trava que nasce vermelha ensina a ignorar
+    # trava. O que mudou e que a partir de agora ela e obrigatoria.
+    reprova = [
+        ('QA_GATE.VIOLACOES', r['QA_GATE']['VIOLACOES']),
+        ('QA_GATE.SEM_QA_STATUS', r['QA_GATE']['SEM_QA_STATUS']),
+        ('QA_GATE.CONTAGEM_DECLARADA_DIVERGE',
+         len(r['QA_GATE']['CONTAGEM_DECLARADA_DIVERGE'])),
+        ('MASTER.DUPLICATE_IDS', r['MASTER']['DUPLICATE_IDS']),
+        ('CROSSINGS.APOIO_ORFAO', r['CROSSINGS']['APOIO_ORFAO']),
+        ('CROSSINGS.APOIO_NAO_CLIENT_SAFE', r['CROSSINGS']['APOIO_NAO_CLIENT_SAFE']),
+        ('CROSSINGS.CULTURA_DIVERGENTE', r['CROSSINGS']['CULTURA_DIVERGENTE']),
+        ('SOURCES.CITADAS_SEM_CADASTRO', r['SOURCES']['CITADAS_SEM_CADASTRO']),
+        # ⚠️ `LINGUA.AINDA_SO_EM_PORTUGUES` NAO ENTRA NESTA LISTA, e a razao foi
+        # MEDIDA, nao escolhida. A primeira versao deste portao o incluia, e a
+        # testemunha da trilha universal mostrou o efeito: um boletim novo
+        # qualquer traz leitura nossa em portugues, ainda sem irma em italiano,
+        # e a cadeia INTEIRA parava — o acervo de 7.000 registros ficava sem
+        # fechar por causa de UMA frase por traduzir.
+        #
+        #     LACUNA DE TRADUCAO NAO E FALHA DE INTELIGENCIA.
+        #     UMA TRAVA QUE IMPEDE A INGESTAO NORMAL NAO PROTEGE: ELA PARA.
+        #
+        # O contador continua sendo medido e continua no relatorio; a
+        # consequencia dele agora e POR REGISTRO, na catraca (etapa
+        # LOCALIZATION), onde ela pertence: quem nao tem a leitura na lingua do
+        # leitor nao esta pronto para publicar — mas nao impede o pacote de
+        # existir nem os outros registros de fechar.
+        ('SEPARACAO.PAPEL_DE_TRABALHO_EM_DESIGN_INGEST',
+         len(r['SEPARACAO']['PAPEL_DE_TRABALHO_EM_DESIGN_INGEST'])),
+        ('MERCADO.PROCESSADO_COM_CROP_IDS', r['MERCADO']['PROCESSADO_COM_CROP_IDS']),
+        ('MERCADO.CRUZAMENTO_APOIADO_EM_PROCESSADO',
+         len(r['MERCADO']['CRUZAMENTO_APOIADO_EM_PROCESSADO'])),
+    ]
+    quebrou = [(k, v) for k, v in reprova if v]
+    if quebrou:
+        print('\n  PARADO NA ACEITACAO — o pacote nao pode ser dado por aceito:')
+        for k, v in quebrou:
+            print('    %-46s %d' % (k, v))
+        print('  o relatorio completo esta em %s' % p)
+        return 1
+    print('  ACEITACAO: 0 violacoes em %d contadores obrigatorios' % len(reprova))
     return 0
 
 

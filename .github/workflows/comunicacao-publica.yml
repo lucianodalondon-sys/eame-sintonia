@@ -136,11 +136,58 @@ jobs:
               "${{ inputs.plataforma }}"
           fi
 
+      # ⚠️ AQUI HAVIA `|| true` NAS DUAS LINHAS, E O PASSO 5 COMMITAVA A SEGUIR.
+      # O efeito era exatamente o padrao que a missao da trilha universal manda
+      # eliminar: classificar falha, medir falha, e o resultado entra no
+      # repositorio como se estivesse valido — porque ninguem viu a falha.
+      #
+      #     `|| true` NAO TORNA O PASSO OPCIONAL. TORNA A FALHA INVISIVEL.
+      #
+      # A distincao que faltava e entre COLETAR e CONCLUIR. O material bruto que
+      # a fase 3 trouxe DEVE ser preservado mesmo que a inteligencia falhe —
+      # jogar coleta fora e irreversivel, e o acervo pode guardar o que ainda nao
+      # foi lido. O que NAO pode e a conclusao sair como se a leitura tivesse
+      # acontecido.
+      #
+      # Entao: a inteligencia roda, a falha e REGISTRADA num marcador que viaja
+      # junto com o commit, e o passo 5 continua devolvendo o bruto — mas
+      # gritando. O job termina VERMELHO ao final, depois de o dado estar salvo.
       - name: 4 · classificar e medir (grátis, sobre o que acabou de chegar)
         if: always()
         run: |
-          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_classificar.py || true
-          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_medir.py || true
+          set +e
+          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_classificar.py
+          rc_cls=$?
+          PYTHONIOENCODING=utf-8 $PY scripts/comunicacao_medir.py
+          rc_med=$?
+          set -e
+          echo "CLASSIFICAR_RC=$rc_cls · MEDIR_RC=$rc_med"
+          if [ "$rc_cls" != 0 ] || [ "$rc_med" != 0 ]; then
+            mkdir -p data/samples/COMPETITOR-PUBLIC-COMM
+            $PY - "$rc_cls" "$rc_med" <<'PYEOF'
+          import json, os, sys
+          json.dump({
+            "ESTADO": "VALIDATION_REQUIRED",
+            "LEI": "DADO BRUTO NAO E PUBLICAVEL. A coleta desta rodada esta "
+                   "preservada no acervo; a inteligencia sobre ela FALHOU e a "
+                   "conclusao NAO pode ser apresentada como valida.",
+            "CLASSIFICAR_RC": int(sys.argv[1]),
+            "MEDIR_RC": int(sys.argv[2]),
+            "RUN_ID": os.environ.get("GITHUB_RUN_ID"),
+            "O_QUE_FAZER": "rodar scripts/comunicacao_classificar.py e "
+                           "scripts/comunicacao_medir.py, consertar a causa e "
+                           "remover este marcador. Enquanto ele existir, o lote "
+                           "desta rodada esta em VALIDATION_REQUIRED.",
+          }, open("data/samples/COMPETITOR-PUBLIC-COMM/"
+                  "INTELIGENCIA-FALHOU.json", "w", encoding="utf-8"),
+             ensure_ascii=False, indent=1)
+          PYEOF
+            echo "INTELIGENCIA=FALHOU · marcador gravado; o bruto sera commitado e o job falha ao final"
+            echo "INTELIGENCIA_FALHOU=1" >> "$GITHUB_ENV"
+          else
+            rm -f data/samples/COMPETITOR-PUBLIC-COMM/INTELIGENCIA-FALHOU.json
+            echo "INTELIGENCIA=OK"
+          fi
 
       - name: 5 · devolver o resultado ao repositório
         run: |
@@ -171,3 +218,17 @@ jobs:
           done
           echo "RESULTADO_COMMITADO=NO · nao consegui devolver o resultado"
           exit 1
+
+      # O bruto ja esta salvo e empurrado. AGORA a falha da inteligencia derruba
+      # o job — nesta ordem, e nao antes: falhar cedo perderia a coleta paga.
+      - name: 6 · a falha da inteligência é visível
+        if: always()
+        run: |
+          if [ "${INTELIGENCIA_FALHOU:-0}" = "1" ]; then
+            echo "PARADO: a classificacao ou a medicao falhou nesta rodada."
+            echo "O material bruto foi preservado e commitado."
+            echo "O lote esta em VALIDATION_REQUIRED — ver"
+            echo "data/samples/COMPETITOR-PUBLIC-COMM/INTELIGENCIA-FALHOU.json"
+            exit 1
+          fi
+          echo "INTELIGENCIA=OK · nada a sinalizar"
