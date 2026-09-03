@@ -3921,6 +3921,28 @@
     { sourceId: A(w.sourceIds)[0] || null, legacyCaseId: w.legacyCaseId, region: w.region }));
   resistance.records.forEach((r) => push('RESISTANCE', r.id, r.species, r.firstCaseYear, r.url, r.crop, 'UPPER_CODE', null, r.provenance,
     { sourceId: r.sourceId, authority: r.authority }));
+  /* CENTOVENTIDUE BOLLETTINI CHE NESSUNA SCHERMATA APRIVA.
+     fieldBulletins esisteva nel modello, contava nel pannello di stato e non
+     compariva in nessuna vista, in nessuna riga d'archivio e in nessun indice
+     di ricerca: informazione canonica, con regione, data e fonte, impossibile
+     da raggiungere. L'archivio e per definizione l'indice sopra il modello, e
+     un bollettino ha esattamente la forma che l'archivio indicizza — titolo,
+     data, regione, coltura, fonte. Non serviva una schermata nuova: serviva
+     smettere di saltarli.
+
+         UN DATO CHE STA NEL MODELLO E NON SI PUO APRIRE
+         NON E STATO CONSEGNATO. */
+  /* Le SETTE letture di campo (IT-WIN-001..007) sono un universo separato
+     dalle 29 finestre canoniche e non devono mai essere confuse con esse — per
+     questo entrano con un tipo PROPRIO, FIELD_SIGNAL, e non come WINDOW. */
+  currentFieldSignals.records.forEach((w) => push('FIELD_SIGNAL', w.id,
+    [w.issue, w.region].filter(Boolean).join(' · ') || w.id,
+    w.regulatoryAct || null, A(w.sourceUrls)[0] || null,
+    w.cropCanonical || w.crop || null, 'CANONICAL', w.issue || null, w.provenance,
+    { sourceId: A(w.sourceIds)[0] || null, region: w.region }));
+  fieldBulletins.records.forEach((b) => push('BULLETIN', b.id, b.title, b.date, A(b.sourceUrls)[0] || null,
+    A(b.crops)[0] || A(b.cropKeys)[0] || null, 'CANONICAL', A(b.issues)[0] || null, b.provenance,
+    { sourceId: A(b.sourceIds)[0] || null, region: b.region }));
 
   const archive = coll(arch, P.REAL_DERIVED, 'index over the normalized model; no manufactured rows, and every id is a real record id', { source: 'derived' });
   Object.assign(archive, {
@@ -4313,6 +4335,17 @@
   products.forEach((p) => idx('product', 'PRODUCT', p.name, p.name, [p.name, p.ai, p.categoryLabel, p.line, cropTerms(p.crops)], 'product', p.aiLabel || p.categoryLabel, { productName: p.name }, P.REAL_SOURCE));
   opportunities.records.forEach((o) => idx('case', 'OPPORTUNITY', o.id, o.title || [o.issue, o.region].filter(Boolean).join(' · '), [o.title, o.issue, o.crop, cropTerms(o.cropKeys), o.regionKeys, o.id, o.legacyCaseId], 'case', o.crop, { caseId: o.id }, o.provenance));
   publicVoices.records.forEach((v) => idx('voice', 'FIELD_VOICE', v.id, v.person || v.channel || v.title, [v.person, v.channel, cropTerms([v.crop]), v.issue, v.title, v.organization], 'voices', v.platform, { voiceId: v.id }, v.provenance));
+  /* i bollettini entrano anche nella ricerca: erano l'unica famiglia canonica
+     che nessuna query poteva raggiungere. La rotta e l'archivio, che e dove
+     ora vivono, con il proprio id gia selezionato. */
+  currentFieldSignals.records.forEach((w) => idx('fieldSignal', 'FIELD_SIGNAL', w.id,
+    [w.issue, w.region].filter(Boolean).join(' · ') || w.id,
+    [w.issue, w.issueEn, w.region, cropTerms([w.cropCanonical || w.crop]), w.id],
+    'archive', w.region, { aType: 'FIELD_SIGNAL', archiveQuery: w.id }, w.provenance));
+  fieldBulletins.records.forEach((b) => idx('bulletin', 'FIELD_BULLETIN', b.id,
+    b.title || b.id,
+    [b.title, b.region, A(b.regions), cropTerms(A(b.crops)), A(b.issues), b.number, b.id],
+    'archive', b.region, { aType: 'BULLETIN', archiveQuery: b.id }, b.provenance));
   futureSignals.records.forEach((f) => idx('signal', 'SIGNAL', f.id, [f.issue, f.region].filter(Boolean).join(' · ') || f.id, [f.issue, f.crop, f.region, f.id], 'signal', f.crop, { signalId: f.id }, f.provenance));
   researchers.records.forEach((r) => idx('researcher', 'PEOPLE', r.id, r.name, [r.name, r.institutions, r.theme, r.themeLabel], 'person', r.orgLabel, { personId: r.id }, r.provenance));
   resistance.records.forEach((r) => idx('resistance', 'SCIENCE', r.id, r.species, [r.species, r.speciesIt, cropTerms([r.crop]), r.family], 'gire', r.crop, { gireFocusId: r.id }, r.provenance));

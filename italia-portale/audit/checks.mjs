@@ -257,6 +257,10 @@ check('S3', 'Every search entry routes to a real entity that resolves', () => {
     news: (id) => C.news.records.some((r) => r.id === id),
     science: (id) => C.scienceRecords.records.some((r) => r.id === id),
     competitor: (id) => C.competitorActivities.records.some((r) => r.id === id),
+    /* le due famiglie che prima non erano raggiungibili da nessuna
+       superficie: si aprono attraverso l'archivio, con il proprio id. */
+    bulletin: (id) => C.fieldBulletins.records.some((r) => r.id === id),
+    fieldSignal: (id) => C.currentFieldSignals.records.some((r) => r.id === id),
     company: () => true,
     market: (id) => C.marketObservations.records.some((r) => r.id === id),
     archive: (id) => C.archive.records.some((r) => r.id === id),

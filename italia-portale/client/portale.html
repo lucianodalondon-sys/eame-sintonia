@@ -6739,6 +6739,9 @@ class Component extends DCLogic {
        italy-i18n.js is measured to be an empty object and it.ARCHTYPES holds only the nine
        dead legacy keys — arcT() would fall through to the raw token on both languages. */
     const ARC_KIND_L = {
+      BULLETIN: ['Bollettino di campo', 'Field bulletin'],
+      /* lettura di campo, NON finestra colturale canonica */
+      FIELD_SIGNAL: ['Lettura di campo', 'Field reading'],
       COMPETITOR: ['Attività di concorrente', 'Competitor activity'],
       SCIENCE: ['Pubblicazione scientifica', 'Scientific publication'],
       MARKET: ['Osservazione di mercato', 'Market observation'],
@@ -6854,7 +6857,13 @@ class Component extends DCLogic {
       && (!s.aCompany || a.company === s.aCompany)
       && (!s.aCase || a.legacyCaseId === s.aCase)
       && (!s.aSource || a.sourceId === s.aSource)
-      && (!aq || (a.title + ' ' + (a.cropKey || '') + ' ' + (a.issue || '') + ' ' + (a.company || '') + ' ' + a.srcLabel).toLowerCase().includes(aq)));
+      /* l'id del record entra nella ricerca dell'archivio: e la chiave con cui
+         un risultato di ricerca globale chiede di aprire QUELLA riga, e senza
+         di essa la rotta arrivava all'archivio e non trovava niente. Serve
+         anche al lettore che ha un id in mano e vuole vedere da dove viene.
+         Agent D aveva gia notato che «Exirel» non trovava nulla qui: la stessa
+         causa, un indice troppo stretto. */
+      && (!aq || (a.title + ' ' + (a.cropKey || '') + ' ' + (a.issue || '') + ' ' + (a.company || '') + ' ' + a.srcLabel + ' ' + (a.recordId || '') + ' ' + (a.competitorProducts || []).join(' ')).toLowerCase().includes(aq)));
     /* §6 §7 · The real index has no sort at all — it is in push order, so the first page was
        twenty science papers. Three bands, all arithmetic over supplied dates against
        AM.REF 2026-09-02 and never new Date(): observed captures first, newest first (554 of
@@ -6899,7 +6908,9 @@ class Component extends DCLogic {
        coloured from record.ui (§4 presentation metadata). The old line did
        ITALY_DEMO.ARCHIVE.find(a => a.type === t).typeColor unguarded — a latent throw the moment a
        type had no rows, which 'News article' already did. */
-    const archiveTypes = ['COMPETITOR', 'SCIENCE', 'MARKET', 'RESISTANCE', 'WINDOW', 'EVENT', 'VOICE', 'NEWS'];
+    /* BULLETIN entra nella lista dei tipi: senza di essa i 122 bollettini
+       sarebbero nell'indice ma senza un filtro che li sappia chiamare. */
+    const archiveTypes = ['COMPETITOR', 'SCIENCE', 'MARKET', 'RESISTANCE', 'WINDOW', 'FIELD_SIGNAL', 'BULLETIN', 'EVENT', 'VOICE', 'NEWS'];
     const archiveTypeChips = archiveTypes.map(t => {
       const on = s.aType === t; const rows = arcRows.filter(a => a.kind === t);
       return { label: arcKindL(t), count: rows.length, color: (rows[0] && rows[0].ui.color) || '#8F8886',
