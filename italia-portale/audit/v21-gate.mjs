@@ -48,6 +48,13 @@ const PT_RE = new RegExp('(^|[^\\p{L}])(' + PT_MARKERS.join('|') + ')([^\\p{L}]|
 const ENUM_RE = /^[A-Z0-9][A-Z0-9_.:+-]*$/;
 /* Uma citacao publica original nao se traduz e nao se julga: e a prova. */
 const CITACAO = new Set([
+  /* MULTIPLE_RESISTANCE riporta il brano della scheda GIRE fra virgolette e lo
+     annuncia da sé: «literal: '…'». Il brano scrive «(gruppo B)» e, una virgola
+     dopo, «(grupo O)»: un refuso DELLA FONTE. Correggerlo sarebbe riscrivere una
+     citazione — falsificare l'evidenza — e contarlo come portoghese spedito
+     sarebbe accusare il portale di una colpa che non ha. Il campo entra qui,
+     dove stanno gli altri campi di citazione, e non altrove. */
+  'MULTIPLE_RESISTANCE', 'MULTIPLE_RESISTANCE_IT', 'MULTIPLE_RESISTANCE_EN',
   'QUOTE_FROM_LABEL', 'CREATIVE_TEXT', 'TEXT_ORIGINAL', 'CITATION',
   'CONTENT_TITLE', 'EXAMPLE_TITLE', 'TITLE', 'BULLETIN_TITLE', 'NAME',
   'PERSON', 'INSTITUTION', 'INSTITUTIONS', 'AUTHOR', 'ORGANIZATION',
