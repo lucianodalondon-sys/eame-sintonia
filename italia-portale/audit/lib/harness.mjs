@@ -32,6 +32,10 @@ export const DATA_FILES = [
   'italy-i18n.js',
   'italy-catalog.js',
   'italy-ingested.js',
+  /* The V2.1 package. It must load BEFORE the model, because the model reads
+     window.ITALY_HANDOFF_V21 at construction time and a family that arrives
+     late is a family that silently kept the fixture. */
+  'italy-handoff-v21.js',
   'italy-app-model.js',
 ];
 

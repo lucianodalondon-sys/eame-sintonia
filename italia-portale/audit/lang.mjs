@@ -30,7 +30,13 @@ export const PT_MARKERS = [
   'apenas', 'nenhum', 'nenhuma', 'porque', 'dados', 'leitura', 'rótulo', 'rotulo',
   'também', 'tambem', 'uma', 'dos', 'das', 'muito', 'depois', 'agora', 'aqui',
   'antes', 'encontrado', 'encontrada', 'revogada', 'verificado',
-  'coluna', 'epoca', 'época', 'registros', 'milho', 'trigo', 'arroz', 'soja',
+  /* 'epoca' SEM acento saiu desta lista: e italiano corrente («epoca di
+     applicazione»), e marcava como portuguesa a propria traducao aprovada
+     de SRC_SALUTE_GOV_IT. A forma acentuada fica, que essa e so portuguesa.
+     Vale aqui a regra que o cabecalho ja declara para 'mais' e 'per':
+     token ambiguo nao e marcador, e um marcador que acusa italiano correto
+     ensina a ignorar o detector. */
+  'coluna', 'época', 'registros', 'milho', 'trigo', 'arroz', 'soja',
   'videira', 'oliveira', 'tomate', 'melao', 'melão', 'cereais', 'ficha', 'atencao',
   'atenção', 'vencimento',
   'transversal', 'convergencia', 'convergência', 'olival', 'alfafa',
@@ -168,6 +174,13 @@ export const CROP_ALIASES = {
   Sunflower: ['girasole', 'sunflower', 'helianthus annuus'],
   Citrus: ['citrus', 'agrumi'],
   Peach: ['pesco', 'peach', 'prunus persica'],
+  /* The V2.1 id vocabulary names two more real crops the fixture never carried.
+     They belong here for the same reason Peach and Citrus already do: they are
+     crops, they have no canonical window, and a resolver that does not know a
+     crop reports it as UNMAPPED — which reads as a broken join rather than as
+     'this crop has no window in this package'. */
+  Pear: ['pero', 'pear', 'pyrus communis', 'pera'],
+  Kiwi: ['actinidia', 'kiwi', 'actinidia deliciosa', 'actinidia chinensis'],
 };
 /* Terms that name a GROUP, not a crop. They stay generic, on purpose. */
 export const GENERIC_CROP_TERMS = [
