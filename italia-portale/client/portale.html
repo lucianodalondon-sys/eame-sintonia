@@ -334,9 +334,9 @@
       <sc-if value="{{ cs.hasCase }}" hint-placeholder-val="{{ true }}">
       <div style="position:relative;overflow:hidden;border-radius:16px;border:1px solid {{ cs.category.dark }};background:{{ cs.category.dark }};padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px;align-items:center">
         <div style="display:flex;align-items:center;gap:16px;min-width:0">
-          <div style="display:flex;align-items:center;justify-content:center;width:70px;height:70px;border-radius:50%;background:{{ cs.category.color }};flex:0 0 70px"><span role="img" aria-label="{{ cs.category.label }}" style="display:inline-block;flex:0 0 auto;width:42px;height:42px;background:url({{ cs.category.icon }}) center/contain no-repeat"></span></div>
+          <sc-if value="{{ cs.hasCategory }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:center;justify-content:center;width:70px;height:70px;border-radius:50%;background:{{ cs.category.color }};flex:0 0 70px"><span role="img" aria-label="{{ cs.category.label }}" style="display:inline-block;flex:0 0 auto;width:42px;height:42px;background:url({{ cs.category.icon }}) center/contain no-repeat"></span></div></sc-if>
           <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;height:20px;padding:0 20px 0 12px;background:{{ cs.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ cs.catLabel }}</span><span style="display:inline-flex;align-items:center;height:22px;padding:0 16px;background:{{ cs.st.color }};clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em">{{ cs.statusLabel }}</span><sc-if value="{{ cs.convergenceL }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 12px;border-radius:9999px;background:{{ cs.convergenceBg }};border:1px solid {{ cs.convergenceInk }};color:{{ cs.convergenceInk }};font-size:8.5px;font-weight:700;letter-spacing:0.10em;white-space:nowrap">{{ cs.convergenceL }}</span></sc-if><sc-if value="{{ cs.archetypeL }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886;white-space:nowrap">{{ cs.archetypeL }}</span></sc-if><sc-if value="{{ cs.isScenario }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;background:rgba(245,179,23,0.16);border:1px solid #F5B317;color:#F5B317;font-size:8.5px;font-weight:700;letter-spacing:0.10em">{{ t.lblDemoScenario }}</span></sc-if><span style="font-size:10px;color:#E4E0DE">{{ t.lblUpdated }} {{ cs.updatedLabel }}</span></div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><sc-if value="{{ cs.hasCategory }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 20px 0 12px;background:{{ cs.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:#fff">{{ cs.catLabel }}</span></sc-if><span style="display:inline-flex;align-items:center;height:22px;padding:0 16px;background:{{ cs.st.color }};clip-path:polygon(9px 0,100% 0,calc(100% - 9px) 100%,0 100%);color:#fff;font-size:8.5px;font-weight:700;letter-spacing:0.09em">{{ cs.statusLabel }}</span><sc-if value="{{ cs.convergenceL }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 12px;border-radius:9999px;background:{{ cs.convergenceBg }};border:1px solid {{ cs.convergenceInk }};color:{{ cs.convergenceInk }};font-size:8.5px;font-weight:700;letter-spacing:0.10em;white-space:nowrap">{{ cs.convergenceL }}</span></sc-if><sc-if value="{{ cs.archetypeL }}" hint-placeholder-val="{{ true }}"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886;white-space:nowrap">{{ cs.archetypeL }}</span></sc-if><sc-if value="{{ cs.isScenario }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;background:rgba(245,179,23,0.16);border:1px solid #F5B317;color:#F5B317;font-size:8.5px;font-weight:700;letter-spacing:0.10em">{{ t.lblDemoScenario }}</span></sc-if><span style="font-size:10px;color:#E4E0DE">{{ t.lblUpdated }} {{ cs.updatedLabel }}</span></div>
             <h1 style="margin:0;font-size:34px;font-weight:300;line-height:0.98;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;color:#fff">{{ cs.issueL }}</h1>
             <div style="font-size:11.5px;color:#E4E0DE">{{ cs.latin }}</div>
             <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-size:17px;font-weight:600;color:#fff">{{ cs.cropL }}</span><span style="width:4px;height:4px;border-radius:50%;background:#6E6663"></span><span style="font-size:17px;color:#E4E0DE">{{ cs.regionLabel }}</span></div>
@@ -3485,9 +3485,29 @@ class Component extends DCLogic {
       : [];
     const csNames = ((csRec && csRec.adamaProducts) || []).slice();
     csLinked.forEach(n => { if (csNames.indexOf(n) < 0) csNames.push(n); });
+    /* IL VERDETTO E GIA STATO DATO A MONTE.
+       PRODUCT_LINKS porta, per ogni prodotto, la forza del legame che il motore
+       ha verificato sulla lettura di etichetta (VERIFIED_LABEL_MATCH,
+       RELATED_PORTFOLIO, LABEL_CHECK_NEEDED) e la via per cui l'ha risolto.
+       Questa schermata lo ricalcolava con strengthFor(nome, coltura, bersaglio),
+       ma la chiave del bersaglio e nulla su 37 casi su 37 — la tabella dei
+       sinonimi conosce solo le tre frasi legacy — quindi il ricalcolo non
+       trovava mai nulla, csPrimary restava vuoto e il markup nascondeva l'intera
+       lista sotto un'intestazione che annunciava «12 corrispondenze».
+
+           NEGARE UNA POSIZIONE CHE IL MOTORE HA VERIFICATO
+           E PIU GRAVE CHE NON MOSTRARLA.
+
+       Il verdetto del record vince; il ricalcolo resta come ripiego per i casi
+       legacy, che non hanno PRODUCT_LINKS. */
+    const csLinkStrength = {};
+    ((csRec && csRec.productLinks) || []).forEach((l) => {
+      const k = csFold(l.name || l.product);
+      if (k && l.strength && !csLinkStrength[k]) csLinkStrength[k] = l.strength;
+    });
     const csProds = csNames.map((n) => {
       const p = AM ? AM.findProduct(n) : null;
-      const v = (AM && csCropK && csIssueK) ? AM.strengthFor(n, csCropK, csIssueK) : null;
+      const v = csLinkStrength[csFold(n)] || ((AM && csCropK && csIssueK) ? AM.strengthFor(n, csCropK, csIssueK) : null);
       const moa = p && p.regulatory ? [].concat(p.regulatory.irac || [], p.regulatory.frac || [], p.regulatory.hrac || []).filter(Boolean) : [];
       return {
         name: n, verdict: v,
@@ -3537,6 +3557,16 @@ class Component extends DCLogic {
       : ((csRec && csRec.currentEvidenceList) || []).length;
     const csEvFam = (csRec && csRec.evidenceFamilies) || [];
     const csFresh = csRec && csRec.freshnessDays !== undefined && csRec.freshnessDays !== null ? csRec.freshnessDays : null;
+    /* CIO CHE IL CASO DICHIARA DA SE.
+       Il dettaglio nasce per i tre casi legacy, che vivevano tutti appesi a una
+       finestra canonica. I 37 record V2.1 portano invece le proprie date, la
+       propria eta e i propri giorni residui, e nessuno di questi campi veniva
+       letto: la schermata dichiarava assenti fatti che il record afferma. */
+    const csNum = (v) => (v === undefined || v === null || v === '') ? null : (typeof v === 'number' ? v : (isNaN(Number(v)) ? null : Number(v)));
+    const csRecWinStart = (csRec && csRec.windowStart) || null;
+    const csRecWinEnd = (csRec && csRec.windowEnd) || null;
+    const csRecDays = csRec ? csNum(csRec.daysRemaining) : null;
+    const csRecAge = csRec ? csNum(csRec.signalAgeDays) : null;
     const csDoc = csSafe(csRec && csRec.happeningDocument);
     const csObsDate = csRec ? csDay(csRec.observationDate) : null;
     /* regionKeys is the model's own parse of the compound REGION string against
@@ -3577,6 +3607,10 @@ class Component extends DCLogic {
       issue: csRec ? (csIssueTxt || csArchTxt || csT('awaiting')) : csT('notFound'), crop: csCropTxt, region: csRegion,
       category: csCat, catLabel: csCat.label ? String(L(csCat.label)).toUpperCase() : '',
       st: csStTok, badgeVariant: csCatKey === 'pest' ? 'pest-control' : 'disease-control',
+      /* La scheda gia nasconde chip e icona quando la categoria non e
+         classificata; il dettaglio li disegnava sempre — un guscio vuoto di
+         32px e un cerchio con background-image: url("") su 74 schermate. */
+      hasCategory: !!(csCat.label && csCat.icon),
       issueL: csRec ? (csIssueTxt || csArchTxt || csT('awaiting')) : csT('notFound'),
       /* «Vite × MOMENTO DI MERCATO» NON E UNA DOMANDA CHE SI PUO FARE.
          Il titolo di una scheda senza bersaglio ripiega sull'archetipo, ed e
@@ -3602,19 +3636,49 @@ class Component extends DCLogic {
       convergenceBg: (csRec && csRec.convergence) === 'VERIFIED_CONVERGENCE' ? 'rgba(0,177,82,0.14)'
         : (csRec && csRec.convergence) === 'TO_VALIDATE' ? 'rgba(245,179,23,0.14)' : 'transparent',
       archetypeL: csArchTxt,
-      latin: csIdent || '', cropL: csCropTxt, regionLabel: csRegion,
+      /* La riga sotto il titolo e lo slot del BINOMIO LATINO. Ci finiva la
+         stringa ISSUE del record: in italiano ripeteva il titolo parola per
+         parola, in inglese stampava l'italiano sotto il titolo inglese. Ora
+         compare solo quando dice qualcosa che il titolo non dice gia. */
+      latin: (csIdent && csFold(csIdent) !== csFold(csIssueTxt)) ? csIdent : '',
+      cropL: csCropTxt,
+      /* AMPIEZZA GEOGRAFICA · 30 casi su 37 non nominano una regione ma
+         dichiarano fino a dove arriva il fatto (NATIONAL / EUROPEAN). La
+         schermata mostrava l'etichetta «Regione» sopra il vuoto. */
+      regionLabel: csRegion || (csRec && csRec.geoScope ? ((T.V21 && T.V21[csRec.geoScope]) || '') : ''),
       /* FRESHNESS_DAYS is upstream's own number and it is the age of the SOURCE
          DOCUMENT (measured 17 / 18 / 6), not of an internal edit. The demo's
          `updated` integer, which claimed the second thing, is gone. */
-      updatedLabel: csFresh === null ? (T.ksNotKnown || '') : (csFresh + csT('ago')),
-      statusLabel: csStatus ? wst(csStatus) : (csRec && csRec.windowApplication ? csEnum(csRec.windowApplication) : ((T.WSTATUS && T.WSTATUS.DATE_UNKNOWN) || '')),
+      /* FRESHNESS_DAYS e nullo su 37 casi su 37, ma SIGNAL_AGE_DAYS e
+         SIGNAL_DATE sono reali su 25: la schermata diceva «aggiornato non
+         noto» sopra un caso che sa esattamente di quando e. */
+      updatedLabel: csFresh !== null ? (csFresh + csT('ago'))
+        : (csRecAge !== null) ? (csRecAge + csT('ago'))
+        : (csRec && csRec.signalDate && csDate(csRec.signalDate)) || (T.ksNotKnown || ''),
+      /* STATO PER ADAMA · il caso porta il proprio (ACT_NOW / PREPARE_NOW /
+         FUTURE_PREPARATION / TO_VALIDATE) e la scheda lo stampa correttamente.
+         Questa riga leggeva soltanto la finestra canonica, che e nulla su 37
+         casi su 37, e cadeva sempre nel ripiego «DATA DA CONFERMARE»: lo
+         stesso caso, a un clic di distanza, diceva due cose diverse. */
+      statusLabel: (csRec && csRec.status) ? oppStatusLabel(csRec.status)
+        : csStatus ? wst(csStatus)
+        : (csRec && csRec.windowApplication ? csEnum(csRec.windowApplication) : ((T.WSTATUS && T.WSTATUS.DATE_UNKNOWN) || '')),
       /* The dome bar draws two dates and a fill from the CANONICAL window. On a case with
          no canonical window (IT-OPP-003 of 3) it drew '—', a 0% fill and '—': a decorative
          empty gauge. progressPct is a string ('0%'), which is truthy, so the markup had
          nothing safe to test — hence this boolean. */
-      hasWindow: !!csWinRec, noWindow: !csWinRec,
-      wsLabel: (csWinRec && csDate(csWinRec.startDate)) || '—',
-      weLabel: (csWinRec && csDate(csWinRec.endDate)) || '—',
+      /* Il caso puo dichiarare la PROPRIA finestra (WINDOW_START / WINDOW_END /
+         WINDOW_STATE / DAYS_REMAINING) anche dove nessuna finestra canonica gli
+         e collegata. Leggere solo quella canonica faceva stampare «nessuna
+         finestra collegata» sopra date che il record dichiara: un'assenza
+         inventata, non misurata. */
+      hasWindow: !!(csWinRec || csRecWinStart || csRecWinEnd),
+      noWindow: !(csWinRec || csRecWinStart || csRecWinEnd),
+      wsLabel: (csWinRec && csDate(csWinRec.startDate)) || (csRecWinStart && csDate(csRecWinStart)) || '—',
+      weLabel: (csWinRec && csDate(csWinRec.endDate)) || (csRecWinEnd && csDate(csRecWinEnd)) || '—',
+      /* la precisione della data e essa stessa un fatto: EXACT non e APPROX */
+      windowPrecision: (csRec && csRec.windowState && !csWinRec)
+        ? ((T.V21 && T.V21[csRec.windowState]) || '') : '',
       /* The record's OWN declared window states are real 3/3 and survive even
          where no canonical window is linked, so the tile is never blank. */
       windowLine: (csRec && csRec.windowApplication)
@@ -3629,7 +3693,9 @@ class Component extends DCLogic {
          spray timing that no label record supports is the most consequential
          thing this screen could fabricate, so it states the check instead. */
       label: (T.PSTATE && T.PSTATE.LABEL_CHECK_NEEDED) || 'LABEL CHECK NEEDED',
-      bigNumber: (csStatus === 'WINDOW_OPEN' && csD1 !== null) ? csD1 : (csD0 !== null && csD0 > 0 ? csD0 : '—'),
+      bigNumber: (csStatus === 'WINDOW_OPEN' && csD1 !== null) ? csD1
+        : (csD0 !== null && csD0 > 0) ? csD0
+        : (csRecDays !== null && csRecDays > 0) ? csRecDays : '—',
       bigLabel: (csStatus === 'WINDOW_OPEN' && csD1 !== null) ? T.lblPriorityDays : (csD0 !== null && csD0 > 0 ? csT('toOpen') : (csWinRec ? csT('closedCycle') : csT('noWindow'))),
 
       /* §2 · The five-bar convergence chart and the words Strong / Good /
