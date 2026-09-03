@@ -180,7 +180,47 @@ O que ainda precisa do runner: a grade **completa** (esta rota entrega 6 itens p
 Chrome com janela entrega 12) e os **comentários**, que nenhuma rota gratuita entrega — e que
 continuam sendo o único motivo real de pagar.
 
-### A rota de voz que ABRIU, e o que ela custou
+### A rota que resolveu o que o Instagram não resolveu — e o que ela custou
+
+Depois de três lotes de Instagram renderem 5, 2 e 0, abri a camada de **áudio** como rota
+permanente (`scripts/it_audio.py`, API pública do Spreaker, sem chave).
+
+```
+PROGRAMAS DECLARADOS = 3 vivos  (+ 4 medidos e CONGELADOS, com a data que os reprova)
+EPISÓDIOS NA JANELA  = 13 em 90 dias
+ÁUDIO                = 19.058 s = 5,3 horas
+TRANSCRITO           = 286.395 caracteres · 2.118 s de máquina · 0,00 USD
+SINAL SÓ NA FALA     = 11 de 13  (84,6 %)
+```
+
+| rota | caracteres por objeto | sinal só na fala |
+|---|---|---|
+| Instagram V1 | ~1.100 | 5 de 28 = 17,9 % |
+| Instagram V2 | ~950 | 2 de 15 = 13,3 % |
+| Instagram V3 | ~840 | 0 de 5 |
+| **Podcast** | **~22.000** | **11 de 13 = 84,6 %** |
+
+**E a auditoria que eu fiz em cima da minha própria marca derruba a maior parte dela.** Abri
+as 11 marcas e li o trecho que produziu cada uma:
+
+- **8 de 11** são *inventário de cultura* — *"coltiviamo mais, frumento, erba medica"*.
+  **CULTURA CITADA ≠ SINAL DE CAMPO.**
+- **3 de 11** nomeiam *avversità*, que é o que aponta janela.
+- **1 é falso positivo do meu próprio vocabulário:** o regex de `FRUMENTO` é `\bgrano\b` e a
+  fala diz *"farro, sorgo, miglio e **grano saraceno**"* — trigo sarraceno é *Fagopyrum
+  esculentum*, não é trigo. Mesma família de *"sentiamo un bel pomodoro forte"* e de `LIGA`
+  vindo de *obbligatorio*.
+
+> **A taxa de 84,6 % é verdadeira e enganosa ao mesmo tempo.** Ela é alta porque o
+> denominador é a descrição do episódio, e a descrição do melhor episódio desta leva tem
+> **zero caracteres**. A medida certa seria contra **avversità**, não contra cultura — e essa
+> é a próxima correção da régua.
+
+**O que a rota entregou de fato:** um cruzamento defensável, `IT-X-2026-007`, por 5,3 horas
+de áudio e 35 minutos de máquina. Caro por cruzamento. E ainda assim infinitamente melhor
+que os três lotes de Instagram, que entregaram **zero**.
+
+### A primeira rota de voz que abriu, e o que ela custou
 
 | | |
 |---|---|
@@ -232,10 +272,10 @@ em 2,3 M de caracteres: `fenpropidin`, `bupirimate`, `mesotrione`, `florasulam`.
 ## 5 · CRUZAMENTOS
 
 ```
-NEW CROSSINGS = 6
-  por força do elo:  LINHA_DA_TABELA = 3 · SUBSTANCIA_ATIVA = 3
-  com evidência que existe SÓ NA FALA = 5 de 6
-NÃO CRUZADOS (com o motivo escrito) = 4
+NEW CROSSINGS = 7
+  por força do elo:  LINHA_DA_TABELA = 4 · SUBSTANCIA_ATIVA = 3
+  com evidência que existe SÓ NA FALA = 6 de 7
+NÃO CRUZADOS (com o motivo escrito) = 6
 
 SINAIS CANDIDATOS = 45 · TESTADOS ADVERSARIALMENTE = 24
 SOBREVIVERAM = 21 · REFUTADOS = 3
@@ -523,7 +563,7 @@ DO_NOT_MONITOR  =  1   um canal de concorrente MEDIDO e congelado desde 2023
 
 | estado | o quê |
 |---|---|
-| **INGESTIBLE_NOW** | as **90** fichas de fonte · os 6 cruzamentos · o enriquecimento das 5 · os **21 sinais que sobreviveram à refutação** · o índice dos 150 bollettini · a série da cimice · as transcrições de áudio e de 48 reels · os três lotes sociais congelados |
+| **INGESTIBLE_NOW** | as **90** fichas de fonte · os 7 cruzamentos · o enriquecimento das 5 · os **21 sinais que sobreviveram à refutação** · o índice dos 150 bollettini · a série da cimice · as transcrições de áudio e de 48 reels · os três lotes sociais congelados |
 | **NEEDS_VALIDATION** | o candidato `PATATA × ELATERIDI` · a reclassificação dos 62 canais · a correção de `SRC_IMAGE_LINE_COM` · a contradição `IT-CONTRA-001` |
 | **FUTURE** | grade completa de Instagram e comentários (precisam do runner) · mídia do YouTube (403 na saída) · os hosts em `NAO_ALCANCADAS` |
 | **REJECTED** | as 11 no código, com motivo, + 95 preservadas em bruto |
@@ -533,7 +573,7 @@ DO_NOT_MONITOR  =  1   um canal de concorrente MEDIDO e congelado desde 2023
 ## 12 · FINAL
 
 ```
-READY TO INGEST  = YES  — 90 fichas, 6 cruzamentos, 5 enriquecimentos, 21 sinais verificados
+READY TO INGEST  = YES  — 90 fichas, 7 cruzamentos, 5 enriquecimentos, 21 sinais verificados
 CANONICAL GUARDS = PASS — 329 testes, 0 falhas
                           DEDUPE de fontes: PASS
                           SOURCE_ID_COUNT: intacto em 36, deliberadamente

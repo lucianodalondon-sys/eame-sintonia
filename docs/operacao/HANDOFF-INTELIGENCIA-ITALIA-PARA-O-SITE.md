@@ -99,14 +99,22 @@ NEW NORMALIZED             = 102 objetos de vídeo pelo contrato voz.CAMPOS_VIDE
 
 NEW CLIENT-SAFE EVIDENCE   = 6 cruzamentos, todos com PROVES e DOES_NOT_PROVE escritos
 
-NEW VOICES                 = 9 objetos de áudio (SINTONIA_WHISPER_LOCAL)
-NEW TRANSCRIPTS            = 9 áudio  · 9.100 s · 130.935 caracteres · 0,00 USD
+NEW VOICES                 = 22 objetos de áudio (SINTONIA_WHISPER_LOCAL)
+                             30 contas de Instagram em 3 lotes congelados
+NEW TRANSCRIPTS            = 9 áudio V1 · 9.100 s · 130.935 caracteres · 0,00 USD
+                             13 áudio V2 · 19.058 s · 286.395 caracteres · 0,00 USD
+                             48 reels · 3.630 + 4.210 caracteres · 0,00 USD
                              18 vídeo · YOUTUBE_ASR_AUTO · 367.558 caracteres
-                             SINAL SÓ NA FALA: 6 de 9 no áudio, 10 de 18 no vídeo
+                             SINAL SÓ NA FALA: 6/9 e 11/13 no áudio, 10/18 no vídeo,
+                             7 de 48 nos reels
+                             AUDITADO: das 11 marcas do áudio V2, 8 são inventário de
+                             cultura, 3 nomeiam avversità e 1 é falso positivo do meu
+                             próprio vocabulário (`grano saraceno` lido como FRUMENTO)
 
-NEW CROSSINGS              = 6  (LINHA_DA_TABELA 3 · SUBSTANCIA_ATIVA 3)
-                             5 dos 6 têm evidência que existe SÓ NA FALA
-                             4 não-cruzamentos, com o motivo escrito
+NEW CROSSINGS              = 7  (LINHA_DA_TABELA 4 · SUBSTANCIA_ATIVA 3)
+                             6 dos 7 têm evidência que existe SÓ NA FALA
+                             6 não-cruzamentos, com o motivo escrito
+                             DOIS dos 7 ESFRIAM o caso em vez de esquentar
 
 NEW OPPORTUNITIES          = 0 promovidas. 0 mudanças de status. 0 mudanças de score.
 NEW CANDIDATES             = 1 proposto ao método: PATATA × ELATERIDI (Emilia-Romagna)
@@ -126,7 +134,7 @@ NEW CANDIDATES             = 1 proposto ao método: PATATA × ELATERIDI (Emilia-
 | `data/samples/IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json` | 21 sinais que sobreviveram à refutação adversarial (24 testados, 3 refutados) |
 | `data/samples/IT-INSTAGRAM-V3/` | 8 contas, 48 objetos, 6 vídeos, 5 transcritos |
 | `data/samples/IT-VOZ-AUDIO-V2/` | camada de áudio permanente (`scripts/it_audio.py`) |
-| `data/samples/IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json` | 6 cruzamentos, `CLIENT_SAFE: true` |
+| `data/samples/IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json` | **7** cruzamentos, `CLIENT_SAFE: true` |
 | `data/samples/IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json` | evidência nova para **5** das 9 confirmadas — e uma delas **esfria** o caso |
 | `data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-2026-INDICE.json` | índice dos 150 bollettini |
 | `data/samples/IT-CAMPO-V1/IT-CIMICE-TRAPPOLE-UNIBO-SERIE.json` | série numérica por província e estádio |
@@ -135,7 +143,8 @@ NEW CANDIDATES             = 1 proposto ao método: PATATA × ELATERIDI (Emilia-
 | `data/samples/IT-VIDEO-V1/` | 102 objetos, 18 falas, 10 sinais só-na-fala |
 
 **IDs citáveis:** fontes `IT-SRCX-001` … `IT-SRCX-090` · cruzamentos `IT-X-2026-001` …
-`IT-X-2026-006` · vídeos `YOUTUBE:<external_id>` · falas em `IT-VIDEO-V1/falas/<id>.json`.
+`IT-X-2026-007` · vídeos `YOUTUBE:<external_id>` · falas em `IT-VIDEO-V1/falas/<id>.json` ·
+episódios de áudio `SPREAKER:<episode_id>` em `IT-VOZ-AUDIO-V2/`.
 
 ### NEEDS_VALIDATION
 

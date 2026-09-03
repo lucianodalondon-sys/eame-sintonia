@@ -1,0 +1,75 @@
+{
+ "DATASET": "IT-VOZ-VEREDITO-AUDIO-V2",
+ "SOURCE": "medicao propria sobre IT-VOZ-AUDIO-V2, contra as tres levas de Instagram",
+ "SOURCE_ID": "IT-VOZ-VEREDITO-AUDIO-V2",
+ "CAPTURED_AT": "2026-09-03",
+ "VERDICT": "ROUTE_OPEN_AND_THE_CONTENT_IS_THERE — mas o rendimento util e menor do que a marca sugere",
+ "THE_SHORT_VERSION": "a rota de audio entrega o que tres lotes de Instagram nao entregaram: fala tecnica longa, com avversita nomeada, geografia declarada e produtor falando. E ela entrega MENOS do que o medidor diz — porque a marca de assunto conta cultura citada, e cultura citada nao e sinal de campo.",
+ "MEASURED": {
+  "INSTAGRAM_V1_organizacoes": {
+   "OBJETOS": 102,
+   "VIDEOS": 30,
+   "TRANSCRITOS": 28,
+   "AUDIO_S": 2557,
+   "CARACTERES": 37166,
+   "SO_NA_FALA": 5
+  },
+  "INSTAGRAM_V2_vozes_individuais": {
+   "OBJETOS": 30,
+   "VIDEOS": 15,
+   "TRANSCRITOS": 15,
+   "AUDIO_S": 1073,
+   "CARACTERES": 14320,
+   "SO_NA_FALA": 2
+  },
+  "INSTAGRAM_V3_organizacoes_com_ficha": {
+   "OBJETOS": 48,
+   "VIDEOS": 6,
+   "TRANSCRITOS": 5,
+   "AUDIO_S": 388,
+   "CARACTERES": 4210,
+   "SO_NA_FALA": 0
+  },
+  "AUDIO_V2_podcast": {
+   "EPISODIOS": 13,
+   "TRANSCRITOS": 13,
+   "AUDIO_S": 19058,
+   "CARACTERES": 286395,
+   "SO_NA_FALA": 11,
+   "MAQUINA_S": 2118,
+   "CUSTO_USD": 0
+  }
+ },
+ "A_COMPARACAO_QUE_IMPORTA": {
+  "CARACTERES_POR_OBJETO": {
+   "INSTAGRAM": "~1.100",
+   "PODCAST": "~22.000"
+  },
+  "TAXA_DE_SO_NA_FALA": {
+   "INSTAGRAM_V1": "5 de 28 (17,9%)",
+   "INSTAGRAM_V2": "2 de 15 (13,3%)",
+   "INSTAGRAM_V3": "0 de 5",
+   "PODCAST": "11 de 13 (84,6%)"
+  },
+  "POR_QUE": "nao e que o podcast seja \"melhor conteudo\". E que ele nao tem legenda: a descricao do episodio tem entre 0 e 750 caracteres, e a fala tem 22 mil. O denominador da medida de so-na-fala e a DESCRICAO, e quando a descricao e vazia a medida sobe por construcao. O episodio mais rico desta leva tem descricao de ZERO caracteres."
+ },
+ "A_AUDITORIA_QUE_DERRUBA_A_PROPRIA_MARCA": {
+  "O_QUE_EU_FIZ": "abri as 11 marcas de so-na-fala e li o trecho de cada uma, com o regex que a produziu, em vez de aceitar a contagem.",
+  "RESULTADO": {
+   "INVENTARIO_DE_CULTURA": 8,
+   "AVVERSITA_NOMEADA": 3,
+   "FALSO_POSITIVO_DO_MEU_VOCABULARIO": 1
+  },
+  "O_QUE_ISSO_SIGNIFICA": "em 8 dos 11 casos, o que a fala acrescenta e \"aqui plantamos mais, frumento e erba medica\" — inventario, e nao observacao. CULTURA CITADA != SINAL DE CAMPO.",
+  "O_FALSO_POSITIVO": "o regex de FRUMENTO e `\\bgrano\\b` e a fala diz \"farro, sorgo, miglio e GRANO SARACENO\". Trigo sarraceno e Fagopyrum esculentum, nao e trigo. Mesma familia de \"sentiamo un bel pomodoro forte\" na V2 do Instagram e de LIGA vindo de \"obbligatorio\" nos boletins. A PALAVRA EXISTE, O SIGNIFICADO NAO."
+ },
+ "O_QUE_A_ROTA_ENTREGOU_DE_FATO": {
+  "CRUZAMENTOS_NOVOS": 1,
+  "QUAL": "IT-X-2026-007 — VITE x peronospora, flavescenza dorada, oidio e tignoletta, em Rio Saliceto (Reggio Emilia)",
+  "E_ELE_ESFRIA": "a mesma fala que nomeia as quatro avversita diz que a azienda e biologica certificada desde 2024 e que a tignoletta \"e ormai un ricordo\" gracas a confusao sexual. Os 13 registros ADAMA que cruzam com essas avversita nao sao admitidos ali.",
+  "CUSTO_POR_CRUZAMENTO": "5,3 horas de audio e 35 minutos de maquina para UM cruzamento defensavel."
+ },
+ "FORBIDDEN_SENTENCE": "o podcast italiano rende 85% de sinal de campo",
+ "ALLOWED_SENTENCE": "nos 13 episodios desta janela de 90 dias, 11 acrescentaram assunto que a descricao nao tinha; desses 11, TRES nomeiam avversita e UM sustenta um cruzamento com par de rotulo, geografia e data",
+ "WHAT_WOULD_CHANGE_THE_ANSWER": "medir so-na-fala contra AVVERSITA, e nao contra CULTURA. A marca de cultura e barata e quase sempre positiva num podcast agricola; a de avversita e cara e rara, e e ela que aponta janela. O medidor atual nao separa as duas, e essa e a proxima correcao da regua."
+}

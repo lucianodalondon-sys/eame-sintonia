@@ -398,6 +398,101 @@ CRUZAMENTOS += [
         'PROVENANCE': 'REAL_SOURCE + SINTONIA_CROSSING',
         'CLIENT_SAFE': True,
     },
+
+    {
+        'ID': 'IT-X-2026-007',
+        'TITLE': 'Vite x quatro avversita nomeadas so na fala — e a mesma fala fecha a porta: '
+                 'a vinha e biologica desde 2024 e a tignoletta ja e "um recordo"',
+        'CROP': 'VITE',
+        'TARGET': 'PERONOSPORA · FLAVESCENZA DORATA (via SCAFOIDEO) · OIDIO · TIGNOLETTA (Lobesia botrana)',
+        'GEOGRAPHY': 'Emilia-Romagna — Rio Saliceto, provincia de Reggio Emilia',
+        'GEOGRAPHY_STATE': 'DECLARED_BY_THE_SPEAKER',
+        'WINDOW': '2026-06-09 (episodio publicado) — janela de 90 dias',
+        'SOURCES_CROSSED': 3,
+        'CROSSING_TYPE': 'PUBLIC_VOICE_TRANSCRIPT x ADAMA_LABEL_PAIR x SCIENTIFIC_VOICE',
+        'EVIDENCE': [
+            {'LAYER': 'PUBLIC_VOICE_TRANSCRIPT_ONLY',
+             'SOURCE': 'Terra di Denari (podcast, Spreaker show 6623075) — IT-SRCX-088',
+             'DOC': 'Episodio "Sotto controllo", 1.811 s, azienda das irmas Acerbi',
+             'DATE': '2026-06-09',
+             'QUOTE_IT': ('Si trovano a Rio Saliceto in provincia di Reggio Emilia. Il pilastro '
+                          'economico aziendale e la vigna, 39 ettari sparsi in diversi comuni. '
+                          '[...] Tutta l azienda e in biologico, compresa la vigna che e '
+                          'certificata dal 2024. [...] Il nemico numero uno si chiama Peronospora. '
+                          'Il vigneto poi si trova sfortunatamente nella zona colpita di recente '
+                          'dalla Flavescenza dorata e raramente devono anche combattere contro '
+                          'l oidio. Potendo utilizzare solo trattamenti specificamente ammessi nel '
+                          'biologico, si sono dovute organizzare. [...] la tignoletta per le '
+                          'sorelle Acerbi e ormai un ricordo. [...] La tecnica della confusione '
+                          'sessuale con la distribuzione di diffusori in vigna ha aiutato.'),
+             'ONLY_IN_TRANSCRIPT': True,
+             'WHY_ONLY_IN_TRANSCRIPT': ('a descricao do episodio na API do Spreaker tem ZERO '
+                                        'caracteres. A fala tem 26.200. Razao legenda:fala = 0:26.200. '
+                                        'Este e o caso limite do medidor: sem transcricao, este '
+                                        'episodio e invisivel.'),
+             'EVIDENCE_PATH': 'data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json#72418542'},
+            {'LAYER': 'SCIENTIFIC_VOICE_IN_THE_SAME_AUDIO',
+             'SOURCE': 'Andrea Lucchi, professor de entomologia geral e aplicada (entrevistado no episodio)',
+             'DOC': 'mesmo episodio, bloco sobre semioquimicos e confusao sexual',
+             'DATE': '2026-06-09',
+             'QUOTE_IT': ('le tignole grappolo... sono presenti in tutte le principali regioni '
+                          'vitivinicole del Nord e anche al Sud, in particolare in Puglia'),
+             'ONLY_IN_TRANSCRIPT': True,
+             'EVIDENCE_PATH': 'data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json#72418542'},
+            {'LAYER': 'ADAMA_LABEL_PAIR', 'SOURCE': 'rotulo autorizado, Ministero della Salute',
+             'DOC': '13 pares lidos, em dois niveis diferentes da escada',
+             'PAIRS': ['IT-LBL-326 LAMDEX EXTRA reg 008259 | VITE | TIGNOLE | LINHA_DA_TABELA',
+                       'IT-LBL-823 FORZA reg 013560 | VITE | TIGNOLE | LINHA_DA_TABELA',
+                       'IT-LBL-903 NINJA reg 013590 | VITE | TIGNOLE | LINHA_DA_TABELA',
+                       'IT-LBL-1371 DURAVIS reg 015275 | VITE | TIGNOLE | LINHA_DA_TABELA',
+                       'IT-LBL-1675 ELTIRA reg 017687 | VITE | TIGNOLE | LINHA_DA_TABELA',
+                       'IT-LBL-1343 CUSTODIA ULTRA reg 015232 | VITE | OIDIO (Uncinula necator) | LINHA_DA_TABELA',
+                       'IT-LBL-1852 MIRADOR TURBO reg 017824 | VITE | OIDIO (Uncinula necator) | LINHA_DA_TABELA',
+                       'IT-LBL-065 KLARTAN 20 EW reg 007555 | VITE | cicaline (Scaphoideus titanus) | BLOCO_DA_CULTURA',
+                       'IT-LBL-159 TAU AL 240 EW reg 007864 | VITE | cicaline (Scaphoideus titanus) | BLOCO_DA_CULTURA',
+                       'IT-LBL-466 MAVRIK SMART reg 009800 | VITE | cicaline (Scaphoideus titanus) | BLOCO_DA_CULTURA',
+                       'IT-LBL-658 KLARTAN SMART reg 012023 | VITE | cicaline (Scaphoideus titanus) | BLOCO_DA_CULTURA',
+                       'IT-LBL-1035 MAVRIK EW reg 014190 | VITE | cicaline (Scaphoideus titanus) | BLOCO_DA_CULTURA',
+                       'IT-LBL-1115 EVURE PRO reg 014210 | VITE | cicaline (Scaphoideus titanus) | BLOCO_DA_CULTURA'],
+             'LINK_STRENGTH': 'LINHA_DA_TABELA',
+             'QUOTE_FROM_LABEL': ('Vite (da vino e da tavola) Contro cicaline (Empoasca vitis, '
+                                  'Scaphoideus titanus) e tripidi — a citacao NOMEIA o vetor da '
+                                  'flavescenza dorada dentro do bloco da cultura.'),
+             'EVIDENCE_PATH': 'v21/productRelationships.json (pacote canonico V2.1), lido em 2026-09-03'},
+        ],
+        'ADAMA_RELATION': ('das quatro avversita que a produtora nomeia, TRES tem par de rotulo ADAMA em '
+                           'VITE: TIGNOLE em LINHA_DA_TABELA (5 registros), OIDIO em LINHA_DA_TABELA '
+                           '(2 registros) e o VETOR da flavescenza — Scaphoideus titanus — nomeado '
+                           'dentro do BLOCO_DA_CULTURA de 6 registros de tau-fluvalinate. '
+                           'FLAVESCENZA DORATA em si tem ZERO pares: nao se trata a doenca, trata-se '
+                           'o vetor, e e o vetor que esta no rotulo.'),
+        'WHY_THIS_CROSSING_COOLS_INSTEAD_OF_WARMING': (
+            'a mesma fala que nomeia as quatro avversita fecha a porta para as tres quimicas: '
+            '"Tutta l azienda e in biologico, compresa la vigna che e certificata dal 2024" e '
+            '"potendo utilizzare solo trattamenti specificamente ammessi nel biologico". Nenhum dos '
+            '13 registros ADAMA citados e admitido em regime biologico. E a tignoletta, o unico alvo '
+            'com cinco produtos em LINHA_DA_TABELA, e descrita como "ormai un ricordo" porque a '
+            'CONFUSAO SEXUAL resolveu — isto e, um metodo NAO QUIMICO ja ocupou o espaco. '
+            'ACHAR O ELO E AINDA ASSIM ESFRIAR O CASO E O COMPORTAMENTO CORRETO.'),
+        'OPPORTUNITY_LINK': ['nenhuma. Este cruzamento NAO e proposto como oportunidade.'],
+        'ACTION_MAP': ['SCIENCE_TECHNICAL'],
+        'PROVES': ('que em 2026-06-09 uma produtora de 39 ha de vinha em Rio Saliceto (Reggio Emilia) '
+                   'declarou publicamente, em audio, quatro avversita da vinha — peronospora como '
+                   '"nemico numero uno", zona atingida por flavescenza dorada, oidio ocasional e '
+                   'tignoletta —, e que a ADAMA tem 13 pares de rotulo em VITE para tres delas, '
+                   'incluindo a citacao que nomeia Scaphoideus titanus. E prova que a descricao '
+                   'publicada do episodio tem ZERO caracteres: sem transcricao, nada disso existe.'),
+        'DOES_NOT_PROVE': ('nao prova incidencia em Reggio Emilia nem na Emilia-Romagna: e UMA azienda, '
+                           'e uma voz. Nao prova demanda — prova o contrario, porque a azienda e '
+                           'biologica certificada e os 13 produtos citados nao sao admitidos ali. Nao '
+                           'prova que a flavescenza avanca: prova que a produtora diz estar "na zona '
+                           'atingida". E nao prova nada sobre a tignoletta em outras vinhas — a fala '
+                           'do professor Lucchi diz que ela esta em todas as regioes vitivinicolas do '
+                           'Norte e na Puglia, o que e uma afirmacao dele, e nao uma medicao desta casa. '
+                           'UMA VOZ NAO E UMA TENDENCIA.'),
+        'PROVENANCE': 'REAL_SOURCE + SINTONIA_CROSSING',
+        'CLIENT_SAFE': True,
+    },
 ]
 
 NAO_CRUZADOS = [
@@ -422,6 +517,24 @@ NAO_CRUZADOS = [
      'WHY': ('as capturas da cimice sao por provincia; a area de melo por provincia nao foi lida nesta '
              'missao. Sem denominador, ordenar provincias repetiria o erro que o indice de exposicao '
              'espanhol corrigiu — e o indice de exposicao ORDENA, nunca dimensiona.')},
+    {'PAIR': 'os outros 10 episodios de audio x portfolio ADAMA',
+     'WHY': ('a rota de audio marcou "sinal so na fala" em 11 dos 13 episodios, e a auditoria que fiz '
+             'em cima dessa marca derruba a maior parte dela: em 8 dos 11 o que a fala acrescenta e '
+             'INVENTARIO DE CULTURA ("coltiviamo mais, frumento, erba medica"), e nao observacao de '
+             'alvo, janela ou molecula. CULTURA CITADA != SINAL DE CAMPO. So 3 episodios nomeiam '
+             'avversita, e apenas um deles (IT-X-2026-007) tem geografia, data e par de rotulo.'),
+     'WHAT_IT_IS_INSTEAD': ('e a medida honesta do rendimento da rota: 13 episodios, 5,3 horas de audio, '
+                            '286.395 caracteres, 1 cruzamento. Caro por cruzamento, e ainda assim '
+                            'INFINITAMENTE melhor que os 3 lotes de Instagram, que deram ZERO.'),
+     'EVIDENCE': 'data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json'},
+    {'PAIR': 'FRUMENTO no episodio "Sotto controllo" x qualquer coisa',
+     'WHY': ('FALSO POSITIVO DO MEU PROPRIO VOCABULARIO, encontrado na auditoria e registrado aqui em '
+             'vez de apagado: o regex de FRUMENTO e `\\bgrano\\b`, e a fala diz "farro, sorgo, miglio '
+             'e GRANO SARACENO" — trigo sarraceno, que e Fagopyrum esculentum e nao e trigo. Mesma '
+             'familia de "sentiamo un bel pomodoro forte" (nota de degustacao de azeite lida como '
+             'POMODORO) e de LIGA vindo de "obbligatorio". '
+             'A PALAVRA EXISTE, O SIGNIFICADO NAO.'),
+     'EVIDENCE': 'data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json#72418542'},
     {'PAIR': 'comunicacao de concorrente x sinal de campo',
      'WHY': ('adama.com, syngenta.it/news e cropscience.bayer.it recusaram esta sessao com HTTP 403. '
              'ROUTE_BLOCKED_FOR_AUTOMATION != CATALOG_EMPTY: nao ha o que cruzar porque nao houve leitura.')},
