@@ -4638,7 +4638,11 @@ class Component extends DCLogic {
       const B = cnt(mc.crop);
       const rows = MK_OBS.filter((x) => x.cropKey === mc.crop);
       const live = rows.filter((x) => x.isCurrentSeries);
-      const N = B.observationCount, HAS = N > 0;
+      /* N era il numero di RECORD, e ogni frase sotto lo chiamava «righe di
+         prezzo». Per il pomodoro sono dodici record e zero prezzi. I due
+         numeri viaggiano ora separati, e ogni frase usa quello che le
+         compete: NP dove si parla di prezzi, N dove si parla di record. */
+      const N = B.observationCount, NP = B.priceCount || 0, HAS = N > 0;
       const tok = HAS ? MK_TOK.on : MK_TOK.off;
       const srcName = B.sourceName || (MK_SRC.length ? MK_SRC[0].name : '—');
       const srcFreq = mkFreq(B.sourceFrequency || (MK_SRC.length ? MK_SRC[0].frequency : null));
@@ -4670,12 +4674,14 @@ class Component extends DCLogic {
          reason or a market effect. The six fixture drivers per crop are gone. */
       const noStage = rows.filter((x) => !x.hasStage).length, noPub = rows.filter((x) => !x.hasPublicationDate).length;
       const tiles = HAS ? [
-        { d: String(N), t: mkIT ? 'OSSERVAZIONI' : 'OBSERVATIONS', v: mkIT ? 'righe di prezzo settimanali ingerite' : 'weekly price rows ingested' },
+        { d: String(NP), t: mkIT ? 'OSSERVAZIONI DI PREZZO' : 'PRICE OBSERVATIONS',
+          v: NP === N ? (mkIT ? 'righe di prezzo settimanali ingerite' : 'weekly price rows ingested')
+            : (mkIT ? 'su ' + N + ' record di mercato: le altre non portano prezzo' : 'of ' + N + ' market records: the rest carry no price') },
         { d: String(B.piazzaCount), t: mkIT ? 'PIAZZE' : 'MARKETS', v: mkIT ? 'mercati distinti quotati' : 'distinct quoted markets' },
         { d: String(B.productDefinitions.length), t: mkIT ? 'DEFINIZIONI DI PRODOTTO' : 'PRODUCT DEFINITIONS',
           v: B.productDefinitions.length ? (mkIT ? 'non confrontabili tra loro' : 'not comparable with each other') : (mkIT ? 'il prodotto non è dichiarato sulla riga ingerita' : 'the ingested row declares no product') },
         { d: String(B.units.length), t: mkIT ? 'UNITÀ DI MISURA' : 'UNITS', v: B.units.join(' · ') || '—' },
-        { d: String(B.stoppedCount), t: mkIT ? 'SERIE FERME' : 'STOPPED SERIES',
+        { d: String(B.stoppedCount), t: mkIT ? 'SERIE FERME DICHIARATE' : 'DECLARED STOPPED SERIES',
           v: B.stoppedCount ? (mkIT ? 'ultima quotazione ' + B.stoppedYears.join(', ') + ' · non è un prezzo attuale' : 'last quote ' + B.stoppedYears.join(', ') + ' · not a current price') : (mkIT ? 'tutte le serie sono correnti' : 'every series is current') },
         { d: String(noStage), t: mkIT ? 'SENZA STADIO' : 'STAGE MISSING', v: mkIT ? 'righe su ' + N + ' senza il punto di filiera del prezzo' : 'of ' + N + ' rows with no chain stage for the price' },
       ] : [
@@ -4789,9 +4795,11 @@ class Component extends DCLogic {
 
       const gaps = [];
       if (HAS) {
-        gaps.push(mkIT ? N + ' righe di prezzo settimanali da una sola fonte (' + srcName + '); nessuna seconda fonte conferma questi valori' : N + ' weekly price rows from a single source (' + srcName + '); no second source confirms these values');
+        gaps.push(mkIT ? NP + ' righe di prezzo settimanali da una sola fonte (' + srcName + '); nessuna seconda fonte conferma questi valori' : NP + ' weekly price rows from a single source (' + srcName + '); no second source confirms these values');
         gaps.push(mkIT ? 'Di ogni serie è ingerita solo l’ultima riga, anche dove la fonte dichiara centinaia di punti a monte: non c’è storico su cui disegnare un andamento' : 'Only the latest row of each series is ingested, even where the source reports hundreds of points upstream: there is no history to draw a trend from');
-        if (B.stoppedCount) gaps.push(mkIT ? B.stoppedCount + ' righe su ' + N + ' stanno su serie ferme (' + B.stoppedYears.join(', ') + '): la loro ultima quotazione non è un prezzo attuale' : B.stoppedCount + ' of ' + N + ' rows sit on stopped series (' + B.stoppedYears.join(', ') + '): their last quote is not a current price');
+        if (B.stoppedCount) gaps.push(mkIT ? B.stoppedCount + ' righe su ' + NP + ' stanno su serie dichiarate ferme' + (B.stoppedYears.length ? ' (' + B.stoppedYears.join(', ') + ')' : '') + ': la loro ultima quotazione non è un prezzo attuale' : B.stoppedCount + ' of ' + NP + ' rows sit on series declared stopped' + (B.stoppedYears.length ? ' (' + B.stoppedYears.join(', ') + ')' : '') + ': their last quote is not a current price');
+        /* i record senza prezzo esistono e vanno detti, non contati come prezzi */
+        if (B.undeclaredCount) gaps.push(mkIT ? B.undeclaredCount + ' record di mercato su ' + N + ' non portano prezzo, unità né periodo: sono nel corpus, non sono osservazioni di prezzo' : B.undeclaredCount + ' market records of ' + N + ' carry no price, unit or period: they are in the corpus, they are not price observations');
         if (B.productDefinitions.length > 1) gaps.push(mkIT ? B.productDefinitions.length + ' definizioni di prodotto distinte: non sono confrontabili e non vanno mediate' : B.productDefinitions.length + ' distinct product definitions: they are not comparable and must not be averaged');
         if (!B.productDefinitions.length) gaps.push(mkIT ? 'La riga ingerita non dichiara un prodotto, quindi non si sa a quale definizione il prezzo si riferisca' : 'The ingested row declares no product, so which definition the price refers to is unknown');
         if (noStage) gaps.push(mkIT ? 'STAGE assente su ' + noStage + ' righe su ' + N + ': il punto della filiera a cui il prezzo si riferisce è ignoto' : 'STAGE missing on ' + noStage + ' of ' + N + ' rows: the chain stage the price refers to is unknown');
@@ -4807,7 +4815,7 @@ class Component extends DCLogic {
 
       const why = [];
       why.push(HAS
-        ? (mkIT ? N + ' osservazioni di prezzo ingerite da ' + srcName + (B.latestPeriodEnd ? ', ultima settimana di riferimento ' + mkDay(B.latestPeriodEnd) + '.' : ', nessuna serie corrente.') : N + ' price observations ingested from ' + srcName + (B.latestPeriodEnd ? ', latest reference week ' + mkDay(B.latestPeriodEnd) + '.' : ', no current series.'))
+        ? (mkIT ? NP + ' osservazioni di prezzo ingerite da ' + srcName + (B.latestPeriodEnd ? ', ultima settimana di riferimento ' + mkDay(B.latestPeriodEnd) + '.' : ', nessuna serie corrente.') : NP + ' price observations ingested from ' + srcName + (B.latestPeriodEnd ? ', latest reference week ' + mkDay(B.latestPeriodEnd) + '.' : ', no current series.'))
         : (mkIT ? 'Nessuna osservazione di prezzo è ingerita per questa coltura.' : 'No price observation is ingested for this crop.'));
       why.push(mkIT
         ? mWinAll.length + ' finestre agronomiche canoniche per questa coltura, ' + openCount + ' aperte al ' + (AM ? AM.referenceDate : '') + '.'
@@ -4867,7 +4875,7 @@ class Component extends DCLogic {
         regional: {
           state: HAS ? (B.piazzaCount + (mkIT ? ' PIAZZE' : ' MARKETS')) : mkNotIngested,
           note: HAS
-            ? (mkIT ? 'Ogni riga è una singola osservazione settimanale, l’ultima disponibile per quella piazza. Non c’è media e non c’è indice. ' + B.stoppedCount + ' righe su ' + N + ' stanno su serie ferme e la loro ultima quotazione non è un prezzo attuale.' : 'Each row is a single weekly observation, the latest available for that market. There is no average and no index. ' + B.stoppedCount + ' of ' + N + ' rows sit on stopped series and their last quote is not a current price.')
+            ? (mkIT ? 'Ogni riga è una singola osservazione settimanale, l’ultima disponibile per quella piazza. Non c’è media e non c’è indice. ' + B.stoppedCount + ' righe su ' + NP + ' stanno su serie dichiarate ferme e la loro ultima quotazione non è un prezzo attuale.' : 'Each row is a single weekly observation, the latest available for that market. There is no average and no index. ' + B.stoppedCount + ' of ' + NP + ' rows sit on series declared stopped and their last quote is not a current price.')
             : (mkIT ? 'Nessuna piazza quotata per questa coltura in questo pacchetto.' : 'No quoted market for this crop in this package.'),
           source: srcName,
         },
@@ -4908,14 +4916,20 @@ class Component extends DCLogic {
     const cpMarketObj = (() => {
       const yes = mkIT ? 'SÌ' : 'YES', part = mkIT ? 'PARZIALE' : 'PARTIAL', no = 'NO', dash = '—';
       const none = mkIT ? 'nessuna serie ingerita' : 'no series ingested';
+      /* Stessa correzione su scala nazionale: `n` erano i record e `stopped`
+         sommava le serie davvero ferme con quelle mai dichiarate, quindi la
+         riga leggeva «157 righe ingerite, 92 su serie ferme» dove le ferme
+         accertate sono dodici e le righe con un prezzo sono settantasette. */
       const n = MK_OBS.length;
+      const np = MK_OBS.filter((x) => x.hasPrice).length;
       const withPrev = MK_OBS.filter((x) => x.changeVsPrev !== null && x.changeVsPrev !== undefined).length;
-      const stopped = MK_OBS.filter((x) => !x.isCurrentSeries).length;
+      const stopped = MK_OBS.filter((x) => x.isStoppedSeries).length;
+      const undeclared = MK_OBS.filter((x) => x.seriesState === 'NOT_DECLARED').length;
       const src0 = MK_SRC.length ? MK_SRC[0] : null;
       const srcN = src0 ? src0.name : dash, srcF = mkFreq(src0 ? src0.frequency : null);
       const table = [
         [mkIT ? 'PREZZO PER PIAZZA' : 'PRICE BY MARKET', yes, srcN, srcF, mkIT ? 'Italia · piazza' : 'Italy · market',
-          mkIT ? n + ' righe ingerite, ' + stopped + ' su serie ferme; le piazze non sono intercambiabili' : n + ' rows ingested, ' + stopped + ' on stopped series; markets are not interchangeable'],
+          mkIT ? np + ' righe di prezzo su ' + n + ' record ingeriti · ' + stopped + ' su serie dichiarate ferme, ' + undeclared + ' senza prezzo; le piazze non sono intercambiabili' : np + ' price rows of ' + n + ' records ingested · ' + stopped + ' on series declared stopped, ' + undeclared + ' with no price; markets are not interchangeable'],
         [mkIT ? 'MOMENTUM DI PREZZO' : 'PRICE MOMENTUM', part, srcN, srcF, mkIT ? 'piazza' : 'market',
           mkIT ? 'valido solo dentro una serie; variazione presente su ' + withPrev + ' righe su ' + n : 'valid only inside one series; change present on ' + withPrev + ' of ' + n + ' rows'],
         [mkIT ? 'SERIE STORICA' : 'PRICE HISTORY', no, dash, dash, dash,
@@ -4947,7 +4961,7 @@ class Component extends DCLogic {
         metrics: [],
         feasibility: table.map((p) => ({ field: p[0], status: p[1], statusColor: p[1] === yes ? '#00B152' : p[1] === part ? '#F89E18' : '#8F8886', source: p[2], cadence: p[3], geo: p[4], limit: p[5] })),
         sources: MK_SRC.map((x) => ({ name: x.name, cadence: mkFreq(x.frequency), geo: x.geography || x.country || '—',
-          role: mkIT ? n + ' osservazioni di prezzo ingerite · ultima osservazione dichiarata dalla fonte ' + (x.latestObservation || '—') : n + ' price observations ingested · source-declared latest observation ' + (x.latestObservation || '—') })),
+          role: mkIT ? np + ' osservazioni di prezzo ingerite · ultima osservazione dichiarata dalla fonte ' + (x.latestObservation || '—') : np + ' price observations ingested · source-declared latest observation ' + (x.latestObservation || '—') })),
       };
     })();
     /* §7 · ADAMA Product Intelligence — the product as an entity.

@@ -2260,7 +2260,21 @@
         publicationDateISO: isoOf(m.PUBLICATION_DATE), geography: v21S(m.GEOGRAPHY),
         cropKey, seriesKey, periodStart, periodEnd,
         daysSinceObservation: periodEnd ? daysFrom(periodEnd) : null,
+        /* UN RECORD DI MERCATO NON E UN'OSSERVAZIONE DI PREZZO.
+           Ottanta record su 157 non portano prezzo, ne unita, ne periodo, ne
+           stato di serie. `isCurrentSeries` faceva l'ultimo passo sbagliato:
+           «stato assente» cadeva su «non corrente», cioe la schermata
+           dichiarava FERMA una serie di cui non sa nulla, e stampava «serie
+           ferma dal null» perche nemmeno l'anno esisteva.
+
+               NON SAPERE SE UNA SERIE E CORRENTE
+               NON E SAPERE CHE E FERMA.
+
+           Tre stati, non due, e un campo che dice se c'e davvero un prezzo. */
+        hasPrice: N(m.PRICE_NUM) !== null || !!v21S(m.PRICE_RAW),
+        seriesState: U(m.SERIES_STATE) ? (U(m.SERIES_STATE) === 'CORRENTE' ? 'CURRENT' : 'STOPPED') : 'NOT_DECLARED',
         isCurrentSeries: U(m.SERIES_STATE) === 'CORRENTE',
+        isStoppedSeries: !!U(m.SERIES_STATE) && U(m.SERIES_STATE) !== 'CORRENTE',
         stoppedYear: stopped ? Number(stopped[1]) : null,
         /* PARADA_EM_2015 is a STATE and a YEAR welded into one token, so it is
            not a closed vocabulary and cannot have a dictionary entry: a series
@@ -2269,7 +2283,9 @@
         hasStage: !!v21S(m.STAGE), hasPublicationDate: !!v21S(m.PUBLICATION_DATE),
         prevPrice: N(m.PREV_PRICE_NUM), changeVsPrev: N(m.CHANGE_VS_PREV_PCT),
         yearAgoPrice: N(m.YEAR_AGO_PRICE_NUM), changeVsYearAgo: N(m.CHANGE_VS_YEAR_AGO_PCT),
-        seriesState: U(m.SERIES_STATE) === 'CORRENTE' ? 'CURRENT' : stopped ? 'STOPPED' : null,
+        /* la riga che assegnava di nuovo seriesState, e che rimetteva `null`
+           dove ora c'e NOT_DECLARED, e stata tolta: due assegnazioni dello
+           stesso campo nello stesso oggetto, e vinceva la seconda. */
         seriesStateRaw: v21S(m.SERIES_STATE),
         seriesWarning: null,
         seriesWarningText: v21Text(m, 'SERIES_WARNING'),
@@ -2311,7 +2327,11 @@
           cropKey, seriesKey,
           periodStart, periodEnd,
           daysSinceObservation: periodEnd ? daysFrom(periodEnd) : null,
+          /* stessa legge dell'altro adattatore: assenza non e fermata. */
+          hasPrice: N(m.PRICE_NUM) !== null || !!v21S(m.PRICE_RAW),
+          seriesState: U(m.SERIES_STATE) ? (U(m.SERIES_STATE) === 'CORRENTE' ? 'CURRENT' : 'STOPPED') : 'NOT_DECLARED',
           isCurrentSeries: U(m.SERIES_STATE) === 'CORRENTE',
+          isStoppedSeries: !!U(m.SERIES_STATE) && U(m.SERIES_STATE) !== 'CORRENTE',
           stoppedYear: stopped ? Number(stopped[1]) : null,
           /* STAGE and PUBLICATION_DATE are present on only 40 of 77 rows, and
              the four observed stages are different points in the chain. Rows
@@ -3145,9 +3165,24 @@
         cropKey: crop, cropName: crop,
         marketViewKey: MARKET_VIEW_KEY[crop] || null,
         hasData: recs.length > 0,
+        /* TRE NUMERI, NON UNO.
+           `observationCount` contava OGNI record e la schermata lo chiamava
+           «righe di prezzo settimanali ingerite»: per il pomodoro diceva 12
+           righe di prezzo dove i prezzi sono zero. E `stoppedCount` contava
+           tutto cio che non era dichiarato corrente, quindi sommava le serie
+           davvero ferme con quelle di cui non si sa nulla, e stampava «serie
+           ferma dal null» perche l'anno non c'era.
+
+               UN RECORD DI MERCATO NON E UN'OSSERVAZIONE DI PREZZO.
+               E NON SAPERE NON E SAPERE DI NO.
+
+           I record restano tutti: nessuno viene buttato per non avere prezzo. */
         observationCount: recs.length,
+        priceCount: recs.filter((m) => m.hasPrice).length,
+        hasPrices: recs.some((m) => m.hasPrice),
         currentCount: current.length,
-        stoppedCount: recs.filter((m) => !m.isCurrentSeries).length,
+        stoppedCount: recs.filter((m) => m.isStoppedSeries).length,
+        undeclaredCount: recs.filter((m) => m.seriesState === 'NOT_DECLARED').length,
         stoppedYears: uniq(recs.map((m) => m.stoppedYear).filter(Boolean)).sort(),
         /* distinct named trading places, not a coverage claim */
         piazzaCount: uniq(recs.map((m) => m.market)).length,
