@@ -260,18 +260,187 @@ def score(dim):
     return sum(min(2, max(0, v)) for v in dim.values())
 
 
-def estado_temporal(dias, arquetipo, tem_janela):
-    if arquetipo == 'O5_REGULATORY_PREPARATION':
-        return 'FUTURE_PREPARATION'
-    if not tem_janela or dias is None:
-        return 'WATCH'
-    if 0 <= dias <= 30:
-        return 'ACT_NOW'
-    if 30 < dias <= 120:
-        return 'PREPARE_NOW'
-    if dias > 120:
-        return 'FUTURE_PREPARATION'
-    return 'WATCH'
+# ── O ESTADO DE AÇÃO, E A CADEIA QUE «AGORA» EXIGE ──────────────────────────
+#
+# O defeito medido: a tela mostrava, no MESMO cartão, `ACT NOW` e «no canonical
+# window linked». Os dois vinham do mesmo motor. `ACT_NOW` estava sendo emitido
+# a partir da IDADE DO SINAL — «o boletim é de ontem» — e não da existência de
+# uma janela de aplicação.
+#
+#     A DATA DO BOLETIM DIZ QUE O SINAL É CORRENTE.
+#     ELA NÃO DIZ QUANDO SE PULVERIZA. SÃO DOIS RELÓGIOS.
+#
+# `ACT_NOW` passa a exigir os QUATRO ELOS, e o cartão publica quais fecharam:
+#
+#     SINAL ATUAL + JANELA COMPATÍVEL + VÍNCULO COM PORTFÓLIO + TEMPO PARA AÇÃO
+#
+# Sem janela, o estado honesto NÃO é `WATCH` — o serviço mandou intervir, e
+# ignorar isso seria outra mentira, de sinal contrário. É `VALIDATE_NOW`: há
+# necessidade declarada e produto ligado, e o que falta é a janela desta região.
+#
+#     O QUE FALTA TEM NOME. «NÃO SEI» COM ENDEREÇO É TRABALHO; SEM ENDEREÇO,
+#     É DESCULPA.
+ACT_NOW = 'ACT_NOW'
+PREPARE_NOW = 'PREPARE_NOW'
+FUTURE_PREPARATION = 'FUTURE_PREPARATION'
+VALIDATE_NOW = 'VALIDATE_NOW'
+WATCH = 'WATCH'
+TO_VALIDATE = 'TO_VALIDATE'
+
+ESTADOS_DE_ACAO = (ACT_NOW, PREPARE_NOW, FUTURE_PREPARATION, VALIDATE_NOW,
+                   WATCH, TO_VALIDATE)
+
+# Quantos dias de sinal ainda contam como «corrente». É o mesmo corte que o
+# portão C já usava para recusar caso sem tempo: não é limiar novo.
+SINAL_CORRENTE_DIAS = 30
+SINAL_RECENTE_DIAS = 120
+
+ELOS = ('SINAL_ATUAL', 'JANELA_COMPATIVEL', 'VINCULO_COM_PORTFOLIO',
+        'TEMPO_PARA_ACAO')
+
+ELO_EXIGE = {
+    'SINAL_ATUAL': 'um sinal de campo datado nos ultimos %d dias, cuja direcao '
+                   'declarada manda agir' % SINAL_CORRENTE_DIAS,
+    'JANELA_COMPATIVEL': 'uma janela de APLICACAO lida de campo declarado, '
+                         'para esta cultura, este alvo e esta regiao',
+    'VINCULO_COM_PORTFOLIO': 'rotulo ministerial no par cultura x alvo E '
+                             'produto no catalogo comercial',
+    'TEMPO_PARA_ACAO': 'a janela ainda nao fechou, e fecha dentro de %d dias'
+                       % SINAL_CORRENTE_DIAS,
+}
+
+
+def elos_de_agora(o):
+    """→ {elo: bool}. A cadeia factual que `ACT_NOW` exige, elo a elo."""
+    idade = o.get('SIGNAL_AGE_DAYS')
+    dias = o.get('DAYS_REMAINING')
+    return {
+        'SINAL_ATUAL': (idade is not None and idade <= SINAL_CORRENTE_DIAS
+                        and o.get('NEED_DIRECTION') in CM.NECESSIDADE_POSITIVA),
+        'JANELA_COMPATIVEL': (o.get('WINDOW_KIND') == 'APPLICATION'
+                              and o.get('WINDOW_STATE') != 'UNKNOWN'),
+        'VINCULO_COM_PORTFOLIO': (bool(o.get('TARGET'))
+                                  and o.get('PRODUCT_LINK_STATE') == VERIFIED_LABEL_MATCH
+                                  and (o.get('COMMERCIAL_PRODUCT_COUNT') or 0) > 0),
+        'TEMPO_PARA_ACAO': (dias is not None and 0 <= dias <= SINAL_CORRENTE_DIAS),
+    }
+
+
+def estado_de_acao(o):
+    """→ (estado, elos). Nenhum estado sai de soma de pontos nem de idade so.
+
+    ⚠️ A ORDEM É LEI, não estilo: quem manda PARAR é lido antes de qualquer
+    coisa que mande agir, e a janela é lida antes da urgência.
+    """
+    elos = elos_de_agora(o)
+    if o.get('ARCHETYPE') == 'O5_REGULATORY_PREPARATION':
+        return FUTURE_PREPARATION, elos
+    if all(elos.values()):
+        return ACT_NOW, elos
+    dias = o.get('DAYS_REMAINING')
+    if elos['JANELA_COMPATIVEL'] and dias is not None:
+        if 0 <= dias <= SINAL_CORRENTE_DIAS:
+            # a janela esta aberta mas falta outro elo: nao e «agora» ainda
+            return VALIDATE_NOW if elos['VINCULO_COM_PORTFOLIO'] else WATCH, elos
+        if SINAL_CORRENTE_DIAS < dias <= SINAL_RECENTE_DIAS:
+            return PREPARE_NOW, elos
+        if dias > SINAL_RECENTE_DIAS:
+            return FUTURE_PREPARATION, elos
+        return WATCH, elos                     # janela fechada
+    # sem janela: o que falta tem nome
+    if elos['SINAL_ATUAL'] and elos['VINCULO_COM_PORTFOLIO']:
+        return VALIDATE_NOW, elos
+    return WATCH, elos
+
+
+# ── E · QUEM DENTRO DA ADAMA FAZ O QUÊ ──────────────────────────────────────
+#
+# Um mapa de departamentos que sempre chama todo mundo não é um mapa: é uma lista
+# de e-mails. Cada departamento aqui só é convocado por um FATO, e o fato vai
+# junto. `SUPPLY` é o caso mais estrito, e de propósito — convocar Supply sem
+# base factual é a forma mais curta de transformar leitura externa em previsão
+# de demanda, que é o que este motor nunca pode fazer.
+#
+#     PRESSÃO AGRONÔMICA NÃO É PEDIDO. CONVOCAR SUPPLY SEM FATO É INVENTAR UM.
+DEPARTAMENTOS = ('MARKET_DEVELOPMENT', 'COMMERCIAL', 'MARKETING',
+                 'TECHNICAL_SCIENTIFIC', 'SUPPLY')
+
+
+def acao_por_departamento(o, elos):
+    """→ {departamento: {ACTION, WHY_CODE}}. Código, nunca frase com variável."""
+    tem_alvo = bool(o.get('TARGET'))
+    externo = o.get('EXTERNAL_MATERIAL_READY')
+    prioridade = o.get('COMMERCIAL_PRIORITY')
+    faltam = [e for e in ELOS if not elos[e]]
+
+    if not elos['JANELA_COMPATIVEL'] and elos['SINAL_ATUAL']:
+        md = ('VALIDATE_WINDOW_IN_REGION', 'SEM_JANELA_COMPATIVEL')
+    elif elos['SINAL_ATUAL'] and tem_alvo:
+        md = ('CONFIRM_RECOMMENDATION_IN_FIELD', 'SINAL_ATUAL_COM_ALVO')
+    else:
+        md = ('NO_MOVEMENT', 'SEM_SINAL_ATUAL')
+
+    if o.get('STATUS') == ACT_NOW:
+        com = ('CONTACT_NOW', 'CADEIA_COMPLETA')
+    elif o.get('STATUS') == PREPARE_NOW:
+        com = ('PREPARE', 'JANELA_FUTURA')
+    elif prioridade in ('SALES_READY', 'SALES_PREPARE'):
+        com = ('PREPARE', 'PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO')
+    else:
+        com = ('NO_MOVEMENT', 'SEM_PRIORIDADE_COMERCIAL')
+
+    if externo == 'YES':
+        mkt = ('MESSAGE_AVAILABLE', 'EXTERNAL_MATERIAL_READY')
+    elif externo == 'VALIDATION_REQUIRED':
+        mkt = ('PREPARE_INTERNAL_ONLY', 'EXTERNAL_BLOCKED')
+    else:
+        mkt = ('NO_MOVEMENT', 'NAO_AUTORIZADO_A_SAIR')
+
+    if not elos['JANELA_COMPATIVEL']:
+        tec = ('ESTABLISH_APPLICATION_WINDOW', 'SEM_JANELA_COMPATIVEL')
+    elif o.get('NEED_AMBIGUITY_CODES'):
+        tec = ('RESOLVE_AMBIGUOUS_DIRECTION', 'DIRECAO_AMBIGUA')
+    elif o.get('MODE_OF_ACTION_STATE') != 'CLASSIFIED':
+        tec = ('CLASSIFY_MODE_OF_ACTION', 'MOA_NAO_CLASSIFICADO')
+    else:
+        tec = ('NO_MOVEMENT', 'NADA_A_VALIDAR')
+
+    # ⚠️ SUPPLY só entra com fato publicado. Não existe «demanda esperada» aqui.
+    if o.get('PRODUCT_RESTRICTIONS'):
+        sup = ('WATCH_REGULATORY_DATE', 'DATA_REGULATORIA_EM_ATIVO_LIGADO')
+    else:
+        sup = ('NOT_CONVENED', 'SEM_BASE_FACTUAL')
+
+    par = dict(zip(DEPARTAMENTOS, (md, com, mkt, tec, sup)))
+    return {d: {'ACTION': a, 'WHY_CODE': w, 'MISSING_LINKS': faltam}
+            for d, (a, w) in par.items()}
+
+
+def cadeia_de_agora(o, elos, apoios):
+    """→ (codigos, cadeia). Obrigatorio para ACT_NOW; util para os outros.
+
+    A cadeia nomeia o QUE sustenta cada elo, com identificador — nao com
+    adjetivo. Um `ACT_NOW` sem cadeia completa nao existe.
+    """
+    janela = [a['ID'] for a in apoios if a.get('ENTITY_TYPE') == 'CROP_WINDOW']
+    sinais = [a['ID'] for a in apoios if a.get('ENTITY_TYPE') == 'FIELD_SIGNAL']
+    cadeia = {
+        'SINAL_ATUAL': {'OK': elos['SINAL_ATUAL'],
+                        'EVIDENCE': ([o['NEED_EVIDENCE_ID']]
+                                     if o.get('NEED_EVIDENCE_ID') else sinais[:3]),
+                        'FACT': o.get('SIGNAL_DATE')},
+        'JANELA_COMPATIVEL': {'OK': elos['JANELA_COMPATIVEL'],
+                              'EVIDENCE': janela[:3],
+                              'FACT': o.get('WINDOW_FIELD')},
+        'VINCULO_COM_PORTFOLIO': {'OK': elos['VINCULO_COM_PORTFOLIO'],
+                                  'EVIDENCE': o.get('MATCHED_COMMERCIAL_PRODUCT_IDS') or [],
+                                  'FACT': o.get('PRODUCT_LINK_STATE')},
+        'TEMPO_PARA_ACAO': {'OK': elos['TEMPO_PARA_ACAO'],
+                            'EVIDENCE': janela[:3],
+                            'FACT': o.get('DAYS_REMAINING')},
+    }
+    faltam = ['SEM_' + e for e in ELOS if not elos[e]]
+    return (['CADEIA_COMPLETA'] if not faltam else faltam), cadeia
 
 
 # Quem OBSERVA um fato no mundo, e por isso responde pela geografia da
@@ -546,26 +715,130 @@ def main():
                          'so nao atribui direcao a nenhum deles: fica UNKNOWN, '
                          'com o motivo em NEED_AMBIGUITY.')
 
-        # ── tempo comercial: só janela de APLICAÇÃO conta ─────────────────────
+        # ── OS DOIS RELÓGIOS, SEPARADOS ──────────────────────────────────────
+        #
+        # A lei impressa neste mesmo campo já dizia: «sem janela de aplicação, a
+        # data do documento diz apenas se o sinal é corrente». O CÓDIGO dizia
+        # outra coisa — caía na idade do sinal e chamava aquilo de `ACT_NOW`.
+        # Era assim que nascia o cartão com `ACT NOW` e «no canonical window
+        # linked» lado a lado.
+        #
+        #     LEI IMPRESSA QUE O CÓDIGO NÃO CUMPRE É PIOR QUE LEI NENHUMA:
+        #     ELA FAZ QUEM LÊ CONFIAR NO NÚMERO ERRADO.
+        #
+        # Agora `COMMERCIAL_WINDOW` só existe se houver janela de APLICAÇÃO, e a
+        # recência do sinal vive à parte, com nome próprio.
         if o.get('WINDOW_KIND') == 'APPLICATION' and o.get('DAYS_REMAINING') is not None:
             d = o['DAYS_REMAINING']
-            c['COMMERCIAL_WINDOW'] = ('ACT_NOW' if 0 <= d <= 30 else
-                                      'PREPARE_NOW' if 30 < d <= 120 else
-                                      'FUTURE' if d > 120 else 'UNKNOWN')
+            c['COMMERCIAL_WINDOW'] = ('ACT_NOW' if 0 <= d <= SINAL_CORRENTE_DIAS else
+                                      'PREPARE_NOW' if SINAL_CORRENTE_DIAS < d <= SINAL_RECENTE_DIAS else
+                                      'FUTURE' if d > SINAL_RECENTE_DIAS else 'CLOSED')
             c['COMMERCIAL_WINDOW_FROM'] = o.get('WINDOW_FIELD')
-        elif o.get('SIGNAL_AGE_DAYS') is not None:
-            a = o['SIGNAL_AGE_DAYS']
-            c['COMMERCIAL_WINDOW'] = ('ACT_NOW' if a <= 30 else
-                                      'PREPARE_NOW' if a <= 120 else 'FUTURE')
-            c['COMMERCIAL_WINDOW_FROM'] = 'SIGNAL_DATE'
         else:
             c['COMMERCIAL_WINDOW'] = 'UNKNOWN'
             c['COMMERCIAL_WINDOW_FROM'] = None
+        idade = o.get('SIGNAL_AGE_DAYS')
+        c['SIGNAL_CURRENCY'] = ('UNKNOWN' if idade is None else
+                                'CURRENT' if idade <= SINAL_CORRENTE_DIAS else
+                                'RECENT' if idade <= SINAL_RECENTE_DIAS else 'OLD')
+        # QUAL relogio declarou o momento. Nunca os dois com o mesmo nome.
+        c['COMMERCIAL_TIMING_BASIS'] = (
+            'APPLICATION_WINDOW' if c['COMMERCIAL_WINDOW'] in ('ACT_NOW', 'PREPARE_NOW')
+            else 'CURRENT_SOURCE_RECOMMENDATION'
+            if (c['SIGNAL_CURRENCY'] == 'CURRENT'
+                and c.get('NEED_DIRECTION') in CM.NECESSIDADE_POSITIVA)
+            else 'NONE')
         c['COMMERCIAL_WINDOW_LAW'] = (
             'so janela de APLICACAO conta como tempo comercial. '
             'PREPARATION_WINDOW e data de ato — quando sai o decreto — e nao '
-            'quando se pulveriza. Sem janela de aplicacao, a data do documento '
-            'diz apenas se o sinal e corrente.')
+            'quando se pulveriza. Sem janela de aplicacao isto fica UNKNOWN: a '
+            'data do documento responde SIGNAL_CURRENCY, que e outra pergunta.')
+
+        # ── O QUE O PRODUTO É · modo de acao, dose e restricao ────────────────
+        # Tudo isto ja estava no acervo, ligado por NUMERO DE REGISTRO — a mesma
+        # juncao que o catalogo comercial ja usa. A tela dizia «mode of action =
+        # not known» porque o CARTAO nao carregava o campo, nao porque o acervo
+        # nao soubesse.
+        #
+        #     «NÃO SEI» DITO POR QUEM NÃO FOI OLHAR NÃO É «NÃO SEI»: É DESCUIDO.
+        ativos, frac, restricoes = {}, set(), {}
+        for r in rotulos:
+            for pai in ai_por_prod.get(CM.num(r.get('REGISTRATION_NUMBER')), []):
+                a = ai_por_id.get(pai.get('ACTIVE_INGREDIENT_ID'))
+                if not a:
+                    continue
+                ativos[a['ID']] = a.get('NAME')
+                if a.get('FRAC'):
+                    frac.add('FRAC ' + str(a['FRAC']))
+                if a.get('IRAC'):
+                    frac.add('IRAC ' + str(a['IRAC']))
+                if a.get('HRAC'):
+                    frac.add('HRAC ' + str(a['HRAC']))
+                if a.get('EU_EXPIRATION_OF_APPROVAL'):
+                    # a mesma substancia chega por varios rotulos: o FATO e um so
+                    restricoes[a['ID']] = {
+                        'CODE': 'EU_APPROVAL_EXPIRES',
+                        'ACTIVE_INGREDIENT': a.get('NAME'),
+                        'DATE': a['EU_EXPIRATION_OF_APPROVAL'],
+                        'EVIDENCE_ID': a['ID']}
+        c['ACTIVE_INGREDIENT_IDS'] = sorted(ativos)
+        c['ACTIVE_INGREDIENT_NAMES'] = sorted(v for v in ativos.values() if v)
+        c['MODE_OF_ACTION_CODES'] = sorted(frac)
+        c['MODE_OF_ACTION_STATE'] = 'CLASSIFIED' if frac else 'UNKNOWN'
+        c['PRODUCT_RESTRICTIONS'] = [restricoes[k] for k in sorted(restricoes)]
+        c['PRODUCT_RESTRICTIONS_LAW'] = (
+            'restricao aqui e FATO PUBLICADO com data e fonte — expiracao de '
+            'aprovacao europeia, por exemplo. Expiracao NAO e retirada, nao e '
+            'risco e nao e oportunidade: e uma data no Jornal Oficial.')
+        # A dose e o modo de emprego estao na FRASE DO ROTULO, e e assim que
+        # viajam: citacao, nao campo estruturado. Estruturar «100-150 ml/hl»
+        # seria interpretar bula, e bula nao se interpreta por regex.
+        c['LABEL_QUOTES'] = [q for q in (r.get('QUOTE_FROM_LABEL')
+                                         for r in rotulos[:3]) if q]
+        c['APPLICATION_STATE'] = ('QUOTED_ON_LABEL' if c['LABEL_QUOTES']
+                                  else 'UNKNOWN')
+
+        # ── TAMANHO · so dimensao defensavel, nunca dinheiro ─────────────────
+        sinais = [a for a in apoios if a.get('ENTITY_TYPE') == 'FIELD_SIGNAL']
+        fontes = {(a.get('SOURCE_IDS') or [None])[0] for a in sinais} - {None}
+        area = [e for e in econ_crop.get(o.get('CROP'), [])
+                if e.get('INDICATOR') == 'AREA'
+                and o.get('GEOGRAPHY') in (e.get('REGION_IDS') or [])]
+        dim = {'SINAIS_DE_CAMPO': len(sinais),
+               'FONTES_INDEPENDENTES': len(fontes),
+               'REGIOES_DO_PAR': None,
+               'AREA_OFICIAL_HA': (area[0].get('VALUE') if area else None),
+               'AREA_EVIDENCE_ID': (area[0].get('ID') if area else None)}
+        c['COMMERCIAL_MAGNITUDE_DIMENSIONS'] = dim
+        c['COMMERCIAL_MAGNITUDE'] = ('UNKNOWN' if not (dim['SINAIS_DE_CAMPO'] or
+                                                       dim['AREA_OFICIAL_HA'])
+                                     else 'MEASURED_BY_DIMENSION')
+        c['COMMERCIAL_MAGNITUDE_LAW'] = (
+            'NAO ha TAM, SAM nem dinheiro: nao ha fonte para eles. O tamanho '
+            'aqui e o que se pode contar — sinais, fontes independentes e area '
+            'oficial quando existe linha client-safe. Sem nenhuma dessas, '
+            'UNKNOWN.')
+
+        # ── AS QUATRO CONFIANÇAS, SEPARADAS ──────────────────────────────────
+        # Uma confianca so obriga a media entre coisas que nao se somam: o sinal
+        # pode ser forte e a janela inexistente, e a media esconderia as duas.
+        c['SIGNAL_CONFIDENCE'] = (
+            'ALTA' if len(fontes) >= 2 and c['SIGNAL_CURRENCY'] == 'CURRENT' else
+            'MEDIA' if sinais and c['SIGNAL_CURRENCY'] in ('CURRENT', 'RECENT')
+            else 'BAIXA')
+        c['WINDOW_CONFIDENCE'] = (
+            'ALTA' if o.get('WINDOW_KIND') == 'APPLICATION' else
+            'MEDIA' if o.get('WINDOW_KIND') else 'NENHUMA')
+        c['PRODUCT_MATCH_CONFIDENCE'] = (
+            'ALTA' if (o.get('PRODUCT_LINK_STATE') == VERIFIED_LABEL_MATCH
+                       and c['COMMERCIAL_PRODUCT_COUNT']) else
+            'MEDIA' if o.get('PRODUCT_LINK_STATE') == VERIFIED_LABEL_MATCH
+            else 'BAIXA')
+        c['CONFIDENCE_LAW'] = (
+            'quatro perguntas diferentes, quatro respostas. SIGNAL fala do que '
+            'foi observado; WINDOW, de quando agir; PRODUCT_MATCH, do vinculo '
+            'com o portfolio; COMMERCIAL_READINESS e COMMERCIAL_PRIORITY, que '
+            'vive ao lado. Media entre elas escondia justamente a que faltava.')
         return c
 
     brutos, rejeitados = [], []
@@ -597,11 +870,17 @@ def main():
              'SCORE_DIMENSIONS': dim, 'OPPORTUNITY_SCORE': score(dim),
              'ACTION_MAP': acao}
         o.update(camada_comercial(o, apoios, rotulos, pinos))
-        o['STATUS'] = estado_temporal(dias, arquetipo, jest != 'UNKNOWN')
-        if o['STATUS'] == 'WATCH' and sidade is not None and sidade <= 30:
-            o['STATUS'] = 'ACT_NOW'
-        elif o['STATUS'] == 'WATCH' and sidade is not None and sidade <= 120:
-            o['STATUS'] = 'PREPARE_NOW'
+        # ⚠️ O estado de acao sai da CADEIA, nunca da idade do sinal sozinha.
+        o['STATUS'], elos = estado_de_acao(o)
+        o['ACTION_CHAIN_LINKS'] = {k: bool(v) for k, v in elos.items()}
+        codigos, cadeia = cadeia_de_agora(o, elos, apoios)
+        o['WHY_NOW_CODES'] = codigos
+        o['WHY_NOW_CHAIN'] = cadeia
+        o['WHY_NOW_LAW'] = (
+            'ACT_NOW so existe com os quatro elos fechados: sinal atual, janela '
+            'compativel, vinculo com portfolio e tempo para agir. Sem janela nao '
+            'ha ACT_NOW — ha VALIDATE_NOW, que diz o que falta. A idade do '
+            'boletim vive em SIGNAL_CURRENCY e nunca substitui a janela.')
         falhas = portoes(o, apoios)
         o['OPPORTUNITY_STATE'] = CONFIRMADA if not falhas else CANDIDATA
         o['BLOCKING_GATES'] = falhas
@@ -629,7 +908,7 @@ def main():
         # COMMERCIAL_PRODUCT_COUNT — frase com variável dentro nunca fica
         # traduzida, e este projeto já perdeu duas traduções assim.
         o['WHY_COMMERCIAL_CODES'] = codigos
-        o['WHY_COMMERCIAL'] = ' '.join(CM.RAZAO[c] for c in codigos)
+        o['WHY_COMMERCIAL'] = CM.frase(codigos)
         o['COMMERCIAL_DOES_NOT_PROVE'] = CM.NAO_PROVA
         # ── e a terceira pergunta: isto pode SAIR de casa? ────────────────────
         # SALES_READY e decisao interna. Enviar a um revendedor ou a um RTV e
@@ -644,6 +923,15 @@ def main():
             'mesma categoria e nao promove ninguem de categoria. E nao ha numero '
             'minimo de familias externas: corroboracao e amplificador, nao '
             'contador cego.')
+        # ⚠️ O mapa de departamentos e o ULTIMO: ele le as tres colunas e o
+        # estado de acao ja fechados. Calcula-lo antes seria convocar gente com
+        # base num estado que ainda ia mudar.
+        o['ACTION_BY_DEPARTMENT'] = acao_por_departamento(o, elos)
+        o['ACTION_BY_DEPARTMENT_LAW'] = (
+            'cada departamento e convocado por um FATO, e o fato vai junto em '
+            'WHY_CODE. SUPPLY so entra com data regulatoria publicada sobre '
+            'ativo ligado ao caso: pressao agronomica NAO e pedido, e convocar '
+            'Supply sem fato seria inventar demanda.')
         brutos.append((o, apoios))
 
     # ══ O1 · PRESSÃO DE CAMPO ════════════════════════════════════════════════
@@ -811,6 +1099,19 @@ def main():
                 'ADAMA': 2 if rot else 0, 'MULTI_SOURCE': 2, 'ACTIONABILITY': 1},
                ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT'], rotulos=rot)
 
+    # ── D · a extensao regional do par, que so se sabe olhando todos ─────────
+    # Quantas regioes distintas trazem ESTE par cultura x alvo. E dimensao de
+    # tamanho — recorrencia geografica — e nao se pode calcular caso a caso:
+    # depende do conjunto. Por isso e a ultima coisa que o motor preenche.
+    regioes = defaultdict(set)
+    for o, _ev in brutos:
+        if o.get('TARGET'):
+            regioes[(o['CROP'], o['TARGET'])].add(o['GEOGRAPHY'])
+    for o, _ev in brutos:
+        d = o.get('COMMERCIAL_MAGNITUDE_DIMENSIONS')
+        if d is not None:
+            d['REGIOES_DO_PAR'] = (len(regioes[(o['CROP'], o['TARGET'])])
+                                   if o.get('TARGET') else None)
     return brutos, rejeitados, C, cs
 
 
@@ -857,9 +1158,34 @@ def gravar(brutos, C, cs):
             'OPPORTUNITY_LABEL_IT': it, 'OPPORTUNITY_LABEL_EN': en,
             'ARCHETYPE': o['ARCHETYPE'], 'ARCHETYPE_MEANS': ARQ[o['ARCHETYPE']],
             'STATUS': o['STATUS'],
-            'STATUS_LAW': 'o estado e INTERPRETACAO SINTONIA derivada de data externa. '
-                          'Nunca infere demanda de revenda, sell-in, estoque, pedido nem '
-                          'pipeline interno.',
+            'STATUS_LAW': 'o estado e INTERPRETACAO SINTONIA derivada da CADEIA de '
+                          'quatro elos, nunca da idade do sinal sozinha. Nunca infere '
+                          'demanda de revenda, sell-in, estoque, pedido nem pipeline '
+                          'interno.',
+            'ACTION_CHAIN_LINKS': o['ACTION_CHAIN_LINKS'],
+            'ACTION_CHAIN_REQUIRES': ELO_EXIGE,
+            'WHY_NOW_CODES': o['WHY_NOW_CODES'],
+            'WHY_NOW_CHAIN': o['WHY_NOW_CHAIN'],
+            'WHY_NOW_LAW': o['WHY_NOW_LAW'],
+            'SIGNAL_CURRENCY': o['SIGNAL_CURRENCY'],
+            'COMMERCIAL_TIMING_BASIS': o['COMMERCIAL_TIMING_BASIS'],
+            'ACTIVE_INGREDIENT_IDS': o['ACTIVE_INGREDIENT_IDS'],
+            'ACTIVE_INGREDIENT_NAMES': o['ACTIVE_INGREDIENT_NAMES'],
+            'MODE_OF_ACTION_CODES': o['MODE_OF_ACTION_CODES'],
+            'MODE_OF_ACTION_STATE': o['MODE_OF_ACTION_STATE'],
+            'APPLICATION_STATE': o['APPLICATION_STATE'],
+            'LABEL_QUOTES': o['LABEL_QUOTES'],
+            'PRODUCT_RESTRICTIONS': o['PRODUCT_RESTRICTIONS'],
+            'PRODUCT_RESTRICTIONS_LAW': o['PRODUCT_RESTRICTIONS_LAW'],
+            'COMMERCIAL_MAGNITUDE': o['COMMERCIAL_MAGNITUDE'],
+            'COMMERCIAL_MAGNITUDE_DIMENSIONS': o['COMMERCIAL_MAGNITUDE_DIMENSIONS'],
+            'COMMERCIAL_MAGNITUDE_LAW': o['COMMERCIAL_MAGNITUDE_LAW'],
+            'SIGNAL_CONFIDENCE': o['SIGNAL_CONFIDENCE'],
+            'WINDOW_CONFIDENCE': o['WINDOW_CONFIDENCE'],
+            'PRODUCT_MATCH_CONFIDENCE': o['PRODUCT_MATCH_CONFIDENCE'],
+            'CONFIDENCE_LAW': o['CONFIDENCE_LAW'],
+            'ACTION_BY_DEPARTMENT': o['ACTION_BY_DEPARTMENT'],
+            'ACTION_BY_DEPARTMENT_LAW': o['ACTION_BY_DEPARTMENT_LAW'],
             'CROP': o['CROP'], 'TARGET': o['TARGET'], 'GEOGRAPHY': o['GEOGRAPHY'],
             'WINDOW_START': o['WINDOW_START'], 'WINDOW_END': o['WINDOW_END'],
             'DAYS_REMAINING': o['DAYS_REMAINING'], 'WINDOW_STATE': o['WINDOW_STATE'],
@@ -995,8 +1321,14 @@ if __name__ == '__main__':
     json.dump({'ARQUETIPOS': ARQ, 'PORTOES': list('ABCDEFGH'),
                'ESTADOS_DE_PRODUTO': [VERIFIED_LABEL_MATCH, RELATED_PORTFOLIO,
                                       LABEL_CHECK_NEEDED],
-               'ESTADOS_TEMPORAIS': ['ACT_NOW', 'PREPARE_NOW', 'WATCH',
-                                     'FUTURE_PREPARATION', 'TO_VALIDATE'],
+               'ESTADOS_DE_ACAO': list(ESTADOS_DE_ACAO),
+               'ESTADOS_DE_ACAO_LEI': (
+                   'ACT_NOW exige os quatro elos de ACTION_CHAIN_REQUIRES. '
+                   'VALIDATE_NOW e o estado de quem tem necessidade declarada e '
+                   'produto ligado e NAO tem janela: o que falta tem nome. '
+                   'A idade do sinal vive em SIGNAL_CURRENCY e nunca vira '
+                   'janela.'),
+               'ACTION_CHAIN_REQUIRES': ELO_EXIGE,
                'PRIORIDADES_COMERCIAIS': {p: CM.SIGNIFICADO[p]
                                           for p in CM.PRIORIDADES},
                'DIRECOES_DE_NECESSIDADE': NE.ESTADOS,

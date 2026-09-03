@@ -1,0 +1,173 @@
+{
+ "COLLECTION": "V113-FICHA-DA-TESTEMUNHA",
+ "SOURCE": "build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/OPPORTUNITIES.json · BUILD_ID V21-473db7a54b90c382",
+ "CAPTURED_AT": "2026-09-03",
+ "LAW": "toda resposta sai de um campo do pacote. Nenhuma e escrita aqui, e o que falta aparece com o nome do que falta.",
+ "BUILD_ID": "V21-473db7a54b90c382",
+ "FICHA": {
+  "ID": "OPP_5F31A63F844D",
+  "O_QUE_SABEMOS": {
+   "CULTURA": "CROP_GRAPEVINE",
+   "ALVO": "ISSUE_BOTRYTIS",
+   "REGIAO": "REGION_EMILIA_ROMAGNA",
+   "DIRECAO_DO_SINAL": "POSITIVE_PRESSURE",
+   "FRASE_DA_FONTE": "Vite/botrite: intervir em pre-colheita com Fenhexamid (max 2) ou alternativas biologicas.",
+   "FONTE_DA_FRASE": "IT-PHEN-001",
+   "METODO_DO_PAR": "PAIR_IN_SAME_CLAUSE",
+   "DATA_DO_SINAL": "2026-09-01",
+   "RECENCIA": "CURRENT",
+   "SINAIS_DE_CAMPO": 8,
+   "FONTES_INDEPENDENTES": 3,
+   "REGIOES_DO_MESMO_PAR": 2
+  },
+  "O_QUE_NAO_SABEMOS": {
+   "ELOS_QUE_FALTAM": [
+    "JANELA_COMPATIVEL",
+    "TEMPO_PARA_ACAO"
+   ],
+   "JANELA_DE_APLICACAO": "NAO SEI — nenhuma janela declara esta cultura, este alvo e esta regiao",
+   "AREA_OFICIAL": "NAO SEI — nenhuma linha ISTAT client-safe para o par",
+   "INTENSIDADE": "NAO SEI — boletim declara ocorrencia, nao incidencia",
+   "AMBIGUIDADE_DE_DIRECAO": "nenhuma"
+  },
+  "POR_QUE_E_OU_NAO_E_OPORTUNIDADE": {
+   "COMMERCIAL_PRIORITY": "SALES_READY",
+   "RAZOES": [
+    "ALL_GATES_CLOSE",
+    "TIME_FROM_SOURCE_RECOMMENDATION"
+   ],
+   "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+   "PORTOES_ABERTOS": "nenhum",
+   "NAO_PROVA": "NÃO prova demanda de revenda, sell-in, sell-out, pedido, estoque, margem, pipeline nem intenção de compra. Nada aqui vem de dado interno da ADAMA. Pressão agronômica é oportunidade comercial externa a examinar — não é demanda."
+  },
+  "QUAL_PRODUTO": {
+   "ROTULO_MINISTERIAL": [
+    "AGHARTA",
+    "BANJO",
+    "EMBRACE"
+   ],
+   "NO_CATALOGO_COMERCIAL": [
+    "BANJO"
+   ],
+   "FORCA_DO_VINCULO": "VERIFIED_LABEL_MATCH",
+   "CONFIANCA_DO_VINCULO": "ALTA",
+   "SUBSTANCIA_ATIVA": [
+    "FLUAZINAM"
+   ],
+   "MODO_DE_ACAO": [
+    "FRAC 29"
+   ],
+   "MODO_DE_EMPREGO": "QUOTED_ON_LABEL",
+   "CITACAO_DO_ROTULO": [
+    "Vite (da vino): applicare preventivamente alla dose di 100-150 ml/hl senza superare la dose massima di 1,5 L/ha per il c ontrollo della peronospora (Plasmopara viticola) e della muffa grigia ( Botrytis cinerea ). È consentita una sola applicazione all’anno. Contro peronospora è possibile intervenire"
+   ],
+   "RESTRICOES": [
+    {
+     "CODE": "EU_APPROVAL_EXPIRES",
+     "ACTIVE_INGREDIENT": "FLUAZINAM",
+     "DATE": "2027-11-30",
+     "EVIDENCE_ID": "AI_FLUAZINAM"
+    }
+   ]
+  },
+  "QUAL_E_A_JANELA": {
+   "WINDOW_STATE": "UNKNOWN",
+   "WINDOW_KIND": null,
+   "DIAS_RESTANTES": null,
+   "COMMERCIAL_WINDOW": "UNKNOWN",
+   "BASE_DO_TEMPO": "CURRENT_SOURCE_RECOMMENDATION",
+   "CONFIANCA_DA_JANELA": "NENHUMA"
+  },
+  "QUAL_E_A_ACAO": {
+   "STATUS": "VALIDATE_NOW",
+   "POR_DEPARTAMENTO": {
+    "MARKET_DEVELOPMENT": "VALIDATE_WINDOW_IN_REGION",
+    "COMMERCIAL": "PREPARE",
+    "MARKETING": "MESSAGE_AVAILABLE",
+    "TECHNICAL_SCIENTIFIC": "ESTABLISH_APPLICATION_WINDOW",
+    "SUPPLY": "WATCH_REGULATORY_DATE"
+   }
+  },
+  "POR_QUE_AGORA": {
+   "CODIGOS": [
+    "SEM_JANELA_COMPATIVEL",
+    "SEM_TEMPO_PARA_ACAO"
+   ],
+   "CADEIA": {
+    "SINAL_ATUAL": {
+     "OK": true,
+     "EVIDENCE": [
+      "IT-PHEN-001"
+     ],
+     "FACT": "2026-09-01"
+    },
+    "JANELA_COMPATIVEL": {
+     "OK": false,
+     "EVIDENCE": [],
+     "FACT": null
+    },
+    "VINCULO_COM_PORTFOLIO": {
+     "OK": true,
+     "EVIDENCE": [
+      "CATPRD_BANJO"
+     ],
+     "FACT": "VERIFIED_LABEL_MATCH"
+    },
+    "TEMPO_PARA_ACAO": {
+     "OK": false,
+     "EVIDENCE": [],
+     "FACT": null
+    }
+   }
+  },
+  "QUEM_DEVE_AGIR": {
+   "MARKET_DEVELOPMENT": {
+    "ACTION": "VALIDATE_WINDOW_IN_REGION",
+    "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+    "MISSING_LINKS": [
+     "JANELA_COMPATIVEL",
+     "TEMPO_PARA_ACAO"
+    ]
+   },
+   "COMMERCIAL": {
+    "ACTION": "PREPARE",
+    "WHY_CODE": "PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO",
+    "MISSING_LINKS": [
+     "JANELA_COMPATIVEL",
+     "TEMPO_PARA_ACAO"
+    ]
+   },
+   "MARKETING": {
+    "ACTION": "MESSAGE_AVAILABLE",
+    "WHY_CODE": "EXTERNAL_MATERIAL_READY",
+    "MISSING_LINKS": [
+     "JANELA_COMPATIVEL",
+     "TEMPO_PARA_ACAO"
+    ]
+   },
+   "TECHNICAL_SCIENTIFIC": {
+    "ACTION": "ESTABLISH_APPLICATION_WINDOW",
+    "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+    "MISSING_LINKS": [
+     "JANELA_COMPATIVEL",
+     "TEMPO_PARA_ACAO"
+    ]
+   },
+   "SUPPLY": {
+    "ACTION": "WATCH_REGULATORY_DATE",
+    "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+    "MISSING_LINKS": [
+     "JANELA_COMPATIVEL",
+     "TEMPO_PARA_ACAO"
+    ]
+   }
+  },
+  "CONFIANCAS": {
+   "SINAL": "ALTA",
+   "JANELA": "NENHUMA",
+   "PRODUTO": "ALTA",
+   "PRONTIDAO_COMERCIAL": "SALES_READY",
+   "SAIDA_EXTERNA": "YES"
+  }
+ }
+}

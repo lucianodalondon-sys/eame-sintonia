@@ -91,6 +91,13 @@ RAZAO = {
                             'afirmação não se sustenta no apoio que a carrega.',
  'ALL_GATES_CLOSE': 'necessidade positiva corrente, produto do catálogo com '
                     'rótulo no par, geografia que se sustenta e tempo para agir.',
+ 'TIME_FROM_APPLICATION_WINDOW': 'e o tempo vem de uma janela de aplicação com '
+                                 'datas — ver COMMERCIAL_WINDOW.',
+ 'TIME_FROM_SOURCE_RECOMMENDATION': 'e o tempo vem da recomendação corrente da '
+                                    'própria fonte, que não traz datas de '
+                                    'calendário — ver NEED_EXCERPT e '
+                                    'SIGNAL_CURRENCY. Isto NÃO é janela de '
+                                    'aplicação, e por isso não autoriza ACT_NOW.',
  'TIME_NOT_PRECISE': 'necessidade, produto e geografia fecham; falta precisão '
                      'de tempo para agir — ver COMMERCIAL_WINDOW.',
  'OPENING_WITHOUT_NEED': 'há portfólio comercial na cultura e movimento externo, '
@@ -98,6 +105,22 @@ RAZAO = {
  'NEITHER_NEED_NOR_OPENING': 'o caso não nomeia problema agronômico e não é '
                              'abertura de mercado nem preparação regulatória.',
 }
+
+# ⚠️ CÓDIGOS QUE NÃO ENTRAM NA FRASE. Medido ao criar os dois códigos de
+# relógio: `WHY_COMMERCIAL` é composto por junção das frases dos códigos, e uma
+# junção nova é uma FRASE NOVA — nasce sem irmã na memória de tradução e a
+# aceitação a acusa como «ainda só em português». Estes códigos são DADO: a
+# resposta estruturada deles vive em `COMMERCIAL_TIMING_BASIS`.
+#
+#     ACRESCENTAR UMA ORAÇÃO A UMA FRASE TRADUZIDA CRIA UMA FRASE NOVA.
+#     O CÓDIGO NOVO VAI NA LISTA DE CÓDIGOS, NÃO DENTRO DA FRASE.
+SO_CODIGO = ('TIME_FROM_APPLICATION_WINDOW', 'TIME_FROM_SOURCE_RECOMMENDATION')
+
+
+def frase(codigos):
+    """→ a frase de WHY_COMMERCIAL, sem os códigos que são só dado."""
+    return ' '.join(RAZAO[c] for c in codigos if c not in SO_CODIGO)
+
 
 # O que NENHUM estado prova. Vale para os cinco, e vai junto com o cartão.
 NAO_PROVA = ('NÃO prova demanda de revenda, sell-in, sell-out, pedido, estoque, '
@@ -272,8 +295,25 @@ def prioridade(o):
                     r + ['NEED_NOT_POSITIVE'])
         if not geo_ok:
             return SALES_PREPARE, r + ['GEOGRAPHY_DOES_NOT_HOLD']
+        # ── o tempo, e QUAL RELÓGIO o declarou ───────────────────────────────
+        # Medido: o motor vinha chamando de `ACT_NOW` a IDADE DO SINAL quando não
+        # havia janela — e o cartão saía com «ACT NOW» ao lado de «no canonical
+        # window linked». O conserto NÃO foi tirar o tempo dos casos: foi parar
+        # de chamar os dois relógios pelo mesmo nome.
+        #
+        #     O BOLETIM DE ONTEM QUE MANDA INTERVIR DECLARA UM MOMENTO.
+        #     ELE NÃO DECLARA UMA JANELA. AS DUAS COISAS SÃO VERDADE.
+        #
+        # A janela de aplicação é o relógio forte e é a ÚNICA que autoriza
+        # `ACT_NOW` — essa regra vive no motor, em `elos_de_agora`. Aqui, para
+        # dizer se há oportunidade comercial, a recomendação corrente da fonte
+        # também conta — desde que o cartão diga que foi ela, e não uma janela.
         if quando in ('ACT_NOW', 'PREPARE_NOW'):
-            return SALES_READY, r + ['ALL_GATES_CLOSE']
+            return SALES_READY, r + ['ALL_GATES_CLOSE',
+                                     'TIME_FROM_APPLICATION_WINDOW']
+        if o.get('COMMERCIAL_TIMING_BASIS') == 'CURRENT_SOURCE_RECOMMENDATION':
+            return SALES_READY, r + ['ALL_GATES_CLOSE',
+                                     'TIME_FROM_SOURCE_RECOMMENDATION']
         return SALES_PREPARE, r + ['TIME_NOT_PRECISE']
 
     # ── 5 · sem alvo: abertura comercial, não necessidade ─────────────────────

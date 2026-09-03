@@ -764,3 +764,121 @@ class TestIngestaoAutomatica(unittest.TestCase):
                            'a coleta nova nao produziu derivado')
         for alvo, c in d['CASOS_DA_FIXTURE'].items():
             self.assertEqual([], c['JANELAS_HERDADAS'], alvo)
+
+
+# ── T30-T36 · O CONTRATO MÍNIMO DO CARTÃO ────────────────────────────────────
+class TestContratoDoCartao(unittest.TestCase):
+    """A tela mostrava, no mesmo cartão, `ACT NOW` e «no canonical window
+    linked». Não era erro de interface: os dois saíam do motor.
+
+        A DATA DO BOLETIM DIZ QUE O SINAL É CORRENTE.
+        ELA NÃO DIZ QUANDO SE PULVERIZA. SÃO DOIS RELÓGIOS.
+    """
+
+    BASE = {'ARCHETYPE': 'O1_FIELD_PRESSURE', 'TARGET': 'ISSUE_BOTRYTIS',
+            'CROP': 'CROP_GRAPEVINE', 'GEOGRAPHY': 'REGION_EMILIA_ROMAGNA',
+            'NEED_DIRECTION': NE.POSITIVE_PRESSURE, 'SIGNAL_AGE_DAYS': 1,
+            'PRODUCT_LINK_STATE': 'VERIFIED_LABEL_MATCH',
+            'COMMERCIAL_PRODUCT_COUNT': 1,
+            'WINDOW_KIND': None, 'WINDOW_STATE': 'UNKNOWN',
+            'DAYS_REMAINING': None}
+
+    def test_T30_sem_janela_nao_existe_ACT_NOW(self):
+        """A regra central, e ela é executável: sem janela de aplicação, o
+        estado é `VALIDATE_NOW` — nunca `ACT_NOW`."""
+        estado, elos = OP.estado_de_acao(dict(self.BASE))
+        self.assertEqual(OP.VALIDATE_NOW, estado)
+        self.assertFalse(elos['JANELA_COMPATIVEL'])
+        self.assertFalse(elos['TEMPO_PARA_ACAO'])
+
+    def test_T31_a_cadeia_completa_faz_ACT_NOW(self):
+        o = dict(self.BASE, WINDOW_KIND='APPLICATION', WINDOW_STATE='RANGE',
+                 DAYS_REMAINING=10)
+        estado, elos = OP.estado_de_acao(o)
+        self.assertEqual(OP.ACT_NOW, estado)
+        self.assertTrue(all(elos.values()))
+
+    def test_T32_cada_elo_derruba_o_ACT_NOW_sozinho(self):
+        """Quatro elos, quatro maneiras de não ser «agora». Nenhum é opcional."""
+        pleno = dict(self.BASE, WINDOW_KIND='APPLICATION', WINDOW_STATE='RANGE',
+                     DAYS_REMAINING=10)
+        for campo, valor in (('SIGNAL_AGE_DAYS', 400),
+                             ('NEED_DIRECTION', NE.MONITOR),
+                             ('WINDOW_KIND', None),
+                             ('COMMERCIAL_PRODUCT_COUNT', 0),
+                             ('PRODUCT_LINK_STATE', 'LABEL_CHECK_NEEDED'),
+                             ('DAYS_REMAINING', 900)):
+            estado, _ = OP.estado_de_acao(dict(pleno, **{campo: valor}))
+            self.assertNotEqual(OP.ACT_NOW, estado,
+                                'T32: ACT_NOW sobreviveu sem %s' % campo)
+
+    def test_T33_a_idade_do_sinal_nunca_vira_janela(self):
+        """O defeito reproduzido: sinal de ontem, nenhuma janela. Antes isso
+        virava ACT_NOW por um `if` de idade."""
+        for idade in (0, 1, 7, 29):
+            estado, _ = OP.estado_de_acao(dict(self.BASE, SIGNAL_AGE_DAYS=idade))
+            self.assertNotEqual(OP.ACT_NOW, estado, idade)
+
+    def test_T34_no_pacote_todo_ACT_NOW_tem_a_cadeia_fechada(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['STATUS'] != OP.ACT_NOW:
+                continue
+            self.assertEqual(['CADEIA_COMPLETA'], r['WHY_NOW_CODES'], r['ID'])
+            self.assertTrue(all(r['ACTION_CHAIN_LINKS'].values()), r['ID'])
+            self.assertEqual('APPLICATION', r['WINDOW_KIND'], r['ID'])
+
+    def test_T35_o_relogio_do_sinal_e_o_da_janela_tem_nomes_diferentes(self):
+        """`COMMERCIAL_WINDOW` só existe com janela de aplicação; a recência do
+        boletim vive em `SIGNAL_CURRENCY`, e qual dos dois sustentou o tempo
+        está dito em `COMMERCIAL_TIMING_BASIS`."""
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['COMMERCIAL_WINDOW'] in ('ACT_NOW', 'PREPARE_NOW'):
+                self.assertEqual('APPLICATION', r['WINDOW_KIND'], r['ID'])
+                self.assertEqual('APPLICATION_WINDOW',
+                                 r['COMMERCIAL_TIMING_BASIS'], r['ID'])
+            if r['COMMERCIAL_TIMING_BASIS'] == 'CURRENT_SOURCE_RECOMMENDATION':
+                self.assertEqual('CURRENT', r['SIGNAL_CURRENCY'], r['ID'])
+                self.assertIn(r['NEED_DIRECTION'], CM.NECESSIDADE_POSITIVA, r['ID'])
+
+    def test_T36_nenhum_estado_comercial_nasce_de_produto_relacionado(self):
+        """A confirmação que a missão pediu: existir produto ADAMA na cultura
+        NUNCA basta. Sem alvo com rótulo e sem necessidade positiva declarada,
+        não há SALES_READY nem ACT_NOW."""
+        so_produto = {'ARCHETYPE': 'O1_FIELD_PRESSURE', 'TARGET': 'ISSUE_BOTRYTIS',
+                      'COMMERCIAL_PRODUCT_COUNT': 3,
+                      'PRODUCT_LINK_STATE': 'VERIFIED_LABEL_MATCH',
+                      'CLAIM_GEOGRAPHY_HOLDS': True,
+                      'COMMERCIAL_WINDOW': 'UNKNOWN',
+                      'COMMERCIAL_TIMING_BASIS': 'NONE',
+                      'NEED_DIRECTION': NE.UNKNOWN, 'SIGNAL_AGE_DAYS': 1}
+        pri, _ = CM.prioridade(dict(so_produto))
+        self.assertNotEqual(CM.SALES_READY, pri)
+        estado, _ = OP.estado_de_acao(dict(so_produto))
+        self.assertNotEqual(OP.ACT_NOW, estado)
+        # e no pacote inteiro
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['COMMERCIAL_PRIORITY'] == CM.SALES_READY:
+                self.assertIn(r['NEED_DIRECTION'], CM.NECESSIDADE_POSITIVA, r['ID'])
+                self.assertTrue(r['TARGET'], r['ID'])
+                self.assertGreater(r['COMMERCIAL_PRODUCT_COUNT'], 0, r['ID'])
+
+    def test_T37_supply_so_e_convocado_com_fato_publicado(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            s = r['ACTION_BY_DEPARTMENT']['SUPPLY']
+            if s['ACTION'] != 'NOT_CONVENED':
+                self.assertTrue(r['PRODUCT_RESTRICTIONS'],
+                                '%s convoca Supply sem fato publicado' % r['ID'])
+                for f in r['PRODUCT_RESTRICTIONS']:
+                    self.assertTrue(f.get('DATE') and f.get('EVIDENCE_ID'), r['ID'])
+
+    def test_T38_o_caso_testemunha_perdeu_o_ACT_NOW(self):
+        """Botrite × videira × Emilia-Romagna: o caso que a missão apontou."""
+        casos = [r for r in _pacote('OPPORTUNITIES.json')
+                 if r['CROP'] == 'CROP_GRAPEVINE' and r['TARGET'] == 'ISSUE_BOTRYTIS'
+                 and r['GEOGRAPHY'] == 'REGION_EMILIA_ROMAGNA']
+        self.assertEqual(1, len(casos))
+        r = casos[0]
+        self.assertEqual(OP.VALIDATE_NOW, r['STATUS'])
+        self.assertEqual('UNKNOWN', r['COMMERCIAL_WINDOW'])
+        self.assertEqual('CLASSIFIED', r['MODE_OF_ACTION_STATE'])
+        self.assertEqual('QUOTED_ON_LABEL', r['APPLICATION_STATE'])
