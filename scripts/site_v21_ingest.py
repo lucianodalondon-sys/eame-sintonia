@@ -157,13 +157,23 @@ FAMILIAS = {
         'PROVENANCE_PUBLISHER_URL', 'PROVENANCE_STATE', 'PROVENANCE_STRENGTH',
     ), ('SERIES_WARNING', 'EVIDENCE_STATUS_WHY')),
 
+    # A FAMILIA TEM DUAS FORMAS, E A LISTA SO CONHECIA UMA.
+    # 561 registros sao ANUNCIOS observados: tem anunciante, plataforma, peca.
+    # Os outros 16 sao NOTAS DE OBSERVACAO: nao tem nenhum desses campos e
+    # trazem, no lugar, OBSERVATION_CLASS, CONFIDENCE, CLAIM_DOMAIN e um par
+    # WHAT_IT_PROVES / WHAT_IT_DOES_NOT_PROVE ja traduzido e aprovado.
+    # A lista antiga nao guardava nenhum desses campos, entao os 16 chegavam
+    # como envelope vazio e o modelo os recusava por «no company» — 8 deles
+    # CLIENT_SAFE e com QA aprovado, invisiveis sem que tela alguma dissesse.
+    # WHAT_IT_IS fica DE FORA de proposito: e a nota de pesquisa em portugues.
     'competitorActivities': ('COMPETITOR-ACTIVITIES.json', (
         'ACTIVITY_TYPE', 'PLATFORM', 'COMPANY', 'PAGE', 'PAGE_ID',
         'COUNTRY_REACHED', 'COUNTRY_SEMANTICS', 'START_DATE', 'END_DATE',
         'ACTIVE_STATUS', 'MEDIA_TYPE', 'PRODUCTS_PROVED', 'CROP_TERMS', 'ISSUE_TERMS',
         'CREATIVE_TEXT', 'AD_URL', 'SOURCE_ID',
         'PROVENANCE_STATE', 'PROVENANCE_STRENGTH',
-    ), ('EVIDENCE_STATUS_WHY',)),
+        'OBSERVATION_CLASS', 'CONFIDENCE', 'CLAIM_DOMAIN', 'SOURCE_SCOPE',
+    ), ('EVIDENCE_STATUS_WHY', 'WHAT_IT_PROVES', 'WHAT_IT_DOES_NOT_PROVE')),
 
     'scienceRecords': ('SCIENCE.json', (
         'TITLE', 'DOI', 'AUTHOR', 'ORCID', 'INSTITUTION', 'PUBLISHED_AT', 'VENUE',

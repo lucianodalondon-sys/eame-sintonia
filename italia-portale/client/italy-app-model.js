@@ -525,6 +525,17 @@
   const v21Env = (r, prov) => ({
     qaStatus: S(r.QA_STATUS),
     clientSafe: r.CLIENT_SAFE === true,
+    /* LA REGOLA DEL PACCHETTO, IN UN CAMPO SOLO.
+       README-FIRST §3, testuale:
+
+           CLIENT_SAFE = true   -> puo sostenere un'affermazione visibile
+           CLIENT_SAFE = false  -> vive nel corpus, compare come RESEARCH_LEADS,
+                                   e NON sostiene MAI un'affermazione da solo
+
+       Non e «nascondere»: il record resta. E il divieto di farlo CHIUDERE una
+       risposta. Il portale legge `publishable`; `clientSafe` e il timbro
+       interno e non deve comparire in nessuna schermata. */
+    publishable: r.CLIENT_SAFE === true,
     evidenceStatus: S(r.EVIDENCE_STATUS),
     originLayer: S(r.ORIGIN_LAYER),
     sourceIds: A(r.SOURCE_IDS),
@@ -1660,6 +1671,17 @@
     return coll(rows, P.REAL_DERIVED, 'authorised use rows grouped by crop key; the generic-wheat overlap is declared, not hidden', { source: 'derived · regulatoryLinks' });
   })();
 
+  /* Le fonti che SONO il canale proprio di un concorrente. Dichiarate una per
+     una: una nota che cita cropscience.bayer.it parla di Bayer perche quello e
+     il sito di Bayer, non perche il nome somigli. */
+  const NOTE_OWN_CHANNEL = {
+    SRC_CROPSCIENCE_BAYER_IT: 'Bayer',
+    SRC_AG_FMC_COM: 'FMC',
+    SRC_AGRO_BASF_IT: 'BASF',
+    SRC_SYNGENTA_IT: 'Syngenta',
+    SRC_CORTEVA_IT: 'Corteva',
+  };
+
   /* ---- the joined product entity --------------------------------------- */
   const byName = {};
   const addProduct = (name, patch) => {
@@ -1787,8 +1809,13 @@
       const speciesIssues = issues.filter((i) => /^[A-Z][a-z]/.test(String(i).trim()));
       const hasDate = !!v21S(a.START_DATE);
       return Object.assign(v21Env(a), {
-        id: a.ID, type: v21S(a.ACTIVITY_TYPE), platform: v21S(a.PLATFORM),
-        company: v21S(a.COMPANY), companyRaw: v21S(a.COMPANY), companyKey: U(a.COMPANY),
+        id: a.ID,
+        /* una nota non e un annuncio: porta il proprio tipo, cosi le schede
+           del filtro esauriscono il totale invece di lasciarne sedici fuori. */
+        type: v21S(a.ACTIVITY_TYPE) || ((v21S(a.PLATFORM) || v21S(a.COMPANY)) ? null : 'OBSERVATION_NOTE'),
+        platform: v21S(a.PLATFORM),
+        company: v21S(a.COMPANY) || NOTE_OWN_CHANNEL[U((A(a.SOURCE_IDS) || [])[0])] || null,
+        companyRaw: v21S(a.COMPANY), companyKey: U(v21S(a.COMPANY) || NOTE_OWN_CHANNEL[U((A(a.SOURCE_IDS) || [])[0])] || ''),
         page: v21S(a.PAGE), pageId: v21S(a.PAGE_ID),
         displayName: v21S(a.PAGE) || v21S(a.COMPANY),
         channelResolved: !!v21S(a.PAGE),
@@ -1812,8 +1839,31 @@
         relatedWindows: [], relatedWindowsState: 'NO_ISSUE_SYNONYM_TABLE_UPSTREAM',
         daysFromRef: daysFrom(v21S(a.START_DATE)),
         evidenceWhy: v21Text(a, 'EVIDENCE_STATUS_WHY'),
+        /* DUE FORME, NON UNA.
+           561 record sono ANNUNCI osservati: inserzionista, piattaforma, testo.
+           16 sono NOTE DI OSSERVAZIONE: nessuno di quei campi, e al loro posto
+           una coppia gia tradotta e approvata di «cosa prova» e «cosa non
+           prova». Il modello chiedeva a tutti un COMPANY e ne rifiutava
+           sedici — otto dei quali CLIENT_SAFE e con QA approvato, spariti
+           senza che nessuna schermata lo dicesse. */
+        kind: (v21S(a.ACTIVITY_TYPE) || v21S(a.PLATFORM)) ? 'AD' : 'OBSERVATION_NOTE',
+        observationClass: v21S(a.OBSERVATION_CLASS),
+        confidence: v21S(a.CONFIDENCE),
+        claimDomain: v21S(a.CLAIM_DOMAIN),
+        proves: v21Text(a, 'WHAT_IT_PROVES'),
+        notProves: v21Text(a, 'WHAT_IT_DOES_NOT_PROVE'),
+        /* Il canale di chi parla E il fatto: quando la nota cita il sito
+           proprio di un concorrente, l'inserzionista e quel concorrente. La
+           tabella e esplicita apposta — nessun nome viene indovinato da una
+           stringa, e AgroNotizie resta senza azienda perche e stampa di
+           settore, non il canale di nessuno. */
+        noteCompany: NOTE_OWN_CHANNEL[U((A(a.SOURCE_IDS) || [])[0])] || null,
       });
-    }, (r) => (!r.id ? 'no id' : !r.company ? 'no company' : null)),
+    }, (r) => (!r.id ? 'no id'
+      /* Una nota non ha inserzionista da dichiarare; un annuncio si. */
+      : (r.kind === 'AD' && !r.company) ? 'no company'
+      : (r.kind === 'OBSERVATION_NOTE' && !r.proves && !r.notProves) ? 'note with nothing approved to show'
+      : null)),
     {
       source: 'ITALY_INGEST.COMP_ACTIVITIES',
       precedence: P.REAL_SOURCE,

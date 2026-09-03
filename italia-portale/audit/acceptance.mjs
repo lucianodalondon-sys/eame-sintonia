@@ -46,12 +46,22 @@ R('FUTURE REAL DETAIL USES APP', YN(check('F3').pass), 'YES');
 R('DEFAULT FUTURE DEMO SCENARIOS', (() => { const v = vals({ view: 'future' }); return v && m ? (m.instance.state.showScenarios ? count('futureScenarios') : 0) : 'n/a'; })(), 0);
 R('CORE D.SIGNALS', (scan.bySymbol.SIGNALS || { core: 0 }).core, 0);
 
-/* 503 -> 561. The V2.1 package publishes 577 observed activities; 16 name
-   neither a company nor a page and cannot be attributed to anyone, so they are
-   rejected at the adapter exactly as the fixture's were. The expected number
-   moves because the reading moved, and it is written here as the reading, not
-   as a target. */
-R('COMPETITOR REAL ACTIVITIES', count('competitorActivities'), 561);
+/* 503 -> 561 -> 577, and the middle number was a misreading written down as a
+   fact. The note here used to say the sixteen missing records 'name neither a
+   company nor a page and cannot be attributed to anyone'. They can: they are a
+   SECOND SHAPE of the same family — observation notes, which carry no
+   advertiser and no platform because they are not advertisements, and carry
+   instead an already translated pair of what-it-proves / what-it-does-not-
+   prove. The whitelist knew only the first shape, so they arrived empty, and
+   the validator then rejected them for the emptiness it had caused.
+
+   Two numbers, both true, and they are not the same number:
+       577  the corpus       — everything the package carries
+       569  the publishable  — what may support a claim on screen
+         8  QA_UNREVIEWED    — lives in the corpus, closes no answer
+   audit/competitor-population.mjs holds A=B=C=D=E for the publishable set. */
+R('COMPETITOR CORPUS', count('competitorActivities'), 577);
+R('COMPETITOR PUBLISHABLE', (AM.collections.competitorActivities.records.filter((r) => r.publishable) || []).length, 569);
 R('VISIBLE COMPETITOR USES APP', YN((scan.bySymbol.ACTIVITIES || { core: 0 }).core === 0), 'YES');
 R('D.ACTIVITIES CORE READS', (scan.bySymbol.ACTIVITIES || { core: 0 }).core, 0);
 

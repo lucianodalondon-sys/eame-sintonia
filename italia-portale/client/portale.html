@@ -1535,7 +1535,7 @@
               <div style="display:flex;align-items:center;gap:10px"><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886;color:#fff">{{ g.label }}</span><span style="flex:1;border-top:1px dotted rgba(151,139,135,0.5)"></span><span style="font-size:9.5px;color:#8F8886">{{ g.count }} items</span></div>
               <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">
                 <sc-for list="{{ g.items }}" as="a" hint-placeholder-count="3">
-          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;border-top:3px solid {{ a.chColor }};padding:12px 14px;display:flex;flex-direction:column;gap:8px" style-hover="border-color:{{ a.chColor }}">
+          <div data-act="{{ a.id }}" data-act-kind="{{ a.kind }}" style="border-radius:14px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;border-top:3px solid {{ a.chColor }};padding:12px 14px;display:flex;flex-direction:column;gap:8px" style-hover="border-color:{{ a.chColor }}">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
               <div style="display:flex;align-items:center;gap:9px">
                 <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:{{ a.chTint }};flex:0 0 28px"><span role="img" aria-label="" style="display:block;width:15px;height:15px;opacity:0.95;background:url({{ a.chIcon }}) center/contain no-repeat"></span></span>
@@ -1545,7 +1545,7 @@
             </div>
             <sc-if value="{{ a.isPaid }}" hint-placeholder-val="{{ false }}"><div style="border-radius:10px;background:{{ a.creativeBg }};height:120px;display:flex;flex-direction:column;justify-content:flex-end;padding:10px 12px;position:relative;overflow:hidden"><span style="position:absolute;top:8px;left:10px;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.14);font-size:8px;font-weight:700;letter-spacing:0.1em;color:#fff">SPONSORED · {{ a.active }}</span><sc-if value="{{ a.hasProduct }}" hint-placeholder-val="{{ true }}"><span style="font-size:18px;font-weight:700;color:#fff;line-height:1.05">{{ a.product }}</span></sc-if><span style="font-size:10px;color:rgba(255,255,255,0.75)">{{ t.cwCreativeNote }}</span></div></sc-if>
             <sc-if value="{{ a.isOrganic }}" hint-placeholder-val="{{ false }}"><div style="border-radius:10px;background:{{ a.creativeBg }};height:88px;display:flex;align-items:flex-end;padding:10px 12px"><span style="font-size:10px;color:rgba(255,255,255,0.8)">{{ t.cwOrganicVideo }} · {{ a.platform }} · {{ t.cwNoAsset }}</span></div></sc-if>
-            <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwOriginalText }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.headline }}</div></div>
+            <sc-if value="{{ a.hasQuote }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwOriginalText }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.headline }}</div></div></sc-if><sc-if value="{{ a.isNote }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwProves }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.noteProves }}</div></div><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwNotProves }}</span><div style="font-size:11.5px;line-height:1.45;color:#B1A9A7">{{ a.noteNotProves }}</div></div></div></sc-if>
             <div style="display:flex;flex-wrap:wrap;gap:4px"><sc-if value="{{ a.hasProduct }}" hint-placeholder-val="{{ false }}"><span onClick="{{ a.openProduct }}" style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.10);font-size:9.5px;color:#fff;font-weight:700;cursor:pointer">{{ a.product }}</span></sc-if><sc-if value="{{ a.hasCrop }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:9.5px;color:#C9C3C1">{{ a.cropL }}</span></sc-if><sc-if value="{{ a.hasIssue }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:9.5px;color:#C9C3C1">{{ a.issueL }}</span></sc-if><sc-if value="{{ a.hasNewly }}" hint-placeholder-val="{{ false }}"><span title="{{ a.geoCaveat }}" style="padding:2px 7px;border-radius:5px;border:1px solid rgba(151,139,135,0.5);font-size:8.5px;color:#B1A9A7;letter-spacing:0.06em">{{ a.newly }}</span></sc-if></div>
             <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07)">
               <span onClick="{{ a.openCase }}" style="font-size:9.5px;font-weight:700;color:#00B152;white-space:nowrap;cursor:pointer">{{ a.ctaL }}</span>
@@ -1632,7 +1632,7 @@
             </div>
             <sc-if value="{{ a.isPaid }}" hint-placeholder-val="{{ false }}"><div style="border-radius:10px;background:{{ a.creativeBg }};height:120px;display:flex;flex-direction:column;justify-content:flex-end;padding:10px 12px;position:relative;overflow:hidden"><span style="position:absolute;top:8px;left:10px;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.14);font-size:8px;font-weight:700;letter-spacing:0.1em;color:#fff">SPONSORED · {{ a.active }}</span><sc-if value="{{ a.hasProduct }}" hint-placeholder-val="{{ true }}"><span style="font-size:18px;font-weight:700;color:#fff;line-height:1.05">{{ a.product }}</span></sc-if><span style="font-size:10px;color:rgba(255,255,255,0.75)">{{ t.cwCreativeNote }}</span></div></sc-if>
             <sc-if value="{{ a.isOrganic }}" hint-placeholder-val="{{ false }}"><div style="border-radius:10px;background:{{ a.creativeBg }};height:88px;display:flex;align-items:flex-end;padding:10px 12px"><span style="font-size:10px;color:rgba(255,255,255,0.8)">{{ t.cwOrganicVideo }} · {{ a.platform }} · {{ t.cwNoAsset }}</span></div></sc-if>
-            <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwOriginalText }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.headline }}</div></div>
+            <sc-if value="{{ a.hasQuote }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwOriginalText }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.headline }}</div></div></sc-if><sc-if value="{{ a.isNote }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwProves }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.noteProves }}</div></div><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwNotProves }}</span><div style="font-size:11.5px;line-height:1.45;color:#B1A9A7">{{ a.noteNotProves }}</div></div></div></sc-if>
             <div style="display:flex;flex-wrap:wrap;gap:4px"><sc-if value="{{ a.hasProduct }}" hint-placeholder-val="{{ false }}"><span onClick="{{ a.openProduct }}" style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.10);font-size:9.5px;color:#fff;font-weight:700;cursor:pointer">{{ a.product }}</span></sc-if><sc-if value="{{ a.hasCrop }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:9.5px;color:#C9C3C1">{{ a.cropL }}</span></sc-if><sc-if value="{{ a.hasIssue }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:9.5px;color:#C9C3C1">{{ a.issueL }}</span></sc-if><sc-if value="{{ a.hasNewly }}" hint-placeholder-val="{{ false }}"><span title="{{ a.geoCaveat }}" style="padding:2px 7px;border-radius:5px;border:1px solid rgba(151,139,135,0.5);font-size:8.5px;color:#B1A9A7;letter-spacing:0.06em">{{ a.newly }}</span></sc-if></div>
             <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07)">
               <span onClick="{{ a.openCase }}" style="font-size:9.5px;font-weight:700;color:#00B152;white-space:nowrap;cursor:pointer">{{ a.ctaL }}</span>
@@ -1686,7 +1686,7 @@
             </div>
             <sc-if value="{{ a.isPaid }}" hint-placeholder-val="{{ false }}"><div style="border-radius:10px;background:{{ a.creativeBg }};height:120px;display:flex;flex-direction:column;justify-content:flex-end;padding:10px 12px;position:relative;overflow:hidden"><span style="position:absolute;top:8px;left:10px;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.14);font-size:8px;font-weight:700;letter-spacing:0.1em;color:#fff">SPONSORED · {{ a.active }}</span><sc-if value="{{ a.hasProduct }}" hint-placeholder-val="{{ true }}"><span style="font-size:18px;font-weight:700;color:#fff;line-height:1.05">{{ a.product }}</span></sc-if><span style="font-size:10px;color:rgba(255,255,255,0.75)">{{ t.cwCreativeNote }}</span></div></sc-if>
             <sc-if value="{{ a.isOrganic }}" hint-placeholder-val="{{ false }}"><div style="border-radius:10px;background:{{ a.creativeBg }};height:88px;display:flex;align-items:flex-end;padding:10px 12px"><span style="font-size:10px;color:rgba(255,255,255,0.8)">{{ t.cwOrganicVideo }} · {{ a.platform }} · {{ t.cwNoAsset }}</span></div></sc-if>
-            <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwOriginalText }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.headline }}</div></div>
+            <sc-if value="{{ a.hasQuote }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwOriginalText }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.headline }}</div></div></sc-if><sc-if value="{{ a.isNote }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwProves }}</span><div style="font-size:12px;line-height:1.45;color:#EDEAE9">{{ a.noteProves }}</div></div><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:8px;letter-spacing:0.11em;color:#8F8886">{{ t.cwNotProves }}</span><div style="font-size:11.5px;line-height:1.45;color:#B1A9A7">{{ a.noteNotProves }}</div></div></div></sc-if>
             <div style="display:flex;flex-wrap:wrap;gap:4px"><sc-if value="{{ a.hasProduct }}" hint-placeholder-val="{{ false }}"><span onClick="{{ a.openProduct }}" style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.10);font-size:9.5px;color:#fff;font-weight:700;cursor:pointer">{{ a.product }}</span></sc-if><sc-if value="{{ a.hasCrop }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:9.5px;color:#C9C3C1">{{ a.cropL }}</span></sc-if><sc-if value="{{ a.hasIssue }}" hint-placeholder-val="{{ true }}"><span style="padding:2px 7px;border-radius:5px;background:rgba(255,255,255,0.06);font-size:9.5px;color:#C9C3C1">{{ a.issueL }}</span></sc-if><sc-if value="{{ a.hasNewly }}" hint-placeholder-val="{{ false }}"><span title="{{ a.geoCaveat }}" style="padding:2px 7px;border-radius:5px;border:1px solid rgba(151,139,135,0.5);font-size:8.5px;color:#B1A9A7;letter-spacing:0.06em">{{ a.newly }}</span></sc-if></div>
             <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.07)">
               <span onClick="{{ a.openCase }}" style="font-size:9.5px;font-weight:700;color:#00B152;white-space:nowrap;cursor:pointer">{{ a.ctaL }}</span>
@@ -3055,7 +3055,15 @@ class Component extends DCLogic {
        (17.7%, all ORGANIC_VIDEO, all MULTI_COUNTRY_OR_UNRESOLVED) carry no start
        date and can never enter a recency count — the KPI sub-line says so. */
     const CA = (APP0 && APP0.competitorActivities) || { records: [] };
-    const ACTS = CA.records;
+    /* IL CORPUS E IL PUBBLICABILE NON SONO LO STESSO NUMERO.
+       Il pacchetto porta 577 record e ne dichiara 569 client-safe. Gli otto
+       restanti sono QA_UNREVIEWED: per la legge del pacchetto vivono nel
+       corpus e non sostengono da soli nessuna affermazione. Non spariscono —
+       ma non entrano in un conteggio che il portale presenta come osservazione.
+       Il denominatore va detto, non scelto in silenzio. */
+    const ACTS_ALL = CA.records;
+    const ACTS = ACTS_ALL.filter((a) => a.publishable);
+    const ACTS_LEADS = ACTS_ALL.filter((a) => !a.publishable);
     const actAge = (a) => (a.daysFromRef !== null && a.daysFromRef !== undefined) ? -a.daysFromRef : daysAgo(a.startDate);
     const ACTS_DATED = ACTS.filter((a) => actAge(a) !== null && actAge(a) >= 0);
     /* the model computes the same windows against the same REF; the local filter is
@@ -5791,7 +5799,15 @@ class Component extends DCLogic {
        company count tiles have no content and are gone. */
     const CX = (k) => (APP0 && APP0[k]) ? APP0[k] : { records: [], count: 0 };
     const CACT = CX('competitorActivities');
-    const CACTS = CACT.records;
+    /* IL DENOMINATORE VA DETTO.
+       Il pacchetto porta 577 record e ne dichiara 569 client-safe; gli otto
+       QA_UNREVIEWED vivono nel corpus e non sostengono da soli un'affermazione.
+       La scheda «TUTTI» diceva 577 mentre le due schede sotto sommavano 561:
+       sedici record esistevano nel totale e in nessuna categoria. Ora il
+       totale e il pubblicabile, e le categorie lo esauriscono: 414 + 147 + 8. */
+    const CACTS_ALL = CACT.records;
+    const CACTS = CACTS_ALL.filter((a) => a.publishable);
+    const CACTS_WITHHELD = CACTS_ALL.length - CACTS.length;
     const CCOS = CX('competitorCompanies').records;
     const CPRD = CX('competitorProducts');
     const CPRODUCTS = CPRD.records;
@@ -5815,7 +5831,11 @@ class Component extends DCLogic {
     /* §4 · presentation tokens only. The class itself is the record's own `type`. */
     const COMPCH = {
       'PAID': { c: CH['PAID'].c, t: CH['PAID'].t || CH['PAID'].c, i: CH['PAID'].i, n: T.chPaid || 'PAID' },
-      'ORGANIC_VIDEO': { c: CH['VIDEO'].c, t: CH['VIDEO'].t || CH['VIDEO'].c, i: CH['VIDEO'].i, n: TX('VIDEO ORGANICO', 'ORGANIC VIDEO') }
+      'ORGANIC_VIDEO': { c: CH['VIDEO'].c, t: CH['VIDEO'].t || CH['VIDEO'].c, i: CH['VIDEO'].i, n: TX('VIDEO ORGANICO', 'ORGANIC VIDEO') },
+      /* Una nota di osservazione non e un annuncio a pagamento. Senza questa
+         riga la scheda cadeva sul primo ramo e ne etichettava otto «A
+         PAGAMENTO», che e esattamente cio che non sono. */
+      'OBSERVATION_NOTE': { c: '#00A0DF', t: '#00A0DF', i: 'cloud', n: TX('NOTA DI OSSERVAZIONE', 'OBSERVATION NOTE') }
     };
     const PLATL = { 'META_ADS_LIBRARY': 'Meta Ad Library', 'YOUTUBE': 'YouTube' };
     /* active is an upstream enum, not a boolean: ACTIVE 27 · INACTIVE 385 ·
@@ -5879,7 +5899,16 @@ class Component extends DCLogic {
         /* the advertiser's own public copy, verbatim and quoted (392/503, average 239
            characters). It is evidence — never parsed for a crop, an issue, a product
            or a claim, and never rewritten into a Sintonia headline. */
+        /* Il testo fra virgolette e la PAROLA DELL'INSERZIONISTA. Una nota di
+           osservazione non ne ha una: quello che porta e la nostra lettura, gia
+           tradotta e approvata a monte. Le due cose non possono stare nello
+           stesso slot, o la lettura sembrerebbe una citazione. */
         headline: a.textExcerpt ? ('«' + cwClean(a.textExcerpt) + '»') : '',
+        id: a.id, kind: a.kind,
+        hasQuote: !!a.textExcerpt,
+        isNote: a.kind === 'OBSERVATION_NOTE',
+        noteProves: a.kind === 'OBSERVATION_NOTE' ? (narOf(a.proves) || '') : '',
+        noteNotProves: a.kind === 'OBSERVATION_NOTE' ? (narOf(a.notProves) || '') : '',
         product: prodList[0] || '', hasProduct: !!prodList.length,
         crops, cropL: crops.map(cl).join(' · '), hasCrop: !!crops.length,
         /* §11 · the issue term is the advertiser's own word, rendered verbatim.
@@ -5973,7 +6002,7 @@ class Component extends DCLogic {
       && (!s.fIssue || (a.issuesObserved || []).indexOf(s.fIssue) >= 0)
       && (!s.fPeriod || within(a, Number(s.fPeriod))))
       .sort((a, b) => (b.hasDate ? b.daysFromRef : -1e9) - (a.hasDate ? a.daysFromRef : -1e9));
-    const compTabs = [['', TX('TUTTI', 'ALL')], ['PAID', T.chPaid || 'PAID'], ['ORGANIC_VIDEO', TX('VIDEO ORGANICI', 'ORGANIC VIDEOS')]].map(t2 => { const on = s.fType === t2[0] && s.compView === 'feed'; return { label: t2[1], count: CACTS.filter(a => (!t2[0] || a.type === t2[0]) && (!s.fCompany || a.company === s.fCompany)).length, color: on ? '#fff' : '#B1A9A7', bg: on ? 'rgba(0,152,69,0.25)' : 'transparent', border: on ? '#009845' : 'rgba(203,197,195,0.2)', go: () => this.setState({ fType: t2[0], compView: 'feed', compShown: 12 }) }; });
+    const compTabs = [['', TX('TUTTI', 'ALL')], ['PAID', T.chPaid || 'PAID'], ['ORGANIC_VIDEO', TX('VIDEO ORGANICI', 'ORGANIC VIDEOS')], ['OBSERVATION_NOTE', TX('NOTE DI OSSERVAZIONE', 'OBSERVATION NOTES')]].map(t2 => { const on = s.fType === t2[0] && s.compView === 'feed'; return { label: t2[1], count: CACTS.filter(a => (!t2[0] || a.type === t2[0]) && (!s.fCompany || a.company === s.fCompany)).length, color: on ? '#fff' : '#B1A9A7', bg: on ? 'rgba(0,152,69,0.25)' : 'transparent', border: on ? '#009845' : 'rgba(203,197,195,0.2)', go: () => this.setState({ fType: t2[0], compView: 'feed', compShown: 12 }) }; });
     const compViews = [['gallery', TX('RECORD PUBBLICITARI', 'AD RECORDS')], ['events', T.lblEventWatch || 'EVENT WATCH'], ['issue', TX('PER AVVERSITÀ', 'BY ISSUE')]].map(v2 => { const on = s.compView === v2[0]; return { label: v2[1], color: on ? '#fff' : '#B1A9A7', bg: on ? 'rgba(0,152,69,0.25)' : 'transparent', border: on ? '#009845' : 'rgba(203,197,195,0.2)', go: () => this.setState({ compView: on ? 'feed' : v2[0] }) }; });
     /* Grouped by observation month, plus one explicit group for the 89 records with
        no start date. They are real and counted; they simply cannot be placed on a

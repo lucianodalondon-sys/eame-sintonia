@@ -511,6 +511,7 @@
     frSubB: 'segnali monitorati.',
 
     cwOriginalText: 'TESTO PUBBLICO ORIGINALE',
+    cwProves: 'COSA PROVA', cwNotProves: 'COSA NON PROVA',
     cwCreativeNote: 'materiale creativo non catturato — solo record strutturato',
     cwOrganicVideo: 'Video organico',
     cwNoAsset: 'nessuna immagine catturata',
@@ -1005,6 +1006,7 @@
     frSubB: 'monitored signals.',
 
     cwOriginalText: 'ORIGINAL PUBLIC TEXT',
+    cwProves: 'WHAT IT PROVES', cwNotProves: 'WHAT IT DOES NOT PROVE',
     cwCreativeNote: 'creative asset not captured — structured record only',
     cwOrganicVideo: 'Organic video',
     cwNoAsset: 'no image captured',
