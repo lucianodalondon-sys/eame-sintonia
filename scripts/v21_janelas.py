@@ -68,6 +68,15 @@ AGRONOMICOS = (CALENDAR_WINDOW, PREHARVEST_WINDOW, PHENOLOGY_WINDOW,
 # Precedência importa: «intervir em pré-colheita» é PREHARVEST, não FENOLOGIA
 # genérica; e um trecho que cita determinação É administrativo mesmo que
 # também nomeie uma fase.
+# O verbo que manda AGIR e o substantivo que nomeia o ESTÁDIO DA PRAGA. A janela
+# de fase de praga exige os dois na mesma oração — a ação amarrada ao estádio.
+_ACAO = (r'\b(?:intervenire|intervir|intervenite|trattare|tratar|posizionare|'
+         r'effettuare|applicare|aplicar|trattament\w+|tratament\w+|'
+         r'intervenc\w+|intervent[oi]\b)')
+_ESTAGIO = (r'\b(?:vol[oi]|voos?|generazion\w+|gerac\w+|ovideposi\w*|'
+            r'sfarfallament\w*|stadi giovanili|neanid\w*|schiusur\w*|'
+            r'nascita d\w+ \w+|formas juvenis)\b')
+
 _P = [
  (ADMINISTRATIVE_WINDOW, [
     r'\bdeterminazione\b', r'\bdetermina n', r'\bddr n', r'\bdecreto\b',
@@ -85,10 +94,17 @@ _P = [
     r'\bsoglia\b', r'\blimiar\b', r'\bacima d[eoa]\b.{0,30}\d',
     r'\bsuperiore[s]? a \d', r'\bsuperiores a \d', r'\b\d+\s?%\s*(?:de|di)\b']),
 
+ # ⚠️ MESMA LEI DA FENOLOGIA, MEDIDA OUTRA VEZ NO RED TEAM SEMÂNTICO.
+ # «terzo volo terminato, danni in aumento» NÃO diz quando tratar: relata o
+ # inseto. Lido como janela, produzia `CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS`
+ # sobre um boletim que tinha declarado a medição — uma frase falsa no cartão.
+ #
+ #     O VOO É O ESTADO DA PRAGA. A JANELA É O ESTADO AMARRADO A UMA AÇÃO.
+ #
+ # A fase declarada não se perde: vai para `PEST_STAGE_STATE`, com dono próprio.
  (PEST_STAGE_WINDOW, [
-    r'\bvolo\b', r'\bvoo\b', r'\bgenerazione\b', r'\bgeracao\b',
-    r'\bovideposi\w*', r'\bsfarfallament\w*', r'\bstadi giovanili\b',
-    r'\bneanidi\b', r'\bnascita\b', r'\bformas juvenis\b']),
+    _ACAO + r'[^.;]{0,70}' + _ESTAGIO,
+    _ESTAGIO + r'[^.;]{0,70}' + _ACAO]),
 
  (WEATHER_TRIGGERED_WINDOW, [
     r'\bem caso de (?:chuva|temporal|granizo)\b',
@@ -151,6 +167,41 @@ FENOLOGIA_QUE_SATISFAZ = {
 
 _ASPA = re.compile(r'«([^»]*)»')
 
+# ── O DOCUMENTO DE REGRA NÃO É O DOCUMENTO DE HOJE ──────────────────────────
+#
+# `aberta_agora` sempre teve o ramo `DOCUMENTO_NAO_CORRENTE` — e ele nunca era
+# alcançado, porque `janelas_do_sinal` passava `corrente = True` a todos. No
+# acervo de hoje isso não fez diferença nenhuma: as 16 candidatas saem todas de
+# documentos com 22 dias ou menos. Mas a coleta de REGRA traz manuais — o
+# «Manuale difesa integrata del melo» do Veneto é de março de 2020 — e um manual
+# de 2020 diria «a condição está satisfeita agora» com a mesma cara de um
+# boletim de ontem.
+#
+#     UM MANUAL DIZ QUAL É A REGRA. SÓ UM BOLETIM DIZ COMO ESTÁ O CAMPO HOJE.
+#     A REGRA NÃO ENVELHECE; O ESTADO ENVELHECE EM DIAS.
+#
+# `WINDOW_DEFINED` continua YES para o manual — a regra é a regra. O que a data
+# governa é só a segunda pergunta.
+#
+# São os mesmos 30 dias de `SINAL_CORRENTE_DIAS`, e `T54` quebra se as duas
+# constantes se separarem sem que alguém decida separá-las.
+DIAS_PARA_DOCUMENTO_CORRENTE = 30
+
+
+def documento_corrente(sinal, hoje=None):
+    """→ o documento é recente o bastante para falar do AGORA?
+
+    Sem data declarada a resposta é NÃO: um documento que não diz quando foi
+    escrito não pode dizer que a condição está satisfeita agora.
+    """
+    bruto = str(sinal.get('REFERENCE_DATE') or '')[:10]
+    try:
+        ano, mes, dia = (int(x) for x in bruto.split('-'))
+        quando = date(ano, mes, dia)
+    except (ValueError, TypeError):
+        return False
+    return 0 <= ((hoje or date.today()) - quando).days <= DIAS_PARA_DOCUMENTO_CORRENTE
+
 # A fonte declarando, no presente, que a condição está satisfeita. NUNCA um
 # tempo verbal qualquer: só as formas em que o serviço afirma o momento.
 _PRESENTE = re.compile(
@@ -179,19 +230,62 @@ def estagio_do_documento(sinal, crop):
     return None
 
 
+# Palavras que declaram uma fase COMO ENCERRADA. Se a fonte diz «siamo nella
+# fase conclusiva», ela está a declarar o presente — e o presente que ela
+# declara é o fim. Sem esta guarda, `_PRESENTE` abria a janela numa frase que a
+# fechava.
+_ENCERRADA = re.compile(
+    r'\bconclus\w*\b|\bconclu[ií]d\w*\b|\btermina\w*\b|\bfinal\w*\b|'
+    r'\bcalant\w*\b|\bin esaurimento\b|\bultim\w*\b|\bencerrad\w*\b')
+
+# Os tipos cuja condição é QUANTITATIVA ou EVENTUAL: só uma medição, uma
+# contagem ou um evento datado a satisfazem. Prosa qualitativa não os responde.
+CONDICAO_MEDIDA = (THRESHOLD_WINDOW, WEATHER_TRIGGERED_WINDOW, PEST_STAGE_WINDOW)
+
+
 def aberta_agora(tipo, oracao, estagio, corrente):
     """→ ('YES'|'UNKNOWN'|'NO', método). A segunda pergunta, nunca a primeira.
 
-    Só a fenologia se fecha com o que o acervo tem: o documento declara o
-    estádio da cultura. Limiar, clima e fase da praga dependem de medição que
-    ninguém nos deu — e por isso `UNKNOWN`, que é a resposta honesta.
+    O MÉTODO É UMA AFIRMAÇÃO SOBRE A FONTE, E TEM DE SER VERDADEIRO
+    ---------------------------------------------------------------
+    O red team pegou o motor a dizer `CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS`
+    sobre o boletim frutticolo do Veneto de 03/09/2026 — que declarava a
+    medição em letras: «terzo volo terminato». A resposta `UNKNOWN` estava
+    certa; a razão estava errada, e uma razão errada no cartão é uma mentira
+    pequena que ninguém audita.
+
+        «NÃO TEMOS A MEDIÇÃO» E «A MEDIÇÃO NÃO RESPONDE À PERGUNTA» SÃO COISAS
+        DIFERENTES. O CARTÃO TEM DE DIZER QUAL DAS DUAS É.
+
+    Por isso o método distingue agora quatro silêncios diferentes: a fonte não
+    mediu; a fonte descreveu em prosa qualitativa; a fonte declarou a fase e ela
+    não é a da condição; e a fonte declarou a fase como encerrada.
     """
     if not corrente:
         return 'UNKNOWN', 'DOCUMENTO_NAO_CORRENTE'
     if tipo == ADMINISTRATIVE_WINDOW:
         return 'NO', 'ATO_ADMINISTRATIVO_NAO_E_JANELA_AGRONOMICA'
-    if tipo in (THRESHOLD_WINDOW, WEATHER_TRIGGERED_WINDOW, PEST_STAGE_WINDOW):
-        return 'UNKNOWN', 'CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS'
+    t = N._n(oracao)
+    if tipo in CONDICAO_MEDIDA:
+        # ⚠️ TESTEMUNHA NEGATIVA. «il quadro rimane tendenzialmente buono» não
+        # diz que 5% de cachos infestados não foi ultrapassado: diz que quem
+        # escreveu achou o quadro bom. Entre as duas coisas há uma medição que
+        # ninguém fez, e transformá-la em resposta seria inventar o número.
+        #
+        #     FRASE QUALITATIVA SÓ RESPONDE A UMA CONDIÇÃO QUANTITATIVA QUANDO
+        #     A PRÓPRIA FONTE DECLARA A EQUIVALÊNCIA. NUNCA POR LEITURA NOSSA.
+        if NE.qualitativo(oracao):
+            return 'UNKNOWN', 'FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA'
+        if tipo == PEST_STAGE_WINDOW:
+            # aqui a AÇÃO está amarrada ao ESTÁDIO — é a própria oração que
+            # prescreve. Então a fase que ela declara responde por ela mesma.
+            fase, _p = NE.fase_da_praga(oracao)
+            if fase in (NE.STAGE_STARTED, NE.STAGE_PEAK):
+                return 'YES', 'FONTE_DECLARA_A_FASE_DA_PRAGA_COMO_PRESENTE'
+            if fase == NE.STAGE_ENDED:
+                return 'NO', 'FONTE_DECLARA_A_FASE_DA_PRAGA_COMO_ENCERRADA'
+            return 'UNKNOWN', 'FONTE_NAO_DECLARA_A_FASE_QUE_A_CONDICAO_EXIGE'
+        return 'UNKNOWN', 'FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE'
     # ⚠️ A FONTE PODE DIZER «AGORA» ELA MESMA, e aí não há o que deduzir.
     # Medido no Bollettino Vite Integrato de Siena de 03/09/2026:
     # «Siamo nella fase di maggior suscettibilità a questa malattia.» A condição
@@ -200,7 +294,12 @@ def aberta_agora(tipo, oracao, estagio, corrente):
     #
     #     QUANDO A FONTE ESCREVE «ESTAMOS NA FASE», NÃO É INFERÊNCIA LER ISSO.
     #     É LEITURA. INFERÊNCIA SERIA CONCLUIR SEM ELA TER ESCRITO.
-    if _PRESENTE.search(N._n(oracao)):
+    if _PRESENTE.search(t):
+        # ...mas a fase que ela declara pode ser a fase FINAL. «Siamo nella fase
+        # conclusiva» é presente e é fim: ler só o presente abriria a janela
+        # exatamente na frase que a fecha.
+        if _ENCERRADA.search(t):
+            return 'NO', 'FONTE_DECLARA_A_FASE_COMO_ENCERRADA'
         return 'YES', 'FONTE_DECLARA_A_CONDICAO_COMO_PRESENTE'
     if not estagio:
         return 'UNKNOWN', 'DOCUMENTO_NAO_DECLARA_ESTADIO_DA_CULTURA'
@@ -211,11 +310,10 @@ def aberta_agora(tipo, oracao, estagio, corrente):
         return 'NO', 'ESTADIO_DECLARADO_NAO_SATISFAZ_A_CONDICAO'
     if tipo == PHENOLOGY_WINDOW:
         # a condição nomeia o próprio estádio: basta a fonte declarar o mesmo
-        cond = N._n(oracao)
         for termo in ('invaiatura', 'maturazione', 'maturacao', 'fioritura',
                       'floracao', 'accrescimento', 'ingrossamento', 'raccolta',
                       'colheita', 'sfioritura', 'allegagione'):
-            if termo in cond and termo in e:
+            if termo in t and termo in e:
                 return 'YES', 'ESTADIO_DECLARADO_NO_MESMO_DOCUMENTO'
         return 'UNKNOWN', 'ESTADIO_DECLARADO_NAO_NOMEIA_A_CONDICAO'
     return 'UNKNOWN', 'TIPO_SEM_REGRA_DE_ABERTURA'
@@ -223,7 +321,7 @@ def aberta_agora(tipo, oracao, estagio, corrente):
 
 def janelas_do_sinal(sinal):
     """→ candidatas de janela deste registro, por par cultura × alvo."""
-    corrente = True
+    corrente = documento_corrente(sinal)
     fora = []
     for campo, metodo, crops, issues, oracao in NE.atribuicoes(sinal):
         tipos = tipos_da_oracao(oracao)

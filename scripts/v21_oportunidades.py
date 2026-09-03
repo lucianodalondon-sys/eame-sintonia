@@ -384,7 +384,13 @@ def acao_por_departamento(o, elos):
     prioridade = o.get('COMMERCIAL_PRIORITY')
     faltam = [e for e in ELOS if not elos[e]]
 
-    if not elos['JANELA_DEFINIDA'] and elos['SINAL_ATUAL']:
+    # ⚠️ A REGRA PODE JÁ TER RESPONDIDO «DECIDE O POMAR». Mandar Market
+    # Development definir a condição regional, nesse caso, é mandá-lo procurar
+    # o que a Regione publicou que não existe.
+    delegada = o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM'
+    if delegada and not elos['JANELA_DEFINIDA'] and elos['SINAL_ATUAL']:
+        md = ('VALIDATE_AT_FARM_LEVEL', 'REGRA_DELEGADA_AO_POMAR')
+    elif not elos['JANELA_DEFINIDA'] and elos['SINAL_ATUAL']:
         md = ('DEFINE_WINDOW_CONDITION', 'SEM_CONDICAO_DECLARADA')
     elif not elos['JANELA_ABERTA_AGORA'] and elos['SINAL_ATUAL']:
         md = ('VALIDATE_WINDOW_IN_REGION', 'CONDICAO_DECLARADA_ESTADO_DESCONHECIDO')
@@ -409,7 +415,9 @@ def acao_por_departamento(o, elos):
     else:
         mkt = ('NO_MOVEMENT', 'NAO_AUTORIZADO_A_SAIR')
 
-    if not elos['JANELA_DEFINIDA']:
+    if delegada and not elos['JANELA_DEFINIDA']:
+        tec = ('CONFIRM_AT_FARM_LEVEL', 'REGRA_DELEGADA_AO_POMAR')
+    elif not elos['JANELA_DEFINIDA']:
         tec = ('ESTABLISH_WINDOW_CONDITION', 'SEM_CONDICAO_DECLARADA')
     elif not elos['JANELA_ABERTA_AGORA']:
         tec = ('CONFIRM_WINDOW_CONDITION_MET',
@@ -436,6 +444,8 @@ def acao_por_departamento(o, elos):
               'DEFINE_WINDOW_CONDITION': 'VALIDATE',
               'CONFIRM_RECOMMENDATION_IN_FIELD': 'VALIDATE',
               'ESTABLISH_WINDOW_CONDITION': 'VALIDATE',
+              'VALIDATE_AT_FARM_LEVEL': 'VALIDATE',
+              'CONFIRM_AT_FARM_LEVEL': 'VALIDATE',
               'CONFIRM_WINDOW_CONDITION_MET': 'VALIDATE',
               'RESOLVE_AMBIGUOUS_DIRECTION': 'VALIDATE',
               'CLASSIFY_MODE_OF_ACTION': 'VALIDATE',
@@ -443,8 +453,12 @@ def acao_por_departamento(o, elos):
               'WATCH_REGULATORY_DATE': 'WATCH',
               'NO_MOVEMENT': 'NO_ACTION', 'NOT_CONVENED': 'NO_ACTION'}
     GATILHO = {
-        'JANELA_DEFINIDA': 'uma fonte que declare a condicao do momento para '
-                           'este par nesta regiao',
+        'JANELA_DEFINIDA': (
+            'a observacao do proprio pomar — a regra regional declara que a '
+            'decisao e da empresa, e por isso nao ha gatilho regional para '
+            'esperar' if delegada else
+            'uma fonte que declare a condicao do momento para este par nesta '
+            'regiao'),
         'JANELA_ABERTA_AGORA': 'evidencia de que a condicao declarada esta '
                                'satisfeita agora — estadio, limiar medido, '
                                'captura ou evento climatico',
@@ -586,6 +600,10 @@ BRIEFING = {
                                         'esteja satisfeita agora.',
  'SEM_JANELA': 'Nenhuma fonte declara a condição que define o momento de '
                'intervir neste par e nesta região.',
+ 'JANELA_DELEGADA_AO_POMAR': 'A regra regional publicada declara que a decisão '
+                             'de intervir é da própria empresa, pelas '
+                             'observações e pelo histórico do pomar: não há '
+                             'gatilho regional a coletar.',
  'PORTFOLIO': 'Há {PRODUTOS} produto(s) do catálogo comercial ADAMA com rótulo '
               'ministerial no par.',
  'SEM_PORTFOLIO': 'Nenhum produto do catálogo comercial ADAMA cobre este par '
@@ -609,7 +627,9 @@ def briefing(o, matches, ativos_da_fonte):
             'ALVO': o['TARGET'], 'CULTURA': o['CROP'], 'REGIAO': o['GEOGRAPHY'],
             'SINAIS': dim.get('SINAIS_DE_CAMPO'),
             'FONTES': dim.get('FONTES_INDEPENDENTES')}})
-    if o.get('WINDOW_DEFINED') != 'YES':
+    if o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM':
+        b.append({'CODE': 'JANELA_DELEGADA_AO_POMAR', 'VALUES': {}})
+    elif o.get('WINDOW_DEFINED') != 'YES':
         b.append({'CODE': 'SEM_JANELA', 'VALUES': {}})
     elif o.get('WINDOW_OPEN_NOW') == 'YES':
         b.append({'CODE': 'JANELA_ABERTA', 'VALUES': {}})
@@ -858,6 +878,49 @@ def main():
         for j in JN.janelas_do_sinal(s_):
             janelas_ix[(j['CROP'], j['TARGET'])].append(j)
 
+    # ── TRÊS PERGUNTAS QUE O BOLETIM RESPONDE, COM TRÊS DONOS ───────────────
+    # O red team semântico mediu o motor a empilhar numa resposta só o que o
+    # boletim diz em três: a FASE DA PRAGA, a RECOMENDAÇÃO e a JANELA. Sobre o
+    # melo × carpocapsa do Veneto isso produzia
+    # `CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS` num boletim que declarava a fase em
+    # letras — «terzo volo terminato» — e que na frase seguinte mandava
+    # continuar a defesa.
+    #
+    #     FIM DO VOO NÃO É FIM DA NECESSIDADE DE INTERVENÇÃO.
+    #     E RECOMENDAR CONTINUAR NÃO É DECLARAR JANELA ABERTA.
+    #
+    # Cada uma passa a ter campo próprio, evidência própria e trecho próprio.
+    datas_dos_sinais = {s_['ID']: str(s_.get('REFERENCE_DATE') or '')
+                        for s_ in cs['CURRENT-FIELD-SIGNALS']}
+    declarado_ix = defaultdict(list)
+    for s_ in cs['CURRENT-FIELD-SIGNALS']:
+        for campo, _metodo, crops, issues, oracao in NE.atribuicoes(s_):
+            fase, _pf = NE.fase_da_praga(oracao)
+            rec, _pr = NE.recomendacao(oracao)
+            linha = {'SOURCE_ID': s_['ID'],
+                     'REGION_IDS': s_.get('REGION_IDS') or [],
+                     'DATE': datas_dos_sinais.get(s_['ID'], ''),
+                     'FIELD': campo, 'CLAUSE': oracao[:320],
+                     'PEST_STAGE': fase, 'RECOMMENDATION': rec,
+                     'QUALITATIVE': NE.qualitativo(oracao),
+                     'THRESHOLD_MEASURE': NE.limiar_declarado(oracao),
+                     'DELEGATED': NE.decisao_delegada(oracao)}
+            for c_ in crops:
+                for i_ in issues:
+                    declarado_ix[(c_, i_)].append(linha)
+
+    def declarados(crop, alvo, geo):
+        """→ as orações deste par NESTA região, da mais recente para a mais velha.
+
+        A ordem é DECLARADA e não estatística: o documento mais recente que
+        afirma alguma coisa é o que responde por ela. Empate desfaz-se pelo ID,
+        para o pacote não mudar de conteúdo entre duas execuções iguais.
+        """
+        linhas = [d for d in declarado_ix.get((crop, alvo), [])
+                  if geo in (d['REGION_IDS'] or [])]
+        return sorted(linhas, key=lambda d: (d['DATE'], d['SOURCE_ID']),
+                      reverse=True)
+
     def janela_tipada(crop, alvo, geo):
         """→ a candidata que vale para ESTA combinação, ou None.
 
@@ -1042,6 +1105,96 @@ def main():
             'diz qual delas. ATO ADMINISTRATIVO nunca vira janela agronomica: '
             'prazo de norma e obrigacao, e vale so para o alvo que a norma '
             'nomeia.')
+
+        # ── A FASE DA PRAGA · o que o inseto está a fazer, e nada mais ───────
+        dec = declarados(o.get('CROP'), o.get('TARGET'), o.get('GEOGRAPHY'))
+        fase = next((d for d in dec
+                     if d['PEST_STAGE'] != NE.STAGE_NOT_DECLARED), None)
+        c['PEST_STAGE_STATE'] = fase['PEST_STAGE'] if fase else NE.STAGE_NOT_DECLARED
+        c['PEST_STAGE_EVIDENCE_ID'] = fase['SOURCE_ID'] if fase else None
+        c['PEST_STAGE_EXCERPT'] = fase['CLAUSE'] if fase else ''
+        c['PEST_STAGE_LAW'] = (
+            'a fase da praga e FATO DECLARADO pela fonte, com trecho ao lado. '
+            'Ela NAO responde se ha janela, se ela esta aberta nem se a defesa '
+            'acabou: fim do voo nao e fim da necessidade de intervencao. Quem '
+            'declara mais recentemente responde; empate desfaz-se pelo ID.')
+
+        # ── A RECOMENDAÇÃO · o que o serviço manda fazer ─────────────────────
+        # Quem manda PARAR continua a vencer: se a direcao do par e restritiva,
+        # a recomendacao espelha-a. So dentro da porta aberta e que a distincao
+        # «comecar» x «continuar» tem lugar — e ela vem de uma oracao que a
+        # declara, com dono proprio.
+        if c.get('NEED_DIRECTION') in NE.RESTRITIVOS:
+            c['ACTION_RECOMMENDATION_STATE'] = NE._DIRECAO_PARA_RECOMENDACAO[
+                c['NEED_DIRECTION']]
+            c['ACTION_RECOMMENDATION_EVIDENCE_ID'] = c.get('NEED_EVIDENCE_ID')
+            c['ACTION_RECOMMENDATION_EXCERPT'] = c.get('NEED_EXCERPT') or ''
+        else:
+            cont = next((d for d in dec
+                         if d['RECOMMENDATION'] == NE.CONTINUE_RECOMMENDED), None)
+            if cont:
+                c['ACTION_RECOMMENDATION_STATE'] = NE.CONTINUE_RECOMMENDED
+                c['ACTION_RECOMMENDATION_EVIDENCE_ID'] = cont['SOURCE_ID']
+                c['ACTION_RECOMMENDATION_EXCERPT'] = cont['CLAUSE']
+            else:
+                c['ACTION_RECOMMENDATION_STATE'] = (
+                    NE._DIRECAO_PARA_RECOMENDACAO.get(
+                        c.get('NEED_DIRECTION'), NE.RECOMMENDATION_NOT_DECLARED))
+                c['ACTION_RECOMMENDATION_EVIDENCE_ID'] = c.get('NEED_EVIDENCE_ID')
+                c['ACTION_RECOMMENDATION_EXCERPT'] = c.get('NEED_EXCERPT') or ''
+        c['ACTION_RECOMMENDATION_LAW'] = (
+            'a recomendacao e o que a fonte MANDA FAZER, e nao a prova de que o '
+            'momento chegou. CONTINUE_RECOMMENDED diz que a defesa ja decorria '
+            'e nao deve parar — util exatamente quando a fase da praga terminou. '
+            'Entre oracoes do mesmo par, a que manda parar continua a vencer.')
+
+        # ── O LIMIAR · houve medição declarada, ou só prosa? ─────────────────
+        if c.get('WINDOW_TYPE') == JN.THRESHOLD_WINDOW:
+            med = next((d for d in dec if d['THRESHOLD_MEASURE']), None)
+            qual = next((d for d in dec if d['QUALITATIVE']), None)
+            if med:
+                c['THRESHOLD_STATE'] = 'MEASUREMENT_DECLARED'
+                c['THRESHOLD_STATE_EVIDENCE_ID'] = med['SOURCE_ID']
+            elif qual:
+                c['THRESHOLD_STATE'] = 'QUALITATIVE_PICTURE_ONLY'
+                c['THRESHOLD_STATE_EVIDENCE_ID'] = qual['SOURCE_ID']
+                # e entao o metodo da janela para de mentir: nao e que a fonte
+                # nao falou — e que o que ela falou nao responde a pergunta.
+                if c.get('WINDOW_OPEN_NOW') == 'UNKNOWN':
+                    c['WINDOW_OPEN_NOW_METHOD'] = (
+                        'FONTE_DECLARA_QUADRO_QUALITATIVO_NAO_A_MEDICAO')
+            else:
+                c['THRESHOLD_STATE'] = 'NOT_DECLARED'
+                c['THRESHOLD_STATE_EVIDENCE_ID'] = None
+        else:
+            c['THRESHOLD_STATE'] = 'NOT_APPLICABLE'
+            c['THRESHOLD_STATE_EVIDENCE_ID'] = None
+        # ── A REGRA · declarada, delegada ao pomar, ou inexistente ──────────
+        # `WINDOW_RULE_MISSING` diz «ninguem declarou a condicao». Mas o Manuale
+        # difesa integrata del melo do Veneto declara — e o que ele declara e que
+        # a decisao e da empresa. Chamar isso de regra ausente e acusar a fonte
+        # de nao ter dito o que ela disse com todas as letras.
+        deleg = next((d for d in dec if d['DELEGATED']), None)
+        if c.get('WINDOW_DEFINED') == 'YES':
+            c['WINDOW_RULE_STATE'] = 'RULE_DECLARED'
+            c['WINDOW_RULE_EVIDENCE_ID'] = c.get('WINDOW_EVIDENCE_ID')
+        elif deleg:
+            c['WINDOW_RULE_STATE'] = 'RULE_DELEGATED_TO_FARM'
+            c['WINDOW_RULE_EVIDENCE_ID'] = deleg['SOURCE_ID']
+        else:
+            c['WINDOW_RULE_STATE'] = 'RULE_NOT_DECLARED'
+            c['WINDOW_RULE_EVIDENCE_ID'] = None
+        c['WINDOW_RULE_STATE_LAW'] = (
+            'RULE_DELEGATED_TO_FARM nao e janela e nunca abre uma: e a fonte '
+            'regional declarando que o gatilho e do pomar, pelas observacoes e '
+            'pelo historico dele. Coletar mais nao muda esta resposta — ela ja '
+            'foi dada. RULE_NOT_DECLARED e o unico dos tres que pede coleta.')
+
+        c['THRESHOLD_STATE_LAW'] = (
+            'diz se a fonte declarou MEDICAO, quadro QUALITATIVO ou nada. NUNCA '
+            'responde WINDOW_OPEN_NOW: «pochissime aree sopra soglia» traz as '
+            'duas coisas na mesma frase, e frase qualitativa so responde a uma '
+            'condicao quantitativa quando a propria fonte declara a equivalencia.')
 
         # ── O QUE O PRODUTO É · modo de acao, dose e restricao ────────────────
         # Tudo isto ja estava no acervo, ligado por NUMERO DE REGISTRO — a mesma
@@ -1236,7 +1389,11 @@ def main():
         falta = []
         if o.get('TARGET'):
             if o.get('WINDOW_DEFINED') != 'YES':
-                falta.append('WINDOW_RULE_MISSING')
+                # a fonte pode ter respondido a pergunta com «decide o pomar».
+                # Isso fecha a pergunta; nao a deixa em aberto.
+                falta.append('WINDOW_RULE_DELEGATED_TO_FARM'
+                             if o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM'
+                             else 'WINDOW_RULE_MISSING')
             elif o.get('WINDOW_OPEN_NOW') != 'YES':
                 falta.append('WINDOW_STATE_UNKNOWN')
             if not (o.get('COMMERCIAL_PRODUCT_COUNT') or 0):
@@ -1526,6 +1683,21 @@ def gravar(brutos, C, cs):
             'WINDOW_EVIDENCE_ID': o['WINDOW_EVIDENCE_ID'],
             'PHENOLOGY_DECLARED': o['PHENOLOGY_DECLARED'],
             'WINDOW_TYPE_LAW': o['WINDOW_TYPE_LAW'],
+            # três perguntas, três respostas, três donos — nunca empilhadas
+            'PEST_STAGE_STATE': o['PEST_STAGE_STATE'],
+            'PEST_STAGE_EVIDENCE_ID': o['PEST_STAGE_EVIDENCE_ID'],
+            'PEST_STAGE_EXCERPT': o['PEST_STAGE_EXCERPT'],
+            'PEST_STAGE_LAW': o['PEST_STAGE_LAW'],
+            'ACTION_RECOMMENDATION_STATE': o['ACTION_RECOMMENDATION_STATE'],
+            'ACTION_RECOMMENDATION_EVIDENCE_ID': o['ACTION_RECOMMENDATION_EVIDENCE_ID'],
+            'ACTION_RECOMMENDATION_EXCERPT': o['ACTION_RECOMMENDATION_EXCERPT'],
+            'ACTION_RECOMMENDATION_LAW': o['ACTION_RECOMMENDATION_LAW'],
+            'THRESHOLD_STATE': o['THRESHOLD_STATE'],
+            'THRESHOLD_STATE_EVIDENCE_ID': o['THRESHOLD_STATE_EVIDENCE_ID'],
+            'THRESHOLD_STATE_LAW': o['THRESHOLD_STATE_LAW'],
+            'WINDOW_RULE_STATE': o['WINDOW_RULE_STATE'],
+            'WINDOW_RULE_EVIDENCE_ID': o['WINDOW_RULE_EVIDENCE_ID'],
+            'WINDOW_RULE_STATE_LAW': o['WINDOW_RULE_STATE_LAW'],
             'ACTIVE_INGREDIENT_IDS': o['ACTIVE_INGREDIENT_IDS'],
             'ACTIVE_INGREDIENT_NAMES': o['ACTIVE_INGREDIENT_NAMES'],
             'MODE_OF_ACTION_CODES': o['MODE_OF_ACTION_CODES'],

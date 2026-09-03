@@ -217,6 +217,193 @@ def direcao(oracao):
     return NEUTRAL_MENTION, None
 
 
+# ── TRÊS PERGUNTAS QUE O TEXTO RESPONDE, E QUE NÃO SÃO A MESMA ──────────────
+#
+# O red team semântico dos cinco vãos encontrou o motor a dizer, sobre o melo ×
+# carpocapsa do Veneto, `CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS`. A fonte tinha
+# declarado a medição: «terzo volo terminato». O que faltava não era medição —
+# era distinguir três coisas que o boletim diz e que o motor empilhava numa só:
+#
+#     FASE DA PRAGA          o que o inseto está a fazer
+#     RECOMENDAÇÃO           o que o serviço manda fazer
+#     JANELA ABERTA          se a condição que define o momento está satisfeita
+#
+# «Terzo volo terminato, danni in aumento, continuare la difesa» responde às
+# duas primeiras com sinais OPOSTOS e não responde à terceira. Empilhar as três
+# produzia ou um «acabou» falso, ou um «agora» falso.
+#
+#     FIM DO VOO NÃO É FIM DA NECESSIDADE DE INTERVENÇÃO.
+#     E RECOMENDAR CONTINUAR NÃO É DECLARAR JANELA ABERTA.
+STAGE_STARTED = 'STAGE_STARTED'
+STAGE_PEAK = 'STAGE_PEAK'
+STAGE_DECLINING = 'STAGE_DECLINING'
+STAGE_ENDED = 'STAGE_ENDED'
+STAGE_NOT_DECLARED = 'STAGE_NOT_DECLARED'
+
+FASES_DA_PRAGA = (STAGE_STARTED, STAGE_PEAK, STAGE_DECLINING, STAGE_ENDED,
+                  STAGE_NOT_DECLARED)
+
+# O substantivo que nomeia um estádio da PRAGA. Sem um destes na oração não há
+# fase de praga nenhuma: «raccolta terminata» é a colheita, não o voo.
+_ESTADIO_DA_PRAGA = re.compile(
+    r'\bvol[oi]\b|\bvoos?\b|\bgenerazion\w+\b|\bgerac\w+\b|'
+    r'\bovideposi\w*|\bsfarfallament\w*|\bneanid\w*|\bpostura\w*|'
+    r'\bformas juvenis\b|\bstadi giovanili\b|\bnascita d\w+ \w+\b')
+
+_FASE = [
+ (STAGE_ENDED, [r'\btermina\w*\b', r'\bconclus\w*\b', r'\bconclu[ií]d\w*\b',
+                r'\bencerrad\w*\b', r'\bfinit\w*\b', r'\bterminou\b']),
+ (STAGE_DECLINING, [r'\bcalant\w*\b', r'\bin esaurimento\b',
+                    r'\bem declinio\b', r'\bdecrescent\w*\b',
+                    r'\bem esgotamento\b']),
+ (STAGE_PEAK, [r'\bpicco\b', r'\bpico\b', r'\bmassimo\b', r'\bauge\b']),
+ (STAGE_STARTED, [r'\biniziat\w*\b', r'\binizio\b', r'\bcomecou\b',
+                  r'\bcomecad\w*\b', r'\bin corso\b', r'\bem curso\b',
+                  r'\bavviat\w*\b']),
+]
+
+
+def fase_da_praga(oracao):
+    """→ (FASE, padrão) declarada pela fonte para o estádio da praga.
+
+    Exige as DUAS coisas na mesma oração: o substantivo do estádio e a palavra
+    de estado. Uma sozinha não declara nada.
+
+        «terzo volo terminato»            → STAGE_ENDED
+        «terminata la raccolta»           → STAGE_NOT_DECLARED (é a colheita)
+        «i voli sono in fase calante»     → STAGE_DECLINING
+    """
+    t = _n(oracao)
+    if not _ESTADIO_DA_PRAGA.search(t):
+        return STAGE_NOT_DECLARED, None
+    for fase, padroes in _FASE:
+        for p in padroes:
+            if re.search(p, t):
+                return fase, p
+    return STAGE_NOT_DECLARED, None
+
+
+# ── A RECOMENDAÇÃO, QUE TEM DONO PRÓPRIO ────────────────────────────────────
+CONTINUE_RECOMMENDED = 'CONTINUE_RECOMMENDED'
+START_RECOMMENDED = 'START_RECOMMENDED'
+MONITOR_RECOMMENDED = 'MONITOR_RECOMMENDED'
+SUSPEND_RECOMMENDED = 'SUSPEND_RECOMMENDED'
+NOT_NEEDED_DECLARED = 'NOT_NEEDED_DECLARED'
+PROHIBITED_DECLARED = 'PROHIBITED_DECLARED'
+CONCLUDED_DECLARED = 'CONCLUDED_DECLARED'
+RECOMMENDATION_NOT_DECLARED = 'RECOMMENDATION_NOT_DECLARED'
+
+RECOMENDACOES = (CONTINUE_RECOMMENDED, START_RECOMMENDED, MONITOR_RECOMMENDED,
+                 SUSPEND_RECOMMENDED, NOT_NEEDED_DECLARED, PROHIBITED_DECLARED,
+                 CONCLUDED_DECLARED, RECOMMENDATION_NOT_DECLARED)
+
+# «continuare la difesa» é uma recomendação POSITIVA que a direção já classifica
+# como pressão — mas ela diz mais do que «trate»: diz que a defesa JÁ ESTAVA a
+# decorrer e não deve parar. É esse «mais» que o cartão precisava carregar para
+# o fim do voo não ser lido como fim da campanha.
+_CONTINUAR = re.compile(
+    r'\bcontinuare\b[^.;]{0,40}\b(?:difesa|trattament\w+|protezion\w+)\b|'
+    r'\bcontinuar\b[^.;]{0,40}\b(?:a defesa|o tratamento|a protecao)\b|'
+    r'\bprosegui\w+\b[^.;]{0,40}\b(?:difesa|trattament\w+)\b|'
+    r'\bmantere\w*\b[^.;]{0,40}\b(?:difesa|copertura|protezione)\b')
+
+_DIRECAO_PARA_RECOMENDACAO = {
+    POSITIVE_PRESSURE: START_RECOMMENDED,
+    MONITOR: MONITOR_RECOMMENDED,
+    NO_ACTION_RECOMMENDED: NOT_NEEDED_DECLARED,
+    ACTION_SUSPENDED: SUSPEND_RECOMMENDED,
+    WINDOW_CONCLUDED: CONCLUDED_DECLARED,
+    TREATMENT_PROHIBITED: PROHIBITED_DECLARED,
+    NEUTRAL_MENTION: RECOMMENDATION_NOT_DECLARED,
+    UNKNOWN: RECOMMENDATION_NOT_DECLARED,
+}
+
+
+def recomendacao(oracao):
+    """→ (RECOMENDAÇÃO, padrão). Deriva da direção, com um estado a mais.
+
+    A direção continua a ter um dono só — `direcao()`. Isto não a recalcula:
+    lê o mesmo veredito e acrescenta a distinção «começar» × «continuar», que
+    só o texto declara.
+    """
+    if _CONTINUAR.search(_n(oracao)):
+        return CONTINUE_RECOMMENDED, _CONTINUAR.pattern
+    estado, padrao = direcao(oracao)
+    return _DIRECAO_PARA_RECOMENDACAO.get(
+        estado, RECOMMENDATION_NOT_DECLARED), padrao
+
+
+# ── A FRASE QUALITATIVA, QUE NÃO RESPONDE PERGUNTA QUANTITATIVA ─────────────
+#
+# Testemunhas negativas pedidas pelo red team. «Il quadro rimane tendenzialmente
+# buono» não diz que 5% de cachos infestados NÃO foi ultrapassado; diz que quem
+# escreveu achou o quadro bom. Entre as duas coisas há uma medição que ninguém
+# fez.
+#
+#     FRASE QUALITATIVA SÓ RESPONDE A UMA CONDIÇÃO QUANTITATIVA QUANDO A PRÓPRIA
+#     FONTE DECLARA A EQUIVALÊNCIA. NUNCA POR LEITURA NOSSA.
+_QUALITATIVO = re.compile(
+    r'\bsituazione buona\b|\bsituacao boa\b|'
+    r'\bquadro\b[^.;]{0,30}\bbuono\b|\bquadro\b[^.;]{0,30}\bbom\b|'
+    r'\btendenzialmente buono\b|\btendencialmente bom\b|'
+    r'\bpressione contenuta\b|\bpressao contida\b|'
+    r'\binfestazioni contenute\b|\binfestacoes contidas\b|'
+    r'\bsotto controllo\b|\bsob controlo\b|\bsob controle\b|'
+    r'\bfase conclusa\b|\bfase concluida\b|'
+    r'\bdanni presenti\b|\bdanos presentes\b|\bpresenza di danni\b|'
+    r'\bsituazione sotto\b|\bnella norma\b|\bnormal para a epoca\b')
+
+
+# A fonte declarando que o limiar FOI ULTRAPASSADO — ou que não foi. Isto NÃO
+# responde `WINDOW_OPEN_NOW`: «pochissime aree sopra soglia» contém as duas
+# coisas na mesma frase. Serve para dizer se houve medição declarada, e só.
+_LIMIAR_DECLARADO = re.compile(
+    r'\bsopra soglia\b|\bsuperata la soglia\b|\bsuperamento della soglia\b|'
+    r'\bacima d[oa] limiar\b|\blimiar ultrapassad\w*\b|'
+    r'\bsotto soglia\b|\babaixo d[oa] limiar\b|\bsoglia raggiunta\b')
+
+
+# ── A REGRA QUE DELEGA · o serviço regional que diz «decide você» ───────────
+#
+# Medido na coleta dirigida do vão de janela de macieira × carpocapsa no Veneto.
+# O «Manuale difesa integrata del melo» da própria Regione responde à pergunta
+# «qual regra define quando agir?» — e a resposta é que NÃO HÁ gatilho regional:
+#
+#     «Per cui le decisioni devono essere necessariamente basate sulle
+#      osservazioni aziendali e sulla situazione storica dell'azienda.»
+#
+# Isso não é uma lacuna da nossa coleta. É o conteúdo da regra publicada. Chamar
+# a isto `WINDOW_RULE_MISSING` seria acusar a fonte de não ter dito o que ela
+# disse com todas as letras.
+#
+#     «NÃO ACHAMOS A REGRA» E «A REGRA MANDA O POMAR DECIDIR» SÃO RESPOSTAS
+#     DIFERENTES. UMA PEDE MAIS COLETA; A OUTRA FECHA A PERGUNTA.
+_DELEGADA = re.compile(
+    r'\b(?:decisoes|decisao|decisioni|decisione)\b[^.;]{0,80}'
+    r'\b(?:observacoes|observacao|osservazion\w+|situacao|situazione)\b'
+    r'[^.;]{0,40}\b(?:empresa|aziendal\w+|azienda|pomar|frutteto)\b|'
+    r'\bosservazioni aziendali\b|\bobservacoes da propria empresa\b|'
+    r'\bvalutazione aziendale\b|\bin base alla situazione aziendale\b')
+
+
+def decisao_delegada(oracao):
+    """→ o padrão de delegação que a oração contém, ou None."""
+    m = _DELEGADA.search(_n(oracao))
+    return m.group(0) if m else None
+
+
+def limiar_declarado(oracao):
+    """→ o padrão de medição de limiar que a oração contém, ou None."""
+    m = _LIMIAR_DECLARADO.search(_n(oracao))
+    return m.group(0) if m else None
+
+
+def qualitativo(oracao):
+    """→ o padrão qualitativo que a oração contém, ou None."""
+    m = _QUALITATIVO.search(_n(oracao))
+    return m.group(0) if m else None
+
+
 def _mais_restritiva(estados):
     """Entre as vistas para o mesmo par, a que fecha a porta ganha.
 
