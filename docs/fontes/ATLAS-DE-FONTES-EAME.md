@@ -1255,6 +1255,84 @@ mudanças de catálogo, acordos comerciais e culturas atendidas. Ela dá **a red
 
 ---
 
+## CAMADA DE DESCOBERTA — ITÁLIA (2026-09-03)
+
+Este Atlas continua **dono** do catálogo de fontes. O que segue é uma **camada de
+descoberta** ligada a ele, não um segundo dono.
+
+**Onde ela vive:**
+
+| | |
+|---|---|
+| registro legível por máquina | `data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json` |
+| gerador (a curadoria está no código, não em prosa) | `scripts/it_fontes.py` |
+| lote social congelado para o Sintonia Scrap | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json` |
+| cruzamentos que essas fontes já sustentam | `data/samples/IT-CRUZAMENTO-V1/` |
+
+### Por que os IDs são `IT-SRCX-###` e não `IT-T<n>-<seq>`
+
+Porque `SOURCE_ID_COUNT` é uma **sentinela do ledger**, verificada por
+`tests/test_handoff.py` contra o valor **36** e contra o prompt de bootstrap. Mintar 27
+`SOURCE_ID:` novos moveria essa sentinela **em silêncio**, dentro de uma missão de
+descoberta — e mover uma régua verificada é ato deliberado, não efeito colateral.
+
+O namespace `IT-SRCX-###` foi escolhido para **não casar** com o regex do ledger
+(`(EU|FR|ES|IT)-T\d{1,2}-\d{3}`). A contagem canônica fica intacta e a descoberta fica
+guardada.
+
+**Para promover uma fonte da camada de descoberta a ficha canônica**, três coisas mudam
+juntas, na mesma passagem: a ficha entra aqui com `SOURCE_ID: IT-T<n>-<seq>`; o placar e a
+tabela de cobertura acompanham; `SOURCE_ID_COUNT` sobe no comentário `<!--M:-->`, no
+`PROMPT-PARA-NOVA-CONTA-CLAUDE.md` e em `tests/test_handoff.py`.
+
+### O que a camada trouxe
+
+**27 fontes qualificadas** — 12 HIGH, 15 MEDIUM · 19 AUTOMATABLE · 17 com feed ou API ·
+**28 perfis sociais declarados pela própria organização** · 5 rejeições com motivo escrito ·
+6 rotas não alcançadas desta sessão. `DEDUPE: PASS`.
+
+Sete das 27 são **canal novo de organização já registrada** e trazem `DEDUPE_AGAINST`
+apontando o `SRC_*` do pacote canônico. **Dedupe une organização; não colapsa canal** — a
+mesma instituição pode ser site, feed, perfil e API, e as quatro quebram de jeitos
+diferentes.
+
+### As três que mais mudam o que dá para observar na Itália
+
+| ID | fonte | por que importa |
+|---|---|---|
+| `IT-SRCX-003` | UNIBO BIG — rede de trappole de *Halyomorpha halys* | única série **numérica** de campo desta rodada: 177 pontos, por província e por estádio, 2021 → 2026-08-31, por API aberta sem chave |
+| `IT-SRCX-004` | API Plone dos bollettini do Servizio Fitosanitario Emilia-Romagna | o host já estava no acervo; a **rota** não. A página é um SPA e não entrega link nenhum — a API entrega os 150 PDFs de 2026 com título e data |
+| `IT-SRCX-016` | Agricast — podcast dos Gruppi Operativi da Emilia-Romagna | fala técnica longa onde o sinal está **só no áudio**: 9 objetos, 118,7 min, 103.404 caracteres transcritos localmente por 0 USD |
+
+### Dois defeitos de identidade encontrados no acervo canônico
+
+1. **`SRC_IMAGE_LINE_COM`** está registrado como `TECHNICAL_MEDIA`, `ACCESS_STATUS: GREEN`
+   e **sem campo `NAME`**. Lido em 2026-09-03: `image-line.com` é a **FL Studio**, software
+   de produção musical. A editora agrícola italiana é a **Image Line s.r.l.**, em
+   `imagelinenetwork.com`. São duas empresas homônimas — a mesma família do caso
+   `repilouk` da Espanha.
+2. Dos **62 `PUBLIC_CHANNEL`** do pacote V2.1, uma parte é horticultura doméstica
+   (*Passione Orto*, *Orto Da Coltivare*, *Piccoli Orti Grandi Raccolti*, *Your Hobby*) e
+   quatro **não são italianos** (Cornell SIPS, INTA Chubut, Aragón TV, Laderas del
+   Naranco). Não se propõe apagar: propõe-se `RELEVANCE: LOW` e `COUNTRY != IT`, para que
+   "62 canais" pare de sugerir 62 canais técnicos italianos.
+
+### O que esta sessão não conseguiu fazer, e por quê
+
+`ROTA BLOQUEADA PARA ESTA SESSÃO ≠ ROTA INEXISTENTE.`
+
+- **Instagram**: página de perfil devolve `HTTP 302` para login; a rota de **embed de post**
+  responde `HTTP 200` com 628 KB daqui — falta o *shortcode*, que só a passada de perfil
+  entrega. O Chrome do `cdp.py` **não atravessa o proxy** desta sessão
+  (`ERR_CONNECTION_RESET` em todo host, `google.com` incluído).
+- **Mídia do YouTube**: metadados voltam normalmente; o binário de áudio é recusado com
+  `HTTP 403` pela política de saída (`googlevideo.com`).
+- **TLS**: `enterisi.it` (GREEN no acervo) hoje falha com `DH_KEY_TOO_SMALL`; `ismea.it`,
+  `confagricoltura.it` e `emergenzaxylella.it` falham na verificação de certificado. São
+  **estados da fonte**, registrados — a verificação **nunca** foi desligada.
+
+---
+
 ### Regra de contagem (declarada para evitar leitura ambígua)
 
 O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOURCE_ID

@@ -1,0 +1,148 @@
+{
+ "DATASET": "IT-ENRIQUECIMENTO-CONFIRMADAS-V1",
+ "SOURCE": "boletins do Servizio Fitosanitario Emilia-Romagna dos ultimos 30 dias, lidos por rota propria; cruzados contra activeIngredients e productRelationships do pacote canonico V2.1",
+ "SOURCE_ID": "IT-ENRIQUECIMENTO-V1",
+ "CAPTURED_AT": "2026-09-03",
+ "REFERENCE_DATE": "2026-09-03",
+ "RULE": "NAO MEXER EM STATUS. NAO MEXER EM SCORE. NAO PROMOVER A MAO.",
+ "STRUCTURAL_FINDING": "7 das 9 confirmadas sao O5_REGULATORY_PREPARATION com GEOGRAPHY=GEO_EU, e NENHUMA das 9 carrega FIELD_SIGNAL, PUBLIC_VOICE ou AGROMET entre as suas EVIDENCE_FAMILIES. As nove confirmadas sao um calendario regulatorio, nao uma observacao de campo.",
+ "ENRICHED": 4,
+ "NOT_ENRICHED": 5,
+ "STATUS_CHANGES": 0,
+ "SCORE_CHANGES": 0,
+ "ABSENCE_LAW": "zero ocorrencias nos 14 boletins da Emilia-Romagna dos ultimos 30 dias significa ZERO NESTA LEITURA. Nao significa que a molecula sumiu do campo italiano, nem que nao e recomendada, nem que outra regiao nao a cita. O boletim de produzione integrata nomeia SUBSTANCIA ATIVA e nao marca: nenhum dos 51 produtos comerciais ADAMA aparece por nome em nenhum dos 14 documentos.",
+ "ENRICHMENTS": [
+  {
+   "OPPORTUNITY_ID": "OPP_88CC35C57C7B",
+   "CROP": "CROP_SOYBEAN",
+   "SUBSTANCE": "IMAZAMOX",
+   "EU_LIMIT_DATE": "2027-06-30",
+   "DAYS_TO_DATE_AT_REFERENCE": 301,
+   "STATUS_BEFORE": "OPPORTUNITY_CONFIRMED",
+   "STATUS_AFTER": "OPPORTUNITY_CONFIRMED",
+   "SCORE_BEFORE": 9,
+   "SCORE_AFTER": 9,
+   "WHAT_IS_NEW": "primeira evidencia ITALIANA, DATADA e de CAMPO ligada a esta substancia",
+   "NEW_EVIDENCE": {
+    "LAYER": "FIELD_BULLETIN",
+    "DATE": "2026-08-21",
+    "DOC": "Bollettino di produzione integrata e biologica Piacenza N. 27 del 21/08/2026",
+    "SECTION": "FAGIOLINO",
+    "QUOTE_IT": "In pre-emergenza contro graminacee e dicotiledoni utilizzare Clomazone o Pendimetalin(*). In post-emergenza contro dicotiledoni utilizzare Imazamox e Bentazone. In post-emergenza contro graminacee utilizzare Quizalofop-p-etile, Propaquizafop o Ciclossidim.",
+    "EVIDENCE_PATH": "data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json"
+   },
+   "HONEST_LIMIT": "a secao e FAGIOLINO, NAO soia. A oportunidade e de soja. A ligacao e de SUBSTANCIA numa cultura vizinha da mesma familia (LEGUMINOSE, 70 pares de rotulo ADAMA), e nao substitui evidencia de campo em soja. Forcar isso seria cruzar sem chave.",
+   "WHY_IT_STILL_MATTERS": "mostra que, 301 dias antes do limite de aprovacao UE, o servico regional ainda posiciona imazamox como a solucao de pos-emergencia contra dicotiledoneas. A janela de preparacao existe e esta aberta."
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_3965565ACFCC",
+   "CROP": "CROP_GRAPEVINE",
+   "SUBSTANCE": "FOLPET",
+   "EU_LIMIT_DATE": "2039-10-31",
+   "DAYS_TO_DATE_AT_REFERENCE": 4807,
+   "STATUS_BEFORE": "OPPORTUNITY_CONFIRMED",
+   "STATUS_AFTER": "OPPORTUNITY_CONFIRMED",
+   "SCORE_BEFORE": 8,
+   "SCORE_AFTER": 8,
+   "WHAT_IS_NEW": "duas evidencias italianas datadas: um TETO DE RESISTENCIA que nomeia folpet, e DUAS derogas de emergencia com folpet numa cultura diferente",
+   "NEW_EVIDENCE": {
+    "LAYER": "FIELD_BULLETIN + REGULATORY_EVENT",
+    "DATE": "2026-08-21",
+    "DOC": "Bollettino Parma N. 27 del 21/08/2026",
+    "SECTION": "POMODORO DA INDUSTRIA",
+    "QUOTE_IT_1": "Tra Captano, Folpet e Fluazinam Max 4",
+    "QUOTE_IT_2": "In data 13 maggio 2026 ... uso eccezionale del prodotto fitosanitario FOLPEC 50 SC, contenente la sostanza attiva folpet, per il contenimento della maculatura bruna (Stemphylium vesicarium) sulla coltura del pero - impiego consentito dal 28/04/2026 al 25/08/2026.",
+    "QUOTE_IT_3": "In data 6 maggio ... uso eccezionale del prodotto fitosanitario FOLDER 80 WG, contenente la sostanza attiva folpet, ... sulla coltura del pero - impiego consentito dal 28/04/2026 al 25/08/2026.",
+    "EVIDENCE_PATH": "data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json"
+   },
+   "HONEST_LIMIT": "a oportunidade e de VITE. As tres citacoes sao de POMODORO DA INDUSTRIA e de PERO. Nenhuma prova nada sobre vite. FOLPEC 50 SC e FOLDER 80 WG NAO sao produtos ADAMA. A ligacao e de SUBSTANCIA.",
+   "WHY_IT_STILL_MATTERS": "o folpet italiano vive dentro de um teto compartilhado com captano e fluazinam (Max 4 no total) e e chamado duas vezes em deroga na mesma campanha. Isso descreve a POSICAO da molecula no calendario italiano, que uma data UE de 2039 sozinha nao descreve."
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_576D71D702F0",
+   "CROP": "CROP_MAIZE",
+   "SUBSTANCE_VIA_PRODUCT": "PIRIMICARB (APHOX, APHOX 50)",
+   "STATUS_BEFORE": "OPPORTUNITY_CONFIRMED",
+   "STATUS_AFTER": "OPPORTUNITY_CONFIRMED",
+   "SCORE_BEFORE": 9,
+   "SCORE_AFTER": 9,
+   "WHAT_IS_NEW": "o boletim regional NOMEIA pirimicarb como intervencao, com LIMIAR declarado, e na mesma linha marca a substancia como candidata a substituicao",
+   "NEW_EVIDENCE": {
+    "LAYER": "FIELD_BULLETIN",
+    "DATE": "2026-09-02",
+    "DOC": "Bollettino Forli-Cesena, Ravenna e Rimini N. 28 del 02/09/2026",
+    "SECTION": "MELO",
+    "QUOTE_IT": "Al superamento della soglia di 10 colonie vitali su 100 organi controllati con infestazione in atto intervenire con Pirimicarb(*), attivi contro l’afide verde o Sali potassici degli acidi grassi. ... (*) Sostanza attiva Candidata alla Sostituzione",
+    "CROSSING_ID": "IT-X-2026-001",
+    "EVIDENCE_PATH": "data/samples/IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json#IT-X-2026-001"
+   },
+   "HONEST_LIMIT": "a oportunidade e de MAIS; a citacao e da secao MELO. APHOX e APHOX 50 estao nos PRODUCT_RELATIONSHIPS desta oportunidade E tem par de rotulo lido em MELO x AFIDI x Eriosoma spp na LINHA DA TABELA. A evidencia nova e forte, e e de outra cultura.",
+   "WHY_IT_STILL_MATTERS": "e a unica das nove que ganhou, nesta rodada, uma evidencia de campo CORRENTE (1 dia de idade) que nomeia a substancia de um produto ADAMA e declara um limiar operacional.",
+   "RISK_FLAG": "pirimicarb aparece marcado como Sostanza attiva Candidata alla Sostituzione. Isto e RISCO DE PORTFOLIO e deveria alimentar uma leitura O5, nao so a O2 de mercado."
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_8EA4F5C0D3F4",
+   "CROP": "CROP_BARLEY",
+   "SUBSTANCE_VIA_PRODUCT": "AZOXYSTROBIN (CUSTODIA ULTRA, MIRADOR TURBO)",
+   "STATUS_BEFORE": "OPPORTUNITY_CONFIRMED",
+   "STATUS_AFTER": "OPPORTUNITY_CONFIRMED",
+   "SCORE_BEFORE": 8,
+   "SCORE_AFTER": 8,
+   "WHAT_IS_NEW": "teto de intervencoes e gestao de resistencia que nomeia azoxystrobin, com data",
+   "NEW_EVIDENCE": {
+    "LAYER": "FIELD_BULLETIN",
+    "DATE": "2026-08-21",
+    "DOC": "Bollettino Parma N. 27 del 21/08/2026",
+    "SECTION": "POMODORO DA INDUSTRIA",
+    "QUOTE_IT": "Si ricorda l’importanza di effettuare una rotazione dei principi attivi a disposizione per la difesa e di rispettare le dosi (non vanno ridotte arbitrariamente) e il numero massimo di interventi al fine di evitare l’instaurarsi di resistenze. ... Tra Pyraclostrobin e Azoxystrobin Max 3",
+    "EVIDENCE_PATH": "data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json"
+   },
+   "HONEST_LIMIT": "a oportunidade e de ORZO. A citacao e de POMODORO DA INDUSTRIA. Nao prova nada sobre cevada. E ligacao de SUBSTANCIA e de PRATICA (gestao de resistencia).",
+   "WHY_IT_STILL_MATTERS": "mostra que o teto de estrobilurina e um limite operacional real e escrito na Italia"
+  }
+ ],
+ "NOT_ENRICHED_AND_WHY": [
+  {
+   "OPPORTUNITY_ID": "OPP_2BDE8FC566CE",
+   "SUBSTANCE": "FENPROPIDIN",
+   "CROP": "CROP_SUGAR_BEET",
+   "EU_LIMIT_DATE": "2027-05-15",
+   "WHY": "zero ocorrencias de \"fenpropidin\" com fronteira de palavra nos 14 boletins da Emilia-Romagna dos ultimos 30 dias (2,3 M caracteres lidos).",
+   "BUT_WE_FOUND_THE_ROUTE": "a scheda oficial de cercospora da barbabietola do Servizio Fitosanitario ER cita difenoconazolo + fenpropidin entre as opcoes, e os modelos CERCOPRI/CERCODEP da Universita Cattolica di Piacenza sao a rota de TIMING desta cultura. Ambos entraram no acervo de fontes (IT-SRCX-008). A leitura da scheda nao foi feita nesta missao.",
+   "STATE": "NOT_ENRICHED_ROUTE_IDENTIFIED"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_6E18A133EE14",
+   "SUBSTANCE": "BUPIRIMATE",
+   "CROP": "CROP_TOMATO",
+   "EU_LIMIT_DATE": "2027-01-31",
+   "WHY": "zero ocorrencias de \"bupirimate\" nos 14 boletins lidos.",
+   "NOTE": "e a data-limite MAIS PROXIMA das nove: 151 dias na data de referencia. A ausencia de mencao no campo torna a preparacao regulatoria ainda mais o unico eixo desta.",
+   "STATE": "NOT_ENRICHED"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_886307860F79",
+   "SUBSTANCE": "MESOTRIONE",
+   "CROP": "CROP_MAIZE",
+   "EU_LIMIT_DATE": "2032-05-31",
+   "WHY": "zero ocorrencias de \"mesotrione\" nos 14 boletins lidos.",
+   "STATE": "NOT_ENRICHED"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_E6200AA0FA63",
+   "SUBSTANCE": "FLORASULAM",
+   "CROP": "CROP_BARLEY",
+   "EU_LIMIT_DATE": "2030-12-31",
+   "WHY": "zero ocorrencias de \"florasulam\" nos 14 boletins lidos.",
+   "NOTE": "cereal de inverno em setembro esta fora de janela de diserbo. A ausencia aqui e esperada e nao diz nada sobre a molecula.",
+   "STATE": "NOT_ENRICHED_OUT_OF_SEASON"
+  },
+  {
+   "OPPORTUNITY_ID": "OPP_AF16E6A6B8B3",
+   "CROP": "CROP_GRAPEVINE",
+   "WHY": "a vite aparece nos boletins, mas nenhuma das 25 marcas ADAMA desta oportunidade aparece por nome — e nenhuma substancia dela foi isolada nesta passagem com fronteira de palavra na secao VITE.",
+   "NOTE": "e a oportunidade mais recente das nove (sinal de 5 dias) e continua sem evidencia de campo nova",
+   "STATE": "NOT_ENRICHED"
+  }
+ ]
+}
