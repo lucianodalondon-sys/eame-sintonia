@@ -642,6 +642,178 @@ FONTES += [
 ]
 
 
+# ── FONTES TRAZIDAS PELA PASSAGEM PARALELA ─────────────────────────────────────
+# Seis agentes varreram eixos independentes (social, agromet/modelos, resistencia,
+# mercado/distribuicao, concorrente, eventos/regulatorio) com a mesma lei: nada entra
+# sem leitura HTTP real. O que segue e o que sobreviveu a verificacao.
+
+FONTES += [
+
+    F('IT-SRCX-028',
+      'ARPAE Emilia-Romagna — ERG5 open data, serie horaria por estacao',
+      'Arpae — Servizio IdroMeteoClima (SIMC)', 'AGROMET_OPEN_DATA', 'OFFICIAL', 'HIGH',
+      'https://dati-simc.arpae.it/opendata/erg5v2/timeseries/',
+      regiao='Emilia-Romagna',
+      feed='https://dati-simc.arpae.it/opendata/erg5v2/timeseries/<stazione>/<stazione>_<ano>.zip',
+      crops=['BARBABIETOLA', 'POMODORO', 'MELO', 'PERO', 'VITE', 'MAIS', 'FRUMENTO'],
+      temas=['AGROMETEO', 'TEMPERATURA', 'PIOGGIA', 'UMIDITA', 'GRADI_GIORNO'],
+      razao=('e a variavel de entrada dos modelos previsionais que decidem QUANDO tratar — '
+             'CERCOPRI/CERCODEP na barbabietola sao alimentados por temperatura, umidade relativa '
+             'e chuva. Sem serie horaria, "janela" e calendario; com ela, e modelo. E a regiao e '
+             'a mesma de 4 das 37 oportunidades e de toda a serie da cimice.'),
+      achada='varredura paralela do eixo agromet/modelos previsionais',
+      query='ARPAE ERG5 open data timeseries agrometeo Emilia-Romagna',
+      metodo='HTTP + ZIP por estacao e ano', freq='FREQUENT', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_DAILY',
+      dedupe='SRC_ARPAE_IT',
+      dedupe_means=('mesma agencia; o registro V2.1 aponta para o portal institucional, este aponta '
+                    'para o endpoint de dado bruto. Portal e dado sao pontos de coleta diferentes.'),
+      prova='wf_agromet-forecast-models.json · HTTP 200 · indice 127.451 B · pacote de estacao 90.399 B'),
+
+    F('IT-SRCX-029',
+      'OSMER ARPA FVG — previsioni e stazioni em XML',
+      'ARPA FVG — Osservatorio Meteorologico Regionale', 'AGROMET_OPEN_DATA', 'OFFICIAL', 'MEDIUM',
+      'https://dev.meteo.fvg.it/',
+      regiao='Friuli-Venezia Giulia',
+      feed='https://dev.meteo.fvg.it/xml/previsioni/PW<AAAAMMDD>.xml · /xml/stazioni/<COD>.xml',
+      crops=['MELO', 'MAIS', 'SOIA', 'VITE'],
+      temas=['PREVISIONE', 'STAZIONI', 'AGROMETEO'],
+      razao=('FVG e a geografia de OPP_9C600748BB1B (mais x piralide) e OPP_F139E05A9F3A. A rota XML '
+             'e datada no proprio nome do arquivo, o que torna a coleta reproduzivel sem raspagem.'),
+      achada='varredura paralela do eixo agromet', query='OSMER ARPA FVG xml previsioni stazioni',
+      metodo='HTTP + XML', freq='FREQUENT', ultimo='2026-09-03', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_DAILY',
+      prova='wf_agromet-forecast-models.json · PW20260903.xml HTTP 200, 52.212 B'),
+
+    F('IT-SRCX-030',
+      'Meteotrentino — web service de estacoes e ultimo dato',
+      'Provincia Autonoma di Trento', 'AGROMET_OPEN_DATA', 'OFFICIAL', 'MEDIUM',
+      'https://dati.meteotrentino.it/service.asmx',
+      regiao='Trentino',
+      feed='https://dati.meteotrentino.it/service.asmx/listaStazioni · /getLastDataOfMeteoStation?codice=<COD>',
+      crops=['MELO', 'VITE'], temas=['AGROMETEO', 'STAZIONI'],
+      razao=('Trentino e a geografia de OPP_75C37DED9160 (melo x carpocapsa) e das crop windows de '
+             'melo; MELO tem 146 pares de rotulo ADAMA. O servico responde sem chave e publica WSDL.'),
+      achada='varredura paralela do eixo agromet', query='dati.meteotrentino.it service asmx listaStazioni',
+      metodo='HTTP SOAP/REST', freq='FREQUENT', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_DAILY',
+      prova='wf_agromet-forecast-models.json · listaStazioni 73.687 B · WSDL 313.725 B'),
+
+    F('IT-SRCX-031',
+      'Open Data Regione Lombardia — sensori meteo (Socrata)',
+      'Regione Lombardia', 'AGROMET_OPEN_DATA', 'OFFICIAL', 'MEDIUM',
+      'https://www.dati.lombardia.it/resource/nf78-nj6b.json',
+      regiao='Lombardia',
+      feed='API Socrata, JSON, parametros $limit e $where',
+      crops=['MAIS', 'RISO', 'VITE', 'BARBABIETOLA'],
+      temas=['AGROMETEO', 'SENSORI'],
+      razao=('Lombardia e a geografia de OPP_F6EEF5B32F65 (mais x diabrotica) e OPP_8E210567B01F. '
+             'MAIS tem 112 pares de rotulo ADAMA.'),
+      achada='varredura paralela do eixo agromet', query='dati.lombardia.it resource sensori meteo json',
+      metodo='API Socrata JSON', freq='FREQUENT', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_DAILY',
+      prova='wf_agromet-forecast-models.json · duas rotas HTTP 200'),
+
+    F('IT-SRCX-032',
+      'Horta s.r.l. — DSS agronomicos (vite.net e familia)',
+      'Horta s.r.l., spin-off da Universita Cattolica del Sacro Cuore', 'DSS_COMMERCIAL',
+      'TECHNICAL', 'HIGH',
+      'https://www.horta-srl.it/',
+      regiao='ITALIA',
+      crops=['VITE', 'FRUMENTO', 'POMODORO', 'OLIVO', 'MELO'],
+      temas=['MODELLI_PREVISIONALI', 'DSS', 'DIFESA_INTEGRATA'],
+      razao=('e o maior DSS agronomico comercial italiano e nasceu da MESMA universidade que assina '
+             'CERCOPRI/CERCODEP. Quem opera o modelo que decide a janela e um ator do mercado que a '
+             'ADAMA precisa enxergar — nao um portal de noticia.'),
+      achada='varredura paralela do eixo agromet/modelos',
+      query='horta srl vite.net DSS modelli previsionali Italia',
+      metodo='HTML + sitemap + WP REST', freq='STATIC', ultimo='2024-10-16', acesso='YELLOW',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota=('horta-srl.COM nao alcancado (Recv failure) e vite.net recusou o tunel; horta-srl.IT '
+            'responde 200 com 1,07 MB. O canal de noticias esta parado desde 2024-10-16 e o DSS '
+            'em si vive atras de login. CANAL PARADO != EMPRESA PARADA.'),
+      prova='wf_agromet-forecast-models.json · home 1.079.490 B · wp-json posts, mais recente 2024-10-16'),
+
+    F('IT-SRCX-033',
+      'Ri.Nova soc. coop. — a cooperativa de pesquisa dos Gruppi Operativi da Emilia-Romagna',
+      'Ri.Nova soc. coop.', 'RESEARCH_COOPERATIVE', 'SCIENTIFIC', 'HIGH',
+      'https://www.linkedin.com/company/rinovaricerca',
+      regiao='Emilia-Romagna', plataforma='LINKEDIN',
+      social={'LINKEDIN': 'https://www.linkedin.com/company/rinovaricerca',
+              'YOUTUBE': 'https://www.youtube.com/@rinovaricerche',
+              'INSTAGRAM': 'https://www.instagram.com/ri.nova.soc.coop/'},
+      crops=['MELO', 'PERO', 'SUSINO', 'PATATA', 'VITE', 'POMODORO'],
+      temas=['GRUPPI_OPERATIVI', 'DIFESA', 'MONITORAGGIO', 'RIDUZIONE_INPUT'],
+      razao=('e o fio que amarra tres coisas que ja estao neste acervo e pareciam separadas: a nota '
+             'tecnica da cimice do Servizio Fitosanitario ER pede que os tecnicos falem com a Ri.Nova '
+             'para alimentar a rede de trappole; os projetos que o Agricast narra sao Gruppi Operativi '
+             'que ela coordena; e as culturas sao as de OPP_20D89B04F64D, OPP_DA4B5954F72A e '
+             'OPP_75C37DED9160. Uma fonte que EXPLICA as outras vale mais que uma fonte a mais.'),
+      achada='snowballing duplo: nome impresso no PDF da nota tecnica da cimice, e de novo na varredura social',
+      query='Ri.Nova gruppi operativi Emilia-Romagna ricerca',
+      metodo='LinkedIn publico + YouTube (feed RSS por channel_id) + Instagram',
+      scrap='YES', video='YES', transcricao='YES',
+      freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      prova='wf_social-technical-voices.json · LinkedIn 355.264 B · YouTube 1.350.501 B'),
+
+    F('IT-SRCX-034',
+      'Fondazione Agrion — ricerca frutticola e viticola del Piemonte',
+      'Fondazione per la ricerca l innovazione e lo sviluppo tecnologico dell agricoltura piemontese',
+      'RESEARCH_FOUNDATION', 'SCIENTIFIC', 'HIGH',
+      'https://www.linkedin.com/company/fondazione-agrion',
+      regiao='Piemonte', plataforma='LINKEDIN',
+      social={'LINKEDIN': 'https://www.linkedin.com/company/fondazione-agrion',
+              'INSTAGRAM': 'https://www.instagram.com/fondazioneagrion/'},
+      crops=['MELO', 'PESCO', 'ACTINIDIA', 'VITE', 'NOCCIOLO'],
+      temas=['SPERIMENTAZIONE', 'DIFESA', 'VARIETA'],
+      razao=('Piemonte e a geografia de OPP_4C39CCC05EEB (riso x Echinochloa) e de duas crop windows '
+             'de vite e mais; e a regiao nao tinha, no acervo, nenhum centro de pesquisa aplicada '
+             'proprio — so o servico fitossanitario.'),
+      achada='varredura paralela do eixo social/tecnico',
+      query='Fondazione Agrion Piemonte ricerca frutticola',
+      metodo='LinkedIn publico + Instagram', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      prova='wf_social-technical-voices.json · LinkedIn HTTP 200, 290.219 B'),
+
+    F('IT-SRCX-035',
+      'CSO Italy — Centro Servizi Ortofrutticoli',
+      'CSO Italy', 'MARKET_SERVICE', 'INDUSTRY', 'MEDIUM',
+      'https://www.csoservizi.com/',
+      regiao='ITALIA',
+      social={'LINKEDIN': 'https://it.linkedin.com/company/cso---centro-servizi-ortofrutticoli'},
+      crops=['MELO', 'PERO', 'PESCO', 'ACTINIDIA', 'FRAGOLA'],
+      temas=['PREVISIONE_PRODUZIONE', 'MERCATO_ORTOFRUTTA', 'SUPERFICI'],
+      razao=('publica previsao de producao e superficie das pomacee — o DENOMINADOR das culturas de '
+             'quatro oportunidades de melo e pero. Sem denominador, "sinal em melo" nao tem escala.'),
+      achada='varredura paralela do eixo social/tecnico', query='CSO Centro Servizi Ortofrutticoli previsione produzione',
+      metodo='HTML + LinkedIn publico', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL',
+      monitor='MONITOR_MONTHLY',
+      nota='PREVISAO DE PRODUCAO != MERCADO ENDERECAVEL. E denominador de cultura, e so.',
+      prova='wf_social-technical-voices.json · HTTP 200'),
+
+    F('IT-SRCX-036',
+      'YouTube — rota de feed por channel_id (descoberta de video datada, sem chave)',
+      'YouTube', 'VIDEO_DISCOVERY_ROUTE', 'MEDIA', 'HIGH',
+      'https://www.youtube.com/feeds/videos.xml?channel_id=<ID>',
+      regiao='ITALIA', plataforma='YOUTUBE',
+      feed='https://www.youtube.com/feeds/videos.xml?channel_id=<ID>',
+      crops=['TODAS'], temas=['VIDEO', 'FALA_TECNICA'],
+      razao=('a REGRA DE COLETA EXTERNA poe VIDEO/TRANSCRIPT em primeiro lugar, e mede: 15 videos '
+             'espanhois deram 705.149 caracteres de fala tecnica. Esta rota lista os videos de um '
+             'canal COM DATA, em XML, sem chave e sem raspagem — e resolve a metade da coleta que '
+             'esta sessao consegue fazer.'),
+      achada='varredura paralela do eixo social; validada em 7 canais italianos',
+      query='youtube.com/feeds/videos.xml?channel_id=',
+      metodo='HTTP + XML', video='YES', transcricao='PARCIAL', freq='FREQUENT', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_WEEKLY',
+      nota=('a METADE que nao funciona daqui: o binario de audio vem de googlevideo.com e a politica '
+            'de saida desta sessao devolve HTTP 403. Listar canal, sim; transcrever, so na maquina '
+            'que tem a rota. A transcricao em si ja esta provada nesta sessao — 118,7 min de audio '
+            'italiano a ~9x tempo real, custo 0 USD, por outra plataforma.'),
+      prova='wf_social-technical-voices.json · 7 feeds channel_id HTTP 200, 18 a 39 KB cada'),
+]
+
+
 # ── REJEICOES ──────────────────────────────────────────────────────────────────
 # Uma rejeicao com motivo escrito vale tanto quanto uma fonte: ela impede a
 # proxima passagem de gastar o mesmo tempo no mesmo beco.
@@ -699,6 +871,17 @@ REJEITADAS = [
      'EVIDENCE': 'v21/publicChannels.json, 62 registros lidos um a um'},
 ]
 
+REJEITADAS += [
+    {'NAME': 'Open Data Hub Alto Adige — MeteoStation', 'URL': 'https://mobility.api.opendatahub.com/v2/flat/MeteoStation/*/latest?limit=3',
+     'REJECTION_CLASS': 'STALE_CONTENT_BEHIND_A_LIVE_ENDPOINT',
+     'REASON': ('a API responde HTTP 200 sem autenticacao e parece viva. Os valores mais recentes '
+                'devolvidos para a origem SIAG (servico meteo da Provincia di Bolzano) carregam '
+                'mvalidtime de 2016-01-26, e a chamada sem filtro devolve series EURAC/HISTALP com '
+                'mvalidtime de 2007-12-31. ENDPOINT VIVO != DADO ATUAL.'),
+     'ACTION': 'nao registrar como fonte de monitoramento agrometeo; reavaliar se a origem mudar',
+     'EVIDENCE': 'wf_agromet-forecast-models.json#freshness_rejection'},
+]
+
 # ── ROTAS QUE NAO ABRIRAM DAQUI ────────────────────────────────────────────────
 # Estado da REDE desta sessao, nunca estado do mundo.
 NAO_ALCANCADAS = [
@@ -722,6 +905,28 @@ NAO_ALCANCADAS = [
     {'HOST': 'melinda.it · prodottifitosanitari.net · disafa.unito.it · consorziagrari.it',
      'STATE': 'CONNECTION_RESET_BY_PEER',
      'MEANS': 'nao alcancadas daqui. NAO_SEI, nunca RED.'},
+]
+
+
+NAO_ALCANCADAS += [
+    {'HOST': 'horta-srl.com · vite.net', 'STATE': 'RECV_FAILURE / CONNECT_TUNNEL_FAILED',
+     'MEANS': ('os dois dominios do maior DSS agronomico italiano nao abriram daqui; horta-srl.IT '
+               'respondeu 200 com 1,07 MB. A empresa esta registrada por esse host.')},
+    {'HOST': 'beratungsring.org · sbr.bz.it', 'STATE': 'SSL_ERROR / CONNECT_TUNNEL_FAILED',
+     'MEANS': ('o Sudtiroler Beratungsring e o servico de aconselhamento tecnico do Alto Adige para '
+               'maca e vinha — exatamente a voz tecnica que falta no acervo. NAO_SEI, nunca RED.')},
+    {'HOST': 'opendata.arpa.piemonte.it · api.arpa.piemonte.it · dext3r.arpae.it · sistemapiemonte.it/agrometeo',
+     'STATE': 'CONNECT_TUNNEL_FAILED / RECV_FAILURE',
+     'MEANS': 'rotas de dado agromet do Piemonte nao abriram daqui; a rota da Emilia-Romagna abriu'},
+    {'HOST': 'betaitalia.eu · betaricerca.it', 'STATE': 'CONNECT_TUNNEL_FAILED',
+     'MEANS': ('as duas tentativas restantes de achar a BETA, sociedade de pesquisa da bietola que '
+               'faz os ensaios de cercospora com a COPROB, tambem falharam. A instituicao continua '
+               'NAO_SEI — e betaitalia.it e outra empresa.')},
+    {'HOST': 'instagram.com (pagina de perfil) — segunda medicao', 'STATE': 'HTTP_429_E_HTTP_302',
+     'MEANS': ('a passagem paralela mediu 429 em 11 de 12 perfis e UM 200 (disaa_unimi, 625.848 B). '
+               'A re-medicao imediata devolveu 302 nos tres perfis testados. A rota nao esta fechada: '
+               'esta limitada por taxa e instavel desta saida. Handle DECLARADO pela organizacao '
+               'continua provado; o CONTEUDO do perfil fica NAO_SEI.')},
 ]
 
 
