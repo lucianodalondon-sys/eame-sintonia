@@ -641,12 +641,12 @@
        Pest Control     · Purple  #9D1D96 / #752157 / contraste #F5B317
      `body` e `muted` sao tinta sobre branco: Text Grey e ADAMA Earth. */
   const CATEGORY_UI = {
-    pest: { key: 'pest', label: 'Pest Control', color: '#9D1D96', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#752157', ink: '#fff', body: '#5F504D', muted: '#978B87', icon: 'pest-control', iconAsset: 'assets/icons/pest-control-white.png', aShape: 'assets/a-pest-2.png', order: 0 },
-    disease: { key: 'disease', label: 'Disease Control', color: '#00A0DF', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#00698F', ink: '#fff', body: '#5F504D', muted: '#978B87', icon: 'disease-control', iconAsset: 'assets/icons/disease-control-white.png', aShape: 'assets/a-disease-2.png', order: 1 },
-    weed: { key: 'weed', label: 'Weed Control', color: '#7DB41E', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#00698F', ink: '#5F504D', body: '#5F504D', muted: '#978B87', icon: 'weed-control', iconAsset: 'assets/icons/weed-control-white.png', aShape: '', order: 2 },
+    pest: { key: 'pest', label: 'Pest Control', color: '#9D1D96', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#752157', ink: '#fff', body: '#5F504D', muted: '#5F504D', icon: 'pest-control', iconAsset: 'assets/icons/pest-control-white.png', aShape: 'assets/a-pest-2.png', order: 0 },
+    disease: { key: 'disease', label: 'Disease Control', color: '#00A0DF', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#00698F', ink: '#fff', body: '#5F504D', muted: '#5F504D', icon: 'disease-control', iconAsset: 'assets/icons/disease-control-white.png', aShape: 'assets/a-disease-2.png', order: 1 },
+    weed: { key: 'weed', label: 'Weed Control', color: '#7DB41E', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#00698F', ink: '#5F504D', body: '#5F504D', muted: '#5F504D', icon: 'weed-control', iconAsset: 'assets/icons/weed-control-white.png', aShape: '', order: 2 },
     /* label is deliberately null: an unclassified record must hide the category
        chip, not print a guess. */
-    unknown: { key: 'unknown', label: null, color: '#978B87', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#978B87', ink: '#fff', body: '#5F504D', muted: '#978B87', icon: 'connect', iconAsset: '', aShape: '', order: 3 },
+    unknown: { key: 'unknown', label: null, color: '#5F504D', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#978B87', ink: '#fff', body: '#5F504D', muted: '#5F504D', icon: 'connect', iconAsset: '', aShape: '', order: 3 },
   };
   /* The pest / disease / weed split is a FACT that comes from the canonical
      ISSUE_TYPE, never from a colour table. */
@@ -692,10 +692,10 @@
   const STATUS_UI = {
     WINDOW_OPEN: { color: '#009845', text: '#009845', rank: 1 },
     WINDOW_CLOSED: { color: '#CBC5C3', text: '#978B87', rank: 6 },
-    NEXT_CYCLE: { color: '#978B87', text: '#978B87', rank: 5 },
-    DATE_UNKNOWN: { color: '#978B87', text: '#978B87', rank: 4 },
+    NEXT_CYCLE: { color: '#5F504D', text: '#FFFFFF', rank: 5 },
+    DATE_UNKNOWN: { color: '#5F504D', text: '#FFFFFF', rank: 4 },
     ACT_NOW: { color: '#00783F', text: '#00783F', rank: 0 },
-    DEFAULT: { color: '#978B87', text: '#978B87', rank: 9 },
+    DEFAULT: { color: '#5F504D', text: '#FFFFFF', rank: 9 },
   };
   const DEPARTMENT_UI = {
     'MARKET DEVELOPMENT': { color: '#5F504D', soft: '#978B87' },

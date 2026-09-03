@@ -44,7 +44,7 @@ const MAX_SCREENS = Number(arg('screens', 99));
 const MAX_CLICKS = Number(arg('max', 9999));
 const PORT = 8951;
 const PORTAL = `http://localhost:${PORT}/portale.html`;
-const SETTLE = 200;
+const SETTLE = 190;
 
 /* ── l'enumerazione, identica a quella di drive.clickables() ───────────────
    Deve essere IDENTICA, altrimenti l'indice della descrizione e l'elemento che
@@ -151,23 +151,58 @@ const harvest = (p) => p.evaluate(() => { const n = window.__m || 0; if (window.
   .catch(() => 0);
 
 /* ── ripristino ────────────────────────────────────────────────────────────
-   Premere «EN» traduce l'intera applicazione e clickTitle('Concorrenza') non
-   trova piu niente. Il ripristino sale di livello finche l'impronta torna
-   quella di partenza: rientro dal menu · ricarica + rientro · resa. */
-async function restore(label, wantTh) {
+   Premere «EN» traduce l'intera applicazione: clickTitle('Concorrenza') non
+   trova piu niente, e la scelta SOPRAVVIVE alla ricarica perche vive in
+   localStorage['sintonia_lang']. La prima versione di questo portone ricaricava
+   e ricadeva in inglese: da li in poi ogni firma mancava il bersaglio, 105
+   pressioni finivano nel vuoto e due voci di menu sembravano gemelle. Non era
+   un difetto del portale — era il portone che misurava uno stato che si era
+   portato addosso.
+
+       PRIMA DI MISURARE, RIPORTA IL MONDO DOV'ERA. ANCHE LA MEMORIA.
+
+   Il ripristino sale di livello finche l'impronta del testo torna quella di
+   partenza: rientro dal menu · memoria svuotata + ricarica + rientro · resa. */
+const wipe = () => page.evaluate(() => { try { localStorage.clear(); sessionStorage.clear(); } catch (e) { /* origine opaca */ } }).catch(() => {});
+
+async function reboot() {
+  await wipe();
+  await page.goto(PORTAL, { waitUntil: 'networkidle' }).catch(() => {});
+  await wipe();
+  await page.reload({ waitUntil: 'networkidle' }).catch(() => {});
+  await page.waitForTimeout(600);
+}
+
+let rebase = 0;
+const freshSnap = async (label) => {
+  await reboot();
+  const ok = await clickTitle(page, label, 460).catch(() => false);
+  return ok ? snap(page).catch(() => null) : null;
+};
+
+/* `sc` e la scheda della schermata, non un numero: quando l'impronta congelata
+   all'inizio non torna nemmeno dopo due riavvii, la si RIMISURA da pulito due
+   volte. Se le due misure coincidono, quella E la schermata — l'impronta di
+   partenza era di un istante transitorio — e la scheda la riadotta. Accusare
+   una deriva che non esiste costa piu che ammettere di aver misurato presto. */
+async function restore(label, sc) {
   for (let k = 0; k < 3; k++) {
-    if (k > 0) { await page.goto(PORTAL, { waitUntil: 'networkidle' }).catch(() => {}); await page.waitForTimeout(500); }
+    if (k > 0) await reboot();
     const ok = await clickTitle(page, label, 340).catch(() => false);
     if (!ok) continue;
     const s = await snap(page).catch(() => null);
-    if (s && s.th === wantTh) return s;
+    if (s && s.th === sc.th) return s;
   }
+  const a = await freshSnap(label);
+  const b = await freshSnap(label);
+  if (a && b && a.th === b.th) { sc.th = a.th; sc.chars = a.chars; sc.rebased = true; rebase++; return b; }
   return null;
 }
 
 /* ═══════════════ passaggio 1 · lo spazzamento ═══════════════════════════ */
 const screens = [];
 const suspects = [];
+const blew = [];   /* pressioni che hanno fatto urlare la console */
 let judged = 0, alive = 0, formCtl = 0, selfNav = 0, notJudged = 0, drift = 0, enumSkew = 0;
 
 for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
@@ -193,16 +228,19 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
     if (FORM.has(c.tag)) { formCtl++; sc.forms++; continue; }
     if ((meta[i] || {}).nt === label) { selfNav++; sc.selfNav++; continue; }
 
-    const t0 = tabs, d0 = downloads, g0 = dialogs;
+    const t0 = tabs, d0 = downloads, g0 = dialogs, e0 = errors.length;
     const hit = await clickSig(page, sigs[i], ord[i]);
-    if (!hit) { sc.skipped++; drift++; await harvest(page); const r = await restore(label, base.th); cur = r || cur; continue; }
+    if (!hit) { sc.skipped++; drift++; await harvest(page); const r = await restore(label, sc); cur = r || cur; continue; }
     await page.waitForTimeout(SETTLE);
     const mut = await harvest(page);
     const post = await snap(page).catch(() => null);
+    /* Un errore di console va ATTRIBUITO alla pressione che lo ha prodotto,
+       altrimenti il portone dice «sei errori» e nessuno sa dove premere. */
+    if (errors.length > e0) blew.push({ screen: label, tag: c.tag, text: (c.text || c.title || '').replace(/\s+/g, ' ').slice(0, 46), msg: errors[e0] });
     const moved = differs(cur, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
 
     sc.judged++; judged++;
-    if (moved) { alive++; sc.alive++; const r = await restore(label, base.th); if (r) cur = r; else { drift++; cur = await snap(page).catch(() => cur); } }
+    if (moved) { alive++; sc.alive++; const r = await restore(label, sc); if (r) cur = r; else { drift++; cur = await snap(page).catch(() => cur); } }
     else { cur = post || cur; suspects.push({ label, i, sig: sigs[i], ord: ord[i], g: (meta[i] || {}).g, c }); }
   }
   screens.push(sc);
@@ -214,11 +252,10 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
    dello stesso gruppo — l'altro chip, l'altra lingua — e poi di nuovo il
    sospetto. Chi si muove alla seconda era idempotente. Chi non si muove mai,
    con o senza contesto, e morto. */
-const dead = [];
+const dead = [], idempotent = [];
 for (const s of suspects) {
   const sc = screens.find((x) => x.label === s.label);
-  const base = { th: sc.th };
-  let r = await restore(s.label, sc.th);
+  let r = await restore(s.label, sc);
   if (!r) { drift++; continue; }
   const cl = await clickables(page);
   const meta = await enrich(page);
@@ -240,31 +277,64 @@ for (const s of suspects) {
     await harvest(page);
     if (ok) { await page.waitForTimeout(SETTLE); mode = 'con fratello «' + (cl[sib].text || cl[sib].title || cl[sib].tag).replace(/\s+/g, ' ').slice(0, 24) + '»'; }
   }
-  const pre = await snap(page).catch(() => null);
-  const t0 = tabs, d0 = downloads, g0 = dialogs;
-  const hit = await clickSig(page, s.sig, s.ord);
-  if (!hit) {
-    /* il fratello ha portato via il sospetto: si ritenta senza contesto */
-    await harvest(page);
-    const rr = await restore(s.label, base.th);
-    if (!rr) { drift++; continue; }
-    const p2 = await snap(page);
-    const h2 = await clickSig(page, s.sig, s.ord);
-    if (!h2) { drift++; await harvest(page); continue; }
+  /* L'impronta si prende SEMPRE prima di premere. La prima riscrittura di
+     questo blocco la prendeva dopo il click e confrontava il dopo col dopo:
+     tutto risultava fermo. Lo si e visto perche il portone accusava comandi
+     che a mano si muovevano. */
+  const press = async (sig, ordinal) => {
+    const pre = await snap(page).catch(() => null);
+    const t0 = tabs, d0 = downloads, g0 = dialogs;
+    const ok = await clickSig(page, sig, ordinal);
+    if (!ok) { await harvest(page); return null; }
     await page.waitForTimeout(SETTLE);
-    const m2 = await harvest(page);
-    const q2 = await snap(page).catch(() => null);
-    if (differs(p2, q2) || m2 > NOISE || tabs > t0 || downloads > d0 || dialogs > g0) { alive++; sc.alive++; continue; }
-    dead.push({ ...s, mode: 'solo' }); sc.dead.push(s.c); continue;
+    const mut = await harvest(page);
+    const post = await snap(page).catch(() => null);
+    return differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
+  };
+
+  let moved = await press(s.sig, s.ord);
+  if (moved === null) {
+    /* il fratello ha portato via il sospetto: si ritenta senza contesto */
+    const rr = await restore(s.label, sc);
+    if (!rr) { drift++; continue; }
+    mode = 'solo';
+    moved = await press(s.sig, s.ord);
+    if (moved === null) { drift++; continue; }
   }
-  await page.waitForTimeout(SETTLE);
-  const mut = await harvest(page);
-  const post = await snap(page).catch(() => null);
-  if (differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0) { alive++; sc.alive++; continue; }
+  if (moved) { alive++; sc.alive++; continue; }
+
+  /* ── terza prova · lo STESSO comando su un'ALTRA schermata ───────────────
+     Il blocco del marchio «SINTONIA / ADAMA ITALIA · INTELLIGENCE» porta a
+     casa. Sulla schermata di casa non muove niente — perche sei gia a casa —
+     e il portone lo accusava di essere morto: un'accusa falsa contro un
+     comando che funziona. Lo stesso vale per la voce di menu della schermata
+     corrente, che qui pero e gia esclusa per nome.
+
+         PRIMA DI DICHIARARE MORTO UN COMANDO, PROVALO DOVE HA QUALCOSA DA FARE.
+
+     Si cerca la stessa firma su un'altra schermata della barra e la si preme
+     li. Se li si muove, era idempotente, non morto. */
+  let revived = null;
+  for (const other of SIDEBAR.slice(0, MAX_SCREENS)) {
+    if (other === s.label) continue;
+    const osc = screens.find((x) => x.label === other);
+    if (!osc) continue;
+    const or = await restore(other, osc);
+    if (!or) continue;
+    const ocl = await clickables(page);
+    const osigs = ocl.map(sigOf);
+    if (!osigs.includes(s.sig)) continue;
+    const oord = osigs.filter((x, ix) => x === s.sig && ix < osigs.indexOf(s.sig)).length;
+    if (await press(s.sig, oord)) { revived = other; break; }
+  }
+  if (revived) { alive++; sc.alive++; idempotent.push({ ...s, revived }); continue; }
   dead.push({ ...s, mode }); sc.dead.push(s.c);
 }
 
 /* ═══════════════ NAVIGATION_GATE ════════════════════════════════════════ */
+/* Si riparte da zero: la navigazione si giudica su un portale appena aperto,
+   non su quello che lo spazzamento ha lasciato dietro di se. */
+await reboot();
 const navRows = [];
 for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
   const reached = await clickTitle(page, label, 520);
@@ -283,43 +353,77 @@ const EMPTY = 400;
 const emptyScreens = navRows.filter((r) => r.chars < EMPTY || r.clickables === 0).map((r) => `${r.label} (${r.chars} char, ${r.clickables} clic)`);
 
 /* ── l'indietro ───────────────────────────────────────────────────────────
-   Non si cerca la parola «Indietro»: si apre una ficha, si guarda QUALE
-   affordance e comparsa nella testata che prima non c'era, e la si preme. Se
-   una di quelle riporta all'elenco, l'indietro esiste e funziona. */
-let backOk = false, backLabel = null, backCandidates = 0, detailOpened = false;
+   Non si cerca la parola «Indietro»: si scende in un dettaglio e si prova ogni
+   comando della testata finche uno riporta ESATTAMENTE all'elenco da cui si e
+   partiti. Se nessuno lo fa, l'indietro non esiste — e non importa come si
+   chiama.
+
+   Si comincia da una schermata che NON e quella di casa. Il blocco del marchio
+   riporta a casa da ovunque: provando l'indietro su casa, il marchio passava
+   l'esame al posto suo e il portone dichiarava funzionante un ritorno che non
+   aveva mai misurato.
+
+       UN RITORNO SI PROVA DOVE TORNARE INDIETRO E DIVERSO DA TORNARE A CASA.
+
+   Non si prova un <a href>: quello lascia l'applicazione, non ci rientra. */
+let backOk = false, backLabel = null, backScreen = null, backTried = 0, detailOpened = false;
 {
-  const home = SIDEBAR[0];
-  await clickTitle(page, home, 520);
-  const listSnap = await snap(page);
-  const listSigs = new Set((await clickables(page)).map(sigOf));
-  const opened = await page.evaluate(() => {
-    const c = [...document.querySelectorAll('[data-case]')].filter((x) => x.getAttribute('data-case'))[0];
-    if (!c) return false;
-    let n = c; for (let i = 0; i < 5 && n; i++) { const cs = getComputedStyle(n); if (cs.cursor === 'pointer' || n.onclick || n.tagName === 'BUTTON' || n.tagName === 'A') break; n = n.parentElement; }
-    (n || c).click(); return true;
-  });
-  await page.waitForTimeout(600);
-  const detail = await snap(page);
-  detailOpened = opened && detail.th !== listSnap.th;
-  if (detailOpened) {
-    const fresh = await clickables(page);
-    const cand = [];
-    for (const c of fresh) { const g = sigOf(c); if (listSigs.has(g)) continue; if (!c.visible || FORM.has(c.tag)) continue; cand.push(c); }
-    /* la testata: quello che compare in alto quando si e dentro un dettaglio */
-    const top = await page.evaluate((E) => eval(E)().map((e) => Math.round(e.getBoundingClientRect().top)), ENUM);
-    const freshSigs = fresh.map(sigOf);
-    const inTop = cand.filter((c) => { const ix = freshSigs.indexOf(sigOf(c)); return ix >= 0 && top[ix] < 80; });
-    backCandidates = inTop.length;
-    for (const c of inTop) {
-      const ok = await clickSig(page, sigOf(c), 0); await harvest(page);
+  const navThSet = new Set(navRows.map((r) => r.th));
+  const order = SIDEBAR.slice(1, MAX_SCREENS).concat(SIDEBAR.slice(0, 1));
+  for (const label of order.slice(0, 4)) {
+    if (backOk) break;
+    await reboot();
+    if (!await clickTitle(page, label, 520)) continue;
+    const listSnap = await snap(page);
+    const geo = await page.evaluate((E) => eval(E)().map((e) => { const r = e.getBoundingClientRect(); return { top: Math.round(r.top), left: Math.round(r.left), w: Math.round(r.width), h: Math.round(r.height) }; }), ENUM);
+    const cl = await clickables(page);
+    const sigs = cl.map(sigOf); const ord = []; const seen = {};
+    for (const g of sigs) { seen[g] = (seen[g] || 0); ord.push(seen[g]); seen[g]++; }
+    /* una riga di contenuto: sotto la testata, fuori dalla colonna del menu */
+    const rows = cl.map((c, ix) => ({ c, ix })).filter(({ c, ix }) => c.visible && !FORM.has(c.tag) && !c.href
+      && geo[ix] && geo[ix].top >= 120 && geo[ix].left >= 240 && geo[ix].w >= 80 && geo[ix].h >= 24);
+
+    let openedIx = -1;
+    for (const { ix } of rows.slice(0, 8)) {
+      const ok = await clickSig(page, sigs[ix], ord[ix]); await harvest(page);
       if (!ok) continue;
-      await page.waitForTimeout(600);
-      const back = await snap(page);
-      if (back.th === listSnap.th) { backOk = true; backLabel = (c.title || c.text || c.tag).replace(/\s+/g, ' ').slice(0, 28); break; }
-      /* non era l'indietro: si riapre il dettaglio e si prova il successivo */
-      await clickTitle(page, home, 420);
-      await page.evaluate(() => { const c2 = [...document.querySelectorAll('[data-case]')].filter((x) => x.getAttribute('data-case'))[0]; if (c2) { let n = c2; for (let i = 0; i < 5 && n; i++) { const cs = getComputedStyle(n); if (cs.cursor === 'pointer' || n.onclick) break; n = n.parentElement; } (n || c2).click(); } });
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(520);
+      const d = await snap(page).catch(() => null);
+      /* un dettaglio e uno stato che la barra laterale non sa raggiungere */
+      if (d && d.th !== listSnap.th && !navThSet.has(d.th)) { openedIx = ix; break; }
+      await reboot(); await clickTitle(page, label, 460);
+    }
+    if (openedIx < 0) continue;
+    detailOpened = true;
+
+    const reopen = async () => {
+      await reboot();
+      if (!await clickTitle(page, label, 460)) return false;
+      const ok = await clickSig(page, sigs[openedIx], ord[openedIx]); await harvest(page);
+      if (ok) await page.waitForTimeout(520);
+      return ok;
+    };
+
+    const dgeo = await page.evaluate((E) => eval(E)().map((e) => Math.round(e.getBoundingClientRect().top)), ENUM);
+    const dcl = await clickables(page);
+    const dsigs = dcl.map(sigOf);
+    const cands = dcl.map((c, ix) => ({ c, ix })).filter(({ c, ix }) => c.visible && !FORM.has(c.tag)
+      && c.tag !== 'a' && !c.href && dgeo[ix] !== undefined && dgeo[ix] < 80 && !sidebarSet.has(c.title));
+    for (const { c, ix } of cands) {
+      backTried++;
+      const g = sigOf(c);
+      const o = dsigs.slice(0, ix).filter((x) => x === g).length;
+      const ok = await clickSig(page, g, o); await harvest(page);
+      if (ok) {
+        await page.waitForTimeout(600);
+        const back = await snap(page).catch(() => null);
+        if (back && back.th === listSnap.th) {
+          backOk = true; backScreen = label;
+          backLabel = (c.title || c.text || c.tag).replace(/\s+/g, ' ').slice(0, 28);
+          break;
+        }
+      }
+      if (!await reopen()) break;   /* si riparte pulito per il candidato dopo */
     }
   }
 }
@@ -353,7 +457,7 @@ console.log(line(drift === 0, 'CT3', 'No click left a screen the gate could not 
 console.log(line(enumSkew === 0, 'CT4', 'Enumeration and click list are the same list', 0, enumSkew));
 console.log(line(unreached.length === 0, 'NV1', 'Every sidebar item reaches a screen', 0, unreached.length || 'all ' + navRows.length));
 console.log(line(collisions.length === 0, 'NV2', 'No two sidebar items land on the same screen', 0, collisions.length));
-console.log(line(backOk, 'NV3', 'In-app back returns from a detail to its list', 'yes', backOk ? 'yes «' + backLabel + '»' : (detailOpened ? 'NO (' + backCandidates + ' candidates tried)' : 'no detail opened')));
+console.log(line(backOk, 'NV3', 'In-app back returns from a detail to its list', 'yes', backOk ? `yes «${backLabel}» su ${backScreen}` : (detailOpened ? 'NO (' + backTried + ' topbar controls tried)' : 'no drill-down found')));
 console.log(line(reloadOk, 'NV4', 'A page reload does not break the portal', 'yes', reloadOk ? `yes (${afterReload.chars} char, ${reloadClicks} clic)` : 'NO'));
 console.log(line(emptyScreens.length === 0, 'NV5', 'No navigation leaves the screen empty', 0, emptyScreens.length));
 console.log(line(errors.length === 0, 'NV6', 'No console error during the whole sweep', 0, errors.length));
@@ -363,6 +467,8 @@ console.log(`  SCHERMATE = ${screens.length} di ${SIDEBAR.length} nella barra ($
 console.log(`  CLICCABILI TROVATI = ${totalClickables} · PREMUTI E GIUDICATI = ${judged} · VIVI = ${alive} · MORTI = ${dead.length}`);
 console.log(`  non giudicati: ${formCtl} controlli di modulo (semantica change) · ${selfNav} voce della schermata corrente · ${notJudged} senza cursore proprio (host delegato, celle inerti della mappa)`);
 console.log(`  rumore del DOM a riposo = ${NOISE} mutazioni/600ms — con zero, UNA mutazione dopo il click e prova di vita`);
+console.log(`  impronte rimisurate da pulito = ${rebase} · schermate non ripristinabili = ${drift}`);
+console.log(`  idempotenti (fermi qui, vivi altrove) = ${idempotent.length} — un comando gia soddisfatto non e un comando morto`);
 console.log(`  schede nuove = ${tabs} · download = ${downloads} · dialog nativi = ${dialogs}`);
 console.log(`  console error = ${errors.length} · richieste fallite = ${failed.length}`);
 
@@ -382,15 +488,19 @@ if (dead.length) {
 }
 if (collisions.length) { console.log('\n  ' + C.r('SCHERMATE GEMELLE') + ':'); for (const [a, b] of collisions) console.log(`    ${a}  ≡  ${b}`); }
 if (emptyScreens.length) { console.log('\n  ' + C.r('SCHERMATE VUOTE') + ':'); for (const e of emptyScreens) console.log('    ' + e); }
+if (blew.length) {
+  console.log('\n  ' + C.r('PRESSIONI CHE HANNO FATTO URLARE LA CONSOLE') + ':');
+  for (const b of blew.slice(0, 12)) console.log(`    ${b.screen.padEnd(26)} <${b.tag}> «${b.text}»`.padEnd(84) + C.d(b.msg.slice(0, 70)));
+}
 if (errors.length) { console.log('\n  ' + C.r('CONSOLE') + ':'); for (const e of errors.slice(0, 10)) console.log('    ' + e); }
 if (failed.length) { console.log('\n  ' + C.r('RICHIESTE') + ':'); for (const f of failed.slice(0, 10)) console.log('    ' + f); }
 console.log('');
 
 if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({
-  sidebar: SIDEBAR, noise: NOISE, screens, dead, noHandler, navRows, collisions, unreached, emptyScreens,
-  back: { ok: backOk, label: backLabel, candidates: backCandidates, detailOpened },
+  sidebar: SIDEBAR, noise: NOISE, screens, dead, idempotent, noHandler, blew, navRows, collisions, unreached, emptyScreens,
+  back: { ok: backOk, label: backLabel, screen: backScreen, tried: backTried, detailOpened },
   reload: { ok: reloadOk, chars: afterReload.chars, clickables: reloadClicks },
-  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, formCtl, selfNav, notJudged, drift, tabs, downloads, dialogs },
+  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, formCtl, selfNav, notJudged, drift, rebase, tabs, downloads, dialogs },
   errors, failed,
 }, null, 1));
 

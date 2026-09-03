@@ -21,7 +21,7 @@ const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
 const BASE = arg('base', null);
 const JSONOUT = arg('json', null);
-const PORT = 8951;
+const PORT = Number(arg("port", 8977));
 
 /* ── A PALETA OFICIAL ─────────────────────────────────────────────────────────
    Copiada de _ds/adama-brandwell/tokens/colors.css, que por sua vez vem do
@@ -115,7 +115,10 @@ const SURVEY = `() => {
     /* TITULO = 16px ou mais. Um rotulo de 8px em caixa alta e o tratamento de
        aba/etiqueta que o manual usa; um titulo de 19px em caixa alta e o que
        ele proibe. A regua e o tamanho, porque e o tamanho que faz um titulo. */
-    if (size >= 16 && upper && s.length > 3 && s.length < 160) out.caps.push({ text: s.slice(0, 80), size, tag });
+    if (size >= 16 && upper && s.length > 3 && s.length < 160) /* L'UNICA ECCEZIONE, E CON IL MOTIVO SCRITTO ACCANTO: «ADAMA sempre in
+         maiuscolo» e una REGOLA DI MARCA, e SINTONIA e il nome del prodotto nel
+         logotipo. Una allowlist senza motivo e un portone spento. */
+      if (!/^(SINTONIA|ADAMA)$/.test(s.trim())) out.caps.push({ text: s.slice(0, 80), size, tag });
     if (parseFloat(cs.borderTopLeftRadius) > 0) {
       const k = cs.borderTopLeftRadius;
       out.radii[k] = (out.radii[k] || 0) + 1;
@@ -170,7 +173,7 @@ await browser.close(); if (server) server.close();
 /* ── o veredicto ──────────────────────────────────────────────────────────── */
 const off = [...seen.offPalette.values()].sort((a, b) => b.n - a.n);
 const low = [...seen.lowContrast.values()].sort((a, b) => a.got - b.got);
-const caps = [...seen.caps.values()];
+  const caps = [...seen.caps.values()];
 const badFonts = Object.keys(seen.fonts).filter((f) => f && !['BrownLL', 'Aleo', 'Arial'].includes(f));
 const primaryShare = Math.round(((seen.fonts.BrownLL || 0) / Math.max(1, Object.values(seen.fonts).reduce((a, b) => a + b, 0))) * 100);
 const badRadii = Object.keys(seen.radii).filter((r) => r === '0px');
