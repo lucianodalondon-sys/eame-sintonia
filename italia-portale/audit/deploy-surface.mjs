@@ -77,17 +77,30 @@ else {
 
 /* ---- 2. LA REALTA ------------------------------------------------------- */
 if (BASE) {
+  /* Una richiesta che NON ARRIVA non e una via chiusa: e una misura mancata.
+     Contarla come «non esposto» renderebbe questo controllo verde proprio nei
+     momenti in cui la rete lo impedisce di guardare. Quindi si riprova, e se
+     nemmeno cosi si ottiene uno stato, si dichiara INCONCLUSIVO (0) — e chi
+     legge sotto lo tratta come fallimento, non come assoluzione. */
   const code = (u) => {
-    try {
-      return Number(execFileSync('curl', ['-sS', '-o', '/dev/null', '-w', '%{http_code}',
-        '--max-time', '45', '-L', u], { encoding: 'utf8' }).trim());
-    } catch { return 0; }
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const c = Number(execFileSync('curl', ['-sS', '-o', '/dev/null', '-w', '%{http_code}',
+          '--max-time', '45', '--retry', '2', '--retry-all-errors', '-L', u],
+          { encoding: 'utf8' }).trim());
+        if (c > 0) return c;
+      } catch { /* riprova */ }
+    }
+    return 0;
   };
+  let probed = 0;
   for (const p of FORBIDDEN) {
     const c = code(BASE + p);
     if (c === 200) fail.push(`ESPOSTO pubblicamente (HTTP 200): ${p}`);
+    else if (c === 0) fail.push(`NON VERIFICATO (la rete non ha risposto): ${p}`);
+    else probed++;
   }
-  pass.push(`${FORBIDDEN.length} vie interne interrogate su ${BASE}`);
+  pass.push(`${probed}/${FORBIDDEN.length} vie interne verificate chiuse su ${BASE}`);
   let reachable = 0;
   for (const p of REQUIRED) {
     const c = code(BASE + p);
