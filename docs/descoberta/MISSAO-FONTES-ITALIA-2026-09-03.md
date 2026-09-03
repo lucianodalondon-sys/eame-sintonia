@@ -52,29 +52,38 @@ Diz que **não lemos** — a cobertura de leitura de rótulo é de 102 dos 163 r
 
 ## 2 · SOURCE DISCOVERY
 
+A descoberta aconteceu em **duas levas**. A primeira foi minha, sequencial. A segunda foi
+uma varredura paralela de 34 agentes, que devolveu **93 fontes e 95 rejeições** — e da qual
+**nada entrou por confiança**: reconferi na mão os 52 hosts que ainda não estavam no
+registro e os 17 handles sociais, um a um. Duas admissões da varredura **caíram** na minha
+releitura, e estão em §9.
+
 ```
-SOURCES DISCOVERED   = 128 endpoints sondados com HTTP real
-SOURCES QUALIFIED    = 36
-HIGH RELEVANCE       = 17
-MEDIUM               = 19
-REJECTED             = 6   (com motivo escrito)
-ROUTES NOT REACHED   = 11  (estado da rede, nunca estado do mundo)
+SOURCES DISCOVERED   = 221 endpoints sondados com HTTP real (128 na 1ª leva + 93 na 2ª)
+SOURCES QUALIFIED    = 90
+HIGH RELEVANCE       = 43
+MEDIUM               = 47
+REJECTED             = 11  no código, com motivo escrito
+                     + 95  preservadas em bruto (IT-FONTES-REJEICOES-LOTE2-V1.json)
+ROUTES NOT REACHED   = 21  (estado da rede, nunca estado do mundo)
+OPEN CONTRADICTIONS  = 1   (duas fontes de autoridade discordam e eu não arbitrei)
+CORRECTIONS TO MY OWN MEASUREMENTS = 3
 ```
 
 **BY AUTHORITY**
 
 ```
-OFFICIAL = 10 · SCIENTIFIC = 5 · MEDIA = 8 · COMPETITOR = 4
-TECHNICAL = 3 · FIELD_VOICE = 3 · INDUSTRY = 3
+SCIENTIFIC = 21 · OFFICIAL = 19 · COMPETITOR = 14 · MEDIA = 12
+INDUSTRY = 11 · TECHNICAL = 8 · FIELD_VOICE = 5
 ```
 
 **BY TYPE (leitura da missão)**
 
 ```
-OFFICIAL / FITOSSANITARIO = 5      AGROMET = 4        SCIENCE / RESEARCHERS = 5
-COOPERATIVES = 4                   PRODUCERS / ORGS = 2   TECHNICIANS = 2
-MEDIA = 8                          MARKET = 2          COMPETITORS = 4
-SOCIAL (perfis declarados) = 34 em 16 organizações
+OFFICIAL / FITOSSANITARIO = 11     AGROMET = 5         SCIENCE / RESEARCHERS = 21
+COOPERATIVES / PRODUCERS = 9       TECHNICIANS = 8     MARKET = 7
+MEDIA = 12                         COMPETITORS = 14    EVENTOS = 2
+SOCIAL (perfis declarados) = 45 em 27 organizações
 ```
 
 **NEW SOURCE REGISTRY**
@@ -88,17 +97,19 @@ SOCIAL (perfis declarados) = 34 em 16 organizações
 
 **Por que os IDs são `IT-SRCX-###` e não `IT-T<n>-<seq>`:** `SOURCE_ID_COUNT` é sentinela do
 ledger, verificada por `tests/test_handoff.py` contra **36** e contra o prompt de bootstrap.
-Mintar 27 IDs novos moveria essa régua **em silêncio**. O namespace novo não casa com o
+Mintar 90 IDs novos moveria essa régua **em silêncio**. O namespace novo não casa com o
 regex do ledger. O caminho de promoção está escrito no Atlas.
 
 **AUTOMATION POTENTIAL**
 
 ```
-AUTOMATABLE = 24 · PARTIAL = 11 · MANUAL = 1 · BLOCKED = 0
-DAILY = 6 · WEEKLY = 12 · MONTHLY = 17 · EVENT_DRIVEN = 1
+AUTOMATABLE = 52 · PARTIAL = 36 · MANUAL = 2 · BLOCKED = 0
+DAILY = 6 · WEEKLY = 25 · MONTHLY = 54 · EVENT_DRIVEN = 3 · DISCOVERY_ONLY = 1
+DO_NOT_MONITOR = 1  (um canal de concorrente medido e CONGELADO — ver §9)
+COM FEED OU API = 29
 ```
 
-### As quatro que mais mudam o que dá para observar
+### As sete que mais mudam o que dá para observar
 
 | ID | fonte | por quê |
 |---|---|---|
@@ -106,6 +117,9 @@ DAILY = 6 · WEEKLY = 12 · MONTHLY = 17 · EVENT_DRIVEN = 1
 | `IT-SRCX-004` | API Plone dos bollettini do Servizio Fitosanitario ER | o host já estava no acervo, a **rota** não. A página é um SPA e não entrega link nenhum; a API entrega os **150 PDFs de 2026** com título e data |
 | `IT-SRCX-028` | ARPAE ERG5 — série **horária** por estação | é a entrada dos modelos que decidem *quando* tratar. Sem ela, "janela" é calendário |
 | `IT-SRCX-016` | Agricast — podcast dos Gruppi Operativi da ER | fala técnica longa onde o sinal está **só no áudio** |
+| `IT-SRCX-076` | Fitogest — diretório de empresas | **a única rota alcançável** para o catálogo italiano dos concorrentes: Syngenta 136, UPL 116, Corteva 93, Bayer 78, ADAMA 56. Os sites da Syngenta e da Bayer devolvem 403 |
+| `IT-SRCX-046` | ISTAT — web service SDMX | superfície e produção **por província**. É o denominador que falta: sem hectare, "pressão em melo na Emilia-Romagna" não tem escala |
+| `IT-SRCX-051` | base de Heap — resistência a herbicida | põe **número** na exposição do bloco herbicida: dos 29 casos italianos, 23 caem nos dois grupos onde a ADAMA se concentra |
 
 ---
 
@@ -117,39 +131,54 @@ paga Apify), `instagram_transcrever.py` (transcrição **local**), orquestrados 
 `.github/workflows/sintonia-scrap.yml`. **Não construí outro scraper.**
 
 ```
-PROFILES DISCOVERED = 34 perfis declarados por 16 organizações
-PROFILES QUALIFIED  = 32 (o lote congelado)
+PROFILES DISCOVERED = 45 perfis declarados por 27 organizações
+PROFILES QUALIFIED  = 40 em três lotes congelados (V1 32 · V2 5 · V3 8, sem repetição)
 
-CONTENTS            = 0   ← a rota de Instagram não abre desta sessão
-VIDEOS              = 0
+INSTAGRAM CONTENTS  = 180 objetos em 30 contas (V1 102 · V2 30 · V3 48)
+INSTAGRAM VIDEOS    = 51
+TRANSCRIBED         = 48 reels, 3.630 + 4.210 caracteres, 0,00 USD
+FAILURES            = 3 (REQUESTED_EMPTY: o áudio não tinha fala)
 
-VIDEOS TRANSCRIBED  = 9 objetos de ÁUDIO (a rota que abriu)
-TRANSCRIPTION SUCCESS = 9 / 9
-FAILURES            = 0
-
-VIDEO SIGNALS ONLY IN TRANSCRIPT = 6 de 9 objetos
-USEFUL VOICES       = 5
+VIDEO SIGNALS ONLY IN TRANSCRIPT = V1 5/28 · V2 2/15 · V3 0/5
 ```
 
-### Por que zero conteúdo de Instagram, dito com precisão
+### A rota de Instagram abriu — e o conteúdo continua não rendendo
 
-`ROTA BLOQUEADA PARA ESTA SESSÃO ≠ ROTA INEXISTENTE.`
+Eu havia escrito que a rota de embed "precisa do navegador". **Estava errado, e o erro foi
+meu**: o que faltava era o `User-Agent`. Mesma URL, mesmo minuto:
 
-- O Chrome do `cdp.py` **não atravessa o proxy** desta sessão: `ERR_CONNECTION_RESET` em
-  todo host, `google.com` incluído.
-- A página de perfil do Instagram devolveu **HTTP 302** para login nas minhas medições e
-  **HTTP 429** em 11 de 12 na passagem paralela — com **um 200 de 625.848 bytes**. A rota
-  está limitada por taxa e instável, não fechada.
-- A rota de **embed de post** respondeu **HTTP 200 com 628 KB** daqui. Falta o *shortcode*,
-  que só a passada de perfil entrega.
-- A mídia do YouTube é recusada com **HTTP 403** pela política de saída
-  (`googlevideo.com`) — os **metadados** voltam normalmente.
+```
+UA Chrome desktop ........ HTTP 200 · 625.215 B · contextJSON = 0
+UA facebookexternalhit/1.1  HTTP 200 · 262.551 B · contextJSON = 1
+```
 
-**O entregável é o lote congelado**, em
-`data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json`: 32 contas
-(19 Instagram, 8 YouTube, 5 LinkedIn), cada uma com o handle **declarado pela própria
-organização no site dela** — nunca achado por busca livre. É a regra que reprovou a coleta
-espanhola (`ES-T8-003`: 24 de 32 contas não declaravam país).
+A rota virou capacidade permanente (`scripts/instagram_sem_navegador.py`) e rodou em três
+lotes. E é aqui que a honestidade custa: **a rota abrir não fez o conteúdo aparecer.**
+
+| lote | critério de entrada | assunto na legenda | vídeo | sinal só na fala |
+|---|---|---|---|---|
+| V1 | site da **organização** | 14/102 = 13,7 % | 29,4 % | 5 de 28 |
+| V2 | **voz individual** (hipótese minha) | 5/30 = 16,7 % | 50,0 % | 2 de 15 |
+| V3 | organização **já com ficha de fonte** | 9/48 = **18,8 %** | **12,5 %** | 0 de 5 |
+
+**A minha hipótese da V2 falhou** — a taxa caiu, e a causa foi medida: a conta individual de
+maior audiência do recorte publica conteúdo de comida, e os dois "sinais" da V2 eram falsos
+positivos do meu próprio vocabulário (*"sentiamo un bel pomodoro forte"* é nota de degustação
+de azeite).
+
+**A V3 mudou o critério de novo e o resultado é ambíguo, dito com precisão:** ela tem a
+**maior** taxa de assunto na legenda e a **menor** taxa de vídeo das três. Escolher a conta
+pela relevância já provada da organização melhora a colheita de **legenda** e piora a de
+**fala** — instituto de pesquisa publica carrossel, não reel. E com 5 reels transcritos,
+**zero sinal só-na-fala não é evidência de ausência**: é denominador pequeno.
+
+> **FRASE PROIBIDA:** *o Instagram italiano não tem voz de campo.*
+> **FRASE PERMITIDA:** *nas 30 contas deste acervo, nesta leitura de 2026-09-03, 48 reels
+> não produziram um sinal de campo defensável.*
+
+O que ainda precisa do runner: a grade **completa** (esta rota entrega 6 itens por conta, o
+Chrome com janela entrega 12) e os **comentários**, que nenhuma rota gratuita entrega — e que
+continuam sendo o único motivo real de pagar.
 
 ### A rota de voz que ABRIU, e o que ela custou
 
@@ -203,17 +232,25 @@ em 2,3 M de caracteres: `fenpropidin`, `bupirimate`, `mesotrione`, `florasulam`.
 ## 5 · CRUZAMENTOS
 
 ```
-NEW CROSSINGS = 5
-  por força do elo:  LINHA_DA_TABELA = 2 · SUBSTANCIA_ATIVA = 3
-  com evidência que existe SÓ NA FALA = 4 de 5
-NÃO CRUZADOS (com o motivo escrito) = 3
+NEW CROSSINGS = 6
+  por força do elo:  LINHA_DA_TABELA = 3 · SUBSTANCIA_ATIVA = 3
+  com evidência que existe SÓ NA FALA = 5 de 6
+NÃO CRUZADOS (com o motivo escrito) = 4
+
+SINAIS CANDIDATOS = 45 · TESTADOS ADVERSARIALMENTE = 24
+SOBREVIVERAM = 21 · REFUTADOS = 3
+  por cultura: MELO 7 · VITE 5 · POMODORO 3 · BARBABIETOLA 2 · PESCO 2 · PERO 1 · ACTINIDIA 1
 ```
+
+**Sobreviver à refutação não promove nada.** Nenhum status e nenhum score foi alterado por
+causa dos 21. Um dos 3 refutados caiu pelo motivo mais instrutivo possível: *a citação é
+genuína e a fonte está viva, mas a contagem central da observação está errada.*
 
 `data/samples/IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json`
 
 ### EXISTING OPPORTUNITIES ENRICHED
 
-**4 enriquecidas · 5 não · 0 mudanças de status · 0 mudanças de score.**
+**5 enriquecidas · 4 não · 0 mudanças de status · 0 mudanças de score.**
 
 | ID | o que ganhou |
 |---|---|
@@ -221,11 +258,34 @@ NÃO CRUZADOS (com o motivo escrito) = 3
 | `OPP_88CC35C57C7B` | **Imazamox** ainda posicionado pelo serviço regional em 21/08/2026, 301 dias antes do limite UE |
 | `OPP_3965565ACFCC` | **folpet** dentro de um teto compartilhado (`Tra Captano, Folpet e Fluazinam Max 4`) e chamado **duas vezes** em deroga na mesma campanha |
 | `OPP_8EA4F5C0D3F4` | o teto `Tra Pyraclostrobin e Azoxystrobin Max 3` — gestão de resistência escrita |
+| `OPP_2BDE8FC566CE` | **enriquecida e ESFRIADA** — ver abaixo |
 
-Não enriquecidas: `OPP_2BDE8FC566CE` · `OPP_6E18A133EE14` · `OPP_886307860F79` ·
-`OPP_E6200AA0FA63` (fora de janela) · `OPP_AF16E6A6B8B3`.
+Não enriquecidas: `OPP_6E18A133EE14` · `OPP_886307860F79` · `OPP_E6200AA0FA63` (fora de
+janela) · `OPP_AF16E6A6B8B3`.
 
-#### A rota que eu mesmo listei como próximo passo, li — e ela **não** fecha o caso
+#### O melhor achado desta missão ESFRIA um caso em vez de esquentar
+
+`OPP_2BDE8FC566CE` é BARBABIETOLA × CERCOSPORA. Eu havia procurado o elo na palavra
+*fenpropidin* e não achado — e registrado a rota como lida e refutada. **A varredura
+adversarial achou o elo que eu perdi, e ele não estava na palavra: estava no PAR DE RÓTULO.**
+
+A ADAMA tem **exatamente uma** linha de rótulo `BARBABIETOLA × CERCOSPORA` em todo o radar:
+`IT-LBL-409`, **SPYRALE**, registro 009757 — e SPYRALE é *difenoconazolo + fenpropidin*.
+
+E então o caso **esfria**, porque a mesma leitura diz o resto:
+
+- o boletim declara *"presenza della malattia **modesta**"* — pressão **baixa**, dita pela
+  própria fonte;
+- a recomendação é **rame e zolfo**, não um IBE;
+- **SPYRALE não é nomeado em nenhum dos 14 boletins**;
+- e SPYRALE é um **registro do Ministero** detido pela ADAMA, **não** um dos 51 produtos do
+  catálogo comercial.
+
+> **`PORTFOLIO RELATION ≠ LABEL AUTHORIZATION` e `163 REGISTROS ≠ 51 PRODUTOS`.**
+> Achar o elo e ainda assim esfriar o caso é o comportamento correto. Um elo encontrado não
+> é um argumento de venda.
+
+#### A rota que eu mesmo listei como próximo passo, li — e ela não fecha o caso *sozinha*
 
 Listei "ler a *scheda* de cercospora para fechar `OPP_2BDE8FC566CE`" como desbloqueio. Li,
 pela API Plone, em 2026-09-03. **A scheda não nomeia fenpropidin, nem difenoconazolo, nem
@@ -233,7 +293,8 @@ nenhum fungicida** — a seção *Difesa* remete aos disciplinari e ao modelo.
 
 Uma síntese de motor de busca havia sugerido *"difenoconazolo + fenpropidin"*. **Isso não
 estava na página.** Síntese de buscador nunca foi tratada como evidência aqui, e agora está
-verificado que não é.
+verificado que não é. O elo real veio de outro lugar — do par de rótulo, acima — e a scheda
+continua sem nomear fungicida nenhum.
 
 O que a scheda **prova**, e é valioso por outro motivo:
 
@@ -395,6 +456,10 @@ sentido ao 6.
 | `IT-SRCX-016` | Agricast — Gruppi Operativi ER | PODCAST | spreaker.com/podcast/agricast--5971526 | a fala onde está o sinal que a legenda não tem | API + whisper local | 2026-09-03 | MONTHLY |
 | `IT-SRCX-028` | ARPAE ERG5 — série horária | AGROMET_OPEN_DATA | dati-simc.arpae.it | entrada dos modelos de janela | HTTP + ZIP | 2026-09-03 | DAILY |
 | `IT-SRCX-033` | Ri.Nova soc. coop. | RESEARCH_COOPERATIVE | linkedin.com/company/rinovaricerca | a fonte que explica as outras | LinkedIn + YT + IG | 2026-09-03 | MONTHLY |
+| `IT-SRCX-050` | CNR — IPSP | RESEARCH_INSTITUTION | ipsp.cnr.it | dono institucional do GIRE; o teste que decide se ALS ou ACCase ainda funciona | HTTP | 2026-09-03 | MONTHLY |
+| `IT-SRCX-051` | base de Heap — resistência a herbicida | SCIENTIFIC_DATABASE | weedscience.org | 23 dos 29 casos italianos caem nos grupos onde a ADAMA se concentra | HTML | 2026-09-03 | MONTHLY |
+| `IT-SRCX-076` | Fitogest — diretório de empresas | COMPETITOR_CATALOGUE_DIRECTORY | fitogest.imagelinenetwork.com | a única rota legível para o catálogo italiano de Syngenta e Bayer | HTML | 2026-09-03 | MONTHLY |
+| `IT-SRCX-089` | AGRINET4TECH | PODCAST | spreaker.com/podcast/agrinet4tech--7026131 | um território **nomeado** por episódio — geografia declarada, que é o que falta na voz pública | API + whisper local | 2026-09-03 | WEEKLY |
 
 Registro completo, com os 30 campos por ficha:
 `data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json`
@@ -412,7 +477,30 @@ Registro completo, com os 30 campos por ficha:
 | perfis genéricos de `azienda agricola` | `NO_ADAMA_RELEVANCE` | a busca devolveu apicultura, laticínios, horta biológica e agriturismo. Contas reais, **nenhuma observa cultura, alvo, molécula ou região do radar** |
 | 62 canais YouTube do acervo | `LOW_RELEVANCE_ALREADY_REGISTERED` | reclassificar, **não apagar**: `RELEVANCE: LOW` e `COUNTRY != IT` onde for o caso |
 
+| `anicav.it` | `ROUTE_BLOCKED_FOR_AUTOMATION` | **a varredura paralela admitiu como fonte**, tendo lido 81.358 B. Eu li duas vezes, nos dois hosts: 200 com **33.245 B idênticos** e título *"Security Check Required"*. É muro de bot |
+| LinkedIn do `CSO Italy` | `HANDLE_NAO_RECONFIRMADO` | a varredura disse que o handle estava declarado na casa do dono. `csoservizi.com` devolve 200 com 50.746 B e **zero** link social. Ver `FIX-02` |
+| `sive.it`, `agronomy.it`, `italmopa.com` | `WRONG_ENTITY_SAME_NAME` | três armadilhas de marca a mais, todas apanhadas por **buscar em vez de supor** |
+| `anb.it`, `bmti.it` | `MURO_DE_BOT` | `bmti.it` **já estava no acervo canônico** e **mudou de estado**: quem confiar na ficha antiga vai achar que a rota funciona |
+| 4 podcasts italianos | `CANAL_CONGELADO` | *Minuti di Riso* (BASF, último 2023-12-07, "28 - Arrivederci"), *Lezioni di Vite* (2023), *La settimana del riso* (2025-07-26), *Just Agronomo* (2024-12-24). Assunto certo, relógio parado |
+
+As 95 rejeições da varredura paralela ficam preservadas em bruto:
+`data/samples/IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json`. O que muda comportamento
+subiu para o código; o resto é evidência.
+
 > **`ENDPOINT VIVO ≠ DADO ATUAL.` `O NOME DE UMA EDITORA TAMBÉM PODE SER O NOME DE UM SOFTWARE.`**
+> **`PÁGINA VIVA ≠ CANAL VIVO.` `HTTP 200 COM BYTES ≠ CONTEÚDO.`**
+
+### Uma contradição que eu NÃO resolvi
+
+`IT-CONTRA-001` · resistência a **propanil** (HRAC 5) em *Echinochloa crus-galli* na Itália.
+
+- o **GIRE** declara populações resistentes em Piemonte, Lombardia e Toscana **desde 2000**;
+- a base de **Heap** põe a Itália em **zero** sob HRAC 5 — conferido por mim, linha 36.
+
+Nenhum dos dois números é erro de leitura: os dois foram lidos direto da fonte. É divergência
+de **critério de admissão** entre dois registros. Fica **aberta, não arbitrada e não
+escondida** — porque quem publicar *"a Itália tem 29 casos de resistência"* tratando a tabela
+de Heap como censo estará omitindo o propanil que o GIRE certifica.
 
 ---
 
@@ -420,11 +508,11 @@ Registro completo, com os 30 campos por ficha:
 
 ```
 MONITOR_DAILY   =  6   agromet e mídia de alta cadência
-MONITOR_WEEKLY  = 12   bollettini, trappole, voz técnica privada
-MONITOR_MONTHLY = 17   ciência, cooperativas, mercado, concorrente
-EVENT_DRIVEN    =  1   feed de usi di emergenza
-DISCOVERY_ONLY  =  0
-DO_NOT_MONITOR  =  0
+MONITOR_WEEKLY  = 25   bollettini, trappole, voz técnica privada, concorrente que anuncia rótulo
+MONITOR_MONTHLY = 54   ciência, repositórios, cooperativas, mercado, catálogo de concorrente
+EVENT_DRIVEN    =  3   deroghe, usi di emergenza, bollettino ufficiale regional
+DISCOVERY_ONLY  =  1   uma GUI sem rota programática — dito como é
+DO_NOT_MONITOR  =  1   um canal de concorrente MEDIDO e congelado desde 2023
 ```
 
 **Não criei agendamento real.** A recomendação fica guardada por ficha, como a missão pediu.
@@ -435,21 +523,22 @@ DO_NOT_MONITOR  =  0
 
 | estado | o quê |
 |---|---|
-| **INGESTIBLE_NOW** | as 36 fichas de fonte · os 5 cruzamentos · o enriquecimento das 4 · o índice dos 150 bollettini · a série da cimice · as 9 transcrições · o lote congelado de 32 contas |
-| **NEEDS_VALIDATION** | o candidato `PATATA × ELATERIDI` · a reclassificação dos 62 canais · a correção de `SRC_IMAGE_LINE_COM` |
-| **FUTURE** | coleta de Instagram (precisa do runner com navegador) · transcrição de vídeo do YouTube (precisa da rota de mídia) · leitura da *scheda* de cercospora para fechar `OPP_2BDE8FC566CE` |
-| **REJECTED** | as 6 da tabela acima |
+| **INGESTIBLE_NOW** | as **90** fichas de fonte · os 6 cruzamentos · o enriquecimento das 5 · os **21 sinais que sobreviveram à refutação** · o índice dos 150 bollettini · a série da cimice · as transcrições de áudio e de 48 reels · os três lotes sociais congelados |
+| **NEEDS_VALIDATION** | o candidato `PATATA × ELATERIDI` · a reclassificação dos 62 canais · a correção de `SRC_IMAGE_LINE_COM` · a contradição `IT-CONTRA-001` |
+| **FUTURE** | grade completa de Instagram e comentários (precisam do runner) · mídia do YouTube (403 na saída) · os hosts em `NAO_ALCANCADAS` |
+| **REJECTED** | as 11 no código, com motivo, + 95 preservadas em bruto |
 
 ---
 
 ## 12 · FINAL
 
 ```
-READY TO INGEST  = YES  — para as 36 fichas, os 5 cruzamentos e as 9 transcrições
+READY TO INGEST  = YES  — 90 fichas, 6 cruzamentos, 5 enriquecimentos, 21 sinais verificados
 CANONICAL GUARDS = PASS — 329 testes, 0 falhas
                           DEDUPE de fontes: PASS
                           SOURCE_ID_COUNT: intacto em 36, deliberadamente
                           status e score das 37 oportunidades: intocados
+                          SITE: não tocado · VERCEL: não tocado · PRODUÇÃO: não tocada
 ```
 
 **EXACT BLOCKERS**
@@ -494,6 +583,13 @@ lanigero em leve aumento sob limiar declarado, e duas moléculas do universo ADA
 recomendadas por nome — uma delas marcada como candidata à substituição no mesmo parágrafo.
 
 **2 · ONDE DEVE OLHAR NOVAMENTE AMANHÃ?**
-Em 36 endereços, com a periodicidade escrita ficha a ficha, o método de coleta declarado e a
-data da última verificação — para que a próxima passagem **não tenha de redescobrir a
-internet toda**.
+Em **90 endereços**, com a periodicidade escrita ficha a ficha, o método de coleta declarado
+e a data da última verificação — para que a próxima passagem **não tenha de redescobrir a
+internet toda**. E em 21 endereços a menos do que poderia: os que estão em `NAO_ALCANCADAS`
+e em `REJEITADAS` já custaram o tempo de alguém, e o motivo está escrito para que não custem
+de novo.
+
+**E A TERCEIRA PERGUNTA, QUE ESTA MISSÃO APRENDEU A FAZER:**
+*O que eu escrevi que não se sustenta?* Três correções minhas estão no registro — o
+`User-Agent` do Instagram, a prova de agente que aceitei como prova, e a página viva que
+confundi com canal vivo. Um número publicado errado não envelhece sozinho.

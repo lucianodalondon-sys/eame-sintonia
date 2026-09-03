@@ -1266,13 +1266,16 @@ descoberta** ligada a ele, não um segundo dono.
 |---|---|
 | registro legível por máquina | `data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json` |
 | gerador (a curadoria está no código, não em prosa) | `scripts/it_fontes.py` |
-| lote social congelado para o Sintonia Scrap | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json` |
+| lotes sociais congelados para o Sintonia Scrap | `PUBLIC-COMM-IT-SOCIAL-BATCH-V1/V2/V3.json` em `data/samples/COMPETITOR-PUBLIC-COMM/` |
 | cruzamentos que essas fontes já sustentam | `data/samples/IT-CRUZAMENTO-V1/` |
+| as minhas releituras, host a host, da segunda leva | `data/samples/IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json` |
+| as 95 rejeições da varredura paralela, em bruto | `data/samples/IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json` |
+| camada de áudio permanente (Spreaker + whisper local) | `scripts/it_audio.py` → `data/samples/IT-VOZ-AUDIO-V2/` |
 
 ### Por que os IDs são `IT-SRCX-###` e não `IT-T<n>-<seq>`
 
 Porque `SOURCE_ID_COUNT` é uma **sentinela do ledger**, verificada por
-`tests/test_handoff.py` contra o valor **36** e contra o prompt de bootstrap. Mintar 27
+`tests/test_handoff.py` contra o valor **36** e contra o prompt de bootstrap. Mintar 90
 `SOURCE_ID:` novos moveria essa sentinela **em silêncio**, dentro de uma missão de
 descoberta — e mover uma régua verificada é ato deliberado, não efeito colateral.
 
@@ -1287,22 +1290,45 @@ tabela de cobertura acompanham; `SOURCE_ID_COUNT` sobe no comentário `<!--M:-->
 
 ### O que a camada trouxe
 
-**27 fontes qualificadas** — 12 HIGH, 15 MEDIUM · 19 AUTOMATABLE · 17 com feed ou API ·
-**28 perfis sociais declarados pela própria organização** · 5 rejeições com motivo escrito ·
-6 rotas não alcançadas desta sessão. `DEDUPE: PASS`.
+**90 fontes qualificadas** — 43 HIGH, 47 MEDIUM · 52 AUTOMATABLE · 29 com feed ou API ·
+**45 perfis sociais declarados pela própria organização** · 11 rejeições com motivo escrito
+no código (mais 95 preservadas em bruto) · 21 rotas não alcançadas desta sessão ·
+**1 contradição aberta** entre duas fontes de autoridade. `DEDUPE: PASS`.
 
-Sete das 27 são **canal novo de organização já registrada** e trazem `DEDUPE_AGAINST`
+**32 das 90** são **canal novo de organização já registrada** e trazem `DEDUPE_AGAINST`
 apontando o `SRC_*` do pacote canônico. **Dedupe une organização; não colapsa canal** — a
 mesma instituição pode ser site, feed, perfil e API, e as quatro quebram de jeitos
 diferentes.
 
-### As três que mais mudam o que dá para observar na Itália
+A camada cresceu em **duas levas**: 43 fichas na primeira, sequencial, e 47 na segunda, a
+partir de uma varredura paralela de 34 agentes que devolveu 93 fontes e 95 rejeições.
+**Nada da segunda leva entrou por confiança:** os 52 hosts ainda não registrados e os 17
+handles sociais foram relidos por mim, um a um, e as medições estão em
+`IT-FONTES-RECONFERENCIA-V1.json`. **Duas admissões da varredura caíram** — `anicav.it`, que
+é muro de bot com 200 e bytes, e o LinkedIn do CSO Italy, que não está declarado na casa do
+dono.
+
+> **PROVA DE AGENTE NÃO É PROVA.** O que entra no acervo permanente precisa ter sido lido
+> por quem assina.
+
+### As seis que mais mudam o que dá para observar na Itália
 
 | ID | fonte | por que importa |
 |---|---|---|
 | `IT-SRCX-003` | UNIBO BIG — rede de trappole de *Halyomorpha halys* | única série **numérica** de campo desta rodada: 177 pontos, por província e por estádio, 2021 → 2026-08-31, por API aberta sem chave |
 | `IT-SRCX-004` | API Plone dos bollettini do Servizio Fitosanitario Emilia-Romagna | o host já estava no acervo; a **rota** não. A página é um SPA e não entrega link nenhum — a API entrega os 150 PDFs de 2026 com título e data |
 | `IT-SRCX-016` | Agricast — podcast dos Gruppi Operativi da Emilia-Romagna | fala técnica longa onde o sinal está **só no áudio**: 9 objetos, 151,7 min, 130.935 caracteres transcritos localmente por 0 USD |
+| `IT-SRCX-076` | Fitogest — diretório de empresas produtoras | a **única rota alcançável** para o catálogo italiano dos concorrentes, porque `syngenta.it` e `cropscience.bayer.it` devolvem 403: Syngenta 136, UPL 116, Corteva 93, Bayer 78, ADAMA 56. **E 56 ≠ 51 comerciais ≠ 163 registros** — três contagens de três donos |
+| `IT-SRCX-046` | ISTAT — web service SDMX | superfície e produção **por província**, em CSV. É a diferença entre ler uma página e **ter uma série**: sem hectare, "pressão em melo na Emilia-Romagna" não tem escala |
+| `IT-SRCX-051` | base de Heap — resistência a herbicida | põe **número** na exposição do bloco herbicida: dos 29 casos italianos, **23** caem nos dois grupos onde a ADAMA se concentra — 15 em ALS e 8 em ACCase |
+
+### Uma contradição que ficou ABERTA
+
+`IT-CONTRA-001` · resistência a **propanil** (HRAC 5) em *Echinochloa crus-galli*: o **GIRE**
+declara populações resistentes em Piemonte, Lombardia e Toscana desde 2000; a base de **Heap**
+põe a Itália em **zero** naquele grupo. Os dois números foram lidos direto da fonte. É
+divergência de **critério de admissão**, e não erro de leitura. Fica registrada sem árbitro —
+porque publicar *"a Itália tem 29 casos"* tratando Heap como censo omitiria o propanil.
 
 ### Dois defeitos de identidade encontrados no acervo canônico
 
@@ -1321,10 +1347,14 @@ diferentes.
 
 `ROTA BLOQUEADA PARA ESTA SESSÃO ≠ ROTA INEXISTENTE.`
 
-- **Instagram**: página de perfil devolve `HTTP 302` para login; a rota de **embed de post**
-  responde `HTTP 200` com 628 KB daqui — falta o *shortcode*, que só a passada de perfil
-  entrega. O Chrome do `cdp.py` **não atravessa o proxy** desta sessão
-  (`ERR_CONNECTION_RESET` em todo host, `google.com` incluído).
+- **Instagram — corrigido**: eu havia escrito aqui que a rota precisava do navegador.
+  **Estava errado, e o erro era meu:** o que faltava era o `User-Agent`. Mesma URL, mesmo
+  minuto — UA de Chrome devolve 625.215 B com `contextJSON = 0`; UA
+  `facebookexternalhit/1.1` devolve 262.551 B com `contextJSON = 1`. A rota virou capacidade
+  permanente (`scripts/instagram_sem_navegador.py`) e coletou 180 objetos em 30 contas, com
+  48 reels transcritos localmente por 0,00 USD. **Continua verdadeiro** que a página de
+  perfil devolve `HTTP 302` sob UA de navegador e que o Chrome do `cdp.py` não atravessa o
+  proxy — as duas medições estavam certas; a conclusão que tirei delas é que estava errada.
 - **Mídia do YouTube**: metadados voltam normalmente; o binário de áudio é recusado com
   `HTTP 403` pela política de saída (`googlevideo.com`).
 - **TLS**: `enterisi.it` (GREEN no acervo) hoje falha com `DH_KEY_TOO_SMALL`; `ismea.it`,

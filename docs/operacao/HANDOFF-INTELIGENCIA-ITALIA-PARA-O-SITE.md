@@ -78,11 +78,15 @@ Nenhum preview foi promovido, testado como site oficial, aliasado ou associado a
 ## 3 · O QUE FOI PRODUZIDO
 
 ```
-NEW SOURCES                = 43 qualificadas · 22 HIGH · 21 MEDIUM
-                             9 rejeitadas com motivo · 14 rotas não alcançadas
-                             12 são CANAL NOVO de organização já registrada
-                             34 perfis sociais declarados por 16 organizações
+NEW SOURCES                = 90 qualificadas · 43 HIGH · 47 MEDIUM
+                             11 rejeitadas com motivo no código
+                             + 95 rejeições da varredura preservadas em bruto
+                             21 rotas não alcançadas · 1 contradição aberta
+                             32 são CANAL NOVO de organização já registrada
+                             45 perfis sociais declarados por 27 organizações
+                             52 AUTOMATABLE · 29 com feed ou API
                              DEDUPE = PASS
+                             3 CORREÇÕES ÀS MINHAS PRÓPRIAS MEDIÇÕES
 
 NEW RAW                    = 150 bollettini ER de 2026 indexados (o mais recente 2026-09-02)
                              177 pontos da série de trappole de Halyomorpha halys (2021→2026-08-31)
@@ -116,16 +120,21 @@ NEW CANDIDATES             = 1 proposto ao método: PATATA × ELATERIDI (Emilia-
 
 | arquivo | o que é |
 |---|---|
-| `data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json` | 43 fichas de fonte, 30 campos cada |
+| `data/samples/IT-FONTES-V1/IT-FONTES-DESCOBERTA-V1.json` | **90** fichas de fonte, 30 campos cada |
+| `data/samples/IT-FONTES-V1/IT-FONTES-RECONFERENCIA-V1.json` | as minhas releituras host a host, e os dois handles que caíram |
+| `data/samples/IT-FONTES-V1/IT-FONTES-REJEICOES-LOTE2-V1.json` | as 95 rejeições da varredura, em bruto |
+| `data/samples/IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json` | 21 sinais que sobreviveram à refutação adversarial (24 testados, 3 refutados) |
+| `data/samples/IT-INSTAGRAM-V3/` | 8 contas, 48 objetos, 6 vídeos, 5 transcritos |
+| `data/samples/IT-VOZ-AUDIO-V2/` | camada de áudio permanente (`scripts/it_audio.py`) |
 | `data/samples/IT-CRUZAMENTO-V1/IT-CRUZAMENTOS-V1.json` | 6 cruzamentos, `CLIENT_SAFE: true` |
-| `data/samples/IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json` | evidência nova para 4 das 9 confirmadas |
+| `data/samples/IT-CRUZAMENTO-V1/IT-ENRIQUECIMENTO-CONFIRMADAS-V1.json` | evidência nova para **5** das 9 confirmadas — e uma delas **esfria** o caso |
 | `data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-2026-INDICE.json` | índice dos 150 bollettini |
 | `data/samples/IT-CAMPO-V1/IT-CIMICE-TRAPPOLE-UNIBO-SERIE.json` | série numérica por província e estádio |
 | `data/samples/IT-CAMPO-V1/IT-BOLLETTINI-ER-SOSTANZE-ATTIVE-V1.json` | 421 menções verificadas |
 | `data/samples/IT-VOZ-AUDIO-V1/` | 9 transcrições locais + o medidor de só-na-fala |
 | `data/samples/IT-VIDEO-V1/` | 102 objetos, 18 falas, 10 sinais só-na-fala |
 
-**IDs citáveis:** fontes `IT-SRCX-001` … `IT-SRCX-043` · cruzamentos `IT-X-2026-001` …
+**IDs citáveis:** fontes `IT-SRCX-001` … `IT-SRCX-090` · cruzamentos `IT-X-2026-001` …
 `IT-X-2026-006` · vídeos `YOUTUBE:<external_id>` · falas em `IT-VIDEO-V1/falas/<id>.json`.
 
 ### NEEDS_VALIDATION
@@ -139,15 +148,23 @@ NEW CANDIDATES             = 1 proposto ao método: PATATA × ELATERIDI (Emilia-
 
 ### FUTURE
 
-- Coleta de Instagram — o lote está congelado em
-  `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json` (32 contas,
-  `READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE`). Precisa do runner com navegador.
+- Instagram: a coleta **foi feita** em três lotes (V1, V2, V3 — 180 objetos, 48 reels
+  transcritos, 0,00 USD). O que ainda precisa do runner é a **grade completa** (esta rota
+  entrega 6 itens por conta, o Chrome com janela entrega 12) e os **comentários**, que
+  nenhuma rota gratuita entrega.
 - Transcrição própria de vídeo do YouTube — `IT_VIDEO_AUDIO=1` na máquina do runner.
-- `disciplinare` da barbabietola, para fechar `OPP_2BDE8FC566CE`.
+- `disciplinare` da barbabietola: o elo de `OPP_2BDE8FC566CE` **foi encontrado** (o par de
+  rótulo `IT-LBL-409`, SPYRALE) e ele **esfria** o caso. O disciplinare continua sendo o
+  documento que diria se alguma molécula é de fato posicionada.
+- Os 21 hosts em `NAO_ALCANCADAS` — TLS antigo, muro de bot, túnel 502. Estado desta saída,
+  não do mundo.
 
 ### REJECTED
 
-9 fontes, com o motivo escrito em `IT-FONTES-DESCOBERTA-V1.json#REJECTED`.
+11 fontes com o motivo escrito em `IT-FONTES-DESCOBERTA-V1.json#REJECTED`, mais 95 em bruto
+em `IT-FONTES-REJEICOES-LOTE2-V1.json`. Duas das 11 são **correções à varredura paralela**:
+`anicav.it` (muro de bot vendido como conteúdo) e o LinkedIn do CSO Italy (handle não
+declarado na casa do dono).
 
 ---
 
@@ -178,6 +195,7 @@ NEW CANDIDATES             = 1 proposto ao método: PATATA × ELATERIDI (Emilia-
 |---|---|
 | **problema** | o GIRE declara *Echinochloa crus-galli* resistente a propanil (HRAC 5 / C2) em Piemonte, Lombardia e Toscana desde 2000; o sumário por país do `weedscience.org` lido em 2026-09-03 mostra a Itália com **zero** no grupo HRAC 5 |
 | **impacto** | toca `OPP_4C39CCC05EEB` (RISO × ECHINOCHLOA). É `INVESTIGATE`, **não** um número a escolher |
+| **estado** | registrada como `IT-CONTRA-001` em `IT-FONTES-DESCOBERTA-V1.json#OPEN_CONTRADICTIONS`. A linha 36 da tabela de Heap foi conferida por mim: `Total 29 \| HRAC1 8 \| HRAC2 15 \| HRAC5 0 \| HRAC9 4 \| HRAC4 1`. Os grupos somam 29 |
 | **owner provável** | camada de ciência/resistência |
 
 ### CMF-04 · uma afirmação do repositório ficou velha, e foi datada em vez de reescrita

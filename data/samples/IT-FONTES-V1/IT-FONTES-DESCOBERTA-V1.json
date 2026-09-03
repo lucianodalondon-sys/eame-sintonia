@@ -11,48 +11,49 @@
  "ENTITY_VS_CHANNEL": "ORGANIZACAO e CANAL sao unidades diferentes. A mesma instituicao pode ser site, feed, perfil e API — e cada uma quebra de um jeito. Dedupe une organizacao; nao colapsa canal.",
  "FIELD_LAW": "campo sem leitura real fica NAO_SEI; nunca preenchido por plausibilidade",
  "SCOREBOARD": {
-  "SOURCES_QUALIFIED": 87,
+  "SOURCES_QUALIFIED": 90,
   "BY_RELEVANCE": {
-   "HIGH": 42,
-   "MEDIUM": 45
+   "HIGH": 43,
+   "MEDIUM": 47
   },
   "BY_AUTHORITY": {
    "OFFICIAL": 19,
    "SCIENTIFIC": 21,
    "TECHNICAL": 8,
-   "FIELD_VOICE": 4,
+   "FIELD_VOICE": 5,
    "INDUSTRY": 11,
-   "MEDIA": 10,
+   "MEDIA": 12,
    "COMPETITOR": 14
   },
   "BY_COLLECTABILITY": {
-   "AUTOMATABLE": 48,
-   "PARTIAL": 37,
+   "AUTOMATABLE": 52,
+   "PARTIAL": 36,
    "MANUAL": 2
   },
   "BY_MONITORING": {
-   "MONITOR_WEEKLY": 24,
-   "MONITOR_MONTHLY": 53,
+   "MONITOR_WEEKLY": 25,
+   "MONITOR_MONTHLY": 54,
    "MONITOR_DAILY": 6,
    "EVENT_DRIVEN": 3,
-   "DISCOVERY_ONLY": 1
+   "DISCOVERY_ONLY": 1,
+   "DO_NOT_MONITOR": 1
   },
   "BY_UPDATE_FREQUENCY": {
-   "PERIODIC": 58,
-   "FREQUENT": 21,
+   "PERIODIC": 59,
+   "FREQUENT": 22,
    "EVENT_DRIVEN": 4,
-   "STATIC": 3,
+   "STATIC": 4,
    "UNKNOWN": 1
   },
-  "WITH_FEED_OR_API": 25,
+  "WITH_FEED_OR_API": 29,
   "WITH_SOCIAL_DECLARED": 27,
   "SOCIAL_PROFILES_DECLARED": 45,
-  "SINTONIA_SCRAP_SUPPORTED": 20,
-  "TRANSCRIPTION_RELEVANT": 11,
-  "NEW_CHANNEL_OF_REGISTERED_ORG": 30,
+  "SINTONIA_SCRAP_SUPPORTED": 23,
+  "TRANSCRIPTION_RELEVANT": 14,
+  "NEW_CHANNEL_OF_REGISTERED_ORG": 32,
   "REJECTED": 11,
-  "ROUTES_NOT_REACHED": 20,
-  "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": 2,
+  "ROUTES_NOT_REACHED": 21,
+  "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": 3,
   "OPEN_CONTRADICTIONS": 1
  },
  "DEDUPE": {
@@ -3719,7 +3720,7 @@
    "PRIMARY_URL": "https://www.agro.basf.it/it/Progetti/Minuti-di-Riso/Minuti-di-Riso-2023/",
    "PLATFORM": "WEB",
    "SOCIAL_PROFILE_URLS": {},
-   "RSS_API": "NAO_SEI",
+   "RSS_API": "https://api.spreaker.com/v2/shows/5619070/episodes",
    "CROPS_RELEVANT": [
     "RISO"
    ],
@@ -3732,22 +3733,22 @@
    "ADAMA_RELEVANCE_REASON": "um concorrente rodando PODCAST em italiano como canal de cultura. RISO e linha pequena para a ADAMA (15 pares de rotulo) mas estrategicamente fechada: a BASF e dona dos sistemas Clearfield e Provisia de tolerancia a herbicida, que e exatamente o que decide o diserbo do arroz onde a resistencia do giavone ja esta certificada.",
    "DISCOVERED_FROM": "snowballing a partir do site da BASF Italia",
    "DISCOVERY_QUERY": "BASF Minuti di Riso podcast",
-   "COLLECTION_METHOD": "HTML",
+   "COLLECTION_METHOD": "HTML + API Spreaker",
    "SINTONIA_SCRAP_SUPPORTED": "NO",
    "VIDEO_AVAILABLE": "NO",
-   "TRANSCRIPTION_RELEVANT": "SIM_SE_O_AUDIO_FOR_ALCANCADO",
-   "UPDATE_FREQUENCY": "PERIODIC",
-   "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
+   "TRANSCRIPTION_RELEVANT": "ACERVO_HISTORICO",
+   "UPDATE_FREQUENCY": "STATIC",
+   "LAST_OBSERVED_CONTENT_DATE": "2023-12-07",
    "LAST_CHECKED_AT": "2026-09-03",
    "ACCESS_STATUS": "GREEN",
-   "COLLECTABILITY": "PARTIAL",
+   "COLLECTABILITY": "AUTOMATABLE",
    "PROVENANCE_STATUS": "REAL_SOURCE_PROBED",
-   "MONITORING_RECOMMENDATION": "MONITOR_MONTHLY",
+   "MONITORING_RECOMMENDATION": "DO_NOT_MONITOR",
    "CLIENT_SAFE": false,
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
-   "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 195.199 B, \"MINUTI DI RISO\"",
-   "NOTES_INTERNAL": "os arquivos de audio NAO foram baixados nesta rodada. Marcado como candidato a transcricao pelo Sintonia Scrap, e nao como transcrito."
+   "EVIDENCE_PROBE": "minha leitura 2026-09-03: pagina HTTP 200 / 195.199 B; API Spreaker shows/5619070/episodes, ultimo published_at 2023-12-07",
+   "NOTES_INTERNAL": "CONGELADO, e isso foi MEDIDO e nao suposto: o programa esta no Spreaker com show_id 5619070 e o ultimo episodio e de 2023-12-07, intitulado \"28 - Arrivederci\". A BASF se despediu do canal. Eu havia escrito PERIODIC lendo a pagina; a API desmente. Ver FIX-03. Os 28 episodios continuam colhiveis como ACERVO — o que nao existe e cadencia."
   },
   {
    "SOURCE_ID": "IT-SRCX-081",
@@ -4063,6 +4064,139 @@
    "DEDUPE_MEANS": null,
    "EVIDENCE_PROBE": "minha leitura 2026-09-03: HTTP 200, 119.996 B, \"Calendario Italia 2027 - Primo semestre\"",
    "NOTES_INTERNAL": "EVENTO COM DATA FUTURA != SINAL DE CAMPO. E agenda, e serve para planejar presenca, nao para decidir tratamento. O dominio dedicado fieragricolatech.it NAO abre daqui — a data vem do calendario do recinto."
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-088",
+   "NAME": "Terra di Denari — podcast de cadeia agricola",
+   "ENTITY": "Terra di Denari",
+   "SOURCE_TYPE": "PODCAST",
+   "AUTHORITY_CLASS": "MEDIA",
+   "RELEVANCE": "MEDIUM",
+   "COUNTRY": "ITALY",
+   "REGION": "ITALIA",
+   "LANGUAGE": "IT",
+   "PRIMARY_URL": "https://www.spreaker.com/podcast/terra-di-denari--6623075",
+   "PLATFORM": "SPREAKER",
+   "SOCIAL_PROFILE_URLS": {},
+   "RSS_API": "https://api.spreaker.com/v2/shows/6623075/episodes",
+   "CROPS_RELEVANT": [
+    "FRUMENTO",
+    "VITE",
+    "OLIVO"
+   ],
+   "TARGETS_TOPICS_RELEVANT": [
+    "FILIERA_AGRICOLA",
+    "MERCATO",
+    "POLITICA_AGRICOLA"
+   ],
+   "ADAMA_RELEVANCE_REASON": "entra pelo FORMATO, e a razao e honesta: 30 minutos de fala e onde cabe a frase tecnica que um reel de 30 segundos nunca comporta. O acervo mediu isso — 9 episodios do Agricast deram 130.935 caracteres de agronomia italiana, contra 37.166 de 28 reels.",
+   "DISCOVERED_FROM": "api.spreaker.com/v2/search?type=shows",
+   "DISCOVERY_QUERY": "spreaker search q=terra di denari",
+   "COLLECTION_METHOD": "API JSON + mp3 + ffmpeg + faster-whisper small LOCAL",
+   "SINTONIA_SCRAP_SUPPORTED": "YES",
+   "VIDEO_AVAILABLE": "NO",
+   "TRANSCRIPTION_RELEVANT": "YES",
+   "UPDATE_FREQUENCY": "PERIODIC",
+   "LAST_OBSERVED_CONTENT_DATE": "2026-07-14",
+   "LAST_CHECKED_AT": "2026-09-03",
+   "ACCESS_STATUS": "GREEN",
+   "COLLECTABILITY": "AUTOMATABLE",
+   "PROVENANCE_STATUS": "REAL_SOURCE_PROBED",
+   "MONITORING_RECOMMENDATION": "MONITOR_MONTHLY",
+   "CLIENT_SAFE": false,
+   "DEDUPE_AGAINST": "IT-SRCX-016",
+   "DEDUPE_MEANS": "mesma plataforma e mesma rota; programas distintos",
+   "EVIDENCE_PROBE": "API Spreaker shows/6623075/episodes lida por mim em 2026-09-03: 13 episodios, ultimo 2026-07-14",
+   "NOTES_INTERNAL": "cadencia irregular: 2 episodios em 90 dias. E canal vivo, e nao canal frequente."
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-089",
+   "NAME": "AGRINET4TECH: storie di sostenibilita — podcast por territorio",
+   "ENTITY": "AGRINET4TECH",
+   "SOURCE_TYPE": "PODCAST",
+   "AUTHORITY_CLASS": "MEDIA",
+   "RELEVANCE": "HIGH",
+   "COUNTRY": "ITALY",
+   "REGION": "ITALIA (um territorio nomeado por episodio)",
+   "LANGUAGE": "IT",
+   "PRIMARY_URL": "https://www.spreaker.com/podcast/agrinet4tech--7026131",
+   "PLATFORM": "SPREAKER",
+   "SOCIAL_PROFILE_URLS": {},
+   "RSS_API": "https://api.spreaker.com/v2/shows/7026131/episodes",
+   "CROPS_RELEVANT": [
+    "FRAGOLA",
+    "BASILICO",
+    "POMODORO",
+    "MAIS"
+   ],
+   "TARGETS_TOPICS_RELEVANT": [
+    "AGRICOLTURA_DIGITALE",
+    "TERRITORIO",
+    "SOSTENIBILITA"
+   ],
+   "ADAMA_RELEVANCE_REASON": "cada episodio e um LUGAR declarado pelo proprio programa — Metapontino e a fragola, Ponente Ligure e o basilico, Delta do Po, Piana di Sibari, Bassa Mantovana, Ringhiera dell Umbria. GEOGRAFIA DECLARADA e exatamente o que falta na maior parte da voz publica italiana: sinal sem lugar nao cruza com oportunidade, porque oportunidade tem regiao.",
+   "DISCOVERED_FROM": "api.spreaker.com/v2/search?type=shows",
+   "DISCOVERY_QUERY": "spreaker search q=agrinet4tech",
+   "COLLECTION_METHOD": "API JSON + mp3 + ffmpeg + faster-whisper small LOCAL",
+   "SINTONIA_SCRAP_SUPPORTED": "YES",
+   "VIDEO_AVAILABLE": "NO",
+   "TRANSCRIPTION_RELEVANT": "YES",
+   "UPDATE_FREQUENCY": "FREQUENT",
+   "LAST_OBSERVED_CONTENT_DATE": "2026-08-02",
+   "LAST_CHECKED_AT": "2026-09-03",
+   "ACCESS_STATUS": "GREEN",
+   "COLLECTABILITY": "AUTOMATABLE",
+   "PROVENANCE_STATUS": "REAL_SOURCE_PROBED",
+   "MONITORING_RECOMMENDATION": "MONITOR_WEEKLY",
+   "CLIENT_SAFE": false,
+   "DEDUPE_AGAINST": null,
+   "DEDUPE_MEANS": null,
+   "EVIDENCE_PROBE": "API Spreaker shows/7026131/episodes lida por mim em 2026-09-03: 11 episodios, 9 na janela de 90 dias",
+   "NOTES_INTERNAL": "LUGAR NOMEADO NO TITULO != FATO OBSERVADO NAQUELE LUGAR. O territorio e o tema do episodio; o que se afirma sobre ele ainda precisa sair da fala."
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-090",
+   "NAME": "Cia Umbria Agripodcast",
+   "ENTITY": "CIA Agricoltori Italiani — Umbria",
+   "SOURCE_TYPE": "PODCAST",
+   "AUTHORITY_CLASS": "FIELD_VOICE",
+   "RELEVANCE": "MEDIUM",
+   "COUNTRY": "ITALY",
+   "REGION": "Umbria",
+   "LANGUAGE": "IT",
+   "PRIMARY_URL": "https://www.spreaker.com/podcast/cia-umbria-agripodcast--4600385",
+   "PLATFORM": "SPREAKER",
+   "SOCIAL_PROFILE_URLS": {},
+   "RSS_API": "https://api.spreaker.com/v2/shows/4600385/episodes",
+   "CROPS_RELEVANT": [
+    "OLIVO",
+    "VITE",
+    "TABACCO",
+    "FRUMENTO"
+   ],
+   "TARGETS_TOPICS_RELEVANT": [
+    "VOZ_DE_ORGANIZACAO_DE_PRODUTORES",
+    "ATTUALITA_REGIONALE"
+   ],
+   "ADAMA_RELEVANCE_REASON": "CONTRASTE DELIBERADO, e esta e a razao inteira: a Umbria NAO aparece em nenhuma das 37 oportunidades do radar. Sem uma regiao de fora no lote, a frase \"as fontes monitoradas falam das regioes da ADAMA\" nao tem controle — ela seria verdadeira por construcao da lista, e nao por medicao.",
+   "DISCOVERED_FROM": "api.spreaker.com/v2/search?type=shows",
+   "DISCOVERY_QUERY": "spreaker search q=cia umbria",
+   "COLLECTION_METHOD": "API JSON + mp3 + ffmpeg + faster-whisper small LOCAL",
+   "SINTONIA_SCRAP_SUPPORTED": "YES",
+   "VIDEO_AVAILABLE": "NO",
+   "TRANSCRIPTION_RELEVANT": "YES",
+   "UPDATE_FREQUENCY": "PERIODIC",
+   "LAST_OBSERVED_CONTENT_DATE": "2026-07-27",
+   "LAST_CHECKED_AT": "2026-09-03",
+   "ACCESS_STATUS": "GREEN",
+   "COLLECTABILITY": "AUTOMATABLE",
+   "PROVENANCE_STATUS": "REAL_SOURCE_PROBED",
+   "MONITORING_RECOMMENDATION": "MONITOR_MONTHLY",
+   "CLIENT_SAFE": false,
+   "DEDUPE_AGAINST": "IT-SRCX-073",
+   "DEDUPE_MEANS": "mesma confederacao (CIA), federacao regional diferente e outra midia",
+   "EVIDENCE_PROBE": "API Spreaker shows/4600385/episodes lida por mim em 2026-09-03: 18 episodios, ultimo 2026-07-27",
+   "NOTES_INTERNAL": "NAO_SEI"
   }
  ],
  "REJECTED": [
@@ -4227,6 +4361,11 @@
    "MEANS": "responde 200 e redireciona para /emea/404. A Albaugh EMEA nao tem versao italiana — isso e um fato sobre a empresa, e nao uma falha de rota."
   },
   {
+   "HOST": "spreaker: MINUTI DI RISO (5619070) · Lezioni di Vite (5837404) · La settimana del riso (6634834) · Just Agronomo (6411513)",
+   "STATE": "CANAL_CONGELADO",
+   "MEANS": "quatro programas italianos de assunto certo e relogio parado: ultimo episodio em 2023-12-07, 2023, 2025-07-26 e 2024-12-24. Nenhum deles esta morto como ACERVO — \"Peronospora della vite, come e quando intervenire\" continua sendo exatamente o assunto. O que nao existe e cadencia, e cadencia e o que separa monitoramento de arqueologia."
+  },
+  {
    "HOST": "anicav.it · anb.it · bmti.it",
    "STATE": "MURO_DE_BOT (sgcaptcha / \"Security Check Required\")",
    "MEANS": "tres corpos de cadeia — conservas vegetais, bieticultores e a bolsa telematica — atras de muro de bot. O bmti.it JA ESTAVA registrado no acervo canonico e MUDOU de estado: quem confiar na ficha antiga vai achar que a rota funciona."
@@ -4275,6 +4414,15 @@
    "WHAT_CHANGED_BECAUSE_OF_IT": "o handle continua na ficha, porque pode existir, mas agora carrega HANDLE_NAO_RECONFIRMADO e NAO entra no lote de coleta social. A LEI 6 nao foi satisfeita.",
    "THE_LESSON": "PROVA DE AGENTE NAO E PROVA. Das 93 fontes que a varredura trouxe, eu reconferi 52 na mao e duas nao sustentaram: esta e a ANICAV. A taxa importa menos que o habito — o que entra no acervo permanente precisa ter sido lido por quem assina.",
    "WHAT_STAYS_TRUE": "o CSO Italy continua fonte valida por outra razao: previsao de producao de pomacee, que e denominador de cultura. O que caiu foi o CANAL social, e nao a organizacao."
+  },
+  {
+   "ID": "FIX-03",
+   "WHAT_I_WROTE": "na ficha IT-SRCX-080, que o podcast \"Minuti di Riso\" da BASF era um canal PERIODIC, a monitorar mensalmente.",
+   "WHY_I_WROTE_IT": "li a PAGINA do projeto no site da BASF, que responde 200 com 195 KB e apresenta o podcast no presente. Uma pagina viva nao diz nada sobre a cadencia do que ela apresenta.",
+   "WHAT_IS_TRUE": "o programa esta no Spreaker (show_id 5619070) e o ultimo episodio e de 2023-12-07, com o titulo \"28 - Arrivederci\". O canal se despediu ha mais de dois anos.",
+   "WHAT_CHANGED_BECAUSE_OF_IT": "UPDATE_FREQUENCY passou a STATIC e MONITORING a DO_NOT_MONITOR. Os 28 episodios seguem colhiveis como acervo historico sobre Clearfield e Provisia.",
+   "THE_LESSON": "PAGINA VIVA NAO E CANAL VIVO. A cadencia so se le no relogio de publicacao, e o relogio estava a uma chamada de API de distancia. O mesmo erro apanhou quatro outros programas nesta mesma varredura — La settimana del riso (2025-07-26), Lezioni di Vite (2023), Just Agronomo (2024-12-24) — e todos ficaram registrados com a data que os reprova.",
+   "WHAT_STAYS_TRUE": "a ficha continua valendo como observacao de CONCORRENTE: a BASF fez um podcast de arroz em italiano, e isso e um fato sobre a estrategia dela mesmo depois de o canal parar."
   }
  ],
  "OPEN_CONTRADICTIONS": [
