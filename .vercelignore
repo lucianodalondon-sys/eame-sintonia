@@ -1,0 +1,34 @@
+# O que nunca deve sair deste repositorio para um URL publico.
+#
+# A integracao Git implanta a PARTIR DA RAIZ do repositorio. Sem este ficheiro,
+# tudo o que esta commitado fica publicamente descarregavel — inclusive o
+# arquivo de investigacao, os pacotes canonicos e o codigo de auditoria.
+# `outputDirectory` no vercel.json ja restringe o que e SERVIDO; isto restringe
+# o que e sequer ENVIADO. Duas fechaduras, porque o deploy e publico e
+# irreversivel.
+
+# Segredos. Nao existem no tree, e continuam a nao poder aparecer.
+.env
+.env.*
+.vercel
+
+# Pacotes canonicos, investigacao e dados internos. Nada disto e conteudo de
+# site: e a materia-prima de onde o site foi construido.
+/build
+/data
+/docs
+/handoff
+/research
+/prototype
+/supabase
+
+# Ferramentas: cadeia de ingestao, auditoria, testes, CI.
+/scripts
+/tests
+/.github
+/italia-portale/audit
+/italia-portale/BASELINE
+
+# Documentacao. Nada no portal liga a um .md; servi-los so alarga o publico.
+*.md
+**/*.md
