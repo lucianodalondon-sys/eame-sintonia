@@ -9,7 +9,7 @@ Nada aqui foi ingerido no site. O site é outro consumidor, e a ingestão é dec
 
 ```
 BRANCH  = claude/adama-italia-source-discovery-oui6ma
-HEAD    = 510ccb1
+HEAD    = 4a97dbb
 TREE    = limpa
 TESTES  = 329, 0 falhas
 ```
@@ -17,6 +17,13 @@ TESTES  = 329, 0 falhas
 Commits desta aba, todos nesta branch e em nenhuma outra:
 
 ```
+4a97dbb  a rota de audio rendeu 84,6% de sinal so na fala, e a auditoria derrubou 8 dos 11
+a419e9c  depois de tres lotes de Instagram renderem 5, 2 e 0, a casa abriu a rota de audio
+8a50400  o acervo de fontes da Italia passou de 43 para 87, e duas delas cairam na conferencia
+87523cd  21 sinais sobreviveram a refutacao, e o melhor deles ESFRIA um caso
+73888cb  testei a minha propria hipotese sobre o Instagram e ela falhou
+c715ac8  eu estava errado sobre o Instagram: era o User-Agent, nao o navegador
+6f6c5d7  a fronteira fica escrita, e o numero errado que eu publiquei fica corrigido
 510ccb1  o calendario regulatorio ganha as duas metades: quando abre, e quando some
 809328f  o Sintonia Scrap ganha a metade que faltava: video, pelo mesmo contrato e motor
 4e3bce4  li a rota que eu mesmo tinha listado como desbloqueio, e ela nao fecha o caso
@@ -41,7 +48,7 @@ ca464f9  o relatorio da missao: o que esta acontecendo agora, e onde olhar amanh
 árvore é `prototype/portal/index.html`, que está `CONGELADO.md` e cujo diff contra a base é
 **vazio**.
 
-Os 6 pushes desta aba foram **todos** para `claude/adama-italia-source-discovery-oui6ma`.
+Os **11** pushes desta aba foram **todos** para `claude/adama-italia-source-discovery-oui6ma`.
 Nenhum push, merge, rebase ou fast-forward em `claude/site-v21-ingest-recovery`,
 `claude/eame-competitor-public-communication` ou `claude/sintonia-eame-repo-setup-xccfob`.
 As branches do site foram **lidas** (`git fetch`) para consultar o corpus canônico da Itália,
@@ -56,22 +63,41 @@ Feita por **leitura**, sem CLI, sem deploy, sem alias, sem tocar em configuraç�
 O projeto Vercel ligado a `lucianodalondon-sys/eame-sintonia` é **`sintonia-eame-preview`**
 (`prj_rKjzMNHiB2ulP8ev5bmYYeUFUTwe`, team `london-creative`).
 
-Os 6 pushes desta branch produziram 6 deployments, **todos com `target: null` (preview)**:
+Os pushes desta branch produziram deployments **todos com `target: null` (preview)**.
+Releitura em 2026-09-03 20:16 UTC, dos 20 deployments mais recentes do projeto:
 
-| DEPLOYMENT | HEAD | TARGET | criado (UTC) |
-|---|---|---|---|
-| `dpl_4dK6AvzYqyBRxyhvG1eBHyTbgmdB` | 510ccb1 | **null** | 2026-09-03 12:26 |
-| `dpl_B7LnJg84rA7izJ8SsDQbKoBHiDtp` | 809328f | **null** | 2026-09-03 12:25 |
-| `dpl_59NwZJC3Bp7wa8CpMaF1hnFYJ5id` | 4e3bce4 | **null** | 2026-09-03 11:53 |
-| `dpl_AJpaBTPHPVHB1WSAW8Uhkz1dkQBG` | ca464f9 | **null** | 2026-09-03 11:51 |
-| `dpl_DXzAXVP2Ziydh7UHZqj69Xuqbz5o` | 30b06bf | **null** | 2026-09-03 11:47 |
-| `dpl_BTyabSiAx7bdYVWcKkpyryz3ShGM` | 2f44fe3 | **null** | 2026-09-03 11:37 |
+| origem | deployments lidos | `target` |
+|---|---|---|
+| `claude/adama-italia-source-discovery-oui6ma` (esta aba) | 7 | **null** em todos os 7 |
+| `claude/site-v21-ingest-recovery` (a missão do site) | 12 | `production` em todos os 12 |
+| `claude/opportunity-commercial-priority-v1` | 1 | **null** |
 
-Nenhum preview foi promovido, testado como site oficial, aliasado ou associado a domínio.
+Nenhum preview desta aba foi promovido, testado como site oficial, aliasado ou associado a
+domínio. **Os 12 `target=production` desta janela vêm todos da branch do site**, que é a dona
+dessa decisão — nenhum vem daqui.
 
-> **Limite honesto da checagem:** foram lidos os **20 deployments mais recentes** do projeto.
-> Nesses 20 não há **nenhum** `target=production` — de nenhuma branch. Isso é o que foi lido,
-> e não uma afirmação sobre todo o histórico.
+### Uma correção ao que este handoff dizia antes
+
+A versão anterior desta seção afirmava `target: null` para os 6 deployments desta branch, e
+isso continua verdadeiro. O que ela **não** dizia é o `state`: **os deployments desta branch
+falham no build**, e sempre falharam. O motivo, lido nos logs:
+
+```
+npm error enoent Could not read package.json:
+  ENOENT: no such file or directory, open '/vercel/path0/package.json'
+Error: Command "npm run build" exited with 254
+```
+
+O projeto Vercel roda `npm run build` em **toda** branch, e esta branch é um repositório de
+inteligência em Python, sem `package.json`. **Não é defeito introduzido aqui** — a mesma
+falha aparece em `claude/opportunity-commercial-priority-v1`. É a configuração de build do
+site aplicada a branches que não são o site.
+
+> **Não toquei nisso, e não vou tocar.** A regra de isolamento é explícita: Vercel está fora
+> de escopo, e "consertar o Vercel" não é tarefa desta aba. Fica registrado como `CMF-05`.
+
+`TARGET=NULL` é o que a regra de isolamento exige, e é o que foi medido. `STATE=ERROR` é
+ruído de configuração alheia, e agora está dito em vez de omitido.
 
 ---
 
@@ -206,6 +232,17 @@ declarado na casa do dono).
 | **impacto** | toca `OPP_4C39CCC05EEB` (RISO × ECHINOCHLOA). É `INVESTIGATE`, **não** um número a escolher |
 | **estado** | registrada como `IT-CONTRA-001` em `IT-FONTES-DESCOBERTA-V1.json#OPEN_CONTRADICTIONS`. A linha 36 da tabela de Heap foi conferida por mim: `Total 29 \| HRAC1 8 \| HRAC2 15 \| HRAC5 0 \| HRAC9 4 \| HRAC4 1`. Os grupos somam 29 |
 | **owner provável** | camada de ciência/resistência |
+
+### CMF-05 · o projeto Vercel roda o build do site em toda branch
+
+| | |
+|---|---|
+| **arquivo** | configuração do projeto `sintonia-eame-preview` (Vercel), não versionada nesta branch |
+| **problema** | o build command é `npm run build` e roda em **qualquer** branch. Branches que não são o site não têm `package.json` e falham com `ENOENT ... exited with 254` |
+| **evidência** | logs de `dpl_DqANDFPjkyvxZQGWEHkDCX2ki9Cb` (esta branch) e o mesmo estado em `claude/opportunity-commercial-priority-v1` |
+| **impacto** | ruído: todo push de branch de inteligência gera um preview vermelho. Nenhum efeito em produção — `target` continua `null` |
+| **owner provável** | quem administra o projeto Vercel / a missão do site |
+| **por que não corrigi** | a regra de isolamento proíbe explicitamente alterar configuração da Vercel e "tentar consertar o Vercel". Registrado, não tocado |
 
 ### CMF-04 · uma afirmação do repositório ficou velha, e foi datada em vez de reescrita
 
