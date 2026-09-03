@@ -222,8 +222,29 @@ NÃO CRUZADOS (com o motivo escrito) = 3
 | `OPP_3965565ACFCC` | **folpet** dentro de um teto compartilhado (`Tra Captano, Folpet e Fluazinam Max 4`) e chamado **duas vezes** em deroga na mesma campanha |
 | `OPP_8EA4F5C0D3F4` | o teto `Tra Pyraclostrobin e Azoxystrobin Max 3` — gestão de resistência escrita |
 
-Não enriquecidas: `OPP_2BDE8FC566CE` (rota identificada, não lida) · `OPP_6E18A133EE14` ·
-`OPP_886307860F79` · `OPP_E6200AA0FA63` (fora de janela) · `OPP_AF16E6A6B8B3`.
+Não enriquecidas: `OPP_2BDE8FC566CE` · `OPP_6E18A133EE14` · `OPP_886307860F79` ·
+`OPP_E6200AA0FA63` (fora de janela) · `OPP_AF16E6A6B8B3`.
+
+#### A rota que eu mesmo listei como próximo passo, li — e ela **não** fecha o caso
+
+Listei "ler a *scheda* de cercospora para fechar `OPP_2BDE8FC566CE`" como desbloqueio. Li,
+pela API Plone, em 2026-09-03. **A scheda não nomeia fenpropidin, nem difenoconazolo, nem
+nenhum fungicida** — a seção *Difesa* remete aos disciplinari e ao modelo.
+
+Uma síntese de motor de busca havia sugerido *"difenoconazolo + fenpropidin"*. **Isso não
+estava na página.** Síntese de buscador nunca foi tratada como evidência aqui, e agora está
+verificado que não é.
+
+O que a scheda **prova**, e é valioso por outro motivo:
+
+> *"Un utile ausilio alla razionalizzazione dei trattamenti anticercosporici è rappresentato
+> dai modelli previsionali **CERCOPRI e CERCODEP** messi a punto dall'**Università Cattolica
+> del Sacro Cuore (UCSC) di Piacenza** e **adottati dal Servizio fitosanitario della Regione
+> Emilia-Romagna** nell'ambito dell'attività di Previsione e Avvertimento."*
+
+A rota de **timing** da cultura de maior peso de rótulo ADAMA está provada e nomeada, e a
+instituição que a assina está no acervo como `IT-SRCX-008`. **A ligação com a molécula desta
+oportunidade continua não provada.**
 
 ### O achado estrutural sobre as nove, que não estava escrito em lugar nenhum
 
@@ -440,6 +461,9 @@ CANONICAL GUARDS = PASS — 329 testes, 0 falhas
    feeds de canal funcionam. **Desbloqueio:** mesma máquina.
 3. **`SRC_IMAGE_LINE_COM`** aponta para a empresa errada no acervo canônico. É uma linha a
    corrigir, e ela está na branch do site.
+5. **`OPP_2BDE8FC566CE`** continua sem evidência de campo: a *scheda* de cercospora foi lida
+   e **não** nomeia fenpropidin. O desbloqueio agora é outro — o *disciplinare di produzione
+   integrata* da barbabietola, que é onde as moléculas estão listadas.
 4. **Beta (bietola)** continua `NAO_SEI`: três domínios tentados, nenhum é a instituição.
 
 **NEXT BEST SOURCES TO EXPAND** (máximo 10)
@@ -449,8 +473,8 @@ CANONICAL GUARDS = PASS — 329 testes, 0 falhas
    mais falta.
 2. `Horta s.r.l.` / `vite.net` — o DSS que opera os modelos de janela. Entrou pelo `.it`;
    o produto está atrás de login.
-3. `scheda cercospora` do Serviço Fitossanitário ER — fecha `OPP_2BDE8FC566CE` ligando
-   fenpropidin ao modelo que define a janela.
+3. `disciplinare di produzione integrata` da barbabietola (ER) — a *scheda* de cercospora já
+   foi lida e **não** nomeia moléculas; o disciplinare é onde elas estão.
 4. `Ente Nazionale Risi` — resistência de *Echinochloa* e *Alisma* no arroz, direto em
    `OPP_4C39CCC05EEB`. Hoje falha TLS com `DH_KEY_TOO_SMALL`.
 5. `GIRE` — mapas nacionais de resistência a herbicidas, para os 26 produtos de erbicidi.

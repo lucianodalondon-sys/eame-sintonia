@@ -143,12 +143,25 @@ SEM_ENRIQUECIMENTO = [
      'EU_LIMIT_DATE': '2027-05-15',
      'WHY': ('zero ocorrencias de "fenpropidin" com fronteira de palavra nos 14 boletins da '
              'Emilia-Romagna dos ultimos 30 dias (2,3 M caracteres lidos).'),
-     'BUT_WE_FOUND_THE_ROUTE': ('a scheda oficial de cercospora da barbabietola do Servizio '
-                                'Fitosanitario ER cita difenoconazolo + fenpropidin entre as opcoes, '
-                                'e os modelos CERCOPRI/CERCODEP da Universita Cattolica di Piacenza '
-                                'sao a rota de TIMING desta cultura. Ambos entraram no acervo de fontes '
-                                '(IT-SRCX-008). A leitura da scheda nao foi feita nesta missao.'),
-     'STATE': 'NOT_ENRICHED_ROUTE_IDENTIFIED'},
+     'ROUTE_READ_AND_THE_ANSWER_IS_NO': (
+         'a scheda tecnica oficial de cercospora da barbabietola do Servizio Fitosanitario ER foi '
+         'LIDA nesta missao, pela API Plone. Ela NAO nomeia fenpropidin, nem difenoconazolo, nem '
+         'nenhum fungicida: a secao Difesa remete aos disciplinari e ao modelo. Uma sintese de '
+         'motor de busca havia sugerido "difenoconazolo + fenpropidin" — isso NAO estava na pagina, '
+         'e sintese de buscador nunca foi tratada como evidencia aqui.'),
+     'WHAT_THE_SCHEDA_DOES_PROVE': {
+         'QUOTE_IT': ('Un utile ausilio alla razionalizzazione dei trattamenti anticercosporici e '
+                      'rappresentato dai modelli previsionali CERCOPRI e CERCODEP messi a punto '
+                      'dall\'Universita Cattolica del Sacro Cuore (UCSC) di Piacenza e adottati dal '
+                      'Servizio fitosanitario della Regione Emilia-Romagna nell\'ambito '
+                      'dell\'attivita di Previsione e Avvertimento che esso svolge in ambito regionale.'),
+         'SOURCE_URL': ('https://agricoltura.regione.emilia-romagna.it/fitosanitario/avversita/schede/'
+                        'avversita-per-nome/cercospora/cercospora-della-barbabietola-scheda'),
+         'READ_AT': '2026-09-03',
+         'MEANS': ('a rota de TIMING da cultura de maior peso de rotulo ADAMA esta provada e '
+                   'nomeada, e a instituicao que a assina esta no acervo como IT-SRCX-008. '
+                   'A ligacao com a MOLECULA desta oportunidade continua NAO PROVADA.')},
+     'STATE': 'NOT_ENRICHED_ROUTE_READ_AND_REFUTED'},
     {'OPPORTUNITY_ID': 'OPP_6E18A133EE14', 'SUBSTANCE': 'BUPIRIMATE', 'CROP': 'CROP_TOMATO',
      'EU_LIMIT_DATE': '2027-01-31',
      'WHY': 'zero ocorrencias de "bupirimate" nos 14 boletins lidos.',
