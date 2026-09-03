@@ -64,12 +64,21 @@ from v21_campos_de_lingua import (LEITURA, MISTO, PROMOVE, campos_do_registro,  
 # reprovar o errado ninguém olha.
 NEG_PT = re.compile(r'\b(nao|não|nem|nunca|jamais|sem|nada|nenhum\w*|'
                     r'ausencia|ausência|falta)\b|\bnão-|\bnao-', re.I)
+# ⚠️ E ACONTECEU DE NOVO, na camada comercial V1.1: a lista tinha `mancano` e
+# `mancanza` mas NÃO tinha `manca` — a terceira pessoa do singular, que é a forma
+# mais comum de todas. «falta um elemento» → «manca un elemento» foi reprovado
+# por negação sumida, com a tradução correta. Idem em inglês: havia `lack`,
+# `absence` e `failure`, e faltavam `missing` e `absent`.
+#
+#     A TRAVA REPROVOU O CERTO OUTRA VEZ, E PELO MESMO MOTIVO DE SEMPRE.
+#     A CORREÇÃO É A LISTA, NUNCA A FRASE.
 NEG_IT = re.compile(r'\b(non|né|ne|mai|senza|nessun\w*|nulla|niente|'
-                    r'mancan\w+|mancat\w+|assenza|carenza|impossibil\w+)\b'
+                    r'manca|manchi|mancare|mancan\w+|mancat\w+|'
+                    r'assenza|assente|carenza|privo|priva|impossibil\w+)\b'
                     r'|\bnon-', re.I)
 NEG_EN = re.compile(r"\b(not|no|never|without|nor|neither|n't|cannot|non\w*|"
-                    r"nothing|none|nobody|absence|lack\w*|fails?|failure|"
-                    r"unable|impossible)\b|\bnon-", re.I)
+                    r"nothing|none|nobody|absence|absent|missing|lack\w*|"
+                    r"fails?|failure|unable|impossible)\b|\bnon-", re.I)
 
 # ⚠️ «NÃO PODE» É PROIBIÇÃO, NÃO HESITAÇÃO. A trava contava o «pode» de «não
 # pode ser citado» como incerteza e cobrava um «may» do inglês — que ali seria

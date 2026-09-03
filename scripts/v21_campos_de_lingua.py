@@ -51,6 +51,9 @@ LEITURA = [
     'ROLE_EVIDENCE', 'FIELD_REPORTED_STAGE', 'CONFIDENCE', 'NOTE', 'SO_WHAT',
     'WHAT_THIS_IS_NOT', 'READING_NOTE', 'INTERPRETATION', 'ANALYST_NOTE',
     'WHAT_IT_SHOWS', 'DESCRIPTION_PT',
+    # ── camada comercial V1.1 · leitura nossa, e por isso traduzível ────────
+    'COMMERCIAL_PRIORITY_MEANS', 'WHY_COMMERCIAL', 'CLAIM_GEOGRAPHY_WHY',
+    'COMMERCIAL_DOES_NOT_PROVE',
 ]
 
 # ── 2 · PALAVRA DA FONTE — não se toca ──────────────────────────────────────
@@ -62,6 +65,11 @@ FONTE = [
     'TEXT_ORIGINAL', 'CREATIVE_TEXT', 'DESCRIPTION', 'NAME', 'TITLE',
     'SPECIES_IT', 'SPECIES_LATIN', 'CROP_DECLARED_IT', 'PRODUCT_NAME',
     'PHENOLOGICAL_STAGE_DECLARED', 'REGION', 'QUOTE', 'HEADLINE', 'AD_TEXT',
+    # ⚠️ NEED_EXCERPT é a FRASE DO BOLETIM que sustenta a direção da
+    # necessidade. Ela é a prova; a leitura sobre ela é NEED_DIRECTION, que é
+    # valor controlado e não tem língua. Traduzir a frase seria adulterar a
+    # prova para explicar a minha leitura dela.
+    'NEED_EXCERPT',
 ]
 
 # ── 3 · COSTURA — meu rótulo + citação literal na mesma linha ───────────────

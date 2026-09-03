@@ -227,6 +227,53 @@ def issue_id(*campos, permitir_prosa=False):
     return None
 
 
+def _todos(texto, tabela):
+    """→ todos os IDs nomeados no texto, do apelido mais longo para o mais curto.
+
+    `_casa` devolve UM: o melhor. Serve para um campo declarado, que nomeia uma
+    coisa. Não serve para um TRECHO de boletim, que nomeia várias — e foi por
+    devolver um só que `ISSUE_IDS` guardou 12 alvos distintos para 483 menções
+    de praga.
+
+        UM CAMPO DECLARA UMA COISA. UM TRECHO NOMEIA AS QUE NOMEIA.
+
+    Depois de casar, o apelido é APAGADO do texto, para que `frumento duro` não
+    deixe `frumento` casar em cima do que já foi lido como trigo duro.
+    """
+    t = ' %s ' % _n(texto)
+    if not t.strip():
+        return []
+    achados = []
+    pares = sorted(((a, eid) for eid, apel in tabela.items() for a in apel),
+                   key=lambda p: -len(p[0]))
+    for apelido, eid in pares:
+        alvo = ' %s ' % _n(apelido)
+        if alvo in t:
+            t = t.replace(alvo.strip(), ' ')
+            if eid not in achados:
+                achados.append(eid)
+    return achados
+
+
+def crops_no_texto(trecho):
+    """→ todas as culturas nomeadas num TRECHO de prosa. Uso declarado.
+
+    `crop_id` recusa prosa de propósito, e a recusa está certa para um campo de
+    cultura. Este aqui existe para o caso oposto e único: emparelhar cultura e
+    alvo DENTRO DA MESMA ORAÇÃO de um boletim, que é onde a fonte de fato os
+    observou juntos. Quem chamar isto está declarando que lê prosa.
+
+        LER PROSA PARA ACHAR UM PAR OBSERVADO NÃO É O MESMO QUE
+        LER PROSA PARA ADIVINHAR UMA CULTURA QUE O REGISTRO NÃO DECLAROU.
+    """
+    return _todos(trecho, CROP_ALIAS)
+
+
+def issues_no_texto(trecho):
+    """→ todos os problemas nomeados num TRECHO de prosa. Uso declarado."""
+    return _todos(trecho, ISSUE_ALIAS)
+
+
 def region_ids(*campos):
     """→ lista. Um boletim pode nomear duas regiões («TOSCANA-FVG»)."""
     achadas = []

@@ -43,7 +43,6 @@ import zipfile
 from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ING = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST')
 ZIP = os.path.join(ROOT, 'build', 'SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip')
 NO_ZIP = 'ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/'
 SAIDA = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',
@@ -66,17 +65,22 @@ CAT_REGULATORIO = 'PRODUCTS-REGULATORY.json'
 
 
 def _pacote(arq):
-    """O diretório é o pacote reconstruído; o zip é o pacote versionado.
+    """SEMPRE do zip versionado — esta auditoria tem um alvo datado.
 
-    `build/ITALY-REALITY-HANDOFF-V2.1/` é ignorado pelo git — a cadeia o
-    reconstrói. Quem clona o repositório e quer só AUDITAR não deve ser
-    obrigado a rodar a cadeia inteira antes de ler um número.
+    ⚠️ A primeira versão lia o diretório reconstruído quando ele existisse, e a
+    ideia parecia boa: quem clona o repositório não deveria ter de rodar a
+    cadeia inteira para ler um número. Mas o diretório é o pacote de HOJE, e as
+    37 fichas de julgamento abaixo foram escritas contra o pacote de ONTEM.
+    Quando o motor V1.1 passou a emitir 43 casos, este arquivo quebrou com
+    `KeyError` num ID que nunca foi julgado — e quebrar foi o melhor que podia
+    acontecer: pior seria auditar um pacote e imprimir o veredito de outro.
 
-        AUDITORIA QUE EXIGE RECONSTRUIR O QUE AUDITA NAO E AUDITORIA INDEPENDENTE.
+        UMA AUDITORIA DATADA LÊ O PACOTE QUE ELA AUDITOU.
+        SEGUIR O PACOTE NOVO NÃO É ATUALIZAR-SE: É TROCAR DE ASSUNTO.
+
+    O zip `build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip` é versionado e é o
+    estado do motor V1 no commit desta auditoria. É esse, e só esse.
     """
-    direto = os.path.join(ING, arq)
-    if os.path.exists(direto):
-        return json.load(open(direto, encoding='utf-8')), 'DIRETORIO'
     with zipfile.ZipFile(ZIP) as z:
         with z.open(NO_ZIP + arq) as fh:
             return json.load(io.TextIOWrapper(fh, encoding='utf-8')), 'ZIP'
