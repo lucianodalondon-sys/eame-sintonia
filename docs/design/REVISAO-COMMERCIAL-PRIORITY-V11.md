@@ -1,5 +1,12 @@
 # Revisão final da Commercial Priority V1.1 — antes de integrar
 
+> ⚠️ **DOCUMENTO DATADO.** O veredito abaixo é sobre `e0a813d`. Os dois
+> bloqueios que ele nomeia foram fechados na rodada seguinte, medida em
+> `docs/design/CONSERTO-DOS-VINCULOS-V112.md`. Os números aqui — 4
+> `SALES_READY`, 2 externos, 2 `VALIDATION_REQUIRED` — são o retrato
+> daquele commit, e continuam corretos sobre ele. Não são o estado de
+> hoje. Uma auditoria datada não se reescreve: ela ganha um sucessor.
+
 > Revisão sobre `claude/opportunity-commercial-priority-v1` · base `fa41cc5`.
 > **Não integrado ao portal. Casco não alterado. Interface não redesenhada.**
 >

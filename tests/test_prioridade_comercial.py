@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""AS DOZE PROVAS DA CAMADA COMERCIAL · V1.1.
+"""AS PROVAS DA CAMADA COMERCIAL · V1.1 e V1.1.2.
 
 Cada teste aqui é um defeito medido, não uma hipótese. T1 e T2 provam o conserto
 do red team que acusava a própria advertência; T3 e T4, o da geografia que
 tratava a autorização nacional como contradição; T5 a T7, a direção do texto;
 T8 e T9, a separação entre os 163 do registro e os 51 do catálogo; T10, o fim do
-par cartesiano; T11 e T12, que a régua comercial não conta famílias no escuro.
+par cartesiano; T11 e T12, que a régua comercial não conta famílias no escuro;
+T13 a T18, que `SALES_READY` sozinho não autoriza material que sai de casa.
+
+T19 a T24 fecham os dois bloqueios que a revisão de `e0a813d` deixou abertos, e
+são do mesmo tipo um do outro — juntar por um eixo e jogar fora os outros:
+T19-T21, a janela que era herdada por coincidência de cultura; T22-T24, a direção
+que era repartida entre todos os alvos da mesma oração.
 
     UM TESTE QUE NÃO NASCEU DE UM ERRO MEDIDO É UM TESTE QUE PASSA POR SORTE.
 """
@@ -467,3 +473,183 @@ class TestMaterialExterno(unittest.TestCase):
                 self.assertEqual([], r['RED_TEAM_FINDINGS'], r['ID'])
                 self.assertTrue(r['NEED_EXCERPT'], r['ID'])
                 self.assertNotEqual('PREPARATION', r['WINDOW_KIND'], r['ID'])
+
+
+# ── T19-T21 · A JANELA SÓ VALE ONDE ELA MESMA SE DECLARA ─────────────────────
+class TestVinculoDeJanela(unittest.TestCase):
+    """Medido no pacote de `e0a813d`: dezesseis casos de videira — Umbria,
+    Toscana, Emilia-Romagna, Friuli — carregavam `IT-WIN-001/002/003`, que são
+    as janelas de *flavescenza dourada* do **Veneto**, da **Lombardia** e do
+    **Piemonte**. Doze deles nem sequer têm Scaphoideus como alvo.
+
+    O índice de janelas era `{cultura: [janelas]}`. Cultura coincidia, e a
+    janela era herdada. Alvo e região, que o próprio registro declara, eram
+    descartados.
+
+        UMA JANELA É DE UMA CULTURA, DE UM ALVO E DE UMA REGIÃO.
+        COINCIDIR NA CULTURA NÃO É SER A MESMA JANELA.
+
+    A chave mínima não é escolha de estilo: é o conjunto de eixos que a
+    evidência declarou. Onde o registro declarou alvo, o alvo entra na chave;
+    onde declarou região, a região entra.
+    """
+
+    VENETO = {'ID': 'IT-WIN-001', 'CROP_IDS': ['CROP_GRAPEVINE'],
+              'ISSUE_IDS': ['ISSUE_SCAPHOIDEUS'], 'REGION_IDS': ['REGION_VENETO'],
+              'ISSUE': 'Flavescenza dorata (vetor Scaphoideus titanus)',
+              'PREPARATION_WINDOW': 'ate 2027-05-31, quando historicamente sai o ato'}
+
+    def test_T19_a_janela_de_um_alvo_nao_serve_a_outro_alvo(self):
+        """A janela obrigatória contra o vetor da flavescenza não é a janela da
+        botrite. As duas são videira — e só isso."""
+        self.assertTrue(OP.janela_vale(self.VENETO, 'CROP_GRAPEVINE',
+                                       'ISSUE_SCAPHOIDEUS', 'REGION_VENETO'))
+        self.assertFalse(OP.janela_vale(self.VENETO, 'CROP_GRAPEVINE',
+                                        'ISSUE_BOTRYTIS', 'REGION_VENETO'),
+                         'T19: a janela ainda e herdada por coincidencia de cultura')
+
+    def test_T20_a_janela_de_uma_regiao_nao_serve_a_outra_regiao(self):
+        """O serviço fitossanitário é regional: o DDR do Veneto fixa as datas do
+        Veneto. Nem a Umbria nem a Toscana estão dentro dele."""
+        self.assertFalse(OP.janela_vale(self.VENETO, 'CROP_GRAPEVINE',
+                                        'ISSUE_SCAPHOIDEUS', 'REGION_UMBRIA'),
+                         'T20: a janela regional ainda atravessa a fronteira')
+        self.assertFalse(OP.janela_vale(self.VENETO, 'CROP_GRAPEVINE',
+                                        'ISSUE_SCAPHOIDEUS', 'GEO_ITALY'),
+                         'T20: uma janela do Veneto virou janela nacional')
+
+    def test_T21_alvo_declarado_sem_ID_nao_e_curinga(self):
+        """`IT-WIN-006` declara «Cocciniglie farinose» em prosa e traz
+        `ISSUE_IDS` vazio: o alvo existe e NÃO tem identificador. Lista vazia
+        aqui é alvo que não se sabe nomear — não é «serve para qualquer alvo».
+
+            EIXO SEM IDENTIDADE NÃO É EIXO AUSENTE. É «NÃO SEI».
+        """
+        w = {'ID': 'IT-WIN-006', 'CROP_IDS': ['CROP_GRAPEVINE'], 'ISSUE_IDS': [],
+             'REGION_IDS': ['REGION_EMILIA_ROMAGNA'],
+             'ISSUE': 'Cocciniglie farinose (Planococcus spp.)'}
+        self.assertFalse(OP.janela_vale(w, 'CROP_GRAPEVINE', 'ISSUE_BOTRYTIS',
+                                        'REGION_EMILIA_ROMAGNA'),
+                         'T21: prosa de alvo sem ID virou curinga')
+
+    def test_T21b_eixo_realmente_ausente_nao_restringe(self):
+        """E o contrário também é lei: o que a evidência NÃO declarou não vira
+        exigência inventada. Uma janela sem região declarada é nacional, e o
+        nacional contém a região — conter não é contradizer."""
+        w = {'ID': 'X', 'CROP_IDS': ['CROP_APPLE'], 'ISSUE_IDS': ['ISSUE_CODLING_MOTH'],
+             'REGION_IDS': [], 'ISSUE': ''}
+        self.assertTrue(OP.janela_vale(w, 'CROP_APPLE', 'ISSUE_CODLING_MOTH',
+                                       'REGION_VENETO'))
+
+    def test_T21c_no_pacote_nenhuma_janela_contradiz_o_caso(self):
+        janelas = {w['ID']: w for w in _pacote('CROP-WINDOWS.json')}
+        for r in _pacote('OPPORTUNITIES.json'):
+            for i in r.get('EVIDENCE_IDS') or []:
+                w = janelas.get(i)
+                if not w:
+                    continue
+                self.assertTrue(
+                    OP.janela_vale(w, r['CROP'], r['TARGET'], r['GEOGRAPHY']),
+                    '%s (%s x %s em %s) carrega a janela %s, que declara %s x %s em %s'
+                    % (r['ID'], r['CROP'], r['TARGET'], r['GEOGRAPHY'], w['ID'],
+                       w.get('CROP_IDS'), w.get('ISSUE_IDS'), w.get('REGION_IDS')))
+
+
+# ── T22-T24 · UMA DIREÇÃO NÃO SE REPARTE ENTRE VÁRIOS ALVOS ──────────────────
+class TestDirecaoNaoSeReparte(unittest.TestCase):
+    """Medido: `IT-PHEN-041` publica o mesmo texto de Siena com VÍRGULAS onde
+    Siena usou ponto e vírgula. A oração inteira vira uma só, nomeia botrite,
+    oídio e Scaphoideus, e traz `suspensao` no começo. As três receberam
+    `ACTION_SUSPENDED` — inclusive a botrite, para a qual o mesmo texto diz
+    «janela de maior suscetibilidade».
+
+        UMA PALAVRA DE DIREÇÃO NUMA ORAÇÃO COM VÁRIOS ALVOS NÃO DIZ
+        A QUAL DELES SE REFERE. ENTÃO NÃO SE SABE — E «NÃO SEI» É A RESPOSTA.
+
+    O par continua existindo: a fonte escreveu cultura e alvo juntos. O que não
+    existe é a direção individual.
+    """
+
+    CORRIDA = {
+        'ID': 'IT-PHEN-041-TESTE', 'CROP_IDS': ['CROP_GRAPEVINE'],
+        'ISSUE_IDS': ['ISSUE_DOWNY_MILDEW'],
+        'INTERVENTION_GUIDANCE':
+            'Mesmo texto de secoes que Siena nesta semana: suspensao da defesa '
+            'antiperonosporica em vinhas com invaiatura completa, suspensao de '
+            'oidio nas variedades proximas da maturacao, fim da defesa de black '
+            'rot, janela de maior suscetibilidade a botrite, fim da defesa de '
+            'Scaphoideus titanus.'}
+
+    def test_T22_oracao_com_varios_alvos_nao_distribui_a_direcao(self):
+        pares = {p['ISSUE_ID']: p for p in NE.pares_observados(self.CORRIDA)}
+        self.assertIn('ISSUE_BOTRYTIS', pares, 'T22: o par observado foi destruido')
+        for alvo, p in pares.items():
+            self.assertEqual(NE.UNKNOWN, p['NEED_DIRECTION'],
+                             'T22: %s recebeu direcao de uma oracao ambigua' % alvo)
+            self.assertIn('MULTIPLE_TARGETS_IN_CLAUSE', p['NEED_AMBIGUITY_CODES'])
+            self.assertTrue(p['NEED_EXCERPT'],
+                            'T22: a frase ambigua tem de viajar junto')
+
+    def test_T23_a_oracao_separada_continua_decidindo(self):
+        """E a correção NÃO pode destruir a leitura verdadeira: o boletim de
+        Siena, com ponto e vírgula, atribui cada direção ao seu alvo."""
+        siena = dict(self.CORRIDA, ID='IT-PHEN-040-TESTE', INTERVENTION_GUIDANCE=(
+            'Defesa antiperonosporica pode ser suspensa nas vinhas com invaiatura '
+            'completa; tratamentos de oidio podem ser suspensos nas variedades '
+            'proximas da maturacao; para botrite, na fase de maior '
+            'suscetibilidade, possivel intervir com antibotriticos '
+            'microbiologicos; defesa de Scaphoideus titanus concluida e retirada '
+            'das armadilhas.'))
+        pares = {p['ISSUE_ID']: p for p in NE.pares_observados(siena)}
+        self.assertEqual(NE.POSITIVE_PRESSURE,
+                         pares['ISSUE_BOTRYTIS']['NEED_DIRECTION'])
+        self.assertEqual(NE.ACTION_SUSPENDED,
+                         pares['ISSUE_POWDERY_MILDEW']['NEED_DIRECTION'])
+        self.assertEqual(NE.WINDOW_CONCLUDED,
+                         pares['ISSUE_SCAPHOIDEUS']['NEED_DIRECTION'])
+        self.assertEqual([], pares['ISSUE_BOTRYTIS']['NEED_AMBIGUITY_CODES'])
+
+    def test_T24_direcao_que_nao_nomeia_alvo_nenhum_continua_valendo(self):
+        """`IT-PHEN-022`: «durante a floração VIGORA A PROIBIÇÃO de intervenção
+        fitoiátrica com inseticidas». A oração não nomeia alvo: a proibição é da
+        PRÁTICA, sobre a cultura inteira, e vale para todo par que o documento
+        declara. Isto não é repartir uma direção entre alvos — é uma direção que
+        nunca foi de um alvo só.
+
+            PROIBIR O INSETICIDA DURANTE A FLORAÇÃO É PROIBIR PARA TODOS.
+        """
+        s = {'ID': 'IT-PHEN-022-TESTE', 'CROP_IDS': ['CROP_MAIZE'],
+             'BULLETIN_TITLE': 'Difesa del mais da piralide e diabrotica e '
+                               'tutela delle api',
+             'INTERVENTION_GUIDANCE':
+                 'SIM, e restritiva: durante a floracao VIGORA A PROIBICAO de '
+                 'intervencao fitoiatrica com inseticidas, para tutela das abelhas.'}
+        pares = {p['ISSUE_ID']: p for p in NE.pares_observados(s)}
+        self.assertEqual({'ISSUE_CORN_BORER', 'ISSUE_DIABROTICA'}, set(pares))
+        for alvo, p in pares.items():
+            self.assertEqual(NE.TREATMENT_PROHIBITED, p['NEED_DIRECTION'],
+                             'T24: a proibicao da pratica foi perdida em %s' % alvo)
+
+    def test_T24b_ambiguidade_nunca_vende(self):
+        """A regra é assimétrica de propósito: `UNKNOWN` não fecha nem abre — e
+        nunca autoriza venda. Ambiguidade não pode virar permissão."""
+        base = {'ARCHETYPE': 'O1_FIELD_PRESSURE', 'TARGET': 'ISSUE_BOTRYTIS',
+                'COMMERCIAL_PRODUCT_COUNT': 1, 'CLAIM_GEOGRAPHY_HOLDS': True,
+                'PRODUCT_LINK_STATE': 'VERIFIED_LABEL_MATCH',
+                'COMMERCIAL_WINDOW': 'ACT_NOW'}
+        pri, _ = CM.prioridade(dict(base, NEED_DIRECTION=NE.UNKNOWN))
+        self.assertNotEqual(CM.SALES_READY, pri)
+
+    def test_T24c_no_pacote_direcao_afirmada_nomeia_um_alvo_so(self):
+        """A invariante que fecha o defeito no pacote inteiro: se o caso AFIRMA
+        uma direção, o trecho que a sustenta não pode nomear dois alvos."""
+        import v21_normalizar as N
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r.get('NEED_DIRECTION') in (None, NE.UNKNOWN, NE.NEUTRAL_MENTION):
+                continue
+            trecho = r.get('NEED_EXCERPT') or ''
+            alvos = N.issues_no_texto(trecho)
+            self.assertLessEqual(
+                len(alvos), 1,
+                '%s afirma %s a partir de um trecho que nomeia %s'
+                % (r['ID'], r['NEED_DIRECTION'], alvos))

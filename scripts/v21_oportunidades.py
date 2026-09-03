@@ -196,6 +196,53 @@ TIPO_DE_JANELA = {
 }
 
 
+# ── A CHAVE MÍNIMA DO VÍNCULO DE JANELA ─────────────────────────────────────
+#
+# O índice era `{cultura: [janelas]}`. Cultura coincidia, e a janela era
+# herdada: dezesseis casos de videira — Umbria, Toscana, Emilia-Romagna,
+# Friuli — carregavam as janelas obrigatórias de *flavescenza dourada* do
+# Veneto, da Lombardia e do Piemonte. Doze deles nem têm Scaphoideus como alvo.
+#
+#     UMA JANELA É DE UMA CULTURA, DE UM ALVO E DE UMA REGIÃO.
+#     COINCIDIR NA CULTURA NÃO É SER A MESMA JANELA.
+#
+# A chave mínima não é escolha de estilo: é o conjunto de eixos que a evidência
+# declarou. Onde o registro declarou alvo, o alvo entra na chave; onde declarou
+# região, a região entra. E o que ele NÃO declarou não vira exigência inventada
+# — uma janela sem região é nacional, e o nacional contém a região.
+#
+#     CONTER NÃO É CONTRADIZER. MAS COINCIDIR TAMBÉM NÃO É CONTER.
+_SEM_VALOR = ('', 'NAO SEI', 'NÃO SEI', 'NENHUM', 'NENHUMA', 'N/A', 'NA')
+
+
+def _declarado(v):
+    """Prosa que nomeia alguma coisa — «NAO SEI» não nomeia."""
+    return str(v or '').strip().upper() not in _SEM_VALOR
+
+
+def janela_vale(w, crop, alvo, geo):
+    """A janela vale para esta combinação? Só se ELA MESMA a declarar.
+
+    ⚠️ `ISSUE_IDS` vazio com `ISSUE` escrito em prosa NÃO é curinga: é alvo que
+    existe e não se sabe nomear. `IT-WIN-006` declara «Cocciniglie farinose» e
+    não tem ID para elas — emprestar essa janela à botrite seria inventar.
+
+        EIXO SEM IDENTIDADE NÃO É EIXO AUSENTE. É «NÃO SEI».
+    """
+    if crop not in (w.get('CROP_IDS') or []):
+        return False
+    alvos = w.get('ISSUE_IDS') or []
+    if alvos:
+        if alvo not in alvos:
+            return False
+    elif _declarado(w.get('ISSUE')):
+        return False
+    regioes = w.get('REGION_IDS') or []
+    if regioes and geo not in regioes:
+        return False
+    return True
+
+
 def janela(regs):
     """→ (inicio, fim, dias, estado, campo, tipo). Prosa nunca vira janela."""
     for r in regs:
@@ -386,7 +433,12 @@ def main():
     lbl_crop = _ix(cs['PRODUCT-RELATIONSHIPS'], 'CROP_IDS')
     lbl_issue = _ix(cs['PRODUCT-RELATIONSHIPS'], 'ISSUE_IDS')
     field_crop = _ix(cs['CURRENT-FIELD-SIGNALS'], 'CROP_IDS')
-    win_crop = _ix(cs['CROP-WINDOWS'], 'CROP_IDS')
+    # ⚠️ NÃO existe mais índice de janela por cultura: era ele o defeito.
+    # A janela é escolhida pelos eixos que ela mesma declara.
+    todas_as_janelas = cs['CROP-WINDOWS']
+
+    def janelas(crop, alvo, geo):
+        return [w for w in todas_as_janelas if janela_vale(w, crop, alvo, geo)]
     res_crop = _ix(cs['RESISTANCE'], 'CROP_IDS')
     sci_crop = _ix(cs['SCIENCE'], 'CROP_IDS')
     comp_crop = _ix(cs['COMPETITOR-ACTIVITIES'], 'CROP_IDS')
@@ -473,16 +525,26 @@ def main():
             c['NEED_EXCERPT'] = pino['NEED_EXCERPT']
             c['NEED_METHOD'] = pino['NEED_METHOD']
             c['NEED_FIELD'] = pino['NEED_FIELD']
+            # Por que NAO se sabe, quando nao se sabe. Um `UNKNOWN` mudo parece
+            # «nao havia texto»; e o que houve foi texto que nomeia varios
+            # alvos e uma direcao so.
+            c['NEED_AMBIGUITY_CODES'] = list(pino.get('NEED_AMBIGUITY_CODES') or [])
         else:
             c['NEED_DIRECTION'] = NE.UNKNOWN
             c['NEED_EVIDENCE_ID'] = None
             c['NEED_EXCERPT'] = ''
             c['NEED_METHOD'] = None
             c['NEED_FIELD'] = None
+            c['NEED_AMBIGUITY_CODES'] = []
+        c['NEED_AMBIGUITY'] = ' '.join(NE.AMBIGUIDADE[k]
+                                       for k in c['NEED_AMBIGUITY_CODES'])
         c['NEED_LAW'] = ('NEED_DIRECTION e INTERPRETACAO SINTONIA sobre o texto '
                          'de terceiro. A frase original viaja junto em '
                          'NEED_EXCERPT: quem discordar da leitura le a frase. '
-                         'Entre oracoes do mesmo par, a que manda PARAR vence.')
+                         'Entre oracoes do mesmo par, a que manda PARAR vence. '
+                         'E uma oracao que nomeia varios alvos com uma direcao '
+                         'so nao atribui direcao a nenhum deles: fica UNKNOWN, '
+                         'com o motivo em NEED_AMBIGUITY.')
 
         # ── tempo comercial: só janela de APLICAÇÃO conta ─────────────────────
         if o.get('WINDOW_KIND') == 'APPLICATION' and o.get('DAYS_REMAINING') is not None:
@@ -516,7 +578,7 @@ def main():
         apoios = [a for a in apoios if a]
         if not apoios:
             return
-        ini, fim, dias, jest, jcampo, jtipo = janela(win_crop.get(crop, []) + apoios)
+        ini, fim, dias, jest, jcampo, jtipo = janela(janelas(crop, alvo, geo) + apoios)
         sdata, sidade = data_do_sinal(apoios)
         oid, chave = identidade(arquetipo, crop, alvo, geo,
                                 ini or ('EU' if arquetipo == 'O5_REGULATORY_PREPARATION' else None))
@@ -623,15 +685,16 @@ def main():
             sin = list({s['ID']: s for _p, s in itens}.values())
             pin_geo = [p for p, _s in itens]
             esc = sin[0].get('GEOGRAPHIC_SCOPE') or 'REGIONAL'
+            jan = janelas(crop, alvo, geo)
             emitir('O1_FIELD_PRESSURE', crop, alvo, geo, esc,
-                   sin[:8] + win_crop.get(crop, [])[:3] + rot[:6],
+                   sin[:8] + jan[:3] + rot[:6],
                    VERIFIED_LABEL_MATCH if rot else LABEL_CHECK_NEEDED, prods,
                    {'PRODUTOS_COM_ROTULO': len(prods), 'SINAIS_DE_CAMPO': len(sin)},
                    {'CURRENTNESS': 2 if sin else 0, 'GEOGRAPHY': 2,
                     'AGRONOMIC': 2 if alvo else 1, 'ADAMA': 2 if rot else 0,
                     'MULTI_SOURCE': min(2, len({s.get('SOURCE_IDS', [None])[0]
                                                 for s in sin})),
-                    'ACTIONABILITY': 2 if win_crop.get(crop) else 1},
+                    'ACTIONABILITY': 2 if jan else 1},
                    ['MARKET_DEVELOPMENT', 'COMMERCIAL', 'SCIENCE_TECHNICAL'],
                    rotulos=rot, pinos=pin_geo)
 
@@ -853,6 +916,8 @@ def gravar(brutos, C, cs):
             'NEED_EXCERPT': o['NEED_EXCERPT'],
             'NEED_METHOD': o['NEED_METHOD'],
             'NEED_FIELD': o['NEED_FIELD'],
+            'NEED_AMBIGUITY_CODES': o['NEED_AMBIGUITY_CODES'],
+            'NEED_AMBIGUITY': o['NEED_AMBIGUITY'],
             'NEED_LAW': o['NEED_LAW'],
 
             'MATCHED_COMMERCIAL_PRODUCT_IDS': o['MATCHED_COMMERCIAL_PRODUCT_IDS'],

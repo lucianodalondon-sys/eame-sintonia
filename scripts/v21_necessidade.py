@@ -24,6 +24,13 @@ score máximo do motor apoiavam-se em documentos que mandam PARAR.
 
     O MOTOR LIA QUE A PRAGA APARECE. ELE NÃO LIA SE O TEXTO MANDA AGIR.
 
+**3 · A direção era repartida entre os alvos da mesma oração.** Medido depois,
+em `IT-PHEN-041`: uma oração corrida nomeia três alvos e traz uma palavra de
+direção, e os três recebiam a mesma. Ver a lei em `MULTIPLE_TARGETS_IN_CLAUSE`,
+mais abaixo.
+
+    UMA DIREÇÃO NÃO SE REPARTE. SE NÃO SE SABE DE QUEM ELA É, NÃO SE SABE.
+
 COMO O PAR É FORMADO — e o que é recusado
 ------------------------------------------
 O texto do boletim é partido em orações. Numa oração:
@@ -228,13 +235,46 @@ def _mais_restritiva(estados):
     return UNKNOWN
 
 
+# ── A DIREÇÃO NÃO SE REPARTE ENTRE ALVOS ────────────────────────────────────
+#
+# Medido em `IT-PHEN-041`: Firenze publica o mesmo texto de Siena com VÍRGULAS
+# onde Siena usou ponto e vírgula. A oração vira uma só, nomeia botrite, oídio e
+# Scaphoideus, e o primeiro padrão que casa é `suspensao`. Os três recebiam
+# `ACTION_SUSPENDED` — inclusive a botrite, para a qual o MESMO texto diz
+# «janela de maior suscetibilidade». A oportunidade verdadeira de Toscana era
+# apagada por pontuação alheia.
+#
+#     UMA PALAVRA DE DIREÇÃO NUMA ORAÇÃO COM VÁRIOS ALVOS NÃO DIZ A QUAL DELES
+#     SE REFERE. ENTÃO NÃO SE SABE — E «NÃO SEI» É A RESPOSTA HONESTA.
+#
+# O par NÃO é destruído: a fonte escreveu cultura e alvo juntos, e isso continua
+# sendo observação. O que não existe é a direção individual. E a assimetria é de
+# propósito: `UNKNOWN` não fecha a porta comercial nem a abre — nunca vende.
+#
+# ⚠️ Isto NÃO vale para a oração que não nomeia alvo nenhum. «Durante a floração
+# vigora a proibição de intervenção fitoiátrica com inseticidas» proíbe a
+# PRÁTICA sobre a cultura inteira: não é uma direção de um alvo repartida entre
+# vários, é uma direção que nunca foi de um alvo só.
+MULTIPLE_TARGETS_IN_CLAUSE = 'MULTIPLE_TARGETS_IN_CLAUSE'
+MULTIPLE_CROPS_IN_CLAUSE = 'MULTIPLE_CROPS_IN_CLAUSE'
+
+AMBIGUIDADE = {
+    MULTIPLE_TARGETS_IN_CLAUSE:
+        'a mesma oracao nomeia mais de um alvo e uma direcao so: nao se sabe a '
+        'qual deles a direcao se refere, e por isso nenhum a recebeu.',
+    MULTIPLE_CROPS_IN_CLAUSE:
+        'a mesma oracao nomeia mais de uma cultura e uma direcao so: nao se sabe '
+        'a qual delas a direcao se refere, e por isso nenhuma a recebeu.',
+}
+
 # Força dos métodos de atribuição, do mais forte ao mais fraco. Um par visto
 # pelo método forte não é rebaixado por reaparecer pelo fraco.
 FORCA_DO_METODO = ('PAIR_IN_SAME_CLAUSE', 'PAIR_IN_DOCUMENT_TITLE',
                    'CROP_FROM_PRECEDING_CLAUSE', 'CROP_FROM_SINGLE_CROP_DOCUMENT')
 
 
-def _pinar(achados, sinal, campo, metodo, crop, issue, estado, oracao):
+def _pinar(achados, sinal, campo, metodo, crop, issue, estado, oracao,
+           ambiguidade=None):
     """Registra um pino de necessidade, guardando o trecho que o sustenta."""
     p = achados.setdefault((crop, issue), {
         'CROP_ID': crop, 'ISSUE_ID': issue,
@@ -243,10 +283,13 @@ def _pinar(achados, sinal, campo, metodo, crop, issue, estado, oracao):
         'NEED_METHOD': metodo,
         'DIRECTIONS_SEEN': [],
         'EXCERPT_BY_DIRECTION': {},
+        'NEED_AMBIGUITY_CODES': [],
     })
     if estado not in p['DIRECTIONS_SEEN']:
         p['DIRECTIONS_SEEN'].append(estado)
     p['EXCERPT_BY_DIRECTION'].setdefault(estado, oracao[:320])
+    if ambiguidade and ambiguidade not in p['NEED_AMBIGUITY_CODES']:
+        p['NEED_AMBIGUITY_CODES'].append(ambiguidade)
     if FORCA_DO_METODO.index(metodo) < FORCA_DO_METODO.index(p['NEED_METHOD']):
         p['NEED_METHOD'], p['NEED_FIELD'] = metodo, campo
 
@@ -326,9 +369,18 @@ def pares_observados(sinal):
                 # ⚠️ AQUI NASCIA O CARTESIANO. O par não é emitido.
                 continue
             est, _padrao = direcao(oracao)
+            # ⚠️ UMA DIREÇÃO NÃO SE REPARTE. Se a oração nomeia mais de um alvo
+            # — ou mais de uma cultura — e traz uma palavra de direção, não se
+            # sabe a qual deles ela se refere. Então não se sabe: `UNKNOWN`.
+            amb = None
+            if est not in (NEUTRAL_MENTION, UNKNOWN):
+                if len(issues) > 1:
+                    amb, est = MULTIPLE_TARGETS_IN_CLAUSE, UNKNOWN
+                elif len(crops) > 1:
+                    amb, est = MULTIPLE_CROPS_IN_CLAUSE, UNKNOWN
             for c in crops:
                 for i in issues:
-                    _pinar(achados, sinal, campo, metodo, c, i, est, oracao)
+                    _pinar(achados, sinal, campo, metodo, c, i, est, oracao, amb)
     for p in achados.values():
         p['NEED_DIRECTION'] = _mais_restritiva(p['DIRECTIONS_SEEN'])
         p['NEED_EXCERPT'] = p['EXCERPT_BY_DIRECTION'].get(p['NEED_DIRECTION'], '')
