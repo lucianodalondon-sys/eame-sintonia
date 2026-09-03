@@ -353,6 +353,8 @@
     prodCommercial: 'STATO CATALOGO COMMERCIALE', prodRegulatory: 'STATO REGOLATORIO', prodCategory: 'CATEGORIA', prodAi: 'PRINCIPIO ATTIVO',
     prodInCatalog: 'Presente nel catalogo pubblico', prodNotInCatalog: 'Non presente in questa lettura del catalogo',
     prodRegistered: 'Registrato in Italia', prodNotRegistered: 'Non presente in questa lettura del registro',
+    /* presenza nel registro non e validita formale */
+    prodExpired: 'Registrazione scaduta in questa lettura',
     prodConnections: 'CONNESSIONI DI PORTAFOGLIO', prodVerifiedRel: 'RELAZIONI VERIFICATE', prodCheckRel: 'RELAZIONI DA VERIFICARE', prodRejectedRel: 'RELAZIONI NON CONFERMATE IN QUESTA LETTURA',
     prodNoRel: 'Nessuna relazione coltura × avversità collegata in questa lettura.',
     prodRelatedOpps: 'VEDI OPPORTUNITÀ COLLEGATE →', prodNotObservable: 'NON OSSERVABILE DA FONTI ESTERNE',
@@ -844,6 +846,7 @@
     prodCommercial: 'COMMERCIAL CATALOG STATUS', prodRegulatory: 'REGULATORY STATUS', prodCategory: 'CATEGORY', prodAi: 'ACTIVE INGREDIENT',
     prodInCatalog: 'Present in the public catalog', prodNotInCatalog: 'Not present in this catalog reading',
     prodRegistered: 'Registered in Italy', prodNotRegistered: 'Not present in this registry reading',
+    prodExpired: 'Registration expired in this reading',
     prodConnections: 'PORTFOLIO CONNECTIONS', prodVerifiedRel: 'VERIFIED RELATIONSHIPS', prodCheckRel: 'RELATIONSHIPS NEEDING VERIFICATION', prodRejectedRel: 'RELATIONSHIPS NOT CONFIRMED IN THIS READING',
     prodNoRel: 'No crop × target relationship connected in this reading.',
     prodRelatedOpps: 'VIEW RELATED OPPORTUNITIES →', prodNotObservable: 'NOT EXTERNALLY OBSERVABLE',

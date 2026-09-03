@@ -4931,9 +4931,21 @@ class Component extends DCLogic {
            window in different regions — so no single region is derivable either.
            The line now carries the row's EVIDENCE, localized from the model's own
            English evidence string. Nothing here is a new fact. */
+        /* LE DUE ETICHETTE ERANO INVERTITE PER FORZA.
+           RELATED_PORTFOLIO diceva «riga d'uso autorizzata nel registro
+           nazionale» — una affermazione PIU FORTE di quella riservata alla
+           corrispondenza verificata, e falsa. Il record stesso dice il
+           contrario: l'etichetta dichiara SEPARATAMENTE che il prodotto agisce
+           su questo bersaglio e che si impiega su questa coltura, e NON afferma
+           che lo controlli in QUESTA coltura. Su 518 righe la schermata
+           trasformava un accostamento nostro in una autorizzazione dello Stato.
+
+               UNA RELAZIONE DI PORTAFOGLIO NON E UNA AUTORIZZAZIONE
+               DI ETICHETTA. AVVICINARE DUE DICHIARAZIONI E UN LAVORO
+               NOSTRO, E VA DETTO CHE E NOSTRO. */
         const EV = {
-          VERIFIED_LABEL_MATCH: { it: 'Letto sull\'etichetta ufficiale', en: 'Read on the official label' },
-          RELATED_PORTFOLIO: { it: 'Riga d\'uso autorizzata nel registro nazionale', en: 'Authorised use row in the national registry' },
+          VERIFIED_LABEL_MATCH: { it: 'Stessa riga della tabella d\'impiego, letta sull\'etichetta ufficiale', en: 'Same row of the use table, read on the official label' },
+          RELATED_PORTFOLIO: { it: 'Dichiarazioni separate sull\'etichetta, avvicinate da noi — non una riga d\'uso per questa coppia', en: 'Separate declarations on the label, brought together by us — not an authorised use row for this pair' },
           LABEL_CHECK_NEEDED: { it: 'Etichetta da verificare per questa combinazione', en: 'Label still to be read for this combination' },
           NO_CONFIRMED_MATCH_CURRENT_READING: { it: 'Non trovato in questa lettura delle etichette', en: 'Not found in this label reading' },
         };
@@ -5035,8 +5047,22 @@ class Component extends DCLogic {
           category: e.categoryLabel || '—',
           inCommercial: e.inCommercial, commercialL: e.inCommercial ? T.prodInCatalog : T.prodNotInCatalog,
           commercialColor: e.inCommercial ? '#00B152' : '#B1A9A7',
-          inRegulatory: e.inRegulatory, regulatoryL: e.inRegulatory ? T.prodRegistered : T.prodNotRegistered,
-          regulatoryColor: e.inRegulatory ? '#00B152' : '#B1A9A7',
+          /* UNA REGISTRAZIONE SCADUTA NON E UNA REGISTRAZIONE VIVA.
+             Quindici prodotti hanno una data di scadenza gia passata rispetto
+             alla data di riferimento del pacchetto, e la schermata li mostrava
+             tutti in verde come «Registrato in Italia». Presenza nel registro
+             e validita formale sono due cose diverse, e questa riga diceva la
+             seconda misurando la prima. Non decide se il prodotto sia ancora
+             commerciabile — non e osservabile da qui — dice soltanto la data
+             che l'etichetta porta. */
+          inRegulatory: e.inRegulatory,
+          regulatoryL: !e.inRegulatory ? T.prodNotRegistered
+            : (e.expiresInDays !== undefined && e.expiresInDays !== null && e.expiresInDays < 0)
+              ? (T.prodExpired || 'Registrazione scaduta') + ' · ' + String(e.expiry || '')
+              : T.prodRegistered,
+          regulatoryColor: !e.inRegulatory ? '#B1A9A7'
+            : (e.expiresInDays !== undefined && e.expiresInDays !== null && e.expiresInDays < 0) ? '#F5B317'
+            : '#00B152',
           verified, hasVerified: verified.length > 0,
           /* RELATED_PORTFOLIO is 217 of 236 rows and is the only class 16 of the 26
              connected products have. It has no card in the markup yet — see the
