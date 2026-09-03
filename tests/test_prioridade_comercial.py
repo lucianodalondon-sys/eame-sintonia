@@ -653,3 +653,114 @@ class TestDirecaoNaoSeReparte(unittest.TestCase):
                 len(alvos), 1,
                 '%s afirma %s a partir de um trecho que nomeia %s'
                 % (r['ID'], r['NEED_DIRECTION'], alvos))
+
+
+# ── T25-T28 · A COLETA NOVA CHEGA À V11.2 SOZINHA ────────────────────────────
+class TestIngestaoAutomatica(unittest.TestCase):
+    """A pergunta não é «o motor está certo». É «a coleta nova chega até ele».
+
+    Estes testes percorrem as FUNÇÕES REAIS da ingestão, na ordem real da
+    cadeia — `do_lastmile` (passo 1) → `promover_research` (passo 5d) →
+    `pares_observados` e `janela_vale` (passo 5e) — com um registro no formato
+    exato do que entra pela porta versionada da coleta.
+
+        UM TESTE QUE CHAMA UMA CÓPIA DA REGRA PROVA A CÓPIA.
+
+    A travessia completa, com a cadeia inteira rodando de verdade, está em
+    `scripts/v21_testemunha_de_ingestao.py`; `T28` confere o que ela mediu.
+    """
+
+    NOVO = {
+        'FAMILIA': 'CURRENT_FIELD_SIGNALS',
+        'CANONICAL_RECORD_ID': 'IT-FIXTURE-INGESTAO-V112',
+        'QA_STATUS': 'QA_PASS', 'crop': 'VITE', 'region': 'Piemonte',
+        'geographic_scope': 'REGIONALE',
+        'source_url': 'https://fixture.invalid/v112/testemunha-de-ingestao',
+        'publication_date': '2026-09-01', 'observation_class': 'CURRENT',
+        'o_que': 'Vite/botrite: intervir em pre-colheita com Fenhexamid. '
+                 'Suspensao de oidio, fim da defesa de tignoletta e de '
+                 'peronospora nas mesmas vinhas.',
+    }
+
+    def _atravessa(self, bruto):
+        """O caminho real: ingestão → promoção → pares. Sem atalho."""
+        import v21_normalizar as N
+        import v21_ingest as IG
+        import v21_dominio_da_alegacao as DA
+        r = IG.do_lastmile(bruto, 'FIELD_SIGNAL',
+                           issues=[N.issue_id(bruto.get('valor'),
+                                              bruto.get('tipo'),
+                                              bruto.get('o_que'),
+                                              permitir_prosa=True)])
+        DA.promover_research(r)
+        return r
+
+    def test_T25_o_registro_novo_chega_ao_extrator_com_texto(self):
+        r = self._atravessa(dict(self.NOVO))
+        self.assertTrue(r['CLIENT_SAFE'])
+        self.assertEqual(['CROP_GRAPEVINE'], r['CROP_IDS'])
+        self.assertEqual(['REGION_PIEMONTE'], r['REGION_IDS'])
+        self.assertTrue(r.get('WHAT_IT_IS'),
+                        'T25: a prosa nao subiu de RESEARCH e o motor recebe '
+                        'um registro mudo')
+
+    def test_T26_ressalva_permanente_emudece_o_registro(self):
+        """Medido pela testemunha: `promover_research` é tudo-ou-nada. Com uma
+        ressalva declarada, NENHUMA prosa sobe — e o boletim entra sem texto.
+
+            UM REGISTRO IGNORADO EM SILÊNCIO É PIOR QUE UM RECUSADO EM VOZ ALTA.
+
+        Este teste NÃO aprova o comportamento: ele o PINA, para que a próxima
+        pessoa que mexer ali veja o preço na hora.
+        """
+        r = self._atravessa(dict(self.NOVO,
+                                 RESSALVA_PERMANENTE='registro de teste'))
+        self.assertIsNone(r.get('WHAT_IT_IS'))
+        self.assertEqual([], NE.pares_observados(r),
+                         'T26: mudou o comportamento — atualize a testemunha')
+
+    def test_T27_a_V11_2_vale_para_o_registro_novo(self):
+        r = self._atravessa(dict(self.NOVO))
+        pares = {p['ISSUE_ID']: p for p in NE.pares_observados(r)}
+        self.assertEqual(NE.POSITIVE_PRESSURE,
+                         pares['ISSUE_BOTRYTIS']['NEED_DIRECTION'])
+        for alvo in ('ISSUE_POWDERY_MILDEW', 'ISSUE_GRAPE_MOTH',
+                     'ISSUE_DOWNY_MILDEW'):
+            self.assertEqual(NE.UNKNOWN, pares[alvo]['NEED_DIRECTION'], alvo)
+            self.assertIn('MULTIPLE_TARGETS_IN_CLAUSE',
+                          pares[alvo]['NEED_AMBIGUITY_CODES'], alvo)
+        # e a janela do Piemonte, que existe para OUTRO alvo, nao encosta
+        for w in _pacote('CROP-WINDOWS.json'):
+            for alvo in pares:
+                self.assertFalse(
+                    OP.janela_vale(w, 'CROP_GRAPEVINE', alvo, 'REGION_PIEMONTE')
+                    and alvo not in (w.get('ISSUE_IDS') or []),
+                    'T27: %s encostou em %s' % (w['ID'], alvo))
+
+    def test_T28_a_cadeia_chama_o_motor_uma_vez_e_depois_do_ingest(self):
+        """O motor não é chamado por ninguém além da cadeia — e lá, uma vez só,
+        depois da porta. Se alguém criar um segundo dono, isto quebra."""
+        cadeia = open(os.path.join(ROOT, 'scripts', 'v21_cadeia.sh'),
+                      encoding='utf-8').read().splitlines()
+        linhas = [i for i, l in enumerate(cadeia)
+                  if 'v21_oportunidades.py' in l and not l.strip().startswith('#')]
+        self.assertEqual(1, len(linhas), 'o motor deixou de ter um chamador so')
+        porta = [i for i, l in enumerate(cadeia)
+                 if 'v21_ingest_b.py' in l and not l.strip().startswith('#')]
+        self.assertTrue(porta and porta[0] < linhas[0],
+                        'o motor passou a rodar antes da porta da coleta')
+
+    def test_T29_a_testemunha_de_ingestao_passou(self):
+        """A travessia completa é medida por script; aqui se confere o medido."""
+        p = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',
+                         'V112-TESTEMUNHA-DE-INGESTAO.json')
+        if not os.path.exists(p):
+            raise unittest.SkipTest('rode scripts/v21_testemunha_de_ingestao.py')
+        d = json.load(open(p, encoding='utf-8'))
+        self.assertEqual([], d['FALHAS'])
+        self.assertEqual(d['BUILD_ID_BASELINE'], d['BUILD_ID_RESTAURADO'],
+                         'a passagem da fixture deixou residuo no pacote')
+        self.assertGreater(len(d['CASOS_NOVOS']), 0,
+                           'a coleta nova nao produziu derivado')
+        for alvo, c in d['CASOS_DA_FIXTURE'].items():
+            self.assertEqual([], c['JANELAS_HERDADAS'], alvo)
