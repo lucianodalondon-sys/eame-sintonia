@@ -156,8 +156,8 @@ espanhola (`ES-T8-003`: 24 de 32 contas não declaravam país).
 | | |
 |---|---|
 | objetos | 9 |
-| áudio | 7.121 s = **118,7 minutos** |
-| transcrito | **103.404 caracteres** de agronomia italiana falada |
+| áudio | 9.100 s = **151,7 minutos** |
+| transcrito | **130.935 caracteres** de agronomia italiana falada |
 | motor | `faster-whisper small`, int8, CPU, `beam=1`, **idioma `it` declarado, nunca detectado** |
 | velocidade medida | 8,59× a 10,17× tempo real, nesta máquina de 4 núcleos |
 | custo | **0,00 USD** — o custo é tempo de máquina |
@@ -172,7 +172,7 @@ espanhola (`ES-T8-003`: 24 de 32 contas não declaravam país).
 NEW FIELD       = 14 boletins oficiais dos últimos 30 dias, 2,3 M caracteres,
                   421 menções de substância ativa ADAMA verificadas com fronteira de palavra
                 + 177 pontos de série numérica de captura de cimice, por província e estádio
-NEW VOCI        = 9 objetos de áudio, 103.404 caracteres de fala
+NEW VOCI        = 9 objetos de áudio, 130.935 caracteres de fala
 NEW COMPETITOR  = 4 canais (FMC Itália, Certis Belchim, Nufarm, Gowan)
 NEW MARKET      = 5 feeds datados (Terra e Vita, FruitJournal, VVQ, Rivista Orticoltura,
                   Olivo e Olio, FreshPlaza) — todos com item de hoje ou ontem

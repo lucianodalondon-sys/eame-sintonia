@@ -382,7 +382,7 @@ A camada de voz italiana foi aberta em 2026-09-03 pela missão de descoberta de 
 (`docs/descoberta/MISSAO-FONTES-ITALIA-2026-09-03.md`), com o mesmo motor de transcrição e
 o mesmo contrato de campos:
 
-- **9 objetos de áudio público italiano**, 118,7 minutos, **103.404 caracteres** de fala,
+- **9 objetos de áudio público italiano**, 151,7 minutos, **130.935 caracteres** de fala,
   transcritos **localmente** com `faster-whisper small`, idioma `it` **declarado**, custo
   **0,00 USD** — `data/samples/IT-VOZ-AUDIO-V1/`.
 - **França continua não aberta.**

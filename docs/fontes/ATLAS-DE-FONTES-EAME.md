@@ -1302,7 +1302,7 @@ diferentes.
 |---|---|---|
 | `IT-SRCX-003` | UNIBO BIG — rede de trappole de *Halyomorpha halys* | única série **numérica** de campo desta rodada: 177 pontos, por província e por estádio, 2021 → 2026-08-31, por API aberta sem chave |
 | `IT-SRCX-004` | API Plone dos bollettini do Servizio Fitosanitario Emilia-Romagna | o host já estava no acervo; a **rota** não. A página é um SPA e não entrega link nenhum — a API entrega os 150 PDFs de 2026 com título e data |
-| `IT-SRCX-016` | Agricast — podcast dos Gruppi Operativi da Emilia-Romagna | fala técnica longa onde o sinal está **só no áudio**: 9 objetos, 118,7 min, 103.404 caracteres transcritos localmente por 0 USD |
+| `IT-SRCX-016` | Agricast — podcast dos Gruppi Operativi da Emilia-Romagna | fala técnica longa onde o sinal está **só no áudio**: 9 objetos, 151,7 min, 130.935 caracteres transcritos localmente por 0 USD |
 
 ### Dois defeitos de identidade encontrados no acervo canônico
 
