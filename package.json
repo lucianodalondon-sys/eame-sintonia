@@ -1,0 +1,8 @@
+{
+  "name": "sintonia-eame-production",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node -e \"require('fs').accessSync('italia-portale/client/index.html'); console.log('Sintonia static portal ready')\""
+  }
+}
