@@ -853,6 +853,77 @@ check('W2', 'The red team downgrades; it is not a second population', () => {
     detail: bad.length ? bad : [`17 downgraded ⊆ 28 to-validate ⊂ 37 total`] };
 });
 
+check('C1', 'A fallback label never becomes a factual pairing', () => {
+  /* Una scheda senza bersaglio agronomico ripiega sull'ARCHETIPO per il
+     titolo, ed e giusto: dice perche il caso esiste. Ma quel ripiego era
+     finito dentro una frase di fatto — «nessuna posizione di etichetta ADAMA
+     confermata per Vite × MOMENTO DI MERCATO» — che interroga l'audit su una
+     coppia che non esiste e ne riporta l'esito negativo. Max lo legge e chiede
+     che cosa sia «Vite per Momento di Mercato». Non c'e una buona risposta.
+
+         UN RIPIEGO PUO STARE IN UN TITOLO.
+         IN UNA FRASE DI FATTO DIVENTA UNA DOMANDA INVENTATA.
+
+     Il soggetto di quella frase deve contenere solo cio che il caso ha: la
+     coppia coltura × bersaglio dove il bersaglio esiste, la sola coltura dove
+     non esiste. Mai un archetipo. */
+  const m = mount();
+  const AM = m.AM;
+  const ARCH = /(PRESSIONE IN CAMPO|MOMENTO DI MERCATO|APERTURA COMPETITIVA|PREPARAZIONE NORMATIVA|DALLA SCIENZA AL CAMPO|RESISTENZA E MECCANISMO|FIELD PRESSURE|MARKET MOMENT|COMPETITIVE OPENING|REGULATORY PREPARATION|SCIENCE TO FIELD|RESISTANCE AND MODE)/i;
+  const bad = [];
+  for (const lang of ['it', 'en']) {
+    for (const o of AM.collections.opportunities.records) {
+      const r = m.tryVals({ view: 'case', caseId: o.id, lang });
+      if (!r.ok) { bad.push(`${lang} ${o.id}: detail did not render`); continue; }
+      const cs = r.vals.cs || {};
+      const subj = String(cs.absenceSubject || '');
+      if (ARCH.test(subj)) bad.push(`${lang} ${o.id}: absence subject names an archetype — "${subj}"`);
+      /* e una coppia si scrive solo quando ci sono due termini */
+      if (subj.includes('×') && subj.split('×').filter((x) => x.trim()).length < 2) {
+        bad.push(`${lang} ${o.id}: dangling pairing — "${subj}"`);
+      }
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 8) };
+});
+
+check('C2', 'Every crop and issue that reaches a screen has a label in that language', () => {
+  /* «Pear» compariva nell'interfaccia italiana. Non era una fuga di prosa —
+     PT1 e I6 non potevano vederla — ma il NOME CANONICO di una coltura che la
+     tabella di interfaccia non conosceva, restituito da `cl()` cosi com'e.
+     Kiwi cadeva giusto per caso, perche in italiano si scrive uguale.
+
+         UNA TABELLA CHE NON CONOSCE UNA CHIAVE NON FALLISCE:
+         RESTITUISCE LA CHIAVE. ED E COSI CHE L'INGLESE ARRIVA A SCHERMO.
+
+     Le colture del V2.1 sono venti e le avversita ventiquattro: insiemi chiusi,
+     quindi si puo esigere copertura totale invece di sperarla. In inglese il
+     nome canonico E la parola giusta, quindi li si controlla che esista, non
+     che sia tradotto. */
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL;
+  const I18N = ctx.SINTONIA_I18N || {};
+  const crops = new Set(), issues = new Set();
+  for (const f of ['opportunities', 'productRelationships', 'cropWindows', 'resistance',
+    'fieldBulletins', 'currentFieldSignals', 'news', 'publicVoices']) {
+    for (const r of (AM.collections[f] || { records: [] }).records) {
+      if (r.crop) crops.add(r.crop);
+      (r.cropKeys || []).forEach((c) => crops.add(c));
+      if (r.issue) issues.add(r.issue);
+    }
+  }
+  const bad = [];
+  const T = (I18N.it || {});
+  for (const c of crops) if (!(T.CROPS || {})[c] && /^[A-Z][a-z]+( [A-Z]?[a-z]+)*$/.test(c)) {
+    /* un nome canonico inglese senza riga italiana esce in inglese */
+    if (!/^(Kiwi|Triticale|Diabrotica|Echinochloa|Amaranthus|Lolium|Septoria|Botrytis|Cercospora|Fusarium)$/.test(c)) {
+      bad.push(`IT has no crop label for "${c}"`);
+    }
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad.slice(0, 10) : [`${crops.size} crops · ${issues.size} issue labels reach a screen`] };
+});
+
 /* ── 14 · the template contract ───────────────────────────────────────────
    renderVals() is only half the render. The markup binds ~1200 expressions by
    name, and the runtime degrades a missing sc-for list to an empty array with

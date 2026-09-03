@@ -410,7 +410,7 @@
             </div>
             </sc-if>
             <sc-if value="{{ cs.noPrimary }}" hint-placeholder-val="{{ false }}">
-              <div style="border-radius:12px;border:1px dashed rgba(0,105,143,0.6);background:rgba(151,139,135,0.10);padding:14px 16px;display:flex;align-items:center;gap:14px"><span style="font-size:18px;font-weight:700;color:#B1A9A7">{{ t.PSTATE.LABEL_CHECK_NEEDED }}</span><span style="font-size:11.5px;color:#C9C3C1">{{ t.lblNoConfirmedFor }} {{ cs.cropL }} × {{ cs.issueL }}. {{ cs.absenceRule }}</span></div>
+              <div style="border-radius:12px;border:1px dashed rgba(0,105,143,0.6);background:rgba(151,139,135,0.10);padding:14px 16px;display:flex;align-items:center;gap:14px"><span style="font-size:18px;font-weight:700;color:#B1A9A7">{{ t.PSTATE.LABEL_CHECK_NEEDED }}</span><span style="font-size:11.5px;color:#C9C3C1">{{ t.lblNoConfirmedFor }} {{ cs.absenceSubject }}. {{ cs.absenceRule }}</span></div>
             </sc-if>
           </div>
         </div>
@@ -3357,7 +3357,18 @@ class Component extends DCLogic {
        Italian and it is what T.CROPS / T.ISSUES and the label audit key on. */
     const csCropK = (csWinRec && csWinRec.crop) || csCropK0 || null;
     const csIssueK = (csWinRec && csSafe(csWinRec.issue)) || csSafe(csIssueK0) || null;
-    const csIssueTxt = csIssueK ? il(csIssueK) : (csSafe(csRec && csRec.issue) || null);
+    /* LA CHIAVE CANONICA E INGLESE; L'INTERFACCIA NO.
+       `il()` traduce la chiave quando la tabella la conosce, ma quando non la
+       conosce restituisce la chiave — e quando la chiave manca del tutto si
+       cadeva su `csRec.issue`, che il modello scrive in italiano. Risultato:
+       «Ticchiolatura» dentro l'interfaccia inglese e «Scab» dentro quella
+       italiana, a seconda di quale ramo si prendeva.
+
+           IL MODELLO RISOLVE GIA LE DUE LINGUE.
+           QUI SI SCEGLIE, NON SI INDOVINA. */
+    const csIssueLoc = csRec ? (ITX ? csRec.issue : (csRec.issueEn || csRec.issue)) : null;
+    const csIssueTxt = csIssueLoc ? csSafe(csIssueLoc)
+      : (csIssueK ? il(csIssueK) : (csSafe(csRec && csRec.issue) || null));
     const csCropTxt = csCropK ? cl(csCropK) : (csRec ? csT('notACrop') : '');
     const csArchTxt = (csRec && csRec.archetype) ? ((T.V21 && T.V21[csRec.archetype]) || '') : '';
     /* The record's own ISSUE keeps its Latin binomials whole and is never split
@@ -3494,6 +3505,21 @@ class Component extends DCLogic {
       category: csCat, catLabel: csCat.label ? String(L(csCat.label)).toUpperCase() : '',
       st: csStTok, badgeVariant: csCatKey === 'pest' ? 'pest-control' : 'disease-control',
       issueL: csRec ? (csIssueTxt || csArchTxt || csT('awaiting')) : csT('notFound'),
+      /* «Vite × MOMENTO DI MERCATO» NON E UNA DOMANDA CHE SI PUO FARE.
+         Il titolo di una scheda senza bersaglio ripiega sull'archetipo, ed e
+         giusto: dice perche il caso esiste. Ma quel ripiego era finito dentro
+         una FRASE DI FATTO — «nessuna posizione di etichetta ADAMA confermata
+         per Vite × Momento di Mercato» — che interroga l'audit su una coppia
+         che non esiste, e ne riporta l'esito negativo.
+
+             UN RIPIEGO PUO STARE IN UN TITOLO.
+             IN UNA FRASE DI FATTO DIVENTA UNA DOMANDA INVENTATA.
+
+         Quindi la frase ha il proprio soggetto, costruito solo con cio che il
+         caso ha davvero: coltura × bersaglio dove il bersaglio esiste, la sola
+         coltura dove non esiste. Ventisette casi su trentasette non ne hanno
+         uno, perche una data europea non ha un'avversita. */
+      absenceSubject: [csCropTxt, csIssueTxt].filter(Boolean).join(' × '),
       /* lo stato della convergenza, con le stesse due parole della scheda */
       convergenceL: (csRec && csRec.convergence) ? ((T.V21 && T.V21[csRec.convergence]) || '') : '',
       convergenceKicker: (csRec && csRec.convergence === 'VERIFIED_CONVERGENCE')
@@ -7003,12 +7029,24 @@ class Component extends DCLogic {
     /* Per-kind row text. Anything not listed keeps the model's own label and meta. */
     const S_ROW = {
       case: (e) => { const o = S_OPP[e.id] || {};
-        /* title / issue / crop are the analyst's Portuguese working text on 3/3 real
-           opportunities ("Videira x Flavescência dourada, via o vetor Scaphoideus
-           titanus"); the canonical keys are the localizable ones. IT-OPP-003 is
-           portfolio-wide and has issueKey null and no crop, so it falls back to its id
-           rather than to the Portuguese — the same rule the Field Sales panel uses. */
-        return { label: [o.issueKey ? il(o.issueKey) : o.id, (o.regionKeys || []).join(', ')].filter(Boolean).join(' · '),
+        /* `issueKey` E UNA CHIAVE DI GIUNZIONE, ANCHE QUI.
+           Vale il nome inglese canonico con cui si interroga l'audit delle
+           etichette. La scheda del radar aveva gia smesso di usarlo come
+           etichetta; questa riga no, e continuava a scrivere «Downy mildew»
+           dentro una ricerca italiana — sullo stesso caso che la scheda, due
+           clic prima, chiamava «Peronospora».
+
+               DUE SCHERMATE CHE NOMINANO LO STESSO FATTO IN DUE LINGUE
+               NON SONO DUE ETICHETTE: SONO UNA CONTRADDIZIONE.
+
+           Il modello risolve entrambe le lingue; si sceglie quella
+           dell'interfaccia. E quando il caso non ha un bersaglio — ventisette
+           su trentasette, perche una data europea non ne ha uno — la riga dice
+           l'archetipo, come fa la scheda, invece di cadere sull'id: `OPP_3F73…`
+           non e un titolo, e un numero di serie. */
+        const oIssue = sIT ? o.issue : o.issueEn;
+        const oArch = o.archetype ? ((T.V21 && T.V21[o.archetype]) || '') : '';
+        return { label: [oIssue || oArch || o.id, (o.regionKeys || []).join(', ')].filter(Boolean).join(' · '),
                  meta: (o.cropKeys || []).map(cl).join(', ') }; },
       window: (e) => { const w = S_WIN[e.id] || {};
         return { label: [il(w.issue), w.region].filter(Boolean).join(' · '), meta: cl(w.crop) }; },
