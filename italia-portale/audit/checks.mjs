@@ -924,6 +924,54 @@ check('C2', 'Every crop and issue that reaches a screen has a label in that lang
     detail: bad.length ? bad.slice(0, 10) : [`${crops.size} crops · ${issues.size} issue labels reach a screen`] };
 });
 
+check('O1', 'The same opportunity ids reach the package, the handoff, the model and the screen', () => {
+  /* Confronta INSIEMI DI ID, non totali: due insiemi della stessa dimensione
+     non sono lo stesso insieme, e un conteggio uguale a ogni frontiera non
+     dimostra che sia passata la stessa popolazione.
+
+     La frontiera del DOM vive in `audit/opportunity-trace.mjs`, che apre un
+     browser vero; qui restano le quattro che si misurano senza. */
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL;
+  const pkg = JSON.parse(fs.readFileSync(path.join(CLIENT, '..', '..', 'build',
+    'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST', 'OPPORTUNITIES.json'), 'utf8'));
+
+  const A = pkg.RECORDS.map((r) => r.ID);
+  const Apub = pkg.RECORDS.filter((r) => r.RENDERABLE_WITH_METHOD === true).map((r) => r.ID);
+  const B = ((ctx.ITALY_HANDOFF_V21 || {}).opportunities || []).map((r) => r.ID);
+  const C = AM.collections.opportunities.records.map((r) => r.id);
+  const Cpub = AM.collections.opportunities.records
+    .filter((r) => r.convergence === 'VERIFIED_CONVERGENCE').map((r) => r.id);
+  const m = mount();
+  const D = (m.vals({ view: 'radar', lang: 'it', showAll: true }).visibleCases || []).map((c) => c.id);
+  const Dpub = (m.vals({ view: 'radar', lang: 'it', showAll: true }).visibleCases || [])
+    .filter((c) => c.convergence === 'VERIFIED_CONVERGENCE').map((c) => c.id);
+
+  const bad = [];
+  const same = (n1, a, n2, b) => {
+    const sa = new Set(a), sb = new Set(b);
+    const lost = [...sa].filter((x) => !sb.has(x));
+    const gained = [...sb].filter((x) => !sa.has(x));
+    if (lost.length) bad.push(`${n1}→${n2} loses ${lost.length}: ${lost.slice(0, 5).join(', ')}`);
+    if (gained.length) bad.push(`${n1}→${n2} invents ${gained.length}: ${gained.slice(0, 5).join(', ')}`);
+  };
+  same('package', A, 'handoff', B);
+  same('handoff', B, 'model', C);
+  same('model', C, 'screen', D);
+  same('package.publishable', Apub, 'model.publishable', Cpub);
+  same('model.publishable', Cpub, 'screen.publishable', Dpub);
+  if (!Apub.length) bad.push('the canonical package authorises no publishable case at all');
+
+  /* E la ragione per cui questa missione e esistita: pubblicabile deve voler
+     dire VISIBILE APRENDO, non raggiungibile dopo un clic su «vedi tutte». */
+  const firstPage = (mount().vals({ view: 'radar', lang: 'it' }).visibleCases || []).map((c) => c.id);
+  const buried = Apub.filter((id) => !firstPage.includes(id));
+  if (buried.length) bad.push(`${buried.length} publishable case(s) are not on the first page: ${buried.slice(0, 5).join(', ')}`);
+
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad : [`${A.length} ids · ${Apub.length} publishable · identical at every boundary`] };
+});
+
 /* ── 14 · the template contract ───────────────────────────────────────────
    renderVals() is only half the render. The markup binds ~1200 expressions by
    name, and the runtime degrades a missing sc-for list to an empty array with
@@ -1274,11 +1322,32 @@ check('A1', 'No filter affordance leads to an empty result', () => {
     const n = countFor({ fRegion: t.name, fCrop: '', fIssue: '', fStatus: '' });
     if (n === 0) bad.push(`region "${t.name}" shows ${t.cases} and filters to 0`);
   }
-  /* every option the crop / issue / region dropdowns offer must match something */
-  for (const [key, list] of [['fCrop', v.cropOptions], ['fIssue', v.issueOptions], ['fRegion', v.regionOptions]]) {
+  /* OGNI menu, non tre su cinque. A1 provava coltura, avversita e regione e
+     lasciava fuori STATO e REPARTO — ed e li che il difetto viveva: le quattro
+     voci del menu di stato erano una lista letterale scritta per le finestre
+     colturali (WINDOW_OPEN, NEXT_CYCLE, DATE_UNKNOWN, WINDOW_CLOSED) mentre le
+     schede portano gli stati del motore. Tutte e quattro filtravano a ZERO, e
+     questo controllo non le guardava.
+
+         UN CONTROLLO CHE PROVA TRE MENU SU CINQUE
+         DICE LA VERITA SU TRE MENU. */
+  for (const [key, list] of [['fCrop', v.cropOptions], ['fIssue', v.issueOptions],
+    ['fRegion', v.regionOptions], ['fStatus', v.statusOptions], ['fDept', v.deptOptions]]) {
     for (const o of list || []) {
       if (!o || !o.v) continue;
-      const n = countFor({ [key]: o.v, fCrop: '', fIssue: '', fRegion: '', fStatus: '' });
+      /* LA CHIAVE IN PROVA SI APPLICA PER ULTIMA.
+         L'oggetto era `{ [key]: o.v, fCrop:'', fIssue:'', fRegion:'', fStatus:'' }`
+         e in JavaScript vince l'ultima proprieta scritta: quando `key` era
+         `fStatus`, la riga di azzeramento cancellava proprio il filtro che si
+         stava provando, e il controllo misurava il radar senza filtri — 37
+         casi, sempre. Passava su un menu i cui quattro elementi filtravano
+         tutti a zero.
+
+             AZZERARE GLI ALTRI FILTRI E GIUSTO.
+             AZZERARE ANCHE QUELLO IN PROVA E MISURARE NIENTE. */
+      const n = countFor(Object.assign(
+        { fCrop: '', fIssue: '', fRegion: '', fStatus: '', fDept: '', fProduct: '' },
+        { [key]: o.v }));
       if (n === 0) bad.push(`${key}="${o.v}" filters to 0`);
     }
   }

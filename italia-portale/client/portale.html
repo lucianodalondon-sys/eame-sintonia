@@ -229,7 +229,14 @@
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:10px">
         <sc-for list="{{ visibleCases }}" as="c" hint-placeholder-count="12">
-          <div onClick="{{ c.open }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.category.dark }};background:{{ c.category.dark }};padding:0 14px 12px;display:flex;flex-direction:column;gap:9px;min-height:250px;transition:transform .15s ease" style-hover="transform:translateY(-2px)">
+          <!-- `data-case` NON si vede e non si stampa: e l'identita del caso,
+               resa leggibile al DOM. Senza di essa un controllo puo contare le
+               schede ma non sapere QUALI sono, e due insiemi della stessa
+               dimensione passerebbero per lo stesso insieme. Il guardiano
+               `audit/opportunity-trace.mjs` confronta gli ID da qui fino al
+               pacchetto canonico; e l'unico modo perche quel confronto non sia
+               una conta travestita. -->
+          <div onClick="{{ c.open }}" data-case="{{ c.id }}" data-convergence="{{ c.convergence }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.category.dark }};background:{{ c.category.dark }};padding:0 14px 12px;display:flex;flex-direction:column;gap:9px;min-height:250px;transition:transform .15s ease" style-hover="transform:translateY(-2px)">
             <sc-if value="{{ c.hasCategory }}" hint-placeholder-val="{{ true }}"><span style="position:relative;display:inline-flex;align-items:center;height:20px;padding:0 22px 0 14px;margin-left:-14px;background:{{ c.category.color }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:{{ c.category.ink }};width:max-content;white-space:nowrap">{{ c.catLabel }}</span></sc-if>
             <!-- LO STATO DELLA CONVERGENZA · una riga, due parole, nessuna sigla.
                  Verde solo dove il metodo regge; altrimenti ambra e «DA VALIDARE».
@@ -2380,7 +2387,11 @@ class Component extends DCLogic {
     const stNeutral = (UI && UI.STATUS && UI.STATUS.DEFAULT) || { color: '#978B87', text: '#B1A9A7', rank: 9 };
     const st = (c.st && typeof c.st === 'object') ? c.st
       : ((UI && UI.STATUS && UI.STATUS[status]) || ST_LEGACY[status] || stNeutral);
-    const statusLabel = status ? ((T0.WSTATUS && T0.WSTATUS[status]) || (this._L ? this._L(status) : status) || String(status).replace(/_/g, ' ')) : '';
+    /* Gli stati del motore V2.1 vivono in T.V21; quelli delle finestre
+       colturali in WSTATUS. Senza il primo, la pillola della scheda stampava
+       `FUTURE_PREPARATION` — un token interno, in maiuscolo, su una scheda
+       destinata al cliente. */
+    const statusLabel = status ? ((T0.V21 && T0.V21[status]) || (T0.WSTATUS && T0.WSTATUS[status]) || (this._L ? this._L(status) : status) || String(status).replace(/_/g, ' ')) : '';
     /* Openness is READ from the upstream enum, never computed from today's date.
        `=== true` and not a truthy test on purpose: a canonical window publishes a
        boolean `open` (6/29 are open), while a decorated card publishes an `open`
@@ -2537,7 +2548,17 @@ class Component extends DCLogic {
         ? String(c.updatedLabel).replace(/^Updated /, (this.state.lang === 'it' ? 'Aggiornato ' : 'Updated ')).replace(/(\d+)d ago/, this.state.lang === 'it' ? '$1g fa' : '$1d ago').replace(/^Updated today$/, this.state.lang === 'it' ? 'Aggiornato oggi' : 'Updated today')
         : (c.updatedLabel || ''),
       actions: (c.actions || []).map((a) => Object.assign({}, a, { dept: this._L ? this._L(a.dept) : a.dept, deptLabel: this._L ? this._L(a.dept) : a.dept })),
-      departments: (c.departments || []).map((d) => (this._L ? this._L(d) : d)),
+      /* IL TOKEN CANONICO NON SI TRADUCE NEL DATO, SI TRADUCE A SCHERMO.
+         Qui `departments` veniva riscritto con la tabella di etichette, e cosi
+         la CHIAVE DI FILTRO cambiava con la lingua — e il token `SUPPLY` del
+         motore diventava `SUPPLY CHAIN`, che nessun dizionario conosce e che il
+         pacchetto canonico non ha mai scritto.
+
+             SE LA CHIAVE CAMBIA CON LA LINGUA, NON E UNA CHIAVE.
+
+         Il valore resta quello del motore; `departmentsL` porta i nomi. */
+      departments: (c.departments || []).slice(),
+      departmentsL: (c.departments || []).map((d) => (T0.V21 && T0.V21[d]) || (this._L ? this._L(d) : d)),
       evidenceLabel: c.evidenceLabel ? (this._L ? this._L(c.evidenceLabel) : c.evidenceLabel) : '',
       bg: category.dark, heroBg: category.dark,
       borderCol: col + '66', iconBg: col + '3A',
@@ -2595,6 +2616,11 @@ class Component extends DCLogic {
     const cl = (k) => (T.CROPS && T.CROPS[k]) || k;
     /* Canonical codes are language-independent; only the label is localized. */
     const wst = (k) => (T.WSTATUS && T.WSTATUS[k]) || String(k || '').replace(/_/g, ' ');
+    /* Gli stati e i reparti del motore V2.1 hanno un nome nelle due lingue in
+       T.V21; WSTATUS resta per il vocabolario delle finestre colturali, che e
+       un'altra cosa e continua a esistere. */
+    const oppStatusLabel = (k) => (T.V21 && T.V21[k]) || wst(k);
+    const oppDeptLabel = (k) => (T.V21 && T.V21[k]) || String(k || '').replace(/_/g, ' ');
     const dst = (k) => (T.DSTATE && T.DSTATE[k]) || String(k || '').replace(/_/g, ' ');
     const obs = (k) => (T.OBSCLASS && T.OBSCLASS[k]) || String(k || '').replace(/_/g, ' ');
     const wline = (v) => { if (!v) return ''; if (v === 'DATE_TO_CONFIRM' || v === 'WINDOW_CLOSED') return wst(v === 'DATE_TO_CONFIRM' ? 'DATE_UNKNOWN' : v); const p = String(v).split('|'); return p.length === 2 ? p[0] + ' ' + (p[1] === 'daysRemaining' ? T.wDaysRemaining : T.wDaysToOpen) : v; };
@@ -2740,7 +2766,19 @@ class Component extends DCLogic {
            Measured: canonicalWindow is null 3/3, because the model joins opportunities
            to windows on LEGACY_CASE_ID (IT-HERO-00x) and no window carries one. So
            there is no start date, no end date and no progress on any of the three. */
-        canonical: w, windowId: o.windowId || null, status: null,
+        canonical: w, windowId: o.windowId || null,
+        /* LO STATO DEL MOTORE ARRIVA ALLA SCHEDA.
+           Era `status: null`, e la nota diceva perche: le tre schede scritte a
+           mano portavano WINDOW.APPLICATION, che NON e uno stato canonico e non
+           poteva entrare nel vocabolario WINDOW_OPEN / NEXT_CYCLE. Giusto
+           allora. Il motore pubblica invece uno stato suo — ACT_NOW,
+           PREPARE_NOW, FUTURE_PREPARATION, TO_VALIDATE — che e canonico, ha un
+           nome nelle due lingue e vive nel record.
+
+           Tenerlo a null lasciava una pillola grigia VUOTA su ognuna delle
+           trentasette schede e rendeva il filtro per stato incapace di
+           trovare qualsiasi cosa. */
+        status: o.status || null,
         applicationWindow: o.windowApplication || null, applicationWindowL: appwin(o.windowApplication),
         monitoringWindow: o.windowMonitoring || null, nextCycleWindow: o.windowNextCycle || null,
         dateState: w ? w.dateState : null, dateConfidence: w ? w.dateConfidence : null,
@@ -2941,8 +2979,42 @@ class Component extends DCLogic {
        legacy scenario rows still carry. */
     const inRegion = (c, r) => !r || c.region === r || (Array.isArray(c.regionKeys) && c.regionKeys.indexOf(r) >= 0);
     let filtered = CASES.filter(c => (!s.fCrop || c.crop === s.fCrop) && (!s.fIssue || c.issue === s.fIssue) && inRegion(c, s.fRegion) && (!s.fStatus || c.status === s.fStatus) && (!s.fProduct || c.products.includes(s.fProduct)) && (!s.fDept || c.departments.includes(s.fDept)));
-    const sorters = { relevant: (a, b) => a.st.rank - b.st.rank || a.evidenceTotal < b.evidenceTotal ? 1 : -1, closing: (a, b) => (a.windowOpen ? a.we : 999 + a.ws) - (b.windowOpen ? b.we : 999 + b.ws), newest: (a, b) => a.updated - b.updated, region: (a, b) => String(a.region || '').localeCompare(String(b.region || '')), crop: (a, b) => String(a.crop || '').localeCompare(String(b.crop || '')) };
-    filtered = filtered.slice().sort(s.sort === 'relevant' ? (a, b) => (a.st.rank - b.st.rank) || (b.evidenceTotal - a.evidenceTotal) : sorters[s.sort]);
+    /* `relevant` NON vive piu qui: la riga sotto la costruisce per intero, e
+       questa copia — con una precedenza di operatori sbagliata, `a - b || x < y
+       ? 1 : -1`, che restituisce sempre 1 o -1 ignorando il primo termine — era
+       codice morto che aspettava di essere modificato per errore al posto di
+       quello vivo. */
+    const sorters = { closing: (a, b) => (a.windowOpen ? a.we : 999 + a.ws) - (b.windowOpen ? b.we : 999 + b.ws), newest: (a, b) => a.updated - b.updated, region: (a, b) => String(a.region || '').localeCompare(String(b.region || '')), crop: (a, b) => String(a.crop || '').localeCompare(String(b.crop || '')) };
+    /* ── L'ORDINE PUBBLICA, O SEPPELLISCE ──────────────────────────────────
+       Il livello canonico distingue nove convergenze verificate dalle
+       ventotto da validare. Questo ordinamento non lo sapeva: `st.rank` viene
+       da STATUS_UI, che conosce ACT_NOW e poco altro, e i tre stati del motore
+       — PREPARE_NOW, FUTURE_PREPARATION, TO_VALIDATE — cadono tutti su DEFAULT.
+       Trentaquattro casi su trentasette finivano quindi con lo stesso rango, e
+       il criterio residuo era «piu prove per prime».
+
+       Misurato: le nove convergenze finivano ai posti 2, 5, 15, 17, 18, 19,
+       23, 29, 35. La prima pagina ne mostra dodici. Chi apriva il portale ne
+       vedeva DUE, e le altre sette stavano dietro «VEDI TUTTE 37». Un candidato
+       che cita 250 prove passava davanti a una convergenza che ne cita dieci —
+       e il numero di prove non e la stessa cosa che aver superato il metodo.
+
+           PUBBLICATO E DIETRO UN PULSANTE NON E PUBBLICATO.
+           L'ORDINE E PARTE DELLA PUBBLICAZIONE, NON DELLA DECORAZIONE.
+
+       Quindi la distinzione che il canonico ha gia fatto diventa la prima
+       chiave. NON promuove nessun candidato, non ne nasconde nessuno, non tocca
+       punteggi, prove, portoni ne etichette: i ventotto restano in lista e i
+       conteggi restano 37 / 9 / 28. Cambia solo CHI SI VEDE PER PRIMO — che e
+       esattamente cio che il livello canonico aveva gia deciso. */
+    const publishableFirst = (a, b) => {
+      const pa = a.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1;
+      const pb = b.convergence === 'VERIFIED_CONVERGENCE' ? 0 : 1;
+      return pa - pb;
+    };
+    filtered = filtered.slice().sort(s.sort === 'relevant'
+      ? (a, b) => publishableFirst(a, b) || (a.st.rank - b.st.rank) || (b.evidenceTotal - a.evidenceTotal)
+      : sorters[s.sort]);
     const visibleCases = s.showAll ? filtered : filtered.slice(0, 12);
     const hasFilters = !!(s.fCrop || s.fIssue || s.fRegion || s.fStatus || s.fProduct || s.fDept);
 
@@ -7236,7 +7308,19 @@ class Component extends DCLogic {
         rail: f.accent, color: f.value ? '#fff' : '#D6D2D0', weight: f.value ? 700 : 500 })),
       sortIcon: ICO('sell'),
       sortLabel: ({ relevant: T.sortRelevant, closing: T.sortClosing, newest: T.sortNewest, region: T.sortRegion, crop: T.sortCrop })[s.sort] || T.sortRelevant,
-      cropOptions: opts(T.fltCrops || 'All crops', uniq(CASES.map(c => c.crop)), cl), issueOptions: opts(T.fltIssues || 'All issues', uniq(CASES.map(c => c.issue)), il), regionOptions: opts(T.allRegions || 'All regions', uniq([].concat.apply([], CASES.map(c => [c.region].concat(c.regionKeys || []))).filter(Boolean))), statusOptions: opts(T.allStatuses || 'All statuses', ['WINDOW_OPEN', 'NEXT_CYCLE', 'DATE_UNKNOWN', 'WINDOW_CLOSED'], wst), productOptions: opts(T.linkedProducts || T.allProducts, uniq([].concat.apply([], CASES.map(c => (c.productLinks && c.productLinks.length ? c.productLinks.map(l => l.name || l.product) : (c.products || [])))))), deptOptions: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))), L),
+      cropOptions: opts(T.fltCrops || 'All crops', uniq(CASES.map(c => c.crop)), cl), issueOptions: opts(T.fltIssues || 'All issues', uniq(CASES.map(c => c.issue)), il), regionOptions: opts(T.allRegions || 'All regions', uniq([].concat.apply([], CASES.map(c => [c.region].concat(c.regionKeys || []))).filter(Boolean))), /* Le opzioni di stato erano una LISTA LETTERALE — WINDOW_OPEN, NEXT_CYCLE,
+         DATE_UNKNOWN, WINDOW_CLOSED — scritta quando il radar mostrava finestre
+         colturali. Il motore pubblica altri stati, quindi ognuna delle quattro
+         voci filtrava a ZERO: quattro inviti a svuotare lo schermo.
+
+             UN'OPZIONE DI FILTRO SCRITTA A MANO SMETTE DI CORRISPONDERE
+             AI DATI IL GIORNO IN CUI I DATI CAMBIANO, E NON LO DICE.
+
+         Ora nascono dalle righe che filtreranno, come gia facevano coltura,
+         avversita e regione. */
+        statusOptions: opts(T.allStatuses || 'All statuses', uniq(CASES.map(c => c.status)), oppStatusLabel), productOptions: opts(T.linkedProducts || T.allProducts, uniq([].concat.apply([], CASES.map(c => (c.productLinks && c.productLinks.length ? c.productLinks.map(l => l.name || l.product) : (c.products || [])))))), /* MARKET_DEVELOPMENT e SCIENCE_TECHNICAL sono token interni, e comparivano
+         cosi nel menu della mappa d'azione. Il dizionario li conosce gia. */
+        deptOptions: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))), oppDeptLabel),
       hasFilters, clearFilters: () => this.setState({ fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '' }),
       /* MISURATO, NON SCRITTO. Conta i record del motore presenti in questa
          lettura — non i casi filtrati sullo schermo, che sono un'altra domanda,
