@@ -2609,6 +2609,26 @@ class Component extends DCLogic {
     const arcT = (k) => (T.ARCHTYPES && T.ARCHTYPES[k]) || k;
     const il = (k) => (T.ISSUES && T.ISSUES[k]) || k;
     const srcL = (k) => (T.SRCTYPES && T.SRCTYPES[k]) || k;
+    /* IL PULSANTE DELLA PIATTAFORMA NON E LA VOCE DELL'INSERZIONISTA.
+       Il collettore ha letto la Libreria Inserzioni di Meta con l'interfaccia
+       in portoghese, e le didascalie dei pulsanti — «Saiba mais», «Fale
+       conosco», «Cadastre-se», «Baixar», «Acessar o perfil do Instagram» — sono
+       finite dentro CREATIVE_TEXT. La schermata le stampava fra virgolette
+       sotto «TESTO PUBBLICO ORIGINALE», attribuendo a Bayer, BASF e FMC parole
+       in portoghese che non hanno mai pubblicato. Quattordici record su 561.
+
+       Si toglie soltanto il chrome noto della piattaforma, in coda o isolato:
+       il testo dell'inserzionista non viene mai riscritto. */
+    const CW_CHROME = /(?:\s*[·|—-]\s*)?\b(?:Saiba mais|Fale conosco|Cadastre-se|Baixar|Ver mais|Comprar agora|Enviar mensagem|Acessar o perfil do Instagram|Acessar o site|Registre-se|Inscreva-se)\b\s*$/gi;
+    const cwClean = (t) => {
+      let out = String(t == null ? '' : t);
+      let prev = null;
+      /* in coda possono essercene due di fila: «… INSTAGRAM.COM FMC Italia
+         Acessar o perfil do Instagram» */
+      while (out !== prev) { prev = out; out = out.replace(CW_CHROME, '').trim(); }
+      return out;
+    };
+
     const fst = (k) => (T.FSTATUS && T.FSTATUS[k]) || k;
     const evc = (k) => (T.EVCHIP && T.EVCHIP[k]) || k;
     const WL = (o) => Object.assign({}, o, { cropL: cl(o.crop), issueL: il(o.issue) });
@@ -3210,7 +3230,7 @@ class Component extends DCLogic {
         /* the ad copy as published — an original public quote, never translated, and
            never manufactured: the demo's authored `headline` is overwritten here so a
            legacy row cannot smuggle one through the spread above */
-        headline: a.text || null, productOrHeadline: prodsArr[0] || a.text || null,
+        headline: cwClean(a.text) || null, productOrHeadline: prodsArr[0] || cwClean(a.text) || null,
         /* the short label a one-line strip can carry. Never the ad copy: measured,
            392 of 503 records have text and it runs to several lines with emoji.
            products (102 records) then crops (183) then the channel name. */
@@ -5839,7 +5859,7 @@ class Component extends DCLogic {
         /* the advertiser's own public copy, verbatim and quoted (392/503, average 239
            characters). It is evidence — never parsed for a crop, an issue, a product
            or a claim, and never rewritten into a Sintonia headline. */
-        headline: a.textExcerpt ? ('«' + a.textExcerpt + '»') : '',
+        headline: a.textExcerpt ? ('«' + cwClean(a.textExcerpt) + '»') : '',
         product: prodList[0] || '', hasProduct: !!prodList.length,
         crops, cropL: crops.map(cl).join(' · '), hasCrop: !!crops.length,
         /* §11 · the issue term is the advertiser's own word, rendered verbatim.
