@@ -205,16 +205,16 @@
 
   /* Colour semantics. Vocabulary only — nothing here decides what state anything is in. */
   const SEM = {
-    POSITIVE: { key: 'POSITIVE', color: '#00B152', line: '#009845', tint: 'rgba(0,152,69,0.10)', border: 'rgba(0,152,69,0.42)', mark: '●', label: 'POSITIVE' },
+    POSITIVE: { key: 'POSITIVE', color: '#009845', line: '#009845', tint: 'rgba(0,152,69,0.10)', border: 'rgba(0,152,69,0.42)', mark: '●', label: 'POSITIVE' },
     NEGATIVE: { key: 'NEGATIVE', color: '#F89E18', line: '#F89E18', tint: 'rgba(248,158,24,0.10)', border: 'rgba(248,158,24,0.42)', mark: '▼', label: 'NEGATIVE' },
-    NEUTRAL: { key: 'NEUTRAL', color: '#F5B317', line: '#F5B317', tint: 'rgba(245,179,23,0.055)', border: 'rgba(245,179,23,0.38)', mark: '○', label: 'WATCH' },
-    UNKNOWN: { key: 'UNKNOWN', color: '#B1A9A7', line: '#978B87', tint: 'transparent', border: 'rgba(151,139,135,0.28)', mark: '—', label: 'NO DATA' }
+    NEUTRAL: { key: 'NEUTRAL', color: '#F5B317', line: '#F5B317', tint: 'rgba(151,139,135,0.055)', border: 'rgba(151,139,135,0.38)', mark: '○', label: 'WATCH' },
+    UNKNOWN: { key: 'UNKNOWN', color: '#E5E1E0', line: '#978B87', tint: 'transparent', border: 'rgba(151,139,135,0.28)', mark: '—', label: 'NO DATA' }
   };
   const TONE_SEM = { up: 'POSITIVE', down: 'NEGATIVE', flat: 'NEUTRAL', na: 'UNKNOWN' };
 
   /* Freshness colours. The STATE is supplied by whatever renders a dated record —
      this map only says which colour each state wears. */
-  const FRESH_COLOR = { 'CURRENT': '#00B152', 'RECENT': '#7DB41E', 'AGING': '#F89E18', 'HISTORICAL': '#978B87', 'NOT INGESTED': '#8F8886' };
+  const FRESH_COLOR = { 'CURRENT': '#009845', 'RECENT': '#7DB41E', 'AGING': '#F89E18', 'HISTORICAL': '#978B87', 'NOT INGESTED': '#978B87' };
 
   /* TEMP and TEMP_SEM are deliberately absent: they existed only to colour the
      market-temperature verdicts (SUPPORTIVE / PRESSURED / MIXED SIGNALS …) that

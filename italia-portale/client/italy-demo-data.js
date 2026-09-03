@@ -20,38 +20,38 @@
   const ago = (n) => n === 0 ? 'today' : n === 1 ? '1d ago' : n < 30 ? n + 'd ago' : Math.round(n / 30) + 'mo ago';
 
   const CAT = {
-    pest: { key: 'pest', label: 'Pest Control', color: '#9D1D96', dark: '#752157', soft: '#C77BC3', ink: '#fff', body: '#EDEAE9', muted: '#C9C3C1', icon: 'assets/icons/pest-control-white.png',  aShape: 'assets/a-pest-2.png' },
-    disease: { key: 'disease', label: 'Disease Control', color: '#00A0DF', dark: '#00698F', soft: '#5CC3EE', ink: '#1C1817', body: '#FFFFFF', muted: '#F4F2F2', icon: 'assets/icons/disease-control-white.png',  aShape: 'assets/a-disease-2.png' },
-    weed: { key: 'weed', label: 'Weed Control', color: '#7DB41E', dark: '#00783F', soft: '#93CC23', ink: '#1C1817', body: '#FFFFFF', muted: '#F4F2F2', icon: 'assets/icons/weed-control-white.png',  aShape: '' }
+    pest: { key: 'pest', label: 'Pest Control', color: '#9D1D96', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#752157', ink: '#fff', body: '#5F504D', muted: '#978B87', icon: 'assets/icons/pest-control-white.png',  aShape: 'assets/a-pest-2.png' },
+    disease: { key: 'disease', label: 'Disease Control', color: '#00A0DF', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#00698F', ink: '#fff', body: '#5F504D', muted: '#978B87', icon: 'assets/icons/disease-control-white.png',  aShape: 'assets/a-disease-2.png' },
+    weed: { key: 'weed', label: 'Weed Control', color: '#7DB41E', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#00698F', ink: '#5F504D', body: '#5F504D', muted: '#978B87', icon: 'assets/icons/weed-control-white.png',  aShape: '' }
   };
   /* One ink rule for every brand fill: dark ink on light fills, white only on the dark ones.
      Text colour must be derived from the surface, never authored per call-site. */
-  const INK = { '#F89E18': '#1C1817', '#00A0DF': '#1C1817', '#978B87': '#1C1817', '#7DB41E': '#1C1817', '#F5B317': '#1C1817', '#93CC23': '#1C1817', '#00B152': '#1C1817', '#8F8886': '#1C1817', '#B1A9A7': '#1C1817', '#C9C3C1': '#1C1817', '#fff': '#1C1817', '#FFFFFF': '#1C1817',
-    '#009845': '#fff', '#00783F': '#fff', '#752157': '#fff', '#9D1D96': '#fff', '#00698F': '#fff', '#6E6663': '#fff', '#1C1817': '#fff' };
-  const inkOn = (fill) => INK[String(fill || '').trim()] || '#fff';
+  const INK = { '#F89E18': '#5F504D', '#00A0DF': '#FFFFFF', '#978B87': '#FFFFFF', '#7DB41E': '#5F504D', '#F5B317': '#5F504D', '#93CC23': '#5F504D', '#CBC5C3': '#5F504D', '#E5E1E0': '#5F504D', '#F4F2F2': '#5F504D', '#fff': '#5F504D', '#FFFFFF': '#5F504D',
+    '#009845': '#fff', '#00783F': '#fff', '#752157': '#fff', '#9D1D96': '#fff', '#00698F': '#fff', '#5F504D': '#fff' };
+  const inkOn = (fill) => INK[String(fill || '').trim()] || '#5F504D';
 
   const STATUS = {
-    'ACT NOW': { color: '#00783F', text: '#00B152', rank: 0 },
-    'ACTION WINDOW OPENING': { color: '#00783F', text: '#00B152', rank: 1 },
-    'PREPARE': { color: '#00783F', text: '#00B152', rank: 2 },
-    'WATCH': { color: '#978B87', text: '#B1A9A7', rank: 3 },
-    'VALIDATE': { color: '#978B87', text: '#B1A9A7', rank: 4 },
-    'NEXT CYCLE': { color: '#6E6663', text: '#8F8886', rank: 5 },
+    'ACT NOW': { color: '#00783F', text: '#00783F', rank: 0 },
+    'ACTION WINDOW OPENING': { color: '#00783F', text: '#00783F', rank: 1 },
+    'PREPARE': { color: '#00783F', text: '#00783F', rank: 2 },
+    'WATCH': { color: '#978B87', text: '#978B87', rank: 3 },
+    'VALIDATE': { color: '#978B87', text: '#978B87', rank: 4 },
+    'NEXT CYCLE': { color: '#CBC5C3', text: '#978B87', rank: 5 },
     /* Canonical codes from the intelligence contract. ACT_NOW is absent on purpose:
        the presentation layer must never derive it. */
-    'WINDOW_OPEN': { color: '#00783F', text: '#00B152', rank: 1 },
-    'WINDOW_CLOSED': { color: '#6E6663', text: '#8F8886', rank: 6 },
-    'NEXT_CYCLE': { color: '#6E6663', text: '#8F8886', rank: 5 },
-    'DATE_UNKNOWN': { color: '#978B87', text: '#B1A9A7', rank: 4 },
-    'ACT_NOW': { color: '#00783F', text: '#00B152', rank: 0 }
+    'WINDOW_OPEN': { color: '#00783F', text: '#00783F', rank: 1 },
+    'WINDOW_CLOSED': { color: '#CBC5C3', text: '#978B87', rank: 6 },
+    'NEXT_CYCLE': { color: '#CBC5C3', text: '#978B87', rank: 5 },
+    'DATE_UNKNOWN': { color: '#978B87', text: '#978B87', rank: 4 },
+    'ACT_NOW': { color: '#00783F', text: '#00783F', rank: 0 }
   };
   const DEPT = {
-    'MARKET DEVELOPMENT': { color: '#978B87', soft: '#C3BCBA' },
-    'SALES / RTV': { color: '#978B87', soft: '#C3BCBA' },
-    'MARKETING': { color: '#978B87', soft: '#C3BCBA' },
-    'TECHNICAL / SCIENCE': { color: '#978B87', soft: '#C3BCBA' },
-    'REGULATORY / PORTFOLIO': { color: '#978B87', soft: '#C3BCBA' },
-    'SUPPLY': { color: '#978B87', soft: '#C3BCBA' }
+    'MARKET DEVELOPMENT': { color: '#978B87', soft: '#978B87' },
+    'SALES / RTV': { color: '#978B87', soft: '#978B87' },
+    'MARKETING': { color: '#978B87', soft: '#978B87' },
+    'TECHNICAL / SCIENCE': { color: '#978B87', soft: '#978B87' },
+    'REGULATORY / PORTFOLIO': { color: '#978B87', soft: '#978B87' },
+    'SUPPLY': { color: '#978B87', soft: '#978B87' }
   };
 
   const REGIONS = [
@@ -310,7 +310,7 @@
     c.primaryObj = c.primary ? PRODUCTS[c.primary] : null;
     c.portfolioState = c.primaryVerdict || 'NO_CONFIRMED_MATCH_CURRENT_READING';
     const acts = ACTIONS[c.cat].filter(a => a[0] !== 'SUPPLY' || c.st.rank <= 1);
-    c.actions = acts.map(a => ({ dept: a[0], what: a[1].replace('{crop}', c.crop.toLowerCase()).replace('{product}', c.primary || 'the candidate portfolio'), why: a[2].replace('{crop}', c.crop.toLowerCase()), when: a[3], color: ['NOW', 'ACT NOW', 'CHECK NOW', '48H'].includes(a[3]) ? '#009845' : '#978B87', soft: '#C3BCBA' }));
+    c.actions = acts.map(a => ({ dept: a[0], what: a[1].replace('{crop}', c.crop.toLowerCase()).replace('{product}', c.primary || 'the candidate portfolio'), why: a[2].replace('{crop}', c.crop.toLowerCase()), when: a[3], color: ['NOW', 'ACT NOW', 'CHECK NOW', '48H'].includes(a[3]) ? '#009845' : '#978B87', soft: '#978B87' }));
     c.departments = c.actions.filter(a => ['NOW', 'ACT NOW', 'CHECK NOW', '48H'].includes(a.when)).map(a => a.dept);
     c.evidenceTotal = Object.values(c.evidence).reduce((s, v) => s + v, 0);
     c.evidenceLabel = c.evidenceTotal >= 16 ? 'Strong' : c.evidenceTotal >= 11 ? 'Good' : 'Building';
@@ -318,7 +318,7 @@
     c.competitors = [0, 1, 2].map(k => { const co = COMPANIES[(i + k * 3) % COMPANIES.length]; const items = 1 + Math.floor(seed(i * 7 + k) * 4); return { company: co, items, topic: `${c.crop} ${c.cat === 'pest' ? 'pest' : 'disease'}-control communication`, days: 1 + Math.floor(seed(i * 11 + k) * 12), type: pick(['Paid creative observed', 'Organic post observed', 'Technical video observed', 'People mention observed'], i * 13 + k) }; });
     c.sub = c.sub || null;
     c.regionLabel = c.sub ? `${c.region} · ${c.sub}` : c.region;
-    c.tl = c.timeline.map((t, k) => ({ date: t[0], label: t[1], last: k === c.timeline.length - 1, color: k === c.timeline.length - 1 ? '#00B152' : '#6E6663' }));
+    c.tl = c.timeline.map((t, k) => ({ date: t[0], label: t[1], last: k === c.timeline.length - 1, color: k === c.timeline.length - 1 ? '#009845' : '#6E6663' }));
   });
 
   // ---- Future Radar (56 signals) -------------------------------------------
@@ -344,7 +344,7 @@
   ];
   const F_SOURCES = ['Science', 'Researchers', 'Field network', 'Regulatory', 'Technical media', 'Producer organizations', 'Competitor movement'];
   const F_STATUS = ['NEW SIGNAL', 'GAINING ATTENTION', 'MULTIPLE SIGNALS', 'WATCH CLOSELY', 'NEEDS VALIDATION', 'TIMING APPROACHING', 'PREPARE'];
-  const F_COLOR = { 'NEW SIGNAL': '#B1A9A7', 'GAINING ATTENTION': '#B1A9A7', 'MULTIPLE SIGNALS': '#B1A9A7', 'WATCH CLOSELY': '#B1A9A7', 'NEEDS VALIDATION': '#B1A9A7', 'TIMING APPROACHING': '#00B152', 'PREPARE': '#00B152' };
+  const F_COLOR = { 'NEW SIGNAL': '#B1A9A7', 'GAINING ATTENTION': '#B1A9A7', 'MULTIPLE SIGNALS': '#B1A9A7', 'WATCH CLOSELY': '#B1A9A7', 'NEEDS VALIDATION': '#B1A9A7', 'TIMING APPROACHING': '#009845', 'PREPARE': '#009845' };
   const SIGNALS = [];
   let sn = 0;
   for (let round = 0; SIGNALS.length < 56; round++) {
@@ -379,7 +379,7 @@
     { id: 'xylella', title: 'Xylella fastidiosa', crop: 'Olive', issue: 'Xylella fastidiosa', works: 52, trend: 'Rising', cat: 'disease', note: 'Early diagnosis, resistant varieties, vector control (CREA projects · CNR-IPSP Bari · 5th European Conference, Mola di Bari)', cases: ['IT-OPP-006'] },
     { id: 'ipm', title: 'Integrated pest management', crop: 'All crops', issue: 'Low / zero-pesticide protection', works: 19, trend: 'Emerging', cat: 'disease', note: 'CREA SUPPORT project (Aug 2026) · policy and adoption · no ADAMA product connection asserted', cases: [] },
     { id: 'resistance', title: 'Insecticide resistance monitoring', crop: 'Grapevine · Maize', issue: 'Pyrethroid / diamide sensitivity', works: 24, trend: 'Emerging', cat: 'pest', note: 'Resistance management informs label positioning', cases: ['IT-OPP-001', 'IT-OPP-011'] }
-  ].map(t => ({ ...t, category: CAT[t.cat], caseObjs: t.cases.map(id => CASES.find(c => c.id === id)), trendColor: t.trend === 'Rising' ? '#00B152' : '#B1A9A7' }));
+  ].map(t => ({ ...t, category: CAT[t.cat], caseObjs: t.cases.map(id => CASES.find(c => c.id === id)), trendColor: t.trend === 'Rising' ? '#009845' : '#B1A9A7' }));
   const STUDY = ['Field trial', 'Population model', 'Review', 'Regional survey', 'Laboratory study', 'Decision-support evaluation'];
   const REAL_RECORDS = REAL.SCIENCE.map(r => { const t = SCI_THEMES.find(x => x.id === r.themeId) || SCI_THEMES[0]; const cs = t.caseObjs[0] || CASES[5]; return { id: r.id, theme: t, themeId: t.id, year: r.date, institution: r.org, study: r.kind, crop: r.crop, issue: r.issue, category: t.category, descriptor: r.title, why: r.what, related: cs, location: r.region, note: r.provenance === 'REAL_FACT' ? 'Real record · ' + r.kind : 'Real theme · titles retrieved from source at production', real: true, provenance: r.provenance }; });
   const RECORDS = REAL_RECORDS.concat(Array.from({ length: 24 }, (_, i) => {
@@ -424,7 +424,7 @@
   ];
   Object.entries(REAL.EVENT_EXTRA).forEach(([id, x]) => { const e = EVENTS.find(v => v.id === id); if (e) Object.assign(e, x); });
   REAL.EVENTS_EXTRA.forEach(e => EVENTS.push(e));
-  EVENTS.forEach(e => { e.countdown = e.startDays > 0 ? e.startDays + ' days' : 'Completed'; e.bucket = e.startDays < 0 ? 'COMPLETED' : e.startDays <= 30 ? '30 DAYS' : e.startDays <= 90 ? '90 DAYS' : e.startDays <= 180 ? '6 MONTHS' : 'NEXT YEAR'; e.confirmed = Object.entries(e.participation).filter(([k, v]) => v.startsWith('CONFIRMED')).map(([k]) => k); e.historical = Object.entries(e.participation).filter(([k, v]) => v.startsWith('HISTORICAL')).map(([k]) => k); e.partRows = Object.entries(e.participation).map(([k, v]) => ({ company: k, state: v, color: v.startsWith('CONFIRMED') ? '#00B152' : v.startsWith('HISTORICAL') ? '#B1A9A7' : v.startsWith('MONITORING') ? '#B1A9A7' : '#6E6663' })); });
+  EVENTS.forEach(e => { e.countdown = e.startDays > 0 ? e.startDays + ' days' : 'Completed'; e.bucket = e.startDays < 0 ? 'COMPLETED' : e.startDays <= 30 ? '30 DAYS' : e.startDays <= 90 ? '90 DAYS' : e.startDays <= 180 ? '6 MONTHS' : 'NEXT YEAR'; e.confirmed = Object.entries(e.participation).filter(([k, v]) => v.startsWith('CONFIRMED')).map(([k]) => k); e.historical = Object.entries(e.participation).filter(([k, v]) => v.startsWith('HISTORICAL')).map(([k]) => k); e.partRows = Object.entries(e.participation).map(([k, v]) => ({ company: k, state: v, color: v.startsWith('CONFIRMED') ? '#009845' : v.startsWith('HISTORICAL') ? '#B1A9A7' : v.startsWith('MONITORING') ? '#B1A9A7' : '#6E6663' })); });
   const ATYPES = ['PAID', 'ORGANIC', 'VIDEO', 'PEOPLE', 'EVENT', 'PRODUCT / PORTFOLIO'];
   const ATYPE_COLOR = { 'PAID': '#B1A9A7', 'ORGANIC': '#B1A9A7', 'VIDEO': '#B1A9A7', 'PEOPLE': '#B1A9A7', 'EVENT': '#B1A9A7', 'PRODUCT / PORTFOLIO': '#B1A9A7' };
   const PLATFORM_OF = { 'PAID': ['Meta · Facebook', 'Meta · Instagram'], 'ORGANIC': ['Instagram', 'Facebook', 'LinkedIn', 'Company website'], 'VIDEO': ['YouTube'], 'PEOPLE': ['Instagram', 'YouTube', 'LinkedIn'], 'EVENT': ['Official event site', 'Exhibitor catalogue', 'LinkedIn'], 'PRODUCT / PORTFOLIO': ['Company website', 'Banca Dati Fitosanitari'] };
@@ -511,9 +511,9 @@
     s.id = 'SRC-' + String(k + 1).padStart(2, '0');
     s.lastDays = 1 + Math.floor(seed(k * 19) * 12); s.last = ago(s.lastDays);
     s.related = CASES.filter(c => (s.cov === 'Italy' || s.cov === 'EU' || s.cov.includes(c.region)) && (s.topics.includes('All crops') || s.topics.includes(c.crop))).length;
-    s.healthColor = s.health === 'Available' ? '#00B152' : '#B1A9A7';
+    s.healthColor = s.health === 'Available' ? '#009845' : '#B1A9A7';
     s.real = true; s.provenance = 'REAL_SOURCE';
-    s.groupColor = { 'GOVERNMENT & OFFICIAL': '#B1A9A7', 'RESEARCH & SCIENCE': '#B1A9A7', 'FIELD & PRODUCER ORGANIZATIONS': '#00B152', 'NEWS & TRADE MEDIA': '#B1A9A7', 'COMPANIES & MARKET': '#B1A9A7', 'EVENTS & TRADE FAIRS': '#B1A9A7' }[s.group];
+    s.groupColor = { 'GOVERNMENT & OFFICIAL': '#B1A9A7', 'RESEARCH & SCIENCE': '#B1A9A7', 'FIELD & PRODUCER ORGANIZATIONS': '#009845', 'NEWS & TRADE MEDIA': '#B1A9A7', 'COMPANIES & MARKET': '#B1A9A7', 'EVENTS & TRADE FAIRS': '#B1A9A7' }[s.group];
     return s;
   });
 
@@ -558,7 +558,7 @@
     ['Marco R.', 'Lombardia', 'Field Sales Representative'],
     ['Luca F.', 'Piemonte', 'Technical Sales Representative']
   ];
-  const TSR = TSR_DEF.map((t, i) => ({ id: 'TSR-' + (i + 1), region: t[1], name: t[0], label: t[0], initials: 'D', org: 'ADAMA Italy · Field Sales network · DEMO', role: t[2], roleCat: 'TECHNICAL SALES REPRESENTATIVES', platform: 'WhatsApp · inbound field channel', color: '#00B152', demo: true, provenance: 'SYNTHETIC_DEMO' }));
+  const TSR = TSR_DEF.map((t, i) => ({ id: 'TSR-' + (i + 1), region: t[1], name: t[0], label: t[0], initials: 'D', org: 'ADAMA Italy · Field Sales network · DEMO', role: t[2], roleCat: 'TECHNICAL SALES REPRESENTATIVES', platform: 'WhatsApp · inbound field channel', color: '#009845', demo: true, provenance: 'SYNTHETIC_DEMO' }));
   const tsrFor = (r) => TSR.find(t => t.region === r);
   const FM = (o) => o;
   const FIELD_MESSAGES = [
@@ -589,7 +589,7 @@
     'Application timing question': 'APPLICATION TIMING QUESTION'
   };
   const MTYPE_COLOR = {
-    'CUSTOMER QUESTION': '#00A0DF', 'PRODUCT INTEREST': '#00B152', 'FIELD OBSERVATION': '#F5B317',
+    'CUSTOMER QUESTION': '#00A0DF', 'PRODUCT INTEREST': '#009845', 'FIELD OBSERVATION': '#F5B317',
     'COMPETITOR MENTION': '#F89E18', 'CROP STAGE': '#7DB41E', 'DEALER / COOPERATIVE SIGNAL': '#9D1D96',
     'APPLICATION TIMING QUESTION': '#00698F', 'WEED OBSERVATION': '#7DB41E'
   };
@@ -619,12 +619,12 @@
   });
   TSR.forEach(t => { t.messages = FIELD_MESSAGES.filter(m => m.region === t.region); t.related = t.messages.map(m => m.caseObj).filter(Boolean); t.signals = t.messages.map(m => m.signalObj).filter(Boolean); t.crops = [...new Set(t.messages.map(m => m.crop))]; t.issues = [...new Set(t.messages.map(m => m.issue))]; t.recentTopic = t.messages[0] ? t.messages[0].issue + ' · ' + t.messages[0].signal.toLowerCase() : 'No message yet'; t.lastDays = t.messages[0] ? Math.max(0, Math.round(t.messages[0].mins / 1440)) : 0; t.last = t.messages[0] ? t.messages[0].when : '—'; t.contentCount = t.messages.length; t.region = t.region; t.label = t.label; });
   const NOTIFICATIONS = [
-    { kind: 'NEW FIELD MESSAGE', text: 'Friuli-Venezia Giulia · Maize · European Corn Borer', when: '2 min ago', color: '#00B152', target: 'field' },
+    { kind: 'NEW FIELD MESSAGE', text: 'Friuli-Venezia Giulia · Maize · European Corn Borer', when: '2 min ago', color: '#009845', target: 'field' },
     { kind: 'FIELD SIGNAL CONNECTED', text: 'Flavescenza Dorata · Veneto · dealer questions added context', when: '38 min ago', color: '#009845', target: 'IT-OPP-001' },
-    { kind: 'ACTION BRIEF GENERATED', text: 'Field Sales · Fusarium · Durum Wheat · Toscana', when: '1h ago', color: '#B1A9A7', target: 'IT-OPP-003' },
-    { kind: 'WINDOW UPDATE', text: 'European Corn Borer · FVG · 14 days remaining', when: '2h ago', color: '#00B152', target: 'IT-OPP-002' },
-    { kind: 'COMPETITOR MOVEMENT', text: 'BASF · technical communication · maize', when: '1d ago', color: '#B1A9A7', target: 'competitors' },
-    { kind: 'NEW FUTURE SIGNAL', text: 'Diabrotica · Maize · FVG · from field channel', when: '4h ago', color: '#B1A9A7', target: 'future' }
+    { kind: 'ACTION BRIEF GENERATED', text: 'Field Sales · Fusarium · Durum Wheat · Toscana', when: '1h ago', color: '#E5E1E0', target: 'IT-OPP-003' },
+    { kind: 'WINDOW UPDATE', text: 'European Corn Borer · FVG · 14 days remaining', when: '2h ago', color: '#009845', target: 'IT-OPP-002' },
+    { kind: 'COMPETITOR MOVEMENT', text: 'BASF · technical communication · maize', when: '1d ago', color: '#E5E1E0', target: 'competitors' },
+    { kind: 'NEW FUTURE SIGNAL', text: 'Diabrotica · Maize · FVG · from field channel', when: '4h ago', color: '#E5E1E0', target: 'future' }
   ];
   const FIELD_KPI = { messages: FIELD_MESSAGES.length, connected: FIELD_MESSAGES.filter(m => m.state === 'CONNECTED').length, newSignals: FIELD_MESSAGES.filter(m => m.state === 'NEW SIGNAL').length, regions: [...new Set(FIELD_MESSAGES.map(m => m.region))].length, products: [...new Set(FIELD_MESSAGES.map(m => m.product).filter(Boolean))].length, validation: FIELD_MESSAGES.filter(m => m.state === 'NEEDS VALIDATION').length };
 
@@ -654,7 +654,7 @@
     const fm = FIELD_MESSAGES.filter(m => m.caseId === c.id || (m.relatedCase === c.id));
     const comp = ACTIVITIES.filter(a => a.crop === c.crop && a.issue === c.issue && a.region === c.region && a.days <= 30);
     const sig = SIGNALS.filter(x => x.crop === c.crop && x.region === c.region);
-    const early = fm.length ? { state: 'FIELD REPORTED', color: '#00B152', text: `${fm.length} field message${fm.length > 1 ? 's' : ''} · ${fm[0].signal.toLowerCase()}` } : comp.length ? { state: 'MARKET ATTENTION', color: '#B1A9A7', text: `${comp.length} competitor communication${comp.length > 1 ? 's' : ''} on ${c.crop.toLowerCase()} · 30d` } : { state: 'NOT OBSERVED', color: '#6E6663', text: 'No early commercial signal observed in monitored sources' };
+    const early = fm.length ? { state: 'FIELD REPORTED', color: '#009845', text: `${fm.length} field message${fm.length > 1 ? 's' : ''} · ${fm[0].signal.toLowerCase()}` } : comp.length ? { state: 'MARKET ATTENTION', color: '#E5E1E0', text: `${comp.length} competitor communication${comp.length > 1 ? 's' : ''} on ${c.crop.toLowerCase()} · 30d` } : { state: 'NOT OBSERVED', color: '#E5E1E0', text: 'No early commercial signal observed in monitored sources' };
     const scale = ['Puglia', 'Veneto', 'Lombardia', 'Emilia-Romagna', 'Piemonte', 'Friuli-Venezia Giulia', 'Sicilia'].includes(c.region) ? 'HIGH' : 'MEDIUM';
     const why = [
       { ok: true, t: open ? `Window open · ${remaining} days remaining (${confirmed ? 'confirmed by current-year signal' : 'seasonal · pressure not confirmed'})` : `Window in ${days} days (expected from annual cycle)` },
@@ -665,14 +665,14 @@
       { ok: confirmed, warn: !confirmed, t: confirmed ? 'Current-year pressure signal present' : 'Current-year pressure not yet confirmed' }
     ];
     const p = c.primaryObj;
-    const readiness = p ? [['Target fit', 'CONFIRMED', '#00B152'], ['Italy authorization', 'CONFIRMED · demo pack', '#009845'], ['Label window', 'CONFIRMED', '#00B152'], ['Current crop timing', confirmed ? 'CURRENT' : 'EXPECTED', confirmed ? '#00B152' : '#B1A9A7'], ['Field signal', fm.length ? 'REPORTED' : 'WAITING', fm.length ? '#00B152' : '#978B87'], ['Internal stock', 'NOT CONNECTED', '#6E6663'], ['Marketing material', 'INTERNAL DATA REQUIRED', '#6E6663'], ['Sales readiness', 'INTERNAL DATA REQUIRED', '#6E6663']] : [['Target fit', 'TO CONFIRM', '#B1A9A7'], ['Italy authorization', 'PORTFOLIO CHECK NEEDED', '#B1A9A7'], ['Internal stock', 'NOT CONNECTED', '#6E6663']];
+    const readiness = p ? [['Target fit', 'CONFIRMED', '#009845'], ['Italy authorization', 'CONFIRMED · demo pack', '#009845'], ['Label window', 'CONFIRMED', '#009845'], ['Current crop timing', confirmed ? 'CURRENT' : 'EXPECTED', confirmed ? '#009845' : '#B1A9A7'], ['Field signal', fm.length ? 'REPORTED' : 'WAITING', fm.length ? '#009845' : '#978B87'], ['Internal stock', 'NOT CONNECTED', '#6E6663'], ['Marketing material', 'INTERNAL DATA REQUIRED', '#6E6663'], ['Sales readiness', 'INTERNAL DATA REQUIRED', '#6E6663']] : [['Target fit', 'TO CONFIRM', '#B1A9A7'], ['Italy authorization', 'PORTFOLIO CHECK NEEDED', '#B1A9A7'], ['Internal stock', 'NOT CONNECTED', '#6E6663']];
     return { id: 'WIN-' + c.id.slice(-3), caseId: c.id, c, crop: c.crop, region: c.region, issue: c.issue, category: c.category, days, remaining, open, confirmed, kind: confirmed ? 'CONFIRMED WINDOW' : open ? 'SEASONAL WINDOW · UNCONFIRMED' : 'EXPECTED WINDOW', windowLabel: `${fmt(st)} → ${fmt(en)}`, calLabel: nw ? nw.label : c.label, prep: rule[1], prepColor: rule[2], bucket, early, fieldMessages: fm, compCount: comp.length, signals: sig, scale, why, readiness: readiness.map(r => ({ k: r[0], v: r[1], color: r[2] })), ladder: LADDER.map(l => ({ days: l[0], dept: l[1], text: l[2], reached: days <= l[0], color: DEPT[l[1]].color, soft: DEPT[l[1]].soft })), nowRelevant: c.st.rank <= 1 };
   }).sort((a, b) => a.days - b.days);
   const WINDOW_KPI = { total: WINDOWS.length, open: WINDOWS.filter(w => w.open).length, d30: WINDOWS.filter(w => !w.open && w.days <= 30).length, d60: WINDOWS.filter(w => w.days > 30 && w.days <= 60).length, d90: WINDOWS.filter(w => w.days > 60 && w.days <= 90).length, d180: WINDOWS.filter(w => w.days > 90 && w.days <= 180).length, cycle: WINDOWS.filter(w => w.days > 180).length, plan: WINDOWS.filter(w => ['PLAN', 'PREPARE', 'ACTIVATE'].includes(w.prep)).length, early: WINDOWS.filter(w => w.early.state !== 'NOT OBSERVED').length };
 
   // ---- Future Radar · explainable layer ------------------------------------
   const GROUP_OF = { 'GOVERNMENT & OFFICIAL': 'OFFICIAL', 'RESEARCH & SCIENCE': 'SCIENCE', 'FIELD & PRODUCER ORGANIZATIONS': 'FIELD', 'NEWS & TRADE MEDIA': 'TECHNICAL MEDIA', 'COMPANIES & MARKET': 'MARKET', 'EVENTS & TRADE FAIRS': 'EVENTS' };
-  const GROUP_COLOR = { 'NEWS & MEDIA': '#B1A9A7', EVENTS: '#B1A9A7', OFFICIAL: '#B1A9A7', FIELD: '#00B152', SCIENCE: '#B1A9A7', RESEARCHERS: '#B1A9A7', 'TECHNICAL MEDIA': '#B1A9A7', MARKET: '#B1A9A7', COMPETITORS: '#B1A9A7', 'FIELD SALES': '#00B152', PEOPLE: '#B1A9A7' };
+  const GROUP_COLOR = { 'NEWS & MEDIA': '#B1A9A7', EVENTS: '#B1A9A7', OFFICIAL: '#B1A9A7', FIELD: '#009845', SCIENCE: '#B1A9A7', RESEARCHERS: '#B1A9A7', 'TECHNICAL MEDIA': '#B1A9A7', MARKET: '#B1A9A7', COMPETITORS: '#B1A9A7', 'FIELD SALES': '#009845', PEOPLE: '#B1A9A7' };
   SIGNALS.forEach((x, i) => {
     const d = (n) => fmt(addDays(TODAY, -n));
     const off = SOURCES.filter(s => s.group === 'GOVERNMENT & OFFICIAL' && s.cov.includes(x.region) && (s.topics.includes('All crops') || s.topics.includes(x.crop))).slice(0, 1);
@@ -776,7 +776,7 @@
     orgs: SOURCES.length, people: PEOPLE.length, official: SOURCES.filter(s => s.group === 'GOVERNMENT & OFFICIAL').length, research: SOURCES.filter(s => s.group === 'RESEARCH & SCIENCE').length, field: SOURCES.filter(s => s.group === 'FIELD & PRODUCER ORGANIZATIONS').length, media: SOURCES.filter(s => s.group === 'NEWS & TRADE MEDIA').length, market: SOURCES.filter(s => s.group === 'COMPANIES & MARKET').length, events: SOURCES.filter(s => s.group === 'EVENTS & TRADE FAIRS').length,
     archive: ARCHIVE_ALL.length, records: RECORDS.length, researchers: PEOPLE.filter(p => p.role === 'Researcher').length, companies: COMPANIES.length, activities: ACTIVITIES.length
   };
-  const REGION_STATS = REGIONS.map(r => { const cs = CASES.filter(c => c.region === r.name); const sg = SIGNALS.filter(s => s.region === r.name); const top = cs.slice().sort((a, b) => a.st.rank - b.st.rank)[0]; return { ...r, cases: cs.length, signals: sg.length, color: cs.length ? top.st.color : sg.length ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)', border: cs.length ? top.st.color : 'rgba(255,255,255,0.10)', textColor: cs.length ? '#fff' : sg.length ? '#C9C3C1' : '#B1A9A7', short: r.name.split(/[\s-]/).map(w => w[0]).join('').slice(0, 3).toUpperCase(), active: cs.length > 0 || sg.length > 0 }; });
+  const REGION_STATS = REGIONS.map(r => { const cs = CASES.filter(c => c.region === r.name); const sg = SIGNALS.filter(s => s.region === r.name); const top = cs.slice().sort((a, b) => a.st.rank - b.st.rank)[0]; return { ...r, cases: cs.length, signals: sg.length, color: cs.length ? top.st.color : sg.length ? 'rgba(151,139,135,0.204)' : 'rgba(151,139,135,0.085)', border: cs.length ? top.st.color : 'rgba(151,139,135,0.17)', textColor: cs.length ? '#fff' : sg.length ? '#C9C3C1' : '#B1A9A7', short: r.name.split(/[\s-]/).map(w => w[0]).join('').slice(0, 3).toUpperCase(), active: cs.length > 0 || sg.length > 0 }; });
 
   KPI.people += TSR.length;
   const cnt = (arr, f) => arr.filter(f).length;

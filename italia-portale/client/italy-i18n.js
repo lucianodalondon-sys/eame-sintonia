@@ -180,6 +180,43 @@
       BAIXA: 'BASSA', MEDIA: 'MEDIA', ALTA: 'ALTA',
     },
     /* le chiavi numeriche del motore · il numero vive fuori dalla frase */
+    /* LE FAMIGLIE DI PROVA HANNO UN NOME, E NON E LA LORO CHIAVE.
+       Il motore cita ogni appoggio per famiglia — undici in tutto sui 37 casi.
+       Senza dizionario la scheda stampava LABEL_USE_RELATIONSHIP a un lettore
+       che non ha mai visto il pacchetto canonico.
+
+           SEI APPOGGI DELLA STESSA FAMIGLIA NON SONO SEI APPOGGI. */
+    lblNoCandidate: 'Nessun prodotto candidato in questa lettura',
+    lblLinkState: 'STATO DEL LEGAME',
+    EVFAM: {
+      FIELD_SIGNAL: 'Segnale di campo',
+      LABEL_USE_RELATIONSHIP: 'Relazione d\'uso su etichetta',
+      ACTIVE_INGREDIENT: 'Sostanza attiva',
+      REGULATORY_FUTURE_FACT: 'Scadenza normativa',
+      REGULATORY_PRODUCT: 'Registrazione di prodotto',
+      COMPETITOR_ACTIVITY: 'Attivita della concorrenza',
+      SCIENTIFIC_RECORD: 'Evidenza scientifica',
+      CROP_WINDOW: 'Finestra colturale',
+      RESISTANCE_RECORD: 'Resistenza documentata',
+      CROP_ECONOMIC_WEIGHT_CLAIM: 'Peso economico della coltura',
+      MARKET_OBSERVATION: 'Osservazione di mercato'
+    },
+    /* Che cosa quell'area puo fare ORA, e cio che il motore dichiara: un
+       instradamento. Non e un'azione operativa, e non si scrive come se lo fosse. */
+    AREAMODE: { LOOK: 'Da guardare ora', PREPARE: 'Da preparare', MONITOR: 'Da monitorare' },
+    lblActionMap: 'MAPPA DELLE AZIONI · CHI PUO GUARDARE',
+    lblActionMapNote: 'Il motore instrada le aree che dovrebbero guardare questo caso. Non prescrive l\'azione operativa: quella resta di chi la firma.',
+    lblEvidenceNav: 'PROVE E FONTI',
+    lblEvidenceNavNote: 'Ogni riga e un record citato dal motore. Le voci navigabili aprono il record; quelle senza collegamento sono citate ma non presenti in questo pacchetto.',
+    lblUnresolvedRef: 'citato, non presente in questo pacchetto',
+    lblOpenRecord: 'Apri',
+    lblProves: 'CHE COSA QUESTO PROVA',
+    lblNotProves: 'CHE COSA QUESTO NON PROVA',
+    lblCaseNumbers: 'I NUMERI DEL CASO',
+    lblProductsNamed: 'PRODOTTI ADAMA COLLEGATI',
+    lblTimingBlock: 'MOMENTO',
+    lblSourcesNav: 'FONTI DEL CASO',
+    lblNoWindowHonest: 'Nessuna finestra dichiarata per questo caso. Il momento non e confermato — e questo e un fatto, non una mancanza da riempire.',
     V21NUM: {
       SUBSTANCIA: 'sostanza attiva', DATA_LIMITE_UE: 'data limite UE',
       DIAS_ATE_A_DATA: 'giorni alla data', PRODUTOS_ADAMA: 'prodotti ADAMA',
@@ -734,6 +771,35 @@
       FUTURO: 'FUTURE', PASSADO: 'PAST',
       BAIXA: 'LOW', MEDIA: 'MEDIUM', ALTA: 'HIGH',
     },
+    lblNoCandidate: 'No product candidate linked in the current reading',
+    lblLinkState: 'LINK STATE',
+    EVFAM: {
+      FIELD_SIGNAL: 'Field signal',
+      LABEL_USE_RELATIONSHIP: 'Label use relationship',
+      ACTIVE_INGREDIENT: 'Active ingredient',
+      REGULATORY_FUTURE_FACT: 'Regulatory deadline',
+      REGULATORY_PRODUCT: 'Product registration',
+      COMPETITOR_ACTIVITY: 'Competitor activity',
+      SCIENTIFIC_RECORD: 'Scientific evidence',
+      CROP_WINDOW: 'Crop window',
+      RESISTANCE_RECORD: 'Documented resistance',
+      CROP_ECONOMIC_WEIGHT_CLAIM: 'Crop economic weight',
+      MARKET_OBSERVATION: 'Market observation'
+    },
+    AREAMODE: { LOOK: 'To look at now', PREPARE: 'To prepare', MONITOR: 'To monitor' },
+    lblActionMap: 'ACTION MAP · WHO CAN LOOK',
+    lblActionMapNote: 'The engine routes the areas that should look at this case. It does not prescribe the operational action: that stays with whoever signs it.',
+    lblEvidenceNav: 'EVIDENCE AND SOURCES',
+    lblEvidenceNavNote: 'Each row is a record the engine cites. Navigable entries open the record; entries without a link are cited but not present in this package.',
+    lblUnresolvedRef: 'cited, not present in this package',
+    lblOpenRecord: 'Open',
+    lblProves: 'WHAT THIS PROVES',
+    lblNotProves: 'WHAT THIS DOES NOT PROVE',
+    lblCaseNumbers: 'THE NUMBERS OF THE CASE',
+    lblProductsNamed: 'LINKED ADAMA PRODUCTS',
+    lblTimingBlock: 'TIMING',
+    lblSourcesNav: 'CASE SOURCES',
+    lblNoWindowHonest: 'No window is declared for this case. The timing is not confirmed — and that is a fact, not a gap to fill.',
     V21NUM: {
       SUBSTANCIA: 'active substance', DATA_LIMITE_UE: 'EU deadline',
       DIAS_ATE_A_DATA: 'days to the date', PRODUTOS_ADAMA: 'ADAMA products',
