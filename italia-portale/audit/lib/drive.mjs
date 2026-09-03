@@ -153,7 +153,14 @@ export const clickables = (page) => page.evaluate(() => {
     const r = el.getBoundingClientRect();
     seen.push({
       tag: el.tagName.toLowerCase(),
-      text: (el.textContent || '').trim().slice(0, 70),
+      /* Il testo si NORMALIZZA qui, una volta: chi indicizza e chi clicca devono
+         confrontare la stessa stringa. Salvandolo grezzo e collassandolo solo
+         dopo, «SINTONIA\n ADAMA ITALIA» tagliato a 70 caratteri grezzi non
+         coincide piu con lo stesso testo collassato, e diciassette controlli
+         sempre presenti risultavano introvabili.
+
+             DUE NORMALIZZAZIONI DELLA STESSA STRINGA SONO DUE STRINGHE. */
+      text: (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 70),
       title: el.getAttribute('title') || '',
       href: el.getAttribute('href') || '',
       /* `onclick` proprio, ou o cursor que o autor pos de proposito. Um <span>
@@ -233,6 +240,81 @@ export const overflow = (page) => page.evaluate(() => {
 
 export const nav = (page) => page.evaluate(() =>
   [...document.querySelectorAll('[title]')].map((e) => e.getAttribute('title')).filter(Boolean));
+
+
+/* ── O MESMO CRITERIO, PARA CONTAR E PARA CLICAR ───────────────────────────
+   `clickables` aprendeu que o `onclick` do ANTECESSOR nao serve de prova — o
+   runtime pendura um handler delegado na raiz. Quem escreve um segundo portao
+   reescreve o criterio de memoria e volta a cair no mesmo buraco: contei 1
+   clicavel numa tela com 33.
+
+       UM CRITERIO DUPLICADO E DOIS CRITERIOS QUE VAO DIVERGIR.
+
+   Portanto o indice e o clique saem daqui, do mesmo lugar. */
+export const clickAt = (page, index) => page.evaluate((idx) => {
+  const els = [];
+  for (const el of document.querySelectorAll('*')) {
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    const isClick = cs.cursor === 'pointer' || !!el.onclick || el.tagName === 'BUTTON' || el.tagName === 'A';
+    if (!isClick) continue;
+    let p = el.parentElement, nested = false;
+    while (p) { const pc = getComputedStyle(p); if (pc.cursor === 'pointer' || p.tagName === 'A' || p.tagName === 'BUTTON') { nested = true; break; } p = p.parentElement; }
+    if (nested) continue;
+    els.push(el);
+  }
+  const el = els[idx];
+  if (!el) return { clicked: false, reason: 'index out of range (' + els.length + ' controls)' };
+  const r = el.getBoundingClientRect();
+  if (r.width < 1 || r.height < 1) return { clicked: false, reason: 'zero box' };
+  el.scrollIntoView({ block: 'center' });
+  /* Chi giudica deve poter verificare CHE COSA ha cliccato: un verdetto
+     attribuito al controllo sbagliato e peggio di nessun verdetto. */
+  const what = (el.getAttribute('title') || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+  try { el.click(); } catch (e) { return { clicked: false, reason: 'threw: ' + e.message, what }; }
+  return { clicked: true, what };
+}, index);
+
+/* ── UN CONTROLLO SI CHIAMA, NON SI CONTA ──────────────────────────────────
+   Indirizzare per POSIZIONE sembrava ragionevole: si elencano i clicabili e si
+   clicca il numero i. Ma il renderer ridisegna, un pannello si apre, un menu si
+   chiude, e la lista non e piu quella: il portone registrava «Notifications» e
+   cliccava «Help», registrava «MOSTRA SCENARI» e cliccava una tendina.
+
+       UN VERDETTO ATTRIBUITO AL CONTROLLO SBAGLIATO E PEGGIO DI NESSUN VERDETTO.
+
+   La chiave e cio che il controllo E: tag, titolo, testo, e l'ordinale fra i
+   suoi omonimi. Sopravvive a un re-render perche non dipende da chi gli sta
+   accanto. */
+export const keyOf = (c) => [c.tag, c.title || '', (c.text || '').replace(/\s+/g, ' ').trim().slice(0, 70), c.nth || 0].join('§');
+
+export const clickKey = (page, key) => page.evaluate((k) => {
+  const parts = k.split('\u00a7');
+  const [tag, title, text, nthS] = [parts[0], parts[1], parts[2], parts[3]];
+  const nth = Number(nthS) || 0;
+  const els = [];
+  for (const el of document.querySelectorAll('*')) {
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    const isClick = cs.cursor === 'pointer' || !!el.onclick || el.tagName === 'BUTTON' || el.tagName === 'A';
+    if (!isClick) continue;
+    let p = el.parentElement, nested = false;
+    while (p) { const pc = getComputedStyle(p); if (pc.cursor === 'pointer' || p.tagName === 'A' || p.tagName === 'BUTTON') { nested = true; break; } p = p.parentElement; }
+    if (nested) continue;
+    els.push(el);
+  }
+  const match = els.filter((el) => el.tagName.toLowerCase() === tag
+    && (el.getAttribute('title') || '') === title
+    && (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 70) === text);
+  const el = match[nth];
+  if (!el) return { clicked: false, reason: 'not present now (' + match.length + ' of this identity)' };
+  const r = el.getBoundingClientRect();
+  if (r.width < 1 || r.height < 1) return { clicked: false, reason: 'zero box' };
+  el.scrollIntoView({ block: 'center' });
+  const what = (el.getAttribute('title') || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+  try { el.click(); } catch (e) { return { clicked: false, reason: 'threw: ' + e.message, what }; }
+  return { clicked: true, what };
+}, key);
 
 export const C = { g: (s) => `\x1b[32m${s}\x1b[0m`, r: (s) => `\x1b[31m${s}\x1b[0m`, y: (s) => `\x1b[33m${s}\x1b[0m`, d: (s) => `\x1b[2m${s}\x1b[0m` };
 export const line = (ok, id, name, exp, got) =>

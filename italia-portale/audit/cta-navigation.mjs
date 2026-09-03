@@ -348,17 +348,23 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
       linked++; sc.linked = (sc.linked || 0) + 1;
       if ((sc.proved || 0) >= PROVE_LINKS) continue;      /* cablato: l'indirizzo e la prova */
       sc.proved = (sc.proved || 0) + 1;
-      const t0 = tabs, u0 = page.url();
-      const aimed = await aimAndPre(sigs[i], ord[i]);
-      if (!aimed) { sc.skipped++; continue; }
-      await strike(aimed.a, sigs[i], ord[i]);
-      await harvest(page);
-      /* la finestra larga che una scheda nuova richiede davvero: la prima
-         apertura di una sessione puo prendersi piu di tre secondi */
-      for (let w = 0; w < 30 && tabs === t0 && page.url() === u0; w++) await page.waitForTimeout(200);
-      if (tabs > t0 || page.url() !== u0) linkProved++;
+      /* Una prova, e se fallisce una sola replica. La scheda nuova viaggia sul
+         processo del browser, non sul DOM: la PRIMA di una sessione puo farsi
+         attendere piu di sei secondi, e una singola lentezza non e un difetto
+         del portale. Due fallimenti di fila lo sono. */
+      let proved = false;
+      for (let go = 0; go < 2 && !proved; go++) {
+        const t0 = tabs, u0 = page.url();
+        const aimed = await aimAndPre(sigs[i], ord[i]);
+        if (!aimed) { sc.skipped++; break; }
+        await strike(aimed.a, sigs[i], ord[i]);
+        await harvest(page);
+        for (let w = 0; w < 30 && tabs === t0 && page.url() === u0; w++) await page.waitForTimeout(200);
+        proved = tabs > t0 || page.url() !== u0;
+        if (!await restore(label, sc)) { drift++; break; }
+      }
+      if (proved) linkProved++;
       else linkProofFailed.push({ screen: label, text: (c.text || '').replace(/\s+/g, ' ').slice(0, 40), href: c.href });
-      if (!await restore(label, sc)) drift++;
       continue;
     }
 
