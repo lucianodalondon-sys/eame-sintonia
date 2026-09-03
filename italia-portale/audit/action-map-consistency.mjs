@@ -24,7 +24,7 @@
    Ogni affermazione della schermata e uno di quegli span; il resto e cornice.
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
-import { serve, open, openCase, caseIds, clickTitle, C, line } from './lib/drive.mjs';
+import { serve, open, openCase, clickTitle, C, line } from './lib/drive.mjs';
 import { loadData } from './lib/harness.mjs';
 
 const argv = process.argv.slice(2);
@@ -64,7 +64,7 @@ const AREA_BY_LABEL = {}; AREAS.forEach((a) => { AREA_BY_LABEL[areaLabel(a)] = a
    ORA non puo etichettare le sue aree «da monitorare». */
 const modeForStatus = (s) => AREAMODE[s === 'ACT_NOW' ? 'LOOK' : s === 'PREPARE_NOW' ? 'PREPARE' : 'MONITOR'] || '';
 
-/* ── amostra: ogni stato, e le due situazioni di prodotto ──────────────────
+/* ── campione: ogni stato, e le due situazioni di prodotto ──────────────────
    «Almeno un legame VERIFIED_LABEL_MATCH» contro «solo LABEL_CHECK_NEEDED» non
    e un dettaglio del catalogo: e la differenza fra una scheda che promette e
    una che aspetta. Misurato in questo pacchetto: 12 record verificati, 25 in

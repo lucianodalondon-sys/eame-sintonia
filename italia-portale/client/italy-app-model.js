@@ -671,6 +671,22 @@
     VALIDATION_REQUIRED: ['il caso e rilevato ma nessuna conseguenza e ancora sostenuta',
       'the case is detected but no consequence is supported yet'],
   };
+  /* ── LA PORTATA GEOGRAFICA, DETTA UNA VOLTA SOLA ────────────────────────
+     La scheda e il dettaglio derivavano ognuno la propria frase, e dicevano la
+     stessa cosa con parole diverse: tredici casi in cui le due schermate non
+     coincidevano su DOVE.
+
+         DUE DERIVAZIONI DELLA STESSA COSA SONO DUE COSE. */
+  const geographyLabel = (o, lang) => {
+    if (!o) return '';
+    const en = lang === 'en';
+    const named = (o.regionKeys && o.regionKeys.length ? o.regionKeys.join(' · ') : null) || o.region;
+    if (named) return named;
+    if (o.geoScope === 'NATIONAL') return en ? 'Italy · national scope' : 'Italia · portata nazionale';
+    if (o.geoScope === 'EUROPEAN') return en ? 'European Union · European scope' : 'Unione Europea · portata europea';
+    return '';
+  };
+
   const adamaRelevance = (o) => {
     if (!o) return [];
     const links = Array.isArray(o.productLinks) ? o.productLinks : [];
@@ -4593,7 +4609,7 @@
     STRENGTH, ABSENCE_RULE,
     KNOWLEDGE, narrative,
     CATEGORY_UI, categoryOf, categoryFromProducts,
-    adamaRelevance, RELEVANCE_LABEL, RELEVANCE_WHY, rtvEligibility, RTV_BLOCKER_LABEL,
+    adamaRelevance, geographyLabel, RELEVANCE_LABEL, RELEVANCE_WHY, rtvEligibility, RTV_BLOCKER_LABEL,
 
     /* presentation tokens — icon, colour, order, grid. No facts live here. */
     UI: {

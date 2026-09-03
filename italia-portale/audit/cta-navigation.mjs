@@ -287,7 +287,7 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
       await harvest(page);
       if (!hit) { sc.skipped++; continue; }
       /* la finestra larga che una scheda nuova richiede davvero */
-      for (let w = 0; w < 8 && tabs === t0 && page.url() === u0; w++) await page.waitForTimeout(200);
+      for (let w = 0; w < 18 && tabs === t0 && page.url() === u0; w++) await page.waitForTimeout(200);
       if (tabs > t0 || page.url() !== u0) linkProved++;
       else linkProofFailed.push({ screen: label, text: (c.text || '').replace(/\s+/g, ' ').slice(0, 40), href: c.href });
       const r = await restore(label, sc);
@@ -299,7 +299,7 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
        `pre` e sempre lo stato REALE del momento, mai quello di partenza — ed e
        per questo che il ritorno fra un click e l'altro puo essere leggero. */
     const attempt = async (pre) => {
-      const t0 = tabs, d0 = downloads, g0 = dialogs, e0 = errors.length;
+      const e0 = errors.length;
       const hit = await clickSig(page, sigs[i], ord[i]);
       if (!hit) { await harvest(page); return null; }
       await page.waitForTimeout(SETTLE);
@@ -308,7 +308,14 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
       /* Un errore di console va ATTRIBUITO alla pressione che lo ha prodotto,
          altrimenti il portone dice «sei errori» e nessuno sa dove premere. */
       if (errors.length > e0) blew.push({ screen: label, tag: c.tag, text: (c.text || c.title || '').replace(/\s+/g, ' ').slice(0, 46), msg: errors[e0] });
-      return { moved: differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0, post };
+      /* QUI NON SI CONTANO SCHEDE NUOVE, DOWNLOAD NE DIALOG.
+         «VEDI L'INTELLIGENCE →» apre una scheda con window.open, e la scheda
+         arriva un secondo abbondante dopo il click: fuori dalla finestra di
+         190 ms di questo passaggio, e dentro quella della pressione SUCCESSIVA,
+         che si vedrebbe attribuire una vita non sua. Un effetto che arriva
+         tardi non si giudica di fretta: chi non si muove qui diventa sospetto e
+         il passaggio 2 lo riprova con la pazienza necessaria. */
+      return { moved: differs(pre, post) || mut > NOISE, post };
     };
 
     let out = await attempt(cur);
@@ -363,6 +370,8 @@ const dead = [], idempotent = [];
 
 /* Preme una firma e dice se il mondo si e mosso. null = la firma non esiste
    piu su questa schermata (lo stato e cambiato sotto i piedi). */
+const PATIENCE = Number(arg('patience', 10));   /* × 250 ms = 2,5 s di attesa */
+
 const press = async (sig, ordinal) => {
   const pre = await snap(page).catch(() => null);
   const t0 = tabs, d0 = downloads, g0 = dialogs;
@@ -370,8 +379,18 @@ const press = async (sig, ordinal) => {
   if (!ok) { await harvest(page); return null; }
   await page.waitForTimeout(SETTLE);
   const mut = await harvest(page);
-  const post = await snap(page).catch(() => null);
-  return differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
+  let post = await snap(page).catch(() => null);
+  let moved = differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
+  /* LA PAZIENZA SI PAGA SOLO A CHI SEMBRA MORTO.
+     Una scheda aperta con window.open, un download, un pannello che si disegna
+     dopo una animazione: arrivano dopo. Qui i sospetti sono pochi e aspettare
+     costa poco; nel passaggio 1, con 889 pressioni, costerebbe mezz'ora. */
+  for (let w = 0; !moved && w < PATIENCE; w++) {
+    await page.waitForTimeout(250);
+    post = await snap(page).catch(() => null);
+    moved = differs(pre, post) || tabs > t0 || downloads > d0 || dialogs > g0;
+  }
+  return moved;
 };
 
 for (const s of suspects) {
@@ -435,80 +454,102 @@ const EMPTY = 400;
 const emptyScreens = navRows.filter((r) => r.chars < EMPTY || r.clickables === 0).map((r) => `${r.label} (${r.chars} char, ${r.clickables} clic)`);
 
 /* ── l'indietro ───────────────────────────────────────────────────────────
-   Non si cerca la parola «Indietro»: si scende in un dettaglio e si prova ogni
-   comando della testata finche uno riporta ESATTAMENTE all'elenco da cui si e
-   partiti. Se nessuno lo fa, l'indietro non esiste — e non importa come si
-   chiama.
+   Non si cerca la parola «Indietro»: si costruisce una situazione in cui solo
+   un vero ritorno puo passare, e si prova ogni comando della testata finche uno
+   la risolve. Se nessuno la risolve, il ritorno non funziona — e non importa
+   come si chiama il bottone.
 
-   Si comincia da una schermata che NON e quella di casa. Il blocco del marchio
-   riporta a casa da ovunque: provando l'indietro su casa, il marchio passava
-   l'esame al posto suo e il portone dichiarava funzionante un ritorno che non
-   aveva mai misurato.
+   Due scenari, perche uno solo si lascia ingannare:
 
-       UN RITORNO SI PROVA DOVE TORNARE INDIETRO E DIVERSO DA TORNARE A CASA.
+     A · STORIA   casa → B → C, poi indietro DEVE dare B.
+         Con due passi soltanto (casa → B, indietro) passerebbe anche il blocco
+         del marchio, che porta a casa da ovunque: casa era la precedente per
+         caso. Con tre passi il marchio finisce a casa e fallisce; solo chi
+         torna davvero atterra su B.
 
-   Non si prova un <a href>: quello lascia l'applicazione, non ci rientra. */
-let backOk = false, backLabel = null, backScreen = null, backTried = 0, detailOpened = false;
+     B · DETTAGLIO   B → casa → apri una ficha, poi indietro DEVE dare l'ELENCO
+         di casa, non B. Se aprire una ficha non lascia traccia nella storia,
+         l'indietro salta l'elenco e riporta a B — che e esattamente il difetto
+         che questo scenario esiste per vedere.
+
+   Una prima versione cercava invece «uno stato che la barra non sa raggiungere»
+   e ci finiva dentro una fisarmonica che si apre: espandere una riga non e
+   navigare, l'indietro giustamente tornava alla schermata precedente, e il
+   portone lo chiamava difetto. Quattro schermate accusate, ventisette comandi
+   provati, zero difetti veri.
+
+       PRIMA DI GIUDICARE UN RITORNO, COSTRUISCI UN POSTO DA CUI TORNARE.
+
+   Un <a href> non e candidato: quello esce dall'applicazione, non ci rientra. */
+let backHistory = false, backDetail = false, backLabel = null, backTried = 0, caseScreen = null;
 {
-  const navThSet = new Set(navRows.map((r) => r.th));
-  const order = SIDEBAR.slice(1, MAX_SCREENS).concat(SIDEBAR.slice(0, 1));
-  for (const label of order.slice(0, 4)) {
-    if (backOk) break;
+  const home = SIDEBAR[0];
+  const B = SIDEBAR[1], Cs = SIDEBAR[2];
+
+  /* i comandi della testata, misurati una volta su una schermata qualunque */
+  await reboot();
+  await clickTitle(page, B, 480);
+  const topGeo = await page.evaluate((E) => eval(E)().map((e) => Math.round(e.getBoundingClientRect().top)), ENUM);
+  const topCl = await clickables(page);
+  const topSigs = topCl.map(sigOf);
+  const cands = topCl.map((c, ix) => ({ c, ix })).filter(({ c, ix }) => c.visible && !FORM.has(c.tag)
+    && c.tag !== 'a' && !c.href && topGeo[ix] !== undefined && topGeo[ix] < 80 && !sidebarSet.has(c.title))
+    .map(({ c, ix }) => ({ c, sig: sigOf(c), ord: topSigs.slice(0, ix).filter((x) => x === sigOf(c)).length }));
+
+  /* quale schermata porta fiche apribili (data-case): si misura, non si sa */
+  for (const l of SIDEBAR) {
+    await clickTitle(page, l, 460);
+    if (await page.evaluate(() => document.querySelectorAll('[data-case]').length) > 0) { caseScreen = l; break; }
+  }
+  const openCaseHere = () => page.evaluate(() => {
+    const c = [...document.querySelectorAll('[data-case]')].filter((x) => x.getAttribute('data-case'))[0];
+    if (!c) return false;
+    let n = c;
+    for (let i = 0; i < 5 && n; i++) { const cs = getComputedStyle(n); if (cs.cursor === 'pointer' || n.onclick || n.tagName === 'BUTTON' || n.tagName === 'A') break; n = n.parentElement; }
+    (n || c).click(); return true;
+  }).catch(() => false);
+
+  /* SCENARIO A · la storia */
+  for (const k of cands) {
+    if (backHistory) break;
+    backTried++;
     await reboot();
-    if (!await clickTitle(page, label, 520)) continue;
-    const listSnap = await snap(page);
-    const geo = await page.evaluate((E) => eval(E)().map((e) => { const r = e.getBoundingClientRect(); return { top: Math.round(r.top), left: Math.round(r.left), w: Math.round(r.width), h: Math.round(r.height) }; }), ENUM);
-    const cl = await clickables(page);
-    const sigs = cl.map(sigOf); const ord = []; const seen = {};
-    for (const g of sigs) { seen[g] = (seen[g] || 0); ord.push(seen[g]); seen[g]++; }
-    /* una riga di contenuto: sotto la testata, fuori dalla colonna del menu */
-    const rows = cl.map((c, ix) => ({ c, ix })).filter(({ c, ix }) => c.visible && !FORM.has(c.tag) && !c.href
-      && geo[ix] && geo[ix].top >= 120 && geo[ix].left >= 240 && geo[ix].w >= 80 && geo[ix].h >= 24);
+    await clickTitle(page, home, 460);
+    await clickTitle(page, B, 460);
+    const atB = await snap(page);
+    await clickTitle(page, Cs, 460);
+    const atC = await snap(page);
+    if (atC.th === atB.th) continue;                       /* B e C non distinti: scenario inutile */
+    const ok = await clickSig(page, k.sig, k.ord); await harvest(page);
+    if (!ok) continue;
+    await page.waitForTimeout(700);
+    const back = await snap(page).catch(() => null);
+    if (back && back.th === atB.th) { backHistory = true; backLabel = (k.c.title || k.c.text || k.c.tag).replace(/\s+/g, ' ').slice(0, 28); }
+  }
 
-    let openedIx = -1;
-    for (const { ix } of rows.slice(0, 8)) {
-      const ok = await clickSig(page, sigs[ix], ord[ix]); await harvest(page);
-      if (!ok) continue;
-      await page.waitForTimeout(520);
-      const d = await snap(page).catch(() => null);
-      /* un dettaglio e uno stato che la barra laterale non sa raggiungere */
-      if (d && d.th !== listSnap.th && !navThSet.has(d.th)) { openedIx = ix; break; }
-      await reboot(); await clickTitle(page, label, 460);
-    }
-    if (openedIx < 0) continue;
-    detailOpened = true;
-
-    const reopen = async () => {
-      await reboot();
-      if (!await clickTitle(page, label, 460)) return false;
-      const ok = await clickSig(page, sigs[openedIx], ord[openedIx]); await harvest(page);
-      if (ok) await page.waitForTimeout(520);
-      return ok;
-    };
-
-    const dgeo = await page.evaluate((E) => eval(E)().map((e) => Math.round(e.getBoundingClientRect().top)), ENUM);
-    const dcl = await clickables(page);
-    const dsigs = dcl.map(sigOf);
-    const cands = dcl.map((c, ix) => ({ c, ix })).filter(({ c, ix }) => c.visible && !FORM.has(c.tag)
-      && c.tag !== 'a' && !c.href && dgeo[ix] !== undefined && dgeo[ix] < 80 && !sidebarSet.has(c.title));
-    for (const { c, ix } of cands) {
+  /* SCENARIO B · il dettaglio */
+  if (caseScreen) {
+    const other = SIDEBAR.find((l) => l !== caseScreen) || B;
+    for (const k of cands) {
+      if (backDetail) break;
       backTried++;
-      const g = sigOf(c);
-      const o = dsigs.slice(0, ix).filter((x) => x === g).length;
-      const ok = await clickSig(page, g, o); await harvest(page);
-      if (ok) {
-        await page.waitForTimeout(600);
-        const back = await snap(page).catch(() => null);
-        if (back && back.th === listSnap.th) {
-          backOk = true; backScreen = label;
-          backLabel = (c.title || c.text || c.tag).replace(/\s+/g, ' ').slice(0, 28);
-          break;
-        }
-      }
-      if (!await reopen()) break;   /* si riparte pulito per il candidato dopo */
+      await reboot();
+      await clickTitle(page, other, 460);
+      await clickTitle(page, caseScreen, 520);
+      const atList = await snap(page);
+      if (!await openCaseHere()) break;
+      await page.waitForTimeout(650);
+      const det = await snap(page).catch(() => null);
+      if (!det || det.th === atList.th) break;             /* la ficha non si apre: altro difetto, altro portone */
+      const ok = await clickSig(page, k.sig, k.ord); await harvest(page);
+      if (!ok) continue;
+      await page.waitForTimeout(700);
+      const back = await snap(page).catch(() => null);
+      if (back && back.th === atList.th) { backDetail = true; if (!backLabel) backLabel = (k.c.title || k.c.text || k.c.tag).replace(/\s+/g, ' ').slice(0, 28); }
     }
   }
 }
+const backOk = backHistory && backDetail;
 
 /* ── la ricarica ──────────────────────────────────────────────────────────
    F5 e il gesto piu comune di chi non si fida di quello che vede. Se dopo la
@@ -540,7 +581,8 @@ console.log(line(enumSkew === 0, 'CT4', 'Enumeration and click list are the same
 console.log(line(linkProofFailed.length === 0, 'CT5', 'Sampled <a href> links really open a tab', 0, linkProofFailed.length));
 console.log(line(unreached.length === 0, 'NV1', 'Every sidebar item reaches a screen', 0, unreached.length || 'all ' + navRows.length));
 console.log(line(collisions.length === 0, 'NV2', 'No two sidebar items land on the same screen', 0, collisions.length));
-console.log(line(backOk, 'NV3', 'In-app back returns from a detail to its list', 'yes', backOk ? `yes «${backLabel}» su ${backScreen}` : (detailOpened ? 'NO (' + backTried + ' topbar controls tried)' : 'no drill-down found')));
+console.log(line(backHistory, 'NV3', 'In-app back returns to the previous screen', 'yes', backHistory ? `yes «${backLabel}»` : `NO (${backTried} topbar controls tried)`));
+console.log(line(backDetail, 'NV3b', 'In-app back returns from a case detail to its list', 'yes', backDetail ? `yes, su ${caseScreen}` : 'NO'));
 console.log(line(reloadOk, 'NV4', 'A page reload does not break the portal', 'yes', reloadOk ? `yes (${afterReload.chars} char, ${reloadClicks} clic)` : 'NO'));
 console.log(line(emptyScreens.length === 0, 'NV5', 'No navigation leaves the screen empty', 0, emptyScreens.length));
 console.log(line(errors.length === 0, 'NV6', 'No console error during the whole sweep', 0, errors.length));
@@ -603,7 +645,7 @@ if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({
   dead: dead.map((d) => ({ screen: d.label, sig: d.sig, mode: d.mode, ...d.c })),
   idempotent: idempotent.map((d) => ({ screen: d.label, sig: d.sig, mode: d.mode })),
   noHandler, blew, navRows, collisions, unreached, emptyScreens, linkProofFailed,
-  back: { ok: backOk, label: backLabel, screen: backScreen, tried: backTried, detailOpened },
+  back: { history: backHistory, detail: backDetail, label: backLabel, tried: backTried, caseScreen },
   reload: { ok: reloadOk, chars: afterReload.chars, clickables: reloadClicks },
   totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, linked, linkProved, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
   errors, failed,

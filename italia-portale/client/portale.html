@@ -2740,7 +2740,17 @@ class Component extends DCLogic {
       cropL: (T0.CROPS && T0.CROPS[c.crop]) || c.crop
         || (T0.CROPSCOPE && T0.CROPSCOPE[c.cropScope]) || '',
       issueL: (T0.ISSUES && T0.ISSUES[c.issue]) || c.issue || '',
-      regionLabel: c.regionLabel || c.region || '',
+      /* LA SCHEDA TACEVA SULLA GEOGRAFIA, E IL DETTAGLIO LA NOMINAVA.
+         Tredici casi su quattordici aperti: la scheda lasciava la riga vuota
+         perche `region` e null, mentre il dettaglio scriveva «Italia · portata
+         nazionale» leggendo `geoScope`. Due schermate, lo stesso caso, due
+         risposte diverse alla stessa domanda.
+
+             SE LA SCHEDA TACE DOVE IL DETTAGLIO PARLA, UNA DELLE DUE MENTE.
+
+         La portata e un fatto dichiarato dal record, come la regione. */
+      regionLabel: (AM && AM.geographyLabel && c.raw) ? AM.geographyLabel(c.raw, this.state.lang)
+        : (c.regionLabel || c.region || ''),
       statusL: statusLabel, statusLabel,
       /* ── L'ETICHETTA DELLA CONVERGENZA ──────────────────────────────────
          Il motore V2.1 produce 37 casi e nove di essi reggono con il metodo
@@ -4024,7 +4034,13 @@ class Component extends DCLogic {
       color: a === 'COMMERCIAL' || a === 'MARKET_DEVELOPMENT' ? '#00B152'
         : a === 'SCIENCE_TECHNICAL' ? '#5CC3EE' : a === 'REGULATORY' ? '#C77BC3'
           : a === 'MARKETING' ? '#F5B317' : '#B1A9A7',
-      modeL: (T.AREAMODE || {})[csStatus === 'ACT_NOW' ? 'LOOK' : csStatus === 'PREPARE_NOW' ? 'PREPARE' : 'MONITOR'] || ''
+      /* Lo stato che il lettore vede sullo schermo e quello del RECORD; la
+         finestra canonica e nulla su tutti e 37, e leggerla qui faceva dire
+         «da monitorare» alle aree di un caso dichiarato AGIRE ORA. */
+      modeL: (() => {
+        const st = (csRec && csRec.status) || csStatus;
+        return (T.AREAMODE || {})[st === 'ACT_NOW' ? 'LOOK' : st === 'PREPARE_NOW' ? 'PREPARE' : 'MONITOR'] || '';
+      })()
     }));
 
     /* ── le prove, per id, verso il record vero ────────────────────────────
@@ -4142,7 +4158,7 @@ class Component extends DCLogic {
          Quando il bersaglio manca, la scheda dice perche il caso esiste —
          l'archetipo — che e un fatto del record. Resta «in attesa» solo dove
          c'e davvero qualcosa da attendere. */
-      issue: csRec ? titleCase(csIssueTxt || csArchTxt || csT('awaiting')) : csT('notFound'), crop: csCropTxt, region: csRegion,
+      issue: csRec ? titleCase(csIssueTxt || csArchTxt || csT('awaiting')) : csT('notFound'), crop: csCropTxt, region: (AM && AM.geographyLabel && csRec) ? AM.geographyLabel(csRec, s.lang) : csRegion,
       category: csCat, catLabel: csCat.label ? String(L(csCat.label)).toUpperCase() : '',
       st: csStTok, badgeVariant: csCatKey === 'pest' ? 'pest-control' : 'disease-control',
       /* La scheda gia nasconde chip e icona quando la categoria non e
@@ -4183,7 +4199,7 @@ class Component extends DCLogic {
       /* AMPIEZZA GEOGRAFICA · 30 casi su 37 non nominano una regione ma
          dichiarano fino a dove arriva il fatto (NATIONAL / EUROPEAN). La
          schermata mostrava l'etichetta «Regione» sopra il vuoto. */
-      regionLabel: csRegion || (csRec && csRec.geoScope ? ((T.V21 && T.V21[csRec.geoScope]) || '') : ''),
+      regionLabel: (AM && AM.geographyLabel && csRec) ? AM.geographyLabel(csRec, s.lang) : (csRegion || ''),
       /* FRESHNESS_DAYS is upstream's own number and it is the age of the SOURCE
          DOCUMENT (measured 17 / 18 / 6), not of an internal edit. The demo's
          `updated` integer, which claimed the second thing, is gone. */
