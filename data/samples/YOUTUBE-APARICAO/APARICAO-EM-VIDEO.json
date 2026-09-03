@@ -1,0 +1,2050 @@
+{
+ "SOURCE_ID": "YOUTUBE-APARICAO/APARICAO-EM-VIDEO",
+ "source": "derivado de SENSOR-PILOT/CANAIS-A e CANAIS-B, ja pagos — zero coleta nova",
+ "SOURCE_LOCATION": "derivado — interno",
+ "FACT_LOCATION": "ver por item",
+ "ORIGINAL_LANGUAGE": "multi",
+ "EVIDENCE_CLASS": "DERIVED_SCOPE",
+ "captured_at": "2026-09-03",
+ "CAPTURED_AT": "2026-09-03T12:44:07Z",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "MISSION": "18-APARICAO-DE-PESSOA-EM-VIDEO",
+ "O_QUE_ISTO_RESPONDE": "este video mostra ESTA pessoa?",
+ "O_QUE_ISTO_NAO_RESPONDE": "de quem e o canal. APARECER NUM VIDEO NAO E SER DONO DO CANAL — CHANNEL_OWNERSHIP sai NOT_CLAIMED em 100%.",
+ "LEI_HERDADA": "scripts/sensor_canal_identidade.py: \"SEARCH_HIT != PERSON\"; nome que nao bate encerra o assunto, nome que bate nao prova sozinho, e sem corroboracao dos dois lados o estado e PLAUSIBLE.",
+ "POR_QUE_ARQUIVO_NOVO": "sensor_canal_identidade.py e da missao de sensores. A regra de isolamento proibe corrigir em silencio codigo de outra missao: a lei dele e obedecida e citada, e o arquivo dele nao foi tocado.",
+ "O_CASE_ID_NAO_E_PORTAO": "Blandino entrou por IT-DURUM_WHEAT-FUSARIUM e aparece falando de MILHO. O recorte que achou a pessoa nao e o assunto da pessoa. Exigir o tema do CASE_ID reprovaria os acertos — medido.",
+ "A_INICIAL_NAO_IDENTIFICA": "`F. Quaglino` devolveu concerto de orquestra, melanoma e psicologia junguiana. Nenhuma corroboracao conserta o denominador de uma inicial: no maximo PLAUSIBLE.",
+ "CANDIDATOS": 58,
+ "BY_STATE": {
+  "APPEARANCE_PROVED": 20,
+  "NOT_PROVED": 36,
+  "APPEARANCE_PLAUSIBLE": 2
+ },
+ "TRES_EIXOS": "APPEARANCE_STATE = e a pessoa? · CONTENT_RELEVANCE = o video e do dominio? · APPEARANCE_ROLE = ela fala ou so e creditada? Tres perguntas, tres campos, nenhum desempata o outro.",
+ "BY_ROLE": {
+  "UNSPECIFIED": 5,
+  "SPEAKING": 8,
+  "CREDITED": 9
+ },
+ "APARICOES_POR_PAIS_DA_PESSOA": {
+  "ES": 5,
+  "IT": 14,
+  "FR": 3
+ },
+ "PESSOAS_COM_ALGUMA_APARICAO": [
+  "Andrea Sánchez‐Vallet",
+  "Antonio Logrieco",
+  "Blanca B. Landa",
+  "François Delmotte",
+  "Massimo Blandino",
+  "Nicola Mori"
+ ],
+ "ITEMS": [
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "NFWBnPRO6SM",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=NFWBnPRO6SM",
+   "TITLE": "Estudio de la xylella en el primer laboratorio de bioseguridad vegetal de Andalucía",
+   "CHANNEL": "Tierra y Mar & Espacio Protegido Canal Sur",
+   "CHANNEL_URL": "https://www.youtube.com/@tierraymarespacioprotegido9357",
+   "PUBLISHED_AT": "2018-10-24T11:53:06.000Z",
+   "VIEWS": 406,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricultur, campo",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricultur, campo"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "-SYqt2oAk4g",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=-SYqt2oAk4g",
+   "TITLE": "Instalaciones frigoríficas para la maduración de quesos enzimáticos - Webinar 04ago2021",
+   "CHANNEL": "IFAPA TV",
+   "CHANNEL_URL": "https://www.youtube.com/@IFAPATV",
+   "PUBLISHED_AT": "2021-03-16T11:21:35.000Z",
+   "VIEWS": 1373,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricultur",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricultur"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "NTbj5rhYrNA",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=NTbj5rhYrNA",
+   "TITLE": "Don't Get Ripped Off: How to Choose Microbial Biostimulants",
+   "CHANNEL": "Hydroponics Daily",
+   "CHANNEL_URL": "https://www.youtube.com/@HydroponicsDaily",
+   "PUBLISHED_AT": "2025-12-29T12:32:32.000Z",
+   "VIEWS": 19,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricultur, plant health, crop",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 7 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricultur, plant health, crop"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "ehW_7_FqtBA",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=ehW_7_FqtBA",
+   "TITLE": "Dra. Blanca Landa 'La Xylella Fastidiosa' | II Encuentro Agrigenómica",
+   "CHANNEL": "Fundacion QUAES",
+   "CHANNEL_URL": "https://www.youtube.com/@fundacionquaes9382",
+   "PUBLISHED_AT": "2018-06-18T07:47:49.000Z",
+   "VIEWS": 314,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricultur",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "SPEAKING",
+   "APPEARANCE_ROLE_POR_QUE": "o nome esta no TITULO do video",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricultur"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "_t10LI9_99Y",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=_t10LI9_99Y",
+   "TITLE": "Investigadora cordobesa lidera proyecto internacional para frenar la bacteria 'Xylella fastidio",
+   "CHANNEL": "Europa Press",
+   "CHANNEL_URL": "https://www.youtube.com/@europapress",
+   "PUBLISHED_AT": "2023-03-19T09:06:55.000Z",
+   "VIEWS": 91,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricultur, oliv",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricultur, oliv"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "PEkCn9_r3gE",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=PEkCn9_r3gE",
+   "TITLE": "2024 07 24 (1/1) Entrevista: \"Barlin Olivares: Premio CSIC a la Tesis doctoral relevante 2024\"",
+   "CHANNEL": "ANIHVen CAE-Eventos",
+   "CHANNEL_URL": "https://www.youtube.com/@ANIHVenCAE-Eventos",
+   "PUBLISHED_AT": "2024-08-29T15:54:22.000Z",
+   "VIEWS": 68,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricol, agricultur, oliv, campo",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricol, agricultur, oliv, campo"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "lks7YpVIejQ",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=lks7YpVIejQ",
+   "TITLE": "Tornadoes, Wildfires, Floods...⚡My Global Trip to Earth's Extremes",
+   "CHANNEL": "Show Me the World",
+   "CHANNEL_URL": "https://www.youtube.com/@ShowMeTheWorld",
+   "PUBLISHED_AT": "2026-08-25T12:00:09.000Z",
+   "VIEWS": 11231,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": []
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "dfu_-lduhno",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=dfu_-lduhno",
+   "TITLE": "Yo Investigo Yo soy CSIC Manuel Anguita Maeso",
+   "CHANNEL": "Departamento de Postgrado y Especialización - CSIC",
+   "CHANNEL_URL": "https://www.youtube.com/@dpecsic",
+   "PUBLISHED_AT": "2019-11-12T09:58:28.000Z",
+   "VIEWS": 2505,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: oliv",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "oliv"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5046191184",
+   "NAME": "Blanca B. Landa",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "_pp5C3C5vdM",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=_pp5C3C5vdM",
+   "TITLE": "HDL Blanca Landa del Castillo, investigación agrícola para prevenir enfermedades en las plantas",
+   "CHANNEL": "Historias de Luz",
+   "CHANNEL_URL": "https://www.youtube.com/@historiasdeluz",
+   "PUBLISHED_AT": "2015-03-13T04:00:00.000Z",
+   "VIEWS": 717,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Blanca-B--Landa-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricol, agricultur, oliv",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "SPEAKING",
+   "APPEARANCE_ROLE_POR_QUE": "o nome esta no TITULO do video",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricol, agricultur, oliv"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5076239639",
+   "NAME": "Jesús Mercado‐Blanco",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "S9yx6ELMmPA",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=S9yx6ELMmPA",
+   "TITLE": "Vicente Plata, Oficial a cargo FAO Uruguay",
+   "CHANNEL": "Food and Agriculture Organization of the United Nations",
+   "CHANNEL_URL": "https://www.youtube.com/@UNFAO",
+   "PUBLISHED_AT": "2019-12-31T12:43:40.000Z",
+   "VIEWS": 187,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Jesús-Mercado-Blanco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricultur",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricultur"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5076239639",
+   "NAME": "Jesús Mercado‐Blanco",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "48uX0bm7Nwc",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=48uX0bm7Nwc",
+   "TITLE": "Técnicas de agricultura de conservación en una finca agrícola de Osuna",
+   "CHANNEL": "Tierra y Mar & Espacio Protegido Canal Sur",
+   "CHANNEL_URL": "https://www.youtube.com/@tierraymarespacioprotegido9357",
+   "PUBLISHED_AT": "2021-11-22T07:44:44.000Z",
+   "VIEWS": 9095,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Jesús-Mercado-Blanco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricol, agricultur, campo",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricol, agricultur, campo"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5076239639",
+   "NAME": "Jesús Mercado‐Blanco",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "GrZRqPtH0Wc",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=GrZRqPtH0Wc",
+   "TITLE": "Jabón con piñón manabita",
+   "CHANNEL": "Adriana Meza ",
+   "CHANNEL_URL": "https://www.youtube.com/@adrianameza1",
+   "PUBLISHED_AT": "2018-08-30T21:07:06.000Z",
+   "VIEWS": 5537,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Jesús-Mercado-Blanco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5076239639",
+   "NAME": "Jesús Mercado‐Blanco",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "rn267UPOrnI",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=rn267UPOrnI",
+   "TITLE": "Roberto Bisang (UNGS/UBA)",
+   "CHANNEL": "INSTITUTO PATAGÓNICO DE ESTUDIOS DE HUMANIDADES Y CIENCIAS SOCIALES",
+   "CHANNEL_URL": "https://www.youtube.com/@IPEHCSenvivo",
+   "PUBLISHED_AT": "2016-02-11T12:36:33.000Z",
+   "VIEWS": 207,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Jesús-Mercado-Blanco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5076239639",
+   "NAME": "Jesús Mercado‐Blanco",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Instituto de Agricultura Sostenible",
+   "CASE_ID": "ES-OLIVE-REPILO",
+   "VIDEO_ID": "yYAy0eqvhEI",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=yYAy0eqvhEI",
+   "TITLE": "🌳💦💚👉 ¿ Como Hacer PASTO Para MAQUETAS? 💙 / How to make GRASS for MODELS",
+   "CHANNEL": "El Canal de las Manualidades",
+   "CHANNEL_URL": "https://www.youtube.com/@Canaldelasmanualidades",
+   "PUBLISHED_AT": "2020-01-30T19:45:35.000Z",
+   "VIEWS": 1522724,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Jesús-Mercado-Blanco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": []
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5061913370",
+   "NAME": "Massimo Blandino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Turin",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "8lQHYEl9m8k",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=8lQHYEl9m8k",
+   "TITLE": "LATINE LOQUI - Graduation in Latin language (master's degree) / Laurea magistrale in lingua Latina",
+   "CHANNEL": "Gianluca Vindigni",
+   "CHANNEL_URL": "https://www.youtube.com/@gianlucavindigni3339",
+   "PUBLISHED_AT": "2019-12-29T20:23:49.000Z",
+   "VIEWS": 57431,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Massimo-Blandino-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: laurea, graduation, latine loqui",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "laurea, graduation, latine loqui"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5061913370",
+   "NAME": "Massimo Blandino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Turin",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "6dNQFLbMFnY",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=6dNQFLbMFnY",
+   "TITLE": "Via alle semine a Mais Domani 2023",
+   "CHANNEL": "L'Informatore Agrario",
+   "CHANNEL_URL": "https://www.youtube.com/@informatoreagrario",
+   "PUBLISHED_AT": "2023-04-17T08:46:23.000Z",
+   "VIEWS": 6714,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Massimo-Blandino-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, semin, mais, difesa, campo",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 2 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo em sequencia E conteudo do dominio tecnico da pessoa",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, semin, mais, difesa, campo"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5061913370",
+   "NAME": "Massimo Blandino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Turin",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "exS5VnMRNcg",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=exS5VnMRNcg",
+   "TITLE": "Tempo di semina del mais: i punti importanti",
+   "CHANNEL": "L'Informatore Agrario",
+   "CHANNEL_URL": "https://www.youtube.com/@informatoreagrario",
+   "PUBLISHED_AT": "2019-02-28T15:15:59.000Z",
+   "VIEWS": 47310,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Massimo-Blandino-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: semin, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 2 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo em sequencia E conteudo do dominio tecnico da pessoa",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "semin, mais"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5061913370",
+   "NAME": "Massimo Blandino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Turin",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "24oV7JE7I50",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=24oV7JE7I50",
+   "TITLE": "10 giugno: Giornata in campo a Mais Domani 2022",
+   "CHANNEL": "L'Informatore Agrario",
+   "CHANNEL_URL": "https://www.youtube.com/@informatoreagrario",
+   "PUBLISHED_AT": "2022-06-07T15:38:59.000Z",
+   "VIEWS": 2193,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Massimo-Blandino-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: semin, mais, diserb, campo, irrigaz",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 2 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo em sequencia E conteudo do dominio tecnico da pessoa",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "semin, mais, diserb, campo, irrigaz"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5061913370",
+   "NAME": "Massimo Blandino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Turin",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "BW9XOMOM4_Y",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=BW9XOMOM4_Y",
+   "TITLE": "Smart corn alla prova",
+   "CHANNEL": "Agronotizie - Notizie per l'agricoltura",
+   "CHANNEL_URL": "https://www.youtube.com/@agronotizietv",
+   "PUBLISHED_AT": "2025-03-11T14:16:00.000Z",
+   "VIEWS": 246,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Massimo-Blandino-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricol, coltur, coltiv, semin, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 4 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo em sequencia E conteudo do dominio tecnico da pessoa",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricol, coltur, coltiv, semin, mais"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5061913370",
+   "NAME": "Massimo Blandino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Turin",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "q6O6me1tXHs",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=q6O6me1tXHs",
+   "TITLE": "Cambiamento Climatico - L'intervento del  Prof. Massimo Blandino Università di Torino",
+   "CHANNEL": "LEANDRO MAGGI MADE IN POLESINE",
+   "CHANNEL_URL": "https://www.youtube.com/@leandromaggi1",
+   "PUBLISHED_AT": "2022-07-17T16:01:49.000Z",
+   "VIEWS": 122,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Massimo-Blandino-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "SPEAKING",
+   "APPEARANCE_ROLE_POR_QUE": "o nome esta no TITULO do video",
+   "APPEARANCE_STATE": "APPEARANCE_PLAUSIBLE",
+   "POR_QUE": "o nome bate e nada corrobora. A lei herdada: sem corroboracao dos dois lados, PLAUSIBLE, nunca PROVED",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5061913370",
+   "NAME": "Massimo Blandino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Turin",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "xMN5mo-Zqlc",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=xMN5mo-Zqlc",
+   "TITLE": "Mais e cambiamento climatico: il ruolo di Preceon - Smart Corn System",
+   "CHANNEL": "Bayer Crop Science Italia",
+   "CHANNEL_URL": "https://www.youtube.com/@BayerCropScienceIT",
+   "PUBLISHED_AT": "2025-12-16T08:58:54.000Z",
+   "VIEWS": 50511,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Massimo-Blandino-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: semin, mais, cereal, crop",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 2 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo em sequencia E conteudo do dominio tecnico da pessoa",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "semin, mais, cereal, crop"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5030669619",
+   "NAME": "Antonio Logrieco",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "Institute of Sciences of Food Production",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "Y1gn43UGYv0",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=Y1gn43UGYv0",
+   "TITLE": "MYCORED Novel integrated strategies for worldwide mycotoxin reduction in food and feed chains.",
+   "CHANNEL": "Gil Naor",
+   "CHANNEL_URL": "https://www.youtube.com/@GilNaor",
+   "PUBLISHED_AT": "2012-06-19T05:10:55.000Z",
+   "VIEWS": 383,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Antonio-Logrieco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: mycotoxin",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "mycotoxin"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5030669619",
+   "NAME": "Antonio Logrieco",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "Institute of Sciences of Food Production",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "NrwyIEJjrW0",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=NrwyIEJjrW0",
+   "TITLE": "ENCODE Encyclopedia and Factorbook - Michael Purcaro",
+   "CHANNEL": "National Human Genome Research Institute",
+   "CHANNEL_URL": "https://www.youtube.com/@genometv",
+   "PUBLISHED_AT": "2015-08-21T20:47:59.000Z",
+   "VIEWS": 258,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Antonio-Logrieco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: genome, encode",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "genome, encode"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5030669619",
+   "NAME": "Antonio Logrieco",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "Institute of Sciences of Food Production",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "lSaxLR0KEyU",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=lSaxLR0KEyU",
+   "TITLE": "\"Belli o brutti, i microorganismi li conserviamo tutti",
+   "CHANNEL": "ERN ApuliaMED",
+   "CHANNEL_URL": "https://www.youtube.com/@ernapuliamed",
+   "PUBLISHED_AT": "2021-09-23T16:11:48.000Z",
+   "VIEWS": 139,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Antonio-Logrieco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricol, agricultur, coltur, crop",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em ordem invertida"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricol, agricultur, coltur, crop"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5030669619",
+   "NAME": "Antonio Logrieco",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "Institute of Sciences of Food Production",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "wXS3WNpfh3M",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=wXS3WNpfh3M",
+   "TITLE": "Le imprese pugliesi: una situazione finanziaria complessa e nuove opportunità",
+   "CHANNEL": "Ria Grant Thornton - Italy",
+   "CHANNEL_URL": "https://www.youtube.com/@riagrantthorntonitaly",
+   "PUBLISHED_AT": "2018-04-27T10:33:23.000Z",
+   "VIEWS": 168,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Antonio-Logrieco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: finanziaria, imprese pugliesi, rettore",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome bate e o conteudo e de outro dominio (finanziaria, imprese pugliesi, rettore): homonimo",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "finanziaria, imprese pugliesi, rettore"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5030669619",
+   "NAME": "Antonio Logrieco",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "Institute of Sciences of Food Production",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "4kf8NBpBAWs",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=4kf8NBpBAWs",
+   "TITLE": "Moretti Antonio_Novel integrated strategies for worldwide mycotoxin (continue)",
+   "CHANNEL": "BioNCP of Russia",
+   "CHANNEL_URL": "https://www.youtube.com/@BioNCPrussian",
+   "PUBLISHED_AT": "2011-06-18T18:06:04.000Z",
+   "VIEWS": 52,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Antonio-Logrieco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: mycotoxin",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 3 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "mycotoxin"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5030669619",
+   "NAME": "Antonio Logrieco",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "Institute of Sciences of Food Production",
+   "CASE_ID": "IT-DURUM_WHEAT-FUSARIUM",
+   "VIDEO_ID": "e7i3PuzMoi4",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=e7i3PuzMoi4",
+   "TITLE": "Moretti Antonio_Novel integrated strategies for worldwide mycotoxin",
+   "CHANNEL": "BioNCP of Russia",
+   "CHANNEL_URL": "https://www.youtube.com/@BioNCPrussian",
+   "PUBLISHED_AT": "2011-06-18T17:27:21.000Z",
+   "VIEWS": 172,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Antonio-Logrieco-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: mycotoxin",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 3 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "mycotoxin"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "nwdyRgJutv0",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=nwdyRgJutv0",
+   "TITLE": "#3 De l'eau douce pour tous ? | Florence Habets",
+   "CHANNEL": "Saga sounds",
+   "CHANNEL_URL": "https://www.youtube.com/@sagasounds3843",
+   "PUBLISHED_AT": "2022-03-30T10:36:57.000Z",
+   "VIEWS": 1073,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricultur, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricultur, mais"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "Uhs76r-COlQ",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=Uhs76r-COlQ",
+   "TITLE": "#RCP22 - Rompre le cycle sexué du mildiou pour limiter les épidémies",
+   "CHANNEL": "PPR Cultiver et Protéger Autrement",
+   "CHANNEL_URL": "https://www.youtube.com/@PPR_CPA",
+   "PUBLISHED_AT": "2022-03-24T08:45:52.000Z",
+   "VIEWS": 92,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "APPEARANCE_PLAUSIBLE",
+   "POR_QUE": "o nome bate e nada corrobora. A lei herdada: sem corroboracao dos dois lados, PLAUSIBLE, nunca PROVED",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "Vfo6HSQJJhM",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=Vfo6HSQJJhM",
+   "TITLE": "50 ans du Rapport Meadows : A-t-on dépassé les limites planétaires ?",
+   "CHANNEL": "Saga sounds",
+   "CHANNEL_URL": "https://www.youtube.com/@sagasounds3843",
+   "PUBLISHED_AT": "2022-03-18T08:36:39.000Z",
+   "VIEWS": 2430,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricol, oliv, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricol, oliv, mais"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "gQZVbSP2itU",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=gQZVbSP2itU",
+   "TITLE": "#2 : Comment nourrir le monde | Marc Dufumier",
+   "CHANNEL": "Saga sounds",
+   "CHANNEL_URL": "https://www.youtube.com/@sagasounds3843",
+   "PUBLISHED_AT": "2022-03-23T07:35:27.000Z",
+   "VIEWS": 1699,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricol, agricultur, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricol, agricultur, mais"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "lFXhtJtqPhk",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=lFXhtJtqPhk",
+   "TITLE": "Dernières Limites : Bande-annonce",
+   "CHANNEL": "Saga sounds",
+   "CHANNEL_URL": "https://www.youtube.com/@sagasounds3843",
+   "PUBLISHED_AT": "2022-02-25T10:06:31.000Z",
+   "VIEWS": 852,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricultur, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricultur, mais"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "3PuVmI8LKlg",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=3PuVmI8LKlg",
+   "TITLE": "Valérie Masson-Delmotte & Nathalie de Noblet-Ducoudré - Terres et climat, même combat",
+   "CHANNEL": "CEA",
+   "CHANNEL_URL": "https://www.youtube.com/@CEA",
+   "PUBLISHED_AT": "2020-01-24T10:52:34.000Z",
+   "VIEWS": 6431,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "HxP9LA2mzao",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=HxP9LA2mzao",
+   "TITLE": "Prologue : 50 ans après | Dennis Meadows",
+   "CHANNEL": "Saga sounds",
+   "CHANNEL_URL": "https://www.youtube.com/@sagasounds3843",
+   "PUBLISHED_AT": "2022-03-05T12:18:01.000Z",
+   "VIEWS": 1821,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricultur, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricultur, mais"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "VFTghvY8WzA",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=VFTghvY8WzA",
+   "TITLE": "Portrait-robot du mildiou de la vigne – François Delmotte (INRAE, ISVV) – 18 juin 2025",
+   "CHANNEL": "Projet GetUp - PARSADA",
+   "CHANNEL_URL": "https://www.youtube.com/@ProjetGetUp",
+   "PUBLISHED_AT": "2026-01-21T13:05:31.000Z",
+   "VIEWS": 98,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: vigne",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "SPEAKING",
+   "APPEARANCE_ROLE_POR_QUE": "o nome esta no TITULO do video",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo em sequencia E conteudo do dominio tecnico da pessoa",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "vigne"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "pdMJKbRYBcM",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=pdMJKbRYBcM",
+   "TITLE": "# 9 Climat en surchauffe | Valérie Masson Delmotte",
+   "CHANNEL": "Saga sounds",
+   "CHANNEL_URL": "https://www.youtube.com/@sagasounds3843",
+   "PUBLISHED_AT": "2022-05-11T15:42:05.000Z",
+   "VIEWS": 932,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricultur, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricultur, mais"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5088752812",
+   "NAME": "François Delmotte",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "qp1TR3CBMcI",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=qp1TR3CBMcI",
+   "TITLE": "ASTRAGAL | Paroles d'Expert : François DELMOTTE",
+   "CHANNEL": "Réseau SATT",
+   "CHANNEL_URL": "https://www.youtube.com/@reseausatt7499",
+   "PUBLISHED_AT": "2024-03-12T11:01:03.000Z",
+   "VIEWS": 140,
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-François-Delmotte-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricol, agricultur",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "SPEAKING",
+   "APPEARANCE_ROLE_POR_QUE": "o nome esta no TITULO do video",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricol, agricultur"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5004224162",
+   "NAME": "Isabelle D. Mazet",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-VINE-DOWNY_MILDEW",
+   "VIDEO_ID": "NÃO SEI",
+   "VIDEO_URL": "https://www.youtube.com/results?search_query=Isabelle+D.+Mazet+Institut+National+de+Recherche+pour+l%27Agriculture&sp=EgIQAQ%3D%3D",
+   "TITLE": "NÃO SEI",
+   "CHANNEL": "NÃO SEI",
+   "CHANNEL_URL": "NÃO SEI",
+   "PUBLISHED_AT": "NÃO SEI",
+   "VIEWS": "NÃO SEI",
+   "COLLECTION_RUN_ID": "SENSOR-YT-A-Isabelle-D--Mazet-p1",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": []
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5004215689",
+   "NAME": "Andrea Sánchez‐Vallet",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Centre for Plant Biotechnology and Genomics",
+   "CASE_ID": "ES-CEREAL-SEPTORIA",
+   "VIDEO_ID": "Br3llRcVnq8",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=Br3llRcVnq8",
+   "TITLE": "ICPP2023: Molecular aspects of plant-fungal interactions",
+   "CHANNEL": "ICPP2023",
+   "CHANNEL_URL": "https://www.youtube.com/@ICPP2023",
+   "PUBLISHED_AT": "2024-04-24T13:34:45.000Z",
+   "VIEWS": 269,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Andrea-Sánchez-Vallet-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricultur, oliv, plant health",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricultur, oliv, plant health"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002506151",
+   "NAME": "Cristian Carrasco‐López",
+   "COUNTRY_OF_PERSON": "ES",
+   "INSTITUTION": "Centre for Plant Biotechnology and Genomics",
+   "CASE_ID": "ES-CEREAL-SEPTORIA",
+   "VIDEO_ID": "NÃO SEI",
+   "VIDEO_URL": "https://www.youtube.com/results?search_query=Cristian+Carrasco%E2%80%90L%C3%B3pez+Centre+for+Plant+Biotechnology+and+Genomics&sp=EgIQAQ%3D%3D",
+   "TITLE": "NÃO SEI",
+   "CHANNEL": "NÃO SEI",
+   "CHANNEL_URL": "NÃO SEI",
+   "PUBLISHED_AT": "NÃO SEI",
+   "VIEWS": "NÃO SEI",
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Cristian-Carrasco-López-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": []
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5057322051",
+   "NAME": "F. Quaglino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Milan",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "OPFEOk5G-qE",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=OPFEOk5G-qE&list=RDOPFEOk5G-qE&start_radio=1",
+   "TITLE": "Concerto A Cinque No. 11 in D Major, Op. 7",
+   "CHANNEL": "Orchestra Dell'Angelicum Di Milano - Topic",
+   "CHANNEL_URL": "https://www.youtube.com/channel/UCqzm0zY5B0Z0Gs2HVl1BCxA",
+   "PUBLISHED_AT": "2022-03-17T01:20:23.000Z",
+   "VIEWS": 228,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-F--Quaglino-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: concerto, orchestra",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: inicial + sobrenome nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "concerto, orchestra"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5057322051",
+   "NAME": "F. Quaglino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Milan",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "0xR_R2F23bI",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=0xR_R2F23bI",
+   "TITLE": "Melanoma: diagnosi precoce e garanzia di cure mirate e migliore prognosi",
+   "CHANNEL": "PharmaStarTV",
+   "CHANNEL_URL": "https://www.youtube.com/@PharmaStarTV",
+   "PUBLISHED_AT": "2015-01-18T13:35:29.000Z",
+   "VIEWS": 3240,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-F--Quaglino-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: melanoma",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 3 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: inicial + sobrenome nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "melanoma"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5057322051",
+   "NAME": "F. Quaglino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Milan",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "ZNqlvbVXU6s",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=ZNqlvbVXU6s",
+   "TITLE": "Dott.ssa Donata francescato (parte I)",
+   "CHANNEL": "Ordine Psicologhe e Psicologi FVG",
+   "CHANNEL_URL": "https://www.youtube.com/@ordinepsicologifvg2079",
+   "PUBLISHED_AT": "2016-05-22T10:19:25.000Z",
+   "VIEWS": 6091,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-F--Quaglino-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: psicolog",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: inicial + sobrenome nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "psicolog"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5057322051",
+   "NAME": "F. Quaglino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Milan",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "DHa1FTixkFY",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=DHa1FTixkFY",
+   "TITLE": "Cooperazione e università: la fitoplasmosi del mandorlo in Libano",
+   "CHANNEL": "UN EXPO PER TUTTI",
+   "CHANNEL_URL": "https://www.youtube.com/@unexpopertutti1159",
+   "PUBLISHED_AT": "2015-07-29T14:14:50.000Z",
+   "VIEWS": 494,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-F--Quaglino-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: inicial + sobrenome nao aparece em sequencia",
+   "EVIDENCIA": []
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5057322051",
+   "NAME": "F. Quaglino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Milan",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "XoMaAy8Dhjw",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=XoMaAy8Dhjw",
+   "TITLE": "A tavola con Jung. Un incontro con la psicologia analitica 2/3",
+   "CHANNEL": "Università degli Studi di Milano - Bicocca",
+   "CHANNEL_URL": "https://www.youtube.com/@bicocca",
+   "PUBLISHED_AT": "2013-11-05T08:13:37.000Z",
+   "VIEWS": 14493,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-F--Quaglino-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: psicolog, junghian, analitica",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: inicial + sobrenome nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "psicolog, junghian, analitica"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5057322051",
+   "NAME": "F. Quaglino",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Milan",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "9wEuF9nTbtE",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=9wEuF9nTbtE",
+   "TITLE": "Open Day 2020 | Fabrizio Alfani | Cosa significa essere analista junghiano?",
+   "CHANNEL": "Aipa Milano",
+   "CHANNEL_URL": "https://www.youtube.com/@aipamilano6106",
+   "PUBLISHED_AT": "2020-05-21T12:06:59.000Z",
+   "VIEWS": 4452,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-F--Quaglino-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: campo; fora: psicolog, junghian, analitica",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: inicial + sobrenome nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "campo"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "psicolog, junghian, analitica"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "JVpEboJ2RgQ",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=JVpEboJ2RgQ",
+   "TITLE": "GF 2022 - Intervista sulle strategie di lotta allo Scaphoideus titanus",
+   "CHANNEL": "Giornate Fitopatologiche",
+   "CHANNEL_URL": "https://www.youtube.com/@giornatefitopatologiche6190",
+   "PUBLISHED_AT": "2022-09-27T13:21:20.000Z",
+   "VIEWS": 130,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: fitopatolog, scaphoideus",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "SPEAKING",
+   "APPEARANCE_ROLE_POR_QUE": "verbo de exposicao perto do nome: \"riporta\"",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "fitopatolog, scaphoideus"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "RByjH-495CQ",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=RByjH-495CQ",
+   "TITLE": "Nuove opportunità di carriera in un agro-alimentare che cambia - RecruitingDay 2026",
+   "CHANNEL": "UniVerona",
+   "CHANNEL_URL": "https://www.youtube.com/@UniVerona",
+   "PUBLISHED_AT": "2026-06-03T13:11:45.000Z",
+   "VIEWS": 41,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: laurea",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 5 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome bate e o conteudo e de outro dominio (laurea): homonimo",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "laurea"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "u6By1II1ids",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=u6By1II1ids",
+   "TITLE": "GF 2024 - Presentazione dei lavori sperimentali per la difesa della vite dalle avversità animali",
+   "CHANNEL": "Giornate Fitopatologiche",
+   "CHANNEL_URL": "https://www.youtube.com/@giornatefitopatologiche6190",
+   "PUBLISHED_AT": "2024-06-18T08:48:50.000Z",
+   "VIEWS": 227,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: vite, fitopatolog, difesa, scaphoideus, popillia, sperimenta",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "SPEAKING",
+   "APPEARANCE_ROLE_POR_QUE": "marcador de fala perto do nome: \"presenta\"",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "vite, fitopatolog, difesa, scaphoideus, popillia, sperimenta"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "pXEaaXKg7PQ",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=pXEaaXKg7PQ",
+   "TITLE": "Fermare l'avanzata della Popillia japonica è possibile?",
+   "CHANNEL": "Agronotizie - Notizie per l'agricoltura",
+   "CHANNEL_URL": "https://www.youtube.com/@agronotizietv",
+   "PUBLISHED_AT": "2022-12-21T14:25:54.000Z",
+   "VIEWS": 429,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agricol, popillia",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 2 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agricol, popillia"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "PSkojSeeRmI",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=PSkojSeeRmI",
+   "TITLE": "Notiziario cerasicolo 30 Maggio 2025",
+   "CHANNEL": "AIPO verona",
+   "CHANNEL_URL": "https://www.youtube.com/@aipoverona7094",
+   "PUBLISHED_AT": "2025-05-30T06:00:32.000Z",
+   "VIEWS": 328,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: raccolt, fitosanitar, difesa, insetticid",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 3 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "raccolt, fitosanitar, difesa, insetticid"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "IgC-1e_I4pg",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=IgC-1e_I4pg",
+   "TITLE": "Seminario di Sociologia all’università",
+   "CHANNEL": "Ornella Liotta",
+   "CHANNEL_URL": "https://www.youtube.com/@ornellaliotta1843",
+   "PUBLISHED_AT": "2023-05-27T04:05:54.000Z",
+   "VIEWS": 5,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: sociologia",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "sociologia"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "SpZ_NhmWh9g",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=SpZ_NhmWh9g",
+   "TITLE": "GF 2022 - Intervento sulle strategie di lotta allo Scaphoideus titanus",
+   "CHANNEL": "Giornate Fitopatologiche",
+   "CHANNEL_URL": "https://www.youtube.com/@giornatefitopatologiche6190",
+   "PUBLISHED_AT": "2022-09-27T14:35:14.000Z",
+   "VIEWS": 260,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: fitopatolog, scaphoideus",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "SPEAKING",
+   "APPEARANCE_ROLE_POR_QUE": "verbo de exposicao perto do nome: \"riporta\"",
+   "APPEARANCE_STATE": "APPEARANCE_PROVED",
+   "POR_QUE": "nome completo, instituicao citada E dominio tecnico — tres eixos independentes",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "fitopatolog, scaphoideus"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "huy_z3ClGFs",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=huy_z3ClGFs",
+   "TITLE": "Presentato il progetto Contamination Lab Veneto",
+   "CHANNEL": "UniVerona",
+   "CHANNEL_URL": "https://www.youtube.com/@UniVerona",
+   "PUBLISHED_AT": "2018-02-01T13:33:23.000Z",
+   "VIEWS": 195,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: rettore",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome bate e o conteudo e de outro dominio (rettore): homonimo",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "rettore"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "M-aLcgUk6pM",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=M-aLcgUk6pM",
+   "TITLE": "giornata della ricerca",
+   "CHANNEL": "Telepace",
+   "CHANNEL_URL": "https://www.youtube.com/@TelePace",
+   "PUBLISHED_AT": "2013-12-02T09:20:25.000Z",
+   "VIEWS": 312,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: sociologia, rettore",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "sociologia, rettore"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002982424",
+   "NAME": "Nicola Mori",
+   "COUNTRY_OF_PERSON": "IT",
+   "INSTITUTION": "University of Verona",
+   "CASE_ID": "IT-VINE-FLAVESCENCE",
+   "VIDEO_ID": "rN3bp87M-qc",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=rN3bp87M-qc",
+   "TITLE": "Il Magnifico Rettore ha inaugurato l’anno accademico del Collegio Don Mazza",
+   "CHANNEL": "Don NIcola Mazza",
+   "CHANNEL_URL": "https://www.youtube.com/@DonNIcolaMazza",
+   "PUBLISHED_AT": "2023-10-20T16:51:12.000Z",
+   "VIEWS": 32,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Nicola-Mori-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "OUT_OF_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico; fora: anno accademico, rettore",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "CREDITED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece numa LISTA de 2 nomes seguida de instituicao, sem verbo de exposicao — e assinatura de trabalho, nao prova de fala",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome bate e o conteudo e de outro dominio (anno accademico, rettore): homonimo",
+   "EVIDENCIA": [
+    {
+     "EIXO": "NOME",
+     "COMO": "nome completo em sequencia"
+    },
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "FORA_DE_DOMINIO",
+     "COMO": "anno accademico, rettore"
+    }
+   ]
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5056275737",
+   "NAME": "Frédéric Suffert",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-CEREAL-SEPTORIA",
+   "VIDEO_ID": "NÃO SEI",
+   "VIDEO_URL": "https://www.youtube.com/results?search_query=Fr%C3%A9d%C3%A9ric+Suffert+Institut+National+de+Recherche+pour+l%27Agriculture&sp=EgIQAQ%3D%3D",
+   "TITLE": "NÃO SEI",
+   "CHANNEL": "NÃO SEI",
+   "CHANNEL_URL": "NÃO SEI",
+   "PUBLISHED_AT": "NÃO SEI",
+   "VIEWS": "NÃO SEI",
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Frédéric-Suffert-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "NOT_KNOWN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: nenhum termo tecnico",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": []
+  },
+  {
+   "PERSON_ID": "https://openalex.org/A5002633327",
+   "NAME": "Thierry C. Marcel",
+   "COUNTRY_OF_PERSON": "FR",
+   "INSTITUTION": "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
+   "CASE_ID": "FR-CEREAL-SEPTORIA",
+   "VIDEO_ID": "pdMJKbRYBcM",
+   "VIDEO_URL": "https://www.youtube.com/watch?v=pdMJKbRYBcM",
+   "TITLE": "# 9 Climat en surchauffe | Valérie Masson Delmotte",
+   "CHANNEL": "Saga sounds",
+   "CHANNEL_URL": "https://www.youtube.com/@sagasounds3843",
+   "PUBLISHED_AT": "2022-05-11T15:42:05.000Z",
+   "VIEWS": 932,
+   "COLLECTION_RUN_ID": "SENSOR-YT-B-Thierry-C--Marcel-p3",
+   "APIFY_ACTOR": "streamers~youtube-scraper",
+   "CHANNEL_OWNERSHIP": "NOT_CLAIMED",
+   "CHANNEL_OWNERSHIP_POR_QUE": "aparecer num video nao e ser dono do canal. A coleta ja registrou CHANNEL_KIND = INSTITUTIONAL_CHANNEL_FEATURING_PERSON_CANDIDATE.",
+   "CONTENT_RELEVANCE": "TECHNICAL_DOMAIN",
+   "CONTENT_RELEVANCE_POR_QUE": "dominio: agronom, agricultur, mais",
+   "DOIS_EIXOS": "APPEARANCE_STATE fala da PESSOA; CONTENT_RELEVANCE fala do VIDEO. Nao conseguir provar a pessoa nao torna o video irrelevante — pode ser pista de fonte.",
+   "APPEARANCE_ROLE": "UNSPECIFIED",
+   "APPEARANCE_ROLE_POR_QUE": "o nome aparece, e nada em volta diz se ele fala ou e citado",
+   "APPEARANCE_STATE": "NOT_PROVED",
+   "POR_QUE": "o nome completo nao aparece no titulo, na descricao nem no canal: nome completo nao aparece em sequencia",
+   "EVIDENCIA": [
+    {
+     "EIXO": "INSTITUICAO",
+     "COMO": "token da instituicao no texto"
+    },
+    {
+     "EIXO": "DOMINIO_TECNICO",
+     "COMO": "agronom, agricultur, mais"
+    }
+   ]
+  }
+ ]
+}
