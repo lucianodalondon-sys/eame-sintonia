@@ -455,6 +455,47 @@ check('PT1', 'No Portuguese research prose reaches any rendered screen', () => {
   };
 });
 
+check('PT4', 'No source reaches the model carrying a research note where its NAME should be', () => {
+  const AM = loadData().ITALY_APP_MODEL;
+  const records = ((AM.collections || {}).sources || {}).records || [];
+
+  /* WHY THIS IS NOT COVERED BY PT1.
+     PT1 walks the props a screen returns, and it reported 0 while 66 of 188
+     source names were the analyst's Portuguese working notes. Two reasons, both
+     measured. The Fonti screen returns ~24.800 strings and collectStrings()
+     stops at 4.000, so the names were never reached; and the marker list did
+     not carry this class of word, so the ones it did reach read as Italian.
+
+         UNA REGOLA CHE MISURA L'USCITA DI UNO SCHERMO
+         NON SA DIRE SE HA GUARDATO TUTTO.
+
+     So this check does not render anything. It reads the collection itself —
+     the single field that the Fonti list, the source detail title and its
+     uppercased breadcrumb, the case source list, the Future-Radar cards and
+     the FONTI group of the search all print — and it reads every row of it. */
+  const isProse = (t) => /[.!?]\s+\p{Lu}/u.test(t) || (/[.!?]\s*$/.test(t) && t.length > 55);
+  const bad = [];
+  for (const r of records) {
+    const n = r && r.name;
+    if (typeof n !== 'string' || !n.trim()) { bad.push(`${r && r.id}: no printable name at all`); continue; }
+    if (isPortuguese(n)) bad.push(`${r.id}: PORTUGUESE name "${n.slice(0, 90)}"`);
+    else if (isProse(n)) bad.push(`${r.id}: RESEARCH PROSE as name "${n.slice(0, 90)}"`);
+  }
+
+  /* A CHECK THAT FINDS NOTHING TO LOOK AT HAS NOT PASSED.
+     If the sources family ever comes up empty — a renamed collection, a family
+     that failed to build, a harness that loaded no data — this check would
+     report zero Portuguese names and be perfectly wrong. Nothing to inspect is
+     itself the failure, and it says so instead of going green. */
+  const vacuous = records.length === 0;
+  return {
+    pass: !vacuous && bad.length === 0,
+    expected: '0 in >0 sources',
+    measured: vacuous ? 'NO SOURCE RECORDS TO INSPECT — INCONCLUSIVE' : `${bad.length} of ${records.length} sources`,
+    detail: vacuous ? ['AM.collections.sources.records is empty'] : bad.slice(0, 14),
+  };
+});
+
 check('PT2', 'Every crop token that reaches a screen resolves to the canonical vocabulary', () => {
   const ctx = loadData();
   const AM = ctx.ITALY_APP_MODEL;

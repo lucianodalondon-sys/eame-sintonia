@@ -48,6 +48,50 @@ export const PT_MARKERS = [
   'principal', 'sinal', 'escala', 'vale do', 'micotoxina', 'micotoxinas',
   'desoxinivalenol', 'regulatorio', 'regulatório', 'praga', 'pragas',
   'colheita', 'lavoura', 'plantio', 'safra',
+  /* THE SOURCE *NAME* CARRIES THE SAME PROSE, AND THIS LIST COULD NOT SEE IT.
+     Measured 2026-09-03 on the shipped package: the guard reported 0 Portuguese
+     source names while 66 of 188 were Portuguese — «Macfrut — site oficial»,
+     «Ministero della Salute — Banca dati dei prodotti fitosanitari (busca
+     publica)», «Il Risicoltore — mensal do Ente Nazionale Risi» — and whole
+     working paragraphs. Zero was not a measurement: it was a vocabulary gap.
+     The class this list was missing is the analyst's OWN register — how a
+     source was found, read and described (busca, oficial, mensal, boletim,
+     relatorio, pesquisa), as opposed to the agronomic register it already had.
+
+         UNA LISTA CHE NON CONTIENE LA PAROLA CERCATA
+         NON MISURA ZERO: NON MISURA.
+
+     Every token below was measured against the 1.565 interface strings in this
+     package: zero hits, so none of them accuses correct Italian. */
+  'busca', 'publica', 'oficial', 'nacional', 'mensal', 'semanal',
+  'institucional', 'passou', 'devolve', 'jeito', 'raspar', 'mapa do site',
+  'majoritariamente', 'financiamento',
+  'grupo', 'beterraba', 'setores', 'servico', 'serviço', 'informacao',
+  'informação', 'aplicacao', 'aplicação', 'fichas', 'paginas', 'páginas',
+  'página', 'artigos', 'noticias', 'notícias', 'boletim', 'boletins',
+  'producao', 'produção', 'estacoes', 'estações', 'relatorio', 'relatorios',
+  'relatórios', 'pesquisa', 'cobertura', 'comunicado', 'comunicados',
+  'edicao', 'edição', 'verao', 'verão', 'levantamento', 'pomares',
+  'resolucao', 'resolução', 'fitossanitario', 'fitossanitarios',
+  'fitossanitários', 'rede', 'seccao', 'secção', 'configuracao',
+  'configuração', 'catálogo', 'desconhecida', 'desconhecido', 'entidades',
+  'conjuntura', 'trimestral', 'preco', 'preço', 'regiao', 'região',
+  'vindima', 'agronomos', 'caminho', 'todos os', 'repositorio', 'programa',
+  'crédito', 'antiga', 'antigo', 'area de', 'rota antiga',
+  /* ESCLUSI DI PROPOSITO DA QUESTO STESSO BLOCCO, e detti qui perche una
+     regola che vale quasi sempre deve dire dove non vale:
+       «credito»    senza accento e italiano corrente (credito d imposta);
+                    l accento resta, perche accentato e solo portoghese, e la
+                    frase misurata («financiamento e credito») e gia presa da
+                    «financiamento».
+       «superficie» e identica in italiano: misurata, accusava 1.010 stringhe
+                    del pacchetto e una traduzione italiana corretta.
+       «pagina» «catalogo» «pera» «pasta» «ultimo» «rendimento» «alternativo»
+                    sono parole italiane normali. Le forme accentate o
+                    plurali portoghesi sopra le coprono senza accusarle.
+     E la stessa legge che il capo di questo file dichiara per «mais», «per»
+     ed «epoca»: un marcatore che accusa italiano corretto insegna a
+     ignorare il rilevatore. */
 ];
 /* Deliberately NOT markers, because they are ordinary Italian too and produced
    false positives when measured against this package's own Italian strings:

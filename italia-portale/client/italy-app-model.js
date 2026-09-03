@@ -408,6 +408,105 @@
     return host;
   };
 
+  /* ── THE SOURCE NAME WAS THE ONE FIELD WITHOUT A LANGUAGE GATE ───────────
+     Every narrative field on a source is read through narrative() / v21Text(),
+     so an untranslated working note comes back as a STATE and never as prose.
+     NAME was read with v21S() and handed to the screen unexamined, on the
+     reasoning that a name is a proper noun and a proper noun is not translated.
+
+     Measured on this package, that reasoning was wrong 66 times out of 188.
+     The analyst wrote the research note where the name goes:
+
+       «Macfrut — site oficial»
+       «Ministero della Salute — Banca dati dei prodotti fitosanitari (busca publica)»
+       «Il Risicoltore — mensal do Ente Nazionale Risi»
+       «Portal institucional ISMEA. Passou de 404 para 200 com a VPN. ...»
+
+     and it rendered verbatim, in BOTH languages, on five screens — the Fonti
+     list, the source detail title and its uppercased breadcrumb, the source
+     list of an opportunity case, the Future-Radar signal cards and the FONTI
+     group of the global search — because all of them read this one field.
+
+         UN NOME PROPRIO NON SI TRADUCE.
+         MA UNA NOTA DI RICERCA NON E UN NOME PROPRIO.
+
+     The ingest already withholds the notes its own marker list recognised
+     (NAME__PT_ONLY, 28 rows). This is the same law, applied where the model
+     can enforce it without waiting for the package to be rebuilt — and it is
+     deliberately a SECOND line, not a replacement: if a future package gates
+     the field upstream, this gate simply stops finding anything.
+
+     Portuguese only. A token that is also ordinary Italian is excluded and
+     named below, for the reason lang.mjs gives for «mais», «per» and «epoca»:
+     a marker that accuses correct Italian teaches the reader to ignore the
+     detector. Verified against every Italian string this package ships. */
+  const NAME_PT_TOKENS = [
+    'busca', 'publica', 'oficial', 'nacional', 'mensal', 'semanal',
+    'institucional', 'passou', 'devolve', 'jeito', 'raspar', 'majoritariamente',
+    'financiamento', 'grupo', 'beterraba', 'setores', 'servico', 'informacao',
+    'aplicacao', 'fichas', 'paginas', 'artigos', 'noticias', 'boletim',
+    'boletins', 'producao', 'estacoes', 'relatorio', 'relatorios', 'pesquisa',
+    'cobertura', 'comunicado', 'comunicados', 'edicao', 'verao', 'levantamento',
+    'pomares', 'resolucao', 'fitossanitario', 'fitossanitarios', 'rede',
+    'seccao', 'configuracao', 'desconhecida', 'desconhecido', 'entidades',
+    'conjuntura', 'trimestral', 'regiao', 'vindima', 'agronomos', 'caminho',
+    'repositorio', 'programa', 'atas', 'confirmei', 'confirmado', 'sugerido',
+    'anexos', 'baixam', 'aviso do', 'listar', 'antiga', 'antigo',
+    /* Collocations. Each word on its own could be Italian or English; the pair
+       cannot. «do site» alone would accuse the English «to do site surveys»,
+       so it never travels without its Portuguese partner. */
+    'mapa do site', 'sitemap oficial', 'do site italiano', 'de eventos',
+    'de passagem', 'fichas de produto', 'pagina indice', 'indice do',
+    'calendario do', 'cobertura do', 'site do', 'mensal do', 'todos os',
+    'lista os', 'lista as', 'e o equivalente', 'seria o', 'area de',
+    'rota antiga',
+    /* Accented forms. Each is Portuguese on its own — the unaccented Italian
+       twin («pagina», «catalogo», «regione», «credito») is NOT in this list. */
+    'servi\u00e7o', 'informa\u00e7\u00e3o', 'aplica\u00e7\u00e3o', 'p\u00e1gina', 'p\u00e1ginas',
+    'not\u00edcias', 'produ\u00e7\u00e3o', 'esta\u00e7\u00f5es', 'relat\u00f3rios', 'edi\u00e7\u00e3o',
+    'ver\u00e3o', 'resolu\u00e7\u00e3o', 'fitossanit\u00e1rios', 'sec\u00e7\u00e3o',
+    'configura\u00e7\u00e3o', 'cat\u00e1logo', 'regi\u00e3o', 'pre\u00e7o', 'cr\u00e9dito',
+    'n\u00e3o', 's\u00e3o', 'ent\u00e3o',
+  ];
+  /* ESCLUSI DI PROPOSITO, e detti qui perche una regola che vale quasi sempre
+     deve dire dove non vale: «credito», «superficie», «rendimento», «pagina»,
+     «catalogo», «preco» (accusa l italiano «precoce»), «pera», «pasta»,
+     «ultimo», «alternativo», «principal» e «temporal» sono parole italiane
+     normali, o comparivano dentro nomi italiani corretti di questo stesso
+     pacchetto. Misurato: aggiungerle avrebbe cancellato nomi giusti. Le forme
+     accentate o plurali portoghesi qui sopra coprono gli stessi record senza
+     accusare l italiano. */
+  const NAME_PT_RE = new RegExp(
+    '(^|[^\\p{L}])(' + NAME_PT_TOKENS.map((t) => t.replace(/ /g, '\\s+')).join('|') + ')([^\\p{L}]|$)',
+    'iu',
+  );
+  /* A NAME IS A NOUN PHRASE. A NOTE IS A SENTENCE.
+     Language alone does not catch «VALLE D'AOSTA. Pagina 'Avvisi fitosanitari
+     per frutticoltori'.» — correct Italian, and still the analyst's note about
+     a page rather than the name of a source. What separates the two is not
+     vocabulary but SHAPE: a note runs to a full stop and starts again.
+     Measured over the 188 shipped names, this rule fires on no correct name,
+     including the longest ones («Agenzia Veneta per l'Innovazione nel Settore
+     Primario (Veneto Agricoltura) – Bollettino colture erbacee», 103 chars).
+
+     A DIGIT AFTER THE FULL STOP DOES NOT START A SENTENCE. Requiring an
+     uppercase LETTER is not a detail: «Allegato A (DDG n. 1613 de 10/03/2026)»
+     is an act number, and a version of this rule that accepted «n. 1» as a
+     sentence break blanked that correct Italian name. Measured, then fixed. */
+  const NAME_IS_PROSE = (t) => /[.!?]\s+\p{Lu}/u.test(t) || (/[.!?]\s*$/.test(t) && t.length > 55);
+  /**
+   * The NAME a screen is allowed to print, or null.
+   * null is not a missing value: it is the measured statement that the upstream
+   * text is a research note, and the caller answers it with the key-derived
+   * host — the same fallback the withheld-name rows have always used.
+   */
+  const showableSourceName = (v) => {
+    const t = v21S(v);
+    if (!t) return null;
+    if (NAME_PT_RE.test(t) || NAME_IS_PROSE(t)) return null;
+    return t;
+  };
+
   const cropOfId = (id) => CROP_BY_ID[U(id)] || null;
   const cropsOfIds = (ids) => uniq(A(ids).map(cropOfId));
   const cropScopeOfIds = (ids) => {
@@ -2555,11 +2654,43 @@
            reading the declared key, not inventing a label. The encoding folds
            '-' onto '_', so a hyphenated host comes back with a dot; the value
            is therefore named for what it is — a key-derived label — and the
-           state says the real name was withheld. */
-        name: v21S(s.NAME) || hostFromSourceKey(s.ID),
-        nameState: v21S(s.NAME) ? KNOWLEDGE.CLEAR
-          : s.NAME__PT_ONLY ? KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY : KNOWLEDGE.NOT_ESTABLISHED,
-        nameIsKeyDerived: !v21S(s.NAME),
+           state says the real name was withheld.
+
+           AND THE SAME IS TRUE OF A NAME THAT ARRIVED AS A RESEARCH NOTE.
+           The ingest withheld the notes ITS marker list recognised; measured,
+           it did not recognise this class, so the model asks the question
+           again with showableSourceName() before printing anything. A name it
+           refuses is not a name that is missing — it is a name that is known
+           and not displayable, which is exactly what NOT_APPROVED_FOR_DISPLAY
+           has always meant here. The fallback is the one that already existed,
+           so no source acquires a second kind of label.
+
+           The last resort is the canonical id, and it stands in ONLY for a
+           name THIS gate refused: measured, one row (SRC_DESCONHECIDA, whose
+           key is not a host and which has no URL to derive from). A code is
+           not prose in any language, and it keeps the row — dropping it would
+           delete a source that other records cite, which is the very thing the
+           paragraph above refuses to do.
+
+           It deliberately does NOT stand in where the name was already absent
+           upstream. SRC_NAO_DECLARADA has no name, no host in its key and no
+           URL, and this package has always rejected it for having no name at
+           all; giving it a code here would silently re-admit a record on the
+           back of a language fix, and the count would stop meaning what it
+           meant yesterday. Measured before and after this change: 188. */
+        /* Un nome TRATTENUTO dal portone di lingua non e un nome ASSENTE.
+           Quando l'ingest ritira la prosa e lascia solo il marcatore
+           __PT_ONLY, s.NAME sparisce: l'ultimo ripiego non scattava piu e la
+           fonte veniva scartata del tutto, portando il registro da 188 a 187.
+           Il sentinella SRC_NAO_DECLARADA resta giustamente fuori — quello non
+           e una fonte — ma una fonte reale sopravvive alla sua etichetta. */
+        name: showableSourceName(s.NAME)
+          || hostFromSourceKey(s.ID)
+          || ((v21S(s.NAME) || s.NAME__PT_ONLY) ? U(s.ID) : null),
+        nameState: showableSourceName(s.NAME) ? KNOWLEDGE.CLEAR
+          : (v21S(s.NAME) || s.NAME__PT_ONLY) ? KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY
+            : KNOWLEDGE.NOT_ESTABLISHED,
+        nameIsKeyDerived: !showableSourceName(s.NAME),
         type,
         role: v21Text(s, 'ROLE'),
         roleText: v21Text(s, 'ROLE').it, roleCode: type,

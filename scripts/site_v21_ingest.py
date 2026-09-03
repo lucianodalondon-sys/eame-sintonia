@@ -414,6 +414,27 @@ def projetar(rec, fatos, localizaveis):
                 continue
             if v is None:
                 continue
+        elif isinstance(v, dict) and any(isinstance(x, str) for x in v.values()):
+            # UM CAMPO ANINHADO CONTINUA A SER UM CAMPO.
+            # CONFIRMED_PARTICIPATION chega como {'ADAMA': 'CONFIRMADO — a propria
+            # ADAMA publica ...'}: o portao lia o dicionario como um todo, nao via
+            # texto nenhum e deixava passar a glosa em portugues inteira. Cada
+            # valor de dentro passa agora pela mesma regra dos campos planos, que
+            # ja sabe manter o ESTADO e deixar a prosa para tras.
+            limpos, retida = {}, False
+            for kk, x in v.items():
+                if not isinstance(x, str):
+                    limpos[kk] = x
+                    continue
+                y, r = limpar(kk if kk in DATAS else k, x)
+                retida = retida or r
+                if not r and y is not None:
+                    limpos[kk] = y
+            if retida:
+                out[k + '__PT_ONLY'] = True
+            if limpos:
+                out[k] = limpos
+            continue
         elif isinstance(v, list) and any(isinstance(x, str) for x in v):
             limpos, retida = [], False
             for x in v:
