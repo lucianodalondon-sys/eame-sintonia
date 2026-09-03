@@ -1,0 +1,19 @@
+{
+ "SOURCE_ID": "YOUTUBE-RELEVANCIA/LEXICO-APROVADO",
+ "source": "termos aprovados por gente para entrar no léxico desta missão",
+ "SOURCE_LOCATION": "interno — decisão humana registrada",
+ "FACT_LOCATION": "EAME",
+ "ORIGINAL_LANGUAGE": "multi",
+ "EVIDENCE_CLASS": "HUMAN_DECISION",
+ "captured_at": "2026-09-03",
+ "CAPTURED_AT": "2026-09-03T00:00:00Z",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "O_QUE_ISTO_E": "a segunda metade do léxico. A primeira é scripts/sensor_medir.py, que é feita de frases de FALA e nasceu para medir comentário e transcrição. Esta é feita de termos de TÍTULO, que é outro tipo de texto — e a medição de 2026-09-03 mostrou que o léxico de fala cobre 5% dos títulos do lote.",
+ "POR_QUE_ELE_COMECA_VAZIO": "porque termo que entra sozinho mede o que ele mesmo inventou. `youtube_relevancia.py calibrar` PROPÕE candidatos com a evidência de cada um; quem move para cá é uma pessoa, e o nome dela fica no registro.",
+ "COMO_APROVAR_UM_TERMO": "copie o item de LEXICO-CANDIDATOS.json para TERMOS abaixo, escolha CATEGORIA entre OBSERVACAO_CAMPO, PESQUISA, INTERPRETACAO, PRIMEIRA_PESSOA (técnicas) ou EVENTO, MARKETING, NOTICIA (promocionais), preencha APROVADO_POR e APROVADO_EM, e escreva RESSALVA quando o termo medir duas coisas.",
+ "A_DIFERENCA_ENTRE_AS_CATEGORIAS_DECIDE_A_FILA": "termo técnico EMPURRA o vídeo para cima na fila do whisper; termo promocional EMPURRA PARA BAIXO. Classificar `presenta` como técnico faria o release de produto passar na frente do ensaio de campo.",
+ "RESSALVA_E_O_QUE": "termo que mede duas coisas. `curso` é o caso que esta casa já pagou: `Curso natural del agua` virou TECHNICAL_WEBINAR. Termo com ressalva conta como achado mas NÃO promove veredito sozinho.",
+ "O_QUE_JAMAIS_ENTRA": "nome de marca e nome de produto. `syngenta`, `bayer`, `preceon`, `fieldview` e `hyvido` aparecem no corpus e aparecem MUITO — e nenhum deles é a língua do projeto: são a assinatura de quem publicou. Um léxico que os aceita passa a medir quem fala alto, não quem fala do assunto.",
+ "TERMOS": []
+}

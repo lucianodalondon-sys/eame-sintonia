@@ -1,0 +1,957 @@
+{
+ "SOURCE_ID": "YOUTUBE-RELEVANCIA/LEXICO-CANDIDATOS",
+ "source": "derivado dos títulos e descrições já coletados — nenhuma coleta nova",
+ "SOURCE_LOCATION": "derivado — interno",
+ "FACT_LOCATION": "EAME",
+ "ORIGINAL_LANGUAGE": "multi",
+ "EVIDENCE_CLASS": "DERIVED_SCOPE",
+ "captured_at": "2026-09-03",
+ "CAPTURED_AT": "2026-09-03T10:52:46Z",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "O_QUE_ISTO_E": "candidatos a entrar no léxico, tirados do corpus REAL do lote. Nenhum deles está em uso: todos nascem PROPOSTO_NAO_APROVADO.",
+ "COMO_APROVAR": "mova o termo para LEXICO-APROVADO.json, na categoria certa, com quem aprovou e quando. `dicionario()` lê os dois arquivos em tempo de execução — nada é chumbado em código.",
+ "REGRA_DE_ENTRADA": "aparecer em >= 2 canais independentes, ter >= 4 letras, não ser palavra de função e não estar já no léxico",
+ "POR_QUE_ESPALHAMENTO_E_NAO_FREQUENCIA": "termo que aparece muito num canal só é o jargão daquele canal — HYVIDO é marca da Syngenta, não a língua do projeto. É a lição do aprender-caca.py do Brasil: o termo que achou o agrônomo achou o cachaceiro também.",
+ "PALAVRAS_DE_FUNCAO_IGNORADAS": [
+  "a",
+  "al",
+  "alla",
+  "allo",
+  "anche",
+  "and",
+  "are",
+  "aux",
+  "avec",
+  "canal",
+  "car",
+  "ces",
+  "cette",
+  "channel",
+  "chez",
+  "com",
+  "come",
+  "como",
+  "con",
+  "da",
+  "dal",
+  "dalla",
+  "dans",
+  "das",
+  "de",
+  "degli",
+  "dei",
+  "del",
+  "delle",
+  "des",
+  "do",
+  "donc",
+  "dont",
+  "dos",
+  "e",
+  "el",
+  "en",
+  "es",
+  "essere",
+  "est",
+  "esta",
+  "estas",
+  "este",
+  "estos",
+  "etre",
+  "for",
+  "fra",
+  "from",
+  "gli",
+  "has",
+  "have",
+  "http",
+  "https",
+  "il",
+  "its",
+  "la",
+  "las",
+  "le",
+  "les",
+  "leur",
+  "leurs",
+  "live",
+  "lo",
+  "los",
+  "ma",
+  "mais",
+  "mas",
+  "me",
+  "mi",
+  "ne",
+  "nel",
+  "nella",
+  "no",
+  "non",
+  "nos",
+  "o",
+  "ou",
+  "our",
+  "par",
+  "para",
+  "pas",
+  "per",
+  "pero",
+  "piu",
+  "plus",
+  "por",
+  "pour",
+  "que",
+  "questa",
+  "queste",
+  "questi",
+  "questo",
+  "qui",
+  "quoi",
+  "sans",
+  "se",
+  "ser",
+  "ses",
+  "short",
+  "shorts",
+  "si",
+  "solo",
+  "son",
+  "sono",
+  "sont",
+  "sous",
+  "su",
+  "sul",
+  "sulla",
+  "sur",
+  "sus",
+  "te",
+  "that",
+  "the",
+  "their",
+  "this",
+  "tous",
+  "tout",
+  "tra",
+  "tres",
+  "tu",
+  "un",
+  "una",
+  "uno",
+  "vers",
+  "video",
+  "videos",
+  "was",
+  "were",
+  "with",
+  "www",
+  "y",
+  "you",
+  "your",
+  "youtube"
+ ],
+ "ESTA_LISTA_E_UMA_APOSTA": "as palavras de função acima foram escritas à mão, nos quatro idiomas do lote. Não é verdade linguística: é lista conferível, e corrigível.",
+ "CANDIDATOS": 100,
+ "ITENS": [
+  {
+   "TERMO": "syngenta",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 37,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 37 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "campo",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 11,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 11 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "fieldview",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 9,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 9 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "agriculture",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 9,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 9 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "solutions",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 6,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 6 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "plagas",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "mundo",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "cultivo",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "crop",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "science",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "cultivos",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "presenta",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "performance",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "control",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "agricole",
+   "CANAIS_EM_QUE_APARECE": 3,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 3 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "biocontrole",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 18,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 18 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "bayer",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 13,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 13 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "patata",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 13,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 13 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "preceon",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 12,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 12 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "smart",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 8,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 8 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "corn",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 8,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 8 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "solucion",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 8,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 8 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "agricoltura",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 8,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 8 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "nuevo",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 7,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 7 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "francaise",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 6,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 6 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "citricos",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "climate",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "mundial",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "descubre",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "diserbo",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 5,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 5 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "agricultura",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "futuro",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "colza",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "vous",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "notre",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "cultures",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "production",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "dell",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "stress",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 4,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 4 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "biologico",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "estrategia",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "completa",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "industria",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "siembra",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "cuenta",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "puede",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "cereales",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "entre",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "murcia",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "semences",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "protection",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "qualite",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "pourquoi",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "vite",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "solution",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "team",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 3,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 3 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "drive",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "juega",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "decisiones",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "cereal",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "innovacion",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "resultados",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "agricultor",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "rentable",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "medio",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "ambiente",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "prueba",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "bajo",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "rentabilidad",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "tiene",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "plant",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "potential",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "calidad",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "investigacion",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "farmers",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "every",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "field",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "suelo",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "episodio",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "desde",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "cada",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "nueva",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "seed",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "selector",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "france",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "nous",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "service",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "parcelle",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "agriculteurs",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "accompagner",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "semis",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "cles",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "innovation",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "innovazione",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "chiave",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "media",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "difesa",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "strategie",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "semina",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  },
+  {
+   "TERMO": "real",
+   "CANAIS_EM_QUE_APARECE": 2,
+   "OCORRENCIAS": 2,
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "POR_QUE_PROPOSTO": "aparece em 2 canais independentes do lote, 2 vezes no total",
+   "O_QUE_ISTO_NAO_PROVA": "que o termo é técnico. Espalhamento prova que é língua COMUM entre as fontes, não que é agronomia. Quem decide isso é gente."
+  }
+ ]
+}
