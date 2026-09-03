@@ -58,6 +58,10 @@ if os.path.isdir(LIBS):
 
 SAIDA = os.path.join(ROOT, 'data', 'samples', 'IT-VOZ-AUDIO-V2')
 CACHE = os.path.join(SAIDA, 'audio-cache')
+# Onde a varredura paralela desta missao deixou a midia que baixou e nao transcreveu.
+ORIGEM_LOCAL = os.environ.get('IT_AUDIO_LOCAIS') or (
+    '/tmp/claude-0/-home-user-eame-sintonia/'
+    'b6cc5475-b0e9-5242-bac3-292cc842a48f/scratchpad/audio_it')
 CAPTURA = os.environ.get('IT_AUDIO_DATA') or '2026-09-03'
 JANELA = os.environ.get('IT_AUDIO_JANELA') or '2026-06-05'   # 90 dias
 UA = ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -378,12 +382,234 @@ def fase_rota_b():
     return 0
 
 
-FASES = {'descobrir': fase_descobrir, 'transcrever': fase_transcrever, 'rota-b': fase_rota_b}
+
+# ── ROTA C · MIDIA JA BAIXADA, HOSPEDADA PELA PROPRIA CASA ITALIANA ───────────
+# Estes arquivos foram baixados por uma varredura paralela desta missao e ficaram
+# PENDING_LOCAL_TRANSCRIPTION quando aquela execucao caiu. A proveniencia abaixo veio do
+# relatorio dela — e por isso cada URL foi RELIDA POR MIM em 2026-09-03 antes de entrar:
+# as seis responderam HTTP 200 com content-type video/mp4.
+#
+#     PROVA DE AGENTE NAO E PROVA. O arquivo no disco tambem nao e: o que prova a origem
+#     e a URL viva, e ela foi conferida.
+#
+# Esta e a rota que roda a transcricao PROPRIA da casa, e nao ASR de terceiro — e por isso
+# ela vale mais por objeto que a rota do YouTube, mesmo rendendo menos objetos.
+LOCAIS = [
+    {'EXTERNAL_ID': 'olivonews-2026-08-30', 'FILE': 'olivonews-bollettino-olivicolo-2026-08-30.mp4',
+     'ORIGIN': "l'OlivoNews", 'DECLARED_ROLE': 'TECHNICAL_MEDIA_BULLETIN',
+     'TITLE': 'Bollettino olivicolo settimanale OlivoNews 30 Agosto 2026',
+     'PUBLICATION_DATE': '2026-08-30', 'DURATION_S': 305,
+     'MEDIA_URL': 'https://olivonews.it/wp-content/uploads/2026/08/Bollettino-olivicolo-settimanale-OlivoNews-30-Agosto-2026.mp4',
+     'PAGE_URL': 'https://olivonews.it/si-avvicina-linolizione-olive-ancora-piu-recettive-alla-mosca/',
+     'REGION_DECLARED': 'ITALIA (da nord a sud, declarado pelo proprio boletim)',
+     'ADAMA_REASON': ('boletim olivicola SEMANAL em video, com data, sobre MOSCA DELL OLIVO. '
+                      'OLIVO tem apenas 1 par de rotulo lido no radar e TRES oportunidades — '
+                      'e a maior assimetria da tabela. Aqui a cultura fala toda semana.')},
+    {'EXTERNAL_ID': 'olivonews-2026-08-23', 'FILE': 'olivonews-bollettino-olivicolo-2026-08-23.mp4',
+     'ORIGIN': "l'OlivoNews", 'DECLARED_ROLE': 'TECHNICAL_MEDIA_BULLETIN',
+     'TITLE': 'Bollettino olivicolo settimanale OlivoNews 23 Agosto 2026',
+     'PUBLICATION_DATE': '2026-08-23', 'DURATION_S': 293,
+     'MEDIA_URL': 'https://olivonews.it/wp-content/uploads/2026/08/Bollettino-olivicolo-settimanale-OlivoNews-23-Agosto-2026.mp4',
+     'PAGE_URL': 'https://olivonews.it/bollettino-olivicolo-da-nord-a-sud-ecco-il-rischio-mosca/',
+     'REGION_DECLARED': 'ITALIA (da nord a sud)',
+     'ADAMA_REASON': 'segunda semana da mesma serie — SERIE, e nao peca solta: da para ler variacao.'},
+    {'EXTERNAL_ID': 'olivonews-2026-08-16', 'FILE': 'olivonews-bollettino-olivicolo-2026-08-16.mp4',
+     'ORIGIN': "l'OlivoNews", 'DECLARED_ROLE': 'TECHNICAL_MEDIA_BULLETIN',
+     'TITLE': 'Bollettino olivicolo settimanale OlivoNews 16 Agosto 2026',
+     'PUBLICATION_DATE': '2026-08-16', 'DURATION_S': 331,
+     'MEDIA_URL': 'https://olivonews.it/wp-content/uploads/2026/08/Bollettino-olivicolo-settimanale-OlivoNews-16-Agosto-2026.mp4',
+     'PAGE_URL': 'https://olivonews.it/notti-piu-lunghe-e-umide-stato-di-allerta-per-la-mosca-dellolivo/',
+     'REGION_DECLARED': 'ITALIA (da nord a sud)',
+     'ADAMA_REASON': 'terceira semana da serie; a pagina declara "stato di allerta per la mosca".'},
+    {'EXTERNAL_ID': 'aipp-assemblea-2026', 'FILE': 'aipp-assemblea-soci-2026-03-18.mp4',
+     'ORIGIN': 'AIPP — Associazione Italiana per la Protezione delle Piante',
+     'DECLARED_ROLE': 'SCIENTIFIC_SOCIETY_ASSEMBLY',
+     'TITLE': 'Registrazione lavori assemblea Soci 2026',
+     'PUBLICATION_DATE': '2026-03-19', 'DURATION_S': 3208,
+     'MEDIA_URL': 'https://aipp.it/wp-content/uploads/2026/03/Registrazione-lavori-assemblea-Soci-2026.mp4',
+     'PAGE_URL': 'https://aipp.it/registrazione-lavori-assemblea-soci-2026/',
+     'REGION_DECLARED': 'ITALIA',
+     'ADAMA_REASON': ('53 minutos da sociedade italiana de PROTECAO DAS PLANTAS falando entre '
+                      'pares — que e o proprio negocio da ADAMA. A ficha da AIPP ja esta no '
+                      'acervo (IT-SRCX-007); a FALA dela nao estava.')},
+    {'EXTERNAL_ID': 'fitosanitario-pr-trissolcus', 'FILE': 'fitosanitario-parma-lancio-trissolcus-japonicus-2023-12-27.m4v',
+     'ORIGIN': 'Consorzio Fitosanitario Provinciale di Parma',
+     'DECLARED_ROLE': 'FITOSANITARY_SERVICE',
+     'TITLE': 'Video Lancio Trissolcus japonicus',
+     'PUBLICATION_DATE': '2023-12-27', 'DURATION_S': 12,
+     'MEDIA_URL': 'https://www.fitosanitario.pr.it/wp-content/uploads/2023/12/Video-Lancio-Trissolcus-Japonicus.m4v',
+     'PAGE_URL': 'https://www.fitosanitario.pr.it/video-lancio-trissolcus-japonicus/',
+     'REGION_DECLARED': 'Emilia-Romagna (Parma)',
+     'ADAMA_REASON': ('12 segundos, e entra assim mesmo: e o servico fitossanitario de Parma '
+                      'soltando o PARASITOIDE da cimice asiatica. Controle biologico classico '
+                      'no lugar de inseticida e a concorrencia que nao aparece em catalogo '
+                      'nenhum. LIMITE: e de 2023, esta FORA da janela corrente.')},
+    {'EXTERNAL_ID': 'terraevita-residui-pomodoro', 'FILE': 'terraevita-residui-pomodoro-capitanata-2025-08-11.mp4',
+     'ORIGIN': 'Terra e Vita — Edagricole / Tecniche Nuove',
+     'DECLARED_ROLE': 'TECHNICAL_MEDIA',
+     'TITLE': 'Raccolta dei residui delle piante di pomodoro a fine ciclo (Capitanata)',
+     'PUBLICATION_DATE': '2025-08-11', 'DURATION_S': 39,
+     'MEDIA_URL': 'https://static.tecnichenuove.it/terraevita/2025/08/video-raccolta-residui-piante-pomodoro-a-fine-ciclo.mp4',
+     'PAGE_URL': 'https://terraevita.edagricole.it/attualita/prevenzione-incendi-capitanata-residui-piante-pomodoro/',
+     'REGION_DECLARED': 'Puglia (Capitanata)',
+     'ADAMA_REASON': ('POMODORO na Capitanata, regiao de oportunidade. LIMITE: 39 segundos e de '
+                      '2025 — entra como prova de rota, nao como sinal de janela.')},
+    {'EXTERNAL_ID': 'anchor-116379347', 'FILE': 'anchor-116379347-diachem-cipolla-voghera-lombardia-2026-03-05.m4a',
+     'ORIGIN': 'Diachem (via Anchor/Spotify)', 'DECLARED_ROLE': 'COMPETITOR_TECHNICAL',
+     'TITLE': 'Diachem — cipolla, Voghera (Lombardia)',
+     'PUBLICATION_DATE': '2026-03-05', 'DURATION_S': 1706,
+     'MEDIA_URL': 'anchor/Spotify (baixado pela varredura; caminho em audio-cache)',
+     'PAGE_URL': 'NAO_SEI',
+     'REGION_DECLARED': 'Lombardia (Voghera)',
+     'ADAMA_REASON': ('28 minutos de um CONCORRENTE italiano falando de CIPOLLA (42 pares de '
+                      'rotulo) na Lombardia, regiao de oportunidade. A ficha da Diachem entrou '
+                      'nesta missao como IT-SRCX-083 pelo dia de campo; este e o audio dela.')},
+    {'EXTERNAL_ID': 'anchor-116435590', 'FILE': 'anchor-116435590-agrion-difesa-fitosanitaria-frutticoltura-piemonte-2026-03-09.mp3',
+     'ORIGIN': 'Fondazione Agrion (via Anchor/Spotify)', 'DECLARED_ROLE': 'RESEARCH_FOUNDATION',
+     'TITLE': 'Agrion — difesa fitosanitaria, frutticoltura (Piemonte)',
+     'PUBLICATION_DATE': '2026-03-09', 'DURATION_S': 1269,
+     'MEDIA_URL': 'anchor/Spotify (baixado pela varredura; caminho em audio-cache)',
+     'PAGE_URL': 'NAO_SEI',
+     'REGION_DECLARED': 'Piemonte',
+     'ADAMA_REASON': ('21 minutos da fundacao de pesquisa aplicada do Piemonte sobre DIFESA '
+                      'FITOSANITARIA em frutticoltura. A Agrion e IT-SRCX-034 e o handle dela '
+                      'entrou no lote social V3; esta e a fala.')},
+    {'EXTERNAL_ID': '71953148', 'FILE': 'sp-71953148-agrimakers-risicoltura-2026-2026-05-11.mp3',
+     'ORIGIN': 'AgriMakers (Spreaker)', 'DECLARED_ROLE': 'AGRICULTURAL_TRADE_MEDIA',
+     'TITLE': 'Risicoltura 2026', 'PUBLICATION_DATE': '2026-05-11', 'DURATION_S': 1242,
+     'MEDIA_URL': 'https://api.spreaker.com/v2/episodes/71953148/download.mp3',
+     'PAGE_URL': 'NAO_SEI', 'REGION_DECLARED': 'areal risicolo padano',
+     'ADAMA_REASON': ('RISO e o eixo de ECHINOCHLOA e da oportunidade OPP_4C39CCC05EEB, e os '
+                      'quatro podcasts de arroz que procurei estavam CONGELADOS. Este nao.')},
+    {'EXTERNAL_ID': '72156197', 'FILE': 'sp-72156197-terradidenari-grano-duro-foggia-difesa-precisione-2026-05-26.mp3',
+     'ORIGIN': 'Terra di Denari (Spreaker 6623075)', 'DECLARED_ROLE': 'AGRICULTURAL_TRADE_MEDIA',
+     'TITLE': 'Grano duro, Foggia — difesa di precisione',
+     'PUBLICATION_DATE': '2026-05-26', 'DURATION_S': 1881,
+     'MEDIA_URL': 'https://api.spreaker.com/v2/episodes/72156197/download.mp3',
+     'PAGE_URL': 'NAO_SEI', 'REGION_DECLARED': 'Puglia (Foggia / Capitanata)',
+     'ADAMA_REASON': ('FRUMENTO (176 pares) na Capitanata, e a mesma bacia do listino da CCIAA '
+                      'di Foggia (IT-SRCX-045). LIMITE: 2026-05-26 esta FORA da janela de 90 '
+                      'dias que a rota A usa — entra por ja estar baixado, e fica marcado.')},
+]
+
+
+def fase_locais():
+    """Transcreve os arquivos que a varredura paralela baixou e nao transcreveu."""
+    d = json.load(open(os.path.join(SAIDA, 'IT-VOZ-AUDIO-DESCOBERTA-V2.json'), encoding='utf-8'))
+    ja = {e['EXTERNAL_ID'] for e in d['EPISODES']}
+    alvos = [x for x in LOCAIS if x['EXTERNAL_ID'] not in ja]
+    print('%d declarados · %d ja transcritos na rota A · %d a fazer'
+          % (len(LOCAIS), len(LOCAIS) - len(alvos), len(alvos)))
+    try:
+        from faster_whisper import BatchedInferencePipeline, WhisperModel
+    except ImportError:
+        print('faster-whisper ausente. NAO transcrevo, e NAO invento transcricao.')
+        return 1
+    nucleos = os.cpu_count() or 4
+    modelo = os.environ.get('IT_AUDIO_MODELO') or 'small'
+    print('modelo %s · %d nucleos · idioma it DECLARADO (nunca detectado)' % (modelo, nucleos))
+    m = WhisperModel(modelo, device='cpu', compute_type='int8', cpu_threads=nucleos)
+    pipe = BatchedInferencePipeline(model=m)
+    os.makedirs(CACHE, exist_ok=True)
+
+    feitos = {}
+    antes = os.path.join(SAIDA, 'IT-VOZ-AUDIO-LOCAIS-V2.json')
+    if os.path.exists(antes):
+        feitos = {r['EXTERNAL_ID']: r for r in json.load(open(antes, encoding='utf-8'))['RECORDS']
+                  if r.get('TRANSCRIPT_STATE') == 'OK'}
+        if feitos:
+            print('ja transcritos antes: %d (preservados)' % len(feitos))
+
+    import voz
+    registros, audio_s, maq_s = [], 0, 0
+    for i, e in enumerate(alvos, 1):
+        eid = e['EXTERNAL_ID']
+        if eid in feitos:
+            registros.append(feitos[eid]); audio_s += e['DURATION_S']
+            print('  [%2d/%2d] %-28s PRESERVADO' % (i, len(alvos), eid)); continue
+        origem = os.path.join(ORIGEM_LOCAL, e['FILE'])
+        wav = os.path.join(CACHE, eid + '.wav')
+        t0 = time.time()
+        try:
+            if not os.path.exists(origem):
+                raise FileNotFoundError('arquivo ausente: %s' % origem)
+            if not os.path.exists(wav) and not _wav(origem, wav):
+                raise RuntimeError('ffmpeg falhou')
+            segs, _i = pipe.transcribe(wav, language='it', beam_size=1, batch_size=8)
+            texto = ' '.join(s.text.strip() for s in segs).strip()
+        except Exception as ex:
+            registros.append(dict(e, TRANSCRIPT='', TRANSCRIPT_STATE='FAILED_WITH_REASON',
+                                  FAILURE=str(ex)[:200]))
+            print('  [%2d/%2d] %-28s FALHOU  %s' % (i, len(alvos), eid, str(ex)[:44]))
+            continue
+        dt = time.time() - t0
+        audio_s += e['DURATION_S']; maq_s += dt
+        r = dict(e)
+        r.update({
+            'PLATFORM': 'SELF_HOSTED_OR_PODCAST', 'COUNTRY': 'ITALY', 'ORIGINAL_LANGUAGE': 'it',
+            'LANGUAGE_LAW': 'declarado, NUNCA detectado',
+            'TRANSCRIPT': texto, 'TRANSCRIPT_CHARS': len(texto),
+            'TRANSCRIPT_STATE': 'OK' if len(texto) > 200 else 'REQUESTED_EMPTY',
+            'TRANSCRIPT_ENGINE': 'faster-whisper %s int8 cpu beam=1 lang=it (LOCAL, 0,00 USD)' % modelo,
+            'CAPTION_SOURCE': 'SINTONIA_WHISPER_LOCAL',
+            'COLLECTION_DATE': CAPTURA,
+            'URL_RECHECKED_BY_ME': e['MEDIA_URL'].startswith('http'),
+        })
+        r = voz.marcar_assunto(r, vocab_crop=voz.VOCAB_CROP_IT, vocab_issue=voz.VOCAB_ISSUE_IT,
+                               ler_transcricao=True)
+        r = voz.marcar_molecula_e_lugar(r, vocab_molecule=voz.VOCAB_MOLECULE_IT,
+                                        vocab_lugar=voz.VOCAB_LUGAR_IT, ler_transcricao=True)
+        r = voz.separar_molecula_por_dono(r)
+        sem = voz.marcar_assunto({'TITLE': e['TITLE'], 'DESCRIPTION': ''},
+                                 vocab_crop=voz.VOCAB_CROP_IT, vocab_issue=voz.VOCAB_ISSUE_IT)
+        novos = [k for k in ('CROP', 'ISSUE') if r.get(k) and r.get(k) != sem.get(k)]
+        r['SUBJECT_ONLY_IN_TRANSCRIPT'] = novos
+        r['SIGNAL_ONLY_IN_TRANSCRIPT'] = 'YES' if novos else 'NO'
+        registros.append(r)
+        print('  [%2d/%2d] %-28s %-6s %6.0fs %5.2fx %7d car.  CROP=%s ISSUE=%s'
+              % (i, len(alvos), eid, r['TRANSCRIPT_STATE'], dt,
+                 (e['DURATION_S'] / dt) if dt else 0, len(texto),
+                 r.get('CROP', '-'), r.get('ISSUE', '-')))
+
+    ok = [r for r in registros if r.get('TRANSCRIPT_STATE') == 'OK']
+    corpo = {
+        'DATASET': 'IT-VOZ-AUDIO-LOCAIS-V2',
+        'LAYER': 'VOICE_AUDIO_ITALY',
+        'COUNTRY': 'IT',
+        'SOURCE': ('midia hospedada pela propria casa italiana (olivonews.it, aipp.it, '
+                   'fitosanitario.pr.it, static.tecnichenuove.it) e podcast de Anchor/Spreaker, '
+                   'baixada por uma varredura paralela desta missao e transcrita LOCALMENTE '
+                   'aqui. Cada URL de midia foi RELIDA POR MIM em 2026-09-03: as seis '
+                   'auto-hospedadas responderam HTTP 200 com content-type video/mp4.'),
+        'WHY_THIS_ROUTE_IS_WORTH_MORE_PER_OBJECT': (
+            'porque a transcricao e da casa (SINTONIA_WHISPER_LOCAL) e nao ASR de terceiro. '
+            'O YouTube entrega mais objetos e a fala vem do ASR dele; aqui a fala vem do nosso '
+            'motor, com idioma declarado, e o arquivo original fica auditavel.'),
+        'ENGINE': 'faster-whisper %s int8 cpu · idioma it DECLARADO' % modelo,
+        'COST_USD': 0,
+        'ITEMS': len(registros), 'OK': len(ok),
+        'AUDIO_SECONDS': audio_s, 'MACHINE_SECONDS': round(maq_s),
+        'TRANSCRIPT_CHARS': sum(r.get('TRANSCRIPT_CHARS', 0) for r in registros),
+        'SIGNAL_ONLY_IN_TRANSCRIPT': sum(1 for r in ok if r['SIGNAL_ONLY_IN_TRANSCRIPT'] == 'YES'),
+        'WHAT_IT_DOES_NOT_MEAN': ('nao e sinal de campo verificado, nao tem limiar e nao promove '
+                                  'nada. Tres destes objetos estao FORA da janela de 90 dias e '
+                                  'estao marcados: 2023-12-27, 2025-08-11 e 2026-05-26.'),
+        'RECORDS': registros,
+    }
+    p = escrever('IT-VOZ-AUDIO-LOCAIS-V2.json', corpo)
+    print('\n%d transcritos · %ds de audio · %ds de maquina · %d caracteres · custo 0,00 USD'
+          % (len(ok), audio_s, round(maq_s), corpo['TRANSCRIPT_CHARS']))
+    print('escrito: %s' % os.path.relpath(p, ROOT))
+    return 0
+
+
+FASES = {'descobrir': fase_descobrir, 'transcrever': fase_transcrever,
+         'rota-b': fase_rota_b, 'locais': fase_locais}
 
 if __name__ == '__main__':
     arg = sys.argv[1] if len(sys.argv) > 1 else 'tudo'
     if arg == 'tudo':
-        for nome in ('descobrir', 'rota-b', 'transcrever'):
+        for nome in ('descobrir', 'rota-b', 'transcrever', 'locais'):
             print('\n=== %s ===' % nome)
             if FASES[nome]():
                 sys.exit(1)

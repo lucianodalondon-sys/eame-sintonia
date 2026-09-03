@@ -535,6 +535,32 @@ NAO_CRUZADOS = [
              'POMODORO) e de LIGA vindo de "obbligatorio". '
              'A PALAVRA EXISTE, O SIGNIFICADO NAO.'),
      'EVIDENCE': 'data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json#72418542'},
+    {'PAIR': 'OLIVO x MOSCA DELL OLIVO (bollettini semanais da OlivoNews) x portfolio ADAMA',
+     'ID': 'IT-NX-2026-005',
+     'WHY': ('E O MELHOR NAO-CRUZAMENTO DESTA MISSAO, e ele custou tres transcricoes para '
+             'aparecer. Os tres bollettini olivicoli semanais (2026-08-16, 08-23 e 08-30, '
+             '11.427 caracteres transcritos localmente) sao exatamente o que um sinal de campo '
+             'deveria ser: cultura nomeada, alvo nomeado (mosca dell olivo), NIVEL DE RISCO '
+             'declarado por macro-regiao ("Nord Italia, stato di allerta, rischio elevato"), '
+             'data semanal, e ate o teto de intervencoes ("massimo 8 interventi all anno"). '
+             'E NAO HA CHAVE. As moleculas que os boletins nomeiam para intervir sao '
+             'acetamiprid, flupyradifurone, spinosad, caolino calcinato e azadiractina — e '
+             'NENHUMA das cinco esta entre as 53 substancias ativas do corpus ADAMA Italia. '
+             'Conferido uma a uma contra activeIngredients.json.'),
+     'WHAT_IT_IS_INSTEAD': ('e uma POSICAO DE PORTFOLIO medida, e ela e mais util que um '
+                            'cruzamento forcado: a ADAMA tem UM unico par de rotulo em OLIVO em '
+                            'todo o radar — IT-LBL-018101, MORAINE, contra INFESTANTI, em '
+                            'LINHA_DA_TABELA. Um HERBICIDA. A conversa italiana da oliveira, '
+                            'semana a semana, e sobre a MOSCA; o portfolio lido responde por '
+                            'ERVA DANINHA. A assimetria que o relatorio ja tinha notado (OLIVO: '
+                            '1 par lido, 3 oportunidades, 5 crop windows) ganha aqui metade da '
+                            'explicacao — e a outra metade continua sendo que a leitura de '
+                            'rotulo cobre 102 dos 163 registros.'),
+     'WHAT_WOULD_CHANGE_IT': ('ler os 61 registros do Ministero que ainda nao tiveram o rotulo '
+                              'lido. Se algum deles trouxer OLIVO com um alvo entomologico, este '
+                              'nao-cruzamento vira cruzamento no mesmo dia. Enquanto isso, '
+                              'AUSENCIA NA NOSSA LEITURA != AUSENCIA NO MUNDO.'),
+     'EVIDENCE': 'data/samples/IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json (olivonews-2026-08-16|23|30)'},
     {'PAIR': 'comunicacao de concorrente x sinal de campo',
      'WHY': ('adama.com, syngenta.it/news e cropscience.bayer.it recusaram esta sessao com HTTP 403. '
              'ROUTE_BLOCKED_FOR_AUTOMATION != CATALOG_EMPTY: nao ha o que cruzar porque nao houve leitura.')},

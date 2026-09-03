@@ -1976,6 +1976,43 @@ FONTES += [
       prova='minha leitura 2026-09-03: HTTP 200, 119.996 B, "Calendario Italia 2027 - Primo semestre"'),
 ]
 
+# ── A CULTURA COM A MAIOR ASSIMETRIA DO RADAR, E A FONTE QUE FALA DELA TODA SEMANA ──
+# OLIVO tem UM par de rotulo lido em 2.030 e TRES oportunidades. Esta e a fonte que fala
+# dessa cultura semanalmente, em video, com data e com nivel de risco por macro-regiao.
+# Ela entra no acervo, e ela NAO CRUZA — ver IT-NX-2026-005 em scripts/it_cruzamentos.py.
+
+FONTES += [
+    F('IT-SRCX-091',
+      "l'OlivoNews — bollettino olivicolo settimanale in video",
+      "l'OlivoNews", 'FIELD_BULLETIN_VIDEO', 'MEDIA', 'HIGH',
+      'https://olivonews.it/',
+      regiao='ITALIA (Nord · Centro · Sud e isole, declarados pelo proprio boletim)',
+      feed='https://www.olivonews.it/feed/',
+      crops=['OLIVO'],
+      temas=['MOSCA_OLEARIA', 'STATO_DI_ALLERTA', 'RECETTIVITA_DELLE_DRUPE', 'INVAIATURA'],
+      razao=('OLIVO e a maior assimetria da tabela: UM par de rotulo lido em 2.030 e TRES '
+             'oportunidades. Esta fonte publica um bollettino SEMANAL em video, com data, com '
+             'nivel de risco por macro-regiao e com as moleculas de intervencao nomeadas. '
+             'E o unico lugar do radar em que a cultura de menor leitura de rotulo fala toda '
+             'semana — e por isso ela entra mesmo NAO cruzando com o portfolio.'),
+      achada='rota de midia auto-hospedada em dominio italiano (varredura paralela), reconferida por mim',
+      query='olivonews bollettino olivicolo settimanale',
+      metodo='RSS + MP4 auto-hospedado + faster-whisper small LOCAL',
+      scrap='YES', video='YES', transcricao='YES',
+      freq='FREQUENT', ultimo='2026-08-30', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_WEEKLY',
+      nota=('AS MOLECULAS QUE ELE NOMEIA NAO SAO DA ADAMA. acetamiprid, flupyradifurone, '
+            'spinosad, caolino calcinato e azadiractina — nenhuma esta entre as 53 '
+            'substancias ativas do corpus. O unico rotulo OLIVO da ADAMA e MORAINE (018101) '
+            'contra INFESTANTI: um HERBICIDA. A conversa italiana da oliveira e sobre a MOSCA; '
+            'o portfolio lido responde por ERVA DANINHA. Isto e posicao de portfolio, e nao '
+            'oportunidade — e e exatamente por isso que precisa estar escrito.'),
+      prova=('minha leitura 2026-09-03: os tres MP4 semanais respondem 200 com content-type '
+             'video/mp4; transcritos localmente, 11.427 caracteres, e o alvo lido e '
+             'MOSCA_OLEARIA nos tres.')),
+]
+
+
 # ── A CAMADA DE AUDIO, DEPOIS DE O INSTAGRAM TER FALHADO TRES VEZES ────────────
 # Tres lotes de Instagram renderam 5, 2 e 0 sinais so-na-fala. O podcast agronomico e
 # o oposto do reel: 20 a 40 minutos, com pesquisador e produtor no mesmo audio, e uma
@@ -2211,6 +2248,50 @@ CORRECOES_DESTA_MISSAO = [
      'WHAT_STAYS_TRUE': ('a ficha continua valendo como observacao de CONCORRENTE: a BASF fez um '
                          'podcast de arroz em italiano, e isso e um fato sobre a estrategia dela '
                          'mesmo depois de o canal parar.')},
+
+    {'ID': 'FIX-04',
+     'WHAT_I_WROTE': ('o regex de NOTTUE no VOCAB_ISSUE_IT era `\\bnottu`, e o de MOSCA_OLEARIA '
+                      'era `mosca oleari|bactrocera ole`.'),
+     'WHY_I_WROTE_IT': ('escrevi os dois de memoria sobre o italiano escrito, e nao contra fala '
+                        'real. `\\bnottu` parecia um prefixo seguro para nottua/nottue.'),
+     'WHAT_IS_TRUE': ('`\\bnottu` casa com NOTTURNO e NOTTURNA. Os tres bollettini olivicoli da '
+                      'OlivoNews dizem "l\'umidita notturna e in aumento" e "le minime notturne '
+                      'di 17-20 gradi", e os tres foram marcados ISSUE=NOTTUE. Noite nao e '
+                      'lagarta. E o alvo REAL dos mesmos tres boletins nao era marcado, porque '
+                      'em italiano falado diz-se "mosca dell\'olivo", e nao "mosca olearia".'),
+     'WHAT_CHANGED_BECAUSE_OF_IT': ('NOTTUE virou `\\bnottua\\b|\\bnottue\\b|\\bnottuid|agrotis|'
+                                    'spodoptera|helicoverpa` e MOSCA_OLEARIA ganhou '
+                                    '`mosca dell.{0,3}oliv`. Os tres registros foram REMARCADOS '
+                                    'sem retranscrever nada: ISSUE saiu de NOTTUE (errado) para '
+                                    'MOSCA_OLEARIA (certo).'),
+     'THE_LESSON': ('A PALAVRA EXISTE, O SIGNIFICADO NAO — pela terceira vez nesta missao. Antes '
+                    'foram LIGA vindo de "obbligatorio", "pomodoro forte" numa degustacao de '
+                    'azeite, e "grano saraceno" lido como FRUMENTO. Vocabulario escrito de '
+                    'memoria erra; vocabulario testado contra fala real e o unico que vale.'),
+     'WHAT_STAYS_TRUE': ('as tres ocorrencias de NOTTUE em IT-CAMPO-SINAIS-VERIFICADOS-V1.json '
+                         'NAO sao deste defeito: sao alvos LIDOS do rotulo canonico, e continuam '
+                         'certas.')},
+
+    {'ID': 'FIX-05',
+     'WHAT_I_WROTE': ('no comentario do VOCAB_MOLECULE_IT, que "a chave e o nome canonico do '
+                      'corpus ADAMA Italia (activeIngredients.json, 53 substancias)".'),
+     'WHY_I_WROTE_IT': ('porque montei o vocabulario olhando a lista da ADAMA e acrescentei '
+                        'moleculas de concorrente pelo caminho, sem voltar para corrigir a frase.'),
+     'WHAT_IS_TRUE': ('DEZ das 32 chaves NAO estao entre as 53: ACETAMIPRID, SPINOSAD, '
+                      'DELTAMETHRIN, MANCOZEB, PYRACLOSTROBIN, PROPANIL, BENTAZONE, CLOMAZONE, '
+                      'CYCLOXYDIM e ETOFENPROX.'),
+     'WHAT_CHANGED_BECAUSE_OF_IT': ('o vocabulario NAO encolheu — ser mais largo que o portfolio '
+                                    'e o que fez os boletins da OlivoNews entregarem acetamiprid '
+                                    'e spinosad, e foi assim que se soube que a ADAMA nao tem '
+                                    'chave naquela conversa. O que mudou foi a frase, e entrou '
+                                    'MOLECULAS_ADAMA_IT com separar_molecula_por_dono(), que '
+                                    'quebra o campo em MOLECULE_ADAMA e MOLECULE_NOT_ADAMA.'),
+     'THE_LESSON': ('MOLECULA MARCADA != MOLECULA ADAMA. Um campo MOLECULE cheio parece bom e '
+                    'nao diz de quem e — e o campo que parece bom e o que engana.'),
+     'WHAT_STAYS_TRUE': ('nenhuma afirmacao publicada por esta missao chamou molecula alheia de '
+                         'ADAMA: conferi as dez, uma a uma, e todas aparecem como CITACAO de '
+                         'boletim ou dentro de uma frase que diz explicitamente que NAO sao da '
+                         'ADAMA. O defeito estava no comentario, e nao no que foi afirmado.')},
 ]
 
 

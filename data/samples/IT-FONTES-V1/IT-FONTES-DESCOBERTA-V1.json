@@ -11,9 +11,9 @@
  "ENTITY_VS_CHANNEL": "ORGANIZACAO e CANAL sao unidades diferentes. A mesma instituicao pode ser site, feed, perfil e API — e cada uma quebra de um jeito. Dedupe une organizacao; nao colapsa canal.",
  "FIELD_LAW": "campo sem leitura real fica NAO_SEI; nunca preenchido por plausibilidade",
  "SCOREBOARD": {
-  "SOURCES_QUALIFIED": 90,
+  "SOURCES_QUALIFIED": 91,
   "BY_RELEVANCE": {
-   "HIGH": 43,
+   "HIGH": 44,
    "MEDIUM": 47
   },
   "BY_AUTHORITY": {
@@ -22,16 +22,16 @@
    "TECHNICAL": 8,
    "FIELD_VOICE": 5,
    "INDUSTRY": 11,
-   "MEDIA": 12,
+   "MEDIA": 13,
    "COMPETITOR": 14
   },
   "BY_COLLECTABILITY": {
-   "AUTOMATABLE": 52,
+   "AUTOMATABLE": 53,
    "PARTIAL": 36,
    "MANUAL": 2
   },
   "BY_MONITORING": {
-   "MONITOR_WEEKLY": 25,
+   "MONITOR_WEEKLY": 26,
    "MONITOR_MONTHLY": 54,
    "MONITOR_DAILY": 6,
    "EVENT_DRIVEN": 3,
@@ -40,20 +40,20 @@
   },
   "BY_UPDATE_FREQUENCY": {
    "PERIODIC": 59,
-   "FREQUENT": 22,
+   "FREQUENT": 23,
    "EVENT_DRIVEN": 4,
    "STATIC": 4,
    "UNKNOWN": 1
   },
-  "WITH_FEED_OR_API": 29,
+  "WITH_FEED_OR_API": 30,
   "WITH_SOCIAL_DECLARED": 27,
   "SOCIAL_PROFILES_DECLARED": 45,
-  "SINTONIA_SCRAP_SUPPORTED": 23,
-  "TRANSCRIPTION_RELEVANT": 14,
+  "SINTONIA_SCRAP_SUPPORTED": 24,
+  "TRANSCRIPTION_RELEVANT": 15,
   "NEW_CHANNEL_OF_REGISTERED_ORG": 32,
   "REJECTED": 11,
   "ROUTES_NOT_REACHED": 21,
-  "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": 3,
+  "CORRECTIONS_TO_MY_OWN_MEASUREMENTS": 5,
   "OPEN_CONTRADICTIONS": 1
  },
  "DEDUPE": {
@@ -4066,6 +4066,49 @@
    "NOTES_INTERNAL": "EVENTO COM DATA FUTURA != SINAL DE CAMPO. E agenda, e serve para planejar presenca, nao para decidir tratamento. O dominio dedicado fieragricolatech.it NAO abre daqui — a data vem do calendario do recinto."
   },
   {
+   "SOURCE_ID": "IT-SRCX-091",
+   "NAME": "l'OlivoNews — bollettino olivicolo settimanale in video",
+   "ENTITY": "l'OlivoNews",
+   "SOURCE_TYPE": "FIELD_BULLETIN_VIDEO",
+   "AUTHORITY_CLASS": "MEDIA",
+   "RELEVANCE": "HIGH",
+   "COUNTRY": "ITALY",
+   "REGION": "ITALIA (Nord · Centro · Sud e isole, declarados pelo proprio boletim)",
+   "LANGUAGE": "IT",
+   "PRIMARY_URL": "https://olivonews.it/",
+   "PLATFORM": "WEB",
+   "SOCIAL_PROFILE_URLS": {},
+   "RSS_API": "https://www.olivonews.it/feed/",
+   "CROPS_RELEVANT": [
+    "OLIVO"
+   ],
+   "TARGETS_TOPICS_RELEVANT": [
+    "MOSCA_OLEARIA",
+    "STATO_DI_ALLERTA",
+    "RECETTIVITA_DELLE_DRUPE",
+    "INVAIATURA"
+   ],
+   "ADAMA_RELEVANCE_REASON": "OLIVO e a maior assimetria da tabela: UM par de rotulo lido em 2.030 e TRES oportunidades. Esta fonte publica um bollettino SEMANAL em video, com data, com nivel de risco por macro-regiao e com as moleculas de intervencao nomeadas. E o unico lugar do radar em que a cultura de menor leitura de rotulo fala toda semana — e por isso ela entra mesmo NAO cruzando com o portfolio.",
+   "DISCOVERED_FROM": "rota de midia auto-hospedada em dominio italiano (varredura paralela), reconferida por mim",
+   "DISCOVERY_QUERY": "olivonews bollettino olivicolo settimanale",
+   "COLLECTION_METHOD": "RSS + MP4 auto-hospedado + faster-whisper small LOCAL",
+   "SINTONIA_SCRAP_SUPPORTED": "YES",
+   "VIDEO_AVAILABLE": "YES",
+   "TRANSCRIPTION_RELEVANT": "YES",
+   "UPDATE_FREQUENCY": "FREQUENT",
+   "LAST_OBSERVED_CONTENT_DATE": "2026-08-30",
+   "LAST_CHECKED_AT": "2026-09-03",
+   "ACCESS_STATUS": "GREEN",
+   "COLLECTABILITY": "AUTOMATABLE",
+   "PROVENANCE_STATUS": "REAL_SOURCE_PROBED",
+   "MONITORING_RECOMMENDATION": "MONITOR_WEEKLY",
+   "CLIENT_SAFE": false,
+   "DEDUPE_AGAINST": null,
+   "DEDUPE_MEANS": null,
+   "EVIDENCE_PROBE": "minha leitura 2026-09-03: os tres MP4 semanais respondem 200 com content-type video/mp4; transcritos localmente, 11.427 caracteres, e o alvo lido e MOSCA_OLEARIA nos tres.",
+   "NOTES_INTERNAL": "AS MOLECULAS QUE ELE NOMEIA NAO SAO DA ADAMA. acetamiprid, flupyradifurone, spinosad, caolino calcinato e azadiractina — nenhuma esta entre as 53 substancias ativas do corpus. O unico rotulo OLIVO da ADAMA e MORAINE (018101) contra INFESTANTI: um HERBICIDA. A conversa italiana da oliveira e sobre a MOSCA; o portfolio lido responde por ERVA DANINHA. Isto e posicao de portfolio, e nao oportunidade — e e exatamente por isso que precisa estar escrito."
+  },
+  {
    "SOURCE_ID": "IT-SRCX-088",
    "NAME": "Terra di Denari — podcast de cadeia agricola",
    "ENTITY": "Terra di Denari",
@@ -4423,6 +4466,24 @@
    "WHAT_CHANGED_BECAUSE_OF_IT": "UPDATE_FREQUENCY passou a STATIC e MONITORING a DO_NOT_MONITOR. Os 28 episodios seguem colhiveis como acervo historico sobre Clearfield e Provisia.",
    "THE_LESSON": "PAGINA VIVA NAO E CANAL VIVO. A cadencia so se le no relogio de publicacao, e o relogio estava a uma chamada de API de distancia. O mesmo erro apanhou quatro outros programas nesta mesma varredura — La settimana del riso (2025-07-26), Lezioni di Vite (2023), Just Agronomo (2024-12-24) — e todos ficaram registrados com a data que os reprova.",
    "WHAT_STAYS_TRUE": "a ficha continua valendo como observacao de CONCORRENTE: a BASF fez um podcast de arroz em italiano, e isso e um fato sobre a estrategia dela mesmo depois de o canal parar."
+  },
+  {
+   "ID": "FIX-04",
+   "WHAT_I_WROTE": "o regex de NOTTUE no VOCAB_ISSUE_IT era `\\bnottu`, e o de MOSCA_OLEARIA era `mosca oleari|bactrocera ole`.",
+   "WHY_I_WROTE_IT": "escrevi os dois de memoria sobre o italiano escrito, e nao contra fala real. `\\bnottu` parecia um prefixo seguro para nottua/nottue.",
+   "WHAT_IS_TRUE": "`\\bnottu` casa com NOTTURNO e NOTTURNA. Os tres bollettini olivicoli da OlivoNews dizem \"l'umidita notturna e in aumento\" e \"le minime notturne di 17-20 gradi\", e os tres foram marcados ISSUE=NOTTUE. Noite nao e lagarta. E o alvo REAL dos mesmos tres boletins nao era marcado, porque em italiano falado diz-se \"mosca dell'olivo\", e nao \"mosca olearia\".",
+   "WHAT_CHANGED_BECAUSE_OF_IT": "NOTTUE virou `\\bnottua\\b|\\bnottue\\b|\\bnottuid|agrotis|spodoptera|helicoverpa` e MOSCA_OLEARIA ganhou `mosca dell.{0,3}oliv`. Os tres registros foram REMARCADOS sem retranscrever nada: ISSUE saiu de NOTTUE (errado) para MOSCA_OLEARIA (certo).",
+   "THE_LESSON": "A PALAVRA EXISTE, O SIGNIFICADO NAO — pela terceira vez nesta missao. Antes foram LIGA vindo de \"obbligatorio\", \"pomodoro forte\" numa degustacao de azeite, e \"grano saraceno\" lido como FRUMENTO. Vocabulario escrito de memoria erra; vocabulario testado contra fala real e o unico que vale.",
+   "WHAT_STAYS_TRUE": "as tres ocorrencias de NOTTUE em IT-CAMPO-SINAIS-VERIFICADOS-V1.json NAO sao deste defeito: sao alvos LIDOS do rotulo canonico, e continuam certas."
+  },
+  {
+   "ID": "FIX-05",
+   "WHAT_I_WROTE": "no comentario do VOCAB_MOLECULE_IT, que \"a chave e o nome canonico do corpus ADAMA Italia (activeIngredients.json, 53 substancias)\".",
+   "WHY_I_WROTE_IT": "porque montei o vocabulario olhando a lista da ADAMA e acrescentei moleculas de concorrente pelo caminho, sem voltar para corrigir a frase.",
+   "WHAT_IS_TRUE": "DEZ das 32 chaves NAO estao entre as 53: ACETAMIPRID, SPINOSAD, DELTAMETHRIN, MANCOZEB, PYRACLOSTROBIN, PROPANIL, BENTAZONE, CLOMAZONE, CYCLOXYDIM e ETOFENPROX.",
+   "WHAT_CHANGED_BECAUSE_OF_IT": "o vocabulario NAO encolheu — ser mais largo que o portfolio e o que fez os boletins da OlivoNews entregarem acetamiprid e spinosad, e foi assim que se soube que a ADAMA nao tem chave naquela conversa. O que mudou foi a frase, e entrou MOLECULAS_ADAMA_IT com separar_molecula_por_dono(), que quebra o campo em MOLECULE_ADAMA e MOLECULE_NOT_ADAMA.",
+   "THE_LESSON": "MOLECULA MARCADA != MOLECULA ADAMA. Um campo MOLECULE cheio parece bom e nao diz de quem e — e o campo que parece bom e o que engana.",
+   "WHAT_STAYS_TRUE": "nenhuma afirmacao publicada por esta missao chamou molecula alheia de ADAMA: conferi as dez, uma a uma, e todas aparecem como CITACAO de boletim ou dentro de uma frase que diz explicitamente que NAO sao da ADAMA. O defeito estava no comentario, e nao no que foi afirmado."
   }
  ],
  "OPEN_CONTRADICTIONS": [

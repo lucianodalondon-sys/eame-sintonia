@@ -215,10 +215,15 @@ VOCAB_ISSUE_IT = {
     'ELATERIDI': r'elaterid|\bagriotes\b|ferretti',
     'AFIDI': r'\bafid|afide lanigero|eriosoma|\bmyzus\b',
     'TRIPIDI': r'\btripid',
-    'NOTTUE': r'\bnottu',
+    # `\bnottu` casava com NOTTURNO e NOTTURNA. Medido em 2026-09-03 nos tres bollettini
+    # olivicoli da OlivoNews: "l'umidita notturna e in aumento" virava NOTTUE. Noite nao e
+    # lagarta. Ver FIX-04 em scripts/it_fontes.py.
+    'NOTTUE': r'\bnottua\b|\bnottue\b|\bnottuid|agrotis|spodoptera|helicoverpa',
     'DORIFORA': r'dorifor|leptinotars',
     'TUTA_ABSOLUTA': r'tuta absolut|tignola del pomodoro',
-    'MOSCA_OLEARIA': r'mosca oleari|bactrocera ole',
+    # O alvo real dos mesmos tres bollettini e a mosca, e ela NAO era marcada: em italiano
+    # falado diz-se "mosca dell'olivo", e nao "mosca olearia".
+    'MOSCA_OLEARIA': r"mosca oleari|bactrocera ole|mosca dell.{0,3}oliv|mosca olivar",
     'XYLELLA_IT': r'xylella',
     'GIAVONE': r'giavon|echinochlo',
     'RESISTENZA': r'resistenz[ae] (agli|ai|a) (erbicid|fungicid|insetticid)|popolazioni resistenti',
@@ -272,9 +277,24 @@ VOCAB_MOLECULE = {
     'CAOLIN': r'caol[ií]n',
 }
 
-# Substâncias ativas em italiano. A chave é o nome canônico do corpus ADAMA Italia
-# (activeIngredients.json, 53 substâncias) e o regex é a grafia italiana. MOLECULE nunca
-# sai de marca comercial — nem aqui, nem no espanhol.
+# Substâncias ativas em italiano. O regex é a grafia italiana, e MOLECULE nunca sai de marca
+# comercial — nem aqui, nem no espanhol.
+#
+# CORREÇÃO 2026-09-03 (FIX-05). Este comentário dizia que a chave era "o nome canônico do
+# corpus ADAMA Italia (activeIngredients.json, 53 substâncias)". Não era: DEZ das 32 chaves
+# NÃO estão entre as 53. Medido contra o pacote canônico:
+#
+#     ACETAMIPRID · SPINOSAD · DELTAMETHRIN · MANCOZEB · PYRACLOSTROBIN
+#     PROPANIL · BENTAZONE · CLOMAZONE · CYCLOXYDIM · ETOFENPROX
+#
+# O vocabulário ser mais largo que o portfólio é CERTO e foi de propósito: foi assim que os
+# bollettini olivicoli da OlivoNews entregaram `acetamiprid` e `spinosad` — e foi assim que
+# se soube que a ADAMA NÃO TEM CHAVE naquela conversa. O que estava errado era a FRASE.
+#
+#     MOLÉCULA MARCADA ≠ MOLÉCULA ADAMA.
+#
+# `MOLECULAS_ADAMA_IT` abaixo é a lista fechada das que são, e quem consome MOLECULE tem de
+# passar por ela antes de dizer "ativo ADAMA".
 VOCAB_MOLECULE_IT = {
     'FLUAZINAM': r'fluazinam', 'FOLPET': r'\bfolpet\b', 'CAPTAN': r'\bcaptano?\b',
     'PIRIMICARB': r'pirimicarb', 'TAU-FLUVALINATE': r'tau[- ]fluvalinat',
@@ -290,6 +310,35 @@ VOCAB_MOLECULE_IT = {
     'PYRACLOSTROBIN': r'pyraclostrobin|piraclostrobin', 'CYMOXANIL': r'cimoxanil|cymoxanil',
     'PROPANIL': r'propanil', 'CYCLOXYDIM': r'ciclossidim',
 }
+
+# As chaves de VOCAB_MOLECULE_IT que ESTÃO entre as 53 substâncias ativas do corpus ADAMA
+# Itália, lidas de activeIngredients.json em 2026-09-03. As que faltam aqui são molécula de
+# outra gente — e marcar molécula de outra gente é útil, desde que ninguém a chame de nossa.
+MOLECULAS_ADAMA_IT = frozenset({
+    'FLUAZINAM', 'FOLPET', 'CAPTAN', 'PIRIMICARB', 'TAU-FLUVALINATE', 'LAMBDA-CYHALOTHRIN',
+    'AZOXYSTROBIN', 'DIFENOCONAZOLE', 'TEBUCONAZOLE', 'FLUXAPYROXAD', 'MESOTRIONE',
+    'FLORASULAM', 'IMAZAMOX', 'BUPIRIMATE', 'FENPROPIDIN', 'CLETHODIM', 'PROPAQUIZAFOP',
+    'DIFLUFENICAN', 'PENDIMETHALIN', 'GLYPHOSATE', 'METALAXYL', 'CYMOXANIL',
+})
+
+
+def separar_molecula_por_dono(reg, adama=None):
+    """Quebra o campo MOLECULE em quem é nosso e quem é dos outros.
+
+    Existe porque um campo `MOLECULE` cheio parece bom e não diz nada: `acetamiprid` num
+    boletim de olivo é informação preciosa — ela diz que a ADAMA NÃO tem chave ali. Ler os
+    dois como a mesma coisa é o erro que esta função impede.
+    """
+    adama = MOLECULAS_ADAMA_IT if adama is None else adama
+    m = reg.get('MOLECULE')
+    if not m:
+        return reg
+    achadas = [x for x in str(m).split('+') if x]
+    reg['MOLECULE_ADAMA'] = '+'.join(x for x in achadas if x in adama) or None
+    reg['MOLECULE_NOT_ADAMA'] = '+'.join(x for x in achadas if x not in adama) or None
+    reg['MOLECULE_OWNERSHIP_LAW'] = 'MOLECULA MARCADA != MOLECULA ADAMA'
+    return reg
+
 
 # Regiões italianas. As 20 regiões mais as províncias que a rede de trappole publica.
 # FACT_LOCATION continua sendo o lugar NOMEADO pelo texto — nunca o país do canal.
