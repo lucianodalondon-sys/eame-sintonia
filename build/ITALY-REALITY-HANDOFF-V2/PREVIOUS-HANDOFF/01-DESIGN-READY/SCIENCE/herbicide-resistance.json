@@ -1,0 +1,694 @@
+{
+ "LAYER": "HERBICIDE_RESISTANCE",
+ "COUNTRY": "IT",
+ "BUILT_AT": "2026-09-02",
+ "SOURCE_ARTIFACTS": [
+  "data/samples/IT-CIENCIA/IT-GIRE-RESISTENCIA-V2.json"
+ ],
+ "PROVENANCE_DEFAULT": "REAL_FACT",
+ "NOTE": "diz ONDE FOI CONFIRMADA, nunca quanta area tem. Nao e mapa de incidencia.",
+ "COUNT": 34,
+ "RESISTANCES": [
+  {
+   "ID": "IT-RES-001",
+   "SPECIES": "Alisma plantago-aquatica L.",
+   "SPECIES_IT": "Mesolaccia comune, piantaggine acquatica, cinquenervi d'acqua, cucchiaio",
+   "FAMILY": "Alismataceae",
+   "MECHANISM": "ALS (gruppo B) — literal: \"erbicidi inibitori dell'ALS (gruppo B)\"",
+   "CROP_DECLARED": "riso (arroz)",
+   "FIRST_CASE_YEAR": "1994 — literal: \"Primo caso accertato nel 1994.\"",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia"
+   ],
+   "MULTIPLE_RESISTANCE": "Resistencia CRUZADA declarada, literal: \"con resistenza incrociata alle solfoniluree e alle triazolopirimidine\" — ou seja, dentro do mesmo grupo ALS, atinge sulfonilureias e triazolopirimidinas. A ficha NAO usa a expressao \"resistenza multipla\" nem cita resistencia a outros mecanismos: quanto a resistencia multipla, NAO SEI.",
+   "CITATION": "\"Tipo di resistenza: popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B) con resistenza incrociata alle solfoniluree e alle triazolopirimidine. Primo caso accertato nel 1994. Regioni interessate: Piemonte, Lombardia.\"",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Alisma",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-002",
+   "SPECIES": "Amaranthus hybridus (sinonimi na ficha: A. patulus, A. chlorostachys, A. quitensis, A. cruentus)",
+   "SPECIES_IT": "Amaranto ibrido, amaranto a spiga verde",
+   "FAMILY": "Amaranthaceae",
+   "MECHANISM": "A ficha NAO nomeia o mecanismo (nao escreve ALS nem gruppo B). Declara literalmente resistencia cruzada a duas familias quimicas: \"cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox)\". Qual mecanismo o GIRE atribui a esta populacao, nesta pagina: NAO SEI.",
+   "CROP_DECLARED": "soia (soja)",
+   "FIRST_CASE_YEAR": "2017 — literal: \"Primo caso 2017.\"",
+   "REGIONS": [
+    "Veneto",
+    "Friuli Venezia Giulia"
+   ],
+   "MULTIPLE_RESISTANCE": "Resistencia CRUZADA declarada, literal: \"popolazioni cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox)\" — as duas familias quimicas nomeadas. A ficha nao fala em \"resistenza multipla\" nem cita outros mecanismos: NAO SEI.",
+   "CITATION": "\"Tipo di resistenza: popolazioni cross-resistenti alle solfoniluree (thifensulfuron-methyl) ed agli imidazolinoni (imazamox). Primo caso 2017. Regioni interessate: Veneto, Friuli Venezia Giulia.\"",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Amaranthus_hyb",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-003",
+   "SPECIES": "Amaranthus palmeri S. Wats",
+   "SPECIES_IT": "Amaranto (o titulo da pagina sai como \"Scheda per Amaranto, GIRE\"; o unico nome comum listado e \"Amaranto\")",
+   "FAMILY": "Amaranthaceae",
+   "MECHANISM": "ALS (gruppo B) — literal: \"erbicidi inibitori dell'ALS (gruppo B)\"",
+   "CROP_DECLARED": "soia (soja)",
+   "FIRST_CASE_YEAR": "2018 — literal: \"Il primo caso di resistenza agli erbicidi inibitori dell'ALS (gruppo B) e stato accertato nel 2018 in Veneto.\"",
+   "REGIONS": [
+    "Veneto"
+   ],
+   "MULTIPLE_RESISTANCE": "Para a ITALIA a ficha nao declara resistencia multipla nem cruzada: NAO SEI. O unico registro de varios mecanismos e sobre a America e sem nomear os mecanismos, literal: \"In America, dove il primo caso di resistenza risale al 1989, e diventata invasiva in tempi rapidi ed ha sviluppato resistenza ad erbicidi con diversi meccanismi d'azione.\"",
+   "CITATION": "\"Il primo caso di resistenza agli erbicidi inibitori dell'ALS (gruppo B) e stato accertato nel 2018 in Veneto.\"",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Amaranthus_palm",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-004",
+   "SPECIES": "Amaranthus retroflexus L.",
+   "SPECIES_IT": "Amaranto comune, blito",
+   "FAMILY": "Amaranthaceae",
+   "MECHANISM": "O corpo do texto NAO nomeia o mecanismo: fala so da familia quimica, literal \"resistenti alle solfoniluree (thifensulfuron-methyl)\". Logo abaixo da secao ha um link de mapa rotulado \"Mappa (dicotiledoni estive) ALS\" — e rotulo de link, nao frase do corpo, e por isso nao trato como mecanismo declarado no texto. O mecanismo afirmado no corpo desta ficha: NAO SEI.",
+   "CROP_DECLARED": "soia (soja)",
+   "FIRST_CASE_YEAR": "2003 — literal: \"Primo caso accertato nel 2003.\"",
+   "REGIONS": [
+    "Veneto",
+    "Emilia Romagna",
+    "Friuli Venezia Giulia"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI. A ficha nao usa \"resistenza incrociata\", \"cross-resistenti\" nem \"resistenza multipla\": cita uma unica familia quimica, as sulfonilureias (thifensulfuron-methyl).",
+   "CITATION": "\"In Italia sono state segnalate alcune popolazioni resistenti alle solfoniluree (thifensulfuron-methyl). Primo caso accertato nel 2003.\"",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Amaranthus",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-005",
+   "SPECIES": "Amaranthus tuberculatus (sinonimi: A. rudis, A. tamariscina)",
+   "SPECIES_IT": "Amaranto tubercolato",
+   "FAMILY": "Amaranthaceae",
+   "MECHANISM": "A ficha NAO nomeia o mecanismo nem o grupo HRAC. Descreve os quimicos: solfoniluree (tifensulfuron-metile) e imidazolinoni (imazamox). NAO SEI se a ficha classifica isso como ALS/grupo B — ela nao escreve isso.",
+   "CROP_DECLARED": "soia (soja)",
+   "FIRST_CASE_YEAR": "2010",
+   "REGIONS": [
+    "Veneto",
+    "Friuli Venezia Giulia",
+    "Emilia Romagna"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha declara resistencia CRUZADA (cross-resistenza), nao multipla: fala em 'popolazioni cross-resistenti' a duas familias quimicas ao mesmo tempo — solfoniluree (tifensulfuron-metile) e imidazolinoni (imazamox). A palavra 'resistenza multipla' NAO aparece nesta ficha.",
+   "CITATION": "'popolazioni cross-resistenti alle solfoniluree (tifensulfuron-metile) ed agli imidazolinoni (imazamox)' — GIRE (CNR), ficha Amaranthus tuberculatus.",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Amaranthus_tub",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-006",
+   "SPECIES": "Ammania coccinea Rottb",
+   "SPECIES_IT": "Ammania arrossata",
+   "FAMILY": "Lythraceae",
+   "MECHANISM": "Inibidores da ALS (grupo B) — a ficha nomeia explicitamente: 'erbicidi inibitori dell'ALS (gruppo B)', com resistencia cruzada a solfoniluree e triazolopirimidine.",
+   "CROP_DECLARED": "riso (arroz)",
+   "FIRST_CASE_YEAR": "2018",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha declara resistencia CRUZADA, nao multipla: 'con resistenza incrociata alle solfoniluree e alle triazolopirimidine' — duas familias quimicas dentro do mesmo mecanismo ALS. A expressao 'resistenza multipla' NAO aparece nesta ficha.",
+   "CITATION": "'popolazioni resistenti agli erbicidi inibitori dell'ALS (gruppo B) con resistenza incrociata alle solfoniluree' — GIRE (CNR), ficha Ammania coccinea.",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Ammania",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-007",
+   "SPECIES": "Avena sterilis L.",
+   "SPECIES_IT": "Avena maggiore, avena rossa",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da ACCasi (grupo A) — nomeado literalmente: 'Resistenza agli erbicidi inibitori dell'ACCasi (gruppo A)'.",
+   "CROP_DECLARED": "grano duro e tenero (trigo duro e trigo comum)",
+   "FIRST_CASE_YEAR": "1992",
+   "REGIONS": [
+    "Basilicata",
+    "Puglia",
+    "Sicilia",
+    "Veneto (casos esporadicos)",
+    "Emilia Romagna (casos esporadicos)",
+    "Marche (casos esporadicos)",
+    "Abruzzo (casos esporadicos)",
+    "Lazio (casos esporadicos)"
+   ],
+   "MULTIPLE_RESISTANCE": "SIM, declarada literalmente: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' Ou seja, populacoes que ja resistem a ACCasi (grupo A) e, alem disso, resistem a inibidores da ALS. A ficha nao diz qual a proporcao dessas populacoes nem em quais regioes elas estao.",
+   "CITATION": "'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' — GIRE (CNR), ficha Avena sterilis.",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Avena",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-008",
+   "SPECIES": "Avena sterilis L.",
+   "SPECIES_IT": "Avena maggiore, avena rossa",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da ALS — a ficha diz que ALGUMAS populacoes tem resistencia multipla aos inibidores da ALS: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' Existe tambem um mapa proprio rotulado 'Mappa (frumento) ALS'.",
+   "CROP_DECLARED": "grano duro e tenero (trigo duro e trigo comum) — a ficha nao separa a cultura por mecanismo; o 'Sistema colturale' declarado para o bloco e este.",
+   "FIRST_CASE_YEAR": "NAO SEI. A ficha declara um unico ano, 1992, para o bloco de resistencia, sem dizer se ele se refere a ACCasi, a ALS ou a ambos. Nao afirmo 1992 para a ALS.",
+   "REGIONS": [
+    "NAO SEI — a ficha lista regioes uma vez so, para o bloco inteiro, sem separar por mecanismo"
+   ],
+   "MULTIPLE_RESISTANCE": "SIM, declarada literalmente: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' Ou seja, populacoes que ja resistem a ACCasi (grupo A) e, alem disso, resistem a inibidores da ALS. A ficha nao diz qual a proporcao dessas populacoes nem em quais regioes elas estao.",
+   "CITATION": "'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS.' — GIRE (CNR), ficha Avena sterilis.",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Avena",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-009",
+   "SPECIES": "Chenopodium album L.",
+   "SPECIES_IT": "Farinello comune",
+   "FAMILY": "Chenopodiaceae",
+   "MECHANISM": "Triazinas (atrazina), grupo C1 — nomeado literalmente: 'Popolazioni resistenti alle Triazine (atrazina) (gruppo C1)'. A ficha nao usa a palavra 'fotossistema'; usa o codigo de grupo C1.",
+   "CROP_DECLARED": "NAO SEI — a ficha nao declara sistema de cultivo para este caso.",
+   "FIRST_CASE_YEAR": "1982",
+   "REGIONS": [
+    "Piemonte"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI. A ficha nao menciona resistencia multipla nem resistencia cruzada para esta especie. Isso nao quer dizer que nao exista — quer dizer que esta fonte nao fala disso.",
+   "CITATION": "'Popolazioni resistenti alle Triazine (atrazina) (gruppo C1). Primi casi accertati: 1982.' — GIRE (CNR), ficha Chenopodium album.",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Chenopodium",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-010",
+   "SPECIES": "Sinapis arvensis L.",
+   "SPECIES_IT": "Senape selvatica",
+   "FAMILY": "Brassicaceae",
+   "MECHANISM": "Inibidores da enzima ALS — literal: \"Resistenza agli enzimi inibitori dell'ALS (gruppo B)\"",
+   "CROP_DECLARED": "grano duro e tenero (trigo duro e mole) — literal: \"Sistema colturale: grano duro e tenero.\"",
+   "FIRST_CASE_YEAR": "2006 — literal: \"Primo caso accertato nel 2006.\"",
+   "REGIONS": [
+    "Sicilia (tre casi) — literal: \"Regioni interessate: Sicilia (tre casi) e Toscana (due casi).\"",
+    "Toscana (due casi) — mesma frase literal acima"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI. Esta ficha, no corpo lido, nao traz nenhuma frase sobre resistencia multipla nem sobre resistencia cruzada para Sinapis arvensis. Campo vazio na fonte = NAO SEI, e nao \"nao ha\". Uma fonte so nao autoriza concluir ausencia.",
+   "CITATION": "\"Primo caso accertato nel 2006. Regioni interessate: Sicilia (tre casi) e Toscana (due casi).\" (GIRE, ficha Sinapis arvensis, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sinapis)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sinapis",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-011",
+   "SPECIES": "Solanum nigrum L.",
+   "SPECIES_IT": "Pomidorella, erba morella",
+   "FAMILY": "Solanaceae",
+   "MECHANISM": "Triazinas (atrazina), grupo C1 — literal: \"Resistenza alle triazine (atrazina) (gruppo C1).\" OBSERVACAO DE LEI 4: a ficha NAO escreve a palavra \"fotossistema\". O que esta escrito no corpo e \"triazine (atrazina)\" e \"gruppo C1\". Nao afirmo o alvo bioquimico com palavras que a ficha nao usou.",
+   "CROP_DECLARED": "mais (milho) — literal: \"Sistema colturale: mais.\"",
+   "FIRST_CASE_YEAR": "1978 — literal: \"Primo caso accertato nel 1978.\"",
+   "REGIONS": [
+    "Friuli Venezia-Giulia — literal: \"Regioni interessate: Regioni interessate: Friuli Venezia-Giulia, Veneto, Trentino.\" (o texto da fonte repete \"Regioni interessate:\" duas vezes; e assim que sai da pagina)",
+    "Veneto — mesma frase literal acima",
+    "Trentino — mesma frase literal acima"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI. O corpo desta ficha nao traz nenhuma frase sobre resistencia multipla nem sobre resistencia cruzada em Solanum nigrum. Campo vazio na fonte = NAO SEI, nunca \"nao ha\".",
+   "CITATION": "\"Resistenza alle triazine (atrazina) (gruppo C1). Primo caso accertato nel 1978.\" (GIRE, ficha Solanum nigrum, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Solanum)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Solanum",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-012",
+   "SPECIES": "Sorghum halepense (L.) Pers.",
+   "SPECIES_IT": "Sorgo selvatico, sorghetta, melghetto",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da enzima ACCasi, grupo A — literal: \"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A), bassi livelli di resistenza incrociata verso i DIM.\"",
+   "CROP_DECLARED": "soia, pomodoro e melone (soja, tomate e melao) — literal: \"Sistemi colturali: soia, pomodoro e melone.\" ATENCAO: a ficha lista os tres sistemas culturais em bloco, antes do tipo de resistencia; ela NAO diz em qual dos tres o primeiro caso de 2005 foi verificado. Nao sei a cultura especifica do primeiro caso.",
+   "FIRST_CASE_YEAR": "2005 — literal: \"Primo caso accertato nel 2005.\"",
+   "REGIONS": [
+    "Lombardia — literal: \"Regioni interessate: Lombardia.\" (unica regiao nomeada na ficha)"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha declara RESISTENCIA CRUZADA, em nivel baixo, aos DIM. Frase literal: \"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A), bassi livelli di resistenza incrociata verso i DIM.\" Sobre resistencia MULTIPLA (a mecanismos de acao diferentes): NAO SEI — a ficha nao usa esse termo nem descreve tal caso para esta especie. Das tres fichas desta leva, esta e a unica que menciona resistencia cruzada.",
+   "CITATION": "\"bassi livelli di resistenza incrociata verso i DIM\" (GIRE, ficha Sorghum halepense, http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sorghum)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Sorghum",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-013",
+   "SPECIES": "Panicum dichotomiflorum Michx.",
+   "SPECIES_IT": "Panico delle risaie, panico dicotomifloro",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "ACCasi (inibidores da ACCase — gruppo A, 1 na nova classificacao HRAC)",
+   "CROP_DECLARED": "riso (arroz)",
+   "FIRST_CASE_YEAR": "1978",
+   "REGIONS": [
+    "Lombardia"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI. A ficha de Panicum dichotomiflorum nao contem nenhuma frase sobre resistencia multipla ou cruzada — o bloco 'Situazione della resistenza' traz um unico tipo de resistencia e nada mais. Ausencia nesta ficha nao significa que nao exista: significa que esta fonte nao diz.",
+   "CITATION": "\"Resistenza agli erbicidi inibitori dell'ACCasi (gruppo A, 1 nella nuova classificazione HRAC). Primo caso accertato nel 1978.\" — ficha GIRE de Panicum dichotomiflorum (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Panicum",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-014",
+   "SPECIES": "Papaver rhoeas L.",
+   "SPECIES_IT": "Papavero",
+   "FAMILY": "Papaveraceae",
+   "MECHANISM": "ALS (inibidores da ALS — gruppo B), 'in particolare alle solfoniluree' (em particular as sulfonilureias)",
+   "CROP_DECLARED": "grano duro e tenero (trigo duro e mole)",
+   "FIRST_CASE_YEAR": "1998",
+   "REGIONS": [
+    "Toscana",
+    "Lazio",
+    "Puglia",
+    "Basilicata",
+    "Sicilia",
+    "Veneto",
+    "Lombardia (1 caso)",
+    "Piemonte (1 caso)",
+    "Umbria (1 caso)"
+   ],
+   "MULTIPLE_RESISTANCE": "SIM, declarada explicitamente e como terceiro bloco proprio: 'popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.' Regioes: Puglia, Lazio, Basilicata. A ficha NAO usa a expressao 'resistenza incrociata' (resistencia cruzada) em nenhum ponto — sobre cruzada aqui: NAO SEI.",
+   "CITATION": "\"popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.\" — ficha GIRE de Papaver rhoeas L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Papaver",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-015",
+   "SPECIES": "Papaver rhoeas L.",
+   "SPECIES_IT": "Papavero",
+   "FAMILY": "Papaveraceae",
+   "MECHANISM": "Ormonosimili / auxinicos — 2,4-D (gruppo O)",
+   "CROP_DECLARED": "grano duro e tenero (trigo duro e mole)",
+   "FIRST_CASE_YEAR": "1998",
+   "REGIONS": [
+    "Puglia",
+    "Lazio (1 caso)",
+    "Basilicata (1 caso)"
+   ],
+   "MULTIPLE_RESISTANCE": "SIM, declarada explicitamente e como terceiro bloco proprio: 'popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.' Regioes: Puglia, Lazio, Basilicata. A ficha NAO usa a expressao 'resistenza incrociata' (resistencia cruzada) em nenhum ponto — sobre cruzada aqui: NAO SEI.",
+   "CITATION": "\"popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.\" — ficha GIRE de Papaver rhoeas L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Papaver",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-016",
+   "SPECIES": "Papaver rhoeas L.",
+   "SPECIES_IT": "Papavero",
+   "FAMILY": "Papaveraceae",
+   "MECHANISM": "Resistencia MULTIPLA: ALS (gruppo B) + 2,4-D (gruppo O)",
+   "CROP_DECLARED": "grano duro e tenero (trigo duro e mole)",
+   "FIRST_CASE_YEAR": "1998",
+   "REGIONS": [
+    "Puglia",
+    "Lazio (2 casi)",
+    "Basilicata (1 caso)"
+   ],
+   "MULTIPLE_RESISTANCE": "SIM, declarada explicitamente e como terceiro bloco proprio: 'popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.' Regioes: Puglia, Lazio, Basilicata. A ficha NAO usa a expressao 'resistenza incrociata' (resistencia cruzada) em nenhum ponto — sobre cruzada aqui: NAO SEI.",
+   "CITATION": "\"popolazioni con resistenza multipla agli inibitori dell'ALS (gruppo B) e al 2,4-D (grupo O). Primo caso accertato nel 1998.\" — ficha GIRE de Papaver rhoeas L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Papaver",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-017",
+   "SPECIES": "Phalaris paradoxa L.",
+   "SPECIES_IT": "Scaiola sterile",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "ACCasi (inibidores da ACCase — gruppo A)",
+   "CROP_DECLARED": "grano duro e tenero (trigo duro e mole)",
+   "FIRST_CASE_YEAR": "1998",
+   "REGIONS": [
+    "Lazio",
+    "Molise",
+    "Puglia"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI. A ficha de Phalaris paradoxa nao traz nenhuma frase sobre resistencia multipla nem cruzada — o bloco 'Situazione della resistenza' e o mais curto das quatro fichas deste lote e cobre so o grupo A. Ausencia nesta fonte nao e prova de inexistencia.",
+   "CITATION": "\"Resistenza agli enzimi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 1998. Regioni interessate: Lazio, Molise, Puglia.\" — ficha GIRE de Phalaris paradoxa L. (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Phalaris",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-018",
+   "SPECIES": "Schoenoplectus (Scirpus) mucronatus (L.) Palla",
+   "SPECIES_IT": "Lisca mucronata, zigolo, lancia",
+   "FAMILY": "Cyperaceae",
+   "MECHANISM": "ALS (inibidores da ALS — gruppo B), com resistencia CRUZADA a todas as familias quimicas dos inibidores da ALS",
+   "CROP_DECLARED": "riso (arroz)",
+   "FIRST_CASE_YEAR": "1995",
+   "REGIONS": [
+    "Lombardia",
+    "Piemonte",
+    "Veneto"
+   ],
+   "MULTIPLE_RESISTANCE": "CRUZADA sim, MULTIPLA nao declarada. Texto literal: 'Presenza di popolazioni con resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'ALS.' — ou seja, dentro do mesmo mecanismo (ALS, gruppo B), atravessando todas as familias quimicas. A ficha NAO usa em nenhum ponto a expressao 'resistenza multipla' (resistencia a mecanismos diferentes): sobre isso, NAO SEI.",
+   "CITATION": "\"E' la specie con la maggiore diffusione di popolazioni resistenti agli enzimi inibitori dell'ALS (gruppo B).\" — ficha GIRE de Schoenoplectus (Scirpus) mucronatus (L.) Palla (gire.mlib.cnr.it, atualizacao declarada 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Schoenoplectus",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-019",
+   "SPECIES": "Conyza canadensis (L.) Cronq.",
+   "SPECIES_IT": "NAO SEI — a ficha nao traz nome comum italiano na linha em que as outras fichas trazem. No lugar dele aparece o sinonimo botanico: \"Conyza, Erigeron canadensis L.\"",
+   "FAMILY": "Asteraceae",
+   "MECHANISM": "EPSPs / glifosato — a ficha escreve \"resistente al Glyphosate (gruppo G)\" e rotula o mapa como \"Mappa (colture arboree) EPSPs\"",
+   "CROP_DECLARED": "Uliveto (olival) — \"Sistemi colturali: uliveto.\"",
+   "FIRST_CASE_YEAR": "2010",
+   "REGIONS": [
+    "Puglia"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI — a ficha nao usa as palavras resistenza multipla nem resistenza incrociata para esta especie. O que ela diz, e que e coisa diferente, e que no mundo a especie esta \"tra le specie che evolvono più frequentemente biotipi resistenti agli erbicidi\" (entre as especies que mais frequentemente desenvolvem biotipos resistentes). Isso e frequencia de evolucao de resistencia no mundo, nao declaracao de resistencia multipla ou cruzada na Italia.",
+   "CITATION": "\"Primo caso accertato nel 2010 nel comune di Giovinazzo (Bari).\" — ficha GIRE Conyza canadensis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Conyza, ultima atualizacao declarada no rodape: 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Conyza",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-020",
+   "SPECIES": "Cyperus difformis L.",
+   "SPECIES_IT": "Zigolo delle risaie",
+   "FAMILY": "Cyperaceae",
+   "MECHANISM": "ALS (gruppo B) — \"erbicidi inibitori dell'ALS (gruppo B)\"; mapa rotulado \"Mappa (riso) ALS\"",
+   "CROP_DECLARED": "Riso (arroz) — \"Sistema colturale: riso.\"",
+   "FIRST_CASE_YEAR": "1999",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia",
+    "Emilia Romagna",
+    "Veneto",
+    "Sardegna"
+   ],
+   "MULTIPLE_RESISTANCE": "Resistencia CRUZADA declarada, e so dentro do grupo B (ALS). A ficha diz: \"con resistenza incrociata alle solfoniluree e alle triazolopirimidine\" — resistencia cruzada as sulfonilureias e as triazolopirimidinas, que sao duas familias quimicas do mesmo mecanismo ALS. Sobre resistencia MULTIPLA (a mecanismos diferentes entre si): NAO SEI — a ficha nao usa essa expressao aqui.",
+   "CITATION": "\"con resistenza incrociata alle solfoniluree e alle triazolopirimidine. Primo caso accertato nel 1999.\" — ficha GIRE Cyperus difformis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus, ultima atualizacao declarada no rodape: 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-021",
+   "SPECIES": "Cyperus esculentus L.",
+   "SPECIES_IT": "Mandorla di terra",
+   "FAMILY": "Cyperaceae",
+   "MECHANISM": "ALS — \"halosulfuron, azimsulfuron (inibitori dell'ALS)\"; mapa rotulado \"Mappa (riso): ALS\"",
+   "CROP_DECLARED": "Riso (arroz) — \"Sistema colturale: riso.\"",
+   "FIRST_CASE_YEAR": "2015",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI — a ficha nao usa resistenza multipla nem resistenza incrociata para esta especie. Ela lista dois principios ativos (halosulfuron e azimsulfuron) sob o mesmo mecanismo ALS, mas NAO chama isso de resistencia cruzada; nao vou colocar essa palavra na boca da fonte.",
+   "CITATION": "\"Tipo di resistenza: halosulfuron, azimsulfuron (inibitori dell'ALS). Primo caso accertato nel 2015.\" — ficha GIRE Cyperus esculentus (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus_esc, ultima atualizacao declarada no rodape: 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Cyperus_esc",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-022",
+   "SPECIES": "Digitaria sanguinalis (L.) Scop.",
+   "SPECIES_IT": "Sanguinella comune",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "ACCasi (gruppo A) — \"erbicidi inibitori dell'ACCasi (gruppo A)\"",
+   "CROP_DECLARED": "Soia e Riso — a ficha escreve \"Sistemi colturali: Soia, Riso.\" num unico bloco, sem separar ano ou regiao por cultura. Nao vou dividir o que a fonte juntou.",
+   "FIRST_CASE_YEAR": "2006",
+   "REGIONS": [
+    "Lombardia",
+    "Veneto"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI — a ficha nao usa resistenza multipla nem resistenza incrociata para esta especie. Declara um unico mecanismo (ACCasi, grupo A).",
+   "CITATION": "\"popolazioni resistenti agli erbicidi inibitori dell'ACCasi (gruppo A). Primo caso accertato nel 2006.\" — ficha GIRE Digitaria sanguinalis, secao Situazione della resistenza (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Digitaria, ultima atualizacao declarada no rodape: 26/08/2026)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Digitaria",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-023",
+   "SPECIES": "Echinochloa crus-galli (L.) Beauv",
+   "SPECIES_IT": "Giavone comune, pianicastrella",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Propanile (gruppo C2) — a ficha nomeia o herbicida e o grupo, NAO SEI se ela nomeia o sitio de acao por extenso (nao aparece no corpo do texto)",
+   "CROP_DECLARED": "riso",
+   "FIRST_CASE_YEAR": "2000",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia",
+    "Toscana"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITATION": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-024",
+   "SPECIES": "Echinochloa crus-galli (L.) Beauv",
+   "SPECIES_IT": "Giavone comune, pianicastrella",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da ALS (gruppo B)",
+   "CROP_DECLARED": "riso",
+   "FIRST_CASE_YEAR": "NAO SEI — esta entrada da ficha nao traz ano de primeiro caso; nao concluir que nao existe",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia",
+    "Emilia Romagna",
+    "Toscana",
+    "Sardegna"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITATION": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-025",
+   "SPECIES": "Echinochloa crus-galli (L.) Beauv",
+   "SPECIES_IT": "Giavone comune, pianicastrella",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da ACCasi (gruppo A)",
+   "CROP_DECLARED": "riso",
+   "FIRST_CASE_YEAR": "2011",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia",
+    "Emilia Romagna",
+    "Toscana (1 caso)",
+    "Sardegna (1 caso)"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITATION": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-026",
+   "SPECIES": "Echinochloa crus-galli (L.) Beauv",
+   "SPECIES_IT": "Giavone comune, pianicastrella",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Resistencia multipla: inibidores da ALS (gruppo B) + inibidores da ACCasi (gruppo A)",
+   "CROP_DECLARED": "riso",
+   "FIRST_CASE_YEAR": "2009",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia",
+    "Emilia Romagna",
+    "Toscana (1 caso)",
+    "Sardegna (1 caso)"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITATION": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-027",
+   "SPECIES": "Echinochloa crus-galli (L.) Beauv",
+   "SPECIES_IT": "Giavone comune, pianicastrella",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da enzima ALS (gruppo B), com resistencia cruzada de alto nivel a todas as familias quimicas do grupo",
+   "CROP_DECLARED": "mais",
+   "FIRST_CASE_YEAR": "2005",
+   "REGIONS": [
+    "Veneto",
+    "Piemonte",
+    "Toscana"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha declara resistencia multipla em arroz — ALS (gruppo B) + ACCasi (gruppo A), primeiro caso em 2009, em Piemonte, Lombardia, Emilia Romagna, Toscana (1 caso) e Sardegna (1 caso). E declara resistencia CRUZADA em milho: populacoes com altos niveis de resistencia cruzada a TODAS as familias quimicas dos inibidores da ALS (gruppo B), primeiro caso em 2005, em Veneto, Piemonte e Toscana. Sao os dois unicos trechos da ficha que falam de multipla/cruzada.",
+   "CITATION": "\"alti livelli di resistenza incrociata verso tutte le famiglie chimiche degli inibitori dell'enzima ALS\" — GIRE, scheda Echinochloa crus-galli (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Echinochloa",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-028",
+   "SPECIES": "Eleusine indica (L.) Gaertn",
+   "SPECIES_IT": "Eleusine — a ficha repete o nome do genero na linha do nome comum. NAO SEI se existe um nome vulgar italiano distinto; esta ficha nao traz outro.",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Glifosato (gruppo G)",
+   "CROP_DECLARED": "vivaio — e a ficha acrescenta que estao 'a rischio anche i sistemi colturali simili, come le colture arboree perenni'",
+   "FIRST_CASE_YEAR": "2019",
+   "REGIONS": [
+    "Campania"
+   ],
+   "MULTIPLE_RESISTANCE": "Atencao ao recorte geografico, porque a ficha separa os dois planos. FORA DA ITALIA, ela registra que foram encontradas populacoes resistentes a outros herbicidas com mecanismo de acao diferente — ACCasi, PPO, PSII — 'e perfino casi di resistenza multipla'. Esse trecho vem no paragrafo sobre Malasia, outros paises asiaticos, Brasil, Mexico e EUA, e a ficha NAO os atribui a Italia. NA ITALIA, esta ficha declara apenas o caso de glifosato de 2019 na Campania e nao menciona resistencia multipla ou cruzada. Se ha ou nao multipla na Italia: NAO SEI por esta fonte.",
+   "CITATION": "\"E' stata una delle prime specie ad evolvere resistenza a glifosate a livello mondiale\" — GIRE, scheda Eleusine indica (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Eleusine)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Eleusine",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-029",
+   "SPECIES": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "SPECIES_IT": "Loietto",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da ACCasi (gruppo A)",
+   "CROP_DECLARED": "cereali autunno-vernini",
+   "FIRST_CASE_YEAR": "1995",
+   "REGIONS": [
+    "Emilia Romagna",
+    "Toscana",
+    "Lazio",
+    "Marche",
+    "Abruzzo",
+    "Puglia",
+    "Sardegna"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITATION": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-030",
+   "SPECIES": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "SPECIES_IT": "Loietto",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da ALS — a ficha escreve 'inibitori dell'ALS' nesta entrada sem repetir a letra do grupo",
+   "CROP_DECLARED": "cereali autunno-vernini",
+   "FIRST_CASE_YEAR": "NAO SEI — esta entrada nao traz ano de primeiro caso",
+   "REGIONS": [
+    "Toscana",
+    "Lazio",
+    "Puglia",
+    "Sardegna"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITATION": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-031",
+   "SPECIES": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "SPECIES_IT": "Loietto",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Resistencia multipla: inibidores da ACCasi (gruppo A) + inibidores da ALS (gruppo B)",
+   "CROP_DECLARED": "cereali autunno-vernini",
+   "FIRST_CASE_YEAR": "2000",
+   "REGIONS": [
+    "Toscana",
+    "Lazio",
+    "Puglia",
+    "Sardegna"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITATION": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-032",
+   "SPECIES": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "SPECIES_IT": "Loietto",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Inibidores da ACCasi",
+   "CROP_DECLARED": "erba medica (alfafa)",
+   "FIRST_CASE_YEAR": "NAO SEI — a ficha nao declara ano para este sistema de cultivo",
+   "REGIONS": [
+    "Emilia Romagna"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITATION": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-033",
+   "SPECIES": "Lolium spp. — a ficha especifica que na Italia duas especies estao envolvidas com resistencia: Lolium rigidum, geralmente difundida nas regioes meridionais, e Lolium multiflorum, nas regioes centro-setentrionais",
+   "SPECIES_IT": "Loietto",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Glifosato (gruppo G) — a remissao de mapa desta entrada e rotulada 'EPSPs'",
+   "CROP_DECLARED": "colture perenni — a ficha nomeia vinhedos e aveleiras (noccioleti) e, na linha das regioes, olivais (uliveti)",
+   "FIRST_CASE_YEAR": "NAO SEI — a ficha nao declara ano para esta entrada",
+   "REGIONS": [
+    "Piemonte, nella provincia di Cuneo",
+    "Puglia (a ficha atribui a Puglia os uliveti)"
+   ],
+   "MULTIPLE_RESISTANCE": "A ficha afirma duas vezes. Primeiro em frase corrida: 'Alcune popolazioni risultano avere resistenza multipla agli inibitori dell'ALS e dell'ACCasi.' Depois como entrada formal: populacoes com resistencia multipla a inibidores da ACCasi (gruppo A) e da ALS (gruppo B), primeiro caso em 2000, em Toscana, Lazio, Puglia e Sardegna. A ficha nao usa a expressao 'resistenza incrociata' (cruzada) em nenhum ponto — sobre resistencia cruzada em Lolium: NAO SEI por esta fonte.",
+   "CITATION": "\"Alta produzione di semi per pianta e scarsa dormienza ... favoriscono la comparsa e la diffusione della resistenza\" — GIRE, scheda Lolium spp. (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Lolium",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-RES-034",
+   "SPECIES": "Oryza sativa (L.) var. sylvatica",
+   "SPECIES_IT": "Riso crodo",
+   "FAMILY": "Poaceae",
+   "MECHANISM": "Imazamox — a ficha o identifica entre parenteses como 'inibitore dell' ALS'",
+   "CROP_DECLARED": "varieta di riso Clearfield ® (tollerante all'imazamox)",
+   "FIRST_CASE_YEAR": "2010",
+   "REGIONS": [
+    "Piemonte",
+    "Lombardia"
+   ],
+   "MULTIPLE_RESISTANCE": "NAO SEI. Esta ficha nao contem nenhuma mencao a resistencia multipla nem a resistencia cruzada. Ausencia nesta unica fonte nao autoriza dizer que nao existe.",
+   "CITATION": "\"La germinabilita rimane elevata anche per anni rendendo questa infestante particolarmente difficile da controllare\" — GIRE, scheda Oryza sativa var. sylvatica (http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Oryza)",
+   "AUTHORITY": "GIRE (CNR-IPSP)",
+   "SOURCE_URL": "http://gire.mlib.cnr.it/index.php?sel=schedeSpecie/Oryza",
+   "SOURCE_ID": "IT-SRC-GIRE",
+   "PROVENANCE": "REAL_FACT"
+  }
+ ]
+}

@@ -1,0 +1,544 @@
+{
+ "LAYER": "LABEL_TERM_CENSUS",
+ "COUNTRY": "IT",
+ "BUILT_AT": "2026-09-02",
+ "SOURCE_ARTIFACTS": [
+  "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
+ ],
+ "PROVENANCE_DEFAULT": "MINISTERO_LABEL_PDF",
+ "NOTE": "presenca de termo no texto de TODOS os 163 rotulos",
+ "COUNT": 17,
+ "WHY_THIS_IS_A_CENSUS_NOT_A_SAMPLE": "a leitura de pares estrutura 102 dos 163 (62,6%) e por isso e amostra. Este censo so pergunta se a palavra esta no texto, e pergunta nos 163.",
+ "WHAT_A_ZERO_DOES_NOT_MEAN": "NAO ESTA NO TEXTO DO ROTULO nao e NAO ESTA AUTORIZADO. O registro pode conter uso que o rotulo escreve de outro jeito. Por isso cada termo lista as grafias testadas.",
+ "LABELS_WITH_TEXT": 163,
+ "DENOMINATOR_IS_TRUSTWORTHY": true,
+ "DENOMINATOR_WHY_IT_MATTERS": "se algum PDF fosse imagem sem OCR, o censo correria sobre menos de 163 e um «0 de 163» seria mentira. Reconferido a cada execucao.",
+ "TERMS": [
+  {
+   "ID": "IT-CENSUS-001",
+   "TERM": "SCAPHOIDEUS_TITANUS",
+   "WHAT_IT_IS": "vetor da flavescencia dourada, de controle obrigatorio em 5 regioes",
+   "SPELLINGS_TESTED": [
+    "scaphoideus",
+    "scafoideo"
+   ],
+   "LABELS_CITING": 6,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "6 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "KLARTAN 20 EW",
+    "TAU AL 240 EW",
+    "MAVRIK SMART",
+    "KLARTAN SMART",
+    "MAVRIK EW",
+    "EVURE PRO"
+   ],
+   "REGISTRATION_IDS": [
+    "007555",
+    "007864",
+    "009800",
+    "012023",
+    "014190",
+    "014210"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-002",
+   "TERM": "FLAVESCENZA_DOURADA",
+   "WHAT_IT_IS": "a doenca em si; o rotulo trata o vetor, nao o fitoplasma",
+   "SPELLINGS_TESTED": [
+    "flavescenza",
+    "giallumi della vite"
+   ],
+   "LABELS_CITING": 0,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "0 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [],
+   "REGISTRATION_IDS": [],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-003",
+   "TERM": "BACTROCERA_OLEAE",
+   "WHAT_IT_IS": "mosca da oliveira -- a principal praga do olival italiano",
+   "SPELLINGS_TESTED": [
+    "bactrocera oleae",
+    "mosca dell.oliva",
+    "mosca dell.olivo"
+   ],
+   "LABELS_CITING": 0,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "0 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [],
+   "REGISTRATION_IDS": [],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-004",
+   "TERM": "BACTROCERA_OUTRAS",
+   "WHAT_IT_IS": "outras Bactrocera; NAO sao a mosca da oliveira",
+   "SPELLINGS_TESTED": [
+    "bactrocera dorsalis",
+    "bactrocera zonata"
+   ],
+   "LABELS_CITING": 3,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "3 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "MAVRIK SMART",
+    "KLARTAN SMART",
+    "EVURE PRO"
+   ],
+   "REGISTRATION_IDS": [
+    "009800",
+    "012023",
+    "014210"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-005",
+   "TERM": "OCCHIO_DI_PAVONE",
+   "WHAT_IT_IS": "a principal doenca do olival italiano",
+   "SPELLINGS_TESTED": [
+    "occhio di pavone",
+    "spilocaea",
+    "cicloconio",
+    "venturia oleaginea"
+   ],
+   "LABELS_CITING": 0,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "0 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [],
+   "REGISTRATION_IDS": [],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-006",
+   "TERM": "OLIVO",
+   "WHAT_IT_IS": "a cultura oliveira, em qualquer uso",
+   "SPELLINGS_TESTED": [
+    "olivo",
+    "oliveto",
+    "olive da",
+    "olivicol"
+   ],
+   "LABELS_CITING": 15,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "15 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "EKO OIL SPRAY",
+    "OLIONET",
+    "GLIPHOGAN TOP CL",
+    "TAIFUN MK CL",
+    "SHAMAL MK PLUS CL",
+    "DICURAN PLUS",
+    "TOMIGAN",
+    "HERBITOTAL CL",
+    "KORAVERT",
+    "AKTIVIR",
+    "MORAINE",
+    "GLIPHOGAN TOP CL PFNPE",
+    "HERBITOTAL CL PFNPE",
+    "SHAMAL MK PLUS CL PFNPE",
+    "TAIFUN  MK CL PFNPE"
+   ],
+   "REGISTRATION_IDS": [
+    "012573",
+    "014386",
+    "015096",
+    "015401",
+    "015405",
+    "016218",
+    "016312",
+    "016387",
+    "017929",
+    "017930",
+    "018101",
+    "018270",
+    "018271",
+    "018277",
+    "018279"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-007",
+   "TERM": "VENTURIA_MELO",
+   "WHAT_IT_IS": "sarna da macieira",
+   "SPELLINGS_TESTED": [
+    "ticchiolatura",
+    "venturia inaequalis"
+   ],
+   "LABELS_CITING": 6,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "6 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "MERPAN 80 WDG",
+    "CAPTHENE 80 WDG",
+    "MAKE UP 80 WDG",
+    "BANJO",
+    "EMBRACE",
+    "AGHARTA"
+   ],
+   "REGISTRATION_IDS": [
+    "008102",
+    "011500",
+    "012156",
+    "013905",
+    "015315",
+    "017432"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-008",
+   "TERM": "HALYOMORPHA",
+   "WHAT_IT_IS": "percevejo asiatico",
+   "SPELLINGS_TESTED": [
+    "halyomorpha",
+    "cimice asiatica"
+   ],
+   "LABELS_CITING": 6,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "6 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "KLARTAN 20 EW",
+    "TAU AL 240 EW",
+    "MAVRIK SMART",
+    "KLARTAN SMART",
+    "MAVRIK EW",
+    "EVURE PRO"
+   ],
+   "REGISTRATION_IDS": [
+    "007555",
+    "007864",
+    "009800",
+    "012023",
+    "014190",
+    "014210"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-009",
+   "TERM": "DIABROTICA",
+   "WHAT_IT_IS": "praga do milho",
+   "SPELLINGS_TESTED": [
+    "diabrotica"
+   ],
+   "LABELS_CITING": 7,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "7 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "LEBRON 0.5 G",
+    "LAMDEX EXTRA",
+    "FORZA",
+    "NINJA",
+    "SCHERMO 0.5 G",
+    "DURAVIS",
+    "ELTIRA"
+   ],
+   "REGISTRATION_IDS": [
+    "008189",
+    "008259",
+    "013560",
+    "013590",
+    "014479",
+    "015275",
+    "017687"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-010",
+   "TERM": "OSTRINIA",
+   "WHAT_IT_IS": "broca do milho",
+   "SPELLINGS_TESTED": [
+    "ostrinia",
+    "piralide"
+   ],
+   "LABELS_CITING": 12,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "12 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "KLARTAN 20 EW",
+    "TAU AL 240 EW",
+    "LAMDEX EXTRA",
+    "MAVRIK SMART",
+    "KLARTAN SMART",
+    "FORZA",
+    "NINJA",
+    "MAVRIK EW",
+    "EVURE PRO",
+    "DURAVIS",
+    "ELTIRA",
+    "COSAYR 200 SC"
+   ],
+   "REGISTRATION_IDS": [
+    "007555",
+    "007864",
+    "008259",
+    "009800",
+    "012023",
+    "013560",
+    "013590",
+    "014190",
+    "014210",
+    "015275",
+    "017687",
+    "018561"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-011",
+   "TERM": "FUSARIUM",
+   "WHAT_IT_IS": "fusariose, ligada a micotoxina",
+   "SPELLINGS_TESTED": [
+    "fusarium",
+    "fusarios"
+   ],
+   "LABELS_CITING": 9,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "9 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "CUSTODIA ULTRA",
+    "SEEDRON",
+    "BLAISE ULTRA",
+    "MIRADOR TURBO",
+    "MAGANIC",
+    "MAXENTIS",
+    "AVASTEL",
+    "SORATEL",
+    "KOJAMI"
+   ],
+   "REGISTRATION_IDS": [
+    "015232",
+    "016152",
+    "017358",
+    "017824",
+    "017955",
+    "018067",
+    "018089",
+    "018175",
+    "019095"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-012",
+   "TERM": "ZYMOSEPTORIA",
+   "WHAT_IT_IS": "septoriose do trigo",
+   "SPELLINGS_TESTED": [
+    "zymoseptoria",
+    "septoria",
+    "septorios"
+   ],
+   "LABELS_CITING": 18,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "18 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "MERPAN 80 WDG",
+    "FINESSOX",
+    "FOLPAN 80 WDG",
+    "FOLPAN SC",
+    "PARIFOL",
+    "FOLVIT 80 WDG",
+    "SOLOFOL AP",
+    "CUSTODIA ULTRA",
+    "FLOVINE",
+    "VINIFOL WDG",
+    "BLAISE ULTRA",
+    "STAVENTO",
+    "MIRADOR TURBO",
+    "MAGANIC",
+    "MAXENTIS",
+    "AVASTEL",
+    "SORATEL",
+    "KOJAMI"
+   ],
+   "REGISTRATION_IDS": [
+    "008102",
+    "008401",
+    "008601",
+    "010587",
+    "011501",
+    "013012",
+    "014862",
+    "015232",
+    "017111",
+    "017311",
+    "017358",
+    "017752",
+    "017824",
+    "017955",
+    "018067",
+    "018089",
+    "018175",
+    "019095"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-013",
+   "TERM": "ECHINOCHLOA",
+   "WHAT_IT_IS": "a daninha do arroz",
+   "SPELLINGS_TESTED": [
+    "echinochloa",
+    "giavone"
+   ],
+   "LABELS_CITING": 42,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "42 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "AGIL",
+    "CONTATTO 320",
+    "SULCOTREK",
+    "LEOPARD 5 EC",
+    "SULTAN",
+    "SHOGUN",
+    "CONTATTO DOUBLE SC",
+    "MANAGER",
+    "ERBY 5 EC",
+    "NICOGAN V.O.",
+    "MAGIO'",
+    "QUIZA 5 EC",
+    "APACHE",
+    "LION 5 EC",
+    "CLORMET",
+    "NICAMACK V.O.",
+    "RENDER V.O.",
+    "FALCON MK",
+    "PYXIDES WG",
+    "CINDER"
+   ],
+   "REGISTRATION_IDS": [
+    "009005",
+    "009790",
+    "010585",
+    "011243",
+    "011526",
+    "011660",
+    "011734",
+    "011789",
+    "012279",
+    "013242",
+    "013299",
+    "013711",
+    "013876",
+    "014375",
+    "014380",
+    "015182",
+    "015183",
+    "015253",
+    "015909",
+    "016697"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-014",
+   "TERM": "ORYZA_CRODO",
+   "WHAT_IT_IS": "arroz daninho",
+   "SPELLINGS_TESTED": [
+    "riso crodo"
+   ],
+   "LABELS_CITING": 18,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "18 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "AGIL",
+    "SHOGUN",
+    "GLIPHOGAN TOP CL",
+    "FALCON MK",
+    "TAIFUN MK CL",
+    "SHAMAL MK PLUS CL",
+    "TAIFUN JARDIN",
+    "HERBITOTAL CL",
+    "ZETROLA",
+    "LIGA",
+    "POSTSCRIPT 80 XL",
+    "KORAVERT",
+    "AKTIVIR",
+    "HIGHCARD",
+    "GLIPHOGAN TOP CL PFNPE",
+    "HERBITOTAL CL PFNPE",
+    "SHAMAL MK PLUS CL PFNPE",
+    "TAIFUN  MK CL PFNPE"
+   ],
+   "REGISTRATION_IDS": [
+    "009005",
+    "011660",
+    "015096",
+    "015253",
+    "015401",
+    "015405",
+    "015592",
+    "016387",
+    "017115",
+    "017206",
+    "017868",
+    "017929",
+    "017930",
+    "017995",
+    "018270",
+    "018271",
+    "018277",
+    "018279"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-015",
+   "TERM": "AMBROSIA",
+   "WHAT_IT_IS": "daninha invasora com impacto de saude",
+   "SPELLINGS_TESTED": [
+    "ambrosia artemisiifolia"
+   ],
+   "LABELS_CITING": 3,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "3 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [
+    "PYXIDES WG",
+    "DAVAI",
+    "EARLEX"
+   ],
+   "REGISTRATION_IDS": [
+    "015909",
+    "017209",
+    "017655"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-016",
+   "TERM": "POPILLIA",
+   "WHAT_IT_IS": "praga quarentenaria em expansao no norte",
+   "SPELLINGS_TESTED": [
+    "popillia japonica"
+   ],
+   "LABELS_CITING": 0,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "0 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [],
+   "REGISTRATION_IDS": [],
+   "PROVENANCE": "REAL_FACT"
+  },
+  {
+   "ID": "IT-CENSUS-017",
+   "TERM": "XYLELLA",
+   "WHAT_IT_IS": "bacteria de quarentena do olival do sul",
+   "SPELLINGS_TESTED": [
+    "xylella"
+   ],
+   "LABELS_CITING": 0,
+   "OUT_OF": 163,
+   "ALLOWED_SENTENCE": "0 dos 163 rotulos ADAMA vigentes na Italia citam este termo no texto publicado",
+   "PRODUCTS": [],
+   "REGISTRATION_IDS": [],
+   "PROVENANCE": "REAL_FACT"
+  }
+ ]
+}

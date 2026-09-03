@@ -1,0 +1,162 @@
+{
+ "LAYER": "CONFLICT_RESOLUTION",
+ "COUNTRY": "IT",
+ "HANDOFF": "V2",
+ "BUILT_AT": "2026-09-02",
+ "COUNT": 1,
+ "QA_GATE": "so QA_PASS e QA_CORRECTED sustentam afirmacao ao cliente. QA_UNREVIEWED fica no corpus e nao gera conclusao sozinho. QA_REJECTED nao esta aqui.",
+ "LAW": "a fusao com o pacote anterior e ADITIVA. Nada se perde.",
+ "LEI": "a fusao e ADITIVA. Nada do pacote anterior se perde. Conflito nao resolvido vira duas verdades no mesmo portal.",
+ "CONFLITOS": 1,
+ "PRECISAM_DE_HUMANO": 0,
+ "LISTA": [
+  {
+   "OBJETO": "CATALOGO COMERCIAL ADAMA ITALIA",
+   "CAMPO": "quantos produtos estao no catalogo publico",
+   "OLD_VALUE": "40 marcados IN_PUBLIC_CATALOG em adama-italy-products.json",
+   "NEW_VALUE": "51 fichas de produto lidas pela sitemap · 26 ERBICIDI, 14 FUNGICIDI, 6 INSETTICIDI, 5 SPECIALI",
+   "WINNER": "AMBOS, PORQUE SAO PERGUNTAS DIFERENTES",
+   "WHY": "a bandeira no arquivo responde «este produto do REGISTRO tem ficha?» e o censo responde «quantas FICHAS o catalogo publica?». Um produto de catalogo cujo titular nao e a ADAMA nunca teria bandeira, porque o arquivo dos 163 foi filtrado por titular. Sao seis produtos assim. Substituir um numero pelo outro apagaria o achado.",
+   "BASE_DE_QA": "QA_PASS (7 de 8 do bloco catalogo sobreviveram)",
+   "ACAO": "manter as duas classes separadas: CATALOG_PRODUCT e REGULATORY_PRODUCT, como manda o §12"
+  }
+ ],
+ "ADICOES_SEM_CONFLITO": [
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-001",
+   "NEW_ID": "IT-CAN-EAC9480EA6"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-010",
+   "NEW_ID": "IT-CAN-02554B3F21"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-001",
+   "NEW_ID": "IT-CAN-5CC9CB27DA"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-001",
+   "NEW_ID": "IT-CAN-73C23B2D2B"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-001",
+   "NEW_ID": "IT-CAN-50527EB401"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-005",
+   "NEW_ID": "IT-CAN-E82C691A8A"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-010",
+   "NEW_ID": "IT-CAN-F6395221F1"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-001",
+   "NEW_ID": "IT-CAN-FCB5128BC4"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-009",
+   "NEW_ID": "IT-CAN-40CB93E252"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-001",
+   "NEW_ID": "IT-CAN-3B38C58D4B"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-003",
+   "NEW_ID": "IT-CAN-F0B0821F62"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-005",
+   "NEW_ID": "IT-CAN-A072C2145F"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-005",
+   "NEW_ID": "IT-CAN-7E18B31DC6"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-005",
+   "NEW_ID": "IT-CAN-997A403A41"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-004",
+   "NEW_ID": "IT-CAN-0CA7B2FF2F"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-002",
+   "NEW_ID": "IT-CAN-BE032D385B"
+  },
+  {
+   "OBJETO": "EVENTO",
+   "NOTA": "mesmo evento, datas compativeis ou ausentes — nada a resolver",
+   "OLD_ID": "IT-EVT-005",
+   "NEW_ID": "IT-CAN-DC3F33998E"
+  },
+  {
+   "OBJETO": "FENOLOGIA / CAMPO CORRENTE",
+   "NOTA": "aditivo, nao conflitante: sao boletins DIFERENTES, de datas e regioes diferentes. Nenhum contradiz o outro.",
+   "REGIOES_SO_NO_ANTERIOR": [
+    "emilia",
+    "marche",
+    "piemonte",
+    "toscana"
+   ],
+   "REGIOES_SO_NA_LAST_MILE": [
+    "abruzzo",
+    "basilicata",
+    "calabria",
+    "campania",
+    "italia",
+    "lazio",
+    "liguria",
+    "molise",
+    "sardegna",
+    "sicilia",
+    "trentino",
+    "veneto"
+   ],
+   "REGIOES_NOS_DOIS": [
+    "lombardia",
+    "puglia"
+   ]
+  },
+  {
+   "OBJETO": "VOZES",
+   "NOTA": "NAO e conflito e NAO se funde. `field-voices` sao 58 falas de PLATEIA de canal (comentario sob video, sem identidade provada). `PUBLIC_VOICES` sao vozes IDENTIFICADAS, com cargo e frase assinada. Fundi-las apagaria a distincao que o eixo de plateia existe para preservar — foi ela que impediu conversa de horta de virar inteligencia de lavoura.",
+   "ANTERIOR": 58,
+   "LAST_MILE": 22
+  }
+ ]
+}

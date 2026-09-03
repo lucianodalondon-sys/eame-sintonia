@@ -1,0 +1,123 @@
+{
+ "LAYER": "FUTURE_SIGNALS",
+ "COUNTRY": "IT",
+ "BUILT_AT": "2026-09-02",
+ "SOURCE_ARTIFACTS": [
+  "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
+  "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V2.json"
+ ],
+ "PROVENANCE_DEFAULT": "REAL_DERIVED",
+ "NOTE": "FATO e INTERPRETACAO ficam em campos separados, e nenhum sinal esta promovido.",
+ "COUNT": 3,
+ "SIGNALS": [
+  {
+   "ID": "IT-FUT-001",
+   "LEGACY_ID": "FT-IT-001",
+   "WHO_IS_TALKING": "ciencia italiana indexada no OpenAlex",
+   "WHAT_CHANGED": "LARGE_SCIENCE_CLUSTER_x_PORTFOLIO_ABSENCE",
+   "CROP": "MAIS",
+   "ISSUE": "micotoxina / Fusarium",
+   "REGION": "NAO SEI — o recorte cientifico e por afiliacao nacional, nao por regiao de estudo",
+   "WHY_WATCH": "um boletim regional que reporte micotoxina ou Fusarium em milho, com data de observacao, numa das regioes com area.",
+   "HOW_SINTONIA_GOT_HERE": "IT-T5-001, OpenAlex com institutions.country_code:it e from_publication_date:2019-01-01. MAIZE_MYCOTOXIN = 208 trabalhos, contra MAIZE_WEED 79, MAIZE_BORER 30 e MAIZE_DIABROTICA 11. E o recorte mais denso do milho italiano.",
+   "OBSERVED_FACTS": [
+    "a ciencia italiana do milho olha 2,6 vezes mais para micotoxina do que para daninhas",
+    "a ADAMA tem zero fungicidas citando milho na Italia",
+    "as tres maiores regioes de milho nao tem boletim de milho medido"
+   ],
+   "SINTONIA_INTERPRETATION": "EMERGING_THEME",
+   "UNKNOWN": [
+    "se 208 e muito ou pouco para o tema — nao ha serie por ano",
+    "se a distancia entre a ciencia e o portfolio e lacuna ou escolha: manejo de micotoxina em milho e largamente agronomico, e daninhas e mercado legitimo e grande",
+    "se ha pressao de campo"
+   ],
+   "NEXT_WINDOW": "NAO SEI — nenhuma ancora de tempo propria",
+   "PORTFOLIO_CONNECTION": "dos 163 registros vigentes do grupo ADAMA na Italia, 36 citam milho: 24 herbicidas, 9 inseticidas e ZERO fungicidas. Metade dos 46 fungicidas do portfolio cita videira; nenhum cita milho.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY": "um boletim regional que reporte micotoxina ou Fusarium em milho, com data de observacao, numa das regioes com area.",
+   "PROMOTED_TO_RADAR": false,
+   "SOURCE_IDS": [
+    "IT-SRC-OPENALEX",
+    "IT-SRC-MINISTERO"
+   ],
+   "PROVENANCE": "REAL_DERIVED"
+  },
+  {
+   "ID": "IT-FUT-002",
+   "LEGACY_ID": "FT-IT-002",
+   "WHO_IS_TALKING": "ciencia italiana indexada no OpenAlex",
+   "WHAT_CHANGED": "LARGE_SCIENCE_CLUSTER",
+   "CROP": "TRIGO e TRIGO DURO",
+   "ISSUE": "Fusarium / desoxinivalenol",
+   "REGION": "NAO SEI",
+   "WHY_WATCH": "subir para EMERGING_THEME exige UMA segunda camada. A consulta do registro italiano para Fusarium em trigo e barata e nao foi feita.",
+   "HOW_SINTONIA_GOT_HERE": "WHEAT_FUSARIUM = 243 trabalhos e DURUM_FUSARIUM = 78 no mesmo recorte. E o MAIOR agrupamento cientifico italiano medido, acima do milho x micotoxina (208).",
+   "OBSERVED_FACTS": [
+    "e o maior volume cientifico medido do recorte italiano: 243 mais 78"
+   ],
+   "SINTONIA_INTERPRETATION": "SCIENTIFIC_SIGNAL",
+   "UNKNOWN": [
+    "todas as outras camadas. Nenhuma foi consultada."
+   ],
+   "NEXT_WINDOW": "NAO SEI",
+   "PORTFOLIO_CONNECTION": "nao medido para o par.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY": "subir para EMERGING_THEME exige UMA segunda camada. A consulta do registro italiano para Fusarium em trigo e barata e nao foi feita.",
+   "PROMOTED_TO_RADAR": false,
+   "SOURCE_IDS": [
+    "IT-SRC-OPENALEX",
+    "IT-SRC-MINISTERO"
+   ],
+   "PROVENANCE": "REAL_DERIVED"
+  },
+  {
+   "ID": "IT-FUT-003",
+   "WHO_IS_TALKING": "Comissao Europeia, por ato juridico publicado",
+   "WHAT_CHANGED": "a aprovacao europeia de varias substancias ativas do portfolio italiano da ADAMA expira antes de 2028, e varios atos declaram a renovacao ainda em avaliacao",
+   "CROP": "TRANSVERSAL",
+   "ISSUE": "REGULATORIO",
+   "REGION": "UE",
+   "WHY_WATCH": "o vencimento NACIONAL de parte do portfolio coincide com a fronteira europeia da substancia. Registro nacional nao sobrevive a aprovacao UE vencida.",
+   "HOW_SINTONIA_GOT_HERE": "15 atos lidos na integra pela rota CELLAR/SPARQL e cada um relido por um refutador independente",
+   "OBSERVED_FACTS": [
+    "Lambda-cyhalothrin = 31 August 2026 (32024R0324)",
+    "Fluazinam = 15 April 2026 (32024R0324)",
+    "pendimethalin = 15 January 2027 (32024R2221)",
+    "plant oils / rape seed oil = 31 March 2026 (32024R2221)",
+    "Azoxystrobin = 31 May 2027 (32024R2781)",
+    "Fluroxypyr = 15 February 2027 (32024R2781)",
+    "Tefluthrin = 31 May 2027 (32024R2781)",
+    "Terbuthylazine = 31 May 2027 (32024R2781)",
+    "Chlorantraniliprole = 31 May 2027 (32024R2781)",
+    "Pirimicarb = 31 October 2026 (32025R0099)",
+    "Imazamox = 30 June 2027 (32025R0099)",
+    "Phenmedipham = 30 September 2026 (32025R0099)",
+    "Prothioconazole = 31 March 2027 (32025R0787)",
+    "Paraffin oil = 30 November 2026 (32025R0787)",
+    "Fludioxonil = 30 September 2026 (32025R0787)",
+    "Fluxapyroxad = 31 October 2027 (32025R0787)",
+    "Clodinafop = 31 July 2027 (32025R1489)",
+    "Diflufenican = 31 August 2027 (32025R2316)",
+    "Fluazinam = 30 November 2027 (32026R0372)",
+    "Cymoxanil = 30 November 2027 (32026R1421)",
+    "Clethodim = 15 December 2027 (32026R1421)",
+    "Pirimicarb = 31 July 2027 (32026R1826)",
+    "Phenmedipham = 30 September 2027 (32026R1826)",
+    "Fludioxonil = 30 September 2027 (32026R1826)"
+   ],
+   "SINTONIA_INTERPRETATION": "EMERGING_THEME — merece um analista abrir, nao e previsao de retirada",
+   "UNKNOWN": [
+    "o RESULTADO de cada renovacao — o ato nao decide, so estende",
+    "se havera nova extensao antes do vencimento",
+    "se a decisao mantem o uso italiano de cada produto"
+   ],
+   "NEXT_WINDOW": "2027-01-31 e a data mais proxima (tau-fluvalinate, bupirimate)",
+   "PORTFOLIO_CONNECTION": "7 produtos ADAMA com tau-fluvalinate, 5 com bupirimate",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY": "nao e oportunidade: e exposicao. O que a destravaria e um ato de decisao.",
+   "PROMOTED_TO_RADAR": false,
+   "SOURCE_IDS": [
+    "IT-SRC-CELLAR",
+    "IT-SRC-MINISTERO"
+   ],
+   "PROVENANCE": "REAL_FACT"
+  }
+ ]
+}
