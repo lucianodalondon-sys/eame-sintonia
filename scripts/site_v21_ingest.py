@@ -263,6 +263,26 @@ FAMILIAS = {
         'EVIDENCE_IDS', 'EVIDENCE_FAMILIES', 'EVIDENCE_COUNT',
         'CONFIDENCE', 'OPPORTUNITY_SCORE', 'SCORE_DIMENSIONS', 'ACTION_MAP',
         'IDENTITY_KEY', 'MERGED_FROM',
+        # ── A CAMADA COMERCIAL V1.1 ATRAVESSA A FRONTEIRA ────────────────────
+        # Ate aqui o portal mantinha a SUA PROPRIA regua de material externo
+        # (`rtvEligibility`, em italy-app-model.js), derivada do que a tela via.
+        # O motor passou a decidir a mesma coisa com mais dado do que a tela
+        # tem — catalogo publico, oracao de meio da fonte, portoes de evidencia.
+        #
+        #     UMA REGUA DUPLICADA SAO DUAS REGUAS QUE VAO DIVERGIR.
+        #
+        # Entao o veredito do motor atravessa, e a regua do portal passa a ser a
+        # RESERVA para quando o registro nao o traz. Sao CODIGOS e listas de
+        # codigos, nunca prosa de pesquisa: as frases correspondentes vivem no
+        # dicionario de lingua do portal, do lado de ca.
+        'COMMERCIAL_PRIORITY', 'WHY_COMMERCIAL_CODES',
+        'EXTERNAL_MATERIAL_READY', 'EXTERNAL_BLOCKER_CODES',
+        # ⚠️ `SOURCE_PRESCRIBED_MEANS` NAO atravessa: e um pedaco literal do
+        # NEED_EXCERPT, e o V2.1 foi pesquisado em PORTUGUES. Quem precisa da
+        # frase inteira le a ficha do caso do lado de ca da fronteira; a tela
+        # nomeia a substancia do NOSSO produto, que e fato e nao prosa.
+        'CASE_ACTIVE_INGREDIENTS',
+        'NEED_DIRECTION', 'NEED_EVIDENCE_ID', 'NEED_METHOD',
     ), ('WHAT_IT_PROVES', 'WHAT_IT_DOES_NOT_PROVE')),
 
     'agrometConditions': ('AGROMET-CONDITIONS.json', (

@@ -41,6 +41,8 @@ V21 = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1')
 ING = os.path.join(V21, 'DESIGN-INGEST')
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import v21_datas as DT  # noqa: E402
+import v21_necessidade as NE  # noqa: E402
+import v21_comercial as CM  # noqa: E402
 
 HOJE = date(2026, 9, 2)          # a data de referência do pacote, pinada
 JANELA_FUTURA = 365              # dias à frente que ainda contam como "preparar"
@@ -175,18 +177,35 @@ def data_do_sinal(regs):
     return melhor, (HOJE - date.fromisoformat(melhor)).days
 
 
+# Que PERGUNTA cada campo de janela responde. Não é o mesmo relógio.
+#
+# ⚠️ O DEFEITO QUE ISTO CONSERTA. A única janela que o parser conseguia ler em
+# todo o pacote era `PREPARATION_WINDOW = «ate 2027-05-31, quando historicamente
+# sai o ato»` — a data em que a região costuma PUBLICAR O DECRETO. Ela ia para
+# `WINDOW_*`, cujo campo declara «é a janela de APLICAÇÃO», e daí saía o
+# `FUTURE_PREPARATION` de casos de videira cuja pressão de campo é outra coisa.
+#
+#     DATA DE ATO NÃO É JANELA DE APLICAÇÃO.
+#     QUANDO SAI O DECRETO E QUANDO SE PULVERIZA SÃO DOIS RELÓGIOS.
+TIPO_DE_JANELA = {
+    'APPLICATION_WINDOW_2026': 'APPLICATION',
+    'REGULATORY_WINDOW': 'APPLICATION',      # «2 tratamentos, 1ª janela 08–19/06»
+    'MONITORING_WINDOW': 'MONITORING',
+    'NEXT_IMPORTANT_WINDOW': 'PREPARATION',
+    'PREPARATION_WINDOW': 'PREPARATION',     # «quando historicamente sai o ato»
+}
+
+
 def janela(regs):
-    """→ (inicio, fim, dias, estado). Prosa nunca vira janela."""
+    """→ (inicio, fim, dias, estado, campo, tipo). Prosa nunca vira janela."""
     for r in regs:
-        for campo in ('APPLICATION_WINDOW_2026', 'NEXT_IMPORTANT_WINDOW',
-                      'MONITORING_WINDOW', 'REGULATORY_WINDOW',
-                      'PREPARATION_WINDOW'):
+        for campo in TIPO_DE_JANELA:
             d = DT.analisar((campo, r.get(campo)))
             if d['DATE_PARSE_STATE'] != DT.UNKNOWN:
                 fim = date.fromisoformat(d['END_DATE'])
                 return (d['START_DATE'], d['END_DATE'], (fim - HOJE).days,
-                        d['DATE_PARSE_STATE'])
-    return (None, None, None, 'UNKNOWN')
+                        d['DATE_PARSE_STATE'], campo, TIPO_DE_JANELA[campo])
+    return (None, None, None, 'UNKNOWN', None, None)
 
 
 def score(dim):
@@ -208,6 +227,21 @@ def estado_temporal(dias, arquetipo, tem_janela):
     return 'WATCH'
 
 
+# Quem OBSERVA um fato no mundo, e por isso responde pela geografia da
+# afirmação. O rótulo, o registro e a substância ativa não observam nada: eles
+# dizem o que é permitido, e a permissão é nacional por construção.
+TIPOS_QUE_OBSERVAM = ('FIELD_SIGNAL', 'MARKET_OBSERVATION', 'COMPETITOR_ACTIVITY',
+                      'EVENT', 'PUBLIC_VOICE', 'SCIENTIFIC_RECORD',
+                      'RESISTANCE_RECORD', 'CROP_ECONOMIC_WEIGHT_CLAIM',
+                      'AGROMET_CONDITION', 'NEWS_ITEM', 'CROP_WINDOW')
+
+# E quem só declara AUTORIZAÇÃO. A geografia destes vive à parte, em
+# PRODUCT_AUTHORIZATION_GEOGRAPHY, e nunca entra no portão A.
+TIPOS_DE_AUTORIZACAO = ('LABEL_USE_RELATIONSHIP', 'REGULATORY_PRODUCT',
+                        'ACTIVE_INGREDIENT', 'REGULATORY_FUTURE_FACT',
+                        'COMMERCIAL_PRODUCT')
+
+
 # ── OS OITO PORTÕES DA CONFIRMAÇÃO ───────────────────────────────────────────
 def portoes(o, ev):
     """A–H. Devolve a lista dos que FALHARAM. Score alto não abre portão.
@@ -215,7 +249,20 @@ def portoes(o, ev):
         UM 12 COM PORTAO FECHADO CONTINUA SENDO UM 12 COM PORTAO FECHADO.
     """
     f = []
-    geos = {g for e in ev for g in (e.get('REGION_IDS') or [])}
+    # ⚠️ D2 · A GEOGRAFIA DA AFIRMACAO NAO SE MISTURA COM A DA AUTORIZACAO.
+    # A versao anterior somava os REGION_IDS de TODOS os apoios. O sinal de campo
+    # e regional (REGION_VENETO); o rotulo ministerial e GEO_ITALY, porque a
+    # autorizacao vale no pais inteiro. Duas geografias, caso regional, portao
+    # fechado por «geografias que nao se contem» — e sete casos O1 regionais e
+    # provinciais caiam por causa da propria autorizacao que os tornava vendaveis.
+    #
+    #     ROTULO NACIONAL CONTEM A REGIAO. CONTER NAO E CONTRADIZER.
+    #
+    # Quem responde pela geografia da AFIRMACAO e quem OBSERVOU o fato. O rotulo
+    # responde outra pergunta — «onde e permitido usar» — e essa resposta vive em
+    # PRODUCT_AUTHORIZATION_GEOGRAPHY, ao lado, sem votar aqui.
+    geos = {g for e in ev if e.get('ENTITY_TYPE') in TIPOS_QUE_OBSERVAM
+            for g in (e.get('REGION_IDS') or [])}
     # A · geografia compatível: nenhum apoio pode falar por região que não é dele
     if any(e.get('REGION_REPRESENTS') is False and o['GEOGRAPHY_SCOPE'] == 'REGIONAL'
            for e in ev):
@@ -256,6 +303,43 @@ def portoes(o, ev):
     return f
 
 
+# ── O QUE O RED TEAM PODE LER ────────────────────────────────────────────────
+# Os campos em que o caso AFIRMA alguma coisa. O red team procura extrapolacao
+# aqui, e so aqui.
+CAMPOS_AFIRMADOS = ('WHY_NOW', 'ADAMA_RELEVANCE', 'WHAT_IT_PROVES',
+                    'CROP', 'TARGET', 'GEOGRAPHY', 'STATUS',
+                    'PRODUCT_LINK_STATE', 'PRODUCT_RELATIONSHIPS')
+
+# E os que o red team NAO pode ler, porque nao sao afirmacao do caso:
+#   WHAT_IT_DOES_NOT_PROVE  a advertencia contra o erro
+#   *_LAW, *_MEANS          texto metodologico e as proprias regras
+#   BLOCKING_GATES          o resultado dos portoes
+#   SCORE_*, NUMBERS        aritmetica
+
+
+def _texto_afirmado(o):
+    """So o que o caso AFIRMA — nunca a advertencia contra o proprio erro.
+
+    ⚠️ O DEFEITO QUE ISTO CONSERTA (D1). A regra de extrapolacao de participacao
+    de mercado rodava sobre `json.dumps(o)`, e `o` ja carregava
+    `WHAT_IT_DOES_NOT_PROVE`, que e a frase FIXA do arquetipo O4 e diz
+    «COMUNICACAO NAO E PARTICIPACAO DE MERCADO. NAO prova investimento, share nem
+    resultado.» A regex casava com o proprio aviso, e os nove casos O4 ficavam
+    inconfirmaveis por construcao — nenhum deles por merito.
+
+        O AVISO CONTRA UM ERRO NAO E O ERRO.
+        QUEM MEDE O PROPRIO TEXTO MEDE A SI MESMO.
+    """
+    partes = []
+    for k in CAMPOS_AFIRMADOS:
+        v = o.get(k)
+        if isinstance(v, (list, tuple)):
+            partes.extend(str(x) for x in v)
+        elif v is not None:
+            partes.append(str(v))
+    return ' | '.join(partes)
+
+
 # ── O RED TEAM ───────────────────────────────────────────────────────────────
 def red_team(o, ev):
     """Nove perguntas, cada uma um defeito que este projeto ja cometeu."""
@@ -274,7 +358,7 @@ def red_team(o, ev):
     if o['ARCHETYPE'] == 'O5_REGULATORY_PREPARATION' and o['STATUS'] == 'ACT_NOW':
         m.append('data regulatoria virou urgencia')
     if any(e.get('ENTITY_TYPE') == 'COMPETITOR_ACTIVITY' for e in ev) and \
-            re.search(r'share|participac|quota', json.dumps(o, ensure_ascii=False), re.I):
+            re.search(r'share|participac|quota', _texto_afirmado(o), re.I):
         m.append('comunicacao de concorrente virou participacao de mercado')
     if o['ARCHETYPE'] == 'O3_RESISTANCE_MOA' and not any(
             e.get('ENTITY_TYPE') == 'FIELD_SIGNAL' for e in ev):
@@ -302,7 +386,51 @@ def main():
     lbl_crop = _ix(cs['PRODUCT-RELATIONSHIPS'], 'CROP_IDS')
     lbl_issue = _ix(cs['PRODUCT-RELATIONSHIPS'], 'ISSUE_IDS')
     field_crop = _ix(cs['CURRENT-FIELD-SIGNALS'], 'CROP_IDS')
-    win_crop = _ix(cs['CROP-WINDOWS'], 'CROP_IDS')
+    # ── A JANELA PERTENCE AO PAR E À REGIÃO, NÃO SÓ À CULTURA ────────────────
+    # Este índice era `_ix(cs['CROP-WINDOWS'], 'CROP_IDS')` — só por cultura — e
+    # `emitir()` entregava as três primeiras janelas da cultura a QUALQUER caso
+    # dela. Os sete registros de CROP-WINDOWS são triplas bem declaradas
+    # (cultura × alvo × região), e o índice jogava fora duas das três.
+    #
+    # MEDIDO: um caso de videira × BOTRITE em EMILIA-ROMAGNA recebia
+    # `IT-WIN-001/002/003` — que são de SCAPHOIDEUS, e de Veneto, Lombardia e
+    # Piemonte. Quatro consequências, todas do mesmo vínculo: geografia de
+    # terceiros promovida ao caso (portão A_GEOGRAFIA), procedência
+    # irrecuperável herdada de registro alheio (portão F_PROCEDENCIA), a data
+    # administrativa `2027-05-31` do `PREPARATION_WINDOW` exibida como janela, e
+    # a família externa `CROP_WINDOW` contada num caso que tem uma só.
+    #
+    #     É O MESMO DEFEITO DO PAR CARTESIANO, NOUTRO LUGAR: JUNTAR POR UM EIXO
+    #     E JOGAR FORA OS OUTROS QUE O REGISTRO DECLARA.
+    #
+    # A regra é a mesma já aplicada ao par observado: a janela entra no caso
+    # quando declara O MESMO ALVO e quando a sua região CONTÉM a afirmação. Uma
+    # janela sem alvo declarado não fala de alvo nenhum e não entra em caso com
+    # alvo; uma janela sem região (ou nacional) fala pelo país e entra em todos.
+    win_par = defaultdict(list)
+    win_sem_alvo = defaultdict(list)
+    for w in cs['CROP-WINDOWS']:
+        alvos = [i for i in (w.get('ISSUE_IDS') or []) if i]
+        for c in (w.get('CROP_IDS') or []):
+            if alvos:
+                for i in alvos:
+                    win_par[(c, i)].append(w)
+            else:
+                win_sem_alvo[c].append(w)
+
+    def janelas_do_caso(crop, alvo, geo):
+        """→ as janelas que ESTE caso pode citar. Nunca as do vizinho."""
+        base = win_par.get((crop, alvo), []) if alvo else win_sem_alvo.get(crop, [])
+        saida = []
+        for w in base:
+            regs = [r for r in (w.get('REGION_IDS') or []) if r]
+            # ⚠️ A CONTENÇÃO É NUM SENTIDO SÓ: a janela entra quando a geografia
+            # DELA contém a do caso. Uma janela provincial de Modena não fala
+            # pela Itália — aceitá-la num caso nacional seria a mesma promoção de
+            # geografia, ao contrário.
+            if not regs or 'GEO_ITALY' in regs or geo in regs:
+                saida.append(w)
+        return saida
     res_crop = _ix(cs['RESISTANCE'], 'CROP_IDS')
     sci_crop = _ix(cs['SCIENCE'], 'CROP_IDS')
     comp_crop = _ix(cs['COMPETITOR-ACTIVITIES'], 'CROP_IDS')
@@ -317,24 +445,131 @@ def main():
         ai_por_prod[k].append(r)
     ai_por_id = {a['ID']: a for a in cs['ACTIVE-INGREDIENTS']}
 
+    # O catálogo comercial deixa de ser carregado e ignorado.
+    ix_com = CM.indice_comercial(cs['PRODUCTS-COMMERCIAL'])
+    # E o par cultura × alvo passa a ser o que a fonte OBSERVOU, não o produto
+    # cartesiano entre duas listas planas do mesmo documento.
+    pares_ix = NE.indice_de_pares(cs['CURRENT-FIELD-SIGNALS'])
+
+    def _casados(rotulos):
+        """Os registros do CATALOGO que o par de rotulo alcanca — nao so o nome."""
+        vistos, fora = set(), []
+        for r in rotulos:
+            for p in ix_com.get(CM.num(r.get('REGISTRATION_NUMBER')), []):
+                if p['ID'] not in vistos:
+                    vistos.add(p['ID'])
+                    fora.append(p)
+        return fora
+
+    def camada_comercial(o, apoios, rotulos, pinos):
+        """As três perguntas comerciais que o V1 não fazia.
+
+        1 · existe produto no CATÁLOGO comercial, e não só no registro?
+        2 · a fonte manda AGIR, ou manda parar?
+        3 · a geografia da AFIRMAÇÃO se sustenta — sem contar a do rótulo?
+        """
+        c = dict(CM.casar(list(rotulos), ix_com))
+
+        # ── geografia: três coisas diferentes, três campos ────────────────────
+        obs = [e for e in apoios if e.get('ENTITY_TYPE') in TIPOS_QUE_OBSERVAM]
+        campo_geo = sorted({g for e in obs for g in (e.get('REGION_IDS') or [])})
+        aut_geo = sorted({g for e in apoios
+                          if e.get('ENTITY_TYPE') in TIPOS_DE_AUTORIZACAO
+                          for g in (e.get('REGION_IDS') or [])})
+        c['CLAIM_GEOGRAPHY'] = o['GEOGRAPHY']
+        c['FIELD_GEOGRAPHY'] = campo_geo
+        c['PRODUCT_AUTHORIZATION_GEOGRAPHY'] = aut_geo
+        c['GEOGRAPHY_LAW'] = ('CLAIM_GEOGRAPHY e a geografia da AFIRMACAO; '
+                              'FIELD_GEOGRAPHY e a de quem observou; '
+                              'PRODUCT_AUTHORIZATION_GEOGRAPHY e onde o produto '
+                              'e autorizado. Rotulo nacional CONTEM a regiao: '
+                              'conter nao e contradizer, e por isso a terceira '
+                              'nunca vota na primeira.')
+        if o['GEOGRAPHY_SCOPE'] == 'PROVINCIAL':
+            c['CLAIM_GEOGRAPHY_HOLDS'] = True
+            c['CLAIM_GEOGRAPHY_WHY'] = 'a alegacao e tao estreita quanto o apoio'
+        elif not campo_geo:
+            c['CLAIM_GEOGRAPHY_HOLDS'] = o['GEOGRAPHY'] in ('GEO_ITALY', 'GEO_EU')
+            c['CLAIM_GEOGRAPHY_WHY'] = ('nenhum apoio de observacao declara '
+                                        'geografia propria')
+        elif o['GEOGRAPHY'] in ('GEO_ITALY', 'GEO_EU'):
+            promovida = any(e.get('REGION_REPRESENTS') is False for e in obs)
+            c['CLAIM_GEOGRAPHY_HOLDS'] = not promovida
+            c['CLAIM_GEOGRAPHY_WHY'] = ('apoio provincial sustentando alegacao '
+                                        'mais ampla' if promovida else
+                                        'ha apoio que fala pelo proprio ambito')
+        else:
+            cabe = set(campo_geo) <= {o['GEOGRAPHY']}
+            representa = any(e.get('REGION_REPRESENTS') is not False for e in obs)
+            c['CLAIM_GEOGRAPHY_HOLDS'] = bool(cabe and representa)
+            c['CLAIM_GEOGRAPHY_WHY'] = (
+                'a observacao cabe na geografia alegada e fala por ela' if
+                (cabe and representa) else
+                'a observacao nao cabe na geografia alegada' if not cabe else
+                'nenhum apoio fala PELA regiao alegada')
+
+        # ── necessidade: o que o texto da fonte manda fazer ───────────────────
+        pinos = list(pinos)
+        if pinos:
+            direcao, pino = NE.direcao_do_par(pinos)
+            c['NEED_DIRECTION'] = direcao
+            c['NEED_EVIDENCE_ID'] = pino['NEED_EVIDENCE_ID']
+            c['NEED_EXCERPT'] = pino['NEED_EXCERPT']
+            c['NEED_METHOD'] = pino['NEED_METHOD']
+            c['NEED_FIELD'] = pino['NEED_FIELD']
+        else:
+            c['NEED_DIRECTION'] = NE.UNKNOWN
+            c['NEED_EVIDENCE_ID'] = None
+            c['NEED_EXCERPT'] = ''
+            c['NEED_METHOD'] = None
+            c['NEED_FIELD'] = None
+        c['NEED_LAW'] = ('NEED_DIRECTION e INTERPRETACAO SINTONIA sobre o texto '
+                         'de terceiro. A frase original viaja junto em '
+                         'NEED_EXCERPT: quem discordar da leitura le a frase. '
+                         'Entre oracoes do mesmo par, a que manda PARAR vence.')
+
+        # ── tempo comercial: só janela de APLICAÇÃO conta ─────────────────────
+        if o.get('WINDOW_KIND') == 'APPLICATION' and o.get('DAYS_REMAINING') is not None:
+            d = o['DAYS_REMAINING']
+            c['COMMERCIAL_WINDOW'] = ('ACT_NOW' if 0 <= d <= 30 else
+                                      'PREPARE_NOW' if 30 < d <= 120 else
+                                      'FUTURE' if d > 120 else 'UNKNOWN')
+            c['COMMERCIAL_WINDOW_FROM'] = o.get('WINDOW_FIELD')
+        elif o.get('SIGNAL_AGE_DAYS') is not None:
+            a = o['SIGNAL_AGE_DAYS']
+            c['COMMERCIAL_WINDOW'] = ('ACT_NOW' if a <= 30 else
+                                      'PREPARE_NOW' if a <= 120 else 'FUTURE')
+            c['COMMERCIAL_WINDOW_FROM'] = 'SIGNAL_DATE'
+        else:
+            c['COMMERCIAL_WINDOW'] = 'UNKNOWN'
+            c['COMMERCIAL_WINDOW_FROM'] = None
+        c['COMMERCIAL_WINDOW_LAW'] = (
+            'so janela de APLICACAO conta como tempo comercial. '
+            'PREPARATION_WINDOW e data de ato — quando sai o decreto — e nao '
+            'quando se pulveriza. Sem janela de aplicacao, a data do documento '
+            'diz apenas se o sinal e corrente.')
+        return c
+
     brutos, rejeitados = [], []
 
     def emitir(arquetipo, crop, alvo, geo, escopo, apoios, link, produtos,
-               numeros, dim, acao):
+               numeros, dim, acao, rotulos=(), pinos=()):
         T = TEXTO[arquetipo]
         porque_agora, relevancia = T['WHY_NOW'], T['ADAMA']
         prova, nao_prova = T['PROVA'], T['NAO_PROVA']
         apoios = [a for a in apoios if a]
         if not apoios:
             return
-        ini, fim, dias, jest = janela(win_crop.get(crop, []) + apoios)
+        ini, fim, dias, jest, jcampo, jtipo = janela(
+            janelas_do_caso(crop, alvo, geo) + apoios)
         sdata, sidade = data_do_sinal(apoios)
         oid, chave = identidade(arquetipo, crop, alvo, geo,
                                 ini or ('EU' if arquetipo == 'O5_REGULATORY_PREPARATION' else None))
         o = {'ID': oid, 'IDENTITY_KEY': chave, 'ARCHETYPE': arquetipo,
              'CROP': crop, 'TARGET': alvo, 'GEOGRAPHY': geo, 'GEOGRAPHY_SCOPE': escopo,
              'WINDOW_START': ini, 'WINDOW_END': fim, 'DAYS_REMAINING': dias,
-             'WINDOW_STATE': jest, 'SIGNAL_DATE': sdata, 'SIGNAL_AGE_DAYS': sidade,
+             'WINDOW_STATE': jest, 'WINDOW_FIELD': jcampo, 'WINDOW_KIND': jtipo,
+             'SIGNAL_DATE': sdata, 'SIGNAL_AGE_DAYS': sidade,
              'PRODUCT_LINK_STATE': link,
              'PRODUCT_RELATIONSHIPS': produtos[:12],
              'EVIDENCE_IDS': [a['ID'] for a in apoios],
@@ -344,6 +579,7 @@ def main():
              'WHAT_IT_PROVES': prova, 'WHAT_IT_DOES_NOT_PROVE': nao_prova,
              'SCORE_DIMENSIONS': dim, 'OPPORTUNITY_SCORE': score(dim),
              'ACTION_MAP': acao}
+        o.update(camada_comercial(o, apoios, rotulos, pinos))
         o['STATUS'] = estado_temporal(dias, arquetipo, jest != 'UNKNOWN')
         if o['STATUS'] == 'WATCH' and sidade is not None and sidade <= 30:
             o['STATUS'] = 'ACT_NOW'
@@ -362,30 +598,98 @@ def main():
             o['STATUS'] = 'TO_VALIDATE' if falhas else o['STATUS']
         o['CONFIDENCE'] = ('ALTA' if o['OPPORTUNITY_STATE'] == CONFIRMADA
                            else ('MEDIA' if o['OPPORTUNITY_SCORE'] >= 8 else 'BAIXA'))
+        # ── a segunda pergunta, ao lado da primeira ───────────────────────────
+        # OPPORTUNITY_STATE responde «esta leitura se sustenta?».
+        # COMMERCIAL_PRIORITY responde «isto e oportunidade comercial defensavel
+        # para o portfolio ADAMA?». Sao perguntas diferentes, e nenhuma substitui
+        # a outra: um caso pode ser CONFIRMADO e nao vender, e pode VENDER com um
+        # portao aberto que o impede de ser confirmado.
+        pri, codigos = CM.prioridade(o)
+        o['COMMERCIAL_PRIORITY'] = pri
+        o['COMMERCIAL_PRIORITY_MEANS'] = CM.SIGNIFICADO[pri]
+        # O código é o dado; a frase é o texto. O valor que a frase não carrega
+        # dentro vive em NEED_DIRECTION, COMMERCIAL_WINDOW e
+        # COMMERCIAL_PRODUCT_COUNT — frase com variável dentro nunca fica
+        # traduzida, e este projeto já perdeu duas traduções assim.
+        o['WHY_COMMERCIAL_CODES'] = codigos
+        o['WHY_COMMERCIAL'] = ' '.join(CM.RAZAO[c] for c in codigos)
+        o['COMMERCIAL_DOES_NOT_PROVE'] = CM.NAO_PROVA
+        # ── e a terceira pergunta: isto pode SAIR de casa? ────────────────────
+        # SALES_READY e decisao interna. Enviar a um revendedor ou a um RTV e
+        # afirmacao publica, e precisa sobreviver a quem a ler sem nos conhecer.
+        # As substancias ativas do produto do caso viajam ate o portao externo:
+        # e com elas que se confere se a frase da fonte prescreve o NOSSO meio
+        # ou o de outro. Ver o sexto bloqueio em v21_comercial.
+        _ativos = sorted({(ai_por_id.get(x['ACTIVE_INGREDIENT_ID']) or {}).get('NAME')
+                          for p_ in _casados(rotulos)
+                          for x in ai_por_prod.get(
+                              CM.num(p_.get('MATCHED_REGULATORY_ID')
+                                     or p_.get('REGISTRATION_NUMBER_ON_PAGE')), [])
+                          if x.get('ACTIVE_INGREDIENT_ID') in ai_por_id} - {None})
+        o['CASE_ACTIVE_INGREDIENTS'] = _ativos
+        o['SOURCE_PRESCRIBED_MEANS'] = CM.meios_prescritos(o.get('NEED_EXCERPT'))
+        ext, bloqueios = CM.externo(o, _casados(rotulos), _ativos)
+        o['EXTERNAL_MATERIAL_READY'] = ext
+        o['EXTERNAL_BLOCKER_CODES'] = bloqueios
+        o['EXTERNAL_BLOCKERS'] = ' '.join(CM.BLOQUEIO_EXTERNO[c] for c in bloqueios)
+        o['EXTERNAL_MATERIAL_LAW'] = CM.EXTERNAL_LAW
+        o['COMMERCIAL_PRIORITY_LAW'] = (
+            'portoes semanticos, nunca soma de pontos. O score ORDENA dentro da '
+            'mesma categoria e nao promove ninguem de categoria. E nao ha numero '
+            'minimo de familias externas: corroboracao e amplificador, nao '
+            'contador cego.')
         brutos.append((o, apoios))
 
     # ══ O1 · PRESSÃO DE CAMPO ════════════════════════════════════════════════
-    for crop, sinais in sorted(field_crop.items()):
-        alvos = {i for s in sinais for i in (s.get('ISSUE_IDS') or [])}
-        for alvo in sorted(alvos) or [None]:
-            sin = [s for s in sinais if not alvo or alvo in (s.get('ISSUE_IDS') or [])]
-            rot = [r for r in lbl_crop.get(crop, [])
-                   if not alvo or alvo in (r.get('ISSUE_IDS') or [])]
-            if not sin or not rot:
-                continue
-            geos = {g for s in sin for g in (s.get('REGION_IDS') or [])}
-            geo = sorted(geos)[0] if len(geos) == 1 else 'GEO_ITALY'
-            esc = sin[0].get('GEOGRAPHIC_SCOPE') if len(geos) == 1 else 'NACIONAL'
-            prods = sorted({r.get('PRODUCT_NAME') for r in rot if r.get('PRODUCT_NAME')})
+    # ⚠️ O PAR AGORA É O QUE A FONTE OBSERVOU, e não o cruzamento de duas listas.
+    # A versão anterior tomava todas as culturas do boletim × todos os alvos do
+    # boletim: um documento com dez culturas e um alvo normalizado produzia dez
+    # pares, e daí saíam «beterraba × ticchiolatura» e «soja × ticchiolatura».
+    # O que impedia esses pares de virarem cartão não era um portão — era a
+    # tabela de rótulo, que por acaso não tinha autorização para eles. A sanidade
+    # agronômica estava sendo feita por acidente.
+    #
+    #     LISTA DE CULTURAS × LISTA DE ALVOS NÃO É OBSERVAÇÃO.
+    #     O PAR EXISTE ONDE A FONTE O ESCREVEU JUNTO.
+    # ⚠️ E O CASO É POR REGIÃO, porque o serviço fitossanitário é regional.
+    # Medido: 7 dos 12 pares observados têm DIREÇÃO DIFERENTE em regiões
+    # diferentes — a Emilia-Romagna manda intervir contra botrite na mesma
+    # semana em que a Toscana manda suspender; a ERSA declara limiar de
+    # tratamento para a piralide enquanto a Lombardia PROÍBE inseticida durante
+    # a floração. Juntar as duas num caso «nacional» e depois deixar a mais
+    # restritiva vencer promove geografia E apaga a oportunidade real da outra.
+    #
+    #     DUAS REGIÕES QUE DISCORDAM NÃO SÃO UM CASO NACIONAL:
+    #     SÃO DOIS CASOS, E CADA UM ESTÁ CERTO ONDE ESTÁ.
+    #
+    # Um sinal sem região declarada não funda caso nenhum: ele não tem geografia
+    # para alegar. Continua contando como apoio onde a região já existe.
+    for (crop, alvo), pinos in sorted(pares_ix.items()):
+        por_regiao = defaultdict(list)
+        for p in pinos:
+            s = next((x for x in field_crop.get(crop, [])
+                      if x['ID'] == p['NEED_EVIDENCE_ID']), None)
+            for g in (s.get('REGION_IDS') or []) if s else []:
+                por_regiao[g].append((p, s))
+        rot = [r for r in lbl_crop.get(crop, []) if alvo in (r.get('ISSUE_IDS') or [])]
+        if not rot:
+            continue
+        prods = sorted({r.get('PRODUCT_NAME') for r in rot if r.get('PRODUCT_NAME')})
+        for geo, itens in sorted(por_regiao.items()):
+            sin = list({s['ID']: s for _p, s in itens}.values())
+            pin_geo = [p for p, _s in itens]
+            esc = sin[0].get('GEOGRAPHIC_SCOPE') or 'REGIONAL'
             emitir('O1_FIELD_PRESSURE', crop, alvo, geo, esc,
-                   sin[:8] + win_crop.get(crop, [])[:3] + rot[:6],
+                   sin[:8] + janelas_do_caso(crop, alvo, geo)[:3] + rot[:6],
                    VERIFIED_LABEL_MATCH if rot else LABEL_CHECK_NEEDED, prods,
                    {'PRODUTOS_COM_ROTULO': len(prods), 'SINAIS_DE_CAMPO': len(sin)},
-                   {'CURRENTNESS': 2 if sin else 0, 'GEOGRAPHY': 2 if len(geos) == 1 else 1,
+                   {'CURRENTNESS': 2 if sin else 0, 'GEOGRAPHY': 2,
                     'AGRONOMIC': 2 if alvo else 1, 'ADAMA': 2 if rot else 0,
-                    'MULTI_SOURCE': min(2, len({s.get('SOURCE_IDS', [None])[0] for s in sin})),
-                    'ACTIONABILITY': 2 if win_crop.get(crop) else 1},
-                   ['MARKET_DEVELOPMENT', 'COMMERCIAL', 'SCIENCE_TECHNICAL'])
+                    'MULTI_SOURCE': min(2, len({s.get('SOURCE_IDS', [None])[0]
+                                                for s in sin})),
+                    'ACTIONABILITY': 2 if janelas_do_caso(crop, alvo, geo) else 1},
+                   ['MARKET_DEVELOPMENT', 'COMMERCIAL', 'SCIENCE_TECHNICAL'],
+                   rotulos=rot, pinos=pin_geo)
 
     # ══ O2 · MOMENTO DE MERCADO ══════════════════════════════════════════════
     for crop in sorted(set(mkt_crop) | set(econ_crop)):
@@ -405,15 +709,16 @@ def main():
                 'ADAMA': 2 if rot else 0,
                 'MULTI_SOURCE': min(2, (1 if mk else 0) + (1 if ec else 0)),
                 'ACTIONABILITY': 1},
-               ['MARKET_DEVELOPMENT', 'PORTFOLIO', 'COMMERCIAL'])
+               ['MARKET_DEVELOPMENT', 'PORTFOLIO', 'COMMERCIAL'], rotulos=rot)
 
     # ══ O3 · RESISTÊNCIA / MoA ═══════════════════════════════════════════════
     for crop, rs in sorted(res_crop.items()):
         alvos = {i for r in rs for i in (r.get('ISSUE_IDS') or [])}
         for alvo in sorted(alvos) or [None]:
             r0 = [r for r in rs if not alvo or alvo in (r.get('ISSUE_IDS') or [])]
-            camp = [s for s in field_crop.get(crop, [])
-                    if not alvo or alvo in (s.get('ISSUE_IDS') or [])]
+            # o sinal de campo do par vem do par OBSERVADO, nunca do inventario
+            ids_par = {p['NEED_EVIDENCE_ID'] for p in pares_ix.get((crop, alvo), [])}
+            camp = [s for s in field_crop.get(crop, []) if s['ID'] in ids_par]
             rot = [r for r in lbl_crop.get(crop, [])
                    if not alvo or alvo in (r.get('ISSUE_IDS') or [])]
             regs = {re.sub(r'\D', '', str(r.get('REGISTRATION_NUMBER') or '')).lstrip('0').zfill(6)
@@ -435,7 +740,8 @@ def main():
                     'AGRONOMIC': 2 if alvo else 1, 'ADAMA': 2 if moas else 1,
                     'MULTI_SOURCE': min(2, (1 if camp else 0) + (1 if ais else 0)),
                     'ACTIONABILITY': 1},
-                   ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT', 'PORTFOLIO'])
+                   ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT', 'PORTFOLIO'],
+                   rotulos=rot, pinos=pares_ix.get((crop, alvo), []))
 
     # ══ O4 · ABERTURA COMPETITIVA ════════════════════════════════════════════
     for crop, ats in sorted(comp_crop.items()):
@@ -450,7 +756,7 @@ def main():
                {'CURRENTNESS': 2, 'GEOGRAPHY': 1, 'AGRONOMIC': 1,
                 'ADAMA': 2 if rot else 0, 'MULTI_SOURCE': 2 if len(ats) > 5 else 1,
                 'ACTIONABILITY': 1},
-               ['MARKETING', 'MARKET_DEVELOPMENT', 'COMMERCIAL'])
+               ['MARKETING', 'MARKET_DEVELOPMENT', 'COMMERCIAL'], rotulos=rot)
 
     # ══ O5 · PREPARAÇÃO REGULATÓRIA ══════════════════════════════════════════
     for f in sorted(cs['REGULATORY-FUTURE-FACTS'], key=lambda x: x['ID']):
@@ -479,7 +785,8 @@ def main():
                {'CURRENTNESS': 1, 'GEOGRAPHY': 1, 'AGRONOMIC': 1 if crops else 0,
                 'ADAMA': 2 if rot else 1, 'MULTI_SOURCE': 2 if ai else 1,
                 'ACTIONABILITY': 2 if dias and dias < 540 else 1},
-               ['REGULATORY', 'PORTFOLIO', 'SUPPLY', 'MARKET_DEVELOPMENT'])
+               ['REGULATORY', 'PORTFOLIO', 'SUPPLY', 'MARKET_DEVELOPMENT'],
+               rotulos=rot)
 
     # ══ O6 · CIÊNCIA → CAMPO ═════════════════════════════════════════════════
     for crop, sc in sorted(sci_crop.items()):
@@ -495,7 +802,7 @@ def main():
                 'PRODUTOS_COM_ROTULO': len(rot)},
                {'CURRENTNESS': 2 if camp else 0, 'GEOGRAPHY': 1, 'AGRONOMIC': 1,
                 'ADAMA': 2 if rot else 0, 'MULTI_SOURCE': 2, 'ACTIONABILITY': 1},
-               ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT'])
+               ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT'], rotulos=rot)
 
     return brutos, rejeitados, C, cs
 
@@ -582,6 +889,49 @@ def gravar(brutos, C, cs):
             'ORIGIN_LAYER': 'DERIVED_V2_1',
             'MERGED_FROM': o.get('MERGED_FROM', 0),
             'IDENTITY_KEY': o['IDENTITY_KEY'],
+
+            # ── A CAMADA COMERCIAL · V1.1 ────────────────────────────────────
+            # Independente de OPPORTUNITY_STATE, e ao lado dele. Um caso pode
+            # ser CONFIRMADO e nao vender; pode vender com um portao aberto.
+            'COMMERCIAL_PRIORITY': o['COMMERCIAL_PRIORITY'],
+            'COMMERCIAL_PRIORITY_MEANS': o['COMMERCIAL_PRIORITY_MEANS'],
+            'COMMERCIAL_PRIORITY_LAW': o['COMMERCIAL_PRIORITY_LAW'],
+            'EXTERNAL_MATERIAL_READY': o['EXTERNAL_MATERIAL_READY'],
+            'EXTERNAL_BLOCKER_CODES': o['EXTERNAL_BLOCKER_CODES'],
+            # A prova do sexto bloqueio viaja com o caso: quem discorda le a
+            # oracao de meio que a fonte escreveu e a substancia do nosso
+            # produto, lado a lado, sem ter de reabrir o motor.
+            'SOURCE_PRESCRIBED_MEANS': o.get('SOURCE_PRESCRIBED_MEANS') or '',
+            'CASE_ACTIVE_INGREDIENTS': o.get('CASE_ACTIVE_INGREDIENTS') or [],
+            'EXTERNAL_BLOCKERS': o['EXTERNAL_BLOCKERS'],
+            'EXTERNAL_MATERIAL_LAW': o['EXTERNAL_MATERIAL_LAW'],
+            'WHY_COMMERCIAL': o['WHY_COMMERCIAL'],
+            'WHY_COMMERCIAL_CODES': o['WHY_COMMERCIAL_CODES'],
+            'COMMERCIAL_DOES_NOT_PROVE': o['COMMERCIAL_DOES_NOT_PROVE'],
+
+            'NEED_DIRECTION': o['NEED_DIRECTION'],
+            'NEED_EVIDENCE_ID': o['NEED_EVIDENCE_ID'],
+            'NEED_EXCERPT': o['NEED_EXCERPT'],
+            'NEED_METHOD': o['NEED_METHOD'],
+            'NEED_FIELD': o['NEED_FIELD'],
+            'NEED_LAW': o['NEED_LAW'],
+
+            'MATCHED_COMMERCIAL_PRODUCT_IDS': o['MATCHED_COMMERCIAL_PRODUCT_IDS'],
+            'MATCHED_COMMERCIAL_PRODUCT_NAMES': o['MATCHED_COMMERCIAL_PRODUCT_NAMES'],
+            'COMMERCIAL_PRODUCT_COUNT': o['COMMERCIAL_PRODUCT_COUNT'],
+            'COMMERCIAL_MATCH_LAW': o['COMMERCIAL_MATCH_LAW'],
+
+            'CLAIM_GEOGRAPHY': o['CLAIM_GEOGRAPHY'],
+            'FIELD_GEOGRAPHY': o['FIELD_GEOGRAPHY'],
+            'PRODUCT_AUTHORIZATION_GEOGRAPHY': o['PRODUCT_AUTHORIZATION_GEOGRAPHY'],
+            'CLAIM_GEOGRAPHY_HOLDS': o['CLAIM_GEOGRAPHY_HOLDS'],
+            'CLAIM_GEOGRAPHY_WHY': o['CLAIM_GEOGRAPHY_WHY'],
+            'GEOGRAPHY_LAW': o['GEOGRAPHY_LAW'],
+
+            'WINDOW_FIELD': o['WINDOW_FIELD'], 'WINDOW_KIND': o['WINDOW_KIND'],
+            'COMMERCIAL_WINDOW': o['COMMERCIAL_WINDOW'],
+            'COMMERCIAL_WINDOW_FROM': o['COMMERCIAL_WINDOW_FROM'],
+            'COMMERCIAL_WINDOW_LAW': o['COMMERCIAL_WINDOW_LAW'],
         }
         if o.get('MERGED_FROM'):
             r['DEDUP_NOTE'] = ('%d registros adicionais descreviam a MESMA situacao e '
@@ -611,6 +961,19 @@ if __name__ == '__main__':
            'COUNT_RENDERABLE_WITH_METHOD': len(conf),
            'BY_ARCHETYPE': dict(Counter(r['ARCHETYPE'] for r in regs)),
            'BY_STATUS': dict(Counter(r['STATUS'] for r in regs)),
+           # ── a segunda pergunta, contada ao lado da primeira ──────────────
+           'BY_COMMERCIAL_PRIORITY':
+               dict(Counter(r['COMMERCIAL_PRIORITY'] for r in regs)),
+           'BY_NEED_DIRECTION':
+               dict(Counter(r['NEED_DIRECTION'] for r in regs)),
+           'BY_EXTERNAL_MATERIAL_READY':
+               dict(Counter(r['EXTERNAL_MATERIAL_READY'] for r in regs)),
+           'COUNT_WITH_COMMERCIAL_PRODUCT':
+               sum(1 for r in regs if r['COMMERCIAL_PRODUCT_COUNT']),
+           'COMMERCIAL_LAW':
+               'COMMERCIAL_PRIORITY nao substitui OPPORTUNITY_STATE: um diz se a '
+               'leitura se sustenta, o outro se ela vende. Sao perguntas '
+               'diferentes, e um caso pode ser CONFIRMADO e nao vender.',
            'DUPLICATES_COLLAPSED': colapsados,
            'BY_ORIGIN': {'DERIVED_V2_1': len(regs)},
            'BY_QA': {'EVIDENCE_DERIVED': len(regs)},
@@ -630,6 +993,17 @@ if __name__ == '__main__':
                                       LABEL_CHECK_NEEDED],
                'ESTADOS_TEMPORAIS': ['ACT_NOW', 'PREPARE_NOW', 'WATCH',
                                      'FUTURE_PREPARATION', 'TO_VALIDATE'],
+               'PRIORIDADES_COMERCIAIS': {p: CM.SIGNIFICADO[p]
+                                          for p in CM.PRIORIDADES},
+               'DIRECOES_DE_NECESSIDADE': NE.ESTADOS,
+               'METODOS_DE_PAR': list(NE.FORCA_DO_METODO),
+               'LEI_DO_PAR': 'o par cultura x alvo e o que a fonte OBSERVOU. '
+                             'Lista de culturas x lista de alvos e produto '
+                             'cartesiano, nao observacao.',
+               'LEI_DA_PRIORIDADE_COMERCIAL':
+                   'portoes semanticos, nunca soma de pontos. Sem numero minimo '
+                   'de familias externas: corroboracao e amplificador, nao '
+                   'contador cego.',
                'SCORE': {'DIMENSOES': ['CURRENTNESS', 'GEOGRAPHY', 'AGRONOMIC',
                                        'ADAMA', 'MULTI_SOURCE', 'ACTIONABILITY'],
                          'MAXIMO': 12,
@@ -648,3 +1022,11 @@ if __name__ == '__main__':
     print('  por arquetipo: %s' % dict(Counter(r['ARCHETYPE'] for r in regs)))
     print('  por estado   : %s' % dict(Counter(r['STATUS'] for r in regs)))
     print('  derrubadas pelo red team: %d' % len(rejeitados))
+    print('  PRIORIDADE COMERCIAL: %s'
+          % dict(Counter(r['COMMERCIAL_PRIORITY'] for r in regs)))
+    print('  direcao da necessidade: %s'
+          % dict(Counter(r['NEED_DIRECTION'] for r in regs)))
+    print('  MATERIAL EXTERNO: %s'
+          % dict(Counter(r['EXTERNAL_MATERIAL_READY'] for r in regs)))
+    print('  com produto do catalogo comercial: %d de %d'
+          % (sum(1 for r in regs if r['COMMERCIAL_PRODUCT_COUNT']), len(regs)))

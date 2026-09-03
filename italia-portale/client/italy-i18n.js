@@ -186,6 +186,8 @@
        che non ha mai visto il pacchetto canonico.
 
            SEI APPOGGI DELLA STESSA FAMIGLIA NON SONO SEI APPOGGI. */
+    lblHelpTitle: 'Da dove vengono questi numeri',
+    lblEnvTitle: 'Lingua e ambiente attivi',
     lblWhyAdama: 'PERCHE INTERESSA AD ADAMA',
     lblRtvReady: 'MATERIALE DI CAMPO DISPONIBILE',
     lblRtvBlocked: 'MATERIALE DI CAMPO NON DISPONIBILE',
@@ -350,6 +352,12 @@
     lblSourcesCap: 'FONTI',
     lblGenBrief: 'GENERA BRIEF OPERATIVO',
     lblItaly: 'ITALIA',
+    /* IL NOSTRO PROPRIO STATO, DETTO IN PAROLE. `SINTONIA_INTERPRETATION` e un
+       codice NOSTRO, e la prosa di ricerca del pacchetto lo cita per nome
+       dentro la frase — «salire a EMERGING_THEME richiede UN secondo strato».
+       Un codice del motore dentro una frase umana e un difetto, e si chiude
+       nominando lo stato, non cancellando la frase. */
+    SINT_INTERP: { EMERGING_THEME: 'tema emergente', SCIENTIFIC_SIGNAL: 'segnale scientifico' },
     lblRegisteredIt: 'Registrato · Italia',
     lblExecTimeline: 'CRONOLOGIA ESECUTIVA',
     lblViewAllShort: 'VEDI TUTTE',
@@ -780,6 +788,8 @@
       FUTURO: 'FUTURE', PASSADO: 'PAST',
       BAIXA: 'LOW', MEDIA: 'MEDIUM', ALTA: 'HIGH',
     },
+    lblHelpTitle: 'Where these numbers come from',
+    lblEnvTitle: 'Active language and environment',
     lblWhyAdama: 'WHY THIS MATTERS TO ADAMA',
     lblRtvReady: 'FIELD MATERIAL AVAILABLE',
     lblRtvBlocked: 'FIELD MATERIAL NOT AVAILABLE',
@@ -977,6 +987,7 @@
     fsFlowIn: 'INCOMING', fsFlowReceived: 'RECEIVED', fsFlowClassified: 'CLASSIFIED', fsFlowLinked: 'LINKED', fsFlowValidate: 'TO VALIDATE',
     lblProves: 'WHAT IT PROVES', lblNotProves: 'WHAT IT DOES NOT PROVE',
     fsFromDemo: 'From: RTV DEMO · demonstration message', fsReceive: 'RECEIVE →',
+    SINT_INTERP: { EMERGING_THEME: 'emerging theme', SCIENTIFIC_SIGNAL: 'scientific signal' },
     vociFeatured: 'MOST RECENT · FIRST-PERSON REPORTS', vociLatest: 'OTHER VOICES', vociThemes: 'EMERGING THEMES',
     vociOpenSource: 'OPEN SOURCE', vociUnknownPerson: 'Identity not stated',
     vociRoleUnknown: 'Role not verifiable', vociRegionNotStated: 'Region not stated',

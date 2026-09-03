@@ -234,8 +234,8 @@
           </div>
         </sc-if>
       </span>
-      <span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.14);cursor:pointer;font-size:12px;font-weight:700;color:#C9C3C1" title="Help">?</span>
-      <span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#00783F;font-size:11px;font-weight:700;color:#fff;cursor:pointer" title="Profile">IT</span>
+      <span onClick="{{ toggleDataState }}" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.14);cursor:pointer;font-size:12px;font-weight:700;color:#C9C3C1" title="{{ t.lblHelpTitle }}" style-hover="background:rgba(255,255,255,0.10)">?</span>
+      <span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#00783F;font-size:11px;font-weight:700;color:#fff;cursor:default" title="{{ t.lblEnvTitle }}">{{ envBadge }}</span>
     </header>
 
     <!-- ================= OPPORTUNITY RADAR ================= -->
@@ -1606,7 +1606,7 @@
             <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:15px;font-weight:700;line-height:1.1;color:#fff">{{ s.issueL }}</div><div style="font-size:11px;color:#B1A9A7">{{ s.cropL }} · {{ s.region }}</div></div>
             <sc-if value="{{ s.hasWhy }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhyWatch }}</span><span style="font-size:10.5px;line-height:1.35;color:#EDEAE9">{{ s.whyShort }}</span><sc-if value="{{ s.hasEuCaveat }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin-top:5px;font-size:9.5px;line-height:1.45;color:#F5B317">{{ s.euCaveat }}</span></sc-if></div></sc-if>
             <sc-if value="{{ s.hasWho }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhoTalking }}</span><div style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{ s.who }}" as="g" hint-placeholder-count="3"><span onClick="{{ g.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.05);border:1px solid {{ g.color }}55;font-size:8.5px;color:#C9C3C1;white-space:nowrap"><b style="color:#fff">{{ g.count }}</b> {{ g.group }}</span></sc-for></div></div></sc-if>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9.5px"><div><span style="color:#8F8886">{{ t.frNextWindow }}</span><br><b onClick="{{ s.goWindow }}" style="color:#fff;cursor:pointer">{{ s.windowLine }}</b></div><div><span style="color:#8F8886">{{ t.frPortfolio }}</span><br><b onClick="{{ s.goProduct }}" style="color:{{ s.portfolioColor }};cursor:pointer">{{ s.productLabel }}</b></div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9.5px"><div><span style="color:#8F8886">{{ t.frNextWindow }}</span><br><b onClick="{{ s.goWindow }}" style="color:#fff;cursor:{{ s.windowCursor }}">{{ s.windowLine }}</b></div><div><span style="color:#8F8886">{{ t.frPortfolio }}</span><br><b onClick="{{ s.goProduct }}" style="color:{{ s.portfolioColor }};cursor:{{ s.productCursor }}">{{ s.productLabel }}</b></div></div>
             <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;padding-top:5px;border-top:1px solid rgba(255,255,255,0.06)"><sc-if value="{{ s.hasLastObserved }}" hint-placeholder-val="{{ true }}"><span style="font-size:9.5px;color:#8F8886">{{ t.frUpdated }} {{ s.lastObserved }}</span></sc-if><span onClick="{{ s.open }}" style="cursor:pointer;font-size:9.5px;font-weight:700;letter-spacing:0.06em;color:#00B152">{{ t.frExplore }}</span></div>
           </div>
         </sc-for>
@@ -2045,7 +2045,7 @@
               <span style="color:#B1A9A7;font-weight:700">{{ r.year }}</span>
               <div style="display:flex;flex-direction:column;min-width:0"><span style="color:#EDEAE9;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:{{ r.category.color }};flex:0 0 6px"></span>{{ r.descriptor }}</span><span style="font-size:9.5px;color:#8F8886">{{ r.why }} · {{ r.locationShort }}</span></div>
               <span style="color:#C9C3C1;font-size:10.5px;line-height:1.35">{{ r.institution }}</span>
-              <span onClick="{{ r.openImpact }}" style="font-size:9.5px;font-weight:700;letter-spacing:0.06em;color:#B1A9A7;cursor:pointer;line-height:1.35;min-width:0;overflow-wrap:anywhere">{{ r.materialRoleL }}</span>
+              <span onClick="{{ r.openImpact }}" style="font-size:9.5px;font-weight:700;letter-spacing:0.06em;color:#B1A9A7;cursor:{{ r.impactCursor }};line-height:1.35;min-width:0;overflow-wrap:anywhere">{{ r.materialRoleL }}</span>
             </div>
           </sc-for>
         </div>
@@ -3554,7 +3554,13 @@ class Component extends DCLogic {
         color: o > 0 ? '#8F8886' : 'rgba(255,255,255,0.05)', border: o > 0 ? '#8F8886' : 'rgba(255,255,255,0.10)',
         textColor: o > 0 ? '#fff' : '#B1A9A7',
         cursor: o > 0 ? 'pointer' : 'default',
-        go: () => { if (o > 0) this.radarWith({ fRegion: r.name }); }
+        /* UN'AFFORDANCE E UNA PROMESSA — e un gestore senza affordance e il
+           difetto opposto, e altrettanto reale. Le 16 caselle senza opportunita
+           avevano gia `cursor:default`, ma il gestore restava appeso: sedici
+           elementi che il browser considera cliccabili e che non fanno niente.
+           Il gestore diventa `null`, e cosi la casella esce dall'inventario dei
+           controlli invece di restarci come morto dichiarato. */
+        go: o > 0 ? (() => this.radarWith({ fRegion: r.name })) : null
       };
     });
     const regionRank = regionTiles.filter(r => r.opportunities > 0).sort((a, b) => b.opportunities - a.opportunities || a.name.localeCompare(b.name)).slice(0, 7);
@@ -6469,7 +6475,22 @@ class Component extends DCLogic {
        interpretation / unknown / portfolioConnection are NOT_APPROVED_FOR_DISPLAY on 3/3
        real signals, and nextWindow is NOT_ESTABLISHED on 2/3 — so today this returns null
        every time and the prose slots stay empty instead of leaking research notes. */
-    const fNar = (n) => (n && n.state === 'CLEAR') ? (s.lang === 'en' ? (n.en || n.it) : (n.it || n.en)) : null;
+    /* ── UNA PAROLA DEL MOTORE DENTRO UNA FRASE UMANA E UN DIFETTO ─────────
+       La prosa approvata del pacchetto cita per nome un nostro proprio stato:
+       «salire a EMERGING_THEME richiede UN secondo strato». Il codice non si
+       cancella e non si nasconde — SI NOMINA, con il vocabolario che il
+       dizionario pubblica (`SINT_INTERP`). Solo i codici che il dizionario
+       DICHIARA vengono nominati: uno sconosciuto resta scritto com'e e il
+       portone `INTERNAL_TOKEN` continua a vederlo.
+
+           NOMINARE NON E NASCONDERE. CANCELLARE SAREBBE PERDERE LA FRASE. */
+    const fState = (txt) => {
+      const V = (T && T.SINT_INTERP) || {};
+      let out = String(txt || '');
+      for (const k of Object.keys(V)) out = out.split(k).join(V[k]);
+      return out;
+    };
+    const fNar = (n) => (n && n.state === 'CLEAR') ? fState(s.lang === 'en' ? (n.en || n.it) : (n.it || n.en)) : null;
     /* The pest/disease/weed class is a FACT and comes from the canonical ISSUE_TYPE.
        FUTURE_SIGNALS has no ISSUE_TYPE field at all, so every real card resolves to the
        neutral unknown token: grey rail, no icon, no category chip. The old code forced the
@@ -6560,10 +6581,26 @@ class Component extends DCLogic {
         hasEuCaveat: whyOver,
         productLabel: prod || fUnknownL, hasProduct: !!prod,
         portfolioColor: prod ? '#00B152' : '#B1A9A7',
-        goProduct: () => prod && this.openProduct(prod),
+        /* UN'AFFORDANCE E UNA PROMESSA.
+           Le due righe in fondo alla scheda — la finestra e il portafoglio —
+           erano SEMPRE in grassetto con `cursor:pointer` e sempre con un
+           gestore, anche quando il segnale non ha finestra e non ha prodotto e
+           il valore legge «non noto». Sei schede su Radar Futuro invitavano a
+           un clic che non apriva niente: misurate sei pressioni col mouse,
+           zero mutazioni del DOM.
+
+               DOVE NON C'E NIENTE DIETRO, SI TOGLIE LA PROMESSA, NON L'AZIONE.
+
+           Il fatto «non noto» resta scritto: sparisce solo l'invito. Il
+           gestore diventa `null` e non solo il cursore, perche un handler
+           appeso a un elemento inerte lo lascia comunque nell'inventario dei
+           cliccabili — e chi preme continua ad aspettare qualcosa. */
+        goProduct: prod ? (() => this.openProduct(prod)) : null,
+        productCursor: prod ? 'pointer' : 'default',
         hasWindow: !!wm,
         windowLine: (x.isScenario && x.windowLine) || (wm && (wm.windowLine || fWstL(wm.status))) || fUnknownL,
-        goWindow: () => wm && this.openWindow(wm.id),
+        goWindow: wm ? (() => this.openWindow(wm.id)) : null,
+        windowCursor: wm ? 'pointer' : 'default',
         sourceTypeUpper: sigTypesOf(x).join(' · ').toUpperCase(),
         /* The card hard-codes "{crop} · {region}". The model now nulls the two upstream
            REGION values that were research notes ("NAO SEI — o recorte cientifico e por
@@ -7339,7 +7376,16 @@ class Component extends DCLogic {
       location: sciL('Italia · area di studio non dichiarata', 'Italy · study area not stated'),
       /* No external source states a business relevance for a paper. */
       bizRel: '', bizColor: '#8F8886',
-      openImpact: () => r.themeKey && this.setState({ sciImpactId: r.themeKey }),
+      /* UN'AFFORDANCE E UNA PROMESSA. DOVE NON C'E NIENTE DIETRO, SI TOGLIE LA
+         PROMESSA, NON L'AZIONE. 83 of the 88 rows carry a theme and their role
+         badge opens the theme's impact panel; 5 rows match no theme (the three
+         issue tokens named in SCI_ISSUE_TYPE) and there is no panel to open.
+         Those 5 kept cursor:pointer and an onclick that did nothing — measured
+         dead by CTA_DEAD_BUTTON_GATE. The role stays readable; only the
+         invitation is withdrawn where nothing is behind it. */
+      canImpact: !!r.themeKey,
+      impactCursor: r.themeKey ? 'pointer' : 'default',
+      openImpact: r.themeKey ? (() => this.setState({ sciImpactId: r.themeKey })) : null,
       /* The opportunity link is deleted, not emptied into a look-alike. */
       related: { issueL: '', region: '', id: null }, openCase: () => {},
     }));
@@ -8379,6 +8425,7 @@ class Component extends DCLogic {
       // sources
       sourceKpis, sourceGroupChips, isPeople, isNews, newsPeriodChips, newsItems, isOrgs: !isPeople && !isNews, visibleSources, peopleCatChips, visiblePeople, sr, pr,
       // search
+      envBadge: String(s.lang || 'it').toUpperCase(),
       searchGroups, searchTotal: sHits.length
     };
   }

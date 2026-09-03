@@ -1,0 +1,1913 @@
+{
+ "COLLECTION": "AUDITORIA-SOMBRA-REGUA-COMERCIAL",
+ "SCHEMA_VERSION": "V1",
+ "SOURCE": "build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip · DESIGN-INGEST (pacote versionado do motor V1)",
+ "CAPTURED_AT": "2026-09-03",
+ "SOURCE_OF_TRUTH": "leitura externa sobre DESIGN-INGEST/OPPORTUNITIES.json",
+ "PACOTE_LIDO_DE": "ZIP",
+ "BUILD_ID_AUDITADO": "V21-99226fbb90dcdbc2",
+ "LAW": "SOMBRA. Nao e OPPORTUNITY_STATE, nao entra no pacote de design, nao vai a tela e nao entra em v21_cadeia.sh. Existe para ser comparada com o estado do motor.",
+ "MEASURED_VS_REVIEWED": "MEASURED sai do pacote por join de ID e reproduz sozinho. REVIEWED e leitura do texto da fonte e carrega o ID que a justifica.",
+ "COUNT_TOTAL": 37,
+ "BY_SHADOW_CLASS": {
+  "TO_VALIDATE": 14,
+  "STRATEGIC_OPPORTUNITY": 19,
+  "SALES_PREPARE": 3,
+  "SALES_READY": 1
+ },
+ "CONFIRMADAS_PELO_MOTOR": {
+  "COUNT": 9,
+  "BY_SHADOW_CLASS": {
+   "STRATEGIC_OPPORTUNITY": 9
+  }
+ },
+ "DEFEITOS_REPRODUZIDOS": {
+  "D1_RED_TEAM_O4_DISPARA_NO_PROPRIO_TEXTO": {
+   "REPRODUZIDO": true,
+   "O_QUE_E": "red_team() roda a regex share|participac|quota sobre json.dumps(o), e `o` ja contem WHAT_IT_DOES_NOT_PROVE, que e a frase FIXA do arquetipo O4 e diz «COMUNICACAO NAO E PARTICIPACAO DE MERCADO». A regex casa com o proprio aviso.",
+   "EFEITO": "nenhum dos 9 casos O4 pode ser confirmado, por construcao.",
+   "CASOS": [
+    "OPP_314CBAE48A5C",
+    "OPP_5D03565DB4C3",
+    "OPP_6B7D9CC9188B",
+    "OPP_84D116CA45B1",
+    "OPP_89C265BDADCE",
+    "OPP_8E210567B01F",
+    "OPP_B19061BA418B",
+    "OPP_E1A1D73F07BF",
+    "OPP_FBA64D2CA10D"
+   ],
+   "LEI": "O AVISO CONTRA UM ERRO NAO E O ERRO. QUEM MEDE O PROPRIO TEXTO MEDE A SI MESMO."
+  },
+  "D2_PORTAO_A_TRATA_ROTULO_NACIONAL_COMO_GEOGRAFIA_CONCORRENTE": {
+   "O_QUE_E": "portoes() junta REGION_IDS de TODOS os apoios. O sinal de campo e regional; o rotulo ministerial e GEO_ITALY. Sao duas geografias, o caso e regional, e o portao fecha por «geografias que nao se contem».",
+   "EFEITO": "autorizacao nacional — que e justamente o que torna o caso regional vendavel — passa a derrubar o caso.",
+   "CASOS": [
+    "OPP_20D89B04F64D",
+    "OPP_75C37DED9160",
+    "OPP_9C600748BB1B",
+    "OPP_DA4B5954F72A",
+    "OPP_EA2AE1EFB775",
+    "OPP_F139E05A9F3A",
+    "OPP_F6EEF5B32F65"
+   ],
+   "LEI": "ROTULO NACIONAL CONTEM A REGIAO. CONTER NAO E CONTRADIZER."
+  }
+ },
+ "RECORDS": [
+  {
+   "ID": "OPP_20D89B04F64D",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_PEAR",
+   "TARGET": "ISSUE_SCAB",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 11,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "A_GEOGRAFIA · apoios em geografias que nao se contem"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "BANJO"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "BANJO"
+    ],
+    "D_ONDE": "PROVINCIAL",
+    "D_GEOGRAFIA": "REGION_EMILIA_ROMAGNA",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "a alegacao e tao estreita quanto o apoio",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_AGRICOLTURA_REGIONE_EMILIA_ROMAGNA_IT",
+     "SRC_FITOSANITARIO_MO_IT",
+     "SRC_FITOSANITARIO_RE_IT"
+    ],
+    "F_N_PUBLICADORES": 3,
+    "SIGNAL_DATE": "2026-09-01",
+    "SIGNAL_AGE_DAYS": 1,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-PHEN-001",
+    "WHY": "os oito boletins que sustentam o caso nao recomendam nada contra ticchiolatura: o texto de intervencao fala de maculatura bruna, colpo di fuoco e peronospora da vinha. SCAB entrou pela lista PESTS_AND_DISEASES_CITED, que e inventario do documento, nao recomendacao. O rotulo existe e a data e de ontem; a NECESSIDADE declarada nao e esta.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_2BDE8FC566CE",
+   "ARCHETYPE": "O5_REGULATORY_PREPARATION",
+   "CROP": "CROP_SUGAR_BEET",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Lamdex® Extra",
+     "MAVRIK SMART",
+     "Schermo® 0.5 G"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "EU",
+    "D_GEOGRAFIA": "GEO_EU",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "REGULATORY_FUTURE_FACT"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EUR_LEX_EUROPA_EU",
+     "SRC_FRAC_INFO"
+    ],
+    "F_N_PUBLICADORES": 2,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "FUTURE",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "RFF_FENPROPIDIN",
+    "WHY": "data europeia de 2027-05-15 sobre substancia que UM produto ADAMA contem. E preparacao de portfolio e de supply. Nao ha problema agronomico, nao ha geografia italiana e nao ha janela.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_314CBAE48A5C",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_TOMATO",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "PREPARE_NOW",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "PIRIMOR 50"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-07-15",
+    "SIGNAL_AGE_DAYS": 49,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "pecas pagas de concorrente que ALCANCARAM a Italia, sem alvo agronomico e sem janela. Le-se como presenca de comunicacao alheia numa cultura onde a ADAMA tem rotulo — nao como necessidade.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_31C59C08CBAB",
+   "ARCHETYPE": "O6_SCIENCE_TO_FIELD",
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "D_PROBLEMA · sem alvo agronomico declarado",
+     "RED_TEAM · geografia promovida: apoio provincial em alegacao mais ampla"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "BANJO",
+     "FOLPAN GOLD",
+     "Lamdex® Extra",
+     "MAVRIK SMART"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": false,
+    "D_POR_QUE": "todo apoio e provincial e a alegacao e mais ampla",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL",
+     "SCIENTIFIC_RECORD"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 2,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_AGRICOLTURA_REGIONE_EMILIA_ROMAGNA_IT",
+     "SRC_AGROAMBIENTE_INFO_REGIONE_TOSCANA_IT",
+     "SRC_DASHBOARD01_GREEN_PLANET_IT",
+     "SRC_DOI_ORG",
+     "SRC_REGIONE_UMBRIA_IT"
+    ],
+    "F_N_PUBLICADORES": 5,
+    "SIGNAL_DATE": "2026-09-01",
+    "SIGNAL_AGE_DAYS": 1,
+    "WINDOW_STATE": "EXACT"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-PHEN-037",
+    "WHY": "45 trabalhos e 31 sinais na mesma cultura, e nenhum alvo. Sem alvo nao ha par cultura x problema, e sem par nao ha o que vender.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_3965565ACFCC",
+   "ARCHETYPE": "O5_REGULATORY_PREPARATION",
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 8,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "BANJO",
+     "FOLPAN GOLD",
+     "Lamdex® Extra",
+     "MAVRIK SMART"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "EU",
+    "D_GEOGRAFIA": "GEO_EU",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "REGULATORY_FUTURE_FACT"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EUR_LEX_EUROPA_EU",
+     "SRC_FRAC_INFO"
+    ],
+    "F_N_PUBLICADORES": 2,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "EXACT"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "FUTURE",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "RFF_FOLPET",
+    "WHY": "a data europeia e 2039-10-31 — 4.807 dias. Treze anos nao sao preparacao: sao ausencia de prazo. E o caso melhor pontuado em portfolio de todo o motor.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_3F736F0A9467",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_DOWNY_MILDEW",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 11,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "F_PROCEDENCIA · apoio sem origem recuperavel: IT-WIN-001, IT-WIN-002",
+     "RED_TEAM · geografia promovida: apoio provincial em alegacao mais ampla"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "BANJO",
+     "FOLPAN GOLD",
+     "Lamdex® Extra",
+     "MAVRIK SMART"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "BANJO",
+     "FOLPAN GOLD"
+    ],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "ha apoio que fala pelo proprio ambito",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_WINDOW",
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 2,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_AGROAMBIENTE_INFO_REGIONE_TOSCANA_IT",
+     "SRC_DIFESAFITOSANITARIA_ERSA_FVG_IT",
+     "SRC_NAO_DECLARADA",
+     "SRC_REGIONE_PIEMONTE_IT",
+     "SRC_REGIONE_UMBRIA_IT"
+    ],
+    "F_N_PUBLICADORES": 5,
+    "SIGNAL_DATE": "2026-08-28",
+    "SIGNAL_AGE_DAYS": 5,
+    "WINDOW_STATE": "EXACT"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-PHEN-037",
+    "WHY": "os boletins dizem «In generale non necessari interventi» e «a defesa antiperonosporica pode ser suspensa nas vinhas com invaiatura completa». O sinal e corrente e a direcao dele e PARAR.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_4C39CCC05EEB",
+   "ARCHETYPE": "O3_RESISTANCE_MOA",
+   "CROP": "CROP_RICE",
+   "TARGET": "ISSUE_ECHINOCHLOA",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 7,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias",
+     "RED_TEAM · resistencia documentada sem sinal de campo corrente: nao e incidencia"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "AGIL"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "AGIL"
+    ],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "RESISTANCE_RECORD"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EUR_LEX_EUROPA_EU",
+     "SRC_GIRE_MLIB_CNR_IT",
+     "SRC_HRACGLOBAL_COM"
+    ],
+    "F_N_PUBLICADORES": 3,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-RES-025",
+    "WHY": "a resistencia documentada de Echinochloa crus-galli em Italia e AOS INIBIDORES DA ACCASE (grupo A), e a IT-RES-026 acrescenta resistencia multipla A+B. O motor cita MODOS_DE_ACAO=[A] como relevancia ADAMA. O modo de acao que ele oferece e o modo de acao a que a planta resiste — o caso esta invertido.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_568684853264",
+   "ARCHETYPE": "O6_SCIENCE_TO_FIELD",
+   "CROP": "CROP_OLIVE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "D_PROBLEMA · sem alvo agronomico declarado",
+     "RED_TEAM · geografia promovida: apoio provincial em alegacao mais ampla"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "NAO",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": false,
+    "D_POR_QUE": "todo apoio e provincial e a alegacao e mais ampla",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL",
+     "SCIENTIFIC_RECORD"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 2,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_AGRICOLTURA_REGIONE_EMILIA_ROMAGNA_IT",
+     "SRC_AGROAMBIENTE_INFO_REGIONE_TOSCANA_IT",
+     "SRC_DOI_ORG",
+     "SRC_REGIONE_UMBRIA_IT"
+    ],
+    "F_N_PUBLICADORES": 4,
+    "SIGNAL_DATE": "2026-09-01",
+    "SIGNAL_AGE_DAYS": 1,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-PHEN-001",
+    "WHY": "sem alvo, e o unico produto de rotulo (MORAINE) nao esta no catalogo comercial publico. Falta o que vender e falta para que.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_56F19FD9F62B",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_APPLE",
+   "TARGET": "ISSUE_STINK_BUG",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "ACT_NOW",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "RED_TEAM · geografia promovida: apoio provincial em alegacao mais ampla"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "AGIL",
+     "BANJO",
+     "Lamdex® Extra",
+     "MAVRIK SMART",
+     "MERPAN 80 WDG",
+     "PIRIMOR 50"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "MAVRIK SMART"
+    ],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": false,
+    "D_POR_QUE": "todo apoio e provincial e a alegacao e mais ampla",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_DASHBOARD01_GREEN_PLANET_IT"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-08-19",
+    "SIGNAL_AGE_DAYS": 14,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "SIM",
+    "E_QUANDO": "ACT_NOW",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-PHEN-019",
+    "WHY": "«In questa fase la strategia di difesa dovra essere puntuale, specie su varieta autunnali di melo» — o documento manda agir, diz quando tratar (de manha) e alerta para o intervalo de seguranca. Ha rotulo verificado e produto de catalogo (MAVRIK SMART). O que falta e ONDE: a fonte tem GEOGRAPHIC_SCOPE=NAO_SEI e REGION_REPRESENTS=false.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "SALES_PREPARE"
+  },
+  {
+   "ID": "OPP_576D71D702F0",
+   "ARCHETYPE": "O2_MARKET_MOMENT",
+   "CROP": "CROP_MAIZE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "ACT_NOW",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Diode®",
+     "Lamdex® Extra",
+     "NICOGAN VO",
+     "PIRIMOR 50",
+     "TAIFUN MK CL PFNPE"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_ECONOMIC_WEIGHT_CLAIM",
+     "MARKET_OBSERVATION"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 2,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EC_EUROPA_EU",
+     "SRC_ESPLORADATI_ISTAT_IT"
+    ],
+    "F_N_PUBLICADORES": 2,
+    "SIGNAL_DATE": "2026-08-06",
+    "SIGNAL_AGE_DAYS": 27,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-MKT-023",
+    "WHY": "o gatilho e uma cotacao semanal de milho forrageiro (243,39 EUR/t, semana 27/07-02/08) mais area do ISTAT. O motor le a data de publicacao como corrente e devolve ACT_NOW. Preco de cereal nao abre janela de aplicacao de defensivo.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_5D03565DB4C3",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_WHEAT_GENERIC",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias",
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Lamdex® Extra",
+     "MAXENTIS",
+     "Maganic®",
+     "PIRIMOR 50",
+     "Schermo® 0.5 G"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-02-18",
+    "SIGNAL_AGE_DAYS": 196,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "24 pecas de concorrente em cereal, a mais recente de 18/02/2026. Ha portfolio comercial forte na cultura (MAXENTIS, MAGANIC), mas nao ha alvo nem janela — e leitura de mercado, nao de necessidade.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_68984FFD5ABF",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_SCAPHOIDEUS",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 11,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "F_PROCEDENCIA · apoio sem origem recuperavel: IT-WIN-001, IT-WIN-002",
+     "RED_TEAM · geografia promovida: apoio provincial em alegacao mais ampla"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "BANJO",
+     "FOLPAN GOLD",
+     "Lamdex® Extra",
+     "MAVRIK SMART"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "MAVRIK SMART"
+    ],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "ha apoio que fala pelo proprio ambito",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_WINDOW",
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 2,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_AGRICOLTURA_REGIONE_CAMPANIA_IT",
+     "SRC_AGROAMBIENTE_INFO_REGIONE_TOSCANA_IT",
+     "SRC_NAO_DECLARADA",
+     "SRC_REGIONE_PIEMONTE_IT"
+    ],
+    "F_N_PUBLICADORES": 4,
+    "SIGNAL_DATE": "2026-08-27",
+    "SIGNAL_AGE_DAYS": 6,
+    "WINDOW_STATE": "EXACT"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "PREPARE_NOW",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-WIN-001",
+    "WHY": "a defesa 2026 fechou («a defesa contra Scaphoideus titanus pode considerar-se concluida»), mas a obrigacao de tratamento contra a flavescenza recorre por norma e a proxima janela e conhecida em forma («2 tratamentos, 1a janela 08-19/06»). Ha rotulo verificado e produto de catalogo. E preparacao de campanha 2027, com data.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "SALES_PREPARE"
+  },
+  {
+   "ID": "OPP_6B7D9CC9188B",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_CITRUS",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "PREPARE_NOW",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Lamdex® Extra"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-06-25",
+    "SIGNAL_AGE_DAYS": 69,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "comunicacao de concorrente em citricos, sem alvo e sem janela.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_6BA350CA1538",
+   "ARCHETYPE": "O2_MARKET_MOMENT",
+   "CROP": "CROP_SOYBEAN",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 7,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "DAVAI",
+     "Lamdex® Extra"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_ECONOMIC_WEIGHT_CLAIM"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EC_EUROPA_EU"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-CAN-4C1E4AE512",
+    "WHY": "so peso economico, sem observacao de mercado corrente e sem data. E contexto de cultura, nao evento.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_6E18A133EE14",
+   "ARCHETYPE": "O5_REGULATORY_PREPARATION",
+   "CROP": "CROP_TOMATO",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "PIRIMOR 50"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "EU",
+    "D_GEOGRAFIA": "GEO_EU",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "REGULATORY_FUTURE_FACT"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EUR_LEX_EUROPA_EU",
+     "SRC_FRAC_INFO"
+    ],
+    "F_N_PUBLICADORES": 2,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "FUTURE",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "RFF_BUPIRIMATE",
+    "WHY": "2027-01-31, 151 dias — e a data mais proxima das sete de O5, e a que melhor merece preparacao de portfolio. Continua sem problema agronomico e sem geografia italiana.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_75C37DED9160",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_APPLE",
+   "TARGET": "ISSUE_CODLING_MOTH",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 10,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "A_GEOGRAFIA · apoios em geografias que nao se contem"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "AGIL",
+     "BANJO",
+     "Lamdex® Extra",
+     "MAVRIK SMART",
+     "MERPAN 80 WDG",
+     "PIRIMOR 50"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "Lamdex® Extra",
+     "MAVRIK SMART"
+    ],
+    "D_ONDE": "REGIONAL",
+    "D_GEOGRAFIA": "REGION_VENETO",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "ha boletim de ambito regional que fala PELA regiao",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_REGIONE_VENETO_IT"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-08-26",
+    "SIGNAL_AGE_DAYS": 7,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "SIM",
+    "E_QUANDO": "PREPARE_NOW",
+    "G_PERGUNTA_DE_VENDA": "SIM",
+    "EVIDENCE_ID": "IT-CAN-D9582B1FD6",
+    "WHY": "boletim frutticolo do Veneto, corrente, declara terceiro voo de Cydia pomonella terminado com «danni in aumento anche in frutteti a gestione integrata» — isto e, a solucao em uso esta a falhar, dito pelo servico oficial. Regiao declarada e representada, rotulo ministerial verificado no par maca x carpocapsa, e dois produtos do catalogo comercial no par (LAMDEX EXTRA, MAVRIK SMART). Fecha as quatro perguntas. A unica fragilidade e corroboracao: um publicador.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "SALES_READY"
+  },
+  {
+   "ID": "OPP_84D116CA45B1",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_RICE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "PREPARE_NOW",
+    "OPPORTUNITY_SCORE": 8,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "AGIL"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-06-16",
+    "SIGNAL_AGE_DAYS": 78,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "tres pecas de concorrente em arroz, sem alvo e sem janela.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_886307860F79",
+   "ARCHETYPE": "O5_REGULATORY_PREPARATION",
+   "CROP": "CROP_MAIZE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 8,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Diode®",
+     "Lamdex® Extra",
+     "NICOGAN VO",
+     "PIRIMOR 50",
+     "TAIFUN MK CL PFNPE"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "EU",
+    "D_GEOGRAFIA": "GEO_EU",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "REGULATORY_FUTURE_FACT"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EUR_LEX_EUROPA_EU",
+     "SRC_HRACGLOBAL_COM"
+    ],
+    "F_N_PUBLICADORES": 2,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "FUTURE",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "RFF_MESOTRIONE",
+    "WHY": "2032-05-31, 2.098 dias. Seis anos de antecedencia nao e urgencia nem preparacao: e cadastro.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_88CC35C57C7B",
+   "ARCHETYPE": "O5_REGULATORY_PREPARATION",
+   "CROP": "CROP_SOYBEAN",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "DAVAI",
+     "Lamdex® Extra"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "EU",
+    "D_GEOGRAFIA": "GEO_EU",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "REGULATORY_FUTURE_FACT"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EUR_LEX_EUROPA_EU",
+     "SRC_HRACGLOBAL_COM"
+    ],
+    "F_N_PUBLICADORES": 2,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "FUTURE",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "RFF_IMAZAMOX",
+    "WHY": "2027-06-30, 301 dias, com quatro produtos ADAMA. Preparacao regulatoria legitima; nao e venda.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_89C265BDADCE",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "BANJO",
+     "FOLPAN GOLD",
+     "Lamdex® Extra",
+     "MAVRIK SMART"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-07-28",
+    "SIGNAL_AGE_DAYS": 36,
+    "WINDOW_STATE": "EXACT"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "42 pecas de concorrente em videira — o maior volume competitivo do pacote. Sem alvo e sem janela, e leitura de disputa, nao de venda. A janela que a ficha exibe (2027-05-31) e data de ato, nao de aplicacao.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_8E210567B01F",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_MAIZE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias",
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Diode®",
+     "Lamdex® Extra",
+     "NICOGAN VO",
+     "PIRIMOR 50",
+     "TAIFUN MK CL PFNPE"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-03-19",
+    "SIGNAL_AGE_DAYS": 167,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "69 pecas de concorrente em milho, a mais recente de 19/03/2026.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_8EA4F5C0D3F4",
+   "ARCHETYPE": "O2_MARKET_MOMENT",
+   "CROP": "CROP_BARLEY",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "ACT_NOW",
+    "OPPORTUNITY_SCORE": 8,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "MAXENTIS",
+     "Maganic®"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "MARKET_OBSERVATION"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EC_EUROPA_EU"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-08-06",
+    "SIGNAL_AGE_DAYS": 27,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-MKT-022",
+    "WHY": "cotacao semanal de cevada forrageira (205,60 EUR/t). Mesmo defeito do milho: data de publicacao lida como corrente vira ACT_NOW.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_9AB924CA36C8",
+   "ARCHETYPE": "O2_MARKET_MOMENT",
+   "CROP": "CROP_SUGAR_BEET",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 7,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Lamdex® Extra",
+     "MAVRIK SMART",
+     "Schermo® 0.5 G"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_ECONOMIC_WEIGHT_CLAIM"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EC_EUROPA_EU"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-CAN-4C1E4AE512",
+    "WHY": "so peso economico, sem data.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_9C600748BB1B",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_MAIZE",
+   "TARGET": "ISSUE_CORN_BORER",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 10,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "A_GEOGRAFIA · apoios em geografias que nao se contem"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Diode®",
+     "Lamdex® Extra",
+     "NICOGAN VO",
+     "PIRIMOR 50",
+     "TAIFUN MK CL PFNPE"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "Lamdex® Extra"
+    ],
+    "D_ONDE": "REGIONAL",
+    "D_GEOGRAFIA": "REGION_FRIULI_VENEZIA_GIULIA",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "ha boletim de ambito regional que fala PELA regiao",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_DIFESAFITOSANITARIA_ERSA_FVG_IT"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-08-12",
+    "SIGNAL_AGE_DAYS": 21,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "SIM",
+    "E_QUANDO": "PREPARE_NOW",
+    "G_PERGUNTA_DE_VENDA": "SIM",
+    "EVIDENCE_ID": "IT-PHEN-048",
+    "WHY": "a ERSA declara limiar («posturas superiores a 3 por cada 100 plantas»), inicio do voo da 3a geracao e pico esperado nos dias seguintes. Regiao declarada E representada — o unico O1 regional com REGION_REPRESENTS=true e alvo. Rotulo verificado e produto de catalogo (LAMDEX EXTRA). O que rebaixa e o tempo: o boletim e de 12/08 e o proprio texto restringe o dano as semeaduras tardias.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "SALES_PREPARE"
+  },
+  {
+   "ID": "OPP_AF16E6A6B8B3",
+   "ARCHETYPE": "O2_MARKET_MOMENT",
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "BANJO",
+     "FOLPAN GOLD",
+     "Lamdex® Extra",
+     "MAVRIK SMART"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_ECONOMIC_WEIGHT_CLAIM",
+     "MARKET_OBSERVATION"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 2,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_BMTI_IT",
+     "SRC_EC_EUROPA_EU",
+     "SRC_ESPLORADATI_ISTAT_IT"
+    ],
+    "F_N_PUBLICADORES": 3,
+    "SIGNAL_DATE": "2026-08-28",
+    "SIGNAL_AGE_DAYS": 5,
+    "WINDOW_STATE": "EXACT"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "FUTURE",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-CAN-3312E852F3",
+    "WHY": "peso economico e cotacao. A janela 2027-05-31 que a ficha exibe vem de PREPARATION_WINDOW = «ate 2027-05-31, quando historicamente sai o ato» — data administrativa, nao janela de aplicacao.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_B19061BA418B",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_OLIVE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "PREPARE_NOW",
+    "OPPORTUNITY_SCORE": 9,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "NAO",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-07-15",
+    "SIGNAL_AGE_DAYS": 49,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "24 pecas de concorrente e um unico produto de rotulo (MORAINE), fora do catalogo comercial publico. Sem o que vender.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_B362181E3A45",
+   "ARCHETYPE": "O2_MARKET_MOMENT",
+   "CROP": "CROP_RICE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 7,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "AGIL"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_ECONOMIC_WEIGHT_CLAIM"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EC_EUROPA_EU"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-CAN-4C1E4AE512",
+    "WHY": "so peso economico, sem data.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_B9206ACFC797",
+   "ARCHETYPE": "O5_REGULATORY_PREPARATION",
+   "CROP": null,
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 6,
+    "PRODUCT_LINK_STATE": "RELATED_PORTFOLIO",
+    "BLOCKING_GATES": [
+     "RED_TEAM · relacao de portfolio tratada como verificacao de rotulo"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "NAO",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "EU",
+    "D_GEOGRAFIA": "GEO_EU",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "REGULATORY_FUTURE_FACT"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EUR_LEX_EUROPA_EU",
+     "SRC_HRACGLOBAL_COM"
+    ],
+    "F_N_PUBLICADORES": 2,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "FUTURE",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "RFF_2_4_D",
+    "WHY": "a identidade deterministica colapsa em UM cartao todos os fatos regulatorios sem cultura unica: 38 fusoes, 250 apoios, zero cultura de rotulo e PRODUCT_LINK_STATE=RELATED_PORTFOLIO. Nao e uma oportunidade: e a gaveta das outras 38.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_C37A1FD2742E",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_GRAPE_MOTH",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 10,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "F_PROCEDENCIA · apoio sem origem recuperavel: IT-WIN-001, IT-WIN-002",
+     "RED_TEAM · geografia promovida: apoio provincial em alegacao mais ampla"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "BANJO",
+     "FOLPAN GOLD",
+     "Lamdex® Extra",
+     "MAVRIK SMART"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "Lamdex® Extra"
+    ],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": false,
+    "D_POR_QUE": "todo apoio e provincial e a alegacao e mais ampla",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_WINDOW",
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 2,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_DASHBOARD01_GREEN_PLANET_IT",
+     "SRC_NAO_DECLARADA",
+     "SRC_REGIONE_PIEMONTE_IT"
+    ],
+    "F_N_PUBLICADORES": 3,
+    "SIGNAL_DATE": "2026-08-27",
+    "SIGNAL_AGE_DAYS": 6,
+    "WINDOW_STATE": "EXACT"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-PHEN-017",
+    "WHY": "o apoio de campo e uma tabela de capturas e o proprio registro diz «NAO SEI — o documento e tabela de capturas e modelo, sem texto de recomendacao». Captura nao e limiar, e limiar nao e dano.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_DA4B5954F72A",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_APPLE",
+   "TARGET": "ISSUE_SCAB",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 11,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "A_GEOGRAFIA · apoios em geografias que nao se contem"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "AGIL",
+     "BANJO",
+     "Lamdex® Extra",
+     "MAVRIK SMART",
+     "MERPAN 80 WDG",
+     "PIRIMOR 50"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "BANJO",
+     "MERPAN 80 WDG"
+    ],
+    "D_ONDE": "PROVINCIAL",
+    "D_GEOGRAFIA": "REGION_EMILIA_ROMAGNA",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "a alegacao e tao estreita quanto o apoio",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_AGRICOLTURA_REGIONE_EMILIA_ROMAGNA_IT",
+     "SRC_FITOSANITARIO_MO_IT",
+     "SRC_FITOSANITARIO_RE_IT"
+    ],
+    "F_N_PUBLICADORES": 3,
+    "SIGNAL_DATE": "2026-09-01",
+    "SIGNAL_AGE_DAYS": 1,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-PHEN-002",
+    "WHY": "mesmo defeito da pera: nos boletins de Emilia-Romagna o texto de intervencao para macieira e glomerella e colpo di fuoco, nao ticchiolatura. E o caso de score 11 — o mais alto do motor.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_E1A1D73F07BF",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_APPLE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "PREPARE_NOW",
+    "OPPORTUNITY_SCORE": 8,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "AGIL",
+     "BANJO",
+     "Lamdex® Extra",
+     "MAVRIK SMART",
+     "MERPAN 80 WDG",
+     "PIRIMOR 50"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-06-24",
+    "SIGNAL_AGE_DAYS": 70,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "cinco pecas de concorrente contra 143 rotulos ADAMA na cultura — a maior cobertura de portfolio do pacote. Leitura de posicao, nao de necessidade.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_E6200AA0FA63",
+   "ARCHETYPE": "O5_REGULATORY_PREPARATION",
+   "CROP": "CROP_BARLEY",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
+    "STATUS": "FUTURE_PREPARATION",
+    "OPPORTUNITY_SCORE": 8,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": []
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "MAXENTIS",
+     "Maganic®"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "EU",
+    "D_GEOGRAFIA": "GEO_EU",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "REGULATORY_FUTURE_FACT"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_EUR_LEX_EUROPA_EU",
+     "SRC_HRACGLOBAL_COM"
+    ],
+    "F_N_PUBLICADORES": 2,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "FUTURE",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "RFF_FLORASULAM",
+    "WHY": "2030-12-31, 1.581 dias.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "STRATEGIC_OPPORTUNITY"
+  },
+  {
+   "ID": "OPP_EA2AE1EFB775",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_TOMATO",
+   "TARGET": "ISSUE_DOWNY_MILDEW",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 10,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "A_GEOGRAFIA · apoios em geografias que nao se contem"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "PIRIMOR 50"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NAO",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "REGIONAL",
+    "D_GEOGRAFIA": "REGION_VENETO",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "ha boletim de ambito regional que fala PELA regiao",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_REGIONE_VENETO_IT"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-08-26",
+    "SIGNAL_AGE_DAYS": 7,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "SIM",
+    "E_QUANDO": "ACT_NOW",
+    "G_PERGUNTA_DE_VENDA": "PARCIAL",
+    "EVIDENCE_ID": "IT-CAN-03C08A9CCB",
+    "WHY": "o gatilho e bom e raro: chuvas de 17-23/08 criaram «condizioni ideali per lo sviluppo di nuove infezioni» e o boletim RECOMENDA tratar os lotes com colheita prevista em 25-30 dias — necessidade, geografia regional e janela, tudo declarado. O que falta e o portfolio: nenhum produto do catalogo comercial publico tem rotulo no par tomate x peronospora. Existe no registro ministerial; nao existe no catalogo. E exatamente a distincao 51 x 163.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_EE1E2A3869EE",
+   "ARCHETYPE": "O2_MARKET_MOMENT",
+   "CROP": "CROP_OLIVE",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 7,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "NAO",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "CROP_ECONOMIC_WEIGHT_CLAIM"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_ESPLORADATI_ISTAT_IT"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": null,
+    "SIGNAL_AGE_DAYS": null,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-CAN-4C1E4AE512",
+    "WHY": "so peso economico, e o unico rotulo (MORAINE) esta fora do catalogo comercial. Nao ha o que vender nem por que agora.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_F139E05A9F3A",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_TOMATO",
+   "TARGET": "ISSUE_POWDERY_MILDEW",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 10,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "A_GEOGRAFIA · apoios em geografias que nao se contem"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "PIRIMOR 50"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "NAO",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "REGIONAL",
+    "D_GEOGRAFIA": "REGION_FRIULI_VENEZIA_GIULIA",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "ha boletim de ambito regional que fala PELA regiao",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_DIFESAFITOSANITARIA_ERSA_FVG_IT"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-08-27",
+    "SIGNAL_AGE_DAYS": 6,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-PHEN-045",
+    "WHY": "o boletim ORTIVE da ERSA recomenda contra oidio em RADICCHIO, nao em tomate. O par tomate x oidio nasce do produto cartesiano entre a lista de culturas e a lista de alvos do mesmo documento. E nao ha produto do catalogo comercial no par.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_F6EEF5B32F65",
+   "ARCHETYPE": "O1_FIELD_PRESSURE",
+   "CROP": "CROP_MAIZE",
+   "TARGET": "ISSUE_DIABROTICA",
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "TO_VALIDATE",
+    "OPPORTUNITY_SCORE": 10,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "A_GEOGRAFIA · apoios em geografias que nao se contem"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "SIM",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [
+     "Diode®",
+     "Lamdex® Extra",
+     "NICOGAN VO",
+     "PIRIMOR 50",
+     "TAIFUN MK CL PFNPE"
+    ],
+    "C_ROTULO_CULTURA_X_ALVO": "SIM",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [
+     "Lamdex® Extra"
+    ],
+    "D_ONDE": "REGIONAL",
+    "D_GEOGRAFIA": "REGION_LOMBARDIA",
+    "D_GEOGRAFIA_SE_SUSTENTA": true,
+    "D_POR_QUE": "ha boletim de ambito regional que fala PELA regiao",
+    "F_FAMILIAS_EXTERNAS": [
+     "FIELD_SIGNAL"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FITOSANITARIO_REGIONE_LOMBARDIA_IT"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-07-24",
+    "SIGNAL_AGE_DAYS": 40,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "NAO",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-PHEN-022",
+    "WHY": "o documento e uma PROIBICAO: «durante a floracao vigora a proibicao de intervencao fitoiatrica com inseticidas, para tutela das abelhas». O motor leu proibicao de tratamento como pressao de campo, e deu 10.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  },
+  {
+   "ID": "OPP_FBA64D2CA10D",
+   "ARCHETYPE": "O4_COMPETITIVE_OPENING",
+   "CROP": "CROP_VEGETABLES",
+   "TARGET": null,
+   "MOTOR": {
+    "OPPORTUNITY_STATE": "OPPORTUNITY_CANDIDATE",
+    "STATUS": "PREPARE_NOW",
+    "OPPORTUNITY_SCORE": 8,
+    "PRODUCT_LINK_STATE": "VERIFIED_LABEL_MATCH",
+    "BLOCKING_GATES": [
+     "RED_TEAM · comunicacao de concorrente virou participacao de mercado"
+    ]
+   },
+   "MEASURED": {
+    "B_ENCAIXE_COMERCIAL": "NAO",
+    "B_PRODUTOS_DO_CATALOGO_NA_CULTURA": [],
+    "C_ROTULO_CULTURA_X_ALVO": "NOT_APPLICABLE",
+    "C_PRODUTOS_DO_CATALOGO_NO_PAR": [],
+    "D_ONDE": "NATIONAL",
+    "D_GEOGRAFIA": "GEO_ITALY",
+    "D_GEOGRAFIA_SE_SUSTENTA": "NOT_APPLICABLE",
+    "D_POR_QUE": "o caso nao se apoia em observacao de campo: a geografia dele e a do ato ou da peca, e nao ha promocao de ambito a medir",
+    "F_FAMILIAS_EXTERNAS": [
+     "COMPETITOR_ACTIVITY"
+    ],
+    "F_N_FAMILIAS_EXTERNAS": 1,
+    "F_PUBLICADORES_EXTERNOS": [
+     "SRC_FACEBOOK_COM"
+    ],
+    "F_N_PUBLICADORES": 1,
+    "SIGNAL_DATE": "2026-07-21",
+    "SIGNAL_AGE_DAYS": 43,
+    "WINDOW_STATE": "UNKNOWN"
+   },
+   "REVIEWED": {
+    "A_GATILHO_EXTERNO": "PARCIAL",
+    "E_QUANDO": "UNKNOWN",
+    "G_PERGUNTA_DE_VENDA": "NAO",
+    "EVIDENCE_ID": "IT-COMP-ACT-002",
+    "WHY": "cinco pecas de concorrente e um unico rotulo, um glifosato (GLIPHOGAN TOP CL) fora do catalogo comercial publico.",
+    "LAW": "leitura do texto da fonte, com o ID do apoio ao lado. Nao sai do pacote sozinha e nao e reproduzivel por maquina — por isso vive separada de MEASURED."
+   },
+   "SHADOW_CLASS": "TO_VALIDATE"
+  }
+ ]
+}

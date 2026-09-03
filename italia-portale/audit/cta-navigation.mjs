@@ -95,8 +95,20 @@ const ENUM = `() => { const out = [];
     out.push(el);
   } return out; }`;
 
+/* La firma DEVE normalizzare il testo esattamente come lo normalizza
+   drive.clickables(): li si collassano gli spazi, e qui anche. Quando drive ha
+   cominciato a collassarli e questa riga no, 64 firme su 75 hanno smesso di
+   risolvere — e il portone, invece di gridare, ha semplicemente giudicato nove
+   controlli su settantuno e stampato un risultato tranquillo.
+
+       DUE NORMALIZZAZIONI DELLA STESSA STRINGA SONO DUE STRINGHE.
+
+   Per questo CT4 non si accontenta piu di contare: verifica che OGNI firma di
+   partenza ritrovi il suo elemento. Un portone che misura il vuoto in silenzio
+   e peggio di un portone che fallisce. */
 const SIG = `(el) => { const r = el.getBoundingClientRect();
-  return [el.tagName.toLowerCase(), el.getAttribute('title') || '', (el.textContent || '').trim().slice(0, 70),
+  return [el.tagName.toLowerCase(), el.getAttribute('title') || '',
+    (el.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 70),
     Math.round(r.width), Math.round(r.height)].join('|'); }`;
 
 const sigOf = (c) => [c.tag, c.title, c.text, c.w, c.h].join('|');
@@ -199,8 +211,11 @@ const clickSig = (p, sig, ord) => p.evaluate(([E, S, s, o]) => {
   hit.click(); return true;
 }, [ENUM, SIG, sig, ord]).catch(() => false);
 
-const harvest = (p) => p.evaluate(() => { const n = window.__m || 0; if (window.__mo) window.__mo.disconnect(); window.__mo = null; return n; })
-  .catch(() => 0);
+const harvest = (p) => p.evaluate(() => {
+  const n = window.__m || 0;
+  if (window.__mo) window.__mo.disconnect(); window.__mo = null;
+  return { mut: n, opened: window.__opened || 0 };
+}).catch(() => ({ mut: 0, opened: 0 }));
 
 /* ── premere come preme il lettore ─────────────────────────────────────────
    `element.click()` non e un click: nomina l'elemento come bersaglio e salta la
@@ -232,10 +247,31 @@ const aim = (sig, ord) => page.evaluate(([E, S, s, o]) => {
   return { x: 0, y: 0, reachable: false };
 }, [ENUM, SIG, sig, ord]).catch(() => null);
 
+/* ── contare l'INTENZIONE, non la finestra ─────────────────────────────────
+   Su dodici «VEDI ANNUNCIO →» due non aprono niente e dieci aprono una scheda
+   — ma la scheda nasce nel processo del browser e attraversa la rete: arriva
+   anche quattro secondi dopo il click, e quanto tardi dipende dalla giornata.
+   Aspettandola, il portone contava quattro morti in una esecuzione e cinque
+   nella successiva sugli STESSI dodici controlli: un numero che balla non e
+   una misura.
+
+       LA FINESTRA ARRIVA DALLA RETE. LA CHIAMATA E GIA QUI.
+
+   Si sostituisce window.open con un contatore: l'intenzione si legge nello
+   stesso istante del click, senza rete e senza attesa. Le schede vere restano
+   quelle degli <a target="_blank">, che il browser apre da solo — ed e li che
+   CT5 va a controllare che il meccanismo funzioni davvero. */
 const arm = () => page.evaluate(() => {
   window.__m = 0; if (window.__mo) window.__mo.disconnect();
   window.__mo = new MutationObserver((ms) => { window.__m += ms.length; });
   window.__mo.observe(document.documentElement, { subtree: true, childList: true, attributes: true, characterData: true });
+  if (!window.__openPatched) {
+    /* uno stub gentile: chi chiama window.open spesso ci parla subito dopo, e
+       un null farebbe esplodere l'applicazione al posto di misurarla */
+    window.open = function () { window.__opened++; return { focus() {}, blur() {}, close() {}, closed: false, location: { href: '' }, document: { write() {}, close() {} } }; };
+    window.__openPatched = true;
+  }
+  window.__opened = 0;
 }).catch(() => {});
 
 let obscured = 0;
@@ -315,7 +351,7 @@ async function restore(label, sc) {
 const screens = [];
 const suspects = [];
 const blew = [];   /* pressioni che hanno fatto urlare la console */
-let judged = 0, alive = 0, formCtl = 0, selfNav = 0, notJudged = 0, drift = 0, enumSkew = 0;
+let judged = 0, alive = 0, formCtl = 0, selfNav = 0, notJudged = 0, drift = 0, enumSkew = 0, hostRoot = 0;
 let linked = 0, linkProved = 0;
 const linkProofFailed = [];
 
@@ -326,6 +362,14 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
   const meta = await enrich(page);
   if (cl.length !== meta.length) enumSkew++;
   const sigs = cl.map(sigOf);
+  /* Le firme si verificano SUBITO, sulla schermata appena enumerata: se una non
+     ritrova il suo elemento adesso, non lo ritrovera mai, e ogni verdetto che
+     ne dipende sarebbe aria. */
+  const unresolved = await page.evaluate(([E, S, list]) => {
+    const have = eval(E)().map(eval(S));
+    return list.filter((g) => !have.includes(g)).length;
+  }, [ENUM, SIG, sigs]).catch(() => sigs.length);
+  enumSkew += unresolved;
   const ord = []; const seen = {};
   for (const s of sigs) { seen[s] = (seen[s] || 0); ord.push(seen[s]); seen[s]++; }
 
@@ -340,7 +384,18 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
     /* Vale quello che il lettore vede: il cursore, o un <a>/<button> veri. Il
        div ospite del runtime porta un handler delegato ed e antenato di tutto —
        premerlo non e premere un bottone. */
-    if (!c.visible || !(c.pointer || c.tag === 'a' || c.tag === 'button')) { notJudged++; continue; }
+    /* La radice del design system porta un handler delegato VUOTO
+       (`function kd(){}`) ed e antenata di tutta la pagina: premerla non e
+       premere un bottone. Si esclude PER NOME, non per la forma del gestore —
+       escludere «gestore vuoto» in generale nasconderebbe proprio il placebo
+       che questo portone esiste per trovare. */
+    if (c.id === 'dc-root') { hostRoot++; continue; }
+    /* ⚠️ Un gestore SENZA cursore e il difetto opposto, e altrettanto reale: il
+       browser lo considera cliccabile e il lettore non lo vede. La prima
+       versione di questa riga saltava tutto cio che non aveva `cursor:pointer`,
+       e con essa 16 caselle della mappa che portavano un `onclick` e non
+       facevano niente. Ora si preme anche chi ha SOLO il gestore. */
+    if (!c.visible || !(c.pointer || c.hasHandler || c.tag === 'a' || c.tag === 'button')) { notJudged++; continue; }
     if (FORM.has(c.tag)) { formCtl++; sc.forms++; continue; }
     if ((meta[i] || {}).nt === label) { selfNav++; sc.selfNav++; continue; }
 
@@ -380,19 +435,17 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
       const e0 = errors.length;
       await strike(a, sigs[i], ord[i]);
       await page.waitForTimeout(SETTLE);
-      const mut = await harvest(page);
+      const { mut, opened } = await harvest(page);
       const post = await snap(page).catch(() => null);
       /* Un errore di console va ATTRIBUITO alla pressione che lo ha prodotto,
          altrimenti il portone dice «sei errori» e nessuno sa dove premere. */
       if (errors.length > e0) blew.push({ screen: label, tag: c.tag, text: (c.text || c.title || '').replace(/\s+/g, ' ').slice(0, 46), msg: errors[e0] });
-      /* QUI NON SI CONTANO SCHEDE NUOVE, DOWNLOAD NE DIALOG.
-         «VEDI L'INTELLIGENCE →» apre una scheda con window.open, e la scheda
-         arriva un secondo abbondante dopo il click: fuori dalla finestra di
-         190 ms di questo passaggio, e dentro quella della pressione SUCCESSIVA,
-         che si vedrebbe attribuire una vita non sua. Un effetto che arriva
-         tardi non si giudica di fretta: chi non si muove qui diventa sospetto e
-         il passaggio 2 lo riprova con la pazienza necessaria. */
-      return { moved: differs(pre, post) || mut > NOISE, post };
+      /* Qui si contano il DOM e la CHIAMATA a window.open, entrambi immediati.
+         Le schede vere, i download e i dialog no: arrivano tardi, cadrebbero
+         dentro la finestra della pressione SUCCESSIVA e le regalerebbero una
+         vita non sua. Chi non si muove qui diventa sospetto, e il passaggio 2
+         lo riprova con la pazienza necessaria. */
+      return { moved: differs(pre, post) || mut > NOISE || opened > 0, post };
     };
 
     let out = await attempt();
@@ -444,7 +497,7 @@ const dead = [], idempotent = [];
 
 /* Preme una firma e dice se il mondo si e mosso. null = la firma non esiste
    piu su questa schermata (lo stato e cambiato sotto i piedi). */
-const PATIENCE = Number(arg('patience', 10));   /* × 250 ms = 2,5 s di attesa */
+const PATIENCE = Number(arg('patience', 8));   /* × 250 ms = 2 s per un pannello lento */
 
 const press = async (sig, ordinal) => {
   const aimed = await aimAndPre(sig, ordinal);
@@ -453,13 +506,13 @@ const press = async (sig, ordinal) => {
   const t0 = tabs, d0 = downloads, g0 = dialogs;
   await strike(a, sig, ordinal);
   await page.waitForTimeout(SETTLE);
-  const mut = await harvest(page);
+  const { mut, opened } = await harvest(page);
   let post = await snap(page).catch(() => null);
-  let moved = differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
+  let moved = differs(pre, post) || mut > NOISE || opened > 0 || tabs > t0 || downloads > d0 || dialogs > g0;
   /* LA PAZIENZA SI PAGA SOLO A CHI SEMBRA MORTO.
-     Una scheda aperta con window.open, un download, un pannello che si disegna
-     dopo una animazione: arrivano dopo. Qui i sospetti sono pochi e aspettare
-     costa poco; nel passaggio 1, con 889 pressioni, costerebbe mezz'ora. */
+     Un download, un dialog, un pannello che si disegna dopo una animazione:
+     arrivano dopo. Qui i sospetti sono pochi e aspettare costa poco; nel
+     passaggio 1, con 889 pressioni, costerebbe mezz'ora. */
   for (let w = 0; !moved && w < PATIENCE; w++) {
     await page.waitForTimeout(250);
     post = await snap(page).catch(() => null);
@@ -471,8 +524,23 @@ const press = async (sig, ordinal) => {
 for (const s of suspects) {
   const sc = screens.find((x) => x.label === s.label);
 
+  /* ── quando l'ordinale smette di significare qualcosa ─────────────────────
+     Tredici «VEDI ANNUNCIO →» hanno la STESSA firma: si distinguono per
+     ordinale, e l'ordinale vale solo sulla schermata intatta. Basta che il
+     fratello premuto filtri la lista e l'ordinale 0 e un altro annuncio: il
+     portone credeva di ritentare il sospetto e ne assolveva un vicino.
+
+         SE NON PUOI DIMOSTRARE DI AVER RIPREMUTO LO STESSO, NON RIPREMERE.
+
+     Un controllo ripetuto riga per riga non e comunque un comando «gia
+     soddisfatto» — quella e la forma dei segmenti e dei filtri, che sulla
+     schermata sono unici. Quindi: firma unica → tutti i contesti; firma
+     ripetuta → solo la ripetizione sulla schermata pulita, dove l'ordinale e
+     ancora quello di partenza. */
+  const dupes = sc.sigs.filter((x) => x === s.sig).length;
+
   /* i fratelli vivi dello stesso gruppo, dal piu vicino al piu lontano */
-  const sibs = sc.aliveIdx
+  const sibs = dupes > 1 ? [] : sc.aliveIdx
     .filter((j) => j !== s.i && (sc.meta[j] || {}).g === s.g && sc.sigs[j] !== s.sig)
     .sort((a, b) => Math.abs(a - s.i) - Math.abs(b - s.i))
     .slice(0, 4);
@@ -495,7 +563,7 @@ for (const s of suspects) {
 
   /* terza prova: la stessa firma dove ha ancora qualcosa da fare */
   let revived = null;
-  for (const other of SIDEBAR.slice(0, MAX_SCREENS)) {
+  for (const other of (dupes > 1 ? [] : SIDEBAR.slice(0, MAX_SCREENS))) {
     if (other === s.label) continue;
     const osc = screens.find((x) => x.label === other);
     if (!osc || !osc.sigs.includes(s.sig)) continue;
@@ -654,7 +722,7 @@ console.log('  ' + '─'.repeat(100));
 console.log(line(dead.length === 0, 'CT1', 'Every CTA pressed does something (dead buttons)', 0, dead.length));
 console.log(line(noHandler.length === 0, 'CT2', 'No cursor:pointer without handler, href or effect', 0, noHandler.length));
 console.log(line(drift === 0, 'CT3', 'No click left a screen the gate could not restore', 0, drift));
-console.log(line(enumSkew === 0, 'CT4', 'Enumeration and click list are the same list', 0, enumSkew));
+console.log(line(enumSkew === 0, 'CT4', 'Every enumerated control is findable by signature', 0, enumSkew));
 console.log(line(linkProofFailed.length === 0, 'CT5', 'Sampled <a href> links really open a tab', 0, linkProofFailed.length));
 console.log(line(unreached.length === 0, 'NV1', 'Every sidebar item reaches a screen', 0, unreached.length || 'all ' + navRows.length));
 console.log(line(collisions.length === 0, 'NV2', 'No two sidebar items land on the same screen', 0, collisions.length));
@@ -667,7 +735,7 @@ console.log(line(failed.length === 0, 'NV7', 'No failed request during the whole
 console.log('  ' + '─'.repeat(100));
 console.log(`  SCHERMATE = ${screens.length} di ${SIDEBAR.length} nella barra (${NAV_ALL.length} [title] in pagina, il resto e testata e mappa)`);
 console.log(`  CLICCABILI TROVATI = ${totalClickables} · PREMUTI E GIUDICATI = ${judged} · VIVI = ${alive} · MORTI = ${dead.length}`);
-console.log(`  non giudicati: ${formCtl} controlli di modulo (semantica change) · ${selfNav} voce della schermata corrente · ${notJudged} senza cursore proprio (host delegato, celle inerti della mappa)`);
+console.log(`  non premuti, e per quale ragione: ${formCtl} controlli di modulo (semantica change) · ${selfNav} voce della schermata corrente · ${hostRoot} radice del design system (#dc-root, handler delegato vuoto) · ${linked} <a> con destinazione vera (${linkProved} aperti per prova) · ${notJudged} senza affordance ne gestore`);
 console.log(`  collegamenti con destinazione vera = ${linked} (cablati per costruzione) · aperti davvero per prova = ${linkProved}/${linkProved + linkProofFailed.length}`);
 console.log(`  premuti col mouse su un punto raggiungibile · coperti da uno strato (click sintetico) = ${obscured}`);
 console.log(`  rumore del DOM a riposo = ${NOISE} mutazioni/600ms — con zero, UNA mutazione dopo il click e prova di vita`);
@@ -725,7 +793,7 @@ if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({
   noHandler, blew, navRows, collisions, unreached, emptyScreens, linkProofFailed,
   back: { history: backHistory, detail: backDetail, label: backLabel, tried: backTried, caseScreen },
   reload: { ok: reloadOk, chars: afterReload.chars, clickables: reloadClicks },
-  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, linked, linkProved, obscured, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
+  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, hostRoot, linked, linkProved, obscured, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
   errors, failed,
 }, null, 1));
 

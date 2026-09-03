@@ -718,21 +718,51 @@
      esiste un prodotto con legame VERIFICATO, che coltura e bersaglio sono
      nominati, e che il momento e sostenuto. Misurato: 3 su 37 passano — e i
      motivi dei 34 bloccati sono dichiarati uno per uno, non nascosti. */
+  /* ── CHI PUO USCIRE DI CASA ────────────────────────────────────────────
+     VENDERE E UNA DECISIONE INTERNA. INVIARE E UN'AFFERMAZIONE PUBBLICA.
+
+     Il verdetto del MOTORE vince quando c'e: lui vede il catalogo pubblico, la
+     frase che la fonte ha scritto e i portoni di evidenza, e la scheda no. Il
+     righello locale qui sotto resta la RISERVA — per il caso che il motore non
+     ha giudicato — e non e stato cancellato perche cancellarlo lascerebbe senza
+     risposta ogni scheda che non venga dal pacchetto V2.1.
+
+         UN RIGHELLO DUPLICATO SONO DUE RIGHELLI CHE DIVERGERANNO:
+         QUI UNO DECIDE E L'ALTRO ASPETTA. */
   const rtvEligibility = (o) => {
+    if (!o) return { ready: false, blockers: ['nessun caso'], from: 'NONE' };
+    const raw = o.raw || o;
+    const verdict = raw.externalMaterialReady || o.externalMaterialReady;
+    if (verdict) {
+      const codes = (raw.externalBlockerCodes || o.externalBlockerCodes || []).slice();
+      return {
+        ready: verdict === 'YES',
+        blockers: verdict === 'YES' ? [] : (codes.length ? codes : ['NOT_SALES_READY']),
+        from: 'ENGINE'
+      };
+    }
     const blockers = [];
-    if (!o) return { ready: false, blockers: ['nessun caso'] };
     const links = Array.isArray(o.productLinks) ? o.productLinks : [];
     if (!links.filter((l) => l && l.strength === 'VERIFIED_LABEL_MATCH').length) blockers.push('NO_VERIFIED_PRODUCT');
     if (!((o.cropKeys || [])[0] || o.crop)) blockers.push('NO_CROP');
     if (!(o.issue || o.issueEn)) blockers.push('NO_TARGET');
     if (!(o.windowStart || o.windowEnd || o.windowState)) blockers.push('NO_WINDOW');
-    return { ready: blockers.length === 0, blockers };
+    return { ready: blockers.length === 0, blockers, from: 'SCREEN' };
   };
   const RTV_BLOCKER_LABEL = {
     NO_VERIFIED_PRODUCT: ['nessun prodotto con legame verificato su etichetta', 'no product with a verified label link'],
     NO_CROP: ['la coltura non e risolta', 'the crop is not resolved'],
     NO_TARGET: ['nessun bersaglio agronomico nominato', 'no agronomic target is named'],
     NO_WINDOW: ['nessuna finestra sostenuta', 'no supported window'],
+    /* I sei del motore. Le frasi vivono di qua dalla frontiera: oltre passano
+       solo i codici, perche il pacchetto V2.1 e stato ricercato in portoghese. */
+    NOT_SALES_READY: ['il caso non e commercialmente pronto nemmeno all\u2019interno', 'the case is not commercially ready even internally'],
+    EVIDENCE_GATE_OPEN: ['c\u2019e un portone di evidenza aperto sulla stessa affermazione', 'an evidence gate is open on the same claim'],
+    RED_TEAM_FINDING: ['il red team ha registrato un\u2019estrapolazione in questo caso', 'the red team recorded an extrapolation on this case'],
+    CATALOG_DOES_NOT_DECLARE_CROP: ['l\u2019etichetta copre la coppia, ma la pagina di catalogo del prodotto non dichiara questa coltura', 'the label covers the pair, but the product catalogue page does not declare this crop'],
+    WINDOW_IS_ADMINISTRATIVE: ['la finestra mostrata e data di atto, non finestra di applicazione', 'the window shown is an act date, not an application window'],
+    NO_SOURCE_SENTENCE: ['non c\u2019e frase della fonte che sostenga la necessita', 'there is no source sentence supporting the need'],
+    SOURCE_PRESCRIBES_OTHER_MEANS: ['il bollettino prescrive sostanze nominate, e quella del prodotto ADAMA non e fra loro', 'the bulletin prescribes named substances, and the ADAMA product\u2019s is not among them'],
   };
 
   /* ── LA CATEGORIA QUANDO ISSUE_TYPE TACE ────────────────────────────────
@@ -3577,6 +3607,29 @@
         productLinkState: v21S(o.PRODUCT_LINK_STATE),
         adamaProducts: A(o.PRODUCT_RELATIONSHIPS),
         adamaActiveSubstance: [],
+        /* ── LA COLONNA COMMERCIALE, DAL MOTORE ─────────────────────────────
+           Due domande diverse, e nessuna sostituisce l'altra:
+           `opportunityState` risponde «questa lettura si regge?»,
+           `commercialPriority` risponde «e un'opportunita commerciale
+           difendibile?», e `externalMaterialReady` risponde «puo USCIRE di
+           casa?». Il portale teneva un proprio righello per la terza
+           (`rtvEligibility`), derivato da cio che la scheda vede; il motore la
+           decide con dato che la scheda non ha — catalogo pubblico, frase
+           della fonte, portoni di evidenza.
+
+               UN RIGHELLO DUPLICATO SONO DUE RIGHELLI CHE DIVERGERANNO.
+
+           Da qui il verdetto del motore viaggia, e il righello del portale
+           resta la RISERVA per il caso che non lo porta. Sono CODICI: le frasi
+           vivono nel dizionario di lingua, di qua dalla frontiera. */
+        commercialPriority: v21S(o.COMMERCIAL_PRIORITY),
+        commercialWhyCodes: A(o.WHY_COMMERCIAL_CODES),
+        externalMaterialReady: v21S(o.EXTERNAL_MATERIAL_READY),
+        externalBlockerCodes: A(o.EXTERNAL_BLOCKER_CODES),
+        caseActiveIngredients: A(o.CASE_ACTIVE_INGREDIENTS),
+        needDirection: v21S(o.NEED_DIRECTION),
+        needEvidenceId: v21S(o.NEED_EVIDENCE_ID),
+        needMethod: v21S(o.NEED_METHOD),
         evidenceIds: A(o.EVIDENCE_IDS),
         evidenceFamilies: A(o.EVIDENCE_FAMILIES),
         evidenceCount: N(o.EVIDENCE_COUNT),

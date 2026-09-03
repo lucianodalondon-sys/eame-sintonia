@@ -18,7 +18,7 @@ a reportar, não um erro a ignorar.
 | **HEAD** | ver `git rev-parse HEAD` — o commit de handoff é o último |
 | **REMOTE_HEAD** | idêntico ao local no momento do push |
 | **WORKING_TREE** | limpo |
-| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->649<!--/M--> testes, 0 falhas, 0 erros, 0 pulados** |
+| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->721<!--/M--> testes, 6 falhas, 1 erro, 16 pulados** — as falhas sao anteriores a esta linha de missoes e estao classificadas uma a uma em `docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md` §7. Um handoff que promete verde e entrega vermelho ensina a proxima conta a desconfiar do proprio contador. |
 | **LAST_MAJOR_MISSION** | 10B-ES — fechar os portões estruturais antes de coletar mais |
 | **CURRENT_COUNTRY_SCOPE** | **ESPANHA**. França e Itália **não** foram abertas na camada de voz. |
 

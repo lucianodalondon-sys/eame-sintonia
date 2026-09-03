@@ -153,6 +153,11 @@ export const clickables = (page) => page.evaluate(() => {
     const r = el.getBoundingClientRect();
     seen.push({
       tag: el.tagName.toLowerCase(),
+      /* L'identita dell'elemento: serve a riconoscere la RADICE del design
+         system (`#dc-root`), che porta un handler delegato VUOTO ed e antenata
+         di tutto. Non e un controllo, e chi conta i controlli deve poterlo dire
+         per nome invece di lasciarlo in un resto non spiegato. */
+      id: el.id || '',
       /* Il testo si NORMALIZZA qui, una volta: chi indicizza e chi clicca devono
          confrontare la stessa stringa. Salvandolo grezzo e collassandolo solo
          dopo, «SINTONIA\n ADAMA ITALIA» tagliato a 70 caratteri grezzi non
