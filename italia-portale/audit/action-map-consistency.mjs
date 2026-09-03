@@ -62,7 +62,11 @@ const AREA_BY_LABEL = {}; AREAS.forEach((a) => { AREA_BY_LABEL[areaLabel(a)] = a
    della finestra canonica — che e nullo su 37 record su 37 — quindi qui si
    scrive l'unica lettura che il lettore puo fare: uno schermo che grida AGIRE
    ORA non puo etichettare le sue aree «da monitorare». */
-const modeForStatus = (s) => AREAMODE[s === 'ACT_NOW' ? 'LOOK' : s === 'PREPARE_NOW' ? 'PREPARE' : 'MONITOR'] || '';
+/* Quattro stati, quattro modi. Il quarto — VALIDATE — e nato quando la mappa
+   ha smesso di dire «da monitorare» a un caso DA VALIDARE: chi lo legge deve
+   sapere che il suo compito e validare, non guardare. */
+const modeForStatus = (s) => AREAMODE[s === 'ACT_NOW' ? 'LOOK' : s === 'PREPARE_NOW' ? 'PREPARE'
+  : s === 'TO_VALIDATE' ? 'VALIDATE' : 'MONITOR'] || '';
 
 /* ── campione: ogni stato, e le due situazioni di prodotto ──────────────────
    «Almeno un legame VERIFIED_LABEL_MATCH» contro «solo LABEL_CHECK_NEEDED» non
@@ -131,10 +135,20 @@ const READ = `(root, V) => {
   const opaque = (bg) => { const m = /rgba?\\(([^)]+)\\)/.exec(bg || ''); if (!m) return false;
     const p = m[1].split(',').map((s) => parseFloat(s)); return p.length < 4 || p[3] === 1; };
   const interps = [...root.querySelectorAll('.sc-interp')];
-  const status = [], linkState = [];
+  /* ⚠️ «PASTIGLIA PIENA» NON E LA DEFINIZIONE DI STATO.
+     Questa riga cercava lo stato fra le etichette che stanno su un fondo
+     OPACO — un modo per trovare la pastiglia, non un requisito. Quando AGIRE
+     ORA e diventato l'unico stato PIENO (e gli altri contorni, apposta, perche
+     uno solo dei quattro chiama all'azione), la scheda ha smesso di dichiarare
+     lo stato a questo portone su nove casi su quattordici. Nessuno di quei nove
+     era un difetto: la parola era li, scritta, in tutti e due i posti.
+
+         LO SLOT SI DICHIARA. IL PORTONE NON INDOVINA DAL RIEMPIMENTO. */
+  const status = [...root.querySelectorAll('[data-status]')]
+    .map((e) => (e.getAttribute('data-status') || '').trim()).filter(Boolean);
+  const linkState = [];
   for (const s of interps) {
-    const t = txt(s), cs = getComputedStyle(s.parentElement || s);
-    if (V.statusLabels.indexOf(t) >= 0 && opaque(cs.backgroundColor)) status.push(t);
+    const t = txt(s);
     if (V.pstateLabels.indexOf(t) >= 0) linkState.push(t);
   }
   /* COLTURA · REGIONE vive in una riga che si riconosce da sola: due span con
@@ -156,16 +170,24 @@ const READ = `(root, V) => {
   /* LA MAPPA DELLE AZIONI · si trova per la sua intestazione RESA, non per una
      stringa nel sorgente: il blocco e il padre del titolo, la griglia e il suo
      ultimo figlio, e ogni riquadro porta l'area e il modo. */
+  /* ⚠️ LO SLOT SI DICHIARA, NON SI CONTA.
+     Questa lettura andava a POSIZIONE — children[0] il nome, children[1] il
+     modo — e il giorno in cui il riquadro ha guadagnato un ordinale accanto al
+     nome ha cominciato a leggere «COMMERCIALE 2» come nome d'area: quarantadue
+     aree inventate, quarantadue cadute, quarantadue fuori vocabolario, e non
+     una sola era un difetto della schermata.
+
+         UN PORTONE CHE LEGGE PER POSIZIONE MISURA IL LAYOUT, NON IL FATTO.
+
+     Ora il markup dichiara data-area, data-area-name e data-area-mode, e
+     questa funzione legge quelli. Se domani il riquadro cambia di nuovo forma,
+     la misura resta la stessa. */
   let areas = [], modes = [], mapFound = false;
-  const hdr = [...root.querySelectorAll('div')].find((d) => txt(d) === V.actionMapLabel);
-  if (hdr && hdr.parentElement) {
-    const block = hdr.parentElement;
-    const grid = block.children[block.children.length - 1];
-    if (grid && grid !== hdr && grid.children.length) {
-      mapFound = true;
-      areas = [...grid.children].map((c) => txt(c.children[0]));
-      modes = [...grid.children].map((c) => txt(c.children[1]));
-    }
+  const boxes = [...root.querySelectorAll('[data-area]')];
+  if (boxes.length) {
+    mapFound = true;
+    areas = boxes.map((c) => (c.getAttribute('data-area-name') || '').trim());
+    modes = boxes.map((c) => (c.getAttribute('data-area-mode') || '').trim());
   }
   return { crop, region, dotRows: dots.length, status, linkState, products, areas, modes, mapFound,
     chars: (root.innerText || '').length };

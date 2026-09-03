@@ -95,7 +95,37 @@ const isEarthTint = ([r, g, b]) => {
   }
   return false;
 };
-const official = (h, rgb) => !!PALETTE[h] || !!ALLOWED_EXTRA[h] || isEarthTint(rgb);
+/* ── A MESMA REGRA, PARA O OUTRO LADO DA LINHA ────────────────────────────────
+   O manual ja autoriza QUALQUER tinta de Earth em direccao ao branco, e este
+   portao mede-a por derivacao — nao por lista. Faltava a simetrica.
+
+   Um portal escuro precisa de duas coisas que a paleta impressa nao publica em
+   hexadecimal: a MASSA de uma linha (a linha levada em direccao ao preto, para
+   poder carregar texto claro) e o LEVANTAMENTO da mesma linha (em direccao ao
+   branco, para poder ser lida SOBRE essa massa). Nenhuma das duas e uma cor
+   nova: sao a mesma linha, medidas noutro ponto do mesmo raio.
+
+       UMA TINTA E UMA COR NOVA. UM PONTO NO RAIO DA LINHA E A LINHA.
+
+   Por isso a excepcao nao e escrita a mao para cada superficie: escreve-se a
+   REGRA, e uma cor que nao esteja num destes raios continua a reprovar. Foi
+   assim que #FF6B7A e #0E1111 continuaram a aparecer nesta lista. */
+const LINES = ['#009845', '#00783F', '#978B87', '#F89E18', '#7DB41E', '#00A0DF', '#9D1D96', '#F5B317', '#00B152'];
+const onRay = (rgb, from, to) => {
+  for (let t = 0; t <= 100; t++) {
+    const k = t / 100;
+    if (Math.abs(rgb[0] - (from[0] + (to[0] - from[0]) * k)) <= 2
+      && Math.abs(rgb[1] - (from[1] + (to[1] - from[1]) * k)) <= 2
+      && Math.abs(rgb[2] - (from[2] + (to[2] - from[2]) * k)) <= 2) return true;
+  }
+  return false;
+};
+const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const isLineDerived = (rgb) => LINES.some((L) => {
+  const l = hexRgb(L);
+  return onRay(rgb, [0, 0, 0], l) || onRay(rgb, l, [255, 255, 255]);
+});
+const official = (h, rgb) => !!PALETTE[h] || !!ALLOWED_EXTRA[h] || isEarthTint(rgb) || isLineDerived(rgb);
 
 const server = BASE ? null : await serve(PORT);
 const { browser, page, errors } = await open(BASE ? { port: 0, page: '/' } : { port: PORT });

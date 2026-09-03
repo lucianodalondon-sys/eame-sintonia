@@ -630,6 +630,126 @@
        chip, not print a guess. */
     unknown: { key: 'unknown', label: null, color: '#8F8886', dark: '#3A3533', soft: '#B1A9A7', ink: '#fff', body: '#EDEAE9', muted: '#B1A9A7', icon: 'connect', iconAsset: '', aShape: '', order: 3 },
   };
+
+  /* ══ LA SUPERFICIE DELLA CATEGORIA ════════════════════════════════════════
+     Il portale NON e un cruscotto grigio che contiene opportunita: e un RADAR
+     di opportunita, e l'opportunita deve saltare fuori dallo schermo.
+
+         A DUE METRI SI DEVE POTER DIRE «QUESTO E DISEASE CONTROL»
+         SENZA LEGGERE UNA PAROLA.
+
+     Fino al commit `51ea4eb` la scheda aveva la superficie DIPINTA dalla
+     categoria: `bg: category.dark`, e la scheda del mais x piralide era una
+     massa magenta. Poi il motore V2.1 ha sostituito la fixture (`d0d8425`) e
+     `ISSUE_TYPE` e nullo su ogni caso: `categoryOf` rispondeva `unknown` a
+     tutti, `unknown.dark` e #3A3533, e QUARANTATRE schede sono diventate lo
+     stesso grigio. Il codice diceva ancora `category.dark`; era il DATO a
+     essere muto. Poi la categoria e tornata (`categoryFromProducts`, 29 casi
+     su 43) e la superficie e stata fissata a mano su #3A3533 — cioe sul
+     neutro. Due passi, e la lingua visiva era persa.
+
+     Qui torna, e NON con gli stessi esadecimali alla cieca: `dark` regge il
+     testo piccolo solo per il magenta. MISURATO su #00698F (disease.dark):
+     bianco 6.15, ma il grigio dei sopratitoli 3.53 e il verde della
+     convergenza 2.17 — sotto AA. Il manuale permette la tinta profonda, non
+     il testo illeggibile.
+
+         LA MASSA E LA CATEGORIA. IL CONTRASTO SI RISOLVE DENTRO IL COLORE,
+         NON TOGLIENDO IL COLORE.
+
+     Quindi la superficie e la LINEA scurita fino al punto piu chiaro in cui
+     bianco, #EDEAE9 e #C9C3C1 stanno tutti a 4.5:1. Le quattro superfici
+     escono alla STESSA luminanza — differiscono solo di tinta, e per questo
+     leggono come una famiglia invece che come quattro pesi diversi.
+
+         superficie   bianco  EDEAE9  C9C3C1   contro il fondo app #110E0D
+         #8F1A88       7.86    6.57    4.51    2.45   pest
+         #005678       8.07    6.74    4.63    2.38   disease
+         #3E5A0F       7.85    6.56    4.51    2.45   weed
+         #54504F       7.96    6.65    4.57    2.41   unknown
+
+     `onSurface*` sono gli inchiostri ammessi su quella massa, e `chip` /
+     `chipEdge` sono la separazione per LUMINANZA — indipendente dalla tinta,
+     perche una linguetta magenta su una scheda magenta non si vede. */
+  const CATEGORY_SURFACE = {
+    pest: '#8F1A88', disease: '#005678', weed: '#3E5A0F', unknown: '#564F4D',
+  };
+  const ON_SURFACE = {
+    ink: '#FFFFFF', body: '#EDEAE9', muted: '#C9C3C1',
+    chip: 'rgba(255,255,255,0.16)', chipEdge: 'rgba(255,255,255,0.34)',
+    well: 'rgba(0,0,0,0.30)', wellEdge: 'rgba(255,255,255,0.10)',
+    rule: 'rgba(255,255,255,0.20)',
+  };
+  /* AGIRE ORA deve essere la cosa piu luminosa della scheda, su QUALSIASI
+     superficie. #00B152 pieno arriva a 2.8:1 contro le superfici — sotto il 3:1
+     che un componente di interfaccia richiede per staccarsi. Il sollevamento
+     e lo stesso gesto che il portale gia usa nella tabella LIFT. MISURATO:
+     #3ED27F contro pest 4.02 · disease 4.12 · weed 4.01 · unknown 4.07, e il
+     testo #110E0D sopra sta a 9.82. */
+  /* La tinta e una TINTA VERA della linea, non un verde inventato: #00B152
+     schiarito del 10% verso il bianco. Cosi il portone del manuale la riconosce
+     per derivazione — una regola — invece che per una lista di eccezioni. */
+  const ACT_PILL = { bg: '#1AB963', ink: '#110E0D' };
+  const ON_SURFACE_STATE = {
+    /* La convergenza resta chiara e SMETTE di competere con AGIRE ORA: nessun
+       fondo pieno, solo inchiostro e bordo. */
+    verified: '#80D8A8', validate: '#F6BB2E', neutral: '#C9C3C1',
+  };
+  const categorySurface = (key) => CATEGORY_SURFACE[key] || CATEGORY_SURFACE.unknown;
+
+  /* ══ LE SETTE AREE DELLA MAPPA DELLE AZIONI ═══════════════════════════════
+     Il contratto e del MOTORE e non si tocca: sette aree, e l'ordine in cui
+     arrivano e l'instradamento che il motore dichiara. MISURATO sui 43 casi:
+     MARKET_DEVELOPMENT 43 · COMMERCIAL 33 · SCIENCE_TECHNICAL 20 · PORTFOLIO 15
+     · MARKETING 9 · REGULATORY 7 · SUPPLY 7.
+
+     Quello che si tocca e la LETTURA: due delle sette non avevano colore
+     (PORTFOLIO e SUPPLY cadevano sul grigio) e COMMERCIAL divideva lo stesso
+     verde con MARKET_DEVELOPMENT — cioe sui 17 casi che instradano
+     MARKET_DEVELOPMENT + COMMERCIAL + SCIENCE_TECHNICAL due riquadri su tre
+     erano identici.
+
+         UNA LISTA DI SCATOLE UGUALI NON DICE CHI PUO AGIRE ADESSO.
+
+     Nessuna tinta e inventata: sono le linee BrandWell gia pubblicate qui
+     sopra piu l'ambra e la Terra che il portale gia usa. REGULATORY (#F5B317)
+     e COMMERCIAL (#F89E18) sono vicine di tinta e non si incontrano mai: sui
+     43 casi REGULATORY compare solo con PORTFOLIO, SUPPLY e
+     MARKET_DEVELOPMENT. */
+  const AREA_UI = {
+    MARKET_DEVELOPMENT: { line: '#00B152', surface: '#005E2B', ink: '#7BE0A6' },
+    COMMERCIAL: { line: '#F89E18', surface: '#72490B', ink: '#F89E18' },
+    SCIENCE_TECHNICAL: { line: '#00A0DF', surface: '#00587B', ink: '#5CC3EE' },
+    MARKETING: { line: '#9D1D96', surface: '#8F1A88', ink: '#EDEAE9' },
+    PORTFOLIO: { line: '#7DB41E', surface: '#3E5A0F', ink: '#93CC23' },
+    REGULATORY: { line: '#F5B317', surface: '#694D0A', ink: '#F5B317' },
+    SUPPLY: { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' },
+  };
+  const areaUI = (a) => AREA_UI[a] || { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
+
+  /* ══ LE FAMIGLIE DI PROVA ═════════════════════════════════════════════════
+     Le righe delle prove erano tutte uguali: stessa etichetta grigia, stesso
+     titolo lungo, nessun modo di distinguere a colpo d'occhio un BOLLETTINO DI
+     CAMPO da una RELAZIONE D'USO SU ETICHETTA. Le famiglie pero esistono gia e
+     sono dichiarate (`EVFAM` nel dizionario, `CS_FAM_OF_COLL` nel dettaglio):
+     qui ricevono la tinta che gia usano altrove nel portale. Nessuna categoria
+     nuova — le stesse, rese riconoscibili.
+
+         PIU COLORE NON E PIU RUMORE, SE OGNI TINTA DICE UNA COSA CHE ESISTE. */
+  const EVIDENCE_UI = {
+    FIELD_SIGNAL: '#00B152',
+    LABEL_USE_RELATIONSHIP: '#7DB41E',
+    SCIENTIFIC_RECORD: '#00A0DF',
+    COMPETITOR_ACTIVITY: '#9D1D96',
+    MARKET_OBSERVATION: '#F89E18',
+    REGULATORY_FUTURE_FACT: '#F5B317',
+    REGULATORY_PRODUCT: '#F5B317',
+    CROP_WINDOW: '#5CC3EE',
+    RESISTANCE_RECORD: '#C46ABE',
+    CROP_ECONOMIC_WEIGHT_CLAIM: '#F89E18',
+    ACTIVE_INGREDIENT: '#978B87',
+  };
+  const evidenceUI = (f) => EVIDENCE_UI[f] || '#978B87';
   /* ══ PERCHE ADAMA DEVE INTERESSARSI ═══════════════════════════════════════
      Una scheda che non risponde a questa domanda non e un'opportunita: e una
      notizia agricola. La risposta non si inventa — l'ARCHETIPO e la
@@ -4663,6 +4783,8 @@
     KNOWLEDGE, narrative,
     CATEGORY_UI, categoryOf, categoryFromProducts,
     adamaRelevance, geographyLabel, RELEVANCE_LABEL, RELEVANCE_WHY, rtvEligibility, RTV_BLOCKER_LABEL,
+    CATEGORY_SURFACE, categorySurface, ON_SURFACE, ON_SURFACE_STATE, ACT_PILL, AREA_UI, areaUI,
+    EVIDENCE_UI, evidenceUI,
 
     /* presentation tokens — icon, colour, order, grid. No facts live here. */
     UI: {

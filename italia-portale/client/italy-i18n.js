@@ -214,7 +214,11 @@
     },
     /* Che cosa quell'area puo fare ORA, e cio che il motore dichiara: un
        instradamento. Non e un'azione operativa, e non si scrive come se lo fosse. */
-    AREAMODE: { LOOK: 'Da guardare ora', PREPARE: 'Da preparare', MONITOR: 'Da monitorare' },
+    /* Quattro modi, uno per stato del caso — e il quarto mancava: un caso DA
+       VALIDARE non e «da monitorare», e chi lo legge deve sapere che il suo
+       compito e VALIDARE. Lo stato viene dal record, non da qui. */
+    AREAMODE: { LOOK: 'Agisce ora', PREPARE: 'Prepara', MONITOR: 'Segue', VALIDATE: 'Valida' },
+    lblFirstActor: 'PRIMO INSTRADAMENTO',
     lblActionMap: 'MAPPA DELLE AZIONI · CHI PUO GUARDARE',
     lblActionMapNote: 'Il motore instrada le aree che dovrebbero guardare questo caso. Non prescrive l\'azione operativa: quella resta di chi la firma.',
     lblEvidenceNav: 'PROVE E FONTI',
@@ -358,6 +362,8 @@
        Un codice del motore dentro una frase umana e un difetto, e si chiude
        nominando lo stato, non cancellando la frase. */
     SINT_INTERP: { EMERGING_THEME: 'tema emergente', SCIENTIFIC_SIGNAL: 'segnale scientifico' },
+    /* La settima domanda dell'eroe. Una schermata che tace su cio che non sa mente. */
+    lblStillUnknown: 'COSA MANCA ANCORA',
     lblRegisteredIt: 'Registrato · Italia',
     lblExecTimeline: 'CRONOLOGIA ESECUTIVA',
     lblViewAllShort: 'VEDI TUTTE',
@@ -814,7 +820,8 @@
       CROP_ECONOMIC_WEIGHT_CLAIM: 'Crop economic weight',
       MARKET_OBSERVATION: 'Market observation'
     },
-    AREAMODE: { LOOK: 'To look at now', PREPARE: 'To prepare', MONITOR: 'To monitor' },
+    AREAMODE: { LOOK: 'Acts now', PREPARE: 'Prepares', MONITOR: 'Follows', VALIDATE: 'Validates' },
+    lblFirstActor: 'FIRST ROUTING',
     lblActionMap: 'ACTION MAP · WHO CAN LOOK',
     lblActionMapNote: 'The engine routes the areas that should look at this case. It does not prescribe the operational action: that stays with whoever signs it.',
     lblEvidenceNav: 'EVIDENCE AND SOURCES',
@@ -988,6 +995,7 @@
     lblProves: 'WHAT IT PROVES', lblNotProves: 'WHAT IT DOES NOT PROVE',
     fsFromDemo: 'From: RTV DEMO · demonstration message', fsReceive: 'RECEIVE →',
     SINT_INTERP: { EMERGING_THEME: 'emerging theme', SCIENTIFIC_SIGNAL: 'scientific signal' },
+    lblStillUnknown: 'WHAT IS STILL MISSING',
     vociFeatured: 'MOST RECENT · FIRST-PERSON REPORTS', vociLatest: 'OTHER VOICES', vociThemes: 'EMERGING THEMES',
     vociOpenSource: 'OPEN SOURCE', vociUnknownPerson: 'Identity not stated',
     vociRoleUnknown: 'Role not verifiable', vociRegionNotStated: 'Region not stated',
