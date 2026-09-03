@@ -1010,7 +1010,28 @@
   /* ---- CROP WINDOWS · canonical ---------------------------------------- */
   let windowOrder = 0;
   const cropWindows = build('cropWindows', [
-    V21('cropWindows'),
+    /* QUI NON C'E UN GANCIO V2.1, E L'ASSENZA E LA REGOLA.
+       Ogni altra famiglia interroga il pacchetto per prima. Questa no, perche
+       il pacchetto NON contiene le finestre agronomiche: contiene un file che
+       si chiama CROP-WINDOWS.json e che porta le sette letture per coltura x
+       avversita (IT-WIN-001..007), le stesse che alimentano
+       currentFieldSignals. Le 29 finestre auditate vivono nel contratto
+       canonico e in nessun altro posto.
+
+       Il gancio c'era, con l'adattatore identita e senza validazione. Non ha
+       mai sostituito nulla solo perche oggi il pacchetto non pubblica quella
+       chiave — cioe per una coincidenza, non per una decisione. Il giorno in
+       cui un build a monte la pubblicasse, sette righe in forma V2.1 avrebbero
+       preso il posto di ventinove finestre normalizzate, e le schermate
+       avrebbero mostrato `undefined` al posto delle date.
+
+           UNA PROTEZIONE CHE FUNZIONA PER COINCIDENZA
+           NON E UNA PROTEZIONE: E UN RITARDO.
+
+       Togliere il gancio rende la separazione strutturale. Se un giorno il
+       pacchetto avesse davvero le finestre canoniche, si aggiunge qui un
+       candidato CON il suo adattatore — deliberatamente, non per il nome del
+       file. Il controllo W1 misura che questo resti vero. */
     {
       source: 'ITALY_CANONICAL.windows',
       precedence: P.CANONICAL,

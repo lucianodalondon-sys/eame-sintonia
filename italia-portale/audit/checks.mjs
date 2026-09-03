@@ -771,6 +771,88 @@ check('H4', 'Engine bookkeeping never reaches a rendered screen', () => {
     detail: uniq.slice(0, 10) };
 });
 
+check('W1', 'The 29 canonical crop windows are never collapsed to the 7 field readings', () => {
+  /* IL PACCHETTO V2.1 HA UN FILE CHIAMATO CROP-WINDOWS.json. NON SONO LE FINESTRE.
+     Sono le sette letture per coltura x avversita — gli stessi IT-WIN-001..007
+     che hanno sempre alimentato currentFieldSignals — mentre le 29 finestre
+     agronomiche auditate vivono nel contratto canonico, che il V2.1 non
+     sostituisce e non contiene.
+
+     Due universi, due domande diverse: «quando la coltura ha bisogno di
+     protezione» non e «cosa si e letto nel campo». Un ingest che leggesse il
+     nome del file al posto del contenuto scambierebbe 29 finestre per 7
+     letture, e nulla si romperebbe: il portale mostrerebbe sette righe dove ne
+     mostrava ventinove, tutte vere, e nessun conteggio andrebbe in rosso.
+
+         LA PERDITA PIU CARA E QUELLA CHE LASCIA IL RESTO COERENTE.
+
+     Peggio: i due spazi di identificatori distano UNO ZERO — IT-WIN-0001 le
+     canoniche, IT-WIN-001 le letture. Una giunzione distratta li fonde senza
+     sollevare nulla, quindi qui si controlla anche che non si tocchino. */
+  const AM = loadData().ITALY_APP_MODEL;
+  const C = AM.collections;
+  const bad = [];
+  const cw = C.cropWindows, fs = C.currentFieldSignals;
+
+  if (!cw) bad.push('cropWindows absent');
+  else {
+    if (cw.count !== 29) bad.push(`canonical crop windows: ${cw.count}, expected 29`);
+    /* La provenienza e il punto: se un giorno arrivano dal pacchetto, sono le
+       letture travestite da finestre. */
+    if (/HANDOFF_V21/.test(String(cw.source || ''))) {
+      bad.push(`cropWindows now built from ${cw.source} — the field readings have replaced the canonical windows`);
+    }
+  }
+  if (!fs) bad.push('currentFieldSignals absent');
+  else if (fs.count !== 7) bad.push(`field readings: ${fs.count}, expected 7`);
+
+  /* Gli id non devono incontrarsi mai. */
+  if (cw && fs) {
+    const idsW = new Set(cw.records.map((r) => String(r.id)));
+    const shared = fs.records.filter((r) => idsW.has(String(r.id))).map((r) => r.id);
+    if (shared.length) bad.push(`id spaces collided: ${shared.join(', ')}`);
+  }
+
+  /* E dove il portale RAPPRESENTA quell'universo, deve rappresentarlo intero:
+     la riga di navigazione e il calendario contano 29, non 7. */
+  const m = mount();
+  const v = m.vals({ view: 'windows', lang: 'it' });
+  const navW = (v.nav || []).find((n) => /finestre/i.test(String(n.label || '')));
+  if (!navW) bad.push('the windows nav entry is gone');
+  else if (navW.count !== 29) bad.push(`nav shows ${navW.count} windows, expected 29`);
+  if (C.windowCalendarRows && C.windowCalendarRows.count !== 29) {
+    bad.push(`window calendar rows: ${C.windowCalendarRows.count}, expected 29`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
+});
+
+check('W2', 'The red team downgrades; it is not a second population', () => {
+  /* I 17 casi che il red team ha abbattuto sono un SOTTOINSIEME dei 28 «da
+     validare», non righe nascoste in piu. Sommarli — 37 + 17 — inventerebbe 54
+     oggetti dove ne esistono 37, ed e un errore facile da commettere in un
+     rapporto, perche il file si chiama REJECTIONS.
+
+         RESPINTA QUI VUOL DIRE DECLASSATA, NON CANCELLATA.
+
+     Quindi: ogni id declassato esiste fra i 37, nessuno di essi e verificato, e
+     tutti stanno dentro i 28. Se un giorno un declassato comparisse fra i nove,
+     il portone lo direbbe qui invece che il cliente sullo schermo. */
+  const AM = loadData().ITALY_APP_MODEL;
+  const recs = AM.collections.opportunities.records;
+  const rej = JSON.parse(fs.readFileSync(path.join(CLIENT, '..', '..', 'build',
+    'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST', 'OPPORTUNITY-REJECTIONS.json'), 'utf8'));
+  const ids = (rej.REJEICOES || []).map((r) => r.ID).filter(Boolean);
+  const byId = new Map(recs.map((o) => [o.id, o]));
+  const bad = [];
+  if (ids.length !== 17) bad.push(`downgraded cases: ${ids.length}, expected 17`);
+  const missing = ids.filter((id) => !byId.has(id));
+  if (missing.length) bad.push(`${missing.length} downgraded ids are NOT among the 37 — they became a second population`);
+  const verified = ids.filter((id) => byId.get(id) && byId.get(id).convergence === 'VERIFIED_CONVERGENCE');
+  if (verified.length) bad.push(`downgraded but shown as verified: ${verified.join(', ')}`);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length,
+    detail: bad.length ? bad : [`17 downgraded ⊆ 28 to-validate ⊂ 37 total`] };
+});
+
 /* ── 14 · the template contract ───────────────────────────────────────────
    renderVals() is only half the render. The markup binds ~1200 expressions by
    name, and the runtime degrades a missing sc-for list to an empty array with
