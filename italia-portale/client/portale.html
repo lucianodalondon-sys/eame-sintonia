@@ -49,6 +49,53 @@
   select option { background:#1C1817; color:#fff; }
   input::placeholder { color:#8F8886; }
   @keyframes pulseDot { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+
+  /* SOTTO I 900px IL PORTALE SI LEGGEVA SOLO PANORAMANDO.
+     Il guscio e una riga flex con una barra laterale di 228px fissi e una
+     barra superiore che non va a capo, e in tutto il file non esisteva una
+     sola @media. A 390px la larghezza minima del contenuto restava sopra i
+     960px: si vedeva la barra laterale e una fetta di pagina, e il resto
+     stava 571px piu a destra. Su Fonti il testo arrivava a sovrapporsi.
+
+     Qui non si ridisegna niente: il desktop resta esattamente com'era —
+     queste regole vivono dentro una media query e non toccano 1440px. Sotto
+     la soglia la colonna laterale diventa una striscia orizzontale che scorre,
+     e il contenuto prende tutta la larghezza. Gli stili sono inline, quindi
+     servono !important: e l'unico modo che una foglia di stile ha di
+     rispondere a un attributo style.
+
+     Il DESIGN non cambia. Cambia che si puo leggere. */
+  @media (max-width: 900px) {
+    .sn-shell { flex-direction: column !important; }
+    .sn-aside {
+      width: 100% !important; flex: 0 0 auto !important; height: auto !important;
+      position: static !important; flex-direction: row !important;
+      align-items: center !important; gap: 10px !important;
+      overflow-x: auto !important; overflow-y: hidden !important;
+      padding: 10px 12px !important; border-right: 0 !important;
+      border-bottom: 1px solid rgba(203,197,195,0.10) !important;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sn-aside > * { flex: 0 0 auto !important; }
+    .sn-main { width: 100% !important; min-width: 0 !important; }
+    .sn-topbar { flex-wrap: wrap !important; height: auto !important;
+      padding: 8px 14px !important; row-gap: 6px !important; }
+    /* I SELETTORI SU [style] NON SERVONO QUI.
+       Il runtime del design system compila gli stili inline in classi
+       generate — sc-interp, scpi — quindi un selettore che cerca
+       [style*="white-space:nowrap"] non trova niente, e la prima versione di
+       queste regole non ha spostato un pixel. Si mira alla struttura.
+
+       nowrap e una gentilezza da desktop: a 390px e cio che spingeva un
+       titolo di bollettino a 672px fuori dallo schermo. E min-width:auto e
+       il classico: dentro «64px 130px 1fr 190px» la colonna elastica non
+       scende sotto il contenuto, quindi la griglia diventa una colonna sola. */
+    .sn-main * { white-space: normal !important; min-width: 0 !important; }
+    .sn-main div, .sn-main span { grid-template-columns: 1fr !important; }
+    .sn-main table { display: block !important; overflow-x: auto !important; max-width: 100% !important; }
+    /* la striscia laterale, invece, resta su una riga: e li per scorrere */
+    .sn-aside * { white-space: nowrap !important; }
+  }
 </style>
 </helmet>
 
@@ -56,9 +103,9 @@
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="800" fill="#110E0D"></rect><circle cx="600" cy="400" r="230" fill="none" stroke="#009845" stroke-width="10"></circle><circle cx="600" cy="400" r="140" fill="none" stroke="#009845" stroke-width="10" opacity="0.55"></circle><circle cx="600" cy="400" r="50" fill="#009845"></circle><circle cx="770" cy="290" r="34" fill="#9D1D96"></circle><circle cx="450" cy="530" r="26" fill="#00A0DF"></circle><circle cx="740" cy="530" r="20" fill="#F89E18"></circle></svg>
 </template>
 
-<div style="display:flex;align-items:stretch;min-height:100vh;background:#110E0D;color:#fff;font-family:var(--font-primary);-webkit-font-smoothing:antialiased;font-size:12px">
+<div class="sn-shell" style="display:flex;align-items:stretch;min-height:100vh;background:#110E0D;color:#fff;font-family:var(--font-primary);-webkit-font-smoothing:antialiased;font-size:12px">
 
-  <aside style="width:228px;flex:0 0 228px;background:#161312;border-right:1px solid rgba(203,197,195,0.10);display:flex;flex-direction:column;gap:18px;padding:16px 12px 16px;position:sticky;top:0;height:100vh;box-sizing:border-box">
+  <aside class="sn-aside" style="width:228px;flex:0 0 228px;background:#161312;border-right:1px solid rgba(203,197,195,0.10);display:flex;flex-direction:column;gap:18px;padding:16px 12px 16px;position:sticky;top:0;height:100vh;box-sizing:border-box">
     <div onClick="{{ goRadar }}" style="display:flex;flex-direction:column;gap:2px;padding:0 8px;cursor:pointer">
       <div style="font-size:17px;font-weight:700;letter-spacing:0.18em;line-height:1;color:#fff">SINTONIA</div>
       <div style="font-size:8.5px;font-weight:600;letter-spacing:0.18em;color:#009845">{{ t.brandline }}</div>
@@ -96,8 +143,8 @@
     </div>
   </aside>
 
-  <main style="flex:1;min-width:0;display:flex;flex-direction:column">
-    <header style="position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:0 22px;height:48px;background:rgba(14,17,17,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(203,197,195,0.10)">
+  <main class="sn-main" style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <header class="sn-topbar" style="position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:0 22px;height:48px;background:rgba(14,17,17,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(203,197,195,0.10)">
       <sc-if value="{{ hasBack }}" hint-placeholder-val="{{ false }}"><span onClick="{{ goBack }}" title="{{ t.navBack }}" style="display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.14);cursor:pointer" style-hover="border-color:rgba(203,197,195,0.5)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C9C3C1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></span></sc-if>
       <div style="display:flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:0.10em;color:#8F8886;flex:1;min-width:0;white-space:nowrap;overflow:hidden">
         <span style="color:#fff;font-weight:700">{{ pageTitle }}</span>
