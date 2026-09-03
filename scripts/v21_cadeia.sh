@@ -115,6 +115,23 @@ echo "── 8 · §19 · a aceitação, com todo número recontado ────
 "$PY" scripts/v21_aceitacao.py
 
 echo
+echo "── 7c · o BUILD_ID atinge o proprio ponto fixo ─────────────────────────"
+# `carimbar_build_id()` tira BUILD_ID do calculo, mas NAO tira BUILD_ID_LAW —
+# e a lei so existe no arquivo DEPOIS da primeira carimbada. Entao a primeira
+# passagem numa pasta recem-criada mede um conteudo que deixa de existir no
+# instante em que ela escreve, e o pacote sai carimbado com um hash que ele
+# proprio ja nao tem. O ZIP publicado (V21-99226fbb90dcdbc2) e o valor da
+# SEGUNDA passagem, que e o ponto fixo: dali em diante recarimbar nao muda nada.
+#
+#     UM CARIMBO QUE NAO SOBREVIVE A SI MESMO NAO IDENTIFICA NADA.
+#
+# Medido em 2026-09-03: uma cadeia limpa parava em V21-09e60f4950c24942 com o
+# conteudo hasheando para V21-99226fbb90dcdbc2 — o pacote certo com o nome
+# errado, que e a forma de erro que ninguem ve. A segunda passagem e idempotente
+# e nao toca em dado nenhum: so fecha a identidade.
+"$PY" scripts/v21_contrato_do_pacote.py --contagens
+
+echo
 echo "── 9 · os contratos: cada lei vira contador, e o zero e medido ─────────"
 # Rodam DEPOIS da aceitacao porque leem o pacote pronto — e ficam DENTRO da
 # cadeia porque o passo 1 apaga a pasta: contrato que mora fora da cadeia
