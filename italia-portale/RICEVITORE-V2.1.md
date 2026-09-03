@@ -1,24 +1,133 @@
-# SINTONIA ITALIA · O RECEPTOR
+# SINTONIA ITALIA · O RECEPTOR, DEPOIS DE RECEBER
 
-O que o portal aceita, e o que o próximo pacote de inteligência precisa entregar
-para entrar sem reescrever nenhuma tela.
+Este documento descrevia o que o portal aceitaria quando o V2.1 chegasse.
+O V2.1 chegou. Agora descreve o que ele aceitou, e por onde.
+
+    BUILD_ID ingerido   V21-99226fbb90dcdbc2
+    data de referência  2026-09-02
 
 ---
 
 ## O caminho, inteiro
 
 ```
-HANDOFF V2.1 ─┐
-CANONICAL     ├──► INGEST · VALIDATE · NORMALIZE ──► ITALY_APP_MODEL ──► TELA
-REAL SOURCE   │         (italy-app-model.js)
-FIXTURE DEMO ─┘
+build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/
+        │
+        │  scripts/site_v21_ingest.py      ← escolhe O QUE atravessa
+        ▼
+client/italy-handoff-v21.js               window.ITALY_HANDOFF_V21
+        │
+        │  italy-app-model.js              ← dá FORMA ao que atravessou
+        ▼
+ITALY_APP_MODEL ──► PORTAL
 ```
 
-Uma tela **nunca** sabe qual missão de pesquisa produziu um registro. Ela lê uma
-coleção normalizada e nada mais. Isso é o que permite trocar o dado sem tocar na
-interface.
+Duas camadas, e a divisão entre elas é a coisa que este documento existe para
+explicar.
+
+**O ingest escolhe.** Ele é uma lista de permissão, campo a campo. Fato passa;
+prosa de pesquisa não embarca; onde a fonte escreveu e não há par IT/EN
+aprovado, atravessa `CAMPO__PT_ONLY: true` sem o texto — a dívida continua
+contada, o português não viaja até o navegador do cliente italiano.
+
+**O modelo dá forma.** É ele que resolve cultura, avversità, região e data,
+porque é lá que os resolvedores e o relógio único já moram. Dois lugares
+resolvendo cultura é como duas telas passam a discordar sobre a mesma videira.
+
+    O INGEST DECIDE O QUE ATRAVESSA. O MODELO DECIDE QUE FORMA TEM.
+
+O contrato do receptor prometia `adapt: (r) => r` — que o pacote entregaria
+linhas já na forma das telas. Ele não entrega, e não deve: publica o próprio
+contrato canônico, e é isso que permite fundir duas missões de pesquisa. A
+tradução de um contrato no outro está escrita em `V21(família, adapt)`, ao lado
+do adaptador de fixture que ela substitui, para que os dois possam ser lidos um
+contra o outro.
+
+## O que entrou, medido
+
+| família | agora | antes |
+|---|---:|---:|
+| `productRelationships` · duplas de uso de rótulo | **2.030** | 236 |
+| `productsRegulatory` | **163** | 163 |
+| `productsCommercial` | **51** | 44 |
+| `activeIngredients` · substância como entidade | **53** | — |
+| `productActiveIngredients` | **203** | — |
+| `opportunities` · do motor | **37** | 3 |
+| `fieldBulletins` · boletins regionais | **122** | — |
+| `cropEconomics` | **2.978** | — |
+| `regulatoryFutureFacts` | **47** | — |
+| `clientSafeCrossings` | **19** | 0 |
+| `agrometConditions` | **44** | 0 |
+| `competitorActivities` | **561** | 503 |
+| `marketObservations` | **157** | 77 |
+| `publicVoices` | **79** | 17 |
+| `sources` | **188** | 31 |
+| `cropWindows` · canônicas | 29 | 29 |
+
+`cropWindows` não muda: as 7 linhas que o pacote chama `CROP-WINDOWS.json` são
+os mesmos `IT-WIN-001..007` que sempre alimentaram `currentFieldSignals`, e as
+29 janelas auditadas continuam vindo do contrato canônico. Trocar 29 janelas
+por 7 leituras porque dois arquivos têm nomes parecidos teria sido a perda mais
+cara possível.
+
+`cropEconomicWeight` (35 culturas) deixou de vir da fixture: é recontado das
+2.030 duplas. **CULTURAS = 35** e **ALVOS = 78** são o vocabulário do próprio
+corpus de rótulos, medido, não uma lista digitada.
+
+## As oportunidades, e como se dizem
+
+O motor gera 37. Nove passam com o método declarado ao lado; 28 são candidatas.
+Todas as 37 são `CLIENT_SAFE=false`, e isso não foi afrouxado para levantar um
+número: uma oportunidade é leitura nossa sobre fatos de terceiros.
+
+```
+IT   OPPORTUNITÀ SINTONIA · CONVERGENZA VERIFICATA        9
+     DA VALIDARE                                         28
+EN   SINTONIA OPPORTUNITY · VERIFIED CONVERGENCE          9
+     TO VALIDATE                                         28
+```
+
+Pode-se apresentar **37 rilevate · 9 convergenze verificate · 28 da validare**.
+Não se apresenta 37 como confirmadas — `H4` recusa a frase.
+
+O próprio pacote escreve `OPPORTUNITY_LABEL_IT = «OPPORTUNITÀ CONFERMATA»`.
+Essa palavra não é embarcada e não é usada: *confirmada* é o que um motor chama
+um caso que passou nos seus portões, e não é o que um cliente deve ler ao lado
+de um cartão cuja evidência é uma convergência que nós desenhamos.
+
+`CLIENT_SAFE`, `RENDERABLE_WITH_METHOD`, `EVIDENCE_DERIVED` e os portões
+bloqueadores são contabilidade do motor. São lidos para ESCOLHER o rótulo e
+depois removidos do objeto — não são propriedades dele, então nenhum binding e
+nenhum painel de depuração pode pô-los diante de um cliente.
+
+    UMA PROPRIEDADE QUE VOCÊ APAGA NÃO PODE SER RENDERIZADA POR ACIDENTE.
+
+O red team **rebaixa, não apaga**: os 17 casos que ele derrubou estão todos
+dentro dos 37, como candidatos, porque «da validare» é exatamente o que são. O
+que ele proíbe não é mostrá-los — é chamá-los de verificados.
+
+## O que a régua garante agora
+
+```
+node audit/run.mjs        64 verificações estruturais, sem navegador
+node audit/v21-gate.mjs    4 verificações sobre o que EMBARCOU
+node audit/browser.mjs     7 verificações no Chromium de verdade
+node audit/acceptance.mjs  o relatório inteiro, medido
+```
+
+`H1` afirmava que o V2.1 **não** tinha sido ingerido — era um alarme contra uma
+migração pela metade. A migração aconteceu, e um alarme que sobrevive àquilo
+contra o que alarmava vira ruído. Hoje `H1` cobra o oposto: que o pacote esteja
+dentro, identificado, e que cada família diga ter sido construída a partir dele.
+
+`V4` faz a pergunta que nenhuma das outras faz: *o pacote embarcado é mais velho
+que a lei que o governa?* A lista de marcadores de língua decide o que atravessa
+a fronteira, então é entrada tanto quanto o pacote. Medido: tirar um único
+marcador ambíguo mudou 16 das 26 famílias. A assinatura da lista viaja dentro do
+arquivo gerado; se ela divergir, `V4` falha e diz o comando.
 
 ## A precedência
+
 
 ```
 CANONICAL  >  REAL_SOURCE  >  REAL_DERIVED  >  SYNTHETIC_DEMO  >  DEMO_SCENARIO

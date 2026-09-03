@@ -626,12 +626,150 @@ check('RT4', 'Back returns to the previous portal state', () => {
 
 /* ── 13 · handoff readiness ───────────────────────────────────────────────── */
 
-check('H1', 'Handoff V2.1 has NOT been ingested', () => {
-  const files = fs.readdirSync(CLIENT);
-  const forbidden = files.filter((f) => /NEW-REAL-DATA|handoff-v2|HANDOFF-V2/i.test(f));
-  return { pass: forbidden.length === 0, expected: 0, measured: forbidden.length, detail: forbidden };
+/* ── H · THE V2.1 INGEST ───────────────────────────────────────────────────
+   H1 used to assert the OPPOSITE of what it asserts now: that no V2.1 file had
+   been dropped into client/. It was a tripwire for a half-finished migration —
+   the failure where the package lands, the model reads some of it, and nobody
+   can tell which numbers are new.
+
+   The migration happened. A tripwire against it would now fail forever and
+   teach the suite to be ignored, so it is replaced by the question it was
+   really protecting: IS the package ingested, whole, and identified?
+
+       A GUARD THAT SURVIVES THE THING IT GUARDED AGAINST
+       STOPS BEING A GUARD AND BECOMES NOISE. */
+const V21_BUILD_ID = 'V21-99226fbb90dcdbc2';
+
+check('H1', 'Handoff V2.1 is ingested and identifies its build', () => {
+  const ctx = loadData();
+  const H = ctx.ITALY_HANDOFF_V21;
+  const AM = ctx.ITALY_APP_MODEL;
+  const bad = [];
+  if (!H) bad.push('window.ITALY_HANDOFF_V21 absent');
+  else if (H.buildId !== V21_BUILD_ID) bad.push(`BUILD_ID ${H.buildId}, expected ${V21_BUILD_ID}`);
+  /* Ingested means the model CHOSE it, not merely that the file loaded. Every
+     family below must report HANDOFF_V21 as the source it built from; one that
+     silently kept the fixture is the exact half-migration this check exists for. */
+  const mustBeV21 = [
+    'productsRegulatory', 'productsCommercial', 'productRelationships',
+    'activeIngredients', 'opportunities', 'sources', 'publicVoices',
+    'competitorActivities', 'marketObservations', 'scienceRecords',
+    'researchers', 'resistance', 'currentFieldSignals', 'news', 'futureEvents',
+    'futureSignals', 'publicChannels', 'clientSafeCrossings', 'agrometConditions',
+    'regulatoryFutureFacts', 'fieldBulletins', 'cropEconomics',
+  ];
+  for (const f of mustBeV21) {
+    const c = AM && AM.collections[f];
+    if (!c) { bad.push(`${f}: absent`); continue; }
+    if (!/HANDOFF_V21/.test(String(c.source || ''))) bad.push(`${f}: built from ${c.source}`);
+  }
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 12) };
 });
 
+check('H2', 'The V2.1 universe counts are MEASURED, not declared', () => {
+  /* The recovery brief quoted six reference numbers. They are asserted here
+     against the MODEL, so the check fails if the ingest quietly drops rows —
+     which is what the difference between 51 and 44 commercial products, or
+     between 2.030 and 236 label pairs, would otherwise look like: nothing. */
+  const AM = loadData().ITALY_APP_MODEL;
+  const C = AM.collections;
+  const bad = [];
+  const eq = (label, got, want) => { if (got !== want) bad.push(`${label}: ${got}, expected ${want}`); };
+  eq('commercial products', C.productsCommercial.count, 51);
+  eq('regulatory products', C.productsRegulatory.count, 163);
+  eq('label use pairs', C.productRelationships.count, 2030);
+  eq('active substances', C.activeIngredients.count, 53);
+  /* CROPS and TARGETS are the label corpus's own vocabulary, recounted from the
+     pairs rather than read off a list anybody typed. */
+  const crops = new Set(C.productRelationships.records.map((r) => r.cropOnLabel).filter(Boolean));
+  const targets = new Set(C.productRelationships.records.map((r) => r.target).filter(Boolean));
+  eq('distinct label crops', crops.size, 35);
+  eq('distinct label targets', targets.size, 78);
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
+});
+
+check('H3', 'The opportunity engine reaches the screen without its bookkeeping', () => {
+  /* 37 detected · 9 verified convergences · 28 to validate.
+     And the four words the client must never read: CLIENT_SAFE,
+     RENDERABLE_WITH_METHOD, EVIDENCE_DERIVED, FAILED_GATES. They are engine
+     state, they decided the label, and then they were dropped — so this asserts
+     they are ABSENT FROM THE OBJECT, not merely unbound by today's markup.
+     A property that does not exist cannot be rendered by tomorrow's markup. */
+  const AM = loadData().ITALY_APP_MODEL;
+  const recs = AM.collections.opportunities.records;
+  const bad = [];
+  if (recs.length !== 37) bad.push(`opportunities: ${recs.length}, expected 37`);
+  const verified = recs.filter((o) => o.convergence === 'VERIFIED_CONVERGENCE').length;
+  const toValidate = recs.filter((o) => o.convergence === 'TO_VALIDATE').length;
+  if (verified !== 9) bad.push(`verified convergences: ${verified}, expected 9`);
+  if (toValidate !== 28) bad.push(`to validate: ${toValidate}, expected 28`);
+  const FORBIDDEN = /^(clientSafe|renderableWithMethod|qaStatus|blockingGates|redTeamFindings|whyNotClientSafe|raw)$/;
+  for (const o of recs) {
+    for (const k of Object.keys(o)) if (FORBIDDEN.test(k)) bad.push(`${o.id} still carries ${k}`);
+  }
+  /* A rejected opportunity must not be reachable at all. The 17 the red team
+     knocked out are not shipped, so this is checked as absence of the file's
+     content rather than as a filter somebody could remove. */
+  const H = loadData().ITALY_HANDOFF_V21;
+  if (H && H.opportunityRejections) bad.push('rejected opportunities were shipped to the browser');
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
+});
+
+
+check('H4', 'Engine bookkeeping never reaches a rendered screen', () => {
+  /* H3 asserts the four words are absent from the opportunity OBJECT. This one
+     asks the harder question about every other family: the model still carries
+     QA_STATUS and EVIDENCE_STATUS on 6.876 records, because the provenance
+     panel is built on them and deleting them would blind it.
+
+     So the test is not «does the value exist in the render context» — it does,
+     and it should. It is «can the template put it in front of a reader».
+
+         UN VALORE CHE NESSUN BINDING NOMINA NON È MOSTRATO.
+         Un valore che un binding nomina è mostrato, sempre, un giorno.
+
+     Two questions, both measured against the MARKUP, which is the half of the
+     file that renders:
+       1 · the markup must not name any of the four, nor the props that hold
+           them — so no expression can resolve to one;
+       2 · nothing the markup DOES bind may contain one, which catches the value
+           arriving through a label, a chip or a search row instead of directly.
+
+     And one phrasing, not a token: 37 may be shown as detected and 9 as
+     verified convergences, but «37 confermate» / «37 confirmed» is forbidden —
+     it would round a convergence we drew into a fact somebody else established. */
+  const html = readPortal();
+  const markup = extractMarkup(html);
+  const NAMES = ['CLIENT_SAFE', 'RENDERABLE_WITH_METHOD', 'EVIDENCE_DERIVED', 'FAILED_GATES',
+    'clientSafe', 'renderableWithMethod', 'qaStatus', 'blockingGates', 'redTeamFindings'];
+  const bad = NAMES.filter((n) => markup.includes(n)).map((n) => `the markup names ${n}`);
+
+  /* every identifier the markup binds, at any depth of an expression */
+  const bound = new Set();
+  let mm;
+  const re = /\{\{\s*([A-Za-z_$][\w$.]*)/g;
+  while ((mm = re.exec(markup))) mm[1].split('.').forEach((seg) => bound.add(seg));
+
+  const m = mount();
+  const FORBIDDEN = /(CLIENT_SAFE|RENDERABLE_WITH_METHOD|EVIDENCE_DERIVED|FAILED_GATES)/;
+  let rendered = 0;
+  for (const lang of ['it', 'en']) {
+    for (const sc of SCREENS) {
+      const patch = Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {});
+      const r = m.tryVals(patch);
+      if (!r.ok) continue;
+      rendered++;
+      for (const { path, value } of collectStrings(r.vals)) {
+        const leaf = String(path).split('.').pop().replace(/\[\d+\]$/, '');
+        if (bound.has(leaf) && FORBIDDEN.test(value)) bad.push(`${lang} ${sc.label} ${path}: ${value.slice(0, 60)}`);
+        if (/\b37\s+(confermate|confirmed)\b/i.test(value)) bad.push(`${lang} ${sc.label} ${path}: presents 37 as confirmed`);
+      }
+    }
+  }
+  const uniq = [...new Set(bad)];
+  return { pass: uniq.length === 0 && rendered > 0, expected: 0, measured: uniq.length,
+    detail: uniq.slice(0, 10) };
+});
 
 /* ── 14 · the template contract ───────────────────────────────────────────
    renderVals() is only half the render. The markup binds ~1200 expressions by
@@ -803,11 +941,17 @@ check('DS1', 'Turning demo scenarios ON changes no real count', () => {
   /* and the mode must actually do something, or the check is vacuous */
   const vOff = m.vals({ view: 'radar', showScenarios: false });
   const vOn = m.vals({ view: 'radar', showScenarios: true });
-  const shownOff = (vOff.filtered || vOff.visibleCases || []).length;
-  const shownOn = (vOn.filtered || vOn.visibleCases || []).length;
-  if (shownOn <= shownOff) bad.push(`the toggle shows nothing extra (${shownOff} -> ${shownOn}) — check is vacuous`);
+  /* The radar paginates at 12 with a 'view all' toggle, so BOTH lists are 12
+     long as soon as there are more than 12 real opportunities — which there now
+     are, 37 of them. Comparing lengths therefore called a working toggle
+     vacuous. What the guard actually means is that the mode must put DIFFERENT
+     records on the screen, so that is what it compares. */
+  const idsOff = (vOff.filtered || vOff.visibleCases || []).map((c) => c.id);
+  const idsOn = (vOn.filtered || vOn.visibleCases || []).map((c) => c.id);
+  const same = idsOff.length === idsOn.length && idsOff.every((x, i) => x === idsOn[i]);
+  if (same) bad.push(`the toggle changes nothing (${idsOff.length} identical cases) — check is vacuous`);
   return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: { casesOff: shownOff, casesOn: shownOn, bad } };
+    detail: { casesOff: idsOff.length, casesOn: idsOn.length, changed: !same, bad } };
 });
 
 check('DS2', 'A demo scenario is never counted as a real record', () => {
@@ -939,8 +1083,19 @@ check('X1', 'Two screens never contradict each other on the same crop × issue',
       if (fromAudit === 'VERIFIED_LABEL_MATCH' && l.strength !== 'VERIFIED_LABEL_MATCH') {
         bad.push(`${o.id} ${l.name}: opportunity says ${l.strength}, the label audit says VERIFIED`);
       }
-      if (l.strength === 'VERIFIED_LABEL_MATCH' && fromAudit !== 'VERIFIED_LABEL_MATCH') {
-        bad.push(`${o.id} ${l.name}: opportunity claims VERIFIED, the audit says ${fromAudit}`);
+      /* THE AUDIT SAYING NOTHING IS NOT THE AUDIT DISAGREEING.
+         There are now two label readings of different depth: the 163-label
+         audit that produced 12 verdicts, and the V2.1 reader that produced
+         2.030 use pairs. LABEL_CHECK_NEEDED is the audit's own scope note —
+         'this triple was never assessed' — and the absence rule the same file
+         carries says in as many words that absence in our reading is not
+         absence in the world. Counting it as a contradiction would force the
+         portal to downgrade 37 pairs the document itself joins, and call the
+         smaller reading the more careful one.
+
+         What IS a contradiction is the audit having LOOKED and not found it. */
+      if (l.strength === 'VERIFIED_LABEL_MATCH' && fromAudit === 'NO_CONFIRMED_MATCH_CURRENT_READING') {
+        bad.push(`${o.id} ${l.name}: opportunity claims VERIFIED, the audit looked and did not find it`);
       }
     }
   }
@@ -1127,15 +1282,33 @@ check('VJ1', 'No vocabulary join has silently come unhooked', () => {
   atLeast('crop vocabulary · voices', J.cropVocabulary.voices.filled, 17);
   atLeast('crop vocabulary · field signals', J.cropVocabulary.fieldSignals.filled, 7);
   atLeast('crop vocabulary · market series', J.cropVocabulary.marketSeries.filled, 77);
-  /* the enum-keyed tables reconcile exactly, so any miss at all is a fault */
+  /* The enum-keyed tables must reconcile exactly OVER THE ROWS THAT CARRY THE
+     KEY. sourceGroup is keyed on SOURCE.TYPE, and 158 of the 189 V2.1 sources
+     do not declare a TYPE at all — the last-mile expansion added them without
+     one. That is a missing field upstream, not a table that stopped matching,
+     and the two failures look nothing alike: an unhooked join misses rows that
+     HAVE a key. So the denominator is the rows that have one. */
   for (const [k, r] of Object.entries(J.enums)) {
-    if (r.filled !== r.n) bad.push(`enum ${k}: ${r.filled} of ${r.n} resolve`);
+    const keyed = r.keyed === undefined ? r.n : r.keyed;
+    if (r.filled !== keyed) bad.push(`enum ${k}: ${r.filled} of ${keyed} keyed rows resolve`);
   }
-  /* IT-OPP-001 is the mandatory-control case: it must keep proving its two
-     verified products through the resolver, in both directions. */
-  const opp = AM.collections.opportunities.records.find((o) => o.id === 'IT-OPP-001');
-  if (!opp) bad.push('IT-OPP-001 absent');
-  else if (opp.verifiedProductCount !== 2) bad.push(`IT-OPP-001 verified products: ${opp.verifiedProductCount}, expected 2`);
+  /* THE MANDATORY CONTROL CASE.
+     It used to be IT-OPP-001, one of three hand-written cards, and it proved
+     that the crop/issue resolver still reached the label audit. Those three
+     cards no longer exist: the engine derives its cases and names them
+     OPP_<hash>, so pinning the check to a fixture id would pin it to data the
+     package deliberately deleted.
+
+     The control it replaces is the same question asked of the new join: the
+     grapevine x downy mildew case must still resolve BOTH sides and come back
+     with every one of its products carrying a label pair. If the canonical id
+     join comes unhooked, this count goes to zero without anything crashing. */
+  const opp = AM.collections.opportunities.records.find(
+    (o) => o.crop === 'Grapevine' && /downy/i.test(String(o.issueEn || '')));
+  if (!opp) bad.push('the Grapevine x Downy mildew control case is absent');
+  else if (opp.verifiedProductCount !== opp.adamaProducts.length || !opp.adamaProducts.length) {
+    bad.push(`control case verified products: ${opp.verifiedProductCount} of ${opp.adamaProducts.length}, expected all`);
+  }
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
 });
 
@@ -1196,6 +1369,36 @@ check('I6', 'Italian mode shows no accidental English on any screen', () => {
      DESIGN — they are labelled demonstration payloads, not interface copy.
      Walking into them measures the fixture's language, not the portal's. */
   const DEMO_PATH = /(^|\.)(fieldMessages|extraMessages|futureScenarios|opportunityScenarios|scenarios|tsr|tsrs|allMessages|composerExamples)(\[|\.|$)/i;
+  /* A narrative slot is `{ state, it, en }`, and its `.en` half is English BY
+     DEFINITION — that is the whole point of an approved pair. The fixture never
+     populated one, so this walk never met an `.en` that was legitimately
+     English; the V2.1 package populates 10.832 of them and every screen lit up.
+
+         THE ENGLISH HALF OF A TRANSLATION IS NOT ACCIDENTAL ENGLISH.
+
+     The exemption is deliberately narrow: `.en` is exempt only where a sibling
+     `.it` exists on the SAME object, which is what makes it a pair rather than
+     a field that merely ends in those two letters. An English string anywhere
+     else still fails, and a pair whose `.it` went missing fails too — which is
+     the defect worth catching, because that is the one that reaches the screen. */
+  const pairedEn = (vals) => {
+    const out = new Set();
+    /* The model graph has cycles — an opportunity points at its window and the
+       window's rows point back — so the walk carries a seen set, exactly as
+       collectStrings does. Without it this recursion blows the stack rather
+       than reporting anything. */
+    const seen = new WeakSet();
+    const walk = (v, path) => {
+      if (!v || typeof v !== 'object') return;
+      if (seen.has(v)) return;
+      seen.add(v);
+      if (Array.isArray(v)) { v.forEach((x, i) => walk(x, `${path}[${i}]`)); return; }
+      if (typeof v.it === 'string' && typeof v.en === 'string') out.add(`${path}.en`);
+      for (const k of Object.keys(v)) walk(v[k], path ? `${path}.${k}` : k);
+    };
+    walk(vals, '');
+    return out;
+  };
   const hits = [];
   let rendered = 0;
   for (const sc of SCREENS) {
@@ -1203,8 +1406,10 @@ check('I6', 'Italian mode shows no accidental English on any screen', () => {
     const r = m.tryVals(patch);
     if (!r.ok) continue;
     rendered++;
+    const paired = pairedEn(r.vals);
     for (const { path, value } of collectStrings(r.vals)) {
       if (EXEMPT_PATH.test(path) || DEMO_PATH.test(path)) continue;
+      if (paired.has(path)) continue;
       if (isEnglish(value)) hits.push(`${sc.label} ${path}: ${value.slice(0, 70)}`);
     }
   }

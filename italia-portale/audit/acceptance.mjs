@@ -46,11 +46,16 @@ R('FUTURE REAL DETAIL USES APP', YN(check('F3').pass), 'YES');
 R('DEFAULT FUTURE DEMO SCENARIOS', (() => { const v = vals({ view: 'future' }); return v && m ? (m.instance.state.showScenarios ? count('futureScenarios') : 0) : 'n/a'; })(), 0);
 R('CORE D.SIGNALS', (scan.bySymbol.SIGNALS || { core: 0 }).core, 0);
 
-R('COMPETITOR REAL ACTIVITIES', count('competitorActivities'), 503);
+/* 503 -> 561. The V2.1 package publishes 577 observed activities; 16 name
+   neither a company nor a page and cannot be attributed to anyone, so they are
+   rejected at the adapter exactly as the fixture's were. The expected number
+   moves because the reading moved, and it is written here as the reading, not
+   as a target. */
+R('COMPETITOR REAL ACTIVITIES', count('competitorActivities'), 561);
 R('VISIBLE COMPETITOR USES APP', YN((scan.bySymbol.ACTIVITIES || { core: 0 }).core === 0), 'YES');
 R('D.ACTIVITIES CORE READS', (scan.bySymbol.ACTIVITIES || { core: 0 }).core, 0);
 
-R('MARKET REAL OBSERVATIONS', count('marketObservations'), 77);
+R('MARKET REAL OBSERVATIONS', count('marketObservations'), 157);
 R('VISIBLE MARKET USES APP', YN(!/window\.ITALY_MARKET\.(CROPS\[[^\]]*\]\.(temp|reading|drivers|current|outlook|price|production|trade|confidence))/.test(fs.readFileSync(path.join(CLIENT, 'portale.html'), 'utf8'))), 'YES');
 
 R('SCIENCE REAL RECORDS', count('scienceRecords'), 88);
@@ -75,7 +80,7 @@ R('PRODUCT RELATIONSHIP CORE TRUTH SOURCE', (C.productRelationships && C.product
 R('PRODUCT RELATIONSHIPS', count('productRelationships'), '(measured)');
 R('D.CASES USED AS PRODUCT TRUTH', YN(!check('P2').pass), 'NO');
 
-R('VOCI REAL PUBLIC VOICES', count('publicVoices'), 17);
+R('VOCI REAL PUBLIC VOICES', count('publicVoices'), 79);
 R('VOCI RTV DEMO MESSAGES', (() => { const v = vals({ view: 'voices' }); const list = v && v.voices ? [].concat(v.voices.featured || [], v.voices.latest || []) : null; return list ? list.filter((x) => x && (x.demo || x.provenance === 'SYNTHETIC_DEMO')).length : 'n/a'; })(), 0);
 
 R('FIELD SALES MUTATES CORE', YN(!check('FS1').pass), 'NO');
@@ -105,7 +110,20 @@ R('REAL ENTITY → DEMO SILENT FALLBACKS', check('R2').measured, 0);
 R('AUTOMATED STRUCTURAL TESTS', checks.every((c) => c.pass) ? 'PASS' : `FAIL ${checks.filter((c) => !c.pass).length}/${checks.length}`, 'PASS');
 R('RUNTIME SMOKE TESTS', check('RT1').pass && check('RT2').pass ? 'PASS' : `${check('RT1').measured} IT · ${check('RT2').measured} EN`, 'PASS');
 R('OFFLINE / NO PUBLIC CDN', YN(check('B3').pass), 'YES');
-R('HANDOFF V2.1 INGESTED', YN(!check('H1').pass), 'NO');
+/* This line used to read NO, and its expected value was NO. It was the report
+   saying, honestly, that the portal was READY for the package and had not yet
+   received it. It has received it. */
+R('HANDOFF V2.1 INGESTED', YN(check('H1').pass), 'YES');
+R('V2.1 BUILD ID', (loadData().ITALY_HANDOFF_V21 || {}).buildId || 'ABSENT', 'V21-99226fbb90dcdbc2');
+R('V2.1 UNIVERSE COUNTS MEASURED', YN(check('H2').pass), 'YES');
+R('COMMERCIAL PRODUCTS', count('productsCommercial'), 51);
+R('REGULATORY PRODUCTS', count('productsRegulatory'), 163);
+R('LABEL USE PAIRS', count('productRelationships'), 2030);
+R('ACTIVE SUBSTANCES', count('activeIngredients'), 53);
+R('OPPORTUNITIES DETECTED', count('opportunities'), 37);
+R('VERIFIED CONVERGENCES', AM.collections.opportunities.records.filter((o) => o.convergence === 'VERIFIED_CONVERGENCE').length, 9);
+R('TO VALIDATE', AM.collections.opportunities.records.filter((o) => o.convergence === 'TO_VALIDATE').length, 28);
+R('ENGINE BOOKKEEPING ON SCREEN', check('H4').measured, 0);
 R('V2.1 COLLECTION SLOTS READY', check('M3').pass ? '23 slots' : check('M3').measured, '23 slots');
 
 /* the hard ready rule, §37 */
@@ -125,6 +143,14 @@ const BLOCKERS = [
   ['the fake WhatsApp loop exists anywhere', !check('FS2').pass || !check('FS3').pass],
   ['a screen does not render', !check('RT1').pass || !check('RT2').pass],
   ['Portuguese research prose reaches the client', !check('PT1').pass],
+  /* The package is in. These four say it is in WHOLE — the build identified,
+     the universe counted, the engine rendered, and none of its bookkeeping
+     reaching a reader. A partial ingest is the failure this report exists to
+     refuse, and it is the one that looks fine from the outside. */
+  ['the V2.1 package is not ingested', !check('H1').pass],
+  ['a V2.1 universe count does not measure', !check('H2').pass],
+  ['the opportunity engine does not reach the screen', !check('H3').pass],
+  ['engine bookkeeping reaches a rendered screen', !check('H4').pass],
 ];
 const failing = BLOCKERS.filter(([, bad]) => bad);
 const ready = failing.length === 0;
