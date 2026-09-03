@@ -22,6 +22,7 @@
        NAO SE PROCURA UMA STRING NO FONTE. CLICA-SE, E MEDE-SE O QUE MUDOU.
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
+import net from 'node:net';
 import {
   serve, open, openCase, caseIds, screenText, clickTitle, clickables,
   overflow, shot, C, line,
@@ -33,7 +34,19 @@ const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i
 const WIDTHS = String(arg('widths', '360,390,430,768,1440')).split(',').map(Number).filter(Boolean);
 const SHOTS = arg('shots', null);
 const JSON_OUT = arg('json', null);
-const PORT = Number(arg('port', 8951));
+/* Varios portoes correm ao mesmo tempo na mesma maquina e cada um serve a sua
+   copia da pasta client. serve() de drive.mjs nao rejeita quando a porta esta
+   ocupada — emite 'error' e mata o processo. Procura-se uma porta livre antes
+   de pedir, senao um portao reprova por causa do vizinho. */
+const PORT0 = Number(arg('port', 8951));
+const freePort = (p) => new Promise((res) => {
+  const s = net.createServer();
+  s.once('error', () => res(false));
+  s.once('listening', () => s.close(() => res(true)));
+  s.listen(p, '0.0.0.0');
+});
+let PORT = PORT0;
+for (let i = 0; i < 24 && !(await freePort(PORT)); i++) PORT = PORT0 + 1 + i;
 
 /* Os limiares. Nenhum e uma opiniao: 10px e onde o texto deixa de ser lido em
    movimento, 24px e o minimo da WCAG 2.2 (2.5.8 Target Size), 44px e o alvo
@@ -85,6 +98,36 @@ const MEASURE = () => {
     }
     return isFinite(L) ? { L, R, w: R - L } : null;
   };
+
+  /* ── o que passa da borda E fica de fora ────────────────────────────────
+     overflow() de drive.mjs marca todo elemento cuja caixa passa da largura
+     da viewport. Nem todos fazem a pagina rolar: uma tira com ellipsis tem
+     `overflow:hidden` no pai, e o texto que «passa» ja foi cortado antes de
+     chegar ao ecra — a primeira versao deste portao reprovava 4 ecras por
+     causa disso, e os quatro eram falsos.
+
+         SO CONTA O QUE O LEITOR TEM DE ARRASTAR PARA VER.
+
+     Aqui sobe-se pelos antecessores: se o primeiro que corta (hidden, clip,
+     auto ou scroll) cabe na viewport, o transbordo morre nele. */
+  const de = document.documentElement;
+  const CLIP = ['hidden', 'clip', 'auto', 'scroll'];
+  const spill = [];
+  for (const el of document.querySelectorAll('*')) {
+    const r = el.getBoundingClientRect();
+    if (!(r.right > de.clientWidth + 2 && r.width > 4 && r.height > 4)) continue;
+    if (!vis(el)) continue;
+    let p = el.parentElement, dies = false;
+    while (p) {
+      const pc = getComputedStyle(p);
+      if (CLIP.includes(pc.overflowX) || CLIP.includes(pc.overflow)) {
+        dies = p.getBoundingClientRect().right <= de.clientWidth + 2; break;
+      }
+      p = p.parentElement;
+    }
+    if (dies) continue;
+    spill.push({ tag: el.tagName.toLowerCase(), right: Math.round(r.right), w: Math.round(r.width), text: (el.textContent || '').trim().slice(0, 46) });
+  }
 
   /* ── corpo de letra ──────────────────────────────────────────────────────
      So conta quem tem texto PROPRIO. Um <div> que embrulha trinta filhos
@@ -163,7 +206,7 @@ const MEASURE = () => {
     });
   }
   window.scrollTo(0, 0);
-  return { small, title, grid, products };
+  return { spill, small, title, grid, products };
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -177,7 +220,7 @@ for (const W of WIDTHS) {
   const { browser, page, errors } = await open({ port: PORT, width: W, height: 900 });
   const rec = {
     width: W, screens: 0,
-    overflow: [], small: new Map(), taps: new Map(), crushedTitles: [], grid: null, products: [],
+    overflow: [], clipped: 0, small: new Map(), taps: new Map(), crushedTitles: [], grid: null, products: [],
   };
 
   for (const sec of SECTIONS) {
@@ -191,11 +234,15 @@ for (const W of WIDTHS) {
     rec.screens++;
 
     const ov = await overflow(page);
-    if (ov.offenders.length || ov.scrollWidth > ov.docWidth + 2) {
-      rec.overflow.push({ sec, scrollWidth: ov.scrollWidth, docWidth: ov.docWidth, offenders: ov.offenders.slice(0, 4) });
-    }
-
     const m = await page.evaluate(MEASURE);
+    /* O sintoma que o leitor sente e a pagina rolar de lado; o defeito que o
+       causa e um bloco que passa da borda sem ninguem o cortar. Exige-se os
+       dois. Os que passam mas morrem num antecessor ficam contados a parte,
+       para o portao dizer o que viu e porque nao o contou. */
+    if (ov.scrollWidth > ov.docWidth + 2 || m.spill.length) {
+      rec.overflow.push({ sec, scrollWidth: ov.scrollWidth, docWidth: ov.docWidth, spill: m.spill.slice(0, 4) });
+    }
+    rec.clipped += Math.max(0, ov.offenders.length - m.spill.length);
     for (const s of m.small) rec.small.set(s.size + '|' + s.text, s);
     if (m.title && !m.title.fits) rec.crushedTitles.push({ sec, ...m.title });
 
@@ -206,7 +253,7 @@ for (const W of WIDTHS) {
       const short = Math.min(c.w, c.h), long = Math.max(c.w, c.h);
       if (short >= TAP_SHORT || long >= TAP_LONG) continue;
       const label = (c.title || c.text || c.tag).replace(/\s+/g, ' ').slice(0, 30);
-      rec.taps.set(label + '|' + c.w + 'x' + c.h, { sec, label, w: c.w, h: c.h, short, pointer: c.pointer });
+      rec.taps.set(label + '|' + c.w + 'x' + c.h, { sec, label, tag: c.tag, w: c.w, h: c.h, short, pointer: c.pointer, handler: c.hasHandler });
     }
 
     if (sec === SECTIONS[0]) { rec.grid = m.grid; rec.products = m.products; }
@@ -331,8 +378,11 @@ let detail = null;
 /* 6 · executar uma chamada a acao. A de voltar nao conta: voltar e o passo 7.
       Mede-se pelo ecra que ficou, nao pelo clique que foi aceite. */
 {
-  const before = await fp();
-  const cta = await jp.evaluate(() => {
+  /* Uma chamada a acao que abre um PDF ou um separador novo nao muda o ecra —
+     e nao provaria nada. Tenta-se ate tres, voltando a ficha entre tentativas,
+     e conta a primeira que MUDA o que esta na tela. */
+  const onDetail = () => jp.evaluate(() => ((document.querySelector('main.sn-main') || document.body).innerText || '').includes('MAPPA DELLE AZIONI'));
+  const PICK = (n) => {
     const m = document.querySelector('main.sn-main'); const out = [];
     for (const el of m.querySelectorAll('*')) {
       const cs = getComputedStyle(el); if (cs.display === 'none' || cs.visibility === 'hidden') continue;
@@ -342,17 +392,26 @@ let detail = null;
       while (p && m.contains(p)) { const pc = getComputedStyle(p); if (pc.cursor === 'pointer' || p.tagName === 'A' || p.tagName === 'BUTTON') { nested = true; break; } p = p.parentElement; }
       if (nested) continue;
       const t = (el.textContent || '').trim().replace(/\s+/g, ' ');
-      if (!t || t.length > 60 || t.startsWith('←')) continue;
-      if (!/→/.test(t)) continue;
+      if (!t || t.length > 60 || t.startsWith('←') || !/→/.test(t)) continue;
       out.push({ t, el });
     }
-    if (!out.length) return null;
-    out[0].el.click(); return out[0].t;
-  });
-  await jp.waitForTimeout(900);
-  const after = await fp();
-  step('J6', 'a CTA on the detail actually fires', !!cta && changed(before, after),
-    cta ? `"${cta}" · ${before.chars} ch -> ${after.chars} ch · "${after.title.slice(0, 40)}"` : 'no forward CTA found on the detail');
+    if (out.length <= n) return null;
+    out[n].el.click(); return out[n].t;
+  };
+  let fired = null, before = null, after = null; const tried = [];
+  for (let i = 0; i < 3; i++) {
+    if (!(await onDetail())) { await clickTitle(jp, 'Radar delle Opportunità', 700); await openCase(jp, null, 800); }
+    before = await fp();
+    const t = await jp.evaluate(PICK, i);
+    if (!t) break;
+    tried.push(t);
+    await jp.waitForTimeout(900);
+    after = await fp();
+    if (changed(before, after)) { fired = t; break; }
+  }
+  step('J6', 'a CTA on the detail actually fires', !!fired,
+    fired ? `"${fired}" · ${before.chars} ch -> ${after.chars} ch · "${after.title.slice(0, 40)}"`
+      : (tried.length ? `${tried.length} CTA(s) clicked, none changed the screen: ${tried.join(' | ')}` : 'no forward CTA found on the detail'));
   if (SHOTS) await shot(jp, SHOTS, 'j6-390-after-cta');
 }
 
@@ -395,7 +454,7 @@ const screens = perWidth.reduce((a, r) => a + r.screens, 0);
 console.log('\n  SINTONIA · MOBILE_INTERACTION_GATE');
 console.log(`  ${screens} screens measured across ${WIDTHS.length} widths (${WIDTHS.join(', ')}) + an 8-step journey at 390px`);
 console.log('  ' + '─'.repeat(108));
-console.log(line(nOverflow === 0, 'MB1', 'No screen forces the document to scroll sideways', 0, per((r) => r.overflow.length)));
+console.log(line(nOverflow === 0, 'MB1', 'No screen spills past the viewport or scrolls sideways', 0, per((r) => r.overflow.length)));
 console.log(line(nSmall === 0, 'MB2', `No text under ${MIN_FONT}px in <main> (distinct strings)`, 0, per((r) => r.small.length)));
 console.log(line(nTaps === 0, 'MB3', `Every tap target ≥${TAP_SHORT}px short side or ≥${TAP_LONG}px long`, 0, per((r) => r.taps.length)));
 console.log(line(nSplit === 0, 'MB4', `Card grid collapses when a row cannot hold ${CARD_MIN}px cards`, 0, per((r) => (r.grid ? r.grid.split.length : '-'))));
@@ -423,7 +482,8 @@ const worstW = perWidth.find((r) => r.taps.length) || perWidth[0];
 if (worstW && worstW.taps.length) {
   console.log(`\n  ALVOS DE TOQUE PEQUENOS DEMAIS @${worstW.width}px (piores ${Math.min(8, worstW.taps.length)} de ${worstW.taps.length})`);
   for (const t of worstW.taps.slice(0, 8)) {
-    console.log('   ' + C.r(`${t.w}×${t.h}px`).padEnd(22) + t.label.padEnd(32) + C.d(`${t.sec} · cursor:${t.pointer ? 'pointer' : 'default'}`));
+    console.log('   ' + C.r(`${t.w}×${t.h}px`).padEnd(22) + t.label.padEnd(32)
+      + C.d(`<${t.tag}> ${t.sec} · cursor:${t.pointer ? 'pointer' : 'default'}${t.handler ? ' · own onclick' : ''}`));
   }
 }
 const smallW = perWidth.find((r) => r.small.length) || perWidth[0];
@@ -439,8 +499,13 @@ if (nTitle) {
     }
   }
 }
-for (const r of perWidth) for (const o of r.overflow.slice(0, 3)) console.log(`\n  OVERFLOW @${r.width}px · ${o.sec} · ` + JSON.stringify(o.offenders || o.note));
+for (const r of perWidth) for (const o of r.overflow.slice(0, 3)) console.log(`\n  SPILL @${r.width}px · ${o.sec} · doc ${o.docWidth}px, scroll ${o.scrollWidth}px · ` + JSON.stringify(o.spill || o.note));
 for (const r of perWidth) for (const p of r.badProducts.slice(0, 3)) console.log(`\n  PRODUTO @${r.width}px · ` + JSON.stringify(p));
+
+/* Transparencia sobre o que foi visto e nao contado: se um dia um destes
+   deixar de ser cortado, aparece em MB1 e o numero aqui desce. */
+const nClipped = perWidth.reduce((a, r) => a + r.clipped, 0);
+if (nClipped) console.log(`\n  ${C.d(`nota · ${nClipped} elementos passam da borda mas morrem num antecessor que corta (ellipsis, overflow:hidden): nao rolam a pagina, nao contam`)}`);
 
 console.log(`\n  ECRAS MEDIDOS = ${screens} · LARGURAS = ${WIDTHS.join('/')} · PASSOS DA VIAGEM = ${8 - jFail}/8`);
 console.log(`  overflow=${nOverflow} · sub-${MIN_FONT}px=${nSmall} · alvos pequenos=${nTaps} · grelha partida=${nSplit} · produto ilegivel=${nProd} · titulo espremido=${nTitle}`);

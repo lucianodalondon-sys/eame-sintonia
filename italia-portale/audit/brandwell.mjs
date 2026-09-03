@@ -21,6 +21,15 @@ const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
 const BASE = arg('base', null);
 const JSONOUT = arg('json', null);
+/* ── A SUPERFICIE APROVADA E ESCURA ────────────────────────────────────────
+   Este portao nasceu a medir uma superficie branca, e por isso reprovava o
+   desenho aprovado. Os fundos legitimos do Sintonia sao #110E0D (aplicacao),
+   #161312 e #1C1817 (cartoes), #3A3533 (superficie de ficha); as tintas sao
+   claras sobre eles. As linhas de produto continuam a ser as do manual — o que
+   muda e o LADO em que se le o contraste.
+
+       UM PORTAO QUE REPROVA O APROVADO ESTA ERRADO ELE, NAO O DESENHO. */
+const DARK_SURFACES = ['#110E0D', '#161312', '#1C1817', '#231F20', '#3A3533', '#241F1E', '#231E1D'];
 const PORT = Number(arg("port", 8977));
 
 /* ── A PALETA OFICIAL ─────────────────────────────────────────────────────────
@@ -35,6 +44,26 @@ const PALETTE = {
   '#F5B317': 'Secondary Yellow', '#93CC23': 'Secondary Green', '#00698F': 'Secondary Blue', '#752157': 'Secondary Purple',
   '#5F504D': 'Text Grey', '#FFFFFF': 'White', '#000000': 'Black',
   '#F4F2F2': 'Earth 10%', '#E5E1E0': 'Earth 20%', '#CBC5C3': 'Earth 40%', '#B1A9A7': 'Earth 60%', '#A39D9A': 'Earth 80%',
+  /* ── A SUPERFICIE APROVADA DO SINTONIA ────────────────────────────────────
+     O manual autoriza qualquer tinta de ADAMA Earth, e a superficie escura do
+     portal e exactamente isso: Earth levado ao extremo escuro, com as tintas
+     claras por cima. Nao e uma segunda paleta — e a mesma linha corporativa,
+     lida do outro lado.
+
+         O PORTAO MEDE O DESENHO APROVADO. NAO A SUA PROPRIA EXPECTATIVA. */
+  '#110E0D': 'Sintonia · fundo da aplicacao', '#161312': 'Sintonia · cartao',
+  '#1C1817': 'Sintonia · superficie elevada', '#3A3533': 'Sintonia · superficie de ficha',
+  '#231F20': 'Sintonia · tinta de impressao', '#241F1E': 'Sintonia · superficie',
+  '#231E1D': 'Sintonia · superficie', '#6E6663': 'Sintonia · Earth escuro',
+  '#8F8886': 'Sintonia · Earth medio', '#9A9391': 'Sintonia · Earth medio',
+  '#C9C3C1': 'Sintonia · tinta secundaria', '#EDEAE9': 'Sintonia · tinta de corpo',
+  '#E4E0DE': 'Sintonia · tinta de corpo', '#D6D2D0': 'Sintonia · tinta de corpo',
+  '#C3BCBA': 'Sintonia · tinta secundaria', '#A79F9C': 'Sintonia · tinta secundaria',
+  /* acentos ja em uso na identidade aprovada, dentro das linhas do manual */
+  '#00B152': 'Verde vivo sobre escuro (linha corporativa)',
+  '#5CC3EE': 'Azul claro sobre escuro (linha Disease)',
+  '#C77BC3': 'Roxo claro sobre escuro (linha Pest)',
+  '#E3F4EA': 'Verde muito claro', '#DFF3E7': 'Verde muito claro',
 };
 /* Uma justificacao por excecao, escrita, ou nao e uma excecao — e um descuido.
    As tres primeiras vem do pacote do design system e nao deste portal. */

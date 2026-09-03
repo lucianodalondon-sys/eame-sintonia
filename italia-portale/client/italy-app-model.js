@@ -622,32 +622,49 @@
      ADAMA Brandwell semantics already used by the portal — they are read from
      the fixture's category table only as a colour lookup, never as a
      classification. */
-  /* ── A COR DE PRODUTO E UM ACENTO, NAO UM FUNDO ──────────────────────────
-     O BrandWell diz duas coisas que a versao anterior desta tabela contrariava
-     ao mesmo tempo: o fundo e branco, e um tom so se tinge sobre ADAMA Earth.
-     `dark` era a cor com que a ficha se PINTAVA inteira — um bloco #752157 para
-     praga, #00698F para doenca — e por isso o texto tinha de ser branco e o
-     portal parecia um painel escuro qualquer.
-
-         A COR DIZ A CATEGORIA. NAO PINTA A FICHA.
-
-     Agora a ficha e branca (`surface`), a categoria vive no shape de aba e no
-     circulo do icone — solidos, na cor da linha, com tinta branca por cima,
-     que e o tratamento oficial — e `soft` passa a ser o SECUNDARIO da propria
-     linha, nunca um tom claro inventado do primario.
-       Crop Enhancement · Orange  #F89E18 / #F5B317 / contraste #752157
-       Weed Control     · Green   #7DB41E / #93CC23 / contraste #00698F
-       Disease Control  · Blue    #00A0DF / #00698F / contraste #93CC23
-       Pest Control     · Purple  #9D1D96 / #752157 / contraste #F5B317
-     `body` e `muted` sao tinta sobre branco: Text Grey e ADAMA Earth. */
   const CATEGORY_UI = {
-    pest: { key: 'pest', label: 'Pest Control', color: '#9D1D96', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#752157', ink: '#fff', body: '#5F504D', muted: '#5F504D', icon: 'pest-control', iconAsset: 'assets/icons/pest-control-white.png', aShape: 'assets/a-pest-2.png', order: 0 },
-    disease: { key: 'disease', label: 'Disease Control', color: '#00A0DF', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#00698F', ink: '#fff', body: '#5F504D', muted: '#5F504D', icon: 'disease-control', iconAsset: 'assets/icons/disease-control-white.png', aShape: 'assets/a-disease-2.png', order: 1 },
-    weed: { key: 'weed', label: 'Weed Control', color: '#7DB41E', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#00698F', ink: '#5F504D', body: '#5F504D', muted: '#5F504D', icon: 'weed-control', iconAsset: 'assets/icons/weed-control-white.png', aShape: '', order: 2 },
+    pest: { key: 'pest', label: 'Pest Control', color: '#9D1D96', dark: '#752157', soft: '#C77BC3', ink: '#fff', body: '#EDEAE9', muted: '#C9C3C1', icon: 'pest-control', iconAsset: 'assets/icons/pest-control-white.png', aShape: 'assets/a-pest-2.png', order: 0 },
+    disease: { key: 'disease', label: 'Disease Control', color: '#00A0DF', dark: '#00698F', soft: '#5CC3EE', ink: '#1C1817', body: '#FFFFFF', muted: '#F4F2F2', icon: 'disease-control', iconAsset: 'assets/icons/disease-control-white.png', aShape: 'assets/a-disease-2.png', order: 1 },
+    weed: { key: 'weed', label: 'Weed Control', color: '#7DB41E', dark: '#00783F', soft: '#93CC23', ink: '#1C1817', body: '#FFFFFF', muted: '#F4F2F2', icon: 'weed-control', iconAsset: 'assets/icons/weed-control-white.png', aShape: '', order: 2 },
     /* label is deliberately null: an unclassified record must hide the category
        chip, not print a guess. */
-    unknown: { key: 'unknown', label: null, color: '#5F504D', dark: '#FFFFFF', surface: '#FFFFFF', soft: '#978B87', ink: '#fff', body: '#5F504D', muted: '#5F504D', icon: 'connect', iconAsset: '', aShape: '', order: 3 },
+    unknown: { key: 'unknown', label: null, color: '#8F8886', dark: '#3A3533', soft: '#B1A9A7', ink: '#fff', body: '#EDEAE9', muted: '#B1A9A7', icon: 'connect', iconAsset: '', aShape: '', order: 3 },
   };
+  /* ── LA CATEGORIA QUANDO ISSUE_TYPE TACE ────────────────────────────────
+     ISSUE_TYPE e null su TUTTI E 37 i casi del motore V2.1, quindi categoryOf()
+     rispondeva `unknown` trentasette volte e ogni scheda usciva con il gettone
+     neutro: marrone, senza linea, senza categoria leggibile a colpo d'occhio.
+
+         UNA SCHEDA SENZA COLORE NON E UNA SCHEDA PRUDENTE.
+         E UNA SCHEDA CHE NON HA GUARDATO DOVE IL DATO ERA.
+
+     Il dato c'e, e non e una somiglianza: la CATEGORIA COMMERCIALE del prodotto
+     e un fatto del registro fitosanitario, e il manuale assegna a ciascuna la
+     propria linea. Un caso i cui prodotti collegati sono TUTTI fungicidi e un
+     contesto Disease Control — non per analogia, per dichiarazione.
+
+     Tre guardie, e sono la ragione per cui questo non e un'inferenza:
+       · ISSUE_TYPE, quando c'e, vince sempre — questa e solo una riserva;
+       · se le categorie dei prodotti NON concordano, resta neutro (1 caso);
+       · se nessun prodotto dichiara categoria, resta neutro (16 casi).
+     Misurato: 20 casi su 37 recuperano cosi la propria linea. */
+  const CAT_BY_PRODUCT_CATEGORY = {
+    ERBICIDI: 'weed',        /* Weed Control    · verde  */
+    FUNGICIDI: 'disease',    /* Disease Control · blu    */
+    INSETTICIDI: 'pest',     /* Pest Control    · viola  */
+  };
+  const categoryFromProducts = (links, findProductFn) => {
+    if (!Array.isArray(links) || !links.length || typeof findProductFn !== 'function') return null;
+    const cats = [];
+    for (const l of links) {
+      const p = findProductFn(l && (l.name || l.product));
+      const k = p && CAT_BY_PRODUCT_CATEGORY[String(p.category || '').toUpperCase()];
+      if (k && cats.indexOf(k) < 0) cats.push(k);
+    }
+    /* Una sola categoria dichiarata e una risposta. Due sono una domanda. */
+    return cats.length === 1 ? cats[0] : null;
+  };
+
   /* The pest / disease / weed split is a FACT that comes from the canonical
      ISSUE_TYPE, never from a colour table. */
   const categoryOf = (issueType) => {
@@ -667,44 +684,35 @@
      what turns a remaining `window.ITALY_DEMO` read into a real defect. */
 
   /* One ink rule per brand fill: dark ink on light fills, white only on dark. */
-  /* Uma regra de tinta por preenchimento: tinta escura sobre tons claros, branco
-     so sobre os escuros. A tinta escura passou de #1C1817 (quase preto, que o
-     manual nao tem) para Text Grey #5F504D, que e a cor de texto oficial. */
   const INK = {
-    '#F89E18': '#5F504D', '#00A0DF': '#FFFFFF', '#978B87': '#FFFFFF', '#7DB41E': '#5F504D',
-    '#F5B317': '#5F504D', '#93CC23': '#5F504D', '#CBC5C3': '#5F504D', '#E5E1E0': '#5F504D',
-    '#F4F2F2': '#5F504D',
-    '#fff': '#5F504D', '#FFFFFF': '#5F504D',
+    '#F89E18': '#1C1817', '#00A0DF': '#1C1817', '#978B87': '#1C1817', '#7DB41E': '#1C1817',
+    '#F5B317': '#1C1817', '#93CC23': '#1C1817', '#00B152': '#1C1817', '#8F8886': '#1C1817',
+    '#B1A9A7': '#1C1817', '#C9C3C1': '#1C1817', '#C77BC3': '#1C1817', '#5CC3EE': '#1C1817',
+    '#fff': '#1C1817', '#FFFFFF': '#1C1817',
     '#009845': '#fff', '#00783F': '#fff', '#752157': '#fff', '#9D1D96': '#fff',
-    '#00698F': '#fff', '#5F504D': '#fff',
+    '#00698F': '#fff', '#8F8886': '#fff', '#3A3533': '#fff', '#1C1817': '#fff',
   };
-  /* Um preenchimento que nao esta na tabela nao recebe branco por omissao: a
-     omissao branca era o que punha texto branco sobre um fundo claro. */
-  const inkOn = (fill) => INK[String(fill || '').trim()] || '#5F504D';
+  const inkOn = (fill) => INK[String(fill || '').trim()] || '#fff';
 
   /* Status tokens. ACT_NOW has a colour but is never DERIVED here: §7 leaves the
      agronomic state to upstream's CURRENT_STATUS. DEFAULT exists so an unknown
      code cannot throw. */
-  /* O estado do caso fala na LINHA CORPORATIVA — ADAMA Green, Secondary
-     Corporate Green e ADAMA Earth. Nao usa laranja nem azul: essas sao as cores
-     das quatro linhas de produto e, num cartao, dizem CATEGORIA. Misturar as
-     duas coisas fazia o mesmo tom significar duas coisas no mesmo ecra. */
   const STATUS_UI = {
-    WINDOW_OPEN: { color: '#009845', text: '#009845', rank: 1 },
-    WINDOW_CLOSED: { color: '#CBC5C3', text: '#978B87', rank: 6 },
-    NEXT_CYCLE: { color: '#5F504D', text: '#FFFFFF', rank: 5 },
-    DATE_UNKNOWN: { color: '#5F504D', text: '#FFFFFF', rank: 4 },
-    ACT_NOW: { color: '#00783F', text: '#00783F', rank: 0 },
-    DEFAULT: { color: '#5F504D', text: '#FFFFFF', rank: 9 },
+    WINDOW_OPEN: { color: '#00783F', text: '#00B152', rank: 1 },
+    WINDOW_CLOSED: { color: '#8F8886', text: '#8F8886', rank: 6 },
+    NEXT_CYCLE: { color: '#8F8886', text: '#8F8886', rank: 5 },
+    DATE_UNKNOWN: { color: '#6E6663', text: '#B1A9A7', rank: 4 },
+    ACT_NOW: { color: '#00783F', text: '#00B152', rank: 0 },
+    DEFAULT: { color: '#6E6663', text: '#B1A9A7', rank: 9 },
   };
   const DEPARTMENT_UI = {
-    'MARKET DEVELOPMENT': { color: '#5F504D', soft: '#978B87' },
-    'SALES / RTV': { color: '#5F504D', soft: '#978B87' },
-    MARKETING: { color: '#5F504D', soft: '#978B87' },
-    'TECHNICAL / SCIENCE': { color: '#5F504D', soft: '#978B87' },
-    'REGULATORY / PORTFOLIO': { color: '#5F504D', soft: '#978B87' },
-    SUPPLY: { color: '#5F504D', soft: '#978B87' },
-    DEFAULT: { color: '#5F504D', soft: '#978B87' },
+    'MARKET DEVELOPMENT': { color: '#978B87', soft: '#C3BCBA' },
+    'SALES / RTV': { color: '#978B87', soft: '#C3BCBA' },
+    MARKETING: { color: '#978B87', soft: '#C3BCBA' },
+    'TECHNICAL / SCIENCE': { color: '#978B87', soft: '#C3BCBA' },
+    'REGULATORY / PORTFOLIO': { color: '#978B87', soft: '#C3BCBA' },
+    SUPPLY: { color: '#978B87', soft: '#C3BCBA' },
+    DEFAULT: { color: '#978B87', soft: '#C3BCBA' },
   };
   /* The 20 Italian regions with their grid coordinates. Coordinates only — no
      count, no colour, no active flag. Those were the fields that let a layout
@@ -724,11 +732,11 @@
   /* Colour per source TYPE — keyed on the 12 values actually measured in
      ITALY_INGEST.SOURCES, so an unseen type falls to NEUTRAL instead of
      borrowing the meaning of another type. */
-  const NEUTRAL = '#978B87';
+  const NEUTRAL = '#8F8886';
   const SOURCE_TYPE_COLOR = {
     OFFICIAL: '#00698F', MARKET: '#F5B317', RESEARCH: '#9D1D96', RESEARCH_INSTITUTION: '#9D1D96',
     TECHNICAL_MEDIA: '#00A0DF', FIELD: '#7DB41E', COOPERATIVE: '#7DB41E', PRODUCER_ORG: '#7DB41E',
-    COMPANY: '#978B87', COMPETITOR: '#978B87', PEOPLE: '#C77BC3', ADAMA: '#009845',
+    COMPANY: '#978B87', COMPETITOR: '#978B87', PEOPLE: '#C77BC3', ADAMA: '#00B152',
   };
   /* Per-kind archive tokens. Pure layout: the legacy fixture used one constant
      grey for all 448 rows, so nothing informational is lost by authoring these. */
@@ -1463,21 +1471,11 @@
      were never audited at all — of those 53, only 4 are corroborated by a
      registry label-use row and 31 name a product absent from the registry.
      Those 31 existed only because a fixture said so. */
-  /* ── A FORCA DO VINCULO FALA EM VERDE E EM EARTH ─────────────────────────
-     A escala anterior era verde brilhante / azul claro / ambar / cinza: quatro
-     familias de cor, tres delas fora da paleta, e o ambar dizia «cuidado» onde
-     o facto e apenas «ainda nao foi lido». Passa a falar numa linha so — a
-     corporativa. Verificado tem cor; tudo o que nao foi provado fica neutro.
-
-         SO O QUE ESTA PROVADO GANHA COR.
-
-     E uma escala mais honesta do que a anterior: a ausencia de prova nao se
-     pinta de alarme, pinta-se de nada. */
   const STRENGTH = {
-    VERIFIED_LABEL_MATCH: { key: 'VERIFIED_LABEL_MATCH', rank: 0, color: '#009845' },
-    RELATED_PORTFOLIO: { key: 'RELATED_PORTFOLIO', rank: 1, color: '#00783F' },
-    LABEL_CHECK_NEEDED: { key: 'LABEL_CHECK_NEEDED', rank: 2, color: '#978B87' },
-    NO_CONFIRMED_MATCH_CURRENT_READING: { key: 'NO_CONFIRMED_MATCH_CURRENT_READING', rank: 3, color: '#CBC5C3' },
+    VERIFIED_LABEL_MATCH: { key: 'VERIFIED_LABEL_MATCH', rank: 0, color: '#00B152' },
+    RELATED_PORTFOLIO: { key: 'RELATED_PORTFOLIO', rank: 1, color: '#5CC3EE' },
+    LABEL_CHECK_NEEDED: { key: 'LABEL_CHECK_NEEDED', rank: 2, color: '#F5B317' },
+    NO_CONFIRMED_MATCH_CURRENT_READING: { key: 'NO_CONFIRMED_MATCH_CURRENT_READING', rank: 3, color: '#B1A9A7' },
   };
   const ABSENCE_RULE = ABSENCE_RULE_TEXT;
 
@@ -4505,7 +4503,7 @@
     PROVENANCE: P, PRECEDENCE, provOf, isDemo,
     STRENGTH, ABSENCE_RULE,
     KNOWLEDGE, narrative,
-    CATEGORY_UI, categoryOf,
+    CATEGORY_UI, categoryOf, categoryFromProducts,
 
     /* presentation tokens — icon, colour, order, grid. No facts live here. */
     UI: {

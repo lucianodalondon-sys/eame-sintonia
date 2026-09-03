@@ -5,13 +5,13 @@
    No scientific activity is read as field incidence or as demand. */
 (function () {
   const REL = {
-    'ACT NOW': { color: '#00783F', bright: '#009845', tint: 'rgba(0,152,69,0.10)', border: 'rgba(0,152,69,0.42)', def: 'Science contributes to an already actionable commercial or agronomic situation.' },
+    'ACT NOW': { color: '#00783F', bright: '#00B152', tint: 'rgba(0,152,69,0.10)', border: 'rgba(0,152,69,0.42)', def: 'Science contributes to an already actionable commercial or agronomic situation.' },
     'PREPARE': { color: '#00A0DF', bright: '#4FC3EF', tint: 'rgba(0,160,223,0.10)', border: 'rgba(0,160,223,0.42)', def: 'Science is relevant to an approaching crop, application or commercial preparation window.' },
-    'PORTFOLIO OPPORTUNITY': { color: '#009845', bright: '#009845', tint: 'rgba(0,152,69,0.1)', border: 'rgba(0,152,69,0.42)', def: 'Evidence strengthens the relevance of a problem for which ADAMA has verified portfolio fit.' },
+    'PORTFOLIO OPPORTUNITY': { color: '#00B152', bright: '#00B152', tint: 'rgba(0,177,82,0.10)', border: 'rgba(0,177,82,0.42)', def: 'Evidence strengthens the relevance of a problem for which ADAMA has verified portfolio fit.' },
     'PORTFOLIO RISK': { color: '#F89E18', bright: '#F89E18', tint: 'rgba(248,158,24,0.10)', border: 'rgba(248,158,24,0.42)', def: 'Evidence may threaten or complicate current portfolio positioning — resistance or reduced sensitivity.' },
     'PORTFOLIO GAP': { color: '#9D1D96', bright: '#C46ABE', tint: 'rgba(157,29,150,0.10)', border: 'rgba(157,29,150,0.42)', def: 'Scientifically relevant issue with no confirmed ADAMA Italy solution.' },
     'POSITIONING WATCH': { color: '#7DB41E', bright: '#93CC23', tint: 'rgba(125,180,30,0.10)', border: 'rgba(125,180,30,0.42)', def: 'Evidence may influence how an existing product or category should be positioned.' },
-    'MARKET DEVELOPMENT WATCH': { color: '#F5B317', bright: '#F5B317', tint: 'rgba(151,139,135,0.08)', border: 'rgba(151,139,135,0.38)', def: 'Issue may deserve trials, validation, expert engagement or geographic investigation.' },
+    'MARKET DEVELOPMENT WATCH': { color: '#F5B317', bright: '#F5B317', tint: 'rgba(245,179,23,0.08)', border: 'rgba(245,179,23,0.38)', def: 'Issue may deserve trials, validation, expert engagement or geographic investigation.' },
     'SCIENCE WATCH': { color: '#978B87', bright: '#B1A9A7', tint: 'transparent', border: 'rgba(151,139,135,0.30)', def: 'Interesting science, but no demonstrated business implication yet.' }
   };
 

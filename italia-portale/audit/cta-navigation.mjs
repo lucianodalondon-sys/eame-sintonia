@@ -1,6 +1,7 @@
 /* SINTONIA · CTA_DEAD_BUTTON_GATE + NAVIGATION_GATE
    ---------------------------------------------------------------------------
-   node italia-portale/audit/cta-navigation.mjs [--json out.json] [--screens N] [--max N]
+   node italia-portale/audit/cta-navigation.mjs
+        [--json out.json] [--screens N] [--max N] [--port 8951]
 
    Un bottone che il cursore promette e che non fa niente e peggio di un bottone
    assente: chi legge crede di aver premuto, aspetta, e conclude che il portale
@@ -20,11 +21,12 @@
        stando su Concorrenza deve essere un no-op);
      · i controlli di modulo (<select>) — la loro semantica e `change`, non
        `click`, e giudicarli col click produrrebbe accuse false;
-     · un filtro GIA attivo — «TUTTI I CONCORRENTI» quando tutti sono gia
-       mostrati non cambia niente perche non deve. Per questo ogni sospetto ha
-       una SECONDA PROVA: si preme prima un fratello dello stesso gruppo (un
-       altro chip, l'altra lingua) e poi di nuovo il sospetto. Se allora si
-       muove, era idempotente, non morto.
+     · un comando GIA soddisfatto — il segmento «12M» quando l'orizzonte e gia
+       dodici mesi, il chip «TUTTI I CONCORRENTI» quando sono gia tutti, il
+       marchio che porta a casa quando sei gia a casa. Nessuno di questi e
+       morto. Per questo chi non si muove al primo colpo non viene accusato:
+       passa al passaggio 2, che lo ripreme dopo un FRATELLO VIVO del suo
+       gruppo e poi su un'ALTRA schermata, dove ha ancora lavoro da fare.
 
    La prima versione di questo portone contava 139 morti su 156 in una sola
    schermata perche indicizzava la lista di partenza e cliccava per indice su un
@@ -35,6 +37,7 @@
        UN PORTONE CHE GRIDA AL LUPO INSEGNA A IGNORARLO.
    --------------------------------------------------------------------------- */
 import fs from 'node:fs';
+import net from 'node:net';
 import { serve, open, nav, clickables, clickTitle, C, line } from './lib/drive.mjs';
 
 const argv = process.argv.slice(2);
@@ -42,9 +45,24 @@ const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i
 const JSON_OUT = arg('json', null);
 const MAX_SCREENS = Number(arg('screens', 99));
 const MAX_CLICKS = Number(arg('max', 9999));
-const PORT = 8951;
-const PORTAL = `http://localhost:${PORT}/portale.html`;
 const SETTLE = 190;
+
+/* La porta si cerca, non si dichiara. Un portone che muore con EADDRINUSE
+   perche l'esecuzione precedente ha lasciato un socket a raffreddare non ha
+   misurato niente: chi lo lancia legge uno stack trace al posto di un verdetto.
+   serve() non rifiuta la promessa quando la porta e occupata — emette 'error'
+   e uccide il processo — quindi la porta si tasta prima, con un socket usa e
+   getta, e solo dopo si consegna a serve(). */
+const canBind = (p) => new Promise((r) => {
+  const probe = net.createServer();
+  probe.once('error', () => r(false));
+  probe.once('listening', () => probe.close(() => r(true)));
+  probe.listen(p, '0.0.0.0');
+});
+async function bind(first) {
+  for (let p = first; p < first + 20; p++) if (await canBind(p)) return { server: await serve(p), port: p };
+  throw new Error('nessuna porta libera fra ' + first + ' e ' + (first + 19));
+}
 
 /* ── l'enumerazione, identica a quella di drive.clickables() ───────────────
    Deve essere IDENTICA, altrimenti l'indice della descrizione e l'elemento che
@@ -102,7 +120,8 @@ const idleNoise = (page, ms = 600) => page.evaluate(async (t) => {
   await new Promise((r) => setTimeout(r, t)); o.disconnect(); return n;
 }, ms);
 
-const server = await serve(PORT);
+const { server, port: PORT } = await bind(Number(arg('port', 8951)));
+const PORTAL = `http://localhost:${PORT}/portale.html`;
 const { browser, ctx, page, errors, failed } = await open({ port: PORT });
 
 /* effetti che vivono FUORI dal documento: scheda nuova, download, dialog */
@@ -215,8 +234,11 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
   const ord = []; const seen = {};
   for (const s of sigs) { seen[s] = (seen[s] || 0); ord.push(seen[s]); seen[s]++; }
 
+  /* L'enumerazione resta nella scheda: la seconda prova ne ha bisogno per
+     scegliere un fratello, e ri-enumerare da capo darebbe indici diversi. */
   const sc = { label, reached, chars: base.chars, th: base.th, hh: base.hh, els: base.els,
-    clickables: cl.length, judged: 0, alive: 0, dead: [], forms: 0, selfNav: 0, skipped: 0 };
+    clickables: cl.length, judged: 0, alive: 0, dead: [], forms: 0, selfNav: 0, skipped: 0,
+    sigs, ord, meta, aliveIdx: [] };
 
   let cur = base;
   for (let i = 0; i < cl.length && sc.judged < MAX_CLICKS; i++) {
@@ -240,7 +262,7 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
     const moved = differs(cur, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
 
     sc.judged++; judged++;
-    if (moved) { alive++; sc.alive++; const r = await restore(label, sc); if (r) cur = r; else { drift++; cur = await snap(page).catch(() => cur); } }
+    if (moved) { alive++; sc.alive++; sc.aliveIdx.push(i); const r = await restore(label, sc); if (r) cur = r; else { drift++; cur = await snap(page).catch(() => cur); } }
     else { cur = post || cur; suspects.push({ label, i, sig: sigs[i], ord: ord[i], g: (meta[i] || {}).g, c }); }
   }
   screens.push(sc);
@@ -248,86 +270,75 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
 }
 
 /* ═══════════════ passaggio 2 · la seconda prova ═════════════════════════
-   Un filtro gia attivo non si muove perche non deve. Si preme un FRATELLO
-   dello stesso gruppo — l'altro chip, l'altra lingua — e poi di nuovo il
-   sospetto. Chi si muove alla seconda era idempotente. Chi non si muove mai,
-   con o senza contesto, e morto. */
+   Un comando GIA soddisfatto non si muove perche non deve: il segmento «12M»
+   quando l'orizzonte e gia dodici mesi, il chip «TUTTI I CONCORRENTI» quando
+   sono gia tutti, la voce di casa quando sei gia a casa. Nessuno di questi e
+   morto, e accusarli sarebbe una bugia con l'aria di un risultato.
+
+   Il sospetto viene ripremuto in contesti che gli danno qualcosa da fare, dal
+   piu economico al piu costoso:
+     1. da solo, sulla schermata pulita (spesso basta: il primo tentativo puo
+        essere caduto su uno stato sporco);
+     2. dopo un FRATELLO VIVO dello stesso gruppo — vivo secondo il passaggio 1,
+        non secondo la speranza. La prima versione prendeva il primo fratello in
+        ordine di DOM: per «12M» era «← OGGI», che non muove niente nemmeno lui,
+        e il portone accusava un segmento perfettamente funzionante. Si ordinano
+        per VICINANZA: il vicino di un segmento e l'altro segmento;
+     3. su un'ALTRA schermata, dove la stessa firma ha ancora lavoro da fare.
+
+       CHI NON SI MUOVE MAI, IN NESSUN CONTESTO, E MORTO. GLI ALTRI NO.
+   ─────────────────────────────────────────────────────────────────────────── */
 const dead = [], idempotent = [];
+
+/* Preme una firma e dice se il mondo si e mosso. null = la firma non esiste
+   piu su questa schermata (lo stato e cambiato sotto i piedi). */
+const press = async (sig, ordinal) => {
+  const pre = await snap(page).catch(() => null);
+  const t0 = tabs, d0 = downloads, g0 = dialogs;
+  const ok = await clickSig(page, sig, ordinal);
+  if (!ok) { await harvest(page); return null; }
+  await page.waitForTimeout(SETTLE);
+  const mut = await harvest(page);
+  const post = await snap(page).catch(() => null);
+  return differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
+};
+
 for (const s of suspects) {
   const sc = screens.find((x) => x.label === s.label);
-  let r = await restore(s.label, sc);
-  if (!r) { drift++; continue; }
-  const cl = await clickables(page);
-  const meta = await enrich(page);
-  const sigs = cl.map(sigOf); const ord = []; const seen = {};
-  for (const g of sigs) { seen[g] = (seen[g] || 0); ord.push(seen[g]); seen[g]++; }
 
-  /* il fratello: stesso genitore, firma diversa, e visibile */
-  let sib = -1;
-  for (let j = 0; j < cl.length; j++) {
-    if (sigs[j] === s.sig) continue;
-    if ((meta[j] || {}).g !== s.g) continue;
-    if (!cl[j].visible || FORM.has(cl[j].tag)) continue;
-    if ((meta[j] || {}).nt === s.label) continue;
-    sib = j; break;
+  /* i fratelli vivi dello stesso gruppo, dal piu vicino al piu lontano */
+  const sibs = sc.aliveIdx
+    .filter((j) => j !== s.i && (sc.meta[j] || {}).g === s.g && sc.sigs[j] !== s.sig)
+    .sort((a, b) => Math.abs(a - s.i) - Math.abs(b - s.i))
+    .slice(0, 4);
+
+  let verdict = false, mode = 'solo', unresolved = false;
+  for (const sib of [null].concat(sibs)) {
+    const r = await restore(s.label, sc);
+    if (!r) { unresolved = true; break; }
+    if (sib !== null) {
+      const got = await press(sc.sigs[sib], sc.ord[sib]);
+      if (got === null) continue;                 /* il fratello e sparito */
+      mode = 'dopo «' + (sc.sigs[sib].split('|')[2] || sc.sigs[sib].split('|')[1] || sc.sigs[sib].split('|')[0]).replace(/\s+/g, ' ').slice(0, 22) + '»';
+    } else mode = 'solo';
+    const moved = await press(s.sig, s.ord);
+    if (moved === null) continue;                 /* il sospetto e sparito */
+    if (moved) { verdict = true; break; }
   }
-  let mode = 'solo';
-  if (sib >= 0) {
-    const ok = await clickSig(page, sigs[sib], ord[sib]);
-    await harvest(page);
-    if (ok) { await page.waitForTimeout(SETTLE); mode = 'con fratello «' + (cl[sib].text || cl[sib].title || cl[sib].tag).replace(/\s+/g, ' ').slice(0, 24) + '»'; }
-  }
-  /* L'impronta si prende SEMPRE prima di premere. La prima riscrittura di
-     questo blocco la prendeva dopo il click e confrontava il dopo col dopo:
-     tutto risultava fermo. Lo si e visto perche il portone accusava comandi
-     che a mano si muovevano. */
-  const press = async (sig, ordinal) => {
-    const pre = await snap(page).catch(() => null);
-    const t0 = tabs, d0 = downloads, g0 = dialogs;
-    const ok = await clickSig(page, sig, ordinal);
-    if (!ok) { await harvest(page); return null; }
-    await page.waitForTimeout(SETTLE);
-    const mut = await harvest(page);
-    const post = await snap(page).catch(() => null);
-    return differs(pre, post) || mut > NOISE || tabs > t0 || downloads > d0 || dialogs > g0;
-  };
+  if (unresolved) { drift++; continue; }
+  if (verdict) { alive++; sc.alive++; if (mode !== 'solo') idempotent.push({ ...s, mode }); continue; }
 
-  let moved = await press(s.sig, s.ord);
-  if (moved === null) {
-    /* il fratello ha portato via il sospetto: si ritenta senza contesto */
-    const rr = await restore(s.label, sc);
-    if (!rr) { drift++; continue; }
-    mode = 'solo';
-    moved = await press(s.sig, s.ord);
-    if (moved === null) { drift++; continue; }
-  }
-  if (moved) { alive++; sc.alive++; continue; }
-
-  /* ── terza prova · lo STESSO comando su un'ALTRA schermata ───────────────
-     Il blocco del marchio «SINTONIA / ADAMA ITALIA · INTELLIGENCE» porta a
-     casa. Sulla schermata di casa non muove niente — perche sei gia a casa —
-     e il portone lo accusava di essere morto: un'accusa falsa contro un
-     comando che funziona. Lo stesso vale per la voce di menu della schermata
-     corrente, che qui pero e gia esclusa per nome.
-
-         PRIMA DI DICHIARARE MORTO UN COMANDO, PROVALO DOVE HA QUALCOSA DA FARE.
-
-     Si cerca la stessa firma su un'altra schermata della barra e la si preme
-     li. Se li si muove, era idempotente, non morto. */
+  /* terza prova: la stessa firma dove ha ancora qualcosa da fare */
   let revived = null;
   for (const other of SIDEBAR.slice(0, MAX_SCREENS)) {
     if (other === s.label) continue;
     const osc = screens.find((x) => x.label === other);
-    if (!osc) continue;
-    const or = await restore(other, osc);
-    if (!or) continue;
-    const ocl = await clickables(page);
-    const osigs = ocl.map(sigOf);
-    if (!osigs.includes(s.sig)) continue;
-    const oord = osigs.filter((x, ix) => x === s.sig && ix < osigs.indexOf(s.sig)).length;
-    if (await press(s.sig, oord)) { revived = other; break; }
+    if (!osc || !osc.sigs.includes(s.sig)) continue;
+    if (!await restore(other, osc)) continue;
+    const ix = osc.sigs.indexOf(s.sig);
+    if (await press(s.sig, osc.ord[ix])) { revived = other; break; }
   }
-  if (revived) { alive++; sc.alive++; idempotent.push({ ...s, revived }); continue; }
+  if (revived) { alive++; sc.alive++; idempotent.push({ ...s, mode: 'vivo su ' + revived, revived }); continue; }
   dead.push({ ...s, mode }); sc.dead.push(s.c);
 }
 
@@ -478,12 +489,25 @@ for (const s of screens) {
   console.log('  ' + s.label.padEnd(28) + String(s.chars).padStart(7) + String(s.clickables).padStart(6)
     + String(s.judged).padStart(6) + String(s.alive).padStart(6) + (d ? C.r(String(d).padStart(7)) : C.g('      0')));
 }
+/* Lo stesso comando della testata ripetuto su undici schermate e UN difetto
+   visto undici volte, non undici difetti. Si raggruppa per firma e si dice
+   dove e stato provato — il numero grezzo resta in CT1, per non ammorbidire
+   il conteggio. */
+const byControl = new Map();
+for (const d of dead) {
+  const k = d.sig;
+  if (!byControl.has(k)) byControl.set(k, { c: d.c, screens: [], hits: 0, mode: d.mode });
+  const g = byControl.get(k);
+  g.hits++;
+  if (!g.screens.includes(d.label)) g.screens.push(d.label);
+}
 if (dead.length) {
-  console.log('\n  ' + C.r('BOTTONI MORTI') + ' — premuti, e non e successo niente:');
-  for (const d of dead) {
-    const t = (d.c.text || d.c.title || '(senza testo)').replace(/\s+/g, ' ').slice(0, 46);
-    console.log(`    ${d.label.padEnd(26)} <${d.c.tag}> «${t}»`.padEnd(84)
-      + C.d(`${d.c.w}×${d.c.h} handler=${d.c.hasHandler ? 'si' : 'NO'} href=${d.c.href || 'NO'} · 2ª prova ${d.mode}`));
+  console.log('\n  ' + C.r('BOTTONI MORTI') + ` — premuti in ogni contesto, e non e successo niente (${byControl.size} comandi distinti, ${dead.length} occorrenze):`);
+  for (const [, g] of byControl) {
+    const t = (g.c.text || g.c.title || '(senza testo)').replace(/\s+/g, ' ').slice(0, 40);
+    const dove = (g.screens.length > 3 ? `${g.screens.length} schermate` : g.screens.join(' · '))
+      + (g.hits > g.screens.length ? ` (${g.hits} occorrenze)` : '');
+    console.log(`    <${g.c.tag}> «${t}»`.padEnd(56) + C.d(`${g.c.w}×${g.c.h} handler=${g.c.hasHandler ? 'si' : 'NO'} href=${g.c.href || 'NO'}`).padEnd(70) + '  ' + dove.slice(0, 60));
   }
 }
 if (collisions.length) { console.log('\n  ' + C.r('SCHERMATE GEMELLE') + ':'); for (const [a, b] of collisions) console.log(`    ${a}  ≡  ${b}`); }
@@ -497,10 +521,14 @@ if (failed.length) { console.log('\n  ' + C.r('RICHIESTE') + ':'); for (const f 
 console.log('');
 
 if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({
-  sidebar: SIDEBAR, noise: NOISE, screens, dead, idempotent, noHandler, blew, navRows, collisions, unreached, emptyScreens,
+  sidebar: SIDEBAR, noise: NOISE,
+  screens: screens.map(({ sigs, ord, meta, aliveIdx, ...rest }) => rest),
+  dead: dead.map((d) => ({ screen: d.label, sig: d.sig, mode: d.mode, ...d.c })),
+  idempotent: idempotent.map((d) => ({ screen: d.label, sig: d.sig, mode: d.mode })),
+  noHandler, blew, navRows, collisions, unreached, emptyScreens,
   back: { ok: backOk, label: backLabel, screen: backScreen, tried: backTried, detailOpened },
   reload: { ok: reloadOk, chars: afterReload.chars, clickables: reloadClicks },
-  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, formCtl, selfNav, notJudged, drift, rebase, tabs, downloads, dialogs },
+  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, drift, rebase, tabs, downloads, dialogs },
   errors, failed,
 }, null, 1));
 

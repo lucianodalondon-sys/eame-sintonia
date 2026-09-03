@@ -8,10 +8,10 @@
    A product missing from this reading is NOT evidence that ADAMA has no product. */
 (function () {
   const STRENGTH = {
-    VERIFIED_LABEL_MATCH: { label: 'VERIFIED_LABEL_MATCH', color: '#009845', rank: 0 },
-    RELATED_PORTFOLIO: { label: 'RELATED_PORTFOLIO', color: '#00783F', rank: 1 },
-    LABEL_CHECK_NEEDED: { label: 'LABEL_CHECK_NEEDED', color: '#978B87', rank: 2 },
-    NO_CONFIRMED_MATCH_CURRENT_READING: { label: 'NO_CONFIRMED_MATCH_CURRENT_READING', color: '#CBC5C3', rank: 3 }
+    VERIFIED_LABEL_MATCH: { label: 'VERIFIED_LABEL_MATCH', color: '#00B152', rank: 0 },
+    RELATED_PORTFOLIO: { label: 'RELATED_PORTFOLIO', color: '#5CC3EE', rank: 1 },
+    LABEL_CHECK_NEEDED: { label: 'LABEL_CHECK_NEEDED', color: '#F5B317', rank: 2 },
+    NO_CONFIRMED_MATCH_CURRENT_READING: { label: 'NO_CONFIRMED_MATCH_CURRENT_READING', color: '#978B87', rank: 3 }
   };
 
   /* Verified by the upstream label audit. Key: CROP|ISSUE|PRODUCT */
