@@ -55,7 +55,7 @@ def gravar_antes(caminho):
     d = json.load(open(caminho, encoding='utf-8'))
     fora = {
         'COLLECTION': 'V113-ANTES-DO-REPROCESSAMENTO',
-        'SOURCE': 'git worktree --detach caa6937 + scripts/v21_cadeia.sh · '
+        'SOURCE': 'git worktree --detach do commit anterior + scripts/v21_cadeia.sh · '
                   'BUILD_ID %s' % d.get('BUILD_ID'),
         'CAPTURED_AT': date.today().isoformat(),
         'LAW': 'o ANTES sai de um pacote reconstruido no commit anterior, nao '

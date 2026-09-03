@@ -1,9 +1,9 @@
 {
  "COLLECTION": "V113-ANTES-DO-REPROCESSAMENTO",
- "SOURCE": "git worktree --detach caa6937 + scripts/v21_cadeia.sh · BUILD_ID V21-473db7a54b90c382",
+ "SOURCE": "git worktree --detach caa6937 + scripts/v21_cadeia.sh · BUILD_ID V21-ea0d941dc39f6b49",
  "CAPTURED_AT": "2026-09-03",
  "LAW": "o ANTES sai de um pacote reconstruido no commit anterior, nao de memoria. Recorte dos campos comparados.",
- "BUILD_ID": "V21-473db7a54b90c382",
+ "BUILD_ID": "V21-ea0d941dc39f6b49",
  "FIELDS": [
   "ID",
   "ARCHETYPE",
@@ -41,8 +41,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -54,7 +54,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -63,57 +64,118 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_BANJO",
+      "CATPRD_FOLPAN_GOLD",
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_CYMOXANIL",
+      "AI_FLUAZINAM",
+      "AI_FOLPET",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_METALAXYL_M",
+      "AI_TAU_FLUVALINATE",
+      "AI_TEBUCONAZOLE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 4
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "D_PROBLEMA · sem alvo agronomico declarado",
     "RED_TEAM · geografia promovida: apoio provincial em alegacao mais ampla"
@@ -131,17 +193,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "NEUTRAL_MENTION",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "Lamdex® Extra"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_LAMDEX_EXTRA",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -149,52 +212,120 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_LAMBDA_CYHALOTHRIN"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_GRAPE_MOTH",
+      "CULTURA": "CROP_GRAPEVINE",
+      "REGIAO": "REGION_UMBRIA",
+      "SINAIS": 1,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -209,15 +340,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "NEUTRAL_MENTION",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -226,57 +358,122 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-049"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-049"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-049"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_TEBUCONAZOLE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_POWDERY_MILDEW",
+      "CULTURA": "CROP_GRAPEVINE",
+      "REGIAO": "REGION_FRIULI_VENEZIA_GIULIA",
+      "SINAIS": 1,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -291,15 +488,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -309,57 +507,106 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_DIFENOCONAZOLE",
+      "AI_FENPROPIDIN"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -374,17 +621,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "PIRIMOR 50"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_PIRIMOR_50",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -393,57 +641,113 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_PIRIMOR_50"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_BUPIRIMATE",
+      "AI_CYMOXANIL",
+      "AI_PIRIMICARB",
+      "AI_TEBUCONAZOLE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -457,17 +761,17 @@
    "COMMERCIAL_PRIORITY": "SALES_READY",
    "EXTERNAL_MATERIAL_READY": "YES",
    "NEED_DIRECTION": "POSITIVE_PRESSURE",
-   "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
-   "WINDOW_CONDITION": null,
+   "WINDOW_TYPE": "THRESHOLD_WINDOW",
+   "WINDOW_DEFINED": "YES",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "WINDOW_CONDITION": "Vite/tignoletta: monitorar vinhedos de colheita tardia e, ao ultrapassar 5% de cachos infestados, intervir com Bacillus t., Emamectina (max 2) ou Spinosad (max 3).",
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "Lamdex® Extra"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_LAMDEX_EXTRA",
    "WHY_NOW_CODES": [
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -476,47 +780,112 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "VALIDATE",
      "ACTION": "VALIDATE_WINDOW_IN_REGION",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-PHEN-001",
+      "IT-PHEN-001"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "PREPARE",
      "ACTION": "PREPARE",
      "WHY_CODE": "PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "ACT",
      "ACTION": "MESSAGE_AVAILABLE",
      "WHY_CODE": "EXTERNAL_MATERIAL_READY",
+     "EVIDENCE": [
+      "IT-PHEN-001"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "CONFIRM_WINDOW_CONDITION_MET",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-PHEN-001",
+      "IT-PHEN-001"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_LAMBDA_CYHALOTHRIN"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_GRAPE_MOTH",
+      "CULTURA": "CROP_GRAPEVINE",
+      "REGIAO": "REGION_EMILIA_ROMAGNA",
+      "SINAIS": 1,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "JANELA_DEFINIDA_ESTADO_DESCONHECIDO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "MARKET_DEVELOPMENT",
+      "ACAO": "VALIDATE_WINDOW_IN_REGION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -531,17 +900,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "NEUTRAL_MENTION",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "MAVRIK SMART"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_MAVRIK_SMART",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -549,52 +919,120 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_MAVRIK_SMART"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_TAU_FLUVALINATE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_SCAPHOIDEUS",
+      "CULTURA": "CROP_GRAPEVINE",
+      "REGIAO": "REGION_UMBRIA",
+      "SINAIS": 1,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -609,17 +1047,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "AGIL"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_AGIL",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -627,52 +1066,114 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_AGIL"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_PROPAQUIZAFOP"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_ECHINOCHLOA",
+      "CULTURA": "CROP_RICE",
+      "REGIAO": "GEO_ITALY",
+      "SINAIS": 0,
+      "FONTES": 0
+     }
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias",
     "RED_TEAM · resistencia documentada sem sinal de campo corrente: nao e incidencia"
@@ -690,15 +1191,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -707,57 +1209,105 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_FLUROXYPYR"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "D_PROBLEMA · sem alvo agronomico declarado",
     "RED_TEAM · geografia promovida: apoio provincial em alegacao mais ampla"
@@ -775,8 +1325,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -789,7 +1339,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -798,57 +1349,115 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_DIODER",
+      "CATPRD_LAMDEX_EXTRA",
+      "CATPRD_NICOGAN_VO"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_GLYPHOSATE",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_MESOTRIONE",
+      "AI_NICOSULFURON",
+      "AI_PIRIMICARB"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 5
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -863,8 +1472,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -877,7 +1486,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -886,57 +1496,116 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA",
+      "CATPRD_MAGANICR",
+      "CATPRD_MAXENTISR"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_DIFENOCONAZOLE",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_PIRIMICARB",
+      "AI_PROTHIOCONAZOLE",
+      "AI_TEFLUTHRIN"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 5
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
    ]
@@ -947,23 +1616,22 @@
    "CROP": "CROP_GRAPEVINE",
    "TARGET": "ISSUE_BOTRYTIS",
    "GEOGRAPHY": "REGION_EMILIA_ROMAGNA",
-   "STATUS": "VALIDATE_NOW",
+   "STATUS": "ACT_NOW",
    "OPPORTUNITY_STATE": "OPPORTUNITY_CONFIRMED",
    "COMMERCIAL_PRIORITY": "SALES_READY",
    "EXTERNAL_MATERIAL_READY": "YES",
    "NEED_DIRECTION": "POSITIVE_PRESSURE",
-   "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
-   "WINDOW_CONDITION": null,
+   "WINDOW_TYPE": "PREHARVEST_WINDOW",
+   "WINDOW_DEFINED": "YES",
+   "WINDOW_OPEN_NOW": "YES",
+   "WINDOW_CONDITION": "Vite/botrite: intervir em pre-colheita com Fenhexamid (max 2) ou alternativas biologicas.",
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "BANJO"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_BANJO",
    "WHY_NOW_CODES": [
-    "SEM_JANELA_COMPATIVEL",
-    "SEM_TEMPO_PARA_ACAO"
+    "CADEIA_COMPLETA"
    ],
    "WHY_COMMERCIAL_CODES": [
     "ALL_GATES_CLOSE",
@@ -971,47 +1639,97 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
-     "ACTION": "VALIDATE_WINDOW_IN_REGION",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
-     "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
-      "TEMPO_PARA_ACAO"
-     ]
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "CONFIRM_RECOMMENDATION_IN_FIELD",
+     "WHY_CODE": "SINAL_ATUAL_COM_ALVO",
+     "EVIDENCE": [
+      "IT-PHEN-001",
+      "IT-PHEN-001"
+     ],
+     "DEPENDENCY": null,
+     "NEXT_TRIGGER": null,
+     "MISSING_LINKS": []
     },
     "COMMERCIAL": {
-     "ACTION": "PREPARE",
-     "WHY_CODE": "PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO",
-     "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
-      "TEMPO_PARA_ACAO"
-     ]
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "ACT",
+     "ACTION": "CONTACT_NOW",
+     "WHY_CODE": "CADEIA_COMPLETA",
+     "EVIDENCE": [
+      "CATPRD_BANJO"
+     ],
+     "DEPENDENCY": null,
+     "NEXT_TRIGGER": null,
+     "MISSING_LINKS": []
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "ACT",
      "ACTION": "MESSAGE_AVAILABLE",
      "WHY_CODE": "EXTERNAL_MATERIAL_READY",
-     "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
-      "TEMPO_PARA_ACAO"
-     ]
+     "EVIDENCE": [
+      "IT-PHEN-001"
+     ],
+     "DEPENDENCY": null,
+     "NEXT_TRIGGER": null,
+     "MISSING_LINKS": []
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
-     "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
-      "TEMPO_PARA_ACAO"
-     ]
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "NO_ACTION",
+     "ACTION": "NO_MOVEMENT",
+     "WHY_CODE": "NADA_A_VALIDAR",
+     "EVIDENCE": [
+      "IT-PHEN-001",
+      "IT-PHEN-001"
+     ],
+     "DEPENDENCY": null,
+     "NEXT_TRIGGER": null,
+     "MISSING_LINKS": []
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
-     "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
-      "TEMPO_PARA_ACAO"
-     ]
+     "EVIDENCE": [
+      "AI_FLUAZINAM"
+     ],
+     "DEPENDENCY": null,
+     "NEXT_TRIGGER": null,
+     "MISSING_LINKS": []
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_BOTRYTIS",
+      "CULTURA": "CROP_GRAPEVINE",
+      "REGIAO": "REGION_EMILIA_ROMAGNA",
+      "SINAIS": 8,
+      "FONTES": 3
+     }
+    },
+    {
+     "CODE": "JANELA_ABERTA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "MARKET_DEVELOPMENT",
+      "ACAO": "CONFIRM_RECOMMENDATION_IN_FIELD"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1026,17 +1744,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "Lamdex® Extra"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_LAMDEX_EXTRA",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1045,57 +1764,109 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_LAMBDA_CYHALOTHRIN"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1110,8 +1881,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -1121,7 +1892,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1130,57 +1902,111 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_DAVAI",
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_IMAZAMOX",
+      "AI_LAMBDA_CYHALOTHRIN"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 2
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
    ]
@@ -1197,15 +2023,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1215,57 +2042,105 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_BUPIRIMATE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1279,10 +2154,10 @@
    "COMMERCIAL_PRIORITY": "SALES_READY",
    "EXTERNAL_MATERIAL_READY": "YES",
    "NEED_DIRECTION": "POSITIVE_PRESSURE",
-   "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
-   "WINDOW_CONDITION": null,
+   "WINDOW_TYPE": "PEST_STAGE_WINDOW",
+   "WINDOW_DEFINED": "YES",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "WINDOW_CONDITION": "O boletim frutticolo do Veneto declara terminada a colheita das variedades do grupo Gala e reporta terceiro voo de Cydia pomonella terminado com danos em aumento tambem em pomares de manejo integrado.",
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "Lamdex® Extra",
@@ -1290,7 +2165,7 @@
    ],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -1299,47 +2174,115 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "VALIDATE",
      "ACTION": "VALIDATE_WINDOW_IN_REGION",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-CAN-D9582B1FD6",
+      "IT-CAN-D9582B1FD6"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "PREPARE",
      "ACTION": "PREPARE",
      "WHY_CODE": "PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA",
+      "CATPRD_MAVRIK_SMART"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "ACT",
      "ACTION": "MESSAGE_AVAILABLE",
      "WHY_CODE": "EXTERNAL_MATERIAL_READY",
+     "EVIDENCE": [
+      "IT-CAN-D9582B1FD6"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "CONFIRM_WINDOW_CONDITION_MET",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-CAN-D9582B1FD6",
+      "IT-CAN-D9582B1FD6"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_CHLORANTRANILIPROLE",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_TAU_FLUVALINATE"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_CODLING_MOTH",
+      "CULTURA": "CROP_APPLE",
+      "REGIAO": "REGION_VENETO",
+      "SINAIS": 1,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "JANELA_DEFINIDA_ESTADO_DESCONHECIDO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 2
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "MARKET_DEVELOPMENT",
+      "ACAO": "VALIDATE_WINDOW_IN_REGION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1354,17 +2297,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "TREATMENT_PROHIBITED",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "Lamdex® Extra"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_LAMDEX_EXTRA",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -1372,52 +2316,114 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-022"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-022"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-022"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_LAMBDA_CYHALOTHRIN"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "FONTE_MANDA_PARAR",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1432,17 +2438,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "AGIL"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_AGIL",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1451,57 +2458,109 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_AGIL"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_PROPAQUIZAFOP"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1516,17 +2575,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "Diode®"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_DIODER",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1535,57 +2595,109 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_DIODER"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_MESOTRIONE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1600,17 +2712,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "DAVAI"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_DAVAI",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1619,57 +2732,109 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_DAVAI"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_IMAZAMOX"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1684,8 +2849,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -1698,7 +2863,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1707,57 +2873,115 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_DIODER",
+      "CATPRD_LAMDEX_EXTRA",
+      "CATPRD_NICOGAN_VO"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_GLYPHOSATE",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_MESOTRIONE",
+      "AI_NICOSULFURON",
+      "AI_PIRIMICARB"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 5
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
    ]
@@ -1774,8 +2998,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -1785,7 +3009,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1794,57 +3019,115 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_MAGANICR",
+      "CATPRD_MAXENTISR"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_DIFENOCONAZOLE",
+      "AI_FLORASULAM",
+      "AI_FLUROXYPYR",
+      "AI_PROTHIOCONAZOLE",
+      "AI_TEBUCONAZOLE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 2
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -1859,8 +3142,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -1871,7 +3154,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -1880,57 +3164,116 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA",
+      "CATPRD_MAVRIK_SMART",
+      "CATPRD_SCHERMO_0_5_G"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_DIFENOCONAZOLE",
+      "AI_FENPROPIDIN",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_PIRIMICARB",
+      "AI_TAU_FLUVALINATE",
+      "AI_TEFLUTHRIN"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 3
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
    ]
@@ -1946,17 +3289,17 @@
    "COMMERCIAL_PRIORITY": "SALES_READY",
    "EXTERNAL_MATERIAL_READY": "YES",
    "NEED_DIRECTION": "POSITIVE_PRESSURE",
-   "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
-   "WINDOW_CONDITION": null,
+   "WINDOW_TYPE": "THRESHOLD_WINDOW",
+   "WINDOW_DEFINED": "YES",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "WINDOW_CONDITION": "Limiar declarado: tratamento insecticida justificado quando se observarem posturas superiores a 3 por cada 100 plantas e/ou presenca de larvas superior a 30-40% em pelo menos 50-100 espigas observadas.",
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "Lamdex® Extra"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_LAMDEX_EXTRA",
    "WHY_NOW_CODES": [
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -1965,47 +3308,112 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "VALIDATE",
      "ACTION": "VALIDATE_WINDOW_IN_REGION",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-PHEN-048",
+      "IT-PHEN-048"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "PREPARE",
      "ACTION": "PREPARE",
      "WHY_CODE": "PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "ACT",
      "ACTION": "MESSAGE_AVAILABLE",
      "WHY_CODE": "EXTERNAL_MATERIAL_READY",
+     "EVIDENCE": [
+      "IT-PHEN-048"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "CONFIRM_WINDOW_CONDITION_MET",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-PHEN-048",
+      "IT-PHEN-048"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_LAMBDA_CYHALOTHRIN"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_CORN_BORER",
+      "CULTURA": "CROP_MAIZE",
+      "REGIAO": "REGION_FRIULI_VENEZIA_GIULIA",
+      "SINAIS": 1,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "JANELA_DEFINIDA_ESTADO_DESCONHECIDO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "MARKET_DEVELOPMENT",
+      "ACAO": "VALIDATE_WINDOW_IN_REGION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2020,17 +3428,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "FOLPAN GOLD"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_FOLPAN_GOLD",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -2039,57 +3448,110 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_FOLPAN_GOLD"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_FOLPET",
+      "AI_METALAXYL_M"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2104,15 +3566,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -2121,57 +3584,105 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_FLUROXYPYR"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2186,17 +3697,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "AGIL"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_AGIL",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -2205,57 +3717,109 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_AGIL"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_PROPAQUIZAFOP"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
    ]
@@ -2272,15 +3836,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -2290,57 +3855,103 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NOT_CONVENED",
      "WHY_CODE": "SEM_BASE_FACTUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "RED_TEAM · relacao de portfolio tratada como verificacao de rotulo"
    ]
@@ -2357,8 +3968,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -2370,7 +3981,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -2379,57 +3991,118 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_BANJO",
+      "CATPRD_FOLPAN_GOLD",
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_CYMOXANIL",
+      "AI_FLUAZINAM",
+      "AI_FOLPET",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_METALAXYL_M",
+      "AI_TAU_FLUVALINATE",
+      "AI_TEBUCONAZOLE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 4
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2444,15 +4117,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "NO_ACTION_RECOMMENDED",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -2461,57 +4135,116 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_TEBUCONAZOLE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "FONTE_MANDA_PARAR",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2526,15 +4259,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "ACTION_SUSPENDED",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -2543,57 +4277,116 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-040"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-040"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-040"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_TEBUCONAZOLE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "FONTE_MANDA_PARAR",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2608,17 +4401,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "WINDOW_CONCLUDED",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "MAVRIK SMART"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_MAVRIK_SMART",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -2626,52 +4420,114 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-038"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_MAVRIK_SMART"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-038"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-038"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_TAU_FLUVALINATE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "FONTE_MANDA_PARAR",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2686,8 +4542,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "NEUTRAL_MENTION",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -2697,7 +4553,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -2705,52 +4562,124 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-049"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_BANJO",
+      "CATPRD_FOLPAN_GOLD"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-049"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-049"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_CYMOXANIL",
+      "AI_FLUAZINAM",
+      "AI_FOLPET",
+      "AI_METALAXYL_M"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_DOWNY_MILDEW",
+      "CULTURA": "CROP_GRAPEVINE",
+      "REGIAO": "REGION_FRIULI_VENEZIA_GIULIA",
+      "SINAIS": 1,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 2
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2765,8 +4694,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "NO_ACTION_RECOMMENDED",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -2776,7 +4705,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -2784,52 +4714,118 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_BANJO",
+      "CATPRD_FOLPAN_GOLD"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-037"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_CYMOXANIL",
+      "AI_FLUAZINAM",
+      "AI_FOLPET",
+      "AI_METALAXYL_M"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "FONTE_MANDA_PARAR",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 2
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2844,8 +4840,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "WINDOW_CONCLUDED",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -2855,7 +4851,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -2863,52 +4860,118 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-006"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_BANJO",
+      "CATPRD_FOLPAN_GOLD"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-006"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-006"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_CYMOXANIL",
+      "AI_FLUAZINAM",
+      "AI_FOLPET",
+      "AI_METALAXYL_M"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "FONTE_MANDA_PARAR",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 2
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -2923,8 +4986,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -2938,7 +5001,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -2947,57 +5011,117 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_AGIL",
+      "CATPRD_BANJO",
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_CAPTAN",
+      "AI_CHLORANTRANILIPROLE",
+      "AI_FLUAZINAM",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_PIRIMICARB",
+      "AI_PROPAQUIZAFOP",
+      "AI_TAU_FLUVALINATE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 6
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -3012,15 +5136,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -3030,57 +5155,106 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_FLORASULAM",
+      "AI_FLUROXYPYR"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -3094,15 +5268,15 @@
    "COMMERCIAL_PRIORITY": "TO_VALIDATE",
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "POSITIVE_PRESSURE",
-   "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
-   "WINDOW_CONDITION": null,
+   "WINDOW_TYPE": "WEATHER_TRIGGERED_WINDOW",
+   "WINDOW_DEFINED": "YES",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "WINDOW_CONDITION": "O boletim horticola do Veneto reporta chuvas na semana 17–23 de agosto que criaram condicoes ideais para novas infeccoes de Peronospora e Alternaria em tomate industrial, e recomenda tratamento nos lotes com colheita prevista em 25–30 dias.",
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -3111,52 +5285,113 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "VALIDATE",
      "ACTION": "VALIDATE_WINDOW_IN_REGION",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-CAN-03C08A9CCB",
+      "IT-CAN-03C08A9CCB"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-CAN-03C08A9CCB"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "CONFIRM_WINDOW_CONDITION_MET",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-CAN-03C08A9CCB",
+      "IT-CAN-03C08A9CCB"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_CYMOXANIL"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_DOWNY_MILDEW",
+      "CULTURA": "CROP_TOMATO",
+      "REGIAO": "REGION_VENETO",
+      "SINAIS": 1,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "JANELA_DEFINIDA_ESTADO_DESCONHECIDO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "MARKET_DEVELOPMENT",
+      "ACAO": "VALIDATE_WINDOW_IN_REGION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -3171,15 +5406,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -3188,57 +5424,105 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_FLUROXYPYR"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": [
     "C_TEMPO · sem janela defensavel e sem sinal datado nos ultimos 120 dias"
    ]
@@ -3255,8 +5539,8 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
@@ -3268,7 +5552,8 @@
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -3277,57 +5562,118 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_BANJO",
+      "CATPRD_FOLPAN_GOLD",
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_AZOXYSTROBIN",
+      "AI_CYMOXANIL",
+      "AI_FLUAZINAM",
+      "AI_FOLPET",
+      "AI_LAMBDA_CYHALOTHRIN",
+      "AI_METALAXYL_M",
+      "AI_TAU_FLUVALINATE",
+      "AI_TEBUCONAZOLE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 4
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -3342,17 +5688,18 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "TREATMENT_PROHIBITED",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "Lamdex® Extra"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_LAMDEX_EXTRA",
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -3360,52 +5707,114 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [
+      "IT-PHEN-022"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [
+      "CATPRD_LAMDEX_EXTRA"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [
+      "IT-PHEN-022"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [
+      "IT-PHEN-022"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_LAMBDA_CYHALOTHRIN"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "FONTE_MANDA_PARAR",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -3419,17 +5828,17 @@
    "COMMERCIAL_PRIORITY": "SALES_READY",
    "EXTERNAL_MATERIAL_READY": "YES",
    "NEED_DIRECTION": "POSITIVE_PRESSURE",
-   "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
-   "WINDOW_CONDITION": null,
+   "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+   "WINDOW_DEFINED": "YES",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "WINDOW_CONDITION": "para botrite, na fase de maior suscetibilidade, possivel intervir com antibotriticos microbiologicos, bicarbonato de potassio ou terpenos e desfolha junto aos cachos;",
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [
     "BANJO"
    ],
-   "PRIMARY_MATCH": null,
+   "PRIMARY_MATCH": "CATPRD_BANJO",
    "WHY_NOW_CODES": [
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_TEMPO_PARA_ACAO"
    ],
    "WHY_COMMERCIAL_CODES": [
@@ -3438,47 +5847,112 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "VALIDATE",
      "ACTION": "VALIDATE_WINDOW_IN_REGION",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-PHEN-040",
+      "IT-PHEN-040"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "PREPARE",
      "ACTION": "PREPARE",
      "WHY_CODE": "PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO",
+     "EVIDENCE": [
+      "CATPRD_BANJO"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "ACT",
      "ACTION": "MESSAGE_AVAILABLE",
      "WHY_CODE": "EXTERNAL_MATERIAL_READY",
+     "EVIDENCE": [
+      "IT-PHEN-040"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "CONFIRM_WINDOW_CONDITION_MET",
+     "WHY_CODE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+     "EVIDENCE": [
+      "IT-PHEN-040",
+      "IT-PHEN-040"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_FLUAZINAM"
+     ],
+     "DEPENDENCY": "JANELA_ABERTA_AGORA",
+     "NEXT_TRIGGER": "evidencia de que a condicao declarada esta satisfeita agora — estadio, limiar medido, captura ou evento climatico",
      "MISSING_LINKS": [
-      "JANELA_COMPATIVEL",
+      "JANELA_ABERTA_AGORA",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "PRESSAO_RECENTE",
+     "VALUES": {
+      "ALVO": "ISSUE_BOTRYTIS",
+      "CULTURA": "CROP_GRAPEVINE",
+      "REGIAO": "REGION_TOSCANA",
+      "SINAIS": 2,
+      "FONTES": 1
+     }
+    },
+    {
+     "CODE": "JANELA_DEFINIDA_ESTADO_DESCONHECIDO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "PORTFOLIO",
+     "VALUES": {
+      "PRODUTOS": 1
+     }
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "MARKET_DEVELOPMENT",
+      "ACAO": "VALIDATE_WINDOW_IN_REGION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   },
   {
@@ -3493,15 +5967,16 @@
    "EXTERNAL_MATERIAL_READY": "NO",
    "NEED_DIRECTION": "UNKNOWN",
    "WINDOW_TYPE": null,
-   "WINDOW_DEFINED": null,
-   "WINDOW_OPEN_NOW": null,
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
    "WINDOW_CONDITION": null,
    "COMMERCIAL_WINDOW": "UNKNOWN",
    "MATCHED_COMMERCIAL_PRODUCT_NAMES": [],
    "PRIMARY_MATCH": null,
    "WHY_NOW_CODES": [
     "SEM_SINAL_ATUAL",
-    "SEM_JANELA_COMPATIVEL",
+    "SEM_JANELA_DEFINIDA",
+    "SEM_JANELA_ABERTA_AGORA",
     "SEM_VINCULO_COM_PORTFOLIO",
     "SEM_TEMPO_PARA_ACAO"
    ],
@@ -3510,57 +5985,105 @@
    ],
    "ACTION_BY_DEPARTMENT": {
     "MARKET_DEVELOPMENT": {
+     "DEPARTMENT": "MARKET_DEVELOPMENT",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_SINAL_ATUAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "COMMERCIAL": {
+     "DEPARTMENT": "COMMERCIAL",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "SEM_PRIORIDADE_COMERCIAL",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "MARKETING": {
+     "DEPARTMENT": "MARKETING",
+     "ACTION_STATE": "NO_ACTION",
      "ACTION": "NO_MOVEMENT",
      "WHY_CODE": "NAO_AUTORIZADO_A_SAIR",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "TECHNICAL_SCIENTIFIC": {
-     "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-     "WHY_CODE": "SEM_JANELA_COMPATIVEL",
+     "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+     "ACTION_STATE": "VALIDATE",
+     "ACTION": "ESTABLISH_WINDOW_CONDITION",
+     "WHY_CODE": "SEM_CONDICAO_DECLARADA",
+     "EVIDENCE": [],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     },
     "SUPPLY": {
+     "DEPARTMENT": "SUPPLY",
+     "ACTION_STATE": "WATCH",
      "ACTION": "WATCH_REGULATORY_DATE",
      "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+     "EVIDENCE": [
+      "AI_GLYPHOSATE"
+     ],
+     "DEPENDENCY": "SINAL_ATUAL",
+     "NEXT_TRIGGER": "um boletim novo que declare necessidade positiva",
      "MISSING_LINKS": [
       "SINAL_ATUAL",
-      "JANELA_COMPATIVEL",
+      "JANELA_DEFINIDA",
+      "JANELA_ABERTA_AGORA",
       "VINCULO_COM_PORTFOLIO",
       "TEMPO_PARA_ACAO"
      ]
     }
    },
-   "INTELLIGENCE_BRIEF": null,
+   "INTELLIGENCE_BRIEF": [
+    {
+     "CODE": "SEM_JANELA",
+     "VALUES": {}
+    },
+    {
+     "CODE": "SEM_PORTFOLIO",
+     "VALUES": {}
+    },
+    {
+     "CODE": "ACAO_PRINCIPAL",
+     "VALUES": {
+      "DEPARTAMENTO": "TECHNICAL_SCIENTIFIC",
+      "ACAO": "ESTABLISH_WINDOW_CONDITION"
+     }
+    }
+   ],
    "BLOCKING_GATES": []
   }
  ]

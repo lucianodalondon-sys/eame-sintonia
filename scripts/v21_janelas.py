@@ -151,6 +151,13 @@ FENOLOGIA_QUE_SATISFAZ = {
 
 _ASPA = re.compile(r'«([^»]*)»')
 
+# A fonte declarando, no presente, que a condição está satisfeita. NUNCA um
+# tempo verbal qualquer: só as formas em que o serviço afirma o momento.
+_PRESENTE = re.compile(
+    r'\bsiamo (?:nella|in) fase\b|\bse esta na fase\b|\bestamos na fase\b|'
+    r'\bci troviamo (?:nella|in) fase\b|\bsiamo nel periodo\b|'
+    r'\be o momento (?:de|da|do)\b|\be il momento (?:di|della|del)\b')
+
 
 def estagio_do_documento(sinal, crop):
     """→ o estádio que ESTE documento declara para ESTA cultura, ou None.
@@ -185,6 +192,16 @@ def aberta_agora(tipo, oracao, estagio, corrente):
         return 'NO', 'ATO_ADMINISTRATIVO_NAO_E_JANELA_AGRONOMICA'
     if tipo in (THRESHOLD_WINDOW, WEATHER_TRIGGERED_WINDOW, PEST_STAGE_WINDOW):
         return 'UNKNOWN', 'CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS'
+    # ⚠️ A FONTE PODE DIZER «AGORA» ELA MESMA, e aí não há o que deduzir.
+    # Medido no Bollettino Vite Integrato de Siena de 03/09/2026:
+    # «Siamo nella fase di maggior suscettibilità a questa malattia.» A condição
+    # é «fase de maior suscetibilidade» e quem declara que ela está satisfeita é
+    # o serviço fitossanitário, no presente, no mesmo documento.
+    #
+    #     QUANDO A FONTE ESCREVE «ESTAMOS NA FASE», NÃO É INFERÊNCIA LER ISSO.
+    #     É LEITURA. INFERÊNCIA SERIA CONCLUIR SEM ELA TER ESCRITO.
+    if _PRESENTE.search(N._n(oracao)):
+        return 'YES', 'FONTE_DECLARA_A_CONDICAO_COMO_PRESENTE'
     if not estagio:
         return 'UNKNOWN', 'DOCUMENTO_NAO_DECLARA_ESTADIO_DA_CULTURA'
     e = N._n(estagio)

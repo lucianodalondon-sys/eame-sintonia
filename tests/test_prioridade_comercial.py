@@ -971,3 +971,120 @@ class TestJanelaTipada(unittest.TestCase):
             elif len(r['PORTFOLIO_MATCHES']) > 1:
                 self.assertEqual('SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER',
                                  r['PRIMARY_MATCH_REASON'], r['ID'])
+
+
+# ── T41-T45 · A COLETA DIRIGIDA DOS CINCO VÃOS ───────────────────────────────
+class TestColetaDirigida(unittest.TestCase):
+    """Cinco perguntas, cinco fontes. O que cada uma respondeu está pinado aqui,
+    para que a próxima rodada saiba o que já foi perguntado — e o que a fonte
+    respondeu com um NÃO.
+
+        UMA COLETA QUE VOLTA COM «NÃO» RESPONDEU A PERGUNTA.
+        QUEM NÃO REGISTRA O «NÃO» PERGUNTA DE NOVO NO MÊS SEGUINTE.
+    """
+
+    def test_T41_a_fonte_declarando_o_presente_abre_a_janela(self):
+        """Siena, 03/09/2026: «Siamo nella fase di maggior suscettibilità a
+        questa malattia». Quem declara que a condição está satisfeita é o
+        serviço — ler isso não é inferir."""
+        got, por = JN.aberta_agora(
+            JN.PHENOLOGY_WINDOW,
+            'Vite/botrite: o boletim declara que se esta na fase de maior '
+            'suscetibilidade a esta doenca', None, True)
+        self.assertEqual('YES', got)
+        self.assertEqual('FONTE_DECLARA_A_CONDICAO_COMO_PRESENTE', por)
+
+    def test_T41b_sem_a_declaracao_de_presente_continua_UNKNOWN(self):
+        got, _por = JN.aberta_agora(
+            JN.PHENOLOGY_WINDOW,
+            'na fase de maior suscetibilidade e possivel intervir', None, True)
+        self.assertEqual('UNKNOWN', got)
+
+    def test_T42_o_limiar_da_umbria_nao_e_o_da_emilia_romagna(self):
+        """Medido: Emilia-Romagna declara 5% de cachos com ovos e/ou furos;
+        Umbria declara 10-15% de cachos com ovos e/ou larvas. Copiar a regra de
+        uma região para a outra teria sido um erro de fato.
+
+            A REGRA É REGIONAL PORQUE O SERVIÇO É REGIONAL.
+        """
+        sinais = {s['ID']: s for s in _pacote('CURRENT-FIELD-SIGNALS.json')}
+        um = sinais.get('IT-COL-2609-UM-TIGNOLETTA')
+        if not um:
+            raise unittest.SkipTest('coleta dos cinco vaos nao esta no pacote')
+        self.assertIn('10-15%', um['WHAT_IT_IS'])
+        self.assertIn('REGION_UMBRIA', um['REGION_IDS'])
+        re_ = sinais['IT-COL-2609-RE-TIGNOLETTA']
+        self.assertIn('5%', re_['WHAT_IT_IS'])
+        self.assertIn('REGION_EMILIA_ROMAGNA', re_['REGION_IDS'])
+        # e cada caso usa a janela da SUA região
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['TARGET'] == 'ISSUE_GRAPE_MOTH' and r['WINDOW_EVIDENCE_ID']:
+                s = sinais[r['WINDOW_EVIDENCE_ID']]
+                self.assertIn(r['GEOGRAPHY'], s['REGION_IDS'], r['ID'])
+
+    def test_T43_a_coleta_entrou_pela_porta_e_virou_apoio(self):
+        ids = {r['ID'] for r in _pacote('CURRENT-FIELD-SIGNALS.json')}
+        coletados = {i for i in ids if i.startswith('IT-COL-2609')}
+        if not coletados:
+            raise unittest.SkipTest('coleta dos cinco vaos nao esta no pacote')
+        self.assertEqual(4, len(coletados))
+        usados = {e for r in _pacote('OPPORTUNITIES.json')
+                  for e in r['EVIDENCE_IDS'] if e.startswith('IT-COL-2609')}
+        self.assertTrue(usados, 'a coleta entrou e nao virou apoio de caso nenhum')
+
+    def test_T44_toda_coleta_nova_declara_origem_e_data(self):
+        for r in _pacote('CURRENT-FIELD-SIGNALS.json'):
+            if not r['ID'].startswith('IT-COL-2609'):
+                continue
+            self.assertTrue(r['SOURCE_URLS'], r['ID'])
+            self.assertTrue(r['REFERENCE_DATE'], r['ID'])
+            self.assertTrue(r.get('RESEARCH', {}).get('citacao_literal'), r['ID'])
+
+
+class TestQAdoISTAT(unittest.TestCase):
+    """O dado do ISTAT existe, é coerente e NÃO é client-safe — porque ninguém
+    o revisou. Este teste é a revisão que faltava: ele não muda `QA_STATUS`
+    nenhum, ele mede se o dado sobreviveria a uma.
+
+        O QUE IMPEDE O DADO DE APARECER NÃO É O DADO. É O CARIMBO QUE FALTA.
+    """
+
+    def _istat(self):
+        return [r for r in _pacote('CROP-ECONOMIC-WEIGHT.json')
+                if 'ISTAT' in str(r.get('SOURCE_IDS')) and r.get('INDICATOR')]
+
+    def test_T45_nenhuma_chave_istat_duplicada(self):
+        from collections import Counter
+        c = Counter((r.get('CROP_CODE'), r.get('GEOGRAPHY_CODE'), r.get('YEAR'),
+                     r.get('INDICATOR')) for r in self._istat())
+        self.assertEqual([], [k for k, v in c.items() if v > 1])
+
+    def test_T45b_o_rendimento_bate_com_producao_dividida_por_area(self):
+        from collections import defaultdict
+        ix = defaultdict(dict)
+        for r in self._istat():
+            ix[(r.get('CROP_CODE'), r.get('GEOGRAPHY_CODE'), r.get('YEAR'))][
+                r['INDICATOR']] = r
+        ruins = []
+        for k, v in ix.items():
+            a, p, y = v.get('AREA'), v.get('PRODUCTION'), v.get('YIELD')
+            if not (a and p and y):
+                continue
+            try:
+                area, prod, rend = (float(a['VALUE']), float(p['VALUE']),
+                                    float(y['VALUE']))
+            except (TypeError, ValueError):
+                continue
+            if not area or not rend:
+                continue
+            if abs((prod / 10.0) / area - rend) / rend > 0.02:
+                ruins.append(k)
+        self.assertEqual([], ruins, 'linhas ISTAT internamente incoerentes')
+
+    def test_T45c_unidade_constante_por_indicador(self):
+        from collections import defaultdict
+        u = defaultdict(set)
+        for r in self._istat():
+            u[r['INDICATOR']].add(r.get('UNIT'))
+        for ind, unidades in u.items():
+            self.assertEqual(1, len(unidades), '%s: %s' % (ind, unidades))
