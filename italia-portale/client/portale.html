@@ -331,6 +331,13 @@
               <div style="font-size:19px;font-weight:700;line-height:1.05;letter-spacing:-0.015em;color:#fff;text-wrap:balance">{{ c.headlineL }}</div>
               <div style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;padding-top:2px"><span style="font-size:13px;font-weight:600;color:#fff">{{ c.cropL }}</span><span style="width:3px;height:3px;border-radius:50%;background:#8F8886"></span><span style="font-size:13px;color:{{ c.category.body }}">{{ c.regionLabel }}</span></div>
             </div>
+            <!-- PERCHE ADAMA DEVE INTERESSARSI · una riga, prima delle date. -->
+            <sc-if value="{{ c.relevanceL }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:1px;padding-top:1px">
+                <span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:{{ c.category.muted }}">{{ t.lblWhyAdama }}</span>
+                <span style="font-size:10.5px;font-weight:700;color:#EDEAE9;line-height:1.25">{{ c.relevanceL }}</span>
+              </div>
+            </sc-if>
             <div style="display:flex;flex-direction:column;gap:5px">
               <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px"><span style="font-size:11px;font-weight:600;color:{{ c.category.body }};white-space:nowrap">{{ c.datesLabel }}</span><span style="font-size:10px;font-weight:700;color:{{ c.category.body }}">{{ c.windowLineL }}</span></div>
               <div style="height:3px;background:rgba(255,255,255,0.14);overflow:hidden"><div style="width:{{ c.progressPct }};height:100%;background:#fff"></div></div>
@@ -506,6 +513,40 @@
                viene. Le forme sono quelle gia in uso in questa schermata —
                #1C1817 su #110E0D, bordo chiaro al 10%, raggio 14. Non si
                introduce un linguaggio nuovo: si riempie quello che c'e. -->
+
+          <sc-if value="{{ cs.hasRel }}" hint-placeholder-val="{{ true }}">
+          <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblWhyAdama }}</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ cs.relRows }}" as="r" hint-placeholder-count="2">
+                <div style="display:flex;flex-direction:column;gap:2px;padding-left:11px;border-left:2px solid #00B152">
+                  <span style="font-size:12.5px;font-weight:700;color:#fff">{{ r.label }}</span>
+                  <span style="font-size:11px;line-height:1.45;color:#C9C3C1">{{ r.why }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <!-- INTERNO UTILE != PRONTO PER IL CANALE. Quando il materiale di
+                 campo non puo uscire, la schermata dice PERCHE — non tace, e non
+                 finge che il caso non valga niente. -->
+            <sc-if value="{{ cs.rtvBlocked }}" hint-placeholder-val="{{ true }}">
+              <div style="border-radius:10px;background:#161312;border:1px solid rgba(203,197,195,0.12);padding:10px 12px;display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span style="display:inline-flex;align-items:center;height:19px;padding:0 10px;border-radius:9999px;background:rgba(255,255,255,0.05);color:#B1A9A7;font-size:8.5px;font-weight:700;letter-spacing:0.10em">{{ t.lblInternalOnly }}</span>
+                  <span style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:#8F8886">{{ t.lblRtvBlocked }}</span>
+                </div>
+                <div style="font-size:11px;line-height:1.45;color:#B1A9A7">{{ t.lblRtvBlockedNote }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;padding-top:2px">
+                  <sc-for list="{{ cs.rtvBlockers }}" as="b" hint-placeholder-count="2">
+                    <span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;background:rgba(255,255,255,0.04);border:1px solid rgba(203,197,195,0.16);color:#C9C3C1;font-size:10px">{{ b.text }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ cs.rtvReady }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius:10px;background:rgba(0,177,82,0.10);border:1px solid rgba(0,177,82,0.32);padding:10px 12px;font-size:11px;font-weight:700;letter-spacing:0.05em;color:#00B152">{{ t.lblRtvReady }}</div>
+            </sc-if>
+          </div>
+          </sc-if>
 
           <sc-if value="{{ cs.hasActionMap }}" hint-placeholder-val="{{ true }}">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
@@ -693,6 +734,23 @@
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
             <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">ACTION PACKAGE</div>
             <div data-download-pdf="1"><x-import component-from-global-scope="ADAMADesignSystem.Button" color="corporate" size="md" on-click="{{ br.download }}" hint-size="100%,40px">{{ t.lblDownloadPdf }}</x-import></div>
+            <!-- LA SCHEDA DI CAMPO · esiste solo quando il caso la regge, e
+                 quando non la regge la schermata dice PERCHE invece di offrire
+                 un pulsante che produrrebbe una mezza verita. -->
+            <sc-if value="{{ br.rtvReady }}" hint-placeholder-val="{{ false }}">
+              <div data-download-rtv="1" style="padding-top:8px"><x-import component-from-global-scope="ADAMADesignSystem.Button" color="corporate" variant="outline" size="md" on-click="{{ br.downloadRtv }}" hint-size="100%,40px">{{ t.lblDownloadRtv }}</x-import></div>
+            </sc-if>
+            <sc-if value="{{ br.rtvBlocked }}" hint-placeholder-val="{{ true }}">
+              <div style="margin-top:8px;border-radius:10px;background:#161312;border:1px solid rgba(203,197,195,0.12);padding:10px 12px;display:flex;flex-direction:column;gap:4px">
+                <div style="font-size:10px;font-weight:700;letter-spacing:0.06em;color:#8F8886">{{ t.lblRtvBlocked }}</div>
+                <div style="font-size:11px;line-height:1.45;color:#B1A9A7">{{ t.lblRtvBlockedNote }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;padding-top:2px">
+                  <sc-for list="{{ br.rtvBlockerRows }}" as="rb" hint-placeholder-count="2">
+                    <span style="display:inline-flex;align-items:center;height:20px;padding:0 10px;border-radius:9999px;background:rgba(255,255,255,0.04);border:1px solid rgba(203,197,195,0.16);color:#C9C3C1;font-size:10px">{{ rb.text }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
             <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px">
               <span onClick="{{ br.copy }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;height:34px;border-radius:9999px;border:1px solid rgba(203,197,195,0.25);font-size:10.5px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.06)">{{ br.copyLabel }}</span>
               <span onClick="{{ br.share }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;height:34px;border-radius:9999px;border:1px solid rgba(203,197,195,0.25);font-size:10.5px;font-weight:700;color:#fff" style-hover="background:rgba(255,255,255,0.06)">Share</span>
@@ -2793,6 +2851,26 @@ class Component extends DCLogic {
       linkStateInk: portfolioState === 'VERIFIED_LABEL_MATCH' ? '#00B152'
         : portfolioState === 'LABEL_CHECK_NEEDED' ? '#B1A9A7' : '#8F8886',
       hasCandidate: links.length > 0,
+      /* ── PERCHE ADAMA DEVE INTERESSARSI ────────────────────────────────────
+         La scheda diceva che cosa e successo e con quale prodotto, e taceva
+         sull'unica domanda che decide se vale la pena leggerla. La classe e il
+         motivo vengono dal modello, che li deriva dall'ARCHETIPO — cioe dalla
+         dichiarazione che il motore fa su perche il caso esiste.
+
+             UNA SCHEDA CHE NON DICE PERCHE IMPORTA NON E UN'OPPORTUNITA. */
+      relevanceL: (() => {
+        if (!AM || !AM.adamaRelevance) return '';
+        const ks = AM.adamaRelevance(c.raw || c);
+        const L = AM.RELEVANCE_LABEL || {};
+        return ks.map((k) => (L[k] ? (this.state.lang === 'en' ? L[k][1] : L[k][0]) : k)).join(' · ');
+      })(),
+      relevanceWhy: (() => {
+        if (!AM || !AM.adamaRelevance) return '';
+        const ks = AM.adamaRelevance(c.raw || c);
+        const W = AM.RELEVANCE_WHY || {};
+        const k = ks[0];
+        return (k && W[k]) ? (this.state.lang === 'en' ? W[k][1] : W[k][0]) : '';
+      })(),
       primaryAiL: primaryAi === 'AI_NOT_APPLICABLE' ? (T0.aiNotApplicable || 'active ingredient not applicable') : (primaryAi || ''),
       portfolioStateL: portfolioState ? ((T0.PSTATE && T0.PSTATE[portfolioState]) || String(portfolioState).replace(/_/g, ' ')) : '',
       /* §10 (product law) · Absence in this reading is not absence in the world —
@@ -2997,6 +3075,9 @@ class Component extends DCLogic {
       const pState = prods.length ? null : 'NO_CONFIRMED_MATCH_CURRENT_READING';
       return {
         id: o.id, n: i, hero: i === 0,
+        /* il record viaggia con la scheda: la rilevanza si deriva da esso, e
+           derivarla due volte in due posti la farebbe divergere */
+        raw: o,
         /* ── CIÒ CHE IL MOTORE V2.1 PORTA E QUESTA FORMA DEVE LASCIAR PASSARE ──
            mkOpp costruisce una forma esplicita, quindi un campo non elencato qui
            semplicemente non esiste a schermo — è così che tre schede scritte a
@@ -4021,6 +4102,26 @@ class Component extends DCLogic {
       { k: T.lblTo || 'A', v: csRecWinEnd || '—' },
       { k: T.wDaysRemaining || 'giorni', v: csRecDays === null ? '—' : String(csRecDays) }
     ] : [];
+    /* ── PERCHE ADAMA · e se questo puo uscire su un foglio di campo ───────
+       Due domande diverse con due risposte diverse. La prima dice se vale la
+       pena leggere il caso; la seconda se il caso puo diventare carta in mano
+       a un rivenditore. Un caso puo valere molto e non poter uscire.
+
+           UN CASO CHE SERVE DENTRO NON E, PER QUESTO, UN MATERIALE DI CAMPO. */
+    const csRelKeys = (AM && AM.adamaRelevance) ? AM.adamaRelevance(csRec) : [];
+    const csRelRows = csRelKeys.map((k) => {
+      const L = (AM.RELEVANCE_LABEL || {})[k], W = (AM.RELEVANCE_WHY || {})[k];
+      return {
+        label: L ? (ITX ? L[0] : L[1]) : String(k).replace(/_/g, ' '),
+        why: W ? (ITX ? W[0] : W[1]) : ''
+      };
+    });
+    const csRtv = (AM && AM.rtvEligibility) ? AM.rtvEligibility(csRec) : { ready: false, blockers: [] };
+    const csRtvBlockers = (csRtv.blockers || []).map((b) => {
+      const L = (AM.RTV_BLOCKER_LABEL || {})[b];
+      return L ? (ITX ? L[0] : L[1]) : String(b).replace(/_/g, ' ').toLowerCase();
+    });
+
     const csSourceRows = ((csRec && csRec.sourceIds) || []).map((sid) => ({
       id: sid,
       name: (AM && AM.sourceNameOf) ? (AM.sourceNameOf(sid) || sid) : sid,
@@ -4162,6 +4263,9 @@ class Component extends DCLogic {
          opportunita: non rotto, IRRAGGIUNGIBILE.
 
              UNA FUNZIONE CHE NESSUN CLICK RAGGIUNGE NON ESISTE. */
+      relRows: csRelRows, hasRel: csRelRows.length > 0,
+      rtvReady: !!csRtv.ready, rtvBlocked: !csRtv.ready,
+      rtvBlockers: csRtvBlockers.map((b) => ({ text: b })),
       briefRows: csActionMap.map((a) => ({
         areaL: a.areaL, color: a.color, dept: csBriefDept(a.area),
         go: () => this.openBrief(cs0.id, csBriefDept(a.area))
@@ -5982,6 +6086,11 @@ class Component extends DCLogic {
         b.sections = kept;
         const DEPT_TOK = /*@VISUAL_ONLY department accent and soft ink only; the department list itself comes from ITALY_BRIEFS.departments and no fact is read from this table*/ D.DEPT || {};
         const deptTok = (k) => DEPT_TOK[k] || { color: '#978B87', soft: '#C3BCBA' };
+        const brtv = (AM && AM.rtvEligibility) ? AM.rtvEligibility(bcase) : { ready: false, blockers: [] };
+        const brtvBlockers = (brtv.blockers || []).map((x) => {
+          const L = (AM.RTV_BLOCKER_LABEL || {})[x];
+          return L ? (s.lang === 'en' ? L[1] : L[0]) : String(x).replace(/_/g, ' ').toLowerCase();
+        });
         br = Object.assign(b, {
           accent: deptTok(bdept).color,
           /* The priority pill is the canonical window status, tinted with the
@@ -6001,6 +6110,35 @@ class Component extends DCLogic {
              Il documento riceve lo STESSO oggetto che la scheda e il dettaglio
              leggono, cosi non puo avere una seconda opinione. La stampa HTML
              resta come riserva se jsPDF non c'e. */
+          /* ── LA SCHEDA DI CAMPO, QUANDO IL CASO LA REGGE ──────────────────
+             Stesso oggetto canonico, proiezione diversa: in campo entrano
+             coltura, bersaglio, dove, quando, il prodotto VERIFICATO e la
+             prossima azione. Le aree interne no.
+
+                 NON SI VERSA L'INTELLIGENCE INTERNA ADDOSSO AL CANALE. */
+          rtvReady: brtv.ready, rtvBlocked: !brtv.ready,
+          rtvBlockerRows: brtvBlockers.map((x) => ({ text: x })),
+          downloadRtv: () => {
+            if (!brtv.ready || !window.ITALY_PDF || !window.ITALY_PDF.downloadRtv) return;
+            window.ITALY_PDF.downloadRtv({
+              lang: s.lang,
+              crop: b.facts ? b.facts.crop : '',
+              target: b.facts ? b.facts.issue : '',
+              region: b.facts ? b.facts.region : '',
+              timingText: (b.windowFrom && !/NON STABILITA|NOT ESTABLISHED/i.test(b.windowFrom))
+                ? (b.windowFrom + '  →  ' + b.windowTo + (b.windowState ? '   ·   ' + b.windowState : '')) : '',
+              productRows: ((bcase && bcase.productLinks) || []).map((l) => ({
+                name: l.name || l.product, strength: l.strength
+              })),
+              fieldWhy: (bcase && bcase.proves && bcase.proves.state === 'CLEAR')
+                ? (s.lang === 'en' ? (bcase.proves.en || bcase.proves.it) : (bcase.proves.it || bcase.proves.en)) : '',
+              nextAction: '',
+              sourceHuman: ((bcase && bcase.sourceIds) || []).slice(0, 3)
+                .map((sid) => (AM && AM.sourceNameOf ? (AM.sourceNameOf(sid) || '') : '')).filter(Boolean).join(' · '),
+              generated: b.generated, lineKey: (bcase && bcase.ui && bcase.ui.key) || 'unknown',
+              rtvReady: brtv.ready, rtvBlockers: brtvBlockers
+            });
+          },
           download: () => {
             const payload = Object.assign({}, b, {
               productRows: ((bcase && bcase.productLinks) || []).map((l) => ({

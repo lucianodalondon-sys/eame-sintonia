@@ -104,7 +104,7 @@
     DSTATE: { 'CONFIRMED': 'CONFERMATA', 'EXPECTED_NORM': 'NORMA AGRONOMICA ATTESA', 'DATE_TO_CONFIRM': 'DATA DA CONFERMARE', 'NOT_APPLICABLE': 'NON APPLICABILE' },
     OBSCLASS: { 'OFFICIAL_OBSERVED_CURRENT': 'OSSERVATO UFFICIALE · CORRENTE', 'FIELD_REPORTED_CURRENT': 'RIPORTATO DAL CAMPO · CORRENTE', 'EXPECTED_CURRENT': 'ATTESO · CORRENTE', 'EXPECTED_NORM': 'NORMA ATTESA', 'HISTORICAL': 'STORICO', 'DEMO_SCENARIO': 'SCENARIO DIMOSTRATIVO', 'NOT_OBSERVED': 'NON OSSERVATO', 'UNKNOWN': 'SCONOSCIUTO' },
     wDaysRemaining: 'giorni rimanenti', wDaysToOpen: 'giorni all\'apertura', wDateToConfirm: 'DATA DA CONFERMARE',
-    PSTATE: { 'VERIFIED_LABEL_MATCH': 'CORRISPONDENZA VERIFICATA SU ETICHETTA', 'RELATED_PORTFOLIO': 'PORTAFOGLIO CORRELATO', 'LABEL_CHECK_NEEDED': 'VERIFICA ETICHETTA NECESSARIA', 'NO_CONFIRMED_MATCH_CURRENT_READING': 'NESSUNA CORRISPONDENZA CONFERMATA NELLA LETTURA ATTUALE' },
+    PSTATE: { 'VERIFIED_LABEL_MATCH': 'CORRISPONDENZA VERIFICATA SU ETICHETTA', 'RELATED_PORTFOLIO': 'PORTAFOGLIO CORRELATO', 'LABEL_CHECK_NEEDED': 'VALIDAZIONE IN CORSO', 'NO_CONFIRMED_MATCH_CURRENT_READING': 'NON CONFERMATO IN QUESTA LETTURA' },
     /* ── V2.1 · IL VOCABOLARIO CONTROLLATO DEL PACCHETTO ──────────────────
        Il pacchetto V2.1 è stato costruito in portoghese e i suoi stati sono
        token, non frasi: BLOCO_DA_CULTURA, PRAGA_OU_DOENCA, ALTA. Un token non
@@ -186,8 +186,14 @@
        che non ha mai visto il pacchetto canonico.
 
            SEI APPOGGI DELLA STESSA FAMIGLIA NON SONO SEI APPOGGI. */
+    lblWhyAdama: 'PERCHE INTERESSA AD ADAMA',
+    lblRtvReady: 'MATERIALE DI CAMPO DISPONIBILE',
+    lblRtvBlocked: 'MATERIALE DI CAMPO NON DISPONIBILE',
+    lblRtvBlockedNote: 'Il caso resta utile dentro ADAMA. Per uscire su un foglio di campo mancano:',
+    lblInternalOnly: 'USO INTERNO',
     lblCommercialMaterial: 'MATERIALE COMMERCIALE',
-    lblDownloadPdf: 'Scarica il PDF',
+    lblDownloadPdf: 'Scarica il brief interno',
+    lblDownloadRtv: 'Scarica la scheda di campo (RTV)',
     lblCommercialMaterialNote: 'Genera il brief operativo per l\'area che deve guardare questo caso. Il documento legge lo stesso oggetto di questa schermata.',
     lblNoCandidate: 'Nessun prodotto candidato in questa lettura',
     lblLinkState: 'STATO DEL LEGAME',
@@ -719,7 +725,7 @@
     DSTATE: { 'CONFIRMED': 'CONFIRMED', 'EXPECTED_NORM': 'EXPECTED AGRONOMIC NORM', 'DATE_TO_CONFIRM': 'DATE TO CONFIRM', 'NOT_APPLICABLE': 'NOT APPLICABLE' },
     OBSCLASS: { 'OFFICIAL_OBSERVED_CURRENT': 'OFFICIALLY OBSERVED · CURRENT', 'FIELD_REPORTED_CURRENT': 'FIELD REPORTED · CURRENT', 'EXPECTED_CURRENT': 'EXPECTED · CURRENT', 'EXPECTED_NORM': 'EXPECTED NORM', 'HISTORICAL': 'HISTORICAL', 'DEMO_SCENARIO': 'DEMO SCENARIO', 'NOT_OBSERVED': 'NOT OBSERVED', 'UNKNOWN': 'UNKNOWN' },
     wDaysRemaining: 'days remaining', wDaysToOpen: 'days to open', wDateToConfirm: 'DATE TO CONFIRM',
-    PSTATE: { 'VERIFIED_LABEL_MATCH': 'VERIFIED LABEL MATCH', 'RELATED_PORTFOLIO': 'RELATED PORTFOLIO', 'LABEL_CHECK_NEEDED': 'LABEL CHECK NEEDED', 'NO_CONFIRMED_MATCH_CURRENT_READING': 'NO CONFIRMED MATCH IN THE CURRENT READING' },
+    PSTATE: { 'VERIFIED_LABEL_MATCH': 'VERIFIED LABEL MATCH', 'RELATED_PORTFOLIO': 'RELATED PORTFOLIO', 'LABEL_CHECK_NEEDED': 'VALIDATION PENDING', 'NO_CONFIRMED_MATCH_CURRENT_READING': 'NOT CONFIRMED IN THIS READING' },
     V21: {
       SINTONIA_OPPORTUNITY: 'SINTONIA OPPORTUNITY',
       VERIFIED_CONVERGENCE: 'VERIFIED CONVERGENCE',
@@ -774,8 +780,14 @@
       FUTURO: 'FUTURE', PASSADO: 'PAST',
       BAIXA: 'LOW', MEDIA: 'MEDIUM', ALTA: 'HIGH',
     },
+    lblWhyAdama: 'WHY THIS MATTERS TO ADAMA',
+    lblRtvReady: 'FIELD MATERIAL AVAILABLE',
+    lblRtvBlocked: 'FIELD MATERIAL NOT AVAILABLE',
+    lblRtvBlockedNote: 'The case stays useful inside ADAMA. To leave on a field sheet it still needs:',
+    lblInternalOnly: 'INTERNAL USE',
     lblCommercialMaterial: 'COMMERCIAL MATERIAL',
-    lblDownloadPdf: 'Download the PDF',
+    lblDownloadPdf: 'Download the internal brief',
+    lblDownloadRtv: 'Download the field sheet (RTV)',
     lblCommercialMaterialNote: 'Generate the action brief for the area that should look at this case. The document reads the same object as this screen.',
     lblNoCandidate: 'No product candidate linked in the current reading',
     lblLinkState: 'LINK STATE',

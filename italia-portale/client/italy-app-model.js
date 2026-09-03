@@ -630,6 +630,95 @@
        chip, not print a guess. */
     unknown: { key: 'unknown', label: null, color: '#8F8886', dark: '#3A3533', soft: '#B1A9A7', ink: '#fff', body: '#EDEAE9', muted: '#B1A9A7', icon: 'connect', iconAsset: '', aShape: '', order: 3 },
   };
+  /* ══ PERCHE ADAMA DEVE INTERESSARSI ═══════════════════════════════════════
+     Una scheda che non risponde a questa domanda non e un'opportunita: e una
+     notizia agricola. La risposta non si inventa — l'ARCHETIPO e la
+     dichiarazione che il motore fa su PERCHE il caso esiste, e le aree che
+     instrada dicono chi ne porta la conseguenza.
+
+         INTERESSANTE PER L'AGRICOLTURA != OPPORTUNITA PER ADAMA.
+
+     Misurato sui 37: ognuno ha almeno una conseguenza dichiarata, quindi oggi
+     nessun caso va tolto dal radar. La regola resta scritta lo stesso, perche
+     il giorno in cui un caso non l'avra si dovra vedere. */
+  const RELEVANCE_LABEL = {
+    PRODUCT_OPPORTUNITY: ['Opportunita di prodotto', 'Product opportunity'],
+    DEVELOPMENT_MARKET_OPPORTUNITY: ['Sviluppo di mercato', 'Market development'],
+    PORTFOLIO_GAP: ['Lacuna di portafoglio', 'Portfolio gap'],
+    REGULATORY_IMPACT: ['Impatto normativo', 'Regulatory impact'],
+    SUPPLY_PREPARATION: ['Preparazione approvvigionamento', 'Supply preparation'],
+    MARKETING_COMPETITIVE_RESPONSE: ['Risposta competitiva', 'Competitive response'],
+    SCIENCE_TECHNICAL_PREPARATION: ['Preparazione tecnica', 'Technical preparation'],
+    VALIDATION_REQUIRED: ['Da validare', 'Validation required'],
+  };
+  /* Il MOTIVO, in una frase, e derivato dallo stesso fatto della classe: non e
+     una seconda opinione, e la stessa detta a parole. */
+  const RELEVANCE_WHY = {
+    PRODUCT_OPPORTUNITY: ['un prodotto ADAMA ha una corrispondenza verificata su etichetta per questo caso',
+      'an ADAMA product has a verified label match for this case'],
+    DEVELOPMENT_MARKET_OPPORTUNITY: ['il caso apre una coppia coltura x bersaglio da investigare o posizionare',
+      'the case opens a crop x target pair to investigate or position'],
+    PORTFOLIO_GAP: ['il portafoglio e coinvolto ma nessun legame di etichetta e confermato in questa lettura',
+      'the portfolio is involved but no label link is confirmed in this reading'],
+    REGULATORY_IMPACT: ['una scadenza o un cambiamento normativo tocca questo caso',
+      'a regulatory deadline or change touches this case'],
+    SUPPLY_PREPARATION: ['il motore instrada Approvvigionamento: c\'e una preparazione da valutare',
+      'the engine routes Supply: there is a preparation to assess'],
+    MARKETING_COMPETITIVE_RESPONSE: ['un movimento di comunicazione della concorrenza chiede una lettura',
+      'a competitor communication movement asks for a reading'],
+    SCIENCE_TECHNICAL_PREPARATION: ['esiste evidenza scientifica o di resistenza da validare prima di agire',
+      'there is scientific or resistance evidence to validate before acting'],
+    VALIDATION_REQUIRED: ['il caso e rilevato ma nessuna conseguenza e ancora sostenuta',
+      'the case is detected but no consequence is supported yet'],
+  };
+  const adamaRelevance = (o) => {
+    if (!o) return [];
+    const links = Array.isArray(o.productLinks) ? o.productLinks : [];
+    const verified = links.filter((l) => l && l.strength === 'VERIFIED_LABEL_MATCH').length;
+    const areas = Array.isArray(o.actionMap) ? o.actionMap : [];
+    const a = o.archetype;
+    const out = [];
+    const add = (k) => { if (out.indexOf(k) < 0) out.push(k); };
+    if (a === 'O5_REGULATORY_PREPARATION') add('REGULATORY_IMPACT');
+    if (a === 'O4_COMPETITIVE_OPENING') add('MARKETING_COMPETITIVE_RESPONSE');
+    if (a === 'O3_RESISTANCE_MOA' || a === 'O6_SCIENCE_TO_FIELD') add('SCIENCE_TECHNICAL_PREPARATION');
+    if (a === 'O2_MARKET_MOMENT') add('DEVELOPMENT_MARKET_OPPORTUNITY');
+    if (a === 'O1_FIELD_PRESSURE') add(verified ? 'PRODUCT_OPPORTUNITY' : 'DEVELOPMENT_MARKET_OPPORTUNITY');
+    if (areas.indexOf('SUPPLY') >= 0) add('SUPPLY_PREPARATION');
+    if (areas.indexOf('PORTFOLIO') >= 0 && !verified) add('PORTFOLIO_GAP');
+    if (verified) add('PRODUCT_OPPORTUNITY');
+    if (!out.length) add('VALIDATION_REQUIRED');
+    return out;
+  };
+
+  /* ══ INTERNO UTILE != PRONTO PER IL CANALE ════════════════════════════════
+     Un caso puo valere molto dentro ADAMA e non poter uscire su un foglio che
+     un rivenditore mette in mano a un agricoltore. Le due cose hanno due nomi
+     e due prove diverse.
+
+         UN CASO CHE SERVE DENTRO NON E, PER QUESTO, UN MATERIALE DI CAMPO.
+
+     Per RTV si esige cio che un foglio di campo afferma implicitamente: che
+     esiste un prodotto con legame VERIFICATO, che coltura e bersaglio sono
+     nominati, e che il momento e sostenuto. Misurato: 3 su 37 passano — e i
+     motivi dei 34 bloccati sono dichiarati uno per uno, non nascosti. */
+  const rtvEligibility = (o) => {
+    const blockers = [];
+    if (!o) return { ready: false, blockers: ['nessun caso'] };
+    const links = Array.isArray(o.productLinks) ? o.productLinks : [];
+    if (!links.filter((l) => l && l.strength === 'VERIFIED_LABEL_MATCH').length) blockers.push('NO_VERIFIED_PRODUCT');
+    if (!((o.cropKeys || [])[0] || o.crop)) blockers.push('NO_CROP');
+    if (!(o.issue || o.issueEn)) blockers.push('NO_TARGET');
+    if (!(o.windowStart || o.windowEnd || o.windowState)) blockers.push('NO_WINDOW');
+    return { ready: blockers.length === 0, blockers };
+  };
+  const RTV_BLOCKER_LABEL = {
+    NO_VERIFIED_PRODUCT: ['nessun prodotto con legame verificato su etichetta', 'no product with a verified label link'],
+    NO_CROP: ['la coltura non e risolta', 'the crop is not resolved'],
+    NO_TARGET: ['nessun bersaglio agronomico nominato', 'no agronomic target is named'],
+    NO_WINDOW: ['nessuna finestra sostenuta', 'no supported window'],
+  };
+
   /* ── LA CATEGORIA QUANDO ISSUE_TYPE TACE ────────────────────────────────
      ISSUE_TYPE e null su TUTTI E 37 i casi del motore V2.1, quindi categoryOf()
      rispondeva `unknown` trentasette volte e ogni scheda usciva con il gettone
@@ -4504,6 +4593,7 @@
     STRENGTH, ABSENCE_RULE,
     KNOWLEDGE, narrative,
     CATEGORY_UI, categoryOf, categoryFromProducts,
+    adamaRelevance, RELEVANCE_LABEL, RELEVANCE_WHY, rtvEligibility, RTV_BLOCKER_LABEL,
 
     /* presentation tokens — icon, colour, order, grid. No facts live here. */
     UI: {

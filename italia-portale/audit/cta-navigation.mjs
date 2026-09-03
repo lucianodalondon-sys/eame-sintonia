@@ -14,7 +14,8 @@
    Prova di vita accettata, in ordine di forza: l'impronta della schermata
    cambia · un pannello/drawer compare · il DOM muta (una sola mutazione basta —
    il rumore a riposo, misurato a ogni esecuzione, e zero) · si apre una scheda
-   nuova o un download · si apre un dialog nativo.
+   nuova o un download · si apre un dialog nativo · per un <a>, una destinazione
+   vera nell'href (vedi il blocco «i collegamenti» piu sotto).
 
    Tre cose NON sono difetti, e il portone le riconosce da solo:
      · la voce di menu della schermata in cui gia ti trovi (premere «Concorrenza»
@@ -45,6 +46,7 @@ const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i
 const JSON_OUT = arg('json', null);
 const MAX_SCREENS = Number(arg('screens', 99));
 const MAX_CLICKS = Number(arg('max', 9999));
+const PROVE_LINKS = Number(arg('prove-links', 3));   /* quanti <a> esterni per schermata si aprono davvero */
 const SETTLE = 190;
 
 /* La porta si cerca, non si dichiara. Un portone che muore con EADDRINUSE
@@ -146,6 +148,23 @@ const sidebarSet = new Set(SIDEBAR);
 
 const FORM = new Set(['select', 'input', 'textarea', 'option', 'label']);
 
+/* -- i collegamenti -------------------------------------------------------
+   «APRI LA FONTE ->» sono 79 <a target="_blank"> con un https vero. Premendoli
+   il DOM non si muove di un carattere — la scheda nuova arriva circa un secondo
+   dopo, molto oltre la finestra di 190 ms in cui il portone guarda — e la prima
+   versione li accusava tutti: settantotto bugie in una schermata sola, contro
+   collegamenti perfettamente funzionanti.
+
+       UN <a> CON UNA DESTINAZIONE E GIA CABLATO: LA PROVA E L'INDIRIZZO.
+       UN <a> CON «#» O «javascript:» PROMETTE E NON PORTA DA NESSUNA PARTE.
+
+   Quindi: un href vero non si preme uno per uno (aprirebbe la rete pubblica,
+   una scheda per riga, e renderebbe il portone lento e dipendente da internet);
+   un href vuoto, «#» o «javascript:» si preme come qualunque altro comando.
+   Perche la regola resti una MISURA e non una fiducia, ogni schermata ne APRE
+   DAVVERO qualcuno (--prove-links, 3 di default) con una finestra di 1,6 s. */
+const liveHref = (h) => !!h && h !== '#' && h !== '#!' && !/^javascript:/i.test(h);
+
 /* enumera descrizioni + gruppo (stesso genitore) + a quale voce di menu punta */
 const enrich = (p) => p.evaluate((E) => {
   const els = eval(E)(); const par = [];
@@ -230,6 +249,8 @@ const screens = [];
 const suspects = [];
 const blew = [];   /* pressioni che hanno fatto urlare la console */
 let judged = 0, alive = 0, formCtl = 0, selfNav = 0, notJudged = 0, drift = 0, enumSkew = 0;
+let linked = 0, linkProved = 0;
+const linkProofFailed = [];
 
 for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
   const reached = await clickTitle(page, label, 520);
@@ -256,6 +277,23 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
     if (!c.visible || !(c.pointer || c.tag === 'a' || c.tag === 'button')) { notJudged++; continue; }
     if (FORM.has(c.tag)) { formCtl++; sc.forms++; continue; }
     if ((meta[i] || {}).nt === label) { selfNav++; sc.selfNav++; continue; }
+
+    if (c.tag === 'a' && liveHref(c.href)) {
+      linked++; sc.linked = (sc.linked || 0) + 1;
+      if ((sc.proved || 0) >= PROVE_LINKS) continue;      /* cablato: l'indirizzo e la prova */
+      sc.proved = (sc.proved || 0) + 1;
+      const t0 = tabs, u0 = page.url();
+      const hit = await clickSig(page, sigs[i], ord[i]);
+      await harvest(page);
+      if (!hit) { sc.skipped++; continue; }
+      /* la finestra larga che una scheda nuova richiede davvero */
+      for (let w = 0; w < 8 && tabs === t0 && page.url() === u0; w++) await page.waitForTimeout(200);
+      if (tabs > t0 || page.url() !== u0) linkProved++;
+      else linkProofFailed.push({ screen: label, text: (c.text || '').replace(/\s+/g, ' ').slice(0, 40), href: c.href });
+      const r = await restore(label, sc);
+      if (r) cur = r; else { drift++; cur = await snap(page).catch(() => cur); }
+      continue;
+    }
 
     /* Una pressione misurata: impronta prima · click · respiro · impronta dopo.
        `pre` e sempre lo stato REALE del momento, mai quello di partenza — ed e
@@ -499,6 +537,7 @@ console.log(line(dead.length === 0, 'CT1', 'Every CTA pressed does something (de
 console.log(line(noHandler.length === 0, 'CT2', 'No cursor:pointer without handler, href or effect', 0, noHandler.length));
 console.log(line(drift === 0, 'CT3', 'No click left a screen the gate could not restore', 0, drift));
 console.log(line(enumSkew === 0, 'CT4', 'Enumeration and click list are the same list', 0, enumSkew));
+console.log(line(linkProofFailed.length === 0, 'CT5', 'Sampled <a href> links really open a tab', 0, linkProofFailed.length));
 console.log(line(unreached.length === 0, 'NV1', 'Every sidebar item reaches a screen', 0, unreached.length || 'all ' + navRows.length));
 console.log(line(collisions.length === 0, 'NV2', 'No two sidebar items land on the same screen', 0, collisions.length));
 console.log(line(backOk, 'NV3', 'In-app back returns from a detail to its list', 'yes', backOk ? `yes «${backLabel}» su ${backScreen}` : (detailOpened ? 'NO (' + backTried + ' topbar controls tried)' : 'no drill-down found')));
@@ -510,6 +549,7 @@ console.log('  ' + '─'.repeat(100));
 console.log(`  SCHERMATE = ${screens.length} di ${SIDEBAR.length} nella barra (${NAV_ALL.length} [title] in pagina, il resto e testata e mappa)`);
 console.log(`  CLICCABILI TROVATI = ${totalClickables} · PREMUTI E GIUDICATI = ${judged} · VIVI = ${alive} · MORTI = ${dead.length}`);
 console.log(`  non giudicati: ${formCtl} controlli di modulo (semantica change) · ${selfNav} voce della schermata corrente · ${notJudged} senza cursore proprio (host delegato, celle inerti della mappa)`);
+console.log(`  collegamenti con destinazione vera = ${linked} (cablati per costruzione) · aperti davvero per prova = ${linkProved}/${linkProved + linkProofFailed.length}`);
 console.log(`  rumore del DOM a riposo = ${NOISE} mutazioni/600ms — con zero, UNA mutazione dopo il click e prova di vita`);
 console.log(`  impronte rimisurate da pulito = ${rebase} · schermate non ripristinabili = ${drift} · firme non ripresentatesi = ${screens.reduce((a, x) => a + x.skipped, 0)}`);
 console.log(`  idempotenti (fermi qui, vivi altrove) = ${idempotent.length} — un comando gia soddisfatto non e un comando morto`);
@@ -545,6 +585,10 @@ if (dead.length) {
 }
 if (collisions.length) { console.log('\n  ' + C.r('SCHERMATE GEMELLE') + ':'); for (const [a, b] of collisions) console.log(`    ${a}  ≡  ${b}`); }
 if (emptyScreens.length) { console.log('\n  ' + C.r('SCHERMATE VUOTE') + ':'); for (const e of emptyScreens) console.log('    ' + e); }
+if (linkProofFailed.length) {
+  console.log('\n  ' + C.r('COLLEGAMENTI CHE NON SI SONO APERTI') + ':');
+  for (const l of linkProofFailed.slice(0, 10)) console.log(`    ${l.screen.padEnd(26)} «${l.text}» -> ${l.href.slice(0, 60)}`);
+}
 if (blew.length) {
   console.log('\n  ' + C.r('PRESSIONI CHE HANNO FATTO URLARE LA CONSOLE') + ':');
   for (const b of blew.slice(0, 12)) console.log(`    ${b.screen.padEnd(26)} <${b.tag}> «${b.text}»`.padEnd(84) + C.d(b.msg.slice(0, 70)));
@@ -558,13 +602,13 @@ if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({
   screens: screens.map(({ sigs, ord, meta, aliveIdx, ...rest }) => rest),
   dead: dead.map((d) => ({ screen: d.label, sig: d.sig, mode: d.mode, ...d.c })),
   idempotent: idempotent.map((d) => ({ screen: d.label, sig: d.sig, mode: d.mode })),
-  noHandler, blew, navRows, collisions, unreached, emptyScreens,
+  noHandler, blew, navRows, collisions, unreached, emptyScreens, linkProofFailed,
   back: { ok: backOk, label: backLabel, screen: backScreen, tried: backTried, detailOpened },
   reload: { ok: reloadOk, chars: afterReload.chars, clickables: reloadClicks },
-  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
+  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, linked, linkProved, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
   errors, failed,
 }, null, 1));
 
-const FAIL = dead.length || noHandler.length || drift || enumSkew || unreached.length || collisions.length
+const FAIL = dead.length || noHandler.length || drift || enumSkew || linkProofFailed.length || unreached.length || collisions.length
   || !backOk || !reloadOk || emptyScreens.length || errors.length || failed.length;
 process.exit(FAIL ? 1 : 0);

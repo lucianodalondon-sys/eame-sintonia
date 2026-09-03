@@ -258,7 +258,91 @@
     return base.toLowerCase() + '.pdf';
   }
 
+  /* ══ IL FOGLIO DI CAMPO NON E IL BRIEF INTERNO ════════════════════════════
+     Il brief instrada Marketing, Approvvigionamento, Sviluppo di Mercato: sono
+     conversazioni dentro ADAMA. Un rivenditore che le riceve legge cose che non
+     lo riguardano e che ADAMA non gli ha voluto dire.
+
+         NON SI VERSA L'INTELLIGENCE INTERNA ADDOSSO AL CANALE.
+
+     Questa e una PROIEZIONE: prende lo stesso oggetto canonico e ne stampa solo
+     cio che serve in campo — coltura, bersaglio, dove, quando, quale prodotto
+     con legame VERIFICATO, e la prossima azione quando e sostenuta. Le aree
+     interne non entrano. E se il caso non e idoneo, non si stampa niente: si
+     dice perche. */
+  function buildRtv(b) {
+    var J = window.jspdf || window.jsPDF;
+    if (!J || !J.jsPDF) throw new Error('jsPDF non caricato');
+    /* Il cancello e quello del modello, non una seconda opinione di questo file. */
+    if (b && b.rtvReady === false) {
+      var e = new Error('RTV_BLOCKED');
+      e.blockers = b.rtvBlockers || [];
+      throw e;
+    }
+    var doc = new J.jsPDF({ unit: 'mm', format: 'a4', compress: true });
+    reg(doc);
+    var p = mk(doc);
+    var IT = (b.lang || 'it') === 'it';
+    var TX = function (it, en) { return IT ? it : en; };
+    var accent = (b.lineKey && LINE[b.lineKey]) || C.green;
+    /* SOLO i prodotti con legame verificato. Un candidato in validazione non
+       esce su un foglio che qualcuno mette in mano a un agricoltore. */
+    var verified = (b.productRows || []).filter(function (x) { return x.strength === 'VERIFIED_LABEL_MATCH'; });
+
+    doc.setFillColor(C.green[0], C.green[1], C.green[2]);
+    doc.rect(0, 0, 210, 26, 'F');
+    try { doc.addImage(LOGO_PNG, 'PNG', 16, 8, 26, 0); } catch (e2) { /* vale anche senza */ }
+    doc.setFont('BrownLL', 'bold'); doc.setFontSize(11); doc.setTextColor(255, 255, 255);
+    doc.text(TX('SCHEDA DI CAMPO', 'FIELD SHEET'), 194, 13, { align: 'right' });
+    doc.setFont('BrownLL', 'normal'); doc.setFontSize(7.5);
+    doc.text(TX('ADAMA ITALIA', 'ADAMA ITALY'), 194, 18, { align: 'right' });
+    p.y = 40; p.foot();
+
+    /* COLTURA · BERSAGLIO — la prima cosa che si legge in campo */
+    p.text(String(b.crop || ''), { size: 24, bold: true, gap: 1 });
+    if (b.target) p.text(String(b.target), { size: 15, color: accent, gap: 2 });
+    if (b.region) p.text(String(b.region), { size: 11, color: C.earth, gap: 3 });
+    p.rule(accent);
+
+    /* IL MOMENTO — in parole, mai un token */
+    p.kicker(TX('Momento', 'Timing'), accent);
+    p.text(b.timingText || TX('Il momento non e confermato in questa lettura.', 'The timing is not confirmed in this reading.'),
+      { size: 12, bold: !!b.timingText, gap: 3 });
+
+    /* IL PRODOTTO — solo il verificato, e detto come verificato */
+    p.kicker(TX('Prodotto ADAMA', 'ADAMA product'), accent);
+    for (var i = 0; i < verified.length; i++) {
+      p.room(10);
+      p.text(verified[i].name, { size: 14, bold: true, gap: 0.5 });
+      p.text(TX('corrispondenza verificata su etichetta per questa coltura e questo bersaglio',
+        'verified label match for this crop and target'), { size: 9, color: C.greenDark, gap: 2.5 });
+    }
+
+    /* PERCHE IMPORTA IN CAMPO — la frase del modello, non una promessa nuova */
+    if (b.fieldWhy) { p.kicker(TX('Perche conta in campo', 'Why it matters in the field'), accent); p.text(b.fieldWhy, { size: 11, gap: 3 }); }
+
+    /* LA PROSSIMA AZIONE — solo se sostenuta */
+    if (b.nextAction) { p.kicker(TX('Prossima azione', 'Next action'), accent); p.text(b.nextAction, { size: 11, gap: 3 }); }
+
+    /* DA DOVE VIENE — in modo umano, senza id */
+    if (b.sourceHuman) { p.kicker(TX('Base', 'Basis'), accent); p.text(b.sourceHuman, { size: 9.5, color: C.earth, gap: 3 }); }
+
+    p.room(16); p.rule();
+    p.text(TX('Le dosi, i tempi di carenza e le condizioni d\'impiego si leggono SEMPRE sull\'etichetta del prodotto. Questa scheda non le sostituisce e non le riporta.',
+      'Rates, pre-harvest intervals and use conditions are ALWAYS read on the product label. This sheet does not replace or reproduce them.'),
+      { size: 8.5, color: C.ink, gap: 1 });
+    p.text(String(b.generated || ''), { size: 7.5, color: C.earth, gap: 0 });
+    return doc;
+  }
+
   window.ITALY_PDF = {
+    buildRtv: buildRtv,
+    downloadRtv: function (b) {
+      var d = buildRtv(b);
+      var f = 'scheda-di-campo-' + String(b.crop || 'adama').toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.pdf';
+      d.save(f); return f;
+    },
+    rtvBytes: function (b) { return buildRtv(b).output('arraybuffer'); },
     build: build,
     /* Il click produce un FILE. Non una finestra, non una promessa. */
     download: function (b) { var d = build(b); d.save(filename(b)); return filename(b); },
