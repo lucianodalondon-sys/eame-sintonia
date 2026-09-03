@@ -81,11 +81,14 @@ if os.path.isdir(LIBS):
     sys.path.insert(0, LIBS)
 
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
-LOTE = os.path.join(SAMPLES, 'COMPETITOR-PUBLIC-COMM', 'PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json')
-SAIDA = os.path.join(SAMPLES, 'IT-INSTAGRAM-V1')
+# Qual lote congelado obedecer. O arquivo nao decide quem entra — ele obedece.
+VERSAO = os.environ.get('IG_LOTE') or 'V1'
+LOTE = os.path.join(SAMPLES, 'COMPETITOR-PUBLIC-COMM',
+                    'PUBLIC-COMM-IT-SOCIAL-BATCH-%s.json' % VERSAO)
+SAIDA = os.path.join(SAMPLES, 'IT-INSTAGRAM-%s' % VERSAO)
 MEDIA = os.path.join(SAIDA, 'media-cache')
 CAPTURA = os.environ.get('IG_DATA') or '2026-09-03'
-RUN_ID = 'IT-IG-' + CAPTURA
+RUN_ID = 'IT-IG-%s-' % VERSAO + CAPTURA
 NAO_SEI = 'NAO_SEI'
 
 # O bot é quem o Instagram atende com o bloco hidratado. Identificar-se como ele é
@@ -147,7 +150,7 @@ def _gravar(nome, corpo):
     os.makedirs(SAIDA, exist_ok=True)
     with open(os.path.join(SAIDA, nome), 'w', encoding='utf-8') as f:
         json.dump(corpo, f, ensure_ascii=False, indent=1)
-    return 'data/samples/IT-INSTAGRAM-V1/' + nome
+    return 'data/samples/IT-INSTAGRAM-%s/' % VERSAO + nome
 
 
 def _ler(nome):
@@ -237,9 +240,9 @@ def fase_perfis():
         time.sleep(PAUSA)
     ok = sum(1 for x in linhas if x.get('STATE') == 'OK')
     corpo = {
-        'DATASET': 'IT-INSTAGRAM-PERFIS-V1',
+        'DATASET': 'IT-INSTAGRAM-PERFIS-%s' % VERSAO,
         'SOURCE': 'Instagram — embed público de perfil, UA facebookexternalhit/1.1',
-        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-V1',
+        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-%s' % VERSAO,
         'CAPTURED_AT': CAPTURA, 'RUN_ID': RUN_ID,
         'ROUTE_LAW': ('o User-Agent era a fechadura, não o navegador. A MESMA URL devolve '
                       'zero contextJSON sob UA de Chrome e o bloco hidratado sob '
@@ -252,7 +255,7 @@ def fase_perfis():
         'VIDEOS_FOUND': sum(1 for o in objetos if o['IS_VIDEO'] == 'YES'),
         'PROFILES': linhas, 'OBJECTS': objetos,
     }
-    p = _gravar('IT-INSTAGRAM-PERFIS-V1.json', corpo)
+    p = _gravar('IT-INSTAGRAM-PERFIS-%s.json' % VERSAO, corpo)
     print('\n%d de %d contas · %d objetos · %d vídeos' % (ok, len(contas), len(objetos), corpo['VIDEOS_FOUND']))
     print('escrito: %s' % p)
     return 0
@@ -260,7 +263,7 @@ def fase_perfis():
 
 # ── FASE 2 · OBJETOS ───────────────────────────────────────────────────────────
 def fase_objetos(teto=None):
-    d = _ler('IT-INSTAGRAM-PERFIS-V1.json')
+    d = _ler('IT-INSTAGRAM-PERFIS-%s.json' % VERSAO)
     if not d:
         print('rode `perfis` antes')
         return 1
@@ -304,9 +307,9 @@ def fase_objetos(teto=None):
                                                reg.get('VIDEO_DURATION_S')))
         time.sleep(PAUSA)
     corpo = {
-        'DATASET': 'IT-INSTAGRAM-OBJETOS-V1',
+        'DATASET': 'IT-INSTAGRAM-OBJETOS-%s' % VERSAO,
         'SOURCE': 'Instagram — embed público de post, UA facebookexternalhit/1.1',
-        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-V1',
+        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-%s' % VERSAO,
         'CAPTURED_AT': CAPTURA, 'RUN_ID': RUN_ID,
         'JOIN_LAW': ('a DATA vem do embed de PERFIL e a URL DO VÍDEO vem do embed de POST. '
                      'Os dois são complementares; quem usa só um perde metade.'),
@@ -315,7 +318,7 @@ def fase_objetos(teto=None):
         'COPYRIGHT_BLOCKED': sum(1 for x in saida if x.get('COPYRIGHT_BLOCKED')),
         'ITEMS': saida,
     }
-    p = _gravar('IT-INSTAGRAM-OBJETOS-V1.json', corpo)
+    p = _gravar('IT-INSTAGRAM-OBJETOS-%s.json' % VERSAO, corpo)
     print('\n%d de %d com VIDEO_URL · %d copyright_blocked' % (ok, len(alvos), corpo['COPYRIGHT_BLOCKED']))
     print('escrito: %s' % p)
     return 0
@@ -345,7 +348,7 @@ def _audio(sc, url):
 
 
 def fase_transcrever(teto=None):
-    d = _ler('IT-INSTAGRAM-OBJETOS-V1.json')
+    d = _ler('IT-INSTAGRAM-OBJETOS-%s.json' % VERSAO)
     if not d:
         print('rode `objetos` antes')
         return 1
@@ -366,7 +369,7 @@ def fase_transcrever(teto=None):
     pipe = BatchedInferencePipeline(model=m)
 
     feitos = {}
-    ant = _ler('IT-INSTAGRAM-TRANSCRICOES-V1.json')
+    ant = _ler('IT-INSTAGRAM-TRANSCRICOES-%s.json' % VERSAO)
     if ant:
         feitos = {i['SHORTCODE']: i for i in ant.get('ITEMS', [])
                   if i.get('TRANSCRIPT_STATE') == 'OK'}
@@ -433,9 +436,9 @@ def fase_transcrever(teto=None):
                  reg.get('TRANSCRIPT_CHARS', 0), reg['SIGNAL_ONLY_IN_TRANSCRIPT']))
     ok = [i for i in itens if i.get('TRANSCRIPT_STATE') == 'OK']
     corpo = {
-        'DATASET': 'IT-INSTAGRAM-TRANSCRICOES-V1',
+        'DATASET': 'IT-INSTAGRAM-TRANSCRICOES-%s' % VERSAO,
         'SOURCE': 'Instagram — vídeo público via embed (UA bot) + transcrição LOCAL',
-        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-V1',
+        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-%s' % VERSAO,
         'CAPTURED_AT': CAPTURA, 'RUN_ID': RUN_ID,
         'CAPTION_SOURCE_LAW': ('SINTONIA_WHISPER_LOCAL é a transcrição DESTA casa. Não '
                                'confundir com YOUTUBE_ASR_AUTO, que é fala de terceiro.'),
@@ -446,7 +449,7 @@ def fase_transcrever(teto=None):
         'SIGNAL_ONLY_IN_TRANSCRIPT': sum(1 for i in ok if i.get('SIGNAL_ONLY_IN_TRANSCRIPT') == 'YES'),
         'ITEMS': itens,
     }
-    p = _gravar('IT-INSTAGRAM-TRANSCRICOES-V1.json', corpo)
+    p = _gravar('IT-INSTAGRAM-TRANSCRICOES-%s.json' % VERSAO, corpo)
     print('\n%d transcritos · %ds de áudio · %ds de máquina · %d caracteres · custo 0,00 USD'
           % (len(ok), corpo['AUDIO_SECONDS'], corpo['MACHINE_SECONDS'], corpo['TRANSCRIPT_CHARS']))
     print('sinal SÓ NA FALA em %d de %d' % (corpo['SIGNAL_ONLY_IN_TRANSCRIPT'], len(ok)))

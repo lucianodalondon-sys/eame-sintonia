@@ -1,0 +1,167 @@
+{
+ "SOURCE_ID": "PUBLIC-COMM-IT-SOCIAL-BATCH-V2",
+ "DATASET_OWNER": "SINTONIA_SCRAP_ITALY",
+ "VERSION": "V2",
+ "FROZEN_AT": "2026-09-03",
+ "CAPTURED_AT": "2026-09-03",
+ "CAPTURED_AT_POR_QUE": "DERIVED_SCOPE: a lista nao foi capturada do mundo, foi derivada de leituras de site feitas nesta missao. A data em que passou a existir E a data do congelamento.",
+ "FROZEN_RULE": "esta lista NAO muda depois da primeira coleta. Criterio novo produz V2 explicita, com a V1 preservada — senao o rendimento fica medido contra um denominador que se mexeu.",
+ "ENTRY_RULE": "ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ACCOUNT_OWNER",
+ "WHY_THE_RULE_IS_THIS_NARROW": "ES-T8-003 reprovou com 39 de 60 itens agronomicos porque 24 de 32 contas nao declaravam pais. Volume nao compensa identidade ausente.",
+ "EVIDENCE_CLASS": "DERIVED_SCOPE",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "ACCOUNTS_IN_BATCH": 5,
+ "BY_PLATFORM": {
+  "INSTAGRAM": 5
+ },
+ "BY_PAGE_ROLE": {
+  "INDIVIDUAL_TECHNICAL_VOICE": 2,
+  "TECHNICAL_BUSINESS_VOICE": 1,
+  "DISTRIBUTION": 1,
+  "SCIENTIFIC_SOCIETY": 1
+ },
+ "BY_PRIORITY": {
+  "1": 4,
+  "2": 1
+ },
+ "EXECUTION_ORDER": [
+  {
+   "STEP": "A",
+   "FASE": "janela-perfis",
+   "CUSTO": "ZERO",
+   "GATE": "rota publica pelo navegador — bio, seguidores e o denominador de posts"
+  },
+  {
+   "STEP": "B",
+   "FASE": "janela-objetos",
+   "CUSTO": "ZERO",
+   "GATE": "os 12 itens recentes, legenda inteira, data, curtidas e — em reel — duracao e MP4"
+  },
+  {
+   "STEP": "C",
+   "FASE": "transcrever",
+   "CUSTO": "ZERO em dolar, tempo de maquina",
+   "GATE": "faster-whisper small, idioma it DECLARADO, nunca detectado"
+  },
+  {
+   "STEP": "D",
+   "FASE": "comentarios",
+   "CUSTO": "PAGA",
+   "GATE": "so atras do portao de dado pessoal, e so se as tres fases gratis fecharem sem PARTIAL"
+  }
+ ],
+ "WINDOW_FIRST": "LAST_30D",
+ "WINDOW_WIDEN_TO": "LAST_60D, depois LAST_90D",
+ "WINDOW_WIDEN_RULE": "so onde o corpus vier baixo. Nunca historico profundo na primeira execucao.",
+ "CONTENT_COLLECTION_STAGE": "NOT_STARTED",
+ "MISSION_STATE": "READY_TO_COLLECT",
+ "WHAT_STILL_NEEDS_THE_RUNNER": "a grade completa: esta rota entrega 6 itens por conta, o Chrome com janela entrega 12. E os COMENTARIOS, que nenhuma das duas rotas gratis entrega e que continuam sendo o unico motivo real de pagar.",
+ "ZERO_MEANS_NOW": "NO_CONTENT_COLLECTION_EXECUTED — nenhum zero deste lote fala sobre o mundo ainda",
+ "ZERO_WILL_MEAN_AFTER_A_VALID_RUN": "NO_ITEMS_OBSERVED nesta conta provada, nesta plataforma, nesta janela, nesta execucao bem-sucedida. NUNCA ORGANIZATION_NOT_COMMUNICATING.",
+ "ACCOUNTS": [
+  {
+   "HANDLE": "daniele.paci.agronomo",
+   "URL": "https://www.instagram.com/daniele.paci.agronomo/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Daniele Paci — agronomo",
+   "PAGE_ROLE": "INDIVIDUAL_TECHNICAL_VOICE",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "o proprio embed de perfil declara full_name \"Daniele Paci\"; 390.996 seguidores, 1.000 posts, 5 dos 6 itens recentes sao video (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "agronomo que publica quase so video. A V1 nao tinha nenhuma voz INDIVIDUAL, e e ai que mora a fala de campo — a organizacao fala institucional",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "agronomo.giuseppedisalvo",
+   "URL": "https://www.instagram.com/agronomo.giuseppedisalvo/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Dottore Agronomo Giuseppe Di Salvo",
+   "PAGE_ROLE": "INDIVIDUAL_TECHNICAL_VOICE",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "o embed declara full_name \"Dottore Agronomo Giuseppe Di Salvo\"; 4.538 seguidores, 132 posts (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "agronomo declarado no proprio nome da conta. VALOR TECNICO > AUDIENCIA: entra com 4.538 seguidores pelo mesmo criterio que o de 390 mil",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "vignetosicuro.it",
+   "URL": "https://www.instagram.com/vignetosicuro.it/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "VignetoSicuro.it",
+   "PAGE_ROLE": "TECHNICAL_BUSINESS_VOICE",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "o embed declara full_name \"VignetoSicuro.it\"; 4.466 seguidores, 175 posts, 2 videos na grade recente (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "negocio tecnico dedicado a VITE — 96 pares de rotulo ADAMA e cinco oportunidades. O reel DcRFDBxN-4Q, de 2026-08-20, foi classificado PRODUCER_VOICE na varredura",
+   "CROPS_RELEVANT": [
+    "VITE"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "cai_consorziagrariditalia",
+   "URL": "https://www.instagram.com/cai_consorziagrariditalia/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "CAI — Consorzi Agrari d'Italia",
+   "PAGE_ROLE": "DISTRIBUTION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "dono declarado do reel DcdREpGDBAW pelo campo owner.username do proprio embed (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "a camada de DISTRIBUICAO, que e onde a decisao tecnica encosta na decisao de compra e que o acervo canonico nao tem. Publicou em 2026-09-03, no dia da leitura",
+   "CROPS_RELEVANT": [
+    "FRUMENTO",
+    "MAIS",
+    "SOIA",
+    "BARBABIETOLA"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "siagr.it",
+   "URL": "https://www.instagram.com/siagr.it/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Societa Italiana di Agronomia",
+   "PAGE_ROLE": "SCIENTIFIC_SOCIETY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "dono declarado do reel Dcy1iEIjcVo pelo campo owner.username do proprio embed (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "sociedade cientifica italiana de agronomia; complementa a AIPP, que cobre protecao das plantas, na camada de agronomia geral",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 2
+  }
+ ],
+ "SUPERSEDES": null,
+ "V1_PRESERVED_AT": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json",
+ "WHY_A_V2_EXISTS": "a V1 resolveu IDENTIDADE e reprovou em DENSIDADE: 28 reels transcritos, 5 sinais so-na-fala, nenhum de campo. A causa e o criterio de entrada da V1 — ela foi montada a partir do site das ORGANIZACOES, e organizacao comunica institucional.",
+ "WHAT_CHANGED_IN_THE_CRITERION": "a conta e de uma PESSOA ou de um NEGOCIO TECNICO que fala de campo, e a identidade vem do proprio embed de perfil (full_name declarado pelo dono) ou do campo owner.username de um post dele.",
+ "ATTRIBUTION_CORRECTED": [
+  {
+   "SHORTCODE": "DYPAbHkB-43",
+   "ATTRIBUTED_TO": "OmniTrattore.it",
+   "ACTUAL_OWNER": "giulia.tonello",
+   "ACTION": "nao entra na V2 — relevancia ADAMA nao estabelecida"
+  },
+  {
+   "SHORTCODE": "DcKwInEM6NL",
+   "ATTRIBUTED_TO": "Interpoma 2026",
+   "ACTUAL_OWNER": "valzioo",
+   "ACTION": "nao entra na V2 — relevancia ADAMA nao estabelecida"
+  }
+ ],
+ "TESTED_AND_LEFT_OUT": [
+  {
+   "HANDLE": "omnitrattore.it",
+   "STATE": "CONTEXTJSON_NULL",
+   "MEANS": "o embed responde e nao traz o bloco hidratado. NAO_SEI, nunca \"conta vazia\"."
+  }
+ ]
+}

@@ -207,6 +207,89 @@ CONTAS = [
 ]
 
 
+# ── V2 · A VOZ TECNICA INDIVIDUAL ──────────────────────────────────────────────
+# A V1 ficou congelada e PRESERVADA. Esta e a V2, e ela existe porque a V1 reprovou por
+# um motivo que e culpa do criterio, nao da rota:
+#
+#     A V1 foi montada a partir do SITE DAS ORGANIZACOES, e organizacao comunica
+#     institucional. 28 reels transcritos deram 5 sinais so-na-fala, e os cinco eram
+#     captacao de aluno, projeto de irrigacao, entrevista de ex-aluno, "como abrir uma
+#     azienda agricola" e uma historia de filiera. Nenhum sinal de campo.
+#
+#     IDENTIDADE RESOLVIDA NAO E DENSIDADE RESOLVIDA.
+#
+# Na Espanha o Instagram reprovou por IDENTIDADE (24 de 32 contas sem pais declarado).
+# Aqui a identidade esta provada e ele reprova por DENSIDADE. Sao falhas diferentes e
+# precisam de nomes diferentes.
+#
+# A V2 troca o criterio de entrada: a conta e de uma PESSOA ou de um NEGOCIO TECNICO que
+# fala de campo, e a identidade vem do PROPRIO EMBED DE PERFIL — `full_name` declarado
+# pelo dono da conta, lido em 2026-09-03. Isso satisfaz a mesma lei da V1 por outro
+# caminho: quem declara continua sendo o dono, e nao um buscador.
+
+CONTAS_V2 = [
+    C('daniele.paci.agronomo', 'Daniele Paci — agronomo', 'INDIVIDUAL_TECHNICAL_VOICE', 'INSTAGRAM',
+      'o proprio embed de perfil declara full_name "Daniele Paci"; 390.996 seguidores, '
+      '1.000 posts, 5 dos 6 itens recentes sao video (leitura 2026-09-03)',
+      'agronomo que publica quase so video. A V1 nao tinha nenhuma voz INDIVIDUAL, e e ai '
+      'que mora a fala de campo — a organizacao fala institucional',
+      ['TODAS'], 1),
+    C('agronomo.giuseppedisalvo', 'Dottore Agronomo Giuseppe Di Salvo',
+      'INDIVIDUAL_TECHNICAL_VOICE', 'INSTAGRAM',
+      'o embed declara full_name "Dottore Agronomo Giuseppe Di Salvo"; 4.538 seguidores, '
+      '132 posts (leitura 2026-09-03)',
+      'agronomo declarado no proprio nome da conta. VALOR TECNICO > AUDIENCIA: entra com '
+      '4.538 seguidores pelo mesmo criterio que o de 390 mil',
+      ['TODAS'], 1),
+    C('vignetosicuro.it', 'VignetoSicuro.it', 'TECHNICAL_BUSINESS_VOICE', 'INSTAGRAM',
+      'o embed declara full_name "VignetoSicuro.it"; 4.466 seguidores, 175 posts, 2 videos '
+      'na grade recente (leitura 2026-09-03)',
+      'negocio tecnico dedicado a VITE — 96 pares de rotulo ADAMA e cinco oportunidades. '
+      'O reel DcRFDBxN-4Q, de 2026-08-20, foi classificado PRODUCER_VOICE na varredura',
+      ['VITE'], 1),
+    C('cai_consorziagrariditalia', "CAI — Consorzi Agrari d'Italia", 'DISTRIBUTION', 'INSTAGRAM',
+      'dono declarado do reel DcdREpGDBAW pelo campo owner.username do proprio embed '
+      '(leitura 2026-09-03)',
+      'a camada de DISTRIBUICAO, que e onde a decisao tecnica encosta na decisao de compra '
+      'e que o acervo canonico nao tem. Publicou em 2026-09-03, no dia da leitura',
+      ['FRUMENTO', 'MAIS', 'SOIA', 'BARBABIETOLA'], 1),
+    C('siagr.it', 'Societa Italiana di Agronomia', 'SCIENTIFIC_SOCIETY', 'INSTAGRAM',
+      'dono declarado do reel Dcy1iEIjcVo pelo campo owner.username do proprio embed '
+      '(leitura 2026-09-03)',
+      'sociedade cientifica italiana de agronomia; complementa a AIPP, que cobre protecao '
+      'das plantas, na camada de agronomia geral',
+      ['TODAS'], 2),
+]
+
+# ── UM DEFEITO DE ATRIBUICAO ENCONTRADO NA VARREDURA ───────────────────────────
+# A varredura paralela nomeou dois reels pelo canal errado. O campo `owner.username` do
+# proprio embed desmente:
+#
+#     reel DYPAbHkB-43  atribuido a "OmniTrattore.it"   -> owner e `giulia.tonello`
+#     reel DcKwInEM6NL  atribuido a "Interpoma 2026"    -> owner e `valzioo`
+#
+# E a mesma familia do erro espanhol de contar tres funcionarios da FMC, UPL e BASF como
+# se fossem o canal da empresa porque o headline nomeava o empregador.
+#
+#     QUEM PUBLICA E O `owner.username`. O RESTO E CONTEXTO.
+#
+# As duas contas NAO entram na V2: sao pessoas fisicas cuja relevancia ADAMA nao foi
+# estabelecida, e entrar por engano de atribuicao seria pior que ficar de fora.
+ATRIBUICAO_CORRIGIDA = [
+    {'SHORTCODE': 'DYPAbHkB-43', 'ATTRIBUTED_TO': 'OmniTrattore.it',
+     'ACTUAL_OWNER': 'giulia.tonello', 'ACTION': 'nao entra na V2 — relevancia ADAMA nao estabelecida'},
+    {'SHORTCODE': 'DcKwInEM6NL', 'ATTRIBUTED_TO': 'Interpoma 2026',
+     'ACTUAL_OWNER': 'valzioo', 'ACTION': 'nao entra na V2 — relevancia ADAMA nao estabelecida'},
+]
+
+# omnitrattore.it foi testado e devolveu CONTEXTJSON_NULL: a conta existe e o embed dela
+# nao carrega o bloco. Estado da conta, nao veredito sobre a conta.
+V2_TESTADAS_E_FORA = [
+    {'HANDLE': 'omnitrattore.it', 'STATE': 'CONTEXTJSON_NULL',
+     'MEANS': 'o embed responde e nao traz o bloco hidratado. NAO_SEI, nunca "conta vazia".'},
+]
+
+
 def escrever():
     os.makedirs(SAIDA, exist_ok=True)
     from collections import Counter
@@ -269,6 +352,37 @@ def escrever():
     caminho = os.path.join(SAIDA, 'PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json')
     with open(caminho, 'w', encoding='utf-8') as fh:
         json.dump(corpo, fh, ensure_ascii=False, indent=1)
+
+    v2 = dict(corpo)
+    v2.update({
+        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-V2',
+        'VERSION': 'V2',
+        'SUPERSEDES': None,
+        'V1_PRESERVED_AT': 'data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json',
+        'WHY_A_V2_EXISTS': ('a V1 resolveu IDENTIDADE e reprovou em DENSIDADE: 28 reels '
+                            'transcritos, 5 sinais so-na-fala, nenhum de campo. A causa e o '
+                            'criterio de entrada da V1 — ela foi montada a partir do site das '
+                            'ORGANIZACOES, e organizacao comunica institucional.'),
+        'WHAT_CHANGED_IN_THE_CRITERION': ('a conta e de uma PESSOA ou de um NEGOCIO TECNICO que '
+                                          'fala de campo, e a identidade vem do proprio embed de '
+                                          'perfil (full_name declarado pelo dono) ou do campo '
+                                          'owner.username de um post dele.'),
+        'ENTRY_RULE': 'ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ACCOUNT_OWNER',
+        'ACCOUNTS_IN_BATCH': len(CONTAS_V2),
+        'BY_PLATFORM': dict(Counter(c['PLATFORM'] for c in CONTAS_V2)),
+        'BY_PAGE_ROLE': dict(Counter(c['PAGE_ROLE'] for c in CONTAS_V2)),
+        'BY_PRIORITY': dict(Counter(c['COLLECTION_PRIORITY'] for c in CONTAS_V2)),
+        'ACCOUNTS': CONTAS_V2,
+        'ATTRIBUTION_CORRECTED': ATRIBUICAO_CORRIGIDA,
+        'TESTED_AND_LEFT_OUT': V2_TESTADAS_E_FORA,
+        'CONTENT_COLLECTION_STAGE': 'NOT_STARTED',
+        'MISSION_STATE': 'READY_TO_COLLECT',
+    })
+    v2.pop('CORRECTION', None)
+    v2.pop('WHAT_WAS_COLLECTED_HERE', None)
+    caminho2 = os.path.join(SAIDA, 'PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json')
+    with open(caminho2, 'w', encoding='utf-8') as fh:
+        json.dump(v2, fh, ensure_ascii=False, indent=1)
     return caminho, corpo
 
 
