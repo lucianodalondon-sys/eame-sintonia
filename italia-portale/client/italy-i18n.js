@@ -345,6 +345,13 @@
     vociOpenSource: 'APRI LA FONTE', vociUnknownPerson: 'Identità non dichiarata',
     vociRoleUnknown: 'Ruolo non verificabile', vociRegionNotStated: 'Regione non dichiarata',
     lblSourceLoc: 'Fonte', lblFactLoc: 'Fatto',
+    /* nomi delle famiglie nel pannello STATO DEI DATI: senza questi il
+       pannello stampava la chiave dello schema in inglese. */
+    DSLAYER: { fieldBulletins: 'bollettini regionali di campo, come letti',
+      cropEconomics: 'peso economico delle colture',
+      productActiveIngredients: 'coppie prodotto x sostanza attiva',
+      activeIngredients: 'sostanze attive',
+      regulatoryFutureFacts: 'fatti normativi datati in arrivo' },
     navVoices: 'Voci dal Campo', /* 21 delle 79 voci non vengono da YouTube ma dalla stampa di settore, e
        per parte di quelle il ruolo di chi parla E dichiarato e verificabile.
        La frase precedente negava entrambe le cose per l'intero corpus. */
@@ -841,6 +848,11 @@
     vociOpenSource: 'OPEN SOURCE', vociUnknownPerson: 'Identity not stated',
     vociRoleUnknown: 'Role not verifiable', vociRegionNotStated: 'Region not stated',
     lblSourceLoc: 'Source', lblFactLoc: 'Fact',
+    DSLAYER: { fieldBulletins: 'regional field bulletins as read',
+      cropEconomics: 'crop economic weight',
+      productActiveIngredients: 'product x active substance pairs',
+      activeIngredients: 'active substances',
+      regulatoryFutureFacts: 'dated regulatory facts ahead' },
     navVoices: 'Field Voices', subVoices: 'External public voices: comments on Italian YouTube channels and statements reported by the trade press. Where the source does not declare the speaker\'s role, the card says so.',
     navProduct: 'ADAMA product', navIntegrations: 'INTEGRATIONS · DEMO',
     prodCommercial: 'COMMERCIAL CATALOG STATUS', prodRegulatory: 'REGULATORY STATUS', prodCategory: 'CATEGORY', prodAi: 'ACTIVE INGREDIENT',

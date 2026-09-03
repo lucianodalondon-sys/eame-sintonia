@@ -2904,7 +2904,15 @@ class Component extends DCLogic {
        names with documented identity AND role, 60 OpenAlex researchers, 9 shared —
        so it is neither contained in one nor summable with the other. */
     const UNION_OF = { people: ['researchers', 'publicPeople'] };
+    /* Cinque famiglie non avevano etichetta e il pannello stampava la chiave
+       dello schema — «fieldBulletins», «cropEconomics» — come se fosse il nome
+       di una cosa che il lettore conosce. */
     const DS_EN = {
+      fieldBulletins: 'regional field bulletins as read',
+      cropEconomics: 'crop economic weight',
+      productActiveIngredients: 'product x active substance pairs',
+      activeIngredients: 'active substances',
+      regulatoryFutureFacts: 'dated regulatory facts ahead',
       productsRegulatory: 'Products · registry', productsCommercial: 'Products · catalogue',
       productRelationships: 'Product relationships', products: 'Portfolio',
       labelVerdicts: 'Label audit', regulatoryLinks: 'Authorized use rows',
@@ -6449,7 +6457,12 @@ class Component extends DCLogic {
            localized mechanism text it renders; today it never does. */
         mech: sciNar(r.mechanism) || sciMechUnknown,
         mechColor: sciNar(r.mechanism) ? '#F89E18' : '#8F8886',
-        regions: regions.slice(0, 4).join(' · ') || sciL('regioni non risolte', 'regions not resolved'),
+        /* NOT_ESTABLISHED e il sentinella del pacchetto per «non accertato»,
+           non una regione. Finiva dentro l'elenco e veniva stampato al posto
+           di un luogo, mentre il ripiego «regioni non risolte» non scattava
+           mai perche l'array non era vuoto. */
+        regions: regions.filter((r) => r && !/^NOT_ESTABLISHED$|^NAO_SEI$|^UNKNOWN$/i.test(String(r).trim()))
+          .slice(0, 4).join(' · ') || sciL('regioni non risolte', 'regions not resolved'),
         /* §8 · Never an absolute negative. The denominator is counted from the
            data and the absence rule travels with the negative. */
         adamaCount: hits.length,
