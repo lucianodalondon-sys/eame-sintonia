@@ -702,7 +702,7 @@
                   <span style="padding:3px 9px;border-radius:9999px;background:{{ r.stateColor }};color:{{ r.stateInk }};font-size:9.5px;font-weight:700;letter-spacing:0.08em;white-space:nowrap">{{ r.state }}</span>
                   <span style="font-size:15px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap">{{ r.daysLabel }}</span>
                 </div>
-                <span style="font-size:10.5px;color:#9A9391;line-height:1.3">{{ r.windowFrom }} → {{ r.windowTo }} · lead {{ r.leadDays }}d from {{ r.prepFrom }}</span>
+                <span style="font-size:10.5px;color:#9A9391;line-height:1.3">{{ r.windowSpanLine }}</span>
                 <span style="font-size:11px;font-weight:700;color:#fff;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.matchLabel }}</span>
                 <span style="font-size:10px;color:#8F8886;line-height:1.3">{{ r.sourceLine }}</span>
               </div>
@@ -2514,10 +2514,20 @@ class Component extends DCLogic {
          resta scritta — una volta.
 
              NON SI DICE DUE VOLTE CIO CHE NON SI SA UNA. */
+      /* ... e non si dice con le parole di un'altra popolazione. UNK_DATE e
+         l'etichetta di una FINESTRA in stato DATE_UNKNOWN, e di quelle ce ne
+         sono cinque. I casi senza finestra dichiarata sono trenta. Con la
+         stessa frase su entrambi, la prima schermata mostrava dodici schede
+         «DATA DA CONFERMARE» accanto a un contatore che ne dichiarava cinque:
+         due cose vere che, dette uguali, si smentiscono a vicenda. */
       datesLabel: (dfmt(ws) || dfmt(we))
         ? ((dfmt(ws) || UNK_DATE) + ' — ' + (dfmt(we) || UNK_DATE))
-        : UNK_DATE,
-      cropL: (T0.CROPS && T0.CROPS[c.crop]) || c.crop || '',
+        : ((T0.csNoWindowShort) || UNK_DATE),
+      /* Una coltura assente ha un motivo dichiarato a monte (NOT_OBSERVED,
+         GENERIC_TERM). Stamparlo e onesto; lasciare la riga vuota fa sembrare
+         che la scheda si sia rotta. */
+      cropL: (T0.CROPS && T0.CROPS[c.crop]) || c.crop
+        || (T0.CROPSCOPE && T0.CROPSCOPE[c.cropScope]) || '',
       issueL: (T0.ISSUES && T0.ISSUES[c.issue]) || c.issue || '',
       regionLabel: c.regionLabel || c.region || '',
       statusL: statusLabel, statusLabel,
@@ -2786,6 +2796,9 @@ class Component extends DCLogic {
         windowState: o.windowState || null, daysRemaining: o.daysRemaining,
         proves: o.proves || null, notProves: o.notProves || null,
         crop: (o.cropKeys || [])[0] || o.crop,
+        /* Il motivo per cui la coltura manca viaggia con il caso: senza di
+           esso la scheda mostra una riga vuota e sembra rotta. */
+        cropScope: o.cropScope || null,
         /* `issueKey` E UNA CHIAVE DI GIUNZIONE, NON UN'ETICHETTA.
            Vale il nome inglese canonico con cui si interroga l'audit delle
            etichette, e metterlo qui scriveva «Scab» e «Downy mildew» dentro
@@ -3167,16 +3180,25 @@ class Component extends DCLogic {
     const movSub = EITHER(
       ACT_UNDATED + ' record senza data di inizio, esclusi · solo attività con data',
       ACT_UNDATED + ' records have no start date and are excluded · dated activity only');
+    const winSub = (sub) => {
+      const den = (T.kpiWinDen || '').replace('{n}', K.windows);
+      return den ? (sub ? sub + ' · ' + den : den) : sub;
+    };
     const kpiDef = [
       [K.total, kpiTotalLab, '#009845', '#00B152', 'farm-management', kpiTotalSub],
-      /* Canonical buckets. These four describe the 29 CROP WINDOWS, which is what
-         their own i18n sub-lines already say ("finestra agronomica aperta ora").
+      /* Canonical buckets. These four describe the CROP WINDOWS, not the
+         opportunities they stand beside — and the sub-line has to SAY so. It
+         did not: it read "finestra agronomica aperta ora", which is true of a
+         window and silent about how many there are, so the four numbers sat
+         under «37 Opportunita attive» and summed to 29. Right numbers, wrong
+         reading, and the reader is the one who looks wrong for adding them.
+         The denominator is now written, and it is counted, not typed.
          They are not radar filters any more: 0 of 3 real records join a canonical
          window, so a status filter on the radar would always return nothing. */
-      [K.windowOpen, wst('WINDOW_OPEN'), '#00B152', '#00B152', 'rain', T.kpiOpenSub],
-      [K.nextCycle, wst('NEXT_CYCLE'), '#00A0DF', '#00A0DF', 'sun', T.kpiNextSub],
-      [K.dateUnknown, wst('DATE_UNKNOWN'), '#F5B317', '#F5B317', 'heat-sensitive', T.kpiUnknownSub],
-      [K.windowClosed, wst('WINDOW_CLOSED'), '#978B87', '#B1A9A7', 'connect', T.kpiClosedSub],
+      [K.windowOpen, wst('WINDOW_OPEN'), '#00B152', '#00B152', 'rain', winSub(T.kpiOpenSub)],
+      [K.nextCycle, wst('NEXT_CYCLE'), '#00A0DF', '#00A0DF', 'sun', winSub(T.kpiNextSub)],
+      [K.dateUnknown, wst('DATE_UNKNOWN'), '#F5B317', '#F5B317', 'heat-sensitive', winSub(T.kpiUnknownSub)],
+      [K.windowClosed, wst('WINDOW_CLOSED'), '#978B87', '#B1A9A7', 'connect', winSub(T.kpiClosedSub)],
       [K.matches, T.kpiVerified, '#00B152', '#00B152', 'recycle-label', T.kpiVerifiedSub],
       [K.links, T.kpiLinks, '#9D1D96', '#C46ABE', 'sell', T.kpiLinksSub],
       [K.movements, T.kpiMovements, '#978B87', '#B1A9A7', 'cloud', movSub]
@@ -4102,6 +4124,16 @@ class Component extends DCLogic {
         state: wst(c.status), stateColor: c.color, stateInk: D.inkOn(c.color), stateText: c.text,
         daysLabel: dayLab(c),
         windowFrom: c.a ? D.fmt(c.a) : T.wDateToConfirm, windowTo: c.b ? D.fmt(c.b) : T.wDateToConfirm,
+        /* Una riga senza date non ha un intervallo da mostrare. Stampare
+           «DA CONFERMARE → DA CONFERMARE · lead 90d from —» ripete la stessa
+           assenza tre volte e lascia in inglese meta della frase: chi legge non
+           impara niente e smette di fidarsi del resto della schermata. */
+        windowSpanLine: (!c.a && !c.b)
+          ? (T.cwNoDeclaredDates || 'Window with no declared dates')
+          : ((c.a ? D.fmt(c.a) : T.wDateToConfirm) + ' → ' + (c.b ? D.fmt(c.b) : T.wDateToConfirm)
+            + ' · ' + String(T.cwLeadFrom || 'lead {d}d from {from}')
+              .replace('{d}', CW_LEAD)
+              .replace('{from}', prepA ? D.fmt(prepA) : (T.wDateToConfirm || '—'))),
         dateStateL: dst(r.dateState), dateConfidence: r.dateConfidence,
         prepLine: prepLineOf(c), leadDays: CW_LEAD,
         prepFrom: prepA ? D.fmt(prepA) + ' · ' + CW_INTERP : '—',

@@ -199,6 +199,21 @@
     fsDemoBadge: 'PERSONE E MESSAGGI SIMULATI · NESSUN DIPENDENTE ADAMA REALE', fsOutbound: 'Sintonia non scrive ai rappresentanti e non chiede alla rete di campo di inviare nulla. Questo modulo riceve soltanto.',
     lblRegionalPrecision: 'Opportunità per regione · clicca una regione accesa per filtrare', rrNoteOpps: 'opportunità', rrNoteRegions: 'regioni con almeno una · su', rrNoteNone: 'Nessuna opportunità di questa lettura si risolve in una regione', lblNoMatches: 'Nessuna opportunità corrisponde a questi filtri', lblClearFilters: 'Azzera i filtri', lblSingleMatch: 'Corrispondenza unica registrata',
     lblDemoOnly: 'Solo dimostrativo.', kpiOpenShort: 'Finestre aperte', kpiOpenSub: 'finestra agronomica aperta ora', kpiNextSub: 'la prossima finestra rilevante', kpiUnknownSub: 'nessuna data difendibile in questa lettura', kpiClosedSub: 'finestra della stagione conclusa',
+    /* Queste quattro cifre parlano delle finestre canoniche, non delle
+       opportunita accanto a cui stanno. Senza il denominatore scritto un
+       lettore le somma contro le 37 e trova 29: il numero e giusto e la
+       lettura e sbagliata. */
+    kpiWinDen: 'su {n} finestre canoniche',
+    /* «DATA DA CONFERMARE → DATA DA CONFERMARE · lead 90d from —» diceva
+       tre volte la stessa assenza e in due lingue. Cio che non si sa si
+       dice una volta sola, e nella lingua di chi legge. */
+    cwNoDeclaredDates: 'Finestra senza date dichiarate',
+    cwLeadFrom: 'preparazione {d}g da {from}',
+    /* Un caso senza finestra dichiarata non e una finestra in stato
+       DATA DA CONFERMARE: sono due popolazioni. Se dicono la stessa frase,
+       la schermata sembra contarsi male da sola. */
+    csNoWindowShort: 'SENZA FINESTRA DICHIARATA',
+    CROPSCOPE: { 'NOT_OBSERVED': 'coltura non osservata', 'GENERIC_TERM': 'coltura non specificata' },
     kpiVerified: 'Corrispondenze verificate', kpiVerifiedSub: 'confermate nella lettura delle etichette',
     kpiLinks: 'Collegamenti di portafoglio', kpiLinksSub: 'tutte le relazioni, verifica compresa',
     aiNotApplicable: 'principio attivo non applicabile',
@@ -737,6 +752,11 @@
     fsDemoBadge: 'SIMULATED PEOPLE AND MESSAGES · NO REAL ADAMA EMPLOYEE', fsOutbound: 'Sintonia does not message representatives and never asks the field network to send anything. This module only receives.',
     lblRegionalPrecision: 'Opportunities by region · click a lit region to filter', rrNoteOpps: 'opportunities', rrNoteRegions: 'regions with at least one · of', rrNoteNone: 'No opportunity in this reading resolves to a region', lblNoMatches: 'No opportunity matches these filters', lblClearFilters: 'Clear filters', lblSingleMatch: 'Single registered match',
     lblDemoOnly: 'Demonstration only.', kpiOpenShort: 'Windows open', kpiOpenSub: 'agronomic window open now', kpiNextSub: 'the next relevant window', kpiUnknownSub: 'no defensible date in this reading', kpiClosedSub: 'season window has closed',
+    kpiWinDen: 'of {n} canonical windows',
+    cwNoDeclaredDates: 'Window with no declared dates',
+    cwLeadFrom: 'lead {d}d from {from}',
+    csNoWindowShort: 'NO DECLARED WINDOW',
+    CROPSCOPE: { 'NOT_OBSERVED': 'crop not observed', 'GENERIC_TERM': 'crop not specified' },
     kpiVerified: 'Verified matches', kpiVerifiedSub: 'confirmed in the label reading',
     kpiLinks: 'Portfolio links', kpiLinksSub: 'all relationships, verification included',
     aiNotApplicable: 'active ingredient not applicable',
