@@ -990,16 +990,15 @@
               <sc-if value="{{ mp.hasPrice }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:28px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.price.headline }}</span><span style="font-size:12px;color:#B1A9A7">{{ mp.price.unit }}</span></div>
                 <span style="font-size:10.5px;color:#9A9391;line-height:1.4">{{ mp.price.product }}</span>
-                <sc-if value="{{ mp.hasSpark }}" hint-placeholder-val="{{ false }}">
-                  <div style="display:flex;flex-direction:column;gap:3px;padding-top:2px">
-                    <svg viewBox="0 0 200 46" width="100%" height="46" preserveAspectRatio="none" style="display:block">
-                      <path d="{{ mp.spark.area }}" fill="{{ mp.spark.color }}" opacity="0.14"></path>
-                      <path d="{{ mp.spark.d }}" fill="none" stroke="{{ mp.spark.color }}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"></path>
-                      <sc-for list="{{ mp.spark.dots }}" as="p" hint-placeholder-count="3"><circle cx="{{ p.cx }}" cy="{{ p.cy }}" r="2.6" fill="{{ mp.spark.color }}"></circle></sc-for>
-                    </svg>
-                    <div style="display:flex;justify-content:space-between;font-size:9px;color:#8F8886"><span>{{ mp.spark.first }}</span><span>{{ mp.spark.n }} observations · one series</span><span>{{ mp.spark.last }}</span></div>
-                  </div>
-                </sc-if>
+        <!-- RIMOSSI DUE BLOCCHI CHE NON POTEVANO RENDERIZZARSI.
+             `mp` viene costruito in un solo punto del file e vi fissa
+             hasSpark:false e hasForces:false, quindi questi due sc-if erano
+             spenti per costruzione. Restavano pero nel DOM come sorgente del
+             template, e il parser SVG validava d/cx/cy trovandovi dentro
+             «{{ mp.spark.d }}» e «{{ p.cx }}»: cinque dei sei errori di
+             console del portale nascevano qui, a ogni caricamento.
+             Portavano anche una frase in inglese dentro l'interfaccia
+             italiana. Quando lo sparkline avra dati veri, tornera con essi. -->
                 <div style="display:flex;flex-wrap:wrap;gap:6px">
                   <sc-for list="{{ mp.priceChanges }}" as="c" hint-placeholder-count="3"><span style="display:flex;flex-direction:column;gap:1px;padding:5px 9px;border-radius:7px;background:rgba(0,160,223,0.10)"><span style="font-size:8px;letter-spacing:0.09em;color:#C9C3C1">{{ c.k }}</span><span style="font-size:12px;font-weight:700;color:{{ c.color }}">{{ c.v }}</span></span></sc-for>
                 </div>
@@ -1013,24 +1012,6 @@
 
 
         <!-- DRIVERS -->
-        <sc-if value="{{ mp.hasForces }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;flex-direction:column;gap:9px">
-          <div style="display:flex;align-items:center;gap:12px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#00783F;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#fff">WHAT IS DRIVING THE MARKET</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,152,69,0.45),rgba(0,152,69,0))"></span></div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px">
-            <sc-for list="{{ mp.forces }}" as="f" hint-placeholder-count="4">
-              <div style="border-radius:12px;background:{{ f.sem.tint }};border:1px solid rgba(203,197,195,0.10);border-left:3px solid {{ f.color }};padding:12px 14px;display:flex;flex-direction:column;gap:6px">
-                <div style="display:flex;align-items:center;gap:9px">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ f.color }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ f.path }}"></path></svg>
-                  <span style="font-size:10.5px;font-weight:700;letter-spacing:0.09em;color:#EDEAE9;line-height:1.25">{{ f.t }}</span>
-                  <span style="margin-left:auto;display:inline-flex;align-items:center;gap:5px"><span style="font-size:8px;font-weight:700;letter-spacing:0.07em;color:{{ f.color }}">{{ f.sem.label }}</span><span style="font-size:16px;font-weight:700;line-height:1;color:{{ f.color }}">{{ f.d }}</span></span>
-                </div>
-                <span style="font-size:11px;color:#C9C3C1;line-height:1.5;text-wrap:pretty">{{ f.x }}</span>
-                <span style="margin-top:auto;font-size:9.5px;color:#8F8886">{{ f.s }}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-        </sc-if>
 
         <!-- PRICE DETAIL + REGIONAL -->
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px">
@@ -1457,7 +1438,7 @@
               <div style="display:flex;justify-content:space-between;gap:6px"><span style="font-size:8.5px;font-weight:700;letter-spacing:0.10em;color:{{ s.color }}">{{ s.group }}</span><span style="font-size:9px;color:#8F8886">{{ s.date }}</span></div>
               <span style="font-size:12px;font-weight:700;color:#fff">{{ s.name }}</span><span style="font-size:9.5px;color:#B1A9A7">{{ s.role }}</span>
               <span style="font-size:10px;color:#EDEAE9;line-height:1.4">{{ s.observed }}</span>
-              <div style="display:flex;justify-content:space-between;gap:6px;font-size:9px;color:#8F8886;padding-top:3px;border-top:1px solid rgba(255,255,255,0.06)"><span>Source · {{ s.srcLoc }}</span><span>Fact · {{ s.factLoc }}</span></div>
+              <sc-if value="{{ s.hasLoc }}" hint-placeholder-val="{{ true }}"><div style="display:flex;justify-content:space-between;gap:6px;font-size:9px;color:#8F8886;padding-top:3px;border-top:1px solid rgba(255,255,255,0.06)"><span>{{ t.lblSourceLoc }} · {{ s.srcLoc }}</span><span>{{ t.lblFactLoc }} · {{ s.factLoc }}</span></div></sc-if>
             </div>
           </sc-for>
         </div>
@@ -4554,7 +4535,19 @@ class Component extends DCLogic {
       /* Where the fact sits is only claimed when a source supports it. */
       factLoc: sgSourceRecords.some(x => !x.unresolved) ? ((sg0 || {}).region || (T.notEstablished || 'non ancora stabilito')) : (T.notEstablished || 'non ancora stabilito'),
       sourceCount: sgSources.length,
-      sourceCards: sgSources.map(src => Object.assign({}, src, { color: srcTint(src), go: srcGo(src) })),
+      /* ROLE e un campo narrativo {state,it,en}. Stampato cosi diventava
+         «[object Object]» su ogni scheda, in entrambe le lingue. Passa dal
+         gate come ogni altra prosa: quando non e approvato, non compare.
+         OBSERVED / DATE / SRC_LOC / FACT_LOC esistono solo sulle fonti dello
+         scenario; su un record reale del registro sono undefined, e la riga
+         in fondo stampava «Source ·   Fact ·» vuota. */
+      sourceCards: sgSources.map(src => Object.assign({}, src, {
+        color: srcTint(src), go: srcGo(src),
+        role: sgNar(src.role) || '',
+        observed: src.observed || '', date: src.date || '',
+        srcLoc: src.srcLoc || '', factLoc: src.factLoc || '',
+        hasLoc: !!(src.srcLoc || src.factLoc),
+      })),
       unresolvedSources: sgSourceRecords.filter(x => x.unresolved).length,
       groupChips: [{ group: 'ALL', count: sgSourceRecords.length }].concat(sgIsScenario ? ((sg0 || {}).who || []) : []).map(g => { const on = (s.sigGroup || 'ALL') === g.group; return { group: g.group, count: g.count, border: on ? '#009845' : 'rgba(203,197,195,0.2)', bg: on ? 'rgba(0,152,69,0.25)' : 'transparent', textColor: on ? '#fff' : '#B1A9A7', go: () => this.setState({ sigGroup: g.group === 'ALL' ? '' : g.group }) }; })
     });
@@ -4616,10 +4609,13 @@ class Component extends DCLogic {
       /* §M · The tab badge is the ingested row count, not a market arrow. Measured: Olive 36,
          Wheat 13, Maize 11, Durum Wheat 8, Barley 8, Grapevine 1 (and that one is a series
          stopped in 2025), Tomato 0, Sugar Beet 0, Apple 0. */
-      mpCropOptions = MK_CROPS.map((c) => ({ v: c.key, l: c.label.toUpperCase() + '  ·  ' + cnt(c.crop).observationCount + (mkIT ? ' OSS.' : ' OBS.') }));
+      /* La briciola diceva gia MAIS mentre la scheda accanto diceva MAIZE:
+         l'etichetta italiana esiste nel fixture e non veniva letta. */
+      const mkCropL = (c) => String((mkIT && c.it) || c.label).toUpperCase();
+      mpCropOptions = MK_CROPS.map((c) => ({ v: c.key, l: mkCropL(c) + '  ·  ' + cnt(c.crop).observationCount + (mkIT ? ' OSS.' : ' OBS.') }));
       mpButtons = MK_CROPS.map((c) => {
         const on = c.key === mc.key, n = cnt(c.crop).observationCount;
-        return { label: c.label.toUpperCase(), arrow: String(n), arrowColor: on ? '#fff' : (n ? '#D6D2D0' : '#6E6663'),
+        return { label: mkCropL(c), arrow: String(n), arrowColor: on ? '#fff' : (n ? '#D6D2D0' : '#6E6663'),
           bg: on ? '#00783F' : '#1C1817', border: on ? '#009845' : 'rgba(203,197,195,0.16)', color: on ? '#fff' : (n ? '#D6D2D0' : '#8F8886'),
           rail: on ? '#fff' : (n ? c.color : '#6E6663'), weight: on ? 700 : 600, go: () => this.setState({ mCrop: c.key }) };
       });
@@ -4703,13 +4699,19 @@ class Component extends DCLogic {
 
       /* §M · 12 of 77 rows carry SERIES_WARNING saying the last quote is not a current price.
          Every one of them is badged here; none can be read as today's price. */
-      const stopNote = (y) => (mkIT ? 'serie ferma dal ' + y + ' · l’ultima quotazione non è un prezzo attuale' : 'series stopped in ' + y + ' · the last quote is not a current price');
+      /* L'anno di arresto e nullo su parte delle righe: interpolarlo stampava
+         «serie ferma dal null». Senza anno la frase dice solo cio che sa. */
+      const stopNote = (y) => (y === null || y === undefined || y === ''
+        ? (mkIT ? 'serie ferma · l’ultima quotazione non è un prezzo attuale' : 'series stopped · the last quote is not a current price')
+        : (mkIT ? 'serie ferma dal ' + y + ' · l’ultima quotazione non è un prezzo attuale' : 'series stopped in ' + y + ' · the last quote is not a current price'));
       const regionRows = rows.slice()
         .sort((a, b) => (a.isCurrentSeries === b.isCurrentSeries
           ? String(a.product || '').localeCompare(String(b.product || '')) || String(a.market).localeCompare(String(b.market))
           : (a.isCurrentSeries ? -1 : 1)))
         .map((x) => ({ p: x.market, v: x.priceRaw || mkNum(x.price), d: mkPct(x.changeVsPrev),
-          note: [x.product || (mkIT ? 'prodotto non dichiarato' : 'product not declared'), x.unit, mkSpan(x)].join(' · ') + (x.isCurrentSeries ? '' : ' · ' + stopNote(x.stoppedYear)) }));
+          /* filter(Boolean): unit e mkSpan sono vuoti su parte delle righe e
+             il join lasciava separatori appesi — « · · — · ». */
+          note: [x.product || (mkIT ? 'prodotto non dichiarato' : 'product not declared'), x.unit, mkSpan(x)].filter(Boolean).join(' · ') + (x.isCurrentSeries ? '' : ' · ' + stopNote(x.stoppedYear)) }));
 
       /* §M · Crop windows come from the canonical collection and the state shown is the
          canonical CURRENT_STATUS — never a days-threshold ladder invented in the view.

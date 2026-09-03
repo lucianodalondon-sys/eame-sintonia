@@ -320,7 +320,10 @@
     lblPeople: 'PERSONE',
     lblSearch: 'RICERCA',
     lblSimulateMsg: 'SIMULA UN MESSAGGIO DI CAMPO',
-    kpiWindowsShort: 'Finestre aperte',
+    /* NON e lo stesso numero di kpiOpenShort: quello conta le finestre APERTE
+       ORA (6), questo conta l'intero corpus canonico (29). Portavano la stessa
+       etichetta, una sopra l'altra, e la seconda dichiarava 29 finestre aperte. */
+    kpiWindowsShort: 'Finestre canoniche',
     kpiMovementsShort: 'Movimenti 30g',
     lblSourcesBehind: 'FONTI DIETRO QUESTO CASO',
     lblCommEnv: 'Solo contesto commerciale. Descrive quanto il posizionamento possa essere facile o difficile — non annulla mai un\u2019opportunità agronomica e non è prova di domanda ADAMA.',
@@ -341,7 +344,11 @@
     vociFeatured: 'PIÙ RECENTI · SEGNALAZIONI IN PRIMA PERSONA', vociLatest: 'ALTRE VOCI', vociThemes: 'TEMI EMERGENTI',
     vociOpenSource: 'APRI LA FONTE', vociUnknownPerson: 'Identità non dichiarata',
     vociRoleUnknown: 'Ruolo non verificabile', vociRegionNotStated: 'Regione non dichiarata',
-    navVoices: 'Voci dal Campo', subVoices: 'Commenti pubblici raccolti su canali YouTube italiani. Il ruolo e la regione di chi scrive non sono verificabili.',
+    lblSourceLoc: 'Fonte', lblFactLoc: 'Fatto',
+    navVoices: 'Voci dal Campo', /* 21 delle 79 voci non vengono da YouTube ma dalla stampa di settore, e
+       per parte di quelle il ruolo di chi parla E dichiarato e verificabile.
+       La frase precedente negava entrambe le cose per l'intero corpus. */
+    subVoices: 'Voci pubbliche esterne: commenti su canali YouTube italiani e dichiarazioni riprese dalla stampa di settore. Dove la fonte non dichiara il ruolo di chi parla, la scheda lo dice.',
     navProduct: 'Prodotto ADAMA', navIntegrations: 'INTEGRAZIONI · DEMO',
     prodCommercial: 'STATO CATALOGO COMMERCIALE', prodRegulatory: 'STATO REGOLATORIO', prodCategory: 'CATEGORIA', prodAi: 'PRINCIPIO ATTIVO',
     prodInCatalog: 'Presente nel catalogo pubblico', prodNotInCatalog: 'Non presente in questa lettura del catalogo',
@@ -812,7 +819,7 @@
     lblPeople: 'PEOPLE',
     lblSearch: 'SEARCH',
     lblSimulateMsg: 'SIMULATE A FIELD MESSAGE',
-    kpiWindowsShort: 'Windows open',
+    kpiWindowsShort: 'Canonical windows',
     kpiMovementsShort: 'Movements 30d',
     lblSourcesBehind: 'SOURCES BEHIND THIS CASE',
     lblCommEnv: 'Commercial environment only. It describes how easy or difficult positioning may be — it never cancels an agronomic opportunity, and it is not evidence of ADAMA demand.',
@@ -831,7 +838,8 @@
     vociFeatured: 'MOST RECENT · FIRST-PERSON REPORTS', vociLatest: 'OTHER VOICES', vociThemes: 'EMERGING THEMES',
     vociOpenSource: 'OPEN SOURCE', vociUnknownPerson: 'Identity not stated',
     vociRoleUnknown: 'Role not verifiable', vociRegionNotStated: 'Region not stated',
-    navVoices: 'Field Voices', subVoices: 'Public comments collected on Italian YouTube channels. The writer\'s role and region are not verifiable.',
+    lblSourceLoc: 'Source', lblFactLoc: 'Fact',
+    navVoices: 'Field Voices', subVoices: 'External public voices: comments on Italian YouTube channels and statements reported by the trade press. Where the source does not declare the speaker\'s role, the card says so.',
     navProduct: 'ADAMA product', navIntegrations: 'INTEGRATIONS · DEMO',
     prodCommercial: 'COMMERCIAL CATALOG STATUS', prodRegulatory: 'REGULATORY STATUS', prodCategory: 'CATEGORY', prodAi: 'ACTIVE INGREDIENT',
     prodInCatalog: 'Present in the public catalog', prodNotInCatalog: 'Not present in this catalog reading',
