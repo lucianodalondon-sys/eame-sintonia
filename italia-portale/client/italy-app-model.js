@@ -2631,7 +2631,14 @@
       audienceKind: v21S(v.CHANNEL_AUDIENCE_KIND),
       proves: v21Text(v, 'WHAT_IT_PROVES'),
       notProves: v21Text(v, 'WHAT_IT_DOES_NOT_PROVE'),
-      sourceUrl: v21S(v.SOURCE_URL), sourceId: v21S(v.SOURCE_ID),
+      /* SINGOLARE E PLURALE.
+         Le 21 voci arrivate dalla stampa di settore non portano SOURCE_URL ne
+         SOURCE_ID: portano SOURCE_URLS e SOURCE_IDS, che l'involucro comune
+         ha gia letto due righe sopra. Leggendo solo il singolare, quelle voci
+         risultavano senza fonte: niente link «apri la fonte» su 21 schede su
+         79, e la colonna FONTE vuota nell'archivio, mentre la fonte era li. */
+      sourceUrl: v21S(v.SOURCE_URL) || A(v.SOURCE_URLS)[0] || null,
+      sourceId: v21S(v.SOURCE_ID) || A(v.SOURCE_IDS)[0] || null,
       daysFromRef: daysFrom(isoOf(v21S(v.DATE))),
     }), (r) => (!r.id ? 'no ID' : null)),
     {
@@ -3907,11 +3914,26 @@
   };
   scienceRecords.records.forEach((r) => push('SCIENCE', r.id, r.title, r.publishedAt, r.url, r.crop, 'UPPER_CODE', r.issue, r.provenance,
     { sourceId: r.sourceId, institution: r.institution, venue: r.venue }));
-  marketObservations.records.forEach((m) => push('MARKET', m.id, [m.product, m.market].filter(Boolean).join(' · '), m.publicationDate, null, null, null, null, m.provenance,
+  /* UNA RIGA SENZA NOME SEMBRA UN GUASTO, NON UN RECORD.
+     Ottanta osservazioni di mercato non hanno ne prodotto ne piazza — sono i
+     record senza prezzo — e la riga d'archivio restava del tutto vuota: nessun
+     titolo, nessuna fonte. Il lettore vedeva una tabella rotta. Hanno pero una
+     coltura, e il fatto che NON portino un prezzo e esso stesso l'informazione
+     da mostrare, non da nascondere. */
+  marketObservations.records.forEach((m) => push('MARKET', m.id,
+    [m.product, m.market].filter(Boolean).join(' · ')
+      /* Niente prosa italiana nel modello: la colonna TIPO dice gia
+         «Osservazione di mercato» nella lingua giusta. Qui va cio che il
+         record HA — la coltura, altrimenti il proprio identificativo, che e
+         reale e apre la riga — mai una frase inventata. */
+      || m.cropKey || m.id, m.publicationDate, null, null, null, null, m.provenance,
     { sourceId: m.sourceId, series: m.product, market: m.market, cropKey: m.cropKey }));
   competitorActivities.records.forEach((a) => push('COMPETITOR', a.id, [a.displayName, a.type].filter(Boolean).join(' · '), a.startDate, a.url, a.crops[0], CROP_BY_LATIN[U(a.crops[0])] ? 'LATIN' : GENERIC_CROP_TERMS[U(a.crops[0])] ? 'GENERIC_IT' : 'UNMAPPED', a.issues[0], a.provenance,
     { sourceId: ARCHIVE_PLATFORM_SOURCE[U(a.platform)] || null, company: a.company, competitorProducts: a.products, platform: a.platform }));
-  publicVoices.records.forEach((v) => push('VOICE', v.id, v.title || v.person, v.date, v.sourceUrl, v.crop, 'UPPER_CODE', v.issue, v.provenance,
+  publicVoices.records.forEach((v) => push('VOICE', v.id,
+    v.title || v.person || v.channel || v.organization
+      || (sourceById[U(v.sourceId)] || {}).name
+      || v.id, v.date, v.sourceUrl, v.crop, 'UPPER_CODE', v.issue, v.provenance,
     { sourceId: v.sourceId, platform: v.platform }));
   futureEvents.records.forEach((e) => push('EVENT', e.id, e.name, e.date, e.url, null, null, null, e.provenance,
     { sourceId: null, location: e.location, organizer: e.organizer }));
@@ -3940,7 +3962,9 @@
     w.regulatoryAct || null, A(w.sourceUrls)[0] || null,
     w.cropCanonical || w.crop || null, 'CANONICAL', w.issue || null, w.provenance,
     { sourceId: A(w.sourceIds)[0] || null, region: w.region }));
-  fieldBulletins.records.forEach((b) => push('BULLETIN', b.id, b.title, b.date, A(b.sourceUrls)[0] || null,
+  fieldBulletins.records.forEach((b) => push('BULLETIN', b.id,
+    b.title || [b.number, b.region].filter(Boolean).join(' · ') || b.id,
+    b.date, A(b.sourceUrls)[0] || null,
     A(b.crops)[0] || A(b.cropKeys)[0] || null, 'CANONICAL', A(b.issues)[0] || null, b.provenance,
     { sourceId: A(b.sourceIds)[0] || null, region: b.region }));
 
