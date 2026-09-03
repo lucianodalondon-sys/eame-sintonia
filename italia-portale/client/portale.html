@@ -40,6 +40,8 @@
 <script src="italy-ingested.js"></script>
 <script src="italy-handoff-v21.js"></script>
 <script src="italy-app-model.js"></script>
+<script src="vendor/jspdf-2.5.2.umd.min.js"></script>
+<script src="italy-pdf.js"></script>
 <style>
   /* ══════════════════════════════════════════════════════════════════════════
      SUPERFICIE · a folha unica onde vive a decisao de cor do portal
@@ -627,6 +629,18 @@
             </div>
             </sc-if>
           </div>
+
+          <sc-if value="{{ cs.hasBriefRows }}" hint-placeholder-val="{{ true }}">
+          <div style="border-radius:16px;border:1px solid rgba(0,152,69,0.35);background:rgba(0,152,69,0.06);padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#00783F">{{ t.lblCommercialMaterial }}</div>
+            <div style="font-size:11px;line-height:1.5;color:#5F504D">{{ t.lblCommercialMaterialNote }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ cs.briefRows }}" as="b" hint-placeholder-count="3">
+                <span onClick="{{ b.go }}" data-brief-dept="{{ b.dept }}" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9999px;background:#FFFFFF;border:1px solid {{ b.color }};color:{{ b.color }};font-size:11px;font-weight:700;letter-spacing:0.04em;cursor:pointer;white-space:nowrap" style-hover="background:rgba(0,152,69,0.10)">{{ b.areaL }}</span>
+              </sc-for>
+            </div>
+          </div>
+          </sc-if>
         </div>
 
         <div style="grid-column:span 4;display:flex;flex-direction:column;gap:10px">
@@ -706,7 +720,7 @@
         <div style="display:flex;flex-direction:column;gap:10px;position:sticky;top:60px">
           <div style="border-radius:14px;border:1px solid rgba(151,139,135,0.24);background:#FFFFFF;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
             <div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#5F504D">ACTION PACKAGE</div>
-            <x-import component-from-global-scope="ADAMADesignSystem.Button" color="corporate" size="md" on-click="{{ br.download }}" hint-size="100%,40px">Download PDF</x-import>
+            <div data-download-pdf="1"><x-import component-from-global-scope="ADAMADesignSystem.Button" color="corporate" size="md" on-click="{{ br.download }}" hint-size="100%,40px">{{ t.lblDownloadPdf }}</x-import></div>
             <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px">
               <span onClick="{{ br.copy }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;height:34px;border-radius:9999px;border:1px solid rgba(151,139,135,0.5);font-size:10.5px;font-weight:700;color:#5F504D" style-hover="background:rgba(151,139,135,0.102)">{{ br.copyLabel }}</span>
               <span onClick="{{ br.share }}" style="cursor:pointer;display:flex;align-items:center;justify-content:center;height:34px;border-radius:9999px;border:1px solid rgba(151,139,135,0.5);font-size:10.5px;font-weight:700;color:#5F504D" style-hover="background:rgba(151,139,135,0.102)">Share</span>
@@ -3880,6 +3894,35 @@ class Component extends DCLogic {
 
        Qui non si inventa niente: si legge il record. Ogni riga che segue nasce
        da un campo che esiste, e quando il campo non c'e la sezione non appare. */
+    /* Le aree del motore e i reparti del generatore di brief sono due
+       vocabolari diversi; questa e la mappa fra loro, dichiarata, e non una
+       coincidenza di nomi. Un'area senza brief proprio ricade su SALES / RTV,
+       che e il documento generico del canale. */
+    const CS_BRIEF_DEPT = {
+      COMMERCIAL: 'SALES / RTV', MARKETING: 'MARKETING',
+      MARKET_DEVELOPMENT: 'MARKET DEVELOPMENT', SCIENCE_TECHNICAL: 'TECHNICAL / SCIENCE',
+      REGULATORY: 'REGULATORY / PORTFOLIO', PORTFOLIO: 'REGULATORY / PORTFOLIO',
+      SUPPLY: 'SUPPLY'
+    };
+    const csBriefDept = (a) => CS_BRIEF_DEPT[a] || 'SALES / RTV';
+    /* `resolvedThrough` e una NOTA DI TRACCIAMENTO del motore: dice per quale
+       via il legame e stato risolto. Sotto il nome di un prodotto, in un
+       documento destinato al canale, «NO_PAIR_FOR_THIS_CROP_AND_TARGET» e il
+       motore che parla a se stesso ad alta voce.
+
+           CIO CHE SPIEGA UN LEGAME SI SPIEGA A PAROLE, O NON SI SCRIVE. */
+    const viaHuman = (v) => {
+      if (!v) return '';
+      var t = String(v);
+      if (/NO_PAIR_FOR_THIS_CROP_AND_TARGET/.test(t)) {
+        return ITX ? 'Nessuna coppia coltura × bersaglio dichiarata per questo prodotto in questa lettura'
+          : 'No crop × target pair declared for this product in the current reading';
+      }
+      var m = t.match(/label use pair\s*·\s*(.+)$/i);
+      if (m) return (ITX ? 'Coppia d\'uso su etichetta · ' : 'Label use pair · ') + m[1];
+      /* Se resta un token, non si stampa: meglio niente che il motore a voce alta. */
+      return /^[A-Z0-9_]+$/.test(t.replace(/\s/g, '')) ? '' : t;
+    };
     const csV21 = (T.V21 || {});
     const csEVFAM = (T.EVFAM || {});
 
@@ -3964,7 +4007,7 @@ class Component extends DCLogic {
         strengthL: (T.PSTATE && T.PSTATE[l.strength]) || String(l.strength || '').replace(/_/g, ' '),
         color: l.strength === 'VERIFIED_LABEL_MATCH' ? '#00783F' : l.strength === 'LABEL_CHECK_NEEDED' ? '#5F504D' : '#978B87',
         bg: l.strength === 'VERIFIED_LABEL_MATCH' ? 'rgba(0,152,69,0.10)' : '#F4F2F2',
-        via: l.resolvedThrough || '',
+        via: viaHuman(l.resolvedThrough),
         inRegistry: !!l.inRegistry,
         go: () => this.openProduct(nm)
       };
@@ -4128,6 +4171,21 @@ class Component extends DCLogic {
       notProvesTxt: csNotProvesTxt, hasNotProves: !!csNotProvesTxt,
       timingRows: csTimingRows, hasOwnWindow: csOwnWin, noOwnWindow: !csOwnWin,
       sourceRows: csSourceRows, hasSourceRows: csSourceRows.length > 0,
+      /* ── IL MATERIALE COMMERCIALE AVEVA UNA PORTA SOLA, E ERA CHIUSA ───────
+         `openBrief` si chiamava solo dalla schermata delle Finestre Colturali,
+         e solo passando `legacyCaseId` — che e null su tutti e 37 i casi del
+         motore. Il brief per il rivenditore era irraggiungibile da qualunque
+         opportunita: non rotto, IRRAGGIUNGIBILE.
+
+             UNA FUNZIONE CHE NESSUN CLICK RAGGIUNGE NON ESISTE.
+
+         Qui il caso apre il proprio brief con il PROPRIO id, per ognuno dei
+         reparti che il motore instrada su questo caso. */
+      briefRows: csActionMap.map((a) => ({
+        areaL: a.areaL, color: a.color, dept: csBriefDept(a.area),
+        go: () => this.openBrief(cs0.id, csBriefDept(a.area))
+      })),
+      hasBriefRows: csActionMap.length > 0,
       /* ogni famiglia e un tipo di prova, non una prova in piu */
       evChips: csEvFam.map((f) => ({ k: (T.V21 && T.V21[f]) || String(f).replace(/_/g, ' ').toLowerCase(), v: '' })),
       evBars: [],
@@ -5904,6 +5962,28 @@ class Component extends DCLogic {
           crop: (o.cropKeys || [])[0] || null, issue: o.issueKey || null,
           region: (o.regionKeys || []).join(' · ') || null,
           issueType: o.issueType || null,
+          /* ── IL RECORD VIAGGIA INTERO, SOTTO `raw` ─────────────────────────
+             Questa proiezione passa cinque campi al generatore, e la nota qui
+             sopra dice che gli ultimi quattro sono «non letti oggi». Il
+             generatore, intanto, aveva imparato a leggere il record: coltura,
+             avversita, regione, stato, portata geografica, verdetto per singolo
+             legame. Non ne riceveva nessuno.
+
+                 IL DOCUMENTO DICEVA «NON NOTO» DI COSE CHE IL RECORD SCRIVE —
+                 E LA QUARTA VOLTA CHE LA STESSA PROIEZIONE LE BUTTA VIA.
+
+             `raw` non allenta nessun cancello: il ROUTING della finestra resta
+             appeso a `id: W ? o.id : null`, che e la decisione giusta e non si
+             tocca. Cambia che i FATTI dichiarati dal record arrivano a chi li
+             deve stampare. */
+          raw: o,
+          status: o.status || null,
+          geoScope: o.geoScope || null,
+          issueEn: o.issueEn || null,
+          productLinks: o.productLinks || [],
+          windowStart: o.windowStart || null, windowEnd: o.windowEnd || null,
+          windowState: o.windowState || null, daysRemaining: o.daysRemaining,
+          adamaProducts: o.adamaProducts || [],
         };
       };
 
@@ -5938,7 +6018,37 @@ class Component extends DCLogic {
           sections: b.sections.map(x => Object.assign({}, x, { hUpper: x.h.toUpperCase() })),
           backToCase: () => this.openCase(bcase.id),
           copyLabel: s.copied ? 'Copied ✓' : 'Copy summary',
-          download: () => { const w = window.open('', '_blank'); if (w) { w.document.open(); w.document.write(window.ITALY_BRIEFS.printHtml(b)); w.document.close(); } },
+          /* ── IL PULSANTE PRODUCE UN FILE ──────────────────────────────────
+             Diceva «Download PDF» e apriva una finestra di stampa: chi lo
+             premeva riceveva una finestra di dialogo, e in un browser senza
+             interfaccia non riceveva niente.
+
+                 UN PULSANTE CHE DICE «SCARICA» DEVE PRODURRE UN FILE.
+
+             Ora ITALY_PDF disegna il documento in pagina, con LL Brown
+             incorporato, e lo salva. Il documento riceve lo STESSO oggetto che
+             la scheda e il dettaglio leggono — prodotti con il verdetto di ogni
+             legame, aree instradate, finestra — cosi non puo avere una seconda
+             opinione. La stampa HTML resta come riserva se jsPDF non c'e. */
+          download: () => {
+            const payload = Object.assign({}, b, {
+              productRows: (bcase && bcase.productLinks || []).map((l) => ({
+                name: l.name || l.product, strength: l.strength,
+                strengthL: (T.PSTATE && T.PSTATE[l.strength]) || String(l.strength || '').replace(/_/g, ' '),
+                via: viaHuman(l.resolvedThrough)
+              })),
+              actionAreas: ((bcase && bcase.actionMap) || []).map((a) => ({
+                areaL: (T.V21 && T.V21[a]) || String(a).replace(/_/g, ' '),
+                modeL: (T.AREAMODE || {})[bcase.status === 'ACT_NOW' ? 'LOOK' : bcase.status === 'PREPARE_NOW' ? 'PREPARE' : 'MONITOR'] || ''
+              })),
+              notProvesTxt: (bcase && bcase.notProves && bcase.notProves.state === 'CLEAR')
+                ? (s.lang === 'en' ? (bcase.notProves.en || bcase.notProves.it) : (bcase.notProves.it || bcase.notProves.en)) : '',
+              lineKey: (bcase && bcase.ui && bcase.ui.key) || 'unknown'
+            });
+            if (window.ITALY_PDF && window.ITALY_PDF.available()) { window.ITALY_PDF.download(payload); return; }
+            const w = window.open('', '_blank');
+            if (w) { w.document.open(); w.document.write(window.ITALY_BRIEFS.printHtml(b)); w.document.close(); }
+          },
           copy: () => { if (navigator.clipboard) navigator.clipboard.writeText(b.summary).then(() => this.setState({ copied: true })); else this.setState({ copied: true }); },
           share: () => { const body = encodeURIComponent(b.summary.slice(0, 1800)); window.open('mailto:?subject=' + encodeURIComponent(b.doc + ' · ' + b.title) + '&body=' + body, '_self'); },
           /* Sibling briefs: the other templates for the SAME case. build() returns

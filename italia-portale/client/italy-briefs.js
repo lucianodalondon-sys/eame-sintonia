@@ -75,6 +75,19 @@
 
   /* The canonical window record for a case. 29/29 legacy cases resolve by
      legacyCaseId; windowId is kept as a second key. */
+  /* I prodotti verificati di un caso senza finestra vivono nei suoi
+     `productLinks`, con il verdetto per singolo legame. Leggerli dalla sola
+     finestra lasciava vuota la riga su 37 casi su 37. */
+  const caseLinks = (c) => {
+    /* `c` e la proiezione di instradamento, `c.raw` il record del motore.
+       Si legge PRIMA la proiezione — le sue chiavi sono gia canoniche e in
+       lingua — e si ricade sul record solo per i campi che la proiezione non
+       porta. Il contrario avrebbe fatto entrare il portoghese di lavoro
+       dell'analista ("Videira") in un documento italiano. */
+    const RAW = (c && c.raw) || {};
+    const R = Object.assign({}, RAW, c || {});
+    return Array.isArray(R.productLinks) ? R.productLinks : [];
+  };
   const win = (c) => {
     const m = M(); if (!m || !c || !m.collections || !m.collections.cropWindows) return null;
     const R = m.collections.cropWindows.records || [];
@@ -96,6 +109,17 @@
     EXPECTED: ['attesa (EXPECTED)', 'expected (EXPECTED)'],
     REPORTED: ['segnalata (REPORTED)', 'reported (REPORTED)'],
   };
+  const STATUS_L = {
+    ACT_NOW: ['AGIRE ORA', 'ACT NOW'],
+    PREPARE_NOW: ['PREPARARE ORA', 'PREPARE NOW'],
+    FUTURE_PREPARATION: ['PREPARAZIONE FUTURA', 'FUTURE PREPARATION'],
+    TO_VALIDATE: ['DA VALIDARE', 'TO VALIDATE'],
+    WINDOW_OPEN: ['FINESTRA APERTA', 'WINDOW OPEN'],
+    WINDOW_CLOSED: ['FINESTRA CHIUSA', 'WINDOW CLOSED'],
+    NEXT_CYCLE: ['CICLO SUCCESSIVO', 'NEXT CYCLE'],
+    NOT_ESTABLISHED: ['STATO NON STABILITO', 'STATUS NOT ESTABLISHED']
+  };
+  const statusName = (code) => { const e = STATUS_L[String(code || '').toUpperCase()]; return e ? TX(e[0], e[1]) : String(code || '').replace(/_/g, ' '); };
   const stageL = (code) => { const e = STAGE_L[String(code || '').toUpperCase()]; return e ? TX(e[0], e[1]) : String(code || ''); };
   const NOTCONF = () => TX('NON CONFERMATO — nessuna fonte esterna lo conferma in questa lettura', 'NON CONFERMATO — not confirmed by an external source in this reading');
   const NOT_OBS = 'NON OSSERVABILE DA FONTI ESTERNE';
@@ -109,8 +133,8 @@
     'Absence in this reading is not absence in the world.': 'L\'assenza in questa lettura non è assenza nel mondo.',
     'Read on the official label': 'Letto sull\'etichetta ufficiale',
     'Not found in this label reading': 'Non trovato in questa lettura dell\'etichetta',
-    'The audit verified the main visible claims, not every portfolio connection in the interface. Anything not explicitly verified resolves to LABEL_CHECK_NEEDED.':
-      'L\'audit ha verificato le principali affermazioni visibili, non ogni connessione di portafoglio presente nell\'interfaccia. Tutto ciò che non è stato verificato esplicitamente risulta LABEL_CHECK_NEEDED.',
+    'The audit verified the main visible claims, not every portfolio connection in the interface. Anything not explicitly verified remains pending label verification.':
+      'L\'audit ha verificato le principali affermazioni visibili, non ogni connessione di portafoglio presente nell\'interfaccia. Tutto ciò che non è stato verificato esplicitamente resta in attesa di verifica dell\'etichetta.',
     /* The 5 distinct STATUS_REASON shapes measured on the 29 canonical windows.
        The first is parametrised by the reference date and is handled by the
        regex below; a shape not listed here prints verbatim. */
@@ -167,18 +191,50 @@
   const F = (c) => {
     const W = win(c);
     const m = M();
+    /* ── IL CASO PARLA DI SE, ANCHE SENZA UNA FINESTRA CANONICA ───────────────
+       Ogni riga qui sotto leggeva SOLO la finestra canonica, e la finestra si
+       cerca per `legacyCaseId`. Quel campo e null su TUTTI E 37 i casi del
+       motore V2.1: `W` era null 37/37, e il documento commerciale usciva con
+       coltura, problema, regione, stato e date tutti «NON NOTO» — un foglio di
+       assenze con un titolo che dichiarava di non sapere niente.
+
+           IL DOCUMENTO DICEVA «NON NOTO» DI COSE CHE IL RECORD SCRIVE.
+
+       Il record porta crop, issue, region, status e — su sette casi — le
+       proprie date. Si legge il record quando la finestra non c'e. Non e un
+       ripiego inventato: e lo stesso campo che la scheda e il dettaglio
+       mostrano, cosi le tre superfici non possono divergere. */
+    const R = (c && c.raw) || c || {};
+    const rCrop = (R.cropKeys && R.cropKeys[0]) || R.crop || null;
+    /* `issueKey` E UNA CHIAVE DI GIUNZIONE, NON UN'ETICHETTA: vale il nome
+       inglese con cui si interroga l'audit delle etichette, e leggerlo per
+       primo scriveva «Brown marmorated stink bug» dentro un documento
+       italiano che ha «Cimice asiatica» nel proprio record.
+
+           UNA CHIAVE SI USA PER CERCARE. UN'ETICHETTA SI LEGGE. */
+    const rIssueTxt = (LG === 'en' ? (R.issueEn || R.issue) : (R.issue || R.issueEn)) || null;
+    const rIssue = R.issueKey || R.issue || null;
     const f = {
       W,
-      cropKey: (W && W.crop) || null,
-      issueKey: (W && W.issue) || null,
-      crop: (W && cropName(W.crop)) || UNK(),
-      region: (W && W.region) || UNK(),
-      issue: (W && issueName(W.issue)) || UNK(),
-      issueType: (W && W.issueType) || UNK(),
-      status: (W && W.status) || 'NOT_ESTABLISHED',
+      cropKey: (W && W.crop) || rCrop || null,
+      issueKey: (W && W.issue) || rIssue || null,
+      crop: (W && cropName(W.crop)) || (rCrop && cropName(rCrop)) || UNK(),
+      /* «NON NOTO» ERA LA RISPOSTA SBAGLIATA A UNA DOMANDA GIUSTA.
+         Il record dichiara `geoScope`: NATIONAL, EUROPEAN, PROVINCIAL. Una
+         regione nulla su un caso NAZIONALE non e un dato mancante — e la
+         portata del caso, ed e scritta. Dirlo «non noto» faceva sembrare rotto
+         un caso che si sa benissimo dove sta. */
+      region: (W && W.region) || R.region
+        || (R.geoScope === 'NATIONAL' ? TX('Italia · portata nazionale', 'Italy · national scope')
+          : R.geoScope === 'EUROPEAN' ? TX('Unione Europea · portata europea', 'European Union · European scope')
+            : null)
+        || UNK(),
+      issue: (W && issueName(W.issue)) || rIssueTxt || (rIssue && issueName(rIssue)) || UNK(),
+      issueType: (W && W.issueType) || R.issueType || UNK(),
+      status: (W && W.status) || R.status || 'NOT_ESTABLISHED',
       statusReason: (W && modelProse(W.statusReason)) || null,
-      from: (W && fmtISO(W.startDate)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
-      to: (W && fmtISO(W.endDate)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
+      from: (W && fmtISO(W.startDate)) || (R.windowStart && fmtISO(R.windowStart)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
+      to: (W && fmtISO(W.endDate)) || (R.windowEnd && fmtISO(R.windowEnd)) || TX('DATA NON STABILITA', 'DATE NOT ESTABLISHED'),
       dateState: (W && W.dateState) || UNK(),
       dateConfidence: (W && W.dateConfidence) || UNK(),
       lastValidated: (W && fmtISO(W.lastValidated)) || UNK(),
@@ -205,7 +261,13 @@
     f.lowIssue = String(f.issueKey ? f.issue : TX('questo problema', 'this issue')).toLowerCase();
     f.lowCrop = String(f.cropKey ? f.crop : TX('questa coltura', 'this crop')).toLowerCase();
     f.windowState = (() => {
-      if (!W) return TX('finestra non stabilita', 'WINDOW NOT ESTABLISHED');
+      /* Il caso porta il proprio stato di finestra quando la canonica manca:
+         sette casi su 37 dichiarano date e giorni residui. */
+      if (!W) {
+        if (R.daysRemaining !== null && R.daysRemaining !== undefined) return TX(`${R.daysRemaining} giorni rimanenti`, `${R.daysRemaining} days remaining`);
+        if (R.windowState) return String(R.windowState);
+        return TX('finestra non stabilita', 'WINDOW NOT ESTABLISHED');
+      }
       if (W.status === 'WINDOW_CLOSED') return TX(`finestra chiusa · ${Math.abs(W.daysToEnd)} giorni oltre END_DATE`, `window closed · ${Math.abs(W.daysToEnd)} days past END_DATE`);
       if (typeof W.daysToStart === 'number' && W.daysToStart > 0) return TX(`${W.daysToStart} giorni all'apertura`, `${W.daysToStart} days to open`);
       if (typeof W.daysToEnd === 'number') return TX(`${W.daysToEnd} giorni rimanenti`, `${W.daysToEnd} days remaining`);
@@ -214,7 +276,10 @@
     f.windowOpen = !!(W && W.status !== 'WINDOW_CLOSED' && typeof W.daysToStart === 'number' && W.daysToStart <= 0);
     /* Product names route into the model; the fixture's ai / crops / targets /
        use / moa are never read. */
-    const names = (c && (c.products || (c.productObjs || []).map(p => p && p.name))) || [];
+    /* I nomi arrivano anche dal record del motore: `adamaProducts` e popolato
+       37/37, mentre `c.products` esiste solo sulla forma decorata. */
+    const names = (c && (c.products || (c.productObjs || []).map(p => p && p.name)))
+      || R.adamaProducts || [];
     f.products = names.filter(Boolean).map(n => ({ name: n, P: prod(n) }));
 
     /* ── the grade, asked once, for THIS crop × issue ────────────────────────
@@ -231,6 +296,18 @@
         : null;
       return { name: x.name, P: x.P, strength, link };
     });
+    /* IL VERDETTO CHE IL MOTORE HA GIA DATO NON SI RICALCOLA.
+       `strengthFor` risponde per la coppia coltura × problema; il record porta
+       invece il verdetto PER SINGOLO LEGAME, che e piu preciso e che la scheda
+       e il dettaglio gia mostrano. Dove esiste, vince — altrimenti le tre
+       superfici direbbero cose diverse dello stesso prodotto.
+
+           78 legami VERIFIED e 172 LABEL_CHECK_NEEDED, misurati sui 37 casi. */
+    const RL = caseLinks(c);
+    if (RL.length) {
+      const byName = {}; RL.forEach((l) => { byName[l.name || l.product] = l.strength; });
+      f.graded = f.graded.map((g) => (byName[g.name] ? Object.assign({}, g, { strength: byName[g.name] }) : g));
+    }
     f.verified = f.graded.filter(g => g.strength === 'VERIFIED_LABEL_MATCH');
     f.unverified = f.graded.filter(g => g.strength !== 'VERIFIED_LABEL_MATCH');
     f.verifiedNames = f.verified.map(g => g.name);
@@ -254,8 +331,8 @@
       + (f.cropStage === 'NOT_OBSERVED' ? TX(' (per questa finestra non è registrata alcuna fase osservata — non affermarne una)', ' (no observed stage is recorded for this window — do not assert one)') : ''),
     f.labelTrigger
       ? TX(`Trigger di etichetta: ${f.labelTrigger}${f.labelSource ? ` · fonte ${f.labelSource}` : ''}`, `Label trigger: ${f.labelTrigger}${f.labelSource ? ` · source ${f.labelSource}` : ''}`)
-      : TX('Trigger di etichetta: NON NOTO — su questa finestra non è registrato alcun LABEL_TRIGGER. Il momento di applicazione si legge sulla scheda di etichetta del prodotto, mai da questo brief.',
-        'Label trigger: NON NOTO — no LABEL_TRIGGER is recorded on this window. Read the application timing from the product label record, never from this brief.')
+      : TX('Trigger di etichetta: NON NOTO — su questa finestra non è registrato alcun innesco di etichetta. Il momento di applicazione si legge sulla scheda di etichetta del prodotto, mai da questo brief.',
+        'Label trigger: NON NOTO — no label trigger is recorded on this window. Read the application timing from the product label record, never from this brief.')
   ];
 
   /* One product, registry facts only. Crop enums print through cropCode(); the
@@ -326,9 +403,25 @@
         const head = g.strength ? pstate(g.strength) : TX('GRADO NON RICHIEDIBILE', 'GRADE NOT ASKABLE');
         /* Say what the label audit DID see for this product, so the reader can
            tell "read and not found" from "never asked" (PRODUCT LAW §10). */
+        /* ── UNA CORRISPONDENZA VERIFICATA PER UN'ALTRA COPPIA ─────────────
+           Questa riga elenca cio che l'audit registra PER IL PRODOTTO, e le
+           coppie elencate sono di altre colture. Su un caso di frumento
+           stampava «Pomodoro / Oidio — CORRISPONDENZA VERIFICATA SU ETICHETTA»
+           in un documento destinato al rivenditore: vero, correttamente
+           circoscritto, e a due centimetri dal nome di un prodotto presentato
+           come DA VERIFICARE per QUESTO caso.
+
+               UNA VERITA MESSA ACCANTO ALLA DOMANDA SBAGLIATA SI LEGGE COME
+               UNA RISPOSTA A QUELLA DOMANDA.
+
+           Il fatto resta — serve a distinguere «letto e non trovato» da «mai
+           chiesto». Cambia che la riga dice, per esteso, che quelle coppie NON
+           sono questa, prima di elencarle. */
+        const otherPairs = TX('per ALTRE colture × problemi, non per questo caso',
+          'for OTHER crops × issues, not for this case');
         const seen = (g.P && Array.isArray(g.P.links) && g.P.links.length)
-          ? TX(`in questa lettura l'audit di etichetta registra per questo prodotto: ${g.P.links.map(l => `${cropName(l.crop)} / ${issueName(l.issue)} — ${pstate(l.strength)}`).join(' · ')}`,
-            `what the label audit records for this product in this reading: ${g.P.links.map(l => `${cropName(l.crop)} / ${issueName(l.issue)} — ${pstate(l.strength)}`).join(' · ')}`)
+          ? TX(`in questa lettura l'audit di etichetta registra per questo prodotto ${otherPairs}: ${g.P.links.map(l => `${cropName(l.crop)} / ${issueName(l.issue)} — ${pstate(l.strength)}`).join(' · ')}`,
+            `what the label audit records for this product ${otherPairs} in this reading: ${g.P.links.map(l => `${cropName(l.crop)} / ${issueName(l.issue)} — ${pstate(l.strength)}`).join(' · ')}`)
           : TX('l\'audit di etichetta non registra alcun collegamento coltura × problema per questo prodotto in questa lettura', 'the label audit records no crop × issue link at all for this product in this reading');
         return `${head} — ${prodLine(g)} · ${seen}`;
       });
@@ -349,8 +442,8 @@
   /* Every field-message record in this package is SYNTHETIC_DEMO (0 real of 18
      in the model). A demo record may never supply a field observation. */
   const realField = (c) => ((c && c.fieldMessages) || []).filter(m => m && m.demo !== true && m.provenance !== 'SYNTHETIC_DEMO');
-  const FIELD_NONE = () => TX('Nessuna osservazione di campo verificata su questo caso. Ogni record di messaggio di campo in questo pacchetto porta provenienza SYNTHETIC_DEMO, quindi nessuno viene stampato come intelligence.',
-    'No verified field observation on this case. Every field-message record in this package carries provenance SYNTHETIC_DEMO, so none is printed as intelligence.');
+  const FIELD_NONE = () => TX('Nessuna osservazione di campo verificata su questo caso. Ogni messaggio di campo in questo pacchetto è un record dimostrativo, quindi nessuno viene stampato come intelligence.',
+    'No verified field observation on this case. Every field message in this package is a demonstration record, so none is printed as intelligence.');
   const fieldLines = (c) => {
     const ms = realField(c);
     return ms.length ? ms.map(m => `${m.person} · ${m.when}: “${m.text}” → ${m.signal}`) : [FIELD_NONE()];
@@ -366,8 +459,12 @@
         `${C.count} competitor communication items observed in the monitored public sources (provenance ${C.provenance}).`),
       TX('L\'attribuzione di quegli elementi a questa coltura × regione NON è stabilita nel modello — qui non viene stampato alcun conteggio per caso. Aprire Concorrenza per leggere il corpus.',
         'Attribution of those items to this crop × region is NOT established in the model — no per-case competitor count is printed here. Open Competitor Watch to read the corpus.'),
-      TX('Solo comunicazione osservata. REACHED_IN_ITALY non è TARGETED_ITALY, e non si deduce alcuna strategia, spesa o quota.',
-        'Observed communication only. REACHED_IN_ITALY is not TARGETED_ITALY, and no strategy, spend or share is inferred.')
+      /* LA DISTINZIONE SI SPIEGA, NON SI CITA.
+         I due token erano il motore che parlava a se stesso dentro un documento
+         destinato al canale commerciale. La frase dice la stessa cosa, e si
+         legge senza conoscere il pacchetto canonico. */
+      TX('Solo comunicazione osservata. Che un messaggio sia arrivato in Italia non significa che l\'Italia ne fosse il bersaglio, e non si deduce alcuna strategia, spesa o quota.',
+        'Observed communication only. That a message reached Italy does not mean Italy was its target, and no strategy, spend or share is inferred.')
     ];
   };
 
@@ -486,7 +583,7 @@
       purpose: TX('Dare al Marketing il contesto confermato, il territorio di messaggio sostenibile e i limiti necessari per preparare materiale di supporto regionale.',
         'Give Marketing the confirmed context, the supportable message territory and the boundaries needed to prepare regional support material.'),
       sections: [
-        S(TX('Caso', 'Case'), [TX(`${f.issue} · ${f.crop} · ${f.region} · stato ${f.status}`, `${f.issue} · ${f.crop} · ${f.region} · status ${f.status}`)]),
+        S(TX('Caso', 'Case'), [TX(`${f.issue} · ${f.crop} · ${f.region} · stato ${statusName(f.status)}`, `${f.issue} · ${f.crop} · ${f.region} · status ${statusName(f.status)}`)]),
         S(TX('Pubblico', 'Audience') + INTERP(), [TX(`Agricoltori e rivenditori nei distretti di ${f.lowCrop} in ${f.region}; la rete commerciale ADAMA come primo relè.`,
           `Growers and dealers in ${f.region} ${f.lowCrop} districts; ADAMA field sales as first relay.`)]),
         S(TX('Perché ora', 'Why now') + INTERP(), [WHYNOW(), ...window_(f)]),
@@ -552,7 +649,7 @@
         'Validate the signal, judge regional relevance and decide where to look next.'),
       sections: [
         S(TX('Che cosa è cambiato', 'What changed'), [NOT_ESTABLISHED('Narrativa del cambiamento', 'Change narrative'),
-          TX(`Sul record: finestra ${f.W ? f.W.windowId : TX('nessuna', 'none')}, ultima validazione ${f.lastValidated}, stato ${f.status}${f.statusReason ? ` — ${f.statusReason}` : ''}.`,
+          TX(`Sul record: finestra ${f.W ? f.W.windowId : TX('nessuna', 'none')}, ultima validazione ${f.lastValidated}, stato ${statusName(f.status)}${f.statusReason ? ` — ${f.statusReason}` : ''}.`,
             `On the record: window ${f.W ? f.W.windowId : 'none'} last validated ${f.lastValidated}, status ${f.status}${f.statusReason ? ` — ${f.statusReason}` : ''}.`)]),
         S(TX('Perché merita attenzione', 'Why this deserves attention') + INTERP(), [WHYNOW()]),
         S(TX('Contesto regionale', 'Regional context'), [
@@ -673,8 +770,8 @@
           f.verified.length ? null
             : TX('Nessun prodotto è stato verificato su etichetta per questa coppia coltura × problema — confermare se esista una posizione ADAMA.',
               'No product is verified on the label for this crop × target pair — confirm whether any ADAMA position exists.'),
-          TX('Su questa finestra non è registrato alcun LABEL_TRIGGER, quindi la tempistica di applicazione mostrata a valle deve provenire unicamente dalla scheda di etichetta.',
-            'No LABEL_TRIGGER is recorded on this window, so the application timing shown anywhere downstream must come from the label record only.')
+          TX('Su questa finestra non è registrato alcun innesco di etichetta, quindi la tempistica di applicazione mostrata a valle deve provenire unicamente dalla scheda di etichetta.',
+            'No label trigger is recorded on this window, so the application timing shown anywhere downstream must come from the label record only.')
         ], true),
         S(TX('Richiede conferma manuale', 'Requires manual confirmation'), [
           TX('Dicitura del bersaglio di etichetta rispetto al parassita / malattia osservato', 'Label target wording vs. observed pest/disease'),
@@ -726,7 +823,10 @@
     /* PRODUCT LAW §11 and finding 4 · the crop is named with the label the rest
        of the portal shows ('Vite'), so the brief and the case screen cannot
        name the same crop differently. */
-    b.title = f.W
+    /* Il titolo non dichiara ignoranza quando il record ha i fatti: la
+       condizione era «esiste una finestra canonica», e adesso e «esiste un
+       nome da scrivere», che e la domanda giusta. */
+    b.title = (f.cropKey || f.issueKey)
       ? `${f.issue} · ${f.crop} · ${f.region}`
       /* Presentation only. With no canonical window all three axes are the same
          absence, and printing it three times in a 22pt headline made the
@@ -736,7 +836,11 @@
          region either, so there is nothing to fall back to. */
       : TX('Caso senza finestra canonica risolta — coltura, problema e regione NON NOTI',
         'Case with no canonical window resolved — crop, issue and region NON NOTI');
-    b.priority = f.status;
+    /* UN TOKEN DEL MOTORE NON E UNA PAROLA DA STAMPARE.
+       La pillola della priorita scriveva ACT_NOW / FUTURE_PREPARATION /
+       NOT_ESTABLISHED dentro un documento destinato al canale commerciale. Lo
+       stato e canonico e ha gia un nome nelle due lingue: si usa quello. */
+    b.priority = statusName(f.status);
     b.accentColor = f.color;
     b.windowFrom = f.from; b.windowTo = f.to; b.windowState = f.windowState;
     /* PRODUCT LAW §10 · no product is promoted above another; this is the list

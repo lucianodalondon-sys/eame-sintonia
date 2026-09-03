@@ -186,6 +186,9 @@
        che non ha mai visto il pacchetto canonico.
 
            SEI APPOGGI DELLA STESSA FAMIGLIA NON SONO SEI APPOGGI. */
+    lblCommercialMaterial: 'MATERIALE COMMERCIALE',
+    lblDownloadPdf: 'Scarica il PDF',
+    lblCommercialMaterialNote: 'Genera il brief operativo per l\'area che deve guardare questo caso. Il documento legge lo stesso oggetto di questa schermata.',
     lblNoCandidate: 'Nessun prodotto candidato in questa lettura',
     lblLinkState: 'STATO DEL LEGAME',
     EVFAM: {
@@ -771,6 +774,9 @@
       FUTURO: 'FUTURE', PASSADO: 'PAST',
       BAIXA: 'LOW', MEDIA: 'MEDIUM', ALTA: 'HIGH',
     },
+    lblCommercialMaterial: 'COMMERCIAL MATERIAL',
+    lblDownloadPdf: 'Download the PDF',
+    lblCommercialMaterialNote: 'Generate the action brief for the area that should look at this case. The document reads the same object as this screen.',
     lblNoCandidate: 'No product candidate linked in the current reading',
     lblLinkState: 'LINK STATE',
     EVFAM: {

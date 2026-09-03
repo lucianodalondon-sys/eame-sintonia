@@ -58,7 +58,7 @@
   window.ITALY_LABEL_VERDICTS = {
     AUDIT_DATE: '2026-09-02',
     AUDIT_SOURCE: 'Claude Code reading of 163 official Italian product labels',
-    SCOPE_NOTE: 'The audit verified the main visible claims, not every portfolio connection in the interface. Anything not explicitly verified resolves to LABEL_CHECK_NEEDED.',
+    SCOPE_NOTE: 'The audit verified the main visible claims, not every portfolio connection in the interface. Anything not explicitly verified remains pending label verification.',
     ABSENCE_RULE: 'Absence in this reading is not absence in the world.',
     STRENGTH, VERIFIED, NOT_FOUND, verdict,
     verifiedCount: VERIFIED.length, notFoundCount: NOT_FOUND.length
