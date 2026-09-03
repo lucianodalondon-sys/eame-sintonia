@@ -760,7 +760,7 @@
             <div style="padding:8px 10px;border-radius:9px;background:#1C1817"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblPortfolio }}</span><br><b style="color:#fff">{{ dw.matchLabel }}</b><br><span style="color:#8F8886;font-size:9.5px">{{ t.absenceRule }}</span></div>
             <div style="padding:8px 10px;border-radius:9px;background:#1C1817"><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblFieldSignals }}</span><br><b style="color:#fff">{{ dw.fieldCount }}</b> <span style="color:#8F8886">messages</span><br><span style="color:#8F8886;font-size:9.5px">EARLY SIGNAL · {{ dw.early }}</span></div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">WHY NOW</span><sc-for list="{{ dw.why }}" as="y" hint-placeholder-count="5"><div style="display:flex;gap:8px;font-size:11px;line-height:1.45;color:#EDEAE9"><span style="font-weight:700;color:{{ y.color }}">{{ y.mark }}</span>{{ y.t }}</div></sc-for><span style="font-size:9.5px;color:#8F8886">{{ t.lblTransparentReasons }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.mkWhyL }} NOW</span><sc-for list="{{ dw.why }}" as="y" hint-placeholder-count="5"><div style="display:flex;gap:8px;font-size:11px;line-height:1.45;color:#EDEAE9"><span style="font-weight:700;color:{{ y.color }}">{{ y.mark }}</span>{{ y.t }}</div></sc-for><span style="font-size:9.5px;color:#8F8886">{{ t.lblTransparentReasons }}</span></div>
           <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">ADAMA PRODUCTS</span><sc-for list="{{ dw.prods }}" as="p" hint-placeholder-count="1"><div style="font-size:11px;font-weight:700;color:#fff;padding:4px 0;border-bottom:1px dotted rgba(151,139,135,0.45)">{{ p.name }}</div></sc-for><sc-if value="{{ dw.noProducts }}" hint-placeholder-val="{{ false }}"><div style="font-size:10.5px;color:#B1A9A7">{{ dw.noProductsText }}</div></sc-if></div>
           <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">WHO SHOULD PREPARE · WHEN</span><sc-for list="{{ dw.deptPlan }}" as="d" hint-placeholder-count="6"><div onClick="{{ d.brief }}" style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer"><span style="font-size:10.5px;font-weight:700;color:{{ d.color }}">{{ d.deptLabel }}</span><span style="font-size:10px;color:#C9C3C1">{{ d.range }}</span></div></sc-for><span style="font-size:9.5px;color:#8F8886">{{ t.cwDeptCaveat }}</span></div>
           <div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblKnow }}</span><sc-for list="{{ dw.know }}" as="k" hint-placeholder-count="2"><div style="display:flex;gap:6px;font-size:10.5px;color:#EDEAE9"><span style="color:#009845">✓</span>{{ k }}</div></sc-for></div>
@@ -978,7 +978,7 @@
         <div style="display:grid;grid-template-columns:minmax(260px,0.85fr) minmax(320px,1.6fr);gap:12px">
           <div style="border-radius:16px;background:{{ mp.sem.tint }};border:1px solid {{ mp.sem.border }};border-top:4px solid {{ mp.sem.line }};padding:17px 20px;display:flex;flex-direction:column;gap:8px">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.16em;color:#8F8886">MARKET CONDITIONS</span>
+              <span style="font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.16em;color:#8F8886">{{ t.mkCondL }}</span>
               <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:9999px;border:1px solid {{ mp.sem.border }};color:{{ mp.sem.color }};font-size:8px;font-weight:700;letter-spacing:0.10em">{{ mp.sem.mark }} {{ mp.sem.label }}</span>
             </div>
             <div style="font-size:20px;font-weight:700;letter-spacing:0.02em;color:#fff;line-height:1">{{ mp.label }}</div>
@@ -988,7 +988,7 @@
               <span style="font-size:12px;font-weight:600;color:#EDEAE9">{{ mp.traj.nowLine }}</span>
             </div>
             <div style="display:flex;flex-direction:column;gap:1px;padding-top:7px;border-top:1px solid rgba(255,255,255,0.10);margin-top:4px">
-              <span style="font-size:9px;letter-spacing:0.12em;color:#8F8886">LAST CONFIRMED OBSERVATION</span>
+              <span style="font-size:9px;letter-spacing:0.12em;color:#8F8886">{{ t.mkLastObsL }}</span>
               <span style="font-size:15px;font-weight:700;color:#fff">{{ mp.latestPeriod }}</span>
             </div>
           </div>
@@ -1014,7 +1014,7 @@
 
         <!-- FRESHNESS RAIL -->
         <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:0;border-radius:12px;overflow:hidden;border:1px solid rgba(203,197,195,0.10);background:#161312">
-          <span style="display:flex;align-items:center;padding:10px 14px;background:rgba(151,139,135,0.14);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:#B1A9A7;white-space:nowrap">DATA FRESHNESS</span>
+          <span style="display:flex;align-items:center;padding:10px 14px;background:rgba(151,139,135,0.14);font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.14em;color:#B1A9A7;white-space:nowrap">{{ t.mkFreshL }}</span>
           <sc-for list="{{ mp.fresh }}" as="f" hint-placeholder-count="6">
             <span style="display:flex;flex-direction:column;gap:2px;padding:9px 16px;border-left:1px solid rgba(255,255,255,0.06);flex:1 1 130px">
               <span style="font-size:8.5px;letter-spacing:0.10em;color:#8F8886;white-space:nowrap">{{ f.k }}</span>
@@ -1026,13 +1026,13 @@
 
         <!-- CURRENT MARKET -->
         <div style="display:flex;flex-direction:column;gap:9px">
-          <div style="display:flex;align-items:center;gap:12px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#00B152;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">CURRENT MARKET</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,177,82,0.45),rgba(0,177,82,0))"></span></div>
+          <div style="display:flex;align-items:center;gap:12px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#00B152;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">{{ t.mkCurrentL }}</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,177,82,0.45),rgba(0,177,82,0))"></span></div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px">
 
             <div style="border-radius:14px;background:{{ mp.priceSem.tint }};border:1px solid {{ mp.priceSem.border }};border-top:3px solid {{ mp.priceSem.line }};padding:14px 16px;display:flex;flex-direction:column;gap:9px">
               <div style="display:flex;align-items:center;gap:10px">
                 <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#00A0DF22;border:1px solid #00A0DF55;flex:0 0 26px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00A0DF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-6 4 4 7-8"></path></svg></span>
-                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">PRICE MOMENTUM</span><span style="font-size:13px;font-weight:700;color:{{ mp.priceStateColor }};line-height:1.2">{{ mp.priceState }}</span></span>
+                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.11em;color:#8F8886">{{ t.mkMomentumL }}</span><span style="font-size:13px;font-weight:700;color:{{ mp.priceStateColor }};line-height:1.2">{{ mp.priceState }}</span></span>
               </div>
               <sc-if value="{{ mp.hasPrice }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:28px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.price.headline }}</span><span style="font-size:12px;color:#B1A9A7">{{ mp.price.unit }}</span></div>
@@ -1082,7 +1082,7 @@
           </sc-if>
 
           <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);border-top:3px solid #00A0DF;padding:14px 16px;display:flex;flex-direction:column;gap:9px">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#00A0DF;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">REGIONAL MARKETS · PIAZZA</span><span style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#978B87">{{ mp.regional.state }}</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#00A0DF;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">{{ t.mkRegionalL }} · PIAZZA</span><span style="font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:#978B87">{{ mp.regional.state }}</span></div>
             <sc-if value="{{ mp.hasRegionRows }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex;flex-direction:column;gap:0">
               <sc-for list="{{ mp.regionRows }}" as="r" hint-placeholder-count="5">
@@ -1101,27 +1101,27 @@
 
         <!-- ADAMA RELEVANCE -->
         <div style="position:relative;overflow:hidden;border-radius:16px;background:#00783F;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
-          <div style="display:flex;align-items:center;gap:12px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.16em;color:#fff">WHAT THIS MEANS FOR ADAMA</span><span style="flex:1;height:1px;background:rgba(255,255,255,0.25)"></span></div>
+          <div style="display:flex;align-items:center;gap:12px"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.16em;color:#fff">{{ t.mkMeansL }}</span><span style="flex:1;height:1px;background:rgba(255,255,255,0.25)"></span></div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px">
-            <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">NEXT AGRONOMIC WINDOW</span><span style="font-size:26px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.adamaDays }}</span><span style="font-size:9.5px;color:#DFF3E7">{{ mp.adamaDaysLabel }}</span></div>
+            <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">{{ t.mkNextWinL }}</span><span style="font-size:26px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.adamaDays }}</span><span style="font-size:9.5px;color:#DFF3E7">{{ mp.adamaDaysLabel }}</span></div>
             <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">{{ t.lblPortfolio }}</span><span style="font-size:26px;font-weight:300;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ mp.productCount }}</span><span style="font-size:9.5px;color:#DFF3E7">{{ t.mpProductsNote }}</span></div>
-            <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">COMMERCIAL PREPARATION</span><span style="font-size:19px;font-weight:700;color:#fff;line-height:1.15">{{ mp.adamaStance }}</span></div>
+            <div style="border-radius:11px;background:rgba(0,0,0,0.22);padding:11px 13px;display:flex;flex-direction:column;gap:3px"><span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">{{ t.mkCommPrepL }}</span><span style="font-size:19px;font-weight:700;color:#fff;line-height:1.15">{{ mp.adamaStance }}</span></div>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
             <div style="display:flex;flex-direction:column;gap:4px">
-              <span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">WHY</span>
+              <span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">{{ t.mkWhyL }}</span>
               <p style="margin:0;font-size:12px;line-height:1.55;color:#fff;text-wrap:pretty">{{ mp.adamaWhy }}</p>
               <span style="font-size:10px;color:#E3F4EA;line-height:1.5;padding-top:4px">{{ t.mpAdamaWhyNote }}</span>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px">
-              <span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">RELATED CROP WINDOWS</span>
+              <span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">{{ t.mkRelWinL }}</span>
               <sc-for list="{{ mp.wins }}" as="w" hint-placeholder-count="3">
                 <div onClick="{{ w.go }}" style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.14);cursor:pointer"><span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:11.5px;font-weight:600;color:#fff">{{ w.issueL }}</span><span style="font-size:9.5px;color:#E3F4EA">{{ w.region }}</span></span><span style="font-size:10.5px;font-weight:700;color:#fff;white-space:nowrap">{{ w.daysLabel }}</span></div>
               </sc-for>
               <sc-if value="{{ mp.noWins }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;color:#E3F4EA">{{ t.mpNoWindow }}</span></sc-if>
             </div>
             <div style="display:flex;flex-direction:column;gap:5px">
-              <span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">PORTFOLIO &amp; RELATED SIGNALS</span>
+              <span style="font-size:8.5px;letter-spacing:0.12em;color:#E3F4EA">{{ t.mkPortSigL }}</span>
               <div style="display:flex;flex-wrap:wrap;gap:5px">
                 <sc-for list="{{ mp.products }}" as="p" hint-placeholder-count="4"><span onClick="{{ p.go }}" style="padding:5px 9px;border-radius:7px;background:rgba(255,255,255,0.92);font-size:10.5px;font-weight:700;color:#1C1817;cursor:pointer" style-hover="background:rgba(255,255,255,0.26)">{{ p.name }}</span></sc-for>
               </div>
@@ -1132,16 +1132,16 @@
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:2px">
-            <span onClick="{{ mp.goWindowsAll }}" style="padding:8px 16px;border-radius:9999px;background:#fff;color:#00783F;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer">VIEW CROP WINDOWS →</span>
+            <span onClick="{{ mp.goWindowsAll }}" style="padding:8px 16px;border-radius:9999px;background:#fff;color:#00783F;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer">{{ t.mkViewWinL }} →</span>
             <span onClick="{{ mp.goCases }}" style="padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,0.6);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">{{ t.lblView }} {{ mp.caseCount }} {{ t.mpConvergences }} →</span>
-            <span onClick="{{ goFuture }}" style="padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,0.6);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">VIEW FUTURE RADAR →</span>
+            <span onClick="{{ goFuture }}" style="padding:8px 16px;border-radius:9999px;border:1px solid rgba(255,255,255,0.6);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.10em;cursor:pointer" style-hover="background:rgba(255,255,255,0.14)">{{ t.mkViewFutL }} →</span>
           </div>
         </div>
 
         <!-- WHAT CHANGED + GAPS -->
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px">
           <div style="border-radius:14px;background:#1C1817;border:1px solid rgba(203,197,195,0.10);border-top:3px solid #978B87;padding:14px 16px;display:flex;flex-direction:column;gap:9px">
-            <span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#978B87;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">WHAT WE STILL DO NOT KNOW</span>
+            <span style="display:inline-flex;align-items:center;height:22px;padding:0 22px 0 12px;background:#978B87;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);font-family:var(--font-secondary);font-size:9px;font-weight:600;letter-spacing:0.14em;color:#1C1817">{{ t.mkNotKnowL }}</span>
             <div style="display:flex;flex-direction:column;gap:4px">
               <sc-for list="{{ mp.gaps }}" as="g" hint-placeholder-count="4"><span style="display:flex;gap:9px;align-items:baseline;font-size:11.5px;color:#C9C3C1;line-height:1.45"><span style="color:#8F8886">—</span>{{ g }}</span></sc-for>
             </div>
@@ -1150,7 +1150,7 @@
         </div>
 
         <div style="border-radius:12px;border-left:3px solid #978B87;background:#161312;padding:13px 16px;display:flex;flex-direction:column;gap:5px">
-          <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#978B87">WHAT PUBLIC MARKET DATA CANNOT PROVE</span>
+          <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#978B87">{{ t.mkCannotProveL }}</span>
           <span style="font-size:11px;color:#8F8886;line-height:1.6">{{ t.cannotProveList }}</span>
         </div>
 
@@ -1613,7 +1613,7 @@
             <sc-for list="{{ matrix }}" as="r" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:70px repeat(6,1fr);gap:3px;align-items:center"><span style="font-size:10px;font-weight:700;color:#fff">{{ r.company }}</span><sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="6"><span onClick="{{ c.go }}" title="{{ c.n }} items" style="height:18px;border-radius:4px;background:{{ c.bg }};display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;cursor:pointer">{{ c.dots }}</span></sc-for></div></sc-for>
           </div>
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
-            <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">UPCOMING EVENTS</div><span onClick="{{ goEvents }}" style="font-size:9.5px;font-weight:700;color:#00B152;cursor:pointer">EVENT WATCH →</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.cwUpcomingL }}</div><span onClick="{{ goEvents }}" style="font-size:9.5px;font-weight:700;color:#00B152;cursor:pointer">{{ t.cwEventWatchL }} →</span></div>
             <sc-for list="{{ upcomingEvents }}" as="e" hint-placeholder-count="3"><div onClick="{{ e.go }}" style="display:grid;grid-template-columns:48px 1fr;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dotted rgba(151,139,135,0.45);cursor:pointer"><span style="font-size:16px;font-weight:300;color:#fff;font-variant-numeric:tabular-nums;line-height:1">{{ e.startDays }}<span style="font-size:8px;color:#8F8886"> d</span></span><div style="display:flex;flex-direction:column;min-width:0"><span style="font-size:11px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ e.name }}</span><span style="font-size:9.5px;color:#8F8886">{{ e.city }} · {{ e.dates }} · {{ e.confirmedLabel }}</span></div></div></sc-for>
           </div>
         </div>
@@ -1776,9 +1776,9 @@
               <span style="font-size:11px;color:#C9C3C1;line-height:1.5;text-wrap:pretty">{{ TH.short }}</span>
               <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px;padding-top:2px;border-top:1px solid rgba(255,255,255,0.07)">
                 <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:8px;letter-spacing:0.10em;color:#8F8886">{{ t.lblPortfolio }}</span><span style="font-size:10.5px;font-weight:700;color:{{ TH.portfolioColor }};line-height:1.3">{{ TH.portfolioState }}</span></span>
-                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:8px;letter-spacing:0.10em;color:#8F8886">NEXT RELEVANT WINDOW</span><span style="font-size:10.5px;font-weight:700;color:{{ TH.nextMomentColor }};line-height:1.3">{{ TH.nextMoment }}</span><span style="font-size:9px;color:#8F8886;line-height:1.35">{{ TH.nextMomentMeta }}</span></span>
+                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:8px;letter-spacing:0.10em;color:#8F8886">{{ t.sciNextWinL }}</span><span style="font-size:10.5px;font-weight:700;color:{{ TH.nextMomentColor }};line-height:1.3">{{ TH.nextMoment }}</span><span style="font-size:9px;color:#8F8886;line-height:1.35">{{ TH.nextMomentMeta }}</span></span>
                 <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:8px;letter-spacing:0.10em;color:#8F8886">SCIENCE ACTIVITY</span><span style="font-size:10.5px;font-weight:700;color:#B1A9A7">{{ TH.activity }}</span></span>
-                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:8px;letter-spacing:0.10em;color:#8F8886">SCIENTIFIC VOLUME</span><span style="font-size:10.5px;color:#8F8886">{{ TH.worksLabel }}</span></span>
+                <span style="display:flex;flex-direction:column;gap:1px"><span style="font-size:8px;letter-spacing:0.10em;color:#8F8886">{{ t.sciVolumeL }}</span><span style="font-size:10.5px;color:#8F8886">{{ TH.worksLabel }}</span></span>
               </div>
               <div style="display:flex;flex-wrap:wrap;gap:4px">
                 <sc-for list="{{ TH.owners }}" as="o" hint-placeholder-count="2"><span style="padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:8.5px;font-weight:700;letter-spacing:0.06em;color:#B1A9A7">{{ o }}</span></sc-for>
@@ -1805,7 +1805,7 @@
           </sc-for>
           <div style="display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08)">
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
-              <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#F89E18">GIRE · CONFIRMED ITALIAN RESISTANCE CASES</span>
+              <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;color:#F89E18">GIRE · {{ t.sciGireL }}</span>
               <span style="font-size:9.5px;color:#8F8886">{{ gireStats.total }} {{ t.gireCases }} · {{ gireStats.linked }} {{ t.gireOverlap }}</span><span style="font-size:9.5px;color:#8F8886">{{ t.gireHerbNote }} {{ gireStats.herbicides }} {{ t.gireHerb }}</span>
             </div>
             <sc-for list="{{ gireShown }}" as="g" hint-placeholder-count="8">
@@ -1848,7 +1848,7 @@
         </div>
         <div style="grid-column:span 4;display:flex;flex-direction:column;gap:10px">
           <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">RESEARCHERS · {{ kpi.researchers }}</div><span onClick="{{ goResearchers }}" style="font-size:9.5px;font-weight:700;color:#00B152;cursor:pointer">ALL IN SOURCES →</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">RESEARCHERS · {{ kpi.researchers }}</div><span onClick="{{ goResearchers }}" style="font-size:9.5px;font-weight:700;color:#00B152;cursor:pointer">{{ t.sciAllSrcL }} →</span></div>
             <sc-for list="{{ researchers }}" as="p" hint-placeholder-count="8">
               <div onClick="{{ p.go }}" style="display:flex;align-items:center;gap:9px;padding:5px 0;border-bottom:1px dotted rgba(151,139,135,0.45);cursor:pointer" style-hover="color:#fff"><span style="width:24px;height:24px;border-radius:50%;background:rgba(151,139,135,0.18);border:1px solid rgba(151,139,135,0.4);display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:#B1A9A7;flex:0 0 24px">{{ p.initials }}</span><div style="flex:1;display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-size:11px;color:#EDEAE9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.label }} · {{ p.org }}</span><span style="font-size:9.5px;color:#8F8886;line-height:1.35">{{ p.bizWhy }}</span><span style="font-size:8.5px;font-weight:700;letter-spacing:0.07em;color:#7DB41E">{{ p.bizUse }}</span></div><span style="font-size:9px;color:#8F8886">{{ p.last }}</span></div>
             </sc-for>
