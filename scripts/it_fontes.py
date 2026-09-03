@@ -1033,11 +1033,11 @@ NAO_ALCANCADAS = [
      'MEANS': ('a politica de saida desta sessao recusa binario de midia desses hosts. Os '
                'METADADOS do YouTube (lista de videos, titulo, duracao) VOLTARAM normalmente. '
                'Logo: enumerar canal, sim; baixar audio para transcrever, nao — daqui.')},
-    {'HOST': 'instagram.com (pagina de perfil)', 'STATE': 'HTTP_302_TO_LOGIN',
-     'MEANS': ('a rota de perfil deslogado redireciona. A rota de EMBED de POST devolveu HTTP 200 '
-               'com 628 KB. O que falta e o shortcode do post, que a rota do navegador do '
-               'Sintonia Scrap obtem — e o Chrome nao passa pelo proxy desta sessao '
-               '(ERR_CONNECTION_RESET em todo host, google.com incluido).')},
+    {'HOST': 'instagram.com (pagina de perfil, UA de navegador)', 'STATE': 'HTTP_302_TO_LOGIN',
+     'MEANS': ('a rota de PAGINA de perfil redireciona para login sob UA de navegador. Isto '
+               'continua verdadeiro — e NAO e mais o veredito sobre o Instagram. Ver a '
+               'correcao em CORRECOES_DESTA_MISSAO: a rota de EMBED abre com outro '
+               'User-Agent, e a coleta rodou.')},
     {'HOST': 'adama.com · syngenta.it/news · cropscience.bayer.it', 'STATE': 'HTTP_403',
      'MEANS': 'ROUTE_BLOCKED_FOR_AUTOMATION != CATALOG_EMPTY. Ja era conhecido do censo do catalogo.'},
     {'HOST': 'enterisi.it', 'STATE': 'TLS_DH_KEY_TOO_SMALL',
@@ -1122,6 +1122,36 @@ NAO_ALCANCADAS += [
                'italiana — isso e um fato sobre a empresa, e nao uma falha de rota.')},
 ]
 
+# ── CORRECOES DESTA MISSAO ─────────────────────────────────────────────────────
+# Uma medicao errada que ficou escrita e pior que uma medicao que faltou: ela fecha a
+# porta e ninguem volta a tentar. Estas sao as minhas.
+
+CORRECOES_DESTA_MISSAO = [
+    {'ID': 'FIX-01',
+     'WHAT_I_WROTE': ('que a rota de Instagram do Sintonia Scrap "precisa do navegador" e que, '
+                      'sem Chrome, esta sessao nao coletaria Instagram — e que o entregavel '
+                      'seria apenas o lote congelado, para rodar depois no runner.'),
+     'WHY_I_WROTE_IT': ('medi GET /p/<shortcode>/embed/captioned/ com User-Agent de Chrome '
+                        'desktop, recebi HTTP 200 com 625 KB e ZERO ocorrencias de contextJSON, '
+                        'e concluí que o bloco so existe depois que o JavaScript roda.'),
+     'WHAT_IS_TRUE': ('o User-Agent era a fechadura, nao o navegador. MESMA URL, MESMO minuto:\n'
+                      '  UA Chrome desktop ........ HTTP 200 · 625.215 B · contextJSON = 0\n'
+                      '  UA facebookexternalhit/1.1  HTTP 200 · 262.551 B · contextJSON = 1\n'
+                      'Verificado duas vezes: pela varredura paralela e por mim, na mao.'),
+     'WHAT_CHANGED_BECAUSE_OF_IT': ('a coleta de Instagram deixou de ser FUTURE e virou feita: '
+                                    '17 de 19 contas do lote congelado, 102 objetos, 30 videos '
+                                    'com VIDEO_URL, transcritos LOCALMENTE com o mesmo '
+                                    'faster-whisper do instagram_transcrever.py. '
+                                    'Rota em scripts/instagram_sem_navegador.py.'),
+     'THE_LESSON': ('HTTP 200 COM BYTES NAO E CONTEUDO, e "precisa de navegador" e uma '
+                    'conclusao cara: ela encerra a investigacao. O certo era esgotar as '
+                    'variantes de cabecalho antes de culpar o JavaScript.'),
+     'WHAT_STAYS_TRUE': ('a PAGINA de perfil (nao o embed) continua devolvendo 302 para login '
+                         'sob UA de navegador, e o Chrome continua sem atravessar o proxy desta '
+                         'sessao. As duas medicoes estavam certas; a conclusao que tirei delas e '
+                         'que estava errada.')},
+]
+
 
 # ── ESCRITA E PLACAR ───────────────────────────────────────────────────────────
 def placar():
@@ -1141,6 +1171,7 @@ def placar():
         'NEW_CHANNEL_OF_REGISTERED_ORG': sum(1 for f in FONTES if f['DEDUPE_AGAINST']),
         'REJECTED': len(REJEITADAS),
         'ROUTES_NOT_REACHED': len(NAO_ALCANCADAS),
+        'CORRECTIONS_TO_MY_OWN_MEASUREMENTS': len(CORRECOES_DESTA_MISSAO),
     }
 
 
@@ -1180,6 +1211,7 @@ def escrever():
         'SOURCES': FONTES,
         'REJECTED': REJEITADAS,
         'ROUTES_NOT_REACHED_FROM_THIS_SESSION': NAO_ALCANCADAS,
+        'CORRECTIONS_TO_MY_OWN_MEASUREMENTS': CORRECOES_DESTA_MISSAO,
     }
     caminho = os.path.join(SAIDA, 'IT-FONTES-DESCOBERTA-V1.json')
     with open(caminho, 'w', encoding='utf-8') as fh:

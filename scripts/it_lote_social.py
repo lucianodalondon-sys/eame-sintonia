@@ -245,14 +245,21 @@ def escrever():
         'WINDOW_FIRST': 'LAST_30D',
         'WINDOW_WIDEN_TO': 'LAST_60D, depois LAST_90D',
         'WINDOW_WIDEN_RULE': 'so onde o corpus vier baixo. Nunca historico profundo na primeira execucao.',
-        'CONTENT_COLLECTION_STAGE': 'NOT_STARTED',
-        'MISSION_STATE': 'READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE',
-        'WHY_NOT_COLLECTED_HERE': ('esta sessao remota nao tem a rota: o Chrome nao atravessa o proxy '
-                                   '(ERR_CONNECTION_RESET em todo host, google.com incluido) e a pagina '
-                                   'de perfil do Instagram devolve HTTP 302 para login. A rota de EMBED '
-                                   'de POST responde HTTP 200 daqui — falta o shortcode, que a passada '
-                                   'de perfil entrega. O `sintonia-scrap.yml` roda no self-hosted que tem '
-                                   'navegador e nucleos.'),
+        'CONTENT_COLLECTION_STAGE': 'DONE_WITHOUT_A_BROWSER',
+        'MISSION_STATE': 'COLLECTED',
+        'CORRECTION': ('a V1 deste lote dizia READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE, porque eu havia '
+                       'concluido que a rota de embed precisava do navegador. Estava errado: o que '
+                       'faltava era o User-Agent. Com facebookexternalhit/1.1 a MESMA URL devolve o '
+                       'contextJSON hidratado, e a coleta rodou nesta sessao. O lote NAO mudou — '
+                       'mudou o que se sabe sobre a rota. Ver scripts/instagram_sem_navegador.py.'),
+        'WHAT_WAS_COLLECTED_HERE': ('17 de 19 contas de Instagram deste lote · 102 objetos · 30 videos '
+                                    'com VIDEO_URL · transcricao LOCAL com o mesmo faster-whisper do '
+                                    'instagram_transcrever.py · custo 0,00 USD. '
+                                    'Artefatos em data/samples/IT-INSTAGRAM-V1/.'),
+        'WHAT_STILL_NEEDS_THE_RUNNER': ('a grade completa: esta rota entrega 6 itens por conta, o Chrome '
+                                        'com janela entrega 12. E os COMENTARIOS, que nenhuma das duas '
+                                        'rotas gratis entrega e que continuam sendo o unico motivo real '
+                                        'de pagar.'),
         'ZERO_MEANS_NOW': 'NO_CONTENT_COLLECTION_EXECUTED — nenhum zero deste lote fala sobre o mundo ainda',
         'ZERO_WILL_MEAN_AFTER_A_VALID_RUN': ('NO_ITEMS_OBSERVED nesta conta provada, nesta plataforma, '
                                              'nesta janela, nesta execucao bem-sucedida. NUNCA '
