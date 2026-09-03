@@ -16,3 +16,17 @@ __pycache__/
 venv/
 node_modules/
 .ipynb_checkpoints/
+
+# ── SINTONIA SCRAP · o pesado da coleta de Instagram não entra no Git ────────
+# Medido nesta casa em 2026-08-29: gzip tem ratio 1,00 no pack e ZERO delta base.
+# Cada versão nova entra pelo tamanho integral, PARA SEMPRE. O HTML bruto é
+# EVIDÊNCIA e continua sendo escrito no disco da máquina — o artefato guarda o
+# caminho em RAW_HTML_PATH. O que ele não faz é virar peso permanente do pack.
+#
+# O áudio é pior: `small` em lote são ~19 h de som para mil vídeos, e o WAV é
+# insumo descartável — a transcrição é que é o resultado.
+#
+# A regra é ESCOPADA ao Instagram de propósito. As missões 14 e 15 commitam
+# `.gz` nos caminhos delas, e um ignore global as quebraria em silêncio.
+data/samples/INSTAGRAM-JANELA/html-bruto/
+data/samples/INSTAGRAM-TRANSCRICOES/audio-cache/
