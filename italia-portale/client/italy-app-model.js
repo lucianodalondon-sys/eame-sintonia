@@ -2678,15 +2678,18 @@
            all; giving it a code here would silently re-admit a record on the
            back of a language fix, and the count would stop meaning what it
            meant yesterday. Measured before and after this change: 188. */
-        /* Un nome TRATTENUTO dal portone di lingua non e un nome ASSENTE.
-           Quando l'ingest ritira la prosa e lascia solo il marcatore
-           __PT_ONLY, s.NAME sparisce: l'ultimo ripiego non scattava piu e la
-           fonte veniva scartata del tutto, portando il registro da 188 a 187.
-           Il sentinella SRC_NAO_DECLARADA resta giustamente fuori — quello non
-           e una fonte — ma una fonte reale sopravvive alla sua etichetta. */
-        name: showableSourceName(s.NAME)
-          || hostFromSourceKey(s.ID)
-          || ((v21S(s.NAME) || s.NAME__PT_ONLY) ? U(s.ID) : null),
+        /* IL REGISTRO CONTA FONTI, NON SEGNAPOSTI.
+           Il pacchetto porta 189 righe, e due di esse dichiarano
+           ENTITY_TYPE: SOURCE_SENTINEL — SRC_NAO_DECLARADA e SRC_DESCONHECIDA.
+           Non sono fonti: sono il modo in cui il pacchetto dice «qui non e
+           stata dichiarata una fonte». Le fonti reali sono 187.
+
+           La prima veniva gia esclusa, ma solo di rimbalzo, perche non aveva
+           un nome; la seconda entrava e portava sullo schermo il proprio id
+           portoghese come se fosse un nome. Ora l'esclusione e dichiarata per
+           quello che e, e non dipende piu da cosa il portone di lingua abbia
+           deciso di trattenere. */
+        name: showableSourceName(s.NAME) || hostFromSourceKey(s.ID) || null,
         nameState: showableSourceName(s.NAME) ? KNOWLEDGE.CLEAR
           : (v21S(s.NAME) || s.NAME__PT_ONLY) ? KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY
             : KNOWLEDGE.NOT_ESTABLISHED,
@@ -2709,9 +2712,15 @@
         accessEvidenceMeasured: s.ACCESS_EVIDENCE_MEASURED === true,
         requiresItalianRoute: s.REQUIRES_ITALIAN_ROUTE === true,
         idAliases: A(s.ID_ALIASES),
+        entityType: U(s.ENTITY_TYPE),
         ui: { color: SOURCE_TYPE_COLOR[U(type)] || NEUTRAL, order: null },
       });
-    }, (r) => (!r.id ? 'no ID' : !r.name ? 'no name' : null)),
+    }, (r) => (!r.id ? 'no ID'
+      /* i due segnaposto del pacchetto non sono fonti: dicono che una fonte
+         non e stata dichiarata. Escluderli per quello che sono, non di
+         rimbalzo perche gli manca un nome. */
+      : r.entityType === 'SOURCE_SENTINEL' ? 'sentinel, not a source'
+      : !r.name ? 'no name' : null)),
     {
       source: 'ITALY_INGEST.SOURCES',
       precedence: P.REAL_SOURCE,
