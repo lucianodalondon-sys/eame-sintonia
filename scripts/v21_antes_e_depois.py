@@ -19,6 +19,7 @@ import os
 import sys
 import zipfile
 from collections import Counter
+from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ING = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST')
@@ -147,6 +148,10 @@ def main():
 
     fora = {
         'COLLECTION': 'V11-ANTES-E-DEPOIS',
+        # o contrato de `data/samples/` vale para o que eu mesmo produzo
+        'SOURCE': 'build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip (ANTES) · '
+                  'build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST (DEPOIS)',
+        'CAPTURED_AT': date.today().isoformat(),
         'LAW': 'o ANTES sai do zip versionado do V1; o DEPOIS, da cadeia '
                'reconstruida. Nenhum numero foi digitado a mao.',
         'BUILD_ID_ANTES': A.get('BUILD_ID'), 'BUILD_ID_DEPOIS': D.get('BUILD_ID'),

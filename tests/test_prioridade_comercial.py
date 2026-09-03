@@ -390,3 +390,80 @@ class TestInvariantes(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
+
+
+# ── T13-T18 · SALES_READY NÃO AUTORIZA SAÍDA EXTERNA ─────────────────────────
+class TestMaterialExterno(unittest.TestCase):
+    """`SALES_READY` responde «isto vende?». Enviar a um revendedor ou a um RTV
+    é outra pergunta, e ela é pública.
+
+        VENDER É UMA DECISÃO INTERNA. ENVIAR É UMA AFIRMAÇÃO PÚBLICA.
+    """
+
+    PRONTO = {'COMMERCIAL_PRIORITY': CM.SALES_READY, 'CROP': 'CROP_APPLE',
+              'BLOCKING_GATES': [], 'RED_TEAM_FINDINGS': [],
+              'NEED_EXCERPT': 'danos em aumento', 'WINDOW_KIND': None}
+    CATALOGO = [{'NAME': 'MAVRIK SMART',
+                 'CROPS_DECLARED_ON_SITE': ['CEREALI', 'POMACEE', 'VITE']}]
+
+    def test_T13_sales_ready_sem_pendencia_pode_sair(self):
+        e, b = CM.externo(dict(self.PRONTO), self.CATALOGO)
+        self.assertEqual(CM.EXTERNAL_YES, e)
+        self.assertEqual([], b)
+
+    def test_T14_sales_ready_com_portao_aberto_nao_sai(self):
+        """E continua SALES_READY internamente: as duas colunas não se fundem."""
+        o = dict(self.PRONTO, BLOCKING_GATES=['A_GEOGRAFIA · apoios em geografias'])
+        e, b = CM.externo(o, self.CATALOGO)
+        self.assertEqual(CM.EXTERNAL_VALIDATION_REQUIRED, e)
+        self.assertIn('EVIDENCE_GATE_OPEN', b)
+        self.assertEqual(CM.SALES_READY, o['COMMERCIAL_PRIORITY'],
+                         'a coluna interna foi rebaixada pela externa')
+
+    def test_T15_data_de_ato_nao_pode_ir_como_janela(self):
+        o = dict(self.PRONTO, WINDOW_KIND='PREPARATION')
+        e, b = CM.externo(o, self.CATALOGO)
+        self.assertEqual(CM.EXTERNAL_VALIDATION_REQUIRED, e)
+        self.assertIn('WINDOW_IS_ADMINISTRATIVE', b)
+
+    def test_T16_catalogo_que_nao_declara_a_cultura_bloqueia(self):
+        """Medido: `Lamdex® Extra` tem rótulo em MELO × CARPOCAPSA, e a página
+        de catálogo dele declara MAIS, POMODORO e VITE — macieira não está lá."""
+        so_lamdex = [{'NAME': 'Lamdex® Extra',
+                      'CROPS_DECLARED_ON_SITE': ['MAIS', 'POMODORO', 'VITE']}]
+        e, b = CM.externo(dict(self.PRONTO), so_lamdex)
+        self.assertEqual(CM.EXTERNAL_VALIDATION_REQUIRED, e)
+        self.assertIn('CATALOG_DOES_NOT_DECLARE_CROP', b)
+        # e o mesmo caso passa quando um produto do catálogo declara POMACEE
+        self.assertEqual(CM.EXTERNAL_YES,
+                         CM.externo(dict(self.PRONTO), so_lamdex + self.CATALOGO)[0])
+
+    def test_T17_recomendacao_sem_frase_da_fonte_nao_sai(self):
+        e, b = CM.externo(dict(self.PRONTO, NEED_EXCERPT=''), self.CATALOGO)
+        self.assertIn('NO_SOURCE_SENTENCE', b)
+
+    def test_T18_o_que_nao_vende_internamente_nunca_sai(self):
+        for pri in (CM.SALES_PREPARE, CM.COMMERCIAL_WATCH,
+                    CM.STRATEGIC_OPPORTUNITY, CM.TO_VALIDATE):
+            e, b = CM.externo(dict(self.PRONTO, COMMERCIAL_PRIORITY=pri),
+                              self.CATALOGO)
+            self.assertEqual(CM.EXTERNAL_NO, e, pri)
+            self.assertEqual(['NOT_SALES_READY'], b)
+
+    def test_red_team_aberto_bloqueia_saida(self):
+        e, b = CM.externo(dict(self.PRONTO, RED_TEAM_FINDINGS=['x']), self.CATALOGO)
+        self.assertIn('RED_TEAM_FINDING', b)
+
+    def test_no_pacote_a_saida_externa_nunca_excede_a_interna(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            self.assertIn(r['EXTERNAL_MATERIAL_READY'],
+                          (CM.EXTERNAL_YES, CM.EXTERNAL_VALIDATION_REQUIRED,
+                           CM.EXTERNAL_NO))
+            if r['COMMERCIAL_PRIORITY'] != CM.SALES_READY:
+                self.assertEqual(CM.EXTERNAL_NO, r['EXTERNAL_MATERIAL_READY'],
+                                 '%s sai sem ser SALES_READY' % r['ID'])
+            if r['EXTERNAL_MATERIAL_READY'] == CM.EXTERNAL_YES:
+                self.assertEqual([], r['BLOCKING_GATES'], r['ID'])
+                self.assertEqual([], r['RED_TEAM_FINDINGS'], r['ID'])
+                self.assertTrue(r['NEED_EXCERPT'], r['ID'])
+                self.assertNotEqual('PREPARATION', r['WINDOW_KIND'], r['ID'])

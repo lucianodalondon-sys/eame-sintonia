@@ -27,7 +27,7 @@ ordem que aconteceram.
 | Migrations novas | 016, 017 |
 | Afirmações SQL | **118** (45 calendário · 19 captura · 33 cicatrizes · 21 coleta) |
 | Mutações | **12**, todas pegaram |
-| Testes Python | **<!--M:TEST_COUNT_CURRENT-->697<!--/M-->**, todos verdes |
+| Testes Python | **<!--M:TEST_COUNT_CURRENT-->705<!--/M-->**, todos verdes |
 | Apify gasto | **0,00 USD** |
 
 ## B · REUSO, NÃO SEGUNDA IMPLEMENTAÇÃO

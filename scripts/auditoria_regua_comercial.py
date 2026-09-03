@@ -41,6 +41,7 @@ import re
 import sys
 import zipfile
 from collections import Counter, defaultdict
+from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ZIP = os.path.join(ROOT, 'build', 'SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip')
@@ -538,6 +539,15 @@ def main():
     saida = {
         'COLLECTION': 'AUDITORIA-SOMBRA-REGUA-COMERCIAL',
         'SCHEMA_VERSION': 'V1',
+        # ⚠️ O CONTRATO DE `data/samples/` VALE PARA O QUE EU MESMO PRODUZO.
+        # `tests/test_evidence.py` exige que toda amostra diga de onde veio e
+        # quando foi capturada. Eu escrevi dois arquivos aqui sem os dois campos
+        # e a suite me pegou — que e exatamente o que ela existe para fazer.
+        #
+        #     A REGRA QUE SO VALE PARA O DADO DOS OUTROS NAO E REGRA.
+        'SOURCE': 'build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip · '
+                  'DESIGN-INGEST (pacote versionado do motor V1)',
+        'CAPTURED_AT': date.today().isoformat(),
         'SOURCE_OF_TRUTH': 'leitura externa sobre DESIGN-INGEST/OPPORTUNITIES.json',
         'PACOTE_LIDO_DE': de_onde,
         'BUILD_ID_AUDITADO': cab['BUILD_ID'],

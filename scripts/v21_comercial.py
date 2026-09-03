@@ -119,6 +119,46 @@ ARQ_ESTRATEGICO = ('O5_REGULATORY_PREPARATION',)
 ARQ_ABERTURA = ('O2_MARKET_MOMENT', 'O4_COMPETITIVE_OPENING')
 
 
+# ── O QUE PODE SAIR DA ADAMA ─────────────────────────────────────────────────
+# SALES_READY responde «isto vende?». Ele NÃO responde «isto pode ser enviado a
+# um revendedor ou a um RTV hoje?». São perguntas diferentes, e confundi-las é o
+# jeito mais rápido de pôr uma inferência nossa na mão de terceiro como se fosse
+# recomendação técnica.
+#
+#     VENDER É UMA DECISÃO INTERNA. ENVIAR É UMA AFIRMAÇÃO PÚBLICA.
+#     A SEGUNDA PRECISA SOBREVIVER A QUEM A LER SEM NOS CONHECER.
+EXTERNAL_YES = 'YES'
+EXTERNAL_VALIDATION_REQUIRED = 'VALIDATION_REQUIRED'
+EXTERNAL_NO = 'NO'
+
+# Por que um caso não pode sair. Frases FIXAS — o valor variável vive ao lado.
+BLOQUEIO_EXTERNO = {
+ 'NOT_SALES_READY': 'o caso não é comercialmente pronto nem internamente — '
+                    'ver COMMERCIAL_PRIORITY e WHY_COMMERCIAL.',
+ 'EVIDENCE_GATE_OPEN': 'há portão de evidência aberto sobre a mesma afirmação '
+                       'que o material levaria — ver BLOCKING_GATES.',
+ 'RED_TEAM_FINDING': 'o red team registrou uma extrapolação neste caso — ver '
+                     'RED_TEAM_FINDINGS.',
+ 'CATALOG_DOES_NOT_DECLARE_CROP': 'o rótulo ministerial cobre o par, mas a '
+                                  'página de catálogo do produto não declara '
+                                  'esta cultura. Enviar assim faria o material '
+                                  'afirmar mais do que o catálogo público diz.',
+ 'WINDOW_IS_ADMINISTRATIVE': 'a janela exibida no caso é data de ato, não '
+                             'janela de aplicação — ver WINDOW_KIND.',
+ 'NO_SOURCE_SENTENCE': 'não há frase da fonte guardada para sustentar a '
+                       'necessidade — ver NEED_EXCERPT.',
+}
+
+# A lei, em uma linha, para viajar com o campo.
+EXTERNAL_LAW = ('SALES_READY sozinho NAO autoriza saida externa. Material que '
+                'vai da ADAMA para revendedor ou RTV exige vinculo produto x '
+                'cultura x alvo sustentado, geografia sem contradicao, tempo '
+                'aplicavel, nenhum portao de evidencia sobre a mesma afirmacao '
+                'e nenhuma inferencia nossa apresentada como recomendacao. '
+                'VALIDATION_REQUIRED nao rebaixa a leitura interna: ele diz o '
+                'que falta antes de a frase sair de casa.')
+
+
 def num(x):
     """Número de registro reduzido à identidade: só dígitos, seis casas."""
     return re.sub(r'\D', '', str(x or '')).lstrip('0').zfill(6)
@@ -241,3 +281,48 @@ def prioridade(o):
         return COMMERCIAL_WATCH, r + ['OPENING_WITHOUT_NEED']
 
     return STRATEGIC_OPPORTUNITY, r + ['NEITHER_NEED_NOR_OPENING']
+
+
+def catalogo_declara_cultura(crop, produtos_casados):
+    """A página pública do produto nomeia esta cultura?
+
+    ⚠️ Medido nesta revisão: `Lamdex® Extra` tem rótulo ministerial em
+    `MELO × CARPOCAPSA`, e a página de catálogo dele declara
+    `['MAIS', 'POMODORO', 'VITE']` — macieira não está lá. O rótulo autoriza; o
+    catálogo público não anuncia. Para uso interno as duas coisas convivem; para
+    material que sai de casa, a segunda é a que o leitor vai conferir.
+
+        O RÓTULO DIZ O QUE É PERMITIDO. O CATÁLOGO DIZ O QUE A EMPRESA OFERECE.
+        MATERIAL EXTERNO NÃO PODE PROMETER MAIS DO QUE O CATÁLOGO ANUNCIA.
+    """
+    import v21_normalizar as N
+    for p in produtos_casados:
+        for termo in (p.get('CROPS_DECLARED_ON_SITE') or []):
+            if crop in N.crops_no_texto(termo):
+                return True, p.get('NAME')
+    return False, None
+
+
+def externo(o, produtos_casados=()):
+    """→ (EXTERNAL_MATERIAL_READY, [códigos de BLOQUEIO_EXTERNO]).
+
+    Nunca deriva de `COMMERCIAL_PRIORITY` sozinho, e nunca esconde a
+    independência das duas colunas: um caso pode continuar SALES_READY
+    internamente e sair daqui como VALIDATION_REQUIRED.
+    """
+    if o.get('COMMERCIAL_PRIORITY') != SALES_READY:
+        return EXTERNAL_NO, ['NOT_SALES_READY']
+
+    b = []
+    if o.get('BLOCKING_GATES'):
+        b.append('EVIDENCE_GATE_OPEN')
+    if o.get('RED_TEAM_FINDINGS'):
+        b.append('RED_TEAM_FINDING')
+    if not o.get('NEED_EXCERPT'):
+        b.append('NO_SOURCE_SENTENCE')
+    if o.get('WINDOW_KIND') == 'PREPARATION':
+        b.append('WINDOW_IS_ADMINISTRATIVE')
+    declara, _quem = catalogo_declara_cultura(o.get('CROP'), produtos_casados)
+    if not declara:
+        b.append('CATALOG_DOES_NOT_DECLARE_CROP')
+    return (EXTERNAL_VALIDATION_REQUIRED if b else EXTERNAL_YES), b

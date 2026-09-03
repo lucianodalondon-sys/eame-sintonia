@@ -407,6 +407,16 @@ def main():
     # cartesiano entre duas listas planas do mesmo documento.
     pares_ix = NE.indice_de_pares(cs['CURRENT-FIELD-SIGNALS'])
 
+    def _casados(rotulos):
+        """Os registros do CATALOGO que o par de rotulo alcanca — nao so o nome."""
+        vistos, fora = set(), []
+        for r in rotulos:
+            for p in ix_com.get(CM.num(r.get('REGISTRATION_NUMBER')), []):
+                if p['ID'] not in vistos:
+                    vistos.add(p['ID'])
+                    fora.append(p)
+        return fora
+
     def camada_comercial(o, apoios, rotulos, pinos):
         """As três perguntas comerciais que o V1 não fazia.
 
@@ -559,6 +569,14 @@ def main():
         o['WHY_COMMERCIAL_CODES'] = codigos
         o['WHY_COMMERCIAL'] = ' '.join(CM.RAZAO[c] for c in codigos)
         o['COMMERCIAL_DOES_NOT_PROVE'] = CM.NAO_PROVA
+        # ── e a terceira pergunta: isto pode SAIR de casa? ────────────────────
+        # SALES_READY e decisao interna. Enviar a um revendedor ou a um RTV e
+        # afirmacao publica, e precisa sobreviver a quem a ler sem nos conhecer.
+        ext, bloqueios = CM.externo(o, _casados(rotulos))
+        o['EXTERNAL_MATERIAL_READY'] = ext
+        o['EXTERNAL_BLOCKER_CODES'] = bloqueios
+        o['EXTERNAL_BLOCKERS'] = ' '.join(CM.BLOQUEIO_EXTERNO[c] for c in bloqueios)
+        o['EXTERNAL_MATERIAL_LAW'] = CM.EXTERNAL_LAW
         o['COMMERCIAL_PRIORITY_LAW'] = (
             'portoes semanticos, nunca soma de pontos. O score ORDENA dentro da '
             'mesma categoria e nao promove ninguem de categoria. E nao ha numero '
@@ -822,6 +840,10 @@ def gravar(brutos, C, cs):
             'COMMERCIAL_PRIORITY': o['COMMERCIAL_PRIORITY'],
             'COMMERCIAL_PRIORITY_MEANS': o['COMMERCIAL_PRIORITY_MEANS'],
             'COMMERCIAL_PRIORITY_LAW': o['COMMERCIAL_PRIORITY_LAW'],
+            'EXTERNAL_MATERIAL_READY': o['EXTERNAL_MATERIAL_READY'],
+            'EXTERNAL_BLOCKER_CODES': o['EXTERNAL_BLOCKER_CODES'],
+            'EXTERNAL_BLOCKERS': o['EXTERNAL_BLOCKERS'],
+            'EXTERNAL_MATERIAL_LAW': o['EXTERNAL_MATERIAL_LAW'],
             'WHY_COMMERCIAL': o['WHY_COMMERCIAL'],
             'WHY_COMMERCIAL_CODES': o['WHY_COMMERCIAL_CODES'],
             'COMMERCIAL_DOES_NOT_PROVE': o['COMMERCIAL_DOES_NOT_PROVE'],
@@ -883,6 +905,8 @@ if __name__ == '__main__':
                dict(Counter(r['COMMERCIAL_PRIORITY'] for r in regs)),
            'BY_NEED_DIRECTION':
                dict(Counter(r['NEED_DIRECTION'] for r in regs)),
+           'BY_EXTERNAL_MATERIAL_READY':
+               dict(Counter(r['EXTERNAL_MATERIAL_READY'] for r in regs)),
            'COUNT_WITH_COMMERCIAL_PRODUCT':
                sum(1 for r in regs if r['COMMERCIAL_PRODUCT_COUNT']),
            'COMMERCIAL_LAW':
@@ -941,5 +965,7 @@ if __name__ == '__main__':
           % dict(Counter(r['COMMERCIAL_PRIORITY'] for r in regs)))
     print('  direcao da necessidade: %s'
           % dict(Counter(r['NEED_DIRECTION'] for r in regs)))
+    print('  MATERIAL EXTERNO: %s'
+          % dict(Counter(r['EXTERNAL_MATERIAL_READY'] for r in regs)))
     print('  com produto do catalogo comercial: %d de %d'
           % (sum(1 for r in regs if r['COMMERCIAL_PRODUCT_COUNT']), len(regs)))
