@@ -59,6 +59,11 @@ const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
 const JSON_OUT = arg('json', null);
 const MAX_SCREENS = Number(arg('screens', 99));
+/* Per lavorare su una schermata sola senza pagare i quaranta minuti di tutte:
+   --only "Radar Futuro,Intelligence Scientifica". Il conto finale dice sempre
+   quante schermate ha davvero percorso, cosi un giro parziale non si confonde
+   con un giro completo. */
+const ONLY = String(arg('only', '')).split(',').map((x) => x.trim()).filter(Boolean);
 const MAX_CLICKS = Number(arg('max', 9999));
 const PROVE_LINKS = Number(arg('prove-links', 3));   /* quanti <a> esterni per schermata si aprono davvero */
 const SETTLE = 190;
@@ -355,7 +360,7 @@ let judged = 0, alive = 0, formCtl = 0, selfNav = 0, notJudged = 0, drift = 0, e
 let linked = 0, linkProved = 0;
 const linkProofFailed = [];
 
-for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
+for (const label of SIDEBAR.slice(0, MAX_SCREENS).filter((x) => !ONLY.length || ONLY.includes(x))) {
   const reached = await clickTitle(page, label, 520);
   const base = await snap(page);
   const cl = await clickables(page);
@@ -453,12 +458,13 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
       /* la firma non risponde: lo stato e scivolato sotto i piedi. Qui si paga
          il ripristino pesante — con riavvio, se serve — e si ritenta UNA volta. */
       const r = await restore(label, sc);
-      if (!r) { sc.skipped++; drift++; continue; }
+      if (!r) { sc.skipped++; (sc.skippedSigs ||= []).push({ sig: sigOf(c), why: 'schermata non ripristinabile' }); drift++; continue; }
       out = await attempt();
       /* dopo un ripristino vero la firma ancora non c'e: quell'elemento non si
          presenta piu su questa schermata. Non e un bottone morto, e un elemento
-         che non e tornato — si conta, non si accusa. */
-      if (!out) { sc.skipped++; continue; }
+         che non e tornato — si conta, non si accusa. Ma SI NOMINA: un resto
+         anonimo non si puo correggere, e due giri dopo nessuno sa cos'era. */
+      if (!out) { sc.skipped++; (sc.skippedSigs ||= []).push({ sig: sigOf(c), why: 'non ripresentatasi dopo il ripristino' }); continue; }
     }
 
     sc.judged++; judged++;
@@ -563,7 +569,7 @@ for (const s of suspects) {
 
   /* terza prova: la stessa firma dove ha ancora qualcosa da fare */
   let revived = null;
-  for (const other of (dupes > 1 ? [] : SIDEBAR.slice(0, MAX_SCREENS))) {
+  for (const other of (dupes > 1 ? [] : SIDEBAR.slice(0, MAX_SCREENS).filter((x) => !ONLY.length || ONLY.includes(x)))) {
     if (other === s.label) continue;
     const osc = screens.find((x) => x.label === other);
     if (!osc || !osc.sigs.includes(s.sig)) continue;
@@ -580,7 +586,7 @@ for (const s of suspects) {
    non su quello che lo spazzamento ha lasciato dietro di se. */
 await reboot();
 const navRows = [];
-for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
+for (const label of SIDEBAR.slice(0, MAX_SCREENS).filter((x) => !ONLY.length || ONLY.includes(x))) {
   const reached = await clickTitle(page, label, 520);
   const s = await snap(page);
   const cl = await clickables(page);
@@ -740,6 +746,7 @@ console.log(`  collegamenti con destinazione vera = ${linked} (cablati per costr
 console.log(`  premuti col mouse su un punto raggiungibile · coperti da uno strato (click sintetico) = ${obscured}`);
 console.log(`  rumore del DOM a riposo = ${NOISE} mutazioni/600ms — con zero, UNA mutazione dopo il click e prova di vita`);
 console.log(`  impronte rimisurate da pulito = ${rebase} · schermate non ripristinabili = ${drift} · firme non ripresentatesi = ${screens.reduce((a, x) => a + x.skipped, 0)}`);
+for (const x of screens) for (const y of (x.skippedSigs || [])) console.log(`     ${C.d}non giudicata${C.x} ${x.label} · ${y.sig} · ${y.why}`);
 console.log(`  idempotenti (fermi qui, vivi altrove) = ${idempotent.length} — un comando gia soddisfatto non e un comando morto`);
 console.log(`  schede nuove = ${tabs} · download = ${downloads} · dialog nativi = ${dialogs}`);
 console.log(`  console error = ${errors.length} · richieste fallite = ${failed.length}`);
@@ -793,6 +800,7 @@ if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({
   noHandler, blew, navRows, collisions, unreached, emptyScreens, linkProofFailed,
   back: { history: backHistory, detail: backDetail, label: backLabel, tried: backTried, caseScreen },
   reload: { ok: reloadOk, chars: afterReload.chars, clickables: reloadClicks },
+  skippedSigs: screens.flatMap((x) => (x.skippedSigs || []).map((y) => Object.assign({ screen: x.label }, y))),
   totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, hostRoot, linked, linkProved, obscured, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
   errors, failed,
 }, null, 1));
