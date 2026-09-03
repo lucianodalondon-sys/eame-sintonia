@@ -7413,10 +7413,19 @@ class Component extends DCLogic {
          are now derived from the rows being filtered, which is also how the crop, issue
          and region pickers beside them already worked. */
       radarFilters: [
-        { key: 'fCrop', icon: ICO('farm-management'), accent: '#7DB41E', value: s.fCrop, set: this.sel('fCrop'), options: opts(T.allCrops, uniq(CASES.map(c => c.crop)), cl) },
-        { key: 'fIssue', icon: ICO('heat-sensitive'), accent: '#9D1D96', value: s.fIssue, set: this.sel('fIssue'), options: opts(T.allIssues, uniq(CASES.map(c => c.issue)), il) },
+        /* filter(Boolean): due casi non hanno coltura e venticinque non hanno
+           avversita, e senza filtro la tendina finiva con una voce dal valore
+           vuoto e dall'etichetta vuota. */
+        { key: 'fCrop', icon: ICO('farm-management'), accent: '#7DB41E', value: s.fCrop, set: this.sel('fCrop'), options: opts(T.allCrops, uniq(CASES.map(c => c.crop).filter(Boolean)), cl) },
+        { key: 'fIssue', icon: ICO('heat-sensitive'), accent: '#9D1D96', value: s.fIssue, set: this.sel('fIssue'), options: opts(T.allIssues, uniq(CASES.map(c => c.issue).filter(Boolean)), il) },
         { key: 'fRegion', icon: ICO('cloud'), accent: '#00A0DF', value: s.fRegion, set: this.sel('fRegion'), options: opts(T.allRegions, uniq([].concat.apply([], CASES.map(c => [c.region].concat(c.regionKeys || []))).filter(Boolean))) },
-        { key: 'fStatus', icon: ICO('sun'), accent: '#F5B317', value: s.fStatus, set: this.sel('fStatus'), options: [{ v: '', l: T.allStatuses }].concat(['WINDOW_OPEN', 'NEXT_CYCLE', 'DATE_UNKNOWN', 'WINDOW_CLOSED'].map(v => ({ v, l: wst(v) }))) },
+        /* QUATTRO VOCI MORTE E QUATTRO MANCANTI.
+           Le opzioni erano scritte a mano come stati di FINESTRA, mentre i casi
+           portano stati di CASO: ACT_NOW, PREPARE_NOW, FUTURE_PREPARATION,
+           TO_VALIDATE. Ogni scelta restituiva zero schede — sotto un indicatore
+           che sulla stessa schermata annunciava «6 · FINESTRA APERTA». Ora la
+           lista viene dai dati, quindi non puo scollarsi da essi. */
+        { key: 'fStatus', icon: ICO('sun'), accent: '#F5B317', value: s.fStatus, set: this.sel('fStatus'), options: opts(T.allStatuses, uniq(CASES.map(c => c.status).filter(Boolean)), oppStatusLabel) },
         /* This selector filters OPPORTUNITIES, so it can only offer the products
            the opportunity records are actually linked to — six today, not the
            166-product ADAMA universe. It used to be labelled "tutti i prodotti
@@ -7426,7 +7435,10 @@ class Component extends DCLogic {
            canonical package expands — the list grows on its own, with no name
            written here. */
         { key: 'fProduct', icon: ICO('recycle-label'), accent: '#00698F', value: s.fProduct, set: this.sel('fProduct'), options: opts(T.linkedProducts || T.allProducts, uniq([].concat.apply([], CASES.map(c => (c.productLinks && c.productLinks.length ? c.productLinks.map(l => l.name || l.product) : (c.products || [])))))) },
-        { key: 'fDept', icon: ICO('connect'), accent: '#978B87', value: s.fDept, set: this.sel('fDept'), options: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))), L) }
+        /* `L` non conosce i token con underscore e stampava MARKET_DEVELOPMENT e
+           SCIENCE_TECHNICAL cosi com'erano, oltre a tradurre SUPPLY in «SUPPLY
+           CHAIN», un reparto che non esiste. oppDeptLabel li conosce tutti e sette. */
+        { key: 'fDept', icon: ICO('connect'), accent: '#978B87', value: s.fDept, set: this.sel('fDept'), options: opts(T.allDepartments, uniq([].concat.apply([], CASES.map(c => c.departments || []))).filter(Boolean), oppDeptLabel) }
       ].map(f => ({ icon: f.icon, value: f.value, set: f.set, options: f.options, on: !!f.value,
         /* the chip prints the label of the option currently selected; no selection is the
            "all" state, which is options[0]. Written without the find-or-first-record shape
