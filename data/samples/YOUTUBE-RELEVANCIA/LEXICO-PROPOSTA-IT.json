@@ -1,0 +1,1229 @@
+{
+ "SOURCE_ID": "YOUTUBE-RELEVANCIA/LEXICO-PROPOSTA-IT",
+ "source": "proposta de classificacao dos candidatos, derivada do corpus italiano ja coletado",
+ "SOURCE_LOCATION": "derivado — interno",
+ "FACT_LOCATION": "IT",
+ "ORIGINAL_LANGUAGE": "it",
+ "EVIDENCE_CLASS": "DERIVED_SCOPE",
+ "captured_at": "2026-09-03",
+ "CAPTURED_AT": "2026-09-03T12:15:39Z",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "O_QUE_ISTO_E": "a folha para aprovar ou vetar linha a linha. NENHUM termo aqui esta em uso: o dicionario so le LEXICO-APROVADO.json, e ele segue vazio.",
+ "CORPUS": "225 canais italianos (dos 397 do recorte), 6.221 videos, so titulos com idioma dominante IT",
+ "DUAS_CATEGORIAS_NOVAS_E_POR_QUE": "as 7 categorias da casa sao ATOS DE FALA (\"hemos observado\", \"nuestro estudio\"), feitas para comentario e transcricao. Titulo nao e fala: titulo e ASSUNTO. Forcar termo de assunto numa categoria de ato de fala e erro de categoria. PLATEIA_HOBBY e PLATEIA_CONSUMIDOR nao dizem do que o video fala — dizem PARA QUEM, e as duas empurram para BAIXO.",
+ "PLATEIA_HOBBY_POR_QUE": "a casa ja mediu: POMODORO x PERONOSPORA parecia o terceiro par mais forte do corpus, e separando a plateia 15 das 16 evidencias vinham de canal de horta domestica. E tomate de vaso, nao tomate industrial.",
+ "PLATEIA_CONSUMIDOR_POR_QUE": "2 dos 5 maiores perfis italianos da missao 14 sao MIDIA DE VINHO, 683.425 seguidores somados. Ordenar por seguidores entregaria audiencia de consumidor de vinho como se fosse de produtor de uva.",
+ "O_QUE_NAO_ENTROU": "nome de marca e de produto. syngenta, bayer, preceon, fieldview, adengo, hyvido aparecem no corpus e nenhum e a lingua do projeto.",
+ "PROPOSTOS": 69,
+ "PROPOSTOS_REJEITAR": 8,
+ "ITENS": [
+  {
+   "TERMO": "diserbo",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "",
+   "MOTIVO": "controle de daninhas. Termo central do portfolio herbicida",
+   "CANAIS_EM_QUE_APARECE": 33,
+   "OCORRENCIAS": 90,
+   "TITULOS_EXEMPLO": [
+    "Diserbo in post-emergenza, trattamenti erbicidi e fitoregolatori per tutelare il tuo m",
+    "Diserbo del mais in pre-emergenza con Adengo Xtra: quanto contano la struttura del suo",
+    "Adengo Xtra: risultati in campo nel diserbo del mais"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "difesa",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "",
+   "MOTIVO": "defesa fitossanitaria; e a palavra guarda-chuva do setor na Italia",
+   "CANAIS_EM_QUE_APARECE": 44,
+   "OCORRENCIAS": 104,
+   "TITULOS_EXEMPLO": [
+    "Difesa del mais da funghi e insetti: strategie, timing di intervento e nuove soluzioni",
+    "Vite in Campo 2026 - Intervista a Valerio Nadal (Condifesa)",
+    "PERGADO: L'alleato chiave nelle strategie di difesa del vigneto"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "trattamento",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "",
+   "MOTIVO": "aplicacao. Ressalva nao necessaria em corpus agro",
+   "CANAIS_EM_QUE_APARECE": 18,
+   "OCORRENCIAS": 23,
+   "TITULOS_EXEMPLO": [
+    "TRATTAMENTO POMODORI: il rimedio naturale che salva dalla PERONOSPORA!",
+    "PROPOLI sulle PIANTE: il trattamento naturale per salvare orto e frutteto dalle malatt",
+    "29 AGOSTO TRATTAMENTO CON POLTIGLIA BORDOLESE NELL'ORTO 🌱🌱🌱"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "trattamenti",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 17,
+   "OCORRENCIAS": 28,
+   "TITULOS_EXEMPLO": [
+    "Diserbo in post-emergenza, trattamenti erbicidi e fitoregolatori per tutelare il tuo m",
+    "BOLLA DEL PESCO: prevenzione e trattamenti per salvare le piante",
+    "TRATTAMENTI sulla VITE: 5 interventi preventivi da fare in primavera al vigneto"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "controllo",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "tambem \"controllo qualita\", que e administrativo",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 26,
+   "OCORRENCIAS": 50,
+   "TITULOS_EXEMPLO": [
+    "IL PROGETTO MYCO. PREV. SULLA PREVENZIONE E IL CONTROLLO DELLE MICOTOSSINE NEI CEREALI",
+    "Infestanti resistenti, perché il controllo comincia dopo la raccolta",
+    "Sotto controllo"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "contro",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "preposicao; so vale colada a um alvo (\"contro la peronospora\")",
+   "MOTIVO": "conector que aparece antes do nome da praga",
+   "CANAIS_EM_QUE_APARECE": 33,
+   "OCORRENCIAS": 53,
+   "TITULOS_EXEMPLO": [
+    "IL PROGETTO MYCO. PREV. SULLA PREVENZIONE E IL CONTROLLO DELLE MICOTOSSINE NEI CEREALI",
+    "Infestanti resistenti, perché il controllo comincia dopo la raccolta",
+    "Sotto controllo"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "peronospora",
+   "CATEGORIA_PROPOSTA": "PROBLEMA",
+   "RESSALVA": "",
+   "MOTIVO": "mildio; alvo direto de fungicida",
+   "CANAIS_EM_QUE_APARECE": 22,
+   "OCORRENCIAS": 37,
+   "TITULOS_EXEMPLO": [
+    "Peronospora della vite: quali fungicidi e DSS scegliere? «a Te la Scelta»",
+    "GF 2024 - Lavori sperimentali sulla difesa dalle malattie della vite: peronospora",
+    "TRATTAMENTO POMODORI: il rimedio naturale che salva dalla PERONOSPORA!"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "infestanti",
+   "CATEGORIA_PROPOSTA": "PROBLEMA",
+   "RESSALVA": "",
+   "MOTIVO": "daninhas",
+   "CANAIS_EM_QUE_APARECE": 15,
+   "OCORRENCIAS": 23,
+   "TITULOS_EXEMPLO": [
+    "Infestanti resistenti, perché il controllo comincia dopo la raccolta",
+    "Acalifa, galinsoga e sorghetta: come gestire alcune delle infestanti più difficili del",
+    "Le infestanti della soia"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "malattie",
+   "CATEGORIA_PROPOSTA": "PROBLEMA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 19,
+   "OCORRENCIAS": 33,
+   "TITULOS_EXEMPLO": [
+    "GF 2024 - Lavori sperimentali sulla difesa dalle malattie della vite: oidio, botrite, ",
+    "GF 2024 - Lavori sperimentali sulla difesa dalle malattie della vite: peronospora",
+    "GF 2024 - Lavori sperimentali sulla difesa dalle malattie della vite: flavescenza dora"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "insetti",
+   "CATEGORIA_PROPOSTA": "PROBLEMA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 15,
+   "OCORRENCIAS": 19,
+   "TITULOS_EXEMPLO": [
+    "Difesa del mais da funghi e insetti: strategie, timing di intervento e nuove soluzioni",
+    "Trattare la vite con soluzioni insetticide multitarget, «a Te la Scelta»!",
+    "SOS Orto: SAPONE e BICARBONATO, soluzione efficace contro Insetti e Funghi"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "vite",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "",
+   "MOTIVO": "videira. NAO confundir com vino, que e o produto final",
+   "CANAIS_EM_QUE_APARECE": 51,
+   "OCORRENCIAS": 177,
+   "TITULOS_EXEMPLO": [
+    "Trattare la vite con soluzioni insetticide multitarget, «a Te la Scelta»!",
+    "Peronospora della vite: quali fungicidi e DSS scegliere? «a Te la Scelta»",
+    "Vite in Campo 2026 - Intervista a Silvia Toffolati (Università di Milano)"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "vigneto",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 44,
+   "OCORRENCIAS": 102,
+   "TITULOS_EXEMPLO": [
+    "Vite. Vigneto dopo 15 anni di potatura meccanica",
+    "EXPLOYO VIT: una storia di successo dal vigneto",
+    "PERGADO: L'alleato chiave nelle strategie di difesa del vigneto"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "pomodoro",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 30,
+   "OCORRENCIAS": 68,
+   "TITULOS_EXEMPLO": [
+    "Stress da caldo e biostimolanti: prove su pomodoro in serra",
+    "Biostimolanti su pomodoro: la sfida delle ondate di calore 2026",
+    "Stress da caldo su pomodoro: il ruolo dei biostimolanti"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "olivo",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 23,
+   "OCORRENCIAS": 75,
+   "TITULOS_EXEMPLO": [
+    "GF 2024 - Presentazione dei lavori sperimentali su difesa dalle malattie: olivo",
+    "GF 2024 - Approfondimento sulla problematica causata dal genere Colletotrichum su oliv",
+    "Campionato nazionale di potatura dell’olivo 2026 (21a Edizione): le interviste"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "frumento",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 23,
+   "OCORRENCIAS": 57,
+   "TITULOS_EXEMPLO": [
+    "CIMICE DEL FRUMENTO | Come difendersi da Aelia rostrata, Eurygaster Maura e Halyomorph",
+    "I venerdì dell'agrotecnica del frumento 2024 DIFESA",
+    "I venerdì dell'agrotecnica del frumento 2024 BIOSTIMOLANTI"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "grano",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "tambem \"grano\" como grao generico",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 20,
+   "OCORRENCIAS": 48,
+   "TITULOS_EXEMPLO": [
+    "Zypar in azione su grano duro",
+    "Montreal - grano tenero panificabile superiore | FRUMENTI TENERI | CATALOGO VARIETALE ",
+    "Odisseo - grano duro ideale per l'areale basso-padano | FRUMENTI DURI | CATALOGO VARIE"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "cereali",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 18,
+   "OCORRENCIAS": 37,
+   "TITULOS_EXEMPLO": [
+    "IL PROGETTO MYCO. PREV. SULLA PREVENZIONE E IL CONTROLLO DELLE MICOTOSSINE NEI CEREALI",
+    "Frumenti duri | Varietà cereali a paglia Linealand | CAMPAGNA 2021-2022",
+    "Frumenti teneri | Varietà cereali a paglia Linealand | CAMPAGNA 2021-2022"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "riso",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "tambem \"riso\" = risada em portugues/italiano coloquial",
+   "MOTIVO": "arroz; cultura com portfolio ADAMA declarado",
+   "CANAIS_EM_QUE_APARECE": 16,
+   "OCORRENCIAS": 63,
+   "TITULOS_EXEMPLO": [
+    "L'agricoltura rigenerativa può aiutare la conservazione delle risorse idriche?",
+    "YieldON Riso – Video Testimonianza di Gianluigi Fiori",
+    "YieldON Riso – Video Testimonianza di Vittorio Bremide"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "soia",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 19,
+   "OCORRENCIAS": 49,
+   "TITULOS_EXEMPLO": [
+    "EM PURA. La nuova generazione di soia ad ilo bianco",
+    "Soia: come creare valore",
+    "La soia e la sua raccolta"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "piante",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "muito generico; sozinho nao distingue lavoura de jardim",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 42,
+   "OCORRENCIAS": 96,
+   "TITULOS_EXEMPLO": [
+    "Specie aliene: arriva un laboratorio hi-tech per difendere le piante",
+    "Ecco come l'edera uccide le piante!",
+    "GF 2024 - Presentazione dei lavori sperimentali su difesa dalle piante infestanti"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "semina",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 47,
+   "OCORRENCIAS": 115,
+   "TITULOS_EXEMPLO": [
+    "Sulla seminatrice con FieldView",
+    "Semina mais con Preceon - Smart Corn System",
+    "SY ULTIMATE: scopriamo la densità di semina ottimale grazie alle nostre prove CropEx"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "potatura",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 40,
+   "OCORRENCIAS": 119,
+   "TITULOS_EXEMPLO": [
+    "Vite a Guyot: potatura invernale per la ricostruzione del fusto",
+    "Vite. La potatura meccanica secondo l’Inkappucciato",
+    "Vite. Acrotonia & potatura"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "raccolta",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "tambem \"raccolta\" = coleta de dados/fundos",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 36,
+   "OCORRENCIAS": 55,
+   "TITULOS_EXEMPLO": [
+    "Infestanti resistenti, perché il controllo comincia dopo la raccolta",
+    "Raccolta mais: i numeri di Preceon Smart Corn System",
+    "La soia e la sua raccolta"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "terreno",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 34,
+   "OCORRENCIAS": 46,
+   "TITULOS_EXEMPLO": [
+    "Fai QUESTO TEST prima di piantare! Terreno Acido o Alcalino? (How to Measure Soil pH)",
+    "Motocoltivatore: come lavorare con la ZAPPATRICE per sminuzzare il terreno. Video n. 3",
+    "Preparare l’ORTO AUTUNNALE: trapianti, terreno e difesa"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "irrigazione",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 21,
+   "OCORRENCIAS": 24,
+   "TITULOS_EXEMPLO": [
+    "La soia e l'irrigazione",
+    "SEPARATO LIQUIDO DIGESTATO con microirrigazione e ali gocciolanti | Life DOP - economi",
+    "IRRI-MIA, sensoristica IoT avanzata per un'irrigazione 4.0"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "produzione",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "tambem producao industrial e audiovisual",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 28,
+   "OCORRENCIAS": 35,
+   "TITULOS_EXEMPLO": [
+    "NUOVO PSR 2014 – 2020 DELL' EMILIA – ROMAGNA: NOVITA’ SULLA PRODUZIONE INTEGRATA CON L",
+    "NUOVO PSR 2014 – 2020 DELL' EMILIA – ROMAGNA: LE NOVITA’ SULLA PRODUZIONE BIOLOGICA CO",
+    "Tea e riproduzione del seme"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "campagna",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "tambem \"campanha\" de marketing — dois sentidos opostos para esta fila",
+   "MOTIVO": "safra/campo",
+   "CANAIS_EM_QUE_APARECE": 28,
+   "OCORRENCIAS": 39,
+   "TITULOS_EXEMPLO": [
+    "Corrente GRATIS in Campagna",
+    "Frumenti duri | Varietà cereali a paglia Linealand | CAMPAGNA 2021-2022",
+    "Frumenti teneri | Varietà cereali a paglia Linealand | CAMPAGNA 2021-2022"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "campo",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "ja e RESSALVA na casa: \"Curso natural del agua\" virou TECHNICAL_WEBINAR",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 59,
+   "OCORRENCIAS": 132,
+   "TITULOS_EXEMPLO": [
+    "NUOVO PSR 2014 – 2020 DELLA REGIONE EMILIA – ROMAGNA: I CONTRIBUTI IN CAMPO AGROAMBIEN",
+    "Elizea in azione: risultati dal campo",
+    "Adengo Xtra: risultati in campo nel diserbo del mais"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "prove",
+   "CATEGORIA_PROPOSTA": "PROVA_E_DATO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 18,
+   "OCORRENCIAS": 32,
+   "TITULOS_EXEMPLO": [
+    "Stress da caldo e biostimolanti: prove su pomodoro in serra",
+    "Webinar “Orientarsi nel diserbo del mais 2025” – speciale prove in campo di LUMESTRA P",
+    "SY ULTIMATE: scopriamo la densità di semina ottimale grazie alle nostre prove CropEx"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "risultati",
+   "CATEGORIA_PROPOSTA": "PROVA_E_DATO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 19,
+   "OCORRENCIAS": 29,
+   "TITULOS_EXEMPLO": [
+    "Elizea in azione: risultati dal campo",
+    "Adengo Xtra: risultati in campo nel diserbo del mais",
+    "Risultati Trinciatura e Semina Mais"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "ricerca",
+   "CATEGORIA_PROPOSTA": "PROVA_E_DATO",
+   "RESSALVA": "tambem \"ricerca\" = busca generica",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 14,
+   "OCORRENCIAS": 15,
+   "TITULOS_EXEMPLO": [
+    "RICERCA VARIETALE SU FAGIOLO DA GRANELLA, PISELLO E FAGIOLINO DA INDUSTRIA",
+    "Come mantenere alta la qualità della fibra nel mais: la ricerca dell'Università di Tor",
+    "Le attività di ricerca in laboratorio per contrastare la cimice asiatica"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "orto",
+   "CATEGORIA_PROPOSTA": "PLATEIA_HOBBY",
+   "RESSALVA": "",
+   "MOTIVO": "horta domestica. A casa ja mediu: POMODORO x PERONOSPORA tinha 15 evidencias de canal de horta contra 1 profissional",
+   "CANAIS_EM_QUE_APARECE": 27,
+   "OCORRENCIAS": 155,
+   "TITULOS_EXEMPLO": [
+    "Il Trucco della Zucchina TRAPPOLA per salvare il tuo orto dagli animali",
+    "SOS Orto: SAPONE e BICARBONATO, soluzione efficace contro Insetti e Funghi",
+    "L'Oro Nero per orto e giardino, dalle Foglie all'Humus"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "giardino",
+   "CATEGORIA_PROPOSTA": "PLATEIA_HOBBY",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 16,
+   "OCORRENCIAS": 24,
+   "TITULOS_EXEMPLO": [
+    "L'Oro Nero per orto e giardino, dalle Foglie all'Humus",
+    "Le Barbe (Drosanthemum hispidum) non possono mancare nel giardino,  guida per fioritur",
+    "Come allontanare le zanzare dal giardino in modo naturale"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "coltivare",
+   "CATEGORIA_PROPOSTA": "PLATEIA_HOBBY",
+   "RESSALVA": "tambem usado por profissional",
+   "MOTIVO": "no corpus aparece dominantemente em canal de horta",
+   "CANAIS_EM_QUE_APARECE": 21,
+   "OCORRENCIAS": 52,
+   "TITULOS_EXEMPLO": [
+    "La pianta che NON MUORE MAI: come coltivare il Semprevivo!",
+    "COLTIVARE MIRTILLI in ORTO e in VASO: le 3 cose fondamentali da sapere",
+    "Coltivare 350 varietà di POMODORI. Alcune sono incredibili!"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "vino",
+   "CATEGORIA_PROPOSTA": "PLATEIA_CONSUMIDOR",
+   "RESSALVA": "",
+   "MOTIVO": "MIDIA DE VINHO != VITICULTURA. 2 dos 5 maiores perfis italianos da missao 14 sao midia de vinho, 683.425 seguidores somados",
+   "CANAIS_EM_QUE_APARECE": 24,
+   "OCORRENCIAS": 63,
+   "TITULOS_EXEMPLO": [
+    "Com'è regolato il vino nell'Unione Europea",
+    "Webinar: Il potere dei dati e dell’intelligenza artificiale nell’allevamento del bovin",
+    "Perché il consumo di vino sta calando in Italia?"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "intervista",
+   "CATEGORIA_PROPOSTA": "EVENTO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 27,
+   "OCORRENCIAS": 78,
+   "TITULOS_EXEMPLO": [
+    "Oliveto Smart a Fieragricola 2026 - Intervista a Enzo Gambin, direttore Aipo",
+    "Oliveto Smart a Fieragricola 2026 - Intervista a Silverio Pachioli – Agronomo Fitopato",
+    "Oliveto Smart a Fieragricola 2026 - Intervista a Giulia Zuecco – Docente Università di"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "progetto",
+   "CATEGORIA_PROPOSTA": "NOTICIA",
+   "RESSALVA": "",
+   "MOTIVO": "projeto financiado; institucional, nao fala de campo",
+   "CANAIS_EM_QUE_APARECE": 33,
+   "OCORRENCIAS": 93,
+   "TITULOS_EXEMPLO": [
+    "IL PROGETTO MYCO. PREV. SULLA PREVENZIONE E IL CONTROLLO DELLE MICOTOSSINE NEI CEREALI",
+    "NUOVO PSR 2014 – 2020 DELL' EMILIA – ROMAGNA: LA MISURA LEADER E IL PROGETTO DEL GAL D",
+    "Progetto Biometano"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "soluzione",
+   "CATEGORIA_PROPOSTA": "MARKETING",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 15,
+   "OCORRENCIAS": 21,
+   "TITULOS_EXEMPLO": [
+    "PERGADO: I vantaggi di una soluzione versatile",
+    "SOS Orto: SAPONE e BICARBONATO, soluzione efficace contro Insetti e Funghi",
+    "SYNGENTA: Azotobacter Salinestris, una nuova soluzione per la gestione sostenibile dei"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "soluzioni",
+   "CATEGORIA_PROPOSTA": "MARKETING",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 21,
+   "OCORRENCIAS": 30,
+   "TITULOS_EXEMPLO": [
+    "Difesa del mais da funghi e insetti: strategie, timing di intervento e nuove soluzioni",
+    "Trattare la vite con soluzioni insetticide multitarget, «a Te la Scelta»!",
+    "Le soluzioni per nutrire il pomodoro"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "prodotti",
+   "CATEGORIA_PROPOSTA": "MARKETING",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 18,
+   "OCORRENCIAS": 27,
+   "TITULOS_EXEMPLO": [
+    "GF 2024 - Impiego dei sistemi fissi per l’applicazione dei prodotti fitosanitari in ar",
+    "GF 2024 - Esperienze di applicazione dei prodotti fitosanitari con droni in Germania",
+    "SUMITOMO: Gestione delle resistenze agli erbicidi  prodotti e strumenti a supporto"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "futuro",
+   "CATEGORIA_PROPOSTA": "MARKETING",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 30,
+   "OCORRENCIAS": 52,
+   "TITULOS_EXEMPLO": [
+    "IL FUTURO DEL SETTORE AMBIENTE E AGRICOLTURA DELLA PROVINCIA DI FERRARA",
+    "Rigenerare per crescere: la visione di Bayer per il futuro",
+    "Le Donne dell'Ortofrutta: perché il futuro della filiera passa anche dalla leadership "
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "qualita",
+   "CATEGORIA_PROPOSTA": "MARKETING",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 25,
+   "OCORRENCIAS": 44,
+   "TITULOS_EXEMPLO": [
+    "Olio di oliva: qualità, autenticità e sicurezza",
+    "Preceon - Smart Corn System: qualità del mais che fa la differenza",
+    "Come mantenere alta la qualità della fibra nel mais: la ricerca dell'Università di Tor"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "innovazione",
+   "CATEGORIA_PROPOSTA": "MARKETING",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 22,
+   "OCORRENCIAS": 35,
+   "TITULOS_EXEMPLO": [
+    "Fieragricola 2026 – Premio Innovazione – Matteo Pasinato",
+    "Fieragricola 2026 – Premio Innovazione – Foglia d’Oro Caffini S.p.A",
+    "Fieragricola 2026 – Premio Innovazione – Foglia d’Oro DeLaval S.p.A."
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "sostenibile",
+   "CATEGORIA_PROPOSTA": "MARKETING",
+   "RESSALVA": "tambem tema tecnico real",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 22,
+   "OCORRENCIAS": 27,
+   "TITULOS_EXEMPLO": [
+    "IBMA Italia -  Biocontrollo: un passo importante per un’agricoltura sostenibile",
+    "Revolution - Gestione sostenibile del sottofila",
+    "Fertilizzazione sostenibile per orticole di successo"
+   ],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "italia",
+   "CATEGORIA_PROPOSTA": "NENHUMA",
+   "MOTIVO_REJEICAO": "NOME_PROPRIO_OU_LUGAR",
+   "CANAIS_EM_QUE_APARECE": 37,
+   "OCORRENCIAS": 113,
+   "TITULOS_EXEMPLO": [
+    "IBMA Italia -  Biocontrollo: un passo importante per un’agricoltura sostenibile",
+    "Syngenta Italia",
+    "Syngenta e l’agricoltura italiana: 25 anni di innovazione"
+   ],
+   "ESTADO": "PROPOSTO_REJEITAR",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "nell",
+   "CATEGORIA_PROPOSTA": "NENHUMA",
+   "MOTIVO_REJEICAO": "PALAVRA_GENERICA",
+   "CANAIS_EM_QUE_APARECE": 25,
+   "OCORRENCIAS": 37,
+   "TITULOS_EXEMPLO": [
+    "RICERCA VARIETALE SU FAGIOLO DA GRANELLA, PISELLO E FAGIOLINO DA INDUSTRIA",
+    "PSR 2014 – 2020 DELL' EMILIA – ROMAGNA: IL PARERE DI GULINELLI, PRESIDENTE DI COLDIRET",
+    "Com'è regolato il vino nell'Unione Europea"
+   ],
+   "ESTADO": "PROPOSTO_REJEITAR",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "luglio",
+   "CATEGORIA_PROPOSTA": "NENHUMA",
+   "MOTIVO_REJEICAO": "PALAVRA_GENERICA",
+   "CANAIS_EM_QUE_APARECE": 25,
+   "OCORRENCIAS": 61,
+   "TITULOS_EXEMPLO": [
+    "Vite. Pioggia di luglio",
+    "Edagricole News | Il TG dell'agricoltura - Edizione 16 - luglio 2026",
+    "Risegno 80° Carnaroli: il percorso di crescita a Luglio"
+   ],
+   "ESTADO": "PROPOSTO_REJEITAR",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "agosto",
+   "CATEGORIA_PROPOSTA": "NENHUMA",
+   "MOTIVO_REJEICAO": "PALAVRA_GENERICA",
+   "CANAIS_EM_QUE_APARECE": 23,
+   "OCORRENCIAS": 71,
+   "TITULOS_EXEMPLO": [
+    "29 AGOSTO TRATTAMENTO CON POLTIGLIA BORDOLESE NELL'ORTO 🌱🌱🌱",
+    "23 AGOSTO... IL RISULTATO DEI TRAPIANTI EFFETTUATI A 40°.....!!!!🔥🔥🔥CONSIGLI 👌",
+    "ATTENZIONE ALLA RUGIADA DI METÀ AGOSTO...... SALVA L'ORTO 🌱🌱🌱DAL DISASTRO 👌🔝🔝"
+   ],
+   "ESTADO": "PROPOSTO_REJEITAR",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "acqua",
+   "CATEGORIA_PROPOSTA": "NENHUMA",
+   "MOTIVO_REJEICAO": "PALAVRA_GENERICA",
+   "CANAIS_EM_QUE_APARECE": 26,
+   "OCORRENCIAS": 37,
+   "TITULOS_EXEMPLO": [
+    "Webinar Uso efficiente dell'acqua per ottimizzare la produttività delle tue colture",
+    "Diserbo riso semina in acqua per varietà clearfield",
+    "Diserbo riso in acqua"
+   ],
+   "ESTADO": "PROPOSTO_REJEITAR",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "mondo",
+   "CATEGORIA_PROPOSTA": "NENHUMA",
+   "MOTIVO_REJEICAO": "PALAVRA_GENERICA",
+   "CANAIS_EM_QUE_APARECE": 16,
+   "OCORRENCIAS": 20,
+   "TITULOS_EXEMPLO": [
+    "Il Mondo del Contoterzismo: ecco le novità presentate a FIERAGRICOLA",
+    "L'allevatore racconta: Azienda Agricola Mondo del Latte",
+    "Chi è il TRATTORE Più VELOCE del Mondo?"
+   ],
+   "ESTADO": "PROPOSTO_REJEITAR",
+   "LASTRO": "VISTO_NO_CORPUS"
+  },
+  {
+   "TERMO": "fungicidi",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "",
+   "MOTIVO": "classe de produto dita pelo tecnico, nao pela marca",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "erbicidi",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "insetticida",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "resistenza",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "tambem significa resistencia mecanica de material. No Brasil este exato termo trouxe lona de cacamba e suspensao de trator",
+   "MOTIVO": "resistencia a principio ativo — o tema tecnico mais valioso do setor",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "dose",
+   "CATEGORIA_PROPOSTA": "MANEJO_E_DIFESA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "micotossine",
+   "CATEGORIA_PROPOSTA": "PROBLEMA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "oidio",
+   "CATEGORIA_PROPOSTA": "PROBLEMA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "parassiti",
+   "CATEGORIA_PROPOSTA": "PROBLEMA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "fusariosi",
+   "CATEGORIA_PROPOSTA": "PROBLEMA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "oliveto",
+   "CATEGORIA_PROPOSTA": "CULTURA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "concimazione",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "agronomica",
+   "CATEGORIA_PROPOSTA": "PRATICA_DI_CAMPO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "sperimentazione",
+   "CATEGORIA_PROPOSTA": "PROVA_E_DATO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "dati",
+   "CATEGORIA_PROPOSTA": "PROVA_E_DATO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "balcone",
+   "CATEGORIA_PROPOSTA": "PLATEIA_HOBBY",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "vaso",
+   "CATEGORIA_PROPOSTA": "PLATEIA_HOBBY",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "degustazione",
+   "CATEGORIA_PROPOSTA": "PLATEIA_CONSUMIDOR",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "cantina",
+   "CATEGORIA_PROPOSTA": "PLATEIA_CONSUMIDOR",
+   "RESSALVA": "tambem adega tecnica de vinicola",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "convegno",
+   "CATEGORIA_PROPOSTA": "EVENTO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "fiera",
+   "CATEGORIA_PROPOSTA": "EVENTO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "giornata",
+   "CATEGORIA_PROPOSTA": "EVENTO",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "webinar",
+   "CATEGORIA_PROPOSTA": "EVENTO",
+   "RESSALVA": "ja e RESSALVA na casa",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "regione",
+   "CATEGORIA_PROPOSTA": "NOTICIA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "bando",
+   "CATEGORIA_PROPOSTA": "NOTICIA",
+   "RESSALVA": "",
+   "MOTIVO": "vocabulario tecnico italiano do setor, visto no corpus",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "psr",
+   "CATEGORIA_PROPOSTA": "NOTICIA",
+   "RESSALVA": "",
+   "MOTIVO": "plano de desenvolvimento rural; puro institucional",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_NAO_APROVADO",
+   "APROVADO_POR": "",
+   "APROVADO_EM": "",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "anno",
+   "CATEGORIA_PROPOSTA": "NENHUMA",
+   "MOTIVO_REJEICAO": "PALAVRA_GENERICA",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_REJEITAR",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  },
+  {
+   "TERMO": "parte",
+   "CATEGORIA_PROPOSTA": "NENHUMA",
+   "MOTIVO_REJEICAO": "PALAVRA_GENERICA",
+   "CANAIS_EM_QUE_APARECE": 0,
+   "OCORRENCIAS": 0,
+   "TITULOS_EXEMPLO": [],
+   "ESTADO": "PROPOSTO_REJEITAR",
+   "LASTRO": "SEM_EVIDENCIA_NO_CORPUS",
+   "ATENCAO": "este termo NAO aparece nos 6.221 titulos italianos lidos. Ele foi proposto por conhecimento de dominio, nao por medicao — e nesta casa isso e uma classe diferente de afirmacao. Aprovar e legitimo (o termo pode simplesmente nao ter aparecido ainda); aprovar SEM SABER que ele nao tem lastro, nao."
+  }
+ ],
+ "COM_LASTRO_NO_CORPUS": 50,
+ "SEM_LASTRO_NO_CORPUS": 27,
+ "POR_QUE_ESSA_SEPARACAO_EXISTE": "a primeira versao desta folha misturou as duas classes. 20 dos 77 termos que propus nao aparecem uma unica vez nos 6.221 titulos italianos: eu os escrevi de cabeca porque sao vocabulario obvio do setor. Podem estar certos — e mesmo assim sao PALPITE, e palpite apresentado ao lado de medicao vira medicao aos olhos de quem le depressa. TERMO PROPOSTO POR MIM NAO E TERMO VISTO NO CORPUS."
+}

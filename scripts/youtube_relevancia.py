@@ -767,17 +767,105 @@ def _testes():
     return 1 if falhas else 0
 
 
+
+# ══════════════════════════════════════════════ IDIOMA DOMINANTE DO TÍTULO
+#
+# ⚠️ MEDIDO EM 2026-09-03: DOS 397 CANAIS DO RECORTE "IT", SÓ 211 SÃO ITALIANOS.
+# 87 são ingleses, 58 espanhóis, 39 sem marcador. `SAVER PAKISTAN`,
+# `Willow Haven Farm`, `UNL CropWatch` e `KWS UK Ltd` estão dentro do recorte.
+#
+# A causa não é erro de coleta: `CASE_ID` com "IT" quer dizer RECORTE DE BUSCA
+# italiano — a consulta foi feita com termo técnico em italiano. O YouTube
+# respondeu com o mundo. Esta casa já escreveu a lei na direção normal:
+#
+#     IDIOMA != LUGAR.
+#
+# Aqui ela vale ao contrário: BUSCA EM ITALIANO != CANAL ITALIANO. Tratar os 397
+# como italianos põe `farm`, `crop` e `control` no topo do léxico italiano — foi
+# exatamente o que aconteceu na primeira calibração.
+#
+# ⚠️ O QUE ESTA MEDIÇÃO NÃO É
+# Não é prova de país. É idioma do TÍTULO, e idioma continua não sendo lugar: um
+# canal suíço em italiano sai IT aqui, e está certo para escolher vocabulário e
+# errado para dizer onde a pessoa está. Para país, a prova é outra camada.
+#
+# A primeira versão desta medição errou e vale registrar: ela usou `con`, `una`,
+# `del`, `como` como marcadores de espanhol — e os quatro existem em italiano.
+# `AIPO verona` e `Infowine`, italianos, saíram classificados como espanhóis.
+# Só marcador EXCLUSIVO entra nas listas abaixo.
+MARCADORES = {
+    'IT': set('della dello delle degli nella nello nelle negli sulla sullo dalla '
+              'dagli gli anche perche piu tra sono questo quello quale come dei'.split()),
+    'ES': set('los las para pero muy este esta donde cuando porque por hacia desde '
+              'segun aqui aunque nuestro nuestra sus'.split()),
+    'EN': set('the and for with from this that are was were your our their how what '
+              'when which about have has been will'.split()),
+    'FR': set('les des aux dans pour avec sans sous vers chez sont cette leur nous '
+              'vous tout tous apres avant'.split()),
+}
+for _k in ('ES', 'EN', 'FR'):
+    MARCADORES[_k] -= MARCADORES['IT']
+
+
+def idioma_do_titulo(textos):
+    """→ (idioma, contagens). SEM_MARCADOR quando nenhuma lista pontua."""
+    pal = [p for t in textos for p in re.split(r'[^0-9a-zà-ÿ]+', normaliza(t)) if p]
+    c = {k: sum(1 for p in pal if p in v) for k, v in MARCADORES.items()}
+    topo = max(c.items(), key=lambda x: x[1])
+    return ('SEM_MARCADOR' if topo[1] == 0 else topo[0]), c
+
+
+def fase_idioma():
+    canais, objetos = _ler('CANAIS.json'), _ler('OBJETOS.json')
+    if not canais or not objetos:
+        print('faltam CANAIS.json/OBJETOS.json'); return 1
+    por = {}
+    for v in objetos['ITEMS']:
+        por.setdefault(v.get('ACCOUNT_HANDLE'), []).append(str(v.get('TITLE') or ''))
+    itens, cont = [], {}
+    for c in canais['CANAIS']:
+        h = c.get('ACCOUNT_HANDLE')
+        ts = por.get(h) or []
+        idi, cs = idioma_do_titulo(ts + [c.get('DESCRIPTION') or ''])
+        cont[idi] = cont.get(idi, 0) + 1
+        itens.append({'ACCOUNT_HANDLE': h, 'TITLE_LANGUAGE_DOMINANT': idi,
+                      'MARCADORES_POR_IDIOMA': cs, 'TITULOS_LIDOS': len(ts)})
+    p = _gravar('CANAIS-IDIOMA.json', {
+        'SOURCE_ID': 'YOUTUBE-RELEVANCIA/CANAIS-IDIOMA',
+        'source': 'derivado dos títulos já coletados — nenhuma coleta nova, custo zero',
+        'SOURCE_LOCATION': 'derivado — interno', 'FACT_LOCATION': 'ver por item',
+        'ORIGINAL_LANGUAGE': 'multi', 'EVIDENCE_CLASS': 'DERIVED_SCOPE',
+        'captured_at': hoje(), 'CAPTURED_AT': agora(), 'APIFY_RUNS': 0, 'COST_USD': 0,
+        'O_QUE_ISTO_E': 'o idioma dominante do TÍTULO de cada canal, por marcador exclusivo',
+        'O_QUE_ISTO_NAO_E': ('prova de país. IDIOMA != LUGAR: canal suíço em italiano '
+                             'sai IT, e isso está certo para escolher vocabulário e '
+                             'errado para dizer onde a pessoa está.'),
+        'POR_QUE_EXISTE': ('o recorte que o acervo chama de "IT" é o RECORTE DE BUSCA, '
+                           'não o canal. A busca foi em italiano; o YouTube respondeu '
+                           'com o mundo. Sem este campo, `farm` e `crop` sobem ao topo '
+                           'do léxico italiano — e foi o que aconteceu.'),
+        'BY_LANGUAGE': cont, 'ITEMS': itens})
+    print('idioma dominante do título, por canal:')
+    for k, n in sorted(cont.items(), key=lambda x: -x[1]):
+        print('   %-14s %3d' % (k, n))
+    print('gravado: %s' % p)
+    return 0
+
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'fontes'
     if cmd == 'fontes':
         raise SystemExit(fase_fontes())
     if cmd == 'fila':
         raise SystemExit(fase_fila())
+    if cmd == 'idioma':
+        raise SystemExit(fase_idioma())
     if cmd == 'calibrar':
         raise SystemExit(fase_calibrar())
     if cmd == 'teste':
         raise SystemExit(_testes())
     if cmd == 'tudo':
         raise SystemExit(fase_fontes() or fase_fila())
-    print('uso: youtube_relevancia.py {fontes|fila|calibrar|teste|tudo}')
+    print('uso: youtube_relevancia.py {fontes|fila|idioma|calibrar|teste|tudo}')
     raise SystemExit(2)
