@@ -1755,8 +1755,8 @@
    "CLIENT_SAFE": false,
    "DEDUPE_AGAINST": null,
    "DEDUPE_MEANS": null,
-   "EVIDENCE_PROBE": "wf_social-technical-voices.json · 7 feeds channel_id HTTP 200, 18 a 39 KB cada",
-   "NOTES_INTERNAL": "a METADE que nao funciona daqui: o binario de audio vem de googlevideo.com e a politica de saida desta sessao devolve HTTP 403. Listar canal, sim; transcrever, so na maquina que tem a rota. A transcricao em si ja esta provada nesta sessao — 118,7 min de audio italiano a ~9x tempo real, custo 0 USD, por outra plataforma."
+   "EVIDENCE_PROBE": "wf_social-technical-voices.json · 7 feeds channel_id HTTP 200, 18 a 39 KB cada · IT-VIDEO-FALAS-V1.json: 18 OK e 14 NAO_OBTIDA, cada uma com o WHY escrito",
+   "NOTES_INTERNAL": "a METADE que nao funciona daqui: o binario de audio vem de googlevideo.com e a politica de saida desta sessao devolve HTTP 403. Listar canal, sim; baixar o audio, nao. A transcricao em si ja esta provada nesta sessao — 5,3 h de audio italiano a ~9x tempo real, custo 0 USD, por outra plataforma. E A JANELA DE COLETA DESTA ROTA FECHA SOZINHA, e isso muda a ordem de execucao. O feed videos.xml continua abrindo sempre; o que degrada e a rota de FALA. Medido em 2026-09-03: das 32 leituras de fala, 18 vieram e 14 devolveram \"Sign in to confirm you are not a bot\" — e a proporcao piorou ao longo da sessao. A varredura paralela registrou um EXPERIMENTO CONTROLADO sobre o mesmo video (oSJkYFLzwzA): as 12:15Z automatic_captions[it] existia e o json3 devolveu 976 caracteres; as 13:15Z, MESMA URL e MESMO cliente, a lista de legendas voltou VAZIA e o titulo voltou em INGLES. LISTA DE LEGENDA VAZIA NA SEGUNDA HORA E DEGRADACAO DE SESSAO, e nunca prova de que o video nao tem legenda. RESSALVA HONESTA: tentei reproduzir o estado t1 hoje e nao consegui — o yt_dlp ja devolve o bloqueio de bot direto. Confirmo o t2, nao confirmo o t1. CONSEQUENCIA OPERACIONAL: rode a rota de FALA do YouTube PRIMEIRO, em sessao nova, antes de gastar a sessao em outra coisa."
   },
   {
    "SOURCE_ID": "IT-SRCX-037",
