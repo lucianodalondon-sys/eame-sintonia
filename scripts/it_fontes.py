@@ -814,6 +814,88 @@ FONTES += [
 ]
 
 
+# ── SEGUNDA LEVA DA PASSAGEM PARALELA ──────────────────────────────────────────
+FONTES += [
+
+    F('IT-SRCX-037',
+      'Corteva — Mappa Piralide, monitoraggio pubblico della piralide del mais',
+      'Corteva Agriscience — Servizio Agronomico Pioneer', 'COMPETITOR_FIELD_SERVICE',
+      'COMPETITOR', 'HIGH',
+      'https://www.corteva.com/it/prodotti-e-soluzioni/servizi-agronomici/monitoraggio-fitofagi/mappa-piralide.html',
+      regiao='Nord Italia (ambienti maidicoli)',
+      crops=['MAIS'], temas=['PIRALIDE', 'FINESTRA_DI_TRATTAMENTO', 'MONITORAGGIO'],
+      razao=('e a coisa mais desconfortavel que esta missao achou: um CONCORRENTE publica de '
+             'graca, datado e assinado, a JANELA DE TRATAMENTO da piralide no mais do norte da '
+             'Italia — "Previsione dell insetto al 24 luglio 2026", a cura del Servizio '
+             'Agronomico Pioneer, com 200 tecnicos declarados em campo. MAIS tem 112 pares de '
+             'rotulo ADAMA e e a cultura de OPP_9C600748BB1B e OPP_8E210567B01F. Isto nao e '
+             'pagina institucional: e servico de campo virado comunicacao.'),
+      achada='varredura paralela do eixo concorrente, alem da home corporativa',
+      query='corteva.com/it servizi agronomici monitoraggio fitofagi mappa piralide',
+      metodo='HTML datado', freq='PERIODIC', ultimo='2026-07-24', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_WEEKLY',
+      dedupe='SRC_CORTEVA_IT',
+      dedupe_means='mesma empresa; o SERVICO de monitoramento e um canal distinto da home',
+      nota=('COMUNICACAO DE CONCORRENTE != DADO DE CAMPO NOSSO. O que a pagina prova e que a '
+            'Corteva DIZ isso naquela data, e que ela escolhe competir por servico agronomico.'),
+      prova='wf_competitor-italian-channels.json#content_evidence · HTTP 200 · 154.569 B'),
+
+    F('IT-SRCX-038',
+      'COMPAG — Federazione Nazionale Commercianti Prodotti per l Agricoltura',
+      'COMPAG', 'DISTRIBUTION_ASSOCIATION', 'INDUSTRY', 'HIGH',
+      'https://www.compag.org/',
+      regiao='ITALIA',
+      crops=['TODAS'], temas=['DISTRIBUZIONE', 'RIVENDITA', 'NORMATIVA', 'FORMAZIONE'],
+      razao=('e a associacao da REVENDA italiana de insumos — a camada que decide o que chega ao '
+             'produtor e que estava inteiramente ausente do acervo canonico. Sem ela, "mercado" '
+             'na Italia era so preco de commodity.'),
+      achada='varredura paralela do eixo mercado/distribuicao',
+      query='COMPAG federazione commercianti prodotti agricoltura notizie eventi',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota='ASSOCIACAO DE REVENDA != CANAL DA ADAMA. Ela prova o que publica, nunca share.',
+      prova='wf_market-distribution.json · compag.org e compag.org/notizie-ed-eventi HTTP 200'),
+
+    F('IT-SRCX-039',
+      'CUN — Commissioni Uniche Nazionali, listini ufficiali',
+      'Ministero / listinicun.it', 'MARKET_PRICE_OFFICIAL', 'OFFICIAL', 'MEDIUM',
+      'https://www.listinicun.it/',
+      regiao='ITALIA',
+      crops=['FRUMENTO', 'MAIS', 'SOIA'], temas=['PREZZI', 'LISTINI'],
+      razao=('preco oficial datado de grano duro, mais e soia — as culturas de tres das nove '
+             'confirmadas. O acervo tinha Eurostat e ISMEA; nao tinha o listino nacional que o '
+             'proprio setor usa como referencia.'),
+      achada='varredura paralela do eixo mercado', query='listini CUN grano duro mais soia 2026',
+      metodo='HTML + arquivo de listino datado', freq='FREQUENT', ultimo='2026-08-31',
+      acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_WEEKLY',
+      nota='PRECO DE COMMODITY != DEMANDA DE AGROFARMACO. Serve para timing de campanha.',
+      prova='wf_market-distribution.json · listino Grano Duro de 2026-08-31 baixado'),
+
+    F('IT-SRCX-040',
+      'GIRE — Gruppo Italiano Resistenza Erbicidi (host corrente)',
+      'CNR — Istituto per la Protezione Sostenibile delle Piante (IPSP)',
+      'RESISTANCE_REGISTRY', 'SCIENTIFIC', 'HIGH',
+      'http://gire.ipsp.cnr.it/index.php',
+      regiao='ITALIA (por regiao)',
+      crops=['RISO', 'FRUMENTO', 'MAIS', 'SOIA', 'BARBABIETOLA'],
+      temas=['RESISTENZA_ERBICIDI', 'HRAC', 'SCHEDE_SPECIE', 'LINEE_GUIDA_DISERBO'],
+      razao=('erbicidi sao 26 dos 51 produtos comerciais da ADAMA Italia, e resistencia e o '
+             'mecanismo que aposenta um modo de acao. O GIRE publica ficha por especie e por '
+             'regiao — e o acervo canonico aponta para gire.mlib.cnr.it, um host antigo.'),
+      achada='varredura paralela do eixo resistencia/ciencia',
+      query='GIRE gruppo italiano resistenza erbicidi schede specie Echinochloa',
+      metodo='HTML + PDF', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL',
+      monitor='MONITOR_MONTHLY',
+      dedupe='SRC_GIRE_MLIB_CNR_IT',
+      dedupe_means=('MESMA base, HOST NOVO. O registro canonico aponta para gire.mlib.cnr.it; '
+                    'gire.ipsp.cnr.it e o endereco corrente, sob o IPSP-CNR. Nao sao duas fontes.'),
+      nota=('CONTRADICAO A CARREGAR: o GIRE declara Echinochloa crus-galli resistente a propanil '
+            '(HRAC 5 / C2) em Piemonte, Lombardia e Toscana desde 2000; o sumario por pais do '
+            'weedscience.org lido em 2026-09-03 mostra a Italia com ZERO no grupo HRAC 5. Dois '
+            'registros e duas contagens. Isto e INVESTIGATE, nao um numero a escolher.'),
+      prova='wf_resistance-and-science.json#contradiction_to_carry_forward'),
+]
+
+
 # ── REJEICOES ──────────────────────────────────────────────────────────────────
 # Uma rejeicao com motivo escrito vale tanto quanto uma fonte: ela impede a
 # proxima passagem de gastar o mesmo tempo no mesmo beco.
@@ -927,6 +1009,55 @@ NAO_ALCANCADAS += [
                'A re-medicao imediata devolveu 302 nos tres perfis testados. A rota nao esta fechada: '
                'esta limitada por taxa e instavel desta saida. Handle DECLARADO pela organizacao '
                'continua provado; o CONTEUDO do perfil fica NAO_SEI.')},
+]
+
+REJEITADAS += [
+    {'NAME': 'lista de produtos nas paginas de empresa do AgroNotizie',
+     'URL': 'https://agronotizie.imagelinenetwork.com/aziende/<slug>/<id>',
+     'REJECTION_CLASS': 'SITE_WIDE_LIST_READ_AS_COMPANY_PORTFOLIO',
+     'REASON': ('a rota da pagina de empresa responde 200 e parece entregar o portfolio daquela '
+                'empresa. Medido: a lista de 32 produtos da pagina da Syngenta e SUBCONJUNTO '
+                'ESTRITO da lista de 50 da pagina da ADAMA, sobreposicao 32 de 32, e os mesmos '
+                'itens (RIDOMIL GOLD EVO, IKONIK, GEOCLEAN ORTO 2026, D-D SOIL SERRA VII) '
+                'aparecem tambem na home do Fitogest. E lista do SITE, nao da empresa.'),
+     'ACTION': ('a pagina serve para NOTICIA da empresa, nunca para portfolio. Ler portfolio dali '
+                'produziria afirmacao de concorrente que nao existe.'),
+     'EVIDENCE': 'wf_competitor-italian-channels.json#TRAP_agronotizie_product_list_is_site_wide'},
+
+    {'NAME': 'certisbelchim.it/eventi e uplcorp.com/it/eventi',
+     'URL': 'https://certisbelchim.it/eventi/',
+     'REJECTION_CLASS': 'PLACEHOLDER_THEME_CONTENT',
+     'REASON': ('a pagina responde 200 com 221 KB e parece uma agenda de eventos. O conteudo e '
+                'o tema do WordPress: "0 events found", e os eventos passados sao Trial Field '
+                'Days de 2019 (Londerzeel, BE) e 2020 (Fronton, FR) com corpo em lorem ipsum. '
+                'A API do proprio site devolve {"events":[],"total":0}.'),
+     'ACTION': 'nao registrar como fonte de eventos. 200 com bytes nao e conteudo.',
+     'EVIDENCE': 'wf_competitor-italian-channels.json#empty_or_placeholder'},
+
+    {'NAME': 'monitoraggi-corteva.com',
+     'URL': 'https://monitoraggi-corteva.com/',
+     'REJECTION_CLASS': 'CREDENTIALED_PORTAL',
+     'REASON': ('redireciona para /user/login. E portal com credencial, e esta casa nao faz '
+                'login, nao passa credencial e nao coleta conteudo nao publico.'),
+     'ACTION': ('NAO coletar. Registrado porque saber que EXISTE um portal de monitoramento '
+                'fechado da Corteva e informacao — o que nao se pode e entrar nele.'),
+     'EVIDENCE': 'wf_competitor-italian-channels.json#empty_or_placeholder'},
+]
+
+NAO_ALCANCADAS += [
+    {'HOST': 'syngenta.it · cropscience.bayer.it · bayer.it · nufarm.com/it/prodotti',
+     'STATE': 'HTTP_403_CLOUDFLARE_OU_MANUTENCAO',
+     'MEANS': ('syngenta.it devolve o interstitial "Just a moment..." do Cloudflare; os hosts da '
+               'Bayer devolvem "Site Maintenance". nufarm.com/it/ responde 200 e '
+               '/it/prodotti/ nao — bloqueio PARCIAL, por caminho. '
+               'ROUTE_BLOCKED_FOR_AUTOMATION != CATALOG_EMPTY.')},
+    {'HOST': 'uplitalia.it · sariaf.it · sumitomo-chem.it · syngentaseeds.it · hyvido.it',
+     'STATE': 'TUNNEL_502 / CONNECTION_RESET',
+     'MEANS': 'cinco hosts de concorrente nao abriram daqui. NAO_SEI, nunca RED.'},
+    {'HOST': 'albaugh.com/emea/it',
+     'STATE': 'SOFT_404',
+     'MEANS': ('responde 200 e redireciona para /emea/404. A Albaugh EMEA nao tem versao '
+               'italiana — isso e um fato sobre a empresa, e nao uma falha de rota.')},
 ]
 
 

@@ -147,6 +147,43 @@ def normalizar_video(bruto, *, source_id, run_id, capture_date, papel_por_canal=
 
 # CROP e ISSUE saem de vocabulário declarado, não de leitura livre do texto.
 VOCAB_CROP = {'OLIVE': r'\boliv|olivar|aceituna|aceite de oliva|almazara|\bolea\b'}
+
+# ── ITÁLIA ─────────────────────────────────────────────────────────────────────
+# Acrescentado em 2026-09-03, quando a camada de voz italiana foi aberta. É
+# ACRESCENTADO, não substituído: o vocabulário espanhol continua exatamente onde estava,
+# e o dicionário é a mesma estrutura declarada. Um vocabulário que o próximo país
+# reescreve é um vocabulário que encolhe em silêncio — é por isso que ele vive em código.
+#
+# As chaves são as culturas canônicas do próprio corpus italiano (CROP_ON_LABEL dos 2.030
+# pares de rótulo), e a ordem de peso é a do rótulo: BARBABIETOLA 239 · FRUMENTO 176 ·
+# MELO 146 · ORZO 131 · MAIS 112 · PATATA 100 · VITE 96 · ...
+VOCAB_CROP_IT = {
+    'BARBABIETOLA': r'barbabietol|bietol',
+    'FRUMENTO': r'\bfrumento\b|\bgrano\b|grano duro|grano tenero',
+    'MELO': r'\bmelo\b|\bmele\b|meleto|melicolt',
+    'ORZO': r'\borzo\b',
+    'MAIS': r'\bmais\b|\bmaiscolt|granoturco',
+    'PATATA': r'patat|pataticolt',
+    'BRASSICACEE': r'brassicac|\bcavol|\bcolza\b',
+    'VITE': r'\bvite\b|\bviti\b|vigneto|vitivinicol|viticolt|\buva\b',
+    'ERBA_MEDICA': r'erba medica',
+    'LEGUMINOSE': r'leguminos|\bfagiolin|\bpisell',
+    'CAROTA': r'\bcarot',
+    'CUCURBITACEE': r'cucurbitac|\bzucchin|\bmelone\b|\banguri',
+    'FRAGOLA': r'\bfragol',
+    'PESCO': r'\bpesco\b|\bpesche\b|peschicolt|\bdrupac',
+    'POMODORO': r'pomodor',
+    'CIPOLLA': r'\bcipoll',
+    'GIRASOLE': r'girasol',
+    'SOIA': r'\bsoia\b',
+    'CILIEGIO': r'\bcilieg',
+    'AGRUMI': r'\bagrum|\barancio\b|\blimone\b',
+    'RISO': r'\briso\b|risaia|risicolt',
+    'PERO': r'\bpero\b|\bpere\b|pericolt',
+    'ACTINIDIA': r'actinidi|\bkiwi\b',
+    'OLIVO_IT': r'\bolivo\b|olivet|olivicolt',
+    'NOCE': r'\bnoce\b|\bnoci\b|corilicolt|\bnocciol',
+}
 VOCAB_ISSUE = {
     'REPILO': r'repilo|venturia|spilocaea',
     'XYLELLA': r'xylella',
@@ -156,19 +193,62 @@ VOCAB_ISSUE = {
     'TUBERCULOSIS': r'tuberculosis del olivo|pseudomonas savastanoi',
 }
 
+# Avversità italianas. Mesma lei: o nome canônico é a chave, e o regex é o que a fala
+# realmente diz. `AMBIGUOUS:` continua sendo estado, e não desempate.
+VOCAB_ISSUE_IT = {
+    'CERCOSPORA': r'cercospor',
+    'PERONOSPORA': r'peronospor',
+    'OIDIO': r'\boidio\b|mal bianco',
+    'BOTRITE': r'botrit|muffa grigia',
+    'TICCHIOLATURA': r'ticchiolatur|\bventuria\b',
+    'ALTERNARIA': r'alternari',
+    'MONILIA': r'monili',
+    'FUSARIOSI': r'fusarios|\bfusarium\b|micotossin',
+    'SEPTORIA': r'septori',
+    'RUGGINE': r'\bruggin',
+    'FLAVESCENZA_DORATA': r'flavescenz|scaphoideus',
+    'CIMICE_ASIATICA': r'cimice asiatic|halyomorph',
+    'CARPOCAPSA': r'carpocaps|\bcydia pomonell',
+    'TIGNOLETTA': r'tignolett|\blobesia\b',
+    'PIRALIDE': r'piralid|ostrinia',
+    'DIABROTICA': r'diabrotic',
+    'ELATERIDI': r'elaterid|\bagriotes\b|ferretti',
+    'AFIDI': r'\bafid|afide lanigero|eriosoma|\bmyzus\b',
+    'TRIPIDI': r'\btripid',
+    'NOTTUE': r'\bnottu',
+    'DORIFORA': r'dorifor|leptinotars',
+    'TUTA_ABSOLUTA': r'tuta absolut|tignola del pomodoro',
+    'MOSCA_OLEARIA': r'mosca oleari|bactrocera ole',
+    'XYLELLA_IT': r'xylella',
+    'GIAVONE': r'giavon|echinochlo',
+    'RESISTENZA': r'resistenz[ae] (agli|ai|a) (erbicid|fungicid|insetticid)|popolazioni resistenti',
+}
 
-def marcar_assunto(reg):
+
+def marcar_assunto(reg, vocab_crop=None, vocab_issue=None, ler_transcricao=False):
     """CROP e ISSUE a partir de título e descrição, com vocabulário declarado.
 
     Isto é assunto, não identidade. Marcar o tema de um texto é leitura de conteúdo e é
     permitido; deduzir QUEM fala a partir do mesmo texto não é.
+
+    `vocab_crop` e `vocab_issue` são injetáveis para que o país seja DECLARADO por quem
+    chama, e não adivinhado pelo idioma do texto — o mesmo erro que o detector de idioma
+    da transcrição já cometeu nesta casa. Sem eles, vale o vocabulário espanhol, que é o
+    que o pipeline espanhol sempre usou.
+
+    `ler_transcricao=True` inclui a FALA no campo lido. É opção e não padrão: assunto
+    lido da fala é uma leitura mais rica e também mais barulhenta, e quem liga precisa
+    saber que ligou.
     """
-    campo = ' '.join(str(reg.get(k) or '') for k in ('TITLE', 'DESCRIPTION'))
-    for nome, rx in VOCAB_CROP.items():
+    vocab_crop = VOCAB_CROP if vocab_crop is None else vocab_crop
+    VOCAB_ISSUE_USADO = VOCAB_ISSUE if vocab_issue is None else vocab_issue
+    chaves = ('TITLE', 'DESCRIPTION', 'TRANSCRIPT') if ler_transcricao else ('TITLE', 'DESCRIPTION')
+    campo = ' '.join(str(reg.get(k) or '') for k in chaves)
+    for nome, rx in vocab_crop.items():
         if re.search(rx, campo, re.I):
             reg['CROP'] = nome
             break
-    achados = [n for n, rx in VOCAB_ISSUE.items() if re.search(rx, campo, re.I)]
+    achados = [n for n, rx in VOCAB_ISSUE_USADO.items() if re.search(rx, campo, re.I)]
     if len(achados) == 1:
         reg['ISSUE'] = achados[0]
     elif len(achados) > 1:
@@ -192,6 +272,42 @@ VOCAB_MOLECULE = {
     'CAOLIN': r'caol[ií]n',
 }
 
+# Substâncias ativas em italiano. A chave é o nome canônico do corpus ADAMA Italia
+# (activeIngredients.json, 53 substâncias) e o regex é a grafia italiana. MOLECULE nunca
+# sai de marca comercial — nem aqui, nem no espanhol.
+VOCAB_MOLECULE_IT = {
+    'FLUAZINAM': r'fluazinam', 'FOLPET': r'\bfolpet\b', 'CAPTAN': r'\bcaptano?\b',
+    'PIRIMICARB': r'pirimicarb', 'TAU-FLUVALINATE': r'tau[- ]fluvalinat',
+    'LAMBDA-CYHALOTHRIN': r'lambda[- ]?cialotrin', 'DELTAMETHRIN': r'deltametrin',
+    'AZOXYSTROBIN': r'azoxystrobin|azossistrobin', 'DIFENOCONAZOLE': r'difenoconazol',
+    'TEBUCONAZOLE': r'tebuconazol', 'FLUXAPYROXAD': r'fluxapyroxad|fluxapiroxad',
+    'MESOTRIONE': r'mesotrion', 'FLORASULAM': r'florasulam', 'IMAZAMOX': r'imazamox',
+    'BUPIRIMATE': r'bupirimat', 'FENPROPIDIN': r'fenpropidin', 'CLETHODIM': r'clethodim',
+    'PROPAQUIZAFOP': r'propaquizafop', 'DIFLUFENICAN': r'diflufenican',
+    'PENDIMETHALIN': r'pendimetalin', 'CLOMAZONE': r'clomazone', 'BENTAZONE': r'bentazone',
+    'GLYPHOSATE': r'glifosat', 'ACETAMIPRID': r'acetamiprid', 'SPINOSAD': r'spinosad',
+    'ETOFENPROX': r'etofenprox', 'MANCOZEB': r'mancozeb', 'METALAXYL': r'metalaxil',
+    'PYRACLOSTROBIN': r'pyraclostrobin|piraclostrobin', 'CYMOXANIL': r'cimoxanil|cymoxanil',
+    'PROPANIL': r'propanil', 'CYCLOXYDIM': r'ciclossidim',
+}
+
+# Regiões italianas. As 20 regiões mais as províncias que a rede de trappole publica.
+# FACT_LOCATION continua sendo o lugar NOMEADO pelo texto — nunca o país do canal.
+VOCAB_LUGAR_IT = {
+    'IT-Emilia-Romagna': r'emilia[- ]romagna', 'IT-Veneto': r'\bveneto\b',
+    'IT-Lombardia': r'lombardia', 'IT-Piemonte': r'piemonte',
+    'IT-Friuli-Venezia Giulia': r'friuli', 'IT-Trentino-Alto Adige': r'trentino|alto adige|s[üu]dtirol',
+    'IT-Toscana': r'toscana', 'IT-Puglia': r'puglia', 'IT-Sicilia': r'sicilia',
+    'IT-Campania': r'campania', 'IT-Lazio': r'\blazio\b', 'IT-Marche': r'\bmarche\b',
+    'IT-Umbria': r'umbria', 'IT-Abruzzo': r'abruzzo', 'IT-Molise': r'molise',
+    'IT-Basilicata': r'basilicata', 'IT-Calabria': r'calabria', 'IT-Sardegna': r'sardegna',
+    'IT-Liguria': r'liguria', 'IT-Valle d Aosta': r'valle d.aosta',
+    'IT-Modena': r'\bmodena\b', 'IT-Bologna': r'\bbologna\b', 'IT-Ravenna': r'\bravenna\b',
+    'IT-Ferrara': r'\bferrara\b', 'IT-Reggio Emilia': r'reggio emilia',
+    'IT-Parma': r'\bparma\b', 'IT-Piacenza': r'piacenza', 'IT-Forli-Cesena': r'forl[iì]|cesena',
+    'IT': r'\bitalia\b',
+}
+
 # FACT_LOCATION só quando o próprio texto NOMEIA o lugar. Nunca por idioma, nunca pelo país
 # da plataforma, nunca pelo país do canal — SOURCE_LOCATION e FACT_LOCATION são coisas
 # diferentes e é justamente aqui que se confundem.
@@ -205,17 +321,20 @@ VOCAB_LUGAR = {
 }
 
 
-def marcar_molecula_e_lugar(reg):
+def marcar_molecula_e_lugar(reg, vocab_molecule=None, vocab_lugar=None, ler_transcricao=False):
     """MOLECULE e FACT_LOCATION a partir do texto declarado, com vocabulário fechado.
 
     Quando o texto nomeia mais de um lugar, o registro recebe todos — não se escolhe um.
     Um vídeo que fala de Jaén e Córdoba fala das duas.
     """
-    campo = ' '.join(str(reg.get(k) or '') for k in ('TITLE', 'DESCRIPTION'))
-    mols = sorted(n for n, rx in VOCAB_MOLECULE.items() if re.search(rx, campo, re.I))
+    vocab_molecule = VOCAB_MOLECULE if vocab_molecule is None else vocab_molecule
+    vocab_lugar_usado = VOCAB_LUGAR if vocab_lugar is None else vocab_lugar
+    chaves = ('TITLE', 'DESCRIPTION', 'TRANSCRIPT') if ler_transcricao else ('TITLE', 'DESCRIPTION')
+    campo = ' '.join(str(reg.get(k) or '') for k in chaves)
+    mols = sorted(n for n, rx in vocab_molecule.items() if re.search(rx, campo, re.I))
     if mols:
         reg['MOLECULE'] = '+'.join(mols)
-    lugares = sorted(n for n, rx in VOCAB_LUGAR.items() if re.search(rx, campo, re.I))
+    lugares = sorted(n for n, rx in vocab_lugar_usado.items() if re.search(rx, campo, re.I))
     # 'ES' sozinho é redundante quando há província: a província já implica o país.
     if len(lugares) > 1 and 'ES' in lugares:
         lugares.remove('ES')
@@ -336,7 +455,8 @@ def marcar_originalidade(registros):
 
 # ---------------------------------------------------------------- pipeline
 def pipeline_video(brutos, *, source_id, run_id, capture_date, papel_por_canal=None,
-                   transcricoes=None, evidence_path=None):
+                   transcricoes=None, evidence_path=None, vocab_crop=None, vocab_issue=None,
+                   vocab_molecule=None, vocab_lugar=None, ler_transcricao=False):
     """RAW -> normaliza -> classifica -> originalidade -> DEDUPE -> saída.
 
     É este caminho, e não a função solta, que a coleta precisa chamar. A auditoria de
@@ -351,7 +471,10 @@ def pipeline_video(brutos, *, source_id, run_id, capture_date, papel_por_canal=N
         r = normalizar_video(b, source_id=source_id, run_id=run_id,
                              capture_date=capture_date, papel_por_canal=papel_por_canal,
                              transcricoes=transcricoes, evidence_path=evidence_path)
-        r = marcar_molecula_e_lugar(marcar_assunto(r))
+        r = marcar_assunto(r, vocab_crop=vocab_crop, vocab_issue=vocab_issue,
+                           ler_transcricao=ler_transcricao)
+        r = marcar_molecula_e_lugar(r, vocab_molecule=vocab_molecule, vocab_lugar=vocab_lugar,
+                                    ler_transcricao=ler_transcricao)
         r['CONTENT_TYPE'], r['CONTENT_TYPE_ALL'], r['CONTENT_TYPE_EVIDENCE'] = classificar_tipo(r)
         normalizados.append(r)
 
@@ -372,6 +495,15 @@ def pipeline_video(brutos, *, source_id, run_id, capture_date, papel_por_canal=N
 
     relatorio = {
         'RUN_ID': run_id,
+        # Qual vocabulario marcou o assunto. Sem isto, dois paises produzem o mesmo campo
+        # CROP com reguas diferentes e ninguem consegue saber qual regua foi.
+        'VOCAB_DECLARED': {
+            'CROP': 'INJECTED' if vocab_crop is not None else 'DEFAULT_ES',
+            'ISSUE': 'INJECTED' if vocab_issue is not None else 'DEFAULT_ES',
+            'MOLECULE': 'INJECTED' if vocab_molecule is not None else 'DEFAULT_ES',
+            'PLACE': 'INJECTED' if vocab_lugar is not None else 'DEFAULT_ES',
+        },
+        'SUBJECT_READ_FROM_TRANSCRIPT': bool(ler_transcricao),
         'RAW_COUNT': len(brutos),
         'DUPLICATE_COUNT': colapsados,
         'UNIQUE_CONTENT_COUNT': len(unicos),

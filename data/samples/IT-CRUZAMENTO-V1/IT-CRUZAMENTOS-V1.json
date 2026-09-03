@@ -11,12 +11,12 @@
  "LAW_2": "PORTFOLIO RELATION != LABEL AUTHORIZATION",
  "LAW_3": "UMA VOZ NAO E UMA TENDENCIA — quando varias fontes convergem, o nome e CLUSTER NELLE FONTI MONITORATE, nunca TREND IN ITALY",
  "LAW_4": "AUSENCIA NA NOSSA LEITURA != AUSENCIA NO MUNDO",
- "COUNT": 5,
+ "COUNT": 6,
  "BY_LINK_STRENGTH": {
-  "LINHA_DA_TABELA": 2,
+  "LINHA_DA_TABELA": 3,
   "SUBSTANCIA_ATIVA": 3
  },
- "WITH_TRANSCRIPT_ONLY_EVIDENCE": 4,
+ "WITH_TRANSCRIPT_ONLY_EVIDENCE": 5,
  "CROSSINGS": [
   {
    "ID": "IT-X-2026-001",
@@ -268,9 +268,72 @@
    "DOES_NOT_PROVE": "nao prova que a ADAMA pode registrar, vender ou pedir a mesma deroga; nao prova que a deroga se repetira em 2027; nao prova incidencia; e produto de concorrente nao e produto ADAMA.",
    "PROVENANCE": "REAL_SOURCE + SINTONIA_CROSSING",
    "CLIENT_SAFE": true
+  },
+  {
+   "ID": "IT-X-2026-006",
+   "TITLE": "Um agronomo independente diz, em video datado, para NAO tratar — e diz que a terceira geracao de tignoletta comecou",
+   "CROP": "VITE",
+   "TARGET": "PERONOSPORA e OIDIO (ausentes) · TIGNOLETTA (terceiro voo, comecando)",
+   "GEOGRAPHY": "Lombardia — Brescia, Bergamo, Mantova",
+   "GEOGRAPHY_STATE": "DECLARED_BY_THE_SPEAKER",
+   "WINDOW": "2026-07-23, fase de invaiatura avancada declarada na fala",
+   "SOURCES_CROSSED": 2,
+   "CROSSING_TYPE": "TECHNICAL_ADVISER_VIDEO x ADAMA_LABEL_PAIR",
+   "EVIDENCE": [
+    {
+     "LAYER": "TECHNICAL_ADVISER_VIDEO",
+     "SOURCE": "Agralia Studio Agronomico (Brescia) — canal YouTube proprio",
+     "DOC": "Aggiornamento Agrometeo Vite – Fine luglio 2026",
+     "URL": "https://www.youtube.com/watch?v=EmDDkVgfzEM",
+     "DATE": "2026-07-23",
+     "CAPTION_SOURCE": "YOUTUBE_ASR_AUTO",
+     "QUOTE_IT": "aggiornamento Agrometeo Lombardia e dintorni settore vite, ehm Brescia, Bergamo, Mantova e via dicendo. [...] 23 luglio 2026 [...] siamo ormai in fase di invaiatura avanzata. [...] Di fatto non abbiamo peronospora, non abbiamo oidio, quindi vi consiglio di non trattare se non prima delle possibili piogge. Pare che stia cominciando il volo di terza generazione di tignoletta.",
+     "ONLY_IN_TRANSCRIPT": true,
+     "WHY_ONLY_IN_TRANSCRIPT": "o titulo do video e \"Aggiornamento Agrometeo Vite – Fine luglio 2026\" e nao diz avversita nenhuma. Peronospora, oidio, tignoletta, a fase fenologica e as tres provincias estao SO NA FALA.",
+     "EVIDENCE_PATH": "data/samples/IT-VIDEO-V1/falas/EmDDkVgfzEM.json"
+    },
+    {
+     "LAYER": "ADAMA_LABEL_PAIR",
+     "SOURCE": "rotulo autorizado, Ministero della Salute",
+     "PAIRS": [
+      "IT-LBL-326 LAMDEX EXTRA | VITE | TIGNOLE | \"Tignola e[uropea]\"",
+      "IT-LBL-823 FORZA | VITE | TIGNOLE",
+      "IT-LBL-903 NINJA | VITE | TIGNOLE",
+      "IT-LBL-1371 DURAVIS | VITE | TIGNOLE",
+      "IT-LBL-1675 ELTIRA | VITE | TIGNOLE",
+      "IT-LBL-796 FOLPAN GOLD | VITE | PERONOSPORA",
+      "IT-LBL-1442 SESTO GOLD | VITE | PERONOSPORA",
+      "IT-LBL-1958 MOMENTUM PFNPE | VITE | PERONOSPORA"
+     ],
+     "LINK_STRENGTH": "LINHA_DA_TABELA",
+     "EVIDENCE_PATH": "v21/productRelationships.json"
+    }
+   ],
+   "VOCABULARY_RECONCILIATION": "o agronomo diz TIGNOLETTA; o rotulo escreve TIGNOLE e \"Tignola e[uropea]\". Ligar os dois e INFERENCIA NOSSA, nao observacao — e as duas reguas batizaram a mesma coisa de jeitos diferentes.",
+   "ADAMA_RELATION": "LINHA_DA_TABELA nos dois lados: cinco registros ADAMA trazem VITE x TIGNOLE na linha da tabela, e tres trazem VITE x PERONOSPORA. VITE tem 96 pares de rotulo ADAMA.",
+   "WHY_THIS_ONE_IS_DIFFERENT": "e o unico sinal desta rodada em que a fonte tecnica recomenda NAO TRATAR. Para uma empresa de protecao de cultivos isso e mais dificil e mais util que um alerta de pressao: e exatamente a FALSE-SIGNAL AVOIDANCE que este sistema ja provou ser o que faz de melhor.",
+   "OPPORTUNITY_LINK": [
+    "OPP_C37A1FD2742E (VITE x ISSUE_GRAPE_MOTH, GEO_ITALY)",
+    "OPP_3F736F0A9467 (VITE x ISSUE_DOWNY_MILDEW, GEO_ITALY)",
+    "OPP_AF16E6A6B8B3 (VITE, confirmada, GEO_ITALY)"
+   ],
+   "ACTION_MAP": [
+    "SCIENCE_TECHNICAL",
+    "MARKET_DEVELOPMENT"
+   ],
+   "PROVES": "que em 2026-07-23 um estudio agronomico privado da Lombardia declarou publicamente, em video, ausencia de peronospora e oidio nas suas vinhas de Brescia, Bergamo e Mantova, recomendou nao tratar, e afirmou que o terceiro voo de tignoletta estava comecando.",
+   "DOES_NOT_PROVE": "nao prova ausencia de peronospora na Lombardia nem na Italia — prova o que ESTE tecnico observou nas parcelas que ele acompanha; nao prova incidencia de tignoletta, so o inicio do voo declarado por ele; nao prova demanda nem queda de demanda. UMA VOZ NAO E UMA TENDENCIA.",
+   "PROVENANCE": "REAL_SOURCE + SINTONIA_CROSSING",
+   "CLIENT_SAFE": true
   }
  ],
  "NOT_CROSSED_AND_WHY": [
+  {
+   "PAIR": "Popillia japonica (AIPP, webinar de 2026-07-09) x portfolio ADAMA",
+   "WHY": "a fala e forte e datada: descreve a OBRIGACAO de tratar a superficie na area delimitada com \"adulticidi abbattenti come la deltametrina e l acetamiprid\", e pede \"molecole efficaci in autorizzazione eccezionale nelle aree ad eradicazione, come fu per la cimice asiatica\". Mas nem deltametrina nem acetamiprid estao entre as 53 substancias ativas da ADAMA Italia, e o corpus tem ZERO pares de rotulo para Popillia. NAO HA CHAVE. Forcar aqui seria inventar relevancia ADAMA — e a missao proibe exatamente isso.",
+   "WHAT_IT_IS_INSTEAD": "e um sinal de ABERTURA REGULATORIA que o portfolio atual nao responde: uma sociedade cientifica italiana pedindo autorizacao excepcional para uma quarentena em expansao em Lombardia e Piemonte. Vale como FUTURE, e nao como oportunidade.",
+   "EVIDENCE": "data/samples/IT-VIDEO-V1/falas/ep1KX19XxS8.json"
+  },
   {
    "PAIR": "voz publica x incidencia regional medida",
    "WHY": "nenhuma fonte italiana desta rodada entrega serie de INCIDENCIA por parcela comparavel ao RAIF espanhol. A rede de trappole da cimice entrega CAPTURA, que nao e incidencia. Sem essa chave, o cruzamento voz x campo que a Espanha reprovou nem sequer pode ser tentado aqui."
