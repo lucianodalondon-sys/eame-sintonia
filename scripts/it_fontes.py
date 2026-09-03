@@ -896,6 +896,68 @@ FONTES += [
 ]
 
 
+FONTES += [
+    F('IT-SRCX-041',
+      'Ministero della Salute — autorizzazioni in situazioni di emergenza fitosanitaria (art. 53)',
+      'Ministero della Salute', 'REGULATORY_EMERGENCY_REGISTER', 'OFFICIAL', 'HIGH',
+      'https://www.salute.gov.it/new/it/tema/prodotti-fitosanitari/autorizzazioni-situazioni-emergenza-fitosanitaria-art-53-reg-11072009/',
+      regiao='ITALIA (nacional, com deroga regional dentro)',
+      crops=['TODAS'], temas=['DEROGA', 'USO_ECCEZIONALE', 'ART_53', 'JANELA_DATADA'],
+      razao=('e a FONTE NACIONAL das deroghe que esta missao so tinha achado de segunda mao, '
+             'dentro dos bollettini regionais. Uma deroga do art. 53 traz substancia, cultura, '
+             'alvo e JANELA COM DATA DE ABERTURA E DE FECHAMENTO — e data futura publicada e a '
+             'unica antecipacao que este sistema ja provou. Os PDFs sao datados no proprio nome '
+             '("integrazione pubblicazione del 5 agosto 2026").'),
+      achada='varredura paralela do eixo eventos/calendario regulatorio',
+      query='salute.gov.it autorizzazioni situazioni emergenza fitosanitaria art 53',
+      metodo='HTML + PDF datado', freq='PERIODIC', ultimo='2026-08-05', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      dedupe='SRC_SALUTE_GOV_IT · SRC_FITOSANITARI_SALUTE_GOV_IT',
+      dedupe_means=('mesmo ministerio, TERCEIRO canal: o registro de produto e uma coisa, a banca '
+                    'dati e outra, e o registro de uso excepcional e uma terceira. Cada um quebra '
+                    'de um jeito e cada um responde uma pergunta diferente.'),
+      nota=('DEROGA != REGISTRO. Ela abre uma janela curta e datada, e fecha. Nao vira '
+            'autorizacao de rotulo.'),
+      prova='wf_events-and-regulatory-calendar.json#verified_future_dates · PDFs de 05/08/2026 e 08/05/2026 baixados'),
+
+    F('IT-SRCX-042',
+      'ARPAV — revoche dei prodotti fitosanitari, tabella delle sostanze',
+      'ARPA Veneto', 'REGULATORY_WITHDRAWAL_TABLE', 'OFFICIAL', 'HIGH',
+      'https://www.arpa.veneto.it/temi-ambientali/agrometeo/servizi/revoche-fitosanitari',
+      regiao='Veneto (tabela de alcance nacional)',
+      crops=['TODAS'], temas=['REVOCA', 'SOSTANZE_RITIRATE', 'RISCHIO_DI_PORTAFOGLIO'],
+      razao=('e o outro lado do calendario regulatorio, e o que o acervo nao tinha: uma tabela de '
+             'substancias REVOGADAS. Sete das nove convergencias confirmadas sao '
+             'O5_REGULATORY_PREPARATION — e todas olham para a data de vencimento UE. Revoca '
+             'nacional e o evento que chega ANTES dela, e a fala do projeto dos elateridi mostrou '
+             'que uma revoca de 2014 ainda define o campo de 2026.'),
+      achada='varredura paralela do eixo eventos/calendario regulatorio',
+      query='arpa veneto revoche prodotti fitosanitari tabella sostanze',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_MONTHLY',
+      dedupe='SRC_ARPA_VENETO_IT',
+      dedupe_means='mesma agencia; a tabela de revoche e um canal distinto do agrometeo',
+      prova='wf_events-and-regulatory-calendar.json · HTTP 200 · 268.631 B'),
+
+    F('IT-SRCX-043',
+      'Interpoma — fiera e congresso internacional da maca (Bolzano)',
+      'Fiera Bolzano', 'EVENT', 'INDUSTRY', 'MEDIUM',
+      'https://www.fierabolzano.it/it/interpoma/',
+      regiao='Trentino-Alto Adige (Bolzano)',
+      crops=['MELO'], temas=['CONGRESSO', 'MELICOLTURA', 'DATA_FUTURA'],
+      razao=('MELO tem 146 pares de rotulo ADAMA e quatro oportunidades. Interpoma e o encontro '
+             'internacional da cultura e a data e FUTURA e verificada: 25 a 27 de novembro de '
+             '2026, com o programa por dia ja publicado.'),
+      achada='varredura paralela do eixo eventos', query='Interpoma 2026 Fiera Bolzano date programma',
+      metodo='HTML', freq='EVENT_DRIVEN', ultimo='2026-11-25', acesso='YELLOW',
+      coleta='PARTIAL', monitor='EVENT_DRIVEN',
+      nota=('a pagina do congresso e a lista de expositores devolvem HTTP 500. A DATA esta '
+            'verificada na pagina pai; a LISTA DE EXPOSITORES nao foi verificada e fica NAO_SEI — '
+            'e ela e justamente o que diria quais concorrentes estarao la.'),
+      prova='wf_events-and-regulatory-calendar.json · pagina pai 200/136.750 B; congresso e expositores 500'),
+]
+
+
 # ── REJEICOES ──────────────────────────────────────────────────────────────────
 # Uma rejeicao com motivo escrito vale tanto quanto uma fonte: ela impede a
 # proxima passagem de gastar o mesmo tempo no mesmo beco.

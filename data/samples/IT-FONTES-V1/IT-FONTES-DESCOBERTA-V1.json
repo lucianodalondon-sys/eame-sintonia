@@ -11,35 +11,35 @@
  "ENTITY_VS_CHANNEL": "ORGANIZACAO e CANAL sao unidades diferentes. A mesma instituicao pode ser site, feed, perfil e API — e cada uma quebra de um jeito. Dedupe une organizacao; nao colapsa canal.",
  "FIELD_LAW": "campo sem leitura real fica NAO_SEI; nunca preenchido por plausibilidade",
  "SCOREBOARD": {
-  "SOURCES_QUALIFIED": 40,
+  "SOURCES_QUALIFIED": 43,
   "BY_RELEVANCE": {
-   "HIGH": 20,
-   "MEDIUM": 20
+   "HIGH": 22,
+   "MEDIUM": 21
   },
   "BY_AUTHORITY": {
-   "OFFICIAL": 11,
+   "OFFICIAL": 13,
    "SCIENTIFIC": 6,
    "TECHNICAL": 3,
    "FIELD_VOICE": 3,
-   "INDUSTRY": 4,
+   "INDUSTRY": 5,
    "MEDIA": 8,
    "COMPETITOR": 5
   },
   "BY_COLLECTABILITY": {
-   "AUTOMATABLE": 26,
-   "PARTIAL": 13,
+   "AUTOMATABLE": 28,
+   "PARTIAL": 14,
    "MANUAL": 1
   },
   "BY_MONITORING": {
    "MONITOR_WEEKLY": 14,
-   "MONITOR_MONTHLY": 19,
+   "MONITOR_MONTHLY": 21,
    "MONITOR_DAILY": 6,
-   "EVENT_DRIVEN": 1
+   "EVENT_DRIVEN": 2
   },
   "BY_UPDATE_FREQUENCY": {
-   "PERIODIC": 23,
+   "PERIODIC": 25,
    "FREQUENT": 14,
-   "EVENT_DRIVEN": 2,
+   "EVENT_DRIVEN": 3,
    "STATIC": 1
   },
   "WITH_FEED_OR_API": 22,
@@ -47,7 +47,7 @@
   "SOCIAL_PROFILES_DECLARED": 34,
   "SINTONIA_SCRAP_SUPPORTED": 9,
   "TRANSCRIPTION_RELEVANT": 11,
-  "NEW_CHANNEL_OF_REGISTERED_ORG": 10,
+  "NEW_CHANNEL_OF_REGISTERED_ORG": 12,
   "REJECTED": 9,
   "ROUTES_NOT_REACHED": 14
  },
@@ -1927,6 +1927,133 @@
    "DEDUPE_MEANS": "MESMA base, HOST NOVO. O registro canonico aponta para gire.mlib.cnr.it; gire.ipsp.cnr.it e o endereco corrente, sob o IPSP-CNR. Nao sao duas fontes.",
    "EVIDENCE_PROBE": "wf_resistance-and-science.json#contradiction_to_carry_forward",
    "NOTES_INTERNAL": "CONTRADICAO A CARREGAR: o GIRE declara Echinochloa crus-galli resistente a propanil (HRAC 5 / C2) em Piemonte, Lombardia e Toscana desde 2000; o sumario por pais do weedscience.org lido em 2026-09-03 mostra a Italia com ZERO no grupo HRAC 5. Dois registros e duas contagens. Isto e INVESTIGATE, nao um numero a escolher."
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-041",
+   "NAME": "Ministero della Salute — autorizzazioni in situazioni di emergenza fitosanitaria (art. 53)",
+   "ENTITY": "Ministero della Salute",
+   "SOURCE_TYPE": "REGULATORY_EMERGENCY_REGISTER",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "RELEVANCE": "HIGH",
+   "COUNTRY": "ITALY",
+   "REGION": "ITALIA (nacional, com deroga regional dentro)",
+   "LANGUAGE": "IT",
+   "PRIMARY_URL": "https://www.salute.gov.it/new/it/tema/prodotti-fitosanitari/autorizzazioni-situazioni-emergenza-fitosanitaria-art-53-reg-11072009/",
+   "PLATFORM": "WEB",
+   "SOCIAL_PROFILE_URLS": {},
+   "RSS_API": "NAO_SEI",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "TARGETS_TOPICS_RELEVANT": [
+    "DEROGA",
+    "USO_ECCEZIONALE",
+    "ART_53",
+    "JANELA_DATADA"
+   ],
+   "ADAMA_RELEVANCE_REASON": "e a FONTE NACIONAL das deroghe que esta missao so tinha achado de segunda mao, dentro dos bollettini regionais. Uma deroga do art. 53 traz substancia, cultura, alvo e JANELA COM DATA DE ABERTURA E DE FECHAMENTO — e data futura publicada e a unica antecipacao que este sistema ja provou. Os PDFs sao datados no proprio nome (\"integrazione pubblicazione del 5 agosto 2026\").",
+   "DISCOVERED_FROM": "varredura paralela do eixo eventos/calendario regulatorio",
+   "DISCOVERY_QUERY": "salute.gov.it autorizzazioni situazioni emergenza fitosanitaria art 53",
+   "COLLECTION_METHOD": "HTML + PDF datado",
+   "SINTONIA_SCRAP_SUPPORTED": "NO",
+   "VIDEO_AVAILABLE": "NAO_SEI",
+   "TRANSCRIPTION_RELEVANT": "NAO_SEI",
+   "UPDATE_FREQUENCY": "PERIODIC",
+   "LAST_OBSERVED_CONTENT_DATE": "2026-08-05",
+   "LAST_CHECKED_AT": "2026-09-03",
+   "ACCESS_STATUS": "GREEN",
+   "COLLECTABILITY": "AUTOMATABLE",
+   "PROVENANCE_STATUS": "REAL_SOURCE_PROBED",
+   "MONITORING_RECOMMENDATION": "MONITOR_MONTHLY",
+   "CLIENT_SAFE": false,
+   "DEDUPE_AGAINST": "SRC_SALUTE_GOV_IT · SRC_FITOSANITARI_SALUTE_GOV_IT",
+   "DEDUPE_MEANS": "mesmo ministerio, TERCEIRO canal: o registro de produto e uma coisa, a banca dati e outra, e o registro de uso excepcional e uma terceira. Cada um quebra de um jeito e cada um responde uma pergunta diferente.",
+   "EVIDENCE_PROBE": "wf_events-and-regulatory-calendar.json#verified_future_dates · PDFs de 05/08/2026 e 08/05/2026 baixados",
+   "NOTES_INTERNAL": "DEROGA != REGISTRO. Ela abre uma janela curta e datada, e fecha. Nao vira autorizacao de rotulo."
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-042",
+   "NAME": "ARPAV — revoche dei prodotti fitosanitari, tabella delle sostanze",
+   "ENTITY": "ARPA Veneto",
+   "SOURCE_TYPE": "REGULATORY_WITHDRAWAL_TABLE",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "RELEVANCE": "HIGH",
+   "COUNTRY": "ITALY",
+   "REGION": "Veneto (tabela de alcance nacional)",
+   "LANGUAGE": "IT",
+   "PRIMARY_URL": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/servizi/revoche-fitosanitari",
+   "PLATFORM": "WEB",
+   "SOCIAL_PROFILE_URLS": {},
+   "RSS_API": "NAO_SEI",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "TARGETS_TOPICS_RELEVANT": [
+    "REVOCA",
+    "SOSTANZE_RITIRATE",
+    "RISCHIO_DI_PORTAFOGLIO"
+   ],
+   "ADAMA_RELEVANCE_REASON": "e o outro lado do calendario regulatorio, e o que o acervo nao tinha: uma tabela de substancias REVOGADAS. Sete das nove convergencias confirmadas sao O5_REGULATORY_PREPARATION — e todas olham para a data de vencimento UE. Revoca nacional e o evento que chega ANTES dela, e a fala do projeto dos elateridi mostrou que uma revoca de 2014 ainda define o campo de 2026.",
+   "DISCOVERED_FROM": "varredura paralela do eixo eventos/calendario regulatorio",
+   "DISCOVERY_QUERY": "arpa veneto revoche prodotti fitosanitari tabella sostanze",
+   "COLLECTION_METHOD": "HTML",
+   "SINTONIA_SCRAP_SUPPORTED": "NO",
+   "VIDEO_AVAILABLE": "NAO_SEI",
+   "TRANSCRIPTION_RELEVANT": "NAO_SEI",
+   "UPDATE_FREQUENCY": "PERIODIC",
+   "LAST_OBSERVED_CONTENT_DATE": "NAO_SEI",
+   "LAST_CHECKED_AT": "2026-09-03",
+   "ACCESS_STATUS": "GREEN",
+   "COLLECTABILITY": "AUTOMATABLE",
+   "PROVENANCE_STATUS": "REAL_SOURCE_PROBED",
+   "MONITORING_RECOMMENDATION": "MONITOR_MONTHLY",
+   "CLIENT_SAFE": false,
+   "DEDUPE_AGAINST": "SRC_ARPA_VENETO_IT",
+   "DEDUPE_MEANS": "mesma agencia; a tabela de revoche e um canal distinto do agrometeo",
+   "EVIDENCE_PROBE": "wf_events-and-regulatory-calendar.json · HTTP 200 · 268.631 B",
+   "NOTES_INTERNAL": "NAO_SEI"
+  },
+  {
+   "SOURCE_ID": "IT-SRCX-043",
+   "NAME": "Interpoma — fiera e congresso internacional da maca (Bolzano)",
+   "ENTITY": "Fiera Bolzano",
+   "SOURCE_TYPE": "EVENT",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "RELEVANCE": "MEDIUM",
+   "COUNTRY": "ITALY",
+   "REGION": "Trentino-Alto Adige (Bolzano)",
+   "LANGUAGE": "IT",
+   "PRIMARY_URL": "https://www.fierabolzano.it/it/interpoma/",
+   "PLATFORM": "WEB",
+   "SOCIAL_PROFILE_URLS": {},
+   "RSS_API": "NAO_SEI",
+   "CROPS_RELEVANT": [
+    "MELO"
+   ],
+   "TARGETS_TOPICS_RELEVANT": [
+    "CONGRESSO",
+    "MELICOLTURA",
+    "DATA_FUTURA"
+   ],
+   "ADAMA_RELEVANCE_REASON": "MELO tem 146 pares de rotulo ADAMA e quatro oportunidades. Interpoma e o encontro internacional da cultura e a data e FUTURA e verificada: 25 a 27 de novembro de 2026, com o programa por dia ja publicado.",
+   "DISCOVERED_FROM": "varredura paralela do eixo eventos",
+   "DISCOVERY_QUERY": "Interpoma 2026 Fiera Bolzano date programma",
+   "COLLECTION_METHOD": "HTML",
+   "SINTONIA_SCRAP_SUPPORTED": "NO",
+   "VIDEO_AVAILABLE": "NAO_SEI",
+   "TRANSCRIPTION_RELEVANT": "NAO_SEI",
+   "UPDATE_FREQUENCY": "EVENT_DRIVEN",
+   "LAST_OBSERVED_CONTENT_DATE": "2026-11-25",
+   "LAST_CHECKED_AT": "2026-09-03",
+   "ACCESS_STATUS": "YELLOW",
+   "COLLECTABILITY": "PARTIAL",
+   "PROVENANCE_STATUS": "REAL_SOURCE_PROBED",
+   "MONITORING_RECOMMENDATION": "EVENT_DRIVEN",
+   "CLIENT_SAFE": false,
+   "DEDUPE_AGAINST": null,
+   "DEDUPE_MEANS": null,
+   "EVIDENCE_PROBE": "wf_events-and-regulatory-calendar.json · pagina pai 200/136.750 B; congresso e expositores 500",
+   "NOTES_INTERNAL": "a pagina do congresso e a lista de expositores devolvem HTTP 500. A DATA esta verificada na pagina pai; a LISTA DE EXPOSITORES nao foi verificada e fica NAO_SEI — e ela e justamente o que diria quais concorrentes estarao la."
   }
  ],
  "REJECTED": [
