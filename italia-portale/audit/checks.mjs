@@ -240,6 +240,39 @@ check('S2', 'Search performs no manual scan of the fixture', () => {
     detail: { groups: groups.length, offenders: searchCore.map((x) => `${x.line}: D.${x.symbol}`) } };
 });
 
+check('LG1', 'No screen states a general legal rule the package does not prove', () => {
+  /* WHY_WATCH di IT-FUT-003 chiudeva con «una registrazione nazionale non
+     sopravvive a un'approvazione UE scaduta»: una legge dichiarata universale
+     che il pacchetto non prova e che non vale in generale — il Reg. 1107/2009
+     prevede la proroga durante il rinnovo pendente e periodi di smaltimento
+     alla revoca.
+
+         SCADENZA UE != MANCATO RINNOVO
+                     != INVALIDITA DELLA REGISTRAZIONE NAZIONALE
+                     != RISCHIO COMMERCIALE
+
+     L'osservazione resta; l'inferenza no, e dove il tema compare deve comparire
+     anche la cautela. */
+  const m = mount();
+  const OVERCLAIM = /(non sopravvive a un'approvazione ue|does not survive an expired eu approval|registrazione nazionale non sopravvive|national registration does not survive)/i;
+  const bad = [];
+  let cards = 0, caveats = 0;
+  for (const lang of ['it', 'en']) {
+    const r = m.tryVals({ view: 'future', lang });
+    if (!r.ok) { bad.push(`${lang}: future did not render`); continue; }
+    for (const sgc of (r.vals.visibleSignals || [])) {
+      cards++;
+      if (OVERCLAIM.test(String(sgc.whyShort || ''))) bad.push(`${lang}·${sgc.id}: states the rule as universal`);
+      if (sgc.hasEuCaveat) { caveats++; if (!String(sgc.euCaveat || '').trim()) bad.push(`${lang}·${sgc.id}: flags the caveat but shows nothing`); }
+    }
+  }
+  /* NON-VACUITA · se non ha letto nessuna scheda, o se la cautela non compare
+     mai, questo controllo non ha misurato niente. */
+  if (!cards) bad.push('no signal cards were read');
+  if (!caveats) bad.push('the EU-expiry caveat never appears — nothing was gated');
+  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };
+});
+
 check('S3', 'Every search entry routes to a real entity that resolves', () => {
   const ctx = loadData();
   const AM = ctx.ITALY_APP_MODEL;

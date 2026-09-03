@@ -352,6 +352,7 @@
       productActiveIngredients: 'coppie prodotto x sostanza attiva',
       activeIngredients: 'sostanze attive',
       regulatoryFutureFacts: 'fatti normativi datati in arrivo' },
+    euExpiryCaveat: 'La scadenza dell\'approvazione UE non è di per sé un mancato rinnovo, non invalida automaticamente una registrazione nazionale e non è un rischio commerciale. Lo stato giuridico specifico non è accertato in questa lettura.',
     navVoices: 'Voci dal Campo', /* 21 delle 79 voci non vengono da YouTube ma dalla stampa di settore, e
        per parte di quelle il ruolo di chi parla E dichiarato e verificabile.
        La frase precedente negava entrambe le cose per l'intero corpus. */
@@ -858,6 +859,7 @@
       productActiveIngredients: 'product x active substance pairs',
       activeIngredients: 'active substances',
       regulatoryFutureFacts: 'dated regulatory facts ahead' },
+    euExpiryCaveat: 'An expiring EU approval is not in itself a non-renewal, does not automatically invalidate a national registration, and is not a commercial risk. The specific legal status is not established in this reading.',
     navVoices: 'Field Voices', subVoices: 'External public voices: comments on Italian YouTube channels and statements reported by the trade press. Where the source does not declare the speaker\'s role, the card says so.',
     navProduct: 'ADAMA product', navIntegrations: 'INTEGRATIONS · DEMO',
     prodCommercial: 'COMMERCIAL CATALOG STATUS', prodRegulatory: 'REGULATORY STATUS', prodCategory: 'CATEGORY', prodAi: 'ACTIVE INGREDIENT',

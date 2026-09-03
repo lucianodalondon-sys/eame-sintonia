@@ -1354,7 +1354,7 @@
           <div style="border-radius:13px;border:1px solid rgba(203,197,195,0.12);background:#1C1817;padding:12px 13px;display:flex;flex-direction:column;gap:8px;border-top:3px solid {{ s.category.color }}">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div style="display:flex;align-items:center;gap:8px"><sc-if value="{{ s.hasCategory }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="" style="display:inline-block;flex:0 0 auto;width:18px;height:18px;opacity:0.9;background:url({{ s.category.icon }}) center/contain no-repeat"></span></sc-if><span style="font-family:var(--font-secondary);font-size:8.5px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ s.sourceTypeUpperL }}</span><sc-if value="{{ s.fromField }}" hint-placeholder-val="{{ false }}"><span style="padding:1px 6px;border-radius:5px;background:rgba(151,139,135,0.18);color:#00B152;font-size:8px;font-weight:700;letter-spacing:0.06em">{{ t.frNewFieldSignal }}</span></sc-if></div><span style="font-size:8px;font-weight:700;letter-spacing:0.08em;color:{{ s.color }};white-space:nowrap">{{ s.statusL }}</span></div>
             <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:15px;font-weight:700;line-height:1.1;color:#fff">{{ s.issueL }}</div><div style="font-size:11px;color:#B1A9A7">{{ s.cropL }} · {{ s.region }}</div></div>
-            <sc-if value="{{ s.hasWhy }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhyWatch }}</span><span style="font-size:10.5px;line-height:1.35;color:#EDEAE9">{{ s.whyShort }}</span></div></sc-if>
+            <sc-if value="{{ s.hasWhy }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhyWatch }}</span><span style="font-size:10.5px;line-height:1.35;color:#EDEAE9">{{ s.whyShort }}</span><sc-if value="{{ s.hasEuCaveat }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin-top:5px;font-size:9.5px;line-height:1.45;color:#F5B317">{{ s.euCaveat }}</span></sc-if></div></sc-if>
             <sc-if value="{{ s.hasWho }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-secondary);font-size:8px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.frWhoTalking }}</span><div style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{ s.who }}" as="g" hint-placeholder-count="3"><span onClick="{{ g.go }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.05);border:1px solid {{ g.color }}55;font-size:8.5px;color:#C9C3C1;white-space:nowrap"><b style="color:#fff">{{ g.count }}</b> {{ g.group }}</span></sc-for></div></div></sc-if>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:9.5px"><div><span style="color:#8F8886">{{ t.frNextWindow }}</span><br><b onClick="{{ s.goWindow }}" style="color:#fff;cursor:pointer">{{ s.windowLine }}</b></div><div><span style="color:#8F8886">{{ t.frPortfolio }}</span><br><b onClick="{{ s.goProduct }}" style="color:{{ s.portfolioColor }};cursor:pointer">{{ s.productLabel }}</b></div></div>
             <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;padding-top:5px;border-top:1px solid rgba(255,255,255,0.06)"><sc-if value="{{ s.hasLastObserved }}" hint-placeholder-val="{{ true }}"><span style="font-size:9.5px;color:#8F8886">{{ t.frUpdated }} {{ s.lastObserved }}</span></sc-if><span onClick="{{ s.open }}" style="cursor:pointer;font-size:9.5px;font-weight:700;letter-spacing:0.06em;color:#00B152">{{ t.frExplore }}</span></div>
@@ -4501,7 +4501,40 @@ class Component extends DCLogic {
     const sg = Object.assign({}, sg0, {
       isScenario: sgIsScenario, isReal: !!sg0 && !sgIsScenario,
       /* the six narrative panels: text when approved, state when not, nothing when absent */
-      whyWatchText: sgNar((sg0 || {}).whyWatch), whyWatchState: narState((sg0 || {}).whyWatch),
+      /* UNA REGOLA GIURIDICA GENERALE NON E UN'OSSERVAZIONE.
+         WHY_WATCH di IT-FUT-003 dice due cose in una frase. La prima e un
+         fatto: la scadenza nazionale di una parte del portafoglio coincide con
+         la frontiera europea della sostanza. La seconda e una legge dichiarata
+         universale — «una registrazione nazionale non sopravvive a
+         un'approvazione UE scaduta» — che il pacchetto non prova e che non e
+         vera in generale: il Reg. 1107/2009 prevede la proroga durante il
+         rinnovo pendente (art. 17) e periodi di smaltimento alla revoca
+         (art. 46).
+
+             SCADENZA DELL'APPROVAZIONE UE
+             != MANCATO RINNOVO
+             != INVALIDITA AUTOMATICA DELLA REGISTRAZIONE NAZIONALE
+             != RISCHIO COMMERCIALE
+
+         L'osservazione resta; l'inferenza giuridica non va allo schermo, e al
+         suo posto compare cio che si puo dire davvero: che lo stato giuridico
+         specifico non e accertato in questa lettura. Il testo del pacchetto
+         non viene riscritto — viene trattenuto, come ogni prosa che il portone
+         non approva. */
+      whyWatchText: (() => {
+        const raw = sgNar((sg0 || {}).whyWatch);
+        if (!raw) return raw;
+        const LEGAL_OVERCLAIM = /(una registrazione nazionale non sopravvive[^.]*\.)|(a national registration does not survive[^.]*\.)/i;
+        return LEGAL_OVERCLAIM.test(raw) ? raw.replace(LEGAL_OVERCLAIM, '').replace(/\s+/g, ' ').trim() : raw;
+      })(),
+      /* la cautela permanente, mostrata proprio dove l'affermazione stava */
+      euExpiryCaveat: (() => {
+        const raw = sgNar((sg0 || {}).whyWatch) || '';
+        const touches = /approvazione ue|eu approval|frontiera europea|european boundary/i.test(raw);
+        return touches ? (T.euExpiryCaveat || '') : '';
+      })(),
+      hasEuExpiryCaveat: /approvazione ue|eu approval|frontiera europea|european boundary/i.test(sgNar((sg0 || {}).whyWatch) || ''),
+      whyWatchState: narState((sg0 || {}).whyWatch),
       whoIsTalkingText: sgNar((sg0 || {}).whoIsTalking), whatChangedText: sgNar((sg0 || {}).whatChanged),
       observedFactsText: sgNar((sg0 || {}).observedFacts), interpretationText: sgNar((sg0 || {}).interpretation),
       unknownText: sgNar((sg0 || {}).unknown), nextWindowText: sgNar((sg0 || {}).nextWindow),
@@ -5763,7 +5796,29 @@ class Component extends DCLogic {
     const fWinOf = (x) => { if (x.isScenario) return x.window || null; const ref = x.windowId || x.cropWindowId || (Array.isArray(x.windowIds) ? x.windowIds[0] : null); return ref ? (fWinReg.find(w => w.windowId === ref || w.id === ref) || null) : null; };
     const visibleSignals = sigAll.slice(0, s.futureShown).map(x => {
       const wm = fWinOf(x);
-      const why = x.isScenario ? (x.whyShort || null) : fNar(x.whyWatch);
+      /* UNA REGOLA GIURIDICA GENERALE NON E UN'OSSERVAZIONE.
+         WHY_WATCH di IT-FUT-003 dice due cose in una frase. La prima e un
+         fatto: la scadenza nazionale di una parte del portafoglio coincide con
+         la frontiera europea della sostanza. La seconda e una legge dichiarata
+         universale — «una registrazione nazionale non sopravvive a
+         un'approvazione UE scaduta» — che il pacchetto non prova e che non
+         vale in generale: il Reg. 1107/2009 prevede la proroga durante il
+         rinnovo pendente (art. 17) e periodi di smaltimento alla revoca
+         (art. 46).
+
+             SCADENZA DELL'APPROVAZIONE UE
+             != MANCATO RINNOVO
+             != INVALIDITA AUTOMATICA DELLA REGISTRAZIONE NAZIONALE
+             != RISCHIO COMMERCIALE
+
+         L'osservazione resta; l'inferenza giuridica non arriva allo schermo, e
+         al suo posto compare cio che si puo dire davvero. Il testo del
+         pacchetto non viene riscritto: viene trattenuto, come ogni prosa che
+         il portone di lingua non approva. */
+      const LEGAL_OVERCLAIM = /\s*(?:una registrazione nazionale non sopravvive[^.]*\.|a national registration does not survive[^.]*\.)/i;
+      const whyRaw = x.isScenario ? (x.whyShort || null) : fNar(x.whyWatch);
+      const whyOver = !!(whyRaw && LEGAL_OVERCLAIM.test(whyRaw));
+      const why = whyOver ? String(whyRaw).replace(LEGAL_OVERCLAIM, '').replace(/\s+/g, ' ').trim() : whyRaw;
       const prod = x.product && AM.findProduct(x.product) ? x.product : null;
       return Object.assign({}, x, {
         open: () => this.openSignal(x.id),
@@ -5773,6 +5828,9 @@ class Component extends DCLogic {
         who: (x.isScenario ? (x.who || []) : []).map(g => Object.assign({}, g, { go: (e) => { e.stopPropagation(); this.openSignal(x.id, g.group); } })),
         hasWho: x.isScenario && (x.who || []).length > 0,
         whyShort: why, hasWhy: !!why,
+        /* la cautela permanente, mostrata dove stava l'affermazione */
+        euCaveat: whyOver ? (T.euExpiryCaveat || '') : '',
+        hasEuCaveat: whyOver,
         productLabel: prod || fUnknownL, hasProduct: !!prod,
         portfolioColor: prod ? '#00B152' : '#B1A9A7',
         goProduct: () => prod && this.openProduct(prod),
