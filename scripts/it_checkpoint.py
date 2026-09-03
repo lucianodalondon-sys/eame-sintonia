@@ -40,7 +40,8 @@ ROOT = os.path.dirname(HERE)
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 SAIDA = os.path.join(SAMPLES, 'IT-SNAPSHOT-V1')
 LIVRO = os.path.join(SAIDA, 'IT-CHECKPOINT-V1.json')
-INVENTARIO = os.path.join(SAIDA, 'IT-INVENTARIO-FALA-V1.json')
+INVENTARIO = os.path.join(SAIDA, os.environ.get('IT_INV_ARQUIVO')
+                          or 'IT-INVENTARIO-FALA-V2.json')
 CAPTURA = '2026-09-03'
 IDADE_MINIMA_S = 120
 
@@ -59,6 +60,7 @@ def fechado(p):
 
 LOTES = [
     'IT-VIDEO-V1/IT-VIDEO-FALAS-V1.json',
+    'IT-CONVEGNO-V1/IT-CONVEGNO-V1.json',
     'IT-VOZ-AUDIO-V1/IT-VOZ-AUDIO-TRANSCRICOES-V1.json',
     'IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json',
     'IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json',

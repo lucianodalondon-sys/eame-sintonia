@@ -46,6 +46,9 @@ SAMPLES = os.path.join(ROOT, 'data', 'samples')
 SAIDA = os.path.join(SAMPLES, 'IT-SNAPSHOT-V1')
 CAPTURA = '2026-09-03'
 NAO_SEI = 'NAO_SEI'
+# O snapshot e IMUTAVEL: a trilha de inteligencia le um arquivo com nome fixo e ele nao pode
+# mudar por baixo dela. Lote novo produz VERSAO NOVA, e nunca sobrescreve a anterior.
+VERSAO = os.environ.get('IT_INV_VERSAO') or 'V1'
 
 import voz
 
@@ -170,6 +173,26 @@ def objetos():
     add('IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-TRANSCRICOES-V2.json', _a2)
     add('IT-VOZ-AUDIO-V2/IT-VOZ-AUDIO-LOCAIS-V2.json', _a2)
 
+    # Convegno — bilanci fitosanitari e Giornate Fitopatologiche, uma fala por arquivo
+    def _cv(d):
+        for it in d.get('ITEMS', []):
+            vid = it.get('external_id')
+            fp = os.path.join(SAMPLES, 'IT-CONVEGNO-V1', 'falas', '%s.json' % vid)
+            if not _fechado(fp):
+                continue
+            with open(fp, encoding='utf-8') as f:
+                fala = json.load(f)
+            t = fala.get('TRANSCRIPT') or ''
+            yield base(PLATFORM='YOUTUBE', EXTERNAL_ID=vid, URL=fala.get('URL'),
+                       TITLE=fala.get('TITLE'), ORGANISATION=fala.get('CHANNEL_NAME'),
+                       DECLARED_ROLE=fala.get('DECLARED_ROLE') or NAO_SEI,
+                       PUBLICATION_DATE=fala.get('PUBLICATION_DATE'),
+                       DURATION_S=fala.get('DURATION_S') or NAO_SEI,
+                       CAPTION_SOURCE=fala.get('CAPTION_SOURCE'), TEXT=t,
+                       TRANSCRIPT_CHARS=len(t), BATCH='IT-CONVEGNO-V1')
+    if VERSAO != 'V1':
+        add('IT-CONVEGNO-V1/IT-CONVEGNO-V1.json', _cv)
+
     # Instagram — tres lotes
     def _ig(d):
         for r in d.get('ITEMS', []):
@@ -235,13 +258,13 @@ def escrever():
     from collections import Counter
     com_fala = [r for r in linhas if r['EVIDENCE_COMPLETENESS']['HAS_SPEECH']]
     corpo = {
-        'DATASET': 'IT-INVENTARIO-FALA-V1',
+        'DATASET': 'IT-INVENTARIO-FALA-%s' % VERSAO,
         'LAYER': 'SPEECH_INVENTORY_ITALY',
         'COUNTRY': 'IT',
         'SOURCE': ('derivado: uma linha por objeto de fala, montada a partir dos lotes FECHADOS '
                    'listados em READ_FROM. Nenhuma coleta foi feita aqui e nenhum arquivo da '
                    'trilha de coleta foi tocado.'),
-        'SOURCE_ID': 'IT-INVENTARIO-FALA-V1',
+        'SOURCE_ID': 'IT-INVENTARIO-FALA-%s' % VERSAO,
         'CAPTURED_AT': CAPTURA,
         'CLOSED_FILE_RULE': ('so entra arquivo versionado e sem escrita nos ultimos 120 s. '
                              'Arquivo em escrita fica em REFUSED_NOT_CLOSED e NAO e lido.'),
@@ -265,7 +288,7 @@ def escrever():
         'WITH_NON_ADAMA_MOLECULE': sum(1 for r in linhas if r['MOLECULE_NOT_ADAMA']),
         'ITEMS': linhas,
     }
-    p = os.path.join(SAIDA, 'IT-INVENTARIO-FALA-V1.json')
+    p = os.path.join(SAIDA, 'IT-INVENTARIO-FALA-%s.json' % VERSAO)
     with open(p, 'w', encoding='utf-8') as f:
         json.dump(corpo, f, ensure_ascii=False, indent=1)
     return p, corpo
