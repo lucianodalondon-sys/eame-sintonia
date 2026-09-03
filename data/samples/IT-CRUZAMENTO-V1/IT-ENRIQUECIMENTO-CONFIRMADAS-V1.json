@@ -6,8 +6,8 @@
  "REFERENCE_DATE": "2026-09-03",
  "RULE": "NAO MEXER EM STATUS. NAO MEXER EM SCORE. NAO PROMOVER A MAO.",
  "STRUCTURAL_FINDING": "7 das 9 confirmadas sao O5_REGULATORY_PREPARATION com GEOGRAPHY=GEO_EU, e NENHUMA das 9 carrega FIELD_SIGNAL, PUBLIC_VOICE ou AGROMET entre as suas EVIDENCE_FAMILIES. As nove confirmadas sao um calendario regulatorio, nao uma observacao de campo.",
- "ENRICHED": 4,
- "NOT_ENRICHED": 5,
+ "ENRICHED": 5,
+ "NOT_ENRICHED": 4,
  "STATUS_CHANGES": 0,
  "SCORE_CHANGES": 0,
  "ABSENCE_LAW": "zero ocorrencias nos 14 boletins da Emilia-Romagna dos ultimos 30 dias significa ZERO NESTA LEITURA. Nao significa que a molecula sumiu do campo italiano, nem que nao e recomendada, nem que outra regiao nao a cita. O boletim de produzione integrata nomeia SUBSTANCIA ATIVA e nao marca: nenhum dos 51 produtos comerciais ADAMA aparece por nome em nenhum dos 14 documentos.",
@@ -99,24 +99,32 @@
    },
    "HONEST_LIMIT": "a oportunidade e de ORZO. A citacao e de POMODORO DA INDUSTRIA. Nao prova nada sobre cevada. E ligacao de SUBSTANCIA e de PRATICA (gestao de resistencia).",
    "WHY_IT_STILL_MATTERS": "mostra que o teto de estrobilurina e um limite operacional real e escrito na Italia"
-  }
- ],
- "NOT_ENRICHED_AND_WHY": [
+  },
   {
    "OPPORTUNITY_ID": "OPP_2BDE8FC566CE",
    "SUBSTANCE": "FENPROPIDIN",
    "CROP": "CROP_SUGAR_BEET",
    "EU_LIMIT_DATE": "2027-05-15",
-   "WHY": "zero ocorrencias de \"fenpropidin\" com fronteira de palavra nos 14 boletins da Emilia-Romagna dos ultimos 30 dias (2,3 M caracteres lidos).",
-   "ROUTE_READ_AND_THE_ANSWER_IS_NO": "a scheda tecnica oficial de cercospora da barbabietola do Servizio Fitosanitario ER foi LIDA nesta missao, pela API Plone. Ela NAO nomeia fenpropidin, nem difenoconazolo, nem nenhum fungicida: a secao Difesa remete aos disciplinari e ao modelo. Uma sintese de motor de busca havia sugerido \"difenoconazolo + fenpropidin\" — isso NAO estava na pagina, e sintese de buscador nunca foi tratada como evidencia aqui.",
-   "WHAT_THE_SCHEDA_DOES_PROVE": {
-    "QUOTE_IT": "Un utile ausilio alla razionalizzazione dei trattamenti anticercosporici e rappresentato dai modelli previsionali CERCOPRI e CERCODEP messi a punto dall'Universita Cattolica del Sacro Cuore (UCSC) di Piacenza e adottati dal Servizio fitosanitario della Regione Emilia-Romagna nell'ambito dell'attivita di Previsione e Avvertimento che esso svolge in ambito regionale.",
-    "SOURCE_URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/avversita/schede/avversita-per-nome/cercospora/cercospora-della-barbabietola-scheda",
-    "READ_AT": "2026-09-03",
-    "MEANS": "a rota de TIMING da cultura de maior peso de rotulo ADAMA esta provada e nomeada, e a instituicao que a assina esta no acervo como IT-SRCX-008. A ligacao com a MOLECULA desta oportunidade continua NAO PROVADA."
+   "WHY_IT_LOOKED_CLOSED": "zero ocorrencias de \"fenpropidin\" nos 14 boletins, e a scheda tecnica de cercospora do Servizio Fitosanitario ER — que eu li — nao nomeia fungicida nenhum. Eu tinha registrado NOT_ENRICHED_ROUTE_READ_AND_REFUTED.",
+   "WHAT_THE_ADVERSARIAL_PASS_FOUND": "o elo nao estava na palavra \"fenpropidin\": estava no PAR DE ROTULO. A ADAMA tem EXATAMENTE UMA linha de rotulo BARBABIETOLA x CERCOSPORA em todo o radar — IT-LBL-409, SPYRALE, registro 009757, com a citacao \"Barbabietola da zucchero Cercosporiosi (Cercospora beticola) Oidio (Erysiphe betae) ... 2 trattamenti ad intervalli di 21 giorni\". SPYRALE e difenoconazolo + fenpropidin, e fenpropidin e a substancia desta oportunidade.",
+   "NEW_EVIDENCE": {
+    "LAYER": "FIELD_BULLETIN",
+    "DATE": "2026-08-06",
+    "DOC": "Bollettini interprovinciali ER N.26 — Reggio Emilia 06/08/2026 e Modena 04/08/2026",
+    "SECTION": "BARBABIETOLA DA ZUCCHERO",
+    "QUOTE_IT": "BARBABIETOLA DA ZUCCHERO Fase fenologica: accrescimento fittone-maturazione Difesa Cercospora: presenza della malattia modesta. Proseguire la difesa intervenendo con Prodotti rameici o miscele di rame e Zolfo.",
+    "VERIFICATION": "SURVIVED_ADVERSARIAL_REFUTATION",
+    "EVIDENCE_PATH": "data/samples/IT-CAMPO-V1/IT-CAMPO-SINAIS-VERIFICADOS-V1.json"
    },
-   "STATE": "NOT_ENRICHED_ROUTE_READ_AND_REFUTED"
-  },
+   "THIS_ENRICHMENT_COOLS_THE_CASE_INSTEAD_OF_WARMING_IT": "e por isso que ele vale. O boletim diz \"presenza della malattia MODESTA\" — pressao BAIXA, declarada pela propria fonte. A recomendacao e RAME e ZOLFO, nao um IBE. SPYRALE nao e nomeado em nenhum dos 14 boletins. E SPYRALE e um registro do Ministero detido pela ADAMA, NAO um dos 51 produtos do catalogo comercial — 51 comerciais != 163 regulatorios continua valendo aqui.",
+   "STATUS_BEFORE": "OPPORTUNITY_CONFIRMED",
+   "STATUS_AFTER": "OPPORTUNITY_CONFIRMED",
+   "SCORE_BEFORE": 9,
+   "SCORE_AFTER": 9,
+   "STATE": "ENRICHED_AND_COOLED"
+  }
+ ],
+ "NOT_ENRICHED_AND_WHY": [
   {
    "OPPORTUNITY_ID": "OPP_6E18A133EE14",
    "SUBSTANCE": "BUPIRIMATE",
