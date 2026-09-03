@@ -68,7 +68,29 @@ import cdp                       # noqa: E402  — o navegador, em biblioteca pa
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 SAIDA = os.path.join(SAMPLES, 'YOUTUBE-JANELA')
 BRUTO = os.path.join(SAIDA, 'html-bruto')
-LOTE = os.path.join(SAMPLES, 'COMPETITOR-PUBLIC-COMM', 'PUBLIC-COMM-FIRST-BATCH-EAME.json')
+# ⚠️ QUAL LOTE, E POR QUE ISSO E' UMA VARIAVEL E NAO UMA CONSTANTE
+# ------------------------------------------------------------------
+# Ate 2026-09-03 este caminho era fixo no lote de COMUNICACAO PUBLICA DO
+# CONCORRENTE — 22 contas de Bayer, Syngenta, Corteva e Nufarm. Ele responde
+# "o que o concorrente publica", que e' uma pergunta legitima e NAO e' a
+# pergunta desta missao.
+#
+# O alvo desta casa e' a ITALIA TECNICA: agronomo, tecnico, pesquisador, gente
+# do manejo dos produtos. Um arquivo que so' sabe ler um universo obriga quem
+# muda de pergunta a editar codigo — e editar codigo para trocar de universo e'
+# como a coleta errada acontece sem ninguem notar.
+#
+#     O UNIVERSO E' ENTRADA DA COLETA, NAO PARTE DELA.
+#
+# `YT_LOTE` nomeia o arquivo. O padrao continua sendo o do concorrente para nao
+# mudar em silencio o que ja rodava.
+LOTE = os.environ.get('YT_LOTE') or os.path.join(
+    SAMPLES, 'COMPETITOR-PUBLIC-COMM', 'PUBLIC-COMM-FIRST-BATCH-EAME.json')
+
+# O nome do universo entra no artefato. Sem isto, dois CANAIS.json de universos
+# diferentes ficam identicos por fora, e a unica forma de saber qual e' qual e'
+# lembrar o que foi despachado — que e' exatamente o que ninguem lembra.
+UNIVERSO = os.path.basename(os.path.dirname(LOTE))
 
 MISSION = '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
 RUNNER = os.environ.get('RUNNER_NAME') or 'NOT_KNOWN'
@@ -460,6 +482,8 @@ def fase_canais():
                  str(r.get('CHANNEL_TITLE', NAO_SEI))[:28], r.get('SUBSCRIBERS', NAO_SEI)))
     p = _gravar('CANAIS.json', {
         'SOURCE_ID': 'YOUTUBE-JANELA/CANAIS',
+        'UNIVERSO': UNIVERSO,
+        'LOTE_OBEDECIDO': LOTE.replace(ROOT + '/', ''),
         'source': 'rota pública do YouTube pelo navegador desta máquina — sem API, sem chave, sem custo',
         'SOURCE_LOCATION': 'youtube.com — páginas públicas de canal',
         'FACT_LOCATION': 'EAME',
@@ -509,6 +533,8 @@ def fase_objetos(limite=None):
               % (str(c['ACCOUNT_HANDLE'])[:24], porta, estado, len(vids)))
     p = _gravar('OBJETOS.json', {
         'SOURCE_ID': 'YOUTUBE-JANELA/OBJETOS',
+        'UNIVERSO': UNIVERSO,
+        'LOTE_OBEDECIDO': LOTE.replace(ROOT + '/', ''),
         'source': 'grade /videos de cada canal — rota pública, sem custo',
         'SOURCE_LOCATION': 'youtube.com — grade pública do canal',
         'FACT_LOCATION': 'EAME',

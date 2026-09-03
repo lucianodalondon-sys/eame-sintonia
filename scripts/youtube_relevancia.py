@@ -555,14 +555,21 @@ def fase_fila():
 # mesmo espírito do `sensor_medir`: não é verdade linguística, é uma lista que
 # alguém escreveu e que pode ser conferida e corrigida.
 VAZIAS = set("""
-de da do das dos la el los las un una uno y o e a en con por para del al se su sus
-que es son ser esta este estas estos como mas pero no si lo le les nos te me mi tu
-il lo gli le dei delle degli nel nella con per tra fra non piu sono essere questo
-questa questi queste come ma anche solo sul sulla dal dalla alla allo delle
-les des aux dans sur pour par avec sans sous vers chez est sont etre cette ces
-son ses leur leurs qui que quoi dont ou mais donc car ne pas plus tres tout tous
-the and for with from this that are was were you your our their its has have
-video videos canal channel youtube shorts short live www http https com
+de da do das dos la el los las un una uno unos unas y o e a en con por para del al se
+su sus que es son ser esta este estas estos como mas pero no si lo le les nos te me mi
+tu ya muy todo todos toda todas otro otra cada donde cuando porque sobre entre desde
+il lo gli le dei delle degli della dello dell nel nella nello nelle negli sul sulla
+sullo sulle sugli dal dalla dallo dalle dagli alla allo alle agli con per tra fra non
+piu sono essere questo questa questi queste come ma anche solo quando dove perche
+tutto tutti tutta tutte molto ogni altro altra altri altre fare puo gia senza cosa
+ecco parte prima dopo anno anni nuovo nuova nuovi nuove qui quello quella
+les des aux dans sur pour par avec sans sous vers chez est sont etre cette ces ils
+son ses leur leurs qui que quoi dont ou mais donc car ne pas plus tres tout tous toute
+toutes autre autres faire peut deja comme quand ainsi apres avant nouveau nouvelle
+the and for with from this that are was were you your our their its has have not but
+all any can more other new about into over than then them they what when where which
+video videos canale canal channel youtube shorts short live puntata episodio
+www http https com net org
 """.split())
 
 # Espalhamento mínimo: em quantos canais diferentes o termo precisa aparecer.
