@@ -788,8 +788,11 @@ FONTES += [
       achada='varredura paralela do eixo social/tecnico', query='CSO Centro Servizi Ortofrutticoli previsione produzione',
       metodo='HTML + LinkedIn publico', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL',
       monitor='MONITOR_MONTHLY',
-      nota='PREVISAO DE PRODUCAO != MERCADO ENDERECAVEL. E denominador de cultura, e so.',
-      prova='wf_social-technical-voices.json · HTTP 200'),
+      nota=('PREVISAO DE PRODUCAO != MERCADO ENDERECAVEL. E denominador de cultura, e so. '
+            'HANDLE_NAO_RECONFIRMADO: em 2026-09-03 reli csoservizi.com (200 / 50.746 B) e a '
+            'pagina NAO declara nenhum link social. O handle de LinkedIn fica registrado mas '
+            'NAO entra em coleta ate ser declarado na casa do dono. Ver FIX-02.'),
+      prova='wf_social-technical-voices.json · HTTP 200 (prova de agente, NAO reconfirmada por mim)'),
 
     F('IT-SRCX-036',
       'YouTube — rota de feed por channel_id (descoberta de video datada, sem chave)',
@@ -1122,6 +1125,933 @@ NAO_ALCANCADAS += [
                'italiana — isso e um fato sobre a empresa, e nao uma falha de rota.')},
 ]
 
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# LOTE 2 — O QUE A VARREDURA PARALELA TROUXE, DEPOIS DE EU CONFERIR NA MAO
+# ═══════════════════════════════════════════════════════════════════════════════
+# A varredura paralela devolveu 93 fontes e 95 rejeicoes. Nao entrou nada aqui
+# por confianca: cada host abaixo foi buscado OUTRA VEZ, por mim, em 2026-09-03,
+# e cada handle social foi conferido contra a LEI 6 (o handle precisa estar
+# declarado na casa do proprio dono; handle achado em busca livre e palpite).
+#
+# O que a minha conferencia mudou, e que fica registrado abaixo em REJEITADAS:
+#   · anicav.it   — a varredura admitiu como fonte. Devolve 200 com 33.245 B,
+#                   mas o titulo e "Security Check Required": e muro de bot.
+#   · csoservizi.com — a varredura disse que o LinkedIn do CSO estava declarado
+#                   na propria casa. Nao esta: 50.746 B, ZERO link social.
+#   · consorziagrariditalia.it — devolveu 500/0 na minha primeira leitura e
+#                   200/700.576 na segunda. Fonte INTERMITENTE, e isso importa
+#                   para desenhar o monitoramento; entra, com a ressalva escrita.
+
+FONTES += [
+
+    # ═══ A · OFICIAL / DADO PUBLICO ════════════════════════════════════════════
+    F('IT-SRCX-044',
+      'Arpae Emilia-Romagna — Dext3r, extracao de dados das estacoes agrometeorologicas',
+      'Arpae Emilia-Romagna — SIMC', 'AGROMET_STATION_EXTRACTION', 'OFFICIAL', 'MEDIUM',
+      'https://simc.arpae.it/dext3r/',
+      regiao='Emilia-Romagna',
+      crops=['BARBABIETOLA', 'POMODORO', 'FRUMENTO', 'MELO', 'VITE'],
+      temas=['DADO_OBSERVADO_POR_ESTACAO', 'REDE_AGROMETEOROLOGICA'],
+      razao=('e o par OBSERVADO do ERG5, que ja esta registrado em IT-SRCX-028 e e '
+             'INTERPOLADO. A distincao nao e academica: quando uma janela de infeccao '
+             'modelada precisa ser defendida diante de um produtor que diz "no meu campo '
+             'nao foi assim", o que sustenta a conversa e o dado da estacao fisica, nao '
+             'a grade. Mesma aposta de cultura do ERG5 — BARBABIETOLA, 239 pares de rotulo.'),
+      achada='varredura paralela do eixo agrometeorologico', query='Arpae Dext3r estazioni agrometeo',
+      metodo='GUI HTML (formulario)', freq='FREQUENT', acesso='GREEN',
+      coleta='MANUAL', monitor='DISCOVERY_ONLY',
+      dedupe='IT-SRCX-028', dedupe_means='mesma casa (Arpae), CANAL DIFERENTE: grade vs estacao',
+      nota=('MANUAL e DISCOVERY_ONLY de proposito: e formulario. Enquanto nao houver rota '
+            'programatica, nao entra em pipeline diario — e dizer o contrario seria mentir '
+            'sobre a periodicidade.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 12.288 B, titulo "dext3r", Leaflet + Materialize'),
+
+    F('IT-SRCX-045',
+      'CCIAA di Foggia — listino settimanale e Borsa Merci da Capitanata',
+      'Camera di Commercio di Foggia', 'MARKET_PRICE_OFFICIAL', 'OFFICIAL', 'HIGH',
+      'https://www.fg.camcom.it/servizi/listini-prezzi-e-borsa-merci',
+      regiao='Puglia (Capitanata)',
+      crops=['FRUMENTO', 'ORZO'],
+      temas=['BORSA_MERCI_CEREALICOLA', 'LISTINO_SETTIMANALE', 'PREZZI_OLIVICOLI'],
+      razao=('a Capitanata e a maior bacia de trigo duro da Italia e a Puglia esta na lista '
+             'de regioes das oportunidades. FRUMENTO carrega 176 linhas de rotulo e ORZO 131, '
+             'e aqui elas sao cotadas SEMANA A SEMANA, com arquivo PDF publico de 2021 ate '
+             'a semana 33 de 2026. PRECO NAO E DEMANDA DE DEFENSIVO — e o denominador '
+             'economico que decide se o produtor gasta ou nao gasta na proxima aplicacao.'),
+      achada='varredura paralela do eixo mercado', query='borsa merci Foggia listino grano duro',
+      metodo='HTML + PDF', freq='PERIODIC', ultimo='2026-09-02', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_WEEKLY',
+      prova=('minha leitura 2026-09-03: HTTP 200, 95.309 B. A varredura extraiu o PDF da '
+             'semana 33 (200, 192.860 B) com "Riunione del 02/09/2026" e a linha GRANO DURO '
+             'BIOLOGICO 310,00-315,00.')),
+
+    F('IT-SRCX-046',
+      'ISTAT — web service SDMX (superficie e producao das culturas, ate o nivel provincial)',
+      'ISTAT', 'OFFICIAL_STATISTICS_API', 'OFFICIAL', 'HIGH',
+      'https://esploradati.istat.it/SDMXWS/rest/dataflow/IT1/all/latest',
+      regiao='ITALIA (nacional, regional e provincial)',
+      feed='https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015_DF_DCSP_COLTIVAZIONI_10',
+      crops=['BARBABIETOLA', 'FRUMENTO', 'ORZO', 'MAIS', 'PATATA', 'POMODORO', 'VITE',
+             'MELO', 'SOIA', 'GIRASOLE', 'COLZA', 'RISO'],
+      temas=['SUPERFICIE_INVESTITA', 'PRODUZIONE_RACCOLTA', 'PREZZI_AGRICOLI'],
+      razao=('a diferenca entre ler uma pagina e TER UMA SERIE. O acervo canonico ja tem o '
+             'portal do ISTAT; nao tinha a rota de maquina. Superficie por provincia e o '
+             'denominador que falta em toda leitura de sinal de campo: sem hectare, '
+             '"pressao em melo na Emilia-Romagna" nao tem escala e nao vira nada.'),
+      achada='varredura paralela do eixo mercado', query='ISTAT SDMX REST dataflow coltivazioni',
+      metodo='REST SDMX (XML + CSV)', freq='PERIODIC', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      nota=('sdmx.istat.it, o host mais citado, entra em laco de redirecionamento (curl 47). '
+            'A rota que responde e esploradati.istat.it/SDMXWS.'),
+      prova=('minha leitura 2026-09-03: HTTP 200, 13.619.778 B, application/xml SDMX 2.1. '
+             'A varredura leu o CSV do dataflow 101_1015_DF_DCSP_COLTIVAZIONI_10.')),
+
+    F('IT-SRCX-047',
+      'EFSA — calendario de reunioes e consultas publicas',
+      'European Food Safety Authority', 'REGULATORY_EVENT_CALENDAR', 'OFFICIAL', 'MEDIUM',
+      'https://www.efsa.europa.eu/en/calendar',
+      regiao='UE / Parma (Emilia-Romagna)', lingua='EN',
+      crops=[], temas=['PLENARIA_PLH', 'PANEL_PESTICIDAS', 'PEER_REVIEW_SUBSTANCIA_ATIVA',
+                       'CONSULTA_PUBLICA'],
+      razao=('a EFSA e quem da a partida no relogio que termina, meses depois, como revoca '
+             'italiana com data de fim de venda — as mesmas datas que a ARPAV tabula em '
+             'IT-SRCX-042 (methoxyfenozide 30/09/2026, boscalid/pyraclostrobin 25/11/2026). '
+             'E os paineis se reunem FISICAMENTE em Parma, dentro da Emilia-Romagna.'),
+      achada='varredura paralela do eixo evento', query='EFSA calendar plant health plenary',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota=('CAMADA UE != CAMADA NACIONAL. Uma reuniao da EFSA nao e uma autorizacao '
+            'italiana e nao pode ser lida como tal.'),
+      prova=('minha leitura 2026-09-03: HTTP 200, 96.108 B; /en/calendar redireciona para '
+             '/en/events/advanced-search. A varredura leu "Results 1 - 10 of 90" com '
+             '"143rd PLH Plenary meeting — 16 September 2026 — Parma, Italy".')),
+
+    F('IT-SRCX-048',
+      'BURP — Bollettino Ufficiale della Regione Puglia (atos do Osservatorio Fitosanitario)',
+      'Regione Puglia', 'OFFICIAL_GAZETTE_REGIONAL', 'OFFICIAL', 'MEDIUM',
+      'https://burp.regione.puglia.it/',
+      regiao='Puglia',
+      crops=['AGRUMI', 'BRASSICACEE', 'VITE', 'OLIVO'],
+      temas=['DEROGHE', 'DETERMINAZIONI_OSSERVATORIO_FITOSANITARIO', 'XYLELLA', 'AREE_DELIMITATE'],
+      razao=('e a rota primaria e citavel onde as deroghe da Puglia ganham efeito legal — o '
+             'que o FruitJournal (IT-SRCX-018) apenas resume. Puglia e regiao de oportunidade '
+             'e as deroghe de junho de 2026 caem sobre AGRUMI 17, BRASSICACEE 100 e VITE 96 '
+             'linhas de rotulo. DEROGA E JANELA COM DATA, e nao opiniao.'),
+      achada='snowballing a partir do FruitJournal', query='BURP determinazione osservatorio fitosanitario deroga',
+      metodo='HTML + PDF', freq='EVENT_DRIVEN', acesso='GREEN', coleta='PARTIAL',
+      monitor='EVENT_DRIVEN',
+      dedupe='IT-SRCX-018', dedupe_means='o FruitJournal NOTICIA a deroga; o BURP e o ato',
+      nota=('LIMITE DECLARADO: os dois atos efetivamente abertos pela varredura eram de '
+            'delimitacao de Xylella, e nao as deroghe citadas. A rota esta provada; a '
+            'presenca das deroghe especificas nao esta.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 194.925 B'),
+
+    F('IT-SRCX-049',
+      "CONAF — Consiglio dell'Ordine Nazionale dei Dottori Agronomi e dei Dottori Forestali",
+      'CONAF', 'PROFESSIONAL_BODY', 'OFFICIAL', 'MEDIUM',
+      'https://www.conaf.it/',
+      regiao='ITALIA',
+      social={'INSTAGRAM': 'https://www.instagram.com/ordine_agronomi_e_forestali'},
+      crops=['TODAS'], temas=['PROFISSAO_AGRONOMICA', 'FORMACAO', 'NORMATIVA'],
+      razao=('e o orgao dos agronomos habilitados — a categoria que ASSINA a recomendacao de '
+             'tratamento na Italia. Nenhuma venda de defensivo acontece contra o parecer '
+             'do agronomo; saber onde essa categoria se informa e onde ela se posiciona e '
+             'estrutural, mesmo que nada aqui seja sinal de campo.'),
+      achada='varredura paralela do eixo social/tecnico', query='CONAF ordine agronomi social',
+      metodo='HTML + Instagram publico', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota='VOZ PROFISSIONAL != SINAL DE CAMPO. Nao produz observacao datada de praga.',
+      prova='minha leitura 2026-09-03: conaf.it HTTP 200, 94.717 B, handle declarado na propria casa'),
+
+    # ═══ B · CIENCIA E RESISTENCIA ═════════════════════════════════════════════
+    F('IT-SRCX-050',
+      'CNR — Istituto per la Protezione Sostenibile delle Piante (IPSP)',
+      'Consiglio Nazionale delle Ricerche — IPSP', 'RESEARCH_INSTITUTION', 'SCIENTIFIC', 'HIGH',
+      'http://www.ipsp.cnr.it/',
+      regiao='ITALIA (Torino, Legnaro PD, Sesto Fiorentino, Portici, Bari)',
+      crops=['RISO', 'FRUMENTO', 'MAIS', 'BARBABIETOLA', 'SOIA', 'VITE'],
+      temas=['RESISTENZA_ERBICIDI', 'DIAGNOSTICA_FITOPATOLOGICA', 'PROTEZIONE_DELLE_PIANTE'],
+      razao=('e o dono institucional do GIRE, que ja esta registrado em IT-SRCX-040 apenas '
+             'como micro-site. Registrar o INSTITUTO e o que permite ver o trabalho antes de '
+             'ele virar certificacao: e em Legnaro que se testa se um modo de acao ALS '
+             '(MESOSULFURON-METHYL, FLORASULAM, TRIBENURON, NICOSULFURON, IMAZAMOX) ou ACCase '
+             '(CLETHODIM, PROPAQUIZAFOP, QUIZALOFOP-P-ETHYL, CLODINAFOP, PINOXADEN) ainda '
+             'funciona — e 26 dos 51 produtos comerciais da ADAMA sao herbicidas.'),
+      achada='snowballing a partir do GIRE', query='IPSP CNR gruppo di lavoro resistenza erbicidi',
+      metodo='HTTP (apenas http://; https falha na verificacao de certificado)',
+      freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-040', dedupe_means='GIRE e um GRUPO DE TRABALHO do IPSP; instituicao != grupo',
+      nota=('https falha na verificacao de certificado neste dominio, com e sem a CA do proxy. '
+            'A verificacao TLS NAO foi desligada; a rota usada e http.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 80.062 B, titulo "IPSP - Istituto per la Protezione Sostenibile delle Piante"'),
+
+    F('IT-SRCX-051',
+      'International Herbicide-Resistant Weed Database (Heap) — linha da Italia',
+      'WeedScience.org (Ian Heap)', 'SCIENTIFIC_DATABASE', 'SCIENTIFIC', 'HIGH',
+      'https://www.weedscience.org/Pages/CountrySummary.aspx',
+      regiao='GLOBAL, com linha por pais', lingua='EN',
+      crops=['RISO', 'FRUMENTO', 'MAIS', 'BARBABIETOLA', 'SOIA'],
+      temas=['RESISTENZA_ERBICIDI', 'HRAC_SITE_OF_ACTION'],
+      razao=('poe NUMERO na exposicao do bloco herbicida da ADAMA. Dos 29 casos italianos '
+             'documentados, 23 estao exatamente nos dois grupos onde a ADAMA se concentra: '
+             '15 em HRAC 2 (ALS) e 8 em HRAC 1 (ACCase). Mais 4 em HRAC 9 (GLYPHOSATE) e '
+             '1 em HRAC 4 (2,4-D / DICAMBA / FLUROXYPYR).'),
+      achada='varredura paralela do eixo ciencia', query='herbicide resistance Italy country summary HRAC',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota=('CASO DE ERVA RESISTENTE != APLICACAO ADAMA QUE FALHOU. E contagem de casos '
+            'publicados, e so isso.'),
+      prova=('CONFERIDO POR MIM em 2026-09-03, e nao aceito da varredura: HTTP 200, 58.399 B '
+             '(--compressed). Linha 36, Italy: Total 29 | HRAC1 8 | HRAC2 15 | HRAC5 0 | '
+             'HRAC22 0 | HRAC9 4 | HRAC3 0 | HRAC4 1 | Other 1. Os grupos somam 29.')),
+
+    F('IT-SRCX-052',
+      'PubliCatt — arquivo institucional da Universita Cattolica (entomologia aplicada, Piacenza)',
+      'Universita Cattolica del Sacro Cuore', 'INSTITUTIONAL_REPOSITORY', 'SCIENTIFIC', 'HIGH',
+      'https://publicatt.unicatt.it/handle/10807/61522',
+      regiao='ITALIA (areas peschicolas)',
+      crops=['PESCO', 'POMODORO', 'TABACCO'],
+      temas=['RESISTENZA_INSETTICIDI', 'MYZUS_PERSICAE', 'KDR', 'MACE', 'NEONICOTINOIDI'],
+      razao=('e o mecanismo que fica EMBAIXO do negocio de afideo do pessego. PESCO tem 45 '
+             'pares de rotulo e AFIDI e seu maior alvo com 20 deles. A mutacao S431F/MACE '
+             'derrota dimetilcarbamatos — isto e, o PIRIMICARB, ativo ADAMA. O par kdr/s-kdr '
+             'em frequencia quase total e resistencia a piretroide — LAMBDA-CYHALOTHRIN e '
+             'TAU-FLUVALINATE, ativos ADAMA. Sobra o FLONICAMID (IRAC 29).'),
+      achada='snowballing a partir de IT-SRCX-008 (UniCatt Piacenza)',
+      query='resistenza target-site Myzus persicae pesco Italia',
+      metodo='HTML + OAI-PMH', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-008', dedupe_means='a mesma universidade; o repositorio e outro canal',
+      nota=('MECANISMO DE RESISTENCIA != OPORTUNIDADE COMERCIAL. Isto explica por que um '
+            'produto pode falhar; nao diz que alguem vai comprar outro.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 65.242 B, titulo "Resistenze target-site in popolazioni italiane dell\'afide verde del pesco"'),
+
+    F('IT-SRCX-053',
+      'IRIS AperTO — arquivo institucional da Universita di Torino (malerbologia DISAFA)',
+      'Universita degli Studi di Torino', 'INSTITUTIONAL_REPOSITORY', 'SCIENTIFIC', 'HIGH',
+      'https://iris.unito.it/simple-search?query=resistenza+erbicidi+riso',
+      regiao='Piemonte (Vercellese, Novarese) e areal risicolo padano',
+      crops=['RISO', 'MAIS', 'FRUMENTO'],
+      temas=['RESISTENZA_ERBICIDI', 'MALERBOLOGIA', 'ECHINOCHLOA', 'ATTI_SIRFI'],
+      razao=('Torino DISAFA e o grupo italiano de ciencia das plantas daninhas do arroz, e a '
+             'resistencia de daninha em arroz e o mecanismo vivo por tras da oportunidade '
+             'RICE x ECHINOCHLOA. O acervo ja tem sirfi.it e giornatefitopatologiche.it, mas '
+             'nenhum dos dois serve o texto completo dos atos — este serve, com OAI-PMH, o '
+             'que transforma cacada manual de PDF em colheita agendada.'),
+      achada='varredura paralela do eixo ciencia', query='resistenza erbicidi riso Echinochloa IRIS unito',
+      metodo='HTML + OAI-PMH', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_MONTHLY',
+      prova='minha leitura 2026-09-03: HTTP 200, 47.789 B (rota de busca viva)'),
+
+    F('IT-SRCX-054',
+      'CRIS UNIBO — arquivo da pesquisa da Universita di Bologna (patologia vegetal)',
+      'Alma Mater Studiorum — Universita di Bologna', 'INSTITUTIONAL_REPOSITORY',
+      'SCIENTIFIC', 'HIGH',
+      'https://cris.unibo.it/handle/11585/33117',
+      regiao='Italia nord-orientale',
+      crops=['MELO', 'PERO', 'VITE'],
+      temas=['RESISTENZA_FUNGICIDI', 'QOI', 'G143A', 'VENTURIA_INAEQUALIS', 'PLASMOPARA_VITICOLA'],
+      razao=('MELO e a 3a cultura da ADAMA por peso de rotulo (146 pares) e ticchiolatura e '
+             'a sua doenca definidora. G143A e a mutacao que ANULA a atividade QoI — isto e, '
+             'o AZOXYSTROBIN, ativo ADAMA — e foi documentada em pomares exatamente das '
+             'regioes onde estao as oportunidades. A conclusao do proprio registro, de que a '
+             'estrategia antirresistencia a conteve, e o argumento comercial da quimica '
+             'parceira: CAPTAN e FOLPET como ancoras multissitio, DIFENOCONAZOLE e '
+             'FLUXAPYROXAD em alternancia.'),
+      achada='varredura paralela do eixo ciencia', query='sensibilita Venturia inaequalis strobilurine Italia',
+      metodo='HTML + OAI-PMH', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-063', dedupe_means='DISTAL e o departamento; CRIS e o repositorio da universidade',
+      prova='minha leitura 2026-09-03: HTTP 200, 54.722 B, titulo "Sensibilita di Venturia inaequalis ai fungicidi analoghi delle strobilurine"'),
+
+    F('IT-SRCX-055',
+      'Phytopathologia Mediterranea (Mediterranean Phytopathological Union / FUP)',
+      'Firenze University Press', 'SCIENTIFIC_JOURNAL', 'SCIENTIFIC', 'HIGH',
+      'https://oajournals.fupress.net/index.php/pm',
+      regiao='Bacia mediterranea, com trabalhos italianos localizados', lingua='EN',
+      feed='https://oajournals.fupress.net/index.php/pm/oai',
+      crops=['PESCO', 'ALBICOCCO', 'CILIEGIO', 'LATTUGA', 'VITE', 'ORZO'],
+      temas=['SENSIBILITA_AI_FUNGICIDI', 'MONILIA', 'AZOXYSTROBIN', 'TEBUCONAZOLE', 'FLUDIOXONIL'],
+      razao=('e o unico canal verificado que publica MEDICAO PRIMARIA italiana de '
+             'sensibilidade a fungicida sobre moleculas da propria ADAMA: o trabalho de Cuneo '
+             'mede AZOXYSTROBIN, TEBUCONAZOLE e FLUDIOXONIL de uma vez, em fruta de caroco no '
+             'Piemonte, contra Monilia — alvo declarado nos rotulos ADAMA de PESCO, ALBICOCCO '
+             '(16 pares) e CILIEGIO (27). Com DOI e OAI, e monitoravel, e nao apenas pesquisavel.'),
+      achada='varredura paralela do eixo ciencia', query='fungicide resistance Italy Phytopathologia Mediterranea',
+      metodo='HTML + OAI-PMH', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_MONTHLY',
+      prova='minha leitura 2026-09-03: HTTP 200, 47.527 B'),
+
+    F('IT-SRCX-056',
+      'Bollettino di Zoologia agraria e di Bachicoltura (riviste.unimi.it)',
+      'Universita degli Studi di Milano', 'SCIENTIFIC_JOURNAL', 'SCIENTIFIC', 'MEDIUM',
+      'https://riviste.unimi.it/index.php/bzab/article/view/27174',
+      regiao='ITALIA (areas peschicolas)',
+      crops=['PESCO'],
+      temas=['RESISTENZA_INSETTICIDI', 'ESTERASI', 'MYZUS_PERSICAE'],
+      razao=('da a linha de base METABOLICA para a mesma praga e a mesma cultura do estudo '
+             'target-site da UniCatt: superproducao de esterase degrada carbamatos e '
+             'piretroides — PIRIMICARB, LAMBDA-CYHALOTHRIN, TAU-FLUVALINATE. Os dois registros '
+             'juntos mostram resistencia metabolica ja saturada no pessego italiano tres '
+             'decadas antes de as mutacoes de sitio-alvo serem mapeadas.'),
+      achada='snowballing a partir do registro da UniCatt', query='resistenza insetticidi Myzus persicae pescheti italiani',
+      metodo='HTML + OJS/OAI', freq='STATIC', acesso='GREEN', coleta='AUTOMATABLE',
+      monitor='MONITOR_MONTHLY',
+      nota='estudo de 1995. VALOR HISTORICO, e nao sinal corrente.',
+      prova='minha leitura 2026-09-03: HTTP 200, 27.254 B'),
+
+    F('IT-SRCX-057',
+      'Accademia dei Georgofili',
+      'Accademia dei Georgofili', 'SCIENTIFIC_ACADEMY', 'SCIENTIFIC', 'MEDIUM',
+      'https://www.georgofili.it/',
+      regiao='Toscana (Firenze), alcance nacional',
+      social={'INSTAGRAM': 'https://www.instagram.com/georgofili'},
+      crops=['VITE', 'OLIVO', 'FRUMENTO', 'RISO'],
+      temas=['POLITICA_AGRICOLA', 'CONVEGNI', 'DIVULGACAO_CIENTIFICA'],
+      razao=('e onde a ciencia agricola italiana e ENQUADRADA para politica publica. Nao '
+             'produz sinal de campo, mas produz o vocabulario com que a norma e escrita — e '
+             'norma vira janela de rotulo. Toscana e regiao de oportunidade.'),
+      achada='varredura paralela do eixo ciencia', query='Accademia dei Georgofili convegni difesa',
+      metodo='HTML + Instagram publico', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota=('a pagina /eventi tinha UM unico item futuro na leitura da varredura. Como '
+            'calendario, e fraco; como voz, nao.'),
+      prova='minha leitura 2026-09-03: georgofili.it HTTP 200, 52.840 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-058',
+      "Georgofili INFO — notiziario dell'Accademia dei Georgofili",
+      'Accademia dei Georgofili', 'SCIENTIFIC_NEWSLETTER', 'SCIENTIFIC', 'MEDIUM',
+      'https://www.georgofili.info/',
+      regiao='Lombardia (risaie lomelline), Piemonte, area do Ticino',
+      crops=['RISO'],
+      temas=['RESISTENZA_ERBICIDI', 'ECHINOCHLOA', 'EPIGENETICA', 'PROGETTO_EPIRESISTENZE'],
+      razao=('e a face publica do projeto Epiresistenze — o unico trabalho italiano verificado '
+             'que ataca a resistencia do giavone por EPIGENETICA e nao por genetica de '
+             'sitio-alvo. Isso e resistencia que um ensaio do GIRE pode certificar mas que uma '
+             'triagem de mutacao NAO ENCONTRA. Cai direto sobre RICE x ECHINOCHLOA, na '
+             'Lombardia, regiao de oportunidade. Fato competitivo que viaja junto: o '
+             'cofinanciador do projeto e a Corteva, e nao a ADAMA.'),
+      achada='snowballing a partir da Accademia dei Georgofili', query='Epiresistenze riso giavone resistenza erbicidi',
+      metodo='HTML', freq='FREQUENT', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_WEEKLY',
+      dedupe='IT-SRCX-057', dedupe_means='mesma academia, canal editorial distinto e com outra cadencia',
+      prova='minha leitura 2026-09-03: HTTP 200, 43.594 B, "Agricoltura Ambiente Alimenti"'),
+
+    F('IT-SRCX-059',
+      'Fondazione Edmund Mach — San Michele all\'Adige',
+      'Fondazione Edmund Mach', 'RESEARCH_FOUNDATION', 'SCIENTIFIC', 'HIGH',
+      'https://www.fmach.it/',
+      regiao='Trentino-Alto Adige',
+      social={'INSTAGRAM': 'https://www.instagram.com/fondazionemach'},
+      crops=['MELO', 'VITE', 'PICCOLI_FRUTTI'],
+      temas=['DIFESA_FITOSANITARIA', 'SPERIMENTAZIONE', 'AGRICOLTURA_DI_MONTAGNA'],
+      razao=('e a casa de pesquisa aplicada do Trentino, e Trentino esta na lista de regioes '
+             'das oportunidades. MELO (146 pares de rotulo) e VITE (96) sao as duas culturas '
+             'em que a FEM publica ensaio e aviso — e o produtor trentino le a FEM antes de '
+             'decidir o programa de defesa.'),
+      achada='varredura paralela do eixo ciencia/social', query='Fondazione Edmund Mach difesa melo',
+      metodo='HTML + Instagram publico', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_WEEKLY',
+      nota='o handle ja estava no lote social congelado V1; a FICHA da instituicao faltava.',
+      prova='minha leitura 2026-09-03: fmach.it HTTP 200, 76.603 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-060',
+      'CREA — Consiglio per la ricerca in agricoltura e l\'analisi dell\'economia agraria',
+      'CREA', 'RESEARCH_INSTITUTION', 'SCIENTIFIC', 'MEDIUM',
+      'https://www.crea.gov.it/',
+      regiao='ITALIA',
+      social={'INSTAGRAM': 'https://www.instagram.com/crearicerca'},
+      crops=['TODAS'], temas=['RICERCA_AGRICOLA_PUBBLICA', 'DIFESA_DELLE_COLTURE', 'ECONOMIA_AGRARIA'],
+      razao=('e o instituto publico nacional de pesquisa agricola, e o CREA-DC e o centro de '
+             'protecao das plantas. O acervo canonico nao tinha ficha do CREA como '
+             'organizacao. Sem ele, toda leitura de ciencia italiana fica dependente de '
+             'universidade e de revista, e perde a camada estatal.'),
+      achada='varredura paralela do eixo ciencia/social', query='CREA ricerca difesa colture social',
+      metodo='HTML + Instagram publico', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      prova='minha leitura 2026-09-03: crea.gov.it HTTP 200, 137.116 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-061',
+      'DiSAA — Dipartimento di Scienze Agrarie e Ambientali, Universita degli Studi di Milano',
+      'Universita degli Studi di Milano', 'UNIVERSITY_DEPARTMENT', 'SCIENTIFIC', 'HIGH',
+      'https://www.disaa.unimi.it/it',
+      regiao='Lombardia',
+      social={'INSTAGRAM': 'https://www.instagram.com/disaa_unimi'},
+      crops=['RISO', 'MAIS', 'VITE'],
+      temas=['AGRONOMIA', 'DIFESA', 'ENTOMOLOGIA_APPLICATA'],
+      razao=('Lombardia e regiao de oportunidade e concentra arroz e milho — RISO liga a '
+             'ECHINOCHLOA e MAIS carrega 112 pares de rotulo. O DiSAA e o departamento que '
+             'forma e publica sobre essas duas culturas na regiao.'),
+      achada='varredura paralela do eixo ciencia/social', query='DiSAA Unimi difesa colture social',
+      metodo='HTML + Instagram publico', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota=('o canal de YouTube que o proprio DiSAA declara no site esta MORTO. Link '
+            'declarado pelo dono nao e link vivo — foi conferido.'),
+      prova='minha leitura 2026-09-03: disaa.unimi.it HTTP 200, 104.535 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-062',
+      'DAFNAE — Dipartimento di Agronomia, Animali, Alimenti, Risorse naturali e Ambiente, Universita di Padova',
+      'Universita degli Studi di Padova', 'UNIVERSITY_DEPARTMENT', 'SCIENTIFIC', 'HIGH',
+      'https://www.dafnae.unipd.it/',
+      regiao='Veneto (Legnaro PD)',
+      social={'INSTAGRAM': 'https://www.instagram.com/dafnaeunipd'},
+      crops=['MAIS', 'VITE', 'SOIA', 'FRUMENTO'],
+      temas=['MALERBOLOGIA', 'ENTOMOLOGIA', 'RESISTENZA_ERBICIDI'],
+      razao=('Legnaro e onde ficam Sattin, Scarabel, Loddo e Panozzo — o grupo que faz o teste '
+             'de resistencia que decide se um modo de acao ALS ou ACCase ainda vale no '
+             'FRUMENTO (176 rotulos) e no MAIS (112). O Veneto e a segunda regiao mais citada '
+             'nas oportunidades.'),
+      achada='varredura paralela do eixo ciencia/social', query='DAFNAE Unipd malerbologia resistenza',
+      metodo='HTML + Instagram publico', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-050', dedupe_means='o IPSP tem sede em Legnaro; departamento e instituto sao donos diferentes',
+      prova='minha leitura 2026-09-03: dafnae.unipd.it HTTP 200, 63.697 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-063',
+      'DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari, Universita di Bologna',
+      'Alma Mater Studiorum — Universita di Bologna', 'UNIVERSITY_DEPARTMENT',
+      'SCIENTIFIC', 'MEDIUM',
+      'https://distal.unibo.it/it',
+      regiao='Emilia-Romagna',
+      social={'INSTAGRAM': 'https://www.instagram.com/distal.unibo'},
+      crops=['MELO', 'PERO', 'VITE', 'POMODORO'],
+      temas=['PATOLOGIA_VEGETALE', 'DIFESA', 'ENTOMOLOGIA'],
+      razao=('e o departamento do grupo Brunelli/Collina, autor da medicao de G143A em '
+             'Venturia inaequalis, e fica na Emilia-Romagna, a regiao mais pesada do radar. '
+             'Registrado como MEDIUM e nao HIGH por uma razao medida: o feed do canal de '
+             'YouTube do proprio DISTAL e institucional, e nao tecnico de campo.'),
+      achada='varredura paralela do eixo ciencia/social', query='DISTAL Unibo patologia vegetale',
+      metodo='HTML + Instagram publico', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      prova='minha leitura 2026-09-03: distal.unibo.it HTTP 200, 81.974 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-064',
+      'Di3A — Dipartimento di Agricoltura, Alimentazione e Ambiente, Universita di Catania',
+      'Universita degli Studi di Catania', 'UNIVERSITY_DEPARTMENT', 'SCIENTIFIC', 'MEDIUM',
+      'https://www.di3a.unict.it/',
+      regiao='Sicilia',
+      social={'INSTAGRAM': 'https://www.instagram.com/di3aunict'},
+      crops=['AGRUMI', 'OLIVO', 'VITE', 'POMODORO'],
+      temas=['AGRUMICOLTURA', 'DIFESA', 'ENTOMOLOGIA'],
+      razao=('a Sicilia esta na lista de regioes das oportunidades e e o unico eixo citricola '
+             'serio do radar — AGRUMI carrega 17 pares de rotulo e a deroga pugliese de '
+             'dimpropyridaz contra Aonidiella aurantii mostra que o alvo esta vivo. Di3A e o '
+             'departamento que publica sobre citros na ilha.'),
+      achada='varredura paralela do eixo ciencia/social', query='Di3A Unict agrumi difesa',
+      metodo='HTML + Instagram publico', scrap='YES', freq='PERIODIC', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota=('o canal de YouTube do Di3A esta vivo mas com ultima publicacao em 2025-07-19: '
+            'canal EXISTE nao e canal ATIVO.'),
+      prova='minha leitura 2026-09-03: di3a.unict.it HTTP 200, 64.742 B, handle declarado na propria casa'),
+]
+
+FONTES += [
+
+    # ═══ C · CAMPO, REDE TECNICA E MERCADO ═════════════════════════════════════
+    F('IT-SRCX-065',
+      'Societa Agraria di Lombardia — news e "Agricoltura e cultura"',
+      'Societa Agraria di Lombardia', 'AGRICULTURAL_SOCIETY', 'TECHNICAL', 'MEDIUM',
+      'http://www.agrarialombardia.it/news/',
+      regiao='Lombardia (Lomellina, Pavia) e Vercelli',
+      crops=['RISO', 'MAIS'],
+      temas=['GESTIONE_INFESTANTI_IN_RISAIA', 'RESISTENZA_ERBICIDI', 'DEMO_FARM'],
+      razao=('e a ponta lomelina do problema de resistencia no arroz: onde o achado do '
+             'Epiresistenze vira dia de campo para o produtor de Pavia, dentro das restricoes '
+             'de Natura 2000 que decidem quais herbicidas podem sequer ser usados. E o coracao '
+             'da area de arroz que alimenta RICE x ECHINOCHLOA, e e onde a alternancia entre '
+             'CLETHODIM, PROPAQUIZAFOP, GLYPHOSATE, PENDIMETHALIN e IMAZAMOX contra giavone '
+             'resistente e recomendada — ou nao e.'),
+      achada='snowballing a partir do Georgofili INFO', query='Societa Agraria di Lombardia riso infestanti demo',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      prova='minha leitura 2026-09-03: HTTP 200, 86.589 B'),
+
+    F('IT-SRCX-066',
+      'Vitenova — consultoria agronomica privada',
+      'Vitenova', 'PRIVATE_AGRONOMIC_ADVISORY', 'FIELD_VOICE', 'MEDIUM',
+      'https://vitenova.it/',
+      regiao='ITALIA (nordeste)',
+      social={'INSTAGRAM': 'https://www.instagram.com/vitenova'},
+      crops=['VITE'],
+      temas=['CONSULENZA_VITICOLA', 'DIFESA_DELLA_VITE'],
+      razao=('e voz de campo PAGA por produtor, e nao midia: o consultor que aparece no '
+             'vinhedo. VITE tem 96 pares de rotulo. O valor aqui e a mesma coisa que o valor '
+             'do Agralia (IT-SRCX-010): quem escreve o que viu na semana, com data.'),
+      achada='varredura paralela do eixo social', query='consulenza agronomica vite Instagram Italia',
+      metodo='HTML + Instagram publico', scrap='YES', freq='FREQUENT', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_WEEKLY',
+      dedupe='IT-SRCX-010', dedupe_means='mesma CLASSE de fonte (consultoria privada), casas diferentes',
+      nota=('UMA VOZ NAO E TENDENCIA. Se coincidir com o Agralia, escreve-se CLUSTER NELLE '
+            'FONTI MONITORATE, e nunca TREND IN ITALY.'),
+      prova='minha leitura 2026-09-03: vitenova.it HTTP 200, 321.021 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-067',
+      'Agricolus — plataforma de DSS agronomico (Perugia)',
+      'Agricolus s.r.l.', 'DSS_COMMERCIAL', 'INDUSTRY', 'MEDIUM',
+      'https://www.agricolus.com/',
+      regiao='Umbria (sede), servico nacional',
+      social={'INSTAGRAM': 'https://www.instagram.com/agricolus_srl'},
+      feed='https://www.agricolus.com/wp-json/wp/v2/posts',
+      crops=['VITE', 'OLIVO', 'POMODORO', 'MELO', 'PATATA'],
+      temas=['MODELLI_PREVISIONALI', 'DSS', 'USO_SOSTENIBILE'],
+      razao=('NAO e feed de janela: a Agricolus nao publica saida de modelo nem API aberta. '
+             'O que vale monitorar e o argumento — a peca de 2026-08-05 que amarra uso de DSS '
+             'ao contexto normativo, que e como "melhor timing" vira historia de conformidade '
+             'sobre VITE (96 pares) e POMODORO (44), exatamente onde os boletins de producao '
+             'integrada ja obrigam.'),
+      achada='varredura paralela do eixo tecnico', query='Agricolus DSS modelli previsionali',
+      metodo='HTML + WP REST + Instagram publico', scrap='YES', freq='PERIODIC',
+      ultimo='2026-08-05', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-032', dedupe_means='mesma classe da Horta (DSS comercial); empresas distintas',
+      nota=('o LinkedIn que a propria Agricolus declara no rodape devolve 404. Link declarado '
+            'pelo dono nao e link vivo. api.agricolus.com falha com certificado autoassinado, '
+            'e a verificacao TLS NAO foi desligada.'),
+      prova='minha leitura 2026-09-03: agricolus.com HTTP 200, 356.152 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-068',
+      'APOT — Associazione Produttori Ortofrutticoli Trentini',
+      'APOT', 'PRODUCER_ORGANISATION', 'INDUSTRY', 'HIGH',
+      'https://www.apot.it/',
+      regiao='Trentino-Alto Adige',
+      crops=['MELO'],
+      temas=['REGISTRO_DI_CAMPAGNA', 'PRODUZIONE_INTEGRATA', 'CERTIFICAZIONI_DI_FILIERA'],
+      razao=('a APOT agrupa Melinda, La Trentina e Co.P.A.G. e declara representar cerca de '
+             '85% da producao frutica trentina. MELO e a 3a cultura do livro de rotulos da '
+             'ADAMA (146 linhas) e o Trentino esta na lista de oportunidades — e o acervo '
+             'canonico nao tinha canal nenhum para o corpo que DEFINE A DISCIPLINA DE '
+             'PRODUCAO daquela maca. Quem escreve o caderno decide o que pode ser aplicado.'),
+      achada='varredura paralela do eixo produtor', query='APOT associazione produttori ortofrutticoli trentini',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-015', dedupe_means='Assomela e nacional; APOT e a AOP trentina',
+      nota='o site ainda carrega marcadores de tema nao substituidos — sinal de manutencao fraca.',
+      prova='minha leitura 2026-09-03: HTTP 200, 103.162 B'),
+
+    F('IT-SRCX-069',
+      "Consorzi Agrari d'Italia (CAI)",
+      "Consorzi Agrari d'Italia", 'COOPERATIVE_DISTRIBUTOR', 'INDUSTRY', 'HIGH',
+      'https://www.consorziagrariditalia.it/',
+      regiao='ITALIA',
+      crops=['FRUMENTO', 'MAIS', 'BARBABIETOLA', 'ORZO', 'SOIA', 'OLIVO'],
+      temas=['PRODOTTI_FITOSANITARI', 'AGROFORNITURE', 'LISTINI_CUN', 'GIORNATE_IN_CAMPO'],
+      razao=('e a PRATELEIRA, e nao o campo: a maior rede de consorzi agrari da Italia, com '
+             'linha declarada de "Prodotti Fitosanitari". As 163 registracoes do Ministero nao '
+             'valem nada se nao forem carregadas pela rede que vende ao produtor de FRUMENTO '
+             'e MAIS. E ela adota os listini CUN como referencia propria, o que liga preco a '
+             'decisao de compra.'),
+      achada='varredura paralela do eixo distribuicao', query='Consorzi Agrari d Italia prodotti fitosanitari',
+      metodo='HTML', freq='FREQUENT', ultimo='2026-04-13', acesso='INTERMITTENT',
+      coleta='PARTIAL', monitor='MONITOR_WEEKLY',
+      dedupe='IT-SRCX-039', dedupe_means='o CUN e o listino oficial; o CAI e quem o adota',
+      nota=('FONTE INTERMITENTE, medido por mim: primeira leitura 500 com 0 B; segunda leitura, '
+            'minutos depois, 200 com 700.576 B. O apex sem www falha o TLS ("unrecognized '
+            'name"). Quem monitorar isto precisa de repeticao, ou vai registrar queda que nao houve.'),
+      prova='minhas duas leituras 2026-09-03: 500/0 e depois 200/700.576; /prodotti-servizi/prodotti-fitosanitari/ 200/119.439'),
+
+    F('IT-SRCX-070',
+      'Associazione Granaria di Milano — listino semanal AGMi',
+      'Associazione Granaria di Milano', 'MARKET_PRICE_ASSOCIATION', 'INDUSTRY', 'MEDIUM',
+      'https://www.granariamilano.it/',
+      regiao='Lombardia (mercado padano)',
+      crops=['MAIS', 'FRUMENTO', 'ORZO', 'SOIA', 'RISO'],
+      temas=['LISTINO_COMMODITY', 'CONTRATTUALISTICA', 'ARBITRATO'],
+      razao=('e o corpo que forma preco e escreve contrato para o comercio de graos do vale '
+             'do Po, com listino publico semanal. Lombardia e regiao de oportunidade e este e '
+             'o listino de referencia para MAIS (112 linhas de rotulo), FRUMENTO tenero e ORZO '
+             'na mesma bacia das oportunidades de milho e cereal.'),
+      achada='varredura paralela do eixo mercado', query='Associazione Granaria Milano listino settimanale',
+      metodo='HTML + PDF', freq='PERIODIC', ultimo='2026-09-01', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_WEEKLY',
+      nota=('LIMITE MEDIDO: o texto do PDF do listino NAO foi extraivel nesta sessao (fontes '
+            'embutidas em subconjunto). A data do listino esta provada; os numeros dentro dele, nao.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 182.621 B, "Associazione Granaria Milano"'),
+
+    F('IT-SRCX-071',
+      'Unione Italiana Vini — Osservatorio del Vino e Il Corriere Vinicolo',
+      'Unione Italiana Vini', 'INDUSTRY_ASSOCIATION', 'INDUSTRY', 'MEDIUM',
+      'https://www.unioneitalianavini.it/',
+      regiao='ITALIA (socios em Veneto, Piemonte, Toscana, Sicilia, Trentino)',
+      crops=['VITE'],
+      temas=['OSSERVATORIO_DEL_VINO', 'MERCATO_E_EXPORT', 'CORRIERE_VINICOLO'],
+      razao=('VITE tem 96 linhas de rotulo e a producao esta em cinco regioes de oportunidade, '
+             'mas o acervo so tinha o dominio de dia de campo da UIV, e nao o aparato de '
+             'mercado da associacao. O Osservatorio del Vino e o denominador economico do '
+             'vinho italiano — o que decide se um viticultor investe no programa de defesa '
+             'da safra seguinte.'),
+      achada='varredura paralela do eixo mercado', query='Unione Italiana Vini Osservatorio del Vino',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      nota=('a UIV declara apenas LinkedIn e YouTube na propria casa. Nenhum outro handle e '
+            'reivindicado aqui, porque nenhum outro foi declarado.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 2.457.612 B'),
+
+    # ═══ D · MIDIA TECNICA ═════════════════════════════════════════════════════
+    F('IT-SRCX-072',
+      'OmniTrattore — secao Agrochimica e Sementi',
+      'OmniTrattore', 'TECHNICAL_MEDIA', 'MEDIA', 'MEDIUM',
+      'https://www.omnitrattore.it/news/797903/sdhi-dmi-zolfo-ticchiolatura/',
+      regiao='ITALIA',
+      crops=['MELO', 'RISO'],
+      temas=['STRATEGIE_ANTIRESISTENZA', 'SDHI', 'DMI', 'MULTISITO', 'TICCHIOLATURA'],
+      razao=('publica conselho de programa antirresistencia de 2026 para MELO no vocabulario '
+             'quimico da propria ADAMA: SDHI e o FLUXAPYROXAD, DMI e o DIFENOCONAZOLE e o '
+             'TEBUCONAZOLE, e as ancoras multissitio que prescreve sao CAPTAN e FOLPET — '
+             'quatro ativos ADAMA em uma unica recomendacao.'),
+      achada='varredura paralela do eixo midia', query='SDHI DMI zolfo ticchiolatura antiresistenza melo',
+      metodo='HTML (exige --compressed)', freq='FREQUENT', ultimo='2026-07-04', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_WEEKLY',
+      nota=('MEDIA e MEDIUM de proposito: e reportagem secundaria de estrategia, e nao '
+            'medicao. Nada aqui certifica populacao resistente — so o GIRE certifica.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 125.036 B'),
+
+    F('IT-SRCX-073',
+      'Agrimpresa — periodico da CIA Emilia-Romagna',
+      'CIA Agricoltori Italiani — Emilia-Romagna', 'TECHNICAL_MEDIA', 'MEDIA', 'MEDIUM',
+      'https://agrimpresaonline.it/',
+      regiao='Emilia-Romagna',
+      social={'INSTAGRAM': 'https://www.instagram.com/agrimpresa_magazine'},
+      crops=['MELO', 'PERO', 'POMODORO', 'BARBABIETOLA', 'VITE'],
+      temas=['ATTUALITA_AGRICOLA_REGIONALE', 'VOCE_DEGLI_AGRICOLTORI'],
+      razao=('e a imprensa de uma organizacao de produtores dentro da regiao mais pesada do '
+             'radar. Nao e servico fitossanitario e nao emite aviso, mas e onde a queixa do '
+             'produtor emiliano vira texto publico — que e o unico lugar onde "o que doi no '
+             'campo" aparece antes de virar estatistica.'),
+      achada='varredura paralela do eixo social', query='Agrimpresa CIA Emilia-Romagna',
+      metodo='HTML + Instagram publico', scrap='YES', freq='FREQUENT', acesso='GREEN',
+      coleta='PARTIAL', monitor='MONITOR_WEEKLY',
+      nota='VOZ DE ORGANIZACAO != SINAL DE CAMPO VERIFICADO.',
+      prova='minha leitura 2026-09-03: agrimpresaonline.it HTTP 200, 189.952 B, handle declarado na propria casa'),
+
+    F('IT-SRCX-074',
+      'AgroNotizie — rota de noticias POR EMPRESA (/aziende/<slug>/<id>)',
+      'Image Line s.r.l.', 'COMPETITOR_PRESS_FOOTPRINT', 'TECHNICAL', 'MEDIUM',
+      'https://agronotizie.imagelinenetwork.com/aziende/syngenta-italia/1196',
+      regiao='ITALIA',
+      crops=['BARBABIETOLA', 'MAIS', 'VITE', 'POMODORO', 'FRAGOLA', 'CAROTA', 'TABACCO'],
+      temas=['PRESENCA_DE_CONCORRENTE_NA_IMPRENSA_TECNICA'],
+      razao=('responde a pergunta que o site corporativo nao responde: quanto espaco editorial '
+             'cada concorrente ocupa na imprensa tecnica italiana. Existe fluxo por empresa '
+             'para todas as majors, inclusive /aziende/adama-italia/1216.'),
+      achada='snowballing a partir do Fitogest', query='AgroNotizie aziende elenco slug',
+      metodo='HTML', freq='FREQUENT', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      dedupe='REJEITADA_agronotizie_lista_de_produtos',
+      dedupe_means=('MESMO HOST, ROTA DIFERENTE. A lista de PRODUTOS na pagina de empresa foi '
+                    'rejeitada (e catalogo do site, nao portfolio da empresa). A rota de '
+                    'NOTICIAS por empresa e outra coisa e vale.'),
+      nota='PEGADA NA IMPRENSA != PARTICIPACAO DE MERCADO.',
+      prova='minha leitura 2026-09-03: HTTP 200, 104.421 B, "Notizie su Syngenta Italia - AgroNotizie"'),
+
+    # ═══ E · CONCORRENTE ═══════════════════════════════════════════════════════
+    F('IT-SRCX-075',
+      'Corteva Agriscience Italia — canal oficial de WhatsApp',
+      'Corteva Agriscience Italia', 'COMPETITOR_SOCIAL_BROADCAST', 'COMPETITOR', 'HIGH',
+      'https://www.whatsapp.com/channel/0029VafMuYo9Bb5zNEvf4b3U',
+      regiao='ITALIA', plataforma='WHATSAPP',
+      crops=['MAIS', 'VITE', 'POMODORO', 'AGRUMI', 'OLIVO', 'CAROTA', 'FRAGOLA'],
+      temas=['BROADCAST_TECNICO_AO_PRODUTOR'],
+      razao=('e um concorrente falando DIRETO no telefone do produtor italiano, sem passar por '
+             'midia nem por distribuidor. O canal esta declarado pela propria Corteva na sua '
+             'pagina da Mappa Piralide (LEI 6 satisfeita), e a pagina publica de previa '
+             'declara 1.522 seguidores. Canal de broadcast e o formato mais dificil de '
+             'observar e o mais proximo da decisao.'),
+      achada='snowballing a partir de IT-SRCX-037 (Corteva Mappa Piralide)',
+      query='Corteva Italia canale WhatsApp ufficiale',
+      metodo='pagina publica de previa (SEM login, SEM entrar no canal)',
+      freq='UNKNOWN', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_WEEKLY',
+      dedupe='IT-SRCX-037', dedupe_means='mesma empresa, canal completamente distinto',
+      nota=('CONTEUDO DO CANAL NAO FOI COLETADO e nao sera: entrar no canal e conteudo nao '
+            'publico. So a previa publica foi lida.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 203.629 B, "Corteva Agriscience Italia - WhatsApp channel"'),
+
+    F('IT-SRCX-076',
+      'Fitogest (Image Line) — diretorio de empresas produtoras, rota /it/aziende/',
+      'Image Line s.r.l.', 'COMPETITOR_CATALOGUE_DIRECTORY', 'TECHNICAL', 'HIGH',
+      'https://fitogest.imagelinenetwork.com/it/aziende/',
+      regiao='ITALIA',
+      crops=['BARBABIETOLA', 'FRUMENTO', 'MELO', 'MAIS', 'PATATA', 'VITE'],
+      temas=['CATALOGO_AGROFARMACI_POR_EMPRESA', 'CANAIS_SOCIAIS_DECLARADOS'],
+      razao=('e a UNICA rota alcancavel que da a esta casa uma contagem de catalogo italiano '
+             'por concorrente — inclusive para as duas majors cujos proprios sites recusam '
+             'esta sessao (syngenta.it 403, cropscience.bayer.it 403). Contagem lida direto '
+             'das paginas: Syngenta 136, UPL 116, Corteva 93, Bayer 78, Certis Belchim 63, '
+             'ADAMA Italia 56.'),
+      achada='varredura paralela do eixo concorrente', query='Fitogest aziende catalogo agrofarmaci',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      nota=('OS 56 DO FITOGEST NAO SAO OS 51 COMERCIAIS NEM AS 163 REGISTRACOES. Sao tres '
+            'contagens de tres donos diferentes e nao podem ser comparadas como se fossem a '
+            'mesma coisa. A rota /aziende/ sem o prefixo /it/ devolve 300.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 54.429 B'),
+
+    F('IT-SRCX-077',
+      'Fitogest — Syngenta Italia (catalogo de 136 agrofarmaci)',
+      'Image Line s.r.l. (sobre Syngenta Italia)', 'COMPETITOR_CATALOGUE_VIA_MEDIA',
+      'TECHNICAL', 'HIGH',
+      'https://fitogest.imagelinenetwork.com/it/aziende/syngenta-italia/1196',
+      regiao='ITALIA',
+      crops=['BARBABIETOLA', 'FRUMENTO', 'MAIS', 'VITE', 'POMODORO', 'FRAGOLA', 'CILIEGIO'],
+      temas=['CATALOGO_CONCORRENTE', 'COLTURE_E_AVVERSITA_COPERTE'],
+      razao=('a Syngenta e o maior concorrente por profundidade de catalogo italiano — 136 '
+             'agrofarmaci contra os 56 da ADAMA no MESMO diretorio, que e a unica comparacao '
+             'com denominador honesto que esta sessao consegue fazer. E esta e a UNICA rota '
+             'pela qual esse catalogo pode ser lido daqui.'),
+      achada='snowballing a partir do diretorio Fitogest', query='Fitogest Syngenta Italia catalogo',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-076', dedupe_means='pagina de empresa dentro do diretorio ja registrado',
+      nota='PRODUTO DE CONCORRENTE NAO E PRODUTO ADAMA, e catalogo nao e venda.',
+      prova='minha leitura 2026-09-03: HTTP 200, 235.267 B, "Syngenta Italia - Fitogest"'),
+
+    F('IT-SRCX-078',
+      'Fitogest — Bayer (catalogo de 78 agrofarmaci), unica rota legivel para a Bayer Italia',
+      'Image Line s.r.l. (sobre Bayer)', 'COMPETITOR_CATALOGUE_VIA_MEDIA', 'TECHNICAL', 'HIGH',
+      'https://fitogest.imagelinenetwork.com/it/aziende/bayer/1194',
+      regiao='ITALIA',
+      crops=['FRUMENTO', 'ORZO', 'MELO', 'VITE', 'MAIS', 'PATATA', 'POMODORO'],
+      temas=['CATALOGO_CONCORRENTE'],
+      razao=('todo o patrimonio web italiano da Bayer recusa esta sessao — cropscience.bayer.it '
+             '403, bayer.it 403, bayer.com/it/it 403, os tres servindo "Site Maintenance". '
+             'ROUTE_BLOCKED_FOR_AUTOMATION e o estado da fonte, e nao ausencia de conteudo. '
+             'Esta pagina e o unico lugar em que o catalogo italiano da Bayer segue legivel.'),
+      achada='snowballing a partir do diretorio Fitogest', query='Fitogest Bayer catalogo agrofarmaci',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-076', dedupe_means='pagina de empresa dentro do diretorio ja registrado',
+      prova='minha leitura 2026-09-03: HTTP 200, 166.075 B, "Bayer - Fitogest"'),
+
+    F('IT-SRCX-079',
+      'BASF Agricultural Solutions Italia — Bollettini Tecnici Digitali',
+      'BASF Italia', 'COMPETITOR_TECHNICAL_BULLETIN', 'COMPETITOR', 'HIGH',
+      'https://www.agro.basf.it/it/News/Bollettini-Tecnici-Digitali/',
+      regiao='ITALIA',
+      crops=['BARBABIETOLA', 'FRUMENTO', 'ORZO', 'MAIS', 'RISO', 'PATATA', 'COLZA', 'SOIA',
+             'BRASSICACEE', 'OLIVO', 'AGRUMI', 'VITE'],
+      temas=['CAMBI_DI_ETICHETTA', 'AGGIORNAMENTI_REGOLATORI', 'NOVITA_DI_PRODOTTO'],
+      razao=('as palavras da propria BASF para este canal sao "cambi di etichetta e gli '
+             'aggiornamenti regolatori" — um concorrente TRANSMITINDO MUDANCA DE ROTULO ao '
+             'comercio italiano. Mudanca de rotulo do rival e o unico evento de concorrente '
+             'que move a posicao da ADAMA sem a ADAMA fazer nada: um uso ganho ou perdido em '
+             'BARBABIETOLA (239 pares, a cultura mais pesada) muda a prateleira sozinho.'),
+      achada='varredura paralela do eixo concorrente', query='BASF Italia bollettini tecnici digitali cambi di etichetta',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_WEEKLY',
+      nota='ROTULO DE CONCORRENTE != ROTULO ADAMA. Cada um tem o seu registro no Ministero.',
+      prova='minha leitura 2026-09-03: HTTP 200, 92.546 B, "Info-Tecniche Digitali"'),
+
+    F('IT-SRCX-080',
+      'BASF Italia — podcast "Minuti di Riso"',
+      'BASF Italia', 'COMPETITOR_PODCAST', 'COMPETITOR', 'MEDIUM',
+      'https://www.agro.basf.it/it/Progetti/Minuti-di-Riso/Minuti-di-Riso-2023/',
+      regiao='Piemonte / Lombardia (areal risicolo)',
+      crops=['RISO'],
+      temas=['PODCAST_DI_FILIERA', 'CLEARFIELD', 'PROVISIA', 'DISERBO_DEL_RISO'],
+      razao=('um concorrente rodando PODCAST em italiano como canal de cultura. RISO e linha '
+             'pequena para a ADAMA (15 pares de rotulo) mas estrategicamente fechada: a BASF '
+             'e dona dos sistemas Clearfield e Provisia de tolerancia a herbicida, que e '
+             'exatamente o que decide o diserbo do arroz onde a resistencia do giavone ja '
+             'esta certificada.'),
+      achada='snowballing a partir do site da BASF Italia', query='BASF Minuti di Riso podcast',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      video='NO', transcricao='SIM_SE_O_AUDIO_FOR_ALCANCADO',
+      nota=('os arquivos de audio NAO foram baixados nesta rodada. Marcado como candidato a '
+            'transcricao pelo Sintonia Scrap, e nao como transcrito.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 195.199 B, "MINUTI DI RISO"'),
+
+    F('IT-SRCX-081',
+      'BASF Italia — Agrigenius (DSS de vinha)',
+      'BASF Italia', 'COMPETITOR_DSS', 'COMPETITOR', 'MEDIUM',
+      'https://www.agro.basf.it/it/Soluzioni-digitali/Agrigenius/',
+      regiao='ITALIA',
+      crops=['VITE'],
+      temas=['DSS', 'MODELLI_PERONOSPORA_E_OIDIO'],
+      razao=('"Agrigenius Vite — Il tutor per l\'agricoltura" e um concorrente se colocando '
+             'ENTRE o produtor e a decisao de pulverizar, sobre VITE, que carrega 96 pares de '
+             'rotulo em cinco regioes de oportunidade. Um DSS e objeto competitivo mais duro '
+             'que uma pagina de produto, porque captura a decisao e nao apenas a preferencia.'),
+      achada='snowballing a partir do site da BASF Italia', query='BASF Agrigenius Vite DSS',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='PARTIAL', monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-032', dedupe_means='mesma classe (DSS); a Horta e independente, a BASF e fabricante',
+      nota='a area reservada (/it/Servizi/ssp/) e murada por login e NAO foi acessada.',
+      prova='minha leitura 2026-09-03: HTTP 200, 114.742 B, "Agrigenius Vite - Il tutor per l\'agricoltura"'),
+
+    F('IT-SRCX-082',
+      'UPL Italia — catalogo de produtos (uplitalia.com)',
+      'UPL Italia', 'COMPETITOR_PRODUCT_CATALOGUE', 'COMPETITOR', 'HIGH',
+      'https://www.uplitalia.com/it/prodotti',
+      regiao='ITALIA',
+      crops=['BARBABIETOLA', 'FRUMENTO', 'MELO', 'VITE', 'POMODORO', 'PATATA'],
+      temas=['CATALOGO_AGROFARMACI', 'SCHEDE_PRODOTTO'],
+      razao=('a UPL e o analogo estrutural mais proximo da ADAMA na Italia — portfolio pesado '
+             'em generico e fora de patente — e o Fitogest poe seu catalogo italiano em 116 '
+             'agrofarmaci contra 56 da ADAMA. Ler o catalogo da propria UPL, e nao so a '
+             'contagem de terceiro, e o que permite comparar cultura a cultura.'),
+      achada='varredura paralela do eixo concorrente', query='UPL Italia catalogo prodotti',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      nota=('o briefing registrava a UPL como 500. Nao e o estado da fonte: uplitalia.com '
+            'responde 200 com 347 KB. uplitalia.IT, esse sim, nao abre daqui.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 347.499 B, "Prodotti | UPL"'),
+
+    F('IT-SRCX-083',
+      'Diachem S.p.A. — blog tecnico e Campo Dimostrativo (Caravaggio BG)',
+      'Diachem S.p.A.', 'COMPETITOR_FIELD_DAY', 'COMPETITOR', 'HIGH',
+      'https://diachemagro.com/blog/',
+      regiao='Lombardia (campo de prova em Caravaggio, BG)',
+      crops=['POMODORO', 'PATATA', 'BARBABIETOLA', 'FRUMENTO', 'MAIS', 'MELO', 'VITE', 'RISO'],
+      temas=['CAMPO_DIMOSTRATIVO', 'DIFESA_E_NUTRIZIONE_POMODORO_E_PATATA', 'CATALOGO_2026'],
+      razao=('e a evidencia de DIA DE CAMPO que o eixo de concorrente pedia, e vinda de um '
+             'fabricante ITALIANO, e nao de subsidiaria de multinacional. A Diachem abriu o '
+             'campo de Caravaggio (Lombardia, regiao de oportunidade) para mostrar '
+             '"le strategie applicate per la difesa e la nutrizione di pomodoro e patata da '
+             'industria" — que e exatamente onde POMODORO e PATATA (100 pares) se decidem.'),
+      achada='varredura paralela do eixo concorrente', query='Diachem campo dimostrativo pomodoro patata',
+      metodo='HTML', freq='PERIODIC', ultimo='2026-07-02', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      nota='chimiberg.it redireciona para diachemagro.com — mesma casa, dominio novo.',
+      prova='minha leitura 2026-09-03: HTTP 200, 177.585 B, "Blog agricoltura - Diachem"'),
+
+    F('IT-SRCX-084',
+      'Sipcam Italia — ficha da entidade no grupo Sipcam Oxon',
+      'Sipcam Oxon S.p.A.', 'COMPETITOR_CORPORATE_ENTITY', 'COMPETITOR', 'MEDIUM',
+      'https://www.sipcam-oxon.com/en/sipcam-italia',
+      regiao='Lombardia (Pero MI, Lodi, Salerano) e Pavia (Mezzana Bigli)', lingua='EN',
+      crops=['SOIA', 'BARBABIETOLA', 'FRUMENTO', 'MAIS', 'VITE'],
+      temas=['ENTIDADE_ITALIANA_DO_GRUPO', 'SINTESE_DE_SUBSTANCIA_ATIVA_NA_ITALIA'],
+      razao=('e a pagina que RESOLVE a armadilha de entidade errada: sipcamitalia.it e '
+             'sipcam.it servem, os dois, a Sipcam Agro USA. A entidade italiana real esta '
+             'descrita aqui, com planta de sintese de substancia ativa em Mezzana Bigli (PV) '
+             '— um concorrente que FABRICA ativo na Italia, e nao apenas formula.'),
+      achada='resolucao da rejeicao sipcamitalia.it', query='Sipcam Oxon Sipcam Italia entity',
+      metodo='HTML', freq='STATIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      dedupe='REJEITADA_sipcamitalia.it', dedupe_means='a rejeicao continua valida; esta e a entidade certa',
+      nota='sipcam-oxon.com/it/ devolve 404: o grupo NAO tem versao italiana do site corporativo.',
+      prova='minha leitura 2026-09-03: HTTP 200, 126.227 B, "Sipcam Italia - SIPCAM OXON"'),
+
+    F('IT-SRCX-085',
+      'DEKALB Italia (grupo Bayer) — canal de milho em italiano',
+      'Bayer / DEKALB', 'COMPETITOR_BRAND_SITE', 'COMPETITOR', 'MEDIUM',
+      'https://www.dekalb.it/',
+      regiao='Norte da Italia (areal maidicolo)',
+      crops=['MAIS'],
+      temas=['COLTIVAZIONE_DEL_MAIS', 'IBRIDI_E_AGRONOMIA'],
+      razao=('e o unico canal italiano do grupo Bayer que esta sessao conseguiu ler, e MAIS '
+             'carrega 112 pares de rotulo. Enquanto cropscience.bayer.it, bayer.it e '
+             'bayer.com/it/it devolvem 403, o dekalb.it responde 200 — e e por ele que se '
+             've como a Bayer fala com o produtor italiano de milho.'),
+      achada='varredura paralela do eixo concorrente', query='DEKALB Italia mais Bayer',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      dedupe='IT-SRCX-078', dedupe_means='mesmo grupo; marca de semente e nao de defensivo',
+      nota='SEMENTE NAO E DEFENSIVO. Este canal e agronomia de hibrido, e nao rotulo de fitossanitario.',
+      prova='minha leitura 2026-09-03: HTTP 200, 96.539 B, final /index/index.html'),
+
+    F('IT-SRCX-086',
+      'CBC (Europe) Biogard — biocontrole italiano, fichas por cultura',
+      'CBC (Europe) S.r.l. — divisao Biogard', 'COMPETITOR_PRODUCT_SITE', 'COMPETITOR', 'MEDIUM',
+      'https://www.biogard.it/',
+      regiao='ITALIA',
+      crops=['MELO', 'PERO', 'FRAGOLA', 'VITE', 'POMODORO', 'AGRUMI', 'OLIVO'],
+      temas=['CONFUSIONE_SESSUALE', 'MACRORGANISMI', 'NEMATOCIDI_BIOLOGICI', 'MONITORAGGIO'],
+      razao=('a arvore de produtos da Biogard cobre confusao sexual, macrorganismos, '
+             'nematicidas, acaricidas, fungicidas, inseticidas E monitoramento — e a propria '
+             'ADAMA Italia tem 5 armadilhas no catalogo Fitogest. O segmento de feromonio e '
+             'armadilha e, portanto, terreno DISPUTADO, e nao um mundo separado do quimico.'),
+      achada='varredura paralela do eixo concorrente', query='Biogard CBC Europe biocontrollo colture',
+      metodo='HTML', freq='PERIODIC', acesso='GREEN', coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      prova='minha leitura 2026-09-03: HTTP 200, 261.987 B, "Biogard - Biological first"'),
+
+    # ═══ F · EVENTO ════════════════════════════════════════════════════════════
+    F('IT-SRCX-087',
+      'Veronafiere — calendario Italia 2027',
+      'Veronafiere S.p.A.', 'EVENT_CALENDAR_VENUE', 'INDUSTRY', 'MEDIUM',
+      'https://www.veronafiere.it/calendario-fiere/calendario-italia-2027/',
+      regiao='Veneto (Verona), alcance nacional',
+      crops=['VITE', 'OLIVO'],
+      temas=['FIERAGRICOLA_TECH', 'VINITALY', 'ENOLITECH', 'SOLEXPO'],
+      razao=('o acervo tem os sites dos eventos, mas nao o calendario do OPERADOR DO RECINTO — '
+             'que e onde as datas de 2027 aparecem primeiro e todas juntas. Fieragricola TECH '
+             '27-28 de janeiro de 2027 e Vinitaly 11-14 de abril de 2027 sao janelas com data '
+             'em VITE, cultura de 96 pares de rotulo.'),
+      achada='varredura paralela do eixo evento', query='Veronafiere calendario 2027 fiere agricole',
+      metodo='HTML', freq='PERIODIC', ultimo='2027-01-27', acesso='GREEN',
+      coleta='AUTOMATABLE', monitor='MONITOR_MONTHLY',
+      nota=('EVENTO COM DATA FUTURA != SINAL DE CAMPO. E agenda, e serve para planejar '
+            'presenca, nao para decidir tratamento. O dominio dedicado fieragricolatech.it '
+            'NAO abre daqui — a data vem do calendario do recinto.'),
+      prova='minha leitura 2026-09-03: HTTP 200, 119.996 B, "Calendario Italia 2027 - Primo semestre"'),
+]
+
+# ── O QUE A MINHA CONFERENCIA DERRUBOU ─────────────────────────────────────────
+# A varredura paralela admitiu estas duas como fonte. Eu fui ler e nao sustentam.
+
+REJEITADAS += [
+    {'NAME': 'ANICAV — Associazione Nazionale Industriali Conserve Alimentari Vegetali',
+     'URL': 'https://anicav.it/',
+     'REJECTION_CLASS': 'ROUTE_BLOCKED_FOR_AUTOMATION',
+     'REASON': ('a varredura paralela leu 81.358 B de conteudo e admitiu a ANICAV como fonte '
+                'INDUSTRY/MEDIUM. Eu li duas vezes, em anicav.it e em www.anicav.it: HTTP 200 '
+                'com 33.245 B IDENTICOS nos dois hosts, e o titulo e '
+                '"Security Check Required". E muro de bot, da mesma familia de anb.it e '
+                'bmti.it. HTTP 200 COM BYTES NAO E CONTEUDO.'),
+     'ACTION': ('nao registrar como fonte viva. O assunto continua valendo — a ANICAV e o lado '
+                'comprador do pomodoro da industria — entao fica em NAO_ALCANCADAS para ser '
+                'tentada de outro egresso.'),
+     'EVIDENCE': 'minhas duas leituras 2026-09-03: 200/33.245 em ambos os hosts, titulo "Security Check Required"'},
+
+    {'NAME': 'CSO Italy — handle de LinkedIn declarado (IT-SRCX-035)',
+     'URL': 'https://it.linkedin.com/company/cso---centro-servizi-ortofrutticoli',
+     'REJECTION_CLASS': 'HANDLE_NAO_RECONFIRMADO',
+     'REASON': ('o handle esta gravado em IT-SRCX-035 com prova "wf_social-technical-voices.json '
+                '· HTTP 200" — ou seja, prova de AGENTE, e nao leitura minha. Fui conferir a LEI '
+                '6 na casa do proprio dono: csoservizi.com devolve 200 com 50.746 B e ZERO link '
+                'para linkedin, instagram, youtube ou facebook. A varredura relatou 331.929 B '
+                'para a mesma pagina; eu nao reproduzo esse tamanho nem esse bloco social.'),
+     'ACTION': ('o handle FICA na ficha, porque pode existir; mas passa a carregar a ressalva de '
+                'nao reconfirmado, e nao entra no lote de coleta social ate ser declarado na casa '
+                'do dono. Ver FIX-02.'),
+     'EVIDENCE': 'minha leitura 2026-09-03: csoservizi.com 200 / 50.746 B, grep por linkedin|instagram|youtube|facebook = 0 resultados'},
+]
+
+NAO_ALCANCADAS += [
+    {'HOST': 'anicav.it · anb.it · bmti.it',
+     'STATE': 'MURO_DE_BOT (sgcaptcha / "Security Check Required")',
+     'MEANS': ('tres corpos de cadeia — conservas vegetais, bieticultores e a bolsa telematica — '
+               'atras de muro de bot. O bmti.it JA ESTAVA registrado no acervo canonico e MUDOU '
+               'de estado: quem confiar na ficha antiga vai achar que a rota funciona.')},
+    {'HOST': 'beratungsring.org · enterisi.it',
+     'STATE': 'TLS_DH_KEY_TOO_SMALL',
+     'MEANS': ('o servidor oferece um grupo Diffie-Hellman abaixo do nivel de seguranca do '
+               'cliente. A verificacao TLS NAO foi desligada, e nao sera. Estado do servidor, '
+               'nao do conteudo — e o Beratungsring e o servico de aconselhamento da maca do '
+               'Alto Adige, exatamente a cultura de 146 pares de rotulo.')},
+    {'HOST': 'assomela.it (www) · ismea.it · terrepadane.it',
+     'STATE': 'TLS_HOSTNAME_MISMATCH / ISSUER_DESCONHECIDO',
+     'MEANS': 'certificado invalido para o host, ou emissor nao verificavel. Estado da fonte.'},
+    {'HOST': ('consorzioagrarionordest.it · oipomodorocentrosud.it · pomodorodinord.it · '
+              'melinda.it · unapa.it · betaricerca.it · fieragricolatech.it · rive-expo.it · '
+              'italmopa.it · siagr.it · disafa.unito.it · opendata.arpa.piemonte.it'),
+     'STATE': 'TUNEL_502 / CONEXAO_REINICIADA',
+     'MEANS': ('doze hosts que nao abriram por este egresso. NAO_SEI, nunca RED. Tres deles '
+               'doem: a Melinda e o maior consorcio de maca do Trentino, a Beta Ricerca e a '
+               'pesquisa da beterraba (239 pares de rotulo) e a OI Pomodoro Centro Sud e a '
+               'contraparte pugliese da OI que ja esta registrada.')},
+    {'HOST': 'regione.marche.it/Fitosanitario',
+     'STATE': 'CAPTCHA_RADWARE',
+     'MEANS': 'devolve 200 com 15.108 B, mas o corpo e a pagina de captcha da Radware.'},
+    {'HOST': 'connect.efsa.europa.eu/RM/s/publicconsultations',
+     'STATE': 'CERTIFICATE_VERIFY_FAILED',
+     'MEANS': ('as consultas publicas da EFSA, com data de encerramento, ficaram fora. O '
+               'calendario (IT-SRCX-047) abriu; o Connect nao.')},
+]
+
+# ── UMA CONTRADICAO QUE EU NAO RESOLVI ─────────────────────────────────────────
+# Duas fontes de autoridade discordam. Escolher uma em silencio seria inventar.
+
+CONTRADICOES_ABERTAS = [
+    {'ID': 'IT-CONTRA-001',
+     'SUBJECT': 'resistencia a propanil (HRAC 5 / C2) em Echinochloa crus-galli na Italia',
+     'FONTE_A': ('GIRE (IT-SRCX-040) declara populacoes resistentes a propanil em Piemonte, '
+                 'Lombardia e Toscana desde 2000.'),
+     'FONTE_B': ('a base de Heap (IT-SRCX-051) mostra a Italia com ZERO casos sob HRAC 5, '
+                 'conferido por mim: linha 36, Italy, coluna "5" = 0.'),
+     'O_QUE_ISSO_NAO_E': ('nao e erro de leitura de nenhum dos dois lados: os dois numeros foram '
+                          'lidos direto da fonte. E divergencia de CRITERIO DE ADMISSAO entre '
+                          'dois registros — o que cada um conta como "caso documentado".'),
+     'ESTADO': 'ABERTA. Nao resolvida, nao arbitrada, e nao escondida.',
+     'POR_QUE_IMPORTA': ('se alguem publicar "a Italia tem 29 casos de resistencia" tratando a '
+                         'tabela de Heap como censo, estara omitindo o propanil que o GIRE '
+                         'certifica. Duas contagens, dois donos, dois criterios.')},
+]
+
 # ── CORRECOES DESTA MISSAO ─────────────────────────────────────────────────────
 # Uma medicao errada que ficou escrita e pior que uma medicao que faltou: ela fecha a
 # porta e ninguem volta a tentar. Estas sao as minhas.
@@ -1150,6 +2080,26 @@ CORRECOES_DESTA_MISSAO = [
                          'sob UA de navegador, e o Chrome continua sem atravessar o proxy desta '
                          'sessao. As duas medicoes estavam certas; a conclusao que tirei delas e '
                          'que estava errada.')},
+
+    {'ID': 'FIX-02',
+     'WHAT_I_WROTE': ('na ficha IT-SRCX-035 (CSO Italy), que o handle de LinkedIn do CSO estava '
+                      'declarado, com prova "wf_social-technical-voices.json - HTTP 200".'),
+     'WHY_I_WROTE_IT': ('porque aceitei o relato de um agente da varredura como leitura. O '
+                        'campo EVIDENCE_PROBE apontava para o ARQUIVO DE UM AGENTE, e nao para '
+                        'uma medicao minha — e eu nao fiz essa distincao na hora de gravar.'),
+     'WHAT_IS_TRUE': ('csoservizi.com devolve, para mim, 200 com 50.746 B e NENHUM link para '
+                      'linkedin, instagram, youtube ou facebook. A varredura relatou 331.929 B '
+                      'para a mesma pagina. Nao reproduzo nem o tamanho nem o bloco social.'),
+     'WHAT_CHANGED_BECAUSE_OF_IT': ('o handle continua na ficha, porque pode existir, mas agora '
+                                    'carrega HANDLE_NAO_RECONFIRMADO e NAO entra no lote de '
+                                    'coleta social. A LEI 6 nao foi satisfeita.'),
+     'THE_LESSON': ('PROVA DE AGENTE NAO E PROVA. Das 93 fontes que a varredura trouxe, eu '
+                    'reconferi 52 na mao e duas nao sustentaram: esta e a ANICAV. A taxa '
+                    'importa menos que o habito — o que entra no acervo permanente precisa '
+                    'ter sido lido por quem assina.'),
+     'WHAT_STAYS_TRUE': ('o CSO Italy continua fonte valida por outra razao: previsao de '
+                         'producao de pomacee, que e denominador de cultura. O que caiu foi o '
+                         'CANAL social, e nao a organizacao.')},
 ]
 
 
@@ -1172,6 +2122,7 @@ def placar():
         'REJECTED': len(REJEITADAS),
         'ROUTES_NOT_REACHED': len(NAO_ALCANCADAS),
         'CORRECTIONS_TO_MY_OWN_MEASUREMENTS': len(CORRECOES_DESTA_MISSAO),
+        'OPEN_CONTRADICTIONS': len(CONTRADICOES_ABERTAS),
     }
 
 
@@ -1212,6 +2163,7 @@ def escrever():
         'REJECTED': REJEITADAS,
         'ROUTES_NOT_REACHED_FROM_THIS_SESSION': NAO_ALCANCADAS,
         'CORRECTIONS_TO_MY_OWN_MEASUREMENTS': CORRECOES_DESTA_MISSAO,
+        'OPEN_CONTRADICTIONS': CONTRADICOES_ABERTAS,
     }
     caminho = os.path.join(SAIDA, 'IT-FONTES-DESCOBERTA-V1.json')
     with open(caminho, 'w', encoding='utf-8') as fh:

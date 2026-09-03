@@ -1,0 +1,231 @@
+{
+ "SOURCE_ID": "PUBLIC-COMM-IT-SOCIAL-BATCH-V3",
+ "DATASET_OWNER": "SINTONIA_SCRAP_ITALY",
+ "VERSION": "V3",
+ "FROZEN_AT": "2026-09-03",
+ "CAPTURED_AT": "2026-09-03",
+ "CAPTURED_AT_POR_QUE": "DERIVED_SCOPE: a lista nao foi capturada do mundo, foi derivada de leituras de site feitas nesta missao. A data em que passou a existir E a data do congelamento.",
+ "FROZEN_RULE": "esta lista NAO muda depois da primeira coleta. Criterio novo produz V2 explicita, com a V1 preservada — senao o rendimento fica medido contra um denominador que se mexeu.",
+ "ENTRY_RULE": "ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ORGANISATION (LEI 6, conferida por mim)",
+ "WHY_THE_RULE_IS_THIS_NARROW": "ES-T8-003 reprovou com 39 de 60 itens agronomicos porque 24 de 32 contas nao declaravam pais. Volume nao compensa identidade ausente.",
+ "EVIDENCE_CLASS": "DERIVED_SCOPE",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "ACCOUNTS_IN_BATCH": 8,
+ "BY_PLATFORM": {
+  "INSTAGRAM": 8
+ },
+ "BY_PAGE_ROLE": {
+  "RESEARCH_FOUNDATION": 1,
+  "RESEARCH_COOPERATIVE": 1,
+  "UNIVERSITY_DEPARTMENT": 1,
+  "TECHNICAL_ADVISORY": 1,
+  "SCIENTIFIC_ACADEMY": 1,
+  "PROFESSIONAL_BODY": 1,
+  "MEDIA": 1,
+  "DSS_COMPANY": 1
+ },
+ "BY_PRIORITY": {
+  "1": 3,
+  "2": 4,
+  "3": 1
+ },
+ "EXECUTION_ORDER": [
+  {
+   "STEP": "A",
+   "FASE": "janela-perfis",
+   "CUSTO": "ZERO",
+   "GATE": "rota publica pelo navegador — bio, seguidores e o denominador de posts"
+  },
+  {
+   "STEP": "B",
+   "FASE": "janela-objetos",
+   "CUSTO": "ZERO",
+   "GATE": "os 12 itens recentes, legenda inteira, data, curtidas e — em reel — duracao e MP4"
+  },
+  {
+   "STEP": "C",
+   "FASE": "transcrever",
+   "CUSTO": "ZERO em dolar, tempo de maquina",
+   "GATE": "faster-whisper small, idioma it DECLARADO, nunca detectado"
+  },
+  {
+   "STEP": "D",
+   "FASE": "comentarios",
+   "CUSTO": "PAGA",
+   "GATE": "so atras do portao de dado pessoal, e so se as tres fases gratis fecharem sem PARTIAL"
+  }
+ ],
+ "WINDOW_FIRST": "LAST_30D",
+ "WINDOW_WIDEN_TO": "LAST_60D, depois LAST_90D",
+ "WINDOW_WIDEN_RULE": "so onde o corpus vier baixo. Nunca historico profundo na primeira execucao.",
+ "CONTENT_COLLECTION_STAGE": "NOT_STARTED",
+ "MISSION_STATE": "READY_TO_COLLECT",
+ "WHAT_STILL_NEEDS_THE_RUNNER": "a grade completa: esta rota entrega 6 itens por conta, o Chrome com janela entrega 12. E os COMENTARIOS, que nenhuma das duas rotas gratis entrega e que continuam sendo o unico motivo real de pagar.",
+ "ZERO_MEANS_NOW": "NO_CONTENT_COLLECTION_EXECUTED — nenhum zero deste lote fala sobre o mundo ainda",
+ "ZERO_WILL_MEAN_AFTER_A_VALID_RUN": "NO_ITEMS_OBSERVED nesta conta provada, nesta plataforma, nesta janela, nesta execucao bem-sucedida. NUNCA ORGANIZATION_NOT_COMMUNICATING.",
+ "ACCOUNTS": [
+  {
+   "HANDLE": "fondazioneagrion",
+   "URL": "https://www.instagram.com/fondazioneagrion/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Fondazione Agrion",
+   "PAGE_ROLE": "RESEARCH_FOUNDATION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado no bloco social de agrion.it (minha leitura 2026-09-03: 200 / 289.843 B)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "a fundacao de pesquisa aplicada do Piemonte, regiao de oportunidade. E ela que roda o ensaio de campo que o fruticultor piemontes le antes de escolher o programa — MELO 146 pares de rotulo, PESCO 45, VITE 96, CILIEGIO 27",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "PESCO",
+    "CILIEGIO",
+    "VITE",
+    "FRAGOLA"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "ri.nova.soc.coop",
+   "URL": "https://www.instagram.com/ri.nova.soc.coop/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Ri.Nova soc. coop.",
+   "PAGE_ROLE": "RESEARCH_COOPERATIVE",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em rinova.eu (minha leitura 2026-09-03: 200 / 78.154 B)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "a cooperativa de pesquisa que executa os Gruppi Operativi da Emilia-Romagna — a ponte entre o projeto financiado e o campo, na regiao mais pesada do radar",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "PERO",
+    "POMODORO",
+    "BARBABIETOLA"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "di3aunict",
+   "URL": "https://www.instagram.com/di3aunict/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Di3A — Universita degli Studi di Catania",
+   "PAGE_ROLE": "UNIVERSITY_DEPARTMENT",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado no bloco social de di3a.unict.it (minha leitura 2026-09-03: 200 / 64.742 B)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "a Sicilia e regiao de oportunidade e e o unico eixo citricola serio do radar. AGRUMI carrega 17 pares de rotulo",
+   "CROPS_RELEVANT": [
+    "AGRUMI",
+    "OLIVO",
+    "VITE",
+    "POMODORO"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "vitenova",
+   "URL": "https://www.instagram.com/vitenova/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Vitenova — consulenze agronomiche",
+   "PAGE_ROLE": "TECHNICAL_ADVISORY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em vitenova.it (minha leitura 2026-09-03: 200 / 321.021 B)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "consultoria agronomica privada de VITE — a mesma classe do Agralia, que foi a conta que mais rendeu fala tecnica na V1. VITE tem 96 pares de rotulo",
+   "CROPS_RELEVANT": [
+    "VITE"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "georgofili",
+   "URL": "https://www.instagram.com/georgofili/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Accademia dei Georgofili",
+   "PAGE_ROLE": "SCIENTIFIC_ACADEMY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em georgofili.it (minha leitura 2026-09-03: 200 / 52.840 B)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "onde a ciencia agricola italiana e enquadrada para politica publica. Toscana e regiao de oportunidade",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "OLIVO",
+    "FRUMENTO",
+    "RISO"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "ordine_agronomi_e_forestali",
+   "URL": "https://www.instagram.com/ordine_agronomi_e_forestali/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "CONAF",
+   "PAGE_ROLE": "PROFESSIONAL_BODY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em conaf.it (minha leitura 2026-09-03: 200 / 94.717 B)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "o orgao dos agronomos habilitados — a categoria que ASSINA a recomendacao de tratamento na Italia",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "agrimpresa_magazine",
+   "URL": "https://www.instagram.com/agrimpresa_magazine/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Agrimpresa — CIA Emilia-Romagna",
+   "PAGE_ROLE": "MEDIA",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em agrimpresaonline.it (minha leitura 2026-09-03: 200 / 189.952 B)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "a imprensa de uma organizacao de produtores dentro da regiao mais pesada do radar. E onde a queixa do produtor emiliano vira texto publico",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "PERO",
+    "POMODORO",
+    "BARBABIETOLA",
+    "VITE"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "agricolus_srl",
+   "URL": "https://www.instagram.com/agricolus_srl/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Agricolus s.r.l.",
+   "PAGE_ROLE": "DSS_COMPANY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado no rodape de agricolus.com (minha leitura 2026-09-03: 200 / 356.152 B)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "plataforma de DSS agronomico. Entra pelo argumento, e nao pelo dado: e quem amarra uso de DSS ao contexto normativo sobre VITE e POMODORO",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "OLIVO",
+    "POMODORO",
+    "MELO",
+    "PATATA"
+   ],
+   "COLLECTION_PRIORITY": 3
+  }
+ ],
+ "V1_PRESERVED_AT": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json",
+ "V2_PRESERVED_AT": "data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json",
+ "WHY_A_V3_EXISTS": "a V2 testou a minha hipotese de que voz individual renderia mais densidade e ela FALHOU (V1 17,9% contra V2 13,3%). A V3 nao repete a aposta: volta ao criterio da V1 e muda a ORIGEM da lista — os handles saem da camada de descoberta de fontes, onde a relevancia ADAMA de cada organizacao ja foi escrita e defendida.",
+ "HOW_THE_RULE_WAS_CHECKED": "para cada handle, busquei o site do dono e procurei o handle dentro do HTML retornado. 17 conferidos, 16 declarados, 1 nao.",
+ "ALREADY_IN_V1": [
+  "fondazionemach",
+  "ersa_fvg_informa",
+  "agronotizie",
+  "crearicerca",
+  "disaa_unimi",
+  "dafnaeunipd",
+  "distal.unibo"
+ ],
+ "FAILED_THE_ENTRY_RULE": [
+  {
+   "HANDLE": "company/cso---centro-servizi-ortofrutticoli",
+   "PLATFORM": "LINKEDIN",
+   "STATE": "HANDLE_NAO_DECLARADO_NA_CASA_DO_DONO",
+   "MEANS": "csoservizi.com devolve 200 com 50.746 B e nenhum link para linkedin, instagram, youtube ou facebook. A varredura relatou 331.929 B e um bloco social; eu nao reproduzo nem um nem outro. Ver FIX-02."
+  }
+ ]
+}

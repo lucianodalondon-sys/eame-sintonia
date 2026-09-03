@@ -261,6 +261,76 @@ CONTAS_V2 = [
       ['TODAS'], 2),
 ]
 
+# ── V3 · O QUE A VARREDURA DE FONTES TROUXE, DEPOIS DE EU CONFERIR A LEI 6 ─────
+# A V3 volta ao criterio da V1 — handle declarado na casa da propria organizacao — e o
+# que muda e a ORIGEM da lista: ela sai da camada de descoberta de fontes, e nao de uma
+# busca por contas. Cada handle abaixo foi conferido POR MIM em 2026-09-03: busquei o
+# site do dono e procurei o handle dentro do HTML.
+#
+#     17 handles conferidos · 16 declarados na casa do dono · 1 NAO
+#
+# O que nao passou: o LinkedIn do CSO Italy. csoservizi.com devolve 200 com 50.746 B e
+# ZERO link social. Ele NAO entra aqui (ver FIX-02 em scripts/it_fontes.py).
+# Os outros 8 ja estavam na V1 e nao se repetem.
+
+CONTAS_V3 = [
+    C('fondazioneagrion', 'Fondazione Agrion', 'RESEARCH_FOUNDATION', 'INSTAGRAM',
+      'declarado no bloco social de agrion.it (minha leitura 2026-09-03: 200 / 289.843 B)',
+      'a fundacao de pesquisa aplicada do Piemonte, regiao de oportunidade. E ela que roda '
+      'o ensaio de campo que o fruticultor piemontes le antes de escolher o programa — '
+      'MELO 146 pares de rotulo, PESCO 45, VITE 96, CILIEGIO 27',
+      ['MELO', 'PESCO', 'CILIEGIO', 'VITE', 'FRAGOLA'], 1),
+    C('ri.nova.soc.coop', 'Ri.Nova soc. coop.', 'RESEARCH_COOPERATIVE', 'INSTAGRAM',
+      'declarado em rinova.eu (minha leitura 2026-09-03: 200 / 78.154 B)',
+      'a cooperativa de pesquisa que executa os Gruppi Operativi da Emilia-Romagna — a '
+      'ponte entre o projeto financiado e o campo, na regiao mais pesada do radar',
+      ['MELO', 'PERO', 'POMODORO', 'BARBABIETOLA'], 1),
+    C('di3aunict', 'Di3A — Universita degli Studi di Catania', 'UNIVERSITY_DEPARTMENT', 'INSTAGRAM',
+      'declarado no bloco social de di3a.unict.it (minha leitura 2026-09-03: 200 / 64.742 B)',
+      'a Sicilia e regiao de oportunidade e e o unico eixo citricola serio do radar. '
+      'AGRUMI carrega 17 pares de rotulo',
+      ['AGRUMI', 'OLIVO', 'VITE', 'POMODORO'], 2),
+    C('vitenova', 'Vitenova — consulenze agronomiche', 'TECHNICAL_ADVISORY', 'INSTAGRAM',
+      'declarado em vitenova.it (minha leitura 2026-09-03: 200 / 321.021 B)',
+      'consultoria agronomica privada de VITE — a mesma classe do Agralia, que foi a conta '
+      'que mais rendeu fala tecnica na V1. VITE tem 96 pares de rotulo',
+      ['VITE'], 1),
+    C('georgofili', 'Accademia dei Georgofili', 'SCIENTIFIC_ACADEMY', 'INSTAGRAM',
+      'declarado em georgofili.it (minha leitura 2026-09-03: 200 / 52.840 B)',
+      'onde a ciencia agricola italiana e enquadrada para politica publica. Toscana e '
+      'regiao de oportunidade',
+      ['VITE', 'OLIVO', 'FRUMENTO', 'RISO'], 2),
+    C('ordine_agronomi_e_forestali', 'CONAF', 'PROFESSIONAL_BODY', 'INSTAGRAM',
+      'declarado em conaf.it (minha leitura 2026-09-03: 200 / 94.717 B)',
+      'o orgao dos agronomos habilitados — a categoria que ASSINA a recomendacao de '
+      'tratamento na Italia',
+      ['TODAS'], 2),
+    C('agrimpresa_magazine', 'Agrimpresa — CIA Emilia-Romagna', 'MEDIA', 'INSTAGRAM',
+      'declarado em agrimpresaonline.it (minha leitura 2026-09-03: 200 / 189.952 B)',
+      'a imprensa de uma organizacao de produtores dentro da regiao mais pesada do radar. '
+      'E onde a queixa do produtor emiliano vira texto publico',
+      ['MELO', 'PERO', 'POMODORO', 'BARBABIETOLA', 'VITE'], 2),
+    C('agricolus_srl', 'Agricolus s.r.l.', 'DSS_COMPANY', 'INSTAGRAM',
+      'declarado no rodape de agricolus.com (minha leitura 2026-09-03: 200 / 356.152 B)',
+      'plataforma de DSS agronomico. Entra pelo argumento, e nao pelo dado: e quem amarra '
+      'uso de DSS ao contexto normativo sobre VITE e POMODORO',
+      ['VITE', 'OLIVO', 'POMODORO', 'MELO', 'PATATA'], 3),
+]
+
+# Conferidos e JA PRESENTES na V1, portanto nao repetidos aqui: fondazionemach,
+# ersa_fvg_informa, agronotizie, crearicerca, disaa_unimi, dafnaeunipd, distal.unibo.
+V3_JA_NA_V1 = ['fondazionemach', 'ersa_fvg_informa', 'agronotizie', 'crearicerca',
+               'disaa_unimi', 'dafnaeunipd', 'distal.unibo']
+
+# Conferido e REPROVADO na LEI 6.
+V3_REPROVADOS = [
+    {'HANDLE': 'company/cso---centro-servizi-ortofrutticoli', 'PLATFORM': 'LINKEDIN',
+     'STATE': 'HANDLE_NAO_DECLARADO_NA_CASA_DO_DONO',
+     'MEANS': ('csoservizi.com devolve 200 com 50.746 B e nenhum link para linkedin, '
+               'instagram, youtube ou facebook. A varredura relatou 331.929 B e um bloco '
+               'social; eu nao reproduzo nem um nem outro. Ver FIX-02.')},
+]
+
 # ── UM DEFEITO DE ATRIBUICAO ENCONTRADO NA VARREDURA ───────────────────────────
 # A varredura paralela nomeou dois reels pelo canal errado. O campo `owner.username` do
 # proprio embed desmente:
@@ -383,6 +453,35 @@ def escrever():
     caminho2 = os.path.join(SAIDA, 'PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json')
     with open(caminho2, 'w', encoding='utf-8') as fh:
         json.dump(v2, fh, ensure_ascii=False, indent=1)
+    v3 = dict(corpo)
+    v3.update({
+        'SOURCE_ID': 'PUBLIC-COMM-IT-SOCIAL-BATCH-V3',
+        'VERSION': 'V3',
+        'V1_PRESERVED_AT': 'data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V1.json',
+        'V2_PRESERVED_AT': 'data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-IT-SOCIAL-BATCH-V2.json',
+        'WHY_A_V3_EXISTS': ('a V2 testou a minha hipotese de que voz individual renderia mais '
+                            'densidade e ela FALHOU (V1 17,9% contra V2 13,3%). A V3 nao repete '
+                            'a aposta: volta ao criterio da V1 e muda a ORIGEM da lista — os '
+                            'handles saem da camada de descoberta de fontes, onde a relevancia '
+                            'ADAMA de cada organizacao ja foi escrita e defendida.'),
+        'ENTRY_RULE': 'ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ORGANISATION (LEI 6, conferida por mim)',
+        'HOW_THE_RULE_WAS_CHECKED': ('para cada handle, busquei o site do dono e procurei o handle '
+                                     'dentro do HTML retornado. 17 conferidos, 16 declarados, 1 nao.'),
+        'ACCOUNTS_IN_BATCH': len(CONTAS_V3),
+        'BY_PLATFORM': dict(Counter(c['PLATFORM'] for c in CONTAS_V3)),
+        'BY_PAGE_ROLE': dict(Counter(c['PAGE_ROLE'] for c in CONTAS_V3)),
+        'BY_PRIORITY': dict(Counter(c['COLLECTION_PRIORITY'] for c in CONTAS_V3)),
+        'ACCOUNTS': CONTAS_V3,
+        'ALREADY_IN_V1': V3_JA_NA_V1,
+        'FAILED_THE_ENTRY_RULE': V3_REPROVADOS,
+        'CONTENT_COLLECTION_STAGE': 'NOT_STARTED',
+        'MISSION_STATE': 'READY_TO_COLLECT',
+    })
+    v3.pop('CORRECTION', None)
+    v3.pop('WHAT_WAS_COLLECTED_HERE', None)
+    with open(os.path.join(SAIDA, 'PUBLIC-COMM-IT-SOCIAL-BATCH-V3.json'), 'w', encoding='utf-8') as fh:
+        json.dump(v3, fh, ensure_ascii=False, indent=1)
+
     return caminho, corpo
 
 

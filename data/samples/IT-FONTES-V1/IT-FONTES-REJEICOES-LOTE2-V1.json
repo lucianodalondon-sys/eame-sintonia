@@ -1,0 +1,583 @@
+{
+ "DATASET": "IT-FONTES-REJEICOES-LOTE2-V1",
+ "LAYER": "SOURCE_DISCOVERY_ITALY_RAW",
+ "COUNTRY": "IT",
+ "SOURCE": "corpo BRUTO das rejeicoes da varredura paralela de descoberta de fontes (workflow it-source-discovery, run wrqftdyiy, 34 agentes, 0 erros). Cada registro e o relato do agente, preservado como veio.",
+ "SOURCE_ID": "IT-FONTES-REJEICOES-LOTE2-V1",
+ "CAPTURED_AT": "2026-09-03",
+ "O_QUE_ISTO_E": "as 95 rejeicoes que a varredura escreveu. As que MUDAM COMPORTAMENTO foram promovidas a REJEITADAS e NAO_ALCANCADAS em scripts/it_fontes.py, com a minha propria medicao. Este arquivo guarda o resto: e evidencia bruta, e nao curadoria.",
+ "O_QUE_ISTO_NAO_E": "NAO e verificado por mim, item a item. REASON_AS_REPORTED e o texto do agente. Onde eu reli e discordei, a discordancia esta no registro curado, e nao aqui.",
+ "TOTAL": 95,
+ "REJECTIONS": [
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Beta Italia (betaitalia.it) — presumed sugar-beet research body",
+   "URL": "https://www.betaitalia.it/",
+   "REASON_AS_REPORTED": "THE MOST IMPORTANT REJECTION OF THIS RUN, and a direct repeat of the image-line.com trap. BARBABIETOLA is the radar's heaviest crop (239 label pairs) and 'Beta' is the interprofessional sugar-beet research company that runs Italy's official beet trials, so betaitalia.it looked like the single highest-value seed on this axis. A WebSearch even asserted that betaitalia.it 'is the official site you were looking for'. I fetched it: 200 / 445159 bytes, and the title is 'Beta Italia - Cucina, Casa e Giardinaggio'. Word-boundary counts on the retrieved body: barbabietola 0, bieticol 0, zucchero 0, sperimentaz 0, agronom 0, Coprob 0 — against ricetta 99 and cucina 58. The H2 blocks are 'Articoli Recenti' / 'Ultimi Articoli'. The domain now serves a recipe and lifestyle content farm; the only instagram/linkedin URLs on it are sharer widgets, not owned handles. Registering it would have put a cooking blog into the canonical registry as the authority on ADAMA's number-one crop. Where the real Beta research body now publishes is NAO_SEI — I did not find a verified replacement host in this run, and that is absence in my reading, not absence in the world."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "SIVE (sive.it) — presumed Società Italiana di Viticoltura ed Enologia",
+   "URL": "https://www.sive.it/",
+   "REASON_AS_REPORTED": "Second brand collision caught by fetching instead of assuming. I seeded sive.it expecting the Italian viticulture and oenology society, relevant to VITE (96 labels). Fetched 200 / 23254 bytes, redirecting to cms.sive.it; the title is 'SIVE - Società Italiana Veterinari per Equini' and the declared handles are facebook.com/sive.veterinariequini and instagram.com/sive_cremona_italy. This is the Italian Society of Equine Veterinarians. Zero agronomic relevance to ADAMA. Rejected."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "image-line.com — currently in the canonical registry as TECHNICAL_MEDIA",
+   "URL": "https://www.image-line.com/",
+   "REASON_AS_REPORTED": "Re-verified rather than taken on trust, because existing_hosts.txt still carries image-line.com. Fetched 200 / 697084 bytes: title 'FL Studio – Music Production Software', declared handles instagram.com/flstudio, youtube.com/user/imageline, facebook.com/FLStudio, twitter.com/fl_studio. It is a Belgian music-production software company. The Italian agronomic publisher is Image Line Network at imagelinenetwork.com (agronotizie.imagelinenetwork.com and fitogest.imagelinenetwork.com, both already registered). Recommend correcting or removing the image-line.com entry from the canonical registry — it is a false source sitting in the Italian agronomic registry."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "DISTAL UniBo — YouTube channel",
+   "URL": "https://www.youtube.com/channel/UCDNXhv9mPzYo5FQKkg_oSWw",
+   "REASON_AS_REPORTED": "Fetched and verified live (200 / 1282395 bytes, title 'DISTAL Unibo, Scienze e Tecnologie agro-alimentari'), so it is real — but I read its RSS (200 / 21457 bytes) before rating it and the content does not support registration on a technical axis: latest publication 2025-05-13 (over 15 months stale as of 2026-09-03) and the recent titles are degree-course recruitment ('Corso di laurea Scienze e tecnologie per il verde e il paesaggio', 'Promo OpenDISTAL'). Student marketing, not agronomic observation. The department's LinkedIn and Instagram are reported instead."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Di3A UniCT — YouTube channel",
+   "URL": "https://www.youtube.com/channel/UCKdQcnPtPZs3k08e5jrFSNQ",
+   "REASON_AS_REPORTED": "Verified live (200 / 966286 bytes, title 'Di3A - YouTube') but rejected on content evidence: RSS 200 / 19309 bytes, latest publication 2025-07-19, recent titles 'Video promozionale ufficiale del Di3A - UniCT' and 'Visita didattica L-21 e LM-75'. Institutional promo and teaching-visit footage, stale by more than a year. Registering it would have added volume without agronomic signal. The department's Instagram is reported instead."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "DiSAA UniMi — YouTube channel declared on the department's own site",
+   "URL": "https://www.youtube.com/@sitodisaapress4093",
+   "REASON_AS_REPORTED": "DEAD LINK DECLARED BY THE OWNER. The handle is published in DiSAA's own social block on disaa.unimi.it, which satisfies Law 6 for provenance — but the URL itself returns HTTP 404 / 758 bytes ('404 Not Found'). An owner declaring a channel does not make the channel exist. Not registered. Worth flagging back to DiSAA-facing work: the department is pointing readers at a channel that is gone."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Agricolus — LinkedIn company page declared on agricolus.com",
+   "URL": "https://www.linkedin.com/company/agricoluss.r.l",
+   "REASON_AS_REPORTED": "Second owner-declared dead link. Agricolus publishes this LinkedIn URL in its own site footer, but fetching it returns HTTP 404 (319687 bytes of LinkedIn's own error shell, title just 'LinkedIn'). A correct Agricolus LinkedIn page may well exist under a different slug, but guessing the slug would be exactly the 'handle found by free search' that Law 6 forbids. Recorded as 404, not registered. Agricolus's Instagram and YouTube, which are declared and plausible, are reported separately."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Coldiretti — Instagram / LinkedIn / YouTube",
+   "URL": "https://www.instagram.com/coldiretti",
+   "REASON_AS_REPORTED": "Fetched coldiretti.it successfully (200 / 1075420 bytes) and harvested a full set of owner-declared handles (instagram.com/coldiretti, it.linkedin.com/company/confederazione-nazionale-coldiretti, youtube.com/channel/UCEgJbey3UogPJPmdlBEAjKQ). Not registered on THIS axis: Coldiretti is a farmers' political confederation and its public output is lobbying, price and market advocacy rather than agronomic or phytosanitary technique. The axis asks for technical value, and follower count is explicitly not a criterion. coldiretti.it is in any case already a registered host. Left for a market/politics axis to pick up. Note the page also emits instagram.com/17841403172189201, a numeric Instagram business ID rather than a handle — not a usable profile URL."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "CIA — Agricoltori Italiani — Instagram / LinkedIn",
+   "URL": "https://www.instagram.com/cia_agricoltori",
+   "REASON_AS_REPORTED": "cia.it fetched 200 / 128040 bytes with owner-declared handles (instagram.com/cia_agricoltori, it.linkedin.com/company/cia-agricoltori-italiani, youtube.com/user/CiaAgricoltori). Rejected on the same ground as Coldiretti: national farm-union advocacy, not agronomic technique. Its Emilia-Romagna technical webzine Agrimpresa IS reported instead, because that one carries crop content."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Italia Zuccheri — Instagram",
+   "URL": "https://www.instagram.com/italia_zuccheri",
+   "REASON_AS_REPORTED": "Fetched italiazuccheri.it 200 / 78959 bytes; declares instagram.com/italia_zuccheri and a Facebook page. Tempting because sugar beet is the radar's top crop (BARBABIETOLA 239) and Italia Zuccheri is COPROB's brand. Rejected: this is the consumer-facing retail sugar brand — the page is about packaged sugar for shoppers, with no agronomic, varietal or phytosanitary content. A consumer brand of a relevant cooperative is not a technical voice. Note separately that coprob.com itself, already a registered host, returned HTTP 202 with only 169 bytes — a JS/bot-challenge stub with no harvestable content."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "FreshPlaza Italia — Instagram / LinkedIn",
+   "URL": "https://www.instagram.com/freshplaza",
+   "REASON_AS_REPORTED": "freshplaza.it fetched 200 / 207306 bytes. The declared Instagram is the GLOBAL FreshPlaza account and the declared LinkedIn is a bare numeric company id (linkedin.com/company/1602695), neither of which is Italy-specific. The Italian edition declares no Italian-specific Instagram or LinkedIn of its own on that page. Registering the global handle would misattribute international horticulture trade news as an Italian technical voice. Not registered; whether an Italy-specific handle exists elsewhere is NAO_SEI."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Horta srl — DSS grano.net / vite.net",
+   "URL": "https://www.horta-srl.it/",
+   "REASON_AS_REPORTED": "A genuinely high-value technical body for this radar — a University of Piacenza spin-off whose grano.net and vite.net decision-support systems drive fungicide timing on FRUMENTO (176 labels) and VITE (96). Fetched successfully: 200 / 1079490 bytes, and the page does reference vite.net and grano.net. Rejected on THIS axis only, for a factual reason: word-boundary scan of the retrieved body returned linkedin 0, instagram 0, youtube 0 — Horta declares no social handles on its own site, and Law 6 forbids me supplying one by search. Recommended for registration on a non-social technical axis; it does not belong here."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Laimburg — Centro di Sperimentazione Laimburg",
+   "URL": "https://www.laimburg.it/it",
+   "REASON_AS_REPORTED": "High-priority seed for MELO (146 labels) in Trentino-Alto Adige, an ADAMA opportunity region. Reached (HTTP 200) but the response is only 2842 bytes: a JavaScript single-page-application shell with a <base href='/'> and no rendered body. Zero social handles are present in the served HTML, so there is nothing to harvest without executing JS. Not a rejection of the organisation — a rejection of my ability to harvest it by this method. Its social presence is NAO_SEI."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Südtiroler Beratungsring / beratungsring.org — apple advisory service",
+   "URL": "https://www.beratungsring.org/",
+   "REASON_AS_REPORTED": "NOT_REACHED, and the reason is a state of the source, recorded rather than worked around: TLS handshake fails with 'SSL: DH_KEY_TOO_SMALL — dh key too small'. The server offers a Diffie-Hellman parameter below the modern minimum. I did not disable or downgrade TLS verification to get in. The alternate host sbr.bz.it returned a 502 Bad Gateway from the egress proxy. This is the South Tyrol apple advisory service and would be a top-value source for MELO 146 — it should be retried from an environment with a different TLS/egress profile, not written off."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Assomela — associazione produttori mele",
+   "URL": "https://www.assomela.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED. TLS certificate verification failed with a genuine hostname mismatch: 'certificate is not valid for www.assomela.it'. That is a misconfiguration on the source's side and is recorded as such. Verification was not disabled. Relevant to MELO (146 labels) and worth a retry via the correct canonical hostname once known."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Servizio Fitosanitario Regione Marche",
+   "URL": "https://www.regione.marche.it/Regione-Utile/Agricoltura-Sviluppo-Rurale-e-Pesca/Fitosanitario",
+   "REASON_AS_REPORTED": "Returned HTTP 200 / 15108 bytes, but the body is a Radware bot-management interstitial (redirected to validate.perfdrive.com, title 'Radware Captcha Page'), not the phytosanitary page. The regional service is behind an anti-bot gate. Recorded as BLOCKED for automated collection; no social handles harvestable. I did not attempt to bypass the challenge."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 0,
+   "NAME": "Hosts not reached in this run (recorded, not judged)",
+   "URL": "https://www.informatoreagrario.it/",
+   "REASON_AS_REPORTED": "A set of otherwise promising seeds that this session's egress could not reach. Each is NOT_REACHED, which is a statement about my run and not about the source: informatoreagrario.it (read timeout — and note its host IS already registered, so its social channels remain unharvested and are an open gap); disafa.unito.it, twice (connection reset by peer) — DISAFA Torino was an explicit seed and remains uncovered for Piemonte; dafne.unitus.it (connection reset); agr.unipg.it, apotrentino.it, sbr.bz.it, colturaprotetta.it, rivistadifrutticoltura.it, consorziovaldobbiadene.com, enteriosardegna.it (502 Bad Gateway from the proxy); melinda.it and consorziomelinda.it (connection reset / 502) — Melinda remains uncovered for MELO in Trentino; sataonline.it (connection reset); consorziagrari.it (remote closed connection); confagricoltura.it (SSLV3_ALERT_HANDSHAKE_FAILURE — another source-side TLS state). Also observed and recorded: astrainnovazione.it and coprob.com both return HTTP 202 with a 169-byte bot-challenge stub; corriereortofrutticolo.it returns 200 with 802 bytes reading 'Test PHP riuscito', i.e. a placeholder page where a magazine should be; dipartimenti.unicatt.it/diproves returns 404 (the Piacenza department has moved); oipomodoronorditalia.it is live (200 / 101332) but declares no social handles at all, and its /contatti/ path is 404. None of these are claims that the sources do not exist."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "betaitalia.it",
+   "URL": "https://www.betaitalia.it/",
+   "REASON_AS_REPORTED": "NAME TRAP — the image-line.com class of error, caught before entering the registry. I went looking for BETA, the Italian sugar-beet research society that runs the cercospora trials with COPROB, because BARBABIETOLA is the heaviest crop in the radar (239 label pairs). The host answers HTTP 200, 445159 bytes — and it is an Italian lifestyle blog with sections Cucina, Casa and Giardino. No bollettino, no servizi, no cercospora, no agronomy anywhere on the page. 'Beta' is a brand collision. BETA's real official domain is NAO_SEI: it was not established in this run, and the alternates I tried (betaitalia.eu, betaricerca.it) were NOT_REACHED (proxy 502), which is not evidence that they do not exist."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "Open Data Hub Alto Adige — MeteoStation API",
+   "URL": "https://mobility.api.opendatahub.com/v2/flat/MeteoStation",
+   "REASON_AS_REPORTED": "Reachable and genuinely open — HTTP 200, JSON, no key (station list 474 bytes, latest-values call 2761 bytes). Rejected on freshness, not on access: the /latest call filtered to sorigin=SIAG (the Bolzano provincial weather service) returned values with mvalidtime 2016-01-26, and the unfiltered call returned EURAC/HISTALP series with mvalidtime 2007-12-31. No live agromet signal was established through this endpoint. Painful to drop, because Alto Adige is where MELO (146 label pairs, 6 of them TICCHIOLATURA) actually is — but a decade-old value cannot open a spray window. This is absence in my reading of this one endpoint, not proof the province publishes no live feed."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "Südtiroler Beratungsring für Obst- und Weinbau",
+   "URL": "https://www.beratungsring.org/",
+   "REASON_AS_REPORTED": "NOT_REACHED — TLS handshake fails: curl 35, 'OpenSSL/3.0.13: error:0A00018A:SSL routines::dh key too small'. The server offers a Diffie-Hellman group below the OpenSSL 3 minimum. Verification was NOT disabled and no downgrade was attempted; this is recorded as the state of the source. Worth re-attempting from a client with a legacy security level, because the Beratungsring is the advisory body that issues apple-scab infection warnings for South Tyrol — directly on ADAMA's 6 MELO x TICCHIOLATURA pairs (MERPAN 80 WDG, CAPTHENE 80 WDG, MAKE UP 80 WDG, AGHARTA, BANJO, EMBRACE). The alternate host sbr.bz.it was also NOT_REACHED (proxy 502)."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "dati.arpae.it (portale CKAN Arpae)",
+   "URL": "https://dati.arpae.it/",
+   "REASON_AS_REPORTED": "Unreliable as a route, and superseded. The ERG5 dataset page served once at HTTP 200 / 36149 bytes and then returned 'Internal Server Error' (HTTP 500, 21 bytes) on every subsequent request; the CKAN API is dead in all three forms tried — /api/3/action/package_list, package_search and package_show each returned HTTP 500. Not registered as a monitored source: it served its purpose as the catalogue that pointed at dati-simc.arpae.it, which is registered instead and which works."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "vite.net (dominio diretto)",
+   "URL": "https://www.vite.net/",
+   "REASON_AS_REPORTED": "NOT_REACHED — curl 56, CONNECT tunnel failed with 502 through this session's egress proxy. Not a statement that the host does not exist. The Horta module is registered instead through its reachable canonical page at www.horta-srl.it/vite-net/. Same handling for www.horta-srl.com, which returned curl 35 connection reset while the .it host serves normally."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "AMAP Marche (ex ASSAM)",
+   "URL": "https://www.amap.marche.it/",
+   "REASON_AS_REPORTED": "Reachable — HTTP 200, 257894 bytes (assam.marche.it redirects here). Rejected on relevance, not on quality: /agrometeo returns 404, no machine-readable agromet route was established, Marche is not among the nine opportunity regions in the radar, and meteo.regione.marche.it — which does publish an OpenData section — is already in the registry. Re-open if the Marche opportunity set changes."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "Centro di Sperimentazione Laimburg",
+   "URL": "https://www.laimburg.it/",
+   "REASON_AS_REPORTED": "HTTP 200 but only 2842 bytes — a prerender shell, German-default. No agrometeorological or forecast-model route was established in this probe. Not rejected on substance: Laimburg is the Alto Adige research centre for MELO and VITE and deserves a second attempt with a JavaScript-capable fetch. Recorded as: reachable, content not established."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "AGRIOS — Arbeitsgruppe für den Integrierten Obstbau in Südtirol",
+   "URL": "https://www.agrios.it/",
+   "REASON_AS_REPORTED": "HTTP 200, 40222 bytes, German-language. It is the South Tyrol integrated-fruit-production working group, so the subject matter touches MELO directly, but no forecast model, bulletin feed or data endpoint was found on the pages fetched. Rejected as DISCOVERY-grade only: relevant body, no machine-readable route established in this run."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "Elaisian",
+   "URL": "https://www.elaisian.com/",
+   "REASON_AS_REPORTED": "HTTP 200, 181824 bytes. Commercial monitoring platform for olive and vine. Rejected because no public model list, no bulletin and no data endpoint were established, and because OLIVO carries a single label pair in the radar — the crop weight does not justify a permanent slot. VITE relevance alone is better served by Horta."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "Irriframe (ANBI)",
+   "URL": "https://www.irriframe.it/",
+   "REASON_AS_REPORTED": "HTTP 200 but 970 bytes — a JavaScript redirect stub to /Irriframe. It is an irrigation water-balance DSS, not a disease-forecast system, so it sits off this axis; and no open endpoint was established behind the stub. Rejected for this workflow, potentially relevant to a water-stress axis."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "SIMC Arpae (radice del sito)",
+   "URL": "https://simc.arpae.it/",
+   "REASON_AS_REPORTED": "HTTP 200, 1690 bytes, but the page declares itself 'SIMC Internal WebSite' and carries meta robots 'noindex,nofollow'. Treated as an internal page and not registered. Only the two public paths under this host that are genuinely published — /dext3r/ and the data tree on dati-simc.arpae.it — were taken forward."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "api.agricolus.com",
+   "URL": "https://api.agricolus.com/",
+   "REASON_AS_REPORTED": "TLS failure — curl 60, 'SSL certificate problem: self-signed certificate'. Verification was NOT disabled. Recorded as the state of the source, not as absence. Combined with docs.agricolus.com being NOT_REACHED (proxy 502), no Agricolus programmatic route could be verified, which is why the parent source is registered as PARTIAL rather than AUTOMATABLE."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 1,
+   "NAME": "Endpoint NOT_REACHED per policy di egress o rete",
+   "URL": "https://opendata.arpa.piemonte.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED, grouped record. All of the following returned curl 56 'CONNECT tunnel failed, response 502' through this session's egress proxy and are recorded as unreached, never as non-existent: opendata.arpa.piemonte.it, api.arpa.piemonte.it, dext3r.arpae.it, fitosanitariopc.it, consorziofitosanitario.pc.it, sbr.bz.it, betaitalia.eu, betaricerca.it, docs.agricolus.com. Additionally www.sistemapiemonte.it/agrometeo returned curl 35 connection reset and arpaeprv.datamb.it returned curl 60 certificate-subject mismatch. CONSEQUENCE WORTH FLAGGING: Piemonte is an opportunity region and this run failed to establish any machine-readable Piemonte agromet route — arpa.piemonte.it and regione.piemonte.it are already registered as HTML sources, but the open-data and API hosts were both unreachable. That is a gap in this reading, not a gap in Piemonte."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "Italian Journal of Agronomy (dominio agronomy.it)",
+   "URL": "https://www.agronomy.it/index.php/agro",
+   "REASON_AS_REPORTED": "BRAND TRAP, same class as image-line.com. Fetched: HTTP 404, 9167 bytes, after redirecting to https://www.oxfordviaggi.it/index.php/agro. The page text is 'Page not found | Casino senza autoesclusione Casino Non AAMS' and the footer reads '© 2026 oxfordviaggi.it ... informazioni su siti di scommesse e gioco d'azzardo', with an address at Cowo Firenze Rifredi. The agronomy.it domain no longer serves the Italian Journal of Agronomy; it serves an Italian gambling-affiliate site. Registering it on the strength of the name would have put a casino affiliate into the Italian scientific registry."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "Bulletin of Insectology (Università di Bologna)",
+   "URL": "https://bulletinofinsectology.org/",
+   "REASON_AS_REPORTED": "Reachable and genuinely Italian-published (Alma Mater Studiorum, HTTP 200, 8319 bytes), but I could not establish crop-relevant Italian resistance content. The single resistance item on its front page, fetched at https://bulletinofinsectology.org/article/190015/ (200, 12976 bytes, published 12 May 2026), is 'Knockdown Resistance (kdr) in Voltage-Gated Sodium Channel (VGSC) gene of Aedes aegypti from Padang and Bogor, Indonesia' — a mosquito vector study from Indonesia, no Italian crop and no ADAMA target. The site search path I tried returned 404 (1418 bytes), so I could not query the archive. Rejected for now on evidence, not on principle: this is absence in my reading, not absence in the journal."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "Università di Torino — DISAFA (sito dipartimentale)",
+   "URL": "https://www.disafa.unito.it/do/home.pl",
+   "REASON_AS_REPORTED": "NOT_REACHED in this session: curl exit 35, 'Recv failure: Connection reset by peer', 0 bytes, no HTTP status returned. I make no claim about whether the site exists or what it holds. The DISAFA weed-science output I needed was obtained instead from IRIS AperTO (iris.unito.it), which I did fetch and did report."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "ARPTRA — Associazione Regionale Pugliese dei Tecnici e Ricercatori in Agricoltura",
+   "URL": "https://www.arptra.it/",
+   "REASON_AS_REPORTED": "Reachable (home 200, 22448 bytes; convegno page 200, 81757 bytes) and territorially interesting, since Puglia is an ADAMA opportunity region and the association runs the 36th Forum di Medicina Vegetale. But on the resistance-and-science axis it produces no observation of its own: the only resistance-relevant page is an announcement of the 20th SIRFI national congress held in Bari on 16 October 2018, and SIRFI is already registered (sirfi.it). An events noticeboard for a society already in the registry does not earn a slot here. Better suited to a territorial or field-voice axis."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "REDIA — Journal of Zoology (CREA-DC)",
+   "URL": "https://www.redia.it/",
+   "REASON_AS_REPORTED": "Reachable (200, 10618 bytes) and legitimately Italian — published since 1903 and linked from its own pages to CREA-DC, Research Centre for Plant Protection and Certification, whose parent CREA is already registered as crea.gov.it. Rejected because I read no resistance content on it: the article-listing path I tried returned 404 (1128 bytes) and the visible scope is systematic and applied zoology rather than resistance monitoring. This is a candidate to re-probe with a working archive path, not a source I can defend today. NAO_SEI on whether it carries Italian resistance work."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "Società Italiana di Agronomia — pagina 'Atti della SIRFI'",
+   "URL": "https://siagr.it/atti-della-sirfi/",
+   "REASON_AS_REPORTED": "Reachable (200, 91901 bytes) but empty for this purpose. The page holds no proceedings: its entire substantive content is the sentence that the acts of all congresses organised by SILM (1977–1996) and then by SIRFI 'sono ora disponibili in formato pdf presso il sito della Società Italiana per la Ricerca sulla Flora Infestante (www.sirfi.it)' — a host already in the registry. A pointer to a registered host is not a new source. SIA itself may deserve registration on an agronomy axis (it co-organises the June 2026 SIRFI/SIA weed-science summer school in Bologna), but not on the evidence of this page."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "IRIS UNIPD — Archivio della ricerca Università di Padova",
+   "URL": "https://www.research.unipd.it/handle/11577/3473638",
+   "REASON_AS_REPORTED": "Reachable (200, 15694 bytes) and a CINECA IRIS instance like the three repositories I did report, but the record I actually read is a doctoral thesis on Salvia officinalis phytocomplexes as alternative control agents against Plasmopara viticola and Botrytis cinerea — biocontrol alternatives, not resistance monitoring. I will not register a repository for a topic I did not verify it holds. The Padova resistance signal that matters for ADAMA comes from CNR-IPSP Legnaro, which I did fetch and did report; adding a fourth institutional repository on a weaker record would have traded quality for volume."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "weedscience.org — filtro per paese/specie/meccanismo",
+   "URL": "https://www.weedscience.org/Pages/filter.aspx?CountryID=32",
+   "REASON_AS_REPORTED": "Fetched successfully (200, 307391 bytes) but rejected as a collection endpoint, while the site itself is reported through its country summary. The filter is an ASP.NET postback form: a plain GET with a CountryID query string returns the unfiltered picker containing every country, species, HRAC group and US state, not Italian results. The Italy detail behind the summary row is therefore not retrievable by simple GET, which is why the reported record carries collectability PARTIAL rather than AUTOMATABLE."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 2,
+   "NAME": "GIRE — documento 'Polygonum resistente' (26/08/2026)",
+   "URL": "http://gire.ipsp.cnr.it/documentsSource/pubblicazioni/Polygonum_ALS_res.pdf",
+   "REASON_AS_REPORTED": "Not rejected as a source — it is part of the GIRE record — but flagged so no downstream reader mistakes it for something I read. The file was fetched (200, 254988 bytes, application/pdf) yet its text was never extracted: my local extractor found no text layer and WebFetch on the same URL returned HTTP 503. The only evidence I hold for the 26 August 2026 Polygonum/Persicaria ALS finding is the summary GIRE prints on its own news page. The PDF body is NAO_SEI and must be re-read before anything is quoted from it."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "ITALMOPA (via italmopa.com)",
+   "URL": "https://www.italmopa.com/",
+   "REASON_AS_REPORTED": "DOMAIN TRAP — the image-line.com failure class, caught before it entered the registry. I went looking for the Italian millers' association (the demand side for FRUMENTO, 176 label rows). italmopa.com returned 200 / 173139 bytes but the page is a Walmart-style e-commerce clone whose hero product is '3/4\" X 5-1/2\" Concrete Wedge Anchors – 10-Pack, Zinc-Plated Carbon Steel'. Word-boundary scan of the saved HTML: 'italmopa' 63 hits, every one of them the site's own domain branding in the header; ZERO hits for 'molitoria', 'farine' or 'frumento'. The name matched; the organisation did not. The real association was not reached — see the italmopa.it entry."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "ITALMOPA (via italmopa.it)",
+   "URL": "https://www.italmopa.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — the agent proxy returned 502 connect_rejected (CONNECT tunnel failed) on two attempts. Status 000, 0 bytes. This is a state of this session's egress, not a statement that the site does not exist. The Italian milling industry remains an unfilled gap on the FRUMENTO demand side."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "ANB — Associazione Nazionale Bieticoltori",
+   "URL": "https://www.anb.it/",
+   "REASON_AS_REPORTED": "BLOCKED — returned HTTP 202 with a 169-byte body that is an sgcaptcha bot wall (meta refresh to /.well-known/sgcaptcha/). No content was served. This is the most consequential gap in this run: BARBABIETOLA is the heaviest crop in the ADAMA label book (239 rows) and ANB Coop is the grower-contracting counterparty to COPROB (coprob.com is already in the registry). Recorded as blocked, not as absent. Requesting a documented data feed or an allow-listed collection route from ANB is the obvious next step."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "BMTI — Borsa Merci Telematica Italiana",
+   "URL": "https://www.bmti.it/",
+   "REASON_AS_REPORTED": "ALREADY REGISTERED, but its state has changed and that is worth recording: bmti.it now returns HTTP 202 with a 169-byte sgcaptcha bot wall, identical to anb.it. No content served. The live, open BMTI-operated route today is listinicun.it, which I fetched successfully and report above as a new channel of the same organisation."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "ISMEA / ISMEA Mercati",
+   "URL": "https://www.ismea.it/",
+   "REASON_AS_REPORTED": "ALREADY REGISTERED and confirmed unreachable exactly as the briefing warned. curl(60) 'unable to get local issuer certificate', status 000, 0 bytes; www.ismeamercati.it fails identically. TLS verification was NOT disabled. This is a state of the source, recorded so the registry knows the ISMEA price layer is currently dark and why the chamber-of-commerce and CUN routes above matter more than they otherwise would."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "Ente Nazionale Risi",
+   "URL": "https://www.enterisi.it/",
+   "REASON_AS_REPORTED": "ALREADY REGISTERED and confirmed failing exactly as the briefing warned: OpenSSL/3.0.13 error:0A00018A 'dh key too small', status 000, 0 bytes. The server offers a Diffie-Hellman group below the modern minimum. Verification was not weakened to get around it. RISO (15 label rows) therefore has no reachable national market channel from this session."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "Terrepadane",
+   "URL": "https://www.terrepadane.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — curl(60) 'unable to get local issuer certificate', status 000, 0 bytes. A consorzio-agrario-type distributor for the Piacenza/Lombardy basin, and a genuine target for the maize and cereal opportunity regions; the certificate chain it presents did not verify against the session CA bundle. State of the source, recorded, not worked around."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "Consorzio Agrario del Nordest",
+   "URL": "https://www.consorzioagrarionordest.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — agent proxy 502 connect_rejected, status 000, 0 bytes. Would have been the Veneto/Friuli-Venezia Giulia counterpart to CAI and Terremerse; both are ADAMA opportunity regions. Not retried against policy."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "OI Pomodoro Centro Sud",
+   "URL": "https://www.oipomodorocentrosud.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — connection reset by peer (ws_closed_mid_exchange), status 000, 0 bytes. This is the Puglia/Campania interbranch counterpart to the OI Nord Italia I did report, so the southern half of the POMODORO picture (44 label rows, Puglia an opportunity region) is currently covered only indirectly, through ANICAV."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "Distretto del Pomodoro da Industria Nord Italia",
+   "URL": "https://www.pomodorodinord.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — agent proxy 502 connect_rejected, status 000, 0 bytes. Its statistical function appears to be served by oipomodoronorditalia.it (same PEC domain, segreteria@pec.distrettopomodoro.it), which I did reach and report."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "Consorzio Melinda",
+   "URL": "https://www.melinda.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — connection reset by peer, status 000, 0 bytes. Melinda is the largest single MELO (146 label rows) marketing consortium in Trentino-Alto Adige. It is covered indirectly through APOT, which associates it and which I did reach."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "UNAPA — Unione Nazionale Associazioni Produttori Patate",
+   "URL": "https://unapa.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — OpenSSL SSL_ERROR_SYSCALL on both www.unapa.it and the apex, status 000, 0 bytes. PATATA carries 100 label rows; the potato chain is currently represented in this run only by Terremerse's 'Programma Patata', which is a single regional operator, not a national picture. One voice is not a trend — flagged as an open gap."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "Assomela — Associazione Italiana Produttori di Mele",
+   "URL": "https://assomela.it/",
+   "REASON_AS_REPORTED": "REACHED (200, 24015 bytes) but REJECTED as a monitoring source. www.assomela.it fails TLS with a certificate SAN mismatch; the apex serves a legacy single-page static site whose 'news' are in-page anchors, whose /news path returns 404, and whose privacy notice still cites D.Lgs 196/2003 (pre-GDPR). No data route, no dated output, nothing collectable. It declares facebook.com/assomelasc on its own page. It was NOT wasted work: its outbound partner links are what led me to csoservizi.com and apot.it, both of which I fetched and reported. Recorded as the snowball origin."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "Agrofarma — Federchimica",
+   "URL": "https://agrofarma.federchimica.it/",
+   "REASON_AS_REPORTED": "REACHED (200, 39996 bytes) but REJECTED for this axis. The homepage's featured content is the #AGRICOLTURAMODOMIO16 Instagram challenge from 2016; only the calendar widget is dynamic (it rendered 03/09/2026). I then fetched the member directory at /ImpreseAssociate.aspx (200, 34979 bytes) specifically to test whether ADAMA Italia is listed: the list renders EMPTY and the word-boundary count for \\bADAMA\\b is 0. So I did NOT establish ADAMA membership of Agrofarma — NAO_SEI, and I am not asserting it either way. No market-data or statistics route was found. The organisation is real and relevant; this particular web property is not currently a usable source."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "Camera di Commercio di Bologna — borsa merci",
+   "URL": "https://www.bo.camcom.gov.it/it/servizi-imprese/borsa-merci-e-prezzi",
+   "REASON_AS_REPORTED": "404, 37514 bytes. The path I constructed does not exist on the current Bologna chamber site. Bologna's borsa merci would be the Emilia-Romagna equivalent of the Foggia listino I did verify, so this is an unresolved path rather than a rejected organisation — the correct URL was not found in this run."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "ISTAT SDMX (sdmx.istat.it host)",
+   "URL": "https://sdmx.istat.it/",
+   "REASON_AS_REPORTED": "REDIRECT LOOP — curl(47), 'maximum (50) redirects followed', initial status 302, 0 bytes retrieved. This is the host name commonly cited for ISTAT's SDMX service and it does not work. The functioning machine route is https://esploradati.istat.it/SDMXWS/rest/..., which I verified and reported above. Recorded so nobody burns time on this host again."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 3,
+   "NAME": "MASAF — Ministero dell'agricoltura (via politicheagricole.it)",
+   "URL": "https://www.politicheagricole.it/",
+   "REASON_AS_REPORTED": "REACHED (200, 82070 bytes; politicheagricole.it redirects to masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/202) and deliberately NOT reported on this axis. masaf.gov.it is a new host for the registry and it is the authority that instituted the CUN Grano duro by decree, but its content is policy and regulation rather than market or distribution — it belongs to the regulatory axis, not this one. Handed over rather than claimed, so the two axes do not double-register it."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Fitogest — rotta aziende senza prefisso /it/ (l'ipotesi del brief)",
+   "URL": "https://fitogest.imagelinenetwork.com/aziende/syngenta-italia/1196",
+   "REASON_AS_REPORTED": "HTTP 300, 1273 bytes, title 'La pagina che stavi cercando non esiste o è stata rimossa'. The route named in the brief — fitogest.imagelinenetwork.com/aziende/<name>/<id> — does not exist. The index https://fitogest.imagelinenetwork.com/aziende/ is also 300/1273. The working route carries the language prefix: /it/aziende/<slug>/<id> (200). Reported so the hypothesis is corrected in the registry rather than retried. The equivalent route on agronotizie DOES work without /it/, which is why the brief's assumption looked plausible."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Sipcam Italia (sipcamitalia.it)",
+   "URL": "https://www.sipcamitalia.it/",
+   "REASON_AS_REPORTED": "WRONG ENTITY, confirmed. 200, 347042 bytes, but the final URL is https://www.sipcam.com/us/en/ and the title is 'Sipcam Agro USA | Cultivating tomorrow's agriculture together'; the only social handle on the page is linkedin.com/company/sipcamagrousa. The .it domain now serves the United States business. Registering it as an Italian source would put a US entity in the Italian registry — the same class of error as image-line.com. The real Italian entity is at https://www.sipcam-oxon.com/en/sipcam-italia (registered above)."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Sipcam (sipcam.it)",
+   "URL": "https://www.sipcam.it/",
+   "REASON_AS_REPORTED": "WRONG ENTITY, identical to sipcamitalia.it: 200, 347042 bytes, byte-for-byte the same response, final URL https://www.sipcam.com/us/en/, 'Sipcam Agro USA'. Both Italian-TLD domains are parked on the US site."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Sipcam Oxon — versione italiana del sito di gruppo",
+   "URL": "https://www.sipcam-oxon.com/it/",
+   "REASON_AS_REPORTED": "HTTP 404, 121542 bytes (soft 404 — it renders the English shell). The Sipcam Oxon group has no Italian-language version of its corporate site. Recorded so the registry states 'no Italian channel exists at this host' as an observation, not as an assumption."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Certis Belchim Italia — Eventi",
+   "URL": "https://certisbelchim.it/eventi/",
+   "REASON_AS_REPORTED": "PLACEHOLDER, not content. 200, 221441 bytes, but the page reports '0 events found. There are no upcoming events.' and its only 'Latest Past Events' are 'Trial Field Days' dated 3 July 2020 at Fronton (FRANCE) and 18 June 2019 at Technologielaan 7, Londerzeel (BELGIUM), both with lorem-ipsum bodies ('Sed ut perspiciatis unde omnis iste natus error...'). The machine route confirms it: https://certisbelchim.it/wp-json/tribe/events/v1/events returned 200, 211 bytes, {\"events\":[],\"total\":0,\"total_pages\":0}. The Events plugin was installed and never populated for Italy. A reachable page is not a populated one — and the Italian news feed on the same site IS real, which is why /news/ is registered and /eventi/ is not."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "UPL Italia — Eventi",
+   "URL": "https://www.uplcorp.com/it/eventi",
+   "REASON_AS_REPORTED": "EMPTY SHELL. 200, 51581 bytes, but the rendered text is navigation, contact block (info@uplitalia.com, Tel. 0547 661523) and cookie banner only — no event, no date, no listing. UPL keeps an Italian events URL with nothing behind it. Recorded because the absence is in the page, not merely in my reading: the container renders and contains zero items."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Corteva — portale Monitoraggio Fitofagi",
+   "URL": "https://monitoraggi-corteva.com/",
+   "REASON_AS_REPORTED": "LOGIN WALL. 200, 25227 bytes, but the final URL is https://monitoraggi-corteva.com/user/login and the title is 'Accedi | Monitoraggio Fitofagi - Corteva'. Corteva's actual trap-count portal is credentialed. Not collected and not to be collected — public content only, no login bypass. Worth knowing it exists: the free public bulletins (mappa-piralide, pficus) are the shop window; the granular per-trap data sits behind registration, which is itself the competitive fact."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Albaugh — versione italiana EMEA",
+   "URL": "https://www.albaugh.com/emea/it",
+   "REASON_AS_REPORTED": "SOFT 404. 200, 37196 bytes, but the final URL is https://www.albaugh.com/emea/404?initialRequestUrl=https%3a%2f%2fwww.albaugh.com%2femea%2fit. albaugh.eu returns 200/53209 and redirects to https://www.albaugh.com/emea in English, declaring only linkedin.com/company/albaugh-europe-sarl and /albaugh-llc. Albaugh appears on the AgroNotizie company index as 'Albaugh Europe' (/aziende/albaugh-europe/7701) but has no Italian-language channel this session could reach. NAO_SEI on whether an Italian entity site exists elsewhere."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Syngenta Italia — sito corporate",
+   "URL": "https://www.syngenta.it/",
+   "REASON_AS_REPORTED": "ROUTE_BLOCKED_FOR_AUTOMATION. 403, 5704 bytes, title 'Just a moment...' — a Cloudflare interstitial, on the homepage and on /prodotti (403, 5728) alike. This is the state of the source for this session, NOT an absence of content: Syngenta Italia has 136 agrofarmaci in the Italian catalogue, readable via the Fitogest company page registered above. Do not record Syngenta as having no Italian channel."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Bayer Crop Science Italia e Bayer Italia",
+   "URL": "https://www.cropscience.bayer.it/",
+   "REASON_AS_REPORTED": "ROUTE_BLOCKED_FOR_AUTOMATION across the whole estate. cropscience.bayer.it 403/678, bayer.it 403/9671 and bayer.com/it/it/italia-agricoltura 403/9669, all serving the title 'Site Maintenance'. Three distinct hosts, one policy. Bayer's Italian catalogue (78 agrofarmaci) is readable only via Fitogest, and dekalb.it (200) is the one reachable group channel — both registered above. Absence in my reading is not absence in the world."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Nufarm Italia — sezione prodotti",
+   "URL": "https://www.nufarm.com/it/prodotti/",
+   "REASON_AS_REPORTED": "PARTIAL ROUTE_BLOCKED_FOR_AUTOMATION. 403, 5837 bytes, 'Attention Required! | Cloudflare', while the parent https://www.nufarm.com/it/ returns 200/187822 on the same host in the same session. Path-level blocking, not host-level. The country page is registered; the product catalogue is not readable from here."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "UPL Italia (dominio .it) e Sariaf (marchio Gowan Italia)",
+   "URL": "https://www.uplitalia.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — 'Tunnel connection failed: 502 Bad Gateway' from the egress proxy, same error for https://www.sariaf.it/. I could not establish whether these hostnames resolve at all, so I record NOT_REACHED, never 'does not exist'. The live UPL Italian catalogue is at uplitalia.COM (200/347499, registered above); Sariaf appears on the AgroNotizie index as a Gowan Italia brand (/aziende/gowan-italia-sariaf-brand-gowan-italia/61770) and its content is reachable through gowanitalia.it."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Sumitomo Chemical Italia, Syngenta Seeds Italia, Hyvido",
+   "URL": "https://www.sumitomo-chem.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — 'Connection reset by peer' for sumitomo-chem.it, syngentaseeds.it and hyvido.it alike. These were speculative hostname guesses for entities that DO appear on the AgroNotizie company index (Sumitomo Chemical Italia /aziende/sumitomo-chemical-italia/1215, Sumitomo Chemical Agro Europe /1739). I never reached them, so I claim nothing about them. Sumitomo Chemical Italia is a genuine Italian player and remains an open lead — the correct host is NAO_SEI."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "Certis Belchim — playlist YouTube \"Italia\"",
+   "URL": "https://www.youtube.com/playlist?list=PLsZDu0mZ9Vf-f6WCrQG9S_hlb2CB1BmOB",
+   "REASON_AS_REPORTED": "REACHED BUT UNVERIFIABLE. 200, 1524771 bytes, <title>Italia - YouTube</title>, but the response is a JavaScript shell: no video title, no owner channel and no publication date is extractable server-side (the only strings recoverable are the player UI labels 'Generali', 'Riproduzione', 'Scorciatoie da tastiera'). The playlist URL IS self-declared by Certis Belchim on certisbelchim.it, so I have kept the handle inside that source's social_declared, but I will not register the playlist as a source whose contents I have not actually read. Contents: NAO_SEI."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 4,
+   "NAME": "AgroNotizie — elenco prodotti nelle schede azienda",
+   "URL": "https://agronotizie.imagelinenetwork.com/aziende/adama-italia/1216",
+   "REASON_AS_REPORTED": "REJECTED AS A PORTFOLIO SOURCE (the page itself is registered, but only for its news and crop filters). The product list rendered on a company page is a SITE-WIDE 'latest registered products' widget, not that company's portfolio. Proof: the Syngenta page's 32 products are a strict subset of the ADAMA page's 50, overlap 32/32, and the identical items (RIDOMIL GOLD EVO, IKONIK, GEOCLEAN ORTO 2026, D-D SOIL SERRA VII, DECIS EVO, EPIK SL, SIVANTO PRIME) also appear on the Fitogest homepage's 'ultimi preparati in commercio' block. RIDOMIL GOLD EVO is Syngenta and SIVANTO PRIME is Bayer, yet both sit on ADAMA's page. Anyone parsing this list into a competitor portfolio table would manufacture false label claims. The crop and target filters on the same pages ARE company-scoped and safe."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Agrilevante (FederUnacoma, Bari)",
+   "URL": "https://www.agrilevante.eu/",
+   "REASON_AS_REPORTED": "HTTP 200, 21959 B, but the whole site still announces the PAST edition: 'Bari, 9/12 ottobre 2025'. No 2027 date is published anywhere on the page. On an axis defined by future dates this is a past-dated site — re-check in 2027. Puglia venue, so worth revisiting."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "FuturPera — Salone Internazionale della Pera (Ferrara)",
+   "URL": "https://www.futurpera.com/",
+   "REASON_AS_REPORTED": "HTTP 200, 131742 B (redirect to futurpera.com), but the site is frozen: newest content is 'FuturPera 2017: un'edizione da record' and press archives 2015-2017. No future date. Would have mapped to PERO (11 label rows) in Emilia-Romagna if it were alive."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "SIMEI / Enovitis Business 2026 (Unione Italiana Vini, Fiera Milano)",
+   "URL": "https://www.simei.it/it",
+   "REASON_AS_REPORTED": "HTTP 200, 49283 B. The page names 'Simei 2026', 'Enovitis Business 2026', 'Distillo 2026', 'Bevertech 2026' and links a 2026 preregistration form, but NO day-month date appears anywhere in the fetched HTML — I grepped for every Italian month name and for dd.mm.2026 patterns and found none. /it/info-utili/orari-manifestazione and /it/discovering-simei/presentazione return byte-identical HTML (49283 B), so the site is not serving date content to a plain fetch. I will not compute a date I did not read. NAO_SEI on the SIMEI 2026 dates."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Agriumbria — Mostra Nazionale Agricoltura Zootecnia Alimentazione (Umbriafiere, Bastia Umbra)",
+   "URL": "https://www.agriumbria.eu/",
+   "REASON_AS_REPORTED": "HTTP 200, 59394 B. Publishes only 'La 57ª edizione di Agriumbria, dal 27 al 29 marzo 2026' — PAST relative to today 2026-09-03. No 2027 edition announced. Also note umbriafiere.it is already in the registry."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Accademia dei Georgofili — Eventi",
+   "URL": "https://www.georgofili.it/eventi",
+   "REASON_AS_REPORTED": "HTTP 200, 82436 B, and it IS a dated events calendar — but at fetch time the 2026 list held exactly ONE future item (24 settembre 2026, 'Inaugurazione della Mostra fotografica ... LX° anniversario dell'alluvione a Firenze'), a photography exhibition with no crop-protection content. Everything else (Salute e difesa delle api 13/05/2026, Frutta in guscio: aspetti della difesa 11/05/2026, etc.) is past. Absence of relevant future items is absence in my reading on 2026-09-03, not in the world — worth a re-check in Q4 2026 when the 2027 accademic year is posted."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Assosementi — Eventi",
+   "URL": "https://www.sementi.it/eventi",
+   "REASON_AS_REPORTED": "HTTP 200, 65548 B (root 200, 64928 B). The 'Eventi' archive is entirely retrospective at fetch time — most recent item 'Criticità e opportunità della coltura del girasole, venerdì 10 luglio 2026' (past), then Colza 21 maggio 2026, Tomato World 19-20 febbraio 2026, all past. No future date. Topically strong for ADAMA (GIRASOLE 39, COLZA 56, BARBABIETOLA seed) — recommend re-probe, but it fails this axis today."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Tomato World / Piacenza Expo",
+   "URL": "https://www.tomatoworld.it/",
+   "REASON_AS_REPORTED": "HTTP 200, 20701 B. Announces 'Tomato World 19-20 Febbraio 2026' and a 'PROGRAMMA 2026' — PAST. No 2027 date. The venue calendar https://www.piacenzaexpo.it/ (200, 288975 B) does carry future dates (GEOFLUID 07-10 Ott 2026, AGV EXPO and T3 Expo 22-24 Ott 2026, Mostra Mercato Giocattolo Vintage 31 Ott 2026) but none of them is agricultural, and Tomato World 2027 is not listed. POMODORO is 44 label rows for ADAMA, so re-check the venue calendar in late 2026."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Centro Fiera Montichiari",
+   "URL": "https://www.centrofiera.it/",
+   "REASON_AS_REPORTED": "HTTP 200, 367958 B. It does publish a 'Calendario 2027' and future dates, but every item visible in the fetched page is non-agricultural (Rally 1000 Miglia 04-05 Settembre 2026, Fiera dell'Elettronica 12-13 Settembre 2026, Megacon Torino, Ultracon Cremona 16-17 Gennaio 2027, Extracon Pordenone 06-07 Febbraio 2027). /calendario-2027/ returns HTTP 404 (87293 B), so I could not open the 2027 index and did not find the Fiera Agricola Zootecnica Italiana on it. No ADAMA-crop event verified."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Agrofarma-Federchimica",
+   "URL": "https://agrofarma.federchimica.it/",
+   "REASON_AS_REPORTED": "HTTP 200, 39996 B, but the homepage content is frozen at 2016 (headline campaign '#AGRICOLTURAMODOMIO16', challenge 'dal 30 maggio al 19 Giugno' 2016, footer '© 2014'). The 'Visualizza il calendario' element resolves to nothing usable and /normativa returns HTTP 404 (1245 B). Only the server-side date string 'giovedì 03 settembre 2026' is current. No future-dated regulatory calendar reachable. Would be a natural INDUSTRY source for ADAMA (Agrofarma is the Italian crop-protection association) — re-probe on a different entry point."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "COMPAG — Federazione Nazionale delle Rivendite Agrarie",
+   "URL": "https://compag.org/",
+   "REASON_AS_REPORTED": "Bare host HTTP 200, 32228 B; the www host is NOT_REACHED (SSL hostname mismatch: certificate not valid for 'www.compag.org') and /it/notizie-ed-eventi returns HTTP 404 (1484 B). On the reachable page the newest item is 22/04/2026 ('IL GRANO DURO IN SICILIA 2026') and the Convegno Nazionale entry is the 2025 one — no future date. Commercially it is exactly ADAMA's Italian distribution channel (rivendite agrarie) and it runs an annual national convegno, so it deserves a second probe with a working URL map, but it fails this axis today."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Gazzetta Ufficiale della Repubblica Italiana",
+   "URL": "https://www.gazzettaufficiale.it/",
+   "REASON_AS_REPORTED": "Homepage HTTP 200, 42200 B — reachable. But I could not open a usable fitosanitary search route: /ricerca/pdf/serie_generale/1/0/0 returns HTTP 400 (2246 B) and /ricerca/parole/tutte?reset=true returns 200 with only 245 B (an empty stub). More importantly, the Italian prodotti-fitosanitari decrees and art.53 deroghe are published on salute.gov.it and TrovaNorme, not primarily in the GU serie generale, so the cost/benefit on this axis is poor. Not rejected as irrelevant — rejected as unverified for a future-dated fitosanitary route in this run."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Regione Emilia-Romagna — Servizio Fitosanitario, sezione Eventi",
+   "URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/eventi",
+   "REASON_AS_REPORTED": "HTTP 200, 856547 B, host already registered. The 'Eventi' page renders an EMPTY list with 'Ultimo aggiornamento: 04-06-2026 15:30'. No event, past or future, is published on it at fetch time. Emilia-Romagna is the heaviest ADAMA opportunity region, so this is a high-value slot to re-probe — but reporting it now would be reporting an empty page."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "UNIBO DISTAL — convegno 'La difesa delle piante tra passato e futuro' (save the date)",
+   "URL": "https://distal.unibo.it/it/notizie/convegno-la-difesa-delle-piante-tra-passato-e-futuro-savethedate",
+   "REASON_AS_REPORTED": "HTTP 200, 52104 B, but no date string of any kind survives in the fetched HTML (only the '©Copyright 2026' footer). A save-the-date whose date I cannot read is not a future date. NAO_SEI."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "AISSA — Associazione Italiana Società Scientifiche Agrarie",
+   "URL": "https://www.aissa.it/",
+   "REASON_AS_REPORTED": "HTTP 200, 34523 B. The homepage exposes 'Convegni AISSA' and 'Iniziative/Eventi Società' menu entries but /convegni-aissa redirects to aissa.it/404.php (HTTP 200 serving a 404 page, 9189 B). No future date observed."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Ortofrutta.com — Eventi e Fiere",
+   "URL": "https://www.ortofrutta.com/eventi/",
+   "REASON_AS_REPORTED": "HTTP 200, 39973 B. The events section is stale: newest items are Interpoma 2024, SIMEI 2024, Fiera del Tartufo 2024, and 'MACFRUT 2026 ... 21-22-23 aprile 2026' (past). Site footer '© 2023' and its own disclaimer says it is updated 'senza alcuna periodicità'. No future date."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "MASAF / politicheagricole.it",
+   "URL": "https://www.politicheagricole.it/",
+   "REASON_AS_REPORTED": "HTTP 200, 82073 B (redirects to masaf.gov.it ServeBLOB). Reached but NOT examined for future-dated fitosanitary facts within this run — I am recording it as unassessed rather than claiming anything about it. Candidate for a dedicated probe (decreti, bandi with scadenze)."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Südtiroler Beratungsring / Centro di Consulenza per la Frutti- e Viticoltura",
+   "URL": "https://www.beratungsring.org/",
+   "REASON_AS_REPORTED": "NOT_REACHED — TLS handshake fails with 'SSL: DH_KEY_TOO_SMALL' (the server offers a Diffie-Hellman group below the client's security level). This is a state of the source, not an absence: the organisation exists and is the technical advisory body for MELO and VITE in Alto Adige. TLS verification was NOT disabled. Needs a client that can negotiate with a weak-DH server."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "EFSA Connect — public consultations (open, with closing dates)",
+   "URL": "https://connect.efsa.europa.eu/RM/s/publicconsultations",
+   "REASON_AS_REPORTED": "NOT_REACHED — 'SSL: CERTIFICATE_VERIFY_FAILED (unable to get local issuer certificate)' with python; reproduced with curl --cacert /root/.ccr/ca-bundle.crt, which returns HTTP 000 / 0 bytes. This is where the EFSA consultations on draft RAR/DAR for pesticide active substances (with their closing dates) actually live, so the loss is real and specific. TLS verification was NOT disabled."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Beta Ricerca (ricerca bieticola, Bologna)",
+   "URL": "https://www.betaricerca.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — https://www.betaricerca.it/ fails with proxy tunnel '502 Bad Gateway'; http://www.betaricerca.it/ fails DNS ('Name or service not known'). Painful gap: BARBABIETOLA is ADAMA Italia's #1 crop at 239 label rows and this is the Italian sugar-beet research body. Recorded as a state of the source, not as non-existence."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Fieragricola TECH (dominio dedicato)",
+   "URL": "https://www.fieragricolatech.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — proxy tunnel '502 Bad Gateway' on two separate attempts. The event itself IS verified with a future date (27-28 gennaio 2027) from the Veronafiere operator calendar, which is what I registered instead."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "R.I.V.E. — Rassegna Internazionale Viticoltura ed Enologia (Pordenone)",
+   "URL": "https://www.rive-expo.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — proxy tunnel '502 Bad Gateway' on two attempts; the venue host www.pordenonefiere.it is also NOT_REACHED (SSL hostname mismatch). A search snippet mentioned 10-12 novembre 2027, but I did not fetch that date from any page and will not report it. NAO_SEI."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Società Italiana di Agronomia (SIA)",
+   "URL": "https://www.siagr.it/",
+   "REASON_AS_REPORTED": "NOT_REACHED — connection reset by peer. State of the source."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Regione Puglia — pagina Osservatorio fitosanitario",
+   "URL": "https://www.regione.puglia.it/web/agricoltura-osservatorio-fitosanitario",
+   "REASON_AS_REPORTED": "HTTP 404 (126 B). The parent https://www.regione.puglia.it/web/agricoltura is 200 (134684 B) but its only fitosanitario link is http://www.emergenzaxylella.it/portal/portale_gestione_agricoltura, i.e. the Xylella portal — OLIVO, which is 1 label row for ADAMA. The deroga route on this domain was not located; BURP was registered instead."
+  },
+  {
+   "BLOCO_DA_VARREDURA": 5,
+   "NAME": "Interpoma — Elenco espositori / Interpoma Congress detail",
+   "URL": "https://www.fierabolzano.it/it/interpoma/espositori-e-prodotti/elenco-espositori",
+   "REASON_AS_REPORTED": "HTTP 500 (48793 B); the congress detail page /it/interpoma/eventi/interpoma-congress also returns HTTP 500 (48723 B). The exhibitor list is therefore NOT verified and I make NO claim about who will exhibit at Interpoma 2026 — future participation is never inferred. The parent programme page (200) carries the dates and is what I registered."
+  }
+ ]
+}

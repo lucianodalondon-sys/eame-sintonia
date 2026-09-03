@@ -1,9 +1,9 @@
 {
  "DATASET": "IT-INSTAGRAM-VEREDITO-V1",
- "SOURCE": "medicao propria sobre IT-INSTAGRAM-V1 e V2, contra as rotas de audio e de video",
+ "SOURCE": "medicao propria sobre IT-INSTAGRAM-V1, V2 e V3, contra as rotas de audio e de video",
  "SOURCE_ID": "IT-INSTAGRAM-VEREDITO",
  "CAPTURED_AT": "2026-09-03",
- "VERDICT": "ROUTE_OPEN_CONTENT_LOW_YIELD",
+ "VERDICT": "ROUTE_OPEN_CONTENT_LOW_YIELD (confirmado na terceira medicao)",
  "THE_SHORT_VERSION": "a rota abriu e e uma capacidade permanente. O CONTEUDO italiano de Instagram deste acervo nao carrega sinal de campo defensavel para a ADAMA. Sao duas frases diferentes e as duas sao verdadeiras.",
  "HYPOTHESIS_TESTED": "a V1 rendeu pouco porque foi montada a partir do site das ORGANIZACOES, e organizacao comunica institucional. Se eu trocasse por VOZES TECNICAS INDIVIDUAIS, a densidade subiria.",
  "RESULT": "A HIPOTESE FALHOU. A taxa CAIU: V1 5 de 28 (17,9%), V2 2 de 15 (13,3%).",
@@ -45,6 +45,16 @@
     "CARACTERES_POR_MINUTO": 851,
     "SINAIS_DE_CAMPO_DEFENSAVEIS": 0
    }
+  },
+  "V3_organizacoes_vindas_da_descoberta_de_fontes": {
+   "CONTAS": 8,
+   "CONTAS_OK": 8,
+   "OBJETOS": 48,
+   "VIDEOS": 6,
+   "TRANSCRITOS": 5,
+   "AUDIO_S": 388,
+   "CARACTERES": 4210,
+   "SO_NA_FALA": 0
   }
  },
  "WHY_THE_HYPOTHESIS_FAILED": "a conta individual de maior audiencia do recorte — daniele.paci.agronomo, 390.996 seguidores, o proprio nome declara \"agronomo\" — publica CONTEUDO DE COMIDA, nao agronomia: qual azeite ele prefere no pao, e manteiga feita do ar. Os dois unicos sinais so-na-fala da V2 vieram dele e os dois sao FALSO POSITIVO do meu proprio vocabulario.",
@@ -58,5 +68,27 @@
   "CARACTERES_POR_MINUTO_INSTAGRAM": 851,
   "CARACTERES_POR_MINUTO_PODCAST": 863,
   "LEITURA": "a mesma densidade de fala. A diferenca nao esta em quanto se fala por minuto, esta em quantos minutos existem e sobre o que se fala."
+ },
+ "A_TERCEIRA_MEDICAO": {
+  "O_QUE_A_V3_TESTOU": "nem organizacao generica (V1) nem voz individual (V2): contas cuja organizacao JA TEM FICHA na camada de descoberta de fontes, com relevancia ADAMA escrita e defendida antes de a conta ser visitada.",
+  "TAXA_DE_ASSUNTO_NA_LEGENDA": {
+   "V1": "14 de 102 (13,7%)",
+   "V2": "5 de 30 (16,7%)",
+   "V3": "9 de 48 (18,8%)"
+  },
+  "TAXA_DE_VIDEO": {
+   "V1": "30 de 102 (29,4%)",
+   "V2": "15 de 30 (50,0%)",
+   "V3": "6 de 48 (12,5%)"
+  },
+  "SINAL_SO_NA_FALA": {
+   "V1": "5 de 28",
+   "V2": "2 de 15",
+   "V3": "0 de 5"
+  },
+  "O_QUE_ISSO_DIZ": "a V3 tem a MAIOR taxa de assunto na legenda das tres e a MENOR taxa de video. Escolher a conta pela relevancia ja provada da organizacao melhora a COLHEITA DE LEGENDA e piora a COLHEITA DE FALA — porque instituto de pesquisa e ordem profissional publicam carrossel e foto, nao reel.",
+  "O_QUE_ISSO_NAO_DIZ": "nao desmente o veredito. Com 5 reels transcritos, ZERO sinal so-na-fala nao e evidencia de ausencia: o denominador e pequeno demais para sustentar qualquer taxa. O que sustenta e a legenda, e ai a V3 e a melhor.",
+  "A_CONSEQUENCIA_PRATICA": "se o objetivo for FALA, escolher conta por relevancia da organizacao e a estrategia errada — e preciso escolher por FORMATO PUBLICADO, que esta rota agora le de graca na grade. Se o objetivo for ASSUNTO DATADO, a V3 ja e a melhor das tres.",
+  "O_MELHOR_ITEM_DA_V3": "ri.nova.soc.coop, 2026-08-27: legenda com VITE + OIDIO + PERONOSPORA, reel de 64 s sobre o projeto \"per te a vite\" na Romagna. Assunto certo, cultura certa, regiao certa — e ainda assim e COMUNICACAO DE PROJETO, e nao observacao de campo com data e limiar."
  }
 }
