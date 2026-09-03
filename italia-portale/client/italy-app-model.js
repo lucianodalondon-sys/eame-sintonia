@@ -249,10 +249,212 @@
     return coll([], P.REAL_SOURCE, note, { source: null });
   };
 
-  const V21 = (family) => {
+  /**
+   * One V2.1 family, ready for build().
+   *
+   * The receiver contract said `adapt: (r) => r` — the upstream would hand over
+   * rows already in the shape the views read. It does not, and it should not:
+   * the package publishes its OWN canonical contract (SCREAMING_CASE fields,
+   * canonical ids, its own clock), and that contract is the reason two research
+   * missions can be merged at all. Handing the identity function a V2.1 record
+   * put `undefined` in every binding of every screen.
+   *
+   *     THE PACKAGE PUBLISHES A CONTRACT. THE MODEL PUBLISHES A SHAPE.
+   *     THE ADAPTER IS THE SENTENCE THAT TRANSLATES ONE INTO THE OTHER,
+   *     AND IT HAS TO BE WRITTEN DOWN SOMEWHERE.
+   *
+   * It is written here, beside the fixture adapter it replaces, so the two can
+   * be read against each other — which is the only way to see that a field
+   * stopped being populated rather than never existed.
+   */
+  const V21 = (family, adapt, validate) => {
     const d = RAW.HANDOFF_V21 && RAW.HANDOFF_V21[family];
-    return d ? { source: 'HANDOFF_V21', precedence: P.CANONICAL, rows: A(d), adapt: (r) => r } : null;
+    if (!d) return null;
+    return {
+      source: 'HANDOFF_V21 · ' + family,
+      precedence: P.CANONICAL,
+      rows: A(d),
+      adapt: adapt || ((r) => r),
+      validate: validate || null,
+    };
   };
+
+  /* ── 5b · THE V2.1 CANONICAL IDENTIFIERS ─────────────────────────────────
+     The package speaks in ids, not in names: CROP_SUGAR_BEET, REGION_VENETO,
+     ISSUE_DOWNY_MILDEW. That is the whole point of it — an id survives a
+     translation, and six vocabularies collapse into one. But an id is not a
+     label, and printing it would put SCREAMING_SNAKE on an Italian screen.
+
+     These three tables are the join, written out in full rather than derived by
+     string surgery. Twenty crops, twenty-two geographies, twenty-four issues:
+     small, closed and countable. Written out, an id the package adds tomorrow
+     resolves to null and is VISIBLE as unmapped; derived by de-underscoring, it
+     would resolve to a plausible wrong word and be invisible.
+
+         A TABLE THAT DOES NOT KNOW AN ID SAYS SO.
+         A RULE THAT GUESSES ONE NEVER DOES.  */
+  const CROP_BY_ID = {
+    CROP_GRAPEVINE: 'Grapevine', CROP_MAIZE: 'Maize', CROP_OLIVE: 'Olive',
+    CROP_SUGAR_BEET: 'Sugar Beet', CROP_APPLE: 'Apple', CROP_TOMATO: 'Tomato',
+    CROP_RICE: 'Rice', CROP_SOYBEAN: 'Soybean', CROP_BARLEY: 'Barley',
+    CROP_POTATO: 'Potato', CROP_DURUM_WHEAT: 'Durum Wheat',
+    /* Both generic and soft wheat land on Wheat, which is the canonical crop
+       that owns the window. The overlap with Durum Wheat is the one CROP_KEY
+       already declares in its own note; it is not made worse here. */
+    CROP_WHEAT_GENERIC: 'Wheat', CROP_SOFT_WHEAT: 'Wheat',
+    /* Real crops with NO canonical window in this package. They keep their own
+       name — a crop without a window is a fact, not a missing value. */
+    CROP_PEACH: 'Peach', CROP_KIWI: 'Kiwi', CROP_PEAR: 'Pear',
+    CROP_CITRUS: 'Citrus', CROP_SUNFLOWER: 'Sunflower',
+  };
+  /* Group words. They are NOT crops and must never be promoted to one: the
+     resolver's own GENERIC_TERM rule, restated for the id vocabulary. */
+  const CROP_ID_GENERIC = { CROP_STONE_FRUIT: 1, CROP_VEGETABLES: 1 };
+
+  const REGION_BY_ID = {
+    REGION_VALLE_D_AOSTA: "Valle d'Aosta", REGION_PIEMONTE: 'Piemonte',
+    REGION_LOMBARDIA: 'Lombardia', REGION_TRENTINO_ALTO_ADIGE: 'Trentino-Alto Adige',
+    REGION_VENETO: 'Veneto', REGION_FRIULI_VENEZIA_GIULIA: 'Friuli-Venezia Giulia',
+    REGION_LIGURIA: 'Liguria', REGION_EMILIA_ROMAGNA: 'Emilia-Romagna',
+    REGION_TOSCANA: 'Toscana', REGION_UMBRIA: 'Umbria', REGION_MARCHE: 'Marche',
+    REGION_LAZIO: 'Lazio', REGION_ABRUZZO: 'Abruzzo', REGION_MOLISE: 'Molise',
+    REGION_CAMPANIA: 'Campania', REGION_PUGLIA: 'Puglia',
+    REGION_BASILICATA: 'Basilicata', REGION_CALABRIA: 'Calabria',
+    REGION_SICILIA: 'Sicilia', REGION_SARDEGNA: 'Sardegna',
+  };
+  /* GEO_ITALY and GEO_EU are SCOPES, not regions. Putting them in the region
+     table would have added two entries to every region filter and let a
+     national fact be counted as a regional one. */
+  const SCOPE_BY_ID = { GEO_ITALY: 'NATIONAL', GEO_EU: 'EUROPEAN' };
+
+  /* Issue ids -> the published Italian and English name. Latin binomials are
+     the same in both and are written once. */
+  const ISSUE_BY_ID = {
+    ISSUE_APHIDS: { it: 'Afidi', en: 'Aphids' },
+    ISSUE_WEEDS_GENERIC: { it: 'Infestanti', en: 'Weeds' },
+    ISSUE_POWDERY_MILDEW: { it: 'Oidio', en: 'Powdery mildew' },
+    ISSUE_DOWNY_MILDEW: { it: 'Peronospora', en: 'Downy mildew' },
+    ISSUE_RUST: { it: 'Ruggine', en: 'Rust' },
+    ISSUE_SCAB: { it: 'Ticchiolatura', en: 'Scab' },
+    ISSUE_BOTRYTIS: { it: 'Botrite', en: 'Botrytis' },
+    ISSUE_SEPTORIA: { it: 'Septoria', en: 'Septoria' },
+    ISSUE_FUSARIUM: { it: 'Fusariosi', en: 'Fusarium head blight' },
+    ISSUE_CERCOSPORA: { it: 'Cercospora', en: 'Cercospora' },
+    ISSUE_BLAST: { it: 'Brusone', en: 'Rice blast' },
+    ISSUE_CODLING_MOTH: { it: 'Carpocapsa', en: 'Codling moth' },
+    ISSUE_CORN_BORER: { it: 'Piralide', en: 'European corn borer' },
+    ISSUE_DIABROTICA: { it: 'Diabrotica', en: 'Diabrotica' },
+    ISSUE_GRAPE_MOTH: { it: 'Tignoletta della vite', en: 'Grape moth' },
+    ISSUE_OLIVE_FLY: { it: 'Mosca dell’olivo', en: 'Olive fruit fly' },
+    ISSUE_STINK_BUG: { it: 'Cimice asiatica', en: 'Brown marmorated stink bug' },
+    ISSUE_TUTA: { it: 'Tuta absoluta', en: 'Tuta absoluta' },
+    ISSUE_SCAPHOIDEUS: { it: 'Scaphoideus titanus', en: 'Scaphoideus titanus' },
+    ISSUE_FLAVESCENCE: { it: 'Flavescenza dorata', en: 'Flavescence dorée' },
+    ISSUE_AMARANTHUS: { it: 'Amaranthus', en: 'Amaranthus' },
+    ISSUE_ECHINOCHLOA: { it: 'Echinochloa', en: 'Echinochloa' },
+    ISSUE_LOLIUM: { it: 'Lolium', en: 'Lolium' },
+    ISSUE_DROUGHT: { it: 'Stress idrico', en: 'Water stress' },
+  };
+
+  /* The package's three link strengths, mapped onto the two the portal renders.
+     Declared here with the other V2.1 vocabularies because the label-reach
+     recount reads it before the relationship family is built — a table used by
+     two families belongs to neither of them.
+
+       LINHA_DA_TABELA    crop and target on the SAME ROW of the use table
+       BLOCO_DA_CULTURA   target INSIDE the crop's block, joined by «contro»
+       DECLARACAO_DE_PRODUTO  two separate lists, joined by US
+
+     The first two are the document doing the joining; the third is us
+     approximating, and the package marks exactly those 518 rows
+     CLIENT_SAFE=false. 886 + 626 = 1.512 = the package's own COUNT_CLIENT_SAFE,
+     so this mapping is its law restated, not a judgement added. */
+  /* { HRAC: ['5'], FRAC: ['8'] } -> 'HRAC 5 + FRAC 8'. The registry publishes
+     the mode of action as a structure; two families render it, so the wording
+     is written once. */
+  const moaLabelOf = (moa) => {
+    if (!moa || typeof moa !== 'object') return null;
+    const parts = Object.keys(moa).map((k) => (A(moa[k]).length ? k + ' ' + A(moa[k]).join('/') : null)).filter(Boolean);
+    return parts.length ? parts.join(' + ') : null;
+  };
+
+  const V21_LINK_STRENGTH = {
+    LINHA_DA_TABELA: 'VERIFIED_LABEL_MATCH',
+    BLOCO_DA_CULTURA: 'VERIFIED_LABEL_MATCH',
+    DECLARACAO_DE_PRODUTO: 'RELATED_PORTFOLIO',
+  };
+
+  /* SRC_ESPLORADATI_ISTAT_IT__DATABROWSER -> 'esploradati.istat.it'. The
+     package declares the key IS the host; this reads it back. */
+  const hostFromSourceKey = (id) => {
+    const t = U(id).replace(/^SRC_/, '').split('__')[0];
+    if (!t) return null;
+    const host = t.toLowerCase().replace(/_/g, '.');
+    /* ONLY IF IT IS ACTUALLY A HOST.
+       The key is derived from the URL — except where there was no URL. One
+       source is keyed SRC_FONTE_NAO_DECLARADA, and de-underscoring that
+       produced 'fonte.nao.declarada', which is not a host: it is the analyst's
+       Portuguese note wearing dots. It reached the Sources screen and only the
+       browser saw it.
+
+           UNA REGOLA CHE VALE QUASI SEMPRE DEVE DIRE DOVE NON VALE.
+
+       So the derivation is accepted only when the result looks like a domain —
+       a label, a dot and a real top-level domain — and the last label is not a
+       Portuguese word. Otherwise the source keeps no name at all, which the
+       state beside it already says. */
+    if (!/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/.test(host)) return null;
+    if (/\.(declarada|desconhecida|ausente|indefinida)$/.test(host)) return null;
+    return host;
+  };
+
+  const cropOfId = (id) => CROP_BY_ID[U(id)] || null;
+  const cropsOfIds = (ids) => uniq(A(ids).map(cropOfId));
+  const cropScopeOfIds = (ids) => {
+    const list = A(ids);
+    if (!list.length) return 'NOT_OBSERVED';
+    if (cropsOfIds(list).length) return cropsOfIds(list).length > 1 ? 'MULTI' : 'RESOLVED';
+    return list.some((x) => CROP_ID_GENERIC[U(x)]) ? 'GENERIC_TERM' : 'UNMAPPED';
+  };
+  const regionOfId = (id) => REGION_BY_ID[U(id)] || null;
+  const regionsOfIds = (ids) => uniq(A(ids).map(regionOfId));
+  const issueOfId = (id) => ISSUE_BY_ID[U(id)] || null;
+  const issuesOfIds = (ids) => A(ids).map(issueOfId).filter(Boolean);
+
+  /* The §8 envelope every V2.1 record carries. Read once, here, so no family
+     adapter has to remember the twelve field names. */
+  const v21Env = (r, prov) => ({
+    qaStatus: S(r.QA_STATUS),
+    clientSafe: r.CLIENT_SAFE === true,
+    evidenceStatus: S(r.EVIDENCE_STATUS),
+    originLayer: S(r.ORIGIN_LAYER),
+    sourceIds: A(r.SOURCE_IDS),
+    sourceUrls: A(r.SOURCE_URLS),
+    cropIds: A(r.CROP_IDS),
+    issueIds: A(r.ISSUE_IDS),
+    regionIds: A(r.REGION_IDS),
+    cropKeys: cropsOfIds(r.CROP_IDS),
+    regionKeys: regionsOfIds(r.REGION_IDS),
+    geoScope: S(r.GEOGRAPHIC_SCOPE),
+    provenance: prov || P.CANONICAL,
+    raw: r,
+  });
+
+  /* A localized pair the ingest already gated. `__PT_ONLY` is the ingest saying
+     "the source wrote this and there is no approved version" — the same third
+     state narrative() has always had, arriving as a flag instead of as the
+     Portuguese text it stands for. */
+  const v21Text = (r, base) => {
+    const it = S(r[base + '_IT']), en = S(r[base + '_EN']);
+    if (it || en) return { state: KNOWLEDGE.CLEAR, it: it || en, en: en || it };
+    if (r[base + '__PT_ONLY']) return { state: KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY, it: null, en: null };
+    return { state: KNOWLEDGE.NOT_ESTABLISHED, it: null, en: null };
+  };
+  /* NOT_ESTABLISHED is the ingest's canonical spelling of the upstream's nine
+     ways of writing "não sei". A view asks for a value and gets null, exactly
+     as it did when the sentinel arrived as Portuguese prose. */
+  const v21S = (v) => { const t = S(v); return t && t !== 'NOT_ESTABLISHED' ? t : null; };
+  const v21Known = (v) => S(v) === 'NOT_ESTABLISHED' ? KNOWLEDGE.NOT_ESTABLISHED : (S(v) ? KNOWLEDGE.CLEAR : KNOWLEDGE.NOT_ESTABLISHED);
 
   /* ── 6 · PRESENTATION TOKENS ─────────────────────────────────────────────
      Icon, colour, order and grouping only. Physically separated from the fact
@@ -544,6 +746,14 @@
      Placed FIRST so the exact pass always wins over the substring pass. */
   const CROP_BY_CANON = {};
   CROP_KEY.forEach((r) => { CROP_BY_CANON[U(r.crop)] = r.crop; });
+  /* The V2.1 id vocabulary names five crops that have NO canonical window in
+     this package — Peach, Kiwi, Pear, Citrus, Sunflower. They are real crops
+     and the resolver has to know them, or a card carrying one prints a crop the
+     model then calls unresolved. Adding them here is an IDENTITY (each name
+     resolves to itself), not a new window and not a new mapping: cropWindows
+     still has 29, and a crop without a window remains a fact about the package
+     rather than a gap to be filled. */
+  Object.keys(CROP_BY_ID).forEach((k) => { CROP_BY_CANON[U(CROP_BY_ID[k])] = CROP_BY_ID[k]; });
   [CROP_BY_TOKEN, CROP_BY_IT, CROP_BY_LATIN, CROP_BY_PT].forEach((tab) => {
     Object.keys(tab).forEach((k) => { CROP_BY_CANON[U(tab[k])] = tab[k]; });
   });
@@ -715,7 +925,30 @@
      the whole package live here, and three of the five have no canonical window
      at all — they are reachable only from their own collection. */
   const currentFieldSignals = build('currentFieldSignals', [
-    V21('currentFieldSignals'),
+    V21('currentFieldSignals', (c) => Object.assign(v21Env(c), {
+      id: c.ID,
+      crop: v21S(c.CROP), cropCanonical: cropsOfIds(c.CROP_IDS)[0] || cropResolve(c.CROP).key,
+      region: v21S(c.REGION),
+      issue: issueResolve(c.ISSUE).it, issueEn: issueResolve(c.ISSUE).en, issueRaw: v21S(c.ISSUE),
+      expectedCycle: v21Text(c, 'EXPECTED_CYCLE'),
+      observedStage: v21Text(c, 'OBSERVED_STAGE'),
+      fieldReportedStage: v21Text(c, 'FIELD_REPORTED_STAGE'),
+      regulatoryWindow: v21Text(c, 'REGULATORY_WINDOW'),
+      regulatoryAct: v21S(c.REGULATORY_ACT),
+      regulatoryActState: v21S(c.REGULATORY_ACT_STATE),
+      monitoringWindow: v21Text(c, 'MONITORING_WINDOW'),
+      applicationWindow2026: v21Text(c, 'APPLICATION_WINDOW_2026'),
+      nextImportantWindow: v21Text(c, 'NEXT_IMPORTANT_WINDOW'),
+      preparationWindow: v21Text(c, 'PREPARATION_WINDOW'),
+      adamaProductsNote: v21Text(c, 'ADAMA_PRODUCTS_NOTE'),
+      notProves: v21Text(c, 'WHAT_IT_DOES_NOT_PROVE'),
+      coverageState: v21S(c.COVERAGE_STATE),
+      /* The fixture had to declare PT_ANALYST_SOURCE because its prose was
+         Portuguese. The V2.1 rows reach here already gated: what is present is
+         approved in both languages, what is not is a state. */
+      languageState: 'APPROVED_OR_WITHHELD',
+      sourceId: v21S(c.SOURCE_ID),
+    }), (r) => (!r.id ? 'no ID' : null)),
     {
       source: 'ITALY_INGEST.CROP_WINDOWS',
       precedence: P.REAL_SOURCE,
@@ -862,7 +1095,54 @@
 
   /* ---- CROP ECONOMIC WEIGHT --------------------------------------------- */
   const cropEconomicWeight = build('cropEconomicWeight', [
-    V21('cropEconomicWeight'),
+    /* LABEL REACH, REMEASURED — not copied.
+
+       The fixture published 17 pre-computed rows saying how many products
+       mention each crop. The V2.1 package does not ship that table, and it does
+       not need to: it ships the 2.030 label pairs the table was a summary OF.
+       Counting them here is arithmetic over real rows, which is what
+       REAL_DERIVED means; carrying the fixture's 17 forward would have been the
+       last factual number in the portal still coming from a fixture.
+
+           A SUMMARY THAT CAN BE RECOUNTED FROM THE ROWS
+           SHOULD BE RECOUNTED FROM THE ROWS.
+
+       Measured on this package: 35 crops, which is the crop vocabulary of the
+       label corpus itself — not a list anybody typed. */
+    (() => {
+      const pairs = A(RAW.HANDOFF_V21 && RAW.HANDOFF_V21.productRelationships);
+      if (!pairs.length) return null;
+      const byCrop = {};
+      pairs.forEach((r) => {
+        const k = S(r.CROP_ON_LABEL);
+        if (!k) return;
+        const b = byCrop[k] = byCrop[k] || { crop: k, products: {}, useRows: 0, verified: 0, cropIds: {} };
+        if (S(r.PRODUCT_NAME)) b.products[U(r.PRODUCT_NAME)] = 1;
+        b.useRows += 1;
+        if (V21_LINK_STRENGTH[U(r.LINK_STRENGTH)] === 'VERIFIED_LABEL_MATCH') b.verified += 1;
+        A(r.CROP_IDS).forEach((c) => { b.cropIds[c] = 1; });
+      });
+      return {
+        source: 'HANDOFF_V21 · productRelationships · recounted',
+        precedence: P.REAL_DERIVED,
+        rows: Object.keys(byCrop).sort().map((k) => byCrop[k]),
+        adapt: (b) => ({
+          id: 'CEW-' + U(b.crop).replace(/[^A-Z0-9]+/g, '-'),
+          crop: cropsOfIds(Object.keys(b.cropIds))[0] || b.crop,
+          cropOnLabel: b.crop,
+          cropKeys: cropsOfIds(Object.keys(b.cropIds)),
+          productsMentioning: Object.keys(b.products).length,
+          productsWithUseRow: Object.keys(b.products).length,
+          useRows: b.useRows, verifiedRows: b.verified,
+          /* The fixture's `distance` and `reading` were an editorial gloss on
+             the same two numbers. They are not re-invented: a view that wants
+             to rank crops has the counts. */
+          distance: null, reading: null,
+          provenance: P.REAL_DERIVED, raw: b,
+        }),
+        validate: (r) => (!r.crop ? 'no crop term' : null),
+      };
+    })(),
     {
       source: 'ITALY_INGEST.CROPS',
       precedence: P.REAL_SOURCE,
@@ -883,7 +1163,30 @@
 
   /* ---- PRODUCTS · regulatory + commercial ------------------------------- */
   const productsRegulatory = build('productsRegulatory', [
-    V21('productsRegulatory'),
+    V21('productsRegulatory', (p) => Object.assign(v21Env(p), {
+      id: p.ID, name: v21S(p.NAME), reg: v21S(p.REGISTRATION_NUMBER),
+      holder: v21S(p.AUTHORIZATION_HOLDER), ai: A(p.ACTIVE_INGREDIENTS),
+      form: v21S(p.FORMULATION), regCat: v21S(p.REGULATORY_CATEGORY),
+      line: v21S(p.LINE), status: v21S(p.STATUS), expiry: v21S(p.EXPIRY),
+      /* The registry declares a mode of action as free text; the structured
+         HRAC/FRAC/IRAC codes are the active-ingredient layer's job and are
+         joined there, not guessed from a sentence here. */
+      /* The registry declares the mode of action as a STRUCTURE
+         ({ HRAC: ['5'] }), not as a sentence. Passing it straight through put
+         the literal '[object Object]' on the action brief. moaLabelOf is the
+         same formatter the use rows already use, so the two screens spell a
+         mode of action the same way. */
+      moaDeclared: moaLabelOf(p.MODE_OF_ACTION_DECLARED),
+      moaDeclaredCodes: p.MODE_OF_ACTION_DECLARED || null,
+      hrac: [], frac: [], irac: [],
+      crops: cropsOfIds(p.CROP_IDS), targets: issuesOfIds(p.ISSUE_IDS).map((i) => i.it),
+      labelUrl: v21S(p.LABEL_URL),
+      catalogUrl: null,
+      catalogCat: null,
+      inPublicCatalog: p.IN_PUBLIC_CATALOG_FLAG === true,
+      expiresInDays: daysFrom(v21S(p.EXPIRY)),
+      evidenceWhy: v21Text(p, 'EVIDENCE_STATUS_WHY'),
+    }), (r) => (!r.name ? 'no product name' : null)),
     {
       source: 'ITALY_INGEST.PRODUCTS',
       precedence: P.REAL_SOURCE,
@@ -903,7 +1206,27 @@
   ], 'official Italian phytosanitary registration records');
 
   const productsCommercial = build('productsCommercial', [
-    V21('productsCommercial'),
+    V21('productsCommercial', (p) => Object.assign(v21Env(p), {
+      id: p.ID, name: v21S(p.NAME), category: v21S(p.CATEGORY),
+      categorySource: v21S(p.CATEGORY_SOURCE),
+      /* The catalog and the registry are two universes (§ the catalog law). The
+         match state is the package's own verdict and is never upgraded here. */
+      matchState: v21S(p.MATCHED_REGULATORY_ID) ? 'REGULATORY_MATCH_CONFIRMED' : 'REGULATORY_MATCH_NOT_FOUND',
+      regId: v21S(p.MATCHED_REGULATORY_ID), reg: v21S(p.REGISTRATION_NUMBER_ON_PAGE),
+      holder: v21S(p.AUTHORIZATION_HOLDER), holderIsAdama: p.HOLDER_IS_ADAMA,
+      ai: A(p.ACTIVE_INGREDIENTS), line: null,
+      status: v21S(p.CATALOG_STATUS), expiry: null,
+      catalogUrl: v21S(p.PUBLIC_CATALOG_URL),
+      cropsDeclared: A(p.CROPS_DECLARED_ON_SITE),
+      /* Two records in this catalog are not plant protection products and one
+         is a system rather than a product. The flags travel so no portfolio
+         count can quietly include them. */
+      notAPlantProtectionProduct: p.NOT_A_PLANT_PROTECTION_PRODUCT === true,
+      isSystemNotProduct: p.IS_SYSTEM_NOT_PRODUCT === true,
+      commercialContract: v21S(p.COMMERCIAL_CONTRACT),
+      note: null,
+      contractWhy: v21Text(p, 'COMMERCIAL_CONTRACT_WHY'),
+    }), (r) => (!r.name ? 'no product name' : null)),
     {
       source: 'ITALY_CATALOG.ITEMS',
       precedence: P.REAL_SOURCE,
@@ -1030,11 +1353,6 @@
      because the issue vocabularies are not the same list: the registry names a
      Latin target, the window names an English issue. The row therefore keeps
      the Latin target as its issue and never pretends to be an issue match. */
-  const moaLabelOf = (moa) => {
-    if (!moa || typeof moa !== 'object') return null;
-    const parts = Object.keys(moa).map((k) => (A(moa[k]).length ? k + ' ' + A(moa[k]).join('/') : null)).filter(Boolean);
-    return parts.length ? parts.join(' + ') : null;
-  };
   A(RAW.IG.LINKS).forEach((l) => {
     const crop = cropFromCode(l.crop) || S(l.cropTerm) || S(l.crop);
     pushRel(crop, l.target, l.product, 'RELATED_PORTFOLIO', 'Authorised use row in the national registry', l.labelUrl, {
@@ -1045,9 +1363,71 @@
       provenance: P.REAL_SOURCE,
     });
   });
-  const productRelationships = coll(relRows, P.CANONICAL,
-    'product relationships from the label audit and the national registry; the demo case fixture is not a source',
-    { source: 'ITALY_LABEL_VERDICTS + ITALY_INGEST.LINKS' });
+  /* THE 2.030 LABEL-USE PAIRS, WHEN THE PACKAGE SUPPLIES THEM.
+
+     The audit read 163 labels and published 236 relationships. The V2.1 label
+     reader read the same labels and published 2.030 crop x target pairs, each
+     carrying the sentence from the label that joins them. That is not the same
+     table measured better: it is the difference between a verdict list and the
+     document's own use table.
+
+     The three link strengths are the package's own, and they map onto the two
+     the portal already renders WITHOUT loosening either:
+
+       LINHA_DA_TABELA    crop and target on the SAME ROW      -> VERIFIED_LABEL_MATCH
+       BLOCO_DA_CULTURA   target inside the crop's block       -> VERIFIED_LABEL_MATCH
+       DECLARACAO_DE_PRODUTO  two separate lists, joined by us -> RELATED_PORTFOLIO
+
+     The first two are the DOCUMENT joining crop and target; the third is us
+     approximating. Measured, the split is 886 + 626 = 1.512 against the
+     package's own COUNT_CLIENT_SAFE of 1.512, and the 518 approximations are
+     exactly the rows the package marks CLIENT_SAFE=false. The mapping is not a
+     judgement — it is the package's law restated in the portal's vocabulary. */
+  const productRelationships = build('productRelationships', [
+    V21('productRelationships', (r) => {
+      const strength = V21_LINK_STRENGTH[U(r.LINK_STRENGTH)] || 'LABEL_CHECK_NEEDED';
+      const crop = cropsOfIds(r.CROP_IDS)[0] || null;
+      const issue = issueOfId(A(r.ISSUE_IDS)[0]);
+      /* The crop and target AS THE LABEL WRITES THEM stay beside the canonical
+         resolution. A label that says 'MAIS_DOLCE' is not the same fact as the
+         canonical Maize, and the row has to be able to show both. */
+      const w = crop && issue ? windowFor(crop, issue.it) : null;
+      return Object.assign(v21Env(r), {
+        id: r.ID,
+        crop, cropOnLabel: v21S(r.CROP_ON_LABEL),
+        issue: issue ? issue.it : null, issueEn: issue ? issue.en : null,
+        target: v21S(r.TARGET_ON_LABEL),
+        targetAsWritten: v21S(r.TARGET_AS_WRITTEN),
+        targetKind: v21S(r.TARGET_KIND), weedGroup: v21S(r.WEED_GROUP),
+        product: v21S(r.PRODUCT_NAME), productKey: U(r.PRODUCT_NAME),
+        reg: v21S(r.REGISTRATION_NUMBER),
+        strength, strengthRank: STRENGTH[strength].rank,
+        linkStrengthRaw: v21S(r.LINK_STRENGTH),
+        /* The label's own sentence, quoted. It is the evidence, so it is never
+           translated and never parsed for another fact. */
+        quote: v21S(r.QUOTE_FROM_LABEL),
+        evidence: null,
+        evidenceKind: 'LABEL_USE_ROW',
+        linkMeans: v21Text(r, 'LINK_MEANS'),
+        notProves: v21Text(r, 'WHAT_IT_DOES_NOT_PROVE'),
+        source: null, labelUrl: A(r.SOURCE_URLS)[0] || null,
+        windowId: w ? w.windowId : null,
+        legacyCaseId: w ? w.legacyCaseId : null,
+        region: w ? w.region : null,
+        issueType: w ? w.issueType : null,
+        anchor: w ? 'CANONICAL_WINDOW' : 'NO_CANONICAL_WINDOW',
+        auditDate: null, auditSource: null,
+        absenceRule: ABSENCE_RULE_TEXT,
+        moaLabel: null, mappingRule: null,
+      });
+    }, (r) => (!r.product ? 'no product' : null)),
+    {
+      source: 'ITALY_LABEL_VERDICTS + ITALY_INGEST.LINKS',
+      precedence: P.CANONICAL,
+      rows: relRows,
+      adapt: (r) => r,
+    },
+  ], 'product relationships read from official labels; the demo case fixture is not a source');
 
   /* ---- REGULATORY LINKS · the 219 authorised use rows -------------------
      The only fully-populated relationship table in the package, and the model
@@ -1059,7 +1439,41 @@
      is routed through the same guard as any other prose: an unread label column
      must render as unknown, never as an application window. */
   const regulatoryLinks = build('regulatoryLinks', [
-    V21('regulatoryLinks'),
+    /* The authorised use rows. Same 2.030 pairs, read as the registry's use
+       table rather than as a portfolio relationship — a DIFFERENT fact from
+       'positions assessed by the audit', and the label above has always said
+       so. The count moves from 219 to 2.030 because the reader changed, not
+       because the registry did. */
+    (() => {
+      const pairs = A(RAW.HANDOFF_V21 && RAW.HANDOFF_V21.productRelationships);
+      if (!pairs.length) return null;
+      return {
+        source: 'HANDOFF_V21 · productRelationships · use rows',
+        precedence: P.CANONICAL,
+        rows: pairs,
+        adapt: (l) => ({
+          id: l.ID,
+          crop: cropsOfIds(l.CROP_IDS)[0] || S(l.CROP_ON_LABEL),
+          cropCode: U(l.CROP_ON_LABEL),
+          cropKey: cropsOfIds(l.CROP_IDS)[0] || null,
+          cropKeys: cropsOfIds(l.CROP_IDS),
+          target: S(l.TARGET_ON_LABEL), targetAsWritten: S(l.TARGET_AS_WRITTEN),
+          targetKind: S(l.TARGET_KIND), weedGroup: S(l.WEED_GROUP),
+          product: S(l.PRODUCT_NAME), productKey: U(l.PRODUCT_NAME),
+          reg: S(l.REGISTRATION_NUMBER), ai: [], moa: null, moaLabel: null,
+          doses: [], interval: null,
+          /* The label's application-timing column was not extracted by this
+             reading, and the package says so rather than leaving the field to
+             look empty. */
+          timing: null, timingState: KNOWLEDGE.NOT_ESTABLISHED,
+          labelUrl: A(l.SOURCE_URLS)[0] || null,
+          quote: S(l.QUOTE_FROM_LABEL),
+          evidence: S(l.EVIDENCE_STATUS),
+          provenance: P.CANONICAL, raw: l,
+        }),
+        validate: (r) => (!r.id ? 'no id' : !r.product ? 'no product' : null),
+      };
+    })(),
     {
       source: 'ITALY_INGEST.LINKS',
       precedence: P.REAL_SOURCE,
@@ -1212,7 +1626,43 @@
 
   /* ---- COMPETITOR ------------------------------------------------------- */
   const competitorActivities = build('competitorActivities', [
-    V21('competitorActivities'),
+    V21('competitorActivities', (a) => {
+      const paid = U(a.ACTIVITY_TYPE) === 'PAID';
+      const sem = U(a.COUNTRY_SEMANTICS);
+      const italyReach = paid && (sem.indexOf('IT') >= 0 || U(a.COUNTRY_REACHED).indexOf('IT') >= 0);
+      const crops = A(a.CROP_TERMS), issues = A(a.ISSUE_TERMS).filter(Boolean);
+      const cropsCanonical = cropsOfIds(a.CROP_IDS);
+      const generic = crops.filter((c) => GENERIC_CROP_TERMS[U(c)]);
+      const speciesIssues = issues.filter((i) => /^[A-Z][a-z]/.test(String(i).trim()));
+      const hasDate = !!v21S(a.START_DATE);
+      return Object.assign(v21Env(a), {
+        id: a.ID, type: v21S(a.ACTIVITY_TYPE), platform: v21S(a.PLATFORM),
+        company: v21S(a.COMPANY), companyRaw: v21S(a.COMPANY), companyKey: U(a.COMPANY),
+        page: v21S(a.PAGE), pageId: v21S(a.PAGE_ID),
+        displayName: v21S(a.PAGE) || v21S(a.COMPANY),
+        channelResolved: !!v21S(a.PAGE),
+        country: v21S(a.COUNTRY_REACHED), countrySem: v21S(a.COUNTRY_SEMANTICS),
+        geoClass: italyReach ? 'REACHED_IN_ITALY' : paid ? 'REACH_NOT_RESOLVED' : 'MULTI_COUNTRY_OR_UNRESOLVED',
+        italyReach, geoCaveat: v21S(a.COUNTRY_SEMANTICS),
+        startDate: v21S(a.START_DATE), endDate: v21S(a.END_DATE),
+        active: v21S(a.ACTIVE_STATUS), isActive: U(a.ACTIVE_STATUS) === 'ACTIVE',
+        media: v21S(a.MEDIA_TYPE), products: A(a.PRODUCTS_PROVED),
+        crops, issues, cropsCanonical,
+        cropScope: cropsCanonical.length ? 'RESOLVED' : generic.length ? 'GENERIC_TERM' : 'NOT_OBSERVED',
+        genericCropTerms: generic, issuesObserved: issues,
+        issueScope: speciesIssues.length ? 'SPECIES' : issues.length ? 'GENERIC_TERM' : 'NOT_OBSERVED',
+        speciesIssues,
+        text: v21S(a.CREATIVE_TEXT), textExcerpt: v21S(a.CREATIVE_TEXT), url: v21S(a.AD_URL),
+        hasDate, dateState: hasDate ? 'OBSERVED' : 'NOT_OBSERVED',
+        /* Still structurally empty, and for the same reason: the advertiser
+           writes a Latin binomial and the window writes an English issue name.
+           The V2.1 ISSUE_IDS close that gap only where the package itself
+           resolved one, and it resolved none on this collection. */
+        relatedWindows: [], relatedWindowsState: 'NO_ISSUE_SYNONYM_TABLE_UPSTREAM',
+        daysFromRef: daysFrom(v21S(a.START_DATE)),
+        evidenceWhy: v21Text(a, 'EVIDENCE_STATUS_WHY'),
+      });
+    }, (r) => (!r.id ? 'no id' : !r.company ? 'no company' : null)),
     {
       source: 'ITALY_INGEST.COMP_ACTIVITIES',
       precedence: P.REAL_SOURCE,
@@ -1481,7 +1931,41 @@
 
   /* ---- MARKET ----------------------------------------------------------- */
   const marketObservations = build('marketObservations', [
-    V21('marketObservations'),
+    V21('marketObservations', (m) => {
+      const per = String(m.REFERENCE_PERIOD || '').split('..');
+      const periodStart = dmyToIso(per[0]), periodEnd = dmyToIso(per[1] || per[0]);
+      const seriesKey = U(m.GROUP) + '|' + (m.PRODUCT === null || m.PRODUCT === undefined ? '' : String(m.PRODUCT));
+      const cropKey = MARKET_CROP[seriesKey] || MARKET_CROP[U(m.GROUP) + '|*'] || cropsOfIds(m.CROP_IDS)[0] || null;
+      const stopped = /^PARADA_EM_(\d{4})$/.exec(U(m.SERIES_STATE));
+      return Object.assign(v21Env(m), {
+        id: m.ID, group: v21S(m.GROUP), product: v21S(m.PRODUCT), market: v21S(m.MARKET),
+        priceRaw: v21S(m.PRICE_RAW), price: N(m.PRICE_NUM), unit: v21S(m.UNIT), stage: v21S(m.STAGE),
+        referencePeriod: v21S(m.REFERENCE_PERIOD), publicationDate: v21S(m.PUBLICATION_DATE),
+        publicationDateISO: isoOf(m.PUBLICATION_DATE), geography: v21S(m.GEOGRAPHY),
+        cropKey, seriesKey, periodStart, periodEnd,
+        daysSinceObservation: periodEnd ? daysFrom(periodEnd) : null,
+        isCurrentSeries: U(m.SERIES_STATE) === 'CORRENTE',
+        stoppedYear: stopped ? Number(stopped[1]) : null,
+        /* PARADA_EM_2015 is a STATE and a YEAR welded into one token, so it is
+           not a closed vocabulary and cannot have a dictionary entry: a series
+           that stops in 2027 would print the raw Portuguese. Split at the
+           boundary — the state joins the enum table, the year is a number. */
+        hasStage: !!v21S(m.STAGE), hasPublicationDate: !!v21S(m.PUBLICATION_DATE),
+        prevPrice: N(m.PREV_PRICE_NUM), changeVsPrev: N(m.CHANGE_VS_PREV_PCT),
+        yearAgoPrice: N(m.YEAR_AGO_PRICE_NUM), changeVsYearAgo: N(m.CHANGE_VS_YEAR_AGO_PCT),
+        seriesState: U(m.SERIES_STATE) === 'CORRENTE' ? 'CURRENT' : stopped ? 'STOPPED' : null,
+        seriesStateRaw: v21S(m.SERIES_STATE),
+        seriesWarning: null,
+        seriesWarningText: v21Text(m, 'SERIES_WARNING'),
+        /* COMMODITY_STAGE is the R5 distinction: a processed-product price is
+           not the crop's market. It travels so no crop panel can average one
+           into the other. */
+        commodityStage: v21S(m.COMMODITY_STAGE),
+        observations: N(m.OBSERVATIONS_IN_SERIES), sourceId: v21S(m.SOURCE_ID),
+        publishedDaysAgo: daysFrom(isoOf(m.PUBLICATION_DATE)),
+        ui: { marketCropKey: cropKey ? MARKET_VIEW_KEY[cropKey] || null : null },
+      });
+    }, (r) => (!r.id ? 'no ID' : null)),
     {
       source: 'ITALY_INGEST.MARKET',
       precedence: P.REAL_SOURCE,
@@ -1536,7 +2020,15 @@
 
   /* ---- SCIENCE ---------------------------------------------------------- */
   const scienceRecords = build('scienceRecords', [
-    V21('scienceRecords'),
+    V21('scienceRecords', (r) => Object.assign(v21Env(r), {
+      id: r.ID, title: v21S(r.TITLE), doi: v21S(r.DOI),
+      author: v21S(r.AUTHOR), orcid: v21S(r.ORCID), institution: v21S(r.INSTITUTION),
+      publishedAt: v21S(r.PUBLISHED_AT), date: v21S(r.PUBLISHED_AT),
+      year: v21S(r.PUBLISHED_AT) ? String(r.PUBLISHED_AT).slice(0, 4) : null,
+      venue: v21S(r.VENUE), materialType: v21S(r.MATERIAL_TYPE), materialRole: v21S(r.MATERIAL_ROLE),
+      crop: v21S(r.CROP), issue: v21S(r.ISSUE), countryOfFact: v21S(r.COUNTRY_OF_FACT),
+      url: v21S(r.SOURCE_URL), sourceId: v21S(r.SOURCE_ID),
+    }), (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null)),
     {
       source: 'ITALY_INGEST.SCIENCE',
       precedence: P.REAL_SOURCE,
@@ -1562,7 +2054,22 @@
   const AFFILIATION_CAVEAT = 'The affiliation belongs to the author, not to the study.';
 
   const researchers = build('researchers', [
-    V21('researchers'),
+    V21('researchers', (r) => Object.assign(v21Env(r), {
+      id: r.ID, name: v21S(r.PERSON), category: v21S(r.CATEGORY),
+      orcid: /^https?:\/\/orcid\.org\//i.test(v21S(r.ORCID) || '') ? v21S(r.ORCID) : null,
+      openAlexId: v21S(r.OPENALEX_ID), openalexId: v21S(r.OPENALEX_ID),
+      institutions: A(r.INSTITUTIONS),
+      org: A(r.INSTITUTIONS).join(' · ') || null,
+      orgLabel: A(r.INSTITUTIONS).join(' · ') || null,
+      affiliationCaveat: AFFILIATION_CAVEAT,
+      theme: v21S(r.THEME), themeKey: v21S(r.THEME),
+      themeLabel: (THEME_UI[U(r.THEME)] || {}).title || null,
+      worksInScope: N(r.WORKS_IN_SCOPE),
+      lastActivity: v21S(r.LAST_ACTIVITY), daysFromRef: daysFrom(v21S(r.LAST_ACTIVITY)),
+      identityStatus: v21S(r.IDENTITY_STATUS), identityState: v21S(r.IDENTITY_STATUS),
+      role: v21S(r.ROLE), factRegion: v21S(r.FACT_REGION),
+      sourceId: v21S(r.SOURCE_ID),
+    }), (r) => (!r.id ? 'no ID' : !r.name ? 'no person' : null)),
     {
       source: 'ITALY_INGEST.RESEARCHERS',
       precedence: P.REAL_SOURCE,
@@ -1719,7 +2226,23 @@
   };
 
   const resistance = build('resistance', [
-    V21('resistance'),
+    V21('resistance', (r) => Object.assign(v21Env(r), {
+      id: r.ID,
+      species: v21S(r.SPECIES), speciesIt: v21S(r.SPECIES_IT), family: v21S(r.FAMILY),
+      mechanism: v21Text(r, 'MECHANISM'),
+      mechanismStated: v21Text(r, 'MECHANISM').state === KNOWLEDGE.CLEAR,
+      crop: cropsOfIds(r.CROP_IDS)[0] || cropResolve(r.CROP_DECLARED).label,
+      cropRaw: v21S(r.CROP_DECLARED),
+      cropKey: cropsOfIds(r.CROP_IDS)[0] || cropResolve(r.CROP_DECLARED).key,
+      cropKeys: cropsOfIds(r.CROP_IDS).length ? cropsOfIds(r.CROP_IDS) : cropResolve(r.CROP_DECLARED).keys,
+      cropScope: cropScopeOfIds(r.CROP_IDS), cropDeclared: null, cropIsProse: false,
+      firstCaseYear: v21S(r.FIRST_CASE_YEAR),
+      regions: regionsOfIds(r.REGION_IDS).length ? regionsOfIds(r.REGION_IDS) : A(r.REGIONS),
+      multiple: v21Text(r, 'MULTIPLE_RESISTANCE').state === KNOWLEDGE.CLEAR,
+      multipleText: v21Text(r, 'MULTIPLE_RESISTANCE'),
+      citation: v21S(r.CITATION), authority: v21S(r.AUTHORITY),
+      url: v21S(r.SOURCE_URL), sourceId: v21S(r.SOURCE_ID),
+    }), (r) => (!r.id ? 'no ID' : !r.species ? 'no species' : null)),
     {
       source: 'ITALY_INGEST.RESISTANCE',
       precedence: P.REAL_SOURCE,
@@ -1754,7 +2277,27 @@
 
   /* ---- PUBLIC VOICES ---------------------------------------------------- */
   const publicVoices = build('publicVoices', [
-    V21('publicVoices'),
+    V21('publicVoices', (v) => Object.assign(v21Env(v), {
+      id: v.ID, kind: v21S(v.KIND) || v21S(v.VOICE_KIND),
+      person: v21S(v.PERSON), identityState: v21S(v.PERSON_IDENTITY_STATE),
+      role: v21S(v.ROLE), organization: v21S(v.ORGANIZATION),
+      platform: v21S(v.PLATFORM), channel: v21S(v.CHANNEL), title: v21S(v.CONTENT_TITLE),
+      date: v21S(v.DATE), dateISO: isoOf(v21S(v.DATE)), dateState: v21Known(v.DATE),
+      dateRelative: v21S(v.DATE_RELATIVE), dateNote: v21S(v.DATE_NOTE),
+      crop: v21S(v.CROP), cropCanonical: cropsOfIds(v.CROP_IDS)[0] || cropResolve(v.CROP).key,
+      issue: v21S(v.ISSUE), caseId: v21S(v.CASE_ID),
+      region: regionsOfIds(v.REGION_IDS)[0] || v21S(v.REGION),
+      countryOfFact: v21S(v.COUNTRY_OF_FACT),
+      /* The quote as published. Never translated, never parsed for a fact. */
+      textOriginal: v21S(v.TEXT_ORIGINAL),
+      /* Who is listening is a different fact from who is speaking, and the
+         package states it separately. It stays separate here. */
+      audienceKind: v21S(v.CHANNEL_AUDIENCE_KIND),
+      proves: v21Text(v, 'WHAT_IT_PROVES'),
+      notProves: v21Text(v, 'WHAT_IT_DOES_NOT_PROVE'),
+      sourceUrl: v21S(v.SOURCE_URL), sourceId: v21S(v.SOURCE_ID),
+      daysFromRef: daysFrom(isoOf(v21S(v.DATE))),
+    }), (r) => (!r.id ? 'no ID' : null)),
     {
       source: 'ITALY_INGEST.VOICES',
       precedence: P.REAL_SOURCE,
@@ -1790,7 +2333,20 @@
   ], 'real public field voices; identity is never upgraded, the quote is never translated');
 
   const publicChannels = build('publicChannels', [
-    V21('publicChannels'),
+    V21('publicChannels', (c) => {
+      const host = (String(v21S(c.CHANNEL_URL) || '').match(/^https?:\/\/([^/]+)/i) || [])[1] || '';
+      return Object.assign(v21Env(c), {
+        id: c.ID, name: v21S(c.CHANNEL), channel: v21S(c.CHANNEL), url: v21S(c.CHANNEL_URL),
+        host: host || null,
+        platform: /youtube\.com$/i.test(host.replace(/^www\./, '')) ? 'YouTube' : null,
+        identityState: v21S(c.IDENTITY_STATE),
+        contentTypeExample: v21S(c.CONTENT_TYPE_EXAMPLE),
+        exampleTitle: v21S(c.EXAMPLE_TITLE), exampleUrl: v21S(c.EXAMPLE_URL),
+        examplePublishedAt: v21S(c.EXAMPLE_PUBLISHED_AT),
+        examplePublishedISO: isoOf(v21S(c.EXAMPLE_PUBLISHED_AT)),
+        exampleViews: N(c.VIEWS), views: N(c.VIEWS), caseId: v21S(c.CASE_ID),
+      });
+    }, (r) => (!r.id ? 'no ID' : null)),
     {
       source: 'ITALY_INGEST.CHANNELS',
       precedence: P.REAL_SOURCE,
@@ -1961,7 +2517,49 @@
 
   /* ---- SOURCES · EVENTS · NEWS ------------------------------------------ */
   const sources = build('sources', [
-    V21('sources'),
+    V21('sources', (s) => {
+      const type = v21S(s.TYPE);
+      const group = SOURCE_GROUP[U(type)] || null;
+      const freq = v21S(s.FREQUENCY);
+      return Object.assign(v21Env(s), {
+        id: s.ID || s.SOURCE_ID, sourceId: s.SOURCE_ID || s.ID,
+        /* A SOURCE WITHOUT A SHOWABLE NAME IS STILL A SOURCE.
+           Seventeen of these rows carry a research note where the name should
+           be, so the ingest withholds the text — and rejecting them for having
+           no name would delete a source that other records CITE, breaking the
+           evidence link R1 exists to protect.
+
+           The package's own key note says `ID = SRC_<HOST>, derived from the
+           URL`, so the host is recoverable from the identifier itself. That is
+           reading the declared key, not inventing a label. The encoding folds
+           '-' onto '_', so a hyphenated host comes back with a dot; the value
+           is therefore named for what it is — a key-derived label — and the
+           state says the real name was withheld. */
+        name: v21S(s.NAME) || hostFromSourceKey(s.ID),
+        nameState: v21S(s.NAME) ? KNOWLEDGE.CLEAR
+          : s.NAME__PT_ONLY ? KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY : KNOWLEDGE.NOT_ESTABLISHED,
+        nameIsKeyDerived: !v21S(s.NAME),
+        type,
+        role: v21Text(s, 'ROLE'),
+        roleText: v21Text(s, 'ROLE').it, roleCode: type,
+        group, groupLabel: group ? SOURCE_GROUP_LABEL[group] : null,
+        uiGroup: group ? SOURCE_GROUP_LABEL[group] : null,
+        country: v21S(s.COUNTRY), geography: v21S(s.GEOGRAPHY), url: v21S(s.URL),
+        frequency: freq, frequencyKnown: !!(freq && !FREQ_NOT_DECLARED[U(freq)]),
+        latestObservation: v21S(s.LATEST_OBSERVATION),
+        latestObservationISO: isoOf(String(v21S(s.LATEST_OBSERVATION) || '').slice(0, 10)),
+        accessStatus: v21S(s.ACCESS_STATUS),
+        limitations: v21Text(s, 'LIMITATIONS'),
+        limitationsText: v21Text(s, 'LIMITATIONS').it,
+        /* R2/R3 · the route measurement, when the package carries one. A source
+           that needs an Italian route is a fact about the source, not about us. */
+        accessEvidence: v21S(s.ACCESS_EVIDENCE),
+        accessEvidenceMeasured: s.ACCESS_EVIDENCE_MEASURED === true,
+        requiresItalianRoute: s.REQUIRES_ITALIAN_ROUTE === true,
+        idAliases: A(s.ID_ALIASES),
+        ui: { color: SOURCE_TYPE_COLOR[U(type)] || NEUTRAL, order: null },
+      });
+    }, (r) => (!r.id ? 'no ID' : !r.name ? 'no name' : null)),
     {
       source: 'ITALY_INGEST.SOURCES',
       precedence: P.REAL_SOURCE,
@@ -2007,7 +2605,29 @@
   ], 'traceable source registry; the group is derived from TYPE through a table written out in full');
 
   const futureEvents = build('futureEvents', [
-    V21('futureEvents'),
+    V21('futureEvents', (e) => {
+      /* The package parses the date itself and says how precisely. A range that
+         it could not parse arrives as a state, not as a guessed day. */
+      const startDate = v21S(e.START_DATE) || isoRange(v21S(e.DATE))[0];
+      const endDate = v21S(e.END_DATE) || isoRange(v21S(e.DATE))[1];
+      const part = e.CONFIRMED_PARTICIPATION && typeof e.CONFIRMED_PARTICIPATION === 'object'
+        && !Array.isArray(e.CONFIRMED_PARTICIPATION) ? e.CONFIRMED_PARTICIPATION : {};
+      return Object.assign(v21Env(e), {
+        id: e.ID, name: v21S(e.EVENT), date: v21S(e.DATE),
+        startDate, endDate, dateEnd: endDate,
+        dateState: v21S(e.DATE_PARSE_STATE) || v21Known(e.DATE),
+        datePrecision: v21S(e.DATE_PRECISION),
+        location: v21S(e.LOCATION), sector: v21S(e.SECTOR),
+        cropRelevance: v21S(e.CROP_RELEVANCE), cropRelevanceList: A(e.CROP_RELEVANCE),
+        organizer: v21S(e.ORGANIZER), url: v21S(e.OFFICIAL_URL),
+        exhibitorListState: v21S(e.EXHIBITOR_LIST_STATE), timeState: v21S(e.TIME_STATE),
+        confirmedParticipation: part, confirmedParticipationList: Object.keys(part),
+        participationLaw: v21Text(e, 'PARTICIPATION_LAW'),
+        participationLawText: v21Text(e, 'PARTICIPATION_LAW').it,
+        note: v21Text(e, 'NOTE'),
+        daysFromRef: daysFrom(startDate), daysToStart: daysFrom(startDate),
+      });
+    }, (r) => (!r.id ? 'no ID' : !r.name ? 'no event name' : null)),
     {
       source: 'ITALY_INGEST.EVENTS',
       precedence: P.REAL_SOURCE,
@@ -2049,7 +2669,22 @@
   ], 'real sector events; a date range is split, never flattened');
 
   const news = build('news', [
-    V21('news'),
+    V21('news', (n) => Object.assign(v21Env(n), {
+      id: n.ID, title: v21S(n.TITLE), publisher: v21S(n.PUBLISHER), outlet: v21S(n.PUBLISHER),
+      author: v21S(n.AUTHOR), date: v21S(n.DATE),
+      dateISO: isoOf(v21S(n.DATE)), dateState: v21Known(n.DATE),
+      crop: v21S(n.CROP),
+      cropCanonical: cropsOfIds(n.CROP_IDS)[0] || cropResolve(n.CROP).key,
+      cropScope: A(n.CROP_IDS).length ? cropScopeOfIds(n.CROP_IDS) : cropResolve(n.CROP).scope,
+      issue: v21S(n.ISSUE),
+      region: regionsOfIds(n.REGION_IDS)[0] || v21S(n.REGION),
+      contentKind: v21S(n.CONTENT_KIND),
+      contentKindMeaning: v21Text(n, 'CONTENT_KIND_MEANING'),
+      isEditorial: U(n.CONTENT_KIND) === 'EDITORIAL',
+      summary: v21Text(n, 'SINTONIA_SUMMARY'),
+      caveat: v21Text(n, 'CAVEAT'),
+      url: v21S(n.SOURCE_URL), daysFromRef: daysFrom(isoOf(v21S(n.DATE))),
+    }), (r) => (!r.id ? 'no ID' : !r.title ? 'no title' : null)),
     {
       source: 'ITALY_INGEST.NEWS',
       precedence: P.REAL_SOURCE,
@@ -2210,7 +2845,22 @@
      the slot that used to be empty is now filled from real data rather than
      left waiting for a table that already existed. */
   const regulatoryFuture = build('regulatoryFuture', [
-    V21('regulatoryFuture'),
+    V21('regulatoryFuture', (r) => Object.assign(v21Env(r), {
+      id: r.ID,
+      /* This collection is an OBSERVATION about the regulatory future, not the
+         product-expiry calendar. It carries no product and no date of its own:
+         the dated facts live in regulatoryFutureFacts, which is a different
+         table and is counted separately. */
+      product: null, productKey: null, reg: null, holder: null,
+      status: v21S(r.OBSERVATION_CLASS),
+      expiry: null, expiryISO: null, daysToExpiry: null, expired: false,
+      regCat: null, line: null, labelUrl: A(r.SOURCE_URLS)[0] || null,
+      observationClass: v21S(r.OBSERVATION_CLASS), confidence: v21S(r.CONFIDENCE),
+      sourceScope: v21S(r.SOURCE_SCOPE),
+      whatItIs: v21Text(r, 'WHAT_IT_IS'),
+      proves: v21Text(r, 'WHAT_IT_PROVES'),
+      notProves: v21Text(r, 'WHAT_IT_DOES_NOT_PROVE'),
+    }), (r) => (!r.id ? 'no ID' : null)),
     {
       source: 'ITALY_INGEST.PRODUCTS · expiry',
       precedence: P.REAL_SOURCE,
@@ -2231,7 +2881,31 @@
 
   /* ---- FUTURE ----------------------------------------------------------- */
   const futureSignals = build('futureSignals', [
-    V21('futureSignals'),
+    V21('futureSignals', (f) => Object.assign(v21Env(f), {
+      id: f.ID || f.SIGNAL_ID, legacyId: v21S(f.LEGACY_ID),
+      crop: cropsOfIds(f.CROP_IDS)[0] || cropResolve(f.CROP).label,
+      cropRaw: v21S(f.CROP),
+      cropKey: cropsOfIds(f.CROP_IDS)[0] || cropResolve(f.CROP).key,
+      cropKeys: cropsOfIds(f.CROP_IDS).length ? cropsOfIds(f.CROP_IDS) : cropResolve(f.CROP).keys,
+      cropScope: A(f.CROP_IDS).length ? cropScopeOfIds(f.CROP_IDS) : cropResolve(f.CROP).scope,
+      issue: issueResolve(f.ISSUE).it, issueEn: issueResolve(f.ISSUE).en, issueRaw: v21S(f.ISSUE),
+      region: regionsOfIds(f.REGION_IDS)[0] || v21S(f.REGION),
+      regionRaw: v21S(f.REGION), regionScope: A(f.REGION_IDS).length ? 'RESOLVED' : 'NOT_OBSERVED',
+      regionKeys: regionsOfIds(f.REGION_IDS),
+      status: null,
+      whoIsTalking: v21Text(f, 'WHO_IS_TALKING'),
+      whatChanged: v21Text(f, 'WHAT_CHANGED'),
+      whyWatch: v21Text(f, 'WHY_WATCH'),
+      howWeGotHere: v21Text(f, 'HOW_SINTONIA_GOT_HERE'),
+      observedFacts: v21Text(f, 'OBSERVED_FACTS'),
+      interpretation: v21Text(f, 'SINTONIA_INTERPRETATION'),
+      unknown: v21Text(f, 'UNKNOWN'),
+      nextWindow: v21Text(f, 'NEXT_WINDOW'),
+      portfolioConnection: v21Text(f, 'PORTFOLIO_CONNECTION'),
+      whatWouldPromoteIt: v21Text(f, 'WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY'),
+      promotedToRadar: v21S(f.PROMOTED_TO_RADAR),
+      evidenceIds: [], confidence: null,
+    }), (r) => (!r.id ? 'no ID' : null)),
     {
       source: 'ITALY_INGEST.FUTURE_SIGNALS',
       precedence: P.REAL_SOURCE,
@@ -2277,12 +2951,131 @@
     { source: 'ITALY_DEMO.SIGNALS' }
   );
 
+  /* A narrative slot the upstream simply does not fill. Distinct from prose it
+     wrote and we may not show: this one was never written. */
+  const NO_NARRATIVE = { state: KNOWLEDGE.NOT_ESTABLISHED, it: null, en: null };
+
   /* ---- OPPORTUNITIES ---------------------------------------------------- */
   const windowByLegacyCase = {};
   cropWindows.records.forEach((w) => { if (w.legacyCaseId) windowByLegacyCase[U(w.legacyCaseId)] = w; });
 
   const opportunities = build('opportunities', [
-    V21('opportunities'),
+    /* ── THE OPPORTUNITY ENGINE · 37 objects, and what the client is told ──
+       The three cards this replaces were written by hand and carried prose for
+       evidence. The engine derives 37 from the package itself, collapses 40
+       duplicates onto existing cases instead of multiplying them, and lets the
+       red team knock 17 out. The 17 never reach this file: the site ingest does
+       not ship a rejected opportunity, so no view can render one by mistake.
+
+       THE LABEL THE CLIENT SEES
+       All 37 are CLIENT_SAFE=false, and that was not loosened to raise a
+       number: an opportunity is OUR reading over third-party facts, and the
+       rule that governs our own crossings governs this too. Nine of them pass
+       with the method declared beside them; the rest are candidates.
+
+           9   CONVERGENZA VERIFICATA  ·  VERIFIED CONVERGENCE
+           28  DA VALIDARE             ·  TO VALIDATE
+
+       The package's own OPPORTUNITY_LABEL_IT says «OPPORTUNITÀ CONFERMATA».
+       That wording is not shipped and not used: 'confirmed' is what an engine
+       calls a case that cleared its gates, and it is not what a client should
+       read next to a card whose evidence is a convergence we drew. The label
+       comes from the interface dictionary, in both languages, and nowhere else.
+
+       WHAT NEVER REACHES THE RECORD
+       CLIENT_SAFE, RENDERABLE_WITH_METHOD, QA_STATUS (EVIDENCE_DERIVED) and the
+       blocking gates are engine bookkeeping. They are read here to CHOOSE the
+       label and are then dropped — they are not properties of this object, so
+       no binding, no drawer and no debug dump can put them in front of a
+       client. What survives is one word: `convergence`.
+
+           A FLAG YOU DELETE CANNOT BE RENDERED BY ACCIDENT. */
+    V21('opportunities', (o) => {
+      const verified = o.RENDERABLE_WITH_METHOD === true;
+      const crop = cropOfId(o.CROP);
+      const issue = issueOfId(o.TARGET);
+      const region = regionOfId(o.GEOGRAPHY);
+      const scope = SCOPE_BY_ID[U(o.GEOGRAPHY)] || null;
+      /* The identity the engine deduplicates on, restated as a title: crop,
+         target and place. Every part is a resolved proper name, so the line is
+         the same fact in both languages and asserts nothing the record does
+         not already carry. */
+      const title = [crop, issue ? issue.it : null, region || (scope ? null : null)]
+        .filter(Boolean).join(' · ') || null;
+      const titleEn = [crop, issue ? issue.en : null, region].filter(Boolean).join(' · ') || null;
+      return {
+        id: o.ID, legacyCaseId: null,
+        title, titleEn,
+        /* THE ONE STATE THE CLIENT SEES. */
+        convergence: verified ? 'VERIFIED_CONVERGENCE' : 'TO_VALIDATE',
+        crop, cropRaw: null, cropScope: cropScopeOfIds(o.CROP_IDS),
+        cropKeys: crop ? [crop] : cropsOfIds(o.CROP_IDS),
+        region, regionRaw: null,
+        regionNames: region ? [region] : regionsOfIds(o.REGION_IDS),
+        regionKeys: region ? [region] : regionsOfIds(o.REGION_IDS),
+        regionScope: region ? 'RESOLVED' : scope ? 'SCOPE_ONLY' : 'NOT_OBSERVED',
+        geoScope: scope || v21S(o.GEOGRAPHIC_SCOPE),
+        issue: issue ? issue.it : null, issueEn: issue ? issue.en : null, issueRaw: null,
+        issueType: null,
+        caseLabel: null, forbiddenLabel: null,
+        /* The archetype is WHY this is a case at all, as a token the interface
+           dictionary translates. Its Portuguese gloss upstream is not shipped. */
+        archetype: v21S(o.ARCHETYPE),
+        status: v21S(o.STATUS),
+        /* The engine's window is the APPLICATION window and is UNKNOWN on 30 of
+           37 — because only 2 of 35 label crops declare one. That is not the
+           same question as whether the signal is current, which SIGNAL_DATE
+           answers separately. Both travel; neither substitutes for the other. */
+        windowStart: v21S(o.WINDOW_START), windowEnd: v21S(o.WINDOW_END),
+        windowState: v21S(o.WINDOW_STATE),
+        daysRemaining: N(o.DAYS_REMAINING),
+        signalDate: v21S(o.SIGNAL_DATE), signalAgeDays: N(o.SIGNAL_AGE_DAYS),
+        windowText: null, windowApplication: null, windowMonitoring: null, windowNextCycle: null,
+        /* The numbers live outside the sentence, so the sentence stays
+           translatable. The keys are a closed vocabulary the dictionary names. */
+        numbers: o.NUMBERS && typeof o.NUMBERS === 'object'
+          ? Object.keys(o.NUMBERS).map((k) => ({ key: k, value: o.NUMBERS[k] })) : [],
+        productLinkState: v21S(o.PRODUCT_LINK_STATE),
+        adamaProducts: A(o.PRODUCT_RELATIONSHIPS),
+        adamaActiveSubstance: [],
+        evidenceIds: A(o.EVIDENCE_IDS),
+        evidenceFamilies: A(o.EVIDENCE_FAMILIES),
+        evidenceCount: N(o.EVIDENCE_COUNT),
+        /* The score ORDERS, it does not prove. Kept so the radar can sort, and
+           named so no card can print it as a confidence percentage. */
+        sortScore: N(o.OPPORTUNITY_SCORE),
+        scoreDimensions: o.SCORE_DIMENSIONS && typeof o.SCORE_DIMENSIONS === 'object'
+          ? Object.keys(o.SCORE_DIMENSIONS).map((k) => ({ key: k, value: o.SCORE_DIMENSIONS[k] })) : [],
+        /* Who should look at this now. A routing hint, never a task. */
+        actionMap: A(o.ACTION_MAP),
+        proves: v21Text(o, 'WHAT_IT_PROVES'),
+        notProves: v21Text(o, 'WHAT_IT_DOES_NOT_PROVE'),
+        /* The prose slots the old three cards filled. The engine writes no
+           free prose at all, so they resolve to the not-established state
+           rather than to an empty string that would read as a blank panel. */
+        whatIsHappening: NO_NARRATIVE, whyItMatters: NO_NARRATIVE,
+        currentEvidence: NO_NARRATIVE, marketContext: NO_NARRATIVE,
+        competitorContext: NO_NARRATIVE, scienceContext: NO_NARRATIVE,
+        fieldVoices: NO_NARRATIVE, whatWeKnow: NO_NARRATIVE,
+        whatWeDoNotKnow: NO_NARRATIVE, interpretations: NO_NARRATIVE,
+        currentEvidenceList: [], whatWeKnowList: [], whatWeDoNotKnowList: [], interpretationsList: [],
+        happeningState: null, happeningDocument: null, happeningContent: null,
+        observationDate: null, happeningPublicationDate: null, freshnessDays: null,
+        observedStage: null, happeningSourceId: null, happeningSourceResolves: false,
+        whyMandatory: null, whyNote: null, whyRegional: [],
+        scienceContextState: null, scienceContextCounts: [],
+        canonicalWindow: null, windowId: null,
+        sourceIds: A(o.SOURCE_IDS),
+        sourceIdsResolve: A(o.SOURCE_IDS).every((x) => !!sourceById[U(x)]),
+        ui: categoryOf(issue ? issue.en : null),
+        provenance: P.REAL_DERIVED,
+        /* `raw` is deliberately NOT carried here. On every other family it is
+           the audit trail; on this one it is the only place CLIENT_SAFE,
+           RENDERABLE_WITH_METHOD and the gate list still exist, and a drawer
+           that dumps `raw` would put them on screen. The evidence ids above are
+           the audit trail this object needs. */
+      };
+    }, (r) => (!r.id ? 'no ID' : null)),
     {
       source: 'ITALY_INGEST.OPPORTUNITIES',
       precedence: P.REAL_SOURCE,
@@ -2404,7 +3197,53 @@
      crop map they return 2 VERIFIED (EVURE PRO, MAVRIK SMART) and 4 still
      needing a label check. Neither number is invented — the second is simply
      the audit being asked the question in the vocabulary it was written in. */
+  /* The engine already asked this question, and asked it of a bigger corpus.
+     PRODUCT_LINK_STATE is graded against the 2.030 label pairs; the 12-row
+     audit below is what the portal had before those pairs existed. Re-deriving
+     the answer from the smaller source would DOWNGRADE a verified link to
+     LABEL_CHECK_NEEDED and call that caution.
+
+         WHEN TWO READINGS DISAGREE, THE ONE THAT READ MORE LABELS WINS —
+         AND THE RECORD SAYS WHICH ONE ANSWERED. */
+  /* PRODUCT_LINK_STATE is a verdict about the OPPORTUNITY, not about each
+     product on it. Stamping it onto all twelve products of a case would be the
+     aggregate-into-item error: true of the set, asserted of the member.
+
+     So each product is graded against the pair corpus itself, on this case's own
+     canonical crop and target. Measured on this package the two answers agree —
+     an opportunity's product list IS the product list of its crop x target
+     pairs — but they agree because the lookup was done, not because it was
+     assumed, and a future case where they diverge will show the divergence
+     instead of hiding it. */
+  const pairStrengthIndex = {};
+  productRelationships.records.forEach((r) => {
+    if (!r.crop || !r.issueEn || !r.productKey) return;
+    const k = U(r.crop) + '|' + U(r.issueEn);
+    const cur = pairStrengthIndex[k] = pairStrengthIndex[k] || {};
+    const prev = cur[r.productKey];
+    if (!prev || STRENGTH[r.strength].rank < STRENGTH[prev].rank) cur[r.productKey] = r.strength;
+  });
+
+  const engineLinks = (o) => {
+    o.issueKey = o.issueEn || null;
+    const byProduct = (o.crop && o.issueEn && pairStrengthIndex[U(o.crop) + '|' + U(o.issueEn)]) || {};
+    o.productLinks = o.adamaProducts.map((name) => {
+      const strength = byProduct[U(name)] || 'LABEL_CHECK_NEEDED';
+      return {
+        name, product: name, strength,
+        strengthRank: STRENGTH[strength].rank,
+        resolvedThrough: byProduct[U(name)]
+          ? 'V21 label use pair · ' + o.crop + ' x ' + o.issueEn
+          : 'NO_PAIR_FOR_THIS_CROP_AND_TARGET',
+        inRegistry: !!productByKey[U(name)],
+        absenceRule: ABSENCE_RULE_TEXT,
+      };
+    });
+    o.verifiedProductCount = o.productLinks.filter((l) => l.strength === 'VERIFIED_LABEL_MATCH').length;
+  };
+
   opportunities.records.forEach((o) => {
+    if (o.productLinkState !== undefined && o.productLinkState !== null) { engineLinks(o); return; }
     const cropEN = o.cropKeys[0] || null;
     /* Every wording the resolver can produce is tried, in the order the record
        carries them: resolved Italian, resolved English, published source text.
@@ -2449,15 +3288,172 @@
   /* ---- AGROMET · CROSSINGS ---------------------------------------------
      No upstream table yet. An empty collection is a valid answer and is
      reported as empty rather than filled with invented rows. */
-  const agrometConditions = build('agrometConditions', [V21('agrometConditions')], 'agrometeorological conditions; awaiting an upstream table');
-  const clientSafeCrossings = build('clientSafeCrossings', [V21('clientSafeCrossings')], 'audited cross-domain crossings; awaiting an upstream table');
+  const agrometConditions = build('agrometConditions', [
+    V21('agrometConditions', (a) => Object.assign(v21Env(a), {
+      id: a.ID,
+      observationClass: v21S(a.OBSERVATION_CLASS),
+      confidence: v21S(a.CONFIDENCE), sourceScope: v21S(a.SOURCE_SCOPE),
+      region: regionsOfIds(a.REGION_IDS)[0] || null,
+      regions: regionsOfIds(a.REGION_IDS),
+      crops: cropsOfIds(a.CROP_IDS),
+      whatItIs: v21Text(a, 'WHAT_IT_IS'),
+      proves: v21Text(a, 'WHAT_IT_PROVES'),
+      notProves: v21Text(a, 'WHAT_IT_DOES_NOT_PROVE'),
+    }), (r) => (!r.id ? 'no ID' : null)),
+  ], 'agrometeorological observations, each with the scope its own source declares');
+  const clientSafeCrossings = build('clientSafeCrossings', [
+    V21('clientSafeCrossings', (c) => Object.assign(v21Env(c), {
+      id: c.ID, crossingType: v21S(c.CROSSING_TYPE),
+      crop: cropOfId(c.CROP_ID), cropId: v21S(c.CROP_ID),
+      /* A crossing states its geographic claim and the scope of that claim
+         separately, because 'observed in Veneto' and 'true of Italy' are not
+         the same sentence. Neither is ever widened here. */
+      geographicClaim: v21S(c.GEOGRAPHIC_CLAIM),
+      geographicClaimScope: v21S(c.GEOGRAPHIC_CLAIM_SCOPE),
+      coverageProvinces: A(c.GEOGRAPHIC_COVERAGE_PROVINCES),
+      coverageRegions: A(c.GEOGRAPHIC_COVERAGE_REGIONS),
+      supportingIds: A(c.SUPPORTING_IDS),
+      allSupportClientSafe: c.ALL_SUPPORT_CLIENT_SAFE === true,
+      renderableWithMethod: c.RENDERABLE_WITH_METHOD === true,
+      invariantsProven: A(c.INVARIANTS_PROVEN),
+      labelLinkStrengths: c.LABEL_LINK_STRENGTHS || null,
+      letsYouAsk: v21Text(c, 'WHAT_IT_LETS_YOU_ASK'),
+      notProves: v21Text(c, 'WHAT_IT_DOES_NOT_PROVE'),
+    }), (r) => (!r.id ? 'no ID' : null)),
+  ], 'audited cross-domain crossings; each one carries the method that makes it readable');
+
+  /* ---- THE ACTIVE-SUBSTANCE LAYER · new in V2.1 -------------------------
+     A product is a formulation; a substance is what acts. The portal has always
+     shown the first and inferred the second from a free-text column. The V2.1
+     package makes the substance an ENTITY with its own identity (CAS, CIPAC),
+     its own mode-of-action codes (HRAC / FRAC / IRAC) and its own European
+     regulatory state — which is what lets an expiry date in Brussels be joined
+     to an Italian label without either one pretending to be the other.
+
+         A EUROPEAN APPROVAL STATE IS NOT ITALIAN MARKETABILITY.
+         The two facts touch. They are not the same fact, and the collection
+         that holds them keeps them in different fields on purpose. */
+  const activeIngredients = build('activeIngredients', [
+    V21('activeIngredients', (a) => Object.assign(v21Env(a), {
+      id: a.ID, name: v21S(a.NAME), normalizedName: v21S(a.NORMALIZED_NAME),
+      italianRegistrations: N(a.ITALIAN_REGISTRATION_COUNT),
+      hrac: A(a.HRAC), hracWssa: A(a.HRAC_WSSA), chemicalFamily: v21S(a.CHEMICAL_FAMILY),
+      irac: A(a.IRAC), iracSubgroup: v21S(a.IRAC_SUBGROUP),
+      frac: A(a.FRAC), fracVersion: v21S(a.FRAC_SOURCE_VERSION),
+      moaState: v21S(a.MOA_STATE),
+      moaLabel: [A(a.HRAC).join('/'), A(a.FRAC).join('/'), A(a.IRAC).join('/')].filter(Boolean).join(' + ') || null,
+      euState: v21S(a.EU_STATE),
+      euApproval: v21S(a.EU_DATE_OF_APPROVAL),
+      euExpiry: v21S(a.EU_EXPIRATION_OF_APPROVAL),
+      euExpiryISO: isoOf(v21S(a.EU_EXPIRATION_OF_APPROVAL)),
+      daysToEuExpiry: daysFrom(isoOf(v21S(a.EU_EXPIRATION_OF_APPROVAL))),
+      euCelex: v21S(a.EU_CELEX), euRenewalState: v21S(a.EU_RENEWAL_STATE),
+      cas: v21S(a.CAS), cipac: v21S(a.CIPAC),
+      notProves: v21Text(a, 'WHAT_IT_DOES_NOT_PROVE'),
+    }), (r) => (!r.id ? 'no ID' : !r.name ? 'no substance name' : null)),
+  ], 'active substances as entities, with mode of action and European state');
+
+  const productActiveIngredients = build('productActiveIngredients', [
+    V21('productActiveIngredients', (r) => Object.assign(v21Env(r), {
+      id: r.ID, productId: v21S(r.PRODUCT_ID), product: v21S(r.PRODUCT_NAME),
+      reg: v21S(r.REGISTRATION_NUMBER),
+      activeIngredientId: v21S(r.ACTIVE_INGREDIENT_ID),
+      activeIngredient: v21S(r.ACTIVE_INGREDIENT),
+      isMixtureComponent: r.IS_MIXTURE_COMPONENT === true,
+      componentsInProduct: N(r.COMPONENTS_IN_PRODUCT),
+      catalogProducts: A(r.COMMERCIAL_CATALOG_PRODUCTS),
+      notProves: v21Text(r, 'WHAT_IT_DOES_NOT_PROVE'),
+    }), (r) => (!r.id ? 'no ID' : null)),
+  ], 'which substance is in which product; a mixture declares how many components it has');
+
+  /* The dated European facts. Separate from regulatoryFuture, which holds the
+     OBSERVATIONS about the regulatory future: a date and a reading of a date
+     are different rows and must be countable separately. */
+  const regulatoryFutureFacts = build('regulatoryFutureFacts', [
+    V21('regulatoryFutureFacts', (r) => Object.assign(v21Env(r), {
+      id: r.ID,
+      activeIngredient: v21S(r.ACTIVE_INGREDIENT),
+      activeIngredientId: v21S(r.ACTIVE_INGREDIENT_ID),
+      euState: v21S(r.EU_STATE),
+      euExpiry: v21S(r.EU_EXPIRATION_OF_APPROVAL),
+      euExpiryISO: isoOf(v21S(r.EU_EXPIRATION_OF_APPROVAL)),
+      daysToExpiry: daysFrom(isoOf(v21S(r.EU_EXPIRATION_OF_APPROVAL))),
+      euCelex: v21S(r.EU_CELEX),
+      italianRegistrations: A(r.ITALIAN_REGISTRATIONS),
+      italianRegistrationCount: N(r.ITALIAN_REGISTRATION_COUNT),
+      catalogProducts: A(r.COMMERCIAL_CATALOG_PRODUCTS),
+      verifiedLabelCrops: A(r.VERIFIED_LABEL_CROPS),
+      verifiedLabelCropsState: v21S(r.VERIFIED_LABEL_CROPS_STATE),
+      /* The package refuses to turn a date into a risk or an opportunity, and
+         publishes both refusals as explicit false. Restating them as booleans
+         here is what stops a screen deciding for itself. */
+      isOpportunity: r.IS_OPPORTUNITY === true,
+      isRisk: r.IS_RISK === true,
+      proves: v21Text(r, 'WHAT_IT_PROVES'),
+      notProves: v21Text(r, 'WHAT_IT_DOES_NOT_PROVE'),
+    }), (r) => (!r.id ? 'no ID' : null)),
+  ], 'published European approval dates for substances Italian ADAMA labels contain');
+
+  /* The 122 regional bulletins. The seven per-crop readings in
+     currentFieldSignals are a SYNTHESIS of these; both are kept, because a
+     synthesis that cannot be opened is an assertion. */
+  const fieldBulletins = build('fieldBulletins', [
+    V21('fieldBulletins', (b) => Object.assign(v21Env(b), {
+      id: b.ID, title: v21S(b.BULLETIN_TITLE), number: v21S(b.BULLETIN_NUMBER),
+      phenologicalStage: v21S(b.PHENOLOGICAL_STAGE_DECLARED),
+      pestsCited: A(b.PESTS_AND_DISEASES_CITED),
+      cropState: v21S(b.CROP_STATE), cropsDeclared: A(b.CROPS_DECLARED),
+      crops: cropsOfIds(b.CROP_IDS),
+      issues: issuesOfIds(b.ISSUE_IDS).map((i) => i.it),
+      region: regionsOfIds(b.REGION_IDS)[0] || null,
+      regions: regionsOfIds(b.REGION_IDS),
+      /* A bulletin covers a province, an areal or a region, and saying which is
+         the whole of R1. GEOGRAPHY_STATE is the package's own verdict and is
+         never widened: a province is not its region. */
+      provinceIds: A(b.PROVINCE_IDS), arealIds: A(b.AREAL_IDS),
+      geographyState: v21S(b.GEOGRAPHY_STATE),
+      regionRepresents: v21S(b.REGION_REPRESENTS),
+      citation: v21S(b.CITATION),
+      observationClass: v21S(b.OBSERVATION_CLASS),
+      guidance: v21Text(b, 'INTERVENTION_GUIDANCE'),
+      date: v21S(b.REFERENCE_DATE), dateISO: isoOf(v21S(b.REFERENCE_DATE)),
+      daysFromRef: daysFrom(isoOf(v21S(b.REFERENCE_DATE))),
+    }), (r) => (!r.id ? 'no ID' : null)),
+  ], 'regional phytosanitary bulletins as read; the geographic scope is the source’s own');
+
+  /* Crop economics by geography and year. NOT the label reach in
+     cropEconomicWeight and NOT the price series in marketObservations: a third
+     fact, kept apart from both so no screen can add them up. */
+  const cropEconomics = build('cropEconomics', [
+    V21('cropEconomics', (c) => Object.assign(v21Env(c), {
+      id: c.ID, cropLiteral: v21S(c.CROP_LITERAL), cropCode: v21S(c.CROP_CODE),
+      crop: cropsOfIds(c.CROP_IDS)[0] || null,
+      geography: v21S(c.GEOGRAPHY), geographyCode: v21S(c.GEOGRAPHY_CODE),
+      geographyLevel: v21S(c.GEOGRAPHY_LEVEL),
+      region: regionsOfIds(c.REGION_IDS)[0] || null,
+      year: N(c.YEAR), indicator: v21S(c.INDICATOR),
+      value: N(c.VALUE), unit: v21S(c.UNIT),
+      isDerived: c.IS_DERIVED_BY_SINTONIA === true,
+      derivation: v21S(c.DERIVATION_FORMULA),
+      dataset: v21S(c.DATASET), observationClass: v21S(c.OBSERVATION_CLASS),
+      caveat: v21Text(c, 'CAVEAT'),
+    }), (r) => (!r.id ? 'no ID' : null)),
+  ], 'crop area and production by geography and year, as the statistical office publishes it');
 
   /* ---- RELATIONSHIPS · the generic graph -------------------------------
      A crossing exists only when a normalized relationship supports it. Sharing
      a crop name is not a relationship, so nothing is generated here from a
      name match. */
   const relationships = build('relationships', [
-    V21('relationships'),
+    V21('relationships', (r) => Object.assign(v21Env(r, P.REAL_DERIVED), {
+      id: r.ID, crossingType: v21S(r.CROSSING_TYPE),
+      crop: cropOfId(r.CROP_ID), cropId: v21S(r.CROP_ID),
+      links: A(r.LINKS),
+      renderableWithMethod: r.RENDERABLE_WITH_METHOD === true,
+      from: r.ID, fromKind: 'crossing',
+      to: v21S(r.CROP_ID), toKind: 'crop',
+      kind: v21S(r.CROSSING_TYPE), evidence: 'declared LINKS',
+    }), (r) => (!r.id ? 'no ID' : null)),
     {
       source: 'derived · window ↔ opportunity ↔ source',
       precedence: P.REAL_DERIVED,
@@ -2690,11 +3686,12 @@
     /* products */
     productsRegulatory, productsCommercial, productRelationships,
     products: productsColl, labelVerdicts, regulatoryLinks, portfolioLinksByCrop,
+    activeIngredients, productActiveIngredients,
     /* agronomy */
-    cropWindows, currentFieldSignals, cropEconomicWeight,
+    cropWindows, currentFieldSignals, cropEconomicWeight, fieldBulletins,
     windowCalendarRows, windowsByRegion,
     /* market */
-    marketObservations, marketByCrop, marketSummaries,
+    marketObservations, marketByCrop, marketSummaries, cropEconomics,
     /* competitor */
     competitorActivities, competitorCompanies, competitorProducts,
     competitorCropDensity, competitorIssueDensity, competitorMatrix,
@@ -2704,7 +3701,7 @@
     /* voices and people */
     publicVoices, publicChannels, publicPeople, people,
     /* future */
-    regulatoryFuture, agrometConditions, futureEvents,
+    regulatoryFuture, regulatoryFutureFacts, agrometConditions, futureEvents,
     opportunities, futureSignals,
     /* registry */
     sources, events: futureEvents, news,
@@ -2827,7 +3824,16 @@
       },
       /* enum-keyed presentation and grouping tables */
       enums: {
-        sourceGroup: rate(sources.count, sources.records.filter((r) => r.group).length),
+        /* `keyed` is the denominator that matters for an enum table: a row that
+           does not carry the key was never a candidate. 158 of the 189 V2.1
+           sources declare no TYPE, so measuring the group table against all 189
+           would report a broken join every time the upstream adds a source
+           without one — which is a different defect, and one this number would
+           then hide. */
+        sourceGroup: Object.assign(
+          rate(sources.count, sources.records.filter((r) => r.group).length),
+          { keyed: sources.records.filter((r) => r.type).length }
+        ),
         personCategory: rate(people.records.length, people.records.filter((r) => PERSON_CATEGORY_LABEL[U(r.category)]).length),
         themeUi: rate(researchers.count, researchers.records.filter((r) => r.themeLabel).length),
         windowStatus: rate(cropWindows.count, cropWindows.records.filter((r) => STATUS_UI[U(r.status)]).length),
@@ -3065,7 +4071,8 @@
     collections, counts, totals, provenanceSummary, provenanceTotals, joinHealth,
     searchIndex, search, searchGrouped, TERMS, cropTerms, issueTerms,
     products, productByKey, findProduct, strengthFor,
-    productRelationships,
+    productRelationships, activeIngredients, productActiveIngredients,
+    regulatoryFutureFacts, fieldBulletins, cropEconomics,
     labelVerdicts,
     people,
     preparation,
