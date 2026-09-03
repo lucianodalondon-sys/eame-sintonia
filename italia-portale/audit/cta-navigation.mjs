@@ -2,6 +2,11 @@
    ---------------------------------------------------------------------------
    node italia-portale/audit/cta-navigation.mjs
         [--json out.json] [--screens N] [--max N] [--port 8951]
+        [--patience 10] [--prove-links 3]
+
+   Circa quaranta minuti su undici schermate e mille cliccabili: e il prezzo di
+   premere ogni cosa davvero, una alla volta, e di rimettere a posto la
+   schermata dopo ognuna. Per lavorarci sopra: --screens 3.
 
    Un bottone che il cursore promette e che non fa niente e peggio di un bottone
    assente: chi legge crede di aver premuto, aspetta, e conclude che il portale
@@ -29,11 +34,20 @@
        passa al passaggio 2, che lo ripreme dopo un FRATELLO VIVO del suo
        gruppo e poi su un'ALTRA schermata, dove ha ancora lavoro da fare.
 
-   La prima versione di questo portone contava 139 morti su 156 in una sola
-   schermata perche indicizzava la lista di partenza e cliccava per indice su un
-   DOM che nel frattempo era cambiato: l'indice 153 non era piu «MONITORAGGIO
-   EVENTI →». Si preme per FIRMA (tag|title|testo|w|h) e ordinale, e si ripristina
-   la schermata prima di ogni pressione che ha spostato qualcosa.
+   Ogni regola qui dentro e cicatrice di un'accusa falsa, e ognuna e scritta
+   accanto al codice che la applica:
+     · 139 morti su 156 in una schermata sola, perche si cliccava per INDICE su
+       un DOM che nel frattempo era cambiato — ora si preme per FIRMA
+       (tag|title|testo|w|h) piu ordinale;
+     · 105 pressioni a vuoto dopo aver premuto «EN», perche la lingua vive in
+       localStorage e sopravvive alla ricarica — ora il ripristino svuota anche
+       la memoria;
+     · 78 collegamenti «APRI LA FONTE →» accusati, mentre aprivano una scheda un
+       secondo dopo la fine della misura;
+     · 10 righe «VEDI L'INTELLIGENCE →» accusate, perche element.click() nomina
+       il bersaglio e salta la geometria — ora si preme col MOUSE, su un punto;
+     · 4 schermate accusate di non avere l'indietro, perche una fisarmonica che
+       si apre era stata scambiata per una discesa in un dettaglio.
 
        UN PORTONE CHE GRIDA AL LUPO INSEGNA A IGNORARLO.
    --------------------------------------------------------------------------- */
@@ -188,6 +202,59 @@ const clickSig = (p, sig, ord) => p.evaluate(([E, S, s, o]) => {
 const harvest = (p) => p.evaluate(() => { const n = window.__m || 0; if (window.__mo) window.__mo.disconnect(); window.__mo = null; return n; })
   .catch(() => 0);
 
+/* ── premere come preme il lettore ─────────────────────────────────────────
+   `element.click()` non e un click: nomina l'elemento come bersaglio e salta la
+   geometria. La riga «DA VALIDARE · VEDI L'INTELLIGENCE →» porta il cursore su
+   351×24 e un handler proprio; con element.click() non succede niente, col
+   mouse apre una scheda. Il portone l'ha accusata dieci volte — e il lettore,
+   che preme con un dito su un punto, non l'avrebbe mai vista morta.
+
+       SI PREME DOVE PREME IL LETTORE: UN PUNTO, CON IL MOUSE.
+
+   Si porta l'elemento in vista, si cerca un punto DENTRO di lui che sia davvero
+   il primo sotto il puntatore (elementFromPoint), e si preme li. Se nessuno dei
+   cinque punti e raggiungibile l'elemento e coperto da uno strato: si registra
+   e si ricade sul click sintetico, per non trasformare un problema di strati in
+   un bottone morto. */
+const aim = (sig, ord) => page.evaluate(([E, S, s, o]) => {
+  const els = eval(E)(); const sg = eval(S);
+  const el = els.filter((e) => sg(e) === s)[o];
+  if (!el) return null;
+  el.scrollIntoView({ block: 'center', inline: 'center' });
+  const r = el.getBoundingClientRect();
+  const W = document.documentElement.clientWidth, H = document.documentElement.clientHeight;
+  for (const [fx, fy] of [[0.5, 0.5], [0.12, 0.5], [0.88, 0.5], [0.5, 0.2], [0.5, 0.8]]) {
+    const x = Math.round(r.left + r.width * fx), y = Math.round(r.top + r.height * fy);
+    if (x < 1 || y < 1 || x > W - 2 || y > H - 2) continue;
+    const top = document.elementFromPoint(x, y);
+    if (top && (top === el || el.contains(top))) return { x, y, reachable: true };
+  }
+  return { x: 0, y: 0, reachable: false };
+}, [ENUM, SIG, sig, ord]).catch(() => null);
+
+const arm = () => page.evaluate(() => {
+  window.__m = 0; if (window.__mo) window.__mo.disconnect();
+  window.__mo = new MutationObserver((ms) => { window.__m += ms.length; });
+  window.__mo.observe(document.documentElement, { subtree: true, childList: true, attributes: true, characterData: true });
+}).catch(() => {});
+
+let obscured = 0;
+/* Il puntatore arriva PRIMA e si ferma un attimo: cosi l'effetto di hover
+   finisce dentro l'impronta «prima» e non viene scambiato per una risposta al
+   click. Restituisce l'impronta di partenza, o null se la firma non c'e piu. */
+const aimAndPre = async (sig, ord) => {
+  const a = await aim(sig, ord);
+  if (!a) return null;
+  if (a.reachable) { await page.mouse.move(a.x, a.y).catch(() => {}); await page.waitForTimeout(90); }
+  const pre = await snap(page).catch(() => null);
+  return { a, pre };
+};
+const strike = async (a, sig, ord) => {
+  await arm();
+  if (a.reachable) await page.mouse.click(a.x, a.y).catch(() => {});
+  else { obscured++; await clickSig(page, sig, ord); }
+};
+
 /* ── ripristino ────────────────────────────────────────────────────────────
    Premere «EN» traduce l'intera applicazione: clickTitle('Concorrenza') non
    trova piu niente, e la scelta SOPRAVVIVE alla ricarica perche vive in
@@ -268,7 +335,6 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
     clickables: cl.length, judged: 0, alive: 0, dead: [], forms: 0, selfNav: 0, skipped: 0,
     sigs, ord, meta, aliveIdx: [] };
 
-  let cur = base;
   for (let i = 0; i < cl.length && sc.judged < MAX_CLICKS; i++) {
     const c = cl[i];
     /* Vale quello che il lettore vede: il cursore, o un <a>/<button> veri. Il
@@ -283,25 +349,30 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
       if ((sc.proved || 0) >= PROVE_LINKS) continue;      /* cablato: l'indirizzo e la prova */
       sc.proved = (sc.proved || 0) + 1;
       const t0 = tabs, u0 = page.url();
-      const hit = await clickSig(page, sigs[i], ord[i]);
+      const aimed = await aimAndPre(sigs[i], ord[i]);
+      if (!aimed) { sc.skipped++; continue; }
+      await strike(aimed.a, sigs[i], ord[i]);
       await harvest(page);
-      if (!hit) { sc.skipped++; continue; }
-      /* la finestra larga che una scheda nuova richiede davvero */
-      for (let w = 0; w < 18 && tabs === t0 && page.url() === u0; w++) await page.waitForTimeout(200);
+      /* la finestra larga che una scheda nuova richiede davvero: la prima
+         apertura di una sessione puo prendersi piu di tre secondi */
+      for (let w = 0; w < 30 && tabs === t0 && page.url() === u0; w++) await page.waitForTimeout(200);
       if (tabs > t0 || page.url() !== u0) linkProved++;
       else linkProofFailed.push({ screen: label, text: (c.text || '').replace(/\s+/g, ' ').slice(0, 40), href: c.href });
-      const r = await restore(label, sc);
-      if (r) cur = r; else { drift++; cur = await snap(page).catch(() => cur); }
+      if (!await restore(label, sc)) drift++;
       continue;
     }
 
-    /* Una pressione misurata: impronta prima · click · respiro · impronta dopo.
-       `pre` e sempre lo stato REALE del momento, mai quello di partenza — ed e
-       per questo che il ritorno fra un click e l'altro puo essere leggero. */
-    const attempt = async (pre) => {
+    /* Una pressione misurata: si mira · il puntatore si posa · impronta PRIMA
+       (cosi l'hover e gia dentro) · click · respiro · impronta DOPO. Il
+       confronto e sempre fra due istanti vicini, mai contro l'impronta di
+       partenza della schermata: per questo il ritorno fra un click e l'altro
+       puo essere leggero, e il portone non paga un riavvio ogni volta. */
+    const attempt = async () => {
+      const aimed = await aimAndPre(sigs[i], ord[i]);
+      if (!aimed) return null;
+      const { a, pre } = aimed;
       const e0 = errors.length;
-      const hit = await clickSig(page, sigs[i], ord[i]);
-      if (!hit) { await harvest(page); return null; }
+      await strike(a, sigs[i], ord[i]);
       await page.waitForTimeout(SETTLE);
       const mut = await harvest(page);
       const post = await snap(page).catch(() => null);
@@ -318,14 +389,13 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
       return { moved: differs(pre, post) || mut > NOISE, post };
     };
 
-    let out = await attempt(cur);
+    let out = await attempt();
     if (!out) {
       /* la firma non risponde: lo stato e scivolato sotto i piedi. Qui si paga
          il ripristino pesante — con riavvio, se serve — e si ritenta UNA volta. */
       const r = await restore(label, sc);
       if (!r) { sc.skipped++; drift++; continue; }
-      cur = r;
-      out = await attempt(cur);
+      out = await attempt();
       /* dopo un ripristino vero la firma ancora non c'e: quell'elemento non si
          presenta piu su questa schermata. Non e un bottone morto, e un elemento
          che non e tornato — si conta, non si accusa. */
@@ -335,13 +405,11 @@ for (const label of SIDEBAR.slice(0, MAX_SCREENS)) {
     sc.judged++; judged++;
     if (out.moved) {
       alive++; sc.alive++; sc.aliveIdx.push(i);
-      /* RITORNO LEGGERO: basta essere di nuovo sulla schermata; non serve
-         essere tornati all'istante esatto, perche il confronto successivo usa
-         l'impronta appena misurata. Il riavvio si paga solo quando serve. */
-      const back = await clickTitle(page, label, 400).catch(() => false);
-      cur = back ? await snap(page).catch(() => null) : null;
-      if (!cur) { const r = await restore(label, sc); if (r) cur = r; else { drift++; cur = await snap(page).catch(() => null); } }
-    } else { cur = out.post || cur; suspects.push({ label, i, sig: sigs[i], ord: ord[i], g: (meta[i] || {}).g, c }); }
+      /* RITORNO LEGGERO: basta essere di nuovo sulla schermata. Il riavvio —
+         quattro secondi — si paga solo quando la voce di menu non risponde
+         piu, cioe quando lo stato si e portato via anche il menu. */
+      if (!await clickTitle(page, label, 380).catch(() => false) && !await restore(label, sc)) drift++;
+    } else suspects.push({ label, i, sig: sigs[i], ord: ord[i], g: (meta[i] || {}).g, c });
   }
   screens.push(sc);
   process.stderr.write(`  · ${label.padEnd(28)} clickables ${String(cl.length).padStart(4)}  giudicati ${String(sc.judged).padStart(4)}  vivi ${String(sc.alive).padStart(4)}  sospetti ${sc.judged - sc.alive}\n`);
@@ -373,10 +441,11 @@ const dead = [], idempotent = [];
 const PATIENCE = Number(arg('patience', 10));   /* × 250 ms = 2,5 s di attesa */
 
 const press = async (sig, ordinal) => {
-  const pre = await snap(page).catch(() => null);
+  const aimed = await aimAndPre(sig, ordinal);
+  if (!aimed) return null;
+  const { a, pre } = aimed;
   const t0 = tabs, d0 = downloads, g0 = dialogs;
-  const ok = await clickSig(page, sig, ordinal);
-  if (!ok) { await harvest(page); return null; }
+  await strike(a, sig, ordinal);
   await page.waitForTimeout(SETTLE);
   const mut = await harvest(page);
   let post = await snap(page).catch(() => null);
@@ -520,8 +589,9 @@ let backHistory = false, backDetail = false, backLabel = null, backTried = 0, ca
     await clickTitle(page, Cs, 460);
     const atC = await snap(page);
     if (atC.th === atB.th) continue;                       /* B e C non distinti: scenario inutile */
-    const ok = await clickSig(page, k.sig, k.ord); await harvest(page);
-    if (!ok) continue;
+    const aimed = await aimAndPre(k.sig, k.ord);
+    if (!aimed) continue;
+    await strike(aimed.a, k.sig, k.ord); await harvest(page);
     await page.waitForTimeout(700);
     const back = await snap(page).catch(() => null);
     if (back && back.th === atB.th) { backHistory = true; backLabel = (k.c.title || k.c.text || k.c.tag).replace(/\s+/g, ' ').slice(0, 28); }
@@ -541,8 +611,9 @@ let backHistory = false, backDetail = false, backLabel = null, backTried = 0, ca
       await page.waitForTimeout(650);
       const det = await snap(page).catch(() => null);
       if (!det || det.th === atList.th) break;             /* la ficha non si apre: altro difetto, altro portone */
-      const ok = await clickSig(page, k.sig, k.ord); await harvest(page);
-      if (!ok) continue;
+      const aimed = await aimAndPre(k.sig, k.ord);
+      if (!aimed) continue;
+      await strike(aimed.a, k.sig, k.ord); await harvest(page);
       await page.waitForTimeout(700);
       const back = await snap(page).catch(() => null);
       if (back && back.th === atList.th) { backDetail = true; if (!backLabel) backLabel = (k.c.title || k.c.text || k.c.tag).replace(/\s+/g, ' ').slice(0, 28); }
@@ -592,6 +663,7 @@ console.log(`  SCHERMATE = ${screens.length} di ${SIDEBAR.length} nella barra ($
 console.log(`  CLICCABILI TROVATI = ${totalClickables} · PREMUTI E GIUDICATI = ${judged} · VIVI = ${alive} · MORTI = ${dead.length}`);
 console.log(`  non giudicati: ${formCtl} controlli di modulo (semantica change) · ${selfNav} voce della schermata corrente · ${notJudged} senza cursore proprio (host delegato, celle inerti della mappa)`);
 console.log(`  collegamenti con destinazione vera = ${linked} (cablati per costruzione) · aperti davvero per prova = ${linkProved}/${linkProved + linkProofFailed.length}`);
+console.log(`  premuti col mouse su un punto raggiungibile · coperti da uno strato (click sintetico) = ${obscured}`);
 console.log(`  rumore del DOM a riposo = ${NOISE} mutazioni/600ms — con zero, UNA mutazione dopo il click e prova di vita`);
 console.log(`  impronte rimisurate da pulito = ${rebase} · schermate non ripristinabili = ${drift} · firme non ripresentatesi = ${screens.reduce((a, x) => a + x.skipped, 0)}`);
 console.log(`  idempotenti (fermi qui, vivi altrove) = ${idempotent.length} — un comando gia soddisfatto non e un comando morto`);
@@ -647,7 +719,7 @@ if (JSON_OUT) fs.writeFileSync(JSON_OUT, JSON.stringify({
   noHandler, blew, navRows, collisions, unreached, emptyScreens, linkProofFailed,
   back: { history: backHistory, detail: backDetail, label: backLabel, tried: backTried, caseScreen },
   reload: { ok: reloadOk, chars: afterReload.chars, clickables: reloadClicks },
-  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, linked, linkProved, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
+  totals: { screens: screens.length, clickables: totalClickables, judged, alive, dead: dead.length, deadControls: byControl.size, idempotent: idempotent.length, formCtl, selfNav, notJudged, linked, linkProved, obscured, drift, rebase, skipped: screens.reduce((a, x) => a + x.skipped, 0), tabs, downloads, dialogs },
   errors, failed,
 }, null, 1));
 

@@ -591,7 +591,7 @@
               <sc-for list="{{ cs.evidenceRows }}" as="e" hint-placeholder-count="6">
                 <div onClick="{{ e.go }}" style="display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px dotted rgba(151,139,135,0.35);cursor:{{ e.cursor }}">
                   <span style="flex:0 0 132px;font-size:9.5px;font-weight:600;color:#8F8886;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ e.famL }}</span>
-                  <span style="flex:1;min-width:0;font-size:11.5px;color:#EDEAE9;overflow-wrap:anywhere">{{ e.label }}</span>
+                  <span style="flex:1;min-width:0;font-size:11.5px;color:#EDEAE9;overflow-wrap:anywhere">{{ e.label }} <span style="font-size:9px;color:#6E6663;white-space:nowrap">· {{ e.ref }}</span></span>
                   <span style="flex:0 0 auto;font-size:9.5px;font-weight:700;color:{{ e.openColor }};white-space:nowrap">{{ e.openL }}</span>
                 </div>
               </sc-for>
@@ -4056,31 +4056,103 @@ class Component extends DCLogic {
       const m = {}; ((APP0 && APP0[name] && APP0[name].records) || []).forEach((r) => { const k = r[key || 'id']; if (k) m[k] = r; });
       return m;
     };
-    const csEvHomes = [
-      { pfx: 'IT-PHEN', idx: csIdx('fieldBulletins'), fam: 'FIELD_SIGNAL', name: (r) => r.title || r.issue || r.id, go: () => () => this.go({ view: 'sources' }) },
-      { pfx: 'IT-PRD', idx: csIdx('productsRegulatory'), fam: 'REGULATORY_PRODUCT', name: (r) => r.name || r.id, go: (r) => () => this.openProduct(r.name) },
-      { pfx: 'IT-COMP', idx: csIdx('competitorActivities'), fam: 'COMPETITOR_ACTIVITY', name: (r) => r.company ? (r.company + ' · ' + (r.type || '')) : r.id, go: (r) => () => this.compWith({ fCompany: r.company || '' }) },
-      { pfx: 'IT-SCI', idx: csIdx('scienceRecords'), fam: 'SCIENTIFIC_RECORD', name: (r) => r.title || r.id, go: () => () => this.go({ view: 'science' }) },
-      { pfx: 'IT-RES', idx: csIdx('resistance'), fam: 'RESISTANCE_RECORD', name: (r) => (r.species || r.id) + (r.moa ? ' · ' + r.moa : ''), go: () => () => this.go({ view: 'science' }) },
-      { pfx: 'IT-MKT', idx: csIdx('marketObservations'), fam: 'MARKET_OBSERVATION', name: (r) => (r.crop || '') + ' · ' + (r.indicator || r.id), go: () => () => this.go({ view: 'market' }) },
-      { pfx: 'IT-WIN', idx: csIdx('cropWindows', 'windowId'), fam: 'CROP_WINDOW', name: (r) => (r.crop || '') + ' · ' + (r.issue || ''), go: (r) => () => this.openWindow(r.windowId) },
-      { pfx: 'IT-LBL', idx: csIdx('productRelationships'), fam: 'LABEL_USE_RELATIONSHIP', name: (r) => (r.product || '') + ' · ' + (r.crop || '') + ' × ' + (r.issue || ''), go: (r) => (r.product ? () => this.openProduct(r.product) : null) },
-      { pfx: 'IT-CAN', idx: Object.assign({}, csIdx('regulatoryFuture'), csIdx('agrometConditions')), fam: 'REGULATORY_FUTURE_FACT', name: (r) => r.title || r.substance || r.id, go: () => () => this.go({ view: 'future' }) },
-      { pfx: 'AI_', idx: csIdx('activeIngredients'), fam: 'ACTIVE_INGREDIENT', name: (r) => r.name || r.id, go: () => null },
-      { pfx: 'RFF_', idx: csIdx('regulatoryFutureFacts'), fam: 'REGULATORY_FUTURE_FACT', name: (r) => r.substance || r.title || r.id, go: () => () => this.go({ view: 'future' }) }
+    /* ── UN ID NON E UN NOME ─────────────────────────────────────────────────
+       La prima versione cercava ogni id in UNA collezione scelta per prefisso, e
+       quando non lo trovava stampava l'id stesso come etichetta. Quaranta volte
+       su cinquanta schermate.
+
+           `IT-CAN-` NON E UN PREFISSO DI FAMIGLIA: E IL PREFISSO CANONICO.
+           Lo portano mercato, archivio, economia colturale, bollettini,
+           normativa e agrometeo — sei collezioni, non due.
+
+       E due funzioni di nome leggevano campi che non esistono: `r.substance`
+       dove il record scrive `activeIngredient`, `r.indicator` dove scrive
+       `product`. Il nome usciva vuoto, e l'id prendeva il suo posto.
+
+           SE IL NOME ESCE VUOTO, IL DIFETTO E NELLA LETTURA, NON NEL DATO.
+
+       Adesso: un indice unico su TUTTE le collezioni, un nome per famiglia
+       scritto sui campi veri, e — quando l'id davvero non risolve — si dice la
+       FAMIGLIA e che il record non e in questo pacchetto. L'id resta accanto,
+       come riferimento, mai al posto del nome. */
+    const csAllIdx = (() => {
+      const m = {};
+      const put = (r, coll) => { for (const k of ['id', 'windowId', 'recordId']) { const v = r[k]; if (v && !m[v]) m[v] = { r, coll }; } };
+      for (const name in (APP0 || {})) {
+        const c = APP0[name];
+        if (c && Array.isArray(c.records)) for (const r of c.records) put(r, name);
+      }
+      return m;
+    })();
+    const csEvDate = (v) => { const d = AM && AM.asDate ? AM.asDate(v) : null; return d && AM.fmtDate ? AM.fmtDate(d) : (v || ''); };
+    /* Un nome per collezione, sui campi che il record scrive davvero. */
+    const CS_NAME = {
+      marketObservations: (r) => [r.product, r.market, r.priceRaw && (r.priceRaw + (r.unit ? '/' + String(r.unit).toLowerCase() : ''))].filter(Boolean).join(' · '),
+      cropEconomics: (r) => [r.crop, r.indicator && String(r.indicator).toLowerCase().replace(/_/g, ' '), r.year, r.geography].filter(Boolean).join(' · '),
+      archive: (r) => r.title || [r.kind && String(r.kind).toLowerCase(), r.crop].filter(Boolean).join(' · '),
+      fieldBulletins: (r) => [r.title, r.number].filter(Boolean).join(' · '),
+      regulatoryFuture: (r) => [r.product, r.status, r.expiry && (ITX ? 'scadenza ' : 'expiry ') + csEvDate(r.expiry)].filter(Boolean).join(' · '),
+      agrometConditions: (r) => [r.observationClass && String(r.observationClass).toLowerCase().replace(/_/g, ' '), r.region, (r.crops || []).slice(0, 2).join(', ')].filter(Boolean).join(' · '),
+      regulatoryFutureFacts: (r) => [r.activeIngredient, r.euState && String(r.euState).toLowerCase(), r.euExpiry && (ITX ? 'fino al ' : 'until ') + csEvDate(r.euExpiry)].filter(Boolean).join(' · '),
+      productsRegulatory: (r) => [r.name, r.holder].filter(Boolean).join(' · '),
+      productRelationships: (r) => [r.product, [r.crop, r.issue].filter(Boolean).join(' × ')].filter(Boolean).join(' · '),
+      competitorActivities: (r) => [r.company, r.type && String(r.type).toLowerCase(), r.platform && String(r.platform).replace(/_/g, ' ').toLowerCase()].filter(Boolean).join(' · '),
+      scienceRecords: (r) => [r.title, r.author].filter(Boolean).join(' · '),
+      resistance: (r) => [ITX ? (r.speciesIt || r.species) : r.species, r.crop, r.family].filter(Boolean).join(' · '),
+      cropWindows: (r) => [r.crop, r.issue].filter(Boolean).join(' · '),
+      activeIngredients: (r) => [r.name, r.hrac && ('HRAC ' + r.hrac), r.frac && ('FRAC ' + r.frac), r.irac && ('IRAC ' + r.irac)].filter(Boolean).join(' · '),
+    };
+    /* La FAMIGLIA di un id, per dirla anche quando il record non c'e. */
+    const CS_FAM_OF_COLL = {
+      marketObservations: 'MARKET_OBSERVATION', cropEconomics: 'CROP_ECONOMIC_WEIGHT_CLAIM',
+      archive: 'FIELD_SIGNAL', fieldBulletins: 'FIELD_SIGNAL', regulatoryFuture: 'REGULATORY_FUTURE_FACT',
+      agrometConditions: 'REGULATORY_FUTURE_FACT', regulatoryFutureFacts: 'REGULATORY_FUTURE_FACT',
+      productsRegulatory: 'REGULATORY_PRODUCT', productRelationships: 'LABEL_USE_RELATIONSHIP',
+      competitorActivities: 'COMPETITOR_ACTIVITY', scienceRecords: 'SCIENTIFIC_RECORD',
+      resistance: 'RESISTANCE_RECORD', cropWindows: 'CROP_WINDOW', activeIngredients: 'ACTIVE_INGREDIENT',
+    };
+    const CS_FAM_OF_PFX = [
+      ['IT-PHEN', 'FIELD_SIGNAL'], ['IT-PRD', 'REGULATORY_PRODUCT'], ['IT-COMP', 'COMPETITOR_ACTIVITY'],
+      ['IT-SCI', 'SCIENTIFIC_RECORD'], ['IT-RES', 'RESISTANCE_RECORD'], ['IT-MKT', 'MARKET_OBSERVATION'],
+      ['IT-WIN', 'CROP_WINDOW'], ['IT-LBL', 'LABEL_USE_RELATIONSHIP'], ['IT-CAN', 'REGULATORY_FUTURE_FACT'],
+      ['AI_', 'ACTIVE_INGREDIENT'], ['RFF_', 'REGULATORY_FUTURE_FACT'],
     ];
+    const CS_GO = {
+      productsRegulatory: (r) => () => this.openProduct(r.name),
+      productRelationships: (r) => (r.product ? () => this.openProduct(r.product) : null),
+      competitorActivities: (r) => () => this.compWith({ fCompany: r.company || '' }),
+      scienceRecords: () => () => this.go({ view: 'science' }),
+      resistance: () => () => this.go({ view: 'science' }),
+      marketObservations: () => () => this.go({ view: 'market' }),
+      cropEconomics: () => () => this.go({ view: 'market' }),
+      cropWindows: (r) => () => this.openWindow(r.windowId),
+      fieldBulletins: () => () => this.go({ view: 'sources' }),
+      archive: () => () => this.go({ view: 'archive' }),
+      regulatoryFuture: () => () => this.go({ view: 'future' }),
+      regulatoryFutureFacts: () => () => this.go({ view: 'future' }),
+      agrometConditions: () => () => this.go({ view: 'future' }),
+    };
     const csEvidenceRows = ((csRec && csRec.evidenceIds) || []).map((eid) => {
-      const home = csEvHomes.find((h) => String(eid).startsWith(h.pfx));
-      const rec = home ? home.idx[eid] : null;
-      const goFn = (home && rec) ? home.go(rec) : null;
+      const hit = csAllIdx[eid];
+      const fam = hit ? (CS_FAM_OF_COLL[hit.coll] || '')
+        : ((CS_FAM_OF_PFX.find((x) => String(eid).startsWith(x[0])) || [])[1] || '');
+      const famL = fam ? (csEVFAM[fam] || String(fam).replace(/_/g, ' ')) : '';
+      const nameFn = hit && CS_NAME[hit.coll];
+      const label = (nameFn && String(nameFn(hit.r) || '').trim()) || '';
+      const goFn = (hit && CS_GO[hit.coll]) ? CS_GO[hit.coll](hit.r) : null;
+      /* SE IL NOME NON C'E, SI DICE LA FAMIGLIA — MAI L'ID AL SUO POSTO.
+         L'id resta accanto, come riferimento: e cosi che un id si mostra. */
+      const human = label || (famL
+        ? famL + (hit ? '' : ' · ' + (T.lblUnresolvedRef || 'cited, not in this package'))
+        : (T.lblUnresolvedRef || 'cited, not in this package'));
       return {
-        id: eid,
-        famL: home ? (csEVFAM[home.fam] || home.fam) : '',
-        label: rec && home ? String(home.name(rec) || eid).slice(0, 90) : eid,
-        resolved: !!rec,
+        id: eid, famL,
+        label: human.slice(0, 100),
+        ref: eid,                       /* riferimento secondario, accanto al nome */
+        resolved: !!hit,
         go: goFn || (() => {}),
         canOpen: !!goFn,
-        openL: goFn ? (T.lblOpenRecord || 'Open') : (T.lblUnresolvedRef || 'cited, not in this package'),
+        openL: goFn ? (T.lblOpenRecord || 'Open') : '',
         cursor: goFn ? 'pointer' : 'default',
         openColor: goFn ? '#00B152' : '#8F8886'
       };
@@ -4239,7 +4311,7 @@ class Component extends DCLogic {
         ? (csT('appW') + ': ' + csEnum(csRec.windowApplication) + ' · ' + csT('monW') + ': ' + csEnum(csRec.windowMonitoring))
         : csT('noWindow'),
       progressPct: csPct + '%',
-      /* CROP_STAGE and ISSUE_STAGE are null on all 29 canonical windows, so both
+      /* no crop stage and no target stage are recorded on any of the 29 canonical windows, so both
          classes read NOT_OBSERVED. OBSERVED_STAGE is real on 1 of 3 records. */
       stageL: csWinRec ? obs(csWinRec.cropStageClass) : (T.ksNotKnown || ''),
       signalL: csSafe(csRec && csRec.observedStage) || (csWinRec ? obs(csWinRec.issueStageClass) : (T.ksNotKnown || '')),
@@ -4383,7 +4455,7 @@ class Component extends DCLogic {
          dateState   24 EXPECTED_NORM · 5 DATE_TO_CONFIRM
          products    12/29 carry a VERIFIED label match (6 distinct product names)
          regulatory  2/29 join a regional act (IT-WIN-0001 Veneto, IT-WIN-0008 Piemonte)
-         observed    0/29 — CROP_STAGE and ISSUE_STAGE are null on all 29
+         observed    0/29 — no crop stage and no target stage are recorded on any of the 29
        Presentation still owns geometry (month ticks, pixel position, lane width,
        ordering, days-remaining). It no longer owns the agronomic state: every chip
        on this screen is CURRENT_STATUS as upstream published it. */
@@ -4503,13 +4575,13 @@ class Component extends DCLogic {
     /* Bound at markup 591 in place of t.cwBucketNote, whose text still describes the
        40-row fixture. See the report: the markup rebind is the requested edit. */
     const calKpiNote = LC(
-      'I primi quattro gruppi sono gli stati pubblicati a monte (CURRENT_STATUS), sono disgiunti e sommano a ' + ALL_CORES.length + ' finestre canoniche su ' + [...new Set(ALL_CORES.map(x => x.crop))].length + ' colture e ' + [...new Set(ALL_CORES.map(x => x.region))].length + ' regioni. Il portale non calcola mai lo stato agronomico da un conteggio di giorni. Gli ultimi due sono conteggi di contesto sulle stesse righe.',
-      'The first four buckets are the statuses published upstream (CURRENT_STATUS). They are disjoint and sum to ' + ALL_CORES.length + ' canonical windows across ' + [...new Set(ALL_CORES.map(x => x.crop))].length + ' crops and ' + [...new Set(ALL_CORES.map(x => x.region))].length + ' regions. The portal never computes an agronomic state from a day count. The last two are context counts over the same rows.');
+      'I primi quattro gruppi sono gli stati pubblicati a monte, sono disgiunti e sommano a ' + ALL_CORES.length + ' finestre canoniche su ' + [...new Set(ALL_CORES.map(x => x.crop))].length + ' colture e ' + [...new Set(ALL_CORES.map(x => x.region))].length + ' regioni. Il portale non calcola mai lo stato agronomico da un conteggio di giorni. Gli ultimi due sono conteggi di contesto sulle stesse righe.',
+      'The first four buckets are the statuses published upstream. They are disjoint and sum to ' + ALL_CORES.length + ' canonical windows across ' + [...new Set(ALL_CORES.map(x => x.crop))].length + ' crops and ' + [...new Set(ALL_CORES.map(x => x.region))].length + ' regions. The portal never computes an agronomic state from a day count. The last two are context counts over the same rows.');
     /* Bound at markup 714 in place of t.cwFootNote (see report; needs one added key
        in the props object). The old footnote described lanes that no longer exist. */
     const calFootNote = LC(
-      'Ogni stato — finestra aperta, chiusa, prossimo ciclo, data da confermare — è pubblicato a monte e mai calcolato qui. Le date provengono da START_DATE / END_DATE canoniche: ' + calWins.filter(r => r.hasDates).length + ' finestre su ' + calWins.length + ' ne hanno, le altre ' + calWins.filter(r => !r.hasDates).length + ' mostrano DATA DA CONFERMARE e non disegnano alcuna barra. Nessuno stadio colturale è osservato: 0 finestre su ' + calWins.length + ' hanno CROP_STAGE. La preparazione commerciale e il piano dei reparti sono un\'interpretazione Sintonia, non un fatto osservato. Nessuna cifra di ettari, ricavo o domanda compare qui: non è osservabile da fonti esterne.',
-      'Every state — window open, closed, next cycle, date to confirm — is published upstream and never computed here. Dates come from the canonical START_DATE / END_DATE: ' + calWins.filter(r => r.hasDates).length + ' of ' + calWins.length + ' windows have them, the other ' + calWins.filter(r => !r.hasDates).length + ' read DATE TO CONFIRM and draw no bar. No crop stage is observed: 0 of ' + calWins.length + ' windows carry CROP_STAGE. Business preparation and the department plan are a Sintonia interpretation, not an observed fact. No hectare, revenue or demand figure appears here: none of it is externally observable.');
+      'Ogni stato — finestra aperta, chiusa, prossimo ciclo, data da confermare — è pubblicato a monte e mai calcolato qui. Le date provengono dalle date canoniche di inizio e fine: ' + calWins.filter(r => r.hasDates).length + ' finestre su ' + calWins.length + ' ne hanno, le altre ' + calWins.filter(r => !r.hasDates).length + ' mostrano DATA DA CONFERMARE e non disegnano alcuna barra. Nessuno stadio colturale è osservato: 0 finestre su ' + calWins.length + ' registrano uno stadio colturale. La preparazione commerciale e il piano dei reparti sono un\'interpretazione Sintonia, non un fatto osservato. Nessuna cifra di ettari, ricavo o domanda compare qui: non è osservabile da fonti esterne.',
+      'Every state — window open, closed, next cycle, date to confirm — is published upstream and never computed here. Dates come from the canonical start and end dates: ' + calWins.filter(r => r.hasDates).length + ' of ' + calWins.length + ' windows have them, the other ' + calWins.filter(r => !r.hasDates).length + ' read DATE TO CONFIRM and draw no bar. No crop stage is observed: 0 of ' + calWins.length + ' windows record a crop stage. Business preparation and the department plan are a Sintonia interpretation, not an observed fact. No hectare, revenue or demand figure appears here: none of it is externally observable.');
 
     /* ---- day labels · arithmetic on supplied dates only ---- */
     const dayNum = (c) => c.status === 'WINDOW_OPEN' ? c.w.daysToEnd
@@ -5412,7 +5484,7 @@ class Component extends DCLogic {
         if (B.productDefinitions.length > 1) gaps.push(mkIT ? B.productDefinitions.length + ' definizioni di prodotto distinte: non sono confrontabili e non vanno mediate' : B.productDefinitions.length + ' distinct product definitions: they are not comparable and must not be averaged');
         if (!B.productDefinitions.length) gaps.push(mkIT ? 'La riga ingerita non dichiara un prodotto, quindi non si sa a quale definizione il prezzo si riferisca' : 'The ingested row declares no product, so which definition the price refers to is unknown');
         if (noStage) gaps.push(mkIT ? 'STAGE assente su ' + noStage + ' righe su ' + N + ': il punto della filiera a cui il prezzo si riferisce è ignoto' : 'STAGE missing on ' + noStage + ' of ' + N + ' rows: the chain stage the price refers to is unknown');
-        if (noPub) gaps.push(mkIT ? 'PUBLICATION_DATE assente su ' + noPub + ' righe su ' + N + ': si conosce solo il periodo di riferimento' : 'PUBLICATION_DATE missing on ' + noPub + ' of ' + N + ' rows: only the reference period is known');
+        if (noPub) gaps.push(mkIT ? 'nessuna data di pubblicazione su ' + noPub + ' righe su ' + N + ': si conosce solo il periodo di riferimento' : 'no publication date on ' + noPub + ' of ' + N + ' rows: only the reference period is known');
       } else {
         gaps.push(mkIT ? 'Nessuna osservazione di prezzo ingerita per questa coltura' : 'No price observation ingested for this crop');
       }
@@ -7542,9 +7614,23 @@ class Component extends DCLogic {
          is cut at the em dash and the connector is relabelled; the parenthetical synonym
          list is kept in full, because a taxonomic name is never truncated at '('. Every
          other kind's title is publisher- or author-authored and is left exactly as it is. */
+      /* ── QUANDO IL TITOLO A MONTE E L'ID STESSO ──────────────────────────
+         Due bollettini arrivano con `title` uguale al proprio `recordId`:
+         «IT-CAN-43822F56F7». Non e un titolo mancante che qualcuno riempira: e
+         un id scritto nel campo del nome, a monte. Stamparlo cosi metteva un
+         codice al posto del nome su una riga che il lettore deve riconoscere.
+
+             UN ID NEL CAMPO DEL NOME NON DIVENTA UN NOME.
+
+         Il record ha di che chiamarsi: e un bollettino, di una fonte che si
+         chiama, per una coltura, in una data. L'id resta sulla riga come
+         riferimento — la colonna che gia lo mostra — mai come titolo. */
+      const idAsTitle = a.title && (a.title === a.recordId || a.title === a.id);
       const title = a.kind === 'RESISTANCE'
         ? String(a.title || '').split(' — ')[0].replace(/\bsinonimi na ficha\s*:/i, 'sinonimi:').trim()
-        : a.title;
+        : (idAsTitle || !a.title)
+          ? [arcT(a.kind), a.sourceName, a.crop].filter(Boolean).join(' · ')
+          : a.title;
       return Object.assign({}, a, {
         /* The raw crop is overwritten, not merely shadowed: leaving it on the row would hand
            the GIRE reading note to the template layer even though nothing binds it. */

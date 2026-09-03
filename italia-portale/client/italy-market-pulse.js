@@ -22,7 +22,7 @@
                     Grapevine 0 usable (its single row is the rejected one)
                     Tomato 0 · Sugar Beet 0 · Apple 0
      Quality:  12 of 77 rows sit on series that STOPPED quoting (the last quote is not a
-               current price) · STAGE missing on 37 of 77 · PUBLICATION_DATE missing on
+               current price) · STAGE missing on 37 of 77 · no publication date on
                37 of 77. All of the missing STAGE / PUBLICATION_DATE rows are olive oil.
      Also ingested but with no crop tab to show it: Barley, 8 rows.
 
@@ -105,7 +105,7 @@
       '36 price rows across 6 different oil grades — the grades are not comparable and must never be averaged into one price',
       '10 of the 36 sit on series that stopped quoting — those last quotes are not current prices',
       'STAGE missing on all 36 rows: the point in the chain each price refers to is unknown',
-      'PUBLICATION_DATE missing on all 36 rows: only the reference period is known',
+      'no publication date on all 36 rows: only the reference period is known',
       'No production, stock, trade or supply-balance observation'
     ],
     wine: [
