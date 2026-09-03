@@ -1,9 +1,9 @@
 {
  "COLLECTION": "V113-FICHA-DA-TESTEMUNHA",
- "SOURCE": "build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/OPPORTUNITIES.json · BUILD_ID V21-473db7a54b90c382",
+ "SOURCE": "build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/OPPORTUNITIES.json · BUILD_ID V21-ea0d941dc39f6b49",
  "CAPTURED_AT": "2026-09-03",
  "LAW": "toda resposta sai de um campo do pacote. Nenhuma e escrita aqui, e o que falta aparece com o nome do que falta.",
- "BUILD_ID": "V21-473db7a54b90c382",
+ "BUILD_ID": "V21-ea0d941dc39f6b49",
  "FICHA": {
   "ID": "OPP_5F31A63F844D",
   "O_QUE_SABEMOS": {
@@ -21,10 +21,7 @@
    "REGIOES_DO_MESMO_PAR": 2
   },
   "O_QUE_NAO_SABEMOS": {
-   "ELOS_QUE_FALTAM": [
-    "JANELA_COMPATIVEL",
-    "TEMPO_PARA_ACAO"
-   ],
+   "ELOS_QUE_FALTAM": [],
    "JANELA_DE_APLICACAO": "NAO SEI — nenhuma janela declara esta cultura, este alvo e esta regiao",
    "AREA_OFICIAL": "NAO SEI — nenhuma linha ISTAT client-safe para o par",
    "INTENSIDADE": "NAO SEI — boletim declara ocorrencia, nao incidencia",
@@ -79,19 +76,18 @@
    "CONFIANCA_DA_JANELA": "NENHUMA"
   },
   "QUAL_E_A_ACAO": {
-   "STATUS": "VALIDATE_NOW",
+   "STATUS": "ACT_NOW",
    "POR_DEPARTAMENTO": {
-    "MARKET_DEVELOPMENT": "VALIDATE_WINDOW_IN_REGION",
-    "COMMERCIAL": "PREPARE",
+    "MARKET_DEVELOPMENT": "CONFIRM_RECOMMENDATION_IN_FIELD",
+    "COMMERCIAL": "CONTACT_NOW",
     "MARKETING": "MESSAGE_AVAILABLE",
-    "TECHNICAL_SCIENTIFIC": "ESTABLISH_APPLICATION_WINDOW",
+    "TECHNICAL_SCIENTIFIC": "NO_MOVEMENT",
     "SUPPLY": "WATCH_REGULATORY_DATE"
    }
   },
   "POR_QUE_AGORA": {
    "CODIGOS": [
-    "SEM_JANELA_COMPATIVEL",
-    "SEM_TEMPO_PARA_ACAO"
+    "CADEIA_COMPLETA"
    ],
    "CADEIA": {
     "SINAL_ATUAL": {
@@ -101,10 +97,19 @@
      ],
      "FACT": "2026-09-01"
     },
-    "JANELA_COMPATIVEL": {
-     "OK": false,
-     "EVIDENCE": [],
-     "FACT": null
+    "JANELA_DEFINIDA": {
+     "OK": true,
+     "EVIDENCE": [
+      "IT-PHEN-001"
+     ],
+     "FACT": "PREHARVEST_WINDOW"
+    },
+    "JANELA_ABERTA_AGORA": {
+     "OK": true,
+     "EVIDENCE": [
+      "IT-PHEN-001"
+     ],
+     "FACT": "ESTADIO_DECLARADO_NO_MESMO_DOCUMENTO"
     },
     "VINCULO_COM_PORTFOLIO": {
      "OK": true,
@@ -114,7 +119,7 @@
      "FACT": "VERIFIED_LABEL_MATCH"
     },
     "TEMPO_PARA_ACAO": {
-     "OK": false,
+     "OK": true,
      "EVIDENCE": [],
      "FACT": null
     }
@@ -122,44 +127,66 @@
   },
   "QUEM_DEVE_AGIR": {
    "MARKET_DEVELOPMENT": {
-    "ACTION": "VALIDATE_WINDOW_IN_REGION",
-    "WHY_CODE": "SEM_JANELA_COMPATIVEL",
-    "MISSING_LINKS": [
-     "JANELA_COMPATIVEL",
-     "TEMPO_PARA_ACAO"
-    ]
+    "DEPARTMENT": "MARKET_DEVELOPMENT",
+    "ACTION_STATE": "VALIDATE",
+    "ACTION": "CONFIRM_RECOMMENDATION_IN_FIELD",
+    "WHY_CODE": "SINAL_ATUAL_COM_ALVO",
+    "EVIDENCE": [
+     "IT-PHEN-001",
+     "IT-PHEN-001"
+    ],
+    "DEPENDENCY": null,
+    "NEXT_TRIGGER": null,
+    "MISSING_LINKS": []
    },
    "COMMERCIAL": {
-    "ACTION": "PREPARE",
-    "WHY_CODE": "PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO",
-    "MISSING_LINKS": [
-     "JANELA_COMPATIVEL",
-     "TEMPO_PARA_ACAO"
-    ]
+    "DEPARTMENT": "COMMERCIAL",
+    "ACTION_STATE": "ACT",
+    "ACTION": "CONTACT_NOW",
+    "WHY_CODE": "CADEIA_COMPLETA",
+    "EVIDENCE": [
+     "CATPRD_BANJO"
+    ],
+    "DEPENDENCY": null,
+    "NEXT_TRIGGER": null,
+    "MISSING_LINKS": []
    },
    "MARKETING": {
+    "DEPARTMENT": "MARKETING",
+    "ACTION_STATE": "ACT",
     "ACTION": "MESSAGE_AVAILABLE",
     "WHY_CODE": "EXTERNAL_MATERIAL_READY",
-    "MISSING_LINKS": [
-     "JANELA_COMPATIVEL",
-     "TEMPO_PARA_ACAO"
-    ]
+    "EVIDENCE": [
+     "IT-PHEN-001"
+    ],
+    "DEPENDENCY": null,
+    "NEXT_TRIGGER": null,
+    "MISSING_LINKS": []
    },
    "TECHNICAL_SCIENTIFIC": {
-    "ACTION": "ESTABLISH_APPLICATION_WINDOW",
-    "WHY_CODE": "SEM_JANELA_COMPATIVEL",
-    "MISSING_LINKS": [
-     "JANELA_COMPATIVEL",
-     "TEMPO_PARA_ACAO"
-    ]
+    "DEPARTMENT": "TECHNICAL_SCIENTIFIC",
+    "ACTION_STATE": "NO_ACTION",
+    "ACTION": "NO_MOVEMENT",
+    "WHY_CODE": "NADA_A_VALIDAR",
+    "EVIDENCE": [
+     "IT-PHEN-001",
+     "IT-PHEN-001"
+    ],
+    "DEPENDENCY": null,
+    "NEXT_TRIGGER": null,
+    "MISSING_LINKS": []
    },
    "SUPPLY": {
+    "DEPARTMENT": "SUPPLY",
+    "ACTION_STATE": "WATCH",
     "ACTION": "WATCH_REGULATORY_DATE",
     "WHY_CODE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
-    "MISSING_LINKS": [
-     "JANELA_COMPATIVEL",
-     "TEMPO_PARA_ACAO"
-    ]
+    "EVIDENCE": [
+     "AI_FLUAZINAM"
+    ],
+    "DEPENDENCY": null,
+    "NEXT_TRIGGER": null,
+    "MISSING_LINKS": []
    }
   },
   "CONFIANCAS": {

@@ -316,21 +316,24 @@ def par_do_titulo(sinal):
     return [(c, i) for c in crops for i in issues]
 
 
-def pares_observados(sinal):
-    """→ lista de pares (cultura, alvo) que ESTE registro de fato observou.
+def atribuicoes(sinal):
+    """→ gera (campo, metodo, crops, issues, oracao) — a ATRIBUIÇÃO, sem leitura.
 
-    Cada par carrega a direção, o trecho que a sustenta, o campo de onde saiu e
-    o método pelo qual a cultura foi atribuída.
+    Este é o único lugar do repositório que decide de que par uma oração fala.
+    `pares_observados` lê a DIREÇÃO em cima disto; o inventário de janelas lê o
+    TIPO DE JANELA em cima disto. Dois leitores, uma atribuição.
+
+        DUAS CÓPIAS DA MESMA REGRA DIVERGEM NO DIA EM QUE UMA DELAS É
+        CONSERTADA.
     """
     crops_doc = list(sinal.get('CROP_IDS') or [])
-    achados = {}
     if not crops_doc:
         # ⚠️ SEM CULTURA DECLARADA NÃO HÁ PAR. É a mesma lei de `crop_id`: ler a
         # prosa para adivinhar a cultura que o registro não declarou foi o que
         # pôs milho num boletim de oliveira no V2 — e aqui puxaria CROP_MAIZE de
         # «as estações agrometeorológicas MAIS próximas», onde `mais` é advérbio
         # português e não a cultura italiana.
-        return []
+        return
     do_titulo = par_do_titulo(sinal)
     for campo in CAMPOS_DE_TEXTO:
         texto = sinal.get(campo)
@@ -348,11 +351,9 @@ def pares_observados(sinal):
                 # A oração não nomeia alvo — mas o TÍTULO já declarou de que par
                 # este documento trata, e esta oração é a recomendação sobre ele.
                 if do_titulo:
-                    est_t, _ = direcao(oracao)
-                    if est_t != NEUTRAL_MENTION:
-                        for c, i in do_titulo:
-                            _pinar(achados, sinal, campo, 'PAIR_IN_DOCUMENT_TITLE',
-                                   c, i, est_t, oracao)
+                    yield (campo, 'PAIR_IN_DOCUMENT_TITLE',
+                           sorted({c for c, _i in do_titulo}),
+                           sorted({i for _c, i in do_titulo}), oracao)
                 continue
             # ⚠️ O ALVO TEM DE ESTAR ESCRITO NA ORAÇÃO. Nunca vem do cabeçalho
             # do documento: era daí que `ISSUE_SCAB` do inventário se espalhava
@@ -368,19 +369,38 @@ def pares_observados(sinal):
             else:
                 # ⚠️ AQUI NASCIA O CARTESIANO. O par não é emitido.
                 continue
-            est, _padrao = direcao(oracao)
-            # ⚠️ UMA DIREÇÃO NÃO SE REPARTE. Se a oração nomeia mais de um alvo
-            # — ou mais de uma cultura — e traz uma palavra de direção, não se
-            # sabe a qual deles ela se refere. Então não se sabe: `UNKNOWN`.
-            amb = None
-            if est not in (NEUTRAL_MENTION, UNKNOWN):
-                if len(issues) > 1:
-                    amb, est = MULTIPLE_TARGETS_IN_CLAUSE, UNKNOWN
-                elif len(crops) > 1:
-                    amb, est = MULTIPLE_CROPS_IN_CLAUSE, UNKNOWN
+            yield campo, metodo, crops, issues, oracao
+
+
+def pares_observados(sinal):
+    """→ lista de pares (cultura, alvo) que ESTE registro de fato observou.
+
+    Cada par carrega a direção, o trecho que a sustenta, o campo de onde saiu e
+    o método pelo qual a cultura foi atribuída.
+    """
+    achados = {}
+    for campo, metodo, crops, issues, oracao in atribuicoes(sinal):
+        est, _padrao = direcao(oracao)
+        if metodo == 'PAIR_IN_DOCUMENT_TITLE':
+            # a oração não nomeia alvo: só o título disse de que par se trata
+            if est == NEUTRAL_MENTION:
+                continue
             for c in crops:
                 for i in issues:
-                    _pinar(achados, sinal, campo, metodo, c, i, est, oracao, amb)
+                    _pinar(achados, sinal, campo, metodo, c, i, est, oracao)
+            continue
+        # ⚠️ UMA DIREÇÃO NÃO SE REPARTE. Se a oração nomeia mais de um alvo
+        # — ou mais de uma cultura — e traz uma palavra de direção, não se
+        # sabe a qual deles ela se refere. Então não se sabe: `UNKNOWN`.
+        amb = None
+        if est not in (NEUTRAL_MENTION, UNKNOWN):
+            if len(issues) > 1:
+                amb, est = MULTIPLE_TARGETS_IN_CLAUSE, UNKNOWN
+            elif len(crops) > 1:
+                amb, est = MULTIPLE_CROPS_IN_CLAUSE, UNKNOWN
+        for c in crops:
+            for i in issues:
+                _pinar(achados, sinal, campo, metodo, c, i, est, oracao, amb)
     for p in achados.values():
         p['NEED_DIRECTION'] = _mais_restritiva(p['DIRECTIONS_SEEN'])
         p['NEED_EXCERPT'] = p['EXCERPT_BY_DIRECTION'].get(p['NEED_DIRECTION'], '')

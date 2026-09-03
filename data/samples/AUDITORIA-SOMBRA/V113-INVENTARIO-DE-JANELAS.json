@@ -1,0 +1,269 @@
+{
+ "COLLECTION": "V113-INVENTARIO-DE-JANELAS",
+ "SOURCE": "build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/CURRENT-FIELD-SIGNALS.json · regra de scripts/v21_janelas.py",
+ "CAPTURED_AT": "2026-09-03",
+ "LAW": "inventario do que o acervo JA DIZ sobre o momento de intervir. Nenhuma coleta nova. Campos ausentes ficam UNKNOWN.",
+ "SIGNALS_READ": 86,
+ "BY_TYPE": {
+  "PREHARVEST_WINDOW": 1,
+  "THRESHOLD_WINDOW": 2,
+  "ADMINISTRATIVE_WINDOW": 3,
+  "PHENOLOGY_WINDOW": 3,
+  "WEATHER_TRIGGERED_WINDOW": 2,
+  "PEST_STAGE_WINDOW": 2
+ },
+ "BY_OPEN_NOW": {
+  "YES": 2,
+  "UNKNOWN": 8,
+  "NO": 3
+ },
+ "CANDIDATES": [
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_BOTRYTIS",
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ],
+   "SOURCE_ID": "IT-PHEN-001",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "PAIR_IN_SAME_CLAUSE",
+   "WINDOW_TYPE": "PREHARVEST_WINDOW",
+   "WINDOW_CONDITION": "Vite/botrite: intervir em pre-colheita com Fenhexamid (max 2) ou alternativas biologicas.",
+   "MATCHED_PATTERN": "\\bpre[- ]?colheita\\b",
+   "PHENOLOGY_DECLARED": "Vite: «maturazione».",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "POSITIVE_PRESSURE",
+   "WINDOW_OPEN_NOW": "YES",
+   "OPEN_NOW_METHOD": "ESTADIO_DECLARADO_NO_MESMO_DOCUMENTO",
+   "SOURCE_EXCERPT": "Vite/botrite: intervir em pre-colheita com Fenhexamid (max 2) ou alternativas biologicas."
+  },
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_GRAPE_MOTH",
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ],
+   "SOURCE_ID": "IT-PHEN-001",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "PAIR_IN_SAME_CLAUSE",
+   "WINDOW_TYPE": "THRESHOLD_WINDOW",
+   "WINDOW_CONDITION": "Vite/tignoletta: monitorar vinhedos de colheita tardia e, ao ultrapassar 5% de cachos infestados, intervir com Bacillus t., Emamectina (max 2) ou Spinosad (max 3).",
+   "MATCHED_PATTERN": "\\bao ultrapassar\\b",
+   "PHENOLOGY_DECLARED": "Vite: «maturazione».",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "POSITIVE_PRESSURE",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "OPEN_NOW_METHOD": "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+   "SOURCE_EXCERPT": "Vite/tignoletta: monitorar vinhedos de colheita tardia e, ao ultrapassar 5% de cachos infestados, intervir com Bacillus t., Emamectina (max 2) ou Spinosad (max 3)."
+  },
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_FLAVESCENCE",
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ],
+   "SOURCE_ID": "IT-PHEN-001",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "PAIR_IN_SAME_CLAUSE",
+   "WINDOW_TYPE": "ADMINISTRATIVE_WINDOW",
+   "WINDOW_CONDITION": "Vite/flavescenza dorata: inspecionar os vinhedos e arrancar as plantas sintomaticas, conforme a Determinazione n.",
+   "MATCHED_PATTERN": "\\bdeterminazione\\b",
+   "PHENOLOGY_DECLARED": "Vite: «maturazione».",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "MONITOR",
+   "WINDOW_OPEN_NOW": "NO",
+   "OPEN_NOW_METHOD": "ATO_ADMINISTRATIVO_NAO_E_JANELA_AGRONOMICA",
+   "SOURCE_EXCERPT": "Vite/flavescenza dorata: inspecionar os vinhedos e arrancar as plantas sintomaticas, conforme a Determinazione n."
+  },
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_BOTRYTIS",
+   "REGION_IDS": [
+    "REGION_TOSCANA"
+   ],
+   "SOURCE_ID": "IT-PHEN-040",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "CROP_FROM_SINGLE_CROP_DOCUMENT",
+   "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+   "WINDOW_CONDITION": "para botrite, na fase de maior suscetibilidade, possivel intervir com antibotriticos microbiologicos, bicarbonato de potassio ou terpenos e desfolha junto aos cachos;",
+   "MATCHED_PATTERN": "\\bna fase de\\b",
+   "PHENOLOGY_DECLARED": "«invaiatura completa» (pintor completo); secao Maturazione declara inicio de vindima previsto para a segunda metade de setembro, com vindima ja em curso nalgumas areas viticolas",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "POSITIVE_PRESSURE",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "OPEN_NOW_METHOD": "ESTADIO_DECLARADO_NAO_NOMEIA_A_CONDICAO",
+   "SOURCE_EXCERPT": "para botrite, na fase de maior suscetibilidade, possivel intervir com antibotriticos microbiologicos, bicarbonato de potassio ou terpenos e desfolha junto aos cachos;"
+  },
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_FLAVESCENCE",
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ],
+   "SOURCE_ID": "IT-PHEN-004",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "PAIR_IN_SAME_CLAUSE",
+   "WINDOW_TYPE": "ADMINISTRATIVE_WINDOW",
+   "WINDOW_CONDITION": "Vite/flavescenza dorata: inspecionar e arrancar as plantas sintomaticas (Determinazione n.",
+   "MATCHED_PATTERN": "\\bdeterminazione\\b",
+   "PHENOLOGY_DECLARED": "Vite: «maturazione».",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "MONITOR",
+   "WINDOW_OPEN_NOW": "NO",
+   "OPEN_NOW_METHOD": "ATO_ADMINISTRATIVO_NAO_E_JANELA_AGRONOMICA",
+   "SOURCE_EXCERPT": "Vite/flavescenza dorata: inspecionar e arrancar as plantas sintomaticas (Determinazione n."
+  },
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_BOTRYTIS",
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ],
+   "SOURCE_ID": "IT-PHEN-002",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "PAIR_IN_SAME_CLAUSE",
+   "WINDOW_TYPE": "WEATHER_TRIGGERED_WINDOW",
+   "WINDOW_CONDITION": "Vite/botrite: a partir da viragem de cor (invaiatura), em condicoes predisponentes, Cyprodinil+Fludioxonil (max 1) ou Fenhexamid (max 2), no maximo 2 intervencoes ao ano.",
+   "MATCHED_PATTERN": "\\bcondicoes predisponentes\\b",
+   "PHENOLOGY_DECLARED": "Vite: «maturazione».",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "NEUTRAL_MENTION",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "OPEN_NOW_METHOD": "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+   "SOURCE_EXCERPT": "Vite/botrite: a partir da viragem de cor (invaiatura), em condicoes predisponentes, Cyprodinil+Fludioxonil (max 1) ou Fenhexamid (max 2), no maximo 2 intervencoes ao ano."
+  },
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_BOTRYTIS",
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ],
+   "SOURCE_ID": "IT-PHEN-002",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "PAIR_IN_SAME_CLAUSE",
+   "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+   "WINDOW_CONDITION": "Vite/botrite: a partir da viragem de cor (invaiatura), em condicoes predisponentes, Cyprodinil+Fludioxonil (max 1) ou Fenhexamid (max 2), no maximo 2 intervencoes ao ano.",
+   "MATCHED_PATTERN": "\\ba partir d[ao]\\b[^.;]{0,40}\\b(?:invaiatura|maturac\\w+|maturaz\\w+|fioritura|floracao|sfioritura|allegagione|accrescimento|raccolta|colheita)\\b",
+   "PHENOLOGY_DECLARED": "Vite: «maturazione».",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "NEUTRAL_MENTION",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "OPEN_NOW_METHOD": "ESTADIO_DECLARADO_NAO_NOMEIA_A_CONDICAO",
+   "SOURCE_EXCERPT": "Vite/botrite: a partir da viragem de cor (invaiatura), em condicoes predisponentes, Cyprodinil+Fludioxonil (max 1) ou Fenhexamid (max 2), no maximo 2 intervencoes ao ano."
+  },
+  {
+   "CROP": "CROP_MAIZE",
+   "TARGET": "ISSUE_CORN_BORER",
+   "REGION_IDS": [
+    "REGION_FRIULI_VENEZIA_GIULIA"
+   ],
+   "SOURCE_ID": "IT-PHEN-048",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "PAIR_IN_DOCUMENT_TITLE",
+   "WINDOW_TYPE": "THRESHOLD_WINDOW",
+   "WINDOW_CONDITION": "Limiar declarado: tratamento insecticida justificado quando se observarem posturas superiores a 3 por cada 100 plantas e/ou presenca de larvas superior a 30-40% em pelo menos 50-100 espigas observadas.",
+   "MATCHED_PATTERN": "\\blimiar\\b",
+   "PHENOLOGY_DECLARED": "«maturazione lattea – maturazione fisiologica», conforme epoca de sementeira, disponibilidade de rega e classe varietal, com escala BBCH 65-75 declarada; nalguns perimetros nao regados as colheitas ja comecaram",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "POSITIVE_PRESSURE",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "OPEN_NOW_METHOD": "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+   "SOURCE_EXCERPT": "Limiar declarado: tratamento insecticida justificado quando se observarem posturas superiores a 3 por cada 100 plantas e/ou presenca de larvas superior a 30-40% em pelo menos 50-100 espigas observadas."
+  },
+  {
+   "CROP": "CROP_MAIZE",
+   "TARGET": "ISSUE_CORN_BORER",
+   "REGION_IDS": [
+    "REGION_FRIULI_VENEZIA_GIULIA"
+   ],
+   "SOURCE_ID": "IT-PHEN-048",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "PAIR_IN_DOCUMENT_TITLE",
+   "WINDOW_TYPE": "PEST_STAGE_WINDOW",
+   "WINDOW_CONDITION": "O boletim indica que o voo dos adultos da 3a geracao comecou e que o pico de postura e esperado nos dias seguintes, mas que as espigas em maturacao avancada nao devem sofrer dano — excetuando sementeiras tardias (junho) e milho de segunda colheita.",
+   "MATCHED_PATTERN": "\\bvoo\\b",
+   "PHENOLOGY_DECLARED": "«maturazione lattea – maturazione fisiologica», conforme epoca de sementeira, disponibilidade de rega e classe varietal, com escala BBCH 65-75 declarada; nalguns perimetros nao regados as colheitas ja comecaram",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "NEUTRAL_MENTION",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "OPEN_NOW_METHOD": "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+   "SOURCE_EXCERPT": "O boletim indica que o voo dos adultos da 3a geracao comecou e que o pico de postura e esperado nos dias seguintes, mas que as espigas em maturacao avancada nao devem sofrer dano — excetuando sementeiras tardias (junho) e milho de segunda colheita."
+  },
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_BOTRYTIS",
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ],
+   "SOURCE_ID": "IT-PHEN-003",
+   "SOURCE_FIELD": "INTERVENTION_GUIDANCE",
+   "PAIR_METHOD": "CROP_FROM_PRECEDING_CLAUSE",
+   "WINDOW_TYPE": "PHENOLOGY_WINDOW",
+   "WINDOW_CONDITION": "Demais indicacoes seguem a mesma estrutura do n.27 (botrite a partir da invaiatura;",
+   "MATCHED_PATTERN": "\\ba partir d[ao]\\b[^.;]{0,40}\\b(?:invaiatura|maturac\\w+|maturaz\\w+|fioritura|floracao|sfioritura|allegagione|accrescimento|raccolta|colheita)\\b",
+   "PHENOLOGY_DECLARED": "Vite: «invaiatura».",
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "NEUTRAL_MENTION",
+   "WINDOW_OPEN_NOW": "YES",
+   "OPEN_NOW_METHOD": "ESTADIO_DECLARADO_NO_MESMO_DOCUMENTO",
+   "SOURCE_EXCERPT": "Demais indicacoes seguem a mesma estrutura do n.27 (botrite a partir da invaiatura;"
+  },
+  {
+   "CROP": "CROP_GRAPEVINE",
+   "TARGET": "ISSUE_FLAVESCENCE",
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ],
+   "SOURCE_ID": "IT-CAN-6B5F605270",
+   "SOURCE_FIELD": "WHAT_IT_IS",
+   "PAIR_METHOD": "CROP_FROM_SINGLE_CROP_DOCUMENT",
+   "WINDOW_TYPE": "ADMINISTRATIVE_WINDOW",
+   "WINDOW_CONDITION": "O mesmo boletim do Veneto recomenda continuar os controles de plantas com Giallumi e decapita-las a espera da erradicacao outono-invernal, conforme o Decreto de Lotta Obbligatoria vigente.",
+   "MATCHED_PATTERN": "\\bdecreto\\b",
+   "PHENOLOGY_DECLARED": null,
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "NEUTRAL_MENTION",
+   "WINDOW_OPEN_NOW": "NO",
+   "OPEN_NOW_METHOD": "ATO_ADMINISTRATIVO_NAO_E_JANELA_AGRONOMICA",
+   "SOURCE_EXCERPT": "O mesmo boletim do Veneto recomenda continuar os controles de plantas com Giallumi e decapita-las a espera da erradicacao outono-invernal, conforme o Decreto de Lotta Obbligatoria vigente."
+  },
+  {
+   "CROP": "CROP_APPLE",
+   "TARGET": "ISSUE_CODLING_MOTH",
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ],
+   "SOURCE_ID": "IT-CAN-D9582B1FD6",
+   "SOURCE_FIELD": "WHAT_IT_IS",
+   "PAIR_METHOD": "CROP_FROM_SINGLE_CROP_DOCUMENT",
+   "WINDOW_TYPE": "PEST_STAGE_WINDOW",
+   "WINDOW_CONDITION": "O boletim frutticolo do Veneto declara terminada a colheita das variedades do grupo Gala e reporta terceiro voo de Cydia pomonella terminado com danos em aumento tambem em pomares de manejo integrado.",
+   "MATCHED_PATTERN": "\\bvoo\\b",
+   "PHENOLOGY_DECLARED": null,
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "POSITIVE_PRESSURE",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "OPEN_NOW_METHOD": "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+   "SOURCE_EXCERPT": "O boletim frutticolo do Veneto declara terminada a colheita das variedades do grupo Gala e reporta terceiro voo de Cydia pomonella terminado com danos em aumento tambem em pomares de manejo integrado."
+  },
+  {
+   "CROP": "CROP_TOMATO",
+   "TARGET": "ISSUE_DOWNY_MILDEW",
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ],
+   "SOURCE_ID": "IT-CAN-03C08A9CCB",
+   "SOURCE_FIELD": "WHAT_IT_IS",
+   "PAIR_METHOD": "PAIR_IN_SAME_CLAUSE",
+   "WINDOW_TYPE": "WEATHER_TRIGGERED_WINDOW",
+   "WINDOW_CONDITION": "O boletim horticola do Veneto reporta chuvas na semana 17–23 de agosto que criaram condicoes ideais para novas infeccoes de Peronospora e Alternaria em tomate industrial, e recomenda tratamento nos lotes com colheita prevista em 25–30 dias.",
+   "MATCHED_PATTERN": "\\bcondicoes ideais para\\b",
+   "PHENOLOGY_DECLARED": null,
+   "WINDOW_DEFINED": "YES",
+   "CLAUSE_DIRECTION": "POSITIVE_PRESSURE",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "OPEN_NOW_METHOD": "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+   "SOURCE_EXCERPT": "O boletim horticola do Veneto reporta chuvas na semana 17–23 de agosto que criaram condicoes ideais para novas infeccoes de Peronospora e Alternaria em tomate industrial, e recomenda tratamento nos lotes com colheita prevista em 25–30 dias."
+  }
+ ]
+}
