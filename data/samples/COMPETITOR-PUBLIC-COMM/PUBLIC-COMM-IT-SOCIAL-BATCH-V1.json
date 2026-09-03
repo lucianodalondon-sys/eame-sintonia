@@ -1,0 +1,603 @@
+{
+ "SOURCE_ID": "PUBLIC-COMM-IT-SOCIAL-BATCH-V1",
+ "DATASET_OWNER": "SINTONIA_SCRAP_ITALY",
+ "VERSION": "V1",
+ "FROZEN_AT": "2026-09-03",
+ "CAPTURED_AT": "2026-09-03",
+ "CAPTURED_AT_POR_QUE": "DERIVED_SCOPE: a lista nao foi capturada do mundo, foi derivada de leituras de site feitas nesta missao. A data em que passou a existir E a data do congelamento.",
+ "FROZEN_RULE": "esta lista NAO muda depois da primeira coleta. Criterio novo produz V2 explicita, com a V1 preservada — senao o rendimento fica medido contra um denominador que se mexeu.",
+ "ENTRY_RULE": "ACCOUNT_IDENTITY_STATE = DECLARED_BY_THE_ORGANISATION",
+ "WHY_THE_RULE_IS_THIS_NARROW": "ES-T8-003 reprovou com 39 de 60 itens agronomicos porque 24 de 32 contas nao declaravam pais. Volume nao compensa identidade ausente.",
+ "EVIDENCE_CLASS": "DERIVED_SCOPE",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "ACCOUNTS_IN_BATCH": 32,
+ "BY_PLATFORM": {
+  "INSTAGRAM": 19,
+  "LINKEDIN": 5,
+  "YOUTUBE": 8
+ },
+ "BY_PAGE_ROLE": {
+  "PUBLIC_BODY": 4,
+  "TECHNICAL_ADVISORY": 2,
+  "SCIENTIFIC_SOCIETY": 3,
+  "COOPERATIVE": 3,
+  "COMPANY": 4,
+  "RESEARCH_INSTITUTION": 2,
+  "UNIVERSITY": 1,
+  "UNIVERSITY_DEPARTMENT": 3,
+  "PRODUCER_ORGANISATION": 5,
+  "TECHNICAL_MEDIA": 3,
+  "CONSORTIUM": 1,
+  "COOPERATIVE_DISTRIBUTOR": 1
+ },
+ "BY_PRIORITY": {
+  "1": 9,
+  "2": 13,
+  "3": 10
+ },
+ "EXECUTION_ORDER": [
+  {
+   "STEP": "A",
+   "FASE": "janela-perfis",
+   "CUSTO": "ZERO",
+   "GATE": "rota publica pelo navegador — bio, seguidores e o denominador de posts"
+  },
+  {
+   "STEP": "B",
+   "FASE": "janela-objetos",
+   "CUSTO": "ZERO",
+   "GATE": "os 12 itens recentes, legenda inteira, data, curtidas e — em reel — duracao e MP4"
+  },
+  {
+   "STEP": "C",
+   "FASE": "transcrever",
+   "CUSTO": "ZERO em dolar, tempo de maquina",
+   "GATE": "faster-whisper small, idioma it DECLARADO, nunca detectado"
+  },
+  {
+   "STEP": "D",
+   "FASE": "comentarios",
+   "CUSTO": "PAGA",
+   "GATE": "so atras do portao de dado pessoal, e so se as tres fases gratis fecharem sem PARTIAL"
+  }
+ ],
+ "WINDOW_FIRST": "LAST_30D",
+ "WINDOW_WIDEN_TO": "LAST_60D, depois LAST_90D",
+ "WINDOW_WIDEN_RULE": "so onde o corpus vier baixo. Nunca historico profundo na primeira execucao.",
+ "CONTENT_COLLECTION_STAGE": "NOT_STARTED",
+ "MISSION_STATE": "READY_TO_COLLECT_WHEN_RUNNER_AVAILABLE",
+ "WHY_NOT_COLLECTED_HERE": "esta sessao remota nao tem a rota: o Chrome nao atravessa o proxy (ERR_CONNECTION_RESET em todo host, google.com incluido) e a pagina de perfil do Instagram devolve HTTP 302 para login. A rota de EMBED de POST responde HTTP 200 daqui — falta o shortcode, que a passada de perfil entrega. O `sintonia-scrap.yml` roda no self-hosted que tem navegador e nucleos.",
+ "ZERO_MEANS_NOW": "NO_CONTENT_COLLECTION_EXECUTED — nenhum zero deste lote fala sobre o mundo ainda",
+ "ZERO_WILL_MEAN_AFTER_A_VALID_RUN": "NO_ITEMS_OBSERVED nesta conta provada, nesta plataforma, nesta janela, nesta execucao bem-sucedida. NUNCA ORGANIZATION_NOT_COMMUNICATING.",
+ "ACCOUNTS": [
+  {
+   "HANDLE": "ersa_fvg_informa",
+   "URL": "https://www.instagram.com/ersa_fvg_informa/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "ERSA — Agenzia regionale sviluppo rurale FVG",
+   "PAGE_ROLE": "PUBLIC_BODY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em difesafitosanitaria.ersa.fvg.it / ersa.fvg.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "e o mesmo servico que assina os bollettini de melo do Friuli-Venezia Giulia — a regiao declarada de OPP_9C600748BB1B (mais x piralide) e OPP_F139E05A9F3A (pomodoro x oidio)",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "MAIS",
+    "VITE",
+    "SOIA"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "agralia.it",
+   "URL": "https://www.instagram.com/agralia.it/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Agralia Studio Agronomico (Brescia)",
+   "PAGE_ROLE": "TECHNICAL_ADVISORY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em agralia.it, junto do feed e do canal YouTube (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "estudio agronomico privado que publica bollettino proprio de vite na Lombardia — voz tecnica que aconselha o produtor, camada que o acervo italiano nao tem",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "OLIVO",
+    "MAIS"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "aipp_protezione_piante",
+   "URL": "https://www.instagram.com/aipp_protezione_piante/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "AIPP — Associazione Italiana per la Protezione delle Piante",
+   "PAGE_ROLE": "SCIENTIFIC_SOCIETY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em aipp.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "sociedade cientifica italiana da protecao das plantas — o proprio negocio da ADAMA",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "agrintesa_ortofrutta_vino",
+   "URL": "https://www.instagram.com/agrintesa_ortofrutta_vino/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Agrintesa Soc. Coop. Agricola",
+   "PAGE_ROLE": "COOPERATIVE",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em agrintesa.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "cooperativa da Romagna nas pomacee — mesma area de OPP_20D89B04F64D e OPP_DA4B5954F72A e da rede de trappole da cimice",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "PERO",
+    "PESCO",
+    "ACTINIDIA",
+    "VITE"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "fmc_agro_italia",
+   "URL": "https://www.instagram.com/fmc_agro_italia/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "FMC Agro Italia",
+   "PAGE_ROLE": "COMPANY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em ag.fmc.com/it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "primeiro canal social italiano de concorrente com identidade declarada pela propria empresa — o acervo tem o site, nao o canal",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "MAIS",
+    "POMODORO",
+    "FRUMENTO"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "fondazionemach",
+   "URL": "https://www.instagram.com/fondazionemach/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Fondazione Edmund Mach (FEM/CTT)",
+   "PAGE_ROLE": "RESEARCH_INSTITUTION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em fmach.it e ctt.fmach.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "o CTT assina os bollettini de difesa integrata do Trentino, regiao de OPP_75C37DED9160 (melo x carpocapsa) e das crop windows de melo",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "VITE"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "crearicerca",
+   "URL": "https://www.instagram.com/crearicerca/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "CREA — Consiglio per la ricerca in agricoltura",
+   "PAGE_ROLE": "RESEARCH_INSTITUTION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em crea.gov.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "centro nacional de pesquisa agricola; ja e fonte do acervo pelo site, nunca pelo canal",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "arpaeemiliaromagna",
+   "URL": "https://www.instagram.com/arpaeemiliaromagna/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Arpae Emilia-Romagna",
+   "PAGE_ROLE": "PUBLIC_BODY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em arpae.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "agrometeorologia da regiao onde estao 4 das 37 oportunidades e toda a serie da cimice",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "unicatt",
+   "URL": "https://www.instagram.com/unicatt/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Universita Cattolica del Sacro Cuore",
+   "PAGE_ROLE": "UNIVERSITY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em piacenza.unicatt.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "casa dos modelos CERCOPRI/CERCODEP de cercospora da barbabietola, a cultura de maior peso de rotulo ADAMA (239 pares)",
+   "CROPS_RELEVANT": [
+    "BARBABIETOLA",
+    "VITE",
+    "FRUMENTO"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "distal.unibo",
+   "URL": "https://www.instagram.com/distal.unibo/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "UNIBO — DISTAL",
+   "PAGE_ROLE": "UNIVERSITY_DEPARTMENT",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em distal.unibo.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "departamento agro-alimentar de Bolonha; a mesma universidade opera a rede de trappole da cimice em big.csr.unibo.it",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "PERO",
+    "BARBABIETOLA",
+    "POMODORO"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "dafnaeunipd",
+   "URL": "https://www.instagram.com/dafnaeunipd/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "UNIPD — DAFNAE",
+   "PAGE_ROLE": "UNIVERSITY_DEPARTMENT",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em dafnae.unipd.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "departamento de agronomia de Padova, no Veneto — regiao de OPP_75C37DED9160 e OPP_EA2AE1EFB775",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "MAIS",
+    "SOIA",
+    "POMODORO"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "disaa_unimi",
+   "URL": "https://www.instagram.com/disaa_unimi/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "UNIMI — DiSAA",
+   "PAGE_ROLE": "UNIVERSITY_DEPARTMENT",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em disaa.unimi.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "agronomia de Milao, Lombardia — regiao de OPP_F6EEF5B32F65 (mais x diabrotica)",
+   "CROPS_RELEVANT": [
+    "MAIS",
+    "RISO",
+    "VITE"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "cia_agricoltori",
+   "URL": "https://www.instagram.com/cia_agricoltori/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "CIA — Agricoltori Italiani",
+   "PAGE_ROLE": "PRODUCER_ORGANISATION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em cia.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "organizacao nacional de produtores",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "coldiretti",
+   "URL": "https://www.instagram.com/coldiretti/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Coldiretti",
+   "PAGE_ROLE": "PRODUCER_ORGANISATION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em coldiretti.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "ja e fonte do acervo pelo site; o canal nao estava",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "confagricolturasiena",
+   "URL": "https://www.instagram.com/confagricolturasiena/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Unione Provinciale Agricoltori di Siena",
+   "PAGE_ROLE": "PRODUCER_ORGANISATION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em confagricolturasiena.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "republica o bollettino fitossanitario da Toscana — regiao de OPP_IT-WIN-0029 (grano duro x fusariose, proxima janela 2027)",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "OLIVO",
+    "FRUMENTO"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "agronotizie",
+   "URL": "https://www.instagram.com/agronotizie/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "AgroNotizie (Image Line s.r.l.)",
+   "PAGE_ROLE": "TECHNICAL_MEDIA",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado no RSS de agronotizie.imagelinenetwork.com (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "principal midia tecnica agricola italiana. ATENCAO: a editora e Image Line s.r.l. em imagelinenetwork.com — image-line.com e a FL Studio, outra empresa",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "edagricole_official",
+   "URL": "https://www.instagram.com/edagricole_official/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Edagricole / Tecniche Nuove",
+   "PAGE_ROLE": "TECHNICAL_MEDIA",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em edagricole.it, terraevita, VVQ, Olivo e Olio, Rivista Orticoltura (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "grupo editorial que publica as revistas de cultura unica das culturas ADAMA",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "OLIVO",
+    "ORTAGGI"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "masafsocial",
+   "URL": "https://www.instagram.com/masafsocial/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "MASAF — Ministero dell agricoltura",
+   "PAGE_ROLE": "PUBLIC_BODY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em politicheagricole.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "ministerio; camada de politica e de evento regulatorio",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "coneglianovaldobbiadenedocg",
+   "URL": "https://www.instagram.com/coneglianovaldobbiadenedocg/",
+   "PLATFORM": "INSTAGRAM",
+   "ORGANISATION": "Consorzio Conegliano Valdobbiadene Prosecco DOCG",
+   "PAGE_ROLE": "CONSORTIUM",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em prosecco.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "consorcio de tutela no Veneto — vite, a cultura de OPP_AF16E6A6B8B3 e OPP_68984FFD5ABF (flavescenza dorata)",
+   "CROPS_RELEVANT": [
+    "VITE"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "company/apofruit-italia-soc-coop-agricola",
+   "URL": "https://www.linkedin.com/company/apofruit-italia-soc-coop-agricola",
+   "PLATFORM": "LINKEDIN",
+   "ORGANISATION": "Apofruit Italia",
+   "PAGE_ROLE": "COOPERATIVE",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em apofruit.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "OP de fruta; LinkedIn e onde papel declarado e pais declarado existem como campo",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "PERO",
+    "PESCO",
+    "FRAGOLA"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "company/arpae-emilia-romagna",
+   "URL": "https://www.linkedin.com/company/arpae-emilia-romagna",
+   "PLATFORM": "LINKEDIN",
+   "ORGANISATION": "Arpae Emilia-Romagna",
+   "PAGE_ROLE": "PUBLIC_BODY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em arpae.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "agrometeorologia regional",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "company/vog-apples",
+   "URL": "https://www.linkedin.com/company/vog-apples",
+   "PLATFORM": "LINKEDIN",
+   "ORGANISATION": "VOG — Consorzio delle mele dell Alto Adige",
+   "PAGE_ROLE": "PRODUCER_ORGANISATION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em vog.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "maior consorcio de maca da Italia; MELO tem 146 pares de rotulo ADAMA",
+   "CROPS_RELEVANT": [
+    "MELO"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "company/nufarm",
+   "URL": "https://www.linkedin.com/company/nufarm",
+   "PLATFORM": "LINKEDIN",
+   "ORGANISATION": "Nufarm",
+   "PAGE_ROLE": "COMPANY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em nufarm.com/it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "concorrente no bloco de erbicidi, onde a ADAMA Italia tem 26 dos 51 produtos comerciais",
+   "CROPS_RELEVANT": [
+    "FRUMENTO",
+    "MAIS",
+    "VITE"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "company/cia-agricoltori-italiani",
+   "URL": "https://www.linkedin.com/company/cia-agricoltori-italiani",
+   "PLATFORM": "LINKEDIN",
+   "ORGANISATION": "CIA — Agricoltori Italiani",
+   "PAGE_ROLE": "PRODUCER_ORGANISATION",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em cia.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "organizacao nacional de produtores",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "@agraliastudio",
+   "URL": "https://www.youtube.com/@agraliastudio",
+   "PLATFORM": "YOUTUBE",
+   "ORGANISATION": "Agralia Studio Agronomico",
+   "PAGE_ROLE": "TECHNICAL_ADVISORY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em agralia.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "voz tecnica privada de vite na Lombardia",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "OLIVO"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "channel/UCktJyIUm3qJJpThrTa8nsHQ",
+   "URL": "https://www.youtube.com/channel/UCktJyIUm3qJJpThrTa8nsHQ",
+   "PLATFORM": "YOUTUBE",
+   "ORGANISATION": "AIPP",
+   "PAGE_ROLE": "SCIENTIFIC_SOCIETY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em aipp.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "protecao das plantas, fala tecnica longa",
+   "CROPS_RELEVANT": [
+    "TODAS"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "channel/UCWjrNnyRiWOtCM0zKUcsK5A",
+   "URL": "https://www.youtube.com/channel/UCWjrNnyRiWOtCM0zKUcsK5A",
+   "PLATFORM": "YOUTUBE",
+   "ORGANISATION": "FMC Agro Italia",
+   "PAGE_ROLE": "COMPANY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em ag.fmc.com/it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "comunicacao tecnica de concorrente em italiano",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "MAIS",
+    "POMODORO"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "user/GowanItalia",
+   "URL": "https://www.youtube.com/user/GowanItalia",
+   "PLATFORM": "YOUTUBE",
+   "ORGANISATION": "Gowan Italia",
+   "PAGE_ROLE": "COMPANY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em gowanitalia.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "concorrente ausente do acervo, difesa della vite",
+   "CROPS_RELEVANT": [
+    "VITE",
+    "POMODORO",
+    "MELO"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "@SIRFI-k9x",
+   "URL": "https://www.youtube.com/@SIRFI-k9x",
+   "PLATFORM": "YOUTUBE",
+   "ORGANISATION": "SIRFI — Societa Italiana per la Ricerca sulla Flora Infestante",
+   "PAGE_ROLE": "SCIENTIFIC_SOCIETY",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em sirfi.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "a sociedade italiana de plantas infestantes — erbicidi sao 26 dos 51 produtos ADAMA Italia",
+   "CROPS_RELEVANT": [
+    "FRUMENTO",
+    "MAIS",
+    "RISO",
+    "SOIA",
+    "BARBABIETOLA"
+   ],
+   "COLLECTION_PRIORITY": 1
+  },
+  {
+   "HANDLE": "channel/UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "URL": "https://www.youtube.com/channel/UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "PLATFORM": "YOUTUBE",
+   "ORGANISATION": "Agrintesa",
+   "PAGE_ROLE": "COOPERATIVE",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em agrintesa.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "cooperativa das pomacee da Romagna",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "PERO",
+    "ACTINIDIA"
+   ],
+   "COLLECTION_PRIORITY": 2
+  },
+  {
+   "HANDLE": "@myfruitvideo",
+   "URL": "https://www.youtube.com/@myfruitvideo",
+   "PLATFORM": "YOUTUBE",
+   "ORGANISATION": "Myfruit",
+   "PAGE_ROLE": "TECHNICAL_MEDIA",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em myfruit.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "video de ortofrutta italiana",
+   "CROPS_RELEVANT": [
+    "MELO",
+    "PERO",
+    "PESCO"
+   ],
+   "COLLECTION_PRIORITY": 3
+  },
+  {
+   "HANDLE": "user/TerremerseCoop",
+   "URL": "https://www.youtube.com/user/TerremerseCoop",
+   "PLATFORM": "YOUTUBE",
+   "ORGANISATION": "Terremerse",
+   "PAGE_ROLE": "COOPERATIVE_DISTRIBUTOR",
+   "ACCOUNT_IDENTITY_STATE": "DECLARED_BY_THE_ORGANISATION",
+   "IDENTITY_EVIDENCE": "declarado em terremerse.it (leitura 2026-09-03)",
+   "COUNTRY_SCOPE": "LOCAL_COUNTRY_PROVED",
+   "ADAMA_RELEVANCE_REASON": "cooperativa que tambem distribui agrofarmaco nas culturas de maior peso de rotulo",
+   "CROPS_RELEVANT": [
+    "FRUMENTO",
+    "MAIS",
+    "BARBABIETOLA",
+    "POMODORO"
+   ],
+   "COLLECTION_PRIORITY": 2
+  }
+ ]
+}
