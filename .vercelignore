@@ -32,3 +32,10 @@
 # Documentacao. Nada no portal liga a um .md; servi-los so alarga o publico.
 *.md
 **/*.md
+
+# Configuracao que viajou com a pasta do cliente. A raiz e agora a autoridade
+# de hosting: estes ficheiros nao sao lidos pelo Vercel e nao sao conteudo de
+# site — servi-los so conta a quem olha como o deploy esta montado.
+/italia-portale/client/vercel.json
+/italia-portale/client/.vercelignore
+/italia-portale/client/_ds/adama-brandwell/_adherence.oxlintrc.json

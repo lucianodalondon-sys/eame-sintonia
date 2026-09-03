@@ -45,6 +45,9 @@ const FORBIDDEN = [
   '/.env', '/.env.local', '/.vercel/project.json', '/.gitignore',
   /* e le stesse vie come se la cartella client fosse la radice servita */
   '/audit/checks.mjs', '/LEGGIMI.md',
+  /* configurazione di hosting che viaggiava dentro la cartella client */
+  '/vercel.json', '/.vercelignore',
+  '/_ds/adama-brandwell/_adherence.oxlintrc.json',
 ];
 /* Vie che DEVONO rispondere: se queste cadono, la protezione ha spento il sito. */
 const REQUIRED = ['/portale.html', '/italy-handoff-v21.js', '/italy-app-model.js', '/index.html'];
@@ -65,7 +68,8 @@ const viPath = path.join(ROOT, '.vercelignore');
 if (!fs.existsSync(viPath)) fail.push('.vercelignore assente dalla radice');
 else {
   const vi = fs.readFileSync(viPath, 'utf8');
-  const must = ['/build', '/research', '/data', '/scripts', '/italia-portale/audit', '.env', '.vercel', '*.md'];
+  const must = ['/build', '/research', '/data', '/scripts', '/italia-portale/audit', '.env', '.vercel', '*.md',
+    '/italia-portale/client/vercel.json', '/italia-portale/client/.vercelignore'];
   const miss = must.filter((m) => !vi.split('\n').some((l) => l.trim() === m));
   if (miss.length) fail.push(`.vercelignore non esclude: ${miss.join(' ')}`);
   else pass.push('.vercelignore esclude archivio, pacchetti, script, audit e segreti');

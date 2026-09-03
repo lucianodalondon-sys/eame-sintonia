@@ -47,6 +47,10 @@ const PKG = path.resolve(HERE, '..', '..', 'build', 'ITALY-REALITY-HANDOFF-V2.1'
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf('--' + k); return i >= 0 ? argv[i + 1] : d; };
 const PORT = Number(arg('port', 8931));
+/* Con --base la tappa E interroga un URL GIA PUBBLICATO invece della
+   cartella locale: e l'unico modo di provare che il DEPLOY — non il
+   disco — mostra gli stessi casi. Senza --base resta il server locale. */
+const BASE = arg('base', null);
 const WITH_BROWSER = !argv.includes('--no-browser');
 
 const set = (a) => new Set(a);
@@ -91,7 +95,7 @@ if (WITH_BROWSER) {
   const { chromium } = await import('playwright-core');
   const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
     '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.ttf': 'font/ttf', '.otf': 'font/otf' };
-  const server = http.createServer((q, r) => {
+  const server = BASE ? null : http.createServer((q, r) => {
     const u = decodeURIComponent((q.url || '/').split('?')[0]);
     if (u === '/favicon.ico') { r.writeHead(204).end(); return; }
     fs.readFile(path.join(CLIENT, u === '/' ? '/portale.html' : u), (e, b) => {
@@ -99,7 +103,8 @@ if (WITH_BROWSER) {
       r.writeHead(200, { 'content-type': TYPES[path.extname(u)] || 'application/octet-stream' }).end(b);
     });
   });
-  await new Promise((r) => server.listen(PORT, r));
+  if (server) await new Promise((r) => server.listen(PORT, r));
+  const ORIGIN = BASE || `http://localhost:${PORT}`;
   const EXEC = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
     '/opt/pw-browsers/chromium/chrome-linux/chrome'].find((p) => fs.existsSync(p));
   const browser = await chromium.launch({ executablePath: EXEC, args: ['--no-sandbox'] });
@@ -111,7 +116,7 @@ if (WITH_BROWSER) {
     .map((e) => ({ id: e.getAttribute('data-case'), conv: e.getAttribute('data-convergence') })));
 
   for (const lang of ['it', 'en']) {
-    await page.goto(`http://localhost:${PORT}/portale.html`, { waitUntil: 'networkidle' });
+    await page.goto(`${ORIGIN}/portale.html`, { waitUntil: 'networkidle', timeout: 120000 });
     await page.waitForTimeout(900);
     if (lang === 'en') {
       await page.evaluate(() => {
@@ -192,7 +197,7 @@ if (WITH_BROWSER) {
     if (jsErrors.length) failures.push(`${lang} · E: ${jsErrors.length} fatal JS error(s): ${jsErrors[0]}`);
   }
   await browser.close();
-  server.close();
+  if (server) server.close();
 }
 
 /* ── il verdetto ───────────────────────────────────────────────────────── */
