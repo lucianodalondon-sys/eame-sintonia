@@ -37,6 +37,12 @@ export const DATA_FILES = [
      late is a family that silently kept the fixture. */
   'italy-handoff-v21.js',
   'italy-app-model.js',
+  /* L'istantanea della riunione e il suo dizionario IT/EN. Caricati dopo il
+     modello, esattamente come in portale.html: la superficie canonica li legge
+     a ogni render, quindi un controllo che non li carica non sta guardando la
+     schermata che il cliente vede. */
+  'meeting-intelligence-snapshot.js',
+  'meeting-labels.js',
 ];
 
 function makeWindow() {

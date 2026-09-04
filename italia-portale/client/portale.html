@@ -40,6 +40,12 @@
 <script src="italy-ingested.js"></script>
 <script src="italy-handoff-v21.js"></script>
 <script src="italy-app-model.js"></script>
+<!-- L'ISTANTANEA DELLA RIUNIONE E IL SUO DIZIONARIO.
+     Caricati DOPO il modello e DOPO italy-i18n.js: sono una sorgente in piu,
+     non una modifica di quelle esistenti. La superficie canonica legge solo
+     questi due file; il resto del portale non li vede. -->
+<script src="meeting-intelligence-snapshot.js"></script>
+<script src="meeting-labels.js"></script>
 <script src="vendor/jspdf-2.5.2.umd.min.js"></script>
 <script src="italy-pdf.js"></script>
 <style>
@@ -426,6 +432,324 @@
             </sc-for>
           </div>
         </div>
+      </div>
+    </div>
+    </sc-if>
+
+
+    <!-- ══ RADAR CANONICO · I 43 CASI DELLO SNAPSHOT ═══════════════════════
+         La stessa casca BrandWell del radar: la MASSA della scheda e la
+         superficie di categoria, gli inchiostri sopra si separano per
+         LUMINANZA, AGIRE ORA e la pastiglia piena piu chiara della scheda.
+         Nessun gettone interno arriva qui: ogni parola passa da
+         meeting-labels.js, e cio che non ha una frase non viene stampato.  -->
+    <sc-if value="{{ isCanonical }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:16px 22px 40px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><h1 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap">{{ cTitle }}</h1><span style="padding:3px 9px;border-radius:9999px;background:#00783F;color:#fff;font-size:10px;font-weight:700;letter-spacing:0.14em">{{ cUniverseLabel }}</span></div>
+          <div style="font-family:var(--font-secondary);font-size:13px;color:#C9C3C1;max-width:74ch">{{ cSub }}</div>
+          <!-- LA PROVENIENZA E PARTE DELLA LETTURA, non una nota a pie di
+               pagina: chi guarda deve poter dire da quale HEAD del motore
+               viene cio che sta leggendo. -->
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--font-secondary);font-size:10px;letter-spacing:0.08em;color:#8F8886;padding-top:2px">
+            <span>{{ cSnapshotLabel }}</span><span style="width:3px;height:3px;border-radius:50%;background:#6E6663"></span>
+            <span style="color:#B1A9A7">{{ cBuildId }}</span><span style="width:3px;height:3px;border-radius:50%;background:#6E6663"></span>
+            <span style="color:#B1A9A7">{{ cSourceHead }}</span><span style="width:3px;height:3px;border-radius:50%;background:#6E6663"></span>
+            <span style="color:#B1A9A7">{{ cCutoff }}</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <sc-for list="{{ cFilters }}" as="f" hint-placeholder-count="5">
+            <span style="position:relative;display:inline-flex;align-items:center;height:32px;border-radius:9999px;background:{{ f.bg }};border:1px solid {{ f.border }};overflow:hidden" style-hover="border-color:rgba(203,197,195,0.5)">
+              <span style="width:3px;align-self:stretch;background:{{ f.rail }};flex:0 0 3px"></span>
+              <span style="position:relative;display:inline-flex;align-items:center;height:32px;padding:0 26px 0 12px">
+                <span style="font-size:11.5px;font-weight:{{ f.weight }};color:{{ f.color }};white-space:nowrap;pointer-events:none">{{ f.current }}</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#B1A9A7" stroke-width="3" style="position:absolute;right:10px;top:11px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg>
+                <select value="{{ f.value }}" onChange="{{ f.set }}" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;font-family:inherit;cursor:pointer" style-focus="opacity:0.001;box-shadow:0 0 0 2px rgba(0,152,69,0.45)"><sc-for list="{{ f.options }}" as="o" hint-placeholder-count="1"><option value="{{ o.v }}">{{ o.l }}</option></sc-for></select>
+              </span>
+            </span>
+          </sc-for>
+          <sc-if value="{{ cHasFilters }}" hint-placeholder-val="{{ false }}"><span onClick="{{ cClear }}" style="height:32px;display:inline-flex;align-items:center;padding:0 14px;border-radius:9999px;font-size:11px;font-weight:700;color:#00B152;cursor:pointer;border:1px solid rgba(0,152,69,0.45);background:rgba(0,152,69,0.10)" style-hover="background:rgba(0,152,69,0.2)">{{ cClearLabel }} ×</span></sc-if>
+        </div>
+      </div>
+
+      <!-- I CONTEGGI · contati adesso sui 43 casi dello snapshot, mai scritti
+           a mano e mai mescolati con i casi di presentazione. -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px">
+        <sc-for list="{{ cKpis }}" as="k" hint-placeholder-count="10">
+          <div onClick="{{ k.go }}" data-ckpi="{{ k.key }}" style="border-radius:12px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;border-top:3px solid {{ k.rail }};padding:11px 13px;display:flex;flex-direction:column;gap:5px;cursor:pointer" style-hover="background:#231E1D;border-color:{{ k.color }}">
+            <span style="font-size:26px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;color:{{ k.color }}">{{ k.value }}</span>
+            <div style="font-size:11px;font-weight:600;letter-spacing:0.01em;color:#EDEAE9;line-height:1.3">{{ k.label }}</div>
+            <div style="font-size:10px;color:#8F8886;line-height:1.35">{{ k.sub }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cLblCases }} · <span style="color:#fff">{{ cCount }}</span> {{ cLblOf }} {{ cFiltered }}</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:10px">
+        <sc-for list="{{ cVisible }}" as="c" hint-placeholder-count="12">
+          <div onClick="{{ c.open }}" data-canonical-case="{{ c.id }}" style="position:relative;overflow:hidden;cursor:pointer;border-radius:14px;border:1px solid {{ c.onChipEdge }};background:{{ c.surface }};padding:0 14px 12px;display:flex;flex-direction:column;gap:9px;min-height:250px;transition:transform .15s ease" style-hover="transform:translateY(-2px)">
+            <sc-if value="{{ c.hasCategory }}" hint-placeholder-val="{{ true }}"><span style="position:relative;display:inline-flex;align-items:center;height:22px;padding:0 22px 0 14px;margin-left:-14px;background:{{ c.onChip }};border-right:1px solid {{ c.onChipEdge }};clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%);font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.14em;color:{{ c.onInk }};width:max-content;white-space:nowrap">{{ c.catLabel }}</span></sc-if>
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding-top:10px">
+              <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ c.onMuted }};white-space:nowrap">{{ c.archetype }}</span>
+              <span data-cstatus="{{ c.statusLabel }}" style="display:inline-flex;align-items:center;margin-left:auto;min-height:24px;padding:5px 11px;border-radius:9999px;background:{{ c.statusBg }};border:1px solid {{ c.statusEdge }};color:{{ c.statusInk }};font-size:10px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ c.statusLabel }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <div style="font-size:19px;font-weight:700;line-height:1.05;letter-spacing:-0.015em;color:{{ c.onInk }};text-wrap:balance">{{ c.headline }}</div>
+              <div style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;padding-top:2px"><span style="font-size:13px;color:{{ c.onBody }}">{{ c.region }}</span><span style="width:3px;height:3px;border-radius:50%;background:{{ c.onMuted }}"></span><span style="font-size:11px;color:{{ c.onMuted }}">{{ c.scope }}</span></div>
+            </div>
+            <!-- PERCHE E UN'OPPORTUNITA, e PERCHE ADESSO: due righe corte, e
+                 nessuna delle due e scritta a mano — sono i codici del motore
+                 tradotti in parole. -->
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <sc-if value="{{ c.whyCommercial }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:1px"><span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.12em;color:{{ c.onMuted }}">WHY</span><span style="font-size:11px;font-weight:700;color:{{ c.onInk }};line-height:1.25">{{ c.whyCommercial }}</span></div></sc-if>
+              <sc-if value="{{ c.windowLine }}" hint-placeholder-val="{{ true }}"><div style="font-size:10.5px;color:{{ c.onBody }};line-height:1.3">{{ c.windowLine }}</div></sc-if>
+            </div>
+            <div style="position:relative;margin-top:auto;border-radius:10px;background:{{ c.onWell }};border:1px solid {{ c.onWellEdge }};padding:8px 10px;display:flex;flex-direction:column;gap:2px">
+              <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ c.onMuted }}">ADAMA</div>
+              <sc-if value="{{ c.hasProducts }}" hint-placeholder-val="{{ true }}"><span data-cproducts="{{ c.productCount }}" style="font-size:12px;font-weight:700;color:{{ c.onInk }};line-height:1.2;overflow-wrap:anywhere">{{ c.products }}</span></sc-if>
+              <sc-if value="{{ c.hasAction }}" hint-placeholder-val="{{ true }}"><div style="font-size:10px;color:{{ c.onMuted }};line-height:1.3;padding-top:2px">{{ c.actionDep }} · {{ c.actionAct }}</div></sc-if>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:2px">
+              <!-- COMPROVATO E IN VALIDAZIONE NON SI SOMIGLIANO. -->
+              <span data-cpub="{{ c.pubLabel }}" style="display:inline-flex;align-items:center;padding:3px 9px;border-radius:9999px;background:{{ c.pubBg }};border:1px solid {{ c.pubEdge }};color:{{ c.pubInk }};font-size:9.5px;font-weight:700;letter-spacing:0.1em;white-space:nowrap">{{ c.pubLabel }}</span>
+              <span style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:{{ c.onInk }}">{{ c.priority }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ cCanShowAll }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;justify-content:center"><span onClick="{{ cToggleAll }}" style="cursor:pointer;padding:8px 18px;border-radius:9999px;border:1px solid rgba(0,152,69,0.5);color:#00B152;font-size:10.5px;font-weight:700;letter-spacing:0.10em" style-hover="background:rgba(0,152,69,0.12)">{{ cShowAllLabel }}</span></div>
+      </sc-if>
+      <sc-if value="{{ cNoResults }}" hint-placeholder-val="{{ false }}"><div style="padding:24px;text-align:center;color:#8F8886;font-size:12px">{{ cNoResultsLabel }} <span onClick="{{ cClear }}" style="color:#00B152;cursor:pointer;font-weight:700">{{ cClearLabel }}</span></div></sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ══ L'OPPORTUNITA CANONICA · IL DETTAGLIO ═══════════════════════════
+         L'ordine risponde alle sei domande della riunione, in quest'ordine:
+         che cosa sta succedendo · perche riguarda ADAMA · perche adesso o
+         perche non ancora · quali prodotti reggono · che cosa manca · chi
+         deve agire. Ogni blocco tace quando il motore non porta il dato.  -->
+    <sc-if value="{{ isCOpp }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:0 0 40px;display:flex;flex-direction:column;gap:0">
+      <!-- L'INTESTAZIONE PORTA LA MASSA DELLA CATEGORIA, come la scheda. -->
+      <div style="background:{{ cd.surface }};padding:16px 22px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span onClick="{{ cd.back }}" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.12em;color:{{ cd.onBody }};padding:4px 10px;border-radius:9999px;border:1px solid {{ cd.onChipEdge }}" style-hover="background:rgba(255,255,255,0.10)">← {{ cd.lblBack }}</span>
+          <sc-if value="{{ cd.hasCategory }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 12px;border-radius:9999px;background:{{ cd.onChip }};border:1px solid {{ cd.onChipEdge }};font-family:var(--font-secondary);font-size:10px;font-weight:700;letter-spacing:0.14em;color:{{ cd.onInk }}">{{ cd.catLabel }}</span></sc-if>
+          <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ cd.onMuted }}">{{ cd.archetypeLabel }} · {{ cd.archetype }}</span>
+          <span data-cstatus="{{ cd.statusLabel }}" style="display:inline-flex;align-items:center;margin-left:auto;min-height:26px;padding:5px 13px;border-radius:9999px;background:{{ cd.statusBg }};border:1px solid {{ cd.statusEdge }};color:{{ cd.statusInk }};font-size:11px;font-weight:700;letter-spacing:0.09em;white-space:nowrap">{{ cd.statusLabel }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div data-canonical-detail="{{ cd.id }}" style="font-size:30px;font-weight:700;line-height:1.03;letter-spacing:-0.02em;color:{{ cd.onInk }};text-wrap:balance">{{ cd.headline }}</div>
+          <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+            <span style="font-size:14px;color:{{ cd.onBody }}">{{ cd.region }}</span>
+            <span style="width:3px;height:3px;border-radius:50%;background:{{ cd.onMuted }}"></span>
+            <span style="font-size:12px;color:{{ cd.onMuted }}">{{ cd.scope }}</span>
+            <sc-if value="{{ cd.hasSignalDate }}" hint-placeholder-val="{{ true }}"><span style="width:3px;height:3px;border-radius:50%;background:{{ cd.onMuted }}"></span><span style="font-size:12px;color:{{ cd.onMuted }}">{{ cd.lblSignal }} · {{ cd.signal }} · {{ cd.signalDate }}</span></sc-if>
+          </div>
+          <sc-if value="{{ cd.noTargetShown }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:{{ cd.onMuted }}">{{ cd.noTarget }}</span></sc-if>
+        </div>
+        <!-- LO STATO DI PUBBLICAZIONE NON SI NASCONDE, e non si traveste da
+             affermazione validata. -->
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span data-cpub="{{ cd.pubLabel }}" style="display:inline-flex;align-items:center;padding:5px 12px;border-radius:9999px;background:{{ cd.pubBg }};border:1px solid {{ cd.pubEdge }};color:{{ cd.pubInk }};font-size:10.5px;font-weight:700;letter-spacing:0.1em">{{ cd.pubLabel }}</span>
+          <span style="font-size:11.5px;color:{{ cd.onBody }};line-height:1.35;max-width:70ch">{{ cd.pubLong }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid {{ cd.onRule }};padding-top:10px">
+          <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:{{ cd.onMuted }}">{{ cd.priorityLabel }}</span>
+          <span style="font-size:12.5px;font-weight:700;color:{{ cd.onInk }}">{{ cd.priority }}</span>
+          <span style="font-size:11.5px;color:{{ cd.onBody }};line-height:1.35">{{ cd.priorityWhy }}</span>
+        </div>
+      </div>
+
+      <div style="padding:16px 22px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;align-items:start">
+
+        <!-- 1 · CHE COSA STA SUCCEDENDO — frasi composte dai codici. -->
+        <sc-if value="{{ cd.hasBrief }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblHappening }}</div>
+          <sc-for list="{{ cd.briefLines }}" as="b" hint-placeholder-count="3">
+            <div style="font-size:13px;color:#EDEAE9;line-height:1.45">{{ b }}</div>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- 2 · PERCHE E UN'OPPORTUNITA PER ADAMA -->
+        <div style="border-radius:14px;border:1px solid rgba(0,152,69,0.28);background:#1C1817;border-top:3px solid #00B152;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblWhyCommercial }}</div>
+          <sc-if value="{{ cd.hasWhyCommText }}" hint-placeholder-val="{{ true }}"><div data-why-commercial="1" style="font-size:13.5px;color:#fff;line-height:1.45">{{ cd.whyCommText }}</div></sc-if>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ cd.whyCommCodes }}" as="w" hint-placeholder-count="2">
+              <span style="display:inline-flex;align-items:center;padding:3px 10px;border-radius:9999px;border:1px solid rgba(0,152,69,0.45);color:#7BE0A6;font-size:10.5px;line-height:1.3">{{ w }}</span>
+            </sc-for>
+          </div>
+          <sc-if value="{{ cd.hasCommNotProves }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;color:#8F8886;line-height:1.4;border-top:1px dotted rgba(151,139,135,0.45);padding-top:7px">{{ cd.commNotProves }}</div></sc-if>
+        </div>
+
+        <!-- 3 · PERCHE ADESSO / PERCHE NON ANCORA — la catena, elo per elo.
+             Un elo che manca si VEDE: e cosi che un «non adesso» si legge
+             senza doverlo scrivere a parole. -->
+        <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:9px">
+          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblWhyNow }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ cd.whyNowCodes }}" as="w" hint-placeholder-count="1">
+              <span data-why-now="1" style="display:inline-flex;align-items:center;padding:4px 11px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(203,197,195,0.25);color:#EDEAE9;font-size:11px;font-weight:700;line-height:1.3">{{ w }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <sc-for list="{{ cd.chainRows }}" as="r" hint-placeholder-count="5">
+              <div style="display:flex;align-items:baseline;gap:8px;font-size:11.5px;padding:4px 0;border-bottom:1px dotted rgba(151,139,135,0.35)">
+                <span style="width:7px;height:7px;border-radius:50%;background:{{ r.ink }};flex:0 0 7px"></span>
+                <span style="flex:1;color:#E4E0DE">{{ r.name }}</span>
+                <span style="color:{{ r.ink }};font-weight:700;font-size:10.5px;letter-spacing:0.06em;white-space:nowrap">{{ r.state }}</span>
+              </div>
+              <sc-if value="{{ r.hasFact }}" hint-placeholder-val="{{ true }}"><div style="font-size:10.5px;color:#8F8886;line-height:1.35;padding-left:15px;margin-top:-3px">{{ r.fact }}</div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- 4 · LA FINESTRA — il modello nuovo, con la regola e il suo stato.
+             UNKNOWN non sparisce dietro una frase gentile. -->
+        <div style="border-radius:14px;border:1px solid rgba(0,160,223,0.28);background:#1C1817;border-top:3px solid #00A0DF;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblWindow }}</div>
+          <sc-if value="{{ cd.win.hasType }}" hint-placeholder-val="{{ true }}"><div data-window-state="1" style="font-size:13.5px;font-weight:700;color:#fff;line-height:1.35">{{ cd.win.typeL }}</div></sc-if>
+          <sc-if value="{{ cd.win.hasRule }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:3px;border-radius:10px;background:rgba(0,0,0,0.28);border:1px solid rgba(255,255,255,0.08);padding:9px 11px">
+              <span data-window-rule="1" style="font-size:12px;font-weight:700;color:#5CC3EE;line-height:1.3">{{ cd.win.ruleL }}</span>
+              <span style="font-size:11.5px;color:#C9C3C1;line-height:1.4">{{ cd.win.ruleLongL }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ cd.win.hasKnownUnmeasured }}" hint-placeholder-val="{{ true }}"><div style="font-size:11.5px;color:#F6BB2E;line-height:1.4">{{ cd.win.knownUnmeasured }}</div></sc-if>
+          <sc-if value="{{ cd.win.hasMethod }}" hint-placeholder-val="{{ true }}"><div style="font-size:11.5px;color:#C9C3C1;line-height:1.4">{{ cd.win.methodL }}</div></sc-if>
+          <sc-if value="{{ cd.win.hasCondNote }}" hint-placeholder-val="{{ true }}"><div style="font-size:10.5px;color:#8F8886;line-height:1.4;font-style:italic">{{ cd.win.condNote }}</div></sc-if>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;padding-top:2px">
+            <span style="display:inline-flex;align-items:center;padding:3px 10px;border-radius:9999px;border:1px solid rgba(203,197,195,0.25);color:#C9C3C1;font-size:10.5px">{{ cd.win.definedL }}</span>
+            <span style="display:inline-flex;align-items:center;padding:3px 10px;border-radius:9999px;border:1px solid rgba(203,197,195,0.25);color:#C9C3C1;font-size:10.5px">{{ cd.win.openL }}</span>
+          </div>
+        </div>
+
+        <!-- 5 · STADIO E RACCOMANDAZIONE — DUE LETTURE DISTINTE.
+             «il volo e finito» NON implica «l'azione e finita»: quando le due
+             divergono, la nota lo dice a voce alta. -->
+        <sc-if value="{{ cd.stage.hasStage }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblStage }}</span>
+            <span data-pest-stage="1" style="font-size:13px;font-weight:700;color:#EDEAE9">{{ cd.stage.stageL }}</span>
+          </div>
+          <sc-if value="{{ cd.stage.hasRec }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:2px;border-top:1px dotted rgba(151,139,135,0.45);padding-top:7px">
+            <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblRecommendation }}</span>
+            <span data-action-rec="1" style="font-size:13px;font-weight:700;color:#EDEAE9">{{ cd.stage.recL }}</span>
+          </div>
+          </sc-if>
+          <sc-if value="{{ cd.stage.divergent }}" hint-placeholder-val="{{ true }}">
+            <div data-stage-divergent="1" style="border-radius:10px;background:rgba(245,179,23,0.10);border:1px solid rgba(245,179,23,0.45);padding:9px 11px;font-size:11.5px;color:#F5B317;line-height:1.45">{{ cd.stage.note }}</div>
+          </sc-if>
+          <sc-if value="{{ cd.stage.hasNeed }}" hint-placeholder-val="{{ true }}"><div style="font-size:11.5px;color:#C9C3C1;line-height:1.4;border-top:1px dotted rgba(151,139,135,0.45);padding-top:7px">{{ cd.stage.needL }}</div></sc-if>
+          <sc-if value="{{ cd.stage.hasThr }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;color:#8F8886;line-height:1.4">{{ cd.lblThreshold }} · {{ cd.stage.thrL }}</div></sc-if>
+        </div>
+        </sc-if>
+
+        <!-- 6 · I PRODOTTI — TUTTI QUELLI CHE REGGONO. Mai «principale + N». -->
+        <div style="grid-column:1/-1;border-radius:14px;border:1px solid rgba(125,180,30,0.28);background:#1C1817;border-top:3px solid #7DB41E;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblProducts }}</span>
+            <sc-if value="{{ cd.hasProducts }}" hint-placeholder-val="{{ true }}"><span style="font-size:10.5px;color:#8F8886">{{ cd.allProductsNote }}</span></sc-if>
+          </div>
+          <sc-if value="{{ cd.hasNoPrimaryNote }}" hint-placeholder-val="{{ true }}"><div style="font-size:11.5px;color:#F6BB2E;line-height:1.4">{{ cd.noPrimaryNote }}</div></sc-if>
+          <sc-if value="{{ cd.hasProducts }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:9px">
+            <sc-for list="{{ cd.prodRows }}" as="p" hint-placeholder-count="4">
+              <div onClick="{{ p.open }}" data-canonical-product="{{ p.name }}" style="border-radius:11px;border:1px solid rgba(203,197,195,0.14);background:#231E1D;padding:10px 12px;display:flex;flex-direction:column;gap:5px;cursor:pointer" style-hover="border-color:#7DB41E">
+                <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+                  <span style="font-size:14px;font-weight:700;color:#fff;overflow-wrap:anywhere">{{ p.name }}</span>
+                  <sc-if value="{{ p.isPrimary }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;background:#7DB41E;color:#1C1817;font-size:9px;font-weight:700;letter-spacing:0.1em">{{ p.primaryLabel }}</span></sc-if>
+                  <sc-if value="{{ p.hasValidation }}" hint-placeholder-val="{{ true }}"><span style="margin-left:auto;font-size:10px;font-weight:700;color:{{ p.validationInk }};white-space:nowrap">{{ p.validation }}</span></sc-if>
+                </div>
+                <sc-if value="{{ p.hasActives }}" hint-placeholder-val="{{ true }}"><div style="font-size:11px;color:#C9C3C1">{{ p.actives }}<sc-if value="{{ p.hasMoa }}" hint-placeholder-val="{{ true }}"> · {{ p.moa }}</sc-if></div></sc-if>
+                <div style="display:flex;flex-direction:column;gap:2px;padding-top:2px">
+                  <sc-for list="{{ p.fits }}" as="f" hint-placeholder-count="5">
+                    <div style="display:flex;align-items:baseline;gap:6px;font-size:10.5px"><span style="font-family:var(--font-secondary);font-weight:600;letter-spacing:0.08em;color:#8F8886;min-width:74px">{{ f.k }}</span><span style="flex:1;color:#C9C3C1;line-height:1.35">{{ f.v }}</span></div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ p.hasRestrictions }}" hint-placeholder-val="{{ false }}">
+                  <div style="border-top:1px dotted rgba(151,139,135,0.45);padding-top:5px;display:flex;flex-direction:column;gap:2px">
+                    <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:600;letter-spacing:0.1em;color:#F5B317">{{ p.restrictionsLabel }}</span>
+                    <sc-for list="{{ p.restrictions }}" as="r" hint-placeholder-count="1"><span style="font-size:10.5px;color:#F5B317;line-height:1.35">{{ r }}</span></sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          </sc-if>
+          <sc-if value="{{ cd.noProductsShown }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#8F8886">{{ cd.noProducts }}</div></sc-if>
+        </div>
+
+        <!-- 7 · CHI DEVE AGIRE — esattamente ACTION_BY_DEPARTMENT. -->
+        <sc-if value="{{ cd.hasDepts }}" hint-placeholder-val="{{ true }}">
+        <div style="grid-column:1/-1;border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblActionMap }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:9px">
+            <sc-for list="{{ cd.deptRows }}" as="d" hint-placeholder-count="5">
+              <div data-action-dept="{{ d.dept }}" style="border-radius:11px;background:{{ d.surface }};border:1px solid rgba(255,255,255,0.10);border-top:3px solid {{ d.line }};padding:10px 12px;display:flex;flex-direction:column;gap:4px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px">
+                  <span style="font-family:var(--font-secondary);font-size:9.5px;font-weight:700;letter-spacing:0.1em;color:{{ d.muted }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.dept }}</span>
+                  <span data-action-state="{{ d.state }}" style="font-size:9.5px;font-weight:700;letter-spacing:0.09em;color:{{ d.line }};white-space:nowrap">{{ d.state }}</span>
+                </div>
+                <span style="font-size:12.5px;font-weight:700;color:{{ d.ink }};line-height:1.25">{{ d.action }}</span>
+                <sc-if value="{{ d.hasWhy }}" hint-placeholder-val="{{ true }}"><span style="font-size:10.5px;color:{{ d.muted }};line-height:1.35">{{ d.why }}</span></sc-if>
+                <sc-if value="{{ d.hasDependency }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:{{ d.muted }};line-height:1.35">{{ d.dependencyLabel }} · {{ d.dependency }}</span></sc-if>
+                <sc-if value="{{ d.hasNextTrigger }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:{{ d.muted }};line-height:1.35">{{ d.nextTriggerLabel }} · {{ d.nextTrigger }}</span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- 8 · CHE COSA MANCA — l'intelligenza negativa non e un difetto. -->
+        <sc-if value="{{ cd.hasMissing }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:14px;border:1px solid rgba(245,179,23,0.28);background:#1C1817;border-top:3px solid #F5B317;padding:14px 16px;display:flex;flex-direction:column;gap:7px">
+          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblMissing }}</div>
+          <sc-for list="{{ cd.missRows }}" as="m" hint-placeholder-count="3">
+            <div data-what-missing="1" style="display:flex;align-items:baseline;gap:7px;font-size:11.5px;color:#EDEAE9;line-height:1.4"><span style="width:5px;height:5px;border-radius:50%;background:#F5B317;flex:0 0 5px"></span><span>{{ m }}</span></div>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- 9 · LE PROVE — lettura corta, ruolo reale, niente nascosto. -->
+        <sc-if value="{{ cd.hasEvidence }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+            <span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblEvidence }}</span>
+            <span style="font-size:10.5px;color:#8F8886">{{ cd.evTotal }}</span>
+          </div>
+          <sc-for list="{{ cd.evRows }}" as="e" hint-placeholder-count="8">
+            <div style="display:flex;align-items:baseline;gap:8px;font-size:11px;padding:4px 0;border-bottom:1px dotted rgba(151,139,135,0.35)">
+              <span style="width:6px;height:6px;border-radius:2px;background:{{ e.dot }};flex:0 0 6px"></span>
+              <span style="flex:1;color:#C9C3C1;line-height:1.35">{{ e.family }}</span>
+              <span data-evidence-role="1" style="color:{{ e.ink }};font-size:10.5px;line-height:1.35;text-align:right">{{ e.role }}</span>
+            </div>
+          </sc-for>
+          <sc-if value="{{ cd.evMore }}" hint-placeholder-val="{{ true }}"><span onClick="{{ cd.toggleEvidence }}" style="align-self:flex-start;cursor:pointer;font-size:10.5px;font-weight:700;letter-spacing:0.08em;color:#00B152">{{ cd.evMoreLabel }}</span></sc-if>
+        </div>
+        </sc-if>
+
+        <!-- 10 · LE FONTI — il documento completo resta raggiungibile. -->
+        <sc-if value="{{ cd.hasSources }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:14px;border:1px solid rgba(203,197,195,0.10);background:#1C1817;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cd.lblSource }}</div>
+          <sc-for list="{{ cd.srcUrls }}" as="u" hint-placeholder-count="4">
+            <a href="{{ u.url }}" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:#00B152;line-height:1.4;overflow-wrap:anywhere;text-decoration:none" style-hover="color:#00783F">{{ u.url }}</a>
+          </sc-for>
+        </div>
+        </sc-if>
+
       </div>
     </div>
     </sc-if>
@@ -2378,6 +2702,10 @@ class Component extends DCLogic {
     fCrop: '', fIssue: '', fRegion: '', fStatus: '', fProduct: '', fDept: '', sort: 'relevant', showAll: false, query: '', committedQuery: '',
     futureStatus: '', futureSource: '', futureShown: 16, compView: 'feed', fCompany: '', fType: '', fPeriod: '', compShown: 12, eventId: null, cproductId: null,
     showDataState: false,
+    /* La superficie canonica: i suoi filtri sono SUOI, non quelli del radar,
+       perche i due insiemi non si mescolano mai. */
+    cCaseId: null, cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '',
+    cShowAll: false, cShowEvidence: false,
     sciFilter: '', sciImpactId: null, sciHorizon: 'ALL', gireAll: false, showScenarios: false,
     archiveQuery: '', aType: '', aCrop: '', aRegion: '', aCompany: '', aCase: '', aSource: '', archivePage: 0, sourceGroup: 'ALL', peopleCat: 'ALL',
     mCrop: 'maize', mTab: 'crop',
@@ -3787,6 +4115,10 @@ class Component extends DCLogic {
          standing in for the real opportunity feed, which is the exact
          substitution this migration exists to remove. */
       ['radar', T.navRadar, navN('opportunities')],
+      /* IL RADAR CANONICO E UNA VOCE A PARTE, e il suo numero viene dallo
+         snapshot — mai dal modello e mai dai casi di presentazione. */
+      ['canonical', (window.MEETING_LABELS && window.MEETING_LABELS.label(s.lang, 'UI', 'navCanonical')) || 'Radar Canonico',
+        (window.MEETING_INTELLIGENCE && window.MEETING_INTELLIGENCE.TOTAL_CASES) || 0],
       ['future', T.navFuture, navN('futureSignals')],
       ['windows', T.navWindows, navN('windows')],
       ['market', T.navMarket, navN('marketObservations')],
@@ -8490,7 +8822,9 @@ class Component extends DCLogic {
 
     /* portfolio, product and voices had no entry, so the breadcrumb bar was blank on three
        of the twenty-six screens. The keys already exist in italy-i18n.js. */
-    const titles = { portfolio: (T.navPortfolio || '').toUpperCase(), product: (T.navPortfolio || '').toUpperCase(), voices: (T.navVoices || '').toUpperCase(), radar: (T.navRadar || '').toUpperCase(), case: (T.navRadar || '').toUpperCase(), brief: 'ACTION BRIEF', field: (T.navField || '').toUpperCase(), windows: (T.navWindows || '').toUpperCase(), window: (T.navWindows || '').toUpperCase(), market: (T.navMarket || '').toUpperCase(), signal: (T.navFuture || '').toUpperCase(), future: (T.navFuture || '').toUpperCase(), competitors: (T.navCompetitors || '').toUpperCase(), company: (T.navCompetitors || '').toUpperCase(), event: (T.navCompetitors || '').toUpperCase() + ' · ' + (T.lblEventWatch || 'EVENT WATCH'), cproduct: (T.navCompetitors || '').toUpperCase(), science: (T.navScience || '').toUpperCase(), theme: (T.navScience || '').toUpperCase(), archive: (T.navArchive || '').toUpperCase(), sources: (T.navSources || '').toUpperCase(), source: (T.navSources || '').toUpperCase(), person: (T.navSources || '').toUpperCase() + ' · ' + (T.lblPeople || 'PEOPLE'), search: (T.lblSearch || 'SEARCH') };
+    const titles = { portfolio: (T.navPortfolio || '').toUpperCase(), product: (T.navPortfolio || '').toUpperCase(), voices: (T.navVoices || '').toUpperCase(), radar: (T.navRadar || '').toUpperCase(), case: (T.navRadar || '').toUpperCase(), brief: 'ACTION BRIEF', field: (T.navField || '').toUpperCase(), windows: (T.navWindows || '').toUpperCase(), window: (T.navWindows || '').toUpperCase(), market: (T.navMarket || '').toUpperCase(), signal: (T.navFuture || '').toUpperCase(), future: (T.navFuture || '').toUpperCase(), competitors: (T.navCompetitors || '').toUpperCase(), company: (T.navCompetitors || '').toUpperCase(), event: (T.navCompetitors || '').toUpperCase() + ' · ' + (T.lblEventWatch || 'EVENT WATCH'), cproduct: (T.navCompetitors || '').toUpperCase(), science: (T.navScience || '').toUpperCase(), theme: (T.navScience || '').toUpperCase(), archive: (T.navArchive || '').toUpperCase(), sources: (T.navSources || '').toUpperCase(), source: (T.navSources || '').toUpperCase(), person: (T.navSources || '').toUpperCase() + ' · ' + (T.lblPeople || 'PEOPLE'), search: (T.lblSearch || 'SEARCH'),
+      canonical: String((window.MEETING_LABELS && window.MEETING_LABELS.label(s.lang, 'UI', 'navCanonical')) || '').toUpperCase(),
+      copportunity: String((window.MEETING_LABELS && window.MEETING_LABELS.label(s.lang, 'UI', 'navCanonical')) || '').toUpperCase() };
     /* Every branch is evaluated before the view is picked, so each detail object is read
        through a guard: several domains now resolve to null on an unknown id instead of
        silently substituting record[0], and a bare .label would throw on the way there. */
@@ -8511,7 +8845,7 @@ class Component extends DCLogic {
     const REF_MON = T.months || ['GEN', 'FEB', 'MAR', 'APR', 'MAG', 'GIU', 'LUG', 'AGO', 'SET', 'OTT', 'NOV', 'DIC'];
     const todayLabel = (REFP[2] + ' ' + (REF_MON[Number(REFP[1]) - 1] || '')).trim().toUpperCase();
 
-    return {
+    const OUT = {
       nav, kpi: K, todayLabel, pageTitle: titles[s.view], crumb, hasCrumb: !!crumb,
       /* back() / canGoBack() existed and RT4 passed, but nothing in the markup could
          reach them. The header control at markup ~99 binds these two. */
@@ -8661,6 +8995,609 @@ class Component extends DCLogic {
       // search
       envBadge: String(s.lang || 'it').toUpperCase(),
       searchGroups, searchTotal: sHits.length
+    };
+    /* La superficie canonica vive in un metodo suo: legge SOLO lo snapshot e
+       il dizionario della riunione, e non tocca nessuna delle proprieta
+       costruite qui sopra. Fondere alla fine tiene le due sorgenti separate
+       e rende impossibile che un conteggio dell'una finisca nell'altra. */
+    return Object.assign(OUT, this.canonicalVals(T, s));
+  }
+
+  /* ══ LA SUPERFICIE CANONICA · I 43 CASI DELLO SNAPSHOT ════════════════════
+     ---------------------------------------------------------------------------
+     UNA SOLA FONTE: `window.MEETING_INTELLIGENCE`, l'istantanea client-safe
+     costruita da `scripts/meeting_snapshot.py --source-head b3935bd`.
+
+         IL MOTORE DECIDE. QUESTO BLOCCO PRESENTA.
+
+     Qui NON si calcola STATUS, COMMERCIAL_PRIORITY, WHY_NOW, la finestra, il
+     legame col prodotto, il ruolo di una prova, la mappa delle azioni ne
+     PUBLICATION_STATE. Ogni valore che esce di qui e stato letto, non dedotto.
+
+     LA LEGGE CHE NON SI PIEGA · dove il motore non porta una parola, questo
+     blocco NON la inventa: niente `happening`, `know`, `watch`, `timeline`
+     costruiti per euristica. Il campo strutturato viene mostrato per quello che
+     e, e quando non c'e, il blocco tace o dice che manca.
+
+     I CONTEGGI VENGONO SOLO DAI 43. I 29 casi di presentazione di `D.CASES`
+     vivono su un'altra schermata, dietro il loro interruttore, e non entrano
+     in nessun numero di questa superficie.
+     --------------------------------------------------------------------------- */
+  canonicalVals(T, s) {
+    var SNAP = (typeof window !== 'undefined' && window.MEETING_INTELLIGENCE) || null;
+    var ML = (typeof window !== 'undefined' && window.MEETING_LABELS) || null;
+    var AM = this.M();
+    var lang = s.lang === 'en' ? 'en' : 'it';
+    var ready = !!(SNAP && ML && Array.isArray(SNAP.CASES) && SNAP.CASES.length);
+    var U = function (k) { return (ML && ML.label(lang, 'UI', k)) || ''; };
+    if (!ready) {
+      return { isCanonical: false, isCOpp: false, canonicalReady: false,
+        cTitle: '', cSub: '', cKpis: [], cCards: [], cVisible: [], cCount: 0, cTotal: 0,
+        cFilters: [], cHasFilters: false, cNoResults: false, cd: {}, hasCd: false,
+        cCanShowAll: false, cShowAllLabel: '', cToggleAll: function () {}, cClear: function () {},
+        cBuildId: '', cSourceHead: '', cCutoff: '', goCanonical: function () {} };
+    }
+
+    var CASES = SNAP.CASES;
+    var L = function (fam, tok) { return ML.label(lang, fam, tok); };
+    var PH = function (k) { return ML.phrase(lang, k); };
+    /* Un gettone senza frase non esce mai grezzo: si perde la riga, non si
+       stampa il codice. */
+    var LT = function (fam, tok) { var v = L(fam, tok); return v || null; };
+    var listL = function (fam, arr) {
+      return (arr || []).map(function (x) { return L(fam, x); }).filter(Boolean);
+    };
+
+    /* ── IL PUNTATORE INTERNO NON E UNA FRASE PER IL CLIENTE ──────────────
+       MISURATO sullo snapshot: 11 casi su 43 chiudono `WHY_COMMERCIAL_IT/_EN`
+       con un rimando interno — «vedi NEED_DIRECTION e la frase originale in
+       NEED_EXCERPT». E prosa APPROVATA dal motore, e la sua AFFERMAZIONE e
+       giusta; ma la coda e un puntatore scritto per chi legge il pacchetto,
+       non per chi legge lo schermo.
+
+           IL CLIENTE NON DEVE LEGGERE IL NOME DI UN CAMPO.
+
+       Quello che il puntatore indica e gia sulla schermata, tradotto: la
+       direzione della necessita ha la sua riga, e NEED_EXCERPT e PT_ONLY —
+       non attraversa la frontiera come testo, per legge dello snapshot. Si
+       taglia quindi la coda del rimando e si tiene l'affermazione. Non si
+       riscrive nulla: si toglie un puntatore che la schermata ha gia risolto.
+
+       Se dopo il taglio un gettone sopravvive, la frase NON esce affatto: i
+       codici sotto dicono la stessa cosa, e un gettone stampato sarebbe
+       peggio di un blocco in meno. */
+    var INTERNAL_TOKEN = /\b[A-Z][A-Z0-9]{2,}(?:_[A-Z0-9]+)+\b/;
+    var cleanProse = function (t) {
+      if (!t) return null;
+      var out = String(t);
+      if (INTERNAL_TOKEN.test(out)) {
+        var cut = out.lastIndexOf(' \u2014 ');
+        if (cut > 0 && INTERNAL_TOKEN.test(out.slice(cut))) {
+          out = out.slice(0, cut).replace(/[\s,;:]+$/, '');
+          if (out && '.!?'.indexOf(out.charAt(out.length - 1)) < 0) out += '.';
+        }
+      }
+      return INTERNAL_TOKEN.test(out) ? null : (out || null);
+    };
+
+    /* ── LA TINTA DELLA CATEGORIA ─────────────────────────────────────────
+       Non e una decisione nuova: e la funzione del modello, con le sue tre
+       guardie gia scritte (`categoryFromProducts`) — la CATEGORIA COMMERCIALE
+       dichiarata dal registro fitosanitario sui prodotti che il motore ha
+       gia legato al caso. Se i prodotti non concordano, o non ce ne sono,
+       resta neutra. MISURATO sui 43: 23 prendono la loro linea, 20 restano
+       neutre — e una scheda senza avversita agronomica DEVE restare neutra.
+       La massa della scheda e la superficie, come sulla base visiva. */
+    var catOf = function (c) {
+      var links = (c.MATCHED_COMMERCIAL_PRODUCT_NAMES || []).map(function (n) { return { name: n }; });
+      var k = (AM && AM.categoryFromProducts) ? AM.categoryFromProducts(links, AM.findProduct) : null;
+      return k || 'unknown';
+    };
+    var surfaceOf = function (k) { return (AM && AM.categorySurface) ? AM.categorySurface(k) : '#564F4D'; };
+    var ONS = (AM && AM.ON_SURFACE) || { ink: '#FFFFFF', body: '#EDEAE9', muted: '#C9C3C1',
+      chip: 'rgba(255,255,255,0.16)', chipEdge: 'rgba(255,255,255,0.34)',
+      well: 'rgba(0,0,0,0.30)', wellEdge: 'rgba(255,255,255,0.10)', rule: 'rgba(255,255,255,0.20)' };
+    var PILL = (AM && AM.ACT_PILL) || { bg: '#1AB963', ink: '#110E0D' };
+    var CATL = (AM && AM.UI && AM.UI.CATEGORY) || {};
+    var catLabelOf = function (k) {
+      var e = CATL[k];
+      if (!e || k === 'unknown') return null;
+      return lang === 'en' ? (e.label || null) : (e.labelIt || e.label || null);
+    };
+
+    /* ── I NOMI PROPRI ────────────────────────────────────────────────── */
+    var cropL = function (c) { return LT('CROP', c.CROP); };
+    var targetL = function (c) { return LT('TARGET', c.TARGET); };
+    var geoL = function (c) { return LT('GEOGRAPHY', c.GEOGRAPHY); };
+    var headlineOf = function (c) {
+      var t = targetL(c), cr = cropL(c);
+      if (t && cr) return t + ' · ' + cr;
+      return cr || t || U('lblCanonicalUniverse');
+    };
+
+    /* ── LA PROSSIMA AZIONE · LETTA, NON DEDOTTA ──────────────────────────
+       L'ordine e quello che il motore dichiara negli stati, non una nostra
+       classifica di importanza: ACT viene prima di VALIDATE perche il motore
+       distingue i due stati, non perche lo pensiamo noi. */
+    var ACT_ORDER = ['ACT', 'VALIDATE', 'PREPARE', 'WATCH', 'NO_ACTION'];
+    var nextActionOf = function (c) {
+      var map = c.ACTION_BY_DEPARTMENT || {};
+      var best = null, bestRank = 99;
+      for (var d in map) {
+        if (!Object.prototype.hasOwnProperty.call(map, d)) continue;
+        var r = ACT_ORDER.indexOf(String(map[d].ACTION_STATE));
+        if (r < 0) r = 98;
+        if (r < bestRank) { bestRank = r; best = map[d]; }
+      }
+      if (!best || bestRank >= 4) return null;
+      var dep = L('DEPARTMENT', best.DEPARTMENT), act = L('ACTION', best.ACTION);
+      if (!dep || !act) return null;
+      return { dep: dep, act: act, state: L('ACTION_STATE', best.ACTION_STATE) || '' };
+    };
+
+    /* ── LA FINESTRA, IN UNA RIGA ─────────────────────────────────────────
+       La frase concordata per il caso piu frequente — condizione nota, stato
+       attuale non misurato — e quella del briefing, parola per parola.
+       UNKNOWN non sparisce: diventa una frase che dice UNKNOWN. */
+    var windowLineOf = function (c) {
+      if (c.WINDOW_RULE_STATE === 'RULE_ADMINISTRATIVE_ONLY' || c.WINDOW_RULE_STATE === 'RULE_DELEGATED_TO_FARM') {
+        return L('WINDOW_RULE_STATE', c.WINDOW_RULE_STATE);
+      }
+      if (c.WINDOW_DEFINED === 'YES' && c.WINDOW_OPEN_NOW === 'YES') return L('WINDOW_OPEN_NOW', 'YES');
+      if (c.WINDOW_DEFINED === 'YES' && c.WINDOW_OPEN_NOW === 'UNKNOWN') return PH('WINDOW_KNOWN_STATE_UNMEASURED');
+      if (c.WINDOW_DEFINED === 'NO') return L('WINDOW_DEFINED', 'NO');
+      return L('WINDOW_OPEN_NOW', c.WINDOW_OPEN_NOW);
+    };
+
+    /* ── LA SCHEDA ────────────────────────────────────────────────────── */
+    var self = this;
+    var mkCard = function (c) {
+      var ck = catOf(c);
+      var isAct = c.STATUS === 'ACT_NOW';
+      var pub = c.PUBLICATION_STATE;
+      var isPub = pub === 'PUBLISHABLE';
+      var na = nextActionOf(c);
+      var prods = c.MATCHED_COMMERCIAL_PRODUCT_NAMES || [];
+      return {
+        id: c.ID,
+        catKey: ck,
+        hasCategory: ck !== 'unknown',
+        catLabel: catLabelOf(ck) || '',
+        surface: surfaceOf(ck),
+        onInk: ONS.ink, onBody: ONS.body, onMuted: ONS.muted,
+        onChip: ONS.chip, onChipEdge: ONS.chipEdge,
+        onWell: ONS.well, onWellEdge: ONS.wellEdge, onRule: ONS.rule,
+        headline: headlineOf(c),
+        crop: cropL(c) || '',
+        region: geoL(c) || '',
+        scope: L('GEOGRAPHIC_SCOPE', c.GEOGRAPHIC_SCOPE) || '',
+        archetype: L('ARCHETYPE', c.ARCHETYPE) || '',
+        statusLabel: L('STATUS', c.STATUS) || '',
+        /* AGIRE ORA resta la cosa piu luminosa della scheda, come sulla base
+           visiva: pastiglia piena chiara, inchiostro scuro. Gli altri stati
+           sono contorni — dicono la stessa cosa con meno voce. */
+        statusBg: isAct ? PILL.bg : 'transparent',
+        statusInk: isAct ? PILL.ink : ONS.ink,
+        statusEdge: isAct ? PILL.bg : ONS.chipEdge,
+        priority: L('COMMERCIAL_PRIORITY', c.COMMERCIAL_PRIORITY) || '',
+        /* PUBBLICATO E IN VALIDAZIONE NON POSSONO SEMBRARE LA STESSA COSA.
+           Il comprovato porta un pieno; quello in validazione porta un
+           contorno ambra. Nessuno dei due e nascosto. */
+        pubLabel: L('PUBLICATION_STATE', pub) || '',
+        pubBg: isPub ? 'rgba(26,185,99,0.18)' : 'transparent',
+        pubInk: isPub ? '#7BE0A6' : '#F6BB2E',
+        pubEdge: isPub ? 'rgba(26,185,99,0.55)' : 'rgba(246,187,46,0.55)',
+        whyCommercial: listL('WHY_COMMERCIAL_CODES', c.WHY_COMMERCIAL_CODES)[0] || '',
+        whyNow: listL('WHY_NOW_CODES', c.WHY_NOW_CODES)[0] || '',
+        windowLine: windowLineOf(c) || '',
+        products: prods.join(' · '),
+        hasProducts: prods.length > 0,
+        productCount: prods.length,
+        noProducts: U('lblNoProducts'),
+        hasAction: !!na,
+        actionDep: na ? na.dep : '',
+        actionAct: na ? na.act : '',
+        evidenceCount: c.EVIDENCE_COUNT || 0,
+        open: function () { self.go({ view: 'copportunity', cCaseId: c.ID }); },
+      };
+    };
+
+    /* ── I FILTRI · costruiti dai valori che i 43 hanno davvero ─────────── */
+    var distinct = function (get, fam) {
+      var seen = {}, out = [];
+      CASES.forEach(function (c) {
+        var v = get(c);
+        if (!v || seen[v]) return;
+        seen[v] = 1;
+        var l = L(fam, v);
+        if (l) out.push({ v: v, l: l });
+      });
+      return out.sort(function (a, b) { return a.l < b.l ? -1 : 1; });
+    };
+    var ALL = U('lblFilterAll');
+    var cFilters = [
+      { key: 'cfStatus', label: U('lblFilterStatus'), value: s.cfStatus || '',
+        options: [{ v: '', l: ALL }].concat(distinct(function (c) { return c.STATUS; }, 'STATUS')) },
+      { key: 'cfPriority', label: U('lblFilterPriority'), value: s.cfPriority || '',
+        options: [{ v: '', l: ALL }].concat(distinct(function (c) { return c.COMMERCIAL_PRIORITY; }, 'COMMERCIAL_PRIORITY')) },
+      { key: 'cfCrop', label: U('lblFilterCrop'), value: s.cfCrop || '',
+        options: [{ v: '', l: ALL }].concat(distinct(function (c) { return c.CROP; }, 'CROP')) },
+      { key: 'cfRegion', label: U('lblFilterRegion'), value: s.cfRegion || '',
+        options: [{ v: '', l: ALL }].concat(distinct(function (c) { return c.GEOGRAPHY; }, 'GEOGRAPHY')) },
+      { key: 'cfPublication', label: U('lblFilterPublication'), value: s.cfPublication || '',
+        options: [{ v: '', l: ALL }].concat(distinct(function (c) { return c.PUBLICATION_STATE; }, 'PUBLICATION_STATE')) },
+    ].map(function (f) {
+      f.set = self.sel(f.key);
+      f.rail = f.value ? '#00B152' : 'rgba(203,197,195,0.30)';
+      f.bg = f.value ? 'rgba(0,152,69,0.14)' : '#1C1817';
+      f.border = f.value ? 'rgba(0,152,69,0.45)' : 'rgba(203,197,195,0.14)';
+      f.color = f.value ? '#fff' : '#C9C3C1';
+      f.weight = f.value ? '700' : '600';
+      f.current = f.value ? ((f.options.filter(function (o) { return o.v === f.value; })[0] || {}).l || f.label) : f.label;
+      return f;
+    });
+
+    var filtered = CASES.filter(function (c) {
+      return (!s.cfStatus || c.STATUS === s.cfStatus)
+        && (!s.cfPriority || c.COMMERCIAL_PRIORITY === s.cfPriority)
+        && (!s.cfCrop || c.CROP === s.cfCrop)
+        && (!s.cfRegion || c.GEOGRAPHY === s.cfRegion)
+        && (!s.cfPublication || c.PUBLICATION_STATE === s.cfPublication);
+    });
+    /* L'ORDINE E PARTE DELLA PUBBLICAZIONE. Cio che il motore ha gia
+       dichiarato pubblicabile viene prima; poi lo stato temporale, nell'ordine
+       che il motore stesso distingue. Nessun punteggio inventato qui. */
+    var ST_ORDER = ['ACT_NOW', 'VALIDATE_NOW', 'TO_VALIDATE', 'WATCH', 'FUTURE_PREPARATION'];
+    filtered = filtered.slice().sort(function (a, b) {
+      var pa = a.PUBLICATION_STATE === 'PUBLISHABLE' ? 0 : 1;
+      var pb = b.PUBLICATION_STATE === 'PUBLISHABLE' ? 0 : 1;
+      if (pa !== pb) return pa - pb;
+      var ra = ST_ORDER.indexOf(a.STATUS), rb = ST_ORDER.indexOf(b.STATUS);
+      if (ra < 0) ra = 98; if (rb < 0) rb = 98;
+      if (ra !== rb) return ra - rb;
+      return (b.EVIDENCE_COUNT || 0) - (a.EVIDENCE_COUNT || 0);
+    });
+    var cCards = filtered.map(mkCard);
+    var cVisible = s.cShowAll ? cCards : cCards.slice(0, 12);
+
+    /* ── I CONTEGGI · SOLO DAI 43, MAI SCRITTI A MANO ─────────────────────
+       Ogni numero e contato adesso sui casi dello snapshot. Se lo snapshot
+       cambia, cambiano da soli. Nessuno di questi numeri conosce D.CASES. */
+    var countBy = function (pred) { return CASES.filter(pred).length; };
+    var byStatus = function (v) { return countBy(function (c) { return c.STATUS === v; }); };
+    var cKpis = [
+      { key: 'TOTAL', label: U('lblTotal'), value: CASES.length, color: '#fff', rail: '#00B152',
+        sub: U('lblEngineDecides'), go: function () { self.setState({ cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '' }); } },
+      { key: 'PUBLISHABLE', label: U('lblProven'), value: countBy(function (c) { return c.PUBLICATION_STATE === 'PUBLISHABLE'; }),
+        color: '#7BE0A6', rail: '#00B152', sub: L('PUBLICATION_STATE_LONG', 'PUBLISHABLE') || '',
+        go: function () { self.setState({ cfPublication: 'PUBLISHABLE' }); } },
+      { key: 'VALIDATION_REQUIRED', label: U('lblInValidation'), value: countBy(function (c) { return c.PUBLICATION_STATE === 'VALIDATION_REQUIRED'; }),
+        color: '#F6BB2E', rail: '#F5B317', sub: L('PUBLICATION_STATE_LONG', 'VALIDATION_REQUIRED') || '',
+        go: function () { self.setState({ cfPublication: 'VALIDATION_REQUIRED' }); } },
+    ].concat(ST_ORDER.map(function (st) {
+      return { key: st, label: L('STATUS', st) || st, value: byStatus(st),
+        color: st === 'ACT_NOW' ? '#1AB963' : '#EDEAE9', rail: st === 'ACT_NOW' ? '#00B152' : 'rgba(203,197,195,0.30)',
+        sub: '', go: function () { self.setState({ cfStatus: st }); } };
+    })).concat([
+      { key: 'WINDOW_DEFINED', label: U('lblWindowDefined'), value: countBy(function (c) { return c.WINDOW_DEFINED === 'YES'; }),
+        color: '#5CC3EE', rail: '#00A0DF', sub: '', go: function () {} },
+      { key: 'WINDOW_OPEN_NOW', label: U('lblWindowOpenNow'), value: countBy(function (c) { return c.WINDOW_OPEN_NOW === 'YES'; }),
+        color: '#5CC3EE', rail: '#00A0DF', sub: '', go: function () {} },
+    ]);
+
+    /* ══ IL DETTAGLIO ═══════════════════════════════════════════════════ */
+    var cd = null;
+    if (s.view === 'copportunity' && s.cCaseId) {
+      var c0 = null;
+      for (var i = 0; i < CASES.length; i++) if (CASES[i].ID === s.cCaseId) { c0 = CASES[i]; break; }
+      if (c0) {
+        var ck0 = catOf(c0);
+        var isAct0 = c0.STATUS === 'ACT_NOW';
+        var isPub0 = c0.PUBLICATION_STATE === 'PUBLISHABLE';
+
+        /* CHE COSA STA SUCCEDENDO · le frasi del brief, composte dai CODICI
+           che il motore porta. Nessun paragrafo scritto a mano. */
+        var briefLines = (c0.INTELLIGENCE_BRIEF || []).map(function (b) {
+          return ML.brief(lang, b.CODE, b.VALUES || {});
+        }).filter(Boolean);
+
+        /* PERCHE E UN'OPPORTUNITA · la prosa APPROVATA dal motore nelle due
+           lingue, piu i codici. Se il motore non la porta, il blocco mostra
+           i codici e basta — non si scrive un paragrafo al suo posto. */
+        var whyCommText = cleanProse(lang === 'en' ? c0.WHY_COMMERCIAL_EN : c0.WHY_COMMERCIAL_IT);
+        var provesText = cleanProse(lang === 'en' ? c0.WHAT_IT_PROVES_EN : c0.WHAT_IT_PROVES_IT);
+        var notProvesText = cleanProse(lang === 'en' ? c0.WHAT_IT_DOES_NOT_PROVE_EN : c0.WHAT_IT_DOES_NOT_PROVE_IT);
+        var commNotProves = cleanProse(lang === 'en' ? c0.COMMERCIAL_DOES_NOT_PROVE_EN : c0.COMMERCIAL_DOES_NOT_PROVE_IT);
+
+        /* PERCHE ADESSO · la catena, elo per elo, con la prova che lo regge.
+           Un elo che manca si VEDE: e questo che rende leggibile un
+           «non adesso» senza doverlo scrivere a parole. */
+        var chain = c0.WHY_NOW_CHAIN || {};
+        var chainRows = Object.keys(chain).map(function (k) {
+          var v = chain[k] || {};
+          var nameL = L('WHY_NOW_CHAIN_LINK', k);
+          if (!nameL) return null;
+          var factL = v.FACT ? (L('WINDOW_TYPE', v.FACT) || L('WINDOW_OPEN_NOW_METHOD', v.FACT)
+            || L('PRODUCT_LINK_STATE', v.FACT) || String(v.FACT)) : '';
+          return { name: nameL, ok: !!v.OK,
+            state: L('CHAIN_STATE', v.OK ? 'OK' : 'MISSING') || '',
+            ink: v.OK ? '#7BE0A6' : '#F6BB2E',
+            edge: v.OK ? 'rgba(123,224,166,0.45)' : 'rgba(246,187,46,0.45)',
+            fact: factL, hasFact: !!factL };
+        }).filter(Boolean);
+
+        /* LA FINESTRA · tipo, regola, stato. La frase lunga della regola e
+           quella concordata; PT_ONLY significa che la condizione ESISTE nel
+           documento e non attraversa la frontiera come testo. */
+        var winCondPtOnly = c0.WINDOW_CONDITION__PT_ONLY === true;
+        var win = {
+          typeL: LT('WINDOW_TYPE', c0.WINDOW_TYPE) || '',
+          hasType: !!LT('WINDOW_TYPE', c0.WINDOW_TYPE),
+          ruleL: LT('WINDOW_RULE_STATE', c0.WINDOW_RULE_STATE) || '',
+          ruleLongL: LT('WINDOW_RULE_STATE_LONG', c0.WINDOW_RULE_STATE) || '',
+          hasRule: !!LT('WINDOW_RULE_STATE', c0.WINDOW_RULE_STATE),
+          definedL: LT('WINDOW_DEFINED', c0.WINDOW_DEFINED) || '',
+          openL: LT('WINDOW_OPEN_NOW', c0.WINDOW_OPEN_NOW) || '',
+          methodL: LT('WINDOW_OPEN_NOW_METHOD', c0.WINDOW_OPEN_NOW_METHOD) || '',
+          hasMethod: !!LT('WINDOW_OPEN_NOW_METHOD', c0.WINDOW_OPEN_NOW_METHOD),
+          knownUnmeasured: (c0.WINDOW_DEFINED === 'YES' && c0.WINDOW_OPEN_NOW === 'UNKNOWN') ? PH('WINDOW_KNOWN_STATE_UNMEASURED') : '',
+          hasKnownUnmeasured: c0.WINDOW_DEFINED === 'YES' && c0.WINDOW_OPEN_NOW === 'UNKNOWN',
+          evidenceId: c0.WINDOW_EVIDENCE_ID || c0.WINDOW_RULE_EVIDENCE_ID || '',
+          hasEvidenceId: !!(c0.WINDOW_EVIDENCE_ID || c0.WINDOW_RULE_EVIDENCE_ID),
+          condNote: winCondPtOnly ? (U('lblDeclaredIn') + ' ' + (c0.WINDOW_EVIDENCE_ID || '')) : '',
+          hasCondNote: winCondPtOnly && !!c0.WINDOW_EVIDENCE_ID,
+          isOpen: c0.WINDOW_OPEN_NOW === 'YES',
+        };
+
+        /* STADIO E RACCOMANDAZIONE · DUE LETTURE, MAI UNA SOLA.
+           Quando lo stadio e finito ma la fonte raccomanda di continuare, la
+           nota lo dice esplicitamente: e il caso Veneto x carpocapsa, ed e
+           esattamente cio che il portale non deve lasciar confondere. */
+        var stageEnded = c0.PEST_STAGE_STATE === 'STAGE_ENDED' || c0.PEST_STAGE_STATE === 'STAGE_DECLINING';
+        var actionLives = c0.ACTION_RECOMMENDATION_STATE === 'CONTINUE_RECOMMENDED'
+          || c0.ACTION_RECOMMENDATION_STATE === 'START_RECOMMENDED';
+        var stage = {
+          stageL: LT('PEST_STAGE_STATE', c0.PEST_STAGE_STATE) || '',
+          hasStage: !!LT('PEST_STAGE_STATE', c0.PEST_STAGE_STATE),
+          recL: LT('ACTION_RECOMMENDATION_STATE', c0.ACTION_RECOMMENDATION_STATE) || '',
+          hasRec: !!LT('ACTION_RECOMMENDATION_STATE', c0.ACTION_RECOMMENDATION_STATE),
+          thrL: LT('THRESHOLD_STATE', c0.THRESHOLD_STATE) || '',
+          hasThr: !!LT('THRESHOLD_STATE', c0.THRESHOLD_STATE),
+          divergent: stageEnded && actionLives,
+          note: (stageEnded && actionLives) ? PH('STAGE_VS_ACTION_NOTE') : '',
+          needL: LT('NEED_DIRECTION', c0.NEED_DIRECTION) || '',
+          hasNeed: !!LT('NEED_DIRECTION', c0.NEED_DIRECTION),
+          needMethodL: LT('NEED_METHOD', c0.NEED_METHOD) || '',
+          hasNeedMethod: !!LT('NEED_METHOD', c0.NEED_METHOD),
+          needEvidence: c0.NEED_EVIDENCE_ID || '',
+          hasNeedEvidence: !!c0.NEED_EVIDENCE_ID,
+        };
+
+        /* I PRODOTTI · TUTTI QUELLI CHE REGGONO, non «il principale e altri N».
+           PRIMARY_MATCH e principale SOLO quando il motore porta una regola
+           difendibile per sceglierlo. Se dice che non ce l'ha, non c'e un
+           principale visivo — e la schermata lo dice con parole. */
+        var primaryDefensible = !!c0.PRIMARY_MATCH
+          && c0.PRIMARY_MATCH_REASON !== 'SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER';
+        var prodRows = (c0.PORTFOLIO_MATCHES || []).map(function (m) {
+          var fits = [];
+          var f1 = LT('PRODUCT_FIT', m.CROP_FIT); if (f1) fits.push({ k: (lang === 'en' ? 'CROP' : 'COLTURA'), v: f1 });
+          var f2 = LT('PRODUCT_FIT', m.TARGET_FIT); if (f2) fits.push({ k: (lang === 'en' ? 'TARGET' : 'AVVERSITA'), v: f2 });
+          var f3 = LT('PRODUCT_FIT', m.REGIONAL_FIT); if (f3) fits.push({ k: (lang === 'en' ? 'REGION' : 'REGIONE'), v: f3 });
+          var f4 = LT('PRODUCT_FIT', m.REGULATORY_FIT); if (f4) fits.push({ k: (lang === 'en' ? 'REGULATORY' : 'NORMATIVA'), v: f4 });
+          var f5 = LT('PRODUCT_FIT', m.WINDOW_FIT); if (f5) fits.push({ k: (lang === 'en' ? 'WINDOW' : 'FINESTRA'), v: f5 });
+          var restr = (m.RESTRICTIONS || []).map(function (r) {
+            var rl = LT('RESTRICTION', r.CODE);
+            return rl ? (rl + (r.ACTIVE_INGREDIENT ? ' · ' + r.ACTIVE_INGREDIENT : '') + (r.DATE ? ' · ' + r.DATE : '')) : null;
+          }).filter(Boolean);
+          return {
+            name: m.PRODUCT_NAME || '',
+            isPrimary: primaryDefensible && m.PRODUCT_ID === c0.PRIMARY_MATCH,
+            primaryLabel: U('lblPrimary'),
+            registration: m.REGISTRATION_NUMBER || '', hasRegistration: !!m.REGISTRATION_NUMBER,
+            actives: (m.ACTIVE_INGREDIENTS || []).join(' · '), hasActives: !!(m.ACTIVE_INGREDIENTS || []).length,
+            moa: (m.MODE_OF_ACTION || []).join(' · '), hasMoa: !!(m.MODE_OF_ACTION || []).length,
+            validation: LT('VALIDATION_STATE', m.VALIDATION_STATE) || '',
+            hasValidation: !!LT('VALIDATION_STATE', m.VALIDATION_STATE),
+            validationInk: m.VALIDATION_STATE === 'LABEL_AND_CATALOG' ? '#7BE0A6' : '#F6BB2E',
+            matchReason: LT('MATCH_REASON', m.MATCH_REASON) || '',
+            hasMatchReason: !!LT('MATCH_REASON', m.MATCH_REASON),
+            fits: fits,
+            restrictions: restr, hasRestrictions: restr.length > 0,
+            restrictionsLabel: U('lblRestrictions'),
+            open: function () { if (m.PRODUCT_NAME) self.openProduct(m.PRODUCT_NAME); },
+          };
+        });
+
+        /* LA MAPPA DELLE AZIONI · esattamente ACTION_BY_DEPARTMENT.
+           Nessun reparto inventato, nessuna sequenza dedotta qui. */
+        var deptRows = Object.keys(c0.ACTION_BY_DEPARTMENT || {}).map(function (d) {
+          var v = c0.ACTION_BY_DEPARTMENT[d] || {};
+          var depL = L('DEPARTMENT', d);
+          var actL = L('ACTION', v.ACTION);
+          if (!depL || !actL) return null;
+          /* La tinta del reparto e quella che il portale gia usa per le aree.
+             TECHNICAL_SCIENTIFIC e il nome del motore per l'area che il
+             manuale chiama SCIENCE_TECHNICAL: stessa area, stessa linea. */
+          var areaKey = d === 'TECHNICAL_SCIENTIFIC' ? 'SCIENCE_TECHNICAL' : d;
+          var ui = (AM && AM.areaUI) ? AM.areaUI(areaKey) : { line: '#978B87', surface: '#564F4D', ink: '#C9C3C1' };
+          var st = String(v.ACTION_STATE || '');
+          var live = st === 'ACT' || st === 'VALIDATE';
+          var depL2 = v.DEPENDENCY ? (L('WHY_NOW_CHAIN_LINK', v.DEPENDENCY) || L('ACTION_WHY_CODE', v.DEPENDENCY)) : null;
+          var nxtL2 = v.NEXT_TRIGGER ? L('NEXT_TRIGGER', v.NEXT_TRIGGER) : null;
+          return {
+            dept: depL, action: actL,
+            stateKey: st,
+            state: L('ACTION_STATE', st) || '',
+            why: L('ACTION_WHY_CODE', v.WHY_CODE) || '',
+            hasWhy: !!L('ACTION_WHY_CODE', v.WHY_CODE),
+            /* NESSUN RIPIEGO SUL GETTONE GREZZO. Se una parola non esiste nel
+               dizionario, la riga non esce: `DEPENDENCY` parla il vocabolario
+               della catena, `NEXT_TRIGGER` e un vocabolario chiuso di due
+               frasi che a monte sono in portoghese. Stampare il valore
+               originale metterebbe un gettone — o del portoghese — davanti a
+               un italiano, che e esattamente cio che non si fa. */
+            dependency: depL2, hasDependency: !!depL2,
+            dependencyLabel: U('lblDependency'),
+            nextTrigger: nxtL2, hasNextTrigger: !!nxtL2,
+            nextTriggerLabel: U('lblNextTrigger'),
+            line: ui.line, surface: live ? ui.surface : '#1C1817',
+            ink: live ? '#FFFFFF' : ui.ink,
+            muted: live ? 'rgba(255,255,255,0.72)' : '#8F8886',
+          };
+        }).filter(Boolean);
+        /* L'ordine e quello degli STATI che il motore dichiara — chi puo agire
+           adesso sta in alto — non una classifica di importanza dei reparti,
+           che sarebbe una nostra opinione. A parita di stato resta l'ordine in
+           cui il motore li ha instradati. */
+        deptRows.sort(function (a, b) {
+          var ra = ACT_ORDER.indexOf(a.stateKey); if (ra < 0) ra = 98;
+          var rb = ACT_ORDER.indexOf(b.stateKey); if (rb < 0) rb = 98;
+          return ra - rb;
+        });
+
+        /* LE PROVE · il ruolo REALE di ciascuna, in parole.
+           Un ruolo che raffredda non si nasconde. Sui 43 casi il motore oggi
+           emette solo ruoli SUPPORTS_* e BACKGROUND_ONLY — e questo blocco
+           mostra quello che c'e, senza fingere un WEAKENS che il motore non
+           ha dichiarato. */
+        var COOL = { WEAKENS: 1, CONTRADICTS: 1, CLOSES: 1, BACKGROUND_ONLY: 1 };
+        var evRows = (c0.EVIDENCE_ROLES || []).map(function (e) {
+          var roleL = L('EVIDENCE_ROLE', e.ROLE);
+          if (!roleL) return null;
+          var famL = L('EVIDENCE_FAMILY', e.ENTITY_TYPE);
+          var cool = !!COOL[e.ROLE];
+          return {
+            id: e.EVIDENCE_ID || '', role: roleL,
+            family: famL || '', hasFamily: !!famL,
+            why: L('EVIDENCE_ROLE_WHY', e.WHY_CODE) || '', hasWhy: !!L('EVIDENCE_ROLE_WHY', e.WHY_CODE),
+            dot: (AM && AM.evidenceUI) ? AM.evidenceUI(e.ENTITY_TYPE) : '#978B87',
+            ink: cool ? '#F6BB2E' : '#C9C3C1',
+            cool: cool,
+          };
+        }).filter(Boolean);
+        var evShown = s.cShowEvidence ? evRows : evRows.slice(0, 8);
+
+        var missRows = listL('WHAT_IS_MISSING', c0.WHAT_IS_MISSING);
+        var srcUrls = (c0.SOURCE_URLS || []).map(function (u, i) {
+          return { url: u, n: String(i + 1) };
+        });
+
+        cd = {
+          id: c0.ID,
+          catKey: ck0, hasCategory: ck0 !== 'unknown', catLabel: catLabelOf(ck0) || '',
+          surface: surfaceOf(ck0),
+          onInk: ONS.ink, onBody: ONS.body, onMuted: ONS.muted,
+          onChip: ONS.chip, onChipEdge: ONS.chipEdge, onWell: ONS.well,
+          onWellEdge: ONS.wellEdge, onRule: ONS.rule,
+          headline: headlineOf(c0),
+          crop: cropL(c0) || '', hasCrop: !!cropL(c0),
+          target: targetL(c0) || '', hasTarget: !!targetL(c0),
+          /* Un caso senza avversita agronomica e un MOMENTO DI MERCATO: la
+             riga lo dice, invece di lasciare un vuoto che sembra un errore. */
+          noTarget: U('lblNoTarget'),
+          noTargetShown: !targetL(c0),
+          region: geoL(c0) || '', hasRegion: !!geoL(c0),
+          scope: L('GEOGRAPHIC_SCOPE', c0.GEOGRAPHIC_SCOPE) || '',
+          archetype: L('ARCHETYPE', c0.ARCHETYPE) || '',
+          archetypeLabel: U('lblArchetype'),
+          statusLabel: L('STATUS', c0.STATUS) || '',
+          statusBg: isAct0 ? PILL.bg : 'transparent',
+          statusInk: isAct0 ? PILL.ink : ONS.ink,
+          statusEdge: isAct0 ? PILL.bg : ONS.chipEdge,
+          priority: L('COMMERCIAL_PRIORITY', c0.COMMERCIAL_PRIORITY) || '',
+          priorityWhy: L('COMMERCIAL_PRIORITY_WHY', c0.COMMERCIAL_PRIORITY) || '',
+          priorityLabel: U('lblPriority'),
+          pubLabel: L('PUBLICATION_STATE', c0.PUBLICATION_STATE) || '',
+          pubLong: L('PUBLICATION_STATE_LONG', c0.PUBLICATION_STATE) || '',
+          pubBg: isPub0 ? 'rgba(26,185,99,0.18)' : 'rgba(246,187,46,0.12)',
+          pubInk: isPub0 ? '#7BE0A6' : '#F6BB2E',
+          pubEdge: isPub0 ? 'rgba(26,185,99,0.55)' : 'rgba(246,187,46,0.55)',
+          trail: L('TRAIL_STATE', c0.TRAIL_STATE) || '',
+          signal: L('SIGNAL_CURRENCY', c0.SIGNAL_CURRENCY) || '',
+          signalDate: c0.SIGNAL_DATE || '', hasSignalDate: !!c0.SIGNAL_DATE,
+          timing: L('COMMERCIAL_TIMING_BASIS', c0.COMMERCIAL_TIMING_BASIS) || '',
+
+          briefLines: briefLines, hasBrief: briefLines.length > 0,
+          lblHappening: U('lblWhatIsHappening'),
+
+          whyCommText: whyCommText || '', hasWhyCommText: !!whyCommText,
+          whyCommCodes: listL('WHY_COMMERCIAL_CODES', c0.WHY_COMMERCIAL_CODES),
+          lblWhyCommercial: U('lblWhyCommercial'),
+          proves: provesText || '', hasProves: !!provesText,
+          notProves: notProvesText || '', hasNotProves: !!notProvesText,
+          commNotProves: commNotProves || '', hasCommNotProves: !!commNotProves,
+
+          chainRows: chainRows, hasChain: chainRows.length > 0,
+          whyNowCodes: listL('WHY_NOW_CODES', c0.WHY_NOW_CODES),
+          lblWhyNow: (c0.WHY_NOW_CODES || []).indexOf('CADEIA_COMPLETA') >= 0 ? U('lblWhyNow') : U('lblWhyNotNow'),
+
+          win: win, lblWindow: U('lblWindow'),
+          stage: stage, lblStage: U('lblStage'), lblRecommendation: U('lblRecommendation'),
+          lblThreshold: U('lblThreshold'), lblSignal: U('lblSignal'),
+
+          prodRows: prodRows, hasProducts: prodRows.length > 0,
+          lblProducts: U('lblProducts'),
+          noProducts: U('lblNoProducts'),
+          noProductsShown: prodRows.length === 0,
+          allProductsNote: U('lblAllProducts'),
+          noPrimaryNote: (!primaryDefensible && prodRows.length > 1) ? U('lblNoPrimary') : '',
+          hasNoPrimaryNote: !primaryDefensible && prodRows.length > 1,
+
+          missRows: missRows, hasMissing: missRows.length > 0,
+          lblMissing: U('lblWhatIsMissing'),
+
+          deptRows: deptRows, hasDepts: deptRows.length > 0,
+          lblActionMap: U('lblActionMap'),
+
+          evRows: evShown, hasEvidence: evRows.length > 0,
+          evTotal: evRows.length,
+          evMore: evRows.length > evShown.length,
+          evMoreLabel: '+ ' + (evRows.length - evShown.length) + ' ' + U('lblEvidenceCount'),
+          toggleEvidence: function () { self.setState({ cShowEvidence: !s.cShowEvidence }); },
+          lblEvidence: U('lblEvidence'),
+
+          srcUrls: srcUrls, hasSources: srcUrls.length > 0,
+          lblSource: U('lblSource'),
+          back: function () { self.go({ view: 'canonical' }); },
+          lblBack: U('lblBack'),
+        };
+      }
+    }
+
+    return {
+      isCanonical: s.view === 'canonical',
+      isCOpp: s.view === 'copportunity' && !!cd,
+      canonicalReady: true,
+      cTitle: (ML.label(lang, 'UI', 'navCanonical') || ''),
+      cSub: U('subCanonical'),
+      cUniverseLabel: U('lblCanonicalUniverse'),
+      cKpis: cKpis,
+      cCards: cCards,
+      cVisible: cVisible,
+      cCount: cVisible.length,
+      cFiltered: cCards.length,
+      cTotal: CASES.length,
+      cFilters: cFilters,
+      cHasFilters: !!(s.cfStatus || s.cfPriority || s.cfCrop || s.cfRegion || s.cfPublication),
+      cClearLabel: U('lblClear'),
+      cClear: function () { self.setState({ cfStatus: '', cfPriority: '', cfCrop: '', cfRegion: '', cfPublication: '', cShowAll: false }); },
+      cNoResults: cCards.length === 0,
+      cNoResultsLabel: U('lblNoResults'),
+      cCanShowAll: cCards.length > 12,
+      cShowAllLabel: s.cShowAll ? (lang === 'en' ? 'SHOW FIRST 12' : 'MOSTRA I PRIMI 12')
+        : (lang === 'en' ? 'VIEW ALL ' : 'VEDI TUTTI I ') + cCards.length,
+      cToggleAll: function () { self.setState({ cShowAll: !s.cShowAll }); },
+      cLblCases: U('lblCases'), cLblOf: U('lblOf'),
+      /* La provenienza dell'istantanea, visibile: chi guarda deve poter dire
+         da quale HEAD del motore viene cio che sta leggendo. */
+      cBuildId: SNAP.BUILD_ID || '',
+      cSourceHead: SNAP.SOURCE_HEAD || '',
+      cCutoff: SNAP.MEETING_CUTOFF || '',
+      cSnapshotLabel: U('lblSnapshot'),
+      cd: cd || {},
+      hasCd: !!cd,
+      goCanonical: function () { self.go({ view: 'canonical' }); },
     };
   }
 }
