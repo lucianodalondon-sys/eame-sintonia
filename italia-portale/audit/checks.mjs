@@ -321,11 +321,12 @@ check('N1', 'Nav counts match the active normalized collections', () => {
      is checked by position now, because a badge nobody checks is one that
      drifts back to whatever number looks fuller. */
   const expect = [
-    AM.collections.opportunities.count,
-    /* Il radar canonico e una superficie a parte e il suo numero ha una sola
-       fonte legittima: l'istantanea della riunione. Contarlo da una collezione
-       del modello sarebbe di nuovo un numero che sta al posto di un altro —
-       che e esattamente il difetto per cui questo controllo esiste. */
+    /* UN SOLO RADAR, E IL SUO NUMERO HA UNA SOLA FONTE LEGITTIMA:
+       l'istantanea della riunione. La voce storica — servita dal pacchetto
+       PRIMA della riconciliazione — non e piu nel menu, quindi qui sparisce
+       anche il suo badge. Contare il radar da una collezione del modello
+       sarebbe di nuovo un numero che sta al posto di un altro, che e
+       esattamente il difetto per cui questo controllo esiste. */
     (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES,
     AM.collections.futureSignals.count,
     AM.collections.cropWindows.count,

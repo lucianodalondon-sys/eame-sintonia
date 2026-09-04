@@ -28,7 +28,20 @@ const CASES = [
   { id: 'OPP_D11664591168', what: 'scafoideo × vite × Toscana — obbligo amministrativo' },
 ];
 const EXEC = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/opt/pw-browsers/chromium/chrome-linux/chrome'].find((p) => fs.existsSync(p));
-const NAV = { it: 'Radar Canonico', en: 'Canonical Radar' };
+/* IL RADAR SI CHIAMA COME IL CLIENTE LO CHIAMA.
+   «Radar Canonico» era il nome dell'architettura: distingueva una sorgente
+   dall'altra quando ce n'erano due. Adesso ce n'e una sola, e porta il nome
+   di sempre. Il nome letto qui viene dal dizionario, cosi il portone segue
+   la voce del menu invece di inseguirla con una stringa scritta a mano. */
+const NAV = (() => {
+  try {
+    const w = {}; const src = fs.readFileSync(path.join(CLIENT, 'meeting-labels.js'), 'utf8');
+    new Function('window', src)(w);
+    const d = w.MEETING_LABELS;
+    if (d && d.get) return { it: d.get('navMeeting', 'it'), en: d.get('navMeeting', 'en') };
+  } catch (e) { /* cade sul valore sotto */ }
+  return { it: 'Radar delle Opportunità', en: 'Opportunity Radar' };
+})();
 const INTERNAL = /\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b/g;
 
 const bad = [];

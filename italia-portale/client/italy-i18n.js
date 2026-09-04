@@ -27,7 +27,9 @@
     navSources: 'Fonti',
 
     // ── page subtitles ───────────────────────────────────
-    subRadar: 'Lettura precedente del pacchetto (build V21-99226fbb90dcdbc2) — NON è la lettura canonica della riunione. I conteggi e gli stati di questa schermata precedono la riconciliazione: per l’intelligenza attuale vedi il Radar Canonico.',
+    /* La riga di scuse non serve piu: la schermata che la portava non si
+       rende, e il radar unico e gia quello riconciliato. */
+    subRadar: 'Dove ADAMA può agire o prepararsi ora — pressione fitosanitaria, tempistica colturale e coerenza di portafoglio.',
     subWindows: 'Orologio del campo e orologio commerciale su un\'unica linea temporale — quando la coltura ha bisogno di protezione e quando deve iniziare il lavoro commerciale.',
     subMarket: 'Il contesto economico attorno alle opportunità agronomiche di ADAMA — condizioni, dinamica, offerta, fiducia e prospettive. Non è una previsione di vendita.',
     subScience: 'Cosa la scienza può cambiare per ADAMA Italia — rischio di portafoglio, lacuna di portafoglio, posizionamento e preparazione del ciclo successivo. Non un conteggio di pubblicazioni.',
@@ -675,7 +677,7 @@
     navArchive: 'Archive',
     navSources: 'Sources',
 
-    subRadar: 'Previous reading of the package (build V21-99226fbb90dcdbc2) — NOT the canonical reading for the meeting. The counts and states on this screen predate the reconciliation: for current intelligence see the Canonical Radar.',
+    subRadar: 'Where ADAMA can act or prepare now — pest pressure, crop timing and portfolio fit.',
     subWindows: 'Field clock and business clock on one rolling timeline — when the crop needs protection, and when the commercial work has to start.',
     subMarket: 'The economic environment around ADAMA\'s agronomic opportunities — conditions, momentum, supply, sentiment and outlook. Not a sales forecast.',
     subScience: 'What science may change for ADAMA Italy — portfolio risk, portfolio gap, positioning and next-cycle preparation. Not a paper count.',

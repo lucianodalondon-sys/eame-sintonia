@@ -68,9 +68,24 @@ const SECTIONS = [
 ];
 
 /* ── o que o modelo sabe, para conferir o filtro contra a verdade ─────────── */
-const AM = loadData().ITALY_APP_MODEL;
+const ctx = loadData();
+const AM = ctx.ITALY_APP_MODEL;
+/* ── CONTRA QUE VERDADE SE MEDE A HONESTIDADE DE UM FILTRO ────────────────
+   Este mapa vinha de `AM.collections.opportunities`, que e o pacote ANTERIOR
+   a reconciliacao: ali OPP_75C37DED9160 e ACT_NOW, e o motor diz VALIDATE_NOW.
+   Um portao que confere o ecra contra a fonte errada aprova o defeito que
+   existe para apanhar.
+
+       A HONESTIDADE MEDE-SE CONTRA O QUE O MOTOR DECIDIU, NAO CONTRA
+       O QUE O PORTAL COSTUMAVA MOSTRAR.
+
+   A instantanea manda; o modelo fica so como reserva se ela faltar. */
 const STATUS = {};
-AM.collections.opportunities.records.forEach((o) => { STATUS[o.id] = o.status; });
+if (ctx.MEETING_INTELLIGENCE && Array.isArray(ctx.MEETING_INTELLIGENCE.CASES)) {
+  ctx.MEETING_INTELLIGENCE.CASES.forEach((c) => { STATUS[c.ID] = c.STATUS; });
+} else {
+  AM.collections.opportunities.records.forEach((o) => { STATUS[o.id] = o.status; });
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    AS MEDICOES DENTRO DA PAGINA
@@ -337,7 +352,11 @@ if (SHOTS) await shot(jp, SHOTS, 'j0-390-load');
 {
   await clickTitle(jp, 'Radar delle Opportunità', 700);
   const before = await caseIds(jp);
+  /* O radar unico filtra por pastilhas (`data-meeting-filter`), nao por um
+     <select>. Procurar o controlo que EXISTE, e nao o que existia. */
   const set = await jp.evaluate(() => {
+    const chip = document.querySelector('[data-meeting-filter="ACT_NOW"]');
+    if (chip) { chip.click(); return 'ACT_NOW'; }
     const s = [...document.querySelectorAll('select')].find((x) => [...x.options].some((o) => o.value === 'ACT_NOW'));
     if (!s) return null;
     s.value = 'ACT_NOW'; s.dispatchEvent(new Event('change', { bubbles: true })); return s.value;

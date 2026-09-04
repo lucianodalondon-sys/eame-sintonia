@@ -23,9 +23,14 @@
   const L = {
 
     /* ── surface chrome ─────────────────────────────────────────────── */
-    navMeeting:        ['Radar Canonico', 'Canonical Radar'],
-    subMeeting:        ['I casi del motore canonico — nessuno riscritto a mano',
-                        'The canonical engine cases — none hand-rewritten'],
+    /* «RADAR CANONICO» ERA IL NOME DELL'ARCHITETTURA, NON DEL PRODOTTO.
+       «canonico» distingue una sorgente da un'altra: e una parola che serve a
+       chi costruisce il portale, non a chi lo apre. Il cliente ha UN radar, e
+       si chiama come si e sempre chiamato. La sorgente non cambia — cambia
+       solo il fatto che non la si annuncia piu sullo schermo. */
+    navMeeting:        ['Radar delle Opportunità', 'Opportunity Radar'],
+    subMeeting:        ['Dove ADAMA può agire o prepararsi ora — pressione, tempistica colturale e coerenza di portafoglio.',
+                        'Where ADAMA can act or prepare now — pressure, crop timing and portfolio fit.'],
     meetingSnapshot:   ['ISTANTANEA DELLA RIUNIONE', 'MEETING SNAPSHOT'],
     lblSourceHead:     ['origine', 'source head'],
     lblBuildId:        ['build', 'build'],

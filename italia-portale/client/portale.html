@@ -4176,15 +4176,16 @@ class Component extends DCLogic {
       /* The opportunity badge read the WINDOW count — 29 canonical windows
          standing in for the real opportunity feed, which is the exact
          substitution this migration exists to remove. */
-      ['radar', T.navRadar, navN('opportunities')],
-      /* ══ IL RADAR CANONICO E UNA SUPERFICIE A PARTE ═══════════════════════
-         I 21 casi di presentazione (D.CASES) e i 43 del motore sono due
-         universi. Mescolarli in una griglia sola e l'unica cosa che non si
-         puo fare: la prosa scritta a mano riempirebbe i buchi del motore e
-         nessuno saprebbe piu quale numero e stato misurato.
+      /* ══ UN SOLO RADAR ════════════════════════════════════════════════
+         C'erano due voci: il radar storico, servito dal pacchetto PRIMA della
+         riconciliazione, e il «Radar Canonico», servito dall'istantanea. La
+         prima portava perfino una riga di scuse che rimandava alla seconda.
 
-             DUE FONTI NELLA STESSA GRIGLIA SONO UNA FONTE SOLA, E FALSA.
+             DUE RADAR DEGLI STESSI 43 SONO UN RADAR CHE NON CI SI FIDA.
 
+         Resta una voce sola, con il nome di sempre, e dietro c'e la sorgente
+         riconciliata. La griglia storica non e cancellata — smette di essere
+         resa (vedi `isRadar`), cosi nessun percorso ci finisce dentro.
          Il conteggio viene dall'istantanea, mai scritto a mano. */
       ['meeting', mtL('navMeeting'), meetingCount],
       ['future', T.navFuture, navN('futureSignals')],
@@ -8929,7 +8930,11 @@ class Component extends DCLogic {
 
          Le due domande della finestra restano DUE: la regola e nota? e la
          condizione e soddisfatta adesso? La seconda non eredita la prima. */
-      isMeeting: s.view === 'meeting', isMcase: s.view === 'mcase',
+      /* La rotta storica 'radar' esiste ancora — la ricerca, il ritorno
+         indietro e i portoni la usano — ma rende la superficie riconciliata.
+         Cosi «un solo radar» non e una voce nascosta nel menu: e l'unica
+         griglia che il portale sa disegnare. */
+      isMeeting: s.view === 'meeting' || s.view === 'radar', isMcase: s.view === 'mcase',
       mt: {
         nav: mtL('navMeeting'), sub: mtL('subMeeting'),
         snapshot: mtL('meetingSnapshot'), srcHead: mtL('lblSourceHead'),
@@ -9036,7 +9041,7 @@ class Component extends DCLogic {
          fixture feeding a real current signal. Nothing external replaces it, so the panel
          is empty. The unread dot at markup line 147 is hardcoded and must be removed. */
       showNotifs: s.showNotifs, toggleNotifs: () => this.setState({ showNotifs: !s.showNotifs }), notifs: [],
-      t: T, langBtns, dataState, dataStateTotals, showDataState: !!s.showDataState, toggleDataState: () => this.setState({ showDataState: !s.showDataState }), isRadar: s.view === 'radar', isCase: s.view === 'case', isFuture: s.view === 'future', isCompetitors: s.view === 'competitors', isCompany: s.view === 'company', isScience: s.view === 'science', isTheme: s.view === 'theme', isArchive: s.view === 'archive', isSources: s.view === 'sources', isSource: s.view === 'source', isPerson: s.view === 'person', isSearch: s.view === 'search',
+      t: T, langBtns, dataState, dataStateTotals, showDataState: !!s.showDataState, toggleDataState: () => this.setState({ showDataState: !s.showDataState }), isRadar: false /* la griglia precedente alla riconciliazione non si rende piu */, isCase: s.view === 'case', isFuture: s.view === 'future', isCompetitors: s.view === 'competitors', isCompany: s.view === 'company', isScience: s.view === 'science', isTheme: s.view === 'theme', isArchive: s.view === 'archive', isSources: s.view === 'sources', isSource: s.view === 'source', isPerson: s.view === 'person', isSearch: s.view === 'search',
       goRadar: () => this.go({ view: 'radar' }), goFuture: () => this.go({ view: 'future' }), goCompetitors: () => this.go({ view: 'competitors' }), goScience: () => this.go({ view: 'science' }), goSources: () => this.go({ view: 'sources' }), goPeople: () => this.go({ view: 'sources', sourceGroup: 'PEOPLE' }), goResearchers: () => this.go({ view: 'sources', sourceGroup: 'PEOPLE', peopleCat: 'RESEARCHERS' }),
       // radar
       fCrop: s.fCrop, fIssue: s.fIssue, fRegion: s.fRegion, fStatus: s.fStatus, fProduct: s.fProduct, fDept: s.fDept, sort: s.sort,
