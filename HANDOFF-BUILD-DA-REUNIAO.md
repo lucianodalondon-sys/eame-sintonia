@@ -50,7 +50,7 @@ force-push foi feito, nenhuma branch foi resetada.
 | **inteligência canônica** | `claude/opportunity-commercial-priority-v1` | `b3935bd` | o motor, os 43 casos, a catraca |
 | **base visual (congelada)** | `claude/site-v21-ingest-recovery` | `a14b9e1` | BrandWell PASS, mobile PASS. **NÃO REDESENHAR** |
 | **build da reunião (anterior)** | `claude/meeting-intelligence-integration` | `a54e287` | intacta, não tocada por esta sessão |
-| **build da reunião (esta)** | `claude/meeting-portal-final-pabok2` | `fa63d21` | criada de `a54e287` |
+| **build da reunião (esta)** | `claude/meeting-portal-final-pabok2` | `f95b157` | criada de `a54e287` |
 
 ```bash
 git merge-base --is-ancestor a14b9e1 HEAD && echo "a casca visual esta inteira"
