@@ -40,6 +40,7 @@ silêncio.
 """
 import json
 import os
+import re
 import subprocess
 import sys
 from collections import Counter
@@ -230,6 +231,37 @@ def cabeca_do_commit(argv):
     raise SystemExit('faltou --source-head <sha da inteligencia canonica>')
 
 
+# ── UNA FRASE PER IL CLIENTE NON NOMINA UN CAMPO DEL MOTORE ────────────────
+# Undici delle quarantatre frasi `WHY_COMMERCIAL_IT/_EN` finiscono con un rimando
+# interno: «— vedi NEED_DIRECTION e la frase originale in NEED_EXCERPT». È scritto
+# per chi legge la scheda del caso di qua dalla frontiera, ed è corretto lì. Su uno
+# schermo italiano è SCREAMING_SNAKE portoghese in mezzo a una frase.
+#
+#     UNA FRASE CHE RIMANDA A UN CAMPO PARLA A CHI HA IL CAMPO.
+#     IL CLIENTE NON CE L'HA.
+#
+# Non si riscrive la frase e non se ne inventa un'altra: si taglia la SUBORDINATA
+# che nomina il campo, e la principale — che è già una frase intera e vera — resta
+# intatta. I nomi tagliati viaggiano come `__REFERS_TO_FIELDS`, così l'auditor
+# vede che il rimando esisteva e a che cosa puntava. Se il taglio lasciasse una
+# frase vuota, non si taglia: la frase non attraversa affatto.
+NOME_DE_CAMPO = re.compile(r'\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b')
+
+
+def sem_nome_de_campo(frase):
+    """→ (frase senza il rimando interno, [nomi di campo rimossi])"""
+    nomes = NOME_DE_CAMPO.findall(frase)
+    if not nomes:
+        return frase, []
+    cabeca = re.split(r'\s+[—–-]\s+', frase)[0].strip()
+    if not cabeca or NOME_DE_CAMPO.search(cabeca):
+        # Il nome non sta in una subordinata staccabile: la frase non attraversa.
+        return '', nomes
+    if not cabeca.endswith('.'):
+        cabeca += '.'
+    return cabeca, nomes
+
+
 def linha(o):
     r = {}
     for c in CAMPOS:
@@ -243,7 +275,12 @@ def linha(o):
     for c in LOCALIZAVEIS:
         it, en = o.get(c + '_IT'), o.get(c + '_EN')
         if it and en:
-            r[c + '_IT'], r[c + '_EN'] = it, en
+            it2, ref1 = sem_nome_de_campo(it)
+            en2, ref2 = sem_nome_de_campo(en)
+            r[c + '_IT'], r[c + '_EN'] = it2, en2
+            refs = sorted(set(ref1) | set(ref2))
+            if refs:
+                r[c + '__REFERS_TO_FIELDS'] = refs
         elif o.get(c):
             r[c + '__PT_ONLY'] = True
     for c in SO_DECLARADOS:

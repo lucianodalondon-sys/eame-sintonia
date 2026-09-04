@@ -519,7 +519,7 @@
           <div style="position:relative;overflow:hidden;border-radius:14px;border:1px solid rgba(203,197,195,0.14);background:#1C1817;padding:16px 18px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:center">
             <div style="display:flex;flex-direction:column;gap:10px">
               <div style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ t.lblAppWindow }} · {{ t.lblDome }}</div>
-              <sc-if value="{{ cs.isEngine }}" hint-placeholder-val="{{ true }}"><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px"><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engRuleT }}</span><span style="font-size:12.5px;font-weight:700;color:#fff;line-height:1.3;overflow-wrap:anywhere">{{ cs.engRuleL }}</span><span style="font-size:10.5px;color:#B1A9A7;line-height:1.35;overflow-wrap:anywhere">{{ cs.engRuleStateL }}</span></div><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engStateT }}</span><span style="display:inline-flex;align-self:flex-start;padding:5px 11px;border-radius:9999px;background:{{ cs.engStateInk }};color:#fff;font-size:11.5px;font-weight:700;line-height:1.25;overflow-wrap:anywhere">{{ cs.engStateL }}</span></div><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engMethodT }}</span><span style="font-size:11px;color:#EDEAE9;line-height:1.4;overflow-wrap:anywhere">{{ cs.engMethodL }}</span></div></div></sc-if><sc-if value="{{ cs.legacyBar }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:flex-end;gap:12px"><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.wsLabel }}</span><div style="flex:1;height:44px;position:relative;-webkit-mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;background:rgba(151,139,135,0.28)"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ cs.progressPct }};background:{{ cs.st.color }}"></div></div><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.weLabel }}</span></div></sc-if><sc-if value="{{ cs.legacyNoWindow }}" hint-placeholder-val="{{ false }}"><div style="font-size:11.5px;color:#B1A9A7;line-height:1.5">{{ t.csNoCanonicalWindow }}</div></sc-if>
+              <sc-if value="{{ cs.isEngine }}" hint-placeholder-val="{{ true }}"><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px"><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engRuleT }}</span><span style="font-size:12.5px;font-weight:700;color:#fff;line-height:1.3;overflow-wrap:anywhere">{{ cs.engRuleL }}</span><span style="font-size:10.5px;color:#B1A9A7;line-height:1.35;overflow-wrap:anywhere">{{ cs.engRuleStateL }}</span></div><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engStateT }}</span><span style="display:inline-flex;align-self:flex-start;padding:5px 11px;border-radius:9999px;background:{{ cs.engStateBg }};color:{{ cs.engStateInk }};font-size:11.5px;font-weight:700;line-height:1.25;overflow-wrap:anywhere">{{ cs.engStateL }}</span></div><div style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.engMethodT }}</span><span style="font-size:11px;color:#EDEAE9;line-height:1.4;overflow-wrap:anywhere">{{ cs.engMethodL }}</span></div></div></sc-if><sc-if value="{{ cs.legacyBar }}" hint-placeholder-val="{{ false }}"><div style="display:flex;align-items:flex-end;gap:12px"><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.wsLabel }}</span><div style="flex:1;height:44px;position:relative;-webkit-mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;mask:url(assets/a-corporate-2.png) center bottom/100% 100% no-repeat;background:rgba(151,139,135,0.28)"><div style="position:absolute;left:0;top:0;bottom:0;width:{{ cs.progressPct }};background:{{ cs.st.color }}"></div></div><span style="font-size:24px;font-weight:300;letter-spacing:-0.02em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ cs.weLabel }}</span></div></sc-if><sc-if value="{{ cs.legacyNoWindow }}" hint-placeholder-val="{{ false }}"><div style="font-size:11.5px;color:#B1A9A7;line-height:1.5">{{ t.csNoCanonicalWindow }}</div></sc-if>
               <div style="border-top:1px dotted rgba(151,139,135,0.55)"></div>
               <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
                 <div style="display:flex;flex-direction:column;gap:1px;min-width:0"><span style="font-family:var(--font-secondary);font-size:10px;font-weight:600;letter-spacing:0.12em;color:#8F8886">{{ cs.cellAT }}</span><span style="font-size:11.5px;color:#EDEAE9;line-height:1.4;overflow-wrap:anywhere">{{ cs.cellAL }}</span></div>
@@ -766,7 +766,7 @@
             <div style="font-size:11px;line-height:1.5;color:#B1A9A7">{{ t.lblCommercialMaterialNote }}</div>
             <div style="display:flex;flex-wrap:wrap;gap:8px">
               <sc-for list="{{ cs.briefRows }}" as="b" hint-placeholder-count="3">
-                <span onClick="{{ b.go }}" data-brief-dept="{{ b.dept }}" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9999px;background:rgba(255,255,255,0.04);border:1px solid {{ b.color }};color:{{ b.color }};font-size:11px;font-weight:700;letter-spacing:0.04em;cursor:pointer;white-space:nowrap" style-hover="background:rgba(0,177,82,0.14)">{{ b.areaL }}</span>
+                <span onClick="{{ b.go }}" data-brief-dept="{{ b.dept }}" style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9999px;background:rgba(255,255,255,0.04);border:1px solid {{ b.color }};color:{{ b.ink }};font-size:11px;font-weight:700;letter-spacing:0.04em;cursor:pointer;white-space:nowrap" style-hover="background:rgba(0,177,82,0.14)">{{ b.areaL }}</span>
               </sc-for>
             </div>
           </div>
@@ -4613,7 +4613,24 @@ class Component extends DCLogic {
           notOk: link.OK !== true,
           mark: link.OK === true ? '✓' : '—',
           ink: link.OK === true ? ONST.verified : ONST.neutral,
-          fact: link.FACT ? String(link.FACT) : ''
+          /* ⚠️ FACT E UN CAMPO MISTO: su SINAL_ATUAL e una data, sugli altri
+             tre e un CODICE del motore — PREHARVEST_WINDOW,
+             ESTADIO_DECLARADO_NO_MESMO_DOCUMENTO, VERIFIED_LABEL_MATCH.
+             Stamparlo cosi com'e metteva SCREAMING_SNAKE portoghese su uno
+             schermo italiano, ed e esattamente il difetto che il dizionario
+             esiste per impedire. Ogni anello dichiara la propria famiglia; un
+             codice che la famiglia non conosce esce VUOTO, mai grezzo. */
+          fact: (() => {
+            const v = link.FACT;
+            if (v === null || v === undefined || v === '') return '';
+            const txt = String(v);
+            if (!/^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$/.test(txt)) return txt;
+            const fam = { JANELA_DEFINIDA: 'WINDOW_TYPE',
+              JANELA_ABERTA_AGORA: 'WINDOW_OPEN_NOW_METHOD',
+              VINCULO_COM_PORTFOLIO: 'PRODUCT_LINK_STATE',
+              SINAL_ATUAL: 'SIGNAL_CURRENCY', TEMPO_PARA_ACAO: 'COMMERCIAL_TIMING_BASIS' }[k];
+            return fam ? CSML(txt, fam) : '';
+          })()
         };
       }) : [];
     const csWhyNowL = CSENG ? CSMLIST(CSENG.whyNowCodes, 'WHY_NOW_CODES').join(' · ') : '';
@@ -4807,7 +4824,12 @@ class Component extends DCLogic {
       /* La tinta della casella dello stato segue il fatto, non l'ottimismo:
          solo OPEN_NOW = YES si accende. UNKNOWN resta Earth, perche e cio che
          e — non misurato. */
-      engStateInk: (CSENG && CSENG.window.openNow === 'YES') ? ACTP.bg : '#8F8886',
+      /* Il verde AGIRE ORA e una SUPERFICIE, non un inchiostro: bianco sopra
+         misura 2,57:1 e la regola chiede 4,5. La pillola prende l'inchiostro
+         che quella superficie dichiara, come fa la pillola dello stato tre
+         riquadri piu in la. */
+      engStateBg: (CSENG && CSENG.window.openNow === 'YES') ? ACTP.bg : 'rgba(255,255,255,0.06)',
+      engStateInk: (CSENG && CSENG.window.openNow === 'YES') ? ACTP.ink : '#EDEAE9',
       /* Le tre caselle in basso: sul caso canonico dicono i tre stati che il
          motore tiene separati, ciascuno col proprio titolo. */
       cellAT: CSENG ? CSML('PEST_STAGE') : (T.lblCropStage || ''),
@@ -4900,7 +4922,16 @@ class Component extends DCLogic {
       rtvReady: !!csRtv.ready, rtvBlocked: !csRtv.ready,
       rtvBlockers: csRtvBlockers.map((b) => ({ text: b })),
       briefRows: csActionMap.map((a) => ({
-        areaL: a.areaL, color: a.color, dept: csBriefDept(a.area),
+        /* La linea del reparto resta il BORDO — e li che identifica, e il colore
+           per categoria non si perde. Il TESTO no: #9D1D96 su #110E0D misura
+           2,79:1, e l'inchiostro che AREA_UI dichiara (#7BE0A6 per Market
+           Development) e pensato per stare sulla SUPERFICIE del reparto, non
+           su un fondo neutro — fuori da quella coppia esce anche dalla
+           paletta. La pillola sta su fondo neutro, quindi prende la tinta di
+           corpo, che la paletta dichiara e che si legge.
+
+               UN INCHIOSTRO E VALIDO SU UN FONDO, NON IN ASSOLUTO. */
+        areaL: a.areaL, color: a.color, ink: '#EDEAE9', dept: csBriefDept(a.area),
         go: () => this.openBrief(cs0.id, csBriefDept(a.area))
       })),
       hasBriefRows: csActionMap.length > 0,
