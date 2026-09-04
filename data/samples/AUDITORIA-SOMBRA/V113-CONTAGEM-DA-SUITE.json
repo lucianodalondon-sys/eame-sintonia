@@ -1,37 +1,39 @@
 {
- "TOTAL_DISCOVERED": 745,
- "RAN": 740,
- "NEVER_RAN": 5,
- "PASSED": 718,
- "FAILED": 7,
+ "TOTAL_DISCOVERED": 783,
+ "RAN": 783,
+ "NEVER_RAN": 0,
+ "PASSED": 755,
+ "FAILED": 13,
  "ERROR_AS_TEST": 1,
- "ERROR_AS_CLASS_SETUP": 1,
+ "ERROR_AS_CLASS_SETUP": 0,
  "SKIPPED": 14,
  "XFAIL": 0,
  "XPASS": 0,
- "ERRORS_REPORTED": 2,
+ "ERRORS_REPORTED": 1,
  "ERROR_DETAIL": [
   [
    "test_comunicacao (unittest.loader._FailedTest.test_comunicacao)",
    "_FailedTest"
-  ],
-  [
-   "setUpClass (test_adama_es_import_rules.TestContraOArtefatoReal)",
-   "_ErrorHolder"
   ]
  ],
  "FAILED_DETAIL": [
   "test_a_unica_migration_nova_tem_incompatibilidade_provada (test_adama_es_gate.TestOEnsaioNaoEImportacao.test_a_unica_migration_nova_tem_incompatibilidade_provada)",
+  "test_o_total_de_testes_declarado_vem_da_suite (test_canonico.TestNumerosEntreDocumentos.test_o_total_de_testes_declarado_vem_da_suite)",
   "test_source_e_fact_location_quando_declarados (test_evidence.TestGeografia.test_source_e_fact_location_quando_declarados) (arquivo='data/samples/COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json')",
   "test_source_e_fact_location_quando_declarados (test_evidence.TestGeografia.test_source_e_fact_location_quando_declarados) (arquivo='data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json')",
   "test_source_e_fact_location_quando_declarados (test_evidence.TestGeografia.test_source_e_fact_location_quando_declarados) (arquivo='data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json')",
   "test_toda_amostra_declara_data_de_captura (test_evidence.TestProveniencia.test_toda_amostra_declara_data_de_captura)",
   "test_toda_amostra_declara_origem (test_evidence.TestProveniencia.test_toda_amostra_declara_origem)",
-  "test_a_contagem_de_testes_do_handoff_bate (test_handoff.TestSentinelasDoHandoffBatemComOLedger.test_a_contagem_de_testes_do_handoff_bate)"
+  "test_a_contagem_de_testes_do_handoff_bate (test_handoff.TestSentinelasDoHandoffBatemComOLedger.test_a_contagem_de_testes_do_handoff_bate)",
+  "test_todo_numero_publicado_vem_do_dono (test_metricas.TestDocumentoBateComODono.test_todo_numero_publicado_vem_do_dono) (metrica='TEST_COUNT_CURRENT', documento='piloto/O-QUE-PODEMOS-DIZER.md', valor='783')",
+  "test_todo_numero_publicado_vem_do_dono (test_metricas.TestDocumentoBateComODono.test_todo_numero_publicado_vem_do_dono) (metrica='TEST_COUNT_CURRENT', documento='piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md', valor='783')",
+  "test_todo_numero_publicado_vem_do_dono (test_metricas.TestDocumentoBateComODono.test_todo_numero_publicado_vem_do_dono) (metrica='TEST_COUNT_CURRENT', documento='apresentacao/PILOTO-CLASSIFICACAO.md', valor='783')",
+  "test_todo_numero_publicado_vem_do_dono (test_metricas.TestDocumentoBateComODono.test_todo_numero_publicado_vem_do_dono) (metrica='TEST_COUNT_CURRENT', documento='ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md', valor='783')",
+  "test_nenhum_marcador_esta_desatualizado (test_metricas.TestNumeroCorrenteTemDono.test_nenhum_marcador_esta_desatualizado)"
  ],
  "COLLECTION": "V113-CONTAGEM-DA-SUITE",
  "SOURCE": "unittest.defaultTestLoader.discover(\"tests\") + TextTestRunner, nesta arvore",
- "CAPTURED_AT": "2026-09-03",
+ "CAPTURED_AT": "2026-09-04",
  "LAW": "dois universos: o descoberto e o executado. A diferenca tem nome — classe cujo setUpClass aborta nao executa os seus metodos, e o _ErrorHolder que ela gera nao e um caso.",
  "EQUATION_OUTER": "TOTAL_DISCOVERED = RAN + NEVER_RAN",
  "EQUATION_INNER": "RAN = PASSED + FAILED + ERROR_AS_TEST + SKIPPED + XFAIL + XPASS"

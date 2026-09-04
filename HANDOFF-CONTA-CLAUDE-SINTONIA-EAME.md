@@ -18,7 +18,7 @@ a reportar, não um erro a ignorar.
 | **HEAD** | ver `git rev-parse HEAD` — o commit de handoff é o último |
 | **REMOTE_HEAD** | idêntico ao local no momento do push |
 | **WORKING_TREE** | limpo |
-| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->763<!--/M--> testes descobertos, 744 executados, 6 falhas, 2 erros, 14 pulados** — as falhas sao anteriores a esta linha de missoes e estao classificadas em `docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md` |
+| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->783<!--/M--> testes descobertos, 783 executados, 755 passam, 6 falhas, 1 erro, 14 pulados** — as falhas sao anteriores a esta linha de missoes e estao classificadas em `docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md` |
 | **LAST_MAJOR_MISSION** | 10B-ES — fechar os portões estruturais antes de coletar mais |
 | **CURRENT_COUNTRY_SCOPE** | **ESPANHA**. França e Itália **não** foram abertas na camada de voz. |
 
