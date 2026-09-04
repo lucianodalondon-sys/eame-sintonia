@@ -1,0 +1,315 @@
+{
+ "COLLECTION": "V115-RED-TEAM-SEMANTICO",
+ "SOURCE": "build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/OPPORTUNITIES.json · BUILD_ID V21-cc9e5ce20da2dab6",
+ "CAPTURED_AT": "2026-09-03",
+ "LAW": "nao pergunta se o codigo rodou. Pergunta se a evidencia sustenta a conclusao — elo a elo, com o dono de cada um nomeado.",
+ "SEMANTIC_RED_TEAM": "PASS",
+ "FALHAS": [],
+ "ITENS": {
+  "1": {
+   "PERGUNTA": "A percentagem de cachos infestados esta acima de 5% agora?",
+   "CLASSIFICACAO": "UNKNOWN",
+   "POR_QUE": "nenhum registro do par declara percentagem medida; a fonte de 03/09 descreve o quadro territorial em prosa.",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "METODO": "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE",
+   "THRESHOLD_STATE": "NOT_DECLARED",
+   "MEDICAO_DECLARADA_NO_PAR": [],
+   "FALHAS": [],
+   "OPPORTUNITY_ID": "OPP_3C8C3960CC66",
+   "ROTULO": "videira x tignoletta · Emilia-Romagna"
+  },
+  "2": {
+   "PERGUNTA": "O motor confunde fase da praga encerrada com acao encerrada?",
+   "PEST_STAGE_STATE": "STAGE_ENDED",
+   "PEST_STAGE_EVIDENCE_ID": "IT-COL-2609-VN-CARPOCAPSA",
+   "ACTION_RECOMMENDATION_STATE": "CONTINUE_RECOMMENDED",
+   "ACTION_RECOMMENDATION_EVIDENCE_ID": "IT-COL-2609-VN-CARPOCAPSA",
+   "WINDOW_DEFINED": "NO",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "METODO": "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR",
+   "STATUS": "VALIDATE_NOW",
+   "POR_QUE_NAO_E_JANELA": "a fonte recomenda continuar a defesa, e isso e DIRECAO. Nenhuma oracao amarra a acao a um estadio da praga: ninguem declarou QUAL condicao define o momento.",
+   "FALHAS": [],
+   "OPPORTUNITY_ID": "OPP_75C37DED9160",
+   "ROTULO": "macieira x carpocapsa · Veneto"
+  },
+  "3": {
+   "PERGUNTA": "A ultima publicacao de 12/08 responde alguma coisa?",
+   "CLASSIFICACAO": "UNKNOWN",
+   "POR_QUE": "a serie do milho fechou para a temporada. Serie fechada nao e limiar nao ultrapassado: e ausencia de medicao.",
+   "WINDOW_OPEN_NOW": "UNKNOWN",
+   "THRESHOLD_STATE": "NOT_DECLARED",
+   "REGISTRO_NOVO_CRIADO": [],
+   "FALHAS": [],
+   "OPPORTUNITY_ID": "OPP_9C600748BB1B",
+   "ROTULO": "milho x piralide · Friuli-Venezia Giulia"
+  },
+  "4": {
+   "PERGUNTA": "A frase «siamo nella fase di maggior suscettibilita» prova quantos elos?",
+   "RESPOSTA": "um: JANELA_ABERTA_AGORA. Pressao, direcao e produto tem donos diferentes, e TEMPO_PARA_ACAO e derivado declarado.",
+   "ELOS": {
+    "SINAL_ATUAL": {
+     "DONO": "IT-PHEN-040",
+     "FATO": "2026-09-03",
+     "TIPO": "DECLARADO"
+    },
+    "DIRECAO_POSITIVA": {
+     "DONO": "IT-PHEN-040",
+     "FATO": "POSITIVE_PRESSURE",
+     "TIPO": "DECLARADO"
+    },
+    "JANELA_DEFINIDA": {
+     "DONO": "IT-COL-2609-TO-BOTRITE",
+     "FATO": "PHENOLOGY_WINDOW",
+     "TIPO": "DECLARADO"
+    },
+    "JANELA_ABERTA_AGORA": {
+     "DONO": "IT-COL-2609-TO-BOTRITE",
+     "FATO": "FONTE_DECLARA_A_CONDICAO_COMO_PRESENTE",
+     "TIPO": "DECLARADO"
+    },
+    "VINCULO_COM_PORTFOLIO": {
+     "DONO": [
+      "IT-LBL-1437",
+      "IT-LBL-1439",
+      "IT-LBL-1626",
+      "IT-LBL-1628",
+      "IT-LBL-979",
+      "IT-LBL-981"
+     ],
+     "FATO": "VERIFIED_LABEL_MATCH",
+     "TIPO": "DECLARADO"
+    },
+    "TEMPO_PARA_ACAO": {
+     "DONO": [
+      "IT-COL-2609-TO-BOTRITE",
+      "IT-PHEN-040"
+     ],
+     "FATO": "janela aberta agora + documento corrente",
+     "TIPO": "DERIVADO_DECLARADO"
+    }
+   },
+   "STATUS": "ACT_NOW",
+   "FALHAS": [],
+   "OPPORTUNITY_ID": "OPP_F8106D5E1767",
+   "ROTULO": "videira x botrite · Toscana"
+  },
+  "5": {
+   "PERGUNTA": "A regra da Umbria e a da Umbria, e ela fecha a porta?",
+   "REGRA_NA_UMBRIA": "Vite/tignoletta (Lobesia botrana): o Servizio Fitosanitario Regionale da Umbria declara, no boletim da vite n.21 de 28/08/2026 valido para as provincias de Perugia e Terni, soglia de intervencao de 10",
+   "EVIDENCIA_DA_JANELA": "IT-COL-2609-UM-TIGNOLETTA",
+   "EVIDENCIA_DA_JANELA_NA_ER": "IT-PHEN-001",
+   "NEED_DIRECTION": "NO_ACTION_RECOMMENDED",
+   "STATUS": "WATCH",
+   "COMMERCIAL_PRIORITY": "TO_VALIDATE",
+   "FALHAS": [],
+   "OPPORTUNITY_ID": "OPP_169BD86DB324",
+   "ROTULO": "videira x tignoletta · Umbria"
+  },
+  "6": {
+   "PERGUNTA": "Uma frase qualitativa pode responder a uma condicao medida?",
+   "RESPOSTA": "nao. So quando a propria fonte declara a equivalencia — e nenhuma delas declara.",
+   "TESTEMUNHAS": [
+    {
+     "FRASE": "la situazione buona in tutta la provincia",
+     "TIPO": "THRESHOLD_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "la situazione buona in tutta la provincia",
+     "TIPO": "WEATHER_TRIGGERED_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "la situazione buona in tutta la provincia",
+     "TIPO": "PEST_STAGE_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "la situazione buona in tutta la provincia",
+     "TIPO": "PHENOLOGY_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "ESTADIO_DECLARADO_NAO_NOMEIA_A_CONDICAO"
+    },
+    {
+     "FRASE": "il quadro rimane tendenzialmente buono",
+     "TIPO": "THRESHOLD_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "il quadro rimane tendenzialmente buono",
+     "TIPO": "WEATHER_TRIGGERED_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "il quadro rimane tendenzialmente buono",
+     "TIPO": "PEST_STAGE_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "il quadro rimane tendenzialmente buono",
+     "TIPO": "PHENOLOGY_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "ESTADIO_DECLARADO_NAO_NOMEIA_A_CONDICAO"
+    },
+    {
+     "FRASE": "pressione contenuta nella maggior parte dei vigneti",
+     "TIPO": "THRESHOLD_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "pressione contenuta nella maggior parte dei vigneti",
+     "TIPO": "WEATHER_TRIGGERED_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "pressione contenuta nella maggior parte dei vigneti",
+     "TIPO": "PEST_STAGE_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "pressione contenuta nella maggior parte dei vigneti",
+     "TIPO": "PHENOLOGY_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "ESTADIO_DECLARADO_NAO_NOMEIA_A_CONDICAO"
+    },
+    {
+     "FRASE": "siamo nella fase conclusa della difesa",
+     "TIPO": "THRESHOLD_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "siamo nella fase conclusa della difesa",
+     "TIPO": "WEATHER_TRIGGERED_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "siamo nella fase conclusa della difesa",
+     "TIPO": "PEST_STAGE_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "siamo nella fase conclusa della difesa",
+     "TIPO": "PHENOLOGY_WINDOW",
+     "WINDOW_OPEN_NOW": "NO",
+     "METODO": "FONTE_DECLARA_A_FASE_COMO_ENCERRADA"
+    },
+    {
+     "FRASE": "danni presenti nei frutteti",
+     "TIPO": "THRESHOLD_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "danni presenti nei frutteti",
+     "TIPO": "WEATHER_TRIGGERED_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "danni presenti nei frutteti",
+     "TIPO": "PEST_STAGE_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA"
+    },
+    {
+     "FRASE": "danni presenti nei frutteti",
+     "TIPO": "PHENOLOGY_WINDOW",
+     "WINDOW_OPEN_NOW": "UNKNOWN",
+     "METODO": "ESTADIO_DECLARADO_NAO_NOMEIA_A_CONDICAO"
+    }
+   ],
+   "FALHAS": []
+  },
+  "7": {
+   "PERGUNTA": "o acervo relido inteiro: o que mudou, e so isso mudou?",
+   "BUILD_ID_ANTES": "V21-7285e903bfb1c147",
+   "CASOS_ANTES": 43,
+   "CASOS_DEPOIS": 43,
+   "CASOS_QUE_MUDARAM": 5,
+   "MUDANCAS": [
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_APPLE|ISSUE_CODLING_MOTH|REGION_VENETO",
+     "DIFERENCAS": {
+      "WINDOW_TYPE": [
+       "PEST_STAGE_WINDOW",
+       null
+      ],
+      "WINDOW_DEFINED": [
+       "YES",
+       "NO"
+      ],
+      "WINDOW_OPEN_NOW_METHOD": [
+       "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+       "NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR"
+      ],
+      "WINDOW_EVIDENCE_ID": [
+       "IT-CAN-D9582B1FD6",
+       null
+      ],
+      "WHY_NOW_CODES": [
+       [
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ],
+       [
+        "SEM_JANELA_DEFINIDA",
+        "SEM_JANELA_ABERTA_AGORA",
+        "SEM_TEMPO_PARA_ACAO"
+       ]
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_GRAPE_MOTH|REGION_EMILIA_ROMAGNA",
+     "DIFERENCAS": {
+      "WINDOW_OPEN_NOW_METHOD": [
+       "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+       "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE"
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_GRAPEVINE|ISSUE_GRAPE_MOTH|REGION_UMBRIA",
+     "DIFERENCAS": {
+      "WINDOW_OPEN_NOW_METHOD": [
+       "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+       "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE"
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_MAIZE|ISSUE_CORN_BORER|REGION_FRIULI_VENEZIA_GIULIA",
+     "DIFERENCAS": {
+      "WINDOW_OPEN_NOW_METHOD": [
+       "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+       "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE"
+      ]
+     }
+    },
+    {
+     "CASO": "O1_FIELD_PRESSURE|CROP_TOMATO|ISSUE_DOWNY_MILDEW|REGION_VENETO",
+     "DIFERENCAS": {
+      "WINDOW_OPEN_NOW_METHOD": [
+       "CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS",
+       "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE"
+      ]
+     }
+    }
+   ],
+   "FALHAS": []
+  }
+ }
+}

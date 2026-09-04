@@ -158,7 +158,7 @@ def promover_research(r):
     TELA = ('WHAT_IT_IS', 'WHAT_IT_PROVES', 'WHAT_IT_DOES_NOT_PROVE',
             'INTERPRETATION', 'SO_WHAT', 'NOTE', 'CAVEAT', 'PERMANENT_CAVEAT',
             'INTERVENTION_GUIDANCE', 'LINK_MEANS', 'ROLE_EVIDENCE')
-    if not r.get('CLIENT_SAFE') or any(r.get(c) for c in TELA):
+    if not r.get('CLIENT_SAFE'):
         return 0
     res = r.get('RESEARCH')
     if not isinstance(res, dict):

@@ -1,0 +1,1813 @@
+{
+ "COLLECTION": "V113-AUDITORIA-DA-PROMOCAO",
+ "SOURCE": "build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST · regra de scripts/v21_dominio_da_alegacao.py",
+ "CAPTURED_AT": "2026-09-03",
+ "LAW": "auditoria, nao correcao. Nenhum registro foi alterado.",
+ "RULE_THAT_SEPARATES": "a guarda larga recusa promover porque QUALQUER campo de tela existe; a guarda estreita, uma linha abaixo, ja impede sobrescrever. Ressalva nao e descricao, e uma nao pode bloquear a outra.",
+ "SCREEN_FIELDS_CHECKED": [
+  "WHAT_IT_IS",
+  "WHAT_IT_PROVES",
+  "WHAT_IT_DOES_NOT_PROVE",
+  "INTERPRETATION",
+  "SO_WHAT",
+  "NOTE",
+  "CAVEAT",
+  "PERMANENT_CAVEAT",
+  "INTERVENTION_GUIDANCE",
+  "LINK_MEANS",
+  "ROLE_EVIDENCE"
+ ],
+ "DESCRIPTIVE_FIELDS": [
+  "WHAT_IT_IS",
+  "INTERPRETATION",
+  "SO_WHAT",
+  "NOTE",
+  "INTERVENTION_GUIDANCE"
+ ],
+ "TOTAL": 87,
+ "BY_CLASS": {
+  "NAO_DEVERIA_PROMOVER": 52,
+  "DEVERIA_PROMOVER": 35
+ },
+ "FIELD_SIGNALS": [
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-71D68FCB7D",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-6B5F605270",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-6EFC8DC91A",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-D9582B1FD6",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_APPLE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-03C08A9CCB",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_TOMATO"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-73F295E6B1",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_APPLE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-1E4AB2C6CE",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-41A7AE1526",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-266BA6A7E5",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_APPLE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-2CF012AD15",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_CAMPANIA"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-EB63AEC4AA",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_CAMPANIA"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-E91E4398B6",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_LAZIO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-49BA29FF51",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_LAZIO"
+   ]
+  }
+ ],
+ "RECORDS": [
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-8ECCB29D45",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-A8971F6D19",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-47A35A2B6B",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-CD15BEC01F",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-3D3363E433",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA",
+    "REGION_LOMBARDIA",
+    "REGION_PIEMONTE",
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-0E4E9C4423",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_LOMBARDIA",
+    "REGION_PIEMONTE",
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-B145A2CF68",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-34D171F73D",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-4733692740",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-A8485CAAAF",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-4E4344BB1D",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-25F4F85915",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-35371DE90D",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "AGROMET-CONDITIONS.json",
+   "ID": "IT-CAN-169E03ABE0",
+   "ENTITY_TYPE": "AGROMET_CONDITION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "ID": "IT-CAN-5477DB35D5",
+   "ENTITY_TYPE": "COMPETITOR_ACTIVITY",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_TOMATO"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "ID": "IT-CAN-DAD497DC82",
+   "ENTITY_TYPE": "COMPETITOR_ACTIVITY",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "ID": "IT-CAN-AC3DB38DD0",
+   "ENTITY_TYPE": "COMPETITOR_ACTIVITY",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_MAIZE"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "ID": "IT-CAN-4858FA582E",
+   "ENTITY_TYPE": "COMPETITOR_ACTIVITY",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "ID": "IT-CAN-E4E7CBE4BF",
+   "ENTITY_TYPE": "COMPETITOR_ACTIVITY",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_TOMATO"
+   ],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA",
+    "REGION_LOMBARDIA"
+   ]
+  },
+  {
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "ID": "IT-CAN-61936FD8C1",
+   "ENTITY_TYPE": "COMPETITOR_ACTIVITY",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "ID": "IT-CAN-D031CA7323",
+   "ENTITY_TYPE": "COMPETITOR_ACTIVITY",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_MAIZE"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "ID": "IT-CAN-8710A85500",
+   "ENTITY_TYPE": "COMPETITOR_ACTIVITY",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-4C1E4AE512",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_MAIZE"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-1B98DD5EE8",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_DURUM_WHEAT"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-8350E599D9",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-30FDAD920D",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_RICE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-EE3A23F6E7",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_SOYBEAN"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-0B3B031CB1",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SUGAR_BEET"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-7A600FB222",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-84A630D0D2",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-CD65E224E7",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_DURUM_WHEAT"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-0312ECA427",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-E4082B4987",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-3CDDA32E89",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_MAIZE"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "ID": "IT-CAN-91348B0D0D",
+   "ENTITY_TYPE": "CROP_ECONOMIC_WEIGHT_CLAIM",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-71D68FCB7D",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-6B5F605270",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-6EFC8DC91A",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-D9582B1FD6",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_APPLE"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-03C08A9CCB",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_TOMATO"
+   ],
+   "REGION_IDS": [
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-73F295E6B1",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_APPLE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-1E4AB2C6CE",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-41A7AE1526",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-266BA6A7E5",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_APPLE"
+   ],
+   "REGION_IDS": [
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-2CF012AD15",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_CAMPANIA"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-EB63AEC4AA",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_CAMPANIA"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-E91E4398B6",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_LAZIO"
+   ]
+  },
+  {
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "ID": "IT-CAN-49BA29FF51",
+   "ENTITY_TYPE": "FIELD_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": [
+    "REGION_LAZIO"
+   ]
+  },
+  {
+   "FILE": "EVENTS.json",
+   "ID": "IT-CAN-EAC9480EA6",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "EVENTS.json",
+   "ID": "IT-CAN-8C0D6B33F3",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ]
+  },
+  {
+   "FILE": "EVENTS.json",
+   "ID": "IT-CAN-02554B3F21",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_FRIULI_VENEZIA_GIULIA"
+   ]
+  },
+  {
+   "FILE": "EVENTS.json",
+   "ID": "IT-CAN-5CC9CB27DA",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_PUGLIA"
+   ]
+  },
+  {
+   "FILE": "EVENTS.json",
+   "ID": "IT-CAN-73C23B2D2B",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ]
+  },
+  {
+   "FILE": "EVENTS.json",
+   "ID": "IT-CAN-50527EB401",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_CAMPANIA"
+   ]
+  },
+  {
+   "FILE": "EVENTS.json",
+   "ID": "IT-CAN-E82C691A8A",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ]
+  },
+  {
+   "FILE": "EVENTS.json",
+   "ID": "IT-CAN-3957BDDB5A",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_LIGURIA"
+   ]
+  },
+  {
+   "FILE": "FUTURE-EVENTS.json",
+   "ID": "IT-CAN-EAC9480EA6",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "FUTURE-EVENTS.json",
+   "ID": "IT-CAN-02554B3F21",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_FRIULI_VENEZIA_GIULIA"
+   ]
+  },
+  {
+   "FILE": "FUTURE-EVENTS.json",
+   "ID": "IT-CAN-5CC9CB27DA",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_PUGLIA"
+   ]
+  },
+  {
+   "FILE": "FUTURE-EVENTS.json",
+   "ID": "IT-CAN-73C23B2D2B",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ]
+  },
+  {
+   "FILE": "FUTURE-EVENTS.json",
+   "ID": "IT-CAN-50527EB401",
+   "ENTITY_TYPE": "EVENT",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_CAMPANIA"
+   ]
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-8A1BC5E909",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-23BDCC8255",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-4223066838",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-785827E751",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-DA62FEB55A",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA",
+    "REGION_TRENTINO_ALTO_ADIGE"
+   ]
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-3312E852F3",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ]
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-0CFDD3DBF5",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-10233E37BC",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-1274E4A1F4",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-886147855B",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ]
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-54305CD76F",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": [
+    "REGION_TOSCANA"
+   ]
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-F62E849F33",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "ID": "IT-CAN-CC4283DFD6",
+   "ENTITY_TYPE": "MARKET_OBSERVATION",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOFT_WHEAT"
+   ],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA",
+    "REGION_VENETO"
+   ]
+  },
+  {
+   "FILE": "PUBLIC-VOICES.json",
+   "ID": "IT-CAN-A49B16D0E9",
+   "ENTITY_TYPE": "IDENTIFIED_VOICE",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "ROLE_EVIDENCE"
+   ],
+   "CROP_IDS": [
+    "CROP_OLIVE"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "PUBLIC-VOICES.json",
+   "ID": "IT-CAN-CE59EFB377",
+   "ENTITY_TYPE": "IDENTIFIED_VOICE",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT",
+    "ROLE_EVIDENCE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_PIEMONTE"
+   ]
+  },
+  {
+   "FILE": "PUBLIC-VOICES.json",
+   "ID": "IT-CAN-32037BB3A8",
+   "ENTITY_TYPE": "IDENTIFIED_VOICE",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT",
+    "ROLE_EVIDENCE"
+   ],
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "REGION_IDS": [
+    "REGION_PIEMONTE"
+   ]
+  },
+  {
+   "FILE": "PUBLIC-VOICES.json",
+   "ID": "IT-CAN-E4A228E93B",
+   "ENTITY_TYPE": "IDENTIFIED_VOICE",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "ROLE_EVIDENCE"
+   ],
+   "CROP_IDS": [
+    "CROP_MAIZE"
+   ],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ]
+  },
+  {
+   "FILE": "PUBLIC-VOICES.json",
+   "ID": "IT-CAN-586C3BD01E",
+   "ENTITY_TYPE": "IDENTIFIED_VOICE",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "ROLE_EVIDENCE"
+   ],
+   "CROP_IDS": [
+    "CROP_RICE"
+   ],
+   "REGION_IDS": [
+    "REGION_EMILIA_ROMAGNA"
+   ]
+  },
+  {
+   "FILE": "PUBLIC-VOICES.json",
+   "ID": "IT-CAN-00FCA83D1F",
+   "ENTITY_TYPE": "IDENTIFIED_VOICE",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "ROLE_EVIDENCE"
+   ],
+   "CROP_IDS": [
+    "CROP_MAIZE"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "PUBLIC-VOICES.json",
+   "ID": "IT-CAN-31CE94ABA7",
+   "ENTITY_TYPE": "IDENTIFIED_VOICE",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "ROLE_EVIDENCE"
+   ],
+   "CROP_IDS": [
+    "CROP_SOYBEAN"
+   ],
+   "REGION_IDS": []
+  },
+  {
+   "FILE": "REGULATORY-FUTURE.json",
+   "ID": "IT-CAN-836EB03B78",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "REGULATORY-FUTURE.json",
+   "ID": "IT-CAN-09493F52B2",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ]
+  },
+  {
+   "FILE": "REGULATORY-FUTURE.json",
+   "ID": "IT-CAN-63FB94294D",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  },
+  {
+   "FILE": "REGULATORY-FUTURE.json",
+   "ID": "IT-CAN-15F34E6605",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "CLASS": "DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "BLOCKED_BY": [
+    "PERMANENT_CAVEAT"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ]
+  },
+  {
+   "FILE": "REGULATORY-FUTURE.json",
+   "ID": "IT-CAN-733725EB27",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ]
+  },
+  {
+   "FILE": "REGULATORY-FUTURE.json",
+   "ID": "IT-CAN-354DC38235",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "CLASS": "NAO_DEVERIA_PROMOVER",
+   "WOULD_PROMOTE": [],
+   "BLOCKED_BY": [
+    "WHAT_IT_IS",
+    "WHAT_IT_PROVES",
+    "WHAT_IT_DOES_NOT_PROVE"
+   ],
+   "CROP_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ]
+  }
+ ]
+}

@@ -704,20 +704,28 @@ class TestIngestaoAutomatica(unittest.TestCase):
                         'T25: a prosa nao subiu de RESEARCH e o motor recebe '
                         'um registro mudo')
 
-    def test_T26_ressalva_permanente_emudece_o_registro(self):
-        """Medido pela testemunha: `promover_research` é tudo-ou-nada. Com uma
-        ressalva declarada, NENHUMA prosa sobe — e o boletim entra sem texto.
+    def test_T26_ressalva_permanente_nao_emudece_mais_o_registro(self):
+        """`promover_research` era tudo-ou-nada: bastava UM campo de tela — e
+        `PERMANENT_CAVEAT` é um deles — para que NENHUMA prosa subisse. Quatro
+        boletins reais entravam no acervo com `WHAT_IT_IS = None`.
 
-            UM REGISTRO IGNORADO EM SILÊNCIO É PIOR QUE UM RECUSADO EM VOZ ALTA.
+            RESSALVA NÃO É DESCRIÇÃO. UMA NÃO PODE BLOQUEAR A OUTRA.
 
-        Este teste NÃO aprova o comportamento: ele o PINA, para que a próxima
-        pessoa que mexer ali veja o preço na hora.
+        A guarda estreita — «não sobrescrever o destino» — já existia uma linha
+        abaixo e continua valendo. `T26b` prova que ela segura.
         """
         r = self._atravessa(dict(self.NOVO,
                                  RESSALVA_PERMANENTE='registro de teste'))
-        self.assertIsNone(r.get('WHAT_IT_IS'))
-        self.assertEqual([], NE.pares_observados(r),
-                         'T26: mudou o comportamento — atualize a testemunha')
+        self.assertTrue(r.get('WHAT_IT_IS'))
+        self.assertEqual('RESEARCH.o_que', r.get('WHAT_IT_IS_PROMOVIDO_DE'))
+        self.assertTrue(NE.pares_observados(r))
+
+    def test_T26b_a_promocao_nunca_sobrescreve_o_que_ja_esta_na_tela(self):
+        r = self._atravessa(dict(self.NOVO, o_que='prosa de pesquisa'))
+        r['WHAT_IT_IS'] = 'texto que ja estava na tela'
+        import v21_dominio_da_alegacao as DA
+        DA.promover_research(r)
+        self.assertEqual('texto que ja estava na tela', r['WHAT_IT_IS'])
 
     def test_T27_a_V11_2_vale_para_o_registro_novo(self):
         r = self._atravessa(dict(self.NOVO))
@@ -764,3 +772,549 @@ class TestIngestaoAutomatica(unittest.TestCase):
                            'a coleta nova nao produziu derivado')
         for alvo, c in d['CASOS_DA_FIXTURE'].items():
             self.assertEqual([], c['JANELAS_HERDADAS'], alvo)
+
+
+# ── T30-T40 · O CONTRATO MÍNIMO DO CARTÃO E A JANELA TIPADA ──────────────────
+import v21_janelas as JN  # noqa: E402
+
+
+class TestContratoDoCartao(unittest.TestCase):
+    """A tela mostrava, no mesmo cartão, `ACT NOW` e «no canonical window
+    linked». Não era erro de interface: os dois saíam do motor.
+
+        A DATA DO BOLETIM DIZ QUE O SINAL É CORRENTE.
+        ELA NÃO DIZ QUANDO SE PULVERIZA. SÃO DOIS RELÓGIOS.
+
+    ⚠️ A primeira versão destes testes exigia janela de CALENDÁRIO. Medido
+    depois: das orações atribuídas a um par no acervo, NENHUMA declara datas —
+    e treze declaram a condição por fenologia, limiar, fase da praga, clima ou
+    ato. Exigir calendário não era rigor: era exigir um formato que a fonte
+    italiana não usa, e perder a informação que ela deu.
+
+        JANELA NÃO É INTERVALO DE CALENDÁRIO. É A CONDIÇÃO QUE DEFINE O MOMENTO.
+    """
+
+    BASE = {'ARCHETYPE': 'O1_FIELD_PRESSURE', 'TARGET': 'ISSUE_BOTRYTIS',
+            'CROP': 'CROP_GRAPEVINE', 'GEOGRAPHY': 'REGION_EMILIA_ROMAGNA',
+            'NEED_DIRECTION': NE.POSITIVE_PRESSURE, 'SIGNAL_AGE_DAYS': 1,
+            'PRODUCT_LINK_STATE': 'VERIFIED_LABEL_MATCH',
+            'COMMERCIAL_PRODUCT_COUNT': 1,
+            'WINDOW_DEFINED': 'NO', 'WINDOW_OPEN_NOW': 'UNKNOWN',
+            'WINDOW_KIND': None, 'WINDOW_STATE': 'UNKNOWN',
+            'DAYS_REMAINING': None}
+
+    PLENO = dict(BASE, WINDOW_DEFINED='YES', WINDOW_OPEN_NOW='YES')
+
+    def test_T30_sem_condicao_declarada_nao_existe_ACT_NOW(self):
+        estado, elos = OP.estado_de_acao(dict(self.BASE))
+        self.assertEqual(OP.VALIDATE_NOW, estado)
+        self.assertFalse(elos['JANELA_DEFINIDA'])
+        self.assertFalse(elos['TEMPO_PARA_ACAO'])
+
+    def test_T30b_condicao_declarada_sem_saber_se_esta_aberta_nao_e_ACT_NOW(self):
+        """O elo que a missão acrescentou: definida não é aberta."""
+        o = dict(self.BASE, WINDOW_DEFINED='YES', WINDOW_OPEN_NOW='UNKNOWN')
+        estado, elos = OP.estado_de_acao(o)
+        self.assertNotEqual(OP.ACT_NOW, estado)
+        self.assertTrue(elos['JANELA_DEFINIDA'])
+        self.assertFalse(elos['JANELA_ABERTA_AGORA'])
+
+    def test_T31_a_cadeia_completa_faz_ACT_NOW(self):
+        estado, elos = OP.estado_de_acao(dict(self.PLENO))
+        self.assertEqual(OP.ACT_NOW, estado)
+        self.assertTrue(all(elos.values()))
+
+    def test_T32_cada_elo_derruba_o_ACT_NOW_sozinho(self):
+        """Cinco elos, cinco maneiras de não ser «agora». Nenhum é opcional."""
+        for campo, valor in (('SIGNAL_AGE_DAYS', 400),
+                             ('NEED_DIRECTION', NE.MONITOR),
+                             ('WINDOW_DEFINED', 'NO'),
+                             ('WINDOW_OPEN_NOW', 'UNKNOWN'),
+                             ('WINDOW_OPEN_NOW', 'NO'),
+                             ('COMMERCIAL_PRODUCT_COUNT', 0),
+                             ('PRODUCT_LINK_STATE', 'LABEL_CHECK_NEEDED')):
+            estado, _ = OP.estado_de_acao(dict(self.PLENO, **{campo: valor}))
+            self.assertNotEqual(OP.ACT_NOW, estado,
+                                'T32: ACT_NOW sobreviveu sem %s' % campo)
+
+    def test_T33_a_idade_do_sinal_nunca_vira_janela(self):
+        for idade in (0, 1, 7, 29):
+            estado, _ = OP.estado_de_acao(dict(self.BASE, SIGNAL_AGE_DAYS=idade))
+            self.assertNotEqual(OP.ACT_NOW, estado, idade)
+
+    def test_T34_no_pacote_todo_ACT_NOW_tem_a_cadeia_fechada(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['STATUS'] != OP.ACT_NOW:
+                continue
+            self.assertEqual(['CADEIA_COMPLETA'], r['WHY_NOW_CODES'], r['ID'])
+            self.assertTrue(all(r['ACTION_CHAIN_LINKS'].values()), r['ID'])
+            self.assertEqual('YES', r['WINDOW_OPEN_NOW'], r['ID'])
+            self.assertTrue(r['WINDOW_EVIDENCE_ID'] or r['WINDOW_FIELD'], r['ID'])
+
+    def test_T35_o_relogio_do_sinal_e_o_da_janela_tem_nomes_diferentes(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['COMMERCIAL_WINDOW'] in ('ACT_NOW', 'PREPARE_NOW'):
+                self.assertEqual('APPLICATION', r['WINDOW_KIND'], r['ID'])
+            if r['COMMERCIAL_TIMING_BASIS'] == 'CURRENT_SOURCE_RECOMMENDATION':
+                self.assertEqual('CURRENT', r['SIGNAL_CURRENCY'], r['ID'])
+                self.assertIn(r['NEED_DIRECTION'], CM.NECESSIDADE_POSITIVA, r['ID'])
+
+    def test_T36_nenhum_estado_comercial_nasce_de_produto_relacionado(self):
+        so_produto = {'ARCHETYPE': 'O1_FIELD_PRESSURE', 'TARGET': 'ISSUE_BOTRYTIS',
+                      'COMMERCIAL_PRODUCT_COUNT': 3,
+                      'PRODUCT_LINK_STATE': 'VERIFIED_LABEL_MATCH',
+                      'CLAIM_GEOGRAPHY_HOLDS': True,
+                      'COMMERCIAL_WINDOW': 'UNKNOWN',
+                      'COMMERCIAL_TIMING_BASIS': 'NONE',
+                      'WINDOW_DEFINED': 'YES', 'WINDOW_OPEN_NOW': 'YES',
+                      'NEED_DIRECTION': NE.UNKNOWN, 'SIGNAL_AGE_DAYS': 1}
+        pri, _ = CM.prioridade(dict(so_produto))
+        self.assertNotEqual(CM.SALES_READY, pri)
+        estado, _ = OP.estado_de_acao(dict(so_produto))
+        self.assertNotEqual(OP.ACT_NOW, estado)
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['COMMERCIAL_PRIORITY'] == CM.SALES_READY:
+                self.assertIn(r['NEED_DIRECTION'], CM.NECESSIDADE_POSITIVA, r['ID'])
+                self.assertTrue(r['TARGET'], r['ID'])
+                self.assertGreater(r['COMMERCIAL_PRODUCT_COUNT'], 0, r['ID'])
+
+    def test_T37_supply_so_e_convocado_com_fato_publicado(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            s = r['ACTION_BY_DEPARTMENT']['SUPPLY']
+            if s['ACTION'] != 'NOT_CONVENED':
+                self.assertTrue(r['PRODUCT_RESTRICTIONS'],
+                                '%s convoca Supply sem fato publicado' % r['ID'])
+
+    def test_T38_a_testemunha_so_e_ACT_NOW_com_a_janela_aberta(self):
+        """Botrite × videira × Emilia-Romagna. O `ACT NOW` que a missão mandou
+        tirar era o que nascia da idade do boletim. Este nasce de outra coisa:
+        a fonte declara «intervir em pré-colheita» E o MESMO documento declara
+        que a videira está em «maturazione».
+
+            O ESTADO NÃO VOLTOU. O QUE VOLTOU FOI COM UMA RAZÃO ATRÁS.
+        """
+        casos = [r for r in _pacote('OPPORTUNITIES.json')
+                 if r['CROP'] == 'CROP_GRAPEVINE' and r['TARGET'] == 'ISSUE_BOTRYTIS'
+                 and r['GEOGRAPHY'] == 'REGION_EMILIA_ROMAGNA']
+        self.assertEqual(1, len(casos))
+        r = casos[0]
+        self.assertEqual(OP.ACT_NOW, r['STATUS'])
+        self.assertEqual(JN.PREHARVEST_WINDOW, r['WINDOW_TYPE'])
+        self.assertEqual('YES', r['WINDOW_OPEN_NOW'])
+        self.assertEqual('ESTADIO_DECLARADO_NO_MESMO_DOCUMENTO',
+                         r['WINDOW_OPEN_NOW_METHOD'])
+        self.assertTrue(r['PHENOLOGY_DECLARED'])
+        self.assertEqual('UNKNOWN', r['COMMERCIAL_WINDOW'],
+                         'nao ha janela de calendario, e isso continua dito')
+
+
+class TestJanelaTipada(unittest.TestCase):
+    """`v21_janelas` é o único dono do tipo de janela — motor e inventário leem
+    dele. As leis são três, e todas nasceram de um erro medido."""
+
+    def test_T39_ato_administrativo_nunca_e_janela_agronomica(self):
+        """A Determinazione 9818/2026 fixa prazos de tratamento OBRIGATÓRIO
+        contra o vetor da flavescenza. É prazo de norma — e vale para o alvo
+        que a norma nomeia, não para a botrite da mesma videira."""
+        tipos = [t for t, _p in JN.tipos_da_oracao(
+            'Vite/flavescenza dorata: inspecionar os vinhedos e arrancar as '
+            'plantas sintomaticas, conforme a Determinazione n. 9818 de '
+            '20/05/2026.')]
+        self.assertIn(JN.ADMINISTRATIVE_WINDOW, tipos)
+        self.assertNotIn(JN.ADMINISTRATIVE_WINDOW, JN.AGRONOMICOS)
+        estado, por = JN.aberta_agora(JN.ADMINISTRATIVE_WINDOW, 'x',
+                                      'Vite: «maturazione».', True)
+        self.assertEqual('NO', estado)
+        self.assertEqual('ATO_ADMINISTRATIVO_NAO_E_JANELA_AGRONOMICA', por)
+
+    def test_T40_o_estadio_sozinho_nao_e_janela(self):
+        """Medido: «espigas em maturacao avancada» descreve a planta numa oração
+        que diz para NÃO tratar. Lida como janela, virava janela aberta."""
+        solto = JN.tipos_da_oracao(
+            'as espigas em maturacao avancada nao correm risco de dano')
+        self.assertNotIn(JN.PHENOLOGY_WINDOW, [t for t, _p in solto])
+        amarrado = JN.tipos_da_oracao(
+            'botrite a partir da invaiatura, intervir com antibotriticos')
+        self.assertIn(JN.PHENOLOGY_WINDOW, [t for t, _p in amarrado])
+
+    def test_T40b_aberta_agora_exige_o_estadio_no_mesmo_documento(self):
+        for estagio, esperado in ((None, 'UNKNOWN'),
+                                  ('Vite: «maturazione».', 'YES'),
+                                  ('Vite: «germogliamento».', 'NO')):
+            got, _por = JN.aberta_agora(JN.PREHARVEST_WINDOW,
+                                        'intervir em pre-colheita', estagio, True)
+            self.assertEqual(esperado, got, str(estagio))
+
+    def test_T40c_condicao_que_exige_medicao_fica_UNKNOWN(self):
+        """A resposta continua UNKNOWN — a RAZÃO mudou, e por isso o teste mudou.
+
+        O red team semântico apanhou o motor a dizer
+        `CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS` sobre um boletim que declarava a
+        medição em letras. A resposta estava certa e a razão era falsa. Agora o
+        método diz de quem é o silêncio: da fonte, que não declarou.
+
+            «NÃO TEMOS A MEDIÇÃO» E «A FONTE NÃO A DECLAROU» NÃO SÃO A MESMA
+            FRASE. UMA ACUSA O NOSSO ACERVO; A OUTRA DESCREVE O DOCUMENTO.
+        """
+        for tipo in (JN.THRESHOLD_WINDOW, JN.WEATHER_TRIGGERED_WINDOW):
+            got, por = JN.aberta_agora(tipo, 'x', 'Vite: «maturazione».', True)
+            self.assertEqual('UNKNOWN', got, tipo)
+            self.assertEqual('FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE',
+                             por, tipo)
+        # A fase da praga tem resposta própria: a oração que amarra a ação ao
+        # estádio é a mesma que declara em que estádio se está.
+        got, por = JN.aberta_agora(JN.PEST_STAGE_WINDOW, 'x',
+                                   'Vite: «maturazione».', True)
+        self.assertEqual('UNKNOWN', got)
+        self.assertEqual('FONTE_NAO_DECLARA_A_FASE_QUE_A_CONDICAO_EXIGE', por)
+
+    def test_T40d_no_pacote_a_janela_respeita_cultura_alvo_e_regiao(self):
+        sinais = {s['ID']: s for s in _pacote('CURRENT-FIELD-SIGNALS.json')}
+        for r in _pacote('OPPORTUNITIES.json'):
+            i = r.get('WINDOW_EVIDENCE_ID')
+            if not i:
+                continue
+            s = sinais[i]
+            self.assertIn(r['GEOGRAPHY'], s.get('REGION_IDS') or [], r['ID'])
+            self.assertIn(r['CROP'], s.get('CROP_IDS') or [], r['ID'])
+
+    def test_T40e_o_primario_nunca_e_o_primeiro_da_lista(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['PRIMARY_MATCH']:
+                self.assertIn(r['PRIMARY_MATCH_REASON'],
+                              ('FONTE_NOMEIA_A_SUBSTANCIA',
+                               'UNICO_PRODUTO_DO_CATALOGO_NO_PAR'), r['ID'])
+            elif len(r['PORTFOLIO_MATCHES']) > 1:
+                self.assertEqual('SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER',
+                                 r['PRIMARY_MATCH_REASON'], r['ID'])
+
+
+# ── T41-T45 · A COLETA DIRIGIDA DOS CINCO VÃOS ───────────────────────────────
+class TestColetaDirigida(unittest.TestCase):
+    """Cinco perguntas, cinco fontes. O que cada uma respondeu está pinado aqui,
+    para que a próxima rodada saiba o que já foi perguntado — e o que a fonte
+    respondeu com um NÃO.
+
+        UMA COLETA QUE VOLTA COM «NÃO» RESPONDEU A PERGUNTA.
+        QUEM NÃO REGISTRA O «NÃO» PERGUNTA DE NOVO NO MÊS SEGUINTE.
+    """
+
+    def test_T41_a_fonte_declarando_o_presente_abre_a_janela(self):
+        """Siena, 03/09/2026: «Siamo nella fase di maggior suscettibilità a
+        questa malattia». Quem declara que a condição está satisfeita é o
+        serviço — ler isso não é inferir."""
+        got, por = JN.aberta_agora(
+            JN.PHENOLOGY_WINDOW,
+            'Vite/botrite: o boletim declara que se esta na fase de maior '
+            'suscetibilidade a esta doenca', None, True)
+        self.assertEqual('YES', got)
+        self.assertEqual('FONTE_DECLARA_A_CONDICAO_COMO_PRESENTE', por)
+
+    def test_T41b_sem_a_declaracao_de_presente_continua_UNKNOWN(self):
+        got, _por = JN.aberta_agora(
+            JN.PHENOLOGY_WINDOW,
+            'na fase de maior suscetibilidade e possivel intervir', None, True)
+        self.assertEqual('UNKNOWN', got)
+
+    def test_T42_o_limiar_da_umbria_nao_e_o_da_emilia_romagna(self):
+        """Medido: Emilia-Romagna declara 5% de cachos com ovos e/ou furos;
+        Umbria declara 10-15% de cachos com ovos e/ou larvas. Copiar a regra de
+        uma região para a outra teria sido um erro de fato.
+
+            A REGRA É REGIONAL PORQUE O SERVIÇO É REGIONAL.
+        """
+        sinais = {s['ID']: s for s in _pacote('CURRENT-FIELD-SIGNALS.json')}
+        um = sinais.get('IT-COL-2609-UM-TIGNOLETTA')
+        if not um:
+            raise unittest.SkipTest('coleta dos cinco vaos nao esta no pacote')
+        self.assertIn('10-15%', um['WHAT_IT_IS'])
+        self.assertIn('REGION_UMBRIA', um['REGION_IDS'])
+        re_ = sinais['IT-COL-2609-RE-TIGNOLETTA']
+        self.assertIn('5%', re_['WHAT_IT_IS'])
+        self.assertIn('REGION_EMILIA_ROMAGNA', re_['REGION_IDS'])
+        # e cada caso usa a janela da SUA região
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r['TARGET'] == 'ISSUE_GRAPE_MOTH' and r['WINDOW_EVIDENCE_ID']:
+                s = sinais[r['WINDOW_EVIDENCE_ID']]
+                self.assertIn(r['GEOGRAPHY'], s['REGION_IDS'], r['ID'])
+
+    def test_T43_a_coleta_entrou_pela_porta_e_virou_apoio(self):
+        """Contar prefixo era frágil: o lote seguinte usa o mesmo prefixo.
+
+        O que importa não é quantos registros começam por `IT-COL-2609` — é que
+        os quatro do piloto continuem lá e que NENHUM registro coletado tenha
+        entrado sem virar apoio de caso nenhum. Coleta que não vira evidência é
+        coleta que ninguém vai auditar.
+        """
+        PILOTO = {'IT-COL-2609-RE-TIGNOLETTA', 'IT-COL-2609-VN-CARPOCAPSA',
+                  'IT-COL-2609-TO-BOTRITE', 'IT-COL-2609-UM-TIGNOLETTA'}
+        ids = {r['ID'] for r in _pacote('CURRENT-FIELD-SIGNALS.json')}
+        coletados = {i for i in ids if i.startswith('IT-COL-2609')}
+        if not coletados:
+            raise unittest.SkipTest('coleta dos cinco vaos nao esta no pacote')
+        self.assertEqual(PILOTO, PILOTO & coletados)
+        usados = {e for r in _pacote('OPPORTUNITIES.json')
+                  for e in r['EVIDENCE_IDS'] if e.startswith('IT-COL-2609')}
+        self.assertEqual(set(), coletados - usados,
+                         'coleta que entrou e nao virou apoio de caso nenhum')
+
+    def test_T44_toda_coleta_nova_declara_origem_e_data(self):
+        for r in _pacote('CURRENT-FIELD-SIGNALS.json'):
+            if not r['ID'].startswith('IT-COL-2609'):
+                continue
+            self.assertTrue(r['SOURCE_URLS'], r['ID'])
+            self.assertTrue(r['REFERENCE_DATE'], r['ID'])
+            self.assertTrue(r.get('RESEARCH', {}).get('citacao_literal'), r['ID'])
+
+
+class TestQAdoISTAT(unittest.TestCase):
+    """O dado do ISTAT existe, é coerente e NÃO é client-safe — porque ninguém
+    o revisou. Este teste é a revisão que faltava: ele não muda `QA_STATUS`
+    nenhum, ele mede se o dado sobreviveria a uma.
+
+        O QUE IMPEDE O DADO DE APARECER NÃO É O DADO. É O CARIMBO QUE FALTA.
+    """
+
+    def _istat(self):
+        return [r for r in _pacote('CROP-ECONOMIC-WEIGHT.json')
+                if 'ISTAT' in str(r.get('SOURCE_IDS')) and r.get('INDICATOR')]
+
+    def test_T45_nenhuma_chave_istat_duplicada(self):
+        from collections import Counter
+        c = Counter((r.get('CROP_CODE'), r.get('GEOGRAPHY_CODE'), r.get('YEAR'),
+                     r.get('INDICATOR')) for r in self._istat())
+        self.assertEqual([], [k for k, v in c.items() if v > 1])
+
+    def test_T45b_o_rendimento_bate_com_producao_dividida_por_area(self):
+        from collections import defaultdict
+        ix = defaultdict(dict)
+        for r in self._istat():
+            ix[(r.get('CROP_CODE'), r.get('GEOGRAPHY_CODE'), r.get('YEAR'))][
+                r['INDICATOR']] = r
+        ruins = []
+        for k, v in ix.items():
+            a, p, y = v.get('AREA'), v.get('PRODUCTION'), v.get('YIELD')
+            if not (a and p and y):
+                continue
+            try:
+                area, prod, rend = (float(a['VALUE']), float(p['VALUE']),
+                                    float(y['VALUE']))
+            except (TypeError, ValueError):
+                continue
+            if not area or not rend:
+                continue
+            if abs((prod / 10.0) / area - rend) / rend > 0.02:
+                ruins.append(k)
+        self.assertEqual([], ruins, 'linhas ISTAT internamente incoerentes')
+
+    def test_T45c_unidade_constante_por_indicador(self):
+        from collections import defaultdict
+        u = defaultdict(set)
+        for r in self._istat():
+            u[r['INDICATOR']].add(r.get('UNIT'))
+        for ind, unidades in u.items():
+            self.assertEqual(1, len(unidades), '%s: %s' % (ind, unidades))
+
+
+# ── T46 a T53 · O RED TEAM SEMÂNTICO ────────────────────────────────────────
+#
+# A pergunta destes oito não é «o código rodou?». É «a evidência sustenta a
+# conclusão?». Eles nasceram de um estado CERTO com uma razão FALSA: o melo ×
+# carpocapsa do Veneto saía `UNKNOWN` — correto — com o método
+# `CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS`, sobre um boletim que declarava a
+# medição em letras: «terzo volo terminato».
+#
+#     UM CARTÃO QUE ACERTA O ESTADO E MENTE A RAZÃO ENSINA A NÃO LER A RAZÃO.
+#
+# T46-T48 separam as três coisas que o boletim diz e que o motor empilhava;
+# T49-T50 são as testemunhas negativas; T51-T53 medem o pacote construído.
+class TestRedTeamSemantico(unittest.TestCase):
+
+    VOO = ('O boletim frutticolo do Veneto declara terminada a colheita das '
+           'variedades do grupo Gala e reporta terceiro voo de Cydia pomonella '
+           'terminado com danos em aumento tambem em pomares de manejo '
+           'integrado.')
+
+    def test_T46_relato_de_voo_nao_e_janela(self):
+        """O voo é o estado da praga. A janela é o estado amarrado a uma ação.
+
+        Mesma lei que a fenologia já tinha: «espigas em maturacao avancada»
+        descreve a planta e não manda tratar em maturação. «terzo volo
+        terminato» descreve o inseto e não manda tratar no voo.
+        """
+        import v21_janelas as JN
+        self.assertEqual([], [t for t, _p in JN.tipos_da_oracao(self.VOO)])
+        amarrado = [t for t, _p in JN.tipos_da_oracao(
+            'intervenire in corrispondenza delle ovideposizioni')]
+        self.assertIn(JN.PEST_STAGE_WINDOW, amarrado)
+
+    def test_T47_fase_da_praga_tem_dono_e_nao_e_a_colheita(self):
+        self.assertEqual(NE.STAGE_ENDED, NE.fase_da_praga(self.VOO)[0])
+        # «terminata la raccolta» é a colheita, não o voo: sem substantivo de
+        # estádio da praga não há fase de praga nenhuma.
+        self.assertEqual(NE.STAGE_NOT_DECLARED,
+                         NE.fase_da_praga('terminata la raccolta della Golden')[0])
+        self.assertEqual(NE.STAGE_DECLINING,
+                         NE.fase_da_praga('os voos estao em fase calante')[0])
+
+    def test_T48_continuar_a_defesa_e_recomendacao_nao_e_janela(self):
+        """Fim do voo não é fim da necessidade — e continuar não é abrir."""
+        frase = 'recomenda continuar a defesa com produtos de acao larvicida'
+        self.assertEqual(NE.CONTINUE_RECOMMENDED, NE.recomendacao(frase)[0])
+        import v21_janelas as JN
+        # a mesma frase, lida como janela, não abre nada: ela não nomeia
+        # condição nenhuma.
+        self.assertEqual([], [t for t, _p in JN.tipos_da_oracao(frase)])
+
+    def test_T49_frase_qualitativa_nao_responde_condicao_medida(self):
+        """As cinco testemunhas negativas, uma a uma, em todos os tipos medidos."""
+        import v21_janelas as JN
+        frases = ('la situazione buona in tutta la provincia',
+                  'il quadro rimane tendenzialmente buono',
+                  'pressione contenuta nella maggior parte dei vigneti',
+                  'siamo nella fase conclusa della difesa',
+                  'danni presenti nei frutteti')
+        for f in frases:
+            for tipo in (JN.THRESHOLD_WINDOW, JN.WEATHER_TRIGGERED_WINDOW,
+                         JN.PEST_STAGE_WINDOW):
+                got, _por = JN.aberta_agora(tipo, f, 'Vite: «maturazione».', True)
+                self.assertNotEqual('YES', got, '%s · %s' % (tipo, f))
+
+    def test_T50_prosa_qualitativa_nao_e_o_mesmo_que_silencio(self):
+        """A fonte falar e a fonte calar não podem dar a mesma frase no cartão."""
+        import v21_janelas as JN
+        _a, prosa = JN.aberta_agora(JN.THRESHOLD_WINDOW,
+                                    'il quadro rimane tendenzialmente buono',
+                                    None, True)
+        _b, silencio = JN.aberta_agora(JN.THRESHOLD_WINDOW, 'x', None, True)
+        self.assertNotEqual(prosa, silencio)
+        self.assertEqual('FRASE_QUALITATIVA_NAO_RESPONDE_CONDICAO_QUANTITATIVA',
+                         prosa)
+        # e o padrão de presente não abre a janela na frase que a fecha
+        got, _p = JN.aberta_agora(JN.PHENOLOGY_WINDOW,
+                                  'siamo nella fase conclusa della difesa',
+                                  None, True)
+        self.assertNotEqual('YES', got)
+
+    def test_T51_nenhum_cartao_acusa_falta_de_medicao_que_a_fonte_declarou(self):
+        for r in _pacote('OPPORTUNITIES.json'):
+            self.assertNotEqual('CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS',
+                                r.get('WINDOW_OPEN_NOW_METHOD'), r['ID'])
+            # a fase da praga, quando declarada, viaja com trecho e evidência
+            if r.get('PEST_STAGE_STATE') != NE.STAGE_NOT_DECLARED:
+                self.assertTrue(r.get('PEST_STAGE_EVIDENCE_ID'), r['ID'])
+                self.assertTrue(r.get('PEST_STAGE_EXCERPT'), r['ID'])
+
+    def test_T52_a_regra_de_uma_regiao_nao_atravessa_para_outra(self):
+        """10–15% é da Umbria; 5% é da Emilia-Romagna. Nenhuma viaja."""
+        import re
+        regs = {r['ID']: r for r in _pacote('OPPORTUNITIES.json')}
+        um, er = regs.get('OPP_169BD86DB324'), regs.get('OPP_3C8C3960CC66')
+        if not (um and er):
+            self.skipTest('os dois casos da tignoletta nao estao no pacote')
+        self.assertNotEqual(um.get('WINDOW_EVIDENCE_ID'),
+                            er.get('WINDOW_EVIDENCE_ID'))
+        self.assertIn('10-15', str(um.get('WINDOW_CONDITION')))
+        # «10-15%» contém «5%»: procurar substring acusaria a Umbria à toa.
+        self.assertIsNone(re.search(r'(?<![\d-])5\s?%',
+                                    str(um.get('WINDOW_CONDITION'))))
+
+    def test_T53_cada_elo_do_ACT_NOW_tem_dono_declarado(self):
+        """Uma frase não prova pressão, janela e produto ao mesmo tempo."""
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r.get('STATUS') != 'ACT_NOW':
+                continue
+            janela, direcao = r.get('WINDOW_EVIDENCE_ID'), r.get('NEED_EVIDENCE_ID')
+            produto = {e['EVIDENCE_ID'] for e in (r.get('EVIDENCE_ROLES') or [])
+                       if e.get('ROLE') == 'SUPPORTS_PRODUCT_MATCH'}
+            self.assertNotIn(janela, produto, r['ID'])
+            self.assertNotIn(direcao, produto, r['ID'])
+            self.assertTrue(produto, '%s: ACT_NOW sem dono do vinculo' % r['ID'])
+
+
+# ── T54 a T57 · A REGRA NÃO ENVELHECE, O ESTADO ENVELHECE ───────────────────
+#
+# A coleta dirigida da regra trouxe um manual de 2020 para dentro do acervo, e
+# com ele duas perguntas que nunca tinham sido feitas: um documento velho pode
+# dizer que a condição está satisfeita AGORA? E o que fazer quando a regra que
+# se foi buscar responde «a decisão é do pomar»?
+#
+#     UM MANUAL DIZ QUAL É A REGRA. SÓ UM BOLETIM DIZ COMO ESTÁ O CAMPO HOJE.
+class TestRegraColetada(unittest.TestCase):
+
+    def test_T54_documento_velho_nao_fala_do_agora(self):
+        import v21_janelas as JN
+        # os mesmos 30 dias, em dois módulos: se alguém separar as constantes
+        # sem decidir separá-las, é aqui que se descobre.
+        self.assertEqual(OP.SINAL_CORRENTE_DIAS, JN.DIAS_PARA_DOCUMENTO_CORRENTE)
+        self.assertFalse(JN.documento_corrente({'REFERENCE_DATE': '2020-03-01'}))
+        self.assertFalse(JN.documento_corrente({}), 'sem data nao e corrente')
+        aberta, por = JN.aberta_agora(JN.PHENOLOGY_WINDOW, 'na fase de maturacao',
+                                      'Vite: «maturazione».', False)
+        self.assertEqual(('UNKNOWN', 'DOCUMENTO_NAO_CORRENTE'), (aberta, por))
+
+    def test_T55_regra_que_delega_nao_e_regra_ausente(self):
+        frase = ('as decisoes de intervencao contra a carpocapsa devem basear-se '
+                 'necessariamente nas observacoes da propria empresa')
+        self.assertTrue(NE.decisao_delegada(frase))
+        self.assertIsNone(NE.decisao_delegada('intervir em pre-colheita'))
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r.get('WINDOW_RULE_STATE') != 'RULE_DELEGATED_TO_FARM':
+                continue
+            self.assertNotIn('WINDOW_RULE_MISSING', r.get('WHAT_IS_MISSING') or [],
+                             r['ID'])
+            self.assertIn('WINDOW_RULE_DELEGATED_TO_FARM',
+                          r.get('WHAT_IS_MISSING') or [], r['ID'])
+            self.assertTrue(r.get('WINDOW_RULE_EVIDENCE_ID'), r['ID'])
+
+    def test_T56_regra_delegada_nao_manda_procurar_o_que_nao_existe(self):
+        """Mandar definir a condição regional que a Regione já disse não existir
+        é gastar uma equipe atrás de um documento que ninguém vai publicar."""
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r.get('WINDOW_RULE_STATE') != 'RULE_DELEGATED_TO_FARM':
+                continue
+            acoes = {v['ACTION'] for v in r['ACTION_BY_DEPARTMENT'].values()}
+            self.assertNotIn('DEFINE_WINDOW_CONDITION', acoes, r['ID'])
+            self.assertNotIn('ESTABLISH_WINDOW_CONDITION', acoes, r['ID'])
+            self.assertIn('VALIDATE_AT_FARM_LEVEL', acoes, r['ID'])
+
+    def test_T57_nenhuma_janela_aberta_vem_de_documento_nao_corrente(self):
+        import v21_janelas as JN
+        sinais = {s['ID']: s for s in _pacote('CURRENT-FIELD-SIGNALS.json')}
+        for r in _pacote('OPPORTUNITIES.json'):
+            if r.get('WINDOW_OPEN_NOW') != 'YES':
+                continue
+            s = sinais.get(r.get('WINDOW_EVIDENCE_ID'))
+            if s is None:          # janela de calendário do próprio registro
+                continue
+            self.assertTrue(JN.documento_corrente(s), r['ID'])
+
+
+    def test_T58_o_QA_do_istat_separa_definitivo_de_provisorio(self):
+        """A revisão que o carimbo exigiria, por ano — e sem carimbar.
+
+        2024 e 2025 passam em todas as provas. 2026 também passa, e mesmo assim
+        a resposta é `UNKNOWN`: o próprio ISTAT publica 2026 como estimativa
+        provisória, e coerência interna não torna um provisório definitivo.
+
+            CARIMBAR PROVISÓRIO COMO DEFINITIVO É ERRAR EM SILÊNCIO SEIS MESES
+            DEPOIS.
+        """
+        import importlib
+        qa = importlib.import_module('v21_qa_do_istat')
+        linhas = [r for r in _pacote('CROP-ECONOMIC-WEIGHT.json')
+                  if 'ISTAT' in str(r.get('SOURCE_IDS')) and r.get('INDICATOR')]
+        if not linhas:
+            raise unittest.SkipTest('linhas ISTAT nao estao no pacote')
+        por_ano = {}
+        for r in linhas:
+            por_ano.setdefault(r.get('YEAR'), []).append(r)
+        for ano, rs in por_ano.items():
+            falhas = qa.provas(rs)
+            self.assertEqual({}, falhas, 'ano %s' % ano)
+            if ano >= 2026:
+                self.assertTrue(all(r.get('OBSERVATION_CLASS') == 'OUTLOOK'
+                                    for r in rs), ano)
+        # e nada foi carimbado: a decisão é de vocês, não efeito colateral
+        self.assertTrue(all(r.get('QA_STATUS') == 'QA_UNREVIEWED'
+                            for r in linhas))

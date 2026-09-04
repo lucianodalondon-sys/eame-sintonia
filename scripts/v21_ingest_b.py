@@ -122,9 +122,25 @@ def main():
                 'OBSERVATION_CLASS': 'CURRENT',
             }))
     for x in fam['CURRENT_FIELD_SIGNALS']:
+        # ⚠️ A FENOLOGIA DECLARADA PELA COLETA TEM DE ATRAVESSAR A PORTA.
+        # 73 registros do handoff anterior trazem `PHENOLOGICAL_STAGE_DECLARED`;
+        # a last-mile nao trazia nenhum, e sem ele `v21_janelas` nunca sabe se a
+        # condicao esta satisfeita AGORA — o boletim novo entrava sem o estadio
+        # que ele proprio publica.
+        #
+        #     O QUE A FONTE DECLARA E A PORTA NAO CARREGA NAO EXISTE LA DENTRO.
+        extra = {}
+        if x.get('fase_fenologica'):
+            extra['PHENOLOGICAL_STAGE_DECLARED'] = x['fase_fenologica']
+            extra['CROP_STATE'] = 'DECLARED_BY_SOURCE'
+        if x.get('bulletin_title'):
+            extra['BULLETIN_TITLE'] = x['bulletin_title']
+        if x.get('intervention_guidance'):
+            extra['INTERVENTION_GUIDANCE'] = x['intervention_guidance']
         cf.append(do_lastmile(x, 'FIELD_SIGNAL',
                               issues=[N.issue_id(x.get('valor'), x.get('tipo'),
-                                                 x.get('o_que'), permitir_prosa=True)]))
+                                                 x.get('o_que'), permitir_prosa=True)],
+                              extra=extra or None))
     grava('CURRENT-FIELD-SIGNALS.json', 'FIELD_SIGNALS', cf, 'ID',
           'boletins fitossanitarios oficiais regionais e provinciais',
           ['PREVIOUS-HANDOFF/.../CROP-WINDOWS/current-phenology.json',

@@ -43,6 +43,7 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import v21_datas as DT  # noqa: E402
 import v21_necessidade as NE  # noqa: E402
 import v21_comercial as CM  # noqa: E402
+import v21_janelas as JN  # noqa: E402
 
 HOJE = date(2026, 9, 2)          # a data de referência do pacote, pinada
 JANELA_FUTURA = 365              # dias à frente que ainda contam como "preparar"
@@ -260,18 +261,429 @@ def score(dim):
     return sum(min(2, max(0, v)) for v in dim.values())
 
 
-def estado_temporal(dias, arquetipo, tem_janela):
-    if arquetipo == 'O5_REGULATORY_PREPARATION':
-        return 'FUTURE_PREPARATION'
-    if not tem_janela or dias is None:
-        return 'WATCH'
-    if 0 <= dias <= 30:
-        return 'ACT_NOW'
-    if 30 < dias <= 120:
-        return 'PREPARE_NOW'
-    if dias > 120:
-        return 'FUTURE_PREPARATION'
-    return 'WATCH'
+# ── O ESTADO DE AÇÃO, E A CADEIA QUE «AGORA» EXIGE ──────────────────────────
+#
+# O defeito medido: a tela mostrava, no MESMO cartão, `ACT NOW` e «no canonical
+# window linked». Os dois vinham do mesmo motor. `ACT_NOW` estava sendo emitido
+# a partir da IDADE DO SINAL — «o boletim é de ontem» — e não da existência de
+# uma janela de aplicação.
+#
+#     A DATA DO BOLETIM DIZ QUE O SINAL É CORRENTE.
+#     ELA NÃO DIZ QUANDO SE PULVERIZA. SÃO DOIS RELÓGIOS.
+#
+# `ACT_NOW` passa a exigir os QUATRO ELOS, e o cartão publica quais fecharam:
+#
+#     SINAL ATUAL + JANELA COMPATÍVEL + VÍNCULO COM PORTFÓLIO + TEMPO PARA AÇÃO
+#
+# Sem janela, o estado honesto NÃO é `WATCH` — o serviço mandou intervir, e
+# ignorar isso seria outra mentira, de sinal contrário. É `VALIDATE_NOW`: há
+# necessidade declarada e produto ligado, e o que falta é a janela desta região.
+#
+#     O QUE FALTA TEM NOME. «NÃO SEI» COM ENDEREÇO É TRABALHO; SEM ENDEREÇO,
+#     É DESCULPA.
+ACT_NOW = 'ACT_NOW'
+PREPARE_NOW = 'PREPARE_NOW'
+FUTURE_PREPARATION = 'FUTURE_PREPARATION'
+VALIDATE_NOW = 'VALIDATE_NOW'
+WATCH = 'WATCH'
+TO_VALIDATE = 'TO_VALIDATE'
+
+ESTADOS_DE_ACAO = (ACT_NOW, PREPARE_NOW, FUTURE_PREPARATION, VALIDATE_NOW,
+                   WATCH, TO_VALIDATE)
+
+# Quantos dias de sinal ainda contam como «corrente». É o mesmo corte que o
+# portão C já usava para recusar caso sem tempo: não é limiar novo.
+SINAL_CORRENTE_DIAS = 30
+SINAL_RECENTE_DIAS = 120
+
+ELOS = ('SINAL_ATUAL', 'JANELA_DEFINIDA', 'JANELA_ABERTA_AGORA',
+        'VINCULO_COM_PORTFOLIO', 'TEMPO_PARA_ACAO')
+
+ELO_EXIGE = {
+    'SINAL_ATUAL': 'um sinal de campo datado nos ultimos %d dias, cuja direcao '
+                   'declarada manda agir' % SINAL_CORRENTE_DIAS,
+    'JANELA_DEFINIDA': 'a fonte declara QUAL condicao define o momento — '
+                       'fenologia, pre-colheita, limiar, fase da praga, clima '
+                       'ou datas — para esta cultura, este alvo e esta regiao',
+    'JANELA_ABERTA_AGORA': 'ha evidencia de que essa condicao esta satisfeita '
+                           'AGORA. Saber o gatilho nao e saber que ele disparou',
+    'VINCULO_COM_PORTFOLIO': 'rotulo ministerial no par cultura x alvo E '
+                             'produto no catalogo comercial',
+    'TEMPO_PARA_ACAO': 'a janela de calendario ainda nao fechou e fecha dentro '
+                       'de %d dias, OU a condicao esta aberta agora e o '
+                       'documento que o diz e corrente' % SINAL_CORRENTE_DIAS,
+}
+
+
+def elos_de_agora(o):
+    """→ {elo: bool}. A cadeia factual que `ACT_NOW` exige, elo a elo."""
+    idade = o.get('SIGNAL_AGE_DAYS')
+    dias = o.get('DAYS_REMAINING')
+    corrente = idade is not None and idade <= SINAL_CORRENTE_DIAS
+    aberta = o.get('WINDOW_OPEN_NOW') == 'YES'
+    calendario = dias is not None and 0 <= dias <= SINAL_CORRENTE_DIAS
+    return {
+        'SINAL_ATUAL': (corrente
+                        and o.get('NEED_DIRECTION') in CM.NECESSIDADE_POSITIVA),
+        'JANELA_DEFINIDA': o.get('WINDOW_DEFINED') == 'YES',
+        'JANELA_ABERTA_AGORA': aberta,
+        'VINCULO_COM_PORTFOLIO': (bool(o.get('TARGET'))
+                                  and o.get('PRODUCT_LINK_STATE') == VERIFIED_LABEL_MATCH
+                                  and (o.get('COMMERCIAL_PRODUCT_COUNT') or 0) > 0),
+        # ⚠️ Ha tempo para agir de duas maneiras, e as duas sao declaradas: uma
+        # janela de calendario que ainda nao fechou, ou uma condicao satisfeita
+        # AGORA num documento corrente. Nunca a idade do sinal sozinha.
+        'TEMPO_PARA_ACAO': calendario or (aberta and corrente),
+    }
+
+
+def estado_de_acao(o):
+    """→ (estado, elos). Nenhum estado sai de soma de pontos nem de idade so.
+
+    ⚠️ A ORDEM É LEI, não estilo: quem manda PARAR é lido antes de qualquer
+    coisa que mande agir, e a janela é lida antes da urgência.
+    """
+    elos = elos_de_agora(o)
+    if o.get('ARCHETYPE') == 'O5_REGULATORY_PREPARATION':
+        return FUTURE_PREPARATION, elos
+    if all(elos.values()):
+        return ACT_NOW, elos
+    dias = o.get('DAYS_REMAINING')
+    if elos['JANELA_DEFINIDA'] and dias is not None:
+        if 0 <= dias <= SINAL_CORRENTE_DIAS:
+            # a janela esta aberta mas falta outro elo: nao e «agora» ainda
+            return VALIDATE_NOW if elos['VINCULO_COM_PORTFOLIO'] else WATCH, elos
+        if SINAL_CORRENTE_DIAS < dias <= SINAL_RECENTE_DIAS:
+            return PREPARE_NOW, elos
+        if dias > SINAL_RECENTE_DIAS:
+            return FUTURE_PREPARATION, elos
+        return WATCH, elos                     # janela fechada
+    # sem janela: o que falta tem nome
+    if elos['SINAL_ATUAL'] and elos['VINCULO_COM_PORTFOLIO']:
+        return VALIDATE_NOW, elos
+    return WATCH, elos
+
+
+# ── E · QUEM DENTRO DA ADAMA FAZ O QUÊ ──────────────────────────────────────
+#
+# Um mapa de departamentos que sempre chama todo mundo não é um mapa: é uma lista
+# de e-mails. Cada departamento aqui só é convocado por um FATO, e o fato vai
+# junto. `SUPPLY` é o caso mais estrito, e de propósito — convocar Supply sem
+# base factual é a forma mais curta de transformar leitura externa em previsão
+# de demanda, que é o que este motor nunca pode fazer.
+#
+#     PRESSÃO AGRONÔMICA NÃO É PEDIDO. CONVOCAR SUPPLY SEM FATO É INVENTAR UM.
+DEPARTAMENTOS = ('MARKET_DEVELOPMENT', 'COMMERCIAL', 'MARKETING',
+                 'TECHNICAL_SCIENTIFIC', 'SUPPLY')
+
+
+def acao_por_departamento(o, elos):
+    """→ {departamento: {ACTION, WHY_CODE}}. Código, nunca frase com variável."""
+    tem_alvo = bool(o.get('TARGET'))
+    externo = o.get('EXTERNAL_MATERIAL_READY')
+    prioridade = o.get('COMMERCIAL_PRIORITY')
+    faltam = [e for e in ELOS if not elos[e]]
+
+    # ⚠️ A REGRA PODE JÁ TER RESPONDIDO «DECIDE O POMAR». Mandar Market
+    # Development definir a condição regional, nesse caso, é mandá-lo procurar
+    # o que a Regione publicou que não existe.
+    delegada = o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM'
+    if delegada and not elos['JANELA_DEFINIDA'] and elos['SINAL_ATUAL']:
+        md = ('VALIDATE_AT_FARM_LEVEL', 'REGRA_DELEGADA_AO_POMAR')
+    elif not elos['JANELA_DEFINIDA'] and elos['SINAL_ATUAL']:
+        md = ('DEFINE_WINDOW_CONDITION', 'SEM_CONDICAO_DECLARADA')
+    elif not elos['JANELA_ABERTA_AGORA'] and elos['SINAL_ATUAL']:
+        md = ('VALIDATE_WINDOW_IN_REGION', 'CONDICAO_DECLARADA_ESTADO_DESCONHECIDO')
+    elif elos['SINAL_ATUAL'] and tem_alvo:
+        md = ('CONFIRM_RECOMMENDATION_IN_FIELD', 'SINAL_ATUAL_COM_ALVO')
+    else:
+        md = ('NO_MOVEMENT', 'SEM_SINAL_ATUAL')
+
+    if o.get('STATUS') == ACT_NOW:
+        com = ('CONTACT_NOW', 'CADEIA_COMPLETA')
+    elif o.get('STATUS') == PREPARE_NOW:
+        com = ('PREPARE', 'JANELA_FUTURA')
+    elif prioridade in ('SALES_READY', 'SALES_PREPARE'):
+        com = ('PREPARE', 'PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO')
+    else:
+        com = ('NO_MOVEMENT', 'SEM_PRIORIDADE_COMERCIAL')
+
+    if externo == 'YES':
+        mkt = ('MESSAGE_AVAILABLE', 'EXTERNAL_MATERIAL_READY')
+    elif externo == 'VALIDATION_REQUIRED':
+        mkt = ('PREPARE_INTERNAL_ONLY', 'EXTERNAL_BLOCKED')
+    else:
+        mkt = ('NO_MOVEMENT', 'NAO_AUTORIZADO_A_SAIR')
+
+    if delegada and not elos['JANELA_DEFINIDA']:
+        tec = ('CONFIRM_AT_FARM_LEVEL', 'REGRA_DELEGADA_AO_POMAR')
+    elif not elos['JANELA_DEFINIDA']:
+        tec = ('ESTABLISH_WINDOW_CONDITION', 'SEM_CONDICAO_DECLARADA')
+    elif not elos['JANELA_ABERTA_AGORA']:
+        tec = ('CONFIRM_WINDOW_CONDITION_MET',
+               'CONDICAO_DECLARADA_ESTADO_DESCONHECIDO')
+    elif o.get('NEED_AMBIGUITY_CODES'):
+        tec = ('RESOLVE_AMBIGUOUS_DIRECTION', 'DIRECAO_AMBIGUA')
+    elif o.get('MODE_OF_ACTION_STATE') != 'CLASSIFIED':
+        tec = ('CLASSIFY_MODE_OF_ACTION', 'MOA_NAO_CLASSIFICADO')
+    else:
+        tec = ('NO_MOVEMENT', 'NADA_A_VALIDAR')
+
+    # ⚠️ SUPPLY só entra com fato publicado. Não existe «demanda esperada» aqui.
+    if o.get('PRODUCT_RESTRICTIONS'):
+        sup = ('WATCH_REGULATORY_DATE', 'DATA_REGULATORIA_EM_ATIVO_LIGADO')
+    else:
+        sup = ('NOT_CONVENED', 'SEM_BASE_FACTUAL')
+
+    par = dict(zip(DEPARTAMENTOS, (md, com, mkt, tec, sup)))
+    # ── o estado da acao, a dependencia e o que a destravaria ────────────────
+    # Um mapa que so diz «o que fazer» nao diz quando parar de esperar. Cada
+    # linha carrega de que elo ela depende e qual evento a muda.
+    ESTADO = {'CONTACT_NOW': 'ACT', 'MESSAGE_AVAILABLE': 'ACT',
+              'VALIDATE_WINDOW_IN_REGION': 'VALIDATE',
+              'DEFINE_WINDOW_CONDITION': 'VALIDATE',
+              'CONFIRM_RECOMMENDATION_IN_FIELD': 'VALIDATE',
+              'ESTABLISH_WINDOW_CONDITION': 'VALIDATE',
+              'VALIDATE_AT_FARM_LEVEL': 'VALIDATE',
+              'CONFIRM_AT_FARM_LEVEL': 'VALIDATE',
+              'CONFIRM_WINDOW_CONDITION_MET': 'VALIDATE',
+              'RESOLVE_AMBIGUOUS_DIRECTION': 'VALIDATE',
+              'CLASSIFY_MODE_OF_ACTION': 'VALIDATE',
+              'PREPARE': 'PREPARE', 'PREPARE_INTERNAL_ONLY': 'PREPARE',
+              'WATCH_REGULATORY_DATE': 'WATCH',
+              'NO_MOVEMENT': 'NO_ACTION', 'NOT_CONVENED': 'NO_ACTION'}
+    GATILHO = {
+        'JANELA_DEFINIDA': (
+            'a observacao do proprio pomar — a regra regional declara que a '
+            'decisao e da empresa, e por isso nao ha gatilho regional para '
+            'esperar' if delegada else
+            'uma fonte que declare a condicao do momento para este par nesta '
+            'regiao'),
+        'JANELA_ABERTA_AGORA': 'evidencia de que a condicao declarada esta '
+                               'satisfeita agora — estadio, limiar medido, '
+                               'captura ou evento climatico',
+        'SINAL_ATUAL': 'um boletim novo que declare necessidade positiva',
+        'VINCULO_COM_PORTFOLIO': 'rotulo ministerial no par e produto no '
+                                 'catalogo comercial',
+        'TEMPO_PARA_ACAO': 'a janela abrir, ou a condicao ser confirmada',
+    }
+    prova = {
+        'MARKET_DEVELOPMENT': [o.get('NEED_EVIDENCE_ID'), o.get('WINDOW_EVIDENCE_ID')],
+        'COMMERCIAL': (o.get('MATCHED_COMMERCIAL_PRODUCT_IDS') or [])[:3],
+        'MARKETING': [o.get('NEED_EVIDENCE_ID')],
+        'TECHNICAL_SCIENTIFIC': [o.get('WINDOW_EVIDENCE_ID'), o.get('NEED_EVIDENCE_ID')],
+        'SUPPLY': [f.get('EVIDENCE_ID') for f in (o.get('PRODUCT_RESTRICTIONS') or [])],
+    }
+    fora = {}
+    for d, (a, w) in par.items():
+        dep_elo = faltam[0] if faltam else None
+        fora[d] = {'DEPARTMENT': d, 'ACTION_STATE': ESTADO.get(a, 'UNKNOWN'),
+                   'ACTION': a, 'WHY_CODE': w,
+                   'EVIDENCE': [x for x in prova.get(d, []) if x],
+                   'DEPENDENCY': dep_elo,
+                   'NEXT_TRIGGER': GATILHO.get(dep_elo) if dep_elo else None,
+                   'MISSING_LINKS': faltam}
+    return fora
+
+
+# ── J · O PAPEL DE CADA EVIDÊNCIA, INCLUSIVE A QUE ESFRIA ───────────────────
+#
+# Um sistema que só classifica evidência a favor aprende a vender. O papel
+# negativo é dado, e fica.
+#
+#     UMA EVIDÊNCIA PODE ESFRIAR UMA OPORTUNIDADE, E ISSO TAMBÉM É INTELIGÊNCIA.
+PAPEIS = ('SUPPORTS_SIGNAL', 'SUPPORTS_DIRECTION', 'SUPPORTS_WINDOW',
+          'SUPPORTS_PRODUCT_MATCH', 'SUPPORTS_REGIONAL_CONTEXT',
+          'SUPPORTS_COMMERCIAL_ACTION', 'WEAKENS', 'CONTRADICTS', 'CLOSES',
+          'BACKGROUND_ONLY', 'UNKNOWN')
+
+
+def papel_das_evidencias(o, apoios):
+    """→ [{EVIDENCE_ID, ENTITY_TYPE, ROLE, WHY_CODE}]. Uma linha por apoio."""
+    fora = []
+    for a in apoios:
+        tipo = a.get('ENTITY_TYPE')
+        if a['ID'] == o.get('NEED_EVIDENCE_ID'):
+            papel, por = 'SUPPORTS_DIRECTION', 'FRASE_QUE_DECIDIU_A_DIRECAO'
+        elif a['ID'] == o.get('WINDOW_EVIDENCE_ID'):
+            papel, por = 'SUPPORTS_WINDOW', 'DECLARA_A_CONDICAO_DA_JANELA'
+        elif tipo == 'LABEL_USE_RELATIONSHIP':
+            papel, por = 'SUPPORTS_PRODUCT_MATCH', 'ROTULO_MINISTERIAL_NO_PAR'
+        elif tipo == 'CROP_WINDOW':
+            papel, por = 'BACKGROUND_ONLY', 'REGISTRO_DE_JANELA_SEM_DATA_APLICAVEL'
+        elif tipo == 'FIELD_SIGNAL':
+            papel, por = 'SUPPORTS_SIGNAL', 'OBSERVACAO_DE_CAMPO_NA_MESMA_REGIAO'
+        elif tipo in ('MARKET_OBSERVATION', 'CROP_ECONOMIC_WEIGHT_CLAIM'):
+            papel, por = 'SUPPORTS_REGIONAL_CONTEXT', 'CONTEXTO_DE_MERCADO'
+        elif tipo == 'COMPETITOR_ACTIVITY':
+            papel, por = 'SUPPORTS_COMMERCIAL_ACTION', 'MOVIMENTO_DE_CONCORRENTE'
+        else:
+            papel, por = 'BACKGROUND_ONLY', 'NAO_DECIDE_NENHUM_ELO'
+        fora.append({'EVIDENCE_ID': a['ID'], 'ENTITY_TYPE': tipo,
+                     'ROLE': papel, 'WHY_CODE': por})
+    return fora
+
+
+# ── E · O PORTFÓLIO, PRODUTO A PRODUTO ──────────────────────────────────────
+#
+# «Existem produtos ADAMA» não é um vínculo: é uma lista. Cada produto responde
+# por si, e o que não se sabe dele aparece nele.
+#
+#     PRIMARY_MATCH NÃO É O PRIMEIRO DA LISTA. SEM REGRA DEFENSÁVEL, É UNKNOWN.
+def portfolio(o, rotulos, casados, ai_por_prod, ai_por_id, ativos_da_fonte):
+    """→ (matches, PRIMARY_MATCH, razão do primário)."""
+    por_reg = defaultdict(list)
+    for r in rotulos:
+        por_reg[CM.num(r.get('REGISTRATION_NUMBER'))].append(r)
+    fora = []
+    for p in casados:
+        reg = CM.num(p.get('MATCHED_REGULATORY_ID'))
+        rots = por_reg.get(reg, [])
+        ativos = [ai_por_id.get(x.get('ACTIVE_INGREDIENT_ID'))
+                  for x in ai_por_prod.get(reg, [])]
+        ativos = [a for a in ativos if a]
+        declara = CM.catalogo_declara_cultura(o.get('CROP'), [p])[0]
+        restr = [{'CODE': 'EU_APPROVAL_EXPIRES', 'ACTIVE_INGREDIENT': a.get('NAME'),
+                  'DATE': a.get('EU_EXPIRATION_OF_APPROVAL'), 'EVIDENCE_ID': a['ID']}
+                 for a in ativos if a.get('EU_EXPIRATION_OF_APPROVAL')]
+        nomeado = [a['NAME'] for a in ativos
+                   if a.get('NAME') and a['NAME'].upper() in ativos_da_fonte]
+        fora.append({
+            'PRODUCT_ID': p['ID'], 'PRODUCT_NAME': p.get('NAME'),
+            'REGISTRATION_NUMBER': reg,
+            'ACTIVE_INGREDIENTS': [a.get('NAME') for a in ativos],
+            'MODE_OF_ACTION': sorted({'FRAC ' + str(a['FRAC']) for a in ativos
+                                      if a.get('FRAC')} |
+                                     {'IRAC ' + str(a['IRAC']) for a in ativos
+                                      if a.get('IRAC')} |
+                                     {'HRAC ' + str(a['HRAC']) for a in ativos
+                                      if a.get('HRAC')}),
+            'CROP_FIT': 'DECLARED_ON_CATALOG_PAGE' if declara else 'UNKNOWN',
+            'TARGET_FIT': 'ON_MINISTERIAL_LABEL' if rots else 'UNKNOWN',
+            'REGIONAL_FIT': 'NATIONAL_AUTHORIZATION_CONTAINS_REGION',
+            'REGULATORY_FIT': 'AUTHORIZATION_LIVE' if reg else 'UNKNOWN',
+            'WINDOW_FIT': o.get('WINDOW_OPEN_NOW') or 'UNKNOWN',
+            'VALIDATION_STATE': ('LABEL_AND_CATALOG' if rots and declara
+                                 else 'LABEL_ONLY' if rots else 'CATALOG_ONLY'),
+            'EVIDENCE': [r['ID'] for r in rots[:4]] + [p['ID']],
+            'RESTRICTIONS': restr,
+            'SOURCE_NAMES_THIS_ACTIVE': nomeado,
+            'MATCH_REASON': 'REGISTRATION_NUMBER_JOIN',
+        })
+    fora.sort(key=lambda m: str(m['PRODUCT_NAME']))
+    # ⚠️ A REGRA DO PRIMÁRIO, E SÓ ELA: a fonte nomeou a substância, ou há um só.
+    nomeados = [m for m in fora if m['SOURCE_NAMES_THIS_ACTIVE']]
+    if len(nomeados) == 1:
+        return fora, nomeados[0]['PRODUCT_ID'], 'FONTE_NOMEIA_A_SUBSTANCIA'
+    if len(fora) == 1:
+        return fora, fora[0]['PRODUCT_ID'], 'UNICO_PRODUTO_DO_CATALOGO_NO_PAR'
+    return fora, None, 'SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER'
+
+
+# ── D e I · O BRIEFING, EM PEDAÇOS FIXOS COM VALOR AO LADO ──────────────────
+#
+# O briefing é frase, e frase com variável dentro nunca fica traduzida. Então o
+# texto é FIXO e os valores vivem fora dele, em `VALUES`. A tela compõe.
+#
+#     A FRASE É A MESMA EM TODO BUILD. O QUE MUDA É O QUE ENTRA NELA.
+BRIEFING = {
+ 'PRESSAO_RECENTE': 'Pressão recente de {ALVO} em {CULTURA} na {REGIAO}, '
+                    'sustentada por {SINAIS} sinais de campo e {FONTES} fontes '
+                    'independentes.',
+ 'FONTE_MANDA_PARAR': 'A fonte que sustenta o par não manda agir: ver '
+                      'NEED_DIRECTION e a frase original.',
+ 'JANELA_ABERTA': 'A condição que define o momento está declarada e o mesmo '
+                  'documento declara o estádio da cultura: a janela está aberta '
+                  'agora.',
+ 'JANELA_DEFINIDA_ESTADO_DESCONHECIDO': 'A condição que define o momento está '
+                                        'declarada, mas não há evidência de que '
+                                        'esteja satisfeita agora.',
+ 'SEM_JANELA': 'Nenhuma fonte declara a condição que define o momento de '
+               'intervir neste par e nesta região.',
+ 'JANELA_DELEGADA_AO_POMAR': 'A regra regional publicada declara que a decisão '
+                             'de intervir é da própria empresa, pelas '
+                             'observações e pelo histórico do pomar: não há '
+                             'gatilho regional a coletar.',
+ 'PORTFOLIO': 'Há {PRODUTOS} produto(s) do catálogo comercial ADAMA com rótulo '
+              'ministerial no par.',
+ 'SEM_PORTFOLIO': 'Nenhum produto do catálogo comercial ADAMA cobre este par '
+                  'com rótulo ministerial.',
+ 'FONTE_NOMEIA_OUTRA_SUBSTANCIA': 'A fonte nomeia {ATIVOS_DA_FONTE} como '
+                                  'solução; a substância do produto ADAMA '
+                                  'ligado ao par é outra.',
+ 'ACAO_PRINCIPAL': 'Ação: {DEPARTAMENTO} deve {ACAO} antes de qualquer ativação '
+                   'comercial.',
+}
+
+
+def briefing(o, matches, ativos_da_fonte):
+    """→ [{CODE, VALUES}]. Nunca a frase pronta: o código e os valores."""
+    b = []
+    dim = o.get('COMMERCIAL_MAGNITUDE_DIMENSIONS') or {}
+    if o.get('NEED_DIRECTION') in CM.NECESSIDADE_FECHADA:
+        b.append({'CODE': 'FONTE_MANDA_PARAR', 'VALUES': {}})
+    elif o.get('TARGET'):
+        b.append({'CODE': 'PRESSAO_RECENTE', 'VALUES': {
+            'ALVO': o['TARGET'], 'CULTURA': o['CROP'], 'REGIAO': o['GEOGRAPHY'],
+            'SINAIS': dim.get('SINAIS_DE_CAMPO'),
+            'FONTES': dim.get('FONTES_INDEPENDENTES')}})
+    if o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM':
+        b.append({'CODE': 'JANELA_DELEGADA_AO_POMAR', 'VALUES': {}})
+    elif o.get('WINDOW_DEFINED') != 'YES':
+        b.append({'CODE': 'SEM_JANELA', 'VALUES': {}})
+    elif o.get('WINDOW_OPEN_NOW') == 'YES':
+        b.append({'CODE': 'JANELA_ABERTA', 'VALUES': {}})
+    else:
+        b.append({'CODE': 'JANELA_DEFINIDA_ESTADO_DESCONHECIDO', 'VALUES': {}})
+    if matches:
+        b.append({'CODE': 'PORTFOLIO', 'VALUES': {'PRODUTOS': len(matches)}})
+        if ativos_da_fonte and not any(m['SOURCE_NAMES_THIS_ACTIVE']
+                                       for m in matches):
+            b.append({'CODE': 'FONTE_NOMEIA_OUTRA_SUBSTANCIA',
+                      'VALUES': {'ATIVOS_DA_FONTE': sorted(ativos_da_fonte)}})
+    else:
+        b.append({'CODE': 'SEM_PORTFOLIO', 'VALUES': {}})
+    dep = o.get('ACTION_BY_DEPARTMENT') or {}
+    principal = next(((d, v) for d, v in dep.items()
+                      if v.get('ACTION_STATE') in ('VALIDATE', 'ACT')), None)
+    if principal:
+        b.append({'CODE': 'ACAO_PRINCIPAL', 'VALUES': {
+            'DEPARTAMENTO': principal[0], 'ACAO': principal[1]['ACTION']}})
+    return b
+
+
+def cadeia_de_agora(o, elos, apoios):
+    """→ (codigos, cadeia). Obrigatorio para ACT_NOW; util para os outros.
+
+    A cadeia nomeia o QUE sustenta cada elo, com identificador — nao com
+    adjetivo. Um `ACT_NOW` sem cadeia completa nao existe.
+    """
+    janela = [a['ID'] for a in apoios if a.get('ENTITY_TYPE') == 'CROP_WINDOW']
+    sinais = [a['ID'] for a in apoios if a.get('ENTITY_TYPE') == 'FIELD_SIGNAL']
+    cadeia = {
+        'SINAL_ATUAL': {'OK': elos['SINAL_ATUAL'],
+                        'EVIDENCE': ([o['NEED_EVIDENCE_ID']]
+                                     if o.get('NEED_EVIDENCE_ID') else sinais[:3]),
+                        'FACT': o.get('SIGNAL_DATE')},
+        'JANELA_DEFINIDA': {'OK': elos['JANELA_DEFINIDA'],
+                            'EVIDENCE': ([o['WINDOW_EVIDENCE_ID']]
+                                         if o.get('WINDOW_EVIDENCE_ID')
+                                         else janela[:3]),
+                            'FACT': o.get('WINDOW_TYPE') or o.get('WINDOW_FIELD')},
+        'JANELA_ABERTA_AGORA': {'OK': elos['JANELA_ABERTA_AGORA'],
+                                'EVIDENCE': ([o['WINDOW_EVIDENCE_ID']]
+                                             if o.get('WINDOW_EVIDENCE_ID')
+                                             else janela[:3]),
+                                'FACT': o.get('WINDOW_OPEN_NOW_METHOD')},
+        'VINCULO_COM_PORTFOLIO': {'OK': elos['VINCULO_COM_PORTFOLIO'],
+                                  'EVIDENCE': o.get('MATCHED_COMMERCIAL_PRODUCT_IDS') or [],
+                                  'FACT': o.get('PRODUCT_LINK_STATE')},
+        'TEMPO_PARA_ACAO': {'OK': elos['TEMPO_PARA_ACAO'],
+                            'EVIDENCE': janela[:3],
+                            'FACT': o.get('DAYS_REMAINING')},
+    }
+    faltam = ['SEM_' + e for e in ELOS if not elos[e]]
+    return (['CADEIA_COMPLETA'] if not faltam else faltam), cadeia
 
 
 # Quem OBSERVA um fato no mundo, e por isso responde pela geografia da
@@ -458,6 +870,78 @@ def main():
     # E o par cultura × alvo passa a ser o que a fonte OBSERVOU, não o produto
     # cartesiano entre duas listas planas do mesmo documento.
     pares_ix = NE.indice_de_pares(cs['CURRENT-FIELD-SIGNALS'])
+    # ⚠️ A JANELA DEIXA DE SER SÓ CALENDÁRIO. Medido: das orações atribuídas a um
+    # par, nenhuma declara datas — e treze declaram a condição por fenologia,
+    # limiar, fase da praga, clima ou ato. `v21_janelas` é o dono do tipo.
+    janelas_ix = defaultdict(list)
+    for s_ in cs['CURRENT-FIELD-SIGNALS']:
+        for j in JN.janelas_do_sinal(s_):
+            janelas_ix[(j['CROP'], j['TARGET'])].append(j)
+
+    # ── TRÊS PERGUNTAS QUE O BOLETIM RESPONDE, COM TRÊS DONOS ───────────────
+    # O red team semântico mediu o motor a empilhar numa resposta só o que o
+    # boletim diz em três: a FASE DA PRAGA, a RECOMENDAÇÃO e a JANELA. Sobre o
+    # melo × carpocapsa do Veneto isso produzia
+    # `CONDICAO_EXIGE_MEDICAO_QUE_NAO_TEMOS` num boletim que declarava a fase em
+    # letras — «terzo volo terminato» — e que na frase seguinte mandava
+    # continuar a defesa.
+    #
+    #     FIM DO VOO NÃO É FIM DA NECESSIDADE DE INTERVENÇÃO.
+    #     E RECOMENDAR CONTINUAR NÃO É DECLARAR JANELA ABERTA.
+    #
+    # Cada uma passa a ter campo próprio, evidência própria e trecho próprio.
+    datas_dos_sinais = {s_['ID']: str(s_.get('REFERENCE_DATE') or '')
+                        for s_ in cs['CURRENT-FIELD-SIGNALS']}
+    declarado_ix = defaultdict(list)
+    for s_ in cs['CURRENT-FIELD-SIGNALS']:
+        for campo, _metodo, crops, issues, oracao in NE.atribuicoes(s_):
+            fase, _pf = NE.fase_da_praga(oracao)
+            rec, _pr = NE.recomendacao(oracao)
+            linha = {'SOURCE_ID': s_['ID'],
+                     'REGION_IDS': s_.get('REGION_IDS') or [],
+                     'DATE': datas_dos_sinais.get(s_['ID'], ''),
+                     'FIELD': campo, 'CLAUSE': oracao[:320],
+                     'PEST_STAGE': fase, 'RECOMMENDATION': rec,
+                     'QUALITATIVE': NE.qualitativo(oracao),
+                     'THRESHOLD_MEASURE': NE.limiar_declarado(oracao),
+                     'DELEGATED': NE.decisao_delegada(oracao)}
+            for c_ in crops:
+                for i_ in issues:
+                    declarado_ix[(c_, i_)].append(linha)
+
+    def declarados(crop, alvo, geo):
+        """→ as orações deste par NESTA região, da mais recente para a mais velha.
+
+        A ordem é DECLARADA e não estatística: o documento mais recente que
+        afirma alguma coisa é o que responde por ela. Empate desfaz-se pelo ID,
+        para o pacote não mudar de conteúdo entre duas execuções iguais.
+        """
+        linhas = [d for d in declarado_ix.get((crop, alvo), [])
+                  if geo in (d['REGION_IDS'] or [])]
+        return sorted(linhas, key=lambda d: (d['DATE'], d['SOURCE_ID']),
+                      reverse=True)
+
+    def janela_tipada(crop, alvo, geo):
+        """→ a candidata que vale para ESTA combinação, ou None.
+
+        A região é lida do registro que fez a observação: uma condição
+        declarada num boletim da Emilia-Romagna não descreve a Toscana.
+        E a escolha entre candidatas é DECLARADA: primeiro a que está aberta
+        agora, depois a de tipo mais forte, e um ato administrativo nunca é
+        escolhido como janela agronômica.
+        """
+        cand = [j for j in janelas_ix.get((crop, alvo), [])
+                if geo in (j['REGION_IDS'] or [])
+                and j['WINDOW_TYPE'] in JN.AGRONOMICOS]
+        if not cand:
+            return None
+        forca = {t: i for i, t in enumerate(JN.TIPOS)}
+        cand.sort(key=lambda j: (0 if j['WINDOW_OPEN_NOW'] == 'YES' else
+                                 1 if j['WINDOW_OPEN_NOW'] == 'UNKNOWN' else 2,
+                                 forca[j['WINDOW_TYPE']],
+                                 0 if j['CLAUSE_DIRECTION'] == NE.POSITIVE_PRESSURE
+                                 else 1))
+        return cand[0]
 
     def _casados(rotulos):
         """Os registros do CATALOGO que o par de rotulo alcanca — nao so o nome."""
@@ -546,26 +1030,257 @@ def main():
                          'so nao atribui direcao a nenhum deles: fica UNKNOWN, '
                          'com o motivo em NEED_AMBIGUITY.')
 
-        # ── tempo comercial: só janela de APLICAÇÃO conta ─────────────────────
+        # ── OS DOIS RELÓGIOS, SEPARADOS ──────────────────────────────────────
+        #
+        # A lei impressa neste mesmo campo já dizia: «sem janela de aplicação, a
+        # data do documento diz apenas se o sinal é corrente». O CÓDIGO dizia
+        # outra coisa — caía na idade do sinal e chamava aquilo de `ACT_NOW`.
+        # Era assim que nascia o cartão com `ACT NOW` e «no canonical window
+        # linked» lado a lado.
+        #
+        #     LEI IMPRESSA QUE O CÓDIGO NÃO CUMPRE É PIOR QUE LEI NENHUMA:
+        #     ELA FAZ QUEM LÊ CONFIAR NO NÚMERO ERRADO.
+        #
+        # Agora `COMMERCIAL_WINDOW` só existe se houver janela de APLICAÇÃO, e a
+        # recência do sinal vive à parte, com nome próprio.
         if o.get('WINDOW_KIND') == 'APPLICATION' and o.get('DAYS_REMAINING') is not None:
             d = o['DAYS_REMAINING']
-            c['COMMERCIAL_WINDOW'] = ('ACT_NOW' if 0 <= d <= 30 else
-                                      'PREPARE_NOW' if 30 < d <= 120 else
-                                      'FUTURE' if d > 120 else 'UNKNOWN')
+            c['COMMERCIAL_WINDOW'] = ('ACT_NOW' if 0 <= d <= SINAL_CORRENTE_DIAS else
+                                      'PREPARE_NOW' if SINAL_CORRENTE_DIAS < d <= SINAL_RECENTE_DIAS else
+                                      'FUTURE' if d > SINAL_RECENTE_DIAS else 'CLOSED')
             c['COMMERCIAL_WINDOW_FROM'] = o.get('WINDOW_FIELD')
-        elif o.get('SIGNAL_AGE_DAYS') is not None:
-            a = o['SIGNAL_AGE_DAYS']
-            c['COMMERCIAL_WINDOW'] = ('ACT_NOW' if a <= 30 else
-                                      'PREPARE_NOW' if a <= 120 else 'FUTURE')
-            c['COMMERCIAL_WINDOW_FROM'] = 'SIGNAL_DATE'
         else:
             c['COMMERCIAL_WINDOW'] = 'UNKNOWN'
             c['COMMERCIAL_WINDOW_FROM'] = None
+        idade = o.get('SIGNAL_AGE_DAYS')
+        c['SIGNAL_CURRENCY'] = ('UNKNOWN' if idade is None else
+                                'CURRENT' if idade <= SINAL_CORRENTE_DIAS else
+                                'RECENT' if idade <= SINAL_RECENTE_DIAS else 'OLD')
+        # QUAL relogio declarou o momento. Nunca os dois com o mesmo nome.
+        c['COMMERCIAL_TIMING_BASIS'] = (
+            'APPLICATION_WINDOW' if c['COMMERCIAL_WINDOW'] in ('ACT_NOW', 'PREPARE_NOW')
+            else 'CURRENT_SOURCE_RECOMMENDATION'
+            if (c['SIGNAL_CURRENCY'] == 'CURRENT'
+                and c.get('NEED_DIRECTION') in CM.NECESSIDADE_POSITIVA)
+            else 'NONE')
         c['COMMERCIAL_WINDOW_LAW'] = (
             'so janela de APLICACAO conta como tempo comercial. '
             'PREPARATION_WINDOW e data de ato — quando sai o decreto — e nao '
-            'quando se pulveriza. Sem janela de aplicacao, a data do documento '
-            'diz apenas se o sinal e corrente.')
+            'quando se pulveriza. Sem janela de aplicacao isto fica UNKNOWN: a '
+            'data do documento responde SIGNAL_CURRENCY, que e outra pergunta.')
+
+        # ── A JANELA, EM DUAS PERGUNTAS QUE NUNCA SAO A MESMA ────────────────
+        # WINDOW_DEFINED  : sabemos QUAL condicao define o momento certo?
+        # WINDOW_OPEN_NOW : ha evidencia de que a condicao esta satisfeita AGORA?
+        #
+        #     DEFINIDA NAO E ABERTA. SABER O GATILHO NAO E SABER QUE ELE DISPAROU.
+        jt = janela_tipada(o.get('CROP'), o.get('TARGET'), o.get('GEOGRAPHY'))
+        if o.get('WINDOW_KIND') == 'APPLICATION' and o.get('DAYS_REMAINING') is not None:
+            d = o['DAYS_REMAINING']
+            c['WINDOW_TYPE'] = JN.CALENDAR_WINDOW
+            c['WINDOW_CONDITION'] = o.get('WINDOW_FIELD')
+            c['WINDOW_DEFINED'] = 'YES'
+            c['WINDOW_OPEN_NOW'] = 'YES' if 0 <= d else 'NO'
+            c['WINDOW_OPEN_NOW_METHOD'] = 'DATAS_DECLARADAS_NO_REGISTRO'
+            c['WINDOW_EVIDENCE_ID'] = None
+        elif jt:
+            c['WINDOW_TYPE'] = jt['WINDOW_TYPE']
+            c['WINDOW_CONDITION'] = jt['WINDOW_CONDITION']
+            c['WINDOW_DEFINED'] = 'YES'
+            c['WINDOW_OPEN_NOW'] = jt['WINDOW_OPEN_NOW']
+            c['WINDOW_OPEN_NOW_METHOD'] = jt['OPEN_NOW_METHOD']
+            c['WINDOW_EVIDENCE_ID'] = jt['SOURCE_ID']
+            c['PHENOLOGY_DECLARED'] = jt.get('PHENOLOGY_DECLARED')
+        else:
+            c['WINDOW_TYPE'] = None
+            c['WINDOW_CONDITION'] = None
+            c['WINDOW_DEFINED'] = 'NO'
+            c['WINDOW_OPEN_NOW'] = 'UNKNOWN'
+            c['WINDOW_OPEN_NOW_METHOD'] = 'NENHUMA_CONDICAO_DECLARADA_PARA_O_PAR'
+            c['WINDOW_EVIDENCE_ID'] = None
+        c.setdefault('PHENOLOGY_DECLARED', None)
+        c['WINDOW_TYPE_LAW'] = (
+            'a fonte italiana declara o momento por FENOLOGIA, LIMIAR, FASE DA '
+            'PRAGA ou CONDICAO CLIMATICA — quase nunca por datas. WINDOW_TYPE '
+            'diz qual delas. ATO ADMINISTRATIVO nunca vira janela agronomica: '
+            'prazo de norma e obrigacao, e vale so para o alvo que a norma '
+            'nomeia.')
+
+        # ── A FASE DA PRAGA · o que o inseto está a fazer, e nada mais ───────
+        dec = declarados(o.get('CROP'), o.get('TARGET'), o.get('GEOGRAPHY'))
+        fase = next((d for d in dec
+                     if d['PEST_STAGE'] != NE.STAGE_NOT_DECLARED), None)
+        c['PEST_STAGE_STATE'] = fase['PEST_STAGE'] if fase else NE.STAGE_NOT_DECLARED
+        c['PEST_STAGE_EVIDENCE_ID'] = fase['SOURCE_ID'] if fase else None
+        c['PEST_STAGE_EXCERPT'] = fase['CLAUSE'] if fase else ''
+        c['PEST_STAGE_LAW'] = (
+            'a fase da praga e FATO DECLARADO pela fonte, com trecho ao lado. '
+            'Ela NAO responde se ha janela, se ela esta aberta nem se a defesa '
+            'acabou: fim do voo nao e fim da necessidade de intervencao. Quem '
+            'declara mais recentemente responde; empate desfaz-se pelo ID.')
+
+        # ── A RECOMENDAÇÃO · o que o serviço manda fazer ─────────────────────
+        # Quem manda PARAR continua a vencer: se a direcao do par e restritiva,
+        # a recomendacao espelha-a. So dentro da porta aberta e que a distincao
+        # «comecar» x «continuar» tem lugar — e ela vem de uma oracao que a
+        # declara, com dono proprio.
+        if c.get('NEED_DIRECTION') in NE.RESTRITIVOS:
+            c['ACTION_RECOMMENDATION_STATE'] = NE._DIRECAO_PARA_RECOMENDACAO[
+                c['NEED_DIRECTION']]
+            c['ACTION_RECOMMENDATION_EVIDENCE_ID'] = c.get('NEED_EVIDENCE_ID')
+            c['ACTION_RECOMMENDATION_EXCERPT'] = c.get('NEED_EXCERPT') or ''
+        else:
+            cont = next((d for d in dec
+                         if d['RECOMMENDATION'] == NE.CONTINUE_RECOMMENDED), None)
+            if cont:
+                c['ACTION_RECOMMENDATION_STATE'] = NE.CONTINUE_RECOMMENDED
+                c['ACTION_RECOMMENDATION_EVIDENCE_ID'] = cont['SOURCE_ID']
+                c['ACTION_RECOMMENDATION_EXCERPT'] = cont['CLAUSE']
+            else:
+                c['ACTION_RECOMMENDATION_STATE'] = (
+                    NE._DIRECAO_PARA_RECOMENDACAO.get(
+                        c.get('NEED_DIRECTION'), NE.RECOMMENDATION_NOT_DECLARED))
+                c['ACTION_RECOMMENDATION_EVIDENCE_ID'] = c.get('NEED_EVIDENCE_ID')
+                c['ACTION_RECOMMENDATION_EXCERPT'] = c.get('NEED_EXCERPT') or ''
+        c['ACTION_RECOMMENDATION_LAW'] = (
+            'a recomendacao e o que a fonte MANDA FAZER, e nao a prova de que o '
+            'momento chegou. CONTINUE_RECOMMENDED diz que a defesa ja decorria '
+            'e nao deve parar — util exatamente quando a fase da praga terminou. '
+            'Entre oracoes do mesmo par, a que manda parar continua a vencer.')
+
+        # ── O LIMIAR · houve medição declarada, ou só prosa? ─────────────────
+        if c.get('WINDOW_TYPE') == JN.THRESHOLD_WINDOW:
+            med = next((d for d in dec if d['THRESHOLD_MEASURE']), None)
+            qual = next((d for d in dec if d['QUALITATIVE']), None)
+            if med:
+                c['THRESHOLD_STATE'] = 'MEASUREMENT_DECLARED'
+                c['THRESHOLD_STATE_EVIDENCE_ID'] = med['SOURCE_ID']
+            elif qual:
+                c['THRESHOLD_STATE'] = 'QUALITATIVE_PICTURE_ONLY'
+                c['THRESHOLD_STATE_EVIDENCE_ID'] = qual['SOURCE_ID']
+                # e entao o metodo da janela para de mentir: nao e que a fonte
+                # nao falou — e que o que ela falou nao responde a pergunta.
+                if c.get('WINDOW_OPEN_NOW') == 'UNKNOWN':
+                    c['WINDOW_OPEN_NOW_METHOD'] = (
+                        'FONTE_DECLARA_QUADRO_QUALITATIVO_NAO_A_MEDICAO')
+            else:
+                c['THRESHOLD_STATE'] = 'NOT_DECLARED'
+                c['THRESHOLD_STATE_EVIDENCE_ID'] = None
+        else:
+            c['THRESHOLD_STATE'] = 'NOT_APPLICABLE'
+            c['THRESHOLD_STATE_EVIDENCE_ID'] = None
+        # ── A REGRA · declarada, delegada ao pomar, ou inexistente ──────────
+        # `WINDOW_RULE_MISSING` diz «ninguem declarou a condicao». Mas o Manuale
+        # difesa integrata del melo do Veneto declara — e o que ele declara e que
+        # a decisao e da empresa. Chamar isso de regra ausente e acusar a fonte
+        # de nao ter dito o que ela disse com todas as letras.
+        deleg = next((d for d in dec if d['DELEGATED']), None)
+        if c.get('WINDOW_DEFINED') == 'YES':
+            c['WINDOW_RULE_STATE'] = 'RULE_DECLARED'
+            c['WINDOW_RULE_EVIDENCE_ID'] = c.get('WINDOW_EVIDENCE_ID')
+        elif deleg:
+            c['WINDOW_RULE_STATE'] = 'RULE_DELEGATED_TO_FARM'
+            c['WINDOW_RULE_EVIDENCE_ID'] = deleg['SOURCE_ID']
+        else:
+            c['WINDOW_RULE_STATE'] = 'RULE_NOT_DECLARED'
+            c['WINDOW_RULE_EVIDENCE_ID'] = None
+        c['WINDOW_RULE_STATE_LAW'] = (
+            'RULE_DELEGATED_TO_FARM nao e janela e nunca abre uma: e a fonte '
+            'regional declarando que o gatilho e do pomar, pelas observacoes e '
+            'pelo historico dele. Coletar mais nao muda esta resposta — ela ja '
+            'foi dada. RULE_NOT_DECLARED e o unico dos tres que pede coleta.')
+
+        c['THRESHOLD_STATE_LAW'] = (
+            'diz se a fonte declarou MEDICAO, quadro QUALITATIVO ou nada. NUNCA '
+            'responde WINDOW_OPEN_NOW: «pochissime aree sopra soglia» traz as '
+            'duas coisas na mesma frase, e frase qualitativa so responde a uma '
+            'condicao quantitativa quando a propria fonte declara a equivalencia.')
+
+        # ── O QUE O PRODUTO É · modo de acao, dose e restricao ────────────────
+        # Tudo isto ja estava no acervo, ligado por NUMERO DE REGISTRO — a mesma
+        # juncao que o catalogo comercial ja usa. A tela dizia «mode of action =
+        # not known» porque o CARTAO nao carregava o campo, nao porque o acervo
+        # nao soubesse.
+        #
+        #     «NÃO SEI» DITO POR QUEM NÃO FOI OLHAR NÃO É «NÃO SEI»: É DESCUIDO.
+        ativos, frac, restricoes = {}, set(), {}
+        for r in rotulos:
+            for pai in ai_por_prod.get(CM.num(r.get('REGISTRATION_NUMBER')), []):
+                a = ai_por_id.get(pai.get('ACTIVE_INGREDIENT_ID'))
+                if not a:
+                    continue
+                ativos[a['ID']] = a.get('NAME')
+                if a.get('FRAC'):
+                    frac.add('FRAC ' + str(a['FRAC']))
+                if a.get('IRAC'):
+                    frac.add('IRAC ' + str(a['IRAC']))
+                if a.get('HRAC'):
+                    frac.add('HRAC ' + str(a['HRAC']))
+                if a.get('EU_EXPIRATION_OF_APPROVAL'):
+                    # a mesma substancia chega por varios rotulos: o FATO e um so
+                    restricoes[a['ID']] = {
+                        'CODE': 'EU_APPROVAL_EXPIRES',
+                        'ACTIVE_INGREDIENT': a.get('NAME'),
+                        'DATE': a['EU_EXPIRATION_OF_APPROVAL'],
+                        'EVIDENCE_ID': a['ID']}
+        c['ACTIVE_INGREDIENT_IDS'] = sorted(ativos)
+        c['ACTIVE_INGREDIENT_NAMES'] = sorted(v for v in ativos.values() if v)
+        c['MODE_OF_ACTION_CODES'] = sorted(frac)
+        c['MODE_OF_ACTION_STATE'] = 'CLASSIFIED' if frac else 'UNKNOWN'
+        c['PRODUCT_RESTRICTIONS'] = [restricoes[k] for k in sorted(restricoes)]
+        c['PRODUCT_RESTRICTIONS_LAW'] = (
+            'restricao aqui e FATO PUBLICADO com data e fonte — expiracao de '
+            'aprovacao europeia, por exemplo. Expiracao NAO e retirada, nao e '
+            'risco e nao e oportunidade: e uma data no Jornal Oficial.')
+        # A dose e o modo de emprego estao na FRASE DO ROTULO, e e assim que
+        # viajam: citacao, nao campo estruturado. Estruturar «100-150 ml/hl»
+        # seria interpretar bula, e bula nao se interpreta por regex.
+        c['LABEL_QUOTES'] = [q for q in (r.get('QUOTE_FROM_LABEL')
+                                         for r in rotulos[:3]) if q]
+        c['APPLICATION_STATE'] = ('QUOTED_ON_LABEL' if c['LABEL_QUOTES']
+                                  else 'UNKNOWN')
+
+        # ── TAMANHO · so dimensao defensavel, nunca dinheiro ─────────────────
+        sinais = [a for a in apoios if a.get('ENTITY_TYPE') == 'FIELD_SIGNAL']
+        fontes = {(a.get('SOURCE_IDS') or [None])[0] for a in sinais} - {None}
+        area = [e for e in econ_crop.get(o.get('CROP'), [])
+                if e.get('INDICATOR') == 'AREA'
+                and o.get('GEOGRAPHY') in (e.get('REGION_IDS') or [])]
+        dim = {'SINAIS_DE_CAMPO': len(sinais),
+               'FONTES_INDEPENDENTES': len(fontes),
+               'REGIOES_DO_PAR': None,
+               'AREA_OFICIAL_HA': (area[0].get('VALUE') if area else None),
+               'AREA_EVIDENCE_ID': (area[0].get('ID') if area else None)}
+        c['COMMERCIAL_MAGNITUDE_DIMENSIONS'] = dim
+        c['COMMERCIAL_MAGNITUDE'] = ('UNKNOWN' if not (dim['SINAIS_DE_CAMPO'] or
+                                                       dim['AREA_OFICIAL_HA'])
+                                     else 'MEASURED_BY_DIMENSION')
+        c['COMMERCIAL_MAGNITUDE_LAW'] = (
+            'NAO ha TAM, SAM nem dinheiro: nao ha fonte para eles. O tamanho '
+            'aqui e o que se pode contar — sinais, fontes independentes e area '
+            'oficial quando existe linha client-safe. Sem nenhuma dessas, '
+            'UNKNOWN.')
+
+        # ── AS QUATRO CONFIANÇAS, SEPARADAS ──────────────────────────────────
+        # Uma confianca so obriga a media entre coisas que nao se somam: o sinal
+        # pode ser forte e a janela inexistente, e a media esconderia as duas.
+        c['SIGNAL_CONFIDENCE'] = (
+            'ALTA' if len(fontes) >= 2 and c['SIGNAL_CURRENCY'] == 'CURRENT' else
+            'MEDIA' if sinais and c['SIGNAL_CURRENCY'] in ('CURRENT', 'RECENT')
+            else 'BAIXA')
+        c['WINDOW_CONFIDENCE'] = (
+            'ALTA' if o.get('WINDOW_KIND') == 'APPLICATION' else
+            'MEDIA' if o.get('WINDOW_KIND') else 'NENHUMA')
+        c['PRODUCT_MATCH_CONFIDENCE'] = (
+            'ALTA' if (o.get('PRODUCT_LINK_STATE') == VERIFIED_LABEL_MATCH
+                       and c['COMMERCIAL_PRODUCT_COUNT']) else
+            'MEDIA' if o.get('PRODUCT_LINK_STATE') == VERIFIED_LABEL_MATCH
+            else 'BAIXA')
+        c['CONFIDENCE_LAW'] = (
+            'quatro perguntas diferentes, quatro respostas. SIGNAL fala do que '
+            'foi observado; WINDOW, de quando agir; PRODUCT_MATCH, do vinculo '
+            'com o portfolio; COMMERCIAL_READINESS e COMMERCIAL_PRIORITY, que '
+            'vive ao lado. Media entre elas escondia justamente a que faltava.')
         return c
 
     brutos, rejeitados = [], []
@@ -597,11 +1312,17 @@ def main():
              'SCORE_DIMENSIONS': dim, 'OPPORTUNITY_SCORE': score(dim),
              'ACTION_MAP': acao}
         o.update(camada_comercial(o, apoios, rotulos, pinos))
-        o['STATUS'] = estado_temporal(dias, arquetipo, jest != 'UNKNOWN')
-        if o['STATUS'] == 'WATCH' and sidade is not None and sidade <= 30:
-            o['STATUS'] = 'ACT_NOW'
-        elif o['STATUS'] == 'WATCH' and sidade is not None and sidade <= 120:
-            o['STATUS'] = 'PREPARE_NOW'
+        # ⚠️ O estado de acao sai da CADEIA, nunca da idade do sinal sozinha.
+        o['STATUS'], elos = estado_de_acao(o)
+        o['ACTION_CHAIN_LINKS'] = {k: bool(v) for k, v in elos.items()}
+        codigos, cadeia = cadeia_de_agora(o, elos, apoios)
+        o['WHY_NOW_CODES'] = codigos
+        o['WHY_NOW_CHAIN'] = cadeia
+        o['WHY_NOW_LAW'] = (
+            'ACT_NOW so existe com os quatro elos fechados: sinal atual, janela '
+            'compativel, vinculo com portfolio e tempo para agir. Sem janela nao '
+            'ha ACT_NOW — ha VALIDATE_NOW, que diz o que falta. A idade do '
+            'boletim vive em SIGNAL_CURRENCY e nunca substitui a janela.')
         falhas = portoes(o, apoios)
         o['OPPORTUNITY_STATE'] = CONFIRMADA if not falhas else CANDIDATA
         o['BLOCKING_GATES'] = falhas
@@ -629,7 +1350,7 @@ def main():
         # COMMERCIAL_PRODUCT_COUNT — frase com variável dentro nunca fica
         # traduzida, e este projeto já perdeu duas traduções assim.
         o['WHY_COMMERCIAL_CODES'] = codigos
-        o['WHY_COMMERCIAL'] = ' '.join(CM.RAZAO[c] for c in codigos)
+        o['WHY_COMMERCIAL'] = CM.frase(codigos)
         o['COMMERCIAL_DOES_NOT_PROVE'] = CM.NAO_PROVA
         # ── e a terceira pergunta: isto pode SAIR de casa? ────────────────────
         # SALES_READY e decisao interna. Enviar a um revendedor ou a um RTV e
@@ -644,6 +1365,79 @@ def main():
             'mesma categoria e nao promove ninguem de categoria. E nao ha numero '
             'minimo de familias externas: corroboracao e amplificador, nao '
             'contador cego.')
+        # ⚠️ O mapa de departamentos e o ULTIMO: ele le as tres colunas e o
+        # estado de acao ja fechados. Calcula-lo antes seria convocar gente com
+        # base num estado que ainda ia mudar.
+        # ── E · o portfolio, produto a produto, com o primario declarado ─────
+        ativos_fonte = {a.get('NAME', '').upper()
+                        for a in cs['ACTIVE-INGREDIENTS']
+                        if a.get('NAME') and re.search(
+                            r'\b%s\b' % re.escape(a['NAME']),
+                            str(o.get('NEED_EXCERPT') or ''), re.I)}
+        matches, primario, razao_primario = portfolio(
+            o, rotulos, _casados(rotulos), ai_por_prod, ai_por_id, ativos_fonte)
+        o['PORTFOLIO_MATCHES'] = matches
+        o['PRIMARY_MATCH'] = primario
+        o['PRIMARY_MATCH_REASON'] = razao_primario
+        o['SOURCE_NAMED_ACTIVES'] = sorted(ativos_fonte)
+        o['PORTFOLIO_LAW'] = (
+            'cada produto responde por si: CROP_FIT, TARGET_FIT, REGIONAL_FIT, '
+            'REGULATORY_FIT e WINDOW_FIT sao lidos um a um. PRIMARY_MATCH nao e '
+            'o primeiro da lista: so existe quando a fonte nomeia a substancia '
+            'ou quando ha um produto so. Sem regra, UNKNOWN.')
+        # ── O QUE FALTA, com nome — a lista que dirige a proxima coleta ──────
+        falta = []
+        if o.get('TARGET'):
+            if o.get('WINDOW_DEFINED') != 'YES':
+                # a fonte pode ter respondido a pergunta com «decide o pomar».
+                # Isso fecha a pergunta; nao a deixa em aberto.
+                falta.append('WINDOW_RULE_DELEGATED_TO_FARM'
+                             if o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM'
+                             else 'WINDOW_RULE_MISSING')
+            elif o.get('WINDOW_OPEN_NOW') != 'YES':
+                falta.append('WINDOW_STATE_UNKNOWN')
+            if not (o.get('COMMERCIAL_PRODUCT_COUNT') or 0):
+                falta.append('COMMERCIAL_PRODUCT_MISSING')
+            if o.get('PRODUCT_LINK_STATE') != VERIFIED_LABEL_MATCH:
+                falta.append('LABEL_LINK_MISSING')
+            if o.get('NEED_DIRECTION') == NE.UNKNOWN:
+                falta.append('DIRECTION_UNKNOWN')
+            if o.get('NEED_AMBIGUITY_CODES'):
+                falta.append('DIRECTION_AMBIGUOUS')
+            if o.get('SIGNAL_CURRENCY') not in ('CURRENT', 'RECENT'):
+                falta.append('SIGNAL_NOT_RECENT')
+            # estes dois faltam SEMPRE, e dizer isso e o contrario de esconder:
+            # boletim declara ocorrencia, nao incidencia; e o acervo e um
+            # retrato, nao uma serie.
+            falta.append('INTENSITY_UNKNOWN')
+            falta.append('RECURRENCE_UNKNOWN')
+        else:
+            falta.append('NO_AGRONOMIC_TARGET')
+        if not str(o.get('GEOGRAPHY') or '').startswith('REGION_'):
+            falta.append('REGION_NOT_DECLARED')
+        if not (o.get('COMMERCIAL_MAGNITUDE_DIMENSIONS') or {}).get('AREA_OFICIAL_HA'):
+            falta.append('OFFICIAL_AREA_NOT_CLIENT_SAFE')
+        o['WHAT_IS_MISSING'] = falta
+        o['WHAT_IS_MISSING_LAW'] = (
+            'a lista do que falta e a pauta da proxima coleta. INTENSITY e '
+            'RECURRENCE aparecem em todo caso agronomico porque o boletim '
+            'declara ocorrencia e nao incidencia, e porque o acervo e um '
+            'retrato e nao uma serie.')
+        o['EVIDENCE_ROLES'] = papel_das_evidencias(o, apoios)
+        o['EVIDENCE_ROLES_LAW'] = (
+            'toda evidencia recebe papel, inclusive a que esfria o caso. Um '
+            'sistema que so classifica evidencia a favor aprende a vender.')
+        o['ACTION_BY_DEPARTMENT'] = acao_por_departamento(o, elos)
+        o['INTELLIGENCE_BRIEF'] = briefing(o, matches, ativos_fonte)
+        o['INTELLIGENCE_BRIEF_LAW'] = (
+            'o briefing sai em CODIGO mais VALORES, nunca em frase pronta: '
+            'frase com variavel dentro e frase nova a cada build e nasce sem '
+            'traducao. Os textos fixos vivem no cabecalho da colecao.')
+        o['ACTION_BY_DEPARTMENT_LAW'] = (
+            'cada departamento e convocado por um FATO, e o fato vai junto em '
+            'WHY_CODE. SUPPLY so entra com data regulatoria publicada sobre '
+            'ativo ligado ao caso: pressao agronomica NAO e pedido, e convocar '
+            'Supply sem fato seria inventar demanda.')
         brutos.append((o, apoios))
 
     # ══ O1 · PRESSÃO DE CAMPO ════════════════════════════════════════════════
@@ -811,6 +1605,19 @@ def main():
                 'ADAMA': 2 if rot else 0, 'MULTI_SOURCE': 2, 'ACTIONABILITY': 1},
                ['SCIENCE_TECHNICAL', 'MARKET_DEVELOPMENT'], rotulos=rot)
 
+    # ── D · a extensao regional do par, que so se sabe olhando todos ─────────
+    # Quantas regioes distintas trazem ESTE par cultura x alvo. E dimensao de
+    # tamanho — recorrencia geografica — e nao se pode calcular caso a caso:
+    # depende do conjunto. Por isso e a ultima coisa que o motor preenche.
+    regioes = defaultdict(set)
+    for o, _ev in brutos:
+        if o.get('TARGET'):
+            regioes[(o['CROP'], o['TARGET'])].add(o['GEOGRAPHY'])
+    for o, _ev in brutos:
+        d = o.get('COMMERCIAL_MAGNITUDE_DIMENSIONS')
+        if d is not None:
+            d['REGIOES_DO_PAR'] = (len(regioes[(o['CROP'], o['TARGET'])])
+                                   if o.get('TARGET') else None)
     return brutos, rejeitados, C, cs
 
 
@@ -857,9 +1664,68 @@ def gravar(brutos, C, cs):
             'OPPORTUNITY_LABEL_IT': it, 'OPPORTUNITY_LABEL_EN': en,
             'ARCHETYPE': o['ARCHETYPE'], 'ARCHETYPE_MEANS': ARQ[o['ARCHETYPE']],
             'STATUS': o['STATUS'],
-            'STATUS_LAW': 'o estado e INTERPRETACAO SINTONIA derivada de data externa. '
-                          'Nunca infere demanda de revenda, sell-in, estoque, pedido nem '
-                          'pipeline interno.',
+            'STATUS_LAW': 'o estado e INTERPRETACAO SINTONIA derivada da CADEIA de '
+                          'quatro elos, nunca da idade do sinal sozinha. Nunca infere '
+                          'demanda de revenda, sell-in, estoque, pedido nem pipeline '
+                          'interno.',
+            'ACTION_CHAIN_LINKS': o['ACTION_CHAIN_LINKS'],
+            'ACTION_CHAIN_REQUIRES': ELO_EXIGE,
+            'WHY_NOW_CODES': o['WHY_NOW_CODES'],
+            'WHY_NOW_CHAIN': o['WHY_NOW_CHAIN'],
+            'WHY_NOW_LAW': o['WHY_NOW_LAW'],
+            'SIGNAL_CURRENCY': o['SIGNAL_CURRENCY'],
+            'COMMERCIAL_TIMING_BASIS': o['COMMERCIAL_TIMING_BASIS'],
+            'WINDOW_TYPE': o['WINDOW_TYPE'],
+            'WINDOW_CONDITION': o['WINDOW_CONDITION'],
+            'WINDOW_DEFINED': o['WINDOW_DEFINED'],
+            'WINDOW_OPEN_NOW': o['WINDOW_OPEN_NOW'],
+            'WINDOW_OPEN_NOW_METHOD': o['WINDOW_OPEN_NOW_METHOD'],
+            'WINDOW_EVIDENCE_ID': o['WINDOW_EVIDENCE_ID'],
+            'PHENOLOGY_DECLARED': o['PHENOLOGY_DECLARED'],
+            'WINDOW_TYPE_LAW': o['WINDOW_TYPE_LAW'],
+            # três perguntas, três respostas, três donos — nunca empilhadas
+            'PEST_STAGE_STATE': o['PEST_STAGE_STATE'],
+            'PEST_STAGE_EVIDENCE_ID': o['PEST_STAGE_EVIDENCE_ID'],
+            'PEST_STAGE_EXCERPT': o['PEST_STAGE_EXCERPT'],
+            'PEST_STAGE_LAW': o['PEST_STAGE_LAW'],
+            'ACTION_RECOMMENDATION_STATE': o['ACTION_RECOMMENDATION_STATE'],
+            'ACTION_RECOMMENDATION_EVIDENCE_ID': o['ACTION_RECOMMENDATION_EVIDENCE_ID'],
+            'ACTION_RECOMMENDATION_EXCERPT': o['ACTION_RECOMMENDATION_EXCERPT'],
+            'ACTION_RECOMMENDATION_LAW': o['ACTION_RECOMMENDATION_LAW'],
+            'THRESHOLD_STATE': o['THRESHOLD_STATE'],
+            'THRESHOLD_STATE_EVIDENCE_ID': o['THRESHOLD_STATE_EVIDENCE_ID'],
+            'THRESHOLD_STATE_LAW': o['THRESHOLD_STATE_LAW'],
+            'WINDOW_RULE_STATE': o['WINDOW_RULE_STATE'],
+            'WINDOW_RULE_EVIDENCE_ID': o['WINDOW_RULE_EVIDENCE_ID'],
+            'WINDOW_RULE_STATE_LAW': o['WINDOW_RULE_STATE_LAW'],
+            'ACTIVE_INGREDIENT_IDS': o['ACTIVE_INGREDIENT_IDS'],
+            'ACTIVE_INGREDIENT_NAMES': o['ACTIVE_INGREDIENT_NAMES'],
+            'MODE_OF_ACTION_CODES': o['MODE_OF_ACTION_CODES'],
+            'MODE_OF_ACTION_STATE': o['MODE_OF_ACTION_STATE'],
+            'APPLICATION_STATE': o['APPLICATION_STATE'],
+            'LABEL_QUOTES': o['LABEL_QUOTES'],
+            'PRODUCT_RESTRICTIONS': o['PRODUCT_RESTRICTIONS'],
+            'PRODUCT_RESTRICTIONS_LAW': o['PRODUCT_RESTRICTIONS_LAW'],
+            'COMMERCIAL_MAGNITUDE': o['COMMERCIAL_MAGNITUDE'],
+            'COMMERCIAL_MAGNITUDE_DIMENSIONS': o['COMMERCIAL_MAGNITUDE_DIMENSIONS'],
+            'COMMERCIAL_MAGNITUDE_LAW': o['COMMERCIAL_MAGNITUDE_LAW'],
+            'SIGNAL_CONFIDENCE': o['SIGNAL_CONFIDENCE'],
+            'WINDOW_CONFIDENCE': o['WINDOW_CONFIDENCE'],
+            'PRODUCT_MATCH_CONFIDENCE': o['PRODUCT_MATCH_CONFIDENCE'],
+            'CONFIDENCE_LAW': o['CONFIDENCE_LAW'],
+            'ACTION_BY_DEPARTMENT': o['ACTION_BY_DEPARTMENT'],
+            'ACTION_BY_DEPARTMENT_LAW': o['ACTION_BY_DEPARTMENT_LAW'],
+            'PORTFOLIO_MATCHES': o['PORTFOLIO_MATCHES'],
+            'PRIMARY_MATCH': o['PRIMARY_MATCH'],
+            'PRIMARY_MATCH_REASON': o['PRIMARY_MATCH_REASON'],
+            'SOURCE_NAMED_ACTIVES': o['SOURCE_NAMED_ACTIVES'],
+            'PORTFOLIO_LAW': o['PORTFOLIO_LAW'],
+            'EVIDENCE_ROLES': o['EVIDENCE_ROLES'],
+            'EVIDENCE_ROLES_LAW': o['EVIDENCE_ROLES_LAW'],
+            'INTELLIGENCE_BRIEF': o['INTELLIGENCE_BRIEF'],
+            'WHAT_IS_MISSING': o['WHAT_IS_MISSING'],
+            'WHAT_IS_MISSING_LAW': o['WHAT_IS_MISSING_LAW'],
+            'INTELLIGENCE_BRIEF_LAW': o['INTELLIGENCE_BRIEF_LAW'],
             'CROP': o['CROP'], 'TARGET': o['TARGET'], 'GEOGRAPHY': o['GEOGRAPHY'],
             'WINDOW_START': o['WINDOW_START'], 'WINDOW_END': o['WINDOW_END'],
             'DAYS_REMAINING': o['DAYS_REMAINING'], 'WINDOW_STATE': o['WINDOW_STATE'],
@@ -995,8 +1861,18 @@ if __name__ == '__main__':
     json.dump({'ARQUETIPOS': ARQ, 'PORTOES': list('ABCDEFGH'),
                'ESTADOS_DE_PRODUTO': [VERIFIED_LABEL_MATCH, RELATED_PORTFOLIO,
                                       LABEL_CHECK_NEEDED],
-               'ESTADOS_TEMPORAIS': ['ACT_NOW', 'PREPARE_NOW', 'WATCH',
-                                     'FUTURE_PREPARATION', 'TO_VALIDATE'],
+               'ESTADOS_DE_ACAO': list(ESTADOS_DE_ACAO),
+               'ESTADOS_DE_ACAO_LEI': (
+                   'ACT_NOW exige os quatro elos de ACTION_CHAIN_REQUIRES. '
+                   'VALIDATE_NOW e o estado de quem tem necessidade declarada e '
+                   'produto ligado e NAO tem janela: o que falta tem nome. '
+                   'A idade do sinal vive em SIGNAL_CURRENCY e nunca vira '
+                   'janela.'),
+               'ACTION_CHAIN_REQUIRES': ELO_EXIGE,
+               'WINDOW_TYPES': list(JN.TIPOS),
+               'WINDOW_TYPES_AGRONOMIC': list(JN.AGRONOMICOS),
+               'INTELLIGENCE_BRIEF_TEMPLATES': BRIEFING,
+               'EVIDENCE_ROLES_VOCABULARY': list(PAPEIS),
                'PRIORIDADES_COMERCIAIS': {p: CM.SIGNIFICADO[p]
                                           for p in CM.PRIORIDADES},
                'DIRECOES_DE_NECESSIDADE': NE.ESTADOS,

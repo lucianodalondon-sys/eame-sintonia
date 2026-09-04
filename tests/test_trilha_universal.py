@@ -1,24 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""AS PROVAS DA TRILHA UNIVERSAL E DO CONTRATO COMERCIAL.
+"""AS PROVAS DA CATRACA UNIVERSAL — depois da reconciliação de linhagem.
 
-Cada teste aqui nasceu de uma coisa medida nesta missão, não de uma hipótese
-sobre o que poderia dar errado.
+⚠️ ESTE ARQUIVO PERDEU METADE DO QUE TINHA, E ISSO FOI UM CONSERTO.
 
-    U1–U4   a catraca SÓ SEGURA: nunca promove, e o que ela promete é o que
-            `v21_comercial.externo()` já decidiu.
-    U5–U7   o material que não completou etapa obrigatória fica visível, e o
-            que falhou não sustenta publicável.
-    U8–U9   o censo da porta: buraco declarado é declarado, buraco novo para.
-    U10–U13 WHY_NOW é estritamente mais conservador que COMMERCIAL_WINDOW, e
-            ACT_NOW não nasce de janela UNKNOWN.
-    U14–U17 o portfólio traz TODOS os que cabem no par, e PRIMARY_MATCH só sai
-            com regra defensável.
-    U18–U20 a evidência negativa continua podendo esfriar oportunidade.
-    U21–U23 nenhuma oportunidade nasceu da camada nova, e nenhum produto foi
-            promovido para preencher tela.
-    U24     a aceitação virou portão de verdade.
-    U25     a testemunha universal atravessou.
+A missão da trilha universal partiu de `0ddf52d`. Enquanto ela rodava, a mesma
+branch avançou quatro commits (`caa6937` → `e7c154c`) e construiu, DENTRO do
+motor, o contrato do cartão: `STATUS` com cadeia de quatro elos, `WINDOW_TYPE` /
+`WINDOW_DEFINED` / `WINDOW_OPEN_NOW`, `PORTFOLIO_MATCHES`, `PRIMARY_MATCH`,
+`ACTION_BY_DEPARTMENT`, `EVIDENCE_ROLES`, `INTELLIGENCE_BRIEF`,
+`WHAT_IS_MISSING`.
+
+A camada `v21_briefing.py` desta missão calculava as MESMAS coisas por fora — e
+calculava PIOR: sem conhecer a janela agronômica, devolvia `VALIDATE_NOW` onde o
+motor, com os quatro elos fechados, devolve `ACT_NOW`. Foi apagada na
+reconciliação, e com ela os testes que a provavam.
+
+    DUAS RESPOSTAS PARA A MESMA PERGUNTA NÃO SÃO REDUNDÂNCIA:
+    SÃO UM BUG ESPERANDO A HORA DE APARECER NA TELA.
+
+O que sobrevive aqui é o que NÃO tem dono na outra linha: a catraca, o censo da
+porta, a aceitação que reprova, o fim do bypass no CI e a testemunha universal.
+
+    U1–U4   a catraca SÓ SEGURA: nunca promove.
+    U5–U7   material incompleto fica visível; falha não sustenta publicável.
+    U8–U9   censo da porta: buraco declarado é declarado, buraco novo para.
+    U10     a catraca NÃO é dona de nenhum campo do cartão.
+    U11–U14 o que a linhagem nova trouxe não pode regredir.
+    U15–U17 aceitação, ordem da cadeia e CI.
+    U18     a testemunha universal atravessou.
 
     UM TESTE QUE NÃO NASCEU DE UM ERRO MEDIDO É UM TESTE QUE PASSA POR SORTE.
 """
@@ -29,9 +39,7 @@ import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import v21_briefing as BR      # noqa: E402
 import v21_catraca as CAT      # noqa: E402
-import v21_comercial as CM     # noqa: E402
 
 ING = os.path.join(ROOT, 'build', 'ITALY-REALITY-HANDOFF-V2.1', 'DESIGN-INGEST')
 
@@ -53,12 +61,7 @@ def _recs(arq):
 class CatracaNuncaPromove(unittest.TestCase):
 
     def test_U1_catraca_nunca_promove(self):
-        """A propriedade que faz desta camada uma catraca, e não um motor.
-
-        Se algum dia `PUBLICATION_STATE` ficar MAIS permissivo que
-        `EXTERNAL_MATERIAL_READY`, esta camada virou um segundo dono da decisão
-        de publicar — que é exatamente o que a missão proíbe.
-        """
+        """A propriedade que faz desta camada uma catraca, e não um motor."""
         for o in _recs('OPPORTUNITIES.json'):
             de_fora = CAT.DE_EXTERNO.get(o.get('EXTERNAL_MATERIAL_READY'),
                                          CAT.GATE_UNKNOWN)
@@ -69,7 +72,6 @@ class CatracaNuncaPromove(unittest.TestCase):
                 % (o['ID'], de_fora, o['PUBLICATION_STATE']))
 
     def test_U2_publicavel_exige_external_yes(self):
-        """PUBLISHABLE não nasce em lugar nenhum além do YES da régua comercial."""
         for o in _recs('OPPORTUNITIES.json'):
             if o['PUBLICATION_STATE'] == CAT.PUBLISHABLE:
                 self.assertEqual('YES', o['EXTERNAL_MATERIAL_READY'], o['ID'])
@@ -80,22 +82,16 @@ class CatracaNuncaPromove(unittest.TestCase):
                           'QUARANTINED'], d['PUBLICATION_STATES'])
 
     def test_U4_evidencia_quarentenada_rebaixa(self):
-        """Prova pela função, não pelo dado: hoje não há material em quarentena.
-
-        Um teste que só olhasse o pacote diria «passou» num pacote onde a regra
-        nunca é exercida. Este exercita a regra.
-        """
+        """Prova pela função: hoje não há material em quarentena no pacote."""
         censo = {'EV_OK': {'MATERIAL_STATE': CAT.MATERIAL_PASSED},
                  'EV_RUIM': {'MATERIAL_STATE': CAT.MATERIAL_QUARANTINED}}
         o = {'EXTERNAL_MATERIAL_READY': 'YES', 'EVIDENCE_IDS': ['EV_OK']}
-        est, trilha, _q, _i, _a = CAT.estado_de_publicacao(o, censo)
-        self.assertEqual((CAT.PUBLISHABLE, 'COMPLETE'), (est, trilha))
-
+        self.assertEqual((CAT.PUBLISHABLE, 'COMPLETE'),
+                         CAT.estado_de_publicacao(o, censo)[:2])
         o['EVIDENCE_IDS'] = ['EV_OK', 'EV_RUIM']
         est, trilha, quar, _i, _a = CAT.estado_de_publicacao(o, censo)
         self.assertEqual((CAT.QUARANTINED, 'BROKEN'), (est, trilha))
         self.assertEqual(['EV_RUIM'], quar)
-
         o['EVIDENCE_IDS'] = ['EV_OK', 'EV_QUE_NAO_EXISTE']
         est, trilha, _q, _i, aus = CAT.estado_de_publicacao(o, censo)
         self.assertEqual((CAT.QUARANTINED, 'BROKEN'), (est, trilha))
@@ -111,37 +107,37 @@ class MaterialVisivel(unittest.TestCase):
         et, mot = CAT.etapas_do_registro(
             {'ID': 'X', 'ENTITY_TYPE': 'FIELD_SIGNAL', 'PROVENANCE': 'REAL_SOURCE',
              'SOURCE_URLS': ['http://x'], 'CROP_IDS': [], 'ISSUE_IDS': [],
-             'REGION_IDS': [], 'GEOGRAPHIC_SCOPE': 'NACIONAL',
-             'WHAT_IT_IS': 'x'})
+             'REGION_IDS': [], 'GEOGRAPHIC_SCOPE': 'NACIONAL', 'WHAT_IT_IS': 'x'})
         self.assertEqual(CAT.FAILED, et['CLASSIFICATION'])
         self.assertIn('NO_QA_STATUS', mot)
         self.assertEqual(CAT.MATERIAL_QUARANTINED, CAT.estado_do_material(et))
 
-    def test_U6_boletim_sem_texto_fica_UNKNOWN_e_nao_some(self):
-        """Os quatro boletins reais que chegavam ao motor MUDOS.
+    def test_U6_os_quatro_boletins_mudos_ganharam_texto(self):
+        """⚠️ ESTE TESTE FOI INVERTIDO PELA RECONCILIAÇÃO, E ISSO É UMA VITÓRIA.
 
-        `IT-CAN-71D68FCB7D`, `IT-CAN-6EFC8DC91A`, `IT-CAN-EB63AEC4AA` e
-        `IT-CAN-49BA29FF51` têm a leitura só em `RESEARCH.o_que`, e
-        `promover_research` é tudo-ou-nada. Antes desta camada eles eram
-        ignorados em silêncio. O comportamento NÃO mudou — o silêncio, sim.
+        Na linha de `0ddf52d`, `IT-CAN-71D68FCB7D`, `IT-CAN-6EFC8DC91A`,
+        `IT-CAN-EB63AEC4AA` e `IT-CAN-49BA29FF51` chegavam ao motor SEM texto —
+        `promover_research` era tudo-ou-nada — e o teste original pinava esse
+        silêncio para que ninguém o mudasse sem medir.
+
+        A linhagem `e7c154c` consertou: `v21_ingest_b.py` passou a promover a
+        prosa desses registros. O teste não some — ele muda de lado, e agora
+        impede a REGRESSÃO.
+
+            UM TESTE QUE PINA UM DEFEITO VIRA UM TESTE QUE PINA O CONSERTO.
+            O QUE NÃO PODE É SUMIR NA HORA EM QUE O DEFEITO SUMIU.
         """
         gate = _pacote('PUBLICATION-GATE.json')
         mudos = {r['RECORD_ID'] for r in gate['RECORDS']
                  if 'NO_TEXT_FOR_PAIR_EXTRACTION' in r['REASON_CODES']}
         for rid in ('IT-CAN-71D68FCB7D', 'IT-CAN-6EFC8DC91A',
                     'IT-CAN-EB63AEC4AA', 'IT-CAN-49BA29FF51'):
-            self.assertIn(rid, mudos, '%s voltou a sumir em silencio' % rid)
-        self.assertGreater(gate['BY_REASON_CODE'].get(
-            'NO_TEXT_FOR_PAIR_EXTRACTION', 0), 0)
+            self.assertNotIn(rid, mudos,
+                             '%s voltou a chegar MUDO ao motor: a promocao de '
+                             'RESEARCH regrediu' % rid)
 
     def test_U7_localizacao_e_UNKNOWN_nao_falha(self):
-        """Lacuna de tradução não é falha de inteligência.
-
-        A primeira versão desta missão pôs `AINDA_SO_EM_PORTUGUES` na lista
-        fatal da aceitação, e a testemunha universal mostrou o efeito: um
-        boletim novo qualquer parava a cadeia inteira. A consequência passou a
-        ser do REGISTRO, e o estado é UNKNOWN — nunca FAILED.
-        """
+        """Lacuna de tradução não é falha de inteligência."""
         et, mot = CAT.etapas_do_registro(
             {'ID': 'X', 'ENTITY_TYPE': 'FIELD_SIGNAL', 'PROVENANCE': 'REAL_SOURCE',
              'SOURCE_URLS': ['http://x'], 'QA_STATUS': 'QA_PASS',
@@ -160,7 +156,6 @@ class MaterialVisivel(unittest.TestCase):
 class CensoDaPorta(unittest.TestCase):
 
     def test_U8_as_duas_familias_que_nao_entram_estao_declaradas(self):
-        """Foi a testemunha universal que as achou. Agora têm nome e motivo."""
         d = _pacote('PUBLICATION-GATE.json')
         censo = d['DOOR_CENSUS']
         for fam in ('COMMERCIAL_CATALOG', 'HERBICIDE_CURRENT_CONTEXT'):
@@ -168,7 +163,6 @@ class CensoDaPorta(unittest.TestCase):
             self.assertEqual(0, censo[fam]['NO_PACOTE'], fam)
             self.assertTrue(censo[fam]['DECLARADA_COMO_NAO_INGERIDA'], fam)
             self.assertTrue(censo[fam]['WHY'], fam)
-        # E as outras oito entram inteiras.
         for fam, v in censo.items():
             if fam in CAT.FAMILIA_NAO_INGERIDA:
                 continue
@@ -176,194 +170,108 @@ class CensoDaPorta(unittest.TestCase):
                              '%s passou a perder registro na porta' % fam)
 
     def test_U9_buraco_novo_para_a_cadeia(self):
-        """Uma família não declarada que sume é violação, não nota de rodapé."""
         d = _pacote('PUBLICATION-GATE.json')
-        self.assertEqual([], d['VIOLATIONS']['V5_FAMILIA_SUMIU_NA_PORTA_SEM_DECLARACAO'])
+        self.assertEqual(
+            [], d['VIOLATIONS']['V5_FAMILIA_SUMIU_NA_PORTA_SEM_DECLARACAO'])
         self.assertEqual(0, d['VIOLATION_COUNT'])
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# U10–U13 · WHY_NOW NUNCA INFLA
+# U10 · A CATRACA NÃO É DONA DE NENHUM CAMPO DO CARTÃO
 # ═══════════════════════════════════════════════════════════════════════════
-class PorQueAgora(unittest.TestCase):
+class SemSegundoDono(unittest.TestCase):
 
-    def test_U10_why_now_nunca_infla(self):
-        """A camada nova não pode criar urgência que a régua não deu.
+    # Os campos do contrato do cartão, todos de `v21_oportunidades.py`.
+    DO_MOTOR = ('STATUS', 'ACTION_CHAIN_LINKS', 'WHY_NOW_CHAIN', 'WHY_NOW_CODES',
+                'WINDOW_TYPE', 'WINDOW_DEFINED', 'WINDOW_OPEN_NOW',
+                'PEST_STAGE_STATE', 'ACTION_RECOMMENDATION_STATE',
+                'THRESHOLD_STATE', 'WINDOW_RULE_STATE',
+                'PORTFOLIO_MATCHES', 'PRIMARY_MATCH', 'ACTION_BY_DEPARTMENT',
+                'EVIDENCE_ROLES', 'INTELLIGENCE_BRIEF', 'WHAT_IS_MISSING',
+                'COMMERCIAL_MAGNITUDE', 'SIGNAL_CURRENCY')
 
-            ACT_NOW POR COPY É A MENTIRA MAIS BARATA QUE UM PORTAL PODE CONTAR.
-        """
-        opp = {o['ID']: o for o in _recs('OPPORTUNITIES.json')}
-        brf = _recs('OPPORTUNITY-BRIEFINGS.json')
-        n_act = sum(1 for b in brf if b['WHY_NOW'] == BR.ACT_NOW)
-        n_janela = sum(1 for o in opp.values()
-                       if o.get('COMMERCIAL_WINDOW') == 'ACT_NOW')
-        self.assertLessEqual(n_act, n_janela,
-                             'WHY_NOW=ACT_NOW passou COMMERCIAL_WINDOW=ACT_NOW')
+    def test_U10_a_catraca_nao_escreve_campo_do_cartao(self):
+        """A regra que a reconciliação de linhagem custou para aprender."""
+        fonte = open(os.path.join(ROOT, 'scripts', 'v21_catraca.py'),
+                     encoding='utf-8').read()
+        for campo in self.DO_MOTOR:
+            self.assertNotIn("['%s'] =" % campo, fonte,
+                             'a catraca voltou a escrever %s — isso e do motor'
+                             % campo)
+        # E os únicos campos que ela escreve no cartão são os dela.
+        escritos = {'PUBLICATION_STATE', 'TRAIL_STATE',
+                    'TRAIL_QUARANTINED_EVIDENCE_IDS',
+                    'TRAIL_INCOMPLETE_EVIDENCE_IDS',
+                    'TRAIL_MISSING_EVIDENCE_IDS', 'PUBLICATION_STATE_FROM',
+                    'PUBLICATION_GATE_LAW'}
+        import re
+        achados = set(re.findall(r"o\['([A-Z_]+)'\] =", fonte))
+        self.assertEqual(escritos, achados,
+                         'a catraca mudou o conjunto de campos que escreve')
 
-    def test_U11_act_now_exige_janela_de_aplicacao(self):
-        for b in _recs('OPPORTUNITY-BRIEFINGS.json'):
-            if b['WHY_NOW'] != BR.ACT_NOW:
+    def test_U10b_o_briefing_paralelo_nao_voltou(self):
+        """`v21_briefing.py` foi apagado por ser segundo dono. Não pode voltar."""
+        for nome in ('v21_briefing.py', 'v21_ler_briefing.py'):
+            self.assertFalse(
+                os.path.exists(os.path.join(ROOT, 'scripts', nome)),
+                '%s voltou: ele recalcula o contrato do cartao por fora do motor'
+                % nome)
+        cad = open(os.path.join(ROOT, 'scripts', 'v21_cadeia.sh'),
+                   encoding='utf-8').read()
+        self.assertNotIn('v21_briefing', cad)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# U11–U14 · O QUE A LINHAGEM NOVA TROUXE NÃO PODE REGREDIR
+# ═══════════════════════════════════════════════════════════════════════════
+class InteligenciaNovaPreservada(unittest.TestCase):
+    """Estes testes não são meus por invenção: são a fronteira da reconciliação.
+
+    Eles existem para que a catraca — que entrou por cima — não possa ter
+    apagado nada da linhagem `e7c154c` sem ninguém ver.
+    """
+
+    def test_U11_a_janela_agronomica_existe_e_decide(self):
+        import v21_janelas as JAN
+        self.assertIn(JAN.PREHARVEST_WINDOW, JAN.TIPOS)
+        recs = _recs('OPPORTUNITIES.json')
+        com_janela = [o for o in recs if o.get('WINDOW_DEFINED') == 'YES']
+        self.assertTrue(com_janela, 'nenhuma janela agronomica sobreviveu')
+        for o in com_janela:
+            self.assertIn(o.get('WINDOW_TYPE'), JAN.TIPOS, o['ID'])
+            self.assertTrue(o.get('WINDOW_EVIDENCE_ID'), o['ID'])
+
+    def test_U12_act_now_exige_a_cadeia_de_quatro_elos(self):
+        for o in _recs('OPPORTUNITIES.json'):
+            if o.get('STATUS') != 'ACT_NOW':
                 continue
-            self.assertEqual('APPLICATION', b['WINDOW']['KIND'], b['ID'])
-            self.assertNotEqual('UNKNOWN', b['WINDOW']['STATE'], b['ID'])
+            elos = o.get('ACTION_CHAIN_LINKS') or {}
+            self.assertTrue(elos.get('JANELA_DEFINIDA'), o['ID'])
+            self.assertTrue(elos.get('JANELA_ABERTA_AGORA'), o['ID'])
+            self.assertTrue(elos.get('SINAL_ATUAL'), o['ID'])
+            self.assertTrue(elos.get('VINCULO_COM_PORTFOLIO'), o['ID'])
 
-    def test_U12_janela_unknown_com_venda_pronta_e_VALIDATE_NOW(self):
-        """A regra pela função, para valer mesmo se o pacote mudar."""
-        base = {'NEED_DIRECTION': 'POSITIVE_PRESSURE',
-                'COMMERCIAL_PRIORITY': CM.SALES_READY,
-                'COMMERCIAL_WINDOW': 'ACT_NOW',
-                'WINDOW_STATE': 'UNKNOWN', 'WINDOW_KIND': None}
-        self.assertEqual((BR.VALIDATE_NOW, ['WN_NO_APPLICATION_WINDOW']),
-                         BR.por_que_agora(base))
-        com_janela = dict(base, WINDOW_STATE='EXACT', WINDOW_KIND='APPLICATION')
-        self.assertEqual((BR.ACT_NOW, ['WN_APPLICATION_WINDOW_OPEN']),
-                         BR.por_que_agora(com_janela))
+    def test_U13_regra_delegada_ao_pomar_nao_abre_janela(self):
+        for o in _recs('OPPORTUNITIES.json'):
+            if o.get('WINDOW_RULE_STATE') == 'RULE_DELEGATED_TO_FARM':
+                self.assertNotEqual('ACT_NOW', o.get('STATUS'), o['ID'])
 
-    def test_U13_fonte_que_manda_parar_fecha(self):
-        for d in CM.NECESSIDADE_FECHADA:
-            estado, cod = BR.por_que_agora(
-                {'NEED_DIRECTION': d, 'COMMERCIAL_PRIORITY': CM.SALES_READY,
-                 'WINDOW_STATE': 'EXACT', 'WINDOW_KIND': 'APPLICATION',
-                 'COMMERCIAL_WINDOW': 'ACT_NOW'})
-            self.assertEqual((BR.CLOSED, ['WN_SOURCE_SAYS_STOP']), (estado, cod),
-                             '%s deixou de fechar a porta' % d)
+    def test_U14_os_papeis_negativos_da_evidencia_continuam(self):
+        papeis = {e['ROLE'] for o in _recs('OPPORTUNITIES.json')
+                  for e in (o.get('EVIDENCE_ROLES') or [])}
+        self.assertTrue(papeis, 'EVIDENCE_ROLES sumiu do cartao')
+        negativos = papeis & {'WEAKENS', 'CONTRADICTS', 'CLOSES',
+                              'BACKGROUND_ONLY'}
+        self.assertTrue(negativos,
+                        'nenhuma evidencia negativa sobreviveu: %s' % sorted(papeis))
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# U14–U17 · O PORTFÓLIO
+# U15–U17 · ACEITAÇÃO, ORDEM E CI
 # ═══════════════════════════════════════════════════════════════════════════
-class Portfolio(unittest.TestCase):
+class PortaoOrdemECI(unittest.TestCase):
 
-    def test_U14_todos_os_matches_do_par_e_nao_so_o_primeiro(self):
-        """Botrite × videira: três produtos com par de rótulo verificado."""
-        b = self._botrite()
-        nomes = sorted(m['PRODUCT_NAME'] for m in b['PORTFOLIO_MATCHES'])
-        self.assertEqual(['AGHARTA', 'BANJO', 'EMBRACE'], nomes)
-        for m in b['PORTFOLIO_MATCHES']:
-            self.assertEqual(BR.M_VERIFIED, m['MATCH_STATE'])
-            self.assertTrue(m['ACTIVE_SUBSTANCES'], m['PRODUCT_NAME'])
-            self.assertTrue(m['TARGET_FIT']['EVIDENCE_IDS'], m['PRODUCT_NAME'])
-
-    def test_U15_cobertura_de_cultura_nao_vira_match_de_alvo(self):
-        """22 produtos têm videira no rótulo e não têm botrite. Ficam fora — e contados."""
-        b = self._botrite()
-        self.assertEqual(3, b['PORTFOLIO_MATCH_COUNT'])
-        self.assertGreater(b['CROP_LEVEL_ONLY_COUNT'], 0)
-        for m in b['PORTFOLIO_MATCHES']:
-            self.assertEqual('ISSUE_BOTRYTIS', m['TARGET_FIT']['ISSUE_ID'])
-
-    def test_U16_primary_match_so_com_regra_defensavel(self):
-        for b in _recs('OPPORTUNITY-BRIEFINGS.json'):
-            regra, pm = b['PRIMARY_MATCH_RULE'], b['PRIMARY_MATCH']
-            if regra == 'PM_SINGLE_EXTERNALLY_NAMEABLE':
-                self.assertIsNotNone(pm, b['ID'])
-                fortes = [m for m in b['PORTFOLIO_MATCHES']
-                          if m['VALIDATION_STATE'] == 'READY_TO_NAME_EXTERNALLY']
-                self.assertEqual(1, len(fortes), b['ID'])
-                self.assertEqual(fortes[0]['PRODUCT_ID'], pm, b['ID'])
-            else:
-                self.assertIsNone(pm, '%s escolheu principal sem regra' % b['ID'])
-
-    def test_U17_nenhum_produto_promovido_para_encher_tela(self):
-        """Todo match nomeado tem par de rótulo declarado pela fonte."""
-        pares = {r['ID'] for r in _recs('PRODUCT-RELATIONSHIPS.json')}
-        for b in _recs('OPPORTUNITY-BRIEFINGS.json'):
-            for m in b['PORTFOLIO_MATCHES']:
-                self.assertTrue(m['EVIDENCE_IDS'],
-                                '%s · %s sem evidencia' % (b['ID'], m['PRODUCT_NAME']))
-                for e in m['EVIDENCE_IDS']:
-                    self.assertIn(e, pares, '%s · %s' % (b['ID'], e))
-
-    def _botrite(self):
-        b = [x for x in _recs('OPPORTUNITY-BRIEFINGS.json')
-             if x['WHAT_IS_HAPPENING']['ISSUE_ID'] == 'ISSUE_BOTRYTIS'
-             and x['WHAT_IS_HAPPENING']['REGION_ID'] == 'REGION_EMILIA_ROMAGNA']
-        self.assertEqual(1, len(b), 'a testemunha botrite sumiu do pacote')
-        return b[0]
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# U18–U20 · A EVIDÊNCIA NEGATIVA
-# ═══════════════════════════════════════════════════════════════════════════
-class EvidenciaNegativa(unittest.TestCase):
-
-    def test_U18_papeis_negativos_existem_no_pacote(self):
-        d = _pacote('OPPORTUNITY-BRIEFINGS.json')
-        por_papel = d['BY_EVIDENCE_ROLE']
-        self.assertGreater(por_papel.get(BR.R_CLOSES, 0), 0,
-                           'nenhuma evidencia FECHA caso nenhum')
-        self.assertGreater(por_papel.get(BR.R_WEAKENS, 0), 0,
-                           'nenhuma evidencia ENFRAQUECE caso nenhum')
-
-    def test_U19_evidencia_que_fecha_esfria_a_implicacao(self):
-        for b in _recs('OPPORTUNITY-BRIEFINGS.json'):
-            for e in b['EVIDENCES']:
-                if e['EVIDENCE_ROLE'] in (BR.R_CLOSES, BR.R_CONTRADICTS,
-                                          BR.R_WEAKENS):
-                    self.assertEqual('CI_COOLS_OPPORTUNITY',
-                                     e['COMMERCIAL_IMPLICATION_CODE'], b['ID'])
-
-    def test_U20_presenca_nao_vira_implicacao_comercial(self):
-        """A fonte que só prova presença não sustenta conclusão comercial.
-
-            NÃO RESUMIR «COMERCIALMENTE» O QUE A FONTE NÃO PERMITE CONCLUIR.
-        """
-        self.assertEqual('UNKNOWN', BR.IMPLICACAO_DO_PAPEL[BR.R_SIGNAL])
-        for b in _recs('OPPORTUNITY-BRIEFINGS.json'):
-            for e in b['EVIDENCES']:
-                if e['EVIDENCE_ROLE'] == BR.R_SIGNAL:
-                    self.assertEqual('UNKNOWN', e['COMMERCIAL_IMPLICATION_CODE'])
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# U21–U23 · A CAMADA NOVA NÃO CRIOU NADA
-# ═══════════════════════════════════════════════════════════════════════════
-class NadaNasceuDaCamadaNova(unittest.TestCase):
-
-    def test_U21_uma_ficha_por_oportunidade_e_nenhuma_a_mais(self):
-        opp = {o['ID'] for o in _recs('OPPORTUNITIES.json')}
-        brf = [b['OPPORTUNITY_ID'] for b in _recs('OPPORTUNITY-BRIEFINGS.json')]
-        self.assertEqual(sorted(opp), sorted(brf),
-                         'o briefing criou ou perdeu oportunidade')
-
-    def test_U22_a_razao_comercial_so_e_PROVEN_com_a_cadeia_inteira(self):
-        for b in _recs('OPPORTUNITY-BRIEFINGS.json'):
-            w = b['WHY_THIS_IS_A_COMMERCIAL_OPPORTUNITY']
-            if w['COMMERCIAL_REASON_STATE'] == BR.REASON_PROVEN:
-                self.assertEqual([], w['MISSING_LINKS'], b['ID'])
-                for elo in BR.ELOS:
-                    self.assertNotEqual('UNKNOWN', w['CHAIN'][elo]['STATE'],
-                                        '%s · %s' % (b['ID'], elo))
-            else:
-                self.assertEqual('UNKNOWN', w['COMMERCIAL_REASON_STATE'], b['ID'])
-                self.assertTrue(w['MISSING_LINKS'], b['ID'])
-
-    def test_U23_nenhum_registro_do_briefing_carrega_prosa_nova(self):
-        """Frase com variável dentro nunca fica traduzida — então não há frase.
-
-        Os campos de lei são texto FIXO e declarado; o resto é código, ID ou
-        número. `SOURCE_EXCERPT` é a palavra da fonte, que já viaja assim em
-        `NEED_EXCERPT` e não se traduz.
-        """
-        d = _pacote('OPPORTUNITY-BRIEFINGS.json')
-        self.assertEqual([], d['LOCALIZED_FIELDS'])
-        fixos = {'WHY_NOW_LAW', 'PRIMARY_MATCH_LAW', 'ACTION_MAP_LAW',
-                 'EVIDENCE_ROLE_LAW', 'BRIEFING_DOES_NOT_PROVE',
-                 'WHY_NOT_CLIENT_SAFE', 'CROP_LEVEL_ONLY_LAW'}
-        primeiro = d['RECORDS'][0]
-        for b in d['RECORDS']:
-            for k in fixos:
-                self.assertEqual(primeiro.get(k), b.get(k),
-                                 '%s: %s nao e frase fixa' % (b['ID'], k))
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# U24–U25 · O PORTÃO E A TESTEMUNHA
-# ═══════════════════════════════════════════════════════════════════════════
-class PortaoETestemunha(unittest.TestCase):
-
-    def test_U24_a_aceitacao_e_portao(self):
-        """Ela media violação e devolvia 0 sempre. Etapa que não reprova não é etapa."""
+    def test_U15_a_aceitacao_e_portao(self):
         fonte = open(os.path.join(ROOT, 'scripts', 'v21_aceitacao.py'),
                      encoding='utf-8').read()
         self.assertIn('PARADO NA ACEITACAO', fonte)
@@ -376,7 +284,41 @@ class PortaoETestemunha(unittest.TestCase):
         self.assertEqual(0, r['QA_GATE']['VIOLACOES'])
         self.assertEqual(0, r['QA_GATE']['SEM_QA_STATUS'])
 
-    def test_U25_a_testemunha_universal_atravessou(self):
+    def test_U16_a_catraca_roda_depois_da_traducao(self):
+        """A etapa LOCALIZATION só é mensurável depois de a tradução entrar."""
+        cad = open(os.path.join(ROOT, 'scripts', 'v21_cadeia.sh'),
+                   encoding='utf-8').read()
+        i_motor = cad.index('scripts/v21_oportunidades.py')
+        i_trad = cad.index('v21_traducao_trava.py --aplicar')
+        i_cat = cad.index('scripts/v21_catraca.py')
+        i_fim = cad.index('scripts/v21_fechar.py')
+        self.assertLess(i_motor, i_trad)
+        self.assertLess(i_trad, i_cat, 'a catraca voltou para antes da traducao')
+        self.assertLess(i_cat, i_fim, 'o fechamento roda antes da catraca')
+        self.assertEqual(1, cad.count('scripts/v21_catraca.py'))
+
+    def test_U17_a_lacuna_de_traducao_nao_e_o_estado_normal(self):
+        d = _pacote('PUBLICATION-GATE.json')
+        n = d['BY_REASON_CODE'].get('READING_ONLY_IN_PORTUGUESE', 0)
+        self.assertLess(n, 100,
+                        'READING_ONLY_IN_PORTUGUESE=%d — a catraca esta medindo '
+                        'a traducao antes de ela entrar' % n)
+
+    def test_U17b_o_ci_nao_commita_por_cima_de_inteligencia_falhada(self):
+        wf = open(os.path.join(ROOT, '.github', 'workflows',
+                               'comunicacao-publica.yml'), encoding='utf-8').read()
+        self.assertNotIn('comunicacao_classificar.py || true', wf)
+        self.assertNotIn('comunicacao_medir.py || true', wf)
+        self.assertIn('INTELIGENCIA_FALHOU', wf)
+        self.assertIn('VALIDATION_REQUIRED', wf)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# U18 · A TESTEMUNHA UNIVERSAL
+# ═══════════════════════════════════════════════════════════════════════════
+class TestemunhaUniversal(unittest.TestCase):
+
+    def test_U18_a_testemunha_universal_atravessou(self):
         p = os.path.join(ROOT, 'data', 'samples', 'AUDITORIA-SOMBRA',
                          'TRILHA-UNIVERSAL-TESTEMUNHA.json')
         if not os.path.exists(p):
@@ -390,49 +332,7 @@ class PortaoETestemunha(unittest.TestCase):
                          'a travessia deixou residuo')
         self.assertNotEqual(d['BASELINE_BUILD_ID'], d['BUILD_ID_COM_FIXTURES'],
                             'a porta nao esta sendo lida')
-        # As fixtures que ENTRARAM mudaram oportunidade de fato — e por origens
-        # diferentes, não só pela do boletim.
         self.assertGreaterEqual(len(d['OPORTUNIDADES_QUE_MUDARAM']), 2)
-
-    def test_U27_a_catraca_roda_depois_da_traducao(self):
-        """A etapa LOCALIZATION só é mensurável depois de a tradução entrar.
-
-        Este teste existe porque o erro aconteceu: a catraca nasceu no passo 5f,
-        antes do passo 6, e mediu 5.638 registros como incompletos por uma
-        tradução que a própria cadeia ia aplicar três linhas adiante. O número
-        certo, no lugar certo, é 42.
-
-            MEDIR UMA ETAPA ANTES DE ELA RODAR NÃO MEDE O PACOTE: MEDE A ORDEM.
-        """
-        cad = open(os.path.join(ROOT, 'scripts', 'v21_cadeia.sh'),
-                   encoding='utf-8').read()
-        i_trad = cad.index('v21_traducao_trava.py --aplicar')
-        i_cat = cad.index('scripts/v21_catraca.py')
-        i_brf = cad.index('scripts/v21_briefing.py')
-        i_fim = cad.index('scripts/v21_fechar.py')
-        self.assertLess(i_trad, i_cat, 'a catraca voltou para antes da traducao')
-        self.assertLess(i_cat, i_brf, 'o briefing roda antes da catraca')
-        self.assertLess(i_brf, i_fim, 'o fechamento roda antes do briefing')
-        # E um chamador so, para cada um.
-        self.assertEqual(1, cad.count('scripts/v21_catraca.py'))
-        self.assertEqual(1, cad.count('scripts/v21_briefing.py'))
-
-    def test_U28_a_lacuna_de_traducao_nao_e_o_estado_normal(self):
-        """Se o número voltar a subir, a ordem quebrou de novo."""
-        d = _pacote('PUBLICATION-GATE.json')
-        n = d['BY_REASON_CODE'].get('READING_ONLY_IN_PORTUGUESE', 0)
-        self.assertLess(n, 100,
-                        'READING_ONLY_IN_PORTUGUESE=%d — a catraca esta medindo '
-                        'a traducao antes de ela entrar' % n)
-
-    def test_U26_o_ci_nao_commita_por_cima_de_inteligencia_falhada(self):
-        """`classificar || true` + `medir || true` + commit era o padrão proibido."""
-        wf = open(os.path.join(ROOT, '.github', 'workflows',
-                               'comunicacao-publica.yml'), encoding='utf-8').read()
-        self.assertNotIn('comunicacao_classificar.py || true', wf)
-        self.assertNotIn('comunicacao_medir.py || true', wf)
-        self.assertIn('INTELIGENCIA_FALHOU', wf)
-        self.assertIn('VALIDATION_REQUIRED', wf)
 
 
 if __name__ == '__main__':

@@ -23,7 +23,7 @@ num ranking: isso é escolha desta missão, e por isso vai marcada.
 import json
 import os
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -175,6 +175,15 @@ def main():
     sem = [c for c in combos if c['HAS_WINDOW'] == 'NAO']
     com = [c for c in combos if c['HAS_WINDOW'] == 'SIM']
 
+    print('=' * 78)
+    print('⚠️  ESTE ARQUIVO MEDE O REGISTRO `CROP-WINDOWS` — as janelas de'
+          ' CALENDARIO.')
+    print('    A janela TIPADA que a fonte declara em prosa vive em'
+          ' WINDOW_DEFINED/')
+    print('    WINDOW_OPEN_NOW, e quem a mede e `scripts/v21_janelas.py`.')
+    tip = Counter((r.get('WINDOW_DEFINED'), r.get('WINDOW_OPEN_NOW'))
+                  for r in _le('OPPORTUNITIES.json'))
+    print('    hoje no pacote: %s' % dict(tip))
     print('=' * 78)
     print('CASOS: %d' % len(rows))
     for m in (None, SEM_ALVO, SEM_REGIAO):

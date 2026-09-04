@@ -26,6 +26,17 @@ que aquele dono já decidiu, e só por um motivo: material citado que não
 completou uma etapa obrigatória da trilha. O teste `test_catraca_nunca_promove`
 existe para que essa propriedade seja verificada, não prometida.
 
+⚠️ E ELA TAMBÉM NÃO É DONA DO CARTÃO. `STATUS`, `WHY_NOW_CHAIN`,
+`ACTION_CHAIN_LINKS`, `WINDOW_DEFINED`, `WINDOW_OPEN_NOW`, `WINDOW_TYPE`,
+`PORTFOLIO_MATCHES`, `PRIMARY_MATCH`, `ACTION_BY_DEPARTMENT`, `EVIDENCE_ROLES`,
+`INTELLIGENCE_BRIEF` e `WHAT_IS_MISSING` são de `v21_oportunidades.py` — e a
+reconciliação de linhagem provou por que isso importa: uma camada paralela que
+recalculava «por que agora» sem conhecer a janela agronômica devolvia
+`VALIDATE_NOW` onde o motor, com os quatro elos fechados, devolve `ACT_NOW`.
+
+    DUAS RESPOSTAS PARA A MESMA PERGUNTA NÃO SÃO REDUNDÂNCIA: SÃO UM BUG
+    ESPERANDO A HORA DE APARECER NA TELA.
+
 AS CINCO ETAPAS OBRIGATÓRIAS
 -----------------------------
 A trilha universal, escrita como a missão a escreveu, tem etapas que produzem
@@ -178,7 +189,7 @@ NAO_E_COLECAO = ('APP-MANIFEST.json', '_COLECOES.json', '_PARCIAL.json',
                  'RELATIONSHIPS.json', 'CLIENT-SAFE-CROSSINGS.json',
                  'OPPORTUNITIES.json', 'OPPORTUNITY-RULES.json',
                  'OPPORTUNITY-EVIDENCE.json', 'OPPORTUNITY-REJECTIONS.json',
-                 'PUBLICATION-GATE.json', 'OPPORTUNITY-BRIEFINGS.json')
+                 'PUBLICATION-GATE.json')
 
 
 # ── O CENSO DA PORTA ────────────────────────────────────────────────────────

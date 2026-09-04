@@ -44,7 +44,7 @@ Para cada registro injetado, a travessia inteira, etapa a etapa:
 
     entrou no pacote? · normalizou? · classificou? · passou na régua? ·
     extraiu relação? · a catraca lhe deu estado? · a oportunidade mudou? ·
-    o briefing existe?
+    o cartao tem o contrato completo?
 
 ⚠️ ENTRAR NO ACERVO E ALTERAR UMA OPORTUNIDADE SÃO DUAS COISAS. A missão
 permite a primeira sem inteligência; proíbe a segunda. Uma fixture que entra e
@@ -144,7 +144,7 @@ FONTE_FIXTURE = {
 TRILHA = ('ENTROU_NO_PACOTE', 'IDENTITY_PROVENANCE', 'NORMALIZATION',
           'CLASSIFICATION', 'MISSION_RULER', 'RELATION_EXTRACTION',
           'LOCALIZATION', 'CATRACA_DEU_ESTADO', 'CITADA_COMO_EVIDENCIA',
-          'MUDOU_OPORTUNIDADE', 'TEM_BRIEFING')
+          'MUDOU_OPORTUNIDADE', 'CARTAO_COM_CONTRATO')
 
 # As famílias que a catraca declara como NÃO ingeridas, com o motivo escrito em
 # `v21_catraca.FAMILIA_NAO_INGERIDA`. Uma fixture nelas NÃO entra no pacote, e
@@ -164,10 +164,9 @@ def _cadeia():
 
 
 def _foto():
-    """→ (BUILD_ID, {id da oportunidade: assinatura}, censo da catraca, briefings)."""
+    """→ (BUILD_ID, {id: assinatura}, censo da catraca, cartoes com contrato)."""
     o = json.load(open(os.path.join(ING, 'OPPORTUNITIES.json'), encoding='utf-8'))
     g = json.load(open(os.path.join(ING, 'PUBLICATION-GATE.json'), encoding='utf-8'))
-    b = json.load(open(os.path.join(ING, 'OPPORTUNITY-BRIEFINGS.json'), encoding='utf-8'))
     # ⚠️ A ASSINATURA JA FOI ESTREITA DEMAIS E MENTIU. A primeira versao
     # comparava so (prioridade, estado, direcao, EVIDENCE_IDS), e a fixture de
     # CURRENT_FIELD_SIGNALS apareceu como «nao mudou oportunidade nenhuma».
@@ -182,7 +181,12 @@ def _foto():
                        r.get('EVIDENCE_COUNT'),
                        tuple(r.get('EVIDENCE_IDS') or []))
              for r in o['RECORDS']}
-    return o['BUILD_ID'], assin, g, {r['OPPORTUNITY_ID']: r for r in b['RECORDS']}
+    # A «ficha» passou a ser o proprio cartao: a reconciliacao de linhagem
+    # apagou a camada paralela e devolveu o contrato ao motor, onde ele ja
+    # estava sendo construido com a janela agronomica que a camada nao tinha.
+    ficha = {r['ID']: r for r in o['RECORDS']
+             if r.get('STATUS') and r.get('ACTION_BY_DEPARTMENT')}
+    return o['BUILD_ID'], assin, g, ficha
 
 
 def _indice_do_pacote():
@@ -270,7 +274,7 @@ def main():
             etapas['CITADA_COMO_EVIDENCIA'] = ','.join(citadas) if citadas else 'NAO'
             tocadas = sorted(mudou)
             etapas['MUDOU_OPORTUNIDADE'] = ','.join(tocadas) if tocadas else 'NAO'
-            etapas['TEM_BRIEFING'] = ('SIM' if all(t in novo_brf for t in citadas)
+            etapas['CARTAO_COM_CONTRATO'] = ('SIM' if all(t in novo_brf for t in citadas)
                                       else 'NAO') if citadas else 'NAO_SE_APLICA'
             linhas.append({'FAMILIA': f['FAMILIA'], 'RECORD_ID': rid,
                            'COLECAO': arq, 'ETAPAS': etapas})
