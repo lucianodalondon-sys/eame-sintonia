@@ -26,8 +26,17 @@ CULTURAS = {
     'CILIEGIO': [r'cilieg\w*'],
     'ACTINIDIA': [r'actinidia', r'kiwi'],
     'VITE': [r'vite\b', r'vigneto', r'vitis', r'uva\s+da\s+(?:vino|tavola)'],
+    # Nomes de citros que faltavam e que fizeram a celula de AGRUMI de 018244
+    # ser recusada como prosa: a densidade dava 0,53 contra o limite de 0,72
+    # so porque oito dos catorze nomes enumerados nao existiam aqui. Sao
+    # especies e hibridos reais de Citrus, conferidos na propria enumeracao do
+    # rotulo ('arancio dolce, arancio amaro, mandarino, clementino, limone,
+    # pompelmo, pomelo, bergamotto, cedro, tangerino, chinotto, mapo, tangelo,
+    # limetta'). Nao e aproximacao: e a lista que a etiqueta escreve.
     'AGRUMI': [r'agrum[ie]', r'aranci[oi]', r'limon[ei]', r'mandarin[oi]',
-               r'clementin\w*', r'limetta', r'pompelmo'],
+               r'clementin\w*', r'limetta', r'pompelmo', r'pomelo', r'bergamott[oi]',
+               r'\bcedro\b', r'tangerin[oi]', r'chinott[oi]', r'\bmapo\b',
+               r'tangel[oi]'],
     'FRUMENTO': [r'frumento', r'grano\s+(?:tenero|duro)', r'triticum'],
     'ORZO': [r'orzo', r'hordeum'],
     'SEGALE': [r'segale'],
