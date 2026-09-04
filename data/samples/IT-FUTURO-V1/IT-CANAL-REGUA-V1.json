@@ -1,0 +1,2305 @@
+{
+ "DATASET": "IT-CANAL-REGUA-V1",
+ "LAYER": "COMMERCIAL CHANNEL — RULER PROVEN ON SAMPLE",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-FUTURO-V1",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "regua de canal aplicada ao que o acervo JA tem, sem coleta nova",
+ "CORRECAO_DE_ONTEM": "eu escrevi CHANNEL_LAYER_STATE = NOT_COLLECTED. Estava errado por baixo: a rodada de descoberta de fontes ja havia catalogado COOPERATIVE, COOPERATIVE_DISTRIBUTOR, PRODUCER_ORGANISATION e PRIVATE_AGRONOMIC_ADVISORY. Material de canal, com outro nome, nunca usado para esta pergunta.",
+ "CHANNEL_LAYER_STATE": "PARTIALLY_COLLECTED_UNDER_ANOTHER_NAME",
+ "ROLES": {
+  "QUEM_COMPRA": {
+   "PERGUNTA": "quem adquire o produto fitossanitario",
+   "EVIDENCIA_QUE_PROVARIA": "nota fiscal, contrato de fornecimento, lista de preco com comprador nomeado",
+   "EVIDENCIA_PUBLICA_POSSIVEL": "NENHUMA — compra e dado privado. Publicamente so se alcanca por PROXY: quem distribui e quem representa quem compra.",
+   "ACERVO_RESPONDE": "NO"
+  },
+  "QUEM_RECOMENDA": {
+   "PERGUNTA": "quem diz ao produtor o que aplicar e quando",
+   "EVIDENCIA_QUE_PROVARIA": "boletim tecnico assinado com recomendacao de intervencao; servico de assistencia declarado",
+   "EVIDENCIA_PUBLICA_POSSIVEL": "boletins regionais de produzione integrata, consorzi fitosanitari, DSS comerciais",
+   "ACERVO_RESPONDE": "YES"
+  },
+  "QUEM_INFLUENCIA": {
+   "PERGUNTA": "quem forma a opiniao tecnica sem necessariamente recomendar",
+   "EVIDENCIA_QUE_PROVARIA": "palestra em convegno, publicacao, canal com audiencia declarada",
+   "EVIDENCIA_PUBLICA_POSSIVEL": "convegni, canais de video, perfis, midia tecnica",
+   "ACERVO_RESPONDE": "YES"
+  },
+  "QUEM_DISTRIBUI": {
+   "PERGUNTA": "quem revende o produto ao produtor",
+   "EVIDENCIA_QUE_PROVARIA": "catalogo de revenda, rede declarada, consorzio agrario com loja",
+   "EVIDENCIA_PUBLICA_POSSIVEL": "sites de consorzi agrari e cooperativas com catalogo de mezzi tecnici",
+   "ACERVO_RESPONDE": "PARTIAL"
+  },
+  "QUEM_REPRESENTA_PRODUTORES": {
+   "PERGUNTA": "quem fala em nome de um conjunto de produtores",
+   "EVIDENCIA_QUE_PROVARIA": "organizzazione di produttori reconhecida, cooperativa com socios, associazione de categoria",
+   "EVIDENCIA_PUBLICA_POSSIVEL": "registro de OP, estatuto, site institucional",
+   "ACERVO_RESPONDE": "PARTIAL"
+  }
+ },
+ "ENTITIES_IN_SAMPLE": 119,
+ "ENTITIES_WITH_A_ROLE": 60,
+ "BY_ROLE": {
+  "QUEM_RECOMENDA": 6,
+  "QUEM_INFLUENCIA": 50,
+  "QUEM_REPRESENTA_PRODUTORES": 6,
+  "QUEM_DISTRIBUI": 4
+ },
+ "WITH_REGION": 91,
+ "LINKED_TO_ADAMA": 0,
+ "BUYS_PRODUCT_KNOWN": 0,
+ "O_QUE_A_AMOSTRA_PROVA": "QUEM INFLUENCIA e QUEM RECOMENDA o acervo ja responde, com evidencia e sem coleta nova. QUEM DISTRIBUI e QUEM REPRESENTA respondem em parte, e so onde a rodada de fontes ja classificou. QUEM COMPRA nao tem resposta publica e nao vai ter: compra e dado privado, e o maximo honesto e o PROXY de quem distribui e quem representa.",
+ "PROXIMA_COLETA_MINIMA": [
+  {
+   "ALVO": "consorzi agrari com catalogo de mezzi tecnici publico",
+   "PORQUE": "e a unica fonte publica que liga territorio a distribuicao",
+   "TAMANHO": "comecar por 10, medidos, das regioes dos dez sinais futuros",
+   "REGUA": "so entra quem publica catalogo ou lista de pontos de venda; presenca em convegno NAO conta"
+  },
+  {
+   "ALVO": "organizzazioni di produttori reconhecidas por regiao",
+   "PORQUE": "responde QUEM REPRESENTA com registro publico",
+   "TAMANHO": "10 por regiao dos sinais",
+   "REGUA": "so entra OP com reconhecimento regional citavel"
+  }
+ ],
+ "O_QUE_NAO_SE_FAZ": "nao inventar ligacao produtor -> revenda; nao tratar presenca em convegno como canal; nao publicar ligacao comercial sem evidencia.",
+ "ENTITIES": [
+  {
+   "ENTITY": "Consorzio Fitosanitario Provinciale di Parma",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-001",
+   "TYPE_AS_COLLECTED": "FITOSANITARY_SERVICE",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Emilia-Romagna (Parma)",
+   "CROPS": [
+    "VITE",
+    "BARBABIETOLA",
+    "POMODORO",
+    "FRUMENTO",
+    "MAIS"
+   ],
+   "URL": "https://www.fitosanitario.pr.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_RECOMENDA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Consorzio Fitosanitario Provinciale di Piacenza",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-002",
+   "TYPE_AS_COLLECTED": "FITOSANITARY_SERVICE",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Emilia-Romagna (Piacenza)",
+   "CROPS": [
+    "VITE",
+    "BARBABIETOLA",
+    "POMODORO",
+    "MAIS"
+   ],
+   "URL": "https://www.fitosanitario.pc.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_RECOMENDA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "UNIBO BIG — monitoraggio nazionale Halyomorpha halys (rete di trappole)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-003",
+   "TYPE_AS_COLLECTED": "FIELD_MONITORING_NETWORK",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Emilia-Romagna (MO, BO, FC, RA, FE, RE, PC, PR)",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "PESCO",
+    "ACTINIDIA",
+    "SOIA",
+    "MAIS",
+    "POMODORO"
+   ],
+   "URL": "https://big.csr.unibo.it/projects/cimice/monitoring.php",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Servizio Fitosanitario Emilia-Romagna — API Plone dos bollettini interprovinciali",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-004",
+   "TYPE_AS_COLLECTED": "FITOSANITARY_BULLETIN_API",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Emilia-Romagna (4 areas interprovinciais)",
+   "CROPS": [
+    "BARBABIETOLA",
+    "POMODORO",
+    "MELO",
+    "PERO",
+    "VITE",
+    "MAIS",
+    "FRUMENTO",
+    "CAROTA",
+    "PATATA"
+   ],
+   "URL": "https://agricoltura.regione.emilia-romagna.it/++api++/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "ERSA FVG — bollettini di produzione integrata (melo e demais culturas)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-005",
+   "TYPE_AS_COLLECTED": "FITOSANITARY_BULLETIN",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Friuli-Venezia Giulia",
+   "CROPS": [
+    "MELO",
+    "VITE",
+    "MAIS",
+    "SOIA"
+   ],
+   "URL": "http://difesafitosanitaria.ersa.fvg.it/difesa-e-produzione-integrata/difesa-integrata-obbligatoria/bollettini-fitosanitari/melo/bollettini-produzione-integrata-melo-2026",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Centro di Sperimentazione Laimburg",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-006",
+   "TYPE_AS_COLLECTED": "RESEARCH_CENTRE",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Trentino-Alto Adige (Bolzano)",
+   "CROPS": [
+    "MELO",
+    "VITE"
+   ],
+   "URL": "https://www.laimburg.it/it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "AIPP — Associazione Italiana per la Protezione delle Piante",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-007",
+   "TYPE_AS_COLLECTED": "SCIENTIFIC_SOCIETY",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "TODAS"
+   ],
+   "URL": "https://www.aipp.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Universita Cattolica del Sacro Cuore, Piacenza — autores de CERCOPRI/CERCODEP",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-008",
+   "TYPE_AS_COLLECTED": "UNIVERSITY_GROUP",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Emilia-Romagna (Piacenza)",
+   "CROPS": [
+    "BARBABIETOLA",
+    "VITE",
+    "FRUMENTO"
+   ],
+   "URL": "https://piacenza.unicatt.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Rete Rurale — Banca dati dei Gruppi Operativi PEI-AGRI",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-009",
+   "TYPE_AS_COLLECTED": "RESEARCH_TO_FIELD_REGISTRY",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "ITALIA (por regiao)",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "VITE",
+    "PATATA",
+    "POMODORO"
+   ],
+   "URL": "https://www.innovarurale.it/it/pei-agri/gruppi-operativi/bancadati-go-pei",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agralia Studio Agronomico (Brescia) — Bollettino Vite",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-010",
+   "TYPE_AS_COLLECTED": "PRIVATE_AGRONOMIC_ADVISORY",
+   "AUTHORITY_CLASS": "TECHNICAL",
+   "REGION": "Lombardia (Brescia)",
+   "CROPS": [
+    "VITE",
+    "OLIVO",
+    "MAIS"
+   ],
+   "URL": "https://www.agralia.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_RECOMENDA",
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agrintesa — cooperativa ortofrutta e vino",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-011",
+   "TYPE_AS_COLLECTED": "COOPERATIVE",
+   "AUTHORITY_CLASS": "FIELD_VOICE",
+   "REGION": "Emilia-Romagna (Faenza / Romagna)",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "PESCO",
+    "ACTINIDIA",
+    "VITE"
+   ],
+   "URL": "https://www.agrintesa.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_REPRESENTA_PRODUTORES",
+    "QUEM_DISTRIBUI"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Apofruit Italia — cooperativa ortofrutticola",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-012",
+   "TYPE_AS_COLLECTED": "COOPERATIVE",
+   "AUTHORITY_CLASS": "FIELD_VOICE",
+   "REGION": "Emilia-Romagna + nacional",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "PESCO",
+    "ACTINIDIA",
+    "FRAGOLA"
+   ],
+   "URL": "https://www.apofruit.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_REPRESENTA_PRODUTORES",
+    "QUEM_DISTRIBUI"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Terremerse — cooperativa multifiliera (cereali, sementi, agrofarmaci)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-013",
+   "TYPE_AS_COLLECTED": "COOPERATIVE_DISTRIBUTOR",
+   "AUTHORITY_CLASS": "FIELD_VOICE",
+   "REGION": "Emilia-Romagna",
+   "CROPS": [
+    "FRUMENTO",
+    "MAIS",
+    "SOIA",
+    "BARBABIETOLA",
+    "POMODORO"
+   ],
+   "URL": "https://www.terremerse.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_DISTRIBUI",
+    "QUEM_REPRESENTA_PRODUTORES"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "OI Pomodoro da Industria Nord Italia",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-014",
+   "TYPE_AS_COLLECTED": "INTERPROFESSIONAL_ORGANISATION",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "Emilia-Romagna · Lombardia · Veneto · Piemonte",
+   "CROPS": [
+    "POMODORO"
+   ],
+   "URL": "https://www.oipomodoronorditalia.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Assomela — associazione dei produttori di mele",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-015",
+   "TYPE_AS_COLLECTED": "PRODUCER_ORGANISATION",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "Trentino-Alto Adige · Veneto · Piemonte · Emilia-Romagna",
+   "CROPS": [
+    "MELO"
+   ],
+   "URL": "https://assomela.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_REPRESENTA_PRODUTORES"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agricast — il podcast dei Gruppi Operativi (Emilia-Romagna)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-016",
+   "TYPE_AS_COLLECTED": "PODCAST",
+   "AUTHORITY_CLASS": "TECHNICAL",
+   "REGION": "Emilia-Romagna",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "SUSINO",
+    "PATATA",
+    "VITE",
+    "NOCE",
+    "ORTAGGI"
+   ],
+   "URL": "https://www.spreaker.com/podcast/agricast--5971526",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Vita in Campagna — podcast",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-017",
+   "TYPE_AS_COLLECTED": "PODCAST",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "ORTAGGI",
+    "FRUTTIFERI"
+   ],
+   "URL": "https://www.spreaker.com/podcast/vita-in-campagna--6885264",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "FruitJournal",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-018",
+   "TYPE_AS_COLLECTED": "TECHNICAL_MEDIA",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "POMODORO",
+    "ACTINIDIA",
+    "AGRUMI",
+    "OLIVO"
+   ],
+   "URL": "https://www.fruitjournal.com/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "VVQ — Vigne, Vini & Qualita (Edagricole)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-019",
+   "TYPE_AS_COLLECTED": "TECHNICAL_MEDIA",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "VITE"
+   ],
+   "URL": "https://vigneviniequalita.edagricole.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Rivista Orticoltura (Edagricole)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-020",
+   "TYPE_AS_COLLECTED": "TECHNICAL_MEDIA",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "POMODORO",
+    "PATATA",
+    "CIPOLLA",
+    "CAROTA",
+    "LATTUGA",
+    "CUCURBITACEE",
+    "BRASSICACEE"
+   ],
+   "URL": "https://rivistaorticoltura.edagricole.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Olivo e Olio (Edagricole)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-021",
+   "TYPE_AS_COLLECTED": "TECHNICAL_MEDIA",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "OLIVO"
+   ],
+   "URL": "https://olivoeolio.edagricole.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Myfruit — web magazine dell ortofrutta",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-022",
+   "TYPE_AS_COLLECTED": "TECHNICAL_MEDIA",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "PESCO",
+    "ACTINIDIA",
+    "FRAGOLA"
+   ],
+   "URL": "https://www.myfruit.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "FreshPlaza Italia",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-023",
+   "TYPE_AS_COLLECTED": "TECHNICAL_MEDIA",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA + internacional",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "POMODORO",
+    "AGRUMI",
+    "CUCURBITACEE"
+   ],
+   "URL": "https://www.freshplaza.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "FMC Agro Italia — canais sociais declarados",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-024",
+   "TYPE_AS_COLLECTED": "COMPETITOR_CHANNEL",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "VITE",
+    "MAIS",
+    "POMODORO",
+    "FRUMENTO"
+   ],
+   "URL": "https://ag.fmc.com/it",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Certis Belchim Italia",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-025",
+   "TYPE_AS_COLLECTED": "COMPETITOR_CHANNEL",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "SOIA",
+    "BRASSICACEE",
+    "LEGUMINOSE",
+    "FLOREALI"
+   ],
+   "URL": "https://www.certisbelchim.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Nufarm Italia",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-026",
+   "TYPE_AS_COLLECTED": "COMPETITOR_CHANNEL",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "FRUMENTO",
+    "MAIS",
+    "VITE"
+   ],
+   "URL": "https://nufarm.com/it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Gowan Italia",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-027",
+   "TYPE_AS_COLLECTED": "COMPETITOR_CHANNEL",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "VITE",
+    "POMODORO",
+    "MELO"
+   ],
+   "URL": "https://www.gowanitalia.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "ARPAE Emilia-Romagna — ERG5 open data, serie horaria por estacao",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-028",
+   "TYPE_AS_COLLECTED": "AGROMET_OPEN_DATA",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Emilia-Romagna",
+   "CROPS": [
+    "BARBABIETOLA",
+    "POMODORO",
+    "MELO",
+    "PERO",
+    "VITE",
+    "MAIS",
+    "FRUMENTO"
+   ],
+   "URL": "https://dati-simc.arpae.it/opendata/erg5v2/timeseries/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "OSMER ARPA FVG — previsioni e stazioni em XML",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-029",
+   "TYPE_AS_COLLECTED": "AGROMET_OPEN_DATA",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Friuli-Venezia Giulia",
+   "CROPS": [
+    "MELO",
+    "MAIS",
+    "SOIA",
+    "VITE"
+   ],
+   "URL": "https://dev.meteo.fvg.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Meteotrentino — web service de estacoes e ultimo dato",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-030",
+   "TYPE_AS_COLLECTED": "AGROMET_OPEN_DATA",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Trentino",
+   "CROPS": [
+    "MELO",
+    "VITE"
+   ],
+   "URL": "https://dati.meteotrentino.it/service.asmx",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Open Data Regione Lombardia — sensori meteo (Socrata)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-031",
+   "TYPE_AS_COLLECTED": "AGROMET_OPEN_DATA",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Lombardia",
+   "CROPS": [
+    "MAIS",
+    "RISO",
+    "VITE",
+    "BARBABIETOLA"
+   ],
+   "URL": "https://www.dati.lombardia.it/resource/nf78-nj6b.json",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Horta s.r.l. — DSS agronomicos (vite.net e familia)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-032",
+   "TYPE_AS_COLLECTED": "DSS_COMMERCIAL",
+   "AUTHORITY_CLASS": "TECHNICAL",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "VITE",
+    "FRUMENTO",
+    "POMODORO",
+    "OLIVO",
+    "MELO"
+   ],
+   "URL": "https://www.horta-srl.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_RECOMENDA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Ri.Nova soc. coop. — a cooperativa de pesquisa dos Gruppi Operativi da Emilia-Romagna",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-033",
+   "TYPE_AS_COLLECTED": "RESEARCH_COOPERATIVE",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Emilia-Romagna",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "SUSINO",
+    "PATATA",
+    "VITE",
+    "POMODORO"
+   ],
+   "URL": "https://www.linkedin.com/company/rinovaricerca",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Fondazione Agrion — ricerca frutticola e viticola del Piemonte",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-034",
+   "TYPE_AS_COLLECTED": "RESEARCH_FOUNDATION",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Piemonte",
+   "CROPS": [
+    "MELO",
+    "PESCO",
+    "ACTINIDIA",
+    "VITE",
+    "NOCCIOLO"
+   ],
+   "URL": "https://www.linkedin.com/company/fondazione-agrion",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CSO Italy — Centro Servizi Ortofrutticoli",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-035",
+   "TYPE_AS_COLLECTED": "MARKET_SERVICE",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "PESCO",
+    "ACTINIDIA",
+    "FRAGOLA"
+   ],
+   "URL": "https://www.csoservizi.com/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "YouTube — rota de feed por channel_id (descoberta de video datada, sem chave)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-036",
+   "TYPE_AS_COLLECTED": "VIDEO_DISCOVERY_ROUTE",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "TODAS"
+   ],
+   "URL": "https://www.youtube.com/feeds/videos.xml?channel_id=<ID>",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Corteva — Mappa Piralide, monitoraggio pubblico della piralide del mais",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-037",
+   "TYPE_AS_COLLECTED": "COMPETITOR_FIELD_SERVICE",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "Nord Italia (ambienti maidicoli)",
+   "CROPS": [
+    "MAIS"
+   ],
+   "URL": "https://www.corteva.com/it/prodotti-e-soluzioni/servizi-agronomici/monitoraggio-fitofagi/mappa-piralide.html",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "COMPAG — Federazione Nazionale Commercianti Prodotti per l Agricoltura",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-038",
+   "TYPE_AS_COLLECTED": "DISTRIBUTION_ASSOCIATION",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "TODAS"
+   ],
+   "URL": "https://www.compag.org/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CUN — Commissioni Uniche Nazionali, listini ufficiali",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-039",
+   "TYPE_AS_COLLECTED": "MARKET_PRICE_OFFICIAL",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "FRUMENTO",
+    "MAIS",
+    "SOIA"
+   ],
+   "URL": "https://www.listinicun.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "GIRE — Gruppo Italiano Resistenza Erbicidi (host corrente)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-040",
+   "TYPE_AS_COLLECTED": "RESISTANCE_REGISTRY",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "ITALIA (por regiao)",
+   "CROPS": [
+    "RISO",
+    "FRUMENTO",
+    "MAIS",
+    "SOIA",
+    "BARBABIETOLA"
+   ],
+   "URL": "http://gire.ipsp.cnr.it/index.php",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Ministero della Salute — autorizzazioni in situazioni di emergenza fitosanitaria (art. 53)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-041",
+   "TYPE_AS_COLLECTED": "REGULATORY_EMERGENCY_REGISTER",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "ITALIA (nacional, com deroga regional dentro)",
+   "CROPS": [
+    "TODAS"
+   ],
+   "URL": "https://www.salute.gov.it/new/it/tema/prodotti-fitosanitari/autorizzazioni-situazioni-emergenza-fitosanitaria-art-53-reg-11072009/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "ARPAV — revoche dei prodotti fitosanitari, tabella delle sostanze",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-042",
+   "TYPE_AS_COLLECTED": "REGULATORY_WITHDRAWAL_TABLE",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Veneto (tabela de alcance nacional)",
+   "CROPS": [
+    "TODAS"
+   ],
+   "URL": "https://www.arpa.veneto.it/temi-ambientali/agrometeo/servizi/revoche-fitosanitari",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Interpoma — fiera e congresso internacional da maca (Bolzano)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-043",
+   "TYPE_AS_COLLECTED": "EVENT",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "Trentino-Alto Adige (Bolzano)",
+   "CROPS": [
+    "MELO"
+   ],
+   "URL": "https://www.fierabolzano.it/it/interpoma/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Arpae Emilia-Romagna — Dext3r, extracao de dados das estacoes agrometeorologicas",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-044",
+   "TYPE_AS_COLLECTED": "AGROMET_STATION_EXTRACTION",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Emilia-Romagna",
+   "CROPS": [
+    "BARBABIETOLA",
+    "POMODORO",
+    "FRUMENTO",
+    "MELO",
+    "VITE"
+   ],
+   "URL": "https://simc.arpae.it/dext3r/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CCIAA di Foggia — listino settimanale e Borsa Merci da Capitanata",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-045",
+   "TYPE_AS_COLLECTED": "MARKET_PRICE_OFFICIAL",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Puglia (Capitanata)",
+   "CROPS": [
+    "FRUMENTO",
+    "ORZO"
+   ],
+   "URL": "https://www.fg.camcom.it/servizi/listini-prezzi-e-borsa-merci",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "ISTAT — web service SDMX (superficie e producao das culturas, ate o nivel provincial)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-046",
+   "TYPE_AS_COLLECTED": "OFFICIAL_STATISTICS_API",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "ITALIA (nacional, regional e provincial)",
+   "CROPS": [
+    "BARBABIETOLA",
+    "FRUMENTO",
+    "ORZO",
+    "MAIS",
+    "PATATA",
+    "POMODORO",
+    "VITE",
+    "MELO",
+    "SOIA",
+    "GIRASOLE",
+    "COLZA",
+    "RISO"
+   ],
+   "URL": "https://esploradati.istat.it/SDMXWS/rest/dataflow/IT1/all/latest",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "EFSA — calendario de reunioes e consultas publicas",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-047",
+   "TYPE_AS_COLLECTED": "REGULATORY_EVENT_CALENDAR",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "UE / Parma (Emilia-Romagna)",
+   "CROPS": [],
+   "URL": "https://www.efsa.europa.eu/en/calendar",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "BURP — Bollettino Ufficiale della Regione Puglia (atos do Osservatorio Fitosanitario)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-048",
+   "TYPE_AS_COLLECTED": "OFFICIAL_GAZETTE_REGIONAL",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "Puglia",
+   "CROPS": [
+    "AGRUMI",
+    "BRASSICACEE",
+    "VITE",
+    "OLIVO"
+   ],
+   "URL": "https://burp.regione.puglia.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CONAF — Consiglio dell'Ordine Nazionale dei Dottori Agronomi e dei Dottori Forestali",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-049",
+   "TYPE_AS_COLLECTED": "PROFESSIONAL_BODY",
+   "AUTHORITY_CLASS": "OFFICIAL",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "TODAS"
+   ],
+   "URL": "https://www.conaf.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CNR — Istituto per la Protezione Sostenibile delle Piante (IPSP)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-050",
+   "TYPE_AS_COLLECTED": "RESEARCH_INSTITUTION",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "ITALIA (Torino, Legnaro PD, Sesto Fiorentino, Portici, Bari)",
+   "CROPS": [
+    "RISO",
+    "FRUMENTO",
+    "MAIS",
+    "BARBABIETOLA",
+    "SOIA",
+    "VITE"
+   ],
+   "URL": "http://www.ipsp.cnr.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "International Herbicide-Resistant Weed Database (Heap) — linha da Italia",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-051",
+   "TYPE_AS_COLLECTED": "SCIENTIFIC_DATABASE",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "GLOBAL, com linha por pais",
+   "CROPS": [
+    "RISO",
+    "FRUMENTO",
+    "MAIS",
+    "BARBABIETOLA",
+    "SOIA"
+   ],
+   "URL": "https://www.weedscience.org/Pages/CountrySummary.aspx",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "PubliCatt — arquivo institucional da Universita Cattolica (entomologia aplicada, Piacenza)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-052",
+   "TYPE_AS_COLLECTED": "INSTITUTIONAL_REPOSITORY",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "ITALIA (areas peschicolas)",
+   "CROPS": [
+    "PESCO",
+    "POMODORO",
+    "TABACCO"
+   ],
+   "URL": "https://publicatt.unicatt.it/handle/10807/61522",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "IRIS AperTO — arquivo institucional da Universita di Torino (malerbologia DISAFA)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-053",
+   "TYPE_AS_COLLECTED": "INSTITUTIONAL_REPOSITORY",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Piemonte (Vercellese, Novarese) e areal risicolo padano",
+   "CROPS": [
+    "RISO",
+    "MAIS",
+    "FRUMENTO"
+   ],
+   "URL": "https://iris.unito.it/simple-search?query=resistenza+erbicidi+riso",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CRIS UNIBO — arquivo da pesquisa da Universita di Bologna (patologia vegetal)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-054",
+   "TYPE_AS_COLLECTED": "INSTITUTIONAL_REPOSITORY",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Italia nord-orientale",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "VITE"
+   ],
+   "URL": "https://cris.unibo.it/handle/11585/33117",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Phytopathologia Mediterranea (Mediterranean Phytopathological Union / FUP)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-055",
+   "TYPE_AS_COLLECTED": "SCIENTIFIC_JOURNAL",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Bacia mediterranea, com trabalhos italianos localizados",
+   "CROPS": [
+    "PESCO",
+    "ALBICOCCO",
+    "CILIEGIO",
+    "LATTUGA",
+    "VITE",
+    "ORZO"
+   ],
+   "URL": "https://oajournals.fupress.net/index.php/pm",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Bollettino di Zoologia agraria e di Bachicoltura (riviste.unimi.it)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-056",
+   "TYPE_AS_COLLECTED": "SCIENTIFIC_JOURNAL",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "ITALIA (areas peschicolas)",
+   "CROPS": [
+    "PESCO"
+   ],
+   "URL": "https://riviste.unimi.it/index.php/bzab/article/view/27174",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Accademia dei Georgofili",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-057",
+   "TYPE_AS_COLLECTED": "SCIENTIFIC_ACADEMY",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Toscana (Firenze), alcance nacional",
+   "CROPS": [
+    "VITE",
+    "OLIVO",
+    "FRUMENTO",
+    "RISO"
+   ],
+   "URL": "https://www.georgofili.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Georgofili INFO — notiziario dell'Accademia dei Georgofili",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-058",
+   "TYPE_AS_COLLECTED": "SCIENTIFIC_NEWSLETTER",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Lombardia (risaie lomelline), Piemonte, area do Ticino",
+   "CROPS": [
+    "RISO"
+   ],
+   "URL": "https://www.georgofili.info/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Fondazione Edmund Mach — San Michele all'Adige",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-059",
+   "TYPE_AS_COLLECTED": "RESEARCH_FOUNDATION",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Trentino-Alto Adige",
+   "CROPS": [
+    "MELO",
+    "VITE",
+    "PICCOLI_FRUTTI"
+   ],
+   "URL": "https://www.fmach.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CREA — Consiglio per la ricerca in agricoltura e l'analisi dell'economia agraria",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-060",
+   "TYPE_AS_COLLECTED": "RESEARCH_INSTITUTION",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "TODAS"
+   ],
+   "URL": "https://www.crea.gov.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "DiSAA — Dipartimento di Scienze Agrarie e Ambientali, Universita degli Studi di Milano",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-061",
+   "TYPE_AS_COLLECTED": "UNIVERSITY_DEPARTMENT",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Lombardia",
+   "CROPS": [
+    "RISO",
+    "MAIS",
+    "VITE"
+   ],
+   "URL": "https://www.disaa.unimi.it/it",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "DAFNAE — Dipartimento di Agronomia, Animali, Alimenti, Risorse naturali e Ambiente, Universita di Padova",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-062",
+   "TYPE_AS_COLLECTED": "UNIVERSITY_DEPARTMENT",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Veneto (Legnaro PD)",
+   "CROPS": [
+    "MAIS",
+    "VITE",
+    "SOIA",
+    "FRUMENTO"
+   ],
+   "URL": "https://www.dafnae.unipd.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari, Universita di Bologna",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-063",
+   "TYPE_AS_COLLECTED": "UNIVERSITY_DEPARTMENT",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Emilia-Romagna",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "VITE",
+    "POMODORO"
+   ],
+   "URL": "https://distal.unibo.it/it",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Di3A — Dipartimento di Agricoltura, Alimentazione e Ambiente, Universita di Catania",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-064",
+   "TYPE_AS_COLLECTED": "UNIVERSITY_DEPARTMENT",
+   "AUTHORITY_CLASS": "SCIENTIFIC",
+   "REGION": "Sicilia",
+   "CROPS": [
+    "AGRUMI",
+    "OLIVO",
+    "VITE",
+    "POMODORO"
+   ],
+   "URL": "https://www.di3a.unict.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Societa Agraria di Lombardia — news e \"Agricoltura e cultura\"",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-065",
+   "TYPE_AS_COLLECTED": "AGRICULTURAL_SOCIETY",
+   "AUTHORITY_CLASS": "TECHNICAL",
+   "REGION": "Lombardia (Lomellina, Pavia) e Vercelli",
+   "CROPS": [
+    "RISO",
+    "MAIS"
+   ],
+   "URL": "http://www.agrarialombardia.it/news/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Vitenova — consultoria agronomica privada",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-066",
+   "TYPE_AS_COLLECTED": "PRIVATE_AGRONOMIC_ADVISORY",
+   "AUTHORITY_CLASS": "FIELD_VOICE",
+   "REGION": "ITALIA (nordeste)",
+   "CROPS": [
+    "VITE"
+   ],
+   "URL": "https://vitenova.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_RECOMENDA",
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agricolus — plataforma de DSS agronomico (Perugia)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-067",
+   "TYPE_AS_COLLECTED": "DSS_COMMERCIAL",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "Umbria (sede), servico nacional",
+   "CROPS": [
+    "VITE",
+    "OLIVO",
+    "POMODORO",
+    "MELO",
+    "PATATA"
+   ],
+   "URL": "https://www.agricolus.com/",
+   "CHANNEL_ROLES": [
+    "QUEM_RECOMENDA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "APOT — Associazione Produttori Ortofrutticoli Trentini",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-068",
+   "TYPE_AS_COLLECTED": "PRODUCER_ORGANISATION",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "Trentino-Alto Adige",
+   "CROPS": [
+    "MELO"
+   ],
+   "URL": "https://www.apot.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_REPRESENTA_PRODUTORES"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Consorzi Agrari d'Italia (CAI)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-069",
+   "TYPE_AS_COLLECTED": "COOPERATIVE_DISTRIBUTOR",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "FRUMENTO",
+    "MAIS",
+    "BARBABIETOLA",
+    "ORZO",
+    "SOIA",
+    "OLIVO"
+   ],
+   "URL": "https://www.consorziagrariditalia.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_DISTRIBUI",
+    "QUEM_REPRESENTA_PRODUTORES"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Associazione Granaria di Milano — listino semanal AGMi",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-070",
+   "TYPE_AS_COLLECTED": "MARKET_PRICE_ASSOCIATION",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "Lombardia (mercado padano)",
+   "CROPS": [
+    "MAIS",
+    "FRUMENTO",
+    "ORZO",
+    "SOIA",
+    "RISO"
+   ],
+   "URL": "https://www.granariamilano.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Unione Italiana Vini — Osservatorio del Vino e Il Corriere Vinicolo",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-071",
+   "TYPE_AS_COLLECTED": "INDUSTRY_ASSOCIATION",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "ITALIA (socios em Veneto, Piemonte, Toscana, Sicilia, Trentino)",
+   "CROPS": [
+    "VITE"
+   ],
+   "URL": "https://www.unioneitalianavini.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "OmniTrattore — secao Agrochimica e Sementi",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-072",
+   "TYPE_AS_COLLECTED": "TECHNICAL_MEDIA",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "MELO",
+    "RISO"
+   ],
+   "URL": "https://www.omnitrattore.it/news/797903/sdhi-dmi-zolfo-ticchiolatura/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agrimpresa — periodico da CIA Emilia-Romagna",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-073",
+   "TYPE_AS_COLLECTED": "TECHNICAL_MEDIA",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "Emilia-Romagna",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "POMODORO",
+    "BARBABIETOLA",
+    "VITE"
+   ],
+   "URL": "https://agrimpresaonline.it/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "AgroNotizie — rota de noticias POR EMPRESA (/aziende/<slug>/<id>)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-074",
+   "TYPE_AS_COLLECTED": "COMPETITOR_PRESS_FOOTPRINT",
+   "AUTHORITY_CLASS": "TECHNICAL",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "BARBABIETOLA",
+    "MAIS",
+    "VITE",
+    "POMODORO",
+    "FRAGOLA",
+    "CAROTA",
+    "TABACCO"
+   ],
+   "URL": "https://agronotizie.imagelinenetwork.com/aziende/syngenta-italia/1196",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Corteva Agriscience Italia — canal oficial de WhatsApp",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-075",
+   "TYPE_AS_COLLECTED": "COMPETITOR_SOCIAL_BROADCAST",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "MAIS",
+    "VITE",
+    "POMODORO",
+    "AGRUMI",
+    "OLIVO",
+    "CAROTA",
+    "FRAGOLA"
+   ],
+   "URL": "https://www.whatsapp.com/channel/0029VafMuYo9Bb5zNEvf4b3U",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Fitogest (Image Line) — diretorio de empresas produtoras, rota /it/aziende/",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-076",
+   "TYPE_AS_COLLECTED": "COMPETITOR_CATALOGUE_DIRECTORY",
+   "AUTHORITY_CLASS": "TECHNICAL",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "BARBABIETOLA",
+    "FRUMENTO",
+    "MELO",
+    "MAIS",
+    "PATATA",
+    "VITE"
+   ],
+   "URL": "https://fitogest.imagelinenetwork.com/it/aziende/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Fitogest — Syngenta Italia (catalogo de 136 agrofarmaci)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-077",
+   "TYPE_AS_COLLECTED": "COMPETITOR_CATALOGUE_VIA_MEDIA",
+   "AUTHORITY_CLASS": "TECHNICAL",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "BARBABIETOLA",
+    "FRUMENTO",
+    "MAIS",
+    "VITE",
+    "POMODORO",
+    "FRAGOLA",
+    "CILIEGIO"
+   ],
+   "URL": "https://fitogest.imagelinenetwork.com/it/aziende/syngenta-italia/1196",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Fitogest — Bayer (catalogo de 78 agrofarmaci), unica rota legivel para a Bayer Italia",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-078",
+   "TYPE_AS_COLLECTED": "COMPETITOR_CATALOGUE_VIA_MEDIA",
+   "AUTHORITY_CLASS": "TECHNICAL",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "FRUMENTO",
+    "ORZO",
+    "MELO",
+    "VITE",
+    "MAIS",
+    "PATATA",
+    "POMODORO"
+   ],
+   "URL": "https://fitogest.imagelinenetwork.com/it/aziende/bayer/1194",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "BASF Agricultural Solutions Italia — Bollettini Tecnici Digitali",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-079",
+   "TYPE_AS_COLLECTED": "COMPETITOR_TECHNICAL_BULLETIN",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "BARBABIETOLA",
+    "FRUMENTO",
+    "ORZO",
+    "MAIS",
+    "RISO",
+    "PATATA",
+    "COLZA",
+    "SOIA",
+    "BRASSICACEE",
+    "OLIVO",
+    "AGRUMI",
+    "VITE"
+   ],
+   "URL": "https://www.agro.basf.it/it/News/Bollettini-Tecnici-Digitali/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "BASF Italia — podcast \"Minuti di Riso\"",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-080",
+   "TYPE_AS_COLLECTED": "COMPETITOR_PODCAST",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "Piemonte / Lombardia (areal risicolo)",
+   "CROPS": [
+    "RISO"
+   ],
+   "URL": "https://www.agro.basf.it/it/Progetti/Minuti-di-Riso/Minuti-di-Riso-2023/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "BASF Italia — Agrigenius (DSS de vinha)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-081",
+   "TYPE_AS_COLLECTED": "COMPETITOR_DSS",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "VITE"
+   ],
+   "URL": "https://www.agro.basf.it/it/Soluzioni-digitali/Agrigenius/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "UPL Italia — catalogo de produtos (uplitalia.com)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-082",
+   "TYPE_AS_COLLECTED": "COMPETITOR_PRODUCT_CATALOGUE",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "BARBABIETOLA",
+    "FRUMENTO",
+    "MELO",
+    "VITE",
+    "POMODORO",
+    "PATATA"
+   ],
+   "URL": "https://www.uplitalia.com/it/prodotti",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Diachem S.p.A. — blog tecnico e Campo Dimostrativo (Caravaggio BG)",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-083",
+   "TYPE_AS_COLLECTED": "COMPETITOR_FIELD_DAY",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "Lombardia (campo de prova em Caravaggio, BG)",
+   "CROPS": [
+    "POMODORO",
+    "PATATA",
+    "BARBABIETOLA",
+    "FRUMENTO",
+    "MAIS",
+    "MELO",
+    "VITE",
+    "RISO"
+   ],
+   "URL": "https://diachemagro.com/blog/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Sipcam Italia — ficha da entidade no grupo Sipcam Oxon",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-084",
+   "TYPE_AS_COLLECTED": "COMPETITOR_CORPORATE_ENTITY",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "Lombardia (Pero MI, Lodi, Salerano) e Pavia (Mezzana Bigli)",
+   "CROPS": [
+    "SOIA",
+    "BARBABIETOLA",
+    "FRUMENTO",
+    "MAIS",
+    "VITE"
+   ],
+   "URL": "https://www.sipcam-oxon.com/en/sipcam-italia",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "DEKALB Italia (grupo Bayer) — canal de milho em italiano",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-085",
+   "TYPE_AS_COLLECTED": "COMPETITOR_BRAND_SITE",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "Norte da Italia (areal maidicolo)",
+   "CROPS": [
+    "MAIS"
+   ],
+   "URL": "https://www.dekalb.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CBC (Europe) Biogard — biocontrole italiano, fichas por cultura",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-086",
+   "TYPE_AS_COLLECTED": "COMPETITOR_PRODUCT_SITE",
+   "AUTHORITY_CLASS": "COMPETITOR",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "MELO",
+    "PERO",
+    "FRAGOLA",
+    "VITE",
+    "POMODORO",
+    "AGRUMI",
+    "OLIVO"
+   ],
+   "URL": "https://www.biogard.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Veronafiere — calendario Italia 2027",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-087",
+   "TYPE_AS_COLLECTED": "EVENT_CALENDAR_VENUE",
+   "AUTHORITY_CLASS": "INDUSTRY",
+   "REGION": "Veneto (Verona), alcance nacional",
+   "CROPS": [
+    "VITE",
+    "OLIVO"
+   ],
+   "URL": "https://www.veronafiere.it/calendario-fiere/calendario-italia-2027/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "l'OlivoNews — bollettino olivicolo settimanale in video",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-091",
+   "TYPE_AS_COLLECTED": "FIELD_BULLETIN_VIDEO",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA (Nord · Centro · Sud e isole, declarados pelo proprio boletim)",
+   "CROPS": [
+    "OLIVO"
+   ],
+   "URL": "https://olivonews.it/",
+   "CHANNEL_ROLES": [],
+   "ROLE_EVIDENCE": null,
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Terra di Denari — podcast de cadeia agricola",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-088",
+   "TYPE_AS_COLLECTED": "PODCAST",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA",
+   "CROPS": [
+    "FRUMENTO",
+    "VITE",
+    "OLIVO"
+   ],
+   "URL": "https://www.spreaker.com/podcast/terra-di-denari--6623075",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "AGRINET4TECH: storie di sostenibilita — podcast por territorio",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-089",
+   "TYPE_AS_COLLECTED": "PODCAST",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "ITALIA (um territorio nomeado por episodio)",
+   "CROPS": [
+    "FRAGOLA",
+    "BASILICO",
+    "POMODORO",
+    "MAIS"
+   ],
+   "URL": "https://www.spreaker.com/podcast/agrinet4tech--7026131",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Cia Umbria Agripodcast",
+   "ORIGIN": "IT-FONTES-DESCOBERTA-V1",
+   "SOURCE_ID": "IT-SRCX-090",
+   "TYPE_AS_COLLECTED": "PODCAST",
+   "AUTHORITY_CLASS": "FIELD_VOICE",
+   "REGION": "Umbria",
+   "CROPS": [
+    "OLIVO",
+    "VITE",
+    "TABACCO",
+    "FRUMENTO"
+   ],
+   "URL": "https://www.spreaker.com/podcast/cia-umbria-agripodcast--4600385",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "classificacao feita na rodada de descoberta de fontes, a partir do site institucional",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "AIPP",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "UCktJyIUm3qJJpThrTa8nsHQ",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "SCIENTIFIC_SOCIETY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "FMC",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "UCWjrNnyRiWOtCM0zKUcsK5A",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COMPANY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agrintesa Soc. Coop.",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "UCoA303PgO9oOBWgZ3Nl5GvQ",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COOPERATIVE",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CREA",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "UCJ8RdeFgPyGA8eyVHulEiOg",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "RESEARCH_INSTITUTION",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Università di Bologna",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "UCDNXhv9mPzYo5FQKkg_oSWw",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "UNIVERSITY_DEPARTMENT",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agralia s.r.l.",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@agraliastudio",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "TECHNICAL_ADVISORY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "SIRFI",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@SIRFI-k9x",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "SCIENTIFIC_SOCIETY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Ri.Nova soc. coop.",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@rinovaricerche",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "RESEARCH_COOPERATIVE",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "FEM",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@fondazionemach",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "RESEARCH_INSTITUTION",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Apofruit Italia Soc. Coop.",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@Apofruit",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COOPERATIVE",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Gowan Italia",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "user/GowanItalia",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COMPANY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Terremerse Soc. Coop.",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "user/TerremerseCoop",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COOPERATIVE_DISTRIBUTOR",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Myfruit",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@myfruitvideo",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "TECHNICAL_MEDIA",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Image Line s.r.l.",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "user/agronotizietv",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "TECHNICAL_MEDIA",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Edizioni L'Informatore Agrario",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@informatoreagrario",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "TECHNICAL_MEDIA",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Syngenta",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@SyngentaItaly",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COMPANY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Bayer",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@BayerCropScienceIT",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COMPANY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "UPL",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@UPLItalia",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COMPANY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Ente Nazionale Risi",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@EnteNazionaleRisi",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "PUBLIC_BODY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Certis Belchim",
+   "ORIGIN": "IT-VIDEO-CANAIS-V1",
+   "SOURCE_ID": "@certiseuropeitalia4825",
+   "TYPE_AS_COLLECTED": "YOUTUBE_CHANNEL",
+   "AUTHORITY_CLASS": "COMPANY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": null,
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "canal com publicacao tecnica medida (15 itens)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Fondazione Agrion",
+   "ORIGIN": "IT-INSTAGRAM-PERFIS-V3",
+   "SOURCE_ID": "fondazioneagrion",
+   "TYPE_AS_COLLECTED": "INSTAGRAM_PROFILE",
+   "AUTHORITY_CLASS": "RESEARCH_FOUNDATION",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": "https://www.instagram.com/fondazioneagrion/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "perfil com audiencia medida (1325 seguidores)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Ri.Nova soc. coop.",
+   "ORIGIN": "IT-INSTAGRAM-PERFIS-V3",
+   "SOURCE_ID": "ri.nova.soc.coop",
+   "TYPE_AS_COLLECTED": "INSTAGRAM_PROFILE",
+   "AUTHORITY_CLASS": "RESEARCH_COOPERATIVE",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": "https://www.instagram.com/ri.nova.soc.coop/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "perfil com audiencia medida (450 seguidores)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Di3A — Universita degli Studi di Catania",
+   "ORIGIN": "IT-INSTAGRAM-PERFIS-V3",
+   "SOURCE_ID": "di3aunict",
+   "TYPE_AS_COLLECTED": "INSTAGRAM_PROFILE",
+   "AUTHORITY_CLASS": "UNIVERSITY_DEPARTMENT",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": "https://www.instagram.com/di3aunict/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "perfil com audiencia medida (3161 seguidores)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Vitenova — consulenze agronomiche",
+   "ORIGIN": "IT-INSTAGRAM-PERFIS-V3",
+   "SOURCE_ID": "vitenova",
+   "TYPE_AS_COLLECTED": "INSTAGRAM_PROFILE",
+   "AUTHORITY_CLASS": "TECHNICAL_ADVISORY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": "https://www.instagram.com/vitenova/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "perfil com audiencia medida (1394 seguidores)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Accademia dei Georgofili",
+   "ORIGIN": "IT-INSTAGRAM-PERFIS-V3",
+   "SOURCE_ID": "georgofili",
+   "TYPE_AS_COLLECTED": "INSTAGRAM_PROFILE",
+   "AUTHORITY_CLASS": "SCIENTIFIC_ACADEMY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": "https://www.instagram.com/georgofili/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "perfil com audiencia medida (2519 seguidores)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "CONAF",
+   "ORIGIN": "IT-INSTAGRAM-PERFIS-V3",
+   "SOURCE_ID": "ordine_agronomi_e_forestali",
+   "TYPE_AS_COLLECTED": "INSTAGRAM_PROFILE",
+   "AUTHORITY_CLASS": "PROFESSIONAL_BODY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": "https://www.instagram.com/ordine_agronomi_e_forestali/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "perfil com audiencia medida (5989 seguidores)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agrimpresa — CIA Emilia-Romagna",
+   "ORIGIN": "IT-INSTAGRAM-PERFIS-V3",
+   "SOURCE_ID": "agrimpresa_magazine",
+   "TYPE_AS_COLLECTED": "INSTAGRAM_PROFILE",
+   "AUTHORITY_CLASS": "MEDIA",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": "https://www.instagram.com/agrimpresa_magazine/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "perfil com audiencia medida (513 seguidores)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  },
+  {
+   "ENTITY": "Agricolus s.r.l.",
+   "ORIGIN": "IT-INSTAGRAM-PERFIS-V3",
+   "SOURCE_ID": "agricolus_srl",
+   "TYPE_AS_COLLECTED": "INSTAGRAM_PROFILE",
+   "AUTHORITY_CLASS": "DSS_COMPANY",
+   "REGION": "NOT_IN_SOURCE",
+   "CROPS": [],
+   "URL": "https://www.instagram.com/agricolus_srl/",
+   "CHANNEL_ROLES": [
+    "QUEM_INFLUENCIA"
+   ],
+   "ROLE_EVIDENCE": "perfil com audiencia medida (3487 seguidores)",
+   "BUYS_PRODUCT": "NOT_IN_SOURCE",
+   "LINKED_TO_ADAMA": "NOT_IN_SOURCE"
+  }
+ ]
+}
