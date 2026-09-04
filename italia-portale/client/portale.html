@@ -480,7 +480,14 @@
                 <span data-product="{{ p.name }}" style="font-size:12.5px;font-weight:700;color:{{ cs.onInk }};line-height:1.2;overflow-wrap:anywhere">{{ p.name }}</span>
                 <sc-if value="{{ p.isPrimary }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-self:flex-start;padding:1px 7px;border-radius:9999px;background:{{ p.ink }};color:#110E0D;font-size:9px;font-weight:700;letter-spacing:0.08em">{{ p.primaryTag }}</span></sc-if>
                 <span style="font-size:10px;color:{{ cs.onMuted }};overflow-wrap:anywhere">{{ p.aiL }}</span>
+                <span style="font-size:10px;color:{{ cs.onMuted }};overflow-wrap:anywhere">{{ p.moaL }}</span>
                 <span style="font-size:10px;font-weight:700;letter-spacing:0.05em;color:{{ p.ink }}">{{ p.strengthL }}</span>
+                <sc-for list="{{ p.fitRows }}" as="f" hint-placeholder-count="5">
+                  <div style="display:flex;gap:5px;align-items:baseline;min-width:0"><span style="font-size:9.5px;font-weight:700;letter-spacing:0.06em;color:{{ cs.onMuted }};flex:0 0 auto">{{ f.k }}</span><span style="font-size:9.5px;color:{{ cs.onBody }};min-width:0;overflow-wrap:anywhere">{{ f.v }}</span></div>
+                </sc-for>
+                <sc-for list="{{ p.restrictions }}" as="rr" hint-placeholder-count="1">
+                  <span style="font-size:9.5px;color:#F6BB2E;overflow-wrap:anywhere">{{ rr.t }}</span>
+                </sc-for>
               </div>
             </sc-for>
           </div>
@@ -4553,6 +4560,18 @@ class Component extends DCLogic {
         ink: r.isPrimary ? ONST.verified : ONST.neutral,
         isPrimary: r.isPrimary,
         primaryTag: r.isPrimary ? CSML('PRIMARY') : '',
+        /* §6 · per prodotto, cio che il motore ha deciso e nient'altro. Le
+           righe che il motore non riempie non si disegnano vuote. */
+        moaL: r.moa, regL: r.registration,
+        fitRows: [
+          { k: CSML('TARGET'), v: r.targetFit },
+          { k: CSML('CROP'), v: r.cropFit },
+          { k: CSML('GEOGRAPHY'), v: r.regionalFit },
+          { k: CSML('RULE'), v: r.regulatoryFit },
+          { k: CSML('WINDOW'), v: r.windowFit }
+        ].filter((x) => !!x.v),
+        restrictions: r.restrictions, hasRestrictions: r.hasRestrictions,
+        matchReasonL: r.matchReason,
         go: r.go
       }))
       : csProductRows.map((r) => {
@@ -4964,8 +4983,15 @@ class Component extends DCLogic {
         : csRec && csRec.status === 'TO_VALIDATE' ? ONST.validate : ONST.neutral,
       statusEdge: csRec && csRec.status === 'ACT_NOW' ? ACTP.bg
         : csRec && csRec.status === 'TO_VALIDATE' ? ONST.validate : ONST.neutral,
-      primaryLabel: csPrimary ? csPrimary.name
-        : (csProductRows[0] ? csProductRows[0].name : (T.lblNoCandidate || '')),
+      /* ⚠️ IL RIPIEGO ERA UNA TERZA INCORONAZIONE, E LA PEGGIORE: `csProductRows[0]`
+         non e nemmeno un match verificato — e il primo prodotto qualunque
+         dell'array. Su un caso canonico senza principale difendibile, questo
+         ripiego avrebbe rimesso in scena esattamente il vincitore per ordine
+         che le altre due correzioni avevano tolto. */
+      primaryLabel: CSENG
+        ? (csPrimary ? csPrimary.name : CSML('NO_PRIMARY'))
+        : (csPrimary ? csPrimary.name
+          : (csProductRows[0] ? csProductRows[0].name : (T.lblNoCandidate || ''))),
       primaryAi: csPrimary ? csPrimary.ai : '',
       /* I «fit» del prodotto non si deducono dalla schermata: il motore li ha
          gia decisi, uno per uno, e sono cinque. */
