@@ -1,0 +1,411 @@
+{
+ "ACHADOS": {
+  "01_AZOXISTROBINA_PROTIOCONAZOL": {
+   "ACAO_QUE_SO_A_ADAMA_DECIDE": "se a renovação de 31/05/2027 já está em curso, e se a diferença de janela importa comercialmente",
+   "CLASSE": "PORTAL_NOW",
+   "CRITERIO_DO_FILTRO": "produtos cujo campo `sostanze_attive` nomeia AZOXYSTROBIN E PROTHIOCONAZOLE ao mesmo tempo",
+   "DELTA_JANELA_MESES_APROX": 10,
+   "E_UNIVERSO_FECHADO_NAO_AMOSTRA": "SIM",
+   "FATO": "quatro registros, todos vigentes: dois da ADAMA ITALIA S.R.L. vencendo em 31/05/2027 e dois da CAC CHEMICAL GMBH vencendo em 31/03/2028",
+   "FONTE_OFICIAL": "Ministero della Salute — Banca dati prodotti fitosanitari (dati.salute.gov.it), CC BY 4.0",
+   "INTERPRETACAO": "o concorrente tem ~10 meses a mais de janela autorizada na mesma dupla de substâncias",
+   "ITENS": [
+    {
+     "ESTADO_ADMINISTRATIVO": "Autorizzato con procedura zonale",
+     "PRODUTO": "MAXENTIS",
+     "REGISTRO": "018067",
+     "TITULAR": "ADAMA ITALIA S.R.L.",
+     "VENCIMENTO": "31/05/2027"
+    },
+    {
+     "ESTADO_ADMINISTRATIVO": "Autorizzato con procedura zonale",
+     "PRODUTO": "PROMINO XTRA",
+     "REGISTRO": "019093",
+     "TITULAR": "CAC CHEMICAL GMBH",
+     "VENCIMENTO": "31/03/2028"
+    },
+    {
+     "ESTADO_ADMINISTRATIVO": "Autorizzato Art. 10 D.P.R. 290/2001",
+     "PRODUTO": "KOJAMI",
+     "REGISTRO": "019095",
+     "TITULAR": "ADAMA ITALIA S.R.L.",
+     "VENCIMENTO": "31/05/2027"
+    },
+    {
+     "ESTADO_ADMINISTRATIVO": "Autorizzato Art. 10 D.P.R. 290/2001",
+     "PRODUTO": "AMISTAR ERA 240 EC",
+     "REGISTRO": "019194",
+     "TITULAR": "CAC CHEMICAL GMBH",
+     "VENCIMENTO": "31/03/2028"
+    }
+   ],
+   "TODOS_VIGENTES": "SIM",
+   "TRAVA_DE_INDEPENDENCIA": "ato europeu e registro nacional NÃO são duas fontes independentes: o nacional deriva do europeu. Contá-los como duas confirmações infla a confiança de um fato que tem uma origem só.",
+   "UNIVERSO": 4,
+   "VENCIMENTOS_DISTINTOS": [
+    "31/03/2028",
+    "31/05/2027"
+   ]
+  },
+  "02_AUTORIZACOES_ADAMA": {
+   "AGRUPAR_AS_CINCO_E": "JULGAMENTO HUMANO, não fato do registro — é a lacuna DECK-015 (titular ≠ grupo empresarial)",
+   "CLASSE": "PORTAL_WITH_METHOD",
+   "CONTAGEM_POR_ESTADO_ADMINISTRATIVO": {
+    "Autorizzato": 1181,
+    "Autorizzato Art. 10 D.P.R. 290/2001": 337,
+    "Autorizzato Art. 34 Reg. 1107/2009": 109,
+    "Autorizzato con procedura zonale": 526,
+    "Autorizzato in deroga (art. 53 Reg. 1107/2009)": 19,
+    "Autorizzato in regime di Riconoscimento Reciproco": 280,
+    "Autorizzato provvisoriamente": 2,
+    "Revocato": 13216,
+    "Ri-registrato": 1052,
+    "Ri-registrato (Air 1 Fase 1)": 13,
+    "Rinnovato Art. 43 Reg. 1107/2009": 192,
+    "Scaduto": 765,
+    "Sospeso": 3
+   },
+   "CRITERIOS": {
+    "AMPLIADO": "STRICT mais \"Ri-registrato*\" e \"Rinnovato*\"",
+    "STRICT": "apenas estados administrativos que contêm \"Autorizzato\""
+   },
+   "DATA_DO_SNAPSHOT": "2026-08-24",
+   "ESTADOS_SEM_DONO": {
+    "Autorizzato provvisoriamente": 2,
+    "REGRA": "NÃO SEI declarado. Uma autorização suspensa não está vigente nem revogada, e nenhum dos critérios acima diz o que fazer com ela. Não forçar para nenhum dos lados até existir regra dona.",
+    "Sospeso": 3
+   },
+   "MATRIZ_CRITERIO_X_RECORTE": {
+    "AMPLIADO|ADAMA_CINCO_RAZOES_SOCIAIS": {
+     "VIGENTES": 163,
+     "VIGENTES_COM_VENCIMENTO_FUTURO": 155
+    },
+    "AMPLIADO|ADAMA_ITALIA_SRL_APENAS": {
+     "VIGENTES": 85,
+     "VIGENTES_COM_VENCIMENTO_FUTURO": 77
+    },
+    "AMPLIADO|MERCADO_INTEIRO": {
+     "VIGENTES": 3711,
+     "VIGENTES_COM_VENCIMENTO_FUTURO": 3466
+    },
+    "STRICT|ADAMA_CINCO_RAZOES_SOCIAIS": {
+     "VIGENTES": 94,
+     "VIGENTES_COM_VENCIMENTO_FUTURO": 89
+    },
+    "STRICT|ADAMA_ITALIA_SRL_APENAS": {
+     "VIGENTES": 44,
+     "VIGENTES_COM_VENCIMENTO_FUTURO": 39
+    },
+    "STRICT|MERCADO_INTEIRO": {
+     "VIGENTES": 2454,
+     "VIGENTES_COM_VENCIMENTO_FUTURO": 2263
+    }
+   },
+   "POR_QUE": "o número depende de DOIS eixos que ninguém declarou: qual critério de vigência, e qual ADAMA. Sem os dois, é um de quatro.",
+   "PROIBIDO_PUBLICAR": "ADAMA possui 155 autorizações",
+   "RECORTES": {
+    "ADAMA_CINCO_RAZOES_SOCIAIS": [
+     "ADAMA AGAN LTD",
+     "ADAMA DEUTSCHLAND GMBH",
+     "ADAMA IRVITA N.V.",
+     "ADAMA ITALIA S.R.L.",
+     "ADAMA MAKHTESHIM LTD"
+    ],
+    "ADAMA_ITALIA_SRL_APENAS": [
+     "ADAMA ITALIA S.R.L."
+    ]
+   }
+  },
+  "03_REVOGADO_X_SCADUTO": {
+   "CLASSE": "PORTAL_WITH_METHOD",
+   "DATA_DE_REFERENCIA_DO_FUTURO": "2026-09-04",
+   "DEMONSTRACAO": "data de validade sozinha não responde se um registro está utilizável: 223 autorizações estão REVOCATO com vencimento ainda no futuro",
+   "FATO": "a Itália publica revogação como estado próprio, com motivo e duas datas — coluna que a camada espanhola não tem",
+   "LIMITE": "motivo declarado em 1119 de 13216. Nos outros, por que foi revogado é NÃO SEI — e não se infere.",
+   "REVOCATO": 13216,
+   "REVOCATO_COM_DATA_DE_DECRETO": 907,
+   "REVOCATO_COM_MOTIVO_DECLARADO": 1119,
+   "REVOCATO_COM_VENCIMENTO_AINDA_FUTURO": 223,
+   "REVOCATO_COM_VENCIMENTO_AINDA_FUTURO_ADAMA": 22,
+   "SAO_ESTADOS_DIFERENTES": "SIM",
+   "SCADUTO": 765
+  },
+  "04_SOCIAL_YOUTUBE": {
+   "CANAIS_TENTADOS": [
+    "IT-S-000064"
+   ],
+   "CLASSE": "METHOD_ONLY",
+   "CONSEQUENCIA": "sem segunda passagem não há linha de base; sem linha de base \"mudou\" não existe — só \"é assim\"",
+   "DOCUMENTOS": 150,
+   "DO_NOT_SHOW_COMO_FATO_DE_CAMPO": "SIM",
+   "ESTADOS_DAS_TENTATIVAS": {
+    "PORTA_NAO_ABRIU": 10
+   },
+   "HAS_CAPTION": "NÃO SEI",
+   "HAS_CAPTION_EM_QUANTOS": "150 de 150",
+   "NAO_JULGAVEIS": 82,
+   "NUNCA_TENTADOS": 140,
+   "OPERACIONAIS_A_B_C": 7,
+   "ORDENACAO_PERMITIDA": "faixa de recência, sem exibir data nenhuma",
+   "POR_QUE": "o campo nasce False; 0 é valor padrão, não medição. Nenhum vídeo respondeu \"não há faixa\".",
+   "PROIBIDO_PUBLICAR": "0 legendas",
+   "PROIBIDO_USAR_COMO_GEOGRAFIA": "sede legal do titular — é endereço de empresa, não lugar do fato",
+   "PUBLICATION_DATE": "NÃO SEI",
+   "PUBLICATION_DATE_EM_QUANTOS": "150 de 150",
+   "PUBLICATION_RELATIVE_LIXO_DE_DOM": [
+    "18 K visualizaciones",
+    "48 K visualizaciones",
+    "Añadir a la cola"
+   ],
+   "PUBLICATION_RELATIVE_UTILIZAVEIS": 147,
+   "REGION": "NÃO SEI",
+   "REGION_EM_QUANTOS": "150 de 150",
+   "REGRA_DOS_61": "os 61 e os 82 saem da MESMA passada do mesmo classificador lexical, sem legenda e sem a verificação humana que o próprio arquivo exige. Os 61 não podem ganhar status mais forte que os 82.",
+   "RELEVANTES_POR_TITULO": 61,
+   "TENTATIVAS_DE_LEGENDA": 10,
+   "ULTIMA_COLETA_NULA": "243 de 243 fontes"
+  },
+  "05_PESSOAS_E_PAPEIS": {
+   "AGRONOMO_PROVADO": 0,
+   "CLASSE": "PORTAL_WITH_METHOD",
+   "CONSULTOR_PROVADO": 0,
+   "ENTIDADES": 221,
+   "ENTIDADES_COM_AO_MENOS_UM_PAPEL_PROVADO": 90,
+   "ENTRADAS_COM_ESTADO_PROVADO": 114,
+   "ENTRADAS_DE_PAPEL": 278,
+   "LEI": "papel vem SÓ de campo estruturado declarado — nunca de prosa livre, nome de conta, foto, idioma ou assunto do post. Papel inferido não vira identidade profissional comprovada.",
+   "PAPEIS_DE_CAMPO_PROVADOS": 5,
+   "PAPEIS_PROVADOS_POR_TIPO": {
+    "cooperativa": 2,
+    "estudante": 9,
+    "pesquisador": 64,
+    "professor": 36,
+    "tecnico": 3
+   },
+   "PRODUTOR_PROVADO": 0,
+   "PROIBIDO_PUBLICAR": "114 pessoas"
+  },
+  "06_COBERTURA_TERRITORIAL": {
+   "A_EXPANSAO_E": "REGRA METODOLÓGICA, não fato bruto: organização territorial Tier A/B sem especialidade declarada cobre todas as especialidades da sua cultura naquela região",
+   "CELULAS": 117,
+   "CLASSE": "PORTAL_WITH_METHOD",
+   "COM_EXPANSAO_TERRITORIAL": {
+    "GOOD": 72,
+    "NONE": 16,
+    "WEAK": 29
+   },
+   "O_QUE_O_MAPA_NUNCA_RESPONDE": "há problema aqui",
+   "O_QUE_O_MAPA_RESPONDE": "temos olhos aqui",
+   "SEM_EXPANSAO_TERRITORIAL": {
+    "GOOD": 30,
+    "NONE": 44,
+    "WEAK": 43
+   },
+   "SENSORES_SEM_ESPECIALIDADE_DECLARADA": 36
+  },
+  "07_CORRECAO_DE_DATAS": {
+   "ARQUIVO": "scripts/fonte_territorial.py",
+   "CAUSA": "alternância do dia escrita como (0?[1-9]|[12]\\d|3[01]); regex casa leftmost-first e, sem nada depois que force retrocesso, o dia era truncado ao dígito das dezenas",
+   "CHAMADORES": [
+    "scripts/fonte_territorial.py:209",
+    "scripts/fonte_territorial.py:210",
+    "scripts/fonte_territorial.py:314",
+    "scripts/handoff_portal_it.py:350",
+    "scripts/handoff_portal_it.py:365",
+    "scripts/sensor_territorial.py:185",
+    "scripts/territorial_documentos.py:157"
+   ],
+   "CLASSE": "CODE_FIX_HANDOFF",
+   "CONSERTO": "alternativas longas primeiro: (3[01]|[12]\\d|0?[1-9])",
+   "DEFEITO": "datas_no_texto('2026-08-24') devolvia 2026-08-02",
+   "DIRECAO_DO_ERRO": "sempre para trás — fazia toda fonte parecer mais velha do que é, que é a conclusão errada que o número existe para evitar",
+   "DIVIDA_QUE_FICA": "os artefatos territoriais já gravados foram produzidos com a leitura defeituosa. Nenhum número de recência territorial vai à tela antes de remedir. Remedir não exige coleta nova.",
+   "ERRADAS_DEPOIS_DO_CONSERTO": {
+    "ISO": 0,
+    "ISO_COM_BARRA": 0,
+    "dd-mm-aaaa": 0,
+    "dd/mm/aaaa": 0
+   },
+   "ESCALA_ANTES": "257 de 365 datas ISO de 2026 voltavam erradas",
+   "NAO_REFAZER_NA_LINHA_B": "SIM",
+   "POR_QUE_NINGUEM_VIU": "em dd/mm/aaaa o [-/] seguinte forçava o retrocesso e o formato passava; e nenhum teste cobria a função",
+   "TESTE": "tests/test_datas.py — varre o ano inteiro em quatro formatos"
+  },
+  "08_PROD_FTS": {
+   "ARQUIVO_REAL_EM_DISCO": "data/raw/IT-T4-001/PROD_FTS.csv",
+   "ARQUIVO_REAL_EXISTE": "SIM",
+   "CAMINHO_CODIFICADO": "data/raw/IT-T4-001/PROD_FTS_6_20260824.csv",
+   "CAMINHO_EXISTE": "NÃO",
+   "CLASSE": "CODE_FIX_HANDOFF",
+   "CONSEQUENCIA_MEDIDA": "DATA-CLOCK-manifest.json marca IT-T4-001 como AUSENTE com o dado em disco; a ferramenta de consulta fica cega para a Itália",
+   "DECLARACAO_EXPLICITA": "se Ask Sintonia, normalize_substance ou o data clock italiano forem usados na demo, este defeito precisa estar resolvido pelo dono ANTES da apresentação",
+   "NAO_CORRIGIDO_NESTA_BRANCH": "SIM — esta branch não é dona dessa porta",
+   "QUEM_JA_RESOLVE": "scripts/chain.py — acha por prefixo PROD_FTS, com glob",
+   "RESSALVA": "o AUSENTE do data clock NÃO é defeito italiano: são 6 linhas em 3 fontes (FR-T4-001 x3, ES-T3-001 x2, IT-T4-001 x1), consequência de data/raw não ser versionado (D-003)",
+   "SCRIPTS_QUEBRADOS": [
+    "scripts/ask_sintonia.py:19",
+    "scripts/data_clock.py:25",
+    "scripts/normalize_substance.py:34"
+   ],
+   "SUBCLASSE": "BLOCKER_IF_FEATURE_USED"
+  },
+  "09_ROTULO_OPORTUNIDADE": {
+   "CLASSE": "OWNER_DECISION",
+   "DOCUMENTO_DONO_DA_REGRA": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+   "IMPACTO": "o rótulo transforma uma PERGUNTA que a ADAMA responde numa CONCLUSÃO que nós entregamos. E para a Itália a base nem sustenta a pergunta: a atividade pública medida é 7 documentos operacionais em 150, com 82 não julgáveis.",
+   "LINHA_QUE_PROIBE": "apresentar MT3 como oportunidade | é `ACTIVATION QUESTION`",
+   "NAO_RENOMEADO_NESTA_SESSAO": "SIM",
+   "OCORRENCIA_DE_OPPORTUNITA_NESTA_BRANCH": "NÃO",
+   "POR_QUE_NAO_VERIFIQUEI": "italia-portale/client não existe nesta branch e esta sessão está proibida de tocá-lo. A existência do rótulo é relato do dono, não medição minha — e registrá-la como medida seria o erro que este handoff inteiro combate.",
+   "QUEM_DECIDE": "a sessão dona do Portal Itália, antes do polimento final",
+   "REGRA": "MT3 entrega ACTIVATION QUESTION",
+   "ROTULOS_PROIBIDOS_PELO_DONO": [
+    "SALES OPPORTUNITY",
+    "UNDERUSED ASSET",
+    "WHITE SPACE CONFIRMED"
+   ],
+   "TELA_ATUAL_RELATADA_PELO_DONO": "Radar Opportunità",
+   "TELA_ATUAL_VERIFICADA_POR_MIM": "NÃO SEI"
+  },
+  "10_PROTOTIPO": {
+   "CANDIDATE_DEPLOY_AFFECTED": "NÃO",
+   "CLASSE": "OWNER_DECISION",
+   "DECISAO": "D-007 — Claude descobre o produto, Claude Design desenha o produto",
+   "DIVIDA_REGISTRADA": "build_portal.py promete na docstring que nenhum número é digitado à mão, e isso é falso em pelo menos as linhas 66 e 191. Os três valores do card italiano (58 · 37,4% · 20,9%) são REPRODUTÍVEIS — critério AMPLIADO, cinco razões sociais, snapshot de 24/08 — e mesmo assim não existem em arquivo nenhum, então auditá-los exige re-derivar de um CSV que não é versionado.",
+   "NAO_CORRIGIR_AGORA": "SIM — decisão do dono, e não afeta o candidato medido",
+   "POR_QUE_ISSO_IMPORTA": "tests/test_evidence.py verifica que o CAMINHO da evidência existe, nunca que o número exibido veio dele — então um número digitado passa no teste",
+   "PROTOTYPE_FROZEN": "SIM"
+  }
+ },
+ "ARTEFACT_HASHES": {
+  "data/raw/IT-T4-001/PROD_FTS.csv": "13537cd10b9fa59a719317c1f8d353aaa074aa70566e63c6e1f11d6d6b067859",
+  "data/samples/IT-HUMAN-SENSORS/COVERAGE.json": "bdedcb114a28453e06216e901066bcf01e4dfcab4f674a9a3e2d2d90ceedd007",
+  "data/samples/IT-HUMAN-SENSORS/ENTITIES.json": "cefd9a8c7470e516df91d53b7810b19ce746cdd8ddfa3608b13882c04221a331",
+  "data/samples/IT-HUMAN-SENSORS/PILOT-MEASUREMENT.json": "4429dc23b83f69e1381df91d38bb7eaf443b52d785e787826c0c17e5fe00c197",
+  "data/samples/IT-HUMAN-SENSORS/PILOTO-YOUTUBE/LEGENDAS.json": "7fc3213b6f38075978b48481499e9954c25b3e8c236495b913c2f6342ea9baf7",
+  "data/samples/IT-HUMAN-SENSORS/SOURCES.json": "15b5fd314a29b48208a0df576044872ec90c51403b8ca1edb75d699f8eda4cd8",
+  "data/samples/IT-T4-001/IT-T4-001-adama-expiries.json": "ee9d835d2a82470eeb8c84fbc9443d7b7f199311535ebeba4dac601565a6495c",
+  "scripts/fonte_territorial.py": "e2712620b77320c330e9e0a7c209ee33068729534da861616fb61fe58ccf3611",
+  "tests/test_datas.py": "87fa6647eb02cda729092ebf417140ddead7deb96af02e90548881767a9c70fe"
+ },
+ "CAPTURED_AT": "2026-09-04T18:47:41+00:00",
+ "CAPTURED_AT_ORIGEM": "data do commit de SOURCE_HEAD, NÃO a hora de execução: um carimbo de relógio faria duas corridas idênticas produzirem hashes diferentes, e o \"rodei duas vezes e deu igual\" deixaria de provar coisa alguma",
+ "CODE_FIX_HANDOFF": [
+  "07_CORRECAO_DE_DATAS",
+  "08_PROD_FTS"
+ ],
+ "DETERMINISTICO": "SIM — sem relógio, sem aleatório, chaves ordenadas",
+ "DO_NOT_SHOW": [
+  {
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "DIZER": "existência de legenda: NÃO SEI em 150 de 150",
+   "NAO_DIZER": "0 legendas"
+  },
+  {
+   "ACHADO": "02_AUTORIZACOES_ADAMA",
+   "DIZER": "155 sob critério AMPLIADO, cinco razões sociais somadas, snapshot de 2026-08-24; sob STRICT são 89",
+   "NAO_DIZER": "ADAMA possui 155 autorizações"
+  },
+  {
+   "ACHADO": "05_PESSOAS_E_PAPEIS",
+   "DIZER": "90 entidades com ao menos um papel provado, de 221",
+   "NAO_DIZER": "114 pessoas"
+  },
+  {
+   "ACHADO": "05_PESSOAS_E_PAPEIS",
+   "DIZER": "5 papéis de campo provados: 3 técnicos e 2 cooperativas; agrônomo, produtor e consultor provados = 0",
+   "NAO_DIZER": "temos agrônomos e produtores na base"
+  },
+  {
+   "ACHADO": "06_COBERTURA_TERRITORIAL",
+   "DIZER": "72 com a expansão territorial declarada; 30 sem ela",
+   "NAO_DIZER": "cobertura BOA em 72 células"
+  },
+  {
+   "ACHADO": "06_COBERTURA_TERRITORIAL",
+   "DIZER": "temos olhos nesta região",
+   "NAO_DIZER": "há problema nesta região"
+  },
+  {
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "DIZER": "61 por casamento lexical de título, não verificados — mesmo classificador dos 82 não julgáveis",
+   "NAO_DIZER": "61 documentos relevantes"
+  },
+  {
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "DIZER": "faixa de recência, sem exibir data",
+   "NAO_DIZER": "qualquer data de publicação de documento social italiano"
+  },
+  {
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "DIZER": "ULTIMA_COLETA nula em 243 de 243: não há linha de base",
+   "NAO_DIZER": "mudou / está subindo, sobre fonte social italiana"
+  },
+  {
+   "ACHADO": "04_SOCIAL_YOUTUBE",
+   "DIZER": "sede legal é endereço de empresa, não lugar do fato",
+   "NAO_DIZER": "mapa da Itália pintado pela sede do titular"
+  },
+  {
+   "ACHADO": "09_ROTULO_OPORTUNIDADE",
+   "DIZER": "ACTIVATION QUESTION — e para a Itália a base nem sustenta a pergunta ainda",
+   "NAO_DIZER": "oportunidade / espaço livre / ativo subutilizado"
+  },
+  {
+   "ACHADO": "01_AZOXISTROBINA_PROTIOCONAZOL",
+   "DIZER": "o nacional deriva do europeu: é uma origem, não duas",
+   "NAO_DIZER": "ato europeu e registro nacional confirmam o mesmo fato"
+  },
+  {
+   "ACHADO": "03_REVOGADO_X_SCADUTO",
+   "DIZER": "revogados; motivo declarado em 1.119 de 13.216",
+   "NAO_DIZER": "X produtos foram retirados do mercado"
+  },
+  {
+   "ACHADO": "02_AUTORIZACOES_ADAMA",
+   "DIZER": "contagem de registros, e só",
+   "NAO_DIZER": "contagem de registros como participação de mercado"
+  }
+ ],
+ "EVIDENCE_CLASS": "DERIVED_MEASUREMENT",
+ "FACT_LOCATION": "ITALY",
+ "GERADO_POR": "scripts/handoff_portal_it.py",
+ "LIMITATIONS": [
+  "Nenhuma coleta de rede foi feita nesta rodada. Custo = 0.",
+  "Nenhuma afirmação se apoia em legenda: nenhuma legenda foi obtida (D-040).",
+  "data/raw/IT-T4-001/PROD_FTS.csv NÃO é versionado (D-003). Em clone novo ele não existe, e os achados 01, 02 e 03 voltam como NÃO SEI em vez de números. O hash do CSV está em ARTEFACT_HASHES para identificar o snapshot.",
+  "O snapshot do registro é de 2026-08-24. Qualquer \"futuro\" calculado contra ele envelhece: 7 dos 20 próximos vencimentos publicados já haviam passado em 2026-09-04. Futuro se calcula contra a data de leitura.",
+  "A camada territorial já gravada foi produzida com a leitura de data defeituosa (achado 07). Remedir antes de exibir qualquer recência.",
+  "italia-portale/client não existe nesta branch e não foi tocado. O rótulo \"Radar Opportunità\" é relato do dono, não medição minha.",
+  "Contagem de registros não é participação de mercado, em nenhum dos achados.",
+  "P-012 (GDPR) segue aberta: a camada nomeia pessoas com afiliação e ORCID. Qualquer tela que liste gente identificada precisa de revisão antes."
+ ],
+ "METHOD_ONLY": [
+  "04_SOCIAL_YOUTUBE"
+ ],
+ "ORIGINAL_LANGUAGE": "pt",
+ "OWNER_DECISION": [
+  "09_ROTULO_OPORTUNIDADE",
+  "10_PROTOTIPO"
+ ],
+ "PORTAL_NOW": [
+  "01_AZOXISTROBINA_PROTIOCONAZOL"
+ ],
+ "PORTAL_WITH_METHOD": [
+  "02_AUTORIZACOES_ADAMA",
+  "03_REVOGADO_X_SCADUTO",
+  "05_PESSOAS_E_PAPEIS",
+  "06_COBERTURA_TERRITORIAL"
+ ],
+ "SOURCE_BRANCH": "claude/human-agricultural-sensors-8fv0fw",
+ "SOURCE_HEAD": "470c951596cbdc4a275d0daab824ae56ad75f42f",
+ "SOURCE_ID": "IT-HUMAN-SENSORS/IT-PORTAL-SPRINT-HANDOFF-V1",
+ "SOURCE_LOCATION": "ITALY",
+ "TESTS": {
+  "COMANDO": "python3 -m unittest discover -s tests",
+  "FALHAS": "0",
+  "RESULTADO": "OK",
+  "TOTAL": 342
+ },
+ "source": "handoff determinístico do sprint Portal Itália para a Linha B, derivado dos artefatos preservados nesta branch"
+}
