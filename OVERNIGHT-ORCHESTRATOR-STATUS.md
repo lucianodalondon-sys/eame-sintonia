@@ -466,3 +466,100 @@ IT/EN → mobile → gates → deploy.
 
 Se for **C** ou **D**: os ofensores saem nomeados, registro e campo, e a
 implementação não é aprovada até saírem.
+
+---
+
+## CICLO 03 · 02:20Z — a primeira candidata publicou, e foi auditada
+
+A dona **continua em `a54e287`** (sem push há 78 min, `RUNNING`). Quem publicou
+foi uma candidata:
+
+```
+claude/meeting-portal-contradictions-qb5a1x   8f37e36
+  61e1089 01:48  o portal consome os 43, e o produto principal deixa de ter dois donos
+  7b2f24f 02:02  as duas contradicoes fecham no DOM, e o motor deixou um ponteiro na propria prosa
+  8f37e36 02:06  handoff: o estado de agora fica no topo
+
+  meeting-surface.js  +483   meeting-labels.js  +414   portale.html  +464
+  meeting-gate.mjs    +409   meeting-browser.mjs +244  audit/checks.mjs +12
+```
+
+São os itens **1, 2, 4 e 5** do caminho crítico. **A candidata está à frente da
+dona.**
+
+### ADAPTER_BOUNDARY = PASS_DECLARED_SCHEMA_ADAPTATION · IT e EN
+
+Não por leitura de código: o adapter foi **executado** contra o snapshot real
+(`scripts/adapter_dump.mjs`, `vm` do node, `build('it')` e `build('en')`) e a
+saída foi medida contra a referência congelada.
+
+```
+TOTAL_CASES 43 · ACT_NOW 2 · WINDOW_DEFINED_YES 16 · PUBLISHABLE 5 · VALIDATION_REQUIRED 38
+DECISION_FIELDS_CHANGED_BY_FRONTEND = 0
+FRONTEND_INTELLIGENCE_RECALCULATION = NO
+PRIMARY_MATCH_NULL_REFERENCE = 26 · CLIENT_PRIMARY_MATCH_NULL = 26
+```
+
+**As seis provas, todas OK:** UNKNOWN permanece UNKNOWN · `WINDOW_DEFINED=YES`
+não promove `ACT_NOW` · `PORTFOLIO_MATCHES` não cria `PRIMARY_MATCH` ·
+`PUBLICATION_STATE` não é promovido · `ACTION_BY_DEPARTMENT` não é reescrito ·
+`WHY_COMMERCIAL` não é reconstruído.
+
+### As cinco transformações, declaradas e provadas
+
+`audit-maps/map-meeting-portal-contradictions.json`
+
+| campo | transformação | prova |
+|---|---|---|
+| `NEED_DIRECTION` | prefixo `NEED_DIRECTION_` | 43/43 exato, reversível |
+| `WINDOW_OPEN_NOW` | prefixo `WINDOW_OPEN_NOW_` | 43/43; `UNKNOWN` segue dizendo UNKNOWN em 41/41 |
+| `PRIMARY_MATCH` | join por `PRODUCT_ID` | 17/17 casam; **26/26 nulos continuam nulos** |
+| `WHY_COMMERCIAL_CODES` · `WHAT_IS_MISSING` · `WHY_NOW_CODES` | código → rótulo | cardinalidade e ordem preservadas; bijeções 9→9, 12→12, 6→6 em IT **e** EN |
+
+Nenhum código interno (`OPP_` `CROP_` `ISSUE_` `REGION_` `CATPRD_`) na prosa
+exibida, nos 43.
+
+### Duas coisas que o auditor aprendeu nesta auditoria
+
+**1 · Campo decisório aninhado escapava da medição.** O modelo do candidato põe a
+janela em `window.DEFINED` e o produto em `products.primary`. O auditor só lia o
+nível de topo — teria dado PASS sem olhar exatamente onde a violação moraria.
+Agora achata dois níveis.
+
+**2 · Cardinalidade não é bijeção.** `[A,B] → [rótuloB, rótuloA]` preserva a
+contagem e troca o sentido. O auditor passou a exigir bijeção no acervo inteiro:
+o mesmo código nunca vira dois rótulos, e dois códigos nunca colidem num rótulo.
+Testado com a lista invertida de propósito — reprova.
+
+    UMA TRANSFORMAÇÃO NÃO DECLARADA É INDISTINGUÍVEL DE RECÁLCULO.
+    O AUDITOR RECUSA AS DUAS, E DEIXA O ADAPTER PROVAR QUAL É QUAL.
+
+Foi assim que as cinco transformações acima chegaram a PASS: cada uma reprovou
+primeiro, foi medida no acervo inteiro, e só então foi declarada.
+
+### O que ainda NÃO foi medido nesta candidata
+
+`ADAPTER_BOUNDARY` é a fronteira do dado. Falta a tela:
+
+```
+43 rendered no DOM · D.CASES separados · IT/EN na tela · desktop/mobile
+brandwell · cta-navigation · internal-token · deploy
+```
+
+A candidata trouxe `meeting-gate.mjs` (409 linhas) e `meeting-browser.mjs` (244)
+para isso — **não rodados por esta aba neste ciclo**. Rodá-los é o ciclo 04.
+
+### Tabela do ciclo final — primeira linha preenchida
+
+| BRANCH | HEAD | 43_CANONICAL | ACT_NOW | WINDOW_DEFINED | D_CASES_SEP | PRIMARY_CONTRA | WINDOW_CONTRA | INTERNAL_TOKEN | IT | EN | MOBILE | BRANDWELL | CTA | DEPLOYABLE |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `meeting-intelligence-integration` (dona) | `a54e287` | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| `meeting-portal-contradictions-qb5a1x` | `8f37e36` | **43 ✅** | **2 ✅** | **16 ✅** | ? | ✅ dados | ✅ dados | ✅ dados | ✅ dados | ✅ dados | ? | ? | ? | ? |
+| `meeting-portal-integration-build-dr7jqr` | sem push | | | | | | | | | | | | | |
+| `meeting-portal-final-pabok2` | sem push | | | | | | | | | | | | | |
+
+`✅ dados` = provado na camada de dados; a coluna só fecha com a tela medida.
+
+```
+MEETING_BUILD_HEAD a54e287 · DEPLOY_STATE nenhum · MEETING_FREEZE NO
+```

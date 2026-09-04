@@ -1,0 +1,33 @@
+{
+ "keys": {
+  "statusCode": "STATUS",
+  "priorityCode": "COMMERCIAL_PRIORITY",
+  "publicationCode": "PUBLICATION_STATE",
+  "archetypeCode": "ARCHETYPE",
+  "window.DEFINED": "WINDOW_DEFINED",
+  "window.OPEN_NOW": "WINDOW_OPEN_NOW",
+  "window.TYPE": "WINDOW_TYPE",
+  "window.RULE_STATE": "WINDOW_RULE_STATE",
+  "products.primary": "PRIMARY_MATCH",
+  "products.primaryReasonCode": "PRIMARY_MATCH_REASON",
+  "whyCommercialCodes": "WHY_COMMERCIAL_CODES",
+  "whyNow.codes": "WHY_NOW_CODES",
+  "needDirectionToken": "NEED_DIRECTION",
+  "pestStageCode": "PEST_STAGE_STATE",
+  "actionRecCode": "ACTION_RECOMMENDATION_STATE",
+  "thresholdCode": "THRESHOLD_STATE",
+  "missing": "WHAT_IS_MISSING"
+ },
+ "value_prefix": {
+  "NEED_DIRECTION": "NEED_DIRECTION_",
+  "WINDOW_OPEN_NOW": "WINDOW_OPEN_NOW_"
+ },
+ "join_by": {
+  "PRIMARY_MATCH": "PRODUCT_ID"
+ },
+ "code_to_label": [
+  "WHY_COMMERCIAL_CODES",
+  "WHAT_IS_MISSING",
+  "WHY_NOW_CODES"
+ ]
+}
