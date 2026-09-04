@@ -59,6 +59,14 @@ h2{font-size:10.5px;font-weight:700;letter-spacing:.19em;color:var(--mute);
 .win .w-l{font-size:10px;letter-spacing:.13em;color:var(--mute);font-weight:700}
 .win .w-v{font-size:19px;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums}
 .win .w-n{font-size:11px;color:var(--mute-2);margin-top:4px}
+.blk{margin:16px 0}
+.blk-l{display:block;font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--mute);
+  margin-bottom:8px}
+.blk-l.blk-s{color:var(--green)}
+.blk p{margin:0 0 6px}
+.limit{font-size:12px;line-height:1.6;color:var(--soft);
+  border-left:2px solid var(--mute-2);padding-left:12px;margin-top:11px!important}
+.ask .who{display:block;font-size:11.5px;color:var(--mute-2);margin-top:9px;line-height:1.6}
 .ask{margin-top:17px;padding:14px 16px;border-left:2px solid var(--amber);
   background:rgba(245,179,23,.07);border-radius:0 9px 9px 0}
 .ask b{display:block;font-size:9.5px;letter-spacing:.17em;color:var(--amber);margin-bottom:6px}
@@ -128,15 +136,33 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
   <div class="hero-b">
     <div class="kicker" id="hero-kick"></div>
     <h3 id="hero-title"></h3>
-    <p id="hero-fact"></p>
-    <div class="win" id="hero-win"></div>
+
+    <!-- Tre blocchi, e devono restare tre. Il fatto viene per primo perché è
+         l'unica cosa che non abbiamo scritto noi; la lettura viene dopo, con il
+         nostro nome sopra; la domanda chiude, perché la decisione non nasce
+         qui. Metterli senza etichetta lascia che la lettura si legga come
+         fatto — ed è esattamente così che un portale mente senza dire nulla
+         di falso. -->
+    <div class="blk">
+      <span class="blk-l">FATTO · REGISTRO UFFICIALE</span>
+      <p id="hero-fact"></p>
+      <div class="win" id="hero-win"></div>
+    </div>
+
+    <div class="blk">
+      <span class="blk-l blk-s">LETTURA SINTONIA</span>
+      <p id="hero-read"></p>
+      <p class="limit" id="hero-limit"></p>
+    </div>
+
     <div class="ask">
-      <b>ACTIVATION QUESTION · PORTAFOGLIO / SVILUPPO MERCATO</b>
+      <b>DOMANDA DI ATTIVAZIONE · PORTAFOGLIO / SVILUPPO MERCATO</b>
       <span id="hero-ask"></span>
+      <span class="who" id="hero-who"></span>
     </div>
   </div>
   <details>
-    <summary>Fatto, interpretazione, finestra e limite</summary>
+    <summary>Come è stato filtrato · l'universo chiuso e i suoi confini</summary>
     <div class="dd" id="hero-card"></div>
   </details>
   <details>
@@ -225,7 +251,13 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
   var D = C.DESTAQUE;
   $('hero-kick').textContent = 'FINESTRA AUTORIZZATIVA · UNIVERSO CHIUSO DI ' + D.UNIVERSO + ' REGISTRI';
   $('hero-title').textContent = D.TITULO;
-  $('hero-fact').textContent = D.INTERPRETACAO.charAt(0).toUpperCase() + D.INTERPRETACAO.slice(1) + '.';
+  /* Il fatto è il conteggio chiuso; la lettura è la nostra. Il limite non sta
+     dietro una piega: viaggia accanto alla lettura che limita. Una cautela a un
+     clic di distanza è una cautela che non è stata data. */
+  $('hero-fact').textContent = D.FATO.charAt(0).toUpperCase() + D.FATO.slice(1) + '.';
+  $('hero-read').textContent = D.INTERPRETACAO.charAt(0).toUpperCase() + D.INTERPRETACAO.slice(1) + '.';
+  $('hero-limit').textContent = 'Limite: ' + D.TRAVA_DE_INDEPENDENCIA;
+  $('hero-who').textContent = 'Chi decide: ' + D.QUEM_DECIDE + ' — questa pagina non lo decide.';
   $('hero-win').innerHTML =
       '<div><div class="w-l">ADAMA ITALIA</div><div class="w-v">' + esc(D.ADAMA_ATE) + '</div>'
     + '<div class="w-n">MAXENTIS · KOJAMI</div></div>'
