@@ -506,18 +506,29 @@ SINAIS = [
   'CONFIDENCE_WHY': 'a fonte e o servico fitossanitario da propria regiao que '
                     'concedeu a deroga, e cita a prescricao da etiqueta que exibiu '
                     'em tela.',
-  'ADAMA_LOCAL_RESPONSE': 'YES',
-  'PORTFOLIO_MATCHES': [
-    {'REGISTRATION_ID': '015229', 'PRODUCT': 'STOPPER P',
-     'ACTIVE_INGREDIENTS': ['PENDIMETHALIN', 'DIFLUFENICAN'],
-     'FIT_NOTE': 'entra na CULTURA SEGUINTE obrigatoria (frumento/orzo), e nao na '
-                 'batata'},
-    {'REGISTRATION_ID': '016218', 'PRODUCT': 'DICURAN PLUS',
-     'ACTIVE_INGREDIENTS': ['CHLOROTOLURON', 'DIFLUFENICAN'],
-     'FIT_NOTE': 'idem'},
-  ],
+  'ADAMA_LOCAL_RESPONSE': 'NO',
+  'ADAMA_LOCAL_RESPONSE_WHY': 'para PATATA x INFESTANTI existem 21 rotulos ADAMA, '
+                              'mas nenhum deles responde ao CYPERUS, que e a daninha '
+                              'deste sinal. O encaixe real esta na cultura seguinte.',
+  # ⚠️ CORRIGIDO NO RED TEAM. Estes dois produtos estavam em PORTFOLIO_MATCHES com
+  # uma nota explicando que valem para a cultura SEGUINTE. A nota estava certa e a
+  # estrutura estava errada: quem consumisse o campo sem ler a nota renderizaria
+  # herbicida de cereal como resposta para batata. Campo proprio, com a cultura dita.
+  'PORTFOLIO_MATCHES': [],
+  'PORTFOLIO_MATCHES_ON_FOLLOWING_CROP': {
+    'FOLLOWING_CROP': 'FRUMENTO ou ORZO',
+    'WHY_THIS_CROP': 'a etiqueta do sulfosulfuron derogado OBRIGA a cultura seguinte '
+                     'a ser frumento, orzo ou veccia',
+    'MATCHES': [
+      {'REGISTRATION_ID': '015229', 'PRODUCT': 'STOPPER P',
+       'ACTIVE_INGREDIENTS': ['PENDIMETHALIN', 'DIFLUFENICAN'],
+       'PAIR': 'FRUMENTO x INFESTANTI'},
+      {'REGISTRATION_ID': '016218', 'PRODUCT': 'DICURAN PLUS',
+       'ACTIVE_INGREDIENTS': ['CHLOROTOLURON', 'DIFLUFENICAN'],
+       'PAIR': 'FRUMENTO x INFESTANTI'},
+    ]},
   'PRIMARY_MATCH': None,
-  'PRIMARY_MATCH_REASON': 'SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER',
+  'PRIMARY_MATCH_REASON': 'NENHUM_PRODUTO_NO_PAR_DESTE_SINAL',
   'WHY_ADAMA': 'o encaixe NAO e na batata: e na cultura seguinte que a trava de '
                'rotacao obriga. Quem aplicou sulfosulfuron em Ferrara tera cereal no '
                'talhao, e a ADAMA tem 15 rotulos FRUMENTO x INFESTANTI e 15 em ORZO. '

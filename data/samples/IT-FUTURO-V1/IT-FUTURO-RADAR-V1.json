@@ -30,7 +30,7 @@
  "WITH_INVALIDATION_TRIGGER": 10,
  "WITH_EXPECTED_WINDOW": 8,
  "WITH_ADAMA_RESPONSE": 9,
- "WITH_PORTFOLIO_MATCH": 7,
+ "WITH_PORTFOLIO_MATCH": 6,
  "WITH_ACTION_MAP": 10,
  "BY_HORIZON": {
   "HORIZON_181_365_DAYS": 7,
@@ -628,29 +628,35 @@
    "WINDOW_DEPENDS_ON_FIELD_MEASUREMENT": "NO",
    "CONFIDENCE": "HIGH",
    "CONFIDENCE_WHY": "a fonte e o servico fitossanitario da propria regiao que concedeu a deroga, e cita a prescricao da etiqueta que exibiu em tela.",
-   "ADAMA_LOCAL_RESPONSE": "YES",
-   "PORTFOLIO_MATCHES": [
-    {
-     "REGISTRATION_ID": "015229",
-     "PRODUCT": "STOPPER P",
-     "ACTIVE_INGREDIENTS": [
-      "PENDIMETHALIN",
-      "DIFLUFENICAN"
-     ],
-     "FIT_NOTE": "entra na CULTURA SEGUINTE obrigatoria (frumento/orzo), e nao na batata"
-    },
-    {
-     "REGISTRATION_ID": "016218",
-     "PRODUCT": "DICURAN PLUS",
-     "ACTIVE_INGREDIENTS": [
-      "CHLOROTOLURON",
-      "DIFLUFENICAN"
-     ],
-     "FIT_NOTE": "idem"
-    }
-   ],
+   "ADAMA_LOCAL_RESPONSE": "NO",
+   "ADAMA_LOCAL_RESPONSE_WHY": "para PATATA x INFESTANTI existem 21 rotulos ADAMA, mas nenhum deles responde ao CYPERUS, que e a daninha deste sinal. O encaixe real esta na cultura seguinte.",
+   "PORTFOLIO_MATCHES": [],
+   "PORTFOLIO_MATCHES_ON_FOLLOWING_CROP": {
+    "FOLLOWING_CROP": "FRUMENTO ou ORZO",
+    "WHY_THIS_CROP": "a etiqueta do sulfosulfuron derogado OBRIGA a cultura seguinte a ser frumento, orzo ou veccia",
+    "MATCHES": [
+     {
+      "REGISTRATION_ID": "015229",
+      "PRODUCT": "STOPPER P",
+      "ACTIVE_INGREDIENTS": [
+       "PENDIMETHALIN",
+       "DIFLUFENICAN"
+      ],
+      "PAIR": "FRUMENTO x INFESTANTI"
+     },
+     {
+      "REGISTRATION_ID": "016218",
+      "PRODUCT": "DICURAN PLUS",
+      "ACTIVE_INGREDIENTS": [
+       "CHLOROTOLURON",
+       "DIFLUFENICAN"
+      ],
+      "PAIR": "FRUMENTO x INFESTANTI"
+     }
+    ]
+   },
    "PRIMARY_MATCH": null,
-   "PRIMARY_MATCH_REASON": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+   "PRIMARY_MATCH_REASON": "NENHUM_PRODUTO_NO_PAR_DESTE_SINAL",
    "WHY_ADAMA": "o encaixe NAO e na batata: e na cultura seguinte que a trava de rotacao obriga. Quem aplicou sulfosulfuron em Ferrara tera cereal no talhao, e a ADAMA tem 15 rotulos FRUMENTO x INFESTANTI e 15 em ORZO. Uma area de cereal previsivel, criada por prescricao de etiqueta.",
    "WHY_FUTURE": "a area de cereal obrigatorio ainda nao foi semeada",
    "WHY_COMMERCIAL": "demanda de herbicida de cereal geograficamente concentrada e antecipavel. NAO prova hectares: nenhuma fonte do acervo diz quantos talhoes usaram a deroga.",
