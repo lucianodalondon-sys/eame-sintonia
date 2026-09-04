@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from it_rotulo_parser import (GEOMETRIA_VERSIONADA, PARSER_VERSION,  # noqa: E402
                               parse)
 
-CAND = os.path.join(ROOT, 'data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V2-CANDIDATO.json')
+CAND = os.path.join(ROOT, 'data/samples/IT-ROTULOS-V1/IT-ROTULOS-PARES-V3.json')
 REG = os.path.join(ROOT, 'data/samples/IT-RADAR-V21/productsRegulatory.json')
 
 
@@ -44,8 +44,13 @@ def main():
     P = json.load(open(REG, encoding='utf-8'))['PRODUCTS']
     pares = []
     for p in P:
+        # A CATEGORIA do produto entra aqui porque ela entra na rodada publicada: as
+        # rotas de herbicida so disparam para diserbante/erbicida. Sem passa-la a
+        # testemunha reproduzia 1.891 pares contra 2.313 e acusava FAIL — a falha era
+        # da testemunha, que nao estava rodando o mesmo parser com as mesmas entradas.
         pares.extend([x for x in parse('', p['REGISTRATION_ID'], produto=p['PRODUCT'],
-                                       ai=p.get('ACTIVE_INGREDIENTS'))
+                                       ai=p.get('ACTIVE_INGREDIENTS'),
+                                       categoria=p.get('REGULATORY_CATEGORY'))
                       if x['RELATION'] == 'SUPPORTED_PAIR'])
     dg = digest(pares)
     print('  rotulos processados ......... %d' % len(P))

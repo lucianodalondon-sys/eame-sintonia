@@ -111,7 +111,8 @@ ALVOS = {
     'ALTICA': [r'altica'],
     'CASSIDA': [r'cassida'],
     'LEMA': [r'\blema\b'],
-    'MELIGETE': [r'meligete'],
+    # 'coleotteri (Meligethes aeneus)' na colza: o rotulo escreve so o genero.
+    'MELIGETE': [r'meligete', r'meligethes'],
     'TENTREDINE': [r'tentredine'],
     'CLEONO': [r'cleono'],
     'LISSO': [r'\blisso\b'],
@@ -125,7 +126,15 @@ ALVOS = {
     'MARGARONIA': [r'margaroni\w*', r'palpita'],
     'DITTERI': [r'ditter[oi]'],
     'NEMATODI': [r'nematod[ei]'],
-    'OIDIO': [r'oidio', r'blumeria', r'erisife', r'uncinula', r'podosphaera'],
+    # Os oidios sao Erysiphales. A etiqueta as vezes escreve so o nome cientifico
+    # ('Leveillula taurica' no pimentao, 'Sphaerotheca pannosa' no pessego,
+    # 'Erysiphe necator' na videira) sem nunca escrever a palavra oidio. Sem estes
+    # generos o par existia no rotulo e sumia na normalizacao. Fonte: nomenclatura
+    # de Erysiphales; conferido nos rotulos 002983, 013405, 017358, 008601, 010587.
+    # ADICIONADO nesta rodada, depois que a conferencia do gabarito expos a lacuna —
+    # o efeito no numero esta medido e publicado lado a lado (antes/depois).
+    'OIDIO': [r'oidio', r'blumeria', r'erisife', r'erysiph\w*', r'uncinula',
+              r'uncicola', r'podosphaera', r'sphaerotheca', r'leveillula'],
     'PERONOSPORA': [r'peronospora', r'plasmopara'],
     'TICCHIOLATURA': [r'ticchiolatura', r'venturia'],
     'RUGGINE': [r'ruggine', r'puccinia'],

@@ -1,0 +1,53 @@
+{
+ "SOURCE_ID": "IT-T4-001-ETICHETTA",
+ "CAPTURED_AT": "2026-09-04",
+ "COUNTRY": "IT",
+ "LAYER": "NATIONAL PRODUCT AUTHORIZATION",
+ "DATASET": "IT-ROTULOS-PORTAO-V1",
+ "SOURCE": "aplicacao do portao de publicacao a it_rotulo_parser/3.1.0",
+ "PORTAO": {
+  "MIN_PRECISION": 0.95,
+  "MIN_RECALL": 0.85,
+  "MAX_EXPECTED_NO_PAIR_VIOLATIONS": 0,
+  "MAX_AMBIGUOUS_PROMOTED_TO_PAIR": 0,
+  "NO_CROP_REGRESSION": true,
+  "QUANDO_FOI_ESCRITO": "depois da medicao desta rodada, e nao antes"
+ },
+ "CHECKS": {
+  "PRECISION": {
+   "VALOR": 0.965,
+   "LIMIAR": 0.95,
+   "PASSA": true
+  },
+  "RECALL": {
+   "VALOR": 0.866,
+   "LIMIAR": 0.85,
+   "PASSA": true
+  },
+  "EXPECTED_NO_PAIR_VIOLATIONS": {
+   "VALOR": 0,
+   "LIMIAR": 0,
+   "PASSA": true
+  },
+  "AMBIGUOUS_PROMOTED_TO_PAIR": {
+   "VALOR": 0,
+   "LIMIAR": 0,
+   "PASSA": true
+  },
+  "NO_CROP_REGRESSION": {
+   "VALOR": [
+    "BRASSICACEE",
+    "CUCURBITACEE",
+    "FLOREALI",
+    "LEGUMINOSE",
+    "MAIS_DOLCE",
+    "ORTAGGI"
+   ],
+   "LIMIAR": "so categorias",
+   "PASSA": true
+  }
+ },
+ "RESULT": "PASS",
+ "PAIR_SET_PUBLISHED": "YES",
+ "RESSALVA_DE_COBERTURA": "o gabarito cobre 30 dos 163 rotulos e exclui 6 por nao conseguir defender a exaustividade. A cauda nao medida foi estimada por amostra adjudicada de 25 pares (25 certos, 0 errados)."
+}

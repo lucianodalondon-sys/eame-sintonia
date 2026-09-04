@@ -1,0 +1,125 @@
+{
+ "DATASET": "IT-PORTFOLIO-DELTA-V3",
+ "LAYER": "NATIONAL PRODUCT AUTHORIZATION",
+ "COUNTRY": "IT",
+ "SOURCE_ID": "IT-T4-001-ETICHETTA",
+ "CAPTURED_AT": "2026-09-04",
+ "SOURCE": "recalculo da camada de portfolio das oportunidades contra IT-ROTULOS-PARES-V3, depois do portao de publicacao passar",
+ "QUANTAS_OPORTUNIDADES_EXISTEM": 3,
+ "RESSALVA_SOBRE_O_NUMERO": "a missao fala em 43 oportunidades. O que esta versionado neste repositorio sao 3 registros em IT-RADAR-V21/opportunities.json. Nao inventei os outros 40 nem criei um motor para gera-los: recalculei os que existem e declaro o numero que encontrei.",
+ "OPPORTUNITIES_CHANGED": 1,
+ "RANK_CHANGED": 0,
+ "THRESHOLD_CHANGED": 0,
+ "SECOND_ENGINE_CREATED": "NO",
+ "PORTFOLIO_RELATION_NEVER_BECAME_LABEL_AUTHORIZATION": true,
+ "DISCREPANCIA_ENCONTRADA_E_NAO_CORRIGIDA": "IT-OPP-002 traz ADAMA_PRODUCTS = [] no registro da oportunidade, mas o conjunto ANTIGO ja listava cinco rotulos para MAIS x PIRALIDE e MAIS x DIABROTICA (LAMDEX EXTRA, FORZA, NINJA, DURAVIS, ELTIRA), e o novo lista os mesmos cinco. Ou seja: o campo da oportunidade esta desatualizado desde antes desta rodada, e nao por causa dela. NAO corrigi o campo — mexer no registro da oportunidade e mexer no motor, o que esta missao proibe. Fica registrado para quem for dono dele.",
+ "ROWS": [
+  {
+   "OPPORTUNITY_ID": "IT-OPP-001",
+   "TITLE": "Videira x Flavescência dourada, via o vetor Scaphoideus titanus",
+   "CASE_LABEL": "CONVERGENCIA QUE MERECE INVESTIGACAO",
+   "FORBIDDEN_LABEL": "nao chamar de \"oportunidade Italia\" nem de \"oportunidade comercial\"",
+   "CROP_CANONICAL": "VITE",
+   "TARGETS_CANONICAL": [
+    "CICALINE"
+   ],
+   "MAPEAMENTO_ESCRITO_A_MAO": "a oportunidade e o VETOR Scaphoideus titanus, que os rotulos KLARTAN/MAVRIK nomeiam dentro de \"cicaline (Empoasca vitis, Scaphoideus titanus)\". A flavescencia dourada em si e fitoplasma e NAO tem produto: o par lido e contra o vetor, e nao contra a doenca.",
+   "LABEL_AUTHORIZATION_BEFORE": {
+    "CICALINE": [
+     "007555 KLARTAN 20 EW",
+     "007864 TAU AL 240 EW",
+     "008259 LAMDEX EXTRA",
+     "009800 MAVRIK SMART",
+     "012023 KLARTAN SMART",
+     "013560 FORZA",
+     "013590 NINJA",
+     "014190 MAVRIK EW",
+     "014210 EVURE PRO",
+     "015275 DURAVIS",
+     "017687 ELTIRA"
+    ]
+   },
+   "LABEL_AUTHORIZATION_AFTER": {
+    "CICALINE": [
+     "007555 KLARTAN 20 EW",
+     "007864 TAU AL 240 EW",
+     "008259 LAMDEX EXTRA",
+     "009800 MAVRIK SMART",
+     "012023 KLARTAN SMART",
+     "012573 EKO OIL SPRAY",
+     "013560 FORZA",
+     "013590 NINJA",
+     "014190 MAVRIK EW",
+     "014210 EVURE PRO",
+     "014386 OLIONET",
+     "015275 DURAVIS",
+     "017687 ELTIRA"
+    ]
+   },
+   "CHANGED": true,
+   "RANK_CHANGED": false,
+   "THRESHOLD_CHANGED": false
+  },
+  {
+   "OPPORTUNITY_ID": "IT-OPP-002",
+   "TITLE": "Milho grão x Piralide (Ostrinia nubilalis) e Diabrotica virgifera virgifera",
+   "CASE_LABEL": "CONVERGENCIA QUE MERECE INVESTIGACAO",
+   "FORBIDDEN_LABEL": "nao chamar de \"oportunidade Italia\" nem de \"oportunidade comercial\"",
+   "CROP_CANONICAL": "MAIS",
+   "TARGETS_CANONICAL": [
+    "PIRALIDE",
+    "DIABROTICA"
+   ],
+   "MAPEAMENTO_ESCRITO_A_MAO": "os dois alvos estao nomeados na propria oportunidade",
+   "LABEL_AUTHORIZATION_BEFORE": {
+    "PIRALIDE": [
+     "008259 LAMDEX EXTRA",
+     "013560 FORZA",
+     "013590 NINJA",
+     "015275 DURAVIS",
+     "017687 ELTIRA"
+    ],
+    "DIABROTICA": [
+     "008259 LAMDEX EXTRA",
+     "013560 FORZA",
+     "013590 NINJA",
+     "015275 DURAVIS",
+     "017687 ELTIRA"
+    ]
+   },
+   "LABEL_AUTHORIZATION_AFTER": {
+    "PIRALIDE": [
+     "008259 LAMDEX EXTRA",
+     "013560 FORZA",
+     "013590 NINJA",
+     "015275 DURAVIS",
+     "017687 ELTIRA"
+    ],
+    "DIABROTICA": [
+     "008259 LAMDEX EXTRA",
+     "013560 FORZA",
+     "013590 NINJA",
+     "015275 DURAVIS",
+     "017687 ELTIRA"
+    ]
+   },
+   "CHANGED": false,
+   "RANK_CHANGED": false,
+   "THRESHOLD_CHANGED": false
+  },
+  {
+   "OPPORTUNITY_ID": "IT-OPP-003",
+   "TITLE": "Portfólio ADAMA Itália (transversal, não é uma cultura) x Calendário de vencimento das autorizações",
+   "CASE_LABEL": "CONVERGENCIA QUE MERECE INVESTIGACAO",
+   "FORBIDDEN_LABEL": "nao chamar de \"oportunidade Italia\" nem de \"oportunidade comercial\"",
+   "CROP_CANONICAL": null,
+   "TARGETS_CANONICAL": [],
+   "MAPEAMENTO_ESCRITO_A_MAO": "transversal ao portfolio; nao tem cultura x alvo para consultar",
+   "LABEL_AUTHORIZATION_BEFORE": {},
+   "LABEL_AUTHORIZATION_AFTER": {},
+   "CHANGED": false,
+   "RANK_CHANGED": false,
+   "THRESHOLD_CHANGED": false
+  }
+ ]
+}

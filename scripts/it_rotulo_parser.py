@@ -41,7 +41,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from it_rotulo_vocab import (ALVOS, CULTURAS, GRUPOS, SUBSTANCIA_NORM,  # noqa: E402
                              TAXONOMIA)
 
-PARSER_VERSION = 'it_rotulo_parser/2.0.0'
+PARSER_VERSION = 'it_rotulo_parser/3.1.0'
 
 CROP_RX = {k: re.compile(r'\b(?:%s)' % '|'.join(v), re.I) for k, v in CULTURAS.items()}
 TGT_RX = {k: re.compile(r'\b(?:%s)' % '|'.join(v), re.I) for k, v in ALVOS.items()}
@@ -58,10 +58,29 @@ SECAO_PROIBIDA = re.compile(
 # Frase que NEGA o uso.
 EXCLUSAO = re.compile(
     r'non\s+(?:applicare|impiegare|utilizzare|trattare)|'
-    r'divieto\s+di|non\s+autorizzat\w*|evitare\s+(?:la\s+)?deriva|'
-    r'colture\s+(?:adiacenti|limitrofe|successive)|in\s+prossimit[aà]', re.I)
+    r'divieto\s+di|non\s+autorizzat\w*|evitare\s+(?:\w+\s+){0,2}?deriva|'
+    r'\bderiva\s+(?:verso|su)\b|'
+    r'colt(?:ure|ivazioni)\s+(?:adiacenti|limitrofe|successive)|'
+    r'sono\s+sensibili\s+al\s+prodotto|'
+    r'sostituzione\s+della\s+coltura|fallimento\s+della\s+coltura|'
+    r'fascia\s+di\s+sicurezza\s+di\s+\d|in\s+prossimit[aà]', re.I)
 
 # Marcadores de que a frase e mesmo uma DECLARACAO DE USO.
+# FIX-A. 'malattie fungine', 'patologie', 'malerbe' sao CATEGORIAS: dizem de que
+# TIPO de inimigo o produto trata, e nao QUAL inimigo. A frase
+# 'Intervenire ... per il controllo delle malattie fungine dell'orzo' declara ESCOPO
+# (item 5: CROP_SCOPE_DECLARED), e nao autorizacao de par. Publicar
+# ORZO x MALATTIE_FUNGINE ao lado de ORZO x RAMULARIA duplicaria a mesma autorizacao
+# com um nome vago — foi medido como falso positivo em AVASTEL (018089).
+ALVO_CATEGORIA = {'MALATTIE_FUNGINE'}
+
+# O mesmo raciocinio do lado da CULTURA. 'Pomacee', 'Drupacee', 'Cucurbitacee' sao
+# GRUPOS. Ou o rotulo enumera os membros entre parenteses — e ai o par sai para cada
+# membro enumerado — ou o grupo fica sem resolucao e nao vira par. Publicar
+# CUCURBITACEE x AFIDI ao lado de MELONE x AFIDI contaria a mesma autorizacao duas
+# vezes, e num rotulo que nao enumera inventaria membros que a etiqueta nao nomeia.
+CULTURA_CATEGORIA = set(GRUPOS)
+
 USO = re.compile(
     r'\bcontro\b|per\s+il\s+(?:controllo|diserbo)|\bdose\b|\bdosi\b|l/ha|kg/ha|l/hl|'
     r'ml/hl|g/hl|intervenire|applicare|impiegare|trattament\w*|pre-?emergenza|'
@@ -339,14 +358,45 @@ def _run_de_culturas_antes_do_dois_pontos(jan):
     separadores; o primeiro token que nao e nenhum dos dois encerra o cabecalho.
     """
     j = jan.rstrip()
-    # remove um parentetico final, tipo 'OLIVO (olive da tavola e da mensa)'
-    j = re.sub(r'\s*\([^()]{0,120}\)\s*$', '', j)
+    # FIX-C. Entre a lista de culturas e o ':' cabe um qualificador de LOCAL ou de
+    # ESTADO — 'in campo aperto e serra', '(uso in serra)', 'in pieno campo'. Ele nao
+    # e cultura nem separador, entao encerrava o cabecalho e a declaracao inteira se
+    # perdia: era assim que APYZA (018156/018165) perdia a linha das cucurbitacee.
+    # Removo o qualificador; ele nao muda QUEM e a cultura, so ONDE se aplica.
+    j = re.sub(r'\s*\(?\b(?:uso\s+)?in\s+(?:pieno\s+campo|campo\s+aperto|campo|'
+               r'serra|vivaio|vivai)(?:\s+(?:e|ed|o)\s+(?:pieno\s+campo|'
+               r'campo\s+aperto|campo|serra|vivaio|vivai))*\)?\s*$', '', j, flags=re.I)
+    # O parentetico final so cai quando NAO enumera culturas. Em
+    # 'OLIVO (olive da tavola e da mensa)' ele e qualificador e sai; em
+    # 'Cucurbitacee (melone, cetriolo, cocomero, zucchino)' ele E a enumeracao que
+    # autoriza expandir o grupo, e tirá-lo publicaria o grupo sem os membros.
+    # Quando o parentetico final ENUMERA culturas ele e a autorizacao, e nao um
+    # qualificador: 'POMACEE (Melo, Pero e Cotogno)'. Tiro-o do texto MAS guardo os
+    # membros, senao a caminhada para tras tropeca no primeiro nome de fora do
+    # vocabulario ('Cotogno') e a declaracao inteira se perde — foi o que fazia
+    # OLIONET e EKO OIL SPRAY perderem melo, pero, vite e agrumi.
+    do_parentetico = []
+    m_par = re.search(r'\s*\(([^()]{0,200})\)\s*$', j)
+    if m_par:
+        do_parentetico = culturas_em(m_par.group(1))
+        j = j[:m_par.start()]
     toks = re.findall(r'[^\s,;]+|,|;', j)
-    sep = re.compile(r'^(?:,|;|e|ed|o|od|da|di|del|della|in|su|il|la|le|lo|i|gli)$', re.I)
-    achados, i = [], len(toks) - 1
+    # Qualificadores de cultura ('VITE da VINO', 'BARBABIETOLA da ZUCCHERO', 'Orzo
+    # invernale') nao podem encerrar o cabecalho: sem isto o SOLOFOL perdia
+    # 'VITE da VINO: contro Peronospora, Botrite' inteiro — medido.
+    sep = re.compile(r'^(?:,|;|e|ed|o|od|da|di|del|della|in|su|il|la|le|lo|i|gli|'
+                     r'vino|tavola|zucchero|foraggio|invernale|primaverile|tenero|'
+                     r'duro|dolce|rossa|rosso|olio|mensa)$', re.I)
+    achados, i = list(do_parentetico), len(toks) - 1
+    grupo_rx = re.compile(r'^(?:%s)$' % '|'.join(GRUPOS), re.I)
     while i >= 0:
         t = toks[i]
         if sep.match(t):
+            i -= 1
+            continue
+        # O nome do GRUPO nao e cultura, mas tambem nao encerra a cabeca: ele e o
+        # rotulo da enumeracao que eu acabei de ler entre parenteses.
+        if grupo_rx.match(t) and do_parentetico:
             i -= 1
             continue
         cs = culturas_em(t)
@@ -376,6 +426,30 @@ def _ate_a_proxima_cabeca(resto):
     return resto[:fim]
 
 
+def _enumeracao_pura_de_alvos(resto):
+    """True quando 'resto' e uma LISTA de alvos e nada mais.
+
+    Criterio: tirados os parenteses (nomes cientificos) e a pontuacao, cada fragmento
+    separado por virgula ou 'e' ou tem termo de alvo, ou e vazio/ruido curto. Basta um
+    fragmento com prosa de verdade para recusar — assim a regra le celula de tabela
+    sem abrir a porta para casar alvo com qualquer frase vizinha.
+    """
+    r = re.sub(r'\([^()]*\)', ' ', resto)
+    r = re.split(r'[.;•]', r)[0]
+    frags = [f.strip() for f in re.split(r',|\be\b|\bed\b', r) if f.strip()]
+    if not frags or len(frags) > 12:
+        return False
+    com_alvo = 0
+    for f in frags:
+        if len(f) > 60:
+            return False
+        if alvos_em(f):
+            com_alvo += 1
+        elif len(re.findall(r"[A-Za-zÀ-ÿ']{3,}", f)) > 2:
+            return False       # prosa
+    return com_alvo >= 1
+
+
 def pares_inline(blocos):
     pares = []
     for b in blocos:
@@ -394,7 +468,14 @@ def pares_inline(blocos):
                     crops = sorted(set(crops) | set(g['MEMBROS']))
                 if not crops:
                     continue
-                if not USO.search(resto):
+                # FIX-B. Numa TABELA a celula e so '<culturas>: <lista de doencas>',
+                # sem 'contro' e sem dose: quem da o sentido de uso e o cabecalho da
+                # coluna ('Coltura | Malattia'). Exigir verbo de uso zerava SEEDRON
+                # (016152), que escreve 'Orzo: Fusariosi (...), Carbone (...)'.
+                # Aceito a ausencia do verbo SO quando o resto e enumeracao PURA de
+                # alvos: cada fragmento separado por virgula, tirados os parenteses,
+                # e um termo de alvo ou vazio. Prosa nao passa por aqui.
+                if not USO.search(resto) and not _enumeracao_pura_de_alvos(resto):
                     continue
                 tg = alvos_em(resto)
                 if not tg:
@@ -414,18 +495,225 @@ def pares_inline(blocos):
     return pares
 
 
+# ── rota HEADER_CONTINUATION ──────────────────────────────────────────────────
+ABRE_USO = re.compile(r'^\s*(?:contro\b|per\s+il\s+controllo\b|per\s+combattere\b|'
+                      r'impiegare\b|intervenire\b|si\s+impiega\b)', re.I)
+
+
+def pares_header_continuation(blocos):
+    """Cabecalho de cultura, QUEBRA DE LINHA, e a declaracao de uso abaixo. Sem ':'.
+
+        Pomacee (melo, pero, melo cotogno e nespolo)
+        Contro afidi (Dysaphis plantaginea, Aphis pomi), ditteri cecidomidi ...
+
+    Regra ESTRUTURAL, e nao caso especial de produto: a cabeca sao as linhas iniciais
+    do bloco ate a primeira linha que ABRE uma declaracao de uso. A relacao vive
+    dentro do bloco e morre nele — nao atravessa secao nem outro cabecalho.
+    """
+    pares = []
+    for b in blocos:
+        if len(b['lines']) < 2 or SECAO_PROIBIDA.search(b['text']):
+            continue
+        k = next((i for i, ln in enumerate(b['lines']) if ABRE_USO.match(ln['text'])), None)
+        if not k:                       # 0 tambem e falso: precisa de cabeca antes
+            continue
+        cabeca = ' '.join(ln['text'] for ln in b['lines'][:k])
+        if len(cabeca) > 220 or ':' in cabeca:
+            continue                    # com ':' e a rota inline; longo demais e prosa
+        crops = culturas_em(cabeca)
+        for g in expandir_grupos(cabeca):
+            crops = sorted(set(crops) | set(g['MEMBROS']))
+        if not crops:
+            continue
+        # a declaracao vai ate o fim do bloco ou ate a proxima cabeca de cultura
+        resto = ' '.join(ln['text'] for ln in b['lines'][k:])
+        tg = alvos_em(resto)
+        if not tg:
+            continue
+        excl = bool(EXCLUSAO.search(resto))
+        for c in crops:
+            for t in tg:
+                pares.append({
+                    'CROP': c, 'TARGET': t, 'ROUTE': 'HEADER_CONTINUATION',
+                    'RELATION': 'EXCLUDED_PAIR' if excl else 'SUPPORTED_PAIR',
+                    'CROP_AS_WRITTEN': cabeca.strip()[:110],
+                    'TARGET_AS_WRITTEN': resto.strip()[:200],
+                    'PAGE': b['page'],
+                    'CROP_Y': [round(b['y0'], 1), round(b['y1'], 1)],
+                    'TARGET_Y': [round(b['y0'], 1), round(b['y1'], 1)],
+                })
+    return pares
+
+
+# ── rota SCOPE (tres niveis, conforme a missao exige) ─────────────────────────
+ESCOPO_CULTURA = re.compile(
+    r'(?:diserbante|erbicida|fungicida|insetticida|acaricida|molluschicida|'
+    r'geodisinfestante|prodotto)\b[^.]{0,140}?\b(?:per|della|delle|del|dei|su)\b'
+    r'[^.]{0,160}', re.I)
+ESCOPO_ALVO_GLOBAL = re.compile(
+    r'infestanti\s+(?:controllate|sensibili)|malerbe\s+controllate|'
+    r'per\s+il\s+controllo\s+di\s+infestanti|spettro\s+d.?azione', re.I)
+CATEGORIA_ERBICIDA = re.compile(r'diserbante|erbicida', re.I)
+
+
+def escopos(blocos, categoria_produto=None):
+    """CROP_SCOPE_DECLARED e TARGET_DECLARED — separados, como a missao manda.
+
+    Uma frase como 'Fungicida per la difesa della BARBABIETOLA dalle malattie fungine'
+    prova que a cultura esta no escopo. NAO prova cada doenca individual. Por isso o
+    par so nasce quando o alvo tambem esta declarado, e mesmo assim ele sai marcado
+    como SCOPE_COMBINATION — nunca como se fosse uma linha de tabela.
+    """
+    crop_scope, target_scope, frases = set(), set(), []
+    for b in blocos:
+        if SECAO_PROIBIDA.search(b['text']):
+            continue
+        for m in ESCOPO_CULTURA.finditer(b['text']):
+            cs = culturas_em(m.group(0))
+            if cs:
+                crop_scope |= set(cs)
+                frases.append(m.group(0)[:180])
+        if ESCOPO_ALVO_GLOBAL.search(b['text']):
+            target_scope |= set(alvos_em(b['text']))
+            frases.append(b['text'][:180])
+    herbicida = bool(categoria_produto and CATEGORIA_ERBICIDA.search(categoria_produto))
+    return crop_scope, target_scope, frases, herbicida
+
+
+# FIX-D. A LISTA DE USOS AUTORIZADOS.
+#
+# Muitos herbicidas escrevem o alvo uma vez, para o documento inteiro
+# ('Infestanti controllate: ...'), e depois listam as culturas num bloco proprio —
+# ou como enumeracao ('Usi autorizzati: frumento, orzo, mais, cipolla, olivo...'),
+# ou uma por linha com a EPOCA no lugar do alvo ('Patata: entro la chiusura della
+# fila'). Nenhuma das duas formas casa cultura com alvo no mesmo lugar, e por isso
+# LEOPARD 5 EC e ACTIVUS 40 SC devolviam zero apesar de autorizarem dezenas de usos.
+#
+# A regra abaixo e a MESMA de pares_scope, so que le a lista explicita em vez da
+# frase de titulo: exige herbicida E alvo INFESTANTI declarado no documento. Para
+# fungicida ou inseticida ela nao dispara — ali o alvo e nominal e a lista de
+# culturas nao diz qual doenca vale para qual cultura.
+ABRE_LISTA_USOS = re.compile(
+    r'usi\s+autorizzati|impiegat[oa]\s+nel\s+diserbo\s+delle\s+seguenti\s+colture|'
+    r'pu[oò]\s+essere\s+impiegato\s+nel\s+diserbo|'
+    r'viene\s+impiegato\s+per\s+il\s+diserbo\s+di|'
+    r'nel\s+diserbo\s+delle\s+seguenti\s+colture|'
+    r'infestanti\s+le\s+colture\s+di\s+seguito\s+riportate', re.I)
+
+
+def pares_lista_de_usos(blocos, categoria_produto=None):
+    herbicida = bool(categoria_produto and CATEGORIA_ERBICIDA.search(categoria_produto))
+    if not herbicida:
+        return []
+    _c, target_scope, frases, _h = escopos(blocos, categoria_produto)
+    if 'INFESTANTI' not in target_scope:
+        return []
+    abertura = None
+    for b in sorted(blocos, key=lambda z: (z['page'], z['y0'])):
+        if SECAO_PROIBIDA.search(b['text']):
+            continue
+        m = ABRE_LISTA_USOS.search(b['text'])
+        if m:
+            abertura = b['text'][m.start():m.start() + 700]
+            break
+    crops = set()
+    if abertura:
+        crops |= set(culturas_em(abertura))
+        for g in expandir_grupos(abertura):
+            crops |= set(g['MEMBROS'])
+    # Cada cultura que ganha um paragrafo proprio de dose/epoca tambem esta autorizada:
+    # 'Patata: entro la chiusura della fila' e uma linha de uso, mesmo sem alvo.
+    # Nesta rota — e SO nesta — eu posso ser mais largo na leitura da cultura sem
+    # arriscar par errado: o alvo ja esta fixado pelo documento inteiro (INFESTANTI de
+    # herbicida), entao nao ha com o que cruzar. O unico risco e admitir cultura NAO
+    # autorizada, e contra isso valem tres guardas: o bloco tem de ser curto, tem de
+    # trazer marcador de uso ou de epoca, e nao pode trazer frase de exclusao (deriva,
+    # cultura limitrofe, cultura sucessiva). A lista de infestantes fica de fora pelo
+    # SECAO_PROIBIDA e pelo tamanho.
+    EPOCA = re.compile(r'\bentro\b|\bfino\b|\bdalla?\b|\bpost-?emergenza\b|'
+                       r'\bpre-?emergenza\b|\bpre-?trapianto\b|\bpost-?trapianto\b|'
+                       r'\bpre-?semina\b|\bpre-?raccolta\b|stadio|chiusura\s+della\s+fila',
+                       re.I)
+    for b in blocos:
+        t = b['text']
+        if SECAO_PROIBIDA.search(t) or EXCLUSAO.search(t):
+            continue
+        if ESCOPO_ALVO_GLOBAL.search(t):
+            continue          # este bloco lista MALERBAS, e nao culturas
+        # A guarda vale por FRASE, e nao pelo bloco: num rotulo como ACTIVUS 40 SC
+        # todas as declaracoes moram num bloco unico de dois mil caracteres, e cortar
+        # pelo tamanho do bloco descartava as vinte e quatro autorizacoes de uma vez.
+        for frase in re.split(r'(?<=[.;])\s+', t):
+            if not (USO.search(frase) or EPOCA.search(frase)):
+                continue
+            if EXCLUSAO.search(frase) or ESCOPO_ALVO_GLOBAL.search(frase):
+                continue
+            crops |= set(culturas_em(frase))
+            for g in expandir_grupos(frase):
+                crops |= set(g['MEMBROS'])
+    crops -= CULTURA_CATEGORIA
+    return [{
+        'CROP': c, 'TARGET': 'INFESTANTI', 'ROUTE': 'AUTHORISED_USE_LIST',
+        'RELATION': 'SUPPORTED_PAIR',
+        'CROP_SCOPE_DECLARED': True, 'TARGET_DECLARED': True,
+        'CROP_AS_WRITTEN': (abertura or 'linha de dose por cultura')[:110],
+        'TARGET_AS_WRITTEN': ' | '.join(frases[-2:])[:200],
+        'PAGE': 0, 'CROP_Y': [0, 0], 'TARGET_Y': [0, 0],
+    } for c in sorted(crops)]
+
+
+def pares_scope(blocos, categoria_produto=None):
+    crop_scope, target_scope, frases, herbicida = escopos(blocos, categoria_produto)
+    if not crop_scope or not target_scope:
+        return []
+    pares = []
+    for c in sorted(crop_scope):
+        for t in sorted(target_scope):
+            # SO o herbicida contra INFESTANTI e afirmavel por combinacao de escopo:
+            # ali o rotulo inteiro tem um unico alvo de classe, e a lista de culturas
+            # e a autorizacao. Qualquer outra combinacao fica como SCOPE_COMBINATION,
+            # que NAO entra no conjunto publicado.
+            firme = herbicida and t == 'INFESTANTI'
+            pares.append({
+                'CROP': c, 'TARGET': t, 'ROUTE': 'SCOPE_COMBINATION',
+                'RELATION': 'SUPPORTED_PAIR' if firme else 'SCOPE_COMBINATION',
+                'CROP_SCOPE_DECLARED': True, 'TARGET_DECLARED': True,
+                'CROP_AS_WRITTEN': (frases[0] if frases else '')[:110],
+                'TARGET_AS_WRITTEN': ' | '.join(frases[-2:])[:200],
+                'PAGE': 0, 'CROP_Y': [0, 0], 'TARGET_Y': [0, 0],
+            })
+    return pares
+
+
 # ── API ───────────────────────────────────────────────────────────────────────
-def parse(pdf_path, rid, produto=None, ai=None, cache_dir=None):
+def parse(pdf_path, rid, produto=None, ai=None, cache_dir=None, categoria=None):
     fonte = geometria_de(rid, pdf_path, cache_dir)
     if not fonte:
         return []
     blocos = ler_geometria(fonte)
-    brutos = pares_geometricos(blocos) + pares_inline(blocos)
+    brutos = (pares_geometricos(blocos) + pares_inline(blocos)
+              + pares_header_continuation(blocos)
+              + pares_lista_de_usos(blocos, categoria)
+              + pares_scope(blocos, categoria))
     # Um mesmo par pode sair pelas duas rotas ou de duas linhas. Fica a leitura mais
     # firme: afirmacao > duvida > exclusao. Guardar as tres seria contar a mesma
     # evidencia varias vezes.
-    ordem = {'SUPPORTED_PAIR': 0, 'AMBIGUOUS_ROW': 1, 'EXCLUDED_PAIR': 2}
+    ordem = {'SUPPORTED_PAIR': 0, 'AMBIGUOUS_ROW': 1, 'SCOPE_COMBINATION': 2,
+             'CROP_SCOPE_DECLARED': 3, 'EXCLUDED_PAIR': 4}
     brutos.sort(key=lambda p: ordem.get(p['RELATION'], 9))
+    # FIX-A, num lugar so. Alvo de CATEGORIA nunca sai como par publicado: ele diz o
+    # TIPO de inimigo, e nao o inimigo. Nao jogo fora — reclassifico para
+    # CROP_SCOPE_DECLARED, que e o nivel 1 do item 5 e nao entra no conjunto.
+    for p in brutos:
+        if p['CROP'] in CULTURA_CATEGORIA and p['RELATION'] == 'SUPPORTED_PAIR':
+            p['RELATION'] = 'CROP_SCOPE_DECLARED'
+            p['WHY_NOT_PAIR'] = ('"%s" e grupo de culturas. Vale para os membros que o '
+                                 'rotulo enumerar, e nao como cultura propria.'
+                                 % p['CROP'])
+        if p['TARGET'] in ALVO_CATEGORIA and p['RELATION'] == 'SUPPORTED_PAIR':
+            p['RELATION'] = 'CROP_SCOPE_DECLARED'
+            p['WHY_NOT_PAIR'] = ('"%s" e categoria de inimigo, nao inimigo. A frase '
+                                 'declara escopo de cultura.' % p['TARGET'])
     vistos, saida = set(), []
     for p in brutos:
         k = (p['CROP'], p['TARGET'])
