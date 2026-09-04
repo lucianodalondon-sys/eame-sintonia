@@ -175,10 +175,10 @@ def main(runs):
     #
     # OUTROS_REBAIXAMENTOS e o que sobra: caiu, e nenhum dos tres testes duros o
     # explica. Esse resto e para ler, nao para ignorar.
-    caidos = {x['CAND_ID']: x for x in linhas if x['ESTADO'] in ('PARCIAL', 'DERRUBADO')}
+    quedas = {x['CAND_ID']: x for x in linhas if x['ESTADO'] in ('PARCIAL', 'DERRUBADO')}
 
     def por_causa(campos):
-        return sorted(c for c, x in caidos.items()
+        return sorted(c for c, x in quedas.items()
                       if any(x.get(k) == 'SIM' for k in campos))
 
     causa_data = por_causa(['ESTADO_DO_TEMPO_ERRADO', 'HORIZONTE_ERRADO'])
@@ -195,7 +195,7 @@ def main(runs):
                'MOTIVO': x.get('MOTIVO_DO_VEREDITO'),
                'DEFEITOS': x.get('DEFEITOS_ENCONTRADOS'),
                'DEPARTAMENTOS_SEM_RAZAO': x.get('DEPARTAMENTOS_SEM_RAZAO')}
-              for c, x in sorted(caidos.items()) if c not in explicados]
+              for c, x in sorted(quedas.items()) if c not in explicados]
 
     discordancias = [{'CAND_ID': k, 'VEREDITOS': v} for k, v in sorted(duplicados.items())
                      for a, b in v if a != b]
@@ -322,7 +322,7 @@ def main(runs):
 # fichas boas e quatro vereditos TRUNCADOS. As fichas ficam — via
 # IT-FUTURO-FICHAS-V1 — e aqueles quatro vereditos NAO entram: foram refeitos.
 RUNS_FICHA = ['wf_e5e03bcc-487', 'wf_3d483e10-13c', 'wf_e4c83732-977', 'wf_4a1ab40f-f02']
-RUNS_PADRAO = ['wf_c2aac729-96e', 'wf_cc35dd81-6c5']
+RUNS_PADRAO = ['wf_c2aac729-96e', 'wf_cc35dd81-6c5', 'wf_b07c9533-270']
 
 if __name__ == '__main__':
     main(sys.argv[1:] or RUNS_PADRAO)
